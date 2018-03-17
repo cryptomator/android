@@ -3,7 +3,7 @@
 [![Twitter](https://img.shields.io/badge/twitter-@Cryptomator-blue.svg?style=flat)](http://twitter.com/Cryptomator)
 [![Community](https://img.shields.io/badge/help-Community-orange.svg)](https://community.cryptomator.org)
 
-Cryptomator for Android is currently in beta status. If you would like to try it out, visit [cryptomator.org](https://cryptomator.org/android/). To get updated consider subscribing to our [newsletter](https://cryptomator.org/#newsletter).
+Cryptomator for Android is available on Google play: [Download Cryptomator for Android](https://play.google.com/store/apps/details?id=org.cryptomator)
 
 ## Open Core
 
