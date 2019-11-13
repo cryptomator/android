@@ -2,6 +2,7 @@
 
 [![Twitter](https://img.shields.io/badge/twitter-@Cryptomator-blue.svg?style=flat)](http://twitter.com/Cryptomator)
 [![Community](https://img.shields.io/badge/help-Community-orange.svg)](https://community.cryptomator.org)
+[![Documentation](https://img.shields.io/badge/help-Docs-orange.svg)](https://docs.cryptomator.org)
 
 Cryptomator for Android is available on Google play: [Download Cryptomator for Android](https://play.google.com/store/apps/details?id=org.cryptomator)
 
