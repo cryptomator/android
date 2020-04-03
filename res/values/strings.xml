@@ -29,6 +29,11 @@
 	<string name="error_name_contains_invalid_characters">Can\'t contain special characters.</string>
 	<string name="error_names_contains_invalid_characters">File names can\'t contain special characters.</string>
 	<string name="error_vault_name_contains_invalid_characters">Vault name can\'t contain special characters.</string>
+	<string name="error_auto_photo_upload_folder_in_vault_not_available">Selected Folder for auto photo upload isn\'t available in the vault.</string>
+	<string name="error_general_update">Update check failed. General error occurred.</string>
+	<string name="error_update_no_internet">Update check failed. No internet connection.</string>
+	<string name="error_failed_to_decrypt_webdav_password">Failed to decrypt WebDAV password, please re add in settings</string>
+	<string name="error_play_services_not_available">Play Services not installed</string>
 
 	<!-- # clouds -->
 
@@ -48,6 +53,9 @@
 	<string name="permission_message_share_file">Cryptomator needs storage access to share files</string>
 
 	<string name="snack_bar_action_title_settings">Settings</string>
+	<string name="snack_bar_action_title_search">Search</string>
+	<string name="snack_bar_action_title_search_previous">Previous</string>
+	<string name="snack_bar_action_title_search_next">Next</string>
 
 	<!-- # screens -->
 
@@ -186,9 +194,19 @@
 	<string name="screen_settings_activate_fingerprint">Activate fingerprint</string>
 	<string name="screen_settings_block_app_when_obscured">Block app when obscured</string>
 
+	<string name="screen_settings_live_search">Live search</string>
+	<string name="screen_settings_secure_screen">Screen security</string>
+
 	<string name="screen_settings_section_auto_lock">Automatic locking</string>
 	<string name="screen_settings_auto_lock_timeout">Lock after</string>
 	<string name="screen_settings_auto_lock_on_screen_lock">When screen is disabled</string>
+
+	<string name="screen_settings_section_auto_photo_upload">Automatic photo upload</string>
+	<string name="screen_settings_section_auto_photo_upload_vault">Choose vault for upload</string>
+	<string name="screen_settings_section_auto_photo_upload_toggle">Activate</string>
+	<string name="screen_settings_section_auto_photo_upload_only_wifi_toggle">Upload only using WIFI</string>
+
+	<string name="screen_settings_auto_photo_upload_title">Save auto upload files to&#8230;</string>
 
 	<string name="screen_settings_section_social">@string/screen_webdav_settings_done_button_text</string>
 	<string name="screen_settings_website_label">Cryptomator website</string>
@@ -210,8 +228,12 @@
 	<string name="screen_settings_error_report_failed">Sending failed</string>
 	<string name="screen_settings_security_label">Security hints</string>
 	<string name="screen_settings_security_url">https://cryptomator.org/security/</string>
+	<string name="screen_settings_donate_label">Donate</string>
+	<string name="screen_settings_donate_url">https://cryptomator.org/#donate</string>
 
 	<string name="screen_settings_section_version">Version</string>
+
+	<string name="screen_settings_keep_unlocked_while_editing_files">Keep vaults unlocked while editing files</string>
 
 	<!-- ## screen: cloud settings -->
 	<string name="screen_cloud_settings_title">@string/screen_settings_cloud_settings_label</string>
@@ -360,6 +382,11 @@
 	<string name="dialog_app_is_obscured_info_hint">Another app is displaying something on top of Cryptomator (e.g., a blue light filter or night mode app). For security reasons, Cryptomator is disabled.\n\n<a href="https://community.cryptomator.org/t/791/">How to enable Cryptomator</a></string>
 	<string name="dialog_app_is_obscured_info_neutral_button">Close</string>
 
+	<string name="dialog_disable_secure_screen_disclaimer_hint">This setting is a security feature and prevents other apps from tricking users into doing things they do not wan\'t to do.\n\nBy disabling, you confirm that you are <a href="https://community.cryptomator.org/t/secure-screen-setting-in-cryptomator-for-android/3535?u=sailreal">aware of the risks</a>.</string>
+	<string name="dialog_disable_secure_screen_disclaimer_title">@string/dialog_disable_app_obscured_disclaimer_title</string>
+	<string name="dialog_disable_secure_screen_positive_button">@string/dialog_disable_app_obscured_positive_button</string>
+	<string name="dialog_disable_secure_screen_negative_button">@string/dialog_button_cancel</string>
+
 	<string name="dialog_delete_cloud_connection_with_vaults_message">Are you sure you want to remove this cloud connection?</string>
 	<string name="dialog_delete_cloud_connection_with_vaults_hint">This action will remove the cloud connection and all vaults of this cloud.</string>
 	<string name="dialog_delete_cloud_connection_with_vaults_positive_button">@string/screen_file_browser_node_action_delete</string>
@@ -376,7 +403,35 @@
 	<string name="dialog_fingerprint_key_invalidated_message">Because the key has been invalidated, the fingerprint feature has been deactivated. To re-enable, open the Cryptomator settings.</string>
 	<string name="dialog_fingerprint_key_invalidated_neutral_button">@string/dialog_unable_to_share_positive_button</string>
 
+	<string name="dialog_enter_license_title">Provide a valid license</string>
+	<string name="dialog_enter_license_content">We detected that you installed Cryptomator without using Google Play Store. Provide a valid license, which can be purchased on <a href="https://cryptomator.org/android/">https://cryptomator.org/android/</a></string>
+	<string name="dialog_enter_license_not_valid_content">The provided license isn\'t valid. Make sure you entered it correctly.</string>
+	<string name="dialog_enter_license_no_content">No license provided. Please enter a valid license.</string>
+	<string name="dialog_enter_license_general_error_content">A general error occurred while checking your license. Try again. If this doesn\'t help, please contact the support.</string>
+	<string name="dialog_enter_license_ok_button">@string/dialog_unable_to_share_positive_button</string>
+	<string name="dialog_enter_license_decline_button">Exit</string>
+
+	<string name="dialog_license_confirmation_title">License confirmation</string>
+	<string name="dialog_license_confirmation_message">Thanks %1$s for providing your valid license.</string>
+	<string name="dialog_license_confirmation_ok_btn">@string/dialog_unable_to_share_positive_button</string>
+
+	<string name="dialog_update_available_message">Update Cryptomator to the latest version. By pressing OK we will download the app in the background and will ask you to install it.</string>
+	<string name="dialog_update_available_update">Update now</string>
+	<string name="dialog_update_available_download_site">Go to downloads site</string>
+	<string name="dialog_update_available_cancel">Later</string>
+
+	<string name="dialog_download_update_title">Download running</string>
+	<string name="dialog_download_update_message">Downloading latest version of Cryptomator</string>
+
+	<string name="dialog_sym_link_title">Folder is a symbolic link</string>
+	<string name="dialog_sym_link_message">You can not navigate into this symbolic link</string>
+	<string name="dialog_sym_link_back_button">Back</string>
+
+	<string name="dialog_beta_confirmation_title">Beta release</string>
+	<string name="dialog_beta_confirmation">This is a beta release which introduces the support of vault format 7. Please make sure that you don\'t use your production vault for testing or have a good backup strategy.</string>
+
 	<string name="permission_snackbar_auth_local_vault">Cryptomator needs storage access to use local vaults</string>
+	<string name="permission_snackbar_auth_auto_upload">Cryptomator needs storage access to use auto photo upload</string>
 
 	<!-- # error reports -->
 	<string name="error_report_subject">Android Error Report</string>
@@ -419,16 +474,73 @@
 	<string name="dialog_fingerprint_hint">Touch sensor</string>
 	<string name="dialog_fingerprint_success">Fingerprint recognized</string>
 
+	<string name="dialog_unable_to_auto_upload_files_title">"Unable to auto upload files"</string>
+
 	<!-- notification -->
 	<string name="notification_unlocked">Vaults unlocked: %1$d</string>
 	<string name="notification_timeout">Autolock in %1$s</string>
 	<string name="notification_lock_all">Lock all</string>
 
+	<string name="notification_cancel_auto_upload">Cancel upload</string>
+	<string name="notification_auto_upload_title">Auto photo upload running</string>
+	<string name="notification_auto_upload_message">Uploading %1d/%2d</string>
+
+	<string name="notification_auto_upload_finished_title">Auto photo upload finished</string>
+	<string name="notification_auto_upload_finished_message">%1$d images uploaded to vault</string>
+
+	<string name="notification_auto_upload_failed_title">Auto photo upload failed</string>
+	<string name="notification_auto_upload_failed_general_error">General error occurred during upload.</string>
+	<string name="notification_auto_upload_failed_due_to_folder_not_exists">Selected folder for upload isn\'t available anymore. Go to settings and choose a new one</string>
+	<string name="notification_auto_upload_failed_due_to_vault_locked">Vault locked during upload, please reopen vault to continue</string>
+
+	<string name="notification_cancel_open_writable_file">@string/dialog_button_cancel</string>
+	<string name="notification_open_writable_file_title">Open writable file</string>
+	<string name="notification_open_writable_file_message">Vault stays unlocked until finished editing</string>
+
+	<string name="notification_update_check_finished_latest">Latest version installed</string>
+
+	<string name="screen_settings_lru_cache">Cache</string>
+	<string name="screen_settings_lru_cache_toggle">@string/screen_settings_section_auto_photo_upload_toggle</string>
+	<string name="screen_settings_lru_cache_size">Total cache size</string>
+	<string name="screen_settings_clear_lru_cache_size">Clear Cache</string>
+	<string name="screen_settings_lru_cache_changed__restart_toast">Changes will be applied on next app restart</string>
+
+	<string name="screen_settings_license">Registered for</string>
+	<string name="screen_settings_license_mail">%1$s</string>
+
+	<string name="dialog_settings_update_check_interval_title">Update check interval</string>
+	<string name="screen_settings_check_updates">Check for updates</string>
+	<string name="screen_settings_last_check_updates">Last run %1$s</string>
+	<string name="screen_settings_last_check_updates_never">Never</string>
+
+	<string name="dialog_cache_size_title">Cache size per Cloud</string>
+
 	<!-- lock timeout names -->
+	<string name="lock_timeout_instant">Instant</string>
 	<string name="lock_timeout_1m">1 minute</string>
 	<string name="lock_timeout_2m">2 minutes</string>
 	<string name="lock_timeout_5m">5 minutes</string>
 	<string name="lock_timeout_10m">10 minutes</string>
 	<string name="lock_timeout_never">Never</string>
+
+	<!-- cache size names -->
+	<string name="cache_size_50m">50 MB</string>
+	<string name="cache_size_100m">100 MB</string>
+	<string name="cache_size_250m">250 MB</string>
+	<string name="cache_size_500m">500 MB</string>
+	<string name="cache_size_1000m">1 GB</string>
+	<string name="cache_size_5000m">5 GB</string>
+
+	<!-- screen scheme mode names -->
+	<string name="screen_settings_style_mode">Style</string>
+	<string name="follow_system">Automatic (follow system)</string>
+	<string name="light">Light</string>
+	<string name="dark">Dark</string>
+
+	<!-- update interval names -->
+	<string name="update_interval_1d">Once a day</string>
+	<string name="update_interval_1w">Once a week</string>
+	<string name="update_interval_1m">Once a month</string>
+	<string name="dialog_update_available_title">Update available</string>
 
 </resources>

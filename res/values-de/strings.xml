@@ -27,6 +27,11 @@
 	<string name="error_name_contains_invalid_characters">Keine Sonderzeichen möglich.</string>
 	<string name="error_names_contains_invalid_characters">Dateinamen können keine Sonderzeichen enthalten.</string>
 	<string name="error_vault_name_contains_invalid_characters">Tresorname kann keine Sonderzeichen enthalten.</string>
+	<string name="error_auto_photo_upload_folder_in_vault_not_available">Ausgewählter Ordner für automatischen Foto-Upload ist nicht verfügbar.</string>
+	<string name="error_general_update">Prüfung auf Aktualisierungen fehlgeschlagen. Ein Fehler ist aufgetreten.</string>
+	<string name="error_update_no_internet">Prüfung auf Aktualisierungen fehlgeschlagen. Keine Internetverbindung.</string>
+	<string name="error_failed_to_decrypt_webdav_password">Beim entschlüsseln des WebDAV-Passworts trat ein Fehler auf. Bitte in den Einstellungen erneut festlegen.</string>
+	<string name="error_play_services_not_available">Die Play Services sind nicht installiert</string>
 
 	<!-- # clouds -->
 
@@ -46,6 +51,9 @@
 	<string name="permission_message_share_file">Erlauben Sie Cryptomator Zugriff auf Ihren Speicher, um eine Datei zu teilen</string>
 
 	<string name="snack_bar_action_title_settings">Einstellungen</string>
+	<string name="snack_bar_action_title_search">Suche</string>
+	<string name="snack_bar_action_title_search_next">Weiter</string>
+	<string name="snack_bar_action_title_search_previous">Vorheriges</string>
 
 	<!-- # screens -->
 
@@ -180,10 +188,19 @@
 	<string name="screen_settings_fingerprint">Fingerabdruck</string>
 	<string name="screen_settings_activate_fingerprint">Fingerabdruck aktivieren</string>
 	<string name="screen_settings_block_app_when_obscured">App blockieren, wenn verdeckt</string>
+	<string name="screen_settings_live_search">Live-Suche</string>
+	<string name="screen_settings_secure_screen">Bildschirm-Sicherheit</string>
 
 	<string name="screen_settings_section_auto_lock">Automatisch sperren</string>
 	<string name="screen_settings_auto_lock_timeout">Sperren nach</string>
 	<string name="screen_settings_auto_lock_on_screen_lock">Bei deaktiviertem Bildschirm</string>
+
+	<string name="screen_settings_section_auto_photo_upload">Automatisches Photo-Hochladen</string>
+	<string name="screen_settings_section_auto_photo_upload_vault">Tresor auswählen für das Hochladen</string>
+	<string name="screen_settings_section_auto_photo_upload_toggle">Aktivieren</string>
+	<string name="screen_settings_section_auto_photo_upload_only_wifi_toggle">Nur mit WLAN hochladen</string>
+
+	<string name="screen_settings_auto_photo_upload_title">Bilder abspeichern in&#8230;</string>
 
 	<string name="screen_settings_section_social">Uns folgen</string>
 	<string name="screen_settings_website_label">Cryptomator-Website</string>
@@ -206,6 +223,9 @@
 	<string name="screen_settings_security_label">Sicherheitshinweise</string>
 	<string name="screen_settings_security_url">https://cryptomator.org/de/security/</string>
 	<string name="screen_settings_section_version">Version</string>
+	<string name="screen_settings_donate_label">Spenden</string>
+	<string name="screen_settings_donate_url">https://cryptomator.org/#donate</string>
+	<string name="screen_settings_keep_unlocked_while_editing_files">Halte Tresore geöffnet während dem Editieren einer Datei</string>
 
 	<!-- ## screen: cloud settings -->
 	<string name="screen_cloud_settings_title">@string/screen_settings_cloud_settings_label</string>
@@ -356,6 +376,11 @@
 	<string name="dialog_app_is_obscured_info_hint">Eine App zeigt etwas über Cryptomator an (z.B. ein Blaulichtfilter oder eine Nachtmodus-App). Aus Sicherheitsgründen ist Cryptomator deaktiviert.\n\n<a href="https://community.cryptomator.org/t/791/">Wie Cryptomator aktiviert werden kann</a></string>
 	<string name="dialog_app_is_obscured_info_neutral_button">Schließen</string>
 
+	<string name="dialog_disable_secure_screen_disclaimer_hint">Dies ist eine Sicherheitsfunktion und verhindert, dass andere Apps Nutzer dazu bringen, Dinge zu tun, die sie nicht tun wollen.\n\nDurch die Deaktivierung bestätigen Sie, dass Sie sich <a href="https://community.cryptomator.org/t/secure-screen-setting-in-cryptomator-for-android/3535?u=sailreal">der Risiken bewusst</a> sind.</string>
+	<string name="dialog_disable_secure_screen_disclaimer_title">@string/dialog_disable_app_obscured_disclaimer_title</string>
+	<string name="dialog_disable_secure_screen_positive_button">@string/dialog_disable_app_obscured_positive_button</string>
+	<string name="dialog_disable_secure_screen_negative_button">@string/dialog_button_cancel</string>
+
 	<string name="dialog_delete_cloud_connection_with_vaults_message">Sind Sie sicher, dass sie den Cloud-Dienst entfernen wollen?</string>
 	<string name="dialog_delete_cloud_connection_with_vaults_hint">Dieser Vorgang wird den Cloud-Dienst und desen zugehörigen Tresor löschen.</string>
 	<string name="dialog_delete_cloud_connection_with_vaults_positive_button">@string/screen_file_browser_node_action_delete</string>
@@ -372,7 +397,36 @@
 	<string name="dialog_fingerprint_key_invalidated_message">Da der Schlüssel nicht mehr zur Verfügung steht, wurde die Fingerprint-Funktion deaktiviert. Zur Reaktivierung öffnen Sie die Cryptomator-Einstellungen.</string>
 	<string name="dialog_fingerprint_key_invalidated_neutral_button">@string/dialog_unable_to_share_positive_button</string>
 
+	<string name="dialog_beta_confirmation_title">Beta-Version</string>
+	<string name="dialog_beta_confirmation">Das ist eine Beta-Version, die das Tresor-Format 7 unterstützt. Bitte nicht mit einem produktiv eingesetzten Tresor verwenden oder dafür sorgen, dass gute Sicherungen vorhanden sind.</string>
+
+	<string name="dialog_enter_license_title">APK-Store Lizenz</string>
+	<string name="dialog_enter_license_content">Cryptomator wurde ohne Google Play Store installiert. Geben Sie eine gültige Lizenz ein, falls nicht bereits vorhanden, kann sie unter folgender URL erworben werden: <a href="https://cryptomator.org/android/">https://cryptomator.org/android/</a></string>
+	<string name="dialog_enter_license_not_valid_content">Die eingegebene Lizenz ist nicht gültig. Stellen Sie sicher, dass sie korrekt eingegeben wurde.</string>
+	<string name="dialog_enter_license_no_content">Keine Lizenz vorhanden. Geben Sie eine gültige Lizenz ein.</string>
+	<string name="dialog_enter_license_general_error_content">Ein Fehler ist beim Überprüfen Ihrer Lizenz aufgetreten. Bitte versuchen Sie es erneut. Wenn das nicht hilft den Support kontaktieren.</string>
+	<string name="dialog_enter_license_ok_button">@string/dialog_unable_to_share_positive_button</string>
+	<string name="dialog_enter_license_decline_button">Beenden</string>
+
+	<string name="dialog_license_confirmation_message">Danke für die Eingabe Ihrer gültige Lizenz %1$s.</string>
+	<string name="dialog_license_confirmation_title">Lizenzbestätigung</string>
+	<string name="dialog_license_confirmation_ok_btn">@string/dialog_unable_to_share_positive_button</string>
+
+	<string name="dialog_update_available_title">Neue Version verfügbar</string>
+	<string name="dialog_update_available_message">Cryptomator mit auf den aktuellen Stand aktualisieren. Mit OK wird die neueste Version heruntergeladen. Daraufhin werden Sie aufgefordert sie zu installieren.</string>
+	<string name="dialog_update_available_update">Jetzt aktualisieren</string>
+	<string name="dialog_update_available_download_site">Download-Seite öffnen</string>
+	<string name="dialog_update_available_cancel">Später</string>
+	<string name="dialog_download_update_title">Download in Ausführung</string>
+
+	<string name="dialog_download_update_message">Lade die aktuelle Version von Cryptomator herunter</string>
+
+	<string name="dialog_sym_link_title">Dieser Ordner ist ein symbolischer Link</string>
+	<string name="dialog_sym_link_message">Sie können nicht in diesen symbolischen Link navigieren</string>
+	<string name="dialog_sym_link_back_button">Zurück</string>
+
 	<string name="permission_snackbar_auth_local_vault">Cryptomator benötigt Zugriff auf den Speicher um lokale Tresore zu nutzen</string>
+	<string name="permission_snackbar_auth_auto_upload">Cryptomator benötigt Zugriff auf den Speicher um den automatischen Foto-Upload zu nutzen</string>
 
 	<!-- # error reports -->
 	<string name="error_report_subject">Android Fehlerbericht</string>
@@ -415,16 +469,70 @@
 	<string name="dialog_fingerprint_hint">Präsentiere den Finger</string>
 	<string name="dialog_fingerprint_success">Fingerabdruck erkannt</string>
 
+	<string name="dialog_unable_to_auto_upload_files_title">Automatischer Upload nicht möglich</string>
+
 	<!-- notification -->
 	<string name="notification_unlocked">Tresore entsperrt: %1$d</string>
 	<string name="notification_timeout">Auto-Lock in %1$s</string>
 	<string name="notification_lock_all">Alle sperren</string>
 
+	<string name="notification_cancel_auto_upload">Hochladen abbrechen</string>
+	<string name="notification_auto_upload_title">Automatisches Foto-Hochladen läuft</string>
+	<string name="notification_auto_upload_message">Lade hoch %1d/%2d</string>
+
+	<string name="notification_auto_upload_finished_message">%1$d Bilder wurden in den Tresor hochgeladen</string>
+	<string name="notification_auto_upload_finished_title">Automatisches Foto-Hochladen beendet</string>
+
+	<string name="notification_auto_upload_failed_title">Fehler beim automatischen Photo-Hochladen</string>
+	<string name="notification_auto_upload_failed_general_error">Generaller Fehler während dem Hochladen.</string>
+	<string name="notification_auto_upload_failed_due_to_folder_not_exists">Ausgewählter Ordner für das Photo-Hochladen existiert nicht mehr. In der Einstellungen neuen auswählen</string>
+	<string name="notification_auto_upload_failed_due_to_vault_locked">Tresor gesperrt während dem hochladen, zum weiteren Hochladen entsperren</string>
+
+	<string name="notification_cancel_open_writable_file">@string/dialog_button_cancel</string>
+	<string name="notification_open_writable_file_message">Tresor bleibt entsperrt bis die Datei nicht mehr editiert wird</string>
+	<string name="notification_open_writable_file_title">Datei mit Schreibrechten geöffnet</string>
+
+	<string name="notification_update_check_finished_latest">Neueste Version installiert</string>
+
+	<string name="screen_settings_lru_cache">Zwischenspeicher</string>
+	<string name="screen_settings_clear_lru_cache_size">Zwischenspeicher leeren</string>
+	<string name="screen_settings_lru_cache_size">Zwischenspeichergröße insgesamt</string>
+	<string name="screen_settings_lru_cache_toggle">@string/screen_settings_section_auto_photo_upload_toggle</string>
+	<string name="screen_settings_lru_cache_changed__restart_toast">Änderungen werden nach einem Neustart der App aktiv</string>
+	<string name="screen_settings_license">Registriert für</string>
+	<string name="screen_settings_license_mail">%1$s</string>
+	<string name="dialog_settings_update_check_interval_title">Intervall der Aktualisierungsprüfung</string>
+	<string name="screen_settings_check_updates">Nach Aktualisierungen suchen</string>
+	<string name="screen_settings_last_check_updates">Letzte Ausführung %1$s</string>
+	<string name="screen_settings_last_check_updates_never">Noch nie</string>
+
+	<string name="dialog_cache_size_title">Zwischenspeichergröße pro Cloud</string>
+
 	<!-- lock timeout names -->
+	<string name="lock_timeout_instant">Sofort</string>
 	<string name="lock_timeout_1m">1 Minute</string>
 	<string name="lock_timeout_2m">2 Minuten</string>
 	<string name="lock_timeout_5m">5 Minuten</string>
 	<string name="lock_timeout_10m">10 Minuten</string>
 	<string name="lock_timeout_never">Nie</string>
+
+	<!-- cache size names -->
+	<string name="cache_size_50m">50 MB</string>
+	<string name="cache_size_100m">100 MB</string>
+	<string name="cache_size_250m">250 MB</string>
+	<string name="cache_size_500m">500 MB</string>
+	<string name="cache_size_1000m">1 GB</string>
+	<string name="cache_size_5000m">5 GB</string>
+
+	<!-- screen scheme mode names -->
+	<string name="screen_settings_style_mode">Design</string>
+	<string name="follow_system">Automatisch (System-Einstellung verwenden)</string>
+	<string name="light">Hell</string>
+	<string name="dark">Dunkel</string>
+
+	<!-- update interval names -->
+	<string name="update_interval_1d">Einmal am Tag</string>
+	<string name="update_interval_1w">Einmal pro Woche</string>
+	<string name="update_interval_1m">Einmal im Monat</string>
 
 </resources>
