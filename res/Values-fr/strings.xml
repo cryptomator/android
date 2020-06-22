@@ -10,13 +10,13 @@
 
 	<!-- # error messages -->
 	<string name="error_generic">Une erreur est survenue</string>
-	<string name="error_authentication_failed">Échec de l'authentification</string>
+	<string name="error_authentication_failed">Échec de l\'authentification</string>
 	<string name="error_no_network_connection">Pas de connexion au réseau</string>
 	<string name="error_invalid_passphrase">Mot de passe erroné</string>
 	<string name="error_file_or_folder_exists">Un fichier ou un dossier existe déjà.</string>
 	<string name="error_vault_version_not_supported">Coffre-fort non prise en charge. Ce coffre a été créée avec une autre version de Cryptomator.</string>
 	<string name="error_vault_already_exists">Le coffre-fort existe déjà.</string>
-	<string name="error_no_such_file">Le fichier n'existe pas.</string>
+	<string name="error_no_such_file">Le fichier n\'existe pas.</string>
 	<string name="error_vault_has_been_locked">Le coffre-fort a été verrouillé.</string>
 	<string name="error_cloud_already_exists">Cloud existant.</string>
 	<string name="error_activity_not_found">Veuillez télécharger une application qui peut ouvrir ce fichier.</string>
@@ -30,9 +30,9 @@
 	<string name="error_names_contains_invalid_characters">Les noms de fichiers ne peuvent pas contenir de caractères spéciaux.</string>
 	<string name="error_vault_name_contains_invalid_characters">Le nom du coffre-fort ne peut pas contenir de caractères spéciaux.</string>
 	<string name="error_auto_photo_upload_folder_in_vault_not_available">Le dossier sélectionné pour le téléversement automatique de photos n\'est pas disponible dans le coffre-fort.</string>
-	<string name="error_general_update">La vérification de la mise à jour a échoué. Une erreur générale s'est produite.</string>
+	<string name="error_general_update">La vérification de la mise à jour a échoué. Une erreur générale s\'est produite.</string>
 	<string name="error_update_no_internet">La vérification de la mise à jour a échoué. Pas de connexion Internet.</string>
-	<string name="error_failed_to_decrypt_webdav_password">Le mot de passe WebDAV n'a pas été déchiffré, veuillez l\'ajouter une nouvelle fois dans les paramètres</string>
+	<string name="error_failed_to_decrypt_webdav_password">Le mot de passe WebDAV n\'a pas été déchiffré, veuillez l\'ajouter une nouvelle fois dans les paramètres</string>
 	<string name="error_play_services_not_available">Services Google play non installés</string>
 
 	<!-- # clouds -->
@@ -157,7 +157,7 @@
 	<string name="screen_webdav_settings_username_label">Nom d\'utilisateur</string>
 	<string name="screen_webdav_settings_password_label">Mot de passe</string>
 	<string name="screen_webdav_settings_done_button_text">Connexion</string>
-	<string name="screen_webdav_settings_error_authentication_failed">Nom d'utilisateur et/ou mot de passe erronés.</string>
+	<string name="screen_webdav_settings_error_authentication_failed">Nom d\'utilisateur et/ou mot de passe erronés.</string>
 	<string name="screen_webdav_settings_msg_url_must_not_be_empty">L\'URL ne peut pas être vide.</string>
 	<string name="screen_webdav_settings_msg_url_is_invalid">URL invalide.</string>
 	<string name="screen_webdav_settings_msg_username_must_not_be_empty">Le nom d\'utilisateur ne peut pas être vide.</string>
@@ -175,7 +175,7 @@
 	<string name="screen_set_password_msg_password_empty">@string/screen_webdav_settings_msg_password_must_not_be_empty</string>
 	<string name="screen_set_password_msg_password_mismatch">Le mot de passe ne correspond pas au mot de passe retapé.</string>
 	<string name="screen_set_password_button_text">Terminé</string>
-	<string name="screen_set_password_hint">IMPORTANT: Si vous oubliez votre mot de passe, il n'y aura aucun moyen de récupérer vos données.</string>
+	<string name="screen_set_password_hint">IMPORTANT: Si vous oubliez votre mot de passe, il n\'y aura aucun moyen de récupérer vos données.</string>
 	<string name="screen_set_password_password_label">@string/screen_webdav_settings_password_label</string>
 	<string name="screen_set_password_retype_password_label">retaper le mot de passe</string>
 
@@ -192,10 +192,10 @@
 	<string name="screen_settings_cloud_settings_label">Service cloud</string>
 	<string name="screen_settings_fingerprint">Empreinte digitale</string>
 	<string name="screen_settings_activate_fingerprint">Activer l\'empreinte digitale</string>
-	<string name="screen_settings_block_app_when_obscured">Bloquer l'application lorsqu'elle est masquée</string>
+	<string name="screen_settings_block_app_when_obscured">Bloquer l\'application lorsqu\'elle est masquée</string>
 
 	<string name="screen_settings_live_search">Recherche en direct</string>
-	<string name="screen_settings_secure_screen">Sécurité de l'écran</string>
+	<string name="screen_settings_secure_screen">Sécurité de l\'écran</string>
 
 	<string name="screen_settings_section_auto_lock">Verrouillage automatique</string>
 	<string name="screen_settings_auto_lock_timeout">Verrouillage après</string>
@@ -221,15 +221,13 @@
 	<string name="screen_settings_license_terms_label">Termes de la licence</string>
 
 	<string name="screen_settings_section_support">Support</string>
-	<string name="screen_settings_contact_label">Demander de l'aide</string>
+	<string name="screen_settings_contact_label">Demander de l\'aide</string>
 	<string name="screen_settings_support_uri">https://cryptomator.org/contact/</string>
 	<string name="screen_settings_debug_mode_label">Mode débogage</string>
 	<string name="screen_settings_error_report_label">Envoyer un fichier journal</string>
 	<string name="screen_settings_error_report_failed">L\'envoi a échoué</string>
 	<string name="screen_settings_security_label">Conseils de sécurité</string>
 	<string name="screen_settings_security_url">https://cryptomator.org/security/</string>
-	<string name="screen_settings_donate_label">Faire un don</string>
-	<string name="screen_settings_donate_url">https://cryptomator.org/#donate</string>
 
 	<string name="screen_settings_section_version">Version</string>
 
@@ -258,7 +256,7 @@
 	<!-- ## screen: insecure android version info -->
 	<string name="screen_insecure_android_version_info_title">Impossible de stocker les informations d\'identification WebDAV en toute sécurité</string>
 	<string name="screen_insecure_android_version_headline">Cryptomator a détecté que cette version Android n\'est pas en mesure de stocker les informations d\'identification de manière sécurisée.</string>
-	<string name="screen_insecure_android_version_text">Dans le cas du protocole WebDAV, nous devons stocker le mot de passe de l\'utilisateur dans notre application. Dans les versions Android 4.1 et 4.2, il n\'y a aucun moyen de les stocker de manière sécurisée.\n\nSi possible, mettez à jour votre téléphone vers la dernière version, au moins 4.3. Dans le cas contraire, nous vous conseillons de ne pas utiliser WebDAV sur ce téléphone.\n\n(veuillez garder à l\'esprit que d'autres fournisseurs d\'applications ont le même problème sur ces appareils).</string>
+	<string name="screen_insecure_android_version_text">Dans le cas du protocole WebDAV, nous devons stocker le mot de passe de l\'utilisateur dans notre application. Dans les versions Android 4.1 et 4.2, il n\'y a aucun moyen de les stocker de manière sécurisée.\n\nSi possible, mettez à jour votre téléphone vers la dernière version, au moins 4.3. Dans le cas contraire, nous vous conseillons de ne pas utiliser WebDAV sur ce téléphone.\n\n(veuillez garder à l\'esprit que d\'autres fournisseurs d\'applications ont le même problème sur ces appareils).</string>
 	<string name="screen_insecure_android_version_button_label">Plus de détails sur ce problème</string>
 
 	<!-- # dialogs -->
@@ -336,7 +334,7 @@
 	<string name="dialog_export_file_title">Exportation (%1$d/%2$d)</string>
 	<string name="dialog_export_file_cancel_button">@string/dialog_button_cancel</string>
 
-	<string name="dialog_progress_please_wait">Patientez s'il vous plaît&#8230;</string>
+	<string name="dialog_progress_please_wait">Patientez s\'il vous plaît&#8230;</string>
 	<string name="dialog_progress_creating_folder">Création du dossier&#8230;</string>
 	<string name="dialog_progress_creating_text_file">Création du fichier texte&#8230;</string>
 	<string name="action_progress_authentication">Authentification&#8230;</string>
@@ -344,7 +342,7 @@
 	<string name="action_progress_deleting">Suppression&#8230;</string>
 	<string name="dialog_progress_unlocking_vault">Déverrouillage du coffre-fort&#8230;</string>
 	<string name="dialog_progress_change_password">Changement de mot de passe&#8230;</string>
-	<string name="dialog_progress_creating_vault">Création d'un coffre-fort&#8230;</string>
+	<string name="dialog_progress_creating_vault">Création d\'un coffre-fort&#8230;</string>
 	<string name="dialog_progress_upload_file">Téléversement&#8230;</string>
 	<string name="dialog_progress_download_file">Téléchargement&#8230;</string>
 	<string name="dialog_progress_encryption">Chiffrement&#8230;</string>
@@ -353,11 +351,11 @@
 	<string name="dialog_lock_vault">Verouiller</string>
 
 	<string name="dialog_accept_ssl_certificate_title">Certificat SSL invalide</string>
-	<string name="dialog_accept_ssl_certificate_hint">Le certificat SSL n'est pas valide. Vous voulez quand même lui faire confiance?</string>
+	<string name="dialog_accept_ssl_certificate_hint">Le certificat SSL n\'est pas valide. Vous voulez quand même lui faire confiance?</string>
 	<string name="dialog_accept_ssl_certificate_details">Détails</string>
 	<string name="dialog_accept_ssl_certificate_security_checkbox">Cela pourrait constituer un risque pour la sécurité. Je sais ce que je fais.</string>
 
-	<string name="dialog_http_security_hint">L\'utilisation du HTTP n'est pas sûre. Nous recommandons d\'utiliser plutôt le HTTPS. Si vous connaissez les risques, vous pouvez continuer à utiliser HTTP.</string>
+	<string name="dialog_http_security_hint">L\'utilisation du HTTP n\'est pas sûre. Nous recommandons d\'utiliser plutôt le HTTPS. Si vous connaissez les risques, vous pouvez continuer à utiliser HTTP.</string>
 	<string name="dialog_http_security_checkbox">Passage au HTTPS</string>
 	<string name="dialog_http_security_title">Utiliser le HTTPS ?</string>
 
@@ -368,21 +366,21 @@
 	<string name="dialog_no_fingerprint_set_title">Pas d\'empreinte digitale dans le système</string>
 	<string name="dialog_no_fingerprint_set_message">Enregistrez au moins une empreinte digitale pour utiliser ce service.</string>
 
-	<string name="dialog_debug_mode_disclaimer_hint">Dans ce mode, les données sensibles peuvent être écrites dans un fichier journal sur votre appareil (par exemple, les noms de fichiers et les chemins d'accès). Les mots de passe, cookies, etc. sont explicitement exclus.\n\nN\'oubliez pas de désactiver le mode de débogage dès que possible.</string>
+	<string name="dialog_debug_mode_disclaimer_hint">Dans ce mode, les données sensibles peuvent être écrites dans un fichier journal sur votre appareil (par exemple, les noms de fichiers et les chemins d\'accès). Les mots de passe, cookies, etc. sont explicitement exclus.\n\nN\'oubliez pas de désactiver le mode de débogage dès que possible.</string>
 	<string name="dialog_debug_mode_disclaimer_title">Attention</string>
 	<string name="dialog_debug_mode_positive_button">Activer</string>
 	<string name="dialog_debug_mode_negative_button">@string/dialog_button_cancel</string>
 
-	<string name="dialog_disable_app_obscured_disclaimer_hint">Ce paramètre est une fonction de sécurité qui empêche les autres applications de tromper les utilisateurs en leur faisant faire des choses qu'ils ne veulent pas faire.\n\nEn le désactivant, vous confirmez que vous êtes <a href="https://community.cryptomator.org/t/791/">conscients des risques</a>.</string>
+	<string name="dialog_disable_app_obscured_disclaimer_hint">Ce paramètre est une fonction de sécurité qui empêche les autres applications de tromper les utilisateurs en leur faisant faire des choses qu\'ils ne veulent pas faire.\n\nEn le désactivant, vous confirmez que vous êtes <a href="https://community.cryptomator.org/t/791/">conscients des risques</a>.</string>
 	<string name="dialog_disable_app_obscured_disclaimer_title">Attention</string>
 	<string name="dialog_disable_app_obscured_positive_button">Désactiver</string>
 	<string name="dialog_disable_app_obscured_negative_button">@string/dialog_button_cancel</string>
 
-	<string name="dialog_app_is_obscured_info_title">\''application est masquée</string>
+	<string name="dialog_app_is_obscured_info_title">\'application est masquée</string>
 	<string name="dialog_app_is_obscured_info_hint">Une autre application affiche quelque chose au-dessus de Cryptomator (par exemple, un filtre de lumière bleue ou une application forçant le mode nuit). Pour des raisons de sécurité, Cryptomator est désactivé.\n\n<a href="https://community.cryptomator.org/t/791/">Comment activer Cryptomator</a></string>
 	<string name="dialog_app_is_obscured_info_neutral_button">Fermer</string>
 
-	<string name="dialog_disable_secure_screen_disclaimer_hint">Ce paramètre est une fonction de sécurité qui empêche les autres applications de tromper les utilisateurs en leur faisant faire des choses qu'ils ne veulent pas faire.\n\nEn le désactivant, vous confirmez que vous êtes <a href="https://community.cryptomator.org/t/secure-screen-setting-in-cryptomator-for-android/3535?u=sailreal">conscients des risques</a>.</string>
+	<string name="dialog_disable_secure_screen_disclaimer_hint">Ce paramètre est une fonction de sécurité qui empêche les autres applications de tromper les utilisateurs en leur faisant faire des choses qu\'ils ne veulent pas faire.\n\nEn le désactivant, vous confirmez que vous êtes <a href="https://community.cryptomator.org/t/secure-screen-setting-in-cryptomator-for-android/3535?u=sailreal">conscients des risques</a>.</string>
 	<string name="dialog_disable_secure_screen_disclaimer_title">@string/dialog_disable_app_obscured_disclaimer_title</string>
 	<string name="dialog_disable_secure_screen_positive_button">@string/dialog_disable_app_obscured_positive_button</string>
 	<string name="dialog_disable_secure_screen_negative_button">@string/dialog_button_cancel</string>
@@ -412,7 +410,7 @@
 	<string name="dialog_enter_license_decline_button">Sortie</string>
 
 	<string name="dialog_license_confirmation_title">Confirmation de la licence</string>
-	<string name="dialog_license_confirmation_message">Merci %1$s d'avoir fourni votre licence valide.</string>
+	<string name="dialog_license_confirmation_message">Merci %1$s d\'avoir fourni votre licence valide.</string>
 	<string name="dialog_license_confirmation_ok_btn">@string/dialog_unable_to_share_positive_button</string>
 
 	<string name="dialog_update_available_message">Mettez à jour Cryptomator vers la dernière version. En appuyant sur OK, nous téléchargerons l\'application en arrière-plan et vous proposerons de l\'installer.</string>
@@ -428,7 +426,7 @@
 	<string name="dialog_sym_link_back_button">Retour</string>
 
 	<string name="dialog_beta_confirmation_title">Version bêta</string>
-	<string name="dialog_beta_confirmation">Il s\'agit d'une version bêta qui introduit la prise en charge du format de coffre-fort vault 7. Veuillez vous assurer que vous n\'utilisez pas votre coffre-fort principal pour les tests ou que vous disposez d'une bonne stratégie de sauvegarde.</string>
+	<string name="dialog_beta_confirmation">Il s\'agit d\'une version bêta qui introduit la prise en charge du format de coffre-fort vault 7. Veuillez vous assurer que vous n\'utilisez pas votre coffre-fort principal pour les tests ou que vous disposez d\'une bonne stratégie de sauvegarde.</string>
 
 	<string name="permission_snackbar_auth_local_vault">Cryptomator a besoin de l\'accès au stockage pour utiliser les coffres locaux</string>
 	<string name="permission_snackbar_auth_auto_upload">Cryptomator a besoin de l\'accès au stockage pour effectuer le téléversement automatique de photos</string>
@@ -495,7 +493,7 @@
 
 	<string name="notification_cancel_open_writable_file">@string/dialog_button_cancel</string>
 	<string name="notification_open_writable_file_title">Ouvrir un fichier accessible en écriture</string>
-	<string name="notification_open_writable_file_message">Le coffre-fort reste déverrouillé jusqu'à la fin des modifications</string>
+	<string name="notification_open_writable_file_message">Le coffre-fort reste déverrouillé jusqu\'à la fin des modifications</string>
 
 	<string name="notification_update_check_finished_latest">Dernière version installée</string>
 
