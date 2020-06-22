@@ -109,6 +109,7 @@
 	<string name="screen_file_browser_node_action_move">@string/screen_file_browser_move_button_text</string>
 	<string name="screen_file_browser_node_action_export">Export</string>
 	<string name="screen_file_browser_node_action_delete">Delete</string>
+	<string name="screen_file_browser_node_action_open_with_text">Open with&#8230;</string>
 
 	<string name="screen_file_browser_selection_mode_title_zero_elements">Select items</string>
 	<string name="screen_file_browser_selection_mode_title_one_or_more_elements">%1$d selected</string>
@@ -193,9 +194,10 @@
 	<string name="screen_settings_fingerprint">Fingerprint</string>
 	<string name="screen_settings_activate_fingerprint">Activate fingerprint</string>
 	<string name="screen_settings_block_app_when_obscured">Block app when obscured</string>
-
-	<string name="screen_settings_live_search">Live search</string>
 	<string name="screen_settings_secure_screen">Screen security</string>
+	<string name="screen_settings_section_search">Search</string>
+	<string name="screen_settings_live_search">Live search</string>
+	<string name="screen_settings_glob_search">Search using glob pattern</string>
 
 	<string name="screen_settings_section_auto_lock">Automatic locking</string>
 	<string name="screen_settings_auto_lock_timeout">Lock after</string>
@@ -228,8 +230,6 @@
 	<string name="screen_settings_error_report_failed">Sending failed</string>
 	<string name="screen_settings_security_label">Security hints</string>
 	<string name="screen_settings_security_url">https://cryptomator.org/security/</string>
-	<string name="screen_settings_donate_label">Donate</string>
-	<string name="screen_settings_donate_url">https://cryptomator.org/#donate</string>
 
 	<string name="screen_settings_section_version">Version</string>
 
@@ -373,16 +373,16 @@
 	<string name="dialog_debug_mode_positive_button">Enable</string>
 	<string name="dialog_debug_mode_negative_button">@string/dialog_button_cancel</string>
 
-	<string name="dialog_disable_app_obscured_disclaimer_hint">This setting is a security feature and prevents other apps from tricking users into doing things they do not wan\'t to do.\n\nBy disabling, you confirm that you are <a href="https://community.cryptomator.org/t/791/">aware of the risks</a>.</string>
+	<string name="dialog_disable_app_obscured_disclaimer_hint">This setting is a security feature and prevents other apps from tricking users into doing things they do not wan\'t to do.\n\nBy disabling, you confirm that you are <a href="https://docs.cryptomator.org/en/1.5/android/settings/#block-app-when-obscured">aware of the risks</a>.</string>
 	<string name="dialog_disable_app_obscured_disclaimer_title">Attention</string>
 	<string name="dialog_disable_app_obscured_positive_button">Disable</string>
 	<string name="dialog_disable_app_obscured_negative_button">@string/dialog_button_cancel</string>
 
 	<string name="dialog_app_is_obscured_info_title">App is obscured</string>
-	<string name="dialog_app_is_obscured_info_hint">Another app is displaying something on top of Cryptomator (e.g., a blue light filter or night mode app). For security reasons, Cryptomator is disabled.\n\n<a href="https://community.cryptomator.org/t/791/">How to enable Cryptomator</a></string>
+	<string name="dialog_app_is_obscured_info_hint">Another app is displaying something on top of Cryptomator (e.g., a blue light filter or night mode app). For security reasons, Cryptomator is disabled.\n\n<a href="https://docs.cryptomator.org/en/1.5/android/settings/#block-app-when-obscured">How to enable Cryptomator</a></string>
 	<string name="dialog_app_is_obscured_info_neutral_button">Close</string>
 
-	<string name="dialog_disable_secure_screen_disclaimer_hint">This setting is a security feature and prevents other apps from tricking users into doing things they do not wan\'t to do.\n\nBy disabling, you confirm that you are <a href="https://community.cryptomator.org/t/secure-screen-setting-in-cryptomator-for-android/3535?u=sailreal">aware of the risks</a>.</string>
+	<string name="dialog_disable_secure_screen_disclaimer_hint">This setting is a security feature and prevents other apps from tricking users into doing things they do not wan\'t to do.\n\nBy disabling, you confirm that you are <a href="https://docs.cryptomator.org/en/1.5/android/settings/#screen-security">aware of the risks</a>.</string>
 	<string name="dialog_disable_secure_screen_disclaimer_title">@string/dialog_disable_app_obscured_disclaimer_title</string>
 	<string name="dialog_disable_secure_screen_positive_button">@string/dialog_disable_app_obscured_positive_button</string>
 	<string name="dialog_disable_secure_screen_negative_button">@string/dialog_button_cancel</string>
@@ -415,6 +415,7 @@
 	<string name="dialog_license_confirmation_message">Thanks %1$s for providing your valid license.</string>
 	<string name="dialog_license_confirmation_ok_btn">@string/dialog_unable_to_share_positive_button</string>
 
+	<string name="dialog_update_available_title">Update available</string>
 	<string name="dialog_update_available_message">Update Cryptomator to the latest version. By pressing OK we will download the app in the background and will ask you to install it.</string>
 	<string name="dialog_update_available_update">Update now</string>
 	<string name="dialog_update_available_download_site">Go to downloads site</string>
@@ -426,6 +427,10 @@
 	<string name="dialog_sym_link_title">Folder is a symbolic link</string>
 	<string name="dialog_sym_link_message">You can not navigate into this symbolic link</string>
 	<string name="dialog_sym_link_back_button">Back</string>
+
+	<string name="dialog_no_dir_file_title">Unable to load contents of directory</string>
+	<string name="dialog_no_dir_file_message">Cloud folder \'%1$s\' doesn\'t have a directory file. It could be that the folder was created on another device and has not yet been fully synchronized to the cloud. Please check in your cloud if the following file exists:\n%2$s</string>
+	<string name="dialog_no_dir_file_back_button">@string/dialog_sym_link_back_button</string>
 
 	<string name="dialog_beta_confirmation_title">Beta release</string>
 	<string name="dialog_beta_confirmation">This is a beta release which introduces the support of vault format 7. Please make sure that you don\'t use your production vault for testing or have a good backup strategy.</string>
@@ -512,6 +517,7 @@
 	<string name="screen_settings_check_updates">Check for updates</string>
 	<string name="screen_settings_last_check_updates">Last run %1$s</string>
 	<string name="screen_settings_last_check_updates_never">Never</string>
+	<string name="screen_settings_last_check_updates_never_pre_marshmallow">Never ~ If an update check cannot be performed for technical reasons, updates can be downloaded and installed manually from the website https://cryptomator.org/android/.</string>
 
 	<string name="dialog_cache_size_title">Cache size per Cloud</string>
 
@@ -541,6 +547,6 @@
 	<string name="update_interval_1d">Once a day</string>
 	<string name="update_interval_1w">Once a week</string>
 	<string name="update_interval_1m">Once a month</string>
-	<string name="dialog_update_available_title">Update available</string>
+	<string name="update_interval_never">Never</string>
 
 </resources>

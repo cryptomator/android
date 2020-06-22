@@ -102,6 +102,7 @@
 	<string name="screen_file_browser_node_action_move">@string/screen_file_browser_move_button_text</string>
 	<string name="screen_file_browser_node_action_export">Exportieren</string>
 	<string name="screen_file_browser_node_action_delete">Löschen</string>
+	<string name="screen_file_browser_node_action_open_with_text">Öffnen mit&#8230;</string>
 
 	<string name="screen_file_browser_no_connection_message">Keine Verbindung</string>
 	<string name="screen_file_browser_no_connection_button_text">Wiederholen</string>
@@ -188,8 +189,10 @@
 	<string name="screen_settings_fingerprint">Fingerabdruck</string>
 	<string name="screen_settings_activate_fingerprint">Fingerabdruck aktivieren</string>
 	<string name="screen_settings_block_app_when_obscured">App blockieren, wenn verdeckt</string>
-	<string name="screen_settings_live_search">Live-Suche</string>
 	<string name="screen_settings_secure_screen">Bildschirm-Sicherheit</string>
+	<string name="screen_settings_section_search">Search</string>
+	<string name="screen_settings_live_search">Live-Suche</string>
+	<string name="screen_settings_glob_search">Suche mit Glob-Muster</string>
 
 	<string name="screen_settings_section_auto_lock">Automatisch sperren</string>
 	<string name="screen_settings_auto_lock_timeout">Sperren nach</string>
@@ -223,8 +226,6 @@
 	<string name="screen_settings_security_label">Sicherheitshinweise</string>
 	<string name="screen_settings_security_url">https://cryptomator.org/de/security/</string>
 	<string name="screen_settings_section_version">Version</string>
-	<string name="screen_settings_donate_label">Spenden</string>
-	<string name="screen_settings_donate_url">https://cryptomator.org/#donate</string>
 	<string name="screen_settings_keep_unlocked_while_editing_files">Halte Tresore geöffnet während dem Editieren einer Datei</string>
 
 	<!-- ## screen: cloud settings -->
@@ -425,6 +426,10 @@
 	<string name="dialog_sym_link_message">Sie können nicht in diesen symbolischen Link navigieren</string>
 	<string name="dialog_sym_link_back_button">Zurück</string>
 
+	<string name="dialog_no_dir_file_title">Verzeichniss kann nicht geladen werden</string>
+	<string name="dialog_no_dir_file_message">Der Ordner \'%1$s\' in der Cloud hat keine Verzeichniss-Datei. Es könnte sein, dass der Ordner auf einem anderen Gerät erstellt wurde und noch nicht vollständig mit der Cloud synchronisiert ist. Bitte überprüfen, ob die folgende Datei in der Cloud existiert:\n%2$s</string>
+	<string name="dialog_no_dir_file_back_button">@string/dialog_sym_link_back_button</string>
+
 	<string name="permission_snackbar_auth_local_vault">Cryptomator benötigt Zugriff auf den Speicher um lokale Tresore zu nutzen</string>
 	<string name="permission_snackbar_auth_auto_upload">Cryptomator benötigt Zugriff auf den Speicher um den automatischen Foto-Upload zu nutzen</string>
 
@@ -505,6 +510,7 @@
 	<string name="screen_settings_check_updates">Nach Aktualisierungen suchen</string>
 	<string name="screen_settings_last_check_updates">Letzte Ausführung %1$s</string>
 	<string name="screen_settings_last_check_updates_never">Noch nie</string>
+	<string name="screen_settings_last_check_updates_never_pre_marshmallow">Noch nie ~ Wenn aus technischen Gründen keine Update-Prüfung durchgeführt werden kann, können Updates manuell über die Website https://cryptomator.org/android/ heruntergeladen und installiert werden.</string>
 
 	<string name="dialog_cache_size_title">Zwischenspeichergröße pro Cloud</string>
 
@@ -534,5 +540,6 @@
 	<string name="update_interval_1d">Einmal am Tag</string>
 	<string name="update_interval_1w">Einmal pro Woche</string>
 	<string name="update_interval_1m">Einmal im Monat</string>
+	<string name="update_interval_never">@string/lock_timeout_never</string>
 
 </resources>
