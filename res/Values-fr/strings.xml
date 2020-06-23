@@ -52,10 +52,10 @@
 	<string name="permission_message_upload_file">Cryptomateur a besoin de l\'accès au stockage pour téléverser des fichiers</string>
 	<string name="permission_message_share_file">Cryptomator a besoin de l\'accès au stockage pour partager des fichiers</string>
 
-	<string name="snack_bar_action_title_settings">paramètres</string>
-	<string name="snack_bar_action_title_search">rechercher</string>
-	<string name="snack_bar_action_title_search_previous">précédent</string>
-	<string name="snack_bar_action_title_search_next">suivant</string>
+	<string name="snack_bar_action_title_settings">Paramètres</string>
+	<string name="snack_bar_action_title_search">Rechercher</string>
+	<string name="snack_bar_action_title_search_previous">Précédent</string>
+	<string name="snack_bar_action_title_search_next">Suivant</string>
 
 	<!-- # screens -->
 
@@ -64,7 +64,7 @@
 	<string name="screen_vault_list_action_create_new_vault">Créer un nouveau coffre-fort</string>
 	<string name="screen_vault_list_action_add_existing_vault">Ajouter un coffre-fort existant</string>
 	<string name="screen_vault_list_vault_action_rename">@string/screen_file_browser_node_action_rename</string>
-	<string name="screen_vault_list_vault_action_delete">retirer</string>
+	<string name="screen_vault_list_vault_action_delete">Retirer</string>
 	<string name="screen_vault_list_vault_creation_hint">Cliquez ici pour créer un nouveau coffre-fort</string>
 	<string name="screen_vault_list_change_password_successful">Mot de passe modifié avec succès</string>
 
@@ -80,7 +80,7 @@
 	<string name="screen_file_browser_subtitle_move_single">Déplacé %1$s vers</string>
 	<string name="screen_file_browser_subtitle_move_plural">Déplacer des éléments de %1$s vers</string>
 
-	<string name="screen_file_browser_move_button_text">déplacer</string>
+	<string name="screen_file_browser_move_button_text">Déplacer</string>
 
 	<string name="screen_file_browser_msg_empty_folder">Dossier vide</string>
 	<string name="screen_file_browser_file_info_label_size">%1$s</string>
@@ -178,7 +178,7 @@
 	<string name="screen_set_password_button_text">Terminé</string>
 	<string name="screen_set_password_hint">IMPORTANT: Si vous oubliez votre mot de passe, il n\'y aura aucun moyen de récupérer vos données.</string>
 	<string name="screen_set_password_password_label">@string/screen_webdav_settings_password_label</string>
-	<string name="screen_set_password_retype_password_label">retaper le mot de passe</string>
+	<string name="screen_set_password_retype_password_label">Retaper le mot de passe</string>
 
 	<string name="screen_set_password_strength_indicator_0">Très faible</string>
 	<string name="screen_set_password_strength_indicator_1">Faible</string>
@@ -214,7 +214,7 @@
 	<string name="screen_settings_section_social">@string/screen_webdav_settings_done_button_text</string>
 	<string name="screen_settings_website_label">Site web de Cryptomator</string>
 	<string name="screen_settings_twitter_label">Suivez-nous sur Twitter</string>
-	<string name="screen_settings_facebook_label">aimez notre page Facebook</string>
+	<string name="screen_settings_facebook_label">Aimez notre page Facebook</string>
 	<string name="screen_settings_website_uri">https://cryptomator.org</string>
 	<string name="screen_settings_facebook_uri">https://facebook.com/Cryptomator</string>
 	<string name="screen_settings_twitter_uri">https://twitter.com/Cryptomator</string>
@@ -241,7 +241,7 @@
 	<string name="screen_cloud_settings_webdav_connections">Connexions WebDAV</string>
 	<string name="screen_cloud_settings_local_storage_locations">Emplacements du stockage local</string>
 	<string name="screen_cloud_settings_log_in_to">Se connecter à</string>
-	<string name="screen_cloud_settings_logged_in_as">connecté en tant que</string>
+	<string name="screen_cloud_settings_logged_in_as">Connecté en tant que</string>
 	<string name="screen_cloud_settings_sign_out_from_cloud">Se déconnecter de</string>
 
 	<!-- ## screen: licenses -->
@@ -317,7 +317,7 @@
 	<string name="dialog_create_vault_title">Création %1$s</string>
 
 	<string name="dialog_unsaved_changes_title">Vous avez des modifications non enregistrés</string>
-	<string name="dialog_unsaved_changes_message">désirez-vous vraiment quitter sans enregistrer?</string>
+	<string name="dialog_unsaved_changes_message">Désirez-vous vraiment quitter sans enregistrer?</string>
 	<string name="dialog_unsaved_changes_discard">Abandonner</string>
 	<string name="dialog_unsaved_changes_save">@string/screen_share_files_save_button_text</string>
 
