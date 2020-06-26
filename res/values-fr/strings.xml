@@ -57,13 +57,13 @@
 	<string name="snack_bar_action_title_search_previous">Précédent</string>
 	<string name="snack_bar_action_title_search_next">Suivant</string>
 
-	<string name="snack_bar_action_title_sort">TODO</string>
+	<string name="snack_bar_action_title_sort">Trier par</string>
 	<string name="snack_bar_action_title_sort_az">A - Z</string>
 	<string name="snack_bar_action_title_sort_za">Z - A</string>
-	<string name="snack_bar_action_title_sort_newest">TODO</string>
-	<string name="snack_bar_action_title_sort_oldest">TODO</string>
-	<string name="snack_bar_action_title_sort_biggest">TODO</string>
-	<string name="snack_bar_action_title_sort_smallest">TODO</string>
+	<string name="snack_bar_action_title_sort_newest">Plus récent</string>
+	<string name="snack_bar_action_title_sort_oldest">Plus ancien</string>
+	<string name="snack_bar_action_title_sort_biggest">Taille décroissante</string>
+	<string name="snack_bar_action_title_sort_smallest">Taille croissante</string>
 
 	<!-- # screens -->
 
