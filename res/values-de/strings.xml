@@ -55,6 +55,14 @@
 	<string name="snack_bar_action_title_search_next">Weiter</string>
 	<string name="snack_bar_action_title_search_previous">Vorheriges</string>
 
+	<string name="snack_bar_action_title_sort">Sortieren</string>
+	<string name="snack_bar_action_title_sort_az">A - Z</string>
+	<string name="snack_bar_action_title_sort_za">Z - A</string>
+	<string name="snack_bar_action_title_sort_newest">Neueste zuerst</string>
+	<string name="snack_bar_action_title_sort_oldest">Älteste zuerst</string>
+	<string name="snack_bar_action_title_sort_biggest">Größte zuerst</string>
+	<string name="snack_bar_action_title_sort_smallest">Kleinste zuerst</string>
+
 	<!-- # screens -->
 
 	<!-- # screen: vault list -->
@@ -368,16 +376,16 @@
 	<string name="dialog_debug_mode_positive_button">Aktivieren</string>
 	<string name="dialog_debug_mode_negative_button">@string/dialog_button_cancel</string>
 
-	<string name="dialog_disable_app_obscured_disclaimer_hint">Dies ist eine Sicherheitsfunktion und verhindert, dass andere Apps Nutzer dazu bringen, Dinge zu tun, die sie nicht tun wollen.\n\nDurch die Deaktivierung bestätigen Sie, dass Sie sich <a href="https://community.cryptomator.org/t/791/">der Risiken bewusst</a> sind.</string>
+	<string name="dialog_disable_app_obscured_disclaimer_hint">Dies ist eine Sicherheitsfunktion und verhindert, dass andere Apps Nutzer dazu bringen, Dinge zu tun, die sie nicht tun wollen.\n\nDurch die Deaktivierung bestätigen Sie, dass Sie sich <a href="https://docs.cryptomator.org/en/1.5/android/settings/#block-app-when-obscured">der Risiken bewusst</a> sind.</string>
 	<string name="dialog_disable_app_obscured_disclaimer_title">Achtung</string>
 	<string name="dialog_disable_app_obscured_positive_button">Deaktivieren</string>
 	<string name="dialog_disable_app_obscured_negative_button">@string/dialog_button_cancel</string>
 
 	<string name="dialog_app_is_obscured_info_title">App wird verdeckt</string>
-	<string name="dialog_app_is_obscured_info_hint">Eine App zeigt etwas über Cryptomator an (z.B. ein Blaulichtfilter oder eine Nachtmodus-App). Aus Sicherheitsgründen ist Cryptomator deaktiviert.\n\n<a href="https://community.cryptomator.org/t/791/">Wie Cryptomator aktiviert werden kann</a></string>
+	<string name="dialog_app_is_obscured_info_hint">Eine App zeigt etwas über Cryptomator an (z.B. ein Blaulichtfilter oder eine Nachtmodus-App). Aus Sicherheitsgründen ist Cryptomator deaktiviert.\n\n<a href="https://docs.cryptomator.org/en/1.5/android/settings/#block-app-when-obscured">Wie Cryptomator aktiviert werden kann</a></string>
 	<string name="dialog_app_is_obscured_info_neutral_button">Schließen</string>
 
-	<string name="dialog_disable_secure_screen_disclaimer_hint">Dies ist eine Sicherheitsfunktion und verhindert, dass andere Apps Nutzer dazu bringen, Dinge zu tun, die sie nicht tun wollen.\n\nDurch die Deaktivierung bestätigen Sie, dass Sie sich <a href="https://community.cryptomator.org/t/secure-screen-setting-in-cryptomator-for-android/3535?u=sailreal">der Risiken bewusst</a> sind.</string>
+	<string name="dialog_disable_secure_screen_disclaimer_hint">Dies ist eine Sicherheitsfunktion und verhindert, dass andere Apps Nutzer dazu bringen, Dinge zu tun, die sie nicht tun wollen.\n\nDurch die Deaktivierung bestätigen Sie, dass Sie sich <a href="https://docs.cryptomator.org/en/1.5/android/settings/#screen-security">der Risiken bewusst</a> sind.</string>
 	<string name="dialog_disable_secure_screen_disclaimer_title">@string/dialog_disable_app_obscured_disclaimer_title</string>
 	<string name="dialog_disable_secure_screen_positive_button">@string/dialog_disable_app_obscured_positive_button</string>
 	<string name="dialog_disable_secure_screen_negative_button">@string/dialog_button_cancel</string>

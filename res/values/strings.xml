@@ -57,6 +57,14 @@
 	<string name="snack_bar_action_title_search_previous">Previous</string>
 	<string name="snack_bar_action_title_search_next">Next</string>
 
+	<string name="snack_bar_action_title_sort">Sort</string>
+	<string name="snack_bar_action_title_sort_az">A - Z</string>
+	<string name="snack_bar_action_title_sort_za">Z - A</string>
+	<string name="snack_bar_action_title_sort_newest">Newest first</string>
+	<string name="snack_bar_action_title_sort_oldest">Oldest first</string>
+	<string name="snack_bar_action_title_sort_biggest">Biggest first</string>
+	<string name="snack_bar_action_title_sort_smallest">Smallest first</string>
+
 	<!-- # screens -->
 
 	<!-- # screen: vault list -->

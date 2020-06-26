@@ -57,6 +57,14 @@
 	<string name="snack_bar_action_title_search_previous">Précédent</string>
 	<string name="snack_bar_action_title_search_next">Suivant</string>
 
+	<string name="snack_bar_action_title_sort">TODO</string>
+	<string name="snack_bar_action_title_sort_az">A - Z</string>
+	<string name="snack_bar_action_title_sort_za">Z - A</string>
+	<string name="snack_bar_action_title_sort_newest">TODO</string>
+	<string name="snack_bar_action_title_sort_oldest">TODO</string>
+	<string name="snack_bar_action_title_sort_biggest">TODO</string>
+	<string name="snack_bar_action_title_sort_smallest">TODO</string>
+
 	<!-- # screens -->
 
 	<!-- # screen: vault list -->
@@ -195,7 +203,7 @@
 	<string name="screen_settings_activate_fingerprint">Activer l\'empreinte digitale</string>
 	<string name="screen_settings_block_app_when_obscured">Bloquer l\'application lorsqu\'elle est masquée</string>
 	<string name="screen_settings_secure_screen">Sécurité de l\'écran</string>
-	
+
 	<string name="screen_settings_section_search">Recherche</string>
 	<string name="screen_settings_live_search">Recherche en direct</string>
 	<string name="screen_settings_glob_search">Recherche avec le modèle glob</string>
@@ -374,16 +382,16 @@
 	<string name="dialog_debug_mode_positive_button">Activer</string>
 	<string name="dialog_debug_mode_negative_button">@string/dialog_button_cancel</string>
 
-	<string name="dialog_disable_app_obscured_disclaimer_hint">Ce paramètre est une fonction de sécurité qui empêche les autres applications de tromper les utilisateurs en leur faisant faire des choses qu\'ils ne veulent pas faire.\n\nEn le désactivant, vous confirmez que vous êtes <a href="https://community.cryptomator.org/t/791/">conscients des risques</a>.</string>
+	<string name="dialog_disable_app_obscured_disclaimer_hint">Ce paramètre est une fonction de sécurité qui empêche les autres applications de tromper les utilisateurs en leur faisant faire des choses qu\'ils ne veulent pas faire.\n\nEn le désactivant, vous confirmez que vous êtes <a href="https://docs.cryptomator.org/en/1.5/android/settings/#block-app-when-obscured">conscients des risques</a>.</string>
 	<string name="dialog_disable_app_obscured_disclaimer_title">Attention</string>
 	<string name="dialog_disable_app_obscured_positive_button">Désactiver</string>
 	<string name="dialog_disable_app_obscured_negative_button">@string/dialog_button_cancel</string>
 
 	<string name="dialog_app_is_obscured_info_title">\'application est masquée</string>
-	<string name="dialog_app_is_obscured_info_hint">Une autre application affiche quelque chose au-dessus de Cryptomator (par exemple, un filtre de lumière bleue ou une application forçant le mode nuit). Pour des raisons de sécurité, Cryptomator est désactivé.\n\n<a href="https://community.cryptomator.org/t/791/">Comment activer Cryptomator</a></string>
+	<string name="dialog_app_is_obscured_info_hint">Une autre application affiche quelque chose au-dessus de Cryptomator (par exemple, un filtre de lumière bleue ou une application forçant le mode nuit). Pour des raisons de sécurité, Cryptomator est désactivé.\n\n<a href="https://docs.cryptomator.org/en/1.5/android/settings/#block-app-when-obscured">Comment activer Cryptomator</a></string>
 	<string name="dialog_app_is_obscured_info_neutral_button">Fermer</string>
 
-	<string name="dialog_disable_secure_screen_disclaimer_hint">Ce paramètre est une fonction de sécurité qui empêche les autres applications de tromper les utilisateurs en leur faisant faire des choses qu\'ils ne veulent pas faire.\n\nEn le désactivant, vous confirmez que vous êtes <a href="https://community.cryptomator.org/t/secure-screen-setting-in-cryptomator-for-android/3535?u=sailreal">conscients des risques</a>.</string>
+	<string name="dialog_disable_secure_screen_disclaimer_hint">Ce paramètre est une fonction de sécurité qui empêche les autres applications de tromper les utilisateurs en leur faisant faire des choses qu\'ils ne veulent pas faire.\n\nEn le désactivant, vous confirmez que vous êtes <a href="https://docs.cryptomator.org/en/1.5/android/settings/#screen-security">conscients des risques</a>.</string>
 	<string name="dialog_disable_secure_screen_disclaimer_title">@string/dialog_disable_app_obscured_disclaimer_title</string>
 	<string name="dialog_disable_secure_screen_positive_button">@string/dialog_disable_app_obscured_positive_button</string>
 	<string name="dialog_disable_secure_screen_negative_button">@string/dialog_button_cancel</string>
@@ -427,7 +435,7 @@
 	<string name="dialog_sym_link_title">Le dossier est un lien symbolique</string>
 	<string name="dialog_sym_link_message">Vous ne pouvez pas naviguer dans ce lien symbolique</string>
 	<string name="dialog_sym_link_back_button">Retour</string>
-	
+
 	<string name="dialog_no_dir_file_title">Impossible de charger le contenu du répertoire</string>
 	<string name="dialog_no_dir_file_message">Le dossier cloud \'%1$s\' n\'a pas de fichier de répertoire. Il se peut que le dossier ait été créé sur un autre appareil et qu\'il n\'ait pas encore été entièrement synchronisé avec le cloud. Veuillez vérifier dans votre cloud si le fichier suivant existe: \n%2$s</string>
 	<string name="dialog_no_dir_file_back_button">@string/dialog_sym_link_back_button</string>
