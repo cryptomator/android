@@ -18,8 +18,6 @@
 	<string name="error_activity_not_found">Por favor, descarga una aplicación que pueda abrir este archivo.</string>
 	<string name="error_server_not_found">Servidor no encontrado.</string>
 	<string name="error_server_timeout">Tiempo de espera superado durante la comunicación con el servidor.</string>
-	<string name="error_generic_fingerprint_error">Se ha producido un error. Usa la contraseña para desbloquear la caja fuerte.</string>
-	<string name="error_generic_fingerprint_crypto_error">Error al cifrar o descifrar. Usa la contraseña para desbloquear la caja fuerte.</string>
 
 	<!-- # clouds
 	 ## cloud names -->
@@ -119,7 +117,6 @@
 	<string name="screen_webdav_settings_msg_url_is_invalid">La URL no es válida.</string>
 	<string name="screen_webdav_settings_msg_username_must_not_be_empty">El nombre de usuario no puede estar vacio.</string>
 	<string name="screen_webdav_settings_msg_password_must_not_be_empty">La contraseña no puede estar vacía.</string>
-	<string name="screen_webdav_settings_use_fingerprint">Usar huella dactilar</string>
 
 	<!-- ## screen: enter vault name -->
 	<string name="screen_enter_vault_name_title">@string/screen_vault_list_action_create_new_vault</string>
@@ -140,8 +137,6 @@
 	<string name="screen_settings_title">@string/snack_bar_action_title_settings</string>
 	<string name="screen_settings_section_general">General</string>
 	<string name="screen_settings_cloud_settings_label">Servicios de nube</string>
-	<string name="screen_settings_fingerprint">Huella digital</string>
-	<string name="screen_settings_activate_fingerprint">Activar huella digital</string>
 	<string name="screen_settings_section_social">@string/screen_webdav_settings_done_button_text</string>
 	<string name="screen_settings_website_label">Web de Cryptomator</string>
 	<string name="screen_settings_twitter_label">Síguenos en Twitter</string>
@@ -183,11 +178,7 @@
 	<!-- ## screen: insecure android version info -->
 	<string name="screen_insecure_android_version_info_title">No se pueden almacenar las credenciales de WebDAV de forma segura</string>
 	<string name="screen_insecure_android_version_headline">Cryptomator ha detectado que esta versión de Android no es capaz de almacenar credenciales de forma segura.</string>
-	<string name="screen_insecure_android_version_text">En el caso de WebDAV, tenemos que almacenar la contraseña de usuario en nuestra aplicación. En las versiones de Android 4.1 y 4.2 no hay manera de almacenarla de forma segura.
-
-Si es posible, actualiza el teléfono a la última versión, al menos una 4.3. De otra forma le recomendamos que no use WebDAV en este teléfono.
-
-(Ten en cuenta que otros desarrolladores de aplicaciones tendrán el mismo problema en este dispositivo).</string>
+	<string name="screen_insecure_android_version_text">En el caso de WebDAV, tenemos que almacenar la contraseña de usuario en nuestra aplicación. En las versiones de Android 4.1 y 4.2 no hay manera de almacenarla de forma segura. Si es posible, actualiza el teléfono a la última versión, al menos una 4.3. De otra forma le recomendamos que no use WebDAV en este teléfono. (Ten en cuenta que otros desarrolladores de aplicaciones tendrán el mismo problema en este dispositivo).</string>
 	<string name="screen_insecure_android_version_button_label">Más detalles sobre este problema</string>
 
 	<!-- # dialogs -->
@@ -263,11 +254,6 @@ Si es posible, actualiza el teléfono a la última versión, al menos una 4.3. D
 	<string name="dialog_no_screen_lock_hint">No se ha establecido el bloqueo de pantalla. Para almacenar las credenciales de forma segura, establece con Aceptar un patrón o contraseña.</string>
 	<string name="dialog_no_screen_lock_title">"¿Establecer bloqueo de pantalla?</string>
 	<string name="dialog_no_screen_lock_checkbox">Establecer bloqueo de pantalla</string>
-	<string name="dialog_no_fingerprint_set_title">No hay lector de huellas en el sistema.</string>
-	<string name="dialog_no_fingerprint_set_message">Registra al menos una huella digital para usar este servicio.</string>
-	<string name="dialog_debug_mode_disclaimer_hint">En este modo puede que se escriban datos sensibles a un fichero de trazas del dispositivo (p.e. nombres de archivo y rutas). Las contraseñas, cookies, etc. se excluyen explícitamente.
-
-Recuerda desactivar el modo de depuración tan pronto como sea posible.</string>
 	<string name="dialog_debug_mode_disclaimer_title">Aviso</string>
 	<string name="dialog_debug_mode_positive_button">Activar</string>
 	<string name="dialog_debug_mode_negative_button">@string/dialog_button_cancel</string>
@@ -279,9 +265,6 @@ Recuerda desactivar el modo de depuración tan pronto como sea posible.</string>
 	<string name="dialog_confirm_delete_negative_button">@string/dialog_button_cancel</string>
 	<string name="dialog_confirm_delete_file_message">"¿Estás seguro de que quieres borrar este archivo?</string>
 	<string name="dialog_confirm_delete_folder_message">Esto borrará todo el contenido de la carpeta. ¿Estás seguro de que quiere borrar esta carpeta?</string>
-	<string name="dialog_fingerprint_key_invalidated_title">Funcionalidad de huella digiltal desactivada</string>
-	<string name="dialog_fingerprint_key_invalidated_message">Debido a que se ha invalidado la clave, la funcionalidad de huella digital se ha desactivado. Para reactivarla abra la configuración de Cryptomator.</string>
-	<string name="dialog_fingerprint_key_invalidated_neutral_button">@string/dialog_unable_to_share_positive_button</string>
 
 	<!-- # error reports -->
 	<string name="error_report_subject">Informe de error de Android</string>
@@ -313,15 +296,6 @@ Recuerda desactivar el modo de depuración tan pronto como sea posible.</string>
 	<string name="time_unit_months_pl">meses</string>
 	<string name="time_unit_years_sg">año</string>
 	<string name="time_unit_years_pl">años</string>
-
-	<!-- ## fingerprint -->
-	<string name="fingerprint_instructions">Pon el dedo en el sensor para comprobar tu identidad</string>
-	<string name="fingerprint_instructions_change_password">Pon el dedo en el sensor para almacenar la nueva contraseña</string>
-	<string name="dialog_fingerprint_title">Autenticación por huella digial</string>
-	<string name="dialog_fingerprint_use_password">Usar contraseña</string>
-	<string name="fingerprint_not_recognized">Huella no reconocida. Inténtalo de nuevo.</string>
-	<string name="dialog_fingerprint_hint">Toca el sensor</string>
-	<string name="dialog_fingerprint_success">Huella reconocida.</string>
 
 	<!-- notification -->
 	<string name="notification_unlocked">Cajas fuertes desbloqueadas: %1$d</string>

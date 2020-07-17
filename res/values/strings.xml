@@ -22,8 +22,6 @@
 	<string name="error_activity_not_found">Please download an app that can open this file.</string>
 	<string name="error_server_not_found">Server not found.</string>
 	<string name="error_server_timeout">Timeout during communication with server.</string>
-	<string name="error_generic_fingerprint_error">An error occurred. Please use the password to unlock your vault.</string>
-	<string name="error_generic_fingerprint_crypto_error">Failed to en- or decrypt. Please use the password to unlock your vault.</string>
 	<string name="error_device_policy_manager_not_found">Please open your devices settings and set the screen lock by hand</string>
 	<string name="error_export_illegal_file_name">Export failed. Try to remove special characters from file names and export again.</string>
 	<string name="error_name_contains_invalid_characters">Can\'t contain special characters.</string>
@@ -34,6 +32,7 @@
 	<string name="error_update_no_internet">Update check failed. No internet connection.</string>
 	<string name="error_failed_to_decrypt_webdav_password">Failed to decrypt WebDAV password, please re add in settings</string>
 	<string name="error_play_services_not_available">Play Services not installed</string>
+	<string name="error_biometric_auth_aborted">Biometric authentication aborted</string>
 
 	<!-- # clouds -->
 
@@ -171,7 +170,6 @@
 	<string name="screen_webdav_settings_msg_url_is_invalid">URL is invalid.</string>
 	<string name="screen_webdav_settings_msg_username_must_not_be_empty">Username can\'t be empty.</string>
 	<string name="screen_webdav_settings_msg_password_must_not_be_empty">Password can\'t be empty.</string>
-	<string name="screen_webdav_settings_use_fingerprint">Use fingerprint</string>
 
 	<!-- ## screen: enter vault name -->
 	<string name="screen_enter_vault_name_title">@string/screen_vault_list_action_create_new_vault</string>
@@ -199,8 +197,9 @@
 
 	<string name="screen_settings_section_general">General</string>
 	<string name="screen_settings_cloud_settings_label">Cloud services</string>
-	<string name="screen_settings_fingerprint">Fingerprint</string>
-	<string name="screen_settings_activate_fingerprint">Activate fingerprint</string>
+	<string name="screen_settings_biometric_auth">Biometric authentication</string>
+	<string name="screen_settings_activate_biometric_auth">Activate biometric authentication</string>
+	<string name="screen_settings_confirm_face_unlock">Confirm face unlock (if available)</string>
 	<string name="screen_settings_block_app_when_obscured">Block app when obscured</string>
 	<string name="screen_settings_secure_screen">Screen security</string>
 	<string name="screen_settings_section_search">Search</string>
@@ -373,8 +372,8 @@
 	<string name="dialog_no_screen_lock_title">Set screen lock?</string>
 	<string name="dialog_no_screen_lock_checkbox">Set screen lock</string>
 
-	<string name="dialog_no_fingerprint_set_title">No fingerprint in system</string>
-	<string name="dialog_no_fingerprint_set_message">Enroll at least one fingerprint to use this service.</string>
+	<string name="dialog_no_biometric_auth_set_up_title">No basic authentication set up in system</string>
+	<string name="dialog_no_biometric_auth_set_up_message">Enroll at least one finger/face to use this service.</string>
 
 	<string name="dialog_debug_mode_disclaimer_hint">In this mode, sensitive data may be written to a log file on your device (e.g., filenames and paths). Passwords, cookies, etc. are explicitly excluded.\n\nRemember to disable debug mode as soon as possible.</string>
 	<string name="dialog_debug_mode_disclaimer_title">Attention</string>
@@ -407,9 +406,9 @@
 	<string name="dialog_confirm_delete_file_message">Are you sure you want to delete this file?</string>
 	<string name="dialog_confirm_delete_folder_message">This will delete all of the folder\'s contents. Are you sure you want to delete this folder?</string>
 
-	<string name="dialog_fingerprint_key_invalidated_title">Fingerprint feature deactivated</string>
-	<string name="dialog_fingerprint_key_invalidated_message">Because the key has been invalidated, the fingerprint feature has been deactivated. To re-enable, open the Cryptomator settings.</string>
-	<string name="dialog_fingerprint_key_invalidated_neutral_button">@string/dialog_unable_to_share_positive_button</string>
+	<string name="dialog_biometric_auth_key_invalidated_title">Biometric authentication feature deactivated</string>
+	<string name="dialog_biometric_auth_key_invalidated_message">Because the key has been invalidated, the biometric authentication feature has been deactivated. To re-enable, open the Cryptomator settings.</string>
+	<string name="dialog_biometric_auth_key_invalidated_neutral_button">@string/dialog_unable_to_share_positive_button</string>
 
 	<string name="dialog_enter_license_title">Provide a valid license</string>
 	<string name="dialog_enter_license_content">We detected that you installed Cryptomator without using Google Play Store. Provide a valid license, which can be purchased on <a href="https://cryptomator.org/android/">https://cryptomator.org/android/</a></string>
@@ -478,14 +477,10 @@
 	<string name="time_unit_years_sg">year</string>
 	<string name="time_unit_years_pl">years</string>
 
-	<!-- ## fingerprint -->
-	<string name="fingerprint_instructions">Place your fingertip on the fingerprint sensor to verify your identity</string>
-	<string name="fingerprint_instructions_change_password">Place your fingertip on the sensor to store the new password</string>
-	<string name="dialog_fingerprint_title">Fingerprint authentication</string>
-	<string name="dialog_fingerprint_use_password">Use password</string>
-	<string name="fingerprint_not_recognized">Fingerprint not recognized. Try again.</string>
-	<string name="dialog_fingerprint_hint">Touch sensor</string>
-	<string name="dialog_fingerprint_success">Fingerprint recognized</string>
+	<!-- ## biometric authentication -->
+	<string name="dialog_biometric_auth_title">Biometric login</string>
+	<string name="dialog_biometric_auth_message">Log in using your biometric credential</string>
+	<string name="dialog_biometric_auth_use_password">Use vault password</string>
 
 	<string name="dialog_unable_to_auto_upload_files_title">"Unable to auto upload files"</string>
 

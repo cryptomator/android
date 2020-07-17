@@ -20,8 +20,6 @@
 	<string name="error_activity_not_found">Installieren Sie eine App, die diesen Dateityp unterstützt.</string>
 	<string name="error_server_not_found">Server nicht gefunden.</string>
 	<string name="error_server_timeout">Zeitüberschreitung während der Kommunikation mit dem Server.</string>
-	<string name="error_generic_fingerprint_error">Ein Fehler ist aufgetreten. Bitte benutze dein Passwort um den Tresor zu öffnen.</string>
-	<string name="error_generic_fingerprint_crypto_error">Fehler beim Ver-/Entschlüsseln. Bitte benutze dein Passwort um den Tresor zu öffnen.</string>
 	<string name="error_device_policy_manager_not_found">Bitte öffne die Einstellungen und setze den Sperrbildschirm von Hand</string>
 	<string name="error_export_illegal_file_name">Export fehlgeschlagen. Versuchen Sie Sonderzeichen aus den Dateinamen zu entfernen und erneut zu exportieren.</string>
 	<string name="error_name_contains_invalid_characters">Keine Sonderzeichen möglich.</string>
@@ -32,6 +30,7 @@
 	<string name="error_update_no_internet">Prüfung auf Aktualisierungen fehlgeschlagen. Keine Internetverbindung.</string>
 	<string name="error_failed_to_decrypt_webdav_password">Beim entschlüsseln des WebDAV-Passworts trat ein Fehler auf. Bitte in den Einstellungen erneut festlegen.</string>
 	<string name="error_play_services_not_available">Die Play Services sind nicht installiert</string>
+	<string name="error_biometric_auth_aborted">Biometrischer Login abgebrochen</string>
 
 	<!-- # clouds -->
 
@@ -166,7 +165,6 @@
 	<string name="screen_webdav_settings_msg_url_is_invalid">URL ist ungültig.</string>
 	<string name="screen_webdav_settings_msg_username_must_not_be_empty">Benutzername muss ausgefüllt werden.</string>
 	<string name="screen_webdav_settings_msg_password_must_not_be_empty">Passwort muss ausgefüllt werden.</string>
-	<string name="screen_webdav_settings_use_fingerprint">Fingerabdruck benutzen</string>
 
 	<!-- ## screen: enter vault name -->
 	<string name="screen_enter_vault_name_title">@string/screen_vault_list_action_create_new_vault</string>
@@ -194,8 +192,9 @@
 
 	<string name="screen_settings_section_general">Allgemein</string>
 	<string name="screen_settings_cloud_settings_label">Cloud-Dienste</string>
-	<string name="screen_settings_fingerprint">Fingerabdruck</string>
-	<string name="screen_settings_activate_fingerprint">Fingerabdruck aktivieren</string>
+	<string name="screen_settings_biometric_auth">Biometrischer Login</string>
+	<string name="screen_settings_activate_biometric_auth">Biometrischer Login aktivieren</string>
+	<string name="screen_settings_confirm_face_unlock">Nach Entsperrung mittels dem Gesichts, bestätigen (falls verfügbar)</string>
 	<string name="screen_settings_block_app_when_obscured">App blockieren, wenn verdeckt</string>
 	<string name="screen_settings_secure_screen">Bildschirm-Sicherheit</string>
 	<string name="screen_settings_section_search">Search</string>
@@ -368,8 +367,8 @@
 	<string name="dialog_no_screen_lock_title">Sperrbildschirm setzen?</string>
 	<string name="dialog_no_screen_lock_checkbox">Sperrbildschirm setzen</string>
 
-	<string name="dialog_no_fingerprint_set_title">Kein Fingerabdruck im System</string>
-	<string name="dialog_no_fingerprint_set_message">Legen Sie mindestens einen Fingerabdruck im System an, um diesen Dienst nutzen zu können.</string>
+	<string name="dialog_no_biometric_auth_set_up_title">Kein Fingerabdruck/Gesicht im System</string>
+	<string name="dialog_no_biometric_auth_set_up_message">Legen Sie mindestens einen Fingerabdruck/Gesicht im System an, um diesen Dienst nutzen zu können.</string>
 
 	<string name="dialog_debug_mode_disclaimer_hint">In diesem Modus könnten sensible Daten in eine Log-Datei auf diesem Gerät geschrieben werden (z.B. Dateinamen und Pfade). Ausgeschlossen davon sind u.a. Passwörter und Cookies.\n\nDenken Sie daran, den Debug-Modus so schnell wie möglich wieder zu deaktivieren.</string>
 	<string name="dialog_debug_mode_disclaimer_title">Achtung</string>
@@ -402,9 +401,9 @@
 	<string name="dialog_confirm_delete_file_message">Sind Sie sicher, dass Sie diese Datei löschen wollen?</string>
 	<string name="dialog_confirm_delete_folder_message">Dieser Vorgang wird den gesamten Ordnerinhalt löschen. Sind Sie sicher, dass Sie diesen Ordner löschen wollen?</string>
 
-	<string name="dialog_fingerprint_key_invalidated_title">Fingerprint-Funktion deaktiviert</string>
-	<string name="dialog_fingerprint_key_invalidated_message">Da der Schlüssel nicht mehr zur Verfügung steht, wurde die Fingerprint-Funktion deaktiviert. Zur Reaktivierung öffnen Sie die Cryptomator-Einstellungen.</string>
-	<string name="dialog_fingerprint_key_invalidated_neutral_button">@string/dialog_unable_to_share_positive_button</string>
+	<string name="dialog_biometric_auth_key_invalidated_title">Biometrischer Login deaktiviert</string>
+	<string name="dialog_biometric_auth_key_invalidated_message">Da der Schlüssel nicht mehr zur Verfügung steht, wurde der Biometrischer Login deaktiviert. Zur Reaktivierung öffnen Sie die Cryptomator-Einstellungen.</string>
+	<string name="dialog_biometric_auth_key_invalidated_neutral_button">@string/dialog_unable_to_share_positive_button</string>
 
 	<string name="dialog_beta_confirmation_title">Beta-Version</string>
 	<string name="dialog_beta_confirmation">Das ist eine Beta-Version, die das Tresor-Format 7 unterstützt. Bitte nicht mit einem produktiv eingesetzten Tresor verwenden oder dafür sorgen, dass gute Sicherungen vorhanden sind.</string>
@@ -473,14 +472,10 @@
 	<string name="time_unit_years_sg">Jahr</string>
 	<string name="time_unit_years_pl">Jahre</string>
 
-	<!-- ## fingerprint -->
-	<string name="fingerprint_instructions">Legen Sie Ihren Finger auf den Fingerabdruck-Sensor, um Ihre Identität zu bestätigen</string>
-	<string name="fingerprint_instructions_change_password">Legen Sie Ihren Finger auf den Fingerabdruck-Sensor um das neue Passwort zu speichern</string>
-	<string name="dialog_fingerprint_title">Fingerabdruck-Authentifizierung</string>
-	<string name="dialog_fingerprint_use_password">Benutze Passwort</string>
-	<string name="fingerprint_not_recognized">Fingerabdruck nicht erkannt. Bitte wiederholen.</string>
-	<string name="dialog_fingerprint_hint">Präsentiere den Finger</string>
-	<string name="dialog_fingerprint_success">Fingerabdruck erkannt</string>
+	<!-- ## biometric authentication -->
+	<string name="dialog_biometric_auth_title">Biometrischer Login</string>
+	<string name="dialog_biometric_auth_message">Tresor mittels Biometrie entsperren</string>
+	<string name="dialog_biometric_auth_use_password">Tresor-Passwort verwenden</string>
 
 	<string name="dialog_unable_to_auto_upload_files_title">Automatischer Upload nicht möglich</string>
 
