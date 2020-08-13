@@ -236,7 +236,7 @@
 	<string name="screen_settings_error_report_label">Send log file</string>
 	<string name="screen_settings_error_report_failed">Sending failed</string>
 	<string name="screen_settings_security_label">Security hints</string>
-	<string name="screen_settings_security_url">https://cryptomator.org/security/</string>
+	<string name="screen_settings_security_url">https://docs.cryptomator.org/en/1.5/security/best-practices/</string>
 
 	<string name="screen_settings_section_version">Version</string>
 

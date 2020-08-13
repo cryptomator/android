@@ -231,7 +231,7 @@
 	<string name="screen_settings_error_report_label">Log-Datei senden</string>
 	<string name="screen_settings_error_report_failed">Senden fehlgeschlagen</string>
 	<string name="screen_settings_security_label">Sicherheitshinweise</string>
-	<string name="screen_settings_security_url">https://cryptomator.org/de/security/</string>
+	<string name="screen_settings_security_url">https://docs.cryptomator.org/en/1.5/security/best-practices/</string>
 	<string name="screen_settings_section_version">Version</string>
 	<string name="screen_settings_keep_unlocked_while_editing_files">Halte Tresore geöffnet während dem Editieren einer Datei</string>
 

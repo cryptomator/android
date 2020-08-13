@@ -237,7 +237,7 @@
 	<string name="screen_settings_error_report_label">Envoyer un fichier journal</string>
 	<string name="screen_settings_error_report_failed">L\'envoi a échoué</string>
 	<string name="screen_settings_security_label">Conseils de sécurité</string>
-	<string name="screen_settings_security_url">https://cryptomator.org/security/</string>
+	<string name="screen_settings_security_url">https://docs.cryptomator.org/en/1.5/security/best-practices/</string>
 
 	<string name="screen_settings_section_version">Version</string>
 
