@@ -21,8 +21,8 @@ Of course, we also expect you to search for existing similar issues first! ;) ht
 
 ### System Setup
 
-* Android version: [Windows/macOS/Linux + Version]
-* Cryptomator version: [Shown in the settings]
+* Android version: [Shown in the settings of Android]
+* Cryptomator version: [Shown in the settings of Cryptomator]
 * Cloud type: [Dropbox/Google Drive/OneDrive/WebDAV/Local storage]
 
 ### Steps to Reproduce
