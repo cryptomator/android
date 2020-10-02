@@ -89,7 +89,7 @@
 	<string name="screen_share_files_section_location">Guardar ubicación</string>
 	<string name="screen_share_files_save_button_text">Guardar</string>
 	<string name="screen_share_files_msg_success">Cifrado completado</string>
-	<string name="screen_share_files_new_text_file">texto.txt</string>
+	<string name="screen_share_files_new_text_file">@string/dialog_file_name_placeholder</string>
 
 	<!-- ## screen: choose cloud service -->
 	<string name="screen_choose_cloud_service_title">Servicio de nube</string>

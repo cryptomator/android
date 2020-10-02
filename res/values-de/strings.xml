@@ -324,7 +324,7 @@
 	<string name="dialog_file_name_title">@string/screen_file_browser_action_create_new_text_file</string>
 	<string name="dialog_file_name_create">@string/screen_enter_vault_name_button_text</string>
 	<string name="dialog_file_name_cancel">@string/dialog_button_cancel</string>
-	<string name="dialog_file_name_placeholder">text.txt</string>
+	<string name="dialog_file_name_placeholder">@string/screen_share_files_new_text_file</string>
 
 	<string name="dialog_delete_vault_positive_button_text">@string/screen_file_browser_node_action_delete</string>
 	<string name="dialog_delete_vault_message">Sind Sie sicher, dass sie den Tresor entfernen wollen?</string>

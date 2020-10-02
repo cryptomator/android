@@ -142,7 +142,7 @@
 	<string name="screen_share_files_section_location">Save location</string>
 	<string name="screen_share_files_save_button_text">Save</string>
 	<string name="screen_share_files_msg_success">Encryption completed</string>
-	<string name="screen_share_files_new_text_file">text.txt</string>
+	<string name="screen_share_files_new_text_file">@string/dialog_file_name_placeholder</string>
 
 	<!-- ## screen: choose cloud service -->
 	<string name="screen_choose_cloud_service_title">Cloud service</string>
@@ -482,7 +482,7 @@
 	<string name="dialog_biometric_auth_message">Log in using your biometric credential</string>
 	<string name="dialog_biometric_auth_use_password">Use vault password</string>
 
-	<string name="dialog_unable_to_auto_upload_files_title">"Unable to auto upload files"</string>
+	<string name="dialog_unable_to_auto_upload_files_title">Unable to auto upload files</string>
 
 	<!-- notification -->
 	<string name="notification_unlocked">Vaults unlocked: %1$d</string>
@@ -530,7 +530,7 @@
 	<string name="lock_timeout_2m">2 minutes</string>
 	<string name="lock_timeout_5m">5 minutes</string>
 	<string name="lock_timeout_10m">10 minutes</string>
-	<string name="lock_timeout_never">Never</string>
+	<string name="lock_timeout_never">@string/screen_settings_last_check_updates_never</string>
 
 	<!-- cache size names -->
 	<string name="cache_size_50m">50 MB</string>
@@ -550,6 +550,6 @@
 	<string name="update_interval_1d">Once a day</string>
 	<string name="update_interval_1w">Once a week</string>
 	<string name="update_interval_1m">Once a month</string>
-	<string name="update_interval_never">Never</string>
+	<string name="update_interval_never">@string/screen_settings_last_check_updates_never</string>
 
 </resources>
