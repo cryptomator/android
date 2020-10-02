@@ -243,6 +243,9 @@
 	<string name="screen_cloud_settings_logged_in_as">Eingeloggt als</string>
 	<string name="screen_cloud_settings_sign_out_from_cloud">Abmelden von</string>
 
+	<string name="screen_settings_advanced_settings">Erweiterte Eigenschaften</string>
+	<string name="screen_settings_background_unlock_preparation_label">Vorbereitungen zum Entsperren im Hintergrund</string>
+
 	<!-- ## screen: licenses -->
 	<string name="screen_licenses_title">@string/screen_settings_licenses_label</string>
 
