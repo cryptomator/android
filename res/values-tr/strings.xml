@@ -259,13 +259,13 @@
 	<!-- ## screen: empty dir file info -->
 	<string name="screen_empty_dir_file_info_title">\'%1$s\' ulaşılamaz</string>
 	<string name="screen_empty_dir_file_info_headline">Cryptomator bu klasöre erişilemediğini tespit etti.</string>
-	<string name="screen_empty_dir_file_info_text">Dizin dosyasını bulut sağlayıcınız aracılığıyla boş olmayan önceki bir sürüme geri yüklemeyi deneyin. Söz konusu dosya:\n%1$s\n\nBu işe yaramazsa, kasanızı sorunlar için kontrol etmek ve muhtemelen verilerinizi geri yüklemek için Sanitizer'ı kullanabilirsiniz.</string>
+	<string name="screen_empty_dir_file_info_text">Dizin dosyasını bulut sağlayıcınız aracılığıyla boş olmayan önceki bir sürüme geri yüklemeyi deneyin. Söz konusu dosya:\n%1$s\n\nBu işe yaramazsa, kasanızı sorunlar için kontrol etmek ve muhtemelen verilerinizi geri yüklemek için Sanitizer\'ı kullanabilirsiniz.</string>
 	<string name="screen_empty_dir_file_info_button_label">Sanitizer Hakkında Daha Fazla Bilgi</string>
 
 	<!-- ## screen: insecure android version info -->
 	<string name="screen_insecure_android_version_info_title">WebDAV kimlik bilgileri güvenli bir şekilde saklanamıyor</string>
 	<string name="screen_insecure_android_version_headline">Cryptomator, bu Android sürümünün kimlik bilgilerini güvenli bir şekilde saklayamadığını tespit etti.</string>
-	<string name="screen_insecure_android_version_text">WebDAV durumunda, kullanıcı şifresini uygulamamızda saklamamız gerekir. Android 4.1 ve 4.2 sürümlerinde bunu güvenli şekilde saklamanın bir yolu yoktur.\n\nMümkünse, telefonunuzu en son sürüme, mümkün değilse en az 4.3\'e güncelleyin. Aksi takdirde, bu telefonda WebDAV'ı kullanmamanızı tavsiye ediyoruz.\n\nLütfen diğer uygulama satıcılarının da bu cihazlarda aynı sorunu yaşadığını unutmayın.</string>
+	<string name="screen_insecure_android_version_text">WebDAV durumunda, kullanıcı şifresini uygulamamızda saklamamız gerekir. Android 4.1 ve 4.2 sürümlerinde bunu güvenli şekilde saklamanın bir yolu yoktur.\n\nMümkünse, telefonunuzu en son sürüme, mümkün değilse en az 4.3\'e güncelleyin. Aksi takdirde, bu telefonda WebDAV\'ı kullanmamanızı tavsiye ediyoruz.\n\nLütfen diğer uygulama satıcılarının da bu cihazlarda aynı sorunu yaşadığını unutmayın.</string>
 	<string name="screen_insecure_android_version_button_label">Bu sorunla ilgili daha fazla ayrıntı</string>
 
 	<!-- # dialogs -->
@@ -386,7 +386,7 @@
 	<string name="dialog_disable_app_obscured_negative_button">@string/dialog_button_cancel</string>
 
 	<string name="dialog_app_is_obscured_info_title">Uygulama gizlendi</string>
-	<string name="dialog_app_is_obscured_info_hint">Cryptomator\'un üstünde çalışan bazı uygulamalar, (örn. Mavi ışık filtresi ve gece modu uygulamaları gibi) içeriği görüntüler! Bu nedenden dolayı, güvenlik amacıyla Cryptomator devre dışı bırakılır!\n\n<a href="https://docs.cryptomator.org/en/1.5/android/settings/#block-app-when-obscured">Cryptomator'u tekrar nasıl etkinleştirebilirim?</a></string>
+	<string name="dialog_app_is_obscured_info_hint">Cryptomator\'un üstünde çalışan bazı uygulamalar, (örn. Mavi ışık filtresi ve gece modu uygulamaları gibi) içeriği görüntüler! Bu nedenden dolayı, güvenlik amacıyla Cryptomator devre dışı bırakılır!\n\n<a href="https://docs.cryptomator.org/en/1.5/android/settings/#block-app-when-obscured">Cryptomator\'u tekrar nasıl etkinleştirebilirim?</a></string>
 	<string name="dialog_app_is_obscured_info_neutral_button">Kapat</string>
 
 	<string name="dialog_disable_secure_screen_disclaimer_hint">Bu ayar bir güvenlik özelliğidir ve diğer uygulamaların, kullanıcıları kandırmasını engeller.\n\nDevre dışı bırakarak, <a href="https://docs.cryptomator.org/en/1.5/android/settings/#screen-security">risklerin farkında olduğunuzu onaylamış olursunuz</a>.</string>
@@ -436,7 +436,7 @@
 	<string name="dialog_sym_link_back_button">Geri</string>
 
 	<string name="dialog_no_dir_file_title">Dizinin içeriği yüklenemiyor</string>
-	<string name="dialog_no_dir_file_message">\'%1$s\' bulut klasörünün bir dizin dosyası yok. Klasör başka bir cihazda oluşturulmuş ve henüz buluta tam olarak senkronize edilmemiş olabilir.  Lütfen aşağıdaki dosyanın mevcut olup olmadığını kontrol edin:\n%2$s</string>
+	<string name="dialog_no_dir_file_message">\'%1$s\' bulut klasörünün bir dizin dosyası yok. Klasör ba\şka bir cihazda oluşturulmuş ve henüz buluta tam olarak senkronize edilmemiş olabilir. Lütfen aşağıdaki dosyanın mevcut olup olmadığını kontrol edin:\n%2$s</string>
 	<string name="dialog_no_dir_file_back_button">@string/dialog_sym_link_back_button</string>
 
 	<string name="dialog_beta_confirmation_title">Beta sürümü</string>
