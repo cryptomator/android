@@ -242,6 +242,9 @@
 
 	<string name="screen_settings_keep_unlocked_while_editing_files">Düzenlerken kasa kilidi açık</string>
 
+	<string name="screen_settings_advanced_settings">Gelişmiş Ayarlar</string>
+	<string name="screen_settings_background_unlock_preparation_label">Arka planda kilit açma</string>
+
 	<!-- ## screen: cloud settings -->
 	<string name="screen_cloud_settings_title">@string/screen_settings_cloud_settings_label</string>
 	<string name="screen_cloud_settings_webdav_connections">WebDAV bağlantıları</string>
@@ -436,7 +439,7 @@
 	<string name="dialog_sym_link_back_button">Geri</string>
 
 	<string name="dialog_no_dir_file_title">Dizinin içeriği yüklenemiyor</string>
-	<string name="dialog_no_dir_file_message">\'%1$s\' bulut klasörünün bir dizin dosyası yok. Klasör ba\şka bir cihazda oluşturulmuş ve henüz buluta tam olarak senkronize edilmemiş olabilir. Lütfen aşağıdaki dosyanın mevcut olup olmadığını kontrol edin:\n%2$s</string>
+	<string name="dialog_no_dir_file_message">\'%1$s\' bulut klasörünün bir dizin dosyası yok. Klasör başka bir cihazda oluşturulmuş ve henüz buluta tam olarak senkronize edilmemiş olabilir. Lütfen aşağıdaki dosyanın mevcut olup olmadığını kontrol edin:\n%2$s</string>
 	<string name="dialog_no_dir_file_back_button">@string/dialog_sym_link_back_button</string>
 
 	<string name="dialog_beta_confirmation_title">Beta sürümü</string>
