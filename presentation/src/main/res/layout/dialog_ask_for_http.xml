@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+	android:layout_width="match_parent"
+	android:layout_height="match_parent">
+
+	<RelativeLayout
+		android:layout_width="match_parent"
+		android:layout_height="match_parent"
+		android:padding="@dimen/activity_vertical_margin">
+
+		<TextView
+			android:id="@+id/tv_security_hint"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:paddingBottom="16dp"
+			android:text="@string/dialog_http_security_hint" />
+
+		<CheckBox
+			android:id="@+id/cb_select_http"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:layout_below="@id/tv_security_hint"
+			android:checked="true"
+			android:paddingEnd="16dp"
+			android:paddingLeft="16dp"
+			android:paddingRight="16dp"
+			android:paddingStart="16dp"
+			android:text="@string/dialog_http_security_checkbox" />
+
+	</RelativeLayout>
+</androidx.core.widget.NestedScrollView>

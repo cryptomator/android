@@ -1,0 +1,6 @@
+[submodule "msa-auth-for-android"]
+	path = msa-auth-for-android
+	url = https://github.com/SailReal/msa-auth-for-android.git
+[submodule "subsampling-scale-image-view"]
+	path = subsampling-scale-image-view
+	url = https://github.com/SailReal/subsampling-scale-image-view.git

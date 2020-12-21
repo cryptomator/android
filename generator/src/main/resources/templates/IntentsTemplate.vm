@@ -1,0 +1,32 @@
+package $javaPackage;
+
+/**
+ * Provides methods to read and build {@link android.content.Intent Intents}.
+ */
+@javax.annotation.Generated("org.cryptomator.generator.IntentProcessor")
+public class $className {
+
+#foreach( $builder in $builders )
+    /**
+     * @return a builder which can be used to create {@code Intent}s to invoke {@link ${builder.targetActivity}}
+     */
+    public static ${builder.javaPackage}.${builder.className} ${builder.buildMethodName}() {
+        return new ${builder.javaPackage}.${builder.className}();
+    }
+
+#end
+
+#foreach( $reader in $readers )
+    /**
+     * @param context a {@link $reader.targetActivity} to read {@code Intent} data from
+     * @return a {@link ${reader.javaPackage}.${reader.className} ${reader.className}} holding extra values from the intent of the given {@code Activity}
+     */
+    public static ${reader.javaPackage}.${reader.className} ${reader.readMethodName}($reader.targetActivity context) {
+        return new ${reader.javaPackage}.${reader.className}(context);
+    }
+
+#end
+
+    private ${className}() {}
+
+}

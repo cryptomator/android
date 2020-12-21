@@ -1,0 +1,41 @@
+package org.cryptomator.presentation.ui.fragment
+
+import android.view.inputmethod.EditorInfo
+import kotlinx.android.synthetic.main.fragment_set_password.*
+import kotlinx.android.synthetic.main.view_password_strength_indicator.*
+import org.cryptomator.generator.Fragment
+import org.cryptomator.presentation.R
+import org.cryptomator.presentation.presenter.SetPasswordPresenter
+import org.cryptomator.presentation.util.PasswordStrengthUtil
+import javax.inject.Inject
+
+@Fragment(R.layout.fragment_set_password)
+class SetPasswordFragment : BaseFragment() {
+
+	@Inject
+	lateinit var setPasswordPresenter: SetPasswordPresenter
+
+	@Inject
+	lateinit var passwordStrengthUtil: PasswordStrengthUtil
+
+	override fun setupView() {
+		createVaultButton.setOnClickListener { validatePasswords() }
+		createVaultButton.setOnEditorActionListener { _, actionId, _ ->
+			if (actionId == EditorInfo.IME_ACTION_DONE) {
+				validatePasswords()
+			}
+			false
+		}
+		passwordStrengthUtil.startUpdatingPasswortStrengthMeter(passwordEditText, //
+				progressBarPwStrengthIndicator, //
+				textViewPwStrengthIndicator)
+
+		passwordEditText.requestFocus()
+	}
+
+	private fun validatePasswords() {
+		val password = passwordEditText.text.toString()
+		val passwordRetyped = passwordRetypedEditText.text.toString()
+		setPasswordPresenter.validatePasswords(password, passwordRetyped)
+	}
+}

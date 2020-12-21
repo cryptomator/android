@@ -1,0 +1,61 @@
+apply from: 'buildsystem/ci.gradle'
+apply from: 'buildsystem/dependencies.gradle'
+apply plugin: "com.vanniktech.android.junit.jacoco"
+
+buildscript {
+	ext.kotlin_version = '1.4.21'
+	repositories {
+		jcenter()
+		mavenCentral()
+		google()
+	}
+	dependencies {
+		classpath 'com.android.tools.build:gradle:4.1.1'
+		classpath 'org.greenrobot:greendao-gradle-plugin:3.3.0'
+		classpath 'com.fernandocejas.frodo:frodo-plugin:0.8.3'
+		classpath 'com.vanniktech:gradle-android-junit-jacoco-plugin:0.16.0'
+		classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
+		classpath "de.mannodermaus.gradle.plugins:android-junit5:1.7.0.0"
+	}
+}
+
+def getVersionCode = { ->
+	try {
+		def branchName = new ByteArrayOutputStream()
+		exec {
+			commandLine 'git', 'rev-parse', '--abbrev-ref', 'HEAD'
+			standardOutput = branchName
+		}
+		def appBuild = new ByteArrayOutputStream()
+		exec {
+			commandLine 'git', 'rev-list', '--count', branchName.toString().trim()
+			standardOutput = appBuild
+		}
+		return Integer.parseInt(appBuild.toString().trim()) + 1958 // adding 1958 for legacy reasons
+	}
+	catch (ignored) {
+		return -1
+	}
+}
+
+allprojects {
+	ext {
+		androidApplicationId = 'org.cryptomator'
+		androidVersionCode = getVersionCode()
+		androidVersionName = '1.5.11-SNAPSHOT'
+	}
+	repositories {
+		mavenCentral()
+		maven {
+			url "https://maven.google.com"
+		}
+		flatDir {
+			dirs '../libs'
+		}
+		google()
+	}
+}
+
+task clean(type: Delete) {
+	delete rootProject.buildDir
+}

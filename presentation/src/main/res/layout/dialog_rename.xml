@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+	android:layout_width="match_parent"
+	android:layout_height="match_parent">
+
+	<RelativeLayout
+		android:layout_width="match_parent"
+		android:layout_height="match_parent"
+		android:padding="@dimen/activity_vertical_margin">
+
+		<com.google.android.material.textfield.TextInputEditText
+			android:id="@+id/et_rename"
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content"
+			android:inputType="text"
+			android:maxLines="1"
+			android:selectAllOnFocus="true"
+			android:imeOptions="flagNoPersonalizedLearning" />
+
+		<include
+			layout="@layout/view_dialog_progress"
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content"
+			android:layout_below="@+id/et_rename" />
+
+		<include
+			layout="@layout/view_dialog_error"
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content"
+			android:layout_below="@+id/et_rename" />
+	</RelativeLayout>
+</androidx.core.widget.NestedScrollView>

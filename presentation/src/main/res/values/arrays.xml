@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+	<string-array name="screen_settings_auto_lock_entries">
+		<item>@string/lock_timeout_instant</item>
+		<item>@string/lock_timeout_1m</item>
+		<item>@string/lock_timeout_2m</item>
+		<item>@string/lock_timeout_5m</item>
+		<item>@string/lock_timeout_10m</item>
+		<item>@string/lock_timeout_never</item>
+	</string-array>
+	<string-array name="screen_settings_auto_lock_values">
+		<item>INSTANT</item>
+		<item>ONE_MINUTE</item>
+		<item>TWO_MINUTES</item>
+		<item>FIVE_MINUTES</item>
+		<item>TEN_MINUTES</item>
+		<item>NEVER</item>
+	</string-array>
+	<string-array name="screen_settings_style_mode_entries">
+		<item>@string/follow_system</item>
+		<item>@string/light</item>
+		<item>@string/dark</item>
+	</string-array>
+	<string-array name="screen_settings_style_mode_values">
+		<item>MODE_NIGHT_FOLLOW_SYSTEM</item>
+		<item>MODE_NIGHT_NO</item>
+		<item>MODE_NIGHT_YES</item>
+	</string-array>
+	<string-array name="cache_size_entries">
+		<item>@string/cache_size_50m</item>
+		<item>@string/cache_size_100m</item>
+		<item>@string/cache_size_250m</item>
+		<item>@string/cache_size_500m</item>
+		<item>@string/cache_size_1000m</item>
+		<item>@string/cache_size_5000m</item>
+	</string-array>
+	<string-array name="cache_size_values">
+		<item>50</item>
+		<item>100</item>
+		<item>250</item>
+		<item>500</item>
+		<item>1000</item>
+		<item>5000</item>
+	</string-array>
+	<string-array name="update_interval_entries">
+		<item>@string/update_interval_1d</item>
+		<item>@string/update_interval_1w</item>
+		<item>@string/update_interval_1m</item>
+		<item>@string/update_interval_never</item>
+	</string-array>
+	<string-array name="update_interval_values">
+		<item>1</item>
+		<item>7</item>
+		<item>30</item>
+		<item>Never</item>
+	</string-array>
+</resources>

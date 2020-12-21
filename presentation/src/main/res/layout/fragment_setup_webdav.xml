@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+	android:layout_width="match_parent"
+	android:layout_height="match_parent"
+	android:padding="@dimen/activity_vertical_margin"
+	android:orientation="vertical">
+
+	<com.google.android.material.textfield.TextInputLayout
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content">
+
+		<com.google.android.material.textfield.TextInputEditText
+			android:id="@+id/urlPortEditText"
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content"
+			android:hint="@string/screen_webdav_settings_url_port_label"
+			android:inputType="textUri"
+			android:maxLines="1"
+			android:singleLine="true"
+			android:text="https://"
+			android:imeOptions="flagNoPersonalizedLearning" />
+
+
+	</com.google.android.material.textfield.TextInputLayout>
+
+	<com.google.android.material.textfield.TextInputLayout
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content">
+
+
+	</com.google.android.material.textfield.TextInputLayout>
+
+	<com.google.android.material.textfield.TextInputLayout
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content">
+
+		<com.google.android.material.textfield.TextInputEditText
+			android:id="@+id/userNameEditText"
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content"
+			android:hint="@string/screen_webdav_settings_username_label"
+			android:maxLines="1"
+			android:singleLine="true"
+			android:imeOptions="flagNoPersonalizedLearning" />
+
+	</com.google.android.material.textfield.TextInputLayout>
+
+	<com.google.android.material.textfield.TextInputLayout
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content">
+
+		<com.google.android.material.textfield.TextInputEditText
+			android:id="@+id/passwordEditText"
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content"
+			android:hint="@string/screen_webdav_settings_password_label"
+			android:inputType="textPassword"
+			android:maxLines="1"
+			android:singleLine="true"
+			android:imeOptions="flagNoPersonalizedLearning" />
+
+	</com.google.android.material.textfield.TextInputLayout>
+
+	<Button
+		android:id="@+id/createCloudButton"
+		style="?android:textAppearanceSmall"
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content"
+		android:layout_marginTop="16dp"
+		android:text="@string/screen_webdav_settings_done_button_text"
+		android:textStyle="bold" />
+
+</LinearLayout>
+

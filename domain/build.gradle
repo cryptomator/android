@@ -1,0 +1,73 @@
+apply plugin: 'com.android.library'
+apply plugin: 'kotlin-android'
+apply plugin: 'de.mannodermaus.android-junit5'
+
+android {
+	defaultPublishConfig "debug"
+
+	def globalConfiguration = rootProject.extensions.getByName("ext")
+
+	compileSdkVersion globalConfiguration["androidCompileSdkVersion"]
+	buildToolsVersion globalConfiguration["androidBuildToolsVersion"]
+
+	defaultConfig {
+		minSdkVersion globalConfiguration["androidMinSdkVersion"]
+		targetSdkVersion globalConfiguration["androidTargetSdkVersion"]
+
+		buildConfigField 'int', 'VERSION_CODE', "${globalConfiguration["androidVersionCode"]}"
+		buildConfigField "String", "VERSION_NAME", "\"${globalConfiguration["androidVersionName"]}\""
+	}
+
+	compileOptions {
+		sourceCompatibility JavaVersion.VERSION_1_8
+		targetCompatibility JavaVersion.VERSION_1_8
+	}
+
+	lintOptions {
+		quiet true
+		abortOnError false
+		ignoreWarnings true
+	}
+}
+
+dependencies {
+	def dependencies = rootProject.ext.dependencies
+
+	implementation project(':generator-api')
+	implementation project(':util')
+
+	annotationProcessor project(':generator')
+	annotationProcessor dependencies.daggerCompiler
+
+	compileOnly dependencies.javaxAnnotation
+
+	api dependencies.timber
+	api dependencies.dagger
+	api dependencies.rxJava
+
+	api "org.jetbrains.kotlin:kotlin-stdlib-jdk8:$kotlin_version"
+
+	implementation dependencies.appcompat
+
+	api dependencies.jsonWebTokenApi
+	runtimeOnly dependencies.jsonWebTokenImpl
+	runtimeOnly(dependencies.jsonWebTokenJson) {
+		exclude group: 'org.json', module: 'json' //provided by Android natively
+	}
+
+	// test
+	testImplementation dependencies.junit
+	testImplementation dependencies.junitApi
+	testRuntimeOnly dependencies.junitEngine
+	testImplementation dependencies.junitParams
+
+	testImplementation dependencies.junit4
+	testRuntimeOnly dependencies.junit4Engine
+
+	testImplementation dependencies.mockito
+	testImplementation dependencies.hamcrest
+}
+
+configurations {
+	all*.exclude group: 'com.google.android', module: 'android'
+}

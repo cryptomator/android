@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+	xmlns:app="http://schemas.android.com/apk/res-auto">
+
+	<item
+		android:id="@+id/action_search"
+		android:title="@string/snack_bar_action_title_search"
+		app:actionViewClass="androidx.appcompat.widget.SearchView"
+		app:showAsAction="ifRoom" />
+
+	<item
+		android:id="@+id/action_select_all_items"
+		android:icon="@drawable/ic_select_all"
+		android:title="@string/screen_file_browser_select_all_items"
+		app:showAsAction="ifRoom" />
+
+	<item
+		android:id="@+id/action_move_items"
+		android:enabled="false"
+		android:title="@string/screen_file_browser_move_button_text"
+		app:showAsAction="never" />
+
+	<item
+		android:id="@+id/action_export_items"
+		android:enabled="false"
+		android:title="@string/screen_file_browser_node_action_export"
+		app:showAsAction="never" />
+
+	<item
+		android:id="@+id/action_share_items"
+		android:enabled="false"
+		android:title="@string/screen_file_browser_node_action_share"
+		app:showAsAction="never" />
+
+	<item
+		android:id="@+id/action_delete_items"
+		android:enabled="false"
+		android:title="@string/screen_file_browser_node_action_delete"
+		app:showAsAction="never" />
+</menu>

@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+	xmlns:app="http://schemas.android.com/apk/res-auto">
+
+	<item
+		android:id="@+id/action_search"
+		android:title="@string/snack_bar_action_title_search"
+		app:actionViewClass="androidx.appcompat.widget.SearchView"
+		app:showAsAction="ifRoom" />
+
+	<item
+		android:title="@string/snack_bar_action_title_sort"
+		android:icon="@drawable/ic_sort"
+		app:showAsAction="ifRoom">
+		<menu>
+			<item
+				android:id="@+id/action_sort_az"
+				android:title="@string/snack_bar_action_title_sort_az"
+				android:icon="@drawable/ic_sort_az" />
+			<item
+				android:id="@+id/action_sort_za"
+				android:title="@string/snack_bar_action_title_sort_za"
+				android:icon="@drawable/ic_sort_za" />
+			<item
+				android:id="@+id/action_sort_newest"
+				android:title="@string/snack_bar_action_title_sort_newest"
+				android:icon="@drawable/ic_sort_newest" />
+			<item
+				android:id="@+id/action_sort_oldest"
+				android:title="@string/snack_bar_action_title_sort_oldest"
+				android:icon="@drawable/ic_sort_oldest" />
+			<item
+				android:id="@+id/action_sort_biggest"
+				android:title="@string/snack_bar_action_title_sort_biggest"
+				android:icon="@drawable/ic_sort_biggest" />
+			<item
+				android:id="@+id/action_sort_smallest"
+				android:title="@string/snack_bar_action_title_sort_smallest"
+				android:icon="@drawable/ic_sort_smallest" />
+		</menu>
+	</item>
+
+	<item
+		android:id="@+id/action_select_items"
+		android:title="@string/screen_file_browser_select_items"
+		app:showAsAction="never" />
+
+	<item
+		android:id="@+id/action_refresh"
+		android:title="@string/screen_file_browser_refresh_items"
+		app:showAsAction="never" />
+</menu>

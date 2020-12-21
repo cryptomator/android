@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+	android:layout_width="match_parent"
+	android:layout_height="72dp"
+	android:background="?android:attr/selectableItemBackground"
+	android:foreground="@drawable/item_browse_files_node_selector">
+
+	<ImageView
+		android:id="@+id/iv_cloud_model_image"
+		android:layout_width="@dimen/thumbnail_size"
+		android:layout_height="@dimen/thumbnail_size"
+		android:layout_centerVertical="true"
+		android:layout_marginStart="16dp"
+		android:src="@drawable/ic_sd_storage" />
+
+	<include
+		layout="@layout/view_cloud_connection_content"
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content"
+		android:layout_centerVertical="true"
+		android:layout_marginEnd="16dp"
+		android:layout_marginLeft="16dp"
+		android:layout_marginRight="16dp"
+		android:layout_marginStart="16dp"
+		android:layout_marginTop="16dp"
+		android:layout_toEndOf="@id/iv_cloud_model_image" />
+
+</RelativeLayout>

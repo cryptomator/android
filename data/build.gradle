@@ -1,0 +1,122 @@
+apply plugin: 'org.greenrobot.greendao'
+apply plugin: 'com.android.library'
+apply plugin: 'kotlin-android'
+apply plugin: 'de.mannodermaus.android-junit5'
+
+android {
+	defaultPublishConfig "debug"
+
+	def globalConfiguration = rootProject.extensions.getByName("ext")
+
+	compileSdkVersion globalConfiguration["androidCompileSdkVersion"]
+	buildToolsVersion globalConfiguration["androidBuildToolsVersion"]
+
+	defaultConfig {
+		minSdkVersion globalConfiguration["androidMinSdkVersion"]
+		targetSdkVersion globalConfiguration["androidTargetSdkVersion"]
+
+		buildConfigField 'int', 'VERSION_CODE', "${globalConfiguration["androidVersionCode"]}"
+		buildConfigField "String", "VERSION_NAME", "\"${globalConfiguration["androidVersionName"]}\""
+		buildConfigField "String", "ONEDRIVE_API_KEY", "\"" + getApiKey('ONEDRIVE_API_KEY') + "\""
+	}
+
+	compileOptions {
+		sourceCompatibility JavaVersion.VERSION_1_8
+		targetCompatibility JavaVersion.VERSION_1_8
+	}
+
+	lintOptions {
+		quiet true
+		abortOnError false
+		ignoreWarnings true
+	}
+
+	flavorDimensions "version"
+
+	productFlavors {
+		playstore {
+			dimension "version"
+		}
+
+		license {
+			dimension "version"
+		}
+	}
+}
+
+greendao {
+	schemaVersion 3
+}
+
+configurations.all {
+	// Check for updates every build (use for cryptolib snapshot)
+	//resolutionStrategy.cacheChangingModulesFor 0, 'seconds'
+}
+
+dependencies {
+	def dependencies = rootProject.ext.dependencies
+
+	implementation project(':domain')
+	implementation project(':util')
+	implementation project(':msa-auth-for-android')
+
+	// cryptomator
+	implementation dependencies.cryptolib
+
+	// greendao
+	api dependencies.greenDao
+	// dagger
+	annotationProcessor dependencies.daggerCompiler
+	implementation dependencies.dagger
+	// cloud
+	implementation dependencies.dropbox
+	implementation dependencies.googlePlayServicesAuth
+	implementation(dependencies.googleApiServicesDrive) {
+		exclude module: 'guava-jdk5'
+		exclude module: 'httpclient'
+	}
+	implementation(dependencies.googleApiClientAndroid) {
+		exclude module: 'guava-jdk5'
+		exclude module: 'httpclient'
+	}
+	implementation dependencies.msgraph
+
+	// rest
+	implementation dependencies.rxJava
+	implementation dependencies.rxAndroid
+	implementation dependencies.okHttp
+	implementation dependencies.okHttpDigest
+	implementation dependencies.androidAnnotations
+	compileOnly dependencies.javaxAnnotation
+	implementation dependencies.gson
+
+	implementation dependencies.commonsCodec
+
+	implementation dependencies.documentFile
+
+	implementation dependencies.lruFileCache
+
+	implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk8:$kotlin_version"
+
+	// test
+	testImplementation dependencies.junit
+	testImplementation dependencies.junitApi
+	testRuntimeOnly dependencies.junitEngine
+	testImplementation dependencies.junitParams
+
+	testImplementation dependencies.junit4
+	testRuntimeOnly dependencies.junit4Engine
+
+	testImplementation dependencies.mockito
+	testImplementation dependencies.hamcrest
+}
+
+configurations {
+	all*.exclude group: 'com.google.android', module: 'android'
+}
+
+static def getApiKey(key) {
+	Properties props = new Properties()
+	props.load(new FileInputStream(new File('secrets.properties')))
+	return props[key]
+}

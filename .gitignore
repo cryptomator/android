@@ -1,0 +1,43 @@
+secrets.properties
+
+###IntelliJ###
+
+*.iml
+*.ipr
+*.iws
+.idea/
+
+###Android###
+
+# Built application files
+*.apk
+*.aab
+*.ap_
+
+# Java class files
+*.class
+
+# Generated files
+bin/
+gen/
+**/**/debug/output.json
+**/**/release/output.json
+
+# Gradle files
+.gradle/
+build/
+**/release/output-metadata.json
+**/debug/output-metadata.json
+
+# Local configuration file (sdk path, etc)
+local.properties
+
+# fastlane
+secret_key_file.json
+**/**/fastlane/fastlane/**
+**/**/fastlane/metadata/**
+**/**/fastlane/report.xml
+**/**/fastlane/mappings/**
+**/**/fastlane/release_notes/**
+**/**/fastlane/latest_versions/**
+.env.default

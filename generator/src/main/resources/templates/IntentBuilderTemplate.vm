@@ -1,0 +1,73 @@
+package $javaPackage;
+
+/**
+ * Builds {@link android.content.Intent Intents} to invoke {@link ${targetActivity}}.
+ */
+@javax.annotation.Generated("org.cryptomator.generator.IntentProcessor")
+public class $className implements org.cryptomator.presentation.intent.IntentBuilder {
+
+    private boolean preventGoingBackInHistory;
+#foreach( $parameter in $parameters )
+    private $parameter.type $parameter.name;
+#end
+
+    $className() {}
+
+    /**
+     * Prevents that the user can go to fragments displayed before by setting to
+     * ACTIVITY_NEW_TASK and ACTIVITY_CLEAR_TASK flags on the created {@code Intent}.
+     *
+     * @see android.content.Intent.FLAG_ACTIVITY_NEW_TASK
+     * @see android.content.Intent.FLAG_ACTIVITY_CLEAR_TASK
+     */
+    public $className preventGoingBackInHistory() {
+        this.preventGoingBackInHistory = true;
+        return this;
+    }
+
+#foreach( $parameter in $parameters )
+    /**
+     * Sets the value for the extra $parameter.name on the created {@code Intent}.
+     */
+    public $className with${parameter.nameWithFirstCharUppercase}($parameter.type $parameter.name) {
+        this.$parameter.name = $parameter.name;
+        return this;
+    }
+#end
+
+    /**
+     * Create the {@code Intent} and then invoke {@link android.content.Context\#startActivity(android.content.Intent)} on the context.
+     *
+     * @throws IllegalStateException if some required extras or the context were not set
+     */
+    public void startActivity(org.cryptomator.presentation.presenter.ContextHolder contextHolder) {
+        contextHolder.context().startActivity(build(contextHolder));
+    }
+
+    /**
+     * @return an {@code Intent} with all values set before
+     * @throws IllegalStateException if some required extras or the context were not set
+     */
+    public android.content.Intent build(org.cryptomator.presentation.presenter.ContextHolder contextHolder) {
+        validate();
+        android.content.Intent intent = new android.content.Intent(contextHolder.context(), ${targetActivity}.class);
+        if (preventGoingBackInHistory) {
+            intent.setFlags(android.content.Intent.FLAG_ACTIVITY_NEW_TASK | android.content.Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        }
+#foreach( $parameter in $parameters )
+        intent.putExtra("$parameter.name", this.$parameter.name);
+#end
+        return intent;
+    }
+
+    private void validate() {
+#foreach( $parameter in $parameters )
+#if ($parameter.required)
+        if ($parameter.name == null) {
+            throw new IllegalStateException("Parameter $parameter.name is required for $targetActivitySimpleName");
+        }
+#end
+#end
+    }
+
+}

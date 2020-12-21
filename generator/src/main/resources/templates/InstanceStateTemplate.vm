@@ -1,0 +1,45 @@
+package $javaPackage;
+
+/**
+ * Provides methods to save and restore values of {@link org.cryptomator.generator.InstanceState} annotated classes using a Bundle.
+ */
+@javax.annotation.Generated("org.cryptomator.generator.InstanceStateProcessor")
+public class InstanceStates {
+
+    private static final int SAVE = 0;
+    private static final int RESTORE = 1;
+
+    public static void save(Object object, android.os.Bundle bundle) {
+        dispatch(object, bundle, SAVE);
+    }
+
+    public static void restore(Object object, android.os.Bundle bundle) {
+        dispatch(object, bundle, RESTORE);
+    }
+
+    public static void dispatch(Object object, android.os.Bundle bundle, int action) {
+        #foreach( $type in $types )
+            if (object instanceof ${type.qualifiedName}) {
+                if (action == SAVE) save((${type.qualifiedName})object, bundle);
+                else restore((${type.qualifiedName})object, bundle);
+            }
+        #end
+    }
+
+    #foreach( $type in $types )
+        private static void save(${type.qualifiedName} instance, android.os.Bundle bundle) {
+            #foreach( $field in $type.fields )
+                bundle.${field.putMethod}("${field.bundleKey}", instance.${field.name});
+            #end
+        }
+
+        private static void restore(${type.qualifiedName} instance, android.os.Bundle bundle) {
+            #foreach( $field in $type.fields )
+                instance.${field.name} = #if( $field.castRequired )(${field.qualifiedType})#{end}bundle.${field.getMethod}("${field.bundleKey}");
+            #end
+        }
+    #end
+
+    private InstanceStates() {}
+
+}

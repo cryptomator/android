@@ -1,0 +1,194 @@
+apply plugin: 'com.android.application'
+apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-kapt'
+apply plugin: 'kotlin-android-extensions'
+apply plugin: 'de.mannodermaus.android-junit5'
+
+android {
+	signingConfigs {
+		debug {
+			keyAlias 'androiddebugkey'
+			keyPassword 'android'
+			storeFile file('debug.keystore')
+			storePassword 'android'
+		}
+	}
+
+	def globalConfiguration = rootProject.extensions.getByName("ext")
+
+	compileSdkVersion globalConfiguration["androidCompileSdkVersion"]
+	buildToolsVersion globalConfiguration["androidBuildToolsVersion"]
+
+	defaultConfig {
+		minSdkVersion globalConfiguration["androidMinSdkVersion"]
+		targetSdkVersion globalConfiguration["androidTargetSdkVersion"]
+
+		applicationId globalConfiguration["androidApplicationId"]
+		versionCode globalConfiguration["androidVersionCode"]
+		versionName globalConfiguration["androidVersionName"]
+
+		multiDexEnabled true
+		testInstrumentationRunner 'androidx.test.runner.AndroidJUnitRunner'
+
+		buildConfigField "String", "DROPBOX_API_KEY", "\"" + getApiKey('DROPBOX_API_KEY') + "\""
+		manifestPlaceholders = [DROPBOX_API_KEY_DB: getApiKey('DROPBOX_API_KEY_DB')]
+	}
+
+	compileOptions {
+		sourceCompatibility JavaVersion.VERSION_1_8
+		targetCompatibility JavaVersion.VERSION_1_8
+	}
+
+	lintOptions {
+		quiet true
+		abortOnError false
+		ignoreWarnings true
+	}
+
+	buildTypes {
+		release {
+			minifyEnabled true
+			proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+		}
+
+		debug {
+			signingConfig signingConfigs.debug
+			testCoverageEnabled false
+		}
+	}
+
+	flavorDimensions "version"
+
+	productFlavors {
+		playstore {
+			dimension "version"
+		}
+
+		license {
+			dimension "version"
+		}
+	}
+
+	packagingOptions {
+		exclude 'META-INF/jersey-module-version'
+		exclude 'META-INF/DEPENDENCIES'
+	}
+}
+
+dependencies {
+	def dependencies = rootProject.ext.dependencies
+
+	// custom code generators
+	kapt project(':generator')
+	implementation project(':generator-api')
+	implementation project(':util')
+	implementation project(':domain')
+	implementation project(':data')
+
+	// dagger
+	kapt dependencies.daggerCompiler
+	implementation dependencies.dagger
+	// ui
+	implementation dependencies.appcompat
+	implementation dependencies.recyclerView
+	implementation dependencies.design
+	implementation project(':subsampling-image-view')
+	implementation dependencies.recyclerViewFastScroll
+
+	// android x
+	implementation dependencies.androidxCore
+	implementation dependencies.androidxFragment
+	implementation dependencies.androidxViewpager
+	implementation dependencies.androidxSwiperefresh
+	implementation dependencies.androidxPreference
+	implementation dependencies.androidxBiometric
+
+	// cloud
+	implementation dependencies.dropbox
+	implementation dependencies.msgraph
+	implementation(dependencies.googleApiServicesDrive) {
+		exclude module: 'guava-jdk5'
+		exclude module: 'httpclient'
+	}
+	implementation(dependencies.googleApiClientAndroid) {
+		exclude module: 'guava-jdk5'
+		exclude module: 'httpclient'
+	}
+
+	// rest
+	implementation dependencies.rxJava
+	implementation dependencies.rxAndroid
+	compileOnly dependencies.javaxAnnotation
+	implementation dependencies.zxcvbn
+	implementation dependencies.rxBinding
+
+	api dependencies.jsonWebTokenApi
+	runtimeOnly dependencies.jsonWebTokenImpl
+	runtimeOnly(dependencies.jsonWebTokenJson) {
+		exclude group: 'org.json', module: 'json' //provided by Android natively
+	}
+
+	// multidex
+	implementation dependencies.multidex
+
+	implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk8:$kotlin_version"
+
+	// test
+	androidTestImplementation dependencies.androidAnnotations
+	androidTestImplementation dependencies.design
+
+	androidTestImplementation(dependencies.espresso) {
+		exclude group: 'com.android.support', module: 'support-annotations'
+		exclude group: 'com.google.code.findbugs'
+	}
+	androidTestImplementation(dependencies.runner) {
+		exclude group: 'com.android.support', module: 'support-annotations'
+	}
+
+	androidTestImplementation(dependencies.rules) {
+		exclude group: 'com.android.support', module: 'support-annotations'
+	}
+
+	androidTestImplementation(dependencies.contribution) {
+		exclude group: 'com.android.support', module: 'support-annotations'
+		exclude group: 'com.android.support', module: 'appcompat-v7'
+		exclude group: 'com.android.support', module: 'support-v4'
+		exclude module: 'recyclerview-v7'
+		exclude group: 'com.google.code.findbugs'
+	}
+
+	androidTestImplementation(dependencies.uiAutomator) {
+		exclude group: 'com.android.support'
+	}
+
+	androidTestImplementation dependencies.runner
+	androidTestImplementation dependencies.androidAnnotations
+
+
+	testImplementation dependencies.junit
+	testImplementation dependencies.junitApi
+	testRuntimeOnly dependencies.junitEngine
+	testImplementation dependencies.junitParams
+
+	testImplementation dependencies.junit4
+	testRuntimeOnly dependencies.junit4Engine
+
+	testImplementation dependencies.mockito
+	testImplementation dependencies.mockitoInline
+	testImplementation dependencies.hamcrest
+}
+
+configurations {
+	all*.exclude group: 'com.google.android', module: 'android'
+	all*.exclude group: 'com.google.guava', module: 'listenablefuture'
+}
+
+androidExtensions {
+	experimental = true
+}
+
+static def getApiKey(key) {
+	Properties props = new Properties()
+	props.load(new FileInputStream(new File('secrets.properties')))
+	return props[key]
+}

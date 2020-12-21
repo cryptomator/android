@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+	<color name="colorPrimary">#49B04A</color>
+	<color name="colorPrimaryTransparent">#66CC68</color>
+	<color name="colorPrimaryDark">#407F41</color>
+
+	<color name="textColorPrimary">#ffffff</color>
+	<color name="textColorWhite">#ffffff</color>
+	<color name="textColorLight">#80ffffff</color>
+	<color name="textColorError">#E74C3C</color>
+
+	<color name="colorBlackTransparent">#50000000</color>
+	<color name="colorBlack">#000000</color>
+	<color name="colorGray">#757575</color>
+	<color name="colorGrayTransparent">#80ffffff</color>
+
+	<color name="password_strength_empty">#757575</color>
+	<color name="password_strength_0">#e74c3c</color>
+	<color name="password_strength_1">#e67e22</color>
+	<color name="password_strength_2">#f1c40f</color>
+	<color name="password_strength_3">#40d47e</color>
+	<color name="password_strength_4">#27ae60</color>
+
+	<color name="list_divider">#80ffffff</color>
+
+</resources>

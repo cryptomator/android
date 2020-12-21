@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+	android:layout_width="match_parent"
+	android:layout_height="wrap_content"
+	android:minHeight="?attr/actionBarSize">
+
+	<TextView
+		android:layout_width="match_parent"
+		android:layout_height="1dp"
+		android:layout_alignParentTop="true"
+		android:layout_toStartOf="@id/saveFiles"
+		android:background="@color/list_divider" />
+
+	<Button
+		android:id="@+id/saveFiles"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:layout_alignParentEnd="true"
+		android:layout_margin="10dp"
+		android:background="@drawable/primary_button_selector"
+		android:text="@string/screen_share_files_save_button_text"
+		android:textColor="@color/textColorWhite" />
+
+</RelativeLayout>

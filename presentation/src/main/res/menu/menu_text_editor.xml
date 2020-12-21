@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+	xmlns:app="http://schemas.android.com/apk/res-auto">
+
+	<item
+		android:id="@+id/action_search"
+		android:icon="@drawable/ic_search_white"
+		android:title="@string/snack_bar_action_title_search"
+		app:actionViewClass="androidx.appcompat.widget.SearchView"
+		app:showAsAction="ifRoom|collapseActionView" />
+
+	<item
+		android:id="@+id/action_search_previous"
+		android:icon="@drawable/ic_chevron_left"
+		android:title="@string/snack_bar_action_title_search_previous"
+		android:visible="false"
+		app:showAsAction="always" />
+
+	<item
+		android:id="@+id/action_search_next"
+		android:icon="@drawable/ic_chevron_right"
+		android:title="@string/snack_bar_action_title_search_next"
+		android:visible="false"
+		app:showAsAction="always" />
+
+	<item
+		android:id="@+id/action_save_changes"
+		android:icon="@drawable/ic_save"
+		android:title="@string/screen_cloud_settings_title"
+		app:showAsAction="ifRoom" />
+
+</menu>
+
+
+

@@ -4,12 +4,31 @@
 [![Community](https://img.shields.io/badge/help-Community-orange.svg)](https://community.cryptomator.org)
 [![Documentation](https://img.shields.io/badge/help-Docs-orange.svg)](https://docs.cryptomator.org)
 
-Cryptomator for Android is available on Google play: [Download Cryptomator for Android](https://play.google.com/store/apps/details?id=org.cryptomator)
+Cryptomator offers multi-platform transparent client-side encryption of your files in the cloud.
 
-## Open Core
+Cryptomator for Android is currently available in the following  distribution channels:
 
-Cryptomator for Android is an _open core_ project. This repository is used for collecting issues regarding the Android app of Cryptomator.
+1. [Using Google Play](https://play.google.com/store/apps/details?id=org.cryptomator)
+2. [Using Cryptomator's Website](https://cryptomator.org/android/)
+3. Building from source using Gradle (instructions below)
 
-You can find the open source Java crypto library to access Cryptomator vaults at this repository: [cryptomator/cryptolib](https://github.com/cryptomator/cryptolib)
+## Building
 
-For more information on the security details visit [cryptomator.org](https://cryptomator.org/architecture/).
+### Dependencies
+
+* Git
+* JDK 8
+* Gradle
+
+### Run Git and Gradle
+
+```
+git submodule init && git submodule update // (not necessary if cloned using --recurse-submodules)
+./gradlew assembleLicenseDebug
+```
+
+Before connecting to Onedrive or Dropbox you have to enter valid API keys in [secrets.properties](https://github.com/cryptomator/android/blob/master/secrets.properties).
+
+## License
+
+This project is dual-licensed under the GPLv3 for FOSS projects as well as a commercial license for independent software vendors and resellers. If you want to modify this application under different conditions, feel free to contact our support team.

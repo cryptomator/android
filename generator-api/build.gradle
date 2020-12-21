@@ -1,0 +1,12 @@
+apply plugin: 'java'
+
+//noinspection GroovyUnusedAssignment
+sourceCompatibility = 1.8
+//noinspection GroovyUnusedAssignment
+targetCompatibility = 1.8
+
+dependencies {
+	def dependencies = rootProject.ext.dependencies
+
+	implementation dependencies.android
+}

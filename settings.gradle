@@ -1,0 +1,2 @@
+include ':generator', ':presentation', ':generator-api', ':domain', ':data', ':util', ':subsampling-image-view', ':msa-auth-for-android'
+project(':subsampling-image-view').projectDir = file(new File(rootDir, 'subsampling-scale-image-view/library'))

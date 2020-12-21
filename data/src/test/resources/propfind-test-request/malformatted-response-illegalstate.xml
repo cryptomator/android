@@ -1,0 +1,66 @@
+<?xml version="1.0" ?>
+<d:multistatus xmlns:d="DAV:">
+	<d:response>
+		<d:href>
+			https://webdavserver.com/User7de989b/asdasdasd/d/OC/DYNTZMMHWLW25RZHWYEDHLFWIUZZG2/
+		</d:href>
+		<d:propstat>
+			<d:status>HTTP/1.1 200 OK</d:status>
+			<d:prop>
+				<d:resourcetype>
+					<d:collection />
+				</d:resourcetype>
+				<d:getlastmodified>Thu, 30 Mar 2017 10:14:39 GMT</d:getlastmodified>
+			</d:prop>
+		</d:propstat>
+		<d:propstat>
+			<d:status>HTTP/1.1 404 Not Found</d:status>
+			<d:prop>
+				<d:collection></d:collection>
+				<d:getcontentlength></d:getcontentlength>
+			</d:prop>
+		</d:propstat>
+	</d:response>
+	<d:response>
+		<d:href>
+			https://webdavserver.com/User7de989b/asdasdasd/d/OC/DYNTZMMHWLW25RZHWYEDHLFWIUZZG2/bla.txt
+		</d:href>
+		<d:propstat>
+			<d:status>HTTP/1.1 200 OK</d:status>
+			<d:prop>
+				<d:resourcetype>
+					<d:collection />
+				</d:resourcetype>
+				<d:getlastmodified>Thu, 30 Mar 2017 10:14:39 GMT</d:getlastmodified>
+			</d:prop>
+		</d:propstat>
+		<d:propstat>
+			<d:status>HTTP/1.1 404 Not Found</d:status>
+			<d:prop>
+				<d:collection></d:collection>
+				<d:getcontentlength></d:getcontentlength>
+			</d:prop>
+		</d:propstat>
+	</d:response>
+	<d:response>
+		<d:href>
+			https://webdavserver.com/User7de989b/asdasdasd/d/OC/
+		</d:href>
+		<d:propstat>
+			<d:status>HTTP/1.1 200 OK</d:status>
+			<d:prop>
+				<d:resourcetype>
+					<d:collection />
+				</d:resourcetype>
+				<d:getlastmodified>Thu, 30 Mar 2017 10:14:39 GMT</d:getlastmodified>
+			</d:prop>
+		</d:propstat>
+		<d:propstat>
+			<d:status>HTTP/1.1 404 Not Found</d:status>
+			<d:prop>
+				<d:collection></d:collection>
+				<d:getcontentlength></d:getcontentlength>
+			</d:prop>
+		</d:propstat>
+	</d:response>
+</d:multistatus>

@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+	android:layout_width="match_parent"
+	android:layout_height="48dp">
+
+	<ImageView
+		android:id="@+id/fileImage"
+		android:layout_width="@dimen/thumbnail_size"
+		android:layout_height="@dimen/thumbnail_size"
+		android:layout_centerVertical="true"
+		android:layout_marginStart="16dp"
+		android:src="@drawable/node_file_image" />
+
+	<com.google.android.material.textfield.TextInputEditText
+		android:id="@+id/fileName"
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content"
+		android:layout_centerVertical="true"
+		android:layout_marginEnd="16dp"
+		android:layout_marginLeft="16dp"
+		android:layout_marginRight="16dp"
+		android:layout_marginStart="16dp"
+		android:layout_toEndOf="@+id/fileImage"
+		android:ellipsize="middle"
+		android:inputType="text"
+		android:singleLine="true"
+		android:imeOptions="flagNoPersonalizedLearning" />
+	<!-- using android:singleLine to fix https://code.google.com/p/android/issues/detail?id=33868 -->
+
+	<TextView
+		android:layout_width="match_parent"
+		android:layout_height="1dp"
+		android:layout_alignParentBottom="true"
+		android:layout_marginStart="16dp"
+		android:layout_toEndOf="@+id/fileImage"
+		android:background="@color/list_divider" />
+</RelativeLayout>

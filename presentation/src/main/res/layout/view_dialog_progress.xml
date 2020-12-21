@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+	android:id="@+id/ll_progress"
+	android:layout_width="match_parent"
+	android:layout_height="wrap_content"
+	android:gravity="center"
+	android:orientation="horizontal"
+	android:paddingLeft="16dp"
+	android:paddingRight="16dp"
+	android:visibility="gone">
+
+	<ProgressBar style="@style/AppTheme.ProgressBar" />
+
+	<TextView
+		android:id="@+id/tv_progress"
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content"
+		android:layout_marginStart="16dp"
+		android:ellipsize="middle"
+		android:singleLine="true"
+		android:textSize="18sp" />
+	<!-- using android:singleLine to fix https://code.google.com/p/android/issues/detail?id=33868 -->
+
+</LinearLayout>
