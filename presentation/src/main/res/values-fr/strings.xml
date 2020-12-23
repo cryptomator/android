@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 	<!-- # app -->
+	<string name="app_name">Cryptomator</string>
 	<string name="share_with_label">Chiffrer</string>
 	<!-- # error messages -->
 	<string name="error_generic">Une erreur est survenue</string>
@@ -68,6 +69,7 @@
 	</plurals>
 	<string name="screen_file_browser_move_button_text">Déplacer</string>
 	<string name="screen_file_browser_msg_empty_folder">Dossier vide</string>
+	<string name="screen_file_browser_file_info_label_size">%1$s</string>
 	<string name="screen_file_browser_file_info_label_date">Modifié il y à %1$s</string>
 	<string name="screen_file_browser_share_intent_chooser_title">Partager avec</string>
 	<string name="screen_file_browser_share_destination_title">Choisissez la destination</string>
@@ -161,7 +163,9 @@
 	<string name="screen_settings_website_label">Site web de Cryptomator</string>
 	<string name="screen_settings_twitter_label">Suivez-nous sur Twitter</string>
 	<string name="screen_settings_facebook_label">Aimez notre page Facebook</string>
+	<string name="screen_settings_website_uri">https://cryptomator.org</string>
 	<string name="screen_settings_section_legal">Légal</string>
+	<string name="screen_settings_licenses_label">Licences</string>
 	<string name="screen_settings_license_terms_label">Termes de la licence</string>
 	<string name="screen_settings_section_support">Support technique</string>
 	<string name="screen_settings_contact_label">Demander de l\'aide</string>
@@ -171,7 +175,10 @@
 	<string name="screen_settings_error_report_failed">L\'envoi a échoué</string>
 	<string name="screen_settings_security_label">Conseils de sécurité</string>
 	<string name="screen_settings_security_url">https://docs.cryptomator.org/en/1.5/security/best-practices/</string>
+	<string name="screen_settings_section_version">Version</string>
 	<string name="screen_settings_keep_unlocked_while_editing_files">Gardez les coffres déverrouillés lors de la modification des fichiers</string>
+	<string name="screen_settings_advanced_settings">Paramètres Avancés</string>
+	<string name="screen_settings_background_unlock_preparation_label">Préparations du déverrouillage en arrière-plan</string>
 	<!-- ## screen: cloud settings -->
 	<string name="screen_cloud_settings_webdav_connections">Connexions WebDAV</string>
 	<string name="screen_cloud_settings_local_storage_locations">Emplacements du stockage local</string>
@@ -213,6 +220,7 @@
 	<string name="dialog_replace_title_multiple_files_exist">Remplacer les fichiers?</string>
 	<string name="dialog_unable_to_share_title">Impossible de partager des fichiers</string>
 	<string name="dialog_unable_to_share_message">Vous n\'avez pas configuré de coffre-fort. Veuillez d\'abord créer un nouveau coffre-fort avec l\'application Cryptomator.</string>
+	<string name="dialog_unable_to_share_positive_button">OK</string>
 	<string name="dialog_unable_to_share_negative_button">Créer un coffre-fort</string>
 	<string name="dialog_filetype_not_supported_title">Impossible d\'ouvrir %1$s</string>
 	<string name="dialog_filetype_not_supported_message">Veuillez télécharger une application qui peut ouvrir ce fichier ou souhaitez-vous l\'enregistrer sur votre appareil?</string>
@@ -256,8 +264,10 @@
 	<string name="dialog_no_biometric_auth_set_up_title">Aucune authentification de base n\'est configurée dans le système</string>
 	<string name="dialog_no_biometric_auth_set_up_message">Inscrivez au moins un doigt/visage pour utiliser ce service.</string>
 	<string name="dialog_debug_mode_disclaimer_hint">Dans ce mode, les données sensibles peuvent être écrites dans un fichier journal sur votre appareil (par exemple, les noms de fichiers et les chemins d\'accès). Les mots de passe, cookies, etc. sont explicitement exclus.\n\nN\'oubliez pas de désactiver le mode de débogage dès que possible.</string>
+	<string name="dialog_debug_mode_disclaimer_title">Avertissement</string>
 	<string name="dialog_debug_mode_positive_button">Activer</string>
 	<string name="dialog_disable_app_obscured_disclaimer_hint">Ce paramètre est une fonction de sécurité qui empêche les autres applications de tromper les utilisateurs en leur faisant faire des choses qu\'ils ne veulent pas faire.\n\nEn le désactivant, vous confirmez que vous êtes <a href="https://docs.cryptomator.org/en/1.5/android/settings/#block-app-when-obscured">conscients des risques</a>.</string>
+	<string name="dialog_disable_app_obscured_disclaimer_title">Avertissement</string>
 	<string name="dialog_disable_app_obscured_positive_button">Désactiver</string>
 	<string name="dialog_app_is_obscured_info_title">\'application est masquée</string>
 	<string name="dialog_app_is_obscured_info_hint">Une autre application affiche quelque chose au-dessus de Cryptomator (par exemple, un filtre de lumière bleue ou une application forçant le mode nuit). Pour des raisons de sécurité, Cryptomator est désactivé.\n\n<a href="https://docs.cryptomator.org/en/1.5/android/settings/#block-app-when-obscured">Comment activer Cryptomator</a></string>
@@ -301,9 +311,17 @@
 	<string name="error_report_section_device">Informations sur l\'appareil</string>
 	<!-- # misc -->
 	<!-- ## file size helper -->
+	<string name="file_size_zero">Zéro Ko</string>
+	<string name="file_size_unit_bytes">octets</string>
+	<string name="file_size_unit_kilo_bytes">ko</string>
+	<string name="file_size_unit_mega_bytes">Mo</string>
+	<string name="file_size_unit_giga_bytes">Go</string>
+	<string name="file_size_unit_tera_bytes">To</string>
 	<!-- ## date helper -->
 	<string name="time_unit_seconds_sg">seconde</string>
 	<string name="time_unit_seconds_pl">secondes</string>
+	<string name="time_unit_minutes_sg">minute</string>
+	<string name="time_unit_minutes_pl">minutes</string>
 	<string name="time_unit_hours_sg">heure</string>
 	<string name="time_unit_hours_pl">heures</string>
 	<string name="time_unit_days_sg">jour</string>
@@ -335,10 +353,12 @@
 	<string name="notification_open_writable_file_title">Ouvrir un fichier accessible en écriture</string>
 	<string name="notification_open_writable_file_message">Le coffre-fort reste déverrouillé jusqu\'à la fin des modifications</string>
 	<string name="notification_update_check_finished_latest">Dernière version installée</string>
+	<string name="screen_settings_lru_cache">Cache</string>
 	<string name="screen_settings_lru_cache_size">Taille totale du cache</string>
 	<string name="screen_settings_clear_lru_cache_size">Vider le cache</string>
 	<string name="screen_settings_lru_cache_changed__restart_toast">Les changements seront appliqués lors du prochain démarrage de l\'application</string>
 	<string name="screen_settings_license">Enregistré pour</string>
+	<string name="screen_settings_license_mail">%1$s</string>
 	<string name="dialog_settings_update_check_interval_title">Intervalle de vérification des mises à jour</string>
 	<string name="screen_settings_check_updates">Vérifier les mises à jour</string>
 	<string name="screen_settings_last_check_updates">Dernière exécution %1$s</string>
@@ -347,9 +367,20 @@
 	<string name="dialog_cache_size_title">Taille du cache par cloud</string>
 	<!-- lock timeout names -->
 	<string name="lock_timeout_instant">Instantané</string>
+	<string name="lock_timeout_1m">1 minute</string>
+	<string name="lock_timeout_2m">2 minutes</string>
+	<string name="lock_timeout_5m">5 minutes</string>
+	<string name="lock_timeout_10m">10 minutes</string>
 	<string name="lock_timeout_never">Jamais</string>
 	<!-- cache size names -->
+	<string name="cache_size_50m">50 Mo</string>
+	<string name="cache_size_100m">100 Mo</string>
+	<string name="cache_size_250m">250 Mo</string>
+	<string name="cache_size_500m">500 Mo</string>
+	<string name="cache_size_1000m">1 Go</string>
+	<string name="cache_size_5000m">5 Go</string>
 	<!-- screen scheme mode names -->
+	<string name="screen_settings_style_mode">Aspect</string>
 	<string name="follow_system">Automatique (suivre le système)</string>
 	<string name="light">Clair</string>
 	<string name="dark">Sombre</string>
