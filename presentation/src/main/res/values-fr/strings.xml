@@ -27,6 +27,11 @@
 	<string name="error_biometric_auth_aborted">Authentification biométrique avortée</string>
 	<!-- # clouds -->
 	<!-- ## cloud names -->
+	<string name="cloud_names_crypto">Crypto</string>
+	<string name="cloud_names_dropbox">Dropbox</string>
+	<string name="cloud_names_google_drive">Google Drive</string>
+	<string name="cloud_names_onedrive">OneDrive</string>
+	<string name="cloud_names_webdav">WebDAV</string>
 	<string name="cloud_names_local_storage">Stockage local</string>
 	<!-- # permission -->
 	<!-- ## permission messages -->
@@ -38,6 +43,8 @@
 	<string name="snack_bar_action_title_search_previous">Précédent</string>
 	<string name="snack_bar_action_title_search_next">Suivant</string>
 	<string name="snack_bar_action_title_sort">Trier par</string>
+	<string name="snack_bar_action_title_sort_az">A - Z</string>
+	<string name="snack_bar_action_title_sort_za">Z - A</string>
 	<string name="snack_bar_action_title_sort_newest">Plus récent</string>
 	<string name="snack_bar_action_title_sort_oldest">Plus ancien</string>
 	<string name="snack_bar_action_title_sort_biggest">Taille décroissante</string>
@@ -109,6 +116,7 @@
 	<string name="screen_cloud_local_default_storage_title">Stockage par défaut</string>
 	<string name="screen_cloud_local_error_no_content_provider">Aucun emplacement supplémentaire disponible.</string>
 	<!-- ## screen: webdav settings -->
+	<string name="screen_webdav_settings_url_port_label">URL</string>
 	<string name="screen_webdav_settings_username_label">Nom d\'utilisateur</string>
 	<string name="screen_webdav_settings_password_label">Mot de passe</string>
 	<string name="screen_webdav_settings_done_button_text">Connexion</string>
@@ -155,11 +163,14 @@
 	<string name="screen_settings_facebook_label">Aimez notre page Facebook</string>
 	<string name="screen_settings_section_legal">Légal</string>
 	<string name="screen_settings_license_terms_label">Termes de la licence</string>
+	<string name="screen_settings_section_support">Support technique</string>
 	<string name="screen_settings_contact_label">Demander de l\'aide</string>
+	<string name="screen_settings_support_uri">https://cryptomator.org/contact/</string>
 	<string name="screen_settings_debug_mode_label">Mode débogage</string>
 	<string name="screen_settings_error_report_label">Envoyer un fichier journal</string>
 	<string name="screen_settings_error_report_failed">L\'envoi a échoué</string>
 	<string name="screen_settings_security_label">Conseils de sécurité</string>
+	<string name="screen_settings_security_url">https://docs.cryptomator.org/en/1.5/security/best-practices/</string>
 	<string name="screen_settings_keep_unlocked_while_editing_files">Gardez les coffres déverrouillés lors de la modification des fichiers</string>
 	<!-- ## screen: cloud settings -->
 	<string name="screen_cloud_settings_webdav_connections">Connexions WebDAV</string>
