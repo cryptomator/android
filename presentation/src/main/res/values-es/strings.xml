@@ -230,7 +230,7 @@
 	<!-- Vault not found -->
 	<string name="dialog_vault_not_found_title">Vault %1$s not found</string>
 	<string name="dialog_vault_not_found_message">The vault has been renamed, moved or deleted. Remove this vault form the list and add it again to proceed. Remove now?</string>
-	<string name="dialog_vault_not_found_positive_button_text">Remove</string>
+	<string name="dialog_vault_not_found_positive_button_text">Eliminar</string>
 	<string name="dialog_existing_file_title">El archivo ya existe</string>
 	<string name="dialog_existing_file_positive_button">Reemplazar</string>
 	<string name="dialog_existing_file_message">Ya existe un archivo llamado %1$s.</string>
@@ -303,7 +303,7 @@
 	<string name="dialog_debug_mode_positive_button">Activar</string>
 	<string name="dialog_debug_mode_negative_button">@string/dialog_button_cancel</string>
 	<string name="dialog_disable_app_obscured_disclaimer_hint">This setting is a security feature and prevents other apps from tricking users into doing things they do not wan\'t to do.\n\nBy disabling, you confirm that you are <a href="https://docs.cryptomator.org/en/1.5/android/settings/#block-app-when-obscured">aware of the risks</a>.</string>
-	<string name="dialog_disable_app_obscured_disclaimer_title">Attention</string>
+	<string name="dialog_disable_app_obscured_disclaimer_title">Aviso</string>
 	<string name="dialog_disable_app_obscured_positive_button">Disable</string>
 	<string name="dialog_disable_app_obscured_negative_button">@string/dialog_button_cancel</string>
 	<string name="dialog_app_is_obscured_info_title">App is obscured</string>
@@ -405,7 +405,7 @@
 	<string name="screen_settings_clear_lru_cache_size">Clear Cache</string>
 	<string name="screen_settings_lru_cache_changed__restart_toast">Changes will be applied on next app restart</string>
 	<string name="screen_settings_license">Registered for</string>
-	<string name="screen_settings_license_mail">%1$s</string>
+	<string name="screen_settings_license_mail">\"%1$s</string>
 	<string name="dialog_settings_update_check_interval_title">Update check interval</string>
 	<string name="screen_settings_check_updates">Check for updates</string>
 	<string name="screen_settings_last_check_updates">Last run %1$s</string>
@@ -435,5 +435,5 @@
 	<string name="update_interval_1d">Once a day</string>
 	<string name="update_interval_1w">Once a week</string>
 	<string name="update_interval_1m">Once a month</string>
-	<string name="update_interval_never">@string/screen_settings_last_check_updates_never</string>
+	<string name="update_interval_never">Nunca</string>
 </resources>
