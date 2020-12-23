@@ -117,7 +117,7 @@
 	<string name="screen_share_files_new_text_file">text.txt</string>
 	<!-- ## screen: choose cloud service -->
 	<string name="screen_choose_cloud_service_title">Cloud-Dienst</string>
-	<string name="screen_choose_cloud_service_subtitle_add_existing_vault">@string/screen_vault_list_action_add_existing_vault</string>
+	<string name="screen_choose_cloud_service_subtitle_add_existing_vault">Neuen Tresor anlegen</string>
 	<string name="screen_choose_cloud_service_subtitle_create_new_vault">@string/screen_vault_list_action_create_new_vault</string>
 	<!-- ## screen: cloud connections -->
 	<string name="screen_cloud_connections_title">Ort auswählen</string>
@@ -165,7 +165,7 @@
 	<string name="screen_settings_confirm_face_unlock">Nach Entsperrung mittels dem Gesichts, bestätigen (falls verfügbar)</string>
 	<string name="screen_settings_block_app_when_obscured">App blockieren, wenn verdeckt</string>
 	<string name="screen_settings_secure_screen">Bildschirm-Sicherheit</string>
-	<string name="screen_settings_section_search">Search</string>
+	<string name="screen_settings_section_search">Suche</string>
 	<string name="screen_settings_live_search">Live-Suche</string>
 	<string name="screen_settings_glob_search">Suche mit Glob-Muster</string>
 	<string name="screen_settings_section_auto_lock">Automatisch sperren</string>
