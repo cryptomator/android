@@ -1,5 +1,5 @@
-commit_message: "[ci skip]"
 escape_special_characters: 0
+commit_message: '[ci skip]'
 files:
   - source: /presentation/src/main/res/values/strings.xml
     translation: /presentation/src/main/res/values-%two_letters_code%/strings.xml
