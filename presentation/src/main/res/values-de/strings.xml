@@ -1,9 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 	<!-- # app -->
-	<string name="app_name">Cryptomator</string>
 	<string name="share_with_label">Verschlüsseln</string>
-	<string name="download_subdirectory_name">@string/app_name</string>
 	<!-- # error messages -->
 	<string name="error_generic">Ein Fehler ist aufgetreten</string>
 	<string name="error_authentication_failed">Authentifizierung fehlgeschlagen</string>
@@ -29,11 +27,6 @@
 	<string name="error_biometric_auth_aborted">Biometrischer Login abgebrochen</string>
 	<!-- # clouds -->
 	<!-- ## cloud names -->
-	<string name="cloud_names_crypto">Crypto</string>
-	<string name="cloud_names_dropbox">Dropbox</string>
-	<string name="cloud_names_google_drive">Google Drive</string>
-	<string name="cloud_names_onedrive">OneDrive</string>
-	<string name="cloud_names_webdav">WebDAV</string>
 	<string name="cloud_names_local_storage">Lokaler Speicher</string>
 	<!-- # permission -->
 	<!-- ## permission messages -->
@@ -45,8 +38,6 @@
 	<string name="snack_bar_action_title_search_previous">Vorheriges</string>
 	<string name="snack_bar_action_title_search_next">Weiter</string>
 	<string name="snack_bar_action_title_sort">Sortieren</string>
-	<string name="snack_bar_action_title_sort_az">A - Z</string>
-	<string name="snack_bar_action_title_sort_za">Z - A</string>
 	<string name="snack_bar_action_title_sort_newest">Neueste zuerst</string>
 	<string name="snack_bar_action_title_sort_oldest">Älteste zuerst</string>
 	<string name="snack_bar_action_title_sort_biggest">Größte zuerst</string>
@@ -56,7 +47,6 @@
 	<string name="screen_vault_list_actions_title">Zu Cryptomator hinzufügen</string>
 	<string name="screen_vault_list_action_create_new_vault">Neuen Tresor anlegen</string>
 	<string name="screen_vault_list_action_add_existing_vault">Vorhandenen Tresor hinzufügen</string>
-	<string name="screen_vault_list_vault_action_rename">@string/screen_file_browser_node_action_rename</string>
 	<string name="screen_vault_list_vault_action_delete">Entfernen</string>
 	<string name="screen_vault_list_vault_creation_hint">Hier einen neuen Tresor erstellen</string>
 	<string name="screen_vault_list_change_password_successful">Passwort wurde erfolgreich geändert</string>
@@ -64,7 +54,6 @@
 	<string name="screen_file_browser_default_title">Tresor</string>
 	<string name="screen_file_browser_subtitle_add_existing_vault">Neuen Tresor anlegen</string>
 	<string name="screen_file_browser_add_existing_vault_extra_text">Masterkey-Datei auswählen</string>
-	<string name="screen_file_browser_subtitle_create_new_vault">@string/screen_vault_list_action_create_new_vault</string>
 	<string name="screen_file_browser_create_new_vault_button_text">Hier ablegen</string>
 	<string name="screen_file_browser_create_new_vault_extra_text">Tresorname: %1$s</string>
 	<plurals name="screen_file_browser_subtitle_move">
@@ -73,7 +62,6 @@
 	</plurals>
 	<string name="screen_file_browser_move_button_text">Verschieben</string>
 	<string name="screen_file_browser_msg_empty_folder">Leerer Ordner</string>
-	<string name="screen_file_browser_file_info_label_size">%1$s</string>
 	<string name="screen_file_browser_file_info_label_date">geändert vor %1$s</string>
 	<string name="screen_file_browser_share_intent_chooser_title">Teilen mit</string>
 	<string name="screen_file_browser_share_destination_title">Wählen Sie einen Ablageort aus</string>
@@ -91,7 +79,6 @@
 	<string name="screen_file_browser_node_action_share">Teilen</string>
 	<string name="screen_file_browser_node_action_rename">Umbenennen</string>
 	<string name="screen_file_browser_node_action_edit_text">Bearbeiten</string>
-	<string name="screen_file_browser_node_action_move">@string/screen_file_browser_move_button_text</string>
 	<string name="screen_file_browser_node_action_export">Exportieren</string>
 	<string name="screen_file_browser_node_action_delete">Löschen</string>
 	<string name="screen_file_browser_node_action_open_with_text">Öffnen mit&#8230;</string>
@@ -106,11 +93,9 @@
 	<string name="screen_text_editor_save_success">Erfolgreich gespeichert</string>
 	<!-- ## screen: share files -->
 	<string name="screen_share_files_title">Speicher %1$s unter&#8230;</string>
-	<string name="screen_share_files_content_text">text</string>
 	<string name="screen_share_files_content_file">Datei</string>
 	<string name="screen_share_files_content_files">Dateien</string>
 	<string name="screen_share_files_msg_filenames_must_be_unique">Dateinamen müssen eindeutig sein, bitte benennen Sie die Duplikate um.</string>
-	<string name="screen_share_files_section_files">@string/screen_share_files_content_files</string>
 	<string name="screen_share_files_section_location">Speicherort</string>
 	<string name="screen_share_files_save_button_text">Speichern</string>
 	<string name="screen_share_files_msg_success">Dateien verschlüsselt</string>
@@ -118,19 +103,14 @@
 	<!-- ## screen: choose cloud service -->
 	<string name="screen_choose_cloud_service_title">Cloud-Dienst</string>
 	<string name="screen_choose_cloud_service_subtitle_add_existing_vault">Neuen Tresor anlegen</string>
-	<string name="screen_choose_cloud_service_subtitle_create_new_vault">@string/screen_vault_list_action_create_new_vault</string>
 	<!-- ## screen: cloud connections -->
 	<string name="screen_cloud_connections_title">Ort auswählen</string>
-	<string name="screen_cloud_settings_option_edit">@string/screen_file_browser_node_action_edit_text</string>
-	<string name="screen_cloud_settings_option_delete">@string/screen_vault_list_vault_action_delete</string>
 	<string name="screen_cloud_connections_no_connections">Hier einen neuen Ort hinzufügen</string>
 	<string name="screen_cloud_error_webdav_not_supported">Server scheint nicht WebDAV-kompatibel zu sein</string>
 	<string name="screen_cloud_local_custom_storage_title">Benutzerdefinierte Orte</string>
 	<string name="screen_cloud_local_default_storage_title">Standard-Speicher</string>
 	<string name="screen_cloud_local_error_no_content_provider">Weitere Orte sind nicht verfügbar.</string>
 	<!-- ## screen: webdav settings -->
-	<string name="screen_webdav_settings_title">@string/cloud_names_webdav</string>
-	<string name="screen_webdav_settings_url_port_label">URL</string>
 	<string name="screen_webdav_settings_username_label">Benutzername</string>
 	<string name="screen_webdav_settings_password_label">Passwort</string>
 	<string name="screen_webdav_settings_done_button_text">Verbinden</string>
@@ -139,7 +119,6 @@
 	<string name="screen_webdav_settings_msg_username_must_not_be_empty">Benutzername muss ausgefüllt werden.</string>
 	<string name="screen_webdav_settings_msg_password_must_not_be_empty">Passwort muss ausgefüllt werden.</string>
 	<!-- ## screen: enter vault name -->
-	<string name="screen_enter_vault_name_title">@string/screen_vault_list_action_create_new_vault</string>
 	<string name="screen_enter_vault_name_msg_name_empty">Tresorname muss ausgefüllt werden.</string>
 	<string name="screen_enter_vault_name_vault_label">Tresorname</string>
 	<string name="screen_enter_vault_name_button_text">Erstellen</string>
@@ -149,7 +128,6 @@
 	<string name="screen_set_password_msg_password_mismatch">Passwort stimmt nicht mit dem wiederholten Passwort überein.</string>
 	<string name="screen_set_password_button_text">Fertig</string>
 	<string name="screen_set_password_hint">WICHTIG: Wenn Sie Ihr Passwort vergessen, gibt es keine Möglichkeit die Daten zu entschlüsseln.</string>
-	<string name="screen_set_password_password_label">@string/screen_webdav_settings_password_label</string>
 	<string name="screen_set_password_retype_password_label">Passwort wiederholen</string>
 	<string name="screen_set_password_strength_indicator_0">Sehr Schwach</string>
 	<string name="screen_set_password_strength_indicator_1">Schwach</string>
@@ -157,7 +135,6 @@
 	<string name="screen_set_password_strength_indicator_3">Stark</string>
 	<string name="screen_set_password_strength_indicator_4">Sehr Stark</string>
 	<!-- ## screen: settings -->
-	<string name="screen_settings_title">@string/snack_bar_action_title_settings</string>
 	<string name="screen_settings_section_general">Allgemein</string>
 	<string name="screen_settings_cloud_settings_label">Cloud-Dienste</string>
 	<string name="screen_settings_biometric_auth">Biometrischer Login</string>
@@ -181,31 +158,24 @@
 	<string name="screen_settings_twitter_label">Folgen Sie uns auf Twitter</string>
 	<string name="screen_settings_facebook_label">Liken Sie uns auf Facebook</string>
 	<string name="screen_settings_website_uri">https://cryptomator.org/de</string>
-	<string name="screen_settings_facebook_uri">https://facebook.com/Cryptomator</string>
-	<string name="screen_settings_twitter_uri">https://twitter.com/Cryptomator</string>
 	<string name="screen_settings_section_legal">Rechtliches</string>
 	<string name="screen_settings_licenses_label">Lizenzen</string>
 	<string name="screen_settings_license_terms_label">Lizenztexte</string>
-	<string name="screen_settings_section_support">Support</string>
 	<string name="screen_settings_contact_label">Hilfe anfordern</string>
 	<string name="screen_settings_support_uri">https://cryptomator.org/de/contact/</string>
 	<string name="screen_settings_debug_mode_label">Debug-Modus</string>
 	<string name="screen_settings_error_report_label">Log-Datei senden</string>
 	<string name="screen_settings_error_report_failed">Senden fehlgeschlagen</string>
 	<string name="screen_settings_security_label">Sicherheitshinweise</string>
-	<string name="screen_settings_security_url">https://docs.cryptomator.org/en/1.5/security/best-practices/</string>
-	<string name="screen_settings_section_version">Version</string>
 	<string name="screen_settings_keep_unlocked_while_editing_files">Halte Tresore geöffnet während dem Editieren einer Datei</string>
 	<string name="screen_settings_advanced_settings">Erweiterte Eigenschaften</string>
 	<string name="screen_settings_background_unlock_preparation_label">Vorbereitungen zum Entsperren im Hintergrund</string>
 	<!-- ## screen: cloud settings -->
-	<string name="screen_cloud_settings_title">@string/screen_settings_cloud_settings_label</string>
 	<string name="screen_cloud_settings_webdav_connections">WebDAV-Verbindungen</string>
 	<string name="screen_cloud_settings_local_storage_locations">Lokale Speicherorte</string>
 	<string name="screen_cloud_settings_log_in_to">Einloggen in</string>
 	<string name="screen_cloud_settings_sign_out_from_cloud">Abmelden von</string>
 	<!-- ## screen: licenses -->
-	<string name="screen_licenses_title">@string/screen_settings_licenses_label</string>
 	<!-- ## screen: authenticate cloud -->
 	<string name="screen_authenticate_auth_authentication_failed">%1$s-Authentifizierung fehlgeschlagen.</string>
 	<!-- ## screen: empty dir file info -->
@@ -216,13 +186,9 @@
 	<!-- ## screen: insecure android version info -->
 	<!-- # dialogs -->
 	<string name="dialog_button_cancel">Abbrechen</string>
-	<string name="dialog_create_folder_title">@string/screen_file_browser_action_create_folder</string>
-	<string name="dialog_create_folder_positive_button">@string/screen_enter_vault_name_button_text</string>
-	<string name="dialog_enter_password_password_label">@string/screen_webdav_settings_password_label</string>
 	<string name="dialog_enter_password_positive_button">Entsperren</string>
 	<string name="dialog_change_password_old_password_label">Altes Passwort</string>
 	<string name="dialog_change_password_new_password_label">Neues Passwort</string>
-	<string name="dialog_change_password_new_retype_password_label">@string/screen_set_password_retype_password_label</string>
 	<string name="dialog_change_password">Passwort ändern</string>
 	<string name="dialog_change_password_msg_old_password_empty">Altes Passwort muss ausgefüllt werden.</string>
 	<string name="dialog_change_password_msg_new_password_empty">Neues Passwort muss ausgefüllt werden.</string>
@@ -245,32 +211,22 @@
 	<string name="dialog_replace_title_multiple_files_exist">Dateien ersetzen?</string>
 	<string name="dialog_unable_to_share_title">Teilen nicht möglich</string>
 	<string name="dialog_unable_to_share_message">Sie haben keinen Tresor eingerichtet. Bitte legen Sie zuerst einen Tresor mit der Cryptomator-App an.</string>
-	<string name="dialog_unable_to_share_positive_button">OK</string>
 	<string name="dialog_unable_to_share_negative_button">Tresor erstellen</string>
 	<string name="dialog_filetype_not_supported_title">%1$s kann nicht geöffnet werden</string>
-	<string name="dialog_filetype_not_supported_positive_button">@string/screen_file_browser_node_action_export</string>
 	<string name="dialog_filetype_not_supported_message">Bitte installieren Sie eine App, die diese Datei öffnen kann. Möchten Sie die Datei stattdessen auf dem Gerät speichern?</string>
 	<string name="dialog_rename_vault_title">Tresor umbenennen</string>
-	<string name="dialog_rename_vault_positive_button">@string/screen_file_browser_node_action_rename</string>
 	<string name="dialog_rename_node_folder_title">Ordner umbenennen</string>
 	<string name="dialog_rename_node_file_title">Datei umbenennen</string>
-	<string name="dialog_rename_node_positive_button">@string/screen_file_browser_node_action_rename</string>
 	<string name="dialog_unsaved_changes_title">Sie haben ungespeicherte Änderungen</string>
 	<string name="dialog_unsaved_changes_message">Möchten Sie wirklich beenden, ohne zu speichern?</string>
 	<string name="dialog_unsaved_changes_discard">Verwerfen</string>
 	<string name="dialog_unsaved_changes_save">@string/dialog_button_cancel</string>
-	<string name="dialog_file_name_title">@string/screen_file_browser_action_create_new_text_file</string>
-	<string name="dialog_file_name_create">@string/screen_enter_vault_name_button_text</string>
-	<string name="dialog_file_name_cancel">@string/dialog_button_cancel</string>
 	<string name="dialog_file_name_placeholder">@string/screen_share_files_new_text_file</string>
-	<string name="dialog_delete_vault_positive_button_text">@string/screen_file_browser_node_action_delete</string>
 	<string name="dialog_delete_vault_message">Sind Sie sicher, dass sie den Tresor entfernen wollen?</string>
 	<string name="dialog_delete_vault_hint">Dieser Vorgang wird den Tresor nur aus dieser Liste entfernen und nicht tatsächlich löschen.</string>
 	<string name="dialog_upload_file_title">Lade hoch&#8230;</string>
-	<string name="dialog_upload_file_cancel_button">@string/dialog_button_cancel</string>
 	<string name="dialog_upload_file_remaining">Datei %1$d von %2$d</string>
 	<string name="dialog_export_file_title">Exportiere (%1$d/%2$d)</string>
-	<string name="dialog_export_file_cancel_button">@string/dialog_button_cancel</string>
 	<string name="dialog_progress_please_wait">Bitte warten&#8230;</string>
 	<string name="dialog_progress_creating_folder">Erstelle Ordner&#8230;</string>
 	<string name="dialog_progress_creating_text_file">Erstelle Text-Datei&#8230;</string>
@@ -288,7 +244,6 @@
 	<string name="dialog_lock_vault">Sperren</string>
 	<string name="dialog_accept_ssl_certificate_title">Ungültiges SSL-Zertifikat</string>
 	<string name="dialog_accept_ssl_certificate_hint">Das SSL-Zertifikat ist ungültig. Wollen Sie diesem trotzdem vertrauen?</string>
-	<string name="dialog_accept_ssl_certificate_details">Details</string>
 	<string name="dialog_accept_ssl_certificate_security_checkbox">Dies könnte ein Sicherheitsrisiko sein. Ich weiß was ich tue.</string>
 	<string name="dialog_http_security_hint">Die Verwendung von HTTP ist unsicher. Wir empfehlen stattdessen die Nutzung von HTTPS. Wenn Sie sich der Risiken bewusst sind, können Sie mit HTTP fortfahren.</string>
 	<string name="dialog_http_security_checkbox">Zu HTTPS ändern</string>
@@ -301,37 +256,28 @@
 	<string name="dialog_debug_mode_disclaimer_hint">In diesem Modus könnten sensible Daten in eine Log-Datei auf diesem Gerät geschrieben werden (z.B. Dateinamen und Pfade). Ausgeschlossen davon sind u.a. Passwörter und Cookies.\n\nDenken Sie daran, den Debug-Modus so schnell wie möglich wieder zu deaktivieren.</string>
 	<string name="dialog_debug_mode_disclaimer_title">Achtung</string>
 	<string name="dialog_debug_mode_positive_button">Aktivieren</string>
-	<string name="dialog_debug_mode_negative_button">@string/dialog_button_cancel</string>
 	<string name="dialog_disable_app_obscured_disclaimer_hint">Dies ist eine Sicherheitsfunktion und verhindert, dass andere Apps Nutzer dazu bringen, Dinge zu tun, die sie nicht tun wollen.\n\nDurch die Deaktivierung bestätigen Sie, dass Sie sich <a href="https://docs.cryptomator.org/en/1.5/android/settings/#block-app-when-obscured">der Risiken bewusst</a> sind.</string>
 	<string name="dialog_disable_app_obscured_disclaimer_title">Achtung</string>
 	<string name="dialog_disable_app_obscured_positive_button">Deaktivieren</string>
-	<string name="dialog_disable_app_obscured_negative_button">@string/dialog_button_cancel</string>
 	<string name="dialog_app_is_obscured_info_title">App wird verdeckt</string>
 	<string name="dialog_app_is_obscured_info_hint">Eine App zeigt etwas über Cryptomator an (z.B. ein Blaulichtfilter oder eine Nachtmodus-App). Aus Sicherheitsgründen ist Cryptomator deaktiviert.\n\n<a href="https://docs.cryptomator.org/en/1.5/android/settings/#block-app-when-obscured">Wie Cryptomator aktiviert werden kann</a></string>
 	<string name="dialog_app_is_obscured_info_neutral_button">Schließen</string>
 	<string name="dialog_disable_secure_screen_disclaimer_hint">Dies ist eine Sicherheitsfunktion und verhindert, dass andere Apps Nutzer dazu bringen, Dinge zu tun, die sie nicht tun wollen.\n\nDurch die Deaktivierung bestätigen Sie, dass Sie sich <a href="https://docs.cryptomator.org/en/1.5/android/settings/#screen-security">der Risiken bewusst</a> sind.</string>
 	<string name="dialog_delete_cloud_connection_with_vaults_message">Sind Sie sicher, dass sie den Cloud-Dienst entfernen wollen?</string>
 	<string name="dialog_delete_cloud_connection_with_vaults_hint">Dieser Vorgang wird den Cloud-Dienst und desen zugehörigen Tresor löschen.</string>
-	<string name="dialog_delete_cloud_connection_with_vaults_positive_button">@string/screen_file_browser_node_action_delete</string>
-	<string name="dialog_delete_cloud_connection_with_vaults_negative_button">@string/dialog_button_cancel</string>
-	<string name="dialog_confirm_delete_positive_button">@string/screen_file_browser_node_action_delete</string>
-	<string name="dialog_confirm_delete_negative_button">@string/dialog_button_cancel</string>
 	<string name="dialog_confirm_delete_multiple_title">%1$d Elemente löschen?</string>
 	<string name="dialog_confirm_delete_multiple_message">Sind Sie sicher, dass Sie diese Elemente löschen wollen?</string>
 	<string name="dialog_confirm_delete_file_message">Sind Sie sicher, dass Sie diese Datei löschen wollen?</string>
 	<string name="dialog_confirm_delete_folder_message">Dieser Vorgang wird den gesamten Ordnerinhalt löschen. Sind Sie sicher, dass Sie diesen Ordner löschen wollen?</string>
 	<string name="dialog_biometric_auth_key_invalidated_title">Biometrischer Login deaktiviert</string>
 	<string name="dialog_biometric_auth_key_invalidated_message">Da der Schlüssel nicht mehr zur Verfügung steht, wurde der Biometrischer Login deaktiviert. Zur Reaktivierung öffnen Sie die Cryptomator-Einstellungen.</string>
-	<string name="dialog_biometric_auth_key_invalidated_neutral_button">@string/dialog_unable_to_share_positive_button</string>
 	<string name="dialog_enter_license_title">APK-Store Lizenz</string>
 	<string name="dialog_enter_license_content">Cryptomator wurde ohne Google Play Store installiert. Geben Sie eine gültige Lizenz ein, falls nicht bereits vorhanden, kann sie unter folgender URL erworben werden: <a href="https://cryptomator.org/android/">https://cryptomator.org/android/</a></string>
 	<string name="dialog_enter_license_not_valid_content">Die eingegebene Lizenz ist nicht gültig. Stellen Sie sicher, dass sie korrekt eingegeben wurde.</string>
 	<string name="dialog_enter_license_no_content">Keine Lizenz vorhanden. Geben Sie eine gültige Lizenz ein.</string>
-	<string name="dialog_enter_license_ok_button">@string/dialog_unable_to_share_positive_button</string>
 	<string name="dialog_enter_license_decline_button">Beenden</string>
 	<string name="dialog_license_confirmation_title">Lizenzbestätigung</string>
 	<string name="dialog_license_confirmation_message">Danke für die Eingabe Ihrer gültige Lizenz %1$s.</string>
-	<string name="dialog_license_confirmation_ok_btn">@string/dialog_unable_to_share_positive_button</string>
 	<string name="dialog_update_available_title">Neue Version verfügbar</string>
 	<string name="dialog_update_available_message">Cryptomator mit auf den aktuellen Stand aktualisieren. Mit OK wird die neueste Version heruntergeladen. Daraufhin werden Sie aufgefordert sie zu installieren.</string>
 	<string name="dialog_update_available_update">Jetzt aktualisieren</string>
@@ -344,7 +290,6 @@
 	<string name="dialog_sym_link_back_button">Zurück</string>
 	<string name="dialog_no_dir_file_title">Verzeichniss kann nicht geladen werden</string>
 	<string name="dialog_no_dir_file_message">Der Ordner \'%1$s\' in der Cloud hat keine Verzeichniss-Datei. Es könnte sein, dass der Ordner auf einem anderen Gerät erstellt wurde und noch nicht vollständig mit der Cloud synchronisiert ist. Bitte überprüfen, ob die folgende Datei in der Cloud existiert:\n%2$s</string>
-	<string name="dialog_no_dir_file_back_button">@string/dialog_sym_link_back_button</string>
 	<string name="dialog_beta_confirmation_title">Beta-Version</string>
 	<string name="dialog_beta_confirmation">Das ist eine Beta-Version, die das Tresor-Format 7 unterstützt. Bitte nicht mit einem produktiv eingesetzten Tresor verwenden oder dafür sorgen, dass gute Sicherungen vorhanden sind.</string>
 	<string name="permission_snackbar_auth_local_vault">Cryptomator benötigt Zugriff auf den Speicher um lokale Tresore zu nutzen</string>
@@ -358,10 +303,6 @@
 	<!-- ## file size helper -->
 	<string name="file_size_zero">Null kB</string>
 	<string name="file_size_unit_bytes">Bytes</string>
-	<string name="file_size_unit_kilo_bytes">kB</string>
-	<string name="file_size_unit_mega_bytes">MB</string>
-	<string name="file_size_unit_giga_bytes">GB</string>
-	<string name="file_size_unit_tera_bytes">TB</string>
 	<!-- ## date helper -->
 	<string name="time_unit_seconds_sg">Sekunde</string>
 	<string name="time_unit_seconds_pl">Sekunden</string>
@@ -395,17 +336,14 @@
 	<string name="notification_auto_upload_failed_general_error">Generaller Fehler während dem Hochladen.</string>
 	<string name="notification_auto_upload_failed_due_to_folder_not_exists">Ausgewählter Ordner für das Photo-Hochladen existiert nicht mehr. In der Einstellungen neuen auswählen</string>
 	<string name="notification_auto_upload_failed_due_to_vault_locked">Tresor gesperrt während dem hochladen, zum weiteren Hochladen entsperren</string>
-	<string name="notification_cancel_open_writable_file">@string/dialog_button_cancel</string>
 	<string name="notification_open_writable_file_title">Datei mit Schreibrechten geöffnet</string>
 	<string name="notification_open_writable_file_message">Tresor bleibt entsperrt bis die Datei nicht mehr editiert wird</string>
 	<string name="notification_update_check_finished_latest">Neueste Version installiert</string>
 	<string name="screen_settings_lru_cache">Zwischenspeicher</string>
-	<string name="screen_settings_lru_cache_toggle">@string/screen_settings_section_auto_photo_upload_toggle</string>
 	<string name="screen_settings_lru_cache_size">Zwischenspeichergröße insgesamt</string>
 	<string name="screen_settings_clear_lru_cache_size">Zwischenspeicher leeren</string>
 	<string name="screen_settings_lru_cache_changed__restart_toast">Änderungen werden nach einem Neustart der App aktiv</string>
 	<string name="screen_settings_license">Registriert für</string>
-	<string name="screen_settings_license_mail">%1$s</string>
 	<string name="dialog_settings_update_check_interval_title">Intervall der Aktualisierungsprüfung</string>
 	<string name="screen_settings_check_updates">Nach Aktualisierungen suchen</string>
 	<string name="screen_settings_last_check_updates">Letzte Ausführung %1$s</string>
@@ -420,12 +358,6 @@
 	<string name="lock_timeout_10m">10 Minuten</string>
 	<string name="lock_timeout_never">Nie</string>
 	<!-- cache size names -->
-	<string name="cache_size_50m">50 MB</string>
-	<string name="cache_size_100m">100 MB</string>
-	<string name="cache_size_250m">250 MB</string>
-	<string name="cache_size_500m">500 MB</string>
-	<string name="cache_size_1000m">1 GB</string>
-	<string name="cache_size_5000m">5 GB</string>
 	<!-- screen scheme mode names -->
 	<string name="screen_settings_style_mode">Design</string>
 	<string name="follow_system">Automatisch (System-Einstellung verwenden)</string>
