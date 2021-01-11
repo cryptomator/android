@@ -116,7 +116,5 @@ configurations {
 }
 
 static def getApiKey(key) {
-	Properties props = new Properties()
-	props.load(new FileInputStream(new File('secrets.properties')))
-	return props[key]
+	return System.getenv().getOrDefault(key, "")
 }

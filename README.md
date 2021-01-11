@@ -28,7 +28,7 @@ git submodule init && git submodule update // (not necessary if cloned using --r
 ./gradlew assembleLicenseDebug
 ```
 
-Before connecting to Onedrive or Dropbox you have to enter valid API keys in [secrets.properties](https://github.com/cryptomator/android/blob/develop/secrets.properties).
+Before connecting to Onedrive or Dropbox you have to provide valid API keys using environment variables: `ONEDRIVE_API_KEY` or `DROPBOX_API_KEY`.
 
 ## License
 

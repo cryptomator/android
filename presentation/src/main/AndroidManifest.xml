@@ -87,7 +87,7 @@
 			android:configChanges="orientation|keyboard"
 			android:launchMode="singleTask">
 			<intent-filter>
-				<data android:scheme="${DROPBOX_API_KEY_DB}" />
+				<data android:scheme="db-${DROPBOX_API_KEY}" />
 
 				<action android:name="android.intent.action.VIEW" />
 
