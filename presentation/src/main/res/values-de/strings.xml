@@ -157,12 +157,10 @@
 	<string name="screen_settings_website_label">Cryptomator-Website</string>
 	<string name="screen_settings_twitter_label">Folgen Sie uns auf Twitter</string>
 	<string name="screen_settings_facebook_label">Liken Sie uns auf Facebook</string>
-	<string name="screen_settings_website_uri">https://cryptomator.org/de</string>
 	<string name="screen_settings_section_legal">Rechtliches</string>
 	<string name="screen_settings_licenses_label">Lizenzen</string>
 	<string name="screen_settings_license_terms_label">Lizenztexte</string>
 	<string name="screen_settings_contact_label">Hilfe anfordern</string>
-	<string name="screen_settings_support_uri">https://cryptomator.org/de/contact/</string>
 	<string name="screen_settings_debug_mode_label">Debug-Modus</string>
 	<string name="screen_settings_error_report_label">Log-Datei senden</string>
 	<string name="screen_settings_error_report_failed">Senden fehlgeschlagen</string>
@@ -295,10 +293,6 @@
 	<string name="permission_snackbar_auth_local_vault">Cryptomator benötigt Zugriff auf den Speicher um lokale Tresore zu nutzen</string>
 	<string name="permission_snackbar_auth_auto_upload">Cryptomator benötigt Zugriff auf den Speicher um den automatischen Foto-Upload zu nutzen</string>
 	<!-- # error reports -->
-	<string name="error_report_subject">Android Fehlerbericht</string>
-	<string name="error_report_section_summary">Zusammenfassung</string>
-	<string name="error_report_summary_description">Beschreiben Sie ausführlich, was sie in der App getan haben oder verweisen Sie auf ein existierendes Support-Ticket.</string>
-	<string name="error_report_section_device">Geräteinfo</string>
 	<!-- # misc -->
 	<!-- ## file size helper -->
 	<string name="file_size_zero">Null kB</string>
