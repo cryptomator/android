@@ -190,10 +190,6 @@
 	<string name="dialog_confirm_delete_file_message">\"¿Estás seguro de que quieres borrar este archivo?</string>
 	<string name="dialog_confirm_delete_folder_message">Esto borrará todo el contenido de la carpeta. ¿Estás seguro de que quiere borrar esta carpeta?</string>
 	<!-- # error reports -->
-	<string name="error_report_subject">Informe de error de Android</string>
-	<string name="error_report_section_summary">Sumario</string>
-	<string name="error_report_summary_description">Introduce una descripción corta de lo has intentado hacer o indica el ticket de soporte si ya habías creado uno.</string>
-	<string name="error_report_section_device">Información del dispositivo</string>
 	<!-- # misc -->
 	<!-- ## file size helper -->
 	<string name="file_size_zero">Cero kB</string>
