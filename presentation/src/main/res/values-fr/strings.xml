@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 	<!-- # app -->
-	<string name="app_name">Cryptomator</string>
 	<string name="share_with_label">Chiffrer</string>
 	<!-- # error messages -->
 	<string name="error_generic">Une erreur est survenue</string>
@@ -28,11 +27,6 @@
 	<string name="error_biometric_auth_aborted">Authentification biométrique avortée</string>
 	<!-- # clouds -->
 	<!-- ## cloud names -->
-	<string name="cloud_names_crypto">Crypto</string>
-	<string name="cloud_names_dropbox">Dropbox</string>
-	<string name="cloud_names_google_drive">Google Drive</string>
-	<string name="cloud_names_onedrive">OneDrive</string>
-	<string name="cloud_names_webdav">WebDAV</string>
 	<string name="cloud_names_local_storage">Stockage local</string>
 	<!-- # permission -->
 	<!-- ## permission messages -->
@@ -163,18 +157,15 @@
 	<string name="screen_settings_website_label">Site web de Cryptomator</string>
 	<string name="screen_settings_twitter_label">Suivez-nous sur Twitter</string>
 	<string name="screen_settings_facebook_label">Aimez notre page Facebook</string>
-	<string name="screen_settings_website_uri">https://cryptomator.org</string>
 	<string name="screen_settings_section_legal">Légal</string>
 	<string name="screen_settings_licenses_label">Licences</string>
 	<string name="screen_settings_license_terms_label">Termes de la licence</string>
 	<string name="screen_settings_section_support">Support technique</string>
 	<string name="screen_settings_contact_label">Demander de l\'aide</string>
-	<string name="screen_settings_support_uri">https://cryptomator.org/contact/</string>
 	<string name="screen_settings_debug_mode_label">Mode débogage</string>
 	<string name="screen_settings_error_report_label">Envoyer un fichier journal</string>
 	<string name="screen_settings_error_report_failed">L\'envoi a échoué</string>
 	<string name="screen_settings_security_label">Conseils de sécurité</string>
-	<string name="screen_settings_security_url">https://docs.cryptomator.org/en/1.5/security/best-practices/</string>
 	<string name="screen_settings_section_version">Version</string>
 	<string name="screen_settings_keep_unlocked_while_editing_files">Gardez les coffres déverrouillés lors de la modification des fichiers</string>
 	<string name="screen_settings_advanced_settings">Paramètres Avancés</string>
@@ -305,10 +296,6 @@
 	<string name="permission_snackbar_auth_local_vault">Cryptomator a besoin de l\'accès au stockage pour utiliser les coffres locaux</string>
 	<string name="permission_snackbar_auth_auto_upload">Cryptomator a besoin de l\'accès au stockage pour effectuer le téléversement automatique de photos</string>
 	<!-- # error reports -->
-	<string name="error_report_subject">Rapport d\'erreur Android</string>
-	<string name="error_report_section_summary">Résumé</string>
-	<string name="error_report_summary_description">Insérez une courte description de ce que vous avez essayé de faire ou mentionnez votre ticket d\'assistance si vous en avez déjà créé un.</string>
-	<string name="error_report_section_device">Informations sur l\'appareil</string>
 	<!-- # misc -->
 	<!-- ## file size helper -->
 	<string name="file_size_zero">Zéro Ko</string>
