@@ -9,6 +9,7 @@ import org.cryptomator.domain.usecases.cloud.GetAllCloudsUseCase
 import org.cryptomator.domain.usecases.cloud.GetCloudsUseCase
 import org.cryptomator.domain.usecases.cloud.LogoutCloudUseCase
 import org.cryptomator.generator.Callback
+import org.cryptomator.presentation.BuildConfig
 import org.cryptomator.presentation.R
 import org.cryptomator.presentation.exception.ExceptionHandlers
 import org.cryptomator.presentation.intent.Intents
@@ -114,7 +115,10 @@ class CloudSettingsPresenter @Inject constructor( //
 
 	private inner class CloudsSubscriber : DefaultResultHandler<List<Cloud>>() {
 		override fun onSuccess(clouds: List<Cloud>) {
-			val cloudModel = cloudModelMapper.toModels(clouds).filter { isSingleLoginCloud(it) }.toMutableList() //
+			val cloudModel = cloudModelMapper.toModels(clouds) //
+					.filter { isSingleLoginCloud(it) } //
+					.filter { cloud -> !(BuildConfig.FLAVOR == "fdroid" && cloud.cloudType() == CloudTypeModel.GOOGLE_DRIVE)} //
+					.toMutableList() //
 					.also {
 						it.add(aWebdavCloud())
 						it.add(aLocalCloud())

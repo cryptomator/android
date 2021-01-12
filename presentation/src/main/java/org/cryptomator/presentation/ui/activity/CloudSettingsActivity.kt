@@ -21,7 +21,7 @@ class CloudSettingsActivity : BaseActivity(), CloudSettingsView {
 		setSupportActionBar(toolbar)
 	}
 
-	override fun createFragment(): Fragment? = CloudSettingsFragment()
+	override fun createFragment(): Fragment = CloudSettingsFragment()
 
 	override fun render(cloudModels: List<CloudModel>) {
 		cloudSettingsFragment().showClouds(cloudModels)

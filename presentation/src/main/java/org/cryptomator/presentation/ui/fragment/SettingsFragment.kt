@@ -148,16 +148,26 @@ class SettingsFragment : PreferenceFragmentCompat() {
 	}
 
 	private fun setupLicense() {
-		if (BuildConfig.FLAVOR == "license") {
-			findPreference(SharedPreferencesHandler.MAIL)?.title = format(getString(R.string.screen_settings_license_mail), sharedPreferencesHandler.mail())
-			setupUpdateCheck()
-		} else {
-			preferenceScreen.removePreference(findPreference(LICENSE_ITEM_KEY))
-
-			val versionCategory = findPreference("versionCategory") as PreferenceCategory?
-			versionCategory?.removePreference(findPreference(UPDATE_CHECK_ITEM_KEY))
-			versionCategory?.removePreference(findPreference(UPDATE_INTERVAL_ITEM_KEY))
+		when (BuildConfig.FLAVOR) {
+			"apkstore" -> {
+				findPreference(SharedPreferencesHandler.MAIL)?.title = format(getString(R.string.screen_settings_license_mail), sharedPreferencesHandler.mail())
+				setupUpdateCheck()
+			}
+			"fdroid" -> {
+				findPreference(SharedPreferencesHandler.MAIL)?.title = format(getString(R.string.screen_settings_license_mail), sharedPreferencesHandler.mail())
+				removeUpdateCheck()
+			}
+			else -> {
+				preferenceScreen.removePreference(findPreference(LICENSE_ITEM_KEY))
+				removeUpdateCheck()
+			}
 		}
+	}
+
+	private fun removeUpdateCheck() {
+		val versionCategory = findPreference("versionCategory") as PreferenceCategory?
+		versionCategory?.removePreference(findPreference(UPDATE_CHECK_ITEM_KEY))
+		versionCategory?.removePreference(findPreference(UPDATE_INTERVAL_ITEM_KEY))
 	}
 
 	fun setupUpdateCheck() {
@@ -195,7 +205,7 @@ class SettingsFragment : PreferenceFragmentCompat() {
 		findPreference(SharedPreferencesHandler.PHOTO_UPLOAD)?.onPreferenceChangeListener = useAutoPhotoUploadChangedListener
 		findPreference(SharedPreferencesHandler.USE_LRU_CACHE)?.onPreferenceChangeListener = useLruChangedListener
 		findPreference(SharedPreferencesHandler.LRU_CACHE_SIZE)?.onPreferenceChangeListener = useLruChangedListener
-		if (BuildConfig.FLAVOR == "license") {
+		if (BuildConfig.FLAVOR == "apkstore") {
 			findPreference(UPDATE_CHECK_ITEM_KEY)?.onPreferenceClickListener = updateCheckClickListener
 		}
 	}
