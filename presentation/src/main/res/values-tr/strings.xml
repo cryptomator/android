@@ -27,7 +27,6 @@
 	<string name="error_biometric_auth_aborted">Biyometrik kimlik doğrulama iptal edildi</string>
 	<!-- # clouds -->
 	<!-- ## cloud names -->
-	<string name="cloud_names_crypto">Kripto</string>
 	<string name="cloud_names_local_storage">Yerel depolama</string>
 	<!-- # permission -->
 	<!-- ## permission messages -->
@@ -293,7 +292,6 @@
 	<string name="permission_snackbar_auth_local_vault">Cryptomator\'un yerel kasaları kullanmak için depolama erişimine ihtiyacı var</string>
 	<string name="permission_snackbar_auth_auto_upload">Cryptomator\'un otomatik fotoğraf yüklemesi için depolama erişimine ihtiyacı var</string>
 	<!-- # error reports -->
-	<string name="error_report_summary_description">Insert a short description of what you tried to do or mention your support ticket if you already created one.</string>
 	<!-- # misc -->
 	<!-- ## file size helper -->
 	<string name="file_size_zero">Sıfır KB</string>
