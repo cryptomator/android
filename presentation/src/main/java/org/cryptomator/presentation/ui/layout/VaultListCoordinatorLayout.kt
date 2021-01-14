@@ -2,7 +2,6 @@ package org.cryptomator.presentation.ui.layout
 
 import android.content.Context
 import android.graphics.Canvas
-import android.graphics.Color
 import android.graphics.Paint
 import android.graphics.RectF
 import android.util.AttributeSet
@@ -50,12 +49,12 @@ class VaultListCoordinatorLayout : CoordinatorLayout {
 				.to(leftOfFloatingActionButton - dpToPixels(3f), topOfFloatingActionButton + dpToPixels(5f)) //
 				.spanningAnAngleOf(60.0f) //
 				.build() //
-				.draw(canvas, strokeBlackWithWidthOf1f())
+				.draw(canvas, strokeLineWithWidthOf1f())
 	}
 
-	private fun strokeBlackWithWidthOf1f(): Paint {
+	private fun strokeLineWithWidthOf1f(): Paint {
 		val paint = Paint()
-		paint.color = Color.BLACK
+		paint.color = context.getColor(R.color.textColorPrimary)
 		paint.strokeWidth = dpToPixels(1f)
 		paint.isAntiAlias = true
 		paint.style = Paint.Style.STROKE
