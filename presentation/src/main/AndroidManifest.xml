@@ -30,6 +30,7 @@
 		android:label="@string/app_name"
 		android:supportsRtl="true"
 		android:requestLegacyExternalStorage="true"
+		android:usesCleartextTraffic="true"
 		android:theme="@style/AppTheme">
 		<!-- Necessary for OneDrive https://stackoverflow.com/a/50779232/825532 -->
 		<uses-library
