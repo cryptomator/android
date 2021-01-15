@@ -12,7 +12,7 @@ import javax.lang.model.element.TypeElement;
 
 import static java.util.stream.Collectors.toList;
 
-public class ActivityModel {
+public class ActivityModel implements Comparable<ActivityModel> {
 
 	private final String qualifiedName;
 
@@ -127,5 +127,10 @@ public class ActivityModel {
 
 	public String getPresenterIntentFieldName() {
 		return presenterIntentFieldName;
+	}
+
+	@Override
+	public int compareTo(ActivityModel activityModel) {
+		return this.qualifiedName.compareTo(activityModel.qualifiedName);
 	}
 }

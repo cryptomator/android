@@ -34,6 +34,7 @@ public class IntentProcessor extends BaseProcessor {
 			intentsModelBuilder.add(generateIntentReader((TypeElement) element));
 		}
 		if (!intentAnnotatedElements.isEmpty()) {
+			intentAnnotatedElements.sort((e1, e2) -> e1.getSimpleName().toString().compareTo(e2.getSimpleName().toString()));
 			generateIntents(intentsModelBuilder.build(), intentAnnotatedElements);
 		}
 	}

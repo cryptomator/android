@@ -6,7 +6,7 @@ import org.cryptomator.generator.utils.Type;
 
 import java.util.Optional;
 
-public class FragmentModel {
+public class FragmentModel implements Comparable<FragmentModel> {
 
 	private final String qualifiedName;
 
@@ -44,5 +44,10 @@ public class FragmentModel {
 
 	public boolean isHasPresenter() {
 		return hasPresenter;
+	}
+
+	@Override
+	public int compareTo(FragmentModel fragmentModel) {
+		return this.qualifiedName.compareTo(fragmentModel.qualifiedName);
 	}
 }

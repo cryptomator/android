@@ -4,18 +4,18 @@ import org.cryptomator.generator.ProcessorException;
 import org.cryptomator.generator.utils.Field;
 import org.cryptomator.generator.utils.Type;
 
-import java.util.ArrayList;
 import java.util.Collection;
-import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
+import java.util.SortedSet;
+import java.util.TreeMap;
+import java.util.TreeSet;
 
 import javax.lang.model.element.Element;
 
 public class InstanceStateModel {
 
 	private final String javaPackage;
-	private final Map<Type, InstanceStateType> types = new HashMap<>();
+	private final Map<Type, InstanceStateType> types = new TreeMap<>();
 
 	public InstanceStateModel(String javaPackage) {
 		this.javaPackage = javaPackage;
@@ -47,7 +47,7 @@ public class InstanceStateModel {
 
 	public static class InstanceStateType {
 
-		private final List<InstanceStateField> fields = new ArrayList<>();
+		private final SortedSet<InstanceStateField> fields = new TreeSet<>();
 		private final String qualifiedName;
 
 		public InstanceStateType(Type type) {
@@ -62,12 +62,12 @@ public class InstanceStateModel {
 			return qualifiedName;
 		}
 
-		public List<InstanceStateField> getFields() {
+		public SortedSet<InstanceStateField> getFields() {
 			return fields;
 		}
 	}
 
-	public static class InstanceStateField {
+	public static class InstanceStateField implements Comparable<InstanceStateField> {
 
 		private static int nextBundleKey = 0;
 
@@ -142,6 +142,10 @@ public class InstanceStateModel {
 			return field.element();
 		}
 
+		@Override
+		public int compareTo(InstanceStateField instanceStateField) {
+			return this.bundleKey.compareTo(instanceStateField.bundleKey);
+		}
 	}
 
 }

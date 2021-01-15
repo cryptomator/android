@@ -3,9 +3,12 @@ package org.cryptomator.generator.model;
 import org.cryptomator.generator.Intent;
 import org.cryptomator.generator.Optional;
 
-import java.util.List;
+import java.util.Comparator;
 import java.util.Map;
+import java.util.Set;
+import java.util.TreeSet;
 import java.util.function.Predicate;
+import java.util.stream.Collectors;
 
 import javax.lang.model.element.AnnotationMirror;
 import javax.lang.model.element.AnnotationValue;
@@ -13,16 +16,14 @@ import javax.lang.model.element.ExecutableElement;
 import javax.lang.model.element.TypeElement;
 import javax.lang.model.type.DeclaredType;
 
-import static java.util.stream.Collectors.toList;
-
-public class IntentReaderModel {
+public class IntentReaderModel implements Comparable<IntentReaderModel> {
 
 	private final String javaPackage;
 	private final String className;
 	private final String targetActivity;
 	private final String intentInterface;
 	private final String readMethodName;
-	private final List<ParameterModel> parameters;
+	private final Set<ParameterModel> parameters;
 
 	public IntentReaderModel(TypeElement type) {
 		this.intentInterface = type.getQualifiedName().toString();
@@ -46,9 +47,22 @@ public class IntentReaderModel {
 	}
 
 	private static String targetActivity(TypeElement type) {
-		return type.getAnnotationMirrors().stream().filter(is(Intent.class)).findFirst().get().getElementValues().entrySet().stream().map(entry -> (Map.Entry<ExecutableElement, AnnotationValue>) entry)
-				.filter(entry -> "value".equals(entry.getKey().getSimpleName().toString())).map(Map.Entry::getValue).map(AnnotationValue::getValue).map(DeclaredType.class::cast).map(DeclaredType::asElement)
-				.map(TypeElement.class::cast).findFirst().get().getQualifiedName().toString();
+		return type //
+				.getAnnotationMirrors() //
+				.stream() //
+				.filter(is(Intent.class)) //
+				.findFirst().get().getElementValues().entrySet() //
+				.stream() //
+				.map(entry -> (Map.Entry<ExecutableElement, AnnotationValue>) entry) //
+				.filter(entry -> "value".equals(entry.getKey().getSimpleName().toString())) //
+				.map(Map.Entry::getValue) //
+				.map(AnnotationValue::getValue) //
+				.map(DeclaredType.class::cast) //
+				.map(DeclaredType::asElement) //
+				.map(TypeElement.class::cast) //
+				.findFirst().get() //
+				.getQualifiedName() //
+				.toString();
 	}
 
 	private static Predicate<AnnotationMirror> is(Class<?> type) {
@@ -59,8 +73,14 @@ public class IntentReaderModel {
 		};
 	}
 
-	private static List<ParameterModel> parameters(TypeElement type) {
-		return type.getEnclosedElements().stream().filter(ExecutableElement.class::isInstance).map(ExecutableElement.class::cast).map(ParameterModel::new).collect(toList());
+	private static Set<ParameterModel> parameters(TypeElement type) {
+		return type //
+				.getEnclosedElements() //
+				.stream() //
+				.filter(ExecutableElement.class::isInstance) //
+				.map(ExecutableElement.class::cast) //
+				.map(ParameterModel::new) //
+				.collect(Collectors.toCollection(() -> new TreeSet<>(Comparator.comparing(ParameterModel::getName))));
 	}
 
 	private static String readMethodName(TypeElement type) {
@@ -92,6 +112,11 @@ public class IntentReaderModel {
 
 	public String getReadMethodName() {
 		return readMethodName;
+	}
+
+	@Override
+	public int compareTo(IntentReaderModel intentReaderModel) {
+		return (this.javaPackage + this.className).compareTo(intentReaderModel.javaPackage + intentReaderModel.className);
 	}
 
 	public static class ParameterModel {

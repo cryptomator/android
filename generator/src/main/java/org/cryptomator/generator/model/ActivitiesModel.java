@@ -1,21 +1,21 @@
 package org.cryptomator.generator.model;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.Set;
+import java.util.TreeSet;
 
 public class ActivitiesModel {
 
-	private final List<ActivityModel> activities;
+	private final Set<ActivityModel> activities;
 
 	public static ActivitiesModel.Builder builder() {
 		return new Builder();
 	}
 
-	private ActivitiesModel(List<ActivityModel> activities) {
+	private ActivitiesModel(Set<ActivityModel> activities) {
 		this.activities = activities;
 	}
 
-	public List<ActivityModel> getActivities() {
+	public Set<ActivityModel> getActivities() {
 		return activities;
 	}
 
@@ -29,7 +29,7 @@ public class ActivitiesModel {
 
 	public static class Builder {
 
-		private final List<ActivityModel> activities = new ArrayList<>();
+		private final Set<ActivityModel> activities = new TreeSet<>();
 
 		private Builder() {
 		}
