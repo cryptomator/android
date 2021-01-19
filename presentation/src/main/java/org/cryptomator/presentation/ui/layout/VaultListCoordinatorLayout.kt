@@ -9,6 +9,7 @@ import android.util.DisplayMetrics
 import android.view.View
 import androidx.coordinatorlayout.widget.CoordinatorLayout
 import org.cryptomator.presentation.R
+import timber.log.Timber
 import kotlin.math.cos
 import kotlin.math.sin
 
@@ -43,13 +44,27 @@ class VaultListCoordinatorLayout : CoordinatorLayout {
 		val floatingActionButton = findViewById<View>(R.id.fab_vault)
 		val centerXOfHint = (vaultCreationHint.left + vaultCreationHint.right) / 2f
 		val bottomOfHint = vaultCreationHint.bottom.toFloat()
-		val leftOfFloatingActionButton = floatingActionButton.left.toFloat()
 		val topOfFloatingActionButton = floatingActionButton.top.toFloat()
-		arcFrom(centerXOfHint + dpToPixels(10f), bottomOfHint + dpToPixels(5f)) //
-				.to(leftOfFloatingActionButton - dpToPixels(3f), topOfFloatingActionButton + dpToPixels(5f)) //
-				.spanningAnAngleOf(60.0f) //
-				.build() //
-				.draw(canvas, strokeLineWithWidthOf1f())
+
+		when (val layoutDirection = resources.configuration.layoutDirection) {
+			View.LAYOUT_DIRECTION_LTR -> {
+				arcFrom(centerXOfHint + dpToPixels(10f), bottomOfHint + dpToPixels(5f), layoutDirection) //
+						.to(floatingActionButton.left.toFloat() - dpToPixels(3f), topOfFloatingActionButton + dpToPixels(5f)) //
+						.spanningAnAngleOf(60.0f) //
+						.build() //
+						.draw(canvas, strokeLineWithWidthOf1f())
+			}
+			View.LAYOUT_DIRECTION_RTL -> {
+				arcFrom(floatingActionButton.right.toFloat() - dpToPixels(3f), bottomOfHint + dpToPixels(5f), layoutDirection) //
+						.to(centerXOfHint + dpToPixels(10f), topOfFloatingActionButton + dpToPixels(5f)) //
+						.spanningAnAngleOf(60.0f) //
+						.build() //
+						.draw(canvas, strokeLineWithWidthOf1f())
+			}
+			else -> {
+				Timber.tag("VaultListCoordinatorLay").e("Layout direction not supported, skip drawing arc")
+			}
+		}
 	}
 
 	private fun strokeLineWithWidthOf1f(): Paint {
@@ -65,7 +80,7 @@ class VaultListCoordinatorLayout : CoordinatorLayout {
 		return dp * pixelsPerDp
 	}
 
-	private class ArcBuilder(val x1: Float, val y1: Float) {
+	private class ArcBuilder(val x1: Float, val y1: Float, val layoutDirection: Int) {
 		var angle = 0f
 		var x2 = 0f
 		var y2 = 0f
@@ -94,6 +109,7 @@ class VaultListCoordinatorLayout : CoordinatorLayout {
 		private val bottom: Float
 		private val start: Float
 		private val angle: Float = b.angle
+		private val layoutDirection: Int = b.layoutDirection
 
 		fun draw(canvas: Canvas, paint: Paint) {
 			val rect = RectF()
@@ -106,23 +122,51 @@ class VaultListCoordinatorLayout : CoordinatorLayout {
 		}
 
 		init {
-			start = 180f - angle
 			val sin = sin(TWO_PI * angle / 360).toFloat()
 			val cos = cos(TWO_PI * angle / 360).toFloat()
 			val widthCorrection = 1f / cos
 			val heightCorrection = 1f / sin
 			val w = (b.x2 - b.x1) * 2 * widthCorrection
 			val h = (b.y2 - b.y1) * 2 * heightCorrection
-			left = b.x1
-			right = b.x1 + w
+
+			start = when (layoutDirection) {
+				View.LAYOUT_DIRECTION_LTR -> {
+					180f - angle
+				}
+				View.LAYOUT_DIRECTION_RTL -> {
+					0f
+				}
+				else -> throw IllegalStateException("Not supported layout direction")
+			}
+
+			left = when (layoutDirection) {
+				View.LAYOUT_DIRECTION_LTR -> {
+					b.x1
+				}
+				View.LAYOUT_DIRECTION_RTL -> {
+					b.x2 - w
+				}
+				else -> throw IllegalStateException("Not supported layout direction")
+			}
+
+			right = when (layoutDirection) {
+				View.LAYOUT_DIRECTION_LTR -> {
+					b.x1 + w
+				}
+				View.LAYOUT_DIRECTION_RTL -> {
+					b.x2
+				}
+				else -> throw IllegalStateException("Not supported layout direction")
+			}
+
 			top = b.y1 - h / 2
 			bottom = b.y1 + h / 2
 		}
 	}
 
 	companion object {
-		private fun arcFrom(x1: Float, y1: Float): ArcBuilder {
-			return ArcBuilder(x1, y1)
+		private fun arcFrom(x1: Float, y1: Float, layoutDirection: Int): ArcBuilder {
+			return ArcBuilder(x1, y1, layoutDirection)
 		}
 	}
 }
