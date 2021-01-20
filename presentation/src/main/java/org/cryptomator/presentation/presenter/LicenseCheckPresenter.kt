@@ -16,8 +16,8 @@ class LicenseCheckPresenter @Inject internal constructor(
 		private val sharedPreferencesHandler: SharedPreferencesHandler) : Presenter<UpdateLicenseView>(exceptionHandlers) {
 
 	fun validate(data: Uri?) {
-		if (data != null) {
-			val license = data.lastPathSegment ?: ""
+		data?.let {
+			val license = it.fragment ?: it.lastPathSegment ?: ""
 			view?.showOrUpdateLicenseDialog(license)
 			doLicenseCheckUsecase
 					.withLicense(license)
