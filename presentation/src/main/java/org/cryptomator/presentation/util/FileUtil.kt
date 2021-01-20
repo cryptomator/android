@@ -17,10 +17,9 @@ import java.io.*
 import java.util.*
 import javax.inject.Inject
 
-class FileUtil @Inject constructor(private val context: Context, mimeTypes: MimeTypes) {
+class FileUtil @Inject constructor(private val context: Context, private val mimeTypes: MimeTypes) {
 
 	private var decryptedFileStorage: File = File(context.cacheDir, "decrypted")
-	private val mimeTypes: MimeTypes = mimeTypes
 
 	fun cleanup() {
 		cleanupDir(context.cacheDir)
