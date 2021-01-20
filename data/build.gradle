@@ -17,7 +17,6 @@ android {
 
 		buildConfigField 'int', 'VERSION_CODE', "${globalConfiguration["androidVersionCode"]}"
 		buildConfigField "String", "VERSION_NAME", "\"${globalConfiguration["androidVersionName"]}\""
-		buildConfigField "String", "ONEDRIVE_API_KEY", "\"" + getApiKey('ONEDRIVE_API_KEY') + "\""
 	}
 
 	compileOptions {
@@ -29,6 +28,16 @@ android {
 		quiet true
 		abortOnError false
 		ignoreWarnings true
+	}
+
+	buildTypes {
+		release {
+			buildConfigField "String", "ONEDRIVE_API_KEY", "\"" + getApiKey('ONEDRIVE_API_KEY') + "\""
+		}
+
+		debug {
+			buildConfigField "String", "ONEDRIVE_API_KEY", "\"" + getApiKey('ONEDRIVE_API_KEY_DEBUG') + "\""
+		}
 	}
 
 	flavorDimensions "version"

@@ -28,7 +28,11 @@ git submodule init && git submodule update // (not necessary if cloned using --r
 ./gradlew assembleApkstoreDebug
 ```
 
-Before connecting to Onedrive or Dropbox you have to provide valid API keys using environment variables: `ONEDRIVE_API_KEY` or `DROPBOX_API_KEY`.
+Before connecting to Onedrive or Dropbox you have to provide valid API keys using environment variables:   
+For build type
+
+* **release**: `ONEDRIVE_API_KEY` or `DROPBOX_API_KEY`.
+* **debug**: `ONEDRIVE_API_KEY_DEBUG` or `DROPBOX_API_KEY_DEBUG`.
 
 ## License
 

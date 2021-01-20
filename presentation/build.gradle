@@ -29,9 +29,6 @@ android {
 
 		multiDexEnabled true
 		testInstrumentationRunner 'androidx.test.runner.AndroidJUnitRunner'
-
-		buildConfigField "String", "DROPBOX_API_KEY", "\"" + getApiKey('DROPBOX_API_KEY') + "\""
-		manifestPlaceholders = [DROPBOX_API_KEY: getApiKey('DROPBOX_API_KEY')]
 	}
 
 	compileOptions {
@@ -51,6 +48,11 @@ android {
 			minifyEnabled false
 			shrinkResources false
 			useProguard false
+
+			buildConfigField "String", "DROPBOX_API_KEY", "\"" + getApiKey('DROPBOX_API_KEY') + "\""
+			manifestPlaceholders = [DROPBOX_API_KEY: getApiKey('DROPBOX_API_KEY')]
+
+			resValue "string", "app_id", androidApplicationId
 		}
 
 		debug {
@@ -60,6 +62,14 @@ android {
 			minifyEnabled false
 			shrinkResources false
 			testCoverageEnabled false
+
+			buildConfigField "String", "DROPBOX_API_KEY", "\"" + getApiKey('DROPBOX_API_KEY_DEBUG') + "\""
+			manifestPlaceholders = [DROPBOX_API_KEY: getApiKey('DROPBOX_API_KEY_DEBUG')]
+
+			applicationIdSuffix ".debug"
+			versionNameSuffix '-DEBUG'
+
+			resValue "string", "app_id", androidApplicationId + applicationIdSuffix
 		}
 	}
 
