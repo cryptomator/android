@@ -27,7 +27,7 @@ ext {
 	rxAndroidVersion = '2.1.1'
 	rxBindingVersion = '2.2.0'
 
-	daggerVersion = '2.30.1'
+	daggerVersion = '2.31'
 
 	gsonVersion = '2.8.6'
 
@@ -56,7 +56,7 @@ ext {
 
 	googleApiServicesVersion = 'v3-rev197-1.25.0'
 	googlePlayServicesVersion = '19.0.0'
-	googleClientVersion = '1.31.1'
+	googleClientVersion = '1.31.2'
 
 	msgraphVersion = '2.5.0'
 	msaAuthVersion = '0.10.0'
@@ -70,8 +70,8 @@ ext {
 	jUnitVersion = '5.7.0'
 	jUnit4Version = '4.13.1'
 	assertJVersion = '1.7.1'
-	mockitoVersion = '3.6.28'
-	mockitoInlineVersion = '3.6.28'
+	mockitoVersion = '3.7.7'
+	mockitoInlineVersion = '3.7.7'
 	hamcrestVersion = '1.3'
 	dexmakerVersion = '1.0'
 	espressoVersion = '3.3.0'
