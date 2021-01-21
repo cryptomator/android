@@ -34,6 +34,14 @@ For build type
 * **release**: `ONEDRIVE_API_KEY` or `DROPBOX_API_KEY`.
 * **debug**: `ONEDRIVE_API_KEY_DEBUG` or `DROPBOX_API_KEY_DEBUG`.
 
+## Contributing to Cryptomator for Android
+
+Please read our [contribution guide](.github/CONTRIBUTING.md), if you would like to report a bug, ask a question, translate the app or help us with coding.
+
+## Code of Conduct
+
+Help us keep Cryptomator open and inclusive. Please read and follow our [Code of Conduct](.github/CODE_OF_CONDUCT.md).
+
 ## License
 
 This project is dual-licensed under the GPLv3 for FOSS projects as well as a commercial license for independent software vendors and resellers. If you want to modify this application under different conditions, feel free to contact our support team.
