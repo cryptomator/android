@@ -33,10 +33,12 @@ android {
 	buildTypes {
 		release {
 			buildConfigField "String", "ONEDRIVE_API_KEY", "\"" + getApiKey('ONEDRIVE_API_KEY') + "\""
+			buildConfigField "String", "ONEDRIVE_API_REDIRCT_URI", "\"" + getApiKey('ONEDRIVE_API_REDIRCT_URI') + "\""
 		}
 
 		debug {
 			buildConfigField "String", "ONEDRIVE_API_KEY", "\"" + getApiKey('ONEDRIVE_API_KEY_DEBUG') + "\""
+			buildConfigField "String", "ONEDRIVE_API_REDIRCT_URI", "\"" + getApiKey('ONEDRIVE_API_REDIRCT_URI_DEBUG') + "\""
 		}
 	}
 
