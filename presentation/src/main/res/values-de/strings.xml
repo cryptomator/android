@@ -38,6 +38,8 @@
 	<string name="snack_bar_action_title_search_previous">Vorheriges</string>
 	<string name="snack_bar_action_title_search_next">Weiter</string>
 	<string name="snack_bar_action_title_sort">Sortieren</string>
+	<string name="snack_bar_action_title_sort_az">A - Z</string>
+	<string name="snack_bar_action_title_sort_za">Z - A</string>
 	<string name="snack_bar_action_title_sort_newest">Neueste zuerst</string>
 	<string name="snack_bar_action_title_sort_oldest">Älteste zuerst</string>
 	<string name="snack_bar_action_title_sort_biggest">Größte zuerst</string>
