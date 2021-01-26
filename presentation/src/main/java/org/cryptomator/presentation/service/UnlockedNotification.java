@@ -54,7 +54,7 @@ class UnlockedNotification {
 		}
 
 		this.builder = new NotificationCompat.Builder(service, NOTIFICATION_CHANNEL_ID) //
-				.setSmallIcon(R.mipmap.ic_launcher) //
+				.setSmallIcon(R.drawable.background_splash_cryptomator) //
 				.setColor(ResourceHelper.Companion.getColor(R.color.colorPrimary)) //
 				.addAction(lockNowAction()) //
 				.setGroup(NOTIFICATION_GROUP_KEY) //
