@@ -125,7 +125,9 @@ class FileUtil @Inject constructor(private val context: Context, private val mim
 
 	fun getImagePreviewFiles(path: String): ImagePreviewFilesStore {
 		try {
-			ObjectInputStream(FileInputStream(path)).use { objectInputStream -> return objectInputStream.readObject() as ImagePreviewFilesStore }
+			ObjectInputStream(FileInputStream(path)).use { objectInputStream ->
+				return objectInputStream.readObject() as ImagePreviewFilesStore
+			}
 		} catch (e: ClassNotFoundException) {
 			Timber //
 					.tag("FileUtil") //
@@ -139,40 +141,39 @@ class FileUtil @Inject constructor(private val context: Context, private val mim
 		}
 	}
 
-	fun addImageToAutoUploads(path: String) {
-		val file = File(decryptedFileStorage, AUTO_UPLOAD_IMAGE__FILE_NAMES)
-		val paths = getAutoUploadFilesStore(file).uris + path
-		addImageToAutoUploads(paths)
+	fun addImageToAutoUploads(path: String): AutoUploadFilesStore {
+		val paths = getAutoUploadFilesStore().uris + path
+		return addImageToAutoUploads(paths)
 	}
 
-	private fun addImageToAutoUploads(paths: Set<String>) {
-		addImageToAutoUploads(AutoUploadFilesStore(paths))
+	private fun addImageToAutoUploads(paths: Set<String>): AutoUploadFilesStore {
+		return addImageToAutoUploads(AutoUploadFilesStore(paths))
 	}
 
 	@Synchronized
-	private fun addImageToAutoUploads(autoUploadFilesStore: AutoUploadFilesStore) {
+	private fun addImageToAutoUploads(autoUploadFilesStore: AutoUploadFilesStore): AutoUploadFilesStore {
 		try {
 			decryptedFileStorage.mkdir()
+
 			val file = File(decryptedFileStorage, AUTO_UPLOAD_IMAGE__FILE_NAMES)
-			val out: ObjectOutput = ObjectOutputStream(FileOutputStream(file.path))
-			out.writeObject(autoUploadFilesStore)
-			out.close()
+
+			ObjectOutputStream(FileOutputStream(file.path)).use { objectOutputStream ->
+				objectOutputStream.writeObject(autoUploadFilesStore)
+				objectOutputStream.close()
+			}
+
+			return autoUploadFilesStore
 		} catch (e: IOException) {
 			Timber //
 					.tag("FileUtil") //
 					.e(e, "Failed to store image preview file list for PreviewActivity")
+			throw FatalBackendException(e)
 		}
 	}
 
-	@get:Throws(FatalBackendException::class)
-	val autoUploadFilesStore: AutoUploadFilesStore
-		get() {
-			val file = File(decryptedFileStorage, AUTO_UPLOAD_IMAGE__FILE_NAMES)
-			return getAutoUploadFilesStore(file)
-		}
-
 	@Synchronized
-	private fun getAutoUploadFilesStore(file: File): AutoUploadFilesStore {
+	fun getAutoUploadFilesStore(): AutoUploadFilesStore {
+		val file = File(decryptedFileStorage, AUTO_UPLOAD_IMAGE__FILE_NAMES)
 		if (!file.exists()) {
 			return AutoUploadFilesStore(HashSet())
 		}
@@ -183,20 +184,9 @@ class FileUtil @Inject constructor(private val context: Context, private val mim
 				return autoUploadFilesStore
 			}
 		} catch (e: InvalidClassException) {
-			Timber //
-					.tag("FileUtil") //
-					.e(e, "This is a bug in Cryptomator version 1.4.1, only fix is to delete the AutoUploadFilesStore but no image inside so no problem")
-			if (!file.delete()) {
-				Timber //
-						.tag("FileUtil") //
-						.e("Failed to delete AutoUploadFilesStore")
-			}
-			throw FatalBackendException(e)
-		} catch (e: ClassNotFoundException) {
-			Timber //
-					.tag("FileUtil") //
-					.e(e, "Failed to read image preview file from list for PreviewActivity")
-			throw FatalBackendException(e)
+			return tryRecoverAutoUploadFilesStoreDueToFileObfuscation(file)
+		} catch (e: ClassCastException) {
+			return tryRecoverAutoUploadFilesStoreDueToFileObfuscation(file)
 		} catch (e: IOException) {
 			Timber
 					.tag("FileUtil")
@@ -205,20 +195,47 @@ class FileUtil @Inject constructor(private val context: Context, private val mim
 		}
 	}
 
+	/**
+	 * This method tries to recover the AutoUploadFilesStore which was obfuscated in version 1.5.10 and 1.5.11-beta1, each differently
+	 */
+	private fun tryRecoverAutoUploadFilesStoreDueToFileObfuscation(file: File): AutoUploadFilesStore {
+		Timber.tag("FileUtil").i("Try to recover AutoUploadFilesStore using class c or a")
+		try {
+			ObjectInputStream(FileInputStream(file)).use { objectInputStream ->
+				val uploadPaths = when (val obj = objectInputStream.readObject()) {
+					is org.cryptomator.presentation.e.c -> obj.mE() // version 1.5.10
+					is org.cryptomator.presentation.i.a -> obj.b() // version 1.5.11-beta1
+					else -> null
+				}
+				when {
+					uploadPaths != null -> {
+						Timber.tag("FileUtil").i("Nailed it! Successfully recovered AutoUploadFilesStore!")
+						file.delete()
+						return AutoUploadFilesStore(uploadPaths)
+					}
+					else -> throw FatalBackendException("Failed to recover AutoUploadFilesStore")
+				}
+			}
+		} catch (e: Exception) {
+			throw FatalBackendException("Failed to recover AutoUploadFilesStore", e)
+		}
+	}
+
 	@Synchronized
-	fun removeImagesFromAutoUploads(names: Set<String>) {
-		val autoUploadFilesStore = autoUploadFilesStore
+	fun removeImagesFromAutoUploads(names: Set<String>): AutoUploadFilesStore {
+		val autoUploadFilesStore = getAutoUploadFilesStore()
 		var paths = autoUploadFilesStore.uris
 
 		if (autoUploadFilesStore.uris.isEmpty()) {
-			return
+			return autoUploadFilesStore
 		}
 
 		val dirPath = File(autoUploadFilesStore.uris.iterator().next()).parent
 		names.forEach { name ->
 			paths = paths.minus(String.format("%s/%s", dirPath, name))
 		}
-		addImageToAutoUploads(paths)
+
+		return addImageToAutoUploads(paths)
 	}
 
 	class FileInfo(val name: String, mimeTypes: MimeTypes) {
