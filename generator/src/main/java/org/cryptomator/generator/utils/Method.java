@@ -9,7 +9,7 @@ import javax.lang.model.element.Modifier;
 import javax.lang.model.element.TypeElement;
 import javax.lang.model.type.TypeKind;
 
-public class Method {
+public class Method implements Comparable<Method> {
 
 	private final Utils utils;
 	private final ExecutableElement delegate;
@@ -74,5 +74,10 @@ public class Method {
 
 	public Type declaringType() {
 		return new Type(utils, (TypeElement) delegate.getEnclosingElement());
+	}
+
+	@Override
+	public int compareTo(Method method) {
+		return this.delegate.getSimpleName().toString().compareTo(method.delegate.getSimpleName().toString());
 	}
 }

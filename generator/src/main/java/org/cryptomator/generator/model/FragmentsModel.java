@@ -1,21 +1,21 @@
 package org.cryptomator.generator.model;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.Set;
+import java.util.TreeSet;
 
 public class FragmentsModel {
 
-	private final List<FragmentModel> fragments;
+	private final Set<FragmentModel> fragments;
 
 	public static FragmentsModel.Builder builder() {
 		return new Builder();
 	}
 
-	private FragmentsModel(List<FragmentModel> fragments) {
+	private FragmentsModel(Set<FragmentModel> fragments) {
 		this.fragments = fragments;
 	}
 
-	public List<FragmentModel> getFragments() {
+	public Set<FragmentModel> getFragments() {
 		return fragments;
 	}
 
@@ -29,7 +29,7 @@ public class FragmentsModel {
 
 	public static class Builder {
 
-		private final List<FragmentModel> fragments = new ArrayList<>();
+		private final Set<FragmentModel> fragments = new TreeSet<>();
 
 		private Builder() {
 		}

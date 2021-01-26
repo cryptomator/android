@@ -1,27 +1,27 @@
 package org.cryptomator.generator.model;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.Set;
+import java.util.TreeSet;
 
 public class IntentsModel {
 
-	private final List<IntentBuilderModel> builders;
-	private final List<IntentReaderModel> readers;
+	private final Set<IntentBuilderModel> builders;
+	private final Set<IntentReaderModel> readers;
 
 	public static IntentsModel.Builder builder() {
 		return new Builder();
 	}
 
-	private IntentsModel(List<IntentBuilderModel> builders, List<IntentReaderModel> readers) {
+	private IntentsModel(Set<IntentBuilderModel> builders, Set<IntentReaderModel> readers) {
 		this.builders = builders;
 		this.readers = readers;
 	}
 
-	public List<IntentBuilderModel> getBuilders() {
+	public Set<IntentBuilderModel> getBuilders() {
 		return builders;
 	}
 
-	public List<IntentReaderModel> getReaders() {
+	public Set<IntentReaderModel> getReaders() {
 		return readers;
 	}
 
@@ -35,8 +35,8 @@ public class IntentsModel {
 
 	public static class Builder {
 
-		private final List<IntentBuilderModel> builders = new ArrayList<>();
-		private final List<IntentReaderModel> readers = new ArrayList<>();
+		private final Set<IntentBuilderModel> builders = new TreeSet<>();
+		private final Set<IntentReaderModel> readers = new TreeSet<>();
 
 		private Builder() {
 		}

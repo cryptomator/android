@@ -17,7 +17,6 @@ android {
 
 		buildConfigField 'int', 'VERSION_CODE', "${globalConfiguration["androidVersionCode"]}"
 		buildConfigField "String", "VERSION_NAME", "\"${globalConfiguration["androidVersionName"]}\""
-		buildConfigField "String", "ONEDRIVE_API_KEY", "\"" + getApiKey('ONEDRIVE_API_KEY') + "\""
 	}
 
 	compileOptions {
@@ -31,6 +30,18 @@ android {
 		ignoreWarnings true
 	}
 
+	buildTypes {
+		release {
+			buildConfigField "String", "ONEDRIVE_API_KEY", "\"" + getApiKey('ONEDRIVE_API_KEY') + "\""
+			buildConfigField "String", "ONEDRIVE_API_REDIRCT_URI", "\"" + getApiKey('ONEDRIVE_API_REDIRCT_URI') + "\""
+		}
+
+		debug {
+			buildConfigField "String", "ONEDRIVE_API_KEY", "\"" + getApiKey('ONEDRIVE_API_KEY_DEBUG') + "\""
+			buildConfigField "String", "ONEDRIVE_API_REDIRCT_URI", "\"" + getApiKey('ONEDRIVE_API_REDIRCT_URI_DEBUG') + "\""
+		}
+	}
+
 	flavorDimensions "version"
 
 	productFlavors {
@@ -38,8 +49,26 @@ android {
 			dimension "version"
 		}
 
-		license {
+		apkstore {
 			dimension "version"
+		}
+
+		fdroid {
+			dimension "version"
+		}
+	}
+
+	sourceSets {
+		playstore {
+			java.srcDirs = ['src/main/java', 'src/main/java/', 'src/notFoss/java', 'src/notFoss/java/']
+		}
+
+		apkstore {
+			java.srcDirs = ['src/main/java', 'src/main/java/', 'src/notFoss/java', 'src/notFoss/java/']
+		}
+
+		fdroid {
+			java.srcDirs = ['src/main/java', 'src/main/java/', 'src/foss/java', 'src/foss/java/']
 		}
 	}
 }
@@ -70,16 +99,28 @@ dependencies {
 	implementation dependencies.dagger
 	// cloud
 	implementation dependencies.dropbox
-	implementation dependencies.googlePlayServicesAuth
-	implementation(dependencies.googleApiServicesDrive) {
-		exclude module: 'guava-jdk5'
-		exclude module: 'httpclient'
-	}
-	implementation(dependencies.googleApiClientAndroid) {
-		exclude module: 'guava-jdk5'
-		exclude module: 'httpclient'
-	}
 	implementation dependencies.msgraph
+
+	playstoreImplementation dependencies.googlePlayServicesAuth
+	apkstoreImplementation dependencies.googlePlayServicesAuth
+
+	playstoreImplementation(dependencies.googleApiServicesDrive) {
+		exclude module: 'guava-jdk5'
+		exclude module: 'httpclient'
+	}
+	apkstoreImplementation(dependencies.googleApiServicesDrive) {
+		exclude module: 'guava-jdk5'
+		exclude module: 'httpclient'
+	}
+
+	playstoreImplementation(dependencies.googleApiClientAndroid) {
+		exclude module: 'guava-jdk5'
+		exclude module: 'httpclient'
+	}
+	apkstoreImplementation(dependencies.googleApiClientAndroid) {
+		exclude module: 'guava-jdk5'
+		exclude module: 'httpclient'
+	}
 
 	// rest
 	implementation dependencies.rxJava
@@ -116,7 +157,5 @@ configurations {
 }
 
 static def getApiKey(key) {
-	Properties props = new Properties()
-	props.load(new FileInputStream(new File('secrets.properties')))
-	return props[key]
+	return System.getenv().getOrDefault(key, "")
 }

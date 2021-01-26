@@ -14,7 +14,7 @@ import static javax.lang.model.element.ElementKind.FIELD;
 import static javax.lang.model.type.TypeKind.ARRAY;
 import static javax.lang.model.type.TypeKind.NONE;
 
-public class Type {
+public class Type implements Comparable<Type> {
 
 	private final TypeMirror mirror;
 	private final Optional<TypeElement> element;
@@ -89,6 +89,7 @@ public class Type {
 		return element //
 				.map(type -> type.getEnclosedElements().stream() //
 						.filter(ExecutableElement.class::isInstance) //
+						.sorted((e1, e2) -> e1.getSimpleName().toString().compareTo(e2.getSimpleName().toString())) //
 						.map(ExecutableElement.class::cast) //
 						.filter(Method::isConstructor) //
 						.map(executableElement -> new Method(utils, executableElement)))
@@ -99,20 +100,22 @@ public class Type {
 		return element //
 				.map(type -> type.getEnclosedElements().stream() //
 						.filter(ExecutableElement.class::isInstance) //
+						.sorted((e1, e2) -> e1.getSimpleName().toString().compareTo(e2.getSimpleName().toString())) //
 						.map(ExecutableElement.class::cast) //
 						.filter(Method::isRegularMethod) //
 						.map(executableElement -> new Method(utils, executableElement)))
-				.orElse(Stream.empty()); //
+				.orElse(Stream.empty());
 	}
 
 	public Stream<Field> fields() {
 		return element //
 				.map(type -> type.getEnclosedElements().stream() //
 						.filter(VariableElement.class::isInstance) //
+						.sorted((e1, e2) -> e1.getSimpleName().toString().compareTo(e2.getSimpleName().toString())) //
 						.map(VariableElement.class::cast) //
 						.filter(variable -> variable.getKind() == FIELD) //
-						.map(variableElement -> new Field(utils, variableElement)))
-				.orElse(Stream.empty()); //
+						.map(variableElement -> new Field(utils, variableElement))) //
+				.orElse(Stream.empty());
 	}
 
 	@Override
@@ -131,6 +134,11 @@ public class Type {
 	@Override
 	public int hashCode() {
 		return mirror.hashCode();
+	}
+
+	@Override
+	public int compareTo(Type type) {
+		return this.qualifiedName().compareTo(type.qualifiedName());
 	}
 
 	public Optional<Type> enclosingType() {

@@ -4,9 +4,9 @@
 	<string name="empty" translatable="false"></string>
 
 	<!-- # app -->
-	<string name="app_name">Cryptomator</string>
+	<string name="app_name" translatable="false">Cryptomator</string>
+	<string name="download_subdirectory_name" translatable="false">@string/app_name</string>
 	<string name="share_with_label">Encrypt</string>
-	<string name="download_subdirectory_name">@string/app_name</string>
 
 	<!-- # error messages -->
 	<string name="error_generic">An error occurred</string>
@@ -35,11 +35,11 @@
 	<!-- # clouds -->
 
 	<!-- ## cloud names -->
-	<string name="cloud_names_crypto">Crypto</string>
-	<string name="cloud_names_dropbox">Dropbox</string>
-	<string name="cloud_names_google_drive">Google Drive</string>
-	<string name="cloud_names_onedrive">OneDrive</string>
-	<string name="cloud_names_webdav">WebDAV</string>
+	<string name="cloud_names_crypto" translatable="false">Crypto</string>
+	<string name="cloud_names_dropbox" translatable="false">Dropbox</string>
+	<string name="cloud_names_google_drive" translatable="false">Google Drive</string>
+	<string name="cloud_names_onedrive" translatable="false">OneDrive</string>
+	<string name="cloud_names_webdav" translatable="false">WebDAV</string>
 	<string name="cloud_names_local_storage">Local storage</string>
 
 	<!-- # permission -->
@@ -219,9 +219,9 @@
 	<string name="screen_settings_website_label">Cryptomator website</string>
 	<string name="screen_settings_twitter_label">Follow us on Twitter</string>
 	<string name="screen_settings_facebook_label">Like us on Facebook</string>
-	<string name="screen_settings_website_uri">https://cryptomator.org</string>
-	<string name="screen_settings_facebook_uri">https://facebook.com/Cryptomator</string>
-	<string name="screen_settings_twitter_uri">https://twitter.com/Cryptomator</string>
+	<string name="screen_settings_website_uri" translatable="false">https://cryptomator.org</string>
+	<string name="screen_settings_facebook_uri" translatable="false">https://facebook.com/Cryptomator</string>
+	<string name="screen_settings_twitter_uri" translatable="false">https://twitter.com/Cryptomator</string>
 
 	<string name="screen_settings_section_legal">Legal</string>
 	<string name="screen_settings_licenses_label">Licenses</string>
@@ -229,12 +229,12 @@
 
 	<string name="screen_settings_section_support">Support</string>
 	<string name="screen_settings_contact_label">Request help</string>
-	<string name="screen_settings_support_uri">https://cryptomator.org/contact/</string>
+	<string name="screen_settings_support_uri" translatable="false">https://cryptomator.org/contact/</string>
 	<string name="screen_settings_debug_mode_label">Debug mode</string>
 	<string name="screen_settings_error_report_label">Send log file</string>
 	<string name="screen_settings_error_report_failed">Sending failed</string>
 	<string name="screen_settings_security_label">Security hints</string>
-	<string name="screen_settings_security_url">https://docs.cryptomator.org/en/1.5/security/best-practices/</string>
+	<string name="screen_settings_security_url" translatable="false">https://docs.cryptomator.org/en/1.5/security/best-practices/</string>
 
 	<string name="screen_settings_section_version">Version</string>
 
@@ -436,10 +436,10 @@
 	<string name="permission_snackbar_auth_auto_upload">Cryptomator needs storage access to use auto photo upload</string>
 
 	<!-- # error reports -->
-	<string name="error_report_subject">Android Error Report</string>
-	<string name="error_report_section_summary">Summary</string>
-	<string name="error_report_summary_description">Insert a detailed description of what you tried to do or mention your support ticket if you already created one.</string>
-	<string name="error_report_section_device">Device Info</string>
+	<string name="error_report_subject" translatable="false">Android Error Report</string>
+	<string name="error_report_section_summary" translatable="false">Summary</string>
+	<string name="error_report_summary_description" translatable="false">Insert a detailed description of what you tried to do or mention your support ticket if you already created one.</string>
+	<string name="error_report_section_device" translatable="false">Device Info</string>
 
 	<!-- # misc -->
 

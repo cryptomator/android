@@ -4,8 +4,8 @@
 	android:id="@+id/ll_progress"
 	android:layout_width="match_parent"
 	android:layout_height="wrap_content"
-	android:paddingLeft="16dp"
-	android:paddingRight="16dp"
+	android:paddingStart="16dp"
+	android:paddingEnd="16dp"
 	android:visibility="visible">
 
 	<RelativeLayout

@@ -5,15 +5,11 @@ labels: type:feature-request
 ---
 
 <!--
-
-Do you want to ask a QUESTION? Are you looking for SUPPORT?
-We're happy to help you via our support channels! Please read: https://github.com/cryptomator/cryptomator-android/blob/master/SUPPORT.md
-
-By filing a feature request, you are expected to comply with our code of conduct: https://github.com/cryptomator/cryptomator-android/blob/master/CODE_OF_CONDUCT.md
-
-Of course, we also expect you to search for existing similar feature requests first! ;)
-
+Please make sure to:
+- Comply with our code of conduct: https://github.com/cryptomator/android/blob/develop/.github/CODE_OF_CONDUCT.md
+- Search for existing similar issues first: https://github.com/cryptomator/android/issues?q=
 -->
+
 
 ### Summary
 

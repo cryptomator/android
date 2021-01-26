@@ -5,6 +5,7 @@ import org.cryptomator.domain.di.PerView
 import org.cryptomator.domain.exception.FatalBackendException
 import org.cryptomator.domain.usecases.cloud.GetCloudsUseCase
 import org.cryptomator.generator.Callback
+import org.cryptomator.presentation.BuildConfig
 import org.cryptomator.presentation.R
 import org.cryptomator.presentation.exception.ExceptionHandlers
 import org.cryptomator.presentation.intent.Intents
@@ -32,6 +33,11 @@ class ChooseCloudServicePresenter @Inject constructor( //
 	override fun resumed() {
 		val cloudTypeModels: MutableList<CloudTypeModel> = ArrayList(listOf(*CloudTypeModel.values()))
 		cloudTypeModels.remove(CloudTypeModel.CRYPTO)
+
+		if(BuildConfig.FLAVOR == "fdroid") {
+			cloudTypeModels.remove(CloudTypeModel.GOOGLE_DRIVE)
+		}
+
 		view?.render(cloudTypeModels)
 	}
 

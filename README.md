@@ -25,10 +25,22 @@ Cryptomator for Android is currently available in the following  distribution ch
 
 ```
 git submodule init && git submodule update // (not necessary if cloned using --recurse-submodules)
-./gradlew assembleLicenseDebug
+./gradlew assembleApkstoreDebug
 ```
 
-Before connecting to Onedrive or Dropbox you have to enter valid API keys in [secrets.properties](https://github.com/cryptomator/android/blob/master/secrets.properties).
+Before connecting to OneDrive or Dropbox you have to provide valid API keys using environment variables:   
+For build type
+
+* **release**: `DROPBOX_API_KEY` or `ONEDRIVE_API_KEY` and  `ONEDRIVE_API_REDIRCT_URI`
+* **debug**: `DROPBOX_API_KEY_DEBUG` or `ONEDRIVE_API_KEY_DEBUG` and `ONEDRIVE_API_REDIRCT_URI_DEBUG`
+
+## Contributing to Cryptomator for Android
+
+Please read our [contribution guide](.github/CONTRIBUTING.md), if you would like to report a bug, ask a question, translate the app or help us with coding.
+
+## Code of Conduct
+
+Help us keep Cryptomator open and inclusive. Please read and follow our [Code of Conduct](.github/CODE_OF_CONDUCT.md).
 
 ## License
 
