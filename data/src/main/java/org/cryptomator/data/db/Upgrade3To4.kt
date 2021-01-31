@@ -14,7 +14,7 @@ internal class Upgrade3To4 @Inject constructor() : DatabaseUpgrade(3, 4) {
 	override fun internalApplyTo(db: Database, origin: Int) {
 		db.beginTransaction()
 		try {
-			upgradeDatabaseScheme(db)
+			upgradeDatabaseSchema(db)
 			updateVaultPositions(db)
 			db.setTransactionSuccessful()
 		} finally {
@@ -22,7 +22,7 @@ internal class Upgrade3To4 @Inject constructor() : DatabaseUpgrade(3, 4) {
 		}
 	}
 
-	private fun upgradeDatabaseScheme(db: Database) {
+	private fun upgradeDatabaseSchema(db: Database) {
 		Sql.alterTable("VAULT_ENTITY").renameTo("VAULT_ENTITY_OLD").executeOn(db)
 		Sql.createTable("VAULT_ENTITY") //
 				.id() //
@@ -36,8 +36,8 @@ internal class Upgrade3To4 @Inject constructor() : DatabaseUpgrade(3, 4) {
 				.executeOn(db)
 
 		Sql.insertInto("VAULT_ENTITY") //
-				.select("_id", "FOLDER_CLOUD_ID", "FOLDER_PATH", "FOLDER_NAME", "CLOUD_ENTITY.TYPE") //
-				.columns("_id", "FOLDER_CLOUD_ID", "FOLDER_PATH", "FOLDER_NAME", "CLOUD_TYPE") //
+				.select("_id", "FOLDER_CLOUD_ID", "FOLDER_PATH", "FOLDER_NAME", "PASSWORD", "CLOUD_ENTITY.TYPE") //
+				.columns("_id", "FOLDER_CLOUD_ID", "FOLDER_PATH", "FOLDER_NAME", "PASSWORD", "CLOUD_TYPE") //
 				.from("VAULT_ENTITY_OLD") //
 				.join("CLOUD_ENTITY", "VAULT_ENTITY_OLD.FOLDER_CLOUD_ID") //
 				.executeOn(db)
