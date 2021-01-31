@@ -9,20 +9,20 @@ import org.cryptomator.generator.UseCase;
 import java.util.List;
 
 @UseCase
-class MoveVault {
+class MoveVaultPosition {
 
 	private final VaultRepository vaultRepository;
-	private final int from;
-	private final int to;
+	private final int fromPosition;
+	private final int toPosition;
 
-	public MoveVault(VaultRepository vaultRepository, @Parameter Integer from, @Parameter Integer to) {
+	public MoveVaultPosition(VaultRepository vaultRepository, @Parameter Integer fromPosition, @Parameter Integer toPosition) {
 		this.vaultRepository = vaultRepository;
-		this.from = from;
-		this.to = to;
+		this.fromPosition = fromPosition;
+		this.toPosition = toPosition;
 	}
 
 	public List<Vault> execute() throws BackendException {
-		List<Vault> vaults = MoveVaultHelper.Companion.updateVaultPosition(from, to, vaultRepository);
+		List<Vault> vaults = MoveVaultHelper.Companion.updateVaultPosition(fromPosition, toPosition, vaultRepository);
 		return MoveVaultHelper.Companion.updateVaultsInDatabase(vaults, vaultRepository);
 	}
 }

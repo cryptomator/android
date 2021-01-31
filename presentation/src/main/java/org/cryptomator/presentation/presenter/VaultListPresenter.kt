@@ -53,7 +53,7 @@ class VaultListPresenter @Inject constructor( //
 		private val addExistingVaultWorkflow: AddExistingVaultWorkflow,  //
 		private val createNewVaultWorkflow: CreateNewVaultWorkflow,  //
 		private val saveVaultUseCase: SaveVaultUseCase,  //
-		private val moveVaultUseCase: MoveVaultUseCase, //
+		private val moveVaultPositionUseCase: MoveVaultPositionUseCase, //
 		private val changePasswordUseCase: ChangePasswordUseCase,  //
 		private val removeStoredVaultPasswordsUseCase: RemoveStoredVaultPasswordsUseCase,  //
 		private val licenseCheckUseCase: DoLicenseCheckUseCase,  //
@@ -609,9 +609,9 @@ class VaultListPresenter @Inject constructor( //
 	}
 
 	fun onVaultMoved(fromPosition: Int, toPosition: Int) {
-		moveVaultUseCase
-				.withFrom(fromPosition) //
-				.andTo(toPosition) //
+		moveVaultPositionUseCase
+				.withFromPosition(fromPosition) //
+				.andToPosition(toPosition) //
 				.run(object : DefaultResultHandler<List<Vault>>() {
 					override fun onSuccess(vaults: List<Vault>) {
 						view?.vaultMoved(vaults.mapTo(ArrayList()) { VaultModel(it) })
@@ -710,6 +710,7 @@ class VaultListPresenter @Inject constructor( //
 				lockVaultUseCase,  //
 				getVaultListUseCase,  //
 				saveVaultUseCase,  //
+				moveVaultPositionUseCase, //
 				removeStoredVaultPasswordsUseCase,  //
 				unlockVaultUseCase,  //
 				prepareUnlockUseCase,  //

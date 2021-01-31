@@ -14,15 +14,15 @@ internal class Upgrade3To4 @Inject constructor() : DatabaseUpgrade(3, 4) {
 	override fun internalApplyTo(db: Database, origin: Int) {
 		db.beginTransaction()
 		try {
-			upgradeDatabaseSchema(db)
-			updateVaultPositions(db)
+			addPositionToVaultSchema(db)
+			initVaultPositionUsingCurrentSortOrder(db)
 			db.setTransactionSuccessful()
 		} finally {
 			db.endTransaction()
 		}
 	}
 
-	private fun upgradeDatabaseSchema(db: Database) {
+	private fun addPositionToVaultSchema(db: Database) {
 		Sql.alterTable("VAULT_ENTITY").renameTo("VAULT_ENTITY_OLD").executeOn(db)
 		Sql.createTable("VAULT_ENTITY") //
 				.id() //
@@ -53,7 +53,7 @@ internal class Upgrade3To4 @Inject constructor() : DatabaseUpgrade(3, 4) {
 		Sql.dropTable("VAULT_ENTITY_OLD").executeOn(db)
 	}
 
-	private fun updateVaultPositions(db: Database) {
+	private fun initVaultPositionUsingCurrentSortOrder(db: Database) {
 		CloudEntityDao(DaoConfig(db, VaultEntityDao::class.java)) //
 				.loadAll() //
 				.map {

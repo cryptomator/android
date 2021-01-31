@@ -17,7 +17,7 @@ import org.cryptomator.domain.usecases.vault.ChangePasswordUseCase;
 import org.cryptomator.domain.usecases.vault.DeleteVaultUseCase;
 import org.cryptomator.domain.usecases.vault.GetVaultListUseCase;
 import org.cryptomator.domain.usecases.vault.LockVaultUseCase;
-import org.cryptomator.domain.usecases.vault.MoveVaultUseCase;
+import org.cryptomator.domain.usecases.vault.MoveVaultPositionUseCase;
 import org.cryptomator.domain.usecases.vault.PrepareUnlockUseCase;
 import org.cryptomator.domain.usecases.vault.RemoveStoredVaultPasswordsUseCase;
 import org.cryptomator.domain.usecases.vault.RenameVaultUseCase;
@@ -124,7 +124,7 @@ public class VaultListPresenterTest {
 
 	private SaveVaultUseCase saveVaultUseCase = Mockito.mock(SaveVaultUseCase.class);
 
-	private MoveVaultUseCase moveVaultUseCase = Mockito.mock(MoveVaultUseCase.class);
+	private MoveVaultPositionUseCase moveVaultPositionUseCase = Mockito.mock(MoveVaultPositionUseCase.class);
 
 	private ChangePasswordUseCase changePasswordUseCase = Mockito.mock(ChangePasswordUseCase.class);
 
@@ -163,7 +163,7 @@ public class VaultListPresenterTest {
 				addExistingVaultWorkflow, //
 				createNewVaultWorkflow, //
 				saveVaultUseCase, //
-				moveVaultUseCase, //
+				moveVaultPositionUseCase, //
 				changePasswordUseCase, //
 				removeStoredVaultPasswordsUseCase, //
 				doLicenceCheckUsecase, //

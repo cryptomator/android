@@ -7,17 +7,17 @@ import java.util.*
 class MoveVaultHelper {
 
 	companion object {
-		fun updateVaultPosition(from: Int, to: Int, vaultRepository: VaultRepository): List<Vault> {
+		fun updateVaultPosition(fromPosition: Int, toPosition: Int, vaultRepository: VaultRepository): List<Vault> {
 			val vaults = vaultRepository.vaults()
 
 			vaults.sortWith(VaultComparator())
 
-			if (from < to) {
-				for (i in from until to) {
+			if (fromPosition < toPosition) {
+				for (i in fromPosition until toPosition) {
 					Collections.swap(vaults, i, i + 1)
 				}
 			} else {
-				for (i in from downTo to + 1) {
+				for (i in fromPosition downTo toPosition + 1) {
 					Collections.swap(vaults, i, i - 1)
 				}
 			}
@@ -25,8 +25,6 @@ class MoveVaultHelper {
 			for (i in 0 until vaults.size) {
 				vaults[i] = Vault.aCopyOf(vaults[i]).withPosition(i + 1).build()
 			}
-
-			vaults.forEach { vault -> vaultRepository.store(vault) }
 
 			return vaults
 		}
