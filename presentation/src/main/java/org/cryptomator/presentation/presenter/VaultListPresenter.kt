@@ -605,15 +605,7 @@ class VaultListPresenter @Inject constructor( //
 	}
 
 	fun onRowMoved(fromPosition: Int, toPosition: Int) {
-		getVaultListUseCase.run(object : DefaultResultHandler<List<Vault>>() {
-			override fun onSuccess(vaults: List<Vault>) {
-				view?.rowMoved(fromPosition, toPosition)
-			}
-
-			override fun onError(e: Throwable) {
-				Timber.tag("VaultListPresenter").e(e, "Failed to query vault list while row moving")
-			}
-		})
+		view?.rowMoved(fromPosition, toPosition)
 	}
 
 	fun onVaultMoved(fromPosition: Int, toPosition: Int) {
