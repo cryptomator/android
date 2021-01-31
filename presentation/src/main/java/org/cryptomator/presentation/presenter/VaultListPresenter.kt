@@ -53,6 +53,7 @@ class VaultListPresenter @Inject constructor( //
 		private val addExistingVaultWorkflow: AddExistingVaultWorkflow,  //
 		private val createNewVaultWorkflow: CreateNewVaultWorkflow,  //
 		private val saveVaultUseCase: SaveVaultUseCase,  //
+		private val moveVaultUseCase: MoveVaultUseCase, //
 		private val changePasswordUseCase: ChangePasswordUseCase,  //
 		private val removeStoredVaultPasswordsUseCase: RemoveStoredVaultPasswordsUseCase,  //
 		private val licenseCheckUseCase: DoLicenseCheckUseCase,  //
@@ -603,15 +604,31 @@ class VaultListPresenter @Inject constructor( //
 		view?.showDialog(AppIsObscuredInfoDialog.newInstance())
 	}
 
-	fun onVaultMoved(fromPosition: Int, toPosition: Int) {
-		// FIXME insert position int into the db and update here
-
+	fun onRowMoved(fromPosition: Int, toPosition: Int) {
 		getVaultListUseCase.run(object : DefaultResultHandler<List<Vault>>() {
 			override fun onSuccess(vaults: List<Vault>) {
-				val vaultModels = vaults.mapTo(ArrayList()) { VaultModel(it) }
-				view?.vaultMoved(fromPosition, toPosition, vaultModels)
+				view?.rowMoved(fromPosition, toPosition)
+			}
+
+			override fun onError(e: Throwable) {
+				Timber.tag("VaultListPresenter").e(e, "Failed to query vault list while row moving")
 			}
 		})
+	}
+
+	fun onVaultMoved(fromPosition: Int, toPosition: Int) {
+		moveVaultUseCase
+				.withFrom(fromPosition) //
+				.andTo(toPosition) //
+				.run(object : DefaultResultHandler<List<Vault>>() {
+					override fun onSuccess(vaults: List<Vault>) {
+						view?.vaultMoved(vaults.mapTo(ArrayList()) { VaultModel(it) })
+					}
+
+					override fun onError(e: Throwable) {
+						Timber.tag("VaultListPresenter").e(e, "Failed to execute MoveVaultUseCase")
+					}
+				})
 	}
 
 	fun onBiometricAuthenticationSucceeded(vaultModel: VaultModel) {

@@ -150,8 +150,12 @@ class VaultListActivity : BaseActivity(), //
 		return biometricAuthentication?.stoppedBiometricAuthDuringCloudAuthentication() == true
 	}
 
-	override fun vaultMoved(fromPosition: Int, toPosition: Int, vaultModelCollection: List<VaultModel>) {
-		vaultListFragment().vaultMoved(fromPosition, toPosition, vaultModelCollection)
+	override fun vaultMoved(vaults: List<VaultModel>) {
+		vaultListFragment().vaultMoved(vaults)
+	}
+
+	override fun rowMoved(fromPosition: Int, toPosition: Int) {
+		vaultListFragment().rowMoved(fromPosition, toPosition)
 	}
 
 	override fun showVaultSettingsDialog(vaultModel: VaultModel) {

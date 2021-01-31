@@ -13,7 +13,6 @@ import org.cryptomator.presentation.model.VaultModel
 import org.cryptomator.presentation.presenter.VaultListPresenter
 import org.cryptomator.presentation.ui.adapter.VaultsAdapter
 import org.cryptomator.presentation.ui.adapter.VaultsMoveListener
-import java.util.*
 import javax.inject.Inject
 
 @Fragment(R.layout.fragment_vault_list)
@@ -38,6 +37,10 @@ class VaultListFragment : BaseFragment() {
 
 		override fun onVaultLockClicked(vaultModel: VaultModel) {
 			vaultListPresenter.onVaultLockClicked(vaultModel)
+		}
+
+		override fun onRowMoved(fromPosition: Int, toPosition: Int) {
+			vaultListPresenter.onRowMoved(fromPosition, toPosition)
 		}
 
 		override fun onVaultMoved(fromPosition: Int, toPosition: Int) {
@@ -96,17 +99,12 @@ class VaultListFragment : BaseFragment() {
 		vaultsAdapter.addOrUpdateVault(vaultModel)
 	}
 
-	fun vaultMoved(fromPosition: Int, toPosition: Int, vaultModelCollection: List<VaultModel>?) {
-		if (fromPosition < toPosition) {
-			for (i in fromPosition until toPosition) {
-				Collections.swap(vaultModelCollection, i, i + 1)
-			}
-		} else {
-			for (i in fromPosition downTo toPosition + 1) {
-				Collections.swap(vaultModelCollection, i, i - 1)
-			}
-		}
+	fun vaultMoved(vaults: List<VaultModel>) {
+		vaultsAdapter.clear()
+		vaultsAdapter.addAll(vaults)
+	}
 
+	fun rowMoved(fromPosition: Int, toPosition: Int) {
 		vaultsAdapter.notifyItemMoved(fromPosition, toPosition)
 	}
 
