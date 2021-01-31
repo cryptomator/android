@@ -31,7 +31,7 @@ ext {
 
 	gsonVersion = '2.8.6'
 
-	okHttpVersion = '4.9.0'
+	okHttpVersion = '4.9.1'
 	okHttpDigestVersion = '2.5'
 
 	velocityVersion = '1.7'
