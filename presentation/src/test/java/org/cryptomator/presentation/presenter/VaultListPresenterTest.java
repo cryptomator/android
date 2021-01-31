@@ -17,6 +17,7 @@ import org.cryptomator.domain.usecases.vault.ChangePasswordUseCase;
 import org.cryptomator.domain.usecases.vault.DeleteVaultUseCase;
 import org.cryptomator.domain.usecases.vault.GetVaultListUseCase;
 import org.cryptomator.domain.usecases.vault.LockVaultUseCase;
+import org.cryptomator.domain.usecases.vault.MoveVaultUseCase;
 import org.cryptomator.domain.usecases.vault.PrepareUnlockUseCase;
 import org.cryptomator.domain.usecases.vault.RemoveStoredVaultPasswordsUseCase;
 import org.cryptomator.domain.usecases.vault.RenameVaultUseCase;
@@ -56,6 +57,7 @@ public class VaultListPresenterTest {
 
 	private static final Vault AN_UNLOCKED_VAULT = Vault.aVault() //
 			.withId(1L) //
+			.withPosition(1) //
 			.withName("Top Secret") //
 			.withPath("/top secret") //
 			.withCloudType(CloudType.DROPBOX) //
@@ -63,6 +65,7 @@ public class VaultListPresenterTest {
 
 	private static final Vault ANOTHER_VAULT_WITH_CLOUD = Vault.aVault() //
 			.withId(2L) //
+			.withPosition(2) //
 			.withName("Trip to the moon") //
 			.withPath("/trip to the moon") //
 			.withCloudType(CloudType.ONEDRIVE) //
@@ -70,6 +73,7 @@ public class VaultListPresenterTest {
 
 	private static final Vault A_VAULT_WITH_NEW_NAME = Vault.aVault() //
 			.withId(3L) //
+			.withPosition(3) //
 			.withName(A_NEW_VAULT_NAME) //
 			.withPath("/trip to the moon") //
 			.withCloudType(CloudType.GOOGLE_DRIVE) //
@@ -120,6 +124,8 @@ public class VaultListPresenterTest {
 
 	private SaveVaultUseCase saveVaultUseCase = Mockito.mock(SaveVaultUseCase.class);
 
+	private MoveVaultUseCase moveVaultUseCase = Mockito.mock(MoveVaultUseCase.class);
+
 	private ChangePasswordUseCase changePasswordUseCase = Mockito.mock(ChangePasswordUseCase.class);
 
 	private RemoveStoredVaultPasswordsUseCase removeStoredVaultPasswordsUseCase = Mockito.mock(RemoveStoredVaultPasswordsUseCase.class);
@@ -157,6 +163,7 @@ public class VaultListPresenterTest {
 				addExistingVaultWorkflow, //
 				createNewVaultWorkflow, //
 				saveVaultUseCase, //
+				moveVaultUseCase, //
 				changePasswordUseCase, //
 				removeStoredVaultPasswordsUseCase, //
 				doLicenceCheckUsecase, //
