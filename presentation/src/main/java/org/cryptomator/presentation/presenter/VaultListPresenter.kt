@@ -603,6 +603,17 @@ class VaultListPresenter @Inject constructor( //
 		view?.showDialog(AppIsObscuredInfoDialog.newInstance())
 	}
 
+	fun onVaultMoved(fromPosition: Int, toPosition: Int) {
+		// FIXME insert position int into the db and update here
+
+		getVaultListUseCase.run(object : DefaultResultHandler<List<Vault>>() {
+			override fun onSuccess(vaults: List<Vault>) {
+				val vaultModels = vaults.mapTo(ArrayList()) { VaultModel(it) }
+				view?.vaultMoved(fromPosition, toPosition, vaultModels)
+			}
+		})
+	}
+
 	fun onBiometricAuthenticationSucceeded(vaultModel: VaultModel) {
 		if (changedVaultPassword) {
 			changedVaultPassword = false
