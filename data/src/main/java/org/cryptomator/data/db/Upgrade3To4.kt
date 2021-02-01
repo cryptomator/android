@@ -57,7 +57,7 @@ internal class Upgrade3To4 @Inject constructor() : DatabaseUpgrade(3, 4) {
 		CloudEntityDao(DaoConfig(db, VaultEntityDao::class.java)) //
 				.loadAll() //
 				.map {
-					Sql.update("CLOUD_ENTITY") //
+					Sql.update("VAULT_ENTITY") //
 							.where("_id", Sql.eq(it.id)) //
 							.set("POSITION", Sql.toInteger(it.id)) //
 							.executeOn(db)
