@@ -3,7 +3,7 @@ apply from: 'buildsystem/dependencies.gradle'
 apply plugin: "com.vanniktech.android.junit.jacoco"
 
 buildscript {
-	ext.kotlin_version = '1.4.21'
+	ext.kotlin_version = '1.4.30'
 	repositories {
 		jcenter()
 		mavenCentral()
