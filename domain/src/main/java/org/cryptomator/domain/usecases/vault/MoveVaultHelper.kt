@@ -29,6 +29,19 @@ class MoveVaultHelper {
 			return vaults
 		}
 
+		private fun reorderVaults(vaults: MutableList<Vault>) : List<Vault> {
+			for (i in 0 until vaults.size) {
+				vaults[i] = Vault.aCopyOf(vaults[i]).withPosition(i + 1).build()
+			}
+			return vaults;
+		}
+
+		fun reorderVaults(vaultRepository: VaultRepository) : List<Vault> {
+			val vaults = vaultRepository.vaults()
+			vaults.sortWith(VaultComparator())
+			return reorderVaults(vaults)
+		}
+
 		fun updateVaultsInDatabase(vaults: List<Vault>, vaultRepository: VaultRepository): List<Vault> {
 			vaults.forEach { vault -> vaultRepository.store(vault) }
 			return vaultRepository.vaults()

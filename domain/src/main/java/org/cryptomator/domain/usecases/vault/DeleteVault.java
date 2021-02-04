@@ -6,6 +6,8 @@ import org.cryptomator.domain.repository.VaultRepository;
 import org.cryptomator.generator.Parameter;
 import org.cryptomator.generator.UseCase;
 
+import java.util.List;
+
 @UseCase
 class DeleteVault {
 
@@ -18,7 +20,12 @@ class DeleteVault {
 	}
 
 	public Long execute() throws BackendException {
-		return vaultRepository.delete(vault);
+		Long vaultId = vaultRepository.delete(vault);
+
+		List<Vault> reorderVaults = MoveVaultHelper.Companion.reorderVaults(vaultRepository);
+		MoveVaultHelper.Companion.updateVaultsInDatabase(reorderVaults, vaultRepository);
+
+		return vaultId;
 	}
 
 }
