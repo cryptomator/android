@@ -1,0 +1,39 @@
+Cryptomator macht Cloud-Speicher vertrauenswürdig. Die App verschlüsselt Dateien auf Ihrem Smartphone, bevor diese in die Cloud gelangen. Selbst im Falle eines unberechtigten Zugriffs auf Ihre Cloud (z.B. Hacker-Angriffe), sind Ihre Dateien durch die Verschlüsselung trotzdem sicher geschützt.
+
+<h1><b>EINFACHHEIT</b></h1>
+
+Bei der Entwicklung von Cryptomator steht die Benutzerfreundlichkeit im Fokus.
+
+• Erstellen Sie einen Tresor und vergeben Sie ein Passwort
+• Keine komplizierte Konfiguration und keine weiteren Accounts notwendig
+• Entsperren Sie Tresore mit Ihrem Fingerabdruck*
+
+* ab Android 6.0 and Smartphones mit Fingerabdruck-Sensor
+
+<h1><b>KOMPATIBILITÄT</b></h1>
+
+Cryptomator ist kompatibel mit den meistgenutzten Cloud-Speichern und verfügbar für alle gängigen Betriebssysteme.
+
+• Kompatibel mit Dropbox, Google Drive, OneDrive und WebDAV-basierten Cloudspeicher-Diensten
+• Erstellen Sie auch Tresore in Androids lokalem Speicher (funktioniert bspw. zusammen mit Sync-Apps von Drittanbietern)
+• Greifen Sie auf Ihre Tresore von allen Ihren mobilen Endgeräten und Computern zu
+
+<h1><b>SICHERHEIT</b></h1>
+
+Cryptomator für Android basiert auf dem bewährten Open-Source-Fundament Cryptomator für Desktop.
+
+• Verschlüsselung der Dateiinhalte und Dateinamen mit AES und 256-Bit-Schlüssellänge
+• Erhöhte Brute-Force-Resistenz des Tresor-Passworts durch Einsatz von scrypt
+• Tresore werden automatisch gesperrt, wenn die App in den Hintergrund geschickt wird
+• Verschlüsselungsimplementierung basiert auf der Open-Source-Bibliothek CryptoLib und ist öffentlich dokumentiert
+
+<h1><b>SENSATIONELLE VERSCHLÜSSELUNGSTECHNOLOGIEIMPLEMENTIERUNG</b></h1>
+
+Cryptomator wurde mit dem <b>CeBIT Innovation Award 2016 for Usable Security and Privacy</b> ausgezeichnet. Wir freuen uns, hunderttausenden Cryptomator-Nutzern Sicherheit und Privatsphärenschutz bieten zu können.
+
+<h1><b>CRYPTOMATOR COMMUNITY</b></h1>
+
+Treten Sie der Cryptomator Community bei und tauschen Sie sich mit Cryptomator-Nutzern aus: <a href="https://community.cryptomator.org">https://community.cryptomator.org</a>
+
+• Folgen Sie uns auf Twitter <a href="https://twitter.com/Cryptomator">@Cryptomator</a>
+• Liken Sie uns auf Facebook <a href="https://facebook.com/Cryptomator">/Cryptomator</a>
