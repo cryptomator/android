@@ -53,7 +53,7 @@ platform :android do |options|
 
   end
 
-  desc "Deploy new version to Playstore"
+  desc "Deploy new version to Play Store"
   private_lane :deployToPlaystore do |options|
     deploy_target = "production"
 
@@ -69,15 +69,14 @@ platform :android do |options|
       flavor: "playstore",
       print_command: false,
       properties: {
-        "android.injected.signing.store.file" => ENV["SIGNING_KEYSOTRE_PATH"],
-        "android.injected.signing.store.password" => ENV["SIGNING_KEYSOTRE_PASSWORD"],
+        "android.injected.signing.store.file" => ENV["SIGNING_KEYSTORE_PATH"],
+        "android.injected.signing.store.password" => ENV["SIGNING_KEYSTORE_PASSWORD"],
         "android.injected.signing.key.alias" => ENV["SIGNING_KEY_ALIAS"],
         "android.injected.signing.key.password" => ENV["SIGNING_KEY_PASSWORD"],
       }
     )
 
     upload_to_play_store(
-      package_name: 'org.cryptomator',
       track: deploy_target,
       apk: lane_context[SharedValues::GRADLE_APK_OUTPUT_PATH],
       mapping: lane_context[SharedValues::GRADLE_MAPPING_TXT_OUTPUT_PATH],
@@ -103,8 +102,8 @@ platform :android do |options|
       flavor: "apkstore",
       print_command: false,
       properties: {
-        "android.injected.signing.store.file" => ENV["SIGNING_KEYSOTRE_PATH"],
-        "android.injected.signing.store.password" => ENV["SIGNING_KEYSOTRE_PASSWORD"],
+        "android.injected.signing.store.file" => ENV["SIGNING_KEYSTORE_PATH"],
+        "android.injected.signing.store.password" => ENV["SIGNING_KEYSTORE_PASSWORD"],
         "android.injected.signing.key.alias" => ENV["SIGNING_KEY_ALIAS"],
         "android.injected.signing.key.password" => ENV["SIGNING_KEY_PASSWORD"],
       }
