@@ -1,0 +1,39 @@
+Cryptomator makes your cloud storage trustworthy. The app encrypts files on your mobile device before they are uploaded to your cloud. Even if a third party gained unauthorized access to your files (e.g., hacker attack), your files are secure from prying eyes.
+
+<h1><b>SIMPLICITY</b></h1>
+
+Cryptomator has been developed with a strong focus on user-friendliness.
+
+• Simply create a vault and assign a password
+• No additional account or configuration needed
+• Unlock vaults with your fingerprint*
+
+* from Android 6.0 and smartphones with fingerprint sensor
+
+<h1><b>COMPATIBILITY</b></h1>
+
+Cryptomator is compatible with the most commonly used cloud storages and available for all major operating systems.
+
+• Compatible with Dropbox, Google Drive, OneDrive, and WebDAV-based cloud storage services
+• Create vaults in Android’s local storage (e.g., works with third-party sync apps)
+• Access your vaults on all your mobile devices and computers
+
+<h1><b>SECURITY</b></h1>
+
+Cryptomator for Android is based on the solid open-source foundation of Cryptomator for Desktop.
+
+• File content and filename encryption with AES and 256 bit key length
+• Vault password is secured with scrypt for enhanced brute-force resistance
+• Vaults are automatically locked after sending app to background
+• Crypto implementation is based on the open-source library CryptoLib and is publicly documented
+
+<h1><b>GENERAL AWESOMENESS</b></h1>
+
+Cryptomator received the <b>CeBIT Innovation Award 2016 for Usable Security and Privacy</b>. We're proud to provide security and privacy for hundreds of thousands of Cryptomator users.
+
+<h1><b>CRYPTOMATOR COMMUNITY</b></h1>
+
+Join the <a href="https://community.cryptomator.org">Cryptomator Community</a> and participate in the conversations with other Cryptomator users.
+
+• Follow us on Twitter <a href="https://twitter.com/Cryptomator">@Cryptomator</a>
+• Like us on Facebook <a href="https://facebook.com/Cryptomator">/Cryptomator</a>
