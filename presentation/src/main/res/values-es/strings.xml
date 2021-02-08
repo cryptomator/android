@@ -219,9 +219,7 @@
 	<string name="lock_timeout_2m">2 minutos</string>
 	<string name="lock_timeout_5m">5 minutos</string>
 	<string name="lock_timeout_10m">10 minutos</string>
-	<string name="lock_timeout_never">Nunca</string>
 	<!-- cache size names -->
 	<!-- screen scheme mode names -->
 	<!-- update interval names -->
-	<string name="update_interval_never">Nunca</string>
 </resources>
