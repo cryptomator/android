@@ -349,7 +349,6 @@
 	<string name="dialog_settings_update_check_interval_title">Intervalle de vérification des mises à jour</string>
 	<string name="screen_settings_check_updates">Vérifier les mises à jour</string>
 	<string name="screen_settings_last_check_updates">Dernière exécution %1$s</string>
-	<string name="screen_settings_last_check_updates_never">@string/lock_timeout_never</string>
 	<string name="screen_settings_last_check_updates_never_pre_marshmallow">Jamais ~ Si la vérification de mise à jour ne peut être effectué pour des raisons techniques, les mises à jour peuvent être téléchargées et installées manuellement à partir du site https://cryptomator.org/android/.</string>
 	<string name="dialog_cache_size_title">Taille du cache par cloud</string>
 	<!-- lock timeout names -->
@@ -358,7 +357,6 @@
 	<string name="lock_timeout_2m">2 minutes</string>
 	<string name="lock_timeout_5m">5 minutes</string>
 	<string name="lock_timeout_10m">10 minutes</string>
-	<string name="lock_timeout_never">Jamais</string>
 	<!-- cache size names -->
 	<string name="cache_size_50m">50 Mo</string>
 	<string name="cache_size_100m">100 Mo</string>
@@ -375,5 +373,4 @@
 	<string name="update_interval_1d">Une fois par jour</string>
 	<string name="update_interval_1w">Une fois par semaine</string>
 	<string name="update_interval_1m">Une fois par mois</string>
-	<string name="update_interval_never">@string/lock_timeout_never</string>
 </resources>
