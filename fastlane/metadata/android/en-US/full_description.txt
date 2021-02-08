@@ -1,8 +1,8 @@
-Cryptomator makes your cloud storage trustworthy. The app encrypts files on your mobile device before they are uploaded to your cloud. Even if a third party gained unauthorized access to your files (e.g., hacker attack), your files are secure from prying eyes.
+With Cryptomator, the key to your data is in your hands. Cryptomator encrypts your data quickly and easily. Afterwards you upload them protected to your favorite cloud service.
 
-<h1><b>SIMPLICITY</b></h1>
+<b>EASY-TO-USE</b>
 
-Cryptomator has been developed with a strong focus on user-friendliness.
+Cryptomator is a simple tool for digital self-defense. It allows you to protect your cloud data by yourself and independently.
 
 • Simply create a vault and assign a password
 • No additional account or configuration needed
@@ -10,7 +10,7 @@ Cryptomator has been developed with a strong focus on user-friendliness.
 
 * from Android 6.0 and smartphones with fingerprint sensor
 
-<h1><b>COMPATIBILITY</b></h1>
+<b>COMPATIBLE</b>
 
 Cryptomator is compatible with the most commonly used cloud storages and available for all major operating systems.
 
@@ -18,20 +18,20 @@ Cryptomator is compatible with the most commonly used cloud storages and availab
 • Create vaults in Android’s local storage (e.g., works with third-party sync apps)
 • Access your vaults on all your mobile devices and computers
 
-<h1><b>SECURITY</b></h1>
+<b>SECURE</b>
 
-Cryptomator for Android is based on the solid open-source foundation of Cryptomator for Desktop.
+You don't have to trust Cryptomator blindly, because <a href="https://github.com/cryptomator/android">it is open source software</a>. For you as a user, this means that everyone can see the code.
 
 • File content and filename encryption with AES and 256 bit key length
 • Vault password is secured with scrypt for enhanced brute-force resistance
 • Vaults are automatically locked after sending app to background
-• Crypto implementation is based on the open-source library CryptoLib and is publicly documented
+• Crypto implementation is publicly documented
 
-<h1><b>GENERAL AWESOMENESS</b></h1>
+<b>AWARD-WINNING</b>
 
 Cryptomator received the <b>CeBIT Innovation Award 2016 for Usable Security and Privacy</b>. We're proud to provide security and privacy for hundreds of thousands of Cryptomator users.
 
-<h1><b>CRYPTOMATOR COMMUNITY</b></h1>
+<b>CRYPTOMATOR COMMUNITY</b>
 
 Join the <a href="https://community.cryptomator.org">Cryptomator Community</a> and participate in the conversations with other Cryptomator users.
 
