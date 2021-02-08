@@ -105,12 +105,12 @@ class VaultListPresenter @Inject constructor( //
 	}
 
 	private fun checkLicense() {
-		if (BuildConfig.FLAVOR == "license") {
+		if (BuildConfig.FLAVOR == "apkstore" || BuildConfig.FLAVOR == "fdroid") {
 			licenseCheckUseCase //
 					.withLicense("") //
 					.run(object : NoOpResultHandler<LicenseCheck>() {
 						override fun onSuccess(licenseCheck: LicenseCheck) {
-							if (sharedPreferencesHandler.doUpdate()) {
+							if (BuildConfig.FLAVOR == "apkstore" && sharedPreferencesHandler.doUpdate()) {
 								checkForAppUpdates()
 							}
 						}

@@ -66,9 +66,13 @@ class SettingsPresenter @Inject internal constructor(
 	}
 
 	private fun errorReportEmailBody(): String {
-		var variant = "PlayStore"
-		if (BuildConfig.FLAVOR == "license") {
-			variant = "ApkStore"
+		val variant = when (BuildConfig.FLAVOR) {
+			"apkstore" -> {
+				"APK Store"
+			}
+			"fdroid" -> {
+				"F-Droid"
+			} else -> "Google Play"
 		}
 		return StringBuilder().append("## ").append(context().getString(R.string.error_report_subject)).append("\n\n") //
 				.append("### ").append(context().getString(R.string.error_report_section_summary)).append('\n') //

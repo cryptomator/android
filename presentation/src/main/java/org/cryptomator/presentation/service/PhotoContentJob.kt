@@ -15,7 +15,9 @@ import android.provider.MediaStore
 import android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI
 import androidx.annotation.RequiresApi
 import org.cryptomator.domain.exception.FatalBackendException
+import org.cryptomator.presentation.R
 import org.cryptomator.presentation.util.FileUtil
+import org.cryptomator.presentation.util.ResourceHelper
 import org.cryptomator.util.file.MimeTypeMap_Factory
 import org.cryptomator.util.file.MimeTypes
 import timber.log.Timber
@@ -121,7 +123,7 @@ class PhotoContentJob : JobService() {
 		private const val PHOTOS_CONTENT_JOB = 23
 
 		init {
-			val builder = JobInfo.Builder(PHOTOS_CONTENT_JOB, ComponentName("org.cryptomator", PhotoContentJob::class.java.name))
+			val builder = JobInfo.Builder(PHOTOS_CONTENT_JOB, ComponentName(ResourceHelper.getString(R.string.app_id), PhotoContentJob::class.java.name))
 			builder.addTriggerContentUri(JobInfo.TriggerContentUri(EXTERNAL_CONTENT_URI, FLAG_NOTIFY_FOR_DESCENDANTS))
 			builder.addTriggerContentUri(JobInfo.TriggerContentUri(MEDIA_URI, FLAG_NOTIFY_FOR_DESCENDANTS))
 			jobInfo = builder.build()

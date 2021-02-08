@@ -29,9 +29,6 @@ android {
 
 		multiDexEnabled true
 		testInstrumentationRunner 'androidx.test.runner.AndroidJUnitRunner'
-
-		buildConfigField "String", "DROPBOX_API_KEY", "\"" + getApiKey('DROPBOX_API_KEY') + "\""
-		manifestPlaceholders = [DROPBOX_API_KEY_DB: getApiKey('DROPBOX_API_KEY_DB')]
 	}
 
 	compileOptions {
@@ -47,13 +44,32 @@ android {
 
 	buildTypes {
 		release {
-			minifyEnabled true
-			proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+			crunchPngs false
+			minifyEnabled false
+			shrinkResources false
+			useProguard false
+
+			buildConfigField "String", "DROPBOX_API_KEY", "\"" + getApiKey('DROPBOX_API_KEY') + "\""
+			manifestPlaceholders = [DROPBOX_API_KEY: getApiKey('DROPBOX_API_KEY')]
+
+			resValue "string", "app_id", androidApplicationId
 		}
 
 		debug {
 			signingConfig signingConfigs.debug
+
+			crunchPngs false
+			minifyEnabled false
+			shrinkResources false
 			testCoverageEnabled false
+
+			buildConfigField "String", "DROPBOX_API_KEY", "\"" + getApiKey('DROPBOX_API_KEY_DEBUG') + "\""
+			manifestPlaceholders = [DROPBOX_API_KEY: getApiKey('DROPBOX_API_KEY_DEBUG')]
+
+			applicationIdSuffix ".debug"
+			versionNameSuffix '-DEBUG'
+
+			resValue "string", "app_id", androidApplicationId + applicationIdSuffix
 		}
 	}
 
@@ -64,8 +80,26 @@ android {
 			dimension "version"
 		}
 
-		license {
+		apkstore {
 			dimension "version"
+		}
+
+		fdroid {
+			dimension "version"
+		}
+	}
+
+	sourceSets {
+		playstore {
+			java.srcDirs = ['src/main/java', 'src/main/java/', 'src/notFoss/java', 'src/notFoss/java/']
+		}
+
+		apkstore {
+			java.srcDirs = ['src/main/java', 'src/main/java/', 'src/notFoss/java', 'src/notFoss/java/']
+		}
+
+		fdroid {
+			java.srcDirs = ['src/main/java', 'src/main/java/', 'src/foss/java', 'src/foss/java/']
 		}
 	}
 
@@ -106,11 +140,21 @@ dependencies {
 	// cloud
 	implementation dependencies.dropbox
 	implementation dependencies.msgraph
-	implementation(dependencies.googleApiServicesDrive) {
+
+	playstoreImplementation(dependencies.googleApiServicesDrive) {
 		exclude module: 'guava-jdk5'
 		exclude module: 'httpclient'
 	}
-	implementation(dependencies.googleApiClientAndroid) {
+	apkstoreImplementation(dependencies.googleApiServicesDrive) {
+		exclude module: 'guava-jdk5'
+		exclude module: 'httpclient'
+	}
+
+	playstoreImplementation(dependencies.googleApiClientAndroid) {
+		exclude module: 'guava-jdk5'
+		exclude module: 'httpclient'
+	}
+	apkstoreImplementation(dependencies.googleApiClientAndroid) {
 		exclude module: 'guava-jdk5'
 		exclude module: 'httpclient'
 	}
@@ -188,7 +232,5 @@ androidExtensions {
 }
 
 static def getApiKey(key) {
-	Properties props = new Properties()
-	props.load(new FileInputStream(new File('secrets.properties')))
-	return props[key]
+	return System.getenv().getOrDefault(key, "")
 }

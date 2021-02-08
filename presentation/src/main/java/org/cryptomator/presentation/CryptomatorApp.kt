@@ -42,8 +42,14 @@ class CryptomatorApp : MultiDexApplication(), HasComponent<ApplicationComponent>
 	override fun onCreate() {
 		super.onCreate()
 		setupLogging()
-
-		val flavor = if (BuildConfig.FLAVOR == "license") "License Edition" else "Google Play Edition"
+		val flavor = when (BuildConfig.FLAVOR) {
+			"apkstore" -> {
+				"APK Store Edition"
+			}
+			"fdroid" -> {
+				"F-Droid Edition"
+			} else -> "Google Play Edition"
+		}
 		Timber.tag("App").i("Cryptomator v%s (%d) \"%s\" started on android %s / API%d using a %s",  //
 				BuildConfig.VERSION_NAME, BuildConfig.VERSION_CODE, flavor,  //
 				Build.VERSION.RELEASE, Build.VERSION.SDK_INT,  //

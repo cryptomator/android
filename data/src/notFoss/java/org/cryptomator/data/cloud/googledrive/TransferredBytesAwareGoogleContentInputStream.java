@@ -1,6 +1,8 @@
-package org.cryptomator.data.util;
+package org.cryptomator.data.cloud.googledrive;
 
 import com.google.api.client.http.AbstractInputStreamContent;
+
+import org.cryptomator.data.util.TransferredBytesAwareInputStream;
 
 import java.io.Closeable;
 import java.io.IOException;

@@ -4,6 +4,8 @@ import android.net.Uri;
 
 import com.microsoft.services.msa.OAuthConfig;
 
+import org.cryptomator.data.BuildConfig;
+
 class MicrosoftOAuth2Endpoint implements OAuthConfig {
 	/**
 	 * The current instance of this class
@@ -12,7 +14,7 @@ class MicrosoftOAuth2Endpoint implements OAuthConfig {
 
 	/**
 	 * The current instance of this class
-	 * 
+	 *
 	 * @return The instance
 	 */
 	static MicrosoftOAuth2Endpoint getInstance() {
@@ -26,7 +28,7 @@ class MicrosoftOAuth2Endpoint implements OAuthConfig {
 
 	@Override
 	public Uri getDesktopUri() {
-		return Uri.parse("urn:ietf:wg:oauth:2.0:oob");
+		return Uri.parse(BuildConfig.ONEDRIVE_API_REDIRCT_URI);
 	}
 
 	@Override

@@ -2,8 +2,8 @@ package org.cryptomator.data.cloud.googledrive;
 
 import android.content.Context;
 
-import com.google.api.client.extensions.android.http.AndroidHttp;
-import com.google.api.client.json.jackson2.JacksonFactory;
+import com.google.api.client.http.javanet.NetHttpTransport;
+import com.google.api.client.json.gson.GsonFactory;
 import com.google.api.services.drive.Drive;
 import com.google.api.services.drive.DriveScopes;
 
@@ -24,7 +24,7 @@ class GoogleDriveClientFactory {
 		try {
 			FixedGoogleAccountCredential credential = FixedGoogleAccountCredential.usingOAuth2(context, Collections.singleton(DriveScopes.DRIVE));
 			credential.setAccountName(accountName);
-			return new Drive.Builder(AndroidHttp.newCompatibleTransport(), JacksonFactory.getDefaultInstance(), credential) //
+			return new Drive.Builder(new NetHttpTransport(), GsonFactory.getDefaultInstance(), credential) //
 					.setApplicationName("Cryptomator-Android/" + BuildConfig.VERSION_NAME) //
 					.build();
 		} catch (Exception e) {

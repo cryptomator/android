@@ -47,8 +47,6 @@
 			android:layout_height="wrap_content"
 			android:layout_below="@id/certificate_details"
 			android:paddingEnd="16dp"
-			android:paddingLeft="16dp"
-			android:paddingRight="16dp"
 			android:paddingStart="16dp"
 			android:text="@string/dialog_accept_ssl_certificate_security_checkbox" />
 

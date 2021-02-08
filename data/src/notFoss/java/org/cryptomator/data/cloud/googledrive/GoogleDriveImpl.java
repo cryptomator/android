@@ -13,7 +13,6 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-import org.cryptomator.data.util.TransferredBytesAwareGoogleContentInputStream;
 import org.cryptomator.data.util.TransferredBytesAwareOutputStream;
 import org.cryptomator.domain.CloudNode;
 import org.cryptomator.domain.GoogleDriveCloud;

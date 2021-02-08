@@ -11,6 +11,7 @@
 		android:layout_height="wrap_content" />
 
 	<androidx.fragment.app.FragmentContainerView
+		android:id="@+id/licensesFragment"
 		android:name="org.cryptomator.presentation.ui.fragment.LicensesFragment"
 		android:layout_width="match_parent"
 		android:layout_height="match_parent"
