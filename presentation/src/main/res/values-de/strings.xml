@@ -99,7 +99,7 @@
 	<string name="screen_share_files_section_location">Speicherort</string>
 	<string name="screen_share_files_save_button_text">Speichern</string>
 	<string name="screen_share_files_msg_success">Dateien verschlüsselt</string>
-	<string name="screen_share_files_new_text_file">text.txt</string>
+	<string name="screen_share_files_new_text_file">@string/dialog_file_name_placeholder</string>
 	<!-- ## screen: choose cloud service -->
 	<string name="screen_choose_cloud_service_title">Cloud-Dienst</string>
 	<string name="screen_choose_cloud_service_subtitle_add_existing_vault">Neuen Tresor anlegen</string>
@@ -219,7 +219,7 @@
 	<string name="dialog_unsaved_changes_message">Möchten Sie wirklich beenden, ohne zu speichern?</string>
 	<string name="dialog_unsaved_changes_discard">Verwerfen</string>
 	<string name="dialog_unsaved_changes_save">@string/dialog_button_cancel</string>
-	<string name="dialog_file_name_placeholder">@string/screen_share_files_new_text_file</string>
+	<string name="dialog_file_name_placeholder">text.txt</string>
 	<string name="dialog_delete_vault_message">Sind Sie sicher, dass sie den Tresor entfernen wollen?</string>
 	<string name="dialog_delete_vault_hint">Dieser Vorgang wird den Tresor nur aus dieser Liste entfernen und nicht tatsächlich löschen.</string>
 	<string name="dialog_upload_file_title">Lade hoch&#8230;</string>
@@ -341,7 +341,7 @@
 	<string name="dialog_settings_update_check_interval_title">Intervall der Aktualisierungsprüfung</string>
 	<string name="screen_settings_check_updates">Nach Aktualisierungen suchen</string>
 	<string name="screen_settings_last_check_updates">Letzte Ausführung %1$s</string>
-	<string name="screen_settings_last_check_updates_never">Noch nie</string>
+	<string name="screen_settings_last_check_updates_never">@string/lock_timeout_never</string>
 	<string name="screen_settings_last_check_updates_never_pre_marshmallow">Noch nie ~ Wenn aus technischen Gründen keine Update-Prüfung durchgeführt werden kann, können Updates manuell über die Website https://cryptomator.org/android/ heruntergeladen und installiert werden.</string>
 	<string name="dialog_cache_size_title">Zwischenspeichergröße pro Cloud</string>
 	<!-- lock timeout names -->
