@@ -41,6 +41,7 @@ platform :android do |options|
       )
     else
       deployToServer(scheduled:options[:scheduled], beta:options[:beta])
+      deployToFDroid(scheduled:options[:scheduled], beta:options[:beta])
 
       slack(
         default_payloads: [], # reduce the notification to the minimum
@@ -90,6 +91,8 @@ platform :android do |options|
       skip_upload_screenshots: true,
       metadata_path: "fastlane/metadata/android"
     )
+
+    FileUtils.cp(lane_context[SharedValues::GRADLE_APK_OUTPUT_PATH], "release/Cryptomator-#{version}_playstore_signed.apk")
   end
 
   desc "Deploy new version to server"
@@ -161,6 +164,30 @@ platform :android do |options|
 
     latest_version_jsn.close
     release_note_file.close
+
+    FileUtils.cp(lane_context[SharedValues::GRADLE_APK_OUTPUT_PATH], "release/Cryptomator-#{version}_signed.apk")
+
+  end
+
+  desc "Deploy new version to F-Droid"
+  lane :deployToFDroid do |options|
+    gradle(task: "clean")
+
+    gradle(
+      task: "assemble",
+      build_type: "Release",
+      flavor: "fdroid",
+      print_command: false,
+      properties: {
+        "android.injected.signing.store.file" => ENV["SIGNING_KEYSTORE_PATH"],
+        "android.injected.signing.store.password" => ENV["SIGNING_KEYSTORE_PASSWORD"],
+        "android.injected.signing.key.alias" => ENV["SIGNING_KEY_ALIAS"],
+        "android.injected.signing.key.password" => ENV["SIGNING_KEY_PASSWORD"],
+      }
+    )
+    
+    FileUtils.cp(lane_context[SharedValues::GRADLE_APK_OUTPUT_PATH], "release/Cryptomator-#{version}_fdroid_signed.apk")
+
   end
 
   after_all do |lane|
