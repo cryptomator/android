@@ -60,6 +60,7 @@ Follow these steps to deploy a release:
 1. Create tag and execute deploy app using Fastlane
 1. Close GitHub-issues or move them to next milestone
 1. Close milestone
+1. Update version on website ([cryptomator.org/android](https://cryptomator.org/android/))
 
 ### Release Notes
 
