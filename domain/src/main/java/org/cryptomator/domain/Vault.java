@@ -19,7 +19,7 @@ public class Vault implements Serializable {
 				.withPath(vault.getPath()) //
 				.withUnlocked(vault.isUnlocked()) //
 				.withSavedPassword(vault.getPassword()) //
-				.withVersion(vault.getVersion())
+				.withVersion(vault.getVersion()) //
 				.withPosition(vault.getPosition());
 	}
 

@@ -41,26 +41,26 @@ class MoveVaultHelperTest {
 	fun movePositionDown() {
 		Mockito.`when`(vaultRepository.vaults()).thenReturn(orderedVaults)
 
-		val resultList2 = ArrayList<Vault>()
-		resultList2.add(Vault.aVault().withId(3).withPath("").withCloudType(cloudType).withName("foo 10").withPosition(0).build())
-		resultList2.add(Vault.aVault().withId(24).withPath("").withCloudType(cloudType).withName("foo 1").withPosition(1).build())
-		resultList2.add(Vault.aVault().withId(2).withPath("").withCloudType(cloudType).withName("foo 5").withPosition(2).build())
-		resultList2.add(Vault.aVault().withId(4).withPath("").withCloudType(cloudType).withName("foo 15").withPosition(3).build())
+		val resultList = ArrayList<Vault>()
+		resultList.add(Vault.aVault().withId(3).withPath("").withCloudType(cloudType).withName("foo 10").withPosition(0).build())
+		resultList.add(Vault.aVault().withId(24).withPath("").withCloudType(cloudType).withName("foo 1").withPosition(1).build())
+		resultList.add(Vault.aVault().withId(2).withPath("").withCloudType(cloudType).withName("foo 5").withPosition(2).build())
+		resultList.add(Vault.aVault().withId(4).withPath("").withCloudType(cloudType).withName("foo 15").withPosition(3).build())
 
-		assertEquals(resultList2, MoveVaultHelper.Companion.updateVaultPosition(2, 0, vaultRepository), "Failed to movePositionDown")
+		assertEquals(resultList, MoveVaultHelper.Companion.updateVaultPosition(2, 0, vaultRepository), "Failed to movePositionDown")
 	}
 
 	@Test
 	fun movePositionToSelf() {
 		Mockito.`when`(vaultRepository.vaults()).thenReturn(orderedVaults)
 
-		val resultList2 = ArrayList<Vault>()
-		resultList2.add(Vault.aVault().withId(24).withPath("").withCloudType(cloudType).withName("foo 1").withPosition(0).build())
-		resultList2.add(Vault.aVault().withId(2).withPath("").withCloudType(cloudType).withName("foo 5").withPosition(1).build())
-		resultList2.add(Vault.aVault().withId(3).withPath("").withCloudType(cloudType).withName("foo 10").withPosition(2).build())
-		resultList2.add(Vault.aVault().withId(4).withPath("").withCloudType(cloudType).withName("foo 15").withPosition(3).build())
+		val resultList = ArrayList<Vault>()
+		resultList.add(Vault.aVault().withId(24).withPath("").withCloudType(cloudType).withName("foo 1").withPosition(0).build())
+		resultList.add(Vault.aVault().withId(2).withPath("").withCloudType(cloudType).withName("foo 5").withPosition(1).build())
+		resultList.add(Vault.aVault().withId(3).withPath("").withCloudType(cloudType).withName("foo 10").withPosition(2).build())
+		resultList.add(Vault.aVault().withId(4).withPath("").withCloudType(cloudType).withName("foo 15").withPosition(3).build())
 
-		assertEquals(resultList2, MoveVaultHelper.Companion.updateVaultPosition(1, 1, vaultRepository), "Failed to movePositionToSelf")
+		assertEquals(resultList, MoveVaultHelper.Companion.updateVaultPosition(1, 1, vaultRepository), "Failed to movePositionToSelf")
 	}
 
 	@Test

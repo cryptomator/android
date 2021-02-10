@@ -41,7 +41,7 @@ public class AddExistingVaultWorkflow extends Workflow<AddExistingVaultWorkflow.
 	@Inject
 	public AddExistingVaultWorkflow( //
 			Context context, //
-			SaveVaultUseCase saveVaultUseCase,
+			SaveVaultUseCase saveVaultUseCase, //
 			GetVaultListUseCase getVaultListUseCase, //
 			GetRootFolderUseCase getRootFolderUseCase, //
 			CloudModelMapper cloudModelMapper, //
