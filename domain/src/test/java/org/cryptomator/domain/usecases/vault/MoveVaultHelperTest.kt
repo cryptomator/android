@@ -83,7 +83,7 @@ class MoveVaultHelperTest {
 	@BeforeEach
 	fun setup() {
 		vaultRepository = Mockito.mock(VaultRepository::class.java)
-		cloudType = Mockito.mock(CloudType::class.java)
+		cloudType = CloudType.LOCAL
 
 		unorderedVaults = ArrayList()
 		unorderedVaults.add(Vault.aVault().withId(24).withPath("").withCloudType(cloudType).withName("foo 1").withPosition(1).build())
