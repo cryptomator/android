@@ -20,14 +20,14 @@ platform :android do |options|
     gradle(task: "test")
   end
 
-  desc "Deploy new version to Google Play and APK Store options: beta:false scheduled:false (default)"
+  desc "Deploy new version to Google Play and APK Store options: beta:false (default)"
   lane :deploy do |options|
     release_note_path_en = "metadata/android/en-US/changelogs/default.txt"
 
     # use english-change-log for french language too
     FileUtils.cp(release_note_path_en, "metadata/android/fr-FR/changelogs/default.txt")
 
-    deployToPlaystore(scheduled:options[:scheduled], beta:options[:beta])
+    deployToPlaystore(beta:options[:beta])
 
     if options[:beta]
       puts "Skipping deployment to server cause there isn't currently a beta channel"
@@ -40,8 +40,8 @@ platform :android do |options|
         }
       )
     else
-      deployToServer(scheduled:options[:scheduled], beta:options[:beta])
-      deployToFDroid(scheduled:options[:scheduled], beta:options[:beta])
+      deployToServer(beta:options[:beta])
+      deployToFDroid(beta:options[:beta])
 
       slack(
         default_payloads: [], # reduce the notification to the minimum
@@ -55,7 +55,7 @@ platform :android do |options|
   end
 
   desc "Deploy new version to Play Store"
-  private_lane :deployToPlaystore do |options|
+  lane :deployToPlaystore do |options|
     deploy_target = "production"
 
     if options[:beta]
@@ -96,7 +96,7 @@ platform :android do |options|
   end
 
   desc "Deploy new version to server"
-  private_lane :deployToServer do |options|
+  lane :deployToServer do |options|
     gradle(task: "clean")
 
     gradle(
@@ -112,13 +112,12 @@ platform :android do |options|
       }
     )
 
+    FileUtils.cp(lane_context[SharedValues::GRADLE_APK_OUTPUT_PATH], "release/Cryptomator-#{version}.apk")
+
     server_host = ENV["APK_STORE_BASIC_URL"]
-    server_relative_folder = "/mnt/data/android/"
     base_url = "https://#{server_host}/android/"
     apk_url = "#{base_url}#{version}/Cryptomator-#{version}.apk"
-    relative_apk_url = "#{server_relative_folder}#{version}/Cryptomator-#{version}.apk"
     release_note_url = "#{base_url}#{version}/release-notes.html"
-    relative_release_note_url = "#{server_relative_folder}#{version}/release-notes.html"
 
     claims = {
       "version": version,
@@ -129,44 +128,47 @@ platform :android do |options|
     private_key = OpenSSL::PKey.read(File.read(ENV["SIGNING_UPDATE_APK_STORE_KEY_PATH"])) 
     token = JWT.encode claims, private_key, "ES256"
 
-    latest_version_filename = "latest-version.json"
-    if options[:scheduled]
-      latest_version_filename = "latest-version-#{version}.json"
-      puts "Scheduled upload activated, uploading latest-version.json to #{latest_version_filename} with claims #{claims}"
-    else
-      puts "#{latest_version_filename} has claims #{claims}"
-    end
+    latest_version_filename = "latest-version-#{version}.json"
 
     latest_version_jsn = File.new("latest_versions/#{latest_version_filename}","w")
     latest_version_jsn.write(token)
     latest_version_jsn.close
-    latest_version_jsn = File.open("latest_versions/#{latest_version_filename}","r")
 
-    release_note_path = "release_notes_apkstore_en.html"
-    release_note_file = File.open(release_note_path,"r")
+    puts "Uploading APK and release note"
 
-    puts latest_version_filename
+    aws_s3(
+      bucket: ENV['S3_BUCKET'],
+      endpoint: ENV['S3_ENDPOINT'],
+      region: ENV['S3_REGION'],
+      access_key: ENV['S3_ACCESS_KEY'],
+      secret_access_key: ENV['S3_SECRET_ACCESS_KEY'],
+      path: "android/#{version}",
+      files: [
+        "fastlane/release/Cryptomator-#{version}.apk",
+        "fastlane/release-notes.html"
+      ],
+      skip_html_upload: true,
+      apk: ''
+    )
 
-    Net::SFTP.start(
-      ENV["FTP_SERVER_URL"],
-      ENV["FTP_SERVER_USERNAME"],
-      :keys=>[ENV["FTP_SERVER_KEY_FILE"]],
-      keys_only: true,
-      verify_host_key: :never,
-      :port=>ENV["FTP_SERVER_PORT"]
-    ) do |sftp|
-      puts "Uploading files to server..."
-      sftp.mkdir! "#{server_relative_folder}#{version}"
-      sftp.upload!(lane_context[SharedValues::GRADLE_APK_OUTPUT_PATH], relative_apk_url)
-      sftp.upload!(release_note_file, relative_release_note_url)
-      sftp.upload!(latest_version_jsn, "#{server_relative_folder}#{latest_version_filename}")
-    end
+    puts "Uploading #{latest_version_filename} with claims #{claims}"
+    puts "Rename #{latest_version_filename} to latest-version.json for deployment"
 
-    latest_version_jsn.close
-    release_note_file.close
+    aws_s3(
+      bucket: ENV['S3_BUCKET'],
+      endpoint: ENV['S3_ENDPOINT'],
+      region: ENV['S3_REGION'],
+      access_key: ENV['S3_ACCESS_KEY'],
+      secret_access_key: ENV['S3_SECRET_ACCESS_KEY'],
+      path: "android",
+      files: [
+        "fastlane/latest_versions/#{latest_version_filename}"
+      ],
+      skip_html_upload: true,
+      apk: ''
+    )
 
-    FileUtils.cp(lane_context[SharedValues::GRADLE_APK_OUTPUT_PATH], "release/Cryptomator-#{version}_signed.apk")
-
+    FileUtils.mv("release/Cryptomator-#{version}.apk", "release/Cryptomator-#{version}_signed.apk")
   end
 
   desc "Deploy new version to F-Droid"
@@ -187,7 +189,6 @@ platform :android do |options|
     )
     
     FileUtils.cp(lane_context[SharedValues::GRADLE_APK_OUTPUT_PATH], "release/Cryptomator-#{version}_fdroid_signed.apk")
-
   end
 
   after_all do |lane|

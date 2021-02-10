@@ -25,7 +25,17 @@ Run all the tests
 ```
 fastlane android deploy
 ```
-Deploy new version to Google Play and APK Store options: beta:false scheduled:false (default)
+Deploy new version to Google Play and APK Store options: beta:false (default)
+### android deployToPlaystore
+```
+fastlane android deployToPlaystore
+```
+Deploy new version to Play Store
+### android deployToServer
+```
+fastlane android deployToServer
+```
+Deploy new version to server
 ### android deployToFDroid
 ```
 fastlane android deployToFDroid
