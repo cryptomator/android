@@ -509,8 +509,7 @@
 	<string name="dialog_settings_update_check_interval_title">Update check interval</string>
 	<string name="screen_settings_check_updates">Check for updates</string>
 	<string name="screen_settings_last_check_updates">Last run %1$s</string>
-	<string name="screen_settings_last_check_updates_never">Never</string>
-	<string name="screen_settings_last_check_updates_never_pre_marshmallow">Never ~ If an update check cannot be performed for technical reasons, updates can be downloaded and installed manually from the website https://cryptomator.org/android/.</string>
+	<string name="screen_settings_last_check_updates_never">@string/lock_timeout_never</string>
 
 	<string name="dialog_cache_size_title">Cache size per Cloud</string>
 
@@ -520,7 +519,7 @@
 	<string name="lock_timeout_2m">2 minutes</string>
 	<string name="lock_timeout_5m">5 minutes</string>
 	<string name="lock_timeout_10m">10 minutes</string>
-	<string name="lock_timeout_never">@string/screen_settings_last_check_updates_never</string>
+	<string name="lock_timeout_never">Never</string>
 
 	<!-- cache size names -->
 	<string name="cache_size_50m">50 MB</string>
@@ -540,6 +539,6 @@
 	<string name="update_interval_1d">Once a day</string>
 	<string name="update_interval_1w">Once a week</string>
 	<string name="update_interval_1m">Once a month</string>
-	<string name="update_interval_never">@string/screen_settings_last_check_updates_never</string>
+	<string name="update_interval_never">@string/lock_timeout_never</string>
 
 </resources>

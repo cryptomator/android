@@ -1,0 +1,201 @@
+fastlane_require 'dotenv'
+fastlane_require 'jwt'
+fastlane_require 'base64'
+fastlane_require 'net/sftp'
+
+default_platform(:android)
+
+branch_name = `git rev-parse --abbrev-ref HEAD`
+build = `git rev-list --count #{branch_name} | tr -d " \t\n\r"`
+build = build.to_i + 1958 # adding 1958 for legacy reasons. Must be in sync with getVersionCode() from build.gradle
+version = get_version_name(
+                gradle_file_path:"build.gradle",
+  	            ext_constant_name:"androidVersionName")
+version = version.delete "'"
+
+platform :android do |options|
+
+  desc "Run all the tests"
+  lane :test do |options|
+    gradle(task: "test")
+  end
+
+  desc "Deploy new version to Google Play and APK Store options: beta:false (default)"
+  lane :deploy do |options|
+    release_note_path_en = "metadata/android/en-US/changelogs/default.txt"
+
+    # use english-change-log for french language too
+    FileUtils.cp(release_note_path_en, "metadata/android/fr-FR/changelogs/default.txt")
+
+    deployToPlaystore(beta:options[:beta])
+
+    if options[:beta]
+      puts "Skipping deployment to server cause there isn't currently a beta channel"
+      
+      slack(
+        default_payloads: [], # reduce the notification to the minimum
+        message: ":rocket: Successfully deployed #{version} with code #{build} to the Play Store :cryptomator:",
+        payload: {
+          "Changes" => File.read(release_note_path_en)
+        }
+      )
+    else
+      deployToServer(beta:options[:beta])
+      deployToFDroid(beta:options[:beta])
+
+      slack(
+        default_payloads: [], # reduce the notification to the minimum
+        message: ":rocket: Successfully deployed #{version} with code #{build} to the Play Store and APK store :cryptomator:",
+        payload: {
+          "Changes" => File.read(release_note_path_en)
+        }
+      )
+    end
+
+  end
+
+  desc "Deploy new version to Play Store"
+  lane :deployToPlaystore do |options|
+    deploy_target = "production"
+
+    if options[:beta]
+      deploy_target = "beta"
+    end
+
+    gradle(task: "clean")
+
+    gradle(
+      task: "assemble",
+      build_type: "Release",
+      flavor: "playstore",
+      print_command: false,
+      properties: {
+        "android.injected.signing.store.file" => ENV["SIGNING_KEYSTORE_PATH"],
+        "android.injected.signing.store.password" => ENV["SIGNING_KEYSTORE_PASSWORD"],
+        "android.injected.signing.key.alias" => ENV["SIGNING_KEY_ALIAS"],
+        "android.injected.signing.key.password" => ENV["SIGNING_KEY_PASSWORD"],
+      }
+    )
+
+    upload_to_play_store(
+      track: deploy_target,
+      apk: lane_context[SharedValues::GRADLE_APK_OUTPUT_PATH],
+      mapping: lane_context[SharedValues::GRADLE_MAPPING_TXT_OUTPUT_PATH],
+      version_name: version,
+      version_code: build,
+      release_status: "draft",
+      json_key: ENV["GOOGLE_PLAYSTORE_PRIVATE_KEY_FILE_PATH"],
+      skip_upload_aab: true,
+      skip_upload_metadata: false,
+      skip_upload_images: true,
+      skip_upload_screenshots: true,
+      metadata_path: "fastlane/metadata/android"
+    )
+
+    FileUtils.cp(lane_context[SharedValues::GRADLE_APK_OUTPUT_PATH], "release/Cryptomator-#{version}_playstore_signed.apk")
+  end
+
+  desc "Deploy new version to server"
+  lane :deployToServer do |options|
+    gradle(task: "clean")
+
+    gradle(
+      task: "assemble",
+      build_type: "Release",
+      flavor: "apkstore",
+      print_command: false,
+      properties: {
+        "android.injected.signing.store.file" => ENV["SIGNING_KEYSTORE_PATH"],
+        "android.injected.signing.store.password" => ENV["SIGNING_KEYSTORE_PASSWORD"],
+        "android.injected.signing.key.alias" => ENV["SIGNING_KEY_ALIAS"],
+        "android.injected.signing.key.password" => ENV["SIGNING_KEY_PASSWORD"],
+      }
+    )
+
+    FileUtils.cp(lane_context[SharedValues::GRADLE_APK_OUTPUT_PATH], "release/Cryptomator-#{version}.apk")
+
+    server_host = ENV["APK_STORE_BASIC_URL"]
+    base_url = "https://#{server_host}/android/"
+    apk_url = "#{base_url}#{version}/Cryptomator-#{version}.apk"
+    release_note_url = "#{base_url}#{version}/release-notes.html"
+
+    claims = {
+      "version": version,
+      "url": apk_url,
+      "release_notes": release_note_url
+    }
+
+    private_key = OpenSSL::PKey.read(File.read(ENV["SIGNING_UPDATE_APK_STORE_KEY_PATH"])) 
+    token = JWT.encode claims, private_key, "ES256"
+
+    latest_version_filename = "latest-version-#{version}.json"
+
+    latest_version_jsn = File.new("latest_versions/#{latest_version_filename}","w")
+    latest_version_jsn.write(token)
+    latest_version_jsn.close
+
+    puts "Uploading APK and release note"
+
+    aws_s3(
+      bucket: ENV['S3_BUCKET'],
+      endpoint: ENV['S3_ENDPOINT'],
+      region: ENV['S3_REGION'],
+      access_key: ENV['S3_ACCESS_KEY'],
+      secret_access_key: ENV['S3_SECRET_ACCESS_KEY'],
+      path: "android/#{version}",
+      files: [
+        "fastlane/release/Cryptomator-#{version}.apk",
+        "fastlane/release-notes.html"
+      ],
+      skip_html_upload: true,
+      apk: ''
+    )
+
+    puts "Uploading #{latest_version_filename} with claims #{claims}"
+    puts "Rename #{latest_version_filename} to latest-version.json for deployment"
+
+    aws_s3(
+      bucket: ENV['S3_BUCKET'],
+      endpoint: ENV['S3_ENDPOINT'],
+      region: ENV['S3_REGION'],
+      access_key: ENV['S3_ACCESS_KEY'],
+      secret_access_key: ENV['S3_SECRET_ACCESS_KEY'],
+      path: "android",
+      files: [
+        "fastlane/latest_versions/#{latest_version_filename}"
+      ],
+      skip_html_upload: true,
+      apk: ''
+    )
+
+    FileUtils.mv("release/Cryptomator-#{version}.apk", "release/Cryptomator-#{version}_signed.apk")
+  end
+
+  desc "Deploy new version to F-Droid"
+  lane :deployToFDroid do |options|
+    gradle(task: "clean")
+
+    gradle(
+      task: "assemble",
+      build_type: "Release",
+      flavor: "fdroid",
+      print_command: false,
+      properties: {
+        "android.injected.signing.store.file" => ENV["SIGNING_KEYSTORE_PATH"],
+        "android.injected.signing.store.password" => ENV["SIGNING_KEYSTORE_PASSWORD"],
+        "android.injected.signing.key.alias" => ENV["SIGNING_KEY_ALIAS"],
+        "android.injected.signing.key.password" => ENV["SIGNING_KEY_PASSWORD"],
+      }
+    )
+    
+    FileUtils.cp(lane_context[SharedValues::GRADLE_APK_OUTPUT_PATH], "release/Cryptomator-#{version}_fdroid_signed.apk")
+  end
+
+  after_all do |lane|
+    #error do |lane, exception|
+    #  slack(
+    #    message: exception.message,
+    #    success:false
+    #  )
+    end
+end

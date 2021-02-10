@@ -3,7 +3,7 @@ apply from: 'buildsystem/dependencies.gradle'
 apply plugin: "com.vanniktech.android.junit.jacoco"
 
 buildscript {
-	ext.kotlin_version = '1.4.21'
+	ext.kotlin_version = '1.4.30'
 	repositories {
 		jcenter()
 		mavenCentral()
@@ -42,7 +42,7 @@ allprojects {
 	ext {
 		androidApplicationId = 'org.cryptomator'
 		androidVersionCode = getVersionCode()
-		androidVersionName = '1.5.11-SNAPSHOT'
+		androidVersionName = '1.5.12-SNAPSHOT'
 	}
 	repositories {
 		mavenCentral()

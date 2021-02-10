@@ -1,7 +1,6 @@
 package org.cryptomator.presentation.ui.activity
 
 import android.net.Uri
-import android.os.Build
 import android.view.View.*
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
@@ -91,9 +90,7 @@ class ImagePreviewActivity : BaseActivity(), ImagePreviewView, ConfirmDeleteClou
 	}
 
 	private fun setupStatusBar() {
-		if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-			window.statusBarColor = ContextCompat.getColor(this, R.color.colorBlack)
-		}
+		window.statusBarColor = ContextCompat.getColor(this, R.color.colorBlack)
 	}
 
 	private fun setupToolbar(index: Int) {
@@ -131,10 +128,7 @@ class ImagePreviewActivity : BaseActivity(), ImagePreviewView, ConfirmDeleteClou
 		var newUiOptions = window.decorView.systemUiVisibility
 		newUiOptions = newUiOptions or SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
 		newUiOptions = newUiOptions xor SYSTEM_UI_FLAG_FULLSCREEN
-
-		if (Build.VERSION.SDK_INT >= 19) {
-			newUiOptions = newUiOptions xor SYSTEM_UI_FLAG_IMMERSIVE_STICKY
-		}
+		newUiOptions = newUiOptions xor SYSTEM_UI_FLAG_IMMERSIVE_STICKY
 
 		window.decorView.systemUiVisibility = newUiOptions
 	}

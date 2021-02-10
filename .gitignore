@@ -31,11 +31,6 @@ build/
 local.properties
 
 # fastlane
-secret_key_file.json
-**/**/fastlane/fastlane/**
-**/**/fastlane/metadata/**
-**/**/fastlane/report.xml
-**/**/fastlane/mappings/**
-**/**/fastlane/release_notes/**
-**/**/fastlane/latest_versions/**
-.env.default
+**/fastlane/.env
+**/fastlane/metadata/**/images/**
+**/fastlane/report.xml
