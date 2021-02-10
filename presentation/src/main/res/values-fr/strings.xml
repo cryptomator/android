@@ -356,6 +356,7 @@
 	<string name="lock_timeout_2m">2 minutes</string>
 	<string name="lock_timeout_5m">5 minutes</string>
 	<string name="lock_timeout_10m">10 minutes</string>
+	<string name="lock_timeout_never">Jamais</string>
 	<!-- cache size names -->
 	<string name="cache_size_50m">50 Mo</string>
 	<string name="cache_size_100m">100 Mo</string>
