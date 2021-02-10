@@ -1,7 +1,6 @@
 package org.cryptomator.data.cloud.local;
 
 import android.content.Context;
-import android.os.Build;
 
 import org.cryptomator.data.cloud.local.file.LocalStorageContentRepository;
 import org.cryptomator.data.cloud.local.storageaccessframework.LocalStorageAccessFrameworkContentRepository;
@@ -43,7 +42,7 @@ public class LocalStorageContentRepositoryFactory implements CloudContentReposit
 		if (!hasPermissions(WRITE_EXTERNAL_STORAGE, READ_EXTERNAL_STORAGE)) {
 			throw new NoAuthenticationProvidedException(cloud);
 		}
-		if (((LocalStorageCloud) cloud).rootUri() != null && Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+		if (((LocalStorageCloud) cloud).rootUri() != null) {
 			return new LocalStorageAccessFrameworkContentRepository(context, mimeTypes, (LocalStorageCloud) cloud);
 		} else {
 			return new LocalStorageContentRepository(context, (LocalStorageCloud) cloud);

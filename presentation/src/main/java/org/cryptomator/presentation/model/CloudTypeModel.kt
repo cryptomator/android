@@ -1,6 +1,5 @@
 package org.cryptomator.presentation.model
 
-import android.os.Build
 import org.cryptomator.domain.CloudType
 import org.cryptomator.presentation.R
 
@@ -22,14 +21,13 @@ enum class CloudTypeModel(builder: Builder) {
 			.withMultiInstances()),  //
 	LOCAL(Builder("LOCAL", R.string.cloud_names_local_storage) //
 			.withCloudImageResource(R.drawable.storage_type_local) //
-			.withCloudImageLargeResource(R.drawable.storage_type_local_large) //
-			.withMultiInstancesIfLollipopOrLater());
+			.withCloudImageLargeResource(R.drawable.storage_type_local_large));
 
-	val cloudName: String
-	val displayNameResource: Int
-	val cloudImageResource: Int
-	val cloudImageLargeResource: Int
-	val isMultiInstance: Boolean
+	val cloudName: String = builder.cloudName
+	val displayNameResource: Int = builder.displayNameResource
+	val cloudImageResource: Int = builder.cloudImageResource
+	val cloudImageLargeResource: Int = builder.cloudImageLargeResource
+	val isMultiInstance: Boolean = builder.multiInstances
 
 	private class Builder(val cloudName: String, val displayNameResource: Int) {
 		var cloudImageResource = 0
@@ -50,11 +48,6 @@ enum class CloudTypeModel(builder: Builder) {
 			multiInstances = true
 			return this
 		}
-
-		fun withMultiInstancesIfLollipopOrLater(): Builder {
-			multiInstances = Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP
-			return this
-		}
 	}
 
 	companion object {
@@ -65,13 +58,5 @@ enum class CloudTypeModel(builder: Builder) {
 		fun valueOf(type: CloudTypeModel): CloudType {
 			return CloudType.valueOf(type.name)
 		}
-	}
-
-	init {
-		cloudName = builder.cloudName
-		displayNameResource = builder.displayNameResource
-		cloudImageResource = builder.cloudImageResource
-		cloudImageLargeResource = builder.cloudImageLargeResource
-		isMultiInstance = builder.multiInstances
 	}
 }

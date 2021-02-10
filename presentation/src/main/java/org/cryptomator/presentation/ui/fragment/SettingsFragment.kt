@@ -179,11 +179,7 @@ class SettingsFragment : PreferenceFragmentCompat() {
 			val strDate: String = dateFormatUser.format(lastUpdateCheck)
 			format(getString(R.string.screen_settings_last_check_updates), strDate)
 		} else {
-			if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-				getString(R.string.screen_settings_last_check_updates_never)
-			} else {
-				getString(R.string.screen_settings_last_check_updates_never_pre_marshmallow)
-			}
+			getString(R.string.screen_settings_last_check_updates_never)
 		}
 
 		val date = SpannableString(readableDate)
