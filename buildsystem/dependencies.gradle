@@ -27,7 +27,7 @@ ext {
 	rxAndroidVersion = '2.1.1'
 	rxBindingVersion = '2.2.0'
 
-	daggerVersion = '2.31.2'
+	daggerVersion = '2.32'
 
 	gsonVersion = '2.8.6'
 
@@ -38,7 +38,7 @@ ext {
 
 	timberVersion = '4.7.1'
 
-	zxcvbnVersion = '1.3.5'
+	zxcvbnVersion = '1.3.6'
 
 	scaleImageViewVersion = '3.10.0'
 
@@ -58,7 +58,7 @@ ext {
 	googlePlayServicesVersion = '19.0.0'
 	googleClientVersion = '1.31.2'
 
-	msgraphVersion = '2.6.0'
+	msgraphVersion = '2.7.0'
 	msaAuthVersion = '0.10.0'
 
 	commonsCodecVersion = '1.15'
@@ -67,7 +67,7 @@ ext {
 
 	// testing dependencies
 
-	jUnitVersion = '5.7.0'
+	jUnitVersion = '5.7.1'
 	jUnit4Version = '4.13.1'
 	assertJVersion = '1.7.1'
 	mockitoVersion = '3.7.7'
