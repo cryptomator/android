@@ -128,7 +128,7 @@ public class AddExistingVaultWorkflow extends Workflow<AddExistingVaultWorkflow.
 				saveVaultUseCase//
 						.withVault(aVault() //
 								.withNamePathAndCloudFrom(state().masterkeyFile.getParent()) //
-								.withPosition(vaults.size() + 1) //
+								.withPosition(vaults.size()) //
 								.thatIsNew() //
 								.build()) //
 						.run(presenter().new ProgressCompletingResultHandler<Vault>() {

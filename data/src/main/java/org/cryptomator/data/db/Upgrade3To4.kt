@@ -59,7 +59,7 @@ internal class Upgrade3To4 @Inject constructor() : DatabaseUpgrade(3, 4) {
 				.map {
 					Sql.update("VAULT_ENTITY") //
 							.where("_id", Sql.eq(it.id)) //
-							.set("POSITION", Sql.toInteger(it.id)) //
+							.set("POSITION", Sql.toInteger(it.id - 1)) //
 							.executeOn(db)
 				}
 	}

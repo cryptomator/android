@@ -38,7 +38,7 @@ class CreateVault {
 		return vaultRepository.store(aVault() //
 				.thatIsNew() //
 				.withNamePathAndCloudFrom(vaultFolder) //
-				.withPosition(vaultRepository.vaults().size() + 1) //
+				.withPosition(vaultRepository.vaults().size()) //
 				.build());
 	}
 }

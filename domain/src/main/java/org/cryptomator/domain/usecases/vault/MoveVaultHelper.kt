@@ -21,17 +21,12 @@ class MoveVaultHelper {
 					Collections.swap(vaults, i, i - 1)
 				}
 			}
-
-			for (i in 0 until vaults.size) {
-				vaults[i] = Vault.aCopyOf(vaults[i]).withPosition(i + 1).build()
-			}
-
-			return vaults
+			return reorderVaults(vaults)
 		}
 
 		private fun reorderVaults(vaults: MutableList<Vault>) : List<Vault> {
 			for (i in 0 until vaults.size) {
-				vaults[i] = Vault.aCopyOf(vaults[i]).withPosition(i + 1).build()
+				vaults[i] = Vault.aCopyOf(vaults[i]).withPosition(i).build()
 			}
 			return vaults;
 		}
