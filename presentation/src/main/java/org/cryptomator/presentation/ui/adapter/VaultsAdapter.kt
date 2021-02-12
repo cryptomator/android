@@ -8,14 +8,17 @@ import org.cryptomator.presentation.ui.adapter.VaultsAdapter.VaultViewHolder
 import javax.inject.Inject
 
 class VaultsAdapter @Inject
-internal constructor() : RecyclerViewBaseAdapter<VaultModel, VaultsAdapter.OnItemClickListener, VaultViewHolder>() {
-
-	interface OnItemClickListener {
+internal constructor() : RecyclerViewBaseAdapter<VaultModel, VaultsAdapter.OnItemInteractionListener, VaultViewHolder>(VaultModelComparator()), VaultsMoveListener.Listener {
+	interface OnItemInteractionListener {
 		fun onVaultClicked(vaultModel: VaultModel)
 
 		fun onVaultSettingsClicked(vaultModel: VaultModel)
 
 		fun onVaultLockClicked(vaultModel: VaultModel)
+
+		fun onRowMoved(fromPosition: Int, toPosition: Int)
+
+		fun onVaultMoved(fromPosition: Int, toPosition: Int)
 	}
 
 	override fun getItemLayout(viewType: Int): Int {
@@ -63,6 +66,20 @@ internal constructor() : RecyclerViewBaseAdapter<VaultModel, VaultsAdapter.OnIte
 			itemView.unlockedImage.setOnClickListener { callback.onVaultLockClicked(vaultModel) }
 
 			itemView.settings.setOnClickListener { callback.onVaultSettingsClicked(vaultModel) }
+		}
+	}
+
+	override fun onVaultMoved(fromPosition: Int, toPosition: Int) {
+		callback.onVaultMoved(fromPosition, toPosition)
+	}
+
+	override fun onRowMoved(fromPosition: Int, toPosition: Int) {
+		callback.onRowMoved(fromPosition, toPosition)
+	}
+
+	internal class VaultModelComparator : java.util.Comparator<VaultModel> {
+		override fun compare(o1: VaultModel, o2: VaultModel): Int {
+			return o1.position - o2.position
 		}
 	}
 }

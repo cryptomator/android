@@ -53,6 +53,7 @@ class VaultListPresenter @Inject constructor( //
 		private val addExistingVaultWorkflow: AddExistingVaultWorkflow,  //
 		private val createNewVaultWorkflow: CreateNewVaultWorkflow,  //
 		private val saveVaultUseCase: SaveVaultUseCase,  //
+		private val moveVaultPositionUseCase: MoveVaultPositionUseCase, //
 		private val changePasswordUseCase: ChangePasswordUseCase,  //
 		private val removeStoredVaultPasswordsUseCase: RemoveStoredVaultPasswordsUseCase,  //
 		private val licenseCheckUseCase: DoLicenseCheckUseCase,  //
@@ -603,6 +604,25 @@ class VaultListPresenter @Inject constructor( //
 		view?.showDialog(AppIsObscuredInfoDialog.newInstance())
 	}
 
+	fun onRowMoved(fromPosition: Int, toPosition: Int) {
+		view?.rowMoved(fromPosition, toPosition)
+	}
+
+	fun onVaultMoved(fromPosition: Int, toPosition: Int) {
+		moveVaultPositionUseCase
+				.withFromPosition(fromPosition) //
+				.andToPosition(toPosition) //
+				.run(object : DefaultResultHandler<List<Vault>>() {
+					override fun onSuccess(vaults: List<Vault>) {
+						view?.vaultMoved(vaults.mapTo(ArrayList()) { VaultModel(it) })
+					}
+
+					override fun onError(e: Throwable) {
+						Timber.tag("VaultListPresenter").e(e, "Failed to execute MoveVaultUseCase")
+					}
+				})
+	}
+
 	fun onBiometricAuthenticationSucceeded(vaultModel: VaultModel) {
 		if (changedVaultPassword) {
 			changedVaultPassword = false
@@ -690,6 +710,7 @@ class VaultListPresenter @Inject constructor( //
 				lockVaultUseCase,  //
 				getVaultListUseCase,  //
 				saveVaultUseCase,  //
+				moveVaultPositionUseCase, //
 				removeStoredVaultPasswordsUseCase,  //
 				unlockVaultUseCase,  //
 				prepareUnlockUseCase,  //

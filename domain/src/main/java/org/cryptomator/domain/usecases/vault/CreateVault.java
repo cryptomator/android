@@ -35,7 +35,10 @@ class CreateVault {
 		CloudFolder vaultFolder = cloudContentRepository.folder(folder, vaultName);
 		vaultFolder = cloudContentRepository.create(vaultFolder);
 		cloudRepository.create(vaultFolder, password);
-		return vaultRepository.store(aVault().thatIsNew().withNamePathAndCloudFrom(vaultFolder).build());
+		return vaultRepository.store(aVault() //
+				.thatIsNew() //
+				.withNamePathAndCloudFrom(vaultFolder) //
+				.withPosition(vaultRepository.vaults().size()) //
+				.build());
 	}
-
 }

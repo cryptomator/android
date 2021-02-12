@@ -23,5 +23,7 @@ interface VaultListView : View {
 	fun isVaultLocked(vaultModel: VaultModel): Boolean
 	fun cancelBasicAuthIfRunning()
 	fun stoppedBiometricAuthDuringCloudAuthentication(): Boolean
+	fun rowMoved(fromPosition: Int, toPosition: Int)
+	fun vaultMoved(vaults: List<VaultModel>)
 
 }

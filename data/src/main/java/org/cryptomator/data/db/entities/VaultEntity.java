@@ -28,6 +28,8 @@ public class VaultEntity extends DatabaseEntity {
 
 	private String password;
 
+	private Integer position;
+
 	/**
 	 * Convenient call for {@link org.greenrobot.greendao.AbstractDao#refresh(Object)}.
 	 * Entity must attached to an entity context.
@@ -152,6 +154,14 @@ public class VaultEntity extends DatabaseEntity {
 		this.password = password;
 	}
 
+	public Integer getPosition() {
+		return this.position;
+	}
+
+	public void setPosition(Integer position) {
+		this.position = position;
+	}
+
 	/** called by internal mechanisms, do not call yourself. */
 	@Generated(hash = 674742652)
 	public void __setDaoSession(DaoSession daoSession) {
@@ -159,14 +169,16 @@ public class VaultEntity extends DatabaseEntity {
 		myDao = daoSession != null ? daoSession.getVaultEntityDao() : null;
 	}
 
-	@Generated(hash = 1196809909)
-	public VaultEntity(Long id, Long folderCloudId, String folderPath, String folderName, @NotNull String cloudType, String password) {
+	@Generated(hash = 825602374)
+	public VaultEntity(Long id, Long folderCloudId, String folderPath, String folderName, @NotNull String cloudType, String password,
+			Integer position) {
 		this.id = id;
 		this.folderCloudId = folderCloudId;
 		this.folderPath = folderPath;
 		this.folderName = folderName;
 		this.cloudType = cloudType;
 		this.password = password;
+		this.position = position;
 	}
 
 	@Generated(hash = 691253864)
