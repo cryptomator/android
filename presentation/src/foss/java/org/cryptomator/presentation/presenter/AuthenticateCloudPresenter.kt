@@ -112,7 +112,9 @@ class AuthenticateCloudPresenter @Inject constructor( //
 	}
 
 	private fun failAuthentication(cloudName: Int) {
-		view?.showMessage(String.format(getString(R.string.screen_authenticate_auth_authentication_failed), getString(cloudName)))
+		activity().runOnUiThread {
+			view?.showMessage(String.format(getString(R.string.screen_authenticate_auth_authentication_failed), getString(cloudName)))
+		}
 		finish()
 	}
 

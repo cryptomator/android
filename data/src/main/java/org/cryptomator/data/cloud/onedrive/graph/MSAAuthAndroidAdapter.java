@@ -152,7 +152,7 @@ public abstract class MSAAuthAndroidAdapter implements IAuthenticationAdapter {
 			public void onAuthComplete(final LiveStatus status, final LiveConnectSession session, final Object userState) {
 				Timber.tag("MSAAuthAndroidAdapter").d(String.format("LiveStatus: %s, LiveConnectSession good?: %s, UserState %s", status, session != null, userState));
 
-				if (status == LiveStatus.NOT_CONNECTED) {
+				if (status == LiveStatus.NOT_CONNECTED && session.getRefreshToken() == null) {
 					Timber.tag("MSAAuthAndroidAdapter").d("Received invalid login failure from silent authentication, ignoring.");
 					return;
 				}
