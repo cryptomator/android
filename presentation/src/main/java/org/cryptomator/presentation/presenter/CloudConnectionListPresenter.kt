@@ -6,9 +6,7 @@ import android.net.Uri
 import android.os.Build
 import android.widget.Toast
 import androidx.annotation.RequiresApi
-import org.cryptomator.domain.Cloud
-import org.cryptomator.domain.LocalStorageCloud
-import org.cryptomator.domain.Vault
+import org.cryptomator.domain.*
 import org.cryptomator.domain.di.PerView
 import org.cryptomator.domain.usecases.cloud.AddOrChangeCloudConnectionUseCase
 import org.cryptomator.domain.usecases.cloud.GetCloudsUseCase
@@ -48,8 +46,13 @@ class CloudConnectionListPresenter @Inject constructor( //
 	}
 
 	fun loadCloudList() {
+		val cloudTypeFilter = when(selectedCloudType.get()) {
+			CloudTypeModel.WEB_DE, CloudTypeModel.MAILBOX_ORG -> CloudTypeModel.WEBDAV
+			else -> selectedCloudType.get()
+		}
+
 		getCloudsUseCase //
-				.withCloudType(CloudTypeModel.valueOf(selectedCloudType.get())) //
+				.withCloudType(CloudTypeModel.valueOf(cloudTypeFilter)) //
 				.run(object : DefaultResultHandler<List<Cloud>>() {
 					override fun onSuccess(clouds: List<Cloud>) {
 						val cloudModels: MutableList<CloudModel> = ArrayList()
@@ -60,6 +63,18 @@ class CloudConnectionListPresenter @Inject constructor( //
 									return@forEach
 								}
 							}
+
+							// WebDAV but WEB.DE, MAILBOX_ORG, or ...
+							if(cloud.type() == CloudType.WEBDAV && selectedCloudType.get() != cloud.type()) {
+								when (selectedCloudType.get()) {
+									CloudTypeModel.WEB_DE, CloudTypeModel.MAILBOX_ORG -> {
+										if(!(cloud as WebDavCloud).url().startsWith(selectedCloudType.get().preFilledURL)) {
+											return@forEach
+										}
+									}
+								}
+							}
+
 							cloudModels.add(cloudModelMapper.toModel(cloud))
 						}
 						view?.showCloudModels(cloudModels)
@@ -123,6 +138,8 @@ class CloudConnectionListPresenter @Inject constructor( //
 			CloudTypeModel.WEBDAV -> requestActivityResult(ActivityResultCallbacks.addChangeWebDavCloud(),  //
 					Intents.webDavAddOrChangeIntent())
 			CloudTypeModel.LOCAL -> openDocumentTree()
+			CloudTypeModel.WEB_DE, CloudTypeModel.MAILBOX_ORG -> requestActivityResult(ActivityResultCallbacks.addChangeWebDavCloud(),  //
+					Intents.webDavAddOrChangeIntent().withPreFilledURL(selectedCloudType.get().preFilledURL))
 		}
 	}
 

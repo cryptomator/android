@@ -41,6 +41,8 @@
 	<string name="cloud_names_onedrive" translatable="false">OneDrive</string>
 	<string name="cloud_names_webdav" translatable="false">WebDAV</string>
 	<string name="cloud_names_local_storage">Local storage</string>
+	<string name="cloud_names_webde" translatable="false">WEB.DE</string>
+	<string name="cloud_names_mailboxorg" translatable="false">Mailbox.org</string>
 
 	<!-- # permission -->
 

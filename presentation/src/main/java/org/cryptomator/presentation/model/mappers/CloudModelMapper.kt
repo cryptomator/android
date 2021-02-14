@@ -18,7 +18,7 @@ class CloudModelMapper @Inject constructor() : ModelMapper<CloudModel, Cloud>() 
 			CloudTypeModel.ONEDRIVE -> OnedriveCloudModel(domainObject)
 			CloudTypeModel.CRYPTO -> CryptoCloudModel(domainObject)
 			CloudTypeModel.LOCAL -> LocalStorageModel(domainObject)
-			CloudTypeModel.WEBDAV -> WebDavCloudModel(domainObject)
+			CloudTypeModel.WEBDAV, CloudTypeModel.WEB_DE, CloudTypeModel.MAILBOX_ORG -> WebDavCloudModel(domainObject)
 		}
 	}
 }

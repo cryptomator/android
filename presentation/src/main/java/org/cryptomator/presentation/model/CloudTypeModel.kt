@@ -15,24 +15,36 @@ enum class CloudTypeModel(builder: Builder) {
 	ONEDRIVE(Builder("ONEDRIVE", R.string.cloud_names_onedrive) //
 			.withCloudImageResource(R.drawable.cloud_type_onedrive) //
 			.withCloudImageLargeResource(R.drawable.cloud_type_onedrive_large)),  //
+	LOCAL(Builder("LOCAL", R.string.cloud_names_local_storage) //
+			.withCloudImageResource(R.drawable.storage_type_local) //
+			.withCloudImageLargeResource(R.drawable.storage_type_local_large)), //
 	WEBDAV(Builder("WEBDAV", R.string.cloud_names_webdav) //
 			.withCloudImageResource(R.drawable.cloud_type_webdav) //
 			.withCloudImageLargeResource(R.drawable.cloud_type_webdav_large) //
 			.withMultiInstances()),  //
-	LOCAL(Builder("LOCAL", R.string.cloud_names_local_storage) //
-			.withCloudImageResource(R.drawable.storage_type_local) //
-			.withCloudImageLargeResource(R.drawable.storage_type_local_large));
+	WEB_DE(Builder("WEB", R.string.cloud_names_webde) //
+			.withCloudImageResource(R.drawable.cloud_type_webdav) //
+			.withCloudImageLargeResource(R.drawable.cloud_type_webde_large) //
+			.withMultiInstances()
+			.withPreFilledURL("https://webdav.smartdrive.web.de")),  //
+	MAILBOX_ORG(Builder("MAILBOX", R.string.cloud_names_mailboxorg) //
+			.withCloudImageResource(R.drawable.cloud_type_webdav) //
+			.withCloudImageLargeResource(R.drawable.cloud_type_webdav_large) //
+			.withMultiInstances()
+			.withPreFilledURL("https://dav.mailbox.org/servlet/webdav.infostore"));
 
 	val cloudName: String = builder.cloudName
 	val displayNameResource: Int = builder.displayNameResource
 	val cloudImageResource: Int = builder.cloudImageResource
 	val cloudImageLargeResource: Int = builder.cloudImageLargeResource
 	val isMultiInstance: Boolean = builder.multiInstances
+	val preFilledURL: String = builder.preFilledURL
 
 	private class Builder(val cloudName: String, val displayNameResource: Int) {
 		var cloudImageResource = 0
 		var cloudImageLargeResource = 0
 		var multiInstances = false
+		var preFilledURL = ""
 
 		fun withCloudImageResource(cloudImageResource: Int): Builder {
 			this.cloudImageResource = cloudImageResource
@@ -46,6 +58,11 @@ enum class CloudTypeModel(builder: Builder) {
 
 		fun withMultiInstances(): Builder {
 			multiInstances = true
+			return this
+		}
+
+		fun withPreFilledURL(preFilledURL: String): Builder {
+			this.preFilledURL = preFilledURL
 			return this
 		}
 	}

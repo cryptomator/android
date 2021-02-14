@@ -31,7 +31,7 @@ class WebDavAddOrChangeActivity : BaseActivity(),
 		setSupportActionBar(toolbar)
 	}
 
-	override fun createFragment(): Fragment = WebDavAddOrChangeFragment.newInstance(webDavAddOrChangeIntent.webDavCloud())
+	override fun createFragment(): Fragment = WebDavAddOrChangeFragment.newInstance(webDavAddOrChangeIntent.webDavCloud(), webDavAddOrChangeIntent.preFilledURL())
 
 	override fun onCheckUserInputSucceeded(urlPort: String, username: String, password: String, cloudId: Long?, certificate: String?) {
 		webDavAddOrChangeFragment().hideKeyboard()

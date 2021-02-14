@@ -23,6 +23,9 @@ class WebDavAddOrChangeFragment : BaseFragment() {
 	private val webDavCloudModel: WebDavCloudModel?
 		get() = arguments?.getSerializable(ARG_WEBDAV_CLOUD) as? WebDavCloudModel
 
+	private val preFilledPath: String?
+		get() = arguments?.getSerializable(ARG_PRE_FILLED_PATH) as? String
+
 	override fun setupView() {
 		createCloudButton.setOnClickListener { createCloud() }
 		createCloudButton.setOnEditorActionListener { _, actionId, _ ->
@@ -32,12 +35,16 @@ class WebDavAddOrChangeFragment : BaseFragment() {
 			false
 		}
 
+		preFilledPath?.let {
+			urlPortEditText.setText(it)
+		}
+
 		urlPortEditText.text?.length?.let { urlPortEditText.setSelection(it) }
 		showEditableCloudContent(webDavCloudModel)
 	}
 
 	private fun showEditableCloudContent(webDavCloudModel: WebDavCloudModel?) {
-		if (webDavCloudModel != null) {
+		webDavCloudModel?.let {
 			urlPortEditText.setText(webDavCloudModel.url())
 			userNameEditText.setText(webDavCloudModel.username())
 			passwordEditText.setText(getPassword(webDavCloudModel.accessToken()))
@@ -74,11 +81,13 @@ class WebDavAddOrChangeFragment : BaseFragment() {
 	companion object {
 
 		private const val ARG_WEBDAV_CLOUD = "WEBDAV_CLOUD"
+		private const val ARG_PRE_FILLED_PATH = "PRE_FILLED_CLOUD_PATH"
 
-		fun newInstance(cloudModel: WebDavCloudModel?): WebDavAddOrChangeFragment {
+		fun newInstance(cloudModel: WebDavCloudModel?, preFilledURL: String?): androidx.fragment.app.Fragment {
 			val result = WebDavAddOrChangeFragment()
 			val args = Bundle()
 			args.putSerializable(ARG_WEBDAV_CLOUD, cloudModel)
+			args.putSerializable(ARG_PRE_FILLED_PATH, preFilledURL)
 			result.arguments = args
 			return result
 		}

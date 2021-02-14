@@ -10,4 +10,8 @@ public interface WebDavAddOrChangeIntent {
 
 	@Optional
 	WebDavCloudModel webDavCloud();
+
+	@Optional
+	String preFilledURL();
+
 }
