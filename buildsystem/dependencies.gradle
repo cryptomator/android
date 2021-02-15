@@ -18,12 +18,11 @@ ext {
 	// support lib
 	androidSupportAnnotationsVersion = '1.1.0'
 	androidSupportAppcompatVersion = '1.2.0'
-	// check https://stackoverflow.com/questions/41025200/android-view-inflateexception-error-inflating-class-android-webkit-webview/57968071#57968071 !!!!!!
-	androidSupportDesignVersion = '1.2.1'
+	androidSupportDesignVersion = '1.3.0'
 
 	// app frameworks and utilities
 
-	rxJavaVersion = '2.2.20'
+	rxJavaVersion = '2.2.21'
 	rxAndroidVersion = '2.1.1'
 	rxBindingVersion = '2.2.0'
 
@@ -58,7 +57,7 @@ ext {
 	googlePlayServicesVersion = '19.0.0'
 	googleClientVersion = '1.31.2'
 
-	msgraphVersion = '2.7.0'
+	msgraphVersion = '2.7.1'
 	msaAuthVersion = '0.10.0'
 
 	commonsCodecVersion = '1.15'
@@ -82,7 +81,7 @@ ext {
 	uiautomatorVersion = '2.2.0'
 
 	androidxCoreVersion = '1.3.2'
-	androidxFragmentVersion = '1.2.5'
+	androidxFragmentVersion = '1.3.0'
 	androidxViewpagerVersion = '1.0.0'
 	androidxSwiperefreshVersion = '1.1.0'
 	androidxPreferenceVersion = '1.0.0' // 1.1.0 and 1.1.2 does have a bug with the text size
