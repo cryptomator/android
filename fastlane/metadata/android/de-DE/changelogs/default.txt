@@ -1,1 +1,4 @@
-- Foo
+- Möglichkeit zum Sortieren der Tresorliste hinzugefügt
+- Logging in Google Drive Cloud hinzugefügt
+- Verhalten bei Änderung des OneDrive-Passworts verbessert
+- CryptoBot-Symbole aufpoliert

@@ -1,1 +1,4 @@
-- Foo
+- Added possibility to sort vault list
+- Added logging to Google drive cloud
+- Enhanced behaviour when OneDrive password changed
+- Polished CryptoBot icons
