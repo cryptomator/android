@@ -228,6 +228,7 @@ class VaultListPresenter @Inject constructor( //
 
 	fun onUnlockCanceled() {
 		prepareUnlockUseCase.unsubscribe()
+		unlockVaultUseCase.cancel()
 	}
 
 	private fun browseFilesOf(vault: VaultModel) {

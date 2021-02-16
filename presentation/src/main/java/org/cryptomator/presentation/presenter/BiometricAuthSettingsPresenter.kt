@@ -190,6 +190,7 @@ class BiometricAuthSettingsPresenter @Inject constructor( //
 	}
 
 	fun onUnlockCanceled() {
+		unlockVaultUseCase.cancel()
 		loadVaultList()
 	}
 

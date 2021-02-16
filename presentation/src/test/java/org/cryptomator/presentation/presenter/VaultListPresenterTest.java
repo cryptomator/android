@@ -270,6 +270,7 @@ public class VaultListPresenterTest {
 		inTest.onUnlockCanceled();
 
 		verify(prepareUnlockUseCase).unsubscribe();
+		verify(unlockVaultUseCase).cancel();
 	}
 
 	@Test

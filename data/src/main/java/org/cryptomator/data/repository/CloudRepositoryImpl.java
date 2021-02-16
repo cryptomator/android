@@ -10,6 +10,7 @@ import org.cryptomator.domain.CloudType;
 import org.cryptomator.domain.Vault;
 import org.cryptomator.domain.exception.BackendException;
 import org.cryptomator.domain.repository.CloudRepository;
+import org.cryptomator.domain.usecases.cloud.Flag;
 import org.cryptomator.domain.usecases.vault.UnlockToken;
 
 import java.util.ArrayList;
@@ -92,14 +93,14 @@ class CloudRepositoryImpl implements CloudRepository {
 	}
 
 	@Override
-	public Cloud unlock(Vault vault, CharSequence password) throws BackendException {
-		Vault vaultWithVersion = cryptoCloudFactory.unlock(vault, password);
+	public Cloud unlock(Vault vault, CharSequence password, Flag cancelledFlag) throws BackendException {
+		Vault vaultWithVersion = cryptoCloudFactory.unlock(vault, password, cancelledFlag);
 		return decryptedViewOf(vaultWithVersion);
 	}
 
 	@Override
-	public Cloud unlock(UnlockToken token, CharSequence password) throws BackendException {
-		Vault vaultWithVersion = cryptoCloudFactory.unlock(token, password);
+	public Cloud unlock(UnlockToken token, CharSequence password, Flag cancelledFlag) throws BackendException {
+		Vault vaultWithVersion = cryptoCloudFactory.unlock(token, password, cancelledFlag);
 		return decryptedViewOf(vaultWithVersion);
 	}
 

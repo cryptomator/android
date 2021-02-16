@@ -152,7 +152,7 @@ class AutoUploadChooseVaultPresenter @Inject constructor( //
 	}
 
 	fun onUnlockCanceled() {
-		// empty
+		unlockVaultUseCase.cancel()
 	}
 
 	fun onUnlockPressed(vaultModel: VaultModel, password: String?) {
