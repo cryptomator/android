@@ -28,30 +28,16 @@ platform :android do |options|
     FileUtils.cp(release_note_path_en, "metadata/android/fr-FR/changelogs/default.txt")
 
     deployToPlaystore(beta:options[:beta])
+    deployToServer(beta:options[:beta])
+    deployToFDroid(beta:options[:beta])
 
-    if options[:beta]
-      puts "Skipping deployment to server cause there isn't currently a beta channel"
-      
-      slack(
-        default_payloads: [], # reduce the notification to the minimum
-        message: ":rocket: Successfully deployed #{version} with code #{build} to the Play Store :cryptomator:",
-        payload: {
-          "Changes" => File.read(release_note_path_en)
-        }
-      )
-    else
-      deployToServer(beta:options[:beta])
-      deployToFDroid(beta:options[:beta])
-
-      slack(
-        default_payloads: [], # reduce the notification to the minimum
-        message: ":rocket: Successfully deployed #{version} with code #{build} to the Play Store and APK store :cryptomator:",
-        payload: {
-          "Changes" => File.read(release_note_path_en)
-        }
-      )
-    end
-
+    slack(
+      default_payloads: [], # reduce the notification to the minimum
+      message: ":rocket: Successfully deployed #{version} with code #{build} to the Play Store :cryptomator:",
+      payload: {
+        "Changes" => File.read(release_note_path_en)
+      }
+    )
   end
 
   desc "Deploy new version to Play Store"
@@ -134,39 +120,43 @@ platform :android do |options|
     latest_version_jsn.write(token)
     latest_version_jsn.close
 
-    puts "Uploading APK and release note"
+    if options[:beta]
+      puts "Skipping deployment to server cause there isn't currently a beta channel"
+    else
+      puts "Uploading APK and release note"
 
-    aws_s3(
-      bucket: ENV['S3_BUCKET'],
-      endpoint: ENV['S3_ENDPOINT'],
-      region: ENV['S3_REGION'],
-      access_key: ENV['S3_ACCESS_KEY'],
-      secret_access_key: ENV['S3_SECRET_ACCESS_KEY'],
-      path: "android/#{version}",
-      files: [
-        "fastlane/release/Cryptomator-#{version}.apk",
-        "fastlane/release-notes.html"
-      ],
-      skip_html_upload: true,
-      apk: ''
-    )
-
-    puts "Uploading #{latest_version_filename} with claims #{claims}"
-    puts "Rename #{latest_version_filename} to latest-version.json for deployment"
-
-    aws_s3(
-      bucket: ENV['S3_BUCKET'],
-      endpoint: ENV['S3_ENDPOINT'],
-      region: ENV['S3_REGION'],
-      access_key: ENV['S3_ACCESS_KEY'],
-      secret_access_key: ENV['S3_SECRET_ACCESS_KEY'],
-      path: "android",
-      files: [
-        "fastlane/latest_versions/#{latest_version_filename}"
-      ],
-      skip_html_upload: true,
-      apk: ''
-    )
+      aws_s3(
+        bucket: ENV['S3_BUCKET'],
+        endpoint: ENV['S3_ENDPOINT'],
+        region: ENV['S3_REGION'],
+        access_key: ENV['S3_ACCESS_KEY'],
+        secret_access_key: ENV['S3_SECRET_ACCESS_KEY'],
+        path: "android/#{version}",
+        files: [
+          "fastlane/release/Cryptomator-#{version}.apk",
+          "fastlane/release-notes.html"
+        ],
+        skip_html_upload: true,
+        apk: ''
+      )
+  
+      puts "Uploading #{latest_version_filename} with claims #{claims}"
+      puts "Rename #{latest_version_filename} to latest-version.json for deployment"
+  
+      aws_s3(
+        bucket: ENV['S3_BUCKET'],
+        endpoint: ENV['S3_ENDPOINT'],
+        region: ENV['S3_REGION'],
+        access_key: ENV['S3_ACCESS_KEY'],
+        secret_access_key: ENV['S3_SECRET_ACCESS_KEY'],
+        path: "android",
+        files: [
+          "fastlane/latest_versions/#{latest_version_filename}"
+        ],
+        skip_html_upload: true,
+        apk: ''
+      )
+    end
 
     FileUtils.mv("release/Cryptomator-#{version}.apk", "release/Cryptomator-#{version}_signed.apk")
   end
@@ -190,12 +180,4 @@ platform :android do |options|
     
     FileUtils.cp(lane_context[SharedValues::GRADLE_APK_OUTPUT_PATH], "release/Cryptomator-#{version}_fdroid_signed.apk")
   end
-
-  after_all do |lane|
-    #error do |lane, exception|
-    #  slack(
-    #    message: exception.message,
-    #    success:false
-    #  )
-    end
 end
