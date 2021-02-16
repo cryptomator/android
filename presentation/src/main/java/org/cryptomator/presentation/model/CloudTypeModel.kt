@@ -21,7 +21,8 @@ enum class CloudTypeModel(builder: Builder) {
 			.withMultiInstances()),  //
 	LOCAL(Builder("LOCAL", R.string.cloud_names_local_storage) //
 			.withCloudImageResource(R.drawable.storage_type_local) //
-			.withCloudImageLargeResource(R.drawable.storage_type_local_large));
+			.withCloudImageLargeResource(R.drawable.storage_type_local_large) //
+			.withMultiInstances());
 
 	val cloudName: String = builder.cloudName
 	val displayNameResource: Int = builder.displayNameResource
