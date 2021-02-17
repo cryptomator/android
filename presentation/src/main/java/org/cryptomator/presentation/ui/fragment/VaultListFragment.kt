@@ -51,7 +51,7 @@ class VaultListFragment : BaseFragment() {
 
 	override fun setupView() {
 		setupRecyclerView()
-		fab_vault.setOnClickListener { vaultListPresenter.onCreateVaultClicked() }
+		floating_action_button.setOnClickListener { vaultListPresenter.onCreateVaultClicked() }
 	}
 
 	override fun onResume() {
@@ -77,11 +77,11 @@ class VaultListFragment : BaseFragment() {
 	}
 
 	fun showVaultCreationHint() {
-		rl_vault_creation_hint.visibility = View.VISIBLE
+		rl_creation_hint.visibility = View.VISIBLE
 	}
 
 	fun hideVaultCreationHint() {
-		rl_vault_creation_hint.visibility = View.GONE
+		rl_creation_hint.visibility = View.GONE
 	}
 
 	fun isVaultLocked(vaultModel: VaultModel?): Boolean {

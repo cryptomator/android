@@ -81,7 +81,7 @@ public class VaultsOperationsTest {
 			removeFolderInCloud(appComponent, "0/testLoggedInVault/", CloudType.values()[cloudId]);
 		}
 
-		onView(withId(R.id.fab_vault)) //
+		onView(withId(R.id.floating_action_button)) //
 				.perform(click());
 
 		awaitCompleted();
@@ -187,14 +187,14 @@ public class VaultsOperationsTest {
 		onView(withId(android.R.id.button1)) //
 				.perform(click());
 
-		onView(withId(R.id.tv_vault_creation_hint));
+		onView(withId(R.id.tv_creation_hint));
 	}
 
 	@Test
 	public void test08addExistingVaultsLeadsToAddedVaults() {
 		waitForIdle(device);
 
-		onView(withId(R.id.fab_vault)) //
+		onView(withId(R.id.floating_action_button)) //
 				.perform(click());
 
 		waitForIdle(device);

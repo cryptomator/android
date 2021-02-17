@@ -42,7 +42,6 @@ class CloudConnectionListFragment : BaseFragment() {
 		setupRecyclerView()
 		rv_local_default_cloud.setOnClickListener { cloudConnectionListPresenter.onDefaultLocalCloudConnectionClicked() }
 		floating_action_button.setOnClickListener { cloudConnectionListPresenter.onAddConnectionClicked() }
-		emptyCloudConnectionsHint.setText(R.string.screen_cloud_connections_no_connections)
 	}
 
 	override fun loadContent() {
@@ -65,7 +64,7 @@ class CloudConnectionListFragment : BaseFragment() {
 	}
 
 	private fun updateConnectionListHint() {
-		rl_empty_cloud_connections_hint.visibility = if (cloudConnectionListAdapter.isEmpty) VISIBLE else GONE
+		rl_creation_hint.visibility = if (cloudConnectionListAdapter.isEmpty) VISIBLE else GONE
 	}
 
 	fun setSelectedCloudType(selectedCloudType: CloudTypeModel) {

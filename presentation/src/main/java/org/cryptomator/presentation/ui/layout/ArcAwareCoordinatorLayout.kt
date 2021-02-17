@@ -13,7 +13,7 @@ import timber.log.Timber
 import kotlin.math.cos
 import kotlin.math.sin
 
-class VaultListCoordinatorLayout : CoordinatorLayout {
+class ArcAwareCoordinatorLayout : CoordinatorLayout {
 
 	private val pixelsPerDp: Int
 
@@ -34,16 +34,16 @@ class VaultListCoordinatorLayout : CoordinatorLayout {
 
 	override fun dispatchDraw(canvas: Canvas) {
 		super.dispatchDraw(canvas)
-		if (findViewById<View>(R.id.rl_vault_creation_hint).visibility == VISIBLE) {
+		if (findViewById<View>(R.id.rl_creation_hint).visibility == VISIBLE) {
 			drawArcFromHintToFloatingActionButton(canvas)
 		}
 	}
 
 	private fun drawArcFromHintToFloatingActionButton(canvas: Canvas) {
-		val vaultCreationHint = findViewById<View>(R.id.tv_vault_creation_hint)
-		val floatingActionButton = findViewById<View>(R.id.fab_vault)
-		val centerXOfHint = (vaultCreationHint.left + vaultCreationHint.right) / 2f
-		val bottomOfHint = vaultCreationHint.bottom.toFloat()
+		val creationHint = findViewById<View>(R.id.tv_creation_hint)
+		val floatingActionButton = findViewById<View>(R.id.floating_action_button)
+		val centerXOfHint = (creationHint.left + creationHint.right) / 2f
+		val bottomOfHint = creationHint.bottom.toFloat()
 		val topOfFloatingActionButton = floatingActionButton.top.toFloat()
 
 		when (val layoutDirection = resources.configuration.layoutDirection) {
@@ -62,7 +62,7 @@ class VaultListCoordinatorLayout : CoordinatorLayout {
 						.draw(canvas, strokeLineWithWidthOf1f())
 			}
 			else -> {
-				Timber.tag("VaultListCoordinatorLay").e("Layout direction not supported, skip drawing arc")
+				Timber.tag("ArcAwareCoordinatorLayo").e("Layout direction not supported, skip drawing arc")
 			}
 		}
 	}
