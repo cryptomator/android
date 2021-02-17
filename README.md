@@ -64,7 +64,7 @@ Follow these steps to deploy a release:
 
 ### Release Notes
 
-Before tagging the release, create and commit the release notes. For Playstore create [fastlane/metadata/android/de-DE/changelogs/default.txt](https://github.com/cryptomator/android/blob/develop/fastlane/metadata/android/de-DE/changelogs/default.txt), [fastlane/metadata/android/en-US/changelogs/default.txt](https://github.com/cryptomator/android/blob/develop/fastlane/metadata/android/en-US/changelogs/default.txt) and for the website create [fastlane/release_notes_apkstore_en.html](https://github.com/cryptomator/android/blob/develop/fastlane/release_notes_apkstore_en.html). 
+Before tagging the release, create and commit the release notes. For Playstore create [fastlane/metadata/android/de-DE/changelogs/default.txt](https://github.com/cryptomator/android/blob/develop/fastlane/metadata/android/de-DE/changelogs/default.txt), [fastlane/metadata/android/en-US/changelogs/default.txt](https://github.com/cryptomator/android/blob/develop/fastlane/metadata/android/en-US/changelogs/default.txt) and for the website create [fastlane/release-notes.html](https://github.com/cryptomator/android/blob/develop/fastlane/release-notes.html).
 
 ### Deploy app using Fastlane
 
