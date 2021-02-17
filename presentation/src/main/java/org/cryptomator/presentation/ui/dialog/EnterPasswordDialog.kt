@@ -38,6 +38,7 @@ class EnterPasswordDialog : BaseProgressErrorDialog<EnterPasswordDialog.Callback
 				val vaultModel = vaultModel()
 				callback?.onUnlockClick(vaultModel, et_password.text.toString())
 				onWaitForResponse(et_password)
+				dialog.getButton(android.app.Dialog.BUTTON_NEGATIVE)?.isEnabled = true
 			}
 
 			it.setCanceledOnTouchOutside(false)

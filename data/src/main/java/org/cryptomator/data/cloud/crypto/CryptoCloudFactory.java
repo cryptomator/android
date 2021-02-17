@@ -29,8 +29,10 @@ import org.cryptomator.domain.CloudFile;
 import org.cryptomator.domain.CloudFolder;
 import org.cryptomator.domain.Vault;
 import org.cryptomator.domain.exception.BackendException;
+import org.cryptomator.domain.exception.CancellationException;
 import org.cryptomator.domain.repository.CloudContentRepository;
 import org.cryptomator.domain.usecases.cloud.ByteArrayDataSource;
+import org.cryptomator.domain.usecases.cloud.Flag;
 import org.cryptomator.domain.usecases.vault.UnlockToken;
 import org.cryptomator.util.Optional;
 
@@ -76,13 +78,18 @@ public class CryptoCloudFactory {
 		return new CryptoCloud(aCopyOf(vault).build());
 	}
 
-	public Vault unlock(Vault vault, CharSequence password) throws BackendException {
-		return unlock(createUnlockToken(vault), password);
+	public Vault unlock(Vault vault, CharSequence password, Flag cancelledFlag) throws BackendException {
+		return unlock(createUnlockToken(vault), password, cancelledFlag);
 	}
 
-	public Vault unlock(UnlockToken token, CharSequence password) throws BackendException {
+	public Vault unlock(UnlockToken token, CharSequence password, Flag cancelledFlag) throws BackendException {
 		UnlockTokenImpl impl = (UnlockTokenImpl) token;
 		Cryptor cryptor = cryptorFor(impl.getKeyFile(), password);
+
+		if (cancelledFlag.get()) {
+			throw new CancellationException();
+		}
+
 		cryptoCloudContentRepositoryFactory.registerCryptor(impl.getVault(), cryptor);
 
 		return aCopyOf(token.getVault()) //

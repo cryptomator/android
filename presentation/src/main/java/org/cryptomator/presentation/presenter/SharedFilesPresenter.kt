@@ -422,7 +422,7 @@ class SharedFilesPresenter @Inject constructor( //
 	}
 
 	fun onUnlockCanceled() {
-		// empty
+		unlockVaultUseCase.cancel()
 	}
 
 	fun useConfirmationInFaceUnlockBiometricAuthentication(): Boolean {
