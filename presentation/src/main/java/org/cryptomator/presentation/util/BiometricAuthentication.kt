@@ -12,8 +12,8 @@ import org.cryptomator.presentation.R
 import org.cryptomator.presentation.model.VaultModel
 import org.cryptomator.util.crypto.BiometricAuthCryptor
 import org.cryptomator.util.crypto.UnrecoverableStorageKeyException
-import timber.log.Timber
 import java.util.concurrent.Executor
+import timber.log.Timber
 
 @RequiresApi(Build.VERSION_CODES.M)
 class BiometricAuthentication(val callback: Callback, val context: Context, val cryptoMode: CryptoMode, private val useConfirmationInFaceUnlockAuth: Boolean) {
@@ -33,6 +33,7 @@ class BiometricAuthentication(val callback: Callback, val context: Context, val 
 	}
 
 	companion object {
+
 		private lateinit var executor: Executor
 		private lateinit var biometricPrompt: BiometricPrompt
 		private lateinit var promptInfo: BiometricPrompt.PromptInfo

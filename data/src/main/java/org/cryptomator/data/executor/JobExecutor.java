@@ -17,6 +17,7 @@ import javax.inject.Singleton;
  */
 @Singleton
 public class JobExecutor implements ThreadExecutor {
+
 	private static final int INITIAL_POOL_SIZE = 3;
 	private static final int MAX_POOL_SIZE = 5;
 
@@ -44,6 +45,7 @@ public class JobExecutor implements ThreadExecutor {
 	}
 
 	private static class JobThreadFactory implements ThreadFactory {
+
 		private static final String THREAD_NAME = "android_";
 		private int counter = 0;
 

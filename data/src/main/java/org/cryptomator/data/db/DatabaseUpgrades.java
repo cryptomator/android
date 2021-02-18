@@ -31,6 +31,10 @@ class DatabaseUpgrades {
 				upgrade3To4);
 	}
 
+	private static Comparator<DatabaseUpgrade> reverseOrder() {
+		return (a, b) -> b.compareTo(a);
+	}
+
 	private Map<Integer, List<DatabaseUpgrade>> defineUpgrades(DatabaseUpgrade... upgrades) {
 		Map<Integer, List<DatabaseUpgrade>> result = new HashMap<>();
 		for (DatabaseUpgrade upgrade : upgrades) {
@@ -73,9 +77,5 @@ class DatabaseUpgrades {
 			upgrades.remove(upgrades.size() - 1);
 		}
 		return false;
-	}
-
-	private static Comparator<DatabaseUpgrade> reverseOrder() {
-		return (a, b) -> b.compareTo(a);
 	}
 }

@@ -11,6 +11,7 @@ class ReplaceDialog private constructor(private val context: Context) {
 	private val callback: Callback
 
 	interface Callback {
+
 		fun onReplacePositiveClicked()
 		fun onReplaceNegativeClicked()
 		fun onReplaceCanceled()
@@ -67,6 +68,7 @@ class ReplaceDialog private constructor(private val context: Context) {
 	}
 
 	companion object {
+
 		fun withContext(context: Context): ReplaceDialog {
 			return ReplaceDialog(context)
 		}

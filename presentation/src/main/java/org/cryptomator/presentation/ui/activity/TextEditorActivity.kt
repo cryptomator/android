@@ -4,7 +4,6 @@ import android.view.Menu
 import android.view.MenuItem
 import androidx.appcompat.widget.SearchView
 import androidx.fragment.app.Fragment
-import kotlinx.android.synthetic.main.toolbar_layout.*
 import org.cryptomator.generator.Activity
 import org.cryptomator.generator.InjectIntent
 import org.cryptomator.presentation.R
@@ -14,6 +13,7 @@ import org.cryptomator.presentation.ui.activity.view.TextEditorView
 import org.cryptomator.presentation.ui.dialog.UnsavedChangesDialog
 import org.cryptomator.presentation.ui.fragment.TextEditorFragment
 import javax.inject.Inject
+import kotlinx.android.synthetic.main.toolbar_layout.toolbar
 
 @Activity
 class TextEditorActivity : BaseActivity(),

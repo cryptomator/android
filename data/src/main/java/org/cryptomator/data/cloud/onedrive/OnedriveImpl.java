@@ -68,11 +68,10 @@ class OnedriveImpl {
 	private static final long CHUNKED_UPLOAD_MAX_SIZE = 4L << 20;
 	private static final int CHUNKED_UPLOAD_CHUNK_SIZE = 327680 * 32;
 	private static final int CHUNKED_UPLOAD_MAX_ATTEMPTS = 5;
-
-	private final OnedriveCloud cloud;
-	private final Context context;
 	private static final String REPLACE_MODE = "replace";
 	private static final String NON_REPLACING_MODE = "rename";
+	private final OnedriveCloud cloud;
+	private final Context context;
 	private final OnedriveIdCache nodeInfoCache;
 	private final OnedriveClientFactory clientFactory;
 	private final SharedPreferencesHandler sharedPreferencesHandler;
@@ -393,16 +392,16 @@ class OnedriveImpl {
 				.buildRequest();
 
 		try (InputStream in = request.get(); //
-				TransferredBytesAwareOutputStream out = new TransferredBytesAwareOutputStream(data) {
-					@Override
-					public void bytesTransferred(long transferred) {
-						progressAware.onProgress( //
-								progress(DownloadState.download(file)) //
-										.between(0) //
-										.and(file.getSize().orElse(Long.MAX_VALUE)) //
-										.withValue(transferred));
-					}
-				}) {
+			 TransferredBytesAwareOutputStream out = new TransferredBytesAwareOutputStream(data) {
+				 @Override
+				 public void bytesTransferred(long transferred) {
+					 progressAware.onProgress( //
+							 progress(DownloadState.download(file)) //
+									 .between(0) //
+									 .and(file.getSize().orElse(Long.MAX_VALUE)) //
+									 .withValue(transferred));
+				 }
+			 }) {
 			copyStreamToStream(in, out);
 		}
 

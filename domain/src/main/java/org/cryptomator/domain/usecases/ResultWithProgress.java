@@ -5,6 +5,14 @@ import org.cryptomator.domain.usecases.cloud.ProgressState;
 
 public class ResultWithProgress<T, S extends ProgressState> {
 
+	private final Progress<S> progress;
+	private final T value;
+
+	private ResultWithProgress(T value, Progress<S> progress) {
+		this.value = value;
+		this.progress = progress;
+	}
+
 	public static <T, S extends ProgressState> ResultWithProgress<T, S> progress(Progress<S> progress) {
 		return new ResultWithProgress<>(null, progress);
 	}
@@ -15,14 +23,6 @@ public class ResultWithProgress<T, S extends ProgressState> {
 
 	public static <T, S extends ProgressState> ResultWithProgress<T, S> noProgress(S state) {
 		return new ResultWithProgress<>(null, Progress.started(state));
-	}
-
-	private final Progress<S> progress;
-	private final T value;
-
-	private ResultWithProgress(T value, Progress<S> progress) {
-		this.value = value;
-		this.progress = progress;
 	}
 
 	public Progress<S> progress() {

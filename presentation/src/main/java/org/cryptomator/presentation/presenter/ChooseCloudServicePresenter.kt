@@ -34,7 +34,7 @@ class ChooseCloudServicePresenter @Inject constructor( //
 		val cloudTypeModels: MutableList<CloudTypeModel> = ArrayList(listOf(*CloudTypeModel.values()))
 		cloudTypeModels.remove(CloudTypeModel.CRYPTO)
 
-		if(BuildConfig.FLAVOR == "fdroid") {
+		if (BuildConfig.FLAVOR == "fdroid") {
 			cloudTypeModels.remove(CloudTypeModel.GOOGLE_DRIVE)
 		}
 

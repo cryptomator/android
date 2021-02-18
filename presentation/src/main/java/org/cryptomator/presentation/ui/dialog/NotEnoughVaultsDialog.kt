@@ -12,6 +12,7 @@ class NotEnoughVaultsDialog private constructor(private val context: Context) {
 	private var title: String
 
 	interface Callback {
+
 		fun onNotEnoughVaultsOkClicked()
 		fun onNotEnoughVaultsCreateVaultClicked()
 	}
@@ -33,6 +34,7 @@ class NotEnoughVaultsDialog private constructor(private val context: Context) {
 	}
 
 	companion object {
+
 		fun withContext(context: Context): NotEnoughVaultsDialog {
 			return NotEnoughVaultsDialog(context)
 		}

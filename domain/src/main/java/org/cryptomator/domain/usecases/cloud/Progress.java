@@ -20,6 +20,22 @@ public class Progress<T extends ProgressState> {
 		this.value = min(MAX_VALUE, max(MIN_VALUE, value));
 	}
 
+	public static <T extends ProgressState> ProgressBuilder<T> progress(T state) {
+		return new ProgressBuilder<>(state);
+	}
+
+	public static <T extends ProgressState> Progress<T> completed() {
+		return progress((T) null).between(0).and(1).thatIsCompleted();
+	}
+
+	public static <T extends ProgressState> Progress<T> completed(T state) {
+		return progress(state).between(0).and(1).thatIsCompleted();
+	}
+
+	public static <T extends ProgressState> Progress<T> started(T state) {
+		return progress(state).between(0).and(1).withValue(0);
+	}
+
 	public boolean stateOrCompletionChanged(Progress<T> other) {
 		return other == null || //
 				other.state != state || //
@@ -61,22 +77,6 @@ public class Progress<T extends ProgressState> {
 			sb.append('%');
 		}
 		return sb.toString();
-	}
-
-	public static <T extends ProgressState> ProgressBuilder<T> progress(T state) {
-		return new ProgressBuilder<>(state);
-	}
-
-	public static <T extends ProgressState> Progress<T> completed() {
-		return progress((T) null).between(0).and(1).thatIsCompleted();
-	}
-
-	public static <T extends ProgressState> Progress<T> completed(T state) {
-		return progress(state).between(0).and(1).thatIsCompleted();
-	}
-
-	public static <T extends ProgressState> Progress<T> started(T state) {
-		return progress(state).between(0).and(1).withValue(0);
 	}
 
 	public <S extends ProgressState> Progress<S> withState(S state) {

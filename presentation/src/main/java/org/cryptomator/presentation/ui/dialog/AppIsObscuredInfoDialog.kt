@@ -5,9 +5,9 @@ import android.content.DialogInterface
 import android.text.method.LinkMovementMethod
 import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.DialogFragment
-import kotlinx.android.synthetic.main.dialog_app_is_obscured_info.*
 import org.cryptomator.generator.Dialog
 import org.cryptomator.presentation.R
+import kotlinx.android.synthetic.main.dialog_app_is_obscured_info.tv_app_is_obscured_info
 
 @Dialog(R.layout.dialog_app_is_obscured_info)
 class AppIsObscuredInfoDialog : BaseDialog<Activity>() {
@@ -28,6 +28,7 @@ class AppIsObscuredInfoDialog : BaseDialog<Activity>() {
 	}
 
 	companion object {
+
 		fun newInstance(): DialogFragment {
 			return AppIsObscuredInfoDialog()
 		}

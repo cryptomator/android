@@ -1,7 +1,6 @@
 package org.cryptomator.presentation.ui.fragment
 
 import androidx.recyclerview.widget.LinearLayoutManager
-import kotlinx.android.synthetic.main.recycler_view_layout.*
 import org.cryptomator.generator.Fragment
 import org.cryptomator.presentation.R
 import org.cryptomator.presentation.model.CloudModel
@@ -9,6 +8,7 @@ import org.cryptomator.presentation.presenter.CloudSettingsPresenter
 import org.cryptomator.presentation.ui.adapter.CloudSettingsAdapter
 import org.cryptomator.presentation.ui.adapter.CloudSettingsAdapter.OnItemClickListener
 import javax.inject.Inject
+import kotlinx.android.synthetic.main.recycler_view_layout.recyclerView
 
 @Fragment(R.layout.fragment_cloud_settings)
 class CloudSettingsFragment : BaseFragment() {

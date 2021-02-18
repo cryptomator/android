@@ -75,6 +75,6 @@ public class LoginLocalClouds {
 	private static void checkResult(String folderName) {
 		onView(withRecyclerView(R.id.recyclerView) //
 				.atPositionOnView(0, R.id.cloudText)) //
-						.perform(click());
+				.perform(click());
 	}
 }

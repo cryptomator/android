@@ -1,13 +1,14 @@
 package org.cryptomator.presentation.ui.activity
 
 import android.view.inputmethod.EditorInfo
-import kotlinx.android.synthetic.main.content_create_vault.*
-import kotlinx.android.synthetic.main.toolbar_layout.*
 import org.cryptomator.generator.Activity
 import org.cryptomator.presentation.R
 import org.cryptomator.presentation.presenter.CreateVaultPresenter
 import org.cryptomator.presentation.ui.activity.view.CreateVaultView
 import javax.inject.Inject
+import kotlinx.android.synthetic.main.content_create_vault.createVaultButton
+import kotlinx.android.synthetic.main.content_create_vault.vaultNameEditText
+import kotlinx.android.synthetic.main.toolbar_layout.toolbar
 
 @Activity(layout = R.layout.activity_create_vault)
 class CreateVaultActivity : BaseActivity(), CreateVaultView {

@@ -1,10 +1,11 @@
 package org.cryptomator.presentation.ui.fragment
 
-import kotlinx.android.synthetic.main.fragment_empty_dir_file_info.*
 import org.cryptomator.generator.Fragment
 import org.cryptomator.presentation.R
 import org.cryptomator.presentation.presenter.EmptyDirIdFileInfoPresenter
 import javax.inject.Inject
+import kotlinx.android.synthetic.main.fragment_empty_dir_file_info.infoText
+import kotlinx.android.synthetic.main.fragment_empty_dir_file_info.moreDetailsButton
 
 @Fragment(R.layout.fragment_empty_dir_file_info)
 class EmptyDirIdFileInfoFragment : BaseFragment() {

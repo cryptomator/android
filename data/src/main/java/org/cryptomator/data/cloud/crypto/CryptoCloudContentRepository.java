@@ -1,10 +1,6 @@
 package org.cryptomator.data.cloud.crypto;
 
-import static java.lang.String.format;
-
-import java.io.File;
-import java.io.OutputStream;
-import java.util.List;
+import android.content.Context;
 
 import org.cryptomator.cryptolib.api.Cryptor;
 import org.cryptomator.domain.CloudFolder;
@@ -19,7 +15,11 @@ import org.cryptomator.domain.usecases.cloud.UploadState;
 import org.cryptomator.util.Optional;
 import org.cryptomator.util.Supplier;
 
-import android.content.Context;
+import java.io.File;
+import java.io.OutputStream;
+import java.util.List;
+
+import static java.lang.String.format;
 
 class CryptoCloudContentRepository implements CloudContentRepository<CryptoCloud, CryptoNode, CryptoFolder, CryptoFile> {
 
@@ -34,15 +34,15 @@ class CryptoCloudContentRepository implements CloudContentRepository<CryptoCloud
 		}
 
 		switch (cloud.getVault().getVersion()) {
-		case 7:
-			this.cryptoImpl = new CryptoImplVaultFormat7(context, cryptor, cloudContentRepository, vaultLocation, new DirIdCacheFormat7());
-			break;
-		case 6:
-		case 5:
-			this.cryptoImpl = new CryptoImplVaultFormatPre7(context, cryptor, cloudContentRepository, vaultLocation, new DirIdCacheFormatPre7());
-			break;
-		default:
-			throw new IllegalStateException(format("No CryptoImpl for vault version %d.", cloud.getVault().getVersion()));
+			case 7:
+				this.cryptoImpl = new CryptoImplVaultFormat7(context, cryptor, cloudContentRepository, vaultLocation, new DirIdCacheFormat7());
+				break;
+			case 6:
+			case 5:
+				this.cryptoImpl = new CryptoImplVaultFormatPre7(context, cryptor, cloudContentRepository, vaultLocation, new DirIdCacheFormatPre7());
+				break;
+			default:
+				throw new IllegalStateException(format("No CryptoImpl for vault version %d.", cloud.getVault().getVersion()));
 		}
 	}
 

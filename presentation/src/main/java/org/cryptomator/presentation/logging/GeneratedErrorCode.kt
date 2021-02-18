@@ -1,6 +1,6 @@
 package org.cryptomator.presentation.logging
 
-import java.util.*
+import java.util.Locale
 
 internal object GeneratedErrorCode {
 

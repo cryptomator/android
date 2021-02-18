@@ -1,11 +1,11 @@
 package org.cryptomator.domain.usecases;
 
-import java.io.File;
-
 import org.cryptomator.domain.exception.BackendException;
 import org.cryptomator.domain.repository.UpdateCheckRepository;
 import org.cryptomator.generator.Parameter;
 import org.cryptomator.generator.UseCase;
+
+import java.io.File;
 
 @UseCase
 public class DoUpdate {

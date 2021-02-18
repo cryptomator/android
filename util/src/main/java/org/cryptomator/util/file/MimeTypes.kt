@@ -1,7 +1,7 @@
 package org.cryptomator.util.file
 
 import org.cryptomator.util.Optional
-import java.util.*
+import java.util.Locale
 import javax.inject.Inject
 
 class MimeTypes @Inject constructor(private val mimeTypeMap: MimeTypeMap) {

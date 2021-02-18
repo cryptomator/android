@@ -7,12 +7,12 @@ public class FragmentsModel {
 
 	private final Set<FragmentModel> fragments;
 
-	public static FragmentsModel.Builder builder() {
-		return new Builder();
-	}
-
 	private FragmentsModel(Set<FragmentModel> fragments) {
 		this.fragments = fragments;
+	}
+
+	public static FragmentsModel.Builder builder() {
+		return new Builder();
 	}
 
 	public Set<FragmentModel> getFragments() {

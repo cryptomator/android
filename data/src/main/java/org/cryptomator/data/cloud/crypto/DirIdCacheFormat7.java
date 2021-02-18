@@ -1,8 +1,8 @@
 package org.cryptomator.data.cloud.crypto;
 
-import java.util.Map;
-
 import android.util.LruCache;
+
+import java.util.Map;
 
 class DirIdCacheFormat7 implements DirIdCache {
 
@@ -43,22 +43,24 @@ class DirIdCacheFormat7 implements DirIdCache {
 
 	private static class DirIdCacheKey {
 
-		static DirIdCacheKey toKey(CryptoFolder folder) {
-			return new DirIdCacheKey(folder.getPath());
-		}
-
 		private final String path;
 
 		private DirIdCacheKey(String path) {
 			this.path = path;
 		}
 
+		static DirIdCacheKey toKey(CryptoFolder folder) {
+			return new DirIdCacheKey(folder.getPath());
+		}
+
 		@Override
 		public boolean equals(Object obj) {
-			if (obj == this)
+			if (obj == this) {
 				return true;
-			if (obj == null || getClass() != obj.getClass())
+			}
+			if (obj == null || getClass() != obj.getClass()) {
 				return false;
+			}
 			return internalEquals((DirIdCacheKey) obj);
 		}
 

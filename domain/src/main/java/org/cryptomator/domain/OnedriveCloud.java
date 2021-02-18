@@ -14,6 +14,17 @@ public class OnedriveCloud implements Cloud {
 		this.username = builder.username;
 	}
 
+	public static Builder aOnedriveCloud() {
+		return new Builder();
+	}
+
+	public static Builder aCopyOf(OnedriveCloud oneDriveCloud) {
+		return new Builder() //
+				.withId(oneDriveCloud.id()) //
+				.withAccessToken(oneDriveCloud.accessToken()) //
+				.withUsername(oneDriveCloud.username());
+	}
+
 	@Override
 	public Long id() {
 		return id;
@@ -58,15 +69,24 @@ public class OnedriveCloud implements Cloud {
 		return "ONEDRIVE";
 	}
 
-	public static Builder aOnedriveCloud() {
-		return new Builder();
+	@Override
+	public boolean equals(Object obj) {
+		if (obj == null || getClass() != obj.getClass()) {
+			return false;
+		}
+		if (obj == this) {
+			return true;
+		}
+		return internalEquals((OnedriveCloud) obj);
 	}
 
-	public static Builder aCopyOf(OnedriveCloud oneDriveCloud) {
-		return new Builder() //
-				.withId(oneDriveCloud.id()) //
-				.withAccessToken(oneDriveCloud.accessToken()) //
-				.withUsername(oneDriveCloud.username());
+	@Override
+	public int hashCode() {
+		return id == null ? 0 : id.hashCode();
+	}
+
+	private boolean internalEquals(OnedriveCloud obj) {
+		return id != null && id.equals(obj.id);
 	}
 
 	public static class Builder {
@@ -97,24 +117,6 @@ public class OnedriveCloud implements Cloud {
 			return new OnedriveCloud(this);
 		}
 
-	}
-
-	@Override
-	public boolean equals(Object obj) {
-		if (obj == null || getClass() != obj.getClass())
-			return false;
-		if (obj == this)
-			return true;
-		return internalEquals((OnedriveCloud) obj);
-	}
-
-	@Override
-	public int hashCode() {
-		return id == null ? 0 : id.hashCode();
-	}
-
-	private boolean internalEquals(OnedriveCloud obj) {
-		return id != null && id.equals(obj.id);
 	}
 
 }

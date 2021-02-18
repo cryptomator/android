@@ -21,20 +21,6 @@
 // ------------------------------------------------------------------------------
 package org.cryptomator.data.cloud.onedrive;
 
-import java.io.BufferedInputStream;
-import java.io.BufferedOutputStream;
-import java.io.ByteArrayInputStream;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.OutputStream;
-import java.io.UnsupportedEncodingException;
-import java.net.URL;
-import java.util.Collections;
-import java.util.List;
-import java.util.Map;
-import java.util.Scanner;
-import java.util.concurrent.TimeUnit;
-
 import com.google.common.annotations.VisibleForTesting;
 import com.microsoft.graph.authentication.IAuthenticationProvider;
 import com.microsoft.graph.concurrency.ICallback;
@@ -62,6 +48,20 @@ import com.microsoft.graph.options.HeaderOption;
 import com.microsoft.graph.serializer.ISerializer;
 
 import org.jetbrains.annotations.NotNull;
+
+import java.io.BufferedInputStream;
+import java.io.BufferedOutputStream;
+import java.io.ByteArrayInputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
+import java.io.UnsupportedEncodingException;
+import java.net.URL;
+import java.util.Collections;
+import java.util.List;
+import java.util.Map;
+import java.util.Scanner;
+import java.util.concurrent.TimeUnit;
 
 import okhttp3.MediaType;
 import okhttp3.OkHttpClient;
@@ -111,10 +111,10 @@ public class OnedriveHttpProvider implements IHttpProvider {
 	/**
 	 * Creates the DefaultHttpProvider
 	 *
-	 * @param serializer the serializer
+	 * @param serializer             the serializer
 	 * @param authenticationProvider the authentication provider
-	 * @param executors the executors
-	 * @param logger the logger for diagnostic information
+	 * @param executors              the executors
+	 * @param logger                 the logger for diagnostic information
 	 */
 	public OnedriveHttpProvider(final ISerializer serializer, final IAuthenticationProvider authenticationProvider, final IExecutors executors, final ILogger logger) {
 		this.serializer = serializer;
@@ -127,11 +127,48 @@ public class OnedriveHttpProvider implements IHttpProvider {
 	 * Creates the DefaultHttpProvider
 	 *
 	 * @param clientConfig the client configuration to use for the provider
-	 * @param httpClient the http client to execute the requests with
+	 * @param httpClient   the http client to execute the requests with
 	 */
 	public OnedriveHttpProvider(final IClientConfig clientConfig, final OkHttpClient httpClient) {
 		this(clientConfig.getSerializer(), clientConfig.getAuthenticationProvider(), clientConfig.getExecutors(), clientConfig.getLogger());
 		this.corehttpClient = httpClient;
+	}
+
+	/**
+	 * Reads in a stream and converts it into a string
+	 *
+	 * @param input the response body stream
+	 * @return the string result
+	 */
+	public static String streamToString(final InputStream input) {
+		final String httpStreamEncoding = "UTF-8";
+		final String endOfFile = "\\A";
+		final Scanner scanner = new Scanner(input, httpStreamEncoding);
+		String scannerString = "";
+		try {
+			scanner.useDelimiter(endOfFile);
+			scannerString = scanner.next();
+		} finally {
+			scanner.close();
+		}
+		return scannerString;
+	}
+
+	/**
+	 * Searches for the given header in a list of HeaderOptions
+	 *
+	 * @param headers the list of headers to search through
+	 * @param header  the header name to search for (case insensitive)
+	 * @return true if the header has already been set
+	 */
+	@VisibleForTesting
+	static boolean hasHeader(List<HeaderOption> headers, String header) {
+		for (HeaderOption option : headers) {
+			if (option.getName().equalsIgnoreCase(header)) {
+				return true;
+			}
+		}
+		return false;
 	}
 
 	/**
@@ -147,12 +184,12 @@ public class OnedriveHttpProvider implements IHttpProvider {
 	/**
 	 * Sends the HTTP request asynchronously
 	 *
-	 * @param request the request description
-	 * @param callback the callback to be called after success or failure
-	 * @param resultClass the class of the response from the service
+	 * @param request      the request description
+	 * @param callback     the callback to be called after success or failure
+	 * @param resultClass  the class of the response from the service
 	 * @param serializable the object to send to the service in the body of the request
-	 * @param <Result> the type of the response object
-	 * @param <Body> the type of the object to send to the service in the body of the request
+	 * @param <Result>     the type of the response object
+	 * @param <Body>       the type of the object to send to the service in the body of the request
 	 */
 	@Override
 	public <Result, Body> void send(final IHttpRequest request, final ICallback<? super Result> callback, final Class<Result> resultClass, final Body serializable) {
@@ -175,11 +212,11 @@ public class OnedriveHttpProvider implements IHttpProvider {
 	/**
 	 * Sends the HTTP request
 	 *
-	 * @param request the request description
-	 * @param resultClass the class of the response from the service
+	 * @param request      the request description
+	 * @param resultClass  the class of the response from the service
 	 * @param serializable the object to send to the service in the body of the request
-	 * @param <Result> the type of the response object
-	 * @param <Body> the type of the object to send to the service in the body of the request
+	 * @param <Result>     the type of the response object
+	 * @param <Body>       the type of the object to send to the service in the body of the request
 	 * @return the result from the request
 	 * @throws ClientException an exception occurs if the request was unable to complete for any reason
 	 */
@@ -191,30 +228,29 @@ public class OnedriveHttpProvider implements IHttpProvider {
 	/**
 	 * Sends the HTTP request
 	 *
-	 * @param request the request description
-	 * @param resultClass the class of the response from the service
-	 * @param serializable the object to send to the service in the body of the request
-	 * @param handler the handler for stateful response
-	 * @param <Result> the type of the response object
-	 * @param <Body> the type of the object to send to the service in the body of the request
+	 * @param request           the request description
+	 * @param resultClass       the class of the response from the service
+	 * @param serializable      the object to send to the service in the body of the request
+	 * @param handler           the handler for stateful response
+	 * @param <Result>          the type of the response object
+	 * @param <Body>            the type of the object to send to the service in the body of the request
 	 * @param <DeserializeType> the response handler for stateful response
 	 * @return the result from the request
 	 * @throws ClientException this exception occurs if the request was unable to complete for any reason
 	 */
-	public <Result, Body, DeserializeType> Result send(final IHttpRequest request, final Class<Result> resultClass, final Body serializable, final IStatefulResponseHandler<Result, DeserializeType> handler)
-			throws ClientException {
+	public <Result, Body, DeserializeType> Result send(final IHttpRequest request, final Class<Result> resultClass, final Body serializable, final IStatefulResponseHandler<Result, DeserializeType> handler) throws ClientException {
 		return sendRequestInternal(request, resultClass, serializable, null, handler);
 	}
 
 	/**
 	 * Sends the HTTP request
 	 *
-	 * @param request the request description
-	 * @param resultClass the class of the response from the service
+	 * @param request      the request description
+	 * @param resultClass  the class of the response from the service
 	 * @param serializable the object to send to the service in the body of the request
-	 * @param progress the progress callback for the request
-	 * @param <Result> the type of the response object
-	 * @param <Body> the type of the object to send to the service in the body of the request
+	 * @param progress     the progress callback for the request
+	 * @param <Result>     the type of the response object
+	 * @param <Body>       the type of the object to send to the service in the body of the request
 	 * @return the result from the request
 	 * @throws ClientException an exception occurs if the request was unable to complete for any reason
 	 */
@@ -229,10 +265,8 @@ public class OnedriveHttpProvider implements IHttpProvider {
 		}
 
 		// Request level middleware options
-		RedirectOptions redirectOptions = new RedirectOptions(request.getMaxRedirects() > 0 ? request.getMaxRedirects() : this.connectionConfig.getMaxRedirects(),
-				request.getShouldRedirect() != null ? request.getShouldRedirect() : this.connectionConfig.getShouldRedirect());
-		RetryOptions retryOptions = new RetryOptions(request.getShouldRetry() != null ? request.getShouldRetry() : this.connectionConfig.getShouldRetry(),
-				request.getMaxRetries() > 0 ? request.getMaxRetries() : this.connectionConfig.getMaxRetries(), request.getDelay() > 0 ? request.getDelay() : this.connectionConfig.getDelay());
+		RedirectOptions redirectOptions = new RedirectOptions(request.getMaxRedirects() > 0 ? request.getMaxRedirects() : this.connectionConfig.getMaxRedirects(), request.getShouldRedirect() != null ? request.getShouldRedirect() : this.connectionConfig.getShouldRedirect());
+		RetryOptions retryOptions = new RetryOptions(request.getShouldRetry() != null ? request.getShouldRetry() : this.connectionConfig.getShouldRetry(), request.getMaxRetries() > 0 ? request.getMaxRetries() : this.connectionConfig.getMaxRetries(), request.getDelay() > 0 ? request.getDelay() : this.connectionConfig.getDelay());
 
 		Request coreHttpRequest = convertIHttpRequestToOkHttpRequest(request);
 		Request.Builder corehttpRequestBuilder = coreHttpRequest.newBuilder().tag(RedirectOptions.class, redirectOptions).tag(RetryOptions.class, retryOptions);
@@ -331,20 +365,19 @@ public class OnedriveHttpProvider implements IHttpProvider {
 	/**
 	 * Sends the HTTP request
 	 *
-	 * @param request the request description
-	 * @param resultClass the class of the response from the service
-	 * @param serializable the object to send to the service in the body of the request
-	 * @param progress the progress callback for the request
-	 * @param handler the handler for stateful response
-	 * @param <Result> the type of the response object
-	 * @param <Body> the type of the object to send to the service in the body of the request
+	 * @param request           the request description
+	 * @param resultClass       the class of the response from the service
+	 * @param serializable      the object to send to the service in the body of the request
+	 * @param progress          the progress callback for the request
+	 * @param handler           the handler for stateful response
+	 * @param <Result>          the type of the response object
+	 * @param <Body>            the type of the object to send to the service in the body of the request
 	 * @param <DeserializeType> the response handler for stateful response
 	 * @return the result from the request
 	 * @throws ClientException an exception occurs if the request was unable to complete for any reason
 	 */
 	@SuppressWarnings("unchecked")
-	private <Result, Body, DeserializeType> Result sendRequestInternal(final IHttpRequest request, final Class<Result> resultClass, final Body serializable, final IProgressCallback<? super Result> progress,
-			final IStatefulResponseHandler<Result, DeserializeType> handler) throws ClientException {
+	private <Result, Body, DeserializeType> Result sendRequestInternal(final IHttpRequest request, final Class<Result> resultClass, final Body serializable, final IProgressCallback<? super Result> progress, final IStatefulResponseHandler<Result, DeserializeType> handler) throws ClientException {
 
 		try {
 			if (this.connectionConfig == null) {
@@ -352,8 +385,7 @@ public class OnedriveHttpProvider implements IHttpProvider {
 			}
 			if (this.corehttpClient == null) {
 				final ICoreAuthenticationProvider authProvider = request1 -> request1;
-				this.corehttpClient = HttpClients.createDefault(authProvider).newBuilder().connectTimeout(connectionConfig.getConnectTimeout(), TimeUnit.MILLISECONDS)
-						.readTimeout(connectionConfig.getReadTimeout(), TimeUnit.MILLISECONDS).followRedirects(false) // TODO https://github.com/microsoftgraph/msgraph-sdk-java/issues/516
+				this.corehttpClient = HttpClients.createDefault(authProvider).newBuilder().connectTimeout(connectionConfig.getConnectTimeout(), TimeUnit.MILLISECONDS).readTimeout(connectionConfig.getReadTimeout(), TimeUnit.MILLISECONDS).followRedirects(false) // TODO https://github.com/microsoftgraph/msgraph-sdk-java/issues/516
 						.protocols(Collections.singletonList(Protocol.HTTP_1_1)) // https://stackoverflow.com/questions/62031298/sockettimeout-on-java-11-but-not-on-java-8
 						.build();
 			}
@@ -399,8 +431,9 @@ public class OnedriveHttpProvider implements IHttpProvider {
 
 				final Map<String, String> headers = responseHeadersHelper.getResponseHeadersAsMapStringString(response);
 
-				if (response.body() == null || response.body().contentLength() == 0)
+				if (response.body() == null || response.body().contentLength() == 0) {
 					return (Result) null;
+				}
 
 				final String contentType = headers.get(Constants.CONTENT_TYPE_HEADER_NAME);
 				if (contentType != null && resultClass != InputStream.class && contentType.contains(Constants.JSON_CONTENT_TYPE)) {
@@ -416,13 +449,15 @@ public class OnedriveHttpProvider implements IHttpProvider {
 			} finally {
 				if (!isBinaryStreamInput) {
 					try {
-						if (in != null)
+						if (in != null) {
 							in.close();
+						}
 					} catch (IOException e) {
 						logger.logError(e.getMessage(), e);
 					}
-					if (response != null)
+					if (response != null) {
 						response.close();
+					}
 				}
 			}
 		} catch (final GraphServiceException ex) {
@@ -451,10 +486,10 @@ public class OnedriveHttpProvider implements IHttpProvider {
 	/**
 	 * Handles the event of an error response
 	 *
-	 * @param request the request that caused the failed response
+	 * @param request      the request that caused the failed response
 	 * @param serializable the body of the request
-	 * @param connection the URL connection
-	 * @param <Body> the type of the request body
+	 * @param connection   the URL connection
+	 * @param <Body>       the type of the request body
 	 * @throws IOException an exception occurs if there were any problems interacting with the connection object
 	 */
 	private <Body> void handleErrorResponse(final IHttpRequest request, final Body serializable, final Response response) throws IOException {
@@ -474,10 +509,10 @@ public class OnedriveHttpProvider implements IHttpProvider {
 	/**
 	 * Handles the cause where the response is a JSON object
 	 *
-	 * @param in the input stream from the response
+	 * @param in              the input stream from the response
 	 * @param responseHeaders the response header
-	 * @param clazz the class of the response object
-	 * @param <Result> the type of the response object
+	 * @param clazz           the class of the response object
+	 * @param <Result>        the type of the response object
 	 * @return the JSON object
 	 */
 	private <Result> Result handleJsonResponse(final InputStream in, Map<String, List<String>> responseHeaders, final Class<Result> clazz) {
@@ -493,50 +528,13 @@ public class OnedriveHttpProvider implements IHttpProvider {
 	 * Handles the case where the response body is empty
 	 *
 	 * @param responseHeaders the response headers
-	 * @param clazz the type of the response object
+	 * @param clazz           the type of the response object
 	 * @return the JSON object
 	 */
 	private <Result> Result handleEmptyResponse(Map<String, List<String>> responseHeaders, final Class<Result> clazz) throws UnsupportedEncodingException {
 		// Create an empty object to attach the response headers to
 		InputStream in = new ByteArrayInputStream("{}".getBytes(Constants.JSON_ENCODING));
 		return handleJsonResponse(in, responseHeaders, clazz);
-	}
-
-	/**
-	 * Reads in a stream and converts it into a string
-	 *
-	 * @param input the response body stream
-	 * @return the string result
-	 */
-	public static String streamToString(final InputStream input) {
-		final String httpStreamEncoding = "UTF-8";
-		final String endOfFile = "\\A";
-		final Scanner scanner = new Scanner(input, httpStreamEncoding);
-		String scannerString = "";
-		try {
-			scanner.useDelimiter(endOfFile);
-			scannerString = scanner.next();
-		} finally {
-			scanner.close();
-		}
-		return scannerString;
-	}
-
-	/**
-	 * Searches for the given header in a list of HeaderOptions
-	 *
-	 * @param headers the list of headers to search through
-	 * @param header the header name to search for (case insensitive)
-	 * @return true if the header has already been set
-	 */
-	@VisibleForTesting
-	static boolean hasHeader(List<HeaderOption> headers, String header) {
-		for (HeaderOption option : headers) {
-			if (option.getName().equalsIgnoreCase(header)) {
-				return true;
-			}
-		}
-		return false;
 	}
 
 	@VisibleForTesting

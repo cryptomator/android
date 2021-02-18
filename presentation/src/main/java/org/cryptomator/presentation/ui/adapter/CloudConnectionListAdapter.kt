@@ -3,8 +3,6 @@ package org.cryptomator.presentation.ui.adapter
 import android.content.Context
 import android.net.Uri
 import android.view.View
-import kotlinx.android.synthetic.main.item_browse_cloud_model_connections.view.*
-import kotlinx.android.synthetic.main.view_cloud_connection_content.view.*
 import org.cryptomator.domain.exception.FatalBackendException
 import org.cryptomator.presentation.R
 import org.cryptomator.presentation.model.CloudModel
@@ -14,11 +12,16 @@ import org.cryptomator.presentation.model.comparator.CloudModelComparator
 import org.cryptomator.presentation.ui.adapter.CloudConnectionListAdapter.CloudConnectionHolder
 import java.net.URISyntaxException
 import javax.inject.Inject
+import kotlinx.android.synthetic.main.item_browse_cloud_model_connections.view.cloudImage
+import kotlinx.android.synthetic.main.item_browse_cloud_model_connections.view.settings
+import kotlinx.android.synthetic.main.view_cloud_connection_content.view.cloudSubText
+import kotlinx.android.synthetic.main.view_cloud_connection_content.view.cloudText
 
 class CloudConnectionListAdapter @Inject
 internal constructor(context: Context) : RecyclerViewBaseAdapter<CloudModel, CloudConnectionListAdapter.Callback, CloudConnectionHolder>(CloudModelComparator(context)) {
 
 	interface Callback {
+
 		fun onCloudConnectionClicked(cloudModel: CloudModel)
 
 		fun onCloudSettingsClicked(cloudModel: CloudModel)

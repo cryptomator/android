@@ -1,8 +1,8 @@
 package org.cryptomator.presentation.ui.activity
 
-import kotlinx.android.synthetic.main.toolbar_layout.*
 import org.cryptomator.generator.Activity
 import org.cryptomator.presentation.R
+import kotlinx.android.synthetic.main.toolbar_layout.toolbar
 
 @Activity(layout = R.layout.activity_licenses)
 class LicensesActivity : BaseActivity() {

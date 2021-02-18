@@ -8,6 +8,7 @@ import org.cryptomator.presentation.di.component.ApplicationComponent;
 import org.cryptomator.util.crypto.CredentialCryptor;
 
 public class DropboxTestCloud extends TestCloud {
+
 	private final Context context;
 
 	public DropboxTestCloud(Context context) {

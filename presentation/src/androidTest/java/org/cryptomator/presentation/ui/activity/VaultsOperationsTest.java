@@ -58,13 +58,13 @@ public class VaultsOperationsTest {
 
 	private final Integer cloudId;
 
+	public VaultsOperationsTest(Integer cloudId, String cloudName) {
+		this.cloudId = cloudId;
+	}
+
 	@Parameterized.Parameters(name = "{1}")
 	public static Iterable<Object[]> data() {
 		return Arrays.asList(new Object[][] {{DROPBOX, "DROPBOX"}, {GOOGLE_DRIVE, "GOOGLE_DRIVE"}, {ONEDRIVE, "ONEDRIVE"}, {WEBDAV, "WEBDAV"}, {LOCAL, "LOCAL"}});
-	}
-
-	public VaultsOperationsTest(Integer cloudId, String cloudName) {
-		this.cloudId = cloudId;
 	}
 
 	@Test
@@ -175,7 +175,7 @@ public class VaultsOperationsTest {
 
 		onView(withRecyclerView(R.id.recyclerView) //
 				.atPositionOnView(cloudId, R.id.settings)) //
-						.perform(click());
+				.perform(click());
 
 		waitForIdle(device);
 
@@ -222,7 +222,7 @@ public class VaultsOperationsTest {
 
 		onView(withRecyclerView(R.id.recyclerView) //
 				.atPositionOnView(position, R.id.settings)) //
-						.perform(click());
+				.perform(click());
 
 		waitForIdle(device);
 
@@ -250,37 +250,37 @@ public class VaultsOperationsTest {
 
 		onView(withRecyclerView(R.id.recyclerView) //
 				.atPositionOnView(vaultPosition, R.id.cloud)) //
-						.perform(click());
+				.perform(click());
 
 		String vaultnameAndPassword = "tempVault";
 
 		awaitCompleted();
 
 		switch (vaultPosition) {
-		case WEBDAV:
-			awaitCompleted();
+			case WEBDAV:
+				awaitCompleted();
 
-			onView(withRecyclerView(R.id.recyclerView) //
-					.atPositionOnView(0, R.id.cloudText)) //
-							.perform(click());
-			break;
-		case LOCAL:
-			awaitCompleted();
+				onView(withRecyclerView(R.id.recyclerView) //
+						.atPositionOnView(0, R.id.cloudText)) //
+						.perform(click());
+				break;
+			case LOCAL:
+				awaitCompleted();
 
-			onView(withRecyclerView(R.id.recyclerView) //
-					.atPositionOnView(0, R.id.cloudText)) //
-							.perform(click());
+				onView(withRecyclerView(R.id.recyclerView) //
+						.atPositionOnView(0, R.id.cloudText)) //
+						.perform(click());
 
-			awaitCompleted();
+				awaitCompleted();
 
-			isPermissionShown(device);
-			grantPermission(device);
+				isPermissionShown(device);
+				grantPermission(device);
 
-			removeFolderInCloud(appComponent, path, CloudType.LOCAL);
-			removeFolderInCloud(appComponent, "0/testVault/", CloudType.LOCAL);
-			removeFolderInCloud(appComponent, "0/testLoggedInVault/", CloudType.LOCAL);
+				removeFolderInCloud(appComponent, path, CloudType.LOCAL);
+				removeFolderInCloud(appComponent, "0/testVault/", CloudType.LOCAL);
+				removeFolderInCloud(appComponent, "0/testLoggedInVault/", CloudType.LOCAL);
 
-			break;
+				break;
 		}
 
 		awaitCompleted();
@@ -317,26 +317,26 @@ public class VaultsOperationsTest {
 	private void openVault(int vaultPosition) {
 		onView(withRecyclerView(R.id.recyclerView) //
 				.atPositionOnView(vaultPosition, R.id.cloud)) //
-						.perform(click());
+				.perform(click());
 
 		awaitCompleted();
 
 		switch (vaultPosition) {
-		case WEBDAV:
-			awaitCompleted();
+			case WEBDAV:
+				awaitCompleted();
 
-			onView(withRecyclerView(R.id.recyclerView) //
-					.atPositionOnView(0, R.id.cloudText)) //
-							.perform(click());
-			break;
-		case LOCAL:
-			awaitCompleted();
+				onView(withRecyclerView(R.id.recyclerView) //
+						.atPositionOnView(0, R.id.cloudText)) //
+						.perform(click());
+				break;
+			case LOCAL:
+				awaitCompleted();
 
-			onView(withRecyclerView(R.id.recyclerView) //
-					.atPositionOnView(0, R.id.cloudText)) //
-							.perform(click());
+				onView(withRecyclerView(R.id.recyclerView) //
+						.atPositionOnView(0, R.id.cloudText)) //
+						.perform(click());
 
-			break;
+				break;
 		}
 
 		awaitCompleted();
@@ -355,7 +355,7 @@ public class VaultsOperationsTest {
 
 		onView(withRecyclerView(R.id.recyclerView) //
 				.atPositionOnView(vaultPosition, R.id.vaultName)) //
-						.perform(click());
+				.perform(click());
 
 		device //
 				.findObject(new UiSelector().text("Password")) //
@@ -376,7 +376,7 @@ public class VaultsOperationsTest {
 
 		onView(withRecyclerView(R.id.recyclerView) //
 				.atPositionOnView(position, R.id.settings)) //
-						.perform(click());
+				.perform(click());
 
 		waitForIdle(device);
 
@@ -403,10 +403,10 @@ public class VaultsOperationsTest {
 	private void checkVault(int position, String name) {
 		onView(withRecyclerView(R.id.recyclerView) //
 				.atPositionOnView(position, R.id.vaultName)) //
-						.check(matches(withText(name)));
+				.check(matches(withText(name)));
 
 		onView(withRecyclerView(R.id.recyclerView) //
 				.atPositionOnView(position, R.id.vaultPath)) //
-						.check(matches(withText("/0/" + name)));
+				.check(matches(withText("/0/" + name)));
 	}
 }

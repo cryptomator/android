@@ -3,10 +3,10 @@ package org.cryptomator.data.cloud.local.storageaccessframework;
 import android.os.Build;
 import android.provider.DocumentsContract;
 
+import androidx.annotation.RequiresApi;
+
 import org.cryptomator.domain.Cloud;
 import org.cryptomator.domain.LocalStorageCloud;
-
-import androidx.annotation.RequiresApi;
 
 import static android.net.Uri.parse;
 
@@ -23,9 +23,7 @@ public class RootLocalStorageAccessFolder extends LocalStorageAccessFolder {
 						parse(localStorageCloud.rootUri())), //
 				DocumentsContract.buildChildDocumentsUriUsingTree( //
 						parse(localStorageCloud.rootUri()), //
-						DocumentsContract.getTreeDocumentId( //
-								parse(localStorageCloud.rootUri())))
-						.toString());
+						DocumentsContract.getTreeDocumentId(parse(localStorageCloud.rootUri()))).toString());
 		this.localStorageCloud = localStorageCloud;
 	}
 

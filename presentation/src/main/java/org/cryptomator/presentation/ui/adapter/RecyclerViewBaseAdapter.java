@@ -4,14 +4,14 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import androidx.annotation.NonNull;
+import androidx.recyclerview.widget.RecyclerView;
+
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
-
-import androidx.annotation.NonNull;
-import androidx.recyclerview.widget.RecyclerView;
 
 public abstract class RecyclerViewBaseAdapter<Item, Callback, ViewHolder extends RecyclerViewBaseAdapter.ItemViewHolder> extends RecyclerView.Adapter<ViewHolder> {
 
@@ -117,15 +117,6 @@ public abstract class RecyclerViewBaseAdapter<Item, Callback, ViewHolder extends
 
 	protected abstract ViewHolder createViewHolder(View view, int viewType);
 
-	public abstract class ItemViewHolder extends RecyclerView.ViewHolder {
-
-		ItemViewHolder(View itemView) {
-			super(itemView);
-		}
-
-		public abstract void bind(int position);
-	}
-
 	private void sort() {
 		if (comparator != null) {
 			Collections.sort(itemCollection, comparator);
@@ -138,5 +129,14 @@ public abstract class RecyclerViewBaseAdapter<Item, Callback, ViewHolder extends
 
 	Comparator<Item> getComparator() {
 		return comparator;
+	}
+
+	public abstract class ItemViewHolder extends RecyclerView.ViewHolder {
+
+		ItemViewHolder(View itemView) {
+			super(itemView);
+		}
+
+		public abstract void bind(int position);
 	}
 }

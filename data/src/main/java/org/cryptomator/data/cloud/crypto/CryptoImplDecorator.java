@@ -243,8 +243,7 @@ abstract class CryptoImplDecorator {
 		}
 	}
 
-	private CryptoFile writeFromTmpFile(DataSource originalDataSource, final CryptoFile cryptoFile, File encryptedFile, final ProgressAware<UploadState> progressAware, boolean replace)
-			throws BackendException, IOException {
+	private CryptoFile writeFromTmpFile(DataSource originalDataSource, final CryptoFile cryptoFile, File encryptedFile, final ProgressAware<UploadState> progressAware, boolean replace) throws BackendException, IOException {
 		CryptoFile targetFile = targetFile(cryptoFile, replace);
 		return file(targetFile, //
 				cloudContentRepository.write( //
@@ -298,8 +297,8 @@ abstract class CryptoImplDecorator {
 		try {
 			File encryptedTmpFile = readToTmpFile(cryptoFile, ciphertextFile, progressAware);
 			progressAware.onProgress(Progress.started(DownloadState.decryption(cryptoFile)));
-			try (ReadableByteChannel readableByteChannel = Channels.newChannel(new FileInputStream(encryptedTmpFile));
-					ReadableByteChannel decryptingReadableByteChannel = new DecryptingReadableByteChannel(readableByteChannel, cryptor(), true)) {
+			try (ReadableByteChannel readableByteChannel = Channels.newChannel(new FileInputStream(encryptedTmpFile)); //
+				 ReadableByteChannel decryptingReadableByteChannel = new DecryptingReadableByteChannel(readableByteChannel, cryptor(), true)) {
 				ByteBuffer buff = ByteBuffer.allocate(cryptor().fileContentCryptor().ciphertextChunkSize());
 				long cleartextSize = cryptoFile.getSize().orElse(Long.MAX_VALUE);
 				long decrypted = 0;
@@ -395,8 +394,8 @@ abstract class CryptoImplDecorator {
 		}
 		try (InputStream stream = data.open(context)) {
 			File encryptedTmpFile = File.createTempFile(UUID.randomUUID().toString(), ".crypto", getInternalCache());
-			try (WritableByteChannel writableByteChannel = Channels.newChannel(new FileOutputStream(encryptedTmpFile));
-					WritableByteChannel encryptingWritableByteChannel = new EncryptingWritableByteChannel(writableByteChannel, cryptor())) {
+			try (WritableByteChannel writableByteChannel = Channels.newChannel(new FileOutputStream(encryptedTmpFile)); //
+				 WritableByteChannel encryptingWritableByteChannel = new EncryptingWritableByteChannel(writableByteChannel, cryptor())) {
 				progressAware.onProgress(Progress.started(UploadState.encryption(cryptoFile)));
 				ByteBuffer buff = ByteBuffer.allocate(cryptor().fileContentCryptor().cleartextChunkSize());
 				long ciphertextSize = Cryptors.ciphertextSize(cryptoFile.getSize().get(), cryptor()) + cryptor().fileHeaderCryptor().headerSize();

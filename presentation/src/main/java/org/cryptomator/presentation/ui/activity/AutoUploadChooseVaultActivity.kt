@@ -3,7 +3,6 @@ package org.cryptomator.presentation.ui.activity
 import android.os.Build
 import androidx.annotation.RequiresApi
 import androidx.fragment.app.Fragment
-import kotlinx.android.synthetic.main.toolbar_layout.*
 import org.cryptomator.generator.Activity
 import org.cryptomator.presentation.R
 import org.cryptomator.presentation.model.CloudFolderModel
@@ -16,6 +15,7 @@ import org.cryptomator.presentation.ui.dialog.NotEnoughVaultsDialog
 import org.cryptomator.presentation.ui.fragment.AutoUploadChooseVaultFragment
 import org.cryptomator.presentation.util.BiometricAuthentication
 import javax.inject.Inject
+import kotlinx.android.synthetic.main.toolbar_layout.toolbar
 
 @Activity
 class AutoUploadChooseVaultActivity : BaseActivity(), //

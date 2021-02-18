@@ -43,6 +43,7 @@ class ReleaseLogger(context: Context) : Timber.Tree() {
 	}
 
 	companion object {
+
 		private const val LOG_LEVEL_WHEN_DEBUG_IS_DISABLED = Log.INFO
 
 		@Volatile

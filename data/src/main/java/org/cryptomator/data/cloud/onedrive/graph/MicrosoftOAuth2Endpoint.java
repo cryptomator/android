@@ -7,6 +7,7 @@ import com.microsoft.services.msa.OAuthConfig;
 import org.cryptomator.data.BuildConfig;
 
 class MicrosoftOAuth2Endpoint implements OAuthConfig {
+
 	/**
 	 * The current instance of this class
 	 */

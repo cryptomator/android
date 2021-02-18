@@ -5,7 +5,12 @@ import android.content.Context
 import org.cryptomator.cryptolib.api.InvalidPassphraseException
 import org.cryptomator.cryptolib.api.UnsupportedVaultFormatException
 import org.cryptomator.domain.di.PerView
-import org.cryptomator.domain.exception.*
+import org.cryptomator.domain.exception.CloudAlreadyExistsException
+import org.cryptomator.domain.exception.CloudNodeAlreadyExistsException
+import org.cryptomator.domain.exception.NetworkConnectionException
+import org.cryptomator.domain.exception.NoSuchCloudFileException
+import org.cryptomator.domain.exception.UnableToDecryptWebdavPasswordException
+import org.cryptomator.domain.exception.VaultAlreadyExistException
 import org.cryptomator.domain.exception.authentication.AuthenticationException
 import org.cryptomator.domain.exception.license.LicenseNotValidException
 import org.cryptomator.domain.exception.license.NoLicenseAvailableException
@@ -13,9 +18,10 @@ import org.cryptomator.domain.exception.update.GeneralUpdateErrorException
 import org.cryptomator.domain.exception.update.SSLHandshakePreAndroid5UpdateCheckException
 import org.cryptomator.presentation.R
 import org.cryptomator.presentation.ui.activity.view.View
-import timber.log.Timber
-import java.util.*
+import java.util.ArrayList
+import java.util.Collections
 import javax.inject.Inject
+import timber.log.Timber
 
 @PerView
 class ExceptionHandlers @Inject constructor(private val context: Context, defaultExceptionHandler: DefaultExceptionHandler) : Iterable<ExceptionHandler?> {

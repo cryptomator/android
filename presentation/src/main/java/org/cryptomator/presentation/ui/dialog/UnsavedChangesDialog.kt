@@ -10,6 +10,7 @@ class UnsavedChangesDialog private constructor(private val context: Context) {
 	private val callback: Callback
 
 	interface Callback {
+
 		fun onSaveChangesClicked()
 		fun onDiscardChangesClicked()
 	}
@@ -25,6 +26,7 @@ class UnsavedChangesDialog private constructor(private val context: Context) {
 	}
 
 	companion object {
+
 		fun withContext(context: Context): UnsavedChangesDialog {
 			return UnsavedChangesDialog(context)
 		}

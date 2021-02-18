@@ -43,21 +43,18 @@ public interface CloudContentRepository<CloudType extends Cloud, NodeType extend
 	 * Creates a cloud folder and maybe intermediate directories.
 	 *
 	 * @return created cloud folder (migth be different from target)
-	 *
 	 * @throws org.cryptomator.domain.exception.CloudNodeAlreadyExistsException If a cloud node with the same folder name already exists
 	 */
 	DirType create(DirType folder) throws BackendException;
 
 	/**
 	 * @return moved cloud folder (might be different from target)
-	 *
 	 * @throws org.cryptomator.domain.exception.CloudNodeAlreadyExistsException If a cloud node with the same target name already exists
 	 */
 	DirType move(DirType source, DirType target) throws BackendException;
 
 	/**
 	 * @return moved cloud file (might be different from target)
-	 * 
 	 * @throws org.cryptomator.domain.exception.CloudNodeAlreadyExistsException If a cloud node with the same target name already exists
 	 */
 	FileType move(FileType source, FileType target) throws BackendException;

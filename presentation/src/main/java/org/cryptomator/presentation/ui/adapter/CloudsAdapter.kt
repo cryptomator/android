@@ -1,16 +1,18 @@
 package org.cryptomator.presentation.ui.adapter
 
 import android.view.View
-import kotlinx.android.synthetic.main.item_cloud.view.*
 import org.cryptomator.presentation.R
 import org.cryptomator.presentation.model.CloudTypeModel
 import org.cryptomator.presentation.ui.adapter.CloudsAdapter.CloudViewHolder
 import javax.inject.Inject
+import kotlinx.android.synthetic.main.item_cloud.view.cloud
+import kotlinx.android.synthetic.main.item_cloud.view.cloudName
 
 class CloudsAdapter @Inject
 constructor() : RecyclerViewBaseAdapter<CloudTypeModel, CloudsAdapter.OnItemClickListener, CloudViewHolder>() {
 
 	interface OnItemClickListener {
+
 		fun onCloudClicked(cloudTypeModel: CloudTypeModel)
 	}
 

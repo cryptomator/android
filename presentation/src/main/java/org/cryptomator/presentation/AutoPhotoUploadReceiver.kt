@@ -10,6 +10,7 @@ import org.cryptomator.util.file.MimeTypes
 import timber.log.Timber
 
 class AutoPhotoUploadReceiver : BroadcastReceiver() {
+
 	override fun onReceive(context: Context, intent: Intent) {
 		if (!SharedPreferencesHandler(context).usePhotoUpload()) {
 			return

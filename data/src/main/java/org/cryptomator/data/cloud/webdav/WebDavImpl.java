@@ -174,6 +174,48 @@ class WebDavImpl {
 		connectionHandler.checkAuthenticationAndServerCompatibility(url);
 	}
 
+	public void read(final CloudFile file, OutputStream data, final ProgressAware<DownloadState> progressAware) throws BackendException, IOException {
+		progressAware.onProgress(Progress.started(DownloadState.download(file)));
+
+		try (InputStream in = connectionHandler.readFile(absoluteUriFrom(file.getPath())); //
+			 TransferredBytesAwareOutputStream out = new TransferredBytesAwareOutputStream(data) {
+				 @Override
+				 public void bytesTransferred(long transferred) {
+					 progressAware.onProgress( //
+							 progress(DownloadState.download(file)) //
+									 .between(0) //
+									 .and(file.getSize().orElse(Long.MAX_VALUE)) //
+									 .withValue(transferred));
+				 }
+			 }) {
+			CopyStream.copyStreamToStream(in, out);
+		}
+
+		progressAware.onProgress(Progress.completed(DownloadState.download(file)));
+	}
+
+	public void delete(CloudNode node) throws BackendException {
+		connectionHandler.delete(absoluteUriFrom(node.getPath()));
+	}
+
+	private String absoluteUriFrom(String path) {
+		path = removeLeadingSlash(path);
+
+		return baseUrl.newBuilder() //
+				.addPathSegments(path) //
+				.build() //
+				.toString();
+	}
+
+	private String removeLeadingSlash(String path) {
+		return path.length() > 0 && path.charAt(0) == '/' ? path.substring(1) : path;
+	}
+
+	public String currentAccount() throws BackendException {
+		checkAuthenticationAndServerCompatibility(cloud.url());
+		return cloud.url();
+	}
+
 	private static abstract class TransferredBytesAwareDataSource implements DataSource {
 
 		private final DataSource data;
@@ -208,47 +250,5 @@ class WebDavImpl {
 		public DataSource decorate(DataSource delegate) {
 			return delegate;
 		}
-	}
-
-	public void read(final CloudFile file, OutputStream data, final ProgressAware<DownloadState> progressAware) throws BackendException, IOException {
-		progressAware.onProgress(Progress.started(DownloadState.download(file)));
-
-		try (InputStream in = connectionHandler.readFile(absoluteUriFrom(file.getPath())); //
-				TransferredBytesAwareOutputStream out = new TransferredBytesAwareOutputStream(data) {
-					@Override
-					public void bytesTransferred(long transferred) {
-						progressAware.onProgress( //
-								progress(DownloadState.download(file)) //
-										.between(0) //
-										.and(file.getSize().orElse(Long.MAX_VALUE)) //
-										.withValue(transferred));
-					}
-				}) {
-			CopyStream.copyStreamToStream(in, out);
-		}
-
-		progressAware.onProgress(Progress.completed(DownloadState.download(file)));
-	}
-
-	public void delete(CloudNode node) throws BackendException {
-		connectionHandler.delete(absoluteUriFrom(node.getPath()));
-	}
-
-	private String absoluteUriFrom(String path) {
-		path = removeLeadingSlash(path);
-
-		return baseUrl.newBuilder() //
-				.addPathSegments(path) //
-				.build() //
-				.toString();
-	}
-
-	private String removeLeadingSlash(String path) {
-		return path.length() > 0 && path.charAt(0) == '/' ? path.substring(1) : path;
-	}
-
-	public String currentAccount() throws BackendException {
-		checkAuthenticationAndServerCompatibility(cloud.url());
-		return cloud.url();
 	}
 }

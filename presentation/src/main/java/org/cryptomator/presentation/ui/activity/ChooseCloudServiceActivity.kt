@@ -2,7 +2,6 @@ package org.cryptomator.presentation.ui.activity
 
 import android.view.MenuItem
 import androidx.fragment.app.Fragment
-import kotlinx.android.synthetic.main.toolbar_layout.*
 import org.cryptomator.generator.Activity
 import org.cryptomator.generator.InjectIntent
 import org.cryptomator.presentation.R
@@ -13,6 +12,7 @@ import org.cryptomator.presentation.presenter.ChooseCloudServicePresenter
 import org.cryptomator.presentation.ui.activity.view.ChooseCloudServiceView
 import org.cryptomator.presentation.ui.fragment.ChooseCloudServiceFragment
 import javax.inject.Inject
+import kotlinx.android.synthetic.main.toolbar_layout.toolbar
 
 @Activity
 class ChooseCloudServiceActivity : BaseActivity(), ChooseCloudServiceView {

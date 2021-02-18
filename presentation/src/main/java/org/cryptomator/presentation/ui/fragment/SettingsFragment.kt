@@ -22,12 +22,12 @@ import org.cryptomator.presentation.ui.dialog.DisableAppWhenObscuredDisclaimerDi
 import org.cryptomator.presentation.ui.dialog.DisableSecureScreenDisclaimerDialog
 import org.cryptomator.util.SharedPreferencesHandler
 import org.cryptomator.util.file.LruFileCacheUtil
-import timber.log.Timber
 import java.lang.Boolean.FALSE
 import java.lang.Boolean.TRUE
 import java.lang.String.format
 import java.text.DecimalFormat
 import kotlin.math.log10
+import timber.log.Timber
 
 class SettingsFragment : PreferenceFragmentCompat() {
 
@@ -269,6 +269,7 @@ class SettingsFragment : PreferenceFragmentCompat() {
 	}
 
 	companion object {
+
 		private const val APP_VERSION_ITEM_KEY = "appVersion"
 		private const val SEND_ERROR_REPORT_ITEM_KEY = "sendErrorReport"
 		private const val BIOMETRIC_AUTHENTICATION_ITEM_KEY = "biometricAuthentication"

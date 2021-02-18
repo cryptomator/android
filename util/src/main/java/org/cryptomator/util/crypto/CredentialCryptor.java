@@ -13,10 +13,6 @@ public class CredentialCryptor {
 
 	private final Cipher cipher;
 
-	public static CredentialCryptor getInstance(Context context) {
-		return new CredentialCryptor(context);
-	}
-
 	private CredentialCryptor(Context context) {
 		KeyStore keyStore = KeyStoreBuilder.defaultKeyStore() //
 				.withKey(DEFAULT_KEY_ALIAS, false, context) //
@@ -24,6 +20,10 @@ public class CredentialCryptor {
 		this.cipher = CryptoOperationsFactory //
 				.cryptoOperations() //
 				.cryptor(keyStore, DEFAULT_KEY_ALIAS);
+	}
+
+	public static CredentialCryptor getInstance(Context context) {
+		return new CredentialCryptor(context);
 	}
 
 	public byte[] encrypt(byte[] decrypted) {

@@ -9,9 +9,9 @@ import android.util.DisplayMetrics
 import android.view.View
 import androidx.coordinatorlayout.widget.CoordinatorLayout
 import org.cryptomator.presentation.R
-import timber.log.Timber
 import kotlin.math.cos
 import kotlin.math.sin
+import timber.log.Timber
 
 class ArcAwareCoordinatorLayout : CoordinatorLayout {
 
@@ -81,6 +81,7 @@ class ArcAwareCoordinatorLayout : CoordinatorLayout {
 	}
 
 	private class ArcBuilder(val x1: Float, val y1: Float, val layoutDirection: Int) {
+
 		var angle = 0f
 		var x2 = 0f
 		var y2 = 0f
@@ -103,6 +104,7 @@ class ArcAwareCoordinatorLayout : CoordinatorLayout {
 	}
 
 	private class Arc(b: ArcBuilder) {
+
 		private val left: Float
 		private val right: Float
 		private val top: Float
@@ -118,6 +120,7 @@ class ArcAwareCoordinatorLayout : CoordinatorLayout {
 		}
 
 		companion object {
+
 			private const val TWO_PI = 2f * Math.PI
 		}
 
@@ -165,6 +168,7 @@ class ArcAwareCoordinatorLayout : CoordinatorLayout {
 	}
 
 	companion object {
+
 		private fun arcFrom(x1: Float, y1: Float, layoutDirection: Int): ArcBuilder {
 			return ArcBuilder(x1, y1, layoutDirection)
 		}

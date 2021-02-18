@@ -1,5 +1,7 @@
 package org.cryptomator.util.concurrent;
 
+import androidx.annotation.NonNull;
+
 import java.util.concurrent.CancellationException;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.Future;
@@ -8,8 +10,6 @@ import java.util.concurrent.TimeoutException;
 import java.util.concurrent.locks.Condition;
 import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReentrantLock;
-
-import androidx.annotation.NonNull;
 
 public class CompletableFuture<T> implements Future<T> {
 

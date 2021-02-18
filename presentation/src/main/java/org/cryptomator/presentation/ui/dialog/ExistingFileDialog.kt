@@ -4,14 +4,15 @@ import android.content.DialogInterface
 import android.net.Uri
 import android.os.Bundle
 import androidx.appcompat.app.AlertDialog
-import kotlinx.android.synthetic.main.dialog_existing_file.*
 import org.cryptomator.generator.Dialog
 import org.cryptomator.presentation.R
+import kotlinx.android.synthetic.main.dialog_existing_file.tv_message
 
 @Dialog(R.layout.dialog_existing_file)
 class ExistingFileDialog : BaseDialog<ExistingFileDialog.Callback>() {
 
 	interface Callback {
+
 		fun onReplaceClick(uri: Uri)
 	}
 
@@ -29,6 +30,7 @@ class ExistingFileDialog : BaseDialog<ExistingFileDialog.Callback>() {
 	}
 
 	companion object {
+
 		private const val FILE_URI_ARG = "fileUri"
 		private const val FILE_NAME_ARG = "fileName"
 		fun newInstance(uri: Uri, fileName: String): ExistingFileDialog {

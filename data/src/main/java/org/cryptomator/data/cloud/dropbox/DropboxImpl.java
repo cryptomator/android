@@ -79,6 +79,14 @@ class DropboxImpl {
 		sharedPreferencesHandler = new SharedPreferencesHandler(context);
 	}
 
+	private static void sleepQuietly(long millis) {
+		try {
+			Thread.sleep(millis);
+		} catch (InterruptedException ex) {
+			throw new FatalBackendException("Error uploading to Dropbox: interrupted during backoff.");
+		}
+	}
+
 	private DbxClientV2 client() throws AuthenticationException {
 		return clientFactory.getClient(decrypt(cloud.accessToken()), context);
 	}
@@ -186,8 +194,7 @@ class DropboxImpl {
 				relocationResult.getMetadata());
 	}
 
-	public DropboxFile write(DropboxFile file, DataSource data, final ProgressAware<UploadState> progressAware, boolean replace, long size)
-			throws AuthenticationException, DbxException, IOException, CloudNodeAlreadyExistsException {
+	public DropboxFile write(DropboxFile file, DataSource data, final ProgressAware<UploadState> progressAware, boolean replace, long size) throws AuthenticationException, DbxException, IOException, CloudNodeAlreadyExistsException {
 		if (exists(file) && !replace) {
 			throw new CloudNodeAlreadyExistsException("CloudNode already exists and replace is false");
 		}
@@ -237,8 +244,7 @@ class DropboxImpl {
 		}
 	}
 
-	private void chunkedUploadFile(final DropboxFile file, DataSource data, final ProgressAware<UploadState> progressAware, WriteMode writeMode, final long size)
-			throws AuthenticationException, DbxException, IOException {
+	private void chunkedUploadFile(final DropboxFile file, DataSource data, final ProgressAware<UploadState> progressAware, WriteMode writeMode, final long size) throws AuthenticationException, DbxException, IOException {
 		// Assert our file is at least the chunk upload size. We make this assumption in the code
 		// below to simplify the logic.
 		if (size < CHUNKED_UPLOAD_CHUNK_SIZE) {
@@ -348,8 +354,8 @@ class DropboxImpl {
 						// the expected offset according to the server and try again.
 						uploaded = ex. //
 								errorValue. //
-										getIncorrectOffsetValue(). //
-										getCorrectOffset();
+								getIncorrectOffsetValue(). //
+								getCorrectOffset();
 					} else {
 						throw new FatalBackendException(ex);
 					}
@@ -360,9 +366,9 @@ class DropboxImpl {
 						// the expected offset according to the server and try again.
 						uploaded = ex. //
 								errorValue. //
-										getLookupFailedValue(). //
-										getIncorrectOffsetValue(). //
-										getCorrectOffset();
+								getLookupFailedValue(). //
+								getIncorrectOffsetValue(). //
+								getCorrectOffset();
 					} else {
 						throw new FatalBackendException(ex);
 					}
@@ -456,13 +462,5 @@ class DropboxImpl {
 				.users() //
 				.getCurrentAccount();
 		return currentAccount.getName().getDisplayName();
-	}
-
-	private static void sleepQuietly(long millis) {
-		try {
-			Thread.sleep(millis);
-		} catch (InterruptedException ex) {
-			throw new FatalBackendException("Error uploading to Dropbox: interrupted during backoff.");
-		}
 	}
 }

@@ -5,11 +5,11 @@
 	android:layout_height="match_parent">
 
 	<LinearLayout
+		style="@style/BottomSheetBackground"
 		android:layout_width="match_parent"
 		android:layout_height="match_parent"
 		android:orientation="vertical"
-		android:paddingBottom="8dp"
-		style="@style/BottomSheetBackground">
+		android:paddingBottom="8dp">
 
 		<RelativeLayout
 			android:layout_width="match_parent"
@@ -22,16 +22,16 @@
 				android:layout_width="@dimen/thumbnail_size"
 				android:layout_height="@dimen/thumbnail_size"
 				android:layout_centerVertical="true"
-				android:layout_marginEnd="16dp"
 				android:layout_marginStart="16dp"
+				android:layout_marginEnd="16dp"
 				android:src="@drawable/node_folder" />
 
 			<LinearLayout
 				android:layout_width="match_parent"
 				android:layout_height="wrap_content"
 				android:layout_centerVertical="true"
-				android:layout_marginEnd="16dp"
 				android:layout_marginStart="4dp"
+				android:layout_marginEnd="16dp"
 				android:layout_toEndOf="@+id/iv_folder_image"
 				android:orientation="vertical">
 

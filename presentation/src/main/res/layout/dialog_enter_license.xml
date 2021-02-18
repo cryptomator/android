@@ -12,14 +12,14 @@
 			android:id="@+id/tv_message"
 			android:layout_width="match_parent"
 			android:layout_height="wrap_content"
-			android:text="@string/dialog_enter_license_content"
-			android:layout_marginBottom="5dp" />
+			android:layout_marginBottom="5dp"
+			android:text="@string/dialog_enter_license_content" />
 
 		<LinearLayout
-			android:layout_below="@+id/tv_message"
 			android:id="@+id/ll_folder"
 			android:layout_width="match_parent"
 			android:layout_height="wrap_content"
+			android:layout_below="@+id/tv_message"
 			android:orientation="horizontal">
 
 			<ImageView

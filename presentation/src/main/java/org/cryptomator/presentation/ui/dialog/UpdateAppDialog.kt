@@ -2,14 +2,15 @@ package org.cryptomator.presentation.ui.dialog
 
 import android.view.View
 import androidx.appcompat.app.AlertDialog
-import kotlinx.android.synthetic.main.dialog_app_update.*
 import org.cryptomator.generator.Dialog
 import org.cryptomator.presentation.R
+import kotlinx.android.synthetic.main.dialog_app_update.tv_message
 
 @Dialog(R.layout.dialog_app_update)
 class UpdateAppDialog : BaseProgressErrorDialog<UpdateAppDialog.Callback>() {
 
 	interface Callback {
+
 		fun onUpdateAppDialogLoaded()
 	}
 
@@ -35,6 +36,7 @@ class UpdateAppDialog : BaseProgressErrorDialog<UpdateAppDialog.Callback>() {
 	}
 
 	companion object {
+
 		fun newInstance(): UpdateAppDialog {
 			return UpdateAppDialog()
 		}

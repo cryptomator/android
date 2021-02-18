@@ -31,6 +31,7 @@ enum class CloudTypeModel(builder: Builder) {
 	val isMultiInstance: Boolean = builder.multiInstances
 
 	private class Builder(val cloudName: String, val displayNameResource: Int) {
+
 		var cloudImageResource = 0
 		var cloudImageLargeResource = 0
 		var multiInstances = false
@@ -52,6 +53,7 @@ enum class CloudTypeModel(builder: Builder) {
 	}
 
 	companion object {
+
 		fun valueOf(type: CloudType): CloudTypeModel {
 			return valueOf(type.name)
 		}

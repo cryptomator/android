@@ -36,15 +36,15 @@ class WebDavRedirectHandler {
 
 	private Request redirectedRequestFor(Response response) {
 		switch (response.code()) {
-		case 300: // fall through
-		case 301: // fall through
-		case 302: // fall through
-		case 303: // fall through
-		case 307: // fall through
-		case 308:
-			return createRedirectedRequest(response);
-		default:
-			return NO_REDIRECTED_REQUEST;
+			case 300: // fall through
+			case 301: // fall through
+			case 302: // fall through
+			case 303: // fall through
+			case 307: // fall through
+			case 308:
+				return createRedirectedRequest(response);
+			default:
+				return NO_REDIRECTED_REQUEST;
 		}
 	}
 

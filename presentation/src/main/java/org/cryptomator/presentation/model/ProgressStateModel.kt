@@ -23,10 +23,12 @@ open class ProgressStateModel private constructor(private val name: String, imag
 	}
 
 	interface Image {
+
 		fun id(): Int
 	}
 
 	interface Text {
+
 		fun id(): Int
 	}
 
@@ -35,6 +37,7 @@ open class ProgressStateModel private constructor(private val name: String, imag
 	}
 
 	companion object {
+
 		val AUTHENTICATION = ProgressStateModel("AUTHENTICATION", text(R.string.action_progress_authentication))
 		val RENAMING = ProgressStateModel("RENAMING", text(R.string.action_progress_renaming))
 		val MOVING = ProgressStateModel("MOVING", text(R.string.action_progress_moving), false)

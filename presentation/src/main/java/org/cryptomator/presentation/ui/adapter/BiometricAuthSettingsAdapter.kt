@@ -2,11 +2,13 @@ package org.cryptomator.presentation.ui.adapter
 
 import android.view.View
 import com.google.android.material.switchmaterial.SwitchMaterial
-import kotlinx.android.synthetic.main.item_biometric_auth_vault.view.*
 import org.cryptomator.presentation.R
 import org.cryptomator.presentation.model.VaultModel
 import org.cryptomator.presentation.ui.adapter.BiometricAuthSettingsAdapter.BiometricAuthSettingsViewHolder
 import javax.inject.Inject
+import kotlinx.android.synthetic.main.item_biometric_auth_vault.view.cloud
+import kotlinx.android.synthetic.main.item_biometric_auth_vault.view.toggleBiometricAuth
+import kotlinx.android.synthetic.main.item_biometric_auth_vault.view.vaultName
 
 class BiometricAuthSettingsAdapter //
 @Inject
@@ -15,6 +17,7 @@ constructor() : RecyclerViewBaseAdapter<VaultModel, BiometricAuthSettingsAdapter
 	private var onVaultBiometricAuthSettingsChanged: OnVaultBiometricAuthSettingsChanged? = null
 
 	interface OnVaultBiometricAuthSettingsChanged {
+
 		fun onVaultBiometricAuthSettingsChanged(vaultModel: VaultModel, useBiometricAuth: Boolean)
 	}
 

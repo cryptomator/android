@@ -21,8 +21,8 @@
 			android:layout_below="@id/tv_no_screenlock"
 			android:layout_marginTop="27dp"
 			android:checked="true"
-			android:paddingEnd="16dp"
 			android:paddingStart="16dp"
+			android:paddingEnd="16dp"
 			android:text="@string/dialog_no_screen_lock_checkbox" />
 
 	</RelativeLayout>

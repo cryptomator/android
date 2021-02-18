@@ -25,6 +25,7 @@ import static org.cryptomator.presentation.ui.activity.CloudsOperationsTest.chec
 import static org.cryptomator.presentation.ui.activity.CloudsOperationsTest.openCloudServices;
 
 public class GoogledriveTestCloud extends TestCloud {
+
 	@Override
 	public Cloud getInstance(ApplicationComponent appComponent) {
 		login();
@@ -67,9 +68,9 @@ public class GoogledriveTestCloud extends TestCloud {
 		try {
 			onView(withRecyclerView(R.id.recyclerView) //
 					.atPositionOnView(GOOGLE_DRIVE, R.id.tv_cloud_name)) //
-							.check(matches(withText(InstrumentationRegistry //
-									.getTargetContext() //
-									.getString(R.string.screen_cloud_settings_sign_out_from_cloud) + " Google Drive")));
+					.check(matches(withText(InstrumentationRegistry //
+							.getTargetContext() //
+							.getString(R.string.screen_cloud_settings_sign_out_from_cloud) + " Google Drive")));
 		} catch (AssertionFailedError e) {
 			return false;
 		}

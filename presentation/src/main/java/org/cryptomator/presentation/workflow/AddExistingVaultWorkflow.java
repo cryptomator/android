@@ -79,18 +79,18 @@ public class AddExistingVaultWorkflow extends Workflow<AddExistingVaultWorkflow.
 					public void onSuccess(CloudFolder cloudFolder) {
 						state().cloudRoot = cloudFolder;
 						chain(browseFilesIntent() //
-								.withTitle(context.getString(cloudModelMapper.toModel(cloudFolder.getCloud()).name())) //
-								.withFolder(new CloudFolderModel(cloudFolder)) //
-								.withChooseCloudNodeSettings( //
-										chooseCloudNodeSettings() //
-												.withExtraTitle(presenter() //
-														.context() //
-														.getString(R.string.screen_file_browser_subtitle_add_existing_vault)) //
-												.withExtraText(presenter() //
-														.context() //
-														.getString(R.string.screen_file_browser_add_existing_vault_extra_text)) //
-												.selectingFilesWithNameOnly("masterkey.cryptomator") //
-												.build()), //
+										.withTitle(context.getString(cloudModelMapper.toModel(cloudFolder.getCloud()).name())) //
+										.withFolder(new CloudFolderModel(cloudFolder)) //
+										.withChooseCloudNodeSettings( //
+												chooseCloudNodeSettings() //
+														.withExtraTitle(presenter() //
+																.context() //
+																.getString(R.string.screen_file_browser_subtitle_add_existing_vault)) //
+														.withExtraText(presenter() //
+																.context() //
+																.getString(R.string.screen_file_browser_add_existing_vault_extra_text)) //
+														.selectingFilesWithNameOnly("masterkey.cryptomator") //
+														.build()), //
 								SerializableResultCallbacks.masterkeyFileChosen());
 					}
 

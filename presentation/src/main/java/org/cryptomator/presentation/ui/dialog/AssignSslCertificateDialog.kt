@@ -4,7 +4,6 @@ import android.content.DialogInterface
 import android.os.Bundle
 import android.view.View
 import androidx.appcompat.app.AlertDialog
-import kotlinx.android.synthetic.main.dialog_handle_ssl_certificate.*
 import org.cryptomator.data.util.X509CertificateHelper
 import org.cryptomator.domain.WebDavCloud
 import org.cryptomator.domain.exception.FatalBackendException
@@ -12,6 +11,10 @@ import org.cryptomator.generator.Dialog
 import org.cryptomator.presentation.R
 import java.security.cert.CertificateException
 import java.security.cert.X509Certificate
+import kotlinx.android.synthetic.main.dialog_handle_ssl_certificate.cb_accept_certificate
+import kotlinx.android.synthetic.main.dialog_handle_ssl_certificate.certificate_details
+import kotlinx.android.synthetic.main.dialog_handle_ssl_certificate.show_certificate
+import kotlinx.android.synthetic.main.dialog_handle_ssl_certificate.tv_finger_print_text
 
 @Dialog(R.layout.dialog_handle_ssl_certificate)
 class AssignSslCertificateDialog : BaseDialog<AssignSslCertificateDialog.Callback>() {
@@ -19,6 +22,7 @@ class AssignSslCertificateDialog : BaseDialog<AssignSslCertificateDialog.Callbac
 	private lateinit var certificate: X509Certificate
 
 	interface Callback {
+
 		fun onAcceptCertificateClicked(cloud: WebDavCloud, certificate: X509Certificate)
 		fun onAcceptCertificateDenied()
 	}
@@ -68,6 +72,7 @@ class AssignSslCertificateDialog : BaseDialog<AssignSslCertificateDialog.Callbac
 		get() = dialog as AlertDialog
 
 	companion object {
+
 		private const val CERTIFICATE = "certificate"
 		private const val WEBDAV_CLOUD = "webdavcloud"
 		fun newInstance(cloud: WebDavCloud, certificate: X509Certificate): AssignSslCertificateDialog {

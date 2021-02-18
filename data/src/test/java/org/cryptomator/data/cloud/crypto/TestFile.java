@@ -55,21 +55,27 @@ class TestFile implements CloudFile {
 
 	@Override
 	public boolean equals(Object o) {
-		if (this == o)
+		if (this == o) {
 			return true;
-		if (o == null || getClass() != o.getClass())
+		}
+		if (o == null || getClass() != o.getClass()) {
 			return false;
+		}
 
 		TestFile testFile = (TestFile) o;
 
-		if (!Objects.equals(parent, testFile.parent))
+		if (!Objects.equals(parent, testFile.parent)) {
 			return false;
-		if (!Objects.equals(name, testFile.name))
+		}
+		if (!Objects.equals(name, testFile.name)) {
 			return false;
-		if (!Objects.equals(path, testFile.path))
+		}
+		if (!Objects.equals(path, testFile.path)) {
 			return false;
-		if (!Objects.equals(size, testFile.size))
+		}
+		if (!Objects.equals(size, testFile.size)) {
 			return false;
+		}
 		return Objects.equals(modified, testFile.modified);
 	}
 

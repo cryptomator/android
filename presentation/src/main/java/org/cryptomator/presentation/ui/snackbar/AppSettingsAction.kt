@@ -20,6 +20,7 @@ class AppSettingsAction(private val context: Context) : SnackbarAction {
 		get() = R.string.snack_bar_action_title_settings
 
 	companion object {
+
 		private const val PACKAGE = "package:"
 	}
 }

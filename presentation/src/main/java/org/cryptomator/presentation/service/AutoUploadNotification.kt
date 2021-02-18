@@ -7,7 +7,9 @@ import android.app.PendingIntent
 import android.app.PendingIntent.FLAG_CANCEL_CURRENT
 import android.content.Context
 import android.content.Intent
-import android.content.Intent.*
+import android.content.Intent.ACTION_MAIN
+import android.content.Intent.FLAG_ACTIVITY_CLEAR_TASK
+import android.content.Intent.FLAG_ACTIVITY_NEW_TASK
 import androidx.core.app.NotificationCompat
 import org.cryptomator.presentation.R
 import org.cryptomator.presentation.service.AutoUploadService.cancelAutoUploadIntent
@@ -17,6 +19,7 @@ import org.cryptomator.presentation.util.ResourceHelper.Companion.getString
 import java.lang.String.format
 
 class AutoUploadNotification(private val context: Context, private val amountOfPictures: Int) {
+
 	private val builder: NotificationCompat.Builder
 	private var notificationManager: NotificationManager? = null
 	private var alreadyUploadedPictures = 0
@@ -122,6 +125,7 @@ class AutoUploadNotification(private val context: Context, private val amountOfP
 	}
 
 	companion object {
+
 		private const val NOTIFICATION_ID = 94874
 		private const val NOTIFICATION_CHANNEL_ID = "65478"
 		private const val NOTIFICATION_CHANNEL_NAME = "Cryptomator"

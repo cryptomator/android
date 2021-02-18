@@ -2,17 +2,26 @@ package org.cryptomator.presentation.ui.bottomsheet
 
 import android.os.Bundle
 import android.view.View
-import kotlinx.android.synthetic.main.dialog_bottom_sheet_file_settings.*
 import org.cryptomator.generator.BottomSheet
 import org.cryptomator.presentation.R
 import org.cryptomator.presentation.model.CloudFileModel
 import org.cryptomator.presentation.model.CloudNodeModel
-import java.util.*
+import java.util.Locale
+import kotlinx.android.synthetic.main.dialog_bottom_sheet_file_settings.delete_file
+import kotlinx.android.synthetic.main.dialog_bottom_sheet_file_settings.export_file
+import kotlinx.android.synthetic.main.dialog_bottom_sheet_file_settings.iv_file_image
+import kotlinx.android.synthetic.main.dialog_bottom_sheet_file_settings.move_file
+import kotlinx.android.synthetic.main.dialog_bottom_sheet_file_settings.open_with_text
+import kotlinx.android.synthetic.main.dialog_bottom_sheet_file_settings.rename_file
+import kotlinx.android.synthetic.main.dialog_bottom_sheet_file_settings.share_file
+import kotlinx.android.synthetic.main.dialog_bottom_sheet_file_settings.tv_file_name
+import kotlinx.android.synthetic.main.dialog_bottom_sheet_file_settings.tv_file_path
 
 @BottomSheet(R.layout.dialog_bottom_sheet_file_settings)
 class FileSettingsBottomSheet : BaseBottomSheet<FileSettingsBottomSheet.Callback>() {
 
 	interface Callback {
+
 		fun onExportFileClicked(cloudFile: CloudFileModel)
 		fun onRenameFileClicked(cloudFile: CloudFileModel)
 		fun onDeleteNodeClicked(cloudFile: CloudNodeModel<*>)
@@ -61,6 +70,7 @@ class FileSettingsBottomSheet : BaseBottomSheet<FileSettingsBottomSheet.Callback
 	}
 
 	companion object {
+
 		private const val FILE_ARG = "file"
 		private const val PARENT_FOLDER_PATH_ARG = "parentFolderPath"
 		fun newInstance(cloudFileModel: CloudFileModel, parentFolderPath: String): FileSettingsBottomSheet {

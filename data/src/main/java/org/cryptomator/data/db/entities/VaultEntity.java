@@ -29,6 +29,33 @@ public class VaultEntity extends DatabaseEntity {
 	private String password;
 
 	private Integer position;
+	/**
+	 * Used for active entity operations.
+	 */
+	@Generated(hash = 941685503)
+	private transient VaultEntityDao myDao;
+	/**
+	 * Used to resolve relations
+	 */
+	@Generated(hash = 2040040024)
+	private transient DaoSession daoSession;
+	@Generated(hash = 229273163)
+	private transient Long folderCloud__resolvedKey;
+
+	@Generated(hash = 825602374)
+	public VaultEntity(Long id, Long folderCloudId, String folderPath, String folderName, @NotNull String cloudType, String password, Integer position) {
+		this.id = id;
+		this.folderCloudId = folderCloudId;
+		this.folderPath = folderPath;
+		this.folderName = folderName;
+		this.cloudType = cloudType;
+		this.password = password;
+		this.position = position;
+	}
+
+	@Generated(hash = 691253864)
+	public VaultEntity() {
+	}
 
 	/**
 	 * Convenient call for {@link org.greenrobot.greendao.AbstractDao#refresh(Object)}.
@@ -66,17 +93,9 @@ public class VaultEntity extends DatabaseEntity {
 		myDao.delete(this);
 	}
 
-	/** called by internal mechanisms, do not call yourself. */
-	@Generated(hash = 1482096330)
-	public void setFolderCloud(CloudEntity folderCloud) {
-		synchronized (this) {
-			this.folderCloud = folderCloud;
-			folderCloudId = folderCloud == null ? null : folderCloud.getId();
-			folderCloud__resolvedKey = folderCloudId;
-		}
-	}
-
-	/** To-one relationship, resolved on first access. */
+	/**
+	 * To-one relationship, resolved on first access.
+	 */
 	@Generated(hash = 1508817413)
 	public CloudEntity getFolderCloud() {
 		Long __key = this.folderCloudId;
@@ -95,16 +114,17 @@ public class VaultEntity extends DatabaseEntity {
 		return folderCloud;
 	}
 
-	/** Used for active entity operations. */
-	@Generated(hash = 941685503)
-	private transient VaultEntityDao myDao;
-
-	/** Used to resolve relations */
-	@Generated(hash = 2040040024)
-	private transient DaoSession daoSession;
-
-	@Generated(hash = 229273163)
-	private transient Long folderCloud__resolvedKey;
+	/**
+	 * called by internal mechanisms, do not call yourself.
+	 */
+	@Generated(hash = 1482096330)
+	public void setFolderCloud(CloudEntity folderCloud) {
+		synchronized (this) {
+			this.folderCloud = folderCloud;
+			folderCloudId = folderCloud == null ? null : folderCloud.getId();
+			folderCloud__resolvedKey = folderCloudId;
+		}
+	}
 
 	public String getFolderPath() {
 		return this.folderPath;
@@ -167,22 +187,6 @@ public class VaultEntity extends DatabaseEntity {
 	public void __setDaoSession(DaoSession daoSession) {
 		this.daoSession = daoSession;
 		myDao = daoSession != null ? daoSession.getVaultEntityDao() : null;
-	}
-
-	@Generated(hash = 825602374)
-	public VaultEntity(Long id, Long folderCloudId, String folderPath, String folderName, @NotNull String cloudType, String password,
-			Integer position) {
-		this.id = id;
-		this.folderCloudId = folderCloudId;
-		this.folderPath = folderPath;
-		this.folderName = folderName;
-		this.cloudType = cloudType;
-		this.password = password;
-		this.position = position;
-	}
-
-	@Generated(hash = 691253864)
-	public VaultEntity() {
 	}
 
 }

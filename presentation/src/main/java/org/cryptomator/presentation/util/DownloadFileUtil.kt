@@ -5,7 +5,7 @@ import org.cryptomator.presentation.model.CloudFileModel
 import org.cryptomator.presentation.presenter.Presenter
 import java.io.FileNotFoundException
 import java.io.OutputStream
-import java.util.*
+import java.util.ArrayList
 import javax.inject.Inject
 
 class DownloadFileUtil @Inject constructor(private val fileUtil: FileUtil) {

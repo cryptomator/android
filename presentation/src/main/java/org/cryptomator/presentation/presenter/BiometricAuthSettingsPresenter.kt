@@ -16,9 +16,9 @@ import org.cryptomator.presentation.ui.activity.view.BiometricAuthSettingsView
 import org.cryptomator.presentation.workflow.ActivityResult
 import org.cryptomator.presentation.workflow.AuthenticationExceptionHandler
 import org.cryptomator.util.SharedPreferencesHandler
-import timber.log.Timber
 import java.util.*
 import javax.inject.Inject
+import timber.log.Timber
 
 @PerView
 class BiometricAuthSettingsPresenter @Inject constructor( //

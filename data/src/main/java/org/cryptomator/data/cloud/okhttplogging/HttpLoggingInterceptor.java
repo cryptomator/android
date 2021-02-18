@@ -29,18 +29,17 @@ public final class HttpLoggingInterceptor implements Interceptor {
 			"Cookie", //
 			"Set-Cookie" //
 	);
-
-	public interface Logger {
-		void log(String message);
-	}
+	private final Logger logger;
+	private final Context context;
 
 	public HttpLoggingInterceptor(Logger logger, Context context) {
 		this.logger = logger;
 		this.context = context;
 	}
 
-	private final Logger logger;
-	private final Context context;
+	private static boolean debugModeEnabled(Context context) {
+		return getDefaultSharedPreferences(context).getBoolean("debugMode", false);
+	}
 
 	@NotNull
 	@Override
@@ -137,11 +136,12 @@ public final class HttpLoggingInterceptor implements Interceptor {
 		}
 	}
 
-	private static boolean debugModeEnabled(Context context) {
-		return getDefaultSharedPreferences(context).getBoolean("debugMode", false);
-	}
-
 	private boolean isExcludedHeader(String name) {
 		return EXCLUDED_HEADERS.contains(name);
+	}
+
+	public interface Logger {
+
+		void log(String message);
 	}
 }

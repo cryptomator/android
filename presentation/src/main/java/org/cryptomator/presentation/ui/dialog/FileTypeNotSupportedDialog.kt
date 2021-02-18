@@ -11,6 +11,7 @@ import org.cryptomator.presentation.model.CloudFileModel
 class FileTypeNotSupportedDialog : BaseDialog<FileTypeNotSupportedDialog.Callback>() {
 
 	interface Callback {
+
 		fun onExportFileAfterAppChooserClicked(cloudFile: CloudFileModel)
 	}
 
@@ -25,6 +26,7 @@ class FileTypeNotSupportedDialog : BaseDialog<FileTypeNotSupportedDialog.Callbac
 	override fun setupView() {}
 
 	companion object {
+
 		private const val CLOUD_FILE_ARG = "cloudFile"
 		fun newInstance(cloudFileModel: CloudFileModel): FileTypeNotSupportedDialog {
 			val dialog = FileTypeNotSupportedDialog()

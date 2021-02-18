@@ -15,10 +15,10 @@
 		android:layout_width="wrap_content"
 		android:layout_height="wrap_content"
 		android:layout_centerVertical="true"
-		android:layout_marginEnd="8dp"
 		android:layout_marginStart="16dp"
-		android:layout_toEndOf="@+id/cloudImage"
+		android:layout_marginEnd="8dp"
 		android:layout_toStartOf="@+id/chooseFolderLocation"
+		android:layout_toEndOf="@+id/cloudImage"
 		android:orientation="vertical">
 
 		<TextView
@@ -49,8 +49,8 @@
 		android:layout_centerVertical="true"
 		android:layout_marginEnd="8dp"
 		android:layout_toStartOf="@+id/selectedVault"
-		android:minHeight="36dp"
 		android:minWidth="48dp"
+		android:minHeight="36dp"
 		android:text="&#8230;" />
 
 	<CheckBox

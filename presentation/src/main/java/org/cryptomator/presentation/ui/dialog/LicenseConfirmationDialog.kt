@@ -3,14 +3,15 @@ package org.cryptomator.presentation.ui.dialog
 import android.content.DialogInterface
 import android.os.Bundle
 import androidx.appcompat.app.AlertDialog
-import kotlinx.android.synthetic.main.dialog_license_confirmation.*
 import org.cryptomator.generator.Dialog
 import org.cryptomator.presentation.R
+import kotlinx.android.synthetic.main.dialog_license_confirmation.tv_message
 
 @Dialog(R.layout.dialog_license_confirmation)
 class LicenseConfirmationDialog : BaseDialog<LicenseConfirmationDialog.Callback>() {
 
 	interface Callback {
+
 		fun licenseConfirmationClicked()
 	}
 
@@ -27,6 +28,7 @@ class LicenseConfirmationDialog : BaseDialog<LicenseConfirmationDialog.Callback>
 	}
 
 	companion object {
+
 		private const val ARG_MAIL = "argMail"
 		fun newInstance(mail: String): LicenseConfirmationDialog {
 			val confirmationDialog = LicenseConfirmationDialog()

@@ -1,11 +1,6 @@
 package org.cryptomator.domain.usecases;
 
-import java.security.Key;
-import java.security.KeyFactory;
-import java.security.NoSuchAlgorithmException;
-import java.security.interfaces.ECPublicKey;
-import java.security.spec.InvalidKeySpecException;
-import java.security.spec.X509EncodedKeySpec;
+import com.google.common.io.BaseEncoding;
 
 import org.cryptomator.domain.exception.BackendException;
 import org.cryptomator.domain.exception.FatalBackendException;
@@ -15,7 +10,12 @@ import org.cryptomator.domain.repository.UpdateCheckRepository;
 import org.cryptomator.generator.Parameter;
 import org.cryptomator.generator.UseCase;
 
-import com.google.common.io.BaseEncoding;
+import java.security.Key;
+import java.security.KeyFactory;
+import java.security.NoSuchAlgorithmException;
+import java.security.interfaces.ECPublicKey;
+import java.security.spec.InvalidKeySpecException;
+import java.security.spec.X509EncodedKeySpec;
 
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.JwtException;

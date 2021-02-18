@@ -91,15 +91,15 @@ public class CreateNewVaultWorkflow extends Workflow<CreateNewVaultWorkflow.Stat
 	void nameEntered(SerializableResult<String> result) {
 		state().name = result.getResult();
 		chain(browseFilesIntent() //
-				.withTitle(context.getString(cloudModelMapper.toModel(state().cloudRoot.getCloud()).name())) //
-				.withFolder(new CloudFolderModel(state().cloudRoot)) //
-				.withChooseCloudNodeSettings( //
-						chooseCloudNodeSettings() //
-								.withExtraTitle(presenter().context().getString(R.string.screen_file_browser_subtitle_create_new_vault)) //
-								.withExtraText(presenter().context().getString(R.string.screen_file_browser_create_new_vault_extra_text, state().name)) //
-								.withButtonText(presenter().context().getString(R.string.screen_file_browser_create_new_vault_button_text)) //
-								.selectingFoldersNotContaining(singletonList(state().name)) //
-								.build()), //
+						.withTitle(context.getString(cloudModelMapper.toModel(state().cloudRoot.getCloud()).name())) //
+						.withFolder(new CloudFolderModel(state().cloudRoot)) //
+						.withChooseCloudNodeSettings( //
+								chooseCloudNodeSettings() //
+										.withExtraTitle(presenter().context().getString(R.string.screen_file_browser_subtitle_create_new_vault)) //
+										.withExtraText(presenter().context().getString(R.string.screen_file_browser_create_new_vault_extra_text, state().name)) //
+										.withButtonText(presenter().context().getString(R.string.screen_file_browser_create_new_vault_button_text)) //
+										.selectingFoldersNotContaining(singletonList(state().name)) //
+										.build()), //
 				SerializableResultCallbacks.locationChosen());
 	}
 

@@ -5,6 +5,7 @@ import org.cryptomator.presentation.model.ProgressModel
 import javax.inject.Inject
 
 class ProgressModelMapper @Inject internal constructor(private val progressStateModelMapper: ProgressStateModelMapper) : ModelMapper<ProgressModel, Progress<*>>() {
+
 	/**
 	 * @throws IllegalStateException
 	 */

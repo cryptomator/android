@@ -16,8 +16,7 @@ import java.io.File;
 import java.io.OutputStream;
 import java.util.List;
 
-public abstract class InterceptingCloudContentRepository<CloudType extends Cloud, NodeType extends CloudNode, DirType extends CloudFolder, FileType extends CloudFile>
-		implements CloudContentRepository<CloudType, NodeType, DirType, FileType> {
+public abstract class InterceptingCloudContentRepository<CloudType extends Cloud, NodeType extends CloudNode, DirType extends CloudFolder, FileType extends CloudFile> implements CloudContentRepository<CloudType, NodeType, DirType, FileType> {
 
 	private final CloudContentRepository<CloudType, NodeType, DirType, FileType> delegate;
 

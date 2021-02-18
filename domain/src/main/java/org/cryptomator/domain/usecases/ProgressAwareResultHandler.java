@@ -8,28 +8,6 @@ import org.cryptomator.domain.usecases.cloud.ProgressState;
  */
 public abstract class ProgressAwareResultHandler<T, S extends ProgressState> implements ResultHandler<T>, ProgressAware<S> {
 
-	public static class NoOp<T, S extends ProgressState> extends ProgressAwareResultHandler<T, S> {
-		@Override
-		public void onSuccess(T result) {
-			// no-op
-		}
-
-		@Override
-		public void onError(Throwable e) {
-			// no-op
-		}
-
-		@Override
-		public void onFinished() {
-			// no-op
-		}
-
-		@Override
-		public void onProgress(Progress<S> progress) {
-			// no-op
-		}
-	}
-
 	public static <T, S extends ProgressState> ProgressAwareResultHandler<T, S> from(final ResultHandler<T> resultHandler) {
 		return new ProgressAwareResultHandler<T, S>() {
 			@Override
@@ -76,6 +54,29 @@ public abstract class ProgressAwareResultHandler<T, S extends ProgressState> imp
 				resultHandler.onFinished();
 			}
 		};
+	}
+
+	public static class NoOp<T, S extends ProgressState> extends ProgressAwareResultHandler<T, S> {
+
+		@Override
+		public void onSuccess(T result) {
+			// no-op
+		}
+
+		@Override
+		public void onError(Throwable e) {
+			// no-op
+		}
+
+		@Override
+		public void onFinished() {
+			// no-op
+		}
+
+		@Override
+		public void onProgress(Progress<S> progress) {
+			// no-op
+		}
 	}
 
 }

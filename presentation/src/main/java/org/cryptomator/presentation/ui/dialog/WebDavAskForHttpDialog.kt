@@ -4,10 +4,10 @@ import android.content.DialogInterface
 import android.os.Bundle
 import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.DialogFragment
-import kotlinx.android.synthetic.main.dialog_ask_for_http.*
 import org.cryptomator.generator.Dialog
 import org.cryptomator.presentation.R
 import java.net.URI
+import kotlinx.android.synthetic.main.dialog_ask_for_http.cb_select_http
 
 @Dialog(R.layout.dialog_ask_for_http)
 class WebDavAskForHttpDialog : BaseDialog<WebDavAskForHttpDialog.Callback>() {
@@ -20,6 +20,7 @@ class WebDavAskForHttpDialog : BaseDialog<WebDavAskForHttpDialog.Callback>() {
 	private var cloudId: Long? = null
 
 	interface Callback {
+
 		fun onAksForHttpFinished(username: String, password: String, url: String, cloudId: Long?, certificate: String?)
 	}
 
@@ -63,6 +64,7 @@ class WebDavAskForHttpDialog : BaseDialog<WebDavAskForHttpDialog.Callback>() {
 	}
 
 	companion object {
+
 		private const val URI_ARG = "uri"
 		private const val USERNAME_ARG = "username"
 		private const val PASSWORD_ARG = "password"

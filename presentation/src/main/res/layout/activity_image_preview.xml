@@ -24,13 +24,13 @@
 		android:id="@+id/controlView"
 		android:layout_width="match_parent"
 		android:layout_height="wrap_content"
-		android:fitsSystemWindows="true"
-		android:background="@drawable/background_image_preview_controls"
-		android:layout_gravity="end"
-		android:layout_alignParentBottom="true"
 		android:layout_alignParentEnd="true"
-		android:padding="12dp"
-		android:layout_marginBottom="16dp">
+		android:layout_alignParentBottom="true"
+		android:layout_gravity="end"
+		android:layout_marginBottom="16dp"
+		android:background="@drawable/background_image_preview_controls"
+		android:fitsSystemWindows="true"
+		android:padding="12dp">
 
 		<ImageView
 			android:id="@+id/deleteImage"
@@ -54,8 +54,8 @@
 			android:id="@+id/exportImage"
 			android:layout_width="24dp"
 			android:layout_height="24dp"
-			android:src="@drawable/ic_export"
 			android:layout_alignParentEnd="true"
+			android:src="@drawable/ic_export"
 			app:tint="#fff" />
 
 	</RelativeLayout>

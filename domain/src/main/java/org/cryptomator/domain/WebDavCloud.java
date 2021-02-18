@@ -18,6 +18,19 @@ public class WebDavCloud implements Cloud {
 		this.certificate = builder.certificate;
 	}
 
+	public static Builder aWebDavCloudCloud() {
+		return new Builder();
+	}
+
+	public static Builder aCopyOf(WebDavCloud webDavCloud) {
+		return new Builder() //
+				.withId(webDavCloud.id()) //
+				.withUrl(webDavCloud.url()) //
+				.withUsername(webDavCloud.username()) //
+				.withPassword(webDavCloud.password()) //
+				.withCertificate(webDavCloud.certificate());
+	}
+
 	@Override
 	public Long id() {
 		return id;
@@ -68,23 +81,30 @@ public class WebDavCloud implements Cloud {
 		return true;
 	}
 
-	public static Builder aWebDavCloudCloud() {
-		return new Builder();
-	}
-
-	public static Builder aCopyOf(WebDavCloud webDavCloud) {
-		return new Builder() //
-				.withId(webDavCloud.id()) //
-				.withUrl(webDavCloud.url()) //
-				.withUsername(webDavCloud.username()) //
-				.withPassword(webDavCloud.password()) //
-				.withCertificate(webDavCloud.certificate());
-	}
-
 	@NotNull
 	@Override
 	public String toString() {
 		return "WEBDAV";
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (obj == null || getClass() != obj.getClass()) {
+			return false;
+		}
+		if (obj == this) {
+			return true;
+		}
+		return internalEquals((WebDavCloud) obj);
+	}
+
+	@Override
+	public int hashCode() {
+		return id == null ? 0 : id.hashCode();
+	}
+
+	private boolean internalEquals(WebDavCloud obj) {
+		return id != null && id.equals(obj.id);
 	}
 
 	public static class Builder {
@@ -127,24 +147,6 @@ public class WebDavCloud implements Cloud {
 			return new WebDavCloud(this);
 		}
 
-	}
-
-	@Override
-	public boolean equals(Object obj) {
-		if (obj == null || getClass() != obj.getClass())
-			return false;
-		if (obj == this)
-			return true;
-		return internalEquals((WebDavCloud) obj);
-	}
-
-	@Override
-	public int hashCode() {
-		return id == null ? 0 : id.hashCode();
-	}
-
-	private boolean internalEquals(WebDavCloud obj) {
-		return id != null && id.equals(obj.id);
 	}
 
 }

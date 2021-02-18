@@ -5,11 +5,11 @@
 	android:layout_height="match_parent">
 
 	<LinearLayout
+		style="@style/BottomSheetBackground"
 		android:layout_width="match_parent"
 		android:layout_height="match_parent"
 		android:orientation="vertical"
-		android:paddingBottom="8dp"
-		style="@style/BottomSheetBackground">
+		android:paddingBottom="8dp">
 
 		<RelativeLayout
 			android:layout_width="match_parent"
@@ -21,15 +21,15 @@
 				android:layout_width="@dimen/thumbnail_size"
 				android:layout_height="@dimen/thumbnail_size"
 				android:layout_centerVertical="true"
-				android:layout_marginEnd="16dp"
-				android:layout_marginStart="16dp" />
+				android:layout_marginStart="16dp"
+				android:layout_marginEnd="16dp" />
 
 			<LinearLayout
 				android:layout_width="match_parent"
 				android:layout_height="wrap_content"
 				android:layout_centerVertical="true"
-				android:layout_marginEnd="16dp"
 				android:layout_marginStart="4dp"
+				android:layout_marginEnd="16dp"
 				android:layout_toEndOf="@+id/iv_file_image"
 				android:orientation="vertical">
 
@@ -71,8 +71,8 @@
 			android:id="@+id/open_with_text"
 			style="@style/AppTheme.ListItem"
 			android:text="@string/screen_file_browser_node_action_open_with_text"
-			app:drawableStartCompat="@drawable/ic_open_with"
-			android:visibility="gone" />
+			android:visibility="gone"
+			app:drawableStartCompat="@drawable/ic_open_with" />
 
 		<TextView
 			android:id="@+id/rename_file"

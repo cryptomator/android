@@ -3,20 +3,22 @@ package org.cryptomator.presentation.ui.adapter
 import android.text.Editable
 import android.text.TextWatcher
 import android.view.View
-import kotlinx.android.synthetic.main.item_shared_files.view.*
 import org.cryptomator.presentation.R
 import org.cryptomator.presentation.model.SharedFileModel
 import org.cryptomator.presentation.ui.adapter.SharedFilesAdapter.FileViewHolder
 import org.cryptomator.presentation.util.FileIcon
 import org.cryptomator.presentation.util.FileUtil
 import org.cryptomator.util.Comparators
-import java.util.*
+import java.util.HashSet
 import javax.inject.Inject
+import kotlinx.android.synthetic.main.item_shared_files.view.fileImage
+import kotlinx.android.synthetic.main.item_shared_files.view.fileName
 
 class SharedFilesAdapter @Inject
 constructor(private val fileUtil: FileUtil) : RecyclerViewBaseAdapter<SharedFileModel, SharedFilesAdapter.Callback, FileViewHolder>(Comparators.naturalOrder()) {
 
 	interface Callback {
+
 		fun onFileNameConflict(hasFileNameConflict: Boolean)
 	}
 

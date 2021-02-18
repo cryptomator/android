@@ -14,6 +14,17 @@ public class DropboxCloud implements Cloud {
 		this.username = builder.username;
 	}
 
+	public static Builder aDropboxCloud() {
+		return new Builder();
+	}
+
+	public static Builder aCopyOf(DropboxCloud dropboxCloud) {
+		return new Builder() //
+				.withId(dropboxCloud.id()) //
+				.withAccessToken(dropboxCloud.accessToken()) //
+				.withUsername(dropboxCloud.username());
+	}
+
 	@Override
 	public Long id() {
 		return id;
@@ -52,21 +63,30 @@ public class DropboxCloud implements Cloud {
 		return true;
 	}
 
-	public static Builder aDropboxCloud() {
-		return new Builder();
-	}
-
-	public static Builder aCopyOf(DropboxCloud dropboxCloud) {
-		return new Builder() //
-				.withId(dropboxCloud.id()) //
-				.withAccessToken(dropboxCloud.accessToken()) //
-				.withUsername(dropboxCloud.username());
-	}
-
 	@NotNull
 	@Override
 	public String toString() {
 		return "DROPBOX";
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (obj == null || getClass() != obj.getClass()) {
+			return false;
+		}
+		if (obj == this) {
+			return true;
+		}
+		return internalEquals((DropboxCloud) obj);
+	}
+
+	@Override
+	public int hashCode() {
+		return id == null ? 0 : id.hashCode();
+	}
+
+	private boolean internalEquals(DropboxCloud obj) {
+		return id != null && id.equals(obj.id);
 	}
 
 	public static class Builder {
@@ -97,24 +117,6 @@ public class DropboxCloud implements Cloud {
 			return new DropboxCloud(this);
 		}
 
-	}
-
-	@Override
-	public boolean equals(Object obj) {
-		if (obj == null || getClass() != obj.getClass())
-			return false;
-		if (obj == this)
-			return true;
-		return internalEquals((DropboxCloud) obj);
-	}
-
-	@Override
-	public int hashCode() {
-		return id == null ? 0 : id.hashCode();
-	}
-
-	private boolean internalEquals(DropboxCloud obj) {
-		return id != null && id.equals(obj.id);
 	}
 
 }

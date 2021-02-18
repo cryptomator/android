@@ -6,9 +6,9 @@ import java.util.Set;
 /**
  * This file is the obfuscated AutoUploadFilesStore of Cryptomator in version 1.5.11-beta1
  * and is used to recover it in version 1.5.11-beta2
- *
+ * <p>
  * TODO Delete as soon as possible
- *
+ * <p>
  * See more information: https://github.com/cryptomator/android/issues/250
  */
 
@@ -28,7 +28,7 @@ public final class a implements Serializable {
 	public boolean equals(Object paramObject) {
 		if (this != paramObject) {
 			if (paramObject instanceof a) {
-				Object paramObject2 = ((a)paramObject).b;
+				Object paramObject2 = ((a) paramObject).b;
 				return (this.b == null) ? ((paramObject2 == null)) : this.b.equals(paramObject2);
 			}
 			return false;

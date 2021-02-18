@@ -2,7 +2,7 @@ package org.cryptomator.presentation.ui.activity.view
 
 import org.cryptomator.domain.Vault
 import org.cryptomator.presentation.model.CloudModel
-import java.util.*
+import java.util.ArrayList
 
 interface CloudConnectionListView : View {
 

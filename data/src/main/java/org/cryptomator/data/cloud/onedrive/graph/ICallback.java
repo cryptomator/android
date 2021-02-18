@@ -28,6 +28,7 @@ package org.cryptomator.data.cloud.onedrive.graph;
  * @param <Result> the result type of the successful action
  */
 public interface ICallback<Result> {
+
 	/**
 	 * How successful results are handled
 	 *

@@ -7,8 +7,8 @@ import org.cryptomator.domain.usecases.NoOpResultHandler
 import org.cryptomator.presentation.exception.ExceptionHandlers
 import org.cryptomator.presentation.ui.activity.view.UpdateLicenseView
 import org.cryptomator.util.SharedPreferencesHandler
-import timber.log.Timber
 import javax.inject.Inject
+import timber.log.Timber
 
 class LicenseCheckPresenter @Inject internal constructor(
 		exceptionHandlers: ExceptionHandlers,  //
@@ -32,6 +32,7 @@ class LicenseCheckPresenter @Inject internal constructor(
 	}
 
 	private inner class CheckLicenseStatusSubscriber : NoOpResultHandler<LicenseCheck>() {
+
 		override fun onSuccess(licenseCheck: LicenseCheck) {
 			super.onSuccess(licenseCheck)
 			view?.closeDialog()

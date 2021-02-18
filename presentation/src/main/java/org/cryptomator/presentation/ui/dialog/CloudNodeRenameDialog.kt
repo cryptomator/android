@@ -7,13 +7,13 @@ import android.text.TextWatcher
 import android.view.View
 import android.widget.Button
 import androidx.appcompat.app.AlertDialog
-import kotlinx.android.synthetic.main.dialog_rename.*
 import org.cryptomator.generator.Dialog
 import org.cryptomator.presentation.R
 import org.cryptomator.presentation.model.CloudFileModel
 import org.cryptomator.presentation.model.CloudNodeModel
 import org.cryptomator.presentation.model.ProgressModel
 import org.cryptomator.presentation.model.ProgressStateModel
+import kotlinx.android.synthetic.main.dialog_rename.et_rename
 
 @Dialog(R.layout.dialog_rename)
 class CloudNodeRenameDialog : BaseProgressErrorDialog<CloudNodeRenameDialog.Callback>() {
@@ -21,6 +21,7 @@ class CloudNodeRenameDialog : BaseProgressErrorDialog<CloudNodeRenameDialog.Call
 	private var renameConfirmButton: Button? = null
 
 	interface Callback {
+
 		fun onRenameCloudNodeClicked(cloudNodeModel: CloudNodeModel<*>, newCloudNodeName: String)
 	}
 
@@ -94,6 +95,7 @@ class CloudNodeRenameDialog : BaseProgressErrorDialog<CloudNodeRenameDialog.Call
 	}
 
 	companion object {
+
 		private const val CLOUD_NODE_ARG = "cloudNode"
 		fun newInstance(cloudNodeModel: CloudNodeModel<*>): CloudNodeRenameDialog {
 			val dialog = CloudNodeRenameDialog()

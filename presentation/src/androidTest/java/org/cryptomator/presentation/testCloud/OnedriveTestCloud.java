@@ -8,6 +8,7 @@ import org.cryptomator.domain.OnedriveCloud;
 import org.cryptomator.presentation.di.component.ApplicationComponent;
 
 public class OnedriveTestCloud extends TestCloud {
+
 	private final Context context;
 
 	public OnedriveTestCloud(Context context) {
