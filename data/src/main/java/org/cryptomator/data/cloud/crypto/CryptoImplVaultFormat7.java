@@ -189,14 +189,14 @@ final class CryptoImplVaultFormat7 extends CryptoImplDecorator {
 
 			for (CloudNode cloudNode1 : subfiles) {
 				switch (cloudNode1.getName()) {
-				case LONG_NODE_FILE_CONTENT_CONTENTS + CLOUD_NODE_EXT:
-					longNameFile = Optional.of((CloudFile) cloudNode1);
-					break;
-				case CLOUD_FOLDER_DIR_FILE_PRE + CLOUD_NODE_EXT:
-					longNameFolderDirFile = Optional.of((CloudFile) cloudNode1);
-					break;
-				case CLOUD_NODE_SYMLINK_PRE + CLOUD_NODE_EXT:
-					return Optional.empty();
+					case LONG_NODE_FILE_CONTENT_CONTENTS + CLOUD_NODE_EXT:
+						longNameFile = Optional.of((CloudFile) cloudNode1);
+						break;
+					case CLOUD_FOLDER_DIR_FILE_PRE + CLOUD_NODE_EXT:
+						longNameFolderDirFile = Optional.of((CloudFile) cloudNode1);
+						break;
+					case CLOUD_NODE_SYMLINK_PRE + CLOUD_NODE_EXT:
+						return Optional.empty();
 				}
 			}
 		}
@@ -472,7 +472,7 @@ final class CryptoImplVaultFormat7 extends CryptoImplDecorator {
 		try (InputStream stream = data.open(context)) {
 			File encryptedTmpFile = File.createTempFile(UUID.randomUUID().toString(), ".crypto", getInternalCache());
 			try (WritableByteChannel writableByteChannel = Channels.newChannel(new FileOutputStream(encryptedTmpFile)); //
-					WritableByteChannel encryptingWritableByteChannel = new EncryptingWritableByteChannel(writableByteChannel, cryptor())) {
+				 WritableByteChannel encryptingWritableByteChannel = new EncryptingWritableByteChannel(writableByteChannel, cryptor())) {
 				progressAware.onProgress(Progress.started(UploadState.encryption(cloudFile)));
 				ByteBuffer buff = ByteBuffer.allocate(cryptor().fileContentCryptor().cleartextChunkSize());
 				long ciphertextSize = Cryptors.ciphertextSize(cloudFile.getSize().get(), cryptor()) + cryptor().fileHeaderCryptor().headerSize();

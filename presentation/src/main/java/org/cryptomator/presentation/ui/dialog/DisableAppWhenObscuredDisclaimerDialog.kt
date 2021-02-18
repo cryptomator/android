@@ -4,14 +4,15 @@ import android.content.DialogInterface
 import android.text.method.LinkMovementMethod
 import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.DialogFragment
-import kotlinx.android.synthetic.main.dialog_disable_app_obscured_disclaimer.*
 import org.cryptomator.generator.Dialog
 import org.cryptomator.presentation.R
+import kotlinx.android.synthetic.main.dialog_disable_app_obscured_disclaimer.tv_disable_app_obscured_disclaimer
 
 @Dialog(R.layout.dialog_disable_app_obscured_disclaimer)
 class DisableAppWhenObscuredDisclaimerDialog : BaseDialog<DisableAppWhenObscuredDisclaimerDialog.Callback>() {
 
 	interface Callback {
+
 		fun onDisableAppObscuredDisclaimerAccepted()
 		fun onDisableAppObscuredDisclaimerRejected()
 	}
@@ -34,6 +35,7 @@ class DisableAppWhenObscuredDisclaimerDialog : BaseDialog<DisableAppWhenObscured
 	}
 
 	companion object {
+
 		fun newInstance(): DialogFragment {
 			return DisableAppWhenObscuredDisclaimerDialog()
 		}

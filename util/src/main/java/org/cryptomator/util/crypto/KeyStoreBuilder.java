@@ -12,6 +12,9 @@ public class KeyStoreBuilder {
 
 	static final String DEFAULT_KEYSTORE_NAME = "AndroidKeyStore";
 
+	private KeyStoreBuilder() {
+	}
+
 	public static DefaultKeyStoreBuilder defaultKeyStore() {
 		return new KeyStoreBuilderImpl(initializeDefaultKeyStore());
 	}
@@ -31,9 +34,6 @@ public class KeyStoreBuilder {
 
 	private static KeyStore initializeDefaultKeyStore() {
 		return initializeKeyStore();
-	}
-
-	private KeyStoreBuilder() {
 	}
 
 	public interface CustomKeyStoreBuilder {

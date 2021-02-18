@@ -1,7 +1,6 @@
 package org.cryptomator.presentation.presenter
 
 import android.widget.Toast
-import okhttp3.HttpUrl.Companion.toHttpUrlOrNull
 import org.cryptomator.domain.Cloud
 import org.cryptomator.domain.WebDavCloud
 import org.cryptomator.domain.di.PerView
@@ -18,6 +17,7 @@ import org.cryptomator.presentation.workflow.ActivityResult
 import org.cryptomator.presentation.workflow.AuthenticationExceptionHandler
 import org.cryptomator.util.crypto.CredentialCryptor
 import javax.inject.Inject
+import okhttp3.HttpUrl.Companion.toHttpUrlOrNull
 
 @PerView
 class WebDavAddOrChangePresenter @Inject internal constructor( //

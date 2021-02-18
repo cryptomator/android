@@ -1,11 +1,11 @@
 package org.cryptomator.domain.repository;
 
-import java.io.File;
-
 import org.cryptomator.domain.exception.BackendException;
 import org.cryptomator.domain.exception.update.GeneralUpdateErrorException;
 import org.cryptomator.domain.usecases.UpdateCheck;
 import org.cryptomator.util.Optional;
+
+import java.io.File;
 
 public interface UpdateCheckRepository {
 

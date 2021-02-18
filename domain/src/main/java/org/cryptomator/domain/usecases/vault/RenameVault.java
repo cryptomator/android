@@ -20,8 +20,8 @@ class RenameVault {
 	private final CloudContentRepository cloudContentRepository;
 	private final CloudRepository cloudRepository;
 	private final VaultRepository vaultRepository;
-	private Vault vault;
 	private final String newVaultName;
+	private Vault vault;
 
 	public RenameVault(CloudContentRepository cloudContentRepository, CloudRepository cloudRepository, VaultRepository vaultRepository, @Parameter Vault vault, @Parameter String newVaultName) {
 		this.cloudContentRepository = cloudContentRepository;

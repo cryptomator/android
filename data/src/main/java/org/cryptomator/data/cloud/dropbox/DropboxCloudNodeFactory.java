@@ -1,10 +1,10 @@
 package org.cryptomator.data.cloud.dropbox;
 
-import org.cryptomator.util.Optional;
-
 import com.dropbox.core.v2.files.FileMetadata;
 import com.dropbox.core.v2.files.FolderMetadata;
 import com.dropbox.core.v2.files.Metadata;
+
+import org.cryptomator.util.Optional;
 
 class DropboxCloudNodeFactory {
 

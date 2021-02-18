@@ -9,7 +9,6 @@ import android.os.Build
 import android.os.IBinder
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.multidex.MultiDexApplication
-import io.reactivex.plugins.RxJavaPlugins
 import org.cryptomator.data.cloud.crypto.Cryptors
 import org.cryptomator.data.cloud.crypto.CryptorsModule
 import org.cryptomator.data.repository.RepositoryModule
@@ -25,8 +24,9 @@ import org.cryptomator.presentation.service.AutoUploadService
 import org.cryptomator.presentation.service.CryptorsService
 import org.cryptomator.util.NoOpActivityLifecycleCallbacks
 import org.cryptomator.util.SharedPreferencesHandler
-import timber.log.Timber
 import java.util.concurrent.atomic.AtomicInteger
+import io.reactivex.plugins.RxJavaPlugins
+import timber.log.Timber
 
 class CryptomatorApp : MultiDexApplication(), HasComponent<ApplicationComponent> {
 
@@ -48,7 +48,8 @@ class CryptomatorApp : MultiDexApplication(), HasComponent<ApplicationComponent>
 			}
 			"fdroid" -> {
 				"F-Droid Edition"
-			} else -> "Google Play Edition"
+			}
+			else -> "Google Play Edition"
 		}
 		Timber.tag("App").i("Cryptomator v%s (%d) \"%s\" started on android %s / API%d using a %s",  //
 				BuildConfig.VERSION_NAME, BuildConfig.VERSION_CODE, flavor,  //
@@ -180,6 +181,7 @@ class CryptomatorApp : MultiDexApplication(), HasComponent<ApplicationComponent>
 	}
 
 	companion object {
+
 		private lateinit var applicationContext: Context
 		fun applicationContext(): Context {
 			return applicationContext

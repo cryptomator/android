@@ -5,6 +5,11 @@ import java.io.Serializable;
 public class Optional<T> implements Serializable {
 
 	private static final Optional EMPTY = new Optional(null);
+	private final T value;
+
+	private Optional(T value) {
+		this.value = value;
+	}
 
 	public static <T> Optional<T> of(T value) {
 		if (value == null) {
@@ -23,12 +28,6 @@ public class Optional<T> implements Serializable {
 
 	public static <T> Optional<T> empty() {
 		return EMPTY;
-	}
-
-	private final T value;
-
-	private Optional(T value) {
-		this.value = value;
 	}
 
 	public boolean isPresent() {
@@ -86,10 +85,12 @@ public class Optional<T> implements Serializable {
 
 	@Override
 	public boolean equals(Object obj) {
-		if (obj == this)
+		if (obj == this) {
 			return true;
-		if (obj == null || getClass() != obj.getClass())
+		}
+		if (obj == null || getClass() != obj.getClass()) {
 			return false;
+		}
 		return internalEquals((Optional) obj);
 	}
 

@@ -1,18 +1,16 @@
 package org.cryptomator.data.cloud.local.storageaccessframework;
 
-import static org.cryptomator.data.cloud.local.storageaccessframework.LocalStorageAccessFrameworkNodeFactory.from;
-import static org.cryptomator.data.util.CopyStream.closeQuietly;
-import static org.cryptomator.data.util.CopyStream.copyStreamToStream;
-import static org.cryptomator.domain.usecases.ProgressAware.NO_OP_PROGRESS_AWARE;
-import static org.cryptomator.domain.usecases.cloud.Progress.progress;
+import android.content.ContentResolver;
+import android.content.Context;
+import android.content.UriPermission;
+import android.database.Cursor;
+import android.net.Uri;
+import android.os.Build;
+import android.provider.DocumentsContract;
+import android.provider.DocumentsContract.Document;
 
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.OutputStream;
-import java.util.ArrayList;
-import java.util.List;
+import androidx.annotation.RequiresApi;
+import androidx.documentfile.provider.DocumentFile;
 
 import org.cryptomator.data.util.TransferredBytesAwareInputStream;
 import org.cryptomator.data.util.TransferredBytesAwareOutputStream;
@@ -35,19 +33,21 @@ import org.cryptomator.util.Supplier;
 import org.cryptomator.util.file.MimeType;
 import org.cryptomator.util.file.MimeTypes;
 
-import android.content.ContentResolver;
-import android.content.Context;
-import android.content.UriPermission;
-import android.database.Cursor;
-import android.net.Uri;
-import android.os.Build;
-import android.provider.DocumentsContract;
-import android.provider.DocumentsContract.Document;
-
-import androidx.annotation.RequiresApi;
-import androidx.documentfile.provider.DocumentFile;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
+import java.util.ArrayList;
+import java.util.List;
 
 import timber.log.Timber;
+
+import static org.cryptomator.data.cloud.local.storageaccessframework.LocalStorageAccessFrameworkNodeFactory.from;
+import static org.cryptomator.data.util.CopyStream.closeQuietly;
+import static org.cryptomator.data.util.CopyStream.copyStreamToStream;
+import static org.cryptomator.domain.usecases.ProgressAware.NO_OP_PROGRESS_AWARE;
+import static org.cryptomator.domain.usecases.cloud.Progress.progress;
 
 @RequiresApi(Build.VERSION_CODES.LOLLIPOP)
 class LocalStorageAccessFrameworkImpl {
@@ -178,7 +178,7 @@ class LocalStorageAccessFrameworkImpl {
 					.query( //
 							DocumentsContract.buildChildDocumentsUriUsingTree( //
 									parent.getUri(), //
-									parent.getDocumentId()),
+									parent.getDocumentId()), //
 							new String[] {Document.COLUMN_DISPLAY_NAME, // cursor position 0
 									Document.COLUMN_MIME_TYPE, // cursor position 1
 									Document.COLUMN_SIZE, // cursor position 2
@@ -230,7 +230,7 @@ class LocalStorageAccessFrameworkImpl {
 				.query( //
 						DocumentsContract.buildChildDocumentsUriUsingTree( //
 								folder.getUri(), //
-								folder.getDocumentId()),
+								folder.getDocumentId()), //
 						new String[] { //
 								Document.COLUMN_DISPLAY_NAME, // cursor position 0
 								Document.COLUMN_MIME_TYPE, // cursor position 1
@@ -445,16 +445,16 @@ class LocalStorageAccessFrameworkImpl {
 		}
 
 		try (OutputStream out = contentResolver().openOutputStream(uploadUri); //
-				TransferredBytesAwareInputStream in = new TransferredBytesAwareInputStream(data.open(context)) {
-					@Override
-					public void bytesTransferred(long transferred) {
-						progressAware //
-								.onProgress(progress(UploadState.upload(tmpFile)) //
-										.between(0) //
-										.and(size) //
-										.withValue(transferred));
-					}
-				}) {
+			 TransferredBytesAwareInputStream in = new TransferredBytesAwareInputStream(data.open(context)) {
+				 @Override
+				 public void bytesTransferred(long transferred) {
+					 progressAware //
+							 .onProgress(progress(UploadState.upload(tmpFile)) //
+									 .between(0) //
+									 .and(size) //
+									 .withValue(transferred));
+				 }
+			 }) {
 			if (out instanceof FileOutputStream) {
 				((FileOutputStream) out).getChannel().truncate(0);
 			}
@@ -500,15 +500,15 @@ class LocalStorageAccessFrameworkImpl {
 		progressAware.onProgress(Progress.started(DownloadState.download(file)));
 
 		try (InputStream in = contentResolver().openInputStream(file.getUri()); //
-				TransferredBytesAwareOutputStream out = new TransferredBytesAwareOutputStream(data) {
-					@Override
-					public void bytesTransferred(long transferred) {
-						progressAware.onProgress(progress(DownloadState.download(file)) //
-								.between(0) //
-								.and(file.getSize().orElse(Long.MAX_VALUE)) //
-								.withValue(transferred));
-					}
-				}) {
+			 TransferredBytesAwareOutputStream out = new TransferredBytesAwareOutputStream(data) {
+				 @Override
+				 public void bytesTransferred(long transferred) {
+					 progressAware.onProgress(progress(DownloadState.download(file)) //
+							 .between(0) //
+							 .and(file.getSize().orElse(Long.MAX_VALUE)) //
+							 .withValue(transferred));
+				 }
+			 }) {
 			copyStreamToStream(in, out);
 		}
 

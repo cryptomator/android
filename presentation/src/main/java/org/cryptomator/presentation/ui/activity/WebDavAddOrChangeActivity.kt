@@ -1,7 +1,6 @@
 package org.cryptomator.presentation.ui.activity
 
 import androidx.fragment.app.Fragment
-import kotlinx.android.synthetic.main.toolbar_layout.*
 import org.cryptomator.domain.exception.FatalBackendException
 import org.cryptomator.generator.Activity
 import org.cryptomator.generator.InjectIntent
@@ -14,6 +13,7 @@ import org.cryptomator.presentation.ui.fragment.WebDavAddOrChangeFragment
 import java.net.URI
 import java.net.URISyntaxException
 import javax.inject.Inject
+import kotlinx.android.synthetic.main.toolbar_layout.toolbar
 
 @Activity
 class WebDavAddOrChangeActivity : BaseActivity(),

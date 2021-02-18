@@ -12,6 +12,7 @@ import org.cryptomator.presentation.model.VaultModel
 class VaultDeleteConfirmationDialog : BaseDialog<VaultDeleteConfirmationDialog.Callback>() {
 
 	interface Callback {
+
 		fun onDeleteConfirmedClick(vaultModel: VaultModel)
 	}
 
@@ -28,6 +29,7 @@ class VaultDeleteConfirmationDialog : BaseDialog<VaultDeleteConfirmationDialog.C
 	}
 
 	companion object {
+
 		private const val VAULT_ARG = "vault"
 		fun newInstance(vaultModel: VaultModel): DialogFragment {
 			val dialog = VaultDeleteConfirmationDialog()

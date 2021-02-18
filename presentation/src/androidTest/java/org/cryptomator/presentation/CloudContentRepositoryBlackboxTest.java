@@ -55,15 +55,20 @@ public class CloudContentRepositoryBlackboxTest {
 	private static Cloud cloud;
 	private static TestCloud inTestCloud;
 	private static boolean setupCloudCompleted = false;
-
+	@Rule
+	public final ActivityTestRule<SplashActivity> activityTestRule = new ActivityTestRule<>(SplashActivity.class);
+	@Rule
+	public ExpectedException thrown = ExpectedException.none();
 	private CloudContentRepository inTest;
 	private CloudFolder root;
 
-	@Rule
-	public final ActivityTestRule<SplashActivity> activityTestRule = new ActivityTestRule<>(SplashActivity.class);
+	public CloudContentRepositoryBlackboxTest(TestCloud testCloud) {
+		if (inTestCloud != null && inTestCloud != testCloud) {
+			setupCloudCompleted = false;
+		}
 
-	@Rule
-	public ExpectedException thrown = ExpectedException.none();
+		inTestCloud = testCloud;
+	}
 
 	@Parameterized.Parameters(name = "{0}")
 	public static TestCloud[] data() {
@@ -77,21 +82,13 @@ public class CloudContentRepositoryBlackboxTest {
 				new CryptoTestCloud()};
 	}
 
-	public CloudContentRepositoryBlackboxTest(TestCloud testCloud) {
-		if (inTestCloud != null && inTestCloud != testCloud) {
-			setupCloudCompleted = false;
-		}
-
-		inTestCloud = testCloud;
-	}
-
 	@Before
 	public void setup() throws BackendException {
 
 		ApplicationComponent appComponent = ((CryptomatorApp) activityTestRule //
 				.getActivity() //
 				.getApplication()) //
-						.getComponent();
+				.getComponent();
 
 		if (!setupCloudCompleted) {
 			if (inTestCloud instanceof CryptoTestCloud) {

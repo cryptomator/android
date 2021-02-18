@@ -26,6 +26,7 @@ class TextEditorPresenter @Inject constructor( //
 		private val contentResolverUtil: ContentResolverUtil,  //
 		private val uploadFilesUseCase: UploadFilesUseCase,  //
 		exceptionMappings: ExceptionHandlers) : Presenter<TextEditorView>(exceptionMappings) {
+
 	private val textFile = AtomicReference<CloudFileModel>()
 
 	@JvmField

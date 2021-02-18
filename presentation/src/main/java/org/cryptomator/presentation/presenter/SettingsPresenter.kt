@@ -28,7 +28,6 @@ import org.cryptomator.presentation.util.FileUtil
 import org.cryptomator.presentation.workflow.PermissionsResult
 import org.cryptomator.util.Optional
 import org.cryptomator.util.SharedPreferencesHandler
-import timber.log.Timber
 import java.io.File
 import java.io.FileInputStream
 import java.io.FileOutputStream
@@ -36,6 +35,7 @@ import java.io.IOException
 import java.util.zip.ZipEntry
 import java.util.zip.ZipOutputStream
 import javax.inject.Inject
+import timber.log.Timber
 
 @PerView
 class SettingsPresenter @Inject internal constructor(
@@ -72,7 +72,8 @@ class SettingsPresenter @Inject internal constructor(
 			}
 			"fdroid" -> {
 				"F-Droid"
-			} else -> "Google Play"
+			}
+			else -> "Google Play"
 		}
 		return StringBuilder().append("## ").append(context().getString(R.string.error_report_subject)).append("\n\n") //
 				.append("### ").append(context().getString(R.string.error_report_section_summary)).append('\n') //
@@ -162,6 +163,7 @@ class SettingsPresenter @Inject internal constructor(
 	}
 
 	private inner class CreateErrorReportArchiveTask : AsyncTask<Void?, IOException?, File?>() {
+
 		override fun doInBackground(vararg params: Void?): File? {
 			return try {
 				createErrorReportArchive()
@@ -232,6 +234,7 @@ class SettingsPresenter @Inject internal constructor(
 	}
 
 	companion object {
+
 		private const val EOF = -1
 	}
 

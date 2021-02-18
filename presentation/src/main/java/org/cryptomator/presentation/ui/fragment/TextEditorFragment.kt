@@ -5,12 +5,13 @@ import android.text.style.BackgroundColorSpan
 import androidx.annotation.NonNull
 import androidx.core.content.ContextCompat
 import com.google.android.material.textfield.TextInputEditText
-import kotlinx.android.synthetic.main.fragment_text_editor.*
 import org.cryptomator.generator.Fragment
 import org.cryptomator.presentation.R
 import org.cryptomator.presentation.presenter.TextEditorPresenter
-import java.util.*
+import java.util.Locale
 import javax.inject.Inject
+import kotlinx.android.synthetic.main.fragment_text_editor.textEditor
+import kotlinx.android.synthetic.main.fragment_text_editor.textViewWrapper
 
 @Fragment(R.layout.fragment_text_editor)
 class TextEditorFragment : BaseFragment() {

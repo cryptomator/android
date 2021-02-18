@@ -3,7 +3,7 @@
 	<objectAnimator
 		android:duration="@android:integer/config_mediumAnimTime"
 		android:propertyName="xFraction"
-		android:valueType="floatType"
 		android:valueFrom="-1"
-		android:valueTo="0" />
+		android:valueTo="0"
+		android:valueType="floatType" />
 </set>

@@ -18,27 +18,56 @@ import org.cryptomator.domain.exception.NetworkConnectionException
 import org.cryptomator.domain.exception.authentication.AuthenticationException
 import org.cryptomator.domain.exception.license.LicenseNotValidException
 import org.cryptomator.domain.exception.update.SSLHandshakePreAndroid5UpdateCheckException
-import org.cryptomator.domain.usecases.*
+import org.cryptomator.domain.usecases.DoLicenseCheckUseCase
+import org.cryptomator.domain.usecases.DoUpdateCheckUseCase
+import org.cryptomator.domain.usecases.DoUpdateUseCase
+import org.cryptomator.domain.usecases.GetDecryptedCloudForVaultUseCase
+import org.cryptomator.domain.usecases.LicenseCheck
+import org.cryptomator.domain.usecases.NoOpResultHandler
+import org.cryptomator.domain.usecases.UpdateCheck
 import org.cryptomator.domain.usecases.cloud.GetRootFolderUseCase
-import org.cryptomator.domain.usecases.vault.*
+import org.cryptomator.domain.usecases.vault.ChangePasswordUseCase
+import org.cryptomator.domain.usecases.vault.DeleteVaultUseCase
+import org.cryptomator.domain.usecases.vault.GetVaultListUseCase
+import org.cryptomator.domain.usecases.vault.LockVaultUseCase
+import org.cryptomator.domain.usecases.vault.MoveVaultPositionUseCase
+import org.cryptomator.domain.usecases.vault.PrepareUnlockUseCase
+import org.cryptomator.domain.usecases.vault.RemoveStoredVaultPasswordsUseCase
+import org.cryptomator.domain.usecases.vault.RenameVaultUseCase
+import org.cryptomator.domain.usecases.vault.SaveVaultUseCase
+import org.cryptomator.domain.usecases.vault.UnlockToken
+import org.cryptomator.domain.usecases.vault.UnlockVaultUseCase
+import org.cryptomator.domain.usecases.vault.VaultOrUnlockToken
 import org.cryptomator.generator.Callback
 import org.cryptomator.presentation.BuildConfig
 import org.cryptomator.presentation.R
 import org.cryptomator.presentation.exception.ExceptionHandlers
 import org.cryptomator.presentation.intent.Intents
-import org.cryptomator.presentation.model.*
+import org.cryptomator.presentation.model.CloudModel
+import org.cryptomator.presentation.model.CloudTypeModel
+import org.cryptomator.presentation.model.ProgressModel
+import org.cryptomator.presentation.model.ProgressStateModel
+import org.cryptomator.presentation.model.VaultModel
 import org.cryptomator.presentation.model.mappers.CloudFolderModelMapper
 import org.cryptomator.presentation.service.AutoUploadService
 import org.cryptomator.presentation.ui.activity.LicenseCheckActivity
 import org.cryptomator.presentation.ui.activity.view.VaultListView
-import org.cryptomator.presentation.ui.dialog.*
+import org.cryptomator.presentation.ui.dialog.AppIsObscuredInfoDialog
+import org.cryptomator.presentation.ui.dialog.AskForLockScreenDialog
+import org.cryptomator.presentation.ui.dialog.EnterPasswordDialog
+import org.cryptomator.presentation.ui.dialog.UpdateAppAvailableDialog
+import org.cryptomator.presentation.ui.dialog.UpdateAppDialog
 import org.cryptomator.presentation.util.FileUtil
-import org.cryptomator.presentation.workflow.*
+import org.cryptomator.presentation.workflow.ActivityResult
+import org.cryptomator.presentation.workflow.AddExistingVaultWorkflow
+import org.cryptomator.presentation.workflow.AuthenticationExceptionHandler
+import org.cryptomator.presentation.workflow.CreateNewVaultWorkflow
+import org.cryptomator.presentation.workflow.Workflow
 import org.cryptomator.util.Optional
 import org.cryptomator.util.SharedPreferencesHandler
-import timber.log.Timber
 import java.io.Serializable
 import javax.inject.Inject
+import timber.log.Timber
 
 @PerView
 class VaultListPresenter @Inject constructor( //
@@ -65,6 +94,7 @@ class VaultListPresenter @Inject constructor( //
 		private val cloudFolderModelMapper: CloudFolderModelMapper,  //
 		private val sharedPreferencesHandler: SharedPreferencesHandler,  //
 		exceptionMappings: ExceptionHandlers) : Presenter<VaultListView>(exceptionMappings) {
+
 	private var vaultAction: VaultAction? = null
 	private var changedVaultPassword = false
 	private var startedUsingPrepareUnlock = false
@@ -696,6 +726,7 @@ class VaultListPresenter @Inject constructor( //
 		}
 
 		companion object {
+
 			val NO_OP_PENDING_UNLOCK: PendingUnlock = object : PendingUnlock(null) {
 				override fun continueIfComplete(presenter: VaultListPresenter) {
 					// empty

@@ -46,25 +46,6 @@ public class ActivityModel implements Comparable<ActivityModel> {
 		}
 	}
 
-	private Optional<Field> presenterIntentField(Optional<Field> presenterField, Optional<Field> intentField) {
-		if (!presenterField.isPresent() || !intentField.isPresent()) {
-			return Optional.empty();
-		}
-		Type presenterType = presenterField.get().type();
-		List<Field> intentFields = presenterType.fields().filter(field -> field.hasAnnotation(InjectIntent.class)).collect(toList());
-		if (intentFields.size() > 1) {
-			throw new ProcessorException("Only one field annotated with InjectIntent is allowed per Presenter", presenterType.element());
-		} else if (intentFields.isEmpty()) {
-			return java.util.Optional.empty();
-		} else {
-			Field presenterIntentField = intentFields.get(0);
-			if (!presenterIntentField.type().qualifiedName().equals(intentField.get().type().qualifiedName())) {
-				throw new ProcessorException("Intent field in presenter must have the same declaringType as intent field in activity", presenterIntentField.element());
-			}
-			return java.util.Optional.of(presenterIntentField);
-		}
-	}
-
 	private static Optional<Field> presenterField(Type type) {
 		return type //
 				.fields() //
@@ -91,6 +72,25 @@ public class ActivityModel implements Comparable<ActivityModel> {
 
 	private static String qualifiedName(TypeElement type) {
 		return type.getQualifiedName().toString();
+	}
+
+	private Optional<Field> presenterIntentField(Optional<Field> presenterField, Optional<Field> intentField) {
+		if (!presenterField.isPresent() || !intentField.isPresent()) {
+			return Optional.empty();
+		}
+		Type presenterType = presenterField.get().type();
+		List<Field> intentFields = presenterType.fields().filter(field -> field.hasAnnotation(InjectIntent.class)).collect(toList());
+		if (intentFields.size() > 1) {
+			throw new ProcessorException("Only one field annotated with InjectIntent is allowed per Presenter", presenterType.element());
+		} else if (intentFields.isEmpty()) {
+			return java.util.Optional.empty();
+		} else {
+			Field presenterIntentField = intentFields.get(0);
+			if (!presenterIntentField.type().qualifiedName().equals(intentField.get().type().qualifiedName())) {
+				throw new ProcessorException("Intent field in presenter must have the same declaringType as intent field in activity", presenterIntentField.element());
+			}
+			return java.util.Optional.of(presenterIntentField);
+		}
 	}
 
 	public String getPresenterFieldName() {

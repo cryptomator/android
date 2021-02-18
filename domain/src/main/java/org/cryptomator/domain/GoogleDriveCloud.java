@@ -14,6 +14,17 @@ public class GoogleDriveCloud implements Cloud {
 		this.username = builder.username;
 	}
 
+	public static Builder aGoogleDriveCloud() {
+		return new Builder();
+	}
+
+	public static Builder aCopyOf(GoogleDriveCloud googleDriveCloud) {
+		return new Builder() //
+				.withId(googleDriveCloud.id()) //
+				.withAccessToken(googleDriveCloud.accessToken()) //
+				.withUsername(googleDriveCloud.username());
+	}
+
 	@Override
 	public Long id() {
 		return id;
@@ -52,21 +63,30 @@ public class GoogleDriveCloud implements Cloud {
 		return true;
 	}
 
-	public static Builder aGoogleDriveCloud() {
-		return new Builder();
-	}
-
-	public static Builder aCopyOf(GoogleDriveCloud googleDriveCloud) {
-		return new Builder() //
-				.withId(googleDriveCloud.id()) //
-				.withAccessToken(googleDriveCloud.accessToken()) //
-				.withUsername(googleDriveCloud.username());
-	}
-
 	@NotNull
 	@Override
 	public String toString() {
 		return "GOOGLE_DRIVE";
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (obj == null || getClass() != obj.getClass()) {
+			return false;
+		}
+		if (obj == this) {
+			return true;
+		}
+		return internalEquals((GoogleDriveCloud) obj);
+	}
+
+	@Override
+	public int hashCode() {
+		return id == null ? 0 : id.hashCode();
+	}
+
+	private boolean internalEquals(GoogleDriveCloud obj) {
+		return id != null && id.equals(obj.id);
 	}
 
 	public static class Builder {
@@ -97,24 +117,6 @@ public class GoogleDriveCloud implements Cloud {
 			return new GoogleDriveCloud(this);
 		}
 
-	}
-
-	@Override
-	public boolean equals(Object obj) {
-		if (obj == null || getClass() != obj.getClass())
-			return false;
-		if (obj == this)
-			return true;
-		return internalEquals((GoogleDriveCloud) obj);
-	}
-
-	@Override
-	public int hashCode() {
-		return id == null ? 0 : id.hashCode();
-	}
-
-	private boolean internalEquals(GoogleDriveCloud obj) {
-		return id != null && id.equals(obj.id);
 	}
 
 }

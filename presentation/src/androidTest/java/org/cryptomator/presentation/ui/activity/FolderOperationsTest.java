@@ -42,22 +42,31 @@ import static org.hamcrest.Matchers.allOf;
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
 @RunWith(Parameterized.class)
 public class FolderOperationsTest {
+
+	private final UiDevice device = UiDevice.getInstance(getInstrumentation());
+	private final Context context = InstrumentationRegistry.getTargetContext();
+	private final Integer cloudId;
 	@Rule
 	public ActivityTestRule<SplashActivity> activityTestRule //
 			= new ActivityTestRule<>(SplashActivity.class);
 
-	private final UiDevice device = UiDevice.getInstance(getInstrumentation());
-	private final Context context = InstrumentationRegistry.getTargetContext();
-
-	private final Integer cloudId;
+	public FolderOperationsTest(Integer cloudId, String cloudName) {
+		this.cloudId = cloudId;
+	}
 
 	@Parameterized.Parameters(name = "{1}")
 	public static Iterable<Object[]> data() {
 		return Arrays.asList(new Object[][] {{DROPBOX, "DROPBOX"}, {GOOGLE_DRIVE, "GOOGLE_DRIVE"}, {ONEDRIVE, "ONEDRIVE"}, {WEBDAV, "WEBDAV"}, {LOCAL, "LOCAL"}});
 	}
 
-	public FolderOperationsTest(Integer cloudId, String cloudName) {
-		this.cloudId = cloudId;
+	static void openFolder(int nodePosition) {
+		awaitCompleted();
+
+		onView(withRecyclerView(R.id.recyclerView) //
+				.atPositionOnView(nodePosition, R.id.cloudFolderText)) //
+				.perform(click());
+
+		awaitCompleted();
 	}
 
 	@Test
@@ -259,7 +268,7 @@ public class FolderOperationsTest {
 		onView(allOf( //
 				withId(android.R.id.button1), //
 				withText(R.string.screen_enter_vault_name_button_text))) //
-						.perform(click());
+				.perform(click());
 
 		awaitCompleted();
 	}
@@ -272,7 +281,7 @@ public class FolderOperationsTest {
 		onView(allOf( //
 				withId(R.id.tv_folder_path), //
 				withText(path))) //
-						.check(matches(withText(path)));
+				.check(matches(withText(path)));
 
 		awaitCompleted();
 	}
@@ -291,7 +300,7 @@ public class FolderOperationsTest {
 		onView(allOf( //
 				withId(android.R.id.button1), //
 				withText(R.string.dialog_rename_node_positive_button))) //
-						.perform(click());
+				.perform(click());
 
 		awaitCompleted();
 	}
@@ -299,16 +308,6 @@ public class FolderOperationsTest {
 	private void checkFolderDisplayText(String assertNodeText, int nodePosition) {
 		onView(withRecyclerView(R.id.recyclerView) //
 				.atPositionOnView(nodePosition, R.id.cloudFolderText)) //
-						.check(matches(withText(assertNodeText)));
-	}
-
-	static void openFolder(int nodePosition) {
-		awaitCompleted();
-
-		onView(withRecyclerView(R.id.recyclerView) //
-				.atPositionOnView(nodePosition, R.id.cloudFolderText)) //
-						.perform(click());
-
-		awaitCompleted();
+				.check(matches(withText(assertNodeText)));
 	}
 }

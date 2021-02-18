@@ -1,15 +1,19 @@
 package org.cryptomator.presentation.ui.bottomsheet
 
 import android.os.Bundle
-import kotlinx.android.synthetic.main.dialog_bottom_sheet_vault_action.*
 import org.cryptomator.generator.BottomSheet
 import org.cryptomator.presentation.R
 import org.cryptomator.presentation.model.CloudFolderModel
+import kotlinx.android.synthetic.main.dialog_bottom_sheet_vault_action.create_new_folder
+import kotlinx.android.synthetic.main.dialog_bottom_sheet_vault_action.create_new_text_file
+import kotlinx.android.synthetic.main.dialog_bottom_sheet_vault_action.title
+import kotlinx.android.synthetic.main.dialog_bottom_sheet_vault_action.upload_files
 
 @BottomSheet(R.layout.dialog_bottom_sheet_vault_action)
 class VaultContentActionBottomSheet : BaseBottomSheet<VaultContentActionBottomSheet.Callback>() {
 
 	interface Callback {
+
 		fun onCreateNewFolderClicked()
 		fun onUploadFilesClicked(folder: CloudFolderModel)
 		fun onCreateNewTextFileClicked()
@@ -44,6 +48,7 @@ class VaultContentActionBottomSheet : BaseBottomSheet<VaultContentActionBottomSh
 	}
 
 	companion object {
+
 		private const val FOLDER_ARG = "folder"
 		fun newInstance(folder: CloudFolderModel): VaultContentActionBottomSheet {
 			val dialog = VaultContentActionBottomSheet()

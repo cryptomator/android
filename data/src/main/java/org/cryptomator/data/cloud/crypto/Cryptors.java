@@ -1,15 +1,15 @@
 package org.cryptomator.data.cloud.crypto;
 
-import java.util.Iterator;
-import java.util.Map;
-import java.util.concurrent.ConcurrentHashMap;
-import java.util.concurrent.ConcurrentMap;
-
 import org.cryptomator.cryptolib.api.Cryptor;
 import org.cryptomator.domain.Vault;
 import org.cryptomator.domain.exception.MissingCryptorException;
 import org.cryptomator.util.Optional;
 import org.cryptomator.util.Supplier;
+
+import java.util.Iterator;
+import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
+import java.util.concurrent.ConcurrentMap;
 
 public abstract class Cryptors {
 

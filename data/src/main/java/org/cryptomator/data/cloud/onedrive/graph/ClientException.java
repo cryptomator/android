@@ -15,7 +15,7 @@ public class ClientException extends com.microsoft.graph.core.ClientException {
 	 * Creates the client exception
 	 *
 	 * @param message the message to display
-	 * @param ex the exception from
+	 * @param ex      the exception from
 	 */
 	public ClientException(final String message, final Throwable ex, Enum<GraphErrorCodes> errorCode) {
 		super(message, ex);

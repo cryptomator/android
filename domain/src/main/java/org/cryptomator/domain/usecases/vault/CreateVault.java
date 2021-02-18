@@ -21,8 +21,7 @@ class CreateVault {
 	private final String vaultName;
 	private final String password;
 
-	public CreateVault(CloudContentRepository cloudContentRepository, VaultRepository vaultRepository, CloudRepository cloudRepository, @Parameter CloudFolder folder, @Parameter String vaultName,
-			@Parameter String password) {
+	public CreateVault(CloudContentRepository cloudContentRepository, VaultRepository vaultRepository, CloudRepository cloudRepository, @Parameter CloudFolder folder, @Parameter String vaultName, @Parameter String password) {
 		this.cloudContentRepository = cloudContentRepository;
 		this.vaultRepository = vaultRepository;
 		this.cloudRepository = cloudRepository;

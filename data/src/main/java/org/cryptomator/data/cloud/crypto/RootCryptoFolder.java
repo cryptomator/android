@@ -4,15 +4,15 @@ import org.cryptomator.domain.Cloud;
 
 class RootCryptoFolder extends CryptoFolder {
 
-	public static boolean isRoot(CryptoFolder folder) {
-		return folder instanceof RootCryptoFolder;
-	}
-
 	private final CryptoCloud cloud;
 
 	public RootCryptoFolder(CryptoCloud cloud) {
 		super(null, "", "", null);
 		this.cloud = cloud;
+	}
+
+	public static boolean isRoot(CryptoFolder folder) {
+		return folder instanceof RootCryptoFolder;
 	}
 
 	@Override

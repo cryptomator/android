@@ -2,8 +2,6 @@ package org.cryptomator.presentation.ui.fragment
 
 import android.util.TypedValue
 import androidx.recyclerview.widget.LinearLayoutManager
-import kotlinx.android.synthetic.main.fragment_settings_biometric_auth.*
-import kotlinx.android.synthetic.main.recycler_view_layout.*
 import org.cryptomator.generator.Fragment
 import org.cryptomator.presentation.R
 import org.cryptomator.presentation.model.VaultModel
@@ -12,6 +10,9 @@ import org.cryptomator.presentation.ui.adapter.BiometricAuthSettingsAdapter
 import org.cryptomator.presentation.ui.adapter.BiometricAuthSettingsAdapter.OnVaultBiometricAuthSettingsChanged
 import org.cryptomator.util.SharedPreferencesHandler
 import javax.inject.Inject
+import kotlinx.android.synthetic.main.fragment_settings_biometric_auth.toggleBiometricAuth
+import kotlinx.android.synthetic.main.fragment_settings_biometric_auth.toggleFaceUnlockConfirmation
+import kotlinx.android.synthetic.main.recycler_view_layout.recyclerView
 
 @Fragment(R.layout.fragment_settings_biometric_auth)
 class BiometricAuthSettingsFragment : BaseFragment() {

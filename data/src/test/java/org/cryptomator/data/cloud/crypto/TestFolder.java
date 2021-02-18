@@ -24,17 +24,21 @@ class TestFolder implements CloudFolder {
 
 	@Override
 	public boolean equals(Object o) {
-		if (this == o)
+		if (this == o) {
 			return true;
-		if (o == null || getClass() != o.getClass())
+		}
+		if (o == null || getClass() != o.getClass()) {
 			return false;
+		}
 
 		TestFolder that = (TestFolder) o;
 
-		if (!Objects.equals(parent, that.parent))
+		if (!Objects.equals(parent, that.parent)) {
 			return false;
-		if (!Objects.equals(name, that.name))
+		}
+		if (!Objects.equals(name, that.name)) {
 			return false;
+		}
 		return Objects.equals(path, that.path);
 	}
 

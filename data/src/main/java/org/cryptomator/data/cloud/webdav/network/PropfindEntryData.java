@@ -12,6 +12,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 class PropfindEntryData {
+
 	private static final Pattern URI_PATTERN = Pattern.compile("^[a-z]+://[^/]+/(.*)$");
 
 	private String path;
@@ -20,11 +21,6 @@ class PropfindEntryData {
 	private boolean file = true;
 	private Optional<Date> lastModified = Optional.empty();
 	private Optional<Long> size = Optional.empty();
-
-	public void setPath(String pathOrUri) {
-		this.path = extractPath(pathOrUri);
-		this.pathSegments = path.split("/");
-	}
 
 	private String extractPath(String pathOrUri) {
 		Matcher matcher = URI_PATTERN.matcher(pathOrUri);
@@ -41,24 +37,29 @@ class PropfindEntryData {
 		this.lastModified = lastModified;
 	}
 
-	public void setSize(Optional<Long> size) {
-		this.size = size;
-	}
-
-	public void setFile(boolean file) {
-		this.file = file;
-	}
-
 	public String getPath() {
 		return path;
+	}
+
+	public void setPath(String pathOrUri) {
+		this.path = extractPath(pathOrUri);
+		this.pathSegments = path.split("/");
 	}
 
 	public Optional<Long> getSize() {
 		return size;
 	}
 
+	public void setSize(Optional<Long> size) {
+		this.size = size;
+	}
+
 	private boolean isFile() {
 		return file;
+	}
+
+	public void setFile(boolean file) {
+		this.file = file;
 	}
 
 	public WebDavNode toCloudNode(WebDavFolder parent) {

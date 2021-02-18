@@ -25,8 +25,9 @@ public class CopyStream {
 				throw new FatalBackendException(ex);
 			}
 
-			if (count == -1)
+			if (count == -1) {
 				break;
+			}
 
 			try {
 				out.write(copyBuffer, 0, count);

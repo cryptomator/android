@@ -1,7 +1,8 @@
 package org.cryptomator.presentation.logging
 
 import java.text.SimpleDateFormat
-import java.util.*
+import java.util.Date
+import java.util.Locale
 
 internal class FormattedTime private constructor(private val timestamp: Long) {
 
@@ -16,6 +17,7 @@ internal class FormattedTime private constructor(private val timestamp: Long) {
 	}
 
 	companion object {
+
 		private const val FORMAT = "yyyyMMddHHmmss.SSS"
 
 		@Volatile

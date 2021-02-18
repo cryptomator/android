@@ -3,13 +3,18 @@ package org.cryptomator.util.file
 import android.content.Context
 import android.os.Build
 import com.tomclaw.cache.DiskLruCache
-import timber.log.Timber
-import java.io.*
+import java.io.BufferedInputStream
+import java.io.File
+import java.io.FileInputStream
+import java.io.FileOutputStream
+import java.io.IOException
+import java.io.OutputStream
 import java.nio.file.Files
 import java.nio.file.NoSuchFileException
 import java.nio.file.Path
 import java.nio.file.StandardCopyOption
-import java.util.*
+import java.util.Comparator
+import timber.log.Timber
 
 class LruFileCacheUtil(context: Context) {
 
@@ -97,6 +102,7 @@ class LruFileCacheUtil(context: Context) {
 	}
 
 	companion object {
+
 		@JvmStatic
 		@Throws(IOException::class)
 		fun retrieveFromLruCache(cacheFile: File, data: OutputStream) {

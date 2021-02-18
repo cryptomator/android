@@ -5,24 +5,6 @@ import java.io.Serializable;
 public class Vault implements Serializable {
 
 	private static final Long NOT_SET = Long.MIN_VALUE;
-
-	public static Builder aVault() {
-		return new Builder();
-	}
-
-	public static Builder aCopyOf(Vault vault) {
-		return new Builder() //
-				.withId(vault.getId()) //
-				.withCloud(vault.getCloud()) //
-				.withCloudType(vault.getCloudType()) //
-				.withName(vault.getName()) //
-				.withPath(vault.getPath()) //
-				.withUnlocked(vault.isUnlocked()) //
-				.withSavedPassword(vault.getPassword()) //
-				.withVersion(vault.getVersion()) //
-				.withPosition(vault.getPosition());
-	}
-
 	private final Long id;
 	private final String name;
 	private final String path;
@@ -43,6 +25,23 @@ public class Vault implements Serializable {
 		this.password = builder.password;
 		this.version = builder.version;
 		this.position = builder.position;
+	}
+
+	public static Builder aVault() {
+		return new Builder();
+	}
+
+	public static Builder aCopyOf(Vault vault) {
+		return new Builder() //
+				.withId(vault.getId()) //
+				.withCloud(vault.getCloud()) //
+				.withCloudType(vault.getCloudType()) //
+				.withName(vault.getName()) //
+				.withPath(vault.getPath()) //
+				.withUnlocked(vault.isUnlocked()) //
+				.withSavedPassword(vault.getPassword()) //
+				.withVersion(vault.getVersion()) //
+				.withPosition(vault.getPosition());
 	}
 
 	public Long getId() {
@@ -79,6 +78,26 @@ public class Vault implements Serializable {
 
 	public int getPosition() {
 		return position;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (obj == null || getClass() != obj.getClass()) {
+			return false;
+		}
+		if (obj == this) {
+			return true;
+		}
+		return internalEquals((Vault) obj);
+	}
+
+	private boolean internalEquals(Vault obj) {
+		return id != null && id.equals(obj.id);
+	}
+
+	@Override
+	public int hashCode() {
+		return id == null ? 0 : id.hashCode();
 	}
 
 	public static class Builder {
@@ -189,23 +208,5 @@ public class Vault implements Serializable {
 				throw new IllegalStateException("position must be set");
 			}
 		}
-	}
-
-	@Override
-	public boolean equals(Object obj) {
-		if (obj == null || getClass() != obj.getClass())
-			return false;
-		if (obj == this)
-			return true;
-		return internalEquals((Vault) obj);
-	}
-
-	private boolean internalEquals(Vault obj) {
-		return id != null && id.equals(obj.id);
-	}
-
-	@Override
-	public int hashCode() {
-		return id == null ? 0 : id.hashCode();
 	}
 }

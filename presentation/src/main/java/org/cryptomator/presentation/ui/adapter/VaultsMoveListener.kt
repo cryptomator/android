@@ -51,6 +51,7 @@ class VaultsMoveListener(val adapter: VaultsAdapter) : ItemTouchHelper.Callback(
 	}
 
 	interface Listener {
+
 		fun onRowMoved(fromPosition: Int, toPosition: Int)
 		fun onVaultMoved(fromPosition: Int, toPosition: Int)
 	}

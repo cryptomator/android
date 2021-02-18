@@ -11,6 +11,7 @@ import org.cryptomator.presentation.util.FileUtil
 import javax.inject.Inject
 
 class ProgressStateModelMapper @Inject internal constructor(private val fileUtil: FileUtil) : ModelMapper<ProgressStateModel, ProgressState?>() {
+
 	/**
 	 * @throws IllegalStateException
 	 */

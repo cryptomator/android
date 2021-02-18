@@ -16,10 +16,10 @@
 		android:layout_width="wrap_content"
 		android:layout_height="wrap_content"
 		android:layout_centerVertical="true"
-		android:layout_marginEnd="5dp"
 		android:layout_marginStart="5dp"
-		android:layout_toEndOf="@+id/cloud"
+		android:layout_marginEnd="5dp"
 		android:layout_toStartOf="@id/toggleBiometricAuth"
+		android:layout_toEndOf="@+id/cloud"
 		android:ellipsize="middle"
 		android:singleLine="true"
 		android:textSize="20sp" />

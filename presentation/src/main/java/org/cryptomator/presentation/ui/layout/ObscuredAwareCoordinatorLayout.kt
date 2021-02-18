@@ -27,6 +27,7 @@ class ObscuredAwareCoordinatorLayout : CoordinatorLayout {
 	}
 
 	interface Listener {
+
 		fun onFilteredTouchEventForSecurity()
 	}
 }

@@ -1,12 +1,12 @@
 package org.cryptomator.data.db;
 
-import static org.cryptomator.data.db.Sql.createTable;
-import static org.cryptomator.data.db.Sql.insertInto;
+import org.greenrobot.greendao.database.Database;
 
 import javax.inject.Inject;
 import javax.inject.Singleton;
 
-import org.greenrobot.greendao.database.Database;
+import static org.cryptomator.data.db.Sql.createTable;
+import static org.cryptomator.data.db.Sql.insertInto;
 
 @Singleton
 class Upgrade1To2 extends DatabaseUpgrade {

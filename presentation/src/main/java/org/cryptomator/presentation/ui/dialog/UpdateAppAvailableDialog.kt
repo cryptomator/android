@@ -6,14 +6,15 @@ import android.os.Bundle
 import android.text.Html
 import android.view.View
 import androidx.appcompat.app.AlertDialog
-import kotlinx.android.synthetic.main.dialog_app_update.*
 import org.cryptomator.generator.Dialog
 import org.cryptomator.presentation.R
+import kotlinx.android.synthetic.main.dialog_app_update.tv_message
 
 @Dialog(R.layout.dialog_app_update)
 class UpdateAppAvailableDialog : BaseProgressErrorDialog<UpdateAppAvailableDialog.Callback>() {
 
 	interface Callback {
+
 		fun installUpdate()
 		fun cancelUpdateClicked()
 		fun showUpdateWebsite()
@@ -43,6 +44,7 @@ class UpdateAppAvailableDialog : BaseProgressErrorDialog<UpdateAppAvailableDialo
 	}
 
 	companion object {
+
 		private const val MESSAGE_ARG = "messageArg"
 		fun newInstance(message: String): UpdateAppAvailableDialog {
 			val dialog = UpdateAppAvailableDialog()

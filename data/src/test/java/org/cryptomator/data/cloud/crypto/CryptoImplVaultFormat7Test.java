@@ -446,8 +446,7 @@ public class CryptoImplVaultFormat7Test {
 		TestFolder testFile15FolderRename = new TestFolder(aaFolder, shortenedFileNameRename, "/d/00/AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA/" + shortenedFileNameRename);
 		TestFile testFile15WhatTheHellCloudFileRename = new TestFile(aaFolder, shortenedFileNameRename, "/d/00/AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA/" + shortenedFileNameRename, Optional.of(20l), Optional.empty());
 
-		TestFile testFile15ContentFileRename = new TestFile(testFile15FolderRename, "contents.c9r", "/d/00/AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA/" + shortenedFileNameRename + "/contents.c9r", Optional.of(10l),
-				Optional.empty());
+		TestFile testFile15ContentFileRename = new TestFile(testFile15FolderRename, "contents.c9r", "/d/00/AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA/" + shortenedFileNameRename + "/contents.c9r", Optional.of(10l), Optional.empty());
 		TestFile testFile15NameFileRename = new TestFile(testFile15FolderRename, "name.c9s", "/d/00/AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA/" + shortenedFileNameRename + "/name.c9s", Optional.of(511l), Optional.empty());
 
 		Mockito.when(fileNameCryptor.encryptFilename(BaseEncoding.base64Url(), file15Name + " (1)", dirIdRoot.getBytes())).thenReturn(file15Cipher + "(1)");
@@ -939,8 +938,7 @@ public class CryptoImplVaultFormat7Test {
 
 		CryptoFolder cryptoFolder15 = new CryptoFolder(root, "Directory 15", "/Directory 15/", testDir15DirFile);
 
-		Mockito.when(cloudContentRepository.file(aaFolder, "dir15.c9r", Optional.ofNullable(null)))
-				.thenReturn(new TestFile(aaFolder, "dir15.c9r", "/d/00/AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA/dir15.c9r", Optional.empty(), Optional.empty()));
+		Mockito.when(cloudContentRepository.file(aaFolder, "dir15.c9r", Optional.ofNullable(null))).thenReturn(new TestFile(aaFolder, "dir15.c9r", "/d/00/AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA/dir15.c9r", Optional.empty(), Optional.empty()));
 		Mockito.when(cloudContentRepository.folder(rootFolder, "d")).thenReturn(d);
 		Mockito.when(cloudContentRepository.folder(d, "11")).thenReturn(bbLvl2Dir);
 		Mockito.when(cloudContentRepository.folder(bbLvl2Dir, "BBBBBBBBBBBBBBBBBBBBBBBBBBBBBB")).thenReturn(bbFolder);
@@ -980,8 +978,7 @@ public class CryptoImplVaultFormat7Test {
 
 		Mockito.when(fileNameCryptor.encryptFilename(BaseEncoding.base64Url(), dir15Name, dirId1.getBytes())).thenReturn(dir15Cipher);
 
-		Mockito.when(cloudContentRepository.file(aaFolder, "dir15.c9r", Optional.ofNullable(null)))
-				.thenReturn(new TestFile(aaFolder, "dir15.c9r", "/d/00/AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA/dir15.c9r", Optional.empty(), Optional.empty()));
+		Mockito.when(cloudContentRepository.file(aaFolder, "dir15.c9r", Optional.ofNullable(null))).thenReturn(new TestFile(aaFolder, "dir15.c9r", "/d/00/AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA/dir15.c9r", Optional.empty(), Optional.empty()));
 		Mockito.when(cloudContentRepository.folder(aaFolder, shortenedFileName)).thenReturn(testDir15);
 		Mockito.when(cloudContentRepository.folder(rootFolder, "d")).thenReturn(d);
 		Mockito.when(cloudContentRepository.folder(d, "11")).thenReturn(bbLvl2Dir);
@@ -1033,8 +1030,7 @@ public class CryptoImplVaultFormat7Test {
 
 		Mockito.when(fileNameCryptor.encryptFilename(BaseEncoding.base64Url(), dir15Name, dirId1.getBytes())).thenReturn(dir15Cipher);
 
-		Mockito.when(cloudContentRepository.file(aaFolder, "dir15.c9r", Optional.ofNullable(null)))
-				.thenReturn(new TestFile(aaFolder, "dir15.c9r", "/d/00/AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA/dir15.c9r", Optional.empty(), Optional.empty()));
+		Mockito.when(cloudContentRepository.file(aaFolder, "dir15.c9r", Optional.ofNullable(null))).thenReturn(new TestFile(aaFolder, "dir15.c9r", "/d/00/AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA/dir15.c9r", Optional.empty(), Optional.empty()));
 		Mockito.when(cloudContentRepository.folder(aaFolder, shortenedFileName)).thenReturn(testDir15);
 		Mockito.when(cloudContentRepository.folder(rootFolder, "d")).thenReturn(d);
 		Mockito.when(cloudContentRepository.folder(d, "11")).thenReturn(bbLvl2Dir);

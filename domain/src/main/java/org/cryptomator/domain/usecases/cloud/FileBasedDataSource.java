@@ -11,14 +11,14 @@ import java.io.InputStream;
 
 public class FileBasedDataSource implements DataSource {
 
-	public static FileBasedDataSource from(File file) {
-		return new FileBasedDataSource(file);
-	}
-
 	private final File file;
 
 	private FileBasedDataSource(File file) {
 		this.file = file;
+	}
+
+	public static FileBasedDataSource from(File file) {
+		return new FileBasedDataSource(file);
 	}
 
 	@Override

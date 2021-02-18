@@ -33,7 +33,7 @@ public interface IProgressCallback<Result> extends com.microsoft.graph.concurren
 	 * How progress updates are handled for this callback
 	 *
 	 * @param current the current amount of progress
-	 * @param max the max amount of progress
+	 * @param max     the max amount of progress
 	 */
 	void progress(final long current, final long max);
 }

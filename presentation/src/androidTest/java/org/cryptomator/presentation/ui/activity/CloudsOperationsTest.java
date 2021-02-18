@@ -45,11 +45,50 @@ import static org.hamcrest.core.AllOf.allOf;
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
 public class CloudsOperationsTest {
 
+	private final UiDevice device = UiDevice.getInstance(getInstrumentation());
 	@Rule
 	public ActivityTestRule<SplashActivity> activityTestRule //
 			= new ActivityTestRule<>(SplashActivity.class);
 
-	private final UiDevice device = UiDevice.getInstance(getInstrumentation());
+	public static void openCloudServices(UiDevice device) {
+		openSettings(device);
+
+		ViewInteraction recyclerView = onView(allOf(withId(R.id.recycler_view), childAtPosition(withId(android.R.id.list_container), 0)));
+		recyclerView.perform(RecyclerViewActions.actionOnItemAtPosition(3, click()));
+
+		awaitCompleted();
+	}
+
+	public static void checkLoginResult(String cloudName, int cloudPosition) {
+		String displayText = InstrumentationRegistry //
+				.getTargetContext() //
+				.getString(R.string.screen_cloud_settings_sign_out_from_cloud) + " " + cloudName;
+
+		UiObject signOutText = UiDevice.getInstance(getInstrumentation()).findObject(new UiSelector().text(displayText));
+		signOutText.waitForExists(15000);
+
+		onView(withRecyclerView(R.id.recyclerView) //
+				.atPositionOnView(cloudPosition, R.id.cloudName)) //
+				.check(matches(withText(displayText)));
+	}
+
+	private static Matcher<View> childAtPosition(final Matcher<View> parentMatcher, final int position) {
+
+		return new TypeSafeMatcher<View>() {
+			@Override
+			public void describeTo(Description description) {
+				description.appendText("Child at position " + position + " in parent ");
+				parentMatcher.describeTo(description);
+			}
+
+			@Override
+			public boolean matchesSafely(View view) {
+				ViewParent parent = view.getParent();
+				return parent instanceof ViewGroup && parentMatcher.matches(parent) //
+						&& view.equals(((ViewGroup) parent).getChildAt(position));
+			}
+		};
+	}
 
 	@Test
 	public void test01EnableDebugModeLeadsToDebugMode() {
@@ -205,45 +244,5 @@ public class CloudsOperationsTest {
 				.perform(actionOnItemAtPosition(LOCAL, click()));
 
 		LoginLocalClouds.loginLocalClouds(device);
-	}
-
-	public static void openCloudServices(UiDevice device) {
-		openSettings(device);
-
-		ViewInteraction recyclerView = onView(allOf(withId(R.id.recycler_view), childAtPosition(withId(android.R.id.list_container), 0)));
-		recyclerView.perform(RecyclerViewActions.actionOnItemAtPosition(3, click()));
-
-		awaitCompleted();
-	}
-
-	public static void checkLoginResult(String cloudName, int cloudPosition) {
-		String displayText = InstrumentationRegistry //
-				.getTargetContext() //
-				.getString(R.string.screen_cloud_settings_sign_out_from_cloud) + " " + cloudName;
-
-		UiObject signOutText = UiDevice.getInstance(getInstrumentation()).findObject(new UiSelector().text(displayText));
-		signOutText.waitForExists(15000);
-
-		onView(withRecyclerView(R.id.recyclerView) //
-				.atPositionOnView(cloudPosition, R.id.cloudName)) //
-						.check(matches(withText(displayText)));
-	}
-
-	private static Matcher<View> childAtPosition(final Matcher<View> parentMatcher, final int position) {
-
-		return new TypeSafeMatcher<View>() {
-			@Override
-			public void describeTo(Description description) {
-				description.appendText("Child at position " + position + " in parent ");
-				parentMatcher.describeTo(description);
-			}
-
-			@Override
-			public boolean matchesSafely(View view) {
-				ViewParent parent = view.getParent();
-				return parent instanceof ViewGroup && parentMatcher.matches(parent) //
-						&& view.equals(((ViewGroup) parent).getChildAt(position));
-			}
-		};
 	}
 }

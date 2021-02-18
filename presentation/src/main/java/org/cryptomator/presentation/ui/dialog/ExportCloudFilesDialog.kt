@@ -3,7 +3,6 @@ package org.cryptomator.presentation.ui.dialog
 import android.content.DialogInterface
 import android.os.Bundle
 import androidx.appcompat.app.AlertDialog
-import kotlinx.android.synthetic.main.view_dialog_intermediate_progress.*
 import org.cryptomator.generator.Dialog
 import org.cryptomator.presentation.R
 import org.cryptomator.presentation.model.CloudFileModel
@@ -11,12 +10,15 @@ import org.cryptomator.presentation.model.FileProgressStateModel
 import org.cryptomator.presentation.model.ProgressModel
 import org.cryptomator.presentation.model.ProgressStateModel
 import org.cryptomator.presentation.util.ResourceHelper
-import java.util.*
+import java.util.HashSet
+import kotlinx.android.synthetic.main.view_dialog_intermediate_progress.iv_progress_icon
+import kotlinx.android.synthetic.main.view_dialog_intermediate_progress.pb_dialog
 
 @Dialog(R.layout.dialog_upload_loading)
 class ExportCloudFilesDialog : BaseProgressErrorDialog<ExportCloudFilesDialog.Callback>() {
 
 	interface Callback {
+
 		fun onExportCancelled()
 	}
 
@@ -68,6 +70,7 @@ class ExportCloudFilesDialog : BaseProgressErrorDialog<ExportCloudFilesDialog.Ca
 	}
 
 	companion object {
+
 		private const val ARG_NUMBER_OF_FILES = "NUMBER_OF_FILES"
 		fun newInstance(numberOfFiles: Int): ExportCloudFilesDialog {
 			val args = Bundle()

@@ -17,4 +17,5 @@ import org.junit.runners.Suite;
 		FileOperationsTest.class //
 })
 public class UiTestSuite {
+
 }

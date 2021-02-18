@@ -4,14 +4,14 @@
 	xmlns:tools="http://schemas.android.com/tools"
 	android:layout_width="match_parent"
 	android:layout_height="match_parent"
-	android:paddingBottom="@dimen/activity_vertical_margin"
+	android:orientation="vertical"
 	android:paddingStart="@dimen/activity_horizontal_margin"
-	android:paddingEnd="@dimen/activity_horizontal_margin"
 	android:paddingTop="@dimen/activity_vertical_margin"
+	android:paddingEnd="@dimen/activity_horizontal_margin"
+	android:paddingBottom="@dimen/activity_vertical_margin"
 	app:layout_behavior="@string/appbar_scrolling_view_behavior"
 	tools:context=".ui.activity.CreateVaultActivity"
-	tools:showIn="@layout/activity_create_vault"
-	android:orientation="vertical">
+	tools:showIn="@layout/activity_create_vault">
 
 	<com.google.android.material.textfield.TextInputLayout
 		android:layout_width="match_parent"
@@ -22,10 +22,10 @@
 			android:layout_width="match_parent"
 			android:layout_height="wrap_content"
 			android:hint="@string/screen_enter_vault_name_vault_label"
+			android:imeOptions="flagNoPersonalizedLearning"
 			android:inputType="text"
 			android:maxLines="1"
-			android:singleLine="true"
-			android:imeOptions="flagNoPersonalizedLearning" />
+			android:singleLine="true" />
 
 	</com.google.android.material.textfield.TextInputLayout>
 

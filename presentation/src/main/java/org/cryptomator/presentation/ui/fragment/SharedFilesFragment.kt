@@ -1,8 +1,6 @@
 package org.cryptomator.presentation.ui.fragment
 
 import androidx.recyclerview.widget.LinearLayoutManager
-import kotlinx.android.synthetic.main.fragment_shared_files.*
-import kotlinx.android.synthetic.main.view_receive_save_button.*
 import org.cryptomator.generator.Fragment
 import org.cryptomator.presentation.R
 import org.cryptomator.presentation.model.CloudFolderModel
@@ -13,6 +11,9 @@ import org.cryptomator.presentation.ui.adapter.SharedFilesAdapter
 import org.cryptomator.presentation.ui.adapter.SharedFilesAdapter.Callback
 import org.cryptomator.presentation.ui.adapter.SharedLocationsAdapter
 import javax.inject.Inject
+import kotlinx.android.synthetic.main.fragment_shared_files.filesRecyclerView
+import kotlinx.android.synthetic.main.fragment_shared_files.locationsRecyclerView
+import kotlinx.android.synthetic.main.view_receive_save_button.saveFiles
 
 @Fragment(R.layout.fragment_shared_files)
 class SharedFilesFragment : BaseFragment() {

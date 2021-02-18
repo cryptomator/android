@@ -1,17 +1,16 @@
 package org.cryptomator.data.cloud.googledrive;
 
-import static org.cryptomator.data.cloud.googledrive.GoogleDriveCloudNodeFactory.from;
-import static org.cryptomator.data.cloud.googledrive.GoogleDriveCloudNodeFactory.isFolder;
-import static org.cryptomator.domain.usecases.cloud.Progress.progress;
-import static org.cryptomator.util.file.LruFileCacheUtil.retrieveFromLruCache;
-import static org.cryptomator.util.file.LruFileCacheUtil.storeToLruCache;
-import static org.cryptomator.util.file.LruFileCacheUtil.Cache.GOOGLE_DRIVE;
+import android.content.Context;
 
-import java.io.IOException;
-import java.io.OutputStream;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
+import com.google.api.client.googleapis.json.GoogleJsonResponseException;
+import com.google.api.client.http.HttpResponseException;
+import com.google.api.services.drive.Drive;
+import com.google.api.services.drive.model.About;
+import com.google.api.services.drive.model.File;
+import com.google.api.services.drive.model.FileList;
+import com.google.api.services.drive.model.Revision;
+import com.google.api.services.drive.model.RevisionList;
+import com.tomclaw.cache.DiskLruCache;
 
 import org.cryptomator.data.util.TransferredBytesAwareOutputStream;
 import org.cryptomator.domain.CloudNode;
@@ -29,19 +28,20 @@ import org.cryptomator.util.Optional;
 import org.cryptomator.util.SharedPreferencesHandler;
 import org.cryptomator.util.file.LruFileCacheUtil;
 
-import com.google.api.client.googleapis.json.GoogleJsonResponseException;
-import com.google.api.client.http.HttpResponseException;
-import com.google.api.services.drive.Drive;
-import com.google.api.services.drive.model.About;
-import com.google.api.services.drive.model.File;
-import com.google.api.services.drive.model.FileList;
-import com.google.api.services.drive.model.Revision;
-import com.google.api.services.drive.model.RevisionList;
-import com.tomclaw.cache.DiskLruCache;
-
-import android.content.Context;
+import java.io.IOException;
+import java.io.OutputStream;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 
 import timber.log.Timber;
+
+import static org.cryptomator.data.cloud.googledrive.GoogleDriveCloudNodeFactory.from;
+import static org.cryptomator.data.cloud.googledrive.GoogleDriveCloudNodeFactory.isFolder;
+import static org.cryptomator.domain.usecases.cloud.Progress.progress;
+import static org.cryptomator.util.file.LruFileCacheUtil.Cache.GOOGLE_DRIVE;
+import static org.cryptomator.util.file.LruFileCacheUtil.retrieveFromLruCache;
+import static org.cryptomator.util.file.LruFileCacheUtil.storeToLruCache;
 
 class GoogleDriveImpl {
 
@@ -284,8 +284,7 @@ class GoogleDriveImpl {
 						.update( //
 								file.getDriveId(), //
 								metadata, //
-								in)
-						.setFields("id,modifiedTime,name,size") //
+								in).setFields("id,modifiedTime,name,size") //
 						.setSupportsAllDrives(true) //
 						.execute();
 			}

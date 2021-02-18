@@ -5,4 +5,5 @@ import org.cryptomator.presentation.ui.activity.SettingsActivity;
 
 @Intent(SettingsActivity.class)
 public interface SettingsIntent {
+
 }

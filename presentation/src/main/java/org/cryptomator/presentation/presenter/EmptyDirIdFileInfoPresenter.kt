@@ -9,6 +9,7 @@ import javax.inject.Inject
 
 @PerView
 class EmptyDirIdFileInfoPresenter @Inject constructor(exceptionMappings: ExceptionHandlers) : Presenter<EmptyDirFileView>(exceptionMappings) {
+
 	fun onShowMoreInfoButtonPressed() {
 		val intent = Intent(Intent.ACTION_VIEW)
 		intent.data = Uri.parse("https://cryptomator.org/help/articles/sanitizer")

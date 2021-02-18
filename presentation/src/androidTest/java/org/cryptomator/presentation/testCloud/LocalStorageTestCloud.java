@@ -21,6 +21,7 @@ import static org.cryptomator.presentation.ui.activity.CloudsOperationsTest.open
 import static org.cryptomator.presentation.ui.activity.LoginLocalClouds.chooseFolder;
 
 public class LocalStorageTestCloud extends TestCloud {
+
 	@Override
 	public Cloud getInstance(ApplicationComponent appComponent) {
 		login();

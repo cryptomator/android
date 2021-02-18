@@ -1,5 +1,11 @@
 package org.cryptomator.presentation.ui;
 
+import androidx.test.espresso.ViewInteraction;
+import androidx.test.rule.ActivityTestRule;
+import androidx.test.uiautomator.UiDevice;
+import androidx.test.uiautomator.UiObjectNotFoundException;
+import androidx.test.uiautomator.UiSelector;
+
 import org.cryptomator.domain.Cloud;
 import org.cryptomator.domain.CloudFolder;
 import org.cryptomator.domain.CloudNode;
@@ -11,12 +17,6 @@ import org.cryptomator.presentation.di.component.ApplicationComponent;
 import org.hamcrest.Matchers;
 
 import java.util.List;
-
-import androidx.test.espresso.ViewInteraction;
-import androidx.test.rule.ActivityTestRule;
-import androidx.test.uiautomator.UiDevice;
-import androidx.test.uiautomator.UiObjectNotFoundException;
-import androidx.test.uiautomator.UiSelector;
 
 import static androidx.test.espresso.Espresso.onView;
 import static androidx.test.espresso.Espresso.openActionBarOverflowOrOptionsMenu;
@@ -36,6 +36,7 @@ import static org.hamcrest.Matchers.notNullValue;
 import static org.hamcrest.core.Is.is;
 
 public class TestUtil {
+
 	public static final int DROPBOX = 0;
 	public static final int GOOGLE_DRIVE = 1;
 	public static final int ONEDRIVE = 2;
@@ -94,7 +95,7 @@ public class TestUtil {
 		onView(allOf( //
 				withId(R.id.title), //
 				withText(R.string.snack_bar_action_title_settings))) //
-						.perform(click());
+				.perform(click());
 
 		awaitCompleted();
 

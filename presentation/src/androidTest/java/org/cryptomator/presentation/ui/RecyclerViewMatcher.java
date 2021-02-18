@@ -3,16 +3,17 @@ package org.cryptomator.presentation.ui;
 import android.content.res.Resources;
 import android.view.View;
 
+import androidx.recyclerview.widget.RecyclerView;
+
 import org.hamcrest.Description;
 import org.hamcrest.Matcher;
 import org.hamcrest.TypeSafeMatcher;
-
-import androidx.recyclerview.widget.RecyclerView;
 
 /**
  * Created by dannyroa on 5/10/15.
  */
 public class RecyclerViewMatcher {
+
 	private final int recyclerViewId;
 
 	public RecyclerViewMatcher(int recyclerViewId) {

@@ -24,6 +24,10 @@ public class CloudFileMatcher extends TypeSafeDiagnosingMatcher<CloudNode> {
 				Matchers.hasProperty("parent", is(file.getParent())));
 	}
 
+	public static CloudFileMatcher cloudFile(CloudFile file) {
+		return new CloudFileMatcher(file);
+	}
+
 	@Override
 	public void describeTo(Description description) {
 		delegate.describeTo(description);
@@ -38,9 +42,5 @@ public class CloudFileMatcher extends TypeSafeDiagnosingMatcher<CloudNode> {
 
 		mismatchDescription.appendText("not ").appendDescriptionOf(delegate);
 		return false;
-	}
-
-	public static CloudFileMatcher cloudFile(CloudFile file) {
-		return new CloudFileMatcher(file);
 	}
 }

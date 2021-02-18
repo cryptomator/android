@@ -22,8 +22,26 @@ public class CloudEntity extends DatabaseEntity {
 
 	private String webdavCertificate;
 
+	@Generated(hash = 2078985174)
+	public CloudEntity(Long id, @NotNull String type, String accessToken, String webdavUrl, String username, String webdavCertificate) {
+		this.id = id;
+		this.type = type;
+		this.accessToken = accessToken;
+		this.webdavUrl = webdavUrl;
+		this.username = username;
+		this.webdavCertificate = webdavCertificate;
+	}
+
+	@Generated(hash = 1354152224)
+	public CloudEntity() {
+	}
+
 	public String getAccessToken() {
 		return this.accessToken;
+	}
+
+	public void setAccessToken(String accessToken) {
+		this.accessToken = accessToken;
 	}
 
 	public String getType() {
@@ -40,10 +58,6 @@ public class CloudEntity extends DatabaseEntity {
 
 	public void setId(Long id) {
 		this.id = id;
-	}
-
-	public void setAccessToken(String accessToken) {
-		this.accessToken = accessToken;
 	}
 
 	public String getWebdavUrl() {
@@ -68,19 +82,5 @@ public class CloudEntity extends DatabaseEntity {
 
 	public void setWebdavCertificate(String webdavCertificate) {
 		this.webdavCertificate = webdavCertificate;
-	}
-
-	@Generated(hash = 2078985174)
-	public CloudEntity(Long id, @NotNull String type, String accessToken, String webdavUrl, String username, String webdavCertificate) {
-		this.id = id;
-		this.type = type;
-		this.accessToken = accessToken;
-		this.webdavUrl = webdavUrl;
-		this.username = username;
-		this.webdavCertificate = webdavCertificate;
-	}
-
-	@Generated(hash = 1354152224)
-	public CloudEntity() {
 	}
 }

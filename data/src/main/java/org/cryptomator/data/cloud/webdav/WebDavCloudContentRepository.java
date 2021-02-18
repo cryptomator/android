@@ -41,9 +41,8 @@ import static org.cryptomator.util.ExceptionUtil.extract;
 @Singleton
 class WebDavCloudContentRepository extends InterceptingCloudContentRepository<WebDavCloud, WebDavNode, WebDavFolder, WebDavFile> {
 
-	private final WebDavCloud cloud;
-
 	private static final CharSequence START_OF_CERTIFICATE = "-----BEGIN CERTIFICATE-----";
+	private final WebDavCloud cloud;
 
 	WebDavCloudContentRepository(WebDavCloud cloud, ConnectionHandlerHandlerImpl connectionHandlerHandler) {
 		super(new Intercepted(cloud, connectionHandlerHandler));

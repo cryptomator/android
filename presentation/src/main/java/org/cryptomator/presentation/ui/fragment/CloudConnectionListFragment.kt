@@ -5,10 +5,6 @@ import android.util.TypedValue
 import android.view.View.GONE
 import android.view.View.VISIBLE
 import androidx.recyclerview.widget.LinearLayoutManager
-import kotlinx.android.synthetic.main.fragment_browse_cloud_connections.*
-import kotlinx.android.synthetic.main.recycler_view_layout.*
-import kotlinx.android.synthetic.main.view_cloud_connection_content.*
-import kotlinx.android.synthetic.main.view_empty_cloud_connections.*
 import org.cryptomator.generator.Fragment
 import org.cryptomator.presentation.R
 import org.cryptomator.presentation.model.CloudModel
@@ -16,6 +12,12 @@ import org.cryptomator.presentation.model.CloudTypeModel
 import org.cryptomator.presentation.presenter.CloudConnectionListPresenter
 import org.cryptomator.presentation.ui.adapter.CloudConnectionListAdapter
 import javax.inject.Inject
+import kotlinx.android.synthetic.main.fragment_browse_cloud_connections.floating_action_button
+import kotlinx.android.synthetic.main.fragment_browse_cloud_connections.rv_local_default_cloud
+import kotlinx.android.synthetic.main.recycler_view_layout.recyclerView
+import kotlinx.android.synthetic.main.view_cloud_connection_content.cloudSubText
+import kotlinx.android.synthetic.main.view_cloud_connection_content.cloudText
+import kotlinx.android.synthetic.main.view_empty_cloud_connections.rl_creation_hint
 
 @Fragment(R.layout.fragment_browse_cloud_connections)
 class CloudConnectionListFragment : BaseFragment() {

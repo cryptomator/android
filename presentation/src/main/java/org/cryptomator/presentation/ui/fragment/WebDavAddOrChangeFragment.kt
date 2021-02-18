@@ -2,14 +2,17 @@ package org.cryptomator.presentation.ui.fragment
 
 import android.os.Bundle
 import android.view.inputmethod.EditorInfo
-import kotlinx.android.synthetic.main.fragment_setup_webdav.*
 import org.cryptomator.generator.Fragment
 import org.cryptomator.presentation.R
 import org.cryptomator.presentation.model.WebDavCloudModel
 import org.cryptomator.presentation.presenter.WebDavAddOrChangePresenter
 import org.cryptomator.util.crypto.CredentialCryptor
-import timber.log.Timber
 import javax.inject.Inject
+import kotlinx.android.synthetic.main.fragment_setup_webdav.createCloudButton
+import kotlinx.android.synthetic.main.fragment_setup_webdav.passwordEditText
+import kotlinx.android.synthetic.main.fragment_setup_webdav.urlPortEditText
+import kotlinx.android.synthetic.main.fragment_setup_webdav.userNameEditText
+import timber.log.Timber
 
 @Fragment(R.layout.fragment_setup_webdav)
 class WebDavAddOrChangeFragment : BaseFragment() {

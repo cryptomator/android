@@ -7,12 +7,12 @@ public class ActivitiesModel {
 
 	private final Set<ActivityModel> activities;
 
-	public static ActivitiesModel.Builder builder() {
-		return new Builder();
-	}
-
 	private ActivitiesModel(Set<ActivityModel> activities) {
 		this.activities = activities;
+	}
+
+	public static ActivitiesModel.Builder builder() {
+		return new Builder();
 	}
 
 	public Set<ActivityModel> getActivities() {

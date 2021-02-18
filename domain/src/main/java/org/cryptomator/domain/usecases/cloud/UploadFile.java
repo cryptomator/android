@@ -14,6 +14,17 @@ public class UploadFile {
 		this.replacing = builder.replacing;
 	}
 
+	public static Builder aCopyOf(UploadFile uploadFile) {
+		return new Builder() //
+				.withFileName(uploadFile.getFileName()) //
+				.withDataSource(uploadFile.getDataSource()) //
+				.thatIsReplacing(uploadFile.getReplacing());
+	}
+
+	public static Builder anUploadFile() {
+		return new Builder();
+	}
+
 	public String getFileName() {
 		return fileName;
 	}
@@ -24,17 +35,6 @@ public class UploadFile {
 
 	public Boolean getReplacing() {
 		return replacing;
-	}
-
-	public static Builder aCopyOf(UploadFile uploadFile) {
-		return new Builder() //
-				.withFileName(uploadFile.getFileName()) //
-				.withDataSource(uploadFile.getDataSource()) //
-				.thatIsReplacing(uploadFile.getReplacing());
-	}
-
-	public static Builder anUploadFile() {
-		return new Builder();
 	}
 
 	public static class Builder {

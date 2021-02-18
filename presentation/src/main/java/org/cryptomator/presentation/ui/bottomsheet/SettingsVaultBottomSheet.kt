@@ -2,15 +2,22 @@ package org.cryptomator.presentation.ui.bottomsheet
 
 import android.os.Bundle
 import android.widget.LinearLayout
-import kotlinx.android.synthetic.main.dialog_bottom_sheet_vault_settings.*
 import org.cryptomator.generator.BottomSheet
 import org.cryptomator.presentation.R
 import org.cryptomator.presentation.model.VaultModel
+import kotlinx.android.synthetic.main.dialog_bottom_sheet_vault_settings.change_password
+import kotlinx.android.synthetic.main.dialog_bottom_sheet_vault_settings.cloud_image
+import kotlinx.android.synthetic.main.dialog_bottom_sheet_vault_settings.delete_vault
+import kotlinx.android.synthetic.main.dialog_bottom_sheet_vault_settings.et_rename
+import kotlinx.android.synthetic.main.dialog_bottom_sheet_vault_settings.lock_vault
+import kotlinx.android.synthetic.main.dialog_bottom_sheet_vault_settings.vault_name
+import kotlinx.android.synthetic.main.dialog_bottom_sheet_vault_settings.vault_path
 
 @BottomSheet(R.layout.dialog_bottom_sheet_vault_settings)
 class SettingsVaultBottomSheet : BaseBottomSheet<SettingsVaultBottomSheet.Callback>() {
 
 	interface Callback {
+
 		fun onDeleteVaultClick(vaultModel: VaultModel)
 		fun onRenameVaultClick(vaultModel: VaultModel)
 		fun onLockVaultClick(vaultModel: VaultModel)
@@ -47,6 +54,7 @@ class SettingsVaultBottomSheet : BaseBottomSheet<SettingsVaultBottomSheet.Callba
 	}
 
 	companion object {
+
 		private const val VAULT_ARG = "vault"
 		fun newInstance(vaultModel: VaultModel): SettingsVaultBottomSheet {
 			val dialog = SettingsVaultBottomSheet()

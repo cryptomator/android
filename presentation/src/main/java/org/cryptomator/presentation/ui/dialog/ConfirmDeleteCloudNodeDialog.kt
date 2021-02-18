@@ -4,18 +4,19 @@ import android.content.DialogInterface
 import android.os.Bundle
 import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.DialogFragment
-import kotlinx.android.synthetic.main.dialog_confirm_delete_cloud_node.*
 import org.cryptomator.generator.Dialog
 import org.cryptomator.presentation.R
 import org.cryptomator.presentation.model.CloudFileModel
 import org.cryptomator.presentation.model.CloudFolderModel
 import org.cryptomator.presentation.model.CloudNodeModel
 import java.io.Serializable
+import kotlinx.android.synthetic.main.dialog_confirm_delete_cloud_node.tv_message
 
 @Dialog(R.layout.dialog_confirm_delete_cloud_node)
 class ConfirmDeleteCloudNodeDialog : BaseDialog<ConfirmDeleteCloudNodeDialog.Callback>() {
 
 	interface Callback {
+
 		fun onDeleteCloudNodeConfirmed(nodes: List<CloudNodeModel<*>>)
 	}
 
@@ -50,6 +51,7 @@ class ConfirmDeleteCloudNodeDialog : BaseDialog<ConfirmDeleteCloudNodeDialog.Cal
 	}
 
 	companion object {
+
 		private const val ARG_CLOUD_NODE = "cloudNode"
 		fun newInstance(nodes: List<CloudNodeModel<*>>): DialogFragment {
 			val confirmDeleteCloudNodeDialog = ConfirmDeleteCloudNodeDialog()

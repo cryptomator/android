@@ -12,10 +12,10 @@
 			android:id="@+id/et_rename"
 			android:layout_width="match_parent"
 			android:layout_height="wrap_content"
+			android:imeOptions="flagNoPersonalizedLearning"
 			android:inputType="text"
 			android:maxLines="1"
-			android:selectAllOnFocus="true"
-			android:imeOptions="flagNoPersonalizedLearning" />
+			android:selectAllOnFocus="true" />
 
 		<include
 			layout="@layout/view_dialog_progress"

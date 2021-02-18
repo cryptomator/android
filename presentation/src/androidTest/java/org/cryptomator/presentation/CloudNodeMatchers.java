@@ -35,6 +35,25 @@ class CloudNodeMatchers {
 		return new FileMatcher();
 	}
 
+	public static Matcher<CloudNode> folder(final String name) {
+		return (Matcher) new TypeSafeDiagnosingMatcher<CloudFolder>() {
+			@Override
+			protected boolean matchesSafely(CloudFolder file, org.hamcrest.Description description) {
+				if (name.equals(file.getName())) {
+					return true;
+				} else {
+					description.appendText("folder with name '").appendText(file.getName()).appendText("'");
+					return false;
+				}
+			}
+
+			@Override
+			public void describeTo(org.hamcrest.Description description) {
+				description.appendText("folder with name '").appendText(name).appendText("'");
+			}
+		};
+	}
+
 	public static class FileMatcher extends TypeSafeDiagnosingMatcher<CloudNode> {
 
 		private String nameToCheck;
@@ -103,24 +122,5 @@ class CloudNodeMatchers {
 		private boolean dateInRange(Date min, Date max, Optional<Date> modified) {
 			return modified.isPresent() && !modified.get().before(min) && !modified.get().after(max);
 		}
-	}
-
-	public static Matcher<CloudNode> folder(final String name) {
-		return (Matcher) new TypeSafeDiagnosingMatcher<CloudFolder>() {
-			@Override
-			protected boolean matchesSafely(CloudFolder file, org.hamcrest.Description description) {
-				if (name.equals(file.getName())) {
-					return true;
-				} else {
-					description.appendText("folder with name '").appendText(file.getName()).appendText("'");
-					return false;
-				}
-			}
-
-			@Override
-			public void describeTo(org.hamcrest.Description description) {
-				description.appendText("folder with name '").appendText(name).appendText("'");
-			}
-		};
 	}
 }

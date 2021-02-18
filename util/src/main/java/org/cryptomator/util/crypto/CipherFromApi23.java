@@ -20,6 +20,25 @@ class CipherFromApi23 implements Cipher {
 		this.key = key;
 	}
 
+	private static byte[] mergeIvAndEncryptedData(byte[] encrypted, byte[] iv) {
+		byte[] mergedIvAndEncrypted = new byte[encrypted.length + iv.length];
+		arraycopy( //
+				iv, 0, //
+				mergedIvAndEncrypted, 0, IV_LENGTH);
+		arraycopy( //
+				encrypted, 0, //
+				mergedIvAndEncrypted, IV_LENGTH, encrypted.length);
+		return mergedIvAndEncrypted;
+	}
+
+	static byte[] getBytes(byte[] encryptedBytesWithIv) {
+		byte[] bytes = new byte[encryptedBytesWithIv.length - IV_LENGTH];
+		arraycopy( //
+				encryptedBytesWithIv, IV_LENGTH, //
+				bytes, 0, bytes.length);
+		return bytes;
+	}
+
 	@Override
 	public byte[] encrypt(byte[] data) {
 		try {
@@ -58,31 +77,12 @@ class CipherFromApi23 implements Cipher {
 		return cipher;
 	}
 
-	private static byte[] mergeIvAndEncryptedData(byte[] encrypted, byte[] iv) {
-		byte[] mergedIvAndEncrypted = new byte[encrypted.length + iv.length];
-		arraycopy( //
-				iv, 0, //
-				mergedIvAndEncrypted, 0, IV_LENGTH);
-		arraycopy( //
-				encrypted, 0, //
-				mergedIvAndEncrypted, IV_LENGTH, encrypted.length);
-		return mergedIvAndEncrypted;
-	}
-
 	private byte[] getIv(byte[] encryptedBytesWithIv) {
 		byte[] iv = new byte[IV_LENGTH];
 		arraycopy( //
 				encryptedBytesWithIv, 0, //
 				iv, 0, IV_LENGTH);
 		return iv;
-	}
-
-	static byte[] getBytes(byte[] encryptedBytesWithIv) {
-		byte[] bytes = new byte[encryptedBytesWithIv.length - IV_LENGTH];
-		arraycopy( //
-				encryptedBytesWithIv, IV_LENGTH, //
-				bytes, 0, bytes.length);
-		return bytes;
 	}
 
 }

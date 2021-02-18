@@ -17,28 +17,28 @@
 		android:layout_width="match_parent"
 		android:layout_height="wrap_content"
 		android:layout_centerVertical="true"
-		android:layout_marginEnd="16dp"
 		android:layout_marginStart="16dp"
-		android:layout_toEndOf="@id/cloudNodeImage"
-		android:layout_toStartOf="@+id/controls" />
+		android:layout_marginEnd="16dp"
+		android:layout_toStartOf="@+id/controls"
+		android:layout_toEndOf="@id/cloudNodeImage" />
 
 	<include
 		layout="@layout/view_cloud_file_content"
 		android:layout_width="match_parent"
 		android:layout_height="wrap_content"
 		android:layout_centerVertical="true"
-		android:layout_marginEnd="16dp"
 		android:layout_marginStart="16dp"
 		android:layout_marginTop="16dp"
-		android:layout_toEndOf="@id/cloudNodeImage"
-		android:layout_toStartOf="@+id/controls" />
+		android:layout_marginEnd="16dp"
+		android:layout_toStartOf="@+id/controls"
+		android:layout_toEndOf="@id/cloudNodeImage" />
 
 	<RelativeLayout
 		android:id="@+id/controls"
 		android:layout_width="48dp"
+		android:layout_height="48dp"
 		android:layout_alignParentEnd="true"
-		android:layout_centerVertical="true"
-		android:layout_height="48dp">
+		android:layout_centerVertical="true">
 
 		<ImageView
 			android:id="@+id/settings"

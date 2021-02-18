@@ -58,7 +58,7 @@ class OnedriveCloudContentRepository extends InterceptingCloudContentRepository<
 	private boolean isAuthenticationError(Throwable e) {
 		return e != null //
 				&& ((e instanceof ClientException && ((ClientException) e).errorCode().equals(GraphErrorCodes.AUTHENTICATION_FAILURE)) //
-						|| isAuthenticationError(e.getCause()));
+				|| isAuthenticationError(e.getCause()));
 	}
 
 	private static class Intercepted implements CloudContentRepository<OnedriveCloud, OnedriveNode, OnedriveFolder, OnedriveFile> {

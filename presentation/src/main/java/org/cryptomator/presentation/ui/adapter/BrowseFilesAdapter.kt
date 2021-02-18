@@ -5,10 +5,6 @@ import android.view.View
 import android.view.View.GONE
 import android.view.View.VISIBLE
 import com.simplecityapps.recyclerview_fastscroll.views.FastScrollRecyclerView
-import kotlinx.android.synthetic.main.item_browse_files_node.view.*
-import kotlinx.android.synthetic.main.view_cloud_file_content.view.*
-import kotlinx.android.synthetic.main.view_cloud_file_progress.view.*
-import kotlinx.android.synthetic.main.view_cloud_folder_content.view.*
 import org.cryptomator.domain.CloudNode
 import org.cryptomator.presentation.R
 import org.cryptomator.presentation.intent.ChooseCloudNodeSettings
@@ -19,7 +15,11 @@ import org.cryptomator.presentation.model.CloudFolderModel
 import org.cryptomator.presentation.model.CloudNodeModel
 import org.cryptomator.presentation.model.ProgressModel
 import org.cryptomator.presentation.model.ProgressStateModel.Companion.COMPLETED
-import org.cryptomator.presentation.model.comparator.*
+import org.cryptomator.presentation.model.comparator.CloudNodeModelDateNewestFirstComparator
+import org.cryptomator.presentation.model.comparator.CloudNodeModelDateOldestFirstComparator
+import org.cryptomator.presentation.model.comparator.CloudNodeModelNameAZComparator
+import org.cryptomator.presentation.model.comparator.CloudNodeModelSizeBiggestFirstComparator
+import org.cryptomator.presentation.model.comparator.CloudNodeModelSizeSmallestFirstComparator
 import org.cryptomator.presentation.ui.adapter.BrowseFilesAdapter.VaultContentViewHolder
 import org.cryptomator.presentation.util.DateHelper
 import org.cryptomator.presentation.util.FileIcon
@@ -28,8 +28,21 @@ import org.cryptomator.presentation.util.FileUtil
 import org.cryptomator.presentation.util.ResourceHelper.Companion.getDrawable
 import org.cryptomator.util.Optional
 import org.cryptomator.util.SharedPreferencesHandler
-import java.util.*
+import java.util.Comparator
+import java.util.Locale
 import javax.inject.Inject
+import kotlinx.android.synthetic.main.item_browse_files_node.view.cloudNodeImage
+import kotlinx.android.synthetic.main.item_browse_files_node.view.itemCheckBox
+import kotlinx.android.synthetic.main.item_browse_files_node.view.settings
+import kotlinx.android.synthetic.main.view_cloud_file_content.view.cloudFileContent
+import kotlinx.android.synthetic.main.view_cloud_file_content.view.cloudFileProgress
+import kotlinx.android.synthetic.main.view_cloud_file_content.view.cloudFileSubText
+import kotlinx.android.synthetic.main.view_cloud_file_content.view.cloudFileText
+import kotlinx.android.synthetic.main.view_cloud_file_content.view.progressIcon
+import kotlinx.android.synthetic.main.view_cloud_file_progress.view.cloudFile
+import kotlinx.android.synthetic.main.view_cloud_folder_content.view.cloudFolderActionText
+import kotlinx.android.synthetic.main.view_cloud_folder_content.view.cloudFolderContent
+import kotlinx.android.synthetic.main.view_cloud_folder_content.view.cloudFolderText
 
 class BrowseFilesAdapter @Inject
 constructor(private val dateHelper: DateHelper, //
@@ -335,6 +348,7 @@ constructor(private val dateHelper: DateHelper, //
 		}
 
 		abstract inner class UiStateTest(val isForFile: Boolean) {
+
 			fun details(): UiStateTest {
 				return if (isForFile) {
 					FileDetails()
@@ -363,6 +377,7 @@ constructor(private val dateHelper: DateHelper, //
 		}
 
 		inner class FileDetails : UiStateTest(true) {
+
 			override fun apply() {
 				itemView.isEnabled = true
 				itemView.cloudFolderContent.visibility = GONE
@@ -376,6 +391,7 @@ constructor(private val dateHelper: DateHelper, //
 		}
 
 		inner class FolderDetails : UiStateTest(false) {
+
 			override fun apply() {
 				itemView.isEnabled = true
 				itemView.cloudFileContent.visibility = GONE
@@ -388,6 +404,7 @@ constructor(private val dateHelper: DateHelper, //
 		}
 
 		inner class FileDeterminateProgress : UiStateTest(true) {
+
 			override fun apply() {
 				itemView.cloudFolderContent.visibility = GONE
 				itemView.cloudFileContent.visibility = VISIBLE
@@ -399,6 +416,7 @@ constructor(private val dateHelper: DateHelper, //
 		}
 
 		inner class FileIndeterminateProgress : UiStateTest(true) {
+
 			override fun apply() {
 				itemView.cloudFolderContent.visibility = GONE
 				itemView.cloudFileContent.visibility = VISIBLE
@@ -411,6 +429,7 @@ constructor(private val dateHelper: DateHelper, //
 		}
 
 		inner class FolderIndeterminateProgress : UiStateTest(false) {
+
 			override fun apply() {
 				itemView.cloudFileContent.visibility = GONE
 				itemView.cloudFolderContent.visibility = VISIBLE
@@ -421,6 +440,7 @@ constructor(private val dateHelper: DateHelper, //
 		}
 
 		inner class FileSelection : UiStateTest(true) {
+
 			override fun apply() {
 				itemView.itemCheckBox.visibility = VISIBLE
 				itemView.settings.visibility = GONE
@@ -428,6 +448,7 @@ constructor(private val dateHelper: DateHelper, //
 		}
 
 		inner class FolderSelection : UiStateTest(false) {
+
 			override fun apply() {
 				itemView.itemCheckBox.visibility = VISIBLE
 				itemView.settings.visibility = GONE
@@ -455,6 +476,7 @@ constructor(private val dateHelper: DateHelper, //
 	}
 
 	interface ItemClickListener {
+
 		fun onFolderClicked(cloudFolderModel: CloudFolderModel)
 
 		fun onFileClicked(cloudNodeModel: CloudFileModel)

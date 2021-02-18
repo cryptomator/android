@@ -2,11 +2,15 @@ package org.cryptomator.util
 
 import android.content.Context
 import android.content.SharedPreferences
-import androidx.appcompat.app.AppCompatDelegate.*
+import androidx.appcompat.app.AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM
+import androidx.appcompat.app.AppCompatDelegate.MODE_NIGHT_NO
+import androidx.appcompat.app.AppCompatDelegate.MODE_NIGHT_YES
 import androidx.preference.PreferenceManager
 import org.cryptomator.util.LockTimeout.ONE_MINUTE
 import java.text.SimpleDateFormat
-import java.util.*
+import java.util.Date
+import java.util.Locale
+import java.util.WeakHashMap
 import javax.inject.Inject
 import kotlin.math.abs
 
@@ -220,6 +224,7 @@ constructor(context: Context) : SharedPreferences.OnSharedPreferenceChangeListen
 	}
 
 	companion object {
+
 		private const val SCREEN_LOCK_DIALOG_SHOWN = "askForScreenLockDialogShown"
 		private const val SCREEN_BETA_DIALOG_SHOWN = "askForBetaConfirmationDialogShown"
 		private const val USE_BIOMETRIC_AUTHENTICATION = "useFingerprint"

@@ -60,21 +60,45 @@ public class FileOperationsTest {
 
 	private final UiDevice device = UiDevice.getInstance(getInstrumentation());
 	private final Context context = InstrumentationRegistry.getTargetContext();
-
+	private final Integer cloudId;
 	@Rule
 	public ActivityTestRule<SplashActivity> activityTestRule //
 			= new ActivityTestRule<>(SplashActivity.class);
-
 	private String packageName;
-	private final Integer cloudId;
+
+	public FileOperationsTest(Integer cloudId, String cloudName) {
+		this.cloudId = cloudId;
+	}
 
 	@Parameterized.Parameters(name = "{1}")
 	public static Iterable<Object[]> data() {
 		return Arrays.asList(new Object[][] {{DROPBOX, "DROPBOX"}, {GOOGLE_DRIVE, "GOOGLE_DRIVE"}, {ONEDRIVE, "ONEDRIVE"}, {WEBDAV, "WEBDAV"}, {LOCAL, "LOCAL"}});
 	}
 
-	public FileOperationsTest(Integer cloudId, String cloudName) {
-		this.cloudId = cloudId;
+	static void isPermissionShown(UiDevice device) {
+		if (!device //
+				.findObject(new UiSelector().text("ALLOW")) //
+				.waitForExists(1000L)) {
+			throw new AssertionError("View with text <???> not found!");
+		}
+	}
+
+	static void grantPermission(UiDevice device) {
+		try {
+			device //
+					.findObject(new UiSelector().text("ALLOW")) //
+					.click();
+		} catch (UiObjectNotFoundException e) {
+			throw new AssertionError("Permission not found");
+		}
+	}
+
+	static void openFile(int nodePosition) {
+		awaitCompleted();
+
+		onView(withRecyclerView(R.id.recyclerView) //
+				.atPositionOnView(nodePosition, R.id.cloudFileText)) //
+				.perform(click());
 	}
 
 	@Test
@@ -105,7 +129,7 @@ public class FileOperationsTest {
 		try {
 			onView(withRecyclerView(R.id.recyclerView) //
 					.atPositionOnView(1, R.id.cloudFileText)) //
-							.check(matches(withText(nodeName)));
+					.check(matches(withText(nodeName)));
 
 			throw new AssertionError("Canceling the upload should not lead to new cloud node");
 		} catch (NullPointerException e) {
@@ -506,13 +530,13 @@ public class FileOperationsTest {
 	private void chooseShareLocation(int nodePosition) {
 		onView(withRecyclerView(R.id.locationsRecyclerView) //
 				.atPositionOnView(nodePosition, R.id.vaultName)) //
-						.perform(click());
+				.perform(click());
 
 		device.waitForWindowUpdate(packageName, 300);
 
 		onView(withRecyclerView(R.id.locationsRecyclerView) //
 				.atPositionOnView(nodePosition, R.id.chooseFolderLocation)) //
-						.perform(click());
+				.perform(click());
 
 		openFolder(0);
 
@@ -525,7 +549,7 @@ public class FileOperationsTest {
 	private void checkPathInSharingScreen(String path, int nodePosition) {
 		onView(withRecyclerView(R.id.locationsRecyclerView) //
 				.atPositionOnView(nodePosition, R.id.chosenLocation)) //
-						.check(matches(withText(path)));
+				.check(matches(withText(path)));
 	}
 
 	private void deleteTestFolder() {
@@ -580,7 +604,7 @@ public class FileOperationsTest {
 		onView(allOf( //
 				withId(button1), //
 				withText(R.string.dialog_rename_node_positive_button))) //
-						.perform(click());
+				.perform(click());
 
 		awaitCompleted();
 	}
@@ -590,7 +614,7 @@ public class FileOperationsTest {
 
 		onView(withRecyclerView(R.id.recyclerView) //
 				.atPositionOnView(nodePosition, R.id.cloudFileText)) //
-						.check(matches(withText(assertNodeText)));
+				.check(matches(withText(assertNodeText)));
 	}
 
 	private void openMoveFile() {
@@ -600,24 +624,6 @@ public class FileOperationsTest {
 				.perform(click());
 
 		awaitCompleted();
-	}
-
-	static void isPermissionShown(UiDevice device) {
-		if (!device //
-				.findObject(new UiSelector().text("ALLOW")) //
-				.waitForExists(1000L)) {
-			throw new AssertionError("View with text <???> not found!");
-		}
-	}
-
-	static void grantPermission(UiDevice device) {
-		try {
-			device //
-					.findObject(new UiSelector().text("ALLOW")) //
-					.click();
-		} catch (UiObjectNotFoundException e) {
-			throw new AssertionError("Permission not found");
-		}
 	}
 
 	private void openEncryptWithCryptomator() {
@@ -658,13 +664,5 @@ public class FileOperationsTest {
 		} catch (UiObjectNotFoundException e) {
 			throw new AssertionError("Folder 0 not found");
 		}
-	}
-
-	static void openFile(int nodePosition) {
-		awaitCompleted();
-
-		onView(withRecyclerView(R.id.recyclerView) //
-				.atPositionOnView(nodePosition, R.id.cloudFileText)) //
-						.perform(click());
 	}
 }

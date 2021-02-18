@@ -29,6 +29,7 @@ class UriBasedDataSource private constructor(private val uri: Uri) : DataSource 
 	}
 
 	companion object {
+
 		@JvmStatic
 		fun from(uri: Uri): UriBasedDataSource {
 			return UriBasedDataSource(uri)

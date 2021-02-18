@@ -12,10 +12,20 @@ import org.cryptomator.util.Optional
 import org.cryptomator.util.file.LruFileCacheUtil
 import org.cryptomator.util.file.MimeType
 import org.cryptomator.util.file.MimeTypes
-import timber.log.Timber
-import java.io.*
-import java.util.*
+import java.io.File
+import java.io.FileInputStream
+import java.io.FileNotFoundException
+import java.io.FileOutputStream
+import java.io.IOException
+import java.io.InvalidClassException
+import java.io.ObjectInputStream
+import java.io.ObjectOutputStream
+import java.io.OutputStream
+import java.util.ArrayList
+import java.util.HashSet
+import java.util.Locale
 import javax.inject.Inject
+import timber.log.Timber
 
 class FileUtil @Inject constructor(private val context: Context, private val mimeTypes: MimeTypes) {
 
@@ -239,6 +249,7 @@ class FileUtil @Inject constructor(private val context: Context, private val mim
 	}
 
 	class FileInfo(val name: String, mimeTypes: MimeTypes) {
+
 		var extension: Optional<String>
 		var mimeType: MimeType
 

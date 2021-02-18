@@ -4,8 +4,8 @@ import android.content.Context
 import org.cryptomator.domain.di.PerView
 import org.cryptomator.presentation.R
 import org.cryptomator.presentation.ui.activity.view.View
-import timber.log.Timber
 import javax.inject.Inject
+import timber.log.Timber
 
 @PerView
 class DefaultExceptionHandler @Inject constructor(context: Context) : ExceptionHandler() {

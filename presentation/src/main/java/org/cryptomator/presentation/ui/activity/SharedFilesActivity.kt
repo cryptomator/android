@@ -8,7 +8,6 @@ import android.net.Uri
 import android.os.Build
 import androidx.annotation.RequiresApi
 import androidx.fragment.app.Fragment
-import kotlinx.android.synthetic.main.toolbar_layout.*
 import org.cryptomator.generator.Activity
 import org.cryptomator.presentation.R
 import org.cryptomator.presentation.model.CloudFolderModel
@@ -17,13 +16,18 @@ import org.cryptomator.presentation.model.SharedFileModel
 import org.cryptomator.presentation.model.VaultModel
 import org.cryptomator.presentation.presenter.SharedFilesPresenter
 import org.cryptomator.presentation.ui.activity.view.SharedFilesView
-import org.cryptomator.presentation.ui.dialog.*
+import org.cryptomator.presentation.ui.dialog.BiometricAuthKeyInvalidatedDialog
+import org.cryptomator.presentation.ui.dialog.EnterPasswordDialog
+import org.cryptomator.presentation.ui.dialog.NotEnoughVaultsDialog
+import org.cryptomator.presentation.ui.dialog.ReplaceDialog
+import org.cryptomator.presentation.ui.dialog.UploadCloudFileDialog
 import org.cryptomator.presentation.ui.fragment.SharedFilesFragment
 import org.cryptomator.presentation.util.BiometricAuthentication
-import timber.log.Timber
 import java.lang.String.format
-import java.util.*
+import java.util.ArrayList
 import javax.inject.Inject
+import kotlinx.android.synthetic.main.toolbar_layout.toolbar
+import timber.log.Timber
 
 @Activity
 class SharedFilesActivity : BaseActivity(), //

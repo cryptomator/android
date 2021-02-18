@@ -3,16 +3,23 @@ package org.cryptomator.presentation.ui.bottomsheet
 import android.os.Build
 import android.os.Bundle
 import android.view.View
-import kotlinx.android.synthetic.main.dialog_bottom_sheet_folder_settings.*
 import org.cryptomator.generator.BottomSheet
 import org.cryptomator.presentation.R
 import org.cryptomator.presentation.model.CloudFolderModel
 import org.cryptomator.presentation.model.CloudNodeModel
+import kotlinx.android.synthetic.main.dialog_bottom_sheet_folder_settings.delete_folder
+import kotlinx.android.synthetic.main.dialog_bottom_sheet_folder_settings.export_folder
+import kotlinx.android.synthetic.main.dialog_bottom_sheet_folder_settings.move_folder
+import kotlinx.android.synthetic.main.dialog_bottom_sheet_folder_settings.rename_folder
+import kotlinx.android.synthetic.main.dialog_bottom_sheet_folder_settings.share_folder
+import kotlinx.android.synthetic.main.dialog_bottom_sheet_folder_settings.tv_folder_name
+import kotlinx.android.synthetic.main.dialog_bottom_sheet_folder_settings.tv_folder_path
 
 @BottomSheet(R.layout.dialog_bottom_sheet_folder_settings)
 class FolderSettingsBottomSheet : BaseBottomSheet<FolderSettingsBottomSheet.Callback>() {
 
 	interface Callback {
+
 		fun onShareFolderClicked(cloudFolderModel: CloudFolderModel)
 		fun onRenameFolderClicked(cloudFolderModel: CloudFolderModel)
 		fun onDeleteNodeClicked(cloudFolderModel: CloudNodeModel<*>)
@@ -53,6 +60,7 @@ class FolderSettingsBottomSheet : BaseBottomSheet<FolderSettingsBottomSheet.Call
 	}
 
 	companion object {
+
 		private const val FOLDER_ARG = "folder"
 		private const val PARENT_FOLDER_PATH_ARG = "parentFolderPath"
 		fun newInstance(cloudFolderModel: CloudFolderModel, parentFolderPath: String): FolderSettingsBottomSheet {

@@ -5,12 +5,15 @@ import android.os.Bundle
 import android.view.View
 import android.widget.Button
 import androidx.appcompat.app.AlertDialog
-import kotlinx.android.synthetic.main.dialog_change_password.*
-import kotlinx.android.synthetic.main.view_password_strength_indicator.*
 import org.cryptomator.generator.Dialog
 import org.cryptomator.presentation.R
 import org.cryptomator.presentation.model.VaultModel
 import org.cryptomator.presentation.util.PasswordStrengthUtil
+import kotlinx.android.synthetic.main.dialog_change_password.et_new_password
+import kotlinx.android.synthetic.main.dialog_change_password.et_new_retype_password
+import kotlinx.android.synthetic.main.dialog_change_password.et_old_password
+import kotlinx.android.synthetic.main.view_password_strength_indicator.progressBarPwStrengthIndicator
+import kotlinx.android.synthetic.main.view_password_strength_indicator.textViewPwStrengthIndicator
 
 @Dialog(R.layout.dialog_change_password)
 class ChangePasswordDialog : BaseProgressErrorDialog<ChangePasswordDialog.Callback>() {
@@ -19,6 +22,7 @@ class ChangePasswordDialog : BaseProgressErrorDialog<ChangePasswordDialog.Callba
 	private var changePasswordButton: Button? = null
 
 	interface Callback {
+
 		fun onChangePasswordClick(vaultModel: VaultModel, oldPassword: String, newPassword: String)
 	}
 
@@ -87,6 +91,7 @@ class ChangePasswordDialog : BaseProgressErrorDialog<ChangePasswordDialog.Callba
 	}
 
 	companion object {
+
 		private const val VAULT_ARG = "vault"
 		fun newInstance(vaultModel: VaultModel): ChangePasswordDialog {
 			val args = Bundle()

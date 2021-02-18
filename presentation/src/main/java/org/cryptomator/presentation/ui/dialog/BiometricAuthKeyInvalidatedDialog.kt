@@ -20,6 +20,7 @@ class BiometricAuthKeyInvalidatedDialog : BaseDialog<BiometricAuthKeyInvalidated
 	}
 
 	companion object {
+
 		fun newInstance(): BiometricAuthKeyInvalidatedDialog {
 			return BiometricAuthKeyInvalidatedDialog()
 		}

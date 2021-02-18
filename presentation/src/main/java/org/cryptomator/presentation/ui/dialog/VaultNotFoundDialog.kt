@@ -12,6 +12,7 @@ class VaultNotFoundDialog private constructor(private val context: Context) {
 	private val callback: Callback
 
 	interface Callback {
+
 		fun onDeleteMissingVaultClicked(vault: Vault)
 	}
 
@@ -25,6 +26,7 @@ class VaultNotFoundDialog private constructor(private val context: Context) {
 	}
 
 	companion object {
+
 		@kotlin.jvm.JvmStatic
 		fun withContext(context: Context): VaultNotFoundDialog {
 			return VaultNotFoundDialog(context)

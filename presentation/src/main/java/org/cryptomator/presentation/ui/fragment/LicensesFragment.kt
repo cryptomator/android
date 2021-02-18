@@ -5,6 +5,7 @@ import androidx.preference.PreferenceFragmentCompat
 import org.cryptomator.presentation.R
 
 class LicensesFragment : PreferenceFragmentCompat() {
+
 	override fun onCreatePreferences(savedInstanceState: Bundle?, rootKey: String?) {
 		addPreferencesFromResource(R.xml.licenses)
 	}

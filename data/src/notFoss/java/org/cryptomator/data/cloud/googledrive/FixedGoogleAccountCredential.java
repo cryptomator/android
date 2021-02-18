@@ -32,14 +32,14 @@ class FixedGoogleAccountCredential extends GoogleAccountCredential {
 
 	private String accountName;
 
+	private FixedGoogleAccountCredential(Context context, String scopesStr) {
+		super(context, scopesStr);
+	}
+
 	public static FixedGoogleAccountCredential usingOAuth2(Context context, Collection<String> scopes) {
 		Preconditions.checkArgument(scopes != null && scopes.iterator().hasNext());
 		String scopesStr = "oauth2:" + Joiner.on(' ').join(scopes);
 		return new FixedGoogleAccountCredential(context, scopesStr);
-	}
-
-	private FixedGoogleAccountCredential(Context context, String scopesStr) {
-		super(context, scopesStr);
 	}
 
 	@Override
@@ -81,7 +81,9 @@ class FixedGoogleAccountCredential extends GoogleAccountCredential {
 	@Beta
 	class FixedRequestHandler implements HttpExecuteInterceptor, HttpUnsuccessfulResponseHandler {
 
-		/** Whether we've received a 401 error code indicating the token is invalid. */
+		/**
+		 * Whether we've received a 401 error code indicating the token is invalid.
+		 */
 		boolean received401;
 		String token;
 

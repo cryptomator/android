@@ -1,23 +1,5 @@
 package org.cryptomator.data.cloud.crypto;
 
-import static android.R.attr.version;
-import static java.text.Normalizer.normalize;
-import static org.cryptomator.data.cloud.crypto.CryptoConstants.DATA_DIR_NAME;
-import static org.cryptomator.data.cloud.crypto.CryptoConstants.MASTERKEY_BACKUP_FILE_EXT;
-import static org.cryptomator.data.cloud.crypto.CryptoConstants.MASTERKEY_FILE_NAME;
-import static org.cryptomator.data.cloud.crypto.CryptoConstants.MAX_VAULT_VERSION;
-import static org.cryptomator.data.cloud.crypto.CryptoConstants.MIN_VAULT_VERSION;
-import static org.cryptomator.data.cloud.crypto.CryptoConstants.ROOT_DIR_ID;
-import static org.cryptomator.data.cloud.crypto.CryptoConstants.VERSION_WITH_NORMALIZED_PASSWORDS;
-import static org.cryptomator.domain.Vault.aCopyOf;
-import static org.cryptomator.domain.usecases.ProgressAware.NO_OP_PROGRESS_AWARE;
-
-import java.io.ByteArrayOutputStream;
-import java.text.Normalizer;
-
-import javax.inject.Inject;
-import javax.inject.Singleton;
-
 import org.cryptomator.cryptolib.Cryptors;
 import org.cryptomator.cryptolib.api.Cryptor;
 import org.cryptomator.cryptolib.api.CryptorProvider;
@@ -35,6 +17,24 @@ import org.cryptomator.domain.usecases.cloud.ByteArrayDataSource;
 import org.cryptomator.domain.usecases.cloud.Flag;
 import org.cryptomator.domain.usecases.vault.UnlockToken;
 import org.cryptomator.util.Optional;
+
+import java.io.ByteArrayOutputStream;
+import java.text.Normalizer;
+
+import javax.inject.Inject;
+import javax.inject.Singleton;
+
+import static android.R.attr.version;
+import static java.text.Normalizer.normalize;
+import static org.cryptomator.data.cloud.crypto.CryptoConstants.DATA_DIR_NAME;
+import static org.cryptomator.data.cloud.crypto.CryptoConstants.MASTERKEY_BACKUP_FILE_EXT;
+import static org.cryptomator.data.cloud.crypto.CryptoConstants.MASTERKEY_FILE_NAME;
+import static org.cryptomator.data.cloud.crypto.CryptoConstants.MAX_VAULT_VERSION;
+import static org.cryptomator.data.cloud.crypto.CryptoConstants.MIN_VAULT_VERSION;
+import static org.cryptomator.data.cloud.crypto.CryptoConstants.ROOT_DIR_ID;
+import static org.cryptomator.data.cloud.crypto.CryptoConstants.VERSION_WITH_NORMALIZED_PASSWORDS;
+import static org.cryptomator.domain.Vault.aCopyOf;
+import static org.cryptomator.domain.usecases.ProgressAware.NO_OP_PROGRESS_AWARE;
 
 @Singleton
 public class CryptoCloudFactory {
@@ -171,26 +171,6 @@ public class CryptoCloudFactory {
 		createNewMasterKeyFile(data, vaultVersion, oldPassword, newPassword, vaultLocation);
 	}
 
-	private static class UnlockTokenImpl implements UnlockToken {
-
-		private final Vault vault;
-		private final byte[] keyFileData;
-
-		private UnlockTokenImpl(Vault vault, byte[] keyFileData) {
-			this.vault = vault;
-			this.keyFileData = keyFileData;
-		}
-
-		@Override
-		public Vault getVault() {
-			return vault;
-		}
-
-		public KeyFile getKeyFile() {
-			return KeyFile.parse(keyFileData);
-		}
-	}
-
 	private void createBackupMasterKeyFile(byte[] data, CloudFolder vaultLocation) throws BackendException {
 		cloudContentRepository.write( //
 				masterkeyBackupFile(vaultLocation, data), //
@@ -217,6 +197,26 @@ public class CryptoCloudFactory {
 			return normalize(password, Normalizer.Form.NFC);
 		} else {
 			return password;
+		}
+	}
+
+	private static class UnlockTokenImpl implements UnlockToken {
+
+		private final Vault vault;
+		private final byte[] keyFileData;
+
+		private UnlockTokenImpl(Vault vault, byte[] keyFileData) {
+			this.vault = vault;
+			this.keyFileData = keyFileData;
+		}
+
+		@Override
+		public Vault getVault() {
+			return vault;
+		}
+
+		public KeyFile getKeyFile() {
+			return KeyFile.parse(keyFileData);
 		}
 	}
 

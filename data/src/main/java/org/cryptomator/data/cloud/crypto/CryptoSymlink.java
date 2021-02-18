@@ -61,10 +61,12 @@ class CryptoSymlink implements CloudFile, CryptoNode {
 
 	@Override
 	public boolean equals(Object obj) {
-		if (obj == null || getClass() != obj.getClass())
+		if (obj == null || getClass() != obj.getClass()) {
 			return false;
-		if (obj == this)
+		}
+		if (obj == this) {
 			return true;
+		}
 		return internalEquals((CryptoSymlink) obj);
 	}
 

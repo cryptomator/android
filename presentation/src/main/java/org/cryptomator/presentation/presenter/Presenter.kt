@@ -22,14 +22,12 @@ import org.cryptomator.presentation.workflow.AsyncResult
 import org.cryptomator.presentation.workflow.PermissionsResult
 import org.cryptomator.presentation.workflow.Workflow
 import org.cryptomator.util.Supplier
-import timber.log.Timber
 import java.io.Serializable
-import java.util.*
-import kotlin.collections.ArrayList
-import kotlin.collections.HashMap
-import kotlin.collections.HashSet
+import java.util.Collections
+import timber.log.Timber
 
 abstract class Presenter<V : View> protected constructor(private val exceptionMappings: ExceptionHandlers) : ActivityHolder {
+
 	var isPaused = false
 		private set
 	private var refreshOnBackpressEnabled = Supplier { true }
@@ -158,18 +156,21 @@ abstract class Presenter<V : View> protected constructor(private val exceptionMa
 	}
 
 	open inner class DefaultResultHandler<T> : NoOpResultHandler<T>() {
+
 		override fun onError(e: Throwable) {
 			showError(e)
 		}
 	}
 
 	open inner class DefaultProgressAwareResultHandler<T, S : ProgressState?> : ProgressAwareResultHandler.NoOp<T, S>() {
+
 		override fun onError(e: Throwable) {
 			showError(e)
 		}
 	}
 
 	open inner class ProgressCompletingResultHandler<T> : DefaultResultHandler<T>() {
+
 		override fun onFinished() {
 			view?.showProgress(ProgressModel.COMPLETED)
 		}
@@ -322,6 +323,7 @@ abstract class Presenter<V : View> protected constructor(private val exceptionMa
 	}
 
 	companion object {
+
 		const val SINGLE_RESULT = "singleResult"
 	}
 }

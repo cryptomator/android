@@ -7,6 +7,7 @@ import org.cryptomator.presentation.di.component.ApplicationComponent;
 import static androidx.test.platform.app.InstrumentationRegistry.getInstrumentation;
 
 public class LocalTestCloud extends TestCloud {
+
 	@Override
 	public Cloud getInstance(ApplicationComponent appComponent) {
 		getInstrumentation() //
