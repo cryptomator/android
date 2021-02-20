@@ -110,6 +110,11 @@
 			android:key="photoUploadOnlyUsingWifi"
 			android:title="@string/screen_settings_section_auto_photo_upload_only_wifi_toggle" />
 
+		<androidx.preference.SwitchPreferenceCompat
+			android:defaultValue="false"
+			android:key="photoUploadIncludingVideos"
+			android:title="@string/screen_settings_section_auto_photo_upload_including_videos" />
+
 		<Preference
 			android:key="photoUploadVault"
 			android:title="@string/screen_settings_section_auto_photo_upload_vault">

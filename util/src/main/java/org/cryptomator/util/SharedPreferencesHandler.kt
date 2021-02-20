@@ -148,6 +148,10 @@ constructor(context: Context) : SharedPreferences.OnSharedPreferenceChangeListen
 		defaultSharedPreferences.setValue(PHOTO_UPLOAD_FOLDER, location)
 	}
 
+	fun autoPhotoUploadIncludingVideos(): Boolean {
+		return defaultSharedPreferences.getValue(PHOTO_UPLOAD_INCLUDING_VIDEOS, false)
+	}
+
 	fun useLruCache(): Boolean {
 		return defaultSharedPreferences.getValue(USE_LRU_CACHE, false)
 	}
@@ -243,6 +247,7 @@ constructor(context: Context) : SharedPreferences.OnSharedPreferenceChangeListen
 		const val PHOTO_UPLOAD_ONLY_USING_WIFI = "photoUploadOnlyUsingWifi"
 		const val PHOTO_UPLOAD_VAULT = "photoUploadVault"
 		const val PHOTO_UPLOAD_FOLDER = "photoUploadFolder"
+		const val PHOTO_UPLOAD_INCLUDING_VIDEOS = "photoUploadIncludingVideos"
 		const val USE_LRU_CACHE = "lruCache"
 		const val LRU_CACHE_SIZE = "lruCacheSize"
 		const val MAIL = "mail"
