@@ -103,7 +103,7 @@ class CloudConnectionListPresenter @Inject constructor( //
 	}
 
 	private fun releaseUriPermissionForLocalStorageCloud(cloudModel: LocalStorageModel) {
-		if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT && (cloudModel.toCloud() as LocalStorageCloud).rootUri() != null) {
+		if ((cloudModel.toCloud() as LocalStorageCloud).rootUri() != null) {
 			releaseUriPermission(cloudModel.uri())
 		}
 	}

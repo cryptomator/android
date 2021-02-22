@@ -69,7 +69,7 @@ class GoogleDriveImpl {
 	}
 
 	private Drive client() {
-		return new GoogleDriveClientFactory(context) //
+		return new GoogleDriveClientFactory(context, sharedPreferencesHandler) //
 				.getClient(googleDriveCloud.accessToken());
 	}
 

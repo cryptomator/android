@@ -2,6 +2,7 @@ package org.cryptomator.presentation.ui.fragment
 
 import android.util.TypedValue
 import android.view.View
+import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
 import kotlinx.android.synthetic.main.fragment_vault_list.*
 import kotlinx.android.synthetic.main.recycler_view_layout.*
@@ -11,6 +12,7 @@ import org.cryptomator.presentation.R
 import org.cryptomator.presentation.model.VaultModel
 import org.cryptomator.presentation.presenter.VaultListPresenter
 import org.cryptomator.presentation.ui.adapter.VaultsAdapter
+import org.cryptomator.presentation.ui.adapter.VaultsMoveListener
 import javax.inject.Inject
 
 @Fragment(R.layout.fragment_vault_list)
@@ -22,7 +24,9 @@ class VaultListFragment : BaseFragment() {
 	@Inject
 	lateinit var vaultsAdapter: VaultsAdapter
 
-	private val onItemClickListener = object : VaultsAdapter.OnItemClickListener {
+	lateinit var touchHelper: ItemTouchHelper
+
+	private val onItemClickListener = object : VaultsAdapter.OnItemInteractionListener {
 		override fun onVaultClicked(vaultModel: VaultModel) {
 			vaultListPresenter.onVaultClicked(vaultModel)
 		}
@@ -34,7 +38,16 @@ class VaultListFragment : BaseFragment() {
 		override fun onVaultLockClicked(vaultModel: VaultModel) {
 			vaultListPresenter.onVaultLockClicked(vaultModel)
 		}
+
+		override fun onRowMoved(fromPosition: Int, toPosition: Int) {
+			vaultListPresenter.onRowMoved(fromPosition, toPosition)
+		}
+
+		override fun onVaultMoved(fromPosition: Int, toPosition: Int) {
+			vaultListPresenter.onVaultMoved(fromPosition, toPosition)
+		}
 	}
+
 
 	override fun setupView() {
 		setupRecyclerView()
@@ -48,6 +61,9 @@ class VaultListFragment : BaseFragment() {
 
 	private fun setupRecyclerView() {
 		vaultsAdapter.setCallback(onItemClickListener)
+		touchHelper = ItemTouchHelper(VaultsMoveListener(vaultsAdapter))
+		touchHelper.attachToRecyclerView(recyclerView)
+
 		recyclerView.layoutManager = LinearLayoutManager(context())
 		recyclerView.adapter = vaultsAdapter
 		recyclerView.setHasFixedSize(true) // smoother scrolling
@@ -81,6 +97,15 @@ class VaultListFragment : BaseFragment() {
 
 	fun addOrUpdateVault(vaultModel: VaultModel?) {
 		vaultsAdapter.addOrUpdateVault(vaultModel)
+	}
+
+	fun vaultMoved(vaults: List<VaultModel>) {
+		vaultsAdapter.clear()
+		vaultsAdapter.addAll(vaults)
+	}
+
+	fun rowMoved(fromPosition: Int, toPosition: Int) {
+		vaultsAdapter.notifyItemMoved(fromPosition, toPosition)
 	}
 
 	fun rootView(): View = coordinatorLayout

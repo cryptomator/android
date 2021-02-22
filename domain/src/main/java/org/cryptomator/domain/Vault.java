@@ -19,7 +19,8 @@ public class Vault implements Serializable {
 				.withPath(vault.getPath()) //
 				.withUnlocked(vault.isUnlocked()) //
 				.withSavedPassword(vault.getPassword()) //
-				.withVersion(vault.getVersion());
+				.withVersion(vault.getVersion()) //
+				.withPosition(vault.getPosition());
 	}
 
 	private final Long id;
@@ -30,6 +31,7 @@ public class Vault implements Serializable {
 	private final boolean unlocked;
 	private final String password;
 	private final int version;
+	private final int position;
 
 	private Vault(Builder builder) {
 		this.id = builder.id;
@@ -40,6 +42,7 @@ public class Vault implements Serializable {
 		this.cloudType = builder.cloudType;
 		this.password = builder.password;
 		this.version = builder.version;
+		this.position = builder.position;
 	}
 
 	public Long getId() {
@@ -74,6 +77,10 @@ public class Vault implements Serializable {
 		return version;
 	}
 
+	public int getPosition() {
+		return position;
+	}
+
 	public static class Builder {
 
 		private Long id = NOT_SET;
@@ -84,6 +91,7 @@ public class Vault implements Serializable {
 		private boolean unlocked;
 		private String password;
 		private int version = -1;
+		private int position = -1;
 
 		private Builder() {
 		}
@@ -154,6 +162,11 @@ public class Vault implements Serializable {
 			return this;
 		}
 
+		public Builder withPosition(int position) {
+			this.position = position;
+			return this;
+		}
+
 		public Vault build() {
 			validate();
 			return new Vault(this);
@@ -171,6 +184,9 @@ public class Vault implements Serializable {
 			}
 			if (cloudType == null) {
 				throw new IllegalStateException("cloudtype must be set");
+			}
+			if (position == -1) {
+				throw new IllegalStateException("position must be set");
 			}
 		}
 	}

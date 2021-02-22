@@ -18,27 +18,26 @@ ext {
 	// support lib
 	androidSupportAnnotationsVersion = '1.1.0'
 	androidSupportAppcompatVersion = '1.2.0'
-	// check https://stackoverflow.com/questions/41025200/android-view-inflateexception-error-inflating-class-android-webkit-webview/57968071#57968071 !!!!!!
-	androidSupportDesignVersion = '1.2.1'
+	androidSupportDesignVersion = '1.3.0'
 
 	// app frameworks and utilities
 
-	rxJavaVersion = '2.2.20'
+	rxJavaVersion = '2.2.21'
 	rxAndroidVersion = '2.1.1'
 	rxBindingVersion = '2.2.0'
 
-	daggerVersion = '2.31.2'
+	daggerVersion = '2.32'
 
 	gsonVersion = '2.8.6'
 
-	okHttpVersion = '4.9.0'
+	okHttpVersion = '4.9.1'
 	okHttpDigestVersion = '2.5'
 
 	velocityVersion = '1.7'
 
 	timberVersion = '4.7.1'
 
-	zxcvbnVersion = '1.3.3'
+	zxcvbnVersion = '1.3.6'
 
 	scaleImageViewVersion = '3.10.0'
 
@@ -58,7 +57,7 @@ ext {
 	googlePlayServicesVersion = '19.0.0'
 	googleClientVersion = '1.31.2'
 
-	msgraphVersion = '2.5.0'
+	msgraphVersion = '2.7.1'
 	msaAuthVersion = '0.10.0'
 
 	commonsCodecVersion = '1.15'
@@ -67,7 +66,7 @@ ext {
 
 	// testing dependencies
 
-	jUnitVersion = '5.7.0'
+	jUnitVersion = '5.7.1'
 	jUnit4Version = '4.13.1'
 	assertJVersion = '1.7.1'
 	mockitoVersion = '3.7.7'
@@ -82,13 +81,13 @@ ext {
 	uiautomatorVersion = '2.2.0'
 
 	androidxCoreVersion = '1.3.2'
-	androidxFragmentVersion = '1.2.5'
+	androidxFragmentVersion = '1.3.0'
 	androidxViewpagerVersion = '1.0.0'
 	androidxSwiperefreshVersion = '1.1.0'
 	androidxPreferenceVersion = '1.0.0' // 1.1.0 and 1.1.2 does have a bug with the text size
 	androidxRecyclerViewVersion = '1.1.0'
 	androidxDocumentfileVersion = '1.0.1'
-	androidxBiometricVersion = '1.0.1'
+	androidxBiometricVersion = '1.1.0'
 	androidxTestCoreVersion = '1.3.0'
 
 	jsonWebTokenApiVersion = '0.11.2'

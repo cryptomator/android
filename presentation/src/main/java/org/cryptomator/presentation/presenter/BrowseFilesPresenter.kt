@@ -673,22 +673,11 @@ class BrowseFilesPresenter @Inject constructor( //
 	}
 
 	fun onExportFileClicked(cloudFile: CloudFileModel, trigger: ExportOperation) {
-		if (Build.VERSION.SDK_INT < Build.VERSION_CODES.KITKAT) {
-			exportFileToDownloadDirectory(cloudFile, trigger)
-		} else {
-			exportFileToUserSelectedLocation(cloudFile, trigger)
-		}
+		exportFileToUserSelectedLocation(cloudFile, trigger)
 	}
 
 	fun onExportNodesClicked(selectedCloudFiles: ArrayList<CloudNodeModel<*>>, trigger: ExportOperation) {
-		if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-			exportNodesToUserSelectedLocation(selectedCloudFiles, trigger)
-		}
-	}
-
-	private fun exportFileToDownloadDirectory(fileToExport: CloudFileModel, exportOperation: ExportOperation) {
-		requestPermissions(PermissionsResultCallbacks.exportFileToDownloadDirectory(fileToExport, exportOperation),  //
-				R.string.permission_message_export_file, Manifest.permission.WRITE_EXTERNAL_STORAGE)
+		exportNodesToUserSelectedLocation(selectedCloudFiles, trigger)
 	}
 
 	@Callback

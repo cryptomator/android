@@ -7,6 +7,7 @@ import org.cryptomator.domain.CloudFolder;
 import org.cryptomator.domain.Vault;
 import org.cryptomator.domain.di.PerView;
 import org.cryptomator.domain.usecases.cloud.GetRootFolderUseCase;
+import org.cryptomator.domain.usecases.vault.GetVaultListUseCase;
 import org.cryptomator.domain.usecases.vault.SaveVaultUseCase;
 import org.cryptomator.generator.Callback;
 import org.cryptomator.presentation.R;
@@ -18,6 +19,7 @@ import org.cryptomator.presentation.model.mappers.CloudModelMapper;
 import org.cryptomator.presentation.presenter.VaultListPresenter;
 
 import java.io.Serializable;
+import java.util.List;
 
 import javax.inject.Inject;
 
@@ -30,6 +32,7 @@ import static org.cryptomator.presentation.intent.Intents.chooseCloudServiceInte
 public class AddExistingVaultWorkflow extends Workflow<AddExistingVaultWorkflow.State> {
 
 	private final SaveVaultUseCase saveVaultUseCase;
+	private final GetVaultListUseCase getVaultListUseCase;
 	private final GetRootFolderUseCase getRootFolderUseCase;
 	private final CloudModelMapper cloudModelMapper;
 	private final AuthenticationExceptionHandler authenticationExceptionHandler;
@@ -39,12 +42,14 @@ public class AddExistingVaultWorkflow extends Workflow<AddExistingVaultWorkflow.
 	public AddExistingVaultWorkflow( //
 			Context context, //
 			SaveVaultUseCase saveVaultUseCase, //
+			GetVaultListUseCase getVaultListUseCase, //
 			GetRootFolderUseCase getRootFolderUseCase, //
 			CloudModelMapper cloudModelMapper, //
 			AuthenticationExceptionHandler authenticationExceptionHandler) {
 		super(new State());
 		this.context = context;
 		this.saveVaultUseCase = saveVaultUseCase;
+		this.getVaultListUseCase = getVaultListUseCase;
 		this.getRootFolderUseCase = getRootFolderUseCase;
 		this.cloudModelMapper = cloudModelMapper;
 		this.authenticationExceptionHandler = authenticationExceptionHandler;
@@ -117,17 +122,23 @@ public class AddExistingVaultWorkflow extends Workflow<AddExistingVaultWorkflow.
 	@Override
 	void completed() {
 		presenter().getView().showProgress(ProgressModel.GENERIC);
-		saveVaultUseCase//
-				.withVault(aVault() //
-						.withNamePathAndCloudFrom(state().masterkeyFile.getParent()) //
-						.thatIsNew() //
-						.build()) //
-				.run(presenter().new ProgressCompletingResultHandler<Vault>() {
-					@Override
-					public void onSuccess(Vault vault) {
-						((VaultListPresenter) presenter()).onAddOrCreateVaultCompleted(vault);
-					}
-				});
+		getVaultListUseCase.run(presenter().new ProgressCompletingResultHandler<List<Vault>>() {
+			@Override
+			public void onSuccess(List<Vault> vaults) {
+				saveVaultUseCase//
+						.withVault(aVault() //
+								.withNamePathAndCloudFrom(state().masterkeyFile.getParent()) //
+								.withPosition(vaults.size()) //
+								.thatIsNew() //
+								.build()) //
+						.run(presenter().new ProgressCompletingResultHandler<Vault>() {
+							@Override
+							public void onSuccess(Vault vault) {
+								((VaultListPresenter) presenter()).onAddOrCreateVaultCompleted(vault);
+							}
+						});
+			}
+		});
 	}
 
 	public static class State implements Serializable {
