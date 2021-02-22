@@ -38,6 +38,8 @@
 	<string name="snack_bar_action_title_search_previous">Vorheriges</string>
 	<string name="snack_bar_action_title_search_next">Weiter</string>
 	<string name="snack_bar_action_title_sort">Sortieren</string>
+	<string name="snack_bar_action_title_sort_az">A - Z</string>
+	<string name="snack_bar_action_title_sort_za">Z - A</string>
 	<string name="snack_bar_action_title_sort_newest">Neueste zuerst</string>
 	<string name="snack_bar_action_title_sort_oldest">Älteste zuerst</string>
 	<string name="snack_bar_action_title_sort_biggest">Größte zuerst</string>
@@ -99,7 +101,7 @@
 	<string name="screen_share_files_section_location">Speicherort</string>
 	<string name="screen_share_files_save_button_text">Speichern</string>
 	<string name="screen_share_files_msg_success">Dateien verschlüsselt</string>
-	<string name="screen_share_files_new_text_file">@string/dialog_file_name_placeholder</string>
+	<string name="screen_share_files_new_text_file">text.txt</string>
 	<!-- ## screen: choose cloud service -->
 	<string name="screen_choose_cloud_service_title">Cloud-Dienst</string>
 	<string name="screen_choose_cloud_service_subtitle_add_existing_vault">Neuen Tresor anlegen</string>
@@ -219,7 +221,7 @@
 	<string name="dialog_unsaved_changes_message">Möchten Sie wirklich beenden, ohne zu speichern?</string>
 	<string name="dialog_unsaved_changes_discard">Verwerfen</string>
 	<string name="dialog_unsaved_changes_save">@string/dialog_button_cancel</string>
-	<string name="dialog_file_name_placeholder">text.txt</string>
+	<string name="dialog_file_name_placeholder">@string/screen_share_files_new_text_file</string>
 	<string name="dialog_delete_vault_message">Sind Sie sicher, dass sie den Tresor entfernen wollen?</string>
 	<string name="dialog_delete_vault_hint">Dieser Vorgang wird den Tresor nur aus dieser Liste entfernen und nicht tatsächlich löschen.</string>
 	<string name="dialog_upload_file_title">Lade hoch&#8230;</string>
@@ -341,7 +343,6 @@
 	<string name="dialog_settings_update_check_interval_title">Intervall der Aktualisierungsprüfung</string>
 	<string name="screen_settings_check_updates">Nach Aktualisierungen suchen</string>
 	<string name="screen_settings_last_check_updates">Letzte Ausführung %1$s</string>
-	<string name="screen_settings_last_check_updates_never">@string/lock_timeout_never</string>
 	<string name="dialog_cache_size_title">Zwischenspeichergröße pro Cloud</string>
 	<!-- lock timeout names -->
 	<string name="lock_timeout_instant">Sofort</string>
@@ -349,7 +350,6 @@
 	<string name="lock_timeout_2m">2 Minuten</string>
 	<string name="lock_timeout_5m">5 Minuten</string>
 	<string name="lock_timeout_10m">10 Minuten</string>
-	<string name="lock_timeout_never">Nie</string>
 	<!-- cache size names -->
 	<!-- screen scheme mode names -->
 	<string name="screen_settings_style_mode">Design</string>
@@ -360,5 +360,4 @@
 	<string name="update_interval_1d">Einmal am Tag</string>
 	<string name="update_interval_1w">Einmal pro Woche</string>
 	<string name="update_interval_1m">Einmal im Monat</string>
-	<string name="update_interval_never">@string/lock_timeout_never</string>
 </resources>
