@@ -1,4 +1,2 @@
-- Added possibility to sort vault list
-- Added logging to Google drive cloud
-- Enhanced behavior when OneDrive password changed
-- Polished CryptoBot icons
+- Added possibility to upload newly created videos via automatic upload as well
+- Added possibility to cancel unlocking a vault
