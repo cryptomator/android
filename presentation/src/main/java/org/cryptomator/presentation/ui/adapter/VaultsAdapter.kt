@@ -3,6 +3,7 @@ package org.cryptomator.presentation.ui.adapter
 import android.view.View
 import org.cryptomator.presentation.R
 import org.cryptomator.presentation.model.VaultModel
+import org.cryptomator.presentation.model.comparator.VaultPositionComparator
 import org.cryptomator.presentation.ui.adapter.VaultsAdapter.VaultViewHolder
 import javax.inject.Inject
 import kotlinx.android.synthetic.main.item_vault.view.cloudImage
@@ -12,7 +13,7 @@ import kotlinx.android.synthetic.main.item_vault.view.vaultName
 import kotlinx.android.synthetic.main.item_vault.view.vaultPath
 
 class VaultsAdapter @Inject
-internal constructor() : RecyclerViewBaseAdapter<VaultModel, VaultsAdapter.OnItemInteractionListener, VaultViewHolder>(VaultModelComparator()), VaultsMoveListener.Listener {
+internal constructor() : RecyclerViewBaseAdapter<VaultModel, VaultsAdapter.OnItemInteractionListener, VaultViewHolder>(VaultPositionComparator()), VaultsMoveListener.Listener {
 
 	interface OnItemInteractionListener {
 
@@ -81,12 +82,5 @@ internal constructor() : RecyclerViewBaseAdapter<VaultModel, VaultsAdapter.OnIte
 
 	override fun onRowMoved(fromPosition: Int, toPosition: Int) {
 		callback.onRowMoved(fromPosition, toPosition)
-	}
-
-	internal class VaultModelComparator : java.util.Comparator<VaultModel> {
-
-		override fun compare(o1: VaultModel, o2: VaultModel): Int {
-			return o1.position - o2.position
-		}
 	}
 }

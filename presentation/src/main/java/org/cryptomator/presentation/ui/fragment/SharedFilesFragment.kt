@@ -6,6 +6,7 @@ import org.cryptomator.presentation.R
 import org.cryptomator.presentation.model.CloudFolderModel
 import org.cryptomator.presentation.model.SharedFileModel
 import org.cryptomator.presentation.model.VaultModel
+import org.cryptomator.presentation.model.comparator.VaultPositionComparator
 import org.cryptomator.presentation.presenter.SharedFilesPresenter
 import org.cryptomator.presentation.ui.adapter.SharedFilesAdapter
 import org.cryptomator.presentation.ui.adapter.SharedFilesAdapter.Callback
@@ -70,9 +71,10 @@ class SharedFilesFragment : BaseFragment() {
 	}
 
 	fun displayVaults(vaults: List<VaultModel>?) {
-		if (vaults?.isNotEmpty() == true) {
-			presenter.selectedVault?.let { presenter.selectedVault = vaults[vaults.indexOf(it)] }
-			val preselectedVault = presenter.selectedVault ?: vaults[0]
+		val sortedVaults = vaults?.sortedWith(VaultPositionComparator())
+		if (sortedVaults?.isNotEmpty() == true) {
+			presenter.selectedVault?.let { presenter.selectedVault = sortedVaults[sortedVaults.indexOf(it)] }
+			val preselectedVault = presenter.selectedVault ?: sortedVaults[0]
 			locationsAdapter.setPreselectedVault(preselectedVault)
 			presenter.onVaultSelected(preselectedVault)
 		}

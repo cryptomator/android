@@ -3,6 +3,7 @@ package org.cryptomator.presentation.ui.adapter
 import android.view.View
 import org.cryptomator.presentation.R
 import org.cryptomator.presentation.model.VaultModel
+import org.cryptomator.presentation.model.comparator.VaultPositionComparator
 import org.cryptomator.presentation.ui.adapter.SharedLocationsAdapter.VaultViewHolder
 import javax.inject.Inject
 import kotlinx.android.synthetic.main.item_shareable_location.view.chooseFolderLocation
@@ -12,7 +13,7 @@ import kotlinx.android.synthetic.main.item_shareable_location.view.selectedVault
 import kotlinx.android.synthetic.main.item_shareable_location.view.vaultName
 
 class SharedLocationsAdapter @Inject
-constructor() : RecyclerViewBaseAdapter<VaultModel, SharedLocationsAdapter.Callback, VaultViewHolder>() {
+constructor() : RecyclerViewBaseAdapter<VaultModel, SharedLocationsAdapter.Callback, VaultViewHolder>(VaultPositionComparator()) {
 
 	private var selectedVault: VaultModel? = null
 	private var selectedLocation: String? = null
