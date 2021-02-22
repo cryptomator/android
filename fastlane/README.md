@@ -41,6 +41,11 @@ Deploy new version to server
 fastlane android deployToFDroid
 ```
 Deploy new version to F-Droid
+### android createGitHubDraftRelease
+```
+fastlane android createGitHubDraftRelease
+```
+Create GitHub draft release
 
 ----
 

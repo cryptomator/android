@@ -13,6 +13,8 @@ version = get_version_name(
   	            ext_constant_name:"androidVersionName")
 version = version.delete "'"
 
+release_note_path_en = "metadata/android/en-US/changelogs/default.txt"
+
 platform :android do |options|
 
   desc "Run all the tests"
@@ -22,14 +24,13 @@ platform :android do |options|
 
   desc "Deploy new version to Google Play and APK Store options: beta:false (default)"
   lane :deploy do |options|
-    release_note_path_en = "metadata/android/en-US/changelogs/default.txt"
-
     # use english-change-log for french language too
     FileUtils.cp(release_note_path_en, "metadata/android/fr-FR/changelogs/default.txt")
 
     deployToPlaystore(beta:options[:beta])
     deployToServer(beta:options[:beta])
     deployToFDroid(beta:options[:beta])
+    createGitHubDraftRelease(beta:options[:beta])
 
     slack(
       default_payloads: [], # reduce the notification to the minimum
@@ -179,5 +180,35 @@ platform :android do |options|
     )
     
     FileUtils.cp(lane_context[SharedValues::GRADLE_APK_OUTPUT_PATH], "release/Cryptomator-#{version}_fdroid_signed.apk")
+  end
+
+  desc "Create GitHub draft release"
+  lane :createGitHubDraftRelease do |options|
+    target_branch = "main"
+    prerelease = false
+
+    if options[:beta]
+      target_branch = "release/#{version}"
+      prerelease = true
+    end
+
+    website_apk_sha256 = Digest::SHA256.hexdigest File.read "release/Cryptomator-#{version}_signed.apk"
+    fdroid_apk_sha256 = Digest::SHA256.hexdigest File.read "release/Cryptomator-#{version}_fdroid_signed.apk"
+
+    release_note = "## What's New\n\n" + File.read(release_note_path_en) + "\n\n---\n\nSHA256 Signature: `#{website_apk_sha256}`\nSHA256 Signature fdroid: `#{fdroid_apk_sha256}`\n"
+
+    puts release_note
+
+    github_release = set_github_release(
+      repository_name: "cryptomator/android",
+      api_token: ENV["GITHUB_PERSONAL_ACCESS_TOKEN"],
+      name: "#{version}",
+      tag_name: "#{version}",
+      description: release_note,
+      commitish: target_branch,
+      is_draft: true,
+      is_prerelease: prerelease,
+      upload_assets: ["fastlane/release/Cryptomator-#{version}_fdroid_signed.apk", "fastlane/release/Cryptomator-#{version}_signed.apk"]
+    )
   end
 end
