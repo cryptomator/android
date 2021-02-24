@@ -433,6 +433,8 @@
 	<string name="dialog_beta_confirmation_title">Beta release</string>
 	<string name="dialog_beta_confirmation">This is a beta release which introduces the support of vault format 7. Please make sure that you don\'t use your production vault for testing or have a good backup strategy.</string>
 
+	<string name="dialog_no_more_images_to_display">No more images to display&#8230;</string>
+
 	<string name="permission_snackbar_auth_local_vault">Cryptomator needs storage access to use local vaults</string>
 	<string name="permission_snackbar_auth_auto_upload">Cryptomator needs storage access to use auto photo upload</string>
 
