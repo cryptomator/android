@@ -142,6 +142,8 @@
 	<string name="screen_settings_activate_biometric_auth">Activer l\'authentification biométrique</string>
 	<string name="screen_settings_confirm_face_unlock">Confirmer le déverrouillage par reconnaissance faciale (si disponible)</string>
 	<string name="screen_settings_block_app_when_obscured">Bloquer l\'application lorsqu\'elle est masquée</string>
+	<string name="screen_settings_secure_screen">Bloquer les captures d\'écran</string>
+	<string name="screen_settings_secure_screen_summary">Empêcher la prise de capture d\'écran dans la liste des éléments récents et dans l\'application</string>
 	<string name="screen_settings_section_search">Recherche</string>
 	<string name="screen_settings_live_search">Recherche en direct</string>
 	<string name="screen_settings_glob_search">Recherche avec le modèle glob</string>
