@@ -199,10 +199,14 @@
 	<string name="screen_settings_activate_biometric_auth">Activate biometric authentication</string>
 	<string name="screen_settings_confirm_face_unlock">Confirm face unlock (if available)</string>
 	<string name="screen_settings_block_app_when_obscured">Block app when obscured</string>
-	<string name="screen_settings_secure_screen">Screen security</string>
+	<string name="screen_settings_block_app_when_obscured_summary">Block intercepting the input and displaying a false user interface</string>
+	<string name="screen_settings_secure_screen">Block screenshots</string>
+	<string name="screen_settings_secure_screen_summary">Block screenshots in the recents list and inside the app</string>
 	<string name="screen_settings_section_search">Search</string>
 	<string name="screen_settings_live_search">Live search</string>
+	<string name="screen_settings_live_search_summary">Update search results while entering the query</string>
 	<string name="screen_settings_glob_search">Search using glob pattern</string>
+	<string name="screen_settings_glob_search_summary">Use glob pattern matching like alice.*.jpg</string>
 
 	<string name="screen_settings_section_auto_lock">Automatic locking</string>
 	<string name="screen_settings_auto_lock_timeout">Lock after</string>
@@ -211,6 +215,7 @@
 	<string name="screen_settings_section_auto_photo_upload">Automatic photo upload</string>
 	<string name="screen_settings_section_auto_photo_upload_vault">Choose vault for upload</string>
 	<string name="screen_settings_section_auto_photo_upload_toggle">Activate</string>
+	<string name="screen_settings_section_auto_photo_upload_toggle_summary">Capture images in the background and once the selected vault is unlocked, start upload</string>
 	<string name="screen_settings_section_auto_photo_upload_only_wifi_toggle">Upload only using WIFI</string>
 	<string name="screen_settings_section_auto_photo_upload_including_videos">Upload videos</string>
 
@@ -239,10 +244,11 @@
 
 	<string name="screen_settings_section_version">Version</string>
 
-	<string name="screen_settings_keep_unlocked_while_editing_files">Keep vaults unlocked while editing files</string>
-
 	<string name="screen_settings_advanced_settings">Advanced Settings</string>
-	<string name="screen_settings_background_unlock_preparation_label">Background unlock preparations</string>
+	<string name="screen_settings_background_unlock_preparation_label">Accelerate unlock</string>
+	<string name="screen_settings_background_unlock_preparation_label_summary">Download key material in the background while prompted to enter the password or biometric auth</string>
+	<string name="screen_settings_keep_unlocked_while_editing_files">Keep unlocked</string>
+	<string name="screen_settings_keep_unlocked_while_editing_files_summary">Keep vaults unlocked while editing files</string>
 
 	<!-- ## screen: cloud settings -->
 	<string name="screen_cloud_settings_title">@string/screen_settings_cloud_settings_label</string>
@@ -502,6 +508,7 @@
 
 	<string name="screen_settings_lru_cache">Cache</string>
 	<string name="screen_settings_lru_cache_toggle">@string/screen_settings_section_auto_photo_upload_toggle</string>
+	<string name="screen_settings_lru_cache_toggle_summary">Cache recently accessed files encrypted locally on the device for later reuse when reopened</string>
 	<string name="screen_settings_lru_cache_size">Total cache size</string>
 	<string name="screen_settings_clear_lru_cache_size">Clear Cache</string>
 	<string name="screen_settings_lru_cache_changed__restart_toast">Changes will be applied on next app restart</string>

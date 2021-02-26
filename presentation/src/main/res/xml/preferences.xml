@@ -39,17 +39,14 @@
 		<androidx.preference.SwitchPreferenceCompat
 			android:defaultValue="true"
 			android:key="disableAppWhenObscured"
+			android:summary="@string/screen_settings_block_app_when_obscured_summary"
 			android:title="@string/screen_settings_block_app_when_obscured" />
 
 		<androidx.preference.SwitchPreferenceCompat
 			android:defaultValue="true"
 			android:key="secureScreen"
+			android:summary="@string/screen_settings_secure_screen_summary"
 			android:title="@string/screen_settings_secure_screen" />
-
-		<androidx.preference.SwitchPreferenceCompat
-			android:defaultValue="false"
-			android:key="keepUnlockedWhileEditing"
-			android:title="@string/screen_settings_keep_unlocked_while_editing_files" />
 
 		<ListPreference
 			android:defaultValue="MODE_NIGHT_FOLLOW_SYSTEM"
@@ -67,11 +64,13 @@
 		<androidx.preference.SwitchPreferenceCompat
 			android:defaultValue="false"
 			android:key="liveSearch"
+			android:summary="@string/screen_settings_live_search_summary"
 			android:title="@string/screen_settings_live_search" />
 
 		<androidx.preference.SwitchPreferenceCompat
 			android:defaultValue="false"
 			android:key="globSearch"
+			android:summary="@string/screen_settings_glob_search_summary"
 			android:title="@string/screen_settings_glob_search" />
 
 	</PreferenceCategory>
@@ -103,6 +102,7 @@
 		<androidx.preference.SwitchPreferenceCompat
 			android:defaultValue="false"
 			android:key="photoUpload"
+			android:summary="@string/screen_settings_section_auto_photo_upload_toggle_summary"
 			android:title="@string/screen_settings_section_auto_photo_upload_toggle" />
 
 		<androidx.preference.SwitchPreferenceCompat
@@ -132,6 +132,7 @@
 		<androidx.preference.SwitchPreferenceCompat
 			android:defaultValue="true"
 			android:key="lruCache"
+			android:summary="@string/screen_settings_lru_cache_toggle_summary"
 			android:title="@string/screen_settings_lru_cache_toggle" />
 
 		<ListPreference
@@ -177,7 +178,14 @@
 		<androidx.preference.SwitchPreferenceCompat
 			android:defaultValue="true"
 			android:key="backgroundUnlockPreparation"
+			android:summary="@string/screen_settings_background_unlock_preparation_label_summary"
 			android:title="@string/screen_settings_background_unlock_preparation_label" />
+
+		<androidx.preference.SwitchPreferenceCompat
+			android:defaultValue="false"
+			android:key="keepUnlockedWhileEditing"
+			android:summary="@string/screen_settings_keep_unlocked_while_editing_files_summary"
+			android:title="@string/screen_settings_keep_unlocked_while_editing_files" />
 
 	</PreferenceCategory>
 
