@@ -142,7 +142,6 @@
 	<string name="screen_settings_activate_biometric_auth">Activer l\'authentification biométrique</string>
 	<string name="screen_settings_confirm_face_unlock">Confirmer le déverrouillage par reconnaissance faciale (si disponible)</string>
 	<string name="screen_settings_block_app_when_obscured">Bloquer l\'application lorsqu\'elle est masquée</string>
-	<string name="screen_settings_secure_screen">Sécurité de l\'écran</string>
 	<string name="screen_settings_section_search">Recherche</string>
 	<string name="screen_settings_live_search">Recherche en direct</string>
 	<string name="screen_settings_glob_search">Recherche avec le modèle glob</string>
@@ -168,9 +167,7 @@
 	<string name="screen_settings_error_report_failed">L\'envoi a échoué</string>
 	<string name="screen_settings_security_label">Conseils de sécurité</string>
 	<string name="screen_settings_section_version">Version</string>
-	<string name="screen_settings_keep_unlocked_while_editing_files">Gardez les coffres déverrouillés lors de la modification des fichiers</string>
 	<string name="screen_settings_advanced_settings">Paramètres Avancés</string>
-	<string name="screen_settings_background_unlock_preparation_label">Préparations du déverrouillage en arrière-plan</string>
 	<!-- ## screen: cloud settings -->
 	<string name="screen_cloud_settings_webdav_connections">Connexions WebDAV</string>
 	<string name="screen_cloud_settings_local_storage_locations">Emplacements du stockage local</string>
