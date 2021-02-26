@@ -142,17 +142,21 @@
 	<string name="screen_settings_activate_biometric_auth">Activer l\'authentification biométrique</string>
 	<string name="screen_settings_confirm_face_unlock">Confirmer le déverrouillage par reconnaissance faciale (si disponible)</string>
 	<string name="screen_settings_block_app_when_obscured">Bloquer l\'application lorsqu\'elle est masquée</string>
+	<string name="screen_settings_block_app_when_obscured_summary">Bloquer l\'interception de l\'entrée et l\'affichage d\'une fausse interface utilisateur</string>
 	<string name="screen_settings_secure_screen">Bloquer les captures d\'écran</string>
 	<string name="screen_settings_secure_screen_summary">Empêcher la prise de capture d\'écran dans la liste des éléments récents et dans l\'application</string>
 	<string name="screen_settings_section_search">Recherche</string>
 	<string name="screen_settings_live_search">Recherche en direct</string>
+	<string name="screen_settings_live_search_summary">Mettre à jour les résultats de la recherche pendant la saisie de la requête</string>
 	<string name="screen_settings_glob_search">Recherche avec le modèle glob</string>
+	<string name="screen_settings_glob_search_summary">Utilisez le modèle de correspondance glob comme alice.*.jpg</string>
 	<string name="screen_settings_section_auto_lock">Verrouillage automatique</string>
 	<string name="screen_settings_auto_lock_timeout">Verrouillage après</string>
 	<string name="screen_settings_auto_lock_on_screen_lock">Lorsque l\'écran est éteint</string>
 	<string name="screen_settings_section_auto_photo_upload">Téléversement automatique de photo</string>
 	<string name="screen_settings_section_auto_photo_upload_vault">Choisir un coffre-fort pour le téléversement</string>
 	<string name="screen_settings_section_auto_photo_upload_toggle">Activer</string>
+	<string name="screen_settings_section_auto_photo_upload_toggle_summary">Capturez les images en arrière-plan et une fois que le coffre-fort sélectionné est déverrouillé, lancez le téléversement</string>
 	<string name="screen_settings_section_auto_photo_upload_only_wifi_toggle">Téléverser sur réseau WIFI uniquement</string>
 	<string name="screen_settings_section_auto_photo_upload_including_videos">Téléversement des vidéos</string>
 	<string name="screen_settings_auto_photo_upload_title">Enregistrer les fichiers téléverser automatiquement dans&#8230;</string>
@@ -170,6 +174,10 @@
 	<string name="screen_settings_security_label">Conseils de sécurité</string>
 	<string name="screen_settings_section_version">Version</string>
 	<string name="screen_settings_advanced_settings">Paramètres Avancés</string>
+	<string name="screen_settings_background_unlock_preparation_label">Accélérer le déverrouillage</string>
+	<string name="screen_settings_background_unlock_preparation_label_summary">Téléchargez clé matériel en arrière-plan lorsque vous êtes invité à entrer le mot de passe ou l\'authentification biométrique</string>
+	<string name="screen_settings_keep_unlocked_while_editing_files">Maintenir deverouillé</string>
+	<string name="screen_settings_keep_unlocked_while_editing_files_summary">Gardez les coffres forts déverrouillées pendant l\'édition des fichiers</string>
 	<!-- ## screen: cloud settings -->
 	<string name="screen_cloud_settings_webdav_connections">Connexions WebDAV</string>
 	<string name="screen_cloud_settings_local_storage_locations">Emplacements du stockage local</string>
@@ -293,6 +301,7 @@
 	<string name="dialog_no_dir_file_message">Le dossier cloud \'%1$s\' n\'a pas de fichier de répertoire. Il se peut que le dossier ait été créé sur un autre appareil et qu\'il n\'ait pas encore été entièrement synchronisé avec le cloud. Veuillez vérifier dans votre cloud si le fichier suivant existe: \n%2$s</string>
 	<string name="dialog_beta_confirmation_title">Version bêta</string>
 	<string name="dialog_beta_confirmation">Il s\'agit d\'une version bêta qui introduit la prise en charge du format de coffre-fort vault 7. Veuillez vous assurer que vous n\'utilisez pas votre coffre-fort principal pour les tests ou que vous disposez d\'une bonne stratégie de sauvegarde.</string>
+	<string name="dialog_no_more_images_to_display">Plus d\'images à afficher&#8230;</string>
 	<string name="permission_snackbar_auth_local_vault">Cryptomator a besoin de l\'accès au stockage pour utiliser les coffres locaux</string>
 	<string name="permission_snackbar_auth_auto_upload">Cryptomator a besoin de l\'accès au stockage pour effectuer le téléversement automatique de photos</string>
 	<!-- # error reports -->
@@ -341,6 +350,7 @@
 	<string name="notification_open_writable_file_message">Le coffre-fort reste déverrouillé jusqu\'à la fin des modifications</string>
 	<string name="notification_update_check_finished_latest">Dernière version installée</string>
 	<string name="screen_settings_lru_cache">Cache</string>
+	<string name="screen_settings_lru_cache_toggle_summary">Mettre en cache les fichiers récemment consultés chiffrés localement sur l\'appareil pour une réutilisation lors d\'une réouverture ultérieure</string>
 	<string name="screen_settings_lru_cache_size">Taille totale du cache</string>
 	<string name="screen_settings_clear_lru_cache_size">Vider le cache</string>
 	<string name="screen_settings_lru_cache_changed__restart_toast">Les changements seront appliqués lors du prochain démarrage de l\'application</string>
