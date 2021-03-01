@@ -1,0 +1,14 @@
+Categories:
+  - Internet
+  - Security
+License: GPL-3.0
+AuthorName: Skymatic GmbH
+WebSite: https://cryptomator.org/
+SourceCode: https://github.com/cryptomator/android
+IssueTracker: https://github.com/cryptomator/android/issues
+Translation: https://crowdin.com/project/cryptomator-android
+Changelog: https://github.com/cryptomator/android/releases
+Donate: https://cryptomator.org/sponsors/
+
+AutoUpdateMode: None
+UpdateCheckMode: None
