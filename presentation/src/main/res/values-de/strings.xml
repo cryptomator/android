@@ -208,6 +208,7 @@
 	<string name="dialog_replace_title_multiple_files_exist">Dateien ersetzen?</string>
 	<string name="dialog_unable_to_share_title">Teilen nicht möglich</string>
 	<string name="dialog_unable_to_share_message">Sie haben keinen Tresor eingerichtet. Bitte legen Sie zuerst einen Tresor mit der Cryptomator-App an.</string>
+	<string name="dialog_unable_to_share_positive_button">OK</string>
 	<string name="dialog_unable_to_share_negative_button">Tresor erstellen</string>
 	<string name="dialog_filetype_not_supported_title">%1$s kann nicht geöffnet werden</string>
 	<string name="dialog_filetype_not_supported_message">Bitte installieren Sie eine App, die diese Datei öffnen kann. Möchten Sie die Datei stattdessen auf dem Gerät speichern?</string>
@@ -241,6 +242,7 @@
 	<string name="dialog_lock_vault">Sperren</string>
 	<string name="dialog_accept_ssl_certificate_title">Ungültiges SSL-Zertifikat</string>
 	<string name="dialog_accept_ssl_certificate_hint">Das SSL-Zertifikat ist ungültig. Wollen Sie diesem trotzdem vertrauen?</string>
+	<string name="dialog_accept_ssl_certificate_details">Details</string>
 	<string name="dialog_accept_ssl_certificate_security_checkbox">Dies könnte ein Sicherheitsrisiko sein. Ich weiß was ich tue.</string>
 	<string name="dialog_http_security_hint">Die Verwendung von HTTP ist unsicher. Wir empfehlen stattdessen die Nutzung von HTTPS. Wenn Sie sich der Risiken bewusst sind, können Sie mit HTTP fortfahren.</string>
 	<string name="dialog_http_security_checkbox">Zu HTTPS ändern</string>
