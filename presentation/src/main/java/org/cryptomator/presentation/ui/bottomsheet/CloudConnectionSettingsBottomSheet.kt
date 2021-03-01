@@ -2,18 +2,23 @@ package org.cryptomator.presentation.ui.bottomsheet
 
 import android.os.Bundle
 import android.view.View
-import kotlinx.android.synthetic.main.dialog_bottom_sheet_cloud_settings.*
 import org.cryptomator.generator.BottomSheet
 import org.cryptomator.presentation.R
 import org.cryptomator.presentation.model.CloudModel
 import org.cryptomator.presentation.model.CloudTypeModel
 import org.cryptomator.presentation.model.LocalStorageModel
 import org.cryptomator.presentation.model.WebDavCloudModel
+import kotlinx.android.synthetic.main.dialog_bottom_sheet_cloud_settings.change_cloud
+import kotlinx.android.synthetic.main.dialog_bottom_sheet_cloud_settings.delete_cloud
+import kotlinx.android.synthetic.main.dialog_bottom_sheet_cloud_settings.iv_cloud_image
+import kotlinx.android.synthetic.main.dialog_bottom_sheet_cloud_settings.tv_cloud_name
+import kotlinx.android.synthetic.main.dialog_bottom_sheet_cloud_settings.tv_cloud_subtext
 
 @BottomSheet(R.layout.dialog_bottom_sheet_cloud_settings)
 class CloudConnectionSettingsBottomSheet : BaseBottomSheet<CloudConnectionSettingsBottomSheet.Callback>() {
 
 	interface Callback {
+
 		fun onChangeCloudClicked(cloudModel: CloudModel)
 		fun onDeleteCloudClicked(cloudModel: CloudModel)
 	}
@@ -55,6 +60,7 @@ class CloudConnectionSettingsBottomSheet : BaseBottomSheet<CloudConnectionSettin
 	}
 
 	companion object {
+
 		private const val CLOUD_NODE_ARG = "cloudModel"
 		fun newInstance(cloudModel: CloudModel): CloudConnectionSettingsBottomSheet {
 			val dialog = CloudConnectionSettingsBottomSheet()

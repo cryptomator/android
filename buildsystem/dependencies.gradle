@@ -57,7 +57,7 @@ ext {
 	googlePlayServicesVersion = '19.0.0'
 	googleClientVersion = '1.31.2'
 
-	msgraphVersion = '2.7.1'
+	msgraphVersion = '2.8.0'
 	msaAuthVersion = '0.10.0'
 
 	commonsCodecVersion = '1.15'

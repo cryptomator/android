@@ -7,12 +7,12 @@ import android.text.TextWatcher
 import android.view.View
 import android.widget.Button
 import androidx.appcompat.app.AlertDialog
-import kotlinx.android.synthetic.main.dialog_enter_password.*
 import org.cryptomator.generator.Dialog
 import org.cryptomator.presentation.R
 import org.cryptomator.presentation.model.ProgressModel
 import org.cryptomator.presentation.model.ProgressStateModel
 import org.cryptomator.presentation.model.VaultModel
+import kotlinx.android.synthetic.main.dialog_enter_password.et_password
 
 
 @Dialog(R.layout.dialog_enter_password)
@@ -22,6 +22,7 @@ class EnterPasswordDialog : BaseProgressErrorDialog<EnterPasswordDialog.Callback
 	private var unlockButton: Button? = null
 
 	interface Callback {
+
 		fun onUnlockClick(vaultModel: VaultModel, password: String)
 		fun closeDialog()
 		fun onUnlockCanceled()
@@ -38,6 +39,7 @@ class EnterPasswordDialog : BaseProgressErrorDialog<EnterPasswordDialog.Callback
 				val vaultModel = vaultModel()
 				callback?.onUnlockClick(vaultModel, et_password.text.toString())
 				onWaitForResponse(et_password)
+				dialog.getButton(android.app.Dialog.BUTTON_NEGATIVE)?.isEnabled = true
 			}
 
 			it.setCanceledOnTouchOutside(false)
@@ -77,6 +79,7 @@ class EnterPasswordDialog : BaseProgressErrorDialog<EnterPasswordDialog.Callback
 	}
 
 	companion object {
+
 		private const val VAULT_ARG = "vault"
 		fun newInstance(vaultModel: VaultModel): EnterPasswordDialog {
 			val dialog = EnterPasswordDialog()

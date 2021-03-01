@@ -5,9 +5,9 @@ import android.os.Bundle
 import android.view.View
 import android.widget.Button
 import androidx.appcompat.app.AlertDialog
-import kotlinx.android.synthetic.main.dialog_enter_license.*
 import org.cryptomator.generator.Dialog
 import org.cryptomator.presentation.R
+import kotlinx.android.synthetic.main.dialog_enter_license.et_license
 
 @Dialog(R.layout.dialog_enter_license)
 class UpdateLicenseDialog : BaseProgressErrorDialog<UpdateLicenseDialog.Callback>() {
@@ -16,6 +16,7 @@ class UpdateLicenseDialog : BaseProgressErrorDialog<UpdateLicenseDialog.Callback
 	private var checkLicenseButton: Button? = null
 
 	interface Callback {
+
 		fun checkLicenseClicked(license: String?)
 		fun onCheckLicenseCanceled()
 	}
@@ -56,6 +57,7 @@ class UpdateLicenseDialog : BaseProgressErrorDialog<UpdateLicenseDialog.Callback
 	}
 
 	companion object {
+
 		private const val LICENSE_ARG = "LICENSE"
 		fun newInstance(license: String?): UpdateLicenseDialog {
 			val dialog = UpdateLicenseDialog()

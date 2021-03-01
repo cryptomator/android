@@ -6,6 +6,7 @@ import org.cryptomator.presentation.model.CloudFolderModel
 import javax.inject.Inject
 
 class CloudFolderModelMapper @Inject constructor() : ModelMapper<CloudFolderModel, CloudFolder>() {
+
 	override fun fromModel(model: CloudFolderModel): CloudFolder {
 		return model.toCloudNode()
 	}

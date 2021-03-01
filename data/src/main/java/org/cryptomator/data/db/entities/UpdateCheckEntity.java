@@ -38,16 +38,16 @@ public class UpdateCheckEntity extends DatabaseEntity {
 		return id;
 	}
 
+	public void setId(Long id) {
+		this.id = id;
+	}
+
 	public String getLicenseToken() {
 		return this.licenseToken;
 	}
 
 	public void setLicenseToken(String licenseToken) {
 		this.licenseToken = licenseToken;
-	}
-
-	public void setId(Long id) {
-		this.id = id;
 	}
 
 	public String getVersion() {

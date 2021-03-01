@@ -151,15 +151,15 @@ class PropfindResponseParser {
 		int ident = 0;
 		do {
 			switch (xmlPullParser.next()) {
-			case XmlPullParser.TEXT:
-				result.append(xmlPullParser.getText());
-				break;
-			case XmlPullParser.START_TAG:
-				ident++;
-				break;
-			case XmlPullParser.END_TAG:
-				ident--;
-				break;
+				case XmlPullParser.TEXT:
+					result.append(xmlPullParser.getText());
+					break;
+				case XmlPullParser.START_TAG:
+					ident++;
+					break;
+				case XmlPullParser.END_TAG:
+					ident--;
+					break;
 			}
 		} while (!endOfDocument() && ident >= 0);
 		return result.toString();

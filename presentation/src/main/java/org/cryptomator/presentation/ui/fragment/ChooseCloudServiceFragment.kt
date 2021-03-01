@@ -1,7 +1,6 @@
 package org.cryptomator.presentation.ui.fragment
 
 import androidx.recyclerview.widget.GridLayoutManager
-import kotlinx.android.synthetic.main.recycler_view_layout.*
 import org.cryptomator.generator.Fragment
 import org.cryptomator.presentation.R
 import org.cryptomator.presentation.model.CloudTypeModel
@@ -9,6 +8,7 @@ import org.cryptomator.presentation.presenter.ChooseCloudServicePresenter
 import org.cryptomator.presentation.ui.adapter.CloudsAdapter
 import org.cryptomator.presentation.ui.adapter.CloudsAdapter.OnItemClickListener
 import javax.inject.Inject
+import kotlinx.android.synthetic.main.recycler_view_layout.recyclerView
 
 @Fragment(R.layout.fragment_choose_cloud_service)
 class ChooseCloudServiceFragment : BaseFragment() {

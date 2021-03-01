@@ -1,14 +1,6 @@
 package org.cryptomator.data.cloud.webdav.network;
 
-import static java.util.Collections.sort;
-
-import java.io.ByteArrayInputStream;
-import java.io.IOException;
-import java.io.InputStream;
-import java.net.HttpURLConnection;
-import java.util.ArrayList;
-import java.util.Comparator;
-import java.util.List;
+import android.content.Context;
 
 import org.cryptomator.data.cloud.webdav.WebDavFolder;
 import org.cryptomator.data.cloud.webdav.WebDavNode;
@@ -27,7 +19,13 @@ import org.cryptomator.domain.exception.UnauthorizedException;
 import org.cryptomator.domain.usecases.cloud.DataSource;
 import org.xmlpull.v1.XmlPullParserException;
 
-import android.content.Context;
+import java.io.ByteArrayInputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.net.HttpURLConnection;
+import java.util.ArrayList;
+import java.util.Comparator;
+import java.util.List;
 
 import okhttp3.MediaType;
 import okhttp3.Request;
@@ -35,10 +33,13 @@ import okhttp3.RequestBody;
 import okhttp3.Response;
 import okhttp3.ResponseBody;
 
+import static java.util.Collections.sort;
+
 class WebDavClient {
 
 	private final Context context;
 	private final WebDavCompatibleHttpClient httpClient;
+	private final Comparator<PropfindEntryData> ASCENDING_BY_DEPTH = (o1, o2) -> o1.getDepth() - o2.getDepth();
 
 	WebDavClient(Context context, WebDavCompatibleHttpClient httpClient) {
 		this.context = context;
@@ -90,12 +91,12 @@ class WebDavClient {
 
 	private void checkPropfindExecutionSucceeded(int responseCode) throws BackendException {
 		switch (responseCode) {
-		case HttpURLConnection.HTTP_UNAUTHORIZED:
-			throw new UnauthorizedException();
-		case HttpURLConnection.HTTP_FORBIDDEN:
-			throw new ForbiddenException();
-		case HttpURLConnection.HTTP_NOT_FOUND:
-			throw new NotFoundException();
+			case HttpURLConnection.HTTP_UNAUTHORIZED:
+				throw new UnauthorizedException();
+			case HttpURLConnection.HTTP_FORBIDDEN:
+				throw new ForbiddenException();
+			case HttpURLConnection.HTTP_NOT_FOUND:
+				throw new NotFoundException();
 		}
 
 		if (responseCode < 199 || responseCode > 300) {
@@ -121,18 +122,18 @@ class WebDavClient {
 		try (Response response = httpClient.execute(builder)) {
 			if (!response.isSuccessful()) {
 				switch (response.code()) {
-				case HttpURLConnection.HTTP_UNAUTHORIZED:
-					throw new UnauthorizedException();
-				case HttpURLConnection.HTTP_FORBIDDEN:
-					throw new ForbiddenException();
-				case HttpURLConnection.HTTP_NOT_FOUND:
-					throw new NotFoundException();
-				case HttpURLConnection.HTTP_CONFLICT:
-					throw new ParentFolderDoesNotExistException();
-				case HttpURLConnection.HTTP_PRECON_FAILED:
-					throw new CloudNodeAlreadyExistsException(to);
-				default:
-					throw new FatalBackendException("Response code isn't between 200 and 300: " + response.code());
+					case HttpURLConnection.HTTP_UNAUTHORIZED:
+						throw new UnauthorizedException();
+					case HttpURLConnection.HTTP_FORBIDDEN:
+						throw new ForbiddenException();
+					case HttpURLConnection.HTTP_NOT_FOUND:
+						throw new NotFoundException();
+					case HttpURLConnection.HTTP_CONFLICT:
+						throw new ParentFolderDoesNotExistException();
+					case HttpURLConnection.HTTP_PRECON_FAILED:
+						throw new CloudNodeAlreadyExistsException(to);
+					default:
+						throw new FatalBackendException("Response code isn't between 200 and 300: " + response.code());
 				}
 			}
 		} catch (IOException e) {
@@ -156,16 +157,16 @@ class WebDavClient {
 				return response.body().byteStream();
 			} else {
 				switch (response.code()) {
-				case HttpURLConnection.HTTP_UNAUTHORIZED:
-					throw new UnauthorizedException();
-				case HttpURLConnection.HTTP_FORBIDDEN:
-					throw new ForbiddenException();
-				case HttpURLConnection.HTTP_NOT_FOUND:
-					throw new NotFoundException();
-				case 416: // UNSATISFIABLE_RANGE
-					return new ByteArrayInputStream(new byte[0]);
-				default:
-					throw new FatalBackendException("Response code isn't between 200 and 300: " + response.code());
+					case HttpURLConnection.HTTP_UNAUTHORIZED:
+						throw new UnauthorizedException();
+					case HttpURLConnection.HTTP_FORBIDDEN:
+						throw new ForbiddenException();
+					case HttpURLConnection.HTTP_NOT_FOUND:
+						throw new NotFoundException();
+					case 416: // UNSATISFIABLE_RANGE
+						return new ByteArrayInputStream(new byte[0]);
+					default:
+						throw new FatalBackendException("Response code isn't between 200 and 300: " + response.code());
 				}
 			}
 		} catch (IOException e) {
@@ -185,17 +186,17 @@ class WebDavClient {
 		try (Response response = httpClient.execute(builder)) {
 			if (!response.isSuccessful()) {
 				switch (response.code()) {
-				case HttpURLConnection.HTTP_UNAUTHORIZED:
-					throw new UnauthorizedException();
-				case HttpURLConnection.HTTP_FORBIDDEN:
-					throw new ForbiddenException();
-				case HttpURLConnection.HTTP_BAD_METHOD:
-					throw new TypeMismatchException();
-				case HttpURLConnection.HTTP_CONFLICT: // fall through
-				case HttpURLConnection.HTTP_NOT_FOUND: // necessary due to a bug in Nextcloud, see https://github.com/nextcloud/server/issues/23519
-					throw new ParentFolderDoesNotExistException();
-				default:
-					throw new FatalBackendException("Response code isn't between 200 and 300: " + response.code());
+					case HttpURLConnection.HTTP_UNAUTHORIZED:
+						throw new UnauthorizedException();
+					case HttpURLConnection.HTTP_FORBIDDEN:
+						throw new ForbiddenException();
+					case HttpURLConnection.HTTP_BAD_METHOD:
+						throw new TypeMismatchException();
+					case HttpURLConnection.HTTP_CONFLICT: // fall through
+					case HttpURLConnection.HTTP_NOT_FOUND: // necessary due to a bug in Nextcloud, see https://github.com/nextcloud/server/issues/23519
+						throw new ParentFolderDoesNotExistException();
+					default:
+						throw new FatalBackendException("Response code isn't between 200 and 300: " + response.code());
 				}
 			}
 		} catch (IOException e) {
@@ -213,16 +214,16 @@ class WebDavClient {
 				return folder;
 			} else {
 				switch (response.code()) {
-				case HttpURLConnection.HTTP_UNAUTHORIZED:
-					throw new UnauthorizedException();
-				case HttpURLConnection.HTTP_FORBIDDEN:
-					throw new ForbiddenException();
-				case HttpURLConnection.HTTP_BAD_METHOD:
-					throw new AlreadyExistException();
-				case HttpURLConnection.HTTP_CONFLICT:
-					throw new ParentFolderDoesNotExistException();
-				default:
-					throw new FatalBackendException("Response code isn't between 200 and 300: " + response.code());
+					case HttpURLConnection.HTTP_UNAUTHORIZED:
+						throw new UnauthorizedException();
+					case HttpURLConnection.HTTP_FORBIDDEN:
+						throw new ForbiddenException();
+					case HttpURLConnection.HTTP_BAD_METHOD:
+						throw new AlreadyExistException();
+					case HttpURLConnection.HTTP_CONFLICT:
+						throw new ParentFolderDoesNotExistException();
+					default:
+						throw new FatalBackendException("Response code isn't between 200 and 300: " + response.code());
 				}
 			}
 		} catch (IOException e) {
@@ -238,14 +239,14 @@ class WebDavClient {
 		try (Response response = httpClient.execute(builder)) {
 			if (!response.isSuccessful()) {
 				switch (response.code()) {
-				case HttpURLConnection.HTTP_UNAUTHORIZED:
-					throw new UnauthorizedException();
-				case HttpURLConnection.HTTP_FORBIDDEN:
-					throw new ForbiddenException();
-				case HttpURLConnection.HTTP_NOT_FOUND:
-					throw new NotFoundException(String.format("Node %s doesn't exists", url));
-				default:
-					throw new FatalBackendException("Response code isn't between 200 and 300: " + response.code());
+					case HttpURLConnection.HTTP_UNAUTHORIZED:
+						throw new UnauthorizedException();
+					case HttpURLConnection.HTTP_FORBIDDEN:
+						throw new ForbiddenException();
+					case HttpURLConnection.HTTP_NOT_FOUND:
+						throw new NotFoundException(String.format("Node %s doesn't exists", url));
+					default:
+						throw new FatalBackendException("Response code isn't between 200 and 300: " + response.code());
 				}
 			}
 		} catch (IOException e) {
@@ -266,12 +267,12 @@ class WebDavClient {
 				}
 			} else {
 				switch (response.code()) {
-				case HttpURLConnection.HTTP_UNAUTHORIZED:
-					throw new UnauthorizedException();
-				case HttpURLConnection.HTTP_FORBIDDEN:
-					throw new ForbiddenException();
-				default:
-					throw new FatalBackendException("Response code isn't between 200 and 300: " + response.code());
+					case HttpURLConnection.HTTP_UNAUTHORIZED:
+						throw new UnauthorizedException();
+					case HttpURLConnection.HTTP_FORBIDDEN:
+						throw new ForbiddenException();
+					default:
+						throw new FatalBackendException("Response code isn't between 200 and 300: " + response.code());
 				}
 			}
 		} catch (IOException e) {
@@ -301,8 +302,6 @@ class WebDavClient {
 		sort(entryData, ASCENDING_BY_DEPTH);
 		return entryData.size() >= 1 ? entryData.get(0).toCloudNode(requestedFolder) : null;
 	}
-
-	private final Comparator<PropfindEntryData> ASCENDING_BY_DEPTH = (o1, o2) -> o1.getDepth() - o2.getDepth();
 
 	private enum PropfindDepth {
 		ZERO("0"), //

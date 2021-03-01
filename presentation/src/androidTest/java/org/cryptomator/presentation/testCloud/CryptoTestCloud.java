@@ -37,7 +37,7 @@ public class CryptoTestCloud extends TestCloud {
 			appComponent.cloudRepository().create(vaultFolder, VAULT_PASSWORD);
 			vault = appComponent.vaultRepository().store(vault);
 
-			return appComponent.cloudRepository().unlock(vault, VAULT_PASSWORD);
+			return appComponent.cloudRepository().unlock(vault, VAULT_PASSWORD, () -> false);
 		} catch (BackendException e) {
 			throw new AssertionError(e);
 		}

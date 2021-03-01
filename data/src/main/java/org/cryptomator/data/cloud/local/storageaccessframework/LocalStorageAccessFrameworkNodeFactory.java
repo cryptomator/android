@@ -4,12 +4,12 @@ import android.database.Cursor;
 import android.os.Build;
 import android.provider.DocumentsContract;
 
+import androidx.annotation.RequiresApi;
+import androidx.documentfile.provider.DocumentFile;
+
 import org.cryptomator.util.Optional;
 
 import java.util.Date;
-
-import androidx.annotation.RequiresApi;
-import androidx.documentfile.provider.DocumentFile;
 
 @RequiresApi(Build.VERSION_CODES.LOLLIPOP)
 class LocalStorageAccessFrameworkNodeFactory {

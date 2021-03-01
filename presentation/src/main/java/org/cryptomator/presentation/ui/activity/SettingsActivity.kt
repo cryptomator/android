@@ -3,15 +3,19 @@ package org.cryptomator.presentation.ui.activity
 import android.content.Intent
 import android.net.Uri
 import android.view.View
-import kotlinx.android.synthetic.main.toolbar_layout.*
 import org.cryptomator.generator.Activity
 import org.cryptomator.presentation.R
 import org.cryptomator.presentation.model.ProgressModel
 import org.cryptomator.presentation.presenter.SettingsPresenter
 import org.cryptomator.presentation.ui.activity.view.SettingsView
-import org.cryptomator.presentation.ui.dialog.*
+import org.cryptomator.presentation.ui.dialog.DebugModeDisclaimerDialog
+import org.cryptomator.presentation.ui.dialog.DisableAppWhenObscuredDisclaimerDialog
+import org.cryptomator.presentation.ui.dialog.DisableSecureScreenDisclaimerDialog
+import org.cryptomator.presentation.ui.dialog.UpdateAppAvailableDialog
+import org.cryptomator.presentation.ui.dialog.UpdateAppDialog
 import org.cryptomator.presentation.ui.fragment.SettingsFragment
 import javax.inject.Inject
+import kotlinx.android.synthetic.main.toolbar_layout.toolbar
 
 @Activity(layout = R.layout.activity_settings)
 class SettingsActivity : BaseActivity(),

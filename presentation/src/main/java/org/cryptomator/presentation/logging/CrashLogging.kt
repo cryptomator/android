@@ -10,6 +10,7 @@ class CrashLogging private constructor(private val systemUncaughtExceptionHandle
 	}
 
 	companion object {
+
 		fun setup() {
 			Thread.setDefaultUncaughtExceptionHandler(CrashLogging(Thread.getDefaultUncaughtExceptionHandler()))
 		}

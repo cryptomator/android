@@ -9,6 +9,7 @@ import org.cryptomator.presentation.R
 class EnrollSystemBiometricDialog : BaseDialog<EnrollSystemBiometricDialog.Callback>() {
 
 	interface Callback {
+
 		fun onSetupBiometricAuthInSystemClicked()
 		fun onCancelSetupBiometricAuthInSystemClicked()
 	}
@@ -31,6 +32,7 @@ class EnrollSystemBiometricDialog : BaseDialog<EnrollSystemBiometricDialog.Callb
 	override fun setupView() {}
 
 	companion object {
+
 		fun newInstance(): EnrollSystemBiometricDialog {
 			return EnrollSystemBiometricDialog()
 		}

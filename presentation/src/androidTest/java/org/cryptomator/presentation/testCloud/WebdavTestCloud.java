@@ -8,6 +8,7 @@ import org.cryptomator.presentation.di.component.ApplicationComponent;
 import org.cryptomator.util.crypto.CredentialCryptor;
 
 public class WebdavTestCloud extends TestCloud {
+
 	private final Context context;
 
 	public WebdavTestCloud(Context context) {

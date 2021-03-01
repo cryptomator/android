@@ -9,11 +9,11 @@ import android.util.DisplayMetrics
 import android.view.View
 import androidx.coordinatorlayout.widget.CoordinatorLayout
 import org.cryptomator.presentation.R
-import timber.log.Timber
 import kotlin.math.cos
 import kotlin.math.sin
+import timber.log.Timber
 
-class VaultListCoordinatorLayout : CoordinatorLayout {
+class ArcAwareCoordinatorLayout : CoordinatorLayout {
 
 	private val pixelsPerDp: Int
 
@@ -34,16 +34,16 @@ class VaultListCoordinatorLayout : CoordinatorLayout {
 
 	override fun dispatchDraw(canvas: Canvas) {
 		super.dispatchDraw(canvas)
-		if (findViewById<View>(R.id.rl_vault_creation_hint).visibility == VISIBLE) {
+		if (findViewById<View>(R.id.rl_creation_hint).visibility == VISIBLE) {
 			drawArcFromHintToFloatingActionButton(canvas)
 		}
 	}
 
 	private fun drawArcFromHintToFloatingActionButton(canvas: Canvas) {
-		val vaultCreationHint = findViewById<View>(R.id.tv_vault_creation_hint)
-		val floatingActionButton = findViewById<View>(R.id.fab_vault)
-		val centerXOfHint = (vaultCreationHint.left + vaultCreationHint.right) / 2f
-		val bottomOfHint = vaultCreationHint.bottom.toFloat()
+		val creationHint = findViewById<View>(R.id.tv_creation_hint)
+		val floatingActionButton = findViewById<View>(R.id.floating_action_button)
+		val centerXOfHint = (creationHint.left + creationHint.right) / 2f
+		val bottomOfHint = creationHint.bottom.toFloat()
 		val topOfFloatingActionButton = floatingActionButton.top.toFloat()
 
 		when (val layoutDirection = resources.configuration.layoutDirection) {
@@ -62,7 +62,7 @@ class VaultListCoordinatorLayout : CoordinatorLayout {
 						.draw(canvas, strokeLineWithWidthOf1f())
 			}
 			else -> {
-				Timber.tag("VaultListCoordinatorLay").e("Layout direction not supported, skip drawing arc")
+				Timber.tag("ArcAwareCoordinatorLayo").e("Layout direction not supported, skip drawing arc")
 			}
 		}
 	}
@@ -81,6 +81,7 @@ class VaultListCoordinatorLayout : CoordinatorLayout {
 	}
 
 	private class ArcBuilder(val x1: Float, val y1: Float, val layoutDirection: Int) {
+
 		var angle = 0f
 		var x2 = 0f
 		var y2 = 0f
@@ -103,6 +104,7 @@ class VaultListCoordinatorLayout : CoordinatorLayout {
 	}
 
 	private class Arc(b: ArcBuilder) {
+
 		private val left: Float
 		private val right: Float
 		private val top: Float
@@ -118,6 +120,7 @@ class VaultListCoordinatorLayout : CoordinatorLayout {
 		}
 
 		companion object {
+
 			private const val TWO_PI = 2f * Math.PI
 		}
 
@@ -165,6 +168,7 @@ class VaultListCoordinatorLayout : CoordinatorLayout {
 	}
 
 	companion object {
+
 		private fun arcFrom(x1: Float, y1: Float, layoutDirection: Int): ArcBuilder {
 			return ArcBuilder(x1, y1, layoutDirection)
 		}

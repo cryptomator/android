@@ -19,6 +19,7 @@ constructor() : RecyclerViewBaseAdapter<VaultModel, SharedLocationsAdapter.Callb
 	private var selectedLocation: String? = null
 
 	interface Callback {
+
 		fun onVaultSelected(vault: VaultModel?)
 
 		fun onChooseLocationPressed()

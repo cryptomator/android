@@ -16,13 +16,13 @@
 		android:layout_width="match_parent"
 		android:layout_height="wrap_content"
 		android:layout_centerVertical="true"
-		android:layout_marginEnd="16dp"
 		android:layout_marginStart="16dp"
+		android:layout_marginEnd="16dp"
 		android:layout_toEndOf="@+id/fileImage"
 		android:ellipsize="middle"
+		android:imeOptions="flagNoPersonalizedLearning"
 		android:inputType="text"
-		android:singleLine="true"
-		android:imeOptions="flagNoPersonalizedLearning" />
+		android:singleLine="true" />
 	<!-- using android:singleLine to fix https://code.google.com/p/android/issues/detail?id=33868 -->
 
 	<TextView

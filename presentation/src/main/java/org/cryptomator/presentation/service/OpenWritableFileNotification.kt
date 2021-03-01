@@ -65,6 +65,7 @@ class OpenWritableFileNotification(private val context: Context, private val uri
 	}
 
 	companion object {
+
 		private const val NOTIFICATION_ID = 94875
 		private const val NOTIFICATION_CHANNEL_ID = "65478"
 		private const val NOTIFICATION_CHANNEL_NAME = "Cryptomator"

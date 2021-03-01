@@ -38,8 +38,8 @@ class CryptoOperationsFromApi23 implements CryptoOperations {
 		return requireUserAuthentication -> {
 			KeyGenParameterSpec.Builder builder = new KeyGenParameterSpec //
 					.Builder(alias, KeyProperties.PURPOSE_ENCRYPT | KeyProperties.PURPOSE_DECRYPT) //
-							.setBlockModes(KeyProperties.BLOCK_MODE_CBC) //
-							.setEncryptionPaddings(KeyProperties.ENCRYPTION_PADDING_PKCS7);
+					.setBlockModes(KeyProperties.BLOCK_MODE_CBC) //
+					.setEncryptionPaddings(KeyProperties.ENCRYPTION_PADDING_PKCS7);
 
 			builder.setUserAuthenticationRequired(requireUserAuthentication);
 

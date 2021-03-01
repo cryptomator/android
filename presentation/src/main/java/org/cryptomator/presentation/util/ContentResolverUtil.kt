@@ -8,7 +8,7 @@ import java.io.File
 import java.io.FileNotFoundException
 import java.io.InputStream
 import java.io.OutputStream
-import java.util.*
+import java.util.ArrayList
 import javax.inject.Inject
 
 class ContentResolverUtil @Inject constructor(context: Context) {
@@ -129,6 +129,7 @@ class ContentResolverUtil @Inject constructor(context: Context) {
 	}
 
 	companion object {
+
 		private const val CONTENT_SCHEME = "content"
 		private const val FILE_SCHEME = "file"
 	}

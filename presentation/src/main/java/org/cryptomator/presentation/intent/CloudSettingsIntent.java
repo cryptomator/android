@@ -5,4 +5,5 @@ import org.cryptomator.presentation.ui.activity.CloudSettingsActivity;
 
 @Intent(CloudSettingsActivity.class)
 public interface CloudSettingsIntent {
+
 }

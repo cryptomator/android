@@ -16,10 +16,10 @@
 		android:layout_width="wrap_content"
 		android:layout_height="wrap_content"
 		android:layout_centerVertical="true"
-		android:layout_marginEnd="16dp"
 		android:layout_marginStart="16dp"
-		android:layout_toEndOf="@+id/cloudImage"
+		android:layout_marginEnd="16dp"
 		android:layout_toStartOf="@+id/unlockedImage"
+		android:layout_toEndOf="@+id/cloudImage"
 		android:orientation="vertical">
 
 		<TextView
@@ -49,13 +49,13 @@
 		android:layout_centerVertical="true"
 		android:layout_toStartOf="@+id/settings"
 		android:background="?android:attr/selectableItemBackground"
-		android:paddingBottom="10dp"
 		android:paddingStart="14dp"
-		android:paddingEnd="14dp"
 		android:paddingTop="10dp"
+		android:paddingEnd="14dp"
+		android:paddingBottom="10dp"
 		android:src="@drawable/vault_unlocked"
-		app:tint="@color/colorPrimary"
-		android:visibility="gone" />
+		android:visibility="gone"
+		app:tint="@color/colorPrimary" />
 
 	<ImageView
 		android:id="@+id/settings"

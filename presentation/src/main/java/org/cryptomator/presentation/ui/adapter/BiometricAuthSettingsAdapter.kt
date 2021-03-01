@@ -18,6 +18,7 @@ constructor() : RecyclerViewBaseAdapter<VaultModel, BiometricAuthSettingsAdapter
 	private var onVaultBiometricAuthSettingsChanged: OnVaultBiometricAuthSettingsChanged? = null
 
 	interface OnVaultBiometricAuthSettingsChanged {
+
 		fun onVaultBiometricAuthSettingsChanged(vaultModel: VaultModel, useBiometricAuth: Boolean)
 	}
 

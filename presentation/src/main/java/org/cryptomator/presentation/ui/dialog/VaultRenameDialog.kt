@@ -7,12 +7,12 @@ import android.text.TextWatcher
 import android.view.View
 import android.widget.Button
 import androidx.appcompat.app.AlertDialog
-import kotlinx.android.synthetic.main.dialog_rename.*
 import org.cryptomator.generator.Dialog
 import org.cryptomator.presentation.R
 import org.cryptomator.presentation.model.ProgressModel
 import org.cryptomator.presentation.model.ProgressStateModel
 import org.cryptomator.presentation.model.VaultModel
+import kotlinx.android.synthetic.main.dialog_rename.et_rename
 
 @Dialog(R.layout.dialog_rename)
 class VaultRenameDialog : BaseProgressErrorDialog<VaultRenameDialog.Callback>() {
@@ -20,6 +20,7 @@ class VaultRenameDialog : BaseProgressErrorDialog<VaultRenameDialog.Callback>() 
 	private var renameConfirmButton: Button? = null
 
 	interface Callback {
+
 		fun onRenameClick(vaultModel: VaultModel, newVaultName: String)
 	}
 
@@ -69,6 +70,7 @@ class VaultRenameDialog : BaseProgressErrorDialog<VaultRenameDialog.Callback>() 
 	}
 
 	companion object {
+
 		private const val VAULT_ARG = "vault"
 		fun newInstance(vaultModel: VaultModel): VaultRenameDialog {
 			val dialog = VaultRenameDialog()

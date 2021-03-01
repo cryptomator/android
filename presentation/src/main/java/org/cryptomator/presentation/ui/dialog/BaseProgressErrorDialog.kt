@@ -1,8 +1,6 @@
 package org.cryptomator.presentation.ui.dialog
 
 import android.view.View
-import kotlinx.android.synthetic.main.view_dialog_error.*
-import kotlinx.android.synthetic.main.view_dialog_progress.*
 import org.cryptomator.presentation.R
 import org.cryptomator.presentation.model.ProgressModel
 import org.cryptomator.presentation.model.ProgressStateModel
@@ -10,6 +8,10 @@ import org.cryptomator.presentation.ui.activity.BaseActivity
 import org.cryptomator.presentation.ui.activity.ErrorDisplay
 import org.cryptomator.presentation.ui.activity.ProgressAware
 import org.cryptomator.presentation.util.FileNameValidator.Companion.isInvalidName
+import kotlinx.android.synthetic.main.view_dialog_error.ll_error
+import kotlinx.android.synthetic.main.view_dialog_error.tv_error
+import kotlinx.android.synthetic.main.view_dialog_progress.ll_progress
+import kotlinx.android.synthetic.main.view_dialog_progress.tv_progress
 
 abstract class BaseProgressErrorDialog<Callback> : BaseDialog<Callback>(), ProgressAware, ErrorDisplay {
 

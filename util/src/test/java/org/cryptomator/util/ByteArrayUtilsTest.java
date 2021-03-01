@@ -63,6 +63,12 @@ public class ByteArrayUtilsTest {
 		return new ByteArrayBuilder(size);
 	}
 
+	public interface ByteArrayBuilderAppendWithoutSize {
+
+		ByteArrayBuilder times(int amount);
+
+	}
+
 	private static class ByteArrayBuilder {
 
 		private final byte[] array;
@@ -100,12 +106,6 @@ public class ByteArrayUtilsTest {
 		public byte[] build() {
 			return array;
 		}
-
-	}
-
-	public interface ByteArrayBuilderAppendWithoutSize {
-
-		ByteArrayBuilder times(int amount);
 
 	}
 

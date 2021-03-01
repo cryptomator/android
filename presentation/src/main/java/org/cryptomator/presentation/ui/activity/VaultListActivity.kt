@@ -6,8 +6,6 @@ import android.os.Build
 import android.view.View
 import androidx.annotation.RequiresApi
 import androidx.fragment.app.Fragment
-import kotlinx.android.synthetic.main.activity_layout_obscure_aware.*
-import kotlinx.android.synthetic.main.toolbar_layout.*
 import org.cryptomator.domain.Vault
 import org.cryptomator.generator.Activity
 import org.cryptomator.generator.InjectIntent
@@ -25,12 +23,23 @@ import org.cryptomator.presentation.ui.activity.view.VaultListView
 import org.cryptomator.presentation.ui.bottomsheet.AddVaultBottomSheet
 import org.cryptomator.presentation.ui.bottomsheet.SettingsVaultBottomSheet
 import org.cryptomator.presentation.ui.callback.VaultListCallback
-import org.cryptomator.presentation.ui.dialog.*
+import org.cryptomator.presentation.ui.dialog.AskForLockScreenDialog
+import org.cryptomator.presentation.ui.dialog.BetaConfirmationDialog
+import org.cryptomator.presentation.ui.dialog.BiometricAuthKeyInvalidatedDialog
+import org.cryptomator.presentation.ui.dialog.ChangePasswordDialog
+import org.cryptomator.presentation.ui.dialog.EnterPasswordDialog
+import org.cryptomator.presentation.ui.dialog.UpdateAppAvailableDialog
+import org.cryptomator.presentation.ui.dialog.UpdateAppDialog
+import org.cryptomator.presentation.ui.dialog.VaultDeleteConfirmationDialog
+import org.cryptomator.presentation.ui.dialog.VaultNotFoundDialog
+import org.cryptomator.presentation.ui.dialog.VaultRenameDialog
 import org.cryptomator.presentation.ui.fragment.VaultListFragment
 import org.cryptomator.presentation.ui.layout.ObscuredAwareCoordinatorLayout.Listener
 import org.cryptomator.presentation.util.BiometricAuthentication
-import java.util.*
+import java.util.Locale
 import javax.inject.Inject
+import kotlinx.android.synthetic.main.activity_layout_obscure_aware.activityRootView
+import kotlinx.android.synthetic.main.toolbar_layout.toolbar
 
 @Activity(layout = R.layout.activity_layout_obscure_aware)
 class VaultListActivity : BaseActivity(), //

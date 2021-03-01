@@ -1,4 +1,2 @@
-- Möglichkeit zum Sortieren der Tresorliste hinzugefügt
-- Logging in Google Drive Cloud hinzugefügt
-- Verhalten bei Änderung des OneDrive-Passworts verbessert
-- CryptoBot-Symbole aufpoliert
+- Möglichkeit neu erstellte Videos über den automatischen Upload hochzuladen hinzugefügt
+- Möglichkeit das Entsperren eines Tresors abzubrechen hinzugefügt

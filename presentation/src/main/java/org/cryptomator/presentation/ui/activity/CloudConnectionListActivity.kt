@@ -1,7 +1,6 @@
 package org.cryptomator.presentation.ui.activity
 
 import androidx.fragment.app.Fragment
-import kotlinx.android.synthetic.main.toolbar_layout.*
 import org.cryptomator.domain.Vault
 import org.cryptomator.generator.Activity
 import org.cryptomator.generator.InjectIntent
@@ -13,8 +12,9 @@ import org.cryptomator.presentation.ui.activity.view.CloudConnectionListView
 import org.cryptomator.presentation.ui.bottomsheet.CloudConnectionSettingsBottomSheet
 import org.cryptomator.presentation.ui.dialog.DeleteCloudConnectionWithVaultsDialog
 import org.cryptomator.presentation.ui.fragment.CloudConnectionListFragment
-import java.util.*
+import java.util.ArrayList
 import javax.inject.Inject
+import kotlinx.android.synthetic.main.toolbar_layout.toolbar
 
 @Activity
 class CloudConnectionListActivity : BaseActivity(),

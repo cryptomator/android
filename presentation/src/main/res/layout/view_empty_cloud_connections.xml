@@ -1,11 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-	android:id="@+id/rl_empty_cloud_connections_hint"
+	android:id="@+id/rl_creation_hint"
 	android:layout_width="match_parent"
 	android:layout_height="match_parent"
 	android:visibility="gone">
 
 	<TextView
-		android:id="@+id/emptyCloudConnectionsHint"
-		style="@style/AppTheme.Hint" />
+		android:id="@+id/tv_creation_hint"
+		style="@style/AppTheme.Hint"
+		android:text="@string/screen_cloud_connections_no_connections" />
 
 </RelativeLayout>

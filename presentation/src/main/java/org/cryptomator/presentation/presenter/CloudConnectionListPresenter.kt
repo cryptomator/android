@@ -26,10 +26,10 @@ import org.cryptomator.presentation.model.WebDavCloudModel
 import org.cryptomator.presentation.model.mappers.CloudModelMapper
 import org.cryptomator.presentation.ui.activity.view.CloudConnectionListView
 import org.cryptomator.presentation.workflow.ActivityResult
-import timber.log.Timber
 import java.util.*
 import java.util.concurrent.atomic.AtomicReference
 import javax.inject.Inject
+import timber.log.Timber
 
 @PerView
 class CloudConnectionListPresenter @Inject constructor( //
@@ -208,6 +208,7 @@ class CloudConnectionListPresenter @Inject constructor( //
 	}
 
 	companion object {
+
 		const val SELECTED_CLOUD = "selectedCloudConnection"
 	}
 

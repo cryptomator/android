@@ -8,6 +8,7 @@ import javax.inject.Inject
 
 @PerView
 class SplashPresenter @Inject constructor(exceptionMappings: ExceptionHandlers) : Presenter<SplashView>(exceptionMappings) {
+
 	override fun resumed() {
 		Intents.vaultListIntent().startActivity(this)
 		finish()

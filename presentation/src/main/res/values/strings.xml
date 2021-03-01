@@ -212,6 +212,7 @@
 	<string name="screen_settings_section_auto_photo_upload_vault">Choose vault for upload</string>
 	<string name="screen_settings_section_auto_photo_upload_toggle">Activate</string>
 	<string name="screen_settings_section_auto_photo_upload_only_wifi_toggle">Upload only using WIFI</string>
+	<string name="screen_settings_section_auto_photo_upload_including_videos">Upload videos</string>
 
 	<string name="screen_settings_auto_photo_upload_title">Save auto upload files to&#8230;</string>
 

@@ -11,8 +11,8 @@ import org.cryptomator.presentation.di.component.ActivityComponent
 import org.cryptomator.presentation.exception.ExceptionHandlers
 import org.cryptomator.presentation.presenter.Presenter
 import org.cryptomator.presentation.util.KeyboardHelper
-import timber.log.Timber
 import javax.inject.Inject
+import timber.log.Timber
 
 abstract class BaseFragment : Fragment() {
 

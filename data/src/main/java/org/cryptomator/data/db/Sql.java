@@ -76,6 +76,21 @@ class Sql {
 		return (column, contentValues) -> contentValues.putNull(column);
 	}
 
+	private static SQLiteDatabase unwrap(Database wrapped) {
+		return (SQLiteDatabase) wrapped.getRawDatabase();
+	}
+
+	public interface ValueHolder {
+
+		void put(String column, ContentValues contentValues);
+
+	}
+
+	public interface Criterion {
+
+		void appendTo(String column, StringBuilder whereClause, List<String> whereArgs);
+	}
+
 	public static class SqlUpdateBuilder {
 
 		private final String tableName;
@@ -129,8 +144,8 @@ class Sql {
 	public static class SqlUniqueIndexBuilder {
 
 		private final String indexName;
-		private String table;
 		private final StringBuilder columns = new StringBuilder();
+		private String table;
 
 		private SqlUniqueIndexBuilder(String indexName) {
 			this.indexName = indexName;
@@ -173,8 +188,8 @@ class Sql {
 	public static class SqlAlterTableBuilder {
 
 		private final String table;
-		private String newName;
 		private final StringBuilder columns = new StringBuilder();
+		private String newName;
 
 		private SqlAlterTableBuilder(String table) {
 			this.table = table;
@@ -195,12 +210,10 @@ class Sql {
 
 		private static final int NOT_FOUND = -1;
 		private final String table;
-		private String[] columns;
 		private final String[] selectedColumns;
-
-		private String sourceTableName;
-
 		private final StringBuilder joinClauses = new StringBuilder();
+		private String[] columns;
+		private String sourceTableName;
 
 		private SqlInsertSelectBuilder(String table, String[] columns) {
 			this.table = table;
@@ -452,21 +465,6 @@ class Sql {
 			SQLiteDatabase db = unwrap(wrapped);
 			db.delete(table, whereClause, whereArgs);
 		}
-	}
-
-	private static SQLiteDatabase unwrap(Database wrapped) {
-		return (SQLiteDatabase) wrapped.getRawDatabase();
-	}
-
-	public interface ValueHolder {
-
-		void put(String column, ContentValues contentValues);
-
-	}
-
-	public interface Criterion {
-
-		void appendTo(String column, StringBuilder whereClause, List<String> whereArgs);
 	}
 
 }

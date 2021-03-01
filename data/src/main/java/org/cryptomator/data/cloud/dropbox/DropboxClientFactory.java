@@ -23,6 +23,10 @@ class DropboxClientFactory {
 
 	private DbxClientV2 sDbxClient;
 
+	private static Interceptor httpLoggingInterceptor(Context context) {
+		return new HttpLoggingInterceptor(message -> Timber.tag("OkHttp").d(message), context);
+	}
+
 	public DbxClientV2 getClient(String accessToken, Context context) {
 		if (sDbxClient == null) {
 			sDbxClient = createDropboxClient(accessToken, context);
@@ -48,9 +52,5 @@ class DropboxClientFactory {
 				.build();
 
 		return new DbxClientV2(requestConfig, accessToken);
-	}
-
-	private static Interceptor httpLoggingInterceptor(Context context) {
-		return new HttpLoggingInterceptor(message -> Timber.tag("OkHttp").d(message), context);
 	}
 }

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<org.cryptomator.presentation.ui.layout.SlidingCoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<org.cryptomator.presentation.ui.layout.ArcAwareCoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
 	xmlns:app="http://schemas.android.com/apk/res-auto"
 	android:layout_width="match_parent"
 	android:layout_height="match_parent"
@@ -21,8 +21,8 @@
 				android:layout_width="match_parent"
 				android:layout_height="72dp"
 				android:clickable="true"
-				android:focusable="true"
-				android:clipToPadding="true" />
+				android:clipToPadding="true"
+				android:focusable="true" />
 
 			<TextView
 				android:layout_width="match_parent"
@@ -66,5 +66,4 @@
 		layout="@layout/floating_action_button_layout"
 		app:layout_anchor="@id/recyclerView" />
 
-
-</org.cryptomator.presentation.ui.layout.SlidingCoordinatorLayout>
+</org.cryptomator.presentation.ui.layout.ArcAwareCoordinatorLayout>

@@ -7,17 +7,17 @@ public class UploadState implements FileTransferState {
 	private final CloudFile file;
 	private final boolean upload;
 
+	private UploadState(CloudFile file, boolean upload) {
+		this.upload = upload;
+		this.file = file;
+	}
+
 	public static UploadState upload(CloudFile file) {
 		return new UploadState(file, true);
 	}
 
 	public static UploadState encryption(CloudFile file) {
 		return new UploadState(file, false);
-	}
-
-	private UploadState(CloudFile file, boolean upload) {
-		this.upload = upload;
-		this.file = file;
 	}
 
 	@Override

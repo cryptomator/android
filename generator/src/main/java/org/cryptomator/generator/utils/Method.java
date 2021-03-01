@@ -22,14 +22,6 @@ public class Method implements Comparable<Method> {
 		this.delegate = executableElement;
 	}
 
-	public Element element() {
-		return delegate;
-	}
-
-	public String name() {
-		return delegate.getSimpleName().toString();
-	}
-
 	public static boolean isRegularMethod(ExecutableElement executableElement) {
 		String name = executableElement.getSimpleName().toString();
 		return !"".equals(name) && !name.startsWith("<");
@@ -38,6 +30,14 @@ public class Method implements Comparable<Method> {
 	public static boolean isConstructor(ExecutableElement executableElement) {
 		String name = executableElement.getSimpleName().toString();
 		return name.equals("<init>");
+	}
+
+	public Element element() {
+		return delegate;
+	}
+
+	public String name() {
+		return delegate.getSimpleName().toString();
 	}
 
 	public boolean isStatic() {

@@ -4,9 +4,6 @@ import android.util.TypedValue
 import android.view.View
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
-import kotlinx.android.synthetic.main.fragment_vault_list.*
-import kotlinx.android.synthetic.main.recycler_view_layout.*
-import kotlinx.android.synthetic.main.view_vault_creation_hint.*
 import org.cryptomator.generator.Fragment
 import org.cryptomator.presentation.R
 import org.cryptomator.presentation.model.VaultModel
@@ -14,6 +11,10 @@ import org.cryptomator.presentation.presenter.VaultListPresenter
 import org.cryptomator.presentation.ui.adapter.VaultsAdapter
 import org.cryptomator.presentation.ui.adapter.VaultsMoveListener
 import javax.inject.Inject
+import kotlinx.android.synthetic.main.fragment_vault_list.coordinatorLayout
+import kotlinx.android.synthetic.main.fragment_vault_list.floating_action_button
+import kotlinx.android.synthetic.main.recycler_view_layout.recyclerView
+import kotlinx.android.synthetic.main.view_vault_creation_hint.rl_creation_hint
 
 @Fragment(R.layout.fragment_vault_list)
 class VaultListFragment : BaseFragment() {
@@ -51,7 +52,7 @@ class VaultListFragment : BaseFragment() {
 
 	override fun setupView() {
 		setupRecyclerView()
-		fab_vault.setOnClickListener { vaultListPresenter.onCreateVaultClicked() }
+		floating_action_button.setOnClickListener { vaultListPresenter.onCreateVaultClicked() }
 	}
 
 	override fun onResume() {
@@ -77,11 +78,11 @@ class VaultListFragment : BaseFragment() {
 	}
 
 	fun showVaultCreationHint() {
-		rl_vault_creation_hint.visibility = View.VISIBLE
+		rl_creation_hint.visibility = View.VISIBLE
 	}
 
 	fun hideVaultCreationHint() {
-		rl_vault_creation_hint.visibility = View.GONE
+		rl_creation_hint.visibility = View.GONE
 	}
 
 	fun isVaultLocked(vaultModel: VaultModel?): Boolean {

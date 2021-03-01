@@ -2,6 +2,17 @@ package org.cryptomator.data.repository;
 
 import com.google.common.io.BaseEncoding;
 
+import org.cryptomator.data.db.Database;
+import org.cryptomator.data.db.entities.UpdateCheckEntity;
+import org.cryptomator.data.util.UserAgentInterceptor;
+import org.cryptomator.domain.exception.BackendException;
+import org.cryptomator.domain.exception.FatalBackendException;
+import org.cryptomator.domain.exception.update.GeneralUpdateErrorException;
+import org.cryptomator.domain.exception.update.SSLHandshakePreAndroid5UpdateCheckException;
+import org.cryptomator.domain.repository.UpdateCheckRepository;
+import org.cryptomator.domain.usecases.UpdateCheck;
+import org.cryptomator.util.Optional;
+
 import java.io.File;
 import java.io.IOException;
 import java.security.Key;
@@ -15,17 +26,6 @@ import javax.annotation.Nullable;
 import javax.inject.Inject;
 import javax.inject.Singleton;
 import javax.net.ssl.SSLHandshakeException;
-
-import org.cryptomator.data.db.Database;
-import org.cryptomator.data.db.entities.UpdateCheckEntity;
-import org.cryptomator.data.util.UserAgentInterceptor;
-import org.cryptomator.domain.exception.BackendException;
-import org.cryptomator.domain.exception.FatalBackendException;
-import org.cryptomator.domain.exception.update.GeneralUpdateErrorException;
-import org.cryptomator.domain.exception.update.SSLHandshakePreAndroid5UpdateCheckException;
-import org.cryptomator.domain.repository.UpdateCheckRepository;
-import org.cryptomator.domain.usecases.UpdateCheck;
-import org.cryptomator.util.Optional;
 
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
@@ -52,7 +52,7 @@ public class UpdateCheckRepositoryImpl implements UpdateCheckRepository {
 	private OkHttpClient httpClient() {
 		return new OkHttpClient //
 				.Builder().addInterceptor(new UserAgentInterceptor()) //
-						.build();
+				.build();
 	}
 
 	@Override
@@ -100,7 +100,7 @@ public class UpdateCheckRepositoryImpl implements UpdateCheckRepository {
 
 			final Request request = new Request //
 					.Builder() //
-							.url(entity.getUrlToApk()).build();
+					.url(entity.getUrlToApk()).build();
 
 			final Response response = httpClient.newCall(request).execute();
 
@@ -120,8 +120,8 @@ public class UpdateCheckRepositoryImpl implements UpdateCheckRepository {
 		try {
 			final Request request = new Request //
 					.Builder() //
-							.url(HOSTNAME_LATEST_VERSION) //
-							.build();
+					.url(HOSTNAME_LATEST_VERSION) //
+					.build();
 			return toLatestVersion(httpClient.newCall(request).execute());
 		} catch (SSLHandshakeException e) {
 			if (android.os.Build.VERSION.SDK_INT < android.os.Build.VERSION_CODES.LOLLIPOP) {
@@ -138,8 +138,8 @@ public class UpdateCheckRepositoryImpl implements UpdateCheckRepository {
 		try {
 			final Request request = new Request //
 					.Builder() //
-							.url(latestVersion.urlReleaseNote) //
-							.build();
+					.url(latestVersion.urlReleaseNote) //
+					.build();
 			return toUpdateCheck(httpClient.newCall(request).execute(), latestVersion);
 		} catch (IOException e) {
 			throw new GeneralUpdateErrorException("Failed to update.  General error occurred.", e);
@@ -163,30 +163,21 @@ public class UpdateCheckRepositoryImpl implements UpdateCheckRepository {
 		}
 	}
 
-	private class LatestVersion {
+	private ECPublicKey getPublicKey() throws NoSuchAlgorithmException, InvalidKeySpecException {
+		final byte[] publicKey = BaseEncoding //
+				.base64() //
+				.decode("MFkwEwYHKoZIzj0CAQYIKoZIzj0DAQcDQgAELOYa5ax7QZvS92HJYCBPBiR2wWfX" + "P9/Oq/yl2J1yg0Vovetp8i1A3yCtoqdHVdVytM1wNV0JXgRbWuNTAr9nlQ==");
 
-		private final String version;
-		private final String urlApk;
-		private final String urlReleaseNote;
-
-		LatestVersion(String json) throws GeneralUpdateErrorException {
-			try {
-				Claims jws = Jwts //
-						.parserBuilder().setSigningKey(getPublicKey()) //
-						.build() //
-						.parseClaimsJws(json) //
-						.getBody();
-
-				version = jws.get("version", String.class);
-				urlApk = jws.get("url", String.class);
-				urlReleaseNote = jws.get("release_notes", String.class);
-			} catch (Exception e) {
-				throw new GeneralUpdateErrorException("Failed to parse latest version", e);
-			}
+		Key key = KeyFactory.getInstance("EC").generatePublic(new X509EncodedKeySpec(publicKey));
+		if (key instanceof ECPublicKey) {
+			return (ECPublicKey) key;
+		} else {
+			throw new FatalBackendException("Key not an EC public key.");
 		}
 	}
 
 	private static class UpdateCheckImpl implements UpdateCheck {
+
 		private final String releaseNote;
 		private final String version;
 		private final String urlApk;
@@ -227,16 +218,26 @@ public class UpdateCheckRepositoryImpl implements UpdateCheckRepository {
 		}
 	}
 
-	private ECPublicKey getPublicKey() throws NoSuchAlgorithmException, InvalidKeySpecException {
-		final byte[] publicKey = BaseEncoding //
-				.base64() //
-				.decode("MFkwEwYHKoZIzj0CAQYIKoZIzj0DAQcDQgAELOYa5ax7QZvS92HJYCBPBiR2wWfX" + "P9/Oq/yl2J1yg0Vovetp8i1A3yCtoqdHVdVytM1wNV0JXgRbWuNTAr9nlQ==");
+	private class LatestVersion {
 
-		Key key = KeyFactory.getInstance("EC").generatePublic(new X509EncodedKeySpec(publicKey));
-		if (key instanceof ECPublicKey) {
-			return (ECPublicKey) key;
-		} else {
-			throw new FatalBackendException("Key not an EC public key.");
+		private final String version;
+		private final String urlApk;
+		private final String urlReleaseNote;
+
+		LatestVersion(String json) throws GeneralUpdateErrorException {
+			try {
+				Claims jws = Jwts //
+						.parserBuilder().setSigningKey(getPublicKey()) //
+						.build() //
+						.parseClaimsJws(json) //
+						.getBody();
+
+				version = jws.get("version", String.class);
+				urlApk = jws.get("url", String.class);
+				urlReleaseNote = jws.get("release_notes", String.class);
+			} catch (Exception e) {
+				throw new GeneralUpdateErrorException("Failed to parse latest version", e);
+			}
 		}
 	}
 }

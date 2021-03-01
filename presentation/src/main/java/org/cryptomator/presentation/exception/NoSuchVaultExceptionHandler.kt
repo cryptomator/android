@@ -6,6 +6,7 @@ import org.cryptomator.presentation.ui.dialog.VaultNotFoundDialog.Companion.with
 import org.cryptomator.util.ExceptionUtil
 
 class NoSuchVaultExceptionHandler : ExceptionHandler() {
+
 	override fun supports(e: Throwable): Boolean {
 		return ExceptionUtil.contains(e, NoSuchVaultException::class.java)
 	}

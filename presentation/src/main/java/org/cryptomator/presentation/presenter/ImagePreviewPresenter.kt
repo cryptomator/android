@@ -30,10 +30,15 @@ import org.cryptomator.presentation.util.ShareFileHelper
 import org.cryptomator.presentation.workflow.ActivityResult
 import org.cryptomator.presentation.workflow.PermissionsResult
 import org.cryptomator.util.ExceptionUtil
-import timber.log.Timber
-import java.io.*
-import java.util.*
+import java.io.File
+import java.io.FileNotFoundException
+import java.io.FileOutputStream
+import java.io.IOException
+import java.io.InputStream
+import java.io.OutputStream
+import java.util.ArrayList
 import javax.inject.Inject
+import timber.log.Timber
 
 @PerView
 class ImagePreviewPresenter @Inject constructor( //

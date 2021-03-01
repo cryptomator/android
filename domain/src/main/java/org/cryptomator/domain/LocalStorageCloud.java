@@ -15,6 +15,15 @@ public class LocalStorageCloud implements Cloud {
 		this.rootUri = builder.rootUri;
 	}
 
+	public static Builder aLocalStorage() {
+		return new Builder();
+	}
+
+	public static Builder aCopyOf(LocalStorageCloud localStorageCloud) {
+		return new Builder() //
+				.withId(localStorageCloud.id());
+	}
+
 	@Override
 	public Long id() {
 		return id;
@@ -54,19 +63,30 @@ public class LocalStorageCloud implements Cloud {
 		return false;
 	}
 
-	public static Builder aLocalStorage() {
-		return new Builder();
-	}
-
-	public static Builder aCopyOf(LocalStorageCloud localStorageCloud) {
-		return new Builder() //
-				.withId(localStorageCloud.id());
-	}
-
 	@NotNull
 	@Override
 	public String toString() {
 		return "LOCAL";
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (obj == null || getClass() != obj.getClass()) {
+			return false;
+		}
+		if (obj == this) {
+			return true;
+		}
+		return internalEquals((LocalStorageCloud) obj);
+	}
+
+	@Override
+	public int hashCode() {
+		return id == null ? 0 : id.hashCode();
+	}
+
+	private boolean internalEquals(LocalStorageCloud obj) {
+		return id != null && id.equals(obj.id);
 	}
 
 	public static class Builder {
@@ -96,23 +116,5 @@ public class LocalStorageCloud implements Cloud {
 		public String toString() {
 			return "LOCAL";
 		}
-	}
-
-	@Override
-	public boolean equals(Object obj) {
-		if (obj == null || getClass() != obj.getClass())
-			return false;
-		if (obj == this)
-			return true;
-		return internalEquals((LocalStorageCloud) obj);
-	}
-
-	@Override
-	public int hashCode() {
-		return id == null ? 0 : id.hashCode();
-	}
-
-	private boolean internalEquals(LocalStorageCloud obj) {
-		return id != null && id.equals(obj.id);
 	}
 }

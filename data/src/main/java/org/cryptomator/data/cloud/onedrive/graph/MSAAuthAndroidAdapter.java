@@ -39,6 +39,18 @@ public abstract class MSAAuthAndroidAdapter implements IAuthenticationAdapter {
 	 * The live auth client.
 	 */
 	private final LiveAuthClient mLiveAuthClient;
+	private Context context;
+
+	/**
+	 * Create a new instance of the provider
+	 *
+	 * @param context      the application context instance
+	 * @param refreshToken
+	 */
+	protected MSAAuthAndroidAdapter(final Context context, String refreshToken) {
+		this.context = context;
+		mLiveAuthClient = new LiveAuthClient(context, getClientId(), Arrays.asList(getScopes()), MicrosoftOAuth2Endpoint.getInstance(), refreshToken);
+	}
 
 	/**
 	 * The client id for this authenticator.
@@ -55,19 +67,6 @@ public abstract class MSAAuthAndroidAdapter implements IAuthenticationAdapter {
 	 * @return The scopes for this application.
 	 */
 	protected abstract String[] getScopes();
-
-	private Context context;
-
-	/**
-	 * Create a new instance of the provider
-	 *
-	 * @param context the application context instance
-	 * @param refreshToken
-	 */
-	protected MSAAuthAndroidAdapter(final Context context, String refreshToken) {
-		this.context = context;
-		mLiveAuthClient = new LiveAuthClient(context, getClientId(), Arrays.asList(getScopes()), MicrosoftOAuth2Endpoint.getInstance(), refreshToken);
-	}
 
 	@Override
 	public void authenticateRequest(final IHttpRequest request) {
@@ -181,8 +180,9 @@ public abstract class MSAAuthAndroidAdapter implements IAuthenticationAdapter {
 	}
 
 	private String encrypt(String refreshToken) {
-		if (refreshToken == null)
+		if (refreshToken == null) {
 			return null;
+		}
 		return CredentialCryptor //
 				.getInstance(context) //
 				.encrypt(refreshToken);

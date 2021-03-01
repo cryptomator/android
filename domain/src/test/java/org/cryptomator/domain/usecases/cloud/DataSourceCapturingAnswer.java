@@ -8,9 +8,9 @@ import java.io.InputStream;
 
 class DataSourceCapturingAnswer<T> implements org.mockito.stubbing.Answer<T> {
 
-	private ByteArrayOutputStream out;
 	private final T result;
 	private final int argIndex;
+	private ByteArrayOutputStream out;
 
 	DataSourceCapturingAnswer(T result, int argIndex) {
 		this.result = result;

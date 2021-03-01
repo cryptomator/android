@@ -29,9 +29,9 @@ import org.cryptomator.presentation.workflow.PermissionsResult
 import org.cryptomator.util.Optional
 import org.cryptomator.util.SharedPreferencesHandler
 import org.cryptomator.util.file.FileCacheUtils
-import timber.log.Timber
 import java.util.*
 import javax.inject.Inject
+import timber.log.Timber
 
 @PerView
 class SharedFilesPresenter @Inject constructor( //
@@ -422,7 +422,7 @@ class SharedFilesPresenter @Inject constructor( //
 	}
 
 	fun onUnlockCanceled() {
-		// empty
+		unlockVaultUseCase.cancel()
 	}
 
 	fun useConfirmationInFaceUnlockBiometricAuthentication(): Boolean {

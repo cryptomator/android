@@ -13,6 +13,7 @@ class ProgressModel constructor(private val state: ProgressStateModel, private v
 	}
 
 	companion object {
+
 		@JvmField
 		val GENERIC = ProgressModel(ProgressStateModel.UNKNOWN)
 

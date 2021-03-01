@@ -58,8 +58,8 @@ class OnedriveCloudNodeFactory {
 		return item.remoteItem != null //
 				? item.remoteItem.parentReference.driveId //
 				: item.parentReference != null //
-						? item.parentReference.driveId //
-						: null;
+				? item.parentReference.driveId //
+				: null;
 	}
 
 	public static boolean isFolder(DriveItem item) {

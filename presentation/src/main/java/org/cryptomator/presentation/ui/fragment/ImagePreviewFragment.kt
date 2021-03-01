@@ -1,17 +1,22 @@
 package org.cryptomator.presentation.ui.fragment
 
 import android.os.Bundle
-import android.view.*
+import android.view.GestureDetector
+import android.view.LayoutInflater
+import android.view.MotionEvent
+import android.view.View
+import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import com.davemorrissey.labs.subscaleview.ImageSource
 import com.davemorrissey.labs.subscaleview.SubsamplingScaleImageView
-import kotlinx.android.synthetic.main.fragment_image_preview.*
 import org.cryptomator.presentation.R
 import org.cryptomator.presentation.di.HasComponent
 import org.cryptomator.presentation.di.component.ActivityComponent
 import org.cryptomator.presentation.model.ImagePreviewFile
 import org.cryptomator.presentation.presenter.ImagePreviewPresenter
 import javax.inject.Inject
+import kotlinx.android.synthetic.main.fragment_image_preview.imageView
+import kotlinx.android.synthetic.main.fragment_image_preview.progressBar
 
 class ImagePreviewFragment : Fragment() {
 

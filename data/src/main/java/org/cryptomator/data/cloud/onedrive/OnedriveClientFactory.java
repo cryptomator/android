@@ -22,11 +22,9 @@ import static org.cryptomator.data.util.NetworkTimeout.WRITE;
 
 public class OnedriveClientFactory {
 
+	private static OnedriveClientFactory instance;
 	private final AtomicReference<IGraphServiceClient> graphServiceClient = new AtomicReference<>();
 	private final IAuthenticationAdapter authenticationAdapter;
-
-	private static OnedriveClientFactory instance;
-
 	private final Context context;
 
 	private OnedriveClientFactory(Context context, String refreshToken) {
@@ -39,6 +37,10 @@ public class OnedriveClientFactory {
 			instance = new OnedriveClientFactory(context, accessToken);
 		}
 		return instance;
+	}
+
+	private static Interceptor httpLoggingInterceptor(Context context) {
+		return new HttpLoggingInterceptor(message -> Timber.tag("OkHttp").d(message), context);
 	}
 
 	public IGraphServiceClient client() {
@@ -65,10 +67,6 @@ public class OnedriveClientFactory {
 					.buildClient());
 		}
 		return graphServiceClient.get();
-	}
-
-	private static Interceptor httpLoggingInterceptor(Context context) {
-		return new HttpLoggingInterceptor(message -> Timber.tag("OkHttp").d(message), context);
 	}
 
 	public synchronized IAuthenticationAdapter getAuthenticationAdapter() {

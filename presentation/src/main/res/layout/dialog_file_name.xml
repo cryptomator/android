@@ -13,9 +13,9 @@
 			android:layout_width="match_parent"
 			android:layout_height="wrap_content"
 			android:hint="@string/dialog_file_name_placeholder"
+			android:imeOptions="flagNoPersonalizedLearning"
 			android:inputType="text"
-			android:maxLines="1"
-			android:imeOptions="flagNoPersonalizedLearning" />
+			android:maxLines="1" />
 
 		<include
 			layout="@layout/view_dialog_progress"

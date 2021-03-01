@@ -32,9 +32,15 @@ public enum FileIcon {
 			forMediaTypeOrExtensions("text", "md", "todo")), //
 	VAULT(R.drawable.node_vault, //
 			forExtensions("cryptomator")), //
-	UNKNOWN(R.drawable.node_file_unknown)
+	UNKNOWN(R.drawable.node_file_unknown);
 
-	;
+	private final int iconResource;
+	private final Predicate<FileInfo>[] predicates;
+
+	FileIcon(int iconResource, Predicate<FileInfo>... predicates) {
+		this.iconResource = iconResource;
+		this.predicates = predicates;
+	}
 
 	public static Optional<FileIcon> knownFileIconFor(String name, FileUtil fileUtil) {
 		FileInfo fileInfo = fileUtil.fileInfo(name);
@@ -48,27 +54,6 @@ public enum FileIcon {
 
 	public static FileIcon fileIconFor(String name, FileUtil fileUtil) {
 		return knownFileIconFor(name, fileUtil).orElse(UNKNOWN);
-	}
-
-	private final int iconResource;
-	private final Predicate<FileInfo>[] predicates;
-
-	FileIcon(int iconResource, Predicate<FileInfo>... predicates) {
-		this.iconResource = iconResource;
-		this.predicates = predicates;
-	}
-
-	private boolean matches(FileInfo fileInfo) {
-		for (Predicate<FileInfo> predicate : predicates) {
-			if (predicate.test(fileInfo)) {
-				return true;
-			}
-		}
-		return false;
-	}
-
-	public int getIconResource() {
-		return iconResource;
 	}
 
 	private static Predicate<FileInfo> forExtensions(final String... extensions) {
@@ -95,5 +80,18 @@ public enum FileIcon {
 			}
 			return FALSE;
 		}).orElse(FALSE);
+	}
+
+	private boolean matches(FileInfo fileInfo) {
+		for (Predicate<FileInfo> predicate : predicates) {
+			if (predicate.test(fileInfo)) {
+				return true;
+			}
+		}
+		return false;
+	}
+
+	public int getIconResource() {
+		return iconResource;
 	}
 }

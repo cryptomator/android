@@ -860,8 +860,7 @@ class CryptoImplVaultFormatPre7Test {
 
 		Mockito.when(fileNameCryptor.encryptFilename(dir15Name, dirId1.getBytes())).thenReturn(dir15Cipher);
 
-		Mockito.when(cloudContentRepository.file(aaFolder, "dir15.c9r", Optional.ofNullable(null)))
-				.thenReturn(new TestFile(aaFolder, "dir15.c9r", "/d/00/AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA/dir15.c9r", Optional.empty(), Optional.empty()));
+		Mockito.when(cloudContentRepository.file(aaFolder, "dir15.c9r", Optional.ofNullable(null))).thenReturn(new TestFile(aaFolder, "dir15.c9r", "/d/00/AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA/dir15.c9r", Optional.empty(), Optional.empty()));
 		Mockito.when(dirIdCache.put(Mockito.eq(cryptoFolder1), Mockito.any())).thenReturn(new DirIdCache.DirIdInfo(dirId1, bbFolder));
 		Mockito.when(dirIdCache.put(Mockito.eq(cryptoFolder15), Mockito.any())).thenReturn(new DirIdCache.DirIdInfo(dirId1, bbFolder));
 

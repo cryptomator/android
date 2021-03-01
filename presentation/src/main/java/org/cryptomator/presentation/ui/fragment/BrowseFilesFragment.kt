@@ -10,11 +10,6 @@ import android.widget.RelativeLayout
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
-import kotlinx.android.synthetic.main.floating_action_button_layout.*
-import kotlinx.android.synthetic.main.fragment_browse_files.*
-import kotlinx.android.synthetic.main.recycler_view_layout.*
-import kotlinx.android.synthetic.main.view_browses_files_extra_text_and_button.*
-import kotlinx.android.synthetic.main.view_empty_folder.*
 import org.cryptomator.domain.CloudNode
 import org.cryptomator.generator.Fragment
 import org.cryptomator.presentation.R
@@ -32,8 +27,16 @@ import org.cryptomator.presentation.presenter.BrowseFilesPresenter
 import org.cryptomator.presentation.ui.adapter.BrowseFilesAdapter
 import org.cryptomator.presentation.util.ResourceHelper.Companion.getPixelOffset
 import org.cryptomator.util.Optional
-import java.util.*
+import java.util.Comparator
 import javax.inject.Inject
+import kotlinx.android.synthetic.main.floating_action_button_layout.floatingActionButton
+import kotlinx.android.synthetic.main.fragment_browse_files.slidingCoordinatorLayout
+import kotlinx.android.synthetic.main.fragment_browse_files.swipeRefreshLayout
+import kotlinx.android.synthetic.main.recycler_view_layout.recyclerView
+import kotlinx.android.synthetic.main.view_browses_files_extra_text_and_button.chooseLocationButton
+import kotlinx.android.synthetic.main.view_browses_files_extra_text_and_button.extraText
+import kotlinx.android.synthetic.main.view_browses_files_extra_text_and_button.extraTextAndButtonLayout
+import kotlinx.android.synthetic.main.view_empty_folder.emptyFolderHint
 
 @Fragment(R.layout.fragment_browse_files)
 class BrowseFilesFragment : BaseFragment() {

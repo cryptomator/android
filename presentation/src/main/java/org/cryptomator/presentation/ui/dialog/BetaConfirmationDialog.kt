@@ -10,6 +10,7 @@ import org.cryptomator.presentation.R
 class BetaConfirmationDialog : BaseDialog<BetaConfirmationDialog.Callback>() {
 
 	interface Callback {
+
 		fun onAskForBetaConfirmationFinished()
 	}
 
@@ -25,6 +26,7 @@ class BetaConfirmationDialog : BaseDialog<BetaConfirmationDialog.Callback>() {
 	}
 
 	companion object {
+
 		fun newInstance(): DialogFragment {
 			return BetaConfirmationDialog()
 		}

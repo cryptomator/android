@@ -44,6 +44,7 @@ class MimeType internal constructor(val mediatype: String, val subtype: String) 
 	}
 
 	companion object {
+
 		val TO_STRING = Function { obj: MimeType -> obj.toString() }
 		const val WILDCARD_MEDIATYPE = "*"
 		const val WILDCARD_SUBTYPE = "*"

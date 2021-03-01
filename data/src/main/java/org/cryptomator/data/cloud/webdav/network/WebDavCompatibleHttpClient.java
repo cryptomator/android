@@ -1,24 +1,8 @@
 package org.cryptomator.data.cloud.webdav.network;
 
-import static com.google.common.net.HttpHeaders.CACHE_CONTROL;
-import static org.cryptomator.data.util.NetworkTimeout.CONNECTION;
-import static org.cryptomator.data.util.NetworkTimeout.READ;
-import static org.cryptomator.data.util.NetworkTimeout.WRITE;
-import static org.cryptomator.util.file.LruFileCacheUtil.Cache.WEBDAV;
-
-import java.io.IOException;
-import java.util.Map;
-import java.util.concurrent.ConcurrentHashMap;
-import java.util.concurrent.TimeUnit;
-
-import javax.net.ssl.X509TrustManager;
-
-import org.cryptomator.data.cloud.okhttplogging.HttpLoggingInterceptor;
-import org.cryptomator.domain.WebDavCloud;
-import org.cryptomator.domain.exception.UnableToDecryptWebdavPasswordException;
-import org.cryptomator.util.SharedPreferencesHandler;
-import org.cryptomator.util.crypto.CredentialCryptor;
-import org.cryptomator.util.file.LruFileCacheUtil;
+import android.content.Context;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 
 import com.burgstaller.okhttp.AuthenticationCacheInterceptor;
 import com.burgstaller.okhttp.CachingAuthenticatorDecorator;
@@ -28,9 +12,19 @@ import com.burgstaller.okhttp.digest.CachingAuthenticator;
 import com.burgstaller.okhttp.digest.Credentials;
 import com.burgstaller.okhttp.digest.DigestAuthenticator;
 
-import android.content.Context;
-import android.net.ConnectivityManager;
-import android.net.NetworkInfo;
+import org.cryptomator.data.cloud.okhttplogging.HttpLoggingInterceptor;
+import org.cryptomator.domain.WebDavCloud;
+import org.cryptomator.domain.exception.UnableToDecryptWebdavPasswordException;
+import org.cryptomator.util.SharedPreferencesHandler;
+import org.cryptomator.util.crypto.CredentialCryptor;
+import org.cryptomator.util.file.LruFileCacheUtil;
+
+import java.io.IOException;
+import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
+import java.util.concurrent.TimeUnit;
+
+import javax.net.ssl.X509TrustManager;
 
 import okhttp3.Authenticator;
 import okhttp3.Cache;
@@ -41,6 +35,12 @@ import okhttp3.Request;
 import okhttp3.Response;
 import timber.log.Timber;
 
+import static com.google.common.net.HttpHeaders.CACHE_CONTROL;
+import static org.cryptomator.data.util.NetworkTimeout.CONNECTION;
+import static org.cryptomator.data.util.NetworkTimeout.READ;
+import static org.cryptomator.data.util.NetworkTimeout.WRITE;
+import static org.cryptomator.util.file.LruFileCacheUtil.Cache.WEBDAV;
+
 class WebDavCompatibleHttpClient {
 
 	private final WebDavRedirectHandler webDavRedirectHandler;
@@ -48,14 +48,6 @@ class WebDavCompatibleHttpClient {
 	WebDavCompatibleHttpClient(WebDavCloud cloud, Context context) {
 		final SharedPreferencesHandler sharedPreferencesHandler = new SharedPreferencesHandler(context);
 		this.webDavRedirectHandler = new WebDavRedirectHandler(httpClientFor(cloud, context, sharedPreferencesHandler.useLruCache(), sharedPreferencesHandler.lruCacheSize()));
-	}
-
-	Response execute(Request.Builder requestBuilder) throws IOException {
-		return execute(requestBuilder.build());
-	}
-
-	private Response execute(Request request) throws IOException {
-		return webDavRedirectHandler.executeFollowingRedirects(request);
 	}
 
 	private static OkHttpClient httpClientFor(WebDavCloud webDavCloud, Context context, boolean useLruCache, int lruCacheSize) {
@@ -131,9 +123,9 @@ class WebDavCompatibleHttpClient {
 
 		Authenticator result = new DispatchingAuthenticator //
 				.Builder() //
-						.with("digest", digestAuthenticator) //
-						.with("basic", basicAuthenticator) //
-						.build();
+				.with("digest", digestAuthenticator) //
+				.with("basic", basicAuthenticator) //
+				.build();
 		result = new CachingAuthenticatorDecorator(result, authCache);
 
 		return result;
@@ -161,5 +153,13 @@ class WebDavCompatibleHttpClient {
 		ConnectivityManager connectivityManager = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
 		NetworkInfo activeNetworkInfo = connectivityManager.getActiveNetworkInfo();
 		return activeNetworkInfo != null && activeNetworkInfo.isConnected();
+	}
+
+	Response execute(Request.Builder requestBuilder) throws IOException {
+		return execute(requestBuilder.build());
+	}
+
+	private Response execute(Request request) throws IOException {
+		return webDavRedirectHandler.executeFollowingRedirects(request);
 	}
 }

@@ -2,11 +2,15 @@ package org.cryptomator.util
 
 import android.content.Context
 import android.content.SharedPreferences
-import androidx.appcompat.app.AppCompatDelegate.*
+import androidx.appcompat.app.AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM
+import androidx.appcompat.app.AppCompatDelegate.MODE_NIGHT_NO
+import androidx.appcompat.app.AppCompatDelegate.MODE_NIGHT_YES
 import androidx.preference.PreferenceManager
 import org.cryptomator.util.LockTimeout.ONE_MINUTE
 import java.text.SimpleDateFormat
-import java.util.*
+import java.util.Date
+import java.util.Locale
+import java.util.WeakHashMap
 import javax.inject.Inject
 import kotlin.math.abs
 
@@ -144,6 +148,10 @@ constructor(context: Context) : SharedPreferences.OnSharedPreferenceChangeListen
 		defaultSharedPreferences.setValue(PHOTO_UPLOAD_FOLDER, location)
 	}
 
+	fun autoPhotoUploadIncludingVideos(): Boolean {
+		return defaultSharedPreferences.getValue(PHOTO_UPLOAD_INCLUDING_VIDEOS, false)
+	}
+
 	fun useLruCache(): Boolean {
 		return defaultSharedPreferences.getValue(USE_LRU_CACHE, false)
 	}
@@ -220,6 +228,7 @@ constructor(context: Context) : SharedPreferences.OnSharedPreferenceChangeListen
 	}
 
 	companion object {
+
 		private const val SCREEN_LOCK_DIALOG_SHOWN = "askForScreenLockDialogShown"
 		private const val SCREEN_BETA_DIALOG_SHOWN = "askForBetaConfirmationDialogShown"
 		private const val USE_BIOMETRIC_AUTHENTICATION = "useFingerprint"
@@ -238,6 +247,7 @@ constructor(context: Context) : SharedPreferences.OnSharedPreferenceChangeListen
 		const val PHOTO_UPLOAD_ONLY_USING_WIFI = "photoUploadOnlyUsingWifi"
 		const val PHOTO_UPLOAD_VAULT = "photoUploadVault"
 		const val PHOTO_UPLOAD_FOLDER = "photoUploadFolder"
+		const val PHOTO_UPLOAD_INCLUDING_VIDEOS = "photoUploadIncludingVideos"
 		const val USE_LRU_CACHE = "lruCache"
 		const val LRU_CACHE_SIZE = "lruCacheSize"
 		const val MAIL = "mail"

@@ -8,13 +8,13 @@ public class IntentsModel {
 	private final Set<IntentBuilderModel> builders;
 	private final Set<IntentReaderModel> readers;
 
-	public static IntentsModel.Builder builder() {
-		return new Builder();
-	}
-
 	private IntentsModel(Set<IntentBuilderModel> builders, Set<IntentReaderModel> readers) {
 		this.builders = builders;
 		this.readers = readers;
+	}
+
+	public static IntentsModel.Builder builder() {
+		return new Builder();
 	}
 
 	public Set<IntentBuilderModel> getBuilders() {

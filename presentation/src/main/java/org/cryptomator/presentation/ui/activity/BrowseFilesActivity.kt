@@ -7,20 +7,26 @@ import android.view.View
 import androidx.appcompat.widget.SearchView
 import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.Fragment
-import kotlinx.android.synthetic.main.toolbar_layout.*
 import org.cryptomator.domain.CloudNode
 import org.cryptomator.generator.Activity
 import org.cryptomator.generator.InjectIntent
 import org.cryptomator.presentation.R
 import org.cryptomator.presentation.intent.BrowseFilesIntent
 import org.cryptomator.presentation.intent.ChooseCloudNodeSettings
-import org.cryptomator.presentation.intent.ChooseCloudNodeSettings.NavigationMode.*
+import org.cryptomator.presentation.intent.ChooseCloudNodeSettings.NavigationMode.BROWSE_FILES
+import org.cryptomator.presentation.intent.ChooseCloudNodeSettings.NavigationMode.MOVE_CLOUD_NODE
+import org.cryptomator.presentation.intent.ChooseCloudNodeSettings.NavigationMode.SELECT_ITEMS
 import org.cryptomator.presentation.model.CloudFileModel
 import org.cryptomator.presentation.model.CloudFolderModel
 import org.cryptomator.presentation.model.CloudNodeModel
 import org.cryptomator.presentation.model.ProgressModel
 import org.cryptomator.presentation.model.ProgressModel.Companion.COMPLETED
-import org.cryptomator.presentation.model.comparator.*
+import org.cryptomator.presentation.model.comparator.CloudNodeModelDateNewestFirstComparator
+import org.cryptomator.presentation.model.comparator.CloudNodeModelDateOldestFirstComparator
+import org.cryptomator.presentation.model.comparator.CloudNodeModelNameAZComparator
+import org.cryptomator.presentation.model.comparator.CloudNodeModelNameZAComparator
+import org.cryptomator.presentation.model.comparator.CloudNodeModelSizeBiggestFirstComparator
+import org.cryptomator.presentation.model.comparator.CloudNodeModelSizeSmallestFirstComparator
 import org.cryptomator.presentation.presenter.BrowseFilesPresenter
 import org.cryptomator.presentation.presenter.BrowseFilesPresenter.Companion.OPEN_FILE_FINISHED
 import org.cryptomator.presentation.ui.activity.view.BrowseFilesView
@@ -28,11 +34,22 @@ import org.cryptomator.presentation.ui.bottomsheet.FileSettingsBottomSheet
 import org.cryptomator.presentation.ui.bottomsheet.FolderSettingsBottomSheet
 import org.cryptomator.presentation.ui.bottomsheet.VaultContentActionBottomSheet
 import org.cryptomator.presentation.ui.callback.BrowseFilesCallback
-import org.cryptomator.presentation.ui.dialog.*
+import org.cryptomator.presentation.ui.dialog.CloudNodeRenameDialog
+import org.cryptomator.presentation.ui.dialog.ConfirmDeleteCloudNodeDialog
+import org.cryptomator.presentation.ui.dialog.CreateFolderDialog
+import org.cryptomator.presentation.ui.dialog.ExportCloudFilesDialog
+import org.cryptomator.presentation.ui.dialog.FileNameDialog
+import org.cryptomator.presentation.ui.dialog.FileTypeNotSupportedDialog
+import org.cryptomator.presentation.ui.dialog.NoDirFileDialog
+import org.cryptomator.presentation.ui.dialog.ReplaceDialog
+import org.cryptomator.presentation.ui.dialog.SymLinkDialog
+import org.cryptomator.presentation.ui.dialog.UploadCloudFileDialog
 import org.cryptomator.presentation.ui.fragment.BrowseFilesFragment
-import java.util.*
+import java.util.ArrayList
+import java.util.Locale
 import java.util.regex.Pattern
 import javax.inject.Inject
+import kotlinx.android.synthetic.main.toolbar_layout.toolbar
 
 @Activity
 class BrowseFilesActivity : BaseActivity(), //

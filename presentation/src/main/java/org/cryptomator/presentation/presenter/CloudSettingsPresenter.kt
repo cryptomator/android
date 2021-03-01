@@ -20,7 +20,7 @@ import org.cryptomator.presentation.model.WebDavCloudModel
 import org.cryptomator.presentation.model.mappers.CloudModelMapper
 import org.cryptomator.presentation.ui.activity.view.CloudSettingsView
 import org.cryptomator.presentation.workflow.ActivityResult
-import java.util.*
+import java.util.EnumSet
 import javax.inject.Inject
 
 @PerView
@@ -30,6 +30,7 @@ class CloudSettingsPresenter @Inject constructor( //
 		private val logoutCloudUsecase: LogoutCloudUseCase,  //
 		private val cloudModelMapper: CloudModelMapper,  //
 		exceptionMappings: ExceptionHandlers) : Presenter<CloudSettingsView>(exceptionMappings) {
+
 	private val nonSingleLoginClouds: Set<CloudTypeModel> = EnumSet.of( //
 			CloudTypeModel.CRYPTO,  //
 			CloudTypeModel.LOCAL,  //
@@ -114,10 +115,11 @@ class CloudSettingsPresenter @Inject constructor( //
 	}
 
 	private inner class CloudsSubscriber : DefaultResultHandler<List<Cloud>>() {
+
 		override fun onSuccess(clouds: List<Cloud>) {
 			val cloudModel = cloudModelMapper.toModels(clouds) //
 					.filter { isSingleLoginCloud(it) } //
-					.filter { cloud -> !(BuildConfig.FLAVOR == "fdroid" && cloud.cloudType() == CloudTypeModel.GOOGLE_DRIVE)} //
+					.filter { cloud -> !(BuildConfig.FLAVOR == "fdroid" && cloud.cloudType() == CloudTypeModel.GOOGLE_DRIVE) } //
 					.toMutableList() //
 					.also {
 						it.add(aWebdavCloud())

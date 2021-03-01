@@ -1,5 +1,7 @@
 package org.cryptomator.presentation.intent;
 
+import androidx.annotation.Nullable;
+
 import org.cryptomator.presentation.model.CloudFolderModel;
 
 import java.io.Serializable;
@@ -7,17 +9,14 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.regex.Pattern;
 
-import androidx.annotation.Nullable;
-
 import static org.cryptomator.presentation.intent.ChooseCloudNodeSettings.SelectionMode.FILES_ONLY;
 import static org.cryptomator.presentation.intent.ChooseCloudNodeSettings.SelectionMode.FOLDERS_ONLY;
 
 public class ChooseCloudNodeSettings implements Serializable {
 
+	public static final int NO_ICON = -1;
 	private static final Pattern ANY_NAME = Pattern.compile(".*");
 	private static final Pattern NO_NAME = Pattern.compile("");
-	public static final int NO_ICON = -1;
-
 	private final String extraTitle;
 	private final String extraText;
 	private final String buttonText;
@@ -41,6 +40,10 @@ public class ChooseCloudNodeSettings implements Serializable {
 		this.excludeFolders = builder.excludeFolders;
 		this.extraToolbarIcon = builder.extraToolbarIcon;
 		this.navigationMode = builder.navigationMode;
+	}
+
+	public static Builder chooseCloudNodeSettings() {
+		return new Builder();
 	}
 
 	@Nullable
@@ -85,18 +88,39 @@ public class ChooseCloudNodeSettings implements Serializable {
 		return navigationMode;
 	}
 
-	public static Builder chooseCloudNodeSettings() {
-		return new Builder();
+	public enum SelectionMode {
+		FILES_ONLY(true, true), FOLDERS_ONLY(false, true);
+
+		private final boolean allowsFolders;
+		private final boolean allowsFiles;
+
+		SelectionMode(boolean allowsFiles, boolean allowsFolders) {
+			this.allowsFiles = allowsFiles;
+			this.allowsFolders = allowsFolders;
+		}
+
+		public boolean allowsFolders() {
+			return allowsFolders;
+		}
+
+		public boolean allowsFiles() {
+			return allowsFiles;
+		}
+
+	}
+
+	public enum NavigationMode {
+		BROWSE_FILES, MOVE_CLOUD_NODE, SELECT_ITEMS
 	}
 
 	public static class Builder {
 
+		private final Pattern excludeFoldersContainingNamePattern = NO_NAME;
 		private String extraTitle;
 		private String extraText;
 		private String buttonText;
 		private SelectionMode selectionMode;
 		private Pattern namePattern = ANY_NAME;
-		private final Pattern excludeFoldersContainingNamePattern = NO_NAME;
 		private int extraToolbarIcon = NO_ICON;
 		private NavigationMode navigationMode = NavigationMode.BROWSE_FILES;
 		private List<CloudFolderModel> excludeFolders;
@@ -169,31 +193,6 @@ public class ChooseCloudNodeSettings implements Serializable {
 			}
 		}
 
-	}
-
-	public enum SelectionMode {
-		FILES_ONLY(true, true), FOLDERS_ONLY(false, true);
-
-		private final boolean allowsFolders;
-		private final boolean allowsFiles;
-
-		SelectionMode(boolean allowsFiles, boolean allowsFolders) {
-			this.allowsFiles = allowsFiles;
-			this.allowsFolders = allowsFolders;
-		}
-
-		public boolean allowsFolders() {
-			return allowsFolders;
-		}
-
-		public boolean allowsFiles() {
-			return allowsFiles;
-		}
-
-	}
-
-	public enum NavigationMode {
-		BROWSE_FILES, MOVE_CLOUD_NODE, SELECT_ITEMS
 	}
 
 }

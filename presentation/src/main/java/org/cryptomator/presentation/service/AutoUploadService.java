@@ -1,15 +1,14 @@
 package org.cryptomator.presentation.service;
 
-import static java.lang.String.format;
-import static org.cryptomator.domain.usecases.cloud.UploadFile.anUploadFile;
+import android.app.Service;
+import android.content.Context;
+import android.content.Intent;
+import android.net.Uri;
+import android.os.Handler;
+import android.os.IBinder;
+import android.os.Looper;
 
-import java.io.File;
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import androidx.annotation.Nullable;
 
 import org.cryptomator.domain.Cloud;
 import org.cryptomator.domain.CloudFile;
@@ -34,17 +33,18 @@ import org.cryptomator.presentation.util.FileUtil;
 import org.cryptomator.util.Optional;
 import org.cryptomator.util.SharedPreferencesHandler;
 
-import android.app.Service;
-import android.content.Context;
-import android.content.Intent;
-import android.net.Uri;
-import android.os.Handler;
-import android.os.IBinder;
-import android.os.Looper;
-
-import androidx.annotation.Nullable;
+import java.io.File;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 
 import timber.log.Timber;
+
+import static java.lang.String.format;
+import static org.cryptomator.domain.usecases.cloud.UploadFile.anUploadFile;
 
 public class AutoUploadService extends Service {
 
@@ -52,6 +52,23 @@ public class AutoUploadService extends Service {
 	private static final String ACTION_START_AUTO_UPLOAD = "START_AUTO_UPLOAD";
 
 	private static Cloud cloud;
+	private AutoUploadNotification notification;
+	private CloudContentRepository cloudContentRepository;
+	private ContentResolverUtil contentResolverUtil;
+	private FileUtil fileUtil;
+	private List<UploadFile> uploadFiles;
+	private CloudFolder parent;
+	private Context context;
+	private long startTimeAutoUploadNotificationDelay;
+	private long elapsedTimeAutoUploadNotificationDelay = 0L;
+	private Thread worker;
+	private volatile boolean cancelled;
+	private final Flag cancelledFlag = new Flag() {
+		@Override
+		public boolean get() {
+			return cancelled;
+		}
+	};
 
 	public static Intent cancelAutoUploadIntent(Context context) {
 		Intent cancelAutoUploadIntent = new Intent(context, AutoUploadService.class);
@@ -65,28 +82,6 @@ public class AutoUploadService extends Service {
 		startAutoUpload.setAction(ACTION_START_AUTO_UPLOAD);
 		return startAutoUpload;
 	}
-
-	private AutoUploadNotification notification;
-
-	private CloudContentRepository cloudContentRepository;
-	private ContentResolverUtil contentResolverUtil;
-	private FileUtil fileUtil;
-	private List<UploadFile> uploadFiles;
-	private CloudFolder parent;
-	private Context context;
-
-	private long startTimeAutoUploadNotificationDelay;
-	private long elapsedTimeAutoUploadNotificationDelay = 0L;
-
-	private Thread worker;
-
-	private volatile boolean cancelled;
-	private final Flag cancelledFlag = new Flag() {
-		@Override
-		public boolean get() {
-			return cancelled;
-		}
-	};
 
 	private void startBackgroundImageUpload(Cloud cloud) {
 		try {
@@ -144,8 +139,9 @@ public class AutoUploadService extends Service {
 				startTimeAutoUploadNotificationDelay = System.currentTimeMillis();
 				elapsedTimeAutoUploadNotificationDelay = 0;
 			});
-		} else
+		} else {
 			elapsedTimeAutoUploadNotificationDelay = new Date().getTime() - startTimeAutoUploadNotificationDelay;
+		}
 	}
 
 	private ArrayList<UploadFile> getUploadFiles(AutoUploadFilesStore autoUploadFilesStore) {
@@ -272,6 +268,12 @@ public class AutoUploadService extends Service {
 		return new Binder();
 	}
 
+	private void hideNotification() {
+		if (notification != null) {
+			notification.hide();
+		}
+	}
+
 	public class Binder extends android.os.Binder {
 
 		Binder() {
@@ -282,12 +284,6 @@ public class AutoUploadService extends Service {
 			fileUtil = myFileUtil;
 			contentResolverUtil = myContentResolverUtil;
 			context = myContext;
-		}
-	}
-
-	private void hideNotification() {
-		if (notification != null) {
-			notification.hide();
 		}
 	}
 }

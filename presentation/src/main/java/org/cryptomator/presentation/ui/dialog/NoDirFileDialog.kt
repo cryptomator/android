@@ -4,14 +4,15 @@ import android.content.DialogInterface
 import android.os.Bundle
 import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.DialogFragment
-import kotlinx.android.synthetic.main.dialog_no_dir_file.*
 import org.cryptomator.generator.Dialog
 import org.cryptomator.presentation.R
+import kotlinx.android.synthetic.main.dialog_no_dir_file.tv_no_dir_file_info
 
 @Dialog(R.layout.dialog_no_dir_file)
 class NoDirFileDialog : BaseDialog<NoDirFileDialog.CallBack>() {
 
 	interface CallBack {
+
 		fun navigateFolderBackBecauseNoDirFile()
 	}
 
@@ -36,6 +37,7 @@ class NoDirFileDialog : BaseDialog<NoDirFileDialog.CallBack>() {
 	}
 
 	companion object {
+
 		private const val ARG_CRYPTO_FOLDER_NAME = "argCryptoFolderName"
 		private const val ARG_CLOUD_FOLDER_PATH = "argCloudFolderPath"
 		fun newInstance(cryptoFolderName: String, cloudFolderPath: String): DialogFragment {

@@ -32,10 +32,10 @@ import org.cryptomator.presentation.ui.activity.view.View
 import org.cryptomator.presentation.ui.dialog.GenericProgressDialog
 import org.cryptomator.presentation.ui.snackbar.SnackbarAction
 import org.cryptomator.util.SharedPreferencesHandler
-import timber.log.Timber
 import java.lang.String.format
 import javax.inject.Inject
 import kotlin.reflect.KClass
+import timber.log.Timber
 
 abstract class BaseActivity : AppCompatActivity(), View, ActivityCompat.OnRequestPermissionsResultCallback, HasComponent<ActivityComponent> {
 
@@ -384,6 +384,7 @@ abstract class BaseActivity : AppCompatActivity(), View, ActivityCompat.OnReques
 	}
 
 	companion object {
+
 		const val NO_MENU = -1
 		private const val ACTIVE_DIALOG = "activeDialog"
 	}

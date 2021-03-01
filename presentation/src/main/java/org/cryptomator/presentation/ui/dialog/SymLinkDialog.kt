@@ -4,14 +4,15 @@ import android.content.DialogInterface
 import android.text.method.LinkMovementMethod
 import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.DialogFragment
-import kotlinx.android.synthetic.main.dialog_sym_link.*
 import org.cryptomator.generator.Dialog
 import org.cryptomator.presentation.R
+import kotlinx.android.synthetic.main.dialog_sym_link.tv_sym_link_info
 
 @Dialog(R.layout.dialog_sym_link)
 class SymLinkDialog : BaseDialog<SymLinkDialog.CallBack?>() {
 
 	interface CallBack {
+
 		fun navigateFolderBackBecauseSymlink()
 	}
 
@@ -30,6 +31,7 @@ class SymLinkDialog : BaseDialog<SymLinkDialog.CallBack?>() {
 	}
 
 	companion object {
+
 		fun newInstance(): DialogFragment {
 			return SymLinkDialog()
 		}

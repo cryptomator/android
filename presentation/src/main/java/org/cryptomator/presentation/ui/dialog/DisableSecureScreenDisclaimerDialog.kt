@@ -4,14 +4,15 @@ import android.content.DialogInterface
 import android.text.method.LinkMovementMethod
 import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.DialogFragment
-import kotlinx.android.synthetic.main.dialog_disable_secure_screen_disclaimer.*
 import org.cryptomator.generator.Dialog
 import org.cryptomator.presentation.R
+import kotlinx.android.synthetic.main.dialog_disable_secure_screen_disclaimer.tv_disable_secure_screen_disclaimer
 
 @Dialog(R.layout.dialog_disable_secure_screen_disclaimer)
 class DisableSecureScreenDisclaimerDialog : BaseDialog<DisableSecureScreenDisclaimerDialog.Callback>() {
 
 	interface Callback {
+
 		fun onDisableSecureScreenDisclaimerAccepted()
 		fun onDisableSecureScreenDisclaimerRejected()
 	}
@@ -34,6 +35,7 @@ class DisableSecureScreenDisclaimerDialog : BaseDialog<DisableSecureScreenDiscla
 	}
 
 	companion object {
+
 		fun newInstance(): DialogFragment {
 			return DisableSecureScreenDisclaimerDialog()
 		}

@@ -14,35 +14,6 @@ public class BackgroundTasks {
 
 	private static final ObjectCounts counts = new ObjectCounts();
 
-	public static class Registration {
-		private final Class<?> type;
-		private boolean unregistered = false;
-
-		public Registration(Class<?> type) {
-			this.type = type;
-		}
-
-		public synchronized void unregister() {
-			if (unregistered) {
-				return;
-			}
-
-			unregistered = true;
-
-			lock.lock();
-
-			try {
-				int count = counts.removeAndGet(type);
-				Timber.tag("BackgroundTasks").d(caller("unregister", count, counts.count()));
-				if (count == 0) {
-					reachedZero.signalAll();
-				}
-			} finally {
-				lock.unlock();
-			}
-		}
-	}
-
 	public static void awaitCompleted() {
 		lock.lock();
 		try {
@@ -89,5 +60,35 @@ public class BackgroundTasks {
 				.append(':') //
 				.append(caller.getLineNumber()) //
 				.toString();
+	}
+
+	public static class Registration {
+
+		private final Class<?> type;
+		private boolean unregistered = false;
+
+		public Registration(Class<?> type) {
+			this.type = type;
+		}
+
+		public synchronized void unregister() {
+			if (unregistered) {
+				return;
+			}
+
+			unregistered = true;
+
+			lock.lock();
+
+			try {
+				int count = counts.removeAndGet(type);
+				Timber.tag("BackgroundTasks").d(caller("unregister", count, counts.count()));
+				if (count == 0) {
+					reachedZero.signalAll();
+				}
+			} finally {
+				lock.unlock();
+			}
+		}
 	}
 }

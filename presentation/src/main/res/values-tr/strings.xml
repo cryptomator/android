@@ -341,7 +341,6 @@
 	<string name="dialog_settings_update_check_interval_title">Kontrol aralığını güncelle</string>
 	<string name="screen_settings_check_updates">Güncellemeleri kontrol et</string>
 	<string name="screen_settings_last_check_updates">Son çalıştırma %1$s</string>
-	<string name="screen_settings_last_check_updates_never">@string/lock_timeout_never</string>
 	<string name="dialog_cache_size_title">Bulut başına önbellek boyutu</string>
 	<!-- lock timeout names -->
 	<string name="lock_timeout_instant">Anında</string>
@@ -349,7 +348,6 @@
 	<string name="lock_timeout_2m">2 dakika</string>
 	<string name="lock_timeout_5m">5 dakika</string>
 	<string name="lock_timeout_10m">10 dakika</string>
-	<string name="lock_timeout_never">Asla</string>
 	<!-- cache size names -->
 	<!-- screen scheme mode names -->
 	<string name="screen_settings_style_mode">Görünüm modu</string>
@@ -360,5 +358,4 @@
 	<string name="update_interval_1d">Günde bir</string>
 	<string name="update_interval_1w">Haftada bir</string>
 	<string name="update_interval_1m">Ayda bir</string>
-	<string name="update_interval_never">@string/lock_timeout_never</string>
 </resources>

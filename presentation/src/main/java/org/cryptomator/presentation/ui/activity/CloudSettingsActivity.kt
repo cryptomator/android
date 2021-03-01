@@ -1,7 +1,6 @@
 package org.cryptomator.presentation.ui.activity
 
 import androidx.fragment.app.Fragment
-import kotlinx.android.synthetic.main.toolbar_layout.*
 import org.cryptomator.generator.Activity
 import org.cryptomator.presentation.R
 import org.cryptomator.presentation.model.CloudModel
@@ -9,6 +8,7 @@ import org.cryptomator.presentation.presenter.CloudSettingsPresenter
 import org.cryptomator.presentation.ui.activity.view.CloudSettingsView
 import org.cryptomator.presentation.ui.fragment.CloudSettingsFragment
 import javax.inject.Inject
+import kotlinx.android.synthetic.main.toolbar_layout.toolbar
 
 @Activity
 class CloudSettingsActivity : BaseActivity(), CloudSettingsView {

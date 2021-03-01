@@ -24,7 +24,7 @@ public class BasicNodeOperationsUtil {
 
 		onView(withRecyclerView(R.id.recyclerView) //
 				.atPositionOnView(nodePosition, R.id.settings)) //
-						.perform(click());
+				.perform(click());
 
 		awaitCompleted();
 	}
@@ -39,7 +39,7 @@ public class BasicNodeOperationsUtil {
 		onView(allOf( //
 				withId(R.id.tv_empty_folder_hint), //
 				withText(R.string.screen_file_browser_msg_empty_folder))) //
-						.check(matches(withText(R.string.screen_file_browser_msg_empty_folder)));
+				.check(matches(withText(R.string.screen_file_browser_msg_empty_folder)));
 	}
 
 	static void checkFileOrFolderAlreadyExistsErrorMessage(String nodeName) {

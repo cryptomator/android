@@ -1,14 +1,18 @@
 package org.cryptomator.presentation.ui.activity
 
 import android.net.Uri
-import android.view.View.*
+import android.view.View.GONE
+import android.view.View.SYSTEM_UI_FLAG_FULLSCREEN
+import android.view.View.SYSTEM_UI_FLAG_HIDE_NAVIGATION
+import android.view.View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY
+import android.view.View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
+import android.view.View.VISIBLE
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentStatePagerAdapter
 import androidx.viewpager.widget.PagerAdapter
 import androidx.viewpager.widget.ViewPager
-import kotlinx.android.synthetic.main.activity_image_preview.*
 import org.cryptomator.domain.exception.FatalBackendException
 import org.cryptomator.generator.Activity
 import org.cryptomator.generator.InjectIntent
@@ -22,6 +26,12 @@ import org.cryptomator.presentation.ui.dialog.ConfirmDeleteCloudNodeDialog
 import org.cryptomator.presentation.ui.fragment.ImagePreviewFragment
 import org.cryptomator.util.Optional
 import javax.inject.Inject
+import kotlinx.android.synthetic.main.activity_image_preview.controlView
+import kotlinx.android.synthetic.main.activity_image_preview.deleteImage
+import kotlinx.android.synthetic.main.activity_image_preview.exportImage
+import kotlinx.android.synthetic.main.activity_image_preview.shareImage
+import kotlinx.android.synthetic.main.activity_image_preview.toolbar
+import kotlinx.android.synthetic.main.activity_image_preview.viewPager
 
 @Activity(layout = R.layout.activity_image_preview)
 class ImagePreviewActivity : BaseActivity(), ImagePreviewView, ConfirmDeleteCloudNodeDialog.Callback {

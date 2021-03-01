@@ -22,6 +22,10 @@ public class CloudFolderMatcher extends TypeSafeDiagnosingMatcher<CloudNode> {
 				Matchers.hasProperty("parent", is(folder.getParent())));
 	}
 
+	public static CloudFolderMatcher cloudFolder(CloudFolder folder) {
+		return new CloudFolderMatcher(folder);
+	}
+
 	@Override
 	public void describeTo(Description description) {
 		delegate.describeTo(description);
@@ -36,9 +40,5 @@ public class CloudFolderMatcher extends TypeSafeDiagnosingMatcher<CloudNode> {
 
 		mismatchDescription.appendText("not ").appendDescriptionOf(delegate);
 		return false;
-	}
-
-	public static CloudFolderMatcher cloudFolder(CloudFolder folder) {
-		return new CloudFolderMatcher(folder);
 	}
 }

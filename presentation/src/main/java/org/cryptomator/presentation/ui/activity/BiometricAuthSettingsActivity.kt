@@ -4,7 +4,6 @@ import android.os.Build
 import androidx.annotation.RequiresApi
 import androidx.biometric.BiometricManager
 import androidx.fragment.app.Fragment
-import kotlinx.android.synthetic.main.toolbar_layout.*
 import org.cryptomator.domain.Vault
 import org.cryptomator.generator.Activity
 import org.cryptomator.presentation.R
@@ -17,6 +16,7 @@ import org.cryptomator.presentation.ui.dialog.EnterPasswordDialog
 import org.cryptomator.presentation.ui.fragment.BiometricAuthSettingsFragment
 import org.cryptomator.presentation.util.BiometricAuthentication
 import javax.inject.Inject
+import kotlinx.android.synthetic.main.toolbar_layout.toolbar
 
 @Activity
 class BiometricAuthSettingsActivity : BaseActivity(), //

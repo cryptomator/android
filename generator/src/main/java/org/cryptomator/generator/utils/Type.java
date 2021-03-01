@@ -20,10 +20,6 @@ public class Type implements Comparable<Type> {
 	private final Optional<TypeElement> element;
 	private final Utils utils;
 
-	public Utils getUtils() {
-		return utils;
-	}
-
 	public Type(Utils utils, TypeMirror mirror) {
 		if (utils == null) {
 			throw new IllegalArgumentException("utils must not be null");
@@ -50,6 +46,10 @@ public class Type implements Comparable<Type> {
 		this.utils = utils;
 		this.mirror = utils.types.erasure(element.asType());
 		this.element = Optional.of(element);
+	}
+
+	public Utils getUtils() {
+		return utils;
 	}
 
 	public TypeElement element() {
@@ -92,8 +92,7 @@ public class Type implements Comparable<Type> {
 						.sorted((e1, e2) -> e1.getSimpleName().toString().compareTo(e2.getSimpleName().toString())) //
 						.map(ExecutableElement.class::cast) //
 						.filter(Method::isConstructor) //
-						.map(executableElement -> new Method(utils, executableElement)))
-				.orElse(Stream.empty()); //
+						.map(executableElement -> new Method(utils, executableElement))).orElse(Stream.empty()); //
 	}
 
 	public Stream<Method> methods() {
@@ -103,8 +102,7 @@ public class Type implements Comparable<Type> {
 						.sorted((e1, e2) -> e1.getSimpleName().toString().compareTo(e2.getSimpleName().toString())) //
 						.map(ExecutableElement.class::cast) //
 						.filter(Method::isRegularMethod) //
-						.map(executableElement -> new Method(utils, executableElement)))
-				.orElse(Stream.empty());
+						.map(executableElement -> new Method(utils, executableElement))).orElse(Stream.empty());
 	}
 
 	public Stream<Field> fields() {
@@ -120,10 +118,12 @@ public class Type implements Comparable<Type> {
 
 	@Override
 	public boolean equals(Object obj) {
-		if (obj == this)
+		if (obj == this) {
 			return true;
-		if (obj == null || getClass() != obj.getClass())
+		}
+		if (obj == null || getClass() != obj.getClass()) {
 			return false;
+		}
 		return internalEquals((Type) obj);
 	}
 

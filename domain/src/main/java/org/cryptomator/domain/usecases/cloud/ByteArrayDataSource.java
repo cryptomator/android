@@ -10,14 +10,14 @@ import java.io.InputStream;
 
 public class ByteArrayDataSource implements DataSource {
 
-	public static DataSource from(byte[] bytes) {
-		return new ByteArrayDataSource(bytes);
-	}
-
 	private final byte[] bytes;
 
 	private ByteArrayDataSource(byte[] bytes) {
 		this.bytes = bytes;
+	}
+
+	public static DataSource from(byte[] bytes) {
+		return new ByteArrayDataSource(bytes);
 	}
 
 	@Override

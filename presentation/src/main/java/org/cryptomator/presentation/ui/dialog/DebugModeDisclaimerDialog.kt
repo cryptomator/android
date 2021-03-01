@@ -10,6 +10,7 @@ import org.cryptomator.presentation.R
 class DebugModeDisclaimerDialog : BaseDialog<DebugModeDisclaimerDialog.Callback>() {
 
 	interface Callback {
+
 		fun onDisclaimerAccepted()
 		fun onDisclaimerRejected()
 	}
@@ -32,6 +33,7 @@ class DebugModeDisclaimerDialog : BaseDialog<DebugModeDisclaimerDialog.Callback>
 	}
 
 	companion object {
+
 		fun newInstance(): DialogFragment {
 			return DebugModeDisclaimerDialog()
 		}

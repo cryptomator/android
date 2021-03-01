@@ -3,8 +3,17 @@ package org.cryptomator.util.file
 import android.content.Context
 import android.net.Uri
 import org.cryptomator.util.Encodings
-import java.io.*
-import java.util.*
+import java.io.BufferedReader
+import java.io.File
+import java.io.FileNotFoundException
+import java.io.FileOutputStream
+import java.io.IOException
+import java.io.InputStream
+import java.io.InputStreamReader
+import java.io.OutputStreamWriter
+import java.io.PrintWriter
+import java.io.StringWriter
+import java.util.UUID
 import javax.inject.Inject
 
 class FileCacheUtils @Inject constructor(context: Context) {
@@ -70,6 +79,7 @@ class FileCacheUtils @Inject constructor(context: Context) {
 	}
 
 	companion object {
+
 		private const val EOF = -1
 	}
 

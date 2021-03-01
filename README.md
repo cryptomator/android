@@ -38,6 +38,8 @@ For build type
 
 Please read our [contribution guide](.github/CONTRIBUTING.md), if you would like to report a bug, ask a question, translate the app or help us with coding.
 
+Please make sure before creating a PR, to apply the code style by executing reformat code with optimize imports and rearrange code enabled. The best way to do this is to create a macro for it in android studio and set it to the save shortcut.
+
 ## Code of Conduct
 
 Help us keep Cryptomator open and inclusive. Please read and follow our [Code of Conduct](.github/CODE_OF_CONDUCT.md).
@@ -56,7 +58,7 @@ Follow these steps to deploy a release:
 1. Smoke-Test changed or added functionality
 1. Update version
 1. Create and commit release notes
-1. Merge in `master`
+1. Merge in `main`
 1. Create tag and execute deploy app using Fastlane
 1. Close GitHub-issues or move them to next milestone
 1. Close milestone
@@ -64,7 +66,7 @@ Follow these steps to deploy a release:
 
 ### Release Notes
 
-Before tagging the release, create and commit the release notes. For Playstore create [fastlane/metadata/android/de-DE/changelogs/default.txt](https://github.com/cryptomator/android/blob/develop/fastlane/metadata/android/de-DE/changelogs/default.txt), [fastlane/metadata/android/en-US/changelogs/default.txt](https://github.com/cryptomator/android/blob/develop/fastlane/metadata/android/en-US/changelogs/default.txt) and for the website create [fastlane/release_notes_apkstore_en.html](https://github.com/cryptomator/android/blob/develop/fastlane/release_notes_apkstore_en.html). 
+Before tagging the release, create and commit the release notes. For Playstore create [fastlane/metadata/android/de-DE/changelogs/default.txt](https://github.com/cryptomator/android/blob/develop/fastlane/metadata/android/de-DE/changelogs/default.txt), [fastlane/metadata/android/en-US/changelogs/default.txt](https://github.com/cryptomator/android/blob/develop/fastlane/metadata/android/en-US/changelogs/default.txt) and for the website create [fastlane/release-notes.html](https://github.com/cryptomator/android/blob/develop/fastlane/release-notes.html).
 
 ### Deploy app using Fastlane
 

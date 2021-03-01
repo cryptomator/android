@@ -1,17 +1,13 @@
 package org.cryptomator.domain.usecases.cloud;
 
+import androidx.annotation.NonNull;
+
 import org.cryptomator.domain.exception.CancellationException;
 
 import java.io.IOException;
 import java.io.InputStream;
 
-import androidx.annotation.NonNull;
-
 class CancelAwareInputStream extends InputStream {
-
-	public static CancelAwareInputStream wrap(InputStream delegate, Flag cancelled) {
-		return new CancelAwareInputStream(delegate, cancelled);
-	}
 
 	private final InputStream delegate;
 	private final Flag cancelled;
@@ -19,6 +15,10 @@ class CancelAwareInputStream extends InputStream {
 	private CancelAwareInputStream(InputStream delegate, Flag cancelled) {
 		this.delegate = delegate;
 		this.cancelled = cancelled;
+	}
+
+	public static CancelAwareInputStream wrap(InputStream delegate, Flag cancelled) {
+		return new CancelAwareInputStream(delegate, cancelled);
 	}
 
 	@Override

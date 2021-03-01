@@ -34,7 +34,7 @@ public class UnlockVaultTest {
 		inTest = new UnlockVault(cloudRepository, VaultOrUnlockToken.from(vault), A_STRING);
 		inTest.execute();
 
-		verify(cloudRepository).unlock(vault, A_STRING);
+		verify(cloudRepository).unlock(Mockito.eq(vault), Mockito.eq(A_STRING), Mockito.any());
 	}
 
 	@Test
@@ -42,7 +42,7 @@ public class UnlockVaultTest {
 		inTest = new UnlockVault(cloudRepository, VaultOrUnlockToken.from(unlockToken), A_STRING);
 		inTest.execute();
 
-		verify(cloudRepository).unlock(unlockToken, A_STRING);
+		verify(cloudRepository).unlock(Mockito.eq(unlockToken), Mockito.eq(A_STRING), Mockito.any());
 	}
 
 }

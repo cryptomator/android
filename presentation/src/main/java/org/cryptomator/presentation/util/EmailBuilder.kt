@@ -4,9 +4,10 @@ import android.content.Context
 import android.content.Intent
 import androidx.core.content.FileProvider
 import java.io.File
-import java.util.*
+import java.util.ArrayList
 
 class EmailBuilder private constructor() {
+
 	private var recipient: String? = null
 	private var subject: String? = null
 	private var body: String? = null
@@ -51,6 +52,7 @@ class EmailBuilder private constructor() {
 	}
 
 	companion object {
+
 		fun anEmail(): EmailBuilder {
 			return EmailBuilder()
 		}

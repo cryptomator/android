@@ -5,6 +5,7 @@ import org.cryptomator.domain.CloudFolder;
 import org.cryptomator.domain.CloudType;
 import org.cryptomator.domain.Vault;
 import org.cryptomator.domain.exception.BackendException;
+import org.cryptomator.domain.usecases.cloud.Flag;
 import org.cryptomator.domain.usecases.vault.UnlockToken;
 
 import java.util.List;
@@ -31,8 +32,8 @@ public interface CloudRepository {
 
 	UnlockToken prepareUnlock(Vault vault) throws BackendException;
 
-	Cloud unlock(UnlockToken token, CharSequence password) throws BackendException;
+	Cloud unlock(UnlockToken token, CharSequence password, Flag cancelledFlag) throws BackendException;
 
-	Cloud unlock(Vault vault, CharSequence password) throws BackendException;
+	Cloud unlock(Vault vault, CharSequence password, Flag cancelledFlag) throws BackendException;
 
 }

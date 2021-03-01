@@ -13,6 +13,7 @@ enum class PasswordStrength(val score: Int, val description: Int, val color: Int
 	GOOD(4, R.string.screen_set_password_strength_indicator_4, R.color.password_strength_4);
 
 	companion object {
+
 		private val zxcvbn = Zxcvbn()
 
 		fun forPassword(password: String, sanitizedInputs: List<String>): PasswordStrength {

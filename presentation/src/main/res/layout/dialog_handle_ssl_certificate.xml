@@ -26,11 +26,11 @@
 
 		<Button
 			android:id="@+id/show_certificate"
+			style="?attr/borderlessButtonStyle"
 			android:layout_width="wrap_content"
 			android:layout_height="wrap_content"
 			android:layout_below="@+id/tv_finger_print_text"
 			android:layout_alignParentEnd="true"
-			style="?attr/borderlessButtonStyle"
 			android:text="@string/dialog_accept_ssl_certificate_details" />
 
 		<TextView
@@ -46,8 +46,8 @@
 			android:layout_width="wrap_content"
 			android:layout_height="wrap_content"
 			android:layout_below="@id/certificate_details"
-			android:paddingEnd="16dp"
 			android:paddingStart="16dp"
+			android:paddingEnd="16dp"
 			android:text="@string/dialog_accept_ssl_certificate_security_checkbox" />
 
 	</RelativeLayout>

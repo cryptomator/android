@@ -39,10 +39,6 @@ class DirIdCacheFormatPre7 implements DirIdCache {
 
 	private static class DirIdCacheKey {
 
-		static DirIdCacheKey toKey(CryptoFolder folder) {
-			return new DirIdCacheKey(folder.getDirFile());
-		}
-
 		private final String path;
 		private final Date modified;
 
@@ -56,16 +52,22 @@ class DirIdCacheFormatPre7 implements DirIdCache {
 			this.modified = null;
 		}
 
+		static DirIdCacheKey toKey(CryptoFolder folder) {
+			return new DirIdCacheKey(folder.getDirFile());
+		}
+
 		DirIdCacheKey withoutModified() {
 			return new DirIdCacheKey(path);
 		}
 
 		@Override
 		public boolean equals(Object obj) {
-			if (obj == this)
+			if (obj == this) {
 				return true;
-			if (obj == null || getClass() != obj.getClass())
+			}
+			if (obj == null || getClass() != obj.getClass()) {
 				return false;
+			}
 			return internalEquals((DirIdCacheKey) obj);
 		}
 

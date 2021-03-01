@@ -30,14 +30,12 @@ class GoogleDriveClientFactory {
 	}
 
 	Drive getClient(String accountName) throws FatalBackendException {
-		if(sharedPreferencesHandler.debugMode()) {
+		if (sharedPreferencesHandler.debugMode()) {
 			Logger.getLogger("com.google.api.client").setLevel(Level.CONFIG);
 			Logger.getLogger("com.google.api.client").addHandler(new Handler() {
 				@Override
 				public void publish(LogRecord record) {
-					if(record.getMessage().startsWith("-------------- RESPONSE --------------")
-							|| record.getMessage().startsWith("-------------- REQUEST  --------------")
-							|| record.getMessage().startsWith("{\n \"files\": [\n")) {
+					if (record.getMessage().startsWith("-------------- RESPONSE --------------") || record.getMessage().startsWith("-------------- REQUEST  --------------") || record.getMessage().startsWith("{\n \"files\": [\n")) {
 						Timber.tag("GoogleDriveClient").d(record.getMessage());
 					}
 				}

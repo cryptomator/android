@@ -43,7 +43,6 @@ import org.cryptomator.util.Supplier
 import org.cryptomator.util.file.FileCacheUtils
 import org.cryptomator.util.file.MimeType
 import org.cryptomator.util.file.MimeTypes
-import timber.log.Timber
 import java.io.*
 import java.security.DigestInputStream
 import java.security.MessageDigest
@@ -51,6 +50,7 @@ import java.util.*
 import javax.inject.Inject
 import kotlin.collections.ArrayList
 import kotlin.reflect.KClass
+import timber.log.Timber
 
 @PerView
 class BrowseFilesPresenter @Inject constructor( //
@@ -1179,6 +1179,7 @@ class BrowseFilesPresenter @Inject constructor( //
 	private val enableRefreshOnBackpressSupplier = RefreshSupplier()
 
 	class RefreshSupplier : Supplier<Boolean?> {
+
 		private var inSelectionMode = false
 		private var inAction = false
 		fun setInAction(inAction: Boolean): RefreshSupplier {
@@ -1197,6 +1198,7 @@ class BrowseFilesPresenter @Inject constructor( //
 	}
 
 	companion object {
+
 		const val OPEN_FILE_FINISHED = 12
 		val EXPORT_AFTER_APP_CHOOSER: ExportOperation = object : ExportOperation {
 			override fun export(presenter: BrowseFilesPresenter, downloadFiles: List<DownloadFile>) {

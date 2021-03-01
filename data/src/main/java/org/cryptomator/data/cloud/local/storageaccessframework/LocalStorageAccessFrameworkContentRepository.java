@@ -3,6 +3,8 @@ package org.cryptomator.data.cloud.local.storageaccessframework;
 import android.content.Context;
 import android.os.Build;
 
+import androidx.annotation.RequiresApi;
+
 import org.cryptomator.domain.CloudNode;
 import org.cryptomator.domain.LocalStorageCloud;
 import org.cryptomator.domain.exception.BackendException;
@@ -20,8 +22,6 @@ import java.io.File;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.util.List;
-
-import androidx.annotation.RequiresApi;
 
 @RequiresApi(Build.VERSION_CODES.LOLLIPOP)
 public class LocalStorageAccessFrameworkContentRepository implements CloudContentRepository<LocalStorageCloud, LocalStorageAccessNode, LocalStorageAccessFolder, LocalStorageAccessFile> {

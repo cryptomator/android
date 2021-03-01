@@ -7,6 +7,7 @@ import android.os.Bundle;
 import org.jetbrains.annotations.NotNull;
 
 public class NoOpActivityLifecycleCallbacks implements Application.ActivityLifecycleCallbacks {
+
 	@Override
 	public void onActivityCreated(@NotNull Activity activity, Bundle savedInstanceState) {
 

@@ -1,6 +1,5 @@
 package org.cryptomator.presentation.ui.activity
 
-import kotlinx.android.synthetic.main.toolbar_layout.*
 import org.cryptomator.generator.Activity
 import org.cryptomator.generator.InjectIntent
 import org.cryptomator.presentation.R
@@ -9,6 +8,7 @@ import org.cryptomator.presentation.presenter.EmptyDirIdFileInfoPresenter
 import org.cryptomator.presentation.ui.activity.view.EmptyDirFileView
 import org.cryptomator.presentation.ui.fragment.EmptyDirIdFileInfoFragment
 import javax.inject.Inject
+import kotlinx.android.synthetic.main.toolbar_layout.toolbar
 
 @Activity(layout = R.layout.activity_empty_dir_file_info)
 class EmptyDirIdFileInfoActivity : BaseActivity(), EmptyDirFileView {

@@ -36,8 +36,7 @@ public class DispatchingCloudContentRepository implements CloudContentRepository
 	private final CryptoCloudContentRepositoryFactory cryptoCloudContentRepositoryFactory;
 
 	@Inject
-	public DispatchingCloudContentRepository(CloudContentRepositoryFactories cloudContentRepositoryFactories, NetworkConnectionCheck networkConnectionCheck,
-			CryptoCloudContentRepositoryFactory cryptoCloudContentRepositoryFactory) {
+	public DispatchingCloudContentRepository(CloudContentRepositoryFactories cloudContentRepositoryFactories, NetworkConnectionCheck networkConnectionCheck, CryptoCloudContentRepositoryFactory cryptoCloudContentRepositoryFactory) {
 		this.cloudContentRepositoryFactories = cloudContentRepositoryFactories;
 		this.networkConnectionCheck = networkConnectionCheck;
 		this.cryptoCloudContentRepositoryFactory = cryptoCloudContentRepositoryFactory;

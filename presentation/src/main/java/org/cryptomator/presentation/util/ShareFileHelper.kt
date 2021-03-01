@@ -7,8 +7,8 @@ import org.cryptomator.presentation.model.CloudFileModel
 import org.cryptomator.presentation.presenter.ActivityHolder
 import org.cryptomator.util.file.MimeType
 import org.cryptomator.util.file.MimeTypes
-import timber.log.Timber
 import javax.inject.Inject
+import timber.log.Timber
 
 class ShareFileHelper @Inject constructor( //
 		private val fileUtil: FileUtil,  //

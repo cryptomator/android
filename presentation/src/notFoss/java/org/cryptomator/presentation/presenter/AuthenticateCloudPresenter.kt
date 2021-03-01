@@ -10,11 +10,20 @@ import org.cryptomator.data.cloud.onedrive.OnedriveClientFactory
 import org.cryptomator.data.cloud.onedrive.graph.ClientException
 import org.cryptomator.data.cloud.onedrive.graph.ICallback
 import org.cryptomator.data.util.X509CertificateHelper
-import org.cryptomator.domain.*
+import org.cryptomator.domain.Cloud
+import org.cryptomator.domain.CloudType
+import org.cryptomator.domain.DropboxCloud
+import org.cryptomator.domain.GoogleDriveCloud
+import org.cryptomator.domain.OnedriveCloud
+import org.cryptomator.domain.WebDavCloud
 import org.cryptomator.domain.di.PerView
 import org.cryptomator.domain.exception.FatalBackendException
 import org.cryptomator.domain.exception.NetworkConnectionException
-import org.cryptomator.domain.exception.authentication.*
+import org.cryptomator.domain.exception.authentication.AuthenticationException
+import org.cryptomator.domain.exception.authentication.WebDavCertificateUntrustedAuthenticationException
+import org.cryptomator.domain.exception.authentication.WebDavNotSupportedException
+import org.cryptomator.domain.exception.authentication.WebDavServerNotFoundException
+import org.cryptomator.domain.exception.authentication.WrongCredentialsException
 import org.cryptomator.domain.usecases.cloud.AddOrChangeCloudConnectionUseCase
 import org.cryptomator.domain.usecases.cloud.GetUsernameUseCase
 import org.cryptomator.generator.Callback
@@ -23,17 +32,25 @@ import org.cryptomator.presentation.R
 import org.cryptomator.presentation.exception.ExceptionHandlers
 import org.cryptomator.presentation.exception.PermissionNotGrantedException
 import org.cryptomator.presentation.intent.AuthenticateCloudIntent
-import org.cryptomator.presentation.model.*
+import org.cryptomator.presentation.model.CloudModel
+import org.cryptomator.presentation.model.CloudTypeModel
+import org.cryptomator.presentation.model.ProgressModel
+import org.cryptomator.presentation.model.ProgressStateModel
+import org.cryptomator.presentation.model.WebDavCloudModel
 import org.cryptomator.presentation.model.mappers.CloudModelMapper
 import org.cryptomator.presentation.ui.activity.view.AuthenticateCloudView
-import org.cryptomator.presentation.workflow.*
+import org.cryptomator.presentation.workflow.ActivityResult
+import org.cryptomator.presentation.workflow.AddExistingVaultWorkflow
+import org.cryptomator.presentation.workflow.CreateNewVaultWorkflow
+import org.cryptomator.presentation.workflow.PermissionsResult
+import org.cryptomator.presentation.workflow.Workflow
 import org.cryptomator.util.ExceptionUtil
 import org.cryptomator.util.crypto.CredentialCryptor
-import timber.log.Timber
 import java.security.cert.CertificateEncodingException
 import java.security.cert.CertificateException
 import java.security.cert.X509Certificate
 import javax.inject.Inject
+import timber.log.Timber
 
 @PerView
 class AuthenticateCloudPresenter @Inject constructor( //
@@ -127,6 +144,7 @@ class AuthenticateCloudPresenter @Inject constructor( //
 	}
 
 	private inner class DropboxAuthStrategy : AuthStrategy {
+
 		private var authenticationStarted = false
 		override fun supports(cloud: CloudModel): Boolean {
 			return cloud.cloudType() == CloudTypeModel.DROPBOX
@@ -161,6 +179,7 @@ class AuthenticateCloudPresenter @Inject constructor( //
 	}
 
 	private inner class GoogleDriveAuthStrategy : AuthStrategy {
+
 		private var authenticationStarted = false
 		override fun supports(cloud: CloudModel): Boolean {
 			return cloud.cloudType() == CloudTypeModel.GOOGLE_DRIVE
@@ -222,6 +241,7 @@ class AuthenticateCloudPresenter @Inject constructor( //
 	}
 
 	private inner class OnedriveAuthStrategy : AuthStrategy {
+
 		private var authenticationStarted = false
 		override fun supports(cloud: CloudModel): Boolean {
 			return cloud.cloudType() == CloudTypeModel.ONEDRIVE
@@ -263,6 +283,7 @@ class AuthenticateCloudPresenter @Inject constructor( //
 	}
 
 	private inner class WebDAVAuthStrategy : AuthStrategy {
+
 		override fun supports(cloud: CloudModel): Boolean {
 			return cloud.cloudType() == CloudTypeModel.WEBDAV
 		}
@@ -322,6 +343,7 @@ class AuthenticateCloudPresenter @Inject constructor( //
 	}
 
 	private inner class LocalStorageAuthStrategy : AuthStrategy {
+
 		private var authenticationStarted = false
 		override fun supports(cloud: CloudModel): Boolean {
 			return cloud.cloudType() == CloudTypeModel.LOCAL
@@ -358,6 +380,7 @@ class AuthenticateCloudPresenter @Inject constructor( //
 	}
 
 	private inner class FailingAuthStrategy : AuthStrategy {
+
 		override fun supports(cloud: CloudModel): Boolean {
 			return false
 		}
@@ -369,11 +392,13 @@ class AuthenticateCloudPresenter @Inject constructor( //
 	}
 
 	private interface AuthStrategy {
+
 		fun supports(cloud: CloudModel): Boolean
 		fun resumed(intent: AuthenticateCloudIntent)
 	}
 
 	companion object {
+
 		const val WEBDAV_ACCEPTED_UNTRUSTED_CERTIFICATE = "acceptedUntrustedCertificate"
 	}
 

@@ -2,7 +2,7 @@ package org.cryptomator.presentation.logging
 
 import android.content.Context
 import java.io.File
-import java.util.*
+import java.util.ArrayList
 
 object Logfiles {
 

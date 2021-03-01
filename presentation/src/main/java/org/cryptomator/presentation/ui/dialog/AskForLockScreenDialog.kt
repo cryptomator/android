@@ -3,14 +3,15 @@ package org.cryptomator.presentation.ui.dialog
 import android.content.DialogInterface
 import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.DialogFragment
-import kotlinx.android.synthetic.main.dialog_no_screen_lock_set.*
 import org.cryptomator.generator.Dialog
 import org.cryptomator.presentation.R
+import kotlinx.android.synthetic.main.dialog_no_screen_lock_set.cb_select_screen_lock
 
 @Dialog(R.layout.dialog_no_screen_lock_set)
 class AskForLockScreenDialog : BaseDialog<AskForLockScreenDialog.Callback>() {
 
 	interface Callback {
+
 		fun onAskForLockScreenFinished(setScreenLock: Boolean)
 	}
 
@@ -26,6 +27,7 @@ class AskForLockScreenDialog : BaseDialog<AskForLockScreenDialog.Callback>() {
 	}
 
 	companion object {
+
 		fun newInstance(): DialogFragment {
 			return AskForLockScreenDialog()
 		}

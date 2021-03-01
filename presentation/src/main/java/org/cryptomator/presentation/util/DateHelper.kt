@@ -2,7 +2,7 @@ package org.cryptomator.presentation.util
 
 import org.cryptomator.presentation.R
 import org.cryptomator.util.Optional
-import java.util.*
+import java.util.Date
 import java.util.concurrent.TimeUnit
 import javax.inject.Inject
 
@@ -51,10 +51,12 @@ class DateHelper @Inject constructor() {
 	}
 
 	private interface TimePeriod {
+
 		fun convert(timeInMilliseconds: Long): Long
 	}
 
 	companion object {
+
 		private fun currentDate(): Date {
 			return Date()
 		}

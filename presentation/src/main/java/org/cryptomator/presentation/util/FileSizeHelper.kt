@@ -10,6 +10,7 @@ import kotlin.math.min
 import kotlin.math.pow
 
 class FileSizeHelper @Inject constructor(private val context: Context) {
+
 	private val units: Array<String> = arrayOf( //
 			context.getString(R.string.file_size_unit_bytes), //
 			context.getString(R.string.file_size_unit_kilo_bytes), //

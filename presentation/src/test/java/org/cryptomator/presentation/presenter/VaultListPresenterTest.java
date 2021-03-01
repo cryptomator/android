@@ -87,67 +87,36 @@ public class VaultListPresenterTest {
 	private static final VaultModel A_VAULT_MODEL_WITH_NEW_NAME = new VaultModel(A_VAULT_WITH_NEW_NAME);
 
 	private static final Throwable AN_EXCEPTION = new Exception();
-
-	public Activity activity = Mockito.mock(Activity.class);
-
-	private VaultListView vaultListView = Mockito.mock(VaultListView.class);
-
-	private GetVaultListUseCase getVaultListUseCase = Mockito.mock(GetVaultListUseCase.class);
-
-	private DeleteVaultUseCase deleteVaultUseCase = Mockito.mock(DeleteVaultUseCase.class);
-
-	private DeleteVaultUseCase.Launcher deleteVaultUseCaseLauncher = Mockito.mock(DeleteVaultUseCase.Launcher.class);
-
-	private RenameVaultUseCase renameVaultUseCase = Mockito.mock(RenameVaultUseCase.class);
-
-	private RenameVaultUseCase.Launcher renameVaultUseCaseLauncher = Mockito.mock(RenameVaultUseCase.Launcher.class);
-
-	private LockVaultUseCase lockVaultUseCase = Mockito.mock(LockVaultUseCase.class);
-
-	private LockVaultUseCase.Launcher lockVaultUseCaseLauncher = Mockito.mock(LockVaultUseCase.Launcher.class);
-
-	private GetDecryptedCloudForVaultUseCase getDecryptedCloudForVaultUseCase = Mockito.mock(GetDecryptedCloudForVaultUseCase.class);
-
-	private PrepareUnlockUseCase prepareUnlockUseCase = Mockito.mock(PrepareUnlockUseCase.class);
-
-	private PrepareUnlockUseCase.Launcher prepareUnlockUseCaseLauncher = Mockito.mock(PrepareUnlockUseCase.Launcher.class);
-
-	private UnlockToken unlockToken = Mockito.mock(UnlockToken.class);
-
-	private UnlockVaultUseCase unlockVaultUseCase = Mockito.mock(UnlockVaultUseCase.class);
-
-	private GetRootFolderUseCase getRootFolderUseCase = Mockito.mock(GetRootFolderUseCase.class);
-
-	private AddExistingVaultWorkflow addExistingVaultWorkflow = Mockito.mock(AddExistingVaultWorkflow.class);
-
-	private CreateNewVaultWorkflow createNewVaultWorkflow = Mockito.mock(CreateNewVaultWorkflow.class);
-
-	private SaveVaultUseCase saveVaultUseCase = Mockito.mock(SaveVaultUseCase.class);
-
-	private MoveVaultPositionUseCase moveVaultPositionUseCase = Mockito.mock(MoveVaultPositionUseCase.class);
-
-	private ChangePasswordUseCase changePasswordUseCase = Mockito.mock(ChangePasswordUseCase.class);
-
-	private RemoveStoredVaultPasswordsUseCase removeStoredVaultPasswordsUseCase = Mockito.mock(RemoveStoredVaultPasswordsUseCase.class);
-
-	private DoLicenseCheckUseCase doLicenceCheckUsecase = Mockito.mock(DoLicenseCheckUseCase.class);
-
-	private DoUpdateCheckUseCase updateCheckUseCase = Mockito.mock(DoUpdateCheckUseCase.class);
-
-	private DoUpdateUseCase updateUseCase = Mockito.mock(DoUpdateUseCase.class);
-
-	private NetworkConnectionCheck networkConnectionCheck = Mockito.mock(NetworkConnectionCheck.class);
-
-	private FileUtil fileUtil = Mockito.mock(FileUtil.class);
-
-	private AuthenticationExceptionHandler authenticationExceptionHandler = Mockito.mock(AuthenticationExceptionHandler.class);
-
-	private SharedPreferencesHandler sharedPreferencesHandler = Mockito.mock(SharedPreferencesHandler.class);
-
-	private ExceptionHandlers exceptionMappings = Mockito.mock(ExceptionHandlers.class);
-
 	private final CloudFolderModelMapper cloudNodeModelMapper = Mockito.mock(CloudFolderModelMapper.class);
-
+	public Activity activity = Mockito.mock(Activity.class);
+	private VaultListView vaultListView = Mockito.mock(VaultListView.class);
+	private GetVaultListUseCase getVaultListUseCase = Mockito.mock(GetVaultListUseCase.class);
+	private DeleteVaultUseCase deleteVaultUseCase = Mockito.mock(DeleteVaultUseCase.class);
+	private DeleteVaultUseCase.Launcher deleteVaultUseCaseLauncher = Mockito.mock(DeleteVaultUseCase.Launcher.class);
+	private RenameVaultUseCase renameVaultUseCase = Mockito.mock(RenameVaultUseCase.class);
+	private RenameVaultUseCase.Launcher renameVaultUseCaseLauncher = Mockito.mock(RenameVaultUseCase.Launcher.class);
+	private LockVaultUseCase lockVaultUseCase = Mockito.mock(LockVaultUseCase.class);
+	private LockVaultUseCase.Launcher lockVaultUseCaseLauncher = Mockito.mock(LockVaultUseCase.Launcher.class);
+	private GetDecryptedCloudForVaultUseCase getDecryptedCloudForVaultUseCase = Mockito.mock(GetDecryptedCloudForVaultUseCase.class);
+	private PrepareUnlockUseCase prepareUnlockUseCase = Mockito.mock(PrepareUnlockUseCase.class);
+	private PrepareUnlockUseCase.Launcher prepareUnlockUseCaseLauncher = Mockito.mock(PrepareUnlockUseCase.Launcher.class);
+	private UnlockToken unlockToken = Mockito.mock(UnlockToken.class);
+	private UnlockVaultUseCase unlockVaultUseCase = Mockito.mock(UnlockVaultUseCase.class);
+	private GetRootFolderUseCase getRootFolderUseCase = Mockito.mock(GetRootFolderUseCase.class);
+	private AddExistingVaultWorkflow addExistingVaultWorkflow = Mockito.mock(AddExistingVaultWorkflow.class);
+	private CreateNewVaultWorkflow createNewVaultWorkflow = Mockito.mock(CreateNewVaultWorkflow.class);
+	private SaveVaultUseCase saveVaultUseCase = Mockito.mock(SaveVaultUseCase.class);
+	private MoveVaultPositionUseCase moveVaultPositionUseCase = Mockito.mock(MoveVaultPositionUseCase.class);
+	private ChangePasswordUseCase changePasswordUseCase = Mockito.mock(ChangePasswordUseCase.class);
+	private RemoveStoredVaultPasswordsUseCase removeStoredVaultPasswordsUseCase = Mockito.mock(RemoveStoredVaultPasswordsUseCase.class);
+	private DoLicenseCheckUseCase doLicenceCheckUsecase = Mockito.mock(DoLicenseCheckUseCase.class);
+	private DoUpdateCheckUseCase updateCheckUseCase = Mockito.mock(DoUpdateCheckUseCase.class);
+	private DoUpdateUseCase updateUseCase = Mockito.mock(DoUpdateUseCase.class);
+	private NetworkConnectionCheck networkConnectionCheck = Mockito.mock(NetworkConnectionCheck.class);
+	private FileUtil fileUtil = Mockito.mock(FileUtil.class);
+	private AuthenticationExceptionHandler authenticationExceptionHandler = Mockito.mock(AuthenticationExceptionHandler.class);
+	private SharedPreferencesHandler sharedPreferencesHandler = Mockito.mock(SharedPreferencesHandler.class);
+	private ExceptionHandlers exceptionMappings = Mockito.mock(ExceptionHandlers.class);
 	private VaultListPresenter inTest;
 
 	@BeforeEach
@@ -277,6 +246,7 @@ public class VaultListPresenterTest {
 		inTest.onUnlockCanceled();
 
 		verify(prepareUnlockUseCase).unsubscribe();
+		verify(unlockVaultUseCase).cancel();
 	}
 
 	@Test

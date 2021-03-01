@@ -10,16 +10,16 @@ import java.io.InputStream;
 
 public class CancelAwareDataSource implements DataSource {
 
-	public static CancelAwareDataSource wrap(DataSource delegate, Flag cancelled) {
-		return new CancelAwareDataSource(delegate, cancelled);
-	}
-
 	private final DataSource delegate;
 	private final Flag cancelled;
 
 	private CancelAwareDataSource(DataSource delegate, Flag cancelled) {
 		this.delegate = delegate;
 		this.cancelled = cancelled;
+	}
+
+	public static CancelAwareDataSource wrap(DataSource delegate, Flag cancelled) {
+		return new CancelAwareDataSource(delegate, cancelled);
 	}
 
 	@Override

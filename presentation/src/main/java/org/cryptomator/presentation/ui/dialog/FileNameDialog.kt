@@ -6,10 +6,10 @@ import android.text.TextWatcher
 import android.view.View
 import android.widget.Button
 import androidx.appcompat.app.AlertDialog
-import kotlinx.android.synthetic.main.dialog_file_name.*
 import org.cryptomator.generator.Dialog
 import org.cryptomator.presentation.R
 import org.cryptomator.presentation.util.FileUtil
+import kotlinx.android.synthetic.main.dialog_file_name.file_name
 
 @Dialog(R.layout.dialog_file_name)
 class FileNameDialog : BaseProgressErrorDialog<FileNameDialog.Callback>() {
@@ -17,6 +17,7 @@ class FileNameDialog : BaseProgressErrorDialog<FileNameDialog.Callback>() {
 	private var createFileButton: Button? = null
 
 	interface Callback {
+
 		fun onCreateNewTextFileClicked(fileName: String)
 	}
 

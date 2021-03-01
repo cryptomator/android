@@ -1,15 +1,5 @@
 package org.cryptomator.presentation.service;
 
-import java.util.concurrent.locks.Condition;
-import java.util.concurrent.locks.Lock;
-import java.util.concurrent.locks.ReentrantLock;
-
-import org.cryptomator.data.cloud.crypto.Cryptors;
-import org.cryptomator.presentation.util.FileUtil;
-import org.cryptomator.util.Consumer;
-import org.cryptomator.util.LockTimeout;
-import org.cryptomator.util.SharedPreferencesHandler;
-
 import android.app.Service;
 import android.content.BroadcastReceiver;
 import android.content.Context;
@@ -19,30 +9,30 @@ import android.os.IBinder;
 
 import androidx.annotation.Nullable;
 
+import org.cryptomator.data.cloud.crypto.Cryptors;
+import org.cryptomator.presentation.util.FileUtil;
+import org.cryptomator.util.Consumer;
+import org.cryptomator.util.LockTimeout;
+import org.cryptomator.util.SharedPreferencesHandler;
+
+import java.util.concurrent.locks.Condition;
+import java.util.concurrent.locks.Lock;
+import java.util.concurrent.locks.ReentrantLock;
+
 import timber.log.Timber;
 
 public class CryptorsService extends Service {
 
 	private static final String ACTION_LOCK_ALL = "CRYPTOMATOR_LOCK_ALL";
-
-	public static Intent lockAllIntent(Context context) {
-		Intent lockAllIntent = new Intent(context, CryptorsService.class);
-		lockAllIntent.setAction(ACTION_LOCK_ALL);
-		return lockAllIntent;
-	}
-
 	private final Cryptors.Default cryptors = new Cryptors.Default();
-	private SharedPreferencesHandler sharedPreferencesHandler;
-	private UnlockedNotification notification;
 	private final AutolockTimeout autolockTimeout = new AutolockTimeout();
-	private volatile boolean running = true;
-	private volatile boolean lockSuspended = false;
-	private BroadcastReceiver screenLockReceiver;
-	private FileUtil fileUtil;
-
 	private final Lock unlockedLock = new ReentrantLock();
 	private final Condition vaultsUnlockedAndInBackground = unlockedLock.newCondition();
-
+	private SharedPreferencesHandler sharedPreferencesHandler;
+	private UnlockedNotification notification;
+	private final Consumer<LockTimeout> onLockTimeoutChanged = this::onLockTimeoutChanged;
+	private volatile boolean running = true;
+	private volatile boolean lockSuspended = false;
 	private final Thread worker = new Thread(new Runnable() {
 		@Override
 		public void run() {
@@ -64,6 +54,14 @@ public class CryptorsService extends Service {
 			}
 		}
 	});
+	private BroadcastReceiver screenLockReceiver;
+	private FileUtil fileUtil;
+
+	public static Intent lockAllIntent(Context context) {
+		Intent lockAllIntent = new Intent(context, CryptorsService.class);
+		lockAllIntent.setAction(ACTION_LOCK_ALL);
+		return lockAllIntent;
+	}
 
 	private void waitUntilVaultsUnlockedAndInBackground() throws InterruptedException {
 		unlockedLock.lock();
@@ -158,12 +156,20 @@ public class CryptorsService extends Service {
 		notification.update();
 	}
 
-	private final Consumer<LockTimeout> onLockTimeoutChanged = this::onLockTimeoutChanged;
-
 	@Nullable
 	@Override
 	public IBinder onBind(Intent intent) {
 		return new Binder();
+	}
+
+	private void stopCryptorsService() {
+		Intent myService = new Intent(CryptorsService.this, CryptorsService.class);
+		stopService(myService);
+	}
+
+	private void destroyCryptorsAndHideNotification() {
+		cryptors.destroyAll();
+		notification.hide();
 	}
 
 	public class Binder extends android.os.Binder {
@@ -194,6 +200,7 @@ public class CryptorsService extends Service {
 	}
 
 	class ScreenLockReceiver extends BroadcastReceiver {
+
 		@Override
 		public void onReceive(Context context, Intent intent) {
 			if (intent.getAction().equals(Intent.ACTION_SCREEN_OFF) && //
@@ -206,15 +213,5 @@ public class CryptorsService extends Service {
 				stopCryptorsService();
 			}
 		}
-	}
-
-	private void stopCryptorsService() {
-		Intent myService = new Intent(CryptorsService.this, CryptorsService.class);
-		stopService(myService);
-	}
-
-	private void destroyCryptorsAndHideNotification() {
-		cryptors.destroyAll();
-		notification.hide();
 	}
 }

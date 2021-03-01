@@ -12,8 +12,8 @@
 			android:id="@+id/tv_message"
 			android:layout_width="match_parent"
 			android:layout_height="wrap_content"
-			android:text="@string/dialog_license_confirmation_message"
-			android:layout_marginBottom="5dp" />
+			android:layout_marginBottom="5dp"
+			android:text="@string/dialog_license_confirmation_message" />
 
 	</RelativeLayout>
 </androidx.core.widget.NestedScrollView>

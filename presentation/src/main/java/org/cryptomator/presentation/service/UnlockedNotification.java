@@ -33,9 +33,8 @@ class UnlockedNotification {
 
 	private final Service service;
 	private final NotificationCompat.Builder builder;
-
-	private int unlocked = 0;
 	private final AutolockTimeout autolockTimeout;
+	private int unlocked = 0;
 
 	public UnlockedNotification(Service service, AutolockTimeout autolockTimeout) {
 		this.service = service;

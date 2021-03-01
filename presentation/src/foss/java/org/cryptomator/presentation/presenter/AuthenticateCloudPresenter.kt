@@ -123,6 +123,7 @@ class AuthenticateCloudPresenter @Inject constructor( //
 	}
 
 	private inner class DropboxAuthStrategy : AuthStrategy {
+
 		private var authenticationStarted = false
 		override fun supports(cloud: CloudModel): Boolean {
 			return cloud.cloudType() == CloudTypeModel.DROPBOX
@@ -179,6 +180,7 @@ class AuthenticateCloudPresenter @Inject constructor( //
 	}
 
 	private inner class OnedriveAuthStrategy : AuthStrategy {
+
 		private var authenticationStarted = false
 		override fun supports(cloud: CloudModel): Boolean {
 			return cloud.cloudType() == CloudTypeModel.ONEDRIVE
@@ -220,6 +222,7 @@ class AuthenticateCloudPresenter @Inject constructor( //
 	}
 
 	private inner class WebDAVAuthStrategy : AuthStrategy {
+
 		override fun supports(cloud: CloudModel): Boolean {
 			return cloud.cloudType() == CloudTypeModel.WEBDAV
 		}
@@ -279,6 +282,7 @@ class AuthenticateCloudPresenter @Inject constructor( //
 	}
 
 	private inner class LocalStorageAuthStrategy : AuthStrategy {
+
 		private var authenticationStarted = false
 		override fun supports(cloud: CloudModel): Boolean {
 			return cloud.cloudType() == CloudTypeModel.LOCAL
@@ -315,6 +319,7 @@ class AuthenticateCloudPresenter @Inject constructor( //
 	}
 
 	private inner class FailingAuthStrategy : AuthStrategy {
+
 		override fun supports(cloud: CloudModel): Boolean {
 			return false
 		}
@@ -326,11 +331,13 @@ class AuthenticateCloudPresenter @Inject constructor( //
 	}
 
 	private interface AuthStrategy {
+
 		fun supports(cloud: CloudModel): Boolean
 		fun resumed(intent: AuthenticateCloudIntent)
 	}
 
 	companion object {
+
 		const val WEBDAV_ACCEPTED_UNTRUSTED_CERTIFICATE = "acceptedUntrustedCertificate"
 	}
 

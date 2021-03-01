@@ -3,9 +3,9 @@ package org.cryptomator.presentation.model.comparator
 import org.cryptomator.presentation.model.CloudFileModel
 import org.cryptomator.presentation.model.CloudFolderModel
 import org.cryptomator.presentation.model.CloudNodeModel
-import kotlin.Comparator
 
 class CloudNodeModelDateNewestFirstComparator : Comparator<CloudNodeModel<*>> {
+
 	override fun compare(o1: CloudNodeModel<*>?, o2: CloudNodeModel<*>?): Int {
 		return if (o1 is CloudFolderModel && o2 is CloudFileModel) {
 			-1

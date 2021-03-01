@@ -49,7 +49,7 @@ public class PropfindResponseParserTest {
 	private static final String RESPONSE_ONE_FILE_NO_SERVER = "directory-one-file-no-server";
 	private static final String RESPONSE_ONE_FILE_AND_FOLDERS = "directory-and-file";
 	private static final String RESPONSE_MAL_FORMATTED_XMLPULLPARSER_EXCEPTION = "malformatted-response-xmlpullparser";
-
+	private final Comparator<PropfindEntryData> ASCENDING_BY_DEPTH = (o1, o2) -> o1.getDepth() - o2.getDepth();
 	private PropfindResponseParser inTest;
 
 	@BeforeEach
@@ -144,6 +144,4 @@ public class PropfindResponseParserTest {
 		}
 		return result;
 	}
-
-	private final Comparator<PropfindEntryData> ASCENDING_BY_DEPTH = (o1, o2) -> o1.getDepth() - o2.getDepth();
 }

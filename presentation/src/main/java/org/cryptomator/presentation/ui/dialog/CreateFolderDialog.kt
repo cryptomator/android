@@ -6,11 +6,11 @@ import android.text.TextWatcher
 import android.view.View
 import android.widget.Button
 import androidx.appcompat.app.AlertDialog
-import kotlinx.android.synthetic.main.dialog_create_folder.*
 import org.cryptomator.generator.Dialog
 import org.cryptomator.presentation.R
 import org.cryptomator.presentation.model.ProgressModel
 import org.cryptomator.presentation.model.ProgressStateModel
+import kotlinx.android.synthetic.main.dialog_create_folder.et_folder_name
 
 @Dialog(R.layout.dialog_create_folder)
 class CreateFolderDialog : BaseProgressErrorDialog<CreateFolderDialog.Callback>() {
@@ -18,6 +18,7 @@ class CreateFolderDialog : BaseProgressErrorDialog<CreateFolderDialog.Callback>(
 	private var createFolderButton: Button? = null
 
 	interface Callback {
+
 		fun onCreateFolderClick(folderName: String)
 	}
 

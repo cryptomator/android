@@ -7,12 +7,13 @@ import org.cryptomator.domain.Vault
 import org.cryptomator.generator.Dialog
 import org.cryptomator.presentation.R
 import org.cryptomator.presentation.model.CloudModel
-import java.util.*
+import java.util.ArrayList
 
 @Dialog(R.layout.dialog_delete_cloud_connection_with_vaults)
 class DeleteCloudConnectionWithVaultsDialog : BaseDialog<DeleteCloudConnectionWithVaultsDialog.Callback>() {
 
 	interface Callback {
+
 		fun onDeleteCloudConnectionAndVaults(cloudModel: CloudModel, vaultsOfCloud: ArrayList<Vault>)
 	}
 
@@ -30,6 +31,7 @@ class DeleteCloudConnectionWithVaultsDialog : BaseDialog<DeleteCloudConnectionWi
 	override fun setupView() {}
 
 	companion object {
+
 		private const val ARG_CLOUD = "cloud"
 		private const val ARG_VAULTS = "vaults"
 		fun newInstance(cloudModel: CloudModel, vaultsOfCloud: ArrayList<Vault>): DeleteCloudConnectionWithVaultsDialog {
