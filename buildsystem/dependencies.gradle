@@ -26,7 +26,7 @@ ext {
 	rxAndroidVersion = '2.1.1'
 	rxBindingVersion = '2.2.0'
 
-	daggerVersion = '2.32'
+	daggerVersion = '2.33'
 
 	gsonVersion = '2.8.6'
 
@@ -55,7 +55,7 @@ ext {
 
 	googleApiServicesVersion = 'v3-rev197-1.25.0'
 	googlePlayServicesVersion = '19.0.0'
-	googleClientVersion = '1.31.2'
+	googleClientVersion = '1.31.3'
 
 	msgraphVersion = '2.8.1'
 	msaAuthVersion = '0.10.0'
