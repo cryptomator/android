@@ -29,6 +29,10 @@
 		<item name="colorAccent">@color/colorPrimary</item>
 	</style>
 
+	<style name="TransparentAlertDialogCustom" parent="AlertDialogCustom">
+		<item name="android:windowBackground">@android:color/transparent</item>
+	</style>
+
 	<style name="Toolbar.Theme" parent="ThemeOverlay.AppCompat.Dark.ActionBar">
 		<item name="colorAccent">@color/textColorWhite</item>
 	</style>

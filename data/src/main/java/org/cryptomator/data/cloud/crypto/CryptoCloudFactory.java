@@ -90,11 +90,14 @@ public class CryptoCloudFactory {
 			throw new CancellationException();
 		}
 
-		cryptoCloudContentRepositoryFactory.registerCryptor(impl.getVault(), cryptor);
-
-		return aCopyOf(token.getVault()) //
+		Vault vault = aCopyOf(token.getVault()) //
 				.withVersion(impl.getKeyFile().getVersion()) //
+				.withUnlocked(true) //
 				.build();
+
+		cryptoCloudContentRepositoryFactory.registerCryptor(vault, cryptor);
+
+		return vault;
 	}
 
 	public UnlockTokenImpl createUnlockToken(Vault vault) throws BackendException {

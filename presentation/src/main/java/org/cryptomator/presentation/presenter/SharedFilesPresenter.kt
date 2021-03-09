@@ -8,15 +8,13 @@ import org.cryptomator.domain.di.PerView
 import org.cryptomator.domain.usecases.GetDecryptedCloudForVaultUseCase
 import org.cryptomator.domain.usecases.cloud.*
 import org.cryptomator.domain.usecases.vault.GetVaultListUseCase
-import org.cryptomator.domain.usecases.vault.RemoveStoredVaultPasswordsUseCase
-import org.cryptomator.domain.usecases.vault.UnlockVaultUseCase
-import org.cryptomator.domain.usecases.vault.VaultOrUnlockToken
 import org.cryptomator.generator.Callback
 import org.cryptomator.generator.InstanceState
 import org.cryptomator.presentation.R
 import org.cryptomator.presentation.exception.ExceptionHandlers
 import org.cryptomator.presentation.intent.ChooseCloudNodeSettings
 import org.cryptomator.presentation.intent.Intents
+import org.cryptomator.presentation.intent.UnlockVaultIntent
 import org.cryptomator.presentation.model.*
 import org.cryptomator.presentation.model.mappers.CloudFolderModelMapper
 import org.cryptomator.presentation.model.mappers.ProgressModelMapper
@@ -27,7 +25,6 @@ import org.cryptomator.presentation.workflow.ActivityResult
 import org.cryptomator.presentation.workflow.AuthenticationExceptionHandler
 import org.cryptomator.presentation.workflow.PermissionsResult
 import org.cryptomator.util.Optional
-import org.cryptomator.util.SharedPreferencesHandler
 import org.cryptomator.util.file.FileCacheUtils
 import java.util.*
 import javax.inject.Inject
@@ -36,14 +33,11 @@ import timber.log.Timber
 @PerView
 class SharedFilesPresenter @Inject constructor( //
 		private val getVaultListUseCase: GetVaultListUseCase,  //
-		private val unlockVaultUseCase: UnlockVaultUseCase,  //
 		private val getRootFolderUseCase: GetRootFolderUseCase,  //
 		private val getDecryptedCloudForVaultUseCase: GetDecryptedCloudForVaultUseCase,  //
 		private val uploadFilesUseCase: UploadFilesUseCase,  //
 		private val getCloudListUseCase: GetCloudListUseCase,  //
-		private val removeStoredVaultPasswordsUseCase: RemoveStoredVaultPasswordsUseCase,  //
 		private val contentResolverUtil: ContentResolverUtil,  //
-		private val sharedPreferencesHandler: SharedPreferencesHandler,  //
 		private val fileCacheUtils: FileCacheUtils,  //
 		private val authenticationExceptionHandler: AuthenticationExceptionHandler,  //
 		private val cloudFolderModelMapper: CloudFolderModelMapper,  //
@@ -128,6 +122,28 @@ class SharedFilesPresenter @Inject constructor( //
 		vaultModel?.let { onCloudOfVaultAuthenticated(it.toVault()) }
 	}
 
+	private fun onCloudOfVaultAuthenticated(authenticatedVault: Vault) {
+		if (authenticatedVault.isUnlocked) {
+			decryptedCloudFor(authenticatedVault)
+		} else {
+			if (!isPaused) {
+				requestActivityResult( //
+						ActivityResultCallbacks.vaultUnlockedSharedFiles(), //
+						Intents.unlockVaultIntent().withVaultModel(VaultModel(authenticatedVault)).withVaultAction(UnlockVaultIntent.VaultAction.UNLOCK))
+			}
+		}
+	}
+
+
+	@Callback
+	fun vaultUnlockedSharedFiles(result: ActivityResult) {
+		val cloud = result.intent().getSerializableExtra(SINGLE_RESULT) as Cloud
+		when {
+			result.isResultOk -> rootFolderFor(cloud)
+			else -> TODO("Not yet implemented")
+		}
+	}
+
 	private fun decryptedCloudFor(vault: Vault) {
 		getDecryptedCloudForVaultUseCase //
 				.withVault(vault) //
@@ -170,32 +186,6 @@ class SharedFilesPresenter @Inject constructor( //
 		if (!isPaused) {
 			navigateToVaultContent(VaultModel(vault), cloudFolderModelMapper.toModel(folder))
 		}
-	}
-
-	fun onUnlockPressed(vaultModel: VaultModel, password: String?) {
-		view?.showProgress(ProgressModel.GENERIC)
-		unlockVaultUseCase //
-				.withVaultOrUnlockToken(VaultOrUnlockToken.from(vaultModel.toVault())) //
-				.andPassword(password) //
-				.run(object : DefaultResultHandler<Cloud>() {
-					override fun onSuccess(cloud: Cloud) {
-						view?.showProgress(ProgressModel.COMPLETED)
-						rootFolderFor(cloud)
-					}
-
-					override fun onError(e: Throwable) {
-						if (!authenticationExceptionHandler.handleAuthenticationException(this@SharedFilesPresenter, e, ActivityResultCallbacks.unlockVaultAfterAuth(vaultModel.toVault(), password))) {
-							showError(e)
-						}
-					}
-				})
-	}
-
-	@Callback
-	fun unlockVaultAfterAuth(result: ActivityResult, vault: Vault?, password: String?) {
-		val cloud = result.getSingleResult(CloudModel::class.java).toCloud()
-		val vaultWithUpdatedCloud = Vault.aCopyOf(vault).withCloud(cloud).build()
-		onUnlockPressed(VaultModel(vaultWithUpdatedCloud), password)
 	}
 
 	private fun setLocation(location: CloudFolderModel) {
@@ -372,16 +362,6 @@ class SharedFilesPresenter @Inject constructor( //
 		}
 	}
 
-	private fun onCloudOfVaultAuthenticated(authenticatedVault: Vault) {
-		if (authenticatedVault.isUnlocked) {
-			decryptedCloudFor(authenticatedVault)
-		} else {
-			if (!isPaused) {
-				view?.showEnterPasswordDialog(VaultModel(authenticatedVault))
-			}
-		}
-	}
-
 	fun onChooseLocationPressed() {
 		authenticate(selectedVault)
 	}
@@ -410,25 +390,6 @@ class SharedFilesPresenter @Inject constructor( //
 		view?.closeDialog()
 	}
 
-	fun onBiometricAuthKeyInvalidated() {
-		removeStoredVaultPasswordsUseCase.run(object : DefaultResultHandler<Void?>() {
-			override fun onFinished() {
-				view?.showBiometricAuthKeyInvalidatedDialog()
-			}
-		})
-		selectedVault?.let {
-			selectedVault = VaultModel(Vault.aCopyOf(it.toVault()).withSavedPassword(null).build())
-		}
-	}
-
-	fun onUnlockCanceled() {
-		unlockVaultUseCase.cancel()
-	}
-
-	fun useConfirmationInFaceUnlockBiometricAuthentication(): Boolean {
-		return sharedPreferencesHandler.useConfirmationInFaceUnlockBiometricAuthentication()
-	}
-
 	private enum class AuthenticationState {
 		CHOOSE_LOCATION, INIT_ROOT
 	}
@@ -444,11 +405,9 @@ class SharedFilesPresenter @Inject constructor( //
 	init {
 		unsubscribeOnDestroy( //
 				getRootFolderUseCase,  //
-				unlockVaultUseCase,  //
 				getVaultListUseCase,  //
 				getDecryptedCloudForVaultUseCase,  //
 				uploadFilesUseCase,  //
-				getCloudListUseCase,  //
-				removeStoredVaultPasswordsUseCase)
+				getCloudListUseCase)
 	}
 }

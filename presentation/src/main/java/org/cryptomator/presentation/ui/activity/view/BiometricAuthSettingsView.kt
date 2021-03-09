@@ -6,9 +6,6 @@ interface BiometricAuthSettingsView : View {
 
 	fun renderVaultList(vaultModelCollection: List<VaultModel>)
 	fun clearVaultList()
-	fun showBiometricAuthenticationDialog(vaultModel: VaultModel)
-	fun showEnterPasswordDialog(vaultModel: VaultModel)
 	fun showSetupBiometricAuthDialog()
-	fun showBiometricAuthKeyInvalidatedDialog()
 
 }

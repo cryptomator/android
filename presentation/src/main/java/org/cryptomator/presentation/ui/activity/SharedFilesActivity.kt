@@ -5,8 +5,6 @@ import android.content.Intent
 import android.content.Intent.ACTION_SEND
 import android.content.Intent.ACTION_SEND_MULTIPLE
 import android.net.Uri
-import android.os.Build
-import androidx.annotation.RequiresApi
 import androidx.fragment.app.Fragment
 import org.cryptomator.generator.Activity
 import org.cryptomator.presentation.R
@@ -16,13 +14,10 @@ import org.cryptomator.presentation.model.SharedFileModel
 import org.cryptomator.presentation.model.VaultModel
 import org.cryptomator.presentation.presenter.SharedFilesPresenter
 import org.cryptomator.presentation.ui.activity.view.SharedFilesView
-import org.cryptomator.presentation.ui.dialog.BiometricAuthKeyInvalidatedDialog
-import org.cryptomator.presentation.ui.dialog.EnterPasswordDialog
 import org.cryptomator.presentation.ui.dialog.NotEnoughVaultsDialog
 import org.cryptomator.presentation.ui.dialog.ReplaceDialog
 import org.cryptomator.presentation.ui.dialog.UploadCloudFileDialog
 import org.cryptomator.presentation.ui.fragment.SharedFilesFragment
-import org.cryptomator.presentation.util.BiometricAuthentication
 import java.lang.String.format
 import java.util.ArrayList
 import javax.inject.Inject
@@ -32,8 +27,6 @@ import timber.log.Timber
 @Activity
 class SharedFilesActivity : BaseActivity(), //
 		SharedFilesView, //
-		EnterPasswordDialog.Callback, //
-		BiometricAuthentication.Callback, //
 		ReplaceDialog.Callback, //
 		NotEnoughVaultsDialog.Callback, //
 		UploadCloudFileDialog.Callback {
@@ -126,7 +119,7 @@ class SharedFilesActivity : BaseActivity(), //
 		}
 	}
 
-	override fun createFragment(): Fragment? = SharedFilesFragment()
+	override fun createFragment(): Fragment = SharedFilesFragment()
 
 	public override fun onMenuItemSelected(itemId: Int): Boolean = when (itemId) {
 		android.R.id.home -> {
@@ -150,16 +143,6 @@ class SharedFilesActivity : BaseActivity(), //
 
 	private fun sharedFilesFragment(): SharedFilesFragment = getCurrentFragment(R.id.fragmentContainer) as SharedFilesFragment
 
-	@RequiresApi(api = Build.VERSION_CODES.M)
-	override fun showEnterPasswordDialog(vault: VaultModel) {
-		if (vaultWithBiometricAuthEnabled(vault)) {
-			BiometricAuthentication(this, context(), BiometricAuthentication.CryptoMode.DECRYPT, presenter.useConfirmationInFaceUnlockBiometricAuthentication())
-					.startListening(sharedFilesFragment(), vault)
-		} else {
-			showDialog(EnterPasswordDialog.newInstance(vault))
-		}
-	}
-
 	override fun showReplaceDialog(existingFiles: List<String>, size: Int) {
 		ReplaceDialog.withContext(this).show(existingFiles, size)
 	}
@@ -168,20 +151,8 @@ class SharedFilesActivity : BaseActivity(), //
 		sharedFilesFragment().showChosenLocation(folder)
 	}
 
-	override fun showBiometricAuthKeyInvalidatedDialog() {
-		showDialog(BiometricAuthKeyInvalidatedDialog.newInstance())
-	}
-
 	override fun showUploadDialog(uploadingFiles: Int) {
 		showDialog(UploadCloudFileDialog.newInstance(uploadingFiles))
-	}
-
-	override fun onUnlockClick(vaultModel: VaultModel, password: String) {
-		presenter.onUnlockPressed(vaultModel, password)
-	}
-
-	override fun onUnlockCanceled() {
-		presenter.onUnlockCanceled()
 	}
 
 	override fun onReplacePositiveClicked() {
@@ -208,20 +179,6 @@ class SharedFilesActivity : BaseActivity(), //
 				}
 		finish()
 	}
-
-	override fun onBiometricAuthenticated(vault: VaultModel) {
-		presenter.onUnlockPressed(vault, vault.password)
-	}
-
-	override fun onBiometricAuthenticationFailed(vault: VaultModel) {
-		showDialog(EnterPasswordDialog.newInstance(vault))
-	}
-
-	override fun onBiometricKeyInvalidated(vault: VaultModel) {
-		presenter.onBiometricAuthKeyInvalidated()
-	}
-
-	private fun vaultWithBiometricAuthEnabled(vault: VaultModel): Boolean = vault.password != null
 
 	override fun onUploadCanceled() {
 		presenter.onUploadCanceled()

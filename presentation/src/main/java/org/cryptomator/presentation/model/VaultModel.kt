@@ -15,6 +15,8 @@ class VaultModel(private val vault: Vault) : Serializable {
 		get() = !vault.isUnlocked
 	val position: Int
 		get() = vault.position
+	val version: Int
+		get() = vault.version
 
 	fun toVault(): Vault {
 		return vault

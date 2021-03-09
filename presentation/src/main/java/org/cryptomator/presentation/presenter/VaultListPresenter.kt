@@ -6,16 +6,12 @@ import android.content.ActivityNotFoundException
 import android.content.Context
 import android.content.Intent
 import android.net.Uri
-import android.os.Handler
-import androidx.biometric.BiometricManager
 import org.cryptomator.data.cloud.crypto.CryptoCloud
 import org.cryptomator.data.util.NetworkConnectionCheck
 import org.cryptomator.domain.Cloud
 import org.cryptomator.domain.CloudFolder
 import org.cryptomator.domain.Vault
 import org.cryptomator.domain.di.PerView
-import org.cryptomator.domain.exception.NetworkConnectionException
-import org.cryptomator.domain.exception.authentication.AuthenticationException
 import org.cryptomator.domain.exception.license.LicenseNotValidException
 import org.cryptomator.domain.exception.update.SSLHandshakePreAndroid5UpdateCheckException
 import org.cryptomator.domain.usecases.DoLicenseCheckUseCase
@@ -26,27 +22,21 @@ import org.cryptomator.domain.usecases.LicenseCheck
 import org.cryptomator.domain.usecases.NoOpResultHandler
 import org.cryptomator.domain.usecases.UpdateCheck
 import org.cryptomator.domain.usecases.cloud.GetRootFolderUseCase
-import org.cryptomator.domain.usecases.vault.ChangePasswordUseCase
 import org.cryptomator.domain.usecases.vault.DeleteVaultUseCase
 import org.cryptomator.domain.usecases.vault.GetVaultListUseCase
 import org.cryptomator.domain.usecases.vault.LockVaultUseCase
 import org.cryptomator.domain.usecases.vault.MoveVaultPositionUseCase
-import org.cryptomator.domain.usecases.vault.PrepareUnlockUseCase
-import org.cryptomator.domain.usecases.vault.RemoveStoredVaultPasswordsUseCase
 import org.cryptomator.domain.usecases.vault.RenameVaultUseCase
 import org.cryptomator.domain.usecases.vault.SaveVaultUseCase
-import org.cryptomator.domain.usecases.vault.UnlockToken
-import org.cryptomator.domain.usecases.vault.UnlockVaultUseCase
-import org.cryptomator.domain.usecases.vault.VaultOrUnlockToken
 import org.cryptomator.generator.Callback
 import org.cryptomator.presentation.BuildConfig
 import org.cryptomator.presentation.R
 import org.cryptomator.presentation.exception.ExceptionHandlers
 import org.cryptomator.presentation.intent.Intents
+import org.cryptomator.presentation.intent.UnlockVaultIntent
 import org.cryptomator.presentation.model.CloudModel
 import org.cryptomator.presentation.model.CloudTypeModel
 import org.cryptomator.presentation.model.ProgressModel
-import org.cryptomator.presentation.model.ProgressStateModel
 import org.cryptomator.presentation.model.VaultModel
 import org.cryptomator.presentation.model.mappers.CloudFolderModelMapper
 import org.cryptomator.presentation.service.AutoUploadService
@@ -65,7 +55,6 @@ import org.cryptomator.presentation.workflow.CreateNewVaultWorkflow
 import org.cryptomator.presentation.workflow.Workflow
 import org.cryptomator.util.Optional
 import org.cryptomator.util.SharedPreferencesHandler
-import java.io.Serializable
 import javax.inject.Inject
 import timber.log.Timber
 
@@ -76,15 +65,11 @@ class VaultListPresenter @Inject constructor( //
 		private val renameVaultUseCase: RenameVaultUseCase,  //
 		private val lockVaultUseCase: LockVaultUseCase,  //
 		private val getDecryptedCloudForVaultUseCase: GetDecryptedCloudForVaultUseCase,  //
-		private val prepareUnlockUseCase: PrepareUnlockUseCase,  //
-		private val unlockVaultUseCase: UnlockVaultUseCase,  //
 		private val getRootFolderUseCase: GetRootFolderUseCase,  //
 		private val addExistingVaultWorkflow: AddExistingVaultWorkflow,  //
 		private val createNewVaultWorkflow: CreateNewVaultWorkflow,  //
 		private val saveVaultUseCase: SaveVaultUseCase,  //
 		private val moveVaultPositionUseCase: MoveVaultPositionUseCase, //
-		private val changePasswordUseCase: ChangePasswordUseCase,  //
-		private val removeStoredVaultPasswordsUseCase: RemoveStoredVaultPasswordsUseCase,  //
 		private val licenseCheckUseCase: DoLicenseCheckUseCase,  //
 		private val updateCheckUseCase: DoUpdateCheckUseCase,  //
 		private val updateUseCase: DoUpdateUseCase,  //
@@ -96,31 +81,14 @@ class VaultListPresenter @Inject constructor( //
 		exceptionMappings: ExceptionHandlers) : Presenter<VaultListView>(exceptionMappings) {
 
 	private var vaultAction: VaultAction? = null
-	private var changedVaultPassword = false
-	private var startedUsingPrepareUnlock = false
-	private var retryUnlockHandler: Handler? = null
 
-	@Volatile
-	private var running = false
 	override fun workflows(): Iterable<Workflow<*>> {
 		return listOf(addExistingVaultWorkflow, createNewVaultWorkflow)
-	}
-
-	override fun destroyed() {
-		super.destroyed()
-		if (retryUnlockHandler != null) {
-			running = false
-			retryUnlockHandler?.removeCallbacks(null)
-		}
 	}
 
 	fun onWindowFocusChanged(hasFocus: Boolean) {
 		if (hasFocus) {
 			loadVaultList()
-			if (retryUnlockHandler != null) {
-				running = false
-				retryUnlockHandler?.removeCallbacks(null)
-			}
 		}
 	}
 
@@ -257,11 +225,6 @@ class VaultListPresenter @Inject constructor( //
 		renameVault(VaultModel(vaultWithUpdatedCloud), newVaultName)
 	}
 
-	fun onUnlockCanceled() {
-		prepareUnlockUseCase.unsubscribe()
-		unlockVaultUseCase.cancel()
-	}
-
 	private fun browseFilesOf(vault: VaultModel) {
 		getDecryptedCloudForVaultUseCase //
 				.withVault(vault.toVault()) //
@@ -318,7 +281,6 @@ class VaultListPresenter @Inject constructor( //
 	}
 
 	fun onVaultClicked(vault: VaultModel) {
-		startedUsingPrepareUnlock = sharedPreferencesHandler.backgroundUnlockPreparation()
 		startVaultAction(vault, VaultAction.UNLOCK)
 	}
 
@@ -378,7 +340,6 @@ class VaultListPresenter @Inject constructor( //
 		when (vaultAction) {
 			VaultAction.UNLOCK -> requireUserAuthentication(authenticatedVaultModel)
 			VaultAction.RENAME -> view?.showRenameDialog(authenticatedVaultModel)
-			VaultAction.CHANGE_PASSWORD -> view?.showChangePasswordDialog(authenticatedVaultModel)
 		}
 		vaultAction = null
 	}
@@ -387,83 +348,22 @@ class VaultListPresenter @Inject constructor( //
 		view?.addOrUpdateVault(authenticatedVault)
 		if (authenticatedVault.isLocked) {
 			if (!isPaused) {
-				if (canUseBiometricOn(authenticatedVault)) {
-					if (startedUsingPrepareUnlock) {
-						startPrepareUnlockUseCase(authenticatedVault.toVault())
-					}
-					view?.showBiometricDialog(authenticatedVault)
-				} else {
-					startPrepareUnlockUseCase(authenticatedVault.toVault())
-					view?.showEnterPasswordDialog(authenticatedVault)
-				}
+				requestActivityResult( //
+						ActivityResultCallbacks.vaultUnlockedVaultList(), //
+						Intents.unlockVaultIntent().withVaultModel(authenticatedVault).withVaultAction(UnlockVaultIntent.VaultAction.UNLOCK))
 			}
 		} else {
 			browseFilesOf(authenticatedVault)
 		}
 	}
 
-	fun startPrepareUnlockUseCase(vault: Vault) {
-		pendingUnlock = null
-		prepareUnlockUseCase //
-				.withVault(vault) //
-				.run(object : DefaultResultHandler<UnlockToken>() {
-					override fun onSuccess(unlockToken: UnlockToken) {
-						if (!startedUsingPrepareUnlock && vault.password != null) {
-							doUnlock(unlockToken, vault.password)
-						} else {
-							unlockTokenObtained(unlockToken)
-						}
-					}
-
-					override fun onError(e: Throwable) {
-						if (e is AuthenticationException) {
-							view?.cancelBasicAuthIfRunning()
-						}
-						if (!authenticationExceptionHandler.handleAuthenticationException(this@VaultListPresenter, e, ActivityResultCallbacks.authenticatedAfterUnlock(vault))) {
-							super.onError(e)
-							if (e is NetworkConnectionException) {
-								running = true
-								retryUnlockHandler = Handler()
-								restartUnlockUseCase(vault)
-							}
-						}
-					}
-				})
-	}
-
-	private fun restartUnlockUseCase(vault: Vault) {
-		retryUnlockHandler?.postDelayed({
-			if (running) {
-				prepareUnlockUseCase //
-						.withVault(vault) //
-						.run(object : DefaultResultHandler<UnlockToken>() {
-							override fun onSuccess(unlockToken: UnlockToken) {
-								if (!startedUsingPrepareUnlock && vault.password != null) {
-									doUnlock(unlockToken, vault.password)
-								} else {
-									unlockTokenObtained(unlockToken)
-								}
-							}
-
-							override fun onError(e: Throwable) {
-								if (e is NetworkConnectionException) {
-									restartUnlockUseCase(vault)
-								}
-							}
-						})
-			}
-		}, 1000)
-	}
-
-	private fun doUnlock(token: UnlockToken, password: String) {
-		unlockVaultUseCase //
-				.withVaultOrUnlockToken(VaultOrUnlockToken.from(token)) //
-				.andPassword(password) //
-				.run(object : DefaultResultHandler<Cloud>() {
-					override fun onSuccess(cloud: Cloud) {
-						navigateToVaultContent(cloud)
-					}
-				})
+	@Callback
+	fun vaultUnlockedVaultList(result: ActivityResult) {
+		val cloud = result.intent().getSerializableExtra(SINGLE_RESULT) as Cloud
+		when {
+			result.isResultOk -> navigateToVaultContent(cloud)
+			else -> TODO("Not yet implemented")
+		}
 	}
 
 	private fun navigateToVaultContent(cloud: Cloud) {
@@ -488,51 +388,6 @@ class VaultListPresenter @Inject constructor( //
 		} else false
 	}
 
-	private fun unlockTokenObtained(unlockToken: UnlockToken) {
-		pendingUnlockFor(unlockToken.vault)?.setUnlockToken(unlockToken, this)
-	}
-
-	fun onUnlockClick(vault: VaultModel, password: String?) {
-		view?.showProgress(ProgressModel.GENERIC)
-		pendingUnlockFor(vault.toVault())?.setPassword(password, this)
-	}
-
-	private var pendingUnlock: PendingUnlock? = null
-	private fun pendingUnlockFor(vault: Vault): PendingUnlock? {
-		if (pendingUnlock == null) {
-			pendingUnlock = PendingUnlock(vault)
-		}
-		return if (pendingUnlock?.belongsTo(vault) == true) {
-			pendingUnlock
-		} else {
-			PendingUnlock.NO_OP_PENDING_UNLOCK
-		}
-	}
-
-	@Callback(dispatchResultOkOnly = false)
-	fun authenticatedAfterUnlock(result: ActivityResult, vault: Vault) {
-		if (result.isResultOk) {
-			val cloud = result.getSingleResult(CloudModel::class.java).toCloud()
-			if (startedUsingPrepareUnlock) {
-				startPrepareUnlockUseCase(Vault.aCopyOf(vault).withCloud(cloud).build())
-				if (view?.stoppedBiometricAuthDuringCloudAuthentication() == true) {
-					view?.showBiometricDialog(VaultModel(vault))
-				}
-			} else {
-				view?.showProgress(ProgressModel.GENERIC)
-				startPrepareUnlockUseCase(vault)
-			}
-		} else {
-			view?.closeDialog()
-			val error = result.getSingleResult(Throwable::class.java)
-			error?.let { showError(it) }
-		}
-	}
-
-	private fun canUseBiometricOn(vault: VaultModel): Boolean {
-		return vault.password != null && BiometricManager.from(context()).canAuthenticate() == BiometricManager.BIOMETRIC_SUCCESS
-	}
-
 	fun onAddExistingVault() {
 		addExistingVaultWorkflow.start()
 	}
@@ -548,60 +403,11 @@ class VaultListPresenter @Inject constructor( //
 	}
 
 	fun onChangePasswordClicked(vaultModel: VaultModel) {
-		startVaultAction(vaultModel, VaultAction.CHANGE_PASSWORD)
-	}
-
-	fun onChangePasswordClicked(vaultModel: VaultModel, oldPassword: String?, newPassword: String?) {
-		view?.showProgress(ProgressModel(ProgressStateModel.CHANGING_PASSWORD))
-		changePasswordUseCase.withVault(vaultModel.toVault()) //
-				.andOldPassword(oldPassword) //
-				.andNewPassword(newPassword) //
-				.run(object : DefaultResultHandler<Void?>() {
-					override fun onSuccess(void: Void?) {
-						view?.showProgress(ProgressModel.COMPLETED)
-						view?.showMessage(R.string.screen_vault_list_change_password_successful)
-						if (canUseBiometricOn(vaultModel)) {
-							changedVaultPassword = true
-							view?.getEncryptedPasswordWithBiometricAuthentication(VaultModel( //
-									Vault.aCopyOf(vaultModel.toVault()) //
-											.withSavedPassword(newPassword) //
-											.build()))
-						}
-					}
-
-					override fun onError(e: Throwable) {
-						if (!authenticationExceptionHandler.handleAuthenticationException( //
-										this@VaultListPresenter, e,  //
-										ActivityResultCallbacks.changePasswordAfterAuthentication(vaultModel.toVault(), oldPassword, newPassword))) {
-							showError(e)
-						}
-					}
-				})
-	}
-
-	@Callback
-	fun changePasswordAfterAuthentication(result: ActivityResult, vault: Vault?, oldPassword: String?, newPassword: String?) {
-		val cloud = result.getSingleResult(CloudModel::class.java).toCloud()
-		val vaultWithUpdatedCloud = Vault.aCopyOf(vault).withCloud(cloud).build()
-		onChangePasswordClicked(VaultModel(vaultWithUpdatedCloud), oldPassword, newPassword)
-	}
-
-	private fun save(vaultModel: VaultModel) {
-		saveVaultUseCase //
-				.withVault(vaultModel.toVault()) //
-				.run(DefaultResultHandler())
-	}
-
-	fun onBiometricKeyInvalidated() {
-		removeStoredVaultPasswordsUseCase.run(object : DefaultResultHandler<Void?>() {
-			override fun onSuccess(void: Void?) {
-				view?.showBiometricAuthKeyInvalidatedDialog()
-			}
-
-			override fun onError(e: Throwable) {
-				Timber.tag("VaultListPresenter").e(e, "Error while removing vault passwords")
-			}
-		})
+		Intents
+				.unlockVaultIntent()
+				.withVaultModel(vaultModel)
+				.withVaultAction(UnlockVaultIntent.VaultAction.CHANGE_PASSWORD)
+				.startActivity(this)
 	}
 
 	fun onVaultSettingsClicked(vaultModel: VaultModel) {
@@ -654,26 +460,8 @@ class VaultListPresenter @Inject constructor( //
 				})
 	}
 
-	fun onBiometricAuthenticationSucceeded(vaultModel: VaultModel) {
-		if (changedVaultPassword) {
-			changedVaultPassword = false
-			save(vaultModel)
-		} else {
-			if (startedUsingPrepareUnlock) {
-				onUnlockClick(vaultModel, vaultModel.password)
-			} else {
-				view?.showProgress(ProgressModel.GENERIC)
-				startPrepareUnlockUseCase(vaultModel.toVault())
-			}
-		}
-	}
-
-	fun useConfirmationInFaceUnlockBiometricAuthentication(): Boolean {
-		return sharedPreferencesHandler.useConfirmationInFaceUnlockBiometricAuthentication()
-	}
-
 	private enum class VaultAction {
-		UNLOCK, RENAME, CHANGE_PASSWORD
+		UNLOCK, RENAME
 	}
 
 	fun installUpdate() {
@@ -698,43 +486,6 @@ class VaultListPresenter @Inject constructor( //
 				})
 	}
 
-	fun startedUsingPrepareUnlock(): Boolean {
-		return startedUsingPrepareUnlock
-	}
-
-	private open class PendingUnlock(private val vault: Vault?) : Serializable {
-
-		private var unlockToken: UnlockToken? = null
-		private var password: String? = null
-
-		fun setUnlockToken(unlockToken: UnlockToken?, presenter: VaultListPresenter) {
-			this.unlockToken = unlockToken
-			continueIfComplete(presenter)
-		}
-
-		fun setPassword(password: String?, presenter: VaultListPresenter) {
-			this.password = password
-			continueIfComplete(presenter)
-		}
-
-		open fun continueIfComplete(presenter: VaultListPresenter) {
-			unlockToken?.let { token -> password?.let { password -> presenter.doUnlock(token, password) } }
-		}
-
-		fun belongsTo(vault: Vault): Boolean {
-			return vault == this.vault
-		}
-
-		companion object {
-
-			val NO_OP_PENDING_UNLOCK: PendingUnlock = object : PendingUnlock(null) {
-				override fun continueIfComplete(presenter: VaultListPresenter) {
-					// empty
-				}
-			}
-		}
-	}
-
 	init {
 		unsubscribeOnDestroy( //
 				deleteVaultUseCase,  //
@@ -743,9 +494,6 @@ class VaultListPresenter @Inject constructor( //
 				getVaultListUseCase,  //
 				saveVaultUseCase,  //
 				moveVaultPositionUseCase, //
-				removeStoredVaultPasswordsUseCase,  //
-				unlockVaultUseCase,  //
-				prepareUnlockUseCase,  //
 				licenseCheckUseCase,  //
 				updateCheckUseCase,  //
 				updateUseCase)

@@ -97,9 +97,10 @@
 			</intent-filter>
 		</activity>
 
-
+		<activity android:name=".ui.activity.UnlockVaultActivity"
+			android:theme="@style/TransparentAlertDialogCustom"
+			android:label=""/>
 		<activity android:name=".ui.activity.EmptyDirIdFileInfoActivity" />
-
 
 		<!-- Settings -->
 		<activity android:name=".ui.activity.BiometricAuthSettingsActivity" />
