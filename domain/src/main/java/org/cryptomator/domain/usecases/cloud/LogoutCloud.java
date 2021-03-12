@@ -4,6 +4,7 @@ import org.cryptomator.domain.Cloud;
 import org.cryptomator.domain.DropboxCloud;
 import org.cryptomator.domain.GoogleDriveCloud;
 import org.cryptomator.domain.OnedriveCloud;
+import org.cryptomator.domain.PCloudCloud;
 import org.cryptomator.domain.exception.BackendException;
 import org.cryptomator.domain.repository.CloudContentRepository;
 import org.cryptomator.domain.repository.CloudRepository;
@@ -44,6 +45,12 @@ class LogoutCloud {
 		} else if (cloud instanceof OnedriveCloud) {
 			return OnedriveCloud //
 					.aCopyOf((OnedriveCloud) cloud) //
+					.withUsername(null) //
+					.withAccessToken(null) //
+					.build();
+		} else if (cloud instanceof PCloudCloud) {
+			return PCloudCloud //
+					.aCopyOf((PCloudCloud) cloud) //
 					.withUsername(null) //
 					.withAccessToken(null) //
 					.build();

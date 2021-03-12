@@ -39,6 +39,7 @@
 	<string name="cloud_names_dropbox" translatable="false">Dropbox</string>
 	<string name="cloud_names_google_drive" translatable="false">Google Drive</string>
 	<string name="cloud_names_onedrive" translatable="false">OneDrive</string>
+	<string name="cloud_names_pcloud" translatable="false">pCloud</string>
 	<string name="cloud_names_webdav" translatable="false">WebDAV</string>
 	<string name="cloud_names_local_storage">Local storage</string>
 

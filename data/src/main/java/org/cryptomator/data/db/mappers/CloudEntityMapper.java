@@ -4,6 +4,7 @@ import org.cryptomator.data.db.entities.CloudEntity;
 import org.cryptomator.domain.Cloud;
 import org.cryptomator.domain.CloudType;
 import org.cryptomator.domain.DropboxCloud;
+import org.cryptomator.domain.PCloudCloud;
 import org.cryptomator.domain.GoogleDriveCloud;
 import org.cryptomator.domain.LocalStorageCloud;
 import org.cryptomator.domain.OnedriveCloud;
@@ -16,6 +17,7 @@ import static org.cryptomator.domain.DropboxCloud.aDropboxCloud;
 import static org.cryptomator.domain.GoogleDriveCloud.aGoogleDriveCloud;
 import static org.cryptomator.domain.LocalStorageCloud.aLocalStorage;
 import static org.cryptomator.domain.OnedriveCloud.aOnedriveCloud;
+import static org.cryptomator.domain.PCloudCloud.aPCloudCloud;
 import static org.cryptomator.domain.WebDavCloud.aWebDavCloudCloud;
 
 @Singleton
@@ -43,6 +45,12 @@ public class CloudEntityMapper extends EntityMapper<CloudEntity, Cloud> {
 						.build();
 			case ONEDRIVE:
 				return aOnedriveCloud() //
+						.withId(entity.getId()) //
+						.withAccessToken(entity.getAccessToken()) //
+						.withUsername(entity.getUsername()) //
+						.build();
+			case PCLOUD:
+				return aPCloudCloud() //
 						.withId(entity.getId()) //
 						.withAccessToken(entity.getAccessToken()) //
 						.withUsername(entity.getUsername()) //
@@ -81,6 +89,11 @@ public class CloudEntityMapper extends EntityMapper<CloudEntity, Cloud> {
 			case ONEDRIVE:
 				result.setAccessToken(((OnedriveCloud) domainObject).accessToken());
 				result.setUsername(((OnedriveCloud) domainObject).username());
+				break;
+			case PCLOUD:
+				result.setAccessToken(((PCloudCloud) domainObject).accessToken());
+				result.setWebdavUrl(((PCloudCloud) domainObject).url());
+				result.setUsername(((PCloudCloud) domainObject).username());
 				break;
 			case LOCAL:
 				result.setAccessToken(((LocalStorageCloud) domainObject).rootUri());
