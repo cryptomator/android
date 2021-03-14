@@ -118,6 +118,7 @@ dependencies {
 	implementation project(':util')
 	implementation project(':domain')
 	implementation project(':data')
+	implementation project(':pcloud-sdk-android')
 
 	// dagger
 	kapt dependencies.daggerCompiler
