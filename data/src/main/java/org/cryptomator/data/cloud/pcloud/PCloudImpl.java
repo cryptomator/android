@@ -188,6 +188,11 @@ class PCloudImpl {
 
 		com.pcloud.sdk.DataSource pCloudDataSource = new com.pcloud.sdk.DataSource() {
 			@Override
+			public long contentLength() {
+				return data.size(context).get();
+			}
+
+			@Override
 			public void writeTo(BufferedSink sink) throws IOException {
 				try (Source source = Okio.source(data.open(context))) {
 					sink.writeAll(source);
@@ -196,7 +201,7 @@ class PCloudImpl {
 		};
 
 		return client() //
-				.createFile(((PCloudFolder) file.getParent()).getId(), file.getName(), pCloudDataSource, new Date(), listener, uploadOptions) //
+				.createFile(file.getParent().getId(), file.getName(), pCloudDataSource, new Date(), listener, uploadOptions) //
 				.execute();
 	}
 
