@@ -123,9 +123,17 @@ class PCloudImpl {
 
 	public List<PCloudNode> list(CloudFolder folder) throws ApiError, IOException {
 		List<PCloudNode> result = new ArrayList<>();
-		RemoteFolder listFolderResult = client() //
-				.listFolder(((PCloudFolder) folder).getId()) //
-				.execute();
+
+		Long folderId = ((PCloudFolder)folder).getId();
+		RemoteFolder listFolderResult;
+		if (folderId == null) {
+			listFolderResult = client().listFolder(folder.getPath()).execute();
+		} else {
+			listFolderResult = client() //
+					.listFolder(((PCloudFolder) folder).getId()) //
+					.execute();
+		}
+
 		List<RemoteEntry> entryMetadata = listFolderResult.children();
 		for (RemoteEntry metadata : entryMetadata) {
 			result.add(PCloudCloudNodeFactory.from( //
