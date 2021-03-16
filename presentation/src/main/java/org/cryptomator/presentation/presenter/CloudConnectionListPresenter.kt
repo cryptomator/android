@@ -204,9 +204,6 @@ class CloudConnectionListPresenter @Inject constructor( //
 								prepareForSavingPCloudCloud(PCloudCloud.aCopyOf(pCloudSkeleton).withUsername(username).build())
 							}
 						})
-
-				Log.d("pCloud", "Account access granted, authData:\n$authData")
-
 			}
 			AuthorizationResult.ACCESS_DENIED -> //TODO: Add proper handling for denied grants.
 				Log.d("pCloud", "Account access denied")
@@ -226,20 +223,14 @@ class CloudConnectionListPresenter @Inject constructor( //
 				.withCloudType(CloudTypeModel.valueOf(selectedCloudType.get())) //
 				.run(object : DefaultResultHandler<List<Cloud>>() {
 					override fun onSuccess(clouds: List<Cloud>) {
-						// here check if a cloud with the same mail adress already exists,
-						//  if so update (in case of the token changed) else create a new one
-						val existingPCloudCloud: PCloudCloud? = clouds.firstOrNull {
+						clouds.firstOrNull {
 							(it as PCloudCloud).username() == cloud.username()
-						} as PCloudCloud?
-
-						if (existingPCloudCloud != null && existingPCloudCloud.accessToken() != cloud.accessToken()) {
-							saveCloud(PCloudCloud.aCopyOf(existingPCloudCloud) //
+						}?.let { it as PCloudCloud
+							saveCloud(PCloudCloud.aCopyOf(it) //
 									.withUrl(cloud.url())
-									.withAccessToken(cloud.accessToken())
+									.withAccessToken(it.accessToken())
 									.build())
-						} else if (existingPCloudCloud == null) {
-							saveCloud(cloud);
-						}
+						} ?: saveCloud(cloud)
 					}
 				})
 	}
