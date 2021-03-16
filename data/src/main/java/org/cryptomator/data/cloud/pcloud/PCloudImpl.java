@@ -221,7 +221,7 @@ class PCloudImpl {
 		DataSink sink = new DataSink() {
 			@Override
 			public void readAll(BufferedSource source) throws IOException {
-				CopyStream.copyStreamToStream(source.getBuffer().inputStream(), data);
+				CopyStream.copyStreamToStream(source.inputStream(), data);
 			}
 		};
 
