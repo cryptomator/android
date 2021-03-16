@@ -43,10 +43,6 @@ import okio.Source;
 import static org.cryptomator.domain.usecases.cloud.Progress.progress;
 
 class PCloudImpl {
-
-	private static final int DIRECTORY_DOES_NOT_EXIST = 2005;
-	private static final int INVALID_FILE_OR_FOLDER_NAME = 2001;
-
 	private final PCloudClientFactory clientFactory = new PCloudClientFactory();
 	private final PCloudCloud cloud;
 	private final RootPCloudFolder root;
@@ -116,7 +112,9 @@ class PCloudImpl {
 				return true;
 			}
 		} catch (ApiError e) {
-			if (e.errorCode() == DIRECTORY_DOES_NOT_EXIST || e.errorCode() == INVALID_FILE_OR_FOLDER_NAME) {
+			if (e.errorCode() == PCloudApiErrorCodes.DIRECTORY_DOES_NOT_EXIST.getValue()
+					|| e.errorCode() == PCloudApiErrorCodes.INVALID_FILE_OR_FOLDER_NAME.getValue()
+					|| e.errorCode() == PCloudApiErrorCodes.FILE_OR_FOLDER_NOT_FOUND.getValue()) {
 				return false;
 			}
 			throw e;
