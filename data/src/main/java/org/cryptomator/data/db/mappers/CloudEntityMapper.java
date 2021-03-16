@@ -52,6 +52,7 @@ public class CloudEntityMapper extends EntityMapper<CloudEntity, Cloud> {
 			case PCLOUD:
 				return aPCloudCloud() //
 						.withId(entity.getId()) //
+						.withUrl(entity.getWebdavUrl()) //
 						.withAccessToken(entity.getAccessToken()) //
 						.withUsername(entity.getUsername()) //
 						.build();
