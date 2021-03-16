@@ -49,10 +49,12 @@ class LogoutCloud {
 					.withAccessToken(null) //
 					.build();
 		} else if (cloud instanceof PCloudCloud) {
+			//TODO proper logout?
 			return PCloudCloud //
 					.aCopyOf((PCloudCloud) cloud) //
 					.withUsername(null) //
 					.withAccessToken(null) //
+					.withUrl(null) //
 					.build();
 		}
 		throw new IllegalStateException("Logout not supported for cloud with type " + cloud.type());
