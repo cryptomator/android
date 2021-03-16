@@ -56,10 +56,11 @@ class PCloudImpl {
 		if (cloud.accessToken() == null) {
 			throw new NoAuthenticationProvidedException(cloud);
 		}
+
+		this.context = context;
 		this.cloud = cloud;
 		this.idCache = idCache;
 		this.root = new RootPCloudFolder(cloud);
-		this.context = context;
 	}
 
 	private ApiClient client() {
@@ -88,53 +89,6 @@ class PCloudImpl {
 		return folder;
 	}
 
-	public PCloudFile file(PCloudFolder parent, String name) {
-		return file(parent, name, Optional.empty());
-	}
-
-	public PCloudFile file(PCloudFolder parent, String name, Optional<Long> size) {
-		if (parent.getId() == null) {
-			return PCloudCloudNodeFactory.file(parent, name, size);
-		}
-		String path = PCloudCloudNodeFactory.getNodePath(parent, name);
-		PCloudIdCache.NodeInfo nodeInfo = idCache.get(path);
-		if (nodeInfo != null && !nodeInfo.isFolder()) {
-			return PCloudCloudNodeFactory.file(parent, name, size, path, nodeInfo.getId());
-		}
-
-		Optional<RemoteEntry> file = findEntry(parent.getId(), name, false);
-		if (file.isPresent()) {
-			return idCache.cache(PCloudCloudNodeFactory.file(parent, file.get().asFile()));
-		}
-
-		return PCloudCloudNodeFactory.file( //
-				parent, //
-				name, //
-				size, //
-				parent.getPath() + '/' + name);
-	}
-
-	public PCloudFolder folder(PCloudFolder parent, String name) {
-		if (parent.getId() == null) {
-			return PCloudCloudNodeFactory.folder(parent, name);
-		}
-		String path = PCloudCloudNodeFactory.getNodePath(parent, name);
-		PCloudIdCache.NodeInfo nodeInfo = idCache.get(path);
-		if (nodeInfo != null && nodeInfo.isFolder()) {
-			return PCloudCloudNodeFactory.folder( //
-					parent, //
-					name, //
-					path, //
-					nodeInfo.getId());
-		}
-
-		Optional<RemoteEntry> folder = findEntry(parent.getId(), name, true);
-		if (folder.isPresent()) {
-			return idCache.cache(PCloudCloudNodeFactory.folder(parent, folder.get().asFolder()));
-		}
-		return PCloudCloudNodeFactory.folder(parent, name, parent.getPath() + '/' + name);
-	}
-
 	private Optional<RemoteEntry> findEntry(Long folderId, String name, boolean isFolder) {
 		try {
 			RemoteFolder remoteFolder = client().listFolder(folderId).execute();
@@ -155,17 +109,57 @@ class PCloudImpl {
 		}
 	}
 
+	public PCloudFile file(PCloudFolder parent, String name) {
+		return file(parent, name, Optional.empty());
+	}
+
+	public PCloudFile file(PCloudFolder parent, String name, Optional<Long> size) {
+		if (parent.getId() == null) {
+			return PCloudCloudNodeFactory.file(parent, name, size);
+		}
+
+		String path = PCloudCloudNodeFactory.getNodePath(parent, name);
+		PCloudIdCache.NodeInfo nodeInfo = idCache.get(path);
+		if (nodeInfo != null && !nodeInfo.isFolder()) {
+			return PCloudCloudNodeFactory.file(parent, name, size, path, nodeInfo.getId());
+		}
+
+		Optional<RemoteEntry> file = findEntry(parent.getId(), name, false);
+		if (file.isPresent()) {
+			return idCache.cache(PCloudCloudNodeFactory.file(parent, file.get().asFile()));
+		}
+
+		return PCloudCloudNodeFactory.file(parent, name, size, parent.getPath() + '/' + name);
+	}
+
+	public PCloudFolder folder(PCloudFolder parent, String name) {
+		if (parent.getId() == null) {
+			return PCloudCloudNodeFactory.folder(parent, name);
+		}
+
+		String path = PCloudCloudNodeFactory.getNodePath(parent, name);
+		PCloudIdCache.NodeInfo nodeInfo = idCache.get(path);
+		if (nodeInfo != null && nodeInfo.isFolder()) {
+			return PCloudCloudNodeFactory.folder(parent, name, path, nodeInfo.getId());
+		}
+
+		Optional<RemoteEntry> folder = findEntry(parent.getId(), name, true);
+		if (folder.isPresent()) {
+			return idCache.cache(PCloudCloudNodeFactory.folder(parent, folder.get().asFolder()));
+		}
+		return PCloudCloudNodeFactory.folder(parent, name, parent.getPath() + '/' + name);
+	}
+
 	public boolean exists(PCloudNode node) throws ApiError, IOException {
 		try {
 			if (node instanceof PCloudFolder) {
 				RemoteFolder remoteFolder = client().listFolder(node.getPath()).execute();
 				idCache.add(PCloudCloudNodeFactory.folder(node.getParent(), remoteFolder));
-				return true;
 			} else {
 				RemoteFile remoteFile = client().stat(node.getPath()).execute();
 				idCache.add(PCloudCloudNodeFactory.file(node.getParent(), remoteFile));
-				return true;
 			}
+			return true;
 		} catch (ApiError e) {
 			if (e.errorCode() == PCloudApiErrorCodes.DIRECTORY_DOES_NOT_EXIST.getValue()
 					|| e.errorCode() == PCloudApiErrorCodes.COMPONENT_OF_PARENT_DIRECTORY_DOES_NOT_EXIST.getValue()
@@ -177,8 +171,8 @@ class PCloudImpl {
 		}
 	}
 
-	public List<PCloudNode> list(PCloudFolder folder) throws ApiError, IOException {
-		List<PCloudNode> result = new ArrayList<>();
+	public List<CloudNode> list(PCloudFolder folder) throws ApiError, IOException {
+		List<CloudNode> result = new ArrayList<>();
 
 		Long folderId = folder.getId();
 		RemoteFolder listFolderResult;
@@ -192,12 +186,20 @@ class PCloudImpl {
 
 		List<RemoteEntry> entryMetadata = listFolderResult.children();
 		for (RemoteEntry metadata : entryMetadata) {
-			result.add(PCloudCloudNodeFactory.from(folder, metadata));
+			result.add(idCache.cache(PCloudCloudNodeFactory.from(folder, metadata)));
 		}
 		return result;
 	}
 
 	public PCloudFolder create(PCloudFolder folder) throws ApiError, IOException  {
+		if (folder.getParent().getId() == null) {
+			folder = new PCloudFolder( //
+					create(folder.getParent()), //
+					folder.getId(), //
+					folder.getName(), //
+					folder.getPath());
+		}
+
 		RemoteFolder createdFolder = client() //
 				.createFolder(folder.getParent().getId(), folder.getName()) //
 				.execute();
@@ -212,13 +214,13 @@ class PCloudImpl {
 		}
 
 		if (source instanceof PCloudFolder) {
-			relocationResult = client().moveFolder(source.getId(), target.getId()).execute();
+			relocationResult = client().moveFolder(source.getId(), target.getParent().getId()).execute();
 		} else {
-			relocationResult = client().moveFile(source.getId(), target.getId()).execute();
+			relocationResult = client().moveFile(source.getId(), target.getParent().getId()).execute();
 		}
 
 		idCache.remove(source);
-		return PCloudCloudNodeFactory.from(target.getParent(), relocationResult);
+		return idCache.cache(PCloudCloudNodeFactory.from(target.getParent(), relocationResult));
 	}
 
 	public PCloudFile write(PCloudFile file, DataSource data, final ProgressAware<UploadState> progressAware, boolean replace, long size)
@@ -233,7 +235,7 @@ class PCloudImpl {
 
 		progressAware.onProgress(Progress.started(UploadState.upload(file)));
 		UploadOptions uploadOptions = UploadOptions.DEFAULT;
-		if (replace) {
+		if (file.getId() != null && replace) {
 			uploadOptions = UploadOptions.OVERRIDE_FILE;
 		}
 
@@ -276,14 +278,6 @@ class PCloudImpl {
 				.execute();
 	}
 
-//	private Long getFolderId(PCloudFolder folder) {
-//		try {
-//			return client().listFolder(folder.getPath()).execute().folderId();
-//		} catch(ApiError | IOException e) {
-//			return null;
-//		}
-//	}
-
 	public void read(CloudFile file, OutputStream data, final ProgressAware<DownloadState> progressAware) throws ApiError, IOException {
 		progressAware.onProgress(Progress.started(DownloadState.download(file)));
 
@@ -315,7 +309,7 @@ class PCloudImpl {
 	public void delete(PCloudNode node) throws ApiError, IOException {
 		if (node instanceof PCloudFolder) {
 			client() //
-					.deleteFolder(node.getId()).execute();
+					.deleteFolder(node.getId(), true).execute();
 		} else {
 			client() //
 					.deleteFile(node.getId()).execute();

@@ -5,6 +5,7 @@ import android.content.Context;
 import com.pcloud.sdk.ApiError;
 
 import org.cryptomator.data.cloud.InterceptingCloudContentRepository;
+import org.cryptomator.domain.CloudNode;
 import org.cryptomator.domain.PCloudCloud;
 import org.cryptomator.domain.exception.BackendException;
 import org.cryptomator.domain.exception.CloudNodeAlreadyExistsException;
@@ -95,7 +96,7 @@ class PCloudCloudContentRepository extends InterceptingCloudContentRepository<PC
 		}
 
 		@Override
-		public List<PCloudNode> list(PCloudFolder folder) throws BackendException {
+		public List<CloudNode> list(PCloudFolder folder) throws BackendException {
 			try {
 				return cloud.list(folder);
 			} catch (ApiError | IOException e) {
@@ -184,8 +185,10 @@ class PCloudCloudContentRepository extends InterceptingCloudContentRepository<PC
 			try {
 				cloud.delete(node);
 			} catch (ApiError | IOException e) {
-				if (e instanceof ApiError && ((ApiError)e).errorCode() == PCloudApiErrorCodes.FILE_NOT_FOUND.getValue()) {
-					throw new NoSuchCloudFileException(node.getName());
+				if (e instanceof ApiError) {
+					if (((ApiError) e).errorCode() == PCloudApiErrorCodes.FILE_NOT_FOUND.getValue()) {
+						throw new NoSuchCloudFileException(node.getName());
+					}
 				}
 				throw new FatalBackendException(e);
 			}
