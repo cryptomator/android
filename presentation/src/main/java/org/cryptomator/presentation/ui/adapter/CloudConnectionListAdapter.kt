@@ -7,6 +7,7 @@ import org.cryptomator.domain.exception.FatalBackendException
 import org.cryptomator.presentation.R
 import org.cryptomator.presentation.model.CloudModel
 import org.cryptomator.presentation.model.LocalStorageModel
+import org.cryptomator.presentation.model.PCloudCloudModel
 import org.cryptomator.presentation.model.WebDavCloudModel
 import org.cryptomator.presentation.model.comparator.CloudModelComparator
 import org.cryptomator.presentation.ui.adapter.CloudConnectionListAdapter.CloudConnectionHolder
@@ -54,6 +55,8 @@ internal constructor(context: Context) : RecyclerViewBaseAdapter<CloudModel, Clo
 
 			if (cloudModel is WebDavCloudModel) {
 				bindWebDavCloudModel(cloudModel)
+			} else if (cloudModel is PCloudCloudModel) {
+				bindPCloudCloudModel(cloudModel)
 			} else if (cloudModel is LocalStorageModel) {
 				bindLocalStorageCloudModel(cloudModel)
 			}
@@ -68,6 +71,11 @@ internal constructor(context: Context) : RecyclerViewBaseAdapter<CloudModel, Clo
 				throw FatalBackendException("path in WebDAV cloud isn't correct (no uri)")
 			}
 
+		}
+
+		private fun bindPCloudCloudModel(cloudModel: PCloudCloudModel) {
+				itemView.cloudText.text = cloudModel.username()
+				itemView.cloudSubText.visibility = View.GONE
 		}
 
 		private fun bindLocalStorageCloudModel(cloudModel: LocalStorageModel) {

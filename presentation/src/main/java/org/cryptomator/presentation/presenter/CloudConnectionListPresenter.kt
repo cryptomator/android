@@ -4,14 +4,21 @@ import android.content.ActivityNotFoundException
 import android.content.Intent
 import android.net.Uri
 import android.os.Build
+import android.util.Log
 import android.widget.Toast
 import androidx.annotation.RequiresApi
+import com.pcloud.sdk.AuthorizationActivity
+import com.pcloud.sdk.AuthorizationData
+import com.pcloud.sdk.AuthorizationRequest
+import com.pcloud.sdk.AuthorizationResult
 import org.cryptomator.domain.Cloud
 import org.cryptomator.domain.LocalStorageCloud
+import org.cryptomator.domain.PCloudCloud
 import org.cryptomator.domain.Vault
 import org.cryptomator.domain.di.PerView
 import org.cryptomator.domain.usecases.cloud.AddOrChangeCloudConnectionUseCase
 import org.cryptomator.domain.usecases.cloud.GetCloudsUseCase
+import org.cryptomator.domain.usecases.cloud.GetUsernameUseCase
 import org.cryptomator.domain.usecases.cloud.RemoveCloudUseCase
 import org.cryptomator.domain.usecases.vault.DeleteVaultUseCase
 import org.cryptomator.domain.usecases.vault.GetVaultListUseCase
@@ -26,6 +33,7 @@ import org.cryptomator.presentation.model.WebDavCloudModel
 import org.cryptomator.presentation.model.mappers.CloudModelMapper
 import org.cryptomator.presentation.ui.activity.view.CloudConnectionListView
 import org.cryptomator.presentation.workflow.ActivityResult
+import org.cryptomator.util.crypto.CredentialCryptor
 import java.util.*
 import java.util.concurrent.atomic.AtomicReference
 import javax.inject.Inject
@@ -34,6 +42,7 @@ import timber.log.Timber
 @PerView
 class CloudConnectionListPresenter @Inject constructor( //
 		private val getCloudsUseCase: GetCloudsUseCase,  //
+		private val getUsernameUseCase: GetUsernameUseCase, //
 		private val removeCloudUseCase: RemoveCloudUseCase,  //
 		private val addOrChangeCloudConnectionUseCase: AddOrChangeCloudConnectionUseCase,  //
 		private val getVaultListUseCase: GetVaultListUseCase,  //
@@ -122,6 +131,18 @@ class CloudConnectionListPresenter @Inject constructor( //
 		when (selectedCloudType.get()) {
 			CloudTypeModel.WEBDAV -> requestActivityResult(ActivityResultCallbacks.addChangeWebDavCloud(),  //
 					Intents.webDavAddOrChangeIntent())
+			CloudTypeModel.PCLOUD -> {
+				val authIntent: Intent = AuthorizationActivity.createIntent(
+						this.context(),
+						AuthorizationRequest.create()
+								.setType(AuthorizationRequest.Type.TOKEN)
+								.setClientId("tsAamgqqwk7")
+								.setForceAccessApproval(true)
+								.addPermission("manageshares")
+								.build())
+				requestActivityResult(ActivityResultCallbacks.pCloudAuthenticationFinished(),  //
+						authIntent)
+			}
 			CloudTypeModel.LOCAL -> openDocumentTree()
 		}
 	}
@@ -160,6 +181,77 @@ class CloudConnectionListPresenter @Inject constructor( //
 	@Callback
 	fun addChangeWebDavCloud(result: ActivityResult?) {
 		loadCloudList()
+	}
+
+	@Callback
+	fun pCloudAuthenticationFinished(activityResult: ActivityResult?) {
+		val authData: AuthorizationData = AuthorizationActivity.getResult(activityResult!!.intent())
+		val result: AuthorizationResult = authData.result
+
+		when (result) {
+			AuthorizationResult.ACCESS_GRANTED -> {
+				val accessToken: String = CredentialCryptor //
+						.getInstance(this.context()) //
+						.encrypt(authData.token)
+				val pCloudSkeleton: PCloudCloud = PCloudCloud.aPCloudCloud() //
+						.withAccessToken(accessToken)
+						.withUrl(authData.apiHost)
+						.build();
+				getUsernameUseCase //
+						.withCloud(pCloudSkeleton) //
+						.run(object : DefaultResultHandler<String>() {
+							override fun onSuccess(username: String?) {
+								prepareForSavingPCloudCloud(PCloudCloud.aCopyOf(pCloudSkeleton).withUsername(username).build())
+							}
+						})
+
+				Log.d("pCloud", "Account access granted, authData:\n$authData")
+
+			}
+			AuthorizationResult.ACCESS_DENIED -> //TODO: Add proper handling for denied grants.
+				Log.d("pCloud", "Account access denied")
+			AuthorizationResult.AUTH_ERROR -> {
+				//TODO: Add error handling.
+				Log.d("pCloud", """Account access grant error: ${authData.errorMessage}""".trimIndent())
+			}
+			AuthorizationResult.CANCELLED -> {
+				//TODO: Handle cancellation.
+				Log.d("pCloud", "Account access grant cancelled:")
+			}
+		}
+	}
+
+	fun prepareForSavingPCloudCloud(cloud: PCloudCloud) {
+		getCloudsUseCase //
+				.withCloudType(CloudTypeModel.valueOf(selectedCloudType.get())) //
+				.run(object : DefaultResultHandler<List<Cloud>>() {
+					override fun onSuccess(clouds: List<Cloud>) {
+						// here check if a cloud with the same mail adress already exists,
+						//  if so update (in case of the token changed) else create a new one
+						val existingPCloudCloud: PCloudCloud? = clouds.firstOrNull {
+							(it as PCloudCloud).username() == cloud.username()
+						} as PCloudCloud?
+
+						if (existingPCloudCloud != null && existingPCloudCloud.accessToken() != cloud.accessToken()) {
+							saveCloud(PCloudCloud.aCopyOf(existingPCloudCloud) //
+									.withUrl(cloud.url())
+									.withAccessToken(cloud.accessToken())
+									.build())
+						} else if (existingPCloudCloud == null) {
+							saveCloud(cloud);
+						}
+					}
+				})
+	}
+
+	fun saveCloud(cloud: PCloudCloud) {
+		addOrChangeCloudConnectionUseCase //
+				.withCloud(cloud) //
+				.run(object : DefaultResultHandler<Void?>() {
+					override fun onSuccess(void: Void?) {
+						loadCloudList()
+					}
+				})
 	}
 
 	@Callback

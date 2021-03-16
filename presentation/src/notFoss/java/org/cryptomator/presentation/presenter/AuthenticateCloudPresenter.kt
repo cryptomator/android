@@ -34,6 +34,7 @@ import org.cryptomator.presentation.exception.PermissionNotGrantedException
 import org.cryptomator.presentation.intent.AuthenticateCloudIntent
 import org.cryptomator.presentation.model.CloudModel
 import org.cryptomator.presentation.model.CloudTypeModel
+import org.cryptomator.presentation.model.PCloudCloudModel
 import org.cryptomator.presentation.model.ProgressModel
 import org.cryptomator.presentation.model.ProgressStateModel
 import org.cryptomator.presentation.model.WebDavCloudModel
@@ -65,6 +66,7 @@ class AuthenticateCloudPresenter @Inject constructor( //
 			DropboxAuthStrategy(),  //
 			GoogleDriveAuthStrategy(),  //
 			OnedriveAuthStrategy(),  //
+			PCloudAuthStrategy(), //
 			WebDAVAuthStrategy(),  //
 			LocalStorageAuthStrategy() //
 	)
@@ -279,6 +281,26 @@ class AuthenticateCloudPresenter @Inject constructor( //
 					OnedriveCloud.aCopyOf(cloud.toCloud() as OnedriveCloud) //
 							.withAccessToken(accessToken) //
 							.build())
+		}
+	}
+
+	private inner class PCloudAuthStrategy : AuthStrategy {
+
+		override fun supports(cloud: CloudModel): Boolean {
+			return cloud.cloudType() == CloudTypeModel.PCLOUD
+		}
+
+		override fun resumed(intent: AuthenticateCloudIntent) {
+			handlePCloudAuthenticationExceptionIfRequired(intent.cloud() as PCloudCloudModel, intent.error())
+		}
+
+		private fun handlePCloudAuthenticationExceptionIfRequired(cloud: PCloudCloudModel, e: AuthenticationException) {
+			Timber.tag("AuthicateCloudPrester").e(e)
+			when {
+				ExceptionUtil.contains(e, WrongCredentialsException::class.java) -> {
+					failAuthentication(cloud.name())
+				}
+			}
 		}
 	}
 

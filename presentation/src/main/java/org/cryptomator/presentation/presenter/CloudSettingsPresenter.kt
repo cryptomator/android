@@ -2,6 +2,7 @@ package org.cryptomator.presentation.presenter
 
 import org.cryptomator.domain.Cloud
 import org.cryptomator.domain.LocalStorageCloud
+import org.cryptomator.domain.PCloudCloud
 import org.cryptomator.domain.WebDavCloud
 import org.cryptomator.domain.di.PerView
 import org.cryptomator.domain.exception.FatalBackendException
@@ -16,6 +17,7 @@ import org.cryptomator.presentation.intent.Intents
 import org.cryptomator.presentation.model.CloudModel
 import org.cryptomator.presentation.model.CloudTypeModel
 import org.cryptomator.presentation.model.LocalStorageModel
+import org.cryptomator.presentation.model.PCloudCloudModel
 import org.cryptomator.presentation.model.WebDavCloudModel
 import org.cryptomator.presentation.model.mappers.CloudModelMapper
 import org.cryptomator.presentation.ui.activity.view.CloudSettingsView
@@ -34,6 +36,7 @@ class CloudSettingsPresenter @Inject constructor( //
 	private val nonSingleLoginClouds: Set<CloudTypeModel> = EnumSet.of( //
 			CloudTypeModel.CRYPTO,  //
 			CloudTypeModel.LOCAL,  //
+			CloudTypeModel.PCLOUD, //
 			CloudTypeModel.WEBDAV)
 
 	fun loadClouds() {
@@ -41,7 +44,7 @@ class CloudSettingsPresenter @Inject constructor( //
 	}
 
 	fun onCloudClicked(cloudModel: CloudModel) {
-		if (isWebdavOrLocal(cloudModel)) {
+		if (isWebdavOrPCloudOrLocal(cloudModel)) {
 			startConnectionListActivity(cloudModel.cloudType())
 		} else {
 			if (isLoggedIn(cloudModel)) {
@@ -58,8 +61,8 @@ class CloudSettingsPresenter @Inject constructor( //
 		}
 	}
 
-	private fun isWebdavOrLocal(cloudModel: CloudModel): Boolean {
-		return cloudModel is WebDavCloudModel || cloudModel is LocalStorageModel
+	private fun isWebdavOrPCloudOrLocal(cloudModel: CloudModel): Boolean {
+		return cloudModel is WebDavCloudModel || cloudModel is LocalStorageModel || cloudModel is PCloudCloudModel
 	}
 
 	private fun loginCloud(cloudModel: CloudModel) {
@@ -91,6 +94,7 @@ class CloudSettingsPresenter @Inject constructor( //
 	private fun effectiveTitle(cloudTypeModel: CloudTypeModel): String {
 		when (cloudTypeModel) {
 			CloudTypeModel.WEBDAV -> return context().getString(R.string.screen_cloud_settings_webdav_connections)
+			CloudTypeModel.PCLOUD -> return context().getString(R.string.screen_cloud_settings_pcloud_connections)
 			CloudTypeModel.LOCAL -> return context().getString(R.string.screen_cloud_settings_local_storage_locations)
 		}
 		return context().getString(R.string.screen_cloud_settings_title)
@@ -123,6 +127,7 @@ class CloudSettingsPresenter @Inject constructor( //
 					.toMutableList() //
 					.also {
 						it.add(aWebdavCloud())
+						it.add(aPCloudCloud())
 						it.add(aLocalCloud())
 					}
 			view?.render(cloudModel)
@@ -130,6 +135,10 @@ class CloudSettingsPresenter @Inject constructor( //
 
 		private fun aWebdavCloud(): WebDavCloudModel {
 			return WebDavCloudModel(WebDavCloud.aWebDavCloudCloud().build())
+		}
+
+		private fun aPCloudCloud(): PCloudCloudModel {
+			return PCloudCloudModel(PCloudCloud.aPCloudCloud().build())
 		}
 
 		private fun aLocalCloud(): CloudModel {
