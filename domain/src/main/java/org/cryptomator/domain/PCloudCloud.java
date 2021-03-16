@@ -47,7 +47,7 @@ public class PCloudCloud implements Cloud {
 
 	@Override
 	public CloudType type() {
-		return CloudType.DROPBOX;
+		return CloudType.PCLOUD;
 	}
 
 	@Override
