@@ -214,9 +214,12 @@ class PCloudImpl {
 		}
 
 		if (source instanceof PCloudFolder) {
+			//TODO: check if this can be reached at all
 			relocationResult = client().moveFolder(source.getId(), target.getParent().getId()).execute();
+			relocationResult = client().renameFolder(relocationResult.asFolder(), target.getName()).execute();
 		} else {
-			relocationResult = client().moveFile(source.getId(), target.getParent().getId()).execute();
+			relocationResult = client().moveFile(source.getId(), target.getParent().getId()).execute().asFile();
+			relocationResult = client().renameFile(relocationResult.asFile(), target.getName()).execute();
 		}
 
 		idCache.remove(source);
