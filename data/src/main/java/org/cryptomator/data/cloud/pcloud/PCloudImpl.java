@@ -205,7 +205,12 @@ class PCloudImpl {
 	public void read(CloudFile file, OutputStream data, final ProgressAware<DownloadState> progressAware) throws ApiError, IOException {
 		progressAware.onProgress(Progress.started(DownloadState.download(file)));
 
-		FileLink fileLink = client().createFileLink(((PCloudFile) file).getId(), DownloadOptions.DEFAULT).execute();
+		Long fileId = ((PCloudFile)file).getId();
+		if (fileId == null) {
+			fileId = client().stat(file.getPath()).execute().fileId();
+		}
+
+		FileLink fileLink = client().createFileLink(fileId, DownloadOptions.DEFAULT).execute();
 
 		ProgressListener listener = (done, total) -> progressAware.onProgress( //
 				progress(DownloadState.download(file)) //
