@@ -14,6 +14,14 @@ class PCloudCloudModel(cloud: Cloud) : CloudModel(cloud) {
 		return cloud().username()
 	}
 
+	fun url(): String {
+		return cloud().url()
+	}
+
+	fun id(): Long {
+		return cloud().id()
+	}
+
 	private fun cloud(): PCloudCloud {
 		return toCloud() as PCloudCloud
 	}
