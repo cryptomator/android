@@ -57,7 +57,7 @@ public class PCloudCloud implements Cloud {
 
 	@Override
 	public boolean predefined() {
-		return true;
+		return false;
 	}
 
 	@Override
