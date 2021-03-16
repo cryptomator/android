@@ -16,10 +16,12 @@ import static org.cryptomator.domain.CloudType.PCLOUD;
 public class PCloudCloudContentRepositoryFactory implements CloudContentRepositoryFactory {
 
 	private final Context context;
+	private final PCloudIdCache idCache;
 
 	@Inject
-	public PCloudCloudContentRepositoryFactory(Context context) {
+	public PCloudCloudContentRepositoryFactory(Context context, PCloudIdCache idCache) {
 		this.context = context;
+		this.idCache = idCache;
 	}
 
 	@Override
@@ -29,7 +31,7 @@ public class PCloudCloudContentRepositoryFactory implements CloudContentReposito
 
 	@Override
 	public CloudContentRepository cloudContentRepositoryFor(Cloud cloud) {
-		return new PCloudCloudContentRepository((PCloudCloud) cloud, context);
+		return new PCloudCloudContentRepository((PCloudCloud) cloud, context, idCache);
 	}
 
 }

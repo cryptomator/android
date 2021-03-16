@@ -30,8 +30,8 @@ class PCloudCloudContentRepository extends InterceptingCloudContentRepository<PC
 
 	private final PCloudCloud cloud;
 
-	public PCloudCloudContentRepository(PCloudCloud cloud, Context context) {
-		super(new Intercepted(cloud, context));
+	public PCloudCloudContentRepository(PCloudCloud cloud, Context context, PCloudIdCache idCache) {
+		super(new Intercepted(cloud, context, idCache));
 		this.cloud = cloud;
 	}
 
@@ -57,8 +57,8 @@ class PCloudCloudContentRepository extends InterceptingCloudContentRepository<PC
 
 		private final PCloudImpl cloud;
 
-		public Intercepted(PCloudCloud cloud, Context context) {
-			this.cloud = new PCloudImpl(cloud, context);
+		public Intercepted(PCloudCloud cloud, Context context, PCloudIdCache idCache) {
+			this.cloud = new PCloudImpl(cloud, context, idCache);
 		}
 
 		public PCloudFolder root(PCloudCloud cloud) {
@@ -160,7 +160,7 @@ class PCloudCloudContentRepository extends InterceptingCloudContentRepository<PC
 			try {
 				return cloud.write(uploadFile, data, progressAware, replace, size);
 			} catch (ApiError | IOException e) {
-				if (((ApiError)e).errorCode() == PCloudApiErrorCodes.FILE_NOT_FOUND.getValue()) {
+				if (e instanceof ApiError && ((ApiError)e).errorCode() == PCloudApiErrorCodes.FILE_NOT_FOUND.getValue()) {
 					throw new NoSuchCloudFileException(uploadFile.getName());
 				}
 				throw new FatalBackendException(e);
@@ -172,7 +172,7 @@ class PCloudCloudContentRepository extends InterceptingCloudContentRepository<PC
 			try {
 				cloud.read(file, data, progressAware);
 			} catch (ApiError | IOException e) {
-				if (((ApiError)e).errorCode() == PCloudApiErrorCodes.FILE_NOT_FOUND.getValue()) {
+				if (e instanceof ApiError && ((ApiError)e).errorCode() == PCloudApiErrorCodes.FILE_NOT_FOUND.getValue()) {
 					throw new NoSuchCloudFileException(file.getName());
 				}
 				throw new FatalBackendException(e);
@@ -184,7 +184,7 @@ class PCloudCloudContentRepository extends InterceptingCloudContentRepository<PC
 			try {
 				cloud.delete(node);
 			} catch (ApiError | IOException e) {
-				if (((ApiError)e).errorCode() == PCloudApiErrorCodes.FILE_NOT_FOUND.getValue()) {
+				if (e instanceof ApiError && ((ApiError)e).errorCode() == PCloudApiErrorCodes.FILE_NOT_FOUND.getValue()) {
 					throw new NoSuchCloudFileException(node.getName());
 				}
 				throw new FatalBackendException(e);
