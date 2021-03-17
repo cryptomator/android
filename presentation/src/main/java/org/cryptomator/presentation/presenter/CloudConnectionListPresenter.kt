@@ -206,15 +206,17 @@ class CloudConnectionListPresenter @Inject constructor( //
 							}
 						})
 			}
-			AuthorizationResult.ACCESS_DENIED -> //TODO: Add proper handling for denied grants.
-				Log.d("pCloud", "Account access denied")
+			AuthorizationResult.ACCESS_DENIED -> {
+				Timber.tag("CloudConnListPresenter").e("Account access denied")
+				view?.showMessage(String.format(getString(R.string.screen_authenticate_auth_authentication_failed), getString(R.string.cloud_names_pcloud)))
+			}
 			AuthorizationResult.AUTH_ERROR -> {
-				//TODO: Add error handling.
-				Log.d("pCloud", """Account access grant error: ${authData.errorMessage}""".trimIndent())
+				Timber.tag("CloudConnListPresenter").e("""Account access grant error: ${authData.errorMessage}""".trimIndent())
+				view?.showMessage(String.format(getString(R.string.screen_authenticate_auth_authentication_failed), getString(R.string.cloud_names_pcloud)))
 			}
 			AuthorizationResult.CANCELLED -> {
-				//TODO: Handle cancellation.
-				Log.d("pCloud", "Account access grant cancelled:")
+				Timber.tag("CloudConnListPresenter").i("Account access grant cancelled")
+				view?.showMessage(String.format(getString(R.string.screen_authenticate_auth_authentication_failed), getString(R.string.cloud_names_pcloud)))
 			}
 		}
 	}
