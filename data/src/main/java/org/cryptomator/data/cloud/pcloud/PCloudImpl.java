@@ -15,8 +15,6 @@ import com.pcloud.sdk.UploadOptions;
 import com.pcloud.sdk.UserInfo;
 
 import org.cryptomator.data.util.CopyStream;
-import org.cryptomator.domain.CloudFile;
-import org.cryptomator.domain.CloudNode;
 import org.cryptomator.domain.PCloudCloud;
 import org.cryptomator.domain.exception.BackendException;
 import org.cryptomator.domain.exception.CloudNodeAlreadyExistsException;
@@ -28,7 +26,6 @@ import org.cryptomator.domain.usecases.cloud.DownloadState;
 import org.cryptomator.domain.usecases.cloud.Progress;
 import org.cryptomator.domain.usecases.cloud.UploadState;
 import org.cryptomator.util.Optional;
-import org.cryptomator.util.crypto.CredentialCryptor;
 
 import java.io.IOException;
 import java.io.OutputStream;

@@ -5,7 +5,6 @@ import android.content.Context;
 import com.pcloud.sdk.ApiError;
 
 import org.cryptomator.data.cloud.InterceptingCloudContentRepository;
-import org.cryptomator.domain.CloudNode;
 import org.cryptomator.domain.PCloudCloud;
 import org.cryptomator.domain.exception.BackendException;
 import org.cryptomator.domain.exception.CloudNodeAlreadyExistsException;
