@@ -19,12 +19,12 @@ class PCloudIdCache {
 		return cache.get(path);
 	}
 
-	<T extends PCloudIdCloudNode> T cache(T value) {
+	<T extends PCloudNode> T cache(T value) {
 		add(value);
 		return value;
 	}
 
-	public void add(PCloudIdCloudNode node) {
+	public void add(PCloudNode node) {
 		add(node.getPath(), new NodeInfo(node));
 	}
 
@@ -32,7 +32,7 @@ class PCloudIdCache {
 		cache.put(path, info);
 	}
 
-	public void remove(PCloudIdCloudNode node) {
+	public void remove(PCloudNode node) {
 		remove(node.getPath());
 	}
 
@@ -55,7 +55,7 @@ class PCloudIdCache {
 		private final Long id;
 		private final boolean isFolder;
 
-		private NodeInfo(PCloudIdCloudNode node) {
+		private NodeInfo(PCloudNode node) {
 			this(node.getId(), node instanceof CloudFolder);
 		}
 

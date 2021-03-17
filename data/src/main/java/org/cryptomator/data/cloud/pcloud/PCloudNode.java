@@ -1,8 +1,9 @@
 package org.cryptomator.data.cloud.pcloud;
 
-interface PCloudNode extends PCloudIdCloudNode {
+import org.cryptomator.domain.CloudNode;
 
-	@Override
+interface PCloudNode extends CloudNode {
+
 	Long getId();
 
 	@Override
