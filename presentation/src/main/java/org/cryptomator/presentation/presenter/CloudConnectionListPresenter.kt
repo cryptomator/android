@@ -185,8 +185,8 @@ class CloudConnectionListPresenter @Inject constructor( //
 	}
 
 	@Callback
-	fun pCloudAuthenticationFinished(activityResult: ActivityResult?) {
-		val authData: AuthorizationData = AuthorizationActivity.getResult(activityResult!!.intent())
+	fun pCloudAuthenticationFinished(activityResult: ActivityResult) {
+		val authData: AuthorizationData = AuthorizationActivity.getResult(activityResult.intent())
 		val result: AuthorizationResult = authData.result
 
 		when (result) {
