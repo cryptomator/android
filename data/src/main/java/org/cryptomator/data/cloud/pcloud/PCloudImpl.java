@@ -165,8 +165,8 @@ class PCloudImpl {
 		}
 	}
 
-	public List<CloudNode> list(PCloudFolder folder) throws ApiError, IOException {
-		List<CloudNode> result = new ArrayList<>();
+	public List<PCloudNode> list(PCloudFolder folder) throws ApiError, IOException {
+		List<PCloudNode> result = new ArrayList<>();
 
 		Long folderId = folder.getId();
 		RemoteFolder listFolderResult;
@@ -201,11 +201,12 @@ class PCloudImpl {
 				PCloudCloudNodeFactory.folder(folder.getParent(), createdFolder));
 	}
 
-	public CloudNode move(PCloudNode source, PCloudNode target) throws ApiError, BackendException, IOException {
-		RemoteEntry relocationResult;
+	public PCloudNode move(PCloudNode source, PCloudNode target) throws ApiError, BackendException, IOException {
 		if (exists(target)) {
 			throw new CloudNodeAlreadyExistsException(target.getName());
 		}
+
+		RemoteEntry relocationResult;
 
 		if (source instanceof PCloudFolder) {
 			relocationResult = client().moveFolder(source.getId(), target.getParent().getId()).execute();
@@ -225,7 +226,7 @@ class PCloudImpl {
 
 	public PCloudFile write(PCloudFile file, DataSource data, final ProgressAware<UploadState> progressAware, boolean replace, long size)
 			throws ApiError, BackendException, IOException {
-		if (exists(file) && !replace) {
+		if (!replace && exists(file)) {
 			throw new CloudNodeAlreadyExistsException("CloudNode already exists and replace is false");
 		}
 
@@ -278,10 +279,10 @@ class PCloudImpl {
 				.execute();
 	}
 
-	public void read(CloudFile file, OutputStream data, final ProgressAware<DownloadState> progressAware) throws ApiError, IOException {
+	public void read(PCloudFile file, OutputStream data, final ProgressAware<DownloadState> progressAware) throws ApiError, IOException {
 		progressAware.onProgress(Progress.started(DownloadState.download(file)));
 
-		Long fileId = ((PCloudFile)file).getId();
+		Long fileId = file.getId();
 		if (fileId == null) {
 			fileId = idCache.get(file.getPath()).getId();
 		}

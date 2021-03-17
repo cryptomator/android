@@ -96,7 +96,7 @@ class PCloudCloudContentRepository extends InterceptingCloudContentRepository<PC
 		}
 
 		@Override
-		public List<CloudNode> list(PCloudFolder folder) throws BackendException {
+		public List<PCloudNode> list(PCloudFolder folder) throws BackendException {
 			try {
 				return cloud.list(folder);
 			} catch (ApiError | IOException e) {
