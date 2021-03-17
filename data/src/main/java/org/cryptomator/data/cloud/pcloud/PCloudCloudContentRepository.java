@@ -59,7 +59,7 @@ class PCloudCloudContentRepository extends InterceptingCloudContentRepository<PC
 		private final PCloudImpl cloud;
 
 		public Intercepted(PCloudCloud cloud, Context context, PCloudIdCache idCache) {
-			this.cloud = new PCloudImpl(cloud, context, idCache);
+			this.cloud = new PCloudImpl(context, cloud, idCache);
 		}
 
 		public PCloudFolder root(PCloudCloud cloud) {

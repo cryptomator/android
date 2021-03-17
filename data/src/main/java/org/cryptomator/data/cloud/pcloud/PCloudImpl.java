@@ -52,7 +52,7 @@ class PCloudImpl {
 	private final RootPCloudFolder root;
 	private final Context context;
 
-	PCloudImpl(PCloudCloud cloud, Context context, PCloudIdCache idCache) {
+	PCloudImpl(Context context, PCloudCloud cloud, PCloudIdCache idCache) {
 		if (cloud.accessToken() == null) {
 			throw new NoAuthenticationProvidedException(cloud);
 		}
@@ -129,7 +129,7 @@ class PCloudImpl {
 			return idCache.cache(PCloudCloudNodeFactory.file(parent, file.get().asFile()));
 		}
 
-		return PCloudCloudNodeFactory.file(parent, name, size, parent.getPath() + '/' + name);
+		return PCloudCloudNodeFactory.file(parent, name, size);
 	}
 
 	public PCloudFolder folder(PCloudFolder parent, String name) {
@@ -147,7 +147,7 @@ class PCloudImpl {
 		if (folder.isPresent()) {
 			return idCache.cache(PCloudCloudNodeFactory.folder(parent, folder.get().asFolder()));
 		}
-		return PCloudCloudNodeFactory.folder(parent, name, parent.getPath() + '/' + name);
+		return PCloudCloudNodeFactory.folder(parent, name);
 	}
 
 	public boolean exists(PCloudNode node) throws ApiError, IOException {
@@ -195,9 +195,9 @@ class PCloudImpl {
 		if (folder.getParent().getId() == null) {
 			folder = new PCloudFolder( //
 					create(folder.getParent()), //
-					folder.getId(), //
-					folder.getName(), //
-					folder.getPath());
+					folder.getName(), folder.getPath(), folder.getId() //
+					//
+			);
 		}
 
 		RemoteFolder createdFolder = client() //

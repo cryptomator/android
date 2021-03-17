@@ -9,17 +9,17 @@ import java.util.Date;
 class PCloudFile implements CloudFile, PCloudNode {
 
 	private final PCloudFolder parent;
-	private final Long fileid;
 	private final String name;
 	private final String path;
+	private final Long fileId;
 	private final Optional<Long> size;
 	private final Optional<Date> modified;
 
-	public PCloudFile(PCloudFolder parent, Long fileid, String name, String path, Optional<Long> size, Optional<Date> modified) {
+	public PCloudFile(PCloudFolder parent, String name, String path, Long fileId, Optional<Long> size, Optional<Date> modified) {
 		this.parent = parent;
-		this.fileid = fileid;
 		this.name = name;
 		this.path = path;
+		this.fileId = fileId;
 		this.size = size;
 		this.modified = modified;
 	}
@@ -30,11 +30,6 @@ class PCloudFile implements CloudFile, PCloudNode {
 	}
 
 	@Override
-	public Long getId() {
-		return fileid;
-	}
-
-	@Override
 	public String getName() {
 		return name;
 	}
@@ -42,6 +37,11 @@ class PCloudFile implements CloudFile, PCloudNode {
 	@Override
 	public String getPath() {
 		return path;
+	}
+
+	@Override
+	public Long getId() {
+		return fileId;
 	}
 
 	@Override

@@ -6,13 +6,13 @@ import org.cryptomator.domain.CloudFolder;
 class PCloudFolder implements CloudFolder, PCloudNode {
 
 	private final PCloudFolder parent;
-	private final Long folderid;
 	private final String name;
 	private final String path;
+	private final Long folderId;
 
-	public PCloudFolder(PCloudFolder parent, Long folderid, String name, String path) {
+	public PCloudFolder(PCloudFolder parent, String name, String path, Long folderId) {
 		this.parent = parent;
-		this.folderid = folderid;
+		this.folderId = folderId;
 		this.name = name;
 		this.path = path;
 	}
@@ -20,11 +20,6 @@ class PCloudFolder implements CloudFolder, PCloudNode {
 	@Override
 	public Cloud getCloud() {
 		return parent.getCloud();
-	}
-
-	@Override
-	public Long getId() {
-		return folderid;
 	}
 
 	@Override
@@ -38,12 +33,17 @@ class PCloudFolder implements CloudFolder, PCloudNode {
 	}
 
 	@Override
+	public Long getId() {
+		return folderId;
+	}
+
+	@Override
 	public PCloudFolder getParent() {
 		return parent;
 	}
 
 	@Override
 	public PCloudFolder withCloud(Cloud cloud) {
-		return new PCloudFolder(parent.withCloud(cloud), folderid, name, path);
+		return new PCloudFolder(parent.withCloud(cloud), name, path, folderId);
 	}
 }

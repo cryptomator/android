@@ -9,7 +9,7 @@ class RootPCloudFolder extends PCloudFolder {
 	private static final long rootFolderId = 0L;
 
 	public RootPCloudFolder(PCloudCloud cloud) {
-		super(null, rootFolderId, "", "");
+		super(null, "", "", rootFolderId);
 		this.cloud = cloud;
 	}
 
