@@ -13,7 +13,7 @@ import com.pcloud.sdk.AuthorizationRequest
 import com.pcloud.sdk.AuthorizationResult
 import org.cryptomator.domain.Cloud
 import org.cryptomator.domain.LocalStorageCloud
-import org.cryptomator.domain.PCloudCloud
+import org.cryptomator.domain.PCloud
 import org.cryptomator.domain.Vault
 import org.cryptomator.domain.di.PerView
 import org.cryptomator.domain.usecases.cloud.AddOrChangeCloudConnectionUseCase
@@ -194,7 +194,7 @@ class CloudConnectionListPresenter @Inject constructor( //
 				val accessToken: String = CredentialCryptor //
 						.getInstance(this.context()) //
 						.encrypt(authData.token)
-				val pCloudSkeleton: PCloudCloud = PCloudCloud.aPCloudCloud() //
+				val pCloudSkeleton: PCloud = PCloud.aPCloud() //
 						.withAccessToken(accessToken)
 						.withUrl(authData.apiHost)
 						.build();
@@ -202,7 +202,7 @@ class CloudConnectionListPresenter @Inject constructor( //
 						.withCloud(pCloudSkeleton) //
 						.run(object : DefaultResultHandler<String>() {
 							override fun onSuccess(username: String?) {
-								prepareForSavingPCloudCloud(PCloudCloud.aCopyOf(pCloudSkeleton).withUsername(username).build())
+								prepareForSavingPCloud(PCloud.aCopyOf(pCloudSkeleton).withUsername(username).build())
 							}
 						})
 			}
@@ -219,15 +219,15 @@ class CloudConnectionListPresenter @Inject constructor( //
 		}
 	}
 
-	fun prepareForSavingPCloudCloud(cloud: PCloudCloud) {
+	fun prepareForSavingPCloud(cloud: PCloud) {
 		getCloudsUseCase //
 				.withCloudType(CloudTypeModel.valueOf(selectedCloudType.get())) //
 				.run(object : DefaultResultHandler<List<Cloud>>() {
 					override fun onSuccess(clouds: List<Cloud>) {
 						clouds.firstOrNull {
-							(it as PCloudCloud).username() == cloud.username()
-						}?.let { it as PCloudCloud
-							saveCloud(PCloudCloud.aCopyOf(it) //
+							(it as PCloud).username() == cloud.username()
+						}?.let { it as PCloud
+							saveCloud(PCloud.aCopyOf(it) //
 									.withUrl(cloud.url())
 									.withAccessToken(it.accessToken())
 									.build())
@@ -236,7 +236,7 @@ class CloudConnectionListPresenter @Inject constructor( //
 				})
 	}
 
-	fun saveCloud(cloud: PCloudCloud) {
+	fun saveCloud(cloud: PCloud) {
 		addOrChangeCloudConnectionUseCase //
 				.withCloud(cloud) //
 				.run(object : DefaultResultHandler<Void?>() {

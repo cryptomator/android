@@ -2,30 +2,30 @@ package org.cryptomator.domain;
 
 import org.jetbrains.annotations.NotNull;
 
-public class PCloudCloud implements Cloud {
+public class PCloud implements Cloud {
 
 	private final Long id;
 	private final String accessToken;
 	private final String url;
 	private final String username;
 
-	private PCloudCloud(Builder builder) {
+	private PCloud(Builder builder) {
 		this.id = builder.id;
 		this.accessToken = builder.accessToken;
 		this.url = builder.url;
 		this.username = builder.username;
 	}
 
-	public static Builder aPCloudCloud() {
+	public static Builder aPCloud() {
 		return new Builder();
 	}
 
-	public static Builder aCopyOf(PCloudCloud pCloudCloud) {
+	public static Builder aCopyOf(PCloud pCloud) {
 		return new Builder() //
-				.withId(pCloudCloud.id()) //
-				.withAccessToken(pCloudCloud.accessToken()) //
-				.withUrl(pCloudCloud.url()) //
-				.withUsername(pCloudCloud.username());
+				.withId(pCloud.id()) //
+				.withAccessToken(pCloud.accessToken()) //
+				.withUrl(pCloud.url()) //
+				.withUsername(pCloud.username());
 	}
 
 	@Override
@@ -84,7 +84,7 @@ public class PCloudCloud implements Cloud {
 		if (obj == this) {
 			return true;
 		}
-		return internalEquals((PCloudCloud) obj);
+		return internalEquals((PCloud) obj);
 	}
 
 	@Override
@@ -92,7 +92,7 @@ public class PCloudCloud implements Cloud {
 		return id == null ? 0 : id.hashCode();
 	}
 
-	private boolean internalEquals(PCloudCloud obj) {
+	private boolean internalEquals(PCloud obj) {
 		return id != null && id.equals(obj.id);
 	}
 
@@ -126,8 +126,8 @@ public class PCloudCloud implements Cloud {
 			return this;
 		}
 
-		public PCloudCloud build() {
-			return new PCloudCloud(this);
+		public PCloud build() {
+			return new PCloud(this);
 		}
 
 	}

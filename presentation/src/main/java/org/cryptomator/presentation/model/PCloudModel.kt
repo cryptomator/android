@@ -1,10 +1,10 @@
 package org.cryptomator.presentation.model
 
 import org.cryptomator.domain.Cloud
-import org.cryptomator.domain.PCloudCloud
+import org.cryptomator.domain.PCloud
 import org.cryptomator.presentation.R
 
-class PCloudCloudModel(cloud: Cloud) : CloudModel(cloud) {
+class PCloudModel(cloud: Cloud) : CloudModel(cloud) {
 
 	override fun name(): Int {
 		return R.string.cloud_names_pcloud
@@ -22,8 +22,8 @@ class PCloudCloudModel(cloud: Cloud) : CloudModel(cloud) {
 		return cloud().id()
 	}
 
-	private fun cloud(): PCloudCloud {
-		return toCloud() as PCloudCloud
+	private fun cloud(): PCloud {
+		return toCloud() as PCloud
 	}
 
 	override fun cloudType(): CloudTypeModel {

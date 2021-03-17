@@ -5,7 +5,7 @@ import android.content.Context;
 import com.pcloud.sdk.ApiError;
 
 import org.cryptomator.data.cloud.InterceptingCloudContentRepository;
-import org.cryptomator.domain.PCloudCloud;
+import org.cryptomator.domain.PCloud;
 import org.cryptomator.domain.exception.BackendException;
 import org.cryptomator.domain.exception.CloudNodeAlreadyExistsException;
 import org.cryptomator.domain.exception.FatalBackendException;
@@ -26,11 +26,11 @@ import java.util.List;
 
 import static org.cryptomator.util.ExceptionUtil.contains;
 
-class PCloudCloudContentRepository extends InterceptingCloudContentRepository<PCloudCloud, PCloudNode, PCloudFolder, PCloudFile> {
+class PCloudContentRepository extends InterceptingCloudContentRepository<PCloud, PCloudNode, PCloudFolder, PCloudFile> {
 
-	private final PCloudCloud cloud;
+	private final PCloud cloud;
 
-	public PCloudCloudContentRepository(PCloudCloud cloud, Context context, PCloudIdCache idCache) {
+	public PCloudContentRepository(PCloud cloud, Context context, PCloudIdCache idCache) {
 		super(new Intercepted(cloud, context, idCache));
 		this.cloud = cloud;
 	}
@@ -53,20 +53,20 @@ class PCloudCloudContentRepository extends InterceptingCloudContentRepository<PC
 		}
 	}
 
-	private static class Intercepted implements CloudContentRepository<PCloudCloud, PCloudNode, PCloudFolder, PCloudFile> {
+	private static class Intercepted implements CloudContentRepository<PCloud, PCloudNode, PCloudFolder, PCloudFile> {
 
 		private final PCloudImpl cloud;
 
-		public Intercepted(PCloudCloud cloud, Context context, PCloudIdCache idCache) {
+		public Intercepted(PCloud cloud, Context context, PCloudIdCache idCache) {
 			this.cloud = new PCloudImpl(context, cloud, idCache);
 		}
 
-		public PCloudFolder root(PCloudCloud cloud) {
+		public PCloudFolder root(PCloud cloud) {
 			return this.cloud.root();
 		}
 
 		@Override
-		public PCloudFolder resolve(PCloudCloud cloud, String path) {
+		public PCloudFolder resolve(PCloud cloud, String path) {
 			return this.cloud.resolve(path);
 		}
 
@@ -194,7 +194,7 @@ class PCloudCloudContentRepository extends InterceptingCloudContentRepository<PC
 		}
 
 		@Override
-		public String checkAuthenticationAndRetrieveCurrentAccount(PCloudCloud cloud) throws BackendException {
+		public String checkAuthenticationAndRetrieveCurrentAccount(PCloud cloud) throws BackendException {
 			try {
 				return this.cloud.currentAccount();
 			} catch (ApiError | IOException e) {
@@ -203,7 +203,7 @@ class PCloudCloudContentRepository extends InterceptingCloudContentRepository<PC
 		}
 
 		@Override
-		public void logout(PCloudCloud cloud) throws BackendException {
+		public void logout(PCloud cloud) throws BackendException {
 			// empty
 		}
 	}

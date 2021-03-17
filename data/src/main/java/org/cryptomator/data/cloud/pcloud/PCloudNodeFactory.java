@@ -1,15 +1,12 @@
 package org.cryptomator.data.cloud.pcloud;
 
-import com.google.api.services.drive.model.File;
 import com.pcloud.sdk.RemoteEntry;
 import com.pcloud.sdk.RemoteFile;
 import com.pcloud.sdk.RemoteFolder;
 
 import org.cryptomator.util.Optional;
 
-import java.util.Date;
-
-class PCloudCloudNodeFactory {
+class PCloudNodeFactory {
 
 	public static PCloudFile file(PCloudFolder parent, RemoteFile file) {
 		return new PCloudFile(parent, file.name(), getNodePath(parent, file.name()), file.fileId(), Optional.ofNullable(file.size()), Optional.ofNullable(file.lastModified()));

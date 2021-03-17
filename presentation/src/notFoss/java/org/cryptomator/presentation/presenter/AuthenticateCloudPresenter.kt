@@ -34,7 +34,7 @@ import org.cryptomator.presentation.exception.PermissionNotGrantedException
 import org.cryptomator.presentation.intent.AuthenticateCloudIntent
 import org.cryptomator.presentation.model.CloudModel
 import org.cryptomator.presentation.model.CloudTypeModel
-import org.cryptomator.presentation.model.PCloudCloudModel
+import org.cryptomator.presentation.model.PCloudModel
 import org.cryptomator.presentation.model.ProgressModel
 import org.cryptomator.presentation.model.ProgressStateModel
 import org.cryptomator.presentation.model.WebDavCloudModel
@@ -291,10 +291,10 @@ class AuthenticateCloudPresenter @Inject constructor( //
 		}
 
 		override fun resumed(intent: AuthenticateCloudIntent) {
-			handlePCloudAuthenticationExceptionIfRequired(intent.cloud() as PCloudCloudModel, intent.error())
+			handlePCloudAuthenticationExceptionIfRequired(intent.cloud() as PCloudModel, intent.error())
 		}
 
-		private fun handlePCloudAuthenticationExceptionIfRequired(cloud: PCloudCloudModel, e: AuthenticationException) {
+		private fun handlePCloudAuthenticationExceptionIfRequired(cloud: PCloudModel, e: AuthenticationException) {
 			Timber.tag("AuthicateCloudPrester").e(e)
 			when {
 				ExceptionUtil.contains(e, WrongCredentialsException::class.java) -> {

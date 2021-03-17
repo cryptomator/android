@@ -2,7 +2,7 @@ package org.cryptomator.presentation.presenter
 
 import org.cryptomator.domain.Cloud
 import org.cryptomator.domain.LocalStorageCloud
-import org.cryptomator.domain.PCloudCloud
+import org.cryptomator.domain.PCloud
 import org.cryptomator.domain.WebDavCloud
 import org.cryptomator.domain.di.PerView
 import org.cryptomator.domain.exception.FatalBackendException
@@ -17,7 +17,7 @@ import org.cryptomator.presentation.intent.Intents
 import org.cryptomator.presentation.model.CloudModel
 import org.cryptomator.presentation.model.CloudTypeModel
 import org.cryptomator.presentation.model.LocalStorageModel
-import org.cryptomator.presentation.model.PCloudCloudModel
+import org.cryptomator.presentation.model.PCloudModel
 import org.cryptomator.presentation.model.WebDavCloudModel
 import org.cryptomator.presentation.model.mappers.CloudModelMapper
 import org.cryptomator.presentation.ui.activity.view.CloudSettingsView
@@ -62,7 +62,7 @@ class CloudSettingsPresenter @Inject constructor( //
 	}
 
 	private fun isWebdavOrPCloudOrLocal(cloudModel: CloudModel): Boolean {
-		return cloudModel is WebDavCloudModel || cloudModel is LocalStorageModel || cloudModel is PCloudCloudModel
+		return cloudModel is WebDavCloudModel || cloudModel is LocalStorageModel || cloudModel is PCloudModel
 	}
 
 	private fun loginCloud(cloudModel: CloudModel) {
@@ -127,7 +127,7 @@ class CloudSettingsPresenter @Inject constructor( //
 					.toMutableList() //
 					.also {
 						it.add(aWebdavCloud())
-						it.add(aPCloudCloud())
+						it.add(aPCloud())
 						it.add(aLocalCloud())
 					}
 			view?.render(cloudModel)
@@ -137,8 +137,8 @@ class CloudSettingsPresenter @Inject constructor( //
 			return WebDavCloudModel(WebDavCloud.aWebDavCloudCloud().build())
 		}
 
-		private fun aPCloudCloud(): PCloudCloudModel {
-			return PCloudCloudModel(PCloudCloud.aPCloudCloud().build())
+		private fun aPCloud(): PCloudModel {
+			return PCloudModel(PCloud.aPCloud().build())
 		}
 
 		private fun aLocalCloud(): CloudModel {
