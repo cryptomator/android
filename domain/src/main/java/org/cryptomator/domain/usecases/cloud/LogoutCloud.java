@@ -4,7 +4,6 @@ import org.cryptomator.domain.Cloud;
 import org.cryptomator.domain.DropboxCloud;
 import org.cryptomator.domain.GoogleDriveCloud;
 import org.cryptomator.domain.OnedriveCloud;
-import org.cryptomator.domain.PCloudCloud;
 import org.cryptomator.domain.exception.BackendException;
 import org.cryptomator.domain.repository.CloudContentRepository;
 import org.cryptomator.domain.repository.CloudRepository;
@@ -47,14 +46,6 @@ class LogoutCloud {
 					.aCopyOf((OnedriveCloud) cloud) //
 					.withUsername(null) //
 					.withAccessToken(null) //
-					.build();
-		} else if (cloud instanceof PCloudCloud) {
-			//TODO proper logout?
-			return PCloudCloud //
-					.aCopyOf((PCloudCloud) cloud) //
-					.withUsername(null) //
-					.withAccessToken(null) //
-					.withUrl(null) //
 					.build();
 		}
 		throw new IllegalStateException("Logout not supported for cloud with type " + cloud.type());
