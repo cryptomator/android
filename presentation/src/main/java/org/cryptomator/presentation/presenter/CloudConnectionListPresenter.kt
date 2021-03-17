@@ -23,6 +23,7 @@ import org.cryptomator.domain.usecases.cloud.RemoveCloudUseCase
 import org.cryptomator.domain.usecases.vault.DeleteVaultUseCase
 import org.cryptomator.domain.usecases.vault.GetVaultListUseCase
 import org.cryptomator.generator.Callback
+import org.cryptomator.presentation.BuildConfig
 import org.cryptomator.presentation.R
 import org.cryptomator.presentation.exception.ExceptionHandlers
 import org.cryptomator.presentation.intent.Intents
@@ -136,7 +137,7 @@ class CloudConnectionListPresenter @Inject constructor( //
 						this.context(),
 						AuthorizationRequest.create()
 								.setType(AuthorizationRequest.Type.TOKEN)
-								.setClientId("tsAamgqqwk7")
+								.setClientId(BuildConfig.PCLOUD_CLIENT_ID)
 								.setForceAccessApproval(true)
 								.addPermission("manageshares")
 								.build())
