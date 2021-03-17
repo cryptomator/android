@@ -8,6 +8,7 @@ import com.pcloud.sdk.PCloudSdk;
 
 import org.cryptomator.data.cloud.okhttplogging.HttpLoggingInterceptor;
 import org.cryptomator.util.SharedPreferencesHandler;
+import org.cryptomator.util.crypto.CredentialCryptor;
 import org.cryptomator.util.file.LruFileCacheUtil;
 
 import okhttp3.Cache;
@@ -49,6 +50,12 @@ class PCloudClientFactory {
 
 		OkHttpClient okHttpClient = okHttpClientBuilder.build();
 
-		return PCloudSdk.newClientBuilder().authenticator(Authenticators.newOAuthAuthenticator(accessToken)).withClient(okHttpClient).apiHost(url).create();
+		return PCloudSdk.newClientBuilder().authenticator(Authenticators.newOAuthAuthenticator(decrypt(accessToken, context))).withClient(okHttpClient).apiHost(url).create();
+	}
+
+	private String decrypt(String password, Context context) {
+		return CredentialCryptor //
+				.getInstance(context) //
+				.decrypt(password);
 	}
 }

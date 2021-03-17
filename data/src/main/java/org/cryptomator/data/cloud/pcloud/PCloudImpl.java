@@ -64,13 +64,7 @@ class PCloudImpl {
 	}
 
 	private ApiClient client() {
-		return clientFactory.getClient(decrypt(cloud.accessToken()), cloud.url(), context);
-	}
-
-	private String decrypt(String password) {
-		return CredentialCryptor //
-				.getInstance(context) //
-				.decrypt(password);
+		return clientFactory.getClient(cloud.accessToken(), cloud.url(), context);
 	}
 
 	public PCloudFolder root() {
