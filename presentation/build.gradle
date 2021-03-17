@@ -50,11 +50,8 @@ android {
 			useProguard false
 
 			buildConfigField "String", "DROPBOX_API_KEY", "\"" + getApiKey('DROPBOX_API_KEY') + "\""
+			manifestPlaceholders = [DROPBOX_API_KEY: getApiKey('DROPBOX_API_KEY')]
 			buildConfigField "String", "PCLOUD_CLIENT_ID", "\"" + getApiKey('PCLOUD_CLIENT_ID') + "\""
-			manifestPlaceholders = [
-					DROPBOX_API_KEY: getApiKey('DROPBOX_API_KEY'),
-					PCLOUD_CLIENT_ID: getApiKey('PCLOUD_CLIENT_ID')
-			]
 
 			resValue "string", "app_id", androidApplicationId
 		}
@@ -68,11 +65,8 @@ android {
 			testCoverageEnabled false
 
 			buildConfigField "String", "DROPBOX_API_KEY", "\"" + getApiKey('DROPBOX_API_KEY_DEBUG') + "\""
+			manifestPlaceholders = [DROPBOX_API_KEY: getApiKey('DROPBOX_API_KEY_DEBUG')]
 			buildConfigField "String", "PCLOUD_CLIENT_ID", "\"" + getApiKey('PCLOUD_CLIENT_ID_DEBUG') + "\""
-			manifestPlaceholders = [
-					DROPBOX_API_KEY: getApiKey('DROPBOX_API_KEY_DEBUG'),
-					PCLOUD_CLIENT_ID: getApiKey('PCLOUD_CLIENT_ID_DEBUG')
-			]
 
 			applicationIdSuffix ".debug"
 			versionNameSuffix '-DEBUG'
