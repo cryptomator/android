@@ -1,12 +1,14 @@
 package org.cryptomator.data.cloud.pcloud;
 
+import com.pcloud.sdk.RemoteFolder;
+
 import org.cryptomator.domain.Cloud;
 import org.cryptomator.domain.PCloud;
 
 class RootPCloudFolder extends PCloudFolder {
 
 	private final PCloud cloud;
-	private static final long rootFolderId = 0L;
+	private static final long rootFolderId = RemoteFolder.ROOT_FOLDER_ID;
 
 	public RootPCloudFolder(PCloud cloud) {
 		super(null, "", "", rootFolderId);
