@@ -20,6 +20,7 @@ import org.cryptomator.domain.exception.BackendException;
 import org.cryptomator.domain.exception.CloudNodeAlreadyExistsException;
 import org.cryptomator.domain.exception.NoSuchCloudFileException;
 import org.cryptomator.domain.exception.authentication.NoAuthenticationProvidedException;
+import org.cryptomator.domain.exception.authentication.WrongCredentialsException;
 import org.cryptomator.domain.usecases.ProgressAware;
 import org.cryptomator.domain.usecases.cloud.DataSource;
 import org.cryptomator.domain.usecases.cloud.DownloadState;
@@ -96,6 +97,12 @@ class PCloudImpl {
 			}
 			return Optional.empty();
 		} catch(ApiError | IOException ex) {
+			if (ex instanceof ApiError) {
+				int errorCode = ((ApiError)ex).errorCode();
+				if (errorCode == PCloudApiErrorCodes.INVALID_ACCESS_TOKEN.getValue() || errorCode == PCloudApiErrorCodes.ACCESS_TOKEN_REVOKED.getValue()) {
+					throw new WrongCredentialsException(cloud);
+				}
+			}
 			return Optional.empty();
 		}
 	}

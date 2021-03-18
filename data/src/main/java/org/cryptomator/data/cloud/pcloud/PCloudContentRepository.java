@@ -48,8 +48,11 @@ class PCloudContentRepository extends InterceptingCloudContentRepository<PCloud,
 	}
 
 	private void throwWrongCredentialsExceptionIfRequired(Exception e) {
-		if (e instanceof ApiError && ((ApiError) e).errorCode() == PCloudApiErrorCodes.INVALID_ACCESS_TOKEN.getValue()) {
-			throw new WrongCredentialsException(cloud);
+		if (e instanceof ApiError) {
+			int errorCode = ((ApiError)e).errorCode();
+			if (errorCode == PCloudApiErrorCodes.INVALID_ACCESS_TOKEN.getValue() || errorCode == PCloudApiErrorCodes.ACCESS_TOKEN_REVOKED.getValue()) {
+				throw new WrongCredentialsException(cloud);
+			}
 		}
 	}
 
