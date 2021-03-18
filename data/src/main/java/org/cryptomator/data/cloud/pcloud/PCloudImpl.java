@@ -30,6 +30,7 @@ import org.cryptomator.util.Optional;
 
 import java.io.IOException;
 import java.io.OutputStream;
+import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -278,9 +279,17 @@ class PCloudImpl {
 			parentFolderId = idCache.get(file.getParent().getPath()).getId();
 		}
 
-		return client() //
-				.createFile(parentFolderId, file.getName(), pCloudDataSource, new Date(), listener, uploadOptions) //
-				.execute();
+		String filename = file.getName();
+		String encodedFilename = URLEncoder.encode(filename, "UTF-8");
+
+		RemoteFile newFile =  client() //
+						.createFile(parentFolderId, encodedFilename, pCloudDataSource, new Date(), listener, uploadOptions) //
+						.execute();
+		if (!filename.equals(encodedFilename)) {
+			return client().renameFile(newFile.fileId(), filename).execute();
+		}
+
+		return newFile;
 	}
 
 	public void read(PCloudFile file, OutputStream data, final ProgressAware<DownloadState> progressAware) throws ApiError, IOException {
