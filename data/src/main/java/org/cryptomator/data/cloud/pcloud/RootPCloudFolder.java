@@ -8,10 +8,9 @@ import org.cryptomator.domain.PCloud;
 class RootPCloudFolder extends PCloudFolder {
 
 	private final PCloud cloud;
-	private static final long rootFolderId = RemoteFolder.ROOT_FOLDER_ID;
 
 	public RootPCloudFolder(PCloud cloud) {
-		super(null, "", "", rootFolderId);
+		super(null, "", "", (long) RemoteFolder.ROOT_FOLDER_ID);
 		this.cloud = cloud;
 	}
 
