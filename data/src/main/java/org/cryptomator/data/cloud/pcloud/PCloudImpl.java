@@ -160,7 +160,7 @@ class PCloudImpl {
 				RemoteFolder remoteFolder = client().listFolder(node.getPath()).execute();
 				idCache.add(PCloudNodeFactory.folder(node.getParent(), remoteFolder));
 			} else {
-				RemoteFile remoteFile = client().stat(node.getPath()).execute();
+				RemoteFile remoteFile = client().loadFile(node.getPath()).execute();
 				idCache.add(PCloudNodeFactory.file(node.getParent(), remoteFile));
 			}
 			return true;
