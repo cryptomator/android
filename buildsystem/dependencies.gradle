@@ -57,7 +57,7 @@ ext {
 	googlePlayServicesVersion = '19.0.0'
 	googleClientVersion = '1.31.3'
 
-	msgraphVersion = '2.8.1'
+	msgraphVersion = '2.10.0'
 	msaAuthVersion = '0.10.0'
 
 	commonsCodecVersion = '1.15'
@@ -81,7 +81,7 @@ ext {
 	uiautomatorVersion = '2.2.0'
 
 	androidxCoreVersion = '1.3.2'
-	androidxFragmentVersion = '1.3.0'
+	androidxFragmentVersion = '1.3.1'
 	androidxViewpagerVersion = '1.0.0'
 	androidxSwiperefreshVersion = '1.1.0'
 	androidxPreferenceVersion = '1.0.0' // 1.1.0 and 1.1.2 does have a bug with the text size
