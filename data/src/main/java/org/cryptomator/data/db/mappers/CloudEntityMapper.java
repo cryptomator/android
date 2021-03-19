@@ -54,7 +54,7 @@ public class CloudEntityMapper extends EntityMapper<CloudEntity, Cloud> {
 			case WEBDAV:
 				return aWebDavCloudCloud() //
 						.withId(entity.getId()) //
-						.withUrl(entity.getWebdavUrl()) //
+						.withUrl(entity.getUrl()) //
 						.withUsername(entity.getUsername()) //
 						.withPassword(entity.getAccessToken()) //
 						.withCertificate(entity.getWebdavCertificate()) //
@@ -87,7 +87,7 @@ public class CloudEntityMapper extends EntityMapper<CloudEntity, Cloud> {
 				break;
 			case WEBDAV:
 				result.setAccessToken(((WebDavCloud) domainObject).password());
-				result.setWebdavUrl(((WebDavCloud) domainObject).url());
+				result.setUrl(((WebDavCloud) domainObject).url());
 				result.setUsername(((WebDavCloud) domainObject).username());
 				result.setWebdavCertificate(((WebDavCloud) domainObject).certificate());
 				break;
