@@ -50,7 +50,8 @@ class PCloudContentRepository extends InterceptingCloudContentRepository<PCloud,
 	private void throwWrongCredentialsExceptionIfRequired(Exception e) {
 		if (e instanceof ApiError) {
 			int errorCode = ((ApiError)e).errorCode();
-			if (errorCode == PCloudApiErrorCodes.INVALID_ACCESS_TOKEN.getValue() || errorCode == PCloudApiErrorCodes.ACCESS_TOKEN_REVOKED.getValue()) {
+			if (errorCode == PCloudApiError.PCloudApiErrorCodes.INVALID_ACCESS_TOKEN.getValue()
+					|| errorCode == PCloudApiError.PCloudApiErrorCodes.ACCESS_TOKEN_REVOKED.getValue()) {
 				throw new WrongCredentialsException(cloud);
 			}
 		}
@@ -69,30 +70,46 @@ class PCloudContentRepository extends InterceptingCloudContentRepository<PCloud,
 		}
 
 		@Override
-		public PCloudFolder resolve(PCloud cloud, String path) {
-			return this.cloud.resolve(path);
+		public PCloudFolder resolve(PCloud cloud, String path) throws BackendException {
+			try {
+				return this.cloud.resolve(path);
+			} catch(IOException ex) {
+				throw new FatalBackendException(ex);
+			}
 		}
 
 		@Override
-		public PCloudFile file(PCloudFolder parent, String name) {
-			return cloud.file(parent, name);
+		public PCloudFile file(PCloudFolder parent, String name) throws BackendException {
+			try {
+				return cloud.file(parent, name);
+			} catch(IOException ex) {
+				throw new FatalBackendException(ex);
+			}
 		}
 
 		@Override
 		public PCloudFile file(PCloudFolder parent, String name, Optional<Long> size) throws BackendException {
-			return cloud.file(parent, name, size);
+			try {
+				return cloud.file(parent, name, size);
+			} catch(IOException ex) {
+				throw new FatalBackendException(ex);
+			}
 		}
 
 		@Override
-		public PCloudFolder folder(PCloudFolder parent, String name) {
-			return cloud.folder(parent, name);
+		public PCloudFolder folder(PCloudFolder parent, String name) throws BackendException {
+			try {
+				return cloud.folder(parent, name);
+			} catch(IOException ex) {
+				throw new FatalBackendException(ex);
+			}
 		}
 
 		@Override
 		public boolean exists(PCloudNode node) throws BackendException {
 			try {
 				return cloud.exists(node);
-			} catch (ApiError|IOException e) {
+			} catch (IOException e) {
 				throw new FatalBackendException(e);
 			}
 		}
@@ -101,12 +118,7 @@ class PCloudContentRepository extends InterceptingCloudContentRepository<PCloud,
 		public List<PCloudNode> list(PCloudFolder folder) throws BackendException {
 			try {
 				return cloud.list(folder);
-			} catch (ApiError | IOException e) {
-				if (e instanceof ApiError) {
-					if (((ApiError) e).errorCode() == PCloudApiErrorCodes.DIRECTORY_DOES_NOT_EXIST.getValue()) {
-						throw new NoSuchCloudFileException();
-					}
-				}
+			} catch (IOException e) {
 				throw new FatalBackendException(e);
 			}
 		}
@@ -115,11 +127,7 @@ class PCloudContentRepository extends InterceptingCloudContentRepository<PCloud,
 		public PCloudFolder create(PCloudFolder folder) throws BackendException {
 			try {
 				return cloud.create(folder);
-			} catch (ApiError | IOException e) {
-				if (e instanceof ApiError) {
-					if (((ApiError) e).errorCode() == PCloudApiErrorCodes.FILE_OR_FOLDER_ALREADY_EXISTS.getValue())
-					throw new CloudNodeAlreadyExistsException(folder.getName());
-				}
+			} catch (IOException e) {
 				throw new FatalBackendException(e);
 			}
 		}
@@ -128,15 +136,7 @@ class PCloudContentRepository extends InterceptingCloudContentRepository<PCloud,
 		public PCloudFolder move(PCloudFolder source, PCloudFolder target) throws BackendException {
 			try {
 				return (PCloudFolder) cloud.move(source, target);
-			} catch (ApiError | IOException e) {
-				if (e instanceof ApiError) {
-					if (((ApiError)e).errorCode() == PCloudApiErrorCodes.DIRECTORY_DOES_NOT_EXIST.getValue()) {
-						throw new NoSuchCloudFileException(source.getName());
-					} else if (((ApiError)e).errorCode() == PCloudApiErrorCodes.FILE_OR_FOLDER_ALREADY_EXISTS.getValue()) {
-						throw new CloudNodeAlreadyExistsException(target.getName());
-					}
-					throw new CloudNodeAlreadyExistsException(target.getName());
-				}
+			} catch (IOException e) {
 				throw new FatalBackendException(e);
 			}
 		}
@@ -145,15 +145,7 @@ class PCloudContentRepository extends InterceptingCloudContentRepository<PCloud,
 		public PCloudFile move(PCloudFile source, PCloudFile target) throws BackendException {
 			try {
 				return (PCloudFile) cloud.move(source, target);
-			} catch (ApiError | IOException e) {
-				if (e instanceof ApiError) {
-					if (((ApiError)e).errorCode() == PCloudApiErrorCodes.FILE_NOT_FOUND.getValue()) {
-						throw new NoSuchCloudFileException(source.getName());
-					} else if (((ApiError)e).errorCode() == PCloudApiErrorCodes.FILE_OR_FOLDER_ALREADY_EXISTS.getValue()) {
-						throw new CloudNodeAlreadyExistsException(target.getName());
-					}
-					throw new CloudNodeAlreadyExistsException(target.getName());
-				}
+			} catch (IOException e) {
 				throw new FatalBackendException(e);
 			}
 		}
@@ -162,10 +154,7 @@ class PCloudContentRepository extends InterceptingCloudContentRepository<PCloud,
 		public PCloudFile write(PCloudFile uploadFile, DataSource data, ProgressAware<UploadState> progressAware, boolean replace, long size) throws BackendException {
 			try {
 				return cloud.write(uploadFile, data, progressAware, replace, size);
-			} catch (ApiError | IOException e) {
-				if (e instanceof ApiError && ((ApiError)e).errorCode() == PCloudApiErrorCodes.FILE_NOT_FOUND.getValue()) {
-					throw new NoSuchCloudFileException(uploadFile.getName());
-				}
+			} catch (IOException e) {
 				throw new FatalBackendException(e);
 			}
 		}
@@ -174,10 +163,7 @@ class PCloudContentRepository extends InterceptingCloudContentRepository<PCloud,
 		public void read(PCloudFile file, Optional<File> encryptedTmpFile, OutputStream data, ProgressAware<DownloadState> progressAware) throws BackendException {
 			try {
 				cloud.read(file, data, progressAware);
-			} catch (ApiError | IOException e) {
-				if (e instanceof ApiError && ((ApiError)e).errorCode() == PCloudApiErrorCodes.FILE_NOT_FOUND.getValue()) {
-					throw new NoSuchCloudFileException(file.getName());
-				}
+			} catch (IOException e) {
 				throw new FatalBackendException(e);
 			}
 		}
@@ -186,12 +172,7 @@ class PCloudContentRepository extends InterceptingCloudContentRepository<PCloud,
 		public void delete(PCloudNode node) throws BackendException {
 			try {
 				cloud.delete(node);
-			} catch (ApiError | IOException e) {
-				if (e instanceof ApiError) {
-					if (((ApiError) e).errorCode() == PCloudApiErrorCodes.FILE_NOT_FOUND.getValue()) {
-						throw new NoSuchCloudFileException(node.getName());
-					}
-				}
+			} catch (IOException e) {
 				throw new FatalBackendException(e);
 			}
 		}
@@ -200,7 +181,7 @@ class PCloudContentRepository extends InterceptingCloudContentRepository<PCloud,
 		public String checkAuthenticationAndRetrieveCurrentAccount(PCloud cloud) throws BackendException {
 			try {
 				return this.cloud.currentAccount();
-			} catch (ApiError | IOException e) {
+			} catch (IOException e) {
 				throw new FatalBackendException(e);
 			}
 		}
