@@ -52,7 +52,7 @@ public class CloudEntityMapper extends EntityMapper<CloudEntity, Cloud> {
 			case PCLOUD:
 				return aPCloud() //
 						.withId(entity.getId()) //
-						.withUrl(entity.getWebdavUrl()) //
+						.withUrl(entity.getUrl()) //
 						.withAccessToken(entity.getAccessToken()) //
 						.withUsername(entity.getUsername()) //
 						.build();
@@ -93,7 +93,7 @@ public class CloudEntityMapper extends EntityMapper<CloudEntity, Cloud> {
 				break;
 			case PCLOUD:
 				result.setAccessToken(((PCloud) domainObject).accessToken());
-				result.setWebdavUrl(((PCloud) domainObject).url());
+				result.setUrl(((PCloud) domainObject).url());
 				result.setUsername(((PCloud) domainObject).username());
 				break;
 			case LOCAL:
