@@ -91,6 +91,9 @@ class PCloudImpl {
 	}
 
 	private Optional<RemoteEntry> findEntry(Long folderId, String name, boolean isFolder) throws IOException, BackendException {
+		if (folderId == null) {
+			throw new NoSuchCloudFileException();
+		}
 		try {
 			RemoteFolder remoteFolder = client().listFolder(folderId).execute();
 			for (RemoteEntry remoteEntry : remoteFolder.children()) {
@@ -108,6 +111,8 @@ class PCloudImpl {
 		} catch(ApiError ex) {
 			Set<Integer> ignoredErrorCodes = new HashSet<>();
 			ignoredErrorCodes.add(PCloudApiError.PCloudApiErrorCodes.DIRECTORY_DOES_NOT_EXIST.getValue());
+			ignoredErrorCodes.add(PCloudApiError.PCloudApiErrorCodes.FILE_OR_FOLDER_NOT_FOUND.getValue());
+			ignoredErrorCodes.add(PCloudApiError.PCloudApiErrorCodes.FILE_NOT_FOUND.getValue());
 			handleApiError(ex, ignoredErrorCodes);
 			return Optional.empty();
 		}
@@ -320,7 +325,15 @@ class PCloudImpl {
 
 		Long fileId = file.getId();
 		if (fileId == null) {
-			fileId = idCache.get(file.getPath()).getId();
+				PCloudIdCache.NodeInfo nodeInfo = idCache.get(file.getPath());
+				if (nodeInfo != null) {
+					fileId = nodeInfo.getId();
+				} else {
+					Optional<RemoteEntry> remoteEntryOptional = findEntry(file.getParent().getId(), file.getName(), false);
+					if (remoteEntryOptional.isPresent()) {
+						fileId = remoteEntryOptional.get().asFile().fileId();
+					}
+				}
 		}
 
 		try {
