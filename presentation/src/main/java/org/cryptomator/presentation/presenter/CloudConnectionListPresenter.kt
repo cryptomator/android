@@ -231,7 +231,7 @@ class CloudConnectionListPresenter @Inject constructor( //
 						}?.let { it as PCloud
 							saveCloud(PCloud.aCopyOf(it) //
 									.withUrl(cloud.url())
-									.withAccessToken(it.accessToken())
+									.withAccessToken(cloud.accessToken())
 									.build())
 						} ?: saveCloud(cloud)
 					}
