@@ -332,6 +332,8 @@ class PCloudImpl {
 					Optional<RemoteEntry> remoteEntryOptional = findEntry(file.getParent().getId(), file.getName(), false);
 					if (remoteEntryOptional.isPresent()) {
 						fileId = remoteEntryOptional.get().asFile().fileId();
+					} else {
+						throw new NoSuchCloudFileException(file.getName());
 					}
 				}
 		}
