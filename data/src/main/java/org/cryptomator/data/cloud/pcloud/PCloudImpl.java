@@ -70,14 +70,14 @@ class PCloudImpl {
 
 	private final String UTF_8 = "UTF-8";
 
-	PCloudImpl(Context context, PCloud cloud, PCloudIdCache idCache) {
+	PCloudImpl(Context context, PCloud cloud) {
 		if (cloud.accessToken() == null) {
 			throw new NoAuthenticationProvidedException(cloud);
 		}
 
 		this.context = context;
 		this.cloud = cloud;
-		this.idCache = idCache;
+		this.idCache = new PCloudIdCache();
 		this.root = new RootPCloudFolder(cloud);
 		this.sharedPreferencesHandler = new SharedPreferencesHandler(context);
 	}

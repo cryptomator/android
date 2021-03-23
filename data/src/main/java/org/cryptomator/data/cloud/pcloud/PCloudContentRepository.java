@@ -28,8 +28,8 @@ class PCloudContentRepository extends InterceptingCloudContentRepository<PCloud,
 
 	private final PCloud cloud;
 
-	public PCloudContentRepository(PCloud cloud, Context context, PCloudIdCache idCache) {
-		super(new Intercepted(cloud, context, idCache));
+	public PCloudContentRepository(PCloud cloud, Context context) {
+		super(new Intercepted(cloud, context));
 		this.cloud = cloud;
 	}
 
@@ -59,8 +59,8 @@ class PCloudContentRepository extends InterceptingCloudContentRepository<PCloud,
 
 		private final PCloudImpl cloud;
 
-		public Intercepted(PCloud cloud, Context context, PCloudIdCache idCache) {
-			this.cloud = new PCloudImpl(context, cloud, idCache);
+		public Intercepted(PCloud cloud, Context context) {
+			this.cloud = new PCloudImpl(context, cloud);
 		}
 
 		public PCloudFolder root(PCloud cloud) {
