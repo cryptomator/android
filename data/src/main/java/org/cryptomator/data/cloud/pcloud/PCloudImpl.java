@@ -2,8 +2,6 @@ package org.cryptomator.data.cloud.pcloud;
 
 import android.content.Context;
 
-import com.google.api.services.drive.model.Revision;
-import com.google.api.services.drive.model.RevisionList;
 import com.pcloud.sdk.ApiClient;
 import com.pcloud.sdk.ApiError;
 import com.pcloud.sdk.DataSink;
@@ -54,7 +52,6 @@ import okio.Source;
 import timber.log.Timber;
 
 import static org.cryptomator.domain.usecases.cloud.Progress.progress;
-import static org.cryptomator.util.file.LruFileCacheUtil.Cache.GOOGLE_DRIVE;
 import static org.cryptomator.util.file.LruFileCacheUtil.Cache.PCLOUD;
 import static org.cryptomator.util.file.LruFileCacheUtil.retrieveFromLruCache;
 import static org.cryptomator.util.file.LruFileCacheUtil.storeToLruCache;
