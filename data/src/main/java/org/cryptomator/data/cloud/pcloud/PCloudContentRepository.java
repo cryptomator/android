@@ -160,7 +160,7 @@ class PCloudContentRepository extends InterceptingCloudContentRepository<PCloud,
 		@Override
 		public void read(PCloudFile file, Optional<File> encryptedTmpFile, OutputStream data, ProgressAware<DownloadState> progressAware) throws BackendException {
 			try {
-				cloud.read(file, data, progressAware);
+				cloud.read(file, encryptedTmpFile, data, progressAware);
 			} catch (IOException e) {
 				throw new FatalBackendException(e);
 			}

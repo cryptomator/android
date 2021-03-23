@@ -2,6 +2,8 @@ package org.cryptomator.data.cloud.pcloud;
 
 import android.content.Context;
 
+import com.google.api.services.drive.model.Revision;
+import com.google.api.services.drive.model.RevisionList;
 import com.pcloud.sdk.ApiClient;
 import com.pcloud.sdk.ApiError;
 import com.pcloud.sdk.DataSink;
@@ -13,6 +15,7 @@ import com.pcloud.sdk.RemoteFile;
 import com.pcloud.sdk.RemoteFolder;
 import com.pcloud.sdk.UploadOptions;
 import com.pcloud.sdk.UserInfo;
+import com.tomclaw.cache.DiskLruCache;
 
 import org.cryptomator.data.util.CopyStream;
 import org.cryptomator.domain.PCloud;
@@ -31,7 +34,10 @@ import org.cryptomator.domain.usecases.cloud.DownloadState;
 import org.cryptomator.domain.usecases.cloud.Progress;
 import org.cryptomator.domain.usecases.cloud.UploadState;
 import org.cryptomator.util.Optional;
+import org.cryptomator.util.SharedPreferencesHandler;
+import org.cryptomator.util.file.LruFileCacheUtil;
 
+import java.io.File;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.net.URLEncoder;
@@ -45,8 +51,13 @@ import okio.BufferedSink;
 import okio.BufferedSource;
 import okio.Okio;
 import okio.Source;
+import timber.log.Timber;
 
 import static org.cryptomator.domain.usecases.cloud.Progress.progress;
+import static org.cryptomator.util.file.LruFileCacheUtil.Cache.GOOGLE_DRIVE;
+import static org.cryptomator.util.file.LruFileCacheUtil.Cache.PCLOUD;
+import static org.cryptomator.util.file.LruFileCacheUtil.retrieveFromLruCache;
+import static org.cryptomator.util.file.LruFileCacheUtil.storeToLruCache;
 
 class PCloudImpl {
 
@@ -56,6 +67,9 @@ class PCloudImpl {
 	private final PCloud cloud;
 	private final RootPCloudFolder root;
 	private final Context context;
+
+	private final SharedPreferencesHandler sharedPreferencesHandler;
+	private DiskLruCache diskLruCache;
 
 	private final String UTF_8 = "UTF-8";
 
@@ -68,6 +82,7 @@ class PCloudImpl {
 		this.cloud = cloud;
 		this.idCache = idCache;
 		this.root = new RootPCloudFolder(cloud);
+		this.sharedPreferencesHandler = new SharedPreferencesHandler(context);
 	}
 
 	private ApiClient client() {
@@ -320,24 +335,65 @@ class PCloudImpl {
 		}
 	}
 
-	public void read(PCloudFile file, OutputStream data, final ProgressAware<DownloadState> progressAware) throws IOException, BackendException {
+	public void read(PCloudFile file, Optional<File> encryptedTmpFile, OutputStream data, final ProgressAware<DownloadState> progressAware) throws IOException, BackendException {
 		progressAware.onProgress(Progress.started(DownloadState.download(file)));
 
 		Long fileId = file.getId();
 		if (fileId == null) {
-				PCloudIdCache.NodeInfo nodeInfo = idCache.get(file.getPath());
-				if (nodeInfo != null) {
-					fileId = nodeInfo.getId();
-				} else {
-					Optional<RemoteEntry> remoteEntryOptional = findEntry(file.getParent().getId(), file.getName(), false);
-					if (remoteEntryOptional.isPresent()) {
-						fileId = remoteEntryOptional.get().asFile().fileId();
-					} else {
-						throw new NoSuchCloudFileException(file.getName());
-					}
-				}
+			PCloudIdCache.NodeInfo nodeInfo = idCache.get(file.getPath());
+			if (nodeInfo != null) {
+				fileId = nodeInfo.getId();
+			}
 		}
 
+		RemoteFile remoteFile = null;
+		if (fileId == null) {
+			Optional<RemoteEntry> remoteEntryOptional = findEntry(file.getParent().getId(), file.getName(), false);
+			if (remoteEntryOptional.isPresent()) {
+				remoteFile = remoteEntryOptional.get().asFile();
+				fileId = remoteFile.fileId();
+			} else {
+				throw new NoSuchCloudFileException(file.getName());
+			}
+		}
+
+		Optional<String> cacheKey = Optional.empty();
+		Optional<File> cacheFile = Optional.empty();
+
+		if (sharedPreferencesHandler.useLruCache() && createLruCache(sharedPreferencesHandler.lruCacheSize())) {
+			if (remoteFile == null) {
+				try {
+					remoteFile = client().loadFile(fileId).execute().asFile();
+					cacheKey = Optional.of(remoteFile.fileId() + remoteFile.hash());
+				} catch(ApiError ex) {
+					handleApiError(ex);
+				}
+			}
+
+			File cachedFile = diskLruCache.get(cacheKey.get());
+			cacheFile = cachedFile != null ? Optional.of(cachedFile) : Optional.empty();
+		}
+
+		if (sharedPreferencesHandler.useLruCache() && cacheFile.isPresent()) {
+			try {
+				retrieveFromLruCache(cacheFile.get(), data);
+			} catch (IOException e) {
+				Timber.tag("PCloudImpl").w(e, "Error while retrieving content from Cache, get from web request");
+				writeData(file, fileId, data, encryptedTmpFile, cacheKey, progressAware);
+			}
+		} else {
+			writeData(file, fileId, data, encryptedTmpFile, cacheKey, progressAware);
+		}
+
+		progressAware.onProgress(Progress.completed(DownloadState.download(file)));
+	}
+
+	private void writeData(final PCloudFile file, //
+			final long fileId, //
+			final OutputStream data, //
+			final Optional<File> encryptedTmpFile, //
+			final Optional<String> cacheKey, //
+			final ProgressAware<DownloadState> progressAware) throws IOException, BackendException {
 		try {
 			FileLink fileLink = client().createFileLink(fileId, DownloadOptions.DEFAULT).execute();
 
@@ -349,17 +405,24 @@ class PCloudImpl {
 
 			DataSink sink = new DataSink() {
 				@Override
-				public void readAll(BufferedSource source) throws IOException {
+				public void readAll(BufferedSource source) {
 					CopyStream.copyStreamToStream(source.inputStream(), data);
 				}
 			};
 
 			client().download(fileLink, sink, listener).execute();
-
-			progressAware.onProgress(Progress.completed(DownloadState.download(file)));
 		} catch(ApiError ex) {
 			handleApiError(ex);
 		}
+
+		if (sharedPreferencesHandler.useLruCache() && encryptedTmpFile.isPresent() && cacheKey.isPresent()) {
+			try {
+				storeToLruCache(diskLruCache, cacheKey.get(), encryptedTmpFile.get());
+			} catch (IOException e) {
+				Timber.tag("PCloudImpl").e(e, "Failed to write downloaded file in LRU cache");
+			}
+		}
+
 	}
 
 	public void delete(PCloudNode node) throws IOException, BackendException {
@@ -387,6 +450,19 @@ class PCloudImpl {
 			handleApiError(ex);
 			throw new FatalBackendException(ex);
 		}
+	}
+
+	private boolean createLruCache(int cacheSize) {
+		if (diskLruCache == null) {
+			try {
+				diskLruCache = DiskLruCache.create(new LruFileCacheUtil(context).resolve(PCLOUD), cacheSize);
+			} catch (IOException e) {
+				Timber.tag("PCloudImpl").e(e, "Failed to setup LRU cache");
+				return false;
+			}
+		}
+
+		return true;
 	}
 
 	private void handleApiError(ApiError ex) throws BackendException {
