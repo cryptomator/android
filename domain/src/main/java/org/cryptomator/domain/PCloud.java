@@ -52,8 +52,13 @@ public class PCloud implements Cloud {
 
 	@Override
 	public boolean configurationMatches(Cloud cloud) {
-		return true;
+		return cloud instanceof PCloud && configurationMatches((PCloud) cloud);
 	}
+
+	private boolean configurationMatches(PCloud cloud) {
+		return url.equals(cloud.url) && username.equals(cloud.username);
+	}
+
 
 	@Override
 	public boolean predefined() {
