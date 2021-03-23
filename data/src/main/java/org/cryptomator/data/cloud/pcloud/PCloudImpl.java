@@ -376,16 +376,16 @@ class PCloudImpl {
 				retrieveFromLruCache(cacheFile.get(), data);
 			} catch (IOException e) {
 				Timber.tag("PCloudImpl").w(e, "Error while retrieving content from Cache, get from web request");
-				writeData(file, fileId, data, encryptedTmpFile, cacheKey, progressAware);
+				writeToData(file, fileId, data, encryptedTmpFile, cacheKey, progressAware);
 			}
 		} else {
-			writeData(file, fileId, data, encryptedTmpFile, cacheKey, progressAware);
+			writeToData(file, fileId, data, encryptedTmpFile, cacheKey, progressAware);
 		}
 
 		progressAware.onProgress(Progress.completed(DownloadState.download(file)));
 	}
 
-	private void writeData(final PCloudFile file, //
+	private void writeToData(final PCloudFile file, //
 			final long fileId, //
 			final OutputStream data, //
 			final Optional<File> encryptedTmpFile, //
