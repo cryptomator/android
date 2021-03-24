@@ -4,8 +4,6 @@ import org.cryptomator.domain.CloudNode;
 
 interface PCloudNode extends CloudNode {
 
-	Long getId();
-
 	@Override
 	PCloudFolder getParent();
 

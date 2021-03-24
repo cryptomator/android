@@ -9,27 +9,27 @@ import org.cryptomator.util.Optional;
 class PCloudNodeFactory {
 
 	public static PCloudFile file(PCloudFolder parent, RemoteFile file) {
-		return new PCloudFile(parent, file.name(), getNodePath(parent, file.name()), file.fileId(), Optional.ofNullable(file.size()), Optional.ofNullable(file.lastModified()));
+		return new PCloudFile(parent, file.name(), getNodePath(parent, file.name()), Optional.ofNullable(file.size()), Optional.ofNullable(file.lastModified()));
 	}
 
 	public static PCloudFile file(PCloudFolder parent, String name, Optional<Long> size) {
-		return new PCloudFile(parent, name, getNodePath(parent, name), null, size, Optional.empty());
+		return new PCloudFile(parent, name, getNodePath(parent, name), size, Optional.empty());
 	}
 
-	public static PCloudFile file(PCloudFolder folder, String name, Optional<Long> size, String path, Long fileId) {
-		return new PCloudFile(folder, name, path, fileId, size, Optional.empty());
+	public static PCloudFile file(PCloudFolder folder, String name, Optional<Long> size, String path) {
+		return new PCloudFile(folder, name, path, size, Optional.empty());
 	}
 
 	public static PCloudFolder folder(PCloudFolder parent, RemoteFolder folder) {
-		return new PCloudFolder(parent, folder.name(), getNodePath(parent, folder.name()), folder.folderId());
+		return new PCloudFolder(parent, folder.name(), getNodePath(parent, folder.name()));
 	}
 
 	public static PCloudFolder folder(PCloudFolder parent, String name) {
-		return new PCloudFolder(parent, name, getNodePath(parent, name), null);
+		return new PCloudFolder(parent, name, getNodePath(parent, name));
 	}
 
-	public static PCloudFolder folder(PCloudFolder parent, String name, String path, Long folderId) {
-		return new PCloudFolder(parent, name, path, folderId);
+	public static PCloudFolder folder(PCloudFolder parent, String name, String path) {
+		return new PCloudFolder(parent, name, path);
 	}
 
 	public static String getNodePath(PCloudFolder parent, String name) {

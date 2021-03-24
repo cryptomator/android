@@ -8,11 +8,9 @@ class PCloudFolder implements CloudFolder, PCloudNode {
 	private final PCloudFolder parent;
 	private final String name;
 	private final String path;
-	private final Long folderId;
 
-	public PCloudFolder(PCloudFolder parent, String name, String path, Long folderId) {
+	public PCloudFolder(PCloudFolder parent, String name, String path) {
 		this.parent = parent;
-		this.folderId = folderId;
 		this.name = name;
 		this.path = path;
 	}
@@ -33,17 +31,12 @@ class PCloudFolder implements CloudFolder, PCloudNode {
 	}
 
 	@Override
-	public Long getId() {
-		return folderId;
-	}
-
-	@Override
 	public PCloudFolder getParent() {
 		return parent;
 	}
 
 	@Override
 	public PCloudFolder withCloud(Cloud cloud) {
-		return new PCloudFolder(parent.withCloud(cloud), name, path, folderId);
+		return new PCloudFolder(parent.withCloud(cloud), name, path);
 	}
 }
