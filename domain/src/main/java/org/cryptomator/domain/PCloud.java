@@ -56,7 +56,7 @@ public class PCloud implements Cloud {
 	}
 
 	private boolean configurationMatches(PCloud cloud) {
-		return url.equals(cloud.url) && username.equals(cloud.username);
+		return username.equals(cloud.username);
 	}
 
 
