@@ -134,8 +134,7 @@ class PCloudImpl {
 		List<PCloudNode> result = new ArrayList<>();
 
 		try {
-			String path = folder.getPath().isEmpty() ? "/" : folder.getPath();
-			RemoteFolder listFolderResult = client().listFolder(path).execute();
+			RemoteFolder listFolderResult = client().listFolder(folder.getPath()).execute();
 			List<RemoteEntry> entryMetadata = listFolderResult.children();
 			for (RemoteEntry metadata : entryMetadata) {
 				result.add(PCloudNodeFactory.from(folder, metadata));
