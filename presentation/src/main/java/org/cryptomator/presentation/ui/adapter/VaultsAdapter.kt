@@ -75,7 +75,10 @@ internal constructor() : RecyclerViewBaseAdapter<VaultModel, VaultsAdapter.OnIte
 
 			itemView.unlockedImage.setOnClickListener { callback.onVaultLockClicked(vaultModel) }
 
-			itemView.settings.setOnClickListener { callback.onVaultSettingsClicked(vaultModel) }
+			itemView.settings.setOnClickListener {
+				itemView.cloudImage.setImageResource(vaultModel.cloudType.vaultSelectedImageResource)
+				callback.onVaultSettingsClicked(vaultModel)
+			}
 		}
 	}
 
