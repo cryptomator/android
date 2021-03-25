@@ -67,7 +67,7 @@ constructor() : RecyclerViewBaseAdapter<VaultModel, SharedLocationsAdapter.Callb
 			boundVault = getItem(position)
 
 			boundVault?.let {
-				itemView.cloudImage.setImageResource(it.cloudType.cloudImageResource)
+				itemView.cloudImage.setImageResource(it.cloudType.vaultImageResource)
 				itemView.vaultName.text = it.name
 
 				val boundVaultSelected = it == selectedVault

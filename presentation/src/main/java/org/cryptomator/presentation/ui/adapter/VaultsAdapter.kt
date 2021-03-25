@@ -60,7 +60,7 @@ internal constructor() : RecyclerViewBaseAdapter<VaultModel, VaultsAdapter.OnIte
 			itemView.vaultName.text = vaultModel.name
 			itemView.vaultPath.text = vaultModel.path
 
-			itemView.cloudImage.setImageResource(vaultModel.cloudType.cloudImageResource)
+			itemView.cloudImage.setImageResource(vaultModel.cloudType.vaultImageResource)
 
 			if (vaultModel.isLocked) {
 				itemView.unlockedImage.visibility = View.GONE
@@ -68,7 +68,10 @@ internal constructor() : RecyclerViewBaseAdapter<VaultModel, VaultsAdapter.OnIte
 				itemView.unlockedImage.visibility = View.VISIBLE
 			}
 
-			itemView.setOnClickListener { callback.onVaultClicked(vaultModel) }
+			itemView.setOnClickListener {
+				itemView.cloudImage.setImageResource(vaultModel.cloudType.vaultSelectedImageResource)
+				callback.onVaultClicked(vaultModel)
+			}
 
 			itemView.unlockedImage.setOnClickListener { callback.onVaultLockClicked(vaultModel) }
 

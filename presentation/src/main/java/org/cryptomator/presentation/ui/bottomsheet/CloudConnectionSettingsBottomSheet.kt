@@ -32,7 +32,7 @@ class CloudConnectionSettingsBottomSheet : BaseBottomSheet<CloudConnectionSettin
 			else -> throw IllegalStateException("Cloud model is not binded in the view")
 		}
 
-		iv_cloud_image.setImageResource(cloudModel.cloudType().cloudImageResource)
+		iv_cloud_image.setImageResource(cloudModel.cloudType().vaultImageResource)
 		change_cloud.setOnClickListener {
 			callback?.onChangeCloudClicked(cloudModel)
 			dismiss()
