@@ -19,9 +19,9 @@ enum class CloudTypeModel(builder: Builder) {
 			.withVaultImageResource(R.drawable.onedrive_vault) //
 			.withVaultSelectedImageResource(R.drawable.onedrive_vault_selected)),  //
 	PCLOUD(Builder("PCLOUD", R.string.cloud_names_pcloud) //
-			//TODO: change icons for pCloud
-			.withCloudImageResource(R.drawable.storage_type_local) //
-			.withCloudImageLargeResource(R.drawable.storage_type_local_large) //
+			.withCloudImageResource(R.drawable.pcloud) //
+			.withVaultImageResource(R.drawable.pcloud_vault) //
+			.withVaultSelectedImageResource(R.drawable.pcloud_vault_selected) //
 			.withMultiInstances()),  //
 	WEBDAV(Builder("WEBDAV", R.string.cloud_names_webdav) //
 			.withCloudImageResource(R.drawable.webdav) //
