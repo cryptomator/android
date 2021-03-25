@@ -224,6 +224,7 @@ class PCloudImpl {
 			}
 		};
 
+		//TODO: remove filename encoding as soon as it is fixed API wise: https://github.com/pCloud/pcloud-sdk-java/issues/13
 		String filename = file.getName();
 		String encodedFilename = URLEncoder.encode(filename, UTF_8);
 
