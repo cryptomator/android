@@ -224,17 +224,10 @@ class PCloudImpl {
 			}
 		};
 
-		//TODO: remove filename encoding as soon as it is fixed API wise: https://github.com/pCloud/pcloud-sdk-java/issues/13
-		String filename = file.getName();
-		String encodedFilename = URLEncoder.encode(filename, UTF_8);
-
 		try {
 			RemoteFile newFile = client() //
-					.createFile(file.getParent().getPath(), encodedFilename, pCloudDataSource, new Date(), listener, uploadOptions) //
+					.createFile(file.getParent().getPath(), file.getName(), pCloudDataSource, new Date(), listener, uploadOptions) //
 					.execute();
-			if (!filename.equals(encodedFilename)) {
-				return client().renameFile(newFile.fileId(), filename).execute();
-			}
 			return newFile;
 		} catch (ApiError ex) {
 			handleApiError(ex);
