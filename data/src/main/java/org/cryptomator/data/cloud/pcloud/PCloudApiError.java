@@ -71,7 +71,8 @@ public class PCloudApiError {
 	}
 
 	public static boolean isNoSuchCloudFileException(int errorCode) {
-		return errorCode == PCloudApiErrorCodes.FILE_NOT_FOUND.getValue()
+		return errorCode == PCloudApiErrorCodes.COMPONENT_OF_PARENT_DIRECTORY_DOES_NOT_EXIST.getValue()
+				|| errorCode == PCloudApiErrorCodes.FILE_NOT_FOUND.getValue()
 				|| errorCode == PCloudApiErrorCodes.FILE_OR_FOLDER_NOT_FOUND.getValue()
 				|| errorCode == PCloudApiErrorCodes.DIRECTORY_DOES_NOT_EXIST.getValue();
 	}
