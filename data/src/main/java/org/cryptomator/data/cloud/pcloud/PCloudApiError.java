@@ -1,5 +1,8 @@
 package org.cryptomator.data.cloud.pcloud;
 
+import java.util.Arrays;
+import java.util.HashSet;
+
 public class PCloudApiError {
 
 	public enum PCloudApiErrorCodes {
@@ -50,6 +53,26 @@ public class PCloudApiError {
 			return value;
 		}
 	}
+
+	public static final HashSet<Integer> ignoreExistsSet = new HashSet<>(
+			Arrays.asList(
+					PCloudApiErrorCodes.COMPONENT_OF_PARENT_DIRECTORY_DOES_NOT_EXIST.getValue(),
+					PCloudApiErrorCodes.FILE_NOT_FOUND.getValue(),
+					PCloudApiErrorCodes.FILE_OR_FOLDER_NOT_FOUND.getValue(),
+					PCloudApiErrorCodes.DIRECTORY_DOES_NOT_EXIST.getValue(),
+					PCloudApiErrorCodes.INVALID_FILE_OR_FOLDER_NAME.getValue()
+			)
+	);
+
+	public static final HashSet<Integer> ignoreMoveSet = new HashSet<>(
+			Arrays.asList(
+					PCloudApiErrorCodes.FILE_OR_FOLDER_ALREADY_EXISTS.getValue(),
+					PCloudApiErrorCodes.COMPONENT_OF_PARENT_DIRECTORY_DOES_NOT_EXIST.getValue(),
+					PCloudApiErrorCodes.FILE_NOT_FOUND.getValue(),
+					PCloudApiErrorCodes.FILE_OR_FOLDER_NOT_FOUND.getValue(),
+					PCloudApiErrorCodes.DIRECTORY_DOES_NOT_EXIST.getValue()
+			)
+	);
 
 	public static boolean isCloudNodeAlreadyExistsException(int errorCode) {
 		return errorCode == PCloudApiErrorCodes.FILE_OR_FOLDER_ALREADY_EXISTS.getValue();

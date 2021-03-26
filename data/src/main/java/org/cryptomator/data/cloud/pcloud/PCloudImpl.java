@@ -117,12 +117,7 @@ class PCloudImpl {
 			}
 			return true;
 		} catch (ApiError ex) {
-			Set<Integer> ignoredErrorCodes = new HashSet<>();
-			ignoredErrorCodes.add(PCloudApiError.PCloudApiErrorCodes.DIRECTORY_DOES_NOT_EXIST.getValue());
-			ignoredErrorCodes.add(PCloudApiError.PCloudApiErrorCodes.COMPONENT_OF_PARENT_DIRECTORY_DOES_NOT_EXIST.getValue());
-			ignoredErrorCodes.add(PCloudApiError.PCloudApiErrorCodes.INVALID_FILE_OR_FOLDER_NAME.getValue());
-			ignoredErrorCodes.add(PCloudApiError.PCloudApiErrorCodes.FILE_OR_FOLDER_NOT_FOUND.getValue());
-			handleApiError(ex, ignoredErrorCodes, node.getName());
+			handleApiError(ex, PCloudApiError.ignoreExistsSet, node.getName());
 			return false;
 		}
 	}
@@ -174,7 +169,13 @@ class PCloudImpl {
 				return PCloudNodeFactory.from(target.getParent(), client().moveFile(source.getPath(), target.getPath()).execute());
 			}
 		} catch(ApiError ex) {
-			handleApiError(ex, source.getName() + " / " + target.getName());
+			if (PCloudApiError.isCloudNodeAlreadyExistsException(ex.errorCode())) {
+				throw new CloudNodeAlreadyExistsException(target.getName());
+			} else if (PCloudApiError.isNoSuchCloudFileException(ex.errorCode())) {
+				throw new NoSuchCloudFileException(source.getName());
+			} else {
+				handleApiError(ex, PCloudApiError.ignoreMoveSet, null);
+			}
 			throw new FatalBackendException(ex);
 		}
 	}
