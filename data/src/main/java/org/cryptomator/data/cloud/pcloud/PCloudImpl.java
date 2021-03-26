@@ -38,7 +38,6 @@ import org.cryptomator.util.file.LruFileCacheUtil;
 import java.io.File;
 import java.io.IOException;
 import java.io.OutputStream;
-import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashSet;
@@ -65,8 +64,6 @@ class PCloudImpl {
 
 	private final SharedPreferencesHandler sharedPreferencesHandler;
 	private DiskLruCache diskLruCache;
-
-	private final String UTF_8 = "UTF-8";
 
 	PCloudImpl(Context context, PCloud cloud) {
 		if (cloud.accessToken() == null) {
