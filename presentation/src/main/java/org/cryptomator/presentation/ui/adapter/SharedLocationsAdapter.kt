@@ -67,13 +67,13 @@ constructor() : RecyclerViewBaseAdapter<VaultModel, SharedLocationsAdapter.Callb
 			boundVault = getItem(position)
 
 			boundVault?.let {
-				itemView.cloudImage.setImageResource(it.cloudType.cloudImageResource)
 				itemView.vaultName.text = it.name
 
 				val boundVaultSelected = it == selectedVault
 				itemView.selectedVault.isChecked = boundVaultSelected
 				itemView.selectedVault.isClickable = !boundVaultSelected
 				if (boundVaultSelected) {
+					itemView.cloudImage.setImageResource(it.cloudType.vaultSelectedImageResource)
 					if (selectedLocation != null) {
 						itemView.chosenLocation.visibility = View.VISIBLE
 						itemView.chosenLocation.text = selectedLocation
@@ -82,6 +82,7 @@ constructor() : RecyclerViewBaseAdapter<VaultModel, SharedLocationsAdapter.Callb
 					}
 					itemView.chooseFolderLocation.visibility = View.VISIBLE
 				} else {
+					itemView.cloudImage.setImageResource(it.cloudType.vaultImageResource)
 					itemView.chosenLocation.visibility = View.GONE
 					itemView.chooseFolderLocation.visibility = View.GONE
 				}

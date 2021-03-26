@@ -172,6 +172,7 @@
 	<string name="screen_settings_background_unlock_preparation_label">Vorbereitungen zum Entsperren im Hintergrund</string>
 	<!-- ## screen: cloud settings -->
 	<string name="screen_cloud_settings_webdav_connections">WebDAV-Verbindungen</string>
+	<string name="screen_cloud_settings_pcloud_connections">pCloud-Verbindungen</string>
 	<string name="screen_cloud_settings_local_storage_locations">Lokale Speicherorte</string>
 	<string name="screen_cloud_settings_log_in_to">Einloggen in</string>
 	<string name="screen_cloud_settings_sign_out_from_cloud">Abmelden von</string>
