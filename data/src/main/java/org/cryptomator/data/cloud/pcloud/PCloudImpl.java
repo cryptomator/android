@@ -122,7 +122,7 @@ class PCloudImpl {
 			ignoredErrorCodes.add(PCloudApiError.PCloudApiErrorCodes.COMPONENT_OF_PARENT_DIRECTORY_DOES_NOT_EXIST.getValue());
 			ignoredErrorCodes.add(PCloudApiError.PCloudApiErrorCodes.INVALID_FILE_OR_FOLDER_NAME.getValue());
 			ignoredErrorCodes.add(PCloudApiError.PCloudApiErrorCodes.FILE_OR_FOLDER_NOT_FOUND.getValue());
-			handleApiError(ex, ignoredErrorCodes);
+			handleApiError(ex, ignoredErrorCodes, node.getName());
 			return false;
 		}
 	}
@@ -138,7 +138,7 @@ class PCloudImpl {
 			}
 			return result;
 		} catch(ApiError ex) {
-			handleApiError(ex);
+			handleApiError(ex, folder.getName());
 			throw new FatalBackendException(ex);
 		}
 	}
@@ -157,7 +157,7 @@ class PCloudImpl {
 					.execute();
 			return PCloudNodeFactory.folder(folder.getParent(), createdFolder);
 		} catch (ApiError ex) {
-			handleApiError(ex);
+			handleApiError(ex, folder.getName());
 			throw new FatalBackendException(ex);
 		}
 	}
@@ -174,7 +174,7 @@ class PCloudImpl {
 				return PCloudNodeFactory.from(target.getParent(), client().moveFile(source.getPath(), target.getPath()).execute());
 			}
 		} catch(ApiError ex) {
-			handleApiError(ex);
+			handleApiError(ex, source.getName() + " / " + target.getName());
 			throw new FatalBackendException(ex);
 		}
 	}
@@ -226,7 +226,7 @@ class PCloudImpl {
 					.createFile(file.getParent().getPath(), file.getName(), pCloudDataSource, new Date(), listener, uploadOptions) //
 					.execute();
 		} catch (ApiError ex) {
-			handleApiError(ex);
+			handleApiError(ex, file.getName());
 			throw new FatalBackendException(ex);
 		}
 	}
@@ -244,7 +244,7 @@ class PCloudImpl {
 				remoteFile = client().loadFile(file.getPath()).execute().asFile();
 				cacheKey = Optional.of(remoteFile.fileId() + remoteFile.hash());
 			} catch(ApiError ex) {
-				handleApiError(ex);
+				handleApiError(ex, file.getName());
 			}
 
 			File cachedFile = diskLruCache.get(cacheKey.get());
@@ -288,7 +288,7 @@ class PCloudImpl {
 
 			client().download(fileLink, sink, listener).execute();
 		} catch(ApiError ex) {
-			handleApiError(ex);
+			handleApiError(ex, file.getName());
 		}
 
 		if (sharedPreferencesHandler.useLruCache() && encryptedTmpFile.isPresent() && cacheKey.isPresent()) {
@@ -311,7 +311,7 @@ class PCloudImpl {
 						.deleteFile(node.getPath()).execute();
 			}
 		} catch(ApiError ex) {
-			handleApiError(ex);
+			handleApiError(ex, node.getName());
 		}
 	}
 
@@ -341,11 +341,11 @@ class PCloudImpl {
 	}
 
 	private void handleApiError(ApiError ex) throws BackendException {
-		handleApiError(ex, null);
+		handleApiError(ex, null, null);
 	}
 
-	private void handleApiError(ApiError ex, Set<Integer> errorCodes) throws BackendException {
-		handleApiError(ex, errorCodes, null);
+	private void handleApiError(ApiError ex, String name) throws BackendException {
+		handleApiError(ex, null, name);
 	}
 
 	private void handleApiError(ApiError ex, Set<Integer> errorCodes, String name) throws BackendException {
