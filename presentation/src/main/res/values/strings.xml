@@ -11,6 +11,7 @@
 	<!-- # error messages -->
 	<string name="error_generic">An error occurred</string>
 	<string name="error_authentication_failed">Authentication failed</string>
+	<string name="error_authentication_failed_re_authenticate">Authentication failed, please login using %1$s</string>
 	<string name="error_no_network_connection">No network connection</string>
 	<string name="error_invalid_passphrase">Wrong password</string>
 	<string name="error_file_or_folder_exists">A file or folder already exists.</string>

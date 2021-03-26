@@ -3,9 +3,15 @@ package org.cryptomator.presentation.presenter
 import android.Manifest
 import android.accounts.AccountManager
 import android.content.ActivityNotFoundException
+import android.content.Intent
+import android.widget.Toast
 import com.dropbox.core.android.Auth
 import com.google.api.client.googleapis.extensions.android.gms.auth.GoogleAccountCredential
 import com.google.api.services.drive.DriveScopes
+import com.pcloud.sdk.AuthorizationActivity
+import com.pcloud.sdk.AuthorizationData
+import com.pcloud.sdk.AuthorizationRequest
+import com.pcloud.sdk.AuthorizationResult
 import org.cryptomator.data.cloud.onedrive.OnedriveClientFactory
 import org.cryptomator.data.cloud.onedrive.graph.ClientException
 import org.cryptomator.data.cloud.onedrive.graph.ICallback
@@ -15,6 +21,7 @@ import org.cryptomator.domain.CloudType
 import org.cryptomator.domain.DropboxCloud
 import org.cryptomator.domain.GoogleDriveCloud
 import org.cryptomator.domain.OnedriveCloud
+import org.cryptomator.domain.PCloud
 import org.cryptomator.domain.WebDavCloud
 import org.cryptomator.domain.di.PerView
 import org.cryptomator.domain.exception.FatalBackendException
@@ -25,6 +32,7 @@ import org.cryptomator.domain.exception.authentication.WebDavNotSupportedExcepti
 import org.cryptomator.domain.exception.authentication.WebDavServerNotFoundException
 import org.cryptomator.domain.exception.authentication.WrongCredentialsException
 import org.cryptomator.domain.usecases.cloud.AddOrChangeCloudConnectionUseCase
+import org.cryptomator.domain.usecases.cloud.GetCloudsUseCase
 import org.cryptomator.domain.usecases.cloud.GetUsernameUseCase
 import org.cryptomator.generator.Callback
 import org.cryptomator.presentation.BuildConfig
@@ -34,7 +42,6 @@ import org.cryptomator.presentation.exception.PermissionNotGrantedException
 import org.cryptomator.presentation.intent.AuthenticateCloudIntent
 import org.cryptomator.presentation.model.CloudModel
 import org.cryptomator.presentation.model.CloudTypeModel
-import org.cryptomator.presentation.model.PCloudModel
 import org.cryptomator.presentation.model.ProgressModel
 import org.cryptomator.presentation.model.ProgressStateModel
 import org.cryptomator.presentation.model.WebDavCloudModel
@@ -58,6 +65,7 @@ class AuthenticateCloudPresenter @Inject constructor( //
 		exceptionHandlers: ExceptionHandlers,  //
 		private val cloudModelMapper: CloudModelMapper,  //
 		private val addOrChangeCloudConnectionUseCase: AddOrChangeCloudConnectionUseCase,  //
+		private val getCloudsUseCase: GetCloudsUseCase, //
 		private val getUsernameUseCase: GetUsernameUseCase,  //
 		private val addExistingVaultWorkflow: AddExistingVaultWorkflow,  //
 		private val createNewVaultWorkflow: CreateNewVaultWorkflow) : Presenter<AuthenticateCloudView>(exceptionHandlers) {
@@ -286,22 +294,98 @@ class AuthenticateCloudPresenter @Inject constructor( //
 
 	private inner class PCloudAuthStrategy : AuthStrategy {
 
+		private var authenticationStarted = false
+
 		override fun supports(cloud: CloudModel): Boolean {
 			return cloud.cloudType() == CloudTypeModel.PCLOUD
 		}
 
 		override fun resumed(intent: AuthenticateCloudIntent) {
-			handlePCloudAuthenticationExceptionIfRequired(intent.cloud() as PCloudModel, intent.error())
-		}
-
-		private fun handlePCloudAuthenticationExceptionIfRequired(cloud: PCloudModel, e: AuthenticationException) {
-			Timber.tag("AuthicateCloudPrester").e(e)
 			when {
-				ExceptionUtil.contains(e, WrongCredentialsException::class.java) -> {
-					failAuthentication(cloud.name())
+				ExceptionUtil.contains(intent.error(), WrongCredentialsException::class.java) -> {
+					if (!authenticationStarted) {
+						startAuthentication()
+						Toast.makeText(
+								context(),
+								String.format(getString(R.string.error_authentication_failed_re_authenticate), intent.cloud().username()),
+								Toast.LENGTH_LONG).show()
+					}
+				}
+				else -> {
+					Timber.tag("AuthicateCloudPrester").e(intent.error())
+					failAuthentication(intent.cloud().name())
 				}
 			}
 		}
+
+		private fun startAuthentication() {
+			authenticationStarted = true
+			val authIntent: Intent = AuthorizationActivity.createIntent(
+					context(),
+					AuthorizationRequest.create()
+							.setType(AuthorizationRequest.Type.TOKEN)
+							.setClientId(BuildConfig.PCLOUD_CLIENT_ID)
+							.setForceAccessApproval(true)
+							.addPermission("manageshares")
+							.build())
+			requestActivityResult(ActivityResultCallbacks.pCloudReAuthenticationFinished(),  //
+					authIntent)
+		}
+	}
+
+	@Callback
+	fun pCloudReAuthenticationFinished(activityResult: ActivityResult) {
+		val authData: AuthorizationData = AuthorizationActivity.getResult(activityResult.intent())
+		val result: AuthorizationResult = authData.result
+
+		when (result) {
+			AuthorizationResult.ACCESS_GRANTED -> {
+				val accessToken: String = CredentialCryptor //
+						.getInstance(context()) //
+						.encrypt(authData.token)
+				val pCloudSkeleton: PCloud = PCloud.aPCloud() //
+						.withAccessToken(accessToken)
+						.withUrl(authData.apiHost)
+						.build();
+				getUsernameUseCase //
+						.withCloud(pCloudSkeleton) //
+						.run(object : DefaultResultHandler<String>() {
+							override fun onSuccess(username: String?) {
+								prepareForSavingPCloud(PCloud.aCopyOf(pCloudSkeleton).withUsername(username).build())
+							}
+						})
+			}
+			AuthorizationResult.ACCESS_DENIED -> {
+				Timber.tag("CloudConnListPresenter").e("Account access denied")
+				view?.showMessage(String.format(getString(R.string.screen_authenticate_auth_authentication_failed), getString(R.string.cloud_names_pcloud)))
+			}
+			AuthorizationResult.AUTH_ERROR -> {
+				Timber.tag("CloudConnListPresenter").e("""Account access grant error: ${authData.errorMessage}""".trimIndent())
+				view?.showMessage(String.format(getString(R.string.screen_authenticate_auth_authentication_failed), getString(R.string.cloud_names_pcloud)))
+			}
+			AuthorizationResult.CANCELLED -> {
+				Timber.tag("CloudConnListPresenter").i("Account access grant cancelled")
+				view?.showMessage(String.format(getString(R.string.screen_authenticate_auth_authentication_failed), getString(R.string.cloud_names_pcloud)))
+			}
+		}
+	}
+
+	fun prepareForSavingPCloud(cloud: PCloud) {
+		getCloudsUseCase //
+				.withCloudType(cloud.type()) //
+				.run(object : DefaultResultHandler<List<Cloud>>() {
+					override fun onSuccess(clouds: List<Cloud>) {
+						clouds.firstOrNull {
+							(it as PCloud).username() == cloud.username()
+						}?.let {
+							it as PCloud
+							succeedAuthenticationWith(PCloud.aCopyOf(it) //
+									.withUrl(cloud.url())
+									.withAccessToken(cloud.accessToken())
+									.build())
+						} ?: succeedAuthenticationWith(cloud)
+					}
+				})
 	}
 
 	private inner class WebDAVAuthStrategy : AuthStrategy {
@@ -425,6 +509,6 @@ class AuthenticateCloudPresenter @Inject constructor( //
 	}
 
 	init {
-		unsubscribeOnDestroy(addOrChangeCloudConnectionUseCase, getUsernameUseCase)
+		unsubscribeOnDestroy(addOrChangeCloudConnectionUseCase, getCloudsUseCase, getUsernameUseCase)
 	}
 }
