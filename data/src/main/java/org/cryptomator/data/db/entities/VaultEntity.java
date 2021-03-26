@@ -182,7 +182,9 @@ public class VaultEntity extends DatabaseEntity {
 		this.position = position;
 	}
 
-	/** called by internal mechanisms, do not call yourself. */
+	/**
+	 * called by internal mechanisms, do not call yourself.
+	 */
 	@Generated(hash = 674742652)
 	public void __setDaoSession(DaoSession daoSession) {
 		this.daoSession = daoSession;

@@ -41,6 +41,8 @@ constructor(private val context: Context) : RecyclerViewBaseAdapter<CloudModel, 
 
 			if (webdav(cloudModel.cloudType())) {
 				itemView.cloudName.text = context.getString(R.string.screen_cloud_settings_webdav_connections)
+			} else if (pCloud(cloudModel.cloudType())) {
+				itemView.cloudName.text = context.getString(R.string.screen_cloud_settings_pcloud_connections)
 			} else if (local(cloudModel.cloudType())) {
 				itemView.cloudName.text = context.getString(R.string.screen_cloud_settings_local_storage_locations)
 			} else {
@@ -78,5 +80,9 @@ constructor(private val context: Context) : RecyclerViewBaseAdapter<CloudModel, 
 
 	private fun webdav(cloudType: CloudTypeModel): Boolean {
 		return CloudTypeModel.WEBDAV == cloudType
+	}
+
+	private fun pCloud(cloudType: CloudTypeModel): Boolean {
+		return CloudTypeModel.PCLOUD == cloudType
 	}
 }
