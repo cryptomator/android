@@ -74,8 +74,8 @@ internal constructor(context: Context) : RecyclerViewBaseAdapter<CloudModel, Clo
 		}
 
 		private fun bindPCloudModel(cloudModel: PCloudModel) {
-				itemView.cloudText.text = cloudModel.username()
-				itemView.cloudSubText.visibility = View.GONE
+			itemView.cloudText.text = cloudModel.username()
+			itemView.cloudSubText.visibility = View.GONE
 		}
 
 		private fun bindLocalStorageCloudModel(cloudModel: LocalStorageModel) {

@@ -47,8 +47,8 @@ class PCloudContentRepository extends InterceptingCloudContentRepository<PCloud,
 
 	private void throwWrongCredentialsExceptionIfRequired(Exception e) {
 		if (e instanceof ApiError) {
-			int errorCode = ((ApiError)e).errorCode();
-			if (errorCode == PCloudApiError.PCloudApiErrorCodes.INVALID_ACCESS_TOKEN.getValue()
+			int errorCode = ((ApiError) e).errorCode();
+			if (errorCode == PCloudApiError.PCloudApiErrorCodes.INVALID_ACCESS_TOKEN.getValue() //
 					|| errorCode == PCloudApiError.PCloudApiErrorCodes.ACCESS_TOKEN_REVOKED.getValue()) {
 				throw new WrongCredentialsException(cloud);
 			}
@@ -71,7 +71,7 @@ class PCloudContentRepository extends InterceptingCloudContentRepository<PCloud,
 		public PCloudFolder resolve(PCloud cloud, String path) throws BackendException {
 			try {
 				return this.cloud.resolve(path);
-			} catch(IOException ex) {
+			} catch (IOException ex) {
 				throw new FatalBackendException(ex);
 			}
 		}
@@ -80,7 +80,7 @@ class PCloudContentRepository extends InterceptingCloudContentRepository<PCloud,
 		public PCloudFile file(PCloudFolder parent, String name) throws BackendException {
 			try {
 				return cloud.file(parent, name);
-			} catch(IOException ex) {
+			} catch (IOException ex) {
 				throw new FatalBackendException(ex);
 			}
 		}
@@ -89,7 +89,7 @@ class PCloudContentRepository extends InterceptingCloudContentRepository<PCloud,
 		public PCloudFile file(PCloudFolder parent, String name, Optional<Long> size) throws BackendException {
 			try {
 				return cloud.file(parent, name, size);
-			} catch(IOException ex) {
+			} catch (IOException ex) {
 				throw new FatalBackendException(ex);
 			}
 		}
@@ -98,7 +98,7 @@ class PCloudContentRepository extends InterceptingCloudContentRepository<PCloud,
 		public PCloudFolder folder(PCloudFolder parent, String name) throws BackendException {
 			try {
 				return cloud.folder(parent, name);
-			} catch(IOException ex) {
+			} catch (IOException ex) {
 				throw new FatalBackendException(ex);
 			}
 		}

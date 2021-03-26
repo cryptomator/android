@@ -4,10 +4,10 @@ import org.cryptomator.data.db.entities.CloudEntity;
 import org.cryptomator.domain.Cloud;
 import org.cryptomator.domain.CloudType;
 import org.cryptomator.domain.DropboxCloud;
-import org.cryptomator.domain.PCloud;
 import org.cryptomator.domain.GoogleDriveCloud;
 import org.cryptomator.domain.LocalStorageCloud;
 import org.cryptomator.domain.OnedriveCloud;
+import org.cryptomator.domain.PCloud;
 import org.cryptomator.domain.WebDavCloud;
 
 import javax.inject.Inject;

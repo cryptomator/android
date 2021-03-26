@@ -4,7 +4,6 @@ import android.content.ActivityNotFoundException
 import android.content.Intent
 import android.net.Uri
 import android.os.Build
-import android.util.Log
 import android.widget.Toast
 import androidx.annotation.RequiresApi
 import com.pcloud.sdk.AuthorizationActivity
@@ -228,7 +227,8 @@ class CloudConnectionListPresenter @Inject constructor( //
 					override fun onSuccess(clouds: List<Cloud>) {
 						clouds.firstOrNull {
 							(it as PCloud).username() == cloud.username()
-						}?.let { it as PCloud
+						}?.let {
+							it as PCloud
 							saveCloud(PCloud.aCopyOf(it) //
 									.withUrl(cloud.url())
 									.withAccessToken(cloud.accessToken())

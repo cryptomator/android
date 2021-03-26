@@ -40,7 +40,6 @@ import java.io.IOException;
 import java.io.OutputStream;
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
@@ -132,13 +131,13 @@ class PCloudImpl {
 				result.add(PCloudNodeFactory.from(folder, metadata));
 			}
 			return result;
-		} catch(ApiError ex) {
+		} catch (ApiError ex) {
 			handleApiError(ex, folder.getName());
 			throw new FatalBackendException(ex);
 		}
 	}
 
-	public PCloudFolder create(PCloudFolder folder) throws IOException, BackendException  {
+	public PCloudFolder create(PCloudFolder folder) throws IOException, BackendException {
 		if (!exists(folder.getParent())) {
 			folder = new PCloudFolder( //
 					create(folder.getParent()), //
@@ -168,7 +167,7 @@ class PCloudImpl {
 			} else {
 				return PCloudNodeFactory.from(target.getParent(), client().moveFile(source.getPath(), target.getPath()).execute());
 			}
-		} catch(ApiError ex) {
+		} catch (ApiError ex) {
 			if (PCloudApiError.isCloudNodeAlreadyExistsException(ex.errorCode())) {
 				throw new CloudNodeAlreadyExistsException(target.getName());
 			} else if (PCloudApiError.isNoSuchCloudFileException(ex.errorCode())) {
@@ -180,8 +179,7 @@ class PCloudImpl {
 		}
 	}
 
-	public PCloudFile write(PCloudFile file, DataSource data, final ProgressAware<UploadState> progressAware, boolean replace, long size)
-			throws IOException, BackendException {
+	public PCloudFile write(PCloudFile file, DataSource data, final ProgressAware<UploadState> progressAware, boolean replace, long size) throws IOException, BackendException {
 		if (!replace && exists(file)) {
 			throw new CloudNodeAlreadyExistsException("CloudNode already exists and replace is false");
 		}
@@ -202,11 +200,11 @@ class PCloudImpl {
 
 	private RemoteFile uploadFile(final PCloudFile file, DataSource data, final ProgressAware<UploadState> progressAware, UploadOptions uploadOptions, final long size) //
 			throws IOException, BackendException {
-			ProgressListener listener = (done, total) -> progressAware.onProgress( //
-					progress(UploadState.upload(file)) //
-							.between(0) //
-							.and(size) //
-							.withValue(done));
+		ProgressListener listener = (done, total) -> progressAware.onProgress( //
+				progress(UploadState.upload(file)) //
+						.between(0) //
+						.and(size) //
+						.withValue(done));
 
 		com.pcloud.sdk.DataSource pCloudDataSource = new com.pcloud.sdk.DataSource() {
 			@Override
@@ -244,7 +242,7 @@ class PCloudImpl {
 			try {
 				remoteFile = client().loadFile(file.getPath()).execute().asFile();
 				cacheKey = Optional.of(remoteFile.fileId() + remoteFile.hash());
-			} catch(ApiError ex) {
+			} catch (ApiError ex) {
 				handleApiError(ex, file.getName());
 			}
 
@@ -288,7 +286,7 @@ class PCloudImpl {
 			};
 
 			client().download(fileLink, sink, listener).execute();
-		} catch(ApiError ex) {
+		} catch (ApiError ex) {
 			handleApiError(ex, file.getName());
 		}
 
@@ -311,7 +309,7 @@ class PCloudImpl {
 				client() //
 						.deleteFile(node.getPath()).execute();
 			}
-		} catch(ApiError ex) {
+		} catch (ApiError ex) {
 			handleApiError(ex, node.getName());
 		}
 	}
@@ -322,7 +320,7 @@ class PCloudImpl {
 					.getUserInfo() //
 					.execute();
 			return currentAccount.email();
-		} catch(ApiError ex) {
+		} catch (ApiError ex) {
 			handleApiError(ex);
 			throw new FatalBackendException(ex);
 		}
@@ -350,11 +348,11 @@ class PCloudImpl {
 	}
 
 	private void handleApiError(ApiError ex, Set<Integer> errorCodes, String name) throws BackendException {
-		if (errorCodes == null  || !errorCodes.contains(ex.errorCode())) {
+		if (errorCodes == null || !errorCodes.contains(ex.errorCode())) {
 			int errorCode = ex.errorCode();
 			if (PCloudApiError.isCloudNodeAlreadyExistsException(errorCode)) {
 				throw new CloudNodeAlreadyExistsException(name);
-			} else if (PCloudApiError.isForbiddenException(errorCode)){
+			} else if (PCloudApiError.isForbiddenException(errorCode)) {
 				throw new ForbiddenException();
 			} else if (PCloudApiError.isNetworkConnectionException(errorCode)) {
 				throw new NetworkConnectionException(ex);
