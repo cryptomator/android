@@ -222,10 +222,9 @@ class PCloudImpl {
 		};
 
 		try {
-			RemoteFile newFile = client() //
+			return client() //
 					.createFile(file.getParent().getPath(), file.getName(), pCloudDataSource, new Date(), listener, uploadOptions) //
 					.execute();
-			return newFile;
 		} catch (ApiError ex) {
 			handleApiError(ex);
 			throw new FatalBackendException(ex);
