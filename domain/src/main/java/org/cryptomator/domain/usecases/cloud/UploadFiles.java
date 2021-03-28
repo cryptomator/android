@@ -106,6 +106,7 @@ class UploadFiles {
 			InputStream in = CancelAwareDataSource.wrap(dataSource, cancelledFlag).open(context);
 			OutputStream out = new FileOutputStream(target);
 			copy(in, out);
+			dataSource.modifiedDate(context).ifPresent(value -> target.setLastModified(value.getTime()));
 			return target;
 		} catch (IOException e) {
 			throw new FatalBackendException(e);

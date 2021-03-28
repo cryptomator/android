@@ -486,6 +486,7 @@ final class CryptoImplVaultFormat7 extends CryptoImplDecorator {
 					progressAware.onProgress(progress(UploadState.encryption(cloudFile)).between(0).and(ciphertextSize).withValue(encrypted));
 				}
 				encryptingWritableByteChannel.close();
+				data.modifiedDate(context).ifPresent(value -> encryptedTmpFile.setLastModified(value.getTime()));
 				progressAware.onProgress(Progress.completed(UploadState.encryption(cloudFile)));
 
 				CloudFile targetFile = targetFile(cryptoFile, cloudFile, replace);

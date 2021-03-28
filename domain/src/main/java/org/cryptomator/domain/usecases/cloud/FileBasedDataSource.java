@@ -8,6 +8,7 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.Date;
 
 public class FileBasedDataSource implements DataSource {
 
@@ -24,6 +25,11 @@ public class FileBasedDataSource implements DataSource {
 	@Override
 	public Optional<Long> size(Context context) {
 		return Optional.of(file.length());
+	}
+
+	@Override
+	public Optional<Date> modifiedDate(Context context) {
+		return Optional.of(new Date(file.lastModified()));
 	}
 
 	@Override

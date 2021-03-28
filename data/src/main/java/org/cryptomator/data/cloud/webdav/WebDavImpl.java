@@ -25,6 +25,7 @@ import org.cryptomator.util.Optional;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.util.Date;
 import java.util.List;
 
 import okhttp3.HttpUrl;
@@ -227,6 +228,11 @@ class WebDavImpl {
 		@Override
 		public Optional<Long> size(Context context) {
 			return data.size(context);
+		}
+
+		@Override
+		public Optional<Date> modifiedDate(Context context) {
+			return data.modifiedDate(context);
 		}
 
 		@Override

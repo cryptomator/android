@@ -7,11 +7,16 @@ import org.cryptomator.presentation.util.ContentResolverUtil
 import org.cryptomator.util.Optional
 import java.io.IOException
 import java.io.InputStream
+import java.util.Date
 
 class UriBasedDataSource private constructor(private val uri: Uri) : DataSource {
 
 	override fun size(context: Context): Optional<Long> {
 		return Optional.ofNullable(ContentResolverUtil(context).fileSize(uri))
+	}
+
+	override fun modifiedDate(context: Context): Optional<Date> {
+		return Optional.ofNullable(ContentResolverUtil(context).fileModifiedDate(uri))
 	}
 
 	@Throws(IOException::class)

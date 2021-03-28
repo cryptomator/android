@@ -7,6 +7,7 @@ import org.cryptomator.util.Optional;
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.Date;
 
 public class ByteArrayDataSource implements DataSource {
 
@@ -24,6 +25,11 @@ public class ByteArrayDataSource implements DataSource {
 	public Optional<Long> size(Context context) {
 		long size = bytes.length;
 		return Optional.of(size);
+	}
+
+	@Override
+	public Optional<Date> modifiedDate(Context context) {
+		return Optional.empty();
 	}
 
 	@Override
