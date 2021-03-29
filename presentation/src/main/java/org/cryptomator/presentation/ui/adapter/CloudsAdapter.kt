@@ -5,7 +5,7 @@ import org.cryptomator.presentation.R
 import org.cryptomator.presentation.model.CloudTypeModel
 import org.cryptomator.presentation.ui.adapter.CloudsAdapter.CloudViewHolder
 import javax.inject.Inject
-import kotlinx.android.synthetic.main.item_cloud.view.cloud
+import kotlinx.android.synthetic.main.item_cloud.view.cloudImage
 import kotlinx.android.synthetic.main.item_cloud.view.cloudName
 
 class CloudsAdapter @Inject
@@ -28,10 +28,10 @@ constructor() : RecyclerViewBaseAdapter<CloudTypeModel, CloudsAdapter.OnItemClic
 
 		override fun bind(position: Int) {
 			val cloudTypeModel = getItem(position)
-			itemView.cloud.setImageResource(cloudTypeModel.cloudImageLargeResource)
+			itemView.cloudImage.setImageResource(cloudTypeModel.cloudImageResource)
 			itemView.cloudName.setText(cloudTypeModel.displayNameResource)
 
-			itemView.cloud.setOnClickListener { callback.onCloudClicked(cloudTypeModel) }
+			itemView.setOnClickListener { callback.onCloudClicked(cloudTypeModel) }
 		}
 	}
 }

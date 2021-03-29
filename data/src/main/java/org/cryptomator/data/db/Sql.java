@@ -1,6 +1,7 @@
 package org.cryptomator.data.db;
 
 import android.content.ContentValues;
+import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 
 import org.greenrobot.greendao.database.Database;
@@ -49,6 +50,10 @@ class Sql {
 		return new SqlUpdateBuilder(tableName);
 	}
 
+	public static SqlQueryBuilder query(String table) {
+		return new SqlQueryBuilder(table);
+	}
+
 	public static Criterion eq(final String value) {
 		return (column, whereClause, whereArgs) -> {
 			whereClause.append('"').append(column).append("\" = ?");
@@ -89,6 +94,56 @@ class Sql {
 	public interface Criterion {
 
 		void appendTo(String column, StringBuilder whereClause, List<String> whereArgs);
+	}
+
+	public static class SqlQueryBuilder {
+
+		private final String tableName;
+		private final StringBuilder whereClause = new StringBuilder();
+		private final List<String> whereArgs = new ArrayList<>();
+
+		private List<String> columns = new ArrayList<>();
+		private String groupBy;
+		private String having;
+		private String limit;
+
+		public SqlQueryBuilder(String tableName) {
+			this.tableName = tableName;
+		}
+
+		public SqlQueryBuilder columns(List<String> columns) {
+			this.columns = columns;
+			return this;
+		}
+
+		public SqlQueryBuilder where(String column, Criterion criterion) {
+			if (whereClause.length() > 0) {
+				whereClause.append(" AND ");
+			}
+			criterion.appendTo(column, whereClause, whereArgs);
+			return this;
+		}
+
+		public SqlQueryBuilder groupBy(String groupBy) {
+			this.groupBy = groupBy;
+			return this;
+		}
+
+		public SqlQueryBuilder having(String having) {
+			this.having = having;
+			return this;
+		}
+
+		public SqlQueryBuilder limit(String limit) {
+			this.limit = limit;
+			return this;
+		}
+
+		public Cursor executeOn(Database wrapped) {
+			SQLiteDatabase db = unwrap(wrapped);
+			return db.query(tableName, columns.toArray(new String[columns.size()]), whereClause.toString(), whereArgs.toArray(new String[whereArgs.size()]), groupBy, having, limit);
+		}
+
 	}
 
 	public static class SqlUpdateBuilder {

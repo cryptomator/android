@@ -7,42 +7,59 @@ enum class CloudTypeModel(builder: Builder) {
 
 	CRYPTO(Builder("CRYPTO", R.string.cloud_names_crypto)),  //
 	DROPBOX(Builder("DROPBOX", R.string.cloud_names_dropbox) //
-			.withCloudImageResource(R.drawable.cloud_type_dropbox) //
-			.withCloudImageLargeResource(R.drawable.cloud_type_dropbox_large)),  //
+			.withCloudImageResource(R.drawable.dropbox) //
+			.withVaultImageResource(R.drawable.dropbox_vault) //
+			.withVaultSelectedImageResource(R.drawable.dropbox_vault_selected)),  //
 	GOOGLE_DRIVE(Builder("GOOGLE_DRIVE", R.string.cloud_names_google_drive) //
-			.withCloudImageResource(R.drawable.cloud_type_google_drive) //
-			.withCloudImageLargeResource(R.drawable.cloud_type_google_drive_large)),  //
+			.withCloudImageResource(R.drawable.google_drive) //
+			.withVaultImageResource(R.drawable.google_drive_vault) //
+			.withVaultSelectedImageResource(R.drawable.google_drive_vault_selected)),  //
 	ONEDRIVE(Builder("ONEDRIVE", R.string.cloud_names_onedrive) //
-			.withCloudImageResource(R.drawable.cloud_type_onedrive) //
-			.withCloudImageLargeResource(R.drawable.cloud_type_onedrive_large)),  //
+			.withCloudImageResource(R.drawable.onedrive) //
+			.withVaultImageResource(R.drawable.onedrive_vault) //
+			.withVaultSelectedImageResource(R.drawable.onedrive_vault_selected)),  //
+	PCLOUD(Builder("PCLOUD", R.string.cloud_names_pcloud) //
+			.withCloudImageResource(R.drawable.pcloud) //
+			.withVaultImageResource(R.drawable.pcloud_vault) //
+			.withVaultSelectedImageResource(R.drawable.pcloud_vault_selected) //
+			.withMultiInstances()),  //
 	WEBDAV(Builder("WEBDAV", R.string.cloud_names_webdav) //
-			.withCloudImageResource(R.drawable.cloud_type_webdav) //
-			.withCloudImageLargeResource(R.drawable.cloud_type_webdav_large) //
+			.withCloudImageResource(R.drawable.webdav) //
+			.withVaultImageResource(R.drawable.webdav_vault) //
+			.withVaultSelectedImageResource(R.drawable.webdav_vault_selected) //
 			.withMultiInstances()),  //
 	LOCAL(Builder("LOCAL", R.string.cloud_names_local_storage) //
-			.withCloudImageResource(R.drawable.storage_type_local) //
-			.withCloudImageLargeResource(R.drawable.storage_type_local_large) //
+			.withCloudImageResource(R.drawable.local_fs) //
+			.withVaultImageResource(R.drawable.local_fs_vault) //
+			.withVaultSelectedImageResource(R.drawable.local_fs_vault_selected) //
 			.withMultiInstances());
 
 	val cloudName: String = builder.cloudName
 	val displayNameResource: Int = builder.displayNameResource
 	val cloudImageResource: Int = builder.cloudImageResource
-	val cloudImageLargeResource: Int = builder.cloudImageLargeResource
+	val vaultImageResource: Int = builder.vaultImageResource
+	val vaultSelectedImageResource: Int = builder.vaultSelectedImageResource
 	val isMultiInstance: Boolean = builder.multiInstances
 
 	private class Builder(val cloudName: String, val displayNameResource: Int) {
 
 		var cloudImageResource = 0
-		var cloudImageLargeResource = 0
+		var vaultImageResource = 0
+		var vaultSelectedImageResource = 0
 		var multiInstances = false
 
-		fun withCloudImageResource(cloudImageResource: Int): Builder {
-			this.cloudImageResource = cloudImageResource
+		fun withCloudImageResource(cloudImageLargeResource: Int): Builder {
+			this.cloudImageResource = cloudImageLargeResource
 			return this
 		}
 
-		fun withCloudImageLargeResource(cloudImageLargeResource: Int): Builder {
-			this.cloudImageLargeResource = cloudImageLargeResource
+		fun withVaultImageResource(vaultImageResource: Int): Builder {
+			this.vaultImageResource = vaultImageResource
+			return this
+		}
+
+		fun withVaultSelectedImageResource(vaultSelectedImageResource: Int): Builder {
+			this.vaultSelectedImageResource = vaultSelectedImageResource
 			return this
 		}
 

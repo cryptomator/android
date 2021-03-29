@@ -7,6 +7,7 @@ import org.cryptomator.domain.DropboxCloud;
 import org.cryptomator.domain.GoogleDriveCloud;
 import org.cryptomator.domain.LocalStorageCloud;
 import org.cryptomator.domain.OnedriveCloud;
+import org.cryptomator.domain.PCloud;
 import org.cryptomator.domain.WebDavCloud;
 
 import javax.inject.Inject;
@@ -16,6 +17,7 @@ import static org.cryptomator.domain.DropboxCloud.aDropboxCloud;
 import static org.cryptomator.domain.GoogleDriveCloud.aGoogleDriveCloud;
 import static org.cryptomator.domain.LocalStorageCloud.aLocalStorage;
 import static org.cryptomator.domain.OnedriveCloud.aOnedriveCloud;
+import static org.cryptomator.domain.PCloud.aPCloud;
 import static org.cryptomator.domain.WebDavCloud.aWebDavCloudCloud;
 
 @Singleton
@@ -47,6 +49,13 @@ public class CloudEntityMapper extends EntityMapper<CloudEntity, Cloud> {
 						.withAccessToken(entity.getAccessToken()) //
 						.withUsername(entity.getUsername()) //
 						.build();
+			case PCLOUD:
+				return aPCloud() //
+						.withId(entity.getId()) //
+						.withUrl(entity.getUrl()) //
+						.withAccessToken(entity.getAccessToken()) //
+						.withUsername(entity.getUsername()) //
+						.build();
 			case LOCAL:
 				return aLocalStorage() //
 						.withId(entity.getId()) //
@@ -54,7 +63,7 @@ public class CloudEntityMapper extends EntityMapper<CloudEntity, Cloud> {
 			case WEBDAV:
 				return aWebDavCloudCloud() //
 						.withId(entity.getId()) //
-						.withUrl(entity.getWebdavUrl()) //
+						.withUrl(entity.getUrl()) //
 						.withUsername(entity.getUsername()) //
 						.withPassword(entity.getAccessToken()) //
 						.withCertificate(entity.getWebdavCertificate()) //
@@ -82,12 +91,17 @@ public class CloudEntityMapper extends EntityMapper<CloudEntity, Cloud> {
 				result.setAccessToken(((OnedriveCloud) domainObject).accessToken());
 				result.setUsername(((OnedriveCloud) domainObject).username());
 				break;
+			case PCLOUD:
+				result.setAccessToken(((PCloud) domainObject).accessToken());
+				result.setUrl(((PCloud) domainObject).url());
+				result.setUsername(((PCloud) domainObject).username());
+				break;
 			case LOCAL:
 				result.setAccessToken(((LocalStorageCloud) domainObject).rootUri());
 				break;
 			case WEBDAV:
 				result.setAccessToken(((WebDavCloud) domainObject).password());
-				result.setWebdavUrl(((WebDavCloud) domainObject).url());
+				result.setUrl(((WebDavCloud) domainObject).url());
 				result.setUsername(((WebDavCloud) domainObject).username());
 				result.setWebdavCertificate(((WebDavCloud) domainObject).certificate());
 				break;
