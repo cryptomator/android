@@ -175,7 +175,6 @@
 	<string name="screen_settings_section_version">Version</string>
 	<string name="screen_settings_advanced_settings">Paramètres Avancés</string>
 	<string name="screen_settings_background_unlock_preparation_label">Accélérer le déverrouillage</string>
-	<string name="screen_settings_background_unlock_preparation_label_summary">Téléchargez clé matériel en arrière-plan lorsque vous êtes invité à entrer le mot de passe ou l\'authentification biométrique</string>
 	<string name="screen_settings_keep_unlocked_while_editing_files">Maintenir deverouillé</string>
 	<string name="screen_settings_keep_unlocked_while_editing_files_summary">Gardez les coffres forts déverrouillées pendant l\'édition des fichiers</string>
 	<!-- ## screen: cloud settings -->
