@@ -5,6 +5,7 @@
 	<!-- # error messages -->
 	<string name="error_generic">Ein Fehler ist aufgetreten</string>
 	<string name="error_authentication_failed">Authentifizierung fehlgeschlagen</string>
+	<string name="error_authentication_failed_re_authenticate">Authentifizierungsfehler, bitte mit %1$s anmelden</string>
 	<string name="error_no_network_connection">Keine Internetverbindung</string>
 	<string name="error_invalid_passphrase">Falsches Passwort</string>
 	<string name="error_file_or_folder_exists">Die Datei oder der Ordner existiert bereits.</string>
@@ -169,6 +170,7 @@
 	<string name="screen_settings_advanced_settings">Erweiterte Eigenschaften</string>
 	<!-- ## screen: cloud settings -->
 	<string name="screen_cloud_settings_webdav_connections">WebDAV-Verbindungen</string>
+	<string name="screen_cloud_settings_pcloud_connections">pCloud-Verbindungen</string>
 	<string name="screen_cloud_settings_local_storage_locations">Lokale Speicherorte</string>
 	<string name="screen_cloud_settings_log_in_to">Einloggen in</string>
 	<string name="screen_cloud_settings_sign_out_from_cloud">Abmelden von</string>
