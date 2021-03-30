@@ -248,7 +248,7 @@
 
 	<string name="screen_settings_advanced_settings">Advanced Settings</string>
 	<string name="screen_settings_background_unlock_preparation_label">Accelerate unlock</string>
-	<string name="screen_settings_background_unlock_preparation_label_summary">Download key material in the background while prompted to enter the password or biometric auth</string>
+	<string name="screen_settings_background_unlock_preparation_label_summary">Download vault config in the background while prompted to enter the password or biometric auth</string>
 	<string name="screen_settings_keep_unlocked_while_editing_files">Keep unlocked</string>
 	<string name="screen_settings_keep_unlocked_while_editing_files_summary">Keep vaults unlocked while editing files</string>
 
