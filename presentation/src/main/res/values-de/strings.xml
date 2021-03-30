@@ -5,6 +5,7 @@
 	<!-- # error messages -->
 	<string name="error_generic">Ein Fehler ist aufgetreten</string>
 	<string name="error_authentication_failed">Authentifizierung fehlgeschlagen</string>
+	<string name="error_authentication_failed_re_authenticate">Authentifizierungsfehler, bitte mit %1$s anmelden</string>
 	<string name="error_no_network_connection">Keine Internetverbindung</string>
 	<string name="error_invalid_passphrase">Falsches Passwort</string>
 	<string name="error_file_or_folder_exists">Die Datei oder der Ordner existiert bereits.</string>
@@ -143,17 +144,23 @@
 	<string name="screen_settings_activate_biometric_auth">Biometrischer Login aktivieren</string>
 	<string name="screen_settings_confirm_face_unlock">Nach Entsperrung mittels dem Gesichts, bestätigen (falls verfügbar)</string>
 	<string name="screen_settings_block_app_when_obscured">App blockieren, wenn verdeckt</string>
-	<string name="screen_settings_secure_screen">Bildschirm-Sicherheit</string>
+	<string name="screen_settings_block_app_when_obscured_summary">Blockiere das Abfangen der Eingabe und das Anzeigen einer falschen Benutzeroberfläche</string>
+	<string name="screen_settings_secure_screen">Blockiere Screenshots</string>
+	<string name="screen_settings_secure_screen_summary">Blockiere Screenshots im Anwendungsverlauf und innerhalb der App</string>
 	<string name="screen_settings_section_search">Suche</string>
 	<string name="screen_settings_live_search">Live-Suche</string>
+	<string name="screen_settings_live_search_summary">Suchergebnisse während der Eingabe der Abfrage aktualisieren</string>
 	<string name="screen_settings_glob_search">Suche mit Glob-Muster</string>
+	<string name="screen_settings_glob_search_summary">Verwende Glob-Muster wie z.B. alice.*.jpg</string>
 	<string name="screen_settings_section_auto_lock">Automatisch sperren</string>
 	<string name="screen_settings_auto_lock_timeout">Sperren nach</string>
 	<string name="screen_settings_auto_lock_on_screen_lock">Bei deaktiviertem Bildschirm</string>
 	<string name="screen_settings_section_auto_photo_upload">Automatisches Photo-Hochladen</string>
 	<string name="screen_settings_section_auto_photo_upload_vault">Tresor auswählen für das Hochladen</string>
 	<string name="screen_settings_section_auto_photo_upload_toggle">Aktivieren</string>
+	<string name="screen_settings_section_auto_photo_upload_toggle_summary">Bilder im Hintergrund aufnehmen und sobald der ausgewählte Tresor entsperrt ist, Upload automatisch starten</string>
 	<string name="screen_settings_section_auto_photo_upload_only_wifi_toggle">Nur mit WLAN hochladen</string>
+	<string name="screen_settings_section_auto_photo_upload_including_videos">Videos hochladen</string>
 	<string name="screen_settings_auto_photo_upload_title">Bilder abspeichern in&#8230;</string>
 	<string name="screen_settings_section_social">Uns folgen</string>
 	<string name="screen_settings_website_label">Cryptomator-Website</string>
@@ -167,9 +174,11 @@
 	<string name="screen_settings_error_report_label">Log-Datei senden</string>
 	<string name="screen_settings_error_report_failed">Senden fehlgeschlagen</string>
 	<string name="screen_settings_security_label">Sicherheitshinweise</string>
-	<string name="screen_settings_keep_unlocked_while_editing_files">Halte Tresore geöffnet während dem Editieren einer Datei</string>
 	<string name="screen_settings_advanced_settings">Erweiterte Eigenschaften</string>
-	<string name="screen_settings_background_unlock_preparation_label">Vorbereitungen zum Entsperren im Hintergrund</string>
+	<string name="screen_settings_background_unlock_preparation_label">Entsperren beschleunigen</string>
+	<string name="screen_settings_background_unlock_preparation_label_summary">Während der Passwort-Eingabe oder biometrische Authentifizierung, Tresor-Konfiguration im Hintergrund herunterladen</string>
+	<string name="screen_settings_keep_unlocked_while_editing_files">Entsperrt bleiben</string>
+	<string name="screen_settings_keep_unlocked_while_editing_files_summary">Halte Tresore geöffnet während dem Editieren einer Datei</string>
 	<!-- ## screen: cloud settings -->
 	<string name="screen_cloud_settings_webdav_connections">WebDAV-Verbindungen</string>
 	<string name="screen_cloud_settings_pcloud_connections">pCloud-Verbindungen</string>
@@ -212,6 +221,7 @@
 	<string name="dialog_replace_title_multiple_files_exist">Dateien ersetzen?</string>
 	<string name="dialog_unable_to_share_title">Teilen nicht möglich</string>
 	<string name="dialog_unable_to_share_message">Sie haben keinen Tresor eingerichtet. Bitte legen Sie zuerst einen Tresor mit der Cryptomator-App an.</string>
+	<string name="dialog_unable_to_share_positive_button">OK</string>
 	<string name="dialog_unable_to_share_negative_button">Tresor erstellen</string>
 	<string name="dialog_filetype_not_supported_title">%1$s kann nicht geöffnet werden</string>
 	<string name="dialog_filetype_not_supported_message">Bitte installieren Sie eine App, die diese Datei öffnen kann. Möchten Sie die Datei stattdessen auf dem Gerät speichern?</string>
@@ -245,6 +255,7 @@
 	<string name="dialog_lock_vault">Sperren</string>
 	<string name="dialog_accept_ssl_certificate_title">Ungültiges SSL-Zertifikat</string>
 	<string name="dialog_accept_ssl_certificate_hint">Das SSL-Zertifikat ist ungültig. Wollen Sie diesem trotzdem vertrauen?</string>
+	<string name="dialog_accept_ssl_certificate_details">Details</string>
 	<string name="dialog_accept_ssl_certificate_security_checkbox">Dies könnte ein Sicherheitsrisiko sein. Ich weiß was ich tue.</string>
 	<string name="dialog_http_security_hint">Die Verwendung von HTTP ist unsicher. Wir empfehlen stattdessen die Nutzung von HTTPS. Wenn Sie sich der Risiken bewusst sind, können Sie mit HTTP fortfahren.</string>
 	<string name="dialog_http_security_checkbox">Zu HTTPS ändern</string>
@@ -293,6 +304,7 @@
 	<string name="dialog_no_dir_file_message">Der Ordner \'%1$s\' in der Cloud hat keine Verzeichniss-Datei. Es könnte sein, dass der Ordner auf einem anderen Gerät erstellt wurde und noch nicht vollständig mit der Cloud synchronisiert ist. Bitte überprüfen, ob die folgende Datei in der Cloud existiert:\n%2$s</string>
 	<string name="dialog_beta_confirmation_title">Beta-Version</string>
 	<string name="dialog_beta_confirmation">Das ist eine Beta-Version, die das Tresor-Format 7 unterstützt. Bitte nicht mit einem produktiv eingesetzten Tresor verwenden oder dafür sorgen, dass gute Sicherungen vorhanden sind.</string>
+	<string name="dialog_no_more_images_to_display">Keine weiteren Bilder anzuzeigen&#8230;</string>
 	<string name="permission_snackbar_auth_local_vault">Cryptomator benötigt Zugriff auf den Speicher um lokale Tresore zu nutzen</string>
 	<string name="permission_snackbar_auth_auto_upload">Cryptomator benötigt Zugriff auf den Speicher um den automatischen Foto-Upload zu nutzen</string>
 	<!-- # error reports -->
@@ -337,6 +349,7 @@
 	<string name="notification_open_writable_file_message">Tresor bleibt entsperrt bis die Datei nicht mehr editiert wird</string>
 	<string name="notification_update_check_finished_latest">Neueste Version installiert</string>
 	<string name="screen_settings_lru_cache">Zwischenspeicher</string>
+	<string name="screen_settings_lru_cache_toggle_summary">Cache kürzlich geöffnete Dateien lokal und verschlüsseltauf dem Gerät für eine spätere Wiederverwendung beim erneuten öffnen</string>
 	<string name="screen_settings_lru_cache_size">Zwischenspeichergröße insgesamt</string>
 	<string name="screen_settings_clear_lru_cache_size">Zwischenspeicher leeren</string>
 	<string name="screen_settings_lru_cache_changed__restart_toast">Änderungen werden nach einem Neustart der App aktiv</string>
@@ -351,6 +364,7 @@
 	<string name="lock_timeout_2m">2 Minuten</string>
 	<string name="lock_timeout_5m">5 Minuten</string>
 	<string name="lock_timeout_10m">10 Minuten</string>
+	<string name="lock_timeout_never">Nie</string>
 	<!-- cache size names -->
 	<!-- screen scheme mode names -->
 	<string name="screen_settings_style_mode">Design</string>

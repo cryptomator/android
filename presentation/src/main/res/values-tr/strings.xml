@@ -138,7 +138,6 @@
 	<string name="screen_settings_activate_biometric_auth">Biyometrik kimlik doğrulamayı etkinleştir</string>
 	<string name="screen_settings_confirm_face_unlock">Yüz tanıma kilidini (varsa) onaylayın</string>
 	<string name="screen_settings_block_app_when_obscured">Gizlendiğinde uygulamayı engelle</string>
-	<string name="screen_settings_secure_screen">Ekran güvenliği</string>
 	<string name="screen_settings_section_search">Arama</string>
 	<string name="screen_settings_live_search">Canlı arama</string>
 	<string name="screen_settings_glob_search">Glob kalıbı kullanarak ara</string>
@@ -163,9 +162,7 @@
 	<string name="screen_settings_error_report_failed">Gönderim başarısız oldu</string>
 	<string name="screen_settings_security_label">Güvenlik ipuçları</string>
 	<string name="screen_settings_section_version">Sürüm</string>
-	<string name="screen_settings_keep_unlocked_while_editing_files">Düzenlerken kasa kilidi açık</string>
 	<string name="screen_settings_advanced_settings">Gelişmiş Ayarlar</string>
-	<string name="screen_settings_background_unlock_preparation_label">Arka planda kilit açma</string>
 	<!-- ## screen: cloud settings -->
 	<string name="screen_cloud_settings_webdav_connections">WebDAV bağlantıları</string>
 	<string name="screen_cloud_settings_pcloud_connections">pCloud bağlantıları</string>
