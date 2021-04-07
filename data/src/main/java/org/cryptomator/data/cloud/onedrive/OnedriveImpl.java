@@ -242,7 +242,7 @@ class OnedriveImpl {
 	}
 
 	public OnedriveFile write(final OnedriveFile file, DataSource data, final ProgressAware<UploadState> progressAware, boolean replace, final long size) throws BackendException {
-		if (exists(file) && !replace) {
+		if (!replace && exists(file)) {
 			throw new CloudNodeAlreadyExistsException("CloudNode already exists and replace is false");
 		}
 

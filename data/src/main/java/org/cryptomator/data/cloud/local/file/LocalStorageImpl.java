@@ -140,7 +140,7 @@ class LocalStorageImpl {
 	}
 
 	public LocalFile write(final CloudFile file, DataSource data, final ProgressAware<UploadState> progressAware, boolean replace, final long size) throws IOException, BackendException {
-		if (exists(file) && !replace) {
+		if (!replace && exists(file)) {
 			throw new CloudNodeAlreadyExistsException("CloudNode already exists and replace is false");
 		}
 

@@ -195,7 +195,7 @@ class DropboxImpl {
 	}
 
 	public DropboxFile write(DropboxFile file, DataSource data, final ProgressAware<UploadState> progressAware, boolean replace, long size) throws AuthenticationException, DbxException, IOException, CloudNodeAlreadyExistsException {
-		if (exists(file) && !replace) {
+		if (!replace && exists(file)) {
 			throw new CloudNodeAlreadyExistsException("CloudNode already exists and replace is false");
 		}
 
