@@ -8,14 +8,14 @@ import javax.crypto.spec.IvParameterSpec;
 
 import static java.lang.System.arraycopy;
 
-class CipherFromApi23 implements Cipher {
+class CipherImpl implements Cipher {
 
 	private static final int IV_LENGTH = 16;
 
 	private final javax.crypto.Cipher cipher;
 	private final SecretKey key;
 
-	CipherFromApi23(javax.crypto.Cipher cipher, SecretKey key) {
+	CipherImpl(javax.crypto.Cipher cipher, SecretKey key) {
 		this.cipher = cipher;
 		this.key = key;
 	}

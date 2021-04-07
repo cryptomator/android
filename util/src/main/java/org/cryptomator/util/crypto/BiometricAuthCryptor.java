@@ -52,7 +52,7 @@ public class BiometricAuthCryptor {
 	}
 
 	public String decrypt(javax.crypto.Cipher cipher, String password) throws IllegalBlockSizeException, BadPaddingException {
-		byte[] ciphered = cipher.doFinal(CipherFromApi23.getBytes(password.getBytes(ISO_8859_1)));
+		byte[] ciphered = cipher.doFinal(CipherImpl.getBytes(password.getBytes(ISO_8859_1)));
 		return new String(ciphered, UTF_8);
 	}
 }

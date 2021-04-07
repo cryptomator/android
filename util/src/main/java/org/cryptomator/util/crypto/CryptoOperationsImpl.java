@@ -10,7 +10,7 @@ import java.security.UnrecoverableKeyException;
 
 import javax.crypto.SecretKey;
 
-class CryptoOperationsFromApi23 implements CryptoOperations {
+class CryptoOperationsImpl implements CryptoOperations {
 
 	@Override
 	public Cipher cryptor(KeyStore keyStore, String alias) throws UnrecoverableStorageKeyException {
@@ -19,7 +19,7 @@ class CryptoOperationsFromApi23 implements CryptoOperations {
 			final javax.crypto.Cipher cipher = javax.crypto.Cipher.getInstance(KeyProperties.KEY_ALGORITHM_AES + "/" //
 					+ KeyProperties.BLOCK_MODE_CBC + "/" //
 					+ KeyProperties.ENCRYPTION_PADDING_PKCS7);
-			return new CipherFromApi23(cipher, key);
+			return new CipherImpl(cipher, key);
 		} catch (UnrecoverableKeyException e) {
 			throw new UnrecoverableStorageKeyException(e);
 		} catch (Exception e) {
