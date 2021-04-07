@@ -8,11 +8,14 @@ import java.net.URI
 import java.security.Key
 import java.util.UUID
 import io.jsonwebtoken.Claims
+import io.jsonwebtoken.IncorrectClaimException
 import io.jsonwebtoken.JwsHeader
 import io.jsonwebtoken.JwtException
 import io.jsonwebtoken.Jwts
+import io.jsonwebtoken.MissingClaimException
 import io.jsonwebtoken.SigningKeyResolverAdapter
 import io.jsonwebtoken.security.Keys
+import io.jsonwebtoken.security.SignatureException
 import kotlin.properties.Delegates
 
 class VaultConfig private constructor(builder: VaultConfigBuilder) {
@@ -35,6 +38,7 @@ class VaultConfig private constructor(builder: VaultConfigBuilder) {
 	}
 
 	class VaultConfigBuilder {
+
 		internal var id: String = UUID.randomUUID().toString()
 		internal var vaultFormat = CryptoConstants.MAX_VAULT_VERSION;
 		internal var cipherCombo = VaultCipherCombo.SIV_CTRMAC
@@ -72,6 +76,7 @@ class VaultConfig private constructor(builder: VaultConfigBuilder) {
 	}
 
 	companion object {
+
 		private const val JSON_KEY_VAULTFORMAT = "format"
 		private const val JSON_KEY_CIPHERCONFIG = "cipherCombo"
 		private const val JSON_KEY_MAXFILENAMELEN = "maxFilenameLen"
@@ -110,24 +115,24 @@ class VaultConfig private constructor(builder: VaultConfigBuilder) {
 						.maxFilenameLength(parser.body[JSON_KEY_MAXFILENAMELEN] as Int)
 
 				VaultConfig(vaultConfigBuilder)
-				/*} catch (SignatureVerificationException e) {
-				throw new VaultKeyInvalidException();
-			} catch (InvalidClaimException e) {
-				throw new VaultVersionMismatchException("Vault config not for version " + expectedVaultFormat);
-			} catch (JWTVerificationException e) {
-				throw new VaultConfigLoadException("Failed to verify vault config: " + unverifiedConfig.getToken());
-			*/
-			} catch (e: JwtException) {
-				throw VaultConfigLoadException("Failed to verify vault config", e)
+			} catch (e: Exception) {
+				when (e) {
+					is MissingClaimException, is IncorrectClaimException -> throw VaultVersionMismatchException("Vault config not for version " + unverifiedVaultConfig.vaultFormat)
+					is SignatureException -> throw VaultKeyInvalidException()
+					is JwtException -> throw VaultConfigLoadException("Failed to verify vault config", e)
+					else -> throw VaultConfigLoadException(e)
+				}
 			}
 		}
 
+		@JvmStatic
 		fun createVaultConfig(): VaultConfigBuilder {
 			return VaultConfigBuilder()
 		}
 	}
 
 	private class UnverifiedSigningKeyResolver : SigningKeyResolverAdapter() {
+
 		lateinit var keyId: URI
 		var vaultFormat: Int by Delegates.notNull()
 

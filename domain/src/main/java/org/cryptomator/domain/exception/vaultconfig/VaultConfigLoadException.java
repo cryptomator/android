@@ -13,4 +13,9 @@ public class VaultConfigLoadException extends BackendException {
 	public VaultConfigLoadException(String message, JwtException e) {
 		super(message, e);
 	}
+
+	public VaultConfigLoadException(Exception e) {
+		super(e);
+	}
+
 }
