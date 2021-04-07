@@ -10,6 +10,7 @@ import org.cryptomator.domain.di.PerView
 import org.cryptomator.domain.exception.NetworkConnectionException
 import org.cryptomator.domain.exception.authentication.AuthenticationException
 import org.cryptomator.domain.usecases.vault.ChangePasswordUseCase
+import org.cryptomator.domain.usecases.vault.DeleteVaultUseCase
 import org.cryptomator.domain.usecases.vault.GetUnverifiedVaultConfigUseCase
 import org.cryptomator.domain.usecases.vault.LockVaultUseCase
 import org.cryptomator.domain.usecases.vault.PrepareUnlockUseCase
@@ -39,6 +40,7 @@ import timber.log.Timber
 @PerView
 class UnlockVaultPresenter @Inject constructor(
 		private val changePasswordUseCase: ChangePasswordUseCase,
+		private val deleteVaultUseCase: DeleteVaultUseCase,
 		private val getUnverifiedVaultConfigUseCase: GetUnverifiedVaultConfigUseCase,
 		private val lockVaultUseCase: LockVaultUseCase,
 		private val unlockVaultUsingMasterkeyUseCase: UnlockVaultUsingMasterkeyUseCase,
@@ -68,7 +70,7 @@ class UnlockVaultPresenter @Inject constructor(
 	}
 
 	fun setup() {
-		if(intent.vaultAction() == UnlockVaultIntent.VaultAction.ENCRYPT_PASSWORD) {
+		if (intent.vaultAction() == UnlockVaultIntent.VaultAction.ENCRYPT_PASSWORD) {
 			view?.getEncryptedPasswordWithBiometricAuthentication(intent.vaultModel())
 			return
 		}
@@ -340,6 +342,16 @@ class UnlockVaultPresenter @Inject constructor(
 				})
 	}
 
+	fun onDeleteMissingVaultClicked(vault: Vault) {
+		deleteVaultUseCase //
+				.withVault(vault) //
+				.run(object : DefaultResultHandler<Long>() {
+					override fun onSuccess(vaultId: Long) {
+						finishWithResult(null)
+					}
+				})
+	}
+
 	private open class PendingUnlock(private val vault: Vault?) : Serializable {
 
 		private var unlockToken: UnlockToken? = null
@@ -381,7 +393,15 @@ class UnlockVaultPresenter @Inject constructor(
 	}
 
 	init {
-		unsubscribeOnDestroy(changePasswordUseCase, getUnverifiedVaultConfigUseCase, lockVaultUseCase, unlockVaultUsingMasterkeyUseCase, prepareUnlockUseCase, removeStoredVaultPasswordsUseCase, saveVaultUseCase)
+		unsubscribeOnDestroy( //
+				changePasswordUseCase,  //
+				deleteVaultUseCase, //
+				getUnverifiedVaultConfigUseCase, //
+				lockVaultUseCase, //
+				unlockVaultUsingMasterkeyUseCase, //
+				prepareUnlockUseCase, //
+				removeStoredVaultPasswordsUseCase, //
+				saveVaultUseCase)
 	}
 
 }

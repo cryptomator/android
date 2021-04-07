@@ -111,7 +111,7 @@ class UnlockVaultActivity : BaseActivity(), //
 	}
 
 	override fun onDeleteMissingVaultClicked(vault: Vault) {
-		TODO("Not yet implemented")
+		presenter.onDeleteMissingVaultClicked(vault)
 	}
 
 }
