@@ -37,8 +37,10 @@ public class DoLicenseCheck {
 
 		try {
 			final Claims claims = Jwts //
-					.parserBuilder().setSigningKey(getPublicKey()) //
-					.build().parseClaimsJws(license) //
+					.parserBuilder() //
+					.setSigningKey(getPublicKey()) //
+					.build() //
+					.parseClaimsJws(license) //
 					.getBody();
 
 			return claims::getSubject;

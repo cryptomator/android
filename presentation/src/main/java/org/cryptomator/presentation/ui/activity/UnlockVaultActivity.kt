@@ -2,6 +2,7 @@ package org.cryptomator.presentation.ui.activity
 
 import android.os.Build
 import androidx.annotation.RequiresApi
+import org.cryptomator.domain.UnverifiedVaultConfig
 import org.cryptomator.domain.Vault
 import org.cryptomator.generator.Activity
 import org.cryptomator.generator.InjectIntent
@@ -13,6 +14,7 @@ import org.cryptomator.presentation.ui.activity.view.UnlockVaultView
 import org.cryptomator.presentation.ui.dialog.BiometricAuthKeyInvalidatedDialog
 import org.cryptomator.presentation.ui.dialog.ChangePasswordDialog
 import org.cryptomator.presentation.ui.dialog.EnterPasswordDialog
+import org.cryptomator.presentation.ui.dialog.VaultNotFoundDialog
 import org.cryptomator.presentation.ui.fragment.UnlockVaultFragment
 import org.cryptomator.presentation.util.BiometricAuthentication
 import javax.inject.Inject
@@ -21,7 +23,8 @@ import javax.inject.Inject
 class UnlockVaultActivity : BaseActivity(), //
 		UnlockVaultView, //
 		BiometricAuthentication.Callback,
-		ChangePasswordDialog.Callback {
+		ChangePasswordDialog.Callback,
+		VaultNotFoundDialog.Callback {
 
 	@Inject
 	lateinit var presenter: UnlockVaultPresenter
@@ -99,11 +102,16 @@ class UnlockVaultActivity : BaseActivity(), //
 	private fun unlockVaultFragment(): UnlockVaultFragment = //
 			getCurrentFragment(R.id.fragmentContainer) as UnlockVaultFragment
 
-	override fun showChangePasswordDialog(vaultModel: VaultModel) {
-		showDialog(ChangePasswordDialog.newInstance(vaultModel))
+	override fun showChangePasswordDialog(vaultModel: VaultModel, unverifiedVaultConfig: UnverifiedVaultConfig?) {
+		showDialog(ChangePasswordDialog.newInstance(vaultModel, unverifiedVaultConfig))
 	}
 
-	override fun onChangePasswordClick(vaultModel: VaultModel, oldPassword: String, newPassword: String) {
-		presenter.onChangePasswordClick(vaultModel, oldPassword, newPassword)
+	override fun onChangePasswordClick(vaultModel: VaultModel, unverifiedVaultConfig: UnverifiedVaultConfig?, oldPassword: String, newPassword: String) {
+		presenter.onChangePasswordClick(vaultModel, unverifiedVaultConfig, oldPassword, newPassword)
 	}
+
+	override fun onDeleteMissingVaultClicked(vault: Vault) {
+		TODO("Not yet implemented")
+	}
+
 }

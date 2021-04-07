@@ -2,18 +2,21 @@ package org.cryptomator.presentation.presenter
 
 import android.os.Handler
 import androidx.biometric.BiometricManager
+import org.cryptomator.data.cloud.crypto.CryptoConstants
 import org.cryptomator.domain.Cloud
+import org.cryptomator.domain.UnverifiedVaultConfig
 import org.cryptomator.domain.Vault
 import org.cryptomator.domain.di.PerView
 import org.cryptomator.domain.exception.NetworkConnectionException
 import org.cryptomator.domain.exception.authentication.AuthenticationException
 import org.cryptomator.domain.usecases.vault.ChangePasswordUseCase
+import org.cryptomator.domain.usecases.vault.GetUnverifiedVaultConfigUseCase
 import org.cryptomator.domain.usecases.vault.LockVaultUseCase
 import org.cryptomator.domain.usecases.vault.PrepareUnlockUseCase
 import org.cryptomator.domain.usecases.vault.RemoveStoredVaultPasswordsUseCase
 import org.cryptomator.domain.usecases.vault.SaveVaultUseCase
 import org.cryptomator.domain.usecases.vault.UnlockToken
-import org.cryptomator.domain.usecases.vault.UnlockVaultUseCase
+import org.cryptomator.domain.usecases.vault.UnlockVaultUsingMasterkeyUseCase
 import org.cryptomator.domain.usecases.vault.VaultOrUnlockToken
 import org.cryptomator.generator.Callback
 import org.cryptomator.generator.InjectIntent
@@ -27,6 +30,7 @@ import org.cryptomator.presentation.model.VaultModel
 import org.cryptomator.presentation.ui.activity.view.UnlockVaultView
 import org.cryptomator.presentation.workflow.ActivityResult
 import org.cryptomator.presentation.workflow.AuthenticationExceptionHandler
+import org.cryptomator.util.Optional
 import org.cryptomator.util.SharedPreferencesHandler
 import java.io.Serializable
 import javax.inject.Inject
@@ -35,8 +39,9 @@ import timber.log.Timber
 @PerView
 class UnlockVaultPresenter @Inject constructor(
 		private val changePasswordUseCase: ChangePasswordUseCase,
+		private val getUnverifiedVaultConfigUseCase: GetUnverifiedVaultConfigUseCase,
 		private val lockVaultUseCase: LockVaultUseCase,
-		private val unlockVaultUseCase: UnlockVaultUseCase,
+		private val unlockVaultUsingMasterkeyUseCase: UnlockVaultUsingMasterkeyUseCase,
 		private val prepareUnlockUseCase: PrepareUnlockUseCase,
 		private val removeStoredVaultPasswordsUseCase: RemoveStoredVaultPasswordsUseCase,
 		private val saveVaultUseCase: SaveVaultUseCase,
@@ -63,12 +68,33 @@ class UnlockVaultPresenter @Inject constructor(
 	}
 
 	fun setup() {
-		when (intent.vaultAction()) {
-			UnlockVaultIntent.VaultAction.ENCRYPT_PASSWORD -> view?.getEncryptedPasswordWithBiometricAuthentication(intent.vaultModel())
-			UnlockVaultIntent.VaultAction.UNLOCK, UnlockVaultIntent.VaultAction.UNLOCK_FOR_BIOMETRIC_AUTH -> unlockVault(intent.vaultModel())
-			UnlockVaultIntent.VaultAction.CHANGE_PASSWORD -> view?.showChangePasswordDialog(intent.vaultModel())
-			else -> TODO("Not yet implemented")
+		if(intent.vaultAction() == UnlockVaultIntent.VaultAction.ENCRYPT_PASSWORD) {
+			view?.getEncryptedPasswordWithBiometricAuthentication(intent.vaultModel())
+			return
 		}
+
+		getUnverifiedVaultConfigUseCase
+				.withVault(intent.vaultModel().toVault())
+				.run(object : DefaultResultHandler<Optional<UnverifiedVaultConfig>>() {
+					override fun onSuccess(unverifiedVaultConfig: Optional<UnverifiedVaultConfig>) {
+						if (unverifiedVaultConfig.isAbsent || unverifiedVaultConfig.get().keyId.scheme == CryptoConstants.MASTERKEY_SCHEME) {
+							when (intent.vaultAction()) {
+								UnlockVaultIntent.VaultAction.UNLOCK, UnlockVaultIntent.VaultAction.UNLOCK_FOR_BIOMETRIC_AUTH -> {
+									startedUsingPrepareUnlock = sharedPreferencesHandler.backgroundUnlockPreparation()
+									pendingUnlockFor(intent.vaultModel().toVault())?.unverifiedVaultConfig = unverifiedVaultConfig.orElse(null)
+									unlockVault(intent.vaultModel())
+								}
+								UnlockVaultIntent.VaultAction.CHANGE_PASSWORD -> view?.showChangePasswordDialog(intent.vaultModel(), unverifiedVaultConfig.orElse(null))
+								else -> TODO("Not yet implemented")
+							}
+						}
+					}
+
+					override fun onError(e: Throwable) {
+						super.onError(e)
+						finishWithResult(null)
+					}
+				})
 	}
 
 	private fun unlockVault(vaultModel: VaultModel) {
@@ -109,18 +135,18 @@ class UnlockVaultPresenter @Inject constructor(
 
 	fun onUnlockCanceled() {
 		prepareUnlockUseCase.unsubscribe()
-		unlockVaultUseCase.cancel()
+		unlockVaultUsingMasterkeyUseCase.cancel()
 		finish()
 	}
 
 	fun startPrepareUnlockUseCase(vault: Vault) {
-		pendingUnlock = null
 		prepareUnlockUseCase //
 				.withVault(vault) //
+				.andUnverifiedVaultConfig(Optional.ofNullable(pendingUnlockFor(intent.vaultModel().toVault())?.unverifiedVaultConfig))
 				.run(object : DefaultResultHandler<UnlockToken>() {
 					override fun onSuccess(unlockToken: UnlockToken) {
 						if (!startedUsingPrepareUnlock && vault.password != null) {
-							doUnlock(unlockToken, vault.password)
+							doUnlock(unlockToken, vault.password, pendingUnlockFor(intent.vaultModel().toVault())?.unverifiedVaultConfig)
 						} else {
 							unlockTokenObtained(unlockToken)
 						}
@@ -170,7 +196,7 @@ class UnlockVaultPresenter @Inject constructor(
 						.run(object : DefaultResultHandler<UnlockToken>() {
 							override fun onSuccess(unlockToken: UnlockToken) {
 								if (!startedUsingPrepareUnlock && vault.password != null) {
-									doUnlock(unlockToken, vault.password)
+									doUnlock(unlockToken, vault.password, pendingUnlockFor(intent.vaultModel().toVault())?.unverifiedVaultConfig)
 								} else {
 									unlockTokenObtained(unlockToken)
 								}
@@ -195,9 +221,10 @@ class UnlockVaultPresenter @Inject constructor(
 		pendingUnlockFor(vault.toVault())?.setPassword(password, this)
 	}
 
-	private fun doUnlock(token: UnlockToken, password: String) {
-		unlockVaultUseCase //
+	private fun doUnlock(token: UnlockToken, password: String, unverifiedVaultConfig: UnverifiedVaultConfig?) {
+		unlockVaultUsingMasterkeyUseCase //
 				.withVaultOrUnlockToken(VaultOrUnlockToken.from(token)) //
+				.andUnverifiedVaultConfig(Optional.ofNullable(unverifiedVaultConfig)) //
 				.andPassword(password) //
 				.run(object : DefaultResultHandler<Cloud>() {
 					override fun onSuccess(cloud: Cloud) {
@@ -214,7 +241,7 @@ class UnlockVaultPresenter @Inject constructor(
 
 	private fun handleUnlockVaultSuccess(vault: Vault, cloud: Cloud, password: String) {
 		lockVaultUseCase.withVault(vault).run(object : DefaultResultHandler<Vault>() {
-			override fun onFinished() {
+			override fun onSuccess(vault: Vault) {
 				finishWithResultAndExtra(cloud, PASSWORD, password)
 			}
 		})
@@ -265,9 +292,10 @@ class UnlockVaultPresenter @Inject constructor(
 		}
 	}
 
-	fun onChangePasswordClick(vaultModel: VaultModel, oldPassword: String, newPassword: String) {
+	fun onChangePasswordClick(vaultModel: VaultModel, unverifiedVaultConfig: UnverifiedVaultConfig?, oldPassword: String, newPassword: String) {
 		view?.showProgress(ProgressModel(ProgressStateModel.CHANGING_PASSWORD))
 		changePasswordUseCase.withVault(vaultModel.toVault()) //
+				.andUnverifiedVaultConfig(Optional.ofNullable(unverifiedVaultConfig)) //
 				.andOldPassword(oldPassword) //
 				.andNewPassword(newPassword) //
 				.run(object : DefaultResultHandler<Void?>() {
@@ -287,7 +315,7 @@ class UnlockVaultPresenter @Inject constructor(
 					override fun onError(e: Throwable) {
 						if (!authenticationExceptionHandler.handleAuthenticationException( //
 										this@UnlockVaultPresenter, e,  //
-										ActivityResultCallbacks.changePasswordAfterAuthentication(vaultModel.toVault(), oldPassword, newPassword))) {
+										ActivityResultCallbacks.changePasswordAfterAuthentication(vaultModel.toVault(), unverifiedVaultConfig, oldPassword, newPassword))) {
 							showError(e)
 						}
 					}
@@ -295,10 +323,10 @@ class UnlockVaultPresenter @Inject constructor(
 	}
 
 	@Callback
-	fun changePasswordAfterAuthentication(result: ActivityResult, vault: Vault, oldPassword: String, newPassword: String) {
+	fun changePasswordAfterAuthentication(result: ActivityResult, vault: Vault, unverifiedVaultConfig: UnverifiedVaultConfig, oldPassword: String, newPassword: String) {
 		val cloud = result.getSingleResult(CloudModel::class.java).toCloud()
 		val vaultWithUpdatedCloud = Vault.aCopyOf(vault).withCloud(cloud).build()
-		onChangePasswordClick(VaultModel(vaultWithUpdatedCloud), oldPassword, newPassword)
+		onChangePasswordClick(VaultModel(vaultWithUpdatedCloud), unverifiedVaultConfig, oldPassword, newPassword)
 	}
 
 	fun saveVaultAfterChangePasswordButFailedBiometricAuth(vault: Vault) {
@@ -317,6 +345,8 @@ class UnlockVaultPresenter @Inject constructor(
 		private var unlockToken: UnlockToken? = null
 		private var password: String? = null
 
+		var unverifiedVaultConfig: UnverifiedVaultConfig? = null
+
 		fun setUnlockToken(unlockToken: UnlockToken?, presenter: UnlockVaultPresenter) {
 			this.unlockToken = unlockToken
 			continueIfComplete(presenter)
@@ -328,7 +358,7 @@ class UnlockVaultPresenter @Inject constructor(
 		}
 
 		open fun continueIfComplete(presenter: UnlockVaultPresenter) {
-			unlockToken?.let { token -> password?.let { password -> presenter.doUnlock(token, password) } }
+			unlockToken?.let { token -> password?.let { password -> presenter.doUnlock(token, password, unverifiedVaultConfig) } }
 		}
 
 		fun belongsTo(vault: Vault): Boolean {
@@ -351,7 +381,7 @@ class UnlockVaultPresenter @Inject constructor(
 	}
 
 	init {
-		unsubscribeOnDestroy(changePasswordUseCase, lockVaultUseCase, unlockVaultUseCase, prepareUnlockUseCase, removeStoredVaultPasswordsUseCase, saveVaultUseCase)
+		unsubscribeOnDestroy(changePasswordUseCase, getUnverifiedVaultConfigUseCase, lockVaultUseCase, unlockVaultUsingMasterkeyUseCase, prepareUnlockUseCase, removeStoredVaultPasswordsUseCase, saveVaultUseCase)
 	}
 
 }

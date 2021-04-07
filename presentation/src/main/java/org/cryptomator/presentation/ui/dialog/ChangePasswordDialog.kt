@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.view.View
 import android.widget.Button
 import androidx.appcompat.app.AlertDialog
+import org.cryptomator.domain.UnverifiedVaultConfig
 import org.cryptomator.generator.Dialog
 import org.cryptomator.presentation.R
 import org.cryptomator.presentation.model.VaultModel
@@ -23,7 +24,7 @@ class ChangePasswordDialog : BaseProgressErrorDialog<ChangePasswordDialog.Callba
 
 	interface Callback {
 
-		fun onChangePasswordClick(vaultModel: VaultModel, oldPassword: String, newPassword: String)
+		fun onChangePasswordClick(vaultModel: VaultModel, unverifiedVaultConfig: UnverifiedVaultConfig?, oldPassword: String, newPassword: String)
 	}
 
 	override fun onStart() {
@@ -33,10 +34,12 @@ class ChangePasswordDialog : BaseProgressErrorDialog<ChangePasswordDialog.Callba
 			changePasswordButton = dialog.getButton(android.app.Dialog.BUTTON_POSITIVE)
 			changePasswordButton?.setOnClickListener {
 				val vaultModel = requireArguments().getSerializable(VAULT_ARG) as VaultModel
+				val unverifiedVaultConfig = requireArguments().getSerializable(VAULT_CONFIG_ARG) as UnverifiedVaultConfig?
 				if (valid(et_old_password.text.toString(),  //
 								et_new_password.text.toString(),  //
 								et_new_retype_password.text.toString())) {
 					callback?.onChangePasswordClick(vaultModel,  //
+							unverifiedVaultConfig, //
 							et_old_password.text.toString(),  //
 							et_new_password.text.toString())
 					onWaitForResponse(et_old_password)
@@ -93,9 +96,11 @@ class ChangePasswordDialog : BaseProgressErrorDialog<ChangePasswordDialog.Callba
 	companion object {
 
 		private const val VAULT_ARG = "vault"
-		fun newInstance(vaultModel: VaultModel): ChangePasswordDialog {
+		private const val VAULT_CONFIG_ARG = "vaultConfig"
+		fun newInstance(vaultModel: VaultModel, unverifiedVaultConfig: UnverifiedVaultConfig?): ChangePasswordDialog {
 			val args = Bundle()
 			args.putSerializable(VAULT_ARG, vaultModel)
+			args.putSerializable(VAULT_CONFIG_ARG, unverifiedVaultConfig)
 			val fragment = ChangePasswordDialog()
 			fragment.arguments = args
 			return fragment

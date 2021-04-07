@@ -91,7 +91,7 @@ public class AddExistingVaultWorkflow extends Workflow<AddExistingVaultWorkflow.
 																.getString(R.string.screen_file_browser_add_existing_vault_extra_text)) //
 														.selectingFilesWithNameOnly("masterkey.cryptomator") //
 														.build()), //
-								SerializableResultCallbacks.masterkeyFileChosen());
+								SerializableResultCallbacks.cryptomatorFileChosen());
 					}
 
 					@Override
@@ -112,7 +112,7 @@ public class AddExistingVaultWorkflow extends Workflow<AddExistingVaultWorkflow.
 	}
 
 	@Callback
-	void masterkeyFileChosen(SerializableResult<CloudFileModel> result) {
+	void cryptomatorFileChosen(SerializableResult<CloudFileModel> result) {
 		CloudFileModel masterkeyFile = result.getResult();
 		state().masterkeyFile = masterkeyFile.toCloudNode();
 		presenter().getView().showProgress(ProgressModel.GENERIC);

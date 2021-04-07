@@ -54,18 +54,20 @@ abstract class CryptoImplDecorator {
 	final CloudContentRepository cloudContentRepository;
 	final Context context;
 	final DirIdCache dirIdCache;
+	final int maxFileNameLength;
 
 	private final Supplier<Cryptor> cryptor;
 	private final CloudFolder storageLocation;
 
 	private RootCryptoFolder root;
 
-	CryptoImplDecorator(Context context, Supplier<Cryptor> cryptor, CloudContentRepository cloudContentRepository, CloudFolder storageLocation, DirIdCache dirIdCache) {
+	CryptoImplDecorator(Context context, Supplier<Cryptor> cryptor, CloudContentRepository cloudContentRepository, CloudFolder storageLocation, DirIdCache dirIdCache, int maxFileNameLength) {
 		this.context = context;
 		this.cryptor = cryptor;
 		this.cloudContentRepository = cloudContentRepository;
 		this.storageLocation = storageLocation;
 		this.dirIdCache = dirIdCache;
+		this.maxFileNameLength = maxFileNameLength;
 	}
 
 	abstract CryptoFolder folder(CryptoFolder cryptoParent, String cleartextName) throws BackendException;

@@ -15,8 +15,10 @@ class VaultModel(private val vault: Vault) : Serializable {
 		get() = !vault.isUnlocked
 	val position: Int
 		get() = vault.position
-	val version: Int
-		get() = vault.version
+	val format: Int
+		get() = vault.format
+	val maxFileNameLength: Int
+		get() = vault.maxFileNameLength
 
 	fun toVault(): Vault {
 		return vault

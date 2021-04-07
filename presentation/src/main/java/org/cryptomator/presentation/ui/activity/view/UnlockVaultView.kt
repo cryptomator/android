@@ -1,5 +1,6 @@
 package org.cryptomator.presentation.ui.activity.view
 
+import org.cryptomator.domain.UnverifiedVaultConfig
 import org.cryptomator.presentation.model.VaultModel
 import org.cryptomator.presentation.ui.dialog.EnterPasswordDialog
 
@@ -11,6 +12,6 @@ interface UnlockVaultView : View, EnterPasswordDialog.Callback {
 	fun showBiometricAuthKeyInvalidatedDialog()
 	fun cancelBasicAuthIfRunning()
 	fun stoppedBiometricAuthDuringCloudAuthentication(): Boolean
-	fun showChangePasswordDialog(vaultModel: VaultModel)
+	fun showChangePasswordDialog(vaultModel: VaultModel, unverifiedVaultConfig: UnverifiedVaultConfig?)
 
 }
