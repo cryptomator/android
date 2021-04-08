@@ -49,19 +49,22 @@ public class MasterkeyCryptoCloudProvider implements CryptoCloudProvider {
 
 	private final CloudContentRepository cloudContentRepository;
 	private final CryptoCloudContentRepositoryFactory cryptoCloudContentRepositoryFactory;
+	private final SecureRandom secureRandom;
 
 	public MasterkeyCryptoCloudProvider(CloudContentRepository cloudContentRepository, //
-			CryptoCloudContentRepositoryFactory cryptoCloudContentRepositoryFactory) {
+			CryptoCloudContentRepositoryFactory cryptoCloudContentRepositoryFactory,
+			SecureRandom secureRandom) {
 		this.cloudContentRepository = cloudContentRepository;
 		this.cryptoCloudContentRepositoryFactory = cryptoCloudContentRepositoryFactory;
+		this.secureRandom = secureRandom;
 	}
 
 	@Override
 	public void create(CloudFolder location, CharSequence password) throws BackendException {
 		// 1. write masterkey:
-		Masterkey masterkey = Masterkey.generate(new SecureRandom());
+		Masterkey masterkey = Masterkey.generate(secureRandom);
 		try (ByteArrayOutputStream data = new ByteArrayOutputStream()) {
-			new MasterkeyFileAccess(PEPPER, new SecureRandom()).persist(masterkey, data, password, DEFAULT_MASTERKEY_FILE_VERSION);
+			new MasterkeyFileAccess(PEPPER, secureRandom).persist(masterkey, data, password, DEFAULT_MASTERKEY_FILE_VERSION);
 			cloudContentRepository.write(legacyMasterkeyFile(location), ByteArrayDataSource.from(data.toByteArray()), NO_OP_PROGRESS_AWARE, false, data.size());
 		} catch (IOException e) {
 			throw new FatalBackendException("Failed to write masterkey", e);
@@ -174,7 +177,7 @@ public class MasterkeyCryptoCloudProvider implements CryptoCloudProvider {
 	}
 
 	private Cryptor cryptorFor(Masterkey keyFile, VaultCipherCombo vaultCipherCombo) {
-		return vaultCipherCombo.getCryptorProvider(new SecureRandom()).withKey(keyFile);
+		return vaultCipherCombo.getCryptorProvider(secureRandom).withKey(keyFile);
 	}
 
 	@Override
@@ -269,7 +272,7 @@ public class MasterkeyCryptoCloudProvider implements CryptoCloudProvider {
 
 	private void createNewMasterKeyFile(byte[] data, int vaultVersion, String oldPassword, String newPassword, CloudFile masterkeyFile) throws BackendException {
 		try {
-			byte[] newMasterKeyFile = new MasterkeyFileAccess(PEPPER, new SecureRandom()) //
+			byte[] newMasterKeyFile = new MasterkeyFileAccess(PEPPER, secureRandom) //
 					.changePassphrase(data, normalizePassword(oldPassword, vaultVersion), normalizePassword(newPassword, vaultVersion));
 			cloudContentRepository.write(masterkeyFile, //
 					ByteArrayDataSource.from(newMasterKeyFile), //

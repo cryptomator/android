@@ -12,6 +12,7 @@ import org.cryptomator.domain.usecases.vault.UnlockToken;
 import org.cryptomator.util.Optional;
 
 import java.io.ByteArrayOutputStream;
+import java.security.SecureRandom;
 
 import javax.inject.Inject;
 import javax.inject.Singleton;
@@ -27,6 +28,7 @@ public class CryptoCloudFactory {
 
 	private final CloudContentRepository cloudContentRepository;
 	private final CryptoCloudContentRepositoryFactory cryptoCloudContentRepositoryFactory;
+	private final SecureRandom secureRandom = new SecureRandom();
 
 	@Inject
 	public CryptoCloudFactory(CloudContentRepository cloudContentRepository, //
@@ -84,12 +86,12 @@ public class CryptoCloudFactory {
 		if (unverifiedVaultConfigOptional.isPresent()) {
 			switch (unverifiedVaultConfigOptional.get().getKeyId().getScheme()) {
 				case MASTERKEY_SCHEME: {
-					return new MasterkeyCryptoCloudProvider(cloudContentRepository, cryptoCloudContentRepositoryFactory);
+					return new MasterkeyCryptoCloudProvider(cloudContentRepository, cryptoCloudContentRepositoryFactory, secureRandom);
 				}
 				default: throw new IllegalStateException(String.format("Provider with scheme %s not supported", unverifiedVaultConfigOptional.get().getKeyId().getScheme()));
 			}
 		} else {
-			return new MasterkeyCryptoCloudProvider(cloudContentRepository, cryptoCloudContentRepositoryFactory);
+			return new MasterkeyCryptoCloudProvider(cloudContentRepository, cryptoCloudContentRepositoryFactory, secureRandom);
 		}
 	}
 }
