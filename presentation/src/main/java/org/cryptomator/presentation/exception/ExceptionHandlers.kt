@@ -16,6 +16,9 @@ import org.cryptomator.domain.exception.license.LicenseNotValidException
 import org.cryptomator.domain.exception.license.NoLicenseAvailableException
 import org.cryptomator.domain.exception.update.GeneralUpdateErrorException
 import org.cryptomator.domain.exception.update.SSLHandshakePreAndroid5UpdateCheckException
+import org.cryptomator.domain.exception.vaultconfig.VaultConfigLoadException
+import org.cryptomator.domain.exception.vaultconfig.VaultKeyInvalidException
+import org.cryptomator.domain.exception.vaultconfig.VaultVersionMismatchException
 import org.cryptomator.presentation.R
 import org.cryptomator.presentation.ui.activity.view.View
 import java.util.ArrayList
@@ -45,6 +48,9 @@ class ExceptionHandlers @Inject constructor(private val context: Context, defaul
 		staticHandler(NoLicenseAvailableException::class.java, R.string.dialog_enter_license_no_content)
 		staticHandler(GeneralUpdateErrorException::class.java, R.string.error_general_update)
 		staticHandler(SSLHandshakePreAndroid5UpdateCheckException::class.java, R.string.error_general_update)
+		staticHandler(VaultVersionMismatchException::class.java, R.string.error_vault_version_mismatch)
+		staticHandler(VaultKeyInvalidException::class.java, R.string.error_vault_key_invalid)
+		staticHandler(VaultConfigLoadException::class.java, R.string.error_vault_config_loading)
 		exceptionHandlers.add(MissingCryptorExceptionHandler())
 		exceptionHandlers.add(CancellationExceptionHandler())
 		exceptionHandlers.add(NoSuchVaultExceptionHandler())

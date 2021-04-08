@@ -4,7 +4,6 @@ import android.content.Intent
 import android.net.Uri
 import android.view.View
 import androidx.fragment.app.Fragment
-import org.cryptomator.domain.Vault
 import org.cryptomator.generator.Activity
 import org.cryptomator.generator.InjectIntent
 import org.cryptomator.presentation.CryptomatorApp
@@ -26,7 +25,6 @@ import org.cryptomator.presentation.ui.dialog.BetaConfirmationDialog
 import org.cryptomator.presentation.ui.dialog.UpdateAppAvailableDialog
 import org.cryptomator.presentation.ui.dialog.UpdateAppDialog
 import org.cryptomator.presentation.ui.dialog.VaultDeleteConfirmationDialog
-import org.cryptomator.presentation.ui.dialog.VaultNotFoundDialog
 import org.cryptomator.presentation.ui.dialog.VaultRenameDialog
 import org.cryptomator.presentation.ui.fragment.VaultListFragment
 import org.cryptomator.presentation.ui.layout.ObscuredAwareCoordinatorLayout.Listener
@@ -40,7 +38,6 @@ class VaultListActivity : BaseActivity(), //
 		VaultListView, //
 		VaultListCallback, //
 		AskForLockScreenDialog.Callback, //
-		VaultNotFoundDialog.Callback, //
 		UpdateAppAvailableDialog.Callback, //
 		UpdateAppDialog.Callback, //
 		BetaConfirmationDialog.Callback {
@@ -196,10 +193,6 @@ class VaultListActivity : BaseActivity(), //
 
 	private fun vaultListFragment(): VaultListFragment = //
 			getCurrentFragment(R.id.fragmentContainer) as VaultListFragment
-
-	override fun onDeleteMissingVaultClicked(vault: Vault) {
-		vaultListPresenter.onDeleteMissingVaultClicked(vault)
-	}
 
 	override fun onUpdateAppDialogLoaded() {
 		showProgress(ProgressModel.GENERIC)

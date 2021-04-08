@@ -114,4 +114,8 @@ class UnlockVaultActivity : BaseActivity(), //
 		presenter.onDeleteMissingVaultClicked(vault)
 	}
 
+	override fun onCancelMissingVaultClicked(vault: Vault) {
+		presenter.onCancelMissingVaultClicked(vault)
+	}
+
 }

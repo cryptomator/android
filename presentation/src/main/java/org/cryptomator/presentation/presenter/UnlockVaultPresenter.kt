@@ -29,6 +29,7 @@ import org.cryptomator.presentation.model.ProgressModel
 import org.cryptomator.presentation.model.ProgressStateModel
 import org.cryptomator.presentation.model.VaultModel
 import org.cryptomator.presentation.ui.activity.view.UnlockVaultView
+import org.cryptomator.presentation.ui.dialog.EnterPasswordDialog
 import org.cryptomator.presentation.workflow.ActivityResult
 import org.cryptomator.presentation.workflow.AuthenticationExceptionHandler
 import org.cryptomator.util.Optional
@@ -238,6 +239,14 @@ class UnlockVaultPresenter @Inject constructor(
 							else -> TODO("Not yet implemented")
 						}
 					}
+
+					override fun onError(e: Throwable) {
+						super.onError(e)
+						// finish in case of biometric auth, otherwise show error in dialog
+						if(view?.isShowingDialog(EnterPasswordDialog::class) == false) {
+							finishWithResult(null)
+						}
+					}
 				})
 	}
 
@@ -266,6 +275,7 @@ class UnlockVaultPresenter @Inject constructor(
 
 			override fun onError(e: Throwable) {
 				Timber.tag("VaultListPresenter").e(e, "Error while removing vault passwords")
+				finishWithResult(null)
 			}
 		})
 	}
@@ -350,6 +360,10 @@ class UnlockVaultPresenter @Inject constructor(
 						finishWithResult(null)
 					}
 				})
+	}
+
+	fun onCancelMissingVaultClicked(vault: Vault) {
+		finishWithResult(null)
 	}
 
 	private open class PendingUnlock(private val vault: Vault?) : Serializable {

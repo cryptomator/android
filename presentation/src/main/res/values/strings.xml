@@ -32,7 +32,9 @@
 	<string name="error_failed_to_decrypt_webdav_password">Failed to decrypt WebDAV password, please re add in settings</string>
 	<string name="error_play_services_not_available">Play Services not installed</string>
 	<string name="error_biometric_auth_aborted">Biometric authentication aborted</string>
-
+	<string name="error_vault_version_mismatch">Version specified in vault.cryptomator is different to masterkey.cryptomator</string>
+	<string name="error_vault_key_invalid">vault.cryptomator does not match with this masterkey.cryptomator</string>
+	<string name="error_vault_config_loading">General error while loading the vault config</string>
 	<!-- # clouds -->
 
 	<!-- ## cloud names -->

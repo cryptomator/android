@@ -185,12 +185,8 @@ class VaultListPresenter @Inject constructor( //
 	}
 
 	fun deleteVault(vaultModel: VaultModel) {
-		deleteVault(vaultModel.toVault())
-	}
-
-	private fun deleteVault(vault: Vault) {
 		deleteVaultUseCase //
-				.withVault(vault) //
+				.withVault(vaultModel.toVault()) //
 				.run(object : DefaultResultHandler<Long>() {
 					override fun onSuccess(vaultId: Long) {
 						view?.deleteVaultFromAdapter(vaultId)
@@ -431,10 +427,6 @@ class VaultListPresenter @Inject constructor( //
 				view?.showError(R.string.error_device_policy_manager_not_found)
 			}
 		}
-	}
-
-	fun onDeleteMissingVaultClicked(vault: Vault) {
-		deleteVault(vault)
 	}
 
 	fun onFilteredTouchEventForSecurity() {
