@@ -1,7 +1,6 @@
 package org.cryptomator.presentation.ui.activity
 
 import android.content.Intent
-import android.os.Build
 import android.view.Menu
 import android.view.View
 import androidx.appcompat.widget.SearchView
@@ -229,9 +228,6 @@ class BrowseFilesActivity : BaseActivity(), //
 
 	override fun onPrepareOptionsMenu(menu: Menu): Boolean {
 		if (isNavigationMode(SELECT_ITEMS)) {
-			if (Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP) {
-				menu.findItem(R.id.action_export_items).isVisible = false
-			}
 			menu.findItem(R.id.action_delete_items).isEnabled = enableGeneralSelectionActions
 			menu.findItem(R.id.action_move_items).isEnabled = enableGeneralSelectionActions
 			menu.findItem(R.id.action_export_items).isEnabled = enableGeneralSelectionActions

@@ -79,7 +79,7 @@
 	<string name="screen_file_browser_default_title">Vault</string>
 
 	<string name="screen_file_browser_subtitle_add_existing_vault">@string/screen_vault_list_action_add_existing_vault</string>
-	<string name="screen_file_browser_add_existing_vault_extra_text">Select masterkey file</string>
+	<string name="screen_file_browser_add_existing_vault_extra_text">Select vault or masterkey file</string>
 	<string name="screen_file_browser_subtitle_create_new_vault">@string/screen_vault_list_action_create_new_vault</string>
 	<string name="screen_file_browser_create_new_vault_button_text">Place here</string>
 	<string name="screen_file_browser_create_new_vault_extra_text">Vault name: %1$s</string>

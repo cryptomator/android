@@ -19,6 +19,7 @@ import org.cryptomator.presentation.model.mappers.CloudModelMapper;
 import org.cryptomator.presentation.presenter.VaultListPresenter;
 
 import java.io.Serializable;
+import java.util.Arrays;
 import java.util.List;
 
 import javax.inject.Inject;
@@ -89,7 +90,7 @@ public class AddExistingVaultWorkflow extends Workflow<AddExistingVaultWorkflow.
 														.withExtraText(presenter() //
 																.context() //
 																.getString(R.string.screen_file_browser_add_existing_vault_extra_text)) //
-														.selectingFilesWithNameOnly("masterkey.cryptomator") //
+														.selectingFilesWithNameOnly(Arrays.asList("masterkey.cryptomator", "vault.cryptomator")) //
 														.build()), //
 								SerializableResultCallbacks.cryptomatorFileChosen());
 					}
