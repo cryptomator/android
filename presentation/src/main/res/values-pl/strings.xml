@@ -151,7 +151,7 @@
 	<string name="screen_settings_section_auto_photo_upload">Automatyczne przesyłanie zdjęć</string>
 	<string name="screen_settings_section_auto_photo_upload_vault">Wybierz skarbiec do przesłania</string>
 	<string name="screen_settings_section_auto_photo_upload_toggle">Aktywuj</string>
-	<string name="screen_settings_section_auto_photo_upload_toggle_summary">Przechwytuj zdjęcia w tle i po odblokowaniu wybranego sejfu rozpocznij wysyłanie</string>
+	<string name="screen_settings_section_auto_photo_upload_toggle_summary">Przechwytuj zdjęcia w tle i po odblokowaniu wybranego sejfu rozpocznij przesyłanie</string>
 	<string name="screen_settings_section_auto_photo_upload_only_wifi_toggle">Prześlij tylko przy użyciu WIFI</string>
 	<string name="screen_settings_section_auto_photo_upload_including_videos">Prześlij filmy</string>
 	<string name="screen_settings_auto_photo_upload_title">Zapisz automatycznie przesyłane pliki w&#8230;</string>
@@ -262,16 +262,119 @@
 	<string name="dialog_debug_mode_positive_button">Włącz</string>
 	<string name="dialog_disable_app_obscured_disclaimer_hint">To ustawienie jest funkcją bezpieczeństwa i uniemożliwia innym aplikacjom oszukiwanie użytkowników do robienia rzeczy, których nie chcą robić.\n\nWyłączając je potwierdzasz, że jesteś <a href="https://docs.cryptomator.org/en/1.5/android/settings/#block-app-when-obscured">świadomy ryzyka</a>.</string>
 	<string name="dialog_disable_app_obscured_disclaimer_title">Uwaga</string>
+	<string name="dialog_disable_app_obscured_positive_button">Wyłącz</string>
+	<string name="dialog_app_is_obscured_info_title">Aplikacja jest zasłonięta inną</string>
+	<string name="dialog_app_is_obscured_info_hint">Inna aplikacja jest wyświetlana nad Cryptomatorem (na przykład filtr niebieskiego światła, tryb nocny). Dla twojego bezpieczeństwa Cryptomator jest wyłączony.\n\n<a href="https://docs.cryptomator.org/en/1.5/android/settings/#block-app-when-obscured">Jak ponownie włączyć aplikację. </a></string>
+	<string name="dialog_app_is_obscured_info_neutral_button">Zamknij</string>
+	<string name="dialog_disable_secure_screen_disclaimer_hint">To ustawienie jest funkcją bezpieczeństwa i uniemożliwia innym aplikacjom oszukiwanie użytkowników do robienia rzeczy, których nie chcą robić.\n\nWyłączając je potwierdzasz, że jesteś <a href="https://docs.cryptomator.org/en/1.5/android/settings/#screen-security">świadomy ryzyka</a>.</string>
+	<string name="dialog_delete_cloud_connection_with_vaults_message">Czy na pewno chcesz usunąć to połączenie z serwerem chmury?</string>
+	<string name="dialog_delete_cloud_connection_with_vaults_hint">Ta akcja usunie połączenie z usługą chmury i wszystkie skarbce w tej chmurze.</string>
+	<string name="dialog_confirm_delete_multiple_title">Usunąć %1$d elementów?</string>
+	<string name="dialog_confirm_delete_multiple_message">Na pewno chcesz usunąć wybrane elementy?</string>
+	<string name="dialog_confirm_delete_file_message">Na pewno chcesz usunąć ten plik?</string>
+	<string name="dialog_confirm_delete_folder_message">Spowoduje to usunięcie całej zawartości folderu. Czy na pewno chcesz usunąć ten folder?</string>
+	<string name="dialog_biometric_auth_key_invalidated_title">Funkcja uwierzytelniania biometrycznego jest wyłączona</string>
+	<string name="dialog_biometric_auth_key_invalidated_message">Ponieważ klucz został unieważniony, funkcja uwierzytelniania biometrycznego została dezaktywowana. Aby ponownie włączyć, otwórz ustawienia Cryptomator.</string>
+	<string name="dialog_enter_license_title">Podaj poprawną licencję</string>
+	<string name="dialog_enter_license_content">Wykryliśmy, że zainstalowałeś Cryptomator bez korzystania ze sklepu Google Play. Podaj poprawną licencję, którą można kupić na <a href="https://cryptomator.org/android/">https://cryptomator.org/android/</a></string>
+	<string name="dialog_enter_license_not_valid_content">Podana licencja jest nieprawidłowa. Upewnij się, że została wprowadzona poprawnie.</string>
+	<string name="dialog_enter_license_no_content">Nie udzielono licencji. Wprowadź prawidłową licencję.</string>
+	<string name="dialog_enter_license_decline_button">Wyjdź</string>
+	<string name="dialog_license_confirmation_title">Informacje o licencji</string>
+	<string name="dialog_license_confirmation_message">Dziękujemy %1$s za korzystanie z ważnej licencji.</string>
+	<string name="dialog_update_available_title">Aktualizacja jest dostępna</string>
+	<string name="dialog_update_available_message">Zaktualizuj Cryptomator do najnowszej wersji. Aby pobrać aktualizację potwierdź przyciskiem OK. Następnie zostaniesz poproszony o instalację pobranej aktualizacji.</string>
+	<string name="dialog_update_available_update">Aktualizuj teraz</string>
+	<string name="dialog_update_available_download_site">Otwórz stronę pobierania</string>
+	<string name="dialog_update_available_cancel">Później</string>
+	<string name="dialog_download_update_title">Trwa pobieranie</string>
+	<string name="dialog_download_update_message">Pobieranie najnowszej wersji Cryptomator</string>
+	<string name="dialog_sym_link_title">Folder jest linkiem symbolicznym</string>
+	<string name="dialog_sym_link_message">Nie możesz przejść do tego linku symbolicznego</string>
+	<string name="dialog_sym_link_back_button">Powrót</string>
+	<string name="dialog_no_dir_file_title">Nie można załadować zawartości katalogu</string>
+	<string name="dialog_no_dir_file_message">Folder \'%1$s\' w chmurze nie ma pliku katalogowego. Być może folder został utworzony na innym urządzeniu i nie został jeszcze w pełni zsynchronizowany z chmurą. Sprawdź w chmurze, czy następujący plik istnieje:\n%2$s</string>
+	<string name="dialog_beta_confirmation_title">Wersja Beta</string>
+	<string name="dialog_beta_confirmation">To jest wydanie beta wprowadzająca obsługę formatu 7 skarbca. Przed kontynuowaniem upewnij się, że masz kopię zapasową skarbca oraz nie używasz wersji jego wersji produkcyjnej.</string>
+	<string name="dialog_no_more_images_to_display">Brak obrazów do wyświetlenia&#8230;</string>
 	<string name="permission_snackbar_auth_local_vault">Cryptomator potrzebuje dostępu do pamięci lokalnej, aby uzyskać dostęp do skarbca</string>
-	<string name="permission_snackbar_auth_auto_upload">Cryptomator potrzebuje dostępu do pamięci lokalnej, aby automatycznie wysyłać zdjęcia</string>
+	<string name="permission_snackbar_auth_auto_upload">Cryptomator potrzebuje dostępu do pamięci lokalnej, aby automatycznie przesyłać zdjęcia</string>
 	<!-- # error reports -->
 	<!-- # misc -->
 	<!-- ## file size helper -->
+	<string name="file_size_zero">0 kB</string>
+	<string name="file_size_unit_bytes">bajtów</string>
+	<string name="file_size_unit_kilo_bytes">kB</string>
+	<string name="file_size_unit_mega_bytes">MB</string>
+	<string name="file_size_unit_giga_bytes">GB</string>
+	<string name="file_size_unit_tera_bytes">TB</string>
 	<!-- ## date helper -->
+	<string name="time_unit_seconds_sg">sekunda</string>
+	<string name="time_unit_seconds_pl">sekund</string>
+	<string name="time_unit_minutes_sg">minuta</string>
+	<string name="time_unit_minutes_pl">minut</string>
+	<string name="time_unit_hours_sg">godzina</string>
+	<string name="time_unit_hours_pl">godzin</string>
+	<string name="time_unit_days_sg">dzień</string>
+	<string name="time_unit_days_pl">dni</string>
+	<string name="time_unit_weeks_sg">tydzień</string>
+	<string name="time_unit_weeks_pl">tygodni</string>
+	<string name="time_unit_months_sg">miesiąc</string>
+	<string name="time_unit_months_pl">miesięcy</string>
+	<string name="time_unit_years_sg">rok</string>
+	<string name="time_unit_years_pl">lata</string>
 	<!-- ## biometric authentication -->
+	<string name="dialog_biometric_auth_title">Logowanie biometryczne</string>
+	<string name="dialog_biometric_auth_message">Zaloguj się przy użyciu danych biometrycznych</string>
+	<string name="dialog_biometric_auth_use_password">Użyj hasła skarbca</string>
+	<string name="dialog_unable_to_auto_upload_files_title">Nie można automatycznie przesłać plików</string>
 	<!-- notification -->
+	<string name="notification_unlocked">Odblokowane skarbce: %1$d</string>
+	<string name="notification_timeout">Automatyczna blokada w %1$s</string>
+	<string name="notification_lock_all">Zablokuj wszystko</string>
+	<string name="notification_cancel_auto_upload">Anuluj przesyłanie</string>
+	<string name="notification_auto_upload_title">Automatyczne przesyłanie zdjęć w toku</string>
+	<string name="notification_auto_upload_message">Przesyłanie %1d/%2d</string>
+	<string name="notification_auto_upload_finished_title">Automatyczne przesyłanie zdjęć zostało zakończone</string>
+	<string name="notification_auto_upload_finished_message">%1$d zdjęć zostało przesłanych do skarbca</string>
+	<string name="notification_auto_upload_failed_title">Automatyczne przesyłanie zdjęć nie powiodło się</string>
+	<string name="notification_auto_upload_failed_general_error">Wystąpił błąd podczas przesyłania.</string>
+	<string name="notification_auto_upload_failed_due_to_vault_locked">Skarbiec został zablokowany podczas przesyłania, otwórz go ponownie aby kontynuować</string>
+	<string name="notification_open_writable_file_title">Otwórz plik zapisywalny</string>
+	<string name="notification_open_writable_file_message">Skarbiec pozostaje odblokowany do czasu zakończenia edycji</string>
+	<string name="notification_update_check_finished_latest">Zainstalowano najnowszą wersję</string>
+	<string name="screen_settings_lru_cache">Pamięć podręczna</string>
+	<string name="screen_settings_lru_cache_toggle_summary">Pamięć podręczna ostatnio uruchomionych plików zaszyfrowanych lokalnie na urządzeniu w celu ponownego użycia po ponownym otwarciu</string>
+	<string name="screen_settings_lru_cache_size">Rozmiar całkowity pamięci podręcznej</string>
+	<string name="screen_settings_clear_lru_cache_size">Wyczyść pamięć podręczną</string>
+	<string name="screen_settings_lru_cache_changed__restart_toast">Zmiany zostaną zastosowane po ponownym uruchomieniu</string>
+	<string name="screen_settings_license">Zarejestrowano dla</string>
+	<string name="screen_settings_license_mail">%1$s</string>
+	<string name="dialog_settings_update_check_interval_title">Częstotliwość sprawdzania aktualizacji</string>
+	<string name="screen_settings_check_updates">Sprawdź dostępne aktualizacje</string>
+	<string name="screen_settings_last_check_updates">Ostatnio uruchomiono %1$s</string>
+	<string name="dialog_cache_size_title">Rozmiar pamięci podręcznej według serwisu chmury</string>
 	<!-- lock timeout names -->
+	<string name="lock_timeout_instant">Natychmiast</string>
+	<string name="lock_timeout_1m">1 minuta</string>
+	<string name="lock_timeout_2m">2 minuty</string>
+	<string name="lock_timeout_5m">5 minut</string>
+	<string name="lock_timeout_10m">10 minut</string>
+	<string name="lock_timeout_never">Nigdy</string>
 	<!-- cache size names -->
+	<string name="cache_size_50m">50 MB</string>
+	<string name="cache_size_100m">100 MB</string>
+	<string name="cache_size_250m">250 MB</string>
+	<string name="cache_size_500m">500 MB</string>
+	<string name="cache_size_1000m">1 GB</string>
+	<string name="cache_size_5000m">5 GB</string>
 	<!-- screen scheme mode names -->
+	<string name="screen_settings_style_mode">Wygląd</string>
+	<string name="follow_system">Automatyczny (motyw systemu)</string>
+	<string name="light">Jasny</string>
+	<string name="dark">Ciemny</string>
 	<!-- update interval names -->
+	<string name="update_interval_1d">Raz dziennie</string>
+	<string name="update_interval_1w">Raz w tygodniu</string>
+	<string name="update_interval_1m">Raz w miesiącu</string>
 </resources>
