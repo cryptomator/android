@@ -106,6 +106,7 @@
 	<string name="screen_cloud_error_webdav_not_supported">Serwer wydaje się być niekompatybilny z WebDAV</string>
 	<string name="screen_cloud_local_custom_storage_title">Niestandardowe lokalizacje</string>
 	<string name="screen_cloud_local_default_storage_title">Pamięć domyślna</string>
+	<string name="screen_cloud_local_error_no_content_provider">Brak dodatkowych lokalizacji.</string>
 	<!-- ## screen: webdav settings -->
 	<string name="screen_webdav_settings_url_port_label">URL</string>
 	<string name="screen_webdav_settings_username_label">Login</string>
@@ -236,6 +237,7 @@
 	<string name="dialog_progress_creating_text_file">Tworzenie pliku tekstowego&#8230;</string>
 	<string name="action_progress_authentication">Uwierzytelnianie&#8230;</string>
 	<string name="action_progress_renaming">Zmiana nazwy&#8230;</string>
+	<string name="action_progress_deleting">Usuwanie&#8230;</string>
 	<string name="dialog_progress_unlocking_vault">Odblokowanie skarbca&#8230;</string>
 	<string name="dialog_progress_change_password">Zmiana hasła&#8230;</string>
 	<string name="dialog_progress_creating_vault">Tworzenie skarbca&#8230;</string>
@@ -339,6 +341,7 @@
 	<string name="notification_auto_upload_finished_message">%1$d zdjęć zostało przesłanych do skarbca</string>
 	<string name="notification_auto_upload_failed_title">Automatyczne przesyłanie zdjęć nie powiodło się</string>
 	<string name="notification_auto_upload_failed_general_error">Wystąpił błąd podczas przesyłania.</string>
+	<string name="notification_auto_upload_failed_due_to_folder_not_exists">Wybrany folder do przesłania nie jest już dostępny. Przejdź do ustawień i wybierz nowy</string>
 	<string name="notification_auto_upload_failed_due_to_vault_locked">Skarbiec został zablokowany podczas przesyłania, otwórz go ponownie aby kontynuować</string>
 	<string name="notification_open_writable_file_title">Otwórz plik zapisywalny</string>
 	<string name="notification_open_writable_file_message">Skarbiec pozostaje odblokowany do czasu zakończenia edycji</string>
