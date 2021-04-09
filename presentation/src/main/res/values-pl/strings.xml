@@ -353,7 +353,7 @@
 	<string name="dialog_settings_update_check_interval_title">Częstotliwość sprawdzania aktualizacji</string>
 	<string name="screen_settings_check_updates">Sprawdź dostępne aktualizacje</string>
 	<string name="screen_settings_last_check_updates">Ostatnio uruchomiono %1$s</string>
-	<string name="dialog_cache_size_title">Rozmiar pamięci podręcznej według serwisu chmury</string>
+	<string name="dialog_cache_size_title">Rozmiar pamięci podręcznej na usługę</string>
 	<!-- lock timeout names -->
 	<string name="lock_timeout_instant">Natychmiast</string>
 	<string name="lock_timeout_1m">1 minuta</string>
