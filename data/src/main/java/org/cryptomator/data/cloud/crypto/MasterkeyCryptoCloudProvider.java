@@ -61,6 +61,12 @@ public class MasterkeyCryptoCloudProvider implements CryptoCloudProvider {
 
 	@Override
 	public void create(CloudFolder location, CharSequence password) throws BackendException {
+		// Just for testing (id in VaultConfig is auto generated which makes sense while creating a vault but not for testing)
+		create(location, password, VaultConfig.createVaultConfig());
+	}
+
+	// Visible for testing
+	void create(CloudFolder location, CharSequence password, VaultConfig.VaultConfigBuilder vaultConfigBuilder) throws BackendException {
 		// 1. write masterkey:
 		Masterkey masterkey = Masterkey.generate(secureRandom);
 		try (ByteArrayOutputStream data = new ByteArrayOutputStream()) {
@@ -71,7 +77,7 @@ public class MasterkeyCryptoCloudProvider implements CryptoCloudProvider {
 		}
 
 		// 2. initialize vault:
-		VaultConfig vaultConfig = new VaultConfig.VaultConfigBuilder() //
+		VaultConfig vaultConfig = vaultConfigBuilder //
 				.vaultFormat(MAX_VAULT_VERSION) //
 				.cipherCombo(DEFAULT_CIPHER_COMBO) //
 				.keyId(URI.create(String.format("%s:%s", MASTERKEY_SCHEME, MASTERKEY_FILE_NAME))) //
