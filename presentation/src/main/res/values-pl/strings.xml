@@ -4,7 +4,7 @@
 	<string name="share_with_label">Szyfruj</string>
 	<!-- # error messages -->
 	<string name="error_generic">Błąd programu</string>
-	<string name="error_authentication_failed">Uwierzytelnianie nieudane</string>
+	<string name="error_authentication_failed">Uwierzytelnianie nie powiodło się</string>
 	<string name="error_authentication_failed_re_authenticate">Uwierzytelnianie nie powiodło się, zaloguj się za pomocą %1$s</string>
 	<string name="error_no_network_connection">Brak połączenia z Internetem</string>
 	<string name="error_invalid_passphrase">Błędne hasło</string>
@@ -12,13 +12,69 @@
 	<string name="error_vault_version_not_supported">Nieobsługiwany skarbiec. Ten skarbiec został utworzony z inną wersją Cryptomator.</string>
 	<string name="error_vault_already_exists">Skarbiec już istnieje.</string>
 	<string name="error_no_such_file">Plik nie istnieje.</string>
+	<string name="error_vault_has_been_locked">Skarbiec został zablokowany.</string>
+	<string name="error_cloud_already_exists">Serwis już istnieje.</string>
+	<string name="error_activity_not_found">Pobierz aplikację, która może otworzyć ten plik.</string>
+	<string name="error_server_not_found">Nie znaleziono serwera.</string>
+	<string name="error_device_policy_manager_not_found">Otwórz ustawienia urządzenia i ustaw ręcznie blokadę ekranu</string>
+	<string name="error_export_illegal_file_name">Eksport nie powiódł się. Spróbuj usunąć znaki specjalne z nazw plików i spróbuj ponownie.</string>
+	<string name="error_name_contains_invalid_characters">Nie może zawierać znaków specjalnych.</string>
+	<string name="error_names_contains_invalid_characters">Nazwa pliku nie może zawierać znaków specjalnych.</string>
+	<string name="error_vault_name_contains_invalid_characters">Nazwa skarbca nie może zawierać znaków specjalnych.</string>
+	<string name="error_general_update">Błąd sprawdzania aktualizacji. Wystąpił błąd ogólny.</string>
+	<string name="error_update_no_internet">Błąd sprawdzania aktualizacji. Brak połączenia z Internetem.</string>
+	<string name="error_failed_to_decrypt_webdav_password">Nie udało się odszyfrować hasła WebDAV, proszę dodać je w ustawieniach</string>
+	<string name="error_play_services_not_available">Usługi Google Play nie są zainstalowane</string>
+	<string name="error_biometric_auth_aborted">Przerwano biometryczną autoryzację</string>
 	<!-- # clouds -->
 	<!-- ## cloud names -->
+	<string name="cloud_names_local_storage">Magazyn lokalny</string>
 	<!-- # permission -->
 	<!-- ## permission messages -->
+	<string name="permission_message_export_file">Cryptomator potrzebuje dostępu do pamięci masowej do eksportu plików</string>
+	<string name="permission_message_upload_file">Cryptomator potrzebuje dostępu do pamięci masowej, aby przesłać pliki</string>
+	<string name="permission_message_share_file">Cryptomator potrzebuje dostępu do pamięci masowej, aby udostępniać pliki</string>
+	<string name="snack_bar_action_title_settings">Ustawienia</string>
+	<string name="snack_bar_action_title_search">Szukaj</string>
+	<string name="snack_bar_action_title_search_previous">Poprzedni</string>
+	<string name="snack_bar_action_title_search_next">Następny</string>
+	<string name="snack_bar_action_title_sort">Sortuj</string>
+	<string name="snack_bar_action_title_sort_az">A - Z</string>
+	<string name="snack_bar_action_title_sort_za">Z - A</string>
+	<string name="snack_bar_action_title_sort_newest">Od najnowszych</string>
+	<string name="snack_bar_action_title_sort_oldest">Od najstarszych</string>
+	<string name="snack_bar_action_title_sort_biggest">Od największych</string>
+	<string name="snack_bar_action_title_sort_smallest">Od najmniejszych</string>
 	<!-- # screens -->
 	<!-- # screen: vault list -->
+	<string name="screen_vault_list_actions_title">Dodaj do Cryptomator</string>
+	<string name="screen_vault_list_action_create_new_vault">Utwórz nowy skarbiec</string>
+	<string name="screen_vault_list_action_add_existing_vault">Dodaj istniejący skarbiec</string>
+	<string name="screen_vault_list_vault_action_delete">Usuń</string>
+	<string name="screen_vault_list_vault_creation_hint">Kliknij tutaj, aby utworzyć nowy skarbiec</string>
+	<string name="screen_vault_list_change_password_successful">Hasło zostało pomyślnie zmienione</string>
 	<!-- # screen: file browser -->
+	<string name="screen_file_browser_default_title">Skarbiec</string>
+	<string name="screen_file_browser_add_existing_vault_extra_text">Wybierz plik klucza głównego</string>
+	<string name="screen_file_browser_create_new_vault_button_text">Umieść tutaj</string>
+	<string name="screen_file_browser_create_new_vault_extra_text">Nazwa skarbca: %1$s</string>
+	<string name="screen_file_browser_move_button_text">Przenieś</string>
+	<string name="screen_file_browser_msg_empty_folder">Pusty folder</string>
+	<string name="screen_file_browser_file_info_label_date">zmodyfikowano %1$s temu</string>
+	<string name="screen_file_browser_share_intent_chooser_title">Udostępnij z</string>
+	<string name="screen_file_browser_share_destination_title">Miejsce docelowe</string>
+	<string name="screen_file_browser_share_button_text">Wybierz</string>
+	<string name="screen_file_browser_nothing_to_share">Nie ma nic do udostępnienia</string>
+	<string name="screen_file_browser_actions_title">Dodaj do %1$s</string>
+	<string name="screen_file_browser_action_create_folder">Utwórz folder</string>
+	<string name="screen_file_browser_action_create_new_text_file">Utwórz plik tekstowy</string>
+	<string name="screen_file_browser_action_upload_files">Prześlij pliki</string>
+	<string name="screen_file_browser_upload_files_chooser_title">Pliki</string>
+	<string name="screen_file_browser_msg_file_exported">Plik został wyeksportowany</string>
+	<string name="screen_file_browser_msg_files_exported">Pliki zostały wyeksportowane</string>
+	<string name="screen_file_browser_nothing_to_export">Nie ma nic do wyeksportowania</string>
+	<string name="screen_file_browser_msg_creating_download_dir_failed">Tworzenie katalogu pobierania nie powiodło się</string>
+	<string name="screen_file_browser_node_action_share">Udostępnij</string>
 	<!-- ## screen: text editor -->
 	<!-- ## screen: share files -->
 	<!-- ## screen: choose cloud service -->
@@ -27,6 +83,7 @@
 	<!-- ## screen: enter vault name -->
 	<!-- ## screen: set password -->
 	<!-- ## screen: settings -->
+	<string name="screen_settings_section_search">Szukaj</string>
 	<!-- ## screen: cloud settings -->
 	<!-- ## screen: licenses -->
 	<!-- ## screen: authenticate cloud -->
@@ -34,6 +91,7 @@
 	<!-- ## screen: insecure android version info -->
 	<!-- # dialogs -->
 	<!-- Vault not found -->
+	<string name="dialog_vault_not_found_positive_button_text">Usuń</string>
 	<!-- # error reports -->
 	<!-- # misc -->
 	<!-- ## file size helper -->
