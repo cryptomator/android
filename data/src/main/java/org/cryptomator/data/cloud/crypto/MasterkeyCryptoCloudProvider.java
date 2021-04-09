@@ -52,7 +52,7 @@ public class MasterkeyCryptoCloudProvider implements CryptoCloudProvider {
 	private final SecureRandom secureRandom;
 
 	public MasterkeyCryptoCloudProvider(CloudContentRepository cloudContentRepository, //
-			CryptoCloudContentRepositoryFactory cryptoCloudContentRepositoryFactory,
+			CryptoCloudContentRepositoryFactory cryptoCloudContentRepositoryFactory, //
 			SecureRandom secureRandom) {
 		this.cloudContentRepository = cloudContentRepository;
 		this.cryptoCloudContentRepositoryFactory = cryptoCloudContentRepositoryFactory;
@@ -138,7 +138,7 @@ public class MasterkeyCryptoCloudProvider implements CryptoCloudProvider {
 			Vault vault = aCopyOf(token.getVault()) //
 					.withUnlocked(true) //
 					.withFormat(vaultFormat) //
-					.withMaxFileNameLength(maxFileNameLength)
+					.withMaxFileNameLength(maxFileNameLength) //
 					.build();
 
 			cryptoCloudContentRepositoryFactory.registerCryptor(vault, cryptor);
@@ -182,7 +182,8 @@ public class MasterkeyCryptoCloudProvider implements CryptoCloudProvider {
 		return data.toByteArray();
 	}
 
-	private Cryptor cryptorFor(Masterkey keyFile, VaultCipherCombo vaultCipherCombo) {
+	// Visible for testing
+	Cryptor cryptorFor(Masterkey keyFile, VaultCipherCombo vaultCipherCombo) {
 		return vaultCipherCombo.getCryptorProvider(secureRandom).withKey(keyFile);
 	}
 
@@ -190,14 +191,15 @@ public class MasterkeyCryptoCloudProvider implements CryptoCloudProvider {
 	public boolean isVaultPasswordValid(Vault vault, Optional<UnverifiedVaultConfig> unverifiedVaultConfig, CharSequence password) throws BackendException {
 		try {
 			// create a cryptor, which checks the password, then destroy it immediately
-			Masterkey masterkey = createUnlockToken(vault, unverifiedVaultConfig).getKeyFile(password);
+			UnlockTokenImpl unlockToken = createUnlockToken(vault, unverifiedVaultConfig);
+			Masterkey masterkey = unlockToken.getKeyFile(password);
 			VaultCipherCombo vaultCipherCombo;
-			if(unverifiedVaultConfig.isPresent()) {
+			if (unverifiedVaultConfig.isPresent()) {
 				VaultConfig vaultConfig = VaultConfig.verify(masterkey.getEncoded(), unverifiedVaultConfig.get());
 				assertVaultVersionIsSupported(vaultConfig.getVaultFormat());
 				vaultCipherCombo = vaultConfig.getCipherCombo();
 			} else {
-				int vaultVersion = MasterkeyFileAccess.readAllegedVaultVersion(masterkey.getEncoded());
+				int vaultVersion = MasterkeyFileAccess.readAllegedVaultVersion(unlockToken.keyFileData);
 				assertLegacyVaultVersionIsSupported(vaultVersion);
 				vaultCipherCombo = SIV_CTRMAC;
 			}
@@ -234,8 +236,6 @@ public class MasterkeyCryptoCloudProvider implements CryptoCloudProvider {
 	@Override
 	public void changePassword(Vault vault, Optional<UnverifiedVaultConfig> unverifiedVaultConfig, String oldPassword, String newPassword) throws BackendException {
 		CloudFolder vaultLocation = vaultLocation(vault);
-		ByteArrayOutputStream dataOutputStream = new ByteArrayOutputStream();
-
 		CloudFile masterkeyFile;
 		if (unverifiedVaultConfig.isPresent()) {
 			masterkeyFile = masterkeyFile(vaultLocation, unverifiedVaultConfig.get());
@@ -243,6 +243,7 @@ public class MasterkeyCryptoCloudProvider implements CryptoCloudProvider {
 			masterkeyFile = legacyMasterkeyFile(vaultLocation);
 		}
 
+		ByteArrayOutputStream dataOutputStream = new ByteArrayOutputStream();
 		cloudContentRepository.read(masterkeyFile, Optional.empty(), dataOutputStream, NO_OP_PROGRESS_AWARE);
 		byte[] data = dataOutputStream.toByteArray();
 
@@ -298,12 +299,12 @@ public class MasterkeyCryptoCloudProvider implements CryptoCloudProvider {
 		}
 	}
 
-	private static class UnlockTokenImpl implements UnlockToken {
+	static class UnlockTokenImpl implements UnlockToken {
 
 		private final Vault vault;
 		private final byte[] keyFileData;
 
-		private UnlockTokenImpl(Vault vault, byte[] keyFileData) {
+		UnlockTokenImpl(Vault vault, byte[] keyFileData) {
 			this.vault = vault;
 			this.keyFileData = keyFileData;
 		}
