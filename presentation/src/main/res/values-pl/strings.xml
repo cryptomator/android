@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+	<!-- # app -->
+	<string name="share_with_label">Szyfruj</string>
+	<!-- # error messages -->
+	<string name="error_generic">Błąd programu</string>
+	<string name="error_authentication_failed">Uwierzytelnianie nieudane</string>
+	<string name="error_authentication_failed_re_authenticate">Uwierzytelnianie nie powiodło się, zaloguj się za pomocą %1$s</string>
+	<string name="error_no_network_connection">Brak połączenia z Internetem</string>
+	<string name="error_invalid_passphrase">Błędne hasło</string>
+	<string name="error_file_or_folder_exists">Plik lub folder już istnieje.</string>
+	<string name="error_vault_version_not_supported">Nieobsługiwany skarbiec. Ten skarbiec został utworzony z inną wersją Cryptomator.</string>
+	<string name="error_vault_already_exists">Skarbiec już istnieje.</string>
+	<string name="error_no_such_file">Plik nie istnieje.</string>
+	<!-- # clouds -->
+	<!-- ## cloud names -->
+	<!-- # permission -->
+	<!-- ## permission messages -->
+	<!-- # screens -->
+	<!-- # screen: vault list -->
+	<!-- # screen: file browser -->
+	<!-- ## screen: text editor -->
+	<!-- ## screen: share files -->
+	<!-- ## screen: choose cloud service -->
+	<!-- ## screen: cloud connections -->
+	<!-- ## screen: webdav settings -->
+	<!-- ## screen: enter vault name -->
+	<!-- ## screen: set password -->
+	<!-- ## screen: settings -->
+	<!-- ## screen: cloud settings -->
+	<!-- ## screen: licenses -->
+	<!-- ## screen: authenticate cloud -->
+	<!-- ## screen: empty dir file info -->
+	<!-- ## screen: insecure android version info -->
+	<!-- # dialogs -->
+	<!-- Vault not found -->
+	<!-- # error reports -->
+	<!-- # misc -->
+	<!-- ## file size helper -->
+	<!-- ## date helper -->
+	<!-- ## biometric authentication -->
+	<!-- notification -->
+	<!-- lock timeout names -->
+	<!-- cache size names -->
+	<!-- screen scheme mode names -->
+	<!-- update interval names -->
+</resources>
