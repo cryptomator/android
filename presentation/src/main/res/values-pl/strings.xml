@@ -13,7 +13,7 @@
 	<string name="error_vault_already_exists">Skarbiec już istnieje.</string>
 	<string name="error_no_such_file">Plik nie istnieje.</string>
 	<string name="error_vault_has_been_locked">Skarbiec został zablokowany.</string>
-	<string name="error_cloud_already_exists">Serwis już istnieje.</string>
+	<string name="error_cloud_already_exists">Usługa już istnieje.</string>
 	<string name="error_activity_not_found">Pobierz aplikację, która może otworzyć ten plik.</string>
 	<string name="error_server_not_found">Nie znaleziono serwera.</string>
 	<string name="error_device_policy_manager_not_found">Otwórz ustawienia urządzenia i ustaw ręcznie blokadę ekranu</string>
@@ -28,7 +28,7 @@
 	<string name="error_biometric_auth_aborted">Przerwano biometryczną autoryzację</string>
 	<!-- # clouds -->
 	<!-- ## cloud names -->
-	<string name="cloud_names_local_storage">Magazyn lokalny</string>
+	<string name="cloud_names_local_storage">Pamięć wewnętrzna</string>
 	<!-- # permission -->
 	<!-- ## permission messages -->
 	<string name="permission_message_export_file">Cryptomator potrzebuje dostępu do pamięci masowej do eksportu plików</string>
@@ -75,16 +75,67 @@
 	<string name="screen_file_browser_nothing_to_export">Nie ma nic do wyeksportowania</string>
 	<string name="screen_file_browser_msg_creating_download_dir_failed">Tworzenie katalogu pobierania nie powiodło się</string>
 	<string name="screen_file_browser_node_action_share">Udostępnij</string>
+	<string name="screen_file_browser_node_action_rename">Zmień nazwę</string>
+	<string name="screen_file_browser_node_action_edit_text">Edytuj</string>
+	<string name="screen_file_browser_node_action_export">Eksportuj</string>
+	<string name="screen_file_browser_node_action_delete">Usuń</string>
+	<string name="screen_file_browser_node_action_open_with_text">Otwórz z&#8230;</string>
+	<string name="screen_file_browser_selection_mode_title_zero_elements">Wybierz elementy</string>
+	<string name="screen_file_browser_selection_mode_title_one_or_more_elements">%1$d wybranych</string>
+	<string name="screen_file_browser_select_items">Wybierz&#8230;</string>
+	<string name="screen_file_browser_select_all_items">Zaznacz wszystko</string>
+	<string name="screen_file_browser_refresh_items">Odśwież</string>
+	<string name="screen_file_browser_no_connection_message">Brak połączenia</string>
+	<string name="screen_file_browser_no_connection_button_text">Ponów</string>
 	<!-- ## screen: text editor -->
+	<string name="screen_text_editor_save_success">Zapisano pomyślnie</string>
 	<!-- ## screen: share files -->
+	<string name="screen_share_files_title">Zapisz %1$s do&#8230;</string>
+	<string name="screen_share_files_content_text">tekst</string>
+	<string name="screen_share_files_content_file">plik</string>
+	<string name="screen_share_files_content_files">pliki</string>
+	<string name="screen_share_files_msg_filenames_must_be_unique">Nazwy plików muszą być unikalne, zmień nazwy duplikatów.</string>
+	<string name="screen_share_files_section_location">Lokalizacja zapisu</string>
+	<string name="screen_share_files_save_button_text">Zapisz</string>
+	<string name="screen_share_files_msg_success">Szyfrowanie zakończone</string>
 	<!-- ## screen: choose cloud service -->
+	<string name="screen_choose_cloud_service_title">Usługi chmury</string>
 	<!-- ## screen: cloud connections -->
+	<string name="screen_cloud_connections_title">Wybierz lokalizację</string>
+	<string name="screen_cloud_connections_no_connections">Kliknij tutaj, aby dodać nową lokalizację</string>
+	<string name="screen_cloud_error_webdav_not_supported">Serwer wydaje się być niekompatybilny z WebDAV</string>
+	<string name="screen_cloud_local_custom_storage_title">Niestandardowe lokalizacje</string>
+	<string name="screen_cloud_local_default_storage_title">Pamięć domyślna</string>
 	<!-- ## screen: webdav settings -->
+	<string name="screen_webdav_settings_url_port_label">URL</string>
+	<string name="screen_webdav_settings_username_label">Login</string>
+	<string name="screen_webdav_settings_password_label">Hasło</string>
+	<string name="screen_webdav_settings_done_button_text">Połącz</string>
+	<string name="screen_webdav_settings_msg_url_must_not_be_empty">Adres URL nie może być pusty.</string>
+	<string name="screen_webdav_settings_msg_url_is_invalid">Adres URL jest nieprawidłowy.</string>
+	<string name="screen_webdav_settings_msg_username_must_not_be_empty">Login nie może być pusty.</string>
+	<string name="screen_webdav_settings_msg_password_must_not_be_empty">Hasło nie może być puste.</string>
 	<!-- ## screen: enter vault name -->
+	<string name="screen_enter_vault_name_msg_name_empty">Nazwa skarbca nie może być pusta.</string>
+	<string name="screen_enter_vault_name_vault_label">Nazwa skarbca</string>
+	<string name="screen_enter_vault_name_button_text">Utwórz</string>
 	<!-- ## screen: set password -->
+	<string name="screen_set_password_title">Ustaw hasło</string>
+	<string name="screen_set_password_msg_password_mismatch">Hasła nie zgadzają się.</string>
+	<string name="screen_set_password_button_text">Gotowe</string>
+	<string name="screen_set_password_hint">WAŻNE: Jeśli zapomnisz hasła, nie ma możliwości odzyskania danych.</string>
+	<string name="screen_set_password_retype_password_label">Wpisz hasło ponownie</string>
+	<string name="screen_set_password_strength_indicator_0">Bardzo słabe</string>
+	<string name="screen_set_password_strength_indicator_1">Słabe</string>
+	<string name="screen_set_password_strength_indicator_2">Średnie</string>
+	<string name="screen_set_password_strength_indicator_3">Mocne</string>
+	<string name="screen_set_password_strength_indicator_4">Bardzo mocne</string>
 	<!-- ## screen: settings -->
+	<string name="screen_settings_section_general">Ogólne</string>
+	<string name="screen_settings_cloud_settings_label">Usługi chmury</string>
 	<string name="screen_settings_section_search">Szukaj</string>
 	<!-- ## screen: cloud settings -->
+	<string name="screen_cloud_settings_local_storage_locations">Lokalizacja pamięci wewnętrznej</string>
 	<!-- ## screen: licenses -->
 	<!-- ## screen: authenticate cloud -->
 	<!-- ## screen: empty dir file info -->
@@ -92,6 +143,8 @@
 	<!-- # dialogs -->
 	<!-- Vault not found -->
 	<string name="dialog_vault_not_found_positive_button_text">Usuń</string>
+	<string name="permission_snackbar_auth_local_vault">Cryptomator potrzebuje dostępu do pamięci lokalnej, aby uzyskać dostęp do skarbca</string>
+	<string name="permission_snackbar_auth_auto_upload">Cryptomator potrzebuje dostępu do pamięci lokalnej, aby automatycznie wysyłać zdjęcia</string>
 	<!-- # error reports -->
 	<!-- # misc -->
 	<!-- ## file size helper -->
