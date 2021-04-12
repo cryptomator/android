@@ -16,6 +16,8 @@ android {
 
 		buildConfigField 'int', 'VERSION_CODE', "${globalConfiguration["androidVersionCode"]}"
 		buildConfigField "String", "VERSION_NAME", "\"${globalConfiguration["androidVersionName"]}\""
+
+		testInstrumentationRunner 'androidx.test.runner.AndroidJUnitRunner'
 	}
 
 	compileOptions {
@@ -50,10 +52,8 @@ dependencies {
 	implementation dependencies.appcompat
 
 	api dependencies.jsonWebTokenApi
-	runtimeOnly dependencies.jsonWebTokenImpl
-	runtimeOnly(dependencies.jsonWebTokenJson) {
-		exclude group: 'org.json', module: 'json' //provided by Android natively
-	}
+	implementation dependencies.jsonWebTokenImpl
+	implementation dependencies.jsonWebTokenJson
 
 	// test
 	testImplementation dependencies.junit
@@ -65,6 +65,7 @@ dependencies {
 	testRuntimeOnly dependencies.junit4Engine
 
 	testImplementation dependencies.mockito
+	testImplementation dependencies.mockitoInline
 	testImplementation dependencies.hamcrest
 }
 

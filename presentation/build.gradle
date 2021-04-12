@@ -169,12 +169,6 @@ dependencies {
 	implementation dependencies.zxcvbn
 	implementation dependencies.rxBinding
 
-	api dependencies.jsonWebTokenApi
-	runtimeOnly dependencies.jsonWebTokenImpl
-	runtimeOnly(dependencies.jsonWebTokenJson) {
-		exclude group: 'org.json', module: 'json' //provided by Android natively
-	}
-
 	// multidex
 	implementation dependencies.multidex
 
@@ -236,4 +230,17 @@ androidExtensions {
 
 static def getApiKey(key) {
 	return System.getenv().getOrDefault(key, "")
+}
+
+tasks.withType(Test) {
+	testLogging {
+		events "failed"
+
+		showExceptions true
+		exceptionFormat "full"
+		showCauses true
+		showStackTraces true
+
+		showStandardStreams = false
+	}
 }

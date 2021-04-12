@@ -17,6 +17,8 @@ android {
 
 		buildConfigField 'int', 'VERSION_CODE', "${globalConfiguration["androidVersionCode"]}"
 		buildConfigField "String", "VERSION_NAME", "\"${globalConfiguration["androidVersionName"]}\""
+
+		testInstrumentationRunner 'androidx.test.runner.AndroidJUnitRunner'
 	}
 
 	compileOptions {
@@ -98,6 +100,11 @@ dependencies {
 	// dagger
 	annotationProcessor dependencies.daggerCompiler
 	implementation dependencies.dagger
+
+	api dependencies.jsonWebTokenApi
+	implementation dependencies.jsonWebTokenImpl
+	implementation dependencies.jsonWebTokenJson
+
 	// cloud
 	implementation dependencies.dropbox
 	implementation dependencies.msgraph
@@ -150,6 +157,7 @@ dependencies {
 	testRuntimeOnly dependencies.junit4Engine
 
 	testImplementation dependencies.mockito
+	testImplementation dependencies.mockitoInline
 	testImplementation dependencies.hamcrest
 }
 
@@ -159,4 +167,17 @@ configurations {
 
 static def getApiKey(key) {
 	return System.getenv().getOrDefault(key, "")
+}
+
+tasks.withType(Test) {
+	testLogging {
+		events "failed"
+
+		showExceptions true
+		exceptionFormat "full"
+		showCauses true
+		showStackTraces true
+
+		showStandardStreams = false
+	}
 }
