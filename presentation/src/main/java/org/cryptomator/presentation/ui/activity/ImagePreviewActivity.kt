@@ -203,7 +203,17 @@ class ImagePreviewActivity : BaseActivity(), ImagePreviewView, ConfirmDeleteClou
 
 	override fun onImageDeleted(index: Int) {
 		imagePreviewSliderAdapter.deletePage(index)
-		updateTitle(index)
+
+		presenter.pageIndexes.size.let {
+			when {
+				it == 0 -> {
+					showMessage(getString(R.string.dialog_no_more_images_to_display))
+					finish()
+				}
+				it > index -> updateTitle(index)
+				it <= index -> updateTitle(index - 1)
+			}
+		}
 	}
 
 	private fun setControlViewVisibility(visibility: Int) {

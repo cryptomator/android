@@ -11,6 +11,7 @@
 	<!-- # error messages -->
 	<string name="error_generic">An error occurred</string>
 	<string name="error_authentication_failed">Authentication failed</string>
+	<string name="error_authentication_failed_re_authenticate">Authentication failed, please login using %1$s</string>
 	<string name="error_no_network_connection">No network connection</string>
 	<string name="error_invalid_passphrase">Wrong password</string>
 	<string name="error_file_or_folder_exists">A file or folder already exists.</string>
@@ -39,6 +40,7 @@
 	<string name="cloud_names_dropbox" translatable="false">Dropbox</string>
 	<string name="cloud_names_google_drive" translatable="false">Google Drive</string>
 	<string name="cloud_names_onedrive" translatable="false">OneDrive</string>
+	<string name="cloud_names_pcloud" translatable="false">pCloud</string>
 	<string name="cloud_names_webdav" translatable="false">WebDAV</string>
 	<string name="cloud_names_local_storage">Local storage</string>
 
@@ -199,10 +201,14 @@
 	<string name="screen_settings_activate_biometric_auth">Activate biometric authentication</string>
 	<string name="screen_settings_confirm_face_unlock">Confirm face unlock (if available)</string>
 	<string name="screen_settings_block_app_when_obscured">Block app when obscured</string>
-	<string name="screen_settings_secure_screen">Screen security</string>
+	<string name="screen_settings_block_app_when_obscured_summary">Block intercepting the input and displaying a false user interface</string>
+	<string name="screen_settings_secure_screen">Block screenshots</string>
+	<string name="screen_settings_secure_screen_summary">Block screenshots in the recents list and inside the app</string>
 	<string name="screen_settings_section_search">Search</string>
 	<string name="screen_settings_live_search">Live search</string>
+	<string name="screen_settings_live_search_summary">Update search results while entering the query</string>
 	<string name="screen_settings_glob_search">Search using glob pattern</string>
+	<string name="screen_settings_glob_search_summary">Use glob pattern matching like alice.*.jpg</string>
 
 	<string name="screen_settings_section_auto_lock">Automatic locking</string>
 	<string name="screen_settings_auto_lock_timeout">Lock after</string>
@@ -211,6 +217,7 @@
 	<string name="screen_settings_section_auto_photo_upload">Automatic photo upload</string>
 	<string name="screen_settings_section_auto_photo_upload_vault">Choose vault for upload</string>
 	<string name="screen_settings_section_auto_photo_upload_toggle">Activate</string>
+	<string name="screen_settings_section_auto_photo_upload_toggle_summary">Capture images in the background and once the selected vault is unlocked, start upload</string>
 	<string name="screen_settings_section_auto_photo_upload_only_wifi_toggle">Upload only using WIFI</string>
 	<string name="screen_settings_section_auto_photo_upload_including_videos">Upload videos</string>
 
@@ -239,14 +246,16 @@
 
 	<string name="screen_settings_section_version">Version</string>
 
-	<string name="screen_settings_keep_unlocked_while_editing_files">Keep vaults unlocked while editing files</string>
-
 	<string name="screen_settings_advanced_settings">Advanced Settings</string>
-	<string name="screen_settings_background_unlock_preparation_label">Background unlock preparations</string>
+	<string name="screen_settings_background_unlock_preparation_label">Accelerate unlock</string>
+	<string name="screen_settings_background_unlock_preparation_label_summary">Download vault config in the background while prompted to enter the password or biometric auth</string>
+	<string name="screen_settings_keep_unlocked_while_editing_files">Keep unlocked</string>
+	<string name="screen_settings_keep_unlocked_while_editing_files_summary">Keep vaults unlocked while editing files</string>
 
 	<!-- ## screen: cloud settings -->
 	<string name="screen_cloud_settings_title">@string/screen_settings_cloud_settings_label</string>
 	<string name="screen_cloud_settings_webdav_connections">WebDAV connections</string>
+	<string name="screen_cloud_settings_pcloud_connections">pCloud connections</string>
 	<string name="screen_cloud_settings_local_storage_locations">Local storage locations</string>
 	<string name="screen_cloud_settings_log_in_to">Log in to</string>
 	<string name="screen_cloud_settings_sign_out_from_cloud">Sign out from</string>
@@ -433,6 +442,8 @@
 	<string name="dialog_beta_confirmation_title">Beta release</string>
 	<string name="dialog_beta_confirmation">This is a beta release which introduces the support of vault format 7. Please make sure that you don\'t use your production vault for testing or have a good backup strategy.</string>
 
+	<string name="dialog_no_more_images_to_display">No more images to display&#8230;</string>
+
 	<string name="permission_snackbar_auth_local_vault">Cryptomator needs storage access to use local vaults</string>
 	<string name="permission_snackbar_auth_auto_upload">Cryptomator needs storage access to use auto photo upload</string>
 
@@ -500,6 +511,7 @@
 
 	<string name="screen_settings_lru_cache">Cache</string>
 	<string name="screen_settings_lru_cache_toggle">@string/screen_settings_section_auto_photo_upload_toggle</string>
+	<string name="screen_settings_lru_cache_toggle_summary">Cache recently accessed files encrypted locally on the device for later reuse when reopened</string>
 	<string name="screen_settings_lru_cache_size">Total cache size</string>
 	<string name="screen_settings_clear_lru_cache_size">Clear Cache</string>
 	<string name="screen_settings_lru_cache_changed__restart_toast">Changes will be applied on next app restart</string>

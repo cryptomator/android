@@ -1,2 +1,4 @@
-- Möglichkeit neu erstellte Videos über den automatischen Upload hochzuladen hinzugefügt
-- Möglichkeit das Entsperren eines Tresors abzubrechen hinzugefügt
+- Native pCloud-Unterstützung hinzugefügt (großen Dank an Manu für die Implementierung)
+- App-Absturz beim Wiederherstellen von Cryptomator aus einem Backup behoben
+- Verbesserte Anzeige von langen Einstellungen
+- Verbessertes Löschen des letzten Bildes über die Vorschau. Springt jetzt zurück in die Tresor-Inhaltsliste

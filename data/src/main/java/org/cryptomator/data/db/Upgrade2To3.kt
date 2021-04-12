@@ -2,10 +2,8 @@ package org.cryptomator.data.db
 
 import android.content.Context
 import android.content.SharedPreferences
-import org.cryptomator.data.db.entities.CloudEntityDao
 import org.cryptomator.util.crypto.CredentialCryptor
 import org.greenrobot.greendao.database.Database
-import org.greenrobot.greendao.internal.DaoConfig
 import javax.inject.Inject
 import javax.inject.Singleton
 
@@ -13,16 +11,23 @@ import javax.inject.Singleton
 internal class Upgrade2To3 @Inject constructor(private val context: Context) : DatabaseUpgrade(2, 3) {
 
 	override fun internalApplyTo(db: Database, origin: Int) {
-		val clouds = CloudEntityDao(DaoConfig(db, CloudEntityDao::class.java)).loadAll()
 		db.beginTransaction()
 		try {
-			clouds.filter { cloud -> cloud.type == "DROPBOX" || cloud.type == "ONEDRIVE" } //
-					.map {
-						Sql.update("CLOUD_ENTITY") //
-								.where("TYPE", Sql.eq(it.type)) //
-								.set("ACCESS_TOKEN", Sql.toString(encrypt(if (it.type == "DROPBOX") it.accessToken else onedriveToken()))) //
-								.executeOn(db)
+			Sql.query("CLOUD_ENTITY")
+					.columns(listOf("ACCESS_TOKEN"))
+					.where("TYPE", Sql.eq("DROPBOX"))
+					.executeOn(db).use {
+						if (it.moveToFirst()) {
+							Sql.update("CLOUD_ENTITY")
+									.set("ACCESS_TOKEN", Sql.toString(encrypt(it.getString(it.getColumnIndex("ACCESS_TOKEN")))))
+									.where("TYPE", Sql.eq("DROPBOX"));
+						}
 					}
+
+			Sql.update("CLOUD_ENTITY")
+					.set("ACCESS_TOKEN", Sql.toString(encrypt(onedriveToken())))
+					.where("TYPE", Sql.eq("ONEDRIVE"));
+
 			db.setTransactionSuccessful()
 		} finally {
 			db.endTransaction()

@@ -110,6 +110,7 @@
 	<string name="screen_settings_section_version">Versión</string>
 	<!-- ## screen: cloud settings -->
 	<string name="screen_cloud_settings_webdav_connections">Conexiones de WebDAV</string>
+	<string name="screen_cloud_settings_pcloud_connections">Conexiones de pCloud</string>
 	<string name="screen_cloud_settings_local_storage_locations">Ubicaciones de almacenamiento local</string>
 	<string name="screen_cloud_settings_log_in_to">Iniciar sesión en</string>
 	<string name="screen_cloud_settings_sign_out_from_cloud">Cerrar sesión de</string>

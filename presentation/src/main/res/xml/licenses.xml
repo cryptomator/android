@@ -115,6 +115,13 @@
 		</Preference>
 		<Preference
 			android:summary="Apache License v2"
+			android:title="pCloud Java SDK (pCloud, Inc.)">
+			<intent
+				android:action="android.intent.action.VIEW"
+				android:data="https://github.com/pCloud/pcloud-sdk-java/" />
+		</Preference>
+		<Preference
+			android:summary="Apache License v2"
 			android:title="RxAndroid (Netflix, Inc.)">
 			<intent
 				android:action="android.intent.action.VIEW"

@@ -3,7 +3,7 @@ package org.cryptomator.data.cloud.googledrive;
 import android.content.Context;
 
 import com.google.api.client.http.javanet.NetHttpTransport;
-import com.google.api.client.json.gson.GsonFactory;
+import com.google.api.client.json.jackson2.JacksonFactory;
 import com.google.api.services.drive.Drive;
 import com.google.api.services.drive.DriveScopes;
 
@@ -35,7 +35,9 @@ class GoogleDriveClientFactory {
 			Logger.getLogger("com.google.api.client").addHandler(new Handler() {
 				@Override
 				public void publish(LogRecord record) {
-					if (record.getMessage().startsWith("-------------- RESPONSE --------------") || record.getMessage().startsWith("-------------- REQUEST  --------------") || record.getMessage().startsWith("{\n \"files\": [\n")) {
+					if (record.getMessage().startsWith("-------------- RESPONSE --------------") //
+							|| record.getMessage().startsWith("-------------- REQUEST  --------------") //
+							|| record.getMessage().startsWith("{\n \"files\": [\n")) {
 						Timber.tag("GoogleDriveClient").d(record.getMessage());
 					}
 				}
@@ -53,7 +55,7 @@ class GoogleDriveClientFactory {
 		try {
 			FixedGoogleAccountCredential credential = FixedGoogleAccountCredential.usingOAuth2(context, Collections.singleton(DriveScopes.DRIVE));
 			credential.setAccountName(accountName);
-			return new Drive.Builder(new NetHttpTransport(), GsonFactory.getDefaultInstance(), credential) //
+			return new Drive.Builder(new NetHttpTransport(), JacksonFactory.getDefaultInstance(), credential) //
 					.setApplicationName("Cryptomator-Android/" + BuildConfig.VERSION_NAME) //
 					.build();
 		} catch (Exception e) {

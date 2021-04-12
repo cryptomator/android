@@ -74,7 +74,7 @@ android {
 }
 
 greendao {
-	schemaVersion 4
+	schemaVersion 5
 }
 
 configurations.all {
@@ -88,6 +88,7 @@ dependencies {
 	implementation project(':domain')
 	implementation project(':util')
 	implementation project(':msa-auth-for-android')
+	implementation project(':pcloud-sdk-java')
 
 	// cryptomator
 	implementation dependencies.cryptolib

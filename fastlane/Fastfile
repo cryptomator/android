@@ -5,9 +5,7 @@ fastlane_require 'net/sftp'
 
 default_platform(:android)
 
-branch_name = `git rev-parse --abbrev-ref HEAD`
-build = `git rev-list --count #{branch_name} | tr -d " \t\n\r"`
-build = build.to_i + 1958 # adding 1958 for legacy reasons. Must be in sync with getVersionCode() from build.gradle
+build = number_of_commits + 1958 # adding 1958 for legacy reasons. Must be in sync with getVersionCode() from build.gradle
 version = get_version_name(
                 gradle_file_path:"build.gradle",
   	            ext_constant_name:"androidVersionName")
@@ -188,7 +186,7 @@ platform :android do |options|
     prerelease = false
 
     if options[:beta]
-      target_branch = "release/#{version}"
+      target_branch = git_branch
       prerelease = true
     end
 

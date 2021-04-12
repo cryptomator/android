@@ -31,7 +31,7 @@ class SettingsVaultBottomSheet : BaseBottomSheet<SettingsVaultBottomSheet.Callba
 			lock_vault.visibility = LinearLayout.GONE
 		}
 		val cloudType = vaultModel.cloudType
-		cloud_image.setImageResource(cloudType.cloudImageResource)
+		cloud_image.setImageResource(cloudType.vaultSelectedImageResource)
 		vault_name.text = vaultModel.name
 		vault_path.text = vaultModel.path
 
