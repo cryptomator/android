@@ -165,6 +165,7 @@
 	<string name="screen_settings_advanced_settings">Gelişmiş Ayarlar</string>
 	<!-- ## screen: cloud settings -->
 	<string name="screen_cloud_settings_webdav_connections">WebDAV bağlantıları</string>
+	<string name="screen_cloud_settings_pcloud_connections">pCloud bağlantıları</string>
 	<string name="screen_cloud_settings_local_storage_locations">Yerel depolama konumları</string>
 	<string name="screen_cloud_settings_log_in_to">Giriş</string>
 	<string name="screen_cloud_settings_sign_out_from_cloud">Oturumunu kapat</string>
