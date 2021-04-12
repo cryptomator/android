@@ -181,7 +181,7 @@
 	<string name="screen_settings_keep_unlocked_while_editing_files_summary">Gardez les coffres forts déverrouillées pendant l\'édition des fichiers</string>
 	<!-- ## screen: cloud settings -->
 	<string name="screen_cloud_settings_webdav_connections">Connexions WebDAV</string>
-	<string name="screen_cloud_settings_pcloud_connections">se connecter à pCloud</string>
+	<string name="screen_cloud_settings_pcloud_connections">Connexions pCloud</string>
 	<string name="screen_cloud_settings_local_storage_locations">Emplacements du stockage local</string>
 	<string name="screen_cloud_settings_log_in_to">Se connecter à</string>
 	<string name="screen_cloud_settings_sign_out_from_cloud">Se déconnecter de</string>
