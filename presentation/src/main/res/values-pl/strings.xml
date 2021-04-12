@@ -176,7 +176,7 @@
 	<string name="screen_settings_keep_unlocked_while_editing_files_summary">Zachowaj odblokowane skarbce podczas edycji plików</string>
 	<!-- ## screen: cloud settings -->
 	<string name="screen_cloud_settings_webdav_connections">Połączenia WebDAV</string>
-	<string name="screen_cloud_settings_pcloud_connections">połączenia pCloud</string>
+	<string name="screen_cloud_settings_pcloud_connections">Połączenia pCloud</string>
 	<string name="screen_cloud_settings_local_storage_locations">Lokalizacja pamięci wewnętrznej</string>
 	<string name="screen_cloud_settings_log_in_to">Zaloguj się do</string>
 	<string name="screen_cloud_settings_sign_out_from_cloud">Wyloguj się z</string>
