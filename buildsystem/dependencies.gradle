@@ -16,7 +16,7 @@ ext {
 	javaxAnnotationVersion = '1.0'
 
 	// support lib
-	androidSupportAnnotationsVersion = '1.1.0'
+	androidSupportAnnotationsVersion = '1.2.0'
 	androidSupportAppcompatVersion = '1.2.0'
 	androidSupportDesignVersion = '1.3.0'
 
@@ -51,7 +51,7 @@ ext {
 	// do not update to 1.4.0 until minsdk is 7.x (or desugaring works better) otherwise it will crash on 6.x
 	cryptolibVersion = '2.0.0-beta6'
 
-	dropboxVersion = '3.2.0'
+	dropboxVersion = '4.0.0'
 
 	googleApiServicesVersion = 'v3-rev197-1.25.0'
 	googlePlayServicesVersion = '19.0.0'
