@@ -102,7 +102,6 @@
 	<string name="screen_share_files_section_location">Speicherort</string>
 	<string name="screen_share_files_save_button_text">Speichern</string>
 	<string name="screen_share_files_msg_success">Dateien verschlüsselt</string>
-	<string name="screen_share_files_new_text_file">text.txt</string>
 	<!-- ## screen: choose cloud service -->
 	<string name="screen_choose_cloud_service_title">Cloud-Dienst</string>
 	<string name="screen_choose_cloud_service_subtitle_add_existing_vault">Neuen Tresor anlegen</string>
@@ -216,6 +215,7 @@
 	<string name="dialog_replace_positive_button_single_file_exists">Ersetzen</string>
 	<string name="dialog_replace_msg_single_file_exists">Eine Datei names \'%1$s\' existiert bereits. Soll diese ersetzt werden?</string>
 	<string name="dialog_replace_msg_all_files_exists">Alle Dateien existieren bereits. Sollen diese ersetzt werden?</string>
+	<string name="dialog_replace_msg_some_files_exists">%1$d Dateien existieren bereits. Sollen diese ersetzt werden?</string>
 	<string name="dialog_replace_title_single_file_exists">Datei ersetzen?</string>
 	<string name="dialog_replace_title_multiple_files_exist">Dateien ersetzen?</string>
 	<string name="dialog_unable_to_share_title">Teilen nicht möglich</string>
@@ -230,8 +230,7 @@
 	<string name="dialog_unsaved_changes_title">Sie haben ungespeicherte Änderungen</string>
 	<string name="dialog_unsaved_changes_message">Möchten Sie wirklich beenden, ohne zu speichern?</string>
 	<string name="dialog_unsaved_changes_discard">Verwerfen</string>
-	<string name="dialog_unsaved_changes_save">@string/dialog_button_cancel</string>
-	<string name="dialog_file_name_placeholder">@string/screen_share_files_new_text_file</string>
+	<string name="dialog_file_name_placeholder">text.txt</string>
 	<string name="dialog_delete_vault_message">Sind Sie sicher, dass sie den Tresor entfernen wollen?</string>
 	<string name="dialog_delete_vault_hint">Dieser Vorgang wird den Tresor nur aus dieser Liste entfernen und nicht tatsächlich löschen.</string>
 	<string name="dialog_upload_file_title">Lade hoch&#8230;</string>
