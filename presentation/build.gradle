@@ -34,6 +34,8 @@ android {
 	compileOptions {
 		sourceCompatibility JavaVersion.VERSION_1_8
 		targetCompatibility JavaVersion.VERSION_1_8
+
+		coreLibraryDesugaringEnabled true
 	}
 
 	lintOptions {
@@ -121,6 +123,8 @@ dependencies {
 	implementation project(':domain')
 	implementation project(':data')
 	implementation project(':pcloud-sdk-android')
+
+	coreLibraryDesugaring dependencies.coreDesugaring
 
 	// dagger
 	kapt dependencies.daggerCompiler
