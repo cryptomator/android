@@ -216,7 +216,6 @@
 	<string name="dialog_replace_positive_button_single_file_exists">Remplacer</string>
 	<string name="dialog_replace_msg_single_file_exists">Un fichier nommé \'%1$s\' existe déjà. Voulez-vous le remplacer?</string>
 	<string name="dialog_replace_msg_all_files_exists">Tous les fichiers existent déjà. Voulez-vous les remplacer?</string>
-	<string name="dialog_replace_msg_some_files_exists">%1$d fichiers existent déjà. Voulez-vous les remplacer?</string>
 	<string name="dialog_replace_title_single_file_exists">Remplacer le fichier?</string>
 	<string name="dialog_replace_title_multiple_files_exist">Remplacer les fichiers?</string>
 	<string name="dialog_unable_to_share_title">Impossible de partager des fichiers</string>
