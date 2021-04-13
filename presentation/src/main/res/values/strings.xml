@@ -306,7 +306,7 @@
 	<string name="dialog_replace_positive_button_single_file_exists">Replace</string>
 	<string name="dialog_replace_msg_single_file_exists">A file named \'%1$s\' already exists. Do you want to replace it?</string>
 	<string name="dialog_replace_msg_all_files_exists">All files already exist. Do you want to replace them?</string>
-	<string name="dialog_replace_msg_some_files_exists">%d files already exist. Do you want to replace them?</string>
+	<string name="dialog_replace_msg_some_files_exists">%1$d files already exist. Do you want to replace them?</string>
 	<string name="dialog_replace_title_single_file_exists">Replace file?</string>
 	<string name="dialog_replace_title_multiple_files_exist">Replace files?</string>
 
