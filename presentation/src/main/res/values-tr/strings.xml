@@ -200,7 +200,6 @@
 	<string name="dialog_replace_positive_button_single_file_exists">Değiştir</string>
 	<string name="dialog_replace_msg_single_file_exists">\'%1$s\' adlı bir dosya zaten var. Değiştirmek istiyor musunuz?</string>
 	<string name="dialog_replace_msg_all_files_exists">Tüm dosyalar zaten mevcut. Onları değiştirmek ister misin?</string>
-	<string name="dialog_replace_msg_some_files_exists">%1$d dosya zaten var. Onları değiştirmek ister misin?</string>
 	<string name="dialog_replace_title_single_file_exists">Dosya değiştirilsin mi?</string>
 	<string name="dialog_replace_title_multiple_files_exist">Dosyalar değiştirilsin mi?</string>
 	<string name="dialog_unable_to_share_title">Dosyalar paylaşılamıyor</string>
