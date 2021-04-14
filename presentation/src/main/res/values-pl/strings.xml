@@ -9,10 +9,10 @@
 	<string name="error_no_network_connection">Brak połączenia z Internetem</string>
 	<string name="error_invalid_passphrase">Błędne hasło</string>
 	<string name="error_file_or_folder_exists">Plik lub folder już istnieje.</string>
-	<string name="error_vault_version_not_supported">Nieobsługiwany skarbiec. Ten skarbiec został utworzony z inną wersją Cryptomator.</string>
-	<string name="error_vault_already_exists">Skarbiec już istnieje.</string>
+	<string name="error_vault_version_not_supported">Nieobsługiwany sejf. Ten sejf został utworzony z inną wersją Cryptomator.</string>
+	<string name="error_vault_already_exists">Sejf już istnieje.</string>
 	<string name="error_no_such_file">Plik nie istnieje.</string>
-	<string name="error_vault_has_been_locked">Skarbiec został zablokowany.</string>
+	<string name="error_vault_has_been_locked">Sejf został zablokowany.</string>
 	<string name="error_cloud_already_exists">Usługa już istnieje.</string>
 	<string name="error_activity_not_found">Pobierz aplikację, która może otworzyć ten plik.</string>
 	<string name="error_server_not_found">Nie znaleziono serwera.</string>
@@ -48,13 +48,13 @@
 	<!-- # screens -->
 	<!-- # screen: vault list -->
 	<string name="screen_vault_list_actions_title">Dodaj do Cryptomator</string>
-	<string name="screen_vault_list_action_create_new_vault">Utwórz nowy skarbiec</string>
-	<string name="screen_vault_list_action_add_existing_vault">Dodaj istniejący skarbiec</string>
+	<string name="screen_vault_list_action_create_new_vault">Utwórz nowy sejf</string>
+	<string name="screen_vault_list_action_add_existing_vault">Dodaj istniejący sejf</string>
 	<string name="screen_vault_list_vault_action_delete">Usuń</string>
-	<string name="screen_vault_list_vault_creation_hint">Kliknij tutaj, aby utworzyć nowy skarbiec</string>
+	<string name="screen_vault_list_vault_creation_hint">Kliknij tutaj, aby utworzyć nowy sejf</string>
 	<string name="screen_vault_list_change_password_successful">Hasło zostało pomyślnie zmienione</string>
 	<!-- # screen: file browser -->
-	<string name="screen_file_browser_default_title">Skarbiec</string>
+	<string name="screen_file_browser_default_title">Sejf</string>
 	<string name="screen_file_browser_add_existing_vault_extra_text">Wybierz plik klucza głównego</string>
 	<string name="screen_file_browser_create_new_vault_button_text">Umieść tutaj</string>
 	<string name="screen_file_browser_create_new_vault_extra_text">Nazwa skarbca: %1$s</string>
@@ -150,7 +150,7 @@
 	<string name="screen_settings_auto_lock_timeout">Zablokuj po</string>
 	<string name="screen_settings_auto_lock_on_screen_lock">Kiedy ekran jest wyłączony</string>
 	<string name="screen_settings_section_auto_photo_upload">Automatyczne przesyłanie zdjęć</string>
-	<string name="screen_settings_section_auto_photo_upload_vault">Wybierz skarbiec do przesłania</string>
+	<string name="screen_settings_section_auto_photo_upload_vault">Wybierz sejf do przesłania</string>
 	<string name="screen_settings_section_auto_photo_upload_toggle">Aktywuj</string>
 	<string name="screen_settings_section_auto_photo_upload_toggle_summary">Przechwytuj zdjęcia w tle i po odblokowaniu wybranego sejfu rozpocznij przesyłanie</string>
 	<string name="screen_settings_section_auto_photo_upload_only_wifi_toggle">Prześlij tylko przy użyciu WIFI</string>
@@ -200,7 +200,7 @@
 	<string name="dialog_change_password_msg_password_mismatch">Hasła nie zgadzają się.</string>
 	<!-- Vault not found -->
 	<string name="dialog_vault_not_found_title">Skarbca %1$s nie odnaleziono</string>
-	<string name="dialog_vault_not_found_message">Skarbiec został przeniesiony, usunięty albo zmieniono jego nazwę. Należy usunąć ten skarbiec z listy i dodać go ponownie. Chcesz to zrobić teraz?</string>
+	<string name="dialog_vault_not_found_message">Sejf został przeniesiony, usunięty albo zmieniono jego nazwę. Należy usunąć ten sejf z listy i dodać go ponownie. Chcesz to zrobić teraz?</string>
 	<string name="dialog_vault_not_found_positive_button_text">Usuń</string>
 	<string name="dialog_existing_file_title">Plik już istnieje</string>
 	<string name="dialog_existing_file_positive_button">Zastąp</string>
@@ -214,9 +214,9 @@
 	<string name="dialog_replace_title_single_file_exists">Zastąp plik?</string>
 	<string name="dialog_replace_title_multiple_files_exist">Zastąp pliki?</string>
 	<string name="dialog_unable_to_share_title">Nie można udostępnić plików</string>
-	<string name="dialog_unable_to_share_message">Nie wczytałeś żadnych skarbców. Proszę najpierw utworzyć nowy skarbiec z aplikacją Cryptomator.</string>
+	<string name="dialog_unable_to_share_message">Nie wczytałeś żadnych skarbców. Proszę najpierw utworzyć nowy sejf z aplikacją Cryptomator.</string>
 	<string name="dialog_unable_to_share_positive_button">OK</string>
-	<string name="dialog_unable_to_share_negative_button">Utwórz skarbiec</string>
+	<string name="dialog_unable_to_share_negative_button">Utwórz sejf</string>
 	<string name="dialog_filetype_not_supported_title">Nie można otworzyć %1$s</string>
 	<string name="dialog_filetype_not_supported_message">Pobierz aplikację, która może otworzyć ten plik, a może chcesz zapisać ten plik na swoim urządzeniu?</string>
 	<string name="dialog_rename_vault_title">Zmień nazwę skarbca</string>
@@ -226,8 +226,8 @@
 	<string name="dialog_unsaved_changes_message">Czy na pewno chcesz wyjść bez zapisywania?</string>
 	<string name="dialog_unsaved_changes_discard">Zaniechaj</string>
 	<string name="dialog_file_name_placeholder">tekst.txt</string>
-	<string name="dialog_delete_vault_message">Czy na pewno chcesz usunąć ten skarbiec?</string>
-	<string name="dialog_delete_vault_hint">Ta akcja usunie tylko skarbiec z tej listy i nie usunie go fizycznie.</string>
+	<string name="dialog_delete_vault_message">Czy na pewno chcesz usunąć ten sejf?</string>
+	<string name="dialog_delete_vault_hint">Ta akcja usunie tylko sejf z tej listy i nie usunie go fizycznie.</string>
 	<string name="dialog_upload_file_title">Przesyłanie&#8230;</string>
 	<string name="dialog_upload_file_remaining">Plik %1$d z %2$d</string>
 	<string name="dialog_export_file_title">Eksportowanie (%1$d/%2$d)</string>
@@ -341,9 +341,9 @@
 	<string name="notification_auto_upload_failed_title">Automatyczne przesyłanie zdjęć nie powiodło się</string>
 	<string name="notification_auto_upload_failed_general_error">Wystąpił błąd podczas przesyłania.</string>
 	<string name="notification_auto_upload_failed_due_to_folder_not_exists">Wybrany folder do przesłania nie jest już dostępny. Przejdź do ustawień i wybierz nowy</string>
-	<string name="notification_auto_upload_failed_due_to_vault_locked">Skarbiec został zablokowany podczas przesyłania, otwórz go ponownie aby kontynuować</string>
+	<string name="notification_auto_upload_failed_due_to_vault_locked">Sejf został zablokowany podczas przesyłania, otwórz go ponownie aby kontynuować</string>
 	<string name="notification_open_writable_file_title">Otwórz plik zapisywalny</string>
-	<string name="notification_open_writable_file_message">Skarbiec pozostaje odblokowany do czasu zakończenia edycji</string>
+	<string name="notification_open_writable_file_message">Sejf pozostaje odblokowany do czasu zakończenia edycji</string>
 	<string name="notification_update_check_finished_latest">Zainstalowano najnowszą wersję</string>
 	<string name="screen_settings_lru_cache">Pamięć podręczna</string>
 	<string name="screen_settings_lru_cache_toggle_summary">Pamięć podręczna ostatnio uruchomionych plików zaszyfrowanych lokalnie na urządzeniu w celu ponownego użycia po ponownym otwarciu</string>
