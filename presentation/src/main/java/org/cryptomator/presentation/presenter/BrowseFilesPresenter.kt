@@ -850,8 +850,7 @@ class BrowseFilesPresenter @Inject constructor( //
 	private fun createNewDocumentUri(parentUri: Uri, fileName: String): Uri {
 		val mimeType = mimeTypes.fromFilename(fileName) //
 				.orElse(MimeType.APPLICATION_OCTET_STREAM)
-		val newDocumentUri: Uri?
-		newDocumentUri = try {
+		return try {
 			DocumentsContract.createDocument( //
 					context().contentResolver,  //
 					parentUri,  //
@@ -859,11 +858,7 @@ class BrowseFilesPresenter @Inject constructor( //
 					fileName)
 		} catch (e: FileNotFoundException) {
 			throw NoSuchCloudFileException(fileName)
-		}
-		if (newDocumentUri == null) {
-			throw IllegalFileNameException()
-		}
-		return newDocumentUri
+		} ?: throw IllegalFileNameException()
 	}
 
 	@Callback
@@ -1093,7 +1088,7 @@ class BrowseFilesPresenter @Inject constructor( //
 
 	fun openFileFinished() {
 		try {
-			// necessary see https://gitlab.skymatic.de/cryptomator/android/-/issues/569
+			// necessary see https://community.cryptomator.org/t/android-tabelle-nach-upload-unlesbar/6550
 			Thread.sleep(500)
 		} catch (e: InterruptedException) {
 			Timber.tag("BrowseFilesPresenter").e(e, "Failed to sleep after resuming editing, necessary for google office apps")
@@ -1107,12 +1102,17 @@ class BrowseFilesPresenter @Inject constructor( //
 		context().revokeUriPermission(uriToOpenedFile, Intent.FLAG_GRANT_WRITE_URI_PERMISSION or Intent.FLAG_GRANT_READ_URI_PERMISSION)
 
 		uriToOpenedFile?.let {
-			val hashAfterEdit = calculateDigestFromUri(it)
-			if (hashAfterEdit.isPresent && openedCloudFileMd5.isPresent //
-					&& Arrays.equals(hashAfterEdit.get(), openedCloudFileMd5.get())) {
-				Timber.tag("BrowseFilesPresenter").i("Opened app finished, file not changed")
-			} else {
-				uploadChangedFile()
+			try {
+				val hashAfterEdit = calculateDigestFromUri(it)
+				if (hashAfterEdit.isPresent && openedCloudFileMd5.isPresent //
+						&& Arrays.equals(hashAfterEdit.get(), openedCloudFileMd5.get())) {
+					Timber.tag("BrowseFilesPresenter").i("Opened app finished, file not changed")
+				} else {
+					uploadChangedFile()
+				}
+			} catch (e: FileNotFoundException) {
+				Timber.tag("BrowseFilesPresenter").e(e, "Failed to read back changes, file isn't present anymore")
+				Toast.makeText(context(), R.string.error_file_not_found_after_opening_using_3party, Toast.LENGTH_LONG).show()
 			}
 		}
 	}
@@ -1159,6 +1159,7 @@ class BrowseFilesPresenter @Inject constructor( //
 		openWritableFileNotification.ifPresent { obj: OpenWritableFileNotification -> obj.hide() }
 	}
 
+	@Throws(FileNotFoundException::class)
 	private fun calculateDigestFromUri(uri: Uri): Optional<ByteArray> {
 		val digest = MessageDigest.getInstance("MD5")
 		DigestInputStream(context().contentResolver.openInputStream(uri), digest).use { dis ->
