@@ -56,7 +56,6 @@
 	<string name="screen_vault_list_change_password_successful">Passwort wurde erfolgreich geändert</string>
 	<!-- # screen: file browser -->
 	<string name="screen_file_browser_default_title">Tresor</string>
-	<string name="screen_file_browser_subtitle_add_existing_vault">Neuen Tresor anlegen</string>
 	<string name="screen_file_browser_add_existing_vault_extra_text">Masterkey-Datei auswählen</string>
 	<string name="screen_file_browser_create_new_vault_button_text">Hier ablegen</string>
 	<string name="screen_file_browser_create_new_vault_extra_text">Tresorname: %1$s</string>
@@ -105,7 +104,6 @@
 	<string name="screen_share_files_msg_success">Dateien verschlüsselt</string>
 	<!-- ## screen: choose cloud service -->
 	<string name="screen_choose_cloud_service_title">Cloud-Dienst</string>
-	<string name="screen_choose_cloud_service_subtitle_add_existing_vault">Neuen Tresor anlegen</string>
 	<!-- ## screen: cloud connections -->
 	<string name="screen_cloud_connections_title">Ort auswählen</string>
 	<string name="screen_cloud_connections_no_connections">Hier einen neuen Ort hinzufügen</string>
@@ -127,7 +125,6 @@
 	<string name="screen_enter_vault_name_button_text">Erstellen</string>
 	<!-- ## screen: set password -->
 	<string name="screen_set_password_title">Passwort setzen</string>
-	<string name="screen_set_password_msg_password_empty">Passwort muss ausgefüllt werden.</string>
 	<string name="screen_set_password_msg_password_mismatch">Passwort stimmt nicht mit dem wiederholten Passwort überein.</string>
 	<string name="screen_set_password_button_text">Fertig</string>
 	<string name="screen_set_password_hint">WICHTIG: Wenn Sie Ihr Passwort vergessen, gibt es keine Möglichkeit die Daten zu entschlüsseln.</string>
@@ -162,7 +159,6 @@
 	<string name="screen_settings_section_auto_photo_upload_only_wifi_toggle">Nur mit WLAN hochladen</string>
 	<string name="screen_settings_section_auto_photo_upload_including_videos">Videos hochladen</string>
 	<string name="screen_settings_auto_photo_upload_title">Bilder abspeichern in&#8230;</string>
-	<string name="screen_settings_section_social">Uns folgen</string>
 	<string name="screen_settings_website_label">Cryptomator-Website</string>
 	<string name="screen_settings_twitter_label">Folgen Sie uns auf Twitter</string>
 	<string name="screen_settings_facebook_label">Liken Sie uns auf Facebook</string>
