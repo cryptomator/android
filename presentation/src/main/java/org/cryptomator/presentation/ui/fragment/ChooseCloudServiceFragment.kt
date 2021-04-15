@@ -1,6 +1,6 @@
 package org.cryptomator.presentation.ui.fragment
 
-import androidx.recyclerview.widget.GridLayoutManager
+import androidx.recyclerview.widget.LinearLayoutManager
 import org.cryptomator.generator.Fragment
 import org.cryptomator.presentation.R
 import org.cryptomator.presentation.model.CloudTypeModel
@@ -36,7 +36,7 @@ class ChooseCloudServiceFragment : BaseFragment() {
 
 	private fun setupRecyclerView() {
 		cloudsAdapter.setCallback(onItemClickListener)
-		recyclerView.layoutManager = GridLayoutManager(context(), 2)
+		recyclerView.layoutManager = LinearLayoutManager(context())
 		recyclerView.adapter = cloudsAdapter
 		// smoother scrolling
 		recyclerView.setHasFixedSize(true)

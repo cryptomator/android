@@ -29,7 +29,7 @@ class ChooseCloudServiceActivity : BaseActivity(), ChooseCloudServiceView {
 		setSupportActionBar(toolbar)
 	}
 
-	override fun createFragment(): Fragment? = ChooseCloudServiceFragment()
+	override fun createFragment(): Fragment = ChooseCloudServiceFragment()
 
 	override fun getCustomMenuResource(): Int = R.menu.menu_cloud_services
 

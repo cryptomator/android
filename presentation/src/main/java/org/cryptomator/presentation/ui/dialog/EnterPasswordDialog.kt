@@ -41,7 +41,9 @@ class EnterPasswordDialog : BaseProgressErrorDialog<EnterPasswordDialog.Callback
 				onWaitForResponse(et_password)
 				dialog.getButton(android.app.Dialog.BUTTON_NEGATIVE)?.isEnabled = true
 			}
-
+			unlockButton?.let { button ->
+				et_password.nextFocusForwardId = button.id
+			}
 			it.setCanceledOnTouchOutside(false)
 			et_password.requestFocus()
 		}

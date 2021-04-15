@@ -110,6 +110,7 @@
 	<string name="screen_settings_section_version">Versión</string>
 	<!-- ## screen: cloud settings -->
 	<string name="screen_cloud_settings_webdav_connections">Conexiones de WebDAV</string>
+	<string name="screen_cloud_settings_pcloud_connections">Conexiones de pCloud</string>
 	<string name="screen_cloud_settings_local_storage_locations">Ubicaciones de almacenamiento local</string>
 	<string name="screen_cloud_settings_log_in_to">Iniciar sesión en</string>
 	<string name="screen_cloud_settings_sign_out_from_cloud">Cerrar sesión de</string>
@@ -141,7 +142,7 @@
 	<string name="dialog_replace_positive_button_single_file_exists">Reemplazar</string>
 	<string name="dialog_replace_msg_single_file_exists">Ya existe un archivo llamado %1$s. ¿Quieres reemplazarlo?</string>
 	<string name="dialog_replace_msg_all_files_exists">Todos los archivos existen ya.  ¿Quieres reemplazarlos?</string>
-	<string name="dialog_replace_msg_some_files_exists">\"%d archivos existen ya.  ¿Quieres reemplazarlos?</string>
+	<string name="dialog_replace_msg_some_files_exists">%1$d archivos existen ya. ¿Quieres reemplazarlos?</string>
 	<string name="dialog_replace_title_single_file_exists">\"¿Reemplazar archivo?</string>
 	<string name="dialog_replace_title_multiple_files_exist">\"¿Reemplazar archivos?</string>
 	<string name="dialog_unable_to_share_title">No se puede compartir archivos</string>

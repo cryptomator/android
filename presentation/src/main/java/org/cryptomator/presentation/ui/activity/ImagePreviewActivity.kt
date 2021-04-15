@@ -207,7 +207,7 @@ class ImagePreviewActivity : BaseActivity(), ImagePreviewView, ConfirmDeleteClou
 		presenter.pageIndexes.size.let {
 			when {
 				it == 0 -> {
-					showMessage(getString(R.string.dialog_no_more_images_to_display	))
+					showMessage(getString(R.string.dialog_no_more_images_to_display))
 					finish()
 				}
 				it > index -> updateTitle(index)

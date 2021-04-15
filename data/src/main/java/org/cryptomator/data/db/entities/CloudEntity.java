@@ -16,18 +16,18 @@ public class CloudEntity extends DatabaseEntity {
 
 	private String accessToken;
 
-	private String webdavUrl;
+	private String url;
 
 	private String username;
 
 	private String webdavCertificate;
 
-	@Generated(hash = 2078985174)
-	public CloudEntity(Long id, @NotNull String type, String accessToken, String webdavUrl, String username, String webdavCertificate) {
+	@Generated(hash = 361171073)
+	public CloudEntity(Long id, @NotNull String type, String accessToken, String url, String username, String webdavCertificate) {
 		this.id = id;
 		this.type = type;
 		this.accessToken = accessToken;
-		this.webdavUrl = webdavUrl;
+		this.url = url;
 		this.username = username;
 		this.webdavCertificate = webdavCertificate;
 	}
@@ -60,12 +60,12 @@ public class CloudEntity extends DatabaseEntity {
 		this.id = id;
 	}
 
-	public String getWebdavUrl() {
-		return webdavUrl;
+	public String getUrl() {
+		return url;
 	}
 
-	public void setWebdavUrl(String webdavUrl) {
-		this.webdavUrl = webdavUrl;
+	public void setUrl(String url) {
+		this.url = url;
 	}
 
 	public String getUsername() {

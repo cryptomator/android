@@ -32,7 +32,7 @@ platform :android do |options|
 
     slack(
       default_payloads: [], # reduce the notification to the minimum
-      message: ":rocket: Successfully deployed #{version} with code #{build} to the Play Store :cryptomator:",
+      message: ":rocket: Successfully deployed #{version} with code #{build} :cryptomator:",
       payload: {
         "Changes" => File.read(release_note_path_en)
       }

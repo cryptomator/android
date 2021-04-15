@@ -1,4 +1,4 @@
-- Added possibility to sort vault list
-- Added logging to Google drive cloud
-- Enhanced behavior when OneDrive password changed
-- Polished CryptoBot icons
+- Added pCloud native support (thanks to Manu for this huge contribution)
+- Fixed app crash when restoring Cryptomator from a backup
+- Enhanced display of long settings
+- Enhanced deletion of the last image via the preview. Now jumps back to the vault contents list

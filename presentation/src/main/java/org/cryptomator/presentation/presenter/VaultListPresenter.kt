@@ -7,6 +7,7 @@ import android.content.Context
 import android.content.Intent
 import android.net.Uri
 import android.os.Handler
+import android.widget.Toast
 import androidx.biometric.BiometricManager
 import org.cryptomator.data.cloud.crypto.CryptoCloud
 import org.cryptomator.data.util.NetworkConnectionCheck
@@ -154,7 +155,13 @@ class VaultListPresenter @Inject constructor( //
 							val intent = Intent(context(), LicenseCheckActivity::class.java)
 							intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
 							intent.data = Uri.parse(String.format("app://cryptomator/%s", license))
-							context().startActivity(intent)
+
+							try {
+								context().startActivity(intent)
+							} catch (e: ActivityNotFoundException) {
+								Toast.makeText(context(), "Please contact the support.", Toast.LENGTH_LONG).show()
+								finish()
+							}
 						}
 					})
 		}

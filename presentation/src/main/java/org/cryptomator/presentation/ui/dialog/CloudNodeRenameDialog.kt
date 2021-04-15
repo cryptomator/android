@@ -41,6 +41,9 @@ class CloudNodeRenameDialog : BaseProgressErrorDialog<CloudNodeRenameDialog.Call
 			}
 			dialog.setCanceledOnTouchOutside(false)
 			et_rename.requestFocus()
+			renameConfirmButton?.let { button ->
+				et_rename.nextFocusForwardId = button.id
+			}
 		}
 	}
 

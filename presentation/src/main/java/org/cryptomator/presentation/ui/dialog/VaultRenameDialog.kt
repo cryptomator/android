@@ -37,6 +37,9 @@ class VaultRenameDialog : BaseProgressErrorDialog<VaultRenameDialog.Callback>() 
 			}
 			dialog.setCanceledOnTouchOutside(false)
 			et_rename.requestFocus()
+			renameConfirmButton?.let { button ->
+				et_rename.nextFocusForwardId = button.id
+			}
 		}
 	}
 
