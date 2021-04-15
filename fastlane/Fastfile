@@ -180,6 +180,8 @@ platform :android do |options|
     FileUtils.cp(lane_context[SharedValues::GRADLE_APK_OUTPUT_PATH], "repo/Cryptomator.apk")
 
     sh("cp -r metadata/android/ metadata/org.cryptomator/")
+    FileUtils.cp("metadata/org.cryptomator/en-US/changelogs/default.txt", "metadata/org.cryptomator/en-US/changelogs/#{version}.txt")
+    FileUtils.cp("metadata/org.cryptomator/de-DE/changelogs/default.txt", "metadata/org.cryptomator/de-DE/changelogs/#{version}.txt")
     sh("fdroid update && fdroid rewritemeta")
     sh("rm -r metadata/org.cryptomator/")
 
