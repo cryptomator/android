@@ -54,7 +54,7 @@
 # The same policy is applied to the archive repo, if there is one.
 # repo_maxage: 0
 
-repo_url: https://cryptomator.org/android/repo
+repo_url: https://static.cryptomator.org/android/fdroid/repo
 repo_name: Cryptomator F-Droid Repo
 repo_icon: fdroid-icon.png
 repo_description: |
@@ -65,7 +65,7 @@ repo_description: |
 # older ones going to the archive. Set it to 0, and there will be no archive
 # repository, and no need to define the other archive_ values.
 archive_older: 0
-archive_url: https://cryptomator.org/android/archive
+archive_url: https://static.cryptomator.org/android/fdroid/archive
 archive_name: Cryptomator F-Droid Archive
 archive_icon: fdroid-icon.png
 archive_description: |
