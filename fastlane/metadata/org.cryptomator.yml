@@ -8,7 +8,7 @@ SourceCode: https://github.com/cryptomator/android
 IssueTracker: https://github.com/cryptomator/android/issues
 Translation: https://crowdin.com/project/cryptomator-android
 Changelog: https://github.com/cryptomator/android/releases
-Donate: https://cryptomator.org/sponsors/
+Donate: https://cryptomator.org/donate/
 
 AutoUpdateMode: None
 UpdateCheckMode: None
