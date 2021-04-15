@@ -36,6 +36,9 @@ class CreateFolderDialog : BaseProgressErrorDialog<CreateFolderDialog.Callback>(
 			}
 			dialog.setCanceledOnTouchOutside(false)
 			et_folder_name.requestFocus()
+			createFolderButton?.let { button ->
+				et_folder_name.nextFocusForwardId = button.id
+			}
 		}
 	}
 
