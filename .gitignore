@@ -45,3 +45,7 @@ local.properties
 **/fastlane/.env
 **/fastlane/metadata/**/images/**
 **/fastlane/report.xml
+
+# fdroid
+**/fastlane/repo/**
+**/fastlane/tmp/**

@@ -79,6 +79,7 @@ There are further targets and options like `beta`, see [fastlane/README.md](http
 1. Make sure you copied `.default.env` to `.env` in the `fastlane` folder and filled out those variables.
 1. Install Ruby (depends on OS, Ubuntu): `sudo apt install ruby-dev`
 1. Install fastlane (depends on OS, Ubuntu): `gem install fastlane -N`
+1. Install `fdroidserver` using `apt`, `pacman`, ..., see https://f-droid.org/docs/Installing_the_Server_and_Repo_Tools/
 
 ## License
 
