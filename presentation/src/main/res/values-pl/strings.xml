@@ -61,7 +61,6 @@
 	<string name="screen_file_browser_create_new_vault_extra_text">Nazwa skarbca: %1$s</string>
 	<string name="screen_file_browser_move_button_text">Przenieś</string>
 	<string name="screen_file_browser_msg_empty_folder">Pusty folder</string>
-	<string name="screen_file_browser_file_info_label_size">%1$s</string>
 	<string name="screen_file_browser_file_info_label_date">zmodyfikowano %1$s temu</string>
 	<string name="screen_file_browser_share_intent_chooser_title">Udostępnij z</string>
 	<string name="screen_file_browser_share_destination_title">Miejsce docelowe</string>
