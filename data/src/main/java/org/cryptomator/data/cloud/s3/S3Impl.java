@@ -3,6 +3,13 @@ package org.cryptomator.data.cloud.s3;
 import android.content.Context;
 
 import com.amazonaws.services.s3.AmazonS3;
+import com.amazonaws.services.s3.model.AbstractPutObjectRequest;
+import com.amazonaws.services.s3.model.ListObjectsV2Result;
+import com.amazonaws.services.s3.model.ObjectListing;
+import com.amazonaws.services.s3.model.ObjectMetadata;
+import com.amazonaws.services.s3.model.PutObjectRequest;
+import com.amazonaws.services.s3.model.PutObjectResult;
+import com.amazonaws.services.s3.model.S3ObjectSummary;
 import com.pcloud.sdk.ApiError;
 import com.pcloud.sdk.DataSink;
 import com.pcloud.sdk.DownloadOptions;
@@ -35,8 +42,10 @@ import org.cryptomator.util.Optional;
 import org.cryptomator.util.SharedPreferencesHandler;
 import org.cryptomator.util.file.LruFileCacheUtil;
 
+import java.io.ByteArrayInputStream;
 import java.io.File;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.OutputStream;
 import java.util.ArrayList;
 import java.util.Date;
@@ -55,6 +64,8 @@ import static org.cryptomator.util.file.LruFileCacheUtil.retrieveFromLruCache;
 import static org.cryptomator.util.file.LruFileCacheUtil.storeToLruCache;
 
 class S3Impl {
+
+	private static final String SUFFIX = "/";
 
 	private final S3ClientFactory clientFactory = new S3ClientFactory();
 	private final S3Cloud cloud;
@@ -124,17 +135,11 @@ class S3Impl {
 	public List<S3Node> list(S3Folder folder) throws IOException, BackendException {
 		List<S3Node> result = new ArrayList<>();
 
-		try {
-			RemoteFolder listFolderResult = client().listFolder(folder.getPath()).execute();
-			List<RemoteEntry> entryMetadata = listFolderResult.children();
-			for (RemoteEntry metadata : entryMetadata) {
-				result.add(S3CloudNodeFactory.from(folder, metadata));
-			}
-			return result;
-		} catch (ApiError ex) {
-			handleApiError(ex, folder.getName());
-			throw new FatalBackendException(ex);
+		ListObjectsV2Result objectListing = client().listObjectsV2(cloud.s3Bucket(), folder.getPath());
+		for (S3ObjectSummary objectSummary : objectListing.getObjectSummaries()) {
+			result.add(S3CloudNodeFactory.from(folder, objectSummary));
 		}
+		return result;
 	}
 
 	public S3Folder create(S3Folder folder) throws IOException, BackendException {
@@ -145,15 +150,15 @@ class S3Impl {
 			);
 		}
 
-		try {
-			RemoteFolder createdFolder = client() //
-					.createFolder(folder.getPath()) //
-					.execute();
-			return S3CloudNodeFactory.folder(folder.getParent(), createdFolder);
-		} catch (ApiError ex) {
-			handleApiError(ex, folder.getName());
-			throw new FatalBackendException(ex);
-		}
+		ObjectMetadata metadata = new ObjectMetadata();
+		metadata.setContentLength(0);
+
+		InputStream emptyContent = new ByteArrayInputStream(new byte[0]);
+
+		PutObjectRequest putObjectRequest = new PutObjectRequest(cloud.s3Bucket(), folder.getPath() + SUFFIX, emptyContent, metadata);
+		client().putObject(putObjectRequest);
+
+		return S3CloudNodeFactory.folder(folder.getParent(), folder.getName());
 	}
 
 	public S3Node move(S3Node source, S3Node target) throws IOException, BackendException {
