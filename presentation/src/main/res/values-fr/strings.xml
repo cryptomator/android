@@ -64,7 +64,6 @@
 	</plurals>
 	<string name="screen_file_browser_move_button_text">Déplacer</string>
 	<string name="screen_file_browser_msg_empty_folder">Dossier vide</string>
-	<string name="screen_file_browser_file_info_label_size">%1$s</string>
 	<string name="screen_file_browser_file_info_label_date">Modifié il y à %1$s</string>
 	<string name="screen_file_browser_share_intent_chooser_title">Partager avec</string>
 	<string name="screen_file_browser_share_destination_title">Choisissez la destination</string>
