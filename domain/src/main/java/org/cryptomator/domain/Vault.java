@@ -13,7 +13,7 @@ public class Vault implements Serializable {
 	private final boolean unlocked;
 	private final String password;
 	private final int format;
-	private final int maxFileNameLength;
+	private final int shorteningThreshold;
 	private final int position;
 
 	private Vault(Builder builder) {
@@ -25,7 +25,7 @@ public class Vault implements Serializable {
 		this.cloudType = builder.cloudType;
 		this.password = builder.password;
 		this.format = builder.format;
-		this.maxFileNameLength = builder.maxFileNameLength;
+		this.shorteningThreshold = builder.shorteningThreshold;
 		this.position = builder.position;
 	}
 
@@ -43,7 +43,7 @@ public class Vault implements Serializable {
 				.withUnlocked(vault.isUnlocked()) //
 				.withSavedPassword(vault.getPassword()) //
 				.withFormat(vault.getFormat()) //
-				.withMaxFileNameLength(vault.getMaxFileNameLength()) //
+				.withShorteningThreshold(vault.getShorteningThreshold()) //
 				.withPosition(vault.getPosition());
 	}
 
@@ -79,8 +79,8 @@ public class Vault implements Serializable {
 		return format;
 	}
 
-	public int getMaxFileNameLength() {
-		return maxFileNameLength;
+	public int getShorteningThreshold() {
+		return shorteningThreshold;
 	}
 
 	public int getPosition() {
@@ -117,7 +117,7 @@ public class Vault implements Serializable {
 		private boolean unlocked;
 		private String password;
 		private int format = -1;
-		private int maxFileNameLength = -1;
+		private int shorteningThreshold = -1;
 		private int position = -1;
 
 		private Builder() {
@@ -189,8 +189,8 @@ public class Vault implements Serializable {
 			return this;
 		}
 
-		public Builder withMaxFileNameLength(int maxFileNameLength) {
-			this.maxFileNameLength = maxFileNameLength;
+		public Builder withShorteningThreshold(int shorteningThreshold) {
+			this.shorteningThreshold = shorteningThreshold;
 			return this;
 		}
 

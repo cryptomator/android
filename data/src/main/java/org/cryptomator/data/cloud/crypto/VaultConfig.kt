@@ -24,7 +24,7 @@ class VaultConfig private constructor(builder: VaultConfigBuilder) {
 	val id: String
 	val vaultFormat: Int
 	val cipherCombo: VaultCipherCombo
-	val maxFilenameLength: Int
+	val shorteningThreshold: Int
 
 	fun toToken(rawKey: ByteArray): String {
 		return Jwts.builder()
@@ -32,7 +32,7 @@ class VaultConfig private constructor(builder: VaultConfigBuilder) {
 				.setId(id) //
 				.claim(JSON_KEY_VAULTFORMAT, vaultFormat) //
 				.claim(JSON_KEY_CIPHERCONFIG, cipherCombo.name) //
-				.claim(JSON_KEY_MAXFILENAMELEN, maxFilenameLength) //
+				.claim(JSON_KEY_SHORTENING_THRESHOLD, shorteningThreshold) //
 				.signWith(Keys.hmacShaKeyFor(rawKey)) //
 				.compact()
 	}
@@ -42,7 +42,7 @@ class VaultConfig private constructor(builder: VaultConfigBuilder) {
 		internal var id: String = UUID.randomUUID().toString()
 		internal var vaultFormat = CryptoConstants.MAX_VAULT_VERSION;
 		internal var cipherCombo = VaultCipherCombo.SIV_CTRMAC
-		internal var maxFilenameLength = CryptoConstants.DEFAULT_MAX_FILE_NAME;
+		internal var shorteningThreshold = CryptoConstants.DEFAULT_MAX_FILE_NAME;
 		lateinit var keyId: URI
 
 		fun keyId(keyId: URI): VaultConfigBuilder {
@@ -55,8 +55,8 @@ class VaultConfig private constructor(builder: VaultConfigBuilder) {
 			return this
 		}
 
-		fun maxFilenameLength(maxFilenameLength: Int): VaultConfigBuilder {
-			this.maxFilenameLength = maxFilenameLength
+		fun shorteningThreshold(shorteningThreshold: Int): VaultConfigBuilder {
+			this.shorteningThreshold = shorteningThreshold
 			return this
 		}
 
@@ -79,7 +79,7 @@ class VaultConfig private constructor(builder: VaultConfigBuilder) {
 
 		private const val JSON_KEY_VAULTFORMAT = "format"
 		private const val JSON_KEY_CIPHERCONFIG = "cipherCombo"
-		private const val JSON_KEY_MAXFILENAMELEN = "maxFilenameLen"
+		private const val JSON_KEY_SHORTENING_THRESHOLD = "shorteningThreshold"
 		private const val JSON_KEY_ID = "kid"
 
 		@JvmStatic
@@ -112,7 +112,7 @@ class VaultConfig private constructor(builder: VaultConfigBuilder) {
 						.id(parser.header[JSON_KEY_ID] as String) //
 						.cipherCombo(VaultCipherCombo.valueOf(parser.body.get(JSON_KEY_CIPHERCONFIG, String::class.java))) //
 						.vaultFormat(unverifiedVaultConfig.vaultFormat) //
-						.maxFilenameLength(parser.body[JSON_KEY_MAXFILENAMELEN] as Int)
+						.shorteningThreshold(parser.body[JSON_KEY_SHORTENING_THRESHOLD] as Int)
 
 				VaultConfig(vaultConfigBuilder)
 			} catch (e: Exception) {
@@ -148,6 +148,6 @@ class VaultConfig private constructor(builder: VaultConfigBuilder) {
 		keyId = builder.keyId
 		vaultFormat = builder.vaultFormat
 		cipherCombo = builder.cipherCombo
-		maxFilenameLength = builder.maxFilenameLength
+		shorteningThreshold = builder.shorteningThreshold
 	}
 }

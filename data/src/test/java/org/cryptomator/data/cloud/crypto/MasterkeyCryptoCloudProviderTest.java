@@ -53,7 +53,7 @@ class MasterkeyCryptoCloudProviderTest {
 
 	private final String masterkeyV8 = "{  \"version\": 999,  \"scryptSalt\": \"AAAAAAAAAAA=\",  \"scryptCostParam\": 32768,  \"scryptBlockSize\": 8,  \"primaryMasterKey\": \"D2kc+xBoAcVY+M7s74YBEy6l7ga2+Nz+HS5o0TQY3JMW1uQ5jTlLIQ==\",  \"hmacMasterKey\": \"D2kc+xBoAcVY+M7s74YBEy6l7ga2+Nz+HS5o0TQY3JMW1uQ5jTlLIQ==\",  \"versionMac\": \"trDKXqDhu94/VPuoWaQGBm8hwSPYc0D9t6DRRxKZ65k=\"}";
 	private final String masterkeyV7 = "{  \"version\": 7,  \"scryptSalt\": \"AAAAAAAAAAA=\",  \"scryptCostParam\": 32768,  \"scryptBlockSize\": 8,  \"primaryMasterKey\": \"D2kc+xBoAcVY+M7s74YBEy6l7ga2+Nz+HS5o0TQY3JMW1uQ5jTlLIQ==\",  \"hmacMasterKey\": \"D2kc+xBoAcVY+M7s74YBEy6l7ga2+Nz+HS5o0TQY3JMW1uQ5jTlLIQ==\",  \"versionMac\": \"cn2sAK6l9p1/w9deJVUuW3h7br056mpv5srvALiYw+g=\"}";
-	private final String vaultConfig = "eyJraWQiOiJtYXN0ZXJrZXlmaWxlOm1hc3RlcmtleS5jcnlwdG9tYXRvciIsImFsZyI6IkhTNTEyIn0.eyJtYXhGaWxlbmFtZUxlbiI6MjIwLCJmb3JtYXQiOjgsImNpcGhlckNvbWJvIjoiU0lWX0NUUk1BQyJ9.umiAcGObWuVISugrQu16hznDHIFM7moD1ukA1r5V1DRA0GjHQk1p6S9hkL0PaMD7xl04jSttMRalOYU1sg4wqQ";
+	private final String vaultConfig = "eyJraWQiOiJtYXN0ZXJrZXlmaWxlOm1hc3RlcmtleS5jcnlwdG9tYXRvciIsImFsZyI6IkhTNTEyIn0.eyJmb3JtYXQiOjgsInNob3J0ZW5pbmdUaHJlc2hvbGQiOjIyMCwiY2lwaGVyQ29tYm8iOiJTSVZfQ1RSTUFDIn0.Evt5KXS_35pm53DynIwL3qvXWF56UkfqDZKv12n7SD288jzcdvvmtvu5sQhhqvxU6CPL4Q9v3yFQ_lvBynyrYA";
 
 	private Context context;
 	private Cloud cloud;
@@ -173,7 +173,7 @@ class MasterkeyCryptoCloudProviderTest {
 
 		MatcherAssert.assertThat(result.isUnlocked(), is(true));
 		MatcherAssert.assertThat(result.getFormat(), is(8));
-		MatcherAssert.assertThat(result.getMaxFileNameLength(), is(DEFAULT_MAX_FILE_NAME));
+		MatcherAssert.assertThat(result.getShorteningThreshold(), is(DEFAULT_MAX_FILE_NAME));
 
 		Mockito.verify(inTest).cryptorFor(unlockToken.getKeyFile("foo"), SIV_CTRMAC);
 		Mockito.verify(cryptoCloudContentRepositoryFactory).registerCryptor(Mockito.any(Vault.class), Mockito.any(Cryptor.class));
@@ -200,7 +200,7 @@ class MasterkeyCryptoCloudProviderTest {
 
 		MatcherAssert.assertThat(result.isUnlocked(), is(true));
 		MatcherAssert.assertThat(result.getFormat(), is(MAX_VAULT_VERSION_WITHOUT_VAULT_CONFIG));
-		MatcherAssert.assertThat(result.getMaxFileNameLength(), is(DEFAULT_MAX_FILE_NAME));
+		MatcherAssert.assertThat(result.getShorteningThreshold(), is(DEFAULT_MAX_FILE_NAME));
 
 		Mockito.verify(inTest).cryptorFor(unlockToken.getKeyFile("foo"), SIV_CTRMAC);
 		Mockito.verify(cryptoCloudContentRepositoryFactory).registerCryptor(Mockito.any(Vault.class), Mockito.any(Cryptor.class));

@@ -67,8 +67,8 @@ class CryptoImplVaultFormat7 extends CryptoImplDecorator {
 		super(context, cryptor, cloudContentRepository, storageLocation, dirIdCache, CryptoConstants.DEFAULT_MAX_FILE_NAME);
 	}
 
-	CryptoImplVaultFormat7(Context context, Supplier<Cryptor> cryptor, CloudContentRepository cloudContentRepository, CloudFolder storageLocation, DirIdCache dirIdCache, int maxFileNameLength) {
-		super(context, cryptor, cloudContentRepository, storageLocation, dirIdCache, maxFileNameLength);
+	CryptoImplVaultFormat7(Context context, Supplier<Cryptor> cryptor, CloudContentRepository cloudContentRepository, CloudFolder storageLocation, DirIdCache dirIdCache, int shorteningThreshold) {
+		super(context, cryptor, cloudContentRepository, storageLocation, dirIdCache, shorteningThreshold);
 	}
 
 	@Override
@@ -85,7 +85,7 @@ class CryptoImplVaultFormat7 extends CryptoImplDecorator {
 				.fileNameCryptor() //
 				.encryptFilename(BASE64, name, dirIdInfo(cryptoFolder).getId().getBytes(UTF_8)) + CLOUD_NODE_EXT;
 
-		if (ciphertextName.length() > maxFileNameLength) {
+		if (ciphertextName.length() > shorteningThreshold) {
 			ciphertextName = deflate(cryptoFolder, ciphertextName);
 		}
 		return ciphertextName;

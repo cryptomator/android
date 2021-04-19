@@ -81,7 +81,7 @@ public class MasterkeyCryptoCloudProvider implements CryptoCloudProvider {
 				.vaultFormat(MAX_VAULT_VERSION) //
 				.cipherCombo(DEFAULT_CIPHER_COMBO) //
 				.keyId(URI.create(String.format("%s:%s", MASTERKEY_SCHEME, MASTERKEY_FILE_NAME))) //
-				.maxFilenameLength(DEFAULT_MAX_FILE_NAME) //
+				.shorteningThreshold(DEFAULT_MAX_FILE_NAME) //
 				.build();
 
 		byte[] encodedVaultConfig = vaultConfig.toToken(masterkey.getEncoded()).getBytes(UTF_8);
@@ -114,19 +114,19 @@ public class MasterkeyCryptoCloudProvider implements CryptoCloudProvider {
 			Masterkey masterkey = impl.getKeyFile(password);
 
 			int vaultFormat;
-			int maxFileNameLength;
+			int shorteningThreshold;
 			Cryptor cryptor;
 
 			if (unverifiedVaultConfig.isPresent()) {
 				VaultConfig vaultConfig = VaultConfig.verify(masterkey.getEncoded(), unverifiedVaultConfig.get());
 				vaultFormat = vaultConfig.getVaultFormat();
 				assertVaultVersionIsSupported(vaultConfig.getVaultFormat());
-				maxFileNameLength = vaultConfig.getMaxFilenameLength();
+				shorteningThreshold = vaultConfig.getShorteningThreshold();
 				cryptor = cryptorFor(masterkey, vaultConfig.getCipherCombo());
 			} else {
 				vaultFormat = MasterkeyFileAccess.readAllegedVaultVersion(impl.keyFileData);
 				assertLegacyVaultVersionIsSupported(vaultFormat);
-				maxFileNameLength = vaultFormat > 6 ? CryptoConstants.DEFAULT_MAX_FILE_NAME : CryptoImplVaultFormatPre7.MAX_FILE_NAME_LENGTH;
+				shorteningThreshold = vaultFormat > 6 ? CryptoConstants.DEFAULT_MAX_FILE_NAME : CryptoImplVaultFormatPre7.SHORTENING_THRESHOLD;
 				cryptor = cryptorFor(masterkey, SIV_CTRMAC);
 			}
 
@@ -138,7 +138,7 @@ public class MasterkeyCryptoCloudProvider implements CryptoCloudProvider {
 			Vault vault = aCopyOf(token.getVault()) //
 					.withUnlocked(true) //
 					.withFormat(vaultFormat) //
-					.withMaxFileNameLength(maxFileNameLength) //
+					.withShorteningThreshold(shorteningThreshold) //
 					.build();
 
 			cryptoCloudContentRepositoryFactory.registerCryptor(vault, cryptor);

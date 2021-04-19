@@ -38,7 +38,7 @@ class CryptoCloudContentRepository implements CloudContentRepository<CryptoCloud
 				this.cryptoImpl = new CryptoImplVaultFormat7(context, cryptor, cloudContentRepository, vaultLocation, new DirIdCacheFormat7());
 				break;
 			case 8:
-				this.cryptoImpl = new CryptoImplVaultFormat8(context, cryptor, cloudContentRepository, vaultLocation, new DirIdCacheFormat7(), cloud.getVault().getMaxFileNameLength());
+				this.cryptoImpl = new CryptoImplVaultFormat8(context, cryptor, cloudContentRepository, vaultLocation, new DirIdCacheFormat7(), cloud.getVault().getShorteningThreshold());
 				break;
 			case 6:
 			case 5:
