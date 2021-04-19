@@ -176,7 +176,27 @@ platform :android do |options|
         "android.injected.signing.key.password" => ENV["SIGNING_KEY_PASSWORD"],
       }
     )
-    
+
+    FileUtils.cp(lane_context[SharedValues::GRADLE_APK_OUTPUT_PATH], "repo/Cryptomator.apk")
+
+    sh("cp -r metadata/android/ metadata/org.cryptomator/")
+    FileUtils.cp("metadata/org.cryptomator/en-US/changelogs/default.txt", "metadata/org.cryptomator/en-US/changelogs/#{version}.txt")
+    FileUtils.cp("metadata/org.cryptomator/de-DE/changelogs/default.txt", "metadata/org.cryptomator/de-DE/changelogs/#{version}.txt")
+    sh("fdroid update && fdroid rewritemeta")
+    sh("rm -r metadata/org.cryptomator/")
+
+    aws_s3(
+        bucket: ENV['S3_BUCKET'],
+        endpoint: ENV['S3_ENDPOINT'],
+        region: ENV['S3_REGION'],
+        access_key: ENV['S3_ACCESS_KEY'],
+        secret_access_key: ENV['S3_SECRET_ACCESS_KEY'],
+        path: "android/fdroid",
+        folder: "fastlane/repo",
+        skip_html_upload: true,
+        apk: ''
+      )
+
     FileUtils.cp(lane_context[SharedValues::GRADLE_APK_OUTPUT_PATH], "release/Cryptomator-#{version}_fdroid_signed.apk")
   end
 

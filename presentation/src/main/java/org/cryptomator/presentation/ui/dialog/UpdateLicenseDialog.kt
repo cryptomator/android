@@ -23,14 +23,17 @@ class UpdateLicenseDialog : BaseProgressErrorDialog<UpdateLicenseDialog.Callback
 
 	override fun onStart() {
 		super.onStart()
+		allowClosingDialog(false)
 		val dialog = dialog as AlertDialog?
-		if (dialog != null) {
+		dialog?.let {
 			checkLicenseButton = dialog.getButton(android.app.Dialog.BUTTON_POSITIVE)
 			checkLicenseButton?.setOnClickListener {
 				callback?.checkLicenseClicked(et_license.text.toString())
 				onWaitForResponse(et_license)
 			}
-			dialog.setCanceledOnTouchOutside(false)
+			checkLicenseButton?.let { button ->
+				et_license.nextFocusForwardId = button.id
+			}
 		}
 	}
 
@@ -39,7 +42,6 @@ class UpdateLicenseDialog : BaseProgressErrorDialog<UpdateLicenseDialog.Callback
 				.setTitle(getString(R.string.dialog_enter_license_title)) //
 				.setPositiveButton(getText(R.string.dialog_enter_license_ok_button)) { _: DialogInterface, _: Int -> } //
 				.setNegativeButton(getText(R.string.dialog_enter_license_decline_button)) { _: DialogInterface, _: Int -> callback?.onCheckLicenseCanceled() } //
-				.setCancelable(false) //
 				.create()
 	}
 

@@ -74,7 +74,7 @@
 	<string name="screen_vault_list_actions_title">Add to Cryptomator</string>
 	<string name="screen_vault_list_action_create_new_vault">Create new vault</string>
 	<string name="screen_vault_list_action_add_existing_vault">Add existing vault</string>
-	<string name="screen_vault_list_vault_action_rename">@string/screen_file_browser_node_action_rename</string>
+	<string name="screen_vault_list_vault_action_rename" translatable="false">@string/screen_file_browser_node_action_rename</string>
 	<string name="screen_vault_list_vault_action_delete">Remove</string>
 	<string name="screen_vault_list_vault_creation_hint">Click here to create a new vault</string>
 	<string name="screen_vault_list_change_password_successful">Password successfully changed</string>
@@ -82,9 +82,9 @@
 	<!-- # screen: file browser -->
 	<string name="screen_file_browser_default_title">Vault</string>
 
-	<string name="screen_file_browser_subtitle_add_existing_vault">@string/screen_vault_list_action_add_existing_vault</string>
-	<string name="screen_file_browser_add_existing_vault_extra_text">Select vault or masterkey file</string>
-	<string name="screen_file_browser_subtitle_create_new_vault">@string/screen_vault_list_action_create_new_vault</string>
+	<string name="screen_file_browser_subtitle_add_existing_vault" translatable="false">@string/screen_vault_list_action_add_existing_vault</string>
+	<string name="screen_file_browser_add_existing_vault_extra_text">Select masterkey file</string>
+	<string name="screen_file_browser_subtitle_create_new_vault" translatable="false">@string/screen_vault_list_action_create_new_vault</string>
 	<string name="screen_file_browser_create_new_vault_button_text">Place here</string>
 	<string name="screen_file_browser_create_new_vault_extra_text">Vault name: %1$s</string>
 
@@ -119,7 +119,7 @@
 	<string name="screen_file_browser_node_action_share">Share</string>
 	<string name="screen_file_browser_node_action_rename">Rename</string>
 	<string name="screen_file_browser_node_action_edit_text">Edit</string>
-	<string name="screen_file_browser_node_action_move">@string/screen_file_browser_move_button_text</string>
+	<string name="screen_file_browser_node_action_move" translatable="false">@string/screen_file_browser_move_button_text</string>
 	<string name="screen_file_browser_node_action_export">Export</string>
 	<string name="screen_file_browser_node_action_delete">Delete</string>
 	<string name="screen_file_browser_node_action_open_with_text">Open with&#8230;</string>
@@ -143,21 +143,21 @@
 	<string name="screen_share_files_content_files">files</string>
 
 	<string name="screen_share_files_msg_filenames_must_be_unique">Filenames have to be unique, please rename the duplicates.</string>
-	<string name="screen_share_files_section_files">@string/screen_share_files_content_files</string>
+	<string name="screen_share_files_section_files" translatable="false">@string/screen_share_files_content_files</string>
 	<string name="screen_share_files_section_location">Save location</string>
 	<string name="screen_share_files_save_button_text">Save</string>
 	<string name="screen_share_files_msg_success">Encryption completed</string>
-	<string name="screen_share_files_new_text_file">@string/dialog_file_name_placeholder</string>
+	<string name="screen_share_files_new_text_file" translatable="false">@string/dialog_file_name_placeholder</string>
 
 	<!-- ## screen: choose cloud service -->
 	<string name="screen_choose_cloud_service_title">Cloud service</string>
-	<string name="screen_choose_cloud_service_subtitle_add_existing_vault">@string/screen_vault_list_action_add_existing_vault</string>
-	<string name="screen_choose_cloud_service_subtitle_create_new_vault">@string/screen_vault_list_action_create_new_vault</string>
+	<string name="screen_choose_cloud_service_subtitle_add_existing_vault" translatable="false">@string/screen_vault_list_action_add_existing_vault</string>
+	<string name="screen_choose_cloud_service_subtitle_create_new_vault" translatable="false">@string/screen_vault_list_action_create_new_vault</string>
 
 	<!-- ## screen: cloud connections -->
 	<string name="screen_cloud_connections_title">Choose a location</string>
-	<string name="screen_cloud_settings_option_edit">@string/screen_file_browser_node_action_edit_text</string>
-	<string name="screen_cloud_settings_option_delete">@string/screen_vault_list_vault_action_delete</string>
+	<string name="screen_cloud_settings_option_edit" translatable="false">@string/screen_file_browser_node_action_edit_text</string>
+	<string name="screen_cloud_settings_option_delete" translatable="false">@string/screen_vault_list_vault_action_delete</string>
 	<string name="screen_cloud_connections_no_connections">Click here to add locations</string>
 	<string name="screen_cloud_error_webdav_not_supported">Server doesn\'t seem to be WebDAV compatible</string>
 	<string name="screen_cloud_local_custom_storage_title">Custom locations</string>
@@ -165,7 +165,7 @@
 	<string name="screen_cloud_local_error_no_content_provider">No additional locations available.</string>
 
 	<!-- ## screen: webdav settings -->
-	<string name="screen_webdav_settings_title">@string/cloud_names_webdav</string>
+	<string name="screen_webdav_settings_title" translatable="false">@string/cloud_names_webdav</string>
 	<string name="screen_webdav_settings_url_port_label">URL</string>
 	<string name="screen_webdav_settings_username_label">Username</string>
 	<string name="screen_webdav_settings_password_label">Password</string>
@@ -176,18 +176,18 @@
 	<string name="screen_webdav_settings_msg_password_must_not_be_empty">Password can\'t be empty.</string>
 
 	<!-- ## screen: enter vault name -->
-	<string name="screen_enter_vault_name_title">@string/screen_vault_list_action_create_new_vault</string>
+	<string name="screen_enter_vault_name_title" translatable="false">@string/screen_vault_list_action_create_new_vault</string>
 	<string name="screen_enter_vault_name_msg_name_empty">Vault name can\'t be empty.</string>
 	<string name="screen_enter_vault_name_vault_label">Vault name</string>
 	<string name="screen_enter_vault_name_button_text">Create</string>
 
 	<!-- ## screen: set password -->
 	<string name="screen_set_password_title">Set password</string>
-	<string name="screen_set_password_msg_password_empty">@string/screen_webdav_settings_msg_password_must_not_be_empty</string>
+	<string name="screen_set_password_msg_password_empty" translatable="false">@string/screen_webdav_settings_msg_password_must_not_be_empty</string>
 	<string name="screen_set_password_msg_password_mismatch">Password doesn\'t match retyped password.</string>
 	<string name="screen_set_password_button_text">Done</string>
 	<string name="screen_set_password_hint">IMPORTANT: If you forget your password, there is no way to recover your data.</string>
-	<string name="screen_set_password_password_label">@string/screen_webdav_settings_password_label</string>
+	<string name="screen_set_password_password_label" translatable="false">@string/screen_webdav_settings_password_label</string>
 	<string name="screen_set_password_retype_password_label">Retype password</string>
 
 	<string name="screen_set_password_strength_indicator_0">Very weak</string>
@@ -197,7 +197,7 @@
 	<string name="screen_set_password_strength_indicator_4">Very Strong</string>
 
 	<!-- ## screen: settings -->
-	<string name="screen_settings_title">@string/snack_bar_action_title_settings</string>
+	<string name="screen_settings_title" translatable="false">@string/snack_bar_action_title_settings</string>
 
 	<string name="screen_settings_section_general">General</string>
 	<string name="screen_settings_cloud_settings_label">Cloud services</string>
@@ -227,7 +227,7 @@
 
 	<string name="screen_settings_auto_photo_upload_title">Save auto upload files to&#8230;</string>
 
-	<string name="screen_settings_section_social">@string/screen_webdav_settings_done_button_text</string>
+	<string name="screen_settings_section_social" translatable="false">@string/screen_webdav_settings_done_button_text</string>
 	<string name="screen_settings_website_label">Cryptomator website</string>
 	<string name="screen_settings_twitter_label">Follow us on Twitter</string>
 	<string name="screen_settings_facebook_label">Like us on Facebook</string>
@@ -257,7 +257,7 @@
 	<string name="screen_settings_keep_unlocked_while_editing_files_summary">Keep vaults unlocked while editing files</string>
 
 	<!-- ## screen: cloud settings -->
-	<string name="screen_cloud_settings_title">@string/screen_settings_cloud_settings_label</string>
+	<string name="screen_cloud_settings_title" translatable="false">@string/screen_settings_cloud_settings_label</string>
 	<string name="screen_cloud_settings_webdav_connections">WebDAV connections</string>
 	<string name="screen_cloud_settings_pcloud_connections">pCloud connections</string>
 	<string name="screen_cloud_settings_local_storage_locations">Local storage locations</string>
@@ -265,7 +265,7 @@
 	<string name="screen_cloud_settings_sign_out_from_cloud">Sign out from</string>
 
 	<!-- ## screen: licenses -->
-	<string name="screen_licenses_title">@string/screen_settings_licenses_label</string>
+	<string name="screen_licenses_title" translatable="false">@string/screen_settings_licenses_label</string>
 
 	<!-- ## screen: authenticate cloud -->
 	<string name="screen_authenticate_auth_authentication_failed">%1$s could not be authenticated.</string>
@@ -281,15 +281,15 @@
 	<!-- # dialogs -->
 	<string name="dialog_button_cancel">Cancel</string>
 
-	<string name="dialog_create_folder_title">@string/screen_file_browser_action_create_folder</string>
-	<string name="dialog_create_folder_positive_button">@string/screen_enter_vault_name_button_text</string>
+	<string name="dialog_create_folder_title" translatable="false">@string/screen_file_browser_action_create_folder</string>
+	<string name="dialog_create_folder_positive_button" translatable="false">@string/screen_enter_vault_name_button_text</string>
 
-	<string name="dialog_enter_password_password_label">@string/screen_webdav_settings_password_label</string>
+	<string name="dialog_enter_password_password_label" translatable="false">@string/screen_webdav_settings_password_label</string>
 	<string name="dialog_enter_password_positive_button">Unlock</string>
 
 	<string name="dialog_change_password_old_password_label">Old Password</string>
 	<string name="dialog_change_password_new_password_label">New Password</string>
-	<string name="dialog_change_password_new_retype_password_label">@string/screen_set_password_retype_password_label</string>
+	<string name="dialog_change_password_new_retype_password_label" translatable="false">@string/screen_set_password_retype_password_label</string>
 	<string name="dialog_change_password">Change password</string>
 	<string name="dialog_change_password_msg_old_password_empty">Old password can\'t be empty.</string>
 	<string name="dialog_change_password_msg_new_password_empty">New password can\'t be empty.</string>
@@ -320,36 +320,36 @@
 	<string name="dialog_unable_to_share_negative_button">Create vault</string>
 
 	<string name="dialog_filetype_not_supported_title">Can\'t open %1$s</string>
-	<string name="dialog_filetype_not_supported_positive_button">@string/screen_file_browser_node_action_export</string>
+	<string name="dialog_filetype_not_supported_positive_button" translatable="false">@string/screen_file_browser_node_action_export</string>
 	<string name="dialog_filetype_not_supported_message">Please download an app that can open this file or do you like to save to your device?</string>
 
 	<string name="dialog_rename_vault_title">Rename vault</string>
-	<string name="dialog_rename_vault_positive_button">@string/screen_file_browser_node_action_rename</string>
+	<string name="dialog_rename_vault_positive_button" translatable="false">@string/screen_file_browser_node_action_rename</string>
 
 	<string name="dialog_rename_node_folder_title">Rename folder</string>
 	<string name="dialog_rename_node_file_title">Rename file</string>
-	<string name="dialog_rename_node_positive_button">@string/screen_file_browser_node_action_rename</string>
+	<string name="dialog_rename_node_positive_button" translatable="false">@string/screen_file_browser_node_action_rename</string>
 
 	<string name="dialog_unsaved_changes_title">You have unsaved changes</string>
 	<string name="dialog_unsaved_changes_message">Do you really want to quit without saving?</string>
 	<string name="dialog_unsaved_changes_discard">Discard</string>
-	<string name="dialog_unsaved_changes_save">@string/screen_share_files_save_button_text</string>
+	<string name="dialog_unsaved_changes_save" translatable="false">@string/screen_share_files_save_button_text</string>
 
-	<string name="dialog_file_name_title">@string/screen_file_browser_action_create_new_text_file</string>
-	<string name="dialog_file_name_create">@string/screen_enter_vault_name_button_text</string>
-	<string name="dialog_file_name_cancel">@string/dialog_button_cancel</string>
+	<string name="dialog_file_name_title" translatable="false">@string/screen_file_browser_action_create_new_text_file</string>
+	<string name="dialog_file_name_create" translatable="false">@string/screen_enter_vault_name_button_text</string>
+	<string name="dialog_file_name_cancel" translatable="false">@string/dialog_button_cancel</string>
 	<string name="dialog_file_name_placeholder">text.txt</string>
 
-	<string name="dialog_delete_vault_positive_button_text">@string/screen_file_browser_node_action_delete</string>
+	<string name="dialog_delete_vault_positive_button_text" translatable="false">@string/screen_file_browser_node_action_delete</string>
 	<string name="dialog_delete_vault_message">Are you sure you want to remove this vault?</string>
 	<string name="dialog_delete_vault_hint">This action will only remove the vault from this list and not delete it physically.</string>
 
 	<string name="dialog_upload_file_title">Uploading&#8230;</string>
-	<string name="dialog_upload_file_cancel_button">@string/dialog_button_cancel</string>
+	<string name="dialog_upload_file_cancel_button" translatable="false">@string/dialog_button_cancel</string>
 	<string name="dialog_upload_file_remaining">File %1$d of %2$d</string>
 
 	<string name="dialog_export_file_title">Exporting (%1$d/%2$d)</string>
-	<string name="dialog_export_file_cancel_button">@string/dialog_button_cancel</string>
+	<string name="dialog_export_file_cancel_button" translatable="false">@string/dialog_button_cancel</string>
 
 	<string name="dialog_progress_please_wait">Please wait&#8230;</string>
 	<string name="dialog_progress_creating_folder">Creating folder&#8230;</string>
@@ -386,12 +386,12 @@
 	<string name="dialog_debug_mode_disclaimer_hint">In this mode, sensitive data may be written to a log file on your device (e.g., filenames and paths). Passwords, cookies, etc. are explicitly excluded.\n\nRemember to disable debug mode as soon as possible.</string>
 	<string name="dialog_debug_mode_disclaimer_title">Attention</string>
 	<string name="dialog_debug_mode_positive_button">Enable</string>
-	<string name="dialog_debug_mode_negative_button">@string/dialog_button_cancel</string>
+	<string name="dialog_debug_mode_negative_button" translatable="false">@string/dialog_button_cancel</string>
 
 	<string name="dialog_disable_app_obscured_disclaimer_hint">This setting is a security feature and prevents other apps from tricking users into doing things they do not wan\'t to do.\n\nBy disabling, you confirm that you are <a href="https://docs.cryptomator.org/en/1.5/android/settings/#block-app-when-obscured">aware of the risks</a>.</string>
 	<string name="dialog_disable_app_obscured_disclaimer_title">Attention</string>
 	<string name="dialog_disable_app_obscured_positive_button">Disable</string>
-	<string name="dialog_disable_app_obscured_negative_button">@string/dialog_button_cancel</string>
+	<string name="dialog_disable_app_obscured_negative_button" translatable="false">@string/dialog_button_cancel</string>
 
 	<string name="dialog_app_is_obscured_info_title">App is obscured</string>
 	<string name="dialog_app_is_obscured_info_hint">Another app is displaying something on top of Cryptomator (e.g., a blue light filter or night mode app). For security reasons, Cryptomator is disabled.\n\n<a href="https://docs.cryptomator.org/en/1.5/android/settings/#block-app-when-obscured">How to enable Cryptomator</a></string>
@@ -401,11 +401,11 @@
 
 	<string name="dialog_delete_cloud_connection_with_vaults_message">Are you sure you want to remove this cloud connection?</string>
 	<string name="dialog_delete_cloud_connection_with_vaults_hint">This action will remove the cloud connection and all vaults of this cloud.</string>
-	<string name="dialog_delete_cloud_connection_with_vaults_positive_button">@string/screen_file_browser_node_action_delete</string>
-	<string name="dialog_delete_cloud_connection_with_vaults_negative_button">@string/dialog_button_cancel</string>
+	<string name="dialog_delete_cloud_connection_with_vaults_positive_button" translatable="false">@string/screen_file_browser_node_action_delete</string>
+	<string name="dialog_delete_cloud_connection_with_vaults_negative_button" translatable="false">@string/dialog_button_cancel</string>
 
-	<string name="dialog_confirm_delete_positive_button">@string/screen_file_browser_node_action_delete</string>
-	<string name="dialog_confirm_delete_negative_button">@string/dialog_button_cancel</string>
+	<string name="dialog_confirm_delete_positive_button" translatable="false">@string/screen_file_browser_node_action_delete</string>
+	<string name="dialog_confirm_delete_negative_button" translatable="false">@string/dialog_button_cancel</string>
 	<string name="dialog_confirm_delete_multiple_title">Delete %1$d items?</string>
 	<string name="dialog_confirm_delete_multiple_message">Are you sure you want to delete these items?</string>
 	<string name="dialog_confirm_delete_file_message">Are you sure you want to delete this file?</string>
@@ -413,18 +413,18 @@
 
 	<string name="dialog_biometric_auth_key_invalidated_title">Biometric authentication feature deactivated</string>
 	<string name="dialog_biometric_auth_key_invalidated_message">Because the key has been invalidated, the biometric authentication feature has been deactivated. To re-enable, open the Cryptomator settings.</string>
-	<string name="dialog_biometric_auth_key_invalidated_neutral_button">@string/dialog_unable_to_share_positive_button</string>
+	<string name="dialog_biometric_auth_key_invalidated_neutral_button" translatable="false">@string/dialog_unable_to_share_positive_button</string>
 
 	<string name="dialog_enter_license_title">Provide a valid license</string>
 	<string name="dialog_enter_license_content">We detected that you installed Cryptomator without using Google Play Store. Provide a valid license, which can be purchased on <a href="https://cryptomator.org/android/">https://cryptomator.org/android/</a></string>
 	<string name="dialog_enter_license_not_valid_content">The provided license isn\'t valid. Make sure you entered it correctly.</string>
 	<string name="dialog_enter_license_no_content">No license provided. Please enter a valid license.</string>
-	<string name="dialog_enter_license_ok_button">@string/dialog_unable_to_share_positive_button</string>
+	<string name="dialog_enter_license_ok_button" translatable="false">@string/dialog_unable_to_share_positive_button</string>
 	<string name="dialog_enter_license_decline_button">Exit</string>
 
 	<string name="dialog_license_confirmation_title">License confirmation</string>
 	<string name="dialog_license_confirmation_message">Thanks %1$s for providing your valid license.</string>
-	<string name="dialog_license_confirmation_ok_btn">@string/dialog_unable_to_share_positive_button</string>
+	<string name="dialog_license_confirmation_ok_btn" translatable="false">@string/dialog_unable_to_share_positive_button</string>
 
 	<string name="dialog_update_available_title">Update available</string>
 	<string name="dialog_update_available_message">Update Cryptomator to the latest version. By pressing OK we will download the app in the background and will ask you to install it.</string>
@@ -441,7 +441,7 @@
 
 	<string name="dialog_no_dir_file_title">Unable to load contents of directory</string>
 	<string name="dialog_no_dir_file_message">Cloud folder \'%1$s\' doesn\'t have a directory file. It could be that the folder was created on another device and has not yet been fully synchronized to the cloud. Please check in your cloud if the following file exists:\n%2$s</string>
-	<string name="dialog_no_dir_file_back_button">@string/dialog_sym_link_back_button</string>
+	<string name="dialog_no_dir_file_back_button" translatable="false">@string/dialog_sym_link_back_button</string>
 
 	<string name="dialog_beta_confirmation_title">Beta release</string>
 	<string name="dialog_beta_confirmation">This is a beta release which introduces the support of vault format 7. Please make sure that you don\'t use your production vault for testing or have a good backup strategy.</string>
@@ -507,14 +507,14 @@
 	<string name="notification_auto_upload_failed_due_to_folder_not_exists">Selected folder for upload isn\'t available anymore. Go to settings and choose a new one</string>
 	<string name="notification_auto_upload_failed_due_to_vault_locked">Vault locked during upload, please reopen vault to continue</string>
 
-	<string name="notification_cancel_open_writable_file">@string/dialog_button_cancel</string>
+	<string name="notification_cancel_open_writable_file" translatable="false">@string/dialog_button_cancel</string>
 	<string name="notification_open_writable_file_title">Open writable file</string>
 	<string name="notification_open_writable_file_message">Vault stays unlocked until finished editing</string>
 
 	<string name="notification_update_check_finished_latest">Latest version installed</string>
 
 	<string name="screen_settings_lru_cache">Cache</string>
-	<string name="screen_settings_lru_cache_toggle">@string/screen_settings_section_auto_photo_upload_toggle</string>
+	<string name="screen_settings_lru_cache_toggle" translatable="false">@string/screen_settings_section_auto_photo_upload_toggle</string>
 	<string name="screen_settings_lru_cache_toggle_summary">Cache recently accessed files encrypted locally on the device for later reuse when reopened</string>
 	<string name="screen_settings_lru_cache_size">Total cache size</string>
 	<string name="screen_settings_clear_lru_cache_size">Clear Cache</string>
@@ -526,7 +526,7 @@
 	<string name="dialog_settings_update_check_interval_title">Update check interval</string>
 	<string name="screen_settings_check_updates">Check for updates</string>
 	<string name="screen_settings_last_check_updates">Last run %1$s</string>
-	<string name="screen_settings_last_check_updates_never">@string/lock_timeout_never</string>
+	<string name="screen_settings_last_check_updates_never" translatable="false">@string/lock_timeout_never</string>
 
 	<string name="dialog_cache_size_title">Cache size per Cloud</string>
 
@@ -556,6 +556,6 @@
 	<string name="update_interval_1d">Once a day</string>
 	<string name="update_interval_1w">Once a week</string>
 	<string name="update_interval_1m">Once a month</string>
-	<string name="update_interval_never">@string/lock_timeout_never</string>
+	<string name="update_interval_never" translatable="false">@string/lock_timeout_never</string>
 
 </resources>

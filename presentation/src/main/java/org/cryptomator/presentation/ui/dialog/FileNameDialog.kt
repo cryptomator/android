@@ -32,6 +32,9 @@ class FileNameDialog : BaseProgressErrorDialog<FileNameDialog.Callback>() {
 			}
 			dialog.setCanceledOnTouchOutside(false)
 			file_name.requestFocus()
+			createFileButton?.let { button ->
+				file_name.nextFocusForwardId = button.id
+			}
 		}
 	}
 
