@@ -26,6 +26,7 @@
 	<string name="error_failed_to_decrypt_webdav_password">Nie udało się odszyfrować hasła WebDAV, proszę dodać je w ustawieniach</string>
 	<string name="error_play_services_not_available">Usługi Google Play nie są zainstalowane</string>
 	<string name="error_biometric_auth_aborted">Przerwano biometryczną autoryzację</string>
+	<string name="error_file_not_found_after_opening_using_3party">Lokalny plik nie jest już obecny po przełączeniu się z powrotem na Cryptomator. Możliwe zmiany nie mogą być przeniesione z powrotem do chmury.</string>
 	<!-- # clouds -->
 	<!-- ## cloud names -->
 	<string name="cloud_names_local_storage">Pamięć wewnętrzna</string>
@@ -211,6 +212,7 @@
 	<string name="dialog_replace_positive_button_single_file_exists">Zastąp</string>
 	<string name="dialog_replace_msg_single_file_exists">Plik \'%1$s\' już istnieje. Czy chcesz go zastąpić?</string>
 	<string name="dialog_replace_msg_all_files_exists">Pliki już istnieją. Czy chcesz go zastąpić?</string>
+	<string name="dialog_replace_msg_some_files_exists">%1$d pliki już istnieją. Czy chcesz je zastąpić?</string>
 	<string name="dialog_replace_title_single_file_exists">Zastąp plik?</string>
 	<string name="dialog_replace_title_multiple_files_exist">Zastąp pliki?</string>
 	<string name="dialog_unable_to_share_title">Nie można udostępnić plików</string>
