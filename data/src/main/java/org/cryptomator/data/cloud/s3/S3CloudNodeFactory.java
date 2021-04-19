@@ -1,15 +1,13 @@
 package org.cryptomator.data.cloud.s3;
 
-import com.pcloud.sdk.RemoteEntry;
-import com.pcloud.sdk.RemoteFile;
-import com.pcloud.sdk.RemoteFolder;
+import com.amazonaws.services.s3.model.S3ObjectSummary;
 
 import org.cryptomator.util.Optional;
 
 class S3CloudNodeFactory {
 
-	public static S3File file(S3Folder parent, RemoteFile file) {
-		return new S3File(parent, file.name(), getNodePath(parent, file.name()), Optional.ofNullable(file.size()), Optional.ofNullable(file.lastModified()));
+	public static S3File file(S3Folder parent, S3ObjectSummary file) {
+		return new S3File(parent, file.getKey(), getNodePath(parent, file.getKey()), Optional.ofNullable(file.getSize()), Optional.ofNullable(file.getLastModified()));
 	}
 
 	public static S3File file(S3Folder parent, String name, Optional<Long> size) {
@@ -20,8 +18,8 @@ class S3CloudNodeFactory {
 		return new S3File(folder, name, path, size, Optional.empty());
 	}
 
-	public static S3Folder folder(S3Folder parent, RemoteFolder folder) {
-		return new S3Folder(parent, folder.name(), getNodePath(parent, folder.name()));
+	public static S3Folder folder(S3Folder parent, S3ObjectSummary folder) {
+		return new S3Folder(parent, folder.getKey(), getNodePath(parent, folder.getKey()));
 	}
 
 	public static S3Folder folder(S3Folder parent, String name) {
@@ -36,11 +34,11 @@ class S3CloudNodeFactory {
 		return parent.getPath() + "/" + name;
 	}
 
-	public static S3Node from(S3Folder parent, RemoteEntry remoteEntry) {
-		if (remoteEntry instanceof RemoteFile) {
-			return file(parent, remoteEntry.asFile());
+	public static S3Node from(S3Folder parent, S3ObjectSummary objectSummary) {
+		if (objectSummary.getKey().endsWith("/")) {
+			return folder(parent, objectSummary);
 		} else {
-			return folder(parent, remoteEntry.asFolder());
+			return file(parent, objectSummary);
 		}
 	}
 
