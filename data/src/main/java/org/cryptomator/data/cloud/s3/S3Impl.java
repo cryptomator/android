@@ -4,6 +4,7 @@ import android.content.Context;
 
 import com.amazonaws.event.ProgressListener;
 import com.amazonaws.services.s3.AmazonS3;
+import com.amazonaws.services.s3.model.CopyObjectResult;
 import com.amazonaws.services.s3.model.DeleteObjectsRequest;
 import com.amazonaws.services.s3.model.DeleteObjectsRequest.KeyVersion;
 import com.amazonaws.services.s3.model.GetObjectRequest;
@@ -15,20 +16,14 @@ import com.amazonaws.services.s3.model.PutObjectRequest;
 import com.amazonaws.services.s3.model.PutObjectResult;
 import com.amazonaws.services.s3.model.S3Object;
 import com.amazonaws.services.s3.model.S3ObjectSummary;
-import com.pcloud.sdk.ApiError;
 import com.tomclaw.cache.DiskLruCache;
 
 import org.cryptomator.data.util.CopyStream;
 import org.cryptomator.domain.S3Cloud;
 import org.cryptomator.domain.exception.BackendException;
 import org.cryptomator.domain.exception.CloudNodeAlreadyExistsException;
-import org.cryptomator.domain.exception.FatalBackendException;
-import org.cryptomator.domain.exception.ForbiddenException;
-import org.cryptomator.domain.exception.NetworkConnectionException;
 import org.cryptomator.domain.exception.NoSuchCloudFileException;
-import org.cryptomator.domain.exception.UnauthorizedException;
 import org.cryptomator.domain.exception.authentication.NoAuthenticationProvidedException;
-import org.cryptomator.domain.exception.authentication.WrongCredentialsException;
 import org.cryptomator.domain.usecases.ProgressAware;
 import org.cryptomator.domain.usecases.cloud.DataSource;
 import org.cryptomator.domain.usecases.cloud.DownloadState;
@@ -45,7 +40,6 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Set;
 
 import timber.log.Timber;
 
@@ -158,12 +152,31 @@ class S3Impl {
 			throw new CloudNodeAlreadyExistsException(target.getName());
 		}
 
-//		if (source instanceof S3Folder) {
-//			return S3CloudNodeFactory.from(target.getParent(), client().moveFolder(source.getPath(), target.getPath()).execute());
-//		} else {
-//			return S3CloudNodeFactory.from(target.getParent(), client().moveFile(source.getPath(), target.getPath()).execute());
-//		}
-		return null;
+		if (source instanceof S3Folder) {
+			ObjectListing listing = client().listObjects(cloud.s3Bucket(), source.getPath() + SUFFIX);
+
+			if (listing.getObjectSummaries().size() > 0) {
+				String sourceKey = source.getPath() + SUFFIX;
+				String targetKey = target.getPath() + SUFFIX;
+
+				List<DeleteObjectsRequest.KeyVersion> objectsToDelete = new ArrayList<>();
+
+				for (S3ObjectSummary summary : listing.getObjectSummaries()) {
+					objectsToDelete.add(new DeleteObjectsRequest.KeyVersion(summary.getKey()));
+					String destinationKey = summary.getKey().replace(sourceKey, targetKey);
+
+					client().copyObject(cloud.s3Bucket(), summary.getKey(), cloud.s3Bucket(), destinationKey);
+				}
+				client().deleteObjects(new DeleteObjectsRequest(cloud.s3Bucket()).withKeys(objectsToDelete));
+			} else {
+				throw new NoSuchCloudFileException(source.getPath());
+			}
+			return S3CloudNodeFactory.folder(target.getParent(), target.getName());
+		} else {
+			CopyObjectResult result = client().copyObject(cloud.s3Bucket(), source.getPath(), cloud.s3Bucket(), target.getPath());
+			client().deleteObject(cloud.s3Bucket(), source.getPath());
+			return S3CloudNodeFactory.file(target.getParent(), target.getName(), ((S3File)source).getSize(), Optional.of(result.getLastModifiedDate()));
+		}
 	}
 
 	public S3File write(S3File file, DataSource data, final ProgressAware<UploadState> progressAware, boolean replace, long size) throws IOException, BackendException {
@@ -296,35 +309,4 @@ class S3Impl {
 
 		return true;
 	}
-
-	//TODO: add proper error handling or remove entirely
-
-//	private void handleApiError(ApiError ex) throws BackendException {
-//		handleApiError(ex, null, null);
-//	}
-//
-//	private void handleApiError(ApiError ex, String name) throws BackendException {
-//		handleApiError(ex, null, name);
-//	}
-//
-//	private void handleApiError(ApiError ex, Set<Integer> errorCodes, String name) throws BackendException {
-//		if (errorCodes == null || !errorCodes.contains(ex.errorCode())) {
-//			int errorCode = ex.errorCode();
-//			if (PCloudApiError.isCloudNodeAlreadyExistsException(errorCode)) {
-//				throw new CloudNodeAlreadyExistsException(name);
-//			} else if (PCloudApiError.isForbiddenException(errorCode)) {
-//				throw new ForbiddenException();
-//			} else if (PCloudApiError.isNetworkConnectionException(errorCode)) {
-//				throw new NetworkConnectionException(ex);
-//			} else if (PCloudApiError.isNoSuchCloudFileException(errorCode)) {
-//				throw new NoSuchCloudFileException(name);
-//			} else if (PCloudApiError.isWrongCredentialsException(errorCode)) {
-//				throw new WrongCredentialsException(cloud);
-//			} else if (PCloudApiError.isUnauthorizedException(errorCode)) {
-//				throw new UnauthorizedException();
-//			} else {
-//				throw new FatalBackendException(ex);
-//			}
-//		}
-//	}
 }
