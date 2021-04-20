@@ -158,22 +158,12 @@ class S3Impl {
 			throw new CloudNodeAlreadyExistsException(target.getName());
 		}
 
-		try {
-			if (source instanceof S3Folder) {
-				return S3CloudNodeFactory.from(target.getParent(), client().moveFolder(source.getPath(), target.getPath()).execute());
-			} else {
-				return S3CloudNodeFactory.from(target.getParent(), client().moveFile(source.getPath(), target.getPath()).execute());
-			}
-		} catch (ApiError ex) {
-			if (PCloudApiError.isCloudNodeAlreadyExistsException(ex.errorCode())) {
-				throw new CloudNodeAlreadyExistsException(target.getName());
-			} else if (PCloudApiError.isNoSuchCloudFileException(ex.errorCode())) {
-				throw new NoSuchCloudFileException(source.getName());
-			} else {
-				handleApiError(ex, PCloudApiError.ignoreMoveSet, null);
-			}
-			throw new FatalBackendException(ex);
-		}
+//		if (source instanceof S3Folder) {
+//			return S3CloudNodeFactory.from(target.getParent(), client().moveFolder(source.getPath(), target.getPath()).execute());
+//		} else {
+//			return S3CloudNodeFactory.from(target.getParent(), client().moveFile(source.getPath(), target.getPath()).execute());
+//		}
+		return null;
 	}
 
 	public S3File write(S3File file, DataSource data, final ProgressAware<UploadState> progressAware, boolean replace, long size) throws IOException, BackendException {
@@ -307,32 +297,34 @@ class S3Impl {
 		return true;
 	}
 
-	private void handleApiError(ApiError ex) throws BackendException {
-		handleApiError(ex, null, null);
-	}
+	//TODO: add proper error handling or remove entirely
 
-	private void handleApiError(ApiError ex, String name) throws BackendException {
-		handleApiError(ex, null, name);
-	}
-
-	private void handleApiError(ApiError ex, Set<Integer> errorCodes, String name) throws BackendException {
-		if (errorCodes == null || !errorCodes.contains(ex.errorCode())) {
-			int errorCode = ex.errorCode();
-			if (PCloudApiError.isCloudNodeAlreadyExistsException(errorCode)) {
-				throw new CloudNodeAlreadyExistsException(name);
-			} else if (PCloudApiError.isForbiddenException(errorCode)) {
-				throw new ForbiddenException();
-			} else if (PCloudApiError.isNetworkConnectionException(errorCode)) {
-				throw new NetworkConnectionException(ex);
-			} else if (PCloudApiError.isNoSuchCloudFileException(errorCode)) {
-				throw new NoSuchCloudFileException(name);
-			} else if (PCloudApiError.isWrongCredentialsException(errorCode)) {
-				throw new WrongCredentialsException(cloud);
-			} else if (PCloudApiError.isUnauthorizedException(errorCode)) {
-				throw new UnauthorizedException();
-			} else {
-				throw new FatalBackendException(ex);
-			}
-		}
-	}
+//	private void handleApiError(ApiError ex) throws BackendException {
+//		handleApiError(ex, null, null);
+//	}
+//
+//	private void handleApiError(ApiError ex, String name) throws BackendException {
+//		handleApiError(ex, null, name);
+//	}
+//
+//	private void handleApiError(ApiError ex, Set<Integer> errorCodes, String name) throws BackendException {
+//		if (errorCodes == null || !errorCodes.contains(ex.errorCode())) {
+//			int errorCode = ex.errorCode();
+//			if (PCloudApiError.isCloudNodeAlreadyExistsException(errorCode)) {
+//				throw new CloudNodeAlreadyExistsException(name);
+//			} else if (PCloudApiError.isForbiddenException(errorCode)) {
+//				throw new ForbiddenException();
+//			} else if (PCloudApiError.isNetworkConnectionException(errorCode)) {
+//				throw new NetworkConnectionException(ex);
+//			} else if (PCloudApiError.isNoSuchCloudFileException(errorCode)) {
+//				throw new NoSuchCloudFileException(name);
+//			} else if (PCloudApiError.isWrongCredentialsException(errorCode)) {
+//				throw new WrongCredentialsException(cloud);
+//			} else if (PCloudApiError.isUnauthorizedException(errorCode)) {
+//				throw new UnauthorizedException();
+//			} else {
+//				throw new FatalBackendException(ex);
+//			}
+//		}
+//	}
 }
