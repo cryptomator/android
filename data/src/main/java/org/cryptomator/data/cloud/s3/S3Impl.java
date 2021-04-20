@@ -9,7 +9,6 @@ import com.amazonaws.services.s3.model.DeleteObjectsRequest;
 import com.amazonaws.services.s3.model.DeleteObjectsRequest.KeyVersion;
 import com.amazonaws.services.s3.model.GetObjectRequest;
 import com.amazonaws.services.s3.model.ListObjectsV2Result;
-import com.amazonaws.services.s3.model.ObjectListing;
 import com.amazonaws.services.s3.model.ObjectMetadata;
 import com.amazonaws.services.s3.model.Owner;
 import com.amazonaws.services.s3.model.PutObjectRequest;
@@ -108,7 +107,7 @@ class S3Impl {
 	public boolean exists(S3Node node) {
 		String path = node.getPath();
 
-		ObjectListing result = client().listObjects(cloud.s3Bucket(), path);
+		ListObjectsV2Result result = client().listObjectsV2(cloud.s3Bucket(), path);
 
 		if (result.getObjectSummaries().size() > 0) {
 			return true;
@@ -120,8 +119,8 @@ class S3Impl {
 	public List<S3Node> list(S3Folder folder) throws IOException, BackendException {
 		List<S3Node> result = new ArrayList<>();
 
-		ListObjectsV2Result objectListing = client().listObjectsV2(cloud.s3Bucket(), folder.getPath());
-		for (S3ObjectSummary objectSummary : objectListing.getObjectSummaries()) {
+		ListObjectsV2Result listObjects = client().listObjectsV2(cloud.s3Bucket(), folder.getPath());
+		for (S3ObjectSummary objectSummary : listObjects.getObjectSummaries()) {
 			result.add(S3CloudNodeFactory.from(folder, objectSummary));
 		}
 		return result;
@@ -152,13 +151,13 @@ class S3Impl {
 		}
 
 		if (source instanceof S3Folder) {
-			ObjectListing listing = client().listObjects(cloud.s3Bucket(), source.getPath());
+			ListObjectsV2Result listObjects = client().listObjectsV2(cloud.s3Bucket(), source.getPath());
 
-			if (listing.getObjectSummaries().size() > 0) {
+			if (listObjects.getObjectSummaries().size() > 0) {
 
 				List<DeleteObjectsRequest.KeyVersion> objectsToDelete = new ArrayList<>();
 
-				for (S3ObjectSummary summary : listing.getObjectSummaries()) {
+				for (S3ObjectSummary summary : listObjects.getObjectSummaries()) {
 					objectsToDelete.add(new DeleteObjectsRequest.KeyVersion(summary.getKey()));
 					String destinationKey = summary.getKey().replace(source.getPath(), target.getPath());
 
@@ -214,14 +213,14 @@ class S3Impl {
 		Optional<String> cacheKey = Optional.empty();
 		Optional<File> cacheFile = Optional.empty();
 
-		ObjectListing objectListing;
+		ListObjectsV2Result listObjects;
 
 		if (sharedPreferencesHandler.useLruCache() && createLruCache(sharedPreferencesHandler.lruCacheSize())) {
-			objectListing = client().listObjects(cloud.s3Bucket(), file.getPath());
-			if (objectListing.getObjectSummaries().size() != 1) {
+			listObjects = client().listObjectsV2(cloud.s3Bucket(), file.getPath());
+			if (listObjects.getObjectSummaries().size() != 1) {
 				throw new NoSuchCloudFileException(file.getPath());
 			}
-			S3ObjectSummary summary = objectListing.getObjectSummaries().get(0);
+			S3ObjectSummary summary = listObjects.getObjectSummaries().get(0);
 			cacheKey = Optional.of(summary.getKey() + summary.getETag());
 
 			File cachedFile = diskLruCache.get(cacheKey.get());
@@ -273,9 +272,9 @@ class S3Impl {
 
 	public void delete(S3Node node) throws IOException, BackendException {
 		if (node instanceof S3Folder) {
-			ObjectListing listing = client().listObjects(cloud.s3Bucket(), node.getPath());
+			ListObjectsV2Result listObjects = client().listObjectsV2(cloud.s3Bucket(), node.getPath());
 			List<KeyVersion> keys = new ArrayList<>();
-			for (S3ObjectSummary summary : listing.getObjectSummaries()) {
+			for (S3ObjectSummary summary : listObjects.getObjectSummaries()) {
 				keys.add(new KeyVersion(summary.getKey()));
 			}
 
