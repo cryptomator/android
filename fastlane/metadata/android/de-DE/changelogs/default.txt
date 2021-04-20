@@ -1,4 +1,5 @@
-- Native pCloud-Unterstützung hinzugefügt (großen Dank an Manu für die Implementierung)
-- App-Absturz beim Wiederherstellen von Cryptomator aus einem Backup behoben
-- Verbesserte Anzeige von langen Einstellungen
-- Verbessertes Löschen des letzten Bildes über die Vorschau. Springt jetzt zurück in die Tresor-Inhaltsliste
+- F-Droid-Repository hinzugefügt
+- Polnische Übersetzung hinzugefügt (Vielen Dank dafür an FadeMind)
+- Verbesserte Tab-Reihenfolge in modalen Dialogen bei Verwendung von Hardware-Tastaturen
+- App-Absturz auf einigen Geräten behoben, wenn Cryptomator nach Beendigung des Öffnens einer Datei unter Verwendung von 3-Party-Apps fortgesetzt wird
+- Möglichkeit zur Umgehung des Lizenzbildschirms auf gerooteten Geräten behoben

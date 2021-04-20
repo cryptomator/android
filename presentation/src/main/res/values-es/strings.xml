@@ -38,7 +38,6 @@
 	<string name="screen_file_browser_create_new_vault_extra_text">Nombre de caja fuerte: %1$s</string>
 	<string name="screen_file_browser_move_button_text">Mover</string>
 	<string name="screen_file_browser_msg_empty_folder">Carpeta vacía</string>
-	<string name="screen_file_browser_file_info_label_size">\"%1$s</string>
 	<string name="screen_file_browser_file_info_label_date">modificado hace %1$s</string>
 	<string name="screen_file_browser_share_intent_chooser_title">Compartir con</string>
 	<string name="screen_file_browser_share_destination_title">Elegir destino</string>
@@ -142,7 +141,7 @@
 	<string name="dialog_replace_positive_button_single_file_exists">Reemplazar</string>
 	<string name="dialog_replace_msg_single_file_exists">Ya existe un archivo llamado %1$s. ¿Quieres reemplazarlo?</string>
 	<string name="dialog_replace_msg_all_files_exists">Todos los archivos existen ya.  ¿Quieres reemplazarlos?</string>
-	<string name="dialog_replace_msg_some_files_exists">\"%d archivos existen ya.  ¿Quieres reemplazarlos?</string>
+	<string name="dialog_replace_msg_some_files_exists">%1$d archivos existen ya. ¿Quieres reemplazarlos?</string>
 	<string name="dialog_replace_title_single_file_exists">\"¿Reemplazar archivo?</string>
 	<string name="dialog_replace_title_multiple_files_exist">\"¿Reemplazar archivos?</string>
 	<string name="dialog_unable_to_share_title">No se puede compartir archivos</string>

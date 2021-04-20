@@ -26,7 +26,7 @@ ext {
 	rxAndroidVersion = '2.1.1'
 	rxBindingVersion = '2.2.0'
 
-	daggerVersion = '2.34'
+	daggerVersion = '2.34.1'
 
 	gsonVersion = '2.8.6'
 
@@ -37,7 +37,7 @@ ext {
 
 	timberVersion = '4.7.1'
 
-	zxcvbnVersion = '1.4.0'
+	zxcvbnVersion = '1.4.1'
 
 	scaleImageViewVersion = '3.10.0'
 
@@ -58,7 +58,6 @@ ext {
 	googleClientVersion = '1.31.4'
 
 	msgraphVersion = '2.10.0'
-	msaAuthVersion = '0.10.0'
 
 	commonsCodecVersion = '1.15'
 
@@ -126,7 +125,6 @@ ext {
 			junit4                : "org.junit.jupiter:junit-jupiter:${jUnit4Version}",
 			junit4Engine          : "org.junit.vintage:junit-vintage-engine:${jUnitVersion}",
 			msgraph               : "com.microsoft.graph:microsoft-graph:${msgraphVersion}",
-			msaAuth               : "com.microsoft.graph:msa-auth-for-android-adapter:${msaAuthVersion}",
 			mockito               : "org.mockito:mockito-core:${mockitoVersion}",
 			mockitoInline         : "org.mockito:mockito-inline:${mockitoInlineVersion}",
 			multidex              : "androidx.multidex:multidex:${multidexVersion}",
