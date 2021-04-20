@@ -5,6 +5,8 @@ import com.amazonaws.services.s3.model.S3ObjectSummary;
 
 import org.cryptomator.util.Optional;
 
+import java.util.Date;
+
 class S3CloudNodeFactory {
 
 	private static final String SUFFIX = "/";
@@ -25,6 +27,10 @@ class S3CloudNodeFactory {
 
 	public static S3File file(S3Folder parent, String name, Optional<Long> size, String path) {
 		return new S3File(parent, name, path, size, Optional.empty());
+	}
+
+	public static S3File file(S3Folder parent, String name, Optional<Long> size, Optional<Date> lastModified) {
+		return new S3File(parent, name, getNodePath(parent, name), size, lastModified);
 	}
 
 	public static S3Folder folder(S3Folder parent, S3ObjectSummary folder) {
