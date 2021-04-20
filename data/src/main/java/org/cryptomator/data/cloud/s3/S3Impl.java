@@ -86,7 +86,9 @@ class S3Impl {
 		String[] names = path.split(SUFFIX);
 		S3Folder folder = root;
 		for (String name : names) {
-			folder = folder(folder, name);
+			if (!name.isEmpty()) {
+				folder = folder(folder, name);
+			}
 		}
 		return folder;
 	}
@@ -96,18 +98,15 @@ class S3Impl {
 	}
 
 	public S3File file(S3Folder parent, String name, Optional<Long> size) throws BackendException, IOException {
-		return S3CloudNodeFactory.file(parent, name, size, parent.getPath() + SUFFIX + name);
+		return S3CloudNodeFactory.file(parent, name, size, parent.getPath() + name);
 	}
 
 	public S3Folder folder(S3Folder parent, String name)  {
-		return S3CloudNodeFactory.folder(parent, name, parent.getPath() + SUFFIX + name + SUFFIX);
+		return S3CloudNodeFactory.folder(parent, name, parent.getPath() + name + SUFFIX);
 	}
 
 	public boolean exists(S3Node node) {
 		String path = node.getPath();
-		if (node instanceof S3Folder) {
-			path += SUFFIX;
-		}
 
 		ObjectListing result = client().listObjects(cloud.s3Bucket(), path);
 
@@ -141,7 +140,7 @@ class S3Impl {
 
 		InputStream emptyContent = new ByteArrayInputStream(new byte[0]);
 
-		PutObjectRequest putObjectRequest = new PutObjectRequest(cloud.s3Bucket(), folder.getPath() + SUFFIX, emptyContent, metadata);
+		PutObjectRequest putObjectRequest = new PutObjectRequest(cloud.s3Bucket(), folder.getPath(), emptyContent, metadata);
 		client().putObject(putObjectRequest);
 
 		return S3CloudNodeFactory.folder(folder.getParent(), folder.getName());
@@ -153,17 +152,15 @@ class S3Impl {
 		}
 
 		if (source instanceof S3Folder) {
-			ObjectListing listing = client().listObjects(cloud.s3Bucket(), source.getPath() + SUFFIX);
+			ObjectListing listing = client().listObjects(cloud.s3Bucket(), source.getPath());
 
 			if (listing.getObjectSummaries().size() > 0) {
-				String sourceKey = source.getPath() + SUFFIX;
-				String targetKey = target.getPath() + SUFFIX;
 
 				List<DeleteObjectsRequest.KeyVersion> objectsToDelete = new ArrayList<>();
 
 				for (S3ObjectSummary summary : listing.getObjectSummaries()) {
 					objectsToDelete.add(new DeleteObjectsRequest.KeyVersion(summary.getKey()));
-					String destinationKey = summary.getKey().replace(sourceKey, targetKey);
+					String destinationKey = summary.getKey().replace(source.getPath(), target.getPath());
 
 					client().copyObject(cloud.s3Bucket(), summary.getKey(), cloud.s3Bucket(), destinationKey);
 				}
@@ -276,7 +273,7 @@ class S3Impl {
 
 	public void delete(S3Node node) throws IOException, BackendException {
 		if (node instanceof S3Folder) {
-			ObjectListing listing = client().listObjects(cloud.s3Bucket(), node.getPath() + SUFFIX);
+			ObjectListing listing = client().listObjects(cloud.s3Bucket(), node.getPath());
 			List<KeyVersion> keys = new ArrayList<>();
 			for (S3ObjectSummary summary : listing.getObjectSummaries()) {
 				keys.add(new KeyVersion(summary.getKey()));
