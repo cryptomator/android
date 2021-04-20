@@ -85,11 +85,11 @@ class S3Impl {
 		return root;
 	}
 
-	public S3Folder resolve(String path) throws IOException, BackendException {
-		if (path.startsWith("/")) {
+	public S3Folder resolve(String path) {
+		if (path.startsWith(SUFFIX)) {
 			path = path.substring(1);
 		}
-		String[] names = path.split("/");
+		String[] names = path.split(SUFFIX);
 		S3Folder folder = root;
 		for (String name : names) {
 			folder = folder(folder, name);
@@ -105,7 +105,7 @@ class S3Impl {
 		return S3CloudNodeFactory.file(parent, name, size, parent.getPath() + SUFFIX + name);
 	}
 
-	public S3Folder folder(S3Folder parent, String name) throws IOException, BackendException {
+	public S3Folder folder(S3Folder parent, String name)  {
 		return S3CloudNodeFactory.folder(parent, name, parent.getPath() + SUFFIX + name + SUFFIX);
 	}
 
@@ -192,7 +192,7 @@ class S3Impl {
 	}
 
 	private PutObjectResult uploadFile(final S3File file, DataSource data, final ProgressAware<UploadState> progressAware, final long size) //
-			throws IOException, BackendException {
+			throws IOException {
 		ProgressListener listener = progressEvent -> progressAware.onProgress( //
 				progress(UploadState.upload(file)) //
 						.between(0) //
