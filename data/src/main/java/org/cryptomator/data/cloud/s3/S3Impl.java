@@ -2,24 +2,20 @@ package org.cryptomator.data.cloud.s3;
 
 import android.content.Context;
 
+import com.amazonaws.event.ProgressListener;
 import com.amazonaws.services.s3.AmazonS3;
-import com.amazonaws.services.s3.model.AbstractPutObjectRequest;
+import com.amazonaws.services.s3.model.DeleteObjectsRequest;
+import com.amazonaws.services.s3.model.DeleteObjectsRequest.KeyVersion;
+import com.amazonaws.services.s3.model.GetObjectRequest;
 import com.amazonaws.services.s3.model.ListObjectsV2Result;
 import com.amazonaws.services.s3.model.ObjectListing;
 import com.amazonaws.services.s3.model.ObjectMetadata;
+import com.amazonaws.services.s3.model.Owner;
 import com.amazonaws.services.s3.model.PutObjectRequest;
 import com.amazonaws.services.s3.model.PutObjectResult;
+import com.amazonaws.services.s3.model.S3Object;
 import com.amazonaws.services.s3.model.S3ObjectSummary;
 import com.pcloud.sdk.ApiError;
-import com.pcloud.sdk.DataSink;
-import com.pcloud.sdk.DownloadOptions;
-import com.pcloud.sdk.FileLink;
-import com.pcloud.sdk.ProgressListener;
-import com.pcloud.sdk.RemoteEntry;
-import com.pcloud.sdk.RemoteFile;
-import com.pcloud.sdk.RemoteFolder;
-import com.pcloud.sdk.UploadOptions;
-import com.pcloud.sdk.UserInfo;
 import com.tomclaw.cache.DiskLruCache;
 
 import org.cryptomator.data.util.CopyStream;
@@ -48,14 +44,9 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 import java.util.Set;
 
-import okio.BufferedSink;
-import okio.BufferedSource;
-import okio.Okio;
-import okio.Source;
 import timber.log.Timber;
 
 import static org.cryptomator.domain.usecases.cloud.Progress.progress;
@@ -111,23 +102,24 @@ class S3Impl {
 	}
 
 	public S3File file(S3Folder parent, String name, Optional<Long> size) throws BackendException, IOException {
-		return S3CloudNodeFactory.file(parent, name, size, parent.getPath() + "/" + name);
+		return S3CloudNodeFactory.file(parent, name, size, parent.getPath() + SUFFIX + name);
 	}
 
 	public S3Folder folder(S3Folder parent, String name) throws IOException, BackendException {
-		return S3CloudNodeFactory.folder(parent, name, parent.getPath() + "/" + name);
+		return S3CloudNodeFactory.folder(parent, name, parent.getPath() + SUFFIX + name + SUFFIX);
 	}
 
-	public boolean exists(S3Node node) throws IOException, BackendException {
-		try {
-			if (node instanceof S3Folder) {
-				client().loadFolder(node.getPath()).execute();
-			} else {
-				client().loadFile(node.getPath()).execute();
-			}
+	public boolean exists(S3Node node) {
+		String path = node.getPath();
+		if (node instanceof S3Folder) {
+			path += SUFFIX;
+		}
+
+		ObjectListing result = client().listObjects(cloud.s3Bucket(), path);
+
+		if (result.getObjectSummaries().size() > 0) {
 			return true;
-		} catch (ApiError ex) {
-			handleApiError(ex, PCloudApiError.ignoreExistsSet, node.getName());
+		} else {
 			return false;
 		}
 	}
@@ -190,49 +182,30 @@ class S3Impl {
 		}
 
 		progressAware.onProgress(Progress.started(UploadState.upload(file)));
-		UploadOptions uploadOptions = UploadOptions.DEFAULT;
-		if (replace) {
-			uploadOptions = UploadOptions.OVERRIDE_FILE;
-		}
 
-		RemoteFile uploadedFile = uploadFile(file, data, progressAware, uploadOptions, size);
+		PutObjectResult result = uploadFile(file, data, progressAware, size);
 
 		progressAware.onProgress(Progress.completed(UploadState.upload(file)));
 
-		return S3CloudNodeFactory.file(file.getParent(), uploadedFile);
+		return S3CloudNodeFactory.file(file.getParent(), file.getName(), result);
 
 	}
 
-	private RemoteFile uploadFile(final S3File file, DataSource data, final ProgressAware<UploadState> progressAware, UploadOptions uploadOptions, final long size) //
+	private PutObjectResult uploadFile(final S3File file, DataSource data, final ProgressAware<UploadState> progressAware, final long size) //
 			throws IOException, BackendException {
-		ProgressListener listener = (done, total) -> progressAware.onProgress( //
+		ProgressListener listener = progressEvent -> progressAware.onProgress( //
 				progress(UploadState.upload(file)) //
 						.between(0) //
 						.and(size) //
-						.withValue(done));
+						.withValue(progressEvent.getBytesTransferred()));
 
-		com.pcloud.sdk.DataSource pCloudDataSource = new com.pcloud.sdk.DataSource() {
-			@Override
-			public long contentLength() {
-				return data.size(context).get();
-			}
+		ObjectMetadata metadata = new ObjectMetadata();
+		metadata.setContentLength(data.size(context).get());
 
-			@Override
-			public void writeTo(BufferedSink sink) throws IOException {
-				try (Source source = Okio.source(data.open(context))) {
-					sink.writeAll(source);
-				}
-			}
-		};
+		PutObjectRequest request = new PutObjectRequest(cloud.s3Bucket(), file.getPath(), data.open(context), metadata);
+		request.setGeneralProgressListener(listener);
 
-		try {
-			return client() //
-					.createFile(file.getParent().getPath(), file.getName(), pCloudDataSource, new Date(), listener, uploadOptions) //
-					.execute();
-		} catch (ApiError ex) {
-			handleApiError(ex, file.getName());
-			throw new FatalBackendException(ex);
-		}
+		return client().putObject(request);
 	}
 
 	public void read(S3File file, Optional<File> encryptedTmpFile, OutputStream data, final ProgressAware<DownloadState> progressAware) throws IOException, BackendException {
@@ -241,15 +214,15 @@ class S3Impl {
 		Optional<String> cacheKey = Optional.empty();
 		Optional<File> cacheFile = Optional.empty();
 
-		RemoteFile remoteFile;
+		ObjectListing objectListing;
 
 		if (sharedPreferencesHandler.useLruCache() && createLruCache(sharedPreferencesHandler.lruCacheSize())) {
-			try {
-				remoteFile = client().loadFile(file.getPath()).execute().asFile();
-				cacheKey = Optional.of(remoteFile.fileId() + remoteFile.hash());
-			} catch (ApiError ex) {
-				handleApiError(ex, file.getName());
+			objectListing = client().listObjects(cloud.s3Bucket(), file.getPath());
+			if (objectListing.getObjectSummaries().size() != 1) {
+				throw new NoSuchCloudFileException(file.getPath());
 			}
+			S3ObjectSummary summary = objectListing.getObjectSummaries().get(0);
+			cacheKey = Optional.of(summary.getKey() + summary.getETag());
 
 			File cachedFile = diskLruCache.get(cacheKey.get());
 			cacheFile = cachedFile != null ? Optional.of(cachedFile) : Optional.empty();
@@ -259,7 +232,7 @@ class S3Impl {
 			try {
 				retrieveFromLruCache(cacheFile.get(), data);
 			} catch (IOException e) {
-				Timber.tag("PCloudImpl").w(e, "Error while retrieving content from Cache, get from web request");
+				Timber.tag("S3Impl").w(e, "Error while retrieving content from Cache, get from web request");
 				writeToData(file, data, encryptedTmpFile, cacheKey, progressAware);
 			}
 		} else {
@@ -274,61 +247,51 @@ class S3Impl {
 			final Optional<File> encryptedTmpFile, //
 			final Optional<String> cacheKey, //
 			final ProgressAware<DownloadState> progressAware) throws IOException, BackendException {
-		try {
-			FileLink fileLink = client().createFileLink(file.getPath(), DownloadOptions.DEFAULT).execute();
 
-			ProgressListener listener = (done, total) -> progressAware.onProgress( //
-					progress(DownloadState.download(file)) //
-							.between(0) //
-							.and(file.getSize().orElse(Long.MAX_VALUE)) //
-							.withValue(done));
+		ProgressListener listener = progressEvent -> progressAware.onProgress( //
+				progress(DownloadState.download(file)) //
+						.between(0) //
+						.and(file.getSize().orElse(Long.MAX_VALUE)) //
+						.withValue(progressEvent.getBytesTransferred()));
 
-			DataSink sink = new DataSink() {
-				@Override
-				public void readAll(BufferedSource source) {
-					CopyStream.copyStreamToStream(source.inputStream(), data);
-				}
-			};
+		GetObjectRequest request = new GetObjectRequest(cloud.s3Bucket(), file.getPath());
+		request.setGeneralProgressListener(listener);
 
-			client().download(fileLink, sink, listener).execute();
-		} catch (ApiError ex) {
-			handleApiError(ex, file.getName());
-		}
+		S3Object s3Object = client().getObject(request);
+
+		CopyStream.copyStreamToStream(s3Object.getObjectContent(), data);
 
 		if (sharedPreferencesHandler.useLruCache() && encryptedTmpFile.isPresent() && cacheKey.isPresent()) {
 			try {
 				storeToLruCache(diskLruCache, cacheKey.get(), encryptedTmpFile.get());
 			} catch (IOException e) {
-				Timber.tag("PCloudImpl").e(e, "Failed to write downloaded file in LRU cache");
+				Timber.tag("S3Impl").e(e, "Failed to write downloaded file in LRU cache");
 			}
 		}
 
 	}
 
 	public void delete(S3Node node) throws IOException, BackendException {
-		try {
-			if (node instanceof S3Folder) {
-				client() //
-						.deleteFolder(node.getPath(), true).execute();
-			} else {
-				client() //
-						.deleteFile(node.getPath()).execute();
+		if (node instanceof S3Folder) {
+			ObjectListing listing = client().listObjects(cloud.s3Bucket(), node.getPath() + SUFFIX);
+			List<KeyVersion> keys = new ArrayList<>();
+			for (S3ObjectSummary summary : listing.getObjectSummaries()) {
+				keys.add(new KeyVersion(summary.getKey()));
 			}
-		} catch (ApiError ex) {
-			handleApiError(ex, node.getName());
+
+			DeleteObjectsRequest request = new DeleteObjectsRequest(cloud.s3Bucket());
+			request.withKeys(keys);
+
+			client().deleteObjects(request);
+		} else {
+			client().deleteObject(cloud.s3Bucket(), node.getPath());
 		}
 	}
 
-	public String currentAccount() throws IOException, BackendException {
-		try {
-			UserInfo currentAccount = client() //
-					.getUserInfo() //
-					.execute();
-			return currentAccount.email();
-		} catch (ApiError ex) {
-			handleApiError(ex);
-			throw new FatalBackendException(ex);
-		}
+	public String currentAccount() {
+		 Owner currentAccount = client() //
+				.getS3AccountOwner();
+		return currentAccount.getDisplayName();
 	}
 
 	private boolean createLruCache(int cacheSize) {
