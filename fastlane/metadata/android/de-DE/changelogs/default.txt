@@ -1,5 +1,5 @@
-- Added F-Droid repository
-- Added Polish translation (thanks to FadeMind for this contribution)
-- Enhanced tab order in modal dialogs when using hardware keyboards
-- Fixed app crash on some devices when resuming Cryptomator after open file finished using 3party apps
-- Fixed license screen bypass on rooted phones
+- F-Droid-Repository hinzugefügt
+- Polnische Übersetzung hinzugefügt (Vielen Dank dafür an FadeMind)
+- Verbesserte Tab-Reihenfolge in modalen Dialogen bei Verwendung von Hardware-Tastaturen
+- App-Absturz auf einigen Geräten behoben, wenn Cryptomator nach Beendigung des Öffnens einer Datei unter Verwendung von 3-Party-Apps fortgesetzt wird
+- Möglichkeit zur Umgehung des Lizenzbildschirms auf gerooteten Geräten behoben
