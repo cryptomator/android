@@ -2,10 +2,8 @@ package org.cryptomator.data.cloud.s3;
 
 import android.content.Context;
 
-import com.pcloud.sdk.ApiError;
-
 import org.cryptomator.data.cloud.InterceptingCloudContentRepository;
-import org.cryptomator.domain.PCloud;
+import org.cryptomator.domain.S3Cloud;
 import org.cryptomator.domain.exception.BackendException;
 import org.cryptomator.domain.exception.FatalBackendException;
 import org.cryptomator.domain.exception.NetworkConnectionException;
@@ -24,56 +22,54 @@ import java.util.List;
 
 import static org.cryptomator.util.ExceptionUtil.contains;
 
-class S3CloudContentRepository extends InterceptingCloudContentRepository<PCloud, S3Node, S3Folder, S3File> {
+class S3CloudContentRepository extends InterceptingCloudContentRepository<S3Cloud, S3Node, S3Folder, S3File> {
 
-	private final PCloud cloud;
+	private final S3Cloud cloud;
 
-	public S3CloudContentRepository(PCloud cloud, Context context) {
+	public S3CloudContentRepository(S3Cloud cloud, Context context) {
 		super(new Intercepted(cloud, context));
 		this.cloud = cloud;
 	}
 
+	//TODO: add proper error handling
+
 	@Override
 	protected void throwWrappedIfRequired(Exception e) throws BackendException {
-		throwConnectionErrorIfRequired(e);
-		throwWrongCredentialsExceptionIfRequired(e);
+//		throwConnectionErrorIfRequired(e);
+//		throwWrongCredentialsExceptionIfRequired(e);
 	}
 
-	private void throwConnectionErrorIfRequired(Exception e) throws NetworkConnectionException {
-		if (contains(e, IOException.class)) {
-			throw new NetworkConnectionException(e);
-		}
-	}
+//	private void throwConnectionErrorIfRequired(Exception e) throws NetworkConnectionException {
+//		if (contains(e, IOException.class)) {
+//			throw new NetworkConnectionException(e);
+//		}
+//	}
+//
+//	private void throwWrongCredentialsExceptionIfRequired(Exception e) {
+//		if (e instanceof ApiError) {
+//			int errorCode = ((ApiError) e).errorCode();
+//			if (errorCode == PCloudApiError.PCloudApiErrorCodes.INVALID_ACCESS_TOKEN.getValue() //
+//					|| errorCode == PCloudApiError.PCloudApiErrorCodes.ACCESS_TOKEN_REVOKED.getValue()) {
+//				throw new WrongCredentialsException(cloud);
+//			}
+//		}
+//	}
 
-	private void throwWrongCredentialsExceptionIfRequired(Exception e) {
-		if (e instanceof ApiError) {
-			int errorCode = ((ApiError) e).errorCode();
-			if (errorCode == PCloudApiError.PCloudApiErrorCodes.INVALID_ACCESS_TOKEN.getValue() //
-					|| errorCode == PCloudApiError.PCloudApiErrorCodes.ACCESS_TOKEN_REVOKED.getValue()) {
-				throw new WrongCredentialsException(cloud);
-			}
-		}
-	}
-
-	private static class Intercepted implements CloudContentRepository<PCloud, S3Node, S3Folder, S3File> {
+	private static class Intercepted implements CloudContentRepository<S3Cloud, S3Node, S3Folder, S3File> {
 
 		private final S3Impl cloud;
 
-		public Intercepted(PCloud cloud, Context context) {
+		public Intercepted(S3Cloud cloud, Context context) {
 			this.cloud = new S3Impl(context, cloud);
 		}
 
-		public S3Folder root(PCloud cloud) {
+		public S3Folder root(S3Cloud cloud) {
 			return this.cloud.root();
 		}
 
 		@Override
-		public S3Folder resolve(PCloud cloud, String path) throws BackendException {
-			try {
+		public S3Folder resolve(S3Cloud cloud, String path) throws BackendException {
 				return this.cloud.resolve(path);
-			} catch (IOException ex) {
-				throw new FatalBackendException(ex);
-			}
 		}
 
 		@Override
@@ -96,20 +92,12 @@ class S3CloudContentRepository extends InterceptingCloudContentRepository<PCloud
 
 		@Override
 		public S3Folder folder(S3Folder parent, String name) throws BackendException {
-			try {
-				return cloud.folder(parent, name);
-			} catch (IOException ex) {
-				throw new FatalBackendException(ex);
-			}
+			return cloud.folder(parent, name);
 		}
 
 		@Override
 		public boolean exists(S3Node node) throws BackendException {
-			try {
 				return cloud.exists(node);
-			} catch (IOException e) {
-				throw new FatalBackendException(e);
-			}
 		}
 
 		@Override
@@ -176,16 +164,12 @@ class S3CloudContentRepository extends InterceptingCloudContentRepository<PCloud
 		}
 
 		@Override
-		public String checkAuthenticationAndRetrieveCurrentAccount(PCloud cloud) throws BackendException {
-			try {
-				return this.cloud.currentAccount();
-			} catch (IOException e) {
-				throw new FatalBackendException(e);
-			}
+		public String checkAuthenticationAndRetrieveCurrentAccount(S3Cloud cloud) throws BackendException {
+			return this.cloud.currentAccount();
 		}
 
 		@Override
-		public void logout(PCloud cloud) throws BackendException {
+		public void logout(S3Cloud cloud) throws BackendException {
 			// empty
 		}
 	}
