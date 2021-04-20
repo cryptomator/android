@@ -44,7 +44,7 @@ import java.util.List;
 import timber.log.Timber;
 
 import static org.cryptomator.domain.usecases.cloud.Progress.progress;
-import static org.cryptomator.util.file.LruFileCacheUtil.Cache.PCLOUD;
+import static org.cryptomator.util.file.LruFileCacheUtil.Cache.S3;
 import static org.cryptomator.util.file.LruFileCacheUtil.retrieveFromLruCache;
 import static org.cryptomator.util.file.LruFileCacheUtil.storeToLruCache;
 
@@ -297,9 +297,9 @@ class S3Impl {
 	private boolean createLruCache(int cacheSize) {
 		if (diskLruCache == null) {
 			try {
-				diskLruCache = DiskLruCache.create(new LruFileCacheUtil(context).resolve(PCLOUD), cacheSize);
+				diskLruCache = DiskLruCache.create(new LruFileCacheUtil(context).resolve(S3), cacheSize);
 			} catch (IOException e) {
-				Timber.tag("PCloudImpl").e(e, "Failed to setup LRU cache");
+				Timber.tag("S3Impl").e(e, "Failed to setup LRU cache");
 				return false;
 			}
 		}
