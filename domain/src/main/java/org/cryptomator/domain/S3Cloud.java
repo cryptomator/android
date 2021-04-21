@@ -20,7 +20,7 @@ public class S3Cloud implements Cloud {
 		this.s3Region = builder.s3Region;
 	}
 
-	public static Builder aPCloud() {
+	public static Builder aS3Cloud() {
 		return new Builder();
 	}
 
@@ -61,7 +61,7 @@ public class S3Cloud implements Cloud {
 
 	@Override
 	public CloudType type() {
-		return CloudType.PCLOUD;
+		return CloudType.S3;
 	}
 
 	@Override

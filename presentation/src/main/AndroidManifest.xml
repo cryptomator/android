@@ -108,6 +108,7 @@
 		<activity android:name=".ui.activity.LicensesActivity" />
 		<activity android:name=".ui.activity.SettingsActivity" />
 		<activity android:name=".ui.activity.WebDavAddOrChangeActivity" />
+		<activity android:name=".ui.activity.S3AddOrChangeActivity" />
 
 		<activity
 			android:name=".ui.activity.AuthenticateCloudActivity"

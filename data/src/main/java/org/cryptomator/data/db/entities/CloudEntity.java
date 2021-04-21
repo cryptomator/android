@@ -22,14 +22,23 @@ public class CloudEntity extends DatabaseEntity {
 
 	private String webdavCertificate;
 
-	@Generated(hash = 361171073)
-	public CloudEntity(Long id, @NotNull String type, String accessToken, String url, String username, String webdavCertificate) {
+	private String s3Bucket;
+
+	private String s3Region;
+
+	private String s3SecretKey;
+
+	@Generated(hash = 1685351705)
+	public CloudEntity(Long id, @NotNull String type, String accessToken, String url, String username, String webdavCertificate, String s3Bucket, String s3Region, String s3SecretKey) {
 		this.id = id;
 		this.type = type;
 		this.accessToken = accessToken;
 		this.url = url;
 		this.username = username;
 		this.webdavCertificate = webdavCertificate;
+		this.s3Bucket = s3Bucket;
+		this.s3Region = s3Region;
+		this.s3SecretKey = s3SecretKey;
 	}
 
 	@Generated(hash = 1354152224)
@@ -82,5 +91,29 @@ public class CloudEntity extends DatabaseEntity {
 
 	public void setWebdavCertificate(String webdavCertificate) {
 		this.webdavCertificate = webdavCertificate;
+	}
+
+	public String getS3Bucket() {
+		return this.s3Bucket;
+	}
+
+	public void setS3Bucket(String s3Bucket) {
+		this.s3Bucket = s3Bucket;
+	}
+
+	public String getS3Region() {
+		return this.s3Region;
+	}
+
+	public void setS3Region(String s3Region) {
+		this.s3Region = s3Region;
+	}
+
+	public String getS3SecretKey() {
+		return this.s3SecretKey;
+	}
+
+	public void setS3SecretKey(String s3SecretKey) {
+		this.s3SecretKey = s3SecretKey;
 	}
 }

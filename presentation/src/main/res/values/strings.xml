@@ -43,6 +43,7 @@
 	<string name="cloud_names_onedrive" translatable="false">OneDrive</string>
 	<string name="cloud_names_pcloud" translatable="false">pCloud</string>
 	<string name="cloud_names_webdav" translatable="false">WebDAV</string>
+	<string name="cloud_names_s3" translatable="false">S3</string>
 	<string name="cloud_names_local_storage">Local storage</string>
 
 	<!-- # permission -->
@@ -172,6 +173,15 @@
 	<string name="screen_webdav_settings_msg_username_must_not_be_empty">Username can\'t be empty.</string>
 	<string name="screen_webdav_settings_msg_password_must_not_be_empty">Password can\'t be empty.</string>
 
+	<!-- ## screen: s3 settings -->
+	<string name="screen_s3_settings_title" translatable="false">@string/cloud_names_s3</string>
+	<string name="screen_s3_settings_access_key_label">Access Key</string>
+	<string name="screen_s3_settings_secret_key_label">Secret Key</string>
+	<string name="screen_s3_settings_bucket_label">Bucket</string>
+	<string name="screen_s3_settings_endpoint_label">Endpoint</string>
+	<string name="screen_s3_settings_region_label">Region</string>
+	<string name="screen_s3_settings_amazon_s3_text" translatable="false">Amazon S3</string>
+
 	<!-- ## screen: enter vault name -->
 	<string name="screen_enter_vault_name_title" translatable="false">@string/screen_vault_list_action_create_new_vault</string>
 	<string name="screen_enter_vault_name_msg_name_empty">Vault name can\'t be empty.</string>
@@ -257,6 +267,7 @@
 	<string name="screen_cloud_settings_title" translatable="false">@string/screen_settings_cloud_settings_label</string>
 	<string name="screen_cloud_settings_webdav_connections">WebDAV connections</string>
 	<string name="screen_cloud_settings_pcloud_connections">pCloud connections</string>
+	<string name="screen_cloud_settings_s3_connections">S3 connections</string>
 	<string name="screen_cloud_settings_local_storage_locations">Local storage locations</string>
 	<string name="screen_cloud_settings_log_in_to">Log in to</string>
 	<string name="screen_cloud_settings_sign_out_from_cloud">Sign out from</string>

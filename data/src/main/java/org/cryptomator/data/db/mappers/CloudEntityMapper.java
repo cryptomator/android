@@ -8,6 +8,7 @@ import org.cryptomator.domain.GoogleDriveCloud;
 import org.cryptomator.domain.LocalStorageCloud;
 import org.cryptomator.domain.OnedriveCloud;
 import org.cryptomator.domain.PCloud;
+import org.cryptomator.domain.S3Cloud;
 import org.cryptomator.domain.WebDavCloud;
 
 import javax.inject.Inject;
@@ -18,6 +19,7 @@ import static org.cryptomator.domain.GoogleDriveCloud.aGoogleDriveCloud;
 import static org.cryptomator.domain.LocalStorageCloud.aLocalStorage;
 import static org.cryptomator.domain.OnedriveCloud.aOnedriveCloud;
 import static org.cryptomator.domain.PCloud.aPCloud;
+import static org.cryptomator.domain.S3Cloud.aS3Cloud;
 import static org.cryptomator.domain.WebDavCloud.aWebDavCloudCloud;
 
 @Singleton
@@ -43,6 +45,10 @@ public class CloudEntityMapper extends EntityMapper<CloudEntity, Cloud> {
 						.withAccessToken(entity.getAccessToken()) //
 						.withUsername(entity.getUsername()) //
 						.build();
+			case LOCAL:
+				return aLocalStorage() //
+						.withId(entity.getId()) //
+						.withRootUri(entity.getAccessToken()).build();
 			case ONEDRIVE:
 				return aOnedriveCloud() //
 						.withId(entity.getId()) //
@@ -56,10 +62,15 @@ public class CloudEntityMapper extends EntityMapper<CloudEntity, Cloud> {
 						.withAccessToken(entity.getAccessToken()) //
 						.withUsername(entity.getUsername()) //
 						.build();
-			case LOCAL:
-				return aLocalStorage() //
+			case S3:
+				aS3Cloud() //
 						.withId(entity.getId()) //
-						.withRootUri(entity.getAccessToken()).build();
+						.withS3Endpoint(entity.getUrl()) //
+						.withS3Region(entity.getS3Region()) //
+						.withAccessKey(entity.getAccessToken()) //
+						.withSecretKey(entity.getS3SecretKey()) //
+						.withS3Bucket(entity.getS3Bucket()) //
+						.build();
 			case WEBDAV:
 				return aWebDavCloudCloud() //
 						.withId(entity.getId()) //
@@ -87,6 +98,9 @@ public class CloudEntityMapper extends EntityMapper<CloudEntity, Cloud> {
 				result.setAccessToken(((GoogleDriveCloud) domainObject).accessToken());
 				result.setUsername(((GoogleDriveCloud) domainObject).username());
 				break;
+			case LOCAL:
+				result.setAccessToken(((LocalStorageCloud) domainObject).rootUri());
+				break;
 			case ONEDRIVE:
 				result.setAccessToken(((OnedriveCloud) domainObject).accessToken());
 				result.setUsername(((OnedriveCloud) domainObject).username());
@@ -96,8 +110,12 @@ public class CloudEntityMapper extends EntityMapper<CloudEntity, Cloud> {
 				result.setUrl(((PCloud) domainObject).url());
 				result.setUsername(((PCloud) domainObject).username());
 				break;
-			case LOCAL:
-				result.setAccessToken(((LocalStorageCloud) domainObject).rootUri());
+			case S3:
+				result.setUrl(((S3Cloud) domainObject).s3Endpoint());
+				result.setS3Region(((S3Cloud) domainObject).s3Region());
+				result.setAccessToken(((S3Cloud) domainObject).accessKey());
+				result.setS3SecretKey(((S3Cloud) domainObject).secretKey());
+				result.setS3Bucket(((S3Cloud) domainObject).s3Bucket());
 				break;
 			case WEBDAV:
 				result.setAccessToken(((WebDavCloud) domainObject).password());

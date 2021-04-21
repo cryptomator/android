@@ -10,7 +10,7 @@ import org.cryptomator.domain.repository.CloudContentRepository;
 import javax.inject.Inject;
 import javax.inject.Singleton;
 
-import static org.cryptomator.domain.CloudType.PCLOUD;
+import static org.cryptomator.domain.CloudType.S3;
 
 @Singleton
 public class S3CloudContentRepositoryFactory implements CloudContentRepositoryFactory {
@@ -24,7 +24,7 @@ public class S3CloudContentRepositoryFactory implements CloudContentRepositoryFa
 
 	@Override
 	public boolean supports(Cloud cloud) {
-		return cloud.type() == PCLOUD;
+		return cloud.type() == S3;
 	}
 
 	@Override
