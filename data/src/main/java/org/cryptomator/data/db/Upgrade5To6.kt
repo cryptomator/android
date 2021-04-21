@@ -10,14 +10,14 @@ internal class Upgrade5To6 @Inject constructor() : DatabaseUpgrade(5, 6) {
 	override fun internalApplyTo(db: Database, origin: Int) {
 		db.beginTransaction()
 		try {
-			changeWebdavUrlInCloudEntityToUrl(db)
+			changeCloudEntityToSupportS3(db)
 			db.setTransactionSuccessful()
 		} finally {
 			db.endTransaction()
 		}
 	}
 
-	private fun changeWebdavUrlInCloudEntityToUrl(db: Database) {
+	private fun changeCloudEntityToSupportS3(db: Database) {
 		Sql.alterTable("CLOUD_ENTITY").renameTo("CLOUD_ENTITY_OLD").executeOn(db)
 
 		Sql.createTable("CLOUD_ENTITY") //
