@@ -99,7 +99,7 @@ dependencies {
 	annotationProcessor dependencies.daggerCompiler
 	implementation dependencies.dagger
 	// cloud
-	implementation dependencies.awsS3
+	implementation dependencies.awsAndroidS3
 	implementation dependencies.dropbox
 	implementation dependencies.msgraph
 
