@@ -92,9 +92,9 @@ class CloudSettingsPresenter @Inject constructor( //
 
 	private fun effectiveTitle(cloudTypeModel: CloudTypeModel): String {
 		when (cloudTypeModel) {
-			CloudTypeModel.WEBDAV -> return context().getString(R.string.screen_cloud_settings_webdav_connections)
 			CloudTypeModel.PCLOUD -> return context().getString(R.string.screen_cloud_settings_pcloud_connections)
 			CloudTypeModel.S3 -> return context().getString(R.string.screen_cloud_settings_s3_connections)
+			CloudTypeModel.WEBDAV -> return context().getString(R.string.screen_cloud_settings_webdav_connections)
 			CloudTypeModel.LOCAL -> return context().getString(R.string.screen_cloud_settings_local_storage_locations)
 		}
 		return context().getString(R.string.screen_cloud_settings_title)
@@ -126,16 +126,12 @@ class CloudSettingsPresenter @Inject constructor( //
 					.filter { cloud -> !(BuildConfig.FLAVOR == "fdroid" && cloud.cloudType() == CloudTypeModel.GOOGLE_DRIVE) } //
 					.toMutableList() //
 					.also {
-						it.add(aWebdavCloud())
 						it.add(aPCloud())
 						it.add(aS3Cloud())
+						it.add(aWebdavCloud())
 						it.add(aLocalCloud())
 					}
 			view?.render(cloudModel)
-		}
-
-		private fun aWebdavCloud(): WebDavCloudModel {
-			return WebDavCloudModel(WebDavCloud.aWebDavCloudCloud().build())
 		}
 
 		private fun aPCloud(): PCloudModel {
@@ -144,6 +140,10 @@ class CloudSettingsPresenter @Inject constructor( //
 
 		private fun aS3Cloud(): S3CloudModel {
 			return S3CloudModel(S3Cloud.aS3Cloud().build())
+		}
+
+		private fun aWebdavCloud(): WebDavCloudModel {
+			return WebDavCloudModel(WebDavCloud.aWebDavCloudCloud().build())
 		}
 
 		private fun aLocalCloud(): CloudModel {
