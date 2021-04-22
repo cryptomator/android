@@ -8,6 +8,7 @@ import com.amazonaws.services.s3.model.CopyObjectResult;
 import com.amazonaws.services.s3.model.DeleteObjectsRequest;
 import com.amazonaws.services.s3.model.DeleteObjectsRequest.KeyVersion;
 import com.amazonaws.services.s3.model.GetObjectRequest;
+import com.amazonaws.services.s3.model.ListObjectsV2Request;
 import com.amazonaws.services.s3.model.ListObjectsV2Result;
 import com.amazonaws.services.s3.model.ObjectMetadata;
 import com.amazonaws.services.s3.model.Owner;
@@ -49,7 +50,7 @@ import static org.cryptomator.util.file.LruFileCacheUtil.storeToLruCache;
 
 class S3Impl {
 
-	private static final String SUFFIX = "/";
+	private static final String DELIMITER = "/";
 
 	private final S3ClientFactory clientFactory = new S3ClientFactory();
 	private final S3Cloud cloud;
@@ -79,10 +80,10 @@ class S3Impl {
 	}
 
 	public S3Folder resolve(String path) {
-		if (path.startsWith(SUFFIX)) {
+		if (path.startsWith(DELIMITER)) {
 			path = path.substring(1);
 		}
-		String[] names = path.split(SUFFIX);
+		String[] names = path.split(DELIMITER);
 		S3Folder folder = root;
 		for (String name : names) {
 			if (!name.isEmpty()) {
@@ -97,17 +98,17 @@ class S3Impl {
 	}
 
 	public S3File file(S3Folder parent, String name, Optional<Long> size) throws BackendException, IOException {
-		return S3CloudNodeFactory.file(parent, name, size, parent.getPath() + name);
+		return S3CloudNodeFactory.file(parent, name, size, parent.getKey() + name);
 	}
 
 	public S3Folder folder(S3Folder parent, String name)  {
-		return S3CloudNodeFactory.folder(parent, name, parent.getPath() + name + SUFFIX);
+		return S3CloudNodeFactory.folder(parent, name, parent.getKey() + name);
 	}
 
 	public boolean exists(S3Node node) {
-		String path = node.getPath();
+		String key = node.getKey();
 
-		ListObjectsV2Result result = client().listObjectsV2(cloud.s3Bucket(), path);
+		ListObjectsV2Result result = client().listObjectsV2(cloud.s3Bucket(), key);
 
 		if (result.getObjectSummaries().size() > 0) {
 			return true;
@@ -119,9 +120,20 @@ class S3Impl {
 	public List<S3Node> list(S3Folder folder) throws IOException, BackendException {
 		List<S3Node> result = new ArrayList<>();
 
-		ListObjectsV2Result listObjects = client().listObjectsV2(cloud.s3Bucket(), folder.getPath());
+		ListObjectsV2Request request = new ListObjectsV2Request()
+				.withBucketName(cloud.s3Bucket())
+				.withPrefix(folder.getKey())
+				.withDelimiter(DELIMITER);
+
+		ListObjectsV2Result listObjects = client().listObjectsV2(request);
+		for(String prefix : listObjects.getCommonPrefixes()) {
+			result.add(S3CloudNodeFactory.folder(folder,  S3CloudNodeFactory.getNameFromKey(prefix)));
+		}
+
 		for (S3ObjectSummary objectSummary : listObjects.getObjectSummaries()) {
-			result.add(S3CloudNodeFactory.from(folder, objectSummary));
+			if (!objectSummary.getKey().equals(listObjects.getPrefix())) {
+				result.add(S3CloudNodeFactory.from(folder, objectSummary));
+			}
 		}
 		return result;
 	}
@@ -216,9 +228,9 @@ class S3Impl {
 		ListObjectsV2Result listObjects;
 
 		if (sharedPreferencesHandler.useLruCache() && createLruCache(sharedPreferencesHandler.lruCacheSize())) {
-			listObjects = client().listObjectsV2(cloud.s3Bucket(), file.getPath());
+			listObjects = client().listObjectsV2(cloud.s3Bucket(), file.getKey());
 			if (listObjects.getObjectSummaries().size() != 1) {
-				throw new NoSuchCloudFileException(file.getPath());
+				throw new NoSuchCloudFileException(file.getKey());
 			}
 			S3ObjectSummary summary = listObjects.getObjectSummaries().get(0);
 			cacheKey = Optional.of(summary.getKey() + summary.getETag());

@@ -9,7 +9,7 @@ import java.util.Date;
 
 class S3CloudNodeFactory {
 
-	private static final String SUFFIX = "/";
+	private static final String DELIMITER = "/";
 
 	public static S3File file(S3Folder parent, S3ObjectSummary file) {
 		String name = getNameFromKey(file.getKey());
@@ -47,15 +47,19 @@ class S3CloudNodeFactory {
 	}
 
 	private static String getNodePath(S3Folder parent, String name) {
-		return parent.getPath() + SUFFIX + name;
+		return parent.getKey() + name;
 	}
 
-	private static String getNameFromKey(String key) {
-		return key.substring(key.lastIndexOf(SUFFIX) + 1);
+	public static String getNameFromKey(String key) {
+		String name = key;
+		if (key.endsWith(DELIMITER)) {
+			name = key.substring(0, key.length() -1);
+		}
+		return name.contains(DELIMITER) ? name.substring(name.lastIndexOf(DELIMITER) + 1) : name;
 	}
 
 	public static S3Node from(S3Folder parent, S3ObjectSummary objectSummary) {
-		if (objectSummary.getKey().endsWith(SUFFIX)) {
+		if (objectSummary.getKey().endsWith(DELIMITER)) {
 			return folder(parent, objectSummary);
 		} else {
 			return file(parent, objectSummary);

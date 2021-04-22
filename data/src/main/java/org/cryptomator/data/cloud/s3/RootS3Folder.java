@@ -18,6 +18,11 @@ class RootS3Folder extends S3Folder {
 	}
 
 	@Override
+	public String getKey() {
+		return "";
+	}
+
+	@Override
 	public S3Folder withCloud(Cloud cloud) {
 		return new RootS3Folder((S3Cloud) cloud);
 	}

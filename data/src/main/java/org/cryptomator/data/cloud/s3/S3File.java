@@ -38,6 +38,11 @@ class S3File implements CloudFile, S3Node {
 	}
 
 	@Override
+	public String getKey() {
+		return path;
+	}
+
+	@Override
 	public S3Folder getParent() {
 		return parent;
 	}

@@ -7,4 +7,6 @@ interface S3Node extends CloudNode {
 	@Override
 	S3Folder getParent();
 
+	String getKey();
+
 }

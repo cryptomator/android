@@ -5,6 +5,8 @@ import org.cryptomator.domain.CloudFolder;
 
 class S3Folder implements CloudFolder, S3Node {
 
+	private static final String DELIMITER = "/";
+
 	private final S3Folder parent;
 	private final String name;
 	private final String path;
@@ -28,6 +30,11 @@ class S3Folder implements CloudFolder, S3Node {
 	@Override
 	public String getPath() {
 		return path;
+	}
+
+	@Override
+	public String getKey() {
+		return path + DELIMITER;
 	}
 
 	@Override
