@@ -63,7 +63,7 @@ public class CloudEntityMapper extends EntityMapper<CloudEntity, Cloud> {
 						.withUsername(entity.getUsername()) //
 						.build();
 			case S3:
-				aS3Cloud() //
+				return aS3Cloud() //
 						.withId(entity.getId()) //
 						.withS3Endpoint(entity.getUrl()) //
 						.withS3Region(entity.getS3Region()) //
