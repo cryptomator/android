@@ -175,6 +175,7 @@
 
 	<!-- ## screen: s3 settings -->
 	<string name="screen_s3_settings_title" translatable="false">@string/cloud_names_s3</string>
+	<string name="screen_s3_settings_display_name_label">Display Name</string>
 	<string name="screen_s3_settings_access_key_label">Access Key</string>
 	<string name="screen_s3_settings_secret_key_label">Secret Key</string>
 	<string name="screen_s3_settings_bucket_label">Bucket</string>

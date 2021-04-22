@@ -70,6 +70,7 @@ public class CloudEntityMapper extends EntityMapper<CloudEntity, Cloud> {
 						.withAccessKey(entity.getAccessToken()) //
 						.withSecretKey(entity.getS3SecretKey()) //
 						.withS3Bucket(entity.getS3Bucket()) //
+						.withDisplayName(entity.getUsername()) //
 						.build();
 			case WEBDAV:
 				return aWebDavCloudCloud() //
@@ -116,6 +117,7 @@ public class CloudEntityMapper extends EntityMapper<CloudEntity, Cloud> {
 				result.setAccessToken(((S3Cloud) domainObject).accessKey());
 				result.setS3SecretKey(((S3Cloud) domainObject).secretKey());
 				result.setS3Bucket(((S3Cloud) domainObject).s3Bucket());
+				result.setUsername(((S3Cloud) domainObject).displayName());
 				break;
 			case WEBDAV:
 				result.setAccessToken(((WebDavCloud) domainObject).password());

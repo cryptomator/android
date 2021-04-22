@@ -10,8 +10,8 @@ class S3CloudModel(cloud: Cloud) : CloudModel(cloud) {
 		return R.string.cloud_names_s3
 	}
 
-	override fun username(): String? {
-		return "" // FIXME
+	override fun username(): String {
+		return cloud().displayName()
 	}
 
 	override fun cloudType(): CloudTypeModel {

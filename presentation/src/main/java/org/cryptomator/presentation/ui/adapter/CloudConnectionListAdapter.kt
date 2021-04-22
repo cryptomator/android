@@ -87,7 +87,7 @@ internal constructor(context: Context) : RecyclerViewBaseAdapter<CloudModel, Clo
 
 
 		private fun bindS3loudModel(cloudModel: S3CloudModel) {
-			itemView.cloudText.text = cloudModel.username() // FIXME what to display
+			itemView.cloudText.text = cloudModel.username()
 			itemView.cloudSubText.visibility = View.GONE
 		}
 

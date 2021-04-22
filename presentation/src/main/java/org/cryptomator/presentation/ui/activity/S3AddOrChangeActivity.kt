@@ -27,9 +27,9 @@ class S3AddOrChangeActivity : BaseActivity(), S3AddOrChangeView {
 
 	override fun createFragment(): Fragment = S3AddOrChangeFragment.newInstance(s3AddOrChangeIntent.s3Cloud())
 
-	override fun onCheckUserInputSucceeded(accessKey: String, secretKey: String, bucket: String, endpoint: String?, region: String?, cloudId: Long?) {
+	override fun onCheckUserInputSucceeded(accessKey: String, secretKey: String, bucket: String, endpoint: String?, region: String?, cloudId: Long?, displayName: String) {
 		s3AddOrChangeFragment().hideKeyboard()
-		s3AddOrChangePresenter.authenticate(accessKey, secretKey, bucket, endpoint, region, cloudId)
+		s3AddOrChangePresenter.authenticate(accessKey, secretKey, bucket, endpoint, region, cloudId, displayName)
 	}
 
 	private fun s3AddOrChangeFragment(): S3AddOrChangeFragment = getCurrentFragment(R.id.fragmentContainer) as S3AddOrChangeFragment

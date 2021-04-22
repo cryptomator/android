@@ -70,7 +70,7 @@ class CloudConnectionSettingsBottomSheet : BaseBottomSheet<CloudConnectionSettin
 
 	private fun bindViewForS3(cloudModel: S3CloudModel) {
 		change_cloud.visibility = View.VISIBLE
-		tv_cloud_name.text = cloudModel.username() // FIXME what to display
+		tv_cloud_name.text = cloudModel.username()
 	}
 
 	companion object {

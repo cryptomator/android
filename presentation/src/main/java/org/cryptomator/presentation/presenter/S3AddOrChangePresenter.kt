@@ -19,7 +19,7 @@ class S3AddOrChangePresenter @Inject internal constructor( //
 		private val connectToS3UseCase: ConnectToS3UseCase,  //
 		exceptionMappings: ExceptionHandlers) : Presenter<S3AddOrChangeView>(exceptionMappings) {
 
-	fun checkUserInput(accessKey: String, secretKey: String, bucket: String, endpoint: String?, region: String?, cloudId: Long?) {
+	fun checkUserInput(accessKey: String, secretKey: String, bucket: String, endpoint: String?, region: String?, cloudId: Long?, displayName: String) {
 		var statusMessage: String? = null
 
 		/*if (accessKey.isEmpty()) {
@@ -36,7 +36,7 @@ class S3AddOrChangePresenter @Inject internal constructor( //
 			// FIXME showError instead of displaying a toast
 			Toast.makeText(context(), statusMessage, Toast.LENGTH_SHORT).show()
 		} else {
-			view?.onCheckUserInputSucceeded(encrypt(accessKey), encrypt(secretKey), bucket, endpoint, region, cloudId)
+			view?.onCheckUserInputSucceeded(encrypt(accessKey), encrypt(secretKey), bucket, endpoint, region, cloudId, displayName)
 		}
 	}
 
@@ -46,22 +46,23 @@ class S3AddOrChangePresenter @Inject internal constructor( //
 				.encrypt(text)
 	}
 
-	private fun mapToCloud(accessKey: String, secretKey: String, bucket: String, endpoint: String?, region: String?, cloudId: Long?): S3Cloud {
+	private fun mapToCloud(accessKey: String, secretKey: String, bucket: String, endpoint: String?, region: String?, cloudId: Long?, displayName: String): S3Cloud {
 		var builder = S3Cloud //
 				.aS3Cloud() //
 				.withAccessKey(accessKey) //
 				.withSecretKey(secretKey) //
 				.withS3Bucket(bucket) //
 				.withS3Endpoint(endpoint) //
-				.withS3Region(region)
+				.withS3Region(region) //
+				.withDisplayName(displayName)
 
 		cloudId?.let { builder = builder.withId(cloudId) }
 
 		return builder.build()
 	}
 
-	fun authenticate(accessKey: String, secretKey: String, bucket: String, endpoint: String?, region: String?, cloudId: Long?) {
-		authenticate(mapToCloud(accessKey, secretKey, bucket, endpoint, region, cloudId))
+	fun authenticate(accessKey: String, secretKey: String, bucket: String, endpoint: String?, region: String?, cloudId: Long?, displayName: String) {
+		authenticate(mapToCloud(accessKey, secretKey, bucket, endpoint, region, cloudId, displayName))
 	}
 
 	private fun authenticate(cloud: S3Cloud) {

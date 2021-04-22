@@ -14,6 +14,7 @@ import javax.inject.Inject
 import kotlinx.android.synthetic.main.fragment_setup_s3.accessKeyEditText
 import kotlinx.android.synthetic.main.fragment_setup_s3.bucketEditText
 import kotlinx.android.synthetic.main.fragment_setup_s3.createCloudButton
+import kotlinx.android.synthetic.main.fragment_setup_s3.displayNameEditText
 import kotlinx.android.synthetic.main.fragment_setup_s3.endpointEditText
 import kotlinx.android.synthetic.main.fragment_setup_s3.ll_custom_s3
 import kotlinx.android.synthetic.main.fragment_setup_s3.regionEditText
@@ -64,6 +65,7 @@ class S3AddOrChangeFragment : BaseFragment() {
 	private fun showEditableCloudContent(s3CloudModel: S3CloudModel?) {
 		s3CloudModel?.let {
 			cloudId = s3CloudModel.id()
+			displayNameEditText.setText(s3CloudModel.username())
 			accessKeyEditText.setText(decrypt(s3CloudModel.accessKey()))
 			secretKeyEditText.setText(decrypt(s3CloudModel.secretKey()))
 			bucketEditText.setText(s3CloudModel.s3Bucket())
@@ -89,6 +91,7 @@ class S3AddOrChangeFragment : BaseFragment() {
 		val accessKey = accessKeyEditText.text.toString().trim()
 		val secretKey = secretKeyEditText.text.toString().trim()
 		val bucket = bucketEditText.text.toString().trim()
+		val displayName = displayNameEditText.text.toString().trim()
 
 		var endpoint: String? = null
 		var region: String? = null
@@ -97,7 +100,7 @@ class S3AddOrChangeFragment : BaseFragment() {
 			region = regionEditText.text.toString().trim()
 		}
 
-		s3AddOrChangePresenter.checkUserInput(accessKey, secretKey, bucket, endpoint, region, cloudId)
+		s3AddOrChangePresenter.checkUserInput(accessKey, secretKey, bucket, endpoint, region, cloudId, displayName)
 	}
 
 	fun hideKeyboard() {
