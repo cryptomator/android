@@ -151,7 +151,7 @@ class S3Impl {
 
 		InputStream emptyContent = new ByteArrayInputStream(new byte[0]);
 
-		PutObjectRequest putObjectRequest = new PutObjectRequest(cloud.s3Bucket(), folder.getPath(), emptyContent, metadata);
+		PutObjectRequest putObjectRequest = new PutObjectRequest(cloud.s3Bucket(), folder.getKey(), emptyContent, metadata);
 		client().putObject(putObjectRequest);
 
 		return S3CloudNodeFactory.folder(folder.getParent(), folder.getName());
