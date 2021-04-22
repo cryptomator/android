@@ -64,6 +64,7 @@
 		android:id="@+id/ll_custom_s3"
 		android:layout_width="match_parent"
 		android:layout_height="wrap_content"
+		android:layout_marginTop="16dp"
 		android:orientation="vertical"
 		android:visibility="gone">
 

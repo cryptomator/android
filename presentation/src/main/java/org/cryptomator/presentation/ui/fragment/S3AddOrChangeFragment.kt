@@ -40,6 +40,14 @@ class S3AddOrChangeFragment : BaseFragment() {
 			}
 			false
 		}
+
+		s3CloudModel?.let {
+			if(it.s3Endpoint().isNotEmpty()) {
+				toggleCustomS3.isChecked = false
+				ll_custom_s3.visibility = View.VISIBLE
+			}
+		}
+
 		toggleCustomS3.setOnClickListener { switch ->
 			toggleCustomS3Changed((switch as SwitchMaterial).isChecked)
 		}

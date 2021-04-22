@@ -8,6 +8,7 @@ import org.cryptomator.presentation.R
 import org.cryptomator.presentation.model.CloudModel
 import org.cryptomator.presentation.model.LocalStorageModel
 import org.cryptomator.presentation.model.PCloudModel
+import org.cryptomator.presentation.model.S3CloudModel
 import org.cryptomator.presentation.model.WebDavCloudModel
 import org.cryptomator.presentation.model.comparator.CloudModelComparator
 import org.cryptomator.presentation.ui.adapter.CloudConnectionListAdapter.CloudConnectionHolder
@@ -53,12 +54,19 @@ internal constructor(context: Context) : RecyclerViewBaseAdapter<CloudModel, Clo
 
 			itemView.setOnClickListener { callback.onCloudConnectionClicked(cloudModel) }
 
-			if (cloudModel is WebDavCloudModel) {
-				bindWebDavCloudModel(cloudModel)
-			} else if (cloudModel is PCloudModel) {
-				bindPCloudModel(cloudModel)
-			} else if (cloudModel is LocalStorageModel) {
-				bindLocalStorageCloudModel(cloudModel)
+			when (cloudModel) {
+				is WebDavCloudModel -> {
+					bindWebDavCloudModel(cloudModel)
+				}
+				is PCloudModel -> {
+					bindPCloudModel(cloudModel)
+				}
+				is S3CloudModel -> {
+					bindS3loudModel(cloudModel)
+				}
+				is LocalStorageModel -> {
+					bindLocalStorageCloudModel(cloudModel)
+				}
 			}
 		}
 
@@ -70,11 +78,16 @@ internal constructor(context: Context) : RecyclerViewBaseAdapter<CloudModel, Clo
 			} catch (e: URISyntaxException) {
 				throw FatalBackendException("path in WebDAV cloud isn't correct (no uri)")
 			}
-
 		}
 
 		private fun bindPCloudModel(cloudModel: PCloudModel) {
 			itemView.cloudText.text = cloudModel.username()
+			itemView.cloudSubText.visibility = View.GONE
+		}
+
+
+		private fun bindS3loudModel(cloudModel: S3CloudModel) {
+			itemView.cloudText.text = cloudModel.username() // FIXME what to display
 			itemView.cloudSubText.visibility = View.GONE
 		}
 

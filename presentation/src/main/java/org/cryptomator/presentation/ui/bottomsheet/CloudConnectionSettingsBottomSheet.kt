@@ -8,6 +8,7 @@ import org.cryptomator.presentation.model.CloudModel
 import org.cryptomator.presentation.model.CloudTypeModel
 import org.cryptomator.presentation.model.LocalStorageModel
 import org.cryptomator.presentation.model.PCloudModel
+import org.cryptomator.presentation.model.S3CloudModel
 import org.cryptomator.presentation.model.WebDavCloudModel
 import kotlinx.android.synthetic.main.dialog_bottom_sheet_cloud_settings.change_cloud
 import kotlinx.android.synthetic.main.dialog_bottom_sheet_cloud_settings.delete_cloud
@@ -30,6 +31,7 @@ class CloudConnectionSettingsBottomSheet : BaseBottomSheet<CloudConnectionSettin
 		when (cloudModel.cloudType()) {
 			CloudTypeModel.WEBDAV -> bindViewForWebDAV(cloudModel as WebDavCloudModel)
 			CloudTypeModel.PCLOUD -> bindViewForPCloud(cloudModel as PCloudModel)
+			CloudTypeModel.S3 -> bindViewForS3(cloudModel as S3CloudModel)
 			CloudTypeModel.LOCAL -> bindViewForLocal(cloudModel as LocalStorageModel)
 			else -> throw IllegalStateException("Cloud model is not binded in the view")
 		}
@@ -64,6 +66,11 @@ class CloudConnectionSettingsBottomSheet : BaseBottomSheet<CloudConnectionSettin
 	private fun bindViewForPCloud(cloudModel: PCloudModel) {
 		change_cloud.visibility = View.GONE
 		tv_cloud_name.text = cloudModel.username()
+	}
+
+	private fun bindViewForS3(cloudModel: S3CloudModel) {
+		change_cloud.visibility = View.VISIBLE
+		tv_cloud_name.text = cloudModel.username() // FIXME what to display
 	}
 
 	companion object {
