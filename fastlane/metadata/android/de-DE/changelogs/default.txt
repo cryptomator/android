@@ -1,5 +1,2 @@
-- F-Droid-Repository hinzugefügt
-- Polnische Übersetzung hinzugefügt (Vielen Dank dafür an FadeMind)
-- Verbesserte Tab-Reihenfolge in modalen Dialogen bei Verwendung von Hardware-Tastaturen
-- App-Absturz auf einigen Geräten behoben, wenn Cryptomator nach Beendigung des Öffnens einer Datei unter Verwendung von 3-Party-Apps fortgesetzt wird
-- Möglichkeit zur Umgehung des Lizenzbildschirms auf gerooteten Geräten behoben
+- Fehler beim Erstellen neuer Tresore in pCloud behoben
+- Fehler in der Lizenz-Anzeige der Einstellungen behoben
