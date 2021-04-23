@@ -78,6 +78,21 @@
 
 		</com.google.android.material.textfield.TextInputLayout>
 
+		<com.google.android.material.textfield.TextInputLayout
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content">
+
+			<com.google.android.material.textfield.TextInputEditText
+				android:id="@+id/regionEditText"
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"
+				android:hint="@string/screen_s3_settings_region_label"
+				android:imeOptions="flagNoPersonalizedLearning"
+				android:maxLines="1"
+				android:singleLine="true" />
+
+		</com.google.android.material.textfield.TextInputLayout>
+
 		<com.google.android.material.switchmaterial.SwitchMaterial
 			android:id="@+id/toggleCustomS3"
 			android:layout_width="wrap_content"
@@ -103,21 +118,6 @@
 					android:layout_width="match_parent"
 					android:layout_height="wrap_content"
 					android:hint="@string/screen_s3_settings_endpoint_label"
-					android:imeOptions="flagNoPersonalizedLearning"
-					android:maxLines="1"
-					android:singleLine="true" />
-
-			</com.google.android.material.textfield.TextInputLayout>
-
-			<com.google.android.material.textfield.TextInputLayout
-				android:layout_width="match_parent"
-				android:layout_height="wrap_content">
-
-				<com.google.android.material.textfield.TextInputEditText
-					android:id="@+id/regionEditText"
-					android:layout_width="match_parent"
-					android:layout_height="wrap_content"
-					android:hint="@string/screen_s3_settings_region_label"
 					android:imeOptions="flagNoPersonalizedLearning"
 					android:maxLines="1"
 					android:singleLine="true" />
