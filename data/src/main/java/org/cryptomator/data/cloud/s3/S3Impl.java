@@ -40,6 +40,7 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.atomic.AtomicLong;
 
 import timber.log.Timber;
 
@@ -204,11 +205,15 @@ class S3Impl {
 
 	private PutObjectResult uploadFile(final S3File file, DataSource data, final ProgressAware<UploadState> progressAware, final long size) //
 			throws IOException {
-		ProgressListener listener = progressEvent -> progressAware.onProgress( //
-				progress(UploadState.upload(file)) //
-						.between(0) //
-						.and(size) //
-						.withValue(progressEvent.getBytesTransferred()));
+		AtomicLong bytesTransferred = new AtomicLong(0);
+		ProgressListener listener = progressEvent -> {
+			bytesTransferred.set(bytesTransferred.get() + progressEvent.getBytesTransferred());
+			progressAware.onProgress( //
+					progress(UploadState.upload(file)) //
+							.between(0) //
+							.and(size) //
+							.withValue(bytesTransferred.get()));
+		};
 
 		ObjectMetadata metadata = new ObjectMetadata();
 		metadata.setContentLength(data.size(context).get());
@@ -258,12 +263,16 @@ class S3Impl {
 			final Optional<File> encryptedTmpFile, //
 			final Optional<String> cacheKey, //
 			final ProgressAware<DownloadState> progressAware) throws IOException, BackendException {
+		AtomicLong bytesTransferred = new AtomicLong(0);
+		ProgressListener listener = progressEvent -> {
+			bytesTransferred.set(bytesTransferred.get() + progressEvent.getBytesTransferred());
 
-		ProgressListener listener = progressEvent -> progressAware.onProgress( //
+			progressAware.onProgress( //
 				progress(DownloadState.download(file)) //
 						.between(0) //
 						.and(file.getSize().orElse(Long.MAX_VALUE)) //
-						.withValue(progressEvent.getBytesTransferred()));
+						.withValue(bytesTransferred.get()));
+		};
 
 		GetObjectRequest request = new GetObjectRequest(cloud.s3Bucket(), file.getPath());
 		request.setGeneralProgressListener(listener);
