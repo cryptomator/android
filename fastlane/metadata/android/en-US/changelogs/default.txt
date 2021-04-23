@@ -1,5 +1,2 @@
-- Added F-Droid repository
-- Added Polish translation (thanks to FadeMind for this contribution)
-- Enhanced tab order in modal dialogs when using hardware keyboards
-- Fixed app crash on some devices when resuming Cryptomator after open file finished using 3party apps
-- Fixed possibility to bypass the license screen on rooted phones
+- Fixed creating new vaults in pCloud
+- Fixed license screen in settings
