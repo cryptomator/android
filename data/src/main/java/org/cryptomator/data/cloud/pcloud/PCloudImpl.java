@@ -109,7 +109,9 @@ class PCloudImpl {
 
 	public boolean exists(PCloudNode node) throws IOException, BackendException {
 		try {
-			if (node instanceof PCloudFolder) {
+			if (node instanceof RootPCloudFolder) {
+				client().loadFolder("/").execute();
+			} else if (node instanceof PCloudFolder) {
 				client().loadFolder(node.getPath()).execute();
 			} else {
 				client().loadFile(node.getPath()).execute();
@@ -124,8 +126,13 @@ class PCloudImpl {
 	public List<PCloudNode> list(PCloudFolder folder) throws IOException, BackendException {
 		List<PCloudNode> result = new ArrayList<>();
 
+		String path = folder.getPath();
+		if (folder instanceof RootPCloudFolder) {
+			path = "/";
+		}
+
 		try {
-			RemoteFolder listFolderResult = client().listFolder(folder.getPath()).execute();
+			RemoteFolder listFolderResult = client().listFolder(path).execute();
 			List<RemoteEntry> entryMetadata = listFolderResult.children();
 			for (RemoteEntry metadata : entryMetadata) {
 				result.add(PCloudNodeFactory.from(folder, metadata));
