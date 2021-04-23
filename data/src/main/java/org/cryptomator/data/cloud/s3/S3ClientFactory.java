@@ -30,7 +30,9 @@ class S3ClientFactory {
 		}
 
 		AmazonS3Client client = new AmazonS3Client(new BasicAWSCredentials(decrypt(cloud.accessKey(), context), decrypt(cloud.secretKey(), context)), region);
-		client.setEndpoint(cloud.s3Endpoint());
+		if (cloud.s3Endpoint() != null) {
+			client.setEndpoint(cloud.s3Endpoint());
+		}
 		return client;
 	}
 
