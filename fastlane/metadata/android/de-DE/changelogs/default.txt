@@ -1,2 +1,1 @@
-- Fehler beim Erstellen neuer Tresore in pCloud behoben
-- Fehler in der Lizenz-Anzeige der Einstellungen behoben
+- Problem bei der pCloud-Anmeldung in der F-Droid-Variante behoben
