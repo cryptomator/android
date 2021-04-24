@@ -1,2 +1,1 @@
-- Fixed creating new vaults in pCloud
-- Fixed license screen in settings
+- Fixed pCloud login using F-Droid
