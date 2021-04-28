@@ -23,16 +23,21 @@ class S3ClientFactory {
 	}
 
 	private AmazonS3 createApiClient(S3Cloud cloud, Context context) {
-		Region region = Region.getRegion(cloud.s3Region());
+		Region region = Region.getRegion(Regions.DEFAULT_REGION);
+		String endpoint = null;
 
-		if (region == null) {
-			region = Region.getRegion(Regions.DEFAULT_REGION);
+		if (cloud.s3Region() != null) {
+			region = Region.getRegion(cloud.s3Region());
+		} else if (cloud.s3Endpoint() != null) {
+			endpoint = cloud.s3Endpoint();
 		}
 
 		AmazonS3Client client = new AmazonS3Client(new BasicAWSCredentials(decrypt(cloud.accessKey(), context), decrypt(cloud.secretKey(), context)), region);
-		if (cloud.s3Endpoint() != null) {
+
+		if (endpoint != null) {
 			client.setEndpoint(cloud.s3Endpoint());
 		}
+
 		return client;
 	}
 

@@ -79,14 +79,14 @@
 		</com.google.android.material.textfield.TextInputLayout>
 
 		<com.google.android.material.textfield.TextInputLayout
+			android:id="@+id/regionOrEndpointEditTextLayout"
 			android:layout_width="match_parent"
 			android:layout_height="wrap_content">
 
 			<com.google.android.material.textfield.TextInputEditText
-				android:id="@+id/regionEditText"
+				android:id="@+id/regionOrEndpointEditText"
 				android:layout_width="match_parent"
 				android:layout_height="wrap_content"
-				android:hint="@string/screen_s3_settings_region_label"
 				android:imeOptions="flagNoPersonalizedLearning"
 				android:maxLines="1"
 				android:singleLine="true" />
@@ -100,31 +100,6 @@
 			android:layout_marginTop="16dp"
 			android:checked="true"
 			android:text="@string/screen_s3_settings_amazon_s3_text" />
-
-		<LinearLayout
-			android:id="@+id/ll_custom_s3"
-			android:layout_width="match_parent"
-			android:layout_height="wrap_content"
-			android:layout_marginTop="16dp"
-			android:orientation="vertical"
-			android:visibility="gone">
-
-			<com.google.android.material.textfield.TextInputLayout
-				android:layout_width="match_parent"
-				android:layout_height="wrap_content">
-
-				<com.google.android.material.textfield.TextInputEditText
-					android:id="@+id/endpointEditText"
-					android:layout_width="match_parent"
-					android:layout_height="wrap_content"
-					android:hint="@string/screen_s3_settings_endpoint_label"
-					android:imeOptions="flagNoPersonalizedLearning"
-					android:maxLines="1"
-					android:singleLine="true" />
-
-			</com.google.android.material.textfield.TextInputLayout>
-
-		</LinearLayout>
 
 		<Button
 			android:id="@+id/createCloudButton"

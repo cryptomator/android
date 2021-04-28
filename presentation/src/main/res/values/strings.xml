@@ -178,7 +178,7 @@
 	<string name="screen_s3_settings_display_name_label">Display Name</string>
 	<string name="screen_s3_settings_access_key_label">Access Key</string>
 	<string name="screen_s3_settings_secret_key_label">Secret Key</string>
-	<string name="screen_s3_settings_bucket_label">Bucket</string>
+	<string name="screen_s3_settings_bucket_label">Existing Bucket</string>
 	<string name="screen_s3_settings_endpoint_label">Endpoint</string>
 	<string name="screen_s3_settings_region_label">Region</string>
 	<string name="screen_s3_settings_amazon_s3_text" translatable="false">Amazon S3</string>
