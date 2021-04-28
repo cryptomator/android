@@ -7,3 +7,6 @@
 [submodule "pcloud-sdk-java"]
 	path = pcloud-sdk-java
 	url = https://github.com/SailReal/pcloud-sdk-java
+[submodule "aws-sdk-android"]
+	path = aws-sdk-android
+	url = https://github.com/SailReal/aws-sdk-android.git
