@@ -26,7 +26,7 @@ class S3ClientFactory {
 		Region region = Region.getRegion(cloud.s3Region());
 
 		if (region == null) {
-			region = new Region(cloud.s3Region(), null);
+			region = Region.getRegion(Regions.DEFAULT_REGION);
 		}
 
 		AmazonS3Client client = new AmazonS3Client(new BasicAWSCredentials(decrypt(cloud.accessKey(), context), decrypt(cloud.secretKey(), context)), region);
