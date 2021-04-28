@@ -1,12 +1,5 @@
-include ':generator', ':presentation', ':generator-api', ':domain', ':data', ':util', ':subsampling-image-view', ':msa-auth-for-android', ':pcloud-sdk-java-root', ':pcloud-sdk-java', ':pcloud-sdk-android', 'aws-sdk-android', ':aws-android-sdk-s3', ':aws-android-sdk-core', ':aws-android-sdk-kms'
-
+include ':generator', ':presentation', ':generator-api', ':domain', ':data', ':util', ':subsampling-image-view', ':msa-auth-for-android', ':pcloud-sdk-java-root', ':pcloud-sdk-java', ':pcloud-sdk-android'
 project(':subsampling-image-view').projectDir = file(new File(rootDir, 'subsampling-scale-image-view/library'))
-
 project(':pcloud-sdk-java-root').projectDir = file(new File(rootDir, 'pcloud-sdk-java'))
 project(':pcloud-sdk-java').projectDir = file(new File(rootDir, 'pcloud-sdk-java/java-core'))
 project(':pcloud-sdk-android').projectDir = file(new File(rootDir, 'pcloud-sdk-java/android'))
-
-project(':aws-sdk-android').projectDir = file(new File(rootDir, 'aws-sdk-android'))
-project(':aws-android-sdk-core').projectDir = file(new File(rootDir, 'aws-sdk-android/aws-android-sdk-core'))
-project(':aws-android-sdk-kms').projectDir = file(new File(rootDir, 'aws-sdk-android/aws-android-sdk-kms'))
-project(':aws-android-sdk-s3').projectDir = file(new File(rootDir, 'aws-sdk-android/aws-android-sdk-s3'))

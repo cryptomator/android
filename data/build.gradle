@@ -89,7 +89,6 @@ dependencies {
 	implementation project(':util')
 	implementation project(':msa-auth-for-android')
 	implementation project(':pcloud-sdk-java')
-	implementation project(':aws-android-sdk-s3')
 
 	// cryptomator
 	implementation dependencies.cryptolib
@@ -100,6 +99,7 @@ dependencies {
 	annotationProcessor dependencies.daggerCompiler
 	implementation dependencies.dagger
 	// cloud
+	implementation dependencies.awsAndroidS3
 	implementation dependencies.dropbox
 	implementation dependencies.msgraph
 
