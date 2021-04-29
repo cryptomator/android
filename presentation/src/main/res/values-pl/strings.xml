@@ -127,7 +127,6 @@
 	<string name="screen_set_password_button_text">Gotowe</string>
 	<string name="screen_set_password_hint">WAŻNE: Jeśli zapomnisz hasła, nie ma możliwości odzyskania danych.</string>
 	<string name="screen_set_password_retype_password_label">Wpisz hasło ponownie</string>
-	<string name="screen_set_password_strength_indicator_0">Bardzo słabe</string>
 	<string name="screen_set_password_strength_indicator_1">Słabe</string>
 	<string name="screen_set_password_strength_indicator_2">Średnie</string>
 	<string name="screen_set_password_strength_indicator_3">Mocne</string>
