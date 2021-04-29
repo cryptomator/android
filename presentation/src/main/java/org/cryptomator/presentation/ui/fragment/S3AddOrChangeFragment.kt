@@ -42,6 +42,7 @@ class S3AddOrChangeFragment : BaseFragment() {
 		showEditableCloudContent(s3CloudModel)
 
 		toggleCustomS3.setOnClickListener { switch ->
+			regionOrEndpointEditText.text?.clear()
 			toggleUseAmazonS3((switch as SwitchMaterial).isChecked)
 		}
 	}
