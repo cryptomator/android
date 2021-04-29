@@ -4,6 +4,7 @@ import android.content.Context;
 
 import com.amazonaws.event.ProgressListener;
 import com.amazonaws.services.s3.AmazonS3;
+import com.amazonaws.services.s3.model.AmazonS3Exception;
 import com.amazonaws.services.s3.model.CopyObjectResult;
 import com.amazonaws.services.s3.model.DeleteObjectsRequest;
 import com.amazonaws.services.s3.model.DeleteObjectsRequest.KeyVersion;
@@ -22,6 +23,8 @@ import org.cryptomator.data.util.CopyStream;
 import org.cryptomator.domain.S3Cloud;
 import org.cryptomator.domain.exception.BackendException;
 import org.cryptomator.domain.exception.CloudNodeAlreadyExistsException;
+import org.cryptomator.domain.exception.FatalBackendException;
+import org.cryptomator.domain.exception.NoSuchBucketException;
 import org.cryptomator.domain.exception.NoSuchCloudFileException;
 import org.cryptomator.domain.exception.authentication.NoAuthenticationProvidedException;
 import org.cryptomator.domain.usecases.ProgressAware;
@@ -104,6 +107,20 @@ class S3Impl {
 
 	public S3Folder folder(S3Folder parent, String name)  {
 		return S3CloudNodeFactory.folder(parent, name, parent.getKey() + name);
+	}
+
+	public boolean bucketExists() throws BackendException {
+		try {
+			client().listObjectsV2(cloud.s3Bucket());
+		} catch(AmazonS3Exception ex) {
+			if (ex.getErrorCode().equals(S3CloudApiExceptions.S3CloudApiErrorCodes.NO_SUCH_BUCKET.getValue())) {
+				throw new NoSuchBucketException(cloud.s3Bucket());
+			} else {
+				throw new FatalBackendException(ex);
+			}
+		}
+
+		return true;
 	}
 
 	public boolean exists(S3Node node) {
