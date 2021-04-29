@@ -1,6 +1,7 @@
 package org.cryptomator.presentation.util;
 
 import android.graphics.PorterDuff;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ProgressBar;
 import android.widget.TextView;
@@ -40,9 +41,10 @@ public class PasswordStrengthUtil {
 	public PasswordStrengthUtil() {
 	}
 
-	public void startUpdatingPasswortStrengthMeter(EditText passwordInput, //
+	public void startUpdatingPasswordStrengthMeter(EditText passwordInput, //
 			final ProgressBar strengthMeter, //
-			final TextView strengthLabel) {
+			final TextView strengthLabel, //
+			final Button button) {
 		RxTextView.textChanges(passwordInput) //
 				.observeOn(Schedulers.computation()) //
 				.map(password -> PasswordStrength.Companion.forPassword(password.toString(), SANITIZED_INPUTS)) //
@@ -51,6 +53,7 @@ public class PasswordStrengthUtil {
 					strengthMeter.getProgressDrawable().setColorFilter(ResourceHelper.Companion.getColor(strength.getColor()), PorterDuff.Mode.SRC_IN);
 					strengthLabel.setText(strength.getDescription());
 					strengthMeter.setProgress(strength.getScore() + 1);
+					button.setEnabled(strength.getScore() > PasswordStrength.EXTREMELY_WEAK.getScore());
 				});
 	}
 }

@@ -187,7 +187,7 @@
 	<string name="screen_set_password_password_label" translatable="false">@string/screen_webdav_settings_password_label</string>
 	<string name="screen_set_password_retype_password_label">Retype password</string>
 
-	<string name="screen_set_password_strength_indicator_0">Very weak</string>
+	<string name="screen_set_password_strength_indicator_0">Too weak to create a vault</string>
 	<string name="screen_set_password_strength_indicator_1">Weak</string>
 	<string name="screen_set_password_strength_indicator_2">Fair</string>
 	<string name="screen_set_password_strength_indicator_3">Strong</string>
