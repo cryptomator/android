@@ -129,7 +129,6 @@
 	<string name="screen_set_password_button_text">Fertig</string>
 	<string name="screen_set_password_hint">WICHTIG: Wenn Sie Ihr Passwort vergessen, gibt es keine Möglichkeit die Daten zu entschlüsseln.</string>
 	<string name="screen_set_password_retype_password_label">Passwort wiederholen</string>
-	<string name="screen_set_password_strength_indicator_0">Sehr Schwach</string>
 	<string name="screen_set_password_strength_indicator_1">Schwach</string>
 	<string name="screen_set_password_strength_indicator_2">Mittel</string>
 	<string name="screen_set_password_strength_indicator_3">Stark</string>
