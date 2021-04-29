@@ -77,7 +77,6 @@ public class S3Cloud implements Cloud {
 	}
 
 	private boolean configurationMatches(S3Cloud cloud) {
-		//FIXME: figure out when it is necessary to create a new cloud
 		return s3Bucket.equals(cloud.s3Bucket) && s3Endpoint.equals(cloud.s3Endpoint) && s3Region.equals(cloud.s3Region);
 	}
 
