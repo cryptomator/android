@@ -204,7 +204,7 @@ class S3Impl {
 
 		progressAware.onProgress(Progress.started(UploadState.upload(file)));
 
-		final CompletableFuture<ObjectMetadata> result = new CompletableFuture<>();
+		final CompletableFuture<Optional<ObjectMetadata>> result = new CompletableFuture<>();
 
 		if (size <= CHUNKED_UPLOAD_MAX_SIZE) {
 			uploadFile(file, data, progressAware, result, size);
@@ -213,8 +213,8 @@ class S3Impl {
 		}
 
 		try {
-			ObjectMetadata objectMetadata = result.get();
-			objectMetadata = objectMetadata == null ? client().getObjectMetadata(cloud.s3Bucket(), file.getPath()) : objectMetadata;
+			Optional<ObjectMetadata> objectMetadataOptional = result.get();
+			ObjectMetadata objectMetadata = objectMetadataOptional.orElseGet(() -> client().getObjectMetadata(cloud.s3Bucket(), file.getPath()));
 			progressAware.onProgress(Progress.completed(UploadState.upload(file)));
 			return S3CloudNodeFactory.file(file.getParent(), file.getName(), objectMetadata);
 		} catch (ExecutionException | InterruptedException e) {
@@ -223,7 +223,7 @@ class S3Impl {
 
 	}
 
-	private void uploadFile(final S3File file, DataSource data, final ProgressAware<UploadState> progressAware, CompletableFuture<ObjectMetadata> result, final long size) //
+	private void uploadFile(final S3File file, DataSource data, final ProgressAware<UploadState> progressAware, CompletableFuture<Optional<ObjectMetadata>> result, final long size) //
 			throws IOException {
 		AtomicLong bytesTransferred = new AtomicLong(0);
 		ProgressListener listener = progressEvent -> {
@@ -241,10 +241,10 @@ class S3Impl {
 		PutObjectRequest request = new PutObjectRequest(cloud.s3Bucket(), file.getPath(), data.open(context), metadata);
 		request.setGeneralProgressListener(listener);
 
-		result.complete(client().putObject(request).getMetadata());
+		result.complete(Optional.of(client().putObject(request).getMetadata()));
 	}
 
-	private void uploadChunkedFile(final S3File file, DataSource data, final ProgressAware<UploadState> progressAware, CompletableFuture<ObjectMetadata> result, final long size) //
+	private void uploadChunkedFile(final S3File file, DataSource data, final ProgressAware<UploadState> progressAware, CompletableFuture<Optional<ObjectMetadata>> result, final long size) //
 			throws IOException {
 
 		TransferUtility tu = TransferUtility //
@@ -259,7 +259,7 @@ class S3Impl {
 			public void onStateChanged(int id, TransferState state) {
 				if (state.equals(TransferState.COMPLETED)) {
 					progressAware.onProgress(Progress.completed(UploadState.upload(file)));
-					result.complete(null);
+					result.complete(Optional.empty());
 				}
 			}
 
