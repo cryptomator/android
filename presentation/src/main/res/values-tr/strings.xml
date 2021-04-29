@@ -126,7 +126,6 @@
 	<string name="screen_set_password_button_text">Bitti</string>
 	<string name="screen_set_password_hint">ÖNEMLİ UYARI: Parolanızı unutursanız, verilerinizi kurtarmanın herhangi bir yolu yoktur.</string>
 	<string name="screen_set_password_retype_password_label">Yeni şifreyi tekrar yazın</string>
-	<string name="screen_set_password_strength_indicator_0">Çok zayıf</string>
 	<string name="screen_set_password_strength_indicator_1">Güçsüz</string>
 	<string name="screen_set_password_strength_indicator_2">Makul</string>
 	<string name="screen_set_password_strength_indicator_3">Kuvvetli</string>
