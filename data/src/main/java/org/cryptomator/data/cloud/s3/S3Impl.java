@@ -110,14 +110,14 @@ class S3Impl {
 		return S3CloudNodeFactory.file(parent, name, size, parent.getKey() + name);
 	}
 
-	public S3Folder folder(S3Folder parent, String name)  {
+	public S3Folder folder(S3Folder parent, String name) {
 		return S3CloudNodeFactory.folder(parent, name, parent.getKey() + name);
 	}
 
 	public void bucketExists() throws BackendException {
-			if (!client().doesBucketExist(cloud.s3Bucket())) {
-				throw new NoSuchBucketException(cloud.s3Bucket());
-			}
+		if (!client().doesBucketExist(cloud.s3Bucket())) {
+			throw new NoSuchBucketException(cloud.s3Bucket());
+		}
 	}
 
 	public boolean exists(S3Node node) {
@@ -125,25 +125,18 @@ class S3Impl {
 
 		ListObjectsV2Result result = client().listObjectsV2(cloud.s3Bucket(), key);
 
-		if (result.getObjectSummaries().size() > 0) {
-			return true;
-		} else {
-			return false;
-		}
+		return result.getObjectSummaries().size() > 0;
 	}
 
 	public List<S3Node> list(S3Folder folder) throws IOException, BackendException {
 		List<S3Node> result = new ArrayList<>();
 
-		ListObjectsV2Request request = new ListObjectsV2Request()
-				.withBucketName(cloud.s3Bucket())
-				.withPrefix(folder.getKey())
-				.withDelimiter(DELIMITER);
+		ListObjectsV2Request request = new ListObjectsV2Request().withBucketName(cloud.s3Bucket()).withPrefix(folder.getKey()).withDelimiter(DELIMITER);
 
 		ListObjectsV2Result listObjects = client().listObjectsV2(request);
-		for(String prefix : listObjects.getCommonPrefixes()) {
+		for (String prefix : listObjects.getCommonPrefixes()) {
 			// add folders
-			result.add(S3CloudNodeFactory.folder(folder,  S3CloudNodeFactory.getNameFromKey(prefix)));
+			result.add(S3CloudNodeFactory.folder(folder, S3CloudNodeFactory.getNameFromKey(prefix)));
 		}
 
 		for (S3ObjectSummary objectSummary : listObjects.getObjectSummaries()) {
@@ -200,7 +193,7 @@ class S3Impl {
 		} else {
 			CopyObjectResult result = client().copyObject(cloud.s3Bucket(), source.getPath(), cloud.s3Bucket(), target.getPath());
 			client().deleteObject(cloud.s3Bucket(), source.getPath());
-			return S3CloudNodeFactory.file(target.getParent(), target.getName(), ((S3File)source).getSize(), Optional.of(result.getLastModifiedDate()));
+			return S3CloudNodeFactory.file(target.getParent(), target.getName(), ((S3File) source).getSize(), Optional.of(result.getLastModifiedDate()));
 		}
 	}
 
@@ -219,17 +212,18 @@ class S3Impl {
 			uploadChunkedFile(file, data, progressAware, result, size);
 		}
 
-		progressAware.onProgress(Progress.completed(UploadState.upload(file)));
-
 		try {
-			return S3CloudNodeFactory.file(file.getParent(), file.getName(), result.get());
+			ObjectMetadata objectMetadata = result.get();
+			objectMetadata = objectMetadata == null ? client().getObjectMetadata(cloud.s3Bucket(), file.getPath()) : objectMetadata;
+			progressAware.onProgress(Progress.completed(UploadState.upload(file)));
+			return S3CloudNodeFactory.file(file.getParent(), file.getName(), objectMetadata);
 		} catch (ExecutionException | InterruptedException e) {
 			throw new FatalBackendException(e);
 		}
 
 	}
 
-	private void uploadFile(final S3File file, DataSource data, final ProgressAware<UploadState> progressAware, CompletableFuture<ObjectMetadata> result,  final long size) //
+	private void uploadFile(final S3File file, DataSource data, final ProgressAware<UploadState> progressAware, CompletableFuture<ObjectMetadata> result, final long size) //
 			throws IOException {
 		AtomicLong bytesTransferred = new AtomicLong(0);
 		ProgressListener listener = progressEvent -> {
@@ -252,13 +246,12 @@ class S3Impl {
 
 	private void uploadChunkedFile(final S3File file, DataSource data, final ProgressAware<UploadState> progressAware, CompletableFuture<ObjectMetadata> result, final long size) //
 			throws IOException {
-		AtomicLong bytesTransferred = new AtomicLong(0);
 
-		TransferUtility tu = TransferUtility
-				.builder()
-				.s3Client(client())
-				.context(context)
-				.defaultBucket(cloud.s3Bucket())
+		TransferUtility tu = TransferUtility //
+				.builder() //
+				.s3Client(client()) //
+				.context(context) //
+				.defaultBucket(cloud.s3Bucket()) //
 				.build();
 
 		TransferListener transferListener = new TransferListener() {
@@ -266,19 +259,17 @@ class S3Impl {
 			public void onStateChanged(int id, TransferState state) {
 				if (state.equals(TransferState.COMPLETED)) {
 					progressAware.onProgress(Progress.completed(UploadState.upload(file)));
-					ObjectMetadata om = client().getObjectMetadata(cloud.s3Bucket(), file.getPath());
-					result.complete(om);
+					result.complete(null);
 				}
 			}
 
 			@Override
 			public void onProgressChanged(int id, long bytesCurrent, long bytesTotal) {
-				bytesTransferred.set(bytesTransferred.get()+bytesCurrent);
 				progressAware.onProgress( //
 						progress(UploadState.upload(file)) //
 								.between(0) //
-								.and(bytesTotal) //
-								.withValue(bytesTransferred.get()));
+								.and(size) //
+								.withValue(bytesCurrent));
 			}
 
 			@Override
@@ -287,10 +278,7 @@ class S3Impl {
 			}
 		};
 
-		UploadOptions uploadOptions = UploadOptions
-				.builder()
-				.transferListener(transferListener)
-				.build();
+		UploadOptions uploadOptions = UploadOptions.builder().transferListener(transferListener).build();
 
 		tu.upload(file.getPath(), data.open(context), uploadOptions);
 	}
@@ -339,10 +327,10 @@ class S3Impl {
 			bytesTransferred.set(bytesTransferred.get() + progressEvent.getBytesTransferred());
 
 			progressAware.onProgress( //
-				progress(DownloadState.download(file)) //
-						.between(0) //
-						.and(file.getSize().orElse(Long.MAX_VALUE)) //
-						.withValue(bytesTransferred.get()));
+					progress(DownloadState.download(file)) //
+							.between(0) //
+							.and(file.getSize().orElse(Long.MAX_VALUE)) //
+							.withValue(bytesTransferred.get()));
 		};
 
 		GetObjectRequest request = new GetObjectRequest(cloud.s3Bucket(), file.getPath());
@@ -381,7 +369,7 @@ class S3Impl {
 	}
 
 	public String currentAccount() {
-		 Owner currentAccount = client() //
+		Owner currentAccount = client() //
 				.getS3AccountOwner();
 		return currentAccount.getDisplayName();
 	}
