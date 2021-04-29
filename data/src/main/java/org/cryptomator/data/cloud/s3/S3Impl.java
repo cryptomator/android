@@ -109,11 +109,10 @@ class S3Impl {
 		return S3CloudNodeFactory.folder(parent, name, parent.getKey() + name);
 	}
 
-	public boolean bucketExists() throws BackendException {
-			if (client().doesBucketExist(cloud.s3Bucket())) {
+	public void bucketExists() throws BackendException {
+			if (!client().doesBucketExist(cloud.s3Bucket())) {
 				throw new NoSuchBucketException(cloud.s3Bucket());
 			}
-			return true;
 	}
 
 	public boolean exists(S3Node node) {
