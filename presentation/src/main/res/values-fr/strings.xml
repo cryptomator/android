@@ -42,7 +42,7 @@
 	<string name="snack_bar_action_title_sort">Trier par</string>
 	<string name="snack_bar_action_title_sort_az">A - Z</string>
 	<string name="snack_bar_action_title_sort_za">Z - A</string>
-	<string name="snack_bar_action_title_sort_newest">Plus récent</string>
+	<string name="snack_bar_action_title_sort_newest">Récent d\'abord</string>
 	<string name="snack_bar_action_title_sort_oldest">Plus ancien</string>
 	<string name="snack_bar_action_title_sort_biggest">Taille décroissante</string>
 	<string name="snack_bar_action_title_sort_smallest">Taille croissante</string>
@@ -131,7 +131,6 @@
 	<string name="screen_set_password_button_text">Terminé</string>
 	<string name="screen_set_password_hint">IMPORTANT: Si vous oubliez votre mot de passe, il n\'y aura aucun moyen de récupérer vos données.</string>
 	<string name="screen_set_password_retype_password_label">Retaper le mot de passe</string>
-	<string name="screen_set_password_strength_indicator_0">Très faible</string>
 	<string name="screen_set_password_strength_indicator_1">Faible</string>
 	<string name="screen_set_password_strength_indicator_2">Acceptable</string>
 	<string name="screen_set_password_strength_indicator_3">Fort</string>
