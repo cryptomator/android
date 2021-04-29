@@ -6,6 +6,7 @@ import org.cryptomator.domain.S3Cloud
 import org.cryptomator.domain.di.PerView
 import org.cryptomator.domain.usecases.cloud.AddOrChangeCloudConnectionUseCase
 import org.cryptomator.domain.usecases.cloud.ConnectToS3UseCase
+import org.cryptomator.presentation.R
 import org.cryptomator.presentation.exception.ExceptionHandlers
 import org.cryptomator.presentation.model.ProgressModel
 import org.cryptomator.presentation.model.ProgressStateModel
@@ -22,18 +23,23 @@ class S3AddOrChangePresenter @Inject internal constructor( //
 	fun checkUserInput(accessKey: String, secretKey: String, bucket: String, endpoint: String?, region: String?, cloudId: Long?, displayName: String) {
 		var statusMessage: String? = null
 
-		/*if (accessKey.isEmpty()) {
-			statusMessage = getString(R.string.screen_webdav_settings_msg_password_must_not_be_empty)
+		if (accessKey.isEmpty()) {
+			statusMessage = getString(R.string.screen_s3_settings_msg_access_key_not_empty)
 		}
 		if (secretKey.isEmpty()) {
-			statusMessage = getString(R.string.screen_webdav_settings_msg_username_must_not_be_empty)
+			statusMessage = getString(R.string.screen_s3_settings_msg_secret_key_not_empty)
 		}
 		if (bucket.isEmpty()) {
-			statusMessage = getString(R.string.screen_webdav_settings_msg_url_must_not_be_empty)
-		}*/ // FIXME define what is required
+			statusMessage = getString(R.string.screen_s3_settings_msg_bucket_not_empty)
+		}
+		if (displayName.isEmpty()) {
+			statusMessage = getString(R.string.screen_s3_settings_msg_display_name_not_empty)
+		}
+		if (endpoint.isNullOrEmpty() && region.isNullOrEmpty()) {
+			statusMessage = getString(R.string.screen_s3_settings_msg_endpoint_and_region_not_empty)
+		}
 
 		if (statusMessage != null) {
-			// FIXME showError instead of displaying a toast
 			Toast.makeText(context(), statusMessage, Toast.LENGTH_SHORT).show()
 		} else {
 			view?.onCheckUserInputSucceeded(encrypt(accessKey), encrypt(secretKey), bucket, endpoint, region, cloudId, displayName)
