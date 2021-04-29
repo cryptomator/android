@@ -3,6 +3,10 @@ package org.cryptomator.data.cloud.s3;
 import android.content.Context;
 
 import com.amazonaws.event.ProgressListener;
+import com.amazonaws.mobileconnectors.s3.transferutility.TransferListener;
+import com.amazonaws.mobileconnectors.s3.transferutility.TransferState;
+import com.amazonaws.mobileconnectors.s3.transferutility.TransferUtility;
+import com.amazonaws.mobileconnectors.s3.transferutility.UploadOptions;
 import com.amazonaws.services.s3.AmazonS3;
 import com.amazonaws.services.s3.model.CopyObjectResult;
 import com.amazonaws.services.s3.model.DeleteObjectsRequest;
@@ -13,7 +17,6 @@ import com.amazonaws.services.s3.model.ListObjectsV2Result;
 import com.amazonaws.services.s3.model.ObjectMetadata;
 import com.amazonaws.services.s3.model.Owner;
 import com.amazonaws.services.s3.model.PutObjectRequest;
-import com.amazonaws.services.s3.model.PutObjectResult;
 import com.amazonaws.services.s3.model.S3Object;
 import com.amazonaws.services.s3.model.S3ObjectSummary;
 import com.tomclaw.cache.DiskLruCache;
@@ -22,6 +25,7 @@ import org.cryptomator.data.util.CopyStream;
 import org.cryptomator.domain.S3Cloud;
 import org.cryptomator.domain.exception.BackendException;
 import org.cryptomator.domain.exception.CloudNodeAlreadyExistsException;
+import org.cryptomator.domain.exception.FatalBackendException;
 import org.cryptomator.domain.exception.NoSuchBucketException;
 import org.cryptomator.domain.exception.NoSuchCloudFileException;
 import org.cryptomator.domain.exception.authentication.WrongCredentialsException;
@@ -32,6 +36,7 @@ import org.cryptomator.domain.usecases.cloud.Progress;
 import org.cryptomator.domain.usecases.cloud.UploadState;
 import org.cryptomator.util.Optional;
 import org.cryptomator.util.SharedPreferencesHandler;
+import org.cryptomator.util.concurrent.CompletableFuture;
 import org.cryptomator.util.file.LruFileCacheUtil;
 
 import java.io.ByteArrayInputStream;
@@ -41,6 +46,7 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.ExecutionException;
 import java.util.concurrent.atomic.AtomicLong;
 
 import timber.log.Timber;
@@ -52,6 +58,7 @@ import static org.cryptomator.util.file.LruFileCacheUtil.storeToLruCache;
 
 class S3Impl {
 
+	private static final long CHUNKED_UPLOAD_MAX_SIZE = 100L << 20;
 	private static final String DELIMITER = "/";
 
 	private final S3ClientFactory clientFactory = new S3ClientFactory();
@@ -204,15 +211,25 @@ class S3Impl {
 
 		progressAware.onProgress(Progress.started(UploadState.upload(file)));
 
-		PutObjectResult result = uploadFile(file, data, progressAware, size);
+		final CompletableFuture<ObjectMetadata> result = new CompletableFuture<>();
+
+		if (size <= CHUNKED_UPLOAD_MAX_SIZE) {
+			uploadFile(file, data, progressAware, result, size);
+		} else {
+			uploadChunkedFile(file, data, progressAware, result, size);
+		}
 
 		progressAware.onProgress(Progress.completed(UploadState.upload(file)));
 
-		return S3CloudNodeFactory.file(file.getParent(), file.getName(), result);
+		try {
+			return S3CloudNodeFactory.file(file.getParent(), file.getName(), result.get());
+		} catch (ExecutionException | InterruptedException e) {
+			throw new FatalBackendException(e);
+		}
 
 	}
 
-	private PutObjectResult uploadFile(final S3File file, DataSource data, final ProgressAware<UploadState> progressAware, final long size) //
+	private void uploadFile(final S3File file, DataSource data, final ProgressAware<UploadState> progressAware, CompletableFuture<ObjectMetadata> result,  final long size) //
 			throws IOException {
 		AtomicLong bytesTransferred = new AtomicLong(0);
 		ProgressListener listener = progressEvent -> {
@@ -230,7 +247,52 @@ class S3Impl {
 		PutObjectRequest request = new PutObjectRequest(cloud.s3Bucket(), file.getPath(), data.open(context), metadata);
 		request.setGeneralProgressListener(listener);
 
-		return client().putObject(request);
+		result.complete(client().putObject(request).getMetadata());
+	}
+
+	private void uploadChunkedFile(final S3File file, DataSource data, final ProgressAware<UploadState> progressAware, CompletableFuture<ObjectMetadata> result, final long size) //
+			throws IOException {
+		AtomicLong bytesTransferred = new AtomicLong(0);
+
+		TransferUtility tu = TransferUtility
+				.builder()
+				.s3Client(client())
+				.context(context)
+				.defaultBucket(cloud.s3Bucket())
+				.build();
+
+		TransferListener transferListener = new TransferListener() {
+			@Override
+			public void onStateChanged(int id, TransferState state) {
+				if (state.equals(TransferState.COMPLETED)) {
+					progressAware.onProgress(Progress.completed(UploadState.upload(file)));
+					ObjectMetadata om = client().getObjectMetadata(cloud.s3Bucket(), file.getPath());
+					result.complete(om);
+				}
+			}
+
+			@Override
+			public void onProgressChanged(int id, long bytesCurrent, long bytesTotal) {
+				bytesTransferred.set(bytesTransferred.get()+bytesCurrent);
+				progressAware.onProgress( //
+						progress(UploadState.upload(file)) //
+								.between(0) //
+								.and(bytesTotal) //
+								.withValue(bytesTransferred.get()));
+			}
+
+			@Override
+			public void onError(int id, Exception ex) {
+				result.fail(ex);
+			}
+		};
+
+		UploadOptions uploadOptions = UploadOptions
+				.builder()
+				.transferListener(transferListener)
+				.build();
+
+		tu.upload(file.getPath(), data.open(context), uploadOptions);
 	}
 
 	public void read(S3File file, Optional<File> encryptedTmpFile, OutputStream data, final ProgressAware<DownloadState> progressAware) throws IOException, BackendException {

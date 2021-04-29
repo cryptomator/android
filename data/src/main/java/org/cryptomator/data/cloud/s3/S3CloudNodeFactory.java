@@ -1,6 +1,6 @@
 package org.cryptomator.data.cloud.s3;
 
-import com.amazonaws.services.s3.model.PutObjectResult;
+import com.amazonaws.services.s3.model.ObjectMetadata;
 import com.amazonaws.services.s3.model.S3ObjectSummary;
 
 import org.cryptomator.util.Optional;
@@ -16,8 +16,8 @@ class S3CloudNodeFactory {
 		return new S3File(parent, name, getNodePath(parent, name), Optional.ofNullable(file.getSize()), Optional.ofNullable(file.getLastModified()));
 	}
 
-	public static S3File file(S3Folder parent, String name, PutObjectResult file) {
-		return new S3File(parent, name, getNodePath(parent, name), Optional.ofNullable(file.getMetadata().getContentLength()), Optional.ofNullable(file.getMetadata().getLastModified()));
+	public static S3File file(S3Folder parent, String name, ObjectMetadata file) {
+		return new S3File(parent, name, getNodePath(parent, name), Optional.ofNullable(file.getContentLength()), Optional.ofNullable(file.getLastModified()));
 	}
 
 
