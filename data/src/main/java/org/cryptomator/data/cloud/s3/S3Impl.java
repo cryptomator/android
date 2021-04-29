@@ -110,17 +110,10 @@ class S3Impl {
 	}
 
 	public boolean bucketExists() throws BackendException {
-		try {
-			client().listObjectsV2(cloud.s3Bucket());
-		} catch(AmazonS3Exception ex) {
-			if (ex.getErrorCode().equals(S3CloudApiExceptions.S3CloudApiErrorCodes.NO_SUCH_BUCKET.getValue())) {
+			if (client().doesBucketExist(cloud.s3Bucket())) {
 				throw new NoSuchBucketException(cloud.s3Bucket());
-			} else {
-				throw new FatalBackendException(ex);
 			}
-		}
-
-		return true;
+			return true;
 	}
 
 	public boolean exists(S3Node node) {
