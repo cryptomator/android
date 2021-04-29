@@ -4,7 +4,6 @@ import android.content.Context;
 
 import com.amazonaws.event.ProgressListener;
 import com.amazonaws.services.s3.AmazonS3;
-import com.amazonaws.services.s3.model.AmazonS3Exception;
 import com.amazonaws.services.s3.model.CopyObjectResult;
 import com.amazonaws.services.s3.model.DeleteObjectsRequest;
 import com.amazonaws.services.s3.model.DeleteObjectsRequest.KeyVersion;
@@ -23,10 +22,9 @@ import org.cryptomator.data.util.CopyStream;
 import org.cryptomator.domain.S3Cloud;
 import org.cryptomator.domain.exception.BackendException;
 import org.cryptomator.domain.exception.CloudNodeAlreadyExistsException;
-import org.cryptomator.domain.exception.FatalBackendException;
 import org.cryptomator.domain.exception.NoSuchBucketException;
 import org.cryptomator.domain.exception.NoSuchCloudFileException;
-import org.cryptomator.domain.exception.authentication.NoAuthenticationProvidedException;
+import org.cryptomator.domain.exception.authentication.WrongCredentialsException;
 import org.cryptomator.domain.usecases.ProgressAware;
 import org.cryptomator.domain.usecases.cloud.DataSource;
 import org.cryptomator.domain.usecases.cloud.DownloadState;
@@ -66,7 +64,7 @@ class S3Impl {
 
 	S3Impl(Context context, S3Cloud cloud) {
 		if (cloud.accessKey() == null || cloud.secretKey() == null) {
-			throw new NoAuthenticationProvidedException(cloud);
+			throw new WrongCredentialsException(cloud);
 		}
 
 		this.context = context;
@@ -137,12 +135,14 @@ class S3Impl {
 
 		ListObjectsV2Result listObjects = client().listObjectsV2(request);
 		for(String prefix : listObjects.getCommonPrefixes()) {
+			// add folders
 			result.add(S3CloudNodeFactory.folder(folder,  S3CloudNodeFactory.getNameFromKey(prefix)));
 		}
 
 		for (S3ObjectSummary objectSummary : listObjects.getObjectSummaries()) {
+			// add files but skip parent folder
 			if (!objectSummary.getKey().equals(listObjects.getPrefix())) {
-				result.add(S3CloudNodeFactory.from(folder, objectSummary));
+				result.add(S3CloudNodeFactory.file(folder, objectSummary));
 			}
 		}
 		return result;
@@ -302,9 +302,10 @@ class S3Impl {
 
 	public void delete(S3Node node) throws IOException, BackendException {
 		if (node instanceof S3Folder) {
-			ListObjectsV2Result listObjects = client().listObjectsV2(cloud.s3Bucket(), node.getPath());
+			List<S3ObjectSummary> summaries = client().listObjectsV2(cloud.s3Bucket(), node.getPath()).getObjectSummaries();
+
 			List<KeyVersion> keys = new ArrayList<>();
-			for (S3ObjectSummary summary : listObjects.getObjectSummaries()) {
+			for (S3ObjectSummary summary : summaries) {
 				keys.add(new KeyVersion(summary.getKey()));
 			}
 
