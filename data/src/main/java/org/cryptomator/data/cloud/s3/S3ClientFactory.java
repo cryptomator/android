@@ -72,12 +72,16 @@ class S3ClientFactory {
 
 		@Override
 		public void afterError(Request<?> request, Response<?> response, Exception e) {
-			Timber.tag("S3Client").e( //
-					e,
-					"Error occurred (%s) with status %s (%s)", //
-					request.getAWSRequestMetrics().getTimingInfo().getStartTimeNano(), //
-					response.getHttpResponse().getStatusText(), //
-					response.getHttpResponse().getStatusCode());
+			if (response != null) {
+				Timber.tag("S3Client").e( //
+						e, //
+						"Error occurred (%s) with status %s (%s)", //
+						request.getAWSRequestMetrics().getTimingInfo().getStartTimeNano(), //
+						response.getHttpResponse().getStatusText(), //
+						response.getHttpResponse().getStatusCode());
+			} else {
+				Timber.tag("S3Client").e(e, "Error occurred (%s)", request.getAWSRequestMetrics().getTimingInfo().getStartTimeNano());
+			}
 		}
 	}
 }
