@@ -123,7 +123,6 @@
 	<!-- ## screen: s3 settings -->
 	<string name="screen_s3_settings_display_name_label">Anzeigename</string>
 	<string name="screen_s3_settings_bucket_label">Vorhandener Bucket</string>
-	<string name="screen_s3_settings_region_label">Region</string>
 	<string name="screen_s3_settings_msg_display_name_not_empty">Der Anzeigename darf nicht leer sein</string>
 	<string name="screen_s3_settings_msg_bucket_not_empty">Bucket darf nicht leer sein</string>
 	<string name="screen_s3_settings_msg_endpoint_and_region_not_empty">Endpoint und Region dürfen nicht leer sein</string>
