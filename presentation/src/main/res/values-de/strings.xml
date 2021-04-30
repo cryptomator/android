@@ -119,6 +119,7 @@
 	<string name="screen_webdav_settings_msg_url_is_invalid">URL ist ungültig.</string>
 	<string name="screen_webdav_settings_msg_username_must_not_be_empty">Benutzername muss ausgefüllt werden.</string>
 	<string name="screen_webdav_settings_msg_password_must_not_be_empty">Passwort muss ausgefüllt werden.</string>
+	<!-- ## screen: s3 settings -->
 	<!-- ## screen: enter vault name -->
 	<string name="screen_enter_vault_name_msg_name_empty">Tresorname muss ausgefüllt werden.</string>
 	<string name="screen_enter_vault_name_vault_label">Tresorname</string>
