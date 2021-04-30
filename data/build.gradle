@@ -74,7 +74,7 @@ android {
 }
 
 greendao {
-	schemaVersion 5
+	schemaVersion 6
 }
 
 configurations.all {
@@ -99,6 +99,7 @@ dependencies {
 	annotationProcessor dependencies.daggerCompiler
 	implementation dependencies.dagger
 	// cloud
+	implementation dependencies.awsAndroidS3
 	implementation dependencies.dropbox
 	implementation dependencies.msgraph
 

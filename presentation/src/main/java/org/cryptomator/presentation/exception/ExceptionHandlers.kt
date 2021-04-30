@@ -8,6 +8,7 @@ import org.cryptomator.domain.di.PerView
 import org.cryptomator.domain.exception.CloudAlreadyExistsException
 import org.cryptomator.domain.exception.CloudNodeAlreadyExistsException
 import org.cryptomator.domain.exception.NetworkConnectionException
+import org.cryptomator.domain.exception.NoSuchBucketException
 import org.cryptomator.domain.exception.NoSuchCloudFileException
 import org.cryptomator.domain.exception.UnableToDecryptWebdavPasswordException
 import org.cryptomator.domain.exception.VaultAlreadyExistException
@@ -45,6 +46,7 @@ class ExceptionHandlers @Inject constructor(private val context: Context, defaul
 		staticHandler(NoLicenseAvailableException::class.java, R.string.dialog_enter_license_no_content)
 		staticHandler(GeneralUpdateErrorException::class.java, R.string.error_general_update)
 		staticHandler(SSLHandshakePreAndroid5UpdateCheckException::class.java, R.string.error_general_update)
+		staticHandler(NoSuchBucketException::class.java, R.string.error_no_such_bucket)
 		exceptionHandlers.add(MissingCryptorExceptionHandler())
 		exceptionHandlers.add(CancellationExceptionHandler())
 		exceptionHandlers.add(NoSuchVaultExceptionHandler())

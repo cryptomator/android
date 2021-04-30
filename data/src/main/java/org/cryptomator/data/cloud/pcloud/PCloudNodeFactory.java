@@ -16,8 +16,8 @@ class PCloudNodeFactory {
 		return new PCloudFile(parent, name, getNodePath(parent, name), size, Optional.empty());
 	}
 
-	public static PCloudFile file(PCloudFolder folder, String name, Optional<Long> size, String path) {
-		return new PCloudFile(folder, name, path, size, Optional.empty());
+	public static PCloudFile file(PCloudFolder parent, String name, Optional<Long> size, String path) {
+		return new PCloudFile(parent, name, path, size, Optional.empty());
 	}
 
 	public static PCloudFolder folder(PCloudFolder parent, RemoteFolder folder) {

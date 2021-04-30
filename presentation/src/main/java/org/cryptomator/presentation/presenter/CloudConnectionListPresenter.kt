@@ -29,6 +29,7 @@ import org.cryptomator.presentation.intent.Intents
 import org.cryptomator.presentation.model.CloudModel
 import org.cryptomator.presentation.model.CloudTypeModel
 import org.cryptomator.presentation.model.LocalStorageModel
+import org.cryptomator.presentation.model.S3CloudModel
 import org.cryptomator.presentation.model.WebDavCloudModel
 import org.cryptomator.presentation.model.mappers.CloudModelMapper
 import org.cryptomator.presentation.ui.activity.view.CloudConnectionListView
@@ -129,7 +130,7 @@ class CloudConnectionListPresenter @Inject constructor( //
 
 	fun onAddConnectionClicked() {
 		when (selectedCloudType.get()) {
-			CloudTypeModel.WEBDAV -> requestActivityResult(ActivityResultCallbacks.addChangeWebDavCloud(),  //
+			CloudTypeModel.WEBDAV -> requestActivityResult(ActivityResultCallbacks.addChangeMultiCloud(),  //
 					Intents.webDavAddOrChangeIntent())
 			CloudTypeModel.PCLOUD -> {
 				val authIntent: Intent = AuthorizationActivity.createIntent(
@@ -143,6 +144,8 @@ class CloudConnectionListPresenter @Inject constructor( //
 				requestActivityResult(ActivityResultCallbacks.pCloudAuthenticationFinished(),  //
 						authIntent)
 			}
+			CloudTypeModel.S3 -> requestActivityResult(ActivityResultCallbacks.addChangeMultiCloud(),  //
+					Intents.s3AddOrChangeIntent())
 			CloudTypeModel.LOCAL -> openDocumentTree()
 		}
 	}
@@ -165,12 +168,20 @@ class CloudConnectionListPresenter @Inject constructor( //
 	}
 
 	fun onChangeCloudClicked(cloudModel: CloudModel) {
-		if (cloudModel.cloudType() == CloudTypeModel.WEBDAV) {
-			requestActivityResult(ActivityResultCallbacks.addChangeWebDavCloud(),  //
-					Intents.webDavAddOrChangeIntent() //
-							.withWebDavCloud(cloudModel as WebDavCloudModel))
-		} else {
-			throw IllegalStateException("Change cloud with type " + cloudModel.cloudType() + " is not supported")
+		when {
+			cloudModel.cloudType() == CloudTypeModel.WEBDAV -> {
+				requestActivityResult(ActivityResultCallbacks.addChangeMultiCloud(),  //
+						Intents.webDavAddOrChangeIntent() //
+								.withWebDavCloud(cloudModel as WebDavCloudModel))
+			}
+			cloudModel.cloudType() == CloudTypeModel.S3 -> {
+				requestActivityResult(ActivityResultCallbacks.addChangeMultiCloud(),  //
+						Intents.s3AddOrChangeIntent() //
+								.withS3Cloud(cloudModel as S3CloudModel))
+			}
+			else -> {
+				throw IllegalStateException("Change cloud with type " + cloudModel.cloudType() + " is not supported")
+			}
 		}
 	}
 
@@ -179,7 +190,7 @@ class CloudConnectionListPresenter @Inject constructor( //
 	}
 
 	@Callback
-	fun addChangeWebDavCloud(result: ActivityResult?) {
+	fun addChangeMultiCloud(result: ActivityResult?) {
 		loadCloudList()
 	}
 

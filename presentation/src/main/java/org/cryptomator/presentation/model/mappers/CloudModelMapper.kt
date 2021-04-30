@@ -10,6 +10,7 @@ import org.cryptomator.presentation.model.GoogleDriveCloudModel
 import org.cryptomator.presentation.model.LocalStorageModel
 import org.cryptomator.presentation.model.OnedriveCloudModel
 import org.cryptomator.presentation.model.PCloudModel
+import org.cryptomator.presentation.model.S3CloudModel
 import org.cryptomator.presentation.model.WebDavCloudModel
 import javax.inject.Inject
 
@@ -24,10 +25,11 @@ class CloudModelMapper @Inject constructor() : ModelMapper<CloudModel, Cloud>() 
 		return when (CloudTypeModel.valueOf(domainObject.type())) {
 			CloudTypeModel.DROPBOX -> DropboxCloudModel(domainObject)
 			CloudTypeModel.GOOGLE_DRIVE -> GoogleDriveCloudModel(domainObject)
+			CloudTypeModel.LOCAL -> LocalStorageModel(domainObject)
 			CloudTypeModel.ONEDRIVE -> OnedriveCloudModel(domainObject)
 			CloudTypeModel.PCLOUD -> PCloudModel(domainObject)
+			CloudTypeModel.S3 -> S3CloudModel(domainObject)
 			CloudTypeModel.CRYPTO -> CryptoCloudModel(domainObject)
-			CloudTypeModel.LOCAL -> LocalStorageModel(domainObject)
 			CloudTypeModel.WEBDAV -> WebDavCloudModel(domainObject)
 		}
 	}
