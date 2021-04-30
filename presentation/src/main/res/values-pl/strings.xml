@@ -117,6 +117,7 @@
 	<string name="screen_webdav_settings_msg_url_is_invalid">Adres URL jest nieprawidłowy.</string>
 	<string name="screen_webdav_settings_msg_username_must_not_be_empty">Login nie może być pusty.</string>
 	<string name="screen_webdav_settings_msg_password_must_not_be_empty">Hasło nie może być puste.</string>
+	<!-- ## screen: s3 settings -->
 	<!-- ## screen: enter vault name -->
 	<string name="screen_enter_vault_name_msg_name_empty">Nazwa sejfu nie może być pusta.</string>
 	<string name="screen_enter_vault_name_vault_label">Nazwa sejfu</string>
