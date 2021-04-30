@@ -27,6 +27,7 @@
 	<string name="error_play_services_not_available">Die Play Services sind nicht installiert</string>
 	<string name="error_biometric_auth_aborted">Biometrischer Login abgebrochen</string>
 	<string name="error_file_not_found_after_opening_using_3party">Lokale Datei ist nach dem Zurückwechseln zu Cryptomator nicht mehr vorhanden. Mögliche Änderungen können nicht in die Cloud übertragen werden.</string>
+	<string name="error_no_such_bucket">Bucket existiert nicht</string>
 	<!-- # clouds -->
 	<!-- ## cloud names -->
 	<string name="cloud_names_local_storage">Lokaler Speicher</string>
@@ -120,6 +121,12 @@
 	<string name="screen_webdav_settings_msg_username_must_not_be_empty">Benutzername muss ausgefüllt werden.</string>
 	<string name="screen_webdav_settings_msg_password_must_not_be_empty">Passwort muss ausgefüllt werden.</string>
 	<!-- ## screen: s3 settings -->
+	<string name="screen_s3_settings_display_name_label">Anzeigename</string>
+	<string name="screen_s3_settings_bucket_label">Vorhandener Bucket</string>
+	<string name="screen_s3_settings_region_label">Region</string>
+	<string name="screen_s3_settings_msg_display_name_not_empty">Der Anzeigename darf nicht leer sein</string>
+	<string name="screen_s3_settings_msg_bucket_not_empty">Bucket darf nicht leer sein</string>
+	<string name="screen_s3_settings_msg_endpoint_and_region_not_empty">Endpoint und Region dürfen nicht leer sein</string>
 	<!-- ## screen: enter vault name -->
 	<string name="screen_enter_vault_name_msg_name_empty">Tresorname muss ausgefüllt werden.</string>
 	<string name="screen_enter_vault_name_vault_label">Tresorname</string>
@@ -130,6 +137,7 @@
 	<string name="screen_set_password_button_text">Fertig</string>
 	<string name="screen_set_password_hint">WICHTIG: Wenn Sie Ihr Passwort vergessen, gibt es keine Möglichkeit die Daten zu entschlüsseln.</string>
 	<string name="screen_set_password_retype_password_label">Passwort wiederholen</string>
+	<string name="screen_set_password_strength_indicator_0">Zu schwach, um einen Tresor zu erstellen</string>
 	<string name="screen_set_password_strength_indicator_1">Schwach</string>
 	<string name="screen_set_password_strength_indicator_2">Mittel</string>
 	<string name="screen_set_password_strength_indicator_3">Stark</string>
@@ -178,6 +186,7 @@
 	<!-- ## screen: cloud settings -->
 	<string name="screen_cloud_settings_webdav_connections">WebDAV-Verbindungen</string>
 	<string name="screen_cloud_settings_pcloud_connections">pCloud-Verbindungen</string>
+	<string name="screen_cloud_settings_s3_connections">S3-Verbindungen</string>
 	<string name="screen_cloud_settings_local_storage_locations">Lokale Speicherorte</string>
 	<string name="screen_cloud_settings_log_in_to">Einloggen in</string>
 	<string name="screen_cloud_settings_sign_out_from_cloud">Abmelden von</string>
