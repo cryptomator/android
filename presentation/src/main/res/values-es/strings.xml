@@ -84,6 +84,7 @@
 	<string name="screen_webdav_settings_msg_url_is_invalid">La URL no es válida.</string>
 	<string name="screen_webdav_settings_msg_username_must_not_be_empty">El nombre de usuario no puede estar vacio.</string>
 	<string name="screen_webdav_settings_msg_password_must_not_be_empty">La contraseña no puede estar vacía.</string>
+	<!-- ## screen: s3 settings -->
 	<!-- ## screen: enter vault name -->
 	<string name="screen_enter_vault_name_msg_name_empty">El nombre de la caja fuerte no puede estar vacío.</string>
 	<string name="screen_enter_vault_name_vault_label">Nombre de la caja fuerte</string>

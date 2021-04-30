@@ -116,6 +116,7 @@
 	<string name="screen_webdav_settings_msg_url_is_invalid">URL geçersiz.</string>
 	<string name="screen_webdav_settings_msg_username_must_not_be_empty">Kullanıcı adı boş olamaz.</string>
 	<string name="screen_webdav_settings_msg_password_must_not_be_empty">Parola boş olamaz.</string>
+	<!-- ## screen: s3 settings -->
 	<!-- ## screen: enter vault name -->
 	<string name="screen_enter_vault_name_msg_name_empty">Kasa adı boş olamaz.</string>
 	<string name="screen_enter_vault_name_vault_label">Kasa adı</string>
@@ -126,7 +127,6 @@
 	<string name="screen_set_password_button_text">Bitti</string>
 	<string name="screen_set_password_hint">ÖNEMLİ UYARI: Parolanızı unutursanız, verilerinizi kurtarmanın herhangi bir yolu yoktur.</string>
 	<string name="screen_set_password_retype_password_label">Yeni şifreyi tekrar yazın</string>
-	<string name="screen_set_password_strength_indicator_0">Çok zayıf</string>
 	<string name="screen_set_password_strength_indicator_1">Güçsüz</string>
 	<string name="screen_set_password_strength_indicator_2">Makul</string>
 	<string name="screen_set_password_strength_indicator_3">Kuvvetli</string>
