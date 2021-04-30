@@ -118,12 +118,6 @@ class S3Impl {
 		return S3CloudNodeFactory.folder(parent, name, parent.getKey() + name);
 	}
 
-	public void bucketExists() throws BackendException {
-		if (!client().doesBucketExist(cloud.s3Bucket())) {
-			throw new NoSuchBucketException(cloud.s3Bucket());
-		}
-	}
-
 	public boolean exists(S3Node node) {
 		String key = node.getKey();
 
@@ -384,9 +378,14 @@ class S3Impl {
 		}
 	}
 
-	public String currentAccount() {
+	public String checkAuthenticationAndRetrieveCurrentAccount() throws NoSuchBucketException {
+		if (!client().doesBucketExist(cloud.s3Bucket())) {
+			throw new NoSuchBucketException(cloud.s3Bucket());
+		}
+
 		Owner currentAccount = client() //
 				.getS3AccountOwner();
+
 		return currentAccount.getDisplayName();
 	}
 

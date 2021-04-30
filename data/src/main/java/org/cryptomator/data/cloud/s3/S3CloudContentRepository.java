@@ -175,7 +175,7 @@ class S3CloudContentRepository extends InterceptingCloudContentRepository<S3Clou
 
 		@Override
 		public String checkAuthenticationAndRetrieveCurrentAccount(S3Cloud cloud) throws BackendException {
-			return this.cloud.currentAccount();
+			return this.cloud.checkAuthenticationAndRetrieveCurrentAccount();
 		}
 
 		@Override
