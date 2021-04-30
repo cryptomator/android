@@ -121,6 +121,7 @@
 	<string name="screen_webdav_settings_msg_url_is_invalid">URL invalide.</string>
 	<string name="screen_webdav_settings_msg_username_must_not_be_empty">Le nom d\'utilisateur ne peut pas être vide.</string>
 	<string name="screen_webdav_settings_msg_password_must_not_be_empty">Le mot de passe ne peut pas être vide.</string>
+	<!-- ## screen: s3 settings -->
 	<!-- ## screen: enter vault name -->
 	<string name="screen_enter_vault_name_msg_name_empty">Le nom du coffre-fort ne peut pas être vide.</string>
 	<string name="screen_enter_vault_name_vault_label">Nom du coffre-fort</string>
