@@ -51,7 +51,7 @@ ext {
 	// do not update to 1.4.0 until minsdk is 7.x (or desugaring works better) otherwise it will crash on 6.x
 	cryptolibVersion = '1.3.0'
 
-	awsAndroidSdkS3 = '2.22.6'
+	awsAndroidSdkS3 = '2.23.0'
 
 	dropboxVersion = '4.0.0'
 
