@@ -116,6 +116,7 @@
 	<string name="screen_webdav_settings_msg_url_is_invalid">URL geçersiz.</string>
 	<string name="screen_webdav_settings_msg_username_must_not_be_empty">Kullanıcı adı boş olamaz.</string>
 	<string name="screen_webdav_settings_msg_password_must_not_be_empty">Parola boş olamaz.</string>
+	<!-- ## screen: s3 settings -->
 	<!-- ## screen: enter vault name -->
 	<string name="screen_enter_vault_name_msg_name_empty">Kasa adı boş olamaz.</string>
 	<string name="screen_enter_vault_name_vault_label">Kasa adı</string>
