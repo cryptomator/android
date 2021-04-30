@@ -2,18 +2,13 @@ package org.cryptomator.data.cloud.s3;
 
 public class S3CloudApiExceptions {
 
-	public enum S3CloudApiErrorCodes {
-		NO_SUCH_BUCKET("NoSuchBucket");
-
-		private final String value;
-
-		S3CloudApiErrorCodes(final String newValue) {
-			value = newValue;
-		}
-
-		public String getValue() {
-			return value;
-		}
+	public static boolean isAccessProblem(String errorCode) {
+		return errorCode.equals(S3CloudApiErrorCodes.ACCESS_DENIED.getValue())
+				|| errorCode.equals(S3CloudApiErrorCodes.ACCOUNT_PROBLEM.getValue())
+				|| errorCode.equals(S3CloudApiErrorCodes.INVALID_ACCESS_KEY_ID.getValue());
 	}
 
+	public static boolean isNoSuchBucketException(String errorCode) {
+		return errorCode.equals(S3CloudApiErrorCodes.NO_SUCH_BUCKET.getValue());
+	}
 }

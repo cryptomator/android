@@ -8,6 +8,7 @@ import com.amazonaws.mobileconnectors.s3.transferutility.TransferState;
 import com.amazonaws.mobileconnectors.s3.transferutility.TransferUtility;
 import com.amazonaws.mobileconnectors.s3.transferutility.UploadOptions;
 import com.amazonaws.services.s3.AmazonS3;
+import com.amazonaws.services.s3.model.AmazonS3Exception;
 import com.amazonaws.services.s3.model.CopyObjectResult;
 import com.amazonaws.services.s3.model.DeleteObjectsRequest;
 import com.amazonaws.services.s3.model.DeleteObjectsRequest.KeyVersion;
@@ -26,8 +27,10 @@ import org.cryptomator.domain.S3Cloud;
 import org.cryptomator.domain.exception.BackendException;
 import org.cryptomator.domain.exception.CloudNodeAlreadyExistsException;
 import org.cryptomator.domain.exception.FatalBackendException;
+import org.cryptomator.domain.exception.ForbiddenException;
 import org.cryptomator.domain.exception.NoSuchBucketException;
 import org.cryptomator.domain.exception.NoSuchCloudFileException;
+import org.cryptomator.domain.exception.UnauthorizedException;
 import org.cryptomator.domain.exception.authentication.WrongCredentialsException;
 import org.cryptomator.domain.usecases.ProgressAware;
 import org.cryptomator.domain.usecases.cloud.DataSource;
@@ -46,6 +49,7 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.atomic.AtomicLong;
 
@@ -161,8 +165,12 @@ class S3Impl {
 
 		InputStream emptyContent = new ByteArrayInputStream(new byte[0]);
 
-		PutObjectRequest putObjectRequest = new PutObjectRequest(cloud.s3Bucket(), folder.getKey(), emptyContent, metadata);
-		client().putObject(putObjectRequest);
+		try {
+			PutObjectRequest putObjectRequest = new PutObjectRequest(cloud.s3Bucket(), folder.getKey(), emptyContent, metadata);
+			client().putObject(putObjectRequest);
+		} catch(AmazonS3Exception ex) {
+			handleApiError(ex, folder.getName());
+		}
 
 		return S3CloudNodeFactory.folder(folder.getParent(), folder.getName());
 	}
@@ -206,10 +214,14 @@ class S3Impl {
 
 		final CompletableFuture<Optional<ObjectMetadata>> result = new CompletableFuture<>();
 
-		if (size <= CHUNKED_UPLOAD_MAX_SIZE) {
-			uploadFile(file, data, progressAware, result, size);
-		} else {
-			uploadChunkedFile(file, data, progressAware, result, size);
+		try {
+			if (size <= CHUNKED_UPLOAD_MAX_SIZE) {
+				uploadFile(file, data, progressAware, result, size);
+			} else {
+				uploadChunkedFile(file, data, progressAware, result, size);
+			}
+		} catch(AmazonS3Exception ex) {
+			handleApiError(ex, file.getName());
 		}
 
 		try {
@@ -336,16 +348,20 @@ class S3Impl {
 		GetObjectRequest request = new GetObjectRequest(cloud.s3Bucket(), file.getPath());
 		request.setGeneralProgressListener(listener);
 
-		S3Object s3Object = client().getObject(request);
+		try {
+			S3Object s3Object = client().getObject(request);
 
-		CopyStream.copyStreamToStream(s3Object.getObjectContent(), data);
+			CopyStream.copyStreamToStream(s3Object.getObjectContent(), data);
 
-		if (sharedPreferencesHandler.useLruCache() && encryptedTmpFile.isPresent() && cacheKey.isPresent()) {
-			try {
-				storeToLruCache(diskLruCache, cacheKey.get(), encryptedTmpFile.get());
-			} catch (IOException e) {
-				Timber.tag("S3Impl").e(e, "Failed to write downloaded file in LRU cache");
+			if (sharedPreferencesHandler.useLruCache() && encryptedTmpFile.isPresent() && cacheKey.isPresent()) {
+				try {
+					storeToLruCache(diskLruCache, cacheKey.get(), encryptedTmpFile.get());
+				} catch (IOException e) {
+					Timber.tag("S3Impl").e(e, "Failed to write downloaded file in LRU cache");
+				}
 			}
+		} catch(AmazonS3Exception ex) {
+			handleApiError(ex, file.getName());
 		}
 
 	}
@@ -385,5 +401,18 @@ class S3Impl {
 		}
 
 		return true;
+	}
+
+	private void handleApiError(AmazonS3Exception ex, String name) throws BackendException {
+		String errorCode = ex.getErrorCode();
+		if (S3CloudApiExceptions.isAccessProblem(errorCode)) {
+			throw new ForbiddenException();
+		}  else if (S3CloudApiErrorCodes.NO_SUCH_BUCKET.getValue().equals(errorCode)) {
+			throw new NoSuchBucketException(name);
+		} else if (S3CloudApiErrorCodes.NO_SUCH_KEY.getValue().equals(errorCode)) {
+			throw new NoSuchCloudFileException(name);
+		}  else {
+			throw new FatalBackendException(ex);
+		}
 	}
 }

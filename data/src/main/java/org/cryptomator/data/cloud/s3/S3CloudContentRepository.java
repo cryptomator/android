@@ -2,11 +2,14 @@ package org.cryptomator.data.cloud.s3;
 
 import android.content.Context;
 
+import com.amazonaws.services.s3.model.AmazonS3Exception;
+
 import org.cryptomator.data.cloud.InterceptingCloudContentRepository;
 import org.cryptomator.domain.S3Cloud;
 import org.cryptomator.domain.exception.BackendException;
 import org.cryptomator.domain.exception.FatalBackendException;
 import org.cryptomator.domain.exception.NetworkConnectionException;
+import org.cryptomator.domain.exception.NoSuchBucketException;
 import org.cryptomator.domain.exception.authentication.WrongCredentialsException;
 import org.cryptomator.domain.repository.CloudContentRepository;
 import org.cryptomator.domain.usecases.ProgressAware;
@@ -31,29 +34,36 @@ class S3CloudContentRepository extends InterceptingCloudContentRepository<S3Clou
 		this.cloud = cloud;
 	}
 
-	//TODO: add proper error handling
-
 	@Override
 	protected void throwWrappedIfRequired(Exception e) throws BackendException {
-//		throwConnectionErrorIfRequired(e);
-//		throwWrongCredentialsExceptionIfRequired(e);
+		throwNoSuchBucketExceptionIfRequired(e);
+		throwConnectionErrorIfRequired(e);
+		throwWrongCredentialsExceptionIfRequired(e);
 	}
 
-//	private void throwConnectionErrorIfRequired(Exception e) throws NetworkConnectionException {
-//		if (contains(e, IOException.class)) {
-//			throw new NetworkConnectionException(e);
-//		}
-//	}
-//
-//	private void throwWrongCredentialsExceptionIfRequired(Exception e) {
-//		if (e instanceof ApiError) {
-//			int errorCode = ((ApiError) e).errorCode();
-//			if (errorCode == PCloudApiError.PCloudApiErrorCodes.INVALID_ACCESS_TOKEN.getValue() //
-//					|| errorCode == PCloudApiError.PCloudApiErrorCodes.ACCESS_TOKEN_REVOKED.getValue()) {
-//				throw new WrongCredentialsException(cloud);
-//			}
-//		}
-//	}
+	private void throwNoSuchBucketExceptionIfRequired(Exception e) throws NoSuchBucketException {
+		if (e instanceof AmazonS3Exception) {
+			String errorCode = ((AmazonS3Exception)e).getErrorCode();
+			if(S3CloudApiExceptions.isNoSuchBucketException(errorCode)) {
+				throw new NoSuchBucketException(cloud.s3Bucket());
+			}
+		}
+	}
+
+	private void throwConnectionErrorIfRequired(Exception e) throws NetworkConnectionException {
+		if (contains(e, IOException.class)) {
+			throw new NetworkConnectionException(e);
+		}
+	}
+
+	private void throwWrongCredentialsExceptionIfRequired(Exception e) {
+		if (e instanceof AmazonS3Exception) {
+			String errorCode = ((AmazonS3Exception) e).getErrorCode();
+			if (S3CloudApiExceptions.isAccessProblem(errorCode)) {
+				throw new WrongCredentialsException(cloud);
+			}
+		}
+	}
 
 	private static class Intercepted implements CloudContentRepository<S3Cloud, S3Node, S3Folder, S3File> {
 
