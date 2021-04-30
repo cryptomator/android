@@ -1,1 +1,3 @@
-- Problem bei der pCloud-Anmeldung in der F-Droid-Variante behoben
+- Unterstützung für S3-kompatiblen Speicher hinzugefügt
+- Passwortrichtlinie verbessert, so dass Tresore mit sehr schlechten Passwörtern nicht mehr erstellt werden können
+- Problem bei der Dateisuche behoben, falls Globbing aktiviert, die Live-Suche deaktiviert und das Muster Großbuchstaben enthält
