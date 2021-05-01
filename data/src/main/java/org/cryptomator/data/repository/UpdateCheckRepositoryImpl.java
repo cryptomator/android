@@ -1,22 +1,28 @@
 package org.cryptomator.data.repository;
 
+import android.content.Context;
+import android.net.Uri;
+
 import com.google.common.io.BaseEncoding;
 
+import org.apache.commons.codec.binary.Hex;
 import org.cryptomator.data.db.Database;
 import org.cryptomator.data.db.entities.UpdateCheckEntity;
 import org.cryptomator.data.util.UserAgentInterceptor;
 import org.cryptomator.domain.exception.BackendException;
 import org.cryptomator.domain.exception.FatalBackendException;
 import org.cryptomator.domain.exception.update.GeneralUpdateErrorException;
-import org.cryptomator.domain.exception.update.SSLHandshakePreAndroid5UpdateCheckException;
+import org.cryptomator.domain.exception.update.HashMismatchUpdateCheckException;
 import org.cryptomator.domain.repository.UpdateCheckRepository;
 import org.cryptomator.domain.usecases.UpdateCheck;
 import org.cryptomator.util.Optional;
 
 import java.io.File;
 import java.io.IOException;
+import java.security.DigestInputStream;
 import java.security.Key;
 import java.security.KeyFactory;
+import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.security.interfaces.ECPublicKey;
 import java.security.spec.InvalidKeySpecException;
@@ -25,7 +31,6 @@ import java.security.spec.X509EncodedKeySpec;
 import javax.annotation.Nullable;
 import javax.inject.Inject;
 import javax.inject.Singleton;
-import javax.net.ssl.SSLHandshakeException;
 
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
@@ -42,11 +47,13 @@ public class UpdateCheckRepositoryImpl implements UpdateCheckRepository {
 
 	private final Database database;
 	private final OkHttpClient httpClient;
+	private final Context context;
 
 	@Inject
-	UpdateCheckRepositoryImpl(Database database) {
+	UpdateCheckRepositoryImpl(Database database, Context context) {
 		this.httpClient = httpClient();
 		this.database = database;
+		this.context = context;
 	}
 
 	private OkHttpClient httpClient() {
@@ -65,13 +72,14 @@ public class UpdateCheckRepositoryImpl implements UpdateCheckRepository {
 
 		final UpdateCheckEntity entity = database.load(UpdateCheckEntity.class, 1L);
 
-		if (entity.getVersion() != null && entity.getVersion().equals(latestVersion.version)) {
+		if (entity.getVersion() != null && entity.getVersion().equals(latestVersion.version) && entity.getApkSha256() != null) {
 			return Optional.of(new UpdateCheckImpl("", entity));
 		}
 
 		UpdateCheck updateCheck = loadUpdateStatus(latestVersion);
 		entity.setUrlToApk(updateCheck.getUrlApk());
 		entity.setVersion(updateCheck.getVersion());
+		entity.setApkSha256(updateCheck.getApkSha256());
 
 		database.store(entity);
 
@@ -107,12 +115,37 @@ public class UpdateCheckRepositoryImpl implements UpdateCheckRepository {
 			if (response.isSuccessful()) {
 				final BufferedSink sink = Okio.buffer(Okio.sink(file));
 				sink.writeAll(response.body().source());
+				sink.flush();
 				sink.close();
+
+				String apkSha256 = calculateSha256(file);
+
+				if(!apkSha256.equals(entity.getApkSha256())) {
+					file.delete();
+					throw new HashMismatchUpdateCheckException(String.format( //
+							"Sha of calculated hash (%s) doesn't match the specified one (%s)", //
+							apkSha256, //
+							entity.getApkSha256()));
+				}
 			} else {
 				throw new GeneralUpdateErrorException("Failed to load update file, status code is not correct: " + response.code());
 			}
 		} catch (IOException e) {
 			throw new GeneralUpdateErrorException("Failed to load update. General error occurred.", e);
+		}
+	}
+
+	private String calculateSha256(File file) throws GeneralUpdateErrorException {
+		try {
+			MessageDigest digest = MessageDigest.getInstance("SHA-256");
+			try(DigestInputStream digestInputStream = new DigestInputStream(context.getContentResolver().openInputStream(Uri.fromFile(file)), digest)) {
+				byte[] buffer = new byte[8192];
+				while(digestInputStream.read(buffer) > -1) {
+				}
+			}
+			return new String(Hex.encodeHex(digest.digest()));
+		} catch (Exception e) {
+			throw new GeneralUpdateErrorException(e);
 		}
 	}
 
@@ -123,12 +156,6 @@ public class UpdateCheckRepositoryImpl implements UpdateCheckRepository {
 					.url(HOSTNAME_LATEST_VERSION) //
 					.build();
 			return toLatestVersion(httpClient.newCall(request).execute());
-		} catch (SSLHandshakeException e) {
-			if (android.os.Build.VERSION.SDK_INT < android.os.Build.VERSION_CODES.LOLLIPOP) {
-				throw new SSLHandshakePreAndroid5UpdateCheckException("Failed to update.", e);
-			} else {
-				throw new GeneralUpdateErrorException("Failed to update. General error occurred.", e);
-			}
 		} catch (IOException e) {
 			throw new GeneralUpdateErrorException("Failed to update. General error occurred.", e);
 		}
@@ -181,12 +208,14 @@ public class UpdateCheckRepositoryImpl implements UpdateCheckRepository {
 		private final String releaseNote;
 		private final String version;
 		private final String urlApk;
+		private final String apkSha256;
 		private final String urlReleaseNote;
 
 		private UpdateCheckImpl(String releaseNote, LatestVersion latestVersion) {
 			this.releaseNote = releaseNote;
 			this.version = latestVersion.version;
 			this.urlApk = latestVersion.urlApk;
+			this.apkSha256 = latestVersion.apkSha256;
 			this.urlReleaseNote = latestVersion.urlReleaseNote;
 		}
 
@@ -194,6 +223,7 @@ public class UpdateCheckRepositoryImpl implements UpdateCheckRepository {
 			this.releaseNote = releaseNote;
 			this.version = updateCheckEntity.getVersion();
 			this.urlApk = updateCheckEntity.getUrlToApk();
+			this.apkSha256 = updateCheckEntity.getApkSha256();
 			this.urlReleaseNote = updateCheckEntity.getUrlToReleaseNote();
 		}
 
@@ -213,6 +243,11 @@ public class UpdateCheckRepositoryImpl implements UpdateCheckRepository {
 		}
 
 		@Override
+		public String getApkSha256() {
+			return apkSha256;
+		}
+
+		@Override
 		public String getUrlReleaseNote() {
 			return urlReleaseNote;
 		}
@@ -222,6 +257,7 @@ public class UpdateCheckRepositoryImpl implements UpdateCheckRepository {
 
 		private final String version;
 		private final String urlApk;
+		private final String apkSha256;
 		private final String urlReleaseNote;
 
 		LatestVersion(String json) throws GeneralUpdateErrorException {
@@ -234,6 +270,7 @@ public class UpdateCheckRepositoryImpl implements UpdateCheckRepository {
 
 				version = jws.get("version", String.class);
 				urlApk = jws.get("url", String.class);
+				apkSha256 = jws.get("apk_sha_256", String.class);
 				urlReleaseNote = jws.get("release_notes", String.class);
 			} catch (Exception e) {
 				throw new GeneralUpdateErrorException("Failed to parse latest version", e);

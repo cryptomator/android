@@ -102,11 +102,13 @@ platform :android do |options|
     server_host = ENV["APK_STORE_BASIC_URL"]
     base_url = "https://#{server_host}/android/"
     apk_url = "#{base_url}#{version}/Cryptomator-#{version}.apk"
+    apk_sha_256 = Digest::SHA256.hexdigest File.read "release/Cryptomator-#{version}_signed.apk"
     release_note_url = "#{base_url}#{version}/release-notes.html"
 
     claims = {
       "version": version,
       "url": apk_url,
+      "apk_sha_256": apk_sha_256,
       "release_notes": release_note_url
     }
 
