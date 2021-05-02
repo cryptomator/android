@@ -99,7 +99,9 @@ class SettingsFragment : PreferenceFragmentCompat() {
 	private fun activity(): SettingsActivity = this.activity as SettingsActivity
 
 	private fun isBiometricAuthenticationNotAvailableRemovePreference() {
-		val biometricAuthenticationAvailable = BiometricManager.from(requireContext()).canAuthenticate()
+		val biometricAuthenticationAvailable = BiometricManager //
+				.from(requireContext()) //
+				.canAuthenticate(BiometricManager.Authenticators.BIOMETRIC_STRONG)
 
 		if (biometricAuthenticationAvailable != BiometricManager.BIOMETRIC_SUCCESS
 				&& biometricAuthenticationAvailable != BiometricManager.BIOMETRIC_ERROR_NONE_ENROLLED) {
