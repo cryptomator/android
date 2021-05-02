@@ -22,6 +22,7 @@
 	<string name="error_names_contains_invalid_characters">Les noms de fichiers ne peuvent pas contenir de caractères spéciaux.</string>
 	<string name="error_vault_name_contains_invalid_characters">Le nom du coffre-fort ne peut pas contenir de caractères spéciaux.</string>
 	<string name="error_general_update">La vérification de la mise à jour a échoué. Une erreur générale s\'est produite.</string>
+	<string name="error_hash_mismatch_update">La vérification de la mise à jour a échoué. Le hachage calculé ne correspond pas au fichier téléchargé</string>
 	<string name="error_update_no_internet">La vérification de la mise à jour a échoué. Pas de connexion Internet.</string>
 	<string name="error_failed_to_decrypt_webdav_password">Le mot de passe WebDAV n\'a pas été déchiffré, veuillez l\'ajouter une nouvelle fois dans les paramètres</string>
 	<string name="error_play_services_not_available">Services Google play non installés</string>
@@ -122,6 +123,8 @@
 	<string name="screen_webdav_settings_msg_username_must_not_be_empty">Le nom d\'utilisateur ne peut pas être vide.</string>
 	<string name="screen_webdav_settings_msg_password_must_not_be_empty">Le mot de passe ne peut pas être vide.</string>
 	<!-- ## screen: s3 settings -->
+	<string name="screen_s3_settings_display_name_label">Nom Afficher</string>
+	<string name="screen_s3_settings_access_key_label">Clef d’Accès</string>
 	<!-- ## screen: enter vault name -->
 	<string name="screen_enter_vault_name_msg_name_empty">Le nom du coffre-fort ne peut pas être vide.</string>
 	<string name="screen_enter_vault_name_vault_label">Nom du coffre-fort</string>
