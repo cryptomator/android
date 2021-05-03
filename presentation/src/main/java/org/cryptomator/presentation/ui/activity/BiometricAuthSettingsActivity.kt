@@ -28,7 +28,9 @@ class BiometricAuthSettingsActivity : BaseActivity(), //
 	}
 
 	override fun showSetupBiometricAuthDialog() {
-		val biometricAuthenticationAvailable = BiometricManager.from(context()).canAuthenticate()
+		val biometricAuthenticationAvailable = BiometricManager //
+				.from(context()) //
+				.canAuthenticate(BiometricManager.Authenticators.BIOMETRIC_STRONG)
 		if (biometricAuthenticationAvailable == BiometricManager.BIOMETRIC_ERROR_NONE_ENROLLED) {
 			showDialog(EnrollSystemBiometricDialog.newInstance())
 		}

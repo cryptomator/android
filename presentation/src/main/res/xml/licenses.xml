@@ -136,6 +136,13 @@
 		</Preference>
 		<Preference
 			android:summary="Apache License v2"
+			android:title="AWS SDK for Android">
+			<intent
+				android:action="android.intent.action.VIEW"
+				android:data="https://github.com/aws-amplify/aws-sdk-android" />
+		</Preference>
+		<Preference
+			android:summary="Apache License v2"
 			android:title="Subsampling Scale Image View">
 			<intent
 				android:action="android.intent.action.VIEW"

@@ -8,5 +8,7 @@ public interface UpdateCheck {
 
 	String getUrlApk();
 
+	String getApkSha256();
+
 	String getUrlReleaseNote();
 }

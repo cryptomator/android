@@ -28,6 +28,7 @@
 	<string name="error_names_contains_invalid_characters">File names can\'t contain special characters.</string>
 	<string name="error_vault_name_contains_invalid_characters">Vault name can\'t contain special characters.</string>
 	<string name="error_general_update">Update check failed. General error occurred.</string>
+	<string name="error_hash_mismatch_update">Update check failed. Calculated hash doesn\'t match the uploaded file</string>
 	<string name="error_update_no_internet">Update check failed. No internet connection.</string>
 	<string name="error_failed_to_decrypt_webdav_password">Failed to decrypt WebDAV password, please re add in settings</string>
 	<string name="error_play_services_not_available">Play Services not installed</string>
@@ -36,6 +37,7 @@
 	<string name="error_vault_key_invalid">vault.cryptomator does not match with this masterkey.cryptomator</string>
 	<string name="error_vault_config_loading">General error while loading the vault config</string>
 	<string name="error_file_not_found_after_opening_using_3party">Local file isn\'t present anymore after switching back to Cryptomator. Possible changes cannot be propagated back to the cloud.</string>
+	<string name="error_no_such_bucket">No such bucket</string>
 
 	<!-- # clouds -->
 
@@ -46,6 +48,7 @@
 	<string name="cloud_names_onedrive" translatable="false">OneDrive</string>
 	<string name="cloud_names_pcloud" translatable="false">pCloud</string>
 	<string name="cloud_names_webdav" translatable="false">WebDAV</string>
+	<string name="cloud_names_s3" translatable="false">S3</string>
 	<string name="cloud_names_local_storage">Local storage</string>
 
 	<!-- # permission -->
@@ -96,7 +99,7 @@
 	<string name="screen_file_browser_move_button_text">Move</string>
 
 	<string name="screen_file_browser_msg_empty_folder">Empty folder</string>
-	<string name="screen_file_browser_file_info_label_size">%1$s</string>
+	<string name="screen_file_browser_file_info_label_size" translatable="false">%1$s</string>
 	<string name="screen_file_browser_file_info_label_date">modified %1$s ago</string>
 
 	<string name="screen_file_browser_share_intent_chooser_title">Share with</string>
@@ -175,6 +178,22 @@
 	<string name="screen_webdav_settings_msg_username_must_not_be_empty">Username can\'t be empty.</string>
 	<string name="screen_webdav_settings_msg_password_must_not_be_empty">Password can\'t be empty.</string>
 
+	<!-- ## screen: s3 settings -->
+	<string name="screen_s3_settings_title" translatable="false">@string/cloud_names_s3</string>
+	<string name="screen_s3_settings_display_name_label">Display Name</string>
+	<string name="screen_s3_settings_access_key_label">Access Key</string>
+	<string name="screen_s3_settings_secret_key_label">Secret Key</string>
+	<string name="screen_s3_settings_bucket_label">Existing Bucket</string>
+	<string name="screen_s3_settings_endpoint_label">Endpoint</string>
+	<string name="screen_s3_settings_region_label">Region</string>
+	<string name="screen_s3_settings_amazon_s3_text" translatable="false">Amazon S3</string>
+
+	<string name="screen_s3_settings_msg_display_name_not_empty">Display Name can\'t be empty</string>
+	<string name="screen_s3_settings_msg_access_key_not_empty">Access Key can\'t be empty</string>
+	<string name="screen_s3_settings_msg_secret_key_not_empty">Secret Key can\'t be empty</string>
+	<string name="screen_s3_settings_msg_bucket_not_empty">Bucket can\'t be empty</string>
+	<string name="screen_s3_settings_msg_endpoint_and_region_not_empty">Endpoint and Region can\'t be empty</string>
+
 	<!-- ## screen: enter vault name -->
 	<string name="screen_enter_vault_name_title" translatable="false">@string/screen_vault_list_action_create_new_vault</string>
 	<string name="screen_enter_vault_name_msg_name_empty">Vault name can\'t be empty.</string>
@@ -190,7 +209,7 @@
 	<string name="screen_set_password_password_label" translatable="false">@string/screen_webdav_settings_password_label</string>
 	<string name="screen_set_password_retype_password_label">Retype password</string>
 
-	<string name="screen_set_password_strength_indicator_0">Very weak</string>
+	<string name="screen_set_password_strength_indicator_0">Too weak to create a vault</string>
 	<string name="screen_set_password_strength_indicator_1">Weak</string>
 	<string name="screen_set_password_strength_indicator_2">Fair</string>
 	<string name="screen_set_password_strength_indicator_3">Strong</string>
@@ -260,6 +279,7 @@
 	<string name="screen_cloud_settings_title" translatable="false">@string/screen_settings_cloud_settings_label</string>
 	<string name="screen_cloud_settings_webdav_connections">WebDAV connections</string>
 	<string name="screen_cloud_settings_pcloud_connections">pCloud connections</string>
+	<string name="screen_cloud_settings_s3_connections">S3 connections</string>
 	<string name="screen_cloud_settings_local_storage_locations">Local storage locations</string>
 	<string name="screen_cloud_settings_log_in_to">Log in to</string>
 	<string name="screen_cloud_settings_sign_out_from_cloud">Sign out from</string>

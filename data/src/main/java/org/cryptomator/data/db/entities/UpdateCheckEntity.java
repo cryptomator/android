@@ -18,18 +18,22 @@ public class UpdateCheckEntity extends DatabaseEntity {
 
 	private String urlToApk;
 
+	private String apkSha256;
+
 	private String urlToReleaseNote;
 
 	public UpdateCheckEntity() {
 	}
 
-	@Generated(hash = 38676936)
-	public UpdateCheckEntity(Long id, String licenseToken, String releaseNote, String version, String urlToApk, String urlToReleaseNote) {
+	@Generated(hash = 67239496)
+	public UpdateCheckEntity(Long id, String licenseToken, String releaseNote, String version, String urlToApk, String apkSha256,
+			String urlToReleaseNote) {
 		this.id = id;
 		this.licenseToken = licenseToken;
 		this.releaseNote = releaseNote;
 		this.version = version;
 		this.urlToApk = urlToApk;
+		this.apkSha256 = apkSha256;
 		this.urlToReleaseNote = urlToReleaseNote;
 	}
 
@@ -80,5 +84,13 @@ public class UpdateCheckEntity extends DatabaseEntity {
 
 	public void setUrlToReleaseNote(String urlToReleaseNote) {
 		this.urlToReleaseNote = urlToReleaseNote;
+	}
+
+	public String getApkSha256() {
+		return this.apkSha256;
+	}
+
+	public void setApkSha256(String apkSha256) {
+		this.apkSha256 = apkSha256;
 	}
 }

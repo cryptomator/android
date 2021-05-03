@@ -20,12 +20,13 @@
 	<string name="error_export_illegal_file_name">Eksport nie powiódł się. Spróbuj usunąć znaki specjalne z nazw plików i spróbuj ponownie.</string>
 	<string name="error_name_contains_invalid_characters">Nie może zawierać znaków specjalnych.</string>
 	<string name="error_names_contains_invalid_characters">Nazwa pliku nie może zawierać znaków specjalnych.</string>
-	<string name="error_vault_name_contains_invalid_characters">Nazwa skarbca nie może zawierać znaków specjalnych.</string>
+	<string name="error_vault_name_contains_invalid_characters">Nazwa sejfu nie może zawierać znaków specjalnych.</string>
 	<string name="error_general_update">Błąd sprawdzania aktualizacji. Wystąpił błąd ogólny.</string>
 	<string name="error_update_no_internet">Błąd sprawdzania aktualizacji. Brak połączenia z Internetem.</string>
 	<string name="error_failed_to_decrypt_webdav_password">Nie udało się odszyfrować hasła WebDAV, proszę dodać je w ustawieniach</string>
 	<string name="error_play_services_not_available">Usługi Google Play nie są zainstalowane</string>
 	<string name="error_biometric_auth_aborted">Przerwano biometryczną autoryzację</string>
+	<string name="error_file_not_found_after_opening_using_3party">Lokalny plik nie jest już obecny po przełączeniu się z powrotem na Cryptomator. Możliwe zmiany nie mogą być przeniesione z powrotem do chmury.</string>
 	<!-- # clouds -->
 	<!-- ## cloud names -->
 	<string name="cloud_names_local_storage">Pamięć wewnętrzna</string>
@@ -57,7 +58,7 @@
 	<string name="screen_file_browser_default_title">Sejf</string>
 	<string name="screen_file_browser_add_existing_vault_extra_text">Wybierz plik klucza głównego</string>
 	<string name="screen_file_browser_create_new_vault_button_text">Umieść tutaj</string>
-	<string name="screen_file_browser_create_new_vault_extra_text">Nazwa skarbca: %1$s</string>
+	<string name="screen_file_browser_create_new_vault_extra_text">Nazwa sejfu: %1$s</string>
 	<string name="screen_file_browser_move_button_text">Przenieś</string>
 	<string name="screen_file_browser_msg_empty_folder">Pusty folder</string>
 	<string name="screen_file_browser_file_info_label_date">zmodyfikowano %1$s temu</string>
@@ -116,9 +117,10 @@
 	<string name="screen_webdav_settings_msg_url_is_invalid">Adres URL jest nieprawidłowy.</string>
 	<string name="screen_webdav_settings_msg_username_must_not_be_empty">Login nie może być pusty.</string>
 	<string name="screen_webdav_settings_msg_password_must_not_be_empty">Hasło nie może być puste.</string>
+	<!-- ## screen: s3 settings -->
 	<!-- ## screen: enter vault name -->
-	<string name="screen_enter_vault_name_msg_name_empty">Nazwa skarbca nie może być pusta.</string>
-	<string name="screen_enter_vault_name_vault_label">Nazwa skarbca</string>
+	<string name="screen_enter_vault_name_msg_name_empty">Nazwa sejfu nie może być pusta.</string>
+	<string name="screen_enter_vault_name_vault_label">Nazwa sejfu</string>
 	<string name="screen_enter_vault_name_button_text">Utwórz</string>
 	<!-- ## screen: set password -->
 	<string name="screen_set_password_title">Ustaw hasło</string>
@@ -126,7 +128,6 @@
 	<string name="screen_set_password_button_text">Gotowe</string>
 	<string name="screen_set_password_hint">WAŻNE: Jeśli zapomnisz hasła, nie ma możliwości odzyskania danych.</string>
 	<string name="screen_set_password_retype_password_label">Wpisz hasło ponownie</string>
-	<string name="screen_set_password_strength_indicator_0">Bardzo słabe</string>
 	<string name="screen_set_password_strength_indicator_1">Słabe</string>
 	<string name="screen_set_password_strength_indicator_2">Średnie</string>
 	<string name="screen_set_password_strength_indicator_3">Mocne</string>
@@ -173,7 +174,7 @@
 	<string name="screen_settings_background_unlock_preparation_label">Przyspiesz odblokowanie</string>
 	<string name="screen_settings_background_unlock_preparation_label_summary">Pobierz konfigurację sejfu w tle, gdy zostaniesz poproszony o wprowadzenie hasła lub autoryzację biometryczną</string>
 	<string name="screen_settings_keep_unlocked_while_editing_files">Zachowaj odblokowany</string>
-	<string name="screen_settings_keep_unlocked_while_editing_files_summary">Zachowaj odblokowane skarbce podczas edycji plików</string>
+	<string name="screen_settings_keep_unlocked_while_editing_files_summary">Zachowaj odblokowane sejfy podczas edycji plików</string>
 	<!-- ## screen: cloud settings -->
 	<string name="screen_cloud_settings_webdav_connections">Połączenia WebDAV</string>
 	<string name="screen_cloud_settings_pcloud_connections">Połączenia pCloud</string>
@@ -186,7 +187,7 @@
 	<!-- ## screen: empty dir file info -->
 	<string name="screen_empty_dir_file_info_title">\'%1$s\' jest nieosiągalne</string>
 	<string name="screen_empty_dir_file_info_headline">Cryptomator wykrył, że ten folder jest nieosiągalny.</string>
-	<string name="screen_empty_dir_file_info_text">Być może został usunięty przez inną aplikację lub wystąpiła nieprawidłowa synchronizacja z usługą chmury. \n\nSpróbuj przywrócić plik katalogu za pośrednictwem dostawcy chmury do poprzedniej wersji, która nie jest pusta. Omawiany plik to:\n%1$s\n\nJeśli to nie zadziała, możesz użyć Sanitizera do sprawdzenia swojego skarbca pod kątem problemów i ewentualnie przywrócić dane.</string>
+	<string name="screen_empty_dir_file_info_text">Być może został usunięty przez inną aplikację lub wystąpiła nieprawidłowa synchronizacja z usługą chmury. \n\nSpróbuj przywrócić plik katalogu za pośrednictwem dostawcy chmury do poprzedniej wersji, która nie jest pusta. Omawiany plik to:\n%1$s\n\nJeśli to nie zadziała, możesz użyć Sanitizera do sprawdzenia swojego sejfu pod kątem problemów i ewentualnie przywrócić dane.</string>
 	<string name="screen_empty_dir_file_info_button_label">Więcej szczegółów na temat Sanitizera</string>
 	<!-- ## screen: insecure android version info -->
 	<!-- # dialogs -->
@@ -199,7 +200,7 @@
 	<string name="dialog_change_password_msg_new_password_empty">Nowe hasło nie może być puste.</string>
 	<string name="dialog_change_password_msg_password_mismatch">Hasła nie zgadzają się.</string>
 	<!-- Vault not found -->
-	<string name="dialog_vault_not_found_title">Skarbca %1$s nie odnaleziono</string>
+	<string name="dialog_vault_not_found_title">Sejfu %1$s nie odnaleziono</string>
 	<string name="dialog_vault_not_found_message">Sejf został przeniesiony, usunięty albo zmieniono jego nazwę. Należy usunąć ten sejf z listy i dodać go ponownie. Chcesz to zrobić teraz?</string>
 	<string name="dialog_vault_not_found_positive_button_text">Usuń</string>
 	<string name="dialog_existing_file_title">Plik już istnieje</string>
@@ -211,15 +212,16 @@
 	<string name="dialog_replace_positive_button_single_file_exists">Zastąp</string>
 	<string name="dialog_replace_msg_single_file_exists">Plik \'%1$s\' już istnieje. Czy chcesz go zastąpić?</string>
 	<string name="dialog_replace_msg_all_files_exists">Pliki już istnieją. Czy chcesz go zastąpić?</string>
+	<string name="dialog_replace_msg_some_files_exists">%1$d pliki już istnieją. Czy chcesz je zastąpić?</string>
 	<string name="dialog_replace_title_single_file_exists">Zastąp plik?</string>
 	<string name="dialog_replace_title_multiple_files_exist">Zastąp pliki?</string>
 	<string name="dialog_unable_to_share_title">Nie można udostępnić plików</string>
-	<string name="dialog_unable_to_share_message">Nie wczytałeś żadnych skarbców. Proszę najpierw utworzyć nowy sejf z aplikacją Cryptomator.</string>
+	<string name="dialog_unable_to_share_message">Nie wczytałeś żadnych sejfów. Proszę najpierw utworzyć nowy sejf z aplikacją Cryptomator.</string>
 	<string name="dialog_unable_to_share_positive_button">OK</string>
 	<string name="dialog_unable_to_share_negative_button">Utwórz sejf</string>
 	<string name="dialog_filetype_not_supported_title">Nie można otworzyć %1$s</string>
 	<string name="dialog_filetype_not_supported_message">Pobierz aplikację, która może otworzyć ten plik, a może chcesz zapisać ten plik na swoim urządzeniu?</string>
-	<string name="dialog_rename_vault_title">Zmień nazwę skarbca</string>
+	<string name="dialog_rename_vault_title">Zmień nazwę sejfu</string>
 	<string name="dialog_rename_node_folder_title">Zmień nazwę folderu</string>
 	<string name="dialog_rename_node_file_title">Zmień nazwę pliku</string>
 	<string name="dialog_unsaved_changes_title">Istnieją niezapisane zmiany</string>
@@ -237,9 +239,9 @@
 	<string name="action_progress_authentication">Uwierzytelnianie&#8230;</string>
 	<string name="action_progress_renaming">Zmiana nazwy&#8230;</string>
 	<string name="action_progress_deleting">Usuwanie&#8230;</string>
-	<string name="dialog_progress_unlocking_vault">Odblokowanie skarbca&#8230;</string>
+	<string name="dialog_progress_unlocking_vault">Odblokowanie sejfu&#8230;</string>
 	<string name="dialog_progress_change_password">Zmiana hasła&#8230;</string>
-	<string name="dialog_progress_creating_vault">Tworzenie skarbca&#8230;</string>
+	<string name="dialog_progress_creating_vault">Tworzenie sejfu&#8230;</string>
 	<string name="dialog_progress_upload_file">Przesyłanie&#8230;</string>
 	<string name="dialog_progress_download_file">Pobieranie&#8230;</string>
 	<string name="dialog_progress_encryption">Szyfrowanie&#8230;</string>
@@ -269,7 +271,7 @@
 	<string name="dialog_app_is_obscured_info_neutral_button">Zamknij</string>
 	<string name="dialog_disable_secure_screen_disclaimer_hint">To ustawienie jest funkcją bezpieczeństwa i uniemożliwia innym aplikacjom oszukiwanie użytkowników do robienia rzeczy, których nie chcą robić.\n\nWyłączając je potwierdzasz, że jesteś <a href="https://docs.cryptomator.org/en/1.5/android/settings/#screen-security">świadomy ryzyka</a>.</string>
 	<string name="dialog_delete_cloud_connection_with_vaults_message">Czy na pewno chcesz usunąć to połączenie z serwerem chmury?</string>
-	<string name="dialog_delete_cloud_connection_with_vaults_hint">Ta akcja usunie połączenie z usługą chmury i wszystkie skarbce w tej chmurze.</string>
+	<string name="dialog_delete_cloud_connection_with_vaults_hint">Ta akcja usunie połączenie z usługą chmury i wszystkimi sejfami w tej chmurze.</string>
 	<string name="dialog_confirm_delete_multiple_title">Usunąć %1$d elementów?</string>
 	<string name="dialog_confirm_delete_multiple_message">Na pewno chcesz usunąć wybrane elementy?</string>
 	<string name="dialog_confirm_delete_file_message">Na pewno chcesz usunąć ten plik?</string>
@@ -296,9 +298,9 @@
 	<string name="dialog_no_dir_file_title">Nie można załadować zawartości katalogu</string>
 	<string name="dialog_no_dir_file_message">Folder \'%1$s\' w chmurze nie ma pliku katalogowego. Być może folder został utworzony na innym urządzeniu i nie został jeszcze w pełni zsynchronizowany z chmurą. Sprawdź w chmurze, czy następujący plik istnieje:\n%2$s</string>
 	<string name="dialog_beta_confirmation_title">Wersja Beta</string>
-	<string name="dialog_beta_confirmation">To jest wydanie beta wprowadzająca obsługę formatu 7 skarbca. Przed kontynuowaniem upewnij się, że masz kopię zapasową skarbca oraz nie używasz wersji jego wersji produkcyjnej.</string>
+	<string name="dialog_beta_confirmation">To jest wydanie beta wprowadzająca obsługę formatu 7 sejfu. Przed kontynuowaniem upewnij się, że masz kopię zapasową skarbca oraz nie używasz wersji jego wersji produkcyjnej.</string>
 	<string name="dialog_no_more_images_to_display">Brak obrazów do wyświetlenia&#8230;</string>
-	<string name="permission_snackbar_auth_local_vault">Cryptomator potrzebuje dostępu do pamięci lokalnej, aby uzyskać dostęp do skarbca</string>
+	<string name="permission_snackbar_auth_local_vault">Cryptomator potrzebuje dostępu do pamięci lokalnej, aby uzyskać dostęp do sejfu</string>
 	<string name="permission_snackbar_auth_auto_upload">Cryptomator potrzebuje dostępu do pamięci lokalnej, aby automatycznie przesyłać zdjęcia</string>
 	<!-- # error reports -->
 	<!-- # misc -->
@@ -327,17 +329,17 @@
 	<!-- ## biometric authentication -->
 	<string name="dialog_biometric_auth_title">Logowanie biometryczne</string>
 	<string name="dialog_biometric_auth_message">Zaloguj się przy użyciu danych biometrycznych</string>
-	<string name="dialog_biometric_auth_use_password">Użyj hasła skarbca</string>
+	<string name="dialog_biometric_auth_use_password">Użyj hasła sejfu</string>
 	<string name="dialog_unable_to_auto_upload_files_title">Nie można automatycznie przesłać plików</string>
 	<!-- notification -->
-	<string name="notification_unlocked">Odblokowane skarbce: %1$d</string>
+	<string name="notification_unlocked">Odblokowane sejfy: %1$d</string>
 	<string name="notification_timeout">Automatyczna blokada w %1$s</string>
 	<string name="notification_lock_all">Zablokuj wszystko</string>
 	<string name="notification_cancel_auto_upload">Anuluj przesyłanie</string>
 	<string name="notification_auto_upload_title">Automatyczne przesyłanie zdjęć w toku</string>
 	<string name="notification_auto_upload_message">Przesyłanie %1d/%2d</string>
 	<string name="notification_auto_upload_finished_title">Automatyczne przesyłanie zdjęć zostało zakończone</string>
-	<string name="notification_auto_upload_finished_message">%1$d zdjęć zostało przesłanych do skarbca</string>
+	<string name="notification_auto_upload_finished_message">%1$d zdjęć zostało przesłanych do sejfu</string>
 	<string name="notification_auto_upload_failed_title">Automatyczne przesyłanie zdjęć nie powiodło się</string>
 	<string name="notification_auto_upload_failed_general_error">Wystąpił błąd podczas przesyłania.</string>
 	<string name="notification_auto_upload_failed_due_to_folder_not_exists">Wybrany folder do przesłania nie jest już dostępny. Przejdź do ustawień i wybierz nowy</string>

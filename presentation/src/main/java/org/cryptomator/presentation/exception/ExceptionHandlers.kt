@@ -8,6 +8,7 @@ import org.cryptomator.domain.di.PerView
 import org.cryptomator.domain.exception.CloudAlreadyExistsException
 import org.cryptomator.domain.exception.CloudNodeAlreadyExistsException
 import org.cryptomator.domain.exception.NetworkConnectionException
+import org.cryptomator.domain.exception.NoSuchBucketException
 import org.cryptomator.domain.exception.NoSuchCloudFileException
 import org.cryptomator.domain.exception.UnableToDecryptWebdavPasswordException
 import org.cryptomator.domain.exception.VaultAlreadyExistException
@@ -15,6 +16,7 @@ import org.cryptomator.domain.exception.authentication.AuthenticationException
 import org.cryptomator.domain.exception.license.LicenseNotValidException
 import org.cryptomator.domain.exception.license.NoLicenseAvailableException
 import org.cryptomator.domain.exception.update.GeneralUpdateErrorException
+import org.cryptomator.domain.exception.update.HashMismatchUpdateCheckException
 import org.cryptomator.domain.exception.update.SSLHandshakePreAndroid5UpdateCheckException
 import org.cryptomator.domain.exception.vaultconfig.VaultConfigLoadException
 import org.cryptomator.domain.exception.vaultconfig.VaultKeyInvalidException
@@ -46,11 +48,13 @@ class ExceptionHandlers @Inject constructor(private val context: Context, defaul
 		staticHandler(UnableToDecryptWebdavPasswordException::class.java, R.string.error_failed_to_decrypt_webdav_password)
 		staticHandler(LicenseNotValidException::class.java, R.string.dialog_enter_license_not_valid_content)
 		staticHandler(NoLicenseAvailableException::class.java, R.string.dialog_enter_license_no_content)
+		staticHandler(HashMismatchUpdateCheckException::class.java, R.string.error_hash_mismatch_update)
 		staticHandler(GeneralUpdateErrorException::class.java, R.string.error_general_update)
 		staticHandler(SSLHandshakePreAndroid5UpdateCheckException::class.java, R.string.error_general_update)
 		staticHandler(VaultVersionMismatchException::class.java, R.string.error_vault_version_mismatch)
 		staticHandler(VaultKeyInvalidException::class.java, R.string.error_vault_key_invalid)
 		staticHandler(VaultConfigLoadException::class.java, R.string.error_vault_config_loading)
+		staticHandler(NoSuchBucketException::class.java, R.string.error_no_such_bucket)
 		exceptionHandlers.add(MissingCryptorExceptionHandler())
 		exceptionHandlers.add(CancellationExceptionHandler())
 		exceptionHandlers.add(NoSuchVaultExceptionHandler())

@@ -51,7 +51,7 @@ class CloudConnectionListActivity : BaseActivity(),
 
 	private fun connectionListFragment(): CloudConnectionListFragment = getCurrentFragment(R.id.fragmentContainer) as CloudConnectionListFragment
 
-	override fun createFragment(): Fragment? = CloudConnectionListFragment()
+	override fun createFragment(): Fragment = CloudConnectionListFragment()
 
 	override fun showNodeSettings(cloudModel: CloudModel) {
 		val cloudNodeSettingDialog = //

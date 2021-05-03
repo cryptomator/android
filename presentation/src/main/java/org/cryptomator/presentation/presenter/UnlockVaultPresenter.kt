@@ -133,7 +133,9 @@ class UnlockVaultPresenter @Inject constructor(
 	}
 
 	private fun canUseBiometricOn(vault: VaultModel): Boolean {
-		return vault.password != null && BiometricManager.from(context()).canAuthenticate() == BiometricManager.BIOMETRIC_SUCCESS
+		return vault.password != null && BiometricManager //
+				.from(context()) //
+				.canAuthenticate(BiometricManager.Authenticators.BIOMETRIC_STRONG) == BiometricManager.BIOMETRIC_SUCCESS
 	}
 
 	fun onUnlockCanceled() {

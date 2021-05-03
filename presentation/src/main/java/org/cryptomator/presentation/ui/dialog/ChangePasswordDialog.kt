@@ -54,6 +54,14 @@ class ChangePasswordDialog : BaseProgressErrorDialog<ChangePasswordDialog.Callba
 			changePasswordButton?.let { button ->
 				et_new_retype_password.nextFocusForwardId = button.id
 			}
+
+			registerOnEditorDoneActionAndPerformButtonClick(et_new_retype_password) { changePasswordButton }
+
+			PasswordStrengthUtil() //
+					.startUpdatingPasswordStrengthMeter(et_new_password,  //
+							progressBarPwStrengthIndicator,  //
+							textViewPwStrengthIndicator, //
+							changePasswordButton)
 		}
 	}
 
@@ -86,11 +94,6 @@ class ChangePasswordDialog : BaseProgressErrorDialog<ChangePasswordDialog.Callba
 
 	override fun setupView() {
 		et_old_password.requestFocus()
-		registerOnEditorDoneActionAndPerformButtonClick(et_new_retype_password) { changePasswordButton }
-		PasswordStrengthUtil() //
-				.startUpdatingPasswortStrengthMeter(et_new_password,  //
-						progressBarPwStrengthIndicator,  //
-						textViewPwStrengthIndicator)
 		dialog?.let { showKeyboard(it) }
 	}
 

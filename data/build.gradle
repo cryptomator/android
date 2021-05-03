@@ -76,7 +76,7 @@ android {
 }
 
 greendao {
-	schemaVersion 5
+	schemaVersion 7
 }
 
 configurations.all {
@@ -106,6 +106,7 @@ dependencies {
 	implementation dependencies.jsonWebTokenJson
 
 	// cloud
+	implementation dependencies.awsAndroidS3
 	implementation dependencies.dropbox
 	implementation dependencies.msgraph
 
