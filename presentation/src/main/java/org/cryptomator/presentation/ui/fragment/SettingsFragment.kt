@@ -105,7 +105,7 @@ class SettingsFragment : PreferenceFragmentCompat() {
 
 		if (biometricAuthenticationAvailable != BiometricManager.BIOMETRIC_SUCCESS
 				&& biometricAuthenticationAvailable != BiometricManager.BIOMETRIC_ERROR_NONE_ENROLLED) {
-			val preference = findPreference(BIOMETRIC_AUTHENTICATION_ITEM_KEY)
+			val preference = findPreference(BIOMETRIC_AUTHENTICATION_ITEM_KEY) as Preference?
 			val generalCategory = findPreference(getString(R.string.screen_settings_section_general)) as PreferenceCategory?
 			generalCategory?.removePreference(preference)
 
@@ -116,7 +116,7 @@ class SettingsFragment : PreferenceFragmentCompat() {
 	}
 
 	private fun setupAppVersion() {
-		val preference = findPreference(APP_VERSION_ITEM_KEY)
+		val preference = findPreference(APP_VERSION_ITEM_KEY) as Preference?
 		val versionName = SpannableString(BuildConfig.VERSION_NAME)
 		versionName.setSpan( //
 				ForegroundColorSpan(ContextCompat.getColor(activity(), R.color.textColorLight)), //
@@ -125,7 +125,7 @@ class SettingsFragment : PreferenceFragmentCompat() {
 	}
 
 	private fun setupLruCacheSize() {
-		val preference = findPreference(DISPLAY_LRU_CACHE_SIZE_ITEM_KEY)
+		val preference = findPreference(DISPLAY_LRU_CACHE_SIZE_ITEM_KEY) as Preference?
 
 		val size = LruFileCacheUtil(requireContext()).totalSize()
 
@@ -152,11 +152,11 @@ class SettingsFragment : PreferenceFragmentCompat() {
 	private fun setupLicense() {
 		when (BuildConfig.FLAVOR) {
 			"apkstore" -> {
-				findPreference(SharedPreferencesHandler.MAIL)?.title = format(getString(R.string.screen_settings_license_mail), sharedPreferencesHandler.mail())
+				(findPreference(SharedPreferencesHandler.MAIL) as Preference?)?.title = format(getString(R.string.screen_settings_license_mail), sharedPreferencesHandler.mail())
 				setupUpdateCheck()
 			}
 			"fdroid" -> {
-				findPreference(SharedPreferencesHandler.MAIL)?.title = format(getString(R.string.screen_settings_license_mail), sharedPreferencesHandler.mail())
+				(findPreference(SharedPreferencesHandler.MAIL) as Preference?)?.title = format(getString(R.string.screen_settings_license_mail), sharedPreferencesHandler.mail())
 				removeUpdateCheck()
 			}
 			else -> {
@@ -173,7 +173,7 @@ class SettingsFragment : PreferenceFragmentCompat() {
 	}
 
 	fun setupUpdateCheck() {
-		val preference = findPreference(UPDATE_CHECK_ITEM_KEY)
+		val preference = findPreference(UPDATE_CHECK_ITEM_KEY) as Preference?
 
 		val lastUpdateCheck = sharedPreferencesHandler.lastUpdateCheck()
 		val readableDate: String = if (lastUpdateCheck != null) {
@@ -194,17 +194,17 @@ class SettingsFragment : PreferenceFragmentCompat() {
 
 	override fun onResume() {
 		super.onResume()
-		findPreference(SEND_ERROR_REPORT_ITEM_KEY)?.onPreferenceClickListener = sendErrorReportClickListener
-		findPreference(LRU_CACHE_CLEAR_ITEM_KEY)?.onPreferenceClickListener = clearCacheClickListener
-		findPreference(SharedPreferencesHandler.DEBUG_MODE)?.onPreferenceChangeListener = debugModeChangedListener
-		findPreference(SharedPreferencesHandler.DISABLE_APP_WHEN_OBSCURED)?.onPreferenceChangeListener = disableAppWhenObscuredChangedListener
-		findPreference(SharedPreferencesHandler.SECURE_SCREEN)?.onPreferenceChangeListener = disableSecureScreenChangedListener
-		findPreference(SharedPreferencesHandler.SCREEN_STYLE_MODE)?.onPreferenceChangeListener = screenStyleModeChangedListener
-		findPreference(SharedPreferencesHandler.PHOTO_UPLOAD)?.onPreferenceChangeListener = useAutoPhotoUploadChangedListener
-		findPreference(SharedPreferencesHandler.USE_LRU_CACHE)?.onPreferenceChangeListener = useLruChangedListener
-		findPreference(SharedPreferencesHandler.LRU_CACHE_SIZE)?.onPreferenceChangeListener = useLruChangedListener
+		(findPreference(SEND_ERROR_REPORT_ITEM_KEY) as Preference?)?.onPreferenceClickListener = sendErrorReportClickListener
+		(findPreference(LRU_CACHE_CLEAR_ITEM_KEY) as Preference?)?.onPreferenceClickListener = clearCacheClickListener
+		(findPreference(SharedPreferencesHandler.DEBUG_MODE) as Preference?)?.onPreferenceChangeListener = debugModeChangedListener
+		(findPreference(SharedPreferencesHandler.DISABLE_APP_WHEN_OBSCURED) as Preference?)?.onPreferenceChangeListener = disableAppWhenObscuredChangedListener
+		(findPreference(SharedPreferencesHandler.SECURE_SCREEN) as Preference?)?.onPreferenceChangeListener = disableSecureScreenChangedListener
+		(findPreference(SharedPreferencesHandler.SCREEN_STYLE_MODE) as Preference?)?.onPreferenceChangeListener = screenStyleModeChangedListener
+		(findPreference(SharedPreferencesHandler.PHOTO_UPLOAD) as Preference?)?.onPreferenceChangeListener = useAutoPhotoUploadChangedListener
+		(findPreference(SharedPreferencesHandler.USE_LRU_CACHE) as Preference?)?.onPreferenceChangeListener = useLruChangedListener
+		(findPreference(SharedPreferencesHandler.LRU_CACHE_SIZE) as Preference?)?.onPreferenceChangeListener = useLruChangedListener
 		if (BuildConfig.FLAVOR == "apkstore") {
-			findPreference(UPDATE_CHECK_ITEM_KEY)?.onPreferenceClickListener = updateCheckClickListener
+			(findPreference(UPDATE_CHECK_ITEM_KEY) as Preference?)?.onPreferenceClickListener = updateCheckClickListener
 		}
 	}
 
