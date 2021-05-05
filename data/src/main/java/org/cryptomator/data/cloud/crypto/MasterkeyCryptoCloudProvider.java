@@ -12,6 +12,7 @@ import org.cryptomator.domain.Vault;
 import org.cryptomator.domain.exception.BackendException;
 import org.cryptomator.domain.exception.CancellationException;
 import org.cryptomator.domain.exception.FatalBackendException;
+import org.cryptomator.domain.exception.vaultconfig.UnsupportedMasterkeyLocationException;
 import org.cryptomator.domain.repository.CloudContentRepository;
 import org.cryptomator.domain.usecases.cloud.ByteArrayDataSource;
 import org.cryptomator.domain.usecases.cloud.Flag;
@@ -161,8 +162,9 @@ public class MasterkeyCryptoCloudProvider implements CryptoCloudProvider {
 
 	private CloudFile masterkeyFile(CloudFolder vaultLocation, UnverifiedVaultConfig unverifiedVaultConfig) throws BackendException {
 		String path = unverifiedVaultConfig.getKeyId().getSchemeSpecificPart();
-		// TODO / FIXME sanitize path and throw specific exception
-		//throw new UnsupportedMasterkeyLocationException(unverifiedVaultConfig);
+		if(!path.equals(MASTERKEY_FILE_NAME)) {
+			throw new UnsupportedMasterkeyLocationException(unverifiedVaultConfig);
+		}
 		return cloudContentRepository.file(vaultLocation, path);
 	}
 

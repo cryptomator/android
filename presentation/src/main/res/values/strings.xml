@@ -38,6 +38,7 @@
 	<string name="error_vault_config_loading">General error while loading the vault config</string>
 	<string name="error_file_not_found_after_opening_using_3party">Local file isn\'t present anymore after switching back to Cryptomator. Possible changes cannot be propagated back to the cloud.</string>
 	<string name="error_no_such_bucket">No such bucket</string>
+	<string name="error_masterkey_location_not_supported">Custom Masterkey location not supported yet</string>
 
 	<!-- # clouds -->
 

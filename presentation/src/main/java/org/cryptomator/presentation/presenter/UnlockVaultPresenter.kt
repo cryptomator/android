@@ -107,8 +107,8 @@ class UnlockVaultPresenter @Inject constructor(
 			}
 			view?.showBiometricDialog(vaultModel)
 		} else {
-			startPrepareUnlockUseCase(vaultModel.toVault())
 			view?.showEnterPasswordDialog(vaultModel)
+			startPrepareUnlockUseCase(vaultModel.toVault())
 		}
 	}
 
