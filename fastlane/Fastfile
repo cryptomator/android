@@ -25,10 +25,10 @@ platform :android do |options|
     # use english-change-log for french language too
     FileUtils.cp(release_note_path_en, "metadata/android/fr-FR/changelogs/default.txt")
 
-    deployToPlaystore(beta:options[:beta])
-    deployToServer(beta:options[:beta])
-    deployToFDroid(beta:options[:beta])
-    createGitHubDraftRelease(beta:options[:beta])
+    deployToPlaystore(alpha:options[:alpha], beta:options[:beta])
+    deployToServer(alpha:options[:alpha], beta:options[:beta])
+    deployToFDroid(alpha:options[:alpha], beta:options[:beta])
+    createGitHubDraftRelease(alpha:options[:alpha], beta:options[:beta])
 
     slack(
       default_payloads: [], # reduce the notification to the minimum
@@ -43,8 +43,10 @@ platform :android do |options|
   lane :deployToPlaystore do |options|
     deploy_target = "production"
 
-    if options[:beta]
-      deploy_target = "beta"
+    if options[:alpha]
+      deploy_target = "alpha"
+    elsif options[:beta]
+       deploy_target = "beta"
     end
 
     gradle(task: "clean")
@@ -121,8 +123,8 @@ platform :android do |options|
     latest_version_jsn.write(token)
     latest_version_jsn.close
 
-    if options[:beta]
-      puts "Skipping deployment to server cause there isn't currently a beta channel"
+    if options[:alpha] or options[:beta]
+      puts "Skipping deployment to server cause there isn't currently a alpha/beta channel"
     else
       puts "Uploading APK and release note"
 
@@ -179,8 +181,8 @@ platform :android do |options|
       }
     )
 
-	if options[:beta]
-	  puts "Skipping deployment to F-Droid cause there isn't currently a beta channel"
+	if options[:alpha] or options[:beta]
+	  puts "Skipping deployment to F-Droid cause there isn't currently a alpha/beta channel"
 	else
 	  puts "Updating F-Droid"
 
@@ -213,7 +215,7 @@ platform :android do |options|
     target_branch = "main"
     prerelease = false
 
-    if options[:beta]
+    if options[:alpha] or options[:beta]
       target_branch = git_branch
       prerelease = true
     end
