@@ -33,16 +33,19 @@ class CryptoCloudContentRepository implements CloudContentRepository<CryptoCloud
 			throw new FatalBackendException(e);
 		}
 
-		switch (cloud.getVault().getVersion()) {
+		switch (cloud.getVault().getFormat()) {
 			case 7:
 				this.cryptoImpl = new CryptoImplVaultFormat7(context, cryptor, cloudContentRepository, vaultLocation, new DirIdCacheFormat7());
+				break;
+			case 8:
+				this.cryptoImpl = new CryptoImplVaultFormat8(context, cryptor, cloudContentRepository, vaultLocation, new DirIdCacheFormat7(), cloud.getVault().getShorteningThreshold());
 				break;
 			case 6:
 			case 5:
 				this.cryptoImpl = new CryptoImplVaultFormatPre7(context, cryptor, cloudContentRepository, vaultLocation, new DirIdCacheFormatPre7());
 				break;
 			default:
-				throw new IllegalStateException(format("No CryptoImpl for vault version %d.", cloud.getVault().getVersion()));
+				throw new IllegalStateException(format("No CryptoImpl for vault format %d.", cloud.getVault().getFormat()));
 		}
 	}
 

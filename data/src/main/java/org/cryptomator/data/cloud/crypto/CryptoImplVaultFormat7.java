@@ -51,9 +51,8 @@ import static org.cryptomator.domain.usecases.ProgressAware.NO_OP_PROGRESS_AWARE
 import static org.cryptomator.domain.usecases.cloud.Progress.progress;
 import static org.cryptomator.util.Encodings.UTF_8;
 
-final class CryptoImplVaultFormat7 extends CryptoImplDecorator {
+class CryptoImplVaultFormat7 extends CryptoImplDecorator {
 
-	private static final int SHORT_NAMES_MAX_LENGTH = 220;
 	private static final String CLOUD_NODE_EXT = ".c9r";
 	private static final String LONG_NODE_FILE_EXT = ".c9s";
 	private static final String CLOUD_FOLDER_DIR_FILE_PRE = "dir";
@@ -65,7 +64,11 @@ final class CryptoImplVaultFormat7 extends CryptoImplDecorator {
 	private static final BaseEncoding BASE64 = BaseEncoding.base64Url();
 
 	CryptoImplVaultFormat7(Context context, Supplier<Cryptor> cryptor, CloudContentRepository cloudContentRepository, CloudFolder storageLocation, DirIdCache dirIdCache) {
-		super(context, cryptor, cloudContentRepository, storageLocation, dirIdCache);
+		super(context, cryptor, cloudContentRepository, storageLocation, dirIdCache, CryptoConstants.DEFAULT_MAX_FILE_NAME);
+	}
+
+	CryptoImplVaultFormat7(Context context, Supplier<Cryptor> cryptor, CloudContentRepository cloudContentRepository, CloudFolder storageLocation, DirIdCache dirIdCache, int shorteningThreshold) {
+		super(context, cryptor, cloudContentRepository, storageLocation, dirIdCache, shorteningThreshold);
 	}
 
 	@Override
@@ -82,7 +85,7 @@ final class CryptoImplVaultFormat7 extends CryptoImplDecorator {
 				.fileNameCryptor() //
 				.encryptFilename(BASE64, name, dirIdInfo(cryptoFolder).getId().getBytes(UTF_8)) + CLOUD_NODE_EXT;
 
-		if (ciphertextName.length() > SHORT_NAMES_MAX_LENGTH) {
+		if (ciphertextName.length() > shorteningThreshold) {
 			ciphertextName = deflate(cryptoFolder, ciphertextName);
 		}
 		return ciphertextName;

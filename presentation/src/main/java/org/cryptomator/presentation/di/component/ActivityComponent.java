@@ -22,6 +22,7 @@ import org.cryptomator.presentation.ui.activity.SettingsActivity;
 import org.cryptomator.presentation.ui.activity.SharedFilesActivity;
 import org.cryptomator.presentation.ui.activity.SplashActivity;
 import org.cryptomator.presentation.ui.activity.TextEditorActivity;
+import org.cryptomator.presentation.ui.activity.UnlockVaultActivity;
 import org.cryptomator.presentation.ui.activity.VaultListActivity;
 import org.cryptomator.presentation.ui.activity.WebDavAddOrChangeActivity;
 import org.cryptomator.presentation.ui.fragment.AutoUploadChooseVaultFragment;
@@ -36,6 +37,7 @@ import org.cryptomator.presentation.ui.fragment.S3AddOrChangeFragment;
 import org.cryptomator.presentation.ui.fragment.SetPasswordFragment;
 import org.cryptomator.presentation.ui.fragment.SharedFilesFragment;
 import org.cryptomator.presentation.ui.fragment.TextEditorFragment;
+import org.cryptomator.presentation.ui.fragment.UnlockVaultFragment;
 import org.cryptomator.presentation.ui.fragment.VaultListFragment;
 import org.cryptomator.presentation.ui.fragment.WebDavAddOrChangeFragment;
 import org.cryptomator.presentation.workflow.AddExistingVaultWorkflow;
@@ -116,6 +118,10 @@ public interface ActivityComponent {
 	void inject(AutoUploadChooseVaultFragment autoUploadChooseVaultFragment);
 
 	void inject(LicenseCheckActivity licenseCheckActivity);
+
+	void inject(UnlockVaultActivity unlockVaultActivity);
+
+	void inject(UnlockVaultFragment unlockVaultFragment);
 
 	void inject(S3AddOrChangeActivity s3AddOrChangeActivity);
 

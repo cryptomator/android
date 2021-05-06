@@ -6,7 +6,7 @@ allprojects {
 
 ext {
 	androidBuildToolsVersion = "29.0.3"
-	androidMinSdkVersion = 23
+	androidMinSdkVersion = 24
 	androidTargetSdkVersion = 29
 	androidCompileSdkVersion = 29
 
@@ -49,7 +49,7 @@ ext {
 	// cloud provider libs
 
 	// do not update to 1.4.0 until minsdk is 7.x (or desugaring works better) otherwise it will crash on 6.x
-	cryptolibVersion = '1.3.0'
+	cryptolibVersion = '2.0.0-rc1'
 
 	awsAndroidSdkS3 = '2.23.0'
 

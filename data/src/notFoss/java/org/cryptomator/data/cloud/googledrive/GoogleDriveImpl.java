@@ -255,7 +255,7 @@ class GoogleDriveImpl {
 
 	public GoogleDriveFile write(final GoogleDriveFile file, DataSource data, final ProgressAware<UploadState> progressAware, boolean replace, final long size) //
 			throws IOException, BackendException {
-		if (exists(file) && !replace) {
+		if (!replace && exists(file)) {
 			throw new CloudNodeAlreadyExistsException("CloudNode already exists and replace is false");
 		}
 

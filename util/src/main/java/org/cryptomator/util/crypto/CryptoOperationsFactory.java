@@ -16,7 +16,7 @@ class CryptoOperationsFactory {
 	}
 
 	private static CryptoOperations createCryptoOperations() {
-		return new CryptoOperationsFromApi23();
+		return new CryptoOperationsImpl();
 	}
 
 }

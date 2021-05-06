@@ -30,10 +30,7 @@ public abstract class InterceptingCloudContentRepository<CloudType extends Cloud
 	public DirType root(CloudType cloud) throws BackendException {
 		try {
 			return delegate.root(cloud);
-		} catch (BackendException e) {
-			throwWrappedIfRequired(e);
-			throw e;
-		} catch (RuntimeException e) {
+		} catch (BackendException | RuntimeException e) {
 			throwWrappedIfRequired(e);
 			throw e;
 		}
@@ -43,10 +40,7 @@ public abstract class InterceptingCloudContentRepository<CloudType extends Cloud
 	public DirType resolve(CloudType cloud, String path) throws BackendException {
 		try {
 			return delegate.resolve(cloud, path);
-		} catch (BackendException e) {
-			throwWrappedIfRequired(e);
-			throw e;
-		} catch (RuntimeException e) {
+		} catch (BackendException | RuntimeException e) {
 			throwWrappedIfRequired(e);
 			throw e;
 		}
@@ -56,10 +50,7 @@ public abstract class InterceptingCloudContentRepository<CloudType extends Cloud
 	public FileType file(DirType parent, String name) throws BackendException {
 		try {
 			return delegate.file(parent, name);
-		} catch (BackendException e) {
-			throwWrappedIfRequired(e);
-			throw e;
-		} catch (RuntimeException e) {
+		} catch (BackendException | RuntimeException e) {
 			throwWrappedIfRequired(e);
 			throw e;
 		}
@@ -69,10 +60,7 @@ public abstract class InterceptingCloudContentRepository<CloudType extends Cloud
 	public FileType file(DirType parent, String name, Optional<Long> size) throws BackendException {
 		try {
 			return delegate.file(parent, name, size);
-		} catch (BackendException e) {
-			throwWrappedIfRequired(e);
-			throw e;
-		} catch (RuntimeException e) {
+		} catch (BackendException | RuntimeException e) {
 			throwWrappedIfRequired(e);
 			throw e;
 		}
@@ -82,10 +70,7 @@ public abstract class InterceptingCloudContentRepository<CloudType extends Cloud
 	public DirType folder(DirType parent, String name) throws BackendException {
 		try {
 			return delegate.folder(parent, name);
-		} catch (BackendException e) {
-			throwWrappedIfRequired(e);
-			throw e;
-		} catch (RuntimeException e) {
+		} catch (BackendException | RuntimeException e) {
 			throwWrappedIfRequired(e);
 			throw e;
 		}
@@ -95,10 +80,7 @@ public abstract class InterceptingCloudContentRepository<CloudType extends Cloud
 	public boolean exists(NodeType node) throws BackendException {
 		try {
 			return delegate.exists(node);
-		} catch (BackendException e) {
-			throwWrappedIfRequired(e);
-			throw e;
-		} catch (RuntimeException e) {
+		} catch (BackendException | RuntimeException e) {
 			throwWrappedIfRequired(e);
 			throw e;
 		}
@@ -108,10 +90,7 @@ public abstract class InterceptingCloudContentRepository<CloudType extends Cloud
 	public List<? extends CloudNode> list(DirType folder) throws BackendException {
 		try {
 			return delegate.list(folder);
-		} catch (BackendException e) {
-			throwWrappedIfRequired(e);
-			throw e;
-		} catch (RuntimeException e) {
+		} catch (BackendException | RuntimeException e) {
 			throwWrappedIfRequired(e);
 			throw e;
 		}
@@ -121,10 +100,7 @@ public abstract class InterceptingCloudContentRepository<CloudType extends Cloud
 	public DirType create(DirType folder) throws BackendException {
 		try {
 			return delegate.create(folder);
-		} catch (BackendException e) {
-			throwWrappedIfRequired(e);
-			throw e;
-		} catch (RuntimeException e) {
+		} catch (BackendException | RuntimeException e) {
 			throwWrappedIfRequired(e);
 			throw e;
 		}
@@ -134,10 +110,7 @@ public abstract class InterceptingCloudContentRepository<CloudType extends Cloud
 	public DirType move(DirType source, DirType target) throws BackendException {
 		try {
 			return delegate.move(source, target);
-		} catch (BackendException e) {
-			throwWrappedIfRequired(e);
-			throw e;
-		} catch (RuntimeException e) {
+		} catch (BackendException | RuntimeException e) {
 			throwWrappedIfRequired(e);
 			throw e;
 		}
@@ -147,10 +120,7 @@ public abstract class InterceptingCloudContentRepository<CloudType extends Cloud
 	public FileType move(FileType source, FileType target) throws BackendException {
 		try {
 			return delegate.move(source, target);
-		} catch (BackendException e) {
-			throwWrappedIfRequired(e);
-			throw e;
-		} catch (RuntimeException e) {
+		} catch (BackendException | RuntimeException e) {
 			throwWrappedIfRequired(e);
 			throw e;
 		}
@@ -160,10 +130,7 @@ public abstract class InterceptingCloudContentRepository<CloudType extends Cloud
 	public FileType write(FileType file, DataSource data, ProgressAware<UploadState> progressAware, boolean replace, long size) throws BackendException {
 		try {
 			return delegate.write(file, data, progressAware, replace, size);
-		} catch (BackendException e) {
-			throwWrappedIfRequired(e);
-			throw e;
-		} catch (RuntimeException e) {
+		} catch (BackendException | RuntimeException e) {
 			throwWrappedIfRequired(e);
 			throw e;
 		}
@@ -173,10 +140,7 @@ public abstract class InterceptingCloudContentRepository<CloudType extends Cloud
 	public void read(FileType file, Optional<File> encryptedTmpFile, OutputStream data, ProgressAware<DownloadState> progressAware) throws BackendException {
 		try {
 			delegate.read(file, encryptedTmpFile, data, progressAware);
-		} catch (BackendException e) {
-			throwWrappedIfRequired(e);
-			throw e;
-		} catch (RuntimeException e) {
+		} catch (BackendException | RuntimeException e) {
 			throwWrappedIfRequired(e);
 			throw e;
 		}
@@ -186,10 +150,7 @@ public abstract class InterceptingCloudContentRepository<CloudType extends Cloud
 	public void delete(NodeType node) throws BackendException {
 		try {
 			delegate.delete(node);
-		} catch (BackendException e) {
-			throwWrappedIfRequired(e);
-			throw e;
-		} catch (RuntimeException e) {
+		} catch (BackendException | RuntimeException e) {
 			throwWrappedIfRequired(e);
 			throw e;
 		}
@@ -199,10 +160,7 @@ public abstract class InterceptingCloudContentRepository<CloudType extends Cloud
 	public String checkAuthenticationAndRetrieveCurrentAccount(CloudType cloud) throws BackendException {
 		try {
 			return delegate.checkAuthenticationAndRetrieveCurrentAccount(cloud);
-		} catch (BackendException e) {
-			throwWrappedIfRequired(e);
-			throw e;
-		} catch (RuntimeException e) {
+		} catch (BackendException | RuntimeException e) {
 			throwWrappedIfRequired(e);
 			throw e;
 		}
@@ -212,10 +170,7 @@ public abstract class InterceptingCloudContentRepository<CloudType extends Cloud
 	public void logout(CloudType cloud) throws BackendException {
 		try {
 			delegate.logout(cloud);
-		} catch (BackendException e) {
-			throwWrappedIfRequired(e);
-			throw e;
-		} catch (RuntimeException e) {
+		} catch (BackendException | RuntimeException e) {
 			throwWrappedIfRequired(e);
 			throw e;
 		}

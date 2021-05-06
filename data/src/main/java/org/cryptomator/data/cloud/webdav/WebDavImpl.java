@@ -138,7 +138,7 @@ class WebDavImpl {
 
 	public WebDavFile write(final WebDavFile uploadFile, DataSource data, final ProgressAware<UploadState> progressAware, boolean replace, final long size) //
 			throws BackendException, IOException {
-		if (exists(uploadFile) && !replace) {
+		if (!replace && exists(uploadFile)) {
 			throw new CloudNodeAlreadyExistsException("CloudNode already exists and replace is false");
 		}
 

@@ -7,17 +7,14 @@ import org.cryptomator.domain.di.PerView
 import org.cryptomator.domain.usecases.GetDecryptedCloudForVaultUseCase
 import org.cryptomator.domain.usecases.cloud.GetRootFolderUseCase
 import org.cryptomator.domain.usecases.vault.GetVaultListUseCase
-import org.cryptomator.domain.usecases.vault.RemoveStoredVaultPasswordsUseCase
-import org.cryptomator.domain.usecases.vault.UnlockVaultUseCase
-import org.cryptomator.domain.usecases.vault.VaultOrUnlockToken
 import org.cryptomator.generator.Callback
 import org.cryptomator.presentation.R
 import org.cryptomator.presentation.exception.ExceptionHandlers
 import org.cryptomator.presentation.intent.ChooseCloudNodeSettings
 import org.cryptomator.presentation.intent.Intents
+import org.cryptomator.presentation.intent.UnlockVaultIntent
 import org.cryptomator.presentation.model.CloudFolderModel
 import org.cryptomator.presentation.model.CloudModel
-import org.cryptomator.presentation.model.ProgressModel
 import org.cryptomator.presentation.model.VaultModel
 import org.cryptomator.presentation.model.mappers.CloudFolderModelMapper
 import org.cryptomator.presentation.ui.activity.view.AutoUploadChooseVaultView
@@ -32,8 +29,6 @@ class AutoUploadChooseVaultPresenter @Inject constructor( //
 		private val getVaultListUseCase: GetVaultListUseCase,  //
 		private val getRootFolderUseCase: GetRootFolderUseCase,  //
 		private val getDecryptedCloudForVaultUseCase: GetDecryptedCloudForVaultUseCase,  //
-		private val unlockVaultUseCase: UnlockVaultUseCase,  //
-		private val removeStoredVaultPasswordsUseCase: RemoveStoredVaultPasswordsUseCase,  //
 		private val cloudFolderModelMapper: CloudFolderModelMapper,  //
 		private val sharedPreferencesHandler: SharedPreferencesHandler,  //
 		private val authenticationExceptionHandler: AuthenticationExceptionHandler,  //
@@ -83,10 +78,23 @@ class AutoUploadChooseVaultPresenter @Inject constructor( //
 			decryptedCloudFor(authenticatedVault)
 		} else {
 			if (!isPaused) {
-				view?.showEnterPasswordDialog(VaultModel(authenticatedVault))
+				requestActivityResult( //
+						ActivityResultCallbacks.vaultUnlockedAutoUpload(), //
+						Intents.unlockVaultIntent().withVaultModel(VaultModel(authenticatedVault)).withVaultAction(UnlockVaultIntent.VaultAction.UNLOCK))
 			}
 		}
 	}
+
+	@Callback
+	fun vaultUnlockedAutoUpload(result: ActivityResult) {
+		val cloud = result.intent().getSerializableExtra(SINGLE_RESULT) as Cloud
+		when {
+			result.isResultOk -> rootFolderFor(cloud)
+			else -> TODO("Not yet implemented")
+		}
+	}
+
+
 
 	private fun decryptedCloudFor(vault: Vault) {
 		getDecryptedCloudForVaultUseCase //
@@ -151,49 +159,11 @@ class AutoUploadChooseVaultPresenter @Inject constructor( //
 		location?.let { view?.showChosenLocation(it) }
 	}
 
-	fun onUnlockCanceled() {
-		unlockVaultUseCase.cancel()
-	}
-
-	fun onUnlockPressed(vaultModel: VaultModel, password: String?) {
-		view?.showProgress(ProgressModel.GENERIC)
-		unlockVaultUseCase //
-				.withVaultOrUnlockToken(VaultOrUnlockToken.from(vaultModel.toVault())) //
-				.andPassword(password) //
-				.run(object : DefaultResultHandler<Cloud>() {
-					override fun onSuccess(cloud: Cloud) {
-						view?.showProgress(ProgressModel.COMPLETED)
-						rootFolderFor(cloud)
-					}
-
-					override fun onError(e: Throwable) {
-						if (!authenticationExceptionHandler.handleAuthenticationException( //
-										this@AutoUploadChooseVaultPresenter,  //
-										e,  //
-										ActivityResultCallbacks.unlockVaultAfterAuth(vaultModel.toVault(), password))) {
-							showError(e)
-						}
-					}
-				})
-	}
-
-	fun onBiometricKeyInvalidated(vaultModel: VaultModel?) {
-		removeStoredVaultPasswordsUseCase.run(object : DefaultResultHandler<Void?>() {
-			override fun onSuccess(void: Void?) {
-				view?.showBiometricAuthKeyInvalidatedDialog()
-			}
-		})
-	}
-
-	fun useConfirmationInFaceUnlockBiometricAuthentication(): Boolean {
-		return sharedPreferencesHandler.useConfirmationInFaceUnlockBiometricAuthentication()
-	}
-
 	enum class AuthenticationState {
 		CHOOSE_LOCATION, INIT_ROOT
 	}
 
 	init {
-		unsubscribeOnDestroy(getVaultListUseCase)
+		unsubscribeOnDestroy(getVaultListUseCase, getRootFolderUseCase, getDecryptedCloudForVaultUseCase)
 	}
 }

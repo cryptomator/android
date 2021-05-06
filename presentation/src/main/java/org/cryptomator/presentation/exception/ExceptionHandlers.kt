@@ -18,6 +18,10 @@ import org.cryptomator.domain.exception.license.NoLicenseAvailableException
 import org.cryptomator.domain.exception.update.GeneralUpdateErrorException
 import org.cryptomator.domain.exception.update.HashMismatchUpdateCheckException
 import org.cryptomator.domain.exception.update.SSLHandshakePreAndroid5UpdateCheckException
+import org.cryptomator.domain.exception.vaultconfig.UnsupportedMasterkeyLocationException
+import org.cryptomator.domain.exception.vaultconfig.VaultConfigLoadException
+import org.cryptomator.domain.exception.vaultconfig.VaultKeyInvalidException
+import org.cryptomator.domain.exception.vaultconfig.VaultVersionMismatchException
 import org.cryptomator.presentation.R
 import org.cryptomator.presentation.ui.activity.view.View
 import java.util.ArrayList
@@ -48,6 +52,10 @@ class ExceptionHandlers @Inject constructor(private val context: Context, defaul
 		staticHandler(HashMismatchUpdateCheckException::class.java, R.string.error_hash_mismatch_update)
 		staticHandler(GeneralUpdateErrorException::class.java, R.string.error_general_update)
 		staticHandler(SSLHandshakePreAndroid5UpdateCheckException::class.java, R.string.error_general_update)
+		staticHandler(VaultVersionMismatchException::class.java, R.string.error_vault_version_mismatch)
+		staticHandler(VaultKeyInvalidException::class.java, R.string.error_vault_key_invalid)
+		staticHandler(VaultConfigLoadException::class.java, R.string.error_vault_config_loading)
+		staticHandler(UnsupportedMasterkeyLocationException::class.java, R.string.error_masterkey_location_not_supported)
 		staticHandler(NoSuchBucketException::class.java, R.string.error_no_such_bucket)
 		exceptionHandlers.add(MissingCryptorExceptionHandler())
 		exceptionHandlers.add(CancellationExceptionHandler())

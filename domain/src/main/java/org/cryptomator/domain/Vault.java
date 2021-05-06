@@ -12,7 +12,8 @@ public class Vault implements Serializable {
 	private final CloudType cloudType;
 	private final boolean unlocked;
 	private final String password;
-	private final int version;
+	private final int format;
+	private final int shorteningThreshold;
 	private final int position;
 
 	private Vault(Builder builder) {
@@ -23,7 +24,8 @@ public class Vault implements Serializable {
 		this.unlocked = builder.unlocked;
 		this.cloudType = builder.cloudType;
 		this.password = builder.password;
-		this.version = builder.version;
+		this.format = builder.format;
+		this.shorteningThreshold = builder.shorteningThreshold;
 		this.position = builder.position;
 	}
 
@@ -40,7 +42,8 @@ public class Vault implements Serializable {
 				.withPath(vault.getPath()) //
 				.withUnlocked(vault.isUnlocked()) //
 				.withSavedPassword(vault.getPassword()) //
-				.withVersion(vault.getVersion()) //
+				.withFormat(vault.getFormat()) //
+				.withShorteningThreshold(vault.getShorteningThreshold()) //
 				.withPosition(vault.getPosition());
 	}
 
@@ -72,8 +75,12 @@ public class Vault implements Serializable {
 		return password;
 	}
 
-	public int getVersion() {
-		return version;
+	public int getFormat() {
+		return format;
+	}
+
+	public int getShorteningThreshold() {
+		return shorteningThreshold;
 	}
 
 	public int getPosition() {
@@ -109,7 +116,8 @@ public class Vault implements Serializable {
 		private CloudType cloudType;
 		private boolean unlocked;
 		private String password;
-		private int version = -1;
+		private int format = -1;
+		private int shorteningThreshold = -1;
 		private int position = -1;
 
 		private Builder() {
@@ -176,8 +184,13 @@ public class Vault implements Serializable {
 			return this;
 		}
 
-		public Builder withVersion(int version) {
-			this.version = version;
+		public Builder withFormat(int version) {
+			this.format = version;
+			return this;
+		}
+
+		public Builder withShorteningThreshold(int shorteningThreshold) {
+			this.shorteningThreshold = shorteningThreshold;
 			return this;
 		}
 

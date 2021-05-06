@@ -427,7 +427,7 @@ class LocalStorageAccessFrameworkImpl {
 
 		progressAware.onProgress(Progress.started(UploadState.upload(file)));
 		Optional<Uri> fileUri = existingFileUri(file);
-		if (fileUri.isPresent() && !replace) {
+		if (!replace && fileUri.isPresent()) {
 			throw new CloudNodeAlreadyExistsException("CloudNode already exists and replace is false");
 		}
 

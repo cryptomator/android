@@ -12,17 +12,10 @@ interface VaultListView : View {
 	fun addOrUpdateVault(vault: VaultModel)
 	fun renameVault(vaultModel: VaultModel)
 	fun navigateToVaultContent(vault: VaultModel, decryptedRoot: CloudFolderModel)
-	fun showEnterPasswordDialog(vault: VaultModel)
-	fun showBiometricDialog(vault: VaultModel)
-	fun showChangePasswordDialog(vaultModel: VaultModel)
-	fun getEncryptedPasswordWithBiometricAuthentication(vaultModel: VaultModel)
 	fun showVaultSettingsDialog(vaultModel: VaultModel)
 	fun showAddVaultBottomSheet()
 	fun showRenameDialog(vaultModel: VaultModel)
-	fun showBiometricAuthKeyInvalidatedDialog()
 	fun isVaultLocked(vaultModel: VaultModel): Boolean
-	fun cancelBasicAuthIfRunning()
-	fun stoppedBiometricAuthDuringCloudAuthentication(): Boolean
 	fun rowMoved(fromPosition: Int, toPosition: Int)
 	fun vaultMoved(vaults: List<VaultModel>)
 

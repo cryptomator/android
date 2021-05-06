@@ -36,17 +36,16 @@ import static org.cryptomator.util.Encodings.UTF_8;
 
 final class CryptoImplVaultFormatPre7 extends CryptoImplDecorator {
 
-	private static final int SHORT_NAMES_MAX_LENGTH = 129;
+	static final int SHORTENING_THRESHOLD = 129;
 	private static final String DIR_PREFIX = "0";
 	private static final String SYMLINK_PREFIX = "1S";
 	private static final String LONG_NAME_FILE_EXT = ".lng";
 	private static final String METADATA_DIR_NAME = "m";
-
 	private static final BaseNCodec BASE32 = new Base32();
 	private static final Pattern BASE32_ENCRYPTED_NAME_PATTERN = Pattern.compile("^(0|1S)?(([A-Z2-7]{8})*[A-Z2-7=]{8})$");
 
 	CryptoImplVaultFormatPre7(Context context, Supplier<Cryptor> cryptor, CloudContentRepository cloudContentRepository, CloudFolder storageLocation, DirIdCache dirIdCache) {
-		super(context, cryptor, cloudContentRepository, storageLocation, dirIdCache);
+		super(context, cryptor, cloudContentRepository, storageLocation, dirIdCache, SHORTENING_THRESHOLD);
 	}
 
 	@Override
@@ -75,7 +74,7 @@ final class CryptoImplVaultFormatPre7 extends CryptoImplDecorator {
 
 	private String encryptName(CryptoFolder cryptoParent, String name, String prefix) throws BackendException {
 		String ciphertextName = prefix + cryptor().fileNameCryptor().encryptFilename(name, dirIdInfo(cryptoParent).getId().getBytes(UTF_8));
-		if (ciphertextName.length() > SHORT_NAMES_MAX_LENGTH) {
+		if (ciphertextName.length() > shorteningThreshold) {
 			ciphertextName = deflate(ciphertextName);
 		}
 		return ciphertextName;
@@ -140,7 +139,7 @@ final class CryptoImplVaultFormatPre7 extends CryptoImplDecorator {
 		if (ciphertextName.endsWith(LONG_NAME_FILE_EXT)) {
 			try {
 				ciphertextName = inflate(ciphertextName);
-				if (ciphertextName.length() <= SHORT_NAMES_MAX_LENGTH) {
+				if (ciphertextName.length() <= shorteningThreshold) {
 					cloudFile = inflatePermanently(cloudFile, ciphertextName);
 				}
 			} catch (NoSuchCloudFileException e) {
