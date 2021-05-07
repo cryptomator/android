@@ -14,13 +14,21 @@ enum class PasswordStrength(val score: Int, val description: Int, val color: Int
 
 	companion object {
 
+		private const val MIN_PASSWORD_LENGTH = 8
+
 		private val zxcvbn = Zxcvbn()
 
 		fun forPassword(password: String, sanitizedInputs: List<String>): PasswordStrength {
-			return if (password.isEmpty()) {
-				EMPTY
-			} else {
-				forScore(zxcvbn.measure(password, sanitizedInputs).score).orElse(EMPTY)
+			return when {
+				password.isEmpty() -> {
+					EMPTY
+				}
+				password.length < MIN_PASSWORD_LENGTH -> {
+					EXTREMELY_WEAK
+				}
+				else -> {
+					forScore(zxcvbn.measure(password, sanitizedInputs).score).orElse(EMPTY)
+				}
 			}
 		}
 

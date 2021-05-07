@@ -40,10 +40,12 @@ import org.cryptomator.presentation.R
 import org.cryptomator.presentation.exception.ExceptionHandlers
 import org.cryptomator.presentation.exception.PermissionNotGrantedException
 import org.cryptomator.presentation.intent.AuthenticateCloudIntent
+import org.cryptomator.presentation.intent.Intents
 import org.cryptomator.presentation.model.CloudModel
 import org.cryptomator.presentation.model.CloudTypeModel
 import org.cryptomator.presentation.model.ProgressModel
 import org.cryptomator.presentation.model.ProgressStateModel
+import org.cryptomator.presentation.model.S3CloudModel
 import org.cryptomator.presentation.model.WebDavCloudModel
 import org.cryptomator.presentation.model.mappers.CloudModelMapper
 import org.cryptomator.presentation.ui.activity.view.AuthenticateCloudView
@@ -76,6 +78,7 @@ class AuthenticateCloudPresenter @Inject constructor( //
 			OnedriveAuthStrategy(),  //
 			PCloudAuthStrategy(), //
 			WebDAVAuthStrategy(),  //
+			S3AuthStrategy(), //
 			LocalStorageAuthStrategy() //
 	)
 
@@ -446,6 +449,38 @@ class AuthenticateCloudPresenter @Inject constructor( //
 
 	fun onAcceptWebDavCertificateDenied() {
 		finish()
+	}
+
+	private inner class S3AuthStrategy : AuthStrategy {
+
+		private var authenticationStarted = false
+
+		override fun supports(cloud: CloudModel): Boolean {
+			return cloud.cloudType() == CloudTypeModel.S3
+		}
+
+		override fun resumed(intent: AuthenticateCloudIntent) {
+			when {
+				ExceptionUtil.contains(intent.error(), WrongCredentialsException::class.java) -> {
+					if (!authenticationStarted) {
+						startAuthentication(intent.cloud())
+						Toast.makeText(
+								context(),
+								String.format(getString(R.string.error_authentication_failed), intent.cloud().username()),
+								Toast.LENGTH_LONG).show()
+					}
+				}
+				else -> {
+					Timber.tag("AuthicateCloudPrester").e(intent.error())
+					failAuthentication(intent.cloud().name())
+				}
+			}
+		}
+
+		private fun startAuthentication(cloud: CloudModel) {
+			authenticationStarted = true
+			startIntent(Intents.s3AddOrChangeIntent().withS3Cloud(cloud as S3CloudModel))
+		}
 	}
 
 	private inner class LocalStorageAuthStrategy : AuthStrategy {

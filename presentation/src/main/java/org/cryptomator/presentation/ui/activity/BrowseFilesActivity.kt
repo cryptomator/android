@@ -46,7 +46,6 @@ import org.cryptomator.presentation.ui.dialog.SymLinkDialog
 import org.cryptomator.presentation.ui.dialog.UploadCloudFileDialog
 import org.cryptomator.presentation.ui.fragment.BrowseFilesFragment
 import java.util.ArrayList
-import java.util.Locale
 import java.util.regex.Pattern
 import javax.inject.Inject
 import kotlinx.android.synthetic.main.toolbar_layout.toolbar
@@ -545,7 +544,7 @@ class BrowseFilesActivity : BaseActivity(), //
 	}
 
 	override fun onQueryTextSubmit(query: String?): Boolean {
-		updateFilter(query?.toLowerCase(Locale.getDefault()))
+		updateFilter(query)
 		return false
 	}
 

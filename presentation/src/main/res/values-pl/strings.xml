@@ -117,6 +117,7 @@
 	<string name="screen_webdav_settings_msg_url_is_invalid">Adres URL jest nieprawidłowy.</string>
 	<string name="screen_webdav_settings_msg_username_must_not_be_empty">Login nie może być pusty.</string>
 	<string name="screen_webdav_settings_msg_password_must_not_be_empty">Hasło nie może być puste.</string>
+	<!-- ## screen: s3 settings -->
 	<!-- ## screen: enter vault name -->
 	<string name="screen_enter_vault_name_msg_name_empty">Nazwa sejfu nie może być pusta.</string>
 	<string name="screen_enter_vault_name_vault_label">Nazwa sejfu</string>
@@ -127,7 +128,6 @@
 	<string name="screen_set_password_button_text">Gotowe</string>
 	<string name="screen_set_password_hint">WAŻNE: Jeśli zapomnisz hasła, nie ma możliwości odzyskania danych.</string>
 	<string name="screen_set_password_retype_password_label">Wpisz hasło ponownie</string>
-	<string name="screen_set_password_strength_indicator_0">Bardzo słabe</string>
 	<string name="screen_set_password_strength_indicator_1">Słabe</string>
 	<string name="screen_set_password_strength_indicator_2">Średnie</string>
 	<string name="screen_set_password_strength_indicator_3">Mocne</string>

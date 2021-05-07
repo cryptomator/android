@@ -39,19 +39,19 @@ constructor(private val context: Context) : RecyclerViewBaseAdapter<CloudModel, 
 
 			itemView.cloudImage.setImageResource(cloudModel.cloudType().cloudImageResource)
 
-			if (webdav(cloudModel.cloudType())) {
-				itemView.cloudName.text = context.getString(R.string.screen_cloud_settings_webdav_connections)
-			} else if (pCloud(cloudModel.cloudType())) {
-				itemView.cloudName.text = context.getString(R.string.screen_cloud_settings_pcloud_connections)
-			} else if (local(cloudModel.cloudType())) {
-				itemView.cloudName.text = context.getString(R.string.screen_cloud_settings_local_storage_locations)
-			} else {
-				itemView.cloudName.text = getCloudNameText(isAlreadyLoggedIn(cloudModel), cloudModel)
-				if (isAlreadyLoggedIn(cloudModel)) {
-					itemView.cloudUsername.text = cloudModel.username()
-					itemView.cloudUsername.visibility = View.VISIBLE
-				} else {
-					itemView.cloudUsername.visibility = View.GONE
+			when (cloudModel.cloudType()) {
+				CloudTypeModel.PCLOUD -> itemView.cloudName.text = context.getString(R.string.screen_cloud_settings_pcloud_connections)
+				CloudTypeModel.S3 -> itemView.cloudName.text = context.getString(R.string.screen_cloud_settings_s3_connections)
+				CloudTypeModel.WEBDAV -> itemView.cloudName.text = context.getString(R.string.screen_cloud_settings_webdav_connections)
+				CloudTypeModel.LOCAL -> itemView.cloudName.text = context.getString(R.string.screen_cloud_settings_local_storage_locations)
+				else -> {
+					itemView.cloudName.text = getCloudNameText(isAlreadyLoggedIn(cloudModel), cloudModel)
+					if (isAlreadyLoggedIn(cloudModel)) {
+						itemView.cloudUsername.text = cloudModel.username()
+						itemView.cloudUsername.visibility = View.VISIBLE
+					} else {
+						itemView.cloudUsername.visibility = View.GONE
+					}
 				}
 			}
 
@@ -72,17 +72,5 @@ constructor(private val context: Context) : RecyclerViewBaseAdapter<CloudModel, 
 			else
 				context.getString(R.string.screen_cloud_settings_log_in_to)
 		}
-	}
-
-	private fun local(cloudType: CloudTypeModel): Boolean {
-		return CloudTypeModel.LOCAL == cloudType
-	}
-
-	private fun webdav(cloudType: CloudTypeModel): Boolean {
-		return CloudTypeModel.WEBDAV == cloudType
-	}
-
-	private fun pCloud(cloudType: CloudTypeModel): Boolean {
-		return CloudTypeModel.PCLOUD == cloudType
 	}
 }
