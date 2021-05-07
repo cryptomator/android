@@ -22,11 +22,13 @@
 	<string name="error_names_contains_invalid_characters">Les noms de fichiers ne peuvent pas contenir de caractères spéciaux.</string>
 	<string name="error_vault_name_contains_invalid_characters">Le nom du coffre-fort ne peut pas contenir de caractères spéciaux.</string>
 	<string name="error_general_update">La vérification de la mise à jour a échoué. Une erreur générale s\'est produite.</string>
+	<string name="error_hash_mismatch_update">La vérification de la mise à jour a échoué. Le hachage calculé ne correspond pas au fichier téléchargé</string>
 	<string name="error_update_no_internet">La vérification de la mise à jour a échoué. Pas de connexion Internet.</string>
 	<string name="error_failed_to_decrypt_webdav_password">Le mot de passe WebDAV n\'a pas été déchiffré, veuillez l\'ajouter une nouvelle fois dans les paramètres</string>
 	<string name="error_play_services_not_available">Services Google play non installés</string>
 	<string name="error_biometric_auth_aborted">Authentification biométrique avortée</string>
 	<string name="error_file_not_found_after_opening_using_3party">Le fichier local n\'est plus présent après le retour à Cryptomator. Les éventuels modifications ne peuvent être propagées au nuage.</string>
+	<string name="error_no_such_bucket">Aucun compartiment de ce type</string>
 	<!-- # clouds -->
 	<!-- ## cloud names -->
 	<string name="cloud_names_local_storage">Stockage local</string>
@@ -122,6 +124,17 @@
 	<string name="screen_webdav_settings_msg_username_must_not_be_empty">Le nom d\'utilisateur ne peut pas être vide.</string>
 	<string name="screen_webdav_settings_msg_password_must_not_be_empty">Le mot de passe ne peut pas être vide.</string>
 	<!-- ## screen: s3 settings -->
+	<string name="screen_s3_settings_display_name_label">Nom Afficher</string>
+	<string name="screen_s3_settings_access_key_label">Clef d’Accès</string>
+	<string name="screen_s3_settings_secret_key_label">Clé secrète</string>
+	<string name="screen_s3_settings_bucket_label">Compartiment Existant</string>
+	<string name="screen_s3_settings_endpoint_label">Point de terminaison</string>
+	<string name="screen_s3_settings_region_label">Région</string>
+	<string name="screen_s3_settings_msg_display_name_not_empty">Le nom d\'affichage ne peut être vide</string>
+	<string name="screen_s3_settings_msg_access_key_not_empty">La clé d\'accès ne peut être vide</string>
+	<string name="screen_s3_settings_msg_secret_key_not_empty">La clé d\'accès ne peut être vide</string>
+	<string name="screen_s3_settings_msg_bucket_not_empty">Le compartiment ne peut être vide</string>
+	<string name="screen_s3_settings_msg_endpoint_and_region_not_empty">Le Point de Terminaison et la Région ne peuvent être vides</string>
 	<!-- ## screen: enter vault name -->
 	<string name="screen_enter_vault_name_msg_name_empty">Le nom du coffre-fort ne peut pas être vide.</string>
 	<string name="screen_enter_vault_name_vault_label">Nom du coffre-fort</string>
@@ -132,6 +145,7 @@
 	<string name="screen_set_password_button_text">Terminé</string>
 	<string name="screen_set_password_hint">IMPORTANT: Si vous oubliez votre mot de passe, il n\'y aura aucun moyen de récupérer vos données.</string>
 	<string name="screen_set_password_retype_password_label">Retaper le mot de passe</string>
+	<string name="screen_set_password_strength_indicator_0">Trop faible pour créer un coffre-fort</string>
 	<string name="screen_set_password_strength_indicator_1">Faible</string>
 	<string name="screen_set_password_strength_indicator_2">Acceptable</string>
 	<string name="screen_set_password_strength_indicator_3">Fort</string>
@@ -182,6 +196,7 @@
 	<!-- ## screen: cloud settings -->
 	<string name="screen_cloud_settings_webdav_connections">Connexions WebDAV</string>
 	<string name="screen_cloud_settings_pcloud_connections">Connexions pCloud</string>
+	<string name="screen_cloud_settings_s3_connections">Connexions S3</string>
 	<string name="screen_cloud_settings_local_storage_locations">Emplacements du stockage local</string>
 	<string name="screen_cloud_settings_log_in_to">Se connecter à</string>
 	<string name="screen_cloud_settings_sign_out_from_cloud">Se déconnecter de</string>

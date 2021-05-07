@@ -28,6 +28,7 @@
 	<string name="error_names_contains_invalid_characters">File names can\'t contain special characters.</string>
 	<string name="error_vault_name_contains_invalid_characters">Vault name can\'t contain special characters.</string>
 	<string name="error_general_update">Update check failed. General error occurred.</string>
+	<string name="error_hash_mismatch_update">Update check failed. Calculated hash doesn\'t match the uploaded file</string>
 	<string name="error_update_no_internet">Update check failed. No internet connection.</string>
 	<string name="error_failed_to_decrypt_webdav_password">Failed to decrypt WebDAV password, please re add in settings</string>
 	<string name="error_play_services_not_available">Play Services not installed</string>
