@@ -1,1 +1,3 @@
-- Fixed pCloud login using F-Droid
+- Added support for S3 compatible storage
+- Enhanced password policy so that vaults with very bad passwords can no longer be created
+- Fixed problem in file search when globbing is enabled, live search is disabled and pattern contains uppercase characters

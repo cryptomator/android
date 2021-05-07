@@ -22,12 +22,17 @@
 	<string name="error_names_contains_invalid_characters">Dateinamen können keine Sonderzeichen enthalten.</string>
 	<string name="error_vault_name_contains_invalid_characters">Tresorname kann keine Sonderzeichen enthalten.</string>
 	<string name="error_general_update">Prüfung auf Aktualisierungen fehlgeschlagen. Ein Fehler ist aufgetreten.</string>
+	<string name="error_hash_mismatch_update">Update-Überprüfung fehlgeschlagen. Berechnete Prüfsumme entspricht nicht der der hochgeladenen Datei</string>
 	<string name="error_update_no_internet">Prüfung auf Aktualisierungen fehlgeschlagen. Keine Internetverbindung.</string>
 	<string name="error_failed_to_decrypt_webdav_password">Beim entschlüsseln des WebDAV-Passworts trat ein Fehler auf. Bitte in den Einstellungen erneut festlegen.</string>
 	<string name="error_play_services_not_available">Die Play Services sind nicht installiert</string>
 	<string name="error_biometric_auth_aborted">Biometrischer Login abgebrochen</string>
+	<string name="error_vault_version_mismatch">Die in der vault.cryptomator-Datei angegebene Version ist anders als die der masterkey.cryptomator-Datei</string>
+	<string name="error_vault_key_invalid">vault.cryptomator-Datei stimmt nicht mit der masterkey.cryptomator-Datei überein</string>
+	<string name="error_vault_config_loading">Allgemeiner Fehler beim Laden der Tresorkonfiguration</string>
 	<string name="error_file_not_found_after_opening_using_3party">Lokale Datei ist nach dem Zurückwechseln zu Cryptomator nicht mehr vorhanden. Mögliche Änderungen können nicht in die Cloud übertragen werden.</string>
 	<string name="error_no_such_bucket">Bucket existiert nicht</string>
+	<string name="error_masterkey_location_not_supported">Benutzerdefinierter Ort der Masterkey-Datei wird noch nicht unterstützt</string>
 	<!-- # clouds -->
 	<!-- ## cloud names -->
 	<string name="cloud_names_local_storage">Lokaler Speicher</string>
