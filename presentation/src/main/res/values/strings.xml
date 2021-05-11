@@ -194,6 +194,7 @@
 	<string name="screen_s3_settings_msg_secret_key_not_empty">Secret Key can\'t be empty</string>
 	<string name="screen_s3_settings_msg_bucket_not_empty">Bucket can\'t be empty</string>
 	<string name="screen_s3_settings_msg_endpoint_and_region_not_empty">Endpoint and Region can\'t be empty</string>
+	<string name="screen_s3_settings_msg_endpoint_set_and_region_empty">If Endpoint is set, Region must be set too</string>
 
 	<!-- ## screen: enter vault name -->
 	<string name="screen_enter_vault_name_title" translatable="false">@string/screen_vault_list_action_create_new_vault</string>

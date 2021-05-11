@@ -39,6 +39,10 @@ class S3AddOrChangePresenter @Inject internal constructor( //
 			statusMessage = getString(R.string.screen_s3_settings_msg_endpoint_and_region_not_empty)
 		}
 
+		if (!endpoint.isNullOrEmpty() && region.isNullOrEmpty()) {
+			statusMessage = getString(R.string.screen_s3_settings_msg_endpoint_set_and_region_empty)
+		}
+
 		if (statusMessage != null) {
 			Toast.makeText(context(), statusMessage, Toast.LENGTH_SHORT).show()
 		} else {
