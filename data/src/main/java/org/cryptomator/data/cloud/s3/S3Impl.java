@@ -108,7 +108,7 @@ class S3Impl {
 		try {
 			client().statObject(StatObjectArgs.builder().bucket(cloud.s3Bucket()).object(key).build());
 		} catch (ErrorResponseException e) {
-			if (e.errorResponse().code().equals("NoSuchKey")) {
+			if (S3CloudApiErrorCodes.NO_SUCH_KEY.getValue().equals(e.errorResponse().code())) {
 				return false;
 			}
 			throw new FatalBackendException(e);
@@ -304,6 +304,7 @@ class S3Impl {
 			for (Result<DeleteError> result : results) {
 				try {
 					DeleteError error = result.get();
+					// FIXME
 					System.out.println("Error in deleting object " + error.objectName() + "; " + error.message());
 				} catch (Exception e) {
 					handleApiError(e, node.getPath());
