@@ -243,14 +243,22 @@ class S3Impl {
 		}) {
 			try {
 				PutObjectArgs putObjectArgs = PutObjectArgs.builder().bucket(cloud.s3Bucket()).object(file.getKey()).stream(out.open(context), data.size(context).get(), -1).build();
-				client().putObject(putObjectArgs);
-				StatObjectResponse statObjectResponse = client().statObject(StatObjectArgs //
-						.builder() //
-						.bucket(cloud.s3Bucket()) //
-						.object(file.getKey()) //
-						.build());
+				ObjectWriteResponse objectWriteResponse = client().putObject(putObjectArgs);
+
+				Date lastModified = objectWriteResponse.headers().getDate("Last-Modified");
+
+				if(lastModified == null) {
+					StatObjectResponse statObjectResponse = client().statObject(StatObjectArgs //
+							.builder() //
+							.bucket(cloud.s3Bucket()) //
+							.object(file.getKey()) //
+							.build());
+
+					lastModified = Date.from(statObjectResponse.lastModified().toInstant());
+				}
+
 				progressAware.onProgress(Progress.completed(UploadState.upload(file)));
-				return S3CloudNodeFactory.file(file.getParent(), file.getName(), Optional.of(statObjectResponse.size()), Optional.of(Date.from(statObjectResponse.lastModified().toInstant())));
+				return S3CloudNodeFactory.file(file.getParent(), file.getName(), Optional.of(size), Optional.of(lastModified));
 			} catch (Exception ex) {
 				handleApiError(ex, file.getPath());
 			}
