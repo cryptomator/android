@@ -2,8 +2,6 @@ package org.cryptomator.data.cloud.s3;
 
 import android.content.Context;
 
-import com.amazonaws.services.s3.model.AmazonS3Exception;
-
 import org.cryptomator.data.cloud.InterceptingCloudContentRepository;
 import org.cryptomator.domain.S3Cloud;
 import org.cryptomator.domain.exception.BackendException;
@@ -22,6 +20,8 @@ import java.io.File;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.util.List;
+
+import io.minio.errors.ErrorResponseException;
 
 import static org.cryptomator.util.ExceptionUtil.contains;
 
@@ -42,9 +42,9 @@ class S3CloudContentRepository extends InterceptingCloudContentRepository<S3Clou
 	}
 
 	private void throwNoSuchBucketExceptionIfRequired(Exception e) throws NoSuchBucketException {
-		if (e instanceof AmazonS3Exception) {
-			String errorCode = ((AmazonS3Exception)e).getErrorCode();
-			if(S3CloudApiExceptions.isNoSuchBucketException(errorCode)) {
+		if (e instanceof ErrorResponseException) {
+			String errorCode = ((ErrorResponseException) e).errorResponse().code();
+			if (S3CloudApiExceptions.isNoSuchBucketException(errorCode)) {
 				throw new NoSuchBucketException(cloud.s3Bucket());
 			}
 		}
@@ -57,8 +57,8 @@ class S3CloudContentRepository extends InterceptingCloudContentRepository<S3Clou
 	}
 
 	private void throwWrongCredentialsExceptionIfRequired(Exception e) {
-		if (e instanceof AmazonS3Exception) {
-			String errorCode = ((AmazonS3Exception) e).getErrorCode();
+		if (e instanceof ErrorResponseException) {
+			String errorCode = ((ErrorResponseException) e).errorResponse().code();
 			if (S3CloudApiExceptions.isAccessProblem(errorCode)) {
 				throw new WrongCredentialsException(cloud);
 			}
@@ -79,7 +79,7 @@ class S3CloudContentRepository extends InterceptingCloudContentRepository<S3Clou
 
 		@Override
 		public S3Folder resolve(S3Cloud cloud, String path) throws BackendException {
-				return this.cloud.resolve(path);
+			return this.cloud.resolve(path);
 		}
 
 		@Override
@@ -107,7 +107,7 @@ class S3CloudContentRepository extends InterceptingCloudContentRepository<S3Clou
 
 		@Override
 		public boolean exists(S3Node node) throws BackendException {
-				return cloud.exists(node);
+			return cloud.exists(node);
 		}
 
 		@Override
@@ -158,7 +158,7 @@ class S3CloudContentRepository extends InterceptingCloudContentRepository<S3Clou
 		@Override
 		public void read(S3File file, Optional<File> encryptedTmpFile, OutputStream data, ProgressAware<DownloadState> progressAware) throws BackendException {
 			try {
-				cloud.read(file, encryptedTmpFile, data, progressAware);
+				cloud.read(file, data, progressAware);
 			} catch (IOException e) {
 				throw new FatalBackendException(e);
 			}
@@ -175,7 +175,7 @@ class S3CloudContentRepository extends InterceptingCloudContentRepository<S3Clou
 
 		@Override
 		public String checkAuthenticationAndRetrieveCurrentAccount(S3Cloud cloud) throws BackendException {
-			return this.cloud.checkAuthenticationAndRetrieveCurrentAccount();
+			return this.cloud.checkAuthentication();
 		}
 
 		@Override
