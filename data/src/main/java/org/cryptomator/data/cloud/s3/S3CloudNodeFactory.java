@@ -33,7 +33,7 @@ class S3CloudNodeFactory {
 	}
 
 	private static String getNodePath(S3Folder parent, String name) {
-		return parent.getKey() + name;
+		return parent.getPath() + "/" + name;
 	}
 
 	public static String getNameFromKey(String key) {

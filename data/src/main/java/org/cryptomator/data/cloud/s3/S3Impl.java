@@ -184,7 +184,7 @@ class S3Impl {
 					targetKey = S3CloudNodeFactory.file((S3Folder) target, node.getName()).getKey();
 				}
 
-				CopySource copySource = CopySource.builder().bucket(cloud.s3Bucket()).object(node.getPath()).build();
+				CopySource copySource = CopySource.builder().bucket(cloud.s3Bucket()).object(node.getKey()).build();
 
 				CopyObjectArgs copyObjectArgs = CopyObjectArgs.builder().bucket(cloud.s3Bucket()).object(targetKey).source(copySource).build();
 				try {
@@ -206,8 +206,8 @@ class S3Impl {
 
 			return S3CloudNodeFactory.folder(target.getParent(), target.getName());
 		} else {
-			CopySource copySource = CopySource.builder().bucket(cloud.s3Bucket()).object(source.getPath()).build();
-			CopyObjectArgs copyObjectArgs = CopyObjectArgs.builder().bucket(cloud.s3Bucket()).object(target.getPath()).source(copySource).build();
+			CopySource copySource = CopySource.builder().bucket(cloud.s3Bucket()).object(source.getKey()).build();
+			CopyObjectArgs copyObjectArgs = CopyObjectArgs.builder().bucket(cloud.s3Bucket()).object(target.getKey()).source(copySource).build();
 			try {
 				ObjectWriteResponse result = client().copyObject(copyObjectArgs);
 
@@ -247,7 +247,7 @@ class S3Impl {
 				StatObjectResponse statObjectResponse = client().statObject(StatObjectArgs //
 						.builder() //
 						.bucket(cloud.s3Bucket()) //
-						.object(file.getPath()) //
+						.object(file.getKey()) //
 						.build());
 				progressAware.onProgress(Progress.completed(UploadState.upload(file)));
 				return S3CloudNodeFactory.file(file.getParent(), file.getName(), Optional.of(statObjectResponse.size()), Optional.of(Date.from(statObjectResponse.lastModified().toInstant())));
@@ -262,7 +262,7 @@ class S3Impl {
 	public void read(S3File file, OutputStream data, final ProgressAware<DownloadState> progressAware) throws IOException, BackendException {
 		progressAware.onProgress(Progress.started(DownloadState.download(file)));
 
-		GetObjectArgs getObjectArgs = GetObjectArgs.builder().bucket(cloud.s3Bucket()).object(file.getPath()).build();
+		GetObjectArgs getObjectArgs = GetObjectArgs.builder().bucket(cloud.s3Bucket()).object(file.getKey()).build();
 
 		try (GetObjectResponse response = client().getObject(getObjectArgs); //
 			 TransferredBytesAwareOutputStream out = new TransferredBytesAwareOutputStream(data) {
