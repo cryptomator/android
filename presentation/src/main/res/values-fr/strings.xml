@@ -134,7 +134,6 @@
 	<string name="screen_s3_settings_msg_access_key_not_empty">La clé d\'accès ne peut être vide</string>
 	<string name="screen_s3_settings_msg_secret_key_not_empty">La clé d\'accès ne peut être vide</string>
 	<string name="screen_s3_settings_msg_bucket_not_empty">Le compartiment ne peut être vide</string>
-	<string name="screen_s3_settings_msg_endpoint_and_region_not_empty">Le Point de Terminaison et la Région ne peuvent être vides</string>
 	<!-- ## screen: enter vault name -->
 	<string name="screen_enter_vault_name_msg_name_empty">Le nom du coffre-fort ne peut pas être vide.</string>
 	<string name="screen_enter_vault_name_vault_label">Nom du coffre-fort</string>
