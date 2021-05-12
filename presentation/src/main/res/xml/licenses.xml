@@ -101,6 +101,13 @@
 		</Preference>
 		<Preference
 			android:summary="Apache License v2"
+			android:title="MinIO Client SDK for Java">
+			<intent
+				android:action="android.intent.action.VIEW"
+				android:data="https://github.com/minio/minio-java" />
+		</Preference>
+		<Preference
+			android:summary="Apache License v2"
 			android:title="OkHttp (Square, Inc.)">
 			<intent
 				android:action="android.intent.action.VIEW"
@@ -133,13 +140,6 @@
 			<intent
 				android:action="android.intent.action.VIEW"
 				android:data="https://github.com/ReactiveX/RxJava" />
-		</Preference>
-		<Preference
-			android:summary="Apache License v2"
-			android:title="AWS SDK for Android">
-			<intent
-				android:action="android.intent.action.VIEW"
-				android:data="https://github.com/aws-amplify/aws-sdk-android" />
 		</Preference>
 		<Preference
 			android:summary="Apache License v2"

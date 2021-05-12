@@ -34,6 +34,9 @@ class S3Folder implements CloudFolder, S3Node {
 
 	@Override
 	public String getKey() {
+		if (path.startsWith(DELIMITER)) {
+			return path.substring(DELIMITER.length()) + DELIMITER;
+		}
 		return path + DELIMITER;
 	}
 

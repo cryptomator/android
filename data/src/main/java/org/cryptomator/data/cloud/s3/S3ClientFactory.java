@@ -1,87 +1,98 @@
 package org.cryptomator.data.cloud.s3;
 
 import android.content.Context;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 
-import com.amazonaws.Request;
-import com.amazonaws.Response;
-import com.amazonaws.auth.BasicAWSCredentials;
-import com.amazonaws.handlers.RequestHandler2;
-import com.amazonaws.regions.Region;
-import com.amazonaws.regions.Regions;
-import com.amazonaws.services.s3.AmazonS3;
-import com.amazonaws.services.s3.AmazonS3Client;
-
+import org.cryptomator.data.cloud.okhttplogging.HttpLoggingInterceptor;
 import org.cryptomator.domain.S3Cloud;
+import org.cryptomator.util.SharedPreferencesHandler;
 import org.cryptomator.util.crypto.CredentialCryptor;
+import org.cryptomator.util.file.LruFileCacheUtil;
 
+import java.util.concurrent.TimeUnit;
+
+import io.minio.MinioClient;
+import okhttp3.Cache;
+import okhttp3.CacheControl;
+import okhttp3.Interceptor;
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
 import timber.log.Timber;
+
+import static org.cryptomator.data.util.NetworkTimeout.CONNECTION;
+import static org.cryptomator.data.util.NetworkTimeout.READ;
+import static org.cryptomator.data.util.NetworkTimeout.WRITE;
+import static org.cryptomator.util.file.LruFileCacheUtil.Cache.S3;
 
 class S3ClientFactory {
 
-	private AmazonS3 apiClient;
+	private MinioClient apiClient;
 
-	public AmazonS3 getClient(S3Cloud cloud, Context context) {
+	private static Interceptor httpLoggingInterceptor(Context context) {
+		return new HttpLoggingInterceptor(message -> Timber.tag("OkHttp").d(message), context);
+	}
+
+	public MinioClient getClient(S3Cloud cloud, Context context) {
 		if (apiClient == null) {
 			apiClient = createApiClient(cloud, context);
 		}
 		return apiClient;
 	}
 
-	private AmazonS3 createApiClient(S3Cloud cloud, Context context) {
-		Region region = Region.getRegion(Regions.DEFAULT_REGION);
-		String endpoint = null;
+	private MinioClient createApiClient(S3Cloud cloud, Context context) {
+		final SharedPreferencesHandler sharedPreferencesHandler = new SharedPreferencesHandler(context);
 
-		if (cloud.s3Region() != null) {
-			region = Region.getRegion(cloud.s3Region());
-		} else if (cloud.s3Endpoint() != null) {
-			endpoint = cloud.s3Endpoint();
+		MinioClient.Builder minioClientBuilder = MinioClient.builder();
+
+		minioClientBuilder.endpoint(cloud.s3Endpoint());
+		minioClientBuilder.region(cloud.s3Region());
+
+		OkHttpClient.Builder httpClientBuilder = new OkHttpClient() //
+				.newBuilder() //
+				.connectTimeout(CONNECTION.getTimeout(), CONNECTION.getUnit()) //
+				.readTimeout(READ.getTimeout(), READ.getUnit()) //
+				.writeTimeout(WRITE.getTimeout(), WRITE.getUnit()) //
+				.addInterceptor(httpLoggingInterceptor(context));
+
+		if (sharedPreferencesHandler.useLruCache()) {
+			final Cache cache = new Cache(new LruFileCacheUtil(context).resolve(S3), sharedPreferencesHandler.lruCacheSize());
+			httpClientBuilder.cache(cache).addInterceptor(provideOfflineCacheInterceptor(context));
 		}
 
-		AmazonS3Client client = new AmazonS3Client(new BasicAWSCredentials(decrypt(cloud.accessKey(), context), decrypt(cloud.secretKey(), context)), region);
+		return minioClientBuilder //
+				.credentials(decrypt(cloud.accessKey(), context), decrypt(cloud.secretKey(), context)) //
+				.httpClient(httpClientBuilder.build()) //
+				.build();
+	}
 
-		if (endpoint != null) {
-			client.setEndpoint(cloud.s3Endpoint());
-		}
+	private static Interceptor provideOfflineCacheInterceptor(final Context context) {
+		return chain -> {
+			Request request = chain.request();
 
-		client.addRequestHandler(new LoggingAwareRequestHandler());
+			if (isNetworkAvailable(context)) {
+				final CacheControl cacheControl = new CacheControl.Builder() //
+						.maxAge(0, TimeUnit.DAYS) //
+						.build();
 
-		return client;
+				request = request.newBuilder() //
+						.cacheControl(cacheControl) //
+						.build();
+			}
+
+			return chain.proceed(request);
+		};
+	}
+
+	private static boolean isNetworkAvailable(final Context context) {
+		ConnectivityManager connectivityManager = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
+		NetworkInfo activeNetworkInfo = connectivityManager.getActiveNetworkInfo();
+		return activeNetworkInfo != null && activeNetworkInfo.isConnected();
 	}
 
 	private String decrypt(String password, Context context) {
 		return CredentialCryptor //
 				.getInstance(context) //
 				.decrypt(password);
-	}
-
-	private static class LoggingAwareRequestHandler extends RequestHandler2 {
-
-		@Override
-		public void beforeRequest(Request<?> request) {
-			Timber.tag("S3Client").d("Sending request (%s) %s", request.getAWSRequestMetrics().getTimingInfo().getStartTimeNano(), request.toString());
-		}
-
-		@Override
-		public void afterResponse(Request<?> request, Response<?> response) {
-			Timber.tag("S3Client").d( //
-					"Response received (%s) with status %s (%s)", //
-					request.getAWSRequestMetrics().getTimingInfo().getStartTimeNano(), //
-					response.getHttpResponse().getStatusText(), //
-					response.getHttpResponse().getStatusCode());
-		}
-
-		@Override
-		public void afterError(Request<?> request, Response<?> response, Exception e) {
-			if (response != null) {
-				Timber.tag("S3Client").e( //
-						e, //
-						"Error occurred (%s) with status %s (%s)", //
-						request.getAWSRequestMetrics().getTimingInfo().getStartTimeNano(), //
-						response.getHttpResponse().getStatusText(), //
-						response.getHttpResponse().getStatusCode());
-			} else {
-				Timber.tag("S3Client").e(e, "Error occurred (%s)", request.getAWSRequestMetrics().getTimingInfo().getStartTimeNano());
-			}
-		}
 	}
 }

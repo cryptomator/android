@@ -8,6 +8,8 @@ import java.util.Date;
 
 class S3File implements CloudFile, S3Node {
 
+	private static final String DELIMITER = "/";
+
 	private final S3Folder parent;
 	private final String name;
 	private final String path;
@@ -39,6 +41,9 @@ class S3File implements CloudFile, S3Node {
 
 	@Override
 	public String getKey() {
+		if (path.startsWith(DELIMITER)) {
+			return path.substring(DELIMITER.length());
+		}
 		return path;
 	}
 

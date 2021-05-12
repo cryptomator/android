@@ -498,27 +498,26 @@ class Sql {
 
 	public static class SqlDeleteBuilder {
 
-		private final String table;
-		private String whereClause;
-		private String[] whereArgs;
+		private final String tableName;
 
-		public SqlDeleteBuilder(String table) {
-			this.table = table;
+		private final StringBuilder whereClause = new StringBuilder();
+		private final List<String> whereArgs = new ArrayList<>();
+
+		public SqlDeleteBuilder(String tableName) {
+			this.tableName = tableName;
 		}
 
-		public SqlDeleteBuilder whereClause(String whereClause) {
-			this.whereClause = whereClause;
-			return this;
-		}
-
-		public SqlDeleteBuilder whereArgs(String[] whereArgs) {
-			this.whereArgs = whereArgs;
+		public SqlDeleteBuilder where(String column, Criterion criterion) {
+			if (whereClause.length() > 0) {
+				whereClause.append(" AND ");
+			}
+			criterion.appendTo(column, whereClause, whereArgs);
 			return this;
 		}
 
 		public void executeOn(Database wrapped) {
 			SQLiteDatabase db = unwrap(wrapped);
-			db.delete(table, whereClause, whereArgs);
+			db.delete(tableName, whereClause.toString(), whereArgs.toArray(new String[whereArgs.size()]));
 		}
 	}
 

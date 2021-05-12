@@ -35,7 +35,7 @@ class S3AddOrChangePresenter @Inject internal constructor( //
 		if (displayName.isEmpty()) {
 			statusMessage = getString(R.string.screen_s3_settings_msg_display_name_not_empty)
 		}
-		if (endpoint.isNullOrEmpty() && region.isNullOrEmpty()) {
+		if (endpoint.isNullOrEmpty() || region.isNullOrEmpty()) {
 			statusMessage = getString(R.string.screen_s3_settings_msg_endpoint_and_region_not_empty)
 		}
 
