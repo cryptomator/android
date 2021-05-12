@@ -106,7 +106,14 @@ class S3Impl {
 	public boolean exists(S3Node node) throws BackendException {
 		String key = node.getKey();
 		try {
-			client().statObject(StatObjectArgs.builder().bucket(cloud.s3Bucket()).object(key).build());
+			if(!(node instanceof RootS3Folder)) {
+				client().statObject(StatObjectArgs.builder().bucket(cloud.s3Bucket()).object(key).build());
+				return true;
+			} else {
+				// stat requests throws an IllegalStateException if key is empty string
+				ListObjectsArgs request = ListObjectsArgs.builder().bucket(cloud.s3Bucket()).prefix(key).delimiter(DELIMITER).build();
+				return client().listObjects(request).iterator().hasNext();
+			}
 		} catch (ErrorResponseException e) {
 			if (S3CloudApiErrorCodes.NO_SUCH_KEY.getValue().equals(e.errorResponse().code())) {
 				return false;
@@ -115,7 +122,8 @@ class S3Impl {
 		} catch (Exception ex) {
 			handleApiError(ex, node.getPath());
 		}
-		return true;
+
+		throw new FatalBackendException(new IllegalStateException("Exception thrown but not handled?"));
 	}
 
 	public List<S3Node> list(S3Folder folder) throws IOException, BackendException {
@@ -221,7 +229,7 @@ class S3Impl {
 			}
 		}
 
-		throw new IllegalStateException();
+		throw new FatalBackendException(new IllegalStateException("Exception thrown but not handled?"));
 	}
 
 	public S3File write(S3File file, DataSource data, final ProgressAware<UploadState> progressAware, boolean replace, long size) throws IOException, BackendException {
@@ -264,7 +272,7 @@ class S3Impl {
 			}
 		}
 
-		throw new IllegalStateException();
+		throw new FatalBackendException(new IllegalStateException("Exception thrown but not handled?"));
 	}
 
 	public void read(S3File file, OutputStream data, final ProgressAware<DownloadState> progressAware) throws IOException, BackendException {
