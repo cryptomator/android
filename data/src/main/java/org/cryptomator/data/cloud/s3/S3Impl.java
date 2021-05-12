@@ -47,6 +47,7 @@ import io.minio.errors.ErrorResponseException;
 import io.minio.messages.DeleteError;
 import io.minio.messages.DeleteObject;
 import io.minio.messages.Item;
+import timber.log.Timber;
 
 import static org.cryptomator.domain.usecases.cloud.Progress.progress;
 
@@ -320,8 +321,7 @@ class S3Impl {
 			for (Result<DeleteError> result : results) {
 				try {
 					DeleteError error = result.get();
-					// FIXME
-					System.out.println("Error in deleting object " + error.objectName() + "; " + error.message());
+					Timber.tag("S3Impl").e("Error in deleting object " + error.objectName() + "; " + error.message());
 				} catch (Exception e) {
 					handleApiError(e, node.getPath());
 				}

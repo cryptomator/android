@@ -96,8 +96,6 @@ ext {
 
 	jsonWebTokenApiVersion = '0.11.2'
 
-
-
 	dependencies = [
 			android               : "com.google.android:android:${androidVersion}",
 			androidAnnotations    : "androidx.annotation:annotation:${androidSupportAnnotationsVersion}",
