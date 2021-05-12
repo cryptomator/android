@@ -6,6 +6,7 @@ import org.cryptomator.data.cloud.InterceptingCloudContentRepository;
 import org.cryptomator.domain.S3Cloud;
 import org.cryptomator.domain.exception.BackendException;
 import org.cryptomator.domain.exception.FatalBackendException;
+import org.cryptomator.domain.exception.ForbiddenException;
 import org.cryptomator.domain.exception.NetworkConnectionException;
 import org.cryptomator.domain.exception.NoSuchBucketException;
 import org.cryptomator.domain.exception.authentication.WrongCredentialsException;
@@ -62,6 +63,8 @@ class S3CloudContentRepository extends InterceptingCloudContentRepository<S3Clou
 			if (S3CloudApiExceptions.isAccessProblem(errorCode)) {
 				throw new WrongCredentialsException(cloud);
 			}
+		} else if(e instanceof ForbiddenException) {
+			throw new WrongCredentialsException(cloud);
 		}
 	}
 
