@@ -45,15 +45,8 @@ class S3ClientFactory {
 
 		MinioClient.Builder minioClientBuilder = MinioClient.builder();
 
-		if (cloud.s3Endpoint() != null) {
-			minioClientBuilder.endpoint(cloud.s3Endpoint());
-		} else {
-			minioClientBuilder.endpoint("https://s3.amazonaws.com");
-		}
-
-		if (cloud.s3Region() != null) {
-			minioClientBuilder.region(cloud.s3Region());
-		}
+		minioClientBuilder.endpoint(cloud.s3Endpoint());
+		minioClientBuilder.region(cloud.s3Region());
 
 		OkHttpClient.Builder httpClientBuilder = new OkHttpClient() //
 				.newBuilder() //
@@ -67,7 +60,10 @@ class S3ClientFactory {
 			httpClientBuilder.cache(cache).addInterceptor(provideOfflineCacheInterceptor(context));
 		}
 
-		return minioClientBuilder.credentials(decrypt(cloud.accessKey(), context), decrypt(cloud.secretKey(), context)).httpClient(httpClientBuilder.build()).build();
+		return minioClientBuilder //
+				.credentials(decrypt(cloud.accessKey(), context), decrypt(cloud.secretKey(), context)) //
+				.httpClient(httpClientBuilder.build()) //
+				.build();
 	}
 
 	private static Interceptor provideOfflineCacheInterceptor(final Context context) {

@@ -1,9 +1,7 @@
 package org.cryptomator.presentation.ui.fragment
 
 import android.os.Bundle
-import android.view.View
 import android.view.inputmethod.EditorInfo
-import com.google.android.material.switchmaterial.SwitchMaterial
 import org.cryptomator.generator.Fragment
 import org.cryptomator.presentation.R
 import org.cryptomator.presentation.model.S3CloudModel
@@ -15,10 +13,8 @@ import kotlinx.android.synthetic.main.fragment_setup_s3.bucketEditText
 import kotlinx.android.synthetic.main.fragment_setup_s3.createCloudButton
 import kotlinx.android.synthetic.main.fragment_setup_s3.displayNameEditText
 import kotlinx.android.synthetic.main.fragment_setup_s3.endpointEditText
-import kotlinx.android.synthetic.main.fragment_setup_s3.ll_custom_s3
 import kotlinx.android.synthetic.main.fragment_setup_s3.regionEditText
 import kotlinx.android.synthetic.main.fragment_setup_s3.secretKeyEditText
-import kotlinx.android.synthetic.main.fragment_setup_s3.toggleCustomS3
 import timber.log.Timber
 
 @Fragment(R.layout.fragment_setup_s3)
@@ -42,16 +38,6 @@ class S3AddOrChangeFragment : BaseFragment() {
 		}
 
 		showEditableCloudContent(s3CloudModel)
-
-		toggleCustomS3.setOnClickListener { switch ->
-			toggleUseAmazonS3((switch as SwitchMaterial).isChecked)
-		}
-	}
-
-	private fun toggleUseAmazonS3(checked: Boolean) = if (checked) {
-		ll_custom_s3.visibility = View.GONE
-	} else {
-		ll_custom_s3.visibility = View.VISIBLE
 	}
 
 	private fun showEditableCloudContent(s3CloudModel: S3CloudModel?) {
@@ -61,17 +47,8 @@ class S3AddOrChangeFragment : BaseFragment() {
 			accessKeyEditText.setText(decrypt(s3CloudModel.accessKey()))
 			secretKeyEditText.setText(decrypt(s3CloudModel.secretKey()))
 			bucketEditText.setText(s3CloudModel.s3Bucket())
-
+			endpointEditText.setText(s3CloudModel.s3Endpoint())
 			regionEditText.setText(s3CloudModel.s3Region())
-
-			if (it.s3Endpoint().isNotEmpty()) {
-				toggleCustomS3.isChecked = false
-				ll_custom_s3.visibility = View.VISIBLE
-				endpointEditText.setText(s3CloudModel.s3Endpoint())
-			} else {
-				toggleCustomS3.isChecked = false
-				ll_custom_s3.visibility = View.VISIBLE
-			}
 		}
 	}
 
@@ -94,11 +71,14 @@ class S3AddOrChangeFragment : BaseFragment() {
 		val bucket = bucketEditText.text.toString().trim()
 		val displayName = displayNameEditText.text.toString().trim()
 
-		if (toggleCustomS3.isChecked) {
-			s3AddOrChangePresenter.checkUserInput(accessKey, secretKey, bucket, null, regionEditText.text.toString().trim(), cloudId, displayName)
-		} else {
-			s3AddOrChangePresenter.checkUserInput(accessKey, secretKey, bucket, endpointEditText.text.toString().trim(), regionEditText.text.toString().trim(), cloudId, displayName)
-		}
+		s3AddOrChangePresenter.checkUserInput( //
+			accessKey, //
+			secretKey, //
+			bucket, //
+			endpointEditText.text.toString().trim(), //
+			regionEditText.text.toString().trim(), //
+			cloudId, //
+			displayName)
 	}
 
 	fun hideKeyboard() {
