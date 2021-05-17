@@ -30,7 +30,7 @@ abstract class Presenter<V : View> protected constructor(private val exceptionMa
 
 	var isPaused = false
 		private set
-	private var refreshOnBackpressEnabled = Supplier { true }
+	private var refreshOnBackPressEnabled = Supplier { true }
 
 	var view: V? = null
 		set(value) {
@@ -241,9 +241,9 @@ abstract class Presenter<V : View> protected constructor(private val exceptionMa
 		val result = arrayOfNulls<String>(permissions.size)
 		var numberMissing = 0
 		permissions
-				.asSequence()
-				.filter { ContextCompat.checkSelfPermission(activity(), it) != PackageManager.PERMISSION_GRANTED }
-				.forEach { result[numberMissing++] = it }
+			.asSequence()
+			.filter { ContextCompat.checkSelfPermission(activity(), it) != PackageManager.PERMISSION_GRANTED }
+			.forEach { result[numberMissing++] = it }
 		return result.copyOfRange(0, numberMissing)
 	}
 
@@ -314,12 +314,12 @@ abstract class Presenter<V : View> protected constructor(private val exceptionMa
 		Timber.tag("PresenterLifecycle").d("$method $this")
 	}
 
-	fun setRefreshOnBackpressEnabled(refreshOnBackpressEnabled: BrowseFilesPresenter.RefreshSupplier) {
-		this.refreshOnBackpressEnabled = refreshOnBackpressEnabled
+	fun setRefreshOnBackPressEnabled(refreshOnBackPressEnabled: BrowseFilesPresenter.RefreshSupplier) {
+		this.refreshOnBackPressEnabled = refreshOnBackPressEnabled
 	}
 
-	fun isRefreshOnBackpressEnabled(): Boolean {
-		return refreshOnBackpressEnabled.get()
+	fun isRefreshOnBackPressEnabled(): Boolean {
+		return refreshOnBackPressEnabled.get()
 	}
 
 	companion object {

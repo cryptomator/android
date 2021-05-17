@@ -61,7 +61,7 @@ abstract class BaseFragment : Fragment() {
 		if (!created) {
 			loadContent()
 		} else {
-			if (presenter?.isRefreshOnBackpressEnabled() == true) {
+			if (presenter?.isRefreshOnBackPressEnabled() == true) {
 				loadContentSilent()
 			}
 		}

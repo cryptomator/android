@@ -114,7 +114,7 @@ dependencies {
 	implementation dependencies.msgraph
 
 	implementation dependencies.stax
-	compile dependencies.minIo
+	api dependencies.minIo
 
 	playstoreImplementation dependencies.googlePlayServicesAuth
 	apkstoreImplementation dependencies.googlePlayServicesAuth

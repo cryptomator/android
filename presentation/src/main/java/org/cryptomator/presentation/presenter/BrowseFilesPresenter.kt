@@ -122,7 +122,7 @@ class BrowseFilesPresenter @Inject constructor( //
 					.withVault(vault.toVault()) //
 					.run(DefaultResultHandler())
 		}
-		setRefreshOnBackpressEnabled(enableRefreshOnBackpressSupplier.setInAction(false))
+		setRefreshOnBackPressEnabled(enableRefreshOnBackpressSupplier.setInAction(false))
 	}
 
 	fun onWindowFocusChanged(hasFocus: Boolean) {
@@ -967,7 +967,7 @@ class BrowseFilesPresenter @Inject constructor( //
 
 	@Callback
 	fun moveNodes(result: ActivityResult, nodesToMove: ArrayList<CloudNodeModel<*>>) {
-		setRefreshOnBackpressEnabled(enableRefreshOnBackpressSupplier.setInAction(true))
+		setRefreshOnBackPressEnabled(enableRefreshOnBackpressSupplier.setInAction(true))
 		val targetFolder = result.getSingleResult(CloudFolderModel::class.java)
 		moveCloudFile(targetFolder, nodesFor(nodesToMove, CloudFileModel::class) as List<CloudFileModel>)
 		moveCloudFolder(targetFolder, nodesFor(nodesToMove, CloudFolderModel::class) as List<CloudFolderModel>)
@@ -975,7 +975,7 @@ class BrowseFilesPresenter @Inject constructor( //
 	}
 
 	fun disableSelectionMode() {
-		setRefreshOnBackpressEnabled(enableRefreshOnBackpressSupplier.setInSelectionMode(false))
+		setRefreshOnBackPressEnabled(enableRefreshOnBackpressSupplier.setInSelectionMode(false))
 		view?.disableSelectionMode()
 	}
 
@@ -1054,7 +1054,7 @@ class BrowseFilesPresenter @Inject constructor( //
 	}
 
 	fun onSelectionModeActivated() {
-		setRefreshOnBackpressEnabled(enableRefreshOnBackpressSupplier.setInSelectionMode(true))
+		setRefreshOnBackPressEnabled(enableRefreshOnBackpressSupplier.setInSelectionMode(true))
 		view?.enableSelectionMode()
 	}
 
