@@ -14,9 +14,8 @@ class UnlockVaultUsingMasterkey {
 
 	private final CloudRepository cloudRepository;
 	private final VaultOrUnlockToken vaultOrUnlockToken;
-	private Optional<UnverifiedVaultConfig> unverifiedVaultConfig;
 	private final String password;
-
+	private Optional<UnverifiedVaultConfig> unverifiedVaultConfig;
 	private volatile boolean cancelled;
 	private final Flag cancelledFlag = new Flag() {
 		@Override

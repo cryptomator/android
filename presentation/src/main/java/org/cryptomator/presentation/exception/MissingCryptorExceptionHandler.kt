@@ -15,7 +15,7 @@ class MissingCryptorExceptionHandler : ExceptionHandler() {
 	public override fun doHandle(view: View, e: Throwable) {
 		view.showMessage(R.string.error_vault_has_been_locked)
 		Intents.vaultListIntent() //
-				.preventGoingBackInHistory() //
-				.startActivity(view)
+			.preventGoingBackInHistory() //
+			.startActivity(view)
 	}
 }

@@ -12,10 +12,7 @@ public interface UnlockVaultIntent {
 	VaultAction vaultAction();
 
 	enum VaultAction {
-		UNLOCK,
-		UNLOCK_FOR_BIOMETRIC_AUTH,
-		ENCRYPT_PASSWORD,
-		CHANGE_PASSWORD
+		UNLOCK, UNLOCK_FOR_BIOMETRIC_AUTH, ENCRYPT_PASSWORD, CHANGE_PASSWORD
 	}
 
 }

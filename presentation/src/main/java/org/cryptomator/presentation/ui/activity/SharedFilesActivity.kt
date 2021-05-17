@@ -26,10 +26,10 @@ import timber.log.Timber
 
 @Activity
 class SharedFilesActivity : BaseActivity(), //
-		SharedFilesView, //
-		ReplaceDialog.Callback, //
-		NotEnoughVaultsDialog.Callback, //
-		UploadCloudFileDialog.Callback {
+	SharedFilesView, //
+	ReplaceDialog.Callback, //
+	NotEnoughVaultsDialog.Callback, //
+	UploadCloudFileDialog.Callback {
 
 	@Inject
 	lateinit var presenter: SharedFilesPresenter
@@ -92,8 +92,8 @@ class SharedFilesActivity : BaseActivity(), //
 		val uriList = ArrayList<Uri>(clipData.itemCount)
 		(0 until clipData.itemCount).forEach { i ->
 			clipData.getItemAt(i).uri
-					?.let { uriList.add(it) }
-					?: Timber.tag("Sharing").i("Item %d without uri", i)
+				?.let { uriList.add(it) }
+				?: Timber.tag("Sharing").i("Item %d without uri", i)
 		}
 		return uriList
 	}
@@ -173,10 +173,10 @@ class SharedFilesActivity : BaseActivity(), //
 
 	override fun onNotEnoughVaultsCreateVaultClicked() {
 		packageManager.getLaunchIntentForPackage(packageName)
-				?.let {
-					it.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK)
-					startActivity(it)
-				}
+			?.let {
+				it.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK)
+				startActivity(it)
+			}
 		finish()
 	}
 

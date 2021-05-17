@@ -97,9 +97,10 @@
 			</intent-filter>
 		</activity>
 
-		<activity android:name=".ui.activity.UnlockVaultActivity"
-			android:theme="@style/TransparentAlertDialogCustom"
-			android:label=""/>
+		<activity
+			android:name=".ui.activity.UnlockVaultActivity"
+			android:label=""
+			android:theme="@style/TransparentAlertDialogCustom" />
 		<activity android:name=".ui.activity.EmptyDirIdFileInfoActivity" />
 
 		<!-- Settings -->

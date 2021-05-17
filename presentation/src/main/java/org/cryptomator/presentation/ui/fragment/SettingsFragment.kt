@@ -100,18 +100,19 @@ class SettingsFragment : PreferenceFragmentCompat() {
 
 	private fun isBiometricAuthenticationNotAvailableRemovePreference() {
 		val biometricAuthenticationAvailable = BiometricManager //
-				.from(requireContext()) //
-				.canAuthenticate(BiometricManager.Authenticators.BIOMETRIC_STRONG)
+			.from(requireContext()) //
+			.canAuthenticate(BiometricManager.Authenticators.BIOMETRIC_STRONG)
 
 		if (biometricAuthenticationAvailable != BiometricManager.BIOMETRIC_SUCCESS
-				&& biometricAuthenticationAvailable != BiometricManager.BIOMETRIC_ERROR_NONE_ENROLLED) {
+			&& biometricAuthenticationAvailable != BiometricManager.BIOMETRIC_ERROR_NONE_ENROLLED
+		) {
 			val preference = findPreference(BIOMETRIC_AUTHENTICATION_ITEM_KEY) as Preference?
 			val generalCategory = findPreference(getString(R.string.screen_settings_section_general)) as PreferenceCategory?
 			generalCategory?.removePreference(preference)
 
 			Timber //
-					.tag("SettingsFragment") //
-					.d("No working biometric hardware detected")
+				.tag("SettingsFragment") //
+				.d("No working biometric hardware detected")
 		}
 	}
 
@@ -119,8 +120,9 @@ class SettingsFragment : PreferenceFragmentCompat() {
 		val preference = findPreference(APP_VERSION_ITEM_KEY) as Preference?
 		val versionName = SpannableString(BuildConfig.VERSION_NAME)
 		versionName.setSpan( //
-				ForegroundColorSpan(ContextCompat.getColor(activity(), R.color.textColorLight)), //
-				0, versionName.length, 0)
+			ForegroundColorSpan(ContextCompat.getColor(activity(), R.color.textColorLight)), //
+			0, versionName.length, 0
+		)
 		preference?.summary = versionName
 	}
 
@@ -135,7 +137,7 @@ class SettingsFragment : PreferenceFragmentCompat() {
 			val unitValue = (1 shl unitIndex * 10).toDouble()
 
 			(DecimalFormat("#,##0.#")
-					.format(size / unitValue) + " "
+				.format(size / unitValue) + " "
 					+ units[unitIndex])
 		} else {
 			"0 B"
@@ -144,8 +146,9 @@ class SettingsFragment : PreferenceFragmentCompat() {
 		val lruCacheSize = SpannableString(readableSize)
 
 		lruCacheSize.setSpan( //
-				ForegroundColorSpan(ContextCompat.getColor(activity(), R.color.textColorLight)), //
-				0, lruCacheSize.length, 0)
+			ForegroundColorSpan(ContextCompat.getColor(activity(), R.color.textColorLight)), //
+			0, lruCacheSize.length, 0
+		)
 		preference?.summary = lruCacheSize
 	}
 
@@ -187,8 +190,9 @@ class SettingsFragment : PreferenceFragmentCompat() {
 		val date = SpannableString(readableDate)
 
 		date.setSpan( //
-				ForegroundColorSpan(ContextCompat.getColor(activity(), R.color.textColorLight)), //
-				0, date.length, 0)
+			ForegroundColorSpan(ContextCompat.getColor(activity(), R.color.textColorLight)), //
+			0, date.length, 0
+		)
 		preference?.summary = date
 	}
 

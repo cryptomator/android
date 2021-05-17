@@ -180,10 +180,10 @@ class ImagePreviewActivity : BaseActivity(), ImagePreviewView, ConfirmDeleteClou
 
 	private fun fragmentFor(imagePreviewFile: ImagePreviewFile): Optional<ImagePreviewFragment> {
 		return supportFragmentManager.fragments
-				.map { it as ImagePreviewFragment }
-				.firstOrNull { it.imagePreviewFile() == imagePreviewFile }
-				?.let { Optional.of(it) }
-				?: Optional.empty()
+			.map { it as ImagePreviewFragment }
+			.firstOrNull { it.imagePreviewFile() == imagePreviewFile }
+			?.let { Optional.of(it) }
+			?: Optional.empty()
 	}
 
 	override fun hideProgressBar(imagePreviewFile: ImagePreviewFile) {

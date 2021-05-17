@@ -45,10 +45,12 @@ import kotlinx.android.synthetic.main.view_cloud_folder_content.view.cloudFolder
 import kotlinx.android.synthetic.main.view_cloud_folder_content.view.cloudFolderText
 
 class BrowseFilesAdapter @Inject
-constructor(private val dateHelper: DateHelper, //
-			private val fileSizeHelper: FileSizeHelper, //
-			private val fileUtil: FileUtil, //
-			private val sharedPreferencesHandler: SharedPreferencesHandler) : RecyclerViewBaseAdapter<CloudNodeModel<*>, BrowseFilesAdapter.ItemClickListener, VaultContentViewHolder>(CloudNodeModelNameAZComparator()), FastScrollRecyclerView.SectionedAdapter {
+constructor(
+	private val dateHelper: DateHelper, //
+	private val fileSizeHelper: FileSizeHelper, //
+	private val fileUtil: FileUtil, //
+	private val sharedPreferencesHandler: SharedPreferencesHandler
+) : RecyclerViewBaseAdapter<CloudNodeModel<*>, BrowseFilesAdapter.ItemClickListener, VaultContentViewHolder>(CloudNodeModelNameAZComparator()), FastScrollRecyclerView.SectionedAdapter {
 
 	private var chooseCloudNodeSettings: ChooseCloudNodeSettings? = null
 	private var navigationMode: ChooseCloudNodeSettings.NavigationMode? = null

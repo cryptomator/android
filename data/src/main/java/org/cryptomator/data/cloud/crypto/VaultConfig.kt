@@ -28,13 +28,13 @@ class VaultConfig private constructor(builder: VaultConfigBuilder) {
 
 	fun toToken(rawKey: ByteArray): String {
 		return Jwts.builder()
-				.setHeaderParam(JSON_KEY_ID, keyId.toASCIIString()) //
-				.setId(id) //
-				.claim(JSON_KEY_VAULTFORMAT, vaultFormat) //
-				.claim(JSON_KEY_CIPHERCONFIG, cipherCombo.name) //
-				.claim(JSON_KEY_SHORTENING_THRESHOLD, shorteningThreshold) //
-				.signWith(Keys.hmacShaKeyFor(rawKey)) //
-				.compact()
+			.setHeaderParam(JSON_KEY_ID, keyId.toASCIIString()) //
+			.setId(id) //
+			.claim(JSON_KEY_VAULTFORMAT, vaultFormat) //
+			.claim(JSON_KEY_CIPHERCONFIG, cipherCombo.name) //
+			.claim(JSON_KEY_SHORTENING_THRESHOLD, shorteningThreshold) //
+			.signWith(Keys.hmacShaKeyFor(rawKey)) //
+			.compact()
 	}
 
 	class VaultConfigBuilder {
@@ -101,18 +101,18 @@ class VaultConfig private constructor(builder: VaultConfigBuilder) {
 		fun verify(rawKey: ByteArray, unverifiedVaultConfig: UnverifiedVaultConfig): VaultConfig {
 			return try {
 				val parser = Jwts //
-						.parserBuilder() //
-						.setSigningKey(rawKey) //
-						.require(JSON_KEY_VAULTFORMAT, unverifiedVaultConfig.vaultFormat) //
-						.build() //
-						.parseClaimsJws(unverifiedVaultConfig.jwt)
+					.parserBuilder() //
+					.setSigningKey(rawKey) //
+					.require(JSON_KEY_VAULTFORMAT, unverifiedVaultConfig.vaultFormat) //
+					.build() //
+					.parseClaimsJws(unverifiedVaultConfig.jwt)
 
 				val vaultConfigBuilder = createVaultConfig() //
-						.keyId(unverifiedVaultConfig.keyId)
-						.id(parser.header[JSON_KEY_ID] as String) //
-						.cipherCombo(VaultCipherCombo.valueOf(parser.body.get(JSON_KEY_CIPHERCONFIG, String::class.java))) //
-						.vaultFormat(unverifiedVaultConfig.vaultFormat) //
-						.shorteningThreshold(parser.body[JSON_KEY_SHORTENING_THRESHOLD] as Int)
+					.keyId(unverifiedVaultConfig.keyId)
+					.id(parser.header[JSON_KEY_ID] as String) //
+					.cipherCombo(VaultCipherCombo.valueOf(parser.body.get(JSON_KEY_CIPHERCONFIG, String::class.java))) //
+					.vaultFormat(unverifiedVaultConfig.vaultFormat) //
+					.shorteningThreshold(parser.body[JSON_KEY_SHORTENING_THRESHOLD] as Int)
 
 				VaultConfig(vaultConfigBuilder)
 			} catch (e: Exception) {

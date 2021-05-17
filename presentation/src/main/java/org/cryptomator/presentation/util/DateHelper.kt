@@ -22,9 +22,9 @@ class DateHelper @Inject constructor() {
 
 	private fun convert(time: Long): String {
 		return DurationHandler.values()
-				.firstOrNull { it.isApplicable(time) }
-				?.convert(time)
-				?: DurationHandler.SECONDS.convert(time)
+			.firstOrNull { it.isApplicable(time) }
+			?.convert(time)
+			?: DurationHandler.SECONDS.convert(time)
 	}
 
 	private enum class DurationHandler(private val period: TimePeriod, private val singularName: Int, private val pluralName: Int) {

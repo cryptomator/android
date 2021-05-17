@@ -11,8 +11,9 @@ import javax.inject.Inject
 
 @PerView
 class CreateVaultPresenter @Inject constructor( //
-		private val createNewVaultWorkflow: CreateNewVaultWorkflow, //
-		exceptionMappings: ExceptionHandlers) : Presenter<CreateVaultView>(exceptionMappings) {
+	private val createNewVaultWorkflow: CreateNewVaultWorkflow, //
+	exceptionMappings: ExceptionHandlers
+) : Presenter<CreateVaultView>(exceptionMappings) {
 
 	override fun workflows(): Iterable<Workflow<*>> {
 		return setOf(createNewVaultWorkflow)

@@ -60,7 +60,7 @@ constructor(context: Context) : SharedPreferences.OnSharedPreferenceChangeListen
 
 	fun setDebugMode(enabled: Boolean) {
 		defaultSharedPreferences //
-				.setValue(DEBUG_MODE, enabled)
+			.setValue(DEBUG_MODE, enabled)
 	}
 
 	fun disableAppWhenObscured(): Boolean {
@@ -69,7 +69,7 @@ constructor(context: Context) : SharedPreferences.OnSharedPreferenceChangeListen
 
 	fun setDisableAppWhenObscured(enabled: Boolean) {
 		defaultSharedPreferences //
-				.setValue(DISABLE_APP_WHEN_OBSCURED, enabled)
+			.setValue(DISABLE_APP_WHEN_OBSCURED, enabled)
 	}
 
 	fun secureScreen(): Boolean {
@@ -78,7 +78,7 @@ constructor(context: Context) : SharedPreferences.OnSharedPreferenceChangeListen
 
 	fun setSecureScreen(enabled: Boolean) {
 		defaultSharedPreferences //
-				.setValue(SECURE_SCREEN, enabled)
+			.setValue(SECURE_SCREEN, enabled)
 	}
 
 	fun lockOnScreenOff(): Boolean {
@@ -87,12 +87,12 @@ constructor(context: Context) : SharedPreferences.OnSharedPreferenceChangeListen
 
 	fun setScreenLockDialogAlreadyShown() {
 		defaultSharedPreferences //
-				.setValue(SCREEN_LOCK_DIALOG_SHOWN, true)
+			.setValue(SCREEN_LOCK_DIALOG_SHOWN, true)
 	}
 
 	fun setBetaScreenDialogAlreadyShown() {
 		defaultSharedPreferences //
-				.setValue(SCREEN_BETA_DIALOG_SHOWN, true)
+			.setValue(SCREEN_BETA_DIALOG_SHOWN, true)
 	}
 
 

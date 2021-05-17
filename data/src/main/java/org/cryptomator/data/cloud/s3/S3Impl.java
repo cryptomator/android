@@ -107,7 +107,7 @@ class S3Impl {
 	public boolean exists(S3Node node) throws BackendException {
 		String key = node.getKey();
 		try {
-			if(!(node instanceof RootS3Folder)) {
+			if (!(node instanceof RootS3Folder)) {
 				client().statObject(StatObjectArgs.builder().bucket(cloud.s3Bucket()).object(key).build());
 				return true;
 			} else {
@@ -256,7 +256,7 @@ class S3Impl {
 
 				Date lastModified = objectWriteResponse.headers().getDate("Last-Modified");
 
-				if(lastModified == null) {
+				if (lastModified == null) {
 					StatObjectResponse statObjectResponse = client().statObject(StatObjectArgs //
 							.builder() //
 							.bucket(cloud.s3Bucket()) //

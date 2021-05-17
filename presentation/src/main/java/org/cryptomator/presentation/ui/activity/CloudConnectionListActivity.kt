@@ -18,9 +18,9 @@ import kotlinx.android.synthetic.main.toolbar_layout.toolbar
 
 @Activity
 class CloudConnectionListActivity : BaseActivity(),
-		CloudConnectionListView,
-		CloudConnectionSettingsBottomSheet.Callback,
-		DeleteCloudConnectionWithVaultsDialog.Callback {
+	CloudConnectionListView,
+	CloudConnectionSettingsBottomSheet.Callback,
+	DeleteCloudConnectionWithVaultsDialog.Callback {
 
 	@Inject
 	lateinit var presenter: CloudConnectionListPresenter
@@ -55,7 +55,7 @@ class CloudConnectionListActivity : BaseActivity(),
 
 	override fun showNodeSettings(cloudModel: CloudModel) {
 		val cloudNodeSettingDialog = //
-				CloudConnectionSettingsBottomSheet.newInstance(cloudModel)
+			CloudConnectionSettingsBottomSheet.newInstance(cloudModel)
 		cloudNodeSettingDialog.show(supportFragmentManager, "CloudNodeSettings")
 	}
 

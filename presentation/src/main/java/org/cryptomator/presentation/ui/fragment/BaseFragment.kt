@@ -91,7 +91,7 @@ abstract class BaseFragment : Fragment() {
 	}
 
 	private fun fragmentLayout(): Int =
-			javaClass.getAnnotation(org.cryptomator.generator.Fragment::class.java)!!.value
+		javaClass.getAnnotation(org.cryptomator.generator.Fragment::class.java)!!.value
 
 	override fun onDestroyView() {
 		super.onDestroyView()

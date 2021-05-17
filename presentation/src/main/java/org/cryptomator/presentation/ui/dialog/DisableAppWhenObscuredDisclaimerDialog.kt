@@ -19,9 +19,9 @@ class DisableAppWhenObscuredDisclaimerDialog : BaseDialog<DisableAppWhenObscured
 
 	public override fun setupDialog(builder: AlertDialog.Builder): android.app.Dialog {
 		builder //
-				.setTitle(R.string.dialog_disable_app_obscured_disclaimer_title) //
-				.setPositiveButton(getString(R.string.dialog_disable_app_obscured_positive_button)) { _: DialogInterface, _: Int -> callback?.onDisableAppObscuredDisclaimerAccepted() } //
-				.setNegativeButton(getString(R.string.dialog_disable_app_obscured_negative_button)) { _: DialogInterface, _: Int -> callback?.onDisableAppObscuredDisclaimerRejected() }
+			.setTitle(R.string.dialog_disable_app_obscured_disclaimer_title) //
+			.setPositiveButton(getString(R.string.dialog_disable_app_obscured_positive_button)) { _: DialogInterface, _: Int -> callback?.onDisableAppObscuredDisclaimerAccepted() } //
+			.setNegativeButton(getString(R.string.dialog_disable_app_obscured_negative_button)) { _: DialogInterface, _: Int -> callback?.onDisableAppObscuredDisclaimerRejected() }
 		return builder.create()
 	}
 

@@ -26,8 +26,7 @@ public class UpdateCheckEntity extends DatabaseEntity {
 	}
 
 	@Generated(hash = 67239496)
-	public UpdateCheckEntity(Long id, String licenseToken, String releaseNote, String version, String urlToApk, String apkSha256,
-			String urlToReleaseNote) {
+	public UpdateCheckEntity(Long id, String licenseToken, String releaseNote, String version, String urlToApk, String apkSha256, String urlToReleaseNote) {
 		this.id = id;
 		this.licenseToken = licenseToken;
 		this.releaseNote = releaseNote;

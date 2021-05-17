@@ -11,24 +11,25 @@ import javax.inject.Inject
 import timber.log.Timber
 
 class LicenseCheckPresenter @Inject internal constructor(
-		exceptionHandlers: ExceptionHandlers,  //
-		private val doLicenseCheckUsecase: DoLicenseCheckUseCase,  //
-		private val sharedPreferencesHandler: SharedPreferencesHandler) : Presenter<UpdateLicenseView>(exceptionHandlers) {
+	exceptionHandlers: ExceptionHandlers,  //
+	private val doLicenseCheckUsecase: DoLicenseCheckUseCase,  //
+	private val sharedPreferencesHandler: SharedPreferencesHandler
+) : Presenter<UpdateLicenseView>(exceptionHandlers) {
 
 	fun validate(data: Uri?) {
 		data?.let {
 			val license = it.fragment ?: it.lastPathSegment ?: ""
 			view?.showOrUpdateLicenseDialog(license)
 			doLicenseCheckUsecase
-					.withLicense(license)
-					.run(CheckLicenseStatusSubscriber())
+				.withLicense(license)
+				.run(CheckLicenseStatusSubscriber())
 		}
 	}
 
 	fun validateDialogAware(license: String?) {
 		doLicenseCheckUsecase
-				.withLicense(license)
-				.run(CheckLicenseStatusSubscriber())
+			.withLicense(license)
+			.run(CheckLicenseStatusSubscriber())
 	}
 
 	private inner class CheckLicenseStatusSubscriber : NoOpResultHandler<LicenseCheck>() {

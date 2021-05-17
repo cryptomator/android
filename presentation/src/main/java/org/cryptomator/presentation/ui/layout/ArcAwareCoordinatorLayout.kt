@@ -49,17 +49,17 @@ class ArcAwareCoordinatorLayout : CoordinatorLayout {
 		when (val layoutDirection = resources.configuration.layoutDirection) {
 			View.LAYOUT_DIRECTION_LTR -> {
 				arcFrom(centerXOfHint + dpToPixels(10f), bottomOfHint + dpToPixels(5f), layoutDirection) //
-						.to(floatingActionButton.left.toFloat() - dpToPixels(3f), topOfFloatingActionButton + dpToPixels(5f)) //
-						.spanningAnAngleOf(60.0f) //
-						.build() //
-						.draw(canvas, strokeLineWithWidthOf1f())
+					.to(floatingActionButton.left.toFloat() - dpToPixels(3f), topOfFloatingActionButton + dpToPixels(5f)) //
+					.spanningAnAngleOf(60.0f) //
+					.build() //
+					.draw(canvas, strokeLineWithWidthOf1f())
 			}
 			View.LAYOUT_DIRECTION_RTL -> {
 				arcFrom(floatingActionButton.right.toFloat() - dpToPixels(3f), bottomOfHint + dpToPixels(5f), layoutDirection) //
-						.to(centerXOfHint + dpToPixels(10f), topOfFloatingActionButton + dpToPixels(5f)) //
-						.spanningAnAngleOf(60.0f) //
-						.build() //
-						.draw(canvas, strokeLineWithWidthOf1f())
+					.to(centerXOfHint + dpToPixels(10f), topOfFloatingActionButton + dpToPixels(5f)) //
+					.spanningAnAngleOf(60.0f) //
+					.build() //
+					.draw(canvas, strokeLineWithWidthOf1f())
 			}
 			else -> {
 				Timber.tag("ArcAwareCoordinatorLayo").e("Layout direction not supported, skip drawing arc")

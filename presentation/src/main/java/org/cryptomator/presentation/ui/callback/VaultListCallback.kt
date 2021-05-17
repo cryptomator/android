@@ -7,6 +7,6 @@ import org.cryptomator.presentation.ui.dialog.VaultRenameDialog
 
 // FIXME delete this file and add this interfaces to VaultListView.kt
 interface VaultListCallback : AddVaultBottomSheet.Callback, //
-		SettingsVaultBottomSheet.Callback, //
-		VaultDeleteConfirmationDialog.Callback, //
-		VaultRenameDialog.Callback
+	SettingsVaultBottomSheet.Callback, //
+	VaultDeleteConfirmationDialog.Callback, //
+	VaultRenameDialog.Callback

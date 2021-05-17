@@ -20,7 +20,8 @@ class ChangePassword {
 	private final Vault vault;
 	private final Optional<UnverifiedVaultConfig> unverifiedVaultConfig;
 	private final String oldPassword;
-	private final String newPassword;;
+	private final String newPassword;
+	;
 
 	public ChangePassword(CloudRepository cloudRepository, //
 			@Parameter Vault vault, //

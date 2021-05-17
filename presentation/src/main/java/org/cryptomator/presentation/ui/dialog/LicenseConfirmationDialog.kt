@@ -17,8 +17,8 @@ class LicenseConfirmationDialog : BaseDialog<LicenseConfirmationDialog.Callback>
 
 	public override fun setupDialog(builder: AlertDialog.Builder): android.app.Dialog {
 		builder //
-				.setTitle(getString(R.string.dialog_license_confirmation_title)) //
-				.setNeutralButton(getText(R.string.dialog_license_confirmation_ok_btn)) { _: DialogInterface, _: Int -> callback?.licenseConfirmationClicked() }
+			.setTitle(getString(R.string.dialog_license_confirmation_title)) //
+			.setNeutralButton(getText(R.string.dialog_license_confirmation_ok_btn)) { _: DialogInterface, _: Int -> callback?.licenseConfirmationClicked() }
 		return builder.create()
 	}
 

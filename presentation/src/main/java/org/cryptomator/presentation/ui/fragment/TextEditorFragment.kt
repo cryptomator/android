@@ -87,10 +87,11 @@ class TextEditorFragment : BaseFragment() {
 			}
 
 			textEditor.text?.setSpan(
-					BackgroundColorSpan(ContextCompat.getColor(context(), R.color.colorPrimaryTransparent)),
-					index,
-					index + it.length,
-					Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)
+				BackgroundColorSpan(ContextCompat.getColor(context(), R.color.colorPrimaryTransparent)),
+				index,
+				index + it.length,
+				Spannable.SPAN_EXCLUSIVE_EXCLUSIVE
+			)
 
 			textEditorPresenter.lastFilterLocation = index
 
@@ -100,10 +101,10 @@ class TextEditorFragment : BaseFragment() {
 
 	private fun clearSpans(@NonNull editable: TextInputEditText) {
 		editable.text
-				?.getSpans(0, editable.length(), BackgroundColorSpan::class.java)
-				?.forEach { span ->
-					editable.text?.removeSpan(span)
-				}
+			?.getSpans(0, editable.length(), BackgroundColorSpan::class.java)
+			?.forEach { span ->
+				editable.text?.removeSpan(span)
+			}
 	}
 
 	enum class Direction { PREVIOUS, NEXT }

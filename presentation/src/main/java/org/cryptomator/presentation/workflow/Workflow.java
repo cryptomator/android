@@ -40,6 +40,7 @@ public abstract class Workflow<State extends Serializable> {
 		this.presenter = presenter;
 		setStateFrom(intent);
 	}
+
 	private boolean setStateFrom(Intent intent) {
 		Serializable stateExtra = intent.getSerializableExtra(WORKFLOW_STATE_EXTRA);
 		Serializable callbackExtra = intent.getSerializableExtra(WORKFLOW_CALLBACK_EXTRA);

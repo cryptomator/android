@@ -17,12 +17,12 @@ class UnsavedChangesDialog private constructor(private val context: Context) {
 
 	fun show() {
 		AlertDialog.Builder(context) //
-				.setCancelable(false) //
-				.setTitle(R.string.dialog_unsaved_changes_title) //
-				.setMessage(R.string.dialog_unsaved_changes_message) //
-				.setPositiveButton(R.string.dialog_unsaved_changes_save) { _: DialogInterface?, _: Int -> callback.onSaveChangesClicked() } //
-				.setNegativeButton(R.string.dialog_unsaved_changes_discard) { _: DialogInterface?, _: Int -> callback.onDiscardChangesClicked() } //
-				.create().show()
+			.setCancelable(false) //
+			.setTitle(R.string.dialog_unsaved_changes_title) //
+			.setMessage(R.string.dialog_unsaved_changes_message) //
+			.setPositiveButton(R.string.dialog_unsaved_changes_save) { _: DialogInterface?, _: Int -> callback.onSaveChangesClicked() } //
+			.setNegativeButton(R.string.dialog_unsaved_changes_discard) { _: DialogInterface?, _: Int -> callback.onDiscardChangesClicked() } //
+			.create().show()
 	}
 
 	companion object {

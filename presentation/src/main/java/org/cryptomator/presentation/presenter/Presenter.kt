@@ -76,23 +76,23 @@ abstract class Presenter<V : View> protected constructor(private val exceptionMa
 
 	fun finishWithResult(resultName: String, result: Serializable?) {
 		activeWorkflow()?.dispatch(result)
-				?: run {
-					val data = Intent()
-					when (result) {
-						null -> {
-							activity().setResult(Activity.RESULT_CANCELED)
-						}
-						is Throwable -> {
-							data.putExtra(resultName, result)
-							activity().setResult(Activity.RESULT_CANCELED, data)
-						}
-						else -> {
-							data.putExtra(resultName, result)
-							activity().setResult(Activity.RESULT_OK, data)
-						}
+			?: run {
+				val data = Intent()
+				when (result) {
+					null -> {
+						activity().setResult(Activity.RESULT_CANCELED)
 					}
-					finish()
+					is Throwable -> {
+						data.putExtra(resultName, result)
+						activity().setResult(Activity.RESULT_CANCELED, data)
+					}
+					else -> {
+						data.putExtra(resultName, result)
+						activity().setResult(Activity.RESULT_OK, data)
+					}
 				}
+				finish()
+			}
 	}
 
 	private fun activeWorkflow(): Workflow<*>? {

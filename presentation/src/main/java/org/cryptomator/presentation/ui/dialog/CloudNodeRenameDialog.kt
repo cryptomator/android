@@ -50,10 +50,10 @@ class CloudNodeRenameDialog : BaseProgressErrorDialog<CloudNodeRenameDialog.Call
 	public override fun setupDialog(builder: AlertDialog.Builder): android.app.Dialog {
 		val cloudNodeModel = requireArguments().getSerializable(CLOUD_NODE_ARG) as CloudNodeModel<*>
 		return builder
-				.setTitle(getTitle(cloudNodeModel))
-				.setPositiveButton(requireActivity().getString(R.string.dialog_rename_node_positive_button)) { _: DialogInterface, _: Int -> }
-				.setNegativeButton(requireActivity().getString(R.string.dialog_button_cancel)) { _: DialogInterface, _: Int -> }
-				.create()
+			.setTitle(getTitle(cloudNodeModel))
+			.setPositiveButton(requireActivity().getString(R.string.dialog_rename_node_positive_button)) { _: DialogInterface, _: Int -> }
+			.setNegativeButton(requireActivity().getString(R.string.dialog_button_cancel)) { _: DialogInterface, _: Int -> }
+			.create()
 	}
 
 	private fun getTitle(cloudNodeModel: CloudNodeModel<*>): String {

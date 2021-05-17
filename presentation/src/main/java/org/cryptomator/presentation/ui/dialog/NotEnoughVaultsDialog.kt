@@ -24,13 +24,13 @@ class NotEnoughVaultsDialog private constructor(private val context: Context) {
 
 	fun show() {
 		AlertDialog.Builder(context) //
-				.setCancelable(false) //
-				.setTitle(title) //
-				.setMessage(ResourceHelper.getString(R.string.dialog_unable_to_share_message)) //
-				.setPositiveButton(ResourceHelper.getString(R.string.dialog_unable_to_share_positive_button)) { _: DialogInterface, _: Int -> callback.onNotEnoughVaultsOkClicked() } //
-				.setNegativeButton(ResourceHelper.getString(R.string.dialog_unable_to_share_negative_button)) { _: DialogInterface, _: Int -> callback.onNotEnoughVaultsCreateVaultClicked() } //
-				.create() //
-				.show()
+			.setCancelable(false) //
+			.setTitle(title) //
+			.setMessage(ResourceHelper.getString(R.string.dialog_unable_to_share_message)) //
+			.setPositiveButton(ResourceHelper.getString(R.string.dialog_unable_to_share_positive_button)) { _: DialogInterface, _: Int -> callback.onNotEnoughVaultsOkClicked() } //
+			.setNegativeButton(ResourceHelper.getString(R.string.dialog_unable_to_share_negative_button)) { _: DialogInterface, _: Int -> callback.onNotEnoughVaultsCreateVaultClicked() } //
+			.create() //
+			.show()
 	}
 
 	companion object {

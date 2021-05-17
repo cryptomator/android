@@ -34,9 +34,9 @@ enum class PasswordStrength(val score: Int, val description: Int, val color: Int
 
 		private fun forScore(score: Int): Optional<PasswordStrength> {
 			return values()
-					.firstOrNull { score == it.score }
-					?.let { Optional.of(it) }
-					?: Optional.empty()
+				.firstOrNull { score == it.score }
+				?.let { Optional.of(it) }
+				?: Optional.empty()
 		}
 	}
 }

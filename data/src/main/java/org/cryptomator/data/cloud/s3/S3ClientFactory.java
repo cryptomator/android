@@ -33,6 +33,30 @@ class S3ClientFactory {
 		return new HttpLoggingInterceptor(message -> Timber.tag("OkHttp").d(message), context);
 	}
 
+	private static Interceptor provideOfflineCacheInterceptor(final Context context) {
+		return chain -> {
+			Request request = chain.request();
+
+			if (isNetworkAvailable(context)) {
+				final CacheControl cacheControl = new CacheControl.Builder() //
+						.maxAge(0, TimeUnit.DAYS) //
+						.build();
+
+				request = request.newBuilder() //
+						.cacheControl(cacheControl) //
+						.build();
+			}
+
+			return chain.proceed(request);
+		};
+	}
+
+	private static boolean isNetworkAvailable(final Context context) {
+		ConnectivityManager connectivityManager = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
+		NetworkInfo activeNetworkInfo = connectivityManager.getActiveNetworkInfo();
+		return activeNetworkInfo != null && activeNetworkInfo.isConnected();
+	}
+
 	public MinioClient getClient(S3Cloud cloud, Context context) {
 		if (apiClient == null) {
 			apiClient = createApiClient(cloud, context);
@@ -64,30 +88,6 @@ class S3ClientFactory {
 				.credentials(decrypt(cloud.accessKey(), context), decrypt(cloud.secretKey(), context)) //
 				.httpClient(httpClientBuilder.build()) //
 				.build();
-	}
-
-	private static Interceptor provideOfflineCacheInterceptor(final Context context) {
-		return chain -> {
-			Request request = chain.request();
-
-			if (isNetworkAvailable(context)) {
-				final CacheControl cacheControl = new CacheControl.Builder() //
-						.maxAge(0, TimeUnit.DAYS) //
-						.build();
-
-				request = request.newBuilder() //
-						.cacheControl(cacheControl) //
-						.build();
-			}
-
-			return chain.proceed(request);
-		};
-	}
-
-	private static boolean isNetworkAvailable(final Context context) {
-		ConnectivityManager connectivityManager = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
-		NetworkInfo activeNetworkInfo = connectivityManager.getActiveNetworkInfo();
-		return activeNetworkInfo != null && activeNetworkInfo.isConnected();
 	}
 
 	private String decrypt(String password, Context context) {

@@ -44,9 +44,9 @@ class CreateFolderDialog : BaseProgressErrorDialog<CreateFolderDialog.Callback>(
 
 	override fun setupDialog(builder: AlertDialog.Builder): android.app.Dialog {
 		return builder.setTitle(requireContext().getString(R.string.dialog_create_folder_title))
-				.setPositiveButton(requireContext().getString(R.string.dialog_create_folder_positive_button)) { _: DialogInterface, _: Int -> }
-				.setNegativeButton(requireContext().getString(R.string.dialog_button_cancel)) { _: DialogInterface, _: Int -> }
-				.create()
+			.setPositiveButton(requireContext().getString(R.string.dialog_create_folder_positive_button)) { _: DialogInterface, _: Int -> }
+			.setNegativeButton(requireContext().getString(R.string.dialog_button_cancel)) { _: DialogInterface, _: Int -> }
+			.create()
 	}
 
 	override fun setupView() {

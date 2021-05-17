@@ -38,8 +38,8 @@ class LruFileCacheUtil(context: Context) {
 
 	fun totalSize(): Long {
 		return Cache.values()
-				.map { size(resolve(it)) }
-				.sum()
+			.map { size(resolve(it)) }
+			.sum()
 	}
 
 	private fun size(cacheFolder: File): Long {
@@ -47,11 +47,11 @@ class LruFileCacheUtil(context: Context) {
 		if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
 			try {
 				sum = Files //
-						.walk(cacheFolder.toPath()) //
-						.map { path: Path -> path.toFile() } //
-						.filter { node: File -> node.isFile } //
-						.mapToLong { file: File -> file.length() } //
-						.sum()
+					.walk(cacheFolder.toPath()) //
+					.map { path: Path -> path.toFile() } //
+					.filter { node: File -> node.isFile } //
+					.mapToLong { file: File -> file.length() } //
+					.sum()
 			} catch (e: IOException) {
 				if (e !is NoSuchFileException) {
 					Timber.tag("LruFileCacheUtil").e(e, "Failed to delete preview image")
@@ -68,9 +68,9 @@ class LruFileCacheUtil(context: Context) {
 			if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
 				try {
 					Files.walk(resolve(cache).toPath()) //
-							.map { obj: Path -> obj.toFile() } //
-							.sorted(Comparator.reverseOrder()) //
-							.forEach { obj: File -> obj.delete() }
+						.map { obj: Path -> obj.toFile() } //
+						.sorted(Comparator.reverseOrder()) //
+						.forEach { obj: File -> obj.delete() }
 				} catch (e: IOException) {
 					if (e !is NoSuchFileException) {
 						Timber.tag("LruFileCacheUtil").e(e, "Failed to delete preview image")

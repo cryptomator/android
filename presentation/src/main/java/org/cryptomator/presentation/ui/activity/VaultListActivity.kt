@@ -35,12 +35,12 @@ import kotlinx.android.synthetic.main.toolbar_layout.toolbar
 
 @Activity(layout = R.layout.activity_layout_obscure_aware)
 class VaultListActivity : BaseActivity(), //
-		VaultListView, //
-		VaultListCallback, //
-		AskForLockScreenDialog.Callback, //
-		UpdateAppAvailableDialog.Callback, //
-		UpdateAppDialog.Callback, //
-		BetaConfirmationDialog.Callback {
+	VaultListView, //
+	VaultListCallback, //
+	AskForLockScreenDialog.Callback, //
+	UpdateAppAvailableDialog.Callback, //
+	UpdateAppDialog.Callback, //
+	BetaConfirmationDialog.Callback {
 
 	@Inject
 	lateinit var vaultListPresenter: VaultListPresenter
@@ -122,7 +122,7 @@ class VaultListActivity : BaseActivity(), //
 
 	override fun showVaultSettingsDialog(vaultModel: VaultModel) {
 		val vaultSettingDialog = //
-				SettingsVaultBottomSheet.newInstance(vaultModel)
+			SettingsVaultBottomSheet.newInstance(vaultModel)
 		vaultSettingDialog.show(supportFragmentManager, "VaultSettings")
 	}
 
@@ -164,7 +164,7 @@ class VaultListActivity : BaseActivity(), //
 
 	override fun onDeleteVaultClick(vaultModel: VaultModel) {
 		VaultDeleteConfirmationDialog.newInstance(vaultModel) //
-				.show(supportFragmentManager, "VaultDeleteConfirmationDialog")
+			.show(supportFragmentManager, "VaultDeleteConfirmationDialog")
 	}
 
 	override fun onRenameVaultClick(vaultModel: VaultModel) {
@@ -192,7 +192,7 @@ class VaultListActivity : BaseActivity(), //
 	}
 
 	private fun vaultListFragment(): VaultListFragment = //
-			getCurrentFragment(R.id.fragmentContainer) as VaultListFragment
+		getCurrentFragment(R.id.fragmentContainer) as VaultListFragment
 
 	override fun onUpdateAppDialogLoaded() {
 		showProgress(ProgressModel.GENERIC)

@@ -14,8 +14,8 @@ import kotlinx.android.synthetic.main.toolbar_layout.toolbar
 
 @Activity
 class BiometricAuthSettingsActivity : BaseActivity(), //
-		BiometricAuthSettingsView, //
-		EnrollSystemBiometricDialog.Callback {
+	BiometricAuthSettingsView, //
+	EnrollSystemBiometricDialog.Callback {
 
 	@Inject
 	lateinit var presenter: BiometricAuthSettingsPresenter
@@ -29,8 +29,8 @@ class BiometricAuthSettingsActivity : BaseActivity(), //
 
 	override fun showSetupBiometricAuthDialog() {
 		val biometricAuthenticationAvailable = BiometricManager //
-				.from(context()) //
-				.canAuthenticate(BiometricManager.Authenticators.BIOMETRIC_STRONG)
+			.from(context()) //
+			.canAuthenticate(BiometricManager.Authenticators.BIOMETRIC_STRONG)
 		if (biometricAuthenticationAvailable == BiometricManager.BIOMETRIC_ERROR_NONE_ENROLLED) {
 			showDialog(EnrollSystemBiometricDialog.newInstance())
 		}

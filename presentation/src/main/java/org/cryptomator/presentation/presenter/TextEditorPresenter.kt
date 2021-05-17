@@ -21,11 +21,12 @@ import javax.inject.Inject
 
 @PerView
 class TextEditorPresenter @Inject constructor( //
-		private val fileCacheUtils: FileCacheUtils,  //
-		private val fileUtil: FileUtil,  //
-		private val contentResolverUtil: ContentResolverUtil,  //
-		private val uploadFilesUseCase: UploadFilesUseCase,  //
-		exceptionMappings: ExceptionHandlers) : Presenter<TextEditorView>(exceptionMappings) {
+	private val fileCacheUtils: FileCacheUtils,  //
+	private val fileUtil: FileUtil,  //
+	private val contentResolverUtil: ContentResolverUtil,  //
+	private val uploadFilesUseCase: UploadFilesUseCase,  //
+	exceptionMappings: ExceptionHandlers
+) : Presenter<TextEditorView>(exceptionMappings) {
 
 	private val textFile = AtomicReference<CloudFileModel>()
 
@@ -64,34 +65,36 @@ class TextEditorPresenter @Inject constructor( //
 		view?.let {
 			it.showProgress(ProgressModel.GENERIC)
 			val uri = fileCacheUtils.tmpFile() //
-					.withContent(it.textFileContent) //
-					.create()
+				.withContent(it.textFileContent) //
+				.create()
 			uploadFile(textFile.get().name, UriBasedDataSource.from(uri))
 		}
 	}
 
 	private fun uploadFile(fileName: String, dataSource: DataSource) {
 		uploadFilesUseCase //
-				.withParent(textFile.get().parent.toCloudNode()) //
-				.andFiles(listOf( //
-						UploadFile.anUploadFile() //
-								.withFileName(fileName) //
-								.withDataSource(dataSource) //
-								.thatIsReplacing(true) //
-								.build() //
-				)) //
-				.run(object : DefaultProgressAwareResultHandler<List<CloudFile?>, UploadState>() {
-					override fun onFinished() {
-						view?.showProgress(ProgressModel.COMPLETED)
-						view?.finish()
-						view?.showMessage(R.string.screen_text_editor_save_success)
-					}
+			.withParent(textFile.get().parent.toCloudNode()) //
+			.andFiles(
+				listOf( //
+					UploadFile.anUploadFile() //
+						.withFileName(fileName) //
+						.withDataSource(dataSource) //
+						.thatIsReplacing(true) //
+						.build() //
+				)
+			) //
+			.run(object : DefaultProgressAwareResultHandler<List<CloudFile?>, UploadState>() {
+				override fun onFinished() {
+					view?.showProgress(ProgressModel.COMPLETED)
+					view?.finish()
+					view?.showMessage(R.string.screen_text_editor_save_success)
+				}
 
-					override fun onError(e: Throwable) {
-						view?.showProgress(ProgressModel.COMPLETED)
-						showError(e)
-					}
-				})
+				override fun onError(e: Throwable) {
+					view?.showProgress(ProgressModel.COMPLETED)
+					showError(e)
+				}
+			})
 	}
 
 	fun loadFileContent() {

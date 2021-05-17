@@ -61,25 +61,26 @@ import timber.log.Timber
 
 @PerView
 class VaultListPresenter @Inject constructor( //
-		private val getVaultListUseCase: GetVaultListUseCase,  //
-		private val deleteVaultUseCase: DeleteVaultUseCase,  //
-		private val renameVaultUseCase: RenameVaultUseCase,  //
-		private val lockVaultUseCase: LockVaultUseCase,  //
-		private val getDecryptedCloudForVaultUseCase: GetDecryptedCloudForVaultUseCase,  //
-		private val getRootFolderUseCase: GetRootFolderUseCase,  //
-		private val addExistingVaultWorkflow: AddExistingVaultWorkflow,  //
-		private val createNewVaultWorkflow: CreateNewVaultWorkflow,  //
-		private val saveVaultUseCase: SaveVaultUseCase,  //
-		private val moveVaultPositionUseCase: MoveVaultPositionUseCase, //
-		private val licenseCheckUseCase: DoLicenseCheckUseCase,  //
-		private val updateCheckUseCase: DoUpdateCheckUseCase,  //
-		private val updateUseCase: DoUpdateUseCase,  //
-		private val networkConnectionCheck: NetworkConnectionCheck,  //
-		private val fileUtil: FileUtil,  //
-		private val authenticationExceptionHandler: AuthenticationExceptionHandler,  //
-		private val cloudFolderModelMapper: CloudFolderModelMapper,  //
-		private val sharedPreferencesHandler: SharedPreferencesHandler,  //
-		exceptionMappings: ExceptionHandlers) : Presenter<VaultListView>(exceptionMappings) {
+	private val getVaultListUseCase: GetVaultListUseCase,  //
+	private val deleteVaultUseCase: DeleteVaultUseCase,  //
+	private val renameVaultUseCase: RenameVaultUseCase,  //
+	private val lockVaultUseCase: LockVaultUseCase,  //
+	private val getDecryptedCloudForVaultUseCase: GetDecryptedCloudForVaultUseCase,  //
+	private val getRootFolderUseCase: GetRootFolderUseCase,  //
+	private val addExistingVaultWorkflow: AddExistingVaultWorkflow,  //
+	private val createNewVaultWorkflow: CreateNewVaultWorkflow,  //
+	private val saveVaultUseCase: SaveVaultUseCase,  //
+	private val moveVaultPositionUseCase: MoveVaultPositionUseCase, //
+	private val licenseCheckUseCase: DoLicenseCheckUseCase,  //
+	private val updateCheckUseCase: DoUpdateCheckUseCase,  //
+	private val updateUseCase: DoUpdateUseCase,  //
+	private val networkConnectionCheck: NetworkConnectionCheck,  //
+	private val fileUtil: FileUtil,  //
+	private val authenticationExceptionHandler: AuthenticationExceptionHandler,  //
+	private val cloudFolderModelMapper: CloudFolderModelMapper,  //
+	private val sharedPreferencesHandler: SharedPreferencesHandler,  //
+	exceptionMappings: ExceptionHandlers
+) : Presenter<VaultListView>(exceptionMappings) {
 
 	private var vaultAction: VaultAction? = null
 
@@ -107,56 +108,56 @@ class VaultListPresenter @Inject constructor( //
 	private fun checkLicense() {
 		if (BuildConfig.FLAVOR == "apkstore" || BuildConfig.FLAVOR == "fdroid") {
 			licenseCheckUseCase //
-					.withLicense("") //
-					.run(object : NoOpResultHandler<LicenseCheck>() {
-						override fun onSuccess(licenseCheck: LicenseCheck) {
-							if (BuildConfig.FLAVOR == "apkstore" && sharedPreferencesHandler.doUpdate()) {
-								checkForAppUpdates()
-							}
+				.withLicense("") //
+				.run(object : NoOpResultHandler<LicenseCheck>() {
+					override fun onSuccess(licenseCheck: LicenseCheck) {
+						if (BuildConfig.FLAVOR == "apkstore" && sharedPreferencesHandler.doUpdate()) {
+							checkForAppUpdates()
 						}
+					}
 
-						override fun onError(e: Throwable) {
-							var license: String? = ""
-							if (e is LicenseNotValidException) {
-								license = e.license
-							}
-							val intent = Intent(context(), LicenseCheckActivity::class.java)
-							intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
-							intent.data = Uri.parse(String.format("app://cryptomator/%s", license))
-
-							try {
-								context().startActivity(intent)
-							} catch (e: ActivityNotFoundException) {
-								Toast.makeText(context(), "Please contact the support.", Toast.LENGTH_LONG).show()
-								finish()
-							}
+					override fun onError(e: Throwable) {
+						var license: String? = ""
+						if (e is LicenseNotValidException) {
+							license = e.license
 						}
-					})
+						val intent = Intent(context(), LicenseCheckActivity::class.java)
+						intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+						intent.data = Uri.parse(String.format("app://cryptomator/%s", license))
+
+						try {
+							context().startActivity(intent)
+						} catch (e: ActivityNotFoundException) {
+							Toast.makeText(context(), "Please contact the support.", Toast.LENGTH_LONG).show()
+							finish()
+						}
+					}
+				})
 		}
 	}
 
 	private fun checkForAppUpdates() {
 		if (networkConnectionCheck.isPresent) {
 			updateCheckUseCase //
-					.withVersion(BuildConfig.VERSION_NAME) //
-					.run(object : NoOpResultHandler<Optional<UpdateCheck>>() {
-						override fun onSuccess(updateCheck: Optional<UpdateCheck>) {
-							if (updateCheck.isPresent) {
-								updateStatusRetrieved(updateCheck.get(), context())
-							} else {
-								Timber.tag("VaultListPresenter").i("UpdateCheck finished, latest version")
-							}
-							sharedPreferencesHandler.updateExecuted()
+				.withVersion(BuildConfig.VERSION_NAME) //
+				.run(object : NoOpResultHandler<Optional<UpdateCheck>>() {
+					override fun onSuccess(updateCheck: Optional<UpdateCheck>) {
+						if (updateCheck.isPresent) {
+							updateStatusRetrieved(updateCheck.get(), context())
+						} else {
+							Timber.tag("VaultListPresenter").i("UpdateCheck finished, latest version")
 						}
+						sharedPreferencesHandler.updateExecuted()
+					}
 
-						override fun onError(e: Throwable) {
-							if (e is SSLHandshakePreAndroid5UpdateCheckException) {
-								Timber.tag("SettingsPresenter").e(e, "Update check failed due to Android pre 5 and SSL Handshake not accepted")
-							} else {
-								showError(e)
-							}
+					override fun onError(e: Throwable) {
+						if (e is SSLHandshakePreAndroid5UpdateCheckException) {
+							Timber.tag("SettingsPresenter").e(e, "Update check failed due to Android pre 5 and SSL Handshake not accepted")
+						} else {
+							showError(e)
 						}
-					})
+					}
+				})
 		} else {
 			Timber.tag("VaultListPresenter").i("Update check not started due to no internal connection")
 		}
@@ -193,32 +194,34 @@ class VaultListPresenter @Inject constructor( //
 
 	fun deleteVault(vaultModel: VaultModel) {
 		deleteVaultUseCase //
-				.withVault(vaultModel.toVault()) //
-				.run(object : DefaultResultHandler<Long>() {
-					override fun onSuccess(vaultId: Long) {
-						view?.deleteVaultFromAdapter(vaultId)
-					}
-				})
+			.withVault(vaultModel.toVault()) //
+			.run(object : DefaultResultHandler<Long>() {
+				override fun onSuccess(vaultId: Long) {
+					view?.deleteVaultFromAdapter(vaultId)
+				}
+			})
 	}
 
 	fun renameVault(vaultModel: VaultModel, newVaultName: String?) {
 		renameVaultUseCase //
-				.withVault(vaultModel.toVault()) //
-				.andNewVaultName(newVaultName) //
-				.run(object : DefaultResultHandler<Vault>() {
-					override fun onSuccess(vault: Vault) {
-						view?.renameVault(VaultModel(vault))
-						view?.closeDialog()
-					}
+			.withVault(vaultModel.toVault()) //
+			.andNewVaultName(newVaultName) //
+			.run(object : DefaultResultHandler<Vault>() {
+				override fun onSuccess(vault: Vault) {
+					view?.renameVault(VaultModel(vault))
+					view?.closeDialog()
+				}
 
-					override fun onError(e: Throwable) {
-						if (!authenticationExceptionHandler.handleAuthenticationException( //
-										this@VaultListPresenter, e,  //
-										ActivityResultCallbacks.renameVaultAfterAuthentication(vaultModel.toVault(), newVaultName))) {
-							showError(e)
-						}
+				override fun onError(e: Throwable) {
+					if (!authenticationExceptionHandler.handleAuthenticationException( //
+							this@VaultListPresenter, e,  //
+							ActivityResultCallbacks.renameVaultAfterAuthentication(vaultModel.toVault(), newVaultName)
+						)
+					) {
+						showError(e)
 					}
-				})
+				}
+			})
 	}
 
 	@Callback
@@ -230,32 +233,32 @@ class VaultListPresenter @Inject constructor( //
 
 	private fun browseFilesOf(vault: VaultModel) {
 		getDecryptedCloudForVaultUseCase //
-				.withVault(vault.toVault()) //
-				.run(object : DefaultResultHandler<Cloud>() {
-					override fun onSuccess(cloud: Cloud) {
-						getRootFolderAndNavigateInto(cloud)
-					}
-				})
+			.withVault(vault.toVault()) //
+			.run(object : DefaultResultHandler<Cloud>() {
+				override fun onSuccess(cloud: Cloud) {
+					getRootFolderAndNavigateInto(cloud)
+				}
+			})
 	}
 
 	private fun getRootFolderAndNavigateInto(cloud: Cloud) {
 		getRootFolderUseCase //
-				.withCloud(cloud) //
-				.run(object : DefaultResultHandler<CloudFolder>() {
-					override fun onSuccess(folder: CloudFolder) {
-						navigateToVaultContent((folder.cloud as CryptoCloud).vault, folder)
-					}
-				})
+			.withCloud(cloud) //
+			.run(object : DefaultResultHandler<CloudFolder>() {
+				override fun onSuccess(folder: CloudFolder) {
+					navigateToVaultContent((folder.cloud as CryptoCloud).vault, folder)
+				}
+			})
 	}
 
 	private fun lockVault(vaultModel: VaultModel) {
 		lockVaultUseCase //
-				.withVault(vaultModel.toVault()) //
-				.run(object : DefaultResultHandler<Vault>() {
-					override fun onSuccess(vault: Vault) {
-						view?.addOrUpdateVault(VaultModel(vault))
-					}
-				})
+			.withVault(vaultModel.toVault()) //
+			.run(object : DefaultResultHandler<Vault>() {
+				override fun onSuccess(vault: Vault) {
+					view?.addOrUpdateVault(VaultModel(vault))
+				}
+			})
 	}
 
 	private val vaultList: Unit
@@ -297,12 +300,12 @@ class VaultListPresenter @Inject constructor( //
 				onVaultWithoutCloudClickedAndLocked(vault)
 			} else {
 				lockVaultUseCase //
-						.withVault(vault.toVault()) //
-						.run(object : DefaultResultHandler<Vault>() {
-							override fun onSuccess(vault: Vault) {
-								onVaultWithoutCloudClickedAndLocked(VaultModel(vault))
-							}
-						})
+					.withVault(vault.toVault()) //
+					.run(object : DefaultResultHandler<Vault>() {
+						override fun onSuccess(vault: Vault) {
+							onVaultWithoutCloudClickedAndLocked(VaultModel(vault))
+						}
+					})
 			}
 		}
 	}
@@ -310,11 +313,12 @@ class VaultListPresenter @Inject constructor( //
 	private fun onVaultWithoutCloudClickedAndLocked(vault: VaultModel) {
 		if (isWebdavOrLocal(vault.cloudType)) {
 			requestActivityResult( //
-					ActivityResultCallbacks.cloudConnectionForVaultSelected(vault),  //
-					Intents.cloudConnectionListIntent() //
-							.withCloudType(vault.cloudType) //
-							.withDialogTitle(context().getString(R.string.screen_cloud_connections_title)) //
-							.withFinishOnCloudItemClick(true))
+				ActivityResultCallbacks.cloudConnectionForVaultSelected(vault),  //
+				Intents.cloudConnectionListIntent() //
+					.withCloudType(vault.cloudType) //
+					.withDialogTitle(context().getString(R.string.screen_cloud_connections_title)) //
+					.withFinishOnCloudItemClick(true)
+			)
 		}
 	}
 
@@ -326,16 +330,16 @@ class VaultListPresenter @Inject constructor( //
 	fun cloudConnectionForVaultSelected(result: ActivityResult, vaultModel: VaultModel) {
 		val cloud = result.intent().getSerializableExtra(CloudConnectionListPresenter.SELECTED_CLOUD) as Cloud
 		val vault = Vault.aCopyOf(vaultModel.toVault()) //
-				.withCloud(cloud) //
-				.build()
+			.withCloud(cloud) //
+			.build()
 		saveVaultUseCase //
-				.withVault(vault) //
-				.run(object : DefaultResultHandler<Vault>() {
-					override fun onSuccess(vault: Vault) {
-						view?.addOrUpdateVault(VaultModel(vault))
-						onCloudOfVaultAuthenticated(vault)
-					}
-				})
+			.withVault(vault) //
+			.run(object : DefaultResultHandler<Vault>() {
+				override fun onSuccess(vault: Vault) {
+					view?.addOrUpdateVault(VaultModel(vault))
+					onCloudOfVaultAuthenticated(vault)
+				}
+			})
 	}
 
 	private fun onCloudOfVaultAuthenticated(authenticatedVault: Vault) {
@@ -352,8 +356,9 @@ class VaultListPresenter @Inject constructor( //
 		if (authenticatedVault.isLocked) {
 			if (!isPaused) {
 				requestActivityResult( //
-						ActivityResultCallbacks.vaultUnlockedVaultList(), //
-						Intents.unlockVaultIntent().withVaultModel(authenticatedVault).withVaultAction(UnlockVaultIntent.VaultAction.UNLOCK))
+					ActivityResultCallbacks.vaultUnlockedVaultList(), //
+					Intents.unlockVaultIntent().withVaultModel(authenticatedVault).withVaultAction(UnlockVaultIntent.VaultAction.UNLOCK)
+				)
 			}
 		} else {
 			browseFilesOf(authenticatedVault)
@@ -371,18 +376,18 @@ class VaultListPresenter @Inject constructor( //
 
 	private fun navigateToVaultContent(cloud: Cloud) {
 		getRootFolderUseCase //
-				.withCloud(cloud) //
-				.run(object : DefaultResultHandler<CloudFolder>() {
-					override fun onSuccess(folder: CloudFolder) {
-						val vault = (folder.cloud as CryptoCloud).vault
-						view?.addOrUpdateVault(VaultModel(vault))
-						navigateToVaultContent(vault, folder)
-						view?.showProgress(ProgressModel.COMPLETED)
-						if (checkToStartAutoImageUpload(vault)) {
-							context().startService(AutoUploadService.startAutoUploadIntent(context(), folder.cloud))
-						}
+			.withCloud(cloud) //
+			.run(object : DefaultResultHandler<CloudFolder>() {
+				override fun onSuccess(folder: CloudFolder) {
+					val vault = (folder.cloud as CryptoCloud).vault
+					view?.addOrUpdateVault(VaultModel(vault))
+					navigateToVaultContent(vault, folder)
+					view?.showProgress(ProgressModel.COMPLETED)
+					if (checkToStartAutoImageUpload(vault)) {
+						context().startService(AutoUploadService.startAutoUploadIntent(context(), folder.cloud))
 					}
-				})
+				}
+			})
 	}
 
 	private fun checkToStartAutoImageUpload(vault: Vault): Boolean {
@@ -407,10 +412,10 @@ class VaultListPresenter @Inject constructor( //
 
 	fun onChangePasswordClicked(vaultModel: VaultModel) {
 		Intents
-				.unlockVaultIntent()
-				.withVaultModel(vaultModel)
-				.withVaultAction(UnlockVaultIntent.VaultAction.CHANGE_PASSWORD)
-				.startActivity(this)
+			.unlockVaultIntent()
+			.withVaultModel(vaultModel)
+			.withVaultAction(UnlockVaultIntent.VaultAction.CHANGE_PASSWORD)
+			.startActivity(this)
 	}
 
 	fun onVaultSettingsClicked(vaultModel: VaultModel) {
@@ -446,17 +451,17 @@ class VaultListPresenter @Inject constructor( //
 
 	fun onVaultMoved(fromPosition: Int, toPosition: Int) {
 		moveVaultPositionUseCase
-				.withFromPosition(fromPosition) //
-				.andToPosition(toPosition) //
-				.run(object : DefaultResultHandler<List<Vault>>() {
-					override fun onSuccess(vaults: List<Vault>) {
-						view?.vaultMoved(vaults.mapTo(ArrayList()) { VaultModel(it) })
-					}
+			.withFromPosition(fromPosition) //
+			.andToPosition(toPosition) //
+			.run(object : DefaultResultHandler<List<Vault>>() {
+				override fun onSuccess(vaults: List<Vault>) {
+					view?.vaultMoved(vaults.mapTo(ArrayList()) { VaultModel(it) })
+				}
 
-					override fun onError(e: Throwable) {
-						Timber.tag("VaultListPresenter").e(e, "Failed to execute MoveVaultUseCase")
-					}
-				})
+				override fun onError(e: Throwable) {
+					Timber.tag("VaultListPresenter").e(e, "Failed to execute MoveVaultUseCase")
+				}
+			})
 	}
 
 	private enum class VaultAction {
@@ -468,33 +473,34 @@ class VaultListPresenter @Inject constructor( //
 		val uri = fileUtil.contentUriForNewTempFile("cryptomator.apk")
 		val file = fileUtil.tempFile("cryptomator.apk")
 		updateUseCase //
-				.withFile(file) //
-				.run(object : NoOpResultHandler<Void?>() {
-					override fun onError(e: Throwable) {
-						showError(e)
-					}
+			.withFile(file) //
+			.run(object : NoOpResultHandler<Void?>() {
+				override fun onError(e: Throwable) {
+					showError(e)
+				}
 
-					override fun onSuccess(aVoid: Void?) {
-						super.onSuccess(aVoid)
-						val intent = Intent(Intent.ACTION_VIEW)
-						intent.setDataAndType(uri, "application/vnd.android.package-archive")
-						intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK
-						intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION)
-						context().startActivity(intent)
-					}
-				})
+				override fun onSuccess(aVoid: Void?) {
+					super.onSuccess(aVoid)
+					val intent = Intent(Intent.ACTION_VIEW)
+					intent.setDataAndType(uri, "application/vnd.android.package-archive")
+					intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK
+					intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION)
+					context().startActivity(intent)
+				}
+			})
 	}
 
 	init {
 		unsubscribeOnDestroy( //
-				deleteVaultUseCase,  //
-				renameVaultUseCase,  //
-				lockVaultUseCase,  //
-				getVaultListUseCase,  //
-				saveVaultUseCase,  //
-				moveVaultPositionUseCase, //
-				licenseCheckUseCase,  //
-				updateCheckUseCase,  //
-				updateUseCase)
+			deleteVaultUseCase,  //
+			renameVaultUseCase,  //
+			lockVaultUseCase,  //
+			getVaultListUseCase,  //
+			saveVaultUseCase,  //
+			moveVaultPositionUseCase, //
+			licenseCheckUseCase,  //
+			updateCheckUseCase,  //
+			updateUseCase
+		)
 	}
 }

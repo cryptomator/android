@@ -14,8 +14,8 @@ import kotlinx.android.synthetic.main.toolbar_layout.toolbar
 
 @Activity
 class AutoUploadChooseVaultActivity : BaseActivity(), //
-		AutoUploadChooseVaultView, //
-		NotEnoughVaultsDialog.Callback {
+	AutoUploadChooseVaultView, //
+	NotEnoughVaultsDialog.Callback {
 
 	@Inject
 	lateinit var presenter: AutoUploadChooseVaultPresenter
@@ -42,9 +42,9 @@ class AutoUploadChooseVaultActivity : BaseActivity(), //
 
 	override fun displayDialogUnableToUploadFiles() {
 		NotEnoughVaultsDialog //
-				.withContext(this) //
-				.andTitle(getString(R.string.dialog_unable_to_auto_upload_files_title)) //
-				.show()
+			.withContext(this) //
+			.andTitle(getString(R.string.dialog_unable_to_auto_upload_files_title)) //
+			.show()
 	}
 
 	override fun onNotEnoughVaultsOkClicked() {

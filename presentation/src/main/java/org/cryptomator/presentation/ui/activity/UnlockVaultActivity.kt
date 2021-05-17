@@ -21,10 +21,10 @@ import javax.inject.Inject
 
 @Activity(layout = R.layout.activity_unlock_vault)
 class UnlockVaultActivity : BaseActivity(), //
-		UnlockVaultView, //
-		BiometricAuthentication.Callback,
-		ChangePasswordDialog.Callback,
-		VaultNotFoundDialog.Callback {
+	UnlockVaultView, //
+	BiometricAuthentication.Callback,
+	ChangePasswordDialog.Callback,
+	VaultNotFoundDialog.Callback {
 
 	@Inject
 	lateinit var presenter: UnlockVaultPresenter
@@ -84,7 +84,7 @@ class UnlockVaultActivity : BaseActivity(), //
 
 	override fun onBiometricAuthenticationFailed(vault: VaultModel) {
 		val vaultWithoutPassword = Vault.aCopyOf(vault.toVault()).withSavedPassword(null).build()
-		when(unlockVaultIntent.vaultAction()) {
+		when (unlockVaultIntent.vaultAction()) {
 			UnlockVaultIntent.VaultAction.CHANGE_PASSWORD -> presenter.saveVaultAfterChangePasswordButFailedBiometricAuth(vaultWithoutPassword)
 			else -> {
 				if (!presenter.startedUsingPrepareUnlock()) {
@@ -100,7 +100,7 @@ class UnlockVaultActivity : BaseActivity(), //
 	}
 
 	private fun unlockVaultFragment(): UnlockVaultFragment = //
-			getCurrentFragment(R.id.fragmentContainer) as UnlockVaultFragment
+		getCurrentFragment(R.id.fragmentContainer) as UnlockVaultFragment
 
 	override fun showChangePasswordDialog(vaultModel: VaultModel, unverifiedVaultConfig: UnverifiedVaultConfig?) {
 		showDialog(ChangePasswordDialog.newInstance(vaultModel, unverifiedVaultConfig))

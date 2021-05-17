@@ -162,9 +162,9 @@ abstract class BaseActivity : AppCompatActivity(), View, ActivityCompat.OnReques
 
 	private fun initializeDagger(): ActivityComponent {
 		val activityComponent = DaggerActivityComponent.builder()
-				.applicationComponent(applicationComponent)
-				.activityModule(ActivityModule(this))
-				.build()
+			.applicationComponent(applicationComponent)
+			.activityModule(ActivityModule(this))
+			.build()
 		Activities.inject(activityComponent, this)
 		return activityComponent
 	}
@@ -316,7 +316,7 @@ abstract class BaseActivity : AppCompatActivity(), View, ActivityCompat.OnReques
 
 	internal open fun snackbarView(): android.view.View {
 		return activity().findViewById(R.id.locationsRecyclerView) as android.view.View?
-				?: return activity().findViewById(R.id.coordinatorLayout)
+			?: return activity().findViewById(R.id.coordinatorLayout)
 	}
 
 	internal fun getCurrentFragment(fragmentContainer: Int): Fragment? = supportFragmentManager.findFragmentById(fragmentContainer)
@@ -374,10 +374,11 @@ abstract class BaseActivity : AppCompatActivity(), View, ActivityCompat.OnReques
 	}
 
 	internal enum class FragmentAnimation constructor(
-			val enter: Int,
-			val exit: Int,
-			val popEnter: Int,
-			val popExit: Int) {
+		val enter: Int,
+		val exit: Int,
+		val popEnter: Int,
+		val popExit: Int
+	) {
 
 		NAVIGATE_IN_TO_FOLDER(R.animator.enter_from_right, R.animator.exit_to_left, R.animator.enter_from_left, R.animator.exit_to_right), //
 		NAVIGATE_OUT_OF_FOLDER(R.animator.enter_from_left, R.animator.exit_to_right, R.animator.enter_from_right, R.animator.exit_to_left)

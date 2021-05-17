@@ -38,8 +38,8 @@ class FileUtil @Inject constructor(private val context: Context, private val mim
 	fun cleanupDecryptedFiles() {
 		if (decryptedFileStorage.exists()) {
 			decryptedFileStorage.listFiles()
-					?.filter { it.name != AUTO_UPLOAD_IMAGE__FILE_NAMES && !it.delete() }
-					?.forEach { Timber.w("Failed to cleanup file in decryptedFileStorage") }
+				?.filter { it.name != AUTO_UPLOAD_IMAGE__FILE_NAMES && !it.delete() }
+				?.forEach { Timber.w("Failed to cleanup file in decryptedFileStorage") }
 		}
 	}
 
@@ -127,8 +127,8 @@ class FileUtil @Inject constructor(private val context: Context, private val mim
 			}
 		} catch (e: IOException) {
 			Timber //
-					.tag("FileUtil") //
-					.e(e, "Failed to store image preview file list for PreviewActivity")
+				.tag("FileUtil") //
+				.e(e, "Failed to store image preview file list for PreviewActivity")
 			throw FatalBackendException(e)
 		}
 	}
@@ -140,13 +140,13 @@ class FileUtil @Inject constructor(private val context: Context, private val mim
 			}
 		} catch (e: ClassNotFoundException) {
 			Timber //
-					.tag("FileUtil") //
-					.e(e, "Failed to read image preview file from list for PreviewActivity")
+				.tag("FileUtil") //
+				.e(e, "Failed to read image preview file from list for PreviewActivity")
 			throw FatalBackendException(e)
 		} catch (e: IOException) {
 			Timber
-					.tag("FileUtil")
-					.e(e, "Failed to read image preview file from list for PreviewActivity")
+				.tag("FileUtil")
+				.e(e, "Failed to read image preview file from list for PreviewActivity")
 			throw FatalBackendException(e)
 		}
 	}
@@ -175,8 +175,8 @@ class FileUtil @Inject constructor(private val context: Context, private val mim
 			return autoUploadFilesStore
 		} catch (e: IOException) {
 			Timber //
-					.tag("FileUtil") //
-					.e(e, "Failed to store image preview file list for PreviewActivity")
+				.tag("FileUtil") //
+				.e(e, "Failed to store image preview file list for PreviewActivity")
 			throw FatalBackendException(e)
 		}
 	}
@@ -199,8 +199,8 @@ class FileUtil @Inject constructor(private val context: Context, private val mim
 			return tryRecoverAutoUploadFilesStoreDueToFileObfuscation(file)
 		} catch (e: IOException) {
 			Timber
-					.tag("FileUtil")
-					.e(e, "Failed to read image preview file from list for PreviewActivity")
+				.tag("FileUtil")
+				.e(e, "Failed to read image preview file from list for PreviewActivity")
 			throw FatalBackendException(e)
 		}
 	}

@@ -8,14 +8,14 @@ import timber.log.Timber
 class ReleaseLogger(context: Context) : Timber.Tree() {
 
 	private val priorityNames = charArrayOf( //
-			'?',  //
-			'?',  //
-			'V',  //
-			'D',  //
-			'I',  //
-			'W',  //
-			'E',  //
-			'A' //
+		'?',  //
+		'?',  //
+		'V',  //
+		'D',  //
+		'I',  //
+		'W',  //
+		'E',  //
+		'A' //
 	)
 	private val log: LogRotator
 
@@ -26,10 +26,10 @@ class ReleaseLogger(context: Context) : Timber.Tree() {
 	override fun log(priority: Int, tag: String?, message: String, throwable: Throwable?) {
 		val line = StringBuilder()
 		line //
-				.append(priorityNames[validPriority(priority)]).append('\t') //
-				.append(FormattedTime.now()).append('\t') //
-				.append(tag ?: "App").append('\t') //
-				.append(message)
+			.append(priorityNames[validPriority(priority)]).append('\t') //
+			.append(FormattedTime.now()).append('\t') //
+			.append(tag ?: "App").append('\t') //
+			.append(message)
 		if (throwable != null) {
 			line.append("\nErrorCode: ").append(GeneratedErrorCode.of(throwable))
 		}

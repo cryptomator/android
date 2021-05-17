@@ -45,10 +45,10 @@ class VaultRenameDialog : BaseProgressErrorDialog<VaultRenameDialog.Callback>() 
 
 	public override fun setupDialog(builder: AlertDialog.Builder): android.app.Dialog {
 		return builder
-				.setTitle(requireContext().getString(R.string.dialog_rename_vault_title))
-				.setPositiveButton(requireContext().getString(R.string.dialog_rename_vault_positive_button)) { _: DialogInterface, _: Int -> }
-				.setNegativeButton(requireContext().getString(R.string.dialog_button_cancel)) { _: DialogInterface, _: Int -> }
-				.create()
+			.setTitle(requireContext().getString(R.string.dialog_rename_vault_title))
+			.setPositiveButton(requireContext().getString(R.string.dialog_rename_vault_positive_button)) { _: DialogInterface, _: Int -> }
+			.setNegativeButton(requireContext().getString(R.string.dialog_button_cancel)) { _: DialogInterface, _: Int -> }
+			.create()
 	}
 
 	public override fun setupView() {

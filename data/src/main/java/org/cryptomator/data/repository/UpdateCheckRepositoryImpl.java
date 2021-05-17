@@ -120,7 +120,7 @@ public class UpdateCheckRepositoryImpl implements UpdateCheckRepository {
 
 				String apkSha256 = calculateSha256(file);
 
-				if(!apkSha256.equals(entity.getApkSha256())) {
+				if (!apkSha256.equals(entity.getApkSha256())) {
 					file.delete();
 					throw new HashMismatchUpdateCheckException(String.format( //
 							"Sha of calculated hash (%s) doesn't match the specified one (%s)", //
@@ -138,9 +138,9 @@ public class UpdateCheckRepositoryImpl implements UpdateCheckRepository {
 	private String calculateSha256(File file) throws GeneralUpdateErrorException {
 		try {
 			MessageDigest digest = MessageDigest.getInstance("SHA-256");
-			try(DigestInputStream digestInputStream = new DigestInputStream(context.getContentResolver().openInputStream(Uri.fromFile(file)), digest)) {
+			try (DigestInputStream digestInputStream = new DigestInputStream(context.getContentResolver().openInputStream(Uri.fromFile(file)), digest)) {
 				byte[] buffer = new byte[8192];
-				while(digestInputStream.read(buffer) > -1) {
+				while (digestInputStream.read(buffer) > -1) {
 				}
 			}
 			return new String(Hex.encodeHex(digest.digest()));

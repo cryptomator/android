@@ -63,7 +63,7 @@ class S3CloudContentRepository extends InterceptingCloudContentRepository<S3Clou
 			if (S3CloudApiExceptions.isAccessProblem(errorCode)) {
 				throw new WrongCredentialsException(cloud);
 			}
-		} else if(e instanceof ForbiddenException) {
+		} else if (e instanceof ForbiddenException) {
 			throw new WrongCredentialsException(cloud);
 		}
 	}

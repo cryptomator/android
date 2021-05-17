@@ -75,12 +75,16 @@ class PhotoContentJob : JobService() {
 	private fun getContentResolvers(ids: Set<String>): Array<Cursor?> {
 		val selection = buildSelection(ids)
 
-		var resolvers = arrayOf(contentResolver.query(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, PROJECTION_IMAGES, selection, null, null),
-				contentResolver.query(MediaStore.Images.Media.INTERNAL_CONTENT_URI, PROJECTION_IMAGES, selection, null, null))
+		var resolvers = arrayOf(
+			contentResolver.query(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, PROJECTION_IMAGES, selection, null, null),
+			contentResolver.query(MediaStore.Images.Media.INTERNAL_CONTENT_URI, PROJECTION_IMAGES, selection, null, null)
+		)
 
 		if (SharedPreferencesHandler(applicationContext).autoPhotoUploadIncludingVideos()) {
-			resolvers += arrayOf(contentResolver.query(MediaStore.Video.Media.EXTERNAL_CONTENT_URI, PROJECTION_VIDEOS, selection, null, null),
-					contentResolver.query(MediaStore.Video.Media.INTERNAL_CONTENT_URI, PROJECTION_VIDEOS, selection, null, null))
+			resolvers += arrayOf(
+				contentResolver.query(MediaStore.Video.Media.EXTERNAL_CONTENT_URI, PROJECTION_VIDEOS, selection, null, null),
+				contentResolver.query(MediaStore.Video.Media.INTERNAL_CONTENT_URI, PROJECTION_VIDEOS, selection, null, null)
+			)
 		}
 
 		return resolvers
@@ -88,14 +92,14 @@ class PhotoContentJob : JobService() {
 
 	private fun getIds(params: JobParameters): Set<String>? {
 		return params.triggeredContentUris
-				?.map { it.pathSegments }
-				?.filter {
-					it != null && (it.size == MediaStore.Images.Media.EXTERNAL_CONTENT_URI.pathSegments.size + 1
-							|| it.size == MediaStore.Video.Media.EXTERNAL_CONTENT_URI.pathSegments.size + 1
-							|| it.size == MediaStore.Images.Media.INTERNAL_CONTENT_URI.pathSegments.size + 1
-							|| it.size == MediaStore.Video.Media.INTERNAL_CONTENT_URI.pathSegments.size + 1)
-				}
-				?.mapTo(HashSet()) { it[it.size - 1] }
+			?.map { it.pathSegments }
+			?.filter {
+				it != null && (it.size == MediaStore.Images.Media.EXTERNAL_CONTENT_URI.pathSegments.size + 1
+						|| it.size == MediaStore.Video.Media.EXTERNAL_CONTENT_URI.pathSegments.size + 1
+						|| it.size == MediaStore.Images.Media.INTERNAL_CONTENT_URI.pathSegments.size + 1
+						|| it.size == MediaStore.Video.Media.INTERNAL_CONTENT_URI.pathSegments.size + 1)
+			}
+			?.mapTo(HashSet()) { it[it.size - 1] }
 	}
 
 	private fun buildSelection(ids: Set<String>): String {

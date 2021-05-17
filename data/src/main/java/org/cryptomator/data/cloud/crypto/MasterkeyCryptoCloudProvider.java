@@ -162,7 +162,7 @@ public class MasterkeyCryptoCloudProvider implements CryptoCloudProvider {
 
 	private CloudFile masterkeyFile(CloudFolder vaultLocation, UnverifiedVaultConfig unverifiedVaultConfig) throws BackendException {
 		String path = unverifiedVaultConfig.getKeyId().getSchemeSpecificPart();
-		if(!path.equals(MASTERKEY_FILE_NAME)) {
+		if (!path.equals(MASTERKEY_FILE_NAME)) {
 			throw new UnsupportedMasterkeyLocationException(unverifiedVaultConfig);
 		}
 		return cloudContentRepository.file(vaultLocation, path);

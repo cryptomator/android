@@ -56,8 +56,8 @@ class S3AddOrChangeFragment : BaseFragment() {
 		return if (text != null) {
 			try {
 				CredentialCryptor //
-						.getInstance(activity?.applicationContext) //
-						.decrypt(text)
+					.getInstance(activity?.applicationContext) //
+					.decrypt(text)
 			} catch (e: RuntimeException) {
 				Timber.tag("S3AddOrChangeFragment").e(e, "Unable to decrypt password, clearing it")
 				""
@@ -78,7 +78,8 @@ class S3AddOrChangeFragment : BaseFragment() {
 			endpointEditText.text.toString().trim(), //
 			regionEditText.text.toString().trim(), //
 			cloudId, //
-			displayName)
+			displayName
+		)
 	}
 
 	fun hideKeyboard() {

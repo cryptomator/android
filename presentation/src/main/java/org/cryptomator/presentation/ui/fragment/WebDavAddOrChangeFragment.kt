@@ -53,8 +53,8 @@ class WebDavAddOrChangeFragment : BaseFragment() {
 		return if (password != null) {
 			try {
 				CredentialCryptor //
-						.getInstance(activity?.applicationContext) //
-						.decrypt(password)
+					.getInstance(activity?.applicationContext) //
+					.decrypt(password)
 			} catch (e: RuntimeException) {
 				Timber.tag("WebdavAddOrCangeFragmnt").e(e, "Unable to decrypt password, clearing it")
 				""

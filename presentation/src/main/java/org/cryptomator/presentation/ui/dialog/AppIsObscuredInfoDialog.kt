@@ -14,8 +14,8 @@ class AppIsObscuredInfoDialog : BaseDialog<Activity>() {
 
 	public override fun setupDialog(builder: AlertDialog.Builder): android.app.Dialog {
 		builder //
-				.setTitle(R.string.dialog_app_is_obscured_info_title) //
-				.setNeutralButton(R.string.dialog_app_is_obscured_info_neutral_button) { dialog: DialogInterface, _: Int -> dialog.dismiss() }
+			.setTitle(R.string.dialog_app_is_obscured_info_title) //
+			.setNeutralButton(R.string.dialog_app_is_obscured_info_neutral_button) { dialog: DialogInterface, _: Int -> dialog.dismiss() }
 		return builder.create()
 	}
 

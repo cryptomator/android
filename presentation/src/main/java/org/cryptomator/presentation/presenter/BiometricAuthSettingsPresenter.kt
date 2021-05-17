@@ -22,11 +22,12 @@ import timber.log.Timber
 
 @PerView
 class BiometricAuthSettingsPresenter @Inject constructor( //
-		private val getVaultListUseCase: GetVaultListUseCase,  //
-		private val saveVaultUseCase: SaveVaultUseCase,  //
-		private val lockVaultUseCase: LockVaultUseCase,  //
-		exceptionMappings: ExceptionHandlers,  //
-		private val sharedPreferencesHandler: SharedPreferencesHandler) : Presenter<BiometricAuthSettingsView>(exceptionMappings) {
+	private val getVaultListUseCase: GetVaultListUseCase,  //
+	private val saveVaultUseCase: SaveVaultUseCase,  //
+	private val lockVaultUseCase: LockVaultUseCase,  //
+	exceptionMappings: ExceptionHandlers,  //
+	private val sharedPreferencesHandler: SharedPreferencesHandler
+) : Presenter<BiometricAuthSettingsView>(exceptionMappings) {
 
 	fun loadVaultList() {
 		updateVaultListView()
@@ -55,19 +56,21 @@ class BiometricAuthSettingsPresenter @Inject constructor( //
 		Timber.tag("BiomtricAuthSettngsPres").i("Checking entered vault password")
 		if (vaultModel.isLocked) {
 			requestActivityResult( //
-					ActivityResultCallbacks.vaultUnlockedBiometricAuthPres(vaultModel), //
-					Intents.unlockVaultIntent().withVaultModel(vaultModel).withVaultAction(UnlockVaultIntent.VaultAction.UNLOCK_FOR_BIOMETRIC_AUTH))
+				ActivityResultCallbacks.vaultUnlockedBiometricAuthPres(vaultModel), //
+				Intents.unlockVaultIntent().withVaultModel(vaultModel).withVaultAction(UnlockVaultIntent.VaultAction.UNLOCK_FOR_BIOMETRIC_AUTH)
+			)
 		} else {
 			lockVaultUseCase
-					.withVault(vaultModel.toVault())
-					.run(object : DefaultResultHandler<Vault>() {
-						override fun onSuccess(vault: Vault) {
-							super.onSuccess(vault)
-							requestActivityResult( //
-									ActivityResultCallbacks.vaultUnlockedBiometricAuthPres(vaultModel), //
-									Intents.unlockVaultIntent().withVaultModel(vaultModel).withVaultAction(UnlockVaultIntent.VaultAction.UNLOCK_FOR_BIOMETRIC_AUTH))
-						}
-					})
+				.withVault(vaultModel.toVault())
+				.run(object : DefaultResultHandler<Vault>() {
+					override fun onSuccess(vault: Vault) {
+						super.onSuccess(vault)
+						requestActivityResult( //
+							ActivityResultCallbacks.vaultUnlockedBiometricAuthPres(vaultModel), //
+							Intents.unlockVaultIntent().withVaultModel(vaultModel).withVaultAction(UnlockVaultIntent.VaultAction.UNLOCK_FOR_BIOMETRIC_AUTH)
+						)
+					}
+				})
 		}
 	}
 
@@ -78,8 +81,9 @@ class BiometricAuthSettingsPresenter @Inject constructor( //
 		val vault = Vault.aCopyOf(vaultModel.toVault()).withCloud(cloud).withSavedPassword(password).build()
 		when {
 			result.isResultOk -> requestActivityResult( //
-					ActivityResultCallbacks.encryptVaultPassword(vaultModel), //
-					Intents.unlockVaultIntent().withVaultModel(VaultModel(vault)).withVaultAction(UnlockVaultIntent.VaultAction.ENCRYPT_PASSWORD))
+				ActivityResultCallbacks.encryptVaultPassword(vaultModel), //
+				Intents.unlockVaultIntent().withVaultModel(VaultModel(vault)).withVaultAction(UnlockVaultIntent.VaultAction.ENCRYPT_PASSWORD)
+			)
 			else -> TODO("Not yet implemented")
 		}
 	}
@@ -96,12 +100,12 @@ class BiometricAuthSettingsPresenter @Inject constructor( //
 
 	private fun saveVault(vault: Vault?) {
 		saveVaultUseCase //
-				.withVault(vault) //
-				.run(object : ProgressCompletingResultHandler<Vault>() {
-					override fun onSuccess(vault: Vault) {
-						Timber.tag("BiomtricAuthSettngsPres").i("Saved updated vault successfully")
-					}
-				})
+			.withVault(vault) //
+			.run(object : ProgressCompletingResultHandler<Vault>() {
+				override fun onSuccess(vault: Vault) {
+					Timber.tag("BiomtricAuthSettngsPres").i("Saved updated vault successfully")
+				}
+			})
 	}
 
 	fun switchedGeneralBiometricAuthSettings(isChecked: Boolean) {
@@ -124,9 +128,9 @@ class BiometricAuthSettingsPresenter @Inject constructor( //
 
 	private fun removePasswordAndSave(vault: Vault) {
 		val vaultWithRemovedPassword = Vault //
-				.aCopyOf(vault) //
-				.withSavedPassword(null) //
-				.build()
+			.aCopyOf(vault) //
+			.withSavedPassword(null) //
+			.build()
 		saveVault(vaultWithRemovedPassword)
 	}
 

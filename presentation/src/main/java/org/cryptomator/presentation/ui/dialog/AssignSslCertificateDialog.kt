@@ -29,14 +29,14 @@ class AssignSslCertificateDialog : BaseDialog<AssignSslCertificateDialog.Callbac
 
 	public override fun setupDialog(builder: AlertDialog.Builder): android.app.Dialog {
 		builder //
-				.setTitle(requireContext().getString(R.string.dialog_accept_ssl_certificate_title))
-				.setPositiveButton(requireActivity().getString(R.string.dialog_unable_to_share_positive_button)) { _: DialogInterface, _: Int ->
-					val cloud = requireArguments().getSerializable(WEBDAV_CLOUD) as WebDavCloud
-					callback?.onAcceptCertificateClicked(cloud, certificate)
-				} //
-				.setNegativeButton(requireContext().getString(R.string.dialog_button_cancel)) { _: DialogInterface, _: Int ->
-					callback?.onAcceptCertificateDenied()
-				}
+			.setTitle(requireContext().getString(R.string.dialog_accept_ssl_certificate_title))
+			.setPositiveButton(requireActivity().getString(R.string.dialog_unable_to_share_positive_button)) { _: DialogInterface, _: Int ->
+				val cloud = requireArguments().getSerializable(WEBDAV_CLOUD) as WebDavCloud
+				callback?.onAcceptCertificateClicked(cloud, certificate)
+			} //
+			.setNegativeButton(requireContext().getString(R.string.dialog_button_cancel)) { _: DialogInterface, _: Int ->
+				callback?.onAcceptCertificateDenied()
+			}
 		return builder.create()
 	}
 

@@ -63,7 +63,7 @@ class LicenseCheckActivity : BaseActivity(), UpdateLicenseDialog.Callback, Licen
 
 	override fun licenseConfirmationClicked() {
 		vaultListIntent() //
-				.preventGoingBackInHistory() //
-				.startActivity(this) //
+			.preventGoingBackInHistory() //
+			.startActivity(this) //
 	}
 }

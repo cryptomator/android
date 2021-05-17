@@ -26,27 +26,28 @@ class OpenWritableFileNotification(private val context: Context, private val uri
 
 		if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
 			val notificationChannel = NotificationChannel( //
-					NOTIFICATION_CHANNEL_ID, //
-					NOTIFICATION_CHANNEL_NAME, //
-					IMPORTANCE_LOW)
+				NOTIFICATION_CHANNEL_ID, //
+				NOTIFICATION_CHANNEL_NAME, //
+				IMPORTANCE_LOW
+			)
 			notificationManager?.createNotificationChannel(notificationChannel)
 		}
 
 		this.builder = NotificationCompat.Builder(context, NOTIFICATION_CHANNEL_ID) //
-				.setContentTitle(context.getString(R.string.notification_open_writable_file_title)) //
-				.setContentText(context.getString(R.string.notification_open_writable_file_message)) //
-				.setSmallIcon(R.drawable.background_splash_cryptomator) //
-				.setColor(getColor(R.color.colorPrimary)) //
-				.setGroup(NOTIFICATION_GROUP_KEY)
-				.setOngoing(true)
-				.addAction(cancelNowAction())
+			.setContentTitle(context.getString(R.string.notification_open_writable_file_title)) //
+			.setContentText(context.getString(R.string.notification_open_writable_file_message)) //
+			.setSmallIcon(R.drawable.background_splash_cryptomator) //
+			.setColor(getColor(R.color.colorPrimary)) //
+			.setGroup(NOTIFICATION_GROUP_KEY)
+			.setOngoing(true)
+			.addAction(cancelNowAction())
 	}
 
 	private fun cancelNowAction(): NotificationCompat.Action {
 		return NotificationCompat.Action.Builder( //
-				R.drawable.ic_lock, //
-				ResourceHelper.getString(R.string.notification_cancel_open_writable_file), //
-				cancelNowIntent() //
+			R.drawable.ic_lock, //
+			ResourceHelper.getString(R.string.notification_cancel_open_writable_file), //
+			cancelNowIntent() //
 		).build()
 	}
 

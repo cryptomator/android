@@ -11,9 +11,10 @@ import javax.inject.Inject
 import timber.log.Timber
 
 class ShareFileHelper @Inject constructor( //
-		private val fileUtil: FileUtil,  //
-		private val mimeTypes: MimeTypes,  //
-		private val contentResolverUtil: ContentResolverUtil) {
+	private val fileUtil: FileUtil,  //
+	private val mimeTypes: MimeTypes,  //
+	private val contentResolverUtil: ContentResolverUtil
+) {
 
 	fun shareFile(activityHolder: ActivityHolder, cloudFile: CloudFileModel) {
 		shareFile(activityHolder, fileUtil.contentUriFor(cloudFile), mimeTypeFromFileName(cloudFile.name))

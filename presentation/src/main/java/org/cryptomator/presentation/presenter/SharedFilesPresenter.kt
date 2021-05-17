@@ -32,17 +32,18 @@ import timber.log.Timber
 
 @PerView
 class SharedFilesPresenter @Inject constructor( //
-		private val getVaultListUseCase: GetVaultListUseCase,  //
-		private val getRootFolderUseCase: GetRootFolderUseCase,  //
-		private val getDecryptedCloudForVaultUseCase: GetDecryptedCloudForVaultUseCase,  //
-		private val uploadFilesUseCase: UploadFilesUseCase,  //
-		private val getCloudListUseCase: GetCloudListUseCase,  //
-		private val contentResolverUtil: ContentResolverUtil,  //
-		private val fileCacheUtils: FileCacheUtils,  //
-		private val authenticationExceptionHandler: AuthenticationExceptionHandler,  //
-		private val cloudFolderModelMapper: CloudFolderModelMapper,  //
-		private val progressModelMapper: ProgressModelMapper,  //
-		exceptionMappings: ExceptionHandlers) : Presenter<SharedFilesView>(exceptionMappings) {
+	private val getVaultListUseCase: GetVaultListUseCase,  //
+	private val getRootFolderUseCase: GetRootFolderUseCase,  //
+	private val getDecryptedCloudForVaultUseCase: GetDecryptedCloudForVaultUseCase,  //
+	private val uploadFilesUseCase: UploadFilesUseCase,  //
+	private val getCloudListUseCase: GetCloudListUseCase,  //
+	private val contentResolverUtil: ContentResolverUtil,  //
+	private val fileCacheUtils: FileCacheUtils,  //
+	private val authenticationExceptionHandler: AuthenticationExceptionHandler,  //
+	private val cloudFolderModelMapper: CloudFolderModelMapper,  //
+	private val progressModelMapper: ProgressModelMapper,  //
+	exceptionMappings: ExceptionHandlers
+) : Presenter<SharedFilesView>(exceptionMappings) {
 
 	private val filesForUpload: MutableSet<UploadFile> = HashSet()
 	private val existingFilesForUpload: MutableSet<UploadFile> = HashSet()
@@ -65,8 +66,8 @@ class SharedFilesPresenter @Inject constructor( //
 		} else {
 			Timber.tag("SharedFile").i("Received 1 file")
 			contentResolverUtil.fileName(uri)
-					?.let { filesForUpload.add(createUploadFile(it, uri)) }
-					?: Timber.tag("SharedFile").i("The file doesn't have a path in the URI")
+				?.let { filesForUpload.add(createUploadFile(it, uri)) }
+				?: Timber.tag("SharedFile").i("The file doesn't have a path in the URI")
 		}
 	}
 
@@ -74,8 +75,8 @@ class SharedFilesPresenter @Inject constructor( //
 		Timber.tag("SharedFile").i("Received %d files", uris.size)
 		uris.forEach { uri ->
 			contentResolverUtil.fileName(uri)
-					?.let { filesForUpload.add(createUploadFile(it, uri)) }
-					?: Timber.tag("SharedFile").i("The file doesn't have a path in the URI")
+				?.let { filesForUpload.add(createUploadFile(it, uri)) }
+				?: Timber.tag("SharedFile").i("The file doesn't have a path in the URI")
 		}
 	}
 
@@ -128,8 +129,9 @@ class SharedFilesPresenter @Inject constructor( //
 		} else {
 			if (!isPaused) {
 				requestActivityResult( //
-						ActivityResultCallbacks.vaultUnlockedSharedFiles(), //
-						Intents.unlockVaultIntent().withVaultModel(VaultModel(authenticatedVault)).withVaultAction(UnlockVaultIntent.VaultAction.UNLOCK))
+					ActivityResultCallbacks.vaultUnlockedSharedFiles(), //
+					Intents.unlockVaultIntent().withVaultModel(VaultModel(authenticatedVault)).withVaultAction(UnlockVaultIntent.VaultAction.UNLOCK)
+				)
 			}
 		}
 	}
@@ -146,18 +148,18 @@ class SharedFilesPresenter @Inject constructor( //
 
 	private fun decryptedCloudFor(vault: Vault) {
 		getDecryptedCloudForVaultUseCase //
-				.withVault(vault) //
-				.run(object : DefaultResultHandler<Cloud>() {
-					override fun onSuccess(cloud: Cloud) {
-						rootFolderFor(cloud)
-					}
+			.withVault(vault) //
+			.run(object : DefaultResultHandler<Cloud>() {
+				override fun onSuccess(cloud: Cloud) {
+					rootFolderFor(cloud)
+				}
 
-					override fun onError(e: Throwable) {
-						if (!authenticationExceptionHandler.handleAuthenticationException(this@SharedFilesPresenter, e, ActivityResultCallbacks.decryptedCloudForAfterAuth(vault))) {
-							super.onError(e)
-						}
+				override fun onError(e: Throwable) {
+					if (!authenticationExceptionHandler.handleAuthenticationException(this@SharedFilesPresenter, e, ActivityResultCallbacks.decryptedCloudForAfterAuth(vault))) {
+						super.onError(e)
 					}
-				})
+				}
+			})
 	}
 
 	@Callback
@@ -168,18 +170,18 @@ class SharedFilesPresenter @Inject constructor( //
 
 	private fun rootFolderFor(cloud: Cloud) {
 		getRootFolderUseCase //
-				.withCloud(cloud) //
-				.run(object : DefaultResultHandler<CloudFolder>() {
-					override fun onSuccess(folder: CloudFolder) {
-						when (authenticationState) {
-							AuthenticationState.CHOOSE_LOCATION -> navigateToVaultContent((folder.cloud as CryptoCloud).vault, folder)
-							AuthenticationState.INIT_ROOT -> {
-								location = cloudFolderModelMapper.toModel(folder)
-								checkForUsedFileNames(folder)
-							}
+			.withCloud(cloud) //
+			.run(object : DefaultResultHandler<CloudFolder>() {
+				override fun onSuccess(folder: CloudFolder) {
+					when (authenticationState) {
+						AuthenticationState.CHOOSE_LOCATION -> navigateToVaultContent((folder.cloud as CryptoCloud).vault, folder)
+						AuthenticationState.INIT_ROOT -> {
+							location = cloudFolderModelMapper.toModel(folder)
+							checkForUsedFileNames(folder)
 						}
 					}
-				})
+				}
+			})
 	}
 
 	private fun navigateToVaultContent(vault: Vault, folder: CloudFolder) {
@@ -192,9 +194,11 @@ class SharedFilesPresenter @Inject constructor( //
 		this.location = location
 	}
 
-	private fun uploadFiles(nonReplacing: Set<UploadFile>,  //
-							replacing: Set<UploadFile>,  //
-							folder: CloudFolder) {
+	private fun uploadFiles(
+		nonReplacing: Set<UploadFile>,  //
+		replacing: Set<UploadFile>,  //
+		folder: CloudFolder
+	) {
 		if (nonReplacing.size + replacing.size == 0) {
 			view?.finish()
 		}
@@ -207,17 +211,17 @@ class SharedFilesPresenter @Inject constructor( //
 
 	private fun uploadFiles(folder: CloudFolder, files: List<UploadFile>) {
 		uploadFilesUseCase //
-				.withParent(folder) //
-				.andFiles(files) //
-				.run(object : DefaultProgressAwareResultHandler<List<CloudFile>, UploadState>() {
-					override fun onProgress(progress: Progress<UploadState>) {
-						view?.showProgress(progressModelMapper.toModel(progress))
-					}
+			.withParent(folder) //
+			.andFiles(files) //
+			.run(object : DefaultProgressAwareResultHandler<List<CloudFile>, UploadState>() {
+				override fun onProgress(progress: Progress<UploadState>) {
+					view?.showProgress(progressModelMapper.toModel(progress))
+				}
 
-					override fun onFinished() {
-						onFileUploadCompleted()
-					}
-				})
+				override fun onFinished() {
+					onFileUploadCompleted()
+				}
+			})
 	}
 
 	private fun onFileUploadCompleted() {
@@ -248,12 +252,12 @@ class SharedFilesPresenter @Inject constructor( //
 	private fun checkForUsedFileNames(folder: CloudFolder) {
 		view?.showProgress(ProgressModel.GENERIC)
 		getCloudListUseCase //
-				.withFolder(folder) //
-				.run(object : DefaultResultHandler<List<CloudNode>>() {
-					override fun onSuccess(currentCloudNodes: List<CloudNode>) {
-						checkForExistingFilesOrUploadFiles(folder, currentCloudNodes)
-					}
-				})
+			.withFolder(folder) //
+			.run(object : DefaultResultHandler<List<CloudNode>>() {
+				override fun onSuccess(currentCloudNodes: List<CloudNode>) {
+					checkForExistingFilesOrUploadFiles(folder, currentCloudNodes)
+				}
+			})
 	}
 
 	private fun hasUsedFileNamesAtLocation(currentCloudNodes: List<CloudNode>): Boolean {
@@ -264,9 +268,10 @@ class SharedFilesPresenter @Inject constructor( //
 				if (cloudNode is CloudFile) {
 					filesForUpload.remove(uploadFileWithName.get())
 					existingFilesForUpload.add( //
-							UploadFile.aCopyOf(uploadFileWithName.get()) //
-									.thatIsReplacing(true) //
-									.build())
+						UploadFile.aCopyOf(uploadFileWithName.get()) //
+							.thatIsReplacing(true) //
+							.build()
+					)
 				} else {
 					// remove file when name is used by a folder
 					filesForUpload.remove(uploadFileWithName.get())
@@ -278,9 +283,9 @@ class SharedFilesPresenter @Inject constructor( //
 
 	private fun fileForUploadWithName(name: String): Optional<UploadFile> {
 		return filesForUpload
-				.firstOrNull { it.fileName == name }
-				?.let { Optional.of(it) }
-				?: Optional.empty()
+			.firstOrNull { it.fileName == name }
+			?.let { Optional.of(it) }
+			?: Optional.empty()
 	}
 
 	private fun checkForExistingFilesOrUploadFiles(folder: CloudFolder, currentCloudNodes: List<CloudNode>) {
@@ -297,7 +302,7 @@ class SharedFilesPresenter @Inject constructor( //
 
 	private fun prepareSavingFiles() {
 		location?.let { checkForUsedFileNames(it.toCloudNode()) }
-				?: authenticate(selectedVault, AuthenticationState.INIT_ROOT)
+			?: authenticate(selectedVault, AuthenticationState.INIT_ROOT)
 	}
 
 	fun onSaveButtonPressed(filesForUpload: List<SharedFileModel>) {
@@ -310,9 +315,11 @@ class SharedFilesPresenter @Inject constructor( //
 				view?.showMessage(R.string.error_names_contains_invalid_characters)
 			}
 			else -> {
-				requestPermissions(PermissionsResultCallbacks.saveFilesPermissionCallback(),  //
-						R.string.permission_message_share_file,  //
-						Manifest.permission.READ_EXTERNAL_STORAGE)
+				requestPermissions(
+					PermissionsResultCallbacks.saveFilesPermissionCallback(),  //
+					R.string.permission_message_share_file,  //
+					Manifest.permission.READ_EXTERNAL_STORAGE
+				)
 			}
 		}
 	}
@@ -335,17 +342,19 @@ class SharedFilesPresenter @Inject constructor( //
 
 	private fun navigateToVaultContent(vaultModel: VaultModel, decryptedRoot: CloudFolderModel) {
 		requestActivityResult( //
-				ActivityResultCallbacks.onChooseLocation(vaultModel),  //
-				Intents.browseFilesIntent() //
-						.withFolder(decryptedRoot) //
-						.withTitle(vaultModel.name) //
-						.withChooseCloudNodeSettings( //
-								ChooseCloudNodeSettings.chooseCloudNodeSettings() //
-										.withExtraTitle(context().getString(R.string.screen_file_browser_share_destination_title)) //
-										.withExtraToolbarIcon(R.drawable.ic_clear) //
-										.withButtonText(context().getString(R.string.screen_file_browser_share_button_text)) //
-										.selectingFolders() //
-										.build()))
+			ActivityResultCallbacks.onChooseLocation(vaultModel),  //
+			Intents.browseFilesIntent() //
+				.withFolder(decryptedRoot) //
+				.withTitle(vaultModel.name) //
+				.withChooseCloudNodeSettings( //
+					ChooseCloudNodeSettings.chooseCloudNodeSettings() //
+						.withExtraTitle(context().getString(R.string.screen_file_browser_share_destination_title)) //
+						.withExtraToolbarIcon(R.drawable.ic_clear) //
+						.withButtonText(context().getString(R.string.screen_file_browser_share_button_text)) //
+						.selectingFolders() //
+						.build()
+				)
+		)
 	}
 
 	@Callback
@@ -396,18 +405,19 @@ class SharedFilesPresenter @Inject constructor( //
 
 	private fun createUploadFile(fileName: String, uri: Uri): UploadFile {
 		return UploadFile.anUploadFile() //
-				.withFileName(fileName) //
-				.withDataSource(UriBasedDataSource.from(uri)) //
-				.thatIsReplacing(false) //
-				.build()
+			.withFileName(fileName) //
+			.withDataSource(UriBasedDataSource.from(uri)) //
+			.thatIsReplacing(false) //
+			.build()
 	}
 
 	init {
 		unsubscribeOnDestroy( //
-				getRootFolderUseCase,  //
-				getVaultListUseCase,  //
-				getDecryptedCloudForVaultUseCase,  //
-				uploadFilesUseCase,  //
-				getCloudListUseCase)
+			getRootFolderUseCase,  //
+			getVaultListUseCase,  //
+			getDecryptedCloudForVaultUseCase,  //
+			uploadFilesUseCase,  //
+			getCloudListUseCase
+		)
 	}
 }
