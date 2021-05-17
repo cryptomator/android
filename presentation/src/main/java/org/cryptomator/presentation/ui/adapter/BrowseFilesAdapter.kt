@@ -29,7 +29,6 @@ import org.cryptomator.presentation.util.ResourceHelper.Companion.getDrawable
 import org.cryptomator.util.Optional
 import org.cryptomator.util.SharedPreferencesHandler
 import java.util.Comparator
-import java.util.Locale
 import javax.inject.Inject
 import kotlinx.android.synthetic.main.item_browse_files_node.view.cloudNodeImage
 import kotlinx.android.synthetic.main.item_browse_files_node.view.itemCheckBox
@@ -119,7 +118,7 @@ constructor(
 			if (sharedPreferencesHandler.useGlobSearch()) {
 				nodes?.filter { cloudNode -> PatternMatcher(filterText, PatternMatcher.PATTERN_SIMPLE_GLOB).match(cloudNode.name) }
 			} else {
-				nodes?.filter { cloudNode -> cloudNode.name.toLowerCase(Locale.getDefault()).startsWith(filterText.toLowerCase(Locale.getDefault())) }
+				nodes?.filter { cloudNode -> cloudNode.name.lowercase().startsWith(filterText.lowercase()) }
 			}
 		} else {
 			nodes

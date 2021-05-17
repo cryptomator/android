@@ -28,7 +28,6 @@ import org.cryptomator.presentation.ui.dialog.VaultDeleteConfirmationDialog
 import org.cryptomator.presentation.ui.dialog.VaultRenameDialog
 import org.cryptomator.presentation.ui.fragment.VaultListFragment
 import org.cryptomator.presentation.ui.layout.ObscuredAwareCoordinatorLayout.Listener
-import java.util.Locale
 import javax.inject.Inject
 import kotlinx.android.synthetic.main.activity_layout_obscure_aware.activityRootView
 import kotlinx.android.synthetic.main.toolbar_layout.toolbar
@@ -100,7 +99,7 @@ class VaultListActivity : BaseActivity(), //
 	}
 
 	private fun setupToolbar() {
-		toolbar.title = getString(R.string.app_name).toUpperCase(Locale.getDefault())
+		toolbar.title = getString(R.string.app_name).uppercase()
 		setSupportActionBar(toolbar)
 	}
 

@@ -23,7 +23,6 @@ import java.io.ObjectOutputStream
 import java.io.OutputStream
 import java.util.ArrayList
 import java.util.HashSet
-import java.util.Locale
 import javax.inject.Inject
 import timber.log.Timber
 
@@ -109,7 +108,7 @@ class FileUtil @Inject constructor(private val context: Context, private val mim
 	private fun fileNameLowerCaseExtension(cloudFile: CloudFileModel): String {
 		val cloudFileName = cloudFile.name
 		val extension = getExtension(cloudFileName)
-		return if (extension != null) getSimpleFileName(cloudFileName) + "." + extension.toLowerCase(Locale.ROOT) else cloudFileName
+		return if (extension != null) getSimpleFileName(cloudFileName) + "." + extension.lowercase() else cloudFileName
 	}
 
 	fun fileInfo(name: String): FileInfo {

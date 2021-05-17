@@ -8,7 +8,6 @@ import com.google.android.material.textfield.TextInputEditText
 import org.cryptomator.generator.Fragment
 import org.cryptomator.presentation.R
 import org.cryptomator.presentation.presenter.TextEditorPresenter
-import java.util.Locale
 import javax.inject.Inject
 import kotlinx.android.synthetic.main.fragment_text_editor.textEditor
 import kotlinx.android.synthetic.main.fragment_text_editor.textViewWrapper
@@ -63,9 +62,9 @@ class TextEditorFragment : BaseFragment() {
 
 		clearSpans(textEditor)
 
-		val fulltext = textEditor.text.toString().toLowerCase(Locale.getDefault())
+		val fulltext = textEditor.text.toString().lowercase()
 
-		textEditorPresenter.query?.toLowerCase(Locale.getDefault())?.let {
+		textEditorPresenter.query?.lowercase()?.let {
 			val index: Int = when (direction) {
 				Direction.PREVIOUS -> {
 					textEditorPresenter.lastFilterLocation -= 1

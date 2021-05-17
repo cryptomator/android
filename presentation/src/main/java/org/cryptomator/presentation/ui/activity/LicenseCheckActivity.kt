@@ -10,7 +10,6 @@ import org.cryptomator.presentation.presenter.LicenseCheckPresenter
 import org.cryptomator.presentation.ui.activity.view.UpdateLicenseView
 import org.cryptomator.presentation.ui.dialog.LicenseConfirmationDialog
 import org.cryptomator.presentation.ui.dialog.UpdateLicenseDialog
-import java.util.Locale
 import javax.inject.Inject
 import kotlin.system.exitProcess
 import kotlinx.android.synthetic.main.toolbar_layout.toolbar
@@ -53,7 +52,7 @@ class LicenseCheckActivity : BaseActivity(), UpdateLicenseDialog.Callback, Licen
 	}
 
 	private fun setupToolbar() {
-		toolbar.title = getString(R.string.app_name).toUpperCase(Locale.getDefault())
+		toolbar.title = getString(R.string.app_name).uppercase()
 		setSupportActionBar(toolbar)
 	}
 

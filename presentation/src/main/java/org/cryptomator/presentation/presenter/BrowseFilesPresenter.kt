@@ -425,7 +425,7 @@ class BrowseFilesPresenter @Inject constructor( //
 	}
 
 	private fun viewFile(cloudFile: CloudFileModel) {
-		val lowerFileName = cloudFile.name.toLowerCase(Locale.getDefault())
+		val lowerFileName = cloudFile.name.lowercase()
 		if (lowerFileName.endsWith(".txt") || lowerFileName.endsWith(".md") || lowerFileName.endsWith(".todo")) {
 			startIntent(
 				Intents.textEditorIntent() //
