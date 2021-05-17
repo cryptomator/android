@@ -5,11 +5,13 @@
 	<!-- # error messages -->
 	<string name="error_generic">Se ha producido un error</string>
 	<string name="error_authentication_failed">Ha fallado la autenticación</string>
+	<string name="error_authentication_failed_re_authenticate">Autenticación fallida. Por favor, inicie sesión usando %1$s</string>
 	<string name="error_no_network_connection">No hay conexión de red</string>
 	<string name="error_invalid_passphrase">Contraseña incorrecta</string>
 	<string name="error_file_or_folder_exists">Ya existe un archivo o carpeta.</string>
 	<string name="error_vault_version_not_supported">Caja fuerte no soportada. Se ha creado con otra versión de Cryptomator.</string>
 	<string name="error_vault_already_exists">La caja fuerte ya existe.</string>
+	<string name="error_no_such_file">El archivo no existe.</string>
 	<string name="error_vault_has_been_locked">Se ha bloqueado la caja fuerte.</string>
 	<string name="error_cloud_already_exists">La nube ya existe.</string>
 	<string name="error_activity_not_found">Por favor, descarga una aplicación que pueda abrir este archivo.</string>
