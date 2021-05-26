@@ -28,9 +28,9 @@ ext {
 	rxAndroidVersion = '2.1.1'
 	rxBindingVersion = '2.2.0'
 
-	daggerVersion = '2.35.1'
+	daggerVersion = '2.36'
 
-	gsonVersion = '2.8.6'
+	gsonVersion = '2.8.7'
 
 	okHttpVersion = '4.9.1'
 	okHttpDigestVersion = '2.5'
@@ -51,13 +51,13 @@ ext {
 	// cloud provider libs
 
 	// do not update to 1.4.0 until minsdk is 7.x (or desugaring works better) otherwise it will crash on 6.x
-	cryptolibVersion = '2.0.0-rc1'
+	cryptolibVersion = '2.0.0-rc2'
 
 	dropboxVersion = '4.0.0'
 
 	googleApiServicesVersion = 'v3-rev197-1.25.0'
 	googlePlayServicesVersion = '19.0.0'
-	googleClientVersion = '1.31.4'
+	googleClientVersion = '1.31.5'
 
 	msgraphVersion = '2.10.0'
 
@@ -73,8 +73,8 @@ ext {
 	jUnitVersion = '5.7.1'
 	jUnit4Version = '4.13.1'
 	assertJVersion = '1.7.1'
-	mockitoVersion = '3.9.0'
-	mockitoInlineVersion = '3.9.0'
+	mockitoVersion = '3.10.0'
+	mockitoInlineVersion = '3.10.0'
 	hamcrestVersion = '1.3'
 	dexmakerVersion = '1.0'
 	espressoVersion = '3.3.0'
