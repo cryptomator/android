@@ -6,13 +6,14 @@ import org.cryptomator.domain.usecases.LicenseCheck
 import org.cryptomator.domain.usecases.NoOpResultHandler
 import org.cryptomator.presentation.exception.ExceptionHandlers
 import org.cryptomator.presentation.ui.activity.view.UpdateLicenseView
+import org.cryptomator.presentation.ui.dialog.AppIsObscuredInfoDialog
 import org.cryptomator.util.SharedPreferencesHandler
 import javax.inject.Inject
 import timber.log.Timber
 
 class LicenseCheckPresenter @Inject internal constructor(
 	exceptionHandlers: ExceptionHandlers,  //
-	private val doLicenseCheckUsecase: DoLicenseCheckUseCase,  //
+	private val doLicenseCheckUseCase: DoLicenseCheckUseCase,  //
 	private val sharedPreferencesHandler: SharedPreferencesHandler
 ) : Presenter<UpdateLicenseView>(exceptionHandlers) {
 
@@ -20,16 +21,20 @@ class LicenseCheckPresenter @Inject internal constructor(
 		data?.let {
 			val license = it.fragment ?: it.lastPathSegment ?: ""
 			view?.showOrUpdateLicenseDialog(license)
-			doLicenseCheckUsecase
+			doLicenseCheckUseCase
 				.withLicense(license)
 				.run(CheckLicenseStatusSubscriber())
 		}
 	}
 
 	fun validateDialogAware(license: String?) {
-		doLicenseCheckUsecase
+		doLicenseCheckUseCase
 			.withLicense(license)
 			.run(CheckLicenseStatusSubscriber())
+	}
+
+	fun onFilteredTouchEventForSecurity() {
+		view?.showDialog(AppIsObscuredInfoDialog.newInstance())
 	}
 
 	private inner class CheckLicenseStatusSubscriber : NoOpResultHandler<LicenseCheck>() {
@@ -49,6 +54,6 @@ class LicenseCheckPresenter @Inject internal constructor(
 	}
 
 	init {
-		unsubscribeOnDestroy(doLicenseCheckUsecase)
+		unsubscribeOnDestroy(doLicenseCheckUseCase)
 	}
 }

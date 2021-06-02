@@ -10,11 +10,13 @@ import org.cryptomator.presentation.presenter.LicenseCheckPresenter
 import org.cryptomator.presentation.ui.activity.view.UpdateLicenseView
 import org.cryptomator.presentation.ui.dialog.LicenseConfirmationDialog
 import org.cryptomator.presentation.ui.dialog.UpdateLicenseDialog
+import org.cryptomator.presentation.ui.layout.ObscuredAwareCoordinatorLayout
 import javax.inject.Inject
 import kotlin.system.exitProcess
+import kotlinx.android.synthetic.main.activity_layout_obscure_aware.activityRootView
 import kotlinx.android.synthetic.main.toolbar_layout.toolbar
 
-@Activity
+@Activity(layout = R.layout.activity_layout_obscure_aware)
 class LicenseCheckActivity : BaseActivity(), UpdateLicenseDialog.Callback, LicenseConfirmationDialog.Callback, UpdateLicenseView {
 
 	@Inject
@@ -23,9 +25,17 @@ class LicenseCheckActivity : BaseActivity(), UpdateLicenseDialog.Callback, Licen
 	override fun onCreate(savedInstanceState: Bundle?) {
 		super.onCreate(savedInstanceState)
 
-		setupToolbar()
+		activityRootView.setOnFilteredTouchEventForSecurityListener(object : ObscuredAwareCoordinatorLayout.Listener {
+			override fun onFilteredTouchEventForSecurity() {
+				licenseCheckPresenter.onFilteredTouchEventForSecurity()
+			}
+		})
 
 		validate(intent)
+	}
+
+	override fun setupView() {
+		setupToolbar()
 	}
 
 	override fun checkLicenseClicked(license: String?) {
@@ -49,6 +59,11 @@ class LicenseCheckActivity : BaseActivity(), UpdateLicenseDialog.Callback, Licen
 
 	override fun onCheckLicenseCanceled() {
 		exitProcess(0)
+	}
+
+	override fun appObscuredClosingEnterLicenseDialog() {
+		closeDialog()
+		licenseCheckPresenter.onFilteredTouchEventForSecurity()
 	}
 
 	private fun setupToolbar() {

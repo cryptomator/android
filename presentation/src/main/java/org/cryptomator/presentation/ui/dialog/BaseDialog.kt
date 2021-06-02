@@ -82,9 +82,7 @@ abstract class BaseDialog<Callback> : DialogFragment() {
 		get() = requireContext().resources.configuration.orientation == Configuration.ORIENTATION_LANDSCAPE
 
 	fun onErrorResponse(view: View?) {
-		if (view != null) {
-			view.isFocusableInTouchMode = true
-		}
+		view?.let { it.isFocusableInTouchMode = true }
 		allowClosingDialog(true)
 		enableButtons(true)
 	}
