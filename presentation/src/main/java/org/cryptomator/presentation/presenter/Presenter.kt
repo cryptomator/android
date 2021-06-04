@@ -130,7 +130,6 @@ abstract class Presenter<V : View> protected constructor(private val exceptionMa
 
 	open fun resumed() {}
 
-
 	fun destroy() {
 		logLifecycle("destroy")
 		unsubscribeAll()

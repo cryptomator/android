@@ -1,11 +1,15 @@
 package org.cryptomator.presentation.ui.activity
 
+import android.content.BroadcastReceiver
+import android.content.Context
 import android.content.Intent
+import android.content.IntentFilter
 import android.view.Menu
 import android.view.View
 import androidx.appcompat.widget.SearchView
 import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.Fragment
+import androidx.localbroadcastmanager.content.LocalBroadcastManager
 import org.cryptomator.domain.CloudNode
 import org.cryptomator.generator.Activity
 import org.cryptomator.generator.InjectIntent
@@ -28,6 +32,7 @@ import org.cryptomator.presentation.model.comparator.CloudNodeModelSizeBiggestFi
 import org.cryptomator.presentation.model.comparator.CloudNodeModelSizeSmallestFirstComparator
 import org.cryptomator.presentation.presenter.BrowseFilesPresenter
 import org.cryptomator.presentation.presenter.BrowseFilesPresenter.Companion.OPEN_FILE_FINISHED
+import org.cryptomator.presentation.service.CryptorsService
 import org.cryptomator.presentation.ui.activity.view.BrowseFilesView
 import org.cryptomator.presentation.ui.bottomsheet.FileSettingsBottomSheet
 import org.cryptomator.presentation.ui.bottomsheet.FolderSettingsBottomSheet
@@ -73,6 +78,8 @@ class BrowseFilesActivity : BaseActivity(), //
 
 	private var navigationMode: ChooseCloudNodeSettings.NavigationMode? = null
 
+	private var finishActivityDueToScreenLockEventReceiver: BroadcastReceiver? = null
+
 	override fun setupView() {
 		setupToolbar()
 		setupNavigationMode()
@@ -101,6 +108,28 @@ class BrowseFilesActivity : BaseActivity(), //
 			browseFilesIntent.folder(),
 			browseFilesIntent.chooseCloudNodeSettings()
 		)
+
+	override fun onDestroy() {
+		super.onDestroy()
+
+		finishActivityDueToScreenLockEventReceiver?.let {
+			LocalBroadcastManager.getInstance(this).unregisterReceiver(it)
+		}
+	}
+
+	override fun onResume() {
+		super.onResume()
+
+		finishActivityDueToScreenLockEventReceiver = object : BroadcastReceiver() {
+			override fun onReceive(context: Context, intent: Intent) {
+				finish()
+			}
+		}
+
+		finishActivityDueToScreenLockEventReceiver?.let {
+			LocalBroadcastManager.getInstance(this).registerReceiver(it, IntentFilter(CryptorsService.SCREEN_AND_VAULT_LOCKED))
+		}
+	}
 
 	override fun onBackPressed() {
 		browseFilesPresenter.onBackPressed()
