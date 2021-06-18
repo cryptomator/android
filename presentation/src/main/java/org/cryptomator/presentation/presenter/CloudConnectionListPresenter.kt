@@ -6,10 +6,6 @@ import android.net.Uri
 import android.os.Build
 import android.widget.Toast
 import androidx.annotation.RequiresApi
-import com.pcloud.sdk.AuthorizationActivity
-import com.pcloud.sdk.AuthorizationData
-import com.pcloud.sdk.AuthorizationRequest
-import com.pcloud.sdk.AuthorizationResult
 import org.cryptomator.domain.Cloud
 import org.cryptomator.domain.LocalStorageCloud
 import org.cryptomator.domain.PCloud
@@ -22,7 +18,6 @@ import org.cryptomator.domain.usecases.cloud.RemoveCloudUseCase
 import org.cryptomator.domain.usecases.vault.DeleteVaultUseCase
 import org.cryptomator.domain.usecases.vault.GetVaultListUseCase
 import org.cryptomator.generator.Callback
-import org.cryptomator.presentation.BuildConfig
 import org.cryptomator.presentation.R
 import org.cryptomator.presentation.exception.ExceptionHandlers
 import org.cryptomator.presentation.intent.Intents
@@ -33,6 +28,7 @@ import org.cryptomator.presentation.model.S3CloudModel
 import org.cryptomator.presentation.model.WebDavCloudModel
 import org.cryptomator.presentation.model.mappers.CloudModelMapper
 import org.cryptomator.presentation.ui.activity.view.CloudConnectionListView
+import org.cryptomator.presentation.ui.dialog.PCloudCredentialsUpdatedDialog
 import org.cryptomator.presentation.workflow.ActivityResult
 import org.cryptomator.util.crypto.CredentialCryptor
 import java.util.*
@@ -136,18 +132,9 @@ class CloudConnectionListPresenter @Inject constructor( //
 				Intents.webDavAddOrChangeIntent()
 			)
 			CloudTypeModel.PCLOUD -> {
-				val authIntent: Intent = AuthorizationActivity.createIntent(
-					this.context(),
-					AuthorizationRequest.create()
-						.setType(AuthorizationRequest.Type.TOKEN)
-						.setClientId(BuildConfig.PCLOUD_CLIENT_ID)
-						.setForceAccessApproval(true)
-						.addPermission("manageshares")
-						.build()
-				)
 				requestActivityResult(
 					ActivityResultCallbacks.pCloudAuthenticationFinished(),  //
-					authIntent
+					Intents.authenticatePCloudIntent()
 				)
 			}
 			CloudTypeModel.S3 -> requestActivityResult(
@@ -210,38 +197,28 @@ class CloudConnectionListPresenter @Inject constructor( //
 
 	@Callback
 	fun pCloudAuthenticationFinished(activityResult: ActivityResult) {
-		val authData: AuthorizationData = AuthorizationActivity.getResult(activityResult.intent())
-		val result: AuthorizationResult = authData.result
+		val code = activityResult.intent().extras?.getString(PCLOUD_OAUTH_AUTH_CODE, "")
+		val hostname = activityResult.intent().extras?.getString(PCLOUD_HOSTNAME, "")
 
-		when (result) {
-			AuthorizationResult.ACCESS_GRANTED -> {
-				val accessToken: String = CredentialCryptor //
-					.getInstance(this.context()) //
-					.encrypt(authData.token)
-				val pCloudSkeleton: PCloud = PCloud.aPCloud() //
-					.withAccessToken(accessToken)
-					.withUrl(authData.apiHost)
-					.build();
-				getUsernameUseCase //
-					.withCloud(pCloudSkeleton) //
-					.run(object : DefaultResultHandler<String>() {
-						override fun onSuccess(username: String?) {
-							prepareForSavingPCloud(PCloud.aCopyOf(pCloudSkeleton).withUsername(username).build())
-						}
-					})
-			}
-			AuthorizationResult.ACCESS_DENIED -> {
-				Timber.tag("CloudConnListPresenter").e("Account access denied")
-				view?.showMessage(String.format(getString(R.string.screen_authenticate_auth_authentication_failed), getString(R.string.cloud_names_pcloud)))
-			}
-			AuthorizationResult.AUTH_ERROR -> {
-				Timber.tag("CloudConnListPresenter").e("""Account access grant error: ${authData.errorMessage}""".trimIndent())
-				view?.showMessage(String.format(getString(R.string.screen_authenticate_auth_authentication_failed), getString(R.string.cloud_names_pcloud)))
-			}
-			AuthorizationResult.CANCELLED -> {
-				Timber.tag("CloudConnListPresenter").i("Account access grant cancelled")
-				view?.showMessage(String.format(getString(R.string.screen_authenticate_auth_authentication_failed), getString(R.string.cloud_names_pcloud)))
-			}
+		if (!code.isNullOrEmpty() && !hostname.isNullOrEmpty()) {
+			Timber.tag("CloudConnectionListPresenter").i("PCloud OAuth code successfully retrieved")
+
+			val accessToken = CredentialCryptor //
+				.getInstance(this.context()) //
+				.encrypt(code)
+			val pCloudSkeleton = PCloud.aPCloud() //
+				.withAccessToken(accessToken)
+				.withUrl(hostname)
+				.build();
+			getUsernameUseCase //
+				.withCloud(pCloudSkeleton) //
+				.run(object : DefaultResultHandler<String>() {
+					override fun onSuccess(username: String) {
+						prepareForSavingPCloud(PCloud.aCopyOf(pCloudSkeleton).withUsername(username).build())
+					}
+				})
+		} else {
+			Timber.tag("CloudConnectionListPresenter").i("PCloud Authentication not successful")
 		}
 	}
 
@@ -253,13 +230,13 @@ class CloudConnectionListPresenter @Inject constructor( //
 					clouds.firstOrNull {
 						(it as PCloud).username() == cloud.username()
 					}?.let {
-						it as PCloud
 						saveCloud(
-							PCloud.aCopyOf(it) //
+							PCloud.aCopyOf(it as PCloud) //
 								.withUrl(cloud.url())
 								.withAccessToken(cloud.accessToken())
 								.build()
 						)
+						view?.showDialog(PCloudCredentialsUpdatedDialog.newInstance(it.username()))
 					} ?: saveCloud(cloud)
 				}
 			})
@@ -284,12 +261,11 @@ class CloudConnectionListPresenter @Inject constructor( //
 			LocalStorageCloud.aLocalStorage() //
 				.withRootUri(rootTreeUriOfLocalStorage.toString()) //
 				.build()
-		) //
-			.run(object : DefaultResultHandler<Void?>() {
-				override fun onSuccess(void: Void?) {
-					loadCloudList()
-				}
-			})
+		).run(object : DefaultResultHandler<Void?>() {
+			override fun onSuccess(void: Void?) {
+				loadCloudList()
+			}
+		})
 	}
 
 	@RequiresApi(api = Build.VERSION_CODES.KITKAT)
@@ -327,6 +303,9 @@ class CloudConnectionListPresenter @Inject constructor( //
 	companion object {
 
 		const val SELECTED_CLOUD = "selectedCloudConnection"
+		const val PCLOUD_OAUTH_AUTH_CODE = "pCloudOAuthCode"
+		const val PCLOUD_HOSTNAME = "pCloudHostname"
+
 	}
 
 	init {

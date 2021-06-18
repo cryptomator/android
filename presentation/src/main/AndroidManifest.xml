@@ -117,6 +117,24 @@
 			android:theme="@style/Theme.Transparent" />
 
 		<activity
+			android:name=".ui.activity.AuthenticatePCloudActivity"
+			android:configChanges="orientation|keyboard"
+			android:launchMode="singleTask">
+
+			<intent-filter>
+				<data
+					android:host="redirect"
+					android:scheme="pcloudoauth" />
+
+				<action android:name="android.intent.action.VIEW" />
+
+				<category android:name="android.intent.category.BROWSABLE" />
+				<category android:name="android.intent.category.DEFAULT" />
+			</intent-filter>
+
+		</activity>
+
+		<activity
 			android:name=".ui.activity.ImagePreviewActivity"
 			android:theme="@style/FullscreenTheme" />
 

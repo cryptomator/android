@@ -5,6 +5,7 @@ import android.app.Activity;
 import org.cryptomator.domain.di.PerView;
 import org.cryptomator.presentation.di.module.ActivityModule;
 import org.cryptomator.presentation.ui.activity.AuthenticateCloudActivity;
+import org.cryptomator.presentation.ui.activity.AuthenticatePCloudActivity;
 import org.cryptomator.presentation.ui.activity.AutoUploadChooseVaultActivity;
 import org.cryptomator.presentation.ui.activity.BiometricAuthSettingsActivity;
 import org.cryptomator.presentation.ui.activity.BrowseFilesActivity;
@@ -108,6 +109,8 @@ public interface ActivityComponent {
 	void inject(TextEditorFragment textEditorFragment);
 
 	void inject(AuthenticateCloudActivity authenticateCloudActivity);
+
+	void inject(AuthenticatePCloudActivity authenticatePCloudActivity);
 
 	void inject(ImagePreviewActivity imagePreviewActivity);
 

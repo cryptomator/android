@@ -265,76 +265,58 @@ class AuthenticateCloudPresenter @Inject constructor( //
 		}
 
 		override fun resumed(intent: AuthenticateCloudIntent) {
-			when {
-				ExceptionUtil.contains(intent.error(), WrongCredentialsException::class.java) -> {
-					if (!authenticationStarted) {
-						startAuthentication()
-						Toast.makeText(
-							context(),
-							String.format(getString(R.string.error_authentication_failed_re_authenticate), intent.cloud().username()),
-							Toast.LENGTH_LONG
-						).show()
-					}
-				}
-				else -> {
-					Timber.tag("AuthicateCloudPrester").e(intent.error())
-					failAuthentication(intent.cloud().name())
-				}
+			if (authenticationStarted) {
+				finish()
+			} else {
+				startAuthentication(intent.cloud())
+				Toast.makeText(
+					context(),
+					String.format(getString(R.string.error_authentication_failed_re_authenticate), intent.cloud().username()),
+					Toast.LENGTH_LONG
+				).show()
 			}
 		}
 
-		private fun startAuthentication() {
+		private fun startAuthentication(cloud: CloudModel) {
 			authenticationStarted = true
-			val authIntent: Intent = AuthorizationActivity.createIntent(
-				context(),
-				AuthorizationRequest.create()
-					.setType(AuthorizationRequest.Type.TOKEN)
-					.setClientId(BuildConfig.PCLOUD_CLIENT_ID)
-					.setForceAccessApproval(true)
-					.addPermission("manageshares")
-					.build()
-			)
+			showProgress(ProgressModel(ProgressStateModel.AUTHENTICATION))
+			view?.skipTransition()
 			requestActivityResult(
-				ActivityResultCallbacks.pCloudReAuthenticationFinished(),  //
-				authIntent
+				ActivityResultCallbacks.pCloudReAuthenticationFinished(cloud),  //
+				Intents.cloudConnectionListIntent() //
+					.withCloudType(CloudTypeModel.PCLOUD) //
+					.withDialogTitle(context().getString(R.string.screen_update_pcloud_connections_title)) //
+					.withFinishOnCloudItemClick(false) //
 			)
 		}
 	}
 
 	@Callback
-	fun pCloudReAuthenticationFinished(activityResult: ActivityResult) {
-		val authData: AuthorizationData = AuthorizationActivity.getResult(activityResult.intent())
-		val result: AuthorizationResult = authData.result
+	fun pCloudReAuthenticationFinished(activityResult: ActivityResult, cloud: CloudModel) {
+		val code = activityResult.intent().extras?.getString(CloudConnectionListPresenter.PCLOUD_OAUTH_AUTH_CODE, "")
+		val hostname = activityResult.intent().extras?.getString(CloudConnectionListPresenter.PCLOUD_HOSTNAME, "")
 
-		when (result) {
-			AuthorizationResult.ACCESS_GRANTED -> {
-				val accessToken: String = CredentialCryptor //
-					.getInstance(context()) //
-					.encrypt(authData.token)
-				val pCloudSkeleton: PCloud = PCloud.aPCloud() //
-					.withAccessToken(accessToken)
-					.withUrl(authData.apiHost)
-					.build();
-				getUsernameUseCase //
-					.withCloud(pCloudSkeleton) //
-					.run(object : DefaultResultHandler<String>() {
-						override fun onSuccess(username: String?) {
-							prepareForSavingPCloud(PCloud.aCopyOf(pCloudSkeleton).withUsername(username).build())
-						}
-					})
-			}
-			AuthorizationResult.ACCESS_DENIED -> {
-				Timber.tag("CloudConnListPresenter").e("Account access denied")
-				view?.showMessage(String.format(getString(R.string.screen_authenticate_auth_authentication_failed), getString(R.string.cloud_names_pcloud)))
-			}
-			AuthorizationResult.AUTH_ERROR -> {
-				Timber.tag("CloudConnListPresenter").e("""Account access grant error: ${authData.errorMessage}""".trimIndent())
-				view?.showMessage(String.format(getString(R.string.screen_authenticate_auth_authentication_failed), getString(R.string.cloud_names_pcloud)))
-			}
-			AuthorizationResult.CANCELLED -> {
-				Timber.tag("CloudConnListPresenter").i("Account access grant cancelled")
-				view?.showMessage(String.format(getString(R.string.screen_authenticate_auth_authentication_failed), getString(R.string.cloud_names_pcloud)))
-			}
+		if (!code.isNullOrEmpty() && !hostname.isNullOrEmpty()) {
+			Timber.tag("CloudConnectionListPresenter").i("PCloud OAuth code successfully retrieved")
+
+			val accessToken = CredentialCryptor //
+				.getInstance(this.context()) //
+				.encrypt(code)
+			val pCloudSkeleton = PCloud.aPCloud() //
+				.withAccessToken(accessToken)
+				.withUrl(hostname)
+				.build();
+			getUsernameUseCase //
+				.withCloud(pCloudSkeleton) //
+				.run(object : DefaultResultHandler<String>() {
+					override fun onSuccess(username: String) {
+						Timber.tag("CloudConnectionListPresenter").i("PCloud Authentication successfully")
+						prepareForSavingPCloud(PCloud.aCopyOf(pCloudSkeleton).withUsername(username).build())
+					}
+				})
+		} else {
+			Timber.tag("CloudConnectionListPresenter").i("PCloud Authentication not successful")
+			failAuthentication(cloud.name())
 		}
 	}
 
