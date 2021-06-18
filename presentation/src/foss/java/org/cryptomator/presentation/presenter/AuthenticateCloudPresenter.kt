@@ -2,13 +2,8 @@ package org.cryptomator.presentation.presenter
 
 import android.Manifest
 import android.accounts.AccountManager
-import android.content.Intent
 import android.widget.Toast
 import com.dropbox.core.android.Auth
-import com.pcloud.sdk.AuthorizationActivity
-import com.pcloud.sdk.AuthorizationData
-import com.pcloud.sdk.AuthorizationRequest
-import com.pcloud.sdk.AuthorizationResult
 import org.cryptomator.data.cloud.onedrive.OnedriveClientFactory
 import org.cryptomator.data.cloud.onedrive.graph.ClientException
 import org.cryptomator.data.cloud.onedrive.graph.ICallback
