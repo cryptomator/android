@@ -77,28 +77,56 @@ class UnlockVaultPresenter @Inject constructor(
 			return
 		}
 
+		val vault = intent.vaultModel().toVault()
 		getUnverifiedVaultConfigUseCase
-			.withVault(intent.vaultModel().toVault())
+			.withVault(vault)
 			.run(object : DefaultResultHandler<Optional<UnverifiedVaultConfig>>() {
 				override fun onSuccess(unverifiedVaultConfig: Optional<UnverifiedVaultConfig>) {
-					if (unverifiedVaultConfig.isAbsent || unverifiedVaultConfig.get().keyId.scheme == CryptoConstants.MASTERKEY_SCHEME) {
-						when (intent.vaultAction()) {
-							UnlockVaultIntent.VaultAction.UNLOCK, UnlockVaultIntent.VaultAction.UNLOCK_FOR_BIOMETRIC_AUTH -> {
-								startedUsingPrepareUnlock = sharedPreferencesHandler.backgroundUnlockPreparation()
-								pendingUnlockFor(intent.vaultModel().toVault())?.unverifiedVaultConfig = unverifiedVaultConfig.orElse(null)
-								unlockVault(intent.vaultModel())
-							}
-							UnlockVaultIntent.VaultAction.CHANGE_PASSWORD -> view?.showChangePasswordDialog(intent.vaultModel(), unverifiedVaultConfig.orElse(null))
-							else -> TODO("Not yet implemented")
-						}
+					onUnverifiedVaultConfigRetrieved(unverifiedVaultConfig)
+				}
+				override fun onError(e: Throwable) {
+					if (!authenticationExceptionHandler.handleAuthenticationException(this@UnlockVaultPresenter, e, ActivityResultCallbacks.authenticatedAfterGettingVaultConfig(vault))) {
+						super.onError(e)
+						finishWithResult(null)
 					}
 				}
-
-				override fun onError(e: Throwable) {
-					super.onError(e)
-					finishWithResult(null)
-				}
 			})
+	}
+
+	@Callback(dispatchResultOkOnly = false)
+	fun authenticatedAfterGettingVaultConfig(result: ActivityResult, vault: Vault) {
+		if (result.isResultOk) {
+			val cloud = result.getSingleResult(CloudModel::class.java).toCloud()
+			getUnverifiedVaultConfigUseCase
+				.withVault(Vault.aCopyOf(vault).withCloud(cloud).build())
+				.run(object : DefaultResultHandler<Optional<UnverifiedVaultConfig>>() {
+					override fun onSuccess(unverifiedVaultConfig: Optional<UnverifiedVaultConfig>) {
+						onUnverifiedVaultConfigRetrieved(unverifiedVaultConfig)
+					}
+					override fun onError(e: Throwable) {
+						super.onError(e)
+						finishWithResult(null)
+					}
+				})
+		} else {
+			view?.closeDialog()
+			val error = result.getSingleResult(Throwable::class.java)
+			error?.let { showError(it) }
+		}
+	}
+
+	private fun onUnverifiedVaultConfigRetrieved(unverifiedVaultConfig: Optional<UnverifiedVaultConfig>) {
+		if (unverifiedVaultConfig.isAbsent || unverifiedVaultConfig.get().keyId.scheme == CryptoConstants.MASTERKEY_SCHEME) {
+			when (intent.vaultAction()) {
+				UnlockVaultIntent.VaultAction.UNLOCK, UnlockVaultIntent.VaultAction.UNLOCK_FOR_BIOMETRIC_AUTH -> {
+					startedUsingPrepareUnlock = sharedPreferencesHandler.backgroundUnlockPreparation()
+					pendingUnlockFor(intent.vaultModel().toVault())?.unverifiedVaultConfig = unverifiedVaultConfig.orElse(null)
+					unlockVault(intent.vaultModel())
+				}
+				UnlockVaultIntent.VaultAction.CHANGE_PASSWORD -> view?.showChangePasswordDialog(intent.vaultModel(), unverifiedVaultConfig.orElse(null))
+				else -> TODO("Not yet implemented")
+			}
+		}
 	}
 
 	private fun unlockVault(vaultModel: VaultModel) {
