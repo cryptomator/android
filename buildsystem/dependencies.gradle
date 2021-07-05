@@ -51,7 +51,7 @@ ext {
 	// cloud provider libs
 
 	// do not update to 1.4.0 until minsdk is 7.x (or desugaring works better) otherwise it will crash on 6.x
-	cryptolibVersion = '2.0.0-rc2'
+	cryptolibVersion = '2.0.0-rc6'
 
 	dropboxVersion = '4.0.0'
 
@@ -74,7 +74,7 @@ ext {
 	jUnit4Version = '4.13.1'
 	assertJVersion = '1.7.1'
 	mockitoVersion = '3.10.0'
-	mockitoInlineVersion = '3.10.0'
+	mockitoKotlinVersion = '3.2.0'
 	hamcrestVersion = '1.3'
 	dexmakerVersion = '1.0'
 	espressoVersion = '3.3.0'
@@ -132,7 +132,8 @@ ext {
 			junit4Engine          : "org.junit.vintage:junit-vintage-engine:${jUnitVersion}",
 			minIo                 : "io.minio:minio:${minIoVersion}",
 			mockito               : "org.mockito:mockito-core:${mockitoVersion}",
-			mockitoInline         : "org.mockito:mockito-inline:${mockitoInlineVersion}",
+			mockitoInline         : "org.mockito:mockito-inline:${mockitoVersion}",
+			mockitoKotlin         : "org.mockito.kotlin:mockito-kotlin:${mockitoKotlinVersion}",
 			msgraph               : "com.microsoft.graph:microsoft-graph:${msgraphVersion}",
 			multidex              : "androidx.multidex:multidex:${multidexVersion}",
 			okHttp                : "com.squareup.okhttp3:okhttp:${okHttpVersion}",

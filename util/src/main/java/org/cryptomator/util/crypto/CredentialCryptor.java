@@ -2,10 +2,8 @@ package org.cryptomator.util.crypto;
 
 import android.content.Context;
 
+import java.nio.charset.StandardCharsets;
 import java.security.KeyStore;
-
-import static org.cryptomator.util.Encodings.ISO_8859_1;
-import static org.cryptomator.util.Encodings.UTF_8;
 
 public class CredentialCryptor {
 
@@ -31,7 +29,7 @@ public class CredentialCryptor {
 	}
 
 	public String encrypt(String decrypted) {
-		return new String(encrypt(decrypted.getBytes(UTF_8)), ISO_8859_1);
+		return new String(encrypt(decrypted.getBytes(StandardCharsets.UTF_8)), StandardCharsets.ISO_8859_1);
 	}
 
 	public byte[] decrypt(byte[] encrypted) {
@@ -39,7 +37,7 @@ public class CredentialCryptor {
 	}
 
 	public String decrypt(String encrypted) {
-		return new String(decrypt(encrypted.getBytes(ISO_8859_1)), UTF_8);
+		return new String(decrypt(encrypted.getBytes(StandardCharsets.ISO_8859_1)), StandardCharsets.UTF_8);
 	}
 
 }

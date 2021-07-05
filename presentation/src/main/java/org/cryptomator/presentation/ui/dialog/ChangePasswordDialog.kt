@@ -56,11 +56,10 @@ class ChangePasswordDialog : BaseProgressErrorDialog<ChangePasswordDialog.Callba
 			et_old_password.requestFocus()
 			et_old_password.nextFocusForwardId = et_new_password.id
 			et_new_password.nextFocusForwardId = et_new_retype_password.id
-			changePasswordButton?.let { button ->
-				et_new_retype_password.nextFocusForwardId = button.id
+			changePasswordButton?.let {
+				et_new_retype_password.nextFocusForwardId = it.id
+				registerOnEditorDoneActionAndPerformButtonClick(et_new_retype_password) { it }
 			}
-
-			registerOnEditorDoneActionAndPerformButtonClick(et_new_retype_password) { changePasswordButton }
 
 			PasswordStrengthUtil() //
 				.startUpdatingPasswordStrengthMeter(

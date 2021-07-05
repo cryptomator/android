@@ -28,7 +28,7 @@ public class PCloudContentRepositoryFactory implements CloudContentRepositoryFac
 	}
 
 	@Override
-	public CloudContentRepository cloudContentRepositoryFor(Cloud cloud) {
+	public CloudContentRepository<PCloud, PCloudNode, PCloudFolder, PCloudFile> cloudContentRepositoryFor(Cloud cloud) {
 		return new PCloudContentRepository((PCloud) cloud, context);
 	}
 

@@ -3,6 +3,7 @@ package org.cryptomator.data.repository;
 import android.content.Context;
 import android.net.Uri;
 
+import com.google.common.base.Optional;
 import com.google.common.io.BaseEncoding;
 
 import org.apache.commons.codec.binary.Hex;
@@ -15,7 +16,6 @@ import org.cryptomator.domain.exception.update.GeneralUpdateErrorException;
 import org.cryptomator.domain.exception.update.HashMismatchUpdateCheckException;
 import org.cryptomator.domain.repository.UpdateCheckRepository;
 import org.cryptomator.domain.usecases.UpdateCheck;
-import org.cryptomator.util.Optional;
 
 import java.io.File;
 import java.io.IOException;
@@ -67,7 +67,7 @@ public class UpdateCheckRepositoryImpl implements UpdateCheckRepository {
 		LatestVersion latestVersion = loadLatestVersion();
 
 		if (appVersion.equals(latestVersion.version)) {
-			return Optional.empty();
+			return Optional.absent();
 		}
 
 		final UpdateCheckEntity entity = database.load(UpdateCheckEntity.class, 1L);

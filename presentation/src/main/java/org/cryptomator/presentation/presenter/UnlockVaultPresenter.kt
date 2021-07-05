@@ -2,6 +2,7 @@ package org.cryptomator.presentation.presenter
 
 import android.os.Handler
 import androidx.biometric.BiometricManager
+import com.google.common.base.Optional
 import org.cryptomator.data.cloud.crypto.CryptoConstants
 import org.cryptomator.domain.Cloud
 import org.cryptomator.domain.UnverifiedVaultConfig
@@ -32,7 +33,6 @@ import org.cryptomator.presentation.ui.activity.view.UnlockVaultView
 import org.cryptomator.presentation.ui.dialog.EnterPasswordDialog
 import org.cryptomator.presentation.workflow.ActivityResult
 import org.cryptomator.presentation.workflow.AuthenticationExceptionHandler
-import org.cryptomator.util.Optional
 import org.cryptomator.util.SharedPreferencesHandler
 import java.io.Serializable
 import javax.inject.Inject
@@ -116,15 +116,14 @@ class UnlockVaultPresenter @Inject constructor(
 	}
 
 	private fun onUnverifiedVaultConfigRetrieved(unverifiedVaultConfig: Optional<UnverifiedVaultConfig>) {
-		if (unverifiedVaultConfig.isAbsent || unverifiedVaultConfig.get().keyId.scheme == CryptoConstants.MASTERKEY_SCHEME) {
+		if (!unverifiedVaultConfig.isPresent || unverifiedVaultConfig.get().keyId.scheme == CryptoConstants.MASTERKEY_SCHEME) {
 			when (intent.vaultAction()) {
 				UnlockVaultIntent.VaultAction.UNLOCK, UnlockVaultIntent.VaultAction.UNLOCK_FOR_BIOMETRIC_AUTH -> {
 					startedUsingPrepareUnlock = sharedPreferencesHandler.backgroundUnlockPreparation()
-					pendingUnlockFor(intent.vaultModel().toVault())?.unverifiedVaultConfig = unverifiedVaultConfig.orElse(null)
+					pendingUnlockFor(intent.vaultModel().toVault())?.unverifiedVaultConfig = unverifiedVaultConfig.orNull()
 					unlockVault(intent.vaultModel())
 				}
-				UnlockVaultIntent.VaultAction.CHANGE_PASSWORD -> view?.showChangePasswordDialog(intent.vaultModel(), unverifiedVaultConfig.orElse(null))
-				else -> TODO("Not yet implemented")
+				UnlockVaultIntent.VaultAction.CHANGE_PASSWORD -> view?.showChangePasswordDialog(intent.vaultModel(), unverifiedVaultConfig.orNull())
 			}
 		}
 	}
@@ -176,7 +175,7 @@ class UnlockVaultPresenter @Inject constructor(
 	fun startPrepareUnlockUseCase(vault: Vault) {
 		prepareUnlockUseCase //
 			.withVault(vault) //
-			.andUnverifiedVaultConfig(Optional.ofNullable(pendingUnlockFor(intent.vaultModel().toVault())?.unverifiedVaultConfig))
+			.andUnverifiedVaultConfig(Optional.fromNullable(pendingUnlockFor(intent.vaultModel().toVault())?.unverifiedVaultConfig))
 			.run(object : DefaultResultHandler<UnlockToken>() {
 				override fun onSuccess(unlockToken: UnlockToken) {
 					if (!startedUsingPrepareUnlock && vault.password != null) {
@@ -258,7 +257,7 @@ class UnlockVaultPresenter @Inject constructor(
 	private fun doUnlock(token: UnlockToken, password: String, unverifiedVaultConfig: UnverifiedVaultConfig?) {
 		unlockVaultUsingMasterkeyUseCase //
 			.withVaultOrUnlockToken(VaultOrUnlockToken.from(token)) //
-			.andUnverifiedVaultConfig(Optional.ofNullable(unverifiedVaultConfig)) //
+			.andUnverifiedVaultConfig(Optional.fromNullable(unverifiedVaultConfig)) //
 			.andPassword(password) //
 			.run(object : DefaultResultHandler<Cloud>() {
 				override fun onSuccess(cloud: Cloud) {
@@ -267,7 +266,6 @@ class UnlockVaultPresenter @Inject constructor(
 							handleUnlockVaultSuccess(token.vault, cloud, password)
 						}
 						UnlockVaultIntent.VaultAction.UNLOCK -> finishWithResult(cloud)
-						else -> TODO("Not yet implemented")
 					}
 				}
 
@@ -331,14 +329,13 @@ class UnlockVaultPresenter @Inject constructor(
 						}
 					})
 			}
-			else -> TODO("Not yet implemented")
 		}
 	}
 
 	fun onChangePasswordClick(vaultModel: VaultModel, unverifiedVaultConfig: UnverifiedVaultConfig?, oldPassword: String, newPassword: String) {
 		view?.showProgress(ProgressModel(ProgressStateModel.CHANGING_PASSWORD))
 		changePasswordUseCase.withVault(vaultModel.toVault()) //
-			.andUnverifiedVaultConfig(Optional.ofNullable(unverifiedVaultConfig)) //
+			.andUnverifiedVaultConfig(Optional.fromNullable(unverifiedVaultConfig)) //
 			.andOldPassword(oldPassword) //
 			.andNewPassword(newPassword) //
 			.run(object : DefaultResultHandler<Void?>() {

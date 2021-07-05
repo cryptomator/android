@@ -64,7 +64,7 @@ class EnterPasswordDialog : BaseProgressErrorDialog<EnterPasswordDialog.Callback
 	}
 
 	public override fun setupView() {
-		registerOnEditorDoneActionAndPerformButtonClick(et_password) { unlockButton }
+		unlockButton?.let { registerOnEditorDoneActionAndPerformButtonClick(et_password) { it } }
 		et_password.addTextChangedListener(object : TextWatcher {
 			override fun afterTextChanged(s: Editable) {
 				unlockButton?.let { it.isEnabled = s.toString().isNotEmpty() }

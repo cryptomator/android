@@ -10,20 +10,17 @@ import android.content.Context
 import android.database.Cursor
 import android.database.MergeCursor
 import android.net.Uri
-import android.os.Build
 import android.os.Handler
 import android.provider.MediaStore
-import androidx.annotation.RequiresApi
 import org.cryptomator.domain.exception.FatalBackendException
 import org.cryptomator.presentation.R
 import org.cryptomator.presentation.util.FileUtil
 import org.cryptomator.presentation.util.ResourceHelper
 import org.cryptomator.util.SharedPreferencesHandler
-import org.cryptomator.util.file.MimeTypeMap_Factory
+import org.cryptomator.util.file.MimeTypeMap
 import org.cryptomator.util.file.MimeTypes
 import timber.log.Timber
 
-@RequiresApi(api = Build.VERSION_CODES.N)
 class PhotoContentJob : JobService() {
 
 	private val handler = Handler()
@@ -37,7 +34,7 @@ class PhotoContentJob : JobService() {
 	override fun onStartJob(params: JobParameters): Boolean {
 		Timber.tag("PhotoContentJob").i("Job started!")
 
-		val fileUtil = FileUtil(baseContext, MimeTypes(MimeTypeMap_Factory.newInstance()))
+		val fileUtil = FileUtil(baseContext, MimeTypes(MimeTypeMap()))
 
 		runningParams = params
 

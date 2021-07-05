@@ -15,7 +15,6 @@ import org.cryptomator.util.crypto.UnrecoverableStorageKeyException
 import java.util.concurrent.Executor
 import timber.log.Timber
 
-@RequiresApi(Build.VERSION_CODES.M)
 class BiometricAuthentication(val callback: Callback, val context: Context, val cryptoMode: CryptoMode, private val useConfirmationInFaceUnlockAuth: Boolean) {
 
 	interface Callback {

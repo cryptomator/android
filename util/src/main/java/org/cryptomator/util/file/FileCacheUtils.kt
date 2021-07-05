@@ -2,7 +2,6 @@ package org.cryptomator.util.file
 
 import android.content.Context
 import android.net.Uri
-import org.cryptomator.util.Encodings
 import java.io.BufferedReader
 import java.io.File
 import java.io.FileNotFoundException
@@ -13,6 +12,7 @@ import java.io.InputStreamReader
 import java.io.OutputStreamWriter
 import java.io.PrintWriter
 import java.io.StringWriter
+import java.nio.charset.StandardCharsets
 import java.util.UUID
 import javax.inject.Inject
 
@@ -21,8 +21,8 @@ class FileCacheUtils @Inject constructor(context: Context) {
 	private val cacheDir: File = context.cacheDir
 
 	@Throws(IOException::class)
-	fun read(`in`: InputStream): String {
-		BufferedReader(InputStreamReader(`in`, Encodings.UTF_8)).use { reader ->
+	fun read(inputStream: InputStream): String {
+		BufferedReader(InputStreamReader(inputStream, StandardCharsets.UTF_8)).use { reader ->
 			StringWriter().use { writer ->
 				val buffer = CharArray(1024 * 4)
 				var line: Int
@@ -71,7 +71,7 @@ class FileCacheUtils @Inject constructor(context: Context) {
 
 		private fun open(tmpFile: File): PrintWriter {
 			return try {
-				PrintWriter(OutputStreamWriter(FileOutputStream(tmpFile), Encodings.UTF_8))
+				PrintWriter(OutputStreamWriter(FileOutputStream(tmpFile), StandardCharsets.UTF_8))
 			} catch (e: FileNotFoundException) {
 				throw IllegalStateException("Opening ", e)
 			}

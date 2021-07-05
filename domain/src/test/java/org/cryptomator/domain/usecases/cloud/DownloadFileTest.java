@@ -5,7 +5,6 @@ import org.cryptomator.domain.exception.BackendException;
 import org.cryptomator.domain.repository.CloudContentRepository;
 import org.cryptomator.domain.usecases.DownloadFile;
 import org.cryptomator.domain.usecases.ProgressAware;
-import org.cryptomator.util.Optional;
 import org.junit.jupiter.api.Test;
 
 import java.io.OutputStream;
@@ -39,7 +38,7 @@ public class DownloadFileTest {
 
 		List<CloudFile> results = inTest.execute(progressAware);
 
-		verify(cloudContentRepository).read(downloadFile, Optional.empty(), dataSink, progressAware);
+		verify(cloudContentRepository).read(downloadFile, null, dataSink, progressAware);
 		verifyNoMoreInteractions(cloudContentRepository);
 
 		assertThat(results, is(singletonList(downloadFile)));
@@ -57,7 +56,7 @@ public class DownloadFileTest {
 		List<CloudFile> results = inTest.execute(progressAware);
 
 		verify(cloudContentRepository, times(downloadFiles.size())) //
-				.read(downloadFile, Optional.empty(), dataSink, progressAware);
+				.read(downloadFile, null, dataSink, progressAware);
 		verifyNoMoreInteractions(cloudContentRepository);
 
 		assertThat(results, is(asList(downloadFile, downloadFile)));

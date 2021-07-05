@@ -11,6 +11,7 @@ import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.Fragment
 import androidx.localbroadcastmanager.content.LocalBroadcastManager
 import org.cryptomator.domain.CloudNode
+import org.cryptomator.domain.exception.ParentFolderIsNullException
 import org.cryptomator.generator.Activity
 import org.cryptomator.generator.InjectIntent
 import org.cryptomator.presentation.R
@@ -141,7 +142,9 @@ class BrowseFilesActivity : BaseActivity(), //
 				supportFragmentManager.popBackStack()
 			}
 			hasCloudNodeSettings() && isNavigationMode(MOVE_CLOUD_NODE) && browseFilesFragment().folder.hasParent() -> {
-				createBackStackFor(browseFilesFragment().folder.parent)
+				browseFilesFragment().folder.parent?.let {
+					createBackStackFor(it)
+				} ?: throw ParentFolderIsNullException(browseFilesFragment().folder.name)
 			}
 			else -> {
 				super.onBackPressed()

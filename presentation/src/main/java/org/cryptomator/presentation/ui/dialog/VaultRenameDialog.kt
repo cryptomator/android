@@ -53,7 +53,7 @@ class VaultRenameDialog : BaseProgressErrorDialog<VaultRenameDialog.Callback>() 
 
 	public override fun setupView() {
 		val vaultModel = requireArguments().getSerializable(VAULT_ARG) as VaultModel
-		registerOnEditorDoneActionAndPerformButtonClick(et_rename) { renameConfirmButton }
+		renameConfirmButton?.let { registerOnEditorDoneActionAndPerformButtonClick(et_rename) { it } }
 		et_rename.setText(vaultModel.name)
 		et_rename.addTextChangedListener(object : TextWatcher {
 			override fun beforeTextChanged(s: CharSequence, start: Int, count: Int, after: Int) {}

@@ -24,7 +24,6 @@ import org.cryptomator.presentation.presenter.ImagePreviewPresenter
 import org.cryptomator.presentation.ui.activity.view.ImagePreviewView
 import org.cryptomator.presentation.ui.dialog.ConfirmDeleteCloudNodeDialog
 import org.cryptomator.presentation.ui.fragment.ImagePreviewFragment
-import org.cryptomator.util.Optional
 import javax.inject.Inject
 import kotlinx.android.synthetic.main.activity_image_preview.controlView
 import kotlinx.android.synthetic.main.activity_image_preview.deleteImage
@@ -172,25 +171,17 @@ class ImagePreviewActivity : BaseActivity(), ImagePreviewView, ConfirmDeleteClou
 	}
 
 	override fun showImagePreview(imagePreviewFile: ImagePreviewFile) {
-		val imagePreviewFragmentOptional = fragmentFor(imagePreviewFile)
-		if (imagePreviewFragmentOptional.isPresent) {
-			imagePreviewFragmentOptional.get().showAndUpdateImage(imagePreviewFile)
-		}
+		fragmentFor(imagePreviewFile)?.showAndUpdateImage(imagePreviewFile)
 	}
 
-	private fun fragmentFor(imagePreviewFile: ImagePreviewFile): Optional<ImagePreviewFragment> {
+	private fun fragmentFor(imagePreviewFile: ImagePreviewFile): ImagePreviewFragment? {
 		return supportFragmentManager.fragments
 			.map { it as ImagePreviewFragment }
 			.firstOrNull { it.imagePreviewFile() == imagePreviewFile }
-			?.let { Optional.of(it) }
-			?: Optional.empty()
 	}
 
 	override fun hideProgressBar(imagePreviewFile: ImagePreviewFile) {
-		val imagePreviewFragmentOptional = fragmentFor(imagePreviewFile)
-		if (imagePreviewFragmentOptional.isPresent) {
-			imagePreviewFragmentOptional.get().hideProgressBar()
-		}
+		fragmentFor(imagePreviewFile)?.hideProgressBar()
 	}
 
 	override fun vaultExpectedToBeUnlocked() {

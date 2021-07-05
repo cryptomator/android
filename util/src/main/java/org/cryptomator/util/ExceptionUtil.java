@@ -1,5 +1,10 @@
 package org.cryptomator.util;
 
+import com.google.common.base.Predicates;
+
+import com.google.common.base.Optional;
+import java.util.function.Predicate;
+
 public class ExceptionUtil {
 
 	public static <T extends Throwable> Predicate<T> thatContainsMessage(final String message) {
@@ -18,12 +23,12 @@ public class ExceptionUtil {
 
 	public static <T extends Throwable> Optional<T> extract(final Throwable e, final Class<T> type, final Predicate<T> test) {
 		if (type.isInstance(e) && test.test(type.cast(e))) {
-			return Optional.of(type.cast(e));
+			return Optional.fromNullable(type.cast(e));
 		}
 		if (e.getCause() != null) {
 			return extract(e.getCause(), type, test);
 		}
-		return Optional.empty();
+		return Optional.absent();
 	}
 
 	public static <T extends Throwable> Optional<T> extract(final Throwable e, final Class<T> type) {

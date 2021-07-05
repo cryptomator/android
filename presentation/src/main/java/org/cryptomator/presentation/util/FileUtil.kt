@@ -8,7 +8,6 @@ import org.cryptomator.domain.exception.FatalBackendException
 import org.cryptomator.presentation.model.AutoUploadFilesStore
 import org.cryptomator.presentation.model.CloudFileModel
 import org.cryptomator.presentation.model.ImagePreviewFilesStore
-import org.cryptomator.util.Optional
 import org.cryptomator.util.file.LruFileCacheUtil
 import org.cryptomator.util.file.MimeType
 import org.cryptomator.util.file.MimeTypes
@@ -249,17 +248,17 @@ class FileUtil @Inject constructor(private val context: Context, private val mim
 
 	class FileInfo(val name: String, mimeTypes: MimeTypes) {
 
-		var extension: Optional<String>
+		var extension: String?
 		var mimeType: MimeType
 
 		init {
 			val lastDot = name.lastIndexOf('.')
 			if (lastDot == -1 || lastDot == name.length - 1) {
-				extension = Optional.empty()
+				extension = null
 				mimeType = MimeType.APPLICATION_OCTET_STREAM
 			} else {
-				extension = Optional.of(name.substring(lastDot + 1))
-				mimeType = mimeTypes.fromExtension(extension.get()).orElse(MimeType.APPLICATION_OCTET_STREAM)
+				extension = name.substring(lastDot + 1)
+				mimeType = extension?.let { mimeTypes.fromExtension(it) } ?: MimeType.APPLICATION_OCTET_STREAM
 			}
 		}
 	}

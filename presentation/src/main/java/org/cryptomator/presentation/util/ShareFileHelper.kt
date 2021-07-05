@@ -27,7 +27,7 @@ class ShareFileHelper @Inject constructor( //
 	}
 
 	private fun mimeTypeFromFileName(fileName: String): String {
-		return mimeTypes.fromFilename(fileName).orElse(MimeType.WILDCARD_MIME_TYPE).toString()
+		return (mimeTypes.fromFilename(fileName) ?: MimeType.WILDCARD_MIME_TYPE).toString()
 	}
 
 	private fun shareFile(activityHolder: ActivityHolder, fileUri: Uri, mimeType: String) {

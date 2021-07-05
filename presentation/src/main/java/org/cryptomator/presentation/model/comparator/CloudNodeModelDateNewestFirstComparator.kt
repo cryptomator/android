@@ -17,11 +17,11 @@ class CloudNodeModelDateNewestFirstComparator : Comparator<CloudNodeModel<*>> {
 			val o1ModifyDate = (o1 as CloudFileModel).modified
 			val o2ModifyDate = (o2 as CloudFileModel).modified
 
-			return if (o1ModifyDate.isPresent && o2ModifyDate.isPresent) {
-				o2ModifyDate.get().compareTo(o1ModifyDate.get())
-			} else if (o2ModifyDate.isPresent) {
+			return if (o1ModifyDate != null && o2ModifyDate != null) {
+				o2ModifyDate.compareTo(o1ModifyDate)
+			} else if (o2ModifyDate != null) {
 				-1
-			} else if (o1ModifyDate.isPresent) {
+			} else if (o1ModifyDate != null) {
 				1
 			} else {
 				0

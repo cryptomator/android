@@ -18,7 +18,7 @@ class PCloudModel(cloud: Cloud) : CloudModel(cloud) {
 		return cloud().url()
 	}
 
-	fun id(): Long {
+	fun id(): Long? {
 		return cloud().id()
 	}
 

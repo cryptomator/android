@@ -223,7 +223,7 @@ class AuthenticateCloudPresenter @Inject constructor( //
 
 		private fun startAuthentication(cloud: CloudModel) {
 			authenticationStarted = true
-			val authenticationAdapter = OnedriveClientFactory.instance(context(), (cloud.toCloud() as OnedriveCloud).accessToken()).authenticationAdapter
+			val authenticationAdapter = OnedriveClientFactory.getAuthAdapter(context(), (cloud.toCloud() as OnedriveCloud).accessToken())
 			authenticationAdapter.login(activity(), object : ICallback<String?> {
 				override fun success(accessToken: String?) {
 					if (accessToken == null) {
@@ -377,7 +377,7 @@ class AuthenticateCloudPresenter @Inject constructor( //
 		}
 	}
 
-	fun onAcceptWebDavCertificateClicked(cloud: WebDavCloud?, certificate: X509Certificate?) {
+	fun onAcceptWebDavCertificateClicked(cloud: WebDavCloud, certificate: X509Certificate) {
 		try {
 			val webDavCloudWithAcceptedCert = WebDavCloud.aCopyOf(cloud) //
 				.withCertificate(X509CertificateHelper.convertToPem(certificate)) //

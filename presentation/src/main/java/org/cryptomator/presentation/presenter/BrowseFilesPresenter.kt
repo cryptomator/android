@@ -37,9 +37,7 @@ import org.cryptomator.presentation.ui.dialog.FileNameDialog
 import org.cryptomator.presentation.util.*
 import org.cryptomator.presentation.workflow.*
 import org.cryptomator.util.ExceptionUtil
-import org.cryptomator.util.Optional
 import org.cryptomator.util.SharedPreferencesHandler
-import org.cryptomator.util.Supplier
 import org.cryptomator.util.file.FileCacheUtils
 import org.cryptomator.util.file.MimeType
 import org.cryptomator.util.file.MimeTypes
@@ -47,6 +45,7 @@ import java.io.*
 import java.security.DigestInputStream
 import java.security.MessageDigest
 import java.util.*
+import java.util.function.Supplier
 import javax.inject.Inject
 import kotlin.collections.ArrayList
 import kotlin.reflect.KClass
@@ -108,9 +107,10 @@ class BrowseFilesPresenter @Inject constructor( //
 
 	@JvmField
 	@InstanceState
-	var openedCloudFileMd5: Optional<ByteArray> = Optional.empty()
+	var openedCloudFileMd5: ByteArray? = null
 
-	private var openWritableFileNotification: Optional<OpenWritableFileNotification> = Optional.empty()
+	@JvmField
+	var openWritableFileNotification: OpenWritableFileNotification? = null
 
 	override fun workflows(): Iterable<Workflow<*>> {
 		return listOf(addExistingVaultWorkflow, createNewVaultWorkflow)
@@ -189,7 +189,9 @@ class BrowseFilesPresenter @Inject constructor( //
 	@Callback
 	fun getCloudListAfterAuthentication(result: ActivityResult, cloudFolderModel: CloudFolderModel) {
 		val cloudModel = result.getSingleResult(CloudModel::class.java)
-		getCloudList(cloudFolderModelMapper.toModel(cloudFolderModel.toCloudNode().withCloud(cloudModel.toCloud())))
+		cloudFolderModel.toCloudNode().withCloud(cloudModel.toCloud())?.let {
+			getCloudList(cloudFolderModelMapper.toModel(it))
+		} ?: throw FatalBackendException("cloudFolderModel with updated Cloud shouldn't be null")
 	}
 
 	fun onCreateFolderPressed(cloudFolder: CloudFolderModel, folderName: String?) {
@@ -431,10 +433,7 @@ class BrowseFilesPresenter @Inject constructor( //
 				Intents.textEditorIntent() //
 					.withTextFile(cloudFile)
 			)
-		} else if (!lowerFileName.endsWith(".gif") && mimeTypes.fromFilename(cloudFile.name) //
-				.orElse(MimeType.WILDCARD_MIME_TYPE) //
-				.mediatype == "image"
-		) {
+		} else if (!lowerFileName.endsWith(".gif") && mimeTypes.fromFilename(cloudFile.name) ?: (MimeType.WILDCARD_MIME_TYPE).mediatype == "image") {
 			val cloudFileNodes = previewCloudFileNodes
 			val imagePreviewStore = ImagePreviewFilesStore( //
 				cloudFileNodes,  //
@@ -457,12 +456,12 @@ class BrowseFilesPresenter @Inject constructor( //
 			openedCloudFileMd5 = calculateDigestFromUri(it)
 			viewFileIntent.setDataAndType( //
 				uriToOpenedFile,  //
-				mimeTypes.fromFilename(cloudFile.name).map(MimeType.TO_STRING).orElse(null)
+				mimeTypes.fromFilename(cloudFile.name)?.toString()
 			)
 			viewFileIntent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION or Intent.FLAG_GRANT_WRITE_URI_PERMISSION)
 			if (sharedPreferencesHandler.keepUnlockedWhileEditing()) {
-				openWritableFileNotification = Optional.of(OpenWritableFileNotification(context(), it))
-				openWritableFileNotification.ifPresent { obj: OpenWritableFileNotification -> obj.show() }
+				openWritableFileNotification = OpenWritableFileNotification(context(), it)
+				openWritableFileNotification?.show()
 				val cryptomatorApp = activity().application as CryptomatorApp
 				cryptomatorApp.suspendLock()
 			}
@@ -477,8 +476,7 @@ class BrowseFilesPresenter @Inject constructor( //
 				?.filterIsInstance<CloudFileModel>()
 				?.filterTo(previewCloudFiles) {
 					!it.name.endsWith(".gif") //
-							&& mimeTypes.fromFilename(it.name) //
-						.orElse(MimeType.WILDCARD_MIME_TYPE).mediatype == "image"
+							&& mimeTypes.fromFilename(it.name) ?: (MimeType.WILDCARD_MIME_TYPE).mediatype == "image"
 				}
 			return previewCloudFiles
 		}
@@ -495,7 +493,7 @@ class BrowseFilesPresenter @Inject constructor( //
 	private fun combinedMimeType(shareFiles: List<CloudFileModel>): MimeType {
 		var result: MimeType? = null
 		shareFiles.forEach { file ->
-			val type = mimeTypes.fromFilename(file.name).orElse(MimeType.WILDCARD_MIME_TYPE)
+			val type = mimeTypes.fromFilename(file.name) ?: MimeType.WILDCARD_MIME_TYPE
 			result = result?.combine(type) ?: type
 		}
 		return result ?: MimeType.WILDCARD_MIME_TYPE
@@ -728,7 +726,6 @@ class BrowseFilesPresenter @Inject constructor( //
 		requestActivityResult(ActivityResultCallbacks.exportFileToUserSelectedLocation(fileToExport, exportOperation), intent)
 	}
 
-	@RequiresApi(Build.VERSION_CODES.LOLLIPOP)
 	private fun exportNodesToUserSelectedLocation(nodesToExport: ArrayList<CloudNodeModel<*>>, exportOperation: ExportOperation) {
 		try {
 			requestActivityResult( //
@@ -880,8 +877,7 @@ class BrowseFilesPresenter @Inject constructor( //
 	@RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
 	@Throws(IllegalFileNameException::class, NoSuchCloudFileException::class)
 	private fun createNewDocumentUri(parentUri: Uri, fileName: String): Uri {
-		val mimeType = mimeTypes.fromFilename(fileName) //
-			.orElse(MimeType.APPLICATION_OCTET_STREAM)
+		val mimeType = mimeTypes.fromFilename(fileName) ?: MimeType.APPLICATION_OCTET_STREAM
 		return try {
 			DocumentsContract.createDocument( //
 				context().contentResolver,  //
@@ -1148,13 +1144,14 @@ class BrowseFilesPresenter @Inject constructor( //
 
 		uriToOpenedFile?.let {
 			try {
-				val hashAfterEdit = calculateDigestFromUri(it)
-				if (hashAfterEdit.isPresent && openedCloudFileMd5.isPresent //
-					&& Arrays.equals(hashAfterEdit.get(), openedCloudFileMd5.get())
-				) {
-					Timber.tag("BrowseFilesPresenter").i("Opened app finished, file not changed")
-				} else {
-					uploadChangedFile()
+				calculateDigestFromUri(it)?.let { hashAfterEdit ->
+					openedCloudFileMd5?.let { hashBeforeEdit ->
+						if (hashAfterEdit.contentEquals(hashBeforeEdit)) {
+							Timber.tag("BrowseFilesPresenter").i("Opened app finished, file not changed")
+						} else {
+							uploadChangedFile()
+						}
+					}
 				}
 			} catch (e: FileNotFoundException) {
 				Timber.tag("BrowseFilesPresenter").e(e, "Failed to read back changes, file isn't present anymore")
@@ -1166,47 +1163,46 @@ class BrowseFilesPresenter @Inject constructor( //
 	private fun uploadChangedFile() {
 		view?.showUploadDialog(1)
 		openedCloudFile?.let { openedCloudFile ->
-			uriToOpenedFile?.let { uriToOpenedFile ->
-				uploadFilesUseCase //
-					.withParent(openedCloudFile.parent.toCloudNode()) //
-					.andFiles(listOf(createUploadFile(openedCloudFile.name, uriToOpenedFile, true))) //
-					.run(object : DefaultProgressAwareResultHandler<List<CloudFile>, UploadState>() {
-						override fun onProgress(progress: Progress<UploadState>) {
-							view?.showProgress(progressModelMapper.toModel(progress))
-						}
-
-						override fun onSuccess(files: List<CloudFile>) {
-							files.forEach { file ->
-								view?.addOrUpdateCloudNode(cloudFileModelMapper.toModel(file))
+			openedCloudFile.parent?.let { openedCloudFilesParent ->
+				uriToOpenedFile?.let { uriToOpenedFile ->
+					uploadFilesUseCase //
+						.withParent(openedCloudFilesParent.toCloudNode()) //
+						.andFiles(listOf(createUploadFile(openedCloudFile.name, uriToOpenedFile, true))) //
+						.run(object : DefaultProgressAwareResultHandler<List<CloudFile>, UploadState>() {
+							override fun onProgress(progress: Progress<UploadState>) {
+								view?.showProgress(progressModelMapper.toModel(progress))
 							}
-							onFileUploadCompleted()
-						}
 
-						override fun onError(e: Throwable) {
-							onFileUploadError()
-							if (ExceptionUtil.contains(e, CloudNodeAlreadyExistsException::class.java)) {
-								ExceptionUtil.extract(e, CloudNodeAlreadyExistsException::class.java).get().message?.let {
-									onCloudNodeAlreadyExists(it)
-								} ?: super.onError(e)
-							} else {
-								super.onError(e)
+							override fun onSuccess(files: List<CloudFile>) {
+								files.forEach { file ->
+									view?.addOrUpdateCloudNode(cloudFileModelMapper.toModel(file))
+								}
+								onFileUploadCompleted()
 							}
-						}
-					})
+
+							override fun onError(e: Throwable) {
+								onFileUploadError()
+								if (ExceptionUtil.contains(e, CloudNodeAlreadyExistsException::class.java)) {
+									ExceptionUtil.extract(e, CloudNodeAlreadyExistsException::class.java).get().message?.let {
+										onCloudNodeAlreadyExists(it)
+									} ?: super.onError(e)
+								} else {
+									super.onError(e)
+								}
+							}
+						})
+				}
 			}
 		}
 	}
 
 	private fun hideWritableNotification() {
 		// openWritableFileNotification can not be made serializable because of this, can be null after Activity resumed
-		if (openWritableFileNotification.isAbsent) {
-			openWritableFileNotification = Optional.of(OpenWritableFileNotification(context(), Uri.EMPTY))
-		}
-		openWritableFileNotification.ifPresent { obj: OpenWritableFileNotification -> obj.hide() }
+		openWritableFileNotification?.hide() ?: OpenWritableFileNotification(context(), Uri.EMPTY).hide()
 	}
 
 	@Throws(FileNotFoundException::class)
-	private fun calculateDigestFromUri(uri: Uri): Optional<ByteArray> {
+	private fun calculateDigestFromUri(uri: Uri): ByteArray? {
 		val digest = MessageDigest.getInstance("MD5")
 		DigestInputStream(context().contentResolver.openInputStream(uri), digest).use { dis ->
 			val buffer = ByteArray(8192)
@@ -1214,7 +1210,7 @@ class BrowseFilesPresenter @Inject constructor( //
 			while (dis.read(buffer) > -1) {
 			}
 		}
-		return Optional.ofNullable(digest.digest())
+		return digest.digest()
 	}
 
 	interface ExportOperation : Serializable {
@@ -1225,7 +1221,7 @@ class BrowseFilesPresenter @Inject constructor( //
 
 	private val enableRefreshOnBackpressSupplier = RefreshSupplier()
 
-	class RefreshSupplier : Supplier<Boolean?> {
+	class RefreshSupplier : Supplier<Boolean> {
 
 		private var inSelectionMode = false
 		private var inAction = false

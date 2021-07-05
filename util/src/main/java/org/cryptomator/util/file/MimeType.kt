@@ -1,7 +1,5 @@
 package org.cryptomator.util.file
 
-import org.cryptomator.util.Function
-
 class MimeType internal constructor(val mediatype: String, val subtype: String) {
 
 	fun combine(other: MimeType): MimeType {
@@ -45,7 +43,7 @@ class MimeType internal constructor(val mediatype: String, val subtype: String) 
 
 	companion object {
 
-		val TO_STRING = Function { obj: MimeType -> obj.toString() }
+		val TO_STRING = java.util.function.Function { obj: MimeType -> obj.toString() }
 		const val WILDCARD_MEDIATYPE = "*"
 		const val WILDCARD_SUBTYPE = "*"
 

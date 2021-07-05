@@ -12,6 +12,7 @@ import org.cryptomator.domain.LocalStorageCloud;
 import org.cryptomator.domain.exception.BackendException;
 import org.cryptomator.domain.exception.CloudNodeAlreadyExistsException;
 import org.cryptomator.domain.repository.CloudContentRepository;
+import org.cryptomator.domain.usecases.ProgressAware;
 import org.cryptomator.domain.usecases.cloud.ByteArrayDataSource;
 import org.cryptomator.presentation.di.component.ApplicationComponent;
 import org.cryptomator.presentation.testCloud.CryptoTestCloud;
@@ -23,7 +24,6 @@ import org.cryptomator.presentation.testCloud.OnedriveTestCloud;
 import org.cryptomator.presentation.testCloud.TestCloud;
 import org.cryptomator.presentation.testCloud.WebdavTestCloud;
 import org.cryptomator.presentation.ui.activity.SplashActivity;
-import org.cryptomator.util.Optional;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Rule;
@@ -38,7 +38,6 @@ import java.util.List;
 import java.util.UUID;
 
 import static androidx.test.InstrumentationRegistry.getTargetContext;
-import static org.cryptomator.domain.usecases.ProgressAware.NO_OP_PROGRESS_AWARE;
 import static org.cryptomator.presentation.CloudNodeMatchers.aFile;
 import static org.cryptomator.presentation.CloudNodeMatchers.folder;
 import static org.hamcrest.CoreMatchers.is;
@@ -397,7 +396,7 @@ public class CloudContentRepositoryBlackboxTest {
 
 	private byte[] read(CloudFile file) throws BackendException {
 		ByteArrayOutputStream out = new ByteArrayOutputStream();
-		inTest.read(file, Optional.empty(), out, NO_OP_PROGRESS_AWARE);
+		inTest.read(file, null, out, ProgressAware.NO_OP_PROGRESS_AWARE_DOWNLOAD);
 		return out.toByteArray();
 	}
 
@@ -417,7 +416,7 @@ public class CloudContentRepositoryBlackboxTest {
 		if (!inTest.exists(parent)) {
 			parent = inTest.create(parent);
 		}
-		CloudFile file = inTest.file(parent, name, Optional.of(new Long(data.length)));
-		return inTest.write(file, ByteArrayDataSource.from(data), NO_OP_PROGRESS_AWARE, repalce, data.length);
+		CloudFile file = inTest.file(parent, name, new Long(data.length));
+		return inTest.write(file, ByteArrayDataSource.from(data), ProgressAware.NO_OP_PROGRESS_AWARE_UPLOAD, repalce, data.length);
 	}
 }

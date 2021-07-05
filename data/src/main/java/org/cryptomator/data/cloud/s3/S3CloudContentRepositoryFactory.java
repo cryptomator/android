@@ -28,7 +28,7 @@ public class S3CloudContentRepositoryFactory implements CloudContentRepositoryFa
 	}
 
 	@Override
-	public CloudContentRepository cloudContentRepositoryFor(Cloud cloud) {
+	public CloudContentRepository<S3Cloud, S3Node, S3Folder, S3File> cloudContentRepositoryFor(Cloud cloud) {
 		return new S3CloudContentRepository((S3Cloud) cloud, context);
 	}
 

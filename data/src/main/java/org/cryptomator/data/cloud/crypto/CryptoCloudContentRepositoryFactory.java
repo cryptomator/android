@@ -2,13 +2,14 @@ package org.cryptomator.data.cloud.crypto;
 
 import android.content.Context;
 
+import com.google.common.base.Optional;
+
 import org.cryptomator.cryptolib.api.Cryptor;
 import org.cryptomator.data.repository.CloudContentRepositoryFactory;
 import org.cryptomator.domain.Cloud;
 import org.cryptomator.domain.Vault;
 import org.cryptomator.domain.exception.MissingCryptorException;
 import org.cryptomator.domain.repository.CloudContentRepository;
-import org.cryptomator.util.Optional;
 
 import javax.inject.Inject;
 import javax.inject.Singleton;
@@ -38,7 +39,7 @@ public class CryptoCloudContentRepositoryFactory implements CloudContentReposito
 	}
 
 	@Override
-	public CloudContentRepository cloudContentRepositoryFor(Cloud cloud) {
+	public CloudContentRepository<CryptoCloud, CryptoNode, CryptoFolder, CryptoFile> cloudContentRepositoryFor(Cloud cloud) {
 		CryptoCloud cryptoCloud = (CryptoCloud) cloud;
 		Vault vault = cryptoCloud.getVault();
 		return new CryptoCloudContentRepository(context, cloudContentRepository.get(), cryptoCloud, cryptors.get(vault));
@@ -50,7 +51,7 @@ public class CryptoCloudContentRepositoryFactory implements CloudContentReposito
 
 	public void deregisterCryptor(Vault vault, boolean assertPresent) {
 		Optional<Cryptor> cryptor = cryptors.remove(vault);
-		if (cryptor.isAbsent()) {
+		if (!cryptor.isPresent()) {
 			if (assertPresent) {
 				throw new IllegalStateException(format("No cryptor registered for vault %s", vault));
 			}

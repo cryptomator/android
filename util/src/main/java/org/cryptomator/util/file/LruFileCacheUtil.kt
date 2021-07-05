@@ -128,10 +128,10 @@ class LruFileCacheUtil(context: Context) {
 
 		@Throws(IOException::class)
 		private fun writeFileContentInData(cacheFile: File, data: OutputStream) {
-			BufferedInputStream(FileInputStream(cacheFile)).use { `in` ->
+			BufferedInputStream(FileInputStream(cacheFile)).use { inputStream ->
 				val buffer = ByteArray(2048)
 				var lengthRead: Int
-				while (`in`.read(buffer).also { lengthRead = it } > 0) {
+				while (inputStream.read(buffer).also { lengthRead = it } > 0) {
 					data.write(buffer, 0, lengthRead)
 					data.flush()
 				}

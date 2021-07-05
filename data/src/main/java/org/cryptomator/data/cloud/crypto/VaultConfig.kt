@@ -1,5 +1,6 @@
 package org.cryptomator.data.cloud.crypto
 
+import org.cryptomator.cryptolib.api.CryptorProvider
 import org.cryptomator.domain.UnverifiedVaultConfig
 import org.cryptomator.domain.exception.vaultconfig.VaultConfigLoadException
 import org.cryptomator.domain.exception.vaultconfig.VaultKeyInvalidException
@@ -23,7 +24,7 @@ class VaultConfig private constructor(builder: VaultConfigBuilder) {
 	val keyId: URI
 	val id: String
 	val vaultFormat: Int
-	val cipherCombo: VaultCipherCombo
+	val cipherCombo: CryptorProvider.Scheme
 	val shorteningThreshold: Int
 
 	fun toToken(rawKey: ByteArray): String {
@@ -41,7 +42,7 @@ class VaultConfig private constructor(builder: VaultConfigBuilder) {
 
 		internal var id: String = UUID.randomUUID().toString()
 		internal var vaultFormat = CryptoConstants.MAX_VAULT_VERSION;
-		internal var cipherCombo = VaultCipherCombo.SIV_CTRMAC
+		internal var cipherCombo = CryptoConstants.DEFAULT_CIPHER_COMBO
 		internal var shorteningThreshold = CryptoConstants.DEFAULT_MAX_FILE_NAME;
 		lateinit var keyId: URI
 
@@ -50,7 +51,7 @@ class VaultConfig private constructor(builder: VaultConfigBuilder) {
 			return this
 		}
 
-		fun cipherCombo(cipherCombo: VaultCipherCombo): VaultConfigBuilder {
+		fun cipherCombo(cipherCombo: CryptorProvider.Scheme): VaultConfigBuilder {
 			this.cipherCombo = cipherCombo
 			return this
 		}
@@ -110,7 +111,7 @@ class VaultConfig private constructor(builder: VaultConfigBuilder) {
 				val vaultConfigBuilder = createVaultConfig() //
 					.keyId(unverifiedVaultConfig.keyId)
 					.id(parser.header[JSON_KEY_ID] as String) //
-					.cipherCombo(VaultCipherCombo.valueOf(parser.body.get(JSON_KEY_CIPHERCONFIG, String::class.java))) //
+					.cipherCombo(CryptorProvider.Scheme.valueOf(parser.body.get(JSON_KEY_CIPHERCONFIG, String::class.java))) //
 					.vaultFormat(unverifiedVaultConfig.vaultFormat) //
 					.shorteningThreshold(parser.body[JSON_KEY_SHORTENING_THRESHOLD] as Int)
 

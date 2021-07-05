@@ -26,7 +26,6 @@ import org.cryptomator.presentation.util.FileIcon
 import org.cryptomator.presentation.util.FileSizeHelper
 import org.cryptomator.presentation.util.FileUtil
 import org.cryptomator.presentation.util.ResourceHelper.Companion.getDrawable
-import org.cryptomator.util.Optional
 import org.cryptomator.util.SharedPreferencesHandler
 import java.util.Comparator
 import javax.inject.Inject
@@ -226,10 +225,7 @@ constructor(
 		}
 
 		private fun bindProgressIfPresent(node: CloudNodeModel<*>) {
-			val progress = node.progress
-			if (progress.isPresent) {
-				showProgress(progress.get())
-			}
+			node.progress?.let { showProgress(it) }
 		}
 
 		private fun bindFolder(folder: CloudFolderModel) {
@@ -265,21 +261,17 @@ constructor(
 			val formattedFileSize = fileSizeHelper.getFormattedFileSize(cloudFile.size)
 			val formattedModifiedDate = dateHelper.getFormattedModifiedDate(cloudFile.modified)
 
-			return if (formattedFileSize.isPresent) {
-				if (formattedModifiedDate.isPresent) {
-					formattedFileSize.get() + " • " + formattedModifiedDate.get()
+			return if (formattedFileSize != null) {
+				if (formattedModifiedDate != null) {
+					"$formattedFileSize • $formattedModifiedDate"
 				} else {
-					formattedFileSize.get()
+					formattedFileSize
 				}
-			} else if (formattedModifiedDate.isPresent) {
-				formattedModifiedDate.get()
-			} else {
-				""
-			}
+			} else formattedModifiedDate ?: ""
 		}
 
 		fun showProgress(progress: ProgressModel?) {
-			bound?.progress = Optional.of(progress)
+			bound?.progress = progress
 			when {
 				progress?.state() === COMPLETED -> hideProgress()
 				progress?.progress() == ProgressModel.UNKNOWN_PROGRESS_PERCENTAGE -> showIndeterminateProgress(progress)
@@ -334,7 +326,7 @@ constructor(
 
 		fun hideProgress() {
 			uiState?.let { switchTo(it.details()) }
-			bound?.progress = Optional.empty()
+			bound?.progress = null
 		}
 
 		private fun switchTo(state: UiStateTest) {
@@ -500,8 +492,8 @@ constructor(
 		val formattedModifiedDate = dateHelper.getFormattedModifiedDate(node.modified)
 
 		return when (comparator) {
-			is CloudNodeModelDateNewestFirstComparator, is CloudNodeModelDateOldestFirstComparator -> formattedModifiedDate.orElse(node.name.first().toString())
-			is CloudNodeModelSizeBiggestFirstComparator, is CloudNodeModelSizeSmallestFirstComparator -> formattedFileSize.orElse(node.name.first().toString())
+			is CloudNodeModelDateNewestFirstComparator, is CloudNodeModelDateOldestFirstComparator -> formattedModifiedDate ?: node.name.first().toString()
+			is CloudNodeModelSizeBiggestFirstComparator, is CloudNodeModelSizeSmallestFirstComparator -> formattedFileSize ?: node.name.first().toString()
 			else -> all[position].name.first().toString()
 		}
 	}

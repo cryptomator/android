@@ -3,7 +3,7 @@ package org.cryptomator.domain.repository;
 import org.cryptomator.domain.exception.BackendException;
 import org.cryptomator.domain.exception.update.GeneralUpdateErrorException;
 import org.cryptomator.domain.usecases.UpdateCheck;
-import org.cryptomator.util.Optional;
+import com.google.common.base.Optional;
 
 import java.io.File;
 

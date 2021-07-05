@@ -170,7 +170,7 @@ class CryptomatorApp : MultiDexApplication(), HasComponent<ApplicationComponent>
 	}
 
 	fun allVaultsLocked(): Boolean {
-		return appCryptors.isEmpty
+		return appCryptors.isEmpty()
 	}
 
 	fun suspendLock() {

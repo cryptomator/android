@@ -6,11 +6,13 @@ import androidx.appcompat.app.AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM
 import androidx.appcompat.app.AppCompatDelegate.MODE_NIGHT_NO
 import androidx.appcompat.app.AppCompatDelegate.MODE_NIGHT_YES
 import androidx.preference.PreferenceManager
+import com.google.common.base.Optional
 import org.cryptomator.util.LockTimeout.ONE_MINUTE
 import java.text.SimpleDateFormat
 import java.util.Date
 import java.util.Locale
 import java.util.WeakHashMap
+import java.util.function.Consumer
 import javax.inject.Inject
 import kotlin.math.abs
 
@@ -185,7 +187,7 @@ constructor(context: Context) : SharedPreferences.OnSharedPreferenceChangeListen
 		val updateInterval = defaultSharedPreferences.getValue(UPDATE_INTERVAL, "7")
 
 		if (updateInterval == "Never") {
-			return Optional.empty()
+			return Optional.absent()
 		}
 
 		return Optional.of(Integer.parseInt(updateInterval))
@@ -206,7 +208,7 @@ constructor(context: Context) : SharedPreferences.OnSharedPreferenceChangeListen
 
 	fun doUpdate(): Boolean {
 		val updateIntervalInDays = updateIntervalInDays()
-		if (updateIntervalInDays.isAbsent) {
+		if (!updateIntervalInDays.isPresent) {
 			return false
 		}
 
