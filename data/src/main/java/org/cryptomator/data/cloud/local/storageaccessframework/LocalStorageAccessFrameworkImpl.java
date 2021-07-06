@@ -39,6 +39,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import timber.log.Timber;
@@ -403,6 +404,11 @@ class LocalStorageAccessFrameworkImpl {
 			@Override
 			public Optional<Long> size(Context context) {
 				return source.getSize();
+			}
+
+			@Override
+			public Optional<Date> modifiedDate(Context context) {
+				return source.getModified();
 			}
 
 			@Override

@@ -239,6 +239,7 @@ class DropboxImpl {
 			client() //
 					.files() //
 					.uploadBuilder(file.getPath()) //
+					.withClientModified(data.modifiedDate(context).orElse(null)) //
 					.withMode(writeMode) //
 					.uploadAndFinish(in);
 		}

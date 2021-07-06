@@ -160,6 +160,7 @@ class LocalStorageImpl {
 			copyStreamToStream(in, out);
 		}
 
+		data.modifiedDate(context).ifPresent(value -> localFile.setLastModified(value.getTime()));
 		progressAware.onProgress(Progress.completed(UploadState.upload(file)));
 
 		return LocalStorageNodeFactory.file( //

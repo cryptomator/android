@@ -4,6 +4,7 @@ import android.content.Context;
 
 import com.google.api.client.googleapis.json.GoogleJsonResponseException;
 import com.google.api.client.http.HttpResponseException;
+import com.google.api.client.util.DateTime;
 import com.google.api.services.drive.Drive;
 import com.google.api.services.drive.model.About;
 import com.google.api.services.drive.model.File;
@@ -265,6 +266,7 @@ class GoogleDriveImpl {
 
 		File metadata = new File();
 		metadata.setName(file.getName());
+		metadata.setModifiedTime(data.modifiedDate(context).map(value -> new DateTime(value)).orElseGet(null));
 
 		progressAware.onProgress(Progress.started(UploadState.upload(file)));
 		File uploadedFile;

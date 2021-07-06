@@ -3,12 +3,14 @@ package org.cryptomator.presentation.util
 import android.content.ContentResolver
 import android.content.Context
 import android.net.Uri
+import android.provider.DocumentsContract
 import android.provider.OpenableColumns
 import java.io.File
 import java.io.FileNotFoundException
 import java.io.InputStream
 import java.io.OutputStream
 import java.util.ArrayList
+import java.util.Date
 import javax.inject.Inject
 
 class ContentResolverUtil @Inject constructor(context: Context) {
@@ -40,6 +42,18 @@ class ContentResolverUtil @Inject constructor(context: Context) {
 			}
 			isFileUri(uri) -> {
 				fileSizeForFileUri(uri)
+			}
+			else -> null
+		}
+	}
+
+	fun fileModifiedDate(uri: Uri): Date? {
+		return when {
+			isContentUri(uri) -> {
+				fileModifiedDateForContentUri(uri)
+			}
+			isFileUri(uri) -> {
+				fileModifiedDateForFileUri(uri)
 			}
 			else -> null
 		}
@@ -103,6 +117,30 @@ class ContentResolverUtil @Inject constructor(context: Context) {
 			val file = File(it)
 			if (file.exists()) {
 				file.length()
+			} else {
+				null
+			}
+		}
+	}
+
+	private fun fileModifiedDateForContentUri(uri: Uri): Date? {
+		contentResolver.query(uri, null, null, null, null).use { cursor ->
+			if (cursor != null && cursor.moveToFirst()) {
+				val dateModifiedColumnIndex = cursor.getColumnIndex(DocumentsContract.Document.COLUMN_LAST_MODIFIED)
+				if (!cursor.isNull(dateModifiedColumnIndex)) {
+					val date = cursor.getLong(dateModifiedColumnIndex)
+					return Date(date);
+				}
+			}
+			return null
+		}
+	}
+
+	private fun fileModifiedDateForFileUri(uri: Uri): Date? {
+		return uri.path?.let {
+			val file = File(it)
+			if (file.exists()) {
+				Date(file.lastModified())
 			} else {
 				null
 			}

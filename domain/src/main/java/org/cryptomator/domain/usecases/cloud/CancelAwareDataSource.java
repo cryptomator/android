@@ -7,6 +7,7 @@ import org.cryptomator.util.Optional;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.Date;
 
 public class CancelAwareDataSource implements DataSource {
 
@@ -28,6 +29,14 @@ public class CancelAwareDataSource implements DataSource {
 			throw new CancellationException();
 		}
 		return delegate.size(context);
+	}
+
+	@Override
+	public Optional<Date> modifiedDate(Context context) {
+		if (cancelled.get()) {
+			throw new CancellationException();
+		}
+		return delegate.modifiedDate(context);
 	}
 
 	@Override
