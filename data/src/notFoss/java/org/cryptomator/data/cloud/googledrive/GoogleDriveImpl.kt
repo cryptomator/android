@@ -114,12 +114,11 @@ internal class GoogleDriveImpl(context: Context, googleDriveCloud: GoogleDriveCl
 	@Throws(IOException::class)
 	fun exists(node: GoogleDriveNode): Boolean {
 		return try {
-			requireNotNull(node.parent)
-			val file = findFile(node.parent!!.driveId, node.name)
-			file?.let { idCache.add(GoogleDriveCloudNodeFactory.from(node.parent!!, it)) }
-			file != null
+			node.parent?.let { nodesParent ->
+				findFile(nodesParent.driveId, node.name)?.let { idCache.add(GoogleDriveCloudNodeFactory.from(nodesParent, it)) } != null
+			} ?: throw ParentFolderIsNullException(node.name)
 		} catch (e: GoogleJsonResponseException) {
-			if(e.statusCode == 404) {
+			if (e.statusCode == 404) {
 				return false
 			}
 			throw e

@@ -35,8 +35,9 @@ abstract class Cryptors internal constructor() {
 
 		@Synchronized
 		fun removeDelegate() {
-			fallback.putAll(delegate!!.cryptors)
-			delegate = null
+			delegate?.let {
+				fallback.putAll(it.cryptors)
+			}.also { delegate = null }
 		}
 
 		@Synchronized

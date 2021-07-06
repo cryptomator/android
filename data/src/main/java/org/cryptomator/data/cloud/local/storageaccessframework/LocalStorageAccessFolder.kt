@@ -35,6 +35,6 @@ open class LocalStorageAccessFolder(override val parent: LocalStorageAccessFolde
 	}
 
 	override fun withCloud(cloud: Cloud?): LocalStorageAccessFolder? {
-		return LocalStorageAccessFolder(parent!!.withCloud(cloud), name, path, documentId, documentUri)
+		return LocalStorageAccessFolder(parent?.withCloud(cloud), name, path, documentId, documentUri)
 	}
 }

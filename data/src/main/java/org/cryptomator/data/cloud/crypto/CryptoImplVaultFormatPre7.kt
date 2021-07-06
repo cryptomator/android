@@ -17,6 +17,7 @@ import org.cryptomator.domain.exception.AlreadyExistException
 import org.cryptomator.domain.exception.BackendException
 import org.cryptomator.domain.exception.EmptyDirFileException
 import org.cryptomator.domain.exception.NoSuchCloudFileException
+import org.cryptomator.domain.exception.ParentFolderIsNullException
 import org.cryptomator.domain.repository.CloudContentRepository
 import org.cryptomator.domain.usecases.ProgressAware
 import org.cryptomator.domain.usecases.cloud.ByteArrayDataSource.Companion.from
@@ -214,14 +215,15 @@ internal class CryptoImplVaultFormatPre7(
 
 	@Throws(BackendException::class)
 	override fun move(source: CryptoFolder, target: CryptoFolder): CryptoFolder {
-		requireNotNull(target.parent)
 		requireNotNull(source.dirFile)
 		requireNotNull(target.dirFile)
-		assertCryptoFolderAlreadyExists(target)
-		val result = folder(target.parent!!, target.name, cloudContentRepository.move(source.dirFile, target.dirFile))
-		evictFromCache(source)
-		evictFromCache(target)
-		return result
+		target.parent?.let {
+			assertCryptoFolderAlreadyExists(target)
+			val result = folder(it, target.name, cloudContentRepository.move(source.dirFile, target.dirFile))
+			evictFromCache(source)
+			evictFromCache(target)
+			return result
+		} ?: throw ParentFolderIsNullException(target.name)
 	}
 
 	@Throws(BackendException::class)

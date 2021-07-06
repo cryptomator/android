@@ -28,8 +28,8 @@ internal object PCloudNodeFactory {
 	}
 
 	@JvmStatic
-	fun folder(parent: PCloudFolder?, name: String, path: String?): PCloudFolder {
-		return PCloudFolder(parent, name, path!!)
+	fun folder(parent: PCloudFolder?, name: String, path: String): PCloudFolder {
+		return PCloudFolder(parent, name, path)
 	}
 
 	fun getNodePath(parent: PCloudFolder, name: String): String {

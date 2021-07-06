@@ -28,7 +28,6 @@ import org.cryptomator.domain.exception.BackendException
 import org.cryptomator.domain.exception.CloudNodeAlreadyExistsException
 import org.cryptomator.domain.exception.FatalBackendException
 import org.cryptomator.domain.exception.NoSuchCloudFileException
-import org.cryptomator.domain.exception.ParentFolderDoesNotExistException
 import org.cryptomator.domain.exception.ParentFolderIsNullException
 import org.cryptomator.domain.exception.authentication.NoAuthenticationProvidedException
 import org.cryptomator.domain.usecases.ProgressAware
@@ -121,7 +120,7 @@ internal class OnedriveImpl(cloud: OnedriveCloud, context: Context, nodeInfoCach
 	fun exists(node: OnedriveNode): Boolean {
 		node.parent?.let {
 			val parentNodeInfo = nodeInfo(it)
-			if (parentNodeInfo == null) {
+			if (parentNodeInfo?.driveId == null) {
 				removeNodeInfo(node)
 				return false
 			}
@@ -161,22 +160,22 @@ internal class OnedriveImpl(cloud: OnedriveCloud, context: Context, nodeInfoCach
 	@Throws(NoSuchCloudFileException::class)
 	fun create(folder: OnedriveFolder): OnedriveFolder {
 		var parent = folder.parent
-		if (nodeInfo(parent!!) == null) { //FIXME
-			if (parent == null) {
-				throw ParentFolderDoesNotExistException()
-			} else {
-				parent = create(parent)
+		parent?.let { parentFolder ->
+			if (nodeInfo(parentFolder) == null) {
+				parent = create(parentFolder)
 			}
-		}
-		val folderToCreate = DriveItem()
-		folderToCreate.name = folder.name
-		folderToCreate.folder = Folder()
-		val parentNodeInfo = requireNodeInfo(parent)
-		val createdFolder = drive(parentNodeInfo.driveId) //
-			.items(parentNodeInfo.id).children() //
-			.buildRequest() //
-			.post(folderToCreate)
-		return cacheNodeInfo(folder(parent, createdFolder), createdFolder)
+		} ?: throw ParentFolderIsNullException(folder.name)
+		parent?.let { parentFolder ->
+			val folderToCreate = DriveItem()
+			folderToCreate.name = folder.name
+			folderToCreate.folder = Folder()
+			val parentNodeInfo = requireNodeInfo(parentFolder)
+			val createdFolder = drive(parentNodeInfo.driveId) //
+				.items(parentNodeInfo.id).children() //
+				.buildRequest() //
+				.post(folderToCreate)
+			return cacheNodeInfo(folder(parentFolder, createdFolder), createdFolder)
+		} ?: throw ParentFolderIsNullException(folder.name)
 	}
 
 	@Throws(NoSuchCloudFileException::class, CloudNodeAlreadyExistsException::class)
@@ -405,7 +404,7 @@ internal class OnedriveImpl(cloud: OnedriveCloud, context: Context, nodeInfoCach
 	}
 
 	private fun nodeInfo(node: OnedriveNode): OnedriveIdCache.NodeInfo? {
-		var result: OnedriveIdCache.NodeInfo? = nodeInfoCache[node.path]
+		var result = nodeInfoCache[node.path]
 		if (result == null) {
 			result = loadNodeInfo(node)
 			if (result == null) {
@@ -419,15 +418,8 @@ internal class OnedriveImpl(cloud: OnedriveCloud, context: Context, nodeInfoCach
 		} else result
 	}
 
-	private fun <T : OnedriveNode?> cacheNodeInfo(node: T, item: DriveItem): T {
-		nodeInfoCache.add( //
-			node?.path!!, OnedriveIdCache.NodeInfo( //
-				getId(item),  //
-				getDriveId(item),  //
-				isFolder(item),  //
-				item.cTag //
-			) //
-		)
+	private fun <T : OnedriveNode> cacheNodeInfo(node: T, item: DriveItem): T {
+		nodeInfoCache.add(node.path, OnedriveIdCache.NodeInfo(getId(item), getDriveId(item), isFolder(item), item.cTag))
 		return node
 	}
 
@@ -454,7 +446,10 @@ internal class OnedriveImpl(cloud: OnedriveCloud, context: Context, nodeInfoCach
 
 	private fun loadNonRootNodeInfo(node: OnedriveNode): OnedriveIdCache.NodeInfo? {
 		node.parent?.let { targetsParent ->
-			val parentNodeInfo = nodeInfo(targetsParent) ?: return null
+			val parentNodeInfo = nodeInfo(targetsParent)
+			if (parentNodeInfo?.driveId == null) {
+				return null
+			}
 			val item = childByName(parentNodeInfo.id, parentNodeInfo.driveId, node.name)
 			return if (item == null) {
 				null

@@ -53,9 +53,12 @@ internal object OnedriveCloudNodeFactory {
 	}
 
 	@JvmStatic
-	fun getDriveId(item: DriveItem): String {
-		return if (item.remoteItem != null) item.remoteItem.parentReference.driveId
-		else (if (item.parentReference != null) item.parentReference.driveId else null)!!
+	fun getDriveId(item: DriveItem): String? {
+		return when {
+			item.remoteItem != null -> item.remoteItem.parentReference.driveId
+			item.parentReference != null -> item.parentReference.driveId
+			else -> null
+		}
 	}
 
 	@JvmStatic

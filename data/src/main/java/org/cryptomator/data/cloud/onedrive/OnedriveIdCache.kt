@@ -43,7 +43,7 @@ internal class OnedriveIdCache @Inject constructor() {
 		}
 	}
 
-	internal class NodeInfo(val id: String, val driveId: String, val isFolder: Boolean, private val cTag: String?) {
+	internal class NodeInfo(val id: String, val driveId: String?, val isFolder: Boolean, private val cTag: String?) {
 		constructor(node: OnedriveIdCloudNode) : this(node.id, node.driveId, node is CloudFolder, "")
 
 		fun getcTag(): String? {
