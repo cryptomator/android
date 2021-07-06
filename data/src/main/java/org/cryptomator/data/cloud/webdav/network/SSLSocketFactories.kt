@@ -11,7 +11,7 @@ internal object SSLSocketFactories {
 
 	fun from(trustManager: X509TrustManager): SSLSocketFactory {
 		return try {
-			val sslContext = SSLContext.getInstance("TLS")
+			val sslContext = SSLContext.getInstance("TLSv1.2")
 			sslContext.init(null, arrayOf<TrustManager>(trustManager), null)
 			sslContext.socketFactory
 		} catch (e: GeneralSecurityException) {
