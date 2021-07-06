@@ -49,7 +49,7 @@ class HttpLoggingInterceptor(private val logger: Logger, private val context: Co
 	private fun getResponseLoggingExceptions(request: Request, chain: Interceptor.Chain): Response {
 		return try {
 			chain.proceed(request)
-		} catch (e: Exception) {
+		} catch (e: IOException) {
 			logger.log("<-- HTTP FAILED: $e")
 			throw e
 		}

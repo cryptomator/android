@@ -16,6 +16,7 @@ import org.cryptomator.domain.WebDavCloud
 import org.cryptomator.domain.exception.UnableToDecryptWebdavPasswordException
 import org.cryptomator.util.SharedPreferencesHandler
 import org.cryptomator.util.crypto.CredentialCryptor
+import org.cryptomator.util.crypto.FatalCryptoException
 import org.cryptomator.util.file.LruFileCacheUtil
 import java.io.IOException
 import java.nio.charset.StandardCharsets
@@ -128,7 +129,7 @@ internal class WebDavCompatibleHttpClient(cloud: WebDavCloud, context: Context) 
 				CredentialCryptor //
 					.getInstance(context) //
 					.decrypt(password)
-			} catch (e: RuntimeException) {
+			} catch (e: FatalCryptoException) {
 				throw UnableToDecryptWebdavPasswordException(e)
 			}
 		}

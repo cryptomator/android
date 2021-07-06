@@ -1,6 +1,7 @@
 package org.cryptomator.domain.usecases.cloud
 
 import android.content.Context
+import org.cryptomator.domain.exception.FatalBackendException
 import org.mockito.invocation.InvocationOnMock
 import org.mockito.kotlin.mock
 import org.mockito.stubbing.Answer
@@ -30,7 +31,7 @@ internal class DataSourceCapturingAnswer<T>(private val result: T, private val a
 				out.write(buffer, 0, read)
 			}
 		} catch (e: IOException) {
-			throw RuntimeException(e)
+			throw FatalBackendException(e)
 		}
 	}
 

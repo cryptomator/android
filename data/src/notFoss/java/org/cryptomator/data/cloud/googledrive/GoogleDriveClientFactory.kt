@@ -26,7 +26,7 @@ class GoogleDriveClientFactory internal constructor() {
 
 		@Throws(FatalBackendException::class)
 		fun createClient(accountName: String, context: Context): Drive {
-			if ( SharedPreferencesHandler(context).debugMode()) {
+			if (SharedPreferencesHandler(context).debugMode()) {
 				Logger.getLogger("com.google.api.client").level = Level.CONFIG
 				Logger.getLogger("com.google.api.client").addHandler(object : Handler() {
 					override fun publish(record: LogRecord) {
@@ -45,15 +45,11 @@ class GoogleDriveClientFactory internal constructor() {
 					}
 				})
 			}
-			return try {
-				val credential: FixedGoogleAccountCredential = FixedGoogleAccountCredential.usingOAuth2(context, setOf(DriveScopes.DRIVE))
-				credential.setAccountName(accountName)
-				Drive.Builder(NetHttpTransport(), JacksonFactory.getDefaultInstance(), credential) //
-					.setApplicationName("Cryptomator-Android/" + BuildConfig.VERSION_NAME) //
-					.build()
-			} catch (e: Exception) {
-				throw FatalBackendException(e)
-			}
+			val credential = FixedGoogleAccountCredential.usingOAuth2(context, setOf(DriveScopes.DRIVE)).also { it.setAccountName(accountName) }
+			return Drive.Builder(NetHttpTransport(), JacksonFactory.getDefaultInstance(), credential) //
+				.setApplicationName("Cryptomator-Android/" + BuildConfig.VERSION_NAME) //
+				.build()
+
 		}
 	}
 }

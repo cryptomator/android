@@ -481,8 +481,6 @@ open class CryptoImplVaultFormat7 : CryptoImplDecorator {
 							} ?: throw FatalBackendException("CloudFile size shouldn't be null")
 						}
 					}
-				} catch (e: Throwable) {
-					throw e
 				} finally {
 					encryptedTmpFile.delete()
 				}

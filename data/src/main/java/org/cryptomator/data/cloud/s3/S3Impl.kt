@@ -88,8 +88,6 @@ internal class S3Impl(context: Context, cloud: S3Cloud) {
 				return false
 			}
 			throw FatalBackendException(e)
-		} catch (ex: Exception) {
-			throw handleApiError(ex, node.path)
 		}
 	}
 
@@ -114,8 +112,8 @@ internal class S3Impl(context: Context, cloud: S3Cloud) {
 					}
 				}
 			}
-		} catch (ex: Exception) {
-			throw handleApiError(ex, folder.path)
+		} catch (e: ErrorResponseException) {
+			throw handleApiError(e, folder.path)
 		}
 	}
 
@@ -140,8 +138,8 @@ internal class S3Impl(context: Context, cloud: S3Cloud) {
 					.build()
 				client().putObject(putObjectArgs)
 
-			} catch (ex: Exception) {
-				throw handleApiError(ex, folder.path)
+			} catch (e: ErrorResponseException) {
+				throw handleApiError(e, folder.path)
 			}
 
 			return S3CloudNodeFactory.folder(parentFolder, folder.name)
@@ -181,8 +179,8 @@ internal class S3Impl(context: Context, cloud: S3Cloud) {
 				val copyObjectArgs = CopyObjectArgs.builder().bucket(cloud.s3Bucket()).`object`(targetKey).source(copySource).build()
 				try {
 					client().copyObject(copyObjectArgs)
-				} catch (ex: Exception) {
-					throw handleApiError(ex, source.path)
+				} catch (e: ErrorResponseException) {
+					throw handleApiError(e, source.path)
 				}
 			}
 
@@ -191,8 +189,8 @@ internal class S3Impl(context: Context, cloud: S3Cloud) {
 			for (result in client().removeObjects(removeObjectsArgs)) {
 				try {
 					result.get()
-				} catch (ex: Exception) {
-					throw handleApiError(ex, source.path)
+				} catch (e: ErrorResponseException) {
+					throw handleApiError(e, source.path)
 				}
 			}
 
@@ -209,8 +207,8 @@ internal class S3Impl(context: Context, cloud: S3Cloud) {
 			delete(source)
 			val lastModified = result.headers().getDate("Last-Modified")
 			return S3CloudNodeFactory.file(target.parent, target.name, source.size, lastModified)
-		} catch (ex: Exception) {
-			throw handleApiError(ex, source.path)
+		} catch (e: ErrorResponseException) {
+			throw handleApiError(e, source.path)
 		}
 	}
 
@@ -257,8 +255,8 @@ internal class S3Impl(context: Context, cloud: S3Cloud) {
 					progressAware.onProgress(Progress.completed(UploadState.upload(file)))
 
 					return S3CloudNodeFactory.file(file.parent, file.name, size, lastModified)
-				} catch (ex: Exception) {
-					throw handleApiError(ex, file.path)
+				} catch (e: ErrorResponseException) {
+					throw handleApiError(e, file.path)
 				}
 			}
 		} ?: throw FatalBackendException("InputStream shouldn't bee null")
@@ -281,8 +279,8 @@ internal class S3Impl(context: Context, cloud: S3Cloud) {
 					}
 				}.use { out -> CopyStream.copyStreamToStream(response, out) }
 			}
-		} catch (ex: Exception) {
-			throw handleApiError(ex, file.path)
+		} catch (e: ErrorResponseException) {
+			throw handleApiError(e, file.path)
 		}
 		progressAware.onProgress(Progress.completed(DownloadState.download(file)))
 	}
@@ -307,7 +305,7 @@ internal class S3Impl(context: Context, cloud: S3Cloud) {
 					DeleteObject(item.objectName())
 				}
 			}
-		} catch (e: Exception) {
+		} catch (e: ErrorResponseException) {
 			throw handleApiError(e, node.path)
 		}
 
@@ -317,18 +315,18 @@ internal class S3Impl(context: Context, cloud: S3Cloud) {
 			try {
 				val error = result.get()
 				Timber.tag("S3Impl").e("Error in deleting object " + error.objectName() + "; " + error.message())
-			} catch (e: Exception) {
+			} catch (e: ErrorResponseException) {
 				throw handleApiError(e, node.path)
 			}
 		}
 	}
 
-	@Throws(IOException::class, BackendException::class)
+	//@Throws(IOException::class, BackendException::class)
 	private fun deleteFile(node: S3File) {
 		val removeObjectArgs = RemoveObjectArgs.builder().bucket(cloud.s3Bucket()).`object`(node.key).build()
 		try {
 			client().removeObject(removeObjectArgs)
-		} catch (e: Exception) {
+		} catch (e: ErrorResponseException) {
 			throw handleApiError(e, "")
 		}
 	}
@@ -340,15 +338,14 @@ internal class S3Impl(context: Context, cloud: S3Cloud) {
 				throw NoSuchBucketException(cloud.s3Bucket())
 			}
 			""
-		} catch (e: Exception) {
+		} catch (e: ErrorResponseException) {
 			throw handleApiError(e, "")
 		}
 	}
 
-	private fun handleApiError(ex: Exception, name: String): Exception {
-		return if (ex is ErrorResponseException) {
-			val errorCode = ex.errorResponse().code()
-			when {
+	private fun handleApiError(e: ErrorResponseException, name: String): Exception {
+			val errorCode = e.errorResponse().code()
+			return when {
 				isAccessProblem(errorCode) -> {
 					ForbiddenException()
 				}
@@ -359,12 +356,9 @@ internal class S3Impl(context: Context, cloud: S3Cloud) {
 					NoSuchCloudFileException(name)
 				}
 				else -> {
-					FatalBackendException(ex)
+					FatalBackendException(e)
 				}
 			}
-		} else {
-			FatalBackendException(ex)
-		}
 	}
 
 	companion object {

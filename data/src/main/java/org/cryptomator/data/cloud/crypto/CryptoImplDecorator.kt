@@ -420,8 +420,7 @@ abstract class CryptoImplDecorator(
 			assertCryptoFileAlreadyExists(cryptoFile)
 		}
 		try {
-			data.open(context).use { stream ->
-				requireNotNull(stream)
+			data.open(context)?.use { stream ->
 				requireNotNull(cryptoFile.size)
 				val encryptedTmpFile = File.createTempFile(UUID.randomUUID().toString(), ".crypto", internalCache)
 				try {
@@ -444,12 +443,10 @@ abstract class CryptoImplDecorator(
 							return writeFromTmpFile(data, cryptoFile, encryptedTmpFile, progressAware, replace)
 						}
 					}
-				} catch (e: Throwable) {
-					throw e
 				} finally {
 					encryptedTmpFile.delete()
 				}
-			}
+			} ?: throw IllegalStateException("InputStream shouldn't be null")
 		} catch (e: IOException) {
 			throw FatalBackendException(e)
 		}
