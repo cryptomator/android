@@ -129,6 +129,8 @@
 	<string name="screen_s3_settings_display_name_label">Anzeigename</string>
 	<string name="screen_s3_settings_bucket_label">Vorhandener Bucket</string>
 	<string name="screen_s3_settings_msg_display_name_not_empty">Der Anzeigename darf nicht leer sein</string>
+	<string name="screen_s3_settings_msg_access_key_not_empty">Access Key darf nicht leer sein</string>
+	<string name="screen_s3_settings_msg_secret_key_not_empty">Secret Key darf nicht leer sein</string>
 	<string name="screen_s3_settings_msg_bucket_not_empty">Bucket darf nicht leer sein</string>
 	<string name="screen_s3_settings_msg_endpoint_and_region_not_empty">Endpoint und Region dürfen nicht leer sein</string>
 	<!-- ## screen: enter vault name -->
@@ -197,6 +199,7 @@
 	<!-- ## screen: licenses -->
 	<!-- ## screen: authenticate cloud -->
 	<string name="screen_authenticate_auth_authentication_failed">%1$s-Authentifizierung fehlgeschlagen.</string>
+	<string name="screen_update_pcloud_connections_title">pCloud-Anmeldedaten aktualisieren</string>
 	<!-- ## screen: empty dir file info -->
 	<string name="screen_empty_dir_file_info_title">\'%1$s\' nicht erreichbar</string>
 	<string name="screen_empty_dir_file_info_headline">Cryptomator hat erkannt, dass dieser Ordner nicht erreichbar ist.</string>
@@ -313,6 +316,8 @@
 	<string name="dialog_beta_confirmation_title">Beta-Version</string>
 	<string name="dialog_beta_confirmation">Das ist eine Beta-Version, die das Tresor-Format 7 unterstützt. Bitte nicht mit einem produktiv eingesetzten Tresor verwenden oder dafür sorgen, dass gute Sicherungen vorhanden sind.</string>
 	<string name="dialog_no_more_images_to_display">Keine weiteren Bilder anzuzeigen&#8230;</string>
+	<string name="dialog_pcloud_credentials_updated_title">Anmeldedaten von \'%1$s\' aktualisiert</string>
+	<string name="dialog_pcloud_credentials_updated">Wenn Sie ein neues pCloud-Konto hinzufügen möchten, klicken Sie auf diese URL <a href="https://www.pcloud.com">www.pcloud.com</a>, melden Sie sich vom aktuellen Konto ab und klicken Sie erneut auf das \'+\' in dieser App, um eine neue Cloud-Verbindung herzustellen.</string>
 	<string name="permission_snackbar_auth_local_vault">Cryptomator benötigt Zugriff auf den Speicher um lokale Tresore zu nutzen</string>
 	<string name="permission_snackbar_auth_auto_upload">Cryptomator benötigt Zugriff auf den Speicher um den automatischen Foto-Upload zu nutzen</string>
 	<!-- # error reports -->
