@@ -7,6 +7,7 @@ import org.cryptomator.presentation.R
 import org.cryptomator.presentation.model.S3CloudModel
 import org.cryptomator.presentation.presenter.S3AddOrChangePresenter
 import org.cryptomator.util.crypto.CredentialCryptor
+import org.cryptomator.util.crypto.FatalCryptoException
 import javax.inject.Inject
 import kotlinx.android.synthetic.main.fragment_setup_s3.accessKeyEditText
 import kotlinx.android.synthetic.main.fragment_setup_s3.bucketEditText
@@ -58,7 +59,7 @@ class S3AddOrChangeFragment : BaseFragment() {
 				CredentialCryptor //
 					.getInstance(activity?.applicationContext) //
 					.decrypt(text)
-			} catch (e: RuntimeException) {
+			} catch (e: FatalCryptoException) {
 				Timber.tag("S3AddOrChangeFragment").e(e, "Unable to decrypt password, clearing it")
 				""
 			}

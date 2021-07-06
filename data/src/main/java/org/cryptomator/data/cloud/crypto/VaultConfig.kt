@@ -116,11 +116,10 @@ class VaultConfig private constructor(builder: VaultConfigBuilder) {
 					.shorteningThreshold(parser.body[JSON_KEY_SHORTENING_THRESHOLD] as Int)
 
 				VaultConfig(vaultConfigBuilder)
-			} catch (e: Exception) {
+			} catch (e: JwtException) {
 				when (e) {
 					is MissingClaimException, is IncorrectClaimException -> throw VaultVersionMismatchException("Vault config not for version " + unverifiedVaultConfig.vaultFormat)
 					is SignatureException -> throw VaultKeyInvalidException()
-					is JwtException -> throw VaultConfigLoadException("Failed to verify vault config", e)
 					else -> throw VaultConfigLoadException(e)
 				}
 			}

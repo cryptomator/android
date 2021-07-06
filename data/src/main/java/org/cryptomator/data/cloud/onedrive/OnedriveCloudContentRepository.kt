@@ -110,9 +110,9 @@ internal class OnedriveCloudContentRepository(private val cloud: OnedriveCloud, 
 		}
 
 		@Throws(BackendException::class)
-		override fun read(file: OnedriveFile, tmpEncryptedFile: File?, data: OutputStream, progressAware: ProgressAware<DownloadState>) {
+		override fun read(file: OnedriveFile, encryptedTmpFile: File?, data: OutputStream, progressAware: ProgressAware<DownloadState>) {
 			try {
-				oneDriveImpl.read(file, tmpEncryptedFile, data, progressAware)
+				oneDriveImpl.read(file, encryptedTmpFile, data, progressAware)
 			} catch (e: IOException) {
 				when {
 					ExceptionUtil.contains(e, NoSuchCloudFileException::class.java) -> {

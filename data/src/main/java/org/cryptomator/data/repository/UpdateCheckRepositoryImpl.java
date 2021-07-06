@@ -144,7 +144,7 @@ public class UpdateCheckRepositoryImpl implements UpdateCheckRepository {
 				}
 			}
 			return new String(Hex.encodeHex(digest.digest()));
-		} catch (Exception e) {
+		} catch (NoSuchAlgorithmException | IOException e) {
 			throw new GeneralUpdateErrorException(e);
 		}
 	}
@@ -272,7 +272,7 @@ public class UpdateCheckRepositoryImpl implements UpdateCheckRepository {
 				urlApk = jws.get("url", String.class);
 				apkSha256 = jws.get("apk_sha_256", String.class);
 				urlReleaseNote = jws.get("release_notes", String.class);
-			} catch (Exception e) {
+			} catch (NoSuchAlgorithmException | InvalidKeySpecException e) {
 				throw new GeneralUpdateErrorException("Failed to parse latest version", e);
 			}
 		}

@@ -208,24 +208,20 @@ class FileUtil @Inject constructor(private val context: Context, private val mim
 	 */
 	private fun tryRecoverAutoUploadFilesStoreDueToFileObfuscation(file: File): AutoUploadFilesStore {
 		Timber.tag("FileUtil").i("Try to recover AutoUploadFilesStore using class c or a")
-		try {
-			ObjectInputStream(FileInputStream(file)).use { objectInputStream ->
-				val uploadPaths = when (val obj = objectInputStream.readObject()) {
-					is org.cryptomator.presentation.e.c -> obj.mE() // version 1.5.10
-					is org.cryptomator.presentation.i.a -> obj.b() // version 1.5.11-beta1
-					else -> null
-				}
-				when {
-					uploadPaths != null -> {
-						Timber.tag("FileUtil").i("Nailed it! Successfully recovered AutoUploadFilesStore!")
-						file.delete()
-						return AutoUploadFilesStore(uploadPaths)
-					}
-					else -> throw FatalBackendException("Failed to recover AutoUploadFilesStore")
-				}
+		ObjectInputStream(FileInputStream(file)).use { objectInputStream ->
+			val uploadPaths = when (val obj = objectInputStream.readObject()) {
+				is org.cryptomator.presentation.e.c -> obj.mE() // version 1.5.10
+				is org.cryptomator.presentation.i.a -> obj.b() // version 1.5.11-beta1
+				else -> null
 			}
-		} catch (e: Exception) {
-			throw FatalBackendException("Failed to recover AutoUploadFilesStore", e)
+			when {
+				uploadPaths != null -> {
+					Timber.tag("FileUtil").i("Nailed it! Successfully recovered AutoUploadFilesStore!")
+					file.delete()
+					return AutoUploadFilesStore(uploadPaths)
+				}
+				else -> throw FatalBackendException("Failed to recover AutoUploadFilesStore")
+			}
 		}
 	}
 
