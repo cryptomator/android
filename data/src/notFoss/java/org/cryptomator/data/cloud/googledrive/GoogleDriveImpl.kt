@@ -183,20 +183,22 @@ internal class GoogleDriveImpl(context: Context, googleDriveCloud: GoogleDriveCl
 			throw CloudNodeAlreadyExistsException(target.name)
 		}
 
-		target.parent?.let { targetsParent ->
-			val metadata = File()
-			metadata.name = target.name
-			val movedFile = client() //
-				.files() //
-				.update(source.driveId, metadata) //
-				.setFields("id,mimeType,modifiedTime,name,size") //
-				.setAddParents(targetsParent.driveId) //
-				.setRemoveParents(targetsParent.driveId)  //
-				.setSupportsAllDrives(true) //
-				.execute()
-			idCache.remove(source)
-			return idCache.cache(GoogleDriveCloudNodeFactory.from(targetsParent, movedFile))
-		} ?: throw ParentFolderIsNullException(target.name)
+		source.parent?.let { sourcesParent ->
+			target.parent?.let { targetsParent ->
+				val metadata = File()
+				metadata.name = target.name
+				val movedFile = client() //
+					.files() //
+					.update(source.driveId, metadata) //
+					.setFields("id,mimeType,modifiedTime,name,size") //
+					.setAddParents(targetsParent.driveId) //
+					.setRemoveParents(sourcesParent.driveId)  //
+					.setSupportsAllDrives(true) //
+					.execute()
+				idCache.remove(source)
+				return idCache.cache(GoogleDriveCloudNodeFactory.from(targetsParent, movedFile))
+			} ?: throw ParentFolderIsNullException(target.name)
+		} ?: throw ParentFolderIsNullException(source.name)
 	}
 
 	@Throws(IOException::class, BackendException::class)

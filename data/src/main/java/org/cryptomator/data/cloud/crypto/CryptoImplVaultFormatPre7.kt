@@ -219,10 +219,10 @@ internal class CryptoImplVaultFormatPre7(
 		requireNotNull(target.dirFile)
 		target.parent?.let {
 			assertCryptoFolderAlreadyExists(target)
-			val result = folder(it, target.name, cloudContentRepository.move(source.dirFile, target.dirFile))
-			evictFromCache(source)
-			evictFromCache(target)
-			return result
+			return folder(it, target.name, cloudContentRepository.move(source.dirFile, target.dirFile)).also {
+				evictFromCache(source)
+				evictFromCache(target)
+			}
 		} ?: throw ParentFolderIsNullException(target.name)
 	}
 

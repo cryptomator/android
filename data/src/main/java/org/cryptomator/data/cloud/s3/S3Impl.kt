@@ -127,7 +127,6 @@ internal class S3Impl(context: Context, cloud: S3Cloud) {
 			}
 		} ?: throw ParentFolderIsNullException(folder.name)
 
-
 		folder.parent?.let { parentFolder ->
 			try {
 				val putObjectArgs = PutObjectArgs //
