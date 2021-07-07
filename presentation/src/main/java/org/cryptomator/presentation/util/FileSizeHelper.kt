@@ -2,7 +2,6 @@ package org.cryptomator.presentation.util
 
 import android.content.Context
 import org.cryptomator.presentation.R
-import org.cryptomator.util.Optional
 import java.text.DecimalFormat
 import javax.inject.Inject
 import kotlin.math.log10
@@ -19,24 +18,19 @@ class FileSizeHelper @Inject constructor(private val context: Context) {
 		context.getString(R.string.file_size_unit_tera_bytes)
 	)
 
-	fun getFormattedFileSize(size: Optional<Long>): Optional<String> {
-		return when {
-			size.isAbsent -> {
-				Optional.empty()
+	fun getFormattedFileSize(size: Long?): String? {
+		return when (size) {
+			null -> {
+				null
 			}
-			size.get() == 0L -> {
-				wrap(context.getString(R.string.file_size_zero))
+			0L -> {
+				String.format(ResourceHelper.getString(R.string.screen_file_browser_file_info_label_size), context.getString(R.string.file_size_zero))
 			}
 			else -> {
-				val digitGroups = min(log10(size.get().toDouble()) / log10(1000.0), units.size - 1.toDouble()).toInt()
+				val digitGroups = min(log10(size.toDouble()) / log10(1000.0), units.size - 1.toDouble()).toInt()
 				val formatPattern = if (digitGroups < 2) "##0" else "##0.#"
-				wrap(DecimalFormat(formatPattern).format(size.get() / 1000.0.pow(digitGroups.toDouble())) + " " + units[digitGroups])
+				String.format(ResourceHelper.getString(R.string.screen_file_browser_file_info_label_size), DecimalFormat(formatPattern).format(size / 1000.0.pow(digitGroups.toDouble())) + " " + units[digitGroups])
 			}
 		}
 	}
-
-	private fun wrap(value: String): Optional<String> {
-		return Optional.of(String.format(ResourceHelper.getString(R.string.screen_file_browser_file_info_label_size), value))
-	}
-
 }

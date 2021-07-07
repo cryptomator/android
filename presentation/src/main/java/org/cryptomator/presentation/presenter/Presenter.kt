@@ -21,9 +21,9 @@ import org.cryptomator.presentation.workflow.ActivityResult
 import org.cryptomator.presentation.workflow.AsyncResult
 import org.cryptomator.presentation.workflow.PermissionsResult
 import org.cryptomator.presentation.workflow.Workflow
-import org.cryptomator.util.Supplier
 import java.io.Serializable
 import java.util.Collections
+import java.util.function.Supplier
 import timber.log.Timber
 
 abstract class Presenter<V : View> protected constructor(private val exceptionMappings: ExceptionHandlers) : ActivityHolder {
@@ -64,13 +64,11 @@ abstract class Presenter<V : View> protected constructor(private val exceptionMa
 
 	fun finishWithResultAndExtra(result: Serializable?, extraName: String?, extraResult: Serializable?) {
 		val data = Intent()
-		if (result == null) {
-			activity().setResult(Activity.RESULT_CANCELED)
-		} else {
-			data.putExtra(SINGLE_RESULT, result)
+		result?.let {
+			data.putExtra(SINGLE_RESULT, it)
 			data.putExtra(extraName, extraResult)
 			activity().setResult(Activity.RESULT_OK, data)
-		}
+		} ?: activity().setResult(Activity.RESULT_CANCELED)
 		finish()
 	}
 

@@ -1,5 +1,7 @@
 package org.cryptomator.data.repository;
 
+import com.google.common.base.Optional;
+
 import org.cryptomator.data.cloud.crypto.CryptoCloudFactory;
 import org.cryptomator.data.db.Database;
 import org.cryptomator.data.db.entities.CloudEntity;
@@ -13,7 +15,6 @@ import org.cryptomator.domain.exception.BackendException;
 import org.cryptomator.domain.repository.CloudRepository;
 import org.cryptomator.domain.usecases.cloud.Flag;
 import org.cryptomator.domain.usecases.vault.UnlockToken;
-import org.cryptomator.util.Optional;
 
 import java.util.ArrayList;
 import java.util.List;

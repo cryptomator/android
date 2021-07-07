@@ -69,6 +69,7 @@ dependencies {
 
 	testImplementation dependencies.hamcrest
 	testImplementation dependencies.mockito
+	testImplementation dependencies.mockitoKotlin
 	testImplementation dependencies.mockitoInline
 
 	implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk8:$kotlin_version"

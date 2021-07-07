@@ -1,9 +1,10 @@
 package org.cryptomator.util.matchers;
 
-import org.cryptomator.util.Optional;
 import org.hamcrest.Description;
 import org.hamcrest.Matcher;
 import org.hamcrest.TypeSafeDiagnosingMatcher;
+
+import com.google.common.base.Optional;
 
 public class OptionalMatchers {
 
@@ -11,7 +12,7 @@ public class OptionalMatchers {
 		return new TypeSafeDiagnosingMatcher<Optional<?>>() {
 			@Override
 			protected boolean matchesSafely(Optional<?> value, Description description) {
-				if (value.isAbsent()) {
+				if (!value.isPresent()) {
 					return true;
 				} else {
 					description.appendText("non empty Optional");
@@ -30,7 +31,7 @@ public class OptionalMatchers {
 		return new TypeSafeDiagnosingMatcher<Optional<?>>() {
 			@Override
 			protected boolean matchesSafely(Optional<?> value, Description description) {
-				if (value.isAbsent()) {
+				if (!value.isPresent()) {
 					description.appendText("empty Optional");
 					return false;
 				} else if (subMatcher.matches(value.get())) {

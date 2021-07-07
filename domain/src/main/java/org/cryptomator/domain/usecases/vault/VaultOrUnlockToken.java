@@ -1,7 +1,8 @@
 package org.cryptomator.domain.usecases.vault;
 
+import com.google.common.base.Optional;
+
 import org.cryptomator.domain.Vault;
-import org.cryptomator.util.Optional;
 
 import java.io.Serializable;
 
@@ -24,11 +25,11 @@ public class VaultOrUnlockToken implements Serializable {
 	}
 
 	public Optional<Vault> getVault() {
-		return Optional.ofNullable(vault);
+		return Optional.fromNullable(vault);
 	}
 
 	public Optional<UnlockToken> getUnlockToken() {
-		return Optional.ofNullable(unlockToken);
+		return Optional.fromNullable(unlockToken);
 	}
 
 }

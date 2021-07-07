@@ -3,8 +3,8 @@ package org.cryptomator.presentation.model
 import org.cryptomator.domain.Cloud
 import org.cryptomator.domain.LocalStorageCloud
 import org.cryptomator.presentation.R
-import org.cryptomator.util.Encodings
 import java.net.URLDecoder
+import java.nio.charset.StandardCharsets
 
 class LocalStorageModel(cloud: Cloud) : CloudModel(cloud) {
 
@@ -12,7 +12,7 @@ class LocalStorageModel(cloud: Cloud) : CloudModel(cloud) {
 		return R.string.cloud_names_local_storage
 	}
 
-	override fun username(): String? {
+	override fun username(): String {
 		return ""
 	}
 
@@ -36,7 +36,7 @@ class LocalStorageModel(cloud: Cloud) : CloudModel(cloud) {
 	}
 
 	private fun prepareTokenForDisplay(): String {
-		return URLDecoder.decode(cloud().rootUri(), Encodings.UTF_8.name())
+		return URLDecoder.decode(cloud().rootUri(), StandardCharsets.UTF_8.name())
 	}
 
 	fun uri(): String {

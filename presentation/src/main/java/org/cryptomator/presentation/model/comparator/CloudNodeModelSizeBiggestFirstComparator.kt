@@ -17,11 +17,11 @@ class CloudNodeModelSizeBiggestFirstComparator : Comparator<CloudNodeModel<*>> {
 			val o1Size = (o1 as CloudFileModel).size
 			val o2Size = (o2 as CloudFileModel).size
 
-			return if (o2Size.isPresent && o1Size.isPresent) {
-				o2Size.get().compareTo(o1Size.get())
-			} else if (o2Size.isPresent) {
+			return if (o2Size != null && o1Size != null) {
+				o2Size.compareTo(o1Size)
+			} else if (o2Size != null) {
 				-1
-			} else if (o1Size.isPresent) {
+			} else if (o1Size != null) {
 				1
 			} else {
 				0

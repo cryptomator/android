@@ -28,7 +28,7 @@ import java.util.Collection;
 
 import static com.google.android.gms.auth.GoogleAuthUtil.GOOGLE_ACCOUNT_TYPE;
 
-class FixedGoogleAccountCredential extends GoogleAccountCredential {
+public class FixedGoogleAccountCredential extends GoogleAccountCredential {
 
 	private String accountName;
 

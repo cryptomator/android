@@ -69,6 +69,7 @@ dependencies {
 	testRuntimeOnly dependencies.junit4Engine
 
 	testImplementation dependencies.mockito
+	testImplementation dependencies.mockitoKotlin
 	testImplementation dependencies.mockitoInline
 	testImplementation dependencies.hamcrest
 }

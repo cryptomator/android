@@ -5,7 +5,6 @@ import org.cryptomator.data.cloud.webdav.WebDavFile;
 import org.cryptomator.data.cloud.webdav.WebDavFolder;
 import org.cryptomator.domain.CloudNode;
 import org.cryptomator.domain.WebDavCloud;
-import org.cryptomator.util.Optional;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Disabled;
@@ -96,8 +95,8 @@ public class PropfindResponseParserTest {
 		assertThat(nodes.get(0), is(cloudFile(new WebDavFile(PARENT_FOLDER, //
 				"0ZRGQYTW7FFHOJDJWIJYVR3M6MOME5EAR", //
 				"/asdasdasd/d/OC/0ZRGQYTW7FFHOJDJWIJYVR3M6MOME5EAR", //
-				Optional.of(36L), //
-				Optional.of(new Date("Thu, 30 Mar 2017 10:14:39 GMT"))))));
+				36L, //
+				new Date("Thu, 30 Mar 2017 10:14:39 GMT")))));
 	}
 
 	@Test
@@ -120,8 +119,8 @@ public class PropfindResponseParserTest {
 		assertThat(nodes.size(), is(2));
 		assertThat(nodes, //
 				containsInAnyOrder( //
-						cloudFolder(new WebDavFolder(webDavFolder, "Gelöschte Dateien")), //
-						cloudFile(new WebDavFile(webDavFolder, "0.txt", Optional.of(54175L), Optional.of(new Date("Thu, 18 May 2017 9:49:41 GMT"))))));
+						cloudFolder(new WebDavFolder(webDavFolder, "Gelöschte Dateien", "/Gelöschte Dateien")), //
+						cloudFile(new WebDavFile(webDavFolder, "0.txt", 54175L, new Date("Thu, 18 May 2017 9:49:41 GMT")))));
 	}
 
 	@Test

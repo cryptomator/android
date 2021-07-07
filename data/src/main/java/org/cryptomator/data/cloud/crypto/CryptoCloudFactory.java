@@ -1,17 +1,21 @@
 package org.cryptomator.data.cloud.crypto;
 
+import com.google.common.base.Optional;
+
 import org.cryptomator.domain.Cloud;
 import org.cryptomator.domain.CloudFile;
 import org.cryptomator.domain.CloudFolder;
+import org.cryptomator.domain.CloudNode;
 import org.cryptomator.domain.UnverifiedVaultConfig;
 import org.cryptomator.domain.Vault;
 import org.cryptomator.domain.exception.BackendException;
 import org.cryptomator.domain.repository.CloudContentRepository;
+import org.cryptomator.domain.usecases.ProgressAware;
 import org.cryptomator.domain.usecases.cloud.Flag;
 import org.cryptomator.domain.usecases.vault.UnlockToken;
-import org.cryptomator.util.Optional;
 
 import java.io.ByteArrayOutputStream;
+import java.nio.charset.StandardCharsets;
 import java.security.SecureRandom;
 
 import javax.inject.Inject;
@@ -20,25 +24,23 @@ import javax.inject.Singleton;
 import static org.cryptomator.data.cloud.crypto.CryptoConstants.MASTERKEY_SCHEME;
 import static org.cryptomator.data.cloud.crypto.CryptoConstants.VAULT_FILE_NAME;
 import static org.cryptomator.domain.Vault.aCopyOf;
-import static org.cryptomator.domain.usecases.ProgressAware.NO_OP_PROGRESS_AWARE;
-import static org.cryptomator.util.Encodings.UTF_8;
 
 @Singleton
 public class CryptoCloudFactory {
 
-	private final CloudContentRepository cloudContentRepository;
+	private final CloudContentRepository<Cloud, CloudNode, CloudFolder, CloudFile> cloudContentRepository;
 	private final CryptoCloudContentRepositoryFactory cryptoCloudContentRepositoryFactory;
 	private final SecureRandom secureRandom = new SecureRandom();
 
 	@Inject
-	public CryptoCloudFactory(CloudContentRepository cloudContentRepository, //
+	public CryptoCloudFactory(CloudContentRepository/*<Cloud, CloudNode, CloudFolder, CloudFile>*/ cloudContentRepository, //
 			CryptoCloudContentRepositoryFactory cryptoCloudContentRepositoryFactory) {
 		this.cloudContentRepository = cloudContentRepository;
 		this.cryptoCloudContentRepositoryFactory = cryptoCloudContentRepositoryFactory;
 	}
 
 	public void create(CloudFolder location, CharSequence password) throws BackendException {
-		cryptoCloudProvider(Optional.empty()).create(location, password);
+		cryptoCloudProvider(Optional.absent()).create(location, password);
 	}
 
 	public Cloud decryptedViewOf(Vault vault) throws BackendException {
@@ -47,14 +49,14 @@ public class CryptoCloudFactory {
 
 	public Optional<UnverifiedVaultConfig> unverifiedVaultConfig(Vault vault) throws BackendException {
 		CloudFolder vaultLocation = cloudContentRepository.resolve(vault.getCloud(), vault.getPath());
-		String jwt = new String(readConfigFileData(vaultLocation), UTF_8);
+		String jwt = new String(readConfigFileData(vaultLocation), StandardCharsets.UTF_8);
 		return Optional.of(VaultConfig.decode(jwt));
 	}
 
 	private byte[] readConfigFileData(CloudFolder location) throws BackendException {
 		ByteArrayOutputStream data = new ByteArrayOutputStream();
 		CloudFile vaultFile = cloudContentRepository.file(location, VAULT_FILE_NAME);
-		cloudContentRepository.read(vaultFile, Optional.empty(), data, NO_OP_PROGRESS_AWARE);
+		cloudContentRepository.read(vaultFile, null, data, ProgressAware.NO_OP_PROGRESS_AWARE_DOWNLOAD);
 		return data.toByteArray();
 	}
 
@@ -84,13 +86,10 @@ public class CryptoCloudFactory {
 
 	private CryptoCloudProvider cryptoCloudProvider(Optional<UnverifiedVaultConfig> unverifiedVaultConfigOptional) {
 		if (unverifiedVaultConfigOptional.isPresent()) {
-			switch (unverifiedVaultConfigOptional.get().getKeyId().getScheme()) {
-				case MASTERKEY_SCHEME: {
-					return new MasterkeyCryptoCloudProvider(cloudContentRepository, cryptoCloudContentRepositoryFactory, secureRandom);
-				}
-				default:
-					throw new IllegalStateException(String.format("Provider with scheme %s not supported", unverifiedVaultConfigOptional.get().getKeyId().getScheme()));
+			if (MASTERKEY_SCHEME.equals(unverifiedVaultConfigOptional.get().getKeyId().getScheme())) {
+				return new MasterkeyCryptoCloudProvider(cloudContentRepository, cryptoCloudContentRepositoryFactory, secureRandom);
 			}
+			throw new IllegalStateException(String.format("Provider with scheme %s not supported", unverifiedVaultConfigOptional.get().getKeyId().getScheme()));
 		} else {
 			return new MasterkeyCryptoCloudProvider(cloudContentRepository, cryptoCloudContentRepositoryFactory, secureRandom);
 		}

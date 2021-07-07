@@ -2,7 +2,6 @@ package org.cryptomator.data.cloud.crypto;
 
 import org.cryptomator.domain.Cloud;
 import org.cryptomator.domain.CloudFile;
-import org.cryptomator.util.Optional;
 
 import java.util.Date;
 import java.util.Objects;
@@ -12,10 +11,10 @@ class TestFile implements CloudFile {
 	private final TestFolder parent;
 	private final String name;
 	private final String path;
-	private final Optional<Long> size;
-	private final Optional<Date> modified;
+	private final Long size;
+	private final Date modified;
 
-	public TestFile(TestFolder parent, String name, String path, Optional<Long> size, Optional<Date> modified) {
+	public TestFile(TestFolder parent, String name, String path, Long size, Date modified) {
 		this.parent = parent;
 		this.name = name;
 		this.path = path;
@@ -44,12 +43,12 @@ class TestFile implements CloudFile {
 	}
 
 	@Override
-	public Optional<Long> getSize() {
+	public Long getSize() {
 		return size;
 	}
 
 	@Override
-	public Optional<Date> getModified() {
+	public Date getModified() {
 		return modified;
 	}
 

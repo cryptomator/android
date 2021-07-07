@@ -30,7 +30,6 @@ import org.cryptomator.presentation.model.AutoUploadFilesStore;
 import org.cryptomator.presentation.presenter.UriBasedDataSource;
 import org.cryptomator.presentation.util.ContentResolverUtil;
 import org.cryptomator.presentation.util.FileUtil;
-import org.cryptomator.util.Optional;
 import org.cryptomator.util.SharedPreferencesHandler;
 
 import java.io.File;
@@ -204,14 +203,9 @@ public class AutoUploadService extends Service {
 	}
 
 	private CloudFile writeCloudFile(String fileName, CancelAwareDataSource dataSource, boolean replacing, ProgressAware<UploadState> progressAware) throws BackendException {
-		Optional<Long> size = dataSource.size(context);
+		Long size = dataSource.size(context);
 		CloudFile source = cloudContentRepository.file(parent, fileName, size);
-		return cloudContentRepository.write( //
-				source, //
-				dataSource, //
-				progressAware, //
-				replacing, //
-				size.get());
+		return cloudContentRepository.write(source, dataSource, progressAware, replacing, size);
 	}
 
 	@Override

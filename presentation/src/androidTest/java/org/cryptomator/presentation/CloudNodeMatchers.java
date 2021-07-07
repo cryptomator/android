@@ -3,7 +3,7 @@ package org.cryptomator.presentation;
 import org.cryptomator.domain.CloudFile;
 import org.cryptomator.domain.CloudFolder;
 import org.cryptomator.domain.CloudNode;
-import org.cryptomator.util.Optional;
+import com.google.common.base.Optional;
 import org.hamcrest.Description;
 import org.hamcrest.Matcher;
 import org.hamcrest.TypeSafeDiagnosingMatcher;

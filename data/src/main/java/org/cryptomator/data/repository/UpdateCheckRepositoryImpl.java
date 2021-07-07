@@ -3,6 +3,7 @@ package org.cryptomator.data.repository;
 import android.content.Context;
 import android.net.Uri;
 
+import com.google.common.base.Optional;
 import com.google.common.io.BaseEncoding;
 
 import org.apache.commons.codec.binary.Hex;
@@ -15,7 +16,6 @@ import org.cryptomator.domain.exception.update.GeneralUpdateErrorException;
 import org.cryptomator.domain.exception.update.HashMismatchUpdateCheckException;
 import org.cryptomator.domain.repository.UpdateCheckRepository;
 import org.cryptomator.domain.usecases.UpdateCheck;
-import org.cryptomator.util.Optional;
 
 import java.io.File;
 import java.io.IOException;
@@ -67,7 +67,7 @@ public class UpdateCheckRepositoryImpl implements UpdateCheckRepository {
 		LatestVersion latestVersion = loadLatestVersion();
 
 		if (appVersion.equals(latestVersion.version)) {
-			return Optional.empty();
+			return Optional.absent();
 		}
 
 		final UpdateCheckEntity entity = database.load(UpdateCheckEntity.class, 1L);
@@ -144,7 +144,7 @@ public class UpdateCheckRepositoryImpl implements UpdateCheckRepository {
 				}
 			}
 			return new String(Hex.encodeHex(digest.digest()));
-		} catch (Exception e) {
+		} catch (NoSuchAlgorithmException | IOException e) {
 			throw new GeneralUpdateErrorException(e);
 		}
 	}
@@ -272,7 +272,7 @@ public class UpdateCheckRepositoryImpl implements UpdateCheckRepository {
 				urlApk = jws.get("url", String.class);
 				apkSha256 = jws.get("apk_sha_256", String.class);
 				urlReleaseNote = jws.get("release_notes", String.class);
-			} catch (Exception e) {
+			} catch (NoSuchAlgorithmException | InvalidKeySpecException e) {
 				throw new GeneralUpdateErrorException("Failed to parse latest version", e);
 			}
 		}

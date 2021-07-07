@@ -9,11 +9,9 @@ internal class FormattedTime private constructor(private val timestamp: Long) {
 	@Volatile
 	private var formatted: String? = null
 
+	@Synchronized
 	override fun toString(): String {
-		if (formatted == null) {
-			formatted = SimpleDateFormat(FORMAT, Locale.getDefault()).format(Date(timestamp))
-		}
-		return formatted!!
+		return formatted ?: SimpleDateFormat(FORMAT, Locale.getDefault()).format(Date(timestamp)).also { formatted = it }
 	}
 
 	companion object {

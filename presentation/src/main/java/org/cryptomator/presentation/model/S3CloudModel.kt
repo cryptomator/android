@@ -18,7 +18,7 @@ class S3CloudModel(cloud: Cloud) : CloudModel(cloud) {
 		return CloudTypeModel.S3
 	}
 
-	fun id(): Long {
+	fun id(): Long? {
 		return cloud().id()
 	}
 

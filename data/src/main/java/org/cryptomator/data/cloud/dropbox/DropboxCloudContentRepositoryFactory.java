@@ -28,7 +28,7 @@ public class DropboxCloudContentRepositoryFactory implements CloudContentReposit
 	}
 
 	@Override
-	public CloudContentRepository cloudContentRepositoryFor(Cloud cloud) {
+	public CloudContentRepository<DropboxCloud, DropboxNode, DropboxFolder, DropboxFile> cloudContentRepositoryFor(Cloud cloud) {
 		return new DropboxCloudContentRepository((DropboxCloud) cloud, context);
 	}
 

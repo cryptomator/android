@@ -62,7 +62,7 @@ class UpdateLicenseDialog : BaseProgressErrorDialog<UpdateLicenseDialog.Callback
 		val license = requireArguments().getSerializable(LICENSE_ARG) as String?
 		license?.let { et_license.setText(it) }
 		et_license.requestFocus()
-		registerOnEditorDoneActionAndPerformButtonClick(et_license) { checkLicenseButton }
+		checkLicenseButton?.let { registerOnEditorDoneActionAndPerformButtonClick(et_license) { it } }
 	}
 
 	override fun enableViewAfterError(): View {

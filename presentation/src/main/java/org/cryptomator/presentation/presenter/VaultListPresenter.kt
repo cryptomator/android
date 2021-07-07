@@ -7,6 +7,7 @@ import android.content.Context
 import android.content.Intent
 import android.net.Uri
 import android.widget.Toast
+import com.google.common.base.Optional
 import org.cryptomator.data.cloud.crypto.CryptoCloud
 import org.cryptomator.data.util.NetworkConnectionCheck
 import org.cryptomator.domain.Cloud
@@ -54,7 +55,6 @@ import org.cryptomator.presentation.workflow.AddExistingVaultWorkflow
 import org.cryptomator.presentation.workflow.AuthenticationExceptionHandler
 import org.cryptomator.presentation.workflow.CreateNewVaultWorkflow
 import org.cryptomator.presentation.workflow.Workflow
-import org.cryptomator.util.Optional
 import org.cryptomator.util.SharedPreferencesHandler
 import javax.inject.Inject
 import timber.log.Timber
@@ -368,10 +368,7 @@ class VaultListPresenter @Inject constructor( //
 	@Callback
 	fun vaultUnlockedVaultList(result: ActivityResult) {
 		val cloud = result.intent().getSerializableExtra(SINGLE_RESULT) as Cloud
-		when {
-			result.isResultOk -> navigateToVaultContent(cloud)
-			else -> TODO("Not yet implemented")
-		}
+		navigateToVaultContent(cloud)
 	}
 
 	private fun navigateToVaultContent(cloud: Cloud) {

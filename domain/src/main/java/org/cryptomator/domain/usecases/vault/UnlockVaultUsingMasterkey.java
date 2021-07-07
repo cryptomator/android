@@ -7,7 +7,7 @@ import org.cryptomator.domain.repository.CloudRepository;
 import org.cryptomator.domain.usecases.cloud.Flag;
 import org.cryptomator.generator.Parameter;
 import org.cryptomator.generator.UseCase;
-import org.cryptomator.util.Optional;
+import com.google.common.base.Optional;
 
 @UseCase
 class UnlockVaultUsingMasterkey {

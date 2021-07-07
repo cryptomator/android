@@ -90,10 +90,7 @@ class AutoUploadChooseVaultPresenter @Inject constructor( //
 	@Callback
 	fun vaultUnlockedAutoUpload(result: ActivityResult) {
 		val cloud = result.intent().getSerializableExtra(SINGLE_RESULT) as Cloud
-		when {
-			result.isResultOk -> rootFolderFor(cloud)
-			else -> TODO("Not yet implemented")
-		}
+		rootFolderFor(cloud)
 	}
 
 

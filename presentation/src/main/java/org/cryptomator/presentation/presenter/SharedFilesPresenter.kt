@@ -24,7 +24,6 @@ import org.cryptomator.presentation.util.FileNameValidator.Companion.isInvalidNa
 import org.cryptomator.presentation.workflow.ActivityResult
 import org.cryptomator.presentation.workflow.AuthenticationExceptionHandler
 import org.cryptomator.presentation.workflow.PermissionsResult
-import org.cryptomator.util.Optional
 import org.cryptomator.util.file.FileCacheUtils
 import java.util.*
 import javax.inject.Inject
@@ -140,10 +139,7 @@ class SharedFilesPresenter @Inject constructor( //
 	@Callback
 	fun vaultUnlockedSharedFiles(result: ActivityResult) {
 		val cloud = result.intent().getSerializableExtra(SINGLE_RESULT) as Cloud
-		when {
-			result.isResultOk -> rootFolderFor(cloud)
-			else -> TODO("Not yet implemented")
-		}
+		rootFolderFor(cloud)
 	}
 
 	private fun decryptedCloudFor(vault: Vault) {
@@ -263,29 +259,25 @@ class SharedFilesPresenter @Inject constructor( //
 	private fun hasUsedFileNamesAtLocation(currentCloudNodes: List<CloudNode>): Boolean {
 		existingFilesForUpload.clear()
 		currentCloudNodes.forEach { cloudNode ->
-			val uploadFileWithName = fileForUploadWithName(cloudNode.name)
-			if (uploadFileWithName.isPresent) {
+			fileForUploadWithName(cloudNode.name)?.let {
 				if (cloudNode is CloudFile) {
-					filesForUpload.remove(uploadFileWithName.get())
+					filesForUpload.remove(it)
 					existingFilesForUpload.add( //
-						UploadFile.aCopyOf(uploadFileWithName.get()) //
+						UploadFile.aCopyOf(it) //
 							.thatIsReplacing(true) //
 							.build()
 					)
 				} else {
 					// remove file when name is used by a folder
-					filesForUpload.remove(uploadFileWithName.get())
+					filesForUpload.remove(it)
 				}
 			}
 		}
 		return existingFilesForUpload.isNotEmpty()
 	}
 
-	private fun fileForUploadWithName(name: String): Optional<UploadFile> {
-		return filesForUpload
-			.firstOrNull { it.fileName == name }
-			?.let { Optional.of(it) }
-			?: Optional.empty()
+	private fun fileForUploadWithName(name: String): UploadFile? {
+		return filesForUpload.firstOrNull { it.fileName == name }
 	}
 
 	private fun checkForExistingFilesOrUploadFiles(folder: CloudFolder, currentCloudNodes: List<CloudNode>) {

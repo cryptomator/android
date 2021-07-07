@@ -2,6 +2,7 @@ package org.cryptomator.presentation.presenter
 
 import org.cryptomator.domain.CloudFile
 import org.cryptomator.domain.di.PerView
+import org.cryptomator.domain.exception.ParentFolderIsNullException
 import org.cryptomator.domain.usecases.cloud.DataSource
 import org.cryptomator.domain.usecases.cloud.UploadFile
 import org.cryptomator.domain.usecases.cloud.UploadFilesUseCase
@@ -72,29 +73,30 @@ class TextEditorPresenter @Inject constructor( //
 	}
 
 	private fun uploadFile(fileName: String, dataSource: DataSource) {
-		uploadFilesUseCase //
-			.withParent(textFile.get().parent.toCloudNode()) //
-			.andFiles(
-				listOf( //
-					UploadFile.anUploadFile() //
-						.withFileName(fileName) //
-						.withDataSource(dataSource) //
-						.thatIsReplacing(true) //
-						.build() //
-				)
-			) //
-			.run(object : DefaultProgressAwareResultHandler<List<CloudFile?>, UploadState>() {
-				override fun onFinished() {
-					view?.showProgress(ProgressModel.COMPLETED)
-					view?.finish()
-					view?.showMessage(R.string.screen_text_editor_save_success)
-				}
+		textFile.get().parent?.let {
+			uploadFilesUseCase //
+				.withParent(it.toCloudNode()) //
+				.andFiles(
+					listOf( //
+						UploadFile.anUploadFile() //
+							.withFileName(fileName) //
+							.withDataSource(dataSource) //
+							.thatIsReplacing(true) //
+							.build() //
+					)
+				).run(object : DefaultProgressAwareResultHandler<List<CloudFile?>, UploadState>() {
+					override fun onFinished() {
+						view?.showProgress(ProgressModel.COMPLETED)
+						view?.finish()
+						view?.showMessage(R.string.screen_text_editor_save_success)
+					}
 
-				override fun onError(e: Throwable) {
-					view?.showProgress(ProgressModel.COMPLETED)
-					showError(e)
-				}
-			})
+					override fun onError(e: Throwable) {
+						view?.showProgress(ProgressModel.COMPLETED)
+						showError(e)
+					}
+				})
+		} ?: throw ParentFolderIsNullException(textFile.get().name)
 	}
 
 	fun loadFileContent() {

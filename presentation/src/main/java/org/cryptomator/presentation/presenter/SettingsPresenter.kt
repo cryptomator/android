@@ -6,6 +6,7 @@ import android.content.Intent
 import android.os.AsyncTask
 import android.os.Build
 import android.widget.Toast
+import com.google.common.base.Optional
 import org.cryptomator.data.util.NetworkConnectionCheck
 import org.cryptomator.domain.di.PerView
 import org.cryptomator.domain.usecases.DoUpdateCheckUseCase
@@ -26,7 +27,6 @@ import org.cryptomator.presentation.ui.dialog.UpdateAppDialog
 import org.cryptomator.presentation.util.EmailBuilder
 import org.cryptomator.presentation.util.FileUtil
 import org.cryptomator.presentation.workflow.PermissionsResult
-import org.cryptomator.util.Optional
 import org.cryptomator.util.SharedPreferencesHandler
 import java.io.File
 import java.io.FileInputStream
@@ -110,10 +110,10 @@ class SettingsPresenter @Inject internal constructor(
 		if (networkConnectionCheck.isPresent) {
 			updateCheckUseCase //
 				.withVersion(BuildConfig.VERSION_NAME)
-				.run(object : NoOpResultHandler<Optional<UpdateCheck?>?>() {
-					override fun onSuccess(result: Optional<UpdateCheck?>?) {
-						if (result?.isPresent == true) {
-							result.get()?.let { updateStatusRetrieved(it, context()) }
+				.run(object : NoOpResultHandler<Optional<UpdateCheck>>() {
+					override fun onSuccess(result: Optional<UpdateCheck>) {
+						if (result.isPresent) {
+							updateStatusRetrieved(result.get(), context())
 						} else {
 							Timber.tag("SettingsPresenter").i("UpdateCheck finished, latest version")
 							Toast.makeText(context(), getString(R.string.notification_update_check_finished_latest), Toast.LENGTH_SHORT).show()
@@ -219,12 +219,12 @@ class SettingsPresenter @Inject internal constructor(
 		val entry = ZipEntry(logfile.name)
 		entry.time = logfile.lastModified()
 		logs.putNextEntry(entry)
-		FileInputStream(logfile).use { `in` ->
+		FileInputStream(logfile).use { inputStream ->
 			val buffer = ByteArray(4096)
 			var count = 0
 			while (count != EOF) {
 				logs.write(buffer, 0, count)
-				count = `in`.read(buffer)
+				count = inputStream.read(buffer)
 			}
 		}
 	}

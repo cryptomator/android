@@ -2,8 +2,9 @@ package org.cryptomator.domain.exception.authentication;
 
 import android.content.Intent;
 
+import com.google.common.base.Optional;
+
 import org.cryptomator.domain.Cloud;
-import org.cryptomator.util.Optional;
 
 public abstract class AuthenticationException extends RuntimeException {
 
@@ -24,7 +25,7 @@ public abstract class AuthenticationException extends RuntimeException {
 	}
 
 	public Optional<Intent> getRecoveryAction() {
-		return Optional.empty();
+		return Optional.absent();
 	}
 
 }

@@ -4,14 +4,13 @@ import android.content.Context
 import android.net.Uri
 import org.cryptomator.domain.usecases.cloud.DataSource
 import org.cryptomator.presentation.util.ContentResolverUtil
-import org.cryptomator.util.Optional
 import java.io.IOException
 import java.io.InputStream
 
 class UriBasedDataSource private constructor(private val uri: Uri) : DataSource {
 
-	override fun size(context: Context): Optional<Long> {
-		return Optional.ofNullable(ContentResolverUtil(context).fileSize(uri))
+	override fun size(context: Context): Long? {
+		return ContentResolverUtil(context).fileSize(uri)
 	}
 
 	@Throws(IOException::class)

@@ -145,7 +145,6 @@ class CloudConnectionListPresenter @Inject constructor( //
 		}
 	}
 
-	@RequiresApi(Build.VERSION_CODES.LOLLIPOP)
 	private fun openDocumentTree() {
 		try {
 			requestActivityResult( //

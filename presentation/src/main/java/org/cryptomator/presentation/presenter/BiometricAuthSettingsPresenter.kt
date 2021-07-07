@@ -79,23 +79,16 @@ class BiometricAuthSettingsPresenter @Inject constructor( //
 		val cloud = result.intent().getSerializableExtra(SINGLE_RESULT) as Cloud
 		val password = result.intent().getStringExtra(UnlockVaultPresenter.PASSWORD)
 		val vault = Vault.aCopyOf(vaultModel.toVault()).withCloud(cloud).withSavedPassword(password).build()
-		when {
-			result.isResultOk -> requestActivityResult( //
-				ActivityResultCallbacks.encryptVaultPassword(vaultModel), //
-				Intents.unlockVaultIntent().withVaultModel(VaultModel(vault)).withVaultAction(UnlockVaultIntent.VaultAction.ENCRYPT_PASSWORD)
-			)
-			else -> TODO("Not yet implemented")
-		}
+		requestActivityResult( //
+			ActivityResultCallbacks.encryptVaultPassword(vaultModel), //
+			Intents.unlockVaultIntent().withVaultModel(VaultModel(vault)).withVaultAction(UnlockVaultIntent.VaultAction.ENCRYPT_PASSWORD))
 	}
 
 	@Callback
 	fun encryptVaultPassword(result: ActivityResult, vaultModel: VaultModel) {
 		val tmpVault = result.intent().getSerializableExtra(SINGLE_RESULT) as VaultModel
 		val vault = Vault.aCopyOf(vaultModel.toVault()).withSavedPassword(tmpVault.password).build()
-		when {
-			result.isResultOk -> saveVault(vault)
-			else -> TODO("Not yet implemented")
-		}
+		saveVault(vault)
 	}
 
 	private fun saveVault(vault: Vault?) {
