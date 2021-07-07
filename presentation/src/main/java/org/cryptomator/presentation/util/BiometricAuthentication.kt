@@ -15,7 +15,6 @@ import org.cryptomator.util.crypto.UnrecoverableStorageKeyException
 import java.util.concurrent.Executor
 import timber.log.Timber
 
-@RequiresApi(Build.VERSION_CODES.M)
 class BiometricAuthentication(val callback: Callback, val context: Context, val cryptoMode: CryptoMode, private val useConfirmationInFaceUnlockAuth: Boolean) {
 
 	interface Callback {
@@ -54,51 +53,53 @@ class BiometricAuthentication(val callback: Callback, val context: Context, val 
 
 		executor = ContextCompat.getMainExecutor(context)
 		biometricPrompt = BiometricPrompt(fragment, executor,
-				object : BiometricPrompt.AuthenticationCallback() {
-					override fun onAuthenticationError(errorCode: Int, errString: CharSequence) {
-						super.onAuthenticationError(errorCode, errString)
+			object : BiometricPrompt.AuthenticationCallback() {
+				override fun onAuthenticationError(errorCode: Int, errString: CharSequence) {
+					super.onAuthenticationError(errorCode, errString)
 
-						Timber.tag("BiometricAuthentication").e(String.format("Authentication error: %s errorCode=%d", errString, errorCode))
+					Timber.tag("BiometricAuthentication").e(String.format("Authentication error: %s errorCode=%d", errString, errorCode))
 
-						if (!userCanceledDueToAuthActivity) {
-							callback.onBiometricAuthenticationFailed(vaultModel)
-							Timber.tag("BiometricAuthentication").i("Biometric authentication canceled by cloud authentication, restart as soon as authentication finishes")
-						}
+					if (!userCanceledDueToAuthActivity) {
+						callback.onBiometricAuthenticationFailed(vaultModel)
+						Timber.tag("BiometricAuthentication").i("Biometric authentication canceled by cloud authentication, restart as soon as authentication finishes")
+					}
+				}
+
+				override fun onAuthenticationSucceeded(result: BiometricPrompt.AuthenticationResult) {
+					super.onAuthenticationSucceeded(result)
+
+					Timber.tag("BiometricAuthentication").d("Authentication finished successfully")
+
+					val cipher = result.cryptoObject?.cipher
+
+					val transformedPassword = if (cryptoMode == CryptoMode.ENCRYPT) {
+						biometricAuthCryptor.encrypt(cipher, vaultModel.password)
+					} else {
+						biometricAuthCryptor.decrypt(cipher, vaultModel.password)
 					}
 
-					override fun onAuthenticationSucceeded(result: BiometricPrompt.AuthenticationResult) {
-						super.onAuthenticationSucceeded(result)
+					val vaultModelPasswordAware = VaultModel(
+						Vault //
+							.aCopyOf(vaultModel.toVault()) //
+							.withSavedPassword(transformedPassword) //
+							.build()
+					)
 
-						Timber.tag("BiometricAuthentication").d("Authentication finished successfully")
+					callback.onBiometricAuthenticated(vaultModelPasswordAware)
+				}
 
-						val cipher = result.cryptoObject?.cipher
-
-						val transformedPassword = if (cryptoMode == CryptoMode.ENCRYPT) {
-							biometricAuthCryptor.encrypt(cipher, vaultModel.password)
-						} else {
-							biometricAuthCryptor.decrypt(cipher, vaultModel.password)
-						}
-
-						val vaultModelPasswordAware = VaultModel(Vault //
-								.aCopyOf(vaultModel.toVault()) //
-								.withSavedPassword(transformedPassword) //
-								.build())
-
-						callback.onBiometricAuthenticated(vaultModelPasswordAware)
-					}
-
-					override fun onAuthenticationFailed() {
-						super.onAuthenticationFailed()
-						Timber.tag("BiometricAuthentication").e("Authentication failed")
-					}
-				})
+				override fun onAuthenticationFailed() {
+					super.onAuthenticationFailed()
+					Timber.tag("BiometricAuthentication").e("Authentication failed")
+				}
+			})
 
 		promptInfo = BiometricPrompt.PromptInfo.Builder()
-				.setTitle(context.getString(R.string.dialog_biometric_auth_title))
-				.setSubtitle(context.getString(R.string.dialog_biometric_auth_message))
-				.setNegativeButtonText(context.getString(R.string.dialog_biometric_auth_use_password))
-				.setConfirmationRequired(useConfirmationInFaceUnlockAuth)
-				.build()
+			.setTitle(context.getString(R.string.dialog_biometric_auth_title))
+			.setSubtitle(context.getString(R.string.dialog_biometric_auth_message))
+			.setNegativeButtonText(context.getString(R.string.dialog_biometric_auth_use_password))
+			.setConfirmationRequired(useConfirmationInFaceUnlockAuth)
+			.build()
 
 		try {
 			val cryptoCipher = if (cryptoMode == CryptoMode.ENCRYPT) {
@@ -108,8 +109,9 @@ class BiometricAuthentication(val callback: Callback, val context: Context, val 
 			}
 
 			biometricPrompt.authenticate(
-					promptInfo,
-					BiometricPrompt.CryptoObject(cryptoCipher))
+				promptInfo,
+				BiometricPrompt.CryptoObject(cryptoCipher)
+			)
 		} catch (e: KeyPermanentlyInvalidatedException) {
 			callback.onBiometricKeyInvalidated(vaultModel)
 		}

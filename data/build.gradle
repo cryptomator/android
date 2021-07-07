@@ -24,6 +24,8 @@ android {
 	compileOptions {
 		sourceCompatibility JavaVersion.VERSION_1_8
 		targetCompatibility JavaVersion.VERSION_1_8
+
+		coreLibraryDesugaringEnabled true
 	}
 
 	lintOptions {
@@ -76,7 +78,7 @@ android {
 }
 
 greendao {
-	schemaVersion 7
+	schemaVersion 8
 }
 
 configurations.all {
@@ -92,6 +94,8 @@ dependencies {
 	implementation project(':msa-auth-for-android')
 	implementation project(':pcloud-sdk-java')
 
+	coreLibraryDesugaring dependencies.coreDesugaring
+
 	// cryptomator
 	implementation dependencies.cryptolib
 
@@ -106,9 +110,11 @@ dependencies {
 	implementation dependencies.jsonWebTokenJson
 
 	// cloud
-	implementation dependencies.awsAndroidS3
 	implementation dependencies.dropbox
 	implementation dependencies.msgraph
+
+	implementation dependencies.stax
+	api dependencies.minIo
 
 	playstoreImplementation dependencies.googlePlayServicesAuth
 	apkstoreImplementation dependencies.googlePlayServicesAuth
@@ -158,6 +164,7 @@ dependencies {
 	testRuntimeOnly dependencies.junit4Engine
 
 	testImplementation dependencies.mockito
+	testImplementation dependencies.mockitoKotlin
 	testImplementation dependencies.mockitoInline
 	testImplementation dependencies.hamcrest
 }

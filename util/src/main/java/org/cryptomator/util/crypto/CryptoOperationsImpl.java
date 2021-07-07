@@ -6,8 +6,12 @@ import android.security.keystore.KeyGenParameterSpec;
 import android.security.keystore.KeyProperties;
 
 import java.security.KeyStore;
+import java.security.KeyStoreException;
+import java.security.NoSuchAlgorithmException;
+import java.security.NoSuchProviderException;
 import java.security.UnrecoverableKeyException;
 
+import javax.crypto.NoSuchPaddingException;
 import javax.crypto.SecretKey;
 
 class CryptoOperationsImpl implements CryptoOperations {
@@ -22,8 +26,8 @@ class CryptoOperationsImpl implements CryptoOperations {
 			return new CipherImpl(cipher, key);
 		} catch (UnrecoverableKeyException e) {
 			throw new UnrecoverableStorageKeyException(e);
-		} catch (Exception e) {
-			throw new RuntimeException(e);
+		} catch (NoSuchPaddingException | NoSuchAlgorithmException | KeyStoreException e) {
+			throw new FatalCryptoException(e);
 		}
 	}
 
@@ -32,8 +36,8 @@ class CryptoOperationsImpl implements CryptoOperations {
 		final javax.crypto.KeyGenerator generator;
 		try {
 			generator = javax.crypto.KeyGenerator.getInstance(KeyProperties.KEY_ALGORITHM_AES, KeyStoreBuilder.DEFAULT_KEYSTORE_NAME);
-		} catch (Exception e) {
-			throw new RuntimeException(e);
+		} catch (NoSuchAlgorithmException | NoSuchProviderException e) {
+			throw new FatalCryptoException(e);
 		}
 		return requireUserAuthentication -> {
 			KeyGenParameterSpec.Builder builder = new KeyGenParameterSpec //

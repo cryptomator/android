@@ -28,19 +28,18 @@ import org.cryptomator.presentation.ui.dialog.VaultDeleteConfirmationDialog
 import org.cryptomator.presentation.ui.dialog.VaultRenameDialog
 import org.cryptomator.presentation.ui.fragment.VaultListFragment
 import org.cryptomator.presentation.ui.layout.ObscuredAwareCoordinatorLayout.Listener
-import java.util.Locale
 import javax.inject.Inject
 import kotlinx.android.synthetic.main.activity_layout_obscure_aware.activityRootView
 import kotlinx.android.synthetic.main.toolbar_layout.toolbar
 
 @Activity(layout = R.layout.activity_layout_obscure_aware)
 class VaultListActivity : BaseActivity(), //
-		VaultListView, //
-		VaultListCallback, //
-		AskForLockScreenDialog.Callback, //
-		UpdateAppAvailableDialog.Callback, //
-		UpdateAppDialog.Callback, //
-		BetaConfirmationDialog.Callback {
+	VaultListView, //
+	VaultListCallback, //
+	AskForLockScreenDialog.Callback, //
+	UpdateAppAvailableDialog.Callback, //
+	UpdateAppDialog.Callback, //
+	BetaConfirmationDialog.Callback {
 
 	@Inject
 	lateinit var vaultListPresenter: VaultListPresenter
@@ -100,7 +99,7 @@ class VaultListActivity : BaseActivity(), //
 	}
 
 	private fun setupToolbar() {
-		toolbar.title = getString(R.string.app_name).toUpperCase(Locale.getDefault())
+		toolbar.title = getString(R.string.app_name).uppercase()
 		setSupportActionBar(toolbar)
 	}
 
@@ -122,7 +121,7 @@ class VaultListActivity : BaseActivity(), //
 
 	override fun showVaultSettingsDialog(vaultModel: VaultModel) {
 		val vaultSettingDialog = //
-				SettingsVaultBottomSheet.newInstance(vaultModel)
+			SettingsVaultBottomSheet.newInstance(vaultModel)
 		vaultSettingDialog.show(supportFragmentManager, "VaultSettings")
 	}
 
@@ -164,7 +163,7 @@ class VaultListActivity : BaseActivity(), //
 
 	override fun onDeleteVaultClick(vaultModel: VaultModel) {
 		VaultDeleteConfirmationDialog.newInstance(vaultModel) //
-				.show(supportFragmentManager, "VaultDeleteConfirmationDialog")
+			.show(supportFragmentManager, "VaultDeleteConfirmationDialog")
 	}
 
 	override fun onRenameVaultClick(vaultModel: VaultModel) {
@@ -192,7 +191,7 @@ class VaultListActivity : BaseActivity(), //
 	}
 
 	private fun vaultListFragment(): VaultListFragment = //
-			getCurrentFragment(R.id.fragmentContainer) as VaultListFragment
+		getCurrentFragment(R.id.fragmentContainer) as VaultListFragment
 
 	override fun onUpdateAppDialogLoaded() {
 		showProgress(ProgressModel.GENERIC)

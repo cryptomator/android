@@ -18,11 +18,11 @@ class NoDirFileDialog : BaseDialog<NoDirFileDialog.CallBack>() {
 
 	public override fun setupDialog(builder: AlertDialog.Builder): android.app.Dialog {
 		builder //
-				.setTitle(R.string.dialog_no_dir_file_title) //
-				.setNeutralButton(R.string.dialog_no_dir_file_back_button) { dialog: DialogInterface, _: Int ->
-					callback?.navigateFolderBackBecauseNoDirFile()
-					dialog.dismiss()
-				}
+			.setTitle(R.string.dialog_no_dir_file_title) //
+			.setNeutralButton(R.string.dialog_no_dir_file_back_button) { dialog: DialogInterface, _: Int ->
+				callback?.navigateFolderBackBecauseNoDirFile()
+				dialog.dismiss()
+			}
 		return builder.create()
 	}
 

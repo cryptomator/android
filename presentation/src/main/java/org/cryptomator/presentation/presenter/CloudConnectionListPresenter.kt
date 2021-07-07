@@ -6,10 +6,6 @@ import android.net.Uri
 import android.os.Build
 import android.widget.Toast
 import androidx.annotation.RequiresApi
-import com.pcloud.sdk.AuthorizationActivity
-import com.pcloud.sdk.AuthorizationData
-import com.pcloud.sdk.AuthorizationRequest
-import com.pcloud.sdk.AuthorizationResult
 import org.cryptomator.domain.Cloud
 import org.cryptomator.domain.LocalStorageCloud
 import org.cryptomator.domain.PCloud
@@ -22,7 +18,6 @@ import org.cryptomator.domain.usecases.cloud.RemoveCloudUseCase
 import org.cryptomator.domain.usecases.vault.DeleteVaultUseCase
 import org.cryptomator.domain.usecases.vault.GetVaultListUseCase
 import org.cryptomator.generator.Callback
-import org.cryptomator.presentation.BuildConfig
 import org.cryptomator.presentation.R
 import org.cryptomator.presentation.exception.ExceptionHandlers
 import org.cryptomator.presentation.intent.Intents
@@ -33,6 +28,7 @@ import org.cryptomator.presentation.model.S3CloudModel
 import org.cryptomator.presentation.model.WebDavCloudModel
 import org.cryptomator.presentation.model.mappers.CloudModelMapper
 import org.cryptomator.presentation.ui.activity.view.CloudConnectionListView
+import org.cryptomator.presentation.ui.dialog.PCloudCredentialsUpdatedDialog
 import org.cryptomator.presentation.workflow.ActivityResult
 import org.cryptomator.util.crypto.CredentialCryptor
 import java.util.*
@@ -42,14 +38,15 @@ import timber.log.Timber
 
 @PerView
 class CloudConnectionListPresenter @Inject constructor( //
-		private val getCloudsUseCase: GetCloudsUseCase,  //
-		private val getUsernameUseCase: GetUsernameUseCase, //
-		private val removeCloudUseCase: RemoveCloudUseCase,  //
-		private val addOrChangeCloudConnectionUseCase: AddOrChangeCloudConnectionUseCase,  //
-		private val getVaultListUseCase: GetVaultListUseCase,  //
-		private val deleteVaultUseCase: DeleteVaultUseCase,  //
-		private val cloudModelMapper: CloudModelMapper,  //
-		exceptionMappings: ExceptionHandlers) : Presenter<CloudConnectionListView>(exceptionMappings) {
+	private val getCloudsUseCase: GetCloudsUseCase,  //
+	private val getUsernameUseCase: GetUsernameUseCase, //
+	private val removeCloudUseCase: RemoveCloudUseCase,  //
+	private val addOrChangeCloudConnectionUseCase: AddOrChangeCloudConnectionUseCase,  //
+	private val getVaultListUseCase: GetVaultListUseCase,  //
+	private val deleteVaultUseCase: DeleteVaultUseCase,  //
+	private val cloudModelMapper: CloudModelMapper,  //
+	exceptionMappings: ExceptionHandlers
+) : Presenter<CloudConnectionListView>(exceptionMappings) {
 
 	private val selectedCloudType = AtomicReference<CloudTypeModel>()
 	private var defaultLocalStorageCloud: LocalStorageCloud? = null
@@ -59,22 +56,22 @@ class CloudConnectionListPresenter @Inject constructor( //
 
 	fun loadCloudList() {
 		getCloudsUseCase //
-				.withCloudType(CloudTypeModel.valueOf(selectedCloudType.get())) //
-				.run(object : DefaultResultHandler<List<Cloud>>() {
-					override fun onSuccess(clouds: List<Cloud>) {
-						val cloudModels: MutableList<CloudModel> = ArrayList()
-						clouds.forEach { cloud ->
-							if (CloudTypeModel.LOCAL == selectedCloudType.get()) {
-								if ((cloud as LocalStorageCloud).rootUri() == null) {
-									defaultLocalStorageCloud = cloud
-									return@forEach
-								}
+			.withCloudType(CloudTypeModel.valueOf(selectedCloudType.get())) //
+			.run(object : DefaultResultHandler<List<Cloud>>() {
+				override fun onSuccess(clouds: List<Cloud>) {
+					val cloudModels: MutableList<CloudModel> = ArrayList()
+					clouds.forEach { cloud ->
+						if (CloudTypeModel.LOCAL == selectedCloudType.get()) {
+							if ((cloud as LocalStorageCloud).rootUri() == null) {
+								defaultLocalStorageCloud = cloud
+								return@forEach
 							}
-							cloudModels.add(cloudModelMapper.toModel(cloud))
 						}
-						view?.showCloudModels(cloudModels)
+						cloudModels.add(cloudModelMapper.toModel(cloud))
 					}
-				})
+					view?.showCloudModels(cloudModels)
+				}
+			})
 	}
 
 	fun onDeleteCloudClicked(cloudModel: CloudModel) {
@@ -120,49 +117,48 @@ class CloudConnectionListPresenter @Inject constructor( //
 
 	private fun deleteCloud(cloud: Cloud) {
 		removeCloudUseCase //
-				.withCloud(cloud) //
-				.run(object : DefaultResultHandler<Void?>() {
-					override fun onSuccess(ignore: Void?) {
-						loadCloudList()
-					}
-				})
+			.withCloud(cloud) //
+			.run(object : DefaultResultHandler<Void?>() {
+				override fun onSuccess(ignore: Void?) {
+					loadCloudList()
+				}
+			})
 	}
 
 	fun onAddConnectionClicked() {
 		when (selectedCloudType.get()) {
-			CloudTypeModel.WEBDAV -> requestActivityResult(ActivityResultCallbacks.addChangeMultiCloud(),  //
-					Intents.webDavAddOrChangeIntent())
+			CloudTypeModel.WEBDAV -> requestActivityResult(
+				ActivityResultCallbacks.addChangeMultiCloud(),  //
+				Intents.webDavAddOrChangeIntent()
+			)
 			CloudTypeModel.PCLOUD -> {
-				val authIntent: Intent = AuthorizationActivity.createIntent(
-						this.context(),
-						AuthorizationRequest.create()
-								.setType(AuthorizationRequest.Type.TOKEN)
-								.setClientId(BuildConfig.PCLOUD_CLIENT_ID)
-								.setForceAccessApproval(true)
-								.addPermission("manageshares")
-								.build())
-				requestActivityResult(ActivityResultCallbacks.pCloudAuthenticationFinished(),  //
-						authIntent)
+				requestActivityResult(
+					ActivityResultCallbacks.pCloudAuthenticationFinished(),  //
+					Intents.authenticatePCloudIntent()
+				)
 			}
-			CloudTypeModel.S3 -> requestActivityResult(ActivityResultCallbacks.addChangeMultiCloud(),  //
-					Intents.s3AddOrChangeIntent())
+			CloudTypeModel.S3 -> requestActivityResult(
+				ActivityResultCallbacks.addChangeMultiCloud(),  //
+				Intents.s3AddOrChangeIntent()
+			)
 			CloudTypeModel.LOCAL -> openDocumentTree()
 		}
 	}
 
-	@RequiresApi(Build.VERSION_CODES.LOLLIPOP)
 	private fun openDocumentTree() {
 		try {
 			requestActivityResult( //
-					ActivityResultCallbacks.pickedLocalStorageLocation(),  //
-					Intent(Intent.ACTION_OPEN_DOCUMENT_TREE))
+				ActivityResultCallbacks.pickedLocalStorageLocation(),  //
+				Intent(Intent.ACTION_OPEN_DOCUMENT_TREE)
+			)
 		} catch (exception: ActivityNotFoundException) {
 			Toast //
-					.makeText( //
-							activity().applicationContext,  //
-							context().getText(R.string.screen_cloud_local_error_no_content_provider),  //
-							Toast.LENGTH_SHORT) //
-					.show()
+				.makeText( //
+					activity().applicationContext,  //
+					context().getText(R.string.screen_cloud_local_error_no_content_provider),  //
+					Toast.LENGTH_SHORT
+				) //
+				.show()
 			Timber.tag("CloudConnListPresenter").e(exception, "No ContentProvider on system")
 		}
 	}
@@ -170,14 +166,18 @@ class CloudConnectionListPresenter @Inject constructor( //
 	fun onChangeCloudClicked(cloudModel: CloudModel) {
 		when {
 			cloudModel.cloudType() == CloudTypeModel.WEBDAV -> {
-				requestActivityResult(ActivityResultCallbacks.addChangeMultiCloud(),  //
-						Intents.webDavAddOrChangeIntent() //
-								.withWebDavCloud(cloudModel as WebDavCloudModel))
+				requestActivityResult(
+					ActivityResultCallbacks.addChangeMultiCloud(),  //
+					Intents.webDavAddOrChangeIntent() //
+						.withWebDavCloud(cloudModel as WebDavCloudModel)
+				)
 			}
 			cloudModel.cloudType() == CloudTypeModel.S3 -> {
-				requestActivityResult(ActivityResultCallbacks.addChangeMultiCloud(),  //
-						Intents.s3AddOrChangeIntent() //
-								.withS3Cloud(cloudModel as S3CloudModel))
+				requestActivityResult(
+					ActivityResultCallbacks.addChangeMultiCloud(),  //
+					Intents.s3AddOrChangeIntent() //
+						.withS3Cloud(cloudModel as S3CloudModel)
+				)
 			}
 			else -> {
 				throw IllegalStateException("Change cloud with type " + cloudModel.cloudType() + " is not supported")
@@ -196,67 +196,59 @@ class CloudConnectionListPresenter @Inject constructor( //
 
 	@Callback
 	fun pCloudAuthenticationFinished(activityResult: ActivityResult) {
-		val authData: AuthorizationData = AuthorizationActivity.getResult(activityResult.intent())
-		val result: AuthorizationResult = authData.result
+		val code = activityResult.intent().extras?.getString(PCLOUD_OAUTH_AUTH_CODE, "")
+		val hostname = activityResult.intent().extras?.getString(PCLOUD_HOSTNAME, "")
 
-		when (result) {
-			AuthorizationResult.ACCESS_GRANTED -> {
-				val accessToken: String = CredentialCryptor //
-						.getInstance(this.context()) //
-						.encrypt(authData.token)
-				val pCloudSkeleton: PCloud = PCloud.aPCloud() //
-						.withAccessToken(accessToken)
-						.withUrl(authData.apiHost)
-						.build();
-				getUsernameUseCase //
-						.withCloud(pCloudSkeleton) //
-						.run(object : DefaultResultHandler<String>() {
-							override fun onSuccess(username: String?) {
-								prepareForSavingPCloud(PCloud.aCopyOf(pCloudSkeleton).withUsername(username).build())
-							}
-						})
-			}
-			AuthorizationResult.ACCESS_DENIED -> {
-				Timber.tag("CloudConnListPresenter").e("Account access denied")
-				view?.showMessage(String.format(getString(R.string.screen_authenticate_auth_authentication_failed), getString(R.string.cloud_names_pcloud)))
-			}
-			AuthorizationResult.AUTH_ERROR -> {
-				Timber.tag("CloudConnListPresenter").e("""Account access grant error: ${authData.errorMessage}""".trimIndent())
-				view?.showMessage(String.format(getString(R.string.screen_authenticate_auth_authentication_failed), getString(R.string.cloud_names_pcloud)))
-			}
-			AuthorizationResult.CANCELLED -> {
-				Timber.tag("CloudConnListPresenter").i("Account access grant cancelled")
-				view?.showMessage(String.format(getString(R.string.screen_authenticate_auth_authentication_failed), getString(R.string.cloud_names_pcloud)))
-			}
+		if (!code.isNullOrEmpty() && !hostname.isNullOrEmpty()) {
+			Timber.tag("CloudConnectionListPresenter").i("PCloud OAuth code successfully retrieved")
+
+			val accessToken = CredentialCryptor //
+				.getInstance(this.context()) //
+				.encrypt(code)
+			val pCloudSkeleton = PCloud.aPCloud() //
+				.withAccessToken(accessToken)
+				.withUrl(hostname)
+				.build();
+			getUsernameUseCase //
+				.withCloud(pCloudSkeleton) //
+				.run(object : DefaultResultHandler<String>() {
+					override fun onSuccess(username: String) {
+						prepareForSavingPCloud(PCloud.aCopyOf(pCloudSkeleton).withUsername(username).build())
+					}
+				})
+		} else {
+			Timber.tag("CloudConnectionListPresenter").i("PCloud Authentication not successful")
 		}
 	}
 
 	fun prepareForSavingPCloud(cloud: PCloud) {
 		getCloudsUseCase //
-				.withCloudType(CloudTypeModel.valueOf(selectedCloudType.get())) //
-				.run(object : DefaultResultHandler<List<Cloud>>() {
-					override fun onSuccess(clouds: List<Cloud>) {
-						clouds.firstOrNull {
-							(it as PCloud).username() == cloud.username()
-						}?.let {
-							it as PCloud
-							saveCloud(PCloud.aCopyOf(it) //
-									.withUrl(cloud.url())
-									.withAccessToken(cloud.accessToken())
-									.build())
-						} ?: saveCloud(cloud)
-					}
-				})
+			.withCloudType(CloudTypeModel.valueOf(selectedCloudType.get())) //
+			.run(object : DefaultResultHandler<List<Cloud>>() {
+				override fun onSuccess(clouds: List<Cloud>) {
+					clouds.firstOrNull {
+						(it as PCloud).username() == cloud.username()
+					}?.let {
+						saveCloud(
+							PCloud.aCopyOf(it as PCloud) //
+								.withUrl(cloud.url())
+								.withAccessToken(cloud.accessToken())
+								.build()
+						)
+						view?.showDialog(PCloudCredentialsUpdatedDialog.newInstance(it.username()))
+					} ?: saveCloud(cloud)
+				}
+			})
 	}
 
 	fun saveCloud(cloud: PCloud) {
 		addOrChangeCloudConnectionUseCase //
-				.withCloud(cloud) //
-				.run(object : DefaultResultHandler<Void?>() {
-					override fun onSuccess(void: Void?) {
-						loadCloudList()
-					}
-				})
+			.withCloud(cloud) //
+			.run(object : DefaultResultHandler<Void?>() {
+				override fun onSuccess(void: Void?) {
+					loadCloudList()
+				}
+			})
 	}
 
 	@Callback
@@ -264,34 +256,37 @@ class CloudConnectionListPresenter @Inject constructor( //
 	fun pickedLocalStorageLocation(result: ActivityResult) {
 		val rootTreeUriOfLocalStorage = result.intent().data
 		persistUriPermission(rootTreeUriOfLocalStorage)
-		addOrChangeCloudConnectionUseCase.withCloud(LocalStorageCloud.aLocalStorage() //
+		addOrChangeCloudConnectionUseCase.withCloud(
+			LocalStorageCloud.aLocalStorage() //
 				.withRootUri(rootTreeUriOfLocalStorage.toString()) //
-				.build()) //
-				.run(object : DefaultResultHandler<Void?>() {
-					override fun onSuccess(void: Void?) {
-						loadCloudList()
-					}
-				})
+				.build()
+		).run(object : DefaultResultHandler<Void?>() {
+			override fun onSuccess(void: Void?) {
+				loadCloudList()
+			}
+		})
 	}
 
 	@RequiresApi(api = Build.VERSION_CODES.KITKAT)
 	private fun persistUriPermission(rootTreeUriOfLocalStorage: Uri?) {
 		rootTreeUriOfLocalStorage?.let {
 			context() //
-					.contentResolver //
-					.takePersistableUriPermission( //
-							it,  //
-							Intent.FLAG_GRANT_READ_URI_PERMISSION or Intent.FLAG_GRANT_WRITE_URI_PERMISSION)
+				.contentResolver //
+				.takePersistableUriPermission( //
+					it,  //
+					Intent.FLAG_GRANT_READ_URI_PERMISSION or Intent.FLAG_GRANT_WRITE_URI_PERMISSION
+				)
 		}
 	}
 
 	@RequiresApi(api = Build.VERSION_CODES.KITKAT)
 	private fun releaseUriPermission(uri: String) {
 		context() //
-				.contentResolver //
-				.releasePersistableUriPermission( //
-						Uri.parse(uri),  //
-						Intent.FLAG_GRANT_READ_URI_PERMISSION or Intent.FLAG_GRANT_WRITE_URI_PERMISSION)
+			.contentResolver //
+			.releasePersistableUriPermission( //
+				Uri.parse(uri),  //
+				Intent.FLAG_GRANT_READ_URI_PERMISSION or Intent.FLAG_GRANT_WRITE_URI_PERMISSION
+			)
 	}
 
 	fun onCloudConnectionClicked(cloudModel: CloudModel) {
@@ -307,6 +302,9 @@ class CloudConnectionListPresenter @Inject constructor( //
 	companion object {
 
 		const val SELECTED_CLOUD = "selectedCloudConnection"
+		const val PCLOUD_OAUTH_AUTH_CODE = "pCloudOAuthCode"
+		const val PCLOUD_HOSTNAME = "pCloudHostname"
+
 	}
 
 	init {

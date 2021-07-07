@@ -35,13 +35,18 @@ class ChangePasswordDialog : BaseProgressErrorDialog<ChangePasswordDialog.Callba
 			changePasswordButton?.setOnClickListener {
 				val vaultModel = requireArguments().getSerializable(VAULT_ARG) as VaultModel
 				val unverifiedVaultConfig = requireArguments().getSerializable(VAULT_CONFIG_ARG) as UnverifiedVaultConfig?
-				if (valid(et_old_password.text.toString(),  //
-								et_new_password.text.toString(),  //
-								et_new_retype_password.text.toString())) {
-					callback?.onChangePasswordClick(vaultModel,  //
-							unverifiedVaultConfig, //
-							et_old_password.text.toString(),  //
-							et_new_password.text.toString())
+				if (valid(
+						et_old_password.text.toString(),  //
+						et_new_password.text.toString(),  //
+						et_new_retype_password.text.toString()
+					)
+				) {
+					callback?.onChangePasswordClick(
+						vaultModel,  //
+						unverifiedVaultConfig, //
+						et_old_password.text.toString(),  //
+						et_new_password.text.toString()
+					)
 					onWaitForResponse(et_old_password)
 				} else {
 					hideKeyboard(et_old_password)
@@ -51,17 +56,18 @@ class ChangePasswordDialog : BaseProgressErrorDialog<ChangePasswordDialog.Callba
 			et_old_password.requestFocus()
 			et_old_password.nextFocusForwardId = et_new_password.id
 			et_new_password.nextFocusForwardId = et_new_retype_password.id
-			changePasswordButton?.let { button ->
-				et_new_retype_password.nextFocusForwardId = button.id
+			changePasswordButton?.let {
+				et_new_retype_password.nextFocusForwardId = it.id
+				registerOnEditorDoneActionAndPerformButtonClick(et_new_retype_password) { it }
 			}
 
-			registerOnEditorDoneActionAndPerformButtonClick(et_new_retype_password) { changePasswordButton }
-
 			PasswordStrengthUtil() //
-					.startUpdatingPasswordStrengthMeter(et_new_password,  //
-							progressBarPwStrengthIndicator,  //
-							textViewPwStrengthIndicator, //
-							changePasswordButton)
+				.startUpdatingPasswordStrengthMeter(
+					et_new_password,  //
+					progressBarPwStrengthIndicator,  //
+					textViewPwStrengthIndicator, //
+					changePasswordButton
+				)
 		}
 	}
 
@@ -86,10 +92,10 @@ class ChangePasswordDialog : BaseProgressErrorDialog<ChangePasswordDialog.Callba
 	override fun setupDialog(builder: AlertDialog.Builder): android.app.Dialog {
 		val vaultModel = requireArguments().getSerializable(VAULT_ARG) as VaultModel
 		return builder //
-				.setTitle(vaultModel.name) //
-				.setPositiveButton(getString(R.string.dialog_change_password)) { _: DialogInterface, _: Int -> } //
-				.setNegativeButton(getString(R.string.dialog_button_cancel)) { _: DialogInterface?, _: Int -> } //
-				.create()
+			.setTitle(vaultModel.name) //
+			.setPositiveButton(getString(R.string.dialog_change_password)) { _: DialogInterface, _: Int -> } //
+			.setNegativeButton(getString(R.string.dialog_button_cancel)) { _: DialogInterface?, _: Int -> } //
+			.create()
 	}
 
 	override fun setupView() {

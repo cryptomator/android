@@ -20,12 +20,12 @@ class VaultNotFoundDialog private constructor(private val context: Context) {
 
 	fun show(vault: Vault) {
 		AlertDialog.Builder(context) //
-				.setTitle(String.format(ResourceHelper.getString(R.string.dialog_vault_not_found_title), vault.name)) //
-				.setMessage(ResourceHelper.getString(R.string.dialog_vault_not_found_message)) //
-				.setPositiveButton(ResourceHelper.getString(R.string.dialog_vault_not_found_positive_button_text)) { _: DialogInterface, _: Int -> callback.onDeleteMissingVaultClicked(vault) } //
-				.setNegativeButton(ResourceHelper.getString(R.string.dialog_button_cancel)) { _: DialogInterface, _: Int -> callback.onCancelMissingVaultClicked(vault) } //
-				.setOnCancelListener { callback.onCancelMissingVaultClicked(vault) }
-				.create().show()
+			.setTitle(String.format(ResourceHelper.getString(R.string.dialog_vault_not_found_title), vault.name)) //
+			.setMessage(ResourceHelper.getString(R.string.dialog_vault_not_found_message)) //
+			.setPositiveButton(ResourceHelper.getString(R.string.dialog_vault_not_found_positive_button_text)) { _: DialogInterface, _: Int -> callback.onDeleteMissingVaultClicked(vault) } //
+			.setNegativeButton(ResourceHelper.getString(R.string.dialog_button_cancel)) { _: DialogInterface, _: Int -> callback.onCancelMissingVaultClicked(vault) } //
+			.setOnCancelListener { callback.onCancelMissingVaultClicked(vault) }
+			.create().show()
 	}
 
 	companion object {

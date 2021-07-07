@@ -7,7 +7,6 @@ import org.cryptomator.domain.usecases.DownloadFile;
 import org.cryptomator.domain.usecases.ProgressAware;
 import org.cryptomator.generator.Parameter;
 import org.cryptomator.generator.UseCase;
-import org.cryptomator.util.Optional;
 
 import java.io.Closeable;
 import java.io.IOException;
@@ -30,7 +29,7 @@ class DownloadFiles {
 		List<CloudFile> downloadedFiles = new ArrayList<>();
 		for (DownloadFile file : downloadFiles) {
 			try {
-				cloudContentRepository.read(file.getDownloadFile(), Optional.empty(), file.getDataSink(), progressAware);
+				cloudContentRepository.read(file.getDownloadFile(), null, file.getDataSink(), progressAware);
 				downloadedFiles.add(file.getDownloadFile());
 			} finally {
 				closeQuietly(file.getDataSink());

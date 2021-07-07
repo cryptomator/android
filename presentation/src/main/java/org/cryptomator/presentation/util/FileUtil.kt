@@ -8,7 +8,6 @@ import org.cryptomator.domain.exception.FatalBackendException
 import org.cryptomator.presentation.model.AutoUploadFilesStore
 import org.cryptomator.presentation.model.CloudFileModel
 import org.cryptomator.presentation.model.ImagePreviewFilesStore
-import org.cryptomator.util.Optional
 import org.cryptomator.util.file.LruFileCacheUtil
 import org.cryptomator.util.file.MimeType
 import org.cryptomator.util.file.MimeTypes
@@ -23,7 +22,6 @@ import java.io.ObjectOutputStream
 import java.io.OutputStream
 import java.util.ArrayList
 import java.util.HashSet
-import java.util.Locale
 import javax.inject.Inject
 import timber.log.Timber
 
@@ -38,8 +36,8 @@ class FileUtil @Inject constructor(private val context: Context, private val mim
 	fun cleanupDecryptedFiles() {
 		if (decryptedFileStorage.exists()) {
 			decryptedFileStorage.listFiles()
-					?.filter { it.name != AUTO_UPLOAD_IMAGE__FILE_NAMES && !it.delete() }
-					?.forEach { Timber.w("Failed to cleanup file in decryptedFileStorage") }
+				?.filter { it.name != AUTO_UPLOAD_IMAGE__FILE_NAMES && !it.delete() }
+				?.forEach { Timber.w("Failed to cleanup file in decryptedFileStorage") }
 		}
 	}
 
@@ -109,7 +107,7 @@ class FileUtil @Inject constructor(private val context: Context, private val mim
 	private fun fileNameLowerCaseExtension(cloudFile: CloudFileModel): String {
 		val cloudFileName = cloudFile.name
 		val extension = getExtension(cloudFileName)
-		return if (extension != null) getSimpleFileName(cloudFileName) + "." + extension.toLowerCase(Locale.ROOT) else cloudFileName
+		return if (extension != null) getSimpleFileName(cloudFileName) + "." + extension.lowercase() else cloudFileName
 	}
 
 	fun fileInfo(name: String): FileInfo {
@@ -127,8 +125,8 @@ class FileUtil @Inject constructor(private val context: Context, private val mim
 			}
 		} catch (e: IOException) {
 			Timber //
-					.tag("FileUtil") //
-					.e(e, "Failed to store image preview file list for PreviewActivity")
+				.tag("FileUtil") //
+				.e(e, "Failed to store image preview file list for PreviewActivity")
 			throw FatalBackendException(e)
 		}
 	}
@@ -140,13 +138,13 @@ class FileUtil @Inject constructor(private val context: Context, private val mim
 			}
 		} catch (e: ClassNotFoundException) {
 			Timber //
-					.tag("FileUtil") //
-					.e(e, "Failed to read image preview file from list for PreviewActivity")
+				.tag("FileUtil") //
+				.e(e, "Failed to read image preview file from list for PreviewActivity")
 			throw FatalBackendException(e)
 		} catch (e: IOException) {
 			Timber
-					.tag("FileUtil")
-					.e(e, "Failed to read image preview file from list for PreviewActivity")
+				.tag("FileUtil")
+				.e(e, "Failed to read image preview file from list for PreviewActivity")
 			throw FatalBackendException(e)
 		}
 	}
@@ -175,8 +173,8 @@ class FileUtil @Inject constructor(private val context: Context, private val mim
 			return autoUploadFilesStore
 		} catch (e: IOException) {
 			Timber //
-					.tag("FileUtil") //
-					.e(e, "Failed to store image preview file list for PreviewActivity")
+				.tag("FileUtil") //
+				.e(e, "Failed to store image preview file list for PreviewActivity")
 			throw FatalBackendException(e)
 		}
 	}
@@ -199,8 +197,8 @@ class FileUtil @Inject constructor(private val context: Context, private val mim
 			return tryRecoverAutoUploadFilesStoreDueToFileObfuscation(file)
 		} catch (e: IOException) {
 			Timber
-					.tag("FileUtil")
-					.e(e, "Failed to read image preview file from list for PreviewActivity")
+				.tag("FileUtil")
+				.e(e, "Failed to read image preview file from list for PreviewActivity")
 			throw FatalBackendException(e)
 		}
 	}
@@ -210,24 +208,20 @@ class FileUtil @Inject constructor(private val context: Context, private val mim
 	 */
 	private fun tryRecoverAutoUploadFilesStoreDueToFileObfuscation(file: File): AutoUploadFilesStore {
 		Timber.tag("FileUtil").i("Try to recover AutoUploadFilesStore using class c or a")
-		try {
-			ObjectInputStream(FileInputStream(file)).use { objectInputStream ->
-				val uploadPaths = when (val obj = objectInputStream.readObject()) {
-					is org.cryptomator.presentation.e.c -> obj.mE() // version 1.5.10
-					is org.cryptomator.presentation.i.a -> obj.b() // version 1.5.11-beta1
-					else -> null
-				}
-				when {
-					uploadPaths != null -> {
-						Timber.tag("FileUtil").i("Nailed it! Successfully recovered AutoUploadFilesStore!")
-						file.delete()
-						return AutoUploadFilesStore(uploadPaths)
-					}
-					else -> throw FatalBackendException("Failed to recover AutoUploadFilesStore")
-				}
+		ObjectInputStream(FileInputStream(file)).use { objectInputStream ->
+			val uploadPaths = when (val obj = objectInputStream.readObject()) {
+				is org.cryptomator.presentation.e.c -> obj.mE() // version 1.5.10
+				is org.cryptomator.presentation.i.a -> obj.b() // version 1.5.11-beta1
+				else -> null
 			}
-		} catch (e: Exception) {
-			throw FatalBackendException("Failed to recover AutoUploadFilesStore", e)
+			when {
+				uploadPaths != null -> {
+					Timber.tag("FileUtil").i("Nailed it! Successfully recovered AutoUploadFilesStore!")
+					file.delete()
+					return AutoUploadFilesStore(uploadPaths)
+				}
+				else -> throw FatalBackendException("Failed to recover AutoUploadFilesStore")
+			}
 		}
 	}
 
@@ -250,17 +244,17 @@ class FileUtil @Inject constructor(private val context: Context, private val mim
 
 	class FileInfo(val name: String, mimeTypes: MimeTypes) {
 
-		var extension: Optional<String>
+		var extension: String?
 		var mimeType: MimeType
 
 		init {
 			val lastDot = name.lastIndexOf('.')
 			if (lastDot == -1 || lastDot == name.length - 1) {
-				extension = Optional.empty()
+				extension = null
 				mimeType = MimeType.APPLICATION_OCTET_STREAM
 			} else {
-				extension = Optional.of(name.substring(lastDot + 1))
-				mimeType = mimeTypes.fromExtension(extension.get()).orElse(MimeType.APPLICATION_OCTET_STREAM)
+				extension = name.substring(lastDot + 1)
+				mimeType = extension?.let { mimeTypes.fromExtension(it) } ?: MimeType.APPLICATION_OCTET_STREAM
 			}
 		}
 	}

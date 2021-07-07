@@ -7,16 +7,15 @@ import org.cryptomator.domain.repository.CloudRepository;
 import org.cryptomator.domain.usecases.cloud.Flag;
 import org.cryptomator.generator.Parameter;
 import org.cryptomator.generator.UseCase;
-import org.cryptomator.util.Optional;
+import com.google.common.base.Optional;
 
 @UseCase
 class UnlockVaultUsingMasterkey {
 
 	private final CloudRepository cloudRepository;
 	private final VaultOrUnlockToken vaultOrUnlockToken;
-	private Optional<UnverifiedVaultConfig> unverifiedVaultConfig;
 	private final String password;
-
+	private Optional<UnverifiedVaultConfig> unverifiedVaultConfig;
 	private volatile boolean cancelled;
 	private final Flag cancelledFlag = new Flag() {
 		@Override

@@ -29,26 +29,27 @@ class AutoUploadNotification(private val context: Context, private val amountOfP
 
 		if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
 			val notificationChannel = NotificationChannel( //
-					NOTIFICATION_CHANNEL_ID, //
-					NOTIFICATION_CHANNEL_NAME, //
-					IMPORTANCE_LOW)
+				NOTIFICATION_CHANNEL_ID, //
+				NOTIFICATION_CHANNEL_NAME, //
+				IMPORTANCE_LOW
+			)
 			notificationManager?.createNotificationChannel(notificationChannel)
 		}
 
 		this.builder = NotificationCompat.Builder(context, NOTIFICATION_CHANNEL_ID) //
-				.setContentTitle(context.getString(R.string.notification_auto_upload_title)) //
-				.setSmallIcon(R.drawable.background_splash_cryptomator) //
-				.setColor(getColor(R.color.colorPrimary)) //
-				.addAction(cancelNowAction())
-				.setGroup(NOTIFICATION_GROUP_KEY)
-				.setOngoing(true)
+			.setContentTitle(context.getString(R.string.notification_auto_upload_title)) //
+			.setSmallIcon(R.drawable.background_splash_cryptomator) //
+			.setColor(getColor(R.color.colorPrimary)) //
+			.addAction(cancelNowAction())
+			.setGroup(NOTIFICATION_GROUP_KEY)
+			.setOngoing(true)
 	}
 
 	private fun cancelNowAction(): NotificationCompat.Action {
 		return NotificationCompat.Action.Builder( //
-				R.drawable.ic_lock, //
-				getString(R.string.notification_cancel_auto_upload), //
-				cancelNowIntent() //
+			R.drawable.ic_lock, //
+			getString(R.string.notification_cancel_auto_upload), //
+			cancelNowIntent() //
 		).build()
 	}
 
@@ -67,11 +68,14 @@ class AutoUploadNotification(private val context: Context, private val amountOfP
 	fun update(progress: Int) {
 		builder.setContentIntent(startTheActivity())
 		builder //
-				.setContentText( //
-						String.format(context.getString(R.string.notification_auto_upload_message), //
-								alreadyUploadedPictures + 1, //
-								amountOfPictures)) //
-				.setProgress(100, progress, false)
+			.setContentText( //
+				String.format(
+					context.getString(R.string.notification_auto_upload_message), //
+					alreadyUploadedPictures + 1, //
+					amountOfPictures
+				)
+			) //
+			.setProgress(100, progress, false)
 		show()
 	}
 
@@ -95,24 +99,24 @@ class AutoUploadNotification(private val context: Context, private val amountOfP
 	private fun showErrorWithMessage(message: String) {
 		builder.setContentIntent(startTheActivity())
 		builder //
-				.setContentTitle(context.getString(R.string.notification_auto_upload_failed_title))
-				.setContentText(message) //
-				.setProgress(0, 0, false)
-				.setAutoCancel(true)
-				.setOngoing(false)
-				.mActions.clear()
+			.setContentTitle(context.getString(R.string.notification_auto_upload_failed_title))
+			.setContentText(message) //
+			.setProgress(0, 0, false)
+			.setAutoCancel(true)
+			.setOngoing(false)
+			.mActions.clear()
 		show()
 	}
 
 	fun showUploadFinished(size: Int) {
 		builder.setContentIntent(startTheActivity())
 		builder //
-				.setContentTitle(context.getString(R.string.notification_auto_upload_finished_title))
-				.setContentText(format(context.getString(R.string.notification_auto_upload_finished_message), size)) //
-				.setProgress(0, 0, false)
-				.setAutoCancel(true)
-				.setOngoing(false)
-				.mActions.clear()
+			.setContentTitle(context.getString(R.string.notification_auto_upload_finished_title))
+			.setContentText(format(context.getString(R.string.notification_auto_upload_finished_message), size)) //
+			.setProgress(0, 0, false)
+			.setAutoCancel(true)
+			.setOngoing(false)
+			.mActions.clear()
 		show()
 	}
 

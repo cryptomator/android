@@ -6,7 +6,7 @@ import org.cryptomator.domain.exception.BackendException;
 import org.cryptomator.domain.repository.CloudRepository;
 import org.cryptomator.generator.Parameter;
 import org.cryptomator.generator.UseCase;
-import org.cryptomator.util.Optional;
+import com.google.common.base.Optional;
 
 @UseCase
 class CheckVaultPassword {

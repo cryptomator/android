@@ -15,8 +15,8 @@ import javax.inject.Inject
 
 @Activity(layout = R.layout.activity_empty)
 class AuthenticateCloudActivity : BaseActivity(),
-		AuthenticateCloudView,
-		AssignSslCertificateDialog.Callback {
+	AuthenticateCloudView,
+	AssignSslCertificateDialog.Callback {
 
 	@Inject
 	lateinit var presenter: AuthenticateCloudPresenter

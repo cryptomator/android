@@ -17,9 +17,9 @@ import kotlinx.android.synthetic.main.toolbar_layout.toolbar
 
 @Activity
 class TextEditorActivity : BaseActivity(),
-		TextEditorView,
-		UnsavedChangesDialog.Callback,
-		SearchView.OnQueryTextListener {
+	TextEditorView,
+	UnsavedChangesDialog.Callback,
+	SearchView.OnQueryTextListener {
 
 	@Inject
 	lateinit var textEditorPresenter: TextEditorPresenter
@@ -45,18 +45,18 @@ class TextEditorActivity : BaseActivity(),
 		super.onCreateOptionsMenu(menu)
 
 		menu.findItem(R.id.action_search)
-				.setOnActionExpandListener(object : MenuItem.OnActionExpandListener {
-					override fun onMenuItemActionExpand(item: MenuItem?): Boolean {
-						menu.findItem(R.id.action_search_previous).isVisible = true
-						menu.findItem(R.id.action_search_next).isVisible = true
-						return true
-					}
+			.setOnActionExpandListener(object : MenuItem.OnActionExpandListener {
+				override fun onMenuItemActionExpand(item: MenuItem?): Boolean {
+					menu.findItem(R.id.action_search_previous).isVisible = true
+					menu.findItem(R.id.action_search_next).isVisible = true
+					return true
+				}
 
-					override fun onMenuItemActionCollapse(item: MenuItem?): Boolean {
-						invalidateOptionsMenu()
-						return true
-					}
-				})
+				override fun onMenuItemActionCollapse(item: MenuItem?): Boolean {
+					invalidateOptionsMenu()
+					return true
+				}
+			})
 		return true
 	}
 

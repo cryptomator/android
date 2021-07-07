@@ -19,8 +19,8 @@ class VaultDeleteConfirmationDialog : BaseDialog<VaultDeleteConfirmationDialog.C
 	public override fun setupDialog(builder: AlertDialog.Builder): android.app.Dialog {
 		val vaultModel = requireArguments().getSerializable(VAULT_ARG) as VaultModel
 		builder.setTitle(vaultModel.name) //
-				.setPositiveButton(getString(R.string.dialog_delete_vault_positive_button_text)) { _: DialogInterface, _: Int -> callback?.onDeleteConfirmedClick(vaultModel) } //
-				.setNegativeButton(getString(R.string.dialog_button_cancel)) { _: DialogInterface, _: Int -> }
+			.setPositiveButton(getString(R.string.dialog_delete_vault_positive_button_text)) { _: DialogInterface, _: Int -> callback?.onDeleteConfirmedClick(vaultModel) } //
+			.setNegativeButton(getString(R.string.dialog_button_cancel)) { _: DialogInterface, _: Int -> }
 		return builder.create()
 	}
 

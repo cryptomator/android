@@ -6,7 +6,6 @@ import org.cryptomator.generator.BottomSheet
 import org.cryptomator.presentation.R
 import org.cryptomator.presentation.model.CloudFileModel
 import org.cryptomator.presentation.model.CloudNodeModel
-import java.util.Locale
 import kotlinx.android.synthetic.main.dialog_bottom_sheet_file_settings.delete_file
 import kotlinx.android.synthetic.main.dialog_bottom_sheet_file_settings.export_file
 import kotlinx.android.synthetic.main.dialog_bottom_sheet_file_settings.iv_file_image
@@ -38,7 +37,7 @@ class FileSettingsBottomSheet : BaseBottomSheet<FileSettingsBottomSheet.Callback
 		tv_file_name.text = cloudFileModel.name
 		tv_file_path.text = parentFolderPath
 
-		val lowerFileName = cloudFileModel.name.toLowerCase(Locale.getDefault())
+		val lowerFileName = cloudFileModel.name.lowercase()
 		if (lowerFileName.endsWith(".txt") || lowerFileName.endsWith(".md") || lowerFileName.endsWith(".todo")) {
 			open_with_text.visibility = View.VISIBLE
 			open_with_text.setOnClickListener {

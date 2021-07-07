@@ -8,7 +8,7 @@ import org.cryptomator.domain.exception.NoSuchVaultException;
 import org.cryptomator.domain.repository.CloudRepository;
 import org.cryptomator.generator.Parameter;
 import org.cryptomator.generator.UseCase;
-import org.cryptomator.util.Optional;
+import com.google.common.base.Optional;
 
 import static org.cryptomator.util.ExceptionUtil.contains;
 

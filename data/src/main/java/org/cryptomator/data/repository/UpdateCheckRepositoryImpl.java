@@ -3,6 +3,7 @@ package org.cryptomator.data.repository;
 import android.content.Context;
 import android.net.Uri;
 
+import com.google.common.base.Optional;
 import com.google.common.io.BaseEncoding;
 
 import org.apache.commons.codec.binary.Hex;
@@ -15,7 +16,6 @@ import org.cryptomator.domain.exception.update.GeneralUpdateErrorException;
 import org.cryptomator.domain.exception.update.HashMismatchUpdateCheckException;
 import org.cryptomator.domain.repository.UpdateCheckRepository;
 import org.cryptomator.domain.usecases.UpdateCheck;
-import org.cryptomator.util.Optional;
 
 import java.io.File;
 import java.io.IOException;
@@ -67,7 +67,7 @@ public class UpdateCheckRepositoryImpl implements UpdateCheckRepository {
 		LatestVersion latestVersion = loadLatestVersion();
 
 		if (appVersion.equals(latestVersion.version)) {
-			return Optional.empty();
+			return Optional.absent();
 		}
 
 		final UpdateCheckEntity entity = database.load(UpdateCheckEntity.class, 1L);
@@ -120,7 +120,7 @@ public class UpdateCheckRepositoryImpl implements UpdateCheckRepository {
 
 				String apkSha256 = calculateSha256(file);
 
-				if(!apkSha256.equals(entity.getApkSha256())) {
+				if (!apkSha256.equals(entity.getApkSha256())) {
 					file.delete();
 					throw new HashMismatchUpdateCheckException(String.format( //
 							"Sha of calculated hash (%s) doesn't match the specified one (%s)", //
@@ -138,13 +138,13 @@ public class UpdateCheckRepositoryImpl implements UpdateCheckRepository {
 	private String calculateSha256(File file) throws GeneralUpdateErrorException {
 		try {
 			MessageDigest digest = MessageDigest.getInstance("SHA-256");
-			try(DigestInputStream digestInputStream = new DigestInputStream(context.getContentResolver().openInputStream(Uri.fromFile(file)), digest)) {
+			try (DigestInputStream digestInputStream = new DigestInputStream(context.getContentResolver().openInputStream(Uri.fromFile(file)), digest)) {
 				byte[] buffer = new byte[8192];
-				while(digestInputStream.read(buffer) > -1) {
+				while (digestInputStream.read(buffer) > -1) {
 				}
 			}
 			return new String(Hex.encodeHex(digest.digest()));
-		} catch (Exception e) {
+		} catch (NoSuchAlgorithmException | IOException e) {
 			throw new GeneralUpdateErrorException(e);
 		}
 	}
@@ -272,7 +272,7 @@ public class UpdateCheckRepositoryImpl implements UpdateCheckRepository {
 				urlApk = jws.get("url", String.class);
 				apkSha256 = jws.get("apk_sha_256", String.class);
 				urlReleaseNote = jws.get("release_notes", String.class);
-			} catch (Exception e) {
+			} catch (NoSuchAlgorithmException | InvalidKeySpecException e) {
 				throw new GeneralUpdateErrorException("Failed to parse latest version", e);
 			}
 		}

@@ -27,10 +27,10 @@ class ConfirmDeleteCloudNodeDialog : BaseDialog<ConfirmDeleteCloudNodeDialog.Cal
 			title = nodes[0].name
 		}
 		return builder //
-				.setTitle(title) //
-				.setPositiveButton(getString(R.string.dialog_confirm_delete_positive_button)) { _: DialogInterface, _: Int -> callback?.onDeleteCloudNodeConfirmed(nodes) } //
-				.setNegativeButton(getString(R.string.dialog_confirm_delete_negative_button)) { _: DialogInterface, _: Int -> } //
-				.create()
+			.setTitle(title) //
+			.setPositiveButton(getString(R.string.dialog_confirm_delete_positive_button)) { _: DialogInterface, _: Int -> callback?.onDeleteCloudNodeConfirmed(nodes) } //
+			.setNegativeButton(getString(R.string.dialog_confirm_delete_negative_button)) { _: DialogInterface, _: Int -> } //
+			.create()
 	}
 
 	private fun getMessage(cloudNodeModel: CloudNodeModel<*>): String {

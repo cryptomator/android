@@ -51,12 +51,12 @@ class EnterPasswordDialog : BaseProgressErrorDialog<EnterPasswordDialog.Callback
 
 	public override fun setupDialog(builder: AlertDialog.Builder): android.app.Dialog {
 		return builder //
-				.setTitle(vaultModel().name) //
-				.setPositiveButton(getString(R.string.dialog_enter_password_positive_button)) { _: DialogInterface, _: Int -> }
-				.setNegativeButton(getString(R.string.dialog_button_cancel)) { _: DialogInterface, _: Int ->
-					callback?.onUnlockCanceled()
-					callback?.closeDialog()
-				}.create()
+			.setTitle(vaultModel().name) //
+			.setPositiveButton(getString(R.string.dialog_enter_password_positive_button)) { _: DialogInterface, _: Int -> }
+			.setNegativeButton(getString(R.string.dialog_button_cancel)) { _: DialogInterface, _: Int ->
+				callback?.onUnlockCanceled()
+				callback?.closeDialog()
+			}.create()
 	}
 
 	fun vaultModel(): VaultModel {
@@ -64,7 +64,7 @@ class EnterPasswordDialog : BaseProgressErrorDialog<EnterPasswordDialog.Callback
 	}
 
 	public override fun setupView() {
-		registerOnEditorDoneActionAndPerformButtonClick(et_password) { unlockButton }
+		unlockButton?.let { registerOnEditorDoneActionAndPerformButtonClick(et_password) { it } }
 		et_password.addTextChangedListener(object : TextWatcher {
 			override fun afterTextChanged(s: Editable) {
 				unlockButton?.let { it.isEnabled = s.toString().isNotEmpty() }

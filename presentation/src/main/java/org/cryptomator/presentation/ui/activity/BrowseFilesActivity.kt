@@ -1,12 +1,17 @@
 package org.cryptomator.presentation.ui.activity
 
+import android.content.BroadcastReceiver
+import android.content.Context
 import android.content.Intent
+import android.content.IntentFilter
 import android.view.Menu
 import android.view.View
 import androidx.appcompat.widget.SearchView
 import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.Fragment
+import androidx.localbroadcastmanager.content.LocalBroadcastManager
 import org.cryptomator.domain.CloudNode
+import org.cryptomator.domain.exception.ParentFolderIsNullException
 import org.cryptomator.generator.Activity
 import org.cryptomator.generator.InjectIntent
 import org.cryptomator.presentation.R
@@ -28,6 +33,7 @@ import org.cryptomator.presentation.model.comparator.CloudNodeModelSizeBiggestFi
 import org.cryptomator.presentation.model.comparator.CloudNodeModelSizeSmallestFirstComparator
 import org.cryptomator.presentation.presenter.BrowseFilesPresenter
 import org.cryptomator.presentation.presenter.BrowseFilesPresenter.Companion.OPEN_FILE_FINISHED
+import org.cryptomator.presentation.service.CryptorsService
 import org.cryptomator.presentation.ui.activity.view.BrowseFilesView
 import org.cryptomator.presentation.ui.bottomsheet.FileSettingsBottomSheet
 import org.cryptomator.presentation.ui.bottomsheet.FolderSettingsBottomSheet
@@ -51,17 +57,17 @@ import kotlinx.android.synthetic.main.toolbar_layout.toolbar
 
 @Activity
 class BrowseFilesActivity : BaseActivity(), //
-		BrowseFilesView, //
-		BrowseFilesCallback, //
-		ReplaceDialog.Callback, //
-		FileNameDialog.Callback, //
-		ConfirmDeleteCloudNodeDialog.Callback, //
-		UploadCloudFileDialog.Callback,
-		ExportCloudFilesDialog.Callback,
-		SymLinkDialog.CallBack,
-		NoDirFileDialog.CallBack,
-		SearchView.OnQueryTextListener,
-		SearchView.OnCloseListener {
+	BrowseFilesView, //
+	BrowseFilesCallback, //
+	ReplaceDialog.Callback, //
+	FileNameDialog.Callback, //
+	ConfirmDeleteCloudNodeDialog.Callback, //
+	UploadCloudFileDialog.Callback,
+	ExportCloudFilesDialog.Callback,
+	SymLinkDialog.CallBack,
+	NoDirFileDialog.CallBack,
+	SearchView.OnQueryTextListener,
+	SearchView.OnCloseListener {
 
 	@Inject
 	lateinit var browseFilesPresenter: BrowseFilesPresenter
@@ -72,6 +78,8 @@ class BrowseFilesActivity : BaseActivity(), //
 	private var enableGeneralSelectionActions: Boolean = false
 
 	private var navigationMode: ChooseCloudNodeSettings.NavigationMode? = null
+
+	private var finishActivityDueToScreenLockEventReceiver: BroadcastReceiver? = null
 
 	override fun setupView() {
 		setupToolbar()
@@ -97,8 +105,32 @@ class BrowseFilesActivity : BaseActivity(), //
 		get() = browseFilesFragment().folder
 
 	override fun createFragment(): Fragment =
-			BrowseFilesFragment.newInstance(browseFilesIntent.folder(),
-					browseFilesIntent.chooseCloudNodeSettings())
+		BrowseFilesFragment.newInstance(
+			browseFilesIntent.folder(),
+			browseFilesIntent.chooseCloudNodeSettings()
+		)
+
+	override fun onDestroy() {
+		super.onDestroy()
+
+		finishActivityDueToScreenLockEventReceiver?.let {
+			LocalBroadcastManager.getInstance(this).unregisterReceiver(it)
+		}
+	}
+
+	override fun onResume() {
+		super.onResume()
+
+		finishActivityDueToScreenLockEventReceiver = object : BroadcastReceiver() {
+			override fun onReceive(context: Context, intent: Intent) {
+				finish()
+			}
+		}
+
+		finishActivityDueToScreenLockEventReceiver?.let {
+			LocalBroadcastManager.getInstance(this).registerReceiver(it, IntentFilter(CryptorsService.SCREEN_AND_VAULT_LOCKED))
+		}
+	}
 
 	override fun onBackPressed() {
 		browseFilesPresenter.onBackPressed()
@@ -110,7 +142,9 @@ class BrowseFilesActivity : BaseActivity(), //
 				supportFragmentManager.popBackStack()
 			}
 			hasCloudNodeSettings() && isNavigationMode(MOVE_CLOUD_NODE) && browseFilesFragment().folder.hasParent() -> {
-				createBackStackFor(browseFilesFragment().folder.parent)
+				browseFilesFragment().folder.parent?.let {
+					createBackStackFor(it)
+				} ?: throw ParentFolderIsNullException(browseFilesFragment().folder.name)
 			}
 			else -> {
 				super.onBackPressed()
@@ -121,7 +155,7 @@ class BrowseFilesActivity : BaseActivity(), //
 	private fun isNavigationMode(navigationMode: ChooseCloudNodeSettings.NavigationMode): Boolean = this.navigationMode == navigationMode
 
 	private fun hasCloudNodeSettings(): Boolean =
-			browseFilesIntent.chooseCloudNodeSettings() != null
+		browseFilesIntent.chooseCloudNodeSettings() != null
 
 	override fun getCustomMenuResource(): Int {
 		return when {
@@ -160,14 +194,17 @@ class BrowseFilesActivity : BaseActivity(), //
 			true
 		}
 		R.id.action_move_items -> {
-			browseFilesPresenter.onMoveNodesClicked(folder, //
-					browseFilesFragment().selectedCloudNodes as ArrayList<CloudNodeModel<*>>)
+			browseFilesPresenter.onMoveNodesClicked(
+				folder, //
+				browseFilesFragment().selectedCloudNodes as ArrayList<CloudNodeModel<*>>
+			)
 			true
 		}
 		R.id.action_export_items -> {
 			browseFilesPresenter.onExportNodesClicked( //
-					browseFilesFragment().selectedCloudNodes as ArrayList<CloudNodeModel<*>>, //
-					BrowseFilesPresenter.EXPORT_TRIGGERED_BY_USER)
+				browseFilesFragment().selectedCloudNodes as ArrayList<CloudNodeModel<*>>, //
+				BrowseFilesPresenter.EXPORT_TRIGGERED_BY_USER
+			)
 			true
 		}
 		R.id.action_share_items -> {
@@ -398,14 +435,18 @@ class BrowseFilesActivity : BaseActivity(), //
 	}
 
 	override fun navigateTo(folder: CloudFolderModel) {
-		replaceFragment(BrowseFilesFragment.newInstance(folder,
-				browseFilesIntent.chooseCloudNodeSettings()),
-				FragmentAnimation.NAVIGATE_IN_TO_FOLDER)
+		replaceFragment(
+			BrowseFilesFragment.newInstance(
+				folder,
+				browseFilesIntent.chooseCloudNodeSettings()
+			),
+			FragmentAnimation.NAVIGATE_IN_TO_FOLDER
+		)
 	}
 
 	override fun showAddContentDialog() {
 		VaultContentActionBottomSheet.newInstance(browseFilesFragment().folder)
-				.show(supportFragmentManager, "AddContentDialog")
+			.show(supportFragmentManager, "AddContentDialog")
 	}
 
 	override fun updateTitle(folder: CloudFolderModel) {
@@ -484,10 +525,14 @@ class BrowseFilesActivity : BaseActivity(), //
 	}
 
 	private fun createBackStackFor(sourceParent: CloudFolderModel) {
-		replaceFragment(BrowseFilesFragment.newInstance(sourceParent,
-				browseFilesIntent.chooseCloudNodeSettings()),
-				FragmentAnimation.NAVIGATE_OUT_OF_FOLDER,
-				false)
+		replaceFragment(
+			BrowseFilesFragment.newInstance(
+				sourceParent,
+				browseFilesIntent.chooseCloudNodeSettings()
+			),
+			FragmentAnimation.NAVIGATE_OUT_OF_FOLDER,
+			false
+		)
 	}
 
 	override fun onRenameCloudNodeClicked(cloudNodeModel: CloudNodeModel<*>, newCloudNodeName: String) {

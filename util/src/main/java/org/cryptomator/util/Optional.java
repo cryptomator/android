@@ -1,6 +1,9 @@
 package org.cryptomator.util;
 
 import java.io.Serializable;
+import java.util.function.Consumer;
+import java.util.function.Function;
+import java.util.function.Supplier;
 
 public class Optional<T> implements Serializable {
 

@@ -1,10 +1,11 @@
 package org.cryptomator.domain.usecases.vault;
 
+import com.google.common.base.Optional;
+
 import org.cryptomator.domain.UnverifiedVaultConfig;
 import org.cryptomator.domain.Vault;
 import org.cryptomator.domain.exception.BackendException;
 import org.cryptomator.domain.repository.CloudRepository;
-import org.cryptomator.util.Optional;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;

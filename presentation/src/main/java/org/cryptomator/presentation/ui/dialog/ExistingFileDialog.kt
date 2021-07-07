@@ -19,8 +19,8 @@ class ExistingFileDialog : BaseDialog<ExistingFileDialog.Callback>() {
 	override fun setupDialog(builder: AlertDialog.Builder): android.app.Dialog {
 		val fileUri = requireArguments().getParcelable<Uri>(FILE_URI_ARG)
 		builder.setTitle(getString(R.string.dialog_existing_file_title)) //
-				.setPositiveButton(getString(R.string.dialog_existing_file_positive_button)) { _: DialogInterface?, _: Int -> fileUri?.let { callback?.onReplaceClick(it) } } //
-				.setNegativeButton(getString(R.string.dialog_button_cancel)) { _: DialogInterface?, _: Int -> }
+			.setPositiveButton(getString(R.string.dialog_existing_file_positive_button)) { _: DialogInterface?, _: Int -> fileUri?.let { callback?.onReplaceClick(it) } } //
+			.setNegativeButton(getString(R.string.dialog_button_cancel)) { _: DialogInterface?, _: Int -> }
 		return builder.create()
 	}
 

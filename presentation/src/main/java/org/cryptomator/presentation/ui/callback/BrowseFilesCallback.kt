@@ -7,4 +7,5 @@ import org.cryptomator.presentation.ui.dialog.CloudNodeRenameDialog
 import org.cryptomator.presentation.ui.dialog.CreateFolderDialog
 import org.cryptomator.presentation.ui.dialog.FileTypeNotSupportedDialog
 
-interface BrowseFilesCallback : CreateFolderDialog.Callback, VaultContentActionBottomSheet.Callback, FileSettingsBottomSheet.Callback, FolderSettingsBottomSheet.Callback, CloudNodeRenameDialog.Callback, FileTypeNotSupportedDialog.Callback
+interface BrowseFilesCallback : CreateFolderDialog.Callback, VaultContentActionBottomSheet.Callback, FileSettingsBottomSheet.Callback, FolderSettingsBottomSheet.Callback, CloudNodeRenameDialog.Callback,
+	FileTypeNotSupportedDialog.Callback

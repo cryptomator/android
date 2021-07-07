@@ -26,13 +26,14 @@ import javax.inject.Inject
 
 @PerView
 class AutoUploadChooseVaultPresenter @Inject constructor( //
-		private val getVaultListUseCase: GetVaultListUseCase,  //
-		private val getRootFolderUseCase: GetRootFolderUseCase,  //
-		private val getDecryptedCloudForVaultUseCase: GetDecryptedCloudForVaultUseCase,  //
-		private val cloudFolderModelMapper: CloudFolderModelMapper,  //
-		private val sharedPreferencesHandler: SharedPreferencesHandler,  //
-		private val authenticationExceptionHandler: AuthenticationExceptionHandler,  //
-		exceptionMappings: ExceptionHandlers) : Presenter<AutoUploadChooseVaultView>(exceptionMappings) {
+	private val getVaultListUseCase: GetVaultListUseCase,  //
+	private val getRootFolderUseCase: GetRootFolderUseCase,  //
+	private val getDecryptedCloudForVaultUseCase: GetDecryptedCloudForVaultUseCase,  //
+	private val cloudFolderModelMapper: CloudFolderModelMapper,  //
+	private val sharedPreferencesHandler: SharedPreferencesHandler,  //
+	private val authenticationExceptionHandler: AuthenticationExceptionHandler,  //
+	exceptionMappings: ExceptionHandlers
+) : Presenter<AutoUploadChooseVaultView>(exceptionMappings) {
 
 	private var selectedVault: VaultModel? = null
 	private var location: CloudFolderModel? = null
@@ -79,8 +80,9 @@ class AutoUploadChooseVaultPresenter @Inject constructor( //
 		} else {
 			if (!isPaused) {
 				requestActivityResult( //
-						ActivityResultCallbacks.vaultUnlockedAutoUpload(), //
-						Intents.unlockVaultIntent().withVaultModel(VaultModel(authenticatedVault)).withVaultAction(UnlockVaultIntent.VaultAction.UNLOCK))
+					ActivityResultCallbacks.vaultUnlockedAutoUpload(), //
+					Intents.unlockVaultIntent().withVaultModel(VaultModel(authenticatedVault)).withVaultAction(UnlockVaultIntent.VaultAction.UNLOCK)
+				)
 			}
 		}
 	}
@@ -88,31 +90,29 @@ class AutoUploadChooseVaultPresenter @Inject constructor( //
 	@Callback
 	fun vaultUnlockedAutoUpload(result: ActivityResult) {
 		val cloud = result.intent().getSerializableExtra(SINGLE_RESULT) as Cloud
-		when {
-			result.isResultOk -> rootFolderFor(cloud)
-			else -> TODO("Not yet implemented")
-		}
+		rootFolderFor(cloud)
 	}
-
 
 
 	private fun decryptedCloudFor(vault: Vault) {
 		getDecryptedCloudForVaultUseCase //
-				.withVault(vault) //
-				.run(object : DefaultResultHandler<Cloud>() {
-					override fun onSuccess(cloud: Cloud) {
-						rootFolderFor(cloud)
-					}
+			.withVault(vault) //
+			.run(object : DefaultResultHandler<Cloud>() {
+				override fun onSuccess(cloud: Cloud) {
+					rootFolderFor(cloud)
+				}
 
-					override fun onError(e: Throwable) {
-						if (!authenticationExceptionHandler.handleAuthenticationException( //
-										this@AutoUploadChooseVaultPresenter,  //
-										e,  //
-										ActivityResultCallbacks.decryptedCloudForAfterAuthInAutoPhotoUpload(vault))) {
-							super.onError(e)
-						}
+				override fun onError(e: Throwable) {
+					if (!authenticationExceptionHandler.handleAuthenticationException( //
+							this@AutoUploadChooseVaultPresenter,  //
+							e,  //
+							ActivityResultCallbacks.decryptedCloudForAfterAuthInAutoPhotoUpload(vault)
+						)
+					) {
+						super.onError(e)
 					}
-				})
+				}
+			})
 	}
 
 	@Callback
@@ -123,33 +123,35 @@ class AutoUploadChooseVaultPresenter @Inject constructor( //
 
 	private fun rootFolderFor(cloud: Cloud) {
 		getRootFolderUseCase //
-				.withCloud(cloud) //
-				.run(object : DefaultResultHandler<CloudFolder>() {
-					override fun onSuccess(folder: CloudFolder) {
-						when (authenticationState) {
-							AuthenticationState.CHOOSE_LOCATION -> {
-								location = cloudFolderModelMapper.toModel(folder)
-								selectedVault?.let { navigateToVaultContent(it, location) }
-							}
-							AuthenticationState.INIT_ROOT -> location = cloudFolderModelMapper.toModel(folder)
+			.withCloud(cloud) //
+			.run(object : DefaultResultHandler<CloudFolder>() {
+				override fun onSuccess(folder: CloudFolder) {
+					when (authenticationState) {
+						AuthenticationState.CHOOSE_LOCATION -> {
+							location = cloudFolderModelMapper.toModel(folder)
+							selectedVault?.let { navigateToVaultContent(it, location) }
 						}
+						AuthenticationState.INIT_ROOT -> location = cloudFolderModelMapper.toModel(folder)
 					}
-				})
+				}
+			})
 	}
 
 	private fun navigateToVaultContent(vaultModel: VaultModel, decryptedRoot: CloudFolderModel?) {
 		requestActivityResult( //
-				ActivityResultCallbacks.onAutoUploadChooseLocation(vaultModel),  //
-				Intents.browseFilesIntent() //
-						.withFolder(decryptedRoot) //
-						.withTitle(vaultModel.name) //
-						.withChooseCloudNodeSettings( //
-								ChooseCloudNodeSettings.chooseCloudNodeSettings() //
-										.withExtraTitle(context().getString(R.string.screen_file_browser_share_destination_title)) //
-										.withExtraToolbarIcon(R.drawable.ic_clear) //
-										.withButtonText(context().getString(R.string.screen_file_browser_share_button_text)) //
-										.selectingFolders() //
-										.build()))
+			ActivityResultCallbacks.onAutoUploadChooseLocation(vaultModel),  //
+			Intents.browseFilesIntent() //
+				.withFolder(decryptedRoot) //
+				.withTitle(vaultModel.name) //
+				.withChooseCloudNodeSettings( //
+					ChooseCloudNodeSettings.chooseCloudNodeSettings() //
+						.withExtraTitle(context().getString(R.string.screen_file_browser_share_destination_title)) //
+						.withExtraToolbarIcon(R.drawable.ic_clear) //
+						.withButtonText(context().getString(R.string.screen_file_browser_share_button_text)) //
+						.selectingFolders() //
+						.build()
+				)
+		)
 	}
 
 	@Callback

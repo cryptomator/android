@@ -23,6 +23,8 @@ android {
 	compileOptions {
 		sourceCompatibility JavaVersion.VERSION_1_8
 		targetCompatibility JavaVersion.VERSION_1_8
+
+		coreLibraryDesugaringEnabled true
 	}
 
 	lintOptions {
@@ -40,6 +42,8 @@ dependencies {
 
 	annotationProcessor project(':generator')
 	annotationProcessor dependencies.daggerCompiler
+
+	coreLibraryDesugaring dependencies.coreDesugaring
 
 	compileOnly dependencies.javaxAnnotation
 
@@ -65,6 +69,7 @@ dependencies {
 	testRuntimeOnly dependencies.junit4Engine
 
 	testImplementation dependencies.mockito
+	testImplementation dependencies.mockitoKotlin
 	testImplementation dependencies.mockitoInline
 	testImplementation dependencies.hamcrest
 }

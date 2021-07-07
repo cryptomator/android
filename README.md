@@ -3,7 +3,7 @@
 [![Twitter](https://img.shields.io/badge/twitter-@Cryptomator-blue.svg?style=flat)](http://twitter.com/Cryptomator)
 [![Community](https://img.shields.io/badge/help-Community-orange.svg)](https://community.cryptomator.org)
 [![Documentation](https://img.shields.io/badge/help-Docs-orange.svg)](https://docs.cryptomator.org)
-[![Crowdin](https://badges.crowdin.net/cryptomator-android/localized.svg)](https://crowdin.com/project/cryptomator-android)
+[![Crowdin](https://badges.crowdin.net/cryptomator/localized.svg)](https://translate.cryptomator.org/)
 
 Cryptomator offers multi-platform transparent client-side encryption of your files in the cloud.
 
@@ -19,7 +19,7 @@ Cryptomator for Android is currently available in the following  distribution ch
 ### Dependencies
 
 * Git
-* JDK 8
+* JDK 11
 * Gradle
 
 ### Run Git and Gradle

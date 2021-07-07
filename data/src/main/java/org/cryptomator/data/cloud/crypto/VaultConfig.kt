@@ -1,5 +1,6 @@
 package org.cryptomator.data.cloud.crypto
 
+import org.cryptomator.cryptolib.api.CryptorProvider
 import org.cryptomator.domain.UnverifiedVaultConfig
 import org.cryptomator.domain.exception.vaultconfig.VaultConfigLoadException
 import org.cryptomator.domain.exception.vaultconfig.VaultKeyInvalidException
@@ -23,25 +24,25 @@ class VaultConfig private constructor(builder: VaultConfigBuilder) {
 	val keyId: URI
 	val id: String
 	val vaultFormat: Int
-	val cipherCombo: VaultCipherCombo
+	val cipherCombo: CryptorProvider.Scheme
 	val shorteningThreshold: Int
 
 	fun toToken(rawKey: ByteArray): String {
 		return Jwts.builder()
-				.setHeaderParam(JSON_KEY_ID, keyId.toASCIIString()) //
-				.setId(id) //
-				.claim(JSON_KEY_VAULTFORMAT, vaultFormat) //
-				.claim(JSON_KEY_CIPHERCONFIG, cipherCombo.name) //
-				.claim(JSON_KEY_SHORTENING_THRESHOLD, shorteningThreshold) //
-				.signWith(Keys.hmacShaKeyFor(rawKey)) //
-				.compact()
+			.setHeaderParam(JSON_KEY_ID, keyId.toASCIIString()) //
+			.setId(id) //
+			.claim(JSON_KEY_VAULTFORMAT, vaultFormat) //
+			.claim(JSON_KEY_CIPHERCONFIG, cipherCombo.name) //
+			.claim(JSON_KEY_SHORTENING_THRESHOLD, shorteningThreshold) //
+			.signWith(Keys.hmacShaKeyFor(rawKey)) //
+			.compact()
 	}
 
 	class VaultConfigBuilder {
 
 		internal var id: String = UUID.randomUUID().toString()
 		internal var vaultFormat = CryptoConstants.MAX_VAULT_VERSION;
-		internal var cipherCombo = VaultCipherCombo.SIV_CTRMAC
+		internal var cipherCombo = CryptoConstants.DEFAULT_CIPHER_COMBO
 		internal var shorteningThreshold = CryptoConstants.DEFAULT_MAX_FILE_NAME;
 		lateinit var keyId: URI
 
@@ -50,7 +51,7 @@ class VaultConfig private constructor(builder: VaultConfigBuilder) {
 			return this
 		}
 
-		fun cipherCombo(cipherCombo: VaultCipherCombo): VaultConfigBuilder {
+		fun cipherCombo(cipherCombo: CryptorProvider.Scheme): VaultConfigBuilder {
 			this.cipherCombo = cipherCombo
 			return this
 		}
@@ -101,25 +102,24 @@ class VaultConfig private constructor(builder: VaultConfigBuilder) {
 		fun verify(rawKey: ByteArray, unverifiedVaultConfig: UnverifiedVaultConfig): VaultConfig {
 			return try {
 				val parser = Jwts //
-						.parserBuilder() //
-						.setSigningKey(rawKey) //
-						.require(JSON_KEY_VAULTFORMAT, unverifiedVaultConfig.vaultFormat) //
-						.build() //
-						.parseClaimsJws(unverifiedVaultConfig.jwt)
+					.parserBuilder() //
+					.setSigningKey(rawKey) //
+					.require(JSON_KEY_VAULTFORMAT, unverifiedVaultConfig.vaultFormat) //
+					.build() //
+					.parseClaimsJws(unverifiedVaultConfig.jwt)
 
 				val vaultConfigBuilder = createVaultConfig() //
-						.keyId(unverifiedVaultConfig.keyId)
-						.id(parser.header[JSON_KEY_ID] as String) //
-						.cipherCombo(VaultCipherCombo.valueOf(parser.body.get(JSON_KEY_CIPHERCONFIG, String::class.java))) //
-						.vaultFormat(unverifiedVaultConfig.vaultFormat) //
-						.shorteningThreshold(parser.body[JSON_KEY_SHORTENING_THRESHOLD] as Int)
+					.keyId(unverifiedVaultConfig.keyId)
+					.id(parser.header[JSON_KEY_ID] as String) //
+					.cipherCombo(CryptorProvider.Scheme.valueOf(parser.body.get(JSON_KEY_CIPHERCONFIG, String::class.java))) //
+					.vaultFormat(unverifiedVaultConfig.vaultFormat) //
+					.shorteningThreshold(parser.body[JSON_KEY_SHORTENING_THRESHOLD] as Int)
 
 				VaultConfig(vaultConfigBuilder)
-			} catch (e: Exception) {
+			} catch (e: JwtException) {
 				when (e) {
 					is MissingClaimException, is IncorrectClaimException -> throw VaultVersionMismatchException("Vault config not for version " + unverifiedVaultConfig.vaultFormat)
 					is SignatureException -> throw VaultKeyInvalidException()
-					is JwtException -> throw VaultConfigLoadException("Failed to verify vault config", e)
 					else -> throw VaultConfigLoadException(e)
 				}
 			}

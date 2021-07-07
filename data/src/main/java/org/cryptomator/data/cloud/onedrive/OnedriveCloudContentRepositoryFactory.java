@@ -28,7 +28,7 @@ public class OnedriveCloudContentRepositoryFactory implements CloudContentReposi
 	}
 
 	@Override
-	public CloudContentRepository cloudContentRepositoryFor(Cloud cloud) {
+	public CloudContentRepository<OnedriveCloud, OnedriveNode, OnedriveFolder, OnedriveFile> cloudContentRepositoryFor(Cloud cloud) {
 		return new OnedriveCloudContentRepository((OnedriveCloud) cloud, context);
 	}
 }

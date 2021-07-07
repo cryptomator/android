@@ -13,9 +13,9 @@ class DownloadFileUtil @Inject constructor(private val fileUtil: FileUtil) {
 	fun createDownloadFilesFor(presenter: Presenter<*>, cloudFiles: List<CloudFileModel>): List<DownloadFile> {
 		return cloudFiles.mapTo(ArrayList()) {
 			DownloadFile.Builder() //
-					.setDownloadFile(it.toCloudNode()) //
-					.setDataSink(createDecryptedDataFor(presenter, it)) //
-					.build()
+				.setDownloadFile(it.toCloudNode()) //
+				.setDataSink(createDecryptedDataFor(presenter, it)) //
+				.build()
 		}
 	}
 

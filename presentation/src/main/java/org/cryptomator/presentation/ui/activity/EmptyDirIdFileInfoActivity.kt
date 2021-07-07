@@ -24,14 +24,16 @@ class EmptyDirIdFileInfoActivity : BaseActivity(), EmptyDirFileView {
 	}
 
 	private fun setupToolbar() {
-		toolbar.title = getString(R.string.screen_empty_dir_file_info_title,
-				emptyDirIdFileInfoIntent.dirName())
+		toolbar.title = getString(
+			R.string.screen_empty_dir_file_info_title,
+			emptyDirIdFileInfoIntent.dirName()
+		)
 		setSupportActionBar(toolbar)
 	}
 
 	override fun onResume() {
 		super.onResume()
 		(supportFragmentManager.findFragmentByTag("EmptyDirIdFileInfoFragment") as EmptyDirIdFileInfoFragment)
-				.setDirFilePath(emptyDirIdFileInfoIntent.dirFilePath())
+			.setDirFilePath(emptyDirIdFileInfoIntent.dirFilePath())
 	}
 }

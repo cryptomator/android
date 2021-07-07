@@ -20,11 +20,12 @@ import javax.inject.Inject
 
 @PerView
 class ChooseCloudServicePresenter @Inject constructor( //
-		private val getCloudsUseCase: GetCloudsUseCase,  //
-		private val cloudModelMapper: CloudModelMapper,  //
-		private val addExistingVaultWorkflow: AddExistingVaultWorkflow,  //
-		private val createNewVaultWorkflow: CreateNewVaultWorkflow,  //
-		exceptionMappings: ExceptionHandlers) : Presenter<ChooseCloudServiceView>(exceptionMappings) {
+	private val getCloudsUseCase: GetCloudsUseCase,  //
+	private val cloudModelMapper: CloudModelMapper,  //
+	private val addExistingVaultWorkflow: AddExistingVaultWorkflow,  //
+	private val createNewVaultWorkflow: CreateNewVaultWorkflow,  //
+	exceptionMappings: ExceptionHandlers
+) : Presenter<ChooseCloudServiceView>(exceptionMappings) {
 
 	override fun workflows(): Iterable<Workflow<*>> {
 		return listOf(addExistingVaultWorkflow, createNewVaultWorkflow)
@@ -55,11 +56,12 @@ class ChooseCloudServicePresenter @Inject constructor( //
 
 	private fun startCloudConnectionListActivity(cloudTypeModel: CloudTypeModel) {
 		requestActivityResult( //
-				ActivityResultCallbacks.cloudConnectionListFinished(),  //
-				Intents.cloudConnectionListIntent() //
-						.withCloudType(cloudTypeModel) //
-						.withDialogTitle(context().getString(R.string.screen_cloud_connections_title)) //
-						.withFinishOnCloudItemClick(true))
+			ActivityResultCallbacks.cloudConnectionListFinished(),  //
+			Intents.cloudConnectionListIntent() //
+				.withCloudType(cloudTypeModel) //
+				.withDialogTitle(context().getString(R.string.screen_cloud_connections_title)) //
+				.withFinishOnCloudItemClick(true)
+		)
 	}
 
 	@Callback
@@ -70,15 +72,15 @@ class ChooseCloudServicePresenter @Inject constructor( //
 
 	private fun handleSingleInstanceClouds(cloudTypeModel: CloudTypeModel) {
 		getCloudsUseCase //
-				.withCloudType(CloudTypeModel.valueOf(cloudTypeModel)) //
-				.run(object : DefaultResultHandler<List<Cloud>>() {
-					override fun onSuccess(clouds: List<Cloud>) {
-						if (clouds.size > 1) {
-							throw FatalBackendException("More then one cloud")
-						}
-						onCloudSelected(clouds[0])
+			.withCloudType(CloudTypeModel.valueOf(cloudTypeModel)) //
+			.run(object : DefaultResultHandler<List<Cloud>>() {
+				override fun onSuccess(clouds: List<Cloud>) {
+					if (clouds.size > 1) {
+						throw FatalBackendException("More then one cloud")
 					}
-				})
+					onCloudSelected(clouds[0])
+				}
+			})
 	}
 
 	private fun onCloudSelected(cloud: Cloud) {

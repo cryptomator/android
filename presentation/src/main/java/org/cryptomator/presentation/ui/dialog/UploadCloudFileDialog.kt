@@ -41,9 +41,9 @@ class UploadCloudFileDialog : BaseProgressErrorDialog<UploadCloudFileDialog.Call
 
 	override fun setupDialog(builder: AlertDialog.Builder): android.app.Dialog {
 		return builder //
-				.setTitle(effectiveTitle()) //
-				.setNeutralButton(getString(R.string.dialog_upload_file_cancel_button)) { _: DialogInterface?, _: Int -> } //
-				.create()
+			.setTitle(effectiveTitle()) //
+			.setNeutralButton(getString(R.string.dialog_upload_file_cancel_button)) { _: DialogInterface?, _: Int -> } //
+			.create()
 	}
 
 	private fun effectiveTitle(): String {

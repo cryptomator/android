@@ -3,6 +3,8 @@ package org.cryptomator.util.crypto;
 import java.security.InvalidAlgorithmParameterException;
 import java.security.InvalidKeyException;
 
+import javax.crypto.BadPaddingException;
+import javax.crypto.IllegalBlockSizeException;
 import javax.crypto.SecretKey;
 import javax.crypto.spec.IvParameterSpec;
 
@@ -22,20 +24,14 @@ class CipherImpl implements Cipher {
 
 	private static byte[] mergeIvAndEncryptedData(byte[] encrypted, byte[] iv) {
 		byte[] mergedIvAndEncrypted = new byte[encrypted.length + iv.length];
-		arraycopy( //
-				iv, 0, //
-				mergedIvAndEncrypted, 0, IV_LENGTH);
-		arraycopy( //
-				encrypted, 0, //
-				mergedIvAndEncrypted, IV_LENGTH, encrypted.length);
+		arraycopy(iv, 0, mergedIvAndEncrypted, 0, IV_LENGTH);
+		arraycopy(encrypted, 0, mergedIvAndEncrypted, IV_LENGTH, encrypted.length);
 		return mergedIvAndEncrypted;
 	}
 
 	static byte[] getBytes(byte[] encryptedBytesWithIv) {
 		byte[] bytes = new byte[encryptedBytesWithIv.length - IV_LENGTH];
-		arraycopy( //
-				encryptedBytesWithIv, IV_LENGTH, //
-				bytes, 0, bytes.length);
+		arraycopy(encryptedBytesWithIv, IV_LENGTH, bytes, 0, bytes.length);
 		return bytes;
 	}
 
@@ -45,8 +41,8 @@ class CipherImpl implements Cipher {
 			cipher.init(javax.crypto.Cipher.ENCRYPT_MODE, key);
 			byte[] encrypted = cipher.doFinal(data);
 			return mergeIvAndEncryptedData(encrypted, cipher.getIV());
-		} catch (Exception e) {
-			throw new RuntimeException(e);
+		} catch (InvalidKeyException | BadPaddingException | IllegalBlockSizeException e) {
+			throw new FatalCryptoException(e);
 		}
 	}
 
@@ -58,8 +54,8 @@ class CipherImpl implements Cipher {
 			IvParameterSpec ivspec = new IvParameterSpec(iv);
 			cipher.init(javax.crypto.Cipher.DECRYPT_MODE, key, ivspec);
 			return cipher.doFinal(bytes);
-		} catch (Exception e) {
-			throw new RuntimeException(e);
+		} catch (InvalidKeyException | BadPaddingException | IllegalBlockSizeException | InvalidAlgorithmParameterException e) {
+			throw new FatalCryptoException(e);
 		}
 	}
 
@@ -79,9 +75,7 @@ class CipherImpl implements Cipher {
 
 	private byte[] getIv(byte[] encryptedBytesWithIv) {
 		byte[] iv = new byte[IV_LENGTH];
-		arraycopy( //
-				encryptedBytesWithIv, 0, //
-				iv, 0, IV_LENGTH);
+		arraycopy(encryptedBytesWithIv, 0, iv, 0, IV_LENGTH);
 		return iv;
 	}
 

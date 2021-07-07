@@ -26,8 +26,8 @@ import org.cryptomator.presentation.model.ProgressModel
 import org.cryptomator.presentation.presenter.BrowseFilesPresenter
 import org.cryptomator.presentation.ui.adapter.BrowseFilesAdapter
 import org.cryptomator.presentation.util.ResourceHelper.Companion.getPixelOffset
-import org.cryptomator.util.Optional
 import java.util.Comparator
+import java.util.Optional
 import javax.inject.Inject
 import kotlinx.android.synthetic.main.floating_action_button_layout.floatingActionButton
 import kotlinx.android.synthetic.main.fragment_browse_files.slidingCoordinatorLayout
@@ -198,7 +198,7 @@ class BrowseFilesFragment : BaseFragment() {
 		if (viewHolder.isPresent) {
 			viewHolder.get().showProgress(progress)
 		} else {
-			node?.progress = Optional.of(progress)
+			node?.progress = progress
 			node?.let { addOrUpdate(it) }
 		}
 	}
@@ -214,7 +214,7 @@ class BrowseFilesFragment : BaseFragment() {
 		if (viewHolder.isPresent) {
 			viewHolder.get().hideProgress()
 		} else {
-			cloudNode?.progress = Optional.of(ProgressModel.COMPLETED)
+			cloudNode?.progress = ProgressModel.COMPLETED
 			cloudNode?.let { addOrUpdate(it) }
 		}
 	}

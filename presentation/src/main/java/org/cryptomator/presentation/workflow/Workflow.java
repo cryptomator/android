@@ -22,7 +22,7 @@ public abstract class Workflow<State extends Serializable> {
 	private Class<? extends Activity> activityClass;
 	private BoundCallback callback;
 
-	private Presenter<?> presenter;
+	private Presenter presenter;
 	private boolean running;
 
 	Workflow(State state) {
@@ -36,7 +36,7 @@ public abstract class Workflow<State extends Serializable> {
 
 	abstract void doStart();
 
-	public void setup(Presenter<?> presenter, Intent intent) {
+	public void setup(Presenter presenter, Intent intent) {
 		this.presenter = presenter;
 		setStateFrom(intent);
 	}
@@ -55,7 +55,7 @@ public abstract class Workflow<State extends Serializable> {
 		return false;
 	}
 
-	Presenter<?> presenter() {
+	Presenter presenter() {
 		if (presenter == null) {
 			throw new IllegalStateException("Presenter not set");
 		}

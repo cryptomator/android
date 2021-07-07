@@ -1,13 +1,12 @@
 package org.cryptomator.presentation.model
 
 import org.cryptomator.domain.CloudNode
-import org.cryptomator.util.Optional
 import java.io.Serializable
 
 abstract class CloudNodeModel<T : CloudNode> internal constructor(private val cloudNode: T) : Serializable {
 
 	var oldName: String? = null
-	var progress: Optional<ProgressModel> = Optional.empty()
+	var progress: ProgressModel? = null
 	var isSelected = false
 	val name: String
 		get() = cloudNode.name
@@ -15,8 +14,8 @@ abstract class CloudNodeModel<T : CloudNode> internal constructor(private val cl
 		get() = cloudNode.name.substring(0, cloudNode.name.lastIndexOf("."))
 	val path: String
 		get() = cloudNode.path
-	val parent: CloudFolderModel
-		get() = CloudFolderModel(cloudNode.parent)
+	val parent: CloudFolderModel?
+		get() = cloudNode.parent?.let { CloudFolderModel(it) }
 
 	abstract val isFile: Boolean
 	abstract val isFolder: Boolean

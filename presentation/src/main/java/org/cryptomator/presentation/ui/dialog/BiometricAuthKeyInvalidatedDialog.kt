@@ -10,8 +10,8 @@ class BiometricAuthKeyInvalidatedDialog : BaseDialog<BiometricAuthKeyInvalidated
 
 	public override fun setupDialog(builder: AlertDialog.Builder): android.app.Dialog {
 		builder //
-				.setTitle(R.string.dialog_biometric_auth_key_invalidated_title) //
-				.setNegativeButton(getString(R.string.dialog_biometric_auth_key_invalidated_neutral_button)) { _: DialogInterface, _: Int -> }
+			.setTitle(R.string.dialog_biometric_auth_key_invalidated_title) //
+			.setNegativeButton(getString(R.string.dialog_biometric_auth_key_invalidated_neutral_button)) { _: DialogInterface, _: Int -> }
 		return builder.create()
 	}
 
