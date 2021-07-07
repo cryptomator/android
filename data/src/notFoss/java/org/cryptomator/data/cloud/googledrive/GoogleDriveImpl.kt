@@ -60,10 +60,10 @@ internal class GoogleDriveImpl(context: Context, googleDriveCloud: GoogleDriveCl
 		val fileListQuery = client().files().list() //
 			.setFields("files(id,mimeType,name,size)") //
 			.setSupportsAllDrives(true)
-		if (parentDriveId != null && parentDriveId == "root") {
-			fileListQuery.q = "name contains '$name' and '$parentDriveId' in parents and trashed = false or sharedWithMe"
+		fileListQuery.q = if (parentDriveId != null && parentDriveId == "root") {
+			"name contains '$name' and '$parentDriveId' in parents and trashed = false or sharedWithMe"
 		} else {
-			fileListQuery.q = "name contains '$name' and '$parentDriveId' in parents and trashed = false"
+			"name contains '$name' and '$parentDriveId' in parents and trashed = false"
 		}
 		return fileListQuery.execute().files.firstOrNull { it.name == name }
 	}

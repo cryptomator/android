@@ -162,19 +162,25 @@ internal class S3Impl(context: Context, cloud: S3Cloud) {
 	@Throws(IOException::class, BackendException::class)
 	private fun moveFolder(source: S3Folder, target: S3Folder): S3Folder {
 		target.parent?.let { targetsParent ->
-			val nodes = list(source)
+			val request = ListObjectsArgs.builder().bucket(cloud.s3Bucket()).prefix(source.key).recursive(true).build()
+			val sourceKeysIncludingDescendants = try {
+				client().listObjects(request).mapNotNull {
+					run {
+						it.get().objectName()
+					}
+				}
+			} catch (e: ErrorResponseException) {
+				throw handleApiError(e, source.path)
+			}
+
 			val objectsToDelete: MutableList<DeleteObject> = LinkedList()
 
-			for (node in nodes) {
-				objectsToDelete.add(DeleteObject(node.key))
+			for (sourceKey in sourceKeysIncludingDescendants) {
+				objectsToDelete.add(DeleteObject(sourceKey))
 
-				val targetKey = if (node is S3Folder) {
-					S3CloudNodeFactory.folder(target, node.name).key
-				} else {
-					S3CloudNodeFactory.file(target, node.name).key
-				}
+				val copySource = CopySource.builder().bucket(cloud.s3Bucket()).`object`(sourceKey).build()
+				val targetKey = target.key + sourceKey.removePrefix(source.key)
 
-				val copySource = CopySource.builder().bucket(cloud.s3Bucket()).`object`(node.key).build()
 				val copyObjectArgs = CopyObjectArgs.builder().bucket(cloud.s3Bucket()).`object`(targetKey).source(copySource).build()
 				try {
 					client().copyObject(copyObjectArgs)
