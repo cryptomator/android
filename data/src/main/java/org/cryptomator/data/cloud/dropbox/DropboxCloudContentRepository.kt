@@ -7,6 +7,7 @@ import com.dropbox.core.NetworkIOException
 import com.dropbox.core.v2.files.CreateFolderErrorException
 import com.dropbox.core.v2.files.DeleteErrorException
 import com.dropbox.core.v2.files.DownloadErrorException
+import com.dropbox.core.v2.files.GetMetadataErrorException
 import com.dropbox.core.v2.files.ListFolderErrorException
 import com.dropbox.core.v2.files.RelocationErrorException
 import org.cryptomator.data.cloud.InterceptingCloudContentRepository
@@ -157,20 +158,24 @@ internal class DropboxCloudContentRepository(private val cloud: DropboxCloud, co
 			try {
 				cloud.read(file, encryptedTmpFile, data, progressAware)
 			} catch (e: IOException) {
-				if (ExceptionUtil.contains(e, DownloadErrorException::class.java)) {
-					if (ExceptionUtil.extract(e, DownloadErrorException::class.java).get().errorValue.pathValue.isNotFound) {
-						throw NoSuchCloudFileException(file.name)
-					}
-				}
-				throw FatalBackendException(e)
+				mapToNoSuchCloudFileExceptionIfMatches(e, file)?.let { throw it } ?: throw FatalBackendException(e)
 			} catch (e: DbxException) {
-				if (ExceptionUtil.contains(e, DownloadErrorException::class.java)) {
-					if (ExceptionUtil.extract(e, DownloadErrorException::class.java).get().errorValue.pathValue.isNotFound) {
-						throw NoSuchCloudFileException(file.name)
-					}
-				}
-				throw FatalBackendException(e)
+				mapToNoSuchCloudFileExceptionIfMatches(e, file)?.let { throw it } ?: throw FatalBackendException(e)
 			}
+		}
+
+		private fun mapToNoSuchCloudFileExceptionIfMatches(e: Exception, file: DropboxFile) : NoSuchCloudFileException? {
+			if (ExceptionUtil.contains(e, GetMetadataErrorException::class.java)) {
+				if (ExceptionUtil.extract(e, GetMetadataErrorException::class.java).get().errorValue.pathValue.isNotFound) {
+					return NoSuchCloudFileException(file.name)
+				}
+			}
+			else if (ExceptionUtil.contains(e, DownloadErrorException::class.java)) {
+				if (ExceptionUtil.extract(e, DownloadErrorException::class.java).get().errorValue.pathValue.isNotFound) {
+					return NoSuchCloudFileException(file.name)
+				}
+			}
+			return null
 		}
 
 		@Throws(BackendException::class)
