@@ -1,4 +1,7 @@
 - Added vault format 8 support
-- Increased min Android version to 7 (Side note: Android 6 did not receive security updates for almost 2 years)
+- Increased min. Android version to 7 (Side note: Android 6 did not receive security updates for almost 2 years)
 - Enhanced auto updater of APK store
+- Added support for Google login in pCloud
+- Added support for shared vaults in pCloud
+- Fixed rename vault name in S3 cloud leads to empty vault
 - Dropped support for weak biometric authenticators

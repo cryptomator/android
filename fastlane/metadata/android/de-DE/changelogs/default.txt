@@ -1,4 +1,7 @@
 - Unterstützung für Tresor-Format 8 hinzugefügt
 - Minimale Android-Version auf 7 erhöht (Nebenbemerkung: Android 6 hat fast 2 Jahre lang keine Sicherheitsupdates erhalten)
 - Auto-Updater des APK-Stores verbessert
+- Unterstützung für Google-Login in pCloud hinzugefügt
+- Unterstützung für geteilte Tresore in pCloud hinzugefügt
+- Umbenennen des Tresornamens in der S3-Cloud führt zu einem leeren Tresor
 - Unterstützung für schwache biometrische Authentifikatoren eingestellt
