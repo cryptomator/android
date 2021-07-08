@@ -3,3 +3,6 @@ commit_message: '[ci skip]'
 files:
   - source: /presentation/src/main/res/values/strings.xml
     translation: /presentation/src/main/res/values-%android_code%/strings.xml
+    languages_mapping:
+      android_code:
+        ru: ru
