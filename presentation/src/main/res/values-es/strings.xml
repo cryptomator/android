@@ -13,7 +13,7 @@
 	<string name="error_vault_already_exists">La caja fuerte ya existe.</string>
 	<string name="error_no_such_file">El archivo no existe.</string>
 	<string name="error_vault_has_been_locked">Se ha bloqueado la caja fuerte.</string>
-	<string name="error_cloud_already_exists">La nube ya existe.</string>
+	<string name="error_cloud_already_exists" comment="In Cryptomator for Android, we support multiple accounts for some cloud providers like e.g. pCloud. If the user tries to save a cloud connection with the same credentials twice, this error message appears.">La nube ya existe.</string>
 	<string name="error_activity_not_found">Por favor, descarga una aplicación que pueda abrir este archivo.</string>
 	<string name="error_server_not_found">Servidor no encontrado.</string>
 	<string name="error_device_policy_manager_not_found">Abra los ajustes de sus dispositivos y establezca el bloqueo de pantalla a mano</string>
