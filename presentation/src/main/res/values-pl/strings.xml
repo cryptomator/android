@@ -13,7 +13,7 @@
 	<string name="error_vault_already_exists">Sejf już istnieje.</string>
 	<string name="error_no_such_file">Plik nie istnieje.</string>
 	<string name="error_vault_has_been_locked">Sejf został zablokowany.</string>
-	<string name="error_cloud_already_exists">Usługa już istnieje.</string>
+	<string name="error_cloud_already_exists" comment="In Cryptomator for Android, we support multiple accounts for some cloud providers like e.g. pCloud. If the user tries to save a cloud connection with the same credentials twice, this error message appears.">Usługa już istnieje.</string>
 	<string name="error_activity_not_found">Pobierz aplikację, która może otworzyć ten plik.</string>
 	<string name="error_server_not_found">Nie znaleziono serwera.</string>
 	<string name="error_device_policy_manager_not_found">Otwórz ustawienia urządzenia i ustaw ręcznie blokadę ekranu</string>
