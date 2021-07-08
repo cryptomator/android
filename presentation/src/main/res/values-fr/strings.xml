@@ -13,7 +13,7 @@
 	<string name="error_vault_already_exists">Le coffre-fort existe déjà.</string>
 	<string name="error_no_such_file">Le fichier n\'existe pas.</string>
 	<string name="error_vault_has_been_locked">Le coffre-fort a été verrouillé.</string>
-	<string name="error_cloud_already_exists">Cloud existant.</string>
+	<string name="error_cloud_already_exists" comment="In Cryptomator for Android, we support multiple accounts for some cloud providers like e.g. pCloud. If the user tries to save a cloud connection with the same credentials twice, this error message appears.">Cloud existant.</string>
 	<string name="error_activity_not_found">Veuillez télécharger une application qui peut ouvrir ce fichier.</string>
 	<string name="error_server_not_found">Serveur introuvable.</string>
 	<string name="error_device_policy_manager_not_found">Veuillez ouvrir les paramètres de votre appareil et régler le verrouillage de l\'écran à la main</string>
@@ -27,8 +27,12 @@
 	<string name="error_failed_to_decrypt_webdav_password">Le mot de passe WebDAV n\'a pas été déchiffré, veuillez l\'ajouter une nouvelle fois dans les paramètres</string>
 	<string name="error_play_services_not_available">Services Google play non installés</string>
 	<string name="error_biometric_auth_aborted">Authentification biométrique avortée</string>
+	<string name="error_vault_version_mismatch">La version spécifiée dans vault.cryptomator est différente de masterkey.cryptomator</string>
+	<string name="error_vault_key_invalid">vault.cryptomator ne correspond pas à ce masterkey.cryptomator</string>
+	<string name="error_vault_config_loading">Erreur générale lors du chargement de la configuration du coffre</string>
 	<string name="error_file_not_found_after_opening_using_3party">Le fichier local n\'est plus présent après le retour à Cryptomator. Les éventuels modifications ne peuvent être propagées au nuage.</string>
 	<string name="error_no_such_bucket">Aucun compartiment de ce type</string>
+	<string name="error_masterkey_location_not_supported">Localisation personnalisée de Masterkey pas encore prise en charge</string>
 	<!-- # clouds -->
 	<!-- ## cloud names -->
 	<string name="cloud_names_local_storage">Stockage local</string>
@@ -203,6 +207,7 @@
 	<!-- ## screen: licenses -->
 	<!-- ## screen: authenticate cloud -->
 	<string name="screen_authenticate_auth_authentication_failed">%1$s n\'a pas pu être authentifié.</string>
+	<string name="screen_update_pcloud_connections_title">Mettre à jour les identifiants pCloud</string>
 	<!-- ## screen: empty dir file info -->
 	<string name="screen_empty_dir_file_info_title">\'%1$s\' inaccessible</string>
 	<string name="screen_empty_dir_file_info_headline">Cryptomator a détecté que ce dossier est inaccessible.</string>
@@ -319,6 +324,8 @@
 	<string name="dialog_beta_confirmation_title">Version bêta</string>
 	<string name="dialog_beta_confirmation">Il s\'agit d\'une version bêta qui introduit la prise en charge du format de coffre-fort vault 7. Veuillez vous assurer que vous n\'utilisez pas votre coffre-fort principal pour les tests ou que vous disposez d\'une bonne stratégie de sauvegarde.</string>
 	<string name="dialog_no_more_images_to_display">Plus d\'images à afficher&#8230;</string>
+	<string name="dialog_pcloud_credentials_updated_title">Les identifiants de \'%1$s\' ont été mis à jour</string>
+	<string name="dialog_pcloud_credentials_updated">Si vous avez l\'intention d\'ajouter un nouveau compte pCloud, cliquez sur cette url <a href="https://www.pcloud.com">www.pcloud.com</a>, déconnectez-vous du compte courant et cliquez à nouveau sur le \'+\' dans cette application pour créer un nouveau compte pCloud.</string>
 	<string name="permission_snackbar_auth_local_vault">Cryptomator a besoin de l\'accès au stockage pour utiliser les coffres locaux</string>
 	<string name="permission_snackbar_auth_auto_upload">Cryptomator a besoin de l\'accès au stockage pour effectuer le téléversement automatique de photos</string>
 	<!-- # error reports -->
