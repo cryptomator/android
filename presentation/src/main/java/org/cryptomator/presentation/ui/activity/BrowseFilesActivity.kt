@@ -300,7 +300,7 @@ class BrowseFilesActivity : BaseActivity(), //
 	}
 
 	private fun effectiveTitle(folder: CloudFolderModel?): String {
-		val defaultTitle = getString(R.string.screen_file_browser_default_title)
+		val defaultTitle = browseFilesIntent.title() ?: getString(R.string.screen_file_browser_default_title)
 		return folder?.name?.let { folderName ->
 			if (folderName.isNotEmpty()) {
 				folderName
