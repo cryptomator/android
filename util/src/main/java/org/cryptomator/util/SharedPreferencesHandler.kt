@@ -92,11 +92,14 @@ constructor(context: Context) : SharedPreferences.OnSharedPreferenceChangeListen
 			.setValue(SCREEN_LOCK_DIALOG_SHOWN, true)
 	}
 
-	fun setBetaScreenDialogAlreadyShown() {
-		defaultSharedPreferences //
-			.setValue(SCREEN_BETA_DIALOG_SHOWN, true)
+	fun isBetaModeAlreadyShown(): Boolean {
+		return defaultSharedPreferences.getValue(SCREEN_BETA_DIALOG_SHOWN, true)
 	}
 
+	fun setBetaScreenDialogAlreadyShown(value: Boolean) {
+		defaultSharedPreferences //
+			.setValue(SCREEN_BETA_DIALOG_SHOWN, value)
+	}
 
 	fun useBiometricAuthentication(): Boolean {
 		return defaultSharedPreferences.getValue(USE_BIOMETRIC_AUTHENTICATION, false)
