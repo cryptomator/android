@@ -13,7 +13,7 @@
 	<string name="error_vault_already_exists">Tresor existiert bereits.</string>
 	<string name="error_no_such_file">Datei wurde nicht gefunden.</string>
 	<string name="error_vault_has_been_locked">Tresor wurde gesperrt.</string>
-	<string name="error_cloud_already_exists" comment="In Cryptomator for Android, we support multiple accounts for some cloud providers like e.g. pCloud. If the user tries to save a cloud connection with the same credentials twice, this error message appears.">Cloud existiert bereits.</string>
+	<string name="error_cloud_already_exists">Cloud existiert bereits.</string>
 	<string name="error_activity_not_found">Installiere eine App, die diesen Dateityp unterstützt.</string>
 	<string name="error_server_not_found">Server nicht gefunden.</string>
 	<string name="error_device_policy_manager_not_found">Bitte öffne die Einstellungen und setze den Sperrbildschirm von Hand</string>
@@ -321,8 +321,6 @@
 	<string name="dialog_sym_link_back_button">Zurück</string>
 	<string name="dialog_no_dir_file_title">Verzeichniss kann nicht geladen werden</string>
 	<string name="dialog_no_dir_file_message">Der Ordner \'%1$s\' in der Cloud hat keine Verzeichniss-Datei. Es könnte sein, dass der Ordner auf einem anderen Gerät erstellt wurde und noch nicht vollständig mit der Cloud synchronisiert ist. Bitte überprüfen, ob die folgende Datei in der Cloud existiert:\n%2$s</string>
-	<string name="dialog_beta_confirmation_title">Beta-Version</string>
-	<string name="dialog_beta_confirmation">Das ist eine Beta-Version, die das Tresor-Format 7 unterstützt. Bitte nicht mit einem produktiv eingesetzten Tresor verwenden oder dafür sorgen, dass gute Sicherungen vorhanden sind.</string>
 	<string name="dialog_no_more_images_to_display">Keine weiteren Bilder anzuzeigen&#8230;</string>
 	<string name="dialog_pcloud_credentials_updated_title">Anmeldedaten von \'%1$s\' aktualisiert</string>
 	<string name="dialog_pcloud_credentials_updated">Wenn Sie ein neues pCloud-Konto hinzufügen möchten, klicken Sie auf diese URL <a href="https://www.pcloud.com">www.pcloud.com</a>, melden Sie sich vom aktuellen Konto ab und klicken Sie erneut auf das \'+\' in dieser App, um eine neue Cloud-Verbindung herzustellen.</string>
