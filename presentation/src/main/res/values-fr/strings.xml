@@ -13,7 +13,7 @@
 	<string name="error_vault_already_exists">Le coffre-fort existe déjà.</string>
 	<string name="error_no_such_file">Le fichier n\'existe pas.</string>
 	<string name="error_vault_has_been_locked">Le coffre-fort a été verrouillé.</string>
-	<string name="error_cloud_already_exists" comment="In Cryptomator for Android, we support multiple accounts for some cloud providers like e.g. pCloud. If the user tries to save a cloud connection with the same credentials twice, this error message appears.">Cloud existant.</string>
+	<string name="error_cloud_already_exists">Cloud existant.</string>
 	<string name="error_activity_not_found">Veuillez télécharger une application qui peut ouvrir ce fichier.</string>
 	<string name="error_server_not_found">Serveur introuvable.</string>
 	<string name="error_device_policy_manager_not_found">Veuillez ouvrir les paramètres de votre appareil et régler le verrouillage de l\'écran à la main</string>
@@ -321,8 +321,6 @@
 	<string name="dialog_sym_link_back_button">Retour</string>
 	<string name="dialog_no_dir_file_title">Impossible de charger le contenu du répertoire</string>
 	<string name="dialog_no_dir_file_message">Le dossier cloud \'%1$s\' n\'a pas de fichier de répertoire. Il se peut que le dossier ait été créé sur un autre appareil et qu\'il n\'ait pas encore été entièrement synchronisé avec le cloud. Veuillez vérifier dans votre cloud si le fichier suivant existe: \n%2$s</string>
-	<string name="dialog_beta_confirmation_title">Version bêta</string>
-	<string name="dialog_beta_confirmation">Il s\'agit d\'une version bêta qui introduit la prise en charge du format de coffre-fort vault 7. Veuillez vous assurer que vous n\'utilisez pas votre coffre-fort principal pour les tests ou que vous disposez d\'une bonne stratégie de sauvegarde.</string>
 	<string name="dialog_no_more_images_to_display">Plus d\'images à afficher&#8230;</string>
 	<string name="dialog_pcloud_credentials_updated_title">Les identifiants de \'%1$s\' ont été mis à jour</string>
 	<string name="dialog_pcloud_credentials_updated">Si vous avez l\'intention d\'ajouter un nouveau compte pCloud, cliquez sur cette url <a href="https://www.pcloud.com">www.pcloud.com</a>, déconnectez-vous du compte courant et cliquez à nouveau sur le \'+\' dans cette application pour créer un nouveau compte pCloud.</string>
