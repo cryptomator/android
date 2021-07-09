@@ -52,7 +52,7 @@ class CloudNodeRenameDialog : BaseProgressErrorDialog<CloudNodeRenameDialog.Call
 		return builder
 			.setTitle(getTitle(cloudNodeModel))
 			.setPositiveButton(requireActivity().getString(R.string.dialog_rename_node_positive_button)) { _: DialogInterface, _: Int -> }
-			.setNegativeButton(requireActivity().getString(R.string.dialog_button_cancel)) { _: DialogInterface, _: Int -> }
+			.setNegativeButton(requireActivity().getString(R.string.dialog_rename_node_negative_button)) { _: DialogInterface, _: Int -> }
 			.create()
 	}
 

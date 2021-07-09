@@ -174,7 +174,7 @@ public class FileOperationsTest {
 
 		device.waitForWindowUpdate(packageName, 500);
 
-		onView(withText(R.string.dialog_button_cancel)) //
+		onView(withText(R.string.dialog_upload_file_cancel_button)) //
 				.perform(click());
 
 		awaitCompleted();
@@ -630,10 +630,10 @@ public class FileOperationsTest {
 		openShareFile();
 		try {
 			device //
-					.findObject(new UiSelector().text(context.getString(R.string.share_with_label))) //
+					.findObject(new UiSelector().text(context.getString(R.string.screen_share_label))) //
 					.waitForExists(30000L);
 			device //
-					.findObject(new UiSelector().text(context.getString(R.string.share_with_label))) //
+					.findObject(new UiSelector().text(context.getString(R.string.screen_share_label))) //
 					.click();
 		} catch (UiObjectNotFoundException e) {
 			throw new AssertionError("Share with Cryptomator not available");

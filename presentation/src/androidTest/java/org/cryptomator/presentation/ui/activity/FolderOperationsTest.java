@@ -267,7 +267,7 @@ public class FolderOperationsTest {
 
 		onView(allOf( //
 				withId(android.R.id.button1), //
-				withText(R.string.screen_enter_vault_name_button_text))) //
+				withText(R.string.screen_enter_vault_name_button))) //
 				.perform(click());
 
 		awaitCompleted();

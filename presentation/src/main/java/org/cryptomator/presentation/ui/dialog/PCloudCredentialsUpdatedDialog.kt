@@ -39,7 +39,7 @@ class PCloudCredentialsUpdatedDialog : BaseDialog<PCloudCredentialsUpdatedDialog
 		val username = requireArguments().getString(ARG_PCLOUD_USERNAME)
 		builder //
 			.setTitle(String.format(ResourceHelper.getString(R.string.dialog_pcloud_credentials_updated_title), username)) //
-			.setNeutralButton(getString(R.string.dialog_unable_to_share_positive_button)) { _: DialogInterface, _: Int ->
+			.setNeutralButton(getString(R.string.dialog_pcloud_credentials_updated_neutral_button)) { _: DialogInterface, _: Int ->
 				callback?.onNotifyForPCloudCredentialsUpdateFinished()
 			}
 		return builder.create()

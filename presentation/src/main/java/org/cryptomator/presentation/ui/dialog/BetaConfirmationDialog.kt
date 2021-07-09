@@ -17,7 +17,7 @@ class BetaConfirmationDialog : BaseDialog<BetaConfirmationDialog.Callback>() {
 	public override fun setupDialog(builder: AlertDialog.Builder): android.app.Dialog {
 		builder //
 			.setTitle(R.string.dialog_beta_confirmation_title) //
-			.setNeutralButton(getString(R.string.dialog_unable_to_share_positive_button)) { _: DialogInterface, _: Int -> callback?.onAskForBetaConfirmationFinished() }
+			.setNeutralButton(getString(R.string.dialog_beta_confirmation_neutral_button)) { _: DialogInterface, _: Int -> callback?.onAskForBetaConfirmationFinished() }
 		return builder.create()
 	}
 

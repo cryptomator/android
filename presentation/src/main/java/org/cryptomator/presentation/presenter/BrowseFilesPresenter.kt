@@ -965,7 +965,7 @@ class BrowseFilesPresenter @Inject constructor( //
 			.withChooseCloudNodeSettings( //
 				ChooseCloudNodeSettings.chooseCloudNodeSettings() //
 					.withExtraTitle(effectiveMoveExtraTitle(sourceNodes)) //
-					.withButtonText(context().getString(R.string.screen_file_browser_move_button_text)) //
+					.withButtonText(context().getString(R.string.screen_file_browser_move_button)) //
 					.withNavigationMode(ChooseCloudNodeSettings.NavigationMode.MOVE_CLOUD_NODE) //
 					.withExtraToolbarIcon(R.drawable.ic_clear) //
 					.selectingFoldersNotContaining(sourceNodes.map { node -> node.name }) //

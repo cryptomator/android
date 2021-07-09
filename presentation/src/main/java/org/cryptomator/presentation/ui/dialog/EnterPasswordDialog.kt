@@ -53,7 +53,7 @@ class EnterPasswordDialog : BaseProgressErrorDialog<EnterPasswordDialog.Callback
 		return builder //
 			.setTitle(vaultModel().name) //
 			.setPositiveButton(getString(R.string.dialog_enter_password_positive_button)) { _: DialogInterface, _: Int -> }
-			.setNegativeButton(getString(R.string.dialog_button_cancel)) { _: DialogInterface, _: Int ->
+			.setNegativeButton(getString(R.string.dialog_enter_password_negative_button)) { _: DialogInterface, _: Int ->
 				callback?.onUnlockCanceled()
 				callback?.closeDialog()
 			}.create()

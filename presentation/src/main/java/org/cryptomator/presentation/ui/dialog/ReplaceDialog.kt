@@ -50,7 +50,7 @@ class ReplaceDialog private constructor(private val context: Context) {
 	}
 
 	private fun effectiveReplaceDialogNeutralButton(): String {
-		return ResourceHelper.getString(R.string.dialog_button_cancel)
+		return ResourceHelper.getString(R.string.dialog_replace_neutral_button)
 	}
 
 	private fun effectiveReplaceDialogMessage(existingFiles: List<String>, uploadingFilesCount: Int): String {

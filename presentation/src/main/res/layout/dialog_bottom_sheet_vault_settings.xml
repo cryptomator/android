@@ -61,7 +61,7 @@
 		<TextView
 			android:id="@+id/change_password"
 			style="@style/AppTheme.ListItem"
-			android:text="@string/dialog_change_password"
+			android:text="@string/screen_vault_list_vault_action_change_password"
 			app:drawableStartCompat="@drawable/ic_swap_horiz" />
 
 		<TextView

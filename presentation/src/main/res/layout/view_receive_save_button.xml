@@ -18,7 +18,7 @@
 		android:layout_alignParentEnd="true"
 		android:layout_margin="10dp"
 		android:background="@drawable/primary_button_selector"
-		android:text="@string/screen_share_files_save_button_text"
+		android:text="@string/screen_share_files_save_button"
 		android:textColor="@color/textColorWhite" />
 
 </RelativeLayout>

@@ -67,7 +67,7 @@
 		android:layout_width="match_parent"
 		android:layout_height="wrap_content"
 		android:layout_marginTop="16dp"
-		android:text="@string/screen_webdav_settings_done_button_text"
+		android:text="@string/screen_webdav_settings_done_button"
 		android:textStyle="bold" />
 
 </LinearLayout>

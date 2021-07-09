@@ -67,7 +67,7 @@ class LicenseCheckActivity : BaseActivity(), UpdateLicenseDialog.Callback, Licen
 	}
 
 	private fun setupToolbar() {
-		toolbar.title = getString(R.string.app_name).uppercase()
+		toolbar.title = getString(R.string.screen_license_title).uppercase()
 		setSupportActionBar(toolbar)
 	}
 

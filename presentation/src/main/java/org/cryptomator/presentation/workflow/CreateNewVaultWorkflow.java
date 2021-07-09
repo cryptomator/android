@@ -98,7 +98,7 @@ public class CreateNewVaultWorkflow extends Workflow<CreateNewVaultWorkflow.Stat
 								chooseCloudNodeSettings() //
 										.withExtraTitle(presenter().context().getString(R.string.screen_file_browser_subtitle_create_new_vault)) //
 										.withExtraText(presenter().context().getString(R.string.screen_file_browser_create_new_vault_extra_text, state().name)) //
-										.withButtonText(presenter().context().getString(R.string.screen_file_browser_create_new_vault_button_text)) //
+										.withButtonText(presenter().context().getString(R.string.screen_file_browser_create_new_vault_button)) //
 										.selectingFoldersNotContaining(singletonList(state().name)) //
 										.build()), //
 				SerializableResultCallbacks.locationChosen());

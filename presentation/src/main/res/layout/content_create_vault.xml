@@ -35,7 +35,7 @@
 		android:layout_width="match_parent"
 		android:layout_height="wrap_content"
 		android:layout_marginTop="16dp"
-		android:text="@string/screen_enter_vault_name_button_text"
+		android:text="@string/screen_enter_vault_name_button"
 		android:textStyle="bold" />
 
 </LinearLayout>

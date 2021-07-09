@@ -4,7 +4,7 @@
 
 	<item
 		android:id="@+id/action_search"
-		android:title="@string/snack_bar_action_title_search"
+		android:title="@string/screen_file_browser_search"
 		app:actionViewClass="androidx.appcompat.widget.SearchView"
 		app:showAsAction="ifRoom" />
 
@@ -17,7 +17,7 @@
 	<item
 		android:id="@+id/action_move_items"
 		android:enabled="false"
-		android:title="@string/screen_file_browser_move_button_text"
+		android:title="@string/screen_file_browser_move_button"
 		app:showAsAction="never" />
 
 	<item

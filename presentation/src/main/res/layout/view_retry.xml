@@ -17,6 +17,6 @@
 	<Button
 		android:id="@+id/bt_retry"
 		style="@style/AppTheme.RetryButton"
-		android:text="@string/screen_file_browser_no_connection_button_text" />
+		android:text="@string/screen_file_browser_no_connection_button" />
 
 </RelativeLayout>

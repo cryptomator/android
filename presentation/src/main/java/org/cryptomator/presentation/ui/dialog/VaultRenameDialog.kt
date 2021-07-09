@@ -47,7 +47,7 @@ class VaultRenameDialog : BaseProgressErrorDialog<VaultRenameDialog.Callback>() 
 		return builder
 			.setTitle(requireContext().getString(R.string.dialog_rename_vault_title))
 			.setPositiveButton(requireContext().getString(R.string.dialog_rename_vault_positive_button)) { _: DialogInterface, _: Int -> }
-			.setNegativeButton(requireContext().getString(R.string.dialog_button_cancel)) { _: DialogInterface, _: Int -> }
+			.setNegativeButton(requireContext().getString(R.string.dialog_rename_vault_negative_button)) { _: DialogInterface, _: Int -> }
 			.create()
 	}
 

@@ -145,9 +145,9 @@ class AutoUploadChooseVaultPresenter @Inject constructor( //
 				.withTitle(vaultModel.name) //
 				.withChooseCloudNodeSettings( //
 					ChooseCloudNodeSettings.chooseCloudNodeSettings() //
-						.withExtraTitle(context().getString(R.string.screen_file_browser_share_destination_title)) //
+						.withExtraTitle(context().getString(R.string.screen_auto_upload_choose_folder_title)) //
 						.withExtraToolbarIcon(R.drawable.ic_clear) //
-						.withButtonText(context().getString(R.string.screen_file_browser_share_button_text)) //
+						.withButtonText(context().getString(R.string.screen_auto_upload_choose_button)) //
 						.selectingFolders() //
 						.build()
 				)

@@ -99,7 +99,7 @@ class VaultListActivity : BaseActivity(), //
 	}
 
 	private fun setupToolbar() {
-		toolbar.title = getString(R.string.app_name).uppercase()
+		toolbar.title = getString(R.string.screen_vault_list_toolbar_title).uppercase()
 		setSupportActionBar(toolbar)
 	}
 

@@ -19,7 +19,7 @@ class FileTypeNotSupportedDialog : BaseDialog<FileTypeNotSupportedDialog.Callbac
 		val cloudFileModel = requireArguments().getSerializable(CLOUD_FILE_ARG) as CloudFileModel
 		builder.setTitle(String.format(getString(R.string.dialog_filetype_not_supported_title), cloudFileModel.name))
 			.setPositiveButton(getString(R.string.dialog_filetype_not_supported_positive_button)) { _: DialogInterface, _: Int -> callback?.onExportFileAfterAppChooserClicked(cloudFileModel) } //
-			.setNegativeButton(getString(R.string.dialog_button_cancel)) { _: DialogInterface, _: Int -> }
+			.setNegativeButton(getString(R.string.dialog_filetype_not_supported_negative_button)) { _: DialogInterface, _: Int -> }
 		return builder.create()
 	}
 

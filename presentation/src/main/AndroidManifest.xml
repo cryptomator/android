@@ -70,7 +70,7 @@
 			android:excludeFromRecents="true"
 			android:taskAffinity=".share"
 			android:windowSoftInputMode="stateHidden|adjustPan">
-			<intent-filter android:label="@string/share_with_label">
+			<intent-filter android:label="@string/screen_share_label">
 				<action android:name="android.intent.action.SEND" />
 				<action android:name="android.intent.action.SEND_MULTIPLE" />
 

@@ -93,8 +93,8 @@ class ChangePasswordDialog : BaseProgressErrorDialog<ChangePasswordDialog.Callba
 		val vaultModel = requireArguments().getSerializable(VAULT_ARG) as VaultModel
 		return builder //
 			.setTitle(vaultModel.name) //
-			.setPositiveButton(getString(R.string.dialog_change_password)) { _: DialogInterface, _: Int -> } //
-			.setNegativeButton(getString(R.string.dialog_button_cancel)) { _: DialogInterface?, _: Int -> } //
+			.setPositiveButton(getString(R.string.dialog_change_password_positive_button)) { _: DialogInterface, _: Int -> } //
+			.setNegativeButton(getString(R.string.dialog_change_password_negative_button)) { _: DialogInterface?, _: Int -> } //
 			.create()
 	}
 

@@ -5,28 +5,28 @@
 	<item
 		android:id="@+id/action_search"
 		android:icon="@drawable/ic_search_white"
-		android:title="@string/snack_bar_action_title_search"
+		android:title="@string/screen_text_editor_search"
 		app:actionViewClass="androidx.appcompat.widget.SearchView"
 		app:showAsAction="ifRoom|collapseActionView" />
 
 	<item
 		android:id="@+id/action_search_previous"
 		android:icon="@drawable/ic_chevron_left"
-		android:title="@string/snack_bar_action_title_search_previous"
+		android:title="@string/screen_text_editor_search_previous"
 		android:visible="false"
 		app:showAsAction="always" />
 
 	<item
 		android:id="@+id/action_search_next"
 		android:icon="@drawable/ic_chevron_right"
-		android:title="@string/snack_bar_action_title_search_next"
+		android:title="@string/screen_text_editor_search_next"
 		android:visible="false"
 		app:showAsAction="always" />
 
 	<item
 		android:id="@+id/action_save_changes"
 		android:icon="@drawable/ic_save"
-		android:title="@string/screen_cloud_settings_title"
+		android:title="@string/screen_text_editor_save"
 		app:showAsAction="ifRoom" />
 
 </menu>

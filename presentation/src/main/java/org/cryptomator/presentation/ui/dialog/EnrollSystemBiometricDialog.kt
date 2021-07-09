@@ -23,10 +23,10 @@ class EnrollSystemBiometricDialog : BaseDialog<EnrollSystemBiometricDialog.Callb
 		builder //
 			.setTitle(getString(R.string.dialog_no_biometric_auth_set_up_title)) //
 			.setPositiveButton(
-				getString(R.string.dialog_unable_to_share_positive_button)  //
+				getString(R.string.dialog_no_biometric_auth_set_up_positive_button)  //
 			) { _: DialogInterface, _: Int -> callback?.onSetupBiometricAuthInSystemClicked() }
 			.setNegativeButton(
-				getString(R.string.dialog_button_cancel)  //
+				getString(R.string.dialog_no_biometric_auth_set_up_negative_button)  //
 			) { _: DialogInterface?, _: Int -> callback?.onCancelSetupBiometricAuthInSystemClicked() }
 		return builder.create()
 	}
