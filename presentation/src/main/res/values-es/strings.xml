@@ -13,7 +13,7 @@
 	<string name="error_vault_already_exists">La caja fuerte ya existe.</string>
 	<string name="error_no_such_file">El archivo no existe.</string>
 	<string name="error_vault_has_been_locked">Se ha bloqueado la caja fuerte.</string>
-	<string name="error_cloud_already_exists" comment="In Cryptomator for Android, we support multiple accounts for some cloud providers like e.g. pCloud. If the user tries to save a cloud connection with the same credentials twice, this error message appears.">La nube ya existe.</string>
+	<string name="error_cloud_already_exists">La nube ya existe.</string>
 	<string name="error_activity_not_found">Por favor, descarga una aplicación que pueda abrir este archivo.</string>
 	<string name="error_server_not_found">Servidor no encontrado.</string>
 	<string name="error_device_policy_manager_not_found">Abra los ajustes de sus dispositivos y establezca el bloqueo de pantalla a mano</string>
@@ -321,8 +321,6 @@
 	<string name="dialog_sym_link_back_button">Volver</string>
 	<string name="dialog_no_dir_file_title">No se puede cargar el contenido del directorio</string>
 	<string name="dialog_no_dir_file_message">La carpeta de la nube \'%1$s\' no tiene un archivo de directorio. Podría ser que la carpeta se creó en otro dispositivo y aún no se ha sincronizado completamente en la nube. Compruebe en la nube si existe el siguiente archivo:\n%2$s</string>
-	<string name="dialog_beta_confirmation_title">Lanzamiento beta</string>
-	<string name="dialog_beta_confirmation">Esta es una versión beta que introduce el soporte del formato de bóveda 7. Asegúrese de que no usa su bóveda de producción para probar o tiene una buena estrategia de copia de seguridad.</string>
 	<string name="dialog_no_more_images_to_display">No hay más imágenes para mostrar&#8230;</string>
 	<string name="dialog_pcloud_credentials_updated_title">Credenciales de \'%1$s\' actualizadas</string>
 	<string name="dialog_pcloud_credentials_updated">Si desea añadir una cuenta pCloud nueva, haga clic en esta url <a href="https://www.pcloud.com">www.pcloud.com</a>, cierre la sesión de la cuenta actual y haga clic de nuevo en \'+\' de esta aplicación para crear una conexión nueva en la nube.</string>
