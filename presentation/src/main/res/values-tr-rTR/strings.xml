@@ -28,6 +28,7 @@
 	<string name="error_play_services_not_available">Play Hizmetleri yüklü değil</string>
 	<string name="error_biometric_auth_aborted">Biyometrik kimlik doğrulama iptal edildi</string>
 	<string name="error_vault_version_mismatch">Belirtilen vault.cryptomator versiyonu, masterkey.cryptomator versiyonundan farklı</string>
+	<string name="error_vault_key_invalid">vault.cryptomator masterkey.cryptomator ile eşleşmiyor</string>
 	<string name="error_vault_config_loading">Cüzdan ayarlarını yüklerken genel hata</string>
 	<string name="error_file_not_found_after_opening_using_3party">Cryptomator geri döndükten sonra, lokal dosya artık mevcut olmaz. Muhtemel değişiklikler bulutta tekrar oluşturulamaz.</string>
 	<string name="error_no_such_bucket">Böyle bir sepet yok</string>
@@ -166,6 +167,7 @@
 	<string name="screen_settings_live_search">Canlı arama</string>
 	<string name="screen_settings_live_search_summary">Sorgulama yaparken, arama sonuçlarını güncelle</string>
 	<string name="screen_settings_glob_search">Glob kalıbı kullanarak ara</string>
+	<string name="screen_settings_glob_search_summary">Glob pattern kullan. alice.*.jpg gibi</string>
 	<string name="screen_settings_section_auto_lock">Otomatik Kilitleme</string>
 	<string name="screen_settings_auto_lock_timeout">Kilitleme zamanı</string>
 	<string name="screen_settings_auto_lock_on_screen_lock">Ekran devre dışı bırakıldığında</string>
