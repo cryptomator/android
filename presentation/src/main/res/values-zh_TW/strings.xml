@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+	<!-- # app -->
+	<!-- # error messages -->
+	<!-- # clouds -->
+	<!-- ## cloud names -->
+	<!-- # permission -->
+	<!-- ## permission messages -->
+	<string name="snack_bar_action_title_search_next">繼續</string>
+	<!-- # screens -->
+	<!-- # screen: vault list -->
+	<string name="screen_vault_list_vault_action_delete">移除</string>
+	<!-- # screen: file browser -->
+	<string name="screen_file_browser_default_title">加密檔案庫</string>
+	<!-- ## screen: text editor -->
+	<!-- ## screen: share files -->
+	<!-- ## screen: choose cloud service -->
+	<!-- ## screen: cloud connections -->
+	<!-- ## screen: webdav settings -->
+	<string name="screen_webdav_settings_password_label">密碼</string>
+	<!-- ## screen: s3 settings -->
+	<!-- ## screen: enter vault name -->
+	<!-- ## screen: set password -->
+	<string name="screen_set_password_button_text">完成</string>
+	<string name="screen_set_password_strength_indicator_1">弱</string>
+	<string name="screen_set_password_strength_indicator_2">一般</string>
+	<string name="screen_set_password_strength_indicator_3">強</string>
+	<!-- ## screen: settings -->
+	<string name="screen_settings_section_general">一般</string>
+	<!-- ## screen: cloud settings -->
+	<!-- ## screen: licenses -->
+	<!-- ## screen: authenticate cloud -->
+	<!-- ## screen: empty dir file info -->
+	<!-- ## screen: insecure android version info -->
+	<!-- # dialogs -->
+	<string name="dialog_button_cancel">取消</string>
+	<string name="dialog_enter_password_positive_button">解鎖</string>
+	<!-- Vault not found -->
+	<string name="dialog_vault_not_found_positive_button_text">移除</string>
+	<string name="dialog_lock_vault">鎖定</string>
+	<string name="dialog_app_is_obscured_info_neutral_button">關閉</string>
+	<string name="dialog_sym_link_back_button">上一頁</string>
+	<!-- # error reports -->
+	<!-- # misc -->
+	<!-- ## file size helper -->
+	<!-- ## date helper -->
+	<!-- ## biometric authentication -->
+	<!-- notification -->
+	<!-- lock timeout names -->
+	<!-- cache size names -->
+	<!-- screen scheme mode names -->
+	<string name="light">亮色</string>
+	<string name="dark">暗色</string>
+	<!-- update interval names -->
+</resources>
