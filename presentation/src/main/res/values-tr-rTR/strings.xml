@@ -31,7 +31,7 @@
 	<string name="error_vault_key_invalid">vault.cryptomator masterkey.cryptomator ile eşleşmiyor</string>
 	<string name="error_vault_config_loading">Cüzdan ayarlarını yüklerken genel hata</string>
 	<string name="error_file_not_found_after_opening_using_3party">Cryptomator geri döndükten sonra, lokal dosya artık mevcut olmaz. Muhtemel değişiklikler bulutta tekrar oluşturulamaz.</string>
-	<string name="error_no_such_bucket">Böyle bir sepet yok</string>
+	<string name="error_no_such_bucket">Böyle bir kova yok</string>
 	<string name="error_masterkey_location_not_supported">Özel ana anahtar lokasyonu desteklenmiyor</string>
 	<!-- # clouds -->
 	<!-- ## cloud names -->
@@ -131,13 +131,13 @@
 	<string name="screen_s3_settings_display_name_label">Görünen Ad</string>
 	<string name="screen_s3_settings_access_key_label">Erişim Anahtarı</string>
 	<string name="screen_s3_settings_secret_key_label">Gizli Anahtar</string>
-	<string name="screen_s3_settings_bucket_label">Varolan sepet</string>
+	<string name="screen_s3_settings_bucket_label">Mevcut Kova</string>
 	<string name="screen_s3_settings_endpoint_label">Endpoint</string>
 	<string name="screen_s3_settings_region_label">Bölge</string>
 	<string name="screen_s3_settings_msg_display_name_not_empty">Görünen Ad boş olamaz</string>
 	<string name="screen_s3_settings_msg_access_key_not_empty">Erişim Anahtarı boş olamaz</string>
 	<string name="screen_s3_settings_msg_secret_key_not_empty">Gizli Anahtar boş olamaz</string>
-	<string name="screen_s3_settings_msg_bucket_not_empty">Sepet boş olamaz</string>
+	<string name="screen_s3_settings_msg_bucket_not_empty">Kova boş olamaz</string>
 	<string name="screen_s3_settings_msg_endpoint_and_region_not_empty">Uç nokta yada bölge boş olamaz</string>
 	<!-- ## screen: enter vault name -->
 	<string name="screen_enter_vault_name_msg_name_empty">Kasa adı boş olamaz.</string>
@@ -161,6 +161,7 @@
 	<string name="screen_settings_activate_biometric_auth">Biyometrik kimlik doğrulamayı etkinleştir</string>
 	<string name="screen_settings_confirm_face_unlock">Yüz tanıma kilidini (varsa) onaylayın</string>
 	<string name="screen_settings_block_app_when_obscured">Gizlendiğinde uygulamayı engelle</string>
+	<string name="screen_settings_block_app_when_obscured_summary">Girdiye müdahele etmeyi ve sahte bir kullanıcı arayüzü görüntülemeyi engelle</string>
 	<string name="screen_settings_secure_screen">Ekran alıntılarını engelle</string>
 	<string name="screen_settings_secure_screen_summary">Son uygulamalar görünümünde ve uygulama içinde ekran alıntısı alınmasını engelle</string>
 	<string name="screen_settings_section_search">Arama</string>
@@ -174,6 +175,7 @@
 	<string name="screen_settings_section_auto_photo_upload">Otomatik Fotoğraf Yükleme</string>
 	<string name="screen_settings_section_auto_photo_upload_vault">Yükleme için kasa seçin</string>
 	<string name="screen_settings_section_auto_photo_upload_toggle">Etkinleştir</string>
+	<string name="screen_settings_section_auto_photo_upload_toggle_summary">Arka planda görüntüleri yakalayın ve seçilen kasanın kilidi açıldığında yüklemeye başlayın</string>
 	<string name="screen_settings_section_auto_photo_upload_only_wifi_toggle">Yalnızca WIFI kullanarak yükle</string>
 	<string name="screen_settings_section_auto_photo_upload_including_videos">Videoları yükle</string>
 	<string name="screen_settings_auto_photo_upload_title">Otomatik yükleme&#8230;</string>
@@ -192,6 +194,7 @@
 	<string name="screen_settings_section_version">Sürüm</string>
 	<string name="screen_settings_advanced_settings">Gelişmiş Ayarlar</string>
 	<string name="screen_settings_background_unlock_preparation_label">Kilidi açmayı hızlandır</string>
+	<string name="screen_settings_background_unlock_preparation_label_summary">Parola veya biyometrik doğrulama girmeniz istendiğinde kasa yapılandırmasını arka planda indirin</string>
 	<string name="screen_settings_keep_unlocked_while_editing_files">Kilidi açık tut</string>
 	<string name="screen_settings_keep_unlocked_while_editing_files_summary">Düzenlerken kasa kilidi açık</string>
 	<!-- ## screen: cloud settings -->
@@ -320,6 +323,7 @@
 	<string name="dialog_no_dir_file_message">\'%1$s\' bulut klasörünün bir dizin dosyası yok. Klasör başka bir cihazda oluşturulmuş ve henüz buluta tam olarak senkronize edilmemiş olabilir. Lütfen aşağıdaki dosyanın mevcut olup olmadığını kontrol edin:\n%2$s</string>
 	<string name="dialog_no_more_images_to_display">&#8230; göstermek için daha fazla resim yok</string>
 	<string name="dialog_pcloud_credentials_updated_title">%1$s kimlik bilgileri güncellendi</string>
+	<string name="dialog_pcloud_credentials_updated">Yeni bir pCloud hesabı eklemeyi düşünüyorsanız, bu url <a href="https://www.pcloud.com">www.pcloud.com</a> tıklayın, mevcut hesaptan çıkın ve yeni bir bulut bağlantısı oluşturmak için bu uygulamadaki \'+\'. tekrar tıklayın.</string>
 	<string name="permission_snackbar_auth_local_vault">Cryptomator\'un yerel kasaları kullanmak için depolama erişimine ihtiyacı var</string>
 	<string name="permission_snackbar_auth_auto_upload">Cryptomator\'un otomatik fotoğraf yüklemesi için depolama erişimine ihtiyacı var</string>
 	<!-- # error reports -->
@@ -368,6 +372,7 @@
 	<string name="notification_open_writable_file_message">Düzenleme tamamlanana kadar, uygulamalar kasası kilidi açık kalır</string>
 	<string name="notification_update_check_finished_latest">En son sürüm yüklendi</string>
 	<string name="screen_settings_lru_cache">Önbellek</string>
+	<string name="screen_settings_lru_cache_toggle_summary">Yeniden açıldıklarında daha sonra yeniden kullanılmak üzere cihazda yerel olarak şifrelenmiş yakın zamanda erişilen dosyaları önbelleğe alın</string>
 	<string name="screen_settings_lru_cache_size">Toplam önbellek boyutu</string>
 	<string name="screen_settings_clear_lru_cache_size">Önbelleği temizle</string>
 	<string name="screen_settings_lru_cache_changed__restart_toast">Değişiklikler, uygulama yeniden başlatıldığında uygulanacak</string>
