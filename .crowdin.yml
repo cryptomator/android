@@ -3,3 +3,4 @@ commit_message: '[ci skip]'
 files:
   - source: /presentation/src/main/res/values/strings.xml
     translation: /presentation/src/main/res/values-%two_letters_code%/%original_file_name%
+    skip_untranslated_strings: true
