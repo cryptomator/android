@@ -353,7 +353,7 @@
 
 	<!-- Vault not found -->
 	<string name="dialog_vault_not_found_title">Vault %1$s not found</string>
-	<string name="dialog_vault_not_found_message">The vault has been renamed, moved or deleted. Remove this vault form the list and add it again to proceed. Remove now?</string>
+	<string name="dialog_vault_not_found_message">The vault has been renamed, moved or deleted. Remove this vault from the list and add it again to proceed. Remove now?</string>
 	<string name="dialog_vault_not_found_positive_button">Remove</string>
 	<string name="dialog_vault_not_found_negative_button" translatable="false">@string/dialog_create_folder_negative_button</string>
 
@@ -447,7 +447,7 @@
 	<string name="dialog_no_screen_lock_neutral_button" translatable="false">@string/dialog_unable_to_share_positive_button</string>
 
 	<string name="dialog_no_biometric_auth_set_up_title">No basic authentication set up in system</string>
-	<string name="dialog_no_biometric_auth_set_up_message">Enroll at least one finger/face to use this service.</string>
+	<string name="dialog_no_biometric_auth_set_up_message">Enroll at least one fingerprint or face to use this service.</string>
 	<string name="dialog_no_biometric_auth_set_up_positive_button" translatable="false">@string/dialog_unable_to_share_positive_button</string>
 	<string name="dialog_no_biometric_auth_set_up_negative_button" translatable="false">@string/dialog_create_folder_negative_button</string>
 
