@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+	<!-- # app -->
+	<!-- # error messages -->
+	<!-- # clouds -->
+	<!-- ## cloud names -->
+	<!-- # permission -->
+	<!-- ## permission messages -->
+	<string name="snack_bar_action_title_settings">Ρυθμίσεις</string>
+	<string name="snack_bar_action_title_search_next">Επόμενο</string>
+	<!-- # screens -->
+	<!-- # screen: vault list -->
+	<string name="screen_vault_list_vault_action_delete">Αφαίρεση</string>
+	<!-- # screen: file browser -->
+	<string name="screen_file_browser_default_title">Vault</string>
+	<string name="screen_file_browser_share_button_text">Επιλογή</string>
+	<string name="screen_file_browser_node_action_edit_text">Επεξεργασία</string>
+	<!-- ## screen: text editor -->
+	<!-- ## screen: share files -->
+	<!-- ## screen: choose cloud service -->
+	<!-- ## screen: cloud connections -->
+	<!-- ## screen: webdav settings -->
+	<string name="screen_webdav_settings_url_port_label">URL</string>
+	<string name="screen_webdav_settings_username_label">Όνομα χρήστη</string>
+	<string name="screen_webdav_settings_password_label">Κωδικός πρόσβασης</string>
+	<!-- ## screen: s3 settings -->
+	<!-- ## screen: enter vault name -->
+	<string name="screen_enter_vault_name_button_text">Δημιουργία</string>
+	<!-- ## screen: set password -->
+	<string name="screen_set_password_button_text">Κλείσιμο</string>
+	<string name="screen_set_password_hint">ΣΗΜΑΝΤΙΚΟ: Εάν ξεχάσετε τον κωδικό πρόσβασής σας, δεν υπάρχει τρόπος να ανακτήσετε τα δεδομένα σας.</string>
+	<string name="screen_set_password_strength_indicator_1">Αδύναμος</string>
+	<string name="screen_set_password_strength_indicator_2">Μέτριος</string>
+	<string name="screen_set_password_strength_indicator_3">Δυνατός</string>
+	<!-- ## screen: settings -->
+	<string name="screen_settings_section_general">Γενικά</string>
+	<!-- ## screen: cloud settings -->
+	<!-- ## screen: licenses -->
+	<!-- ## screen: authenticate cloud -->
+	<!-- ## screen: empty dir file info -->
+	<!-- ## screen: insecure android version info -->
+	<!-- # dialogs -->
+	<string name="dialog_button_cancel">Ακύρωση</string>
+	<string name="dialog_enter_password_positive_button">Ξεκλείδωμα</string>
+	<!-- Vault not found -->
+	<string name="dialog_vault_not_found_positive_button_text">Αφαίρεση</string>
+	<string name="dialog_unable_to_share_positive_button">ΟΚ</string>
+	<string name="dialog_lock_vault">Κλείδωμα</string>
+	<string name="dialog_app_is_obscured_info_neutral_button">Κλείσιμο</string>
+	<string name="dialog_sym_link_back_button">Πίσω</string>
+	<!-- # error reports -->
+	<!-- # misc -->
+	<!-- ## file size helper -->
+	<!-- ## date helper -->
+	<string name="time_unit_minutes_pl">λεπτά</string>
+	<!-- ## biometric authentication -->
+	<!-- notification -->
+	<!-- lock timeout names -->
+	<!-- cache size names -->
+	<!-- screen scheme mode names -->
+	<string name="light">Ανοιχτό</string>
+	<string name="dark">Σκούρο</string>
+	<!-- update interval names -->
+</resources>
