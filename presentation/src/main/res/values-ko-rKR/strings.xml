@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+	<!-- # app -->
+	<!-- # error messages -->
+	<!-- # clouds -->
+	<!-- ## cloud names -->
+	<!-- # permission -->
+	<!-- ## permission messages -->
+	<string name="snack_bar_action_title_settings">설정</string>
+	<string name="snack_bar_action_title_search_next">다음</string>
+	<!-- # screens -->
+	<!-- # screen: vault list -->
+	<string name="screen_vault_list_vault_action_delete">제거</string>
+	<!-- # screen: file browser -->
+	<string name="screen_file_browser_default_title">Vault</string>
+	<string name="screen_file_browser_share_button_text">선택</string>
+	<string name="screen_file_browser_node_action_edit_text">수정</string>
+	<!-- ## screen: text editor -->
+	<!-- ## screen: share files -->
+	<!-- ## screen: choose cloud service -->
+	<!-- ## screen: cloud connections -->
+	<!-- ## screen: webdav settings -->
+	<string name="screen_webdav_settings_url_port_label">URL</string>
+	<string name="screen_webdav_settings_username_label">사용자명</string>
+	<string name="screen_webdav_settings_password_label">비밀번호</string>
+	<!-- ## screen: s3 settings -->
+	<!-- ## screen: enter vault name -->
+	<string name="screen_enter_vault_name_button_text">생성</string>
+	<!-- ## screen: set password -->
+	<string name="screen_set_password_button_text">완료</string>
+	<string name="screen_set_password_hint">중요: 만약 비밀번호를 잊어버린 경우, 데이터를 복구 할 방법이 없습니다.</string>
+	<string name="screen_set_password_strength_indicator_1">취약함</string>
+	<string name="screen_set_password_strength_indicator_2">보통</string>
+	<string name="screen_set_password_strength_indicator_3">강함</string>
+	<!-- ## screen: settings -->
+	<string name="screen_settings_section_general">일반</string>
+	<!-- ## screen: cloud settings -->
+	<!-- ## screen: licenses -->
+	<!-- ## screen: authenticate cloud -->
+	<!-- ## screen: empty dir file info -->
+	<!-- ## screen: insecure android version info -->
+	<!-- # dialogs -->
+	<string name="dialog_button_cancel">취소</string>
+	<string name="dialog_enter_password_positive_button">잠금해제</string>
+	<!-- Vault not found -->
+	<string name="dialog_vault_not_found_positive_button_text">제거</string>
+	<string name="dialog_unable_to_share_positive_button">OK</string>
+	<string name="dialog_lock_vault">잠금</string>
+	<string name="dialog_app_is_obscured_info_neutral_button">닫기</string>
+	<string name="dialog_sym_link_back_button">뒤로</string>
+	<!-- # error reports -->
+	<!-- # misc -->
+	<!-- ## file size helper -->
+	<!-- ## date helper -->
+	<string name="time_unit_minutes_pl">분</string>
+	<!-- ## biometric authentication -->
+	<!-- notification -->
+	<!-- lock timeout names -->
+	<!-- cache size names -->
+	<!-- screen scheme mode names -->
+	<string name="light">밝게</string>
+	<string name="dark">어둡게</string>
+	<!-- update interval names -->
+</resources>

@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+	<!-- # app -->
+	<!-- # error messages -->
+	<!-- # clouds -->
+	<!-- ## cloud names -->
+	<!-- # permission -->
+	<!-- ## permission messages -->
+	<string name="snack_bar_action_title_settings">Configurações</string>
+	<string name="snack_bar_action_title_search_next">Próximo</string>
+	<!-- # screens -->
+	<!-- # screen: vault list -->
+	<string name="screen_vault_list_vault_action_delete">Remover</string>
+	<!-- # screen: file browser -->
+	<string name="screen_file_browser_default_title">Cofre</string>
+	<string name="screen_file_browser_share_button_text">Escolher</string>
+	<string name="screen_file_browser_node_action_edit_text">Editar</string>
+	<!-- ## screen: text editor -->
+	<!-- ## screen: share files -->
+	<!-- ## screen: choose cloud service -->
+	<!-- ## screen: cloud connections -->
+	<!-- ## screen: webdav settings -->
+	<string name="screen_webdav_settings_url_port_label">URL</string>
+	<string name="screen_webdav_settings_username_label">Usuário</string>
+	<string name="screen_webdav_settings_password_label">Senha</string>
+	<!-- ## screen: s3 settings -->
+	<!-- ## screen: enter vault name -->
+	<string name="screen_enter_vault_name_button_text">Criar</string>
+	<!-- ## screen: set password -->
+	<string name="screen_set_password_button_text">Concluído</string>
+	<string name="screen_set_password_hint">IMPORTANTE: Se você esquecer sua senha, não há como recuperar seus dados.</string>
+	<string name="screen_set_password_strength_indicator_1">Fraca</string>
+	<string name="screen_set_password_strength_indicator_2">Média</string>
+	<string name="screen_set_password_strength_indicator_3">Forte</string>
+	<!-- ## screen: settings -->
+	<string name="screen_settings_section_general">Geral</string>
+	<!-- ## screen: cloud settings -->
+	<!-- ## screen: licenses -->
+	<!-- ## screen: authenticate cloud -->
+	<!-- ## screen: empty dir file info -->
+	<!-- ## screen: insecure android version info -->
+	<!-- # dialogs -->
+	<string name="dialog_button_cancel">Cancelar</string>
+	<string name="dialog_enter_password_positive_button">Desbloquear</string>
+	<!-- Vault not found -->
+	<string name="dialog_vault_not_found_positive_button_text">Remover</string>
+	<string name="dialog_unable_to_share_positive_button">Ok</string>
+	<string name="dialog_lock_vault">Bloquear</string>
+	<string name="dialog_app_is_obscured_info_neutral_button">Fechar</string>
+	<string name="dialog_sym_link_back_button">Voltar</string>
+	<!-- # error reports -->
+	<!-- # misc -->
+	<!-- ## file size helper -->
+	<!-- ## date helper -->
+	<string name="time_unit_minutes_pl">minutos</string>
+	<!-- ## biometric authentication -->
+	<!-- notification -->
+	<!-- lock timeout names -->
+	<!-- cache size names -->
+	<!-- screen scheme mode names -->
+	<string name="light">Claro</string>
+	<string name="dark">Escuro</string>
+	<!-- update interval names -->
+</resources>
