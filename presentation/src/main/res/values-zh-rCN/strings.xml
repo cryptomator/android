@@ -397,7 +397,11 @@
 	<string name="cache_size_5000m">5 GB</string>
 	<!-- screen scheme mode names -->
 	<string name="screen_settings_style_mode">主题</string>
+	<string name="follow_system">自动 (跟随系统)</string>
 	<string name="light">亮色</string>
 	<string name="dark">暗色</string>
 	<!-- update interval names -->
+	<string name="update_interval_1d">每天一次</string>
+	<string name="update_interval_1w">每周一次</string>
+	<string name="update_interval_1m">每月一次</string>
 </resources>
