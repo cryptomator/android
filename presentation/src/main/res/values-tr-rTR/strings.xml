@@ -388,7 +388,6 @@
 	<string name="lock_timeout_2m">2 dakika</string>
 	<string name="lock_timeout_5m">5 dakika</string>
 	<string name="lock_timeout_10m">10 dakika</string>
-	<string name="lock_timeout_never">@string/lock_timeout_never</string>
 	<!-- cache size names -->
 	<string name="cache_size_50m">50 MB</string>
 	<string name="cache_size_100m">100 MB</string>
