@@ -213,6 +213,6 @@ class VaultListActivity : BaseActivity(), //
 	}
 
 	override fun onAskForBetaConfirmationFinished() {
-		sharedPreferencesHandler.setBetaScreenDialogAlreadyShown()
+		sharedPreferencesHandler.setBetaScreenDialogAlreadyShown(true)
 	}
 }

@@ -5,6 +5,7 @@
 	<!-- # error messages -->
 	<string name="error_generic">Bir hata oluştu</string>
 	<string name="error_authentication_failed">Kullanıcı adı veya şifre yanlış</string>
+	<string name="error_authentication_failed_re_authenticate">Kimlik doğrulama başarısız, lütfen %1$s kullanarak giriş yapınız</string>
 	<string name="error_no_network_connection">Ağ bağlantısı yok</string>
 	<string name="error_invalid_passphrase">Şifre yanlış</string>
 	<string name="error_file_or_folder_exists">Dosya veya klasör zaten var.</string>
@@ -21,10 +22,17 @@
 	<string name="error_names_contains_invalid_characters">Dosya adları özel karakterler içeremez.</string>
 	<string name="error_vault_name_contains_invalid_characters">Kasa adı özel karakterler içeremez.</string>
 	<string name="error_general_update">Genel bir hata oluştu ve güncelleme kontrolü başarısız oldu.</string>
+	<string name="error_hash_mismatch_update">Güncelleme kontrolü başarısız. Hesaplanan karma değer yüklenen dosya ile eşleşmiyor</string>
 	<string name="error_update_no_internet">Güncelleme kontrolü başarısız oldu. İnternet bağlantısı yok.</string>
 	<string name="error_failed_to_decrypt_webdav_password">WebDAV şifresi çözülemedi, lütfen ayarlara yeniden ekleyin</string>
 	<string name="error_play_services_not_available">Play Hizmetleri yüklü değil</string>
 	<string name="error_biometric_auth_aborted">Biyometrik kimlik doğrulama iptal edildi</string>
+	<string name="error_vault_version_mismatch">Belirtilen vault.cryptomator versiyonu, masterkey.cryptomator versiyonundan farklı</string>
+	<string name="error_vault_key_invalid">vault.cryptomator masterkey.cryptomator ile eşleşmiyor</string>
+	<string name="error_vault_config_loading">Cüzdan ayarlarını yüklerken genel hata</string>
+	<string name="error_file_not_found_after_opening_using_3party">Cryptomator geri döndükten sonra, lokal dosya artık mevcut olmaz. Muhtemel değişiklikler bulutta tekrar oluşturulamaz.</string>
+	<string name="error_no_such_bucket">Böyle bir kova yok</string>
+	<string name="error_masterkey_location_not_supported">Özel ana anahtar lokasyonu desteklenmiyor</string>
 	<!-- # clouds -->
 	<!-- ## cloud names -->
 	<string name="cloud_names_local_storage">Yerel depolama</string>
@@ -38,6 +46,8 @@
 	<string name="snack_bar_action_title_search_previous">Önceki</string>
 	<string name="snack_bar_action_title_search_next">Sonraki</string>
 	<string name="snack_bar_action_title_sort">Sırala</string>
+	<string name="snack_bar_action_title_sort_az">A - Z</string>
+	<string name="snack_bar_action_title_sort_za">Z - A</string>
 	<string name="snack_bar_action_title_sort_newest">Önce en yenisi</string>
 	<string name="snack_bar_action_title_sort_oldest">Önce en eskisi</string>
 	<string name="snack_bar_action_title_sort_biggest">Önce en büyüğü</string>
@@ -103,12 +113,13 @@
 	<string name="screen_choose_cloud_service_title">Bulut hizmeti</string>
 	<!-- ## screen: cloud connections -->
 	<string name="screen_cloud_connections_title">Bir yer seçin</string>
-	<string name="screen_cloud_connections_no_connections">Konum eklemek için + butonunu tıklayın</string>
+	<string name="screen_cloud_connections_no_connections">Konum eklemek için buraya tıklayın</string>
 	<string name="screen_cloud_error_webdav_not_supported">Sunucu WebDAV uyumlu görünmüyor</string>
 	<string name="screen_cloud_local_custom_storage_title">Özel konumlar</string>
 	<string name="screen_cloud_local_default_storage_title">Varsayılan depolama</string>
 	<string name="screen_cloud_local_error_no_content_provider">Kullanılabilir ek konum yok.</string>
 	<!-- ## screen: webdav settings -->
+	<string name="screen_webdav_settings_url_port_label">URL</string>
 	<string name="screen_webdav_settings_username_label">Kullanıcı adı</string>
 	<string name="screen_webdav_settings_password_label">Parola</string>
 	<string name="screen_webdav_settings_done_button_text">Bağlan</string>
@@ -117,6 +128,17 @@
 	<string name="screen_webdav_settings_msg_username_must_not_be_empty">Kullanıcı adı boş olamaz.</string>
 	<string name="screen_webdav_settings_msg_password_must_not_be_empty">Parola boş olamaz.</string>
 	<!-- ## screen: s3 settings -->
+	<string name="screen_s3_settings_display_name_label">Görünen Ad</string>
+	<string name="screen_s3_settings_access_key_label">Erişim Anahtarı</string>
+	<string name="screen_s3_settings_secret_key_label">Gizli Anahtar</string>
+	<string name="screen_s3_settings_bucket_label">Mevcut Kova</string>
+	<string name="screen_s3_settings_endpoint_label">Endpoint</string>
+	<string name="screen_s3_settings_region_label">Bölge</string>
+	<string name="screen_s3_settings_msg_display_name_not_empty">Görünen Ad boş olamaz</string>
+	<string name="screen_s3_settings_msg_access_key_not_empty">Erişim Anahtarı boş olamaz</string>
+	<string name="screen_s3_settings_msg_secret_key_not_empty">Gizli Anahtar boş olamaz</string>
+	<string name="screen_s3_settings_msg_bucket_not_empty">Kova boş olamaz</string>
+	<string name="screen_s3_settings_msg_endpoint_and_region_not_empty">Uç nokta yada bölge boş olamaz</string>
 	<!-- ## screen: enter vault name -->
 	<string name="screen_enter_vault_name_msg_name_empty">Kasa adı boş olamaz.</string>
 	<string name="screen_enter_vault_name_vault_label">Kasa adı</string>
@@ -127,6 +149,7 @@
 	<string name="screen_set_password_button_text">Bitti</string>
 	<string name="screen_set_password_hint">ÖNEMLİ UYARI: Parolanızı unutursanız, verilerinizi kurtarmanın herhangi bir yolu yoktur.</string>
 	<string name="screen_set_password_retype_password_label">Yeni şifreyi tekrar yazın</string>
+	<string name="screen_set_password_strength_indicator_0">Cüzdan oluşturmak için çok zayıf</string>
 	<string name="screen_set_password_strength_indicator_1">Güçsüz</string>
 	<string name="screen_set_password_strength_indicator_2">Makul</string>
 	<string name="screen_set_password_strength_indicator_3">Kuvvetli</string>
@@ -138,16 +161,23 @@
 	<string name="screen_settings_activate_biometric_auth">Biyometrik kimlik doğrulamayı etkinleştir</string>
 	<string name="screen_settings_confirm_face_unlock">Yüz tanıma kilidini (varsa) onaylayın</string>
 	<string name="screen_settings_block_app_when_obscured">Gizlendiğinde uygulamayı engelle</string>
+	<string name="screen_settings_block_app_when_obscured_summary">Girdiye müdahele etmeyi ve sahte bir kullanıcı arayüzü görüntülemeyi engelle</string>
+	<string name="screen_settings_secure_screen">Ekran alıntılarını engelle</string>
+	<string name="screen_settings_secure_screen_summary">Son uygulamalar görünümünde ve uygulama içinde ekran alıntısı alınmasını engelle</string>
 	<string name="screen_settings_section_search">Arama</string>
 	<string name="screen_settings_live_search">Canlı arama</string>
+	<string name="screen_settings_live_search_summary">Sorgulama yaparken, arama sonuçlarını güncelle</string>
 	<string name="screen_settings_glob_search">Glob kalıbı kullanarak ara</string>
+	<string name="screen_settings_glob_search_summary">Glob pattern kullan. alice.*.jpg gibi</string>
 	<string name="screen_settings_section_auto_lock">Otomatik Kilitleme</string>
 	<string name="screen_settings_auto_lock_timeout">Kilitleme zamanı</string>
 	<string name="screen_settings_auto_lock_on_screen_lock">Ekran devre dışı bırakıldığında</string>
 	<string name="screen_settings_section_auto_photo_upload">Otomatik Fotoğraf Yükleme</string>
 	<string name="screen_settings_section_auto_photo_upload_vault">Yükleme için kasa seçin</string>
 	<string name="screen_settings_section_auto_photo_upload_toggle">Etkinleştir</string>
+	<string name="screen_settings_section_auto_photo_upload_toggle_summary">Arka planda görüntüleri yakalayın ve seçilen kasanın kilidi açıldığında yüklemeye başlayın</string>
 	<string name="screen_settings_section_auto_photo_upload_only_wifi_toggle">Yalnızca WIFI kullanarak yükle</string>
+	<string name="screen_settings_section_auto_photo_upload_including_videos">Videoları yükle</string>
 	<string name="screen_settings_auto_photo_upload_title">Otomatik yükleme&#8230;</string>
 	<string name="screen_settings_website_label">Cryptomator web sitesi</string>
 	<string name="screen_settings_twitter_label">Bizi Twitter\'da takip edin</string>
@@ -163,15 +193,21 @@
 	<string name="screen_settings_security_label">Güvenlik ipuçları</string>
 	<string name="screen_settings_section_version">Sürüm</string>
 	<string name="screen_settings_advanced_settings">Gelişmiş Ayarlar</string>
+	<string name="screen_settings_background_unlock_preparation_label">Kilidi açmayı hızlandır</string>
+	<string name="screen_settings_background_unlock_preparation_label_summary">Parola veya biyometrik doğrulama girmeniz istendiğinde kasa yapılandırmasını arka planda indirin</string>
+	<string name="screen_settings_keep_unlocked_while_editing_files">Kilidi açık tut</string>
+	<string name="screen_settings_keep_unlocked_while_editing_files_summary">Düzenlerken kasa kilidi açık</string>
 	<!-- ## screen: cloud settings -->
 	<string name="screen_cloud_settings_webdav_connections">WebDAV bağlantıları</string>
 	<string name="screen_cloud_settings_pcloud_connections">pCloud bağlantıları</string>
+	<string name="screen_cloud_settings_s3_connections">S3 bağlantıları</string>
 	<string name="screen_cloud_settings_local_storage_locations">Yerel depolama konumları</string>
 	<string name="screen_cloud_settings_log_in_to">Giriş</string>
 	<string name="screen_cloud_settings_sign_out_from_cloud">Oturumunu kapat</string>
 	<!-- ## screen: licenses -->
 	<!-- ## screen: authenticate cloud -->
 	<string name="screen_authenticate_auth_authentication_failed">%1$s kimliği doğrulanamadı.</string>
+	<string name="screen_update_pcloud_connections_title">pCloud kimlik bilgilerini güncelleyin</string>
 	<!-- ## screen: empty dir file info -->
 	<string name="screen_empty_dir_file_info_title">\'%1$s\' ulaşılamaz</string>
 	<string name="screen_empty_dir_file_info_headline">Cryptomator bu klasöre erişilemediğini tespit etti.</string>
@@ -285,8 +321,9 @@
 	<string name="dialog_sym_link_back_button">Geri</string>
 	<string name="dialog_no_dir_file_title">Dizinin içeriği yüklenemiyor</string>
 	<string name="dialog_no_dir_file_message">\'%1$s\' bulut klasörünün bir dizin dosyası yok. Klasör başka bir cihazda oluşturulmuş ve henüz buluta tam olarak senkronize edilmemiş olabilir. Lütfen aşağıdaki dosyanın mevcut olup olmadığını kontrol edin:\n%2$s</string>
-	<string name="dialog_beta_confirmation_title">Beta sürümü</string>
-	<string name="dialog_beta_confirmation">Bu, kasa formatı 7 desteğini tanıtan bir beta sürümüdür. Lütfen test için önemli kasanızı kullanmadığınızdan veya iyi bir yedekleme stratejisine sahip olmadığınızdan emin olun.</string>
+	<string name="dialog_no_more_images_to_display">&#8230; göstermek için daha fazla resim yok</string>
+	<string name="dialog_pcloud_credentials_updated_title">%1$s kimlik bilgileri güncellendi</string>
+	<string name="dialog_pcloud_credentials_updated">Yeni bir pCloud hesabı eklemeyi düşünüyorsanız, bu url <a href="https://www.pcloud.com">www.pcloud.com</a> tıklayın, mevcut hesaptan çıkın ve yeni bir bulut bağlantısı oluşturmak için bu uygulamadaki \'+\'. tekrar tıklayın.</string>
 	<string name="permission_snackbar_auth_local_vault">Cryptomator\'un yerel kasaları kullanmak için depolama erişimine ihtiyacı var</string>
 	<string name="permission_snackbar_auth_auto_upload">Cryptomator\'un otomatik fotoğraf yüklemesi için depolama erişimine ihtiyacı var</string>
 	<!-- # error reports -->
@@ -295,6 +332,9 @@
 	<string name="file_size_zero">Sıfır KB</string>
 	<string name="file_size_unit_bytes">bayt</string>
 	<string name="file_size_unit_kilo_bytes">KB</string>
+	<string name="file_size_unit_mega_bytes">MB</string>
+	<string name="file_size_unit_giga_bytes">GB</string>
+	<string name="file_size_unit_tera_bytes">TB</string>
 	<!-- ## date helper -->
 	<string name="time_unit_seconds_sg">sn</string>
 	<string name="time_unit_seconds_pl">sn</string>
@@ -332,10 +372,12 @@
 	<string name="notification_open_writable_file_message">Düzenleme tamamlanana kadar, uygulamalar kasası kilidi açık kalır</string>
 	<string name="notification_update_check_finished_latest">En son sürüm yüklendi</string>
 	<string name="screen_settings_lru_cache">Önbellek</string>
+	<string name="screen_settings_lru_cache_toggle_summary">Yeniden açıldıklarında daha sonra yeniden kullanılmak üzere cihazda yerel olarak şifrelenmiş yakın zamanda erişilen dosyaları önbelleğe alın</string>
 	<string name="screen_settings_lru_cache_size">Toplam önbellek boyutu</string>
 	<string name="screen_settings_clear_lru_cache_size">Önbelleği temizle</string>
 	<string name="screen_settings_lru_cache_changed__restart_toast">Değişiklikler, uygulama yeniden başlatıldığında uygulanacak</string>
 	<string name="screen_settings_license">Kayıtlı</string>
+	<string name="screen_settings_license_mail">%1$s</string>
 	<string name="dialog_settings_update_check_interval_title">Kontrol aralığını güncelle</string>
 	<string name="screen_settings_check_updates">Güncellemeleri kontrol et</string>
 	<string name="screen_settings_last_check_updates">Son çalıştırma %1$s</string>
@@ -346,7 +388,14 @@
 	<string name="lock_timeout_2m">2 dakika</string>
 	<string name="lock_timeout_5m">5 dakika</string>
 	<string name="lock_timeout_10m">10 dakika</string>
+	<string name="lock_timeout_never">@string/lock_timeout_never</string>
 	<!-- cache size names -->
+	<string name="cache_size_50m">50 MB</string>
+	<string name="cache_size_100m">100 MB</string>
+	<string name="cache_size_250m">250 MB</string>
+	<string name="cache_size_500m">500 MB</string>
+	<string name="cache_size_1000m">1 GB</string>
+	<string name="cache_size_5000m">5 GB</string>
 	<!-- screen scheme mode names -->
 	<string name="screen_settings_style_mode">Görünüm modu</string>
 	<string name="follow_system">Otomatik</string>
