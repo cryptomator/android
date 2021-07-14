@@ -68,8 +68,8 @@
 	<plurals name="screen_file_browser_subtitle_move">
 		<item quantity="one">Переместить %1$s в</item>
 		<item quantity="few">Переместить %2$d элем. в</item>
-		<item quantity="many">Move %2$d items to</item>
-		<item quantity="other">Move %2$d items to</item>
+		<item quantity="many">Переместить %2$d элем. в</item>
+		<item quantity="other">Переместить %2$d элем. в</item>
 	</plurals>
 	<string name="screen_file_browser_move_button_text">Переместить</string>
 	<string name="screen_file_browser_msg_empty_folder">Пустая папка</string>
