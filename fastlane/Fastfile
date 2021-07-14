@@ -2,6 +2,7 @@ fastlane_require 'dotenv'
 fastlane_require 'jwt'
 fastlane_require 'base64'
 fastlane_require 'net/sftp'
+fastlane_require 'json'
 
 default_platform(:android)
 
@@ -213,35 +214,37 @@ platform :android do |options|
   end
 
   desc "Check if tracking added in some dependency"
-  private lane :checkTrackingAddedInDependency do |options|
+  lane :checkTrackingAddedInDependency do |options|
     puts "Check if script file is latest"
-	sh("wget -O current_iod-scan-apk.php https://gitlab.com/fdroid/issuebot/-/raw/master/modules/iod-scan-apk.php")
+    sh("wget -O current_iod-scan-apk.php https://gitlab.com/fdroid/issuebot/-/raw/master/modules/iod-scan-apk.php")
 
-	same_script =  FileUtils.compare_file("iod-scan-apk.php", "current_iod-scan-apk.php")
-	if same_script
-	  puts "Script file unchanged"
-	  FileUtils.rm("current_iod-scan-apk.php")
-	else
-	  UI.error("Script updated, check diff, download and save to iod-scan-apk.php")
-	  fail
-	end
+    same_script =  FileUtils.compare_file("iod-scan-apk.php", "current_iod-scan-apk.php")
+    if same_script
+      puts "Script file unchanged"
+      FileUtils.rm("current_iod-scan-apk.php")
+    else
+      UI.error("Script updated, check diff, download and save to iod-scan-apk.php")
+      fail
+    end
 
     FileUtils.mkdir("unsigned")
 
-	FileUtils.cp(lane_context[SharedValues::GRADLE_APK_OUTPUT_PATH], "unsigned/org.cryptomator_#{version}.apk")
+    FileUtils.cp(lane_context[SharedValues::GRADLE_APK_OUTPUT_PATH], "unsigned/org.cryptomator_#{version}.apk")
 
     sh("ISSUEBOT_CURRENT_APPLICATION_ID=org.cryptomator ISSUEBOT_CURRENT_REPLY_FILE=current_result.json php iod-scan-apk.php")
 
-	# clean up
-	FileUtils.rm("libinfo.txt")
-	FileUtils.rm("libsmali.txt")
-	FileUtils.rm_r("unsigned")
-	FileUtils.rm_r("org.cryptomator_#{version}")
+    # clean up
+    FileUtils.rm("libinfo.txt")
+    FileUtils.rm("libsmali.txt")
+    FileUtils.rm_r("unsigned")
+    FileUtils.rm_r("org.cryptomator_#{version}")
 
-	puts "Check if something changed in the APK regarding the dependencies"
-    same_files =  FileUtils.compare_file("result.json", "current_result.json")
+    puts "Check if something changed in the APK regarding the dependencies"
 
-	if same_files
+    report = JSON.parse(File.read("result.json"))["report"]
+    current_report = JSON.parse(File.read("current_result.json"))["report"]
+
+    if report.eql?(current_report)
       puts "Dependencies unchanged"
       FileUtils.rm("current_result.json")
     else
