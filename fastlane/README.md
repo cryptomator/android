@@ -41,6 +41,11 @@ Deploy new version to server
 fastlane android deployToFDroid
 ```
 Deploy new version to F-Droid
+### android checkTrackingAddedInDependency
+```
+fastlane android checkTrackingAddedInDependency
+```
+Check if tracking added in some dependency
 ### android createGitHubDraftRelease
 ```
 fastlane android createGitHubDraftRelease
