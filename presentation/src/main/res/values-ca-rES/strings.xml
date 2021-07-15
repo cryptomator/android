@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 	<!-- # app -->
-	<string name="share_with_label">Encrypt</string>
+	<string name="share_with_label">Xifrar</string>
 	<!-- # error messages -->
-	<string name="error_generic">An error occurred</string>
-	<string name="error_authentication_failed">Authentication failed</string>
-	<string name="error_authentication_failed_re_authenticate">Authentication failed, please login using %1$s</string>
-	<string name="error_no_network_connection">No network connection</string>
-	<string name="error_invalid_passphrase">Wrong password</string>
-	<string name="error_file_or_folder_exists">A file or folder already exists.</string>
+	<string name="error_generic">Hi ha hagut un error</string>
+	<string name="error_authentication_failed">Ha fallat l\'autenticació</string>
+	<string name="error_authentication_failed_re_authenticate">Error d\'autenticació, inicieu sessió usant %1$s</string>
+	<string name="error_no_network_connection">No hi ha connexió de xarxa</string>
+	<string name="error_invalid_passphrase">Contrasenya incorrecta</string>
+	<string name="error_file_or_folder_exists">Ja existeix un fitxer o carpeta.</string>
 	<string name="error_vault_version_not_supported">Unsupported vault. This vault has been created with another version of Cryptomator.</string>
 	<string name="error_vault_already_exists">Vault already exists.</string>
 	<string name="error_no_such_file">File does not exist.</string>
