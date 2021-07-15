@@ -433,7 +433,7 @@ class BrowseFilesPresenter @Inject constructor( //
 				Intents.textEditorIntent() //
 					.withTextFile(cloudFile)
 			)
-		} else if (!lowerFileName.endsWith(".gif") && mimeTypes.fromFilename(cloudFile.name) ?: (MimeType.WILDCARD_MIME_TYPE).mediatype == "image") {
+		} else if (!lowerFileName.endsWith(".gif") && isImageMediaType(cloudFile.name)) {
 			val cloudFileNodes = previewCloudFileNodes
 			val imagePreviewStore = ImagePreviewFilesStore( //
 				cloudFileNodes,  //
@@ -446,6 +446,10 @@ class BrowseFilesPresenter @Inject constructor( //
 		} else {
 			viewExternalFile(cloudFile)
 		}
+	}
+
+	private fun isImageMediaType(filename: String): Boolean {
+		return (mimeTypes.fromFilename(filename) ?: MimeType.WILDCARD_MIME_TYPE).mediatype == "image"
 	}
 
 	private fun viewExternalFile(cloudFile: CloudFileModel) {
@@ -475,8 +479,7 @@ class BrowseFilesPresenter @Inject constructor( //
 			view?.renderedCloudNodes()
 				?.filterIsInstance<CloudFileModel>()
 				?.filterTo(previewCloudFiles) {
-					!it.name.endsWith(".gif") //
-							&& mimeTypes.fromFilename(it.name) ?: (MimeType.WILDCARD_MIME_TYPE).mediatype == "image"
+					!it.name.endsWith(".gif") && isImageMediaType(it.name)
 				}
 			return previewCloudFiles
 		}
