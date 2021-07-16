@@ -243,7 +243,6 @@ class Sql {
 	public static class SqlAlterTableBuilder {
 
 		private final String table;
-		private final StringBuilder columns = new StringBuilder();
 		private String newName;
 
 		private SqlAlterTableBuilder(String table) {
