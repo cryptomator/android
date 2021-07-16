@@ -29,10 +29,6 @@
 		<item name="colorAccent">@color/colorPrimary</item>
 	</style>
 
-	<style name="TransparentAlertDialogCustom" parent="AlertDialogCustom">
-		<item name="android:windowBackground">@android:color/transparent</item>
-	</style>
-
 	<style name="Toolbar.Theme" parent="ThemeOverlay.AppCompat.Dark.ActionBar">
 		<item name="colorAccent">@color/textColorWhite</item>
 	</style>
@@ -116,8 +112,15 @@
 		<item name="android:windowAnimationStyle">@null</item>
 	</style>
 
+	<!-- keep in sync with v27 style -->
 	<style name="FullscreenTheme" parent="AppTheme">
 		<item name="android:windowBackground">@null</item>
+	</style>
+
+	<!-- keep in sync with v27 style -->
+	<style name="TransparentPopUp" parent="AppTheme">
+		<item name="android:windowBackground">@android:color/transparent</item>
+		<item name="android:windowIsTranslucent">true</item>
 	</style>
 
 </resources>

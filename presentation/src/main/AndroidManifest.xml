@@ -80,7 +80,9 @@
 			</intent-filter>
 		</activity>
 
-		<activity android:name=".ui.activity.AutoUploadChooseVaultActivity" />
+		<activity
+			android:name=".ui.activity.UnlockVaultActivity"
+			android:theme="@style/TransparentPopUp" />
 
 		<!-- Cloud Services -->
 		<activity
@@ -97,13 +99,9 @@
 			</intent-filter>
 		</activity>
 
-		<activity
-			android:name=".ui.activity.UnlockVaultActivity"
-			android:label=""
-			android:theme="@style/TransparentAlertDialogCustom" />
-		<activity android:name=".ui.activity.EmptyDirIdFileInfoActivity" />
-
 		<!-- Settings -->
+		<activity android:name=".ui.activity.AutoUploadChooseVaultActivity" />
+		<activity android:name=".ui.activity.EmptyDirIdFileInfoActivity" />
 		<activity android:name=".ui.activity.BiometricAuthSettingsActivity" />
 		<activity android:name=".ui.activity.CloudConnectionListActivity" />
 		<activity android:name=".ui.activity.CloudSettingsActivity" />

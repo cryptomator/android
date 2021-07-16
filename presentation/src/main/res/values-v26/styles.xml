@@ -1,0 +1,15 @@
+<resources>
+
+	<style name="FullscreenTheme" parent="AppTheme">
+		<item name="android:navigationBarColor">@color/colorBlackTransparent</item>
+		<!-- windowIsTranslucent=false due to https://issuetracker.google.com/issues/68454482 see #467 -->
+		<item name="android:windowTranslucentStatus">false</item>
+	</style>
+
+	<style name="TransparentPopUp" parent="AppTheme">
+		<item name="android:windowBackground">@color/colorPrimaryTransparent</item>
+		<!-- windowIsTranslucent=false due to https://issuetracker.google.com/issues/68454482 see #467 -->
+		<item name="android:windowIsTranslucent">false</item>
+	</style>
+
+</resources>
