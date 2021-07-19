@@ -226,7 +226,7 @@
 	<!-- Vault not found -->
 	<string name="dialog_vault_not_found_title">Vault %1$s not found</string>
 	<string name="dialog_vault_not_found_message">The vault has been renamed, moved or deleted. Remove this vault form the list and add it again to proceed. Remove now?</string>
-	<string name="dialog_vault_not_found_positive_button_text">Remove</string>
+	<string name="dialog_vault_not_found_positive_button_text">Eltávolítás</string>
 	<string name="dialog_existing_file_title">File already exists</string>
 	<string name="dialog_existing_file_positive_button">Replace</string>
 	<string name="dialog_existing_file_message">A file named \'%1$s\' already exists.</string>
