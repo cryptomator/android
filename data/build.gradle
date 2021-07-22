@@ -75,6 +75,10 @@ android {
 			java.srcDirs = ['src/main/java', 'src/main/java/', 'src/foss/java', 'src/foss/java/']
 		}
 	}
+
+	packagingOptions {
+		exclude 'META-INF/DEPENDENCIES'
+	}
 }
 
 greendao {
@@ -167,6 +171,10 @@ dependencies {
 	testImplementation dependencies.mockitoKotlin
 	testImplementation dependencies.mockitoInline
 	testImplementation dependencies.hamcrest
+
+	androidTestImplementation(dependencies.runner) {
+		exclude group: 'com.android.support', module: 'support-annotations'
+	}
 }
 
 configurations {
