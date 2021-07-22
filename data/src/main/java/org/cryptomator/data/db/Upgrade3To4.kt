@@ -1,10 +1,7 @@
 package org.cryptomator.data.db
 
 import org.cryptomator.data.db.Sql.SqlCreateTableBuilder.ForeignKeyBehaviour
-import org.cryptomator.data.db.entities.CloudEntityDao
-import org.cryptomator.data.db.entities.VaultEntityDao
 import org.greenrobot.greendao.database.Database
-import org.greenrobot.greendao.internal.DaoConfig
 import javax.inject.Inject
 import javax.inject.Singleton
 
@@ -54,13 +51,13 @@ internal class Upgrade3To4 @Inject constructor() : DatabaseUpgrade(3, 4) {
 	}
 
 	private fun initVaultPositionUsingCurrentSortOrder(db: Database) {
-		CloudEntityDao(DaoConfig(db, VaultEntityDao::class.java)) //
-			.loadAll() //
-			.map {
-				Sql.update("VAULT_ENTITY") //
-					.where("_id", Sql.eq(it.id)) //
-					.set("POSITION", Sql.toInteger(it.id - 1)) //
+		Sql.query("VAULT_ENTITY").executeOn(db).use {
+			while (it.moveToNext()) {
+				Sql.update("VAULT_ENTITY")
+					.where("_id", Sql.eq(it.getLong(it.getColumnIndex("_id"))))
+					.set("POSITION", Sql.toInteger(it.position))
 					.executeOn(db)
 			}
+		}
 	}
 }
