@@ -20,13 +20,15 @@ internal class Upgrade2To3 @Inject constructor(private val context: Context) : D
 					if (it.moveToFirst()) {
 						Sql.update("CLOUD_ENTITY")
 							.set("ACCESS_TOKEN", Sql.toString(encrypt(it.getString(it.getColumnIndex("ACCESS_TOKEN")))))
-							.where("TYPE", Sql.eq("DROPBOX"));
+							.where("TYPE", Sql.eq("DROPBOX"))
+							.executeOn(db)
 					}
 				}
 
 			Sql.update("CLOUD_ENTITY")
 				.set("ACCESS_TOKEN", Sql.toString(encrypt(onedriveToken())))
-				.where("TYPE", Sql.eq("ONEDRIVE"));
+				.where("TYPE", Sql.eq("ONEDRIVE"))
+				.executeOn(db)
 
 			db.setTransactionSuccessful()
 		} finally {
