@@ -42,47 +42,47 @@
 	<string name="permission_message_upload_file">Cryptomator needs storage access to upload files</string>
 	<string name="permission_message_share_file">Cryptomator needs storage access to share files</string>
 	<string name="snack_bar_action_title_settings">設定</string>
-	<string name="snack_bar_action_title_search">Search</string>
-	<string name="snack_bar_action_title_search_previous">Previous</string>
+	<string name="snack_bar_action_title_search">検索</string>
+	<string name="snack_bar_action_title_search_previous">戻る</string>
 	<string name="snack_bar_action_title_search_next">次へ</string>
-	<string name="snack_bar_action_title_sort">Sort</string>
+	<string name="snack_bar_action_title_sort">ソート</string>
 	<string name="snack_bar_action_title_sort_az">A - Z</string>
 	<string name="snack_bar_action_title_sort_za">Z - A</string>
-	<string name="snack_bar_action_title_sort_newest">Newest first</string>
-	<string name="snack_bar_action_title_sort_oldest">Oldest first</string>
-	<string name="snack_bar_action_title_sort_biggest">Biggest first</string>
-	<string name="snack_bar_action_title_sort_smallest">Smallest first</string>
+	<string name="snack_bar_action_title_sort_newest">新しい順</string>
+	<string name="snack_bar_action_title_sort_oldest">古い順</string>
+	<string name="snack_bar_action_title_sort_biggest">大きい順</string>
+	<string name="snack_bar_action_title_sort_smallest">小さい順</string>
 	<!-- # screens -->
 	<!-- # screen: vault list -->
-	<string name="screen_vault_list_actions_title">Add to Cryptomator</string>
-	<string name="screen_vault_list_action_create_new_vault">Create new vault</string>
-	<string name="screen_vault_list_action_add_existing_vault">Add existing vault</string>
+	<string name="screen_vault_list_actions_title">Cryptomator に追加</string>
+	<string name="screen_vault_list_action_create_new_vault">新しい金庫を作成</string>
+	<string name="screen_vault_list_action_add_existing_vault">既存の金庫を追加</string>
 	<string name="screen_vault_list_vault_action_delete">削除</string>
-	<string name="screen_vault_list_vault_creation_hint">Click here to create a new vault</string>
-	<string name="screen_vault_list_change_password_successful">Password successfully changed</string>
+	<string name="screen_vault_list_vault_creation_hint">ここをクリックして新しい金庫を作成</string>
+	<string name="screen_vault_list_change_password_successful">パスワードが正常に変更されました</string>
 	<!-- # screen: file browser -->
 	<string name="screen_file_browser_default_title">金庫</string>
-	<string name="screen_file_browser_add_existing_vault_extra_text">Select masterkey file</string>
+	<string name="screen_file_browser_add_existing_vault_extra_text">Masterkey ファイルを選択</string>
 	<string name="screen_file_browser_create_new_vault_button_text">Place here</string>
 	<string name="screen_file_browser_create_new_vault_extra_text">Vault name: %1$s</string>
 	<plurals name="screen_file_browser_subtitle_move">
 		<item quantity="other">Move %2$d items to</item>
 	</plurals>
-	<string name="screen_file_browser_move_button_text">Move</string>
-	<string name="screen_file_browser_msg_empty_folder">Empty folder</string>
-	<string name="screen_file_browser_file_info_label_date">modified %1$s ago</string>
-	<string name="screen_file_browser_share_intent_chooser_title">Share with</string>
-	<string name="screen_file_browser_share_destination_title">Choose a destination</string>
+	<string name="screen_file_browser_move_button_text">移動</string>
+	<string name="screen_file_browser_msg_empty_folder">空のフォルダー</string>
+	<string name="screen_file_browser_file_info_label_date">%1$s 前に編集</string>
+	<string name="screen_file_browser_share_intent_chooser_title">次で共有</string>
+	<string name="screen_file_browser_share_destination_title">保存先を選択</string>
 	<string name="screen_file_browser_share_button_text">選択</string>
-	<string name="screen_file_browser_nothing_to_share">Nothing to share</string>
-	<string name="screen_file_browser_actions_title">Add to %1$s</string>
-	<string name="screen_file_browser_action_create_folder">Create folder</string>
-	<string name="screen_file_browser_action_create_new_text_file">Create text file</string>
-	<string name="screen_file_browser_action_upload_files">Upload files</string>
-	<string name="screen_file_browser_upload_files_chooser_title">Files</string>
-	<string name="screen_file_browser_msg_file_exported">File exported</string>
-	<string name="screen_file_browser_msg_files_exported">Files exported</string>
-	<string name="screen_file_browser_nothing_to_export">Nothing to export</string>
+	<string name="screen_file_browser_nothing_to_share">共有するものがありません</string>
+	<string name="screen_file_browser_actions_title">%1$s に追加</string>
+	<string name="screen_file_browser_action_create_folder">フォルダーを作成</string>
+	<string name="screen_file_browser_action_create_new_text_file">テキスト ファイルを作成</string>
+	<string name="screen_file_browser_action_upload_files">ファイルをアップロード</string>
+	<string name="screen_file_browser_upload_files_chooser_title">ファイル</string>
+	<string name="screen_file_browser_msg_file_exported">エクスポートされたファイル</string>
+	<string name="screen_file_browser_msg_files_exported">エクスポートされたファイル</string>
+	<string name="screen_file_browser_nothing_to_export">エクスポートするものがありません</string>
 	<string name="screen_file_browser_msg_creating_download_dir_failed">Creating download directory failed</string>
 	<string name="screen_file_browser_node_action_share">Share</string>
 	<string name="screen_file_browser_node_action_rename">Rename</string>
@@ -121,14 +121,14 @@
 	<string name="screen_webdav_settings_url_port_label">URL</string>
 	<string name="screen_webdav_settings_username_label">ユーザー名</string>
 	<string name="screen_webdav_settings_password_label">パスワード</string>
-	<string name="screen_webdav_settings_done_button_text">Connect</string>
-	<string name="screen_webdav_settings_msg_url_must_not_be_empty">URL can\'t be empty.</string>
-	<string name="screen_webdav_settings_msg_url_is_invalid">URL is invalid.</string>
-	<string name="screen_webdav_settings_msg_username_must_not_be_empty">Username can\'t be empty.</string>
-	<string name="screen_webdav_settings_msg_password_must_not_be_empty">Password can\'t be empty.</string>
+	<string name="screen_webdav_settings_done_button_text">接続</string>
+	<string name="screen_webdav_settings_msg_url_must_not_be_empty">URLは空にできません。</string>
+	<string name="screen_webdav_settings_msg_url_is_invalid">URL が無効です。</string>
+	<string name="screen_webdav_settings_msg_username_must_not_be_empty">ユーザー名は空にできません。</string>
+	<string name="screen_webdav_settings_msg_password_must_not_be_empty">パスワードは空にできません。</string>
 	<!-- ## screen: s3 settings -->
-	<string name="screen_s3_settings_display_name_label">Display Name</string>
-	<string name="screen_s3_settings_access_key_label">Access Key</string>
+	<string name="screen_s3_settings_display_name_label">表示名</string>
+	<string name="screen_s3_settings_access_key_label">アクセス キー</string>
 	<string name="screen_s3_settings_secret_key_label">Secret Key</string>
 	<string name="screen_s3_settings_bucket_label">Existing Bucket</string>
 	<string name="screen_s3_settings_endpoint_label">Endpoint</string>
@@ -163,7 +163,7 @@
 	<string name="screen_settings_block_app_when_obscured_summary">Block intercepting the input and displaying a false user interface</string>
 	<string name="screen_settings_secure_screen">Block screenshots</string>
 	<string name="screen_settings_secure_screen_summary">Block screenshots in the recents list and inside the app</string>
-	<string name="screen_settings_section_search">Search</string>
+	<string name="screen_settings_section_search">検索</string>
 	<string name="screen_settings_live_search">Live search</string>
 	<string name="screen_settings_live_search_summary">Update search results while entering the query</string>
 	<string name="screen_settings_glob_search">Search using glob pattern</string>
@@ -328,31 +328,31 @@
 	<!-- # error reports -->
 	<!-- # misc -->
 	<!-- ## file size helper -->
-	<string name="file_size_zero">Zero kB</string>
-	<string name="file_size_unit_bytes">bytes</string>
+	<string name="file_size_zero">0 kB</string>
+	<string name="file_size_unit_bytes">バイト</string>
 	<string name="file_size_unit_kilo_bytes">kB</string>
 	<string name="file_size_unit_mega_bytes">MB</string>
 	<string name="file_size_unit_giga_bytes">GB</string>
 	<string name="file_size_unit_tera_bytes">TB</string>
 	<!-- ## date helper -->
-	<string name="time_unit_seconds_sg">second</string>
-	<string name="time_unit_seconds_pl">seconds</string>
-	<string name="time_unit_minutes_sg">minute</string>
+	<string name="time_unit_seconds_sg">秒</string>
+	<string name="time_unit_seconds_pl">秒</string>
+	<string name="time_unit_minutes_sg">分</string>
 	<string name="time_unit_minutes_pl">分</string>
-	<string name="time_unit_hours_sg">hour</string>
-	<string name="time_unit_hours_pl">hours</string>
-	<string name="time_unit_days_sg">day</string>
-	<string name="time_unit_days_pl">days</string>
-	<string name="time_unit_weeks_sg">week</string>
-	<string name="time_unit_weeks_pl">weeks</string>
-	<string name="time_unit_months_sg">month</string>
-	<string name="time_unit_months_pl">months</string>
-	<string name="time_unit_years_sg">year</string>
-	<string name="time_unit_years_pl">years</string>
+	<string name="time_unit_hours_sg">時</string>
+	<string name="time_unit_hours_pl">時</string>
+	<string name="time_unit_days_sg">日</string>
+	<string name="time_unit_days_pl">日</string>
+	<string name="time_unit_weeks_sg">週</string>
+	<string name="time_unit_weeks_pl">週</string>
+	<string name="time_unit_months_sg">月</string>
+	<string name="time_unit_months_pl">月</string>
+	<string name="time_unit_years_sg">年</string>
+	<string name="time_unit_years_pl"> 年</string>
 	<!-- ## biometric authentication -->
-	<string name="dialog_biometric_auth_title">Biometric login</string>
-	<string name="dialog_biometric_auth_message">Log in using your biometric credential</string>
-	<string name="dialog_biometric_auth_use_password">Use vault password</string>
+	<string name="dialog_biometric_auth_title">生体認証でログイン</string>
+	<string name="dialog_biometric_auth_message">生体認証を使用してログイン</string>
+	<string name="dialog_biometric_auth_use_password">金庫のパスワードを使用</string>
 	<string name="dialog_unable_to_auto_upload_files_title">Unable to auto upload files</string>
 	<!-- notification -->
 	<string name="notification_unlocked">Vaults unlocked: %1$d</string>
