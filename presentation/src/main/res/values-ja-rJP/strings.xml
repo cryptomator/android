@@ -1,35 +1,35 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 	<!-- # app -->
-	<string name="share_with_label">Encrypt</string>
+	<string name="share_with_label">暗号化</string>
 	<!-- # error messages -->
-	<string name="error_generic">An error occurred</string>
-	<string name="error_authentication_failed">Authentication failed</string>
-	<string name="error_authentication_failed_re_authenticate">Authentication failed, please login using %1$s</string>
-	<string name="error_no_network_connection">No network connection</string>
-	<string name="error_invalid_passphrase">Wrong password</string>
-	<string name="error_file_or_folder_exists">A file or folder already exists.</string>
-	<string name="error_vault_version_not_supported">Unsupported vault. This vault has been created with another version of Cryptomator.</string>
-	<string name="error_vault_already_exists">Vault already exists.</string>
-	<string name="error_no_such_file">File does not exist.</string>
-	<string name="error_vault_has_been_locked">Vault has been locked.</string>
-	<string name="error_cloud_already_exists">Cloud already exists.</string>
-	<string name="error_activity_not_found">Please download an app that can open this file.</string>
-	<string name="error_server_not_found">Server not found.</string>
-	<string name="error_device_policy_manager_not_found">Please open your devices settings and set the screen lock by hand</string>
-	<string name="error_export_illegal_file_name">Export failed. Try to remove special characters from file names and export again.</string>
-	<string name="error_name_contains_invalid_characters">Can\'t contain special characters.</string>
-	<string name="error_names_contains_invalid_characters">File names can\'t contain special characters.</string>
-	<string name="error_vault_name_contains_invalid_characters">Vault name can\'t contain special characters.</string>
-	<string name="error_general_update">Update check failed. General error occurred.</string>
-	<string name="error_hash_mismatch_update">Update check failed. Calculated hash doesn\'t match the uploaded file</string>
-	<string name="error_update_no_internet">Update check failed. No internet connection.</string>
-	<string name="error_failed_to_decrypt_webdav_password">Failed to decrypt WebDAV password, please re add in settings</string>
-	<string name="error_play_services_not_available">Play Services not installed</string>
-	<string name="error_biometric_auth_aborted">Biometric authentication aborted</string>
-	<string name="error_vault_version_mismatch">Version specified in vault.cryptomator is different to masterkey.cryptomator</string>
-	<string name="error_vault_key_invalid">vault.cryptomator does not match with this masterkey.cryptomator</string>
-	<string name="error_vault_config_loading">General error while loading the vault config</string>
+	<string name="error_generic">エラーが発生しました</string>
+	<string name="error_authentication_failed">認証に失敗しました</string>
+	<string name="error_authentication_failed_re_authenticate">認証に失敗しました。%1$s を使用してログインしてください</string>
+	<string name="error_no_network_connection">ネットワーク接続がありません</string>
+	<string name="error_invalid_passphrase">パスワードが正しくありません</string>
+	<string name="error_file_or_folder_exists">ファイルかフォルダーが既に存在します。</string>
+	<string name="error_vault_version_not_supported">サポートされない金庫です。この金庫は別のバージョンの Cryptomator を使用して作成されました。</string>
+	<string name="error_vault_already_exists">金庫が既に存在します。</string>
+	<string name="error_no_such_file">ファイルが存在しません。</string>
+	<string name="error_vault_has_been_locked">金庫が施錠されました。</string>
+	<string name="error_cloud_already_exists">クラウドが既に存在します。</string>
+	<string name="error_activity_not_found">このファイルを開くことができるアプリをダウンロードしてください。</string>
+	<string name="error_server_not_found">サーバーが見つかりませんでした。</string>
+	<string name="error_device_policy_manager_not_found">端末の設定を開いて、画面ロックを設定してください</string>
+	<string name="error_export_illegal_file_name">エクスポートに失敗しました。ファイル名から特殊文字を削除して再度エクスポートしてください。</string>
+	<string name="error_name_contains_invalid_characters">特殊文字を含めることはできません。</string>
+	<string name="error_names_contains_invalid_characters">特殊文字を含むファイル名は使用できません。</string>
+	<string name="error_vault_name_contains_invalid_characters">特殊文字を含む金庫名は使用できません。</string>
+	<string name="error_general_update">更新の確認に失敗しました。エラーが発生しました。</string>
+	<string name="error_hash_mismatch_update">更新の確認に失敗しました。ハッシュ値がアップロードされたファイルと一致しません。</string>
+	<string name="error_update_no_internet">更新の確認に失敗しました。インターネット接続がありません。</string>
+	<string name="error_failed_to_decrypt_webdav_password">WebDAV パスワードの復号に失敗しました。設定を再度追加してください</string>
+	<string name="error_play_services_not_available">Play Services がインストールされていません</string>
+	<string name="error_biometric_auth_aborted">生体認証が中断されました</string>
+	<string name="error_vault_version_mismatch">Vault.cryptomator 内で指定されたバージョンと masterkey.cryptomator の情報が異なります</string>
+	<string name="error_vault_key_invalid">vault.cryptomator が masterkey.cryptomator と一致しません</string>
+	<string name="error_vault_config_loading">金庫の設定を読み込み中に失敗しました</string>
 	<string name="error_file_not_found_after_opening_using_3party">Local file isn\'t present anymore after switching back to Cryptomator. Possible changes cannot be propagated back to the cloud.</string>
 	<string name="error_no_such_bucket">No such bucket</string>
 	<string name="error_masterkey_location_not_supported">Custom Masterkey location not supported yet</string>
@@ -95,15 +95,15 @@
 	<string name="screen_file_browser_select_items">Select&#8230;</string>
 	<string name="screen_file_browser_select_all_items">Select all</string>
 	<string name="screen_file_browser_refresh_items">Refresh</string>
-	<string name="screen_file_browser_no_connection_message">No connection</string>
-	<string name="screen_file_browser_no_connection_button_text">Retry</string>
+	<string name="screen_file_browser_no_connection_message">接続なし</string>
+	<string name="screen_file_browser_no_connection_button_text">再試行</string>
 	<!-- ## screen: text editor -->
-	<string name="screen_text_editor_save_success">Successfully saved</string>
+	<string name="screen_text_editor_save_success">正常に保存されました</string>
 	<!-- ## screen: share files -->
-	<string name="screen_share_files_title">Save %1$s to&#8230;</string>
-	<string name="screen_share_files_content_text">text</string>
-	<string name="screen_share_files_content_file">file</string>
-	<string name="screen_share_files_content_files">files</string>
+	<string name="screen_share_files_title">%1$s を保存&#8230;</string>
+	<string name="screen_share_files_content_text">テキスト</string>
+	<string name="screen_share_files_content_file">ファイル</string>
+	<string name="screen_share_files_content_files">ファイル</string>
 	<string name="screen_share_files_msg_filenames_must_be_unique">Filenames have to be unique, please rename the duplicates.</string>
 	<string name="screen_share_files_section_location">Save location</string>
 	<string name="screen_share_files_save_button_text">Save</string>
