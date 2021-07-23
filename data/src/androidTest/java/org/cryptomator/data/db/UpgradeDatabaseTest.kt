@@ -300,6 +300,50 @@ class UpgradeDatabaseTest {
 	}
 
 	@Test
+	fun recoverUpgrade6to7DueToSQLiteExceptionThrown() {
+		Upgrade0To1().applyTo(db, 0)
+		Upgrade1To2().applyTo(db, 1)
+		Upgrade2To3(context).applyTo(db, 2)
+		Upgrade3To4().applyTo(db, 3)
+		Upgrade4To5().applyTo(db, 4)
+		Upgrade5To6().applyTo(db, 5)
+
+		val licenseToken = "licenseToken"
+
+		Sql.update("UPDATE_CHECK_ENTITY")
+			.set("LICENSE_TOKEN", Sql.toString(licenseToken))
+			.set("RELEASE_NOTE", Sql.toString("releaseNote"))
+			.set("VERSION", Sql.toString("version"))
+			.set("URL_TO_APK", Sql.toString("urlApk"))
+			.set("URL_TO_RELEASE_NOTE", Sql.toString("urlReleaseNote"))
+			.executeOn(db)
+
+		Sql.alterTable("UPDATE_CHECK_ENTITY").renameTo("UPDATE_CHECK_ENTITY_OLD").executeOn(db)
+
+		Sql.createTable("UPDATE_CHECK_ENTITY") //
+			.id() //
+			.optionalText("LICENSE_TOKEN") //
+			.optionalText("RELEASE_NOTE") //
+			.optionalText("VERSION") //
+			.optionalText("URL_TO_APK") //
+			.optionalText("APK_SHA256") //
+			.optionalText("URL_TO_RELEASE_NOTE") //
+			.executeOn(db)
+
+		Upgrade6To7().tryToRecoverFromSQLiteException(db)
+
+		Sql.query("UPDATE_CHECK_ENTITY").executeOn(db).use {
+			it.moveToFirst()
+			Assert.assertThat(it.getString(it.getColumnIndex("LICENSE_TOKEN")), CoreMatchers.`is`(licenseToken))
+			Assert.assertThat(it.getString(it.getColumnIndex("RELEASE_NOTE")), CoreMatchers.nullValue())
+			Assert.assertThat(it.getString(it.getColumnIndex("VERSION")), CoreMatchers.nullValue())
+			Assert.assertThat(it.getString(it.getColumnIndex("URL_TO_APK")), CoreMatchers.nullValue())
+			Assert.assertThat(it.getString(it.getColumnIndex("APK_SHA256")), CoreMatchers.nullValue())
+			Assert.assertThat(it.getString(it.getColumnIndex("URL_TO_RELEASE_NOTE")), CoreMatchers.nullValue())
+		}
+	}
+
+	@Test
 	fun upgrade7To8() {
 		Upgrade0To1().applyTo(db, 0)
 		Upgrade1To2().applyTo(db, 1)
