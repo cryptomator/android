@@ -91,8 +91,8 @@
 	<string name="screen_file_browser_node_action_delete">削除</string>
 	<string name="screen_file_browser_node_action_open_with_text">次で開く&#8230;</string>
 	<string name="screen_file_browser_selection_mode_title_zero_elements">アイテムを選択</string>
-	<string name="screen_file_browser_selection_mode_title_one_or_more_elements">%1$d selected</string>
-	<string name="screen_file_browser_select_items">Select&#8230;</string>
+	<string name="screen_file_browser_selection_mode_title_one_or_more_elements">%1$d 個選択済み</string>
+	<string name="screen_file_browser_select_items">選択&#8230;</string>
 	<string name="screen_file_browser_select_all_items">すべて選択</string>
 	<string name="screen_file_browser_refresh_items">更新</string>
 	<string name="screen_file_browser_no_connection_message">接続なし</string>
@@ -104,7 +104,7 @@
 	<string name="screen_share_files_content_text">テキスト</string>
 	<string name="screen_share_files_content_file">ファイル</string>
 	<string name="screen_share_files_content_files">ファイル</string>
-	<string name="screen_share_files_msg_filenames_must_be_unique">Filenames have to be unique, please rename the duplicates.</string>
+	<string name="screen_share_files_msg_filenames_must_be_unique">ファイル名は重複しない必要があります。名前を変更してください</string>
 	<string name="screen_share_files_section_location">保存先</string>
 	<string name="screen_share_files_save_button_text">保存</string>
 	<string name="screen_share_files_msg_success">暗号化が完了しました</string>
@@ -113,10 +113,10 @@
 	<!-- ## screen: cloud connections -->
 	<string name="screen_cloud_connections_title">接続先を選択</string>
 	<string name="screen_cloud_connections_no_connections">ここをタップして場所を追加する</string>
-	<string name="screen_cloud_error_webdav_not_supported">Server doesn\'t seem to be WebDAV compatible</string>
-	<string name="screen_cloud_local_custom_storage_title">Custom locations</string>
-	<string name="screen_cloud_local_default_storage_title">Default storage</string>
-	<string name="screen_cloud_local_error_no_content_provider">No additional locations available.</string>
+	<string name="screen_cloud_error_webdav_not_supported">サーバーに WebDAV との互換性がありません</string>
+	<string name="screen_cloud_local_custom_storage_title">その他の保存先</string>
+	<string name="screen_cloud_local_default_storage_title">デフォルトの保存先</string>
+	<string name="screen_cloud_local_error_no_content_provider">追加の利用できる保存先はありません。</string>
 	<!-- ## screen: webdav settings -->
 	<string name="screen_webdav_settings_url_port_label">URL</string>
 	<string name="screen_webdav_settings_username_label">ユーザー名</string>
@@ -143,22 +143,22 @@
 	<string name="screen_enter_vault_name_vault_label">金庫の名前</string>
 	<string name="screen_enter_vault_name_button_text">作成</string>
 	<!-- ## screen: set password -->
-	<string name="screen_set_password_title">Set password</string>
-	<string name="screen_set_password_msg_password_mismatch">Password doesn\'t match retyped password.</string>
+	<string name="screen_set_password_title">パスワードの設定</string>
+	<string name="screen_set_password_msg_password_mismatch">再入力されたパスワードが一致しません。</string>
 	<string name="screen_set_password_button_text">完了</string>
 	<string name="screen_set_password_hint">重要: パスワードを忘れると、データを回復する方法はありません。</string>
-	<string name="screen_set_password_retype_password_label">Retype password</string>
-	<string name="screen_set_password_strength_indicator_0">Too weak to create a vault</string>
+	<string name="screen_set_password_retype_password_label">パスワードを再入力</string>
+	<string name="screen_set_password_strength_indicator_0">金庫を作成するには弱すぎます</string>
 	<string name="screen_set_password_strength_indicator_1">弱い</string>
 	<string name="screen_set_password_strength_indicator_2">普通</string>
 	<string name="screen_set_password_strength_indicator_3">強い</string>
-	<string name="screen_set_password_strength_indicator_4">Very Strong</string>
+	<string name="screen_set_password_strength_indicator_4">非常に強い</string>
 	<!-- ## screen: settings -->
 	<string name="screen_settings_section_general">基本設定</string>
-	<string name="screen_settings_cloud_settings_label">Cloud services</string>
-	<string name="screen_settings_biometric_auth">Biometric authentication</string>
-	<string name="screen_settings_activate_biometric_auth">Activate biometric authentication</string>
-	<string name="screen_settings_confirm_face_unlock">Confirm face unlock (if available)</string>
+	<string name="screen_settings_cloud_settings_label">クラウド サービス</string>
+	<string name="screen_settings_biometric_auth">生体認証</string>
+	<string name="screen_settings_activate_biometric_auth">生体認証を有効にする</string>
+	<string name="screen_settings_confirm_face_unlock">顔認証のロック解除 (利用できる場合)</string>
 	<string name="screen_settings_block_app_when_obscured">Block app when obscured</string>
 	<string name="screen_settings_block_app_when_obscured_summary">Block intercepting the input and displaying a false user interface</string>
 	<string name="screen_settings_secure_screen">Block screenshots</string>
@@ -197,12 +197,12 @@
 	<string name="screen_settings_keep_unlocked_while_editing_files">Keep unlocked</string>
 	<string name="screen_settings_keep_unlocked_while_editing_files_summary">Keep vaults unlocked while editing files</string>
 	<!-- ## screen: cloud settings -->
-	<string name="screen_cloud_settings_webdav_connections">WebDAV connections</string>
-	<string name="screen_cloud_settings_pcloud_connections">pCloud connections</string>
-	<string name="screen_cloud_settings_s3_connections">S3 connections</string>
-	<string name="screen_cloud_settings_local_storage_locations">Local storage locations</string>
-	<string name="screen_cloud_settings_log_in_to">Log in to</string>
-	<string name="screen_cloud_settings_sign_out_from_cloud">Sign out from</string>
+	<string name="screen_cloud_settings_webdav_connections">WebDAV 接続</string>
+	<string name="screen_cloud_settings_pcloud_connections">pCloud 接続</string>
+	<string name="screen_cloud_settings_s3_connections">S3 接続</string>
+	<string name="screen_cloud_settings_local_storage_locations">ローカル ストレージの場所</string>
+	<string name="screen_cloud_settings_log_in_to">ログイン</string>
+	<string name="screen_cloud_settings_sign_out_from_cloud">次からサインアウト</string>
 	<!-- ## screen: licenses -->
 	<!-- ## screen: authenticate cloud -->
 	<string name="screen_authenticate_auth_authentication_failed">%1$s could not be authenticated.</string>
@@ -241,7 +241,7 @@
 	<string name="dialog_unable_to_share_title">Unable to share files</string>
 	<string name="dialog_unable_to_share_message">You haven\'t set up any vaults. Please create a new vault with the Cryptomator app first.</string>
 	<string name="dialog_unable_to_share_positive_button">OK</string>
-	<string name="dialog_unable_to_share_negative_button">Create vault</string>
+	<string name="dialog_unable_to_share_negative_button">金庫を作成</string>
 	<string name="dialog_filetype_not_supported_title">Can\'t open %1$s</string>
 	<string name="dialog_filetype_not_supported_message">Please download an app that can open this file or do you like to save to your device?</string>
 	<string name="dialog_rename_vault_title">金庫の名前を変更</string>
