@@ -32,15 +32,15 @@
 	<string name="error_vault_config_loading">金庫の設定を読み込み中に失敗しました</string>
 	<string name="error_file_not_found_after_opening_using_3party">Local file isn\'t present anymore after switching back to Cryptomator. Possible changes cannot be propagated back to the cloud.</string>
 	<string name="error_no_such_bucket">Bucket がありません</string>
-	<string name="error_masterkey_location_not_supported">Custom Masterkey location not supported yet</string>
+	<string name="error_masterkey_location_not_supported">自由に Masterkey の場所を設定することはまだできません</string>
 	<!-- # clouds -->
 	<!-- ## cloud names -->
-	<string name="cloud_names_local_storage">Local storage</string>
+	<string name="cloud_names_local_storage">ローカルストレージ</string>
 	<!-- # permission -->
 	<!-- ## permission messages -->
-	<string name="permission_message_export_file">Cryptomator needs storage access to export files</string>
-	<string name="permission_message_upload_file">Cryptomator needs storage access to upload files</string>
-	<string name="permission_message_share_file">Cryptomator needs storage access to share files</string>
+	<string name="permission_message_export_file">ファイルをエクスポートするには、Cryptomator がストレージにアクセスする許可が必要です</string>
+	<string name="permission_message_upload_file">ファイルをアップロードするには、Cryptomator がストレージにアクセスする許可が必要です</string>
+	<string name="permission_message_share_file">ファイルを共有するには、Cryptomator がストレージにアクセスする許可が必要です</string>
 	<string name="snack_bar_action_title_settings">設定</string>
 	<string name="snack_bar_action_title_search">検索</string>
 	<string name="snack_bar_action_title_search_previous">戻る</string>
@@ -63,8 +63,8 @@
 	<!-- # screen: file browser -->
 	<string name="screen_file_browser_default_title">金庫</string>
 	<string name="screen_file_browser_add_existing_vault_extra_text">Masterkey ファイルを選択</string>
-	<string name="screen_file_browser_create_new_vault_button_text">Place here</string>
-	<string name="screen_file_browser_create_new_vault_extra_text">Vault name: %1$s</string>
+	<string name="screen_file_browser_create_new_vault_button_text">ここにおく</string>
+	<string name="screen_file_browser_create_new_vault_extra_text">金庫の名前: %1$s</string>
 	<plurals name="screen_file_browser_subtitle_move">
 		<item quantity="other">Move %2$d items to</item>
 	</plurals>
@@ -83,13 +83,13 @@
 	<string name="screen_file_browser_msg_file_exported">エクスポートされたファイル</string>
 	<string name="screen_file_browser_msg_files_exported">エクスポートされたファイル</string>
 	<string name="screen_file_browser_nothing_to_export">エクスポートするものがありません</string>
-	<string name="screen_file_browser_msg_creating_download_dir_failed">Creating download directory failed</string>
+	<string name="screen_file_browser_msg_creating_download_dir_failed">ダウンロード ディレクトリの作成に失敗しました</string>
 	<string name="screen_file_browser_node_action_share">共有</string>
 	<string name="screen_file_browser_node_action_rename">名前の変更</string>
 	<string name="screen_file_browser_node_action_edit_text">編集</string>
 	<string name="screen_file_browser_node_action_export">エクスポート</string>
 	<string name="screen_file_browser_node_action_delete">削除</string>
-	<string name="screen_file_browser_node_action_open_with_text">Open with&#8230;</string>
+	<string name="screen_file_browser_node_action_open_with_text">次で開く&#8230;</string>
 	<string name="screen_file_browser_selection_mode_title_zero_elements">アイテムを選択</string>
 	<string name="screen_file_browser_selection_mode_title_one_or_more_elements">%1$d selected</string>
 	<string name="screen_file_browser_select_items">Select&#8230;</string>
