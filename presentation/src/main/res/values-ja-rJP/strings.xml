@@ -193,7 +193,7 @@
 	<string name="screen_settings_section_version">バージョン</string>
 	<string name="screen_settings_advanced_settings">高度な設定</string>
 	<string name="screen_settings_background_unlock_preparation_label">Accelerate unlock</string>
-	<string name="screen_settings_background_unlock_preparation_label_summary">Download vault config in the background while prompted to enter the password or biometric auth</string>
+	<string name="screen_settings_background_unlock_preparation_label_summary">パスワードまたは生体による認証中に、バックグラウンドで金庫の設定をダウンロードします</string>
 	<string name="screen_settings_keep_unlocked_while_editing_files">解錠したままにする</string>
 	<string name="screen_settings_keep_unlocked_while_editing_files_summary">ファイルの編集中は金庫を解錠しておく</string>
 	<!-- ## screen: cloud settings -->
@@ -211,7 +211,7 @@
 	<string name="screen_empty_dir_file_info_title">\'%1$s\' に到達できません</string>
 	<string name="screen_empty_dir_file_info_headline">Cryptomator がこのフォルダに到達できません。</string>
 	<string name="screen_empty_dir_file_info_text">It may have been deleted by another application or a faulty cloud synchronization could have caused this.\n\nTry to restore the directory file via your cloud provider to a previous version which is not empty. The file in question is:\n%1$s\n\nIf that does not work, you may use Sanitizer to check your vault for issues and possibly restore your data.</string>
-	<string name="screen_empty_dir_file_info_button_label">More Details on Sanitizer</string>
+	<string name="screen_empty_dir_file_info_button_label">Sanitizer の詳細</string>
 	<!-- ## screen: insecure android version info -->
 	<!-- # dialogs -->
 	<string name="dialog_button_cancel">キャンセル</string>
@@ -224,11 +224,11 @@
 	<string name="dialog_change_password_msg_password_mismatch">新しいパスワードが再入力されたパスワードと一致しません。</string>
 	<!-- Vault not found -->
 	<string name="dialog_vault_not_found_title">金庫 %1$s が見つかりません</string>
-	<string name="dialog_vault_not_found_message">The vault has been renamed, moved or deleted. Remove this vault form the list and add it again to proceed. Remove now?</string>
+	<string name="dialog_vault_not_found_message">金庫の名前が変更、移動または削除されました。この金庫をリストから削除し、再度追加してください。今すぐ削除してもよろしいですか?</string>
 	<string name="dialog_vault_not_found_positive_button_text">削除</string>
-	<string name="dialog_existing_file_title">File already exists</string>
+	<string name="dialog_existing_file_title">ファイルが既に存在します</string>
 	<string name="dialog_existing_file_positive_button">置換</string>
-	<string name="dialog_existing_file_message">A file named \'%1$s\' already exists.</string>
+	<string name="dialog_existing_file_message">ファイル名 %1$s が既に存在します。</string>
 	<string name="dialog_replace_negative_button_at_least_two_but_not_all_files_exist">Skip existing</string>
 	<string name="dialog_replace_positive_button_all_files_exist">すべて置換</string>
 	<string name="dialog_replace_positive_button_some_files_exist">Replace existing</string>
@@ -236,20 +236,20 @@
 	<string name="dialog_replace_msg_single_file_exists">A file named \'%1$s\' already exists. Do you want to replace it?</string>
 	<string name="dialog_replace_msg_all_files_exists">All files already exist. Do you want to replace them?</string>
 	<string name="dialog_replace_msg_some_files_exists">%1$d files already exist. Do you want to replace them?</string>
-	<string name="dialog_replace_title_single_file_exists">Replace file?</string>
-	<string name="dialog_replace_title_multiple_files_exist">Replace files?</string>
-	<string name="dialog_unable_to_share_title">Unable to share files</string>
-	<string name="dialog_unable_to_share_message">You haven\'t set up any vaults. Please create a new vault with the Cryptomator app first.</string>
+	<string name="dialog_replace_title_single_file_exists">ファイルを置き換えますか?</string>
+	<string name="dialog_replace_title_multiple_files_exist">ファイルを置き換えますか?</string>
+	<string name="dialog_unable_to_share_title">ファイルを共有できません</string>
+	<string name="dialog_unable_to_share_message">金庫のセットアップが完了していません。最初に Cryptomator から新しい金庫を作成してください。</string>
 	<string name="dialog_unable_to_share_positive_button">OK</string>
 	<string name="dialog_unable_to_share_negative_button">金庫を作成</string>
-	<string name="dialog_filetype_not_supported_title">Can\'t open %1$s</string>
-	<string name="dialog_filetype_not_supported_message">Please download an app that can open this file or do you like to save to your device?</string>
+	<string name="dialog_filetype_not_supported_title">%1$s を開くことができません</string>
+	<string name="dialog_filetype_not_supported_message">このファイルを開くことができるアプリをダウンロードしてください。それともデバイスに保存しますか？</string>
 	<string name="dialog_rename_vault_title">金庫の名前を変更</string>
-	<string name="dialog_rename_node_folder_title">Rename folder</string>
-	<string name="dialog_rename_node_file_title">Rename file</string>
-	<string name="dialog_unsaved_changes_title">You have unsaved changes</string>
-	<string name="dialog_unsaved_changes_message">Do you really want to quit without saving?</string>
-	<string name="dialog_unsaved_changes_discard">Discard</string>
+	<string name="dialog_rename_node_folder_title">フォルダーの名前を変更</string>
+	<string name="dialog_rename_node_file_title">ファイルの名前を変更</string>
+	<string name="dialog_unsaved_changes_title">保存していない変更があります</string>
+	<string name="dialog_unsaved_changes_message">保存せずに終了してもよろしいですか?</string>
+	<string name="dialog_unsaved_changes_discard">破棄</string>
 	<string name="dialog_file_name_placeholder">text.txt</string>
 	<string name="dialog_delete_vault_message">本当にこの金庫を削除しますか？</string>
 	<string name="dialog_delete_vault_hint">This action will only remove the vault from this list and not delete it physically.</string>
@@ -276,18 +276,18 @@
 	<string name="dialog_accept_ssl_certificate_details">詳細</string>
 	<string name="dialog_accept_ssl_certificate_security_checkbox">これはセキュリティ リスクになる可能性があります。リスクについて理解していますか</string>
 	<string name="dialog_http_security_hint">The usage of HTTP is insecure. We recommend to use HTTPS instead. If you know the risks, you can continue with HTTP.</string>
-	<string name="dialog_http_security_checkbox">Change to HTTPS</string>
-	<string name="dialog_http_security_title">Use HTTPS?</string>
+	<string name="dialog_http_security_checkbox">HTTPS に変更</string>
+	<string name="dialog_http_security_title">HTTPS を使用しますか?</string>
 	<string name="dialog_no_screen_lock_hint">No screen lock is set. To store your credentials in a secure way, set with OK a pattern or password.</string>
-	<string name="dialog_no_screen_lock_title">Set screen lock?</string>
-	<string name="dialog_no_screen_lock_checkbox">Set screen lock</string>
-	<string name="dialog_no_biometric_auth_set_up_title">No basic authentication set up in system</string>
+	<string name="dialog_no_screen_lock_title">画面ロックを設定しますか?</string>
+	<string name="dialog_no_screen_lock_checkbox">画面ロックを設定</string>
+	<string name="dialog_no_biometric_auth_set_up_title">システムに基本的な認証が設定されていません</string>
 	<string name="dialog_no_biometric_auth_set_up_message">Enroll at least one finger/face to use this service.</string>
 	<string name="dialog_debug_mode_disclaimer_hint">In this mode, sensitive data may be written to a log file on your device (e.g., filenames and paths). Passwords, cookies, etc. are explicitly excluded.\n\nRemember to disable debug mode as soon as possible.</string>
-	<string name="dialog_debug_mode_disclaimer_title">Attention</string>
-	<string name="dialog_debug_mode_positive_button">Enable</string>
-	<string name="dialog_disable_app_obscured_disclaimer_hint">This setting is a security feature and prevents other apps from tricking users into doing things they do not wan\'t to do.\n\nBy disabling, you confirm that you are <a href="https://docs.cryptomator.org/en/1.5/android/settings/#block-app-when-obscured">aware of the risks</a>.</string>
-	<string name="dialog_disable_app_obscured_disclaimer_title">Attention</string>
+	<string name="dialog_debug_mode_disclaimer_title">注意</string>
+	<string name="dialog_debug_mode_positive_button">有効</string>
+	<string name="dialog_disable_app_obscured_disclaimer_hint">この設定は安全のための機能です。他のアプリがユーザーを騙してしまうことを防ぎます。\n\n無効にすることで、 <a href="https://docs.cryptomator.org/en/1.5/android/settings/#block-app-when-obscured">リスクを認識していること</a> に留意する必要があります。</string>
+	<string name="dialog_disable_app_obscured_disclaimer_title">注意</string>
 	<string name="dialog_disable_app_obscured_positive_button">無効</string>
 	<string name="dialog_app_is_obscured_info_title">アプリが重なっています</string>
 	<string name="dialog_app_is_obscured_info_hint">他のアプリケーションが Cryptomator の上に何かを表示しています (例: ブルーライト フィルターや night mode アプリ)。このため、セキュリティの観点から Cryptomator が無効化されています。\n\n<a href="https://docs.cryptomator.org/en/1.5/android/settings/#block-app-when-obscured">Cryptomator を有効にするには</a></string>
