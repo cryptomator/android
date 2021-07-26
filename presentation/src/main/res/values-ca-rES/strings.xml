@@ -1,26 +1,57 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 	<!-- # app -->
+	<string name="share_with_label">Xifrar</string>
 	<!-- # error messages -->
+	<string name="error_generic">Hi ha hagut un error</string>
+	<string name="error_authentication_failed">Ha fallat l\'autenticació</string>
+	<string name="error_authentication_failed_re_authenticate">Error d\'autenticació, inicieu sessió usant %1$s</string>
+	<string name="error_no_network_connection">No hi ha connexió de xarxa</string>
+	<string name="error_invalid_passphrase">Contrasenya incorrecta</string>
+	<string name="error_file_or_folder_exists">Ja existeix un fitxer o carpeta.</string>
+	<string name="error_vault_version_not_supported">Caixa forta no suportada. Caixa forta creada amb una altra versió de Cryptomator.</string>
+	<string name="error_vault_already_exists">La caixa forta ja existeix.</string>
+	<string name="error_no_such_file">El fitxer no existeix.</string>
+	<string name="error_vault_has_been_locked">S\'ha bloquejat la caixa forta.</string>
+	<string name="error_cloud_already_exists">Núvol ja existent.</string>
+	<string name="error_activity_not_found">Descarregueu un aplicació que pugui obrir aquest fitxer.</string>
+	<string name="error_server_not_found">No s\'ha trobat el servidor.</string>
+	<string name="error_device_policy_manager_not_found">Obriu la configuració dels vostres dispositius i establiu el bloqueig de pantalla a mà</string>
 	<!-- # clouds -->
 	<!-- ## cloud names -->
+	<string name="cloud_names_local_storage">Emmagatzematge local</string>
 	<!-- # permission -->
 	<!-- ## permission messages -->
+	<string name="snack_bar_action_title_search">Cercar</string>
+	<string name="snack_bar_action_title_search_previous">Anterior</string>
 	<string name="snack_bar_action_title_search_next">Següent</string>
+	<string name="snack_bar_action_title_sort">Ordenar</string>
+	<string name="snack_bar_action_title_sort_az">A - Z</string>
+	<string name="snack_bar_action_title_sort_za">Z - A</string>
 	<!-- # screens -->
 	<!-- # screen: vault list -->
 	<string name="screen_vault_list_vault_action_delete">Elimina</string>
 	<!-- # screen: file browser -->
 	<string name="screen_file_browser_default_title">Caixa forta</string>
 	<string name="screen_file_browser_share_button_text">Trieu</string>
+	<string name="screen_file_browser_node_action_edit_text">Editar</string>
 	<!-- ## screen: text editor -->
 	<!-- ## screen: share files -->
+	<string name="screen_share_files_content_text">text</string>
+	<string name="screen_share_files_content_file">fitxer</string>
+	<string name="screen_share_files_content_files">fitxers</string>
 	<!-- ## screen: choose cloud service -->
 	<!-- ## screen: cloud connections -->
 	<!-- ## screen: webdav settings -->
+	<string name="screen_webdav_settings_url_port_label">URL</string>
+	<string name="screen_webdav_settings_username_label">Nom d\'usuari</string>
 	<string name="screen_webdav_settings_password_label">Contrasenya</string>
+	<string name="screen_webdav_settings_done_button_text">Connectar</string>
 	<!-- ## screen: s3 settings -->
+	<string name="screen_s3_settings_region_label">Regió</string>
 	<!-- ## screen: enter vault name -->
+	<string name="screen_enter_vault_name_vault_label">Nom de la caixa forta</string>
+	<string name="screen_enter_vault_name_button_text">Crear</string>
 	<!-- ## screen: set password -->
 	<string name="screen_set_password_button_text">Fet</string>
 	<string name="screen_set_password_strength_indicator_1">Poc segura</string>
@@ -28,6 +59,7 @@
 	<string name="screen_set_password_strength_indicator_3">Segura</string>
 	<!-- ## screen: settings -->
 	<string name="screen_settings_section_general">General</string>
+	<string name="screen_settings_section_search">Cercar</string>
 	<!-- ## screen: cloud settings -->
 	<!-- ## screen: licenses -->
 	<!-- ## screen: authenticate cloud -->
@@ -38,6 +70,9 @@
 	<string name="dialog_enter_password_positive_button">Desbloqueja</string>
 	<!-- Vault not found -->
 	<string name="dialog_vault_not_found_positive_button_text">Elimina</string>
+	<string name="dialog_unable_to_share_positive_button">D\'acord</string>
+	<string name="dialog_unable_to_share_negative_button">Crear Caixa forta</string>
+	<string name="dialog_filetype_not_supported_title">No es pot obrir %1$s</string>
 	<string name="dialog_lock_vault">Bloqueja</string>
 	<string name="dialog_app_is_obscured_info_neutral_button">Tanca</string>
 	<string name="dialog_sym_link_back_button">Enrere</string>
