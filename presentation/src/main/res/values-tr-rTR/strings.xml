@@ -22,7 +22,7 @@
 	<string name="error_names_contains_invalid_characters">Dosya adları özel karakterler içeremez.</string>
 	<string name="error_vault_name_contains_invalid_characters">Kasa adı özel karakterler içeremez.</string>
 	<string name="error_general_update">Genel bir hata oluştu ve güncelleme kontrolü başarısız oldu.</string>
-	<string name="error_hash_mismatch_update">Güncelleme kontrolü başarısız. Hesaplanan karma değer yüklenen dosya ile eşleşmiyor</string>
+	<string name="error_hash_mismatch_update">Güncelleme kontrolü başarısız. Hesaplanan hash değeri ile yüklenen dosyanın ki eşleşmiyor</string>
 	<string name="error_update_no_internet">Güncelleme kontrolü başarısız oldu. İnternet bağlantısı yok.</string>
 	<string name="error_failed_to_decrypt_webdav_password">WebDAV şifresi çözülemedi, lütfen ayarlara yeniden ekleyin</string>
 	<string name="error_play_services_not_available">Play Hizmetleri yüklü değil</string>
@@ -131,10 +131,10 @@
 	<string name="screen_s3_settings_display_name_label">Görünen Ad</string>
 	<string name="screen_s3_settings_access_key_label">Erişim Anahtarı</string>
 	<string name="screen_s3_settings_secret_key_label">Gizli Anahtar</string>
-	<string name="screen_s3_settings_bucket_label">Mevcut Kova</string>
-	<string name="screen_s3_settings_endpoint_label">Endpoint</string>
+	<string name="screen_s3_settings_bucket_label">Mevcut kova</string>
+	<string name="screen_s3_settings_endpoint_label">Uç nokta</string>
 	<string name="screen_s3_settings_region_label">Bölge</string>
-	<string name="screen_s3_settings_msg_display_name_not_empty">Görünen Ad boş olamaz</string>
+	<string name="screen_s3_settings_msg_display_name_not_empty">Görünen ad boş olamaz</string>
 	<string name="screen_s3_settings_msg_access_key_not_empty">Erişim Anahtarı boş olamaz</string>
 	<string name="screen_s3_settings_msg_secret_key_not_empty">Gizli Anahtar boş olamaz</string>
 	<string name="screen_s3_settings_msg_bucket_not_empty">Kova boş olamaz</string>
@@ -168,7 +168,7 @@
 	<string name="screen_settings_live_search">Canlı arama</string>
 	<string name="screen_settings_live_search_summary">Sorgulama yaparken, arama sonuçlarını güncelle</string>
 	<string name="screen_settings_glob_search">Glob kalıbı kullanarak ara</string>
-	<string name="screen_settings_glob_search_summary">Glob pattern kullan. alice.*.jpg gibi</string>
+	<string name="screen_settings_glob_search_summary">Glob kalıbı kullan. alice.*.jpg gibi</string>
 	<string name="screen_settings_section_auto_lock">Otomatik Kilitleme</string>
 	<string name="screen_settings_auto_lock_timeout">Kilitleme zamanı</string>
 	<string name="screen_settings_auto_lock_on_screen_lock">Ekran devre dışı bırakıldığında</string>
@@ -272,7 +272,7 @@
 	<string name="dialog_progress_decryption">Şifre çözülüyor&#8230;</string>
 	<string name="action_progress_moving">Taşınıyor&#8230;</string>
 	<string name="dialog_lock_vault">Kilitle</string>
-	<string name="dialog_accept_ssl_certificate_title">Geçersiz SSL sertifikası</string>
+	<string name="dialog_accept_ssl_certificate_title">SSL sertifikası geçersiz</string>
 	<string name="dialog_accept_ssl_certificate_hint">SSL sertifikası geçersiz. Yine de güvenmek istiyor musun?</string>
 	<string name="dialog_accept_ssl_certificate_details">Detaylar</string>
 	<string name="dialog_accept_ssl_certificate_security_checkbox">Bu bir güvenlik riski olabilir! Ne yaptığımı biliyorum.</string>
@@ -323,7 +323,7 @@
 	<string name="dialog_no_dir_file_message">\'%1$s\' bulut klasörünün bir dizin dosyası yok. Klasör başka bir cihazda oluşturulmuş ve henüz buluta tam olarak senkronize edilmemiş olabilir. Lütfen aşağıdaki dosyanın mevcut olup olmadığını kontrol edin:\n%2$s</string>
 	<string name="dialog_no_more_images_to_display">&#8230; göstermek için daha fazla resim yok</string>
 	<string name="dialog_pcloud_credentials_updated_title">%1$s kimlik bilgileri güncellendi</string>
-	<string name="dialog_pcloud_credentials_updated">Yeni bir pCloud hesabı eklemeyi düşünüyorsanız, bu url <a href="https://www.pcloud.com">www.pcloud.com</a> tıklayın, mevcut hesaptan çıkın ve yeni bir bulut bağlantısı oluşturmak için bu uygulamadaki \'+\'. tekrar tıklayın.</string>
+	<string name="dialog_pcloud_credentials_updated">Yeni bir pCloud hesabı eklemeyi düşünüyorsanız, bu url <a href="https://www.pcloud.com">www.pcloud.com</a> tıklayın, mevcut hesaptan çıkın ve yeni bir bulut bağlantısı oluşturmak için \'+\'. tekrar tıklayın.</string>
 	<string name="permission_snackbar_auth_local_vault">Cryptomator\'un yerel kasaları kullanmak için depolama erişimine ihtiyacı var</string>
 	<string name="permission_snackbar_auth_auto_upload">Cryptomator\'un otomatik fotoğraf yüklemesi için depolama erişimine ihtiyacı var</string>
 	<!-- # error reports -->
@@ -372,7 +372,7 @@
 	<string name="notification_open_writable_file_message">Düzenleme tamamlanana kadar, uygulamalar kasası kilidi açık kalır</string>
 	<string name="notification_update_check_finished_latest">En son sürüm yüklendi</string>
 	<string name="screen_settings_lru_cache">Önbellek</string>
-	<string name="screen_settings_lru_cache_toggle_summary">Yeniden açıldıklarında daha sonra yeniden kullanılmak üzere cihazda yerel olarak şifrelenmiş yakın zamanda erişilen dosyaları önbelleğe alın</string>
+	<string name="screen_settings_lru_cache_toggle_summary">Yeniden açıldıklarında daha sonra yeniden kullanılmak üzere, cihazda yerel olarak şifrelenmiş yakın zamanda erişilen dosyaları önbelleğe alın</string>
 	<string name="screen_settings_lru_cache_size">Toplam önbellek boyutu</string>
 	<string name="screen_settings_clear_lru_cache_size">Önbelleği temizle</string>
 	<string name="screen_settings_lru_cache_changed__restart_toast">Değişiklikler, uygulama yeniden başlatıldığında uygulanacak</string>
@@ -388,6 +388,7 @@
 	<string name="lock_timeout_2m">2 dakika</string>
 	<string name="lock_timeout_5m">5 dakika</string>
 	<string name="lock_timeout_10m">10 dakika</string>
+	<string name="lock_timeout_never">Hiçbir zaman</string>
 	<!-- cache size names -->
 	<string name="cache_size_50m">50 MB</string>
 	<string name="cache_size_100m">100 MB</string>

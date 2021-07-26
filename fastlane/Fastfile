@@ -2,13 +2,14 @@ fastlane_require 'dotenv'
 fastlane_require 'jwt'
 fastlane_require 'base64'
 fastlane_require 'net/sftp'
+fastlane_require 'json'
 
 default_platform(:android)
 
 build = number_of_commits + 1958 # adding 1958 for legacy reasons. Must be in sync with getVersionCode() from build.gradle
 version = get_version_name(
                 gradle_file_path:"build.gradle",
-  	            ext_constant_name:"androidVersionName")
+                ext_constant_name:"androidVersionName")
 version = version.delete "'"
 
 release_note_path_en = "metadata/android/en-US/changelogs/default.txt"
@@ -181,33 +182,75 @@ platform :android do |options|
       }
     )
 
-	if options[:alpha] or options[:beta]
-	  puts "Skipping deployment to F-Droid cause there isn't currently a alpha/beta channel"
-	else
-	  puts "Updating F-Droid"
+    checkTrackingAddedInDependency(alpha:options[:alpha], beta:options[:beta])
 
-	  FileUtils.cp(lane_context[SharedValues::GRADLE_APK_OUTPUT_PATH], "repo/Cryptomator.apk")
+    if options[:alpha] or options[:beta]
+      puts "Skipping deployment to F-Droid cause there isn't currently a alpha/beta channel"
+    else
+      puts "Updating F-Droid"
 
-	  sh("cp -r metadata/android/ metadata/org.cryptomator/")
-	  FileUtils.cp("metadata/org.cryptomator/en-US/changelogs/default.txt", "metadata/org.cryptomator/en-US/changelogs/#{version}.txt")
-	  FileUtils.cp("metadata/org.cryptomator/de-DE/changelogs/default.txt", "metadata/org.cryptomator/de-DE/changelogs/#{version}.txt")
-	  sh("fdroid update && fdroid rewritemeta")
-	  sh("rm -r metadata/org.cryptomator/")
+      FileUtils.cp(lane_context[SharedValues::GRADLE_APK_OUTPUT_PATH], "repo/Cryptomator.apk")
 
-	  aws_s3(
-		  bucket: ENV['S3_BUCKET'],
-		  endpoint: ENV['S3_ENDPOINT'],
-		  region: ENV['S3_REGION'],
-		  access_key: ENV['S3_ACCESS_KEY'],
-		  secret_access_key: ENV['S3_SECRET_ACCESS_KEY'],
-		  path: "android/fdroid",
-		  folder: "fastlane/repo",
-		  skip_html_upload: true,
-		  apk: ''
-		)
-	end
+      sh("cp -r metadata/android/ metadata/org.cryptomator/")
+      FileUtils.cp("metadata/org.cryptomator/en-US/changelogs/default.txt", "metadata/org.cryptomator/en-US/changelogs/#{version}.txt")
+      FileUtils.cp("metadata/org.cryptomator/de-DE/changelogs/default.txt", "metadata/org.cryptomator/de-DE/changelogs/#{version}.txt")
+      sh("fdroid update && fdroid rewritemeta")
+      sh("rm -r metadata/org.cryptomator/")
+
+      aws_s3(
+        bucket: ENV['S3_BUCKET'],
+        endpoint: ENV['S3_ENDPOINT'],
+        region: ENV['S3_REGION'],
+        access_key: ENV['S3_ACCESS_KEY'],
+        secret_access_key: ENV['S3_SECRET_ACCESS_KEY'],
+        path: "android/fdroid",
+        folder: "fastlane/repo",
+        skip_html_upload: true,
+        apk: ''
+      )
+    end
 
     FileUtils.cp(lane_context[SharedValues::GRADLE_APK_OUTPUT_PATH], "release/Cryptomator-#{version}_fdroid_signed.apk")
+  end
+
+  desc "Check if tracking added in some dependency"
+  lane :checkTrackingAddedInDependency do |options|
+    puts "Check if script file is latest"
+    sh("wget -O current_iod-scan-apk.php https://gitlab.com/fdroid/issuebot/-/raw/master/modules/iod-scan-apk.php")
+
+    same_script = FileUtils.compare_file("iod-scan-apk.php", "current_iod-scan-apk.php")
+    if same_script
+      puts "Script file unchanged"
+      FileUtils.rm("current_iod-scan-apk.php")
+    else
+      UI.error("Script updated, check diff, download and save to iod-scan-apk.php")
+      fail
+    end
+
+    FileUtils.mkdir("unsigned")
+
+    FileUtils.cp(lane_context[SharedValues::GRADLE_APK_OUTPUT_PATH], "unsigned/org.cryptomator_#{version}.apk")
+
+    sh("ISSUEBOT_CURRENT_APPLICATION_ID=org.cryptomator ISSUEBOT_CURRENT_REPLY_FILE=current_result.json php iod-scan-apk.php")
+
+    # clean up
+    FileUtils.rm("libinfo.txt")
+    FileUtils.rm("libsmali.txt")
+    FileUtils.rm_r("unsigned")
+    FileUtils.rm_r("org.cryptomator_#{version}")
+
+    puts "Check if something changed in the APK regarding the dependencies"
+
+    report = JSON.parse(File.read("result.json"))["report"]
+    current_report = JSON.parse(File.read("current_result.json"))["report"]
+
+    if report.eql?(current_report)
+      puts "Dependencies unchanged"
+      FileUtils.rm("current_result.json")
+    else
+      UI.error("Dependencies changed, check result of current_result.json, if no problem, move it to result.json, commit and retry")
+      fail
+    end
   end
 
   desc "Create GitHub draft release"

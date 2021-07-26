@@ -2,14 +2,13 @@ apply from: 'buildsystem/dependencies.gradle'
 apply plugin: "com.vanniktech.android.junit.jacoco"
 
 buildscript {
-	ext.kotlin_version = '1.5.10'
+	ext.kotlin_version = '1.5.21'
 	repositories {
-		jcenter()
 		mavenCentral()
 		google()
 	}
 	dependencies {
-		classpath 'com.android.tools.build:gradle:4.2.1'
+		classpath 'com.android.tools.build:gradle:4.2.2'
 		classpath 'org.greenrobot:greendao-gradle-plugin:3.3.0'
 		classpath 'com.vanniktech:gradle-android-junit-jacoco-plugin:0.16.0'
 		classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
