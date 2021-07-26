@@ -1,64 +1,407 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 	<!-- # app -->
+	<string name="share_with_label">Encrypt</string>
 	<!-- # error messages -->
+	<string name="error_generic">An error occurred</string>
+	<string name="error_authentication_failed">Authentication failed</string>
+	<string name="error_authentication_failed_re_authenticate">Authentication failed, please login using %1$s</string>
+	<string name="error_no_network_connection">No network connection</string>
+	<string name="error_invalid_passphrase">Wrong password</string>
+	<string name="error_file_or_folder_exists">A file or folder already exists.</string>
+	<string name="error_vault_version_not_supported">Unsupported vault. This vault has been created with another version of Cryptomator.</string>
+	<string name="error_vault_already_exists">Vault already exists.</string>
+	<string name="error_no_such_file">File does not exist.</string>
+	<string name="error_vault_has_been_locked">Vault has been locked.</string>
+	<string name="error_cloud_already_exists">Cloud already exists.</string>
+	<string name="error_activity_not_found">Please download an app that can open this file.</string>
+	<string name="error_server_not_found">Server not found.</string>
+	<string name="error_device_policy_manager_not_found">Please open your devices settings and set the screen lock by hand</string>
+	<string name="error_export_illegal_file_name">Export failed. Try to remove special characters from file names and export again.</string>
+	<string name="error_name_contains_invalid_characters">Can\'t contain special characters.</string>
+	<string name="error_names_contains_invalid_characters">File names can\'t contain special characters.</string>
+	<string name="error_vault_name_contains_invalid_characters">Vault name can\'t contain special characters.</string>
+	<string name="error_general_update">Update check failed. General error occurred.</string>
+	<string name="error_hash_mismatch_update">Update check failed. Calculated hash doesn\'t match the uploaded file</string>
+	<string name="error_update_no_internet">Update check failed. No internet connection.</string>
+	<string name="error_failed_to_decrypt_webdav_password">Failed to decrypt WebDAV password, please re add in settings</string>
+	<string name="error_play_services_not_available">Play Services not installed</string>
+	<string name="error_biometric_auth_aborted">Biometric authentication aborted</string>
+	<string name="error_vault_version_mismatch">Version specified in vault.cryptomator is different to masterkey.cryptomator</string>
+	<string name="error_vault_key_invalid">vault.cryptomator does not match with this masterkey.cryptomator</string>
+	<string name="error_vault_config_loading">General error while loading the vault config</string>
+	<string name="error_file_not_found_after_opening_using_3party">Local file isn\'t present anymore after switching back to Cryptomator. Possible changes cannot be propagated back to the cloud.</string>
+	<string name="error_no_such_bucket">No such bucket</string>
+	<string name="error_masterkey_location_not_supported">Custom Masterkey location not supported yet</string>
 	<!-- # clouds -->
 	<!-- ## cloud names -->
+	<string name="cloud_names_local_storage">Local storage</string>
 	<!-- # permission -->
 	<!-- ## permission messages -->
+	<string name="permission_message_export_file">Cryptomator needs storage access to export files</string>
+	<string name="permission_message_upload_file">Cryptomator needs storage access to upload files</string>
+	<string name="permission_message_share_file">Cryptomator needs storage access to share files</string>
 	<string name="snack_bar_action_title_settings">설정</string>
+	<string name="snack_bar_action_title_search">Search</string>
+	<string name="snack_bar_action_title_search_previous">Previous</string>
 	<string name="snack_bar_action_title_search_next">다음</string>
+	<string name="snack_bar_action_title_sort">Sort</string>
+	<string name="snack_bar_action_title_sort_az">A - Z</string>
+	<string name="snack_bar_action_title_sort_za">Z - A</string>
+	<string name="snack_bar_action_title_sort_newest">Newest first</string>
+	<string name="snack_bar_action_title_sort_oldest">Oldest first</string>
+	<string name="snack_bar_action_title_sort_biggest">Biggest first</string>
+	<string name="snack_bar_action_title_sort_smallest">Smallest first</string>
 	<!-- # screens -->
 	<!-- # screen: vault list -->
+	<string name="screen_vault_list_actions_title">Add to Cryptomator</string>
+	<string name="screen_vault_list_action_create_new_vault">Create new vault</string>
+	<string name="screen_vault_list_action_add_existing_vault">Add existing vault</string>
 	<string name="screen_vault_list_vault_action_delete">제거</string>
+	<string name="screen_vault_list_vault_creation_hint">Click here to create a new vault</string>
+	<string name="screen_vault_list_change_password_successful">Password successfully changed</string>
 	<!-- # screen: file browser -->
 	<string name="screen_file_browser_default_title">Vault</string>
+	<string name="screen_file_browser_add_existing_vault_extra_text">Select masterkey file</string>
+	<string name="screen_file_browser_create_new_vault_button_text">Place here</string>
+	<string name="screen_file_browser_create_new_vault_extra_text">Vault name: %1$s</string>
+	<plurals name="screen_file_browser_subtitle_move">
+		<item quantity="other">Move %2$d items to</item>
+	</plurals>
+	<string name="screen_file_browser_move_button_text">Move</string>
+	<string name="screen_file_browser_msg_empty_folder">Empty folder</string>
+	<string name="screen_file_browser_file_info_label_date">modified %1$s ago</string>
+	<string name="screen_file_browser_share_intent_chooser_title">Share with</string>
+	<string name="screen_file_browser_share_destination_title">Choose a destination</string>
 	<string name="screen_file_browser_share_button_text">선택</string>
+	<string name="screen_file_browser_nothing_to_share">Nothing to share</string>
+	<string name="screen_file_browser_actions_title">Add to %1$s</string>
+	<string name="screen_file_browser_action_create_folder">Create folder</string>
+	<string name="screen_file_browser_action_create_new_text_file">Create text file</string>
+	<string name="screen_file_browser_action_upload_files">Upload files</string>
+	<string name="screen_file_browser_upload_files_chooser_title">Files</string>
+	<string name="screen_file_browser_msg_file_exported">File exported</string>
+	<string name="screen_file_browser_msg_files_exported">Files exported</string>
+	<string name="screen_file_browser_nothing_to_export">Nothing to export</string>
+	<string name="screen_file_browser_msg_creating_download_dir_failed">Creating download directory failed</string>
+	<string name="screen_file_browser_node_action_share">Share</string>
+	<string name="screen_file_browser_node_action_rename">Rename</string>
 	<string name="screen_file_browser_node_action_edit_text">수정</string>
+	<string name="screen_file_browser_node_action_export">Export</string>
+	<string name="screen_file_browser_node_action_delete">Delete</string>
+	<string name="screen_file_browser_node_action_open_with_text">Open with&#8230;</string>
+	<string name="screen_file_browser_selection_mode_title_zero_elements">Select items</string>
+	<string name="screen_file_browser_selection_mode_title_one_or_more_elements">%1$d selected</string>
+	<string name="screen_file_browser_select_items">Select&#8230;</string>
+	<string name="screen_file_browser_select_all_items">Select all</string>
+	<string name="screen_file_browser_refresh_items">Refresh</string>
+	<string name="screen_file_browser_no_connection_message">No connection</string>
+	<string name="screen_file_browser_no_connection_button_text">Retry</string>
 	<!-- ## screen: text editor -->
+	<string name="screen_text_editor_save_success">Successfully saved</string>
 	<!-- ## screen: share files -->
+	<string name="screen_share_files_title">Save %1$s to&#8230;</string>
+	<string name="screen_share_files_content_text">text</string>
+	<string name="screen_share_files_content_file">file</string>
+	<string name="screen_share_files_content_files">files</string>
+	<string name="screen_share_files_msg_filenames_must_be_unique">Filenames have to be unique, please rename the duplicates.</string>
+	<string name="screen_share_files_section_location">Save location</string>
+	<string name="screen_share_files_save_button_text">Save</string>
+	<string name="screen_share_files_msg_success">Encryption completed</string>
 	<!-- ## screen: choose cloud service -->
+	<string name="screen_choose_cloud_service_title">Cloud service</string>
 	<!-- ## screen: cloud connections -->
+	<string name="screen_cloud_connections_title">Choose a location</string>
+	<string name="screen_cloud_connections_no_connections">Click here to add locations</string>
+	<string name="screen_cloud_error_webdav_not_supported">Server doesn\'t seem to be WebDAV compatible</string>
+	<string name="screen_cloud_local_custom_storage_title">Custom locations</string>
+	<string name="screen_cloud_local_default_storage_title">Default storage</string>
+	<string name="screen_cloud_local_error_no_content_provider">No additional locations available.</string>
 	<!-- ## screen: webdav settings -->
 	<string name="screen_webdav_settings_url_port_label">URL</string>
 	<string name="screen_webdav_settings_username_label">사용자명</string>
 	<string name="screen_webdav_settings_password_label">비밀번호</string>
+	<string name="screen_webdav_settings_done_button_text">Connect</string>
+	<string name="screen_webdav_settings_msg_url_must_not_be_empty">URL can\'t be empty.</string>
+	<string name="screen_webdav_settings_msg_url_is_invalid">URL is invalid.</string>
+	<string name="screen_webdav_settings_msg_username_must_not_be_empty">Username can\'t be empty.</string>
+	<string name="screen_webdav_settings_msg_password_must_not_be_empty">Password can\'t be empty.</string>
 	<!-- ## screen: s3 settings -->
+	<string name="screen_s3_settings_display_name_label">Display Name</string>
+	<string name="screen_s3_settings_access_key_label">Access Key</string>
+	<string name="screen_s3_settings_secret_key_label">Secret Key</string>
+	<string name="screen_s3_settings_bucket_label">Existing Bucket</string>
+	<string name="screen_s3_settings_endpoint_label">Endpoint</string>
+	<string name="screen_s3_settings_region_label">Region</string>
+	<string name="screen_s3_settings_msg_display_name_not_empty">Display Name can\'t be empty</string>
+	<string name="screen_s3_settings_msg_access_key_not_empty">Access Key can\'t be empty</string>
+	<string name="screen_s3_settings_msg_secret_key_not_empty">Secret Key can\'t be empty</string>
+	<string name="screen_s3_settings_msg_bucket_not_empty">Bucket can\'t be empty</string>
+	<string name="screen_s3_settings_msg_endpoint_and_region_not_empty">Endpoint or Region can\'t be empty</string>
 	<!-- ## screen: enter vault name -->
+	<string name="screen_enter_vault_name_msg_name_empty">Vault name can\'t be empty.</string>
+	<string name="screen_enter_vault_name_vault_label">Vault name</string>
 	<string name="screen_enter_vault_name_button_text">생성</string>
 	<!-- ## screen: set password -->
+	<string name="screen_set_password_title">Set password</string>
+	<string name="screen_set_password_msg_password_mismatch">Password doesn\'t match retyped password.</string>
 	<string name="screen_set_password_button_text">완료</string>
 	<string name="screen_set_password_hint">중요: 만약 비밀번호를 잊어버린 경우, 데이터를 복구 할 방법이 없습니다.</string>
+	<string name="screen_set_password_retype_password_label">Retype password</string>
+	<string name="screen_set_password_strength_indicator_0">Too weak to create a vault</string>
 	<string name="screen_set_password_strength_indicator_1">취약함</string>
 	<string name="screen_set_password_strength_indicator_2">보통</string>
 	<string name="screen_set_password_strength_indicator_3">강함</string>
+	<string name="screen_set_password_strength_indicator_4">Very Strong</string>
 	<!-- ## screen: settings -->
 	<string name="screen_settings_section_general">일반</string>
+	<string name="screen_settings_cloud_settings_label">Cloud services</string>
+	<string name="screen_settings_biometric_auth">Biometric authentication</string>
+	<string name="screen_settings_activate_biometric_auth">Activate biometric authentication</string>
+	<string name="screen_settings_confirm_face_unlock">Confirm face unlock (if available)</string>
+	<string name="screen_settings_block_app_when_obscured">Block app when obscured</string>
+	<string name="screen_settings_block_app_when_obscured_summary">Block intercepting the input and displaying a false user interface</string>
+	<string name="screen_settings_secure_screen">Block screenshots</string>
+	<string name="screen_settings_secure_screen_summary">Block screenshots in the recents list and inside the app</string>
+	<string name="screen_settings_section_search">Search</string>
+	<string name="screen_settings_live_search">Live search</string>
+	<string name="screen_settings_live_search_summary">Update search results while entering the query</string>
+	<string name="screen_settings_glob_search">Search using glob pattern</string>
+	<string name="screen_settings_glob_search_summary">Use glob pattern matching like alice.*.jpg</string>
+	<string name="screen_settings_section_auto_lock">Automatic locking</string>
+	<string name="screen_settings_auto_lock_timeout">Lock after</string>
+	<string name="screen_settings_auto_lock_on_screen_lock">When screen is disabled</string>
+	<string name="screen_settings_section_auto_photo_upload">Automatic photo upload</string>
+	<string name="screen_settings_section_auto_photo_upload_vault">Choose vault for upload</string>
+	<string name="screen_settings_section_auto_photo_upload_toggle">Activate</string>
+	<string name="screen_settings_section_auto_photo_upload_toggle_summary">Capture images in the background and once the selected vault is unlocked, start upload</string>
+	<string name="screen_settings_section_auto_photo_upload_only_wifi_toggle">Upload only using WIFI</string>
+	<string name="screen_settings_section_auto_photo_upload_including_videos">Upload videos</string>
+	<string name="screen_settings_auto_photo_upload_title">Save auto upload files to&#8230;</string>
+	<string name="screen_settings_website_label">Cryptomator website</string>
+	<string name="screen_settings_twitter_label">Follow us on Twitter</string>
+	<string name="screen_settings_facebook_label">Like us on Facebook</string>
+	<string name="screen_settings_section_legal">Legal</string>
+	<string name="screen_settings_licenses_label">Licenses</string>
+	<string name="screen_settings_license_terms_label">License terms</string>
+	<string name="screen_settings_section_support">Support</string>
+	<string name="screen_settings_contact_label">Request help</string>
+	<string name="screen_settings_debug_mode_label">Debug mode</string>
+	<string name="screen_settings_error_report_label">Send log file</string>
+	<string name="screen_settings_error_report_failed">Sending failed</string>
+	<string name="screen_settings_security_label">Security hints</string>
+	<string name="screen_settings_section_version">Version</string>
+	<string name="screen_settings_advanced_settings">Advanced Settings</string>
+	<string name="screen_settings_background_unlock_preparation_label">Accelerate unlock</string>
+	<string name="screen_settings_background_unlock_preparation_label_summary">Download vault config in the background while prompted to enter the password or biometric auth</string>
+	<string name="screen_settings_keep_unlocked_while_editing_files">Keep unlocked</string>
+	<string name="screen_settings_keep_unlocked_while_editing_files_summary">Keep vaults unlocked while editing files</string>
 	<!-- ## screen: cloud settings -->
+	<string name="screen_cloud_settings_webdav_connections">WebDAV connections</string>
+	<string name="screen_cloud_settings_pcloud_connections">pCloud connections</string>
+	<string name="screen_cloud_settings_s3_connections">S3 connections</string>
+	<string name="screen_cloud_settings_local_storage_locations">Local storage locations</string>
+	<string name="screen_cloud_settings_log_in_to">Log in to</string>
+	<string name="screen_cloud_settings_sign_out_from_cloud">Sign out from</string>
 	<!-- ## screen: licenses -->
 	<!-- ## screen: authenticate cloud -->
+	<string name="screen_authenticate_auth_authentication_failed">%1$s could not be authenticated.</string>
+	<string name="screen_update_pcloud_connections_title">Update pCloud credentials</string>
 	<!-- ## screen: empty dir file info -->
+	<string name="screen_empty_dir_file_info_title">\'%1$s\' unreachable</string>
+	<string name="screen_empty_dir_file_info_headline">Cryptomator detected that this folder is unreachable.</string>
+	<string name="screen_empty_dir_file_info_text">It may have been deleted by another application or a faulty cloud synchronization could have caused this.\n\nTry to restore the directory file via your cloud provider to a previous version which is not empty. The file in question is:\n%1$s\n\nIf that does not work, you may use Sanitizer to check your vault for issues and possibly restore your data.</string>
+	<string name="screen_empty_dir_file_info_button_label">More Details on Sanitizer</string>
 	<!-- ## screen: insecure android version info -->
 	<!-- # dialogs -->
 	<string name="dialog_button_cancel">취소</string>
 	<string name="dialog_enter_password_positive_button">잠금해제</string>
+	<string name="dialog_change_password_old_password_label">Old Password</string>
+	<string name="dialog_change_password_new_password_label">New Password</string>
+	<string name="dialog_change_password">Change password</string>
+	<string name="dialog_change_password_msg_old_password_empty">Old password can\'t be empty.</string>
+	<string name="dialog_change_password_msg_new_password_empty">New password can\'t be empty.</string>
+	<string name="dialog_change_password_msg_password_mismatch">New password doesn\'t match retyped password.</string>
 	<!-- Vault not found -->
+	<string name="dialog_vault_not_found_title">Vault %1$s not found</string>
+	<string name="dialog_vault_not_found_message">The vault has been renamed, moved or deleted. Remove this vault form the list and add it again to proceed. Remove now?</string>
 	<string name="dialog_vault_not_found_positive_button_text">제거</string>
+	<string name="dialog_existing_file_title">File already exists</string>
+	<string name="dialog_existing_file_positive_button">Replace</string>
+	<string name="dialog_existing_file_message">A file named \'%1$s\' already exists.</string>
+	<string name="dialog_replace_negative_button_at_least_two_but_not_all_files_exist">Skip existing</string>
+	<string name="dialog_replace_positive_button_all_files_exist">Replace all</string>
+	<string name="dialog_replace_positive_button_some_files_exist">Replace existing</string>
+	<string name="dialog_replace_positive_button_single_file_exists">Replace</string>
+	<string name="dialog_replace_msg_single_file_exists">A file named \'%1$s\' already exists. Do you want to replace it?</string>
+	<string name="dialog_replace_msg_all_files_exists">All files already exist. Do you want to replace them?</string>
+	<string name="dialog_replace_msg_some_files_exists">%1$d files already exist. Do you want to replace them?</string>
+	<string name="dialog_replace_title_single_file_exists">Replace file?</string>
+	<string name="dialog_replace_title_multiple_files_exist">Replace files?</string>
+	<string name="dialog_unable_to_share_title">Unable to share files</string>
+	<string name="dialog_unable_to_share_message">You haven\'t set up any vaults. Please create a new vault with the Cryptomator app first.</string>
 	<string name="dialog_unable_to_share_positive_button">OK</string>
+	<string name="dialog_unable_to_share_negative_button">Create vault</string>
+	<string name="dialog_filetype_not_supported_title">Can\'t open %1$s</string>
+	<string name="dialog_filetype_not_supported_message">Please download an app that can open this file or do you like to save to your device?</string>
+	<string name="dialog_rename_vault_title">Rename vault</string>
+	<string name="dialog_rename_node_folder_title">Rename folder</string>
+	<string name="dialog_rename_node_file_title">Rename file</string>
+	<string name="dialog_unsaved_changes_title">You have unsaved changes</string>
+	<string name="dialog_unsaved_changes_message">Do you really want to quit without saving?</string>
+	<string name="dialog_unsaved_changes_discard">Discard</string>
+	<string name="dialog_file_name_placeholder">text.txt</string>
+	<string name="dialog_delete_vault_message">Are you sure you want to remove this vault?</string>
+	<string name="dialog_delete_vault_hint">This action will only remove the vault from this list and not delete it physically.</string>
+	<string name="dialog_upload_file_title">Uploading&#8230;</string>
+	<string name="dialog_upload_file_remaining">File %1$d of %2$d</string>
+	<string name="dialog_export_file_title">Exporting (%1$d/%2$d)</string>
+	<string name="dialog_progress_please_wait">Please wait&#8230;</string>
+	<string name="dialog_progress_creating_folder">Creating folder&#8230;</string>
+	<string name="dialog_progress_creating_text_file">Creating text file&#8230;</string>
+	<string name="action_progress_authentication">Authentication&#8230;</string>
+	<string name="action_progress_renaming">Renaming&#8230;</string>
+	<string name="action_progress_deleting">Deleting&#8230;</string>
+	<string name="dialog_progress_unlocking_vault">Unlocking vault&#8230;</string>
+	<string name="dialog_progress_change_password">Changing password&#8230;</string>
+	<string name="dialog_progress_creating_vault">Creating vault&#8230;</string>
+	<string name="dialog_progress_upload_file">Uploading&#8230;</string>
+	<string name="dialog_progress_download_file">Downloading&#8230;</string>
+	<string name="dialog_progress_encryption">Encrypting&#8230;</string>
+	<string name="dialog_progress_decryption">Decrypting&#8230;</string>
+	<string name="action_progress_moving">Moving&#8230;</string>
 	<string name="dialog_lock_vault">잠금</string>
+	<string name="dialog_accept_ssl_certificate_title">Invalid SSL certificate</string>
+	<string name="dialog_accept_ssl_certificate_hint">The SSL certificate is invalid. Do you want to trust it anyway?</string>
+	<string name="dialog_accept_ssl_certificate_details">Details</string>
+	<string name="dialog_accept_ssl_certificate_security_checkbox">This could be a security risk. I know what I am doing.</string>
+	<string name="dialog_http_security_hint">The usage of HTTP is insecure. We recommend to use HTTPS instead. If you know the risks, you can continue with HTTP.</string>
+	<string name="dialog_http_security_checkbox">Change to HTTPS</string>
+	<string name="dialog_http_security_title">Use HTTPS?</string>
+	<string name="dialog_no_screen_lock_hint">No screen lock is set. To store your credentials in a secure way, set with OK a pattern or password.</string>
+	<string name="dialog_no_screen_lock_title">Set screen lock?</string>
+	<string name="dialog_no_screen_lock_checkbox">Set screen lock</string>
+	<string name="dialog_no_biometric_auth_set_up_title">No basic authentication set up in system</string>
+	<string name="dialog_no_biometric_auth_set_up_message">Enroll at least one finger/face to use this service.</string>
+	<string name="dialog_debug_mode_disclaimer_hint">In this mode, sensitive data may be written to a log file on your device (e.g., filenames and paths). Passwords, cookies, etc. are explicitly excluded.\n\nRemember to disable debug mode as soon as possible.</string>
+	<string name="dialog_debug_mode_disclaimer_title">Attention</string>
+	<string name="dialog_debug_mode_positive_button">Enable</string>
+	<string name="dialog_disable_app_obscured_disclaimer_hint">This setting is a security feature and prevents other apps from tricking users into doing things they do not wan\'t to do.\n\nBy disabling, you confirm that you are <a href="https://docs.cryptomator.org/en/1.5/android/settings/#block-app-when-obscured">aware of the risks</a>.</string>
+	<string name="dialog_disable_app_obscured_disclaimer_title">Attention</string>
+	<string name="dialog_disable_app_obscured_positive_button">Disable</string>
+	<string name="dialog_app_is_obscured_info_title">App is obscured</string>
+	<string name="dialog_app_is_obscured_info_hint">Another app is displaying something on top of Cryptomator (e.g., a blue light filter or night mode app). For security reasons, Cryptomator is disabled.\n\n<a href="https://docs.cryptomator.org/en/1.5/android/settings/#block-app-when-obscured">How to enable Cryptomator</a></string>
 	<string name="dialog_app_is_obscured_info_neutral_button">닫기</string>
+	<string name="dialog_disable_secure_screen_disclaimer_hint">This setting is a security feature and prevents other apps from tricking users into doing things they do not wan\'t to do.\n\nBy disabling, you confirm that you are <a href="https://docs.cryptomator.org/en/1.5/android/settings/#screen-security">aware of the risks</a>.</string>
+	<string name="dialog_delete_cloud_connection_with_vaults_message">Are you sure you want to remove this cloud connection?</string>
+	<string name="dialog_delete_cloud_connection_with_vaults_hint">This action will remove the cloud connection and all vaults of this cloud.</string>
+	<string name="dialog_confirm_delete_multiple_title">Delete %1$d items?</string>
+	<string name="dialog_confirm_delete_multiple_message">Are you sure you want to delete these items?</string>
+	<string name="dialog_confirm_delete_file_message">Are you sure you want to delete this file?</string>
+	<string name="dialog_confirm_delete_folder_message">This will delete all of the folder\'s contents. Are you sure you want to delete this folder?</string>
+	<string name="dialog_biometric_auth_key_invalidated_title">Biometric authentication feature deactivated</string>
+	<string name="dialog_biometric_auth_key_invalidated_message">Because the key has been invalidated, the biometric authentication feature has been deactivated. To re-enable, open the Cryptomator settings.</string>
+	<string name="dialog_enter_license_title">Provide a valid license</string>
+	<string name="dialog_enter_license_content">We detected that you installed Cryptomator without using Google Play Store. Provide a valid license, which can be purchased on <a href="https://cryptomator.org/android/">https://cryptomator.org/android/</a></string>
+	<string name="dialog_enter_license_not_valid_content">The provided license isn\'t valid. Make sure you entered it correctly.</string>
+	<string name="dialog_enter_license_no_content">No license provided. Please enter a valid license.</string>
+	<string name="dialog_enter_license_decline_button">Exit</string>
+	<string name="dialog_license_confirmation_title">License confirmation</string>
+	<string name="dialog_license_confirmation_message">Thanks %1$s for providing your valid license.</string>
+	<string name="dialog_update_available_title">Update available</string>
+	<string name="dialog_update_available_message">Update Cryptomator to the latest version. By pressing OK we will download the app in the background and will ask you to install it.</string>
+	<string name="dialog_update_available_update">Update now</string>
+	<string name="dialog_update_available_download_site">Go to downloads site</string>
+	<string name="dialog_update_available_cancel">Later</string>
+	<string name="dialog_download_update_title">Download running</string>
+	<string name="dialog_download_update_message">Downloading latest version of Cryptomator</string>
+	<string name="dialog_sym_link_title">Folder is a symbolic link</string>
+	<string name="dialog_sym_link_message">You can not navigate into this symbolic link</string>
 	<string name="dialog_sym_link_back_button">뒤로</string>
+	<string name="dialog_no_dir_file_title">Unable to load contents of directory</string>
+	<string name="dialog_no_dir_file_message">Cloud folder \'%1$s\' doesn\'t have a directory file. It could be that the folder was created on another device and has not yet been fully synchronized to the cloud. Please check in your cloud if the following file exists:\n%2$s</string>
+	<string name="dialog_no_more_images_to_display">No more images to display&#8230;</string>
+	<string name="dialog_pcloud_credentials_updated_title">Credentials of \'%1$s\' updated</string>
+	<string name="dialog_pcloud_credentials_updated">If you intended to add a new pCloud account, click on this url <a href="https://www.pcloud.com">www.pcloud.com</a>, log out from the current account and click again on the \'+\' in this app to create a new cloud connection.</string>
+	<string name="permission_snackbar_auth_local_vault">Cryptomator needs storage access to use local vaults</string>
+	<string name="permission_snackbar_auth_auto_upload">Cryptomator needs storage access to use auto photo upload</string>
 	<!-- # error reports -->
 	<!-- # misc -->
 	<!-- ## file size helper -->
+	<string name="file_size_zero">Zero kB</string>
+	<string name="file_size_unit_bytes">bytes</string>
+	<string name="file_size_unit_kilo_bytes">kB</string>
+	<string name="file_size_unit_mega_bytes">MB</string>
+	<string name="file_size_unit_giga_bytes">GB</string>
+	<string name="file_size_unit_tera_bytes">TB</string>
 	<!-- ## date helper -->
+	<string name="time_unit_seconds_sg">second</string>
+	<string name="time_unit_seconds_pl">seconds</string>
+	<string name="time_unit_minutes_sg">minute</string>
 	<string name="time_unit_minutes_pl">분</string>
+	<string name="time_unit_hours_sg">hour</string>
+	<string name="time_unit_hours_pl">hours</string>
+	<string name="time_unit_days_sg">day</string>
+	<string name="time_unit_days_pl">days</string>
+	<string name="time_unit_weeks_sg">week</string>
+	<string name="time_unit_weeks_pl">weeks</string>
+	<string name="time_unit_months_sg">month</string>
+	<string name="time_unit_months_pl">months</string>
+	<string name="time_unit_years_sg">year</string>
+	<string name="time_unit_years_pl">years</string>
 	<!-- ## biometric authentication -->
+	<string name="dialog_biometric_auth_title">Biometric login</string>
+	<string name="dialog_biometric_auth_message">Log in using your biometric credential</string>
+	<string name="dialog_biometric_auth_use_password">Use vault password</string>
+	<string name="dialog_unable_to_auto_upload_files_title">Unable to auto upload files</string>
 	<!-- notification -->
+	<string name="notification_unlocked">Vaults unlocked: %1$d</string>
+	<string name="notification_timeout">Autolock in %1$s</string>
+	<string name="notification_lock_all">Lock all</string>
+	<string name="notification_cancel_auto_upload">Cancel upload</string>
+	<string name="notification_auto_upload_title">Auto photo upload running</string>
+	<string name="notification_auto_upload_message">Uploading %1d/%2d</string>
+	<string name="notification_auto_upload_finished_title">Auto photo upload finished</string>
+	<string name="notification_auto_upload_finished_message">%1$d images uploaded to vault</string>
+	<string name="notification_auto_upload_failed_title">Auto photo upload failed</string>
+	<string name="notification_auto_upload_failed_general_error">General error occurred during upload.</string>
+	<string name="notification_auto_upload_failed_due_to_folder_not_exists">Selected folder for upload isn\'t available anymore. Go to settings and choose a new one</string>
+	<string name="notification_auto_upload_failed_due_to_vault_locked">Vault locked during upload, please reopen vault to continue</string>
+	<string name="notification_open_writable_file_title">Open writable file</string>
+	<string name="notification_open_writable_file_message">Vault stays unlocked until finished editing</string>
+	<string name="notification_update_check_finished_latest">Latest version installed</string>
+	<string name="screen_settings_lru_cache">Cache</string>
+	<string name="screen_settings_lru_cache_toggle_summary">Cache recently accessed files encrypted locally on the device for later reuse when reopened</string>
+	<string name="screen_settings_lru_cache_size">Total cache size</string>
+	<string name="screen_settings_clear_lru_cache_size">Clear Cache</string>
+	<string name="screen_settings_lru_cache_changed__restart_toast">Changes will be applied on next app restart</string>
+	<string name="screen_settings_license">Registered for</string>
+	<string name="screen_settings_license_mail">%1$s</string>
+	<string name="dialog_settings_update_check_interval_title">Update check interval</string>
+	<string name="screen_settings_check_updates">Check for updates</string>
+	<string name="screen_settings_last_check_updates">Last run %1$s</string>
+	<string name="dialog_cache_size_title">Cache size per Cloud</string>
 	<!-- lock timeout names -->
+	<string name="lock_timeout_instant">Instant</string>
+	<string name="lock_timeout_1m">1 minute</string>
+	<string name="lock_timeout_2m">2 minutes</string>
+	<string name="lock_timeout_5m">5 minutes</string>
+	<string name="lock_timeout_10m">10 minutes</string>
+	<string name="lock_timeout_never">Never</string>
 	<!-- cache size names -->
+	<string name="cache_size_50m">50 MB</string>
+	<string name="cache_size_100m">100 MB</string>
+	<string name="cache_size_250m">250 MB</string>
+	<string name="cache_size_500m">500 MB</string>
+	<string name="cache_size_1000m">1 GB</string>
+	<string name="cache_size_5000m">5 GB</string>
 	<!-- screen scheme mode names -->
+	<string name="screen_settings_style_mode">Style</string>
+	<string name="follow_system">Automatic (follow system)</string>
 	<string name="light">밝게</string>
 	<string name="dark">어둡게</string>
 	<!-- update interval names -->
+	<string name="update_interval_1d">Once a day</string>
+	<string name="update_interval_1w">Once a week</string>
+	<string name="update_interval_1m">Once a month</string>
 </resources>
