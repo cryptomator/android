@@ -65,6 +65,12 @@
 	<string name="screen_file_browser_add_existing_vault_extra_text">Выберите файл Masterkey</string>
 	<string name="screen_file_browser_create_new_vault_button_text">Поместить здесь</string>
 	<string name="screen_file_browser_create_new_vault_extra_text">Имя хранилища: %1$s</string>
+	<plurals name="screen_file_browser_subtitle_move">
+		<item quantity="one">Переместить %1$s в</item>
+		<item quantity="few">Переместить %2$d элем. в</item>
+		<item quantity="many">Переместить %2$d элем. в</item>
+		<item quantity="other">Переместить %2$d элем. в</item>
+	</plurals>
 	<string name="screen_file_browser_move_button_text">Переместить</string>
 	<string name="screen_file_browser_msg_empty_folder">Пустая папка</string>
 	<string name="screen_file_browser_file_info_label_date">изменено %1$s назад</string>
