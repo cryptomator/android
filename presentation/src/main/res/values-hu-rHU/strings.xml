@@ -118,6 +118,7 @@
 	<string name="dialog_button_cancel">Mégse</string>
 	<string name="dialog_enter_password_positive_button">Feloldás</string>
 	<!-- Vault not found -->
+	<string name="dialog_vault_not_found_positive_button_text">Eltávolítás</string>
 	<string name="dialog_lock_vault">Zárolás</string>
 	<string name="dialog_app_is_obscured_info_neutral_button">Bezár</string>
 	<string name="dialog_sym_link_back_button">Vissza</string>
