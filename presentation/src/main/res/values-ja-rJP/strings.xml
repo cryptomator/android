@@ -1,64 +1,352 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 	<!-- # app -->
+	<string name="share_with_label">暗号化</string>
 	<!-- # error messages -->
+	<string name="error_generic">エラーが発生しました</string>
+	<string name="error_authentication_failed">認証に失敗しました</string>
+	<string name="error_authentication_failed_re_authenticate">認証に失敗しました。%1$s を使用してログインしてください</string>
+	<string name="error_no_network_connection">ネットワーク接続がありません</string>
+	<string name="error_invalid_passphrase">パスワードが正しくありません</string>
+	<string name="error_file_or_folder_exists">ファイルかフォルダーが既に存在します。</string>
+	<string name="error_vault_version_not_supported">サポートされない金庫です。この金庫は別のバージョンの Cryptomator を使用して作成されました。</string>
+	<string name="error_vault_already_exists">金庫が既に存在します。</string>
+	<string name="error_no_such_file">ファイルが存在しません。</string>
+	<string name="error_vault_has_been_locked">金庫が施錠されました。</string>
+	<string name="error_cloud_already_exists">クラウドが既に存在します。</string>
+	<string name="error_activity_not_found">このファイルを開くことができるアプリをダウンロードしてください。</string>
+	<string name="error_server_not_found">サーバーが見つかりませんでした。</string>
+	<string name="error_device_policy_manager_not_found">端末の設定を開いて、画面ロックを設定してください</string>
+	<string name="error_export_illegal_file_name">エクスポートに失敗しました。ファイル名から特殊文字を削除して再度エクスポートしてください。</string>
+	<string name="error_name_contains_invalid_characters">特殊文字を含めることはできません。</string>
+	<string name="error_names_contains_invalid_characters">特殊文字を含むファイル名は使用できません。</string>
+	<string name="error_vault_name_contains_invalid_characters">特殊文字を含む金庫名は使用できません。</string>
+	<string name="error_general_update">更新の確認に失敗しました。エラーが発生しました。</string>
+	<string name="error_hash_mismatch_update">更新の確認に失敗しました。ハッシュ値がアップロードされたファイルと一致しません。</string>
+	<string name="error_update_no_internet">更新の確認に失敗しました。インターネット接続がありません。</string>
+	<string name="error_failed_to_decrypt_webdav_password">WebDAV パスワードの復号に失敗しました。設定を再度追加してください</string>
+	<string name="error_play_services_not_available">Play Services がインストールされていません</string>
+	<string name="error_biometric_auth_aborted">生体認証が中断されました</string>
+	<string name="error_vault_version_mismatch">Vault.cryptomator 内で指定されたバージョンと masterkey.cryptomator の情報が異なります</string>
+	<string name="error_vault_key_invalid">vault.cryptomator が masterkey.cryptomator と一致しません</string>
+	<string name="error_vault_config_loading">金庫の設定を読み込み中に失敗しました</string>
+	<string name="error_no_such_bucket">Bucket がありません</string>
+	<string name="error_masterkey_location_not_supported">自由に Masterkey の場所を設定することはまだできません</string>
 	<!-- # clouds -->
 	<!-- ## cloud names -->
+	<string name="cloud_names_local_storage">ローカルストレージ</string>
 	<!-- # permission -->
 	<!-- ## permission messages -->
+	<string name="permission_message_export_file">ファイルをエクスポートするには、Cryptomator がストレージにアクセスする許可が必要です</string>
+	<string name="permission_message_upload_file">ファイルをアップロードするには、Cryptomator がストレージにアクセスする許可が必要です</string>
+	<string name="permission_message_share_file">ファイルを共有するには、Cryptomator がストレージにアクセスする許可が必要です</string>
 	<string name="snack_bar_action_title_settings">設定</string>
+	<string name="snack_bar_action_title_search">検索</string>
+	<string name="snack_bar_action_title_search_previous">戻る</string>
 	<string name="snack_bar_action_title_search_next">次へ</string>
+	<string name="snack_bar_action_title_sort">ソート</string>
+	<string name="snack_bar_action_title_sort_az">A - Z</string>
+	<string name="snack_bar_action_title_sort_za">Z - A</string>
+	<string name="snack_bar_action_title_sort_newest">新しい順</string>
+	<string name="snack_bar_action_title_sort_oldest">古い順</string>
+	<string name="snack_bar_action_title_sort_biggest">大きい順</string>
+	<string name="snack_bar_action_title_sort_smallest">小さい順</string>
 	<!-- # screens -->
 	<!-- # screen: vault list -->
+	<string name="screen_vault_list_actions_title">Cryptomator に追加</string>
+	<string name="screen_vault_list_action_create_new_vault">新しい金庫を作成</string>
+	<string name="screen_vault_list_action_add_existing_vault">既存の金庫を追加</string>
 	<string name="screen_vault_list_vault_action_delete">削除</string>
+	<string name="screen_vault_list_vault_creation_hint">ここをクリックして新しい金庫を作成</string>
+	<string name="screen_vault_list_change_password_successful">パスワードが正常に変更されました</string>
 	<!-- # screen: file browser -->
 	<string name="screen_file_browser_default_title">金庫</string>
+	<string name="screen_file_browser_add_existing_vault_extra_text">Masterkey ファイルを選択</string>
+	<string name="screen_file_browser_create_new_vault_button_text">ここにおく</string>
+	<string name="screen_file_browser_create_new_vault_extra_text">金庫の名前: %1$s</string>
+	<string name="screen_file_browser_move_button_text">移動</string>
+	<string name="screen_file_browser_msg_empty_folder">空のフォルダー</string>
+	<string name="screen_file_browser_file_info_label_date">%1$s 前に編集</string>
+	<string name="screen_file_browser_share_intent_chooser_title">次で共有</string>
+	<string name="screen_file_browser_share_destination_title">保存先を選択</string>
 	<string name="screen_file_browser_share_button_text">選択</string>
+	<string name="screen_file_browser_nothing_to_share">共有するものがありません</string>
+	<string name="screen_file_browser_actions_title">%1$s に追加</string>
+	<string name="screen_file_browser_action_create_folder">フォルダーを作成</string>
+	<string name="screen_file_browser_action_create_new_text_file">テキスト ファイルを作成</string>
+	<string name="screen_file_browser_action_upload_files">ファイルをアップロード</string>
+	<string name="screen_file_browser_upload_files_chooser_title">ファイル</string>
+	<string name="screen_file_browser_msg_file_exported">エクスポートされたファイル</string>
+	<string name="screen_file_browser_msg_files_exported">エクスポートされたファイル</string>
+	<string name="screen_file_browser_nothing_to_export">エクスポートするものがありません</string>
+	<string name="screen_file_browser_msg_creating_download_dir_failed">ダウンロード ディレクトリの作成に失敗しました</string>
+	<string name="screen_file_browser_node_action_share">共有</string>
+	<string name="screen_file_browser_node_action_rename">名前の変更</string>
 	<string name="screen_file_browser_node_action_edit_text">編集</string>
+	<string name="screen_file_browser_node_action_export">エクスポート</string>
+	<string name="screen_file_browser_node_action_delete">削除</string>
+	<string name="screen_file_browser_node_action_open_with_text">次で開く&#8230;</string>
+	<string name="screen_file_browser_selection_mode_title_zero_elements">アイテムを選択</string>
+	<string name="screen_file_browser_selection_mode_title_one_or_more_elements">%1$d 個選択済み</string>
+	<string name="screen_file_browser_select_items">選択&#8230;</string>
+	<string name="screen_file_browser_select_all_items">すべて選択</string>
+	<string name="screen_file_browser_refresh_items">更新</string>
+	<string name="screen_file_browser_no_connection_message">接続なし</string>
+	<string name="screen_file_browser_no_connection_button_text">再試行</string>
 	<!-- ## screen: text editor -->
+	<string name="screen_text_editor_save_success">正常に保存されました</string>
 	<!-- ## screen: share files -->
+	<string name="screen_share_files_title">%1$s を保存&#8230;</string>
+	<string name="screen_share_files_content_text">テキスト</string>
+	<string name="screen_share_files_content_file">ファイル</string>
+	<string name="screen_share_files_content_files">ファイル</string>
+	<string name="screen_share_files_msg_filenames_must_be_unique">ファイル名は重複しない必要があります。名前を変更してください</string>
+	<string name="screen_share_files_section_location">保存先</string>
+	<string name="screen_share_files_save_button_text">保存</string>
+	<string name="screen_share_files_msg_success">暗号化が完了しました</string>
 	<!-- ## screen: choose cloud service -->
+	<string name="screen_choose_cloud_service_title">クラウド サービス</string>
 	<!-- ## screen: cloud connections -->
+	<string name="screen_cloud_connections_title">接続先を選択</string>
+	<string name="screen_cloud_connections_no_connections">ここをタップして場所を追加する</string>
+	<string name="screen_cloud_error_webdav_not_supported">サーバーに WebDAV との互換性がありません</string>
+	<string name="screen_cloud_local_custom_storage_title">その他の保存先</string>
+	<string name="screen_cloud_local_default_storage_title">デフォルトの保存先</string>
+	<string name="screen_cloud_local_error_no_content_provider">追加の利用できる保存先はありません。</string>
 	<!-- ## screen: webdav settings -->
 	<string name="screen_webdav_settings_url_port_label">URL</string>
 	<string name="screen_webdav_settings_username_label">ユーザー名</string>
 	<string name="screen_webdav_settings_password_label">パスワード</string>
+	<string name="screen_webdav_settings_done_button_text">接続</string>
+	<string name="screen_webdav_settings_msg_url_must_not_be_empty">URLは空にできません。</string>
+	<string name="screen_webdav_settings_msg_url_is_invalid">URL が無効です。</string>
+	<string name="screen_webdav_settings_msg_username_must_not_be_empty">ユーザー名は空にできません。</string>
+	<string name="screen_webdav_settings_msg_password_must_not_be_empty">パスワードは空にできません。</string>
 	<!-- ## screen: s3 settings -->
+	<string name="screen_s3_settings_display_name_label">表示名</string>
+	<string name="screen_s3_settings_access_key_label">接続キー</string>
+	<string name="screen_s3_settings_secret_key_label">秘密鍵</string>
+	<string name="screen_s3_settings_bucket_label">既存の Bucket</string>
+	<string name="screen_s3_settings_endpoint_label">エンドポイント</string>
+	<string name="screen_s3_settings_region_label">地域</string>
+	<string name="screen_s3_settings_msg_display_name_not_empty">表示名は空にできません</string>
+	<string name="screen_s3_settings_msg_access_key_not_empty">接続キーは空にできません</string>
+	<string name="screen_s3_settings_msg_secret_key_not_empty">秘密キーは空にできません</string>
+	<string name="screen_s3_settings_msg_bucket_not_empty">Bucket は空にできません</string>
+	<string name="screen_s3_settings_msg_endpoint_and_region_not_empty">エンドポイントまたは地域は空にできません</string>
 	<!-- ## screen: enter vault name -->
+	<string name="screen_enter_vault_name_msg_name_empty">金庫名は空にできません。</string>
+	<string name="screen_enter_vault_name_vault_label">金庫の名前</string>
 	<string name="screen_enter_vault_name_button_text">作成</string>
 	<!-- ## screen: set password -->
+	<string name="screen_set_password_title">パスワードの設定</string>
+	<string name="screen_set_password_msg_password_mismatch">再入力されたパスワードが一致しません。</string>
 	<string name="screen_set_password_button_text">完了</string>
 	<string name="screen_set_password_hint">重要: パスワードを忘れると、データを回復する方法はありません。</string>
+	<string name="screen_set_password_retype_password_label">パスワードを再入力</string>
+	<string name="screen_set_password_strength_indicator_0">金庫を作成するには弱すぎます</string>
 	<string name="screen_set_password_strength_indicator_1">弱い</string>
 	<string name="screen_set_password_strength_indicator_2">普通</string>
 	<string name="screen_set_password_strength_indicator_3">強い</string>
+	<string name="screen_set_password_strength_indicator_4">非常に強い</string>
 	<!-- ## screen: settings -->
 	<string name="screen_settings_section_general">基本設定</string>
+	<string name="screen_settings_cloud_settings_label">クラウド サービス</string>
+	<string name="screen_settings_biometric_auth">生体認証</string>
+	<string name="screen_settings_activate_biometric_auth">生体認証を有効にする</string>
+	<string name="screen_settings_confirm_face_unlock">顔認証のロック解除 (利用できる場合)</string>
+	<string name="screen_settings_block_app_when_obscured">他のアプリが重なるときにアプリを停止</string>
+	<string name="screen_settings_secure_screen">スクリーンショットをブロック</string>
+	<string name="screen_settings_section_search">検索</string>
+	<string name="screen_settings_live_search">ライブ検索</string>
+	<string name="screen_settings_auto_lock_timeout">次の場合にロックする</string>
+	<string name="screen_settings_auto_lock_on_screen_lock">画面がロックされたとき</string>
+	<string name="screen_settings_section_auto_photo_upload">自動的に画像をアップロード</string>
+	<string name="screen_settings_section_auto_photo_upload_vault">アップロードする金庫を選択</string>
+	<string name="screen_settings_section_auto_photo_upload_toggle">有効</string>
+	<string name="screen_settings_section_auto_photo_upload_only_wifi_toggle">WIFI を使用しているときのみアップロード</string>
+	<string name="screen_settings_section_auto_photo_upload_including_videos">ビデオをアップロード</string>
+	<string name="screen_settings_website_label">Cryptomator のウェブサイト</string>
+	<string name="screen_settings_twitter_label">Twitter でフォローする</string>
+	<string name="screen_settings_facebook_label">Facebook でいいねする</string>
+	<string name="screen_settings_section_legal">法的事項</string>
+	<string name="screen_settings_licenses_label">ライセンス</string>
+	<string name="screen_settings_license_terms_label">ライセンス条項</string>
+	<string name="screen_settings_section_support">サポート</string>
+	<string name="screen_settings_contact_label">ヘルプを求める</string>
+	<string name="screen_settings_debug_mode_label">デバッグ モード</string>
+	<string name="screen_settings_error_report_label">ログ ファイルを送信</string>
+	<string name="screen_settings_error_report_failed">送信できませんでした</string>
+	<string name="screen_settings_security_label">セキュリティのヒント</string>
+	<string name="screen_settings_section_version">バージョン</string>
+	<string name="screen_settings_advanced_settings">高度な設定</string>
+	<string name="screen_settings_background_unlock_preparation_label_summary">パスワードまたは生体による認証中に、バックグラウンドで金庫の設定をダウンロードします</string>
+	<string name="screen_settings_keep_unlocked_while_editing_files">解錠したままにする</string>
+	<string name="screen_settings_keep_unlocked_while_editing_files_summary">ファイルの編集中は金庫を解錠しておく</string>
 	<!-- ## screen: cloud settings -->
+	<string name="screen_cloud_settings_webdav_connections">WebDAV 接続</string>
+	<string name="screen_cloud_settings_pcloud_connections">pCloud 接続</string>
+	<string name="screen_cloud_settings_s3_connections">S3 接続</string>
+	<string name="screen_cloud_settings_local_storage_locations">ローカル ストレージの場所</string>
+	<string name="screen_cloud_settings_log_in_to">ログイン</string>
+	<string name="screen_cloud_settings_sign_out_from_cloud">次からサインアウト</string>
 	<!-- ## screen: licenses -->
 	<!-- ## screen: authenticate cloud -->
+	<string name="screen_authenticate_auth_authentication_failed">%1$s は認証できませんでした。</string>
+	<string name="screen_update_pcloud_connections_title">pCloud 資格情報を更新</string>
 	<!-- ## screen: empty dir file info -->
+	<string name="screen_empty_dir_file_info_title">\'%1$s\' に到達できません</string>
+	<string name="screen_empty_dir_file_info_headline">Cryptomator がこのフォルダに到達できません。</string>
+	<string name="screen_empty_dir_file_info_button_label">Sanitizer の詳細</string>
 	<!-- ## screen: insecure android version info -->
 	<!-- # dialogs -->
 	<string name="dialog_button_cancel">キャンセル</string>
 	<string name="dialog_enter_password_positive_button">解錠</string>
+	<string name="dialog_change_password_old_password_label">古いパスワード</string>
+	<string name="dialog_change_password_new_password_label">新しいパスワード</string>
+	<string name="dialog_change_password">パスワードを変更</string>
+	<string name="dialog_change_password_msg_old_password_empty">古いパスワードは空にできません。</string>
+	<string name="dialog_change_password_msg_new_password_empty">新しいパスワードは空にできません。</string>
+	<string name="dialog_change_password_msg_password_mismatch">新しいパスワードが再入力されたパスワードと一致しません。</string>
 	<!-- Vault not found -->
+	<string name="dialog_vault_not_found_title">金庫 %1$s が見つかりません</string>
+	<string name="dialog_vault_not_found_message">金庫の名前が変更、移動または削除されました。この金庫をリストから削除し、再度追加してください。今すぐ削除してもよろしいですか?</string>
 	<string name="dialog_vault_not_found_positive_button_text">削除</string>
+	<string name="dialog_existing_file_title">ファイルが既に存在します</string>
+	<string name="dialog_existing_file_positive_button">置換</string>
+	<string name="dialog_existing_file_message">ファイル名 %1$s が既に存在します。</string>
+	<string name="dialog_replace_positive_button_all_files_exist">すべて置換</string>
+	<string name="dialog_replace_positive_button_single_file_exists">置換</string>
+	<string name="dialog_replace_title_single_file_exists">ファイルを置き換えますか?</string>
+	<string name="dialog_replace_title_multiple_files_exist">ファイルを置き換えますか?</string>
+	<string name="dialog_unable_to_share_title">ファイルを共有できません</string>
+	<string name="dialog_unable_to_share_message">金庫のセットアップが完了していません。最初に Cryptomator から新しい金庫を作成してください。</string>
 	<string name="dialog_unable_to_share_positive_button">OK</string>
+	<string name="dialog_unable_to_share_negative_button">金庫を作成</string>
+	<string name="dialog_filetype_not_supported_title">%1$s を開くことができません</string>
+	<string name="dialog_filetype_not_supported_message">このファイルを開くことができるアプリをダウンロードしてください。それともデバイスに保存しますか？</string>
+	<string name="dialog_rename_vault_title">金庫の名前を変更</string>
+	<string name="dialog_rename_node_folder_title">フォルダーの名前を変更</string>
+	<string name="dialog_rename_node_file_title">ファイルの名前を変更</string>
+	<string name="dialog_unsaved_changes_title">保存していない変更があります</string>
+	<string name="dialog_unsaved_changes_message">保存せずに終了してもよろしいですか?</string>
+	<string name="dialog_unsaved_changes_discard">破棄</string>
+	<string name="dialog_file_name_placeholder">text.txt</string>
+	<string name="dialog_delete_vault_message">本当にこの金庫を削除しますか？</string>
+	<string name="dialog_upload_file_title">アップロード中&#8230;</string>
+	<string name="dialog_upload_file_remaining">ファイル %1$d/%2$d</string>
+	<string name="dialog_export_file_title">エクスポート中 (%1$d/%2$d)</string>
+	<string name="dialog_progress_please_wait">しばらくお待ち下さい&#8230;</string>
+	<string name="dialog_progress_creating_folder">フォルダーを作成中&#8230;</string>
+	<string name="dialog_progress_creating_text_file">テキスト ファイルを作成中&#8230;</string>
+	<string name="action_progress_authentication">認証&#8230;</string>
+	<string name="action_progress_renaming">名前を変更中&#8230;</string>
+	<string name="action_progress_deleting">削除中&#8230;</string>
+	<string name="dialog_progress_unlocking_vault">金庫を解錠中&#8230;</string>
+	<string name="dialog_progress_change_password">パスワードを変更中&#8230;</string>
+	<string name="dialog_progress_creating_vault">金庫を作成中&#8230;</string>
+	<string name="dialog_progress_upload_file">アップロード中&#8230;</string>
+	<string name="dialog_progress_download_file">ダウンロード中&#8230;</string>
+	<string name="dialog_progress_encryption">暗号化中&#8230;</string>
+	<string name="dialog_progress_decryption">復号中&#8230;</string>
+	<string name="action_progress_moving">移動中&#8230;</string>
 	<string name="dialog_lock_vault">施錠</string>
+	<string name="dialog_accept_ssl_certificate_title">不正な SSL 証明書です</string>
+	<string name="dialog_accept_ssl_certificate_hint">SSL 証明書が無効です。それでも信頼しますか?</string>
+	<string name="dialog_accept_ssl_certificate_details">詳細</string>
+	<string name="dialog_accept_ssl_certificate_security_checkbox">これはセキュリティ リスクになる可能性があります。リスクについて理解していますか</string>
+	<string name="dialog_http_security_checkbox">HTTPS に変更</string>
+	<string name="dialog_http_security_title">HTTPS を使用しますか?</string>
+	<string name="dialog_no_screen_lock_title">画面ロックを設定しますか?</string>
+	<string name="dialog_no_screen_lock_checkbox">画面ロックを設定</string>
+	<string name="dialog_no_biometric_auth_set_up_title">システムに基本的な認証が設定されていません</string>
+	<string name="dialog_debug_mode_disclaimer_title">注意</string>
+	<string name="dialog_debug_mode_positive_button">有効</string>
+	<string name="dialog_disable_app_obscured_disclaimer_hint">この設定は安全のための機能です。他のアプリがユーザーを騙してしまうことを防ぎます。\n\n無効にすることで、 <a href="https://docs.cryptomator.org/en/1.5/android/settings/#block-app-when-obscured">リスクを認識していること</a> に留意する必要があります。</string>
+	<string name="dialog_disable_app_obscured_disclaimer_title">注意</string>
+	<string name="dialog_disable_app_obscured_positive_button">無効</string>
+	<string name="dialog_app_is_obscured_info_title">アプリが重なっています</string>
+	<string name="dialog_app_is_obscured_info_hint">他のアプリケーションが Cryptomator の上に何かを表示しています (例: ブルーライト フィルターや night mode アプリ)。このため、セキュリティの観点から Cryptomator が無効化されています。\n\n<a href="https://docs.cryptomator.org/en/1.5/android/settings/#block-app-when-obscured">Cryptomator を有効にするには</a></string>
 	<string name="dialog_app_is_obscured_info_neutral_button">閉じる</string>
+	<string name="dialog_disable_secure_screen_disclaimer_hint">この設定は安全のための機能です。他のアプリがユーザーを騙してしまうことを防ぎます。\n\n無効にすることで、 <a href="https://docs.cryptomator.org/en/1.5/android/settings/#screen-security">リスクを認識していること</a> に留意する必要があります。</string>
+	<string name="dialog_delete_cloud_connection_with_vaults_message">本当にこのクラウド接続を削除しますか？</string>
+	<string name="dialog_delete_cloud_connection_with_vaults_hint">この操作により、クラウド接続とクラウドのすべての金庫が削除されます。</string>
+	<string name="dialog_confirm_delete_multiple_title">%1$d 個の項目を削除しますか?</string>
+	<string name="dialog_confirm_delete_multiple_message">本当にこれらの項目を削除してもよろしいですか?</string>
+	<string name="dialog_confirm_delete_file_message">本当にこのファイルを削除してもよろしいですか?</string>
+	<string name="dialog_confirm_delete_folder_message">この操作はフォルダーの内容をすべて削除します。本当にこのフォルダーを削除してもよろしいですか?</string>
+	<string name="dialog_biometric_auth_key_invalidated_title">生体認証機能が無効になりました</string>
+	<string name="dialog_enter_license_title">有効なライセンスを入力してください</string>
+	<string name="dialog_enter_license_decline_button">終了</string>
+	<string name="dialog_update_available_update">すぐに更新</string>
+	<string name="dialog_update_available_download_site">ダウンロード サイトに行く</string>
+	<string name="dialog_update_available_cancel">あとで</string>
+	<string name="dialog_download_update_title">ダウンロード中</string>
 	<string name="dialog_sym_link_back_button">戻る</string>
 	<!-- # error reports -->
 	<!-- # misc -->
 	<!-- ## file size helper -->
+	<string name="file_size_zero">0 kB</string>
+	<string name="file_size_unit_bytes">バイト</string>
+	<string name="file_size_unit_kilo_bytes">kB</string>
+	<string name="file_size_unit_mega_bytes">MB</string>
+	<string name="file_size_unit_giga_bytes">GB</string>
+	<string name="file_size_unit_tera_bytes">TB</string>
 	<!-- ## date helper -->
+	<string name="time_unit_seconds_sg">秒</string>
+	<string name="time_unit_seconds_pl">秒</string>
+	<string name="time_unit_minutes_sg">分</string>
 	<string name="time_unit_minutes_pl">分</string>
+	<string name="time_unit_hours_sg">時</string>
+	<string name="time_unit_hours_pl">時</string>
+	<string name="time_unit_days_sg">日</string>
+	<string name="time_unit_days_pl">日</string>
+	<string name="time_unit_weeks_sg">週</string>
+	<string name="time_unit_weeks_pl">週</string>
+	<string name="time_unit_months_sg">月</string>
+	<string name="time_unit_months_pl">月</string>
+	<string name="time_unit_years_sg">年</string>
+	<string name="time_unit_years_pl"> 年</string>
 	<!-- ## biometric authentication -->
+	<string name="dialog_biometric_auth_title">生体認証でログイン</string>
+	<string name="dialog_biometric_auth_message">生体認証を使用してログイン</string>
+	<string name="dialog_biometric_auth_use_password">金庫のパスワードを使用</string>
 	<!-- notification -->
+	<string name="notification_lock_all">すべて施錠</string>
+	<string name="notification_cancel_auto_upload">アップロードをキャンセル</string>
+	<string name="notification_auto_upload_title">写真を自動的にアップロードしています</string>
+	<string name="notification_auto_upload_message">アップロード中 %1d/%2d</string>
+	<string name="notification_auto_upload_finished_title">写真の自動アップロードが完了しました</string>
+	<string name="notification_auto_upload_finished_message">%1$d 個の画像を金庫にアップロードしました</string>
+	<string name="notification_auto_upload_failed_title">写真の自動アップロードが失敗しました</string>
+	<string name="screen_settings_lru_cache">キャッシュ</string>
+	<string name="screen_settings_lru_cache_size">キャッシュの合計サイズ</string>
+	<string name="screen_settings_clear_lru_cache_size">キャッシュを削除する</string>
+	<string name="screen_settings_lru_cache_changed__restart_toast">変更は次のアプリの再起動時に適用されます</string>
+	<string name="screen_settings_license">登録済み</string>
+	<string name="screen_settings_license_mail">%1$s</string>
+	<string name="dialog_settings_update_check_interval_title">更新確認の間隔</string>
+	<string name="screen_settings_check_updates">更新の確認</string>
 	<!-- lock timeout names -->
+	<string name="lock_timeout_1m">1分</string>
+	<string name="lock_timeout_2m">2分</string>
+	<string name="lock_timeout_5m">5分</string>
+	<string name="lock_timeout_10m">10分</string>
+	<string name="lock_timeout_never">無期限</string>
 	<!-- cache size names -->
+	<string name="cache_size_50m">50 MB</string>
+	<string name="cache_size_100m">100 MB</string>
+	<string name="cache_size_250m">250 MB</string>
+	<string name="cache_size_500m">500 MB</string>
+	<string name="cache_size_1000m">1 GB</string>
+	<string name="cache_size_5000m">5 GB</string>
 	<!-- screen scheme mode names -->
+	<string name="screen_settings_style_mode">外観</string>
+	<string name="follow_system">自動 (システムに従う)</string>
 	<string name="light">ライト</string>
 	<string name="dark">ダーク</string>
 	<!-- update interval names -->
+	<string name="update_interval_1d">毎日</string>
+	<string name="update_interval_1w">毎週</string>
+	<string name="update_interval_1m">毎月</string>
 </resources>
