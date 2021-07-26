@@ -6,3 +6,4 @@
 - Auto-Updater des APK-Stores verbessert
 - Tresorname in S3 kann wieder umbenannt werden
 - Kompatibilität für schwache biometrische Authentifikatoren eingestellt
+- Einige Fehler der 1.6.0-beta1-Version behoben
