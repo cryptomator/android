@@ -17,7 +17,7 @@
 	<string name="error_activity_not_found">Descarregueu un aplicació que pugui obrir aquest fitxer.</string>
 	<string name="error_server_not_found">No s\'ha trobat el servidor.</string>
 	<string name="error_device_policy_manager_not_found">Obriu la configuració dels vostres dispositius i establiu el bloqueig de pantalla a mà</string>
-	<string name="error_export_illegal_file_name">Export failed. Try to remove special characters from file names and export again.</string>
+	<string name="error_export_illegal_file_name">Ha fallat l\'exportació. Proveu a eliminar caràcters especials dels noms dels fitxers i torneu a exportar.</string>
 	<string name="error_name_contains_invalid_characters">Can\'t contain special characters.</string>
 	<string name="error_names_contains_invalid_characters">File names can\'t contain special characters.</string>
 	<string name="error_vault_name_contains_invalid_characters">Vault name can\'t contain special characters.</string>
