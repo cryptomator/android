@@ -23,10 +23,10 @@
 	<string name="error_vault_name_contains_invalid_characters">El nom de la caixa forta no pot tenir caràcters especials.</string>
 	<string name="error_general_update">Ha fallat la comprovació d\'actualització. S\'ha produït un error general.</string>
 	<string name="error_hash_mismatch_update">Ha fallat la comprovació d\'actualització. La suma de comprovació no coincideix amb la del fitxer pujat</string>
-	<string name="error_update_no_internet">Update check failed. No internet connection.</string>
+	<string name="error_update_no_internet">Ha fallat la comprovació d\'actualització. No hi ha connexió a Internet.</string>
 	<string name="error_failed_to_decrypt_webdav_password">Failed to decrypt WebDAV password, please re add in settings</string>
 	<string name="error_play_services_not_available">Play Services not installed</string>
-	<string name="error_biometric_auth_aborted">Biometric authentication aborted</string>
+	<string name="error_biometric_auth_aborted">Autenticació biomètrica avortada</string>
 	<string name="error_vault_version_mismatch">Version specified in vault.cryptomator is different to masterkey.cryptomator</string>
 	<string name="error_vault_key_invalid">vault.cryptomator does not match with this masterkey.cryptomator</string>
 	<string name="error_vault_config_loading">General error while loading the vault config</string>
@@ -41,25 +41,25 @@
 	<string name="permission_message_export_file">Cryptomator needs storage access to export files</string>
 	<string name="permission_message_upload_file">Cryptomator needs storage access to upload files</string>
 	<string name="permission_message_share_file">Cryptomator needs storage access to share files</string>
-	<string name="snack_bar_action_title_settings">Settings</string>
+	<string name="snack_bar_action_title_settings">Configuració</string>
 	<string name="snack_bar_action_title_search">Cercar</string>
 	<string name="snack_bar_action_title_search_previous">Anterior</string>
 	<string name="snack_bar_action_title_search_next">Següent</string>
 	<string name="snack_bar_action_title_sort">Ordenar</string>
 	<string name="snack_bar_action_title_sort_az">A - Z</string>
 	<string name="snack_bar_action_title_sort_za">Z - A</string>
-	<string name="snack_bar_action_title_sort_newest">Newest first</string>
-	<string name="snack_bar_action_title_sort_oldest">Oldest first</string>
+	<string name="snack_bar_action_title_sort_newest">El més nou primer</string>
+	<string name="snack_bar_action_title_sort_oldest">El més antic primer</string>
 	<string name="snack_bar_action_title_sort_biggest">Biggest first</string>
 	<string name="snack_bar_action_title_sort_smallest">Smallest first</string>
 	<!-- # screens -->
 	<!-- # screen: vault list -->
-	<string name="screen_vault_list_actions_title">Add to Cryptomator</string>
-	<string name="screen_vault_list_action_create_new_vault">Create new vault</string>
-	<string name="screen_vault_list_action_add_existing_vault">Add existing vault</string>
+	<string name="screen_vault_list_actions_title">Afegeix a Criptomator</string>
+	<string name="screen_vault_list_action_create_new_vault">Crea una caixa forta nova</string>
+	<string name="screen_vault_list_action_add_existing_vault">Afegeix una caixa forta existent</string>
 	<string name="screen_vault_list_vault_action_delete">Elimina</string>
-	<string name="screen_vault_list_vault_creation_hint">Click here to create a new vault</string>
-	<string name="screen_vault_list_change_password_successful">Password successfully changed</string>
+	<string name="screen_vault_list_vault_creation_hint">Feu clic aquí per crear una caixa forta</string>
+	<string name="screen_vault_list_change_password_successful">La contrasenya s\'han canviat correctament</string>
 	<!-- # screen: file browser -->
 	<string name="screen_file_browser_default_title">Caixa forta</string>
 	<string name="screen_file_browser_add_existing_vault_extra_text">Select masterkey file</string>
