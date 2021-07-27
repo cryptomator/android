@@ -1,19 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 	<!-- # app -->
-	<string name="share_with_label">Encrypt</string>
+	<string name="share_with_label">Šifrovat</string>
 	<!-- # error messages -->
-	<string name="error_generic">An error occurred</string>
-	<string name="error_authentication_failed">Authentication failed</string>
+	<string name="error_generic">Nastala chyba</string>
+	<string name="error_authentication_failed">Ověřování selhalo</string>
 	<string name="error_authentication_failed_re_authenticate">Authentication failed, please login using %1$s</string>
-	<string name="error_no_network_connection">No network connection</string>
-	<string name="error_invalid_passphrase">Wrong password</string>
+	<string name="error_no_network_connection">Bez připojení k síti</string>
+	<string name="error_invalid_passphrase">Chybné heslo</string>
 	<string name="error_file_or_folder_exists">A file or folder already exists.</string>
 	<string name="error_vault_version_not_supported">Unsupported vault. This vault has been created with another version of Cryptomator.</string>
 	<string name="error_vault_already_exists">Vault already exists.</string>
 	<string name="error_no_such_file">File does not exist.</string>
 	<string name="error_vault_has_been_locked">Vault has been locked.</string>
-	<string name="error_cloud_already_exists">Cloud already exists.</string>
+	<string name="error_cloud_already_exists">Cloud již existuje.</string>
 	<string name="error_activity_not_found">Please download an app that can open this file.</string>
 	<string name="error_server_not_found">Server not found.</string>
 	<string name="error_device_policy_manager_not_found">Please open your devices settings and set the screen lock by hand</string>
@@ -25,8 +25,8 @@
 	<string name="error_hash_mismatch_update">Update check failed. Calculated hash doesn\'t match the uploaded file</string>
 	<string name="error_update_no_internet">Update check failed. No internet connection.</string>
 	<string name="error_failed_to_decrypt_webdav_password">Failed to decrypt WebDAV password, please re add in settings</string>
-	<string name="error_play_services_not_available">Play Services not installed</string>
-	<string name="error_biometric_auth_aborted">Biometric authentication aborted</string>
+	<string name="error_play_services_not_available">Služba Google Play nebyla instalována</string>
+	<string name="error_biometric_auth_aborted">Ověření pomocí otisků prstů selhalo</string>
 	<string name="error_vault_version_mismatch">Version specified in vault.cryptomator is different to masterkey.cryptomator</string>
 	<string name="error_vault_key_invalid">vault.cryptomator does not match with this masterkey.cryptomator</string>
 	<string name="error_vault_config_loading">General error while loading the vault config</string>
@@ -35,7 +35,7 @@
 	<string name="error_masterkey_location_not_supported">Custom Masterkey location not supported yet</string>
 	<!-- # clouds -->
 	<!-- ## cloud names -->
-	<string name="cloud_names_local_storage">Local storage</string>
+	<string name="cloud_names_local_storage">Místní úložiště</string>
 	<!-- # permission -->
 	<!-- ## permission messages -->
 	<string name="permission_message_export_file">Cryptomator needs storage access to export files</string>
