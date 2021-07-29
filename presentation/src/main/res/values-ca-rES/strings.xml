@@ -38,9 +38,9 @@
 	<string name="cloud_names_local_storage">Emmagatzematge local</string>
 	<!-- # permission -->
 	<!-- ## permission messages -->
-	<string name="permission_message_export_file">Cryptomator needs storage access to export files</string>
-	<string name="permission_message_upload_file">Cryptomator needs storage access to upload files</string>
-	<string name="permission_message_share_file">Cryptomator needs storage access to share files</string>
+	<string name="permission_message_export_file">Cryptomator necessita accés a l\'emmagatzematge per a exportar fitxers</string>
+	<string name="permission_message_upload_file">Cryptomator necessita accés a l\'emmagatzematge per a carregar fitxers</string>
+	<string name="permission_message_share_file">Cryptomator necessita accés a l\'emmagatzematge per a compartir fitxers</string>
 	<string name="snack_bar_action_title_settings">Configuració</string>
 	<string name="snack_bar_action_title_search">Cercar</string>
 	<string name="snack_bar_action_title_search_previous">Anterior</string>
@@ -50,8 +50,8 @@
 	<string name="snack_bar_action_title_sort_za">Z - A</string>
 	<string name="snack_bar_action_title_sort_newest">El més nou primer</string>
 	<string name="snack_bar_action_title_sort_oldest">El més antic primer</string>
-	<string name="snack_bar_action_title_sort_biggest">Biggest first</string>
-	<string name="snack_bar_action_title_sort_smallest">Smallest first</string>
+	<string name="snack_bar_action_title_sort_biggest">El més gros primer</string>
+	<string name="snack_bar_action_title_sort_smallest">El més petit primer</string>
 	<!-- # screens -->
 	<!-- # screen: vault list -->
 	<string name="screen_vault_list_actions_title">Afegeix a Criptomator</string>
@@ -62,37 +62,37 @@
 	<string name="screen_vault_list_change_password_successful">La contrasenya s\'han canviat correctament</string>
 	<!-- # screen: file browser -->
 	<string name="screen_file_browser_default_title">Caixa forta</string>
-	<string name="screen_file_browser_add_existing_vault_extra_text">Select masterkey file</string>
+	<string name="screen_file_browser_add_existing_vault_extra_text">Seleccioneu el fitxer de clau mestra</string>
 	<string name="screen_file_browser_create_new_vault_button_text">Place here</string>
-	<string name="screen_file_browser_create_new_vault_extra_text">Vault name: %1$s</string>
+	<string name="screen_file_browser_create_new_vault_extra_text">Nom de la caixa forta: %1$s</string>
 	<plurals name="screen_file_browser_subtitle_move">
 		<item quantity="one">Move %1$s to</item>
-		<item quantity="other">Move %2$d items to</item>
+		<item quantity="other">Mou %2$d ítems a</item>
 	</plurals>
-	<string name="screen_file_browser_move_button_text">Move</string>
-	<string name="screen_file_browser_msg_empty_folder">Empty folder</string>
-	<string name="screen_file_browser_file_info_label_date">modified %1$s ago</string>
-	<string name="screen_file_browser_share_intent_chooser_title">Share with</string>
-	<string name="screen_file_browser_share_destination_title">Choose a destination</string>
+	<string name="screen_file_browser_move_button_text">Mou</string>
+	<string name="screen_file_browser_msg_empty_folder">Carpeta buida</string>
+	<string name="screen_file_browser_file_info_label_date">modificat fa %1$s</string>
+	<string name="screen_file_browser_share_intent_chooser_title">Comparteix amb</string>
+	<string name="screen_file_browser_share_destination_title">Trieu una destinació</string>
 	<string name="screen_file_browser_share_button_text">Trieu</string>
-	<string name="screen_file_browser_nothing_to_share">Nothing to share</string>
-	<string name="screen_file_browser_actions_title">Add to %1$s</string>
-	<string name="screen_file_browser_action_create_folder">Create folder</string>
-	<string name="screen_file_browser_action_create_new_text_file">Create text file</string>
-	<string name="screen_file_browser_action_upload_files">Upload files</string>
-	<string name="screen_file_browser_upload_files_chooser_title">Files</string>
-	<string name="screen_file_browser_msg_file_exported">File exported</string>
-	<string name="screen_file_browser_msg_files_exported">Files exported</string>
-	<string name="screen_file_browser_nothing_to_export">Nothing to export</string>
-	<string name="screen_file_browser_msg_creating_download_dir_failed">Creating download directory failed</string>
-	<string name="screen_file_browser_node_action_share">Share</string>
-	<string name="screen_file_browser_node_action_rename">Rename</string>
+	<string name="screen_file_browser_nothing_to_share">No hi ha res a compartir</string>
+	<string name="screen_file_browser_actions_title">Afegeix a %1$s</string>
+	<string name="screen_file_browser_action_create_folder">Crea una carpeta</string>
+	<string name="screen_file_browser_action_create_new_text_file">Crea un fitxer de text</string>
+	<string name="screen_file_browser_action_upload_files">Puja fitxers</string>
+	<string name="screen_file_browser_upload_files_chooser_title">Fitxers</string>
+	<string name="screen_file_browser_msg_file_exported">Fitxer exportat</string>
+	<string name="screen_file_browser_msg_files_exported">Fitxers exportats</string>
+	<string name="screen_file_browser_nothing_to_export">No hi ha res a exportar</string>
+	<string name="screen_file_browser_msg_creating_download_dir_failed">La creació del directori de baixades ha fallat</string>
+	<string name="screen_file_browser_node_action_share">Comparteix</string>
+	<string name="screen_file_browser_node_action_rename">Canvia el nom</string>
 	<string name="screen_file_browser_node_action_edit_text">Editar</string>
-	<string name="screen_file_browser_node_action_export">Export</string>
-	<string name="screen_file_browser_node_action_delete">Delete</string>
-	<string name="screen_file_browser_node_action_open_with_text">Open with&#8230;</string>
-	<string name="screen_file_browser_selection_mode_title_zero_elements">Select items</string>
-	<string name="screen_file_browser_selection_mode_title_one_or_more_elements">%1$d selected</string>
+	<string name="screen_file_browser_node_action_export">Exporta</string>
+	<string name="screen_file_browser_node_action_delete">Elimina</string>
+	<string name="screen_file_browser_node_action_open_with_text">Obre amb&#8230;</string>
+	<string name="screen_file_browser_selection_mode_title_zero_elements">Tria ítems</string>
+	<string name="screen_file_browser_selection_mode_title_one_or_more_elements">%1$d seleccionat</string>
 	<string name="screen_file_browser_select_items">Select&#8230;</string>
 	<string name="screen_file_browser_select_all_items">Select all</string>
 	<string name="screen_file_browser_refresh_items">Refresh</string>
