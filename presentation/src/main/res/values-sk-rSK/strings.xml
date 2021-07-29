@@ -231,7 +231,7 @@
 	<string name="dialog_vault_not_found_positive_button_text">Odstrániť</string>
 	<string name="dialog_existing_file_title">Súbor už existuje</string>
 	<string name="dialog_existing_file_positive_button">Nahradiť</string>
-	<string name="dialog_existing_file_message">A file named \'%1$s\' already exists.</string>
+	<string name="dialog_existing_file_message">Súbor s názvom \'%1$s\' už existuje.</string>
 	<string name="dialog_replace_negative_button_at_least_two_but_not_all_files_exist">Preskočiť existujúce</string>
 	<string name="dialog_replace_positive_button_all_files_exist">Nahradiť všetko</string>
 	<string name="dialog_replace_positive_button_some_files_exist">Nahradiť existujúce</string>
@@ -300,62 +300,62 @@
 	<string name="dialog_delete_cloud_connection_with_vaults_hint">This action will remove the cloud connection and all vaults of this cloud.</string>
 	<string name="dialog_confirm_delete_multiple_title">Delete %1$d items?</string>
 	<string name="dialog_confirm_delete_multiple_message">Are you sure you want to delete these items?</string>
-	<string name="dialog_confirm_delete_file_message">Are you sure you want to delete this file?</string>
-	<string name="dialog_confirm_delete_folder_message">This will delete all of the folder\'s contents. Are you sure you want to delete this folder?</string>
-	<string name="dialog_biometric_auth_key_invalidated_title">Biometric authentication feature deactivated</string>
-	<string name="dialog_biometric_auth_key_invalidated_message">Because the key has been invalidated, the biometric authentication feature has been deactivated. To re-enable, open the Cryptomator settings.</string>
-	<string name="dialog_enter_license_title">Provide a valid license</string>
-	<string name="dialog_enter_license_content">We detected that you installed Cryptomator without using Google Play Store. Provide a valid license, which can be purchased on <a href="https://cryptomator.org/android/">https://cryptomator.org/android/</a></string>
-	<string name="dialog_enter_license_not_valid_content">The provided license isn\'t valid. Make sure you entered it correctly.</string>
-	<string name="dialog_enter_license_no_content">No license provided. Please enter a valid license.</string>
-	<string name="dialog_enter_license_decline_button">Exit</string>
-	<string name="dialog_license_confirmation_title">License confirmation</string>
-	<string name="dialog_license_confirmation_message">Thanks %1$s for providing your valid license.</string>
-	<string name="dialog_update_available_title">Update available</string>
-	<string name="dialog_update_available_message">Update Cryptomator to the latest version. By pressing OK we will download the app in the background and will ask you to install it.</string>
-	<string name="dialog_update_available_update">Update now</string>
-	<string name="dialog_update_available_download_site">Go to downloads site</string>
-	<string name="dialog_update_available_cancel">Later</string>
-	<string name="dialog_download_update_title">Download running</string>
-	<string name="dialog_download_update_message">Downloading latest version of Cryptomator</string>
-	<string name="dialog_sym_link_title">Folder is a symbolic link</string>
+	<string name="dialog_confirm_delete_file_message">Naozaj chcete odstrániť tento súbor?</string>
+	<string name="dialog_confirm_delete_folder_message">Toto zmaže obsah celého adresára. Ste si istý že chcete zmazať tento adresár?</string>
+	<string name="dialog_biometric_auth_key_invalidated_title">Funkcia biometrickej autentikácie je deaktivovaná</string>
+	<string name="dialog_biometric_auth_key_invalidated_message">Pretože kľúč bol zneplatnený, funkcia biometrickej autentikácie bola deaktivovaná. Pre opätovné povolenie, otvorte nastavenia Cryptomator-a.</string>
+	<string name="dialog_enter_license_title">Poskytnite platnú licenciu</string>
+	<string name="dialog_enter_license_content">Detekovali sme že máte nainštalovaný Cryptomator bez použitia Google Play Store. Poskytnite platnú licenciu, ktorá bola zakúpená v <a href="https://cryptomator.org/android/">https://cryptomator.org/android/</a></string>
+	<string name="dialog_enter_license_not_valid_content">Poskytnutá licencia nie je platná. Uistite sa či bola zadaná korektne.</string>
+	<string name="dialog_enter_license_no_content">Licencia neposkytnutá. Prosím zadajte platnú licenciu.</string>
+	<string name="dialog_enter_license_decline_button">Výstup</string>
+	<string name="dialog_license_confirmation_title">Potvrdenie licencie</string>
+	<string name="dialog_license_confirmation_message">Ďakujeme %1$s za poskytnutie Vašej platnej licencie.</string>
+	<string name="dialog_update_available_title">Aktualizácia k dispozícii</string>
+	<string name="dialog_update_available_message">Aktualizujte Cryptomator na najnovšiu verziu. Stlačením OK sa stiahne aplikácia na pozadí a opýta Vás pre inštalovanie.</string>
+	<string name="dialog_update_available_update">Aktualizovať teraz</string>
+	<string name="dialog_update_available_download_site">Prejsť na stránku sťahovania</string>
+	<string name="dialog_update_available_cancel">Neskôr</string>
+	<string name="dialog_download_update_title">Prebieha sťahovanie</string>
+	<string name="dialog_download_update_message">Sťahovanie najnovšej verzie Cryptomator-a</string>
+	<string name="dialog_sym_link_title">Adresár je symbolická linka</string>
 	<string name="dialog_sym_link_message">You can not navigate into this symbolic link</string>
 	<string name="dialog_sym_link_back_button">Späť</string>
-	<string name="dialog_no_dir_file_title">Unable to load contents of directory</string>
+	<string name="dialog_no_dir_file_title">Nie je možné načítať obsah adresára</string>
 	<string name="dialog_no_dir_file_message">Cloud folder \'%1$s\' doesn\'t have a directory file. It could be that the folder was created on another device and has not yet been fully synchronized to the cloud. Please check in your cloud if the following file exists:\n%2$s</string>
 	<string name="dialog_no_more_images_to_display">No more images to display&#8230;</string>
-	<string name="dialog_pcloud_credentials_updated_title">Credentials of \'%1$s\' updated</string>
+	<string name="dialog_pcloud_credentials_updated_title">Prístupy k %1$s aktualizované</string>
 	<string name="dialog_pcloud_credentials_updated">If you intended to add a new pCloud account, click on this url <a href="https://www.pcloud.com">www.pcloud.com</a>, log out from the current account and click again on the \'+\' in this app to create a new cloud connection.</string>
-	<string name="permission_snackbar_auth_local_vault">Cryptomator needs storage access to use local vaults</string>
-	<string name="permission_snackbar_auth_auto_upload">Cryptomator needs storage access to use auto photo upload</string>
+	<string name="permission_snackbar_auth_local_vault">Cryptomator potrebuje prístup k úložisku pre prácu s lokálnymi trezormy</string>
+	<string name="permission_snackbar_auth_auto_upload">Cryptomator potrebuje prístup k úložisku pre automatické nahrávanie fotografii</string>
 	<!-- # error reports -->
 	<!-- # misc -->
 	<!-- ## file size helper -->
-	<string name="file_size_zero">Zero kB</string>
+	<string name="file_size_zero">Nula kB</string>
 	<string name="file_size_unit_bytes">bytes</string>
 	<string name="file_size_unit_kilo_bytes">kB</string>
 	<string name="file_size_unit_mega_bytes">MB</string>
 	<string name="file_size_unit_giga_bytes">GB</string>
 	<string name="file_size_unit_tera_bytes">TB</string>
 	<!-- ## date helper -->
-	<string name="time_unit_seconds_sg">second</string>
-	<string name="time_unit_seconds_pl">seconds</string>
-	<string name="time_unit_minutes_sg">minute</string>
+	<string name="time_unit_seconds_sg">sekunda</string>
+	<string name="time_unit_seconds_pl">sekúnd</string>
+	<string name="time_unit_minutes_sg">minúta</string>
 	<string name="time_unit_minutes_pl">minút</string>
-	<string name="time_unit_hours_sg">hour</string>
-	<string name="time_unit_hours_pl">hours</string>
-	<string name="time_unit_days_sg">day</string>
-	<string name="time_unit_days_pl">days</string>
-	<string name="time_unit_weeks_sg">week</string>
-	<string name="time_unit_weeks_pl">weeks</string>
-	<string name="time_unit_months_sg">month</string>
-	<string name="time_unit_months_pl">months</string>
-	<string name="time_unit_years_sg">year</string>
-	<string name="time_unit_years_pl">years</string>
+	<string name="time_unit_hours_sg">hodina</string>
+	<string name="time_unit_hours_pl">hodín</string>
+	<string name="time_unit_days_sg">deň</string>
+	<string name="time_unit_days_pl">dní</string>
+	<string name="time_unit_weeks_sg">týždeň</string>
+	<string name="time_unit_weeks_pl">týždňov</string>
+	<string name="time_unit_months_sg">mesiac</string>
+	<string name="time_unit_months_pl">mesiacov</string>
+	<string name="time_unit_years_sg">rok</string>
+	<string name="time_unit_years_pl">rokov</string>
 	<!-- ## biometric authentication -->
-	<string name="dialog_biometric_auth_title">Biometric login</string>
-	<string name="dialog_biometric_auth_message">Log in using your biometric credential</string>
-	<string name="dialog_biometric_auth_use_password">Use vault password</string>
+	<string name="dialog_biometric_auth_title">Biometrické prihlásenie</string>
+	<string name="dialog_biometric_auth_message">Prihlásenie sa použitím Vašeho biometrického prístupu</string>
+	<string name="dialog_biometric_auth_use_password">Použiť heslo trezora</string>
 	<string name="dialog_unable_to_auto_upload_files_title">Unable to auto upload files</string>
 	<!-- notification -->
 	<string name="notification_unlocked">Vaults unlocked: %1$d</string>
