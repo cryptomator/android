@@ -67,9 +67,9 @@
 	<string name="screen_file_browser_create_new_vault_extra_text">Meno trezoru: %1$s</string>
 	<plurals name="screen_file_browser_subtitle_move">
 		<item quantity="one">Presunúť %1$s do</item>
-		<item quantity="few">Presunúť %1$s do</item>
-		<item quantity="many">Move %2$d items to</item>
-		<item quantity="other">Presunúť %2$d položky do</item>
+		<item quantity="few">Presunúť %2$d položiek do</item>
+		<item quantity="many">Presunúť %2$d položiek do</item>
+		<item quantity="other">Presunúť %2$d položiek do</item>
 	</plurals>
 	<string name="screen_file_browser_move_button_text">Presunúť</string>
 	<string name="screen_file_browser_msg_empty_folder">Prázdny adresár</string>
@@ -356,7 +356,7 @@
 	<string name="dialog_biometric_auth_title">Biometrické prihlásenie</string>
 	<string name="dialog_biometric_auth_message">Prihlásenie sa použitím Vašeho biometrického prístupu</string>
 	<string name="dialog_biometric_auth_use_password">Použiť heslo trezora</string>
-	<string name="dialog_unable_to_auto_upload_files_title">Unable to auto upload files</string>
+	<string name="dialog_unable_to_auto_upload_files_title">Nie je možné automaticky nahrať súbory</string>
 	<!-- notification -->
 	<string name="notification_unlocked">Vaults unlocked: %1$d</string>
 	<string name="notification_timeout">Autolock in %1$s</string>
