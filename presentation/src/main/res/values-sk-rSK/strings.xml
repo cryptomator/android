@@ -209,7 +209,7 @@
 	<!-- ## screen: licenses -->
 	<!-- ## screen: authenticate cloud -->
 	<string name="screen_authenticate_auth_authentication_failed">%1$s could not be authenticated.</string>
-	<string name="screen_update_pcloud_connections_title">Update pCloud credentials</string>
+	<string name="screen_update_pcloud_connections_title">Aktualizovať pCloud prístupy</string>
 	<!-- ## screen: empty dir file info -->
 	<string name="screen_empty_dir_file_info_title">\'%1$s\' unreachable</string>
 	<string name="screen_empty_dir_file_info_headline">Cryptomator detected that this folder is unreachable.</string>
@@ -234,30 +234,30 @@
 	<string name="dialog_existing_file_message">A file named \'%1$s\' already exists.</string>
 	<string name="dialog_replace_negative_button_at_least_two_but_not_all_files_exist">Preskočiť existujúce</string>
 	<string name="dialog_replace_positive_button_all_files_exist">Nahradiť všetko</string>
-	<string name="dialog_replace_positive_button_some_files_exist">Replace existing</string>
+	<string name="dialog_replace_positive_button_some_files_exist">Nahradiť existujúce</string>
 	<string name="dialog_replace_positive_button_single_file_exists">Nahradiť</string>
 	<string name="dialog_replace_msg_single_file_exists">A file named \'%1$s\' already exists. Do you want to replace it?</string>
 	<string name="dialog_replace_msg_all_files_exists">All files already exist. Do you want to replace them?</string>
-	<string name="dialog_replace_msg_some_files_exists">%1$d files already exist. Do you want to replace them?</string>
+	<string name="dialog_replace_msg_some_files_exists">%1$d súbory už existujú. Želáte si ich nahradiť?</string>
 	<string name="dialog_replace_title_single_file_exists">Nahradiť súbor?</string>
 	<string name="dialog_replace_title_multiple_files_exist">Nahradiť súbory?</string>
 	<string name="dialog_unable_to_share_title">Nie je možné zdieľať súbory</string>
-	<string name="dialog_unable_to_share_message">You haven\'t set up any vaults. Please create a new vault with the Cryptomator app first.</string>
+	<string name="dialog_unable_to_share_message">Nemáte nastavené žiadne trezory. Prosím vytvorte najprv nový trezor s aplikáciou Cryptomator.</string>
 	<string name="dialog_unable_to_share_positive_button">OK</string>
 	<string name="dialog_unable_to_share_negative_button">Vytvoriť trezor</string>
 	<string name="dialog_filetype_not_supported_title">Nie je možné otvoriť %1$s</string>
 	<string name="dialog_filetype_not_supported_message">Prosím stiahnuť aplikáciu ktorá môže otvoriť tento súbor alebo si želáte uložiť na Vaše zariadenie?</string>
-	<string name="dialog_rename_vault_title">Rename vault</string>
-	<string name="dialog_rename_node_folder_title">Rename folder</string>
-	<string name="dialog_rename_node_file_title">Rename file</string>
-	<string name="dialog_unsaved_changes_title">You have unsaved changes</string>
-	<string name="dialog_unsaved_changes_message">Do you really want to quit without saving?</string>
-	<string name="dialog_unsaved_changes_discard">Discard</string>
+	<string name="dialog_rename_vault_title">Premenovať trezor</string>
+	<string name="dialog_rename_node_folder_title">Premenovať adresár</string>
+	<string name="dialog_rename_node_file_title">Premenovať súbor</string>
+	<string name="dialog_unsaved_changes_title">Máte neuložené zmeny</string>
+	<string name="dialog_unsaved_changes_message">Skutočne chcete skončiť bez uloženia?</string>
+	<string name="dialog_unsaved_changes_discard">Zrušiť</string>
 	<string name="dialog_file_name_placeholder">text.txt</string>
-	<string name="dialog_delete_vault_message">Are you sure you want to remove this vault?</string>
-	<string name="dialog_delete_vault_hint">This action will only remove the vault from this list and not delete it physically.</string>
-	<string name="dialog_upload_file_title">Uploading&#8230;</string>
-	<string name="dialog_upload_file_remaining">File %1$d of %2$d</string>
+	<string name="dialog_delete_vault_message">Ste si istý odstrániť tento trezor?</string>
+	<string name="dialog_delete_vault_hint">Tento úkon iba odstráni trezor zo zoznamu a nezmaže ho fyzicky.</string>
+	<string name="dialog_upload_file_title">Nahrávanie&#8230;</string>
+	<string name="dialog_upload_file_remaining">Súbor %1$d z %2$d</string>
 	<string name="dialog_export_file_title">Exporting (%1$d/%2$d)</string>
 	<string name="dialog_progress_please_wait">Please wait&#8230;</string>
 	<string name="dialog_progress_creating_folder">Creating folder&#8230;</string>
@@ -268,7 +268,7 @@
 	<string name="dialog_progress_unlocking_vault">Unlocking vault&#8230;</string>
 	<string name="dialog_progress_change_password">Changing password&#8230;</string>
 	<string name="dialog_progress_creating_vault">Creating vault&#8230;</string>
-	<string name="dialog_progress_upload_file">Uploading&#8230;</string>
+	<string name="dialog_progress_upload_file">Nahrávanie&#8230;</string>
 	<string name="dialog_progress_download_file">Downloading&#8230;</string>
 	<string name="dialog_progress_encryption">Encrypting&#8230;</string>
 	<string name="dialog_progress_decryption">Decrypting&#8230;</string>
