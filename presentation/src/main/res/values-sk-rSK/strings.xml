@@ -359,11 +359,11 @@
 	<string name="dialog_unable_to_auto_upload_files_title">Nie je možné automaticky nahrať súbory</string>
 	<!-- notification -->
 	<string name="notification_unlocked">Odomknuté trezory: %1$d</string>
-	<string name="notification_timeout">Autolock in %1$s</string>
+	<string name="notification_timeout">Autozamknutie za %1$s</string>
 	<string name="notification_lock_all">Všetko zamknúť</string>
 	<string name="notification_cancel_auto_upload">Zrušiť nahrávanie</string>
-	<string name="notification_auto_upload_title">Auto photo upload running</string>
-	<string name="notification_auto_upload_message">Uploading %1d/%2d</string>
+	<string name="notification_auto_upload_title">Prebieha automatické nahrávanie fotografii</string>
+	<string name="notification_auto_upload_message">Nahrávanie %1d/%2d</string>
 	<string name="notification_auto_upload_finished_title">Auto photo upload finished</string>
 	<string name="notification_auto_upload_finished_message">%1$d images uploaded to vault</string>
 	<string name="notification_auto_upload_failed_title">Auto photo upload failed</string>
