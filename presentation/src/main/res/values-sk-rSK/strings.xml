@@ -358,10 +358,10 @@
 	<string name="dialog_biometric_auth_use_password">Použiť heslo trezora</string>
 	<string name="dialog_unable_to_auto_upload_files_title">Nie je možné automaticky nahrať súbory</string>
 	<!-- notification -->
-	<string name="notification_unlocked">Vaults unlocked: %1$d</string>
+	<string name="notification_unlocked">Odomknuté trezory: %1$d</string>
 	<string name="notification_timeout">Autolock in %1$s</string>
-	<string name="notification_lock_all">Lock all</string>
-	<string name="notification_cancel_auto_upload">Cancel upload</string>
+	<string name="notification_lock_all">Všetko zamknúť</string>
+	<string name="notification_cancel_auto_upload">Zrušiť nahrávanie</string>
 	<string name="notification_auto_upload_title">Auto photo upload running</string>
 	<string name="notification_auto_upload_message">Uploading %1d/%2d</string>
 	<string name="notification_auto_upload_finished_title">Auto photo upload finished</string>
@@ -373,24 +373,24 @@
 	<string name="notification_open_writable_file_title">Open writable file</string>
 	<string name="notification_open_writable_file_message">Vault stays unlocked until finished editing</string>
 	<string name="notification_update_check_finished_latest">Latest version installed</string>
-	<string name="screen_settings_lru_cache">Cache</string>
+	<string name="screen_settings_lru_cache">Vyrovnávacia pamäť</string>
 	<string name="screen_settings_lru_cache_toggle_summary">Cache recently accessed files encrypted locally on the device for later reuse when reopened</string>
 	<string name="screen_settings_lru_cache_size">Total cache size</string>
-	<string name="screen_settings_clear_lru_cache_size">Clear Cache</string>
+	<string name="screen_settings_clear_lru_cache_size">Vyprázdniť vyrovnávaciu pamäť</string>
 	<string name="screen_settings_lru_cache_changed__restart_toast">Changes will be applied on next app restart</string>
-	<string name="screen_settings_license">Registered for</string>
+	<string name="screen_settings_license">Registrovaný pre</string>
 	<string name="screen_settings_license_mail">%1$s</string>
 	<string name="dialog_settings_update_check_interval_title">Update check interval</string>
 	<string name="screen_settings_check_updates">Check for updates</string>
 	<string name="screen_settings_last_check_updates">Last run %1$s</string>
-	<string name="dialog_cache_size_title">Cache size per Cloud</string>
+	<string name="dialog_cache_size_title">Veľkosť vyrovnávaciej pamäťe na Cloud</string>
 	<!-- lock timeout names -->
-	<string name="lock_timeout_instant">Instant</string>
-	<string name="lock_timeout_1m">1 minute</string>
-	<string name="lock_timeout_2m">2 minutes</string>
-	<string name="lock_timeout_5m">5 minutes</string>
-	<string name="lock_timeout_10m">10 minutes</string>
-	<string name="lock_timeout_never">Never</string>
+	<string name="lock_timeout_instant">Okamžite</string>
+	<string name="lock_timeout_1m">1 minúta</string>
+	<string name="lock_timeout_2m">2 minúty</string>
+	<string name="lock_timeout_5m">5 minút</string>
+	<string name="lock_timeout_10m">10 minút</string>
+	<string name="lock_timeout_never">Nikdy</string>
 	<!-- cache size names -->
 	<string name="cache_size_50m">50 MB</string>
 	<string name="cache_size_100m">100 MB</string>
@@ -399,12 +399,12 @@
 	<string name="cache_size_1000m">1 GB</string>
 	<string name="cache_size_5000m">5 GB</string>
 	<!-- screen scheme mode names -->
-	<string name="screen_settings_style_mode">Style</string>
-	<string name="follow_system">Automatic (follow system)</string>
+	<string name="screen_settings_style_mode">Štýl</string>
+	<string name="follow_system">Automaticky (nasleduj systém)</string>
 	<string name="light">Svetlý</string>
 	<string name="dark">Tmavý</string>
 	<!-- update interval names -->
-	<string name="update_interval_1d">Once a day</string>
-	<string name="update_interval_1w">Once a week</string>
-	<string name="update_interval_1m">Once a month</string>
+	<string name="update_interval_1d">Raz za deň</string>
+	<string name="update_interval_1w">Raz za týždeň</string>
+	<string name="update_interval_1m">Raz za mesiac</string>
 </resources>
