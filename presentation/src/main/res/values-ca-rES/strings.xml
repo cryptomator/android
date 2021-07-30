@@ -112,8 +112,8 @@
 	<!-- ## screen: choose cloud service -->
 	<string name="screen_choose_cloud_service_title">Cloud service</string>
 	<!-- ## screen: cloud connections -->
-	<string name="screen_cloud_connections_title">Choose a location</string>
-	<string name="screen_cloud_connections_no_connections">Click here to add locations</string>
+	<string name="screen_cloud_connections_title">Trieu una destinació</string>
+	<string name="screen_cloud_connections_no_connections">Feu clic aquí per afegir destinacions</string>
 	<string name="screen_cloud_error_webdav_not_supported">Server doesn\'t seem to be WebDAV compatible</string>
 	<string name="screen_cloud_local_custom_storage_title">Custom locations</string>
 	<string name="screen_cloud_local_default_storage_title">Default storage</string>
@@ -123,20 +123,20 @@
 	<string name="screen_webdav_settings_username_label">Nom d\'usuari</string>
 	<string name="screen_webdav_settings_password_label">Contrasenya</string>
 	<string name="screen_webdav_settings_done_button_text">Connectar</string>
-	<string name="screen_webdav_settings_msg_url_must_not_be_empty">URL can\'t be empty.</string>
-	<string name="screen_webdav_settings_msg_url_is_invalid">URL is invalid.</string>
-	<string name="screen_webdav_settings_msg_username_must_not_be_empty">Username can\'t be empty.</string>
-	<string name="screen_webdav_settings_msg_password_must_not_be_empty">Password can\'t be empty.</string>
+	<string name="screen_webdav_settings_msg_url_must_not_be_empty">La URL no pot estar buida.</string>
+	<string name="screen_webdav_settings_msg_url_is_invalid">La URL no és vàlida.</string>
+	<string name="screen_webdav_settings_msg_username_must_not_be_empty">No es pot deixar buit el nom d\'usuari.</string>
+	<string name="screen_webdav_settings_msg_password_must_not_be_empty">La contrasenya no es pot deixar en blanc.</string>
 	<!-- ## screen: s3 settings -->
 	<string name="screen_s3_settings_display_name_label">Display Name</string>
 	<string name="screen_s3_settings_access_key_label">Access Key</string>
-	<string name="screen_s3_settings_secret_key_label">Secret Key</string>
+	<string name="screen_s3_settings_secret_key_label">Clau secreta</string>
 	<string name="screen_s3_settings_bucket_label">Existing Bucket</string>
 	<string name="screen_s3_settings_endpoint_label">Endpoint</string>
 	<string name="screen_s3_settings_region_label">Regió</string>
 	<string name="screen_s3_settings_msg_display_name_not_empty">Display Name can\'t be empty</string>
 	<string name="screen_s3_settings_msg_access_key_not_empty">Access Key can\'t be empty</string>
-	<string name="screen_s3_settings_msg_secret_key_not_empty">Secret Key can\'t be empty</string>
+	<string name="screen_s3_settings_msg_secret_key_not_empty">La clau secreta no pot estar buida</string>
 	<string name="screen_s3_settings_msg_bucket_not_empty">Bucket can\'t be empty</string>
 	<string name="screen_s3_settings_msg_endpoint_and_region_not_empty">Endpoint or Region can\'t be empty</string>
 	<!-- ## screen: enter vault name -->
