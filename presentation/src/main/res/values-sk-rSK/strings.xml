@@ -260,7 +260,7 @@
 	<string name="dialog_upload_file_remaining">Súbor %1$d z %2$d</string>
 	<string name="dialog_export_file_title">Exportovanie (%1$d/%2$d)</string>
 	<string name="dialog_progress_please_wait">Čakajte prosím&#8230;</string>
-	<string name="dialog_progress_creating_folder">Creating folder&#8230;</string>
+	<string name="dialog_progress_creating_folder">Vytváranie aresára&#8230;</string>
 	<string name="dialog_progress_creating_text_file">Creating text file&#8230;</string>
 	<string name="action_progress_authentication">Authentication&#8230;</string>
 	<string name="action_progress_renaming">Renaming&#8230;</string>
