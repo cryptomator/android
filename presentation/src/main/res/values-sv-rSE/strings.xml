@@ -4,9 +4,9 @@
 	<string name="share_with_label">Kryptera</string>
 	<!-- # error messages -->
 	<string name="error_generic">Ett fel inträffade</string>
-	<string name="error_authentication_failed">Authentication failed</string>
-	<string name="error_authentication_failed_re_authenticate">Authentication failed, please login using %1$s</string>
-	<string name="error_no_network_connection">No network connection</string>
+	<string name="error_authentication_failed">Autentisering misslyckades</string>
+	<string name="error_authentication_failed_re_authenticate">Autentisering misslyckades, vänligen logga in med %1$s</string>
+	<string name="error_no_network_connection">Ingen nätverksanslutning</string>
 	<string name="error_invalid_passphrase">Wrong password</string>
 	<string name="error_file_or_folder_exists">A file or folder already exists.</string>
 	<string name="error_vault_version_not_supported">Unsupported vault. This vault has been created with another version of Cryptomator.</string>
