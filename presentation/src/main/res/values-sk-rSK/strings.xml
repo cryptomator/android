@@ -237,7 +237,7 @@
 	<string name="dialog_replace_positive_button_some_files_exist">Nahradiť existujúce</string>
 	<string name="dialog_replace_positive_button_single_file_exists">Nahradiť</string>
 	<string name="dialog_replace_msg_single_file_exists">Súbor s názvom \'%1$s\' už existuje. Želáte si ho nahradť?</string>
-	<string name="dialog_replace_msg_all_files_exists">All files already exist. Do you want to replace them?</string>
+	<string name="dialog_replace_msg_all_files_exists">Všetky súbory už existujú. Chcete si ich nahradit?</string>
 	<string name="dialog_replace_msg_some_files_exists">%1$d súbory už existujú. Želáte si ich nahradiť?</string>
 	<string name="dialog_replace_title_single_file_exists">Nahradiť súbor?</string>
 	<string name="dialog_replace_title_multiple_files_exist">Nahradiť súbory?</string>
@@ -261,45 +261,45 @@
 	<string name="dialog_export_file_title">Exportovanie (%1$d/%2$d)</string>
 	<string name="dialog_progress_please_wait">Čakajte prosím&#8230;</string>
 	<string name="dialog_progress_creating_folder">Vytváranie aresára&#8230;</string>
-	<string name="dialog_progress_creating_text_file">Creating text file&#8230;</string>
-	<string name="action_progress_authentication">Authentication&#8230;</string>
-	<string name="action_progress_renaming">Renaming&#8230;</string>
-	<string name="action_progress_deleting">Deleting&#8230;</string>
-	<string name="dialog_progress_unlocking_vault">Unlocking vault&#8230;</string>
-	<string name="dialog_progress_change_password">Changing password&#8230;</string>
-	<string name="dialog_progress_creating_vault">Creating vault&#8230;</string>
+	<string name="dialog_progress_creating_text_file">Vytváranie textového súboru&#8230;</string>
+	<string name="action_progress_authentication">Autentikácia&#8230;</string>
+	<string name="action_progress_renaming">Premenovávanie&#8230;</string>
+	<string name="action_progress_deleting">Vymazávanie&#8230;</string>
+	<string name="dialog_progress_unlocking_vault">Odomykanie trezora&#8230;</string>
+	<string name="dialog_progress_change_password">Vymeňanie hesla&#8230;</string>
+	<string name="dialog_progress_creating_vault">Vytváranie trezora&#8230;</string>
 	<string name="dialog_progress_upload_file">Nahrávanie&#8230;</string>
-	<string name="dialog_progress_download_file">Downloading&#8230;</string>
-	<string name="dialog_progress_encryption">Encrypting&#8230;</string>
-	<string name="dialog_progress_decryption">Decrypting&#8230;</string>
+	<string name="dialog_progress_download_file">Preberanie&#8230;</string>
+	<string name="dialog_progress_encryption">Šifrovanie&#8230;</string>
+	<string name="dialog_progress_decryption">Dešifrovanie&#8230;</string>
 	<string name="action_progress_moving">Premiestňovanie&#8230;</string>
 	<string name="dialog_lock_vault">Uzamknúť</string>
 	<string name="dialog_accept_ssl_certificate_title">Neplatný SSL certifikát</string>
 	<string name="dialog_accept_ssl_certificate_hint">SSL certifikát je neplatný. Napriek tomu mu chete veriť?</string>
 	<string name="dialog_accept_ssl_certificate_details">Podrobnosti</string>
-	<string name="dialog_accept_ssl_certificate_security_checkbox">This could be a security risk. I know what I am doing.</string>
-	<string name="dialog_http_security_hint">The usage of HTTP is insecure. We recommend to use HTTPS instead. If you know the risks, you can continue with HTTP.</string>
+	<string name="dialog_accept_ssl_certificate_security_checkbox">Toto môže byť bezpečnostné riziko. Viem čo robím.</string>
+	<string name="dialog_http_security_hint">Používanie HTTP nie je bezpečné. Odporúčame namiesto toho použiť HTTPS. Ak poznáte riziká, môžte pokračovať s HTTP.</string>
 	<string name="dialog_http_security_checkbox">Zmeniť na HTTPS</string>
 	<string name="dialog_http_security_title">Použiť HTTPS?</string>
-	<string name="dialog_no_screen_lock_hint">No screen lock is set. To store your credentials in a secure way, set with OK a pattern or password.</string>
-	<string name="dialog_no_screen_lock_title">Set screen lock?</string>
-	<string name="dialog_no_screen_lock_checkbox">Set screen lock</string>
-	<string name="dialog_no_biometric_auth_set_up_title">No basic authentication set up in system</string>
-	<string name="dialog_no_biometric_auth_set_up_message">Enroll at least one finger/face to use this service.</string>
-	<string name="dialog_debug_mode_disclaimer_hint">In this mode, sensitive data may be written to a log file on your device (e.g., filenames and paths). Passwords, cookies, etc. are explicitly excluded.\n\nRemember to disable debug mode as soon as possible.</string>
+	<string name="dialog_no_screen_lock_hint">Nie je nastavené uzamykanie obrazovky. Pre bezpečné uchovávanie Vašich osobných údajov pokračujte s OK a vzorom alebo heslom.</string>
+	<string name="dialog_no_screen_lock_title">Nastaviť zamykanie obrazovky?</string>
+	<string name="dialog_no_screen_lock_checkbox">Nastaviť zamykanie obrazovky</string>
+	<string name="dialog_no_biometric_auth_set_up_title">Bez základného nastavenia autentikácie v systéme</string>
+	<string name="dialog_no_biometric_auth_set_up_message">Priložte minimálne jeden prst/tvár pre použitie tejto služby.</string>
+	<string name="dialog_debug_mode_disclaimer_hint">V tomto móde, môžu byť zapisované citlivé dáta do logovacieho súboru na Vašom zariadení (ako napr. mená súborov a cesty). Heslá, cookies, a pod. sú explicitne vynechané.\n\nPamätajte na vypnutie debug módu ako najskôr to pôjde.</string>
 	<string name="dialog_debug_mode_disclaimer_title">Upozornenie</string>
 	<string name="dialog_debug_mode_positive_button">Povoliť</string>
-	<string name="dialog_disable_app_obscured_disclaimer_hint">This setting is a security feature and prevents other apps from tricking users into doing things they do not wan\'t to do.\n\nBy disabling, you confirm that you are <a href="https://docs.cryptomator.org/en/1.5/android/settings/#block-app-when-obscured">aware of the risks</a>.</string>
+	<string name="dialog_disable_app_obscured_disclaimer_hint">Tieto nastavenia sú bezpečnostnou vlastnosťou a zabraňujú ostatným aplikáciám klamať užívateľov robiť veci ktoré nechcú robiť.\n\nVypnutím súhlasíte s tým že <a href="https://docs.cryptomator.org/en/1.5/android/settings/#block-app-when-obscured">ste si vedomí nebezpečia</a>.</string>
 	<string name="dialog_disable_app_obscured_disclaimer_title">Upozornenie</string>
 	<string name="dialog_disable_app_obscured_positive_button">Zakázať</string>
-	<string name="dialog_app_is_obscured_info_title">App is obscured</string>
-	<string name="dialog_app_is_obscured_info_hint">Another app is displaying something on top of Cryptomator (e.g., a blue light filter or night mode app). For security reasons, Cryptomator is disabled.\n\n<a href="https://docs.cryptomator.org/en/1.5/android/settings/#block-app-when-obscured">How to enable Cryptomator</a></string>
+	<string name="dialog_app_is_obscured_info_title">Aplikácia je zatmavená</string>
+	<string name="dialog_app_is_obscured_info_hint">Ďalšia aplikácia zobrazuje niečo na vrchu Cryptomator-a (ako napr. modré svetlo alebo nočný režim). Z bezpečnostných dôvodov je Cryptomator zakázaný.\n\n<a href="https://docs.cryptomator.org/en/1.5/android/settings/#block-app-when-obscured">Ako povoliť Cryptomator</a></string>
 	<string name="dialog_app_is_obscured_info_neutral_button">Zavrieť</string>
-	<string name="dialog_disable_secure_screen_disclaimer_hint">This setting is a security feature and prevents other apps from tricking users into doing things they do not wan\'t to do.\n\nBy disabling, you confirm that you are <a href="https://docs.cryptomator.org/en/1.5/android/settings/#screen-security">aware of the risks</a>.</string>
-	<string name="dialog_delete_cloud_connection_with_vaults_message">Are you sure you want to remove this cloud connection?</string>
-	<string name="dialog_delete_cloud_connection_with_vaults_hint">This action will remove the cloud connection and all vaults of this cloud.</string>
+	<string name="dialog_disable_secure_screen_disclaimer_hint">Toto nastavenie je bezpečnostná vlastnosť a zabraňuje ostatným aplikáciám klamať užívateľov robiť veci čo nechcú robiť.\n\nVypnutím súhlasíte s tým že<a href="https://docs.cryptomator.org/en/1.5/android/settings/#screen-security">ste si vedomí rizika</a>.</string>
+	<string name="dialog_delete_cloud_connection_with_vaults_message">Ste si istý že chcete odstrániť toto cloudové pripojenie?</string>
+	<string name="dialog_delete_cloud_connection_with_vaults_hint">Táto akcia odstráni pripojenie cloudu a všetky trezory tohto cloudu.</string>
 	<string name="dialog_confirm_delete_multiple_title">Odstrániť %1$d položky?</string>
-	<string name="dialog_confirm_delete_multiple_message">Are you sure you want to delete these items?</string>
+	<string name="dialog_confirm_delete_multiple_message">Ste si istý že chcete vymazať tieto položky?</string>
 	<string name="dialog_confirm_delete_file_message">Naozaj chcete odstrániť tento súbor?</string>
 	<string name="dialog_confirm_delete_folder_message">Toto zmaže obsah celého adresára. Ste si istý že chcete zmazať tento adresár?</string>
 	<string name="dialog_biometric_auth_key_invalidated_title">Funkcia biometrickej autentikácie je deaktivovaná</string>
