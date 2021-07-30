@@ -168,17 +168,17 @@
 	<string name="screen_settings_secure_screen_summary">Blokovanie snímkov obrazovky v nedávnom zozname a vo vnútri aplikácie</string>
 	<string name="screen_settings_section_search">Hľadať</string>
 	<string name="screen_settings_live_search">Živé vyhľadávanie</string>
-	<string name="screen_settings_live_search_summary">Update search results while entering the query</string>
-	<string name="screen_settings_glob_search">Search using glob pattern</string>
-	<string name="screen_settings_glob_search_summary">Use glob pattern matching like alice.*.jpg</string>
+	<string name="screen_settings_live_search_summary">Aktualizovať výsledky hľadania počas zadávania otázky</string>
+	<string name="screen_settings_glob_search">Vyhľadávanie pomocou \'glob\' vzorky</string>
+	<string name="screen_settings_glob_search_summary">Použiť \'glob\' vzorku obsahujúcu napríklad alice.*.jpg</string>
 	<string name="screen_settings_section_auto_lock">Automatické uzamknutie</string>
 	<string name="screen_settings_auto_lock_timeout">Uzamknúť po</string>
 	<string name="screen_settings_auto_lock_on_screen_lock">Keď je obrazovka zakázaná</string>
 	<string name="screen_settings_section_auto_photo_upload">Automatické nahrávanie fotiek</string>
 	<string name="screen_settings_section_auto_photo_upload_vault">Vybrať trezor pre nahratie</string>
 	<string name="screen_settings_section_auto_photo_upload_toggle">Aktivovať</string>
-	<string name="screen_settings_section_auto_photo_upload_toggle_summary">Capture images in the background and once the selected vault is unlocked, start upload</string>
-	<string name="screen_settings_section_auto_photo_upload_only_wifi_toggle">Upload only using WIFI</string>
+	<string name="screen_settings_section_auto_photo_upload_toggle_summary">Zachyť obrázky na pozadí a keď je zvolený trezor odomknutý, začni nahrávať</string>
+	<string name="screen_settings_section_auto_photo_upload_only_wifi_toggle">Nahrať iba s použitím Wi-Fi</string>
 	<string name="screen_settings_section_auto_photo_upload_including_videos">Nahrať videá</string>
 	<string name="screen_settings_auto_photo_upload_title">Uložiť auto ukladanie súborov do&#8230;</string>
 	<string name="screen_settings_website_label">Webstránky Cryptomator-a</string>
@@ -196,7 +196,7 @@
 	<string name="screen_settings_section_version">Verzia</string>
 	<string name="screen_settings_advanced_settings">Pokročilé nastavenia</string>
 	<string name="screen_settings_background_unlock_preparation_label">Urýchliť odomknutie</string>
-	<string name="screen_settings_background_unlock_preparation_label_summary">Download vault config in the background while prompted to enter the password or biometric auth</string>
+	<string name="screen_settings_background_unlock_preparation_label_summary">Stiahnuť konfiguráciu trezora na pozadí počas vyzvania na zadanie hesla alebo biometrickej autentikácie</string>
 	<string name="screen_settings_keep_unlocked_while_editing_files">Držať odomknuté</string>
 	<string name="screen_settings_keep_unlocked_while_editing_files_summary">Držať trezory odomknuté pokiaľ sa editujú súbory</string>
 	<!-- ## screen: cloud settings -->
@@ -208,13 +208,13 @@
 	<string name="screen_cloud_settings_sign_out_from_cloud">Odhlásiť sa z</string>
 	<!-- ## screen: licenses -->
 	<!-- ## screen: authenticate cloud -->
-	<string name="screen_authenticate_auth_authentication_failed">%1$s could not be authenticated.</string>
+	<string name="screen_authenticate_auth_authentication_failed">%1$s nemohol byť autentikovaný.</string>
 	<string name="screen_update_pcloud_connections_title">Aktualizovať pCloud prístupy</string>
 	<!-- ## screen: empty dir file info -->
-	<string name="screen_empty_dir_file_info_title">\'%1$s\' unreachable</string>
-	<string name="screen_empty_dir_file_info_headline">Cryptomator detected that this folder is unreachable.</string>
+	<string name="screen_empty_dir_file_info_title">%1$s nedostupný</string>
+	<string name="screen_empty_dir_file_info_headline">Cryptomator detekoval nedostupnosť daného adresára.</string>
 	<string name="screen_empty_dir_file_info_text">It may have been deleted by another application or a faulty cloud synchronization could have caused this.\n\nTry to restore the directory file via your cloud provider to a previous version which is not empty. The file in question is:\n%1$s\n\nIf that does not work, you may use Sanitizer to check your vault for issues and possibly restore your data.</string>
-	<string name="screen_empty_dir_file_info_button_label">More Details on Sanitizer</string>
+	<string name="screen_empty_dir_file_info_button_label">Viac detailov asanátora</string>
 	<!-- ## screen: insecure android version info -->
 	<!-- # dialogs -->
 	<string name="dialog_button_cancel">Zrušiť</string>
@@ -224,10 +224,10 @@
 	<string name="dialog_change_password">Zmeniť heslo</string>
 	<string name="dialog_change_password_msg_old_password_empty">Staré heslo nemôže byť prázdne.</string>
 	<string name="dialog_change_password_msg_new_password_empty">Nové heslo nemôže byť prázdne.</string>
-	<string name="dialog_change_password_msg_password_mismatch">New password doesn\'t match retyped password.</string>
+	<string name="dialog_change_password_msg_password_mismatch">Nové heslo nie je totožné s prepisovaným heslom.</string>
 	<!-- Vault not found -->
-	<string name="dialog_vault_not_found_title">Vault %1$s not found</string>
-	<string name="dialog_vault_not_found_message">The vault has been renamed, moved or deleted. Remove this vault form the list and add it again to proceed. Remove now?</string>
+	<string name="dialog_vault_not_found_title">Súbor %1$s nenájdený</string>
+	<string name="dialog_vault_not_found_message">Trezor bol premenovaný, premiestnený alebo zmazaný. Odstrániť tento trezor zo zoznamu a pridať ho znovu. Odstrániť teraz?</string>
 	<string name="dialog_vault_not_found_positive_button_text">Odstrániť</string>
 	<string name="dialog_existing_file_title">Súbor už existuje</string>
 	<string name="dialog_existing_file_positive_button">Nahradiť</string>
@@ -236,7 +236,7 @@
 	<string name="dialog_replace_positive_button_all_files_exist">Nahradiť všetko</string>
 	<string name="dialog_replace_positive_button_some_files_exist">Nahradiť existujúce</string>
 	<string name="dialog_replace_positive_button_single_file_exists">Nahradiť</string>
-	<string name="dialog_replace_msg_single_file_exists">A file named \'%1$s\' already exists. Do you want to replace it?</string>
+	<string name="dialog_replace_msg_single_file_exists">Súbor s názvom \'%1$s\' už existuje. Želáte si ho nahradť?</string>
 	<string name="dialog_replace_msg_all_files_exists">All files already exist. Do you want to replace them?</string>
 	<string name="dialog_replace_msg_some_files_exists">%1$d súbory už existujú. Želáte si ich nahradiť?</string>
 	<string name="dialog_replace_title_single_file_exists">Nahradiť súbor?</string>
@@ -258,8 +258,8 @@
 	<string name="dialog_delete_vault_hint">Tento úkon iba odstráni trezor zo zoznamu a nezmaže ho fyzicky.</string>
 	<string name="dialog_upload_file_title">Nahrávanie&#8230;</string>
 	<string name="dialog_upload_file_remaining">Súbor %1$d z %2$d</string>
-	<string name="dialog_export_file_title">Exporting (%1$d/%2$d)</string>
-	<string name="dialog_progress_please_wait">Please wait&#8230;</string>
+	<string name="dialog_export_file_title">Exportovanie (%1$d/%2$d)</string>
+	<string name="dialog_progress_please_wait">Čakajte prosím&#8230;</string>
 	<string name="dialog_progress_creating_folder">Creating folder&#8230;</string>
 	<string name="dialog_progress_creating_text_file">Creating text file&#8230;</string>
 	<string name="action_progress_authentication">Authentication&#8230;</string>
@@ -272,15 +272,15 @@
 	<string name="dialog_progress_download_file">Downloading&#8230;</string>
 	<string name="dialog_progress_encryption">Encrypting&#8230;</string>
 	<string name="dialog_progress_decryption">Decrypting&#8230;</string>
-	<string name="action_progress_moving">Moving&#8230;</string>
+	<string name="action_progress_moving">Premiestňovanie&#8230;</string>
 	<string name="dialog_lock_vault">Uzamknúť</string>
 	<string name="dialog_accept_ssl_certificate_title">Neplatný SSL certifikát</string>
-	<string name="dialog_accept_ssl_certificate_hint">The SSL certificate is invalid. Do you want to trust it anyway?</string>
+	<string name="dialog_accept_ssl_certificate_hint">SSL certifikát je neplatný. Napriek tomu mu chete veriť?</string>
 	<string name="dialog_accept_ssl_certificate_details">Podrobnosti</string>
 	<string name="dialog_accept_ssl_certificate_security_checkbox">This could be a security risk. I know what I am doing.</string>
 	<string name="dialog_http_security_hint">The usage of HTTP is insecure. We recommend to use HTTPS instead. If you know the risks, you can continue with HTTP.</string>
-	<string name="dialog_http_security_checkbox">Change to HTTPS</string>
-	<string name="dialog_http_security_title">Use HTTPS?</string>
+	<string name="dialog_http_security_checkbox">Zmeniť na HTTPS</string>
+	<string name="dialog_http_security_title">Použiť HTTPS?</string>
 	<string name="dialog_no_screen_lock_hint">No screen lock is set. To store your credentials in a secure way, set with OK a pattern or password.</string>
 	<string name="dialog_no_screen_lock_title">Set screen lock?</string>
 	<string name="dialog_no_screen_lock_checkbox">Set screen lock</string>
@@ -291,14 +291,14 @@
 	<string name="dialog_debug_mode_positive_button">Povoliť</string>
 	<string name="dialog_disable_app_obscured_disclaimer_hint">This setting is a security feature and prevents other apps from tricking users into doing things they do not wan\'t to do.\n\nBy disabling, you confirm that you are <a href="https://docs.cryptomator.org/en/1.5/android/settings/#block-app-when-obscured">aware of the risks</a>.</string>
 	<string name="dialog_disable_app_obscured_disclaimer_title">Upozornenie</string>
-	<string name="dialog_disable_app_obscured_positive_button">Disable</string>
+	<string name="dialog_disable_app_obscured_positive_button">Zakázať</string>
 	<string name="dialog_app_is_obscured_info_title">App is obscured</string>
 	<string name="dialog_app_is_obscured_info_hint">Another app is displaying something on top of Cryptomator (e.g., a blue light filter or night mode app). For security reasons, Cryptomator is disabled.\n\n<a href="https://docs.cryptomator.org/en/1.5/android/settings/#block-app-when-obscured">How to enable Cryptomator</a></string>
 	<string name="dialog_app_is_obscured_info_neutral_button">Zavrieť</string>
 	<string name="dialog_disable_secure_screen_disclaimer_hint">This setting is a security feature and prevents other apps from tricking users into doing things they do not wan\'t to do.\n\nBy disabling, you confirm that you are <a href="https://docs.cryptomator.org/en/1.5/android/settings/#screen-security">aware of the risks</a>.</string>
 	<string name="dialog_delete_cloud_connection_with_vaults_message">Are you sure you want to remove this cloud connection?</string>
 	<string name="dialog_delete_cloud_connection_with_vaults_hint">This action will remove the cloud connection and all vaults of this cloud.</string>
-	<string name="dialog_confirm_delete_multiple_title">Delete %1$d items?</string>
+	<string name="dialog_confirm_delete_multiple_title">Odstrániť %1$d položky?</string>
 	<string name="dialog_confirm_delete_multiple_message">Are you sure you want to delete these items?</string>
 	<string name="dialog_confirm_delete_file_message">Naozaj chcete odstrániť tento súbor?</string>
 	<string name="dialog_confirm_delete_folder_message">Toto zmaže obsah celého adresára. Ste si istý že chcete zmazať tento adresár?</string>
@@ -322,7 +322,7 @@
 	<string name="dialog_sym_link_message">Nemožno prejsť na túto symbolickú linku</string>
 	<string name="dialog_sym_link_back_button">Späť</string>
 	<string name="dialog_no_dir_file_title">Nie je možné načítať obsah adresára</string>
-	<string name="dialog_no_dir_file_message">Cloud folder \'%1$s\' doesn\'t have a directory file. It could be that the folder was created on another device and has not yet been fully synchronized to the cloud. Please check in your cloud if the following file exists:\n%2$s</string>
+	<string name="dialog_no_dir_file_message">Cloudový adresár \'%1$s\' nemá adresárový súbor. Tento aresár mohol byť vytvorený iným zariadením a doposiať nebol plne synchronizovaný do cloudu. Prosím skontrolujte či nasledujúci súbor existuje:\n%2$s</string>
 	<string name="dialog_no_more_images_to_display">Niet už viac obrázkov k zobrazeniu&#8230;</string>
 	<string name="dialog_pcloud_credentials_updated_title">Prístupy k %1$s aktualizované</string>
 	<string name="dialog_pcloud_credentials_updated">Ak zamýšlate pridať nový pCloud účet, kliknite na tento link <a href="https://www.pcloud.com">www.pcloud.com</a>, odhláste sa zo súčasného účtu a opätovne kliknite na \'+\' v tejto aplikácii pre vytvorenie nového cloudového pripojenia.</string>
@@ -368,21 +368,21 @@
 	<string name="notification_auto_upload_finished_message">%1$d obrázkov nahratých do trezora</string>
 	<string name="notification_auto_upload_failed_title">Automatické nahrávanie fotografii zlyhalo</string>
 	<string name="notification_auto_upload_failed_general_error">Došlo k obecnej chybe počas nahrávania.</string>
-	<string name="notification_auto_upload_failed_due_to_folder_not_exists">Selected folder for upload isn\'t available anymore. Go to settings and choose a new one</string>
-	<string name="notification_auto_upload_failed_due_to_vault_locked">Vault locked during upload, please reopen vault to continue</string>
-	<string name="notification_open_writable_file_title">Open writable file</string>
-	<string name="notification_open_writable_file_message">Vault stays unlocked until finished editing</string>
-	<string name="notification_update_check_finished_latest">Latest version installed</string>
+	<string name="notification_auto_upload_failed_due_to_folder_not_exists">Zvolený adresár pre nahrávanie už nie je dostupný. V nastaveniach zvoľte nový</string>
+	<string name="notification_auto_upload_failed_due_to_vault_locked">Trezor počas nahrávania uzamknutý, prosím znovu-otvorte trezor pre pokračovanie</string>
+	<string name="notification_open_writable_file_title">Otvoriť zapisovateľný súbor</string>
+	<string name="notification_open_writable_file_message">Trezor zostáva odomknutý pokial nie je ukončené editovanie</string>
+	<string name="notification_update_check_finished_latest">Najnovšia verzia inštalovaná</string>
 	<string name="screen_settings_lru_cache">Vyrovnávacia pamäť</string>
-	<string name="screen_settings_lru_cache_toggle_summary">Cache recently accessed files encrypted locally on the device for later reuse when reopened</string>
-	<string name="screen_settings_lru_cache_size">Total cache size</string>
+	<string name="screen_settings_lru_cache_toggle_summary">Nedávno sprístupnené súbory vyrovnávaciej pamäťe lokálne zašifrované na zariadení pre neskoršie použitie pri novom otvoreni</string>
+	<string name="screen_settings_lru_cache_size">Celková veľkosť vyrovovnávacej pamäte</string>
 	<string name="screen_settings_clear_lru_cache_size">Vyprázdniť vyrovnávaciu pamäť</string>
-	<string name="screen_settings_lru_cache_changed__restart_toast">Changes will be applied on next app restart</string>
+	<string name="screen_settings_lru_cache_changed__restart_toast">Zmeny sa uplatnia pro reštarte aplikácie</string>
 	<string name="screen_settings_license">Registrovaný pre</string>
 	<string name="screen_settings_license_mail">%1$s</string>
-	<string name="dialog_settings_update_check_interval_title">Update check interval</string>
-	<string name="screen_settings_check_updates">Check for updates</string>
-	<string name="screen_settings_last_check_updates">Last run %1$s</string>
+	<string name="dialog_settings_update_check_interval_title">Interval kontroly aktualizácii</string>
+	<string name="screen_settings_check_updates">Skontrolovať dostupnosť aktualizácií</string>
+	<string name="screen_settings_last_check_updates">Naposledy %1$s</string>
 	<string name="dialog_cache_size_title">Veľkosť vyrovnávaciej pamäťe na Cloud</string>
 	<!-- lock timeout names -->
 	<string name="lock_timeout_instant">Okamžite</string>
