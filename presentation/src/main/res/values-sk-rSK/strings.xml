@@ -319,13 +319,13 @@
 	<string name="dialog_download_update_title">Prebieha sťahovanie</string>
 	<string name="dialog_download_update_message">Sťahovanie najnovšej verzie Cryptomator-a</string>
 	<string name="dialog_sym_link_title">Adresár je symbolická linka</string>
-	<string name="dialog_sym_link_message">You can not navigate into this symbolic link</string>
+	<string name="dialog_sym_link_message">Nemožno prejsť na túto symbolickú linku</string>
 	<string name="dialog_sym_link_back_button">Späť</string>
 	<string name="dialog_no_dir_file_title">Nie je možné načítať obsah adresára</string>
 	<string name="dialog_no_dir_file_message">Cloud folder \'%1$s\' doesn\'t have a directory file. It could be that the folder was created on another device and has not yet been fully synchronized to the cloud. Please check in your cloud if the following file exists:\n%2$s</string>
-	<string name="dialog_no_more_images_to_display">No more images to display&#8230;</string>
+	<string name="dialog_no_more_images_to_display">Niet už viac obrázkov k zobrazeniu&#8230;</string>
 	<string name="dialog_pcloud_credentials_updated_title">Prístupy k %1$s aktualizované</string>
-	<string name="dialog_pcloud_credentials_updated">If you intended to add a new pCloud account, click on this url <a href="https://www.pcloud.com">www.pcloud.com</a>, log out from the current account and click again on the \'+\' in this app to create a new cloud connection.</string>
+	<string name="dialog_pcloud_credentials_updated">Ak zamýšlate pridať nový pCloud účet, kliknite na tento link <a href="https://www.pcloud.com">www.pcloud.com</a>, odhláste sa zo súčasného účtu a opätovne kliknite na \'+\' v tejto aplikácii pre vytvorenie nového cloudového pripojenia.</string>
 	<string name="permission_snackbar_auth_local_vault">Cryptomator potrebuje prístup k úložisku pre prácu s lokálnymi trezormy</string>
 	<string name="permission_snackbar_auth_auto_upload">Cryptomator potrebuje prístup k úložisku pre automatické nahrávanie fotografii</string>
 	<!-- # error reports -->
@@ -364,10 +364,10 @@
 	<string name="notification_cancel_auto_upload">Zrušiť nahrávanie</string>
 	<string name="notification_auto_upload_title">Prebieha automatické nahrávanie fotografii</string>
 	<string name="notification_auto_upload_message">Nahrávanie %1d/%2d</string>
-	<string name="notification_auto_upload_finished_title">Auto photo upload finished</string>
-	<string name="notification_auto_upload_finished_message">%1$d images uploaded to vault</string>
-	<string name="notification_auto_upload_failed_title">Auto photo upload failed</string>
-	<string name="notification_auto_upload_failed_general_error">General error occurred during upload.</string>
+	<string name="notification_auto_upload_finished_title">Automatické nahrávanie fotografii dokončené</string>
+	<string name="notification_auto_upload_finished_message">%1$d obrázkov nahratých do trezora</string>
+	<string name="notification_auto_upload_failed_title">Automatické nahrávanie fotografii zlyhalo</string>
+	<string name="notification_auto_upload_failed_general_error">Došlo k obecnej chybe počas nahrávania.</string>
 	<string name="notification_auto_upload_failed_due_to_folder_not_exists">Selected folder for upload isn\'t available anymore. Go to settings and choose a new one</string>
 	<string name="notification_auto_upload_failed_due_to_vault_locked">Vault locked during upload, please reopen vault to continue</string>
 	<string name="notification_open_writable_file_title">Open writable file</string>
