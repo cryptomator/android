@@ -213,7 +213,7 @@
 	<!-- ## screen: empty dir file info -->
 	<string name="screen_empty_dir_file_info_title">%1$s nedostupný</string>
 	<string name="screen_empty_dir_file_info_headline">Cryptomator detekoval nedostupnosť daného adresára.</string>
-	<string name="screen_empty_dir_file_info_text">It may have been deleted by another application or a faulty cloud synchronization could have caused this.\n\nTry to restore the directory file via your cloud provider to a previous version which is not empty. The file in question is:\n%1$s\n\nIf that does not work, you may use Sanitizer to check your vault for issues and possibly restore your data.</string>
+	<string name="screen_empty_dir_file_info_text">Mohlo to byť zmazané inou aplikáciou alebo zapríčinené chybnou cloudovou synchonizáciou.\n\nPokúste sa obnoviť adresárový súbor prostredníctvom cloudového poskytovateľa na predchádzajúcu verziu čo nie je prázdna. Súbor ktorého otázka je:\n%1$s\n\nAk toto nefunguje, môžete použiť Asanátor pre kontrolu problémov Vášho trezoru a prípadnú obnovu dát.</string>
 	<string name="screen_empty_dir_file_info_button_label">Viac detailov asanátora</string>
 	<!-- ## screen: insecure android version info -->
 	<!-- # dialogs -->
