@@ -9,7 +9,7 @@
 	<string name="error_no_network_connection">Ingen nätverksanslutning</string>
 	<string name="error_invalid_passphrase">Felaktigt lösenord</string>
 	<string name="error_file_or_folder_exists">Filen eller katalogen finns redan.</string>
-	<string name="error_vault_version_not_supported">Osupporterad valv. Detta valv har skapats med en annan version av Cryptomator.</string>
+	<string name="error_vault_version_not_supported">Valvet stöds ej. Detta valv har skapats med en annan version av Cryptomator.</string>
 	<string name="error_vault_already_exists">Valvet finns redan.</string>
 	<string name="error_no_such_file">Filen existerar inte.</string>
 	<string name="error_vault_has_been_locked">Valvet har låsts.</string>
