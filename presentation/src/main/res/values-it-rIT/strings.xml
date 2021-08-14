@@ -1,39 +1,135 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 	<!-- # app -->
+	<string name="share_with_label">Crittografa</string>
 	<!-- # error messages -->
+	<string name="error_generic">Si è verificato un errore</string>
+	<string name="error_authentication_failed">Autenticazione non riuscita</string>
+	<string name="error_authentication_failed_re_authenticate">Autenticazione non riuscita, effettua il login usando %1$s</string>
+	<string name="error_no_network_connection">Nessuna connessione di rete</string>
+	<string name="error_invalid_passphrase">Password errata</string>
+	<string name="error_file_or_folder_exists">Esiste già un file o una cartella.</string>
 	<!-- # clouds -->
 	<!-- ## cloud names -->
 	<!-- # permission -->
 	<!-- ## permission messages -->
+	<string name="permission_message_export_file">Cryptomator necessita dell\'accesso all\'archivio per esportare i file</string>
+	<string name="permission_message_upload_file">Cryptomator ha bisogno di accesso all\'archivio per caricare i file</string>
+	<string name="permission_message_share_file">Cryptomator ha bisogno di accesso all\'archivio per condividere i file</string>
 	<string name="snack_bar_action_title_settings">Impostazioni</string>
+	<string name="snack_bar_action_title_search">Cerca</string>
+	<string name="snack_bar_action_title_search_previous">Precedente</string>
 	<string name="snack_bar_action_title_search_next">Avanti</string>
+	<string name="snack_bar_action_title_sort">Ordina</string>
+	<string name="snack_bar_action_title_sort_az">A - Z</string>
+	<string name="snack_bar_action_title_sort_za">Z - A</string>
+	<string name="snack_bar_action_title_sort_newest">Il più recente per primo</string>
+	<string name="snack_bar_action_title_sort_oldest">Il più vecchio prima</string>
 	<!-- # screens -->
 	<!-- # screen: vault list -->
+	<string name="screen_vault_list_actions_title">Aggiungi a Cryptomator</string>
+	<string name="screen_vault_list_action_create_new_vault">Crea nuova cassaforte</string>
+	<string name="screen_vault_list_action_add_existing_vault">Aggiungi cassaforte esistente</string>
 	<string name="screen_vault_list_vault_action_delete">Rimuovi</string>
+	<string name="screen_vault_list_vault_creation_hint">Clicca qui per creare una nuova cassaforte</string>
+	<string name="screen_vault_list_change_password_successful">Password modificata con successo</string>
 	<!-- # screen: file browser -->
 	<string name="screen_file_browser_default_title">Cassaforte</string>
+	<string name="screen_file_browser_create_new_vault_extra_text">Nome cassaforte: %1$s</string>
+	<plurals name="screen_file_browser_subtitle_move">
+		<item quantity="one">Sposta %2$d elementi in</item>
+		<item quantity="other">Sposta %2$d elementi in</item>
+	</plurals>
+	<string name="screen_file_browser_move_button_text">Sposta</string>
+	<string name="screen_file_browser_msg_empty_folder">Cartella vuota</string>
+	<string name="screen_file_browser_file_info_label_date">modificato %1$s fa</string>
+	<string name="screen_file_browser_share_intent_chooser_title">Condividi con</string>
 	<string name="screen_file_browser_share_button_text">Scegli</string>
+	<string name="screen_file_browser_nothing_to_share">Niente da condividere</string>
+	<string name="screen_file_browser_actions_title">Aggiungi a %1$s</string>
+	<string name="screen_file_browser_action_create_folder">Crea cartella</string>
+	<string name="screen_file_browser_action_create_new_text_file">Crea file di testo</string>
+	<string name="screen_file_browser_action_upload_files">Carica file</string>
+	<string name="screen_file_browser_upload_files_chooser_title">File</string>
+	<string name="screen_file_browser_msg_file_exported">File esportato</string>
+	<string name="screen_file_browser_msg_files_exported">File esportati</string>
+	<string name="screen_file_browser_nothing_to_export">Niente da esportare</string>
+	<string name="screen_file_browser_msg_creating_download_dir_failed">Creazione directory download fallita</string>
+	<string name="screen_file_browser_node_action_share">Condividi</string>
+	<string name="screen_file_browser_node_action_rename">Rinomina</string>
 	<string name="screen_file_browser_node_action_edit_text">Modifica</string>
+	<string name="screen_file_browser_node_action_export">Esporta</string>
+	<string name="screen_file_browser_node_action_delete">Elimina</string>
+	<string name="screen_file_browser_node_action_open_with_text">Apri con&#8230;</string>
+	<string name="screen_file_browser_selection_mode_title_zero_elements">Seleziona elementi</string>
+	<string name="screen_file_browser_selection_mode_title_one_or_more_elements">%1$d selezionato</string>
+	<string name="screen_file_browser_select_items">Seleziona&#8230;</string>
+	<string name="screen_file_browser_select_all_items">Seleziona tutto</string>
+	<string name="screen_file_browser_refresh_items">Aggiorna</string>
+	<string name="screen_file_browser_no_connection_message">Nessuna connessione</string>
 	<!-- ## screen: text editor -->
+	<string name="screen_text_editor_save_success">Salvato con successo</string>
 	<!-- ## screen: share files -->
+	<string name="screen_share_files_title">Salva %1$s su&#8230;</string>
+	<string name="screen_share_files_content_text">testo</string>
+	<string name="screen_share_files_content_file">file</string>
+	<string name="screen_share_files_content_files">file</string>
+	<string name="screen_share_files_msg_filenames_must_be_unique">I nomi dei file devono essere unici, rinominare i duplicati.</string>
+	<string name="screen_share_files_section_location">Salva posizione</string>
+	<string name="screen_share_files_save_button_text">Salva</string>
+	<string name="screen_share_files_msg_success">Cifratura completata</string>
 	<!-- ## screen: choose cloud service -->
+	<string name="screen_choose_cloud_service_title">Servizio cloud</string>
 	<!-- ## screen: cloud connections -->
+	<string name="screen_cloud_connections_title">Scegli una posizione</string>
+	<string name="screen_cloud_connections_no_connections">Clicca qui per aggiungere posizioni</string>
+	<string name="screen_cloud_error_webdav_not_supported">Il server non sembra essere compatibile con WebDAV</string>
+	<string name="screen_cloud_local_custom_storage_title">Posizioni personalizzate</string>
+	<string name="screen_cloud_local_default_storage_title">Archiviazione predefinita</string>
+	<string name="screen_cloud_local_error_no_content_provider">Nessuna posizione aggiuntiva disponibile.</string>
 	<!-- ## screen: webdav settings -->
 	<string name="screen_webdav_settings_url_port_label">URL</string>
 	<string name="screen_webdav_settings_username_label">Nome utente</string>
 	<string name="screen_webdav_settings_password_label">Password</string>
+	<string name="screen_webdav_settings_done_button_text">Connetti</string>
+	<string name="screen_webdav_settings_msg_url_must_not_be_empty">L\'URL non può essere vuoto.</string>
+	<string name="screen_webdav_settings_msg_url_is_invalid">URL non valido.</string>
+	<string name="screen_webdav_settings_msg_username_must_not_be_empty">Il nome utente non può essere vuoto.</string>
+	<string name="screen_webdav_settings_msg_password_must_not_be_empty">La password non può essere vuota.</string>
 	<!-- ## screen: s3 settings -->
+	<string name="screen_s3_settings_display_name_label">Nome Visualizzato</string>
+	<string name="screen_s3_settings_access_key_label">Chiave di accesso</string>
+	<string name="screen_s3_settings_secret_key_label">Chiave segreta</string>
+	<string name="screen_s3_settings_region_label">Paese</string>
+	<string name="screen_s3_settings_msg_display_name_not_empty">Il nome visualizzato non può essere vuoto</string>
+	<string name="screen_s3_settings_msg_access_key_not_empty">La chiave di accesso non può essere vuota</string>
+	<string name="screen_s3_settings_msg_secret_key_not_empty">La chiave segreta non può essere vuota</string>
 	<!-- ## screen: enter vault name -->
+	<string name="screen_enter_vault_name_msg_name_empty">Il nome della cassaforte non può essere vuoto.</string>
+	<string name="screen_enter_vault_name_vault_label">Nome cassaforte</string>
 	<string name="screen_enter_vault_name_button_text">Crea</string>
 	<!-- ## screen: set password -->
+	<string name="screen_set_password_title">Imposta password</string>
+	<string name="screen_set_password_msg_password_mismatch">La password non corrisponde alla password ridigitata.</string>
 	<string name="screen_set_password_button_text">Fatto</string>
 	<string name="screen_set_password_hint">IMPORTANTE: Se dimentichi la tua password, non c\'è moto di recuperare i tuoi dati.</string>
+	<string name="screen_set_password_retype_password_label">Digita password</string>
+	<string name="screen_set_password_strength_indicator_0">Troppo debole per creare una cassaforte</string>
 	<string name="screen_set_password_strength_indicator_1">Debole</string>
 	<string name="screen_set_password_strength_indicator_2">Sufficiente</string>
 	<string name="screen_set_password_strength_indicator_3">Forte</string>
+	<string name="screen_set_password_strength_indicator_4">Molto Sicura</string>
 	<!-- ## screen: settings -->
 	<string name="screen_settings_section_general">Generali</string>
+	<string name="screen_settings_cloud_settings_label">Servizi cloud</string>
+	<string name="screen_settings_biometric_auth">Autenticazione biometrica</string>
+	<string name="screen_settings_activate_biometric_auth">Attiva l\'autenticazione biometrica</string>
+	<string name="screen_settings_confirm_face_unlock">Conferma sblocco facciale (se disponibile)</string>
+	<string name="screen_settings_block_app_when_obscured">Blocca app quando oscurato</string>
+	<string name="screen_settings_secure_screen">Blocca screenshot</string>
+	<string name="screen_settings_section_search">Cerca</string>
+	<string name="screen_settings_auto_lock_timeout">Blocca dopo</string>
+	<string name="screen_settings_auto_lock_on_screen_lock">Quando lo schermo è disabilitato</string>
 	<!-- ## screen: cloud settings -->
 	<!-- ## screen: licenses -->
 	<!-- ## screen: authenticate cloud -->
@@ -42,23 +138,98 @@
 	<!-- # dialogs -->
 	<string name="dialog_button_cancel">Annulla</string>
 	<string name="dialog_enter_password_positive_button">Sblocca</string>
+	<string name="dialog_change_password_old_password_label">Vecchia Password</string>
+	<string name="dialog_change_password_new_password_label">Nuova Password</string>
+	<string name="dialog_change_password">Cambia password</string>
+	<string name="dialog_change_password_msg_old_password_empty">La vecchia password non può essere vuota.</string>
+	<string name="dialog_change_password_msg_new_password_empty">La nuova password non può essere vuota.</string>
+	<string name="dialog_change_password_msg_password_mismatch">La nuova password non corrisponde alla password ridigitata.</string>
 	<!-- Vault not found -->
+	<string name="dialog_vault_not_found_title">Cassaforte %1$s non trovata</string>
+	<string name="dialog_vault_not_found_message">La cassaforte è stata rinominata, spostata o eliminata. Rimuovere questa cassaforte dalla lista e aggiungerla di nuovo per procedere. Rimuovere ora?</string>
 	<string name="dialog_vault_not_found_positive_button_text">Rimuovi</string>
+	<string name="dialog_existing_file_title">Il file esiste già</string>
+	<string name="dialog_existing_file_positive_button">Sostituisci</string>
+	<string name="dialog_existing_file_message">Un file chiamato \'%1$s\' esiste già.</string>
+	<string name="dialog_replace_negative_button_at_least_two_but_not_all_files_exist">Salta esistente</string>
+	<string name="dialog_replace_positive_button_all_files_exist">Sostituisci tutto</string>
+	<string name="dialog_replace_positive_button_some_files_exist">Sostituisci esistente</string>
+	<string name="dialog_replace_positive_button_single_file_exists">Sostituisci</string>
+	<string name="dialog_replace_msg_single_file_exists">Un file chiamato \'%1$s\' esiste già. Vuoi sostituirlo?</string>
+	<string name="dialog_replace_msg_all_files_exists">Tutti i file esistono già. Vuoi sostituirli?</string>
+	<string name="dialog_replace_title_single_file_exists">Sostituire il file?</string>
+	<string name="dialog_replace_title_multiple_files_exist">Sostituire i file?</string>
+	<string name="dialog_unable_to_share_title">Impossibile condividere i file</string>
+	<string name="dialog_unable_to_share_message">Non hai impostato nessuna cassaforte. Si prega di creare una nuova cassaforte con l\'app Cryptomator.</string>
 	<string name="dialog_unable_to_share_positive_button">OK</string>
+	<string name="dialog_unable_to_share_negative_button">Crea cassaforte</string>
+	<string name="dialog_filetype_not_supported_title">Impossibile aprire %1$s</string>
+	<string name="dialog_filetype_not_supported_message">Si prega di scaricare un\'app che può aprire questo file o preferisci salvarlo sul tuo dispositivo?</string>
+	<string name="dialog_rename_vault_title">Rinomina cassaforte</string>
+	<string name="dialog_rename_node_folder_title">Rinomina cartella</string>
+	<string name="dialog_rename_node_file_title">Rinomina file</string>
+	<string name="dialog_unsaved_changes_title">Hai modifiche non salvate</string>
+	<string name="dialog_unsaved_changes_message">Vuoi davvero uscire senza salvare?</string>
+	<string name="dialog_file_name_placeholder">text.txt</string>
+	<string name="dialog_delete_vault_message">Sei sicuro di voler rimuovere questa cassaforte?</string>
+	<string name="dialog_delete_vault_hint">Questa azione rimuoverà solo la cassaforte da questo elenco e non la eliminerà fisicamente.</string>
+	<string name="dialog_upload_file_title">Caricamento&#8230;</string>
+	<string name="dialog_upload_file_remaining">File %1$d di %2$d</string>
+	<string name="dialog_progress_upload_file">Caricamento&#8230;</string>
 	<string name="dialog_lock_vault">Blocca</string>
 	<string name="dialog_app_is_obscured_info_neutral_button">Chiudi</string>
+	<string name="dialog_enter_license_decline_button">Esci</string>
+	<string name="dialog_license_confirmation_title">Conferma licenza</string>
+	<string name="dialog_update_available_title">Aggiornamento disponibile</string>
+	<string name="dialog_update_available_message">Aggiorna Cryptomator all\'ultima versione. Premendo OK scaricheremo l\'applicazione in background e ti chiederemo di installarla.</string>
+	<string name="dialog_update_available_update">Aggiorna ora</string>
+	<string name="dialog_update_available_cancel">Dopo</string>
+	<string name="dialog_download_update_title">Download in esecuzione</string>
+	<string name="dialog_download_update_message">Scaricamento dell\'ultima versione di Cryptomator</string>
+	<string name="dialog_sym_link_title">La cartella è un link simbolico</string>
+	<string name="dialog_sym_link_message">Non puoi navigare in questo link simbolico</string>
 	<string name="dialog_sym_link_back_button">Indietro</string>
+	<string name="dialog_no_dir_file_title">Impossibile caricare il contenuto della directory</string>
 	<!-- # error reports -->
 	<!-- # misc -->
 	<!-- ## file size helper -->
+	<string name="file_size_zero">Zero kB</string>
 	<!-- ## date helper -->
+	<string name="time_unit_seconds_sg">secondo</string>
+	<string name="time_unit_seconds_pl">secondi</string>
+	<string name="time_unit_minutes_sg">minuti</string>
 	<string name="time_unit_minutes_pl">minuti</string>
+	<string name="time_unit_hours_sg">ora</string>
+	<string name="time_unit_hours_pl">ore</string>
+	<string name="time_unit_days_sg">giorno</string>
+	<string name="time_unit_days_pl">giorni</string>
+	<string name="time_unit_weeks_sg">settimana</string>
+	<string name="time_unit_weeks_pl">settimane</string>
+	<string name="time_unit_months_sg">mese</string>
+	<string name="time_unit_months_pl">mesi</string>
+	<string name="time_unit_years_sg">anno</string>
+	<string name="time_unit_years_pl">anni</string>
 	<!-- ## biometric authentication -->
+	<string name="dialog_biometric_auth_title">Accesso biometrico</string>
+	<string name="dialog_biometric_auth_message">Accedi usando le tue credenziali biometriche</string>
+	<string name="dialog_biometric_auth_use_password">Usa password della cassaforte</string>
+	<string name="dialog_unable_to_auto_upload_files_title">Impossibile caricare automaticamente i file</string>
 	<!-- notification -->
+	<string name="notification_unlocked">Casseforti sbloccate: %1$d</string>
 	<!-- lock timeout names -->
 	<!-- cache size names -->
+	<string name="cache_size_100m">100 MB</string>
+	<string name="cache_size_250m">250 MB</string>
+	<string name="cache_size_500m">500 MB</string>
+	<string name="cache_size_1000m">1 GB</string>
+	<string name="cache_size_5000m">5 GB</string>
 	<!-- screen scheme mode names -->
+	<string name="screen_settings_style_mode">Stile</string>
+	<string name="follow_system">Automatico (segue il sistema)</string>
 	<string name="light">Chiaro</string>
 	<string name="dark">Scuro</string>
 	<!-- update interval names -->
+	<string name="update_interval_1d">Una volta al giorno</string>
+	<string name="update_interval_1w">Una volta alla settimana</string>
+	<string name="update_interval_1m">Una volta al mese</string>
 </resources>
