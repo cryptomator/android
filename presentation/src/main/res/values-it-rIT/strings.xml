@@ -12,6 +12,7 @@
 	<string name="error_vault_version_not_supported">Cassaforte non supportata. Questa cassaforte è stata creata con un\'altra versione di Cryptomator.</string>
 	<string name="error_vault_already_exists">La cassaforte esiste già.</string>
 	<string name="error_no_such_file">Il file non esiste.</string>
+	<string name="error_vault_has_been_locked">La cassaforte è stata bloccata.</string>
 	<string name="error_cloud_already_exists">Il Cloud esiste già.</string>
 	<string name="error_activity_not_found">Scarica un\'app che possa aprire questo file.</string>
 	<string name="error_server_not_found">Server non trovato.</string>
@@ -25,6 +26,7 @@
 	<string name="error_update_no_internet">Controllo aggiornamento non riuscito. Nessuna connessione internet.</string>
 	<string name="error_failed_to_decrypt_webdav_password">Impossibile decrittografare la password WebDAV, aggiungere nuovamente nelle impostazioni</string>
 	<string name="error_biometric_auth_aborted">Autenticazione biometrica interrotta</string>
+	<string name="error_vault_version_mismatch">La versione specificata in vault.cryptomator è diversa da masterkey.cryptomator</string>
 	<string name="error_vault_config_loading">Errore generale durante il caricamento della configurazione della cassaforte</string>
 	<string name="error_file_not_found_after_opening_using_3party">Il file locale non è più presente dopo essere tornato a Cryptomator. Le eventuali modifiche non possono essere riprodotte nel cloud.</string>
 	<!-- # clouds -->
@@ -56,6 +58,7 @@
 	<string name="screen_vault_list_change_password_successful">Password modificata con successo</string>
 	<!-- # screen: file browser -->
 	<string name="screen_file_browser_default_title">Cassaforte</string>
+	<string name="screen_file_browser_add_existing_vault_extra_text">Seleziona il file della chiave principale</string>
 	<string name="screen_file_browser_create_new_vault_button_text">Posiziona qui</string>
 	<string name="screen_file_browser_create_new_vault_extra_text">Nome cassaforte: %1$s</string>
 	<plurals name="screen_file_browser_subtitle_move">
@@ -124,10 +127,12 @@
 	<string name="screen_s3_settings_display_name_label">Nome Visualizzato</string>
 	<string name="screen_s3_settings_access_key_label">Chiave di accesso</string>
 	<string name="screen_s3_settings_secret_key_label">Chiave segreta</string>
+	<string name="screen_s3_settings_endpoint_label">Endpoint</string>
 	<string name="screen_s3_settings_region_label">Paese</string>
 	<string name="screen_s3_settings_msg_display_name_not_empty">Il nome visualizzato non può essere vuoto</string>
 	<string name="screen_s3_settings_msg_access_key_not_empty">La chiave di accesso non può essere vuota</string>
 	<string name="screen_s3_settings_msg_secret_key_not_empty">La chiave segreta non può essere vuota</string>
+	<string name="screen_s3_settings_msg_endpoint_and_region_not_empty">Endpoint o il Paese non possono essere vuoti</string>
 	<!-- ## screen: enter vault name -->
 	<string name="screen_enter_vault_name_msg_name_empty">Il nome della cassaforte non può essere vuoto.</string>
 	<string name="screen_enter_vault_name_vault_label">Nome cassaforte</string>
@@ -150,17 +155,25 @@
 	<string name="screen_settings_activate_biometric_auth">Attiva l\'autenticazione biometrica</string>
 	<string name="screen_settings_confirm_face_unlock">Conferma sblocco facciale (se disponibile)</string>
 	<string name="screen_settings_block_app_when_obscured">Blocca app quando oscurato</string>
+	<string name="screen_settings_block_app_when_obscured_summary">Blocca l\'intercettazione dell\'input e la visualizzazione di un\'interfaccia utente falsa</string>
 	<string name="screen_settings_secure_screen">Blocca screenshot</string>
+	<string name="screen_settings_secure_screen_summary">Blocca gli screenshot nell\'elenco dei recenti e all\'interno dell\'app</string>
 	<string name="screen_settings_section_search">Cerca</string>
 	<string name="screen_settings_live_search">Ricerca in tempo reale</string>
+	<string name="screen_settings_live_search_summary">Aggiorna i risultati della ricerca durante l\'inserimento della query</string>
+	<string name="screen_settings_section_auto_lock">Blocco automatico</string>
 	<string name="screen_settings_auto_lock_timeout">Blocca dopo</string>
 	<string name="screen_settings_auto_lock_on_screen_lock">Quando lo schermo è disabilitato</string>
+	<string name="screen_settings_section_auto_photo_upload">Caricamento automatico delle foto</string>
+	<string name="screen_settings_section_auto_photo_upload_vault">Scegli cassaforte per il caricamento</string>
 	<string name="screen_settings_section_auto_photo_upload_toggle">Attiva</string>
+	<string name="screen_settings_section_auto_photo_upload_toggle_summary">Cattura immagini in background e una volta sbloccata la cassaforte selezionata, avvia il caricamento</string>
 	<string name="screen_settings_section_auto_photo_upload_only_wifi_toggle">Carica utilizzando solo WIFI</string>
 	<string name="screen_settings_section_auto_photo_upload_including_videos">Carica video</string>
 	<string name="screen_settings_auto_photo_upload_title">Salva i file caricati automaticamente in&#8230;</string>
 	<string name="screen_settings_website_label">Sito web di Cryptomator</string>
 	<string name="screen_settings_twitter_label">Seguici su Twitter</string>
+	<string name="screen_settings_facebook_label">Metti mi piace su Facebook</string>
 	<string name="screen_settings_section_legal">Legale</string>
 	<string name="screen_settings_licenses_label">Licenze</string>
 	<string name="screen_settings_license_terms_label">Termini di licenza</string>
@@ -180,6 +193,7 @@
 	<string name="screen_cloud_settings_webdav_connections">Connessioni WebDAV</string>
 	<string name="screen_cloud_settings_pcloud_connections">connessioni pCloud</string>
 	<string name="screen_cloud_settings_s3_connections">Collegamenti S3</string>
+	<string name="screen_cloud_settings_local_storage_locations">Posizione di archiviazione locale</string>
 	<string name="screen_cloud_settings_log_in_to">Accedi a</string>
 	<string name="screen_cloud_settings_sign_out_from_cloud">Esci da</string>
 	<!-- ## screen: licenses -->
@@ -189,6 +203,8 @@
 	<!-- ## screen: empty dir file info -->
 	<string name="screen_empty_dir_file_info_title">\'%1$s\' irraggiungibile</string>
 	<string name="screen_empty_dir_file_info_headline">Cryptomator ha rilevato che questa cartella non è raggiungibile.</string>
+	<string name="screen_empty_dir_file_info_text">Potrebbe essere stato eliminato da un\'altra applicazione o potrebbe essere stato causato da una sincronizzazione cloud difettosa.\n\nProva a ripristinare il file della directory tramite il tuo provider cloud a una versione precedente non vuota. Il file in questione è:\n%1$s\n\nSe non funziona, puoi utilizzare Sanitizer per verificare la presenza di problemi nella tua cassaforte ed eventualmente ripristinare i tuoi dati.</string>
+	<string name="screen_empty_dir_file_info_button_label">Maggiori dettagli su Sanitizer</string>
 	<!-- ## screen: insecure android version info -->
 	<!-- # dialogs -->
 	<string name="dialog_button_cancel">Annulla</string>
@@ -212,6 +228,7 @@
 	<string name="dialog_replace_positive_button_single_file_exists">Sostituisci</string>
 	<string name="dialog_replace_msg_single_file_exists">Un file chiamato \'%1$s\' esiste già. Vuoi sostituirlo?</string>
 	<string name="dialog_replace_msg_all_files_exists">Tutti i file esistono già. Vuoi sostituirli?</string>
+	<string name="dialog_replace_msg_some_files_exists">%1$d file esistono già. Vuoi sostituirli?</string>
 	<string name="dialog_replace_title_single_file_exists">Sostituire il file?</string>
 	<string name="dialog_replace_title_multiple_files_exist">Sostituire i file?</string>
 	<string name="dialog_unable_to_share_title">Impossibile condividere i file</string>
@@ -238,8 +255,16 @@
 	<string name="action_progress_authentication">Autenticazione&#8230;</string>
 	<string name="action_progress_renaming">Rinomina&#8230;</string>
 	<string name="action_progress_deleting">Eliminazione&#8230;</string>
+	<string name="dialog_progress_unlocking_vault">Sblocco cassaforte&#8230;</string>
+	<string name="dialog_progress_change_password">Modifica password&#8230;</string>
+	<string name="dialog_progress_creating_vault">Creazione cassaforte&#8230;</string>
 	<string name="dialog_progress_upload_file">Caricamento&#8230;</string>
+	<string name="dialog_progress_download_file">Scaricamento&#8230;</string>
+	<string name="dialog_progress_encryption">Cifratura&#8230;</string>
+	<string name="dialog_progress_decryption">Decifratura&#8230;</string>
+	<string name="action_progress_moving">Spostamento&#8230;</string>
 	<string name="dialog_lock_vault">Blocca</string>
+	<string name="dialog_accept_ssl_certificate_title">Certificato SSL non valido</string>
 	<string name="dialog_accept_ssl_certificate_hint">Il certificato SSL non è valido. Vuoi comunque fidarti?</string>
 	<string name="dialog_accept_ssl_certificate_details">Dettagli</string>
 	<string name="dialog_accept_ssl_certificate_security_checkbox">Questo potrebbe essere un rischio per la sicurezza. So cosa sto facendo.</string>
@@ -254,10 +279,13 @@
 	<string name="dialog_debug_mode_disclaimer_hint">In questa modalità, i dati sensibili possono essere scritti in un file di registro sul dispositivo (ad es. nomi di file e percorsi). Password, cookie, ecc. sono esplicitamente esclusi.\n\nRicorda di disabilitare la modalità di debug il prima possibile.</string>
 	<string name="dialog_debug_mode_disclaimer_title">Attenzione</string>
 	<string name="dialog_debug_mode_positive_button">Abilita</string>
+	<string name="dialog_disable_app_obscured_disclaimer_hint">Questa impostazione è una funzione di sicurezza e impedisce ad altre applicazioni di ingannare gli utenti a fare cose che non sono in grado di fare.\n\nDisabilitandola confermi di essere <a href="https://docs.cryptomator.org/en/1.5/android/settings/#block-app-when-obscured">a conoscenza dei rischi</a>.</string>
 	<string name="dialog_disable_app_obscured_disclaimer_title">Attenzione</string>
 	<string name="dialog_disable_app_obscured_positive_button">Disabilita</string>
 	<string name="dialog_app_is_obscured_info_title">L\'app è oscurata</string>
+	<string name="dialog_app_is_obscured_info_hint">Un\'altra app sta mostrando qualcosa sopra Cryptomator (ad esempio, un filtro luce blu o un\'app per la modalità notturna). Per motivi di sicurezza, Cryptomator è disabilitato.\n\n<a href="https://docs.cryptomator.org/en/1.5/android/settings/#block-app-when-obscured">Come abilitare Cryptomator</a></string>
 	<string name="dialog_app_is_obscured_info_neutral_button">Chiudi</string>
+	<string name="dialog_disable_secure_screen_disclaimer_hint">Questa impostazione è una funzione di sicurezza e impedisce ad altre applicazioni di ingannare gli utenti a fare cose che non sono in grado di fare.\n\nDisabilitandola confermi di essere <a href="https://docs.cryptomator.org/en/1.5/android/settings/#screen-security">a conoscenza dei rischi</a>.</string>
 	<string name="dialog_delete_cloud_connection_with_vaults_message">Sei sicuro di voler rimuovere questa connessione cloud?</string>
 	<string name="dialog_delete_cloud_connection_with_vaults_hint">Questa azione rimuoverà la connessione cloud e tutte le cassaforti di questo cloud.</string>
 	<string name="dialog_confirm_delete_multiple_title">Eliminare %1$d elementi?</string>
@@ -321,11 +349,13 @@
 	<string name="dialog_unable_to_auto_upload_files_title">Impossibile caricare automaticamente i file</string>
 	<!-- notification -->
 	<string name="notification_unlocked">Casseforti sbloccate: %1$d</string>
+	<string name="notification_timeout">Blocco automatico tra %1$s</string>
 	<string name="notification_lock_all">Blocca tutto</string>
 	<string name="notification_cancel_auto_upload">Annulla caricamento</string>
 	<string name="notification_auto_upload_title">Caricamento automatico delle foto in esecuzione</string>
 	<string name="notification_auto_upload_message">Caricamento %1d/%2d</string>
 	<string name="notification_auto_upload_finished_title">Caricamento automatico delle foto terminato</string>
+	<string name="notification_auto_upload_finished_message">%1$d immagini caricate nella cassaforte</string>
 	<string name="notification_auto_upload_failed_title">Caricamento automatico delle foto fallito</string>
 	<string name="notification_auto_upload_failed_general_error">Errore generale durante il caricamento.</string>
 	<string name="notification_auto_upload_failed_due_to_folder_not_exists">La cartella selezionata per il caricamento non è più disponibile. Vai alle impostazioni e sceglierne una nuova</string>
@@ -340,6 +370,7 @@
 	<string name="screen_settings_lru_cache_changed__restart_toast">Le modifiche saranno applicate al prossimo riavvio dell\' app</string>
 	<string name="screen_settings_license">Registrato per</string>
 	<string name="screen_settings_license_mail">%1$s</string>
+	<string name="dialog_settings_update_check_interval_title">Aggiorna intervallo di controllo</string>
 	<string name="screen_settings_check_updates">Controlla aggiornamenti</string>
 	<string name="screen_settings_last_check_updates">Ultima esecuzione %1$s</string>
 	<string name="dialog_cache_size_title">Dimensione cache per Cloud</string>
