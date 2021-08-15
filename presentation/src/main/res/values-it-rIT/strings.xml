@@ -9,8 +9,22 @@
 	<string name="error_no_network_connection">Nessuna connessione di rete</string>
 	<string name="error_invalid_passphrase">Password errata</string>
 	<string name="error_file_or_folder_exists">Esiste già un file o una cartella.</string>
+	<string name="error_cloud_already_exists">Il Cloud esiste già.</string>
+	<string name="error_activity_not_found">Scarica un\'app che possa aprire questo file.</string>
+	<string name="error_server_not_found">Server non trovato.</string>
+	<string name="error_device_policy_manager_not_found">Aprire le impostazioni dei dispositivi e impostare il blocco schermo a mano</string>
+	<string name="error_export_illegal_file_name">Esportazione non riuscita. Prova a rimuovere i caratteri speciali dai nomi dei file ed esportare di nuovo.</string>
+	<string name="error_names_contains_invalid_characters">I nomi dei file non possono contenere caratteri speciali.</string>
+	<string name="error_vault_name_contains_invalid_characters">Il nome della cassaforte non può contenere caratteri speciali.</string>
+	<string name="error_general_update">Controllo dell\'aggiornamento non riuscito. Si è verificato un errore generale.</string>
+	<string name="error_hash_mismatch_update">Controllo di aggiornamento non riuscito. L\'hash calcolato non corrisponde al file caricato</string>
+	<string name="error_update_no_internet">Controllo aggiornamento non riuscito. Nessuna connessione internet.</string>
+	<string name="error_biometric_auth_aborted">Autenticazione biometrica interrotta</string>
+	<string name="error_vault_config_loading">Errore generale durante il caricamento della configurazione della cassaforte</string>
+	<string name="error_file_not_found_after_opening_using_3party">Il file locale non è più presente dopo essere tornato a Cryptomator. Le eventuali modifiche non possono essere riprodotte nel cloud.</string>
 	<!-- # clouds -->
 	<!-- ## cloud names -->
+	<string name="cloud_names_local_storage">Archivio locale</string>
 	<!-- # permission -->
 	<!-- ## permission messages -->
 	<string name="permission_message_export_file">Cryptomator necessita dell\'accesso all\'archivio per esportare i file</string>
@@ -130,7 +144,31 @@
 	<string name="screen_settings_section_search">Cerca</string>
 	<string name="screen_settings_auto_lock_timeout">Blocca dopo</string>
 	<string name="screen_settings_auto_lock_on_screen_lock">Quando lo schermo è disabilitato</string>
+	<string name="screen_settings_section_auto_photo_upload_toggle">Attiva</string>
+	<string name="screen_settings_section_auto_photo_upload_only_wifi_toggle">Carica utilizzando solo WIFI</string>
+	<string name="screen_settings_section_auto_photo_upload_including_videos">Carica video</string>
+	<string name="screen_settings_auto_photo_upload_title">Salva i file caricati automaticamente in&#8230;</string>
+	<string name="screen_settings_website_label">Sito web di Cryptomator</string>
+	<string name="screen_settings_twitter_label">Seguici su Twitter</string>
+	<string name="screen_settings_section_legal">Legale</string>
+	<string name="screen_settings_licenses_label">Licenze</string>
+	<string name="screen_settings_license_terms_label">Termini di licenza</string>
+	<string name="screen_settings_section_support">Supporto</string>
+	<string name="screen_settings_contact_label">Richiedi aiuto</string>
+	<string name="screen_settings_debug_mode_label">Modalità debug</string>
+	<string name="screen_settings_error_report_label">Invia file di log</string>
+	<string name="screen_settings_error_report_failed">Invio non riuscito</string>
+	<string name="screen_settings_security_label">Suggerimenti di sicurezza</string>
+	<string name="screen_settings_section_version">Versione</string>
+	<string name="screen_settings_advanced_settings">Impostazioni Avanzate</string>
+	<string name="screen_settings_background_unlock_preparation_label">Accelera sblocco</string>
+	<string name="screen_settings_background_unlock_preparation_label_summary">Scarica la configurazione della cassaforte in background quando è stato richiesto di inserire la password o l\'autenticazione biometrica</string>
+	<string name="screen_settings_keep_unlocked_while_editing_files">Mantieni sbloccato</string>
+	<string name="screen_settings_keep_unlocked_while_editing_files_summary">Mantieni le cassaforte sbloccate durante la modifica dei file</string>
 	<!-- ## screen: cloud settings -->
+	<string name="screen_cloud_settings_webdav_connections">Connessioni WebDAV</string>
+	<string name="screen_cloud_settings_pcloud_connections">connessioni pCloud</string>
+	<string name="screen_cloud_settings_s3_connections">Collegamenti S3</string>
 	<!-- ## screen: licenses -->
 	<!-- ## screen: authenticate cloud -->
 	<!-- ## screen: empty dir file info -->
