@@ -9,16 +9,21 @@
 	<string name="error_no_network_connection">Nessuna connessione di rete</string>
 	<string name="error_invalid_passphrase">Password errata</string>
 	<string name="error_file_or_folder_exists">Esiste già un file o una cartella.</string>
+	<string name="error_vault_version_not_supported">Cassaforte non supportata. Questa cassaforte è stata creata con un\'altra versione di Cryptomator.</string>
+	<string name="error_vault_already_exists">La cassaforte esiste già.</string>
+	<string name="error_no_such_file">Il file non esiste.</string>
 	<string name="error_cloud_already_exists">Il Cloud esiste già.</string>
 	<string name="error_activity_not_found">Scarica un\'app che possa aprire questo file.</string>
 	<string name="error_server_not_found">Server non trovato.</string>
 	<string name="error_device_policy_manager_not_found">Aprire le impostazioni dei dispositivi e impostare il blocco schermo a mano</string>
 	<string name="error_export_illegal_file_name">Esportazione non riuscita. Prova a rimuovere i caratteri speciali dai nomi dei file ed esportare di nuovo.</string>
+	<string name="error_name_contains_invalid_characters">Non può contenere caratteri speciali.</string>
 	<string name="error_names_contains_invalid_characters">I nomi dei file non possono contenere caratteri speciali.</string>
 	<string name="error_vault_name_contains_invalid_characters">Il nome della cassaforte non può contenere caratteri speciali.</string>
 	<string name="error_general_update">Controllo dell\'aggiornamento non riuscito. Si è verificato un errore generale.</string>
 	<string name="error_hash_mismatch_update">Controllo di aggiornamento non riuscito. L\'hash calcolato non corrisponde al file caricato</string>
 	<string name="error_update_no_internet">Controllo aggiornamento non riuscito. Nessuna connessione internet.</string>
+	<string name="error_failed_to_decrypt_webdav_password">Impossibile decrittografare la password WebDAV, aggiungere nuovamente nelle impostazioni</string>
 	<string name="error_biometric_auth_aborted">Autenticazione biometrica interrotta</string>
 	<string name="error_vault_config_loading">Errore generale durante il caricamento della configurazione della cassaforte</string>
 	<string name="error_file_not_found_after_opening_using_3party">Il file locale non è più presente dopo essere tornato a Cryptomator. Le eventuali modifiche non possono essere riprodotte nel cloud.</string>
@@ -39,6 +44,8 @@
 	<string name="snack_bar_action_title_sort_za">Z - A</string>
 	<string name="snack_bar_action_title_sort_newest">Il più recente per primo</string>
 	<string name="snack_bar_action_title_sort_oldest">Il più vecchio prima</string>
+	<string name="snack_bar_action_title_sort_biggest">Il più grande prima</string>
+	<string name="snack_bar_action_title_sort_smallest">Il più piccolo prima</string>
 	<!-- # screens -->
 	<!-- # screen: vault list -->
 	<string name="screen_vault_list_actions_title">Aggiungi a Cryptomator</string>
@@ -49,6 +56,7 @@
 	<string name="screen_vault_list_change_password_successful">Password modificata con successo</string>
 	<!-- # screen: file browser -->
 	<string name="screen_file_browser_default_title">Cassaforte</string>
+	<string name="screen_file_browser_create_new_vault_button_text">Posiziona qui</string>
 	<string name="screen_file_browser_create_new_vault_extra_text">Nome cassaforte: %1$s</string>
 	<plurals name="screen_file_browser_subtitle_move">
 		<item quantity="one">Sposta %2$d elementi in</item>
@@ -58,6 +66,7 @@
 	<string name="screen_file_browser_msg_empty_folder">Cartella vuota</string>
 	<string name="screen_file_browser_file_info_label_date">modificato %1$s fa</string>
 	<string name="screen_file_browser_share_intent_chooser_title">Condividi con</string>
+	<string name="screen_file_browser_share_destination_title">Scegli una destinazione</string>
 	<string name="screen_file_browser_share_button_text">Scegli</string>
 	<string name="screen_file_browser_nothing_to_share">Niente da condividere</string>
 	<string name="screen_file_browser_actions_title">Aggiungi a %1$s</string>
@@ -81,6 +90,7 @@
 	<string name="screen_file_browser_select_all_items">Seleziona tutto</string>
 	<string name="screen_file_browser_refresh_items">Aggiorna</string>
 	<string name="screen_file_browser_no_connection_message">Nessuna connessione</string>
+	<string name="screen_file_browser_no_connection_button_text">Riprova</string>
 	<!-- ## screen: text editor -->
 	<string name="screen_text_editor_save_success">Salvato con successo</string>
 	<!-- ## screen: share files -->
@@ -142,6 +152,7 @@
 	<string name="screen_settings_block_app_when_obscured">Blocca app quando oscurato</string>
 	<string name="screen_settings_secure_screen">Blocca screenshot</string>
 	<string name="screen_settings_section_search">Cerca</string>
+	<string name="screen_settings_live_search">Ricerca in tempo reale</string>
 	<string name="screen_settings_auto_lock_timeout">Blocca dopo</string>
 	<string name="screen_settings_auto_lock_on_screen_lock">Quando lo schermo è disabilitato</string>
 	<string name="screen_settings_section_auto_photo_upload_toggle">Attiva</string>
@@ -169,9 +180,15 @@
 	<string name="screen_cloud_settings_webdav_connections">Connessioni WebDAV</string>
 	<string name="screen_cloud_settings_pcloud_connections">connessioni pCloud</string>
 	<string name="screen_cloud_settings_s3_connections">Collegamenti S3</string>
+	<string name="screen_cloud_settings_log_in_to">Accedi a</string>
+	<string name="screen_cloud_settings_sign_out_from_cloud">Esci da</string>
 	<!-- ## screen: licenses -->
 	<!-- ## screen: authenticate cloud -->
+	<string name="screen_authenticate_auth_authentication_failed">%1$s non può essere autenticato.</string>
+	<string name="screen_update_pcloud_connections_title">Aggiorna credenziali pCloud</string>
 	<!-- ## screen: empty dir file info -->
+	<string name="screen_empty_dir_file_info_title">\'%1$s\' irraggiungibile</string>
+	<string name="screen_empty_dir_file_info_headline">Cryptomator ha rilevato che questa cartella non è raggiungibile.</string>
 	<!-- ## screen: insecure android version info -->
 	<!-- # dialogs -->
 	<string name="dialog_button_cancel">Annulla</string>
@@ -208,19 +225,58 @@
 	<string name="dialog_rename_node_file_title">Rinomina file</string>
 	<string name="dialog_unsaved_changes_title">Hai modifiche non salvate</string>
 	<string name="dialog_unsaved_changes_message">Vuoi davvero uscire senza salvare?</string>
+	<string name="dialog_unsaved_changes_discard">Abbandona</string>
 	<string name="dialog_file_name_placeholder">text.txt</string>
 	<string name="dialog_delete_vault_message">Sei sicuro di voler rimuovere questa cassaforte?</string>
 	<string name="dialog_delete_vault_hint">Questa azione rimuoverà solo la cassaforte da questo elenco e non la eliminerà fisicamente.</string>
 	<string name="dialog_upload_file_title">Caricamento&#8230;</string>
 	<string name="dialog_upload_file_remaining">File %1$d di %2$d</string>
+	<string name="dialog_export_file_title">Esportazione (%1$d/%2$d)</string>
+	<string name="dialog_progress_please_wait">Attendere prego&#8230;</string>
+	<string name="dialog_progress_creating_folder">Creazione cartella&#8230;</string>
+	<string name="dialog_progress_creating_text_file">Creazione file di testo&#8230;</string>
+	<string name="action_progress_authentication">Autenticazione&#8230;</string>
+	<string name="action_progress_renaming">Rinomina&#8230;</string>
+	<string name="action_progress_deleting">Eliminazione&#8230;</string>
 	<string name="dialog_progress_upload_file">Caricamento&#8230;</string>
 	<string name="dialog_lock_vault">Blocca</string>
+	<string name="dialog_accept_ssl_certificate_hint">Il certificato SSL non è valido. Vuoi comunque fidarti?</string>
+	<string name="dialog_accept_ssl_certificate_details">Dettagli</string>
+	<string name="dialog_accept_ssl_certificate_security_checkbox">Questo potrebbe essere un rischio per la sicurezza. So cosa sto facendo.</string>
+	<string name="dialog_http_security_hint">L\'utilizzo di HTTP non è sicuro. Si consiglia invece di utilizzare HTTPS. Se conosci i rischi, puoi continuare con HTTP.</string>
+	<string name="dialog_http_security_checkbox">Cambia in HTTPS</string>
+	<string name="dialog_http_security_title">Usare HTTPS?</string>
+	<string name="dialog_no_screen_lock_hint">Non è impostato alcun blocco schermo. Per archiviare le tue credenziali in modo sicuro, imposta con OK una sequenza o una password.</string>
+	<string name="dialog_no_screen_lock_title">Impostare blocco schermo?</string>
+	<string name="dialog_no_screen_lock_checkbox">Imposta blocco schermo</string>
+	<string name="dialog_no_biometric_auth_set_up_title">Nessuna autenticazione di base impostata nel sistema</string>
+	<string name="dialog_no_biometric_auth_set_up_message">Registra almeno un dito/viso per usare questo servizio.</string>
+	<string name="dialog_debug_mode_disclaimer_hint">In questa modalità, i dati sensibili possono essere scritti in un file di registro sul dispositivo (ad es. nomi di file e percorsi). Password, cookie, ecc. sono esplicitamente esclusi.\n\nRicorda di disabilitare la modalità di debug il prima possibile.</string>
+	<string name="dialog_debug_mode_disclaimer_title">Attenzione</string>
+	<string name="dialog_debug_mode_positive_button">Abilita</string>
+	<string name="dialog_disable_app_obscured_disclaimer_title">Attenzione</string>
+	<string name="dialog_disable_app_obscured_positive_button">Disabilita</string>
+	<string name="dialog_app_is_obscured_info_title">L\'app è oscurata</string>
 	<string name="dialog_app_is_obscured_info_neutral_button">Chiudi</string>
+	<string name="dialog_delete_cloud_connection_with_vaults_message">Sei sicuro di voler rimuovere questa connessione cloud?</string>
+	<string name="dialog_delete_cloud_connection_with_vaults_hint">Questa azione rimuoverà la connessione cloud e tutte le cassaforti di questo cloud.</string>
+	<string name="dialog_confirm_delete_multiple_title">Eliminare %1$d elementi?</string>
+	<string name="dialog_confirm_delete_multiple_message">Sei sicuro di voler eliminare questi elementi?</string>
+	<string name="dialog_confirm_delete_file_message">Sei sicuro di voler eliminare questo file?</string>
+	<string name="dialog_confirm_delete_folder_message">Questo eliminerà tutto il contenuto della cartella. Sei sicuro di voler eliminare questa cartella?</string>
+	<string name="dialog_biometric_auth_key_invalidated_title">Funzione di autenticazione biometrica disattivata</string>
+	<string name="dialog_biometric_auth_key_invalidated_message">Poiché la chiave è stata invalidata, la funzione di autenticazione biometrica è stata disattivata. Per riabilitarla, aprire le impostazioni di Cryptomator.</string>
+	<string name="dialog_enter_license_title">Fornire una licenza valida</string>
+	<string name="dialog_enter_license_content">Abbiamo rilevato che hai installato Cryptomator senza utilizzare Google Play Store. Fornisci una licenza valida, che può essere acquistata su <a href="https://cryptomator.org/android/">https://cryptomator.org/android/</a></string>
+	<string name="dialog_enter_license_not_valid_content">La licenza fornita non è valida. Assicurati di averla inserita correttamente.</string>
+	<string name="dialog_enter_license_no_content">Nessuna licenza fornita. Inserisci una licenza valida.</string>
 	<string name="dialog_enter_license_decline_button">Esci</string>
 	<string name="dialog_license_confirmation_title">Conferma licenza</string>
+	<string name="dialog_license_confirmation_message">Grazie %1$s per aver fornito una licenza valida.</string>
 	<string name="dialog_update_available_title">Aggiornamento disponibile</string>
 	<string name="dialog_update_available_message">Aggiorna Cryptomator all\'ultima versione. Premendo OK scaricheremo l\'applicazione in background e ti chiederemo di installarla.</string>
 	<string name="dialog_update_available_update">Aggiorna ora</string>
+	<string name="dialog_update_available_download_site">Vai al sito di download</string>
 	<string name="dialog_update_available_cancel">Dopo</string>
 	<string name="dialog_download_update_title">Download in esecuzione</string>
 	<string name="dialog_download_update_message">Scaricamento dell\'ultima versione di Cryptomator</string>
@@ -228,10 +284,21 @@
 	<string name="dialog_sym_link_message">Non puoi navigare in questo link simbolico</string>
 	<string name="dialog_sym_link_back_button">Indietro</string>
 	<string name="dialog_no_dir_file_title">Impossibile caricare il contenuto della directory</string>
+	<string name="dialog_no_dir_file_message">La cartella Cloud \'%1$s\' non ha un file di directory. Potrebbe essere che la cartella è stata creata su un altro dispositivo e non è stata ancora completamente sincronizzata sul cloud. Si prega di controllare nel cloud se esiste il seguente file:\n%2$s</string>
+	<string name="dialog_no_more_images_to_display">Niente più immagini da visualizzare&#8230;</string>
+	<string name="dialog_pcloud_credentials_updated_title">Credenziali di \'%1$s\' aggiornate</string>
+	<string name="dialog_pcloud_credentials_updated">Se hai intenzione di aggiungere un nuovo account pCloud, clicca su questo url <a href="https://www.pcloud.com">www.pcloud. om</a>, esci dall\'account corrente e clicca di nuovo su \'+\' in questa app per creare una nuova connessione cloud.</string>
+	<string name="permission_snackbar_auth_local_vault">Cryptomator ha bisogno dell\'accesso all\'archivio per utilizzare le cassaforti locali</string>
+	<string name="permission_snackbar_auth_auto_upload">Cryptomator ha bisogno di accesso all\'archivio per utilizzare il caricamento automatico delle foto</string>
 	<!-- # error reports -->
 	<!-- # misc -->
 	<!-- ## file size helper -->
 	<string name="file_size_zero">Zero kB</string>
+	<string name="file_size_unit_bytes">byte</string>
+	<string name="file_size_unit_kilo_bytes">kB</string>
+	<string name="file_size_unit_mega_bytes">MB</string>
+	<string name="file_size_unit_giga_bytes">GB</string>
+	<string name="file_size_unit_tera_bytes">TB</string>
 	<!-- ## date helper -->
 	<string name="time_unit_seconds_sg">secondo</string>
 	<string name="time_unit_seconds_pl">secondi</string>
@@ -254,8 +321,37 @@
 	<string name="dialog_unable_to_auto_upload_files_title">Impossibile caricare automaticamente i file</string>
 	<!-- notification -->
 	<string name="notification_unlocked">Casseforti sbloccate: %1$d</string>
+	<string name="notification_lock_all">Blocca tutto</string>
+	<string name="notification_cancel_auto_upload">Annulla caricamento</string>
+	<string name="notification_auto_upload_title">Caricamento automatico delle foto in esecuzione</string>
+	<string name="notification_auto_upload_message">Caricamento %1d/%2d</string>
+	<string name="notification_auto_upload_finished_title">Caricamento automatico delle foto terminato</string>
+	<string name="notification_auto_upload_failed_title">Caricamento automatico delle foto fallito</string>
+	<string name="notification_auto_upload_failed_general_error">Errore generale durante il caricamento.</string>
+	<string name="notification_auto_upload_failed_due_to_folder_not_exists">La cartella selezionata per il caricamento non è più disponibile. Vai alle impostazioni e sceglierne una nuova</string>
+	<string name="notification_auto_upload_failed_due_to_vault_locked">Cassaforte bloccata durante il caricamento, riapri la cassaforte per continuare</string>
+	<string name="notification_open_writable_file_title">Apri file scrivibile</string>
+	<string name="notification_open_writable_file_message">La cassaforte rimane sbloccata fino alla modifica completata</string>
+	<string name="notification_update_check_finished_latest">Ultima versione installata</string>
+	<string name="screen_settings_lru_cache">Cache</string>
+	<string name="screen_settings_lru_cache_toggle_summary">La cache ha recentemente acceso ai file crittografati localmente sul dispositivo per un riutilizzo successivo quando riaperto</string>
+	<string name="screen_settings_lru_cache_size">Dimensione totale della cache</string>
+	<string name="screen_settings_clear_lru_cache_size">Svuota Cache</string>
+	<string name="screen_settings_lru_cache_changed__restart_toast">Le modifiche saranno applicate al prossimo riavvio dell\' app</string>
+	<string name="screen_settings_license">Registrato per</string>
+	<string name="screen_settings_license_mail">%1$s</string>
+	<string name="screen_settings_check_updates">Controlla aggiornamenti</string>
+	<string name="screen_settings_last_check_updates">Ultima esecuzione %1$s</string>
+	<string name="dialog_cache_size_title">Dimensione cache per Cloud</string>
 	<!-- lock timeout names -->
+	<string name="lock_timeout_instant">Immediato</string>
+	<string name="lock_timeout_1m">1 minuto</string>
+	<string name="lock_timeout_2m">2 minuti</string>
+	<string name="lock_timeout_5m">5 minuti</string>
+	<string name="lock_timeout_10m">10 minuti</string>
+	<string name="lock_timeout_never">Mai</string>
 	<!-- cache size names -->
+	<string name="cache_size_50m">50 MB</string>
 	<string name="cache_size_100m">100 MB</string>
 	<string name="cache_size_250m">250 MB</string>
 	<string name="cache_size_500m">500 MB</string>
