@@ -63,8 +63,35 @@
 	<!-- # screen: file browser -->
 	<string name="screen_file_browser_default_title">Cofre</string>
 	<string name="screen_file_browser_add_existing_vault_extra_text">Selecionar arquivo masterkey</string>
+	<string name="screen_file_browser_create_new_vault_button_text">Coloque aqui</string>
+	<string name="screen_file_browser_create_new_vault_extra_text">Nome do Cofre: %1$s</string>
+	<plurals name="screen_file_browser_subtitle_move">
+		<item quantity="one">Mover %1$s para</item>
+		<item quantity="other">Mover %2$d itens para</item>
+	</plurals>
+	<string name="screen_file_browser_move_button_text">Mover </string>
+	<string name="screen_file_browser_msg_empty_folder">Pasta vazia</string>
+	<string name="screen_file_browser_file_info_label_date">modificado %1$s atrás</string>
+	<string name="screen_file_browser_share_intent_chooser_title">Compartilhar com</string>
+	<string name="screen_file_browser_share_destination_title">Escolha um destino</string>
 	<string name="screen_file_browser_share_button_text">Escolher</string>
+	<string name="screen_file_browser_nothing_to_share">Nada para compartilhar</string>
+	<string name="screen_file_browser_actions_title">Adicionar a %1$s</string>
+	<string name="screen_file_browser_action_create_folder">Criar pasta</string>
+	<string name="screen_file_browser_action_create_new_text_file">Criar arquivo de texto</string>
+	<string name="screen_file_browser_action_upload_files">Upload de arquivos</string>
+	<string name="screen_file_browser_upload_files_chooser_title">Arquivos</string>
+	<string name="screen_file_browser_msg_file_exported">Arquivo exportado</string>
+	<string name="screen_file_browser_msg_files_exported">Arquivos exportados</string>
+	<string name="screen_file_browser_nothing_to_export">Nada para exportar</string>
+	<string name="screen_file_browser_msg_creating_download_dir_failed">Falha ao criar diretório de download</string>
+	<string name="screen_file_browser_node_action_share">Compartilhar</string>
+	<string name="screen_file_browser_node_action_rename">Renomear</string>
 	<string name="screen_file_browser_node_action_edit_text">Editar</string>
+	<string name="screen_file_browser_node_action_export">Exportar</string>
+	<string name="screen_file_browser_node_action_delete">Deletar</string>
+	<string name="screen_file_browser_node_action_open_with_text">Abrir com&#8230;</string>
+	<string name="screen_file_browser_selection_mode_title_zero_elements">Selecionar itens</string>
 	<!-- ## screen: text editor -->
 	<!-- ## screen: share files -->
 	<!-- ## screen: choose cloud service -->
@@ -143,8 +170,21 @@
 	<!-- # dialogs -->
 	<string name="dialog_button_cancel">Cancelar</string>
 	<string name="dialog_enter_password_positive_button">Desbloquear</string>
+	<string name="dialog_change_password_msg_old_password_empty">Senha antiga não pode estar vazia.</string>
+	<string name="dialog_change_password_msg_new_password_empty">Nova senha não pode estar vazia.</string>
+	<string name="dialog_change_password_msg_password_mismatch">A nova senha não corresponde à senha digitada.</string>
 	<!-- Vault not found -->
+	<string name="dialog_vault_not_found_title">Cofre %1$s não encontrado</string>
+	<string name="dialog_vault_not_found_message">O cofre foi renomeado, movido ou excluído. Remova este formulário de cofre e adicione-o novamente para prosseguir. Remover agora?</string>
 	<string name="dialog_vault_not_found_positive_button_text">Remover</string>
+	<string name="dialog_existing_file_title">O arquivo já existe</string>
+	<string name="dialog_existing_file_positive_button">Substituir</string>
+	<string name="dialog_existing_file_message">Um arquivo chamado \'%1$s\' já existe.</string>
+	<string name="dialog_replace_negative_button_at_least_two_but_not_all_files_exist">Pular existente</string>
+	<string name="dialog_replace_positive_button_all_files_exist">Substituir todos</string>
+	<string name="dialog_replace_positive_button_some_files_exist">Substituir existente</string>
+	<string name="dialog_replace_positive_button_single_file_exists">Substituir</string>
+	<string name="dialog_replace_msg_single_file_exists">Um arquivo chamado \'%1$s\' já existe. Você deseja substituí-lo?</string>
 	<string name="dialog_unable_to_share_positive_button">Ok</string>
 	<string name="dialog_unsaved_changes_message">Você realmente deseja sair sem salvar?</string>
 	<string name="dialog_unsaved_changes_discard">Descartar</string>
