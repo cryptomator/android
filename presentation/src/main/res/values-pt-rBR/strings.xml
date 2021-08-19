@@ -92,14 +92,40 @@
 	<string name="screen_file_browser_node_action_delete">Deletar</string>
 	<string name="screen_file_browser_node_action_open_with_text">Abrir com&#8230;</string>
 	<string name="screen_file_browser_selection_mode_title_zero_elements">Selecionar itens</string>
+	<string name="screen_file_browser_selection_mode_title_one_or_more_elements">%1$d selecionado</string>
+	<string name="screen_file_browser_select_items">Selecione&#8230;</string>
+	<string name="screen_file_browser_select_all_items">Selecionar todos</string>
+	<string name="screen_file_browser_refresh_items">Atualizar</string>
+	<string name="screen_file_browser_no_connection_message">Sem conexão</string>
+	<string name="screen_file_browser_no_connection_button_text">Tentar Novamente</string>
 	<!-- ## screen: text editor -->
+	<string name="screen_text_editor_save_success">Salvo com sucesso</string>
 	<!-- ## screen: share files -->
+	<string name="screen_share_files_title">Salvar %1$s em&#8230;</string>
+	<string name="screen_share_files_content_text">texto</string>
+	<string name="screen_share_files_content_file">arquivo</string>
+	<string name="screen_share_files_content_files">Arquivos</string>
+	<string name="screen_share_files_msg_filenames_must_be_unique">Os nomes dos arquivos devem ser únicos, por favor, renomeie as duplicatas.</string>
+	<string name="screen_share_files_section_location">Salvar localização</string>
+	<string name="screen_share_files_save_button_text">Salvar</string>
+	<string name="screen_share_files_msg_success">Criptografia concluída</string>
 	<!-- ## screen: choose cloud service -->
+	<string name="screen_choose_cloud_service_title">Serviço de nuvem</string>
 	<!-- ## screen: cloud connections -->
+	<string name="screen_cloud_connections_title">Selecionar um local</string>
+	<string name="screen_cloud_connections_no_connections">Clique aqui para adicionar locais</string>
+	<string name="screen_cloud_error_webdav_not_supported">O servidor não parece ser compatível com WebDAV</string>
+	<string name="screen_cloud_local_custom_storage_title">Locais personalizados</string>
+	<string name="screen_cloud_local_default_storage_title">Armazenamento padrão</string>
+	<string name="screen_cloud_local_error_no_content_provider">Não há localizações adicionais disponíveis.</string>
 	<!-- ## screen: webdav settings -->
 	<string name="screen_webdav_settings_url_port_label">URL</string>
 	<string name="screen_webdav_settings_username_label">Usuário</string>
 	<string name="screen_webdav_settings_password_label">Senha</string>
+	<string name="screen_webdav_settings_done_button_text">Conectar</string>
+	<string name="screen_webdav_settings_msg_url_must_not_be_empty">A URL não pode estar vazia.</string>
+	<string name="screen_webdav_settings_msg_url_is_invalid">URL inválida.</string>
+	<string name="screen_webdav_settings_msg_username_must_not_be_empty">Nome de usuário não pode estar vazio.</string>
 	<string name="screen_webdav_settings_msg_password_must_not_be_empty">A senha não pode estar vazia.</string>
 	<!-- ## screen: s3 settings -->
 	<string name="screen_s3_settings_display_name_label">Nome de Exibição</string>
@@ -162,14 +188,38 @@
 	<string name="screen_settings_section_support">Suporte</string>
 	<string name="screen_settings_contact_label">Pedir ajuda</string>
 	<string name="screen_settings_debug_mode_label">Modo de depuração</string>
+	<string name="screen_settings_error_report_label">Enviar arquivos de log</string>
+	<string name="screen_settings_error_report_failed">Falha ao enviar</string>
+	<string name="screen_settings_security_label">Dicas de segurança</string>
+	<string name="screen_settings_section_version">Versão</string>
+	<string name="screen_settings_advanced_settings">Configurações Avançadas</string>
+	<string name="screen_settings_background_unlock_preparation_label">Desbloqueio acelerado</string>
+	<string name="screen_settings_background_unlock_preparation_label_summary">Baixe a configuração do cofre em segundo plano quando solicitado para inserir a senha ou o reconhecimento biométrico</string>
+	<string name="screen_settings_keep_unlocked_while_editing_files">Manter desbloqueado</string>
+	<string name="screen_settings_keep_unlocked_while_editing_files_summary">Mantenha cofres desbloqueados durante a edição de arquivos</string>
 	<!-- ## screen: cloud settings -->
+	<string name="screen_cloud_settings_webdav_connections">Conexões WebDAV</string>
+	<string name="screen_cloud_settings_pcloud_connections">conexões pCloud</string>
+	<string name="screen_cloud_settings_s3_connections">Conexões S3</string>
+	<string name="screen_cloud_settings_local_storage_locations">Local de armazenamento</string>
+	<string name="screen_cloud_settings_log_in_to">Iniciar sessão em</string>
+	<string name="screen_cloud_settings_sign_out_from_cloud">Sair de</string>
 	<!-- ## screen: licenses -->
 	<!-- ## screen: authenticate cloud -->
+	<string name="screen_authenticate_auth_authentication_failed">%1$s não pôde ser autenticado.</string>
+	<string name="screen_update_pcloud_connections_title">Atualizar credenciais do pCloud</string>
 	<!-- ## screen: empty dir file info -->
+	<string name="screen_empty_dir_file_info_title">\'%1$s\' inacessível</string>
+	<string name="screen_empty_dir_file_info_headline">O Cryptomator detectou que esta pasta está inacessível.</string>
+	<string name="screen_empty_dir_file_info_text">Pode ter sido excluído por outro aplicativo ou uma sincronização falha na nuvem poderia ter causado isso.\n\nTente restaurar o arquivo de diretório através do seu provedor de nuvem para uma versão anterior, que não está vazia. O arquivo em questão é:\n%1$s\n\nSe isso não funcionar, você pode usar o Sanitizer para verificar seu cofre para questões e possivelmente restaurar seus dados.</string>
+	<string name="screen_empty_dir_file_info_button_label">Mais detalhes sobre Sanitizer</string>
 	<!-- ## screen: insecure android version info -->
 	<!-- # dialogs -->
 	<string name="dialog_button_cancel">Cancelar</string>
 	<string name="dialog_enter_password_positive_button">Desbloquear</string>
+	<string name="dialog_change_password_old_password_label">Senha antiga</string>
+	<string name="dialog_change_password_new_password_label">Nova Senha</string>
+	<string name="dialog_change_password">Mudar Senha</string>
 	<string name="dialog_change_password_msg_old_password_empty">Senha antiga não pode estar vazia.</string>
 	<string name="dialog_change_password_msg_new_password_empty">Nova senha não pode estar vazia.</string>
 	<string name="dialog_change_password_msg_password_mismatch">A nova senha não corresponde à senha digitada.</string>
@@ -185,7 +235,20 @@
 	<string name="dialog_replace_positive_button_some_files_exist">Substituir existente</string>
 	<string name="dialog_replace_positive_button_single_file_exists">Substituir</string>
 	<string name="dialog_replace_msg_single_file_exists">Um arquivo chamado \'%1$s\' já existe. Você deseja substituí-lo?</string>
+	<string name="dialog_replace_msg_all_files_exists">Todos os arquivos já existem. Você quer substituí-los?</string>
+	<string name="dialog_replace_msg_some_files_exists">%1$d arquivos já existem. Deseja substituí-los?</string>
+	<string name="dialog_replace_title_single_file_exists">Substituir arquivo?</string>
+	<string name="dialog_replace_title_multiple_files_exist">Substituir arquivos?</string>
+	<string name="dialog_unable_to_share_title">Não foi possível compartilhar arquivos</string>
+	<string name="dialog_unable_to_share_message">Você não configurou nenhum cofre. Por favor, crie um novo cofre com o aplicativo Cryptomator primeiro.</string>
 	<string name="dialog_unable_to_share_positive_button">Ok</string>
+	<string name="dialog_unable_to_share_negative_button">Criar Cofre</string>
+	<string name="dialog_filetype_not_supported_title">Não é possível abrir %1$s</string>
+	<string name="dialog_filetype_not_supported_message">Por favor, baixe um aplicativo que pode abrir este arquivo ou você gostaria de salvar no seu dispositivo?</string>
+	<string name="dialog_rename_vault_title">Renomear cofre</string>
+	<string name="dialog_rename_node_folder_title">Renomear pasta</string>
+	<string name="dialog_rename_node_file_title">Renomear arquivo</string>
+	<string name="dialog_unsaved_changes_title">Você tem modificações não salvas</string>
 	<string name="dialog_unsaved_changes_message">Você realmente deseja sair sem salvar?</string>
 	<string name="dialog_unsaved_changes_discard">Descartar</string>
 	<string name="dialog_file_name_placeholder">texto.txt</string>
@@ -238,14 +301,64 @@
 	<string name="dialog_confirm_delete_file_message">Você tem certeza que deseja apagar este arquivo?</string>
 	<string name="dialog_confirm_delete_folder_message">Isto irá apagar todo o conteúdo da pasta. Tem certeza que deseja excluir esta pasta?</string>
 	<string name="dialog_biometric_auth_key_invalidated_title">Recurso de autenticação biométrica desativado</string>
+	<string name="dialog_biometric_auth_key_invalidated_message">Como a chave foi invalidada, o recurso de autenticação biométrica foi desativado. Para reativar, abra as configurações do Cryptomator.</string>
+	<string name="dialog_enter_license_title">Fornecer uma licença válida</string>
+	<string name="dialog_enter_license_content">Nós detectamos que você instalou o Cryptomator sem usar a Google Play Store. Forneça uma licença válida, que pode ser comprada em <a href="https://cryptomator.org/android/">https://cryptomator.org/android/</a></string>
+	<string name="dialog_enter_license_not_valid_content">A licença fornecida não é válida. Verifique se você digitou corretamente.</string>
+	<string name="dialog_enter_license_no_content">Nenhuma licença fornecida. Por favor insira uma licença válida.</string>
+	<string name="dialog_enter_license_decline_button">Sair</string>
+	<string name="dialog_license_confirmation_title">Confirmação de licença</string>
+	<string name="dialog_license_confirmation_message">Obrigado %1$s por fornecer a sua licença válida.</string>
+	<string name="dialog_update_available_title">Atualização Disponível</string>
+	<string name="dialog_update_available_message">Atualize o Cryptomator para a versão mais recente. Pressionando OK, baixaremos o aplicativo em segundo plano e pediremos que você o instale.</string>
+	<string name="dialog_update_available_update">Atualizar agora</string>
+	<string name="dialog_update_available_download_site">Ir para a página de download</string>
+	<string name="dialog_update_available_cancel">Depois</string>
+	<string name="dialog_download_update_title">Download em execução</string>
+	<string name="dialog_download_update_message">Baixando a versão mais recente do Cryptomator</string>
+	<string name="dialog_sym_link_title">A pasta é um link simbólico</string>
+	<string name="dialog_sym_link_message">Não é possível entrar neste link simbólico</string>
 	<string name="dialog_sym_link_back_button">Voltar</string>
+	<string name="dialog_no_dir_file_title">Não foi possível carregar o conteúdo do diretório</string>
+	<string name="dialog_no_dir_file_message">A pasta na nuvem \'%1$s\' não tem um arquivo de diretório. A pasta pode ter sido criada em outro dispositivo e ainda não foi totalmente sincronizada com a nuvem. Por favor, verifique em sua nuvem se o seguinte arquivo existe:\n%2$s</string>
+	<string name="dialog_no_more_images_to_display">Sem mais imagens para exibir&#8230;</string>
+	<string name="dialog_pcloud_credentials_updated_title">Credenciais de \'%1$s\' atualizadas</string>
+	<string name="dialog_pcloud_credentials_updated">Se você pretendia adicionar uma nova conta pCloud, clique neste url <a href="https://www.pcloud.com">www.pcloud. um</a>, sair da conta atual e clicar novamente em \'+\' neste aplicativo para criar uma nova conexão com a nuvem.</string>
+	<string name="permission_snackbar_auth_local_vault">Cryptomator precisa de permissão de acesso ao armazenamento para fazer upload de arquivos</string>
+	<string name="permission_snackbar_auth_auto_upload">Cryptomator precisa de permissão de acesso ao armazenamento para fazer upload de arquivos</string>
 	<!-- # error reports -->
 	<!-- # misc -->
 	<!-- ## file size helper -->
+	<string name="file_size_zero">Zero KB</string>
+	<string name="file_size_unit_bytes">bytes</string>
+	<string name="file_size_unit_kilo_bytes">kB</string>
+	<string name="file_size_unit_mega_bytes">MB</string>
+	<string name="file_size_unit_giga_bytes">GB</string>
+	<string name="file_size_unit_tera_bytes">TB</string>
 	<!-- ## date helper -->
+	<string name="time_unit_seconds_sg">segundo</string>
+	<string name="time_unit_seconds_pl">segundos</string>
+	<string name="time_unit_minutes_sg">minuto</string>
 	<string name="time_unit_minutes_pl">minutos</string>
+	<string name="time_unit_hours_sg">hora</string>
+	<string name="time_unit_hours_pl">horas</string>
+	<string name="time_unit_days_sg">dia</string>
+	<string name="time_unit_days_pl">dias</string>
+	<string name="time_unit_weeks_sg">semana</string>
+	<string name="time_unit_weeks_pl">Semanas</string>
+	<string name="time_unit_months_sg">mês</string>
+	<string name="time_unit_months_pl">meses</string>
+	<string name="time_unit_years_sg">ano</string>
+	<string name="time_unit_years_pl">anos</string>
 	<!-- ## biometric authentication -->
+	<string name="dialog_biometric_auth_title">Acesso biométrico</string>
+	<string name="dialog_biometric_auth_message">Faça login usando suas credenciais biométricas</string>
+	<string name="dialog_biometric_auth_use_password">Usar senha do cofre</string>
+	<string name="dialog_unable_to_auto_upload_files_title">Não foi possível carregar arquivos automaticamente</string>
 	<!-- notification -->
+	<string name="notification_unlocked">Cofres desbloqueados: %1$d</string>
+	<string name="notification_timeout">Autobloquear em %1$s</string>
+	<string name="notification_lock_all">Bloquear todos</string>
 	<string name="notification_cancel_auto_upload">Cancelar upload</string>
 	<string name="notification_auto_upload_title">Upload automático de fotos em execução</string>
 	<string name="notification_auto_upload_message">Uploading %1d/%2d</string>
