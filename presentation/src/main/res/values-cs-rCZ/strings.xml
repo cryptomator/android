@@ -184,6 +184,7 @@
 	<string name="dialog_no_screen_lock_hint">Není nastaven zámek obrazovky. Chcete-li vaše přihlašovací údaje uložit bezpečným způsobem, klikněte na OK a nastavte gesto nebo heslo.</string>
 	<string name="dialog_no_screen_lock_title">Nastavit zámek obrazovky?</string>
 	<string name="dialog_no_screen_lock_checkbox">Nastavit zámek obrazovky</string>
+	<string name="dialog_no_biometric_auth_set_up_title">V systému není nastavena žádná základní autentizace</string>
 	<string name="dialog_app_is_obscured_info_neutral_button">Zavřít</string>
 	<string name="dialog_sym_link_back_button">Zpět</string>
 	<!-- # error reports -->
