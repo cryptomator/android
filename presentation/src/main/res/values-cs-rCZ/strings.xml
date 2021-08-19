@@ -86,20 +86,70 @@
 	<string name="screen_file_browser_msg_file_exported">Soubor exportován</string>
 	<string name="screen_file_browser_msg_files_exported">Soubory exportovány</string>
 	<string name="screen_file_browser_nothing_to_export">Nic k exportu</string>
+	<string name="screen_file_browser_msg_creating_download_dir_failed">Vytvoření adresáře ke stažení se nezdařilo</string>
+	<string name="screen_file_browser_node_action_share">Sdílet</string>
+	<string name="screen_file_browser_node_action_rename">Přejmenovat</string>
 	<string name="screen_file_browser_node_action_edit_text">Upravit</string>
+	<string name="screen_file_browser_node_action_export">Exportovat</string>
+	<string name="screen_file_browser_node_action_delete">Smazat</string>
+	<string name="screen_file_browser_node_action_open_with_text">Otevřít pomocí&#8230;</string>
+	<string name="screen_file_browser_selection_mode_title_zero_elements">Vybrat položky</string>
+	<string name="screen_file_browser_selection_mode_title_one_or_more_elements">%1$d vybrána</string>
+	<string name="screen_file_browser_select_items">Vybrat &#8230;</string>
+	<string name="screen_file_browser_select_all_items">Vybrat vše</string>
+	<string name="screen_file_browser_refresh_items">Načíst znovu</string>
+	<string name="screen_file_browser_no_connection_message">Žádné připojení</string>
+	<string name="screen_file_browser_no_connection_button_text">Opakovat</string>
 	<!-- ## screen: text editor -->
+	<string name="screen_text_editor_save_success">Úspěšně uloženo</string>
 	<!-- ## screen: share files -->
+	<string name="screen_share_files_title">Uložit %1$s do&#8230;</string>
+	<string name="screen_share_files_content_text">text</string>
+	<string name="screen_share_files_content_file">soubor</string>
+	<string name="screen_share_files_content_files">soubory</string>
+	<string name="screen_share_files_msg_filenames_must_be_unique">Názvy souborů musí být jedinečné, prosím přejmenujte duplicity.</string>
+	<string name="screen_share_files_section_location">Umístění pro ukládání</string>
+	<string name="screen_share_files_save_button_text">Uložit</string>
+	<string name="screen_share_files_msg_success">Šifrování dokončeno</string>
 	<!-- ## screen: choose cloud service -->
+	<string name="screen_choose_cloud_service_title">Cloudová služba</string>
 	<!-- ## screen: cloud connections -->
+	<string name="screen_cloud_connections_title">Vyberte umístění</string>
+	<string name="screen_cloud_connections_no_connections">Klikněte zde pro přidání umístění</string>
+	<string name="screen_cloud_error_webdav_not_supported">Server není kompatibilní s WebDAV</string>
+	<string name="screen_cloud_local_custom_storage_title">Vlastní umístění</string>
+	<string name="screen_cloud_local_default_storage_title">Výchozí úložiště</string>
+	<string name="screen_cloud_local_error_no_content_provider">Nejsou k dispozici žádná další umístění.</string>
 	<!-- ## screen: webdav settings -->
 	<string name="screen_webdav_settings_url_port_label">URL</string>
 	<string name="screen_webdav_settings_username_label">Uživatel</string>
 	<string name="screen_webdav_settings_password_label">Heslo</string>
+	<string name="screen_webdav_settings_done_button_text">Připojit</string>
+	<string name="screen_webdav_settings_msg_url_must_not_be_empty">Adresa URL nemůže být prázdná.</string>
+	<string name="screen_webdav_settings_msg_url_is_invalid">URL adresa je neplatná.</string>
+	<string name="screen_webdav_settings_msg_username_must_not_be_empty">Uživatelské jméno nesmí být prázdné.</string>
+	<string name="screen_webdav_settings_msg_password_must_not_be_empty">Heslo nemůže být prázdné.</string>
 	<!-- ## screen: s3 settings -->
+	<string name="screen_s3_settings_display_name_label">Zobrazované jméno</string>
+	<string name="screen_s3_settings_access_key_label">Přístupový klíč</string>
+	<string name="screen_s3_settings_secret_key_label">Tajný klíč</string>
+	<string name="screen_s3_settings_bucket_label">Stávající bucket</string>
+	<string name="screen_s3_settings_endpoint_label">Koncový bod</string>
+	<string name="screen_s3_settings_region_label">Oblast</string>
+	<string name="screen_s3_settings_msg_display_name_not_empty">Název nemůže být prázdný</string>
+	<string name="screen_s3_settings_msg_access_key_not_empty">Přístupový klíč nemůže být prázdný</string>
+	<string name="screen_s3_settings_msg_secret_key_not_empty">Tajný klíč nemůže být prázdný</string>
+	<string name="screen_s3_settings_msg_bucket_not_empty">Bucket nemůže být prázdný</string>
+	<string name="screen_s3_settings_msg_endpoint_and_region_not_empty">Koncový bod nebo oblast nemůže být prázdný</string>
 	<!-- ## screen: enter vault name -->
+	<string name="screen_enter_vault_name_msg_name_empty">Je potřeba zadat název trezoru.</string>
+	<string name="screen_enter_vault_name_vault_label">Název trezoru</string>
 	<string name="screen_enter_vault_name_button_text">Vytvořit</string>
 	<!-- ## screen: set password -->
+	<string name="screen_set_password_title">Nastavit heslo</string>
+	<string name="screen_set_password_msg_password_mismatch">Hesla se neshodují.</string>
 	<string name="screen_set_password_button_text">Hotovo</string>
+	<string name="screen_set_password_hint">DŮLEŽITÉ: Pokud zapomenete své heslo, neexistuje způsob jak obnovit vaše data.</string>
 	<string name="screen_set_password_retype_password_label">Potvrzení hesla</string>
 	<string name="screen_set_password_strength_indicator_0">Příliš slabé k vytvoření trezoru</string>
 	<string name="screen_set_password_strength_indicator_1">slabé</string>
@@ -159,14 +209,64 @@
 	<!-- ## screen: licenses -->
 	<!-- ## screen: authenticate cloud -->
 	<string name="screen_authenticate_auth_authentication_failed">%1$s nebylo možno ověřit.</string>
+	<string name="screen_update_pcloud_connections_title">Aktualizovat přihlašovací údaje k pCloudu</string>
 	<!-- ## screen: empty dir file info -->
+	<string name="screen_empty_dir_file_info_title">\'%1$s\' nedostupný</string>
+	<string name="screen_empty_dir_file_info_headline">Cryptomator zjistil, že tato složka je nedostupná.</string>
+	<string name="screen_empty_dir_file_info_text">Mohlo dojít ke smazání jinou aplikací nebo to mohla způsobit chybná synchronizace cloudu.\n\nPokuste se obnovit soubor adresáře přes svého poskytovatele cloudu na předchozí verzi, která není prázdná. Jedná se o soubor:\n%1$s\n\nPokud nedojde k opravě, můžete použít Sanitizer ke kontrole problémů s trezorem a případně obnovili svá data.</string>
+	<string name="screen_empty_dir_file_info_button_label">Více informací o Sanitizeru</string>
 	<!-- ## screen: insecure android version info -->
 	<!-- # dialogs -->
 	<string name="dialog_button_cancel">Zrušit</string>
 	<string name="dialog_enter_password_positive_button">Odemknout</string>
+	<string name="dialog_change_password_old_password_label">Staré heslo</string>
+	<string name="dialog_change_password_new_password_label">Nové heslo</string>
+	<string name="dialog_change_password">Změnit heslo</string>
+	<string name="dialog_change_password_msg_old_password_empty">Staré heslo nemůže být prázdné.</string>
+	<string name="dialog_change_password_msg_new_password_empty">Nové heslo nemůže být prázdné.</string>
+	<string name="dialog_change_password_msg_password_mismatch">Hesla se neshodují.</string>
 	<!-- Vault not found -->
+	<string name="dialog_vault_not_found_title">Trezor %1$s nebyl nalezen</string>
+	<string name="dialog_vault_not_found_message">Trezor byl přejmenován, přesunut nebo smazán. Odstraňte tento trezor a přidejte jej znovu pro pokračování. Odstranit nyní?</string>
 	<string name="dialog_vault_not_found_positive_button_text">Odstranit</string>
+	<string name="dialog_existing_file_title">Soubor již existuje</string>
+	<string name="dialog_existing_file_positive_button">Nahradit</string>
+	<string name="dialog_existing_file_message">Soubor s názvem \'%1$s\' již existuje.</string>
+	<string name="dialog_replace_negative_button_at_least_two_but_not_all_files_exist">Přeskočit existující</string>
+	<string name="dialog_replace_positive_button_all_files_exist">Nahradit vše</string>
+	<string name="dialog_replace_positive_button_some_files_exist">Nahradit stávající</string>
+	<string name="dialog_replace_positive_button_single_file_exists">Nahradit</string>
+	<string name="dialog_replace_msg_single_file_exists">Soubor s názvem \'%1$s\' již existuje. Chcete jej nahradit?</string>
+	<string name="dialog_replace_msg_all_files_exists">Všechny soubory již existují. Chcete je nahradit?</string>
+	<string name="dialog_replace_msg_some_files_exists">%1$d souborů již existuje. Chcete je nahradit?</string>
+	<string name="dialog_replace_title_single_file_exists">Nahradit soubor?</string>
+	<string name="dialog_replace_title_multiple_files_exist">Nahradit soubory?</string>
+	<string name="dialog_unable_to_share_title">Nelze sdílet soubory</string>
+	<string name="dialog_unable_to_share_message">Nenastavili jste žádné trezory. Vytvořte prosím nejprve nový trezor pomocí aplikace Cryptomator.</string>
 	<string name="dialog_unable_to_share_positive_button">OK</string>
+	<string name="dialog_unable_to_share_negative_button">Vytvořit trezor</string>
+	<string name="dialog_filetype_not_supported_title">Nelze otevřít %1$s</string>
+	<string name="dialog_filetype_not_supported_message">Stáhněte si prosím aplikaci, která umí tento soubor otevřít nebo jej chcete uložit do svého zařízení?</string>
+	<string name="dialog_rename_vault_title">Přejmenovat trezor</string>
+	<string name="dialog_rename_node_folder_title">Přejmenovat složku</string>
+	<string name="dialog_rename_node_file_title">Přejmenovat soubor</string>
+	<string name="dialog_unsaved_changes_title">Máte neuložené změny</string>
+	<string name="dialog_unsaved_changes_message">Opravdu chcete skončit bez uložení?</string>
+	<string name="dialog_unsaved_changes_discard">Zahodit</string>
+	<string name="dialog_file_name_placeholder">text.txt</string>
+	<string name="dialog_delete_vault_message">Jste si jisti, že chcete odstranit tento trezor?</string>
+	<string name="dialog_delete_vault_hint">Tato akce odstraní trezor pouze z tohoto seznamu a neodstraní jej fyzicky.</string>
+	<string name="dialog_upload_file_title">Nahrávání&#8230;</string>
+	<string name="dialog_upload_file_remaining">Soubor %1$d z %2$d</string>
+	<string name="dialog_export_file_title">Exportuji (%1$d/%2$d)</string>
+	<string name="dialog_progress_please_wait">Prosím čekejte&#8230;</string>
+	<string name="dialog_progress_creating_folder">Vytvářím složku&#8230;</string>
+	<string name="dialog_progress_creating_text_file">Vytvářím textový soubor&#8230;</string>
+	<string name="action_progress_authentication">Autentifikace&#8230;</string>
+	<string name="action_progress_renaming">Přejmenování&#8230;</string>
+	<string name="action_progress_deleting">Odstraňování&#8230;</string>
+	<string name="dialog_progress_unlocking_vault">Odemykání trezoru&#8230;</string>
+	<string name="dialog_progress_change_password">Změna hesla&#8230;</string>
 	<string name="dialog_progress_creating_vault">Vytváření trezoru&#8230;</string>
 	<string name="dialog_progress_upload_file">Nahrávání&#8230;</string>
 	<string name="dialog_progress_download_file">Stahování&#8230;</string>
@@ -219,22 +319,92 @@
 	<string name="dialog_download_update_title">Probíhá stahování</string>
 	<string name="dialog_download_update_message">Stahování nejnovější verze Cryptomatoru</string>
 	<string name="dialog_sym_link_title">Složka je symbolický odkaz</string>
+	<string name="dialog_sym_link_message">Nemůžete přejít na tento symbolický odkaz</string>
 	<string name="dialog_sym_link_back_button">Zpět</string>
+	<string name="dialog_no_dir_file_title">Obsah adresáře nelze načíst</string>
+	<string name="dialog_no_dir_file_message">Složka Cloudu \'%1$s\' nemá adresářový soubor. Mohlo dojít k tomu, že složka byla vytvořena na jiném zařízení a ještě nebyla plně synchronizována s cloudem. Prosím zkontrolujte v cloudu, zda-li existuje následující soubor:\n%2$s</string>
+	<string name="dialog_no_more_images_to_display">Žádné další obrázky k zobrazení&#8230;</string>
+	<string name="dialog_pcloud_credentials_updated_title">Údaje o \'%1$s\' byly aktualizovány</string>
+	<string name="dialog_pcloud_credentials_updated">Pokud máte v úmyslu přidat nový účet na pCloud, klikněte na tento odkaz <a href="https://www.pcloud.com">www.pcloud. om</a>, odhlaste se z aktuálního účtu a znovu klikněte na \'+\' v této aplikaci pro vytvoření nového cloudového připojení.</string>
+	<string name="permission_snackbar_auth_local_vault">Cryptomator potřebuje přístup k úložišti, aby mohl používat místní trezory</string>
+	<string name="permission_snackbar_auth_auto_upload">Cryptomator potřebuje přístup k úložišti pro automatické nahrávání fotek</string>
 	<!-- # error reports -->
 	<!-- # misc -->
 	<!-- ## file size helper -->
+	<string name="file_size_zero">0 kB</string>
+	<string name="file_size_unit_bytes">bajty</string>
+	<string name="file_size_unit_kilo_bytes">kB</string>
+	<string name="file_size_unit_mega_bytes">MB</string>
+	<string name="file_size_unit_giga_bytes">GB</string>
+	<string name="file_size_unit_tera_bytes">TB</string>
 	<!-- ## date helper -->
+	<string name="time_unit_seconds_sg">vteřina</string>
+	<string name="time_unit_seconds_pl">vteřiny</string>
+	<string name="time_unit_minutes_sg">minuta</string>
 	<string name="time_unit_minutes_pl">minut</string>
+	<string name="time_unit_hours_sg">hodina</string>
+	<string name="time_unit_hours_pl">hodiny</string>
+	<string name="time_unit_days_sg">den</string>
+	<string name="time_unit_days_pl">dny</string>
+	<string name="time_unit_weeks_sg">týden</string>
+	<string name="time_unit_weeks_pl">týdny</string>
+	<string name="time_unit_months_sg">měsíc</string>
+	<string name="time_unit_months_pl">měsíce</string>
+	<string name="time_unit_years_sg">rok</string>
+	<string name="time_unit_years_pl">roky</string>
 	<!-- ## biometric authentication -->
+	<string name="dialog_biometric_auth_title">Biometrické přihlášení</string>
+	<string name="dialog_biometric_auth_message">Přihlaste se pomocí Vašich biometrických údajů</string>
+	<string name="dialog_biometric_auth_use_password">Použít heslo k trezoru</string>
+	<string name="dialog_unable_to_auto_upload_files_title">Nepodařilo se automaticky nahrát soubor</string>
 	<!-- notification -->
+	<string name="notification_unlocked">Trezory odemčeny: %1$d</string>
+	<string name="notification_timeout">Automatické uzamknutí za %1$s</string>
+	<string name="notification_lock_all">Zamknout vše</string>
+	<string name="notification_cancel_auto_upload">Zrušit nahrávání</string>
+	<string name="notification_auto_upload_title">Automatické nahrávání fotek právě probíhá</string>
+	<string name="notification_auto_upload_message">Nahrávání %1d/%2d</string>
+	<string name="notification_auto_upload_finished_title">Automatické nahrávání fotek dokončeno</string>
+	<string name="notification_auto_upload_finished_message">%1$d obrázků nahráno do trezoru</string>
+	<string name="notification_auto_upload_failed_title">Automatické nahrávání fotek se nezdařilo</string>
+	<string name="notification_auto_upload_failed_general_error">Při nahrávání došlo k obecné chybě.</string>
+	<string name="notification_auto_upload_failed_due_to_folder_not_exists">Vybraná složka pro nahrání již není k dispozici. Přejděte do nastavení a vyberte novou složku</string>
+	<string name="notification_auto_upload_failed_due_to_vault_locked">Během nahrávání došlo k uzamčení trezoru, pro pokračování trezor prosím znovu odemkněte</string>
+	<string name="notification_open_writable_file_title">Otevřít zapisovatelný soubor</string>
+	<string name="notification_open_writable_file_message">Trezor zůstane odemknutý dokud nejsou dokončené úpravy</string>
+	<string name="notification_update_check_finished_latest">Nainstalována aktuální verze</string>
+	<string name="screen_settings_lru_cache">Mezipaměť</string>
+	<string name="screen_settings_lru_cache_toggle_summary">Uložit nedávno otevřené soubory šifrovaně do lokální mezipaměti pro pozdější použití</string>
+	<string name="screen_settings_lru_cache_size">Velikost mezipaměti</string>
+	<string name="screen_settings_clear_lru_cache_size">Vyčistit mezipaměť</string>
 	<string name="screen_settings_lru_cache_changed__restart_toast">Změny budou použity při příštím restartu aplikace</string>
 	<string name="screen_settings_license">Registrováno na</string>
 	<string name="screen_settings_license_mail">%1$s</string>
 	<string name="dialog_settings_update_check_interval_title">Interval kontroly aktualizací</string>
+	<string name="screen_settings_check_updates">Zkontrolovat aktualizace</string>
+	<string name="screen_settings_last_check_updates">Poslední kontrola %1$s</string>
+	<string name="dialog_cache_size_title">Velikost mezipaměti na Cloud</string>
 	<!-- lock timeout names -->
+	<string name="lock_timeout_instant">Okamžitě</string>
+	<string name="lock_timeout_1m">1 minuta</string>
+	<string name="lock_timeout_2m">2 minuty</string>
+	<string name="lock_timeout_5m">5 minut</string>
+	<string name="lock_timeout_10m">10 minut</string>
+	<string name="lock_timeout_never">Nikdy</string>
 	<!-- cache size names -->
+	<string name="cache_size_50m">50 MB</string>
+	<string name="cache_size_100m">100 MB</string>
+	<string name="cache_size_250m">250 MB</string>
+	<string name="cache_size_500m">500 MB</string>
+	<string name="cache_size_1000m">1 GB</string>
+	<string name="cache_size_5000m">5 GB</string>
 	<!-- screen scheme mode names -->
+	<string name="screen_settings_style_mode">Vzhled</string>
+	<string name="follow_system">Automaticky (použít dle systému)</string>
 	<string name="light">Světlý</string>
 	<string name="dark">Tmavý</string>
 	<!-- update interval names -->
+	<string name="update_interval_1d">Jednou denně</string>
+	<string name="update_interval_1w">Jednou týdně</string>
+	<string name="update_interval_1m">Jednou měsíčně</string>
 </resources>
