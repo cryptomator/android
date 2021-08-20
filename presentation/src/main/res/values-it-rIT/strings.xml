@@ -25,10 +25,14 @@
 	<string name="error_hash_mismatch_update">Controllo di aggiornamento non riuscito. L\'hash calcolato non corrisponde al file caricato</string>
 	<string name="error_update_no_internet">Controllo aggiornamento non riuscito. Nessuna connessione internet.</string>
 	<string name="error_failed_to_decrypt_webdav_password">Impossibile decrittografare la password WebDAV, aggiungere nuovamente nelle impostazioni</string>
+	<string name="error_play_services_not_available">Play Services non installati</string>
 	<string name="error_biometric_auth_aborted">Autenticazione biometrica interrotta</string>
 	<string name="error_vault_version_mismatch">La versione specificata in vault.cryptomator è diversa da masterkey.cryptomator</string>
+	<string name="error_vault_key_invalid">vault.cryptomator non corrisponde a questa masterkey.cryptomator</string>
 	<string name="error_vault_config_loading">Errore generale durante il caricamento della configurazione della cassaforte</string>
 	<string name="error_file_not_found_after_opening_using_3party">Il file locale non è più presente dopo essere tornato a Cryptomator. Le eventuali modifiche non possono essere riprodotte nel cloud.</string>
+	<string name="error_no_such_bucket">Nessun secchio simile</string>
+	<string name="error_masterkey_location_not_supported">Posizione della Chiave Principale Personalizzata non ancora supportata</string>
 	<!-- # clouds -->
 	<!-- ## cloud names -->
 	<string name="cloud_names_local_storage">Archivio locale</string>
@@ -127,11 +131,13 @@
 	<string name="screen_s3_settings_display_name_label">Nome Visualizzato</string>
 	<string name="screen_s3_settings_access_key_label">Chiave di accesso</string>
 	<string name="screen_s3_settings_secret_key_label">Chiave segreta</string>
+	<string name="screen_s3_settings_bucket_label">Secchio Esistente</string>
 	<string name="screen_s3_settings_endpoint_label">Endpoint</string>
 	<string name="screen_s3_settings_region_label">Paese</string>
 	<string name="screen_s3_settings_msg_display_name_not_empty">Il nome visualizzato non può essere vuoto</string>
 	<string name="screen_s3_settings_msg_access_key_not_empty">La chiave di accesso non può essere vuota</string>
 	<string name="screen_s3_settings_msg_secret_key_not_empty">La chiave segreta non può essere vuota</string>
+	<string name="screen_s3_settings_msg_bucket_not_empty">Il secchio non può essere vuoto</string>
 	<string name="screen_s3_settings_msg_endpoint_and_region_not_empty">Endpoint o il Paese non possono essere vuoti</string>
 	<!-- ## screen: enter vault name -->
 	<string name="screen_enter_vault_name_msg_name_empty">Il nome della cassaforte non può essere vuoto.</string>
@@ -161,6 +167,8 @@
 	<string name="screen_settings_section_search">Cerca</string>
 	<string name="screen_settings_live_search">Ricerca in tempo reale</string>
 	<string name="screen_settings_live_search_summary">Aggiorna i risultati della ricerca durante l\'inserimento della query</string>
+	<string name="screen_settings_glob_search">Cerca di usare lo schema a globo</string>
+	<string name="screen_settings_glob_search_summary">Usa lo schema a globo corrispondente come alice.*.jpg</string>
 	<string name="screen_settings_section_auto_lock">Blocco automatico</string>
 	<string name="screen_settings_auto_lock_timeout">Blocca dopo</string>
 	<string name="screen_settings_auto_lock_on_screen_lock">Quando lo schermo è disabilitato</string>
