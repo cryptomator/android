@@ -159,13 +159,16 @@
 	<string name="screen_settings_secure_screen">スクリーンショットをブロック</string>
 	<string name="screen_settings_section_search">検索</string>
 	<string name="screen_settings_live_search">ライブ検索</string>
+	<string name="screen_settings_section_auto_lock">自動的な施錠</string>
 	<string name="screen_settings_auto_lock_timeout">次の場合にロックする</string>
 	<string name="screen_settings_auto_lock_on_screen_lock">画面がロックされたとき</string>
 	<string name="screen_settings_section_auto_photo_upload">自動的に画像をアップロード</string>
 	<string name="screen_settings_section_auto_photo_upload_vault">アップロードする金庫を選択</string>
 	<string name="screen_settings_section_auto_photo_upload_toggle">有効</string>
+	<string name="screen_settings_section_auto_photo_upload_toggle_summary">バックグラウンドで画像を取得し、選択された金庫が解錠されるとアップロードを開始します</string>
 	<string name="screen_settings_section_auto_photo_upload_only_wifi_toggle">WIFI を使用しているときのみアップロード</string>
 	<string name="screen_settings_section_auto_photo_upload_including_videos">ビデオをアップロード</string>
+	<string name="screen_settings_auto_photo_upload_title">&#8230; へのファイルの自動アップロードを保存</string>
 	<string name="screen_settings_website_label">Cryptomator のウェブサイト</string>
 	<string name="screen_settings_twitter_label">Twitter でフォローする</string>
 	<string name="screen_settings_facebook_label">Facebook でいいねする</string>
@@ -215,8 +218,13 @@
 	<string name="dialog_existing_file_title">ファイルが既に存在します</string>
 	<string name="dialog_existing_file_positive_button">置換</string>
 	<string name="dialog_existing_file_message">ファイル名 %1$s が既に存在します。</string>
+	<string name="dialog_replace_negative_button_at_least_two_but_not_all_files_exist">既存をスキップ</string>
 	<string name="dialog_replace_positive_button_all_files_exist">すべて置換</string>
+	<string name="dialog_replace_positive_button_some_files_exist">今のものを置き換える</string>
 	<string name="dialog_replace_positive_button_single_file_exists">置換</string>
+	<string name="dialog_replace_msg_single_file_exists">ファイル名 \"%1$s\" が既に存在します。置き換えますか?</string>
+	<string name="dialog_replace_msg_all_files_exists">すべてのファイルが既に存在します。すべて置き換えますか?</string>
+	<string name="dialog_replace_msg_some_files_exists">%1$d ファイルが既に存在します。すべて置き換えますか?</string>
 	<string name="dialog_replace_title_single_file_exists">ファイルを置き換えますか?</string>
 	<string name="dialog_replace_title_multiple_files_exist">ファイルを置き換えますか?</string>
 	<string name="dialog_unable_to_share_title">ファイルを共有できません</string>
@@ -233,6 +241,7 @@
 	<string name="dialog_unsaved_changes_discard">破棄</string>
 	<string name="dialog_file_name_placeholder">text.txt</string>
 	<string name="dialog_delete_vault_message">本当にこの金庫を削除しますか？</string>
+	<string name="dialog_delete_vault_hint">この操作は、金庫のリストからのみ削除し、物理的な削除は行いません。</string>
 	<string name="dialog_upload_file_title">アップロード中&#8230;</string>
 	<string name="dialog_upload_file_remaining">ファイル %1$d/%2$d</string>
 	<string name="dialog_export_file_title">エクスポート中 (%1$d/%2$d)</string>
@@ -255,8 +264,10 @@
 	<string name="dialog_accept_ssl_certificate_hint">SSL 証明書が無効です。それでも信頼しますか?</string>
 	<string name="dialog_accept_ssl_certificate_details">詳細</string>
 	<string name="dialog_accept_ssl_certificate_security_checkbox">これはセキュリティ リスクになる可能性があります。リスクについて理解していますか</string>
+	<string name="dialog_http_security_hint">HTTP の使用は安全ではありません。代わりに HTTPS を使用することを推奨します。リスクを承知の上であれば HTTP をご使用ください。</string>
 	<string name="dialog_http_security_checkbox">HTTPS に変更</string>
 	<string name="dialog_http_security_title">HTTPS を使用しますか?</string>
+	<string name="dialog_no_screen_lock_hint">画面ロックが設定されていません。認証情報を安全に保存するには、パターンまたはパスワードを設定してください。</string>
 	<string name="dialog_no_screen_lock_title">画面ロックを設定しますか?</string>
 	<string name="dialog_no_screen_lock_checkbox">画面ロックを設定</string>
 	<string name="dialog_no_biometric_auth_set_up_title">システムに基本的な認証が設定されていません</string>
@@ -278,11 +289,15 @@
 	<string name="dialog_biometric_auth_key_invalidated_title">生体認証機能が無効になりました</string>
 	<string name="dialog_enter_license_title">有効なライセンスを入力してください</string>
 	<string name="dialog_enter_license_decline_button">終了</string>
+	<string name="dialog_update_available_title">利用可能なアップデートがあります</string>
 	<string name="dialog_update_available_update">すぐに更新</string>
 	<string name="dialog_update_available_download_site">ダウンロード サイトに行く</string>
 	<string name="dialog_update_available_cancel">あとで</string>
 	<string name="dialog_download_update_title">ダウンロード中</string>
+	<string name="dialog_download_update_message">Cryptomator の最新バージョンをダウンロード中</string>
 	<string name="dialog_sym_link_back_button">戻る</string>
+	<string name="permission_snackbar_auth_local_vault">ローカルの金庫を使用するには、Cryptomator がストレージにアクセスする許可が必要です</string>
+	<string name="permission_snackbar_auth_auto_upload">自動的に画像をアップロードするには、Cryptomator がストレージにアクセスする許可が必要です</string>
 	<!-- # error reports -->
 	<!-- # misc -->
 	<!-- ## file size helper -->
@@ -311,7 +326,10 @@
 	<string name="dialog_biometric_auth_title">生体認証でログイン</string>
 	<string name="dialog_biometric_auth_message">生体認証を使用してログイン</string>
 	<string name="dialog_biometric_auth_use_password">金庫のパスワードを使用</string>
+	<string name="dialog_unable_to_auto_upload_files_title">ファイルを自動的にアップロードできません</string>
 	<!-- notification -->
+	<string name="notification_unlocked">解錠済みの金庫: %1$d</string>
+	<string name="notification_timeout">%1$s で自動ロック</string>
 	<string name="notification_lock_all">すべて施錠</string>
 	<string name="notification_cancel_auto_upload">アップロードをキャンセル</string>
 	<string name="notification_auto_upload_title">写真を自動的にアップロードしています</string>
@@ -319,6 +337,8 @@
 	<string name="notification_auto_upload_finished_title">写真の自動アップロードが完了しました</string>
 	<string name="notification_auto_upload_finished_message">%1$d 個の画像を金庫にアップロードしました</string>
 	<string name="notification_auto_upload_failed_title">写真の自動アップロードが失敗しました</string>
+	<string name="notification_open_writable_file_title">書き込み可能なファイルを開く</string>
+	<string name="notification_update_check_finished_latest">最新バージョンがインストールされました</string>
 	<string name="screen_settings_lru_cache">キャッシュ</string>
 	<string name="screen_settings_lru_cache_size">キャッシュの合計サイズ</string>
 	<string name="screen_settings_clear_lru_cache_size">キャッシュを削除する</string>
