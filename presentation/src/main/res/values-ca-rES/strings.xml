@@ -17,76 +17,295 @@
 	<string name="error_activity_not_found">Descarregueu un aplicació que pugui obrir aquest fitxer.</string>
 	<string name="error_server_not_found">No s\'ha trobat el servidor.</string>
 	<string name="error_device_policy_manager_not_found">Obriu la configuració dels vostres dispositius i establiu el bloqueig de pantalla a mà</string>
+	<string name="error_export_illegal_file_name">Ha fallat l\'exportació. Proveu a eliminar caràcters especials dels noms dels fitxers i torneu a exportar.</string>
+	<string name="error_name_contains_invalid_characters">No pot tenir caràcters especials.</string>
+	<string name="error_names_contains_invalid_characters">Els noms dels fitxers no poden tenir caràctes especials.</string>
+	<string name="error_vault_name_contains_invalid_characters">El nom de la caixa forta no pot tenir caràcters especials.</string>
+	<string name="error_general_update">Ha fallat la comprovació d\'actualització. S\'ha produït un error general.</string>
+	<string name="error_hash_mismatch_update">Ha fallat la comprovació d\'actualització. La suma de comprovació no coincideix amb la del fitxer pujat</string>
+	<string name="error_update_no_internet">Ha fallat la comprovació d\'actualització. No hi ha connexió a Internet.</string>
+	<string name="error_failed_to_decrypt_webdav_password">Error desxifrant la contrasenya WebDAV, torneu a afegir-la a la configuració</string>
+	<string name="error_play_services_not_available">Serveis de Google Play no instal·lats</string>
+	<string name="error_biometric_auth_aborted">Autenticació biomètrica avortada</string>
+	<string name="error_vault_version_mismatch">La versió especificada a vault.cryptomator és diferent de la masterkey.cryptomator</string>
+	<string name="error_vault_key_invalid">vault.cryptomator no coincideix amb aquesta masterkey.cryptomator</string>
+	<string name="error_vault_config_loading">Error general carregant la configuració de la caixa forta</string>
+	<string name="error_file_not_found_after_opening_using_3party">El fitxer local ja no és present després de tornar a canviar a Cryptomator. Els possibles canvis no és poden propagar cap al núvol.</string>
+	<string name="error_no_such_bucket">No existeix el cubell</string>
+	<string name="error_masterkey_location_not_supported">Encara no es permet la ubicació personalitzada de la clau mestra</string>
 	<!-- # clouds -->
 	<!-- ## cloud names -->
 	<string name="cloud_names_local_storage">Emmagatzematge local</string>
 	<!-- # permission -->
 	<!-- ## permission messages -->
+	<string name="permission_message_export_file">Cryptomator necessita accés a l\'emmagatzematge per a exportar fitxers</string>
+	<string name="permission_message_upload_file">Cryptomator necessita accés a l\'emmagatzematge per a carregar fitxers</string>
+	<string name="permission_message_share_file">Cryptomator necessita accés a l\'emmagatzematge per a compartir fitxers</string>
+	<string name="snack_bar_action_title_settings">Configuració</string>
 	<string name="snack_bar_action_title_search">Cercar</string>
 	<string name="snack_bar_action_title_search_previous">Anterior</string>
 	<string name="snack_bar_action_title_search_next">Següent</string>
 	<string name="snack_bar_action_title_sort">Ordenar</string>
 	<string name="snack_bar_action_title_sort_az">A - Z</string>
 	<string name="snack_bar_action_title_sort_za">Z - A</string>
+	<string name="snack_bar_action_title_sort_newest">El més nou primer</string>
+	<string name="snack_bar_action_title_sort_oldest">El més antic primer</string>
+	<string name="snack_bar_action_title_sort_biggest">El més gros primer</string>
+	<string name="snack_bar_action_title_sort_smallest">El més petit primer</string>
 	<!-- # screens -->
 	<!-- # screen: vault list -->
+	<string name="screen_vault_list_actions_title">Afegeix a Criptomator</string>
+	<string name="screen_vault_list_action_create_new_vault">Crea una caixa forta nova</string>
+	<string name="screen_vault_list_action_add_existing_vault">Afegeix una caixa forta existent</string>
 	<string name="screen_vault_list_vault_action_delete">Elimina</string>
+	<string name="screen_vault_list_vault_creation_hint">Feu clic aquí per crear una caixa forta</string>
+	<string name="screen_vault_list_change_password_successful">La contrasenya s\'han canviat correctament</string>
 	<!-- # screen: file browser -->
 	<string name="screen_file_browser_default_title">Caixa forta</string>
+	<string name="screen_file_browser_add_existing_vault_extra_text">Seleccioneu el fitxer de clau mestra</string>
+	<string name="screen_file_browser_create_new_vault_button_text">Col·locar aquí</string>
+	<string name="screen_file_browser_create_new_vault_extra_text">Nom de la caixa forta: %1$s</string>
+	<string name="screen_file_browser_move_button_text">Mou</string>
+	<string name="screen_file_browser_msg_empty_folder">Carpeta buida</string>
+	<string name="screen_file_browser_file_info_label_date">modificat fa %1$s</string>
+	<string name="screen_file_browser_share_intent_chooser_title">Comparteix amb</string>
+	<string name="screen_file_browser_share_destination_title">Trieu una destinació</string>
 	<string name="screen_file_browser_share_button_text">Trieu</string>
+	<string name="screen_file_browser_nothing_to_share">No hi ha res a compartir</string>
+	<string name="screen_file_browser_actions_title">Afegeix a %1$s</string>
+	<string name="screen_file_browser_action_create_folder">Crea una carpeta</string>
+	<string name="screen_file_browser_action_create_new_text_file">Crea un fitxer de text</string>
+	<string name="screen_file_browser_action_upload_files">Puja fitxers</string>
+	<string name="screen_file_browser_upload_files_chooser_title">Fitxers</string>
+	<string name="screen_file_browser_msg_file_exported">Fitxer exportat</string>
+	<string name="screen_file_browser_msg_files_exported">Fitxers exportats</string>
+	<string name="screen_file_browser_nothing_to_export">No hi ha res a exportar</string>
+	<string name="screen_file_browser_msg_creating_download_dir_failed">La creació del directori de baixades ha fallat</string>
+	<string name="screen_file_browser_node_action_share">Comparteix</string>
+	<string name="screen_file_browser_node_action_rename">Canvia el nom</string>
 	<string name="screen_file_browser_node_action_edit_text">Editar</string>
+	<string name="screen_file_browser_node_action_export">Exporta</string>
+	<string name="screen_file_browser_node_action_delete">Elimina</string>
+	<string name="screen_file_browser_node_action_open_with_text">Obre amb&#8230;</string>
+	<string name="screen_file_browser_selection_mode_title_zero_elements">Tria ítems</string>
+	<string name="screen_file_browser_selection_mode_title_one_or_more_elements">%1$d seleccionat</string>
+	<string name="screen_file_browser_select_items">Selecciona&#8230;</string>
+	<string name="screen_file_browser_select_all_items">Selecciona-ho tot</string>
+	<string name="screen_file_browser_refresh_items">Refresca</string>
+	<string name="screen_file_browser_no_connection_message">No hi ha connexió</string>
+	<string name="screen_file_browser_no_connection_button_text">Reintenta</string>
 	<!-- ## screen: text editor -->
+	<string name="screen_text_editor_save_success">S\'ha desat amb èxit</string>
 	<!-- ## screen: share files -->
+	<string name="screen_share_files_title">Desa %1$s a&#8230;</string>
 	<string name="screen_share_files_content_text">text</string>
 	<string name="screen_share_files_content_file">fitxer</string>
 	<string name="screen_share_files_content_files">fitxers</string>
+	<string name="screen_share_files_msg_filenames_must_be_unique">Els noms de fitxer han de ser únics, si us plau canvieu el nom als duplicats.</string>
+	<string name="screen_share_files_section_location">Desa la ubicació</string>
+	<string name="screen_share_files_save_button_text">Desa</string>
+	<string name="screen_share_files_msg_success">Encriptació completa</string>
 	<!-- ## screen: choose cloud service -->
+	<string name="screen_choose_cloud_service_title">Servei al núvol</string>
 	<!-- ## screen: cloud connections -->
+	<string name="screen_cloud_connections_title">Trieu una destinació</string>
+	<string name="screen_cloud_connections_no_connections">Feu clic aquí per afegir destinacions</string>
+	<string name="screen_cloud_error_webdav_not_supported">El servidor no sembla que sigui compatible amb WebDAV</string>
+	<string name="screen_cloud_local_custom_storage_title">Ubicacions personalitzades</string>
+	<string name="screen_cloud_local_default_storage_title">Emmagatzematge predefinit</string>
+	<string name="screen_cloud_local_error_no_content_provider">No hi ha ubicacions addicionals disponibles.</string>
 	<!-- ## screen: webdav settings -->
 	<string name="screen_webdav_settings_url_port_label">URL</string>
 	<string name="screen_webdav_settings_username_label">Nom d\'usuari</string>
 	<string name="screen_webdav_settings_password_label">Contrasenya</string>
 	<string name="screen_webdav_settings_done_button_text">Connectar</string>
+	<string name="screen_webdav_settings_msg_url_must_not_be_empty">La URL no pot estar buida.</string>
+	<string name="screen_webdav_settings_msg_url_is_invalid">La URL no és vàlida.</string>
+	<string name="screen_webdav_settings_msg_username_must_not_be_empty">No es pot deixar buit el nom d\'usuari.</string>
+	<string name="screen_webdav_settings_msg_password_must_not_be_empty">La contrasenya no es pot deixar en blanc.</string>
 	<!-- ## screen: s3 settings -->
+	<string name="screen_s3_settings_display_name_label">Nom que es mostrarà</string>
+	<string name="screen_s3_settings_access_key_label">Clau d\'accés</string>
+	<string name="screen_s3_settings_secret_key_label">Clau secreta</string>
+	<string name="screen_s3_settings_bucket_label">Cubell existent</string>
+	<string name="screen_s3_settings_endpoint_label">Extrem</string>
 	<string name="screen_s3_settings_region_label">Regió</string>
+	<string name="screen_s3_settings_msg_display_name_not_empty">El nom per a mostrar no pot ser buit</string>
+	<string name="screen_s3_settings_msg_access_key_not_empty">La clau d\'accés no pot ser buida</string>
+	<string name="screen_s3_settings_msg_secret_key_not_empty">La clau secreta no pot estar buida</string>
+	<string name="screen_s3_settings_msg_bucket_not_empty">El cubell no pot ser buit</string>
+	<string name="screen_s3_settings_msg_endpoint_and_region_not_empty">L\'extrem o la regió no poden ser buits</string>
 	<!-- ## screen: enter vault name -->
+	<string name="screen_enter_vault_name_msg_name_empty">El nom de la caixa forta no pot ser buit.</string>
 	<string name="screen_enter_vault_name_vault_label">Nom de la caixa forta</string>
 	<string name="screen_enter_vault_name_button_text">Crear</string>
 	<!-- ## screen: set password -->
+	<string name="screen_set_password_title">Estableix una contrasenya</string>
+	<string name="screen_set_password_msg_password_mismatch">La contrasenya nova no coincideix.</string>
 	<string name="screen_set_password_button_text">Fet</string>
+	<string name="screen_set_password_hint">ALERTA: Si oblideu la contrasenya no hi haurà manera de recuperar les dades.</string>
+	<string name="screen_set_password_retype_password_label">Torneu a escriure la contrasenya</string>
+	<string name="screen_set_password_strength_indicator_0">Massa feble per a crear una caixa forta</string>
 	<string name="screen_set_password_strength_indicator_1">Poc segura</string>
 	<string name="screen_set_password_strength_indicator_2">Suficient</string>
 	<string name="screen_set_password_strength_indicator_3">Segura</string>
+	<string name="screen_set_password_strength_indicator_4">Molt segura</string>
 	<!-- ## screen: settings -->
 	<string name="screen_settings_section_general">General</string>
+	<string name="screen_settings_cloud_settings_label">Serveis al núvol</string>
+	<string name="screen_settings_biometric_auth">Autenticació biomètrica</string>
+	<string name="screen_settings_activate_biometric_auth">Activar l\'autenticació biomètrica</string>
+	<string name="screen_settings_confirm_face_unlock">Confirmar el desbloqueig de cara (si està disponible)</string>
+	<string name="screen_settings_secure_screen">Bloca les captures de pantalla</string>
+	<string name="screen_settings_secure_screen_summary">Bloca les captures de pantalla a les llistes de recents i dins de l\'aplicació</string>
 	<string name="screen_settings_section_search">Cercar</string>
+	<string name="screen_settings_section_auto_lock">Bloca automàticament</string>
+	<string name="screen_settings_auto_lock_timeout">Bloca després de</string>
+	<string name="screen_settings_auto_lock_on_screen_lock">Quan la pantalla està desactivada</string>
+	<string name="screen_settings_section_auto_photo_upload">Pujada de fotos automàtica</string>
+	<string name="screen_settings_section_auto_photo_upload_vault">Tria una caixa forta per a pujar</string>
+	<string name="screen_settings_section_auto_photo_upload_toggle">Activa</string>
+	<string name="screen_settings_section_auto_photo_upload_only_wifi_toggle">Puja només amb WIFI</string>
+	<string name="screen_settings_section_auto_photo_upload_including_videos">Puja vídeos</string>
+	<string name="screen_settings_website_label">Lloc web de Cryptomator</string>
+	<string name="screen_settings_twitter_label">Seguiu-nos a Twitter</string>
+	<string name="screen_settings_facebook_label">Poseu-nos un \"m\'agrada\" a Facebook</string>
+	<string name="screen_settings_section_legal">Legal</string>
+	<string name="screen_settings_licenses_label">Llicències</string>
+	<string name="screen_settings_license_terms_label">Termes de la llicència</string>
+	<string name="screen_settings_section_support">Suport</string>
+	<string name="screen_settings_contact_label">Sol·licita ayuda</string>
+	<string name="screen_settings_debug_mode_label">Mode de depuració</string>
+	<string name="screen_settings_error_report_label">Envia el fitxer de registre</string>
+	<string name="screen_settings_error_report_failed">L\'enviament ha fallat</string>
+	<string name="screen_settings_section_version">Versió</string>
+	<string name="screen_settings_advanced_settings">Configuració avançada</string>
+	<string name="screen_settings_keep_unlocked_while_editing_files">Manté desblocat</string>
 	<!-- ## screen: cloud settings -->
+	<string name="screen_cloud_settings_webdav_connections">Connexions WebDAV</string>
+	<string name="screen_cloud_settings_pcloud_connections">connexions pCloud</string>
+	<string name="screen_cloud_settings_s3_connections">Connexions S3</string>
+	<string name="screen_cloud_settings_log_in_to">Inicia sessió a</string>
+	<string name="screen_cloud_settings_sign_out_from_cloud">Tanca la sessió de</string>
 	<!-- ## screen: licenses -->
 	<!-- ## screen: authenticate cloud -->
+	<string name="screen_authenticate_auth_authentication_failed">%1$s no s\'ha pogut autenticar.</string>
+	<string name="screen_update_pcloud_connections_title">Actualitza les credencials de pCloud</string>
 	<!-- ## screen: empty dir file info -->
+	<string name="screen_empty_dir_file_info_title">\'%1$s\' inaccessible</string>
+	<string name="screen_empty_dir_file_info_headline">Cryptomator ha detectat que aquesta carpeta és inaccessible.</string>
 	<!-- ## screen: insecure android version info -->
 	<!-- # dialogs -->
 	<string name="dialog_button_cancel">Cancel·la</string>
 	<string name="dialog_enter_password_positive_button">Desbloqueja</string>
+	<string name="dialog_change_password_old_password_label">Contrasenya antiga</string>
+	<string name="dialog_change_password_new_password_label">Contrasenya nova</string>
+	<string name="dialog_change_password">Canvia la contrasenya</string>
+	<string name="dialog_change_password_msg_old_password_empty">La contrasenya antiga no es pot deixar en blanc.</string>
+	<string name="dialog_change_password_msg_new_password_empty">La contrasenya nova no es pot deixar en blanc.</string>
+	<string name="dialog_change_password_msg_password_mismatch">La contrasenya nova no coincideix.</string>
 	<!-- Vault not found -->
+	<string name="dialog_vault_not_found_title">No s\'ha trobat la caixa forta %1$s</string>
 	<string name="dialog_vault_not_found_positive_button_text">Elimina</string>
+	<string name="dialog_existing_file_title">El fitxer ja existeix</string>
+	<string name="dialog_existing_file_positive_button">Substitueix</string>
+	<string name="dialog_existing_file_message">Ja existeix un fitxer anomenat \'%1$s\'.</string>
+	<string name="dialog_replace_positive_button_single_file_exists">Substitueix</string>
+	<string name="dialog_replace_title_multiple_files_exist">Voleu substituir els fitxers?</string>
+	<string name="dialog_unable_to_share_title">No es poden compartir fitxers</string>
 	<string name="dialog_unable_to_share_positive_button">D\'acord</string>
 	<string name="dialog_unable_to_share_negative_button">Crear Caixa forta</string>
 	<string name="dialog_filetype_not_supported_title">No es pot obrir %1$s</string>
+	<string name="dialog_rename_vault_title">Canvia el nom de la caixa forta</string>
+	<string name="dialog_rename_node_folder_title">Canvia el nom de la carpeta</string>
+	<string name="dialog_rename_node_file_title">Canvia el nom del fitxer</string>
+	<string name="dialog_unsaved_changes_title">Hi ha canvis sense desar</string>
+	<string name="dialog_unsaved_changes_message">Voleu tancar sense desar?</string>
+	<string name="dialog_unsaved_changes_discard">Descarta</string>
+	<string name="dialog_file_name_placeholder">text.txt</string>
+	<string name="dialog_delete_vault_message">Esteu segur/a que voleu suprimir aquesta caixa forta?</string>
+	<string name="dialog_delete_vault_hint">Aquesta acció només eliminarà la caixa forta d\'aquesta llista però no l\'eliminarà físicament.</string>
+	<string name="dialog_upload_file_remaining">Fitxer %1$d de %2$d</string>
+	<string name="dialog_progress_please_wait">Espereu&#8230;</string>
+	<string name="action_progress_authentication">Autenticació&#8230;</string>
 	<string name="dialog_lock_vault">Bloqueja</string>
+	<string name="dialog_accept_ssl_certificate_title">Certificat SSL invàlid</string>
+	<string name="dialog_accept_ssl_certificate_hint">El certificat SSL no és vàlid. Voleu confiar-hi de tota manera?</string>
+	<string name="dialog_accept_ssl_certificate_details">Detalls</string>
+	<string name="dialog_http_security_checkbox">Canvia a HTTPS</string>
+	<string name="dialog_debug_mode_disclaimer_title">Atenció</string>
+	<string name="dialog_debug_mode_positive_button">Activa</string>
+	<string name="dialog_disable_app_obscured_disclaimer_title">Atenció</string>
+	<string name="dialog_disable_app_obscured_positive_button">Desactiva</string>
 	<string name="dialog_app_is_obscured_info_neutral_button">Tanca</string>
+	<string name="dialog_confirm_delete_multiple_title">Voleu suprimir %1$d elements?</string>
+	<string name="dialog_confirm_delete_multiple_message">Esteu segur/a que voleu suprimir aquests elements?</string>
+	<string name="dialog_confirm_delete_file_message">Esteu segur/a que voleu esborrar aquest fitxer?</string>
+	<string name="dialog_enter_license_title">Proporcioneu una llicència vàlida</string>
+	<string name="dialog_enter_license_not_valid_content">La llicència introduïda no és vàlida. Assegureu-vos que l\'heu escrita correctament.</string>
+	<string name="dialog_enter_license_no_content">No heu introduït cap llicència. Si us plau, introduïu una llicència vàlida.</string>
+	<string name="dialog_enter_license_decline_button">Surt</string>
+	<string name="dialog_license_confirmation_title">Confirmació de la llicència</string>
+	<string name="dialog_update_available_title">Actualització disponible</string>
+	<string name="dialog_update_available_message">Actualizeu Cryptomator a la versió més recent. Si premeu OK l\'app es descarregarà en segon pla i us demanarà permís per a instal·lar-se.</string>
+	<string name="dialog_update_available_update">Actualitza ara</string>
+	<string name="dialog_update_available_download_site">Vés al lloc de descàrregues</string>
+	<string name="dialog_update_available_cancel">Després</string>
+	<string name="dialog_download_update_title">Descàrrega en procés</string>
+	<string name="dialog_download_update_message">Ara es descarrega la versió més recent de Cryptomator</string>
 	<string name="dialog_sym_link_back_button">Enrere</string>
 	<!-- # error reports -->
 	<!-- # misc -->
 	<!-- ## file size helper -->
+	<string name="file_size_zero">Zero kB</string>
 	<!-- ## date helper -->
+	<string name="time_unit_seconds_sg">segon</string>
+	<string name="time_unit_seconds_pl">segons</string>
+	<string name="time_unit_minutes_sg">minut</string>
 	<string name="time_unit_minutes_pl">minuts</string>
+	<string name="time_unit_hours_sg">hora</string>
+	<string name="time_unit_hours_pl">hores</string>
+	<string name="time_unit_days_sg">dia</string>
+	<string name="time_unit_days_pl">dies</string>
+	<string name="time_unit_weeks_sg">setmana</string>
+	<string name="time_unit_weeks_pl">setmanes</string>
+	<string name="time_unit_months_sg">mes</string>
+	<string name="time_unit_months_pl">mesos</string>
+	<string name="time_unit_years_sg">any</string>
+	<string name="time_unit_years_pl">anys</string>
 	<!-- ## biometric authentication -->
 	<!-- notification -->
+	<string name="notification_unlocked">Caixes fortes desblocades: %1$d</string>
+	<string name="notification_timeout">Autoblocatge en %1$s</string>
+	<string name="notification_lock_all">Bloca-ho tot</string>
+	<string name="notification_cancel_auto_upload">Cancel·la la pujada</string>
+	<string name="notification_auto_upload_finished_message">%1$d imatges pujades a la caixa forta</string>
+	<string name="notification_update_check_finished_latest">La versió més recent s\'ha instal·lat</string>
+	<string name="screen_settings_lru_cache">Memòria cau</string>
+	<string name="screen_settings_lru_cache_size">Mida total de la memòria cau</string>
+	<string name="screen_settings_clear_lru_cache_size">Esborra la memòria cau</string>
+	<string name="screen_settings_license">Registrat per</string>
+	<string name="screen_settings_license_mail">%1$s</string>
+	<string name="screen_settings_check_updates">Cerca actualitzacions</string>
 	<!-- lock timeout names -->
+	<string name="lock_timeout_1m">1 minut</string>
+	<string name="lock_timeout_2m">2 minuts</string>
+	<string name="lock_timeout_5m">5 minuts</string>
+	<string name="lock_timeout_10m">10 minuts</string>
+	<string name="lock_timeout_never">Mai</string>
 	<!-- cache size names -->
+	<string name="cache_size_50m">50 MB</string>
+	<string name="cache_size_100m">100 MB</string>
+	<string name="cache_size_250m">250 MB</string>
+	<string name="cache_size_500m">500 MB</string>
+	<string name="cache_size_1000m">1 GB</string>
+	<string name="cache_size_5000m">5 GB</string>
 	<!-- screen scheme mode names -->
+	<string name="screen_settings_style_mode">Estil</string>
 	<string name="light">Clar</string>
 	<string name="dark">Fosc</string>
 	<!-- update interval names -->
+	<string name="update_interval_1d">Una vegada al dia</string>
+	<string name="update_interval_1w">Una vegada a la setmana</string>
+	<string name="update_interval_1m">Una vegada al mes</string>
 </resources>
