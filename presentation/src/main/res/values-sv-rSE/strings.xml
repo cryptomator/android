@@ -4,14 +4,59 @@
 	<string name="share_with_label">Kryptera</string>
 	<!-- # error messages -->
 	<string name="error_generic">Ett fel inträffade</string>
+	<string name="error_authentication_failed">Autentisering misslyckades</string>
+	<string name="error_authentication_failed_re_authenticate">Autentisering misslyckades, vänligen logga in med %1$s</string>
+	<string name="error_no_network_connection">Ingen nätverksanslutning</string>
+	<string name="error_invalid_passphrase">Felaktigt lösenord</string>
+	<string name="error_file_or_folder_exists">Filen eller katalogen finns redan.</string>
+	<string name="error_vault_version_not_supported">Valvet stöds ej. Detta valv har skapats med en annan version av Cryptomator.</string>
+	<string name="error_vault_already_exists">Valvet finns redan.</string>
+	<string name="error_no_such_file">Filen existerar inte.</string>
+	<string name="error_vault_has_been_locked">Valvet har låsts.</string>
+	<string name="error_cloud_already_exists">Konto finns redan.</string>
+	<string name="error_activity_not_found">Ladda ner en app som kan öppna denna fil.</string>
+	<string name="error_server_not_found">Servern hittades inte.</string>
+	<string name="error_device_policy_manager_not_found">Öppna enhetsinställningar och ställ in skärmlåset manuellt</string>
+	<string name="error_export_illegal_file_name">Exporten misslyckades. Försök att ta bort specialtecken från filnamn och exportera igen.</string>
+	<string name="error_name_contains_invalid_characters">Får inte innehålla specialtecken.</string>
+	<string name="error_names_contains_invalid_characters">Filnamn får inte innehålla specialtecken.</string>
+	<string name="error_vault_name_contains_invalid_characters">Valvnamn får inte innehålla specialtecken.</string>
+	<string name="error_general_update">Uppdateringskontrollen misslyckades. Allmänt fel uppstod.</string>
+	<string name="error_hash_mismatch_update">Uppdateringskontrollen misslyckades. Beräknad hash matchar inte den uppladdade filen</string>
+	<string name="error_update_no_internet">Uppdateringskontrollen misslyckades. Ingen internetanslutning.</string>
+	<string name="error_failed_to_decrypt_webdav_password">Det gick inte att dekryptera WebDAV lösenord, vänligen ange på nytt i inställningar</string>
+	<string name="error_play_services_not_available">Google Play Services inte installerad</string>
+	<string name="error_biometric_auth_aborted">Biometrisk autentisering avbruten</string>
+	<string name="error_vault_version_mismatch">Angiven version i vault.cryptomator är annan än masterkey.cryptomator</string>
+	<string name="error_vault_key_invalid">vault.cryptomator matchar inte med denna masterkey.cryptomator</string>
+	<string name="error_vault_config_loading">Allmänt fel vid inläsning av valvkonfiguration</string>
+	<string name="error_file_not_found_after_opening_using_3party">Lokal fil finns inte längre efter att ha bytt tillbaka till Cryptomator. Eventuella ändringar kan inte synkas tillbaka till molnet.</string>
+	<string name="error_no_such_bucket">Ingen sådan bucket</string>
+	<string name="error_masterkey_location_not_supported">Anpassad Masterkey-plats stöds inte ännu</string>
 	<!-- # clouds -->
 	<!-- ## cloud names -->
+	<string name="cloud_names_local_storage">Lokal lagring</string>
 	<!-- # permission -->
 	<!-- ## permission messages -->
+	<string name="permission_message_export_file">Cryptomator behöver åtkomst till lagringsutrymme för att exportera filer</string>
+	<string name="permission_message_upload_file">Cryptomator behöver åtkomst till lagringsutrymme för att ladda upp filer</string>
+	<string name="permission_message_share_file">Cryptomator behöver åtkomst till lagringsutrymme för att dela filer</string>
 	<string name="snack_bar_action_title_settings">Inställningar</string>
+	<string name="snack_bar_action_title_search">Sök</string>
+	<string name="snack_bar_action_title_search_previous">Föregående</string>
 	<string name="snack_bar_action_title_search_next">Nästa</string>
+	<string name="snack_bar_action_title_sort">Sortera</string>
+	<string name="snack_bar_action_title_sort_az">A – Z</string>
+	<string name="snack_bar_action_title_sort_za">Z - A</string>
+	<string name="snack_bar_action_title_sort_newest">Nyast först</string>
+	<string name="snack_bar_action_title_sort_oldest">Äldst först</string>
+	<string name="snack_bar_action_title_sort_biggest">Störst först</string>
+	<string name="snack_bar_action_title_sort_smallest">Minst först</string>
 	<!-- # screens -->
 	<!-- # screen: vault list -->
+	<string name="screen_vault_list_actions_title">Lägg till i Cryptomator</string>
+	<string name="screen_vault_list_action_create_new_vault">Skapa nytt valv</string>
+	<string name="screen_vault_list_action_add_existing_vault">Lägg till befintligt valv</string>
 	<string name="screen_vault_list_vault_action_delete">Ta bort</string>
 	<!-- # screen: file browser -->
 	<string name="screen_file_browser_default_title">Valv</string>
@@ -36,6 +81,7 @@
 	<string name="screen_set_password_strength_indicator_3">Starkt</string>
 	<!-- ## screen: settings -->
 	<string name="screen_settings_section_general">Allmänt</string>
+	<string name="screen_settings_section_search">Sök</string>
 	<!-- ## screen: cloud settings -->
 	<!-- ## screen: licenses -->
 	<!-- ## screen: authenticate cloud -->

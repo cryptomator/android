@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 	<!-- # app -->
+	<string name="share_with_label">加密</string>
 	<!-- # error messages -->
+	<string name="error_generic">發生了一個錯誤</string>
 	<!-- # clouds -->
 	<!-- ## cloud names -->
 	<!-- # permission -->
@@ -44,6 +46,7 @@
 	<!-- # misc -->
 	<!-- ## file size helper -->
 	<!-- ## date helper -->
+	<string name="time_unit_minutes_pl">分鐘</string>
 	<!-- ## biometric authentication -->
 	<!-- notification -->
 	<!-- lock timeout names -->
