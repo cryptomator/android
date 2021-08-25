@@ -1,7 +1,7 @@
 - Added compatibility to vault format 8
 - Added Google login in pCloud
 - Added shared vaults in pCloud
-- Added further translations like Chinese Simplified or Russian
+- Added a ton of translations, kudos to our contributors
 - Enhanced auto updater of APK store
 - Increased min. Android version to 7 (Side note: Android 6 did not receive security updates for almost 2 years)
 - Fixed rename vault name in S3
