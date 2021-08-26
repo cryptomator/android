@@ -4,6 +4,7 @@
 	<string name="share_with_label">加密</string>
 	<!-- # error messages -->
 	<string name="error_generic">發生了一個錯誤</string>
+	<string name="error_authentication_failed">認證失敗</string>
 	<!-- # clouds -->
 	<!-- ## cloud names -->
 	<!-- # permission -->
