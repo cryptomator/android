@@ -1,29 +1,72 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 	<!-- # app -->
+	<string name="share_with_label">암호화</string>
 	<!-- # error messages -->
+	<string name="error_generic">오류가 발생했습니다</string>
+	<string name="error_authentication_failed">인증에 실패했습니다.</string>
+	<string name="error_authentication_failed_re_authenticate">인증에 실패했습니다, %1$s를 사용하여 로그인 하십시요.</string>
+	<string name="error_no_network_connection">네트워크가 연결되어 있지 않습니다.</string>
+	<string name="error_invalid_passphrase">잘못된 비밀번호입니다.</string>
+	<string name="error_file_or_folder_exists">파일 또는 폴더가 이미 존재합니다.</string>
+	<string name="error_vault_version_not_supported">지원되지 않는 Vault입니다. 이 Vault는 다른 버전의 Cryptomator로 생성되었습니다.</string>
+	<string name="error_vault_already_exists">Vault가 이미 존재합니다.</string>
+	<string name="error_no_such_file">파일이 존재하지 않습니다.</string>
+	<string name="error_vault_has_been_locked">Vault가 잠겼습니다.</string>
+	<string name="error_server_not_found">서버를 찾을 수 없습니다</string>
 	<!-- # clouds -->
 	<!-- ## cloud names -->
 	<!-- # permission -->
 	<!-- ## permission messages -->
 	<string name="snack_bar_action_title_settings">설정</string>
 	<string name="snack_bar_action_title_search_next">다음</string>
+	<string name="snack_bar_action_title_sort_az">A - Z</string>
+	<string name="snack_bar_action_title_sort_za">Z - A</string>
 	<!-- # screens -->
 	<!-- # screen: vault list -->
 	<string name="screen_vault_list_vault_action_delete">제거</string>
 	<!-- # screen: file browser -->
 	<string name="screen_file_browser_default_title">Vault</string>
+	<string name="screen_file_browser_move_button_text">이동</string>
+	<string name="screen_file_browser_msg_empty_folder">빈 폴더</string>
+	<string name="screen_file_browser_file_info_label_date">%1$s 전 변경됨</string>
 	<string name="screen_file_browser_share_button_text">선택</string>
+	<string name="screen_file_browser_actions_title">%1$s에 추가</string>
+	<string name="screen_file_browser_action_create_folder">폴더 생성</string>
+	<string name="screen_file_browser_action_create_new_text_file">텍스트 파일 생성</string>
+	<string name="screen_file_browser_action_upload_files">파일 업로드</string>
+	<string name="screen_file_browser_upload_files_chooser_title">파일</string>
+	<string name="screen_file_browser_msg_creating_download_dir_failed">다운로드 디렉터리 생성에 실패하였습니다</string>
+	<string name="screen_file_browser_node_action_share">공유하기</string>
+	<string name="screen_file_browser_node_action_rename">이름 변경</string>
 	<string name="screen_file_browser_node_action_edit_text">수정</string>
+	<string name="screen_file_browser_node_action_export">내보내기</string>
+	<string name="screen_file_browser_node_action_delete">삭제</string>
+	<string name="screen_file_browser_selection_mode_title_zero_elements">아이템 선택</string>
+	<string name="screen_file_browser_selection_mode_title_one_or_more_elements">%1$d 항목 선택됨</string>
+	<string name="screen_file_browser_select_items">&#8230; 선택</string>
+	<string name="screen_file_browser_select_all_items">전체 선택</string>
+	<string name="screen_file_browser_refresh_items">새로고침</string>
+	<string name="screen_file_browser_no_connection_message">연결 없음</string>
+	<string name="screen_file_browser_no_connection_button_text">재시도</string>
 	<!-- ## screen: text editor -->
+	<string name="screen_text_editor_save_success">성공적으로 저장되었습니다</string>
 	<!-- ## screen: share files -->
+	<string name="screen_share_files_content_text">텍스트</string>
+	<string name="screen_share_files_content_file">파일</string>
+	<string name="screen_share_files_content_files">파일</string>
+	<string name="screen_share_files_section_location">저장 위치</string>
+	<string name="screen_share_files_save_button_text">저장</string>
+	<string name="screen_share_files_msg_success">암호화 완료</string>
 	<!-- ## screen: choose cloud service -->
 	<!-- ## screen: cloud connections -->
 	<!-- ## screen: webdav settings -->
 	<string name="screen_webdav_settings_url_port_label">URL</string>
 	<string name="screen_webdav_settings_username_label">사용자명</string>
 	<string name="screen_webdav_settings_password_label">비밀번호</string>
+	<string name="screen_webdav_settings_done_button_text">연결</string>
 	<!-- ## screen: s3 settings -->
+	<string name="screen_s3_settings_access_key_label">액세스 키</string>
 	<!-- ## screen: enter vault name -->
 	<string name="screen_enter_vault_name_button_text">생성</string>
 	<!-- ## screen: set password -->
@@ -34,6 +77,21 @@
 	<string name="screen_set_password_strength_indicator_3">강함</string>
 	<!-- ## screen: settings -->
 	<string name="screen_settings_section_general">일반</string>
+	<string name="screen_settings_section_auto_lock">자동 잠금</string>
+	<string name="screen_settings_auto_lock_timeout">다음 시간 이후 잠금</string>
+	<string name="screen_settings_auto_lock_on_screen_lock">화면이 꺼졌을 때</string>
+	<string name="screen_settings_section_auto_photo_upload">사진 자동 업로드</string>
+	<string name="screen_settings_section_auto_photo_upload_vault">업로드 할 Vault 선택</string>
+	<string name="screen_settings_section_auto_photo_upload_toggle">활성화</string>
+	<string name="screen_settings_section_auto_photo_upload_only_wifi_toggle">Wi-Fi 상태에서만 업로드</string>
+	<string name="screen_settings_section_auto_photo_upload_including_videos">동영상 업로드</string>
+	<string name="screen_settings_section_legal">법적 사항</string>
+	<string name="screen_settings_licenses_label">라이센스</string>
+	<string name="screen_settings_license_terms_label">라이센스 약관</string>
+	<string name="screen_settings_section_support">지원</string>
+	<string name="screen_settings_debug_mode_label">디버그 모드</string>
+	<string name="screen_settings_error_report_label">로그파일 전송</string>
+	<string name="screen_settings_section_version">버전</string>
 	<!-- ## screen: cloud settings -->
 	<!-- ## screen: licenses -->
 	<!-- ## screen: authenticate cloud -->
@@ -42,9 +100,19 @@
 	<!-- # dialogs -->
 	<string name="dialog_button_cancel">취소</string>
 	<string name="dialog_enter_password_positive_button">잠금해제</string>
+	<string name="dialog_change_password_old_password_label">이전 비밀번호</string>
+	<string name="dialog_change_password_new_password_label">신규 비밀번호</string>
+	<string name="dialog_change_password">비밀번호 변경</string>
 	<!-- Vault not found -->
 	<string name="dialog_vault_not_found_positive_button_text">제거</string>
+	<string name="dialog_existing_file_positive_button">교체</string>
+	<string name="dialog_replace_positive_button_single_file_exists">교체</string>
 	<string name="dialog_unable_to_share_positive_button">OK</string>
+	<string name="dialog_unsaved_changes_discard">취소</string>
+	<string name="dialog_file_name_placeholder">text.txt</string>
+	<string name="dialog_delete_vault_message">이 Vault를 정말로 제거하시겠습니까?</string>
+	<string name="dialog_upload_file_title">&#8230; 업로드 중</string>
+	<string name="dialog_progress_upload_file">&#8230; 업로드 중</string>
 	<string name="dialog_lock_vault">잠금</string>
 	<string name="dialog_app_is_obscured_info_neutral_button">닫기</string>
 	<string name="dialog_sym_link_back_button">뒤로</string>
