@@ -65,6 +65,10 @@
 	<string name="screen_file_browser_add_existing_vault_extra_text">Välj Masterkey-fil</string>
 	<string name="screen_file_browser_create_new_vault_button_text">Placera här</string>
 	<string name="screen_file_browser_create_new_vault_extra_text">Valvets namn: %1$s</string>
+	<plurals name="screen_file_browser_subtitle_move">
+		<item quantity="one">Flytta %1$s till</item>
+		<item quantity="other">Flytta %2$d objekt till</item>
+	</plurals>
 	<string name="screen_file_browser_move_button_text">Flytta</string>
 	<string name="screen_file_browser_msg_empty_folder">Tom mapp</string>
 	<string name="screen_file_browser_file_info_label_date">ändrad för %1$s sedan</string>
@@ -164,31 +168,241 @@
 	<string name="screen_settings_live_search">Live-sökning</string>
 	<string name="screen_settings_live_search_summary">Uppdatera sökresultaten medans du skriver</string>
 	<string name="screen_settings_glob_search">Sök med hjälp av globala mönster</string>
+	<string name="screen_settings_glob_search_summary">Använd globala mönster som matchar t.ex. alice.*.jpg</string>
+	<string name="screen_settings_section_auto_lock">Automatiskt lås</string>
+	<string name="screen_settings_auto_lock_timeout">Lås efter</string>
+	<string name="screen_settings_auto_lock_on_screen_lock">När skärmen är inaktiverad</string>
+	<string name="screen_settings_section_auto_photo_upload">Automatisk fotouppladdning</string>
+	<string name="screen_settings_section_auto_photo_upload_vault">Välj valv för uppladdning</string>
+	<string name="screen_settings_section_auto_photo_upload_toggle">Aktivera</string>
+	<string name="screen_settings_section_auto_photo_upload_toggle_summary">Registrerar bilder i bakgrunden och när det valda valvet är upplåst, startas uppladdning</string>
+	<string name="screen_settings_section_auto_photo_upload_only_wifi_toggle">Ladda endast upp med WIFI</string>
+	<string name="screen_settings_section_auto_photo_upload_including_videos">Ladda upp video</string>
+	<string name="screen_settings_auto_photo_upload_title">Spara automatiskt uppladdade filer till&#8230;</string>
+	<string name="screen_settings_website_label">Cryptomator webbplats</string>
+	<string name="screen_settings_twitter_label">Följ oss på Twitter</string>
+	<string name="screen_settings_facebook_label">Gilla oss på Facebook</string>
+	<string name="screen_settings_section_legal">Juridiskt</string>
+	<string name="screen_settings_licenses_label">Licenser</string>
+	<string name="screen_settings_license_terms_label">Licensvillkor</string>
+	<string name="screen_settings_section_support">Support</string>
+	<string name="screen_settings_contact_label">Be om hjälp</string>
+	<string name="screen_settings_debug_mode_label">Felsökningsläge</string>
+	<string name="screen_settings_error_report_label">Skicka loggfil</string>
+	<string name="screen_settings_error_report_failed">Sändningen misslyckades</string>
+	<string name="screen_settings_security_label">Säkerhetstips</string>
+	<string name="screen_settings_section_version">Version</string>
+	<string name="screen_settings_advanced_settings">Avancerade inställningar</string>
+	<string name="screen_settings_background_unlock_preparation_label">Accelerera upplåsning</string>
+	<string name="screen_settings_background_unlock_preparation_label_summary">Ladda ner valvkonfiguration i bakgrunden medan du uppmanas att låsa upp</string>
+	<string name="screen_settings_keep_unlocked_while_editing_files">Behåll olåst</string>
+	<string name="screen_settings_keep_unlocked_while_editing_files_summary">Håll valven upplåsta medan filer ändras</string>
 	<!-- ## screen: cloud settings -->
+	<string name="screen_cloud_settings_webdav_connections">WebDAV-anslutningar</string>
+	<string name="screen_cloud_settings_pcloud_connections">pCloud-anslutningar</string>
+	<string name="screen_cloud_settings_s3_connections">S3 anslutningar</string>
+	<string name="screen_cloud_settings_local_storage_locations">Lokala lagringsplatser</string>
+	<string name="screen_cloud_settings_log_in_to">Logga in på %1</string>
+	<string name="screen_cloud_settings_sign_out_from_cloud">Logga ut från {0}</string>
 	<!-- ## screen: licenses -->
 	<!-- ## screen: authenticate cloud -->
+	<string name="screen_authenticate_auth_authentication_failed">%1$s kunde inte autentiseras.</string>
+	<string name="screen_update_pcloud_connections_title">Uppdatera pCloud-uppgifter</string>
 	<!-- ## screen: empty dir file info -->
+	<string name="screen_empty_dir_file_info_title">\'%1$s\' onåbar</string>
+	<string name="screen_empty_dir_file_info_headline">Cryptomator upptäckte att den här mappen inte kan nås.</string>
+	<string name="screen_empty_dir_file_info_text">Det kan ha tagits bort av ett annat program eller en felaktig molnsynkronisering.\n\nFörsök att återställa katalogfilen via din molnleverantör till en tidigare version som inte är tom. Filen i fråga är:\n%1$s\n\nOm det inte fungerar kan använda Sanitizer för att kontrollera problem i ditt valv och eventuellt återställa dina data.</string>
+	<string name="screen_empty_dir_file_info_button_label">Mer information om Sanitizer</string>
 	<!-- ## screen: insecure android version info -->
 	<!-- # dialogs -->
 	<string name="dialog_button_cancel">Avbryt</string>
 	<string name="dialog_enter_password_positive_button">Lås upp</string>
+	<string name="dialog_change_password_old_password_label">Gammalt lösenord</string>
+	<string name="dialog_change_password_new_password_label">Nytt lösenord</string>
+	<string name="dialog_change_password">Byt lösenord</string>
+	<string name="dialog_change_password_msg_old_password_empty">Gammalt lösenord får inte vara tomt.</string>
+	<string name="dialog_change_password_msg_new_password_empty">Nytt lösenord får inte vara tomt.</string>
+	<string name="dialog_change_password_msg_password_mismatch">De både lösenorden matchar inte.</string>
 	<!-- Vault not found -->
+	<string name="dialog_vault_not_found_title">Valvet %1$s hittades inte</string>
+	<string name="dialog_vault_not_found_message">Valvet har döpts om, flyttats eller tagits bort. Ta bort detta valv från listan och lägg till det igen för att fortsätta. Ta bort nu?</string>
 	<string name="dialog_vault_not_found_positive_button_text">Ta bort</string>
+	<string name="dialog_existing_file_title">Filen finns redan</string>
+	<string name="dialog_existing_file_positive_button">Ersätt</string>
+	<string name="dialog_existing_file_message">En fil som heter \'%1$s\' finns redan.</string>
+	<string name="dialog_replace_negative_button_at_least_two_but_not_all_files_exist">Hoppa över befintliga</string>
+	<string name="dialog_replace_positive_button_all_files_exist">Ersätt alla</string>
+	<string name="dialog_replace_positive_button_some_files_exist">Ersätt befintliga</string>
+	<string name="dialog_replace_positive_button_single_file_exists">Ersätt</string>
+	<string name="dialog_replace_msg_single_file_exists">Filen %1$s finns redan. Vill du ersätta den?</string>
+	<string name="dialog_replace_msg_all_files_exists">Alla filer finns redan. Vill du ersätta dem?</string>
+	<string name="dialog_replace_msg_some_files_exists">%1$d filer finns redan. Vill du ersätta dem?</string>
+	<string name="dialog_replace_title_single_file_exists">Ersätt fil?</string>
+	<string name="dialog_replace_title_multiple_files_exist">Ersätt filer?</string>
+	<string name="dialog_unable_to_share_title">Kunde inte dela filer</string>
+	<string name="dialog_unable_to_share_message">Du har inte konfigurerat några valv. Skapa ett nytt valv med Cryptomator-appen först.</string>
 	<string name="dialog_unable_to_share_positive_button">OK</string>
+	<string name="dialog_unable_to_share_negative_button">Skapa Valv</string>
+	<string name="dialog_filetype_not_supported_title">Kan inte öppna %1$s</string>
+	<string name="dialog_filetype_not_supported_message">Ladda ner en app som kan öppna den här filtypen eller spara till din enhet?</string>
+	<string name="dialog_rename_vault_title">Döp om valv</string>
+	<string name="dialog_rename_node_folder_title">Döp om mapp</string>
+	<string name="dialog_rename_node_file_title">Döp om fil</string>
+	<string name="dialog_unsaved_changes_title">Du har osparade ändringar</string>
+	<string name="dialog_unsaved_changes_message">Vill du avsluta utan att spara?</string>
+	<string name="dialog_unsaved_changes_discard">Kasta</string>
+	<string name="dialog_file_name_placeholder">text.txt</string>
+	<string name="dialog_delete_vault_message">Är du säker på att du vill ta bort detta valv?</string>
+	<string name="dialog_delete_vault_hint">Denna åtgärd kommer bara att ta bort valvet från denna lista och inte ta bort det fysiskt.</string>
+	<string name="dialog_upload_file_title">Laddar upp&#8230;</string>
+	<string name="dialog_upload_file_remaining">Fil %1$d av %2$d</string>
+	<string name="dialog_export_file_title">Exporterar (%1$d/%2$d)</string>
+	<string name="dialog_progress_please_wait">Vänligen vänta&#8230;</string>
+	<string name="dialog_progress_creating_folder">Skapar mapp&#8230;</string>
+	<string name="dialog_progress_creating_text_file">Skapar textfil&#8230;</string>
+	<string name="action_progress_authentication">Autentiserar&#8230;</string>
+	<string name="action_progress_renaming">Byter namn&#8230;</string>
+	<string name="action_progress_deleting">Tar bort&#8230;</string>
+	<string name="dialog_progress_unlocking_vault">Låser upp valvet&#8230;</string>
+	<string name="dialog_progress_change_password">Ändrar lösenord&#8230;</string>
+	<string name="dialog_progress_creating_vault">Skapar valv&#8230;</string>
+	<string name="dialog_progress_upload_file">Laddar upp&#8230;</string>
+	<string name="dialog_progress_download_file">Laddar ner&#8230;</string>
+	<string name="dialog_progress_encryption">Krypterar&#8230;</string>
+	<string name="dialog_progress_decryption">Dekrypterar&#8230;</string>
+	<string name="action_progress_moving">Flyttar&#8230;</string>
 	<string name="dialog_lock_vault">Lås</string>
+	<string name="dialog_accept_ssl_certificate_title">Ogiltigt SSL-certifikat</string>
+	<string name="dialog_accept_ssl_certificate_hint">SSL-certifikatet är ogiltigt. Vill du lita på det ändå?</string>
+	<string name="dialog_accept_ssl_certificate_details">Detaljer</string>
+	<string name="dialog_accept_ssl_certificate_security_checkbox">Det kan vara en säkerhetsrisk. Jag vet vad jag gör.</string>
+	<string name="dialog_http_security_hint">Användning av HTTP är osäkert. Vi rekommenderar att du använder HTTPS istället. Om du känner till riskerna kan du fortsätta med HTTP.</string>
+	<string name="dialog_http_security_checkbox">Ändra till HTTPS</string>
+	<string name="dialog_http_security_title">Använd HTTPS?</string>
+	<string name="dialog_no_screen_lock_hint">Inget skärmlås är inställt. För att lagra dina uppgifter på ett säkert sätt, välj OK för att ange ett mönster eller lösenord.</string>
+	<string name="dialog_no_screen_lock_title">Ange skärmlås?</string>
+	<string name="dialog_no_screen_lock_checkbox">Ställ in skärmlås</string>
+	<string name="dialog_no_biometric_auth_set_up_title">Ingen grundläggande autentisering konfigurerad i systemet</string>
+	<string name="dialog_no_biometric_auth_set_up_message">Registrera minst ett finger/ansikte för att använda denna tjänst.</string>
+	<string name="dialog_debug_mode_disclaimer_hint">I detta läge kan känsliga data skrivas till en loggfil på din enhet (t.ex. filnamn och sökvägar). Lösenord, cookies etc. är uttryckligen uteslutna.\n\nKom ihåg att inaktivera felsökningsläge så snart som möjligt.</string>
+	<string name="dialog_debug_mode_disclaimer_title">Observera</string>
+	<string name="dialog_debug_mode_positive_button">Aktivera</string>
+	<string name="dialog_disable_app_obscured_disclaimer_hint">Den här inställningen är en säkerhetsfunktion och hindrar andra appar från att lura användare att göra saker de inte vill göra.\n\nGenom att inaktivera bekräftar du att du är <a href="https://docs.cryptomator.org/en/1.5/android/settings/#block-app-when-obscured">medveten om riskerna</a>.</string>
+	<string name="dialog_disable_app_obscured_disclaimer_title">Observera</string>
+	<string name="dialog_disable_app_obscured_positive_button">Inaktivera</string>
+	<string name="dialog_app_is_obscured_info_title">Appen är täckt</string>
+	<string name="dialog_app_is_obscured_info_hint">En annan app visar något ovanpå Cryptomator (t.ex., ett blått ljusfilter eller nattläge app). Av säkerhetsskäl är Cryptomator inaktiverad.\n\n<a href="https://docs.cryptomator.org/en/1.5/android/settings/#block-app-when-obscured">Så här aktiverar du Cryptomator</a></string>
 	<string name="dialog_app_is_obscured_info_neutral_button">Stäng</string>
+	<string name="dialog_disable_secure_screen_disclaimer_hint">Den här inställningen är en säkerhetsfunktion och hindrar andra appar från att lura användare att göra saker de inte vill göra.\n\nGenom att inaktivera bekräftar du att du är <a href="https://docs.cryptomator.org/en/1.5/android/settings/#screen-security">medveten om riskerna</a>.</string>
+	<string name="dialog_delete_cloud_connection_with_vaults_message">Är du säker på att du vill ta bort den här molnanslutningen?</string>
+	<string name="dialog_delete_cloud_connection_with_vaults_hint">Denna åtgärd kommer att ta bort molnanslutningen och alla valv i detta moln.</string>
+	<string name="dialog_confirm_delete_multiple_title">Ta bort %1$d objekt?</string>
+	<string name="dialog_confirm_delete_multiple_message">Är du säker på att du vill ta bort dessa objekt?</string>
+	<string name="dialog_confirm_delete_file_message">Är du säker på att du vill ta bort denna fil?</string>
+	<string name="dialog_confirm_delete_folder_message">Detta kommer att ta bort allt innehåll i mappen. Är du säker på att du vill ta bort denna mapp?</string>
+	<string name="dialog_biometric_auth_key_invalidated_title">Biometrisk autentiseringsfunktion inaktiverad</string>
+	<string name="dialog_biometric_auth_key_invalidated_message">Eftersom nyckeln har ogiltigförklarats har den biometriska autentiseringsfunktionen avaktiverats. För att återaktivera, öppna Cryptomatorns inställningar.</string>
+	<string name="dialog_enter_license_title">Ange en giltig licens</string>
+	<string name="dialog_enter_license_content">Vi upptäckte att du installerade Cryptomator utan att använda Google Play Store. Ange en giltig licens, som kan köpas på <a href="https://cryptomator.org/android/">https://cryptomator.org/android/</a></string>
+	<string name="dialog_enter_license_not_valid_content">Den angivna licensen är inte giltig. Se till att du angav den korrekt.</string>
+	<string name="dialog_enter_license_no_content">Ingen licens angiven. Ange en giltig licens.</string>
+	<string name="dialog_enter_license_decline_button">Avsluta</string>
+	<string name="dialog_license_confirmation_title">Licensinformation</string>
+	<string name="dialog_license_confirmation_message">Tack %1$s för att du angivit din giltiga licens.</string>
+	<string name="dialog_update_available_title">Uppdatering tillgänglig</string>
+	<string name="dialog_update_available_message">Uppdatera Cryptomator till den senaste versionen. Genom att trycka på OK kommer vi att ladda ner appen i bakgrunden och be dig att installera den.</string>
+	<string name="dialog_update_available_update">Uppdatera nu</string>
+	<string name="dialog_update_available_download_site">Gå till nedladdningssida</string>
+	<string name="dialog_update_available_cancel">Senare</string>
+	<string name="dialog_download_update_title">Nedladdningen körs</string>
+	<string name="dialog_download_update_message">Laddar ner senaste versionen av Cryptomator</string>
+	<string name="dialog_sym_link_title">Mappen är en symbolisk länk</string>
+	<string name="dialog_sym_link_message">Du kan inte gå till denna symboliska länk</string>
 	<string name="dialog_sym_link_back_button">Bakåt</string>
+	<string name="dialog_no_dir_file_title">Det går inte att ladda innehållet i katalogen</string>
+	<string name="dialog_no_dir_file_message">Moln-mappen \'%1$s\' har inte en katalogfil. Det kan bero på att mappen skapades på en annan enhet och ännu inte har synkroniserats fullt ut med molnet. Kontrollera i ditt moln om följande fil finns:\n%2$s</string>
+	<string name="dialog_no_more_images_to_display">Inga fler bilder att visa&#8230;</string>
+	<string name="dialog_pcloud_credentials_updated_title">Användaruppgifter för \'%1$s\' uppdaterad</string>
+	<string name="dialog_pcloud_credentials_updated">Om du tänkte lägga till ett nytt pCloud-konto, klicka på denna url <a href="https://www.pcloud.com">www.pcloud. Om</a>, logga ut från det aktuella kontot och klicka igen på \'+\' i den här appen för att skapa en ny molnanslutning.</string>
+	<string name="permission_snackbar_auth_local_vault">Cryptomator behöver åtkomst till lagringsutrymmet för att använda lokala valv</string>
+	<string name="permission_snackbar_auth_auto_upload">Cryptomator behöver åtkomst till lagringsutrymmet för att kunna använda automatisk uppladdning av foton</string>
 	<!-- # error reports -->
 	<!-- # misc -->
 	<!-- ## file size helper -->
+	<string name="file_size_zero">Noll kB</string>
+	<string name="file_size_unit_bytes">bytes</string>
+	<string name="file_size_unit_kilo_bytes">kB</string>
+	<string name="file_size_unit_mega_bytes">MB</string>
+	<string name="file_size_unit_giga_bytes">GB</string>
+	<string name="file_size_unit_tera_bytes">TB</string>
 	<!-- ## date helper -->
+	<string name="time_unit_seconds_sg">sekund</string>
+	<string name="time_unit_seconds_pl">sekunder</string>
+	<string name="time_unit_minutes_sg">minut</string>
 	<string name="time_unit_minutes_pl">minuter</string>
+	<string name="time_unit_hours_sg">timme</string>
+	<string name="time_unit_hours_pl">timmar</string>
+	<string name="time_unit_days_sg">dag</string>
+	<string name="time_unit_days_pl">dagar</string>
+	<string name="time_unit_weeks_sg">vecka</string>
+	<string name="time_unit_weeks_pl">veckor</string>
+	<string name="time_unit_months_sg">månad</string>
+	<string name="time_unit_months_pl">månader</string>
+	<string name="time_unit_years_sg">år</string>
+	<string name="time_unit_years_pl">år</string>
 	<!-- ## biometric authentication -->
+	<string name="dialog_biometric_auth_title">Biometrisk inloggning</string>
+	<string name="dialog_biometric_auth_message">Logga in med din biometriska referens</string>
+	<string name="dialog_biometric_auth_use_password">Använd valvlösenord</string>
+	<string name="dialog_unable_to_auto_upload_files_title">Det går inte att ladda upp filer automatiskt</string>
 	<!-- notification -->
+	<string name="notification_unlocked">Valv upplåst: %1$d</string>
+	<string name="notification_timeout">Automatiskt lås om %1$s</string>
+	<string name="notification_lock_all">Lås alla</string>
+	<string name="notification_cancel_auto_upload">Avbryt uppladdning</string>
+	<string name="notification_auto_upload_title">Automatisk fotouppladdning körs</string>
+	<string name="notification_auto_upload_message">Laddar upp %1d/%2d</string>
+	<string name="notification_auto_upload_finished_title">Automatisk fotouppladdning slutförd</string>
+	<string name="notification_auto_upload_finished_message">%1$d bilder uppladdade till valvet</string>
+	<string name="notification_auto_upload_failed_title">Automatisk fotouppladdning misslyckades</string>
+	<string name="notification_auto_upload_failed_general_error">Allmänt fel uppstod under uppladdning.</string>
+	<string name="notification_auto_upload_failed_due_to_folder_not_exists">Vald mapp för uppladdning finns inte längre. Gå till inställningar och välj en ny</string>
+	<string name="notification_auto_upload_failed_due_to_vault_locked">Valv låstes under uppladdningen, vänligen öppna valvet för att fortsätta</string>
+	<string name="notification_open_writable_file_title">Öppna skrivbar fil</string>
+	<string name="notification_open_writable_file_message">Valvet är upplåst till färdig redigering</string>
+	<string name="notification_update_check_finished_latest">Senaste versionen installerad</string>
+	<string name="screen_settings_lru_cache">Cache</string>
+	<string name="screen_settings_lru_cache_toggle_summary">Cachen har nyligen kommit åt filer krypterade lokalt på enheten för senare återanvändning när de öppnas igen</string>
+	<string name="screen_settings_lru_cache_size">Total cachestorlek</string>
+	<string name="screen_settings_clear_lru_cache_size">Rensa cachen</string>
+	<string name="screen_settings_lru_cache_changed__restart_toast">Ändringar kommer att tillämpas vid omstart av appen</string>
+	<string name="screen_settings_license">Registrerad till</string>
+	<string name="screen_settings_license_mail">%1$s</string>
+	<string name="dialog_settings_update_check_interval_title">Uppdateringsintervall</string>
+	<string name="screen_settings_check_updates">Sök efter uppdateringar</string>
+	<string name="screen_settings_last_check_updates">Senaste körning %1$s</string>
+	<string name="dialog_cache_size_title">Cache-storlek per moln</string>
 	<!-- lock timeout names -->
+	<string name="lock_timeout_instant">Omedelbart</string>
+	<string name="lock_timeout_1m">1 minut</string>
+	<string name="lock_timeout_2m">2 minuter</string>
+	<string name="lock_timeout_5m">5 minuter</string>
+	<string name="lock_timeout_10m">10 minuter</string>
+	<string name="lock_timeout_never">Aldrig</string>
 	<!-- cache size names -->
+	<string name="cache_size_50m">50 MB</string>
+	<string name="cache_size_100m">100 MB</string>
+	<string name="cache_size_250m">250 MB</string>
+	<string name="cache_size_500m">500 MB</string>
+	<string name="cache_size_1000m">1 GB</string>
+	<string name="cache_size_5000m">5 GB</string>
 	<!-- screen scheme mode names -->
+	<string name="screen_settings_style_mode">Stil</string>
+	<string name="follow_system">Automatisk (följ systemet)</string>
 	<string name="light">Ljust</string>
 	<string name="dark">Mörkt</string>
 	<!-- update interval names -->
+	<string name="update_interval_1d">Varje dag</string>
+	<string name="update_interval_1w">Varje vecka</string>
+	<string name="update_interval_1m">Varje månad</string>
 </resources>
