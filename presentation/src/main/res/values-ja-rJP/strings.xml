@@ -304,7 +304,10 @@
 	<string name="dialog_update_available_cancel">あとで</string>
 	<string name="dialog_download_update_title">ダウンロード中</string>
 	<string name="dialog_download_update_message">Cryptomator の最新バージョンをダウンロード中</string>
+	<string name="dialog_sym_link_title">フォルダがシンボリック リンクです</string>
+	<string name="dialog_sym_link_message">このシンボリック リンクに移動することはできません</string>
 	<string name="dialog_sym_link_back_button">戻る</string>
+	<string name="dialog_no_dir_file_title">ディレクトリのコンテンツを読み込むことができません</string>
 	<string name="dialog_no_more_images_to_display">表示する画像がありません&#8230;</string>
 	<string name="dialog_pcloud_credentials_updated_title">\'%1$s\' の資格情報が更新されました</string>
 	<string name="permission_snackbar_auth_local_vault">ローカルの金庫を使用するには、Cryptomator がストレージにアクセスする許可が必要です</string>
@@ -348,7 +351,9 @@
 	<string name="notification_auto_upload_finished_title">写真の自動アップロードが完了しました</string>
 	<string name="notification_auto_upload_finished_message">%1$d 個の画像を金庫にアップロードしました</string>
 	<string name="notification_auto_upload_failed_title">写真の自動アップロードが失敗しました</string>
+	<string name="notification_auto_upload_failed_due_to_vault_locked">アップロード中は金庫が施錠されます。続けるには金庫を再度開いてください。</string>
 	<string name="notification_open_writable_file_title">書き込み可能なファイルを開く</string>
+	<string name="notification_open_writable_file_message">編集が完了するまで金庫は施錠されます</string>
 	<string name="notification_update_check_finished_latest">最新バージョンがインストールされました</string>
 	<string name="screen_settings_lru_cache">キャッシュ</string>
 	<string name="screen_settings_lru_cache_size">キャッシュの合計サイズ</string>
@@ -359,6 +364,7 @@
 	<string name="dialog_settings_update_check_interval_title">更新確認の間隔</string>
 	<string name="screen_settings_check_updates">更新の確認</string>
 	<string name="screen_settings_last_check_updates">最終実行 %1$s</string>
+	<string name="dialog_cache_size_title">クラウドごとのキャッシュ サイズ</string>
 	<!-- lock timeout names -->
 	<string name="lock_timeout_instant">インスタント</string>
 	<string name="lock_timeout_1m">1分</string>
