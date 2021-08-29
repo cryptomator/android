@@ -162,6 +162,9 @@
 	<string name="screen_settings_secure_screen_summary">Bloca les captures de pantalla a les llistes de recents i dins de l\'aplicació</string>
 	<string name="screen_settings_section_search">Cercar</string>
 	<string name="screen_settings_live_search">Cerca en temps real</string>
+	<string name="screen_settings_live_search_summary">Actualitzar els resultats de cerca mentre s\'escriu la consulta</string>
+	<string name="screen_settings_glob_search">Cercar amb patró glob</string>
+	<string name="screen_settings_glob_search_summary">Usar la coincidència del patró glob com alice.*.jpg</string>
 	<string name="screen_settings_section_auto_lock">Bloca automàticament</string>
 	<string name="screen_settings_auto_lock_timeout">Bloca després de</string>
 	<string name="screen_settings_auto_lock_on_screen_lock">Quan la pantalla està desactivada</string>
