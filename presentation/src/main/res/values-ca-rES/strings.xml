@@ -156,9 +156,12 @@
 	<string name="screen_settings_biometric_auth">Autenticació biomètrica</string>
 	<string name="screen_settings_activate_biometric_auth">Activar l\'autenticació biomètrica</string>
 	<string name="screen_settings_confirm_face_unlock">Confirmar el desbloqueig de cara (si està disponible)</string>
+	<string name="screen_settings_block_app_when_obscured">Bloquejar l\'app quan passi a segon pla</string>
+	<string name="screen_settings_block_app_when_obscured_summary">Bloquejar la intercepció de l\'entrada i mostrar una interfície d\'usuari falsa</string>
 	<string name="screen_settings_secure_screen">Bloca les captures de pantalla</string>
 	<string name="screen_settings_secure_screen_summary">Bloca les captures de pantalla a les llistes de recents i dins de l\'aplicació</string>
 	<string name="screen_settings_section_search">Cercar</string>
+	<string name="screen_settings_live_search">Cerca en temps real</string>
 	<string name="screen_settings_section_auto_lock">Bloca automàticament</string>
 	<string name="screen_settings_auto_lock_timeout">Bloca després de</string>
 	<string name="screen_settings_auto_lock_on_screen_lock">Quan la pantalla està desactivada</string>
