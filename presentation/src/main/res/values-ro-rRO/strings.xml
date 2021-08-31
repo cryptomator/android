@@ -6,33 +6,49 @@
 	<!-- ## cloud names -->
 	<!-- # permission -->
 	<!-- ## permission messages -->
+	<string name="snack_bar_action_title_search_next">Următorul</string>
 	<!-- # screens -->
 	<!-- # screen: vault list -->
 	<!-- # screen: file browser -->
+	<string name="screen_file_browser_default_title">Seif</string>
 	<!-- ## screen: text editor -->
 	<!-- ## screen: share files -->
 	<!-- ## screen: choose cloud service -->
 	<!-- ## screen: cloud connections -->
 	<!-- ## screen: webdav settings -->
+	<string name="screen_webdav_settings_password_label">Parolă</string>
 	<!-- ## screen: s3 settings -->
 	<!-- ## screen: enter vault name -->
 	<!-- ## screen: set password -->
+	<string name="screen_set_password_button_text">Terminat</string>
+	<string name="screen_set_password_strength_indicator_1">Slabă</string>
+	<string name="screen_set_password_strength_indicator_2">Acceptabilă</string>
+	<string name="screen_set_password_strength_indicator_3">Puternică</string>
 	<!-- ## screen: settings -->
+	<string name="screen_settings_section_general">Setări Generale</string>
 	<!-- ## screen: cloud settings -->
 	<!-- ## screen: licenses -->
 	<!-- ## screen: authenticate cloud -->
 	<!-- ## screen: empty dir file info -->
 	<!-- ## screen: insecure android version info -->
 	<!-- # dialogs -->
+	<string name="dialog_button_cancel">Anulează</string>
+	<string name="dialog_enter_password_positive_button">Deblocați</string>
 	<!-- Vault not found -->
+	<string name="dialog_lock_vault">Blocaţi</string>
+	<string name="dialog_app_is_obscured_info_neutral_button">Închide</string>
+	<string name="dialog_sym_link_back_button">Înapoi</string>
 	<!-- # error reports -->
 	<!-- # misc -->
 	<!-- ## file size helper -->
 	<!-- ## date helper -->
+	<string name="time_unit_minutes_pl">minute</string>
 	<!-- ## biometric authentication -->
 	<!-- notification -->
 	<!-- lock timeout names -->
 	<!-- cache size names -->
 	<!-- screen scheme mode names -->
+	<string name="light">Luminos</string>
+	<string name="dark">Întunecat</string>
 	<!-- update interval names -->
 </resources>
