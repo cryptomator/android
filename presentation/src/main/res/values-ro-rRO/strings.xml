@@ -1,7 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 	<!-- # app -->
+	<string name="share_with_label">Criptează</string>
 	<!-- # error messages -->
+	<string name="error_generic">A apărut o eroare</string>
+	<string name="error_authentication_failed">Autentificare eșuată</string>
+	<string name="error_authentication_failed_re_authenticate">Autentificare eșuată, vă rugăm să vă conectați din nou prin %1$s</string>
+	<string name="error_no_network_connection">Nu există conexiune la rețea</string>
+	<string name="error_invalid_passphrase">Parolă greşită</string>
+	<string name="error_file_or_folder_exists">Un fișier sau dosar există deja.</string>
+	<string name="error_vault_version_not_supported">Seif nesuportat. Acest seif a fost creat cu o altă versiune de Cryptomator.</string>
+	<string name="error_vault_already_exists">Seiful există deja.</string>
+	<string name="error_no_such_file">Fișierul nu există.</string>
+	<string name="error_vault_has_been_locked">Seiful a fost blocat.</string>
 	<!-- # clouds -->
 	<!-- ## cloud names -->
 	<!-- # permission -->
@@ -51,4 +62,5 @@
 	<string name="light">Luminos</string>
 	<string name="dark">Întunecat</string>
 	<!-- update interval names -->
+	<string name="update_interval_1m">O dată pe lună</string>
 </resources>
