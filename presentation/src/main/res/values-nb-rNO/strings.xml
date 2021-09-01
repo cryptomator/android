@@ -12,6 +12,7 @@
 	<string name="error_vault_already_exists">Hvelvet finnes allerede.</string>
 	<string name="error_no_such_file">Filen finnes ikke.</string>
 	<string name="error_vault_has_been_locked">Hvelvet har blitt låst.</string>
+	<string name="error_cloud_already_exists">Skylagringen finnes allerede.</string>
 	<!-- # clouds -->
 	<!-- ## cloud names -->
 	<string name="cloud_names_local_storage">Lokal lagring</string>
@@ -19,31 +20,100 @@
 	<!-- ## permission messages -->
 	<string name="snack_bar_action_title_settings">Innstillinger</string>
 	<string name="snack_bar_action_title_search">Søk</string>
+	<string name="snack_bar_action_title_search_previous">Forrige</string>
 	<string name="snack_bar_action_title_search_next">Neste</string>
+	<string name="snack_bar_action_title_sort">Sorter</string>
 	<string name="snack_bar_action_title_sort_az">A - Å</string>
 	<string name="snack_bar_action_title_sort_za">Å - A</string>
+	<string name="snack_bar_action_title_sort_newest">Nyeste først</string>
+	<string name="snack_bar_action_title_sort_oldest">Eldste først</string>
+	<string name="snack_bar_action_title_sort_biggest">Største først</string>
+	<string name="snack_bar_action_title_sort_smallest">Minste først</string>
 	<!-- # screens -->
 	<!-- # screen: vault list -->
+	<string name="screen_vault_list_actions_title">Legg til i Cryptomator</string>
+	<string name="screen_vault_list_action_create_new_vault">Lag et nytt hvelv</string>
+	<string name="screen_vault_list_action_add_existing_vault">Legg til et eksisterende hvelv</string>
+	<string name="screen_vault_list_vault_action_delete">Fjern</string>
+	<string name="screen_vault_list_vault_creation_hint">Klikk her for å lage et nytt hvelv</string>
 	<!-- # screen: file browser -->
 	<string name="screen_file_browser_default_title">Hvelv</string>
+	<string name="screen_file_browser_create_new_vault_button_text">Plasser her</string>
+	<string name="screen_file_browser_create_new_vault_extra_text">Hvelvnavn: %1$s</string>
+	<string name="screen_file_browser_move_button_text">Flytt</string>
+	<string name="screen_file_browser_msg_empty_folder">Tom mappe</string>
+	<string name="screen_file_browser_file_info_label_date">endret for %1$s siden</string>
+	<string name="screen_file_browser_share_intent_chooser_title">Del med</string>
 	<string name="screen_file_browser_share_button_text">Velg</string>
+	<string name="screen_file_browser_action_create_folder">Opprett mappe</string>
+	<string name="screen_file_browser_action_create_new_text_file">Lag en tekstfil</string>
+	<string name="screen_file_browser_action_upload_files">Last opp filer</string>
+	<string name="screen_file_browser_upload_files_chooser_title">Filer</string>
+	<string name="screen_file_browser_msg_file_exported">Fil eksportert</string>
+	<string name="screen_file_browser_msg_files_exported">Filer eksportert</string>
+	<string name="screen_file_browser_nothing_to_export">Ingenting å eksportere</string>
+	<string name="screen_file_browser_msg_creating_download_dir_failed">Opprettelse av nedlastingsmappe feilet</string>
+	<string name="screen_file_browser_node_action_share">Del</string>
+	<string name="screen_file_browser_node_action_rename">Endre navn</string>
+	<string name="screen_file_browser_node_action_edit_text">Rediger</string>
+	<string name="screen_file_browser_node_action_export">Eksporter</string>
+	<string name="screen_file_browser_node_action_delete">Slett</string>
+	<string name="screen_file_browser_node_action_open_with_text">Åpne med&#8230;</string>
+	<string name="screen_file_browser_selection_mode_title_one_or_more_elements">%1$d valgt</string>
+	<string name="screen_file_browser_select_all_items">Velg alle</string>
+	<string name="screen_file_browser_refresh_items">Oppdater</string>
+	<string name="screen_file_browser_no_connection_message">Ingen forbindelse</string>
+	<string name="screen_file_browser_no_connection_button_text">Prøv igjen</string>
 	<!-- ## screen: text editor -->
+	<string name="screen_text_editor_save_success">Vellykket lagring</string>
 	<!-- ## screen: share files -->
+	<string name="screen_share_files_title">Lagre %1$s til&#8230;</string>
+	<string name="screen_share_files_content_text">tekst</string>
+	<string name="screen_share_files_content_file">fil</string>
+	<string name="screen_share_files_content_files">filer</string>
+	<string name="screen_share_files_save_button_text">Lagre</string>
 	<!-- ## screen: choose cloud service -->
+	<string name="screen_choose_cloud_service_title">Skylagringstjeneste</string>
 	<!-- ## screen: cloud connections -->
 	<!-- ## screen: webdav settings -->
+	<string name="screen_webdav_settings_url_port_label">URL</string>
+	<string name="screen_webdav_settings_username_label">Brukernavn</string>
 	<string name="screen_webdav_settings_password_label">Passord</string>
 	<!-- ## screen: s3 settings -->
 	<!-- ## screen: enter vault name -->
+	<string name="screen_enter_vault_name_vault_label">Hvelvnavn</string>
+	<string name="screen_enter_vault_name_button_text">Opprett</string>
 	<!-- ## screen: set password -->
+	<string name="screen_set_password_title">Angi passord</string>
 	<string name="screen_set_password_button_text">Ferdig</string>
+	<string name="screen_set_password_retype_password_label">Gjenta passordet</string>
 	<string name="screen_set_password_strength_indicator_1">Svakt</string>
 	<string name="screen_set_password_strength_indicator_2">Ok</string>
 	<string name="screen_set_password_strength_indicator_3">Sterkt</string>
+	<string name="screen_set_password_strength_indicator_4">Veldig sterkt</string>
 	<!-- ## screen: settings -->
 	<string name="screen_settings_section_general">Generelt</string>
+	<string name="screen_settings_cloud_settings_label">Skylagringstjenester</string>
 	<string name="screen_settings_section_search">Søk</string>
+	<string name="screen_settings_auto_lock_timeout">Lås etter</string>
+	<string name="screen_settings_section_auto_photo_upload_toggle">Aktiver</string>
+	<string name="screen_settings_section_auto_photo_upload_including_videos">Last opp videoer</string>
+	<string name="screen_settings_website_label">Cryptomators nettside</string>
+	<string name="screen_settings_twitter_label">Følg oss på Twitter</string>
+	<string name="screen_settings_facebook_label">Lik oss på Facebook</string>
+	<string name="screen_settings_section_legal">Juridisk</string>
+	<string name="screen_settings_licenses_label">Lisenser</string>
+	<string name="screen_settings_section_support">Brukerstøtte</string>
+	<string name="screen_settings_contact_label">Be om hjelp</string>
+	<string name="screen_settings_debug_mode_label">Feilsøkingsmodus</string>
+	<string name="screen_settings_error_report_label">Send loggfil</string>
+	<string name="screen_settings_error_report_failed">Sending feilet</string>
+	<string name="screen_settings_section_version">Versjon</string>
+	<string name="screen_settings_advanced_settings">Avanserte innstillinger</string>
 	<!-- ## screen: cloud settings -->
+	<string name="screen_cloud_settings_webdav_connections">WebDAV-tilkoblinger</string>
+	<string name="screen_cloud_settings_pcloud_connections">pCloud-tilkoblinger</string>
+	<string name="screen_cloud_settings_log_in_to">Logg inn i</string>
 	<!-- ## screen: licenses -->
 	<!-- ## screen: authenticate cloud -->
 	<!-- ## screen: empty dir file info -->
@@ -51,9 +121,21 @@
 	<!-- # dialogs -->
 	<string name="dialog_button_cancel">Avbryt</string>
 	<string name="dialog_enter_password_positive_button">Lås opp</string>
+	<string name="dialog_change_password_old_password_label">Gjeldende passord</string>
+	<string name="dialog_change_password_new_password_label">Nytt passord</string>
+	<string name="dialog_change_password">Bytt passord</string>
+	<string name="dialog_change_password_msg_old_password_empty">Feltet for gjeldende passord kan ikke være tomt.</string>
+	<string name="dialog_change_password_msg_new_password_empty">Feltet for nytt passordet kan ikke være tomt.</string>
 	<!-- Vault not found -->
+	<string name="dialog_vault_not_found_positive_button_text">Fjern</string>
+	<string name="dialog_existing_file_title">Filen finnes allerede</string>
+	<string name="dialog_existing_file_positive_button">Erstatt</string>
+	<string name="dialog_replace_positive_button_all_files_exist">Erstatt alle</string>
+	<string name="dialog_replace_positive_button_single_file_exists">Erstatt</string>
 	<string name="dialog_lock_vault">Lås</string>
 	<string name="dialog_app_is_obscured_info_neutral_button">Lukk</string>
+	<string name="dialog_delete_cloud_connection_with_vaults_message">Er du sikker på at du vil fjerne denne skylagringstilkoblingen?</string>
+	<string name="dialog_delete_cloud_connection_with_vaults_hint">Denne handlingen vil fjerne skylagringsforbindelsen og alle hvelv i denne skyen.</string>
 	<string name="dialog_sym_link_back_button">Tilbake</string>
 	<!-- # error reports -->
 	<!-- # misc -->
@@ -62,8 +144,20 @@
 	<string name="time_unit_minutes_pl">minutter</string>
 	<!-- ## biometric authentication -->
 	<!-- notification -->
+	<string name="screen_settings_lru_cache">Hurtigminne</string>
+	<string name="screen_settings_lru_cache_toggle_summary">Hurtigminnet åpnet nylig filer som er kryptert lokalt på enheten, for senere gjenbruk når de åpnes igjen</string>
+	<string name="screen_settings_lru_cache_size">Total hurtigminnestørrelse</string>
+	<string name="screen_settings_clear_lru_cache_size">Tøm hurtigminnet</string>
+	<string name="screen_settings_lru_cache_changed__restart_toast">Endringer vil bli tatt i bruk ved neste omstart av appen</string>
+	<string name="dialog_cache_size_title">Hurtigminnestørrelse per sky</string>
 	<!-- lock timeout names -->
 	<!-- cache size names -->
+	<string name="cache_size_50m">50 MB</string>
+	<string name="cache_size_100m">100 MB</string>
+	<string name="cache_size_250m">250 MB</string>
+	<string name="cache_size_500m">500 MB</string>
+	<string name="cache_size_1000m">1 GB</string>
+	<string name="cache_size_5000m">5 GB</string>
 	<!-- screen scheme mode names -->
 	<string name="light">Lys</string>
 	<string name="dark">Mørk</string>
