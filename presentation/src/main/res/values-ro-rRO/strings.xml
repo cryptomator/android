@@ -32,6 +32,7 @@
 	<string name="error_vault_config_loading">Eroare generală în timpul încărcării configurației seifului</string>
 	<string name="error_file_not_found_after_opening_using_3party">Fișierul local nu mai este prezent după ce s-a trecut înapoi la Cryptomator. Modificările posibile nu pot fi propagate înapoi în cloud.</string>
 	<string name="error_no_such_bucket">Nu există așa găleată</string>
+	<string name="error_masterkey_location_not_supported">Nu este suportată încă utilizarea locației personalizate pentru masterkey</string>
 	<!-- # clouds -->
 	<!-- ## cloud names -->
 	<string name="cloud_names_local_storage">Stocare locală</string>
@@ -39,6 +40,7 @@
 	<!-- ## permission messages -->
 	<string name="permission_message_export_file">Cryptomator are nevoie de acces la stocare pentru a exporta fișiere</string>
 	<string name="permission_message_upload_file">Cryptomator are nevoie de acces la stocare pentru a încărca fișiere</string>
+	<string name="permission_message_share_file">Cryptomator are nevoie de acces la stocare pentru a exporta fișiere</string>
 	<string name="snack_bar_action_title_settings">Setări</string>
 	<string name="snack_bar_action_title_search">Căutare</string>
 	<string name="snack_bar_action_title_search_previous">Precedentul</string>
@@ -46,8 +48,13 @@
 	<string name="snack_bar_action_title_sort">Sortare</string>
 	<string name="snack_bar_action_title_sort_az">A - Z</string>
 	<string name="snack_bar_action_title_sort_za">Z - A</string>
+	<string name="snack_bar_action_title_sort_newest">Cele mai noi mai întâi</string>
+	<string name="snack_bar_action_title_sort_oldest">Cel mai vechi mai întâi</string>
+	<string name="snack_bar_action_title_sort_biggest">Cele mai mari mai întâi</string>
+	<string name="snack_bar_action_title_sort_smallest">Cele mai mici mai întâi</string>
 	<!-- # screens -->
 	<!-- # screen: vault list -->
+	<string name="screen_vault_list_actions_title">Adaugă la Criptomator</string>
 	<string name="screen_vault_list_action_create_new_vault">Creează seif nou</string>
 	<string name="screen_vault_list_action_add_existing_vault">Adaugă seif existent</string>
 	<string name="screen_vault_list_vault_action_delete">Șterge</string>
@@ -155,14 +162,53 @@
 	<string name="screen_settings_secure_screen_summary">Blochează capturile de ecran în lista de aplicații recente și în interiorul aplicației</string>
 	<string name="screen_settings_section_search">Căutare</string>
 	<string name="screen_settings_live_search">Căutare live</string>
+	<string name="screen_settings_live_search_summary">Actualizează rezultatele căutării în timpul introducerii interogării</string>
+	<string name="screen_settings_glob_search">Caută folosind modelul glob</string>
+	<string name="screen_settings_glob_search_summary">Utilizați modelul glob care se potrivește ca alice.*.jpg</string>
+	<string name="screen_settings_section_auto_lock">Blocare automată</string>
 	<string name="screen_settings_auto_lock_timeout">Blocare automată după</string>
 	<string name="screen_settings_auto_lock_on_screen_lock">Când ecranul este dezactivat</string>
 	<string name="screen_settings_section_auto_photo_upload">Încărcare automată a fotografiilor</string>
 	<string name="screen_settings_section_auto_photo_upload_vault">Alege seiful pentru încărcare</string>
+	<string name="screen_settings_section_auto_photo_upload_toggle">Activează</string>
+	<string name="screen_settings_section_auto_photo_upload_toggle_summary">Capturează imagini în fundal și odată ce seiful selectat este deblocat, începe încărcarea</string>
+	<string name="screen_settings_section_auto_photo_upload_only_wifi_toggle">Încărcaţi numai folosind WIFI</string>
+	<string name="screen_settings_section_auto_photo_upload_including_videos">Încarcă fişiere video</string>
+	<string name="screen_settings_auto_photo_upload_title">Salvați fișierele încărcate automat în&#8230;</string>
+	<string name="screen_settings_website_label">Pagina web a aplicației Cryptomator</string>
+	<string name="screen_settings_twitter_label">Urmăriți-ne pe Twitter</string>
+	<string name="screen_settings_facebook_label">Dă-ne un Like pe Facebook</string>
+	<string name="screen_settings_section_legal">Aspecte legale</string>
+	<string name="screen_settings_licenses_label">Licențe</string>
+	<string name="screen_settings_license_terms_label">Termenii şi condiţii</string>
+	<string name="screen_settings_section_support">Suport</string>
+	<string name="screen_settings_contact_label">Solicită ajutor</string>
+	<string name="screen_settings_debug_mode_label">Mod de depanare</string>
+	<string name="screen_settings_error_report_label">Trimiteți fişierul jurnal</string>
+	<string name="screen_settings_error_report_failed">Trimitere eșuată</string>
+	<string name="screen_settings_security_label">Indicații de securitate</string>
+	<string name="screen_settings_section_version">Versiune</string>
+	<string name="screen_settings_advanced_settings">Setări avansate</string>
+	<string name="screen_settings_background_unlock_preparation_label">Accelerează deblocarea</string>
+	<string name="screen_settings_background_unlock_preparation_label_summary">Descărcați configurarea seifului în fundal în timp ce vi se solicită introducerea parolei sau a autentificării biometrice</string>
+	<string name="screen_settings_keep_unlocked_while_editing_files">Păstrați deblocat</string>
+	<string name="screen_settings_keep_unlocked_while_editing_files_summary">Păstrați seifele deblocate în timpul editării fișierelor</string>
 	<!-- ## screen: cloud settings -->
+	<string name="screen_cloud_settings_webdav_connections">Conexiuni WebDAV</string>
+	<string name="screen_cloud_settings_pcloud_connections">conexiuni pCloud</string>
+	<string name="screen_cloud_settings_s3_connections">Conexiuni S3</string>
+	<string name="screen_cloud_settings_local_storage_locations">Locații de stocare locală</string>
+	<string name="screen_cloud_settings_log_in_to">Conectați-vă la</string>
+	<string name="screen_cloud_settings_sign_out_from_cloud">Deconectare de la</string>
 	<!-- ## screen: licenses -->
 	<!-- ## screen: authenticate cloud -->
+	<string name="screen_authenticate_auth_authentication_failed">%1$s nu a putut fi autentificat.</string>
+	<string name="screen_update_pcloud_connections_title">Actualizare acreditări pCloud</string>
 	<!-- ## screen: empty dir file info -->
+	<string name="screen_empty_dir_file_info_title">\'%1$s\' inaccesibil</string>
+	<string name="screen_empty_dir_file_info_headline">Cryptomator a detectat că acest dosar este inaccesibil.</string>
+	<string name="screen_empty_dir_file_info_text">Este posibil să fi fost şters de o altă aplicaţie sau o sincronizare în nor defectuoasă ar fi putut cauza acest lucru.\n\nÎncercaţi să restauraţi fişierul director, prin intermediul furnizorului dvs. cloud, la o versiune anterioară care nu este goală. Fișierul în cauză este:\n%1$s\n\nDacă nu funcționează, puteţi utiliza Sanitizer pentru a verifica seiful dumneavoastră pentru probleme şi, posibil, pentru a restabili datele.</string>
+	<string name="screen_empty_dir_file_info_button_label">Mai multe detalii despre Sanitizer</string>
 	<!-- ## screen: insecure android version info -->
 	<!-- # dialogs -->
 	<string name="dialog_button_cancel">Anulează</string>
@@ -180,9 +226,13 @@
 	<string name="dialog_existing_file_title">Fişierul există deja</string>
 	<string name="dialog_existing_file_positive_button">Înlocuiește</string>
 	<string name="dialog_existing_file_message">Un fişier numit \'%1$s\' există deja.</string>
+	<string name="dialog_replace_negative_button_at_least_two_but_not_all_files_exist">Sari peste existente</string>
 	<string name="dialog_replace_positive_button_all_files_exist">Înlocuiește tot</string>
 	<string name="dialog_replace_positive_button_some_files_exist">Înlocuiește existente</string>
 	<string name="dialog_replace_positive_button_single_file_exists">Înlocuiește</string>
+	<string name="dialog_replace_msg_single_file_exists">Un fișier numit \'%1$sexistă deja. Doriți să îl înlocuiți?</string>
+	<string name="dialog_replace_msg_all_files_exists">Toate fișierele există deja. Doriți să le înlocuiți?</string>
+	<string name="dialog_replace_msg_some_files_exists">%1$d fișiere deja există. Doriți să le înlocuiți?</string>
 	<string name="dialog_replace_title_single_file_exists">Înlocuiţi fişierul?</string>
 	<string name="dialog_replace_title_multiple_files_exist">Înlocuiţi fişierele?</string>
 	<string name="dialog_unable_to_share_title">Imposibil de partajat fișierele</string>
@@ -194,6 +244,12 @@
 	<string name="dialog_rename_vault_title">Redenumire seif</string>
 	<string name="dialog_rename_node_folder_title">Redenumiți dosarul</string>
 	<string name="dialog_rename_node_file_title">Redenumiţi fişierul</string>
+	<string name="dialog_unsaved_changes_title">Aveți câteva modificări nesalvate</string>
+	<string name="dialog_unsaved_changes_message">Sigur doriți să ieșiți fără a salva?</string>
+	<string name="dialog_unsaved_changes_discard">Renunţaţi</string>
+	<string name="dialog_file_name_placeholder">text.txt</string>
+	<string name="dialog_delete_vault_message">Sunteţi sigur că doriţi să ştergeţi acest seif?</string>
+	<string name="dialog_delete_vault_hint">Această acţiune va elimina seiful doar din această listă şi nu îl va şterge fizic.</string>
 	<string name="dialog_upload_file_title">Se încarcă&#8230;</string>
 	<string name="dialog_upload_file_remaining">Fișier %1$d din %2$d</string>
 	<string name="dialog_export_file_title">Exportare (%1$d/%2$d)</string>
@@ -219,6 +275,12 @@
 	<string name="dialog_http_security_hint">Utilizarea HTTP este nesigură. Vă recomandăm să utilizați HTTPS în schimb. Dacă cunoașteți riscurile, puteți continua cu HTTP.</string>
 	<string name="dialog_http_security_checkbox">Schimbare la HTTPS</string>
 	<string name="dialog_http_security_title">Folosiți HTTPS?</string>
+	<string name="dialog_no_screen_lock_hint">Nu este setată nicio blocare a ecranului. Pentru a stoca acreditările într-un mod sigur, setați cu OK un model sau o parolă.</string>
+	<string name="dialog_no_screen_lock_title">Setați blocarea ecranului?</string>
+	<string name="dialog_no_screen_lock_checkbox">Setați blocarea ecranului</string>
+	<string name="dialog_no_biometric_auth_set_up_title">Nicio autentificare de bază configurată în sistem</string>
+	<string name="dialog_no_biometric_auth_set_up_message">E nevoie de cel puțin un deget sau o față pentru a utiliza acest serviciu.</string>
+	<string name="dialog_debug_mode_disclaimer_hint">În acest mod, datele sensibile pot fi scrise într-un fișier jurnal de pe dispozitivul dumneavoastră (de exemplu, nume de fișiere și căi de fișiere). Parolele, cookie-urile etc. sunt excluse în mod explicit.\n\nNu uitați să dezactivați modul de depanare cât mai curând posibil.</string>
 	<string name="dialog_debug_mode_disclaimer_title">Atenție</string>
 	<string name="dialog_debug_mode_positive_button">Activează</string>
 	<string name="dialog_disable_app_obscured_disclaimer_hint">Această setare este o caracteristică de securitate și previne alte aplicații să păcălească utilizatorii să facă lucruri pe care nu ar trebui să le facă.\n\nPrin dezactivare, confirmați că sunteți <a href="https://docs.cryptomator.org/en/1.5/android/settings/#block-app-when-obscured">conștient de riscurile</a>.</string>
