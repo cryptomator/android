@@ -65,6 +65,11 @@
 	<string name="screen_file_browser_add_existing_vault_extra_text">Selectaţi fişierul Masterkey</string>
 	<string name="screen_file_browser_create_new_vault_button_text">Plasează aici</string>
 	<string name="screen_file_browser_create_new_vault_extra_text">Numele seifului: %1$s</string>
+	<plurals name="screen_file_browser_subtitle_move">
+		<item quantity="one">Mută %1$s în</item>
+		<item quantity="few">Mută %2$d elemente la</item>
+		<item quantity="other">Mută %2$d elemente la</item>
+	</plurals>
 	<string name="screen_file_browser_move_button_text">Mută</string>
 	<string name="screen_file_browser_msg_empty_folder">Dosar gol</string>
 	<string name="screen_file_browser_file_info_label_date">modificat %1$s în urmă</string>
