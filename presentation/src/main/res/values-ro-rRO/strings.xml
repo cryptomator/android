@@ -34,7 +34,13 @@
 	<!-- ## cloud names -->
 	<!-- # permission -->
 	<!-- ## permission messages -->
+	<string name="snack_bar_action_title_settings">Setări</string>
+	<string name="snack_bar_action_title_search">Căutare</string>
+	<string name="snack_bar_action_title_search_previous">Precedentul</string>
 	<string name="snack_bar_action_title_search_next">Următorul</string>
+	<string name="snack_bar_action_title_sort">Sortare</string>
+	<string name="snack_bar_action_title_sort_az">A - Z</string>
+	<string name="snack_bar_action_title_sort_za">Z - A</string>
 	<!-- # screens -->
 	<!-- # screen: vault list -->
 	<!-- # screen: file browser -->
@@ -54,6 +60,7 @@
 	<string name="screen_set_password_strength_indicator_3">Puternică</string>
 	<!-- ## screen: settings -->
 	<string name="screen_settings_section_general">Setări Generale</string>
+	<string name="screen_settings_section_search">Căutare</string>
 	<!-- ## screen: cloud settings -->
 	<!-- ## screen: licenses -->
 	<!-- ## screen: authenticate cloud -->
@@ -69,15 +76,36 @@
 	<!-- # error reports -->
 	<!-- # misc -->
 	<!-- ## file size helper -->
+	<string name="file_size_zero">Zero kB</string>
+	<string name="file_size_unit_bytes">octeți</string>
+	<string name="file_size_unit_kilo_bytes">kB</string>
+	<string name="file_size_unit_mega_bytes">Mb</string>
+	<string name="file_size_unit_giga_bytes">Gb</string>
 	<!-- ## date helper -->
 	<string name="time_unit_minutes_pl">minute</string>
 	<!-- ## biometric authentication -->
 	<!-- notification -->
 	<!-- lock timeout names -->
+	<string name="lock_timeout_instant">Instant</string>
+	<string name="lock_timeout_1m">Un minut</string>
+	<string name="lock_timeout_2m">2 minute</string>
+	<string name="lock_timeout_5m">5 minute</string>
+	<string name="lock_timeout_10m">10 minute</string>
+	<string name="lock_timeout_never">Niciodată</string>
 	<!-- cache size names -->
+	<string name="cache_size_50m">50 Mb</string>
+	<string name="cache_size_100m">100 Mb</string>
+	<string name="cache_size_250m">250 Mb</string>
+	<string name="cache_size_500m">500 Mb</string>
+	<string name="cache_size_1000m">1 Gb</string>
+	<string name="cache_size_5000m">5 Gb</string>
 	<!-- screen scheme mode names -->
+	<string name="screen_settings_style_mode">Aspect</string>
+	<string name="follow_system">Automat (conform tematicii de sistem)</string>
 	<string name="light">Luminos</string>
 	<string name="dark">Întunecat</string>
 	<!-- update interval names -->
+	<string name="update_interval_1d">O dată pe zi</string>
+	<string name="update_interval_1w">O dată pe săptămână</string>
 	<string name="update_interval_1m">O dată pe lună</string>
 </resources>
