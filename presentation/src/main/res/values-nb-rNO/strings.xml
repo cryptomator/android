@@ -1,12 +1,27 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 	<!-- # app -->
+	<string name="share_with_label">Krypter</string>
 	<!-- # error messages -->
+	<string name="error_generic">En feil oppstod</string>
+	<string name="error_authentication_failed">Autentisering feilet</string>
+	<string name="error_authentication_failed_re_authenticate">Autentisering feilet. Logg inn med %1$s</string>
+	<string name="error_no_network_connection">Ingen nettverkstilkobling</string>
+	<string name="error_invalid_passphrase">Feil passord</string>
+	<string name="error_file_or_folder_exists">En fil eller mappe finnes allerede.</string>
+	<string name="error_vault_already_exists">Hvelvet finnes allerede.</string>
+	<string name="error_no_such_file">Filen finnes ikke.</string>
+	<string name="error_vault_has_been_locked">Hvelvet har blitt låst.</string>
 	<!-- # clouds -->
 	<!-- ## cloud names -->
+	<string name="cloud_names_local_storage">Lokal lagring</string>
 	<!-- # permission -->
 	<!-- ## permission messages -->
+	<string name="snack_bar_action_title_settings">Innstillinger</string>
+	<string name="snack_bar_action_title_search">Søk</string>
 	<string name="snack_bar_action_title_search_next">Neste</string>
+	<string name="snack_bar_action_title_sort_az">A - Å</string>
+	<string name="snack_bar_action_title_sort_za">Å - A</string>
 	<!-- # screens -->
 	<!-- # screen: vault list -->
 	<!-- # screen: file browser -->
@@ -27,6 +42,7 @@
 	<string name="screen_set_password_strength_indicator_3">Sterkt</string>
 	<!-- ## screen: settings -->
 	<string name="screen_settings_section_general">Generelt</string>
+	<string name="screen_settings_section_search">Søk</string>
 	<!-- ## screen: cloud settings -->
 	<!-- ## screen: licenses -->
 	<!-- ## screen: authenticate cloud -->
