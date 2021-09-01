@@ -2,7 +2,7 @@ package org.cryptomator.data.cloud.googledrive
 
 import android.content.Context
 import com.google.api.client.http.javanet.NetHttpTransport
-import com.google.api.client.json.jackson2.JacksonFactory
+import com.google.api.client.json.gson.GsonFactory
 import com.google.api.services.drive.Drive
 import com.google.api.services.drive.DriveScopes
 import org.cryptomator.data.BuildConfig
@@ -46,7 +46,7 @@ class GoogleDriveClientFactory internal constructor() {
 				})
 			}
 			val credential = FixedGoogleAccountCredential.usingOAuth2(context, setOf(DriveScopes.DRIVE)).also { it.setAccountName(accountName) }
-			return Drive.Builder(NetHttpTransport(), JacksonFactory.getDefaultInstance(), credential) //
+			return Drive.Builder(NetHttpTransport(), GsonFactory.getDefaultInstance(), credential) //
 				.setApplicationName("Cryptomator-Android/" + BuildConfig.VERSION_NAME) //
 				.build()
 

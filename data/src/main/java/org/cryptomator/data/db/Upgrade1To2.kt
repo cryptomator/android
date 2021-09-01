@@ -32,7 +32,7 @@ internal class Upgrade1To2 @Inject constructor() : DatabaseUpgrade(1, 2) {
 	private fun createInitialUpdateStatus(db: Database) {
 		Sql.insertInto("UPDATE_CHECK_ENTITY") //
 			.integer("_id", 1) //
-			.bool("LICENSE_TOKEN", null) //
+			.text("LICENSE_TOKEN", null) //
 			.text("RELEASE_NOTE", null) //
 			.text("VERSION", null) //
 			.text("URL_TO_APK", null) //

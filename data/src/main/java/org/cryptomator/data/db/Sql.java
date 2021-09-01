@@ -73,7 +73,11 @@ class Sql {
 		return (column, contentValues) -> contentValues.put(column, value);
 	}
 
-	public static ValueHolder toInteger(final Long value) {
+	public static ValueHolder toLong(final Long value) {
+		return (column, contentValues) -> contentValues.put(column, value);
+	}
+
+	public static ValueHolder toInteger(final Integer value) {
 		return (column, contentValues) -> contentValues.put(column, value);
 	}
 
@@ -243,7 +247,6 @@ class Sql {
 	public static class SqlAlterTableBuilder {
 
 		private final String table;
-		private final StringBuilder columns = new StringBuilder();
 		private String newName;
 
 		private SqlAlterTableBuilder(String table) {
@@ -283,8 +286,7 @@ class Sql {
 
 		public void executeOn(Database wrapped) {
 			SQLiteDatabase db = unwrap(wrapped);
-			StringBuilder query = new StringBuilder() //
-					.append("INSERT INTO \"").append(table).append("\" (");
+			StringBuilder query = new StringBuilder().append("INSERT INTO \"").append(table).append("\" (");
 			appendColumns(query, columns, false);
 			query.append(") SELECT ");
 			appendColumns(query, selectedColumns, true);

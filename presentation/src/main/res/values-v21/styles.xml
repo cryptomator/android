@@ -1,8 +1,0 @@
-<resources>
-
-	<style name="FullscreenTheme" parent="AppTheme">
-		<!-- windowIsTranslucent=false due to https://issuetracker.google.com/issues/68454482 see #467 -->
-		<item name="android:windowTranslucentStatus">false</item>
-		<item name="android:navigationBarColor">@color/colorBlackTransparent</item>
-	</style>
-</resources>
