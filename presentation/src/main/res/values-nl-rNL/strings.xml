@@ -1,7 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 	<!-- # app -->
+	<string name="share_with_label">Versleutelen</string>
 	<!-- # error messages -->
+	<string name="error_generic">Er is een fout opgetreden</string>
+	<string name="error_authentication_failed">Authenticatie mislukt</string>
+	<string name="error_no_network_connection">Geen netwerkverbinding</string>
+	<string name="error_invalid_passphrase">Fout wachtwoord</string>
+	<string name="error_file_or_folder_exists">Een bestand of map bestaat reeds.</string>
+	<string name="error_vault_version_not_supported">Niet-ondersteunde Vault. Deze Vault is gemaakt met een andere versie van Cryptomator.</string>
+	<string name="error_vault_already_exists">Vault bestaat reeds.</string>
+	<string name="error_no_such_file">Bestand bestaat niet.</string>
+	<string name="error_vault_has_been_locked">Vault is vergrendeld.</string>
 	<!-- # clouds -->
 	<!-- ## cloud names -->
 	<!-- # permission -->
