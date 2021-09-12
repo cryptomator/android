@@ -299,6 +299,7 @@
 	<string name="dialog_license_confirmation_title">ライセンスの確認</string>
 	<string name="dialog_license_confirmation_message">%1$s-san 有効なライセンスを入力していただきありがとうございます。 </string>
 	<string name="dialog_update_available_title">利用可能なアップデートがあります</string>
+	<string name="dialog_update_available_message">Cryptomator を最新のバージョンに更新します。OK を押すとバックグラウンドでアプリがダウンロードされ、インストール可能になると通知されます。</string>
 	<string name="dialog_update_available_update">すぐに更新</string>
 	<string name="dialog_update_available_download_site">ダウンロード サイトに行く</string>
 	<string name="dialog_update_available_cancel">あとで</string>
