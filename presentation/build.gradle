@@ -49,7 +49,6 @@ android {
 			crunchPngs false
 			minifyEnabled false
 			shrinkResources false
-			useProguard false
 
 			buildConfigField "String", "DROPBOX_API_KEY", "\"" + getApiKey('DROPBOX_API_KEY') + "\""
 			manifestPlaceholders = [DROPBOX_API_KEY: getApiKey('DROPBOX_API_KEY')]
