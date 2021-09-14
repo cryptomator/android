@@ -1,8 +1,8 @@
 - Added compatibility to vault format 8
-- Added Google login in pCloud
-- Added shared vaults in pCloud
+- Added Google login and shared vaults in pCloud
 - Added a ton of translations, kudos to our contributors
 - Enhanced auto updater of APK store
 - Increased min. Android version to 7 (Side note: Android 6 did not receive security updates for almost 2 years)
 - Fixed rename vault name in S3
+- Fixed add/create vault in Google Drive on some devices
 - Dropped support for weak biometric authenticators
