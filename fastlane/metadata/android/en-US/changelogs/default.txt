@@ -5,4 +5,5 @@
 - Enhanced auto updater of APK store
 - Increased min. Android version to 7 (Side note: Android 6 did not receive security updates for almost 2 years)
 - Fixed rename vault name in S3
+- Fixed add/create vault in Google Drive on some devices
 - Dropped support for weak biometric authenticators
