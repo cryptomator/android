@@ -157,8 +157,12 @@
 	<string name="screen_settings_confirm_face_unlock">顔認証のロック解除 (利用できる場合)</string>
 	<string name="screen_settings_block_app_when_obscured">他のアプリが重なるときにアプリを停止</string>
 	<string name="screen_settings_secure_screen">スクリーンショットをブロック</string>
+	<string name="screen_settings_secure_screen_summary">アプリ内や「最近使ったアプリ」でスクリーンショットを表示しない</string>
 	<string name="screen_settings_section_search">検索</string>
 	<string name="screen_settings_live_search">ライブ検索</string>
+	<string name="screen_settings_live_search_summary">クエリを入力中に検索結果を更新する</string>
+	<string name="screen_settings_glob_search">glob パターンを使用して検索</string>
+	<string name="screen_settings_glob_search_summary">alice.*.jpg のような glob パターン一致を使用する</string>
 	<string name="screen_settings_section_auto_lock">自動的な施錠</string>
 	<string name="screen_settings_auto_lock_timeout">次の場合にロックする</string>
 	<string name="screen_settings_auto_lock_on_screen_lock">画面がロックされたとき</string>
@@ -288,14 +292,25 @@
 	<string name="dialog_confirm_delete_folder_message">この操作はフォルダーの内容をすべて削除します。本当にこのフォルダーを削除してもよろしいですか?</string>
 	<string name="dialog_biometric_auth_key_invalidated_title">生体認証機能が無効になりました</string>
 	<string name="dialog_enter_license_title">有効なライセンスを入力してください</string>
+	<string name="dialog_enter_license_content">Google Play Store を使用せずに Cryptomator をインストールしたことを検出しました。有効なライセンスを購入してください:  <a href="https://cryptomator.org/android/">https://cryptomator.org/android/</a></string>
+	<string name="dialog_enter_license_not_valid_content">入力されたライセンスが無効です。正しく入力されていることを確認してください。</string>
+	<string name="dialog_enter_license_no_content">ライセンスがありません。有効なライセンスを入力してください。</string>
 	<string name="dialog_enter_license_decline_button">終了</string>
+	<string name="dialog_license_confirmation_title">ライセンスの確認</string>
+	<string name="dialog_license_confirmation_message">%1$s-san 有効なライセンスを入力していただきありがとうございます。 </string>
 	<string name="dialog_update_available_title">利用可能なアップデートがあります</string>
+	<string name="dialog_update_available_message">Cryptomator を最新のバージョンに更新します。OK を押すとバックグラウンドでアプリがダウンロードされ、インストール可能になると通知されます。</string>
 	<string name="dialog_update_available_update">すぐに更新</string>
 	<string name="dialog_update_available_download_site">ダウンロード サイトに行く</string>
 	<string name="dialog_update_available_cancel">あとで</string>
 	<string name="dialog_download_update_title">ダウンロード中</string>
 	<string name="dialog_download_update_message">Cryptomator の最新バージョンをダウンロード中</string>
+	<string name="dialog_sym_link_title">フォルダがシンボリック リンクです</string>
+	<string name="dialog_sym_link_message">このシンボリック リンクに移動することはできません</string>
 	<string name="dialog_sym_link_back_button">戻る</string>
+	<string name="dialog_no_dir_file_title">ディレクトリのコンテンツを読み込むことができません</string>
+	<string name="dialog_no_more_images_to_display">表示する画像がありません&#8230;</string>
+	<string name="dialog_pcloud_credentials_updated_title">\'%1$s\' の資格情報が更新されました</string>
 	<string name="permission_snackbar_auth_local_vault">ローカルの金庫を使用するには、Cryptomator がストレージにアクセスする許可が必要です</string>
 	<string name="permission_snackbar_auth_auto_upload">自動的に画像をアップロードするには、Cryptomator がストレージにアクセスする許可が必要です</string>
 	<!-- # error reports -->
@@ -337,7 +352,9 @@
 	<string name="notification_auto_upload_finished_title">写真の自動アップロードが完了しました</string>
 	<string name="notification_auto_upload_finished_message">%1$d 個の画像を金庫にアップロードしました</string>
 	<string name="notification_auto_upload_failed_title">写真の自動アップロードが失敗しました</string>
+	<string name="notification_auto_upload_failed_due_to_vault_locked">アップロード中は金庫が施錠されます。続けるには金庫を再度開いてください。</string>
 	<string name="notification_open_writable_file_title">書き込み可能なファイルを開く</string>
+	<string name="notification_open_writable_file_message">編集が完了するまで金庫は施錠されます</string>
 	<string name="notification_update_check_finished_latest">最新バージョンがインストールされました</string>
 	<string name="screen_settings_lru_cache">キャッシュ</string>
 	<string name="screen_settings_lru_cache_size">キャッシュの合計サイズ</string>
@@ -347,7 +364,10 @@
 	<string name="screen_settings_license_mail">%1$s</string>
 	<string name="dialog_settings_update_check_interval_title">更新確認の間隔</string>
 	<string name="screen_settings_check_updates">更新の確認</string>
+	<string name="screen_settings_last_check_updates">最終実行 %1$s</string>
+	<string name="dialog_cache_size_title">クラウドごとのキャッシュ サイズ</string>
 	<!-- lock timeout names -->
+	<string name="lock_timeout_instant">インスタント</string>
 	<string name="lock_timeout_1m">1分</string>
 	<string name="lock_timeout_2m">2分</string>
 	<string name="lock_timeout_5m">5分</string>

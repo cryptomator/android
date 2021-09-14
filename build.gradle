@@ -8,7 +8,7 @@ buildscript {
 		google()
 	}
 	dependencies {
-		classpath 'com.android.tools.build:gradle:4.2.2'
+		classpath 'com.android.tools.build:gradle:7.0.2'
 		classpath 'org.greenrobot:greendao-gradle-plugin:3.3.0'
 		classpath 'com.vanniktech:gradle-android-junit-jacoco-plugin:0.16.0'
 		classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
@@ -39,7 +39,7 @@ allprojects {
 	ext {
 		androidApplicationId = 'org.cryptomator'
 		androidVersionCode = getVersionCode()
-		androidVersionName = '1.6.0-beta3'
+		androidVersionName = '1.6.0-SNAPSHOT'
 	}
 	repositories {
 		mavenCentral()
