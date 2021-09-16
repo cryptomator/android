@@ -9,7 +9,7 @@
 	<string name="error_no_network_connection">Нет подключения к сети</string>
 	<string name="error_invalid_passphrase">Неверный пароль</string>
 	<string name="error_file_or_folder_exists">Файл или папка уже существует.</string>
-	<string name="error_vault_version_not_supported">Неподдерживаемое хранилище. Оно было создано другой версией Cryptomator.</string>
+	<string name="error_vault_version_not_supported">Не поддерживаемое хранилище. Это хранилище было создано другой версией Cryptomator.</string>
 	<string name="error_vault_already_exists">Хранилище уже существует.</string>
 	<string name="error_no_such_file">Файл не существует.</string>
 	<string name="error_vault_has_been_locked">Хранилище заблокировано.</string>
