@@ -1,7 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 	<!-- # app -->
+	<string name="share_with_label">Encriptar</string>
 	<!-- # error messages -->
+	<string name="error_generic">Ocorreu um erro</string>
+	<string name="error_authentication_failed">Autenticação falhada</string>
+	<string name="error_authentication_failed_re_authenticate">Falha na autenticação, por favor faça o login usando %1$s</string>
+	<string name="error_no_network_connection">Sem ligação à rede</string>
+	<string name="error_invalid_passphrase">Palavra-chave errada</string>
+	<string name="error_file_or_folder_exists">Um ficheiro ou uma pasta já existe.</string>
+	<string name="error_vault_version_not_supported">Cofre não suportado. Este cofre foi criado com outra versão do Cryptomator.</string>
+	<string name="error_vault_already_exists">O cofre já existe.</string>
+	<string name="error_no_such_file">O ficheiro não existe.</string>
+	<string name="error_vault_has_been_locked">O cofre foi bloqueado.</string>
+	<string name="error_cloud_already_exists">A nuvem já existe.</string>
+	<string name="error_activity_not_found">Por favor faça o download de uma aplicação que possa abrir este ficheiro.</string>
+	<string name="error_server_not_found">Servidor não foi encontrado.</string>
 	<!-- # clouds -->
 	<!-- ## cloud names -->
 	<!-- # permission -->
