@@ -4,7 +4,7 @@
 	<string name="share_with_label">Шифрование</string>
 	<!-- # error messages -->
 	<string name="error_generic">Произошла ошибка</string>
-	<string name="error_authentication_failed">Ошибка авторизации</string>
+	<string name="error_authentication_failed">Ошибка аутентификации</string>
 	<string name="error_authentication_failed_re_authenticate">Ошибка аутентификации, войдите с помощью %1$s</string>
 	<string name="error_no_network_connection">Нет подключения к сети</string>
 	<string name="error_invalid_passphrase">Неверный пароль</string>
