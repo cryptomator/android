@@ -5,6 +5,7 @@
 	<!-- # error messages -->
 	<string name="error_generic">Er is een fout opgetreden</string>
 	<string name="error_authentication_failed">Authenticatie mislukt</string>
+	<string name="error_authentication_failed_re_authenticate">Authenticatie mislukt, log in met %1$s</string>
 	<string name="error_no_network_connection">Geen netwerkverbinding</string>
 	<string name="error_invalid_passphrase">Fout wachtwoord</string>
 	<string name="error_file_or_folder_exists">Een bestand of map bestaat reeds.</string>
@@ -12,6 +13,9 @@
 	<string name="error_vault_already_exists">Vault bestaat reeds.</string>
 	<string name="error_no_such_file">Bestand bestaat niet.</string>
 	<string name="error_vault_has_been_locked">Vault is vergrendeld.</string>
+	<string name="error_cloud_already_exists">Cloud bestaat reeds.</string>
+	<string name="error_activity_not_found">Download een app die dit bestand kan openen.</string>
+	<string name="error_server_not_found">Server niet gevonden.</string>
 	<!-- # clouds -->
 	<!-- ## cloud names -->
 	<!-- # permission -->
