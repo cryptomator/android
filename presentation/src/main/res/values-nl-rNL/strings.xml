@@ -29,6 +29,7 @@
 	<string name="screen_file_browser_default_title">Kluis</string>
 	<string name="screen_file_browser_share_button_text">Kies</string>
 	<string name="screen_file_browser_node_action_edit_text">Bewerken</string>
+	<string name="screen_file_browser_select_items">Selecteer</string>
 	<!-- ## screen: text editor -->
 	<!-- ## screen: share files -->
 	<!-- ## screen: choose cloud service -->
