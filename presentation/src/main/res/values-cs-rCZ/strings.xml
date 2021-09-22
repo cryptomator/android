@@ -210,11 +210,6 @@
 	<!-- ## screen: authenticate cloud -->
 	<string name="screen_authenticate_auth_authentication_failed">%1$s nebylo možno ověřit.</string>
 	<string name="screen_update_pcloud_connections_title">Aktualizovat přihlašovací údaje k pCloudu</string>
-	<!-- ## screen: empty dir file info -->
-	<string name="screen_empty_dir_file_info_title">\'%1$s\' nedostupný</string>
-	<string name="screen_empty_dir_file_info_headline">Cryptomator zjistil, že tato složka je nedostupná.</string>
-	<string name="screen_empty_dir_file_info_text">Mohlo dojít ke smazání jinou aplikací nebo to mohla způsobit chybná synchronizace cloudu.\n\nPokuste se obnovit soubor adresáře přes svého poskytovatele cloudu na předchozí verzi, která není prázdná. Jedná se o soubor:\n%1$s\n\nPokud nedojde k opravě, můžete použít Sanitizer ke kontrole problémů s trezorem a případně obnovili svá data.</string>
-	<string name="screen_empty_dir_file_info_button_label">Více informací o Sanitizeru</string>
 	<!-- ## screen: insecure android version info -->
 	<!-- # dialogs -->
 	<string name="dialog_button_cancel">Zrušit</string>
@@ -322,7 +317,6 @@
 	<string name="dialog_sym_link_message">Nemůžete přejít na tento symbolický odkaz</string>
 	<string name="dialog_sym_link_back_button">Zpět</string>
 	<string name="dialog_no_dir_file_title">Obsah adresáře nelze načíst</string>
-	<string name="dialog_no_dir_file_message">Složka Cloudu \'%1$s\' nemá adresářový soubor. Mohlo dojít k tomu, že složka byla vytvořena na jiném zařízení a ještě nebyla plně synchronizována s cloudem. Prosím zkontrolujte v cloudu, zda-li existuje následující soubor:\n%2$s</string>
 	<string name="dialog_no_more_images_to_display">Žádné další obrázky k zobrazení&#8230;</string>
 	<string name="dialog_pcloud_credentials_updated_title">Údaje o \'%1$s\' byly aktualizovány</string>
 	<string name="dialog_pcloud_credentials_updated">Pokud máte v úmyslu přidat nový účet na pCloud, klikněte na tento odkaz <a href="https://www.pcloud.com">www.pcloud. om</a>, odhlaste se z aktuálního účtu a znovu klikněte na \'+\' v této aplikaci pro vytvoření nového cloudového připojení.</string>
