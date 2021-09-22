@@ -317,6 +317,7 @@
 	<string name="dialog_sym_link_message">Nie możesz przejść do tego linku symbolicznego</string>
 	<string name="dialog_sym_link_back_button">Powrót</string>
 	<string name="dialog_no_dir_file_title">Nie można załadować zawartości katalogu</string>
+	<string name="dialog_no_dir_file_message">Folder \'%1$s\' w chmurze nie ma pliku katalogowego. Być może folder został utworzony na innym urządzeniu i nie został jeszcze w pełni zsynchronizowany z chmurą. Sprawdź w chmurze, czy następujący plik istnieje:\n%2$s</string>
 	<string name="dialog_no_more_images_to_display">Brak obrazów do wyświetlenia&#8230;</string>
 	<string name="dialog_pcloud_credentials_updated_title">Zaktualizowano dane logowania \'%1$s\'</string>
 	<string name="dialog_pcloud_credentials_updated">Jeśli chciałaś/eś dodać nowe konto pCloud, przejdź na podany adres <a href="https://www.pcloud.com">www.pcloud.com</a>, wyloguj się z aktualnie zalogowanego konta i ponownie kliknij na \'+\' aby utworzyć nowe połączenie z chmurą.</string>
