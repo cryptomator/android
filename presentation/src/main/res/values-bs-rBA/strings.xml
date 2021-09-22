@@ -1,7 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 	<!-- # app -->
+	<string name="share_with_label">Šifriraj</string>
 	<!-- # error messages -->
+	<string name="error_generic">Došlo je do greške</string>
+	<string name="error_authentication_failed">Provjera autentičnosti nije uspjela</string>
 	<!-- # clouds -->
 	<!-- ## cloud names -->
 	<!-- # permission -->
