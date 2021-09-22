@@ -208,11 +208,6 @@
 	<!-- ## screen: authenticate cloud -->
 	<string name="screen_authenticate_auth_authentication_failed">%1$s-Authentifizierung fehlgeschlagen.</string>
 	<string name="screen_update_pcloud_connections_title">pCloud-Anmeldedaten aktualisieren</string>
-	<!-- ## screen: empty dir file info -->
-	<string name="screen_empty_dir_file_info_title">\'%1$s\' nicht erreichbar</string>
-	<string name="screen_empty_dir_file_info_headline">Cryptomator hat erkannt, dass dieser Ordner nicht erreichbar ist.</string>
-	<string name="screen_empty_dir_file_info_text">Möglicherweise wurde dieser durch eine andere Anwendung gelöscht oder wurde durch eine fehlerhafte Synchronisation mit der Cloud verursacht.\n\nVersuchen Sie die Verzeichnisdatei über Ihren Cloud-Anbieter auf eine vorhergehende Version, die nicht leer ist, wiederherzustellen. Die betroffene Datei ist:\n%1$s\n\nFalls dies nicht funktioniert, könnten Sie Sanitizer verwenden, um Ihren Tresor auf Fehler zu überprüfen und möglicherweise Daten wiederherzustellen.</string>
-	<string name="screen_empty_dir_file_info_button_label">Mehr über Sanitizer</string>
 	<!-- ## screen: insecure android version info -->
 	<!-- # dialogs -->
 	<string name="dialog_button_cancel">Abbrechen</string>
@@ -320,7 +315,6 @@
 	<string name="dialog_sym_link_message">Sie können nicht in diesen symbolischen Link navigieren</string>
 	<string name="dialog_sym_link_back_button">Zurück</string>
 	<string name="dialog_no_dir_file_title">Verzeichnis kann nicht geladen werden</string>
-	<string name="dialog_no_dir_file_message">Der Ordner \'%1$s\' in der Cloud hat keine Verzeichnis-Datei. Es könnte sein, dass der Ordner auf einem anderen Gerät erstellt wurde und noch nicht vollständig mit der Cloud synchronisiert ist. Bitte überprüfen, ob die folgende Datei in der Cloud existiert:\n%2$s</string>
 	<string name="dialog_no_more_images_to_display">Keine weiteren Bilder anzuzeigen&#8230;</string>
 	<string name="dialog_pcloud_credentials_updated_title">Anmeldedaten von \'%1$s\' aktualisiert</string>
 	<string name="dialog_pcloud_credentials_updated">Wenn du ein neues pCloud-Konto hinzufügen möchtest, klicke auf diese URL <a href="https://www.pcloud.com">www.pcloud.com</a>, melde dich vom aktuellen Konto ab und klicke erneut auf das \'+\' in dieser App, um eine neue Cloud-Verbindung herzustellen.</string>
