@@ -289,12 +289,12 @@
 	<string name="dialog_app_is_obscured_info_hint">Eine App zeigt etwas über Cryptomator an (z.B. ein Blaulichtfilter oder eine Nachtmodus-App). Aus Sicherheitsgründen ist Cryptomator deaktiviert.\n\n<a href="https://docs.cryptomator.org/en/1.5/android/settings/#block-app-when-obscured">Wie Cryptomator aktiviert werden kann</a></string>
 	<string name="dialog_app_is_obscured_info_neutral_button">Schließen</string>
 	<string name="dialog_disable_secure_screen_disclaimer_hint">Dies ist eine Sicherheitsfunktion und verhindert, dass andere Apps Nutzer dazu bringen, Dinge zu tun, die sie nicht tun wollen.\n\nDurch die Deaktivierung bestätigst du, dass du dich <a href="https://docs.cryptomator.org/en/1.5/android/settings/#screen-security">der Risiken bewusst</a> bist.</string>
-	<string name="dialog_delete_cloud_connection_with_vaults_message">Bist du dir sicher, dass du den Cloud-Dienst entfernen möchtest?</string>
-	<string name="dialog_delete_cloud_connection_with_vaults_hint">Dieser Vorgang wird den Cloud-Dienst und dessen zugehörigen Tresor löschen.</string>
+	<string name="dialog_delete_cloud_connection_with_vaults_message">Bist du dir sicher, dass du die Cloud-Verbindung entfernen möchtest?</string>
+	<string name="dialog_delete_cloud_connection_with_vaults_hint">Dieser Vorgang wird die Cloud-Verbindung und alle zugehörigen Tresore löschen.</string>
 	<string name="dialog_confirm_delete_multiple_title">%1$d Elemente löschen?</string>
 	<string name="dialog_confirm_delete_multiple_message">Möchtest du diese Elemente wirklich löschen?</string>
 	<string name="dialog_confirm_delete_file_message">Möchtest du dieses Element wirklich löschen?</string>
-	<string name="dialog_confirm_delete_folder_message">Dieser Vorgang wird den gesamten Ordnerinhalt löschen. Bist du sicher, dass du das möchtest?</string>
+	<string name="dialog_confirm_delete_folder_message">Dieser Vorgang wird den gesamten Ordnerinhalt löschen. Bist du sicher, dass du diesen Ordner löschen möchtest?</string>
 	<string name="dialog_biometric_auth_key_invalidated_title">Biometrischer Login deaktiviert</string>
 	<string name="dialog_biometric_auth_key_invalidated_message">Da der Schlüssel nicht mehr zur Verfügung steht, wurde der Biometrischer Login deaktiviert. Zur Reaktivierung öffnen Sie die Cryptomator-Einstellungen.</string>
 	<string name="dialog_enter_license_title">APK-Store Lizenz</string>
@@ -303,9 +303,9 @@
 	<string name="dialog_enter_license_no_content">Keine Lizenz vorhanden. Gib eine gültige Lizenz ein.</string>
 	<string name="dialog_enter_license_decline_button">Beenden</string>
 	<string name="dialog_license_confirmation_title">Lizenzbestätigung</string>
-	<string name="dialog_license_confirmation_message">Danke für die Eingabe deiner gültigen Lizenz %1$s.</string>
+	<string name="dialog_license_confirmation_message">Danke für die Eingabe deiner gültigen Lizenz, %1$s.</string>
 	<string name="dialog_update_available_title">Neue Version verfügbar</string>
-	<string name="dialog_update_available_message">Cryptomator auf den aktuellen Stand aktualisieren. Mit OK wird die neueste Version heruntergeladen. Daraufhin werden Sie aufgefordert diese zu installieren.</string>
+	<string name="dialog_update_available_message">Cryptomator auf die neuste Version aktualisieren. Mit OK wird die neueste Version im Hintergrund heruntergeladen und du wirst aufgefordert, diese zu installieren.</string>
 	<string name="dialog_update_available_update">Jetzt aktualisieren</string>
 	<string name="dialog_update_available_download_site">Download-Seite öffnen</string>
 	<string name="dialog_update_available_cancel">Später</string>
@@ -314,8 +314,8 @@
 	<string name="dialog_sym_link_title">Dieser Ordner ist ein symbolischer Link</string>
 	<string name="dialog_sym_link_message">Sie können nicht in diesen symbolischen Link navigieren</string>
 	<string name="dialog_sym_link_back_button">Zurück</string>
-	<string name="dialog_no_dir_file_title">Verzeichnis kann nicht geladen werden</string>
-	<string name="dialog_no_dir_file_message">Der Ordner \'%1$s\' in der Cloud hat keine Verzeichnis-Datei. Es könnte sein, dass der Ordner auf einem anderen Gerät erstellt wurde und noch nicht vollständig mit der Cloud synchronisiert ist. Bitte überprüfe, ob die folgende Datei in der Cloud existiert und nicht leer ist:\n%2$s</string>
+	<string name="dialog_no_dir_file_title">Verzeichnisinhalt kann nicht geladen werden</string>
+	<string name="dialog_no_dir_file_message">Der Ordner \'%1$s\' in der Cloud hat keine gültige Verzeichnis-Datei. Es könnte sein, dass der Ordner auf einem anderen Gerät erstellt und noch nicht vollständig mit der Cloud synchronisiert wurde. Bitte überprüfe, ob die folgende Datei in der Cloud existiert und nicht leer ist:\n%2$s</string>
 	<string name="dialog_no_more_images_to_display">Keine weiteren Bilder anzuzeigen&#8230;</string>
 	<string name="dialog_pcloud_credentials_updated_title">Anmeldedaten von \'%1$s\' aktualisiert</string>
 	<string name="dialog_pcloud_credentials_updated">Wenn du ein neues pCloud-Konto hinzufügen möchtest, klicke auf diese URL <a href="https://www.pcloud.com">www.pcloud.com</a>, melde dich vom aktuellen Konto ab und klicke erneut auf das \'+\' in dieser App, um eine neue Cloud-Verbindung herzustellen.</string>
