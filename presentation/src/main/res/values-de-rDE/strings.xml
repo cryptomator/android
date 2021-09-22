@@ -271,7 +271,7 @@
 	<string name="dialog_accept_ssl_certificate_hint">Das SSL-Zertifikat ist ungültig. Möchtest du ihm trotzdem vertrauen?</string>
 	<string name="dialog_accept_ssl_certificate_details">Details</string>
 	<string name="dialog_accept_ssl_certificate_security_checkbox">Dies könnte ein Sicherheitsrisiko sein. Ich weiß was ich tue.</string>
-	<string name="dialog_http_security_hint">Die Verwendung von HTTP ist unsicher. Wir empfehlen stattdessen die Nutzung von HTTPS. Wenn du dir der Risiken bewusst bist, kannst du mit HTTP fortfahren.</string>
+	<string name="dialog_http_security_hint">Die Verwendung von HTTP ist unsicher. Wir empfehlen stattdessen die Verwendung von HTTPS. Wenn du dir der Risiken bewusst bist, kannst du mit HTTP fortfahren.</string>
 	<string name="dialog_http_security_checkbox">Zu HTTPS ändern</string>
 	<string name="dialog_http_security_title">HTTPS nutzen?</string>
 	<string name="dialog_no_screen_lock_hint">Kein Sperrbildschirm ist gesetzt. Um Ihre Passwörter sicher speichern zu können, setzen Sie bitte mit OK ein Muster oder ein Passwort.</string>
@@ -319,7 +319,7 @@
 	<string name="dialog_no_more_images_to_display">Keine weiteren Bilder anzuzeigen&#8230;</string>
 	<string name="dialog_pcloud_credentials_updated_title">Anmeldedaten von \'%1$s\' aktualisiert</string>
 	<string name="dialog_pcloud_credentials_updated">Wenn du ein neues pCloud-Konto hinzufügen möchtest, klicke auf diese URL <a href="https://www.pcloud.com">www.pcloud.com</a>, melde dich vom aktuellen Konto ab und klicke erneut auf das \'+\' in dieser App, um eine neue Cloud-Verbindung herzustellen.</string>
-	<string name="permission_snackbar_auth_local_vault">Um lokale Tresore nutzen zu können benötigt Cryptomator Speicherzugriff</string>
+	<string name="permission_snackbar_auth_local_vault">Cryptomator benötigt Speicherzugriff, um lokale Tresore nutzen zu können</string>
 	<string name="permission_snackbar_auth_auto_upload">Cryptomator benötigt Zugriff auf den Speicher um den automatischen Foto-Upload zu nutzen</string>
 	<!-- # error reports -->
 	<!-- # misc -->
