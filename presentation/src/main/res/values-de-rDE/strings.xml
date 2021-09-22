@@ -93,6 +93,7 @@
 	<string name="screen_file_browser_node_action_open_with_text">Öffnen mit&#8230;</string>
 	<string name="screen_file_browser_selection_mode_title_zero_elements">Elemente auswählen</string>
 	<string name="screen_file_browser_selection_mode_title_one_or_more_elements">%1$d ausgewählt</string>
+	<string name="screen_file_browser_select_items">Elemente auswählen</string>
 	<string name="screen_file_browser_select_all_items">Alle Elemente auswählen</string>
 	<string name="screen_file_browser_refresh_items">Aktualisieren</string>
 	<string name="screen_file_browser_no_connection_message">Keine Verbindung</string>
@@ -210,7 +211,7 @@
 	<!-- ## screen: empty dir file info -->
 	<string name="screen_empty_dir_file_info_title">\'%1$s\' nicht erreichbar</string>
 	<string name="screen_empty_dir_file_info_headline">Cryptomator hat erkannt, dass dieser Ordner nicht erreichbar ist.</string>
-	<string name="screen_empty_dir_file_info_text">Möglicherweise wurde dieser durch eine andere Anwendung gelöscht oder wurde durch eine fehlerhafte Synchronisation mit der Cloud verursacht.\n\nVersuchen Sie die Verzeichnisdatei über Ihren Cloud-Anbieter auf eine vorhergehende Version, die nicht leer ist, wiederherzustellen. Die betroffene Datei ist:\n%1$s\n\nFalls dies nicht funktioniert, könnten Sie Sanitizer verwenden, um Ihren Tresor auf Fehler zu überprüfen und möglicherweise Daten wiederherzustellen.</string>
+	<string name="screen_empty_dir_file_info_text">Möglicherweise wurde dieser durch eine andere Anwendung gelöscht oder wurde durch eine fehlerhafte Synchronisation mit der Cloud dieses Problem verursacht.\n\nVersuche die Verzeichnisdatei über deinen Cloud-Anbieter auf eine vorhergehende Version, die nicht leer ist, wiederherzustellen. Die betroffene Datei ist:\n%1$s\n\nFalls dies nicht funktioniert, könntest du den Sanitizer verwenden, um den Tresor auf Fehler zu überprüfen und möglicherweise Daten wiederherzustellen.</string>
 	<string name="screen_empty_dir_file_info_button_label">Mehr über Sanitizer</string>
 	<!-- ## screen: insecure android version info -->
 	<!-- # dialogs -->
@@ -224,7 +225,7 @@
 	<string name="dialog_change_password_msg_password_mismatch">Neue Passwort stimmt nicht mit dem wiederholten Passwort überein.</string>
 	<!-- Vault not found -->
 	<string name="dialog_vault_not_found_title">Tresor %1$s nicht gefunden</string>
-	<string name="dialog_vault_not_found_message">Der Tresor wurde umbenannt, verschoben oder gelöscht. Entfernen Sie diesen aus der Tresorliste und fügen Sie ihn erneut hinzu um fortzufahren. Tresor jetzt entfernen?</string>
+	<string name="dialog_vault_not_found_message">Der Tresor wurde umbenannt, verschoben oder gelöscht. Entferne diesen aus der Tresorliste und fügen ihn erneut hinzu um fortzufahren. Tresor jetzt entfernen?</string>
 	<string name="dialog_vault_not_found_positive_button_text">Entfernen</string>
 	<string name="dialog_existing_file_title">Datei existiert bereits</string>
 	<string name="dialog_existing_file_positive_button">Ersetzen</string>
@@ -278,27 +279,27 @@
 	<string name="dialog_http_security_hint">Die Verwendung von HTTP ist unsicher. Wir empfehlen stattdessen die Nutzung von HTTPS. Wenn du dir der Risiken bewusst bist, kannst du mit HTTP fortfahren.</string>
 	<string name="dialog_http_security_checkbox">Zu HTTPS ändern</string>
 	<string name="dialog_http_security_title">HTTPS nutzen?</string>
-	<string name="dialog_no_screen_lock_hint">Kein Sperrbildschirm ist gesetzt. Um Ihre Passwörter sicher speichern zu können, setzen Sie bitte mit OK ein Muster oder ein Passwort.</string>
+	<string name="dialog_no_screen_lock_hint">Kein Sperrbildschirm ist gesetzt. Um deine Passwörter sicher speichern zu können, setze bitte mit OK ein Muster oder ein Passwort.</string>
 	<string name="dialog_no_screen_lock_title">Sperrbildschirm setzen?</string>
 	<string name="dialog_no_screen_lock_checkbox">Sperrbildschirm setzen</string>
 	<string name="dialog_no_biometric_auth_set_up_title">Kein Fingerabdruck/Gesicht im System</string>
-	<string name="dialog_no_biometric_auth_set_up_message">Legen Sie mindestens einen Fingerabdruck/Gesicht im System an, um diesen Dienst nutzen zu können.</string>
-	<string name="dialog_debug_mode_disclaimer_hint">In diesem Modus könnten sensible Daten in eine Log-Datei auf diesem Gerät geschrieben werden (z.B. Dateinamen und Pfade). Ausgeschlossen davon sind u.a. Passwörter und Cookies.\n\nDenken Sie daran, den Debug-Modus so schnell wie möglich wieder zu deaktivieren.</string>
+	<string name="dialog_no_biometric_auth_set_up_message">Lege mindestens einen Fingerabdruck/Gesicht im System an, um diesen Dienst nutzen zu können.</string>
+	<string name="dialog_debug_mode_disclaimer_hint">In diesem Modus könnten sensible Daten in eine Log-Datei auf diesem Gerät geschrieben werden (z.B. Dateinamen und Pfade). Ausgeschlossen davon sind u.a. Passwörter und Cookies.\n\nDenke daran, den Debug-Modus so schnell wie möglich wieder zu deaktivieren.</string>
 	<string name="dialog_debug_mode_disclaimer_title">Achtung</string>
 	<string name="dialog_debug_mode_positive_button">Aktivieren</string>
-	<string name="dialog_disable_app_obscured_disclaimer_hint">Dies ist eine Sicherheitsfunktion und verhindert, dass andere Apps Nutzer dazu bringen, Dinge zu tun, die sie nicht tun wollen.\n\nDurch die Deaktivierung bestätigen Sie, dass Sie sich <a href="https://docs.cryptomator.org/en/1.5/android/settings/#block-app-when-obscured">der Risiken bewusst</a> sind.</string>
+	<string name="dialog_disable_app_obscured_disclaimer_hint">Dies ist eine Sicherheitsfunktion und verhindert, dass andere Apps Nutzer dazu bringen, Dinge zu tun, die sie nicht tun wollen.\n\nDurch die Deaktivierung bestätigst du, dass du dich <a href="https://docs.cryptomator.org/en/1.5/android/settings/#block-app-when-obscured">der Risiken bewusst</a> bist.</string>
 	<string name="dialog_disable_app_obscured_disclaimer_title">Achtung</string>
 	<string name="dialog_disable_app_obscured_positive_button">Deaktivieren</string>
 	<string name="dialog_app_is_obscured_info_title">App wird verdeckt</string>
 	<string name="dialog_app_is_obscured_info_hint">Eine App zeigt etwas über Cryptomator an (z.B. ein Blaulichtfilter oder eine Nachtmodus-App). Aus Sicherheitsgründen ist Cryptomator deaktiviert.\n\n<a href="https://docs.cryptomator.org/en/1.5/android/settings/#block-app-when-obscured">Wie Cryptomator aktiviert werden kann</a></string>
 	<string name="dialog_app_is_obscured_info_neutral_button">Schließen</string>
-	<string name="dialog_disable_secure_screen_disclaimer_hint">Dies ist eine Sicherheitsfunktion und verhindert, dass andere Apps Nutzer dazu bringen, Dinge zu tun, die sie nicht tun wollen.\n\nDurch die Deaktivierung bestätigen Sie, dass Sie sich <a href="https://docs.cryptomator.org/en/1.5/android/settings/#screen-security">der Risiken bewusst</a> sind.</string>
-	<string name="dialog_delete_cloud_connection_with_vaults_message">Sind Sie sicher, dass sie den Cloud-Dienst entfernen wollen?</string>
-	<string name="dialog_delete_cloud_connection_with_vaults_hint">Dieser Vorgang wird den Cloud-Dienst und desen zugehörigen Tresor löschen.</string>
+	<string name="dialog_disable_secure_screen_disclaimer_hint">Dies ist eine Sicherheitsfunktion und verhindert, dass andere Apps Nutzer dazu bringen, Dinge zu tun, die sie nicht tun wollen.\n\nDurch die Deaktivierung bestätigst du, dass du dich <a href="https://docs.cryptomator.org/en/1.5/android/settings/#screen-security">der Risiken bewusst</a> bist.</string>
+	<string name="dialog_delete_cloud_connection_with_vaults_message">Bist du dir sicher, dass du den Cloud-Dienst entfernen möchtest?</string>
+	<string name="dialog_delete_cloud_connection_with_vaults_hint">Dieser Vorgang wird den Cloud-Dienst und dessen zugehörigen Tresor löschen.</string>
 	<string name="dialog_confirm_delete_multiple_title">%1$d Elemente löschen?</string>
-	<string name="dialog_confirm_delete_multiple_message">Sind Sie sicher, dass Sie diese Elemente löschen wollen?</string>
-	<string name="dialog_confirm_delete_file_message">Sind Sie sicher, dass Sie diese Datei löschen wollen?</string>
-	<string name="dialog_confirm_delete_folder_message">Dieser Vorgang wird den gesamten Ordnerinhalt löschen. Sind Sie sicher, dass Sie diesen Ordner löschen wollen?</string>
+	<string name="dialog_confirm_delete_multiple_message">Möchtest du diese Elemente wirklich löschen?</string>
+	<string name="dialog_confirm_delete_file_message">Möchtest du dieses Element wirklich löschen?</string>
+	<string name="dialog_confirm_delete_folder_message">Dieser Vorgang wird den gesamten Ordnerinhalt löschen. Bist du sicher, dass du das möchtest?</string>
 	<string name="dialog_biometric_auth_key_invalidated_title">Biometrischer Login deaktiviert</string>
 	<string name="dialog_biometric_auth_key_invalidated_message">Da der Schlüssel nicht mehr zur Verfügung steht, wurde der Biometrischer Login deaktiviert. Zur Reaktivierung öffnen Sie die Cryptomator-Einstellungen.</string>
 	<string name="dialog_enter_license_title">APK-Store Lizenz</string>
@@ -307,9 +308,9 @@
 	<string name="dialog_enter_license_no_content">Keine Lizenz vorhanden. Gib eine gültige Lizenz ein.</string>
 	<string name="dialog_enter_license_decline_button">Beenden</string>
 	<string name="dialog_license_confirmation_title">Lizenzbestätigung</string>
-	<string name="dialog_license_confirmation_message">Danke für die Eingabe Ihrer gültige Lizenz %1$s.</string>
+	<string name="dialog_license_confirmation_message">Danke für die Eingabe deiner gültigen Lizenz %1$s.</string>
 	<string name="dialog_update_available_title">Neue Version verfügbar</string>
-	<string name="dialog_update_available_message">Cryptomator mit auf den aktuellen Stand aktualisieren. Mit OK wird die neueste Version heruntergeladen. Daraufhin werden Sie aufgefordert sie zu installieren.</string>
+	<string name="dialog_update_available_message">Cryptomator auf den aktuellen Stand aktualisieren. Mit OK wird die neueste Version heruntergeladen. Daraufhin werden Sie aufgefordert diese zu installieren.</string>
 	<string name="dialog_update_available_update">Jetzt aktualisieren</string>
 	<string name="dialog_update_available_download_site">Download-Seite öffnen</string>
 	<string name="dialog_update_available_cancel">Später</string>
@@ -318,12 +319,12 @@
 	<string name="dialog_sym_link_title">Dieser Ordner ist ein symbolischer Link</string>
 	<string name="dialog_sym_link_message">Sie können nicht in diesen symbolischen Link navigieren</string>
 	<string name="dialog_sym_link_back_button">Zurück</string>
-	<string name="dialog_no_dir_file_title">Verzeichniss kann nicht geladen werden</string>
-	<string name="dialog_no_dir_file_message">Der Ordner \'%1$s\' in der Cloud hat keine Verzeichniss-Datei. Es könnte sein, dass der Ordner auf einem anderen Gerät erstellt wurde und noch nicht vollständig mit der Cloud synchronisiert ist. Bitte überprüfen, ob die folgende Datei in der Cloud existiert:\n%2$s</string>
+	<string name="dialog_no_dir_file_title">Verzeichnis kann nicht geladen werden</string>
+	<string name="dialog_no_dir_file_message">Der Ordner \'%1$s\' in der Cloud hat keine Verzeichnis-Datei. Es könnte sein, dass der Ordner auf einem anderen Gerät erstellt wurde und noch nicht vollständig mit der Cloud synchronisiert ist. Bitte überprüfen, ob die folgende Datei in der Cloud existiert:\n%2$s</string>
 	<string name="dialog_no_more_images_to_display">Keine weiteren Bilder anzuzeigen&#8230;</string>
 	<string name="dialog_pcloud_credentials_updated_title">Anmeldedaten von \'%1$s\' aktualisiert</string>
-	<string name="dialog_pcloud_credentials_updated">Wenn Sie ein neues pCloud-Konto hinzufügen möchten, klicken Sie auf diese URL <a href="https://www.pcloud.com">www.pcloud.com</a>, melden Sie sich vom aktuellen Konto ab und klicken Sie erneut auf das \'+\' in dieser App, um eine neue Cloud-Verbindung herzustellen.</string>
-	<string name="permission_snackbar_auth_local_vault">Cryptomator benötigt Zugriff auf den Speicher um lokale Tresore zu nutzen</string>
+	<string name="dialog_pcloud_credentials_updated">Wenn du ein neues pCloud-Konto hinzufügen möchtest, klicke auf diese URL <a href="https://www.pcloud.com">www.pcloud.com</a>, melde dich vom aktuellen Konto ab und klicke erneut auf das \'+\' in dieser App, um eine neue Cloud-Verbindung herzustellen.</string>
+	<string name="permission_snackbar_auth_local_vault">Um lokale Tresore nutzen zu können benötigt Cryptomator Speicherzugriff</string>
 	<string name="permission_snackbar_auth_auto_upload">Cryptomator benötigt Zugriff auf den Speicher um den automatischen Foto-Upload zu nutzen</string>
 	<!-- # error reports -->
 	<!-- # misc -->
