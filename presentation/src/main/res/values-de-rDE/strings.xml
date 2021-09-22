@@ -274,12 +274,12 @@
 	<string name="dialog_http_security_hint">Die Verwendung von HTTP ist unsicher. Wir empfehlen stattdessen die Verwendung von HTTPS. Wenn du dir der Risiken bewusst bist, kannst du mit HTTP fortfahren.</string>
 	<string name="dialog_http_security_checkbox">Zu HTTPS ändern</string>
 	<string name="dialog_http_security_title">HTTPS nutzen?</string>
-	<string name="dialog_no_screen_lock_hint">Kein Sperrbildschirm ist gesetzt. Um Ihre Passwörter sicher speichern zu können, setzen Sie bitte mit OK ein Muster oder ein Passwort.</string>
+	<string name="dialog_no_screen_lock_hint">Kein Sperrbildschirm ist gesetzt. Um deine Passwörter sicher speichern zu können, setze bitte mit OK ein Muster oder ein Passwort.</string>
 	<string name="dialog_no_screen_lock_title">Sperrbildschirm setzen?</string>
 	<string name="dialog_no_screen_lock_checkbox">Sperrbildschirm setzen</string>
 	<string name="dialog_no_biometric_auth_set_up_title">Kein Fingerabdruck/Gesicht im System</string>
-	<string name="dialog_no_biometric_auth_set_up_message">Legen Sie mindestens einen Fingerabdruck/Gesicht im System an, um diesen Dienst nutzen zu können.</string>
-	<string name="dialog_debug_mode_disclaimer_hint">In diesem Modus könnten sensible Daten in eine Log-Datei auf diesem Gerät geschrieben werden (z.B. Dateinamen und Pfade). Ausgeschlossen davon sind u.a. Passwörter und Cookies.\n\nDenken Sie daran, den Debug-Modus so schnell wie möglich wieder zu deaktivieren.</string>
+	<string name="dialog_no_biometric_auth_set_up_message">Lege mindestens einen Fingerabdruck / ein Gesicht im System an, um diesen Dienst nutzen zu können.</string>
+	<string name="dialog_debug_mode_disclaimer_hint">In diesem Modus könnten sensible Daten in eine Log-Datei auf diesem Gerät geschrieben werden (z.B. Dateinamen und Pfade). Ausgeschlossen davon sind u.a. Passwörter und Cookies.\n\nDenke daran, den Debug-Modus so schnell wie möglich wieder zu deaktivieren.</string>
 	<string name="dialog_debug_mode_disclaimer_title">Achtung</string>
 	<string name="dialog_debug_mode_positive_button">Aktivieren</string>
 	<string name="dialog_disable_app_obscured_disclaimer_hint">Dies ist eine Sicherheitsfunktion und verhindert, dass andere Apps Nutzer dazu bringen, Dinge zu tun, die sie nicht tun wollen.\n\nDurch die Deaktivierung bestätigst du, dass du dich <a href="https://docs.cryptomator.org/en/1.5/android/settings/#block-app-when-obscured">der Risiken bewusst</a> bist.</string>
