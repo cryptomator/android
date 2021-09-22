@@ -197,9 +197,6 @@
 	<!-- ## screen: authenticate cloud -->
 	<string name="screen_authenticate_auth_authentication_failed">%1$s no s\'ha pogut autenticar.</string>
 	<string name="screen_update_pcloud_connections_title">Actualitza les credencials de pCloud</string>
-	<!-- ## screen: empty dir file info -->
-	<string name="screen_empty_dir_file_info_title">\'%1$s\' inaccessible</string>
-	<string name="screen_empty_dir_file_info_headline">Cryptomator ha detectat que aquesta carpeta és inaccessible.</string>
 	<!-- ## screen: insecure android version info -->
 	<!-- # dialogs -->
 	<string name="dialog_button_cancel">Cancel·la</string>
