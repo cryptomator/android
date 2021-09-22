@@ -95,6 +95,7 @@
 	<string name="screen_file_browser_node_action_open_with_text">Открыть с помощью&#8230;</string>
 	<string name="screen_file_browser_selection_mode_title_zero_elements">Выберите элементы</string>
 	<string name="screen_file_browser_selection_mode_title_one_or_more_elements">%1$d выбрано</string>
+	<string name="screen_file_browser_select_items">Выбор</string>
 	<string name="screen_file_browser_select_all_items">Выбрать все</string>
 	<string name="screen_file_browser_refresh_items">Обновить</string>
 	<string name="screen_file_browser_no_connection_message">Нет подключения</string>
