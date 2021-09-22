@@ -62,6 +62,7 @@
 	<string name="dialog_lock_vault">Vergrendel</string>
 	<string name="dialog_app_is_obscured_info_neutral_button">Sluiten</string>
 	<string name="dialog_sym_link_back_button">Terug</string>
+	<string name="dialog_no_dir_file_message">Cloud map \'%1$s\' heeft geen geldig sleutelbestand. Het kan zijn dat de map op een ander apparaat is aangemaakt en nog niet volledig is gesynchroniseerd met de cloud. Controleer in de cloud of het volgende bestand bestaat en niet leeg is:\n%2$s</string>
 	<!-- # error reports -->
 	<!-- # misc -->
 	<!-- ## file size helper -->
