@@ -95,6 +95,7 @@
 	<string name="screen_file_browser_node_action_open_with_text">Otvoriť s&#8230;</string>
 	<string name="screen_file_browser_selection_mode_title_zero_elements">Vybrať položky</string>
 	<string name="screen_file_browser_selection_mode_title_one_or_more_elements">%1$d vybraných</string>
+	<string name="screen_file_browser_select_items">Vybrať</string>
 	<string name="screen_file_browser_select_all_items">Vybrať všetko</string>
 	<string name="screen_file_browser_refresh_items">Obnoviť</string>
 	<string name="screen_file_browser_no_connection_message">Žiadne pripojenie</string>
