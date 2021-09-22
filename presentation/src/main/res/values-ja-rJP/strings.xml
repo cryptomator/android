@@ -201,10 +201,6 @@
 	<!-- ## screen: authenticate cloud -->
 	<string name="screen_authenticate_auth_authentication_failed">%1$s は認証できませんでした。</string>
 	<string name="screen_update_pcloud_connections_title">pCloud 資格情報を更新</string>
-	<!-- ## screen: empty dir file info -->
-	<string name="screen_empty_dir_file_info_title">\'%1$s\' に到達できません</string>
-	<string name="screen_empty_dir_file_info_headline">Cryptomator がこのフォルダに到達できません。</string>
-	<string name="screen_empty_dir_file_info_button_label">Sanitizer の詳細</string>
 	<!-- ## screen: insecure android version info -->
 	<!-- # dialogs -->
 	<string name="dialog_button_cancel">キャンセル</string>
