@@ -130,7 +130,7 @@
 
 	<string name="screen_file_browser_selection_mode_title_zero_elements">Select items</string>
 	<string name="screen_file_browser_selection_mode_title_one_or_more_elements">%1$d selected</string>
-	<string name="screen_file_browser_select_items">Select&#8230;</string>
+	<string name="screen_file_browser_select_items">Select</string>
 	<string name="screen_file_browser_select_all_items">Select all</string>
 	<string name="screen_file_browser_refresh_items">Refresh</string>
 
