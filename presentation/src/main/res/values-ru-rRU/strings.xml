@@ -317,6 +317,7 @@
 	<string name="dialog_sym_link_message">Вы не можете перейти по этой символической ссылке</string>
 	<string name="dialog_sym_link_back_button">Назад</string>
 	<string name="dialog_no_dir_file_title">Невозможно загрузить содержимое папки</string>
+	<string name="dialog_no_dir_file_message">В облачной папке \'%1$s\' нет корректного файла каталогов. Возможно, папка была создана на другом устройстве и ещё не полностью синхронизирована с облаком. Проверьте, существует ли в вашем облаке этот файл и не пуст ли он:\n%2$s</string>
 	<string name="dialog_no_more_images_to_display">Больше нет изображений для показа&#8230;</string>
 	<string name="dialog_pcloud_credentials_updated_title">Учётные данные для \'%1$s\' обновлены</string>
 	<string name="dialog_pcloud_credentials_updated">Если вы намеревались добавить новую учётную запись pCloud, нажмите на этот URL <a href="https://www.pcloud.com">www.pcloud.com</a>, выйдите из текущей учётной записи и снова нажмите \'+\' в этом приложении, чтобы создать новое облачное подключение.</string>
