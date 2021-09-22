@@ -46,7 +46,21 @@
 	<!-- ## biometric authentication -->
 	<!-- notification -->
 	<!-- lock timeout names -->
+	<string name="lock_timeout_1m">1 मिनट</string>
+	<string name="lock_timeout_2m">2 मिनट</string>
+	<string name="lock_timeout_5m">5 मिनट</string>
+	<string name="lock_timeout_10m">10 मिनट</string>
+	<string name="lock_timeout_never">कभी नहीं</string>
 	<!-- cache size names -->
+	<string name="cache_size_50m">50 MB</string>
+	<string name="cache_size_100m">100 MB</string>
+	<string name="cache_size_250m">250 MB</string>
+	<string name="cache_size_500m">500 MB</string>
+	<string name="cache_size_1000m">1 GB</string>
+	<string name="cache_size_5000m">5 GB</string>
 	<!-- screen scheme mode names -->
 	<!-- update interval names -->
+	<string name="update_interval_1d">दिन में एक बार</string>
+	<string name="update_interval_1w">सप्ताह में एक बार</string>
+	<string name="update_interval_1m">महीने में एक बार</string>
 </resources>
