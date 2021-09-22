@@ -58,7 +58,7 @@
 	<string name="screen_vault_list_action_create_new_vault">Neuen Tresor anlegen</string>
 	<string name="screen_vault_list_action_add_existing_vault">Vorhandenen Tresor hinzufügen</string>
 	<string name="screen_vault_list_vault_action_delete">Entfernen</string>
-	<string name="screen_vault_list_vault_creation_hint">Hier einen neuen Tresor erstellen</string>
+	<string name="screen_vault_list_vault_creation_hint">Hier klicken um einen neuen Tresor zu erstellen</string>
 	<string name="screen_vault_list_change_password_successful">Passwort wurde erfolgreich geändert</string>
 	<!-- # screen: file browser -->
 	<string name="screen_file_browser_default_title">Tresor</string>
@@ -93,8 +93,7 @@
 	<string name="screen_file_browser_node_action_open_with_text">Öffnen mit&#8230;</string>
 	<string name="screen_file_browser_selection_mode_title_zero_elements">Elemente auswählen</string>
 	<string name="screen_file_browser_selection_mode_title_one_or_more_elements">%1$d ausgewählt</string>
-	<string name="screen_file_browser_select_items">Elemente auswählen</string>
-	<string name="screen_file_browser_select_all_items">Alle elemente auswählen</string>
+	<string name="screen_file_browser_select_all_items">Alle Elemente auswählen</string>
 	<string name="screen_file_browser_refresh_items">Aktualisieren</string>
 	<string name="screen_file_browser_no_connection_message">Keine Verbindung</string>
 	<string name="screen_file_browser_no_connection_button_text">Wiederholen</string>
@@ -113,7 +112,7 @@
 	<string name="screen_choose_cloud_service_title">Cloud-Dienst</string>
 	<!-- ## screen: cloud connections -->
 	<string name="screen_cloud_connections_title">Ort auswählen</string>
-	<string name="screen_cloud_connections_no_connections">Hier einen neuen Ort hinzufügen</string>
+	<string name="screen_cloud_connections_no_connections">Hier klicken um einen neuen Ort hinzufügen</string>
 	<string name="screen_cloud_error_webdav_not_supported">Server scheint nicht WebDAV-kompatibel zu sein</string>
 	<string name="screen_cloud_local_custom_storage_title">Benutzerdefinierte Orte</string>
 	<string name="screen_cloud_local_default_storage_title">Standard-Speicher</string>
@@ -276,7 +275,7 @@
 	<string name="dialog_accept_ssl_certificate_hint">Das SSL-Zertifikat ist ungültig. Möchtest du ihm trotzdem vertrauen?</string>
 	<string name="dialog_accept_ssl_certificate_details">Details</string>
 	<string name="dialog_accept_ssl_certificate_security_checkbox">Dies könnte ein Sicherheitsrisiko sein. Ich weiß was ich tue.</string>
-	<string name="dialog_http_security_hint">Die Verwendung von HTTP ist unsicher. Wir empfehlen stattdessen die Nutzung von HTTPS. Wenn Sie sich der Risiken bewusst sind, können Sie mit HTTP fortfahren.</string>
+	<string name="dialog_http_security_hint">Die Verwendung von HTTP ist unsicher. Wir empfehlen stattdessen die Nutzung von HTTPS. Wenn du dir der Risiken bewusst bist, kannst du mit HTTP fortfahren.</string>
 	<string name="dialog_http_security_checkbox">Zu HTTPS ändern</string>
 	<string name="dialog_http_security_title">HTTPS nutzen?</string>
 	<string name="dialog_no_screen_lock_hint">Kein Sperrbildschirm ist gesetzt. Um Ihre Passwörter sicher speichern zu können, setzen Sie bitte mit OK ein Muster oder ein Passwort.</string>
@@ -372,7 +371,7 @@
 	<string name="notification_open_writable_file_message">Tresor bleibt entsperrt bis die Datei nicht mehr editiert wird</string>
 	<string name="notification_update_check_finished_latest">Neueste Version installiert</string>
 	<string name="screen_settings_lru_cache">Zwischenspeicher</string>
-	<string name="screen_settings_lru_cache_toggle_summary">Cache kürzlich geöffnete Dateien lokal und verschlüsseltauf dem Gerät für eine spätere Wiederverwendung beim erneuten öffnen</string>
+	<string name="screen_settings_lru_cache_toggle_summary">Speichere kürzlich geöffnete Dateien lokal und verschlüsselt auf dem Gerät für eine spätere Wiederverwendung beim erneuten öffnen</string>
 	<string name="screen_settings_lru_cache_size">Zwischenspeichergröße insgesamt</string>
 	<string name="screen_settings_clear_lru_cache_size">Zwischenspeicher leeren</string>
 	<string name="screen_settings_lru_cache_changed__restart_toast">Änderungen werden nach einem Neustart der App aktiv</string>
