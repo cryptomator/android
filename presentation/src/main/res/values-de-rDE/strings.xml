@@ -315,7 +315,7 @@
 	<string name="dialog_sym_link_message">Sie können nicht in diesen symbolischen Link navigieren</string>
 	<string name="dialog_sym_link_back_button">Zurück</string>
 	<string name="dialog_no_dir_file_title">Verzeichnis kann nicht geladen werden</string>
-	<string name="dialog_no_dir_file_message">Der Ordner \'%1$s\' in der Cloud hat keine Verzeichniss-Datei. Es könnte sein, dass der Ordner auf einem anderen Gerät erstellt wurde und noch nicht vollständig mit der Cloud synchronisiert ist. Bitte überprüfe, ob die folgende Datei in der Cloud existiert und nicht leer ist:\n%2$s</string>
+	<string name="dialog_no_dir_file_message">Der Ordner \'%1$s\' in der Cloud hat keine Verzeichnis-Datei. Es könnte sein, dass der Ordner auf einem anderen Gerät erstellt wurde und noch nicht vollständig mit der Cloud synchronisiert ist. Bitte überprüfe, ob die folgende Datei in der Cloud existiert und nicht leer ist:\n%2$s</string>
 	<string name="dialog_no_more_images_to_display">Keine weiteren Bilder anzuzeigen&#8230;</string>
 	<string name="dialog_pcloud_credentials_updated_title">Anmeldedaten von \'%1$s\' aktualisiert</string>
 	<string name="dialog_pcloud_credentials_updated">Wenn du ein neues pCloud-Konto hinzufügen möchtest, klicke auf diese URL <a href="https://www.pcloud.com">www.pcloud.com</a>, melde dich vom aktuellen Konto ab und klicke erneut auf das \'+\' in dieser App, um eine neue Cloud-Verbindung herzustellen.</string>
