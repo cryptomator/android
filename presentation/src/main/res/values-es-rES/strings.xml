@@ -315,6 +315,7 @@
 	<string name="dialog_sym_link_message">No puede navegar en este enlace simbólico</string>
 	<string name="dialog_sym_link_back_button">Volver</string>
 	<string name="dialog_no_dir_file_title">No se puede cargar el contenido del directorio</string>
+	<string name="dialog_no_dir_file_message">La carpeta en la nube \'%1$s\' no tiene un archivo de directorio válido. Es posible que la carpeta se haya creado en otro dispositivo y aún no se haya sincronizado completamente con la nube. Compruebe en su nube si el siguiente archivo existe y no está vacío:\n%2$s</string>
 	<string name="dialog_no_more_images_to_display">No hay más imágenes para mostrar&#8230;</string>
 	<string name="dialog_pcloud_credentials_updated_title">Credenciales de \'%1$s\' actualizadas</string>
 	<string name="dialog_pcloud_credentials_updated">Si desea añadir una cuenta pCloud nueva, haga clic en esta url <a href="https://www.pcloud.com">www.pcloud.com</a>, cierre la sesión de la cuenta actual y haga clic de nuevo en \'+\' de esta aplicación para crear una conexión nueva en la nube.</string>
