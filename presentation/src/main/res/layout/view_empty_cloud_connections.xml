@@ -8,6 +8,7 @@
 	<TextView
 		android:id="@+id/tv_creation_hint"
 		style="@style/AppTheme.Hint"
+		android:gravity="center"
 		android:text="@string/screen_cloud_connections_no_connections" />
 
 </RelativeLayout>
