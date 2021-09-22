@@ -208,11 +208,6 @@
 	<!-- ## screen: authenticate cloud -->
 	<string name="screen_authenticate_auth_authentication_failed">%1$s n\'a pas pu être authentifié.</string>
 	<string name="screen_update_pcloud_connections_title">Mettre à jour les identifiants pCloud</string>
-	<!-- ## screen: empty dir file info -->
-	<string name="screen_empty_dir_file_info_title">\'%1$s\' inaccessible</string>
-	<string name="screen_empty_dir_file_info_headline">Cryptomator a détecté que ce dossier est inaccessible.</string>
-	<string name="screen_empty_dir_file_info_text">Il a peut-être été supprimé par une autre application ou une synchronisation cloud défectueuse pourrait en être la cause.\n\nEssayez de restaurer le fichier de répertoire via votre fournisseur de cloud dans une version précédente qui n\'est pas vide. Le fichier en question est:\n%1$s\n\nSi cela ne fonctionne pas, vous pouvez utiliser Sanitizer pour rechercher des problèmes dans votre coffre-fort et éventuellement restaurer vos données.</string>
-	<string name="screen_empty_dir_file_info_button_label">Plus de détails sur Sanitizer</string>
 	<!-- ## screen: insecure android version info -->
 	<!-- # dialogs -->
 	<string name="dialog_button_cancel">Annuler</string>
@@ -320,7 +315,6 @@
 	<string name="dialog_sym_link_message">Vous ne pouvez pas naviguer dans ce lien symbolique</string>
 	<string name="dialog_sym_link_back_button">Retour</string>
 	<string name="dialog_no_dir_file_title">Impossible de charger le contenu du répertoire</string>
-	<string name="dialog_no_dir_file_message">Le dossier cloud \'%1$s\' n\'a pas de fichier de répertoire. Il se peut que le dossier ait été créé sur un autre appareil et qu\'il n\'ait pas encore été entièrement synchronisé avec le cloud. Veuillez vérifier dans votre cloud si le fichier suivant existe: \n%2$s</string>
 	<string name="dialog_no_more_images_to_display">Plus d\'images à afficher&#8230;</string>
 	<string name="dialog_pcloud_credentials_updated_title">Les identifiants de \'%1$s\' ont été mis à jour</string>
 	<string name="dialog_pcloud_credentials_updated">Si vous avez l\'intention d\'ajouter un nouveau compte pCloud, cliquez sur cette url <a href="https://www.pcloud.com">www.pcloud.com</a>, déconnectez-vous du compte courant et cliquez à nouveau sur le \'+\' dans cette application pour créer un nouveau compte pCloud.</string>
