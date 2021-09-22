@@ -210,11 +210,6 @@
 	<!-- ## screen: authenticate cloud -->
 	<string name="screen_authenticate_auth_authentication_failed">Аутентификация %1$s невозможна.</string>
 	<string name="screen_update_pcloud_connections_title">Обновить учётные данные pCloud</string>
-	<!-- ## screen: empty dir file info -->
-	<string name="screen_empty_dir_file_info_title">Нет доступа к \'%1$s\'</string>
-	<string name="screen_empty_dir_file_info_headline">Cryptomator обнаружил, что эта папка недоступна.</string>
-	<string name="screen_empty_dir_file_info_text">Возможно, удаление произошло из-за другого приложения или сбоя облачной синхронизации.\n\nПопробуйте восстановить файл каталога через своего облачного провайдера до предыдущей непустой версии. Файл под вопросом:\n%1$s\n\nЕсли это не сработает, попробуйте использовать Sanitizer для проверки хранилища на наличие проблем и, возможно, восстановления данных.</string>
-	<string name="screen_empty_dir_file_info_button_label">Подробнее о Sanitizer</string>
 	<!-- ## screen: insecure android version info -->
 	<!-- # dialogs -->
 	<string name="dialog_button_cancel">Отмена</string>
@@ -322,7 +317,6 @@
 	<string name="dialog_sym_link_message">Вы не можете перейти по этой символической ссылке</string>
 	<string name="dialog_sym_link_back_button">Назад</string>
 	<string name="dialog_no_dir_file_title">Невозможно загрузить содержимое папки</string>
-	<string name="dialog_no_dir_file_message">В облачной папке \'%1$s\' нет файла каталога. Возможно, папка была создана на другом устройстве и ещё не полностью синхронизирована с облаком. Проверьте, существует ли в вашем облаке этот файл:\n%2$s</string>
 	<string name="dialog_no_more_images_to_display">Больше нет изображений для показа&#8230;</string>
 	<string name="dialog_pcloud_credentials_updated_title">Учётные данные для \'%1$s\' обновлены</string>
 	<string name="dialog_pcloud_credentials_updated">Если вы намеревались добавить новую учётную запись pCloud, нажмите на этот URL <a href="https://www.pcloud.com">www.pcloud.com</a>, выйдите из текущей учётной записи и снова нажмите \'+\' в этом приложении, чтобы создать новое облачное подключение.</string>
