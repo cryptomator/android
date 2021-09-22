@@ -116,7 +116,6 @@
 	<string name="screen_cloud_settings_log_in_to">Logg inn i</string>
 	<!-- ## screen: licenses -->
 	<!-- ## screen: authenticate cloud -->
-	<!-- ## screen: empty dir file info -->
 	<!-- ## screen: insecure android version info -->
 	<!-- # dialogs -->
 	<string name="dialog_button_cancel">Avbryt</string>
