@@ -211,7 +211,7 @@
 	<!-- ## screen: empty dir file info -->
 	<string name="screen_empty_dir_file_info_title">\'%1$s\' nicht erreichbar</string>
 	<string name="screen_empty_dir_file_info_headline">Cryptomator hat erkannt, dass dieser Ordner nicht erreichbar ist.</string>
-	<string name="screen_empty_dir_file_info_text">Möglicherweise wurde dieser durch eine andere Anwendung gelöscht oder wurde durch eine fehlerhafte Synchronisation mit der Cloud dieses Problem verursacht.\n\nVersuche die Verzeichnisdatei über deinen Cloud-Anbieter auf eine vorhergehende Version, die nicht leer ist, wiederherzustellen. Die betroffene Datei ist:\n%1$s\n\nFalls dies nicht funktioniert, könntest du den Sanitizer verwenden, um den Tresor auf Fehler zu überprüfen und möglicherweise Daten wiederherzustellen.</string>
+	<string name="screen_empty_dir_file_info_text">Möglicherweise wurde dieser durch eine andere Anwendung gelöscht oder wurde durch eine fehlerhafte Synchronisation mit der Cloud verursacht.\n\nVersuchen Sie die Verzeichnisdatei über Ihren Cloud-Anbieter auf eine vorhergehende Version, die nicht leer ist, wiederherzustellen. Die betroffene Datei ist:\n%1$s\n\nFalls dies nicht funktioniert, könnten Sie Sanitizer verwenden, um Ihren Tresor auf Fehler zu überprüfen und möglicherweise Daten wiederherzustellen.</string>
 	<string name="screen_empty_dir_file_info_button_label">Mehr über Sanitizer</string>
 	<!-- ## screen: insecure android version info -->
 	<!-- # dialogs -->
@@ -225,7 +225,7 @@
 	<string name="dialog_change_password_msg_password_mismatch">Neue Passwort stimmt nicht mit dem wiederholten Passwort überein.</string>
 	<!-- Vault not found -->
 	<string name="dialog_vault_not_found_title">Tresor %1$s nicht gefunden</string>
-	<string name="dialog_vault_not_found_message">Der Tresor wurde umbenannt, verschoben oder gelöscht. Entferne diesen aus der Tresorliste und fügen ihn erneut hinzu um fortzufahren. Tresor jetzt entfernen?</string>
+	<string name="dialog_vault_not_found_message">Der Tresor wurde umbenannt, verschoben oder gelöscht. Entferne diesen aus der Tresorliste und füge ihn erneut hinzu um fortzufahren. Tresor jetzt entfernen?</string>
 	<string name="dialog_vault_not_found_positive_button_text">Entfernen</string>
 	<string name="dialog_existing_file_title">Datei existiert bereits</string>
 	<string name="dialog_existing_file_positive_button">Ersetzen</string>
@@ -279,12 +279,12 @@
 	<string name="dialog_http_security_hint">Die Verwendung von HTTP ist unsicher. Wir empfehlen stattdessen die Nutzung von HTTPS. Wenn du dir der Risiken bewusst bist, kannst du mit HTTP fortfahren.</string>
 	<string name="dialog_http_security_checkbox">Zu HTTPS ändern</string>
 	<string name="dialog_http_security_title">HTTPS nutzen?</string>
-	<string name="dialog_no_screen_lock_hint">Kein Sperrbildschirm ist gesetzt. Um deine Passwörter sicher speichern zu können, setze bitte mit OK ein Muster oder ein Passwort.</string>
+	<string name="dialog_no_screen_lock_hint">Kein Sperrbildschirm ist gesetzt. Um Ihre Passwörter sicher speichern zu können, setzen Sie bitte mit OK ein Muster oder ein Passwort.</string>
 	<string name="dialog_no_screen_lock_title">Sperrbildschirm setzen?</string>
 	<string name="dialog_no_screen_lock_checkbox">Sperrbildschirm setzen</string>
 	<string name="dialog_no_biometric_auth_set_up_title">Kein Fingerabdruck/Gesicht im System</string>
-	<string name="dialog_no_biometric_auth_set_up_message">Lege mindestens einen Fingerabdruck/Gesicht im System an, um diesen Dienst nutzen zu können.</string>
-	<string name="dialog_debug_mode_disclaimer_hint">In diesem Modus könnten sensible Daten in eine Log-Datei auf diesem Gerät geschrieben werden (z.B. Dateinamen und Pfade). Ausgeschlossen davon sind u.a. Passwörter und Cookies.\n\nDenke daran, den Debug-Modus so schnell wie möglich wieder zu deaktivieren.</string>
+	<string name="dialog_no_biometric_auth_set_up_message">Legen Sie mindestens einen Fingerabdruck/Gesicht im System an, um diesen Dienst nutzen zu können.</string>
+	<string name="dialog_debug_mode_disclaimer_hint">In diesem Modus könnten sensible Daten in eine Log-Datei auf diesem Gerät geschrieben werden (z.B. Dateinamen und Pfade). Ausgeschlossen davon sind u.a. Passwörter und Cookies.\n\nDenken Sie daran, den Debug-Modus so schnell wie möglich wieder zu deaktivieren.</string>
 	<string name="dialog_debug_mode_disclaimer_title">Achtung</string>
 	<string name="dialog_debug_mode_positive_button">Aktivieren</string>
 	<string name="dialog_disable_app_obscured_disclaimer_hint">Dies ist eine Sicherheitsfunktion und verhindert, dass andere Apps Nutzer dazu bringen, Dinge zu tun, die sie nicht tun wollen.\n\nDurch die Deaktivierung bestätigst du, dass du dich <a href="https://docs.cryptomator.org/en/1.5/android/settings/#block-app-when-obscured">der Risiken bewusst</a> bist.</string>
