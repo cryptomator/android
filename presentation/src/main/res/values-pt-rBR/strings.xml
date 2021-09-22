@@ -315,6 +315,7 @@
 	<string name="dialog_sym_link_message">Não é possível entrar neste link simbólico</string>
 	<string name="dialog_sym_link_back_button">Voltar</string>
 	<string name="dialog_no_dir_file_title">Não foi possível carregar o conteúdo do diretório</string>
+	<string name="dialog_no_dir_file_message">A pasta na nuvem \'%1$s\' não tem um arquivo de diretório válido. Pode ser que a pasta foi criada em outro dispositivo e ainda não foi totalmente sincronizada com a nuvem. Por favor, verifique em sua nuvem se o seguinte arquivo existe:\n%2$s</string>
 	<string name="dialog_no_more_images_to_display">Sem mais imagens para exibir&#8230;</string>
 	<string name="dialog_pcloud_credentials_updated_title">Credenciais de \'%1$s\' atualizadas</string>
 	<string name="dialog_pcloud_credentials_updated">Se você pretendia adicionar uma nova conta pCloud, clique neste url <a href="https://www.pcloud.com">www.pcloud. um</a>, sair da conta atual e clicar novamente em \'+\' neste aplicativo para criar uma nova conexão com a nuvem.</string>
