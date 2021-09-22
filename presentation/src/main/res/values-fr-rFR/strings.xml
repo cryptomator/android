@@ -93,6 +93,7 @@
 	<string name="screen_file_browser_node_action_open_with_text">Ouvrir avec&#8230;</string>
 	<string name="screen_file_browser_selection_mode_title_zero_elements">Sélectionnez les éléments</string>
 	<string name="screen_file_browser_selection_mode_title_one_or_more_elements">%1$d sélectionné</string>
+	<string name="screen_file_browser_select_items">Sélectionner</string>
 	<string name="screen_file_browser_select_all_items">Tout sélectionner</string>
 	<string name="screen_file_browser_refresh_items">Rafraîchir</string>
 	<string name="screen_file_browser_no_connection_message">Aucune connection</string>
