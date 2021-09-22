@@ -208,11 +208,6 @@
 	<!-- ## screen: authenticate cloud -->
 	<string name="screen_authenticate_auth_authentication_failed">%1$s kimliği doğrulanamadı.</string>
 	<string name="screen_update_pcloud_connections_title">pCloud kimlik bilgilerini güncelleyin</string>
-	<!-- ## screen: empty dir file info -->
-	<string name="screen_empty_dir_file_info_title">\'%1$s\' ulaşılamaz</string>
-	<string name="screen_empty_dir_file_info_headline">Cryptomator bu klasöre erişilemediğini tespit etti.</string>
-	<string name="screen_empty_dir_file_info_text">Dizin dosyasını bulut sağlayıcınız aracılığıyla boş olmayan önceki bir sürüme geri yüklemeyi deneyin. Söz konusu dosya:\n%1$s\n\nBu işe yaramazsa, kasanızı sorunlar için kontrol etmek ve muhtemelen verilerinizi geri yüklemek için Sanitizer\'ı kullanabilirsiniz.</string>
-	<string name="screen_empty_dir_file_info_button_label">Sanitizer Hakkında Daha Fazla Bilgi</string>
 	<!-- ## screen: insecure android version info -->
 	<!-- # dialogs -->
 	<string name="dialog_button_cancel">İptal</string>
@@ -320,7 +315,6 @@
 	<string name="dialog_sym_link_message">Bu sembolik bağlantıya gidemezsin</string>
 	<string name="dialog_sym_link_back_button">Geri</string>
 	<string name="dialog_no_dir_file_title">Dizinin içeriği yüklenemiyor</string>
-	<string name="dialog_no_dir_file_message">\'%1$s\' bulut klasörünün bir dizin dosyası yok. Klasör başka bir cihazda oluşturulmuş ve henüz buluta tam olarak senkronize edilmemiş olabilir. Lütfen aşağıdaki dosyanın mevcut olup olmadığını kontrol edin:\n%2$s</string>
 	<string name="dialog_no_more_images_to_display">&#8230; göstermek için daha fazla resim yok</string>
 	<string name="dialog_pcloud_credentials_updated_title">%1$s kimlik bilgileri güncellendi</string>
 	<string name="dialog_pcloud_credentials_updated">Yeni bir pCloud hesabı eklemeyi düşünüyorsanız, bu url <a href="https://www.pcloud.com">www.pcloud.com</a> tıklayın, mevcut hesaptan çıkın ve yeni bir bulut bağlantısı oluşturmak için \'+\'. tekrar tıklayın.</string>
