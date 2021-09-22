@@ -314,6 +314,7 @@
 	<string name="dialog_sym_link_message">您不能导航到此符号链接</string>
 	<string name="dialog_sym_link_back_button">返回</string>
 	<string name="dialog_no_dir_file_title">无法加载目录内容</string>
+	<string name="dialog_no_dir_file_message">云文件夹 \'%1$s\' 没有有效的目录文件。可能文件夹是在另一设备上创建的，尚未完全同步到云端。请检查云端是否存在且不为空的以下文件：\n%2$s</string>
 	<string name="dialog_no_more_images_to_display">已到达文件夹末尾&#8230;</string>
 	<string name="dialog_pcloud_credentials_updated_title">\'%1$s\' 的证书已更新</string>
 	<string name="dialog_pcloud_credentials_updated">如果您打算添加一个新的 pCloud 帐户，请点击此链接 <a href="https://www.pcloud.com">www.pcloud.com</a>，登出当前账户，然后点击此应用中的 \'+\' 来创建新的云连接</string>
