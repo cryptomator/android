@@ -13,7 +13,6 @@ import org.cryptomator.presentation.ui.activity.ChooseCloudServiceActivity;
 import org.cryptomator.presentation.ui.activity.CloudConnectionListActivity;
 import org.cryptomator.presentation.ui.activity.CloudSettingsActivity;
 import org.cryptomator.presentation.ui.activity.CreateVaultActivity;
-import org.cryptomator.presentation.ui.activity.EmptyDirIdFileInfoActivity;
 import org.cryptomator.presentation.ui.activity.ImagePreviewActivity;
 import org.cryptomator.presentation.ui.activity.LicenseCheckActivity;
 import org.cryptomator.presentation.ui.activity.LicensesActivity;
@@ -32,7 +31,6 @@ import org.cryptomator.presentation.ui.fragment.BrowseFilesFragment;
 import org.cryptomator.presentation.ui.fragment.ChooseCloudServiceFragment;
 import org.cryptomator.presentation.ui.fragment.CloudConnectionListFragment;
 import org.cryptomator.presentation.ui.fragment.CloudSettingsFragment;
-import org.cryptomator.presentation.ui.fragment.EmptyDirIdFileInfoFragment;
 import org.cryptomator.presentation.ui.fragment.ImagePreviewFragment;
 import org.cryptomator.presentation.ui.fragment.S3AddOrChangeFragment;
 import org.cryptomator.presentation.ui.fragment.SetPasswordFragment;
@@ -95,10 +93,6 @@ public interface ActivityComponent {
 	void inject(CloudConnectionListFragment webDavConnectionListFragment);
 
 	void inject(CloudConnectionListActivity cloudConnectionListActivity);
-
-	void inject(EmptyDirIdFileInfoActivity emptyDirIdFileInfoActivity);
-
-	void inject(EmptyDirIdFileInfoFragment emptyDirIdFileInfoFragment);
 
 	void inject(BiometricAuthSettingsActivity biometricAuthSettingsActivity);
 

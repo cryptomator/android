@@ -167,10 +167,7 @@ class BrowseFilesPresenter @Inject constructor( //
 							return
 						}
 						e is EmptyDirFileException -> {
-							Intents.emptyDirIdFileInfoIntent() //
-								.withDirName(e.dirName) //
-								.withDirFilePath(e.filePath) //
-								.startActivity(this@BrowseFilesPresenter)
+                            view?.showNoDirFileDialog(e.dirName, e.filePath)
 						}
 						e is SymLinkException -> {
 							view?.showSymLinkDialog()
