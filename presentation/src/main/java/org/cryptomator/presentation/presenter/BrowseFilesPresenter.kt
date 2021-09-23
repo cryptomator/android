@@ -13,9 +13,31 @@ import org.cryptomator.domain.CloudFile
 import org.cryptomator.domain.CloudFolder
 import org.cryptomator.domain.CloudNode
 import org.cryptomator.domain.di.PerView
-import org.cryptomator.domain.exception.*
-import org.cryptomator.domain.usecases.*
-import org.cryptomator.domain.usecases.cloud.*
+import org.cryptomator.domain.exception.CloudNodeAlreadyExistsException
+import org.cryptomator.domain.exception.EmptyDirFileException
+import org.cryptomator.domain.exception.FatalBackendException
+import org.cryptomator.domain.exception.NoDirFileException
+import org.cryptomator.domain.exception.NoSuchCloudFileException
+import org.cryptomator.domain.exception.SymLinkException
+import org.cryptomator.domain.usecases.CloudFolderRecursiveListing
+import org.cryptomator.domain.usecases.CloudNodeRecursiveListing
+import org.cryptomator.domain.usecases.CopyDataUseCase
+import org.cryptomator.domain.usecases.DownloadFile
+import org.cryptomator.domain.usecases.ResultRenamed
+import org.cryptomator.domain.usecases.cloud.CreateFolderUseCase
+import org.cryptomator.domain.usecases.cloud.DeleteNodesUseCase
+import org.cryptomator.domain.usecases.cloud.DownloadFilesUseCase
+import org.cryptomator.domain.usecases.cloud.DownloadState
+import org.cryptomator.domain.usecases.cloud.GetCloudListRecursiveUseCase
+import org.cryptomator.domain.usecases.cloud.GetCloudListUseCase
+import org.cryptomator.domain.usecases.cloud.MoveFilesUseCase
+import org.cryptomator.domain.usecases.cloud.MoveFoldersUseCase
+import org.cryptomator.domain.usecases.cloud.Progress
+import org.cryptomator.domain.usecases.cloud.RenameFileUseCase
+import org.cryptomator.domain.usecases.cloud.RenameFolderUseCase
+import org.cryptomator.domain.usecases.cloud.UploadFile
+import org.cryptomator.domain.usecases.cloud.UploadFilesUseCase
+import org.cryptomator.domain.usecases.cloud.UploadState
 import org.cryptomator.domain.usecases.vault.AssertUnlockedUseCase
 import org.cryptomator.generator.Callback
 import org.cryptomator.generator.InjectIntent
@@ -28,26 +50,48 @@ import org.cryptomator.presentation.intent.BrowseFilesIntent
 import org.cryptomator.presentation.intent.ChooseCloudNodeSettings
 import org.cryptomator.presentation.intent.IntentBuilder
 import org.cryptomator.presentation.intent.Intents
-import org.cryptomator.presentation.model.*
-import org.cryptomator.presentation.model.mappers.*
+import org.cryptomator.presentation.model.CloudFileModel
+import org.cryptomator.presentation.model.CloudFolderModel
+import org.cryptomator.presentation.model.CloudModel
+import org.cryptomator.presentation.model.CloudNodeModel
+import org.cryptomator.presentation.model.ImagePreviewFilesStore
+import org.cryptomator.presentation.model.ProgressModel
+import org.cryptomator.presentation.model.ProgressStateModel
+import org.cryptomator.presentation.model.mappers.CloudFileModelMapper
+import org.cryptomator.presentation.model.mappers.CloudFolderModelMapper
+import org.cryptomator.presentation.model.mappers.CloudNodeModelMapper
+import org.cryptomator.presentation.model.mappers.ProgressModelMapper
+import org.cryptomator.presentation.model.mappers.ProgressStateModelMapper
 import org.cryptomator.presentation.service.OpenWritableFileNotification
 import org.cryptomator.presentation.ui.activity.view.BrowseFilesView
 import org.cryptomator.presentation.ui.dialog.ExportCloudFilesDialog
 import org.cryptomator.presentation.ui.dialog.FileNameDialog
-import org.cryptomator.presentation.util.*
-import org.cryptomator.presentation.workflow.*
+import org.cryptomator.presentation.util.ContentResolverUtil
+import org.cryptomator.presentation.util.DownloadFileUtil
+import org.cryptomator.presentation.util.FileNameBlacklist
+import org.cryptomator.presentation.util.FileUtil
+import org.cryptomator.presentation.util.FolderNameBlacklist
+import org.cryptomator.presentation.util.ShareFileHelper
+import org.cryptomator.presentation.workflow.ActivityResult
+import org.cryptomator.presentation.workflow.AddExistingVaultWorkflow
+import org.cryptomator.presentation.workflow.AuthenticationExceptionHandler
+import org.cryptomator.presentation.workflow.CreateNewVaultWorkflow
+import org.cryptomator.presentation.workflow.PermissionsResult
+import org.cryptomator.presentation.workflow.Workflow
 import org.cryptomator.util.ExceptionUtil
 import org.cryptomator.util.SharedPreferencesHandler
 import org.cryptomator.util.file.FileCacheUtils
 import org.cryptomator.util.file.MimeType
 import org.cryptomator.util.file.MimeTypes
-import java.io.*
+import java.io.File
+import java.io.FileInputStream
+import java.io.FileNotFoundException
+import java.io.FileOutputStream
+import java.io.Serializable
 import java.security.DigestInputStream
 import java.security.MessageDigest
-import java.util.*
 import java.util.function.Supplier
 import javax.inject.Inject
-import kotlin.collections.ArrayList
 import kotlin.reflect.KClass
 import timber.log.Timber
 
@@ -167,7 +211,7 @@ class BrowseFilesPresenter @Inject constructor( //
 							return
 						}
 						e is EmptyDirFileException -> {
-                            view?.showNoDirFileDialog(e.dirName, e.filePath)
+							view?.showNoDirFileDialog(e.dirName, e.filePath)
 						}
 						e is SymLinkException -> {
 							view?.showSymLinkDialog()
