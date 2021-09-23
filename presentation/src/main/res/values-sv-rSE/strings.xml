@@ -315,6 +315,7 @@
 	<string name="dialog_sym_link_message">Du kan inte gå till denna symboliska länk</string>
 	<string name="dialog_sym_link_back_button">Bakåt</string>
 	<string name="dialog_no_dir_file_title">Det går inte att ladda innehållet i katalogen</string>
+	<string name="dialog_no_dir_file_message">Moln-mappen \'%1$s\' har ingen giltig katalog-fil. Det kan bero på att mappen skapades på en annan enhet och ännu inte har synkroniserats fullt ut med molnet. Kontrollera i ditt moln om följande fil finns:\n%2$s</string>
 	<string name="dialog_no_more_images_to_display">Inga fler bilder att visa&#8230;</string>
 	<string name="dialog_pcloud_credentials_updated_title">Användaruppgifter för \'%1$s\' uppdaterad</string>
 	<string name="dialog_pcloud_credentials_updated">Om du tänkte lägga till ett nytt pCloud-konto, klicka på denna url <a href="https://www.pcloud.com">www.pcloud. Om</a>, logga ut från det aktuella kontot och klicka igen på \'+\' i den här appen för att skapa en ny molnanslutning.</string>
