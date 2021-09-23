@@ -317,6 +317,7 @@
 	<string name="dialog_sym_link_message">Nemůžete přejít na tento symbolický odkaz</string>
 	<string name="dialog_sym_link_back_button">Zpět</string>
 	<string name="dialog_no_dir_file_title">Obsah adresáře nelze načíst</string>
+	<string name="dialog_no_dir_file_message">Složka v cloudu \'%1$s\' nemá adresářový soubor. Mohlo dojít k tomu, že složka byla vytvořena na jiném zařízení a ještě nebyla plně synchronizována s cloudem. Prosím zkontrolujte v cloudu, zda existuje následující soubor a není prázdný: \n%2$s</string>
 	<string name="dialog_no_more_images_to_display">Žádné další obrázky k zobrazení&#8230;</string>
 	<string name="dialog_pcloud_credentials_updated_title">Údaje o \'%1$s\' byly aktualizovány</string>
 	<string name="dialog_pcloud_credentials_updated">Pokud máte v úmyslu přidat nový účet na pCloud, klikněte na tento odkaz <a href="https://www.pcloud.com">www.pcloud. om</a>, odhlaste se z aktuálního účtu a znovu klikněte na \'+\' v této aplikaci pro vytvoření nového cloudového připojení.</string>
