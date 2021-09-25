@@ -315,6 +315,7 @@
 	<string name="dialog_sym_link_message">Bu sembolik bağlantıya gidemezsin</string>
 	<string name="dialog_sym_link_back_button">Geri</string>
 	<string name="dialog_no_dir_file_title">Dizinin içeriği yüklenemiyor</string>
+	<string name="dialog_no_dir_file_message">\'%1$s\' bulut klasörü geçerli bir dizin dosyasına sahip değil. Klasör başka bir cihazda oluşturulmuş ve henüz bulutla tam olarak senkronize edilmemiş olabilir. Lütfen bulutunuzda aşağıdaki dosyanın olup olmadığını ve boş olup olmadığını kontrol edin:\n%2$s</string>
 	<string name="dialog_no_more_images_to_display">&#8230; göstermek için daha fazla resim yok</string>
 	<string name="dialog_pcloud_credentials_updated_title">%1$s kimlik bilgileri güncellendi</string>
 	<string name="dialog_pcloud_credentials_updated">Yeni bir pCloud hesabı eklemeyi düşünüyorsanız, bu url <a href="https://www.pcloud.com">www.pcloud.com</a> tıklayın, mevcut hesaptan çıkın ve yeni bir bulut bağlantısı oluşturmak için \'+\'. tekrar tıklayın.</string>
