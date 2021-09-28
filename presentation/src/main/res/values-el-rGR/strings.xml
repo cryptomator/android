@@ -1,7 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 	<!-- # app -->
+	<string name="share_with_label">Κρυπτογράφηση</string>
 	<!-- # error messages -->
+	<string name="error_generic">Παρουσιάστηκε σφάλμα</string>
+	<string name="error_authentication_failed">Η ταυτοποίηση απέτυχε</string>
+	<string name="error_authentication_failed_re_authenticate">Η ταυτοποίηση απέτυχε, παρακαλώ συνδεθείτε χρησιμοποιώντας %1$s</string>
+	<string name="error_no_network_connection">Χωρίς σύνδεση δικτύου</string>
+	<string name="error_invalid_passphrase">Λάθος κωδικός πρόσβασης</string>
+	<string name="error_file_or_folder_exists">Υπάρχει ήδη ένα αρχείο ή φάκελος.</string>
+	<string name="error_vault_version_not_supported">Μη υποστηριζόμενη κρύπτη. Αυτή η κρύπτη έχει δημιουργηθεί με μια άλλη έκδοση του Cryptomator.</string>
+	<string name="error_vault_already_exists">Η κρύπτη υπάρχει ήδη.</string>
+	<string name="error_no_such_file">Το αρχείο δεν υπάρχει.</string>
+	<string name="error_vault_has_been_locked">Η κρύπτη έχει κλειδωθεί.</string>
 	<!-- # clouds -->
 	<!-- ## cloud names -->
 	<!-- # permission -->
