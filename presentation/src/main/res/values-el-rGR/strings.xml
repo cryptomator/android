@@ -10,9 +10,9 @@
 	<string name="error_invalid_passphrase">Λάθος κωδικός πρόσβασης</string>
 	<string name="error_file_or_folder_exists">Υπάρχει ήδη ένα αρχείο ή φάκελος.</string>
 	<string name="error_vault_version_not_supported">Μη υποστηριζόμενη κρύπτη. Αυτή η κρύπτη έχει δημιουργηθεί με μια άλλη έκδοση του Cryptomator.</string>
-	<string name="error_vault_already_exists">Το vault υπάρχει ήδη.</string>
+	<string name="error_vault_already_exists">Η κρύπτη υπάρχει ήδη.</string>
 	<string name="error_no_such_file">Το αρχείο δεν υπάρχει.</string>
-	<string name="error_vault_has_been_locked">To Vault έχει κλειδωθεί.</string>
+	<string name="error_vault_has_been_locked">Η κρύπτη έχει κλειδωθεί.</string>
 	<string name="error_cloud_already_exists">Το Cloud υπάρχει ήδη.</string>
 	<string name="error_activity_not_found">Κάντε λήψη μιας εφαρμογής που μπορεί να ανοίξει αυτό το αρχείο.</string>
 	<string name="error_server_not_found">Ο διακομιστής δεν βρέθηκε.</string>
@@ -20,16 +20,16 @@
 	<string name="error_export_illegal_file_name">Η εξαγωγή απέτυχε. Προσπαθήστε να αφαιρέσετε ειδικούς χαρακτήρες από τα ονόματα αρχείων και να εξαγάγετε ξανά.</string>
 	<string name="error_name_contains_invalid_characters">Δεν μπορεί να περιέχει ειδικούς χαρακτήρες.</string>
 	<string name="error_names_contains_invalid_characters">Τα ονόματα αρχείων δεν μπορούν να περιέχουν ειδικούς χαρακτήρες.</string>
-	<string name="error_vault_name_contains_invalid_characters">Το όνομα τoυ vault δεν μπορεί να περιέχει ειδικούς χαρακτήρες.</string>
+	<string name="error_vault_name_contains_invalid_characters">Το όνομα της κρύπτης δεν μπορεί να περιέχει ειδικούς χαρακτήρες.</string>
 	<string name="error_general_update">Ο έλεγχος ενημέρωσης απέτυχε. Παρουσιάστηκε γενικό σφάλμα.</string>
 	<string name="error_hash_mismatch_update">Ο έλεγχος ενημέρωσης απέτυχε. Ο υπολογισμός hash δεν ταιριάζει με το μεταφορτωμένο αρχείο</string>
 	<string name="error_update_no_internet">Ο έλεγχος ενημέρωσης απέτυχε. Δεν υπάρχει σύνδεση στο διαδίκτυο.</string>
 	<string name="error_failed_to_decrypt_webdav_password">Αποτυχία αποκρυπτογράφησης κωδικού πρόσβασης WebDAV. προσθέστε ξανά στις ρυθμίσεις</string>
 	<string name="error_play_services_not_available">Οι Play Services δεν είναι εγκατεστημένες</string>
 	<string name="error_biometric_auth_aborted">Η βιομετρική πιστοποίηση ματαιώθηκε</string>
-	<string name="error_vault_version_mismatch">Η έκδοση που καθορίζεται στο vault.cryptomator είναι διαφορετική από την masterkey.cryptomator</string>
+	<string name="error_vault_version_mismatch">Η έκδοση που καθορίζεται στη vault.cryptomator είναι διαφορετική από το masterkey.cryptomator</string>
 	<string name="error_vault_key_invalid">vault.cryptomator δεν ταιριάζει με αυτό το masterkey.cryptomator</string>
-	<string name="error_vault_config_loading">Γενικό σφάλμα κατά τη φόρτωση της ρύθμισης vault</string>
+	<string name="error_vault_config_loading">Γενικό σφάλμα κατά τη φόρτωση της ρύθμισης κρύπτης</string>
 	<!-- # clouds -->
 	<!-- ## cloud names -->
 	<!-- # permission -->
@@ -48,14 +48,16 @@
 	<!-- # screens -->
 	<!-- # screen: vault list -->
 	<string name="screen_vault_list_actions_title">Προσθήκη στο Cryptomator</string>
-	<string name="screen_vault_list_action_create_new_vault">Δημιουργήστε νέο vault</string>
-	<string name="screen_vault_list_action_add_existing_vault">Προσθήκη υπάρχοντος vault</string>
+	<string name="screen_vault_list_action_create_new_vault">Δημιουργία νέας κρύπτης</string>
+	<string name="screen_vault_list_action_add_existing_vault">Προσθήκη υπάρχοντος κρύπτης</string>
 	<string name="screen_vault_list_vault_action_delete">Αφαίρεση</string>
-	<string name="screen_vault_list_vault_creation_hint">Κάντε κλικ εδώ για να δημιουργήσετε νέο vault</string>
+	<string name="screen_vault_list_vault_creation_hint">Κάντε κλικ εδώ για να δημιουργήσετε μια νέα κρύπτη</string>
 	<string name="screen_vault_list_change_password_successful">Ο κωδικός πρόσβασης άλλαξε επιτυχώς</string>
 	<!-- # screen: file browser -->
-	<string name="screen_file_browser_default_title">Vault</string>
+	<string name="screen_file_browser_default_title">Κρύπτη</string>
 	<string name="screen_file_browser_add_existing_vault_extra_text">Επιλέξτε masterkey αρχείο</string>
+	<string name="screen_file_browser_create_new_vault_button_text">Τοποθέτησε εδώ</string>
+	<string name="screen_file_browser_create_new_vault_extra_text">Όνομα κρύπτης: %1$s</string>
 	<string name="screen_file_browser_share_button_text">Επιλογή</string>
 	<string name="screen_file_browser_node_action_edit_text">Επεξεργασία</string>
 	<!-- ## screen: text editor -->
@@ -68,16 +70,21 @@
 	<string name="screen_webdav_settings_password_label">Κωδικός πρόσβασης</string>
 	<!-- ## screen: s3 settings -->
 	<!-- ## screen: enter vault name -->
+	<string name="screen_enter_vault_name_msg_name_empty">Το όνομα κρύπτης δεν μπορεί να είναι κενό.</string>
+	<string name="screen_enter_vault_name_vault_label">Όνομα κρύπτης</string>
 	<string name="screen_enter_vault_name_button_text">Δημιουργία</string>
 	<!-- ## screen: set password -->
 	<string name="screen_set_password_button_text">Κλείσιμο</string>
 	<string name="screen_set_password_hint">ΣΗΜΑΝΤΙΚΟ: Εάν ξεχάσετε τον κωδικό πρόσβασής σας, δεν υπάρχει τρόπος να ανακτήσετε τα δεδομένα σας.</string>
+	<string name="screen_set_password_strength_indicator_0">Πολύ αδύναμος για δημιουργία μιας κρύπτης</string>
 	<string name="screen_set_password_strength_indicator_1">Αδύναμος</string>
 	<string name="screen_set_password_strength_indicator_2">Μέτριος</string>
 	<string name="screen_set_password_strength_indicator_3">Δυνατός</string>
 	<!-- ## screen: settings -->
 	<string name="screen_settings_section_general">Γενικά</string>
 	<string name="screen_settings_section_search">Αναζήτηση</string>
+	<string name="screen_settings_section_auto_photo_upload_vault">Επιλογή κρύπτης για μεταφόρτωση</string>
+	<string name="screen_settings_section_auto_photo_upload_toggle_summary">Λήψη εικόνων στο παρασκήνιο και μόλις ξεκλειδωθεί η επιλεγμένη κρύπτη, έναρξη μεταφόρτωσης</string>
 	<!-- ## screen: cloud settings -->
 	<!-- ## screen: licenses -->
 	<!-- ## screen: authenticate cloud -->
@@ -86,11 +93,21 @@
 	<string name="dialog_button_cancel">Ακύρωση</string>
 	<string name="dialog_enter_password_positive_button">Ξεκλείδωμα</string>
 	<!-- Vault not found -->
+	<string name="dialog_vault_not_found_title">Η κρύπτη %1$s δεν βρέθηκε</string>
+	<string name="dialog_vault_not_found_message">Η κρύπτη μετονομάστηκε, μετακινήθηκε ή διαγράφηκε. Αφαιρέστε αυτή τη φόρμα και προσθέστε την ξανά για να συνεχίσετε. Αφαίρεση τώρα;</string>
 	<string name="dialog_vault_not_found_positive_button_text">Αφαίρεση</string>
 	<string name="dialog_unable_to_share_positive_button">ΟΚ</string>
+	<string name="dialog_rename_vault_title">Μετονομασία κρύπτης</string>
+	<string name="dialog_delete_vault_message">Είστε βέβαιοι ότι θέλετε να καταργήσετε αυτή την κρύπτη;</string>
+	<string name="dialog_delete_vault_hint">Αυτή η ενέργεια θα αφαιρέσει μόνο τη κρύπτη από αυτή τη λίστα και δεν θα το διαγράψει φυσικά.</string>
+	<string name="dialog_progress_unlocking_vault">Ξεκλείδωμα κρύπτης&#8230;</string>
+	<string name="dialog_progress_creating_vault">Δημιουργία κρύπτης&#8230;</string>
 	<string name="dialog_lock_vault">Κλείδωμα</string>
 	<string name="dialog_app_is_obscured_info_neutral_button">Κλείσιμο</string>
+	<string name="dialog_delete_cloud_connection_with_vaults_message">Είστε βέβαιοι ότι θέλετε να καταργήσετε αυτή τη σύνδεση cloud;</string>
+	<string name="dialog_delete_cloud_connection_with_vaults_hint">Αυτή η ενέργεια θα αφαιρέσει τη σύνδεση στο cloud και όλες οι κρύπτες αυτού του cloud.</string>
 	<string name="dialog_sym_link_back_button">Πίσω</string>
+	<string name="permission_snackbar_auth_local_vault">Το Cryptomator χρειάζεται πρόσβαση στον αποθηκευτικό χώρο για τη χρήση τοπικών κρυπτών</string>
 	<!-- # error reports -->
 	<!-- # misc -->
 	<!-- ## file size helper -->
@@ -98,6 +115,9 @@
 	<string name="time_unit_minutes_pl">λεπτά</string>
 	<!-- ## biometric authentication -->
 	<!-- notification -->
+	<string name="notification_auto_upload_finished_message">%1$d εικόνες μεταφορτώθηκαν στην κρύπτη</string>
+	<string name="notification_auto_upload_failed_due_to_vault_locked">Κρύπτη κλειδωμένη κατά τη μεταφόρτωση, παρακαλώ ανοίξτε ξανά την κρύπτη για να συνεχίσετε</string>
+	<string name="notification_open_writable_file_message">Η κρύπτη παραμένει ξεκλείδωτη μέχρι να τελειώσει η επεξεργασία</string>
 	<!-- lock timeout names -->
 	<!-- cache size names -->
 	<!-- screen scheme mode names -->
