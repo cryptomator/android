@@ -131,10 +131,14 @@
 	<string name="screen_s3_settings_display_name_label">Εμφανιζόμενο Όνομα</string>
 	<string name="screen_s3_settings_access_key_label">Κλειδί Πρόσβασης</string>
 	<string name="screen_s3_settings_secret_key_label">Μυστικό Κλειδί</string>
+	<string name="screen_s3_settings_bucket_label">Υπάρχων Bucket</string>
+	<string name="screen_s3_settings_endpoint_label">Τελικό Σημείο</string>
 	<string name="screen_s3_settings_region_label">Περιοχή</string>
 	<string name="screen_s3_settings_msg_display_name_not_empty">Το Εμφανιζόμενο Όνομα δεν μπορεί να είναι κενό</string>
 	<string name="screen_s3_settings_msg_access_key_not_empty">Το Κλειδί Πρόσβασης δεν μπορεί να είναι κενό</string>
 	<string name="screen_s3_settings_msg_secret_key_not_empty">Το Μυστικό Κλειδί δεν μπορεί να είναι κενό</string>
+	<string name="screen_s3_settings_msg_bucket_not_empty">Ο bucket δεν μπορεί να είναι κενός</string>
+	<string name="screen_s3_settings_msg_endpoint_and_region_not_empty">Το τελικό σημείο ή περιοχή δεν μπορεί να είναι κενό</string>
 	<!-- ## screen: enter vault name -->
 	<string name="screen_enter_vault_name_msg_name_empty">Το όνομα κρύπτης δεν μπορεί να είναι κενό.</string>
 	<string name="screen_enter_vault_name_vault_label">Όνομα κρύπτης</string>
@@ -153,9 +157,29 @@
 	<!-- ## screen: settings -->
 	<string name="screen_settings_section_general">Γενικά</string>
 	<string name="screen_settings_cloud_settings_label">Υπηρεσίες Cloud</string>
+	<string name="screen_settings_biometric_auth">Βιομετρική ταυτοποίηση</string>
+	<string name="screen_settings_activate_biometric_auth">Ενεργοποίηση βιομετρικής ταυτοποίησης</string>
+	<string name="screen_settings_confirm_face_unlock">Επιβεβαίωση ξεκλειδώματος προσώπου (αν υπάρχει)</string>
+	<string name="screen_settings_block_app_when_obscured">Αποκλεισμός εφαρμογής όταν αποκρύπτεται</string>
+	<string name="screen_settings_block_app_when_obscured_summary">Αποκλεισμός υποκλοπής της εισόδου και εμφάνιση ψευδούς διεπαφής χρήστη</string>
+	<string name="screen_settings_secure_screen">Αποκλεισμός στιγμιότυπων οθόνης</string>
+	<string name="screen_settings_secure_screen_summary">Αποκλεισμός στιγμιότυπων οθόνης στη λίστα προσφάτων και μέσα στην εφαρμογή</string>
 	<string name="screen_settings_section_search">Αναζήτηση</string>
+	<string name="screen_settings_live_search">Ζωντανή αναζήτηση</string>
+	<string name="screen_settings_live_search_summary">Ενημέρωση αποτελεσμάτων αναζήτησης κατά την εισαγωγή του ερωτήματος</string>
+	<string name="screen_settings_glob_search">Αναζήτηση με χρήση glob μοτίβου</string>
+	<string name="screen_settings_glob_search_summary">Χρησιμοποιήστε το μοτίβο glob που ταιριάζει όπως η alice.*. Jpg</string>
+	<string name="screen_settings_section_auto_lock">Αυτόματο κλείδωμα</string>
+	<string name="screen_settings_auto_lock_timeout">Κλείδωμα μετά από</string>
+	<string name="screen_settings_auto_lock_on_screen_lock">Όταν η οθόνη είναι απενεργοποιημένη</string>
+	<string name="screen_settings_section_auto_photo_upload">Αυτόματη μεταφόρτωση φωτογραφίας</string>
 	<string name="screen_settings_section_auto_photo_upload_vault">Επιλογή κρύπτης για μεταφόρτωση</string>
+	<string name="screen_settings_section_auto_photo_upload_toggle">Ενεργοποίηση</string>
 	<string name="screen_settings_section_auto_photo_upload_toggle_summary">Λήψη εικόνων στο παρασκήνιο και μόλις ξεκλειδωθεί η επιλεγμένη κρύπτη, έναρξη μεταφόρτωσης</string>
+	<string name="screen_settings_section_auto_photo_upload_only_wifi_toggle">Μεταφόρτωση μόνο χρησιμοποιώντας WIFI</string>
+	<string name="screen_settings_section_auto_photo_upload_including_videos">Μεταφόρτωση βίντεο</string>
+	<string name="screen_settings_auto_photo_upload_title">Αποθήκευση αυτόματης μεταφόρτωσης αρχείων στο&#8230;</string>
+	<string name="screen_settings_website_label">Ιστοσελίδα Cryptomator</string>
 	<string name="screen_settings_twitter_label">Ακολούθησέ μας στο Twitter</string>
 	<string name="screen_settings_facebook_label">Κάντε μας like στο Facebook</string>
 	<string name="screen_settings_section_legal">Νομικό περιεχόμενο</string>
@@ -164,33 +188,64 @@
 	<string name="screen_settings_section_support">Υποστήριξη</string>
 	<string name="screen_settings_contact_label">Αναζητήστε βοήθεια</string>
 	<string name="screen_settings_debug_mode_label">Λειτουργία εντοπισμού σφαλμάτων</string>
+	<string name="screen_settings_error_report_label">Αποστολή αρχείου καταγραφής</string>
+	<string name="screen_settings_error_report_failed">Η αποστολή απέτυχε</string>
+	<string name="screen_settings_security_label">Συμβουλές ασφαλείας</string>
 	<string name="screen_settings_section_version">Έκδοση</string>
+	<string name="screen_settings_advanced_settings">Ρυθμίσεις για Προχωρημένους</string>
+	<string name="screen_settings_background_unlock_preparation_label">Επιτάχυνση ξεκλειδώματος</string>
 	<string name="screen_settings_background_unlock_preparation_label_summary">Λήψη ρυθμίσεων κρύπτης στο παρασκήνιο, ενώ σας ζητείτε να εισάγετε τον κωδικό πρόσβασης ή το βιομετρικό πιστοποιητικό</string>
+	<string name="screen_settings_keep_unlocked_while_editing_files">Κρατήστε ξεκλείδωτο</string>
 	<string name="screen_settings_keep_unlocked_while_editing_files_summary">Κρατήστε τις κρύπτες ξεκλειδωμένες κατά την επεξεργασία αρχείων</string>
 	<!-- ## screen: cloud settings -->
+	<string name="screen_cloud_settings_webdav_connections">Συνδέσεις WebDAV</string>
+	<string name="screen_cloud_settings_pcloud_connections">Συνδέσεις pCloud</string>
+	<string name="screen_cloud_settings_s3_connections">Συνδέσεις S3</string>
+	<string name="screen_cloud_settings_local_storage_locations">Τοπικές τοποθεσίες αποθήκευσης</string>
+	<string name="screen_cloud_settings_log_in_to">Συνδεθείτε στο</string>
+	<string name="screen_cloud_settings_sign_out_from_cloud">Αποσύνδεση από</string>
 	<!-- ## screen: licenses -->
 	<!-- ## screen: authenticate cloud -->
+	<string name="screen_authenticate_auth_authentication_failed">%1$s δεν ήταν δυνατή η ταυτοποίηση.</string>
+	<string name="screen_update_pcloud_connections_title">Ενημέρωση διαπιστευτηρίων pCloud</string>
 	<!-- ## screen: insecure android version info -->
 	<!-- # dialogs -->
 	<string name="dialog_button_cancel">Ακύρωση</string>
 	<string name="dialog_enter_password_positive_button">Ξεκλείδωμα</string>
+	<string name="dialog_change_password_old_password_label">Παλιός Κωδικός Πρόσβασης</string>
+	<string name="dialog_change_password_new_password_label">Νέος Κωδικός Πρόσβασης</string>
+	<string name="dialog_change_password">Αλλαγή κωδικού πρόσβασης</string>
+	<string name="dialog_change_password_msg_old_password_empty">Ο παλιός κωδικός πρόσβασης δεν μπορεί να είναι κενός.</string>
+	<string name="dialog_change_password_msg_new_password_empty">Ο νέος κωδικός πρόσβασης δεν μπορεί να είναι κενός.</string>
+	<string name="dialog_change_password_msg_password_mismatch">Ο νέος κωδικός πρόσβασης δεν ταιριάζει με τον κωδικό πρόσβασης που πληκτρολογήθηκε.</string>
 	<!-- Vault not found -->
 	<string name="dialog_vault_not_found_title">Η κρύπτη %1$s δεν βρέθηκε</string>
 	<string name="dialog_vault_not_found_message">Η κρύπτη μετονομάστηκε, μετακινήθηκε ή διαγράφηκε. Αφαιρέστε αυτή τη φόρμα και προσθέστε την ξανά για να συνεχίσετε. Αφαίρεση τώρα;</string>
 	<string name="dialog_vault_not_found_positive_button_text">Αφαίρεση</string>
+	<string name="dialog_existing_file_title">Το αρχείο υπάρχει ήδη</string>
 	<string name="dialog_existing_file_positive_button">Αντικατάσταση</string>
 	<string name="dialog_existing_file_message">Ένα αρχείο με όνομα \'%1$s\' υπάρχει ήδη.</string>
 	<string name="dialog_replace_negative_button_at_least_two_but_not_all_files_exist">Παράλειψη υπάρχοντος</string>
 	<string name="dialog_replace_positive_button_all_files_exist">Αντικατάσταση όλων</string>
 	<string name="dialog_replace_positive_button_some_files_exist">Αντικατάσταση υπάρχοντος</string>
 	<string name="dialog_replace_positive_button_single_file_exists">Αντικατάσταση</string>
+	<string name="dialog_replace_msg_single_file_exists">Ένα αρχείο με όνομα \'%1$s\' υπάρχει ήδη. Θέλετε να το αντικαταστήσετε;</string>
+	<string name="dialog_replace_msg_all_files_exists">Όλα τα αρχεία υπάρχουν ήδη. Θέλετε να τα αντικαταστήσετε;</string>
+	<string name="dialog_replace_msg_some_files_exists">%1$d αρχεία υπάρχουν ήδη. Θέλετε να τα αντικαταστήσετε;</string>
+	<string name="dialog_replace_title_single_file_exists">Αντικατάσταση αρχείου;</string>
+	<string name="dialog_replace_title_multiple_files_exist">Αντικατάσταση αρχείων;</string>
+	<string name="dialog_unable_to_share_title">Δεν είναι δυνατή η κοινή χρήση αρχείων</string>
 	<string name="dialog_unable_to_share_message">Δεν έχετε ρυθμίσει καμία κρύπτη. Παρακαλώ δημιουργήστε μια νέα κρύπτη με την εφαρμογή Cryptomator.</string>
 	<string name="dialog_unable_to_share_positive_button">ΟΚ</string>
 	<string name="dialog_unable_to_share_negative_button">Δημιουργία κρύπτης</string>
+	<string name="dialog_filetype_not_supported_title">Δεν είναι δυνατό το άνοιγμα του %1$s</string>
+	<string name="dialog_filetype_not_supported_message">Παρακαλώ κατεβάστε μια εφαρμογή που μπορεί να ανοίξει αυτό το αρχείο ή θέλετε να αποθηκεύσετε στη συσκευή σας;</string>
 	<string name="dialog_rename_vault_title">Μετονομασία κρύπτης</string>
 	<string name="dialog_rename_node_folder_title">Μετονομασία φακέλου</string>
 	<string name="dialog_rename_node_file_title">Μετονομασία αρχείου</string>
 	<string name="dialog_unsaved_changes_title">Έχετε μη αποθηκευμένες αλλαγές</string>
+	<string name="dialog_unsaved_changes_message">Θέλετε πραγματικά να βγείτε χωρίς αποθήκευση;</string>
+	<string name="dialog_unsaved_changes_discard">Απόρριψη</string>
 	<string name="dialog_file_name_placeholder">text.txt</string>
 	<string name="dialog_delete_vault_message">Είστε βέβαιοι ότι θέλετε να καταργήσετε αυτή την κρύπτη;</string>
 	<string name="dialog_delete_vault_hint">Αυτή η ενέργεια θα αφαιρέσει μόνο τη κρύπτη από αυτή τη λίστα και δεν θα το διαγράψει φυσικά.</string>
@@ -224,19 +279,52 @@
 	<string name="dialog_no_screen_lock_checkbox">Ορισμός κλειδώματος οθόνης</string>
 	<string name="dialog_no_biometric_auth_set_up_title">Δεν έχει ρυθμιστεί βασικός έλεγχος ταυτότητας στο σύστημα</string>
 	<string name="dialog_no_biometric_auth_set_up_message">Εγγράψτε τουλάχιστον ένα δάχτυλο/πρόσωπο για να χρησιμοποιήσετε αυτήν την υπηρεσία.</string>
+	<string name="dialog_debug_mode_disclaimer_hint">Σε αυτή τη λειτουργία, μπορεί να γραφτούν ευαίσθητα δεδομένα σε ένα αρχείο καταγραφής στη συσκευή σας (π.χ. ονόματα αρχείων και διαδρομές). Οι κωδικοί πρόσβασης, τα cookies κλπ. αποκλείονται ρητά.\n\nΘυμηθείτε να απενεργοποιήσετε τη λειτουργία εντοπισμού σφαλμάτων το συντομότερο δυνατό.</string>
 	<string name="dialog_debug_mode_disclaimer_title">Προσοχή</string>
 	<string name="dialog_debug_mode_positive_button">Ενεργοποίηση</string>
 	<string name="dialog_disable_app_obscured_disclaimer_hint">Αυτή η ρύθμιση είναι μια λειτουργία ασφαλείας και αποτρέπει άλλες εφαρμογές από το να ξεγελάσουν τους χρήστες να κάνουν πράγματα που δεν θέλουν να κάνουν.\n\nΜε την απενεργοποίηση, επιβεβαιώνετε ότι γνωρίζετε <a href="https://docs.cryptomator.org/en/1.5/android/settings/#block-app-when-obscured">τους κινδύνους</a>.</string>
 	<string name="dialog_disable_app_obscured_disclaimer_title">Προσοχή</string>
 	<string name="dialog_disable_app_obscured_positive_button">Απενεργοποίηση</string>
+	<string name="dialog_app_is_obscured_info_title">Η εφαρμογή αποκρύπτεται</string>
+	<string name="dialog_app_is_obscured_info_hint">Μια άλλη εφαρμογή εμφανίζει κάτι πάνω από το Cryptomator (π.χ. ένα φίλτρο μπλε φωτός ή μια εφαρμογή νυχτερινής λειτουργίας). Για λόγους ασφαλείας, το Cryptomator είναι απενεργοποιημένο.\n\n<a href="https://docs.cryptomator.org/en/1.5/android/settings/#block-app-when-obscured">Πώς να ενεργοποιήσετε το Cryptomator</a></string>
 	<string name="dialog_app_is_obscured_info_neutral_button">Κλείσιμο</string>
+	<string name="dialog_disable_secure_screen_disclaimer_hint">Αυτή η ρύθμιση είναι μια λειτουργία ασφαλείας και αποτρέπει άλλες εφαρμογές από το να ξεγελάσουν τους χρήστες να κάνουν πράγματα που δεν θέλουν να κάνουν.\n\nΜε την απενεργοποίηση, επιβεβαιώνετε ότι γνωρίζετε <a href="https://docs.cryptomator.org/en/1.5/android/settings/#screen-security">τους κινδύνους</a>.</string>
 	<string name="dialog_delete_cloud_connection_with_vaults_message">Είστε βέβαιοι ότι θέλετε να καταργήσετε αυτή τη σύνδεση cloud;</string>
 	<string name="dialog_delete_cloud_connection_with_vaults_hint">Αυτή η ενέργεια θα αφαιρέσει τη σύνδεση στο cloud και όλες οι κρύπτες αυτού του cloud.</string>
+	<string name="dialog_confirm_delete_multiple_title">Διαγραφή %1$d στοιχείων;</string>
+	<string name="dialog_confirm_delete_multiple_message">Είστε βέβαιοι ότι θέλετε να διαγράψετε αυτά τα στοιχεία;</string>
+	<string name="dialog_confirm_delete_file_message">Είστε βέβαιοι ότι θέλετε να διαγράψετε αυτό το αρχείο;</string>
+	<string name="dialog_confirm_delete_folder_message">Αυτό θα διαγράψει όλα τα περιεχόμενα του φακέλου. Είστε βέβαιοι ότι θέλετε να διαγράψετε αυτό το φάκελο;</string>
+	<string name="dialog_biometric_auth_key_invalidated_title">Η λειτουργία βιομετρικής ταυτοποίησης απενεργοποιήθηκε</string>
+	<string name="dialog_biometric_auth_key_invalidated_message">Επειδή το κλειδί έχει ακυρωθεί, η βιομετρική λειτουργία ταυτοποιήσης έχει απενεργοποιηθεί. Για επανενεργοποίηση, ανοίξτε τις ρυθμίσεις Cryptomator.</string>
+	<string name="dialog_enter_license_title">Δώστε μια έγκυρη άδεια</string>
+	<string name="dialog_enter_license_content">Εντοπίσαμε ότι εγκαταστήσατε Cryptomator χωρίς τη χρήση του Google Play Store. Παρέχετε έγκυρη άδεια, η οποία μπορεί να αγοραστεί στο <a href="https://cryptomator.org/android/">https://cryptomator.org/android/</a></string>
+	<string name="dialog_enter_license_not_valid_content">Η παρεχόμενη άδεια δεν είναι έγκυρη. Βεβαιωθείτε ότι την εισαγάγατε σωστά.</string>
+	<string name="dialog_enter_license_no_content">Δεν παρέχεται άδεια. Παρακαλώ εισάγετε μια έγκυρη άδεια.</string>
+	<string name="dialog_enter_license_decline_button">Έξοδος</string>
+	<string name="dialog_license_confirmation_title">Επιβεβαίωση άδειας</string>
+	<string name="dialog_license_confirmation_message">Ευχαριστούμε %1$s για την παροχή της έγκυρης άδειας χρήσης σας.</string>
+	<string name="dialog_update_available_title">Διαθέσιμη ενημέρωση</string>
+	<string name="dialog_update_available_message">Ενημέρωση Cryptomator στην τελευταία έκδοση. Με το πάτημα OK θα κατεβάσετε την εφαρμογή στο παρασκήνιο και θα σας ζητηθεί να την εγκαταστήσετε.</string>
+	<string name="dialog_update_available_update">Ενημέρωση τώρα</string>
+	<string name="dialog_update_available_download_site">Μετάβαση στον ιστότοπο λήψεων</string>
+	<string name="dialog_update_available_cancel">Αργότερα</string>
+	<string name="dialog_download_update_title">Εκτελείται λήψη</string>
+	<string name="dialog_download_update_message">Λήψη της τελευταίας έκδοσης του Cryptomator</string>
+	<string name="dialog_sym_link_title">Ο φάκελος είναι ένας συμβολικός σύνδεσμος</string>
+	<string name="dialog_sym_link_message">Δεν μπορείτε να περιηγηθείτε σε αυτόν τον συμβολικό σύνδεσμο</string>
 	<string name="dialog_sym_link_back_button">Πίσω</string>
+	<string name="dialog_no_dir_file_title">Αδυναμία φόρτωσης των περιεχομένων του φακέλου</string>
+	<string name="dialog_no_dir_file_message">Ο φάκελος Cloud \'%1$s\' δεν έχει ένα έγκυρο αρχείο καταλόγου. Θα μπορούσε να είναι ότι ο φάκελος δημιουργήθηκε σε μια άλλη συσκευή και δεν έχει ακόμη πλήρως συγχρονιστεί με το cloud. Παρακαλούμε ελέγξτε στο cloud σας εάν το ακόλουθο αρχείο υπάρχει και δεν είναι κενό:\n%2$s</string>
+	<string name="dialog_no_more_images_to_display">Δεν υπάρχουν άλλες εικόνες για εμφάνιση&#8230;</string>
+	<string name="dialog_pcloud_credentials_updated_title">Τα διαπιστευτήρια του \'%1$s\' ενημερώθηκαν</string>
+	<string name="dialog_pcloud_credentials_updated">Αν σκοπεύετε να προσθέσετε ένα νέο λογαριασμό pCloud, κάντε κλικ σε αυτό το url <a href="https://www.pcloud.com">www.pcloud. om</a>, αποσυνδεθείτε από τον τρέχοντα λογαριασμό και κάντε κλικ ξανά στο \'+\' σε αυτή την εφαρμογή για να δημιουργήσετε μια νέα σύνδεση στο cloud.</string>
 	<string name="permission_snackbar_auth_local_vault">Το Cryptomator χρειάζεται πρόσβαση στον αποθηκευτικό χώρο για τη χρήση τοπικών κρυπτών</string>
+	<string name="permission_snackbar_auth_auto_upload">Το Cryptomator χρειάζεται πρόσβαση στον αποθηκευτικό χώρο για να χρησιμοποιηθεί η αυτόματη μεταφόρτωση φωτογραφιών</string>
 	<!-- # error reports -->
 	<!-- # misc -->
 	<!-- ## file size helper -->
+	<string name="file_size_zero">Μηδέν kB</string>
 	<string name="file_size_unit_bytes">bytes</string>
 	<string name="file_size_unit_kilo_bytes">kB</string>
 	<string name="file_size_unit_mega_bytes">MB</string>
@@ -261,11 +349,29 @@
 	<string name="dialog_biometric_auth_title">Βιομετρική σύνδεση</string>
 	<string name="dialog_biometric_auth_message">Συνδεθείτε χρησιμοποιώντας τα βιομετρικά διαπιστευτήριά σας</string>
 	<string name="dialog_biometric_auth_use_password">Χρήση κωδικού πρόσβασης κρύπτης</string>
+	<string name="dialog_unable_to_auto_upload_files_title">Δεν είναι δυνατή η αυτόματη μεταφόρτωση αρχείων</string>
 	<!-- notification -->
 	<string name="notification_unlocked">Ξεκλειδωμένες κρύπτες: %1$d</string>
+	<string name="notification_timeout">Αυτόματο κλείδωμα σε %1$s</string>
+	<string name="notification_lock_all">Κλείδωμα όλων</string>
+	<string name="notification_cancel_auto_upload">Ακύρωση μεταφόρτωσης</string>
+	<string name="notification_auto_upload_title">Εκτελείται αυτόματη μεταφόρτωση φωτογραφιών</string>
+	<string name="notification_auto_upload_message">Μεταφόρτωση %1d/%2d</string>
+	<string name="notification_auto_upload_finished_title">Η αυτόματη μεταφόρτωση φωτογραφίας ολοκληρώθηκε</string>
 	<string name="notification_auto_upload_finished_message">%1$d εικόνες μεταφορτώθηκαν στην κρύπτη</string>
+	<string name="notification_auto_upload_failed_title">Η αυτόματη μεταφόρτωση φωτογραφιών απέτυχε</string>
+	<string name="notification_auto_upload_failed_general_error">Παρουσιάστηκε γενικό σφάλμα κατά τη μεταφόρτωση.</string>
+	<string name="notification_auto_upload_failed_due_to_folder_not_exists">Ο επιλεγμένος φάκελος για μεταφόρτωση δεν είναι πια διαθέσιμος. Μεταβείτε στις ρυθμίσεις και επιλέξτε ένα νέο</string>
 	<string name="notification_auto_upload_failed_due_to_vault_locked">Κρύπτη κλειδωμένη κατά τη μεταφόρτωση, παρακαλώ ανοίξτε ξανά την κρύπτη για να συνεχίσετε</string>
+	<string name="notification_open_writable_file_title">Άνοιγμα εγγράψιμου αρχείου</string>
 	<string name="notification_open_writable_file_message">Η κρύπτη παραμένει ξεκλείδωτη μέχρι να τελειώσει η επεξεργασία</string>
+	<string name="notification_update_check_finished_latest">Τελευταία έκδοση εγκατεστημένη</string>
+	<string name="screen_settings_lru_cache">Προσωρινή μνήμη</string>
+	<string name="screen_settings_lru_cache_toggle_summary">Η προσωρινή μνήμη απέκτησε πρόσφατα πρόσβαση σε αρχεία που έχουν κρυπτογραφηθεί τοπικά στη συσκευή για μελλοντική επαναχρησιμοποίηση όταν ανοίξουν ξανά</string>
+	<string name="screen_settings_lru_cache_size">Συνολικό μέγεθος προσωρινής μνήμης</string>
+	<string name="screen_settings_clear_lru_cache_size">Εκκαθάριση προσωρινής μνήμης</string>
+	<string name="screen_settings_lru_cache_changed__restart_toast">Οι αλλαγές θα εφαρμοστούν στην επόμενη επανεκκίνηση της εφαρμογής</string>
+	<string name="screen_settings_license">Εγγεγραμμένος για</string>
 	<string name="screen_settings_license_mail">%1$s</string>
 	<string name="dialog_settings_update_check_interval_title">Διάστημα ελέγχου ενημερώσεων</string>
 	<string name="screen_settings_check_updates">\'Έλεγχος για ενημερώσεις</string>
