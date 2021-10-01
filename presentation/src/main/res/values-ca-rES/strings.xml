@@ -89,7 +89,7 @@
 	<string name="screen_file_browser_node_action_open_with_text">Obre amb&#8230;</string>
 	<string name="screen_file_browser_selection_mode_title_zero_elements">Tria ítems</string>
 	<string name="screen_file_browser_selection_mode_title_one_or_more_elements">%1$d seleccionat</string>
-	<string name="screen_file_browser_select_items">Selecciona&#8230;</string>
+	<string name="screen_file_browser_select_items">Selecciona</string>
 	<string name="screen_file_browser_select_all_items">Selecciona-ho tot</string>
 	<string name="screen_file_browser_refresh_items">Refresca</string>
 	<string name="screen_file_browser_no_connection_message">No hi ha connexió</string>
@@ -197,9 +197,6 @@
 	<!-- ## screen: authenticate cloud -->
 	<string name="screen_authenticate_auth_authentication_failed">%1$s no s\'ha pogut autenticar.</string>
 	<string name="screen_update_pcloud_connections_title">Actualitza les credencials de pCloud</string>
-	<!-- ## screen: empty dir file info -->
-	<string name="screen_empty_dir_file_info_title">\'%1$s\' inaccessible</string>
-	<string name="screen_empty_dir_file_info_headline">Cryptomator ha detectat que aquesta carpeta és inaccessible.</string>
 	<!-- ## screen: insecure android version info -->
 	<!-- # dialogs -->
 	<string name="dialog_button_cancel">Cancel·la</string>

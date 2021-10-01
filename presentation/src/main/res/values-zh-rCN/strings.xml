@@ -92,7 +92,7 @@
 	<string name="screen_file_browser_node_action_open_with_text">打开方式&#8230;</string>
 	<string name="screen_file_browser_selection_mode_title_zero_elements">选择项目</string>
 	<string name="screen_file_browser_selection_mode_title_one_or_more_elements">已选中 %1$d 项</string>
-	<string name="screen_file_browser_select_items">选择&#8230;</string>
+	<string name="screen_file_browser_select_items">选择</string>
 	<string name="screen_file_browser_select_all_items">全选</string>
 	<string name="screen_file_browser_refresh_items">刷新</string>
 	<string name="screen_file_browser_no_connection_message">无连接</string>
@@ -207,11 +207,6 @@
 	<!-- ## screen: authenticate cloud -->
 	<string name="screen_authenticate_auth_authentication_failed">%1$s 无法通过身份验证</string>
 	<string name="screen_update_pcloud_connections_title">更新 pCloud 凭证</string>
-	<!-- ## screen: empty dir file info -->
-	<string name="screen_empty_dir_file_info_title">\'%1$s\' 不可访问</string>
-	<string name="screen_empty_dir_file_info_headline">Cryptomator 检测到此文件夹不可访问</string>
-	<string name="screen_empty_dir_file_info_text">它可能已被另一应用删除，或云同步出错所致\n\n请尝试通过云端提供商将目录文件还原为上一个不为空的版本。该文件是：\n%1$s\n\n如果还是不行，您可以使用 Sanitizer 检查您的保险库问题，并可能还原您的数据</string>
-	<string name="screen_empty_dir_file_info_button_label">更多关于 Sanitizer 的详情</string>
 	<!-- ## screen: insecure android version info -->
 	<!-- # dialogs -->
 	<string name="dialog_button_cancel">取消</string>
@@ -319,7 +314,7 @@
 	<string name="dialog_sym_link_message">您不能导航到此符号链接</string>
 	<string name="dialog_sym_link_back_button">返回</string>
 	<string name="dialog_no_dir_file_title">无法加载目录内容</string>
-	<string name="dialog_no_dir_file_message">云文件夹 \'%1$s\' 没有目录。可能文件夹是在另一设备上创建的，尚未完全同步到云端。请检查云端是否存在以下文件：\n%2$s</string>
+	<string name="dialog_no_dir_file_message">云文件夹 \'%1$s\' 没有有效的目录文件。可能文件夹是在另一设备上创建的，尚未完全同步到云端。请检查云端是否存在且不为空的以下文件：\n%2$s</string>
 	<string name="dialog_no_more_images_to_display">已到达文件夹末尾&#8230;</string>
 	<string name="dialog_pcloud_credentials_updated_title">\'%1$s\' 的证书已更新</string>
 	<string name="dialog_pcloud_credentials_updated">如果您打算添加一个新的 pCloud 帐户，请点击此链接 <a href="https://www.pcloud.com">www.pcloud.com</a>，登出当前账户，然后点击此应用中的 \'+\' 来创建新的云连接</string>

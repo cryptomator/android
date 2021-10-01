@@ -95,7 +95,7 @@
 	<string name="screen_file_browser_node_action_open_with_text">Otvoriť s&#8230;</string>
 	<string name="screen_file_browser_selection_mode_title_zero_elements">Vybrať položky</string>
 	<string name="screen_file_browser_selection_mode_title_one_or_more_elements">%1$d vybraných</string>
-	<string name="screen_file_browser_select_items">Označiť&#8230;</string>
+	<string name="screen_file_browser_select_items">Vybrať</string>
 	<string name="screen_file_browser_select_all_items">Vybrať všetko</string>
 	<string name="screen_file_browser_refresh_items">Obnoviť</string>
 	<string name="screen_file_browser_no_connection_message">Žiadne pripojenie</string>
@@ -210,11 +210,6 @@
 	<!-- ## screen: authenticate cloud -->
 	<string name="screen_authenticate_auth_authentication_failed">%1$s nemohol byť autentikovaný.</string>
 	<string name="screen_update_pcloud_connections_title">Aktualizovať pCloud prístupy</string>
-	<!-- ## screen: empty dir file info -->
-	<string name="screen_empty_dir_file_info_title">%1$s nedostupný</string>
-	<string name="screen_empty_dir_file_info_headline">Cryptomator detekoval nedostupnosť daného adresára.</string>
-	<string name="screen_empty_dir_file_info_text">Mohlo to byť zmazané inou aplikáciou alebo zapríčinené chybnou cloudovou synchonizáciou.\n\nPokúste sa obnoviť adresárový súbor prostredníctvom cloudového poskytovateľa na predchádzajúcu verziu čo nie je prázdna. Súbor ktorého otázka je:\n%1$s\n\nAk toto nefunguje, môžete použiť Asanátor pre kontrolu problémov Vášho trezoru a prípadnú obnovu dát.</string>
-	<string name="screen_empty_dir_file_info_button_label">Viac detailov asanátora</string>
 	<!-- ## screen: insecure android version info -->
 	<!-- # dialogs -->
 	<string name="dialog_button_cancel">Zrušiť</string>
@@ -322,7 +317,6 @@
 	<string name="dialog_sym_link_message">Nemožno prejsť na túto symbolickú linku</string>
 	<string name="dialog_sym_link_back_button">Späť</string>
 	<string name="dialog_no_dir_file_title">Nie je možné načítať obsah adresára</string>
-	<string name="dialog_no_dir_file_message">Cloudový adresár \'%1$s\' nemá adresárový súbor. Tento aresár mohol byť vytvorený iným zariadením a doposiať nebol plne synchronizovaný do cloudu. Prosím skontrolujte či nasledujúci súbor existuje:\n%2$s</string>
 	<string name="dialog_no_more_images_to_display">Niet už viac obrázkov k zobrazeniu&#8230;</string>
 	<string name="dialog_pcloud_credentials_updated_title">Prístupy k %1$s aktualizované</string>
 	<string name="dialog_pcloud_credentials_updated">Ak zamýšlate pridať nový pCloud účet, kliknite na tento link <a href="https://www.pcloud.com">www.pcloud.com</a>, odhláste sa zo súčasného účtu a opätovne kliknite na \'+\' v tejto aplikácii pre vytvorenie nového cloudového pripojenia.</string>
