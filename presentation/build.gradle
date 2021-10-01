@@ -228,8 +228,6 @@ dependencies {
 	testImplementation dependencies.junitApi
 	testRuntimeOnly dependencies.junitEngine
 	testImplementation dependencies.junitParams
-
-	testImplementation dependencies.junit4
 	testRuntimeOnly dependencies.junit4Engine
 
 	testImplementation dependencies.mockito

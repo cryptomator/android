@@ -29,11 +29,11 @@ ext {
 	rxAndroidVersion = '2.1.1'
 	rxBindingVersion = '2.2.0'
 
-	daggerVersion = '2.38.1'
+	daggerVersion = '2.39'
 
 	gsonVersion = '2.8.8'
 
-	okHttpVersion = '4.9.1'
+	okHttpVersion = '4.9.2'
 	okHttpDigestVersion = '2.5'
 
 	velocityVersion = '2.3'
@@ -74,8 +74,7 @@ ext {
 
 	// testing dependencies
 
-	jUnitVersion = '5.8.0'
-	jUnit4Version = '5.8.0'
+	jUnitVersion = '5.8.1'
 	assertJVersion = '1.7.1'
 	mockitoVersion = '3.12.4'
 	mockitoKotlinVersion = '3.2.0'
@@ -134,7 +133,6 @@ ext {
 			junitApi              : "org.junit.jupiter:junit-jupiter-api:${jUnitVersion}",
 			junitEngine           : "org.junit.jupiter:junit-jupiter-engine:${jUnitVersion}",
 			junitParams           : "org.junit.jupiter:junit-jupiter-params:${jUnitVersion}",
-			junit4                : "org.junit.jupiter:junit-jupiter:${jUnit4Version}",
 			junit4Engine          : "org.junit.vintage:junit-vintage-engine:${jUnitVersion}",
 			minIo                 : "io.minio:minio:${minIoVersion}",
 			mockito               : "org.mockito:mockito-core:${mockitoVersion}",
