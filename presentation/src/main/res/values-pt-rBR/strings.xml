@@ -93,7 +93,7 @@
 	<string name="screen_file_browser_node_action_open_with_text">Abrir com&#8230;</string>
 	<string name="screen_file_browser_selection_mode_title_zero_elements">Selecionar itens</string>
 	<string name="screen_file_browser_selection_mode_title_one_or_more_elements">%1$d selecionado</string>
-	<string name="screen_file_browser_select_items">Selecione&#8230;</string>
+	<string name="screen_file_browser_select_items">Selecione</string>
 	<string name="screen_file_browser_select_all_items">Selecionar todos</string>
 	<string name="screen_file_browser_refresh_items">Atualizar</string>
 	<string name="screen_file_browser_no_connection_message">Sem conexão</string>
@@ -208,11 +208,6 @@
 	<!-- ## screen: authenticate cloud -->
 	<string name="screen_authenticate_auth_authentication_failed">%1$s não pôde ser autenticado.</string>
 	<string name="screen_update_pcloud_connections_title">Atualizar credenciais do pCloud</string>
-	<!-- ## screen: empty dir file info -->
-	<string name="screen_empty_dir_file_info_title">\'%1$s\' inacessível</string>
-	<string name="screen_empty_dir_file_info_headline">O Cryptomator detectou que esta pasta está inacessível.</string>
-	<string name="screen_empty_dir_file_info_text">Pode ter sido excluído por outro aplicativo ou uma sincronização falha na nuvem poderia ter causado isso.\n\nTente restaurar o arquivo de diretório através do seu provedor de nuvem para uma versão anterior, que não está vazia. O arquivo em questão é:\n%1$s\n\nSe isso não funcionar, você pode usar o Sanitizer para verificar seu cofre para questões e possivelmente restaurar seus dados.</string>
-	<string name="screen_empty_dir_file_info_button_label">Mais detalhes sobre Sanitizer</string>
 	<!-- ## screen: insecure android version info -->
 	<!-- # dialogs -->
 	<string name="dialog_button_cancel">Cancelar</string>
@@ -320,7 +315,7 @@
 	<string name="dialog_sym_link_message">Não é possível entrar neste link simbólico</string>
 	<string name="dialog_sym_link_back_button">Voltar</string>
 	<string name="dialog_no_dir_file_title">Não foi possível carregar o conteúdo do diretório</string>
-	<string name="dialog_no_dir_file_message">A pasta na nuvem \'%1$s\' não tem um arquivo de diretório. A pasta pode ter sido criada em outro dispositivo e ainda não foi totalmente sincronizada com a nuvem. Por favor, verifique em sua nuvem se o seguinte arquivo existe:\n%2$s</string>
+	<string name="dialog_no_dir_file_message">A pasta na nuvem \'%1$s\' não tem um arquivo de diretório válido. Pode ser que a pasta foi criada em outro dispositivo e ainda não foi totalmente sincronizada com a nuvem. Por favor, verifique em sua nuvem se o seguinte arquivo existe:\n%2$s</string>
 	<string name="dialog_no_more_images_to_display">Sem mais imagens para exibir&#8230;</string>
 	<string name="dialog_pcloud_credentials_updated_title">Credenciais de \'%1$s\' atualizadas</string>
 	<string name="dialog_pcloud_credentials_updated">Se você pretendia adicionar uma nova conta pCloud, clique neste url <a href="https://www.pcloud.com">www.pcloud. um</a>, sair da conta atual e clicar novamente em \'+\' neste aplicativo para criar uma nova conexão com a nuvem.</string>
