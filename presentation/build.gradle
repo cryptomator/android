@@ -149,20 +149,36 @@ dependencies {
 	playstoreImplementation(dependencies.googleApiServicesDrive) {
 		exclude module: 'guava-jdk5'
 		exclude module: 'httpclient'
+		exclude module: 'googlehttpclient'
+		exclude group: "com.google.http-client", module: "google-http-client"
 	}
 	apkstoreImplementation(dependencies.googleApiServicesDrive) {
 		exclude module: 'guava-jdk5'
 		exclude module: 'httpclient'
+		exclude group: "com.google.http-client", module: "google-http-client"
 	}
 
 	playstoreImplementation(dependencies.googleApiClientAndroid) {
 		exclude module: 'guava-jdk5'
 		exclude module: 'httpclient'
+		exclude module: "google-http-client"
+		exclude module: "jetified-google-http-client"
+		exclude group: "com.google.http-client", module: "google-http-client"
+		exclude group: "com.google.http-client", module: "jetified-google-http-client"
 	}
 	apkstoreImplementation(dependencies.googleApiClientAndroid) {
 		exclude module: 'guava-jdk5'
 		exclude module: 'httpclient'
+		exclude module: "google-http-client"
+		exclude module: "jetified-google-http-client"
+		exclude group: "com.google.http-client", module: "google-http-client"
+		exclude group: "com.google.http-client", module: "jetified-google-http-client"
 	}
+
+	playstoreImplementation dependencies.trackingFreeGoogleCLient
+	apkstoreImplementation dependencies.trackingFreeGoogleCLient
+	playstoreImplementation dependencies.trackingFreeGoogleAndroidCLient
+	apkstoreImplementation dependencies.trackingFreeGoogleAndroidCLient
 
 	// rest
 	implementation dependencies.rxJava

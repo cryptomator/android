@@ -54,9 +54,14 @@ ext {
 
 	dropboxVersion = '4.0.1'
 
-	googleApiServicesVersion = 'v3-rev20210725-1.32.1'
+	googleApiServicesVersion = 'v3-rev20210919-1.32.1'
 	googlePlayServicesVersion = '19.2.0'
-	googleClientVersion = '1.32.1'
+	googleClientVersion = '1.32.1' // keep in sync with https://github.com/SailReal/google-http-java-client
+	/*
+		update using https://github.com/SailReal/google-http-java-client with `mvn clean install`,
+		copying `google-http-client-*.jar` and `google-http-client-android-*.jar` into the lib folder of this project
+	 */
+	trackingFreeGoogleCLientVersion = '1.40.1'
 
 	msgraphVersion = '2.10.0'
 
@@ -119,6 +124,8 @@ ext {
 			googleApiClientAndroid: "com.google.api-client:google-api-client-android:${googleClientVersion}",
 			googleApiServicesDrive: "com.google.apis:google-api-services-drive:${googleApiServicesVersion}",
 			googlePlayServicesAuth: "com.google.android.gms:play-services-auth:${googlePlayServicesVersion}",
+			trackingFreeGoogleCLient       : files("lib/google-http-client-${trackingFreeGoogleCLientVersion}.jar"),
+			trackingFreeGoogleAndroidCLient: files("lib/google-http-client-android-${trackingFreeGoogleCLientVersion}.jar"),
 			greenDao              : "org.greenrobot:greendao:${greenDaoVersion}",
 			gson                  : "com.google.code.gson:gson:${gsonVersion}",
 			hamcrest              : "org.hamcrest:hamcrest-all:${hamcrestVersion}",
