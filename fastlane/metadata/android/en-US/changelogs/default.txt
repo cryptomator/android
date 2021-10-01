@@ -6,3 +6,4 @@
 - Fixed rename vault name in S3
 - Fixed add/create vault in Google Drive on some devices
 - Dropped support for weak biometric authenticators
+- Removed deactivated tracking library from the Google cloud
