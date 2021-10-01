@@ -95,7 +95,7 @@
 	<string name="screen_file_browser_node_action_open_with_text">Otwórz z&#8230;</string>
 	<string name="screen_file_browser_selection_mode_title_zero_elements">Wybierz elementy</string>
 	<string name="screen_file_browser_selection_mode_title_one_or_more_elements">%1$d wybranych</string>
-	<string name="screen_file_browser_select_items">Wybierz&#8230;</string>
+	<string name="screen_file_browser_select_items">Wybierz</string>
 	<string name="screen_file_browser_select_all_items">Zaznacz wszystko</string>
 	<string name="screen_file_browser_refresh_items">Odśwież</string>
 	<string name="screen_file_browser_no_connection_message">Brak połączenia</string>
@@ -210,11 +210,6 @@
 	<!-- ## screen: authenticate cloud -->
 	<string name="screen_authenticate_auth_authentication_failed">Nie można uwierzytelnić %1$s.</string>
 	<string name="screen_update_pcloud_connections_title">Aktualizuj dane logowania pCloud</string>
-	<!-- ## screen: empty dir file info -->
-	<string name="screen_empty_dir_file_info_title">\'%1$s\' jest nieosiągalne</string>
-	<string name="screen_empty_dir_file_info_headline">Cryptomator wykrył, że ten folder jest nieosiągalny.</string>
-	<string name="screen_empty_dir_file_info_text">Być może został usunięty przez inną aplikację lub wystąpiła nieprawidłowa synchronizacja z usługą chmury. \n\nSpróbuj przywrócić plik katalogu za pośrednictwem dostawcy chmury do poprzedniej wersji, która nie jest pusta. Omawiany plik to:\n%1$s\n\nJeśli to nie zadziała, możesz użyć Sanitizera do sprawdzenia swojego sejfu pod kątem problemów i ewentualnie przywrócić dane.</string>
-	<string name="screen_empty_dir_file_info_button_label">Więcej szczegółów na temat Sanitizera</string>
 	<!-- ## screen: insecure android version info -->
 	<!-- # dialogs -->
 	<string name="dialog_button_cancel">Anuluj</string>
@@ -322,7 +317,7 @@
 	<string name="dialog_sym_link_message">Nie możesz przejść do tego linku symbolicznego</string>
 	<string name="dialog_sym_link_back_button">Powrót</string>
 	<string name="dialog_no_dir_file_title">Nie można załadować zawartości katalogu</string>
-	<string name="dialog_no_dir_file_message">Folder \'%1$s\' w chmurze nie ma pliku katalogowego. Być może folder został utworzony na innym urządzeniu i nie został jeszcze w pełni zsynchronizowany z chmurą. Sprawdź w chmurze, czy następujący plik istnieje:\n%2$s</string>
+	<string name="dialog_no_dir_file_message">Folder chmury \'%1$s\' nie ma prawidłowego pliku katalogowego. Być może został on utworzony na innym urządzeniu i nie został jeszcze w pełni zsynchronizowany z chmurą. Sprawdź w chmurze, czy następujący plik istnieje i nie jest pusty:\n%2$s</string>
 	<string name="dialog_no_more_images_to_display">Brak obrazów do wyświetlenia&#8230;</string>
 	<string name="dialog_pcloud_credentials_updated_title">Zaktualizowano dane logowania \'%1$s\'</string>
 	<string name="dialog_pcloud_credentials_updated">Jeśli chciałaś/eś dodać nowe konto pCloud, przejdź na podany adres <a href="https://www.pcloud.com">www.pcloud.com</a>, wyloguj się z aktualnie zalogowanego konta i ponownie kliknij na \'+\' aby utworzyć nowe połączenie z chmurą.</string>
