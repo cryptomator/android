@@ -41,11 +41,16 @@ Deploy new version to server
 fastlane android deployToFDroid
 ```
 Deploy new version to F-Droid
-### android checkTrackingAddedInDependency
+### android checkTrackingAddedInDependencyUsingIzzyScript
 ```
-fastlane android checkTrackingAddedInDependency
+fastlane android checkTrackingAddedInDependencyUsingIzzyScript
 ```
-Check if tracking added in some dependency
+Check if tracking added in some dependency using Izzy's script
+### android checkTrackingAddedInDependencyUsingExodus
+```
+fastlane android checkTrackingAddedInDependencyUsingExodus
+```
+Check if tracking added in some dependency using exodus
 ### android createGitHubDraftRelease
 ```
 fastlane android createGitHubDraftRelease

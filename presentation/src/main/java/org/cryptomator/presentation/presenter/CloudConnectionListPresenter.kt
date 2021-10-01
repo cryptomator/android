@@ -31,7 +31,6 @@ import org.cryptomator.presentation.ui.activity.view.CloudConnectionListView
 import org.cryptomator.presentation.ui.dialog.PCloudCredentialsUpdatedDialog
 import org.cryptomator.presentation.workflow.ActivityResult
 import org.cryptomator.util.crypto.CredentialCryptor
-import java.util.*
 import java.util.concurrent.atomic.AtomicReference
 import javax.inject.Inject
 import timber.log.Timber

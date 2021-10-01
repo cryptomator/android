@@ -18,7 +18,7 @@ ext {
 
 	// support lib
 	androidSupportAnnotationsVersion = '1.2.0'
-	androidSupportAppcompatVersion = '1.3.0'
+	androidSupportAppcompatVersion = '1.3.1'
 	androidSupportDesignVersion = '1.4.0'
 
 	coreDesugaringVersion = '1.1.5'
@@ -29,11 +29,11 @@ ext {
 	rxAndroidVersion = '2.1.1'
 	rxBindingVersion = '2.2.0'
 
-	daggerVersion = '2.38.1'
+	daggerVersion = '2.39'
 
 	gsonVersion = '2.8.8'
 
-	okHttpVersion = '4.9.1'
+	okHttpVersion = '4.9.2'
 	okHttpDigestVersion = '2.5'
 
 	velocityVersion = '2.3'
@@ -54,9 +54,14 @@ ext {
 
 	dropboxVersion = '4.0.1'
 
-	googleApiServicesVersion = 'v3-rev20210725-1.32.1'
-	googlePlayServicesVersion = '19.0.0'
-	googleClientVersion = '1.32.1'
+	googleApiServicesVersion = 'v3-rev20210919-1.32.1'
+	googlePlayServicesVersion = '19.2.0'
+	googleClientVersion = '1.32.1' // keep in sync with https://github.com/SailReal/google-http-java-client
+	/*
+		update using https://github.com/SailReal/google-http-java-client with `mvn clean install`,
+		copying `google-http-client-*.jar` and `google-http-client-android-*.jar` into the lib folder of this project
+	 */
+	trackingFreeGoogleCLientVersion = '1.40.1'
 
 	msgraphVersion = '2.10.0'
 
@@ -69,8 +74,7 @@ ext {
 
 	// testing dependencies
 
-	jUnitVersion = '5.7.1'
-	jUnit4Version = '4.13.1'
+	jUnitVersion = '5.8.1'
 	assertJVersion = '1.7.1'
 	mockitoVersion = '3.12.4'
 	mockitoKotlinVersion = '3.2.0'
@@ -84,7 +88,7 @@ ext {
 	uiautomatorVersion = '2.2.0'
 
 	androidxCoreVersion = '1.6.0'
-	androidxFragmentVersion = '1.3.5'
+	androidxFragmentVersion = '1.3.6'
 	androidxViewpagerVersion = '1.0.0'
 	androidxSwiperefreshVersion = '1.1.0'
 	androidxPreferenceVersion = '1.1.1'
@@ -119,6 +123,8 @@ ext {
 			googleApiClientAndroid: "com.google.api-client:google-api-client-android:${googleClientVersion}",
 			googleApiServicesDrive: "com.google.apis:google-api-services-drive:${googleApiServicesVersion}",
 			googlePlayServicesAuth: "com.google.android.gms:play-services-auth:${googlePlayServicesVersion}",
+			trackingFreeGoogleCLient       : files("lib/google-http-client-${trackingFreeGoogleCLientVersion}.jar"),
+			trackingFreeGoogleAndroidCLient: files("lib/google-http-client-android-${trackingFreeGoogleCLientVersion}.jar"),
 			greenDao              : "org.greenrobot:greendao:${greenDaoVersion}",
 			gson                  : "com.google.code.gson:gson:${gsonVersion}",
 			hamcrest              : "org.hamcrest:hamcrest-all:${hamcrestVersion}",
@@ -127,7 +133,6 @@ ext {
 			junitApi              : "org.junit.jupiter:junit-jupiter-api:${jUnitVersion}",
 			junitEngine           : "org.junit.jupiter:junit-jupiter-engine:${jUnitVersion}",
 			junitParams           : "org.junit.jupiter:junit-jupiter-params:${jUnitVersion}",
-			junit4                : "org.junit.jupiter:junit-jupiter:${jUnit4Version}",
 			junit4Engine          : "org.junit.vintage:junit-vintage-engine:${jUnitVersion}",
 			minIo                 : "io.minio:minio:${minIoVersion}",
 			mockito               : "org.mockito:mockito-core:${mockitoVersion}",

@@ -3,10 +3,19 @@ package org.cryptomator.presentation.presenter
 import android.Manifest
 import android.net.Uri
 import org.cryptomator.data.cloud.crypto.CryptoCloud
-import org.cryptomator.domain.*
+import org.cryptomator.domain.Cloud
+import org.cryptomator.domain.CloudFile
+import org.cryptomator.domain.CloudFolder
+import org.cryptomator.domain.CloudNode
+import org.cryptomator.domain.Vault
 import org.cryptomator.domain.di.PerView
 import org.cryptomator.domain.usecases.GetDecryptedCloudForVaultUseCase
-import org.cryptomator.domain.usecases.cloud.*
+import org.cryptomator.domain.usecases.cloud.GetCloudListUseCase
+import org.cryptomator.domain.usecases.cloud.GetRootFolderUseCase
+import org.cryptomator.domain.usecases.cloud.Progress
+import org.cryptomator.domain.usecases.cloud.UploadFile
+import org.cryptomator.domain.usecases.cloud.UploadFilesUseCase
+import org.cryptomator.domain.usecases.cloud.UploadState
 import org.cryptomator.domain.usecases.vault.GetVaultListUseCase
 import org.cryptomator.generator.Callback
 import org.cryptomator.generator.InstanceState
@@ -15,7 +24,11 @@ import org.cryptomator.presentation.exception.ExceptionHandlers
 import org.cryptomator.presentation.intent.ChooseCloudNodeSettings
 import org.cryptomator.presentation.intent.Intents
 import org.cryptomator.presentation.intent.UnlockVaultIntent
-import org.cryptomator.presentation.model.*
+import org.cryptomator.presentation.model.CloudFolderModel
+import org.cryptomator.presentation.model.CloudModel
+import org.cryptomator.presentation.model.ProgressModel
+import org.cryptomator.presentation.model.SharedFileModel
+import org.cryptomator.presentation.model.VaultModel
 import org.cryptomator.presentation.model.mappers.CloudFolderModelMapper
 import org.cryptomator.presentation.model.mappers.ProgressModelMapper
 import org.cryptomator.presentation.ui.activity.view.SharedFilesView
@@ -25,7 +38,6 @@ import org.cryptomator.presentation.workflow.ActivityResult
 import org.cryptomator.presentation.workflow.AuthenticationExceptionHandler
 import org.cryptomator.presentation.workflow.PermissionsResult
 import org.cryptomator.util.file.FileCacheUtils
-import java.util.*
 import javax.inject.Inject
 import timber.log.Timber
 

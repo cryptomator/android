@@ -21,7 +21,6 @@ import org.cryptomator.presentation.ui.activity.view.AutoUploadChooseVaultView
 import org.cryptomator.presentation.workflow.ActivityResult
 import org.cryptomator.presentation.workflow.AuthenticationExceptionHandler
 import org.cryptomator.util.SharedPreferencesHandler
-import java.util.*
 import javax.inject.Inject
 
 @PerView

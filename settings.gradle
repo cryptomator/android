@@ -1,4 +1,8 @@
-include ':generator', ':presentation', ':generator-api', ':domain', ':data', ':util', ':subsampling-image-view', ':msa-auth-for-android', ':pcloud-sdk-java-root', ':pcloud-sdk-java'
-project(':subsampling-image-view').projectDir = file(new File(rootDir, 'subsampling-scale-image-view/library'))
-project(':pcloud-sdk-java-root').projectDir = file(new File(rootDir, 'pcloud-sdk-java'))
-project(':pcloud-sdk-java').projectDir = file(new File(rootDir, 'pcloud-sdk-java/java-core'))
+include ':generator', ':presentation', ':generator-api', ':domain', ':data', ':util', ':msa-auth-for-android', ':pcloud-sdk-java-root', ':pcloud-sdk-java', ':subsampling-image-view'
+
+var libFolder = new File(rootDir, 'lib')
+
+project(':msa-auth-for-android').projectDir = file(new File(libFolder, 'msa-auth-for-android'))
+project(':pcloud-sdk-java-root').projectDir = file(new File(libFolder, 'pcloud-sdk-java'))
+project(':pcloud-sdk-java').projectDir = file(new File(libFolder, 'pcloud-sdk-java/java-core'))
+project(':subsampling-image-view').projectDir = file(new File(libFolder, 'subsampling-scale-image-view/library'))

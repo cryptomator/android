@@ -130,7 +130,7 @@
 
 	<string name="screen_file_browser_selection_mode_title_zero_elements">Select items</string>
 	<string name="screen_file_browser_selection_mode_title_one_or_more_elements">%1$d selected</string>
-	<string name="screen_file_browser_select_items">Select&#8230;</string>
+	<string name="screen_file_browser_select_items">Select</string>
 	<string name="screen_file_browser_select_all_items">Select all</string>
 	<string name="screen_file_browser_refresh_items">Refresh</string>
 
@@ -291,12 +291,6 @@
 	<!-- ## screen: authenticate cloud -->
 	<string name="screen_authenticate_auth_authentication_failed">%1$s could not be authenticated.</string>
 	<string name="screen_update_pcloud_connections_title">Update pCloud credentials</string>
-
-	<!-- ## screen: empty dir file info -->
-	<string name="screen_empty_dir_file_info_title">\'%1$s\' unreachable</string>
-	<string name="screen_empty_dir_file_info_headline">Cryptomator detected that this folder is unreachable.</string>
-	<string name="screen_empty_dir_file_info_text">It may have been deleted by another application or a faulty cloud synchronization could have caused this.\n\nTry to restore the directory file via your cloud provider to a previous version which is not empty. The file in question is:\n%1$s\n\nIf that does not work, you may use Sanitizer to check your vault for issues and possibly restore your data.</string>
-	<string name="screen_empty_dir_file_info_button_label">More Details on Sanitizer</string>
 
 	<!-- ## screen: insecure android version info -->
 
@@ -462,7 +456,7 @@
 	<string name="dialog_sym_link_back_button">Back</string>
 
 	<string name="dialog_no_dir_file_title">Unable to load contents of directory</string>
-	<string name="dialog_no_dir_file_message">Cloud folder \'%1$s\' doesn\'t have a directory file. It could be that the folder was created on another device and has not yet been fully synchronized to the cloud. Please check in your cloud if the following file exists:\n%2$s</string>
+	<string name="dialog_no_dir_file_message">Cloud folder \'%1$s\' doesn\'t have a valid directory file. It could be that the folder was created on another device and has not yet been fully synchronized to the cloud. Please check in your cloud if the following file exists and is not empty:\n%2$s</string>
 	<string name="dialog_no_dir_file_back_button" translatable="false">@string/dialog_sym_link_back_button</string>
 
 	<string name="dialog_beta_confirmation_title" translatable="false">Beta release</string>

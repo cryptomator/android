@@ -9,8 +9,8 @@ import org.cryptomator.presentation.presenter.AutoUploadChooseVaultPresenter
 import org.cryptomator.presentation.ui.adapter.SharedLocationsAdapter
 import org.cryptomator.util.SharedPreferencesHandler
 import javax.inject.Inject
-import kotlinx.android.synthetic.main.fragment_shared_files.*
-import kotlinx.android.synthetic.main.view_receive_save_button.*
+import kotlinx.android.synthetic.main.fragment_auto_upload_choose_vault.locationsRecyclerView
+import kotlinx.android.synthetic.main.view_receive_save_button.saveFiles
 
 @Fragment(R.layout.fragment_auto_upload_choose_vault)
 class AutoUploadChooseVaultFragment : BaseFragment() {

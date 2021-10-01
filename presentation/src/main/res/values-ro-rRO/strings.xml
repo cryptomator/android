@@ -94,7 +94,7 @@
 	<string name="screen_file_browser_node_action_open_with_text">Deschideți cu&#8230;</string>
 	<string name="screen_file_browser_selection_mode_title_zero_elements">Selectați elemente</string>
 	<string name="screen_file_browser_selection_mode_title_one_or_more_elements">%1$d selectate</string>
-	<string name="screen_file_browser_select_items">Selectează&#8230;</string>
+	<string name="screen_file_browser_select_items">Selectează</string>
 	<string name="screen_file_browser_select_all_items">Selectează tot</string>
 	<string name="screen_file_browser_refresh_items">Împrospătează</string>
 	<string name="screen_file_browser_no_connection_message">Nu există conexiune</string>
@@ -209,11 +209,6 @@
 	<!-- ## screen: authenticate cloud -->
 	<string name="screen_authenticate_auth_authentication_failed">%1$s nu a putut fi autentificat.</string>
 	<string name="screen_update_pcloud_connections_title">Actualizare acreditări pCloud</string>
-	<!-- ## screen: empty dir file info -->
-	<string name="screen_empty_dir_file_info_title">\'%1$s\' inaccesibil</string>
-	<string name="screen_empty_dir_file_info_headline">Cryptomator a detectat că acest dosar este inaccesibil.</string>
-	<string name="screen_empty_dir_file_info_text">Este posibil să fi fost şters de o altă aplicaţie sau o sincronizare în nor defectuoasă ar fi putut cauza acest lucru.\n\nÎncercaţi să restauraţi fişierul director, prin intermediul furnizorului dvs. cloud, la o versiune anterioară care nu este goală. Fișierul în cauză este:\n%1$s\n\nDacă nu funcționează, puteţi utiliza Sanitizer pentru a verifica seiful dumneavoastră pentru probleme şi, posibil, pentru a restabili datele.</string>
-	<string name="screen_empty_dir_file_info_button_label">Mai multe detalii despre Sanitizer</string>
 	<!-- ## screen: insecure android version info -->
 	<!-- # dialogs -->
 	<string name="dialog_button_cancel">Anulează</string>
@@ -321,7 +316,6 @@
 	<string name="dialog_sym_link_message">Nu puteți naviga în acest link simbolic</string>
 	<string name="dialog_sym_link_back_button">Înapoi</string>
 	<string name="dialog_no_dir_file_title">Nu s-a putut încărca conținutul dosarului</string>
-	<string name="dialog_no_dir_file_message">Dosarul Cloud \'%1$s\' nu are un fișier dosar. Poate fi că dosarul a fost creat pe un alt dispozitiv și nu a fost încă complet sincronizat cu cloudul. Vă rugăm să verificaţi în cloud dacă următorul fişier există:\n%2$s</string>
 	<string name="dialog_no_more_images_to_display">Nu mai sunt imagini de afișat&#8230;</string>
 	<string name="dialog_pcloud_credentials_updated_title">Acreditări ale \'%1$s\' au fost actualizate</string>
 	<string name="dialog_pcloud_credentials_updated">Dacă doriți să adăugaţi un cont nou de tip pCloud, faceţi clic pe acest link <a href="https://www.pcloud.com">www.pcloud. om</a>, deconectați-vă de la contul curent, și faceți clic din nou pe \'+\' din această aplicație pentru a crea o nouă conexiune cloud.</string>

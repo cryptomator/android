@@ -101,7 +101,6 @@
 
 		<!-- Settings -->
 		<activity android:name=".ui.activity.AutoUploadChooseVaultActivity" />
-		<activity android:name=".ui.activity.EmptyDirIdFileInfoActivity" />
 		<activity android:name=".ui.activity.BiometricAuthSettingsActivity" />
 		<activity android:name=".ui.activity.CloudConnectionListActivity" />
 		<activity android:name=".ui.activity.CloudSettingsActivity" />

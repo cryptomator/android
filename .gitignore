@@ -49,6 +49,6 @@ local.properties
 # fdroid
 **/fastlane/repo/**
 **/fastlane/tmp/**
-**/fastlane/iod-scan-apk.php
-**/fastlane/current_iod-scan-apk.php
-**/fastlane/current_result.json
+**/fastlane/izzyscript/iod-scan-apk.php
+**/fastlane/izzyscript/current_iod-scan-apk.php
+**/fastlane/izzyscript/current_result_*.json

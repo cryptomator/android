@@ -285,7 +285,7 @@ open class CryptoImplVaultFormat7 : CryptoImplDecorator {
 			ByteArrayOutputStream().use { out ->
 				cloudContentRepository.read(file, null, out, ProgressAware.NO_OP_PROGRESS_AWARE_DOWNLOAD)
 				if (dirfileIsEmpty(out)) {
-					throw EmptyDirFileException(file.name, file.path)
+					throw EmptyDirFileException(file.parent.name, file.path)
 				}
 				return out.toByteArray()
 			}
