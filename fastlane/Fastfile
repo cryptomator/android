@@ -65,6 +65,9 @@ platform :android do |options|
       }
     )
 
+    checkTrackingAddedInDependencyUsingIzzyScript(alpha:options[:alpha], beta:options[:beta], flavor: 'playstore')
+    checkTrackingAddedInDependencyUsingExodus(alpha:options[:alpha], beta:options[:beta], flavor: 'playstore')
+
     upload_to_play_store(
       track: deploy_target,
       apk: lane_context[SharedValues::GRADLE_APK_OUTPUT_PATH],
@@ -99,6 +102,9 @@ platform :android do |options|
         "android.injected.signing.key.password" => ENV["SIGNING_KEY_PASSWORD"],
       }
     )
+
+    checkTrackingAddedInDependencyUsingIzzyScript(alpha:options[:alpha], beta:options[:beta], flavor: 'apkstore')
+    checkTrackingAddedInDependencyUsingExodus(alpha:options[:alpha], beta:options[:beta], flavor: 'apkstore')
 
     FileUtils.cp(lane_context[SharedValues::GRADLE_APK_OUTPUT_PATH], "release/Cryptomator-#{version}.apk")
 
@@ -182,7 +188,8 @@ platform :android do |options|
       }
     )
 
-    checkTrackingAddedInDependency(alpha:options[:alpha], beta:options[:beta])
+    checkTrackingAddedInDependencyUsingIzzyScript(alpha:options[:alpha], beta:options[:beta], flavor: 'fdroid')
+    checkTrackingAddedInDependencyUsingExodus(alpha:options[:alpha], beta:options[:beta], flavor: 'fdroid')
 
     if options[:alpha] or options[:beta]
       puts "Skipping deployment to F-Droid cause there isn't currently a alpha/beta channel"
@@ -213,44 +220,61 @@ platform :android do |options|
     FileUtils.cp(lane_context[SharedValues::GRADLE_APK_OUTPUT_PATH], "release/Cryptomator-#{version}_fdroid_signed.apk")
   end
 
-  desc "Check if tracking added in some dependency"
-  lane :checkTrackingAddedInDependency do |options|
+  desc "Check if tracking added in some dependency using Izzy's script"
+  lane :checkTrackingAddedInDependencyUsingIzzyScript do |options|
+    flavor = options[:flavor]
+
     puts "Check if script file is latest"
-    sh("wget -O current_iod-scan-apk.php https://gitlab.com/fdroid/issuebot/-/raw/master/modules/iod-scan-apk.php")
+    Dir.chdir("izzyscript") do
+      sh("wget -O current_iod-scan-apk.php https://gitlab.com/fdroid/issuebot/-/raw/master/modules/iod-scan-apk.php")
 
-    same_script = FileUtils.compare_file("iod-scan-apk.php", "current_iod-scan-apk.php")
-    if same_script
-      puts "Script file unchanged"
-      FileUtils.rm("current_iod-scan-apk.php")
-    else
-      UI.error("Script updated, check diff, download and save to iod-scan-apk.php")
-      fail
+      same_script = FileUtils.compare_file("iod-scan-apk.php", "current_iod-scan-apk.php")
+      if same_script
+        puts "Script file unchanged"
+        FileUtils.rm("current_iod-scan-apk.php")
+      else
+        UI.error("Script updated, check diff, download and save to iod-scan-apk.php")
+        fail
+      end
+
+      FileUtils.mkdir("unsigned")
+
+      FileUtils.cp(lane_context[SharedValues::GRADLE_APK_OUTPUT_PATH], "unsigned/org.cryptomator_fdroid.apk")
+
+      sh("ISSUEBOT_CURRENT_APPLICATION_ID=org.cryptomator ISSUEBOT_CURRENT_REPLY_FILE=current_result_#{flavor}.json php iod-scan-apk.php")
+
+      # clean up
+      FileUtils.rm("libinfo.txt")
+      FileUtils.rm("libsmali.txt")
+      FileUtils.rm("org.cryptomator_fdroid.apk")
+      FileUtils.rm_r("unsigned")
+      FileUtils.rm_r("org.cryptomator_fdroid")
+
+      puts "Check if something changed in the APK regarding the dependencies"
+
+      report = JSON.parse(File.read("result_#{flavor}.json"))["report"]
+      current_report = JSON.parse(File.read("current_result_#{flavor}.json"))["report"]
+
+      if report.eql?(current_report)
+        puts "Dependencies unchanged"
+        FileUtils.rm("current_result_#{flavor}.json")
+      else
+        UI.error("Dependencies changed, check result of current_result.json, if no problem, move it to result.json, commit and retry")
+        fail
+      end
     end
+  end
 
-    FileUtils.mkdir("unsigned")
+  desc "Check if tracking added in some dependency using exodus"
+  lane :checkTrackingAddedInDependencyUsingExodus do |options|
+    FileUtils.mkdir("exodus-test")
 
-    FileUtils.cp(lane_context[SharedValues::GRADLE_APK_OUTPUT_PATH], "unsigned/org.cryptomator_fdroid.apk")
+    FileUtils.cp(lane_context[SharedValues::GRADLE_APK_OUTPUT_PATH], "exodus-test/org.cryptomator.apk")
 
-    sh("ISSUEBOT_CURRENT_APPLICATION_ID=org.cryptomator ISSUEBOT_CURRENT_REPLY_FILE=current_result.json php iod-scan-apk.php")
+    puts "Check if a tracking library was added"
+    sh("docker run -v $(pwd)/exodus-test/org.cryptomator.apk:/app.apk --rm -i exodusprivacy/exodus-standalone | tail -1 | grep -q 'Found trackers: 0'")
 
-    # clean up
-    FileUtils.rm("libinfo.txt")
-    FileUtils.rm("libsmali.txt")
-    FileUtils.rm_r("unsigned")
-    FileUtils.rm_r("org.cryptomator_fdroid")
-
-    puts "Check if something changed in the APK regarding the dependencies"
-
-    report = JSON.parse(File.read("result.json"))["report"]
-    current_report = JSON.parse(File.read("current_result.json"))["report"]
-
-    if report.eql?(current_report)
-      puts "Dependencies unchanged"
-      FileUtils.rm("current_result.json")
-    else
-      UI.error("Dependencies changed, check result of current_result.json, if no problem, move it to result.json, commit and retry")
-      fail
-    end
+    FileUtils.rm_r("exodus-test")
   end
 
   desc "Create GitHub draft release"
