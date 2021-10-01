@@ -88,7 +88,7 @@
 	<string name="screen_file_browser_node_action_open_with_text">次で開く&#8230;</string>
 	<string name="screen_file_browser_selection_mode_title_zero_elements">アイテムを選択</string>
 	<string name="screen_file_browser_selection_mode_title_one_or_more_elements">%1$d 個選択済み</string>
-	<string name="screen_file_browser_select_items">選択&#8230;</string>
+	<string name="screen_file_browser_select_items">選択</string>
 	<string name="screen_file_browser_select_all_items">すべて選択</string>
 	<string name="screen_file_browser_refresh_items">更新</string>
 	<string name="screen_file_browser_no_connection_message">接続なし</string>
@@ -201,10 +201,6 @@
 	<!-- ## screen: authenticate cloud -->
 	<string name="screen_authenticate_auth_authentication_failed">%1$s は認証できませんでした。</string>
 	<string name="screen_update_pcloud_connections_title">pCloud 資格情報を更新</string>
-	<!-- ## screen: empty dir file info -->
-	<string name="screen_empty_dir_file_info_title">\'%1$s\' に到達できません</string>
-	<string name="screen_empty_dir_file_info_headline">Cryptomator がこのフォルダに到達できません。</string>
-	<string name="screen_empty_dir_file_info_button_label">Sanitizer の詳細</string>
 	<!-- ## screen: insecure android version info -->
 	<!-- # dialogs -->
 	<string name="dialog_button_cancel">キャンセル</string>
@@ -352,6 +348,7 @@
 	<string name="notification_auto_upload_finished_title">写真の自動アップロードが完了しました</string>
 	<string name="notification_auto_upload_finished_message">%1$d 個の画像を金庫にアップロードしました</string>
 	<string name="notification_auto_upload_failed_title">写真の自動アップロードが失敗しました</string>
+	<string name="notification_auto_upload_failed_general_error">アップロード中にエラーが発生しました。</string>
 	<string name="notification_auto_upload_failed_due_to_vault_locked">アップロード中は金庫が施錠されます。続けるには金庫を再度開いてください。</string>
 	<string name="notification_open_writable_file_title">書き込み可能なファイルを開く</string>
 	<string name="notification_open_writable_file_message">編集が完了するまで金庫は施錠されます</string>
