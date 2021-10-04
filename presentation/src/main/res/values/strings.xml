@@ -244,6 +244,8 @@
 	<string name="screen_settings_section_auto_photo_upload_vault">Choose vault for upload</string>
 	<string name="screen_settings_section_auto_photo_upload_toggle">Activate</string>
 	<string name="screen_settings_section_auto_photo_upload_toggle_summary">Capture images in the background and once the selected vault is unlocked, start upload</string>
+	<string name="screen_settings_section_auto_photo_upload_toggle_instant_upload">Upload instant</string>
+	<string name="screen_settings_section_auto_photo_upload_toggle_instant_upload_summary">Upload directly if the vault is unlocked</string>
 	<string name="screen_settings_section_auto_photo_upload_only_wifi_toggle">Upload only using WIFI</string>
 	<string name="screen_settings_section_auto_photo_upload_including_videos">Upload videos</string>
 
