@@ -176,6 +176,8 @@
 	<string name="screen_settings_section_auto_photo_upload_vault">Elegir bóveda para cargar</string>
 	<string name="screen_settings_section_auto_photo_upload_toggle">Activar</string>
 	<string name="screen_settings_section_auto_photo_upload_toggle_summary">Captura las imágenes en segundo plano y una vez desbloqueada la bóveda seleccionada, inicia la carga</string>
+	<string name="screen_settings_section_auto_photo_upload_toggle_instant_upload">Cargar al instante</string>
+	<string name="screen_settings_section_auto_photo_upload_toggle_instant_upload_summary">Cargar directamente si la bóveda está desbloqueada</string>
 	<string name="screen_settings_section_auto_photo_upload_only_wifi_toggle">Cargar solo usando WIFI</string>
 	<string name="screen_settings_section_auto_photo_upload_including_videos">Cargar videos</string>
 	<string name="screen_settings_auto_photo_upload_title">Guardar archivos de carga automática en&#8230;</string>
