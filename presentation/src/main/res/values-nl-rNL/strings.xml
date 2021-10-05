@@ -49,6 +49,8 @@
 	<string name="screen_set_password_strength_indicator_3">Sterk</string>
 	<!-- ## screen: settings -->
 	<string name="screen_settings_section_general">Algemeen</string>
+	<string name="screen_settings_section_auto_photo_upload_toggle_instant_upload">Meteen uploaden</string>
+	<string name="screen_settings_section_auto_photo_upload_toggle_instant_upload_summary">Meteen uploaden als de kluis ontgrendeld is</string>
 	<!-- ## screen: cloud settings -->
 	<!-- ## screen: licenses -->
 	<!-- ## screen: authenticate cloud -->
