@@ -178,6 +178,8 @@
 	<string name="screen_settings_section_auto_photo_upload_vault">Vybrať trezor pre nahratie</string>
 	<string name="screen_settings_section_auto_photo_upload_toggle">Aktivovať</string>
 	<string name="screen_settings_section_auto_photo_upload_toggle_summary">Zachyť obrázky na pozadí a keď je zvolený trezor odomknutý, začni nahrávať</string>
+	<string name="screen_settings_section_auto_photo_upload_toggle_instant_upload">Nahrať okamžite</string>
+	<string name="screen_settings_section_auto_photo_upload_toggle_instant_upload_summary">Nahrať priamo keď je trezor odomknutý</string>
 	<string name="screen_settings_section_auto_photo_upload_only_wifi_toggle">Nahrať iba s použitím Wi-Fi</string>
 	<string name="screen_settings_section_auto_photo_upload_including_videos">Nahrať videá</string>
 	<string name="screen_settings_auto_photo_upload_title">Uložiť auto ukladanie súborov do&#8230;</string>
@@ -317,6 +319,7 @@
 	<string name="dialog_sym_link_message">Nemožno prejsť na túto symbolickú linku</string>
 	<string name="dialog_sym_link_back_button">Späť</string>
 	<string name="dialog_no_dir_file_title">Nie je možné načítať obsah adresára</string>
+	<string name="dialog_no_dir_file_message">Cloudový adresár \'%1$s\' nemá platný adresárový súbor. Tento aresár mohol byť vytvorený iným zariadením a doposiať nebol plne synchronizovaný do cloudu. Prosím skontrolujte v cloude či nasledujúci súbor existuje a nie je prázdny:\n%2$s</string>
 	<string name="dialog_no_more_images_to_display">Niet už viac obrázkov k zobrazeniu&#8230;</string>
 	<string name="dialog_pcloud_credentials_updated_title">Prístupy k %1$s aktualizované</string>
 	<string name="dialog_pcloud_credentials_updated">Ak zamýšlate pridať nový pCloud účet, kliknite na tento link <a href="https://www.pcloud.com">www.pcloud.com</a>, odhláste sa zo súčasného účtu a opätovne kliknite na \'+\' v tejto aplikácii pre vytvorenie nového cloudového pripojenia.</string>
