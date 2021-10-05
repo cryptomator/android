@@ -13,18 +13,33 @@
 	<string name="error_vault_already_exists">Vault가 이미 존재합니다.</string>
 	<string name="error_no_such_file">파일이 존재하지 않습니다.</string>
 	<string name="error_vault_has_been_locked">Vault가 잠겼습니다.</string>
+	<string name="error_cloud_already_exists">클라우드가 이미 존재합니다.</string>
+	<string name="error_activity_not_found">이 파일을 열 수 있는 애플리케이션을 다운로드해주세요.</string>
 	<string name="error_server_not_found">서버를 찾을 수 없습니다</string>
+	<string name="error_export_illegal_file_name">내보내기 실패. 파일명에서 특수문자를 없앤 뒤 다시 내보내기를 해보세요.</string>
+	<string name="error_name_contains_invalid_characters">특수문자는 포함할 수 없습니다.</string>
+	<string name="error_play_services_not_available">Google Play 서비스가 설치되지 않았습니다</string>
+	<string name="error_biometric_auth_aborted">생체 인증 취소됨</string>
 	<!-- # clouds -->
 	<!-- ## cloud names -->
+	<string name="cloud_names_local_storage">로컬 저장소</string>
 	<!-- # permission -->
 	<!-- ## permission messages -->
 	<string name="snack_bar_action_title_settings">설정</string>
+	<string name="snack_bar_action_title_search">검색</string>
+	<string name="snack_bar_action_title_search_previous">이전</string>
 	<string name="snack_bar_action_title_search_next">다음</string>
+	<string name="snack_bar_action_title_sort">정렬</string>
 	<string name="snack_bar_action_title_sort_az">A - Z</string>
 	<string name="snack_bar_action_title_sort_za">Z - A</string>
+	<string name="snack_bar_action_title_sort_newest">최신순</string>
+	<string name="snack_bar_action_title_sort_oldest">등록순</string>
+	<string name="snack_bar_action_title_sort_biggest">큰 파일순</string>
+	<string name="snack_bar_action_title_sort_smallest">작은 파일순</string>
 	<!-- # screens -->
 	<!-- # screen: vault list -->
 	<string name="screen_vault_list_vault_action_delete">제거</string>
+	<string name="screen_vault_list_change_password_successful">비밀번호 변경 성공</string>
 	<!-- # screen: file browser -->
 	<string name="screen_file_browser_default_title">Vault</string>
 	<string name="screen_file_browser_move_button_text">이동</string>
@@ -44,6 +59,7 @@
 	<string name="screen_file_browser_node_action_delete">삭제</string>
 	<string name="screen_file_browser_selection_mode_title_zero_elements">아이템 선택</string>
 	<string name="screen_file_browser_selection_mode_title_one_or_more_elements">%1$d 항목 선택됨</string>
+	<string name="screen_file_browser_select_items">선택</string>
 	<string name="screen_file_browser_select_all_items">전체 선택</string>
 	<string name="screen_file_browser_refresh_items">새로고침</string>
 	<string name="screen_file_browser_no_connection_message">연결 없음</string>
@@ -58,24 +74,43 @@
 	<string name="screen_share_files_save_button_text">저장</string>
 	<string name="screen_share_files_msg_success">암호화 완료</string>
 	<!-- ## screen: choose cloud service -->
+	<string name="screen_choose_cloud_service_title">클라우드 서비스</string>
 	<!-- ## screen: cloud connections -->
 	<!-- ## screen: webdav settings -->
 	<string name="screen_webdav_settings_url_port_label">URL</string>
 	<string name="screen_webdav_settings_username_label">사용자명</string>
 	<string name="screen_webdav_settings_password_label">비밀번호</string>
 	<string name="screen_webdav_settings_done_button_text">연결</string>
+	<string name="screen_webdav_settings_msg_url_is_invalid">URL이 유효 하지 않습니다.</string>
 	<!-- ## screen: s3 settings -->
 	<string name="screen_s3_settings_access_key_label">액세스 키</string>
 	<!-- ## screen: enter vault name -->
+	<string name="screen_enter_vault_name_vault_label">Vault 이름</string>
 	<string name="screen_enter_vault_name_button_text">생성</string>
 	<!-- ## screen: set password -->
+	<string name="screen_set_password_title">비밀번호 설정</string>
+	<string name="screen_set_password_msg_password_mismatch">비밀번호가 일치하지 않습니다</string>
 	<string name="screen_set_password_button_text">완료</string>
 	<string name="screen_set_password_hint">중요: 만약 비밀번호를 잊어버린 경우, 데이터를 복구 할 방법이 없습니다.</string>
+	<string name="screen_set_password_retype_password_label">비밀번호 재입력</string>
+	<string name="screen_set_password_strength_indicator_0">Vault를 만들기에 매우 나쁨</string>
 	<string name="screen_set_password_strength_indicator_1">취약함</string>
 	<string name="screen_set_password_strength_indicator_2">보통</string>
 	<string name="screen_set_password_strength_indicator_3">강함</string>
+	<string name="screen_set_password_strength_indicator_4">매우 좋음</string>
 	<!-- ## screen: settings -->
 	<string name="screen_settings_section_general">일반</string>
+	<string name="screen_settings_cloud_settings_label">클라우드 서비스</string>
+	<string name="screen_settings_biometric_auth">생체 인증</string>
+	<string name="screen_settings_activate_biometric_auth">생체 인증 활성화</string>
+	<string name="screen_settings_confirm_face_unlock">얼굴인식 잠금해제 적용 (가능한 경우)</string>
+	<string name="screen_settings_secure_screen">스크린샷 차단</string>
+	<string name="screen_settings_secure_screen_summary">최근 사용 목록과 앱 내부에서 스크린샷 차단</string>
+	<string name="screen_settings_section_search">검색</string>
+	<string name="screen_settings_live_search">실시간 검색</string>
+	<string name="screen_settings_live_search_summary">검색내용 입력중 검색결과 업데이트</string>
+	<string name="screen_settings_glob_search">glob 패턴을 이용하여 검색</string>
+	<string name="screen_settings_glob_search_summary">alice.*.jpg와 같이 glob 패턴 매칭 사용</string>
 	<string name="screen_settings_section_auto_lock">자동 잠금</string>
 	<string name="screen_settings_auto_lock_timeout">다음 시간 이후 잠금</string>
 	<string name="screen_settings_auto_lock_on_screen_lock">화면이 꺼졌을 때</string>
@@ -84,16 +119,31 @@
 	<string name="screen_settings_section_auto_photo_upload_toggle">활성화</string>
 	<string name="screen_settings_section_auto_photo_upload_only_wifi_toggle">Wi-Fi 상태에서만 업로드</string>
 	<string name="screen_settings_section_auto_photo_upload_including_videos">동영상 업로드</string>
+	<string name="screen_settings_website_label">Cryptomator 웹사이트</string>
+	<string name="screen_settings_twitter_label">Twitter에서 팔로우하기</string>
+	<string name="screen_settings_facebook_label">Facebook에서 좋아요 누르기</string>
 	<string name="screen_settings_section_legal">법적 사항</string>
 	<string name="screen_settings_licenses_label">라이센스</string>
 	<string name="screen_settings_license_terms_label">라이센스 약관</string>
 	<string name="screen_settings_section_support">지원</string>
 	<string name="screen_settings_debug_mode_label">디버그 모드</string>
 	<string name="screen_settings_error_report_label">로그파일 전송</string>
+	<string name="screen_settings_error_report_failed">전송 실패</string>
+	<string name="screen_settings_security_label">보안 힌트</string>
 	<string name="screen_settings_section_version">버전</string>
+	<string name="screen_settings_advanced_settings">고급 설정</string>
+	<string name="screen_settings_background_unlock_preparation_label">잠금해제 가속</string>
+	<string name="screen_settings_keep_unlocked_while_editing_files">잠금해제유지</string>
 	<!-- ## screen: cloud settings -->
+	<string name="screen_cloud_settings_webdav_connections">WebDAV 연결</string>
+	<string name="screen_cloud_settings_pcloud_connections">pCloud 연결</string>
+	<string name="screen_cloud_settings_s3_connections">S3 연결</string>
+	<string name="screen_cloud_settings_local_storage_locations">로컬 저장소 위치</string>
+	<string name="screen_cloud_settings_log_in_to">로그인</string>
+	<string name="screen_cloud_settings_sign_out_from_cloud">로그아웃</string>
 	<!-- ## screen: licenses -->
 	<!-- ## screen: authenticate cloud -->
+	<string name="screen_update_pcloud_connections_title">pCloud 자격증명 업데이트</string>
 	<!-- ## screen: insecure android version info -->
 	<!-- # dialogs -->
 	<string name="dialog_button_cancel">취소</string>
@@ -101,9 +151,14 @@
 	<string name="dialog_change_password_old_password_label">이전 비밀번호</string>
 	<string name="dialog_change_password_new_password_label">신규 비밀번호</string>
 	<string name="dialog_change_password">비밀번호 변경</string>
+	<string name="dialog_change_password_msg_old_password_empty">기존 비밀번호는 비워둘 수 없습니다</string>
+	<string name="dialog_change_password_msg_new_password_empty">새 비밀번호는 비워둘 수 없습니다</string>
+	<string name="dialog_change_password_msg_password_mismatch">비밀번호가 일치하지 않습니다</string>
 	<!-- Vault not found -->
 	<string name="dialog_vault_not_found_positive_button_text">제거</string>
+	<string name="dialog_existing_file_title">파일이 이미 존재합니다</string>
 	<string name="dialog_existing_file_positive_button">교체</string>
+	<string name="dialog_replace_positive_button_all_files_exist">모두 바꾸기</string>
 	<string name="dialog_replace_positive_button_single_file_exists">교체</string>
 	<string name="dialog_unable_to_share_positive_button">OK</string>
 	<string name="dialog_unsaved_changes_discard">취소</string>
@@ -112,15 +167,42 @@
 	<string name="dialog_upload_file_title">&#8230; 업로드 중</string>
 	<string name="dialog_progress_upload_file">&#8230; 업로드 중</string>
 	<string name="dialog_lock_vault">잠금</string>
+	<string name="dialog_accept_ssl_certificate_details">세부정보</string>
+	<string name="dialog_debug_mode_disclaimer_title">주의</string>
+	<string name="dialog_debug_mode_positive_button">활성화</string>
+	<string name="dialog_disable_app_obscured_disclaimer_title">주의</string>
+	<string name="dialog_disable_app_obscured_positive_button">비활성화</string>
 	<string name="dialog_app_is_obscured_info_neutral_button">닫기</string>
-	<string name="dialog_sym_link_back_button">뒤로</string>
+	<string name="dialog_enter_license_decline_button">종료</string>
+	<string name="dialog_update_available_title">업데이트가 출시되었습니다</string>
+	<string name="dialog_update_available_update">지금 업데이트 하기</string>
+	<string name="dialog_update_available_download_site">다운로드 페이지로 가기</string>
+	<string name="dialog_update_available_cancel">다음에 하기</string>
+	<string name="dialog_download_update_title">다운로드중</string>
+	<string name="dialog_download_update_message">최신 버전의 Cryptomator 다운로드중</string>
+	<string name="dialog_sym_link_back_button">이전</string>
+	<string name="dialog_pcloud_credentials_updated_title">\'%1$s\' 자격증명 업데이트됨</string>
 	<!-- # error reports -->
 	<!-- # misc -->
 	<!-- ## file size helper -->
 	<!-- ## date helper -->
 	<string name="time_unit_minutes_pl">분</string>
+	<string name="time_unit_days_pl">일</string>
+	<string name="time_unit_weeks_sg">주</string>
+	<string name="time_unit_weeks_pl">주</string>
+	<string name="time_unit_months_sg">달</string>
+	<string name="time_unit_months_pl">달</string>
+	<string name="time_unit_years_sg">년</string>
+	<string name="time_unit_years_pl">년</string>
 	<!-- ## biometric authentication -->
+	<string name="dialog_biometric_auth_title">생체인증 로그인</string>
+	<string name="dialog_biometric_auth_message">생체인증정보로 로그인하세요</string>
+	<string name="dialog_biometric_auth_use_password">Vault 비밀번호 사용하기</string>
 	<!-- notification -->
+	<string name="notification_lock_all">모두 잠그기</string>
+	<string name="notification_cancel_auto_upload">업로드 취소</string>
+	<string name="notification_auto_upload_title">자동 사진 업로드중</string>
+	<string name="screen_settings_lru_cache">캐시</string>
 	<!-- lock timeout names -->
 	<!-- cache size names -->
 	<!-- screen scheme mode names -->
