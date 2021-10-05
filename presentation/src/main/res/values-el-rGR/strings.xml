@@ -176,6 +176,8 @@
 	<string name="screen_settings_section_auto_photo_upload_vault">Επιλογή κρύπτης για μεταφόρτωση</string>
 	<string name="screen_settings_section_auto_photo_upload_toggle">Ενεργοποίηση</string>
 	<string name="screen_settings_section_auto_photo_upload_toggle_summary">Λήψη εικόνων στο παρασκήνιο και μόλις ξεκλειδωθεί η επιλεγμένη κρύπτη, έναρξη μεταφόρτωσης</string>
+	<string name="screen_settings_section_auto_photo_upload_toggle_instant_upload">Ανέβασμα κατευθείαν</string>
+	<string name="screen_settings_section_auto_photo_upload_toggle_instant_upload_summary">Ανεβάστε απευθείας αν η κρύπτη είναι ξεκλείδωτη</string>
 	<string name="screen_settings_section_auto_photo_upload_only_wifi_toggle">Μεταφόρτωση μόνο χρησιμοποιώντας WIFI</string>
 	<string name="screen_settings_section_auto_photo_upload_including_videos">Μεταφόρτωση βίντεο</string>
 	<string name="screen_settings_auto_photo_upload_title">Αποθήκευση αυτόματης μεταφόρτωσης αρχείων στο&#8230;</string>
