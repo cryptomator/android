@@ -178,6 +178,8 @@
 	<string name="screen_settings_section_auto_photo_upload_vault">Wybierz sejf do przesłania</string>
 	<string name="screen_settings_section_auto_photo_upload_toggle">Aktywuj</string>
 	<string name="screen_settings_section_auto_photo_upload_toggle_summary">Przechwytuj zdjęcia w tle i po odblokowaniu wybranego sejfu rozpocznij przesyłanie</string>
+	<string name="screen_settings_section_auto_photo_upload_toggle_instant_upload">Prześlij natychmiast</string>
+	<string name="screen_settings_section_auto_photo_upload_toggle_instant_upload_summary">Prześlij bezpośrednio przy odblokowanym sejfie</string>
 	<string name="screen_settings_section_auto_photo_upload_only_wifi_toggle">Prześlij tylko przy użyciu WIFI</string>
 	<string name="screen_settings_section_auto_photo_upload_including_videos">Prześlij filmy</string>
 	<string name="screen_settings_auto_photo_upload_title">Zapisz automatycznie przesyłane pliki w&#8230;</string>
