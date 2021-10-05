@@ -178,6 +178,8 @@
 	<string name="screen_settings_section_auto_photo_upload_vault">Выберите хранилище для отправки</string>
 	<string name="screen_settings_section_auto_photo_upload_toggle">Включено</string>
 	<string name="screen_settings_section_auto_photo_upload_toggle_summary">Захватывать изображения в фоновом режиме и начинать отправку при разблокировании выбранного хранилища</string>
+	<string name="screen_settings_section_auto_photo_upload_toggle_instant_upload">Мгновенная отправка</string>
+	<string name="screen_settings_section_auto_photo_upload_toggle_instant_upload_summary">Загружать напрямую, если хранилище разблокировано</string>
 	<string name="screen_settings_section_auto_photo_upload_only_wifi_toggle">Только по Wi-Fi</string>
 	<string name="screen_settings_section_auto_photo_upload_including_videos">Отправка видео</string>
 	<string name="screen_settings_auto_photo_upload_title">Сохранять автозагруженные файлы в&#8230;</string>
