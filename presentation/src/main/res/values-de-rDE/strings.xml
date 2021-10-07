@@ -176,6 +176,8 @@
 	<string name="screen_settings_section_auto_photo_upload_vault">Tresor auswählen für das Hochladen</string>
 	<string name="screen_settings_section_auto_photo_upload_toggle">Aktivieren</string>
 	<string name="screen_settings_section_auto_photo_upload_toggle_summary">Bilder im Hintergrund aufnehmen und sobald der ausgewählte Tresor entsperrt ist, Upload automatisch starten</string>
+	<string name="screen_settings_section_auto_photo_upload_toggle_instant_upload">Sofort hochladen</string>
+	<string name="screen_settings_section_auto_photo_upload_toggle_instant_upload_summary">Sofort hochladen, wenn der Tresor entsperrt ist</string>
 	<string name="screen_settings_section_auto_photo_upload_only_wifi_toggle">Nur mit WLAN hochladen</string>
 	<string name="screen_settings_section_auto_photo_upload_including_videos">Videos hochladen</string>
 	<string name="screen_settings_auto_photo_upload_title">Bilder abspeichern in&#8230;</string>
