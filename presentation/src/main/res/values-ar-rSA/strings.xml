@@ -7,14 +7,58 @@
 	<string name="error_authentication_failed">المصادقة قشلت</string>
 	<string name="error_authentication_failed_re_authenticate">فشلت عملية المصادقة، الرجاء تسجيل الدخول بإستخدام %1$s</string>
 	<string name="error_no_network_connection">لا يوجد اتصال بالشبكة</string>
+	<string name="error_invalid_passphrase">كلمة المرور غير صحيحة</string>
+	<string name="error_file_or_folder_exists">المجلد او الملف موجود مسبقاُ.</string>
+	<string name="error_vault_version_not_supported">نوع المخزن غير مدعوم. تم إنشاء هذا المخزن بإستخدام نسخة أخري من Cryptomator.</string>
+	<string name="error_vault_already_exists">المخزن موجود مسبقاً.</string>
+	<string name="error_no_such_file">ملف غير موجود.</string>
+	<string name="error_vault_has_been_locked">تم قفل المخزن.</string>
+	<string name="error_cloud_already_exists">موفر الخدمة السحابية موجود مسبقاً.</string>
+	<string name="error_activity_not_found">الرجاء تحميل تطبيق يمكنه فتح هذا الملف.</string>
+	<string name="error_server_not_found">لم يتم العثور على الخادم.</string>
+	<string name="error_device_policy_manager_not_found">الرجاء فتح إعدادات أجهزتك وتعيين قفل الشاشة يدوياً</string>
+	<string name="error_export_illegal_file_name">فشل التصدير. حاول إزالة الأحرف الخاصة من أسماء الملفات وتصديرها مرة أخرى.</string>
+	<string name="error_name_contains_invalid_characters">لا يمكن أن يحتوي علي رموز خاصة.</string>
+	<string name="error_names_contains_invalid_characters">إسم الملف لا يمكن ان يحتوي علي رموز خاصة.</string>
+	<string name="error_vault_name_contains_invalid_characters">إسم المخزن لا يمكن ان يحتوي علي رموز خاصة.</string>
+	<string name="error_general_update">فشل التحقق من التحديث. حدث خطأ عام.</string>
+	<string name="error_hash_mismatch_update">فشل التحقق من التحديث. التجزئة المحسوبة لا تتطابق مع الملف المرفوع</string>
+	<string name="error_update_no_internet">فشل التحقق من التحديث. لا يوجد اتصال بالإنترنت.</string>
+	<string name="error_failed_to_decrypt_webdav_password">فشل فك تشفير كلمة المرور WebDAV، الرجاء إضافتها في الإعدادات</string>
+	<string name="error_play_services_not_available">خدمات متجر Google غير مثبتة</string>
+	<string name="error_biometric_auth_aborted">تم إلغاء علمية التوثيق البيومتري</string>
+	<string name="error_vault_version_mismatch">الإصدارة المحدد في vault.cryptomator مختلفة عن الإصدراة التي في masterkey.cryptomator</string>
+	<string name="error_vault_key_invalid">vault.cryptomator لا يتطابق مع masterkey.cryptomator الحالي</string>
+	<string name="error_vault_config_loading">خطأ عام أثناء تحميل إعدادات المخزن</string>
+	<string name="error_file_not_found_after_opening_using_3party">بعد إعادة التبديل الي Cryptomator لم يعد الملف المحلي موجود. لايمكن نشر التعديلات الي موفر الخدمة السحابية.</string>
+	<string name="error_masterkey_location_not_supported">موقع المفتاح الرئيسي غير مدعوم بعد</string>
 	<!-- # clouds -->
 	<!-- ## cloud names -->
+	<string name="cloud_names_local_storage">ذاكرة التخزين المحلية</string>
 	<!-- # permission -->
 	<!-- ## permission messages -->
+	<string name="permission_message_export_file">Cryptomator يحتاج صلاحية الوصول الي التخزين لكي يستطيع تصدير الملفات</string>
+	<string name="permission_message_upload_file">Cryptomator يحتاج صلاحية الوصول الي التخزين لكي يستطيع رفع الملفات</string>
+	<string name="permission_message_share_file">Cryptomator يحتاج صلاحية الوصول الي التخزين لكي تستطيع مشاركة الملفات</string>
+	<string name="snack_bar_action_title_settings">الإعدادات</string>
+	<string name="snack_bar_action_title_search">بحث</string>
+	<string name="snack_bar_action_title_search_previous">السابق</string>
 	<string name="snack_bar_action_title_search_next">التالي</string>
+	<string name="snack_bar_action_title_sort">ترتيب</string>
+	<string name="snack_bar_action_title_sort_az">أ ← ي</string>
+	<string name="snack_bar_action_title_sort_za">ي ← أ</string>
+	<string name="snack_bar_action_title_sort_newest">الأحدث أولاً</string>
+	<string name="snack_bar_action_title_sort_oldest">الأقدم أولاً</string>
+	<string name="snack_bar_action_title_sort_biggest">الأكبر حجماً اولاً</string>
+	<string name="snack_bar_action_title_sort_smallest">الأصغر حجماً اولاً</string>
 	<!-- # screens -->
 	<!-- # screen: vault list -->
+	<string name="screen_vault_list_actions_title">إضافة إلى Cryptomator</string>
+	<string name="screen_vault_list_action_create_new_vault">إنشاء مخزن جديد</string>
+	<string name="screen_vault_list_action_add_existing_vault">إضافة مخزن موجود مسبقاً</string>
 	<string name="screen_vault_list_vault_action_delete">حذف</string>
+	<string name="screen_vault_list_vault_creation_hint">أنقر هنا لإنشاء مخزن جديد</string>
+	<string name="screen_vault_list_change_password_successful">تم تغيير كلمة السر بنجاح</string>
 	<!-- # screen: file browser -->
 	<string name="screen_file_browser_default_title">مخزن</string>
 	<string name="screen_file_browser_share_button_text">اختر</string>
@@ -23,7 +67,11 @@
 	<!-- ## screen: choose cloud service -->
 	<!-- ## screen: cloud connections -->
 	<!-- ## screen: webdav settings -->
+	<string name="screen_webdav_settings_username_label">اسم المستخدم</string>
 	<string name="screen_webdav_settings_password_label">كلمة المرور</string>
+	<string name="screen_webdav_settings_done_button_text">اتصال</string>
+	<string name="screen_webdav_settings_msg_url_must_not_be_empty">الرابط لايمكن ان يكون فارغ.</string>
+	<string name="screen_webdav_settings_msg_url_is_invalid">الرابط غير صحيح.</string>
 	<!-- ## screen: s3 settings -->
 	<!-- ## screen: enter vault name -->
 	<!-- ## screen: set password -->
@@ -33,6 +81,7 @@
 	<string name="screen_set_password_strength_indicator_3">قوية</string>
 	<!-- ## screen: settings -->
 	<string name="screen_settings_section_general">عام</string>
+	<string name="screen_settings_section_search">بحث</string>
 	<!-- ## screen: cloud settings -->
 	<!-- ## screen: licenses -->
 	<!-- ## screen: authenticate cloud -->
