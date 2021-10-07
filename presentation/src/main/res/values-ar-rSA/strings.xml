@@ -157,15 +157,45 @@
 	<string name="action_progress_renaming">جاري تسمية&#8230;</string>
 	<string name="action_progress_deleting">جاري حذف&#8230;</string>
 	<string name="dialog_progress_unlocking_vault">جاري فتح مخزن&#8230;</string>
+	<string name="dialog_progress_change_password">جاري تغير كلمة المرور&#8230;</string>
+	<string name="dialog_progress_creating_vault">جاري إنشاء المخزن&#8230;</string>
 	<string name="dialog_progress_upload_file">جاري التحميل&#8230;</string>
+	<string name="dialog_progress_download_file">جارٍ التنزيل&#8230;</string>
+	<string name="dialog_progress_encryption">جاري التشفير&#8230;</string>
+	<string name="dialog_progress_decryption">جاري فك التشفير&#8230;</string>
+	<string name="action_progress_moving">جاري النقل&#8230;</string>
 	<string name="dialog_lock_vault">قفل</string>
+	<string name="dialog_accept_ssl_certificate_title">شهادة ال SSL غير صالحة</string>
+	<string name="dialog_accept_ssl_certificate_hint">شهادة SSL غير صالحة. هل تريد أن تثق بها على أي حال؟</string>
+	<string name="dialog_accept_ssl_certificate_details">تفاصيل</string>
+	<string name="dialog_accept_ssl_certificate_security_checkbox">قد يشكل ذلك خطرا أمنياً، وأنا أعرف ما أفعله.</string>
+	<string name="dialog_http_security_hint">استخدام HTTP غير آمن. نوصي باستخدام HTTPS بدلاً من ذلك. إذا كنت تعرف المخاطر، يمكنك الاستمرار مع HTTP.</string>
+	<string name="dialog_http_security_checkbox">تغيير إلى HTTPS</string>
+	<string name="dialog_http_security_title">إستخدام HTTPS؟</string>
+	<string name="dialog_no_screen_lock_hint">لم يتم تعيين قفل الشاشة. لتخزين بيانات الاعتماد الخاصة بك بطريقة آمنة،الرجاء تعيين نمط أو كلمة مرور.</string>
+	<string name="dialog_no_screen_lock_title">تعيين قفل الشاشة؟</string>
+	<string name="dialog_no_screen_lock_checkbox">تعيين قفل الشاشة</string>
+	<string name="dialog_no_biometric_auth_set_up_title">لم يتم إعداد المصادقة الأساسية في النظام</string>
+	<string name="dialog_no_biometric_auth_set_up_message">قم بتسجيل اصبع/وجه واحد على الأقل لاستخدام هذه الخدمة.</string>
+	<string name="dialog_debug_mode_disclaimer_hint">في هذا الوضع، يمكن كتابة البيانات الحساسة إلى ملف تسجيل على جهازك (على سبيل المثال أسماء الملفات والمسارات). كلمة المرور، ملفات تعريف الارتباط، إلخ. مستبعدة صراحة.\n\nتذكر تعطيل وضع التصحيح في أقرب وقت ممكن.</string>
+	<string name="dialog_debug_mode_disclaimer_title">انتباه</string>
+	<string name="dialog_debug_mode_positive_button">تفعيل</string>
+	<string name="dialog_disable_app_obscured_disclaimer_hint">هذا الإعداد هو ميزة أمنية ويمنع التطبيقات الأخرى من خداع المستخدمين لفعل أشياء لا يريدون القيام بها.\n\nبتعطيليها, أنت تؤكد أنك <a href="https://docs.cryptomator.org/en/1.5/android/settings/#block-app-when-obscured">على علم بالمخاطر</a>.</string>
+	<string name="dialog_disable_app_obscured_disclaimer_title">انتباه</string>
 	<string name="dialog_app_is_obscured_info_neutral_button">إغلاق</string>
 	<string name="dialog_sym_link_back_button">رجوع</string>
 	<!-- # error reports -->
 	<!-- # misc -->
 	<!-- ## file size helper -->
 	<!-- ## date helper -->
+	<string name="time_unit_weeks_sg">أسبوع</string>
+	<string name="time_unit_weeks_pl">أسابيع</string>
+	<string name="time_unit_months_sg">شهر</string>
+	<string name="time_unit_months_pl">أشهر</string>
+	<string name="time_unit_years_sg">سنة</string>
+	<string name="time_unit_years_pl">سنوات</string>
 	<!-- ## biometric authentication -->
+	<string name="dialog_biometric_auth_title">إستخدام البيومتري</string>
 	<!-- notification -->
 	<!-- lock timeout names -->
 	<!-- cache size names -->
