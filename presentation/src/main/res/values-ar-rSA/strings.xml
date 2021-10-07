@@ -1,7 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 	<!-- # app -->
+	<string name="share_with_label">تشفير</string>
 	<!-- # error messages -->
+	<string name="error_generic">حدث خطأ ما</string>
+	<string name="error_authentication_failed">المصادقة قشلت</string>
+	<string name="error_authentication_failed_re_authenticate">فشلت عملية المصادقة، الرجاء تسجيل الدخول بإستخدام %1$s</string>
+	<string name="error_no_network_connection">لا يوجد اتصال بالشبكة</string>
 	<!-- # clouds -->
 	<!-- ## cloud names -->
 	<!-- # permission -->
