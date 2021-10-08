@@ -198,7 +198,21 @@
 	<string name="dialog_biometric_auth_title">إستخدام البصمة</string>
 	<string name="dialog_biometric_auth_message">قم بتسجيل الدخول بإستخدام البصمة</string>
 	<string name="dialog_biometric_auth_use_password">إستخدم كلمة مرور المخزن</string>
+	<string name="dialog_unable_to_auto_upload_files_title">غير قادر علي تحميل الملفات تلقائياً</string>
 	<!-- notification -->
+	<string name="notification_unlocked">تم فتح المخزن: %1$d</string>
+	<string name="notification_timeout">قفل تلقائي في %1$s</string>
+	<string name="notification_lock_all">قفل الكل</string>
+	<string name="notification_cancel_auto_upload">إلغاء التحميل</string>
+	<string name="notification_auto_upload_title">رفع الصور التلقائي يعمل</string>
+	<string name="notification_auto_upload_message">جاري الرفع %1d/%2d</string>
+	<string name="notification_auto_upload_finished_title">رفع الصور التلقائي تم</string>
+	<string name="notification_auto_upload_finished_message">%1$d صورة تم رفعها الي المخزن</string>
+	<string name="notification_auto_upload_failed_title">رفع الصور التلقائي فشل</string>
+	<string name="notification_auto_upload_failed_general_error">حدث خطأ عام أثناء الرفع.</string>
+	<string name="notification_auto_upload_failed_due_to_folder_not_exists">المجلد المحدد للرفع لم يعد متوفرًا. اذهب إلى الإعدادات واختيار واحد جديد</string>
+	<string name="notification_auto_upload_failed_due_to_vault_locked">تم قفل المخزن اثناء الرفع، الرجاء قم بفتحه لمتابعة الرفع</string>
+	<string name="notification_open_writable_file_title">فتح ملف قابل للكتابة</string>
 	<!-- lock timeout names -->
 	<!-- cache size names -->
 	<!-- screen scheme mode names -->
