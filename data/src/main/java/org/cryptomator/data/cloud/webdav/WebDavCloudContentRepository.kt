@@ -198,12 +198,16 @@ internal class WebDavCloudContentRepository(private val cloud: WebDavCloud, conn
 			try {
 				webDavImpl.read(file, data, progressAware)
 			} catch (e: BackendException) {
-				if (ExceptionUtil.contains(e, NotFoundException::class.java)) {
-					throw NoSuchCloudFileException(file.name)
-				} else if (e is IOException) {
-					throw FatalBackendException(e)
-				} else if (e is FatalBackendException) {
-					throw e
+				when {
+					ExceptionUtil.contains(e, NotFoundException::class.java) -> {
+						throw NoSuchCloudFileException(file.name)
+					}
+					e is IOException -> {
+						throw FatalBackendException(e)
+					}
+					else -> {
+						throw e
+					}
 				}
 			} catch (e: IOException) {
 				if (ExceptionUtil.contains(e, NotFoundException::class.java)) {
