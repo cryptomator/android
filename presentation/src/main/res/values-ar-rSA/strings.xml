@@ -79,11 +79,41 @@
 	<string name="screen_file_browser_msg_file_exported">تم تصدير الملف</string>
 	<string name="screen_file_browser_msg_files_exported">تم تصدير الملفات</string>
 	<string name="screen_file_browser_nothing_to_export">لا يوجد شيء للتصدير</string>
+	<string name="screen_file_browser_msg_creating_download_dir_failed">فشل إنشاء مجلد التحميل</string>
+	<string name="screen_file_browser_node_action_share">مشاركة</string>
+	<string name="screen_file_browser_node_action_rename">إعادة تسمية</string>
+	<string name="screen_file_browser_node_action_edit_text">تعديل</string>
+	<string name="screen_file_browser_node_action_export">تصدير</string>
+	<string name="screen_file_browser_node_action_delete">حذف</string>
+	<string name="screen_file_browser_node_action_open_with_text">فتح بواسطة &#8230;</string>
+	<string name="screen_file_browser_selection_mode_title_zero_elements">اختر العناصر</string>
+	<string name="screen_file_browser_selection_mode_title_one_or_more_elements">%1$d تم اختيارها</string>
+	<string name="screen_file_browser_select_items">اختر</string>
+	<string name="screen_file_browser_select_all_items">اختر الكل</string>
+	<string name="screen_file_browser_refresh_items">تحديث</string>
+	<string name="screen_file_browser_no_connection_message">لايوجد اتصال</string>
+	<string name="screen_file_browser_no_connection_button_text">اعد المحاولة</string>
 	<!-- ## screen: text editor -->
+	<string name="screen_text_editor_save_success">تم الحفظ بنجاح</string>
 	<!-- ## screen: share files -->
+	<string name="screen_share_files_title">حفظ %1$s إلي&#8230;</string>
+	<string name="screen_share_files_content_text">نص</string>
+	<string name="screen_share_files_content_file">ملف</string>
+	<string name="screen_share_files_content_files">ملفات</string>
+	<string name="screen_share_files_msg_filenames_must_be_unique">اسم الملف يجب أن لا يتكرر، الرجاء إعادة تسمية الملفات المكررة.</string>
+	<string name="screen_share_files_section_location">حفظ إلي</string>
+	<string name="screen_share_files_save_button_text">حفظ</string>
+	<string name="screen_share_files_msg_success">اكتملت عملية التشفير</string>
 	<!-- ## screen: choose cloud service -->
+	<string name="screen_choose_cloud_service_title">الخدمات السحابية</string>
 	<!-- ## screen: cloud connections -->
+	<string name="screen_cloud_connections_title">اختر المسار</string>
+	<string name="screen_cloud_connections_no_connections">انقر هنا لإضافة مسار</string>
+	<string name="screen_cloud_error_webdav_not_supported">لا يبدو أن الخادم متوافق مع WebDAV</string>
+	<string name="screen_cloud_local_default_storage_title">ذاكرة التخزين الافتراضية</string>
+	<string name="screen_cloud_local_error_no_content_provider">لا توجد مواقع إضافية متاحة.</string>
 	<!-- ## screen: webdav settings -->
+	<string name="screen_webdav_settings_url_port_label">الرابط</string>
 	<string name="screen_webdav_settings_username_label">اسم المستخدم</string>
 	<string name="screen_webdav_settings_password_label">كلمة المرور</string>
 	<string name="screen_webdav_settings_done_button_text">اتصال</string>
@@ -139,6 +169,17 @@
 	<string name="screen_settings_section_auto_photo_upload_only_wifi_toggle">تحميل فقط باستخدام WIFI</string>
 	<string name="screen_settings_section_auto_photo_upload_including_videos">تحميل ملفات الفيديو</string>
 	<string name="screen_settings_auto_photo_upload_title">حفظ الملفات الرفع التلقائي إلى&#8230;</string>
+	<string name="screen_settings_website_label">الموقع الإلكتروني</string>
+	<string name="screen_settings_twitter_label">تابعنا علي منصة تويتر</string>
+	<string name="screen_settings_facebook_label">سجل اعجابك لصفحة فيسبوك</string>
+	<string name="screen_settings_section_legal">قانوني</string>
+	<string name="screen_settings_licenses_label">التراخيص</string>
+	<string name="screen_settings_license_terms_label">شروط الترخيص</string>
+	<string name="screen_settings_section_support">الدعم</string>
+	<string name="screen_settings_contact_label">طلب المساعدة</string>
+	<string name="screen_settings_debug_mode_label">وضع التصحيح</string>
+	<string name="screen_settings_error_report_label">ارسال ملفات السجل</string>
+	<string name="screen_settings_error_report_failed">فشل الإرسال</string>
 	<!-- ## screen: cloud settings -->
 	<!-- ## screen: licenses -->
 	<!-- ## screen: authenticate cloud -->
@@ -200,6 +241,10 @@
 	<string name="dialog_disable_app_obscured_disclaimer_hint">هذا الإعداد هو ميزة أمنية ويمنع التطبيقات الأخرى من خداع المستخدمين لفعل أشياء لا يريدون القيام بها.\n\nبتعطيليها, أنت تؤكد أنك <a href="https://docs.cryptomator.org/en/1.5/android/settings/#block-app-when-obscured">على علم بالمخاطر</a>.</string>
 	<string name="dialog_disable_app_obscured_disclaimer_title">انتباه</string>
 	<string name="dialog_app_is_obscured_info_neutral_button">إغلاق</string>
+	<string name="dialog_confirm_delete_file_message">هل أنت متأكد من أنك تريد حذف هذا الملف؟</string>
+	<string name="dialog_confirm_delete_folder_message">سيؤدي هذا إلى حذف جميع محتويات المجلد. هل أنت متأكد من أنك تريد حذف هذا المجلد؟</string>
+	<string name="dialog_biometric_auth_key_invalidated_title">تم تعطيل خاصية البصمة</string>
+	<string name="dialog_biometric_auth_key_invalidated_message">لأنه تم تعطيل المفتاح ، تم تعطيل خاصية البصمة. لإعادة التفعيل ،الرجاء فتح إعدادات Cryptomator.</string>
 	<string name="dialog_sym_link_back_button">رجوع</string>
 	<!-- # error reports -->
 	<!-- # misc -->
@@ -230,6 +275,7 @@
 	<string name="notification_auto_upload_failed_due_to_folder_not_exists">المجلد المحدد للرفع لم يعد متوفرًا. اذهب إلى الإعدادات واختيار واحد جديد</string>
 	<string name="notification_auto_upload_failed_due_to_vault_locked">تم قفل المخزن اثناء الرفع، الرجاء قم بفتحه لمتابعة الرفع</string>
 	<string name="notification_open_writable_file_title">فتح ملف قابل للكتابة</string>
+	<string name="notification_open_writable_file_message">سوف يبقى المخزن مفتوحاً حتي يتم التعديل</string>
 	<!-- lock timeout names -->
 	<!-- cache size names -->
 	<!-- screen scheme mode names -->
