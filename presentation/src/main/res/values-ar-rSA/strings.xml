@@ -61,7 +61,24 @@
 	<string name="screen_vault_list_change_password_successful">تم تغيير كلمة السر بنجاح</string>
 	<!-- # screen: file browser -->
 	<string name="screen_file_browser_default_title">مخزن</string>
+	<string name="screen_file_browser_add_existing_vault_extra_text">اختر ملف المفتاح الرئيسي</string>
+	<string name="screen_file_browser_create_new_vault_button_text">ضع هنا</string>
+	<string name="screen_file_browser_create_new_vault_extra_text">اسم المخزن: %1$s</string>
+	<string name="screen_file_browser_move_button_text">نقل</string>
+	<string name="screen_file_browser_msg_empty_folder">مجلد فارغ</string>
+	<string name="screen_file_browser_file_info_label_date">تم التعديل منذ %1$s</string>
+	<string name="screen_file_browser_share_intent_chooser_title">مشاركة مع</string>
+	<string name="screen_file_browser_share_destination_title">اختر الوجهة</string>
 	<string name="screen_file_browser_share_button_text">اختر</string>
+	<string name="screen_file_browser_nothing_to_share">لايوجد شي للمشاركة</string>
+	<string name="screen_file_browser_actions_title">إضافة الي %1$s</string>
+	<string name="screen_file_browser_action_create_folder">إنشاء مجلد</string>
+	<string name="screen_file_browser_action_create_new_text_file">إنشاء ملف نصي</string>
+	<string name="screen_file_browser_action_upload_files">رفع الملفات</string>
+	<string name="screen_file_browser_upload_files_chooser_title">ملفات</string>
+	<string name="screen_file_browser_msg_file_exported">تم تصدير الملف</string>
+	<string name="screen_file_browser_msg_files_exported">تم تصدير الملفات</string>
+	<string name="screen_file_browser_nothing_to_export">لا يوجد شيء للتصدير</string>
 	<!-- ## screen: text editor -->
 	<!-- ## screen: share files -->
 	<!-- ## screen: choose cloud service -->
