@@ -180,7 +180,9 @@
 	<string name="screen_settings_debug_mode_label">وضع التصحيح</string>
 	<string name="screen_settings_error_report_label">ارسال ملفات السجل</string>
 	<string name="screen_settings_error_report_failed">فشل الإرسال</string>
+	<string name="screen_settings_section_version">الإصدارة</string>
 	<string name="screen_settings_advanced_settings">إعدادات متقدمة</string>
+	<string name="screen_settings_background_unlock_preparation_label">تسريع فتح القفل</string>
 	<string name="screen_settings_background_unlock_preparation_label_summary">تنزيل إعدادات المخزن في الخلفية أثناء مطالبته بإدخال كلمة المرور أو البصمة</string>
 	<string name="screen_settings_keep_unlocked_while_editing_files">أبقه فاتح</string>
 	<!-- ## screen: cloud settings -->
@@ -275,16 +277,31 @@
 	<string name="dialog_disable_secure_screen_disclaimer_hint">هذا الإعداد هو ميزة أمنية ويمنع التطبيقات الأخرى من خداع المستخدمين لفعل أشياء لا يريدون القيام بها.\n\nبتعطيليها, أنت تؤكد أنك <a href="https://docs.cryptomator.org/en/1.5/android/settings/#screen-security">على علم بالمخاطر</a>.</string>
 	<string name="dialog_delete_cloud_connection_with_vaults_message">هل ترغب حقّا بحذف هذا الإتصال الخاص بمقدم الخدمة السحابية؟</string>
 	<string name="dialog_delete_cloud_connection_with_vaults_hint">سوف يقوم هذا الأمر بحذف الإتصال بمقدم الخدمة السحابية و كل المخازن المرتبطة به.</string>
+	<string name="dialog_confirm_delete_multiple_title">حذف %1$d عناصر؟</string>
+	<string name="dialog_confirm_delete_multiple_message">هل أنت متأكد من أنك تريد حذف هذه العناصر؟</string>
 	<string name="dialog_confirm_delete_file_message">هل أنت متأكد من أنك تريد حذف هذا الملف؟</string>
 	<string name="dialog_confirm_delete_folder_message">سيؤدي هذا إلى حذف جميع محتويات المجلد. هل أنت متأكد من أنك تريد حذف هذا المجلد؟</string>
 	<string name="dialog_biometric_auth_key_invalidated_title">تم تعطيل خاصية البصمة</string>
 	<string name="dialog_biometric_auth_key_invalidated_message">لأنه تم تعطيل المفتاح ، تم تعطيل خاصية البصمة. لإعادة التفعيل ،الرجاء فتح إعدادات Cryptomator.</string>
+	<string name="dialog_enter_license_title">إدخال الترخيص</string>
+	<string name="dialog_enter_license_decline_button">خروج</string>
+	<string name="dialog_license_confirmation_title">تأكيد الترخيص</string>
+	<string name="dialog_update_available_title">تحديث جديد متوفّر</string>
+	<string name="dialog_update_available_update">حدّث الآن</string>
+	<string name="dialog_update_available_download_site">انتقل إلى صفحة التحميل</string>
+	<string name="dialog_update_available_cancel">لاحقاً</string>
 	<string name="dialog_sym_link_back_button">رجوع</string>
 	<string name="dialog_pcloud_credentials_updated">إذا كنت ترغب في إضافة حساب pCloud جديد، انقر على هذا الرابط <a href="https://www.pcloud.com">www.pcloud. om</a>، قم بتسجيل الخروج من الحساب الحالي وانقر مرة أخرى على \'+\' في هذا التطبيق لإنشاء اتصال سحابي جديد.</string>
 	<!-- # error reports -->
 	<!-- # misc -->
 	<!-- ## file size helper -->
 	<!-- ## date helper -->
+	<string name="time_unit_seconds_sg">ثانية</string>
+	<string name="time_unit_seconds_pl">ثواني</string>
+	<string name="time_unit_minutes_sg">دقيقة</string>
+	<string name="time_unit_minutes_pl">دقائق</string>
+	<string name="time_unit_hours_sg">ساعة</string>
+	<string name="time_unit_hours_pl">ساعات</string>
 	<string name="time_unit_weeks_sg">أسبوع</string>
 	<string name="time_unit_weeks_pl">أسابيع</string>
 	<string name="time_unit_months_sg">شهر</string>
@@ -313,9 +330,22 @@
 	<string name="notification_open_writable_file_message">سوف يبقى المخزن مفتوحاً حتي يتم التعديل</string>
 	<string name="dialog_cache_size_title">حجم ذاكرة التخزين المؤقت لكل سحابة</string>
 	<!-- lock timeout names -->
+	<string name="lock_timeout_10m">١٠ دقائق</string>
+	<string name="lock_timeout_never">ابداً</string>
 	<!-- cache size names -->
+	<string name="cache_size_50m">50 م. ب</string>
+	<string name="cache_size_100m">100 م. ب</string>
+	<string name="cache_size_250m">250 م. ب</string>
+	<string name="cache_size_500m">500 م. ب</string>
+	<string name="cache_size_1000m">1 ج. ب</string>
+	<string name="cache_size_5000m">5 ق. ب</string>
 	<!-- screen scheme mode names -->
+	<string name="screen_settings_style_mode">الشكل</string>
+	<string name="follow_system">تلقائي (تابع النظام)</string>
 	<string name="light">فاتح (أبيض)</string>
 	<string name="dark">مظلم (أسود)</string>
 	<!-- update interval names -->
+	<string name="update_interval_1d">مرة في اليوم</string>
+	<string name="update_interval_1w">مرة في الإسبوع</string>
+	<string name="update_interval_1m">مرة في الشهر</string>
 </resources>
