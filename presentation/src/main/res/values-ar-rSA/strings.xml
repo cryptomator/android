@@ -180,15 +180,43 @@
 	<string name="screen_settings_debug_mode_label">وضع التصحيح</string>
 	<string name="screen_settings_error_report_label">ارسال ملفات السجل</string>
 	<string name="screen_settings_error_report_failed">فشل الإرسال</string>
+	<string name="screen_settings_advanced_settings">إعدادات متقدمة</string>
+	<string name="screen_settings_background_unlock_preparation_label_summary">تنزيل إعدادات المخزن في الخلفية أثناء مطالبته بإدخال كلمة المرور أو البصمة</string>
+	<string name="screen_settings_keep_unlocked_while_editing_files">أبقه فاتح</string>
 	<!-- ## screen: cloud settings -->
+	<string name="screen_cloud_settings_webdav_connections">اتصالات WebDAV</string>
+	<string name="screen_cloud_settings_pcloud_connections">اتصالات pCloud</string>
+	<string name="screen_cloud_settings_s3_connections">اتصالات S3</string>
+	<string name="screen_cloud_settings_local_storage_locations">مواقع التخزين المحلية</string>
+	<string name="screen_cloud_settings_log_in_to">تسجيل الدخول إلى</string>
+	<string name="screen_cloud_settings_sign_out_from_cloud">تسجيل خروج من</string>
 	<!-- ## screen: licenses -->
 	<!-- ## screen: authenticate cloud -->
+	<string name="screen_authenticate_auth_authentication_failed">تعذر المصادقة على %1$s.</string>
+	<string name="screen_update_pcloud_connections_title">تحديث بيانات اعتماد pCloud</string>
 	<!-- ## screen: insecure android version info -->
 	<!-- # dialogs -->
 	<string name="dialog_button_cancel">الغاء</string>
 	<string name="dialog_enter_password_positive_button">افتح</string>
+	<string name="dialog_change_password_old_password_label">كلمة المرور القديمة</string>
+	<string name="dialog_change_password_new_password_label">كلمة المرور الجديدة</string>
+	<string name="dialog_change_password">تغيير كلمة المرور</string>
+	<string name="dialog_change_password_msg_old_password_empty">لا يمكن أن تكون كلمة المرور القديمة فارغة.</string>
+	<string name="dialog_change_password_msg_new_password_empty">كلمة المرور الجديدة لا يمكن أن تكون فارغة.</string>
+	<string name="dialog_change_password_msg_password_mismatch">كلمة المرور الجديدة يجب أن تتطابق مع تأكيد كلمة المرور.</string>
 	<!-- Vault not found -->
+	<string name="dialog_vault_not_found_title">المخزن %1$s غير موجود</string>
+	<string name="dialog_vault_not_found_message">تم تغيير اسم المخزن أو نقله أو حذفه. إزالة هذا المخزن من القائمة وإضافته مرة أخرى للمواصلة. إزالة الآن؟</string>
 	<string name="dialog_vault_not_found_positive_button_text">حذف</string>
+	<string name="dialog_existing_file_title">الملف موجود مسبقا</string>
+	<string name="dialog_existing_file_positive_button">إستبدال</string>
+	<string name="dialog_existing_file_message">الملف المسمى \'%1$s\' موجود بالفعل.</string>
+	<string name="dialog_replace_negative_button_at_least_two_but_not_all_files_exist">ابقاء الملفات الموجودة</string>
+	<string name="dialog_replace_positive_button_all_files_exist">استبدل الكلّ</string>
+	<string name="dialog_replace_positive_button_some_files_exist">استبدال الموجود</string>
+	<string name="dialog_replace_positive_button_single_file_exists">إستبدال</string>
+	<string name="dialog_replace_msg_single_file_exists">الملف \'%1$s\' موجود مسبقاً. هل تريد استبداله؟</string>
+	<string name="dialog_replace_msg_all_files_exists">الملفات موجودة مسبقاً. هل تريد استبدالها؟</string>
 	<string name="dialog_replace_title_single_file_exists">استبدال الملف؟</string>
 	<string name="dialog_replace_title_multiple_files_exist">استبدال الملفات؟</string>
 	<string name="dialog_unable_to_share_title">غير قادر علي مشاركة الملفات</string>
@@ -203,6 +231,7 @@
 	<string name="dialog_unsaved_changes_title">لديك تغييرات غير محفوظة</string>
 	<string name="dialog_unsaved_changes_message">هل فعلا تود الخروج بدون حفظ ؟</string>
 	<string name="dialog_unsaved_changes_discard">تجاهل</string>
+	<string name="dialog_file_name_placeholder">text.txt</string>
 	<string name="dialog_delete_vault_message">هل أنت متأكد من أنك تريد حذف هذا المخزن؟</string>
 	<string name="dialog_delete_vault_hint">سيؤدي هذا الإجراء فقط إلى إزالة المخزن من هذه القائمة وعدم حذفه فعلياً من الذاكرة.</string>
 	<string name="dialog_upload_file_title">جاري التحميل&#8230;</string>
@@ -240,6 +269,8 @@
 	<string name="dialog_debug_mode_positive_button">تفعيل</string>
 	<string name="dialog_disable_app_obscured_disclaimer_hint">هذا الإعداد هو ميزة أمنية ويمنع التطبيقات الأخرى من خداع المستخدمين لفعل أشياء لا يريدون القيام بها.\n\nبتعطيليها, أنت تؤكد أنك <a href="https://docs.cryptomator.org/en/1.5/android/settings/#block-app-when-obscured">على علم بالمخاطر</a>.</string>
 	<string name="dialog_disable_app_obscured_disclaimer_title">انتباه</string>
+	<string name="dialog_disable_app_obscured_positive_button">تعطيل</string>
+	<string name="dialog_app_is_obscured_info_title">التطبيق غامض</string>
 	<string name="dialog_app_is_obscured_info_neutral_button">إغلاق</string>
 	<string name="dialog_confirm_delete_file_message">هل أنت متأكد من أنك تريد حذف هذا الملف؟</string>
 	<string name="dialog_confirm_delete_folder_message">سيؤدي هذا إلى حذف جميع محتويات المجلد. هل أنت متأكد من أنك تريد حذف هذا المجلد؟</string>
