@@ -9,8 +9,8 @@
 	<string name="error_no_network_connection">Geen netwerkverbinding</string>
 	<string name="error_invalid_passphrase">Fout wachtwoord</string>
 	<string name="error_file_or_folder_exists">Een bestand of map bestaat reeds.</string>
-	<string name="error_vault_version_not_supported">Niet-ondersteunde Vault. Deze Vault is gemaakt met een andere versie van Cryptomator.</string>
-	<string name="error_vault_already_exists">Vault bestaat reeds.</string>
+	<string name="error_vault_version_not_supported">Niet-ondersteunde kluis. Deze kluis is gemaakt met een andere versie van Cryptomator.</string>
+	<string name="error_vault_already_exists">Kluis bestaat reeds.</string>
 	<string name="error_no_such_file">Bestand bestaat niet.</string>
 	<string name="error_vault_has_been_locked">Vault is vergrendeld.</string>
 	<string name="error_cloud_already_exists">Cloud bestaat reeds.</string>
@@ -31,6 +31,7 @@
 	<string name="error_vault_key_invalid">vault.cryptomator komt niet overeen met deze masterkey.cryptomator</string>
 	<string name="error_vault_config_loading">Algemene fout tijdens het laden van de kluisconfiguratie</string>
 	<string name="error_file_not_found_after_opening_using_3party">Lokaal bestand is niet meer aanwezig na het terugschakelen naar Cryptomator. Mogelijke wijzigingen kunnen niet worden verzonden naar de cloud.</string>
+	<string name="error_no_such_bucket" comment="A &quot;bucket&quot; is a S3-specific term. It is a connection parameter (such as server name or username) entered by the user. The S3 connection will fail, if there is no bucket with the given name on the server.">Deze bucket is niet gevonden</string>
 	<string name="error_masterkey_location_not_supported">Aangepaste Masterkey-locatie nog niet ondersteund</string>
 	<!-- # clouds -->
 	<!-- ## cloud names -->
@@ -126,10 +127,13 @@
 	<string name="screen_s3_settings_display_name_label">Weergavenaam</string>
 	<string name="screen_s3_settings_access_key_label">Toegangs code</string>
 	<string name="screen_s3_settings_secret_key_label">Geheime code</string>
+	<string name="screen_s3_settings_bucket_label">Bestaande Bucket</string>
+	<string name="screen_s3_settings_endpoint_label" comment="The &quot;endpoint&quot; is basically the complete URL, including hostname, port and path to an S3 bucket.">Endpoint</string>
 	<string name="screen_s3_settings_region_label">Regio</string>
 	<string name="screen_s3_settings_msg_display_name_not_empty">Weergavenaam mag niet leeg zijn</string>
 	<string name="screen_s3_settings_msg_access_key_not_empty">Toegangs code mag niet leeg zijn</string>
 	<string name="screen_s3_settings_msg_secret_key_not_empty">Geheime code mag niet leeg zijn</string>
+	<string name="screen_s3_settings_msg_bucket_not_empty">Bucketveld mag niet leeg zijn</string>
 	<string name="screen_s3_settings_msg_endpoint_and_region_not_empty">Eindpunt of regio kan niet leeg zijn</string>
 	<!-- ## screen: enter vault name -->
 	<string name="screen_enter_vault_name_msg_name_empty">Kluis naam mag niet leeg zijn.</string>
