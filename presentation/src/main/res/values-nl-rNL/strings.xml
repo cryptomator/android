@@ -16,7 +16,6 @@
 	<string name="error_cloud_already_exists">Cloud bestaat reeds.</string>
 	<string name="error_activity_not_found">Download een app die dit bestand kan openen.</string>
 	<string name="error_server_not_found">Server niet gevonden.</string>
-	<string name="error_device_policy_manager_not_found">Open de instellingen van uw toestel en stel de schermvergrendeling in</string>
 	<string name="error_export_illegal_file_name">Exporteren is mislukt. Verwijder speciale tekens uit de bestandsnamen en probeer opnieuw.</string>
 	<string name="error_name_contains_invalid_characters">Kan geen speciale tekens bevatten.</string>
 	<string name="error_names_contains_invalid_characters">Bestandsnamen mogen geen speciale tekens bevatten.</string>
@@ -24,14 +23,10 @@
 	<string name="error_general_update">Update controle mislukt. Algemene fout opgetreden.</string>
 	<string name="error_hash_mismatch_update">Update controle mislukt. Berekende hash komt niet overeen met het geüploade bestand</string>
 	<string name="error_update_no_internet">Update controle mislukt. Geen internetverbinding.</string>
-	<string name="error_failed_to_decrypt_webdav_password">Fout bij het decoderen van WebDAV wachtwoord, voeg dit opnieuw toe in de instellingen</string>
-	<string name="error_play_services_not_available">Google Play Services is niet geïnstalleerd</string>
 	<string name="error_biometric_auth_aborted">Biometrische authenticatie geannuleerd</string>
-	<string name="error_vault_version_mismatch">De versie gespecificeerd in vault.cryptomator is anders dan masterkey.cryptomator</string>
-	<string name="error_vault_key_invalid">vault.cryptomator komt niet overeen met deze masterkey.cryptomator</string>
 	<string name="error_vault_config_loading">Algemene fout tijdens het laden van de kluisconfiguratie</string>
 	<string name="error_file_not_found_after_opening_using_3party">Lokaal bestand is niet meer aanwezig na het terugschakelen naar Cryptomator. Mogelijke wijzigingen kunnen niet worden verzonden naar de cloud.</string>
-	<string name="error_no_such_bucket" comment="A &quot;bucket&quot; is a S3-specific term. It is a connection parameter (such as server name or username) entered by the user. The S3 connection will fail, if there is no bucket with the given name on the server.">Deze bucket is niet gevonden</string>
+	<string name="error_no_such_bucket">Deze bucket is niet gevonden</string>
 	<string name="error_masterkey_location_not_supported">Aangepaste Masterkey-locatie nog niet ondersteund</string>
 	<!-- # clouds -->
 	<!-- ## cloud names -->
@@ -128,7 +123,7 @@
 	<string name="screen_s3_settings_access_key_label">Toegangs code</string>
 	<string name="screen_s3_settings_secret_key_label">Geheime code</string>
 	<string name="screen_s3_settings_bucket_label">Bestaande Bucket</string>
-	<string name="screen_s3_settings_endpoint_label" comment="The &quot;endpoint&quot; is basically the complete URL, including hostname, port and path to an S3 bucket.">Endpoint</string>
+	<string name="screen_s3_settings_endpoint_label">Endpoint</string>
 	<string name="screen_s3_settings_region_label">Regio</string>
 	<string name="screen_s3_settings_msg_display_name_not_empty">Weergavenaam mag niet leeg zijn</string>
 	<string name="screen_s3_settings_msg_access_key_not_empty">Toegangs code mag niet leeg zijn</string>
@@ -218,7 +213,6 @@
 	<string name="dialog_change_password_msg_password_mismatch">Nieuw wachtwoord komt niet overeen met het opnieuw ingevoerde wachtwoord.</string>
 	<!-- Vault not found -->
 	<string name="dialog_vault_not_found_title">Kluis %1$s niet gevonden</string>
-	<string name="dialog_vault_not_found_message">De kluis is hernoemd, verplaatst of verwijderd. Verwijder deze kluis uit de lijst en voeg opnieuw toe om verder te gaan. Nu verwijderen?</string>
 	<string name="dialog_vault_not_found_positive_button_text">Verwijderen</string>
 	<string name="dialog_existing_file_title">Bestand bestaat al</string>
 	<string name="dialog_existing_file_positive_button">Vervangen</string>
