@@ -16,66 +16,382 @@
 	<string name="error_cloud_already_exists">Cloud bestaat reeds.</string>
 	<string name="error_activity_not_found">Download een app die dit bestand kan openen.</string>
 	<string name="error_server_not_found">Server niet gevonden.</string>
+	<string name="error_device_policy_manager_not_found">Open de instellingen van uw toestel en stel de schermvergrendeling in</string>
+	<string name="error_export_illegal_file_name">Exporteren is mislukt. Verwijder speciale tekens uit de bestandsnamen en probeer opnieuw.</string>
+	<string name="error_name_contains_invalid_characters">Kan geen speciale tekens bevatten.</string>
+	<string name="error_names_contains_invalid_characters">Bestandsnamen mogen geen speciale tekens bevatten.</string>
+	<string name="error_vault_name_contains_invalid_characters">Kluisnaam mag geen speciale tekens bevatten.</string>
+	<string name="error_general_update">Update controle mislukt. Algemene fout opgetreden.</string>
+	<string name="error_hash_mismatch_update">Update controle mislukt. Berekende hash komt niet overeen met het geüploade bestand</string>
+	<string name="error_update_no_internet">Update controle mislukt. Geen internetverbinding.</string>
+	<string name="error_failed_to_decrypt_webdav_password">Fout bij het decoderen van WebDAV wachtwoord, voeg dit opnieuw toe in de instellingen</string>
+	<string name="error_play_services_not_available">Google Play Services is niet geïnstalleerd</string>
+	<string name="error_biometric_auth_aborted">Biometrische authenticatie geannuleerd</string>
+	<string name="error_vault_version_mismatch">De versie gespecificeerd in vault.cryptomator is anders dan masterkey.cryptomator</string>
+	<string name="error_vault_key_invalid">vault.cryptomator komt niet overeen met deze masterkey.cryptomator</string>
+	<string name="error_vault_config_loading">Algemene fout tijdens het laden van de kluisconfiguratie</string>
+	<string name="error_file_not_found_after_opening_using_3party">Lokaal bestand is niet meer aanwezig na het terugschakelen naar Cryptomator. Mogelijke wijzigingen kunnen niet worden verzonden naar de cloud.</string>
+	<string name="error_masterkey_location_not_supported">Aangepaste Masterkey-locatie nog niet ondersteund</string>
 	<!-- # clouds -->
 	<!-- ## cloud names -->
+	<string name="cloud_names_local_storage">Lokale opslag</string>
 	<!-- # permission -->
 	<!-- ## permission messages -->
+	<string name="permission_message_export_file">Cryptomator heeft toegang tot opslag nodig om bestanden te exporteren</string>
+	<string name="permission_message_upload_file">Cryptomator heeft toegang tot opslag nodig om bestanden te uploaden</string>
+	<string name="permission_message_share_file">Cryptomator heeft toegang tot opslag nodig om bestanden te delen</string>
 	<string name="snack_bar_action_title_settings">Instellingen</string>
+	<string name="snack_bar_action_title_search">Zoeken</string>
+	<string name="snack_bar_action_title_search_previous">Vorige</string>
 	<string name="snack_bar_action_title_search_next">Volgende</string>
+	<string name="snack_bar_action_title_sort">Sorteren</string>
+	<string name="snack_bar_action_title_sort_az">A - Z</string>
+	<string name="snack_bar_action_title_sort_za">Z - A</string>
+	<string name="snack_bar_action_title_sort_newest">Nieuwste eerst</string>
+	<string name="snack_bar_action_title_sort_oldest">Oudste eerst</string>
+	<string name="snack_bar_action_title_sort_biggest">Grootste eerst</string>
+	<string name="snack_bar_action_title_sort_smallest">Kleinste eerst</string>
 	<!-- # screens -->
 	<!-- # screen: vault list -->
+	<string name="screen_vault_list_actions_title">Toevoegen aan Cryptomator</string>
+	<string name="screen_vault_list_action_create_new_vault">Nieuwe kluis aanmaken</string>
+	<string name="screen_vault_list_action_add_existing_vault">Bestaande kluis toevoegen</string>
 	<string name="screen_vault_list_vault_action_delete">Verwijderen</string>
+	<string name="screen_vault_list_vault_creation_hint">Klik hier om een nieuwe kluis aan te maken</string>
+	<string name="screen_vault_list_change_password_successful">Wachtwoord succesvol gewijzigd</string>
 	<!-- # screen: file browser -->
 	<string name="screen_file_browser_default_title">Kluis</string>
+	<string name="screen_file_browser_add_existing_vault_extra_text">Selecteer het Masterkey-bestand</string>
+	<string name="screen_file_browser_create_new_vault_button_text">Plaats hier</string>
+	<string name="screen_file_browser_create_new_vault_extra_text">Kluis naam: %1$s</string>
+	<string name="screen_file_browser_move_button_text">Verplaatsen</string>
+	<string name="screen_file_browser_msg_empty_folder">Lege map</string>
+	<string name="screen_file_browser_file_info_label_date">%1$s geleden gewijzigd</string>
+	<string name="screen_file_browser_share_intent_chooser_title">Delen met</string>
+	<string name="screen_file_browser_share_destination_title">Kies een bestemming</string>
 	<string name="screen_file_browser_share_button_text">Kies</string>
+	<string name="screen_file_browser_nothing_to_share">Niets om te delen</string>
+	<string name="screen_file_browser_actions_title">Toevoegen aan %1$s</string>
+	<string name="screen_file_browser_action_create_folder">Map aanmaken</string>
+	<string name="screen_file_browser_action_create_new_text_file">Maak tekstbestand</string>
+	<string name="screen_file_browser_action_upload_files">Bestanden uploaden</string>
+	<string name="screen_file_browser_upload_files_chooser_title">Bestanden</string>
+	<string name="screen_file_browser_msg_file_exported">Bestand geëxporteerd</string>
+	<string name="screen_file_browser_msg_files_exported">Geëxporteerde bestanden</string>
+	<string name="screen_file_browser_nothing_to_export">Niets te exporteren</string>
+	<string name="screen_file_browser_msg_creating_download_dir_failed">Aanmaken download map mislukt</string>
+	<string name="screen_file_browser_node_action_share">Delen</string>
+	<string name="screen_file_browser_node_action_rename">Wijzig naam</string>
 	<string name="screen_file_browser_node_action_edit_text">Bewerken</string>
+	<string name="screen_file_browser_node_action_export">Exporteren</string>
+	<string name="screen_file_browser_node_action_delete">Verwijderen</string>
+	<string name="screen_file_browser_node_action_open_with_text">Openen met&#8230;</string>
+	<string name="screen_file_browser_selection_mode_title_zero_elements">Selecteer items</string>
+	<string name="screen_file_browser_selection_mode_title_one_or_more_elements">%1$d geselecteerd</string>
 	<string name="screen_file_browser_select_items">Selecteer</string>
+	<string name="screen_file_browser_select_all_items">Alles selecteren</string>
+	<string name="screen_file_browser_refresh_items">Vernieuwen</string>
+	<string name="screen_file_browser_no_connection_message">Geen verbinding</string>
+	<string name="screen_file_browser_no_connection_button_text">Opnieuw proberen</string>
 	<!-- ## screen: text editor -->
+	<string name="screen_text_editor_save_success">Succesvol opgeslagen</string>
 	<!-- ## screen: share files -->
+	<string name="screen_share_files_title">%1$s opslaan in&#8230;</string>
+	<string name="screen_share_files_content_text">tekst</string>
+	<string name="screen_share_files_content_file">bestand</string>
+	<string name="screen_share_files_content_files">bestanden</string>
+	<string name="screen_share_files_msg_filenames_must_be_unique">Bestandsnamen moeten uniek zijn, hernoem de duplicaten.</string>
+	<string name="screen_share_files_section_location">Opslaglocatie</string>
+	<string name="screen_share_files_save_button_text">Opslaan</string>
+	<string name="screen_share_files_msg_success">Versleuteling voltooid</string>
 	<!-- ## screen: choose cloud service -->
+	<string name="screen_choose_cloud_service_title">Cloud service</string>
 	<!-- ## screen: cloud connections -->
+	<string name="screen_cloud_connections_title">Kies een locatie</string>
+	<string name="screen_cloud_connections_no_connections">Klik hier om locaties toe te voegen</string>
+	<string name="screen_cloud_error_webdav_not_supported">Server lijkt niet WebDAV compatibel te zijn</string>
+	<string name="screen_cloud_local_custom_storage_title">Aangepaste locaties</string>
+	<string name="screen_cloud_local_default_storage_title">Standaard opslag</string>
+	<string name="screen_cloud_local_error_no_content_provider">Geen extra locaties beschikbaar.</string>
 	<!-- ## screen: webdav settings -->
 	<string name="screen_webdav_settings_url_port_label">URL</string>
 	<string name="screen_webdav_settings_username_label">Gebruikersnaam</string>
 	<string name="screen_webdav_settings_password_label">Wachtwoord</string>
+	<string name="screen_webdav_settings_done_button_text">Verbinden</string>
+	<string name="screen_webdav_settings_msg_url_must_not_be_empty">URL mag niet leeg zijn.</string>
+	<string name="screen_webdav_settings_msg_url_is_invalid">URL is ongeldig.</string>
+	<string name="screen_webdav_settings_msg_username_must_not_be_empty">Gebruikersnaam mag niet leeg zijn.</string>
+	<string name="screen_webdav_settings_msg_password_must_not_be_empty">Wachtwoord mag niet leeg zijn.</string>
 	<!-- ## screen: s3 settings -->
+	<string name="screen_s3_settings_display_name_label">Weergavenaam</string>
+	<string name="screen_s3_settings_access_key_label">Toegangs code</string>
+	<string name="screen_s3_settings_secret_key_label">Geheime code</string>
+	<string name="screen_s3_settings_region_label">Regio</string>
+	<string name="screen_s3_settings_msg_display_name_not_empty">Weergavenaam mag niet leeg zijn</string>
+	<string name="screen_s3_settings_msg_access_key_not_empty">Toegangs code mag niet leeg zijn</string>
+	<string name="screen_s3_settings_msg_secret_key_not_empty">Geheime code mag niet leeg zijn</string>
+	<string name="screen_s3_settings_msg_endpoint_and_region_not_empty">Eindpunt of regio kan niet leeg zijn</string>
 	<!-- ## screen: enter vault name -->
+	<string name="screen_enter_vault_name_msg_name_empty">Kluis naam mag niet leeg zijn.</string>
+	<string name="screen_enter_vault_name_vault_label">Kluis naam</string>
 	<string name="screen_enter_vault_name_button_text">Maak</string>
 	<!-- ## screen: set password -->
+	<string name="screen_set_password_title">Wachtwoord instellen</string>
+	<string name="screen_set_password_msg_password_mismatch">Wachtwoord komt niet overeen met het opnieuw ingevoerde wachtwoord.</string>
 	<string name="screen_set_password_button_text">Klaar</string>
 	<string name="screen_set_password_hint">BELANGRIJK: Als u uw wachtwoord vergeet, is er geen manier om uw gegevens te herstellen.</string>
+	<string name="screen_set_password_retype_password_label">Herhaal wachtwoord</string>
+	<string name="screen_set_password_strength_indicator_0">Te zwak om een kluis aan te maken</string>
 	<string name="screen_set_password_strength_indicator_1">Zwak</string>
 	<string name="screen_set_password_strength_indicator_2">Redelijk</string>
 	<string name="screen_set_password_strength_indicator_3">Sterk</string>
+	<string name="screen_set_password_strength_indicator_4">Zeer Sterk</string>
 	<!-- ## screen: settings -->
 	<string name="screen_settings_section_general">Algemeen</string>
+	<string name="screen_settings_cloud_settings_label">Clouddiensten</string>
+	<string name="screen_settings_biometric_auth">Biometrische authenticatie</string>
+	<string name="screen_settings_activate_biometric_auth">Biometrische authenticatie activeren</string>
+	<string name="screen_settings_confirm_face_unlock">Bevestig gezichtsontgrendeling (indien beschikbaar)</string>
+	<string name="screen_settings_block_app_when_obscured">Blokkeer app wanneer verborgen</string>
+	<string name="screen_settings_block_app_when_obscured_summary">Blokkeer het onderscheppen van de invoer en het weergeven van een valse gebruikersinterface</string>
+	<string name="screen_settings_secure_screen">Schermafbeeldingen blokkeren</string>
+	<string name="screen_settings_secure_screen_summary">Blokkeer het maken van schermafbeeldingen in de app als in de lijst van recent gebruikte apps</string>
+	<string name="screen_settings_section_search">Zoeken</string>
+	<string name="screen_settings_live_search">Live zoeken</string>
+	<string name="screen_settings_live_search_summary">Zoekresultaten bijwerken tijdens het invoeren</string>
+	<string name="screen_settings_glob_search">Zoek met behulp van glob patroon</string>
+	<string name="screen_settings_glob_search_summary">Gebruik glob patroon overeenkomsten zoals alice.*.jpg</string>
+	<string name="screen_settings_section_auto_lock">Automatisch vergrendelen</string>
+	<string name="screen_settings_auto_lock_timeout">Vergrendel na</string>
+	<string name="screen_settings_auto_lock_on_screen_lock">Wanneer scherm is uitgeschakeld</string>
+	<string name="screen_settings_section_auto_photo_upload">Foto\'s automatisch uploaden</string>
+	<string name="screen_settings_section_auto_photo_upload_vault">Kies kluis voor uploaden</string>
+	<string name="screen_settings_section_auto_photo_upload_toggle">Activeren</string>
+	<string name="screen_settings_section_auto_photo_upload_toggle_summary">Bewaar afbeeldingen op de achtergrond en begin met uploaden zodra de geselecteerde kluis is ontgrendeld</string>
 	<string name="screen_settings_section_auto_photo_upload_toggle_instant_upload">Meteen uploaden</string>
 	<string name="screen_settings_section_auto_photo_upload_toggle_instant_upload_summary">Meteen uploaden als de kluis ontgrendeld is</string>
+	<string name="screen_settings_section_auto_photo_upload_only_wifi_toggle">Enkel uploaden via WIFI</string>
+	<string name="screen_settings_section_auto_photo_upload_including_videos">Video\'s uploaden</string>
+	<string name="screen_settings_auto_photo_upload_title">Automatisch te uploaden bestanden opslaan in&#8230;</string>
+	<string name="screen_settings_website_label">Cryptomator website</string>
+	<string name="screen_settings_twitter_label">Volg ons op Twitter</string>
+	<string name="screen_settings_facebook_label">Vind ons leuk op Facebook</string>
+	<string name="screen_settings_section_legal">Juridisch</string>
+	<string name="screen_settings_licenses_label">Licenties</string>
+	<string name="screen_settings_license_terms_label">Licentievoorwaarden</string>
+	<string name="screen_settings_section_support">Ondersteuning</string>
+	<string name="screen_settings_contact_label">Hulp vragen</string>
+	<string name="screen_settings_debug_mode_label">Foutopsporingsmodus</string>
+	<string name="screen_settings_error_report_label">Logbestand versturen</string>
+	<string name="screen_settings_error_report_failed">Verzenden mislukt</string>
+	<string name="screen_settings_security_label">Beveiligingstips</string>
+	<string name="screen_settings_section_version">Versie</string>
+	<string name="screen_settings_advanced_settings">Geavanceerde opties</string>
+	<string name="screen_settings_background_unlock_preparation_label">Ontgrendelen versnellen</string>
+	<string name="screen_settings_background_unlock_preparation_label_summary">Download kluisconfiguratie op de achtergrond wanneer gevraagd wordt om het wachtwoord of biometrische authenticatie in te voeren</string>
+	<string name="screen_settings_keep_unlocked_while_editing_files">Ontgrendeld houden</string>
+	<string name="screen_settings_keep_unlocked_while_editing_files_summary">Houd kluizen ontgrendeld tijdens het bewerken van bestanden</string>
 	<!-- ## screen: cloud settings -->
+	<string name="screen_cloud_settings_webdav_connections">WebDAV verbindingen</string>
+	<string name="screen_cloud_settings_pcloud_connections">pCloud verbindingen</string>
+	<string name="screen_cloud_settings_s3_connections">S3 verbindingen</string>
+	<string name="screen_cloud_settings_local_storage_locations">Lokale opslaglocaties</string>
+	<string name="screen_cloud_settings_log_in_to">Inloggen bij</string>
+	<string name="screen_cloud_settings_sign_out_from_cloud">Uitloggen van</string>
 	<!-- ## screen: licenses -->
 	<!-- ## screen: authenticate cloud -->
+	<string name="screen_authenticate_auth_authentication_failed">%1$s kon niet worden geverifieerd.</string>
+	<string name="screen_update_pcloud_connections_title">PCloud inloggegevens bijwerken</string>
 	<!-- ## screen: insecure android version info -->
 	<!-- # dialogs -->
 	<string name="dialog_button_cancel">Annuleren</string>
 	<string name="dialog_enter_password_positive_button">Ontgrendel</string>
+	<string name="dialog_change_password_old_password_label">Oud wachtwoord</string>
+	<string name="dialog_change_password_new_password_label">Nieuw wachtwoord</string>
+	<string name="dialog_change_password">Wijzig wachtwoord</string>
+	<string name="dialog_change_password_msg_old_password_empty">Het oude wachtwoord kan niet leeg zijn.</string>
+	<string name="dialog_change_password_msg_new_password_empty">Nieuw wachtwoord kan niet leeg zijn.</string>
+	<string name="dialog_change_password_msg_password_mismatch">Nieuw wachtwoord komt niet overeen met het opnieuw ingevoerde wachtwoord.</string>
 	<!-- Vault not found -->
+	<string name="dialog_vault_not_found_title">Kluis %1$s niet gevonden</string>
+	<string name="dialog_vault_not_found_message">De kluis is hernoemd, verplaatst of verwijderd. Verwijder deze kluis uit de lijst en voeg opnieuw toe om verder te gaan. Nu verwijderen?</string>
 	<string name="dialog_vault_not_found_positive_button_text">Verwijderen</string>
+	<string name="dialog_existing_file_title">Bestand bestaat al</string>
+	<string name="dialog_existing_file_positive_button">Vervangen</string>
+	<string name="dialog_existing_file_message">Een bestand met de naam \'%1$s\' bestaat al.</string>
+	<string name="dialog_replace_negative_button_at_least_two_but_not_all_files_exist">Bestaande overslaan</string>
+	<string name="dialog_replace_positive_button_all_files_exist">Vervang alles</string>
+	<string name="dialog_replace_positive_button_some_files_exist">Vervang bestaande</string>
+	<string name="dialog_replace_positive_button_single_file_exists">Vervangen</string>
+	<string name="dialog_replace_msg_single_file_exists">Een bestand met de naam \'%1$s\' bestaat al. Wilt u het vervangen?</string>
+	<string name="dialog_replace_msg_all_files_exists">Alle bestanden bestaan al. Wil je ze vervangen?</string>
+	<string name="dialog_replace_msg_some_files_exists">%1$d bestanden bestaan al. Wil je ze vervangen?</string>
+	<string name="dialog_replace_title_single_file_exists">Bestand vervangen?</string>
+	<string name="dialog_replace_title_multiple_files_exist">Bestanden vervangen?</string>
+	<string name="dialog_unable_to_share_title">Kan bestanden niet delen</string>
+	<string name="dialog_unable_to_share_message">U heeft nog geen kluis ingesteld. Maak eerst een nieuwe kluis aan met de Cryptomator-app.</string>
 	<string name="dialog_unable_to_share_positive_button">Ok</string>
+	<string name="dialog_unable_to_share_negative_button">Kluis aanmaken</string>
+	<string name="dialog_filetype_not_supported_title">Kan %1$s niet openen</string>
+	<string name="dialog_filetype_not_supported_message">Download een app die dit bestand kan openen of wil je dit bestand op je apparaat opslaan?</string>
+	<string name="dialog_rename_vault_title">Kluis hernoemen</string>
+	<string name="dialog_rename_node_folder_title">Map hernoemen</string>
+	<string name="dialog_rename_node_file_title">Bestandsnaam wijzigen</string>
+	<string name="dialog_unsaved_changes_title">Je hebt niet-opgeslagen wijzigingen</string>
+	<string name="dialog_unsaved_changes_message">Wilt u afsluiten zonder op te slaan?</string>
+	<string name="dialog_unsaved_changes_discard">Negeren</string>
+	<string name="dialog_file_name_placeholder">tekst.txt</string>
+	<string name="dialog_delete_vault_message">Ben je zeker dat je deze kluis wilt verwijderen?</string>
+	<string name="dialog_delete_vault_hint">Deze actie zal de kluis alleen uit deze lijst verwijderen en nergens anders.</string>
+	<string name="dialog_upload_file_title">Uploaden&#8230;</string>
+	<string name="dialog_upload_file_remaining">Bestand %1$d van %2$d</string>
+	<string name="dialog_export_file_title">Exporteren (%1$d/%2$d)</string>
+	<string name="dialog_progress_please_wait">Een ogenblik geduld&#8230;</string>
+	<string name="dialog_progress_creating_folder">Map aanmaken&#8230;</string>
+	<string name="dialog_progress_creating_text_file">Tekstbestand aanmaken&#8230;</string>
+	<string name="action_progress_authentication">Authenticatie&#8230;</string>
+	<string name="action_progress_renaming">Hernoemen&#8230;</string>
+	<string name="action_progress_deleting">Verwijderen&#8230;</string>
+	<string name="dialog_progress_unlocking_vault">Kluis ontgrendelen&#8230;</string>
+	<string name="dialog_progress_change_password">Wachtwoord wijzigen&#8230;</string>
+	<string name="dialog_progress_creating_vault">Kluis aanmaken&#8230;</string>
+	<string name="dialog_progress_upload_file">Uploaden&#8230;</string>
+	<string name="dialog_progress_download_file">Downloaden&#8230;</string>
+	<string name="dialog_progress_encryption">Versleutelen&#8230;</string>
+	<string name="dialog_progress_decryption">Decoderen&#8230;</string>
+	<string name="action_progress_moving">Verplaatsen&#8230;</string>
 	<string name="dialog_lock_vault">Vergrendel</string>
+	<string name="dialog_accept_ssl_certificate_title">Ongeldig SSL-certificaat</string>
+	<string name="dialog_accept_ssl_certificate_hint">Het SSL-certificaat is ongeldig. Wilt u het toch vertrouwen?</string>
+	<string name="dialog_accept_ssl_certificate_details">Details</string>
+	<string name="dialog_accept_ssl_certificate_security_checkbox">Dit kan een veiligheidsrisico zijn. Ik weet wat ik doe.</string>
+	<string name="dialog_http_security_hint">Het gebruik van HTTP is onveilig. We raden aan om in plaats daarvan HTTPS te gebruiken. Als u de risico\'s weet, kunt u doorgaan met HTTP.</string>
+	<string name="dialog_http_security_checkbox">Verander naar HTTPS</string>
+	<string name="dialog_http_security_title">HTTPS gebruiken?</string>
+	<string name="dialog_no_screen_lock_hint">Er is geen schermvergrendeling ingesteld. Om uw gegevens veilig op te slaan, klik OK om een patroon of wachtwoord in te stellen.</string>
+	<string name="dialog_no_screen_lock_title">Schermvergrendeling instellen?</string>
+	<string name="dialog_no_screen_lock_checkbox">Schermvergrendeling instellen</string>
+	<string name="dialog_no_biometric_auth_set_up_title">Geen basisauthenticatie ingesteld in het systeem</string>
+	<string name="dialog_no_biometric_auth_set_up_message">Gebruik ten minste één vinger/gezicht om deze service te gebruiken.</string>
+	<string name="dialog_debug_mode_disclaimer_hint">In deze modus kunnen gevoelige gegevens naar een logbestand op je apparaat geschreven worden (bijv. bestandsnamen en paden). Wachtwoorden, cookies, etc. worden expliciet uitgesloten.\n\nVergeet niet om de foutopsporingsmodus zo snel mogelijk uit te schakelen.</string>
+	<string name="dialog_debug_mode_disclaimer_title">Aandacht</string>
+	<string name="dialog_debug_mode_positive_button">Inschakelen</string>
+	<string name="dialog_disable_app_obscured_disclaimer_hint">Deze instelling is een beveiligingsfunctie en voorkomt dat andere apps gebruikers misleiden.\n\nDoor deze instelling uit te schakelen bevestig je dat je <a href="https://docs.cryptomator.org/en/1.5/android/settings/#block-app-when-obscured"> bewust bent van de risico\'s</a>.</string>
+	<string name="dialog_disable_app_obscured_disclaimer_title">Aandacht</string>
+	<string name="dialog_disable_app_obscured_positive_button">Uitschakelen</string>
+	<string name="dialog_app_is_obscured_info_title">App is naar de achtergrond gewezen</string>
+	<string name="dialog_app_is_obscured_info_hint">Een andere app toont iets bovenop Cryptomator (bijv. een blauw lichtfilter of nachtmodus). Om veiligheidsredenen is Cryptomator uitgeschakeld.\n\n<a href="https://docs.cryptomator.org/en/1.5/android/settings/#block-app-when-obscured">Hoe kunt u Cryptomator inschakelen</a></string>
 	<string name="dialog_app_is_obscured_info_neutral_button">Sluiten</string>
+	<string name="dialog_disable_secure_screen_disclaimer_hint">Deze instelling is een beveiligingsfunctie en voorkomt dat andere apps gebruikers misleiden.\n\nDoor deze instelling uit te schakelen bevestig je dat je <a href="https://docs.cryptomator.org/en/1.5/android/settings/#screen-security"> bewust bent van de risico\'s</a>.</string>
+	<string name="dialog_delete_cloud_connection_with_vaults_message">Weet je zeker dat je deze cloud verbinding wilt verwijderen?</string>
+	<string name="dialog_delete_cloud_connection_with_vaults_hint">Deze actie zal de cloud-verbinding en alle kluizen van deze cloud verwijderen.</string>
+	<string name="dialog_confirm_delete_multiple_title">Verwijder %1$d items?</string>
+	<string name="dialog_confirm_delete_multiple_message">Weet u zeker dat u deze items wilt verwijderen?</string>
+	<string name="dialog_confirm_delete_file_message">Weet u zeker dat u dit bestand wilt verwijderen?</string>
+	<string name="dialog_confirm_delete_folder_message">Dit zal alle inhoud van de map verwijderen. Weet u zeker dat u deze map wilt verwijderen?</string>
+	<string name="dialog_biometric_auth_key_invalidated_title">Biometrische authenticatie functie gedeactiveerd</string>
+	<string name="dialog_biometric_auth_key_invalidated_message">Omdat de sleutel niet geldig is, is de biometrische authenticatie functie gedeactiveerd. Open de Cryptomator instellingen om deze opnieuw in te schakelen.</string>
+	<string name="dialog_enter_license_title">Geef een geldige licentie op</string>
+	<string name="dialog_enter_license_content">U heeft Cryptomator gedownload zonder Google Play Store te gebruiken. Geef een geldige licentie in. Een geldige licentie kan worden gekocht op <a href="https://cryptomator.org/android/">https://cryptomator.org/android/</a></string>
+	<string name="dialog_enter_license_not_valid_content">De opgegeven licentie is niet geldig. Zorg ervoor dat u deze correct hebt ingevoerd.</string>
+	<string name="dialog_enter_license_no_content">Geen licentie ingegeven. Voer een geldige licentie in.</string>
+	<string name="dialog_enter_license_decline_button">Afsluiten</string>
+	<string name="dialog_license_confirmation_title">Licentie bevestiging</string>
+	<string name="dialog_license_confirmation_message">Bedankt %1$s voor het ingeven van uw geldige licentie.</string>
+	<string name="dialog_update_available_title">Update beschikbaar</string>
+	<string name="dialog_update_available_message">Werk Cryptomator bij naar de laatste versie. Door op OK te drukken, downloaden we de app op de achtergrond en vragen we je om deze te installeren.</string>
+	<string name="dialog_update_available_update">Nu bijwerken</string>
+	<string name="dialog_update_available_download_site">Ga naar Download pagina</string>
+	<string name="dialog_update_available_cancel">Later</string>
+	<string name="dialog_download_update_title">Bezig met downloaden</string>
+	<string name="dialog_download_update_message">Laatste versie van Cryptomator downloaden</string>
+	<string name="dialog_sym_link_title">Map is een symbolische link</string>
+	<string name="dialog_sym_link_message">U kunt niet naar deze symbolische link navigeren</string>
 	<string name="dialog_sym_link_back_button">Terug</string>
+	<string name="dialog_no_dir_file_title">Kan de inhoud van de map niet laden</string>
 	<string name="dialog_no_dir_file_message">Cloud map \'%1$s\' heeft geen geldig sleutelbestand. Het kan zijn dat de map op een ander apparaat is aangemaakt en nog niet volledig is gesynchroniseerd met de cloud. Controleer in de cloud of het volgende bestand bestaat en niet leeg is:\n%2$s</string>
+	<string name="dialog_no_more_images_to_display">Geen afbeeldingen meer om weer te geven&#8230;</string>
+	<string name="dialog_pcloud_credentials_updated_title">Gebruiksgegevens van \'%1$s\' bijgewerkt</string>
+	<string name="dialog_pcloud_credentials_updated">Als je een nieuwe pCloud account probeerde toe te voegen, klik dan op deze url <a href="https://www.pcloud.com">www.pcloud. om</a>, log de huidige account uit en klik opnieuw op de \'+\' in deze app om een nieuwe cloud verbinding te maken.</string>
+	<string name="permission_snackbar_auth_local_vault">Cryptomator heeft toegang tot opslag nodig om lokale kluizen te kunnen gebruiken</string>
+	<string name="permission_snackbar_auth_auto_upload">Cryptomator heeft toegang tot opslag nodig om automatisch uploaden van foto\'s te kunnen gebruiken</string>
 	<!-- # error reports -->
 	<!-- # misc -->
 	<!-- ## file size helper -->
+	<string name="file_size_zero">Nul kB</string>
+	<string name="file_size_unit_bytes">bytes</string>
+	<string name="file_size_unit_kilo_bytes">kB</string>
+	<string name="file_size_unit_mega_bytes">MB</string>
+	<string name="file_size_unit_giga_bytes">GB</string>
+	<string name="file_size_unit_tera_bytes">TB</string>
 	<!-- ## date helper -->
+	<string name="time_unit_seconds_sg">seconde</string>
+	<string name="time_unit_seconds_pl">seconden</string>
+	<string name="time_unit_minutes_sg">minuut</string>
 	<string name="time_unit_minutes_pl">minuten</string>
+	<string name="time_unit_hours_sg">uur</string>
+	<string name="time_unit_hours_pl">uren</string>
+	<string name="time_unit_days_sg">dag</string>
+	<string name="time_unit_days_pl">dagen</string>
+	<string name="time_unit_weeks_sg">week</string>
+	<string name="time_unit_weeks_pl">weken</string>
+	<string name="time_unit_months_sg">maand</string>
+	<string name="time_unit_months_pl">maanden</string>
+	<string name="time_unit_years_sg">jaar</string>
+	<string name="time_unit_years_pl">jaren</string>
 	<!-- ## biometric authentication -->
+	<string name="dialog_biometric_auth_title">Biometrische login</string>
+	<string name="dialog_biometric_auth_message">Ontgrendelen met uw biometrische gegevens</string>
+	<string name="dialog_biometric_auth_use_password">Kluis wachtwoord gebruiken</string>
+	<string name="dialog_unable_to_auto_upload_files_title">Kan bestanden niet automatisch uploaden</string>
 	<!-- notification -->
+	<string name="notification_unlocked">Kluizen ontgrendeld: %1$d</string>
+	<string name="notification_timeout">Automatisch vergrendelen in %1$s</string>
+	<string name="notification_lock_all">Alles vergrendelen</string>
+	<string name="notification_cancel_auto_upload">Upload annuleren</string>
+	<string name="notification_auto_upload_title">Automatische foto upload actief</string>
+	<string name="notification_auto_upload_message">Uploaden %1d/%2d</string>
+	<string name="notification_auto_upload_finished_title">Automatische foto\'s uploaden voltooid</string>
+	<string name="notification_auto_upload_finished_message">%1$d afbeeldingen geüpload naar de kluis</string>
+	<string name="notification_auto_upload_failed_title">Automatische foto\'s uploaden mislukt</string>
+	<string name="notification_auto_upload_failed_general_error">Algemene fout opgetreden tijdens het uploaden.</string>
+	<string name="notification_auto_upload_failed_due_to_folder_not_exists">Geselecteerde map voor uploaden is niet meer beschikbaar. Ga naar instellingen en kies een nieuwe</string>
+	<string name="notification_auto_upload_failed_due_to_vault_locked">Kluis vergrendeld tijdens het uploaden, heropen de kluis om door te gaan</string>
+	<string name="notification_open_writable_file_title">Open schrijfbaar bestand</string>
+	<string name="notification_open_writable_file_message">Kluis blijft ontgrendeld tot het bewerken voltooid is</string>
+	<string name="notification_update_check_finished_latest">Laatste versie geïnstalleerd</string>
+	<string name="screen_settings_lru_cache">Cache</string>
+	<string name="screen_settings_lru_cache_toggle_summary">Bewaar recent geopende bestanden versleuteld en lokaal op het apparaat voor later hergebruik</string>
+	<string name="screen_settings_lru_cache_size">Totale cache grootte</string>
+	<string name="screen_settings_clear_lru_cache_size">Cache leegmaken</string>
+	<string name="screen_settings_lru_cache_changed__restart_toast">Wijzigingen worden toegepast bij het opnieuw opstarten van de app</string>
+	<string name="screen_settings_license">Geregistreerd voor</string>
+	<string name="screen_settings_license_mail">%1$s</string>
+	<string name="dialog_settings_update_check_interval_title">Update interval</string>
+	<string name="screen_settings_check_updates">Controleren op updates</string>
+	<string name="screen_settings_last_check_updates">Laatst uitgevoerd %1$s</string>
+	<string name="dialog_cache_size_title">Cachegrootte per Cloud</string>
 	<!-- lock timeout names -->
+	<string name="lock_timeout_instant">Onmiddellijk</string>
+	<string name="lock_timeout_1m">1 minuut</string>
+	<string name="lock_timeout_2m">2 minuten</string>
+	<string name="lock_timeout_5m">5 minuten</string>
+	<string name="lock_timeout_10m">10 minuten</string>
+	<string name="lock_timeout_never">Nooit</string>
 	<!-- cache size names -->
+	<string name="cache_size_50m">50 MB</string>
+	<string name="cache_size_100m">100 MB</string>
+	<string name="cache_size_250m">250 MB</string>
+	<string name="cache_size_500m">500 MB</string>
+	<string name="cache_size_1000m">1 GB</string>
+	<string name="cache_size_5000m">5 GB</string>
 	<!-- screen scheme mode names -->
+	<string name="screen_settings_style_mode">Stijl</string>
+	<string name="follow_system">Automatisch (systeemthema)</string>
 	<string name="light">Licht</string>
 	<string name="dark">Donker</string>
 	<!-- update interval names -->
+	<string name="update_interval_1d">Een keer per dag</string>
+	<string name="update_interval_1w">Een keer per week</string>
+	<string name="update_interval_1m">Een keer per maand</string>
 </resources>
