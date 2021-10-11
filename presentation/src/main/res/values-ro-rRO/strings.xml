@@ -16,7 +16,6 @@
 	<string name="error_cloud_already_exists">Acest cloud există deja.</string>
 	<string name="error_activity_not_found">Vă rugăm să descărcați o aplicație care poate deschide acest fișier.</string>
 	<string name="error_server_not_found">Serverul nu a fost găsit.</string>
-	<string name="error_device_policy_manager_not_found">Deschideți setările dispozitivelor dvs. și setați blocarea ecranului manual</string>
 	<string name="error_export_illegal_file_name">Exportul a eșuat. Încercați să eliminați caracterele speciale din numele fișierelor și să exportați din nou.</string>
 	<string name="error_name_contains_invalid_characters">Nu poate să conțină caractere speciale.</string>
 	<string name="error_names_contains_invalid_characters">Numele fișierelor nu pot conține caractere speciale.</string>
@@ -24,11 +23,7 @@
 	<string name="error_general_update">Verificarea actualizării a eșuat. A apărut o eroare generală.</string>
 	<string name="error_hash_mismatch_update">Verificarea actualizării a eșuat. Hash-ul calculat nu se potrivește cu fișierul încărcat</string>
 	<string name="error_update_no_internet">Verificarea actualizării a eșuat. Nu există conexiune la internet.</string>
-	<string name="error_failed_to_decrypt_webdav_password">Nu s-a reușit decriptarea parolei WebDAV, vă rugăm să o introduceți din nou în setări</string>
-	<string name="error_play_services_not_available">Serviciile Play nu sunt instalate</string>
 	<string name="error_biometric_auth_aborted">Autentificare biometrică anulată</string>
-	<string name="error_vault_version_mismatch">Versiunea specificată în vault.cryptomator este diferită de masterkey.cryptomator</string>
-	<string name="error_vault_key_invalid">vault.cryptomator nu se potrivește cu acest masterkey.cryptomator</string>
 	<string name="error_vault_config_loading">Eroare generală în timpul încărcării configurației seifului</string>
 	<string name="error_file_not_found_after_opening_using_3party">Fișierul local nu mai este prezent după ce s-a trecut înapoi la Cryptomator. Modificările posibile nu pot fi propagate înapoi în cloud.</string>
 	<string name="error_no_such_bucket">Nu există așa găleată</string>
@@ -221,7 +216,6 @@
 	<string name="dialog_change_password_msg_password_mismatch">Parola nouă nu se potrivește cu parola reintrodusă.</string>
 	<!-- Vault not found -->
 	<string name="dialog_vault_not_found_title">Seiful %1$s nu a fost găsit</string>
-	<string name="dialog_vault_not_found_message">Seiful a fost redenumit, mutat sau şters. Ştergeţi acest seif format din listă şi adăugaţi-l din nou pentru a continua. Ștergeți acum?</string>
 	<string name="dialog_vault_not_found_positive_button_text">Șterge</string>
 	<string name="dialog_existing_file_title">Fişierul există deja</string>
 	<string name="dialog_existing_file_positive_button">Înlocuiește</string>
