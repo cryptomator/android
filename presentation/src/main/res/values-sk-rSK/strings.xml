@@ -16,7 +16,6 @@
 	<string name="error_cloud_already_exists">Cloud už existuje.</string>
 	<string name="error_activity_not_found">Prosím stiahnite takú aplikáciu ktorá dokáže otvoriť tento súbor.</string>
 	<string name="error_server_not_found">Server nenájdený.</string>
-	<string name="error_device_policy_manager_not_found">Prosím otvorte nastavenia zaridení a nastavte uzamykanie obrazovky ručne</string>
 	<string name="error_export_illegal_file_name">Export neúspešný. Pokúste sa odstrániť špeciálne znaky z názvov súborov a exportujte znovu.</string>
 	<string name="error_name_contains_invalid_characters">Nemôže obsahovať špeciálne znaky.</string>
 	<string name="error_names_contains_invalid_characters">Názvy súborov nesmú obsahovať špecálne znaky.</string>
@@ -24,11 +23,7 @@
 	<string name="error_general_update">Kontrola aktualizácie zlyhala. Vyskytol sa problém.</string>
 	<string name="error_hash_mismatch_update">Kontrola aktualizácie zlyhala. Vypočítaný hash nekorešponduje s nahratým súborom</string>
 	<string name="error_update_no_internet">Kontrola aktualizácie zlyhala. Neexistuje spojenie s internetom.</string>
-	<string name="error_failed_to_decrypt_webdav_password">Dešifrovanie WebDAV hesla zlyhalo, prosím o znovu zadanie v nastaveniach</string>
-	<string name="error_play_services_not_available">Služby prehrávania nie sú inštalované</string>
 	<string name="error_biometric_auth_aborted">Biometrická autentikácia prerušená</string>
-	<string name="error_vault_version_mismatch">Verzia špecifikovaná v trezore.cryptomator-a je odlišná od hlavného kľúča.cryptomator-a</string>
-	<string name="error_vault_key_invalid">trezor.cryptomator-a nesúhlasí s hlavným kľúčom.cryptomator-a</string>
 	<string name="error_vault_config_loading">Chyba počas zavádzania konfigurácie trezora</string>
 	<string name="error_file_not_found_after_opening_using_3party">Lokálny súbor nie je viac prezentovaný po prepnutí naspäť do Cryptomator-a. Možné zmeny sa neprenesú späť do cloudu.</string>
 	<string name="error_no_such_bucket">Žiadna taká nádoba</string>
@@ -224,7 +219,6 @@
 	<string name="dialog_change_password_msg_password_mismatch">Nové heslo nie je totožné s prepisovaným heslom.</string>
 	<!-- Vault not found -->
 	<string name="dialog_vault_not_found_title">Súbor %1$s nenájdený</string>
-	<string name="dialog_vault_not_found_message">Trezor bol premenovaný, premiestnený alebo zmazaný. Odstrániť tento trezor zo zoznamu a pridať ho znovu. Odstrániť teraz?</string>
 	<string name="dialog_vault_not_found_positive_button_text">Odstrániť</string>
 	<string name="dialog_existing_file_title">Súbor už existuje</string>
 	<string name="dialog_existing_file_positive_button">Nahradiť</string>
