@@ -16,7 +16,6 @@
 	<string name="error_cloud_already_exists">موفر الخدمة السحابية موجود مسبقاً.</string>
 	<string name="error_activity_not_found">الرجاء تحميل تطبيق يمكنه فتح هذا الملف.</string>
 	<string name="error_server_not_found">لم يتم العثور على الخادم.</string>
-	<string name="error_device_policy_manager_not_found">الرجاء فتح إعدادات أجهزتك وتعيين قفل الشاشة يدوياً</string>
 	<string name="error_export_illegal_file_name">فشل التصدير. حاول إزالة الأحرف الخاصة من أسماء الملفات وتصديرها مرة أخرى.</string>
 	<string name="error_name_contains_invalid_characters">لا يمكن أن يحتوي علي رموز خاصة.</string>
 	<string name="error_names_contains_invalid_characters">اسم الملف لا يمكن أن يحتوي علي رموز خاصة.</string>
@@ -24,11 +23,7 @@
 	<string name="error_general_update">فشل التحقق من التحديث. حدث خطأ عام.</string>
 	<string name="error_hash_mismatch_update">فشل التحقق من التحديث. التجزئة المحسوبة لا تتطابق مع الملف المرفوع</string>
 	<string name="error_update_no_internet">فشل التحقق من التحديث. لا يوجد اتصال بالإنترنت.</string>
-	<string name="error_failed_to_decrypt_webdav_password">فشل فك تشفير كلمة المرور WebDAV، الرجاء إضافتها في الإعدادات</string>
-	<string name="error_play_services_not_available">خدمات متجر Google غير مثبتة</string>
 	<string name="error_biometric_auth_aborted">تم إلغاء استخدام البصمة في عملية التوثيق</string>
-	<string name="error_vault_version_mismatch">الإصدارة المحدد في vault.cryptomator مختلفة عن الإصدراة التي في masterkey.cryptomator</string>
-	<string name="error_vault_key_invalid">vault.cryptomator لا يتطابق مع masterkey.cryptomator الحالي</string>
 	<string name="error_vault_config_loading">خطأ عام أثناء تحميل إعدادات المخزن</string>
 	<string name="error_file_not_found_after_opening_using_3party">بعد إعادة التبديل الي Cryptomator لم يعد الملف المحلي موجود. لايمكن نشر التعديلات الي موفر الخدمة السحابية.</string>
 	<string name="error_masterkey_location_not_supported">موقع المفتاح الرئيسي غير مدعوم بعد</string>
@@ -125,7 +120,7 @@
 	<string name="screen_s3_settings_display_name_label">الاسم المعروض</string>
 	<string name="screen_s3_settings_access_key_label">مفتاح الوصول</string>
 	<string name="screen_s3_settings_secret_key_label">المفتاح السري</string>
-	<string name="screen_s3_settings_endpoint_label" comment="The &quot;endpoint&quot; is basically the complete URL, including hostname, port and path to an S3 bucket.">نقطة الوصول</string>
+	<string name="screen_s3_settings_endpoint_label">نقطة الوصول</string>
 	<string name="screen_s3_settings_region_label">المنطقة</string>
 	<string name="screen_s3_settings_msg_display_name_not_empty">إسم العرض لا يمكن أن يكون فارغاً</string>
 	<string name="screen_s3_settings_msg_access_key_not_empty">مفتاح الوصول لا يمكن أن يكون فارغاً</string>
@@ -208,7 +203,6 @@
 	<string name="dialog_change_password_msg_password_mismatch">كلمة المرور الجديدة يجب أن تتطابق مع تأكيد كلمة المرور.</string>
 	<!-- Vault not found -->
 	<string name="dialog_vault_not_found_title">المخزن %1$s غير موجود</string>
-	<string name="dialog_vault_not_found_message">تم تغيير اسم المخزن أو نقله أو حذفه. إزالة هذا المخزن من القائمة وإضافته مرة أخرى للمواصلة. إزالة الآن؟</string>
 	<string name="dialog_vault_not_found_positive_button_text">حذف</string>
 	<string name="dialog_existing_file_title">الملف موجود مسبقا</string>
 	<string name="dialog_existing_file_positive_button">إستبدال</string>
