@@ -16,7 +16,6 @@
 	<string name="error_cloud_already_exists">Konto finns redan.</string>
 	<string name="error_activity_not_found">Ladda ner en app som kan öppna denna fil.</string>
 	<string name="error_server_not_found">Servern hittades inte.</string>
-	<string name="error_device_policy_manager_not_found">Öppna enhetsinställningar och ställ in skärmlåset manuellt</string>
 	<string name="error_export_illegal_file_name">Exporten misslyckades. Försök att ta bort specialtecken från filnamn och exportera igen.</string>
 	<string name="error_name_contains_invalid_characters">Får inte innehålla specialtecken.</string>
 	<string name="error_names_contains_invalid_characters">Filnamn får inte innehålla specialtecken.</string>
@@ -24,11 +23,7 @@
 	<string name="error_general_update">Uppdateringskontrollen misslyckades. Allmänt fel uppstod.</string>
 	<string name="error_hash_mismatch_update">Uppdateringskontrollen misslyckades. Beräknad hash matchar inte den uppladdade filen</string>
 	<string name="error_update_no_internet">Uppdateringskontrollen misslyckades. Ingen internetanslutning.</string>
-	<string name="error_failed_to_decrypt_webdav_password">Det gick inte att dekryptera WebDAV lösenord, vänligen ange på nytt i inställningar</string>
-	<string name="error_play_services_not_available">Google Play Services inte installerad</string>
 	<string name="error_biometric_auth_aborted">Biometrisk autentisering avbruten</string>
-	<string name="error_vault_version_mismatch">Angiven version i vault.cryptomator är annan än masterkey.cryptomator</string>
-	<string name="error_vault_key_invalid">vault.cryptomator matchar inte med denna masterkey.cryptomator</string>
 	<string name="error_vault_config_loading">Allmänt fel vid inläsning av valvkonfiguration</string>
 	<string name="error_file_not_found_after_opening_using_3party">Lokal fil finns inte längre efter att ha bytt tillbaka till Cryptomator. Eventuella ändringar kan inte synkas tillbaka till molnet.</string>
 	<string name="error_no_such_bucket">Ingen sådan bucket</string>
@@ -220,7 +215,6 @@
 	<string name="dialog_change_password_msg_password_mismatch">De både lösenorden matchar inte.</string>
 	<!-- Vault not found -->
 	<string name="dialog_vault_not_found_title">Valvet %1$s hittades inte</string>
-	<string name="dialog_vault_not_found_message">Valvet har döpts om, flyttats eller tagits bort. Ta bort detta valv från listan och lägg till det igen för att fortsätta. Ta bort nu?</string>
 	<string name="dialog_vault_not_found_positive_button_text">Ta bort</string>
 	<string name="dialog_existing_file_title">Filen finns redan</string>
 	<string name="dialog_existing_file_positive_button">Ersätt</string>
