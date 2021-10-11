@@ -16,7 +16,6 @@
 	<string name="error_cloud_already_exists">Bulut zaten var.</string>
 	<string name="error_activity_not_found">Lütfen bu dosyayı açabilen bir uygulama edinin.</string>
 	<string name="error_server_not_found">Sunucu bulunamadı.</string>
-	<string name="error_device_policy_manager_not_found">Lütfen cihaz ayarlarınızı açın ve ekran kilidini manuel ayarlayın</string>
 	<string name="error_export_illegal_file_name">Dışa aktarma başarısız oldu. Özel karakterleri dosya adlarından kaldırmayı ve tekrar dışa aktarmayı deneyin.</string>
 	<string name="error_name_contains_invalid_characters">Özel karakterler içeremez.</string>
 	<string name="error_names_contains_invalid_characters">Dosya adları özel karakterler içeremez.</string>
@@ -24,11 +23,7 @@
 	<string name="error_general_update">Genel bir hata oluştu ve güncelleme kontrolü başarısız oldu.</string>
 	<string name="error_hash_mismatch_update">Güncelleme kontrolü başarısız. Hesaplanan hash değeri ile yüklenen dosyanın ki eşleşmiyor</string>
 	<string name="error_update_no_internet">Güncelleme kontrolü başarısız oldu. İnternet bağlantısı yok.</string>
-	<string name="error_failed_to_decrypt_webdav_password">WebDAV şifresi çözülemedi, lütfen ayarlara yeniden ekleyin</string>
-	<string name="error_play_services_not_available">Play Hizmetleri yüklü değil</string>
 	<string name="error_biometric_auth_aborted">Biyometrik kimlik doğrulama iptal edildi</string>
-	<string name="error_vault_version_mismatch">Belirtilen vault.cryptomator versiyonu, masterkey.cryptomator versiyonundan farklı</string>
-	<string name="error_vault_key_invalid">vault.cryptomator masterkey.cryptomator ile eşleşmiyor</string>
 	<string name="error_vault_config_loading">Cüzdan ayarlarını yüklerken genel hata</string>
 	<string name="error_file_not_found_after_opening_using_3party">Cryptomator geri döndükten sonra, lokal dosya artık mevcut olmaz. Muhtemel değişiklikler bulutta tekrar oluşturulamaz.</string>
 	<string name="error_no_such_bucket">Böyle bir kova yok</string>
@@ -222,7 +217,6 @@
 	<string name="dialog_change_password_msg_password_mismatch">Yeni parola, parola tekrarı ile eşleşmiyor.</string>
 	<!-- Vault not found -->
 	<string name="dialog_vault_not_found_title">%1$s kasası bulunamadı</string>
-	<string name="dialog_vault_not_found_message">Kasa yeniden adlandırılmış, taşınmış veya silinmiş olabilir. Bu kasayı listeden çıkarın ve devam etmek için tekrar ekleyin. Şimdi kaldırılsın mı?</string>
 	<string name="dialog_vault_not_found_positive_button_text">Kaldır</string>
 	<string name="dialog_existing_file_title">Dosya zaten mevcut</string>
 	<string name="dialog_existing_file_positive_button">Değiştir</string>
