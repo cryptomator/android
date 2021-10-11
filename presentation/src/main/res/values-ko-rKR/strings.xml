@@ -23,7 +23,6 @@
 	<string name="error_general_update">업데이트 확인 실패. 에러가 발생했습니다.</string>
 	<string name="error_hash_mismatch_update">업데이트 확인 실패. 업로드된 파일과 해쉬값이 일치하지 않습니다.</string>
 	<string name="error_update_no_internet">업데이트 확인 실패. 인터넷에 연결되지 않았습니다.</string>
-	<string name="error_play_services_not_available">Google Play 서비스가 설치되지 않았습니다</string>
 	<string name="error_biometric_auth_aborted">생체 인증 취소됨</string>
 	<!-- # clouds -->
 	<!-- ## cloud names -->
