@@ -16,7 +16,6 @@
 	<string name="error_cloud_already_exists">Облако уже существует.</string>
 	<string name="error_activity_not_found">Скачайте приложение, которое может открыть этот файл.</string>
 	<string name="error_server_not_found">Сервер не найден.</string>
-	<string name="error_device_policy_manager_not_found">Откройте настройки устройств и установите блокировку экрана вручную</string>
 	<string name="error_export_illegal_file_name">Ошибка экспорта. Попробуйте удалить спецсимволы из имён файлов и экспортировать снова.</string>
 	<string name="error_name_contains_invalid_characters">Не может содержать спецсимволы.</string>
 	<string name="error_names_contains_invalid_characters">В имени файла не может быть спецсимволов.</string>
@@ -24,11 +23,7 @@
 	<string name="error_general_update">Не удалось проверить наличие обновления. Общая ошибка.</string>
 	<string name="error_hash_mismatch_update">Не удалось проверить обновление. Вычисленный хеш не соответствует отправленному файлу.</string>
 	<string name="error_update_no_internet">Ошибка проверки обновления. Нет подключения к Интернету.</string>
-	<string name="error_failed_to_decrypt_webdav_password">Не удалось расшифровать пароль WebDAV, добавьте его в настройках</string>
-	<string name="error_play_services_not_available">Сервисы Google Play не установлены</string>
 	<string name="error_biometric_auth_aborted">Биометрическая аутентификация прервана</string>
-	<string name="error_vault_version_mismatch">Указанная в vault.cryptomator версия отличается от masterkey.cryptomator</string>
-	<string name="error_vault_key_invalid">vault.cryptomator не совпадает с этим masterkey.cryptomator</string>
 	<string name="error_vault_config_loading">Общая ошибка при загрузке конфигурации хранилища</string>
 	<string name="error_file_not_found_after_opening_using_3party">Локальный файл больше не существует после переключения на Cryptomator. Возможные изменения не могут быть переданы обратно в облако.</string>
 	<string name="error_no_such_bucket">Нет такого бакета</string>
@@ -224,7 +219,6 @@
 	<string name="dialog_change_password_msg_password_mismatch">Новый пароль не совпадает с повторным паролем.</string>
 	<!-- Vault not found -->
 	<string name="dialog_vault_not_found_title">Хранилище %1$s не найдено</string>
-	<string name="dialog_vault_not_found_message">Хранилище было переименовано, перемещено или удалено. Удалите это хранилище из списка и добавьте снова, чтобы продолжить. Удалить?</string>
 	<string name="dialog_vault_not_found_positive_button_text">Удалить</string>
 	<string name="dialog_existing_file_title">Файл уже существует</string>
 	<string name="dialog_existing_file_positive_button">Заменить</string>
