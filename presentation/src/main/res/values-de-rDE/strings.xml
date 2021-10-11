@@ -16,6 +16,7 @@
 	<string name="error_cloud_already_exists">Cloud existiert bereits.</string>
 	<string name="error_activity_not_found">Installiere eine App, die diesen Dateityp unterstützt.</string>
 	<string name="error_server_not_found">Server nicht gefunden.</string>
+	<string name="error_device_policy_manager_not_found">Bitte öffne die Einstellungen und setze den Sperrbildschirm von Hand</string>
 	<string name="error_export_illegal_file_name">Export fehlgeschlagen. Versuche, Sonderzeichen aus den Dateinamen zu entfernen und erneut zu exportieren.</string>
 	<string name="error_name_contains_invalid_characters">Keine Sonderzeichen möglich.</string>
 	<string name="error_names_contains_invalid_characters">Dateinamen können keine Sonderzeichen enthalten.</string>
@@ -23,7 +24,11 @@
 	<string name="error_general_update">Prüfung auf Aktualisierungen fehlgeschlagen. Ein Fehler ist aufgetreten.</string>
 	<string name="error_hash_mismatch_update">Update-Überprüfung fehlgeschlagen. Berechnete Prüfsumme entspricht nicht der der hochgeladenen Datei</string>
 	<string name="error_update_no_internet">Prüfung auf Aktualisierungen fehlgeschlagen. Keine Internetverbindung.</string>
+	<string name="error_failed_to_decrypt_webdav_password">Beim entschlüsseln des WebDAV-Passworts trat ein Fehler auf. Bitte in den Einstellungen erneut festlegen.</string>
+	<string name="error_play_services_not_available">Die Google Play Services sind nicht installiert</string>
 	<string name="error_biometric_auth_aborted">Biometrischer Login abgebrochen</string>
+	<string name="error_vault_version_mismatch">Die in der %1$s-Datei angegebene Version ist nicht identisch mit jener der %2$s-Datei</string>
+	<string name="error_vault_key_invalid">%1$s-Datei stimmt nicht mit der %2$s-Datei überein</string>
 	<string name="error_vault_config_loading">Allgemeiner Fehler beim Laden der Tresorkonfiguration</string>
 	<string name="error_file_not_found_after_opening_using_3party">Lokale Datei ist nach dem Zurückwechseln zu Cryptomator nicht mehr vorhanden. Mögliche Änderungen können nicht in die Cloud übertragen werden.</string>
 	<string name="error_no_such_bucket">Bucket existiert nicht</string>
@@ -217,6 +222,7 @@
 	<string name="dialog_change_password_msg_password_mismatch">Neue Passwort stimmt nicht mit dem wiederholten Passwort überein.</string>
 	<!-- Vault not found -->
 	<string name="dialog_vault_not_found_title">Tresor %1$s nicht gefunden</string>
+	<string name="dialog_vault_not_found_message">Der Tresor wurde umbenannt, verschoben oder gelöscht. Entferne diesen aus der Tresorliste und füge ihn erneut hinzu um fortzufahren. Tresor jetzt entfernen?</string>
 	<string name="dialog_vault_not_found_positive_button_text">Entfernen</string>
 	<string name="dialog_existing_file_title">Datei existiert bereits</string>
 	<string name="dialog_existing_file_positive_button">Ersetzen</string>
