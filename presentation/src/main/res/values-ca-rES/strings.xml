@@ -16,7 +16,6 @@
 	<string name="error_cloud_already_exists">Núvol ja existent.</string>
 	<string name="error_activity_not_found">Descarregueu un aplicació que pugui obrir aquest fitxer.</string>
 	<string name="error_server_not_found">No s\'ha trobat el servidor.</string>
-	<string name="error_device_policy_manager_not_found">Obriu la configuració dels vostres dispositius i establiu el bloqueig de pantalla a mà</string>
 	<string name="error_export_illegal_file_name">Ha fallat l\'exportació. Proveu a eliminar caràcters especials dels noms dels fitxers i torneu a exportar.</string>
 	<string name="error_name_contains_invalid_characters">No pot tenir caràcters especials.</string>
 	<string name="error_names_contains_invalid_characters">Els noms dels fitxers no poden tenir caràctes especials.</string>
@@ -24,11 +23,7 @@
 	<string name="error_general_update">Ha fallat la comprovació d\'actualització. S\'ha produït un error general.</string>
 	<string name="error_hash_mismatch_update">Ha fallat la comprovació d\'actualització. La suma de comprovació no coincideix amb la del fitxer pujat</string>
 	<string name="error_update_no_internet">Ha fallat la comprovació d\'actualització. No hi ha connexió a Internet.</string>
-	<string name="error_failed_to_decrypt_webdav_password">Error desxifrant la contrasenya WebDAV, torneu a afegir-la a la configuració</string>
-	<string name="error_play_services_not_available">Serveis de Google Play no instal·lats</string>
 	<string name="error_biometric_auth_aborted">Autenticació biomètrica avortada</string>
-	<string name="error_vault_version_mismatch">La versió especificada a vault.cryptomator és diferent de la masterkey.cryptomator</string>
-	<string name="error_vault_key_invalid">vault.cryptomator no coincideix amb aquesta masterkey.cryptomator</string>
 	<string name="error_vault_config_loading">Error general carregant la configuració de la caixa forta</string>
 	<string name="error_file_not_found_after_opening_using_3party">El fitxer local ja no és present després de tornar a canviar a Cryptomator. Els possibles canvis no és poden propagar cap al núvol.</string>
 	<string name="error_no_such_bucket">No existeix el cubell</string>
