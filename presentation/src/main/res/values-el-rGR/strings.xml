@@ -16,6 +16,7 @@
 	<string name="error_cloud_already_exists">Το Cloud υπάρχει ήδη.</string>
 	<string name="error_activity_not_found">Κάντε λήψη μιας εφαρμογής που μπορεί να ανοίξει αυτό το αρχείο.</string>
 	<string name="error_server_not_found">Ο διακομιστής δεν βρέθηκε.</string>
+	<string name="error_device_policy_manager_not_found">Ανοίξτε τις ρυθμίσεις της συσκευής σας και ορίστε το κλείδωμα οθόνης με το χέρι</string>
 	<string name="error_export_illegal_file_name">Η εξαγωγή απέτυχε. Προσπαθήστε να αφαιρέσετε ειδικούς χαρακτήρες από τα ονόματα αρχείων και να εξαγάγετε ξανά.</string>
 	<string name="error_name_contains_invalid_characters">Δεν μπορεί να περιέχει ειδικούς χαρακτήρες.</string>
 	<string name="error_names_contains_invalid_characters">Τα ονόματα αρχείων δεν μπορούν να περιέχουν ειδικούς χαρακτήρες.</string>
@@ -23,7 +24,11 @@
 	<string name="error_general_update">Ο έλεγχος ενημέρωσης απέτυχε. Παρουσιάστηκε γενικό σφάλμα.</string>
 	<string name="error_hash_mismatch_update">Ο έλεγχος ενημέρωσης απέτυχε. Ο υπολογισμός hash δεν ταιριάζει με το μεταφορτωμένο αρχείο</string>
 	<string name="error_update_no_internet">Ο έλεγχος ενημέρωσης απέτυχε. Δεν υπάρχει σύνδεση στο διαδίκτυο.</string>
+	<string name="error_failed_to_decrypt_webdav_password">Αποτυχία αποκρυπτογράφησης κωδικού πρόσβασης WebDAV, προσθέστε ξανά στις ρυθμίσεις</string>
+	<string name="error_play_services_not_available">Οι Υπηρεσίες Google Play δεν έχουν εγκατασταθεί</string>
 	<string name="error_biometric_auth_aborted">Η βιομετρική πιστοποίηση ματαιώθηκε</string>
+	<string name="error_vault_version_mismatch">Η έκδοση που καθορίστηκε στο %1$s είναι διαφορετική από %2$s</string>
+	<string name="error_vault_key_invalid">%1$s δεν ταιριάζει με αυτό %2$s</string>
 	<string name="error_vault_config_loading">Γενικό σφάλμα κατά τη φόρτωση της ρύθμισης κρύπτης</string>
 	<string name="error_file_not_found_after_opening_using_3party">Το τοπικό αρχείο δεν υπάρχει πλέον μετά την επιστροφή στο Cryptomator. Οι πιθανές αλλαγές δεν μπορούν να μεταδοθούν πίσω στο cloud.</string>
 	<string name="error_no_such_bucket">Δεν υπάρχει τέτοιος κάδος</string>
@@ -217,6 +222,7 @@
 	<string name="dialog_change_password_msg_password_mismatch">Ο νέος κωδικός πρόσβασης δεν ταιριάζει με τον κωδικό πρόσβασης που πληκτρολογήθηκε.</string>
 	<!-- Vault not found -->
 	<string name="dialog_vault_not_found_title">Η κρύπτη %1$s δεν βρέθηκε</string>
+	<string name="dialog_vault_not_found_message">Η κρύπτη μετονομάστηκε, μετακινήθηκε ή διαγράφηκε. Αφαιρέστε αυτή την κρύπτη από την λίστα και προσθέστε την ξανά για να συνεχίσετε. Αφαίρεση τώρα;</string>
 	<string name="dialog_vault_not_found_positive_button_text">Αφαίρεση</string>
 	<string name="dialog_existing_file_title">Το αρχείο υπάρχει ήδη</string>
 	<string name="dialog_existing_file_positive_button">Αντικατάσταση</string>
