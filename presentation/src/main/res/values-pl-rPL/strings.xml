@@ -16,7 +16,6 @@
 	<string name="error_cloud_already_exists">Usługa już istnieje.</string>
 	<string name="error_activity_not_found">Pobierz aplikację, która może otworzyć ten plik.</string>
 	<string name="error_server_not_found">Nie znaleziono serwera.</string>
-	<string name="error_device_policy_manager_not_found">Otwórz ustawienia urządzenia i ustaw ręcznie blokadę ekranu</string>
 	<string name="error_export_illegal_file_name">Eksport nie powiódł się. Spróbuj usunąć znaki specjalne z nazw plików i spróbuj ponownie.</string>
 	<string name="error_name_contains_invalid_characters">Nie może zawierać znaków specjalnych.</string>
 	<string name="error_names_contains_invalid_characters">Nazwa pliku nie może zawierać znaków specjalnych.</string>
@@ -24,11 +23,7 @@
 	<string name="error_general_update">Błąd sprawdzania aktualizacji. Wystąpił błąd ogólny.</string>
 	<string name="error_hash_mismatch_update">Błąd sprawdzania aktualizacji. Obliczony hash nie pasuje do pobranego pliku</string>
 	<string name="error_update_no_internet">Błąd sprawdzania aktualizacji. Brak połączenia z Internetem.</string>
-	<string name="error_failed_to_decrypt_webdav_password">Nie udało się odszyfrować hasła WebDAV, proszę dodać je w ustawieniach</string>
-	<string name="error_play_services_not_available">Usługi Google Play nie są zainstalowane</string>
 	<string name="error_biometric_auth_aborted">Przerwano biometryczną autoryzację</string>
-	<string name="error_vault_version_mismatch">Wersja w vault.cryptomator niezgodna z wersją w masterkey.cryptomator</string>
-	<string name="error_vault_key_invalid">vault.cryptomator nie pasuje do tego masterkey.cryptomator</string>
 	<string name="error_vault_config_loading">Ogólny błąd podczas ładowania konfiguracji sejfu</string>
 	<string name="error_file_not_found_after_opening_using_3party">Lokalny plik nie jest już obecny po przełączeniu się z powrotem na Cryptomator. Możliwe zmiany nie mogą być przeniesione z powrotem do chmury.</string>
 	<string name="error_no_such_bucket">Nie ma takiego bucketu</string>
@@ -224,7 +219,6 @@
 	<string name="dialog_change_password_msg_password_mismatch">Hasła nie zgadzają się.</string>
 	<!-- Vault not found -->
 	<string name="dialog_vault_not_found_title">Sejfu %1$s nie odnaleziono</string>
-	<string name="dialog_vault_not_found_message">Sejf został przeniesiony, usunięty albo zmieniono jego nazwę. Należy usunąć ten sejf z listy i dodać go ponownie. Chcesz to zrobić teraz?</string>
 	<string name="dialog_vault_not_found_positive_button_text">Usuń</string>
 	<string name="dialog_existing_file_title">Plik już istnieje</string>
 	<string name="dialog_existing_file_positive_button">Zastąp</string>
