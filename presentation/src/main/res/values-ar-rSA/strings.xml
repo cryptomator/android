@@ -125,7 +125,7 @@
 	<string name="screen_s3_settings_display_name_label">الاسم المعروض</string>
 	<string name="screen_s3_settings_access_key_label">مفتاح الوصول</string>
 	<string name="screen_s3_settings_secret_key_label">المفتاح السري</string>
-	<string name="screen_s3_settings_endpoint_label">نقطة الوصول</string>
+	<string name="screen_s3_settings_endpoint_label" comment="The &quot;endpoint&quot; is basically the complete URL, including hostname, port and path to an S3 bucket.">نقطة الوصول</string>
 	<string name="screen_s3_settings_region_label">المنطقة</string>
 	<string name="screen_s3_settings_msg_display_name_not_empty">إسم العرض لا يمكن أن يكون فارغاً</string>
 	<string name="screen_s3_settings_msg_access_key_not_empty">مفتاح الوصول لا يمكن أن يكون فارغاً</string>
@@ -291,10 +291,17 @@
 	<string name="dialog_update_available_download_site">انتقل إلى صفحة التحميل</string>
 	<string name="dialog_update_available_cancel">لاحقاً</string>
 	<string name="dialog_sym_link_back_button">رجوع</string>
+	<string name="dialog_pcloud_credentials_updated_title">تم تحديث وثائق تفويض \'%1$s\'</string>
 	<string name="dialog_pcloud_credentials_updated">إذا كنت ترغب في إضافة حساب pCloud جديد، انقر على هذا الرابط <a href="https://www.pcloud.com">www.pcloud. om</a>، قم بتسجيل الخروج من الحساب الحالي وانقر مرة أخرى على \'+\' في هذا التطبيق لإنشاء اتصال سحابي جديد.</string>
 	<!-- # error reports -->
 	<!-- # misc -->
 	<!-- ## file size helper -->
+	<string name="file_size_zero">0 ك. ب</string>
+	<string name="file_size_unit_bytes">ب</string>
+	<string name="file_size_unit_kilo_bytes">ك. ب</string>
+	<string name="file_size_unit_mega_bytes">م. ب</string>
+	<string name="file_size_unit_giga_bytes">ق. ب</string>
+	<string name="file_size_unit_tera_bytes">ت. ب</string>
 	<!-- ## date helper -->
 	<string name="time_unit_seconds_sg">ثانية</string>
 	<string name="time_unit_seconds_pl">ثواني</string>
@@ -302,6 +309,8 @@
 	<string name="time_unit_minutes_pl">دقائق</string>
 	<string name="time_unit_hours_sg">ساعة</string>
 	<string name="time_unit_hours_pl">ساعات</string>
+	<string name="time_unit_days_sg">يوم</string>
+	<string name="time_unit_days_pl">أيام</string>
 	<string name="time_unit_weeks_sg">أسبوع</string>
 	<string name="time_unit_weeks_pl">أسابيع</string>
 	<string name="time_unit_months_sg">شهر</string>
@@ -328,8 +337,22 @@
 	<string name="notification_auto_upload_failed_due_to_vault_locked">تم قفل المخزن اثناء الرفع، الرجاء قم بفتحه لمتابعة الرفع</string>
 	<string name="notification_open_writable_file_title">فتح ملف قابل للكتابة</string>
 	<string name="notification_open_writable_file_message">سوف يبقى المخزن مفتوحاً حتي يتم التعديل</string>
+	<string name="notification_update_check_finished_latest">تم تثبيت آخر إصدارة</string>
+	<string name="screen_settings_lru_cache">ذاكرة التخزين المؤقت</string>
+	<string name="screen_settings_lru_cache_size">إجمالي حجم ذاكرة التخزين المؤقت</string>
+	<string name="screen_settings_clear_lru_cache_size">مسح بيانات الذاكرة المؤقتة</string>
+	<string name="screen_settings_lru_cache_changed__restart_toast">سيتم تطبيق التغييرات عند إعادة تشغيل التطبيق</string>
+	<string name="screen_settings_license">مسجل لـ</string>
+	<string name="screen_settings_license_mail">%1$s</string>
+	<string name="dialog_settings_update_check_interval_title">الفاصل الزمني للتحديث</string>
+	<string name="screen_settings_check_updates">بحث عن تحديثات</string>
+	<string name="screen_settings_last_check_updates">اخر بحث %1$s</string>
 	<string name="dialog_cache_size_title">حجم ذاكرة التخزين المؤقت لكل سحابة</string>
 	<!-- lock timeout names -->
+	<string name="lock_timeout_instant">فوري</string>
+	<string name="lock_timeout_1m">دقيقة</string>
+	<string name="lock_timeout_2m">دقيقتان</string>
+	<string name="lock_timeout_5m">5 دقائق</string>
 	<string name="lock_timeout_10m">١٠ دقائق</string>
 	<string name="lock_timeout_never">ابداً</string>
 	<!-- cache size names -->
