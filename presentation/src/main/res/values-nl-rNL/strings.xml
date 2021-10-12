@@ -16,6 +16,7 @@
 	<string name="error_cloud_already_exists">Cloud bestaat reeds.</string>
 	<string name="error_activity_not_found">Download een app die dit bestand kan openen.</string>
 	<string name="error_server_not_found">Server niet gevonden.</string>
+	<string name="error_device_policy_manager_not_found">Open de instellingen van uw apparaat en stel de schermvergrendeling met de hand in</string>
 	<string name="error_export_illegal_file_name">Exporteren is mislukt. Verwijder speciale tekens uit de bestandsnamen en probeer opnieuw.</string>
 	<string name="error_name_contains_invalid_characters">Kan geen speciale tekens bevatten.</string>
 	<string name="error_names_contains_invalid_characters">Bestandsnamen mogen geen speciale tekens bevatten.</string>
@@ -23,7 +24,11 @@
 	<string name="error_general_update">Update controle mislukt. Algemene fout opgetreden.</string>
 	<string name="error_hash_mismatch_update">Update controle mislukt. Berekende hash komt niet overeen met het geüploade bestand</string>
 	<string name="error_update_no_internet">Update controle mislukt. Geen internetverbinding.</string>
+	<string name="error_failed_to_decrypt_webdav_password">Fout bij het decoderen van WebDAV wachtwoord, voeg dit opnieuw toe in de instellingen</string>
+	<string name="error_play_services_not_available">Google Play Services niet geïnstalleerd</string>
 	<string name="error_biometric_auth_aborted">Biometrische authenticatie geannuleerd</string>
+	<string name="error_vault_version_mismatch">Versie gespecificeerd in %1$s is anders dan %2$s</string>
+	<string name="error_vault_key_invalid">%1$s komt niet overeen met deze %2$s</string>
 	<string name="error_vault_config_loading">Algemene fout tijdens het laden van de kluisconfiguratie</string>
 	<string name="error_file_not_found_after_opening_using_3party">Lokaal bestand is niet meer aanwezig na het terugschakelen naar Cryptomator. Mogelijke wijzigingen kunnen niet worden verzonden naar de cloud.</string>
 	<string name="error_no_such_bucket">Deze bucket is niet gevonden</string>
@@ -213,6 +218,7 @@
 	<string name="dialog_change_password_msg_password_mismatch">Nieuw wachtwoord komt niet overeen met het opnieuw ingevoerde wachtwoord.</string>
 	<!-- Vault not found -->
 	<string name="dialog_vault_not_found_title">Kluis %1$s niet gevonden</string>
+	<string name="dialog_vault_not_found_message">De kluis is hernoemd, verplaatst of verwijderd. Verwijder deze kluis uit de lijst en voeg opnieuw toe om verder te gaan. Nu verwijderen?</string>
 	<string name="dialog_vault_not_found_positive_button_text">Verwijderen</string>
 	<string name="dialog_existing_file_title">Bestand bestaat al</string>
 	<string name="dialog_existing_file_positive_button">Vervangen</string>
