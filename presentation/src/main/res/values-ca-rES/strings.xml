@@ -16,6 +16,7 @@
 	<string name="error_cloud_already_exists">Núvol ja existent.</string>
 	<string name="error_activity_not_found">Descarregueu un aplicació que pugui obrir aquest fitxer.</string>
 	<string name="error_server_not_found">No s\'ha trobat el servidor.</string>
+	<string name="error_device_policy_manager_not_found">Si us plau, aneu als ajustos del dispositiu i establiu el blocatge de la pantalla manualment</string>
 	<string name="error_export_illegal_file_name">Ha fallat l\'exportació. Proveu a eliminar caràcters especials dels noms dels fitxers i torneu a exportar.</string>
 	<string name="error_name_contains_invalid_characters">No pot tenir caràcters especials.</string>
 	<string name="error_names_contains_invalid_characters">Els noms dels fitxers no poden tenir caràctes especials.</string>
@@ -24,6 +25,7 @@
 	<string name="error_hash_mismatch_update">Ha fallat la comprovació d\'actualització. La suma de comprovació no coincideix amb la del fitxer pujat</string>
 	<string name="error_update_no_internet">Ha fallat la comprovació d\'actualització. No hi ha connexió a Internet.</string>
 	<string name="error_biometric_auth_aborted">Autenticació biomètrica avortada</string>
+	<string name="error_vault_version_mismatch">La versió especificada a %1$s és diferent a la de %2$s</string>
 	<string name="error_vault_config_loading">Error general carregant la configuració de la caixa forta</string>
 	<string name="error_file_not_found_after_opening_using_3party">El fitxer local ja no és present després de tornar a canviar a Cryptomator. Els possibles canvis no és poden propagar cap al núvol.</string>
 	<string name="error_no_such_bucket">No existeix el cubell</string>
@@ -182,6 +184,7 @@
 	<string name="screen_settings_section_version">Versió</string>
 	<string name="screen_settings_advanced_settings">Configuració avançada</string>
 	<string name="screen_settings_keep_unlocked_while_editing_files">Manté desblocat</string>
+	<string name="screen_settings_keep_unlocked_while_editing_files_summary">Manté les caixes fortes desblocades quan s\'editen els fitxers</string>
 	<!-- ## screen: cloud settings -->
 	<string name="screen_cloud_settings_webdav_connections">Connexions WebDAV</string>
 	<string name="screen_cloud_settings_pcloud_connections">connexions pCloud</string>
@@ -208,7 +211,12 @@
 	<string name="dialog_existing_file_title">El fitxer ja existeix</string>
 	<string name="dialog_existing_file_positive_button">Substitueix</string>
 	<string name="dialog_existing_file_message">Ja existeix un fitxer anomenat \'%1$s\'.</string>
+	<string name="dialog_replace_positive_button_all_files_exist">Substitueix-ho tot</string>
 	<string name="dialog_replace_positive_button_single_file_exists">Substitueix</string>
+	<string name="dialog_replace_msg_single_file_exists">Ja existeix un fitxer anomenat \'%1$s\'. Voleu sobreescriure\'l?</string>
+	<string name="dialog_replace_msg_all_files_exists">Els fitxers ja existeixen. Voleu sobreescriure\'ls?</string>
+	<string name="dialog_replace_msg_some_files_exists">%1$d fitxers ja existeixen. Voleu sobreescriure\'ls?</string>
+	<string name="dialog_replace_title_single_file_exists">Voleu substituir el fitxer?</string>
 	<string name="dialog_replace_title_multiple_files_exist">Voleu substituir els fitxers?</string>
 	<string name="dialog_unable_to_share_title">No es poden compartir fitxers</string>
 	<string name="dialog_unable_to_share_positive_button">D\'acord</string>
@@ -256,6 +264,11 @@
 	<!-- # misc -->
 	<!-- ## file size helper -->
 	<string name="file_size_zero">Zero kB</string>
+	<string name="file_size_unit_bytes">bytes</string>
+	<string name="file_size_unit_kilo_bytes">kB</string>
+	<string name="file_size_unit_mega_bytes">MB</string>
+	<string name="file_size_unit_giga_bytes">GB</string>
+	<string name="file_size_unit_tera_bytes">TB</string>
 	<!-- ## date helper -->
 	<string name="time_unit_seconds_sg">segon</string>
 	<string name="time_unit_seconds_pl">segons</string>
