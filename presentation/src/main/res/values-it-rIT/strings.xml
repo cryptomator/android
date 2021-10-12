@@ -16,6 +16,7 @@
 	<string name="error_cloud_already_exists">Il Cloud esiste già.</string>
 	<string name="error_activity_not_found">Scarica un\'app che possa aprire questo file.</string>
 	<string name="error_server_not_found">Server non trovato.</string>
+	<string name="error_device_policy_manager_not_found">Si prega di aprire le impostazioni del dispositivo e impostare il blocco schermo a mano</string>
 	<string name="error_export_illegal_file_name">Esportazione non riuscita. Prova a rimuovere i caratteri speciali dai nomi dei file ed esportare di nuovo.</string>
 	<string name="error_name_contains_invalid_characters">Non può contenere caratteri speciali.</string>
 	<string name="error_names_contains_invalid_characters">I nomi dei file non possono contenere caratteri speciali.</string>
@@ -24,6 +25,8 @@
 	<string name="error_hash_mismatch_update">Controllo di aggiornamento non riuscito. L\'hash calcolato non corrisponde al file caricato</string>
 	<string name="error_update_no_internet">Controllo aggiornamento non riuscito. Nessuna connessione internet.</string>
 	<string name="error_biometric_auth_aborted">Autenticazione biometrica interrotta</string>
+	<string name="error_vault_version_mismatch">La versione specificata in %1$s è diversa da %2$s</string>
+	<string name="error_vault_key_invalid">%1$s non corrisponde a questo %2$s</string>
 	<string name="error_vault_config_loading">Errore generale durante il caricamento della configurazione della cassaforte</string>
 	<string name="error_file_not_found_after_opening_using_3party">Il file locale non è più presente dopo essere tornato a Cryptomator. Le eventuali modifiche non possono essere riprodotte nel cloud.</string>
 	<string name="error_no_such_bucket">Nessun secchio simile</string>
@@ -217,6 +220,7 @@
 	<string name="dialog_change_password_msg_password_mismatch">La nuova password non corrisponde alla password ridigitata.</string>
 	<!-- Vault not found -->
 	<string name="dialog_vault_not_found_title">Cassaforte %1$s non trovata</string>
+	<string name="dialog_vault_not_found_message">La cassaforte è stata rinominata, spostata o eliminata. Rimuovere questa cassaforte dalla lista e aggiungerla di nuovo per procedere. Rimuovere ora?</string>
 	<string name="dialog_vault_not_found_positive_button_text">Rimuovi</string>
 	<string name="dialog_existing_file_title">Il file esiste già</string>
 	<string name="dialog_existing_file_positive_button">Sostituisci</string>
