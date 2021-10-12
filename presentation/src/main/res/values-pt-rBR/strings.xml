@@ -16,6 +16,7 @@
 	<string name="error_cloud_already_exists">O provedor de nuvem já existe.</string>
 	<string name="error_activity_not_found">Por favor, faça o download de um aplicativo que possa abrir este arquivo.</string>
 	<string name="error_server_not_found">Servidor não encontrado.</string>
+	<string name="error_device_policy_manager_not_found">Por favor, abra as configurações do dispositivo e defina o bloqueio de tela manualmente</string>
 	<string name="error_export_illegal_file_name">Falha na exportação. Tente remover caracteres especiais dos nomes de arquivo e exporte novamente.</string>
 	<string name="error_name_contains_invalid_characters">Não pode conter caracteres especiais.</string>
 	<string name="error_names_contains_invalid_characters">Nomes de arquivo não podem conter caracteres especiais.</string>
@@ -23,7 +24,11 @@
 	<string name="error_general_update">Verificação da atualização falhou. Erro geral ocorreu.</string>
 	<string name="error_hash_mismatch_update">Falha ao verificar a atualização. Hash calculado não coincide com o arquivo enviado</string>
 	<string name="error_update_no_internet">Falha ao verificar atualização. Nenhuma conexão com a internet.</string>
+	<string name="error_failed_to_decrypt_webdav_password">Falha ao descriptografar a senha WebDAV, por favor adicione novamente nas configurações</string>
+	<string name="error_play_services_not_available">Serviços do Google Play não instalados</string>
 	<string name="error_biometric_auth_aborted">Autenticação biométrica abortada</string>
+	<string name="error_vault_version_mismatch">Versão especificada em %1$s é diferente de %2$s</string>
+	<string name="error_vault_key_invalid">%1$s não coincide com este %2$s</string>
 	<string name="error_vault_config_loading">Erro geral ao carregar a configuração do cofre</string>
 	<string name="error_file_not_found_after_opening_using_3party">O arquivo local não está mais presente depois de voltar ao Cryptomator. Possíveis alterações não podem ser propagadas de volta para o provedor de nuvem.</string>
 	<string name="error_no_such_bucket">Não existe tal bucket no nome de domínio</string>
@@ -217,6 +222,7 @@
 	<string name="dialog_change_password_msg_password_mismatch">A nova senha não corresponde à senha digitada.</string>
 	<!-- Vault not found -->
 	<string name="dialog_vault_not_found_title">Cofre %1$s não encontrado</string>
+	<string name="dialog_vault_not_found_message">O cofre foi renomeado, movido ou excluído. Remova este cofre da lista e adicione-o novamente para prosseguir. Remover agora?</string>
 	<string name="dialog_vault_not_found_positive_button_text">Remover</string>
 	<string name="dialog_existing_file_title">O arquivo já existe</string>
 	<string name="dialog_existing_file_positive_button">Substituir</string>
