@@ -171,6 +171,8 @@
 	<string name="screen_settings_section_auto_photo_upload_vault">Escolher cofre para upload</string>
 	<string name="screen_settings_section_auto_photo_upload_toggle">Ativar</string>
 	<string name="screen_settings_section_auto_photo_upload_toggle_summary">Capture imagens em segundo plano e assim que o cofre selecionado for desbloqueado, inicie o upload</string>
+	<string name="screen_settings_section_auto_photo_upload_toggle_instant_upload">Upload instantâneo</string>
+	<string name="screen_settings_section_auto_photo_upload_toggle_instant_upload_summary">Envie diretamente se o cofre estiver desbloqueado</string>
 	<string name="screen_settings_section_auto_photo_upload_only_wifi_toggle">Fazer upload apenas usando o WIFI</string>
 	<string name="screen_settings_section_auto_photo_upload_including_videos">Upload de vídeos</string>
 	<string name="screen_settings_auto_photo_upload_title">Salvar upload automático de arquivos em&#8230;</string>
