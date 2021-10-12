@@ -23,7 +23,9 @@
 	<string name="error_general_update">업데이트 확인 실패. 에러가 발생했습니다.</string>
 	<string name="error_hash_mismatch_update">업데이트 확인 실패. 업로드된 파일과 해쉬값이 일치하지 않습니다.</string>
 	<string name="error_update_no_internet">업데이트 확인 실패. 인터넷에 연결되지 않았습니다.</string>
+	<string name="error_play_services_not_available">Google Play 서비스가 설치되지 않았습니다</string>
 	<string name="error_biometric_auth_aborted">생체 인증 취소됨</string>
+	<string name="error_vault_version_mismatch">%1$s에 기록된 버전이 %2$s에 기록된 버전과 다릅니다</string>
 	<!-- # clouds -->
 	<!-- ## cloud names -->
 	<string name="cloud_names_local_storage">로컬 저장소</string>
@@ -42,19 +44,28 @@
 	<string name="snack_bar_action_title_sort_smallest">작은 파일순</string>
 	<!-- # screens -->
 	<!-- # screen: vault list -->
+	<string name="screen_vault_list_action_create_new_vault">새 Vault 생성</string>
+	<string name="screen_vault_list_action_add_existing_vault">기존 Vault 추가</string>
 	<string name="screen_vault_list_vault_action_delete">제거</string>
+	<string name="screen_vault_list_vault_creation_hint">여기를 클릭하여 새 Vault를 생성하세요</string>
 	<string name="screen_vault_list_change_password_successful">비밀번호 변경 성공</string>
 	<!-- # screen: file browser -->
 	<string name="screen_file_browser_default_title">Vault</string>
+	<string name="screen_file_browser_add_existing_vault_extra_text">마스터키 파일 선택</string>
+	<string name="screen_file_browser_create_new_vault_extra_text">Vault 이름: %1$s</string>
 	<string name="screen_file_browser_move_button_text">이동</string>
 	<string name="screen_file_browser_msg_empty_folder">빈 폴더</string>
 	<string name="screen_file_browser_file_info_label_date">%1$s 전 변경됨</string>
+	<string name="screen_file_browser_share_intent_chooser_title">공유 대상</string>
+	<string name="screen_file_browser_share_destination_title">위치 선택</string>
 	<string name="screen_file_browser_share_button_text">선택</string>
+	<string name="screen_file_browser_nothing_to_share">공유할 내용 없음</string>
 	<string name="screen_file_browser_actions_title">%1$s에 추가</string>
 	<string name="screen_file_browser_action_create_folder">폴더 생성</string>
 	<string name="screen_file_browser_action_create_new_text_file">텍스트 파일 생성</string>
 	<string name="screen_file_browser_action_upload_files">파일 업로드</string>
 	<string name="screen_file_browser_upload_files_chooser_title">파일</string>
+	<string name="screen_file_browser_msg_file_exported">파일 내보내기 완료</string>
 	<string name="screen_file_browser_msg_creating_download_dir_failed">다운로드 디렉터리 생성에 실패하였습니다</string>
 	<string name="screen_file_browser_node_action_share">공유하기</string>
 	<string name="screen_file_browser_node_action_rename">이름 변경</string>
