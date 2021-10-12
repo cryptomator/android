@@ -65,6 +65,10 @@
 	<string name="screen_file_browser_add_existing_vault_extra_text">Selecteer het Masterkey-bestand</string>
 	<string name="screen_file_browser_create_new_vault_button_text">Plaats hier</string>
 	<string name="screen_file_browser_create_new_vault_extra_text">Kluis naam: %1$s</string>
+	<plurals name="screen_file_browser_subtitle_move">
+		<item quantity="one">Verplaats %1$s naar</item>
+		<item quantity="other">%2$d items verplaatsen naar</item>
+	</plurals>
 	<string name="screen_file_browser_move_button_text">Verplaatsen</string>
 	<string name="screen_file_browser_msg_empty_folder">Lege map</string>
 	<string name="screen_file_browser_file_info_label_date">%1$s geleden gewijzigd</string>
