@@ -16,6 +16,7 @@
 	<string name="error_cloud_already_exists">クラウドが既に存在します。</string>
 	<string name="error_activity_not_found">このファイルを開くことができるアプリをダウンロードしてください。</string>
 	<string name="error_server_not_found">サーバーが見つかりませんでした。</string>
+	<string name="error_device_policy_manager_not_found">端末の設定を開いて、画面ロックを設定してください</string>
 	<string name="error_export_illegal_file_name">エクスポートに失敗しました。ファイル名から特殊文字を削除して再度エクスポートしてください。</string>
 	<string name="error_name_contains_invalid_characters">特殊文字を含めることはできません。</string>
 	<string name="error_names_contains_invalid_characters">特殊文字を含むファイル名は使用できません。</string>
@@ -23,7 +24,11 @@
 	<string name="error_general_update">更新の確認に失敗しました。エラーが発生しました。</string>
 	<string name="error_hash_mismatch_update">更新の確認に失敗しました。ハッシュ値がアップロードされたファイルと一致しません。</string>
 	<string name="error_update_no_internet">更新の確認に失敗しました。インターネット接続がありません。</string>
+	<string name="error_failed_to_decrypt_webdav_password">WebDAV パスワードの復号に失敗しました。設定を再度追加してください</string>
+	<string name="error_play_services_not_available">Google Play Services がインストールされていません</string>
 	<string name="error_biometric_auth_aborted">生体認証が中断されました</string>
+	<string name="error_vault_version_mismatch">%1$s で指定されたバージョンが %2$s と異なります</string>
+	<string name="error_vault_key_invalid">%1$s はこの %2$s と一致しません</string>
 	<string name="error_vault_config_loading">金庫の設定を読み込み中に失敗しました</string>
 	<string name="error_no_such_bucket">Bucket がありません</string>
 	<string name="error_masterkey_location_not_supported">自由に Masterkey の場所を設定することはまだできません</string>
@@ -211,6 +216,7 @@
 	<string name="dialog_change_password_msg_password_mismatch">新しいパスワードが再入力されたパスワードと一致しません。</string>
 	<!-- Vault not found -->
 	<string name="dialog_vault_not_found_title">金庫 %1$s が見つかりません</string>
+	<string name="dialog_vault_not_found_message">金庫の名前が変更、移動または削除されました。この金庫をリストから削除し、再度追加してください。今すぐ削除してもよろしいですか?</string>
 	<string name="dialog_vault_not_found_positive_button_text">削除</string>
 	<string name="dialog_existing_file_title">ファイルが既に存在します</string>
 	<string name="dialog_existing_file_positive_button">置換</string>
