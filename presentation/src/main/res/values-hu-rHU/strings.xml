@@ -16,7 +16,6 @@
 	<string name="error_cloud_already_exists">A felhő már létezik.</string>
 	<string name="error_activity_not_found">Kérjük, töltsön le egy alkalmazást, amely képes megnyitni ezt a fájlt.</string>
 	<string name="error_server_not_found">Szerver nem található.</string>
-	<string name="error_device_policy_manager_not_found">Kérjük, nyissa meg a készülék beállításait, és állítsa be a képernyőzárat kézzel</string>
 	<string name="error_export_illegal_file_name">Az exportálás sikertelen. Próbálja meg eltávolítani a speciális karaktereket a fájlnevekből és exportálja újra.</string>
 	<string name="error_name_contains_invalid_characters">Nem tartalmazhat speciális karaktereket.</string>
 	<string name="error_names_contains_invalid_characters">A fájl neve nem tartalmazhat speciális karaktereket.</string>

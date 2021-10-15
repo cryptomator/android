@@ -16,7 +16,7 @@
 	<string name="error_cloud_already_exists">Il Cloud esiste già.</string>
 	<string name="error_activity_not_found">Scarica un\'app che possa aprire questo file.</string>
 	<string name="error_server_not_found">Server non trovato.</string>
-	<string name="error_device_policy_manager_not_found">Aprire le impostazioni dei dispositivi e impostare il blocco schermo a mano</string>
+	<string name="error_device_policy_manager_not_found">Si prega di aprire le impostazioni del dispositivo e impostare il blocco schermo a mano</string>
 	<string name="error_export_illegal_file_name">Esportazione non riuscita. Prova a rimuovere i caratteri speciali dai nomi dei file ed esportare di nuovo.</string>
 	<string name="error_name_contains_invalid_characters">Non può contenere caratteri speciali.</string>
 	<string name="error_names_contains_invalid_characters">I nomi dei file non possono contenere caratteri speciali.</string>
@@ -24,11 +24,9 @@
 	<string name="error_general_update">Controllo dell\'aggiornamento non riuscito. Si è verificato un errore generale.</string>
 	<string name="error_hash_mismatch_update">Controllo di aggiornamento non riuscito. L\'hash calcolato non corrisponde al file caricato</string>
 	<string name="error_update_no_internet">Controllo aggiornamento non riuscito. Nessuna connessione internet.</string>
-	<string name="error_failed_to_decrypt_webdav_password">Impossibile decrittografare la password WebDAV, aggiungere nuovamente nelle impostazioni</string>
-	<string name="error_play_services_not_available">Play Services non installati</string>
 	<string name="error_biometric_auth_aborted">Autenticazione biometrica interrotta</string>
-	<string name="error_vault_version_mismatch">La versione specificata in vault.cryptomator è diversa da masterkey.cryptomator</string>
-	<string name="error_vault_key_invalid">vault.cryptomator non corrisponde a questa masterkey.cryptomator</string>
+	<string name="error_vault_version_mismatch">La versione specificata in %1$s è diversa da %2$s</string>
+	<string name="error_vault_key_invalid">%1$s non corrisponde a questo %2$s</string>
 	<string name="error_vault_config_loading">Errore generale durante il caricamento della configurazione della cassaforte</string>
 	<string name="error_file_not_found_after_opening_using_3party">Il file locale non è più presente dopo essere tornato a Cryptomator. Le eventuali modifiche non possono essere riprodotte nel cloud.</string>
 	<string name="error_no_such_bucket">Nessun secchio simile</string>
@@ -176,6 +174,8 @@
 	<string name="screen_settings_section_auto_photo_upload_vault">Scegli cassaforte per il caricamento</string>
 	<string name="screen_settings_section_auto_photo_upload_toggle">Attiva</string>
 	<string name="screen_settings_section_auto_photo_upload_toggle_summary">Cattura immagini in background e una volta sbloccata la cassaforte selezionata, avvia il caricamento</string>
+	<string name="screen_settings_section_auto_photo_upload_toggle_instant_upload">Caricamento istantaneo</string>
+	<string name="screen_settings_section_auto_photo_upload_toggle_instant_upload_summary">Carica direttamente se la cassaforte è sbloccata</string>
 	<string name="screen_settings_section_auto_photo_upload_only_wifi_toggle">Carica utilizzando solo WIFI</string>
 	<string name="screen_settings_section_auto_photo_upload_including_videos">Carica video</string>
 	<string name="screen_settings_auto_photo_upload_title">Salva i file caricati automaticamente in&#8230;</string>

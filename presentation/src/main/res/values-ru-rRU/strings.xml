@@ -24,11 +24,11 @@
 	<string name="error_general_update">Не удалось проверить наличие обновления. Общая ошибка.</string>
 	<string name="error_hash_mismatch_update">Не удалось проверить обновление. Вычисленный хеш не соответствует отправленному файлу.</string>
 	<string name="error_update_no_internet">Ошибка проверки обновления. Нет подключения к Интернету.</string>
-	<string name="error_failed_to_decrypt_webdav_password">Не удалось расшифровать пароль WebDAV, добавьте его в настройках</string>
-	<string name="error_play_services_not_available">Сервисы Google Play не установлены</string>
+	<string name="error_failed_to_decrypt_webdav_password">Не удалось расшифровать пароль WebDAV, добавьте его заново в настройках</string>
+	<string name="error_play_services_not_available">Не установлены сервисы Google Play</string>
 	<string name="error_biometric_auth_aborted">Биометрическая аутентификация прервана</string>
-	<string name="error_vault_version_mismatch">Указанная в vault.cryptomator версия отличается от masterkey.cryptomator</string>
-	<string name="error_vault_key_invalid">vault.cryptomator не совпадает с этим masterkey.cryptomator</string>
+	<string name="error_vault_version_mismatch">Версия, указанная в %1$s, отличается от %2$s</string>
+	<string name="error_vault_key_invalid">%1$s не совпадает с %2$s</string>
 	<string name="error_vault_config_loading">Общая ошибка при загрузке конфигурации хранилища</string>
 	<string name="error_file_not_found_after_opening_using_3party">Локальный файл больше не существует после переключения на Cryptomator. Возможные изменения не могут быть переданы обратно в облако.</string>
 	<string name="error_no_such_bucket">Нет такого бакета</string>
@@ -178,6 +178,8 @@
 	<string name="screen_settings_section_auto_photo_upload_vault">Выберите хранилище для отправки</string>
 	<string name="screen_settings_section_auto_photo_upload_toggle">Включено</string>
 	<string name="screen_settings_section_auto_photo_upload_toggle_summary">Захватывать изображения в фоновом режиме и начинать отправку при разблокировании выбранного хранилища</string>
+	<string name="screen_settings_section_auto_photo_upload_toggle_instant_upload">Мгновенная отправка</string>
+	<string name="screen_settings_section_auto_photo_upload_toggle_instant_upload_summary">Загружать напрямую, если хранилище разблокировано</string>
 	<string name="screen_settings_section_auto_photo_upload_only_wifi_toggle">Только по Wi-Fi</string>
 	<string name="screen_settings_section_auto_photo_upload_including_videos">Отправка видео</string>
 	<string name="screen_settings_auto_photo_upload_title">Сохранять автозагруженные файлы в&#8230;</string>

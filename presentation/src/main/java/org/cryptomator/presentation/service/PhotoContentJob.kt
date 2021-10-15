@@ -13,6 +13,7 @@ import android.net.Uri
 import android.os.Handler
 import android.provider.MediaStore
 import org.cryptomator.domain.exception.FatalBackendException
+import org.cryptomator.presentation.CryptomatorApp
 import org.cryptomator.presentation.R
 import org.cryptomator.presentation.util.FileUtil
 import org.cryptomator.presentation.util.ResourceHelper
@@ -38,6 +39,8 @@ class PhotoContentJob : JobService() {
 
 		runningParams = params
 
+		var filesCaptured = false
+
 		params.triggeredContentAuthorities?.let {
 			if (params.triggeredContentUris != null) {
 				val ids = getIds(params)
@@ -49,6 +52,8 @@ class PhotoContentJob : JobService() {
 								fileUtil.addImageToAutoUploads(dir)
 								Timber.tag("PhotoContentJob").i("Added file to UploadList")
 								Timber.tag("PhotoContentJob").d(String.format("Added file to UploadList %s", dir))
+
+								filesCaptured = true
 							} catch (e: FatalBackendException) {
 								Timber.tag("PhotoContentJob").e(e, "Failed to add image to auto upload list")
 							} catch (e: SecurityException) {
@@ -64,6 +69,10 @@ class PhotoContentJob : JobService() {
 				return true
 			}
 		} ?: Timber.tag("PhotoContentJob").w("No photos content")
+
+		if(filesCaptured && SharedPreferencesHandler(applicationContext).usePhotoUploadInstant()) {
+			(application as CryptomatorApp).startAutoUpload()
+		}
 
 		handler.post(worker)
 		return false

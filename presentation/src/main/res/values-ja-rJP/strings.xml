@@ -25,10 +25,10 @@
 	<string name="error_hash_mismatch_update">更新の確認に失敗しました。ハッシュ値がアップロードされたファイルと一致しません。</string>
 	<string name="error_update_no_internet">更新の確認に失敗しました。インターネット接続がありません。</string>
 	<string name="error_failed_to_decrypt_webdav_password">WebDAV パスワードの復号に失敗しました。設定を再度追加してください</string>
-	<string name="error_play_services_not_available">Play Services がインストールされていません</string>
+	<string name="error_play_services_not_available">Google Play Services がインストールされていません</string>
 	<string name="error_biometric_auth_aborted">生体認証が中断されました</string>
-	<string name="error_vault_version_mismatch">Vault.cryptomator 内で指定されたバージョンと masterkey.cryptomator の情報が異なります</string>
-	<string name="error_vault_key_invalid">vault.cryptomator が masterkey.cryptomator と一致しません</string>
+	<string name="error_vault_version_mismatch">%1$s で指定されたバージョンが %2$s と異なります</string>
+	<string name="error_vault_key_invalid">%1$s はこの %2$s と一致しません</string>
 	<string name="error_vault_config_loading">金庫の設定を読み込み中に失敗しました</string>
 	<string name="error_no_such_bucket">Bucket がありません</string>
 	<string name="error_masterkey_location_not_supported">自由に Masterkey の場所を設定することはまだできません</string>
@@ -156,6 +156,7 @@
 	<string name="screen_settings_activate_biometric_auth">生体認証を有効にする</string>
 	<string name="screen_settings_confirm_face_unlock">顔認証のロック解除 (利用できる場合)</string>
 	<string name="screen_settings_block_app_when_obscured">他のアプリが重なるときにアプリを停止</string>
+	<string name="screen_settings_block_app_when_obscured_summary">入力をブロックし、偽のユーザー インターフェイスを表示する</string>
 	<string name="screen_settings_secure_screen">スクリーンショットをブロック</string>
 	<string name="screen_settings_secure_screen_summary">アプリ内や「最近使ったアプリ」でスクリーンショットを表示しない</string>
 	<string name="screen_settings_section_search">検索</string>
@@ -170,6 +171,8 @@
 	<string name="screen_settings_section_auto_photo_upload_vault">アップロードする金庫を選択</string>
 	<string name="screen_settings_section_auto_photo_upload_toggle">有効</string>
 	<string name="screen_settings_section_auto_photo_upload_toggle_summary">バックグラウンドで画像を取得し、選択された金庫が解錠されるとアップロードを開始します</string>
+	<string name="screen_settings_section_auto_photo_upload_toggle_instant_upload">インスタントをアップロード</string>
+	<string name="screen_settings_section_auto_photo_upload_toggle_instant_upload_summary">金庫が解錠されているときに直接アップロード</string>
 	<string name="screen_settings_section_auto_photo_upload_only_wifi_toggle">WIFI を使用しているときのみアップロード</string>
 	<string name="screen_settings_section_auto_photo_upload_including_videos">ビデオをアップロード</string>
 	<string name="screen_settings_auto_photo_upload_title">&#8230; へのファイルの自動アップロードを保存</string>
@@ -271,6 +274,8 @@
 	<string name="dialog_no_screen_lock_title">画面ロックを設定しますか?</string>
 	<string name="dialog_no_screen_lock_checkbox">画面ロックを設定</string>
 	<string name="dialog_no_biometric_auth_set_up_title">システムに基本的な認証が設定されていません</string>
+	<string name="dialog_no_biometric_auth_set_up_message">このサービスを利用するには少なくとも 1 つの指紋/顔を登録してください。</string>
+	<string name="dialog_debug_mode_disclaimer_hint">このモードでは、デバイスのログファイルに機密情報が書き込まれることがあります(例: ファイル名やパス)。パスワードや cookie 等は除外されます。\n\n できるだけ早くデバッグ モードを無効化をすることを忘れないでください。</string>
 	<string name="dialog_debug_mode_disclaimer_title">注意</string>
 	<string name="dialog_debug_mode_positive_button">有効</string>
 	<string name="dialog_disable_app_obscured_disclaimer_hint">この設定は安全のための機能です。他のアプリがユーザーを騙してしまうことを防ぎます。\n\n無効にすることで、 <a href="https://docs.cryptomator.org/en/1.5/android/settings/#block-app-when-obscured">リスクを認識していること</a> に留意する必要があります。</string>
@@ -287,6 +292,7 @@
 	<string name="dialog_confirm_delete_file_message">本当にこのファイルを削除してもよろしいですか?</string>
 	<string name="dialog_confirm_delete_folder_message">この操作はフォルダーの内容をすべて削除します。本当にこのフォルダーを削除してもよろしいですか?</string>
 	<string name="dialog_biometric_auth_key_invalidated_title">生体認証機能が無効になりました</string>
+	<string name="dialog_biometric_auth_key_invalidated_message">鍵が無効になったため、生体認証が無効になりました。再度有効にするには、Cryptomator 設定を開いてください。</string>
 	<string name="dialog_enter_license_title">有効なライセンスを入力してください</string>
 	<string name="dialog_enter_license_content">Google Play Store を使用せずに Cryptomator をインストールしたことを検出しました。有効なライセンスを購入してください:  <a href="https://cryptomator.org/android/">https://cryptomator.org/android/</a></string>
 	<string name="dialog_enter_license_not_valid_content">入力されたライセンスが無効です。正しく入力されていることを確認してください。</string>

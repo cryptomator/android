@@ -16,7 +16,7 @@
 	<string name="error_cloud_already_exists">La nube ya existe.</string>
 	<string name="error_activity_not_found">Por favor, descarga una aplicación que pueda abrir este archivo.</string>
 	<string name="error_server_not_found">Servidor no encontrado.</string>
-	<string name="error_device_policy_manager_not_found">Abra los ajustes de sus dispositivos y establezca el bloqueo de pantalla a mano</string>
+	<string name="error_device_policy_manager_not_found">Abra los ajustes de su dispositivo y establezca el bloqueo de pantalla manualmente</string>
 	<string name="error_export_illegal_file_name">Exportación fallida. Intente eliminar los caracteres especiales de los nombres de archivo y vuelva a exportar.</string>
 	<string name="error_name_contains_invalid_characters">No puede contener caracteres especiales.</string>
 	<string name="error_names_contains_invalid_characters">Los nombres de archivo no pueden contener caracteres especiales.</string>
@@ -24,11 +24,11 @@
 	<string name="error_general_update">Error al comprobar la actualización. Ocurrió un error general.</string>
 	<string name="error_hash_mismatch_update">Error al comprobar la actualización. El hash calculado no coincide con el archivo cargado</string>
 	<string name="error_update_no_internet">Error al comprobar la actualización. Sin conexión a Internet.</string>
-	<string name="error_failed_to_decrypt_webdav_password">No se pudo descifrar la contraseña de WebDAV, vuelva a agregarla en la configuración</string>
-	<string name="error_play_services_not_available">Play Services no instalado</string>
+	<string name="error_failed_to_decrypt_webdav_password">No se pudo descifrar la contraseña de WebDAV, vuelva a agregarla en los ajustes</string>
+	<string name="error_play_services_not_available">Los Servicios de Google Play no están instalados</string>
 	<string name="error_biometric_auth_aborted">Autenticación biométrica abortada</string>
-	<string name="error_vault_version_mismatch">La versión especificada en vault.cryptomator es diferente de masterkey.cryptomator</string>
-	<string name="error_vault_key_invalid">vault.cryptomator no coincide con ésta masterkey.cryptomator</string>
+	<string name="error_vault_version_mismatch">La versión especificada en %1$s es diferente de %2$s</string>
+	<string name="error_vault_key_invalid">%1$s no coincide con este %2$s</string>
 	<string name="error_vault_config_loading">Error general al cargar la configuración de la bóveda</string>
 	<string name="error_file_not_found_after_opening_using_3party">El archivo local ya no está presente después de volver a Cryptomator. Los posibles cambios no se pueden propagar a la nube.</string>
 	<string name="error_no_such_bucket">No hay tal cubeta</string>
@@ -176,6 +176,8 @@
 	<string name="screen_settings_section_auto_photo_upload_vault">Elegir bóveda para cargar</string>
 	<string name="screen_settings_section_auto_photo_upload_toggle">Activar</string>
 	<string name="screen_settings_section_auto_photo_upload_toggle_summary">Captura las imágenes en segundo plano y una vez desbloqueada la bóveda seleccionada, inicia la carga</string>
+	<string name="screen_settings_section_auto_photo_upload_toggle_instant_upload">Cargar al instante</string>
+	<string name="screen_settings_section_auto_photo_upload_toggle_instant_upload_summary">Cargar directamente si la bóveda está desbloqueada</string>
 	<string name="screen_settings_section_auto_photo_upload_only_wifi_toggle">Cargar solo usando WIFI</string>
 	<string name="screen_settings_section_auto_photo_upload_including_videos">Cargar videos</string>
 	<string name="screen_settings_auto_photo_upload_title">Guardar archivos de carga automática en&#8230;</string>
