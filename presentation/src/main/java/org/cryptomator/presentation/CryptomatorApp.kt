@@ -120,17 +120,6 @@ class CryptomatorApp : MultiDexApplication(), HasComponent<ApplicationComponent>
 		}, BIND_AUTO_CREATE)
 	}
 
-	fun startAutoUpload() {
-		val sharedPreferencesHandler = SharedPreferencesHandler(applicationContext())
-		if(sharedPreferencesHandler.usePhotoUpload()) {
-			val vault = applicationComponent.vaultRepository().load(sharedPreferencesHandler.photoUploadVault())
-			if(vault.isUnlocked) {
-				val cloud = applicationComponent.cloudRepository().decryptedViewOf(vault)
-				applicationContext().startService(AutoUploadService.startAutoUploadIntent(applicationContext(), cloud))
-			}
-		}
-	}
-
 	private fun setupLogging() {
 		setupLoggingFramework()
 		setup()

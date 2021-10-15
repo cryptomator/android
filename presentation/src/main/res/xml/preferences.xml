@@ -107,12 +107,6 @@
 
 		<androidx.preference.SwitchPreferenceCompat
 			android:defaultValue="true"
-			android:key="photoUploadInstant"
-			android:summary="@string/screen_settings_section_auto_photo_upload_toggle_instant_upload_summary"
-			android:title="@string/screen_settings_section_auto_photo_upload_toggle_instant_upload" />
-
-		<androidx.preference.SwitchPreferenceCompat
-			android:defaultValue="true"
 			android:key="photoUploadOnlyUsingWifi"
 			android:title="@string/screen_settings_section_auto_photo_upload_only_wifi_toggle" />
 

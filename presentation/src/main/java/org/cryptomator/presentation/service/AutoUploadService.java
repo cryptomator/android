@@ -212,7 +212,7 @@ public class AutoUploadService extends Service {
 	public void onCreate() {
 		super.onCreate();
 		Timber.tag("AutoUploadService").d("created");
-		notification = new AutoUploadNotification(this, 0);
+		notification = new AutoUploadNotification(this, 5);
 	}
 
 	@Override
