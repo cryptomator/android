@@ -129,16 +129,12 @@ constructor(context: Context) : SharedPreferences.OnSharedPreferenceChangeListen
 		defaultSharedPreferences.clear()
 	}
 
-	fun usePhotoUpload(): Boolean {
-		return defaultSharedPreferences.getValue(PHOTO_UPLOAD, false)
-	}
-
-	fun usePhotoUploadInstant(): Boolean {
-		return defaultSharedPreferences.getValue(PHOTO_UPLOAD_INSTANT, true)
-	}
-
 	fun autoPhotoUploadOnlyUsingWifi(): Boolean {
 		return defaultSharedPreferences.getValue(PHOTO_UPLOAD_ONLY_USING_WIFI)
+	}
+
+	fun usePhotoUpload(): Boolean {
+		return defaultSharedPreferences.getValue(PHOTO_UPLOAD, false)
 	}
 
 	fun photoUploadVault(): Long {
@@ -253,7 +249,6 @@ constructor(context: Context) : SharedPreferences.OnSharedPreferenceChangeListen
 		const val SECURE_SCREEN = "secureScreen"
 		const val SCREEN_STYLE_MODE = "screenStyleMode"
 		const val PHOTO_UPLOAD = "photoUpload"
-		const val PHOTO_UPLOAD_INSTANT = "photoUploadInstant"
 		const val PHOTO_UPLOAD_ONLY_USING_WIFI = "photoUploadOnlyUsingWifi"
 		const val PHOTO_UPLOAD_VAULT = "photoUploadVault"
 		const val PHOTO_UPLOAD_FOLDER = "photoUploadFolder"
