@@ -104,10 +104,6 @@ class VaultListPresenter @Inject constructor( //
 			sharedPreferencesHandler.setScreenLockDialogAlreadyShown()
 		}
 
-		if (!sharedPreferencesHandler.isBetaModeAlreadyShown()) {
-			view?.showDialog(BetaConfirmationDialog.newInstance());
-		}
-
 		checkLicense()
 	}
 
