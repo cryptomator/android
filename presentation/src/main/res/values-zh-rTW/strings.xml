@@ -16,7 +16,6 @@
 	<string name="error_cloud_already_exists">雲端硬碟已經存在。</string>
 	<string name="error_activity_not_found">請下載行動裝置應用程式來打開這個檔案。</string>
 	<string name="error_server_not_found">找不到伺服器。</string>
-	<string name="error_device_policy_manager_not_found">請打開你的裝置設定，再手動設定螢幕鎖定。</string>
 	<string name="error_export_illegal_file_name">資料匯出失敗。請把檔案名稱中的特殊字元刪除後，再重新匯出資料。</string>
 	<string name="error_name_contains_invalid_characters">不能含有特殊字元。</string>
 	<string name="error_names_contains_invalid_characters">檔案名稱不能含有特殊字元。</string>

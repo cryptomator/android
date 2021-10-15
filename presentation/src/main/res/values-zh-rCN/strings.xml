@@ -25,10 +25,10 @@
 	<string name="error_hash_mismatch_update">更新检查失败，计算出的 HASH 值与上传的文件不匹配</string>
 	<string name="error_update_no_internet">更新检查失败，无网络连接</string>
 	<string name="error_failed_to_decrypt_webdav_password">解密 WebDAV 密码失败，请在设置中重新添加</string>
-	<string name="error_play_services_not_available">Play 服务未安装</string>
+	<string name="error_play_services_not_available">Google Play 服务未安装</string>
 	<string name="error_biometric_auth_aborted">生物识别认证已中止</string>
-	<string name="error_vault_version_mismatch">vault.cryptomator 中指定的版本与 masterkey.cryptomator 不同</string>
-	<string name="error_vault_key_invalid">vault.cryptomator 与此 masterkey.cryptomator 不匹配</string>
+	<string name="error_vault_version_mismatch">%1$s 中指定的版本与 %2$s 中的不同</string>
+	<string name="error_vault_key_invalid">%1$s 与此 %2$s 不匹配</string>
 	<string name="error_vault_config_loading">加载保险库配置时发生常规错误</string>
 	<string name="error_file_not_found_after_opening_using_3party">切换回 Cryptomator 后，本地文件不再存在。期间所做更改无法传回云端</string>
 	<string name="error_no_such_bucket">没有这样的 bucket</string>
@@ -175,6 +175,8 @@
 	<string name="screen_settings_section_auto_photo_upload_vault">选择目标保险库</string>
 	<string name="screen_settings_section_auto_photo_upload_toggle">激活</string>
 	<string name="screen_settings_section_auto_photo_upload_toggle_summary">后台感知图片，一旦目标保险库解锁即开始上传</string>
+	<string name="screen_settings_section_auto_photo_upload_toggle_instant_upload">实时上传</string>
+	<string name="screen_settings_section_auto_photo_upload_toggle_instant_upload_summary">解锁保险库后直接上传</string>
 	<string name="screen_settings_section_auto_photo_upload_only_wifi_toggle">仅限 WIFI</string>
 	<string name="screen_settings_section_auto_photo_upload_including_videos">上传视频</string>
 	<string name="screen_settings_auto_photo_upload_title">保存自动上传文件到&#8230;</string>

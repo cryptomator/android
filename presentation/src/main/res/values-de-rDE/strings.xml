@@ -25,10 +25,10 @@
 	<string name="error_hash_mismatch_update">Update-Überprüfung fehlgeschlagen. Berechnete Prüfsumme entspricht nicht der der hochgeladenen Datei</string>
 	<string name="error_update_no_internet">Prüfung auf Aktualisierungen fehlgeschlagen. Keine Internetverbindung.</string>
 	<string name="error_failed_to_decrypt_webdav_password">Beim entschlüsseln des WebDAV-Passworts trat ein Fehler auf. Bitte in den Einstellungen erneut festlegen.</string>
-	<string name="error_play_services_not_available">Die Play Services sind nicht installiert</string>
+	<string name="error_play_services_not_available">Die Google Play Services sind nicht installiert</string>
 	<string name="error_biometric_auth_aborted">Biometrischer Login abgebrochen</string>
-	<string name="error_vault_version_mismatch">Die in der vault.cryptomator-Datei angegebene Version ist nicht identisch mit jener der masterkey.cryptomator-Datei</string>
-	<string name="error_vault_key_invalid">vault.cryptomator-Datei stimmt nicht mit der masterkey.cryptomator-Datei überein</string>
+	<string name="error_vault_version_mismatch">Die in der %1$s-Datei angegebene Version ist nicht identisch mit jener der %2$s-Datei</string>
+	<string name="error_vault_key_invalid">%1$s-Datei stimmt nicht mit der %2$s-Datei überein</string>
 	<string name="error_vault_config_loading">Allgemeiner Fehler beim Laden der Tresorkonfiguration</string>
 	<string name="error_file_not_found_after_opening_using_3party">Lokale Datei ist nach dem Zurückwechseln zu Cryptomator nicht mehr vorhanden. Mögliche Änderungen können nicht in die Cloud übertragen werden.</string>
 	<string name="error_no_such_bucket">Bucket existiert nicht</string>
@@ -176,6 +176,8 @@
 	<string name="screen_settings_section_auto_photo_upload_vault">Tresor auswählen für das Hochladen</string>
 	<string name="screen_settings_section_auto_photo_upload_toggle">Aktivieren</string>
 	<string name="screen_settings_section_auto_photo_upload_toggle_summary">Bilder im Hintergrund aufnehmen und sobald der ausgewählte Tresor entsperrt ist, Upload automatisch starten</string>
+	<string name="screen_settings_section_auto_photo_upload_toggle_instant_upload">Sofort hochladen</string>
+	<string name="screen_settings_section_auto_photo_upload_toggle_instant_upload_summary">Sofort hochladen, wenn der Tresor entsperrt ist</string>
 	<string name="screen_settings_section_auto_photo_upload_only_wifi_toggle">Nur mit WLAN hochladen</string>
 	<string name="screen_settings_section_auto_photo_upload_including_videos">Videos hochladen</string>
 	<string name="screen_settings_auto_photo_upload_title">Bilder abspeichern in&#8230;</string>

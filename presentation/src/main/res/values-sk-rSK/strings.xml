@@ -16,7 +16,7 @@
 	<string name="error_cloud_already_exists">Cloud už existuje.</string>
 	<string name="error_activity_not_found">Prosím stiahnite takú aplikáciu ktorá dokáže otvoriť tento súbor.</string>
 	<string name="error_server_not_found">Server nenájdený.</string>
-	<string name="error_device_policy_manager_not_found">Prosím otvorte nastavenia zaridení a nastavte uzamykanie obrazovky ručne</string>
+	<string name="error_device_policy_manager_not_found">Prosím otvorte nastavenia zaridenia a nastavte uzamykanie obrazovky ručne</string>
 	<string name="error_export_illegal_file_name">Export neúspešný. Pokúste sa odstrániť špeciálne znaky z názvov súborov a exportujte znovu.</string>
 	<string name="error_name_contains_invalid_characters">Nemôže obsahovať špeciálne znaky.</string>
 	<string name="error_names_contains_invalid_characters">Názvy súborov nesmú obsahovať špecálne znaky.</string>
@@ -25,10 +25,10 @@
 	<string name="error_hash_mismatch_update">Kontrola aktualizácie zlyhala. Vypočítaný hash nekorešponduje s nahratým súborom</string>
 	<string name="error_update_no_internet">Kontrola aktualizácie zlyhala. Neexistuje spojenie s internetom.</string>
 	<string name="error_failed_to_decrypt_webdav_password">Dešifrovanie WebDAV hesla zlyhalo, prosím o znovu zadanie v nastaveniach</string>
-	<string name="error_play_services_not_available">Služby prehrávania nie sú inštalované</string>
+	<string name="error_play_services_not_available">Služby Google Play nie sú inštalované</string>
 	<string name="error_biometric_auth_aborted">Biometrická autentikácia prerušená</string>
-	<string name="error_vault_version_mismatch">Verzia špecifikovaná v trezore.cryptomator-a je odlišná od hlavného kľúča.cryptomator-a</string>
-	<string name="error_vault_key_invalid">trezor.cryptomator-a nesúhlasí s hlavným kľúčom.cryptomator-a</string>
+	<string name="error_vault_version_mismatch">Verzia definovaná v %1$s je odlišná od %2$s</string>
+	<string name="error_vault_key_invalid">%1$s nezodpovedá s týmto %2$s</string>
 	<string name="error_vault_config_loading">Chyba počas zavádzania konfigurácie trezora</string>
 	<string name="error_file_not_found_after_opening_using_3party">Lokálny súbor nie je viac prezentovaný po prepnutí naspäť do Cryptomator-a. Možné zmeny sa neprenesú späť do cloudu.</string>
 	<string name="error_no_such_bucket">Žiadna taká nádoba</string>
@@ -178,6 +178,8 @@
 	<string name="screen_settings_section_auto_photo_upload_vault">Vybrať trezor pre nahratie</string>
 	<string name="screen_settings_section_auto_photo_upload_toggle">Aktivovať</string>
 	<string name="screen_settings_section_auto_photo_upload_toggle_summary">Zachyť obrázky na pozadí a keď je zvolený trezor odomknutý, začni nahrávať</string>
+	<string name="screen_settings_section_auto_photo_upload_toggle_instant_upload">Nahrať okamžite</string>
+	<string name="screen_settings_section_auto_photo_upload_toggle_instant_upload_summary">Nahrať priamo keď je trezor odomknutý</string>
 	<string name="screen_settings_section_auto_photo_upload_only_wifi_toggle">Nahrať iba s použitím Wi-Fi</string>
 	<string name="screen_settings_section_auto_photo_upload_including_videos">Nahrať videá</string>
 	<string name="screen_settings_auto_photo_upload_title">Uložiť auto ukladanie súborov do&#8230;</string>
@@ -222,7 +224,7 @@
 	<string name="dialog_change_password_msg_password_mismatch">Nové heslo nie je totožné s prepisovaným heslom.</string>
 	<!-- Vault not found -->
 	<string name="dialog_vault_not_found_title">Súbor %1$s nenájdený</string>
-	<string name="dialog_vault_not_found_message">Trezor bol premenovaný, premiestnený alebo zmazaný. Odstrániť tento trezor zo zoznamu a pridať ho znovu. Odstrániť teraz?</string>
+	<string name="dialog_vault_not_found_message">Trezor bol premenovaný, premiestnený alebo zmazaný. Odstránte tento trezor zo zoznamu a pridajte ho znovu. Odstrániť teraz?</string>
 	<string name="dialog_vault_not_found_positive_button_text">Odstrániť</string>
 	<string name="dialog_existing_file_title">Súbor už existuje</string>
 	<string name="dialog_existing_file_positive_button">Nahradiť</string>
@@ -317,6 +319,7 @@
 	<string name="dialog_sym_link_message">Nemožno prejsť na túto symbolickú linku</string>
 	<string name="dialog_sym_link_back_button">Späť</string>
 	<string name="dialog_no_dir_file_title">Nie je možné načítať obsah adresára</string>
+	<string name="dialog_no_dir_file_message">Cloudový adresár \'%1$s\' nemá platný adresárový súbor. Tento aresár mohol byť vytvorený iným zariadením a doposiať nebol plne synchronizovaný do cloudu. Prosím skontrolujte v cloude či nasledujúci súbor existuje a nie je prázdny:\n%2$s</string>
 	<string name="dialog_no_more_images_to_display">Niet už viac obrázkov k zobrazeniu&#8230;</string>
 	<string name="dialog_pcloud_credentials_updated_title">Prístupy k %1$s aktualizované</string>
 	<string name="dialog_pcloud_credentials_updated">Ak zamýšlate pridať nový pCloud účet, kliknite na tento link <a href="https://www.pcloud.com">www.pcloud.com</a>, odhláste sa zo súčasného účtu a opätovne kliknite na \'+\' v tejto aplikácii pre vytvorenie nového cloudového pripojenia.</string>
