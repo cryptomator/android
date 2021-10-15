@@ -10,8 +10,9 @@ import javax.inject.Inject
 
 @PerView
 class SetPasswordPresenter @Inject constructor( //
-		private val createNewVaultWorkflow: CreateNewVaultWorkflow, //
-		exceptionMappings: ExceptionHandlers) : Presenter<SetPasswordView>(exceptionMappings) {
+	private val createNewVaultWorkflow: CreateNewVaultWorkflow, //
+	exceptionMappings: ExceptionHandlers
+) : Presenter<SetPasswordView>(exceptionMappings) {
 
 	override fun workflows(): Iterable<Workflow<*>> {
 		return setOf(createNewVaultWorkflow)

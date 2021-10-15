@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+	<!-- # app -->
+	<string name="share_with_label">Titkosítás</string>
+	<!-- # error messages -->
+	<string name="error_generic">Egy hiba történt</string>
+	<string name="error_authentication_failed">Sikertelen hitelesítés</string>
+	<string name="error_authentication_failed_re_authenticate">Azonosítási hiba. Lépj be újra</string>
+	<string name="error_no_network_connection">Nincs hálózati kapcsolat</string>
+	<string name="error_invalid_passphrase">Helytelen jelszó</string>
+	<string name="error_file_or_folder_exists">Ez a fájl/mappa már létezik.</string>
+	<string name="error_vault_version_not_supported">Nem támogatott Széf. Ez a Széf a Cryptomator egy másik verziójával készült.</string>
+	<string name="error_vault_already_exists">A széf már létezik.</string>
+	<string name="error_no_such_file">Fájl nem létezik.</string>
+	<string name="error_vault_has_been_locked">A széf zárva van.</string>
+	<string name="error_cloud_already_exists">A felhő már létezik.</string>
+	<string name="error_activity_not_found">Kérjük, töltsön le egy alkalmazást, amely képes megnyitni ezt a fájlt.</string>
+	<string name="error_server_not_found">Szerver nem található.</string>
+	<string name="error_export_illegal_file_name">Az exportálás sikertelen. Próbálja meg eltávolítani a speciális karaktereket a fájlnevekből és exportálja újra.</string>
+	<string name="error_name_contains_invalid_characters">Nem tartalmazhat speciális karaktereket.</string>
+	<string name="error_names_contains_invalid_characters">A fájl neve nem tartalmazhat speciális karaktereket.</string>
+	<string name="error_vault_name_contains_invalid_characters">A széf neve nem tartalmazhat speciális karaktereket.</string>
+	<string name="error_general_update">A frissítés ellenőrzése sikertelen. Általános hiba történt.</string>
+	<!-- # clouds -->
+	<!-- ## cloud names -->
+	<!-- # permission -->
+	<!-- ## permission messages -->
+	<string name="snack_bar_action_title_search_next">Következő</string>
+	<string name="snack_bar_action_title_sort">Rendezés</string>
+	<string name="snack_bar_action_title_sort_az">A - Z</string>
+	<string name="snack_bar_action_title_sort_za">Z - A</string>
+	<string name="snack_bar_action_title_sort_newest">Időben csökkenő</string>
+	<string name="snack_bar_action_title_sort_oldest">Régebbiek előre</string>
+	<string name="snack_bar_action_title_sort_biggest">Nagyobbak előre</string>
+	<string name="snack_bar_action_title_sort_smallest">Kisebbek előre</string>
+	<!-- # screens -->
+	<!-- # screen: vault list -->
+	<string name="screen_vault_list_actions_title">Cryptomator-hoz adás</string>
+	<string name="screen_vault_list_action_create_new_vault">Új széf készítése</string>
+	<string name="screen_vault_list_action_add_existing_vault">Meglévő széfhez adás</string>
+	<string name="screen_vault_list_vault_action_delete">Eltávolítás</string>
+	<string name="screen_vault_list_vault_creation_hint">Kattintson ide egy új széf létrehozásához</string>
+	<!-- # screen: file browser -->
+	<string name="screen_file_browser_default_title">Széf</string>
+	<string name="screen_file_browser_share_button_text">Választás</string>
+	<string name="screen_file_browser_no_connection_button_text">Újra</string>
+	<!-- ## screen: text editor -->
+	<string name="screen_text_editor_save_success">Sikeresen mentve</string>
+	<!-- ## screen: share files -->
+	<string name="screen_share_files_title">Mentés %1$s a&#8230;</string>
+	<string name="screen_share_files_content_text">szöveg</string>
+	<string name="screen_share_files_content_file">fájl</string>
+	<string name="screen_share_files_content_files">fájlok</string>
+	<string name="screen_share_files_msg_filenames_must_be_unique">A fájlneveknek egyedinek kell lenniük, kérjük, nevezze át a duplikátumokat.</string>
+	<string name="screen_share_files_section_location">Mentés helye</string>
+	<string name="screen_share_files_save_button_text">Mentés</string>
+	<string name="screen_share_files_msg_success">A titkosítás befejeződött</string>
+	<!-- ## screen: choose cloud service -->
+	<string name="screen_choose_cloud_service_title">Felhőszolgáltatás</string>
+	<!-- ## screen: cloud connections -->
+	<string name="screen_cloud_connections_title">Válasszon helyt</string>
+	<string name="screen_cloud_connections_no_connections">Kattintson ide a hely hozzáadásához</string>
+	<string name="screen_cloud_error_webdav_not_supported">A kiszolgáló nem tűnik WebDAV kompatibilisnek</string>
+	<string name="screen_cloud_local_custom_storage_title">Egyedi helyek</string>
+	<string name="screen_cloud_local_default_storage_title">Alapértelmezett tároló</string>
+	<string name="screen_cloud_local_error_no_content_provider">További helyszínek nem állnak rendelkezésre.</string>
+	<!-- ## screen: webdav settings -->
+	<string name="screen_webdav_settings_url_port_label">ULR</string>
+	<string name="screen_webdav_settings_username_label">Felhasználónév</string>
+	<string name="screen_webdav_settings_password_label">Jelszó</string>
+	<string name="screen_webdav_settings_done_button_text">Csatlakozás</string>
+	<string name="screen_webdav_settings_msg_url_must_not_be_empty">Az elérési út nem lehet üres.</string>
+	<string name="screen_webdav_settings_msg_url_is_invalid">Érvénytelen URL.</string>
+	<string name="screen_webdav_settings_msg_username_must_not_be_empty">A felhasználónév nem lehet üres.</string>
+	<string name="screen_webdav_settings_msg_password_must_not_be_empty">A jelszó nem lehet üres.</string>
+	<!-- ## screen: s3 settings -->
+	<string name="screen_s3_settings_display_name_label">Megjelenítendő név</string>
+	<string name="screen_s3_settings_access_key_label">Hozzáférési kulcs</string>
+	<string name="screen_s3_settings_secret_key_label">Titkos kulcs</string>
+	<string name="screen_s3_settings_bucket_label">Meglévő tartály</string>
+	<string name="screen_s3_settings_endpoint_label">Végpont</string>
+	<string name="screen_s3_settings_region_label">Régió</string>
+	<string name="screen_s3_settings_msg_display_name_not_empty">A Megjelenítendő név nem lehet üres</string>
+	<string name="screen_s3_settings_msg_access_key_not_empty">A Hozzáférési Kulcs nem lehet üres</string>
+	<string name="screen_s3_settings_msg_secret_key_not_empty">A Titkos Kulcs nem lehet üres</string>
+	<string name="screen_s3_settings_msg_bucket_not_empty">A Tároló nem lehet üres</string>
+	<string name="screen_s3_settings_msg_endpoint_and_region_not_empty">A Végpont vagy a Régió nem lehet üres</string>
+	<!-- ## screen: enter vault name -->
+	<string name="screen_enter_vault_name_msg_name_empty">A Széf neve nem lehet üres.</string>
+	<string name="screen_enter_vault_name_vault_label">Széf neve</string>
+	<string name="screen_enter_vault_name_button_text">Létrehozás</string>
+	<!-- ## screen: set password -->
+	<string name="screen_set_password_title">Jelszó beállítása</string>
+	<string name="screen_set_password_msg_password_mismatch">A jelszó nem egyezik az újra begépelt jelszóval.</string>
+	<string name="screen_set_password_button_text">Kész</string>
+	<string name="screen_set_password_hint">FONTOS: Ha elfelejti a jelszavát, nincs mód az adatok helyreállítására.</string>
+	<string name="screen_set_password_retype_password_label">Írja be ismét a jelszót</string>
+	<string name="screen_set_password_strength_indicator_0">Túl gyenge a széf létrehozásához</string>
+	<string name="screen_set_password_strength_indicator_1">Gyenge</string>
+	<string name="screen_set_password_strength_indicator_2">Átlagos</string>
+	<string name="screen_set_password_strength_indicator_3">Erős</string>
+	<string name="screen_set_password_strength_indicator_4">Nagyon Erős</string>
+	<!-- ## screen: settings -->
+	<string name="screen_settings_section_general">Általános</string>
+	<string name="screen_settings_cloud_settings_label">Felhőszolgáltatás</string>
+	<string name="screen_settings_biometric_auth">Biometrikus hitelesítés</string>
+	<string name="screen_settings_activate_biometric_auth">Biometrikus hitelesítés aktiválása</string>
+	<string name="screen_settings_confirm_face_unlock">Arcfeloldás megerősítése (ha elérhető)</string>
+	<string name="screen_settings_block_app_when_obscured">Alkalmazás blokkolása, ha nem látható</string>
+	<string name="screen_settings_block_app_when_obscured_summary">A bevitel elfogásának blokkolása és a hamis felhasználói felület megjelenítése</string>
+	<!-- ## screen: cloud settings -->
+	<!-- ## screen: licenses -->
+	<!-- ## screen: authenticate cloud -->
+	<!-- ## screen: insecure android version info -->
+	<!-- # dialogs -->
+	<string name="dialog_button_cancel">Mégse</string>
+	<string name="dialog_enter_password_positive_button">Feloldás</string>
+	<!-- Vault not found -->
+	<string name="dialog_vault_not_found_positive_button_text">Eltávolítás</string>
+	<string name="dialog_lock_vault">Zárolás</string>
+	<string name="dialog_app_is_obscured_info_neutral_button">Bezár</string>
+	<string name="dialog_sym_link_back_button">Vissza</string>
+	<!-- # error reports -->
+	<!-- # misc -->
+	<!-- ## file size helper -->
+	<!-- ## date helper -->
+	<!-- ## biometric authentication -->
+	<!-- notification -->
+	<!-- lock timeout names -->
+	<!-- cache size names -->
+	<!-- screen scheme mode names -->
+	<string name="light">Világos</string>
+	<string name="dark">Sötét</string>
+	<!-- update interval names -->
+</resources>

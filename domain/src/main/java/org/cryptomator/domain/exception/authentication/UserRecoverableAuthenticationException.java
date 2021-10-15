@@ -2,8 +2,9 @@ package org.cryptomator.domain.exception.authentication;
 
 import android.content.Intent;
 
+import com.google.common.base.Optional;
+
 import org.cryptomator.domain.Cloud;
-import org.cryptomator.util.Optional;
 
 public class UserRecoverableAuthenticationException extends AuthenticationException {
 
@@ -15,7 +16,7 @@ public class UserRecoverableAuthenticationException extends AuthenticationExcept
 	}
 
 	public Optional<Intent> getRecoveryAction() {
-		return Optional.ofNullable(recoveryAction);
+		return Optional.fromNullable(recoveryAction);
 	}
 
 }

@@ -1,9 +1,9 @@
 [submodule "msa-auth-for-android"]
-	path = msa-auth-for-android
+	path = lib/msa-auth-for-android
 	url = https://github.com/SailReal/msa-auth-for-android.git
 [submodule "subsampling-scale-image-view"]
-	path = subsampling-scale-image-view
+	path = lib/subsampling-scale-image-view
 	url = https://github.com/SailReal/subsampling-scale-image-view.git
 [submodule "pcloud-sdk-java"]
-	path = pcloud-sdk-java
-	url = https://github.com/SailReal/pcloud-sdk-java
+	path = lib/pcloud-sdk-java
+	url = https://github.com/SailReal/pcloud-sdk-java.git

@@ -20,11 +20,11 @@ class ReplaceDialog private constructor(private val context: Context) {
 	fun show(existingFiles: List<String>, uploadingFilesCount: Int) {
 		val existingFilesCount = existingFiles.size
 		val alertDialogBuilder = AlertDialog.Builder(context) //
-				.setTitle(effectiveReplaceDialogTitle(existingFilesCount)) //
-				.setMessage(effectiveReplaceDialogMessage(existingFiles, uploadingFilesCount))
-				.setPositiveButton(effectiveReplaceDialogPositiveButton(existingFilesCount, uploadingFilesCount)) { _: DialogInterface, _: Int -> callback.onReplacePositiveClicked() } //
-				.setNeutralButton(effectiveReplaceDialogNeutralButton()) { _: DialogInterface, _: Int -> callback.onReplaceCanceled() } //
-				.setOnCancelListener { callback.onReplaceCanceled() }
+			.setTitle(effectiveReplaceDialogTitle(existingFilesCount)) //
+			.setMessage(effectiveReplaceDialogMessage(existingFiles, uploadingFilesCount))
+			.setPositiveButton(effectiveReplaceDialogPositiveButton(existingFilesCount, uploadingFilesCount)) { _: DialogInterface, _: Int -> callback.onReplacePositiveClicked() } //
+			.setNeutralButton(effectiveReplaceDialogNeutralButton()) { _: DialogInterface, _: Int -> callback.onReplaceCanceled() } //
+			.setOnCancelListener { callback.onReplaceCanceled() }
 		if (uploadingFilesCount > 1 && existingFilesCount != uploadingFilesCount) {
 			alertDialogBuilder.setNegativeButton(effectiveReplaceDialogNegativeButton()) { _: DialogInterface, _: Int -> callback.onReplaceNegativeClicked() }
 		}

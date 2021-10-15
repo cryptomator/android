@@ -17,8 +17,8 @@ class AskForLockScreenDialog : BaseDialog<AskForLockScreenDialog.Callback>() {
 
 	override fun setupDialog(builder: AlertDialog.Builder): android.app.Dialog {
 		builder //
-				.setTitle(R.string.dialog_no_screen_lock_title) //
-				.setNeutralButton(getString(R.string.dialog_unable_to_share_positive_button)) { _: DialogInterface, _: Int -> callback?.onAskForLockScreenFinished(cb_select_screen_lock.isChecked) }
+			.setTitle(R.string.dialog_no_screen_lock_title) //
+			.setNeutralButton(getString(R.string.dialog_unable_to_share_positive_button)) { _: DialogInterface, _: Int -> callback?.onAskForLockScreenFinished(cb_select_screen_lock.isChecked) }
 		return builder.create()
 	}
 

@@ -21,9 +21,9 @@ class UpdateAppDialog : BaseProgressErrorDialog<UpdateAppDialog.Callback>() {
 
 	public override fun setupDialog(builder: AlertDialog.Builder): android.app.Dialog {
 		return builder //
-				.setTitle(getString(R.string.dialog_download_update_title)) //
-				.setCancelable(false) //
-				.create()
+			.setTitle(getString(R.string.dialog_download_update_title)) //
+			.setCancelable(false) //
+			.create()
 	}
 
 	public override fun setupView() {

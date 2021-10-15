@@ -4,15 +4,13 @@ import android.content.Context;
 
 import org.cryptomator.util.ByteArrayUtils;
 
+import java.nio.charset.StandardCharsets;
 import java.security.InvalidAlgorithmParameterException;
 import java.security.InvalidKeyException;
 import java.security.KeyStore;
 
 import javax.crypto.BadPaddingException;
 import javax.crypto.IllegalBlockSizeException;
-
-import static org.cryptomator.util.Encodings.ISO_8859_1;
-import static org.cryptomator.util.Encodings.UTF_8;
 
 public class BiometricAuthCryptor {
 
@@ -38,7 +36,7 @@ public class BiometricAuthCryptor {
 	}
 
 	public javax.crypto.Cipher getDecryptCipher(String decrypted) throws InvalidAlgorithmParameterException, InvalidKeyException {
-		return cipher.getDecryptCipher(decrypted.getBytes(ISO_8859_1));
+		return cipher.getDecryptCipher(decrypted.getBytes(StandardCharsets.ISO_8859_1));
 	}
 
 	public javax.crypto.Cipher getEncryptCipher() throws InvalidKeyException {
@@ -46,13 +44,13 @@ public class BiometricAuthCryptor {
 	}
 
 	public String encrypt(javax.crypto.Cipher cipher, String password) throws IllegalBlockSizeException, BadPaddingException {
-		byte[] encrypted = cipher.doFinal(password.getBytes(UTF_8));
+		byte[] encrypted = cipher.doFinal(password.getBytes(StandardCharsets.UTF_8));
 		byte[] encryptedPasswordAndIv = ByteArrayUtils.join(cipher.getIV(), encrypted);
-		return new String(encryptedPasswordAndIv, ISO_8859_1);
+		return new String(encryptedPasswordAndIv, StandardCharsets.ISO_8859_1);
 	}
 
 	public String decrypt(javax.crypto.Cipher cipher, String password) throws IllegalBlockSizeException, BadPaddingException {
-		byte[] ciphered = cipher.doFinal(CipherFromApi23.getBytes(password.getBytes(ISO_8859_1)));
-		return new String(ciphered, UTF_8);
+		byte[] ciphered = cipher.doFinal(CipherImpl.getBytes(password.getBytes(StandardCharsets.ISO_8859_1)));
+		return new String(ciphered, StandardCharsets.UTF_8);
 	}
 }

@@ -11,4 +11,8 @@ public class GeneralUpdateErrorException extends BackendException {
 	public GeneralUpdateErrorException(final String message, final Exception e) {
 		super(message, e);
 	}
+
+	public GeneralUpdateErrorException(Exception e) {
+		super(e);
+	}
 }

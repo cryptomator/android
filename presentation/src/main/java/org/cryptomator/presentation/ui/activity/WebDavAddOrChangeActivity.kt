@@ -17,8 +17,8 @@ import kotlinx.android.synthetic.main.toolbar_layout.toolbar
 
 @Activity
 class WebDavAddOrChangeActivity : BaseActivity(),
-		WebDavAddOrChangeView,
-		WebDavAskForHttpDialog.Callback {
+	WebDavAddOrChangeView,
+	WebDavAskForHttpDialog.Callback {
 
 	@Inject
 	lateinit var webDavAddOrChangePresenter: WebDavAddOrChangePresenter

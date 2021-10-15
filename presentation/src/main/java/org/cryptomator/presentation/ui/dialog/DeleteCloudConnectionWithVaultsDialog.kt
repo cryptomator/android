@@ -20,11 +20,11 @@ class DeleteCloudConnectionWithVaultsDialog : BaseDialog<DeleteCloudConnectionWi
 	override fun setupDialog(builder: AlertDialog.Builder): android.app.Dialog {
 		val cloudModel = requireArguments().getSerializable(ARG_CLOUD) as CloudModel
 		builder.setTitle(cloudModel.name()) //
-				.setPositiveButton(getString(R.string.dialog_delete_cloud_connection_with_vaults_positive_button)) { _: DialogInterface, _: Int ->
-					val vaultsOfCloud = requireArguments().getSerializable(ARG_VAULTS) as ArrayList<Vault>
-					callback?.onDeleteCloudConnectionAndVaults(cloudModel, vaultsOfCloud)
-					dismiss()
-				}.setNegativeButton(getString(R.string.dialog_delete_cloud_connection_with_vaults_negative_button)) { _: DialogInterface, _: Int -> }
+			.setPositiveButton(getString(R.string.dialog_delete_cloud_connection_with_vaults_positive_button)) { _: DialogInterface, _: Int ->
+				val vaultsOfCloud = requireArguments().getSerializable(ARG_VAULTS) as ArrayList<Vault>
+				callback?.onDeleteCloudConnectionAndVaults(cloudModel, vaultsOfCloud)
+				dismiss()
+			}.setNegativeButton(getString(R.string.dialog_delete_cloud_connection_with_vaults_negative_button)) { _: DialogInterface, _: Int -> }
 		return builder.create()
 	}
 

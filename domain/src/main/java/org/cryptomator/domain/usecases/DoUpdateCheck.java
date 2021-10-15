@@ -4,7 +4,7 @@ import org.cryptomator.domain.exception.BackendException;
 import org.cryptomator.domain.repository.UpdateCheckRepository;
 import org.cryptomator.generator.Parameter;
 import org.cryptomator.generator.UseCase;
-import org.cryptomator.util.Optional;
+import com.google.common.base.Optional;
 
 @UseCase
 public class DoUpdateCheck {

@@ -7,7 +7,9 @@ import org.cryptomator.presentation.model.CloudModel
 import org.cryptomator.presentation.model.CloudTypeModel
 import org.cryptomator.presentation.ui.adapter.CloudSettingsAdapter.CloudSettingViewHolder
 import javax.inject.Inject
-import kotlinx.android.synthetic.main.item_cloud_setting.view.*
+import kotlinx.android.synthetic.main.item_cloud_setting.view.cloudImage
+import kotlinx.android.synthetic.main.item_cloud_setting.view.cloudName
+import kotlinx.android.synthetic.main.item_cloud_setting.view.cloudUsername
 
 class CloudSettingsAdapter @Inject
 constructor(private val context: Context) : RecyclerViewBaseAdapter<CloudModel, CloudSettingsAdapter.OnItemClickListener, CloudSettingViewHolder>() {

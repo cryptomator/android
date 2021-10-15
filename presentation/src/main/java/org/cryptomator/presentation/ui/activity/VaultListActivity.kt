@@ -2,11 +2,8 @@ package org.cryptomator.presentation.ui.activity
 
 import android.content.Intent
 import android.net.Uri
-import android.os.Build
 import android.view.View
-import androidx.annotation.RequiresApi
 import androidx.fragment.app.Fragment
-import org.cryptomator.domain.Vault
 import org.cryptomator.generator.Activity
 import org.cryptomator.generator.InjectIntent
 import org.cryptomator.presentation.CryptomatorApp
@@ -25,41 +22,30 @@ import org.cryptomator.presentation.ui.bottomsheet.SettingsVaultBottomSheet
 import org.cryptomator.presentation.ui.callback.VaultListCallback
 import org.cryptomator.presentation.ui.dialog.AskForLockScreenDialog
 import org.cryptomator.presentation.ui.dialog.BetaConfirmationDialog
-import org.cryptomator.presentation.ui.dialog.BiometricAuthKeyInvalidatedDialog
-import org.cryptomator.presentation.ui.dialog.ChangePasswordDialog
-import org.cryptomator.presentation.ui.dialog.EnterPasswordDialog
 import org.cryptomator.presentation.ui.dialog.UpdateAppAvailableDialog
 import org.cryptomator.presentation.ui.dialog.UpdateAppDialog
 import org.cryptomator.presentation.ui.dialog.VaultDeleteConfirmationDialog
-import org.cryptomator.presentation.ui.dialog.VaultNotFoundDialog
 import org.cryptomator.presentation.ui.dialog.VaultRenameDialog
 import org.cryptomator.presentation.ui.fragment.VaultListFragment
 import org.cryptomator.presentation.ui.layout.ObscuredAwareCoordinatorLayout.Listener
-import org.cryptomator.presentation.util.BiometricAuthentication
-import java.util.Locale
 import javax.inject.Inject
 import kotlinx.android.synthetic.main.activity_layout_obscure_aware.activityRootView
 import kotlinx.android.synthetic.main.toolbar_layout.toolbar
 
 @Activity(layout = R.layout.activity_layout_obscure_aware)
 class VaultListActivity : BaseActivity(), //
-		VaultListView, //
-		VaultListCallback, //
-		BiometricAuthentication.Callback, //
-		AskForLockScreenDialog.Callback, //
-		ChangePasswordDialog.Callback, //
-		VaultNotFoundDialog.Callback,
-		UpdateAppAvailableDialog.Callback, //
-		UpdateAppDialog.Callback, //
-		BetaConfirmationDialog.Callback {
+	VaultListView, //
+	VaultListCallback, //
+	AskForLockScreenDialog.Callback, //
+	UpdateAppAvailableDialog.Callback, //
+	UpdateAppDialog.Callback, //
+	BetaConfirmationDialog.Callback {
 
 	@Inject
 	lateinit var vaultListPresenter: VaultListPresenter
 
 	@InjectIntent
 	lateinit var vaultListIntent: VaultListIntent
-
-	private var biometricAuthentication: BiometricAuthentication? = null
 
 	override fun onWindowFocusChanged(hasFocus: Boolean) {
 		super.onWindowFocusChanged(hasFocus)
@@ -113,7 +99,7 @@ class VaultListActivity : BaseActivity(), //
 	}
 
 	private fun setupToolbar() {
-		toolbar.title = getString(R.string.app_name).toUpperCase(Locale.getDefault())
+		toolbar.title = getString(R.string.app_name).uppercase()
 		setSupportActionBar(toolbar)
 	}
 
@@ -123,40 +109,6 @@ class VaultListActivity : BaseActivity(), //
 
 	override fun showRenameDialog(vaultModel: VaultModel) {
 		showDialog(VaultRenameDialog.newInstance(vaultModel))
-	}
-
-	override fun showEnterPasswordDialog(vault: VaultModel) {
-		showDialog(EnterPasswordDialog.newInstance(vault))
-	}
-
-	@RequiresApi(api = Build.VERSION_CODES.M)
-	override fun showBiometricDialog(vault: VaultModel) {
-		biometricAuthentication = BiometricAuthentication(this, context(), BiometricAuthentication.CryptoMode.DECRYPT, vaultListPresenter.useConfirmationInFaceUnlockBiometricAuthentication())
-		biometricAuthentication?.startListening(vaultListFragment(), vault)
-	}
-
-	override fun showChangePasswordDialog(vaultModel: VaultModel) {
-		showDialog(ChangePasswordDialog.newInstance(vaultModel))
-	}
-
-	@RequiresApi(api = Build.VERSION_CODES.M)
-	override fun getEncryptedPasswordWithBiometricAuthentication(vaultModel: VaultModel) {
-		biometricAuthentication = BiometricAuthentication(this, context(), BiometricAuthentication.CryptoMode.ENCRYPT, vaultListPresenter.useConfirmationInFaceUnlockBiometricAuthentication())
-		biometricAuthentication?.startListening(vaultListFragment(), vaultModel)
-	}
-
-	override fun showBiometricAuthKeyInvalidatedDialog() {
-		showDialog(BiometricAuthKeyInvalidatedDialog.newInstance())
-	}
-
-	@RequiresApi(api = Build.VERSION_CODES.M)
-	override fun cancelBasicAuthIfRunning() {
-		biometricAuthentication?.stopListening()
-	}
-
-	@RequiresApi(api = Build.VERSION_CODES.M)
-	override fun stoppedBiometricAuthDuringCloudAuthentication(): Boolean {
-		return biometricAuthentication?.stoppedBiometricAuthDuringCloudAuthentication() == true
 	}
 
 	override fun rowMoved(fromPosition: Int, toPosition: Int) {
@@ -169,7 +121,7 @@ class VaultListActivity : BaseActivity(), //
 
 	override fun showVaultSettingsDialog(vaultModel: VaultModel) {
 		val vaultSettingDialog = //
-				SettingsVaultBottomSheet.newInstance(vaultModel)
+			SettingsVaultBottomSheet.newInstance(vaultModel)
 		vaultSettingDialog.show(supportFragmentManager, "VaultSettings")
 	}
 
@@ -209,17 +161,9 @@ class VaultListActivity : BaseActivity(), //
 		vaultListPresenter.onCreateVault()
 	}
 
-	override fun onUnlockClick(vaultModel: VaultModel, password: String) {
-		vaultListPresenter.onUnlockClick(vaultModel, password)
-	}
-
-	override fun onUnlockCanceled() {
-		vaultListPresenter.onUnlockCanceled()
-	}
-
 	override fun onDeleteVaultClick(vaultModel: VaultModel) {
 		VaultDeleteConfirmationDialog.newInstance(vaultModel) //
-				.show(supportFragmentManager, "VaultDeleteConfirmationDialog")
+			.show(supportFragmentManager, "VaultDeleteConfirmationDialog")
 	}
 
 	override fun onRenameVaultClick(vaultModel: VaultModel) {
@@ -247,15 +191,7 @@ class VaultListActivity : BaseActivity(), //
 	}
 
 	private fun vaultListFragment(): VaultListFragment = //
-			getCurrentFragment(R.id.fragmentContainer) as VaultListFragment
-
-	override fun onChangePasswordClick(vaultModel: VaultModel, oldPassword: String, newPassword: String) {
-		vaultListPresenter.onChangePasswordClicked(vaultModel, oldPassword, newPassword)
-	}
-
-	override fun onDeleteMissingVaultClicked(vault: Vault) {
-		vaultListPresenter.onDeleteMissingVaultClicked(vault)
-	}
+		getCurrentFragment(R.id.fragmentContainer) as VaultListFragment
 
 	override fun onUpdateAppDialogLoaded() {
 		showProgress(ProgressModel.GENERIC)
@@ -277,23 +213,6 @@ class VaultListActivity : BaseActivity(), //
 	}
 
 	override fun onAskForBetaConfirmationFinished() {
-		sharedPreferencesHandler.setBetaScreenDialogAlreadyShown()
+		sharedPreferencesHandler.setBetaScreenDialogAlreadyShown(true)
 	}
-
-	override fun onBiometricAuthenticated(vault: VaultModel) {
-		vaultListPresenter.onBiometricAuthenticationSucceeded(vault)
-	}
-
-	override fun onBiometricAuthenticationFailed(vault: VaultModel) {
-		val vaultWithoutPassword = Vault.aCopyOf(vault.toVault()).withSavedPassword(null).build()
-		if (!vaultListPresenter.startedUsingPrepareUnlock()) {
-			vaultListPresenter.startPrepareUnlockUseCase(vaultWithoutPassword)
-		}
-		showEnterPasswordDialog(VaultModel(vaultWithoutPassword))
-	}
-
-	override fun onBiometricKeyInvalidated(vault: VaultModel) {
-		vaultListPresenter.onBiometricKeyInvalidated()
-	}
-
 }

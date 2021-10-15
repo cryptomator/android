@@ -1,12 +1,13 @@
 allprojects {
 	repositories {
-		jcenter()
+		mavenCentral()
+		maven { url 'https://jitpack.io' }
 	}
 }
 
 ext {
-	androidBuildToolsVersion = "29.0.2"
-	androidMinSdkVersion = 23
+	androidBuildToolsVersion = "30.0.2"
+	androidMinSdkVersion = 24
 	androidTargetSdkVersion = 29
 	androidCompileSdkVersion = 29
 
@@ -17,8 +18,10 @@ ext {
 
 	// support lib
 	androidSupportAnnotationsVersion = '1.2.0'
-	androidSupportAppcompatVersion = '1.2.0'
-	androidSupportDesignVersion = '1.3.0'
+	androidSupportAppcompatVersion = '1.3.1'
+	androidSupportDesignVersion = '1.4.0'
+
+	coreDesugaringVersion = '1.1.5'
 
 	// app frameworks and utilities
 
@@ -26,40 +29,44 @@ ext {
 	rxAndroidVersion = '2.1.1'
 	rxBindingVersion = '2.2.0'
 
-	daggerVersion = '2.35'
+	daggerVersion = '2.39'
 
-	gsonVersion = '2.8.6'
+	gsonVersion = '2.8.8'
 
-	okHttpVersion = '4.9.1'
+	okHttpVersion = '4.9.2'
 	okHttpDigestVersion = '2.5'
 
-	velocityVersion = '1.7'
+	velocityVersion = '2.3'
 
-	timberVersion = '4.7.1'
+	timberVersion = '5.0.1'
 
-	zxcvbnVersion = '1.5.0'
+	zxcvbnVersion = '1.5.2'
 
 	scaleImageViewVersion = '3.10.0'
 
-	lruFileCacheVersion = '1.0'
+	lruFileCacheVersion = '1.2'
 
 	// KEEP IN SYNC WITH GENERATOR VERSION IN root build.gradle
 	greenDaoVersion = '3.3.0'
 
 	// cloud provider libs
+	cryptolibVersion = '2.0.2'
 
-	// do not update to 1.4.0 until minsdk is 7.x (or desugaring works better) otherwise it will crash on 6.x
-	cryptolibVersion = '1.3.0'
+	dropboxVersion = '4.0.1'
 
-	awsAndroidSdkS3 = '2.23.0'
-
-	dropboxVersion = '4.0.0'
-
-	googleApiServicesVersion = 'v3-rev197-1.25.0'
-	googlePlayServicesVersion = '19.0.0'
-	googleClientVersion = '1.31.4'
+	googleApiServicesVersion = 'v3-rev20210919-1.32.1'
+	googlePlayServicesVersion = '19.2.0'
+	googleClientVersion = '1.32.1' // keep in sync with https://github.com/SailReal/google-http-java-client
+	/*
+		update using https://github.com/SailReal/google-http-java-client with `mvn clean install`,
+		copying `google-http-client-*.jar` and `google-http-client-android-*.jar` into the lib folder of this project
+	 */
+	trackingFreeGoogleCLientVersion = '1.40.1'
 
 	msgraphVersion = '2.10.0'
+
+	minIoVersion = '8.3.0'
+	staxVersion = '1.2.0' // needed for minIO
 
 	commonsCodecVersion = '1.15'
 
@@ -67,29 +74,28 @@ ext {
 
 	// testing dependencies
 
-	jUnitVersion = '5.7.1'
-	jUnit4Version = '4.13.1'
+	jUnitVersion = '5.8.1'
 	assertJVersion = '1.7.1'
-	mockitoVersion = '3.9.0'
-	mockitoInlineVersion = '3.9.0'
+	mockitoVersion = '3.12.4'
+	mockitoKotlinVersion = '3.2.0'
 	hamcrestVersion = '1.3'
 	dexmakerVersion = '1.0'
-	espressoVersion = '3.3.0'
+	espressoVersion = '3.4.0'
 	testingSupportLibVersion = '0.1'
-	runnerVersion = '1.3.0'
-	rulesVersion = '1.3.0'
-	contributionVersion = '3.3.0'
+	runnerVersion = '1.4.0'
+	rulesVersion = '1.4.0'
+	contributionVersion = '3.4.0'
 	uiautomatorVersion = '2.2.0'
 
-	androidxCoreVersion = '1.3.2'
-	androidxFragmentVersion = '1.3.2'
+	androidxCoreVersion = '1.6.0'
+	androidxFragmentVersion = '1.3.6'
 	androidxViewpagerVersion = '1.0.0'
 	androidxSwiperefreshVersion = '1.1.0'
-	androidxPreferenceVersion = '1.0.0' // 1.1.0 and 1.1.2 does have a bug with the text size
-	androidxRecyclerViewVersion = '1.2.0'
+	androidxPreferenceVersion = '1.1.1'
+	androidxRecyclerViewVersion = '1.2.1'
 	androidxDocumentfileVersion = '1.0.1'
 	androidxBiometricVersion = '1.1.0'
-	androidxTestCoreVersion = '1.3.0'
+	androidxTestCoreVersion = '1.4.0'
 
 	jsonWebTokenApiVersion = '0.11.2'
 
@@ -103,7 +109,6 @@ ext {
 			androidxViewpager     : "androidx.viewpager:viewpager:${androidxViewpagerVersion}",
 			androidxSwiperefresh  : "androidx.swiperefreshlayout:swiperefreshlayout:${androidxSwiperefreshVersion}",
 			androidxPreference    : "androidx.preference:preference:${androidxPreferenceVersion}",
-			awsAndroidS3          : "com.amazonaws:aws-android-sdk-s3:${awsAndroidSdkS3}",
 			documentFile          : "androidx.documentfile:documentfile:${androidxDocumentfileVersion}",
 			recyclerView          : "androidx.recyclerview:recyclerview:${androidxRecyclerViewVersion}",
 			androidxTestCore      : "androidx.test:core:${androidxTestCoreVersion}",
@@ -112,11 +117,14 @@ ext {
 			dagger                : "com.google.dagger:dagger:${daggerVersion}",
 			daggerCompiler        : "com.google.dagger:dagger-compiler:${daggerVersion}",
 			design                : "com.google.android.material:material:${androidSupportDesignVersion}",
+			coreDesugaring        : "com.android.tools:desugar_jdk_libs:${coreDesugaringVersion}",
 			dropbox               : "com.dropbox.core:dropbox-core-sdk:${dropboxVersion}",
 			espresso              : "androidx.test.espresso:espresso-core:${espressoVersion}",
 			googleApiClientAndroid: "com.google.api-client:google-api-client-android:${googleClientVersion}",
 			googleApiServicesDrive: "com.google.apis:google-api-services-drive:${googleApiServicesVersion}",
 			googlePlayServicesAuth: "com.google.android.gms:play-services-auth:${googlePlayServicesVersion}",
+			trackingFreeGoogleCLient       : files("lib/google-http-client-${trackingFreeGoogleCLientVersion}.jar"),
+			trackingFreeGoogleAndroidCLient: files("lib/google-http-client-android-${trackingFreeGoogleCLientVersion}.jar"),
 			greenDao              : "org.greenrobot:greendao:${greenDaoVersion}",
 			gson                  : "com.google.code.gson:gson:${gsonVersion}",
 			hamcrest              : "org.hamcrest:hamcrest-all:${hamcrestVersion}",
@@ -125,28 +133,30 @@ ext {
 			junitApi              : "org.junit.jupiter:junit-jupiter-api:${jUnitVersion}",
 			junitEngine           : "org.junit.jupiter:junit-jupiter-engine:${jUnitVersion}",
 			junitParams           : "org.junit.jupiter:junit-jupiter-params:${jUnitVersion}",
-			junit4                : "org.junit.jupiter:junit-jupiter:${jUnit4Version}",
 			junit4Engine          : "org.junit.vintage:junit-vintage-engine:${jUnitVersion}",
-			msgraph               : "com.microsoft.graph:microsoft-graph:${msgraphVersion}",
+			minIo                 : "io.minio:minio:${minIoVersion}",
 			mockito               : "org.mockito:mockito-core:${mockitoVersion}",
-			mockitoInline         : "org.mockito:mockito-inline:${mockitoInlineVersion}",
+			mockitoInline         : "org.mockito:mockito-inline:${mockitoVersion}",
+			mockitoKotlin         : "org.mockito.kotlin:mockito-kotlin:${mockitoKotlinVersion}",
+			msgraph               : "com.microsoft.graph:microsoft-graph:${msgraphVersion}",
 			multidex              : "androidx.multidex:multidex:${multidexVersion}",
 			okHttp                : "com.squareup.okhttp3:okhttp:${okHttpVersion}",
-			okHttpDigest          : "com.burgstaller:okhttp-digest:${okHttpDigestVersion}",
+			okHttpDigest          : "io.github.rburgst:okhttp-digest:${okHttpDigestVersion}",
 			recyclerViewFastScroll: "com.simplecityapps:recyclerview-fastscroll:${recyclerViewFastScrollVersion}",
 			rxJava                : "io.reactivex.rxjava2:rxjava:${rxJavaVersion}",
 			rxAndroid             : "io.reactivex.rxjava2:rxandroid:${rxAndroidVersion}",
 			rxBinding             : "com.jakewharton.rxbinding2:rxbinding:${rxBindingVersion}",
+			stax                  : "stax:stax:${staxVersion}",
 			testingSupportLib     : "com.android.support.test:testing-support-lib:${testingSupportLibVersion}",
 			timber                : "com.jakewharton.timber:timber:${timberVersion}",
-			velocity              : "org.apache.velocity:velocity:${velocityVersion}",
+			velocity              : "org.apache.velocity:velocity-engine-core:${velocityVersion}",
 			runner                : "androidx.test:runner:${runnerVersion}",
 			rules                 : "androidx.test:rules:${rulesVersion}",
 			contribution          : "androidx.test.espresso:espresso-contrib:${contributionVersion}",
 			uiAutomator           : "androidx.test.uiautomator:uiautomator:${uiautomatorVersion}",
 			zxcvbn                : "com.nulab-inc:zxcvbn:${zxcvbnVersion}",
 			scaleImageView        : "com.davemorrissey.labs:subsampling-scale-image-view:${scaleImageViewVersion}",
-			lruFileCache          : "com.tomclaw.cache:cache:${lruFileCacheVersion}",
+			lruFileCache          : "com.github.solkin:disk-lru-cache:${lruFileCacheVersion}",
 			jsonWebTokenApi       : "io.jsonwebtoken:jjwt-api:${jsonWebTokenApiVersion}",
 			jsonWebTokenImpl      : "io.jsonwebtoken:jjwt-impl:${jsonWebTokenApiVersion}",
 			jsonWebTokenJson      : "io.jsonwebtoken:jjwt-orgjson:${jsonWebTokenApiVersion}"

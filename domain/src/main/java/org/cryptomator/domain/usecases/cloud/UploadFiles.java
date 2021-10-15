@@ -11,7 +11,6 @@ import org.cryptomator.domain.repository.CloudContentRepository;
 import org.cryptomator.domain.usecases.ProgressAware;
 import org.cryptomator.generator.Parameter;
 import org.cryptomator.generator.UseCase;
-import org.cryptomator.util.Optional;
 
 import java.io.Closeable;
 import java.io.File;
@@ -79,7 +78,7 @@ class UploadFiles {
 
 	private CloudFile upload(UploadFile uploadFile, ProgressAware<UploadState> progressAware) throws BackendException {
 		DataSource dataSource = uploadFile.getDataSource();
-		if (dataSource.size(context).isPresent()) {
+		if (dataSource.size(context) != null) {
 			return upload(uploadFile, dataSource, progressAware);
 		} else {
 			File file = copyDataToFile(dataSource);
@@ -113,14 +112,14 @@ class UploadFiles {
 	}
 
 	private CloudFile writeCloudFile(String fileName, CancelAwareDataSource dataSource, boolean replacing, ProgressAware<UploadState> progressAware) throws BackendException {
-		Optional<Long> size = dataSource.size(context);
+		Long size = dataSource.size(context);
 		CloudFile source = cloudContentRepository.file(parent, fileName, size);
 		return cloudContentRepository.write( //
 				source, //
 				dataSource, //
 				progressAware, //
 				replacing, //
-				size.get());
+				size);
 	}
 
 	private void copy(InputStream in, OutputStream out) throws IOException {

@@ -7,6 +7,7 @@ import org.cryptomator.presentation.R
 import org.cryptomator.presentation.model.WebDavCloudModel
 import org.cryptomator.presentation.presenter.WebDavAddOrChangePresenter
 import org.cryptomator.util.crypto.CredentialCryptor
+import org.cryptomator.util.crypto.FatalCryptoException
 import javax.inject.Inject
 import kotlinx.android.synthetic.main.fragment_setup_webdav.createCloudButton
 import kotlinx.android.synthetic.main.fragment_setup_webdav.passwordEditText
@@ -53,9 +54,9 @@ class WebDavAddOrChangeFragment : BaseFragment() {
 		return if (password != null) {
 			try {
 				CredentialCryptor //
-						.getInstance(activity?.applicationContext) //
-						.decrypt(password)
-			} catch (e: RuntimeException) {
+					.getInstance(activity?.applicationContext) //
+					.decrypt(password)
+			} catch (e: FatalCryptoException) {
 				Timber.tag("WebdavAddOrCangeFragmnt").e(e, "Unable to decrypt password, clearing it")
 				""
 			}

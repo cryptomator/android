@@ -8,6 +8,6 @@ import kotlinx.android.parcel.Parcelize
 @Parcelize
 @SuppressLint("ParcelCreator")
 data class ImagePreviewFile(
-		val cloudFileModel: CloudFileModel,
-		var uri: Uri?
+	val cloudFileModel: CloudFileModel,
+	var uri: Uri?
 ) : Parcelable

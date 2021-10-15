@@ -160,9 +160,16 @@ public class ChooseCloudNodeSettings implements Serializable {
 			return this;
 		}
 
-		public Builder selectingFilesWithNameOnly(String name) {
+		public Builder selectingFileWithNameOnly(String name) {
 			this.selectionMode = FILES_ONLY;
 			this.namePattern = Pattern.compile(Pattern.quote(name));
+			return this;
+		}
+
+		public Builder selectingFilesWithNameOnly(List<String> names) {
+			this.selectionMode = FILES_ONLY;
+			String pattern = names.stream().map(Pattern::quote).reduce(Pattern.quote(""), (p1, p2) -> p1 + "|" + p2);
+			this.namePattern = Pattern.compile(pattern);
 			return this;
 		}
 

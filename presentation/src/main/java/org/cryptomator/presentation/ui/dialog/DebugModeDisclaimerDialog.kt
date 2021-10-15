@@ -17,9 +17,9 @@ class DebugModeDisclaimerDialog : BaseDialog<DebugModeDisclaimerDialog.Callback>
 
 	public override fun setupDialog(builder: AlertDialog.Builder): android.app.Dialog {
 		builder //
-				.setTitle(R.string.dialog_debug_mode_disclaimer_title) //
-				.setPositiveButton(getString(R.string.dialog_debug_mode_positive_button)) { _: DialogInterface, _: Int -> callback?.onDisclaimerAccepted() } //
-				.setNegativeButton(getString(R.string.dialog_debug_mode_negative_button)) { _: DialogInterface, _: Int -> callback?.onDisclaimerRejected() }
+			.setTitle(R.string.dialog_debug_mode_disclaimer_title) //
+			.setPositiveButton(getString(R.string.dialog_debug_mode_positive_button)) { _: DialogInterface, _: Int -> callback?.onDisclaimerAccepted() } //
+			.setNegativeButton(getString(R.string.dialog_debug_mode_negative_button)) { _: DialogInterface, _: Int -> callback?.onDisclaimerRejected() }
 		return builder.create()
 	}
 

@@ -21,16 +21,16 @@ import org.cryptomator.presentation.workflow.ActivityResult
 import org.cryptomator.presentation.workflow.AsyncResult
 import org.cryptomator.presentation.workflow.PermissionsResult
 import org.cryptomator.presentation.workflow.Workflow
-import org.cryptomator.util.Supplier
 import java.io.Serializable
 import java.util.Collections
+import java.util.function.Supplier
 import timber.log.Timber
 
 abstract class Presenter<V : View> protected constructor(private val exceptionMappings: ExceptionHandlers) : ActivityHolder {
 
 	var isPaused = false
 		private set
-	private var refreshOnBackpressEnabled = Supplier { true }
+	private var refreshOnBackPressEnabled = Supplier { true }
 
 	var view: V? = null
 		set(value) {
@@ -64,35 +64,33 @@ abstract class Presenter<V : View> protected constructor(private val exceptionMa
 
 	fun finishWithResultAndExtra(result: Serializable?, extraName: String?, extraResult: Serializable?) {
 		val data = Intent()
-		if (result == null) {
-			activity().setResult(Activity.RESULT_CANCELED)
-		} else {
-			data.putExtra(SINGLE_RESULT, result)
+		result?.let {
+			data.putExtra(SINGLE_RESULT, it)
 			data.putExtra(extraName, extraResult)
 			activity().setResult(Activity.RESULT_OK, data)
-		}
+		} ?: activity().setResult(Activity.RESULT_CANCELED)
 		finish()
 	}
 
 	fun finishWithResult(resultName: String, result: Serializable?) {
 		activeWorkflow()?.dispatch(result)
-				?: run {
-					val data = Intent()
-					when (result) {
-						null -> {
-							activity().setResult(Activity.RESULT_CANCELED)
-						}
-						is Throwable -> {
-							data.putExtra(resultName, result)
-							activity().setResult(Activity.RESULT_CANCELED, data)
-						}
-						else -> {
-							data.putExtra(resultName, result)
-							activity().setResult(Activity.RESULT_OK, data)
-						}
+			?: run {
+				val data = Intent()
+				when (result) {
+					null -> {
+						activity().setResult(Activity.RESULT_CANCELED)
 					}
-					finish()
+					is Throwable -> {
+						data.putExtra(resultName, result)
+						activity().setResult(Activity.RESULT_CANCELED, data)
+					}
+					else -> {
+						data.putExtra(resultName, result)
+						activity().setResult(Activity.RESULT_OK, data)
+					}
 				}
+				finish()
+			}
 	}
 
 	private fun activeWorkflow(): Workflow<*>? {
@@ -129,7 +127,6 @@ abstract class Presenter<V : View> protected constructor(private val exceptionMa
 	}
 
 	open fun resumed() {}
-
 
 	fun destroy() {
 		logLifecycle("destroy")
@@ -241,9 +238,9 @@ abstract class Presenter<V : View> protected constructor(private val exceptionMa
 		val result = arrayOfNulls<String>(permissions.size)
 		var numberMissing = 0
 		permissions
-				.asSequence()
-				.filter { ContextCompat.checkSelfPermission(activity(), it) != PackageManager.PERMISSION_GRANTED }
-				.forEach { result[numberMissing++] = it }
+			.asSequence()
+			.filter { ContextCompat.checkSelfPermission(activity(), it) != PackageManager.PERMISSION_GRANTED }
+			.forEach { result[numberMissing++] = it }
 		return result.copyOfRange(0, numberMissing)
 	}
 
@@ -314,12 +311,12 @@ abstract class Presenter<V : View> protected constructor(private val exceptionMa
 		Timber.tag("PresenterLifecycle").d("$method $this")
 	}
 
-	fun setRefreshOnBackpressEnabled(refreshOnBackpressEnabled: BrowseFilesPresenter.RefreshSupplier) {
-		this.refreshOnBackpressEnabled = refreshOnBackpressEnabled
+	fun setRefreshOnBackPressEnabled(refreshOnBackPressEnabled: BrowseFilesPresenter.RefreshSupplier) {
+		this.refreshOnBackPressEnabled = refreshOnBackPressEnabled
 	}
 
-	fun isRefreshOnBackpressEnabled(): Boolean {
-		return refreshOnBackpressEnabled.get()
+	fun isRefreshOnBackPressEnabled(): Boolean {
+		return refreshOnBackPressEnabled.get()
 	}
 
 	companion object {

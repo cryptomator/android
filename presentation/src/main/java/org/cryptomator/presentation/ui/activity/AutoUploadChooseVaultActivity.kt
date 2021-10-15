@@ -1,7 +1,5 @@
 package org.cryptomator.presentation.ui.activity
 
-import android.os.Build
-import androidx.annotation.RequiresApi
 import androidx.fragment.app.Fragment
 import org.cryptomator.generator.Activity
 import org.cryptomator.presentation.R
@@ -9,20 +7,15 @@ import org.cryptomator.presentation.model.CloudFolderModel
 import org.cryptomator.presentation.model.VaultModel
 import org.cryptomator.presentation.presenter.AutoUploadChooseVaultPresenter
 import org.cryptomator.presentation.ui.activity.view.AutoUploadChooseVaultView
-import org.cryptomator.presentation.ui.dialog.BiometricAuthKeyInvalidatedDialog
-import org.cryptomator.presentation.ui.dialog.EnterPasswordDialog
 import org.cryptomator.presentation.ui.dialog.NotEnoughVaultsDialog
 import org.cryptomator.presentation.ui.fragment.AutoUploadChooseVaultFragment
-import org.cryptomator.presentation.util.BiometricAuthentication
 import javax.inject.Inject
 import kotlinx.android.synthetic.main.toolbar_layout.toolbar
 
 @Activity
 class AutoUploadChooseVaultActivity : BaseActivity(), //
-		AutoUploadChooseVaultView, //
-		NotEnoughVaultsDialog.Callback, //
-		EnterPasswordDialog.Callback,
-		BiometricAuthentication.Callback {
+	AutoUploadChooseVaultView, //
+	NotEnoughVaultsDialog.Callback {
 
 	@Inject
 	lateinit var presenter: AutoUploadChooseVaultPresenter
@@ -40,7 +33,7 @@ class AutoUploadChooseVaultActivity : BaseActivity(), //
 		}
 	}
 
-	override fun createFragment(): Fragment? = AutoUploadChooseVaultFragment()
+	override fun createFragment(): Fragment = AutoUploadChooseVaultFragment()
 
 
 	override fun displayVaults(vaults: List<VaultModel>) {
@@ -49,9 +42,9 @@ class AutoUploadChooseVaultActivity : BaseActivity(), //
 
 	override fun displayDialogUnableToUploadFiles() {
 		NotEnoughVaultsDialog //
-				.withContext(this) //
-				.andTitle(getString(R.string.dialog_unable_to_auto_upload_files_title)) //
-				.show()
+			.withContext(this) //
+			.andTitle(getString(R.string.dialog_unable_to_auto_upload_files_title)) //
+			.show()
 	}
 
 	override fun onNotEnoughVaultsOkClicked() {
@@ -68,42 +61,6 @@ class AutoUploadChooseVaultActivity : BaseActivity(), //
 	override fun showChosenLocation(location: CloudFolderModel) {
 		autoUploadChooseVaultFragment().showChosenLocation(location)
 	}
-
-	override fun onUnlockCanceled() {
-		presenter.onUnlockCanceled()
-	}
-
-	override fun onUnlockClick(vaultModel: VaultModel, password: String) {
-		presenter.onUnlockPressed(vaultModel, password)
-	}
-
-	@RequiresApi(api = Build.VERSION_CODES.M)
-	override fun showEnterPasswordDialog(vaultModel: VaultModel) {
-		if (vaultWithBiometricAuthEnabled(vaultModel)) {
-			BiometricAuthentication(this, context(), BiometricAuthentication.CryptoMode.DECRYPT, presenter.useConfirmationInFaceUnlockBiometricAuthentication())
-					.startListening(autoUploadChooseVaultFragment(), vaultModel)
-		} else {
-			showDialog(EnterPasswordDialog.newInstance(vaultModel))
-		}
-	}
-
-	override fun onBiometricAuthenticated(vault: VaultModel) {
-		presenter.onUnlockPressed(vault, vault.password)
-	}
-
-	override fun onBiometricAuthenticationFailed(vault: VaultModel) {
-		showDialog(EnterPasswordDialog.newInstance(vault))
-	}
-
-	override fun onBiometricKeyInvalidated(vault: VaultModel) {
-		presenter.onBiometricKeyInvalidated(vault)
-	}
-
-	override fun showBiometricAuthKeyInvalidatedDialog() {
-		showDialog(BiometricAuthKeyInvalidatedDialog.newInstance())
-	}
-
-	private fun vaultWithBiometricAuthEnabled(vault: VaultModel): Boolean = vault.password != null
 
 	private fun autoUploadChooseVaultFragment(): AutoUploadChooseVaultFragment = getCurrentFragment(R.id.fragmentContainer) as AutoUploadChooseVaultFragment
 }

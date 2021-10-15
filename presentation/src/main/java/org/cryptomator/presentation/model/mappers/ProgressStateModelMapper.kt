@@ -31,21 +31,29 @@ class ProgressStateModelMapper @Inject internal constructor(private val fileUtil
 
 	fun toModel(state: UploadState): ProgressStateModel {
 		return if (state.isUpload) {
-			FileProgressStateModel(state.file(), FileIcon.fileIconFor(state.file().name, fileUtil), FileProgressStateModel.UPLOAD, ProgressStateModel.image(R.drawable.ic_file_upload),
-					ProgressStateModel.text(R.string.dialog_progress_upload_file))
+			FileProgressStateModel(
+				state.file(), FileIcon.fileIconFor(state.file().name, fileUtil), FileProgressStateModel.UPLOAD, ProgressStateModel.image(R.drawable.ic_file_upload),
+				ProgressStateModel.text(R.string.dialog_progress_upload_file)
+			)
 		} else {
-			FileProgressStateModel(state.file(), FileIcon.fileIconFor(state.file().name, fileUtil), FileProgressStateModel.ENCRYPTION, ProgressStateModel.image(R.drawable.ic_lock_closed),
-					ProgressStateModel.text(R.string.dialog_progress_encryption))
+			FileProgressStateModel(
+				state.file(), FileIcon.fileIconFor(state.file().name, fileUtil), FileProgressStateModel.ENCRYPTION, ProgressStateModel.image(R.drawable.ic_lock_closed),
+				ProgressStateModel.text(R.string.dialog_progress_encryption)
+			)
 		}
 	}
 
 	fun toModel(state: DownloadState): ProgressStateModel {
 		return if (state.isDownload) {
-			FileProgressStateModel(state.file(), FileIcon.fileIconFor(state.file().name, fileUtil), FileProgressStateModel.DOWNLOAD, ProgressStateModel.image(R.drawable.ic_file_download),
-					ProgressStateModel.text(R.string.dialog_progress_download_file))
+			FileProgressStateModel(
+				state.file(), FileIcon.fileIconFor(state.file().name, fileUtil), FileProgressStateModel.DOWNLOAD, ProgressStateModel.image(R.drawable.ic_file_download),
+				ProgressStateModel.text(R.string.dialog_progress_download_file)
+			)
 		} else {
-			FileProgressStateModel(state.file(), FileIcon.fileIconFor(state.file().name, fileUtil), FileProgressStateModel.DECRYPTION, ProgressStateModel.image(R.drawable.ic_lock_open),
-					ProgressStateModel.text(R.string.dialog_progress_decryption))
+			FileProgressStateModel(
+				state.file(), FileIcon.fileIconFor(state.file().name, fileUtil), FileProgressStateModel.DECRYPTION, ProgressStateModel.image(R.drawable.ic_lock_open),
+				ProgressStateModel.text(R.string.dialog_progress_decryption)
+			)
 		}
 	}
 }

@@ -12,7 +12,7 @@ object Logfiles {
 	 * Maximum size of all logfiles
 	 */
 	private const val MAX_LOGS_SIZE = (1 shl 20 // 1 MiB
-			.toLong().toInt()).toLong()
+		.toLong().toInt()).toLong()
 
 	/**
 	 * When this size is reached a logfile is rotated

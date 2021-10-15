@@ -34,6 +34,8 @@ android {
 	compileOptions {
 		sourceCompatibility JavaVersion.VERSION_1_8
 		targetCompatibility JavaVersion.VERSION_1_8
+
+		coreLibraryDesugaringEnabled true
 	}
 
 	lintOptions {
@@ -47,7 +49,6 @@ android {
 			crunchPngs false
 			minifyEnabled false
 			shrinkResources false
-			useProguard false
 
 			buildConfigField "String", "DROPBOX_API_KEY", "\"" + getApiKey('DROPBOX_API_KEY') + "\""
 			manifestPlaceholders = [DROPBOX_API_KEY: getApiKey('DROPBOX_API_KEY')]
@@ -120,7 +121,8 @@ dependencies {
 	implementation project(':util')
 	implementation project(':domain')
 	implementation project(':data')
-	implementation project(':pcloud-sdk-android')
+
+	coreLibraryDesugaring dependencies.coreDesugaring
 
 	// dagger
 	kapt dependencies.daggerCompiler
@@ -147,20 +149,36 @@ dependencies {
 	playstoreImplementation(dependencies.googleApiServicesDrive) {
 		exclude module: 'guava-jdk5'
 		exclude module: 'httpclient'
+		exclude module: 'googlehttpclient'
+		exclude group: "com.google.http-client", module: "google-http-client"
 	}
 	apkstoreImplementation(dependencies.googleApiServicesDrive) {
 		exclude module: 'guava-jdk5'
 		exclude module: 'httpclient'
+		exclude group: "com.google.http-client", module: "google-http-client"
 	}
 
 	playstoreImplementation(dependencies.googleApiClientAndroid) {
 		exclude module: 'guava-jdk5'
 		exclude module: 'httpclient'
+		exclude module: "google-http-client"
+		exclude module: "jetified-google-http-client"
+		exclude group: "com.google.http-client", module: "google-http-client"
+		exclude group: "com.google.http-client", module: "jetified-google-http-client"
 	}
 	apkstoreImplementation(dependencies.googleApiClientAndroid) {
 		exclude module: 'guava-jdk5'
 		exclude module: 'httpclient'
+		exclude module: "google-http-client"
+		exclude module: "jetified-google-http-client"
+		exclude group: "com.google.http-client", module: "google-http-client"
+		exclude group: "com.google.http-client", module: "jetified-google-http-client"
 	}
+
+	playstoreImplementation dependencies.trackingFreeGoogleCLient
+	apkstoreImplementation dependencies.trackingFreeGoogleCLient
+	playstoreImplementation dependencies.trackingFreeGoogleAndroidCLient
+	apkstoreImplementation dependencies.trackingFreeGoogleAndroidCLient
 
 	// rest
 	implementation dependencies.rxJava
@@ -168,12 +186,6 @@ dependencies {
 	compileOnly dependencies.javaxAnnotation
 	implementation dependencies.zxcvbn
 	implementation dependencies.rxBinding
-
-	api dependencies.jsonWebTokenApi
-	runtimeOnly dependencies.jsonWebTokenImpl
-	runtimeOnly(dependencies.jsonWebTokenJson) {
-		exclude group: 'org.json', module: 'json' //provided by Android natively
-	}
 
 	// multidex
 	implementation dependencies.multidex
@@ -216,8 +228,6 @@ dependencies {
 	testImplementation dependencies.junitApi
 	testRuntimeOnly dependencies.junitEngine
 	testImplementation dependencies.junitParams
-
-	testImplementation dependencies.junit4
 	testRuntimeOnly dependencies.junit4Engine
 
 	testImplementation dependencies.mockito
@@ -236,4 +246,17 @@ androidExtensions {
 
 static def getApiKey(key) {
 	return System.getenv().getOrDefault(key, "")
+}
+
+tasks.withType(Test) {
+	testLogging {
+		events "failed"
+
+		showExceptions true
+		exceptionFormat "full"
+		showCauses true
+		showStackTraces true
+
+		showStandardStreams = false
+	}
 }

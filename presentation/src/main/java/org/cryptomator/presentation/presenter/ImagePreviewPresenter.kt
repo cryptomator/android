@@ -42,15 +42,16 @@ import timber.log.Timber
 
 @PerView
 class ImagePreviewPresenter @Inject constructor( //
-		exceptionMappings: ExceptionHandlers,  //
-		private val shareFileHelper: ShareFileHelper,  //
-		private val contentResolverUtil: ContentResolverUtil,  //
-		private val copyDataUseCase: CopyDataUseCase,  //
-		private val downloadFilesUseCase: DownloadFilesUseCase,  //
-		private val deleteNodesUseCase: DeleteNodesUseCase,  //
-		private val downloadFileUtil: DownloadFileUtil,  //
-		private val fileUtil: FileUtil,  //
-		private val cloudFileModelMapper: CloudFileModelMapper) : Presenter<ImagePreviewView>(exceptionMappings) {
+	exceptionMappings: ExceptionHandlers,  //
+	private val shareFileHelper: ShareFileHelper,  //
+	private val contentResolverUtil: ContentResolverUtil,  //
+	private val copyDataUseCase: CopyDataUseCase,  //
+	private val downloadFilesUseCase: DownloadFilesUseCase,  //
+	private val deleteNodesUseCase: DeleteNodesUseCase,  //
+	private val downloadFileUtil: DownloadFileUtil,  //
+	private val fileUtil: FileUtil,  //
+	private val cloudFileModelMapper: CloudFileModelMapper
+) : Presenter<ImagePreviewView>(exceptionMappings) {
 
 	private var isSystemUiVisible = true
 
@@ -66,8 +67,10 @@ class ImagePreviewPresenter @Inject constructor( //
 	}
 
 	private fun copyFileToDownloadDirectory(uri: Uri) {
-		requestPermissions(PermissionsResultCallbacks.copyFileToDownloadDirectory(uri.toString()),  //
-				R.string.permission_message_export_file, Manifest.permission.WRITE_EXTERNAL_STORAGE)
+		requestPermissions(
+			PermissionsResultCallbacks.copyFileToDownloadDirectory(uri.toString()),  //
+			R.string.permission_message_export_file, Manifest.permission.WRITE_EXTERNAL_STORAGE
+		)
 	}
 
 	@Callback
@@ -95,13 +98,13 @@ class ImagePreviewPresenter @Inject constructor( //
 			throw FatalBackendException("Input- or OutputStream is null")
 		}
 		copyDataUseCase //
-				.withSource(source) //
-				.andTarget(target) //
-				.run(object : DefaultResultHandler<Void?>() {
-					override fun onFinished() {
-						view?.showMessage(R.string.screen_file_browser_msg_file_exported)
-					}
-				})
+			.withSource(source) //
+			.andTarget(target) //
+			.run(object : DefaultResultHandler<Void?>() {
+				override fun onFinished() {
+					view?.showMessage(R.string.screen_file_browser_msg_file_exported)
+				}
+			})
 	}
 
 	private fun copyFileToUserSelectedLocation(uri: Uri) {
@@ -114,17 +117,21 @@ class ImagePreviewPresenter @Inject constructor( //
 
 	@Callback
 	fun copyFileToUserSelectedLocation(result: ActivityResult, sourceUri: String?) {
-		requestPermissions(PermissionsResultCallbacks.copyFileToUserSelectedLocation(result.intent()?.dataString, sourceUri),  //
-				R.string.permission_message_export_file,  //
-				Manifest.permission.READ_EXTERNAL_STORAGE)
+		requestPermissions(
+			PermissionsResultCallbacks.copyFileToUserSelectedLocation(result.intent()?.dataString, sourceUri),  //
+			R.string.permission_message_export_file,  //
+			Manifest.permission.READ_EXTERNAL_STORAGE
+		)
 	}
 
 	@Callback
 	fun copyFileToUserSelectedLocation(result: PermissionsResult, targetUri: String?, sourceUri: String?) {
 		if (result.granted()) {
 			try {
-				copyFile(contentResolverUtil.openInputStream(Uri.parse(sourceUri)),  //
-						contentResolverUtil.openOutputStream(Uri.parse(targetUri)))
+				copyFile(
+					contentResolverUtil.openInputStream(Uri.parse(sourceUri)),  //
+					contentResolverUtil.openOutputStream(Uri.parse(targetUri))
+				)
 			} catch (e: FileNotFoundException) {
 				showError(e)
 			}
@@ -142,18 +149,18 @@ class ImagePreviewPresenter @Inject constructor( //
 	fun onDeleteImageConfirmed(imagePreviewFile: ImagePreviewFile, index: Int) {
 		view?.showProgress(ProgressModel.GENERIC)
 		deleteNodesUseCase
-				.withCloudNodes(listOf(imagePreviewFile.cloudFileModel.toCloudNode()))
-				.run(object : ProgressCompletingResultHandler<List<CloudNode?>?>() {
-					override fun onFinished() {
-						view?.showProgress(ProgressModel.COMPLETED)
-						view?.onImageDeleted(index)
-					}
+			.withCloudNodes(listOf(imagePreviewFile.cloudFileModel.toCloudNode()))
+			.run(object : ProgressCompletingResultHandler<List<CloudNode?>?>() {
+				override fun onFinished() {
+					view?.showProgress(ProgressModel.COMPLETED)
+					view?.onImageDeleted(index)
+				}
 
-					override fun onError(e: Throwable) {
-						Timber.tag("ImagePreviewPresenter").e(e, "Failed to delete preview image")
-						view?.showProgress(ProgressModel.COMPLETED)
-					}
-				})
+				override fun onError(e: Throwable) {
+					Timber.tag("ImagePreviewPresenter").e(e, "Failed to delete preview image")
+					view?.showProgress(ProgressModel.COMPLETED)
+				}
+			})
 	}
 
 	fun onImagePreviewClicked() {
@@ -167,24 +174,24 @@ class ImagePreviewPresenter @Inject constructor( //
 
 	fun onMissingImagePreviewFile(imagePreviewFile: ImagePreviewFile) {
 		downloadFilesUseCase //
-				.withDownloadFiles(downloadFileUtil.createDownloadFilesFor(this, listOf(imagePreviewFile.cloudFileModel))) //
-				.run(object : DefaultProgressAwareResultHandler<List<CloudFile>, DownloadState>() {
-					override fun onSuccess(result: List<CloudFile>) {
-						cloudFileModelMapper.toModel(result[0])
-						imagePreviewFile.uri = fileUtil.contentUriFor(cloudFileModelMapper.toModel(result[0]))
-						view?.showImagePreview(imagePreviewFile)
-						view?.hideProgressBar(imagePreviewFile)
-					}
+			.withDownloadFiles(downloadFileUtil.createDownloadFilesFor(this, listOf(imagePreviewFile.cloudFileModel))) //
+			.run(object : DefaultProgressAwareResultHandler<List<CloudFile>, DownloadState>() {
+				override fun onSuccess(result: List<CloudFile>) {
+					cloudFileModelMapper.toModel(result[0])
+					imagePreviewFile.uri = fileUtil.contentUriFor(cloudFileModelMapper.toModel(result[0]))
+					view?.showImagePreview(imagePreviewFile)
+					view?.hideProgressBar(imagePreviewFile)
+				}
 
-					override fun onError(e: Throwable) {
-						if (ExceptionUtil.contains(e, IOException::class.java, ExceptionUtil.thatContainsMessage("Stream Closed"))) {
-							// ignore error
-							Timber.tag("ImagePreviewPresenter").d("User swiped to quickly and close the stream before finishing the download.")
-						} else {
-							super.onError(e)
-						}
+				override fun onError(e: Throwable) {
+					if (ExceptionUtil.contains(e, IOException::class.java, ExceptionUtil.thatContainsMessage("Stream Closed"))) {
+						// ignore error
+						Timber.tag("ImagePreviewPresenter").d("User swiped to quickly and close the stream before finishing the download.")
+					} else {
+						super.onError(e)
 					}
-				})
+				}
+			})
 	}
 
 	fun getImagePreviewFileStore(path: String): ImagePreviewFilesStore {

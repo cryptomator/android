@@ -11,6 +11,7 @@ import org.cryptomator.presentation.presenter.CloudConnectionListPresenter
 import org.cryptomator.presentation.ui.activity.view.CloudConnectionListView
 import org.cryptomator.presentation.ui.bottomsheet.CloudConnectionSettingsBottomSheet
 import org.cryptomator.presentation.ui.dialog.DeleteCloudConnectionWithVaultsDialog
+import org.cryptomator.presentation.ui.dialog.PCloudCredentialsUpdatedDialog
 import org.cryptomator.presentation.ui.fragment.CloudConnectionListFragment
 import java.util.ArrayList
 import javax.inject.Inject
@@ -18,9 +19,10 @@ import kotlinx.android.synthetic.main.toolbar_layout.toolbar
 
 @Activity
 class CloudConnectionListActivity : BaseActivity(),
-		CloudConnectionListView,
-		CloudConnectionSettingsBottomSheet.Callback,
-		DeleteCloudConnectionWithVaultsDialog.Callback {
+	CloudConnectionListView,
+	CloudConnectionSettingsBottomSheet.Callback,
+	DeleteCloudConnectionWithVaultsDialog.Callback,
+	PCloudCredentialsUpdatedDialog.Callback {
 
 	@Inject
 	lateinit var presenter: CloudConnectionListPresenter
@@ -55,7 +57,7 @@ class CloudConnectionListActivity : BaseActivity(),
 
 	override fun showNodeSettings(cloudModel: CloudModel) {
 		val cloudNodeSettingDialog = //
-				CloudConnectionSettingsBottomSheet.newInstance(cloudModel)
+			CloudConnectionSettingsBottomSheet.newInstance(cloudModel)
 		cloudNodeSettingDialog.show(supportFragmentManager, "CloudNodeSettings")
 	}
 
@@ -73,5 +75,9 @@ class CloudConnectionListActivity : BaseActivity(),
 
 	override fun onDeleteCloudConnectionAndVaults(cloudModel: CloudModel, vaultsOfCloud: ArrayList<Vault>) {
 		presenter.onDeleteCloudConnectionAndVaults(cloudModel, vaultsOfCloud)
+	}
+
+	override fun onNotifyForPCloudCredentialsUpdateFinished() {
+		// nothing to do here
 	}
 }

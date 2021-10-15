@@ -1,7 +1,5 @@
 package org.cryptomator.presentation.logging
 
-import java.util.Locale
-
 internal object GeneratedErrorCode {
 
 	private const val A_PRIME = Int.MAX_VALUE
@@ -22,7 +20,7 @@ internal object GeneratedErrorCode {
 		var value = code
 		value = value and 0xfffff xor (value ushr 20)
 		value = value or 0x100000
-		return value.toString(32).substring(1).toUpperCase(Locale.getDefault())
+		return value.toString(32).substring(1).uppercase()
 	}
 
 	private fun traceCode(throwable: Throwable?): Int {

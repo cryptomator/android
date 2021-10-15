@@ -21,10 +21,11 @@ import okhttp3.HttpUrl.Companion.toHttpUrlOrNull
 
 @PerView
 class WebDavAddOrChangePresenter @Inject internal constructor( //
-		private val addOrChangeCloudConnectionUseCase: AddOrChangeCloudConnectionUseCase,  //
-		private val connectToWebDavUseCase: ConnectToWebDavUseCase,  //
-		private val authenticationExceptionHandler: AuthenticationExceptionHandler,  //
-		exceptionMappings: ExceptionHandlers) : Presenter<WebDavAddOrChangeView>(exceptionMappings) {
+	private val addOrChangeCloudConnectionUseCase: AddOrChangeCloudConnectionUseCase,  //
+	private val connectToWebDavUseCase: ConnectToWebDavUseCase,  //
+	private val authenticationExceptionHandler: AuthenticationExceptionHandler,  //
+	exceptionMappings: ExceptionHandlers
+) : Presenter<WebDavAddOrChangeView>(exceptionMappings) {
 
 	fun checkUserInput(urlPort: String, username: String, password: String, cloudId: Long?, certificate: String?) {
 		var statusMessage: String? = null
@@ -55,8 +56,8 @@ class WebDavAddOrChangePresenter @Inject internal constructor( //
 
 	private fun encryptPassword(password: String): String {
 		return CredentialCryptor //
-				.getInstance(context()) //
-				.encrypt(password)
+			.getInstance(context()) //
+			.encrypt(password)
 	}
 
 	private fun isValid(urlPort: String): Boolean {
@@ -65,10 +66,10 @@ class WebDavAddOrChangePresenter @Inject internal constructor( //
 
 	private fun mapToCloud(username: String, password: String, hostPort: String, id: Long?, certificate: String?): WebDavCloud {
 		var builder = WebDavCloud //
-				.aWebDavCloudCloud() //
-				.withUrl(hostPort) //
-				.withUsername(username) //
-				.withPassword(password)
+			.aWebDavCloudCloud() //
+			.withUrl(hostPort) //
+			.withUsername(username) //
+			.withPassword(password)
 
 		if (id != null) {
 			builder = builder.withId(id)
@@ -88,19 +89,19 @@ class WebDavAddOrChangePresenter @Inject internal constructor( //
 	private fun authenticate(cloud: WebDavCloud) {
 		view?.showProgress(ProgressModel(ProgressStateModel.AUTHENTICATION))
 		connectToWebDavUseCase //
-				.withCloud(cloud) //
-				.run(object : DefaultResultHandler<Void?>() {
-					override fun onSuccess(void: Void?) {
-						onCloudAuthenticated(cloud)
-					}
+			.withCloud(cloud) //
+			.run(object : DefaultResultHandler<Void?>() {
+				override fun onSuccess(void: Void?) {
+					onCloudAuthenticated(cloud)
+				}
 
-					override fun onError(e: Throwable) {
-						view?.showProgress(ProgressModel.COMPLETED)
-						if (!authenticationExceptionHandler.handleAuthenticationException(this@WebDavAddOrChangePresenter, e, ActivityResultCallbacks.handledAuthenticationWebDavCloud())) {
-							super.onError(e)
-						}
+				override fun onError(e: Throwable) {
+					view?.showProgress(ProgressModel.COMPLETED)
+					if (!authenticationExceptionHandler.handleAuthenticationException(this@WebDavAddOrChangePresenter, e, ActivityResultCallbacks.handledAuthenticationWebDavCloud())) {
+						super.onError(e)
 					}
-				})
+				}
+			})
 	}
 
 	@Callback
@@ -117,8 +118,8 @@ class WebDavAddOrChangePresenter @Inject internal constructor( //
 
 	private fun save(cloud: Cloud) {
 		addOrChangeCloudConnectionUseCase //
-				.withCloud(cloud) //
-				.run(DefaultResultHandler())
+			.withCloud(cloud) //
+			.run(DefaultResultHandler())
 	}
 
 	init {

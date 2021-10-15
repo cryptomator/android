@@ -19,12 +19,12 @@ import kotlinx.android.synthetic.main.toolbar_layout.toolbar
 
 @Activity(layout = R.layout.activity_settings)
 class SettingsActivity : BaseActivity(),
-		SettingsView,
-		DebugModeDisclaimerDialog.Callback,
-		DisableAppWhenObscuredDisclaimerDialog.Callback,
-		DisableSecureScreenDisclaimerDialog.Callback,
-		UpdateAppAvailableDialog.Callback, //
-		UpdateAppDialog.Callback {
+	SettingsView,
+	DebugModeDisclaimerDialog.Callback,
+	DisableAppWhenObscuredDisclaimerDialog.Callback,
+	DisableSecureScreenDisclaimerDialog.Callback,
+	UpdateAppAvailableDialog.Callback, //
+	UpdateAppDialog.Callback {
 
 	@Inject
 	lateinit var presenter: SettingsPresenter

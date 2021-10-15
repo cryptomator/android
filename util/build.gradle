@@ -63,13 +63,25 @@ dependencies {
 	testImplementation dependencies.junitApi
 	testRuntimeOnly dependencies.junitEngine
 	testImplementation dependencies.junitParams
-
-	testImplementation dependencies.junit4
 	testRuntimeOnly dependencies.junit4Engine
 
 	testImplementation dependencies.hamcrest
 	testImplementation dependencies.mockito
+	testImplementation dependencies.mockitoKotlin
 	testImplementation dependencies.mockitoInline
 
 	implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk8:$kotlin_version"
+}
+
+tasks.withType(Test) {
+	testLogging {
+		events "failed"
+
+		showExceptions true
+		exceptionFormat "full"
+		showCauses true
+		showStackTraces true
+
+		showStandardStreams = false
+	}
 }

@@ -50,10 +50,10 @@ class CloudNodeRenameDialog : BaseProgressErrorDialog<CloudNodeRenameDialog.Call
 	public override fun setupDialog(builder: AlertDialog.Builder): android.app.Dialog {
 		val cloudNodeModel = requireArguments().getSerializable(CLOUD_NODE_ARG) as CloudNodeModel<*>
 		return builder
-				.setTitle(getTitle(cloudNodeModel))
-				.setPositiveButton(requireActivity().getString(R.string.dialog_rename_node_positive_button)) { _: DialogInterface, _: Int -> }
-				.setNegativeButton(requireActivity().getString(R.string.dialog_button_cancel)) { _: DialogInterface, _: Int -> }
-				.create()
+			.setTitle(getTitle(cloudNodeModel))
+			.setPositiveButton(requireActivity().getString(R.string.dialog_rename_node_positive_button)) { _: DialogInterface, _: Int -> }
+			.setNegativeButton(requireActivity().getString(R.string.dialog_button_cancel)) { _: DialogInterface, _: Int -> }
+			.create()
 	}
 
 	private fun getTitle(cloudNodeModel: CloudNodeModel<*>): String {
@@ -67,14 +67,14 @@ class CloudNodeRenameDialog : BaseProgressErrorDialog<CloudNodeRenameDialog.Call
 	public override fun setupView() {
 		val cloudNodeModel = requireArguments().getSerializable(CLOUD_NODE_ARG) as CloudNodeModel<*>
 		et_rename.setText(cloudNodeModel.name)
-		registerOnEditorDoneActionAndPerformButtonClick(et_rename) { renameConfirmButton }
+		renameConfirmButton?.let { registerOnEditorDoneActionAndPerformButtonClick(et_rename) { it } }
 		et_rename.addTextChangedListener(object : TextWatcher {
 			override fun beforeTextChanged(s: CharSequence, start: Int, count: Int, after: Int) {}
 			override fun onTextChanged(s: CharSequence, start: Int, before: Int, count: Int) {}
 			override fun afterTextChanged(s: Editable) {
-				if (renameConfirmButton != null) {
+				renameConfirmButton?.let {
 					validateInput(s.toString())
-					renameConfirmButton?.isEnabled = s.toString().isNotEmpty() && !hasInvalidInput(s.toString())
+					it.isEnabled = s.toString().isNotEmpty() && !hasInvalidInput(s.toString())
 				}
 			}
 		})

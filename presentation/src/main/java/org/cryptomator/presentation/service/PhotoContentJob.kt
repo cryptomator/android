@@ -10,20 +10,17 @@ import android.content.Context
 import android.database.Cursor
 import android.database.MergeCursor
 import android.net.Uri
-import android.os.Build
 import android.os.Handler
 import android.provider.MediaStore
-import androidx.annotation.RequiresApi
 import org.cryptomator.domain.exception.FatalBackendException
 import org.cryptomator.presentation.R
 import org.cryptomator.presentation.util.FileUtil
 import org.cryptomator.presentation.util.ResourceHelper
 import org.cryptomator.util.SharedPreferencesHandler
-import org.cryptomator.util.file.MimeTypeMap_Factory
+import org.cryptomator.util.file.MimeTypeMap
 import org.cryptomator.util.file.MimeTypes
 import timber.log.Timber
 
-@RequiresApi(api = Build.VERSION_CODES.N)
 class PhotoContentJob : JobService() {
 
 	private val handler = Handler()
@@ -37,7 +34,7 @@ class PhotoContentJob : JobService() {
 	override fun onStartJob(params: JobParameters): Boolean {
 		Timber.tag("PhotoContentJob").i("Job started!")
 
-		val fileUtil = FileUtil(baseContext, MimeTypes(MimeTypeMap_Factory.newInstance()))
+		val fileUtil = FileUtil(baseContext, MimeTypes(MimeTypeMap()))
 
 		runningParams = params
 
@@ -75,12 +72,16 @@ class PhotoContentJob : JobService() {
 	private fun getContentResolvers(ids: Set<String>): Array<Cursor?> {
 		val selection = buildSelection(ids)
 
-		var resolvers = arrayOf(contentResolver.query(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, PROJECTION_IMAGES, selection, null, null),
-				contentResolver.query(MediaStore.Images.Media.INTERNAL_CONTENT_URI, PROJECTION_IMAGES, selection, null, null))
+		var resolvers = arrayOf(
+			contentResolver.query(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, PROJECTION_IMAGES, selection, null, null),
+			contentResolver.query(MediaStore.Images.Media.INTERNAL_CONTENT_URI, PROJECTION_IMAGES, selection, null, null)
+		)
 
 		if (SharedPreferencesHandler(applicationContext).autoPhotoUploadIncludingVideos()) {
-			resolvers += arrayOf(contentResolver.query(MediaStore.Video.Media.EXTERNAL_CONTENT_URI, PROJECTION_VIDEOS, selection, null, null),
-					contentResolver.query(MediaStore.Video.Media.INTERNAL_CONTENT_URI, PROJECTION_VIDEOS, selection, null, null))
+			resolvers += arrayOf(
+				contentResolver.query(MediaStore.Video.Media.EXTERNAL_CONTENT_URI, PROJECTION_VIDEOS, selection, null, null),
+				contentResolver.query(MediaStore.Video.Media.INTERNAL_CONTENT_URI, PROJECTION_VIDEOS, selection, null, null)
+			)
 		}
 
 		return resolvers
@@ -88,14 +89,14 @@ class PhotoContentJob : JobService() {
 
 	private fun getIds(params: JobParameters): Set<String>? {
 		return params.triggeredContentUris
-				?.map { it.pathSegments }
-				?.filter {
-					it != null && (it.size == MediaStore.Images.Media.EXTERNAL_CONTENT_URI.pathSegments.size + 1
-							|| it.size == MediaStore.Video.Media.EXTERNAL_CONTENT_URI.pathSegments.size + 1
-							|| it.size == MediaStore.Images.Media.INTERNAL_CONTENT_URI.pathSegments.size + 1
-							|| it.size == MediaStore.Video.Media.INTERNAL_CONTENT_URI.pathSegments.size + 1)
-				}
-				?.mapTo(HashSet()) { it[it.size - 1] }
+			?.map { it.pathSegments }
+			?.filter {
+				it != null && (it.size == MediaStore.Images.Media.EXTERNAL_CONTENT_URI.pathSegments.size + 1
+						|| it.size == MediaStore.Video.Media.EXTERNAL_CONTENT_URI.pathSegments.size + 1
+						|| it.size == MediaStore.Images.Media.INTERNAL_CONTENT_URI.pathSegments.size + 1
+						|| it.size == MediaStore.Video.Media.INTERNAL_CONTENT_URI.pathSegments.size + 1)
+			}
+			?.mapTo(HashSet()) { it[it.size - 1] }
 	}
 
 	private fun buildSelection(ids: Set<String>): String {

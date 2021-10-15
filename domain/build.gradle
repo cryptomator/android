@@ -16,11 +16,15 @@ android {
 
 		buildConfigField 'int', 'VERSION_CODE', "${globalConfiguration["androidVersionCode"]}"
 		buildConfigField "String", "VERSION_NAME", "\"${globalConfiguration["androidVersionName"]}\""
+
+		testInstrumentationRunner 'androidx.test.runner.AndroidJUnitRunner'
 	}
 
 	compileOptions {
 		sourceCompatibility JavaVersion.VERSION_1_8
 		targetCompatibility JavaVersion.VERSION_1_8
+
+		coreLibraryDesugaringEnabled true
 	}
 
 	lintOptions {
@@ -39,6 +43,8 @@ dependencies {
 	annotationProcessor project(':generator')
 	annotationProcessor dependencies.daggerCompiler
 
+	coreLibraryDesugaring dependencies.coreDesugaring
+
 	compileOnly dependencies.javaxAnnotation
 
 	api dependencies.timber
@@ -50,10 +56,8 @@ dependencies {
 	implementation dependencies.appcompat
 
 	api dependencies.jsonWebTokenApi
-	runtimeOnly dependencies.jsonWebTokenImpl
-	runtimeOnly(dependencies.jsonWebTokenJson) {
-		exclude group: 'org.json', module: 'json' //provided by Android natively
-	}
+	implementation dependencies.jsonWebTokenImpl
+	implementation dependencies.jsonWebTokenJson
 
 	// test
 	testImplementation dependencies.junit
@@ -61,10 +65,11 @@ dependencies {
 	testRuntimeOnly dependencies.junitEngine
 	testImplementation dependencies.junitParams
 
-	testImplementation dependencies.junit4
 	testRuntimeOnly dependencies.junit4Engine
 
 	testImplementation dependencies.mockito
+	testImplementation dependencies.mockitoKotlin
+	testImplementation dependencies.mockitoInline
 	testImplementation dependencies.hamcrest
 }
 

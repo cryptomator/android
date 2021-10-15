@@ -13,17 +13,13 @@ import org.cryptomator.domain.usecases.DoUpdateUseCase;
 import org.cryptomator.domain.usecases.GetDecryptedCloudForVaultUseCase;
 import org.cryptomator.domain.usecases.ResultHandler;
 import org.cryptomator.domain.usecases.cloud.GetRootFolderUseCase;
-import org.cryptomator.domain.usecases.vault.ChangePasswordUseCase;
 import org.cryptomator.domain.usecases.vault.DeleteVaultUseCase;
 import org.cryptomator.domain.usecases.vault.GetVaultListUseCase;
 import org.cryptomator.domain.usecases.vault.LockVaultUseCase;
 import org.cryptomator.domain.usecases.vault.MoveVaultPositionUseCase;
-import org.cryptomator.domain.usecases.vault.PrepareUnlockUseCase;
-import org.cryptomator.domain.usecases.vault.RemoveStoredVaultPasswordsUseCase;
 import org.cryptomator.domain.usecases.vault.RenameVaultUseCase;
 import org.cryptomator.domain.usecases.vault.SaveVaultUseCase;
 import org.cryptomator.domain.usecases.vault.UnlockToken;
-import org.cryptomator.domain.usecases.vault.UnlockVaultUseCase;
 import org.cryptomator.presentation.exception.ExceptionHandlers;
 import org.cryptomator.presentation.model.VaultModel;
 import org.cryptomator.presentation.model.mappers.CloudFolderModelMapper;
@@ -98,17 +94,12 @@ public class VaultListPresenterTest {
 	private LockVaultUseCase lockVaultUseCase = Mockito.mock(LockVaultUseCase.class);
 	private LockVaultUseCase.Launcher lockVaultUseCaseLauncher = Mockito.mock(LockVaultUseCase.Launcher.class);
 	private GetDecryptedCloudForVaultUseCase getDecryptedCloudForVaultUseCase = Mockito.mock(GetDecryptedCloudForVaultUseCase.class);
-	private PrepareUnlockUseCase prepareUnlockUseCase = Mockito.mock(PrepareUnlockUseCase.class);
-	private PrepareUnlockUseCase.Launcher prepareUnlockUseCaseLauncher = Mockito.mock(PrepareUnlockUseCase.Launcher.class);
 	private UnlockToken unlockToken = Mockito.mock(UnlockToken.class);
-	private UnlockVaultUseCase unlockVaultUseCase = Mockito.mock(UnlockVaultUseCase.class);
 	private GetRootFolderUseCase getRootFolderUseCase = Mockito.mock(GetRootFolderUseCase.class);
 	private AddExistingVaultWorkflow addExistingVaultWorkflow = Mockito.mock(AddExistingVaultWorkflow.class);
 	private CreateNewVaultWorkflow createNewVaultWorkflow = Mockito.mock(CreateNewVaultWorkflow.class);
 	private SaveVaultUseCase saveVaultUseCase = Mockito.mock(SaveVaultUseCase.class);
 	private MoveVaultPositionUseCase moveVaultPositionUseCase = Mockito.mock(MoveVaultPositionUseCase.class);
-	private ChangePasswordUseCase changePasswordUseCase = Mockito.mock(ChangePasswordUseCase.class);
-	private RemoveStoredVaultPasswordsUseCase removeStoredVaultPasswordsUseCase = Mockito.mock(RemoveStoredVaultPasswordsUseCase.class);
 	private DoLicenseCheckUseCase doLicenceCheckUsecase = Mockito.mock(DoLicenseCheckUseCase.class);
 	private DoUpdateCheckUseCase updateCheckUseCase = Mockito.mock(DoUpdateCheckUseCase.class);
 	private DoUpdateUseCase updateUseCase = Mockito.mock(DoUpdateUseCase.class);
@@ -126,15 +117,11 @@ public class VaultListPresenterTest {
 				renameVaultUseCase, //
 				lockVaultUseCase, //
 				getDecryptedCloudForVaultUseCase, //
-				prepareUnlockUseCase, //
-				unlockVaultUseCase, //
 				getRootFolderUseCase, //
 				addExistingVaultWorkflow, //
 				createNewVaultWorkflow, //
 				saveVaultUseCase, //
 				moveVaultPositionUseCase, //
-				changePasswordUseCase, //
-				removeStoredVaultPasswordsUseCase, //
 				doLicenceCheckUsecase, //
 				updateCheckUseCase, //
 				updateUseCase, //
@@ -239,45 +226,6 @@ public class VaultListPresenterTest {
 				.handleAuthenticationException(Mockito.any(), //
 						Mockito.any(), //
 						Mockito.any());
-	}
-
-	@Test
-	public void testOnUnlockCanceled() {
-		inTest.onUnlockCanceled();
-
-		verify(prepareUnlockUseCase).unsubscribe();
-		verify(unlockVaultUseCase).cancel();
-	}
-
-	@Test
-	public void testOnVaultLockedClicked() {
-		ArgumentCaptor<ResultHandler<Vault>> captor = ArgumentCaptor.forClass(ResultHandler.class);
-
-		when(lockVaultUseCase.withVault(AN_UNLOCKED_VAULT_MODEL.toVault())).thenReturn(lockVaultUseCaseLauncher);
-
-		inTest.onVaultLockClicked(AN_UNLOCKED_VAULT_MODEL);
-
-		verify(lockVaultUseCaseLauncher).run(captor.capture());
-		captor.getValue().onSuccess(AN_UNLOCKED_VAULT_MODEL.toVault());
-		verify(vaultListView).addOrUpdateVault(AN_UNLOCKED_VAULT_MODEL);
-	}
-
-	@Test
-	public void onVaultClickedWithCloudAndLocked() {
-		ArgumentCaptor<ResultHandler<UnlockToken>> captor = ArgumentCaptor.forClass(ResultHandler.class);
-
-		when(prepareUnlockUseCase.withVault(ANOTHER_VAULT_MODEL_WITH_CLOUD.toVault())) //
-				.thenReturn(prepareUnlockUseCaseLauncher);
-		when(unlockToken.getVault()) //
-				.thenReturn(ANOTHER_VAULT_MODEL_WITH_CLOUD.toVault());
-
-		inTest.onVaultClicked(ANOTHER_VAULT_MODEL_WITH_CLOUD);
-
-		verify(prepareUnlockUseCaseLauncher).run(captor.capture());
-		captor.getValue().onSuccess(unlockToken);
-
-		verify(vaultListView).addOrUpdateVault(ANOTHER_VAULT_MODEL_WITH_CLOUD);
-		verify(vaultListView).showEnterPasswordDialog(ANOTHER_VAULT_MODEL_WITH_CLOUD);
 	}
 
 }

@@ -7,6 +7,9 @@ import android.widget.Button
 import androidx.appcompat.app.AlertDialog
 import org.cryptomator.generator.Dialog
 import org.cryptomator.presentation.R
+import org.cryptomator.presentation.ui.layout.ObscuredAwareDialogCoordinatorLayout
+import org.cryptomator.util.SharedPreferencesHandler
+import kotlinx.android.synthetic.main.dialog_enter_license.dssialogRootView
 import kotlinx.android.synthetic.main.dialog_enter_license.et_license
 
 @Dialog(R.layout.dialog_enter_license)
@@ -19,6 +22,7 @@ class UpdateLicenseDialog : BaseProgressErrorDialog<UpdateLicenseDialog.Callback
 
 		fun checkLicenseClicked(license: String?)
 		fun onCheckLicenseCanceled()
+		fun appObscuredClosingEnterLicenseDialog()
 	}
 
 	override fun onStart() {
@@ -35,23 +39,30 @@ class UpdateLicenseDialog : BaseProgressErrorDialog<UpdateLicenseDialog.Callback
 				et_license.nextFocusForwardId = button.id
 			}
 		}
+
+		/* need to manually handle this in case of dialogs as otherwise the onFilterTouchEventForSecurity method of the ViewGroup
+		isn't called when filterTouchesWhenObscured is set to true in the BaseDialog and in contrast to if set in an Activity */
+		dialog?.window?.decorView?.filterTouchesWhenObscured = false
+		dssialogRootView.setOnFilteredTouchEventForSecurityListener(object : ObscuredAwareDialogCoordinatorLayout.Listener {
+			override fun onFilteredTouchEventForSecurity() {
+				callback?.appObscuredClosingEnterLicenseDialog()
+			}
+		}, SharedPreferencesHandler(requireContext()).disableAppWhenObscured())
 	}
 
 	public override fun setupDialog(builder: AlertDialog.Builder): android.app.Dialog {
 		return builder //
-				.setTitle(getString(R.string.dialog_enter_license_title)) //
-				.setPositiveButton(getText(R.string.dialog_enter_license_ok_button)) { _: DialogInterface, _: Int -> } //
-				.setNegativeButton(getText(R.string.dialog_enter_license_decline_button)) { _: DialogInterface, _: Int -> callback?.onCheckLicenseCanceled() } //
-				.create()
+			.setTitle(getString(R.string.dialog_enter_license_title)) //
+			.setPositiveButton(getText(R.string.dialog_enter_license_ok_button)) { _: DialogInterface, _: Int -> } //
+			.setNegativeButton(getText(R.string.dialog_enter_license_decline_button)) { _: DialogInterface, _: Int -> callback?.onCheckLicenseCanceled() } //
+			.create()
 	}
 
 	public override fun setupView() {
 		val license = requireArguments().getSerializable(LICENSE_ARG) as String?
-		if (license != null) {
-			et_license.setText(license)
-		}
+		license?.let { et_license.setText(it) }
 		et_license.requestFocus()
-		registerOnEditorDoneActionAndPerformButtonClick(et_license) { checkLicenseButton }
+		checkLicenseButton?.let { registerOnEditorDoneActionAndPerformButtonClick(et_license) { it } }
 	}
 
 	override fun enableViewAfterError(): View {

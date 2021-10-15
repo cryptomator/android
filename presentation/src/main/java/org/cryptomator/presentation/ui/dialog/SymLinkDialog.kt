@@ -18,11 +18,11 @@ class SymLinkDialog : BaseDialog<SymLinkDialog.CallBack?>() {
 
 	public override fun setupDialog(builder: AlertDialog.Builder): android.app.Dialog {
 		builder //
-				.setTitle(R.string.dialog_sym_link_title) //
-				.setNeutralButton(R.string.dialog_sym_link_back_button) { dialog: DialogInterface, _: Int ->
-					callback?.navigateFolderBackBecauseSymlink()
-					dialog.dismiss()
-				}
+			.setTitle(R.string.dialog_sym_link_title) //
+			.setNeutralButton(R.string.dialog_sym_link_back_button) { dialog: DialogInterface, _: Int ->
+				callback?.navigateFolderBackBecauseSymlink()
+				dialog.dismiss()
+			}
 		return builder.create()
 	}
 

@@ -1,0 +1,148 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+	<!-- # app -->
+	<string name="share_with_label">加密</string>
+	<!-- # error messages -->
+	<string name="error_generic">發生了一個錯誤</string>
+	<string name="error_authentication_failed">認證失敗</string>
+	<string name="error_authentication_failed_re_authenticate">認證失敗，請重新使用 %1$s 登綠。</string>
+	<string name="error_no_network_connection">沒有網路連線</string>
+	<string name="error_invalid_passphrase">密碼錯誤</string>
+	<string name="error_file_or_folder_exists">該檔案或資料夾已存在。</string>
+	<string name="error_vault_version_not_supported">不支援的加密檔案庫。這個加密檔案庫是用其它版本的 Cryptomator 所建立的。</string>
+	<string name="error_vault_already_exists">保險箱已經存在。</string>
+	<string name="error_no_such_file">檔案不存在。</string>
+	<string name="error_vault_has_been_locked">加密檔案庫已鎖定。</string>
+	<string name="error_cloud_already_exists">雲端硬碟已經存在。</string>
+	<string name="error_activity_not_found">請下載行動裝置應用程式來打開這個檔案。</string>
+	<string name="error_server_not_found">找不到伺服器。</string>
+	<string name="error_export_illegal_file_name">資料匯出失敗。請把檔案名稱中的特殊字元刪除後，再重新匯出資料。</string>
+	<string name="error_name_contains_invalid_characters">不能含有特殊字元。</string>
+	<string name="error_names_contains_invalid_characters">檔案名稱不能含有特殊字元。</string>
+	<string name="error_vault_name_contains_invalid_characters">加密檔案庫的名稱不能含有特殊字元。</string>
+	<string name="error_general_update">檢查更新失敗。發生一般錯誤。</string>
+	<!-- # clouds -->
+	<!-- ## cloud names -->
+	<string name="cloud_names_local_storage">本機儲存空間</string>
+	<!-- # permission -->
+	<!-- ## permission messages -->
+	<string name="snack_bar_action_title_settings">設定</string>
+	<string name="snack_bar_action_title_search">搜尋</string>
+	<string name="snack_bar_action_title_search_previous">上一頁</string>
+	<string name="snack_bar_action_title_search_next">繼續</string>
+	<string name="snack_bar_action_title_sort">排序</string>
+	<string name="snack_bar_action_title_sort_az">以英文字母A至Z排序</string>
+	<string name="snack_bar_action_title_sort_za">以英文字母Z至A排序</string>
+	<string name="snack_bar_action_title_sort_newest">最新的優先</string>
+	<string name="snack_bar_action_title_sort_oldest">最舊的優先</string>
+	<string name="snack_bar_action_title_sort_biggest">最大的優先</string>
+	<string name="snack_bar_action_title_sort_smallest">最小的優先</string>
+	<!-- # screens -->
+	<!-- # screen: vault list -->
+	<string name="screen_vault_list_actions_title">加到 Cryptomator</string>
+	<string name="screen_vault_list_action_create_new_vault">新建加密檔案庫</string>
+	<string name="screen_vault_list_action_add_existing_vault">新增至現有的加密檔案庫</string>
+	<string name="screen_vault_list_vault_action_delete">移除</string>
+	<!-- # screen: file browser -->
+	<string name="screen_file_browser_default_title">加密檔案庫</string>
+	<string name="screen_file_browser_move_button_text">移動</string>
+	<string name="screen_file_browser_msg_empty_folder">清空資料夾</string>
+	<string name="screen_file_browser_share_intent_chooser_title">分享對象</string>
+	<string name="screen_file_browser_share_destination_title">選擇目的地</string>
+	<string name="screen_file_browser_share_button_text">選擇</string>
+	<string name="screen_file_browser_nothing_to_share">沒有東西可分享</string>
+	<string name="screen_file_browser_action_create_folder">建立新資料夾</string>
+	<string name="screen_file_browser_action_create_new_text_file">建立新文字檔案</string>
+	<string name="screen_file_browser_action_upload_files">上傳檔案</string>
+	<string name="screen_file_browser_upload_files_chooser_title">檔案</string>
+	<string name="screen_file_browser_msg_file_exported">檔案已匯出</string>
+	<string name="screen_file_browser_msg_files_exported">所有的檔案皆已匯出</string>
+	<string name="screen_file_browser_nothing_to_export">沒有任何東西可匯出。</string>
+	<string name="screen_file_browser_node_action_share">分享</string>
+	<string name="screen_file_browser_node_action_rename">重新命名</string>
+	<string name="screen_file_browser_node_action_edit_text">編輯</string>
+	<string name="screen_file_browser_node_action_export">匯出</string>
+	<string name="screen_file_browser_select_all_items">選擇全部</string>
+	<string name="screen_file_browser_refresh_items">重新整理</string>
+	<string name="screen_file_browser_no_connection_button_text">重試</string>
+	<!-- ## screen: text editor -->
+	<string name="screen_text_editor_save_success">儲存成功。</string>
+	<!-- ## screen: share files -->
+	<string name="screen_share_files_content_text">文字</string>
+	<string name="screen_share_files_content_file">檔案</string>
+	<string name="screen_share_files_content_files">檔案</string>
+	<string name="screen_share_files_section_location">儲存位置</string>
+	<string name="screen_share_files_save_button_text">儲存</string>
+	<string name="screen_share_files_msg_success">加密已完成</string>
+	<!-- ## screen: choose cloud service -->
+	<string name="screen_choose_cloud_service_title">雲端服務</string>
+	<!-- ## screen: cloud connections -->
+	<string name="screen_cloud_connections_title">選擇位置</string>
+	<string name="screen_cloud_connections_no_connections">點擊此處新增位置</string>
+	<string name="screen_cloud_local_custom_storage_title">自訂位置</string>
+	<!-- ## screen: webdav settings -->
+	<string name="screen_webdav_settings_url_port_label">網址</string>
+	<string name="screen_webdav_settings_password_label">密碼</string>
+	<string name="screen_webdav_settings_done_button_text">連線</string>
+	<string name="screen_webdav_settings_msg_url_must_not_be_empty">網址不能為空白</string>
+	<string name="screen_webdav_settings_msg_url_is_invalid">網址是無效的</string>
+	<string name="screen_webdav_settings_msg_username_must_not_be_empty">使用者名稱不可留空。</string>
+	<string name="screen_webdav_settings_msg_password_must_not_be_empty">密碼不可留空。</string>
+	<!-- ## screen: s3 settings -->
+	<string name="screen_s3_settings_display_name_label">顯示名稱</string>
+	<string name="screen_s3_settings_region_label">區域</string>
+	<!-- ## screen: enter vault name -->
+	<!-- ## screen: set password -->
+	<string name="screen_set_password_button_text">完成</string>
+	<string name="screen_set_password_strength_indicator_1">弱</string>
+	<string name="screen_set_password_strength_indicator_2">一般</string>
+	<string name="screen_set_password_strength_indicator_3">強</string>
+	<!-- ## screen: settings -->
+	<string name="screen_settings_section_general">一般</string>
+	<string name="screen_settings_cloud_settings_label">雲端服務</string>
+	<string name="screen_settings_section_search">搜尋</string>
+	<string name="screen_settings_live_search">即時搜尋</string>
+	<string name="screen_settings_section_auto_photo_upload_toggle">啟動</string>
+	<string name="screen_settings_section_auto_photo_upload_including_videos">上傳影片</string>
+	<string name="screen_settings_twitter_label">在 Twitter 上追蹤我們</string>
+	<string name="screen_settings_facebook_label">在臉書上給我們點讚</string>
+	<string name="screen_settings_section_legal">法律</string>
+	<string name="screen_settings_licenses_label">軟體授權</string>
+	<string name="screen_settings_section_support">技術支援</string>
+	<string name="screen_settings_contact_label">請求協助</string>
+	<string name="screen_settings_debug_mode_label">除錯模式</string>
+	<string name="screen_settings_section_version">版本</string>
+	<string name="screen_settings_advanced_settings">進階設定</string>
+	<!-- ## screen: cloud settings -->
+	<string name="screen_cloud_settings_log_in_to">登錄到</string>
+	<!-- ## screen: licenses -->
+	<!-- ## screen: authenticate cloud -->
+	<!-- ## screen: insecure android version info -->
+	<!-- # dialogs -->
+	<string name="dialog_button_cancel">取消</string>
+	<string name="dialog_enter_password_positive_button">解鎖</string>
+	<string name="dialog_change_password_old_password_label">舊密碼</string>
+	<!-- Vault not found -->
+	<string name="dialog_vault_not_found_positive_button_text">移除</string>
+	<string name="dialog_existing_file_title">檔案已經存在</string>
+	<string name="dialog_existing_file_positive_button">取代</string>
+	<string name="dialog_replace_positive_button_all_files_exist">全部取代</string>
+	<string name="dialog_replace_positive_button_single_file_exists">取代</string>
+	<string name="dialog_unable_to_share_positive_button">確認</string>
+	<string name="dialog_lock_vault">鎖定</string>
+	<string name="dialog_app_is_obscured_info_neutral_button">關閉</string>
+	<string name="dialog_sym_link_back_button">上一頁</string>
+	<!-- # error reports -->
+	<!-- # misc -->
+	<!-- ## file size helper -->
+	<!-- ## date helper -->
+	<string name="time_unit_minutes_pl">分鐘</string>
+	<!-- ## biometric authentication -->
+	<!-- notification -->
+	<!-- lock timeout names -->
+	<!-- cache size names -->
+	<!-- screen scheme mode names -->
+	<string name="light">亮色</string>
+	<string name="dark">暗色</string>
+	<!-- update interval names -->
+</resources>

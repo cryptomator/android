@@ -6,11 +6,13 @@ import androidx.appcompat.app.AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM
 import androidx.appcompat.app.AppCompatDelegate.MODE_NIGHT_NO
 import androidx.appcompat.app.AppCompatDelegate.MODE_NIGHT_YES
 import androidx.preference.PreferenceManager
+import com.google.common.base.Optional
 import org.cryptomator.util.LockTimeout.ONE_MINUTE
 import java.text.SimpleDateFormat
 import java.util.Date
 import java.util.Locale
 import java.util.WeakHashMap
+import java.util.function.Consumer
 import javax.inject.Inject
 import kotlin.math.abs
 
@@ -60,7 +62,7 @@ constructor(context: Context) : SharedPreferences.OnSharedPreferenceChangeListen
 
 	fun setDebugMode(enabled: Boolean) {
 		defaultSharedPreferences //
-				.setValue(DEBUG_MODE, enabled)
+			.setValue(DEBUG_MODE, enabled)
 	}
 
 	fun disableAppWhenObscured(): Boolean {
@@ -69,7 +71,7 @@ constructor(context: Context) : SharedPreferences.OnSharedPreferenceChangeListen
 
 	fun setDisableAppWhenObscured(enabled: Boolean) {
 		defaultSharedPreferences //
-				.setValue(DISABLE_APP_WHEN_OBSCURED, enabled)
+			.setValue(DISABLE_APP_WHEN_OBSCURED, enabled)
 	}
 
 	fun secureScreen(): Boolean {
@@ -78,7 +80,7 @@ constructor(context: Context) : SharedPreferences.OnSharedPreferenceChangeListen
 
 	fun setSecureScreen(enabled: Boolean) {
 		defaultSharedPreferences //
-				.setValue(SECURE_SCREEN, enabled)
+			.setValue(SECURE_SCREEN, enabled)
 	}
 
 	fun lockOnScreenOff(): Boolean {
@@ -87,14 +89,17 @@ constructor(context: Context) : SharedPreferences.OnSharedPreferenceChangeListen
 
 	fun setScreenLockDialogAlreadyShown() {
 		defaultSharedPreferences //
-				.setValue(SCREEN_LOCK_DIALOG_SHOWN, true)
+			.setValue(SCREEN_LOCK_DIALOG_SHOWN, true)
 	}
 
-	fun setBetaScreenDialogAlreadyShown() {
+	fun isBetaModeAlreadyShown(): Boolean {
+		return defaultSharedPreferences.getValue(SCREEN_BETA_DIALOG_SHOWN, true)
+	}
+
+	fun setBetaScreenDialogAlreadyShown(value: Boolean) {
 		defaultSharedPreferences //
-				.setValue(SCREEN_BETA_DIALOG_SHOWN, true)
+			.setValue(SCREEN_BETA_DIALOG_SHOWN, value)
 	}
-
 
 	fun useBiometricAuthentication(): Boolean {
 		return defaultSharedPreferences.getValue(USE_BIOMETRIC_AUTHENTICATION, false)
@@ -185,7 +190,7 @@ constructor(context: Context) : SharedPreferences.OnSharedPreferenceChangeListen
 		val updateInterval = defaultSharedPreferences.getValue(UPDATE_INTERVAL, "7")
 
 		if (updateInterval == "Never") {
-			return Optional.empty()
+			return Optional.absent()
 		}
 
 		return Optional.of(Integer.parseInt(updateInterval))
@@ -206,7 +211,7 @@ constructor(context: Context) : SharedPreferences.OnSharedPreferenceChangeListen
 
 	fun doUpdate(): Boolean {
 		val updateIntervalInDays = updateIntervalInDays()
-		if (updateIntervalInDays.isAbsent) {
+		if (!updateIntervalInDays.isPresent) {
 			return false
 		}
 

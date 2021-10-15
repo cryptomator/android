@@ -44,21 +44,23 @@ class CreateFolderDialog : BaseProgressErrorDialog<CreateFolderDialog.Callback>(
 
 	override fun setupDialog(builder: AlertDialog.Builder): android.app.Dialog {
 		return builder.setTitle(requireContext().getString(R.string.dialog_create_folder_title))
-				.setPositiveButton(requireContext().getString(R.string.dialog_create_folder_positive_button)) { _: DialogInterface, _: Int -> }
-				.setNegativeButton(requireContext().getString(R.string.dialog_button_cancel)) { _: DialogInterface, _: Int -> }
-				.create()
+			.setPositiveButton(requireContext().getString(R.string.dialog_create_folder_positive_button)) { _: DialogInterface, _: Int -> }
+			.setNegativeButton(requireContext().getString(R.string.dialog_button_cancel)) { _: DialogInterface, _: Int -> }
+			.create()
 	}
 
 	override fun setupView() {
 		et_folder_name.requestFocus()
-		registerOnEditorDoneActionAndPerformButtonClick(et_folder_name) { createFolderButton }
+		createFolderButton?.let {
+			registerOnEditorDoneActionAndPerformButtonClick(et_folder_name) { it }
+		}
 		et_folder_name.addTextChangedListener(object : TextWatcher {
 			override fun beforeTextChanged(s: CharSequence, start: Int, count: Int, after: Int) {}
 			override fun onTextChanged(s: CharSequence, start: Int, before: Int, count: Int) {}
 			override fun afterTextChanged(s: Editable) {
-				if (createFolderButton != null) {
+				createFolderButton?.let {
 					validateInput(s.toString())
-					createFolderButton?.isEnabled = s.toString().isNotEmpty() && !hasInvalidInput(s.toString())
+					it.isEnabled = s.toString().isNotEmpty() && !hasInvalidInput(s.toString())
 				}
 			}
 		})

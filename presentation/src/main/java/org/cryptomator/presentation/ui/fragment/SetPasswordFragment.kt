@@ -29,10 +29,12 @@ class SetPasswordFragment : BaseFragment() {
 			}
 			false
 		}
-		passwordStrengthUtil.startUpdatingPasswordStrengthMeter(passwordEditText, //
-				progressBarPwStrengthIndicator, //
-				textViewPwStrengthIndicator, //
-				createVaultButton)
+		passwordStrengthUtil.startUpdatingPasswordStrengthMeter(
+			passwordEditText, //
+			progressBarPwStrengthIndicator, //
+			textViewPwStrengthIndicator, //
+			createVaultButton
+		)
 
 		passwordEditText.requestFocus()
 	}

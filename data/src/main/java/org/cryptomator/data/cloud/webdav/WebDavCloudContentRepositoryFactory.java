@@ -1,5 +1,7 @@
 package org.cryptomator.data.cloud.webdav;
 
+import android.content.Context;
+
 import org.cryptomator.data.cloud.webdav.network.ConnectionHandlerFactory;
 import org.cryptomator.data.repository.CloudContentRepositoryFactory;
 import org.cryptomator.domain.Cloud;
@@ -14,10 +16,12 @@ import static org.cryptomator.domain.CloudType.WEBDAV;
 public class WebDavCloudContentRepositoryFactory implements CloudContentRepositoryFactory {
 
 	private final ConnectionHandlerFactory connectionHandlerFactory;
+	private final Context context;
 
 	@Inject
-	WebDavCloudContentRepositoryFactory(ConnectionHandlerFactory connectionHandlerFactory) {
+	WebDavCloudContentRepositoryFactory(ConnectionHandlerFactory connectionHandlerFactory, Context context) {
 		this.connectionHandlerFactory = connectionHandlerFactory;
+		this.context = context;
 	}
 
 	@Override
@@ -26,11 +30,11 @@ public class WebDavCloudContentRepositoryFactory implements CloudContentReposito
 	}
 
 	@Override
-	public CloudContentRepository cloudContentRepositoryFor(Cloud cloud) {
+	public CloudContentRepository<WebDavCloud, WebDavNode, WebDavFolder, WebDavFile> cloudContentRepositoryFor(Cloud cloud) {
 		WebDavCloud webDavCloud = (WebDavCloud) cloud;
 		if (webDavCloud.username() == null || webDavCloud.password() == null) {
 			throw new NoAuthenticationProvidedException(webDavCloud);
 		}
-		return new WebDavCloudContentRepository(webDavCloud, connectionHandlerFactory.createConnectionHandler(webDavCloud));
+		return new WebDavCloudContentRepository(webDavCloud, connectionHandlerFactory.createConnectionHandler(webDavCloud), context);
 	}
 }

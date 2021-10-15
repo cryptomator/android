@@ -1,30 +1,24 @@
 package org.cryptomator.presentation.util
 
 import org.cryptomator.presentation.R
-import org.cryptomator.util.Optional
 import java.util.Date
 import java.util.concurrent.TimeUnit
 import javax.inject.Inject
 
 class DateHelper @Inject constructor() {
 
-	fun getFormattedModifiedDate(modified: Optional<Date>): Optional<String> {
-		if (modified.isAbsent) {
-			return Optional.empty()
+	fun getFormattedModifiedDate(modified: Date?): String? {
+		return modified?.let {
+			val modifiedAgo = currentDate().time - it.time
+			return String.format(ResourceHelper.getString(R.string.screen_file_browser_file_info_label_date), convert(modifiedAgo))
 		}
-		val modifiedAgo = currentDate().time - modified.get().time
-		return wrap(convert(modifiedAgo))
-	}
-
-	private fun wrap(value: String): Optional<String> {
-		return Optional.of(String.format(ResourceHelper.getString(R.string.screen_file_browser_file_info_label_date), value))
 	}
 
 	private fun convert(time: Long): String {
 		return DurationHandler.values()
-				.firstOrNull { it.isApplicable(time) }
-				?.convert(time)
-				?: DurationHandler.SECONDS.convert(time)
+			.firstOrNull { it.isApplicable(time) }
+			?.convert(time)
+			?: DurationHandler.SECONDS.convert(time)
 	}
 
 	private enum class DurationHandler(private val period: TimePeriod, private val singularName: Int, private val pluralName: Int) {

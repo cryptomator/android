@@ -1,29 +1,21 @@
 package org.cryptomator.presentation.ui.activity
 
-import android.os.Build
-import androidx.annotation.RequiresApi
 import androidx.biometric.BiometricManager
 import androidx.fragment.app.Fragment
-import org.cryptomator.domain.Vault
 import org.cryptomator.generator.Activity
 import org.cryptomator.presentation.R
 import org.cryptomator.presentation.model.VaultModel
 import org.cryptomator.presentation.presenter.BiometricAuthSettingsPresenter
 import org.cryptomator.presentation.ui.activity.view.BiometricAuthSettingsView
-import org.cryptomator.presentation.ui.dialog.BiometricAuthKeyInvalidatedDialog
 import org.cryptomator.presentation.ui.dialog.EnrollSystemBiometricDialog
-import org.cryptomator.presentation.ui.dialog.EnterPasswordDialog
 import org.cryptomator.presentation.ui.fragment.BiometricAuthSettingsFragment
-import org.cryptomator.presentation.util.BiometricAuthentication
 import javax.inject.Inject
 import kotlinx.android.synthetic.main.toolbar_layout.toolbar
 
 @Activity
 class BiometricAuthSettingsActivity : BaseActivity(), //
-		EnterPasswordDialog.Callback, //
-		BiometricAuthSettingsView, //
-		BiometricAuthentication.Callback, //
-		EnrollSystemBiometricDialog.Callback {
+	BiometricAuthSettingsView, //
+	EnrollSystemBiometricDialog.Callback {
 
 	@Inject
 	lateinit var presenter: BiometricAuthSettingsPresenter
@@ -36,14 +28,12 @@ class BiometricAuthSettingsActivity : BaseActivity(), //
 	}
 
 	override fun showSetupBiometricAuthDialog() {
-		val biometricAuthenticationAvailable = BiometricManager.from(context()).canAuthenticate()
+		val biometricAuthenticationAvailable = BiometricManager //
+			.from(context()) //
+			.canAuthenticate(BiometricManager.Authenticators.BIOMETRIC_STRONG)
 		if (biometricAuthenticationAvailable == BiometricManager.BIOMETRIC_ERROR_NONE_ENROLLED) {
 			showDialog(EnrollSystemBiometricDialog.newInstance())
 		}
-	}
-
-	override fun showBiometricAuthKeyInvalidatedDialog() {
-		showDialog(BiometricAuthKeyInvalidatedDialog.newInstance())
 	}
 
 	override fun createFragment(): Fragment? = BiometricAuthSettingsFragment()
@@ -56,30 +46,6 @@ class BiometricAuthSettingsActivity : BaseActivity(), //
 		biometricAuthSettingsFragment().clearVaultList()
 	}
 
-	override fun showEnterPasswordDialog(vaultModel: VaultModel) {
-		showDialog(EnterPasswordDialog.newInstance(vaultModel))
-	}
-
-	override fun onUnlockClick(vaultModel: VaultModel, password: String) {
-		val vaultModelWithSavedPassword = VaultModel( //
-				Vault //
-						.aCopyOf(vaultModel.toVault()) //
-						.withSavedPassword(password) //
-						.build())
-
-		presenter.verifyPassword(vaultModelWithSavedPassword)
-	}
-
-	override fun onUnlockCanceled() {
-		presenter.onUnlockCanceled()
-	}
-
-	@RequiresApi(api = Build.VERSION_CODES.M)
-	override fun showBiometricAuthenticationDialog(vaultModel: VaultModel) {
-		BiometricAuthentication(this, context(), BiometricAuthentication.CryptoMode.ENCRYPT, presenter.useConfirmationInFaceUnlockBiometricAuthentication())
-				.startListening(biometricAuthSettingsFragment(), vaultModel)
-	}
-
 	private fun biometricAuthSettingsFragment(): BiometricAuthSettingsFragment = getCurrentFragment(R.id.fragmentContainer) as BiometricAuthSettingsFragment
 
 	override fun onSetupBiometricAuthInSystemClicked() {
@@ -88,18 +54,5 @@ class BiometricAuthSettingsActivity : BaseActivity(), //
 
 	override fun onCancelSetupBiometricAuthInSystemClicked() {
 		finish()
-	}
-
-	override fun onBiometricAuthenticated(vault: VaultModel) {
-		presenter.saveVault(vault.toVault())
-	}
-
-	override fun onBiometricAuthenticationFailed(vault: VaultModel) {
-		showError(getString(R.string.error_biometric_auth_aborted))
-		biometricAuthSettingsFragment().addOrUpdateVault(vault)
-	}
-
-	override fun onBiometricKeyInvalidated(vault: VaultModel) {
-		presenter.onBiometricAuthKeyInvalidated(vault)
 	}
 }

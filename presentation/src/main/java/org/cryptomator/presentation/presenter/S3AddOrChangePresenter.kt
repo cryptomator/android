@@ -16,9 +16,10 @@ import javax.inject.Inject
 
 @PerView
 class S3AddOrChangePresenter @Inject internal constructor( //
-		private val addOrChangeCloudConnectionUseCase: AddOrChangeCloudConnectionUseCase,  //
-		private val connectToS3UseCase: ConnectToS3UseCase,  //
-		exceptionMappings: ExceptionHandlers) : Presenter<S3AddOrChangeView>(exceptionMappings) {
+	private val addOrChangeCloudConnectionUseCase: AddOrChangeCloudConnectionUseCase,  //
+	private val connectToS3UseCase: ConnectToS3UseCase,  //
+	exceptionMappings: ExceptionHandlers
+) : Presenter<S3AddOrChangeView>(exceptionMappings) {
 
 	fun checkUserInput(accessKey: String, secretKey: String, bucket: String, endpoint: String?, region: String?, cloudId: Long?, displayName: String) {
 		var statusMessage: String? = null
@@ -35,7 +36,7 @@ class S3AddOrChangePresenter @Inject internal constructor( //
 		if (displayName.isEmpty()) {
 			statusMessage = getString(R.string.screen_s3_settings_msg_display_name_not_empty)
 		}
-		if (endpoint.isNullOrEmpty() && region.isNullOrEmpty()) {
+		if (endpoint.isNullOrEmpty() || region.isNullOrEmpty()) {
 			statusMessage = getString(R.string.screen_s3_settings_msg_endpoint_and_region_not_empty)
 		}
 
@@ -48,19 +49,19 @@ class S3AddOrChangePresenter @Inject internal constructor( //
 
 	private fun encrypt(text: String): String {
 		return CredentialCryptor //
-				.getInstance(context()) //
-				.encrypt(text)
+			.getInstance(context()) //
+			.encrypt(text)
 	}
 
 	private fun mapToCloud(accessKey: String, secretKey: String, bucket: String, endpoint: String?, region: String?, cloudId: Long?, displayName: String): S3Cloud {
 		var builder = S3Cloud //
-				.aS3Cloud() //
-				.withAccessKey(accessKey) //
-				.withSecretKey(secretKey) //
-				.withS3Bucket(bucket) //
-				.withS3Endpoint(endpoint) //
-				.withS3Region(region) //
-				.withDisplayName(displayName)
+			.aS3Cloud() //
+			.withAccessKey(accessKey) //
+			.withSecretKey(secretKey) //
+			.withS3Bucket(bucket) //
+			.withS3Endpoint(endpoint) //
+			.withS3Region(region) //
+			.withDisplayName(displayName)
 
 		cloudId?.let { builder = builder.withId(cloudId) }
 
@@ -74,17 +75,17 @@ class S3AddOrChangePresenter @Inject internal constructor( //
 	private fun authenticate(cloud: S3Cloud) {
 		view?.showProgress(ProgressModel(ProgressStateModel.AUTHENTICATION))
 		connectToS3UseCase //
-				.withCloud(cloud) //
-				.run(object : DefaultResultHandler<Void?>() {
-					override fun onSuccess(void: Void?) {
-						onCloudAuthenticated(cloud)
-					}
+			.withCloud(cloud) //
+			.run(object : DefaultResultHandler<Void?>() {
+				override fun onSuccess(void: Void?) {
+					onCloudAuthenticated(cloud)
+				}
 
-					override fun onError(e: Throwable) {
-						view?.showProgress(ProgressModel.COMPLETED)
-						super.onError(e)
-					}
-				})
+				override fun onError(e: Throwable) {
+					view?.showProgress(ProgressModel.COMPLETED)
+					super.onError(e)
+				}
+			})
 	}
 
 	private fun onCloudAuthenticated(cloud: Cloud) {
@@ -94,8 +95,8 @@ class S3AddOrChangePresenter @Inject internal constructor( //
 
 	private fun save(cloud: Cloud) {
 		addOrChangeCloudConnectionUseCase //
-				.withCloud(cloud) //
-				.run(DefaultResultHandler())
+			.withCloud(cloud) //
+			.run(DefaultResultHandler())
 	}
 
 	init {

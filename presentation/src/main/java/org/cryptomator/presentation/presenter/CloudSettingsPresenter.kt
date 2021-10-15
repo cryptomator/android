@@ -29,18 +29,20 @@ import javax.inject.Inject
 
 @PerView
 class CloudSettingsPresenter @Inject constructor( //
-		private val getAllCloudsUseCase: GetAllCloudsUseCase,  //
-		private val getCloudsUseCase: GetCloudsUseCase,  //
-		private val logoutCloudUsecase: LogoutCloudUseCase,  //
-		private val cloudModelMapper: CloudModelMapper,  //
-		exceptionMappings: ExceptionHandlers) : Presenter<CloudSettingsView>(exceptionMappings) {
+	private val getAllCloudsUseCase: GetAllCloudsUseCase,  //
+	private val getCloudsUseCase: GetCloudsUseCase,  //
+	private val logoutCloudUsecase: LogoutCloudUseCase,  //
+	private val cloudModelMapper: CloudModelMapper,  //
+	exceptionMappings: ExceptionHandlers
+) : Presenter<CloudSettingsView>(exceptionMappings) {
 
 	private val nonSingleLoginClouds: Set<CloudTypeModel> = EnumSet.of( //
-			CloudTypeModel.CRYPTO,  //
-			CloudTypeModel.LOCAL,  //
-			CloudTypeModel.PCLOUD, //
-			CloudTypeModel.S3, //
-			CloudTypeModel.WEBDAV)
+		CloudTypeModel.CRYPTO,  //
+		CloudTypeModel.LOCAL,  //
+		CloudTypeModel.PCLOUD, //
+		CloudTypeModel.S3, //
+		CloudTypeModel.WEBDAV
+	)
 
 	fun loadClouds() {
 		getAllCloudsUseCase.run(CloudsSubscriber())
@@ -52,12 +54,12 @@ class CloudSettingsPresenter @Inject constructor( //
 		} else {
 			if (isLoggedIn(cloudModel)) {
 				logoutCloudUsecase //
-						.withCloud(cloudModel.toCloud()) //
-						.run(object : DefaultResultHandler<Cloud>() {
-							override fun onSuccess(cloud: Cloud) {
-								loadClouds()
-							}
-						})
+					.withCloud(cloudModel.toCloud()) //
+					.run(object : DefaultResultHandler<Cloud>() {
+						override fun onSuccess(cloud: Cloud) {
+							loadClouds()
+						}
+					})
 			} else {
 				loginCloud(cloudModel)
 			}
@@ -66,15 +68,15 @@ class CloudSettingsPresenter @Inject constructor( //
 
 	private fun loginCloud(cloudModel: CloudModel) {
 		getCloudsUseCase //
-				.withCloudType(CloudTypeModel.valueOf(cloudModel.cloudType())) //
-				.run(object : DefaultResultHandler<List<Cloud>>() {
-					override fun onSuccess(clouds: List<Cloud>) {
-						if (clouds.size > 1) {
-							throw FatalBackendException("More then one cloud")
-						}
-						startAuthentication(clouds[0])
+			.withCloudType(CloudTypeModel.valueOf(cloudModel.cloudType())) //
+			.run(object : DefaultResultHandler<List<Cloud>>() {
+				override fun onSuccess(clouds: List<Cloud>) {
+					if (clouds.size > 1) {
+						throw FatalBackendException("More then one cloud")
 					}
-				})
+					startAuthentication(clouds[0])
+				}
+			})
 	}
 
 	private fun isLoggedIn(cloudModel: CloudModel): Boolean {
@@ -83,11 +85,12 @@ class CloudSettingsPresenter @Inject constructor( //
 
 	private fun startConnectionListActivity(cloudTypeModel: CloudTypeModel) {
 		requestActivityResult( //
-				ActivityResultCallbacks.webDavConnectionListFinisheds(),  //
-				Intents.cloudConnectionListIntent() //
-						.withCloudType(cloudTypeModel) //
-						.withDialogTitle(effectiveTitle(cloudTypeModel)) //
-						.withFinishOnCloudItemClick(false))
+			ActivityResultCallbacks.webDavConnectionListFinisheds(),  //
+			Intents.cloudConnectionListIntent() //
+				.withCloudType(cloudTypeModel) //
+				.withDialogTitle(effectiveTitle(cloudTypeModel)) //
+				.withFinishOnCloudItemClick(false)
+		)
 	}
 
 	private fun effectiveTitle(cloudTypeModel: CloudTypeModel): String {
@@ -108,9 +111,10 @@ class CloudSettingsPresenter @Inject constructor( //
 
 	private fun startAuthentication(cloud: Cloud) {
 		requestActivityResult( //
-				ActivityResultCallbacks.onCloudAuthenticated(),  //
-				Intents.authenticateCloudIntent() //
-						.withCloud(cloudModelMapper.toModel(cloud)))
+			ActivityResultCallbacks.onCloudAuthenticated(),  //
+			Intents.authenticateCloudIntent() //
+				.withCloud(cloudModelMapper.toModel(cloud))
+		)
 	}
 
 	@Callback
@@ -122,15 +126,15 @@ class CloudSettingsPresenter @Inject constructor( //
 
 		override fun onSuccess(clouds: List<Cloud>) {
 			val cloudModel = cloudModelMapper.toModels(clouds) //
-					.filter { isSingleLoginCloud(it) } //
-					.filter { cloud -> !(BuildConfig.FLAVOR == "fdroid" && cloud.cloudType() == CloudTypeModel.GOOGLE_DRIVE) } //
-					.toMutableList() //
-					.also {
-						it.add(aPCloud())
-						it.add(aWebdavCloud())
-						it.add(aS3Cloud())
-						it.add(aLocalCloud())
-					}
+				.filter { isSingleLoginCloud(it) } //
+				.filter { cloud -> !(BuildConfig.FLAVOR == "fdroid" && cloud.cloudType() == CloudTypeModel.GOOGLE_DRIVE) } //
+				.toMutableList() //
+				.also {
+					it.add(aPCloud())
+					it.add(aWebdavCloud())
+					it.add(aS3Cloud())
+					it.add(aLocalCloud())
+				}
 			view?.render(cloudModel)
 		}
 

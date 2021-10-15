@@ -2,13 +2,8 @@ package org.cryptomator.presentation.presenter
 
 import android.Manifest
 import android.accounts.AccountManager
-import android.content.Intent
 import android.widget.Toast
 import com.dropbox.core.android.Auth
-import com.pcloud.sdk.AuthorizationActivity
-import com.pcloud.sdk.AuthorizationData
-import com.pcloud.sdk.AuthorizationRequest
-import com.pcloud.sdk.AuthorizationResult
 import org.cryptomator.data.cloud.onedrive.OnedriveClientFactory
 import org.cryptomator.data.cloud.onedrive.graph.ClientException
 import org.cryptomator.data.cloud.onedrive.graph.ICallback
@@ -61,21 +56,22 @@ import timber.log.Timber
 
 @PerView
 class AuthenticateCloudPresenter @Inject constructor( //
-		exceptionHandlers: ExceptionHandlers,  //
-		private val cloudModelMapper: CloudModelMapper,  //
-		private val addOrChangeCloudConnectionUseCase: AddOrChangeCloudConnectionUseCase,  //
-		private val getCloudsUseCase: GetCloudsUseCase, //
-		private val getUsernameUseCase: GetUsernameUseCase,  //
-		private val addExistingVaultWorkflow: AddExistingVaultWorkflow,  //
-		private val createNewVaultWorkflow: CreateNewVaultWorkflow) : Presenter<AuthenticateCloudView>(exceptionHandlers) {
+	exceptionHandlers: ExceptionHandlers,  //
+	private val cloudModelMapper: CloudModelMapper,  //
+	private val addOrChangeCloudConnectionUseCase: AddOrChangeCloudConnectionUseCase,  //
+	private val getCloudsUseCase: GetCloudsUseCase, //
+	private val getUsernameUseCase: GetUsernameUseCase,  //
+	private val addExistingVaultWorkflow: AddExistingVaultWorkflow,  //
+	private val createNewVaultWorkflow: CreateNewVaultWorkflow
+) : Presenter<AuthenticateCloudView>(exceptionHandlers) {
 
 	private val strategies = arrayOf( //
-			DropboxAuthStrategy(),  //
-			OnedriveAuthStrategy(),  //
-			PCloudAuthStrategy(), //
-			WebDAVAuthStrategy(),  //
-			S3AuthStrategy(), //
-			LocalStorageAuthStrategy() //
+		DropboxAuthStrategy(),  //
+		OnedriveAuthStrategy(),  //
+		PCloudAuthStrategy(), //
+		WebDAVAuthStrategy(),  //
+		S3AuthStrategy(), //
+		LocalStorageAuthStrategy() //
 	)
 
 	override fun workflows(): Iterable<Workflow<*>> {
@@ -128,17 +124,17 @@ class AuthenticateCloudPresenter @Inject constructor( //
 
 	private fun succeedAuthenticationWith(cloud: Cloud) {
 		addOrChangeCloudConnectionUseCase //
-				.withCloud(cloud) //
-				.run(object : DefaultResultHandler<Void?>() {
-					override fun onSuccess(void: Void?) {
-						finishWithResult(cloudModelMapper.toModel(cloud))
-					}
+			.withCloud(cloud) //
+			.run(object : DefaultResultHandler<Void?>() {
+				override fun onSuccess(void: Void?) {
+					finishWithResult(cloudModelMapper.toModel(cloud))
+				}
 
-					override fun onError(e: Throwable) {
-						super.onError(e)
-						finish()
-					}
-				})
+				override fun onError(e: Throwable) {
+					super.onError(e)
+					finish()
+				}
+			})
 	}
 
 	private fun failAuthentication(cloudName: Int) {
@@ -180,9 +176,10 @@ class AuthenticateCloudPresenter @Inject constructor( //
 				failAuthentication(cloudModel.name())
 			} else {
 				getUsernameAndSuceedAuthentication( //
-						DropboxCloud.aCopyOf(cloudModel.toCloud() as DropboxCloud) //
-								.withAccessToken(encrypt(authToken)) //
-								.build())
+					DropboxCloud.aCopyOf(cloudModel.toCloud() as DropboxCloud) //
+						.withAccessToken(encrypt(authToken)) //
+						.build()
+				)
 			}
 		}
 	}
@@ -200,10 +197,12 @@ class AuthenticateCloudPresenter @Inject constructor( //
 	fun onGoogleDriveAuthenticated(result: ActivityResult, cloud: CloudModel) {
 		if (result.isResultOk) {
 			val accountName = result.intent()?.extras?.getString(AccountManager.KEY_ACCOUNT_NAME)
-			succeedAuthenticationWith(GoogleDriveCloud.aCopyOf(cloud.toCloud() as GoogleDriveCloud) //
+			succeedAuthenticationWith(
+				GoogleDriveCloud.aCopyOf(cloud.toCloud() as GoogleDriveCloud) //
 					.withUsername(accountName) //
 					.withAccessToken(accountName) //
-					.build())
+					.build()
+			)
 		} else {
 			failAuthentication(cloud.name())
 		}
@@ -224,7 +223,7 @@ class AuthenticateCloudPresenter @Inject constructor( //
 
 		private fun startAuthentication(cloud: CloudModel) {
 			authenticationStarted = true
-			val authenticationAdapter = OnedriveClientFactory.instance(context(), (cloud.toCloud() as OnedriveCloud).accessToken()).authenticationAdapter
+			val authenticationAdapter = OnedriveClientFactory.getAuthAdapter(context(), (cloud.toCloud() as OnedriveCloud).accessToken())
 			authenticationAdapter.login(activity(), object : ICallback<String?> {
 				override fun success(accessToken: String?) {
 					if (accessToken == null) {
@@ -245,9 +244,10 @@ class AuthenticateCloudPresenter @Inject constructor( //
 
 		private fun handleAuthenticationResult(cloud: CloudModel, accessToken: String) {
 			getUsernameAndSuceedAuthentication( //
-					OnedriveCloud.aCopyOf(cloud.toCloud() as OnedriveCloud) //
-							.withAccessToken(accessToken) //
-							.build())
+				OnedriveCloud.aCopyOf(cloud.toCloud() as OnedriveCloud) //
+					.withAccessToken(accessToken) //
+					.build()
+			)
 		}
 	}
 
@@ -260,91 +260,79 @@ class AuthenticateCloudPresenter @Inject constructor( //
 		}
 
 		override fun resumed(intent: AuthenticateCloudIntent) {
-			when {
-				ExceptionUtil.contains(intent.error(), WrongCredentialsException::class.java) -> {
-					if (!authenticationStarted) {
-						startAuthentication()
-						Toast.makeText(
-								context(),
-								String.format(getString(R.string.error_authentication_failed_re_authenticate), intent.cloud().username()),
-								Toast.LENGTH_LONG).show()
-					}
-				}
-				else -> {
-					Timber.tag("AuthicateCloudPrester").e(intent.error())
-					failAuthentication(intent.cloud().name())
-				}
+			if (authenticationStarted) {
+				finish()
+			} else {
+				startAuthentication(intent.cloud())
+				Toast.makeText(
+					context(),
+					String.format(getString(R.string.error_authentication_failed_re_authenticate), intent.cloud().username()),
+					Toast.LENGTH_LONG
+				).show()
 			}
 		}
 
-		private fun startAuthentication() {
+		private fun startAuthentication(cloud: CloudModel) {
 			authenticationStarted = true
-			val authIntent: Intent = AuthorizationActivity.createIntent(
-					context(),
-					AuthorizationRequest.create()
-							.setType(AuthorizationRequest.Type.TOKEN)
-							.setClientId(BuildConfig.PCLOUD_CLIENT_ID)
-							.setForceAccessApproval(true)
-							.addPermission("manageshares")
-							.build())
-			requestActivityResult(ActivityResultCallbacks.pCloudReAuthenticationFinished(),  //
-					authIntent)
+			showProgress(ProgressModel(ProgressStateModel.AUTHENTICATION))
+			view?.skipTransition()
+			requestActivityResult(
+				ActivityResultCallbacks.pCloudReAuthenticationFinished(cloud),  //
+				Intents.cloudConnectionListIntent() //
+					.withCloudType(CloudTypeModel.PCLOUD) //
+					.withDialogTitle(context().getString(R.string.screen_update_pcloud_connections_title)) //
+					.withFinishOnCloudItemClick(false) //
+			)
 		}
 	}
 
 	@Callback
-	fun pCloudReAuthenticationFinished(activityResult: ActivityResult) {
-		val authData: AuthorizationData = AuthorizationActivity.getResult(activityResult.intent())
-		val result: AuthorizationResult = authData.result
+	fun pCloudReAuthenticationFinished(activityResult: ActivityResult, cloud: CloudModel) {
+		val code = activityResult.intent().extras?.getString(CloudConnectionListPresenter.PCLOUD_OAUTH_AUTH_CODE, "")
+		val hostname = activityResult.intent().extras?.getString(CloudConnectionListPresenter.PCLOUD_HOSTNAME, "")
 
-		when (result) {
-			AuthorizationResult.ACCESS_GRANTED -> {
-				val accessToken: String = CredentialCryptor //
-						.getInstance(context()) //
-						.encrypt(authData.token)
-				val pCloudSkeleton: PCloud = PCloud.aPCloud() //
-						.withAccessToken(accessToken)
-						.withUrl(authData.apiHost)
-						.build();
-				getUsernameUseCase //
-						.withCloud(pCloudSkeleton) //
-						.run(object : DefaultResultHandler<String>() {
-							override fun onSuccess(username: String?) {
-								prepareForSavingPCloud(PCloud.aCopyOf(pCloudSkeleton).withUsername(username).build())
-							}
-						})
-			}
-			AuthorizationResult.ACCESS_DENIED -> {
-				Timber.tag("CloudConnListPresenter").e("Account access denied")
-				view?.showMessage(String.format(getString(R.string.screen_authenticate_auth_authentication_failed), getString(R.string.cloud_names_pcloud)))
-			}
-			AuthorizationResult.AUTH_ERROR -> {
-				Timber.tag("CloudConnListPresenter").e("""Account access grant error: ${authData.errorMessage}""".trimIndent())
-				view?.showMessage(String.format(getString(R.string.screen_authenticate_auth_authentication_failed), getString(R.string.cloud_names_pcloud)))
-			}
-			AuthorizationResult.CANCELLED -> {
-				Timber.tag("CloudConnListPresenter").i("Account access grant cancelled")
-				view?.showMessage(String.format(getString(R.string.screen_authenticate_auth_authentication_failed), getString(R.string.cloud_names_pcloud)))
-			}
+		if (!code.isNullOrEmpty() && !hostname.isNullOrEmpty()) {
+			Timber.tag("CloudConnectionListPresenter").i("PCloud OAuth code successfully retrieved")
+
+			val accessToken = CredentialCryptor //
+				.getInstance(this.context()) //
+				.encrypt(code)
+			val pCloudSkeleton = PCloud.aPCloud() //
+				.withAccessToken(accessToken)
+				.withUrl(hostname)
+				.build();
+			getUsernameUseCase //
+				.withCloud(pCloudSkeleton) //
+				.run(object : DefaultResultHandler<String>() {
+					override fun onSuccess(username: String) {
+						Timber.tag("CloudConnectionListPresenter").i("PCloud Authentication successfully")
+						prepareForSavingPCloud(PCloud.aCopyOf(pCloudSkeleton).withUsername(username).build())
+					}
+				})
+		} else {
+			Timber.tag("CloudConnectionListPresenter").i("PCloud Authentication not successful")
+			failAuthentication(cloud.name())
 		}
 	}
 
 	fun prepareForSavingPCloud(cloud: PCloud) {
 		getCloudsUseCase //
-				.withCloudType(cloud.type()) //
-				.run(object : DefaultResultHandler<List<Cloud>>() {
-					override fun onSuccess(clouds: List<Cloud>) {
-						clouds.firstOrNull {
-							(it as PCloud).username() == cloud.username()
-						}?.let {
-							it as PCloud
-							succeedAuthenticationWith(PCloud.aCopyOf(it) //
-									.withUrl(cloud.url())
-									.withAccessToken(cloud.accessToken())
-									.build())
-						} ?: succeedAuthenticationWith(cloud)
-					}
-				})
+			.withCloudType(cloud.type()) //
+			.run(object : DefaultResultHandler<List<Cloud>>() {
+				override fun onSuccess(clouds: List<Cloud>) {
+					clouds.firstOrNull {
+						(it as PCloud).username() == cloud.username()
+					}?.let {
+						it as PCloud
+						succeedAuthenticationWith(
+							PCloud.aCopyOf(it) //
+								.withUrl(cloud.url())
+								.withAccessToken(cloud.accessToken())
+								.build()
+						)
+					} ?: succeedAuthenticationWith(cloud)
+				}
+			})
 	}
 
 	private inner class WebDAVAuthStrategy : AuthStrategy {
@@ -389,14 +377,16 @@ class AuthenticateCloudPresenter @Inject constructor( //
 		}
 	}
 
-	fun onAcceptWebDavCertificateClicked(cloud: WebDavCloud?, certificate: X509Certificate?) {
+	fun onAcceptWebDavCertificateClicked(cloud: WebDavCloud, certificate: X509Certificate) {
 		try {
 			val webDavCloudWithAcceptedCert = WebDavCloud.aCopyOf(cloud) //
-					.withCertificate(X509CertificateHelper.convertToPem(certificate)) //
-					.build()
-			finishWithResultAndExtra(cloudModelMapper.toModel(webDavCloudWithAcceptedCert),  //
-					WEBDAV_ACCEPTED_UNTRUSTED_CERTIFICATE,  //
-					true)
+				.withCertificate(X509CertificateHelper.convertToPem(certificate)) //
+				.build()
+			finishWithResultAndExtra(
+				cloudModelMapper.toModel(webDavCloudWithAcceptedCert),  //
+				WEBDAV_ACCEPTED_UNTRUSTED_CERTIFICATE,  //
+				true
+			)
 		} catch (e: CertificateEncodingException) {
 			Timber.tag("AuthicateCloudPrester").e(e)
 			throw FatalBackendException(e)
@@ -421,9 +411,10 @@ class AuthenticateCloudPresenter @Inject constructor( //
 					if (!authenticationStarted) {
 						startAuthentication(intent.cloud())
 						Toast.makeText(
-								context(),
-								String.format(getString(R.string.error_authentication_failed), intent.cloud().username()),
-								Toast.LENGTH_LONG).show()
+							context(),
+							String.format(getString(R.string.error_authentication_failed), intent.cloud().username()),
+							Toast.LENGTH_LONG
+						).show()
 					}
 				}
 				else -> {
@@ -454,10 +445,12 @@ class AuthenticateCloudPresenter @Inject constructor( //
 
 		private fun startAuthentication(cloud: CloudModel) {
 			authenticationStarted = true
-			requestPermissions(PermissionsResultCallbacks.onLocalStorageAuthenticated(cloud),  //
-					R.string.permission_snackbar_auth_local_vault,  //
-					Manifest.permission.READ_EXTERNAL_STORAGE,  //
-					Manifest.permission.WRITE_EXTERNAL_STORAGE)
+			requestPermissions(
+				PermissionsResultCallbacks.onLocalStorageAuthenticated(cloud),  //
+				R.string.permission_snackbar_auth_local_vault,  //
+				Manifest.permission.READ_EXTERNAL_STORAGE,  //
+				Manifest.permission.WRITE_EXTERNAL_STORAGE
+			)
 		}
 	}
 
@@ -472,8 +465,8 @@ class AuthenticateCloudPresenter @Inject constructor( //
 
 	private fun encrypt(password: String): String {
 		return CredentialCryptor //
-				.getInstance(context()) //
-				.encrypt(password)
+			.getInstance(context()) //
+			.encrypt(password)
 	}
 
 	private inner class FailingAuthStrategy : AuthStrategy {

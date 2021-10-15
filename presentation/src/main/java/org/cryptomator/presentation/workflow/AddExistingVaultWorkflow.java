@@ -16,9 +16,11 @@ import org.cryptomator.presentation.model.CloudFolderModel;
 import org.cryptomator.presentation.model.CloudModel;
 import org.cryptomator.presentation.model.ProgressModel;
 import org.cryptomator.presentation.model.mappers.CloudModelMapper;
+import org.cryptomator.presentation.presenter.ChooseCloudServicePresenter;
 import org.cryptomator.presentation.presenter.VaultListPresenter;
 
 import java.io.Serializable;
+import java.util.Arrays;
 import java.util.List;
 
 import javax.inject.Inject;
@@ -74,7 +76,7 @@ public class AddExistingVaultWorkflow extends Workflow<AddExistingVaultWorkflow.
 		presenter().getView().showProgress(ProgressModel.GENERIC);
 		getRootFolderUseCase //
 				.withCloud(cloud.toCloud()) //
-				.run(presenter().new ProgressCompletingResultHandler<CloudFolder>() {
+				.run(((ChooseCloudServicePresenter) presenter()).new ProgressCompletingResultHandler<CloudFolder>() {
 					@Override
 					public void onSuccess(CloudFolder cloudFolder) {
 						state().cloudRoot = cloudFolder;
@@ -89,9 +91,9 @@ public class AddExistingVaultWorkflow extends Workflow<AddExistingVaultWorkflow.
 														.withExtraText(presenter() //
 																.context() //
 																.getString(R.string.screen_file_browser_add_existing_vault_extra_text)) //
-														.selectingFilesWithNameOnly("masterkey.cryptomator") //
+														.selectingFilesWithNameOnly(Arrays.asList("masterkey.cryptomator", "vault.cryptomator")) //
 														.build()), //
-								SerializableResultCallbacks.masterkeyFileChosen());
+								SerializableResultCallbacks.cryptomatorFileChosen());
 					}
 
 					@Override
@@ -112,7 +114,7 @@ public class AddExistingVaultWorkflow extends Workflow<AddExistingVaultWorkflow.
 	}
 
 	@Callback
-	void masterkeyFileChosen(SerializableResult<CloudFileModel> result) {
+	void cryptomatorFileChosen(SerializableResult<CloudFileModel> result) {
 		CloudFileModel masterkeyFile = result.getResult();
 		state().masterkeyFile = masterkeyFile.toCloudNode();
 		presenter().getView().showProgress(ProgressModel.GENERIC);
@@ -122,7 +124,7 @@ public class AddExistingVaultWorkflow extends Workflow<AddExistingVaultWorkflow.
 	@Override
 	void completed() {
 		presenter().getView().showProgress(ProgressModel.GENERIC);
-		getVaultListUseCase.run(presenter().new ProgressCompletingResultHandler<List<Vault>>() {
+		getVaultListUseCase.run(((VaultListPresenter) presenter()).new ProgressCompletingResultHandler<List<Vault>>() {
 			@Override
 			public void onSuccess(List<Vault> vaults) {
 				saveVaultUseCase//
@@ -131,7 +133,7 @@ public class AddExistingVaultWorkflow extends Workflow<AddExistingVaultWorkflow.
 								.withPosition(vaults.size()) //
 								.thatIsNew() //
 								.build()) //
-						.run(presenter().new ProgressCompletingResultHandler<Vault>() {
+						.run(((VaultListPresenter) presenter()).new ProgressCompletingResultHandler<Vault>() {
 							@Override
 							public void onSuccess(Vault vault) {
 								((VaultListPresenter) presenter()).onAddOrCreateVaultCompleted(vault);

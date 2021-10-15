@@ -1,18 +1,15 @@
-apply from: 'buildsystem/ci.gradle'
 apply from: 'buildsystem/dependencies.gradle'
 apply plugin: "com.vanniktech.android.junit.jacoco"
 
 buildscript {
-	ext.kotlin_version = '1.4.32'
+	ext.kotlin_version = '1.5.31'
 	repositories {
-		jcenter()
 		mavenCentral()
 		google()
 	}
 	dependencies {
-		classpath 'com.android.tools.build:gradle:4.1.3'
+		classpath 'com.android.tools.build:gradle:7.0.2'
 		classpath 'org.greenrobot:greendao-gradle-plugin:3.3.0'
-		classpath 'com.fernandocejas.frodo:frodo-plugin:0.8.3'
 		classpath 'com.vanniktech:gradle-android-junit-jacoco-plugin:0.16.0'
 		classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
 		classpath "de.mannodermaus.gradle.plugins:android-junit5:1.7.1.1"
@@ -42,7 +39,7 @@ allprojects {
 	ext {
 		androidApplicationId = 'org.cryptomator'
 		androidVersionCode = getVersionCode()
-		androidVersionName = '1.5.18'
+		androidVersionName = '1.6.0'
 	}
 	repositories {
 		mavenCentral()

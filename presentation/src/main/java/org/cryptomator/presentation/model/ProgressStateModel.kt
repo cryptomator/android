@@ -5,9 +5,9 @@ import java.io.Serializable
 
 open class ProgressStateModel private constructor(private val name: String, image: Image, text: Text, selectable: Boolean) : Serializable {
 
-	private val imageResourceId: Int
-	private val textResourceId: Int
-	val isSelectable: Boolean
+	private val imageResourceId: Int = image.id()
+	private val textResourceId: Int = text.id()
+	val isSelectable: Boolean = selectable
 
 	private constructor(name: String) : this(name, noImage(), noText())
 	private constructor(name: String, text: Text) : this(name, noImage(), text)
@@ -76,9 +76,4 @@ open class ProgressStateModel private constructor(private val name: String, imag
 		}
 	}
 
-	init {
-		imageResourceId = image.id()
-		textResourceId = text.id()
-		isSelectable = selectable
-	}
 }

@@ -3,7 +3,7 @@ package org.cryptomator.presentation.model
 import java.io.Serializable
 
 data class AutoUploadFilesStore(
-		val uris: Set<String>
+	val uris: Set<String>
 ) : Serializable {
 
 	companion object {

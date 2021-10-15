@@ -2,7 +2,6 @@ package org.cryptomator.presentation.util
 
 import com.nulabinc.zxcvbn.Zxcvbn
 import org.cryptomator.presentation.R
-import org.cryptomator.util.Optional
 
 enum class PasswordStrength(val score: Int, val description: Int, val color: Int) {
 	EMPTY(-1, R.string.empty, R.color.password_strength_empty),  //
@@ -27,16 +26,13 @@ enum class PasswordStrength(val score: Int, val description: Int, val color: Int
 					EXTREMELY_WEAK
 				}
 				else -> {
-					forScore(zxcvbn.measure(password, sanitizedInputs).score).orElse(EMPTY)
+					forScore(zxcvbn.measure(password, sanitizedInputs).score) ?: EMPTY
 				}
 			}
 		}
 
-		private fun forScore(score: Int): Optional<PasswordStrength> {
-			return values()
-					.firstOrNull { score == it.score }
-					?.let { Optional.of(it) }
-					?: Optional.empty()
+		private fun forScore(score: Int): PasswordStrength? {
+			return values().firstOrNull { score == it.score }
 		}
 	}
 }

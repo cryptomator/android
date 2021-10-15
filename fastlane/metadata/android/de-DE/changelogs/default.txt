@@ -1,3 +1,9 @@
-- Unterstützung für S3-kompatiblen Speicher hinzugefügt
-- Passwortrichtlinie verbessert, so dass Tresore mit sehr schlechten Passwörtern nicht mehr erstellt werden können
-- Problem bei der Dateisuche behoben, falls Globbing aktiviert, die Live-Suche deaktiviert und das Muster Großbuchstaben enthält
+- Kompatibilität zur Tresor-Format 8 hinzugefügt
+- Google-Login und geteilte Tresore in pCloud hinzugefügt
+- Viele Übersetzungen hinzugefügt
+- Minimale Android-Version auf 7 erhöht
+- Auto-Updater des APK-Stores verbessert
+- Tresorname in S3 kann wieder umbenannt werden
+- Tresore in Google Drive können wieder auf allen Geräten erstellt/hinzugefügt werden
+- Kompatibilität für schwache biometrische Authentifikatoren entfernt
+- Deaktivierte Tracking-Library der Google-Cloud entfernt

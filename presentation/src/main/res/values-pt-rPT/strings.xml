@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+	<!-- # app -->
+	<string name="share_with_label">Encriptar</string>
+	<!-- # error messages -->
+	<string name="error_generic">Ocorreu um erro</string>
+	<string name="error_authentication_failed">Autenticação falhada</string>
+	<string name="error_authentication_failed_re_authenticate">Falha na autenticação, por favor faça o login usando %1$s</string>
+	<string name="error_no_network_connection">Sem ligação à rede</string>
+	<string name="error_invalid_passphrase">Palavra-chave errada</string>
+	<string name="error_file_or_folder_exists">Um ficheiro ou uma pasta já existe.</string>
+	<string name="error_vault_version_not_supported">Cofre não suportado. Este cofre foi criado com outra versão do Cryptomator.</string>
+	<string name="error_vault_already_exists">O cofre já existe.</string>
+	<string name="error_no_such_file">O ficheiro não existe.</string>
+	<string name="error_vault_has_been_locked">O cofre foi bloqueado.</string>
+	<string name="error_cloud_already_exists">A nuvem já existe.</string>
+	<string name="error_activity_not_found">Por favor faça o download de uma aplicação que possa abrir este ficheiro.</string>
+	<string name="error_server_not_found">Servidor não foi encontrado.</string>
+	<!-- # clouds -->
+	<!-- ## cloud names -->
+	<!-- # permission -->
+	<!-- ## permission messages -->
+	<string name="snack_bar_action_title_search_next">Seguinte</string>
+	<!-- # screens -->
+	<!-- # screen: vault list -->
+	<!-- # screen: file browser -->
+	<string name="screen_file_browser_default_title">Cofre</string>
+	<string name="screen_file_browser_share_button_text">Escolher</string>
+	<!-- ## screen: text editor -->
+	<!-- ## screen: share files -->
+	<!-- ## screen: choose cloud service -->
+	<!-- ## screen: cloud connections -->
+	<!-- ## screen: webdav settings -->
+	<string name="screen_webdav_settings_password_label">Senha</string>
+	<!-- ## screen: s3 settings -->
+	<!-- ## screen: enter vault name -->
+	<!-- ## screen: set password -->
+	<string name="screen_set_password_button_text">Ok</string>
+	<string name="screen_set_password_strength_indicator_3">Forte</string>
+	<!-- ## screen: settings -->
+	<string name="screen_settings_section_general">Geral</string>
+	<!-- ## screen: cloud settings -->
+	<!-- ## screen: licenses -->
+	<!-- ## screen: authenticate cloud -->
+	<!-- ## screen: insecure android version info -->
+	<!-- # dialogs -->
+	<string name="dialog_button_cancel">Cancelar</string>
+	<string name="dialog_enter_password_positive_button">Destrancar</string>
+	<!-- Vault not found -->
+	<string name="dialog_lock_vault">Trancar</string>
+	<string name="dialog_app_is_obscured_info_neutral_button">Fechar</string>
+	<string name="dialog_sym_link_back_button">Anterior</string>
+	<!-- # error reports -->
+	<!-- # misc -->
+	<!-- ## file size helper -->
+	<!-- ## date helper -->
+	<!-- ## biometric authentication -->
+	<!-- notification -->
+	<!-- lock timeout names -->
+	<!-- cache size names -->
+	<!-- screen scheme mode names -->
+	<!-- update interval names -->
+</resources>

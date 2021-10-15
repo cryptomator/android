@@ -17,7 +17,7 @@ class CloudFolderModel(cloudFolder: CloudFolder) : CloudNodeModel<CloudFolder>(c
 		get() = true
 
 	fun vault(): VaultModel? {
-		return if (toCloudNode().cloud.type() == CloudType.CRYPTO) {
+		return if (toCloudNode().cloud?.type() == CloudType.CRYPTO) {
 			VaultModel((toCloudNode().cloud as CryptoCloud).vault)
 		} else {
 			null

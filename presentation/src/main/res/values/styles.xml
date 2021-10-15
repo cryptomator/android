@@ -112,8 +112,15 @@
 		<item name="android:windowAnimationStyle">@null</item>
 	</style>
 
+	<!-- keep in sync with v27 style -->
 	<style name="FullscreenTheme" parent="AppTheme">
 		<item name="android:windowBackground">@null</item>
+	</style>
+
+	<!-- keep in sync with v27 style -->
+	<style name="TransparentPopUp" parent="AppTheme">
+		<item name="android:windowBackground">@android:color/transparent</item>
+		<item name="android:windowIsTranslucent">true</item>
 	</style>
 
 </resources>

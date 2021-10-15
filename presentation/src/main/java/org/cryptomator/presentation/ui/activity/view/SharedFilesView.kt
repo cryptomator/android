@@ -11,10 +11,8 @@ interface SharedFilesView : View {
 	fun displayVaults(vaults: List<VaultModel>)
 	fun displayFilesToUpload(sharedFiles: List<SharedFileModel>)
 	fun displayDialogUnableToUploadFiles()
-	fun showEnterPasswordDialog(vault: VaultModel)
 	fun showReplaceDialog(existingFiles: List<String>, size: Int)
 	fun showChosenLocation(folder: CloudFolderModel)
-	fun showBiometricAuthKeyInvalidatedDialog()
 	fun showUploadDialog(uploadingFiles: Int)
 
 }

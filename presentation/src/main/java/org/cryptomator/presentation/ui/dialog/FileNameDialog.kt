@@ -46,9 +46,9 @@ class FileNameDialog : BaseProgressErrorDialog<FileNameDialog.Callback>() {
 
 	override fun setupDialog(builder: AlertDialog.Builder): android.app.Dialog {
 		return builder.setTitle(R.string.dialog_file_name_title) //
-				.setPositiveButton(R.string.dialog_file_name_create) { _: DialogInterface, _: Int -> } //
-				.setNegativeButton(R.string.dialog_file_name_cancel) { _: DialogInterface, _: Int -> } //
-				.create()
+			.setPositiveButton(R.string.dialog_file_name_create) { _: DialogInterface, _: Int -> } //
+			.setNegativeButton(R.string.dialog_file_name_cancel) { _: DialogInterface, _: Int -> } //
+			.create()
 	}
 
 	private fun effectiveNewFileName(newFileName: String): String {
@@ -60,7 +60,7 @@ class FileNameDialog : BaseProgressErrorDialog<FileNameDialog.Callback>() {
 	}
 
 	override fun setupView() {
-		registerOnEditorDoneActionAndPerformButtonClick(file_name) { createFileButton }
+		createFileButton?.let { registerOnEditorDoneActionAndPerformButtonClick(file_name) { it } }
 		file_name.addTextChangedListener(object : TextWatcher {
 			override fun beforeTextChanged(s: CharSequence, start: Int, count: Int, after: Int) {}
 			override fun onTextChanged(s: CharSequence, start: Int, before: Int, count: Int) {}

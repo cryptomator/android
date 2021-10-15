@@ -1,5 +1,7 @@
 package org.cryptomator.data.repository;
 
+import com.google.common.base.Optional;
+
 import org.cryptomator.data.cloud.crypto.CryptoCloudFactory;
 import org.cryptomator.data.db.Database;
 import org.cryptomator.data.db.entities.CloudEntity;
@@ -7,6 +9,7 @@ import org.cryptomator.data.db.mappers.CloudEntityMapper;
 import org.cryptomator.domain.Cloud;
 import org.cryptomator.domain.CloudFolder;
 import org.cryptomator.domain.CloudType;
+import org.cryptomator.domain.UnverifiedVaultConfig;
 import org.cryptomator.domain.Vault;
 import org.cryptomator.domain.exception.BackendException;
 import org.cryptomator.domain.repository.CloudRepository;
@@ -92,26 +95,30 @@ class CloudRepositoryImpl implements CloudRepository {
 		return cryptoCloudFactory.decryptedViewOf(vault);
 	}
 
+	public Optional<UnverifiedVaultConfig> unverifiedVaultConfig(Vault vault) throws BackendException {
+		return cryptoCloudFactory.unverifiedVaultConfig(vault);
+	}
+
 	@Override
-	public Cloud unlock(Vault vault, CharSequence password, Flag cancelledFlag) throws BackendException {
-		Vault vaultWithVersion = cryptoCloudFactory.unlock(vault, password, cancelledFlag);
+	public Cloud unlock(Vault vault, Optional<UnverifiedVaultConfig> unverifiedVaultConfig, CharSequence password, Flag cancelledFlag) throws BackendException {
+		Vault vaultWithVersion = cryptoCloudFactory.unlock(vault, unverifiedVaultConfig, password, cancelledFlag);
 		return decryptedViewOf(vaultWithVersion);
 	}
 
 	@Override
-	public Cloud unlock(UnlockToken token, CharSequence password, Flag cancelledFlag) throws BackendException {
-		Vault vaultWithVersion = cryptoCloudFactory.unlock(token, password, cancelledFlag);
+	public Cloud unlock(UnlockToken token, Optional<UnverifiedVaultConfig> unverifiedVaultConfig, CharSequence password, Flag cancelledFlag) throws BackendException {
+		Vault vaultWithVersion = cryptoCloudFactory.unlock(token, unverifiedVaultConfig, password, cancelledFlag);
 		return decryptedViewOf(vaultWithVersion);
 	}
 
 	@Override
-	public UnlockToken prepareUnlock(Vault vault) throws BackendException {
-		return cryptoCloudFactory.createUnlockToken(vault);
+	public UnlockToken prepareUnlock(Vault vault, Optional<UnverifiedVaultConfig> unverifiedVaultConfig) throws BackendException {
+		return cryptoCloudFactory.createUnlockToken(vault, unverifiedVaultConfig);
 	}
 
 	@Override
-	public boolean isVaultPasswordValid(Vault vault, CharSequence password) throws BackendException {
-		return cryptoCloudFactory.isVaultPasswordValid(vault, password);
+	public boolean isVaultPasswordValid(Vault vault, Optional<UnverifiedVaultConfig> unverifiedVaultConfig, CharSequence password) throws BackendException {
+		return cryptoCloudFactory.isVaultPasswordValid(vault, unverifiedVaultConfig, password);
 	}
 
 	@Override
@@ -121,8 +128,8 @@ class CloudRepositoryImpl implements CloudRepository {
 	}
 
 	@Override
-	public void changePassword(Vault vault, String oldPassword, String newPassword) throws BackendException {
-		cryptoCloudFactory.changePassword(vault, oldPassword, newPassword);
+	public void changePassword(Vault vault, Optional<UnverifiedVaultConfig> unverifiedVaultConfig, String oldPassword, String newPassword) throws BackendException {
+		cryptoCloudFactory.changePassword(vault, unverifiedVaultConfig, oldPassword, newPassword);
 	}
 
 }

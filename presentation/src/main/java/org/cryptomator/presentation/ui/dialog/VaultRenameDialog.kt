@@ -45,15 +45,15 @@ class VaultRenameDialog : BaseProgressErrorDialog<VaultRenameDialog.Callback>() 
 
 	public override fun setupDialog(builder: AlertDialog.Builder): android.app.Dialog {
 		return builder
-				.setTitle(requireContext().getString(R.string.dialog_rename_vault_title))
-				.setPositiveButton(requireContext().getString(R.string.dialog_rename_vault_positive_button)) { _: DialogInterface, _: Int -> }
-				.setNegativeButton(requireContext().getString(R.string.dialog_button_cancel)) { _: DialogInterface, _: Int -> }
-				.create()
+			.setTitle(requireContext().getString(R.string.dialog_rename_vault_title))
+			.setPositiveButton(requireContext().getString(R.string.dialog_rename_vault_positive_button)) { _: DialogInterface, _: Int -> }
+			.setNegativeButton(requireContext().getString(R.string.dialog_button_cancel)) { _: DialogInterface, _: Int -> }
+			.create()
 	}
 
 	public override fun setupView() {
 		val vaultModel = requireArguments().getSerializable(VAULT_ARG) as VaultModel
-		registerOnEditorDoneActionAndPerformButtonClick(et_rename) { renameConfirmButton }
+		renameConfirmButton?.let { registerOnEditorDoneActionAndPerformButtonClick(et_rename) { it } }
 		et_rename.setText(vaultModel.name)
 		et_rename.addTextChangedListener(object : TextWatcher {
 			override fun beforeTextChanged(s: CharSequence, start: Int, count: Int, after: Int) {}

@@ -2,8 +2,9 @@ package org.cryptomator.presentation.util;
 
 import org.cryptomator.presentation.R;
 import org.cryptomator.presentation.util.FileUtil.FileInfo;
-import org.cryptomator.util.Optional;
-import org.cryptomator.util.Predicate;
+
+import java.util.Optional;
+import java.util.function.Predicate;
 
 import static java.lang.Boolean.FALSE;
 import static java.lang.Boolean.TRUE;
@@ -57,14 +58,18 @@ public enum FileIcon {
 	}
 
 	private static Predicate<FileInfo> forExtensions(final String... extensions) {
-		return fileInfo -> fileInfo.getExtension().map(fileExtension -> {
+		return fileInfo -> {
+			if(fileInfo.getExtension() == null) {
+				return FALSE;
+			}
+
 			for (String extension : extensions) {
-				if (fileExtension.equalsIgnoreCase(extension)) {
+				if (fileInfo.getExtension().equalsIgnoreCase(extension)) {
 					return TRUE;
 				}
 			}
 			return FALSE;
-		}).orElse(FALSE);
+		};
 	}
 
 	private static Predicate<FileInfo> forMediatype(final String mediatype) {
@@ -72,14 +77,7 @@ public enum FileIcon {
 	}
 
 	private static Predicate<FileInfo> forMediaTypeOrExtensions(final String mediatype, final String... extensions) {
-		return fileInfo -> fileInfo.getMimeType().getMediatype().equalsIgnoreCase(mediatype) || fileInfo.getExtension().map(fileExtension -> {
-			for (String extension : extensions) {
-				if (fileExtension.equalsIgnoreCase(extension)) {
-					return TRUE;
-				}
-			}
-			return FALSE;
-		}).orElse(FALSE);
+		return forMediatype(mediatype).or(forExtensions(extensions));
 	}
 
 	private boolean matches(FileInfo fileInfo) {

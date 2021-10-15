@@ -51,10 +51,12 @@ class CryptomatorApp : MultiDexApplication(), HasComponent<ApplicationComponent>
 			}
 			else -> "Google Play Edition"
 		}
-		Timber.tag("App").i("Cryptomator v%s (%d) \"%s\" started on android %s / API%d using a %s",  //
-				BuildConfig.VERSION_NAME, BuildConfig.VERSION_CODE, flavor,  //
-				Build.VERSION.RELEASE, Build.VERSION.SDK_INT,  //
-				Build.MODEL)
+		Timber.tag("App").i(
+			"Cryptomator v%s (%d) \"%s\" started on android %s / API%d using a %s",  //
+			BuildConfig.VERSION_NAME, BuildConfig.VERSION_CODE, flavor,  //
+			Build.VERSION.RELEASE, Build.VERSION.SDK_INT,  //
+			Build.MODEL
+		)
 		Timber.tag("App").d("appId %s", BuildConfig.APPLICATION_ID)
 
 		launchServices()
@@ -105,10 +107,11 @@ class CryptomatorApp : MultiDexApplication(), HasComponent<ApplicationComponent>
 				Timber.tag("App").i("Auto upload service connected")
 				autoUploadServiceBinder = service as AutoUploadService.Binder
 				autoUploadServiceBinder.init( //
-						applicationComponent.cloudContentRepository(),  //
-						applicationComponent.fileUtil(),  //
-						applicationComponent.contentResolverUtil(),  //
-						Companion.applicationContext)
+					applicationComponent.cloudContentRepository(),  //
+					applicationComponent.fileUtil(),  //
+					applicationComponent.contentResolverUtil(),  //
+					Companion.applicationContext
+				)
 			}
 
 			override fun onServiceDisconnected(name: ComponentName) {
@@ -124,11 +127,11 @@ class CryptomatorApp : MultiDexApplication(), HasComponent<ApplicationComponent>
 
 	private fun initializeInjector() {
 		applicationComponent = DaggerApplicationComponent.builder() //
-				.applicationModule(ApplicationModule(this)) //
-				.threadModule(ThreadModule()) //
-				.repositoryModule(RepositoryModule()) //
-				.cryptorsModule(CryptorsModule(appCryptors)) //
-				.build()
+			.applicationModule(ApplicationModule(this)) //
+			.threadModule(ThreadModule()) //
+			.repositoryModule(RepositoryModule()) //
+			.cryptorsModule(CryptorsModule(appCryptors)) //
+			.build()
 	}
 
 	private fun cleanupCache() {
@@ -167,7 +170,7 @@ class CryptomatorApp : MultiDexApplication(), HasComponent<ApplicationComponent>
 	}
 
 	fun allVaultsLocked(): Boolean {
-		return appCryptors.isEmpty
+		return appCryptors.isEmpty()
 	}
 
 	fun suspendLock() {

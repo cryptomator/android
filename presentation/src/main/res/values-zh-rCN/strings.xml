@@ -1,0 +1,404 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+	<!-- # app -->
+	<string name="share_with_label">加密</string>
+	<!-- # error messages -->
+	<string name="error_generic">出错了</string>
+	<string name="error_authentication_failed">验证失败</string>
+	<string name="error_authentication_failed_re_authenticate">身份验证失败，请通过 %1$s 登录</string>
+	<string name="error_no_network_connection">无网络连接</string>
+	<string name="error_invalid_passphrase">密码错误</string>
+	<string name="error_file_or_folder_exists">文件(夹)已存在</string>
+	<string name="error_vault_version_not_supported">不受支持！此保险库经由另一版 Cryptomator 所创建</string>
+	<string name="error_vault_already_exists">保险库已存在</string>
+	<string name="error_no_such_file">文件不存在</string>
+	<string name="error_vault_has_been_locked">保险库已锁定</string>
+	<string name="error_cloud_already_exists">该云已存在</string>
+	<string name="error_activity_not_found">请下载一个可以打开此文件的应用</string>
+	<string name="error_server_not_found">未找到服务器</string>
+	<string name="error_device_policy_manager_not_found">请打开系统设置并手动设置屏幕锁</string>
+	<string name="error_export_illegal_file_name">导出失败，请尝试删除文件名中的特殊字符后重试</string>
+	<string name="error_name_contains_invalid_characters">不能包含特殊字符</string>
+	<string name="error_names_contains_invalid_characters">文件名不能包含特别字符</string>
+	<string name="error_vault_name_contains_invalid_characters">保险库名称不能包含特别字符</string>
+	<string name="error_general_update">出错了，更新检查失败</string>
+	<string name="error_hash_mismatch_update">更新检查失败，计算出的 HASH 值与上传的文件不匹配</string>
+	<string name="error_update_no_internet">更新检查失败，无网络连接</string>
+	<string name="error_failed_to_decrypt_webdav_password">解密 WebDAV 密码失败，请在设置中重新添加</string>
+	<string name="error_play_services_not_available">Google Play 服务未安装</string>
+	<string name="error_biometric_auth_aborted">生物识别认证已中止</string>
+	<string name="error_vault_version_mismatch">%1$s 中指定的版本与 %2$s 中的不同</string>
+	<string name="error_vault_key_invalid">%1$s 与此 %2$s 不匹配</string>
+	<string name="error_vault_config_loading">加载保险库配置时发生常规错误</string>
+	<string name="error_file_not_found_after_opening_using_3party">切换回 Cryptomator 后，本地文件不再存在。期间所做更改无法传回云端</string>
+	<string name="error_no_such_bucket">没有这样的 bucket</string>
+	<string name="error_masterkey_location_not_supported">尚不支持自定义 Masterkey 路径</string>
+	<!-- # clouds -->
+	<!-- ## cloud names -->
+	<string name="cloud_names_local_storage">本地存储</string>
+	<!-- # permission -->
+	<!-- ## permission messages -->
+	<string name="permission_message_export_file">Cryptomator 需要存储权限以导出文件</string>
+	<string name="permission_message_upload_file">Cryptomator 需要存储权限以上传文件</string>
+	<string name="permission_message_share_file">Cryptomator 需要存储权限以共享文件</string>
+	<string name="snack_bar_action_title_settings">设置</string>
+	<string name="snack_bar_action_title_search">搜索</string>
+	<string name="snack_bar_action_title_search_previous">上一个</string>
+	<string name="snack_bar_action_title_search_next">下一步</string>
+	<string name="snack_bar_action_title_sort">排序</string>
+	<string name="snack_bar_action_title_sort_az">A - Z</string>
+	<string name="snack_bar_action_title_sort_za">Z - A</string>
+	<string name="snack_bar_action_title_sort_newest">日期 (升序)</string>
+	<string name="snack_bar_action_title_sort_oldest">日期 (降序)</string>
+	<string name="snack_bar_action_title_sort_biggest">大小 (降序)</string>
+	<string name="snack_bar_action_title_sort_smallest">大小 (升序)</string>
+	<!-- # screens -->
+	<!-- # screen: vault list -->
+	<string name="screen_vault_list_actions_title">添加到 Cryptomator</string>
+	<string name="screen_vault_list_action_create_new_vault">新建保险库</string>
+	<string name="screen_vault_list_action_add_existing_vault">添加现有保险库</string>
+	<string name="screen_vault_list_vault_action_delete">删除</string>
+	<string name="screen_vault_list_vault_creation_hint">点击此处新建一个保险库</string>
+	<string name="screen_vault_list_change_password_successful">密码修改成功</string>
+	<!-- # screen: file browser -->
+	<string name="screen_file_browser_default_title">保险库</string>
+	<string name="screen_file_browser_add_existing_vault_extra_text">请选择 Masterkey 文件</string>
+	<string name="screen_file_browser_create_new_vault_button_text">在此添加</string>
+	<string name="screen_file_browser_create_new_vault_extra_text">保险库名称：%1$s</string>
+	<plurals name="screen_file_browser_subtitle_move">
+		<item quantity="other">移动 %2$d 个项目到</item>
+	</plurals>
+	<string name="screen_file_browser_move_button_text">移动</string>
+	<string name="screen_file_browser_msg_empty_folder">空文件夹</string>
+	<string name="screen_file_browser_file_info_label_date">修改于 %1$s 前</string>
+	<string name="screen_file_browser_share_intent_chooser_title">分享到</string>
+	<string name="screen_file_browser_share_destination_title">请选择目标位置</string>
+	<string name="screen_file_browser_share_button_text">选择</string>
+	<string name="screen_file_browser_nothing_to_share">没有要分享的内容</string>
+	<string name="screen_file_browser_actions_title">添加到 %1$s</string>
+	<string name="screen_file_browser_action_create_folder">新建文件夹</string>
+	<string name="screen_file_browser_action_create_new_text_file">新建文本文件</string>
+	<string name="screen_file_browser_action_upload_files">上传文件</string>
+	<string name="screen_file_browser_upload_files_chooser_title">文件</string>
+	<string name="screen_file_browser_msg_file_exported">文件已导出</string>
+	<string name="screen_file_browser_msg_files_exported">文件已导出</string>
+	<string name="screen_file_browser_nothing_to_export">没有要导出的内容</string>
+	<string name="screen_file_browser_msg_creating_download_dir_failed">创建下载目录失败</string>
+	<string name="screen_file_browser_node_action_share">分享</string>
+	<string name="screen_file_browser_node_action_rename">重命名</string>
+	<string name="screen_file_browser_node_action_edit_text">编辑</string>
+	<string name="screen_file_browser_node_action_export">导出</string>
+	<string name="screen_file_browser_node_action_delete">删除</string>
+	<string name="screen_file_browser_node_action_open_with_text">打开方式&#8230;</string>
+	<string name="screen_file_browser_selection_mode_title_zero_elements">选择项目</string>
+	<string name="screen_file_browser_selection_mode_title_one_or_more_elements">已选中 %1$d 项</string>
+	<string name="screen_file_browser_select_items">选择</string>
+	<string name="screen_file_browser_select_all_items">全选</string>
+	<string name="screen_file_browser_refresh_items">刷新</string>
+	<string name="screen_file_browser_no_connection_message">无连接</string>
+	<string name="screen_file_browser_no_connection_button_text">重试</string>
+	<!-- ## screen: text editor -->
+	<string name="screen_text_editor_save_success">保存成功</string>
+	<!-- ## screen: share files -->
+	<string name="screen_share_files_title">保存 %1$s 到&#8230;</string>
+	<string name="screen_share_files_content_text">文本</string>
+	<string name="screen_share_files_content_file">文件</string>
+	<string name="screen_share_files_content_files">文件</string>
+	<string name="screen_share_files_msg_filenames_must_be_unique">文件名必须是唯一的，请重命名同名文件</string>
+	<string name="screen_share_files_section_location">保存位置</string>
+	<string name="screen_share_files_save_button_text">保存</string>
+	<string name="screen_share_files_msg_success">加密完成</string>
+	<!-- ## screen: choose cloud service -->
+	<string name="screen_choose_cloud_service_title">云服务</string>
+	<!-- ## screen: cloud connections -->
+	<string name="screen_cloud_connections_title">请选择位置</string>
+	<string name="screen_cloud_connections_no_connections">点击此处添加位置</string>
+	<string name="screen_cloud_error_webdav_not_supported">服务器似乎不兼容 WebDAV</string>
+	<string name="screen_cloud_local_custom_storage_title">自定义位置</string>
+	<string name="screen_cloud_local_default_storage_title">默认存储</string>
+	<string name="screen_cloud_local_error_no_content_provider">无可用其他位置</string>
+	<!-- ## screen: webdav settings -->
+	<string name="screen_webdav_settings_url_port_label">URL</string>
+	<string name="screen_webdav_settings_username_label">用户名</string>
+	<string name="screen_webdav_settings_password_label">密码</string>
+	<string name="screen_webdav_settings_done_button_text">连接</string>
+	<string name="screen_webdav_settings_msg_url_must_not_be_empty">URL 不能为空</string>
+	<string name="screen_webdav_settings_msg_url_is_invalid">URL 无效</string>
+	<string name="screen_webdav_settings_msg_username_must_not_be_empty">用户名不能为空</string>
+	<string name="screen_webdav_settings_msg_password_must_not_be_empty">密码不能为空</string>
+	<!-- ## screen: s3 settings -->
+	<string name="screen_s3_settings_display_name_label">显示名称</string>
+	<string name="screen_s3_settings_access_key_label">通行密钥</string>
+	<string name="screen_s3_settings_secret_key_label">私钥</string>
+	<string name="screen_s3_settings_bucket_label">现有 Bucket</string>
+	<string name="screen_s3_settings_endpoint_label">端点</string>
+	<string name="screen_s3_settings_region_label">区域</string>
+	<string name="screen_s3_settings_msg_display_name_not_empty">显示名称不能为空</string>
+	<string name="screen_s3_settings_msg_access_key_not_empty">通行密钥不能为空</string>
+	<string name="screen_s3_settings_msg_secret_key_not_empty">私钥不能为空</string>
+	<string name="screen_s3_settings_msg_bucket_not_empty">Bucket 不能为空</string>
+	<string name="screen_s3_settings_msg_endpoint_and_region_not_empty">端点或区域不能为空</string>
+	<!-- ## screen: enter vault name -->
+	<string name="screen_enter_vault_name_msg_name_empty">保险库名称不能为空</string>
+	<string name="screen_enter_vault_name_vault_label">保险库名称</string>
+	<string name="screen_enter_vault_name_button_text">新建</string>
+	<!-- ## screen: set password -->
+	<string name="screen_set_password_title">设置密码</string>
+	<string name="screen_set_password_msg_password_mismatch">两次密码不匹配</string>
+	<string name="screen_set_password_button_text">完成</string>
+	<string name="screen_set_password_hint">重要提示：一旦您忘记密码，将永远无法恢复您的数据</string>
+	<string name="screen_set_password_retype_password_label">确认密码</string>
+	<string name="screen_set_password_strength_indicator_0">密码太弱，不能创建保险库</string>
+	<string name="screen_set_password_strength_indicator_1">弱</string>
+	<string name="screen_set_password_strength_indicator_2">一般</string>
+	<string name="screen_set_password_strength_indicator_3">强</string>
+	<string name="screen_set_password_strength_indicator_4">非常强</string>
+	<!-- ## screen: settings -->
+	<string name="screen_settings_section_general">常规​​​​​</string>
+	<string name="screen_settings_cloud_settings_label">云服务</string>
+	<string name="screen_settings_biometric_auth">生物识别认证</string>
+	<string name="screen_settings_activate_biometric_auth">启用生物识别认证</string>
+	<string name="screen_settings_confirm_face_unlock">确认人脸解锁 (如果有)</string>
+	<string name="screen_settings_block_app_when_obscured">被遮罩 (比如某些护眼应用) 时停用 Cryptomator</string>
+	<string name="screen_settings_block_app_when_obscured_summary">阻止 \"输入拦截以及显示错误/诱导性的用户界面\"</string>
+	<string name="screen_settings_secure_screen">防截屏</string>
+	<string name="screen_settings_secure_screen_summary">在最近任务和应用内阻止截图</string>
+	<string name="screen_settings_section_search">搜索</string>
+	<string name="screen_settings_live_search">实时搜索</string>
+	<string name="screen_settings_live_search_summary">边输入边更新搜索结果</string>
+	<string name="screen_settings_glob_search">使用 glob 模式搜索</string>
+	<string name="screen_settings_glob_search_summary">使用诸如 alice.*.jpg 的 glob 模式匹配</string>
+	<string name="screen_settings_section_auto_lock">自动锁定</string>
+	<string name="screen_settings_auto_lock_timeout">超时锁定</string>
+	<string name="screen_settings_auto_lock_on_screen_lock">息屏后</string>
+	<string name="screen_settings_section_auto_photo_upload">自动上传图片</string>
+	<string name="screen_settings_section_auto_photo_upload_vault">选择目标保险库</string>
+	<string name="screen_settings_section_auto_photo_upload_toggle">激活</string>
+	<string name="screen_settings_section_auto_photo_upload_toggle_summary">后台感知图片，一旦目标保险库解锁即开始上传</string>
+	<string name="screen_settings_section_auto_photo_upload_toggle_instant_upload">实时上传</string>
+	<string name="screen_settings_section_auto_photo_upload_toggle_instant_upload_summary">解锁保险库后直接上传</string>
+	<string name="screen_settings_section_auto_photo_upload_only_wifi_toggle">仅限 WIFI</string>
+	<string name="screen_settings_section_auto_photo_upload_including_videos">上传视频</string>
+	<string name="screen_settings_auto_photo_upload_title">保存自动上传文件到&#8230;</string>
+	<string name="screen_settings_website_label">官网</string>
+	<string name="screen_settings_twitter_label">关注推特</string>
+	<string name="screen_settings_facebook_label">点赞脸书</string>
+	<string name="screen_settings_section_legal">法律条款</string>
+	<string name="screen_settings_licenses_label">许可证</string>
+	<string name="screen_settings_license_terms_label">许可条款</string>
+	<string name="screen_settings_section_support">支持与帮助</string>
+	<string name="screen_settings_contact_label">请求帮助</string>
+	<string name="screen_settings_debug_mode_label">调试模式</string>
+	<string name="screen_settings_error_report_label">发送日志文件</string>
+	<string name="screen_settings_error_report_failed">发送失败</string>
+	<string name="screen_settings_security_label">安全提示</string>
+	<string name="screen_settings_section_version">版本</string>
+	<string name="screen_settings_advanced_settings">高级设置</string>
+	<string name="screen_settings_background_unlock_preparation_label">快速解锁</string>
+	<string name="screen_settings_background_unlock_preparation_label_summary">提示输入密码或生物识别认证时后台下载保险库配置</string>
+	<string name="screen_settings_keep_unlocked_while_editing_files">保持解锁状态</string>
+	<string name="screen_settings_keep_unlocked_while_editing_files_summary">编辑文件时保持保险库解锁</string>
+	<!-- ## screen: cloud settings -->
+	<string name="screen_cloud_settings_webdav_connections">WebDAV 连接</string>
+	<string name="screen_cloud_settings_pcloud_connections">pCloud 连接</string>
+	<string name="screen_cloud_settings_s3_connections">S3 连接</string>
+	<string name="screen_cloud_settings_local_storage_locations">本地存储位置</string>
+	<string name="screen_cloud_settings_log_in_to">登录到</string>
+	<string name="screen_cloud_settings_sign_out_from_cloud">登出</string>
+	<!-- ## screen: licenses -->
+	<!-- ## screen: authenticate cloud -->
+	<string name="screen_authenticate_auth_authentication_failed">%1$s 无法通过身份验证</string>
+	<string name="screen_update_pcloud_connections_title">更新 pCloud 凭证</string>
+	<!-- ## screen: insecure android version info -->
+	<!-- # dialogs -->
+	<string name="dialog_button_cancel">取消</string>
+	<string name="dialog_enter_password_positive_button">解锁</string>
+	<string name="dialog_change_password_old_password_label">旧密码</string>
+	<string name="dialog_change_password_new_password_label">新密码</string>
+	<string name="dialog_change_password">更改密码</string>
+	<string name="dialog_change_password_msg_old_password_empty">旧密码不能为空</string>
+	<string name="dialog_change_password_msg_new_password_empty">新密码不能为空</string>
+	<string name="dialog_change_password_msg_password_mismatch">两次密码不匹配</string>
+	<!-- Vault not found -->
+	<string name="dialog_vault_not_found_title">未找到 %1$s 保险库</string>
+	<string name="dialog_vault_not_found_message">保险库已重命名、移动或删除。请从列表中删除此保险库并再次添加以继续，立即删除吗？</string>
+	<string name="dialog_vault_not_found_positive_button_text">删除</string>
+	<string name="dialog_existing_file_title">文件已存在</string>
+	<string name="dialog_existing_file_positive_button">替换</string>
+	<string name="dialog_existing_file_message">已存在名为 \'%1$s\' 的文件</string>
+	<string name="dialog_replace_negative_button_at_least_two_but_not_all_files_exist">跳过已有文件</string>
+	<string name="dialog_replace_positive_button_all_files_exist">全部替换</string>
+	<string name="dialog_replace_positive_button_some_files_exist">替换已有文件</string>
+	<string name="dialog_replace_positive_button_single_file_exists">替换</string>
+	<string name="dialog_replace_msg_single_file_exists">名为 \'%1$s\' 的文件已存在，您想要替换它吗？</string>
+	<string name="dialog_replace_msg_all_files_exists">所有文件都已存在，你想要全部替换吗？</string>
+	<string name="dialog_replace_msg_some_files_exists">%1$d 个文件已存在，是否替换？</string>
+	<string name="dialog_replace_title_single_file_exists">替换文件？</string>
+	<string name="dialog_replace_title_multiple_files_exist">替换文件？</string>
+	<string name="dialog_unable_to_share_title">无法分享文件</string>
+	<string name="dialog_unable_to_share_message">您尚未设置任何保险库，请先创建一个</string>
+	<string name="dialog_unable_to_share_positive_button">确定</string>
+	<string name="dialog_unable_to_share_negative_button">创建保险库</string>
+	<string name="dialog_filetype_not_supported_title">无法打开 %1$s</string>
+	<string name="dialog_filetype_not_supported_message">请下载一个可以打开此文件的应用，或是保存到设备？</string>
+	<string name="dialog_rename_vault_title">重命名保险库</string>
+	<string name="dialog_rename_node_folder_title">重命名文件夹</string>
+	<string name="dialog_rename_node_file_title">重命名文件</string>
+	<string name="dialog_unsaved_changes_title">存在尚未保存的更改</string>
+	<string name="dialog_unsaved_changes_message">确定要不保存退出？</string>
+	<string name="dialog_unsaved_changes_discard">舍弃</string>
+	<string name="dialog_file_name_placeholder">text.txt</string>
+	<string name="dialog_delete_vault_message">您确定要删除此保险库吗？</string>
+	<string name="dialog_delete_vault_hint">此操作只会从此列表中删除保险库，而不会实际删除</string>
+	<string name="dialog_upload_file_title">上传中&#8230;</string>
+	<string name="dialog_upload_file_remaining">文件 %1$d / %2$d</string>
+	<string name="dialog_export_file_title">导出中 (%1$d/%2$d)</string>
+	<string name="dialog_progress_please_wait">请稍候&#8230;</string>
+	<string name="dialog_progress_creating_folder">正在创建文件夹&#8230;</string>
+	<string name="dialog_progress_creating_text_file">正在创建文本文件&#8230;</string>
+	<string name="action_progress_authentication">验证中&#8230;</string>
+	<string name="action_progress_renaming">正在重命名&#8230;</string>
+	<string name="action_progress_deleting">正在删除&#8230;</string>
+	<string name="dialog_progress_unlocking_vault">正在解锁保险库&#8230;</string>
+	<string name="dialog_progress_change_password">正在更改密码&#8230;</string>
+	<string name="dialog_progress_creating_vault">正在创建保险库&#8230;</string>
+	<string name="dialog_progress_upload_file">上传中&#8230;</string>
+	<string name="dialog_progress_download_file">下载中&#8230;</string>
+	<string name="dialog_progress_encryption">加密中&#8230;</string>
+	<string name="dialog_progress_decryption">解密中&#8230;</string>
+	<string name="action_progress_moving">正在移动&#8230;</string>
+	<string name="dialog_lock_vault">锁定</string>
+	<string name="dialog_accept_ssl_certificate_title">SSL 证书无效</string>
+	<string name="dialog_accept_ssl_certificate_hint">SSL 证书无效，仍要信任它吗？</string>
+	<string name="dialog_accept_ssl_certificate_details">详情</string>
+	<string name="dialog_accept_ssl_certificate_security_checkbox">这可能存在安全风险，我知道我在做什么</string>
+	<string name="dialog_http_security_hint">HTTP 不安全，我们建议使用 HTTPS。如果您知道其中风险，您可以继续使用 HTTP</string>
+	<string name="dialog_http_security_checkbox">换成 HTTPS</string>
+	<string name="dialog_http_security_title">使用 HTTPS?</string>
+	<string name="dialog_no_screen_lock_hint">未设置屏幕锁。要以安全的方式存储您的凭据，请使用 OK 设置锁屏图案或密码</string>
+	<string name="dialog_no_screen_lock_title">设置屏幕锁？</string>
+	<string name="dialog_no_screen_lock_checkbox">设置屏幕锁</string>
+	<string name="dialog_no_biometric_auth_set_up_title">系统中未设置基本身份验证</string>
+	<string name="dialog_no_biometric_auth_set_up_message">注册至少一个指纹/面部以使用此服务</string>
+	<string name="dialog_debug_mode_disclaimer_hint">在此模式下，敏感数据可能会写入您设备上的日志文件 (例如文件名和路径)。密码、cookies等除外\n\n请记住尽快关闭调试模式</string>
+	<string name="dialog_debug_mode_disclaimer_title">请注意</string>
+	<string name="dialog_debug_mode_positive_button">启用</string>
+	<string name="dialog_disable_app_obscured_disclaimer_hint">此为一项安全功能，可防止其他应用诱使用户做出错误操作\n\n如果禁用，即表示您了解<a href="https://docs.cryptomator.org/en/1.5/android/settings/#block-app-when-obscured">其中风险</a></string>
+	<string name="dialog_disable_app_obscured_disclaimer_title">请注意</string>
+	<string name="dialog_disable_app_obscured_positive_button">关闭</string>
+	<string name="dialog_app_is_obscured_info_title">应用被遮蔽</string>
+	<string name="dialog_app_is_obscured_info_hint">另一应用正遮罩在 Cryptomator 之上 (例如蓝色光滤镜或夜间模式应用)。出于安全考虑，Cryptomator 已禁用\n\n<a href="https://docs.cryptomator.org/en/1.5/android/settings/#block-app-when-obscured">如何启用 Cryptomator</a></string>
+	<string name="dialog_app_is_obscured_info_neutral_button">关闭</string>
+	<string name="dialog_disable_secure_screen_disclaimer_hint">此为一项安全功能，可防止其他应用诱使用户做出错误操作\n\n如果禁用，即表示您了解<a href="https://docs.cryptomator.org/en/1.5/android/settings/#screen-security">其中风险</a></string>
+	<string name="dialog_delete_cloud_connection_with_vaults_message">您确定要移除此云连接吗？</string>
+	<string name="dialog_delete_cloud_connection_with_vaults_hint">此操作将移除云连接以及与之相关的所有保险库</string>
+	<string name="dialog_confirm_delete_multiple_title">删除 %1$d 项？</string>
+	<string name="dialog_confirm_delete_multiple_message">您确定要删除这些项目吗？</string>
+	<string name="dialog_confirm_delete_file_message">您确定要删除此文件吗？</string>
+	<string name="dialog_confirm_delete_folder_message">这将删除文件夹的所有内容，您确定要删除此文件夹吗？</string>
+	<string name="dialog_biometric_auth_key_invalidated_title">生物识别认证功能已停用</string>
+	<string name="dialog_biometric_auth_key_invalidated_message">由于密钥已失效，生物识别认证功能已停用。重新启用请打开 Cryptomator 设置</string>
+	<string name="dialog_enter_license_title">请提供有效许可证</string>
+	<string name="dialog_enter_license_content">我们检测到您在没有使用 Play 商店的情况下安装了 Cryptomator。请提供有效许可证，可前往 <a href="https://cryptomator.org/android/">https://cryptomator.org/android/</a> 购买</string>
+	<string name="dialog_enter_license_not_valid_content">提供的许可证无效，请确保输入正确</string>
+	<string name="dialog_enter_license_no_content">未提供许可证，请输入有效许可证</string>
+	<string name="dialog_enter_license_decline_button">退出</string>
+	<string name="dialog_license_confirmation_title">授权通过</string>
+	<string name="dialog_license_confirmation_message">感谢 %1$s 提供您有效许可证</string>
+	<string name="dialog_update_available_title">发现新版本</string>
+	<string name="dialog_update_available_message">请更新 Cryptomator 到最新版本，点击确定我们将在后台下载应用，并提醒您安装</string>
+	<string name="dialog_update_available_update">立即更新</string>
+	<string name="dialog_update_available_download_site">转到下载站点</string>
+	<string name="dialog_update_available_cancel">稍后再说</string>
+	<string name="dialog_download_update_title">下载中</string>
+	<string name="dialog_download_update_message">正在下载最新版</string>
+	<string name="dialog_sym_link_title">文件夹是一个符号链接</string>
+	<string name="dialog_sym_link_message">您不能导航到此符号链接</string>
+	<string name="dialog_sym_link_back_button">返回</string>
+	<string name="dialog_no_dir_file_title">无法加载目录内容</string>
+	<string name="dialog_no_dir_file_message">云文件夹 \'%1$s\' 没有有效的目录文件。可能文件夹是在另一设备上创建的，尚未完全同步到云端。请检查云端是否存在且不为空的以下文件：\n%2$s</string>
+	<string name="dialog_no_more_images_to_display">已到达文件夹末尾&#8230;</string>
+	<string name="dialog_pcloud_credentials_updated_title">\'%1$s\' 的证书已更新</string>
+	<string name="dialog_pcloud_credentials_updated">如果您打算添加一个新的 pCloud 帐户，请点击此链接 <a href="https://www.pcloud.com">www.pcloud.com</a>，登出当前账户，然后点击此应用中的 \'+\' 来创建新的云连接</string>
+	<string name="permission_snackbar_auth_local_vault">Cryptomator 需要存储权限以使用本地保险库</string>
+	<string name="permission_snackbar_auth_auto_upload">Cryptomator 需要存储权限以自动上传图片</string>
+	<!-- # error reports -->
+	<!-- # misc -->
+	<!-- ## file size helper -->
+	<string name="file_size_zero">0 kB</string>
+	<string name="file_size_unit_bytes">字节</string>
+	<string name="file_size_unit_kilo_bytes">kB</string>
+	<string name="file_size_unit_mega_bytes">MB</string>
+	<string name="file_size_unit_giga_bytes">GB</string>
+	<string name="file_size_unit_tera_bytes">TB</string>
+	<!-- ## date helper -->
+	<string name="time_unit_seconds_sg">秒</string>
+	<string name="time_unit_seconds_pl">秒</string>
+	<string name="time_unit_minutes_sg">分</string>
+	<string name="time_unit_minutes_pl">分钟后自动锁定</string>
+	<string name="time_unit_hours_sg">小时</string>
+	<string name="time_unit_hours_pl">小时</string>
+	<string name="time_unit_days_sg">天</string>
+	<string name="time_unit_days_pl">天</string>
+	<string name="time_unit_weeks_sg">周</string>
+	<string name="time_unit_weeks_pl">周</string>
+	<string name="time_unit_months_sg">月</string>
+	<string name="time_unit_months_pl">月</string>
+	<string name="time_unit_years_sg">年</string>
+	<string name="time_unit_years_pl">年</string>
+	<!-- ## biometric authentication -->
+	<string name="dialog_biometric_auth_title">生物识别登录</string>
+	<string name="dialog_biometric_auth_message">使用生物识别凭证登录</string>
+	<string name="dialog_biometric_auth_use_password">使用保险库密码</string>
+	<string name="dialog_unable_to_auto_upload_files_title">无法自动上传文件</string>
+	<!-- notification -->
+	<string name="notification_unlocked">保险库解锁数：%1$d</string>
+	<string name="notification_timeout">%1$s 后自动锁定</string>
+	<string name="notification_lock_all">全部锁定</string>
+	<string name="notification_cancel_auto_upload">取消上传</string>
+	<string name="notification_auto_upload_title">自动上传图片中</string>
+	<string name="notification_auto_upload_message">上传中 %1d/%2d</string>
+	<string name="notification_auto_upload_finished_title">自动上传图片完成</string>
+	<string name="notification_auto_upload_finished_message">%1$d 张图片已上传到保险库</string>
+	<string name="notification_auto_upload_failed_title">自动上传图片失败</string>
+	<string name="notification_auto_upload_failed_general_error">上传时出错</string>
+	<string name="notification_auto_upload_failed_due_to_folder_not_exists">所选文件夹无法再上传，请转到设置并选择一个新的文件夹</string>
+	<string name="notification_auto_upload_failed_due_to_vault_locked">上传期间保险库锁定了，请重新打开保险库以继续</string>
+	<string name="notification_open_writable_file_title">打开可写文件</string>
+	<string name="notification_open_writable_file_message">编辑期间保险库保持解锁</string>
+	<string name="notification_update_check_finished_latest">已安装最新版本</string>
+	<string name="screen_settings_lru_cache">缓存</string>
+	<string name="screen_settings_lru_cache_toggle_summary">缓存是在本地加密的最近访问文件，用以下次快速加载</string>
+	<string name="screen_settings_lru_cache_size">缓存总大小</string>
+	<string name="screen_settings_clear_lru_cache_size">清除缓存</string>
+	<string name="screen_settings_lru_cache_changed__restart_toast">更改将在下次应用重启时生效</string>
+	<string name="screen_settings_license">已授权给</string>
+	<string name="screen_settings_license_mail">%1$s</string>
+	<string name="dialog_settings_update_check_interval_title">更新检查频率</string>
+	<string name="screen_settings_check_updates">检查更新</string>
+	<string name="screen_settings_last_check_updates">上次检查 %1$s</string>
+	<string name="dialog_cache_size_title">每个云端缓存大小</string>
+	<!-- lock timeout names -->
+	<string name="lock_timeout_instant">立即</string>
+	<string name="lock_timeout_1m">1 分钟</string>
+	<string name="lock_timeout_2m">2 分钟</string>
+	<string name="lock_timeout_5m">5 分钟</string>
+	<string name="lock_timeout_10m">10 分钟</string>
+	<string name="lock_timeout_never">从不</string>
+	<!-- cache size names -->
+	<string name="cache_size_50m">50 MB</string>
+	<string name="cache_size_100m">100 MB</string>
+	<string name="cache_size_250m">250 MB</string>
+	<string name="cache_size_500m">500 MB</string>
+	<string name="cache_size_1000m">1 GB</string>
+	<string name="cache_size_5000m">5 GB</string>
+	<!-- screen scheme mode names -->
+	<string name="screen_settings_style_mode">主题</string>
+	<string name="follow_system">自动 (跟随系统)</string>
+	<string name="light">亮色</string>
+	<string name="dark">暗色</string>
+	<!-- update interval names -->
+	<string name="update_interval_1d">每天一次</string>
+	<string name="update_interval_1w">每周一次</string>
+	<string name="update_interval_1m">每月一次</string>
+</resources>

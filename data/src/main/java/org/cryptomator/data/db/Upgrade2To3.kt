@@ -14,19 +14,21 @@ internal class Upgrade2To3 @Inject constructor(private val context: Context) : D
 		db.beginTransaction()
 		try {
 			Sql.query("CLOUD_ENTITY")
-					.columns(listOf("ACCESS_TOKEN"))
-					.where("TYPE", Sql.eq("DROPBOX"))
-					.executeOn(db).use {
-						if (it.moveToFirst()) {
-							Sql.update("CLOUD_ENTITY")
-									.set("ACCESS_TOKEN", Sql.toString(encrypt(it.getString(it.getColumnIndex("ACCESS_TOKEN")))))
-									.where("TYPE", Sql.eq("DROPBOX"));
-						}
+				.columns(listOf("ACCESS_TOKEN"))
+				.where("TYPE", Sql.eq("DROPBOX"))
+				.executeOn(db).use {
+					if (it.moveToFirst()) {
+						Sql.update("CLOUD_ENTITY")
+							.set("ACCESS_TOKEN", Sql.toString(encrypt(it.getString(it.getColumnIndex("ACCESS_TOKEN")))))
+							.where("TYPE", Sql.eq("DROPBOX"))
+							.executeOn(db)
 					}
+				}
 
 			Sql.update("CLOUD_ENTITY")
-					.set("ACCESS_TOKEN", Sql.toString(encrypt(onedriveToken())))
-					.where("TYPE", Sql.eq("ONEDRIVE"));
+				.set("ACCESS_TOKEN", Sql.toString(encrypt(onedriveToken())))
+				.where("TYPE", Sql.eq("ONEDRIVE"))
+				.executeOn(db)
 
 			db.setTransactionSuccessful()
 		} finally {
@@ -36,8 +38,8 @@ internal class Upgrade2To3 @Inject constructor(private val context: Context) : D
 
 	private fun encrypt(token: String?): String? {
 		return if (token == null) null else CredentialCryptor //
-				.getInstance(context) //
-				.encrypt(token)
+			.getInstance(context) //
+			.encrypt(token)
 	}
 
 	private fun onedriveToken(): String? {

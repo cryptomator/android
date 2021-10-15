@@ -8,7 +8,7 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.Reader;
 import java.io.StringWriter;
-import java.nio.charset.Charset;
+import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.regex.Matcher;
@@ -65,7 +65,7 @@ public class SvgValidationTest {
 
 	private String toString(File file) throws IOException {
 		StringWriter out = new StringWriter();
-		Reader in = new InputStreamReader(new FileInputStream(file), Charset.forName("UTF-8"));
+		Reader in = new InputStreamReader(new FileInputStream(file), StandardCharsets.UTF_8);
 		char[] buffer = new char[4096];
 		int read = 0;
 		while (read != EOF) {

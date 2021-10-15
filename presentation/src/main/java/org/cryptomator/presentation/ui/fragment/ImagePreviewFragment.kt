@@ -48,7 +48,7 @@ class ImagePreviewFragment : Fragment() {
 
 		if (!created) {
 			((activity as HasComponent<*>).component as ActivityComponent)
-					.inject(this)
+				.inject(this)
 		}
 
 		if (onViewCreatedCalled) {

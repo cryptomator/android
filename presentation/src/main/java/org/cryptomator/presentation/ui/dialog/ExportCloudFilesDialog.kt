@@ -32,15 +32,17 @@ class ExportCloudFilesDialog : BaseProgressErrorDialog<ExportCloudFilesDialog.Ca
 
 	override fun setupDialog(builder: AlertDialog.Builder): android.app.Dialog {
 		return builder //
-				.setTitle(effectiveTitle(1)) //
-				.setNeutralButton(getString(R.string.dialog_export_file_cancel_button)) { _: DialogInterface, _: Int -> callback?.onExportCancelled() } //
-				.create()
+			.setTitle(effectiveTitle(1)) //
+			.setNeutralButton(getString(R.string.dialog_export_file_cancel_button)) { _: DialogInterface, _: Int -> callback?.onExportCancelled() } //
+			.create()
 	}
 
 	private fun effectiveTitle(seenFiles: Int): String {
-		return String.format(getString(R.string.dialog_export_file_title),  //
-				seenFiles,  //
-				requireArguments().getInt(ARG_NUMBER_OF_FILES))
+		return String.format(
+			getString(R.string.dialog_export_file_title),  //
+			seenFiles,  //
+			requireArguments().getInt(ARG_NUMBER_OF_FILES)
+		)
 	}
 
 	override fun setupView() {}

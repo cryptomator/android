@@ -12,6 +12,7 @@ import org.cryptomator.presentation.model.CloudFolderModel;
 import org.cryptomator.presentation.model.CloudModel;
 import org.cryptomator.presentation.model.ProgressModel;
 import org.cryptomator.presentation.model.mappers.CloudModelMapper;
+import org.cryptomator.presentation.presenter.ChooseCloudServicePresenter;
 import org.cryptomator.presentation.presenter.VaultListPresenter;
 
 import java.io.Serializable;
@@ -63,7 +64,7 @@ public class CreateNewVaultWorkflow extends Workflow<CreateNewVaultWorkflow.Stat
 		presenter().getView().showProgress(ProgressModel.GENERIC);
 		getRootFolderUseCase //
 				.withCloud(cloud.toCloud()) //
-				.run(presenter().new ProgressCompletingResultHandler<CloudFolder>() {
+				.run(((ChooseCloudServicePresenter) presenter()).new ProgressCompletingResultHandler<CloudFolder>() {
 					@Override
 					public void onSuccess(CloudFolder cloudFolder) {
 						state().cloudRoot = cloudFolder;
@@ -122,7 +123,7 @@ public class CreateNewVaultWorkflow extends Workflow<CreateNewVaultWorkflow.Stat
 				.withVaultName(state().name) //
 				.andPassword(state().password) //
 				.andFolder(state().location) //
-				.run(presenter().new ProgressCompletingResultHandler<Vault>() {
+				.run(((VaultListPresenter) presenter()).new ProgressCompletingResultHandler<Vault>() {
 					@Override
 					public void onSuccess(Vault vault) {
 						((VaultListPresenter) presenter()).onAddOrCreateVaultCompleted(vault);

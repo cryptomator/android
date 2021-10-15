@@ -26,10 +26,8 @@ import org.cryptomator.presentation.util.FileIcon
 import org.cryptomator.presentation.util.FileSizeHelper
 import org.cryptomator.presentation.util.FileUtil
 import org.cryptomator.presentation.util.ResourceHelper.Companion.getDrawable
-import org.cryptomator.util.Optional
 import org.cryptomator.util.SharedPreferencesHandler
 import java.util.Comparator
-import java.util.Locale
 import javax.inject.Inject
 import kotlinx.android.synthetic.main.item_browse_files_node.view.cloudNodeImage
 import kotlinx.android.synthetic.main.item_browse_files_node.view.itemCheckBox
@@ -45,10 +43,12 @@ import kotlinx.android.synthetic.main.view_cloud_folder_content.view.cloudFolder
 import kotlinx.android.synthetic.main.view_cloud_folder_content.view.cloudFolderText
 
 class BrowseFilesAdapter @Inject
-constructor(private val dateHelper: DateHelper, //
-			private val fileSizeHelper: FileSizeHelper, //
-			private val fileUtil: FileUtil, //
-			private val sharedPreferencesHandler: SharedPreferencesHandler) : RecyclerViewBaseAdapter<CloudNodeModel<*>, BrowseFilesAdapter.ItemClickListener, VaultContentViewHolder>(CloudNodeModelNameAZComparator()), FastScrollRecyclerView.SectionedAdapter {
+constructor(
+	private val dateHelper: DateHelper, //
+	private val fileSizeHelper: FileSizeHelper, //
+	private val fileUtil: FileUtil, //
+	private val sharedPreferencesHandler: SharedPreferencesHandler
+) : RecyclerViewBaseAdapter<CloudNodeModel<*>, BrowseFilesAdapter.ItemClickListener, VaultContentViewHolder>(CloudNodeModelNameAZComparator()), FastScrollRecyclerView.SectionedAdapter {
 
 	private var chooseCloudNodeSettings: ChooseCloudNodeSettings? = null
 	private var navigationMode: ChooseCloudNodeSettings.NavigationMode? = null
@@ -117,7 +117,7 @@ constructor(private val dateHelper: DateHelper, //
 			if (sharedPreferencesHandler.useGlobSearch()) {
 				nodes?.filter { cloudNode -> PatternMatcher(filterText, PatternMatcher.PATTERN_SIMPLE_GLOB).match(cloudNode.name) }
 			} else {
-				nodes?.filter { cloudNode -> cloudNode.name.toLowerCase(Locale.getDefault()).startsWith(filterText.toLowerCase(Locale.getDefault())) }
+				nodes?.filter { cloudNode -> cloudNode.name.lowercase().startsWith(filterText.lowercase()) }
 			}
 		} else {
 			nodes
@@ -225,10 +225,7 @@ constructor(private val dateHelper: DateHelper, //
 		}
 
 		private fun bindProgressIfPresent(node: CloudNodeModel<*>) {
-			val progress = node.progress
-			if (progress.isPresent) {
-				showProgress(progress.get())
-			}
+			node.progress?.let { showProgress(it) }
 		}
 
 		private fun bindFolder(folder: CloudFolderModel) {
@@ -264,21 +261,17 @@ constructor(private val dateHelper: DateHelper, //
 			val formattedFileSize = fileSizeHelper.getFormattedFileSize(cloudFile.size)
 			val formattedModifiedDate = dateHelper.getFormattedModifiedDate(cloudFile.modified)
 
-			return if (formattedFileSize.isPresent) {
-				if (formattedModifiedDate.isPresent) {
-					formattedFileSize.get() + " • " + formattedModifiedDate.get()
+			return if (formattedFileSize != null) {
+				if (formattedModifiedDate != null) {
+					"$formattedFileSize • $formattedModifiedDate"
 				} else {
-					formattedFileSize.get()
+					formattedFileSize
 				}
-			} else if (formattedModifiedDate.isPresent) {
-				formattedModifiedDate.get()
-			} else {
-				""
-			}
+			} else formattedModifiedDate ?: ""
 		}
 
 		fun showProgress(progress: ProgressModel?) {
-			bound?.progress = Optional.of(progress)
+			bound?.progress = progress
 			when {
 				progress?.state() === COMPLETED -> hideProgress()
 				progress?.progress() == ProgressModel.UNKNOWN_PROGRESS_PERCENTAGE -> showIndeterminateProgress(progress)
@@ -333,7 +326,7 @@ constructor(private val dateHelper: DateHelper, //
 
 		fun hideProgress() {
 			uiState?.let { switchTo(it.details()) }
-			bound?.progress = Optional.empty()
+			bound?.progress = null
 		}
 
 		private fun switchTo(state: UiStateTest) {
@@ -499,8 +492,8 @@ constructor(private val dateHelper: DateHelper, //
 		val formattedModifiedDate = dateHelper.getFormattedModifiedDate(node.modified)
 
 		return when (comparator) {
-			is CloudNodeModelDateNewestFirstComparator, is CloudNodeModelDateOldestFirstComparator -> formattedModifiedDate.orElse(node.name.first().toString())
-			is CloudNodeModelSizeBiggestFirstComparator, is CloudNodeModelSizeSmallestFirstComparator -> formattedFileSize.orElse(node.name.first().toString())
+			is CloudNodeModelDateNewestFirstComparator, is CloudNodeModelDateOldestFirstComparator -> formattedModifiedDate ?: node.name.first().toString()
+			is CloudNodeModelSizeBiggestFirstComparator, is CloudNodeModelSizeSmallestFirstComparator -> formattedFileSize ?: node.name.first().toString()
 			else -> all[position].name.first().toString()
 		}
 	}

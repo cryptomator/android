@@ -2,6 +2,7 @@ package org.cryptomator.presentation.presenter
 
 import org.cryptomator.domain.CloudFile
 import org.cryptomator.domain.di.PerView
+import org.cryptomator.domain.exception.ParentFolderIsNullException
 import org.cryptomator.domain.usecases.cloud.DataSource
 import org.cryptomator.domain.usecases.cloud.UploadFile
 import org.cryptomator.domain.usecases.cloud.UploadFilesUseCase
@@ -21,11 +22,12 @@ import javax.inject.Inject
 
 @PerView
 class TextEditorPresenter @Inject constructor( //
-		private val fileCacheUtils: FileCacheUtils,  //
-		private val fileUtil: FileUtil,  //
-		private val contentResolverUtil: ContentResolverUtil,  //
-		private val uploadFilesUseCase: UploadFilesUseCase,  //
-		exceptionMappings: ExceptionHandlers) : Presenter<TextEditorView>(exceptionMappings) {
+	private val fileCacheUtils: FileCacheUtils,  //
+	private val fileUtil: FileUtil,  //
+	private val contentResolverUtil: ContentResolverUtil,  //
+	private val uploadFilesUseCase: UploadFilesUseCase,  //
+	exceptionMappings: ExceptionHandlers
+) : Presenter<TextEditorView>(exceptionMappings) {
 
 	private val textFile = AtomicReference<CloudFileModel>()
 
@@ -64,23 +66,25 @@ class TextEditorPresenter @Inject constructor( //
 		view?.let {
 			it.showProgress(ProgressModel.GENERIC)
 			val uri = fileCacheUtils.tmpFile() //
-					.withContent(it.textFileContent) //
-					.create()
+				.withContent(it.textFileContent) //
+				.create()
 			uploadFile(textFile.get().name, UriBasedDataSource.from(uri))
 		}
 	}
 
 	private fun uploadFile(fileName: String, dataSource: DataSource) {
-		uploadFilesUseCase //
-				.withParent(textFile.get().parent.toCloudNode()) //
-				.andFiles(listOf( //
+		textFile.get().parent?.let {
+			uploadFilesUseCase //
+				.withParent(it.toCloudNode()) //
+				.andFiles(
+					listOf( //
 						UploadFile.anUploadFile() //
-								.withFileName(fileName) //
-								.withDataSource(dataSource) //
-								.thatIsReplacing(true) //
-								.build() //
-				)) //
-				.run(object : DefaultProgressAwareResultHandler<List<CloudFile?>, UploadState>() {
+							.withFileName(fileName) //
+							.withDataSource(dataSource) //
+							.thatIsReplacing(true) //
+							.build() //
+					)
+				).run(object : DefaultProgressAwareResultHandler<List<CloudFile?>, UploadState>() {
 					override fun onFinished() {
 						view?.showProgress(ProgressModel.COMPLETED)
 						view?.finish()
@@ -92,6 +96,7 @@ class TextEditorPresenter @Inject constructor( //
 						showError(e)
 					}
 				})
+		} ?: throw ParentFolderIsNullException(textFile.get().name)
 	}
 
 	fun loadFileContent() {

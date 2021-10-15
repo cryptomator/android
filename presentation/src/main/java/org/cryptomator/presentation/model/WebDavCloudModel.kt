@@ -26,7 +26,7 @@ class WebDavCloudModel(cloud: Cloud) : CloudModel(cloud) {
 		return cloud().password()
 	}
 
-	fun id(): Long {
+	fun id(): Long? {
 		return cloud().id()
 	}
 

@@ -22,12 +22,12 @@ class UpdateAppAvailableDialog : BaseProgressErrorDialog<UpdateAppAvailableDialo
 
 	public override fun setupDialog(builder: AlertDialog.Builder): android.app.Dialog {
 		return builder //
-				.setTitle(getString(R.string.dialog_update_available_title)) //
-				.setPositiveButton(getString(R.string.dialog_update_available_update)) { _: DialogInterface, _: Int -> callback?.installUpdate() } //
-				.setNeutralButton(getString(R.string.dialog_update_available_download_site)) { _: DialogInterface, _: Int -> callback?.showUpdateWebsite() }
-				.setNegativeButton(getText(R.string.dialog_update_available_cancel)) { _: DialogInterface, _: Int -> callback?.cancelUpdateClicked() } //
-				.setCancelable(false) //
-				.create()
+			.setTitle(getString(R.string.dialog_update_available_title)) //
+			.setPositiveButton(getString(R.string.dialog_update_available_update)) { _: DialogInterface, _: Int -> callback?.installUpdate() } //
+			.setNeutralButton(getString(R.string.dialog_update_available_download_site)) { _: DialogInterface, _: Int -> callback?.showUpdateWebsite() }
+			.setNegativeButton(getText(R.string.dialog_update_available_cancel)) { _: DialogInterface, _: Int -> callback?.cancelUpdateClicked() } //
+			.setCancelable(false) //
+			.create()
 	}
 
 	public override fun setupView() {

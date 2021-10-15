@@ -2,13 +2,14 @@ fastlane_require 'dotenv'
 fastlane_require 'jwt'
 fastlane_require 'base64'
 fastlane_require 'net/sftp'
+fastlane_require 'json'
 
 default_platform(:android)
 
 build = number_of_commits + 1958 # adding 1958 for legacy reasons. Must be in sync with getVersionCode() from build.gradle
 version = get_version_name(
                 gradle_file_path:"build.gradle",
-  	            ext_constant_name:"androidVersionName")
+                ext_constant_name:"androidVersionName")
 version = version.delete "'"
 
 release_note_path_en = "metadata/android/en-US/changelogs/default.txt"
@@ -25,10 +26,10 @@ platform :android do |options|
     # use english-change-log for french language too
     FileUtils.cp(release_note_path_en, "metadata/android/fr-FR/changelogs/default.txt")
 
-    deployToPlaystore(beta:options[:beta])
-    deployToServer(beta:options[:beta])
-    deployToFDroid(beta:options[:beta])
-    createGitHubDraftRelease(beta:options[:beta])
+    deployToPlaystore(alpha:options[:alpha], beta:options[:beta])
+    deployToServer(alpha:options[:alpha], beta:options[:beta])
+    deployToFDroid(alpha:options[:alpha], beta:options[:beta])
+    createGitHubDraftRelease(alpha:options[:alpha], beta:options[:beta])
 
     slack(
       default_payloads: [], # reduce the notification to the minimum
@@ -43,8 +44,10 @@ platform :android do |options|
   lane :deployToPlaystore do |options|
     deploy_target = "production"
 
-    if options[:beta]
-      deploy_target = "beta"
+    if options[:alpha]
+      deploy_target = "alpha"
+    elsif options[:beta]
+       deploy_target = "beta"
     end
 
     gradle(task: "clean")
@@ -61,6 +64,9 @@ platform :android do |options|
         "android.injected.signing.key.password" => ENV["SIGNING_KEY_PASSWORD"],
       }
     )
+
+    checkTrackingAddedInDependencyUsingIzzyScript(alpha:options[:alpha], beta:options[:beta], flavor: 'playstore')
+    checkTrackingAddedInDependencyUsingExodus(alpha:options[:alpha], beta:options[:beta], flavor: 'playstore')
 
     upload_to_play_store(
       track: deploy_target,
@@ -97,16 +103,21 @@ platform :android do |options|
       }
     )
 
+    checkTrackingAddedInDependencyUsingIzzyScript(alpha:options[:alpha], beta:options[:beta], flavor: 'apkstore')
+    checkTrackingAddedInDependencyUsingExodus(alpha:options[:alpha], beta:options[:beta], flavor: 'apkstore')
+
     FileUtils.cp(lane_context[SharedValues::GRADLE_APK_OUTPUT_PATH], "release/Cryptomator-#{version}.apk")
 
     server_host = ENV["APK_STORE_BASIC_URL"]
     base_url = "https://#{server_host}/android/"
     apk_url = "#{base_url}#{version}/Cryptomator-#{version}.apk"
+    apk_sha_256 = Digest::SHA256.hexdigest File.read "release/Cryptomator-#{version}.apk"
     release_note_url = "#{base_url}#{version}/release-notes.html"
 
     claims = {
       "version": version,
       "url": apk_url,
+      "apk_sha_256": apk_sha_256,
       "release_notes": release_note_url
     }
 
@@ -119,8 +130,8 @@ platform :android do |options|
     latest_version_jsn.write(token)
     latest_version_jsn.close
 
-    if options[:beta]
-      puts "Skipping deployment to server cause there isn't currently a beta channel"
+    if options[:alpha] or options[:beta]
+      puts "Skipping deployment to server cause there isn't currently a alpha/beta channel"
     else
       puts "Uploading APK and release note"
 
@@ -177,33 +188,93 @@ platform :android do |options|
       }
     )
 
-	if options[:beta]
-	  puts "Skipping deployment to F-Droid cause there isn't currently a beta channel"
-	else
-	  puts "Updating F-Droid"
+    checkTrackingAddedInDependencyUsingIzzyScript(alpha:options[:alpha], beta:options[:beta], flavor: 'fdroid')
+    checkTrackingAddedInDependencyUsingExodus(alpha:options[:alpha], beta:options[:beta], flavor: 'fdroid')
 
-	  FileUtils.cp(lane_context[SharedValues::GRADLE_APK_OUTPUT_PATH], "repo/Cryptomator.apk")
+    if options[:alpha] or options[:beta]
+      puts "Skipping deployment to F-Droid cause there isn't currently a alpha/beta channel"
+    else
+      puts "Updating F-Droid"
 
-	  sh("cp -r metadata/android/ metadata/org.cryptomator/")
-	  FileUtils.cp("metadata/org.cryptomator/en-US/changelogs/default.txt", "metadata/org.cryptomator/en-US/changelogs/#{version}.txt")
-	  FileUtils.cp("metadata/org.cryptomator/de-DE/changelogs/default.txt", "metadata/org.cryptomator/de-DE/changelogs/#{version}.txt")
-	  sh("fdroid update && fdroid rewritemeta")
-	  sh("rm -r metadata/org.cryptomator/")
+      FileUtils.cp(lane_context[SharedValues::GRADLE_APK_OUTPUT_PATH], "repo/Cryptomator.apk")
 
-	  aws_s3(
-		  bucket: ENV['S3_BUCKET'],
-		  endpoint: ENV['S3_ENDPOINT'],
-		  region: ENV['S3_REGION'],
-		  access_key: ENV['S3_ACCESS_KEY'],
-		  secret_access_key: ENV['S3_SECRET_ACCESS_KEY'],
-		  path: "android/fdroid",
-		  folder: "fastlane/repo",
-		  skip_html_upload: true,
-		  apk: ''
-		)
-	end
+      sh("cp -r metadata/android/ metadata/org.cryptomator/")
+      FileUtils.cp("metadata/org.cryptomator/en-US/changelogs/default.txt", "metadata/org.cryptomator/en-US/changelogs/#{version}.txt")
+      FileUtils.cp("metadata/org.cryptomator/de-DE/changelogs/default.txt", "metadata/org.cryptomator/de-DE/changelogs/#{version}.txt")
+      sh("fdroid update && fdroid rewritemeta")
+      sh("rm -r metadata/org.cryptomator/")
+
+      aws_s3(
+        bucket: ENV['S3_BUCKET'],
+        endpoint: ENV['S3_ENDPOINT'],
+        region: ENV['S3_REGION'],
+        access_key: ENV['S3_ACCESS_KEY'],
+        secret_access_key: ENV['S3_SECRET_ACCESS_KEY'],
+        path: "android/fdroid",
+        folder: "fastlane/repo",
+        skip_html_upload: true,
+        apk: ''
+      )
+    end
 
     FileUtils.cp(lane_context[SharedValues::GRADLE_APK_OUTPUT_PATH], "release/Cryptomator-#{version}_fdroid_signed.apk")
+  end
+
+  desc "Check if tracking added in some dependency using Izzy's script"
+  lane :checkTrackingAddedInDependencyUsingIzzyScript do |options|
+    flavor = options[:flavor]
+
+    puts "Check if script file is latest"
+    Dir.chdir("izzyscript") do
+      sh("wget -O current_iod-scan-apk.php https://gitlab.com/fdroid/issuebot/-/raw/master/modules/iod-scan-apk.php")
+
+      same_script = FileUtils.compare_file("iod-scan-apk.php", "current_iod-scan-apk.php")
+      if same_script
+        puts "Script file unchanged"
+        FileUtils.rm("current_iod-scan-apk.php")
+      else
+        UI.error("Script updated, check diff, download and save to iod-scan-apk.php")
+        fail
+      end
+
+      FileUtils.mkdir("unsigned")
+
+      FileUtils.cp(lane_context[SharedValues::GRADLE_APK_OUTPUT_PATH], "unsigned/org.cryptomator_fdroid.apk")
+
+      sh("ISSUEBOT_CURRENT_APPLICATION_ID=org.cryptomator ISSUEBOT_CURRENT_REPLY_FILE=current_result_#{flavor}.json php iod-scan-apk.php")
+
+      # clean up
+      FileUtils.rm("libinfo.txt")
+      FileUtils.rm("libsmali.txt")
+      FileUtils.rm("org.cryptomator_fdroid.apk")
+      FileUtils.rm_r("unsigned")
+      FileUtils.rm_r("org.cryptomator_fdroid")
+
+      puts "Check if something changed in the APK regarding the dependencies"
+
+      report = JSON.parse(File.read("result_#{flavor}.json"))["report"]
+      current_report = JSON.parse(File.read("current_result_#{flavor}.json"))["report"]
+
+      if report.eql?(current_report)
+        puts "Dependencies unchanged"
+        FileUtils.rm("current_result_#{flavor}.json")
+      else
+        UI.error("Dependencies changed, check result of current_result.json, if no problem, move it to result.json, commit and retry")
+        fail
+      end
+    end
+  end
+
+  desc "Check if tracking added in some dependency using exodus"
+  lane :checkTrackingAddedInDependencyUsingExodus do |options|
+    FileUtils.mkdir("exodus-test")
+
+    FileUtils.cp(lane_context[SharedValues::GRADLE_APK_OUTPUT_PATH], "exodus-test/org.cryptomator.apk")
+
+    puts "Check if a tracking library was added"
+    sh("docker run -v $(pwd)/exodus-test/org.cryptomator.apk:/app.apk --rm -i exodusprivacy/exodus-standalone | tail -1 | grep -q 'Found trackers: 0'")
+
+    FileUtils.rm_r("exodus-test")
   end
 
   desc "Create GitHub draft release"
@@ -211,7 +282,7 @@ platform :android do |options|
     target_branch = "main"
     prerelease = false
 
-    if options[:beta]
+    if options[:alpha] or options[:beta]
       target_branch = git_branch
       prerelease = true
     end

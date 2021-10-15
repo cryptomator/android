@@ -8,21 +8,23 @@ import android.content.IntentFilter;
 import android.os.IBinder;
 
 import androidx.annotation.Nullable;
+import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 
 import org.cryptomator.data.cloud.crypto.Cryptors;
 import org.cryptomator.presentation.util.FileUtil;
-import org.cryptomator.util.Consumer;
 import org.cryptomator.util.LockTimeout;
 import org.cryptomator.util.SharedPreferencesHandler;
 
 import java.util.concurrent.locks.Condition;
 import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReentrantLock;
+import java.util.function.Consumer;
 
 import timber.log.Timber;
 
 public class CryptorsService extends Service {
 
+	public static final String SCREEN_AND_VAULT_LOCKED = "CRYPTOMATOR_SCREEN_AND_VAULT_LOCKED";
 	private static final String ACTION_LOCK_ALL = "CRYPTOMATOR_LOCK_ALL";
 	private final Cryptors.Default cryptors = new Cryptors.Default();
 	private final AutolockTimeout autolockTimeout = new AutolockTimeout();
@@ -211,6 +213,9 @@ public class CryptorsService extends Service {
 				destroyCryptorsAndHideNotification();
 
 				stopCryptorsService();
+
+				// notify BrowseFilesActivity to finish because of #320
+				LocalBroadcastManager.getInstance(context).sendBroadcast(new Intent(SCREEN_AND_VAULT_LOCKED));
 			}
 		}
 	}

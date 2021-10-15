@@ -3,13 +3,12 @@ package org.cryptomator.presentation.model
 import org.cryptomator.domain.CloudFile
 import org.cryptomator.domain.usecases.ResultRenamed
 import org.cryptomator.presentation.util.FileIcon
-import org.cryptomator.util.Optional
 import java.util.Date
 
 class CloudFileModel(cloudFile: CloudFile, val icon: FileIcon) : CloudNodeModel<CloudFile>(cloudFile) {
 
-	val modified: Optional<Date> = cloudFile.modified
-	val size: Optional<Long> = cloudFile.size
+	val modified: Date? = cloudFile.modified
+	val size: Long? = cloudFile.size
 
 	constructor(cloudFileRenamed: ResultRenamed<CloudFile>, icon: FileIcon) : this(cloudFileRenamed.value(), icon) {
 		oldName = cloudFileRenamed.oldName

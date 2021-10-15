@@ -1,0 +1,397 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+	<!-- # app -->
+	<string name="share_with_label">Criptează</string>
+	<!-- # error messages -->
+	<string name="error_generic">A apărut o eroare</string>
+	<string name="error_authentication_failed">Autentificare eșuată</string>
+	<string name="error_authentication_failed_re_authenticate">Autentificare eșuată, vă rugăm să vă conectați din nou prin %1$s</string>
+	<string name="error_no_network_connection">Nu există conexiune la rețea</string>
+	<string name="error_invalid_passphrase">Parolă greşită</string>
+	<string name="error_file_or_folder_exists">Un fișier sau dosar există deja.</string>
+	<string name="error_vault_version_not_supported">Seif nesuportat. Acest seif a fost creat cu o altă versiune de Cryptomator.</string>
+	<string name="error_vault_already_exists">Seiful există deja.</string>
+	<string name="error_no_such_file">Fișierul nu există.</string>
+	<string name="error_vault_has_been_locked">Seiful a fost blocat.</string>
+	<string name="error_cloud_already_exists">Acest cloud există deja.</string>
+	<string name="error_activity_not_found">Vă rugăm să descărcați o aplicație care poate deschide acest fișier.</string>
+	<string name="error_server_not_found">Serverul nu a fost găsit.</string>
+	<string name="error_export_illegal_file_name">Exportul a eșuat. Încercați să eliminați caracterele speciale din numele fișierelor și să exportați din nou.</string>
+	<string name="error_name_contains_invalid_characters">Nu poate să conțină caractere speciale.</string>
+	<string name="error_names_contains_invalid_characters">Numele fișierelor nu pot conține caractere speciale.</string>
+	<string name="error_vault_name_contains_invalid_characters">Numele seifului nu poate conține caractere speciale.</string>
+	<string name="error_general_update">Verificarea actualizării a eșuat. A apărut o eroare generală.</string>
+	<string name="error_hash_mismatch_update">Verificarea actualizării a eșuat. Hash-ul calculat nu se potrivește cu fișierul încărcat</string>
+	<string name="error_update_no_internet">Verificarea actualizării a eșuat. Nu există conexiune la internet.</string>
+	<string name="error_biometric_auth_aborted">Autentificare biometrică anulată</string>
+	<string name="error_vault_config_loading">Eroare generală în timpul încărcării configurației seifului</string>
+	<string name="error_file_not_found_after_opening_using_3party">Fișierul local nu mai este prezent după ce s-a trecut înapoi la Cryptomator. Modificările posibile nu pot fi propagate înapoi în cloud.</string>
+	<string name="error_no_such_bucket">Nu există așa găleată</string>
+	<string name="error_masterkey_location_not_supported">Nu este suportată încă utilizarea locației personalizate pentru masterkey</string>
+	<!-- # clouds -->
+	<!-- ## cloud names -->
+	<string name="cloud_names_local_storage">Stocare locală</string>
+	<!-- # permission -->
+	<!-- ## permission messages -->
+	<string name="permission_message_export_file">Cryptomator are nevoie de acces la stocare pentru a exporta fișiere</string>
+	<string name="permission_message_upload_file">Cryptomator are nevoie de acces la stocare pentru a încărca fișiere</string>
+	<string name="permission_message_share_file">Cryptomator are nevoie de acces la stocare pentru a exporta fișiere</string>
+	<string name="snack_bar_action_title_settings">Setări</string>
+	<string name="snack_bar_action_title_search">Căutare</string>
+	<string name="snack_bar_action_title_search_previous">Precedentul</string>
+	<string name="snack_bar_action_title_search_next">Următorul</string>
+	<string name="snack_bar_action_title_sort">Sortare</string>
+	<string name="snack_bar_action_title_sort_az">A - Z</string>
+	<string name="snack_bar_action_title_sort_za">Z - A</string>
+	<string name="snack_bar_action_title_sort_newest">Cele mai noi mai întâi</string>
+	<string name="snack_bar_action_title_sort_oldest">Cel mai vechi mai întâi</string>
+	<string name="snack_bar_action_title_sort_biggest">Cele mai mari mai întâi</string>
+	<string name="snack_bar_action_title_sort_smallest">Cele mai mici mai întâi</string>
+	<!-- # screens -->
+	<!-- # screen: vault list -->
+	<string name="screen_vault_list_actions_title">Adaugă la Criptomator</string>
+	<string name="screen_vault_list_action_create_new_vault">Creează seif nou</string>
+	<string name="screen_vault_list_action_add_existing_vault">Adaugă seif existent</string>
+	<string name="screen_vault_list_vault_action_delete">Șterge</string>
+	<string name="screen_vault_list_vault_creation_hint">Faceți clic aici pentru a crea un seif nou</string>
+	<string name="screen_vault_list_change_password_successful">Parola a fost modificată cu succes</string>
+	<!-- # screen: file browser -->
+	<string name="screen_file_browser_default_title">Seif</string>
+	<string name="screen_file_browser_add_existing_vault_extra_text">Selectaţi fişierul Masterkey</string>
+	<string name="screen_file_browser_create_new_vault_button_text">Plasează aici</string>
+	<string name="screen_file_browser_create_new_vault_extra_text">Numele seifului: %1$s</string>
+	<plurals name="screen_file_browser_subtitle_move">
+		<item quantity="one">Mută %1$s în</item>
+		<item quantity="few">Mută %2$d elemente la</item>
+		<item quantity="other">Mută %2$d elemente la</item>
+	</plurals>
+	<string name="screen_file_browser_move_button_text">Mută</string>
+	<string name="screen_file_browser_msg_empty_folder">Dosar gol</string>
+	<string name="screen_file_browser_file_info_label_date">modificat %1$s în urmă</string>
+	<string name="screen_file_browser_share_intent_chooser_title">Distribuie cu</string>
+	<string name="screen_file_browser_share_destination_title">Alegeți o destinație</string>
+	<string name="screen_file_browser_share_button_text">Alegeți</string>
+	<string name="screen_file_browser_nothing_to_share">Nimic de distribuit</string>
+	<string name="screen_file_browser_actions_title">Adaugă la %1$s</string>
+	<string name="screen_file_browser_action_create_folder">Creați un dosar</string>
+	<string name="screen_file_browser_action_create_new_text_file">Creați fișier text</string>
+	<string name="screen_file_browser_action_upload_files">Încarcă fişiere</string>
+	<string name="screen_file_browser_upload_files_chooser_title">Fișiere</string>
+	<string name="screen_file_browser_msg_file_exported">Fișier exportat</string>
+	<string name="screen_file_browser_msg_files_exported">Fișiere exportate</string>
+	<string name="screen_file_browser_nothing_to_export">Nimic de exportat</string>
+	<string name="screen_file_browser_msg_creating_download_dir_failed">Acțiunea de creare a dosarului de descărcări a eșuat</string>
+	<string name="screen_file_browser_node_action_share">Distribuie</string>
+	<string name="screen_file_browser_node_action_rename">Redenumește</string>
+	<string name="screen_file_browser_node_action_edit_text">Editează</string>
+	<string name="screen_file_browser_node_action_export">Exportă</string>
+	<string name="screen_file_browser_node_action_delete">Șterge</string>
+	<string name="screen_file_browser_node_action_open_with_text">Deschideți cu&#8230;</string>
+	<string name="screen_file_browser_selection_mode_title_zero_elements">Selectați elemente</string>
+	<string name="screen_file_browser_selection_mode_title_one_or_more_elements">%1$d selectate</string>
+	<string name="screen_file_browser_select_items">Selectează</string>
+	<string name="screen_file_browser_select_all_items">Selectează tot</string>
+	<string name="screen_file_browser_refresh_items">Împrospătează</string>
+	<string name="screen_file_browser_no_connection_message">Nu există conexiune</string>
+	<string name="screen_file_browser_no_connection_button_text">Încercați din nou</string>
+	<!-- ## screen: text editor -->
+	<string name="screen_text_editor_save_success">Salvat cu succes</string>
+	<!-- ## screen: share files -->
+	<string name="screen_share_files_title">Salvează %1$s în&#8230;</string>
+	<string name="screen_share_files_content_text">text</string>
+	<string name="screen_share_files_content_file">fişier</string>
+	<string name="screen_share_files_content_files">fișiere</string>
+	<string name="screen_share_files_msg_filenames_must_be_unique">Numele fișierelor trebuie să fie unic, vă rugăm să redenumiți duplicatele.</string>
+	<string name="screen_share_files_section_location">Salvați locația</string>
+	<string name="screen_share_files_save_button_text">Salvează</string>
+	<string name="screen_share_files_msg_success">Criptare finalizată</string>
+	<!-- ## screen: choose cloud service -->
+	<string name="screen_choose_cloud_service_title">Serviciu Cloud</string>
+	<!-- ## screen: cloud connections -->
+	<string name="screen_cloud_connections_title">Alegeți o locație</string>
+	<string name="screen_cloud_connections_no_connections">Faceți clic aici pentru a adăuga locații</string>
+	<string name="screen_cloud_error_webdav_not_supported">Serverul nu pare să fie compatibil cu WebDAV</string>
+	<string name="screen_cloud_local_custom_storage_title">Locații personalizate</string>
+	<string name="screen_cloud_local_default_storage_title">Spațiu de stocare prestabilit</string>
+	<string name="screen_cloud_local_error_no_content_provider">Nu există locații suplimentare disponibile.</string>
+	<!-- ## screen: webdav settings -->
+	<string name="screen_webdav_settings_url_port_label">Adresa URL</string>
+	<string name="screen_webdav_settings_username_label">Nume de utilizator</string>
+	<string name="screen_webdav_settings_password_label">Parolă</string>
+	<string name="screen_webdav_settings_done_button_text">Conectare</string>
+	<string name="screen_webdav_settings_msg_url_must_not_be_empty">URL-ul nu poate fi gol.</string>
+	<string name="screen_webdav_settings_msg_url_is_invalid">URL-ul nu este valid.</string>
+	<string name="screen_webdav_settings_msg_username_must_not_be_empty">Numele de utilizator nu poate fi gol.</string>
+	<string name="screen_webdav_settings_msg_password_must_not_be_empty">Parola nu poate fi goală.</string>
+	<!-- ## screen: s3 settings -->
+	<string name="screen_s3_settings_display_name_label">Nume afișat</string>
+	<string name="screen_s3_settings_access_key_label">Cheia de acces</string>
+	<string name="screen_s3_settings_secret_key_label">Cheia secretă</string>
+	<string name="screen_s3_settings_bucket_label">Găleată existentă</string>
+	<string name="screen_s3_settings_endpoint_label">Endpoint</string>
+	<string name="screen_s3_settings_region_label">Regiune</string>
+	<string name="screen_s3_settings_msg_display_name_not_empty">Numele afișat nu poate fi gol</string>
+	<string name="screen_s3_settings_msg_access_key_not_empty">Cheia de acces nu poate fi goală</string>
+	<string name="screen_s3_settings_msg_secret_key_not_empty">Cheia secretă nu poate fi goală</string>
+	<string name="screen_s3_settings_msg_bucket_not_empty">Găleata nu poate fi goală</string>
+	<string name="screen_s3_settings_msg_endpoint_and_region_not_empty">Endpoint sau regiunea nu poate fi goală</string>
+	<!-- ## screen: enter vault name -->
+	<string name="screen_enter_vault_name_msg_name_empty">Numele seifului nu poate fi gol.</string>
+	<string name="screen_enter_vault_name_vault_label">Nume seif</string>
+	<string name="screen_enter_vault_name_button_text">Creează</string>
+	<!-- ## screen: set password -->
+	<string name="screen_set_password_title">Setează parola</string>
+	<string name="screen_set_password_msg_password_mismatch">Parola nu corespunde parolei reintroduse.</string>
+	<string name="screen_set_password_button_text">Terminat</string>
+	<string name="screen_set_password_hint">IMPORTANT: Dacă vă uitați parola, nu există nicio modalitate de a vă recupera datele.</string>
+	<string name="screen_set_password_retype_password_label">Reintroduceţi parola</string>
+	<string name="screen_set_password_strength_indicator_0">Prea slabă pentru a crea un seif</string>
+	<string name="screen_set_password_strength_indicator_1">Slabă</string>
+	<string name="screen_set_password_strength_indicator_2">Acceptabilă</string>
+	<string name="screen_set_password_strength_indicator_3">Puternică</string>
+	<string name="screen_set_password_strength_indicator_4">Foarte puternică</string>
+	<!-- ## screen: settings -->
+	<string name="screen_settings_section_general">Setări Generale</string>
+	<string name="screen_settings_cloud_settings_label">Servicii cloud</string>
+	<string name="screen_settings_biometric_auth">Autentificarea biometrică</string>
+	<string name="screen_settings_activate_biometric_auth">Activează autentificarea biometrică</string>
+	<string name="screen_settings_confirm_face_unlock">Confirmă deblocarea facială (dacă este disponibilă)</string>
+	<string name="screen_settings_block_app_when_obscured">Blochează aplicația când este ascunsă</string>
+	<string name="screen_settings_block_app_when_obscured_summary">Blochează interceptarea intrării și afișarea unei interfețe false a utilizatorului</string>
+	<string name="screen_settings_secure_screen">Blocare capturi ecran</string>
+	<string name="screen_settings_secure_screen_summary">Blochează capturile de ecran în lista de aplicații recente și în interiorul aplicației</string>
+	<string name="screen_settings_section_search">Căutare</string>
+	<string name="screen_settings_live_search">Căutare live</string>
+	<string name="screen_settings_live_search_summary">Actualizează rezultatele căutării în timpul introducerii interogării</string>
+	<string name="screen_settings_glob_search">Caută folosind modelul glob</string>
+	<string name="screen_settings_glob_search_summary">Utilizați modelul glob care se potrivește ca alice.*.jpg</string>
+	<string name="screen_settings_section_auto_lock">Blocare automată</string>
+	<string name="screen_settings_auto_lock_timeout">Blocare automată după</string>
+	<string name="screen_settings_auto_lock_on_screen_lock">Când ecranul este dezactivat</string>
+	<string name="screen_settings_section_auto_photo_upload">Încărcare automată a fotografiilor</string>
+	<string name="screen_settings_section_auto_photo_upload_vault">Alege seiful pentru încărcare</string>
+	<string name="screen_settings_section_auto_photo_upload_toggle">Activează</string>
+	<string name="screen_settings_section_auto_photo_upload_toggle_summary">Capturează imagini în fundal și odată ce seiful selectat este deblocat, începe încărcarea</string>
+	<string name="screen_settings_section_auto_photo_upload_only_wifi_toggle">Încărcaţi numai folosind WIFI</string>
+	<string name="screen_settings_section_auto_photo_upload_including_videos">Încarcă fişiere video</string>
+	<string name="screen_settings_auto_photo_upload_title">Salvați fișierele încărcate automat în&#8230;</string>
+	<string name="screen_settings_website_label">Pagina web a aplicației Cryptomator</string>
+	<string name="screen_settings_twitter_label">Urmăriți-ne pe Twitter</string>
+	<string name="screen_settings_facebook_label">Dă-ne un Like pe Facebook</string>
+	<string name="screen_settings_section_legal">Aspecte legale</string>
+	<string name="screen_settings_licenses_label">Licențe</string>
+	<string name="screen_settings_license_terms_label">Termenii şi condiţii</string>
+	<string name="screen_settings_section_support">Suport</string>
+	<string name="screen_settings_contact_label">Solicită ajutor</string>
+	<string name="screen_settings_debug_mode_label">Mod de depanare</string>
+	<string name="screen_settings_error_report_label">Trimiteți fişierul jurnal</string>
+	<string name="screen_settings_error_report_failed">Trimitere eșuată</string>
+	<string name="screen_settings_security_label">Indicații de securitate</string>
+	<string name="screen_settings_section_version">Versiune</string>
+	<string name="screen_settings_advanced_settings">Setări avansate</string>
+	<string name="screen_settings_background_unlock_preparation_label">Accelerează deblocarea</string>
+	<string name="screen_settings_background_unlock_preparation_label_summary">Descărcați configurarea seifului în fundal în timp ce vi se solicită introducerea parolei sau a autentificării biometrice</string>
+	<string name="screen_settings_keep_unlocked_while_editing_files">Păstrați deblocat</string>
+	<string name="screen_settings_keep_unlocked_while_editing_files_summary">Păstrați seifele deblocate în timpul editării fișierelor</string>
+	<!-- ## screen: cloud settings -->
+	<string name="screen_cloud_settings_webdav_connections">Conexiuni WebDAV</string>
+	<string name="screen_cloud_settings_pcloud_connections">conexiuni pCloud</string>
+	<string name="screen_cloud_settings_s3_connections">Conexiuni S3</string>
+	<string name="screen_cloud_settings_local_storage_locations">Locații de stocare locală</string>
+	<string name="screen_cloud_settings_log_in_to">Conectați-vă la</string>
+	<string name="screen_cloud_settings_sign_out_from_cloud">Deconectare de la</string>
+	<!-- ## screen: licenses -->
+	<!-- ## screen: authenticate cloud -->
+	<string name="screen_authenticate_auth_authentication_failed">%1$s nu a putut fi autentificat.</string>
+	<string name="screen_update_pcloud_connections_title">Actualizare acreditări pCloud</string>
+	<!-- ## screen: insecure android version info -->
+	<!-- # dialogs -->
+	<string name="dialog_button_cancel">Anulează</string>
+	<string name="dialog_enter_password_positive_button">Deblocați</string>
+	<string name="dialog_change_password_old_password_label">Parola veche</string>
+	<string name="dialog_change_password_new_password_label">Parola nouă</string>
+	<string name="dialog_change_password">Schimbați parola</string>
+	<string name="dialog_change_password_msg_old_password_empty">Parola veche nu poate fi goală.</string>
+	<string name="dialog_change_password_msg_new_password_empty">Parola nouă nu poate fi goală.</string>
+	<string name="dialog_change_password_msg_password_mismatch">Parola nouă nu se potrivește cu parola reintrodusă.</string>
+	<!-- Vault not found -->
+	<string name="dialog_vault_not_found_title">Seiful %1$s nu a fost găsit</string>
+	<string name="dialog_vault_not_found_positive_button_text">Șterge</string>
+	<string name="dialog_existing_file_title">Fişierul există deja</string>
+	<string name="dialog_existing_file_positive_button">Înlocuiește</string>
+	<string name="dialog_existing_file_message">Un fişier numit \'%1$s\' există deja.</string>
+	<string name="dialog_replace_negative_button_at_least_two_but_not_all_files_exist">Sari peste existente</string>
+	<string name="dialog_replace_positive_button_all_files_exist">Înlocuiește tot</string>
+	<string name="dialog_replace_positive_button_some_files_exist">Înlocuiește existente</string>
+	<string name="dialog_replace_positive_button_single_file_exists">Înlocuiește</string>
+	<string name="dialog_replace_msg_single_file_exists">Un fișier numit \'%1$sexistă deja. Doriți să îl înlocuiți?</string>
+	<string name="dialog_replace_msg_all_files_exists">Toate fișierele există deja. Doriți să le înlocuiți?</string>
+	<string name="dialog_replace_msg_some_files_exists">%1$d fișiere deja există. Doriți să le înlocuiți?</string>
+	<string name="dialog_replace_title_single_file_exists">Înlocuiţi fişierul?</string>
+	<string name="dialog_replace_title_multiple_files_exist">Înlocuiţi fişierele?</string>
+	<string name="dialog_unable_to_share_title">Imposibil de partajat fișierele</string>
+	<string name="dialog_unable_to_share_message">Nu ați setat nici un seif. Vă rugăm să creați mai întâi un seif nou cu aplicația Cryptomator.</string>
+	<string name="dialog_unable_to_share_positive_button">OK</string>
+	<string name="dialog_unable_to_share_negative_button">Crează seif</string>
+	<string name="dialog_filetype_not_supported_title">Nu se poate deschide %1$s</string>
+	<string name="dialog_filetype_not_supported_message">Vă rugăm să descărcați o aplicație care poate deschide acest fișier sau doriți să salvați pe dispozitiv?</string>
+	<string name="dialog_rename_vault_title">Redenumire seif</string>
+	<string name="dialog_rename_node_folder_title">Redenumiți dosarul</string>
+	<string name="dialog_rename_node_file_title">Redenumiţi fişierul</string>
+	<string name="dialog_unsaved_changes_title">Aveți câteva modificări nesalvate</string>
+	<string name="dialog_unsaved_changes_message">Sigur doriți să ieșiți fără a salva?</string>
+	<string name="dialog_unsaved_changes_discard">Renunţaţi</string>
+	<string name="dialog_file_name_placeholder">text.txt</string>
+	<string name="dialog_delete_vault_message">Sunteţi sigur că doriţi să ştergeţi acest seif?</string>
+	<string name="dialog_delete_vault_hint">Această acţiune va elimina seiful doar din această listă şi nu îl va şterge fizic.</string>
+	<string name="dialog_upload_file_title">Se încarcă&#8230;</string>
+	<string name="dialog_upload_file_remaining">Fișier %1$d din %2$d</string>
+	<string name="dialog_export_file_title">Exportare (%1$d/%2$d)</string>
+	<string name="dialog_progress_please_wait">Vă rugăm să aşteptaţi &#8230;</string>
+	<string name="dialog_progress_creating_folder">Se creează dosarul&#8230;</string>
+	<string name="dialog_progress_creating_text_file">Se creează fișierele text&#8230;</string>
+	<string name="action_progress_authentication">Autentificare&#8230;</string>
+	<string name="action_progress_renaming">Redenumire&#8230;</string>
+	<string name="action_progress_deleting">Ștergere&#8230;</string>
+	<string name="dialog_progress_unlocking_vault">Deblocare seif&#8230;</string>
+	<string name="dialog_progress_change_password">Se schimbă parola&#8230;</string>
+	<string name="dialog_progress_creating_vault">Se creează seif&#8230;</string>
+	<string name="dialog_progress_upload_file">Se încarcă&#8230;</string>
+	<string name="dialog_progress_download_file">Se descarcă&#8230;</string>
+	<string name="dialog_progress_encryption">Criptare&#8230;</string>
+	<string name="dialog_progress_decryption">Decriptare&#8230;</string>
+	<string name="action_progress_moving">Se mută&#8230;</string>
+	<string name="dialog_lock_vault">Blocaţi</string>
+	<string name="dialog_accept_ssl_certificate_title">Certificat SSL invalid</string>
+	<string name="dialog_accept_ssl_certificate_hint">Certificatul SSL este invalid. Doriți să aveți încredere în el oricum?</string>
+	<string name="dialog_accept_ssl_certificate_details">Detalii</string>
+	<string name="dialog_accept_ssl_certificate_security_checkbox">Acesta ar putea fi un risc pentru securitate. Ştiu ce fac.</string>
+	<string name="dialog_http_security_hint">Utilizarea HTTP este nesigură. Vă recomandăm să utilizați HTTPS în schimb. Dacă cunoașteți riscurile, puteți continua cu HTTP.</string>
+	<string name="dialog_http_security_checkbox">Schimbare la HTTPS</string>
+	<string name="dialog_http_security_title">Folosiți HTTPS?</string>
+	<string name="dialog_no_screen_lock_hint">Nu este setată nicio blocare a ecranului. Pentru a stoca acreditările într-un mod sigur, setați cu OK un model sau o parolă.</string>
+	<string name="dialog_no_screen_lock_title">Setați blocarea ecranului?</string>
+	<string name="dialog_no_screen_lock_checkbox">Setați blocarea ecranului</string>
+	<string name="dialog_no_biometric_auth_set_up_title">Nicio autentificare de bază configurată în sistem</string>
+	<string name="dialog_no_biometric_auth_set_up_message">E nevoie de cel puțin un deget sau o față pentru a utiliza acest serviciu.</string>
+	<string name="dialog_debug_mode_disclaimer_hint">În acest mod, datele sensibile pot fi scrise într-un fișier jurnal de pe dispozitivul dumneavoastră (de exemplu, nume de fișiere și căi de fișiere). Parolele, cookie-urile etc. sunt excluse în mod explicit.\n\nNu uitați să dezactivați modul de depanare cât mai curând posibil.</string>
+	<string name="dialog_debug_mode_disclaimer_title">Atenție</string>
+	<string name="dialog_debug_mode_positive_button">Activează</string>
+	<string name="dialog_disable_app_obscured_disclaimer_hint">Această setare este o caracteristică de securitate și previne alte aplicații să păcălească utilizatorii să facă lucruri pe care nu ar trebui să le facă.\n\nPrin dezactivare, confirmați că sunteți <a href="https://docs.cryptomator.org/en/1.5/android/settings/#block-app-when-obscured">conștient de riscurile</a>.</string>
+	<string name="dialog_disable_app_obscured_disclaimer_title">Atenție</string>
+	<string name="dialog_disable_app_obscured_positive_button">Dezactivează</string>
+	<string name="dialog_app_is_obscured_info_title">Aplicația este ascunsă</string>
+	<string name="dialog_app_is_obscured_info_hint">O altă aplicație afișează ceva deasupra Cryptomator (de exemplu, un filtru de lumină albastră sau o aplicație pentru modul de noapte). Din motive de securitate, Cryptomator este dezactivat.\n\n<a href="https://docs.cryptomator.org/en/1.5/android/settings/#block-app-when-obscured">Cum să activezi Cryptomator</a></string>
+	<string name="dialog_app_is_obscured_info_neutral_button">Închide</string>
+	<string name="dialog_disable_secure_screen_disclaimer_hint">Această setare este o caracteristică de securitate și previne alte aplicații să păcălească utilizatorii să facă lucruri pe care nu ar trebui să le facă.\n\nPrin dezactivare, confirmați că sunteți <a href="https://docs.cryptomator.org/en/1.5/android/settings/#screen-security">conștient de riscurile</a>.</string>
+	<string name="dialog_delete_cloud_connection_with_vaults_message">Sunteţi sigur că doriţi să eliminaţi această conexiune cloud?</string>
+	<string name="dialog_delete_cloud_connection_with_vaults_hint">Această acțiune va elimina conexiunea în cloud și toate seifurile acestui cloud.</string>
+	<string name="dialog_confirm_delete_multiple_title">Ștergeți %1$d elemente?</string>
+	<string name="dialog_confirm_delete_multiple_message">Sunteţi sigur că doriţi să ştergeţi aceste elemente?</string>
+	<string name="dialog_confirm_delete_file_message">Sunteţi sigur că doriţi să ştergeţi acest fişier?</string>
+	<string name="dialog_confirm_delete_folder_message">Aceasta va şterge tot conţinutul dosarului. Sunteţi sigur că doriţi să ştergeţi acest dosar?</string>
+	<string name="dialog_biometric_auth_key_invalidated_title">Funcția de autentificare biometrică dezactivată</string>
+	<string name="dialog_biometric_auth_key_invalidated_message">Deoarece cheia a fost invalidată, elementul de autentificare biometrică a fost dezactivat. Pentru a putea fi reutilizat, deschideți setările Cryptomator.</string>
+	<string name="dialog_enter_license_title">Furnizați o licență validă</string>
+	<string name="dialog_enter_license_content">Am detectat că ați instalat Cryptomator fără să utilizați Google Play Store. Furnizați o licență validă, care poate fi cumpărată pe <a href="https://cryptomator.org/android/">https://cryptomator.org/android/</a></string>
+	<string name="dialog_enter_license_not_valid_content">Licența furnizată nu este validă. Asigurați-vă că ați introdus-o corect.</string>
+	<string name="dialog_enter_license_no_content">Nici o licență furnizată. Introduceți o licență validă.</string>
+	<string name="dialog_enter_license_decline_button">Ieșire</string>
+	<string name="dialog_license_confirmation_title">Confirmare licență</string>
+	<string name="dialog_license_confirmation_message">Vă mulțumim %1$s pentru furnizarea licenței dvs. valide.</string>
+	<string name="dialog_update_available_title">Actualizare disponibilă</string>
+	<string name="dialog_update_available_message">Actualizare Cryptomator la ultima versiune. Apăsând OK vom descărca aplicația în fundal și vă vom cere să o instalați.</string>
+	<string name="dialog_update_available_update">Actualizează acum</string>
+	<string name="dialog_update_available_download_site">Mergeți la site-ul pentru descărcări</string>
+	<string name="dialog_update_available_cancel">Mai târziu</string>
+	<string name="dialog_download_update_title">Rulează descărcarea</string>
+	<string name="dialog_download_update_message">Se descarcă ultima versiune de Cryptomator</string>
+	<string name="dialog_sym_link_title">Dosarul este un link simbolic</string>
+	<string name="dialog_sym_link_message">Nu puteți naviga în acest link simbolic</string>
+	<string name="dialog_sym_link_back_button">Înapoi</string>
+	<string name="dialog_no_dir_file_title">Nu s-a putut încărca conținutul dosarului</string>
+	<string name="dialog_no_more_images_to_display">Nu mai sunt imagini de afișat&#8230;</string>
+	<string name="dialog_pcloud_credentials_updated_title">Acreditări ale \'%1$s\' au fost actualizate</string>
+	<string name="dialog_pcloud_credentials_updated">Dacă doriți să adăugaţi un cont nou de tip pCloud, faceţi clic pe acest link <a href="https://www.pcloud.com">www.pcloud. om</a>, deconectați-vă de la contul curent, și faceți clic din nou pe \'+\' din această aplicație pentru a crea o nouă conexiune cloud.</string>
+	<string name="permission_snackbar_auth_local_vault">Cryptomator are nevoie de acces la stocare pentru a utiliza seifuri locale</string>
+	<string name="permission_snackbar_auth_auto_upload">Cryptomator are nevoie de acces la stocare pentru a folosi încărcarea automată a fotografiilor</string>
+	<!-- # error reports -->
+	<!-- # misc -->
+	<!-- ## file size helper -->
+	<string name="file_size_zero">Zero kB</string>
+	<string name="file_size_unit_bytes">octeți</string>
+	<string name="file_size_unit_kilo_bytes">kB</string>
+	<string name="file_size_unit_mega_bytes">MB</string>
+	<string name="file_size_unit_giga_bytes">GB</string>
+	<string name="file_size_unit_tera_bytes">TB</string>
+	<!-- ## date helper -->
+	<string name="time_unit_seconds_sg">secundă</string>
+	<string name="time_unit_seconds_pl">secunde</string>
+	<string name="time_unit_minutes_sg">minut</string>
+	<string name="time_unit_minutes_pl">minute</string>
+	<string name="time_unit_hours_sg">oră</string>
+	<string name="time_unit_hours_pl">ore</string>
+	<string name="time_unit_days_sg">zi</string>
+	<string name="time_unit_days_pl">zile</string>
+	<string name="time_unit_weeks_sg">săptămână</string>
+	<string name="time_unit_weeks_pl">săptămâni</string>
+	<string name="time_unit_months_sg">lună</string>
+	<string name="time_unit_months_pl">luni</string>
+	<string name="time_unit_years_sg">an</string>
+	<string name="time_unit_years_pl">ani</string>
+	<!-- ## biometric authentication -->
+	<string name="dialog_biometric_auth_title">Autentificare biometrică</string>
+	<string name="dialog_biometric_auth_message">Autentifică-te folosind acreditările biometrice</string>
+	<string name="dialog_biometric_auth_use_password">Utilizați parola seif</string>
+	<string name="dialog_unable_to_auto_upload_files_title">Imposibil de încărcat automat fișierele</string>
+	<!-- notification -->
+	<string name="notification_unlocked">Seifuri deblocate: %1$d</string>
+	<string name="notification_timeout">Autoblocare în %1$s</string>
+	<string name="notification_lock_all">Blochează toate</string>
+	<string name="notification_cancel_auto_upload">Anulare încărcare</string>
+	<string name="notification_auto_upload_title">Rulează autoîncărcarea de fotografii</string>
+	<string name="notification_auto_upload_message">Se încarcă %1d/%2d</string>
+	<string name="notification_auto_upload_finished_title">Încărcarea automată a pozei a fost finalizată</string>
+	<string name="notification_auto_upload_finished_message">%1$d imagini încărcate în seif</string>
+	<string name="notification_auto_upload_failed_title">Încărcarea automată a fotografiei a eșuat</string>
+	<string name="notification_auto_upload_failed_general_error">Eroare generală în timpul încărcării.</string>
+	<string name="notification_auto_upload_failed_due_to_folder_not_exists">Dosarul selectat pentru încărcare nu mai este disponibil. Mergeți la setări și alegeți unul nou</string>
+	<string name="notification_auto_upload_failed_due_to_vault_locked">Seif blocat în timpul încărcării, vă rugăm să redeschideți seiful pentru a continua</string>
+	<string name="notification_open_writable_file_title">Deschide fișier inscriptibil</string>
+	<string name="notification_open_writable_file_message">Seiful rămâne deblocat până la editarea finalizată</string>
+	<string name="notification_update_check_finished_latest">Ultima versiune instalată</string>
+	<string name="screen_settings_lru_cache">Memorie cache</string>
+	<string name="screen_settings_lru_cache_toggle_summary">Recent memoria cache a accesat fișiere criptate local pe acest dispozitiv pentru a fi reutilizare ulterior la redeschidere</string>
+	<string name="screen_settings_lru_cache_size">Total memorie cache</string>
+	<string name="screen_settings_clear_lru_cache_size">Golește memoria cache</string>
+	<string name="screen_settings_lru_cache_changed__restart_toast">Modificările vor fi aplicate la următoarea repornire a aplicației</string>
+	<string name="screen_settings_license">Înregistrat pentru</string>
+	<string name="screen_settings_license_mail">%1$s</string>
+	<string name="dialog_settings_update_check_interval_title">Interval de verificare a actualizărilor</string>
+	<string name="screen_settings_check_updates">Verifică actualizări</string>
+	<string name="screen_settings_last_check_updates">Ultima execuție %1$s</string>
+	<string name="dialog_cache_size_title">Dimensiune cache pentru fiecare Cloud</string>
+	<!-- lock timeout names -->
+	<string name="lock_timeout_instant">Instant</string>
+	<string name="lock_timeout_1m">Un minut</string>
+	<string name="lock_timeout_2m">2 minute</string>
+	<string name="lock_timeout_5m">5 minute</string>
+	<string name="lock_timeout_10m">10 minute</string>
+	<string name="lock_timeout_never">Niciodată</string>
+	<!-- cache size names -->
+	<string name="cache_size_50m">50 MB</string>
+	<string name="cache_size_100m">100 MB</string>
+	<string name="cache_size_250m">250 MB</string>
+	<string name="cache_size_500m">500 MB</string>
+	<string name="cache_size_1000m">1 GB</string>
+	<string name="cache_size_5000m">5 GB</string>
+	<!-- screen scheme mode names -->
+	<string name="screen_settings_style_mode">Aspect</string>
+	<string name="follow_system">Automat (conform tematicii de sistem)</string>
+	<string name="light">Luminos</string>
+	<string name="dark">Întunecat</string>
+	<!-- update interval names -->
+	<string name="update_interval_1d">O dată pe zi</string>
+	<string name="update_interval_1w">O dată pe săptămână</string>
+	<string name="update_interval_1m">O dată pe lună</string>
+</resources>

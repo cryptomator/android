@@ -31,9 +31,10 @@ class WebDavAskForHttpDialog : BaseDialog<WebDavAskForHttpDialog.Callback>() {
 		cloudId = requireArguments().getString(CLOUD_ID_ARG)?.let { java.lang.Long.getLong(it) }
 		certificate = requireArguments().getString(CERTIFICATE_ARG)
 		builder //
-				.setTitle(R.string.dialog_http_security_title) //
-				.setNeutralButton(getString(R.string.dialog_unable_to_share_positive_button)
-				) { _: DialogInterface, _: Int -> callback?.onAksForHttpFinished(username, password, uriWithDesiredProtocol(cb_select_http.isChecked), cloudId, certificate) }
+			.setTitle(R.string.dialog_http_security_title) //
+			.setNeutralButton(
+				getString(R.string.dialog_unable_to_share_positive_button)
+			) { _: DialogInterface, _: Int -> callback?.onAksForHttpFinished(username, password, uriWithDesiredProtocol(cb_select_http.isChecked), cloudId, certificate) }
 		return builder.create()
 	}
 
