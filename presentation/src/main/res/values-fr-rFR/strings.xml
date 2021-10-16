@@ -16,6 +16,7 @@
 	<string name="error_cloud_already_exists">Cloud existant.</string>
 	<string name="error_activity_not_found">Veuillez télécharger une application qui peut ouvrir ce fichier.</string>
 	<string name="error_server_not_found">Serveur introuvable.</string>
+	<string name="error_device_policy_manager_not_found">Veuillez ouvrir les paramètres de votre appareil et régler le verrouillage de l\'écran à la main</string>
 	<string name="error_export_illegal_file_name">L\'exportation a échoué. Essayez de supprimer les caractères spéciaux des noms de fichiers et d\'exporter à nouveau.</string>
 	<string name="error_name_contains_invalid_characters">Ne peut pas contenir de caractères spéciaux.</string>
 	<string name="error_names_contains_invalid_characters">Les noms de fichiers ne peuvent pas contenir de caractères spéciaux.</string>
@@ -23,7 +24,11 @@
 	<string name="error_general_update">La vérification de la mise à jour a échoué. Une erreur générale s\'est produite.</string>
 	<string name="error_hash_mismatch_update">La vérification de la mise à jour a échoué. Le hachage calculé ne correspond pas au fichier téléchargé</string>
 	<string name="error_update_no_internet">La vérification de la mise à jour a échoué. Pas de connexion Internet.</string>
+	<string name="error_failed_to_decrypt_webdav_password">Echec lors du déchiffrement du mot de passe WebDAV, veuillez l\'ajouter une nouvelle fois dans les paramètres</string>
+	<string name="error_play_services_not_available">Les services Google Play ne sont pas installés</string>
 	<string name="error_biometric_auth_aborted">Authentification biométrique avortée</string>
+	<string name="error_vault_version_mismatch">La version spécifiée dans %1$s est différente de %2$s</string>
+	<string name="error_vault_key_invalid">%1$s ne correspond pas à ce %2$s</string>
 	<string name="error_vault_config_loading">Erreur générale lors du chargement de la configuration du coffre</string>
 	<string name="error_file_not_found_after_opening_using_3party">Le fichier local n\'est plus présent après le retour à Cryptomator. Les éventuels modifications ne peuvent être propagées au nuage.</string>
 	<string name="error_no_such_bucket">Aucun compartiment de ce type</string>
@@ -171,6 +176,8 @@
 	<string name="screen_settings_section_auto_photo_upload_vault">Choisir un coffre-fort pour le téléversement</string>
 	<string name="screen_settings_section_auto_photo_upload_toggle">Activer</string>
 	<string name="screen_settings_section_auto_photo_upload_toggle_summary">Capturez les images en arrière-plan et une fois que le coffre-fort sélectionné est déverrouillé, lancez le téléversement</string>
+	<string name="screen_settings_section_auto_photo_upload_toggle_instant_upload">Télécharger instantanément</string>
+	<string name="screen_settings_section_auto_photo_upload_toggle_instant_upload_summary">Télécharger directement si le coffre est déverrouillé</string>
 	<string name="screen_settings_section_auto_photo_upload_only_wifi_toggle">Téléverser sur réseau WIFI uniquement</string>
 	<string name="screen_settings_section_auto_photo_upload_including_videos">Téléversement des vidéos</string>
 	<string name="screen_settings_auto_photo_upload_title">Enregistrer les fichiers téléverser automatiquement dans&#8230;</string>
@@ -215,6 +222,7 @@
 	<string name="dialog_change_password_msg_password_mismatch">Le nouveau mot de passe ne correspond pas au mot de passe retapé.</string>
 	<!-- Vault not found -->
 	<string name="dialog_vault_not_found_title">Coffre-fort %1$s introuvable</string>
+	<string name="dialog_vault_not_found_message">Le coffre-fort a été renommé, déplacé ou supprimé. Supprimez ce coffre-fort de la liste et ajoutez-le à nouveau pour continuer. Supprimer maintenant ?</string>
 	<string name="dialog_vault_not_found_positive_button_text">Supprimer</string>
 	<string name="dialog_existing_file_title">Le fichier existe déjà</string>
 	<string name="dialog_existing_file_positive_button">Remplacer</string>
