@@ -24,6 +24,8 @@
 	<string name="error_general_update">Controllo dell\'aggiornamento non riuscito. Si è verificato un errore generale.</string>
 	<string name="error_hash_mismatch_update">Controllo di aggiornamento non riuscito. L\'hash calcolato non corrisponde al file caricato</string>
 	<string name="error_update_no_internet">Controllo aggiornamento non riuscito. Nessuna connessione internet.</string>
+	<string name="error_failed_to_decrypt_webdav_password">Impossibile decrittografare la password WebDAV, aggiungere nuovamente nelle impostazioni</string>
+	<string name="error_play_services_not_available">Google Play Services non installati</string>
 	<string name="error_biometric_auth_aborted">Autenticazione biometrica interrotta</string>
 	<string name="error_vault_version_mismatch">La versione specificata in %1$s è diversa da %2$s</string>
 	<string name="error_vault_key_invalid">%1$s non corrisponde a questo %2$s</string>
