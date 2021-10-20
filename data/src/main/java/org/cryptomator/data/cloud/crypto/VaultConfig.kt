@@ -14,6 +14,7 @@ import io.jsonwebtoken.JwsHeader
 import io.jsonwebtoken.JwtException
 import io.jsonwebtoken.Jwts
 import io.jsonwebtoken.MissingClaimException
+import io.jsonwebtoken.SignatureAlgorithm
 import io.jsonwebtoken.SigningKeyResolverAdapter
 import io.jsonwebtoken.security.Keys
 import io.jsonwebtoken.security.SignatureException
@@ -34,7 +35,7 @@ class VaultConfig private constructor(builder: VaultConfigBuilder) {
 			.claim(JSON_KEY_VAULTFORMAT, vaultFormat) //
 			.claim(JSON_KEY_CIPHERCONFIG, cipherCombo.name) //
 			.claim(JSON_KEY_SHORTENING_THRESHOLD, shorteningThreshold) //
-			.signWith(Keys.hmacShaKeyFor(rawKey)) //
+			.signWith(Keys.hmacShaKeyFor(rawKey), SignatureAlgorithm.HS256) //
 			.compact()
 	}
 
