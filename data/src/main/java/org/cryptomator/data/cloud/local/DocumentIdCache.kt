@@ -1,4 +1,4 @@
-package org.cryptomator.data.cloud.local.storageaccessframework
+package org.cryptomator.data.cloud.local
 
 import android.util.LruCache
 import org.cryptomator.domain.CloudFolder

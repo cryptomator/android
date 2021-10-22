@@ -1,7 +1,6 @@
 package org.cryptomator.util.crypto;
 
 import android.content.Context;
-import android.os.Build;
 import android.security.keystore.KeyGenParameterSpec;
 import android.security.keystore.KeyProperties;
 
@@ -43,13 +42,10 @@ class CryptoOperationsImpl implements CryptoOperations {
 			KeyGenParameterSpec.Builder builder = new KeyGenParameterSpec //
 					.Builder(alias, KeyProperties.PURPOSE_ENCRYPT | KeyProperties.PURPOSE_DECRYPT) //
 					.setBlockModes(KeyProperties.BLOCK_MODE_CBC) //
-					.setEncryptionPaddings(KeyProperties.ENCRYPTION_PADDING_PKCS7);
+					.setEncryptionPaddings(KeyProperties.ENCRYPTION_PADDING_PKCS7) //
+					.setUserAuthenticationRequired(requireUserAuthentication) //
+					.setInvalidatedByBiometricEnrollment(requireUserAuthentication);
 
-			builder.setUserAuthenticationRequired(requireUserAuthentication);
-
-			if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-				builder.setInvalidatedByBiometricEnrollment(requireUserAuthentication);
-			}
 			generator.init(builder.build());
 			generator.generateKey();
 		};

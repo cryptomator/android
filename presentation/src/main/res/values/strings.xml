@@ -167,7 +167,6 @@
 	<string name="screen_cloud_connections_no_connections">Click here to add locations</string>
 	<string name="screen_cloud_error_webdav_not_supported">Server doesn\'t seem to be WebDAV compatible</string>
 	<string name="screen_cloud_local_custom_storage_title">Custom locations</string>
-	<string name="screen_cloud_local_default_storage_title">Default storage</string>
 	<string name="screen_cloud_local_error_no_content_provider">No additional locations available.</string>
 
 	<!-- ## screen: webdav settings -->

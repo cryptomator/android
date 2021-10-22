@@ -4,11 +4,8 @@ import android.Manifest
 import android.content.ActivityNotFoundException
 import android.content.Intent
 import android.net.Uri
-import android.os.Build
-import android.os.Environment
 import android.provider.DocumentsContract
 import android.widget.Toast
-import androidx.annotation.RequiresApi
 import org.cryptomator.domain.CloudFile
 import org.cryptomator.domain.CloudFolder
 import org.cryptomator.domain.CloudNode
@@ -83,10 +80,8 @@ import org.cryptomator.util.SharedPreferencesHandler
 import org.cryptomator.util.file.FileCacheUtils
 import org.cryptomator.util.file.MimeType
 import org.cryptomator.util.file.MimeTypes
-import java.io.File
 import java.io.FileInputStream
 import java.io.FileNotFoundException
-import java.io.FileOutputStream
 import java.io.Serializable
 import java.security.DigestInputStream
 import java.security.MessageDigest
@@ -738,30 +733,6 @@ class BrowseFilesPresenter @Inject constructor( //
 		exportNodesToUserSelectedLocation(selectedCloudFiles, trigger)
 	}
 
-	@Callback
-	fun exportFileToDownloadDirectory(result: PermissionsResult, fileToExport: CloudFileModel, exportOperation: ExportOperation) {
-		if (result.granted()) {
-			val downloads = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS)
-			val cryptomatorDownloads = File(downloads, context().getString(R.string.download_subdirectory_name))
-			cryptomatorDownloads.mkdirs()
-			if (cryptomatorDownloads.isDirectory) {
-				val target = File(cryptomatorDownloads, fileToExport.name)
-				try {
-					val downloadFile = DownloadFile.Builder() //
-						.setDownloadFile(fileToExport.toCloudNode()) //
-						.setDataSink(FileOutputStream(target)) //
-						.build()
-					exportOperation.export(this, listOf(downloadFile))
-				} catch (e: FileNotFoundException) {
-					showError(e)
-				}
-			} else {
-				view?.showError(R.string.screen_file_browser_msg_creating_download_dir_failed)
-			}
-		}
-	}
-
-	@RequiresApi(Build.VERSION_CODES.KITKAT)
 	private fun exportFileToUserSelectedLocation(fileToExport: CloudFileModel, exportOperation: ExportOperation) {
 		val intent = Intent(Intent.ACTION_CREATE_DOCUMENT)
 		intent.addCategory(Intent.CATEGORY_OPENABLE)
@@ -789,7 +760,6 @@ class BrowseFilesPresenter @Inject constructor( //
 	}
 
 	@Callback
-	@RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
 	fun pickedLocalStorageLocation(
 		result: ActivityResult,  //
 		nodesToExport: ArrayList<CloudNodeModel<*>>,  //
@@ -809,7 +779,6 @@ class BrowseFilesPresenter @Inject constructor( //
 		disableSelectionMode()
 	}
 
-	@RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
 	private fun collectNodesToExport(
 		parentUri: Uri,  //
 		exportOperation: ExportOperation,  //
@@ -827,7 +796,6 @@ class BrowseFilesPresenter @Inject constructor( //
 		collectFolderContentForExport(parentUri, exportOperation, foldersForRecursiveDirListing, filesToExport)
 	}
 
-	@RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
 	private fun collectFolderContentForExport(
 		parentUri: Uri, exportOperation: ExportOperation, folders: List<CloudFolderModel>,  //
 		filesToExport: List<CloudFileModel>
@@ -847,7 +815,6 @@ class BrowseFilesPresenter @Inject constructor( //
 			})
 	}
 
-	@RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
 	private fun prepareExportingOf(parentUri: Uri, exportOperation: ExportOperation, filesToExport: List<CloudFileModel>, cloudNodeRecursiveListing: CloudNodeRecursiveListing) {
 		downloadFiles = ArrayList()
 		downloadFiles.addAll(prepareFilesForExport(cloudFileModelMapper.fromModels(filesToExport), parentUri))
@@ -862,12 +829,10 @@ class BrowseFilesPresenter @Inject constructor( //
 		}
 	}
 
-	@RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
 	private fun prepareFilesForExport(filesToExport: List<CloudFile>, parentUri: Uri): List<DownloadFile> {
 		return filesToExport.mapTo(ArrayList()) { createDownloadFile(it, parentUri) }
 	}
 
-	@RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
 	private fun prepareFolderContentForExport(cloudFolderRecursiveListing: CloudFolderRecursiveListing, parentUri: Uri) {
 		createFolder(parentUri, cloudFolderRecursiveListing.parent.name)?.let {
 			downloadFiles.addAll(prepareFilesForExport(cloudFolderRecursiveListing.files, it))
@@ -877,7 +842,6 @@ class BrowseFilesPresenter @Inject constructor( //
 		} ?: throw FatalBackendException("Failed to create parent folder for export")
 	}
 
-	@RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
 	private fun createFolder(parentUri: Uri, folderName: String): Uri? {
 		return try {
 			DocumentsContract.createDocument( //
@@ -892,7 +856,6 @@ class BrowseFilesPresenter @Inject constructor( //
 		}
 	}
 
-	@RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
 	private fun createDownloadFile(file: CloudFile, documentUri: Uri): DownloadFile {
 		return try {
 			DownloadFile.Builder() //
@@ -918,7 +881,6 @@ class BrowseFilesPresenter @Inject constructor( //
 		}
 	}
 
-	@RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
 	@Throws(IllegalFileNameException::class, NoSuchCloudFileException::class)
 	private fun createNewDocumentUri(parentUri: Uri, fileName: String): Uri {
 		val mimeType = mimeTypes.fromFilename(fileName) ?: MimeType.APPLICATION_OCTET_STREAM

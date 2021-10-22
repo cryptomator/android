@@ -1,6 +1,5 @@
 package org.cryptomator.presentation.ui.fragment
 
-import android.os.Build
 import android.os.Bundle
 import android.text.SpannableString
 import android.text.style.ForegroundColorSpan
@@ -259,9 +258,7 @@ class SettingsFragment : PreferenceFragmentCompat() {
 		if (enabled) {
 			activity().grantLocalStoragePermissionForAutoUpload()
 		} else {
-			if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-				PhotoContentJob.cancelJob(activity().applicationContext)
-			}
+			PhotoContentJob.cancelJob(activity().applicationContext)
 		}
 		(findPreference(SharedPreferencesHandler.PHOTO_UPLOAD) as SwitchPreferenceCompat?)?.isChecked = enabled
 	}

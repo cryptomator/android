@@ -1,6 +1,5 @@
 package org.cryptomator.presentation.presenter
 
-import android.Manifest
 import android.accounts.AccountManager
 import android.widget.Toast
 import com.dropbox.core.android.Auth
@@ -35,6 +34,7 @@ import org.cryptomator.presentation.intent.AuthenticateCloudIntent
 import org.cryptomator.presentation.intent.Intents
 import org.cryptomator.presentation.model.CloudModel
 import org.cryptomator.presentation.model.CloudTypeModel
+import org.cryptomator.presentation.model.LocalStorageModel
 import org.cryptomator.presentation.model.ProgressModel
 import org.cryptomator.presentation.model.ProgressStateModel
 import org.cryptomator.presentation.model.S3CloudModel
@@ -44,7 +44,6 @@ import org.cryptomator.presentation.ui.activity.view.AuthenticateCloudView
 import org.cryptomator.presentation.workflow.ActivityResult
 import org.cryptomator.presentation.workflow.AddExistingVaultWorkflow
 import org.cryptomator.presentation.workflow.CreateNewVaultWorkflow
-import org.cryptomator.presentation.workflow.PermissionsResult
 import org.cryptomator.presentation.workflow.Workflow
 import org.cryptomator.util.ExceptionUtil
 import org.cryptomator.util.crypto.CredentialCryptor
@@ -445,20 +444,15 @@ class AuthenticateCloudPresenter @Inject constructor( //
 
 		private fun startAuthentication(cloud: CloudModel) {
 			authenticationStarted = true
-			requestPermissions(
-				PermissionsResultCallbacks.onLocalStorageAuthenticated(cloud),  //
-				R.string.permission_snackbar_auth_local_vault,  //
-				Manifest.permission.READ_EXTERNAL_STORAGE,  //
-				Manifest.permission.WRITE_EXTERNAL_STORAGE
-			)
-		}
-	}
+			val permissions = context().contentResolver.persistedUriPermissions
+			for (permission in permissions) {
+				if (permission.uri.toString() == (cloud as LocalStorageModel).uri()) {
+					succeedAuthenticationWith(cloud.toCloud())
+				}
+			}
 
-	@Callback
-	fun onLocalStorageAuthenticated(result: PermissionsResult, cloud: CloudModel) {
-		if (result.granted()) {
-			succeedAuthenticationWith(cloud.toCloud())
-		} else {
+			// FIXME think about how to re-request permission
+			// FIXME change in the FOSS variant too
 			failAuthentication(PermissionNotGrantedException(R.string.permission_snackbar_auth_local_vault))
 		}
 	}

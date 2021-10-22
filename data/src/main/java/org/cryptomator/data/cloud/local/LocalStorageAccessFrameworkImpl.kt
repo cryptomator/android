@@ -1,4 +1,4 @@
-package org.cryptomator.data.cloud.local.storageaccessframework
+package org.cryptomator.data.cloud.local
 
 import android.content.ContentResolver
 import android.content.Context
@@ -7,10 +7,10 @@ import android.net.Uri
 import android.os.Build
 import android.provider.DocumentsContract
 import androidx.documentfile.provider.DocumentFile
-import org.cryptomator.data.cloud.local.storageaccessframework.LocalStorageAccessFrameworkNodeFactory.file
-import org.cryptomator.data.cloud.local.storageaccessframework.LocalStorageAccessFrameworkNodeFactory.folder
-import org.cryptomator.data.cloud.local.storageaccessframework.LocalStorageAccessFrameworkNodeFactory.from
-import org.cryptomator.data.cloud.local.storageaccessframework.LocalStorageAccessFrameworkNodeFactory.getNodePath
+import org.cryptomator.data.cloud.local.LocalStorageAccessFrameworkNodeFactory.file
+import org.cryptomator.data.cloud.local.LocalStorageAccessFrameworkNodeFactory.folder
+import org.cryptomator.data.cloud.local.LocalStorageAccessFrameworkNodeFactory.from
+import org.cryptomator.data.cloud.local.LocalStorageAccessFrameworkNodeFactory.getNodePath
 import org.cryptomator.data.util.CopyStream
 import org.cryptomator.data.util.TransferredBytesAwareInputStream
 import org.cryptomator.data.util.TransferredBytesAwareOutputStream
@@ -243,7 +243,8 @@ internal class LocalStorageAccessFrameworkImpl(context: Context, private val mim
 	private fun rename(source: LocalStorageAccessNode, name: String): LocalStorageAccessNode {
 		source.parent?.let { parent ->
 			var newUri = try {
-				DocumentsContract.renameDocument(contentResolver(), source.uri, name)
+				requireNotNull(source.uri)
+				DocumentsContract.renameDocument(contentResolver(), source.uri!!, name)
 			} catch (e: FileNotFoundException) {
 				/* Bug in Android 9 see #460 TLDR; In this renameDocument-method, Android 9 throws
 					a `FileNotFoundException` although the file exists and is also renamed. */
@@ -336,11 +337,13 @@ internal class LocalStorageAccessFrameworkImpl(context: Context, private val mim
 
 	private fun createNewDocumentSupplier(file: LocalStorageAccessFile): Supplier<Uri?> {
 		return Supplier {
-			val mimeType = if (mimeTypes.fromFilename(file.name) == null) MimeType.APPLICATION_OCTET_STREAM else mimeTypes.fromFilename(file.name)
-			try {
-				DocumentsContract.createDocument(contentResolver(), file.parent.uri, mimeType.toString(), file.name) // FIXME
-			} catch (e: FileNotFoundException) {
-				null
+			file.parent.uri?.let {
+				val mimeType = if (mimeTypes.fromFilename(file.name) == null) MimeType.APPLICATION_OCTET_STREAM else mimeTypes.fromFilename(file.name)
+				try {
+					DocumentsContract.createDocument(contentResolver(), it, mimeType.toString(), file.name) // FIXME
+				} catch (e: FileNotFoundException) {
+					null
+				}
 			}
 		}
 	}
@@ -372,7 +375,7 @@ internal class LocalStorageAccessFrameworkImpl(context: Context, private val mim
 	fun delete(node: LocalStorageAccessNode) {
 		requireNotNull(node.uri)
 		try {
-			DocumentsContract.deleteDocument(contentResolver(), node.uri)
+			DocumentsContract.deleteDocument(contentResolver(), node.uri!!)
 		} catch (e: FileNotFoundException) {
 			throw NoSuchCloudFileException(node.name)
 		}

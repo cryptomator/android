@@ -32,11 +32,6 @@ public class CryptoCloud implements Cloud {
 	}
 
 	@Override
-	public boolean predefined() {
-		return false;
-	}
-
-	@Override
 	public boolean persistent() {
 		return false;
 	}

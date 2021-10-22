@@ -49,11 +49,6 @@ public class DropboxCloud implements Cloud {
 	}
 
 	@Override
-	public boolean predefined() {
-		return true;
-	}
-
-	@Override
 	public boolean persistent() {
 		return true;
 	}
