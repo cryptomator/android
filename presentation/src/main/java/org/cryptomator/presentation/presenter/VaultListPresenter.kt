@@ -46,7 +46,6 @@ import org.cryptomator.presentation.ui.activity.LicenseCheckActivity
 import org.cryptomator.presentation.ui.activity.view.VaultListView
 import org.cryptomator.presentation.ui.dialog.AppIsObscuredInfoDialog
 import org.cryptomator.presentation.ui.dialog.AskForLockScreenDialog
-import org.cryptomator.presentation.ui.dialog.BetaConfirmationDialog
 import org.cryptomator.presentation.ui.dialog.EnterPasswordDialog
 import org.cryptomator.presentation.ui.dialog.UpdateAppAvailableDialog
 import org.cryptomator.presentation.ui.dialog.UpdateAppDialog
@@ -272,8 +271,8 @@ class VaultListPresenter @Inject constructor( //
 						view?.showVaultCreationHint()
 					} else {
 						view?.hideVaultCreationHint()
-						view?.renderVaultList(vaultModels)
 					}
+					view?.renderVaultList(vaultModels)
 				}
 			})
 		}
