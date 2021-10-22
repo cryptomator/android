@@ -1,6 +1,5 @@
 package org.cryptomator.data.db
 
-import org.cryptomator.domain.CloudType
 import org.greenrobot.greendao.database.Database
 import javax.inject.Inject
 import javax.inject.Singleton
@@ -18,8 +17,8 @@ internal class Upgrade9To10 @Inject constructor() : DatabaseUpgrade(9, 10) {
 				.executeOn(db)
 
 			Sql.deleteFrom("CLOUD_ENTITY")
-				.where("FOLDER_CLOUD_ID", Sql.eq(4))
-				.where("TYPE", Sql.eq(CloudType.LOCAL.name))
+				.where("_id", Sql.eq(4))
+				.where("TYPE", Sql.eq("LOCAL"))
 				.executeOn(db)
 
 			db.setTransactionSuccessful()

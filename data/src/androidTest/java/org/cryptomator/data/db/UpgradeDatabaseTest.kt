@@ -453,6 +453,10 @@ class UpgradeDatabaseTest {
 			.integer("POSITION", 11) //
 			.executeOn(db)
 
+		Sql.query("CLOUD_ENTITY").executeOn(db).use {
+			Assert.assertThat(it.count, CoreMatchers.`is`(5))
+		}
+
 		Upgrade9To10().applyTo(db, 9)
 
 		Sql.query("VAULT_ENTITY").executeOn(db).use {
@@ -462,6 +466,9 @@ class UpgradeDatabaseTest {
 			Assert.assertThat(it.getString(it.getColumnIndex("FOLDER_CLOUD_ID")), CoreMatchers.nullValue())
 		}
 
+		Sql.query("CLOUD_ENTITY").executeOn(db).use {
+			Assert.assertThat(it.count, CoreMatchers.`is`(4))
+		}
 	}
 
 }
