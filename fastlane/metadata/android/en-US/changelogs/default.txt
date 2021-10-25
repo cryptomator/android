@@ -1,1 +1,1 @@
-- pCloud-Verbindung können wieder auf allen Geräten hinzugefügt werden
+- Fixed add pCloud connection on some devices
