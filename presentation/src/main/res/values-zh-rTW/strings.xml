@@ -10,7 +10,7 @@
 	<string name="error_invalid_passphrase">密碼錯誤</string>
 	<string name="error_file_or_folder_exists">該檔案或資料夾已存在。</string>
 	<string name="error_vault_version_not_supported">不支援的加密檔案庫。這個加密檔案庫是用其它版本的 Cryptomator 所建立的。</string>
-	<string name="error_vault_already_exists">保險箱已經存在。</string>
+	<string name="error_vault_already_exists">加密檔案庫已經存在。</string>
 	<string name="error_no_such_file">檔案不存在。</string>
 	<string name="error_vault_has_been_locked">加密檔案庫已鎖定。</string>
 	<string name="error_cloud_already_exists">雲端硬碟已經存在。</string>
@@ -21,6 +21,7 @@
 	<string name="error_names_contains_invalid_characters">檔案名稱不能含有特殊字元。</string>
 	<string name="error_vault_name_contains_invalid_characters">加密檔案庫的名稱不能含有特殊字元。</string>
 	<string name="error_general_update">檢查更新失敗。發生一般錯誤。</string>
+	<string name="error_play_services_not_available">尚未安裝 Google Play 服務。</string>
 	<!-- # clouds -->
 	<!-- ## cloud names -->
 	<string name="cloud_names_local_storage">本機儲存空間</string>
@@ -45,6 +46,7 @@
 	<string name="screen_vault_list_vault_action_delete">移除</string>
 	<!-- # screen: file browser -->
 	<string name="screen_file_browser_default_title">加密檔案庫</string>
+	<string name="screen_file_browser_create_new_vault_extra_text">加密檔案庫名稱：%1$s</string>
 	<string name="screen_file_browser_move_button_text">移動</string>
 	<string name="screen_file_browser_msg_empty_folder">清空資料夾</string>
 	<string name="screen_file_browser_share_intent_chooser_title">分享對象</string>
@@ -62,6 +64,9 @@
 	<string name="screen_file_browser_node_action_rename">重新命名</string>
 	<string name="screen_file_browser_node_action_edit_text">編輯</string>
 	<string name="screen_file_browser_node_action_export">匯出</string>
+	<string name="screen_file_browser_node_action_delete">刪除</string>
+	<string name="screen_file_browser_selection_mode_title_zero_elements">選擇項目</string>
+	<string name="screen_file_browser_select_items">選擇</string>
 	<string name="screen_file_browser_select_all_items">選擇全部</string>
 	<string name="screen_file_browser_refresh_items">重新整理</string>
 	<string name="screen_file_browser_no_connection_button_text">重試</string>
@@ -82,6 +87,7 @@
 	<string name="screen_cloud_local_custom_storage_title">自訂位置</string>
 	<!-- ## screen: webdav settings -->
 	<string name="screen_webdav_settings_url_port_label">網址</string>
+	<string name="screen_webdav_settings_username_label">帳號名稱</string>
 	<string name="screen_webdav_settings_password_label">密碼</string>
 	<string name="screen_webdav_settings_done_button_text">連線</string>
 	<string name="screen_webdav_settings_msg_url_must_not_be_empty">網址不能為空白</string>
@@ -92,19 +98,26 @@
 	<string name="screen_s3_settings_display_name_label">顯示名稱</string>
 	<string name="screen_s3_settings_region_label">區域</string>
 	<!-- ## screen: enter vault name -->
+	<string name="screen_enter_vault_name_msg_name_empty">加密檔案庫名稱不可留空。</string>
+	<string name="screen_enter_vault_name_vault_label">加密檔案庫名稱</string>
 	<string name="screen_enter_vault_name_button_text">創建</string>
 	<!-- ## screen: set password -->
+	<string name="screen_set_password_title">設定密碼</string>
 	<string name="screen_set_password_button_text">完成</string>
 	<string name="screen_set_password_strength_indicator_1">弱</string>
 	<string name="screen_set_password_strength_indicator_2">一般</string>
 	<string name="screen_set_password_strength_indicator_3">強</string>
+	<string name="screen_set_password_strength_indicator_4">非常強</string>
 	<!-- ## screen: settings -->
 	<string name="screen_settings_section_general">一般</string>
 	<string name="screen_settings_cloud_settings_label">雲端服務</string>
 	<string name="screen_settings_section_search">搜尋</string>
 	<string name="screen_settings_live_search">即時搜尋</string>
+	<string name="screen_settings_section_auto_lock">自動鎖定</string>
+	<string name="screen_settings_auto_lock_on_screen_lock">當螢幕被鎖定</string>
 	<string name="screen_settings_section_auto_photo_upload_toggle">啟動</string>
 	<string name="screen_settings_section_auto_photo_upload_including_videos">上傳影片</string>
+	<string name="screen_settings_website_label">Cryptomator 網站</string>
 	<string name="screen_settings_twitter_label">在 Twitter 上追蹤我們</string>
 	<string name="screen_settings_facebook_label">在臉書上給我們點讚</string>
 	<string name="screen_settings_section_legal">法律</string>
@@ -112,6 +125,8 @@
 	<string name="screen_settings_section_support">技術支援</string>
 	<string name="screen_settings_contact_label">請求協助</string>
 	<string name="screen_settings_debug_mode_label">除錯模式</string>
+	<string name="screen_settings_error_report_failed">發送失敗</string>
+	<string name="screen_settings_security_label">安全提示</string>
 	<string name="screen_settings_section_version">版本</string>
 	<string name="screen_settings_advanced_settings">進階設定</string>
 	<!-- ## screen: cloud settings -->
@@ -123,15 +138,32 @@
 	<string name="dialog_button_cancel">取消</string>
 	<string name="dialog_enter_password_positive_button">解鎖</string>
 	<string name="dialog_change_password_old_password_label">舊密碼</string>
+	<string name="dialog_change_password_new_password_label">新密碼</string>
+	<string name="dialog_change_password">更改密碼</string>
+	<string name="dialog_change_password_msg_old_password_empty">舊密碼不可留空。</string>
+	<string name="dialog_change_password_msg_new_password_empty">新密碼不可留空。</string>
 	<!-- Vault not found -->
 	<string name="dialog_vault_not_found_positive_button_text">移除</string>
 	<string name="dialog_existing_file_title">檔案已經存在</string>
 	<string name="dialog_existing_file_positive_button">取代</string>
+	<string name="dialog_existing_file_message">名稱為「%s」的檔案已經存在。</string>
+	<string name="dialog_replace_negative_button_at_least_two_but_not_all_files_exist">跳過已存在項目</string>
 	<string name="dialog_replace_positive_button_all_files_exist">全部取代</string>
 	<string name="dialog_replace_positive_button_single_file_exists">取代</string>
 	<string name="dialog_unable_to_share_positive_button">確認</string>
+	<string name="dialog_unable_to_share_negative_button">新建加密檔案庫</string>
+	<string name="dialog_unsaved_changes_discard">放棄</string>
+	<string name="action_progress_deleting">正在删除&#8230;</string>
+	<string name="dialog_progress_download_file">正在下載&#8230;</string>
 	<string name="dialog_lock_vault">鎖定</string>
+	<string name="dialog_debug_mode_disclaimer_title">注意</string>
+	<string name="dialog_debug_mode_positive_button">啟用</string>
+	<string name="dialog_disable_app_obscured_disclaimer_title">注意</string>
+	<string name="dialog_disable_app_obscured_positive_button">禁用</string>
 	<string name="dialog_app_is_obscured_info_neutral_button">關閉</string>
+	<string name="dialog_update_available_title">有可用更新</string>
+	<string name="dialog_update_available_update">現在更新</string>
+	<string name="dialog_update_available_cancel">以後再說</string>
 	<string name="dialog_sym_link_back_button">上一頁</string>
 	<!-- # error reports -->
 	<!-- # misc -->
@@ -140,10 +172,15 @@
 	<string name="time_unit_minutes_pl">分鐘</string>
 	<!-- ## biometric authentication -->
 	<!-- notification -->
+	<string name="screen_settings_check_updates">檢查更新</string>
 	<!-- lock timeout names -->
 	<!-- cache size names -->
 	<!-- screen scheme mode names -->
+	<string name="follow_system">自動（跟隨系統）</string>
 	<string name="light">亮色</string>
 	<string name="dark">暗色</string>
 	<!-- update interval names -->
+	<string name="update_interval_1d">每日一次</string>
+	<string name="update_interval_1w">每週一次</string>
+	<string name="update_interval_1m">每月一次</string>
 </resources>
