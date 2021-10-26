@@ -92,6 +92,7 @@
 	<string name="screen_s3_settings_display_name_label">顯示名稱</string>
 	<string name="screen_s3_settings_region_label">區域</string>
 	<!-- ## screen: enter vault name -->
+	<string name="screen_enter_vault_name_button_text">創建</string>
 	<!-- ## screen: set password -->
 	<string name="screen_set_password_button_text">完成</string>
 	<string name="screen_set_password_strength_indicator_1">弱</string>
