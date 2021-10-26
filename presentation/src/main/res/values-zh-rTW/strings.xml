@@ -22,6 +22,7 @@
 	<string name="error_vault_name_contains_invalid_characters">加密檔案庫的名稱不能含有特殊字元。</string>
 	<string name="error_general_update">檢查更新失敗。發生一般錯誤。</string>
 	<string name="error_play_services_not_available">尚未安裝 Google Play 服務。</string>
+	<string name="error_no_such_bucket">沒有該儲存貯體</string>
 	<!-- # clouds -->
 	<!-- ## cloud names -->
 	<string name="cloud_names_local_storage">本機儲存空間</string>
