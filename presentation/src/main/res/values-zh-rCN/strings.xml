@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 	<!-- # app -->
-	<string name="share_with_label">加密</string>
+	<string name="share_with_label">加密保存</string>
 	<!-- # error messages -->
-	<string name="error_generic">出错了</string>
-	<string name="error_authentication_failed">验证失败</string>
-	<string name="error_authentication_failed_re_authenticate">身份验证失败，请通过 %1$s 登录</string>
+	<string name="error_generic">突发一个错误</string>
+	<string name="error_authentication_failed">身份授权失败</string>
+	<string name="error_authentication_failed_re_authenticate">身份验证失败，请使用 %1$s 登录</string>
 	<string name="error_no_network_connection">无网络连接</string>
 	<string name="error_invalid_passphrase">密码错误</string>
 	<string name="error_file_or_folder_exists">文件(夹)已存在</string>
@@ -54,8 +54,8 @@
 	<string name="snack_bar_action_title_sort_smallest">大小 (升序)</string>
 	<!-- # screens -->
 	<!-- # screen: vault list -->
-	<string name="screen_vault_list_actions_title">添加到 Cryptomator</string>
-	<string name="screen_vault_list_action_create_new_vault">新建保险库</string>
+	<string name="screen_vault_list_actions_title">添加到加密器</string>
+	<string name="screen_vault_list_action_create_new_vault">添加新保险库</string>
 	<string name="screen_vault_list_action_add_existing_vault">添加现有保险库</string>
 	<string name="screen_vault_list_vault_action_delete">删除</string>
 	<string name="screen_vault_list_vault_creation_hint">点击此处新建一个保险库</string>
@@ -395,8 +395,8 @@
 	<!-- screen scheme mode names -->
 	<string name="screen_settings_style_mode">主题</string>
 	<string name="follow_system">自动 (跟随系统)</string>
-	<string name="light">亮色</string>
-	<string name="dark">暗色</string>
+	<string name="light">浅色</string>
+	<string name="dark">深色</string>
 	<!-- update interval names -->
 	<string name="update_interval_1d">每天一次</string>
 	<string name="update_interval_1w">每周一次</string>
