@@ -1,1 +1,1 @@
-- Kompatibilität zu Tresor-Format 8 verbessert
+- pCloud-Verbindung können wieder auf allen Geräten hinzugefügt werden

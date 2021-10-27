@@ -1,1 +1,1 @@
-- Enhanced compatibility to vault format 8
+- Fixed add pCloud connection on some devices
