@@ -50,7 +50,7 @@ class UpgradeDatabaseTest {
 		Upgrade6To7().applyTo(db, 6)
 		Upgrade7To8().applyTo(db, 7)
 		Upgrade8To9(sharedPreferencesHandler).applyTo(db, 8)
-		Upgrade9To10().applyTo(db, 9)
+		Upgrade9To10(sharedPreferencesHandler).applyTo(db, 9)
 
 		CloudEntityDao(DaoConfig(db, CloudEntityDao::class.java)).loadAll()
 		VaultEntityDao(DaoConfig(db, VaultEntityDao::class.java)).loadAll()
@@ -446,7 +446,7 @@ class UpgradeDatabaseTest {
 		Sql.insertInto("VAULT_ENTITY") //
 			.integer("_id", 26) //
 			.integer("FOLDER_CLOUD_ID", 4) //
-			.text("FOLDER_PATH", "path") //
+			.text("FOLDER_PATH", "pathOfVault26") //
 			.text("FOLDER_NAME", "name") //
 			.text("CLOUD_TYPE", CloudType.LOCAL.name) //
 			.text("PASSWORD", "password") //
@@ -457,18 +457,17 @@ class UpgradeDatabaseTest {
 			Assert.assertThat(it.count, CoreMatchers.`is`(5))
 		}
 
-		Upgrade9To10().applyTo(db, 9)
+		Upgrade9To10(sharedPreferencesHandler).applyTo(db, 9)
 
 		Sql.query("VAULT_ENTITY").executeOn(db).use {
-			it.moveToFirst()
-			Assert.assertThat(it.getString(it.getColumnIndex("FOLDER_CLOUD_ID")), CoreMatchers.`is`("15"))
-			it.moveToNext()
-			Assert.assertThat(it.getString(it.getColumnIndex("FOLDER_CLOUD_ID")), CoreMatchers.nullValue())
+			Assert.assertThat(it.count, CoreMatchers.`is`(1))
 		}
 
 		Sql.query("CLOUD_ENTITY").executeOn(db).use {
 			Assert.assertThat(it.count, CoreMatchers.`is`(4))
 		}
+
+		Assert.assertThat(sharedPreferencesHandler.vaultsRemovedDuringMigration(), CoreMatchers.`is`(Pair("LOCAL", arrayListOf("pathOfVault26"))))
 	}
 
 }
