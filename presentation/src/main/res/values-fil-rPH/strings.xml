@@ -72,6 +72,7 @@
 	<string name="dialog_existing_file_title">Mayroon na ng file na ito</string>
 	<string name="dialog_existing_file_positive_button">Palitan</string>
 	<string name="dialog_existing_file_message">Umiiral na ang file na may pangalang \'%1$s\'.</string>
+	<string name="dialog_replace_negative_button_at_least_two_but_not_all_files_exist">Laktawan ang umiiral</string>
 	<string name="dialog_replace_positive_button_all_files_exist">Palitan lahat</string>
 	<string name="dialog_replace_positive_button_some_files_exist">Palitan ang umiiral</string>
 	<string name="dialog_replace_positive_button_single_file_exists">Palitan</string>
@@ -81,6 +82,22 @@
 	<string name="dialog_replace_title_multiple_files_exist">Palitan ang mga file?</string>
 	<string name="dialog_unable_to_share_positive_button">OK</string>
 	<string name="dialog_unable_to_share_negative_button">Gumawa ng bagong vault</string>
+	<string name="dialog_filetype_not_supported_message">Mag-download ng app na kayang buksan ang file na ito o nais mo bang i-save sa iyong device?</string>
+	<string name="dialog_rename_vault_title">Palitan ang pangalan ng vault</string>
+	<string name="dialog_rename_node_folder_title">Palitan ang pangalan ng folder</string>
+	<string name="dialog_rename_node_file_title">Palitan ang pangalan ng file</string>
+	<string name="dialog_unsaved_changes_title">Mayroon kang hindi na i-save na pagbabago</string>
+	<string name="dialog_unsaved_changes_discard">Ibaliwala</string>
+	<string name="dialog_delete_vault_message">Sigurado ka ba na nais mong alisin ang vault?</string>
+	<string name="dialog_delete_vault_hint">Ang aksyon na ito ay aalisin lamang ang vault sa listahan at hindi ito buburahin.</string>
+	<string name="dialog_progress_please_wait">Pakihintay&#8230;</string>
+	<string name="dialog_progress_encryption">Ineencrypt&#8230;</string>
+	<string name="dialog_progress_decryption">Dinedecrypt&#8230;</string>
+	<string name="dialog_confirm_delete_folder_message">Buburahin nito ang lahat ng laman ng folder. Sigurado ka ba na gusto mong burahin ang folder na ito?</string>
+	<string name="dialog_biometric_auth_key_invalidated_title">Ang biometric authentication feature ay na deactivate na</string>
+	<string name="dialog_biometric_auth_key_invalidated_message">Dahil wala nang bisa ang susi na ito, deactivated na ang biometric authentication feature. Upang paganahin muli, buksan ang settings ng Cryptomator.</string>
+	<string name="dialog_enter_license_title">Magbigay ng wastong lisensya</string>
+	<string name="dialog_enter_license_content">Natuklasan namin na ang nakainstall mong Cryptomator ay hind nanggaling sa Google Play Store. Maaari lamang na magbigay ng wastong lisensya na mabibili sa <a href="https://cryptomator.org/android/">https://cryptomator.org/android/</a></string>
 	<string name="dialog_enter_license_decline_button">I-sara</string>
 	<string name="dialog_update_available_update">I-update ngayon</string>
 	<string name="dialog_update_available_cancel">Mamaya</string>
