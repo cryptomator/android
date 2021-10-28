@@ -105,7 +105,6 @@
 	<string name="screen_cloud_connections_title">اختر المسار</string>
 	<string name="screen_cloud_connections_no_connections">انقر هنا لإضافة مسار</string>
 	<string name="screen_cloud_error_webdav_not_supported">لا يبدو أن الخادم متوافق مع WebDAV</string>
-	<string name="screen_cloud_local_default_storage_title">ذاكرة التخزين الافتراضية</string>
 	<string name="screen_cloud_local_error_no_content_provider">لا توجد مواقع إضافية متاحة.</string>
 	<!-- ## screen: webdav settings -->
 	<string name="screen_webdav_settings_url_port_label">الرابط</string>
