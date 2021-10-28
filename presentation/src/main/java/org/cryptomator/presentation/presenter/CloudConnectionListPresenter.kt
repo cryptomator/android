@@ -289,10 +289,6 @@ class CloudConnectionListPresenter @Inject constructor( //
 		}
 	}
 
-	fun onDefaultLocalCloudConnectionClicked() {
-		finishWithResult(SELECTED_CLOUD, defaultLocalStorageCloud)
-	}
-
 	companion object {
 
 		const val SELECTED_CLOUD = "selectedCloudConnection"

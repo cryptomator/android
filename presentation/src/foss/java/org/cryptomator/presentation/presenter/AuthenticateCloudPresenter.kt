@@ -1,6 +1,9 @@
 package org.cryptomator.presentation.presenter
 
 import android.accounts.AccountManager
+import android.content.Intent
+import android.content.Intent.ACTION_OPEN_DOCUMENT_TREE
+import android.provider.DocumentsContract
 import android.widget.Toast
 import com.dropbox.core.android.Auth
 import org.cryptomator.data.cloud.onedrive.OnedriveClientFactory
@@ -432,6 +435,7 @@ class AuthenticateCloudPresenter @Inject constructor( //
 	private inner class LocalStorageAuthStrategy : AuthStrategy {
 
 		private var authenticationStarted = false
+
 		override fun supports(cloud: CloudModel): Boolean {
 			return cloud.cloudType() == CloudTypeModel.LOCAL
 		}
@@ -444,17 +448,41 @@ class AuthenticateCloudPresenter @Inject constructor( //
 
 		private fun startAuthentication(cloud: CloudModel) {
 			authenticationStarted = true
+
+			val uri = (cloud as LocalStorageModel).uri()
+
 			val permissions = context().contentResolver.persistedUriPermissions
 			for (permission in permissions) {
-				if (permission.uri.toString() == (cloud as LocalStorageModel).uri()) {
+				if (permission.uri.toString() == uri) {
 					succeedAuthenticationWith(cloud.toCloud())
 				}
 			}
 
-			// FIXME think about how to re-request permission
-			// FIXME change in the FOSS variant too
-			failAuthentication(PermissionNotGrantedException(R.string.permission_snackbar_auth_local_vault))
+			Timber.tag("AuthicateCloudPrester").e("Permission revoked, ask to re-pick location")
+
+			Toast.makeText(context(), getString(R.string.permission_revoked_re_request_permission), Toast.LENGTH_LONG).show()
+
+			val openDocumentTree = Intent(ACTION_OPEN_DOCUMENT_TREE).apply {
+				putExtra(DocumentsContract.EXTRA_INITIAL_URI, uri)
+			}
+
+			requestActivityResult(ActivityResultCallbacks.rePickedLocalStorageLocation(cloud), openDocumentTree)
 		}
+	}
+
+	@Callback
+	fun rePickedLocalStorageLocation(result: ActivityResult, cloud: LocalStorageModel) {
+		val rootTreeUriOfLocalStorage = result.intent().data
+		rootTreeUriOfLocalStorage?.let {
+			context() //
+				.contentResolver //
+				.takePersistableUriPermission( //
+					it,  //
+					Intent.FLAG_GRANT_READ_URI_PERMISSION or Intent.FLAG_GRANT_WRITE_URI_PERMISSION
+				)
+		}
+		Timber.tag("AuthicateCloudPrester").e("Permission granted again")
+		succeedAuthenticationWith(cloud.toCloud())
 	}
 
 	private fun encrypt(password: String): String {

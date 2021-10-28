@@ -340,7 +340,7 @@ internal class LocalStorageAccessFrameworkImpl(context: Context, private val mim
 			file.parent.uri?.let {
 				val mimeType = if (mimeTypes.fromFilename(file.name) == null) MimeType.APPLICATION_OCTET_STREAM else mimeTypes.fromFilename(file.name)
 				try {
-					DocumentsContract.createDocument(contentResolver(), it, mimeType.toString(), file.name) // FIXME
+					DocumentsContract.createDocument(contentResolver(), it, mimeType.toString(), file.name)
 				} catch (e: FileNotFoundException) {
 					null
 				}

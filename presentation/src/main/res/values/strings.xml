@@ -61,6 +61,8 @@
 	<string name="permission_message_upload_file">Cryptomator needs storage access to upload files</string>
 	<string name="permission_message_share_file">Cryptomator needs storage access to share files</string>
 
+	<string name="permission_revoked_re_request_permission">Cryptomator has lost permission to access this location. Please select this folder again to restore the permission.</string>
+
 	<string name="snack_bar_action_title_settings">Settings</string>
 	<string name="snack_bar_action_title_search">Search</string>
 	<string name="snack_bar_action_title_search_previous">Previous</string>
