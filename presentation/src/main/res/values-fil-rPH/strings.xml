@@ -5,12 +5,21 @@
 	<string name="error_no_network_connection">Walang koneksyon sa network</string>
 	<string name="error_invalid_passphrase">Mali ang password</string>
 	<string name="error_vault_version_not_supported">Hindi suportado ang vault na ito. Ang vault na ito ay ginawa gamit ang ibang bersyon ng Cryptomator.</string>
+	<string name="error_vault_already_exists">Umiiral na ang vault na ito.</string>
+	<string name="error_no_such_file">Ang file na ito ay hindi pa umiiral.</string>
+	<string name="error_vault_has_been_locked">Naisara na ang vault.</string>
+	<string name="error_activity_not_found">Magdownload ng app na kayang buksan ang file na ito.</string>
 	<string name="error_server_not_found">Hindi mahanap ang server.</string>
 	<string name="error_device_policy_manager_not_found">Maaaring buksan ang device settings at sariling itakda ang screen lock</string>
 	<string name="error_name_contains_invalid_characters">Hindi maaring maglagay ng espesyal na mga karakter.</string>
 	<string name="error_names_contains_invalid_characters">Hindi maaaring lagyan ng espesyal na karakter ang pangalan ng file.</string>
+	<string name="error_vault_name_contains_invalid_characters">Hindi maaaring lagyan ng espesyal na karakter ang pangalan ng file.</string>
+	<string name="error_play_services_not_available">Hindi naka-install ang Google Play Services</string>
+	<string name="error_biometric_auth_aborted">Kinansela ang biometric authentication</string>
+	<string name="error_masterkey_location_not_supported">Hindi pa suportado ang custom Masterkey location</string>
 	<!-- # clouds -->
 	<!-- ## cloud names -->
+	<string name="cloud_names_local_storage">Local storage</string>
 	<!-- # permission -->
 	<!-- ## permission messages -->
 	<string name="snack_bar_action_title_search_previous">Nakaraan</string>
@@ -99,6 +108,7 @@
 	<string name="dialog_enter_license_title">Magbigay ng wastong lisensya</string>
 	<string name="dialog_enter_license_content">Natuklasan namin na ang nakainstall mong Cryptomator ay hind nanggaling sa Google Play Store. Maaari lamang na magbigay ng wastong lisensya na mabibili sa <a href="https://cryptomator.org/android/">https://cryptomator.org/android/</a></string>
 	<string name="dialog_enter_license_decline_button">I-sara</string>
+	<string name="dialog_license_confirmation_message">Salamat %1$s sa pagbigay ng wastong lisensya.</string>
 	<string name="dialog_update_available_update">I-update ngayon</string>
 	<string name="dialog_update_available_cancel">Mamaya</string>
 	<string name="dialog_sym_link_title">Ang folder na ito ay isang symbolic link</string>
