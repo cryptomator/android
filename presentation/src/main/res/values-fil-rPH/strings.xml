@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 	<!-- # app -->
+	<string name="share_with_label">I-encrypt</string>
 	<!-- # error messages -->
+	<string name="error_generic">Nagkaroon ng error</string>
 	<string name="error_no_network_connection">Walang koneksyon sa network</string>
 	<string name="error_invalid_passphrase">Mali ang password</string>
 	<string name="error_vault_version_not_supported">Hindi suportado ang vault na ito. Ang vault na ito ay ginawa gamit ang ibang bersyon ng Cryptomator.</string>
@@ -16,34 +18,58 @@
 	<string name="error_vault_name_contains_invalid_characters">Hindi maaaring lagyan ng espesyal na karakter ang pangalan ng file.</string>
 	<string name="error_play_services_not_available">Hindi naka-install ang Google Play Services</string>
 	<string name="error_biometric_auth_aborted">Kinansela ang biometric authentication</string>
+	<string name="error_no_such_bucket">Hindi matagpuan ang bucket na ito</string>
 	<string name="error_masterkey_location_not_supported">Hindi pa suportado ang custom Masterkey location</string>
 	<!-- # clouds -->
 	<!-- ## cloud names -->
 	<string name="cloud_names_local_storage">Local storage</string>
 	<!-- # permission -->
 	<!-- ## permission messages -->
+	<string name="snack_bar_action_title_settings">Settings</string>
+	<string name="snack_bar_action_title_search">Hanapin</string>
 	<string name="snack_bar_action_title_search_previous">Nakaraan</string>
 	<string name="snack_bar_action_title_search_next">Sunod</string>
 	<string name="snack_bar_action_title_sort_az">A - Z</string>
 	<string name="snack_bar_action_title_sort_za">Z - A</string>
+	<string name="snack_bar_action_title_sort_newest">Bago muna</string>
+	<string name="snack_bar_action_title_sort_oldest">Luma muna</string>
+	<string name="snack_bar_action_title_sort_biggest">Pinakamalaki muna</string>
+	<string name="snack_bar_action_title_sort_smallest">Pinakamaliit muna</string>
 	<!-- # screens -->
 	<!-- # screen: vault list -->
 	<string name="screen_vault_list_actions_title">Idagdag sa Cryptomator</string>
 	<string name="screen_vault_list_action_create_new_vault">Gumawa ng bagong vault</string>
 	<string name="screen_vault_list_action_add_existing_vault">Magdagdag ng umiiral na vault</string>
 	<string name="screen_vault_list_vault_action_delete">Tanggalin</string>
+	<string name="screen_vault_list_vault_creation_hint">Pindutin dito para gumawa ng bagong vault</string>
+	<string name="screen_vault_list_change_password_successful">Matagumpay na napalitan ang password</string>
 	<!-- # screen: file browser -->
+	<string name="screen_file_browser_default_title">Vault</string>
+	<string name="screen_file_browser_add_existing_vault_extra_text">Piliin ang masterkey file</string>
+	<string name="screen_file_browser_create_new_vault_button_text">Ilagay dito</string>
+	<string name="screen_file_browser_create_new_vault_extra_text">Pangalan ng vault: %1$s</string>
+	<string name="screen_file_browser_share_intent_chooser_title">Ibahagi kay</string>
+	<string name="screen_file_browser_share_destination_title">Pumili ng destinasyon</string>
+	<string name="screen_file_browser_share_button_text">Pumili</string>
+	<string name="screen_file_browser_nothing_to_share">Walang maibabahagi</string>
+	<string name="screen_file_browser_actions_title">Idagdag sa %1$s</string>
 	<string name="screen_file_browser_action_create_folder">Gumawa ng folder</string>
 	<string name="screen_file_browser_action_create_new_text_file">Gumawa ng text file</string>
 	<string name="screen_file_browser_action_upload_files">I-upload ang mga files</string>
 	<string name="screen_file_browser_upload_files_chooser_title">Files</string>
+	<string name="screen_file_browser_msg_file_exported">Na-export na ang file</string>
+	<string name="screen_file_browser_msg_files_exported">Na-export na ang mga files</string>
 	<string name="screen_file_browser_node_action_share">Ibahagi</string>
 	<string name="screen_file_browser_node_action_rename">Baguhin ang pangalan</string>
+	<string name="screen_file_browser_node_action_edit_text">I-edit</string>
+	<string name="screen_file_browser_node_action_export">I-export</string>
 	<string name="screen_file_browser_node_action_delete">Burahin</string>
+	<string name="screen_file_browser_node_action_open_with_text">Buksan gamit ang &#8230;</string>
 	<string name="screen_file_browser_selection_mode_title_one_or_more_elements">%1$d ang nakapili</string>
 	<string name="screen_file_browser_select_items">Piliin</string>
 	<string name="screen_file_browser_select_all_items">Piliin lahat</string>
 	<string name="screen_file_browser_refresh_items">I-refresh</string>
+	<string name="screen_file_browser_no_connection_message">Walang koneksyon</string>
 	<!-- ## screen: text editor -->
 	<!-- ## screen: share files -->
 	<string name="screen_share_files_content_files">files</string>
@@ -65,7 +91,37 @@
 	<!-- ## screen: s3 settings -->
 	<!-- ## screen: enter vault name -->
 	<!-- ## screen: set password -->
+	<string name="screen_set_password_title">Itakda ang password</string>
+	<string name="screen_set_password_msg_password_mismatch">Hindi nagtugma ang bagong password sa ni-retype na password.</string>
+	<string name="screen_set_password_button_text">Tapos na</string>
+	<string name="screen_set_password_hint">IMPORTANTE: Walang paraan para maisalba ang iyong datos kapag nakalimutan ang iyong password.</string>
+	<string name="screen_set_password_retype_password_label">Muling ilagay ang password</string>
+	<string name="screen_set_password_strength_indicator_0">Masyadong mahina para gumawa ng vault</string>
+	<string name="screen_set_password_strength_indicator_1">Mahina</string>
+	<string name="screen_set_password_strength_indicator_2">Patas</string>
+	<string name="screen_set_password_strength_indicator_3">Malakas</string>
+	<string name="screen_set_password_strength_indicator_4">Higit na malakas</string>
 	<!-- ## screen: settings -->
+	<string name="screen_settings_section_general">Pangkalahatan</string>
+	<string name="screen_settings_cloud_settings_label">Cloud services</string>
+	<string name="screen_settings_biometric_auth">Biometric authentication</string>
+	<string name="screen_settings_section_search">Hanapin</string>
+	<string name="screen_settings_auto_lock_timeout">I-lock pagkatapos ng</string>
+	<string name="screen_settings_auto_lock_on_screen_lock">Kapag ang screen ay disabled</string>
+	<string name="screen_settings_section_auto_photo_upload_vault">Pumili ng vault pang upload</string>
+	<string name="screen_settings_section_auto_photo_upload_toggle">I-activate</string>
+	<string name="screen_settings_twitter_label">Sundan kami sa Twitter</string>
+	<string name="screen_settings_facebook_label">I-like kami sa Facebook</string>
+	<string name="screen_settings_section_legal">Ligal</string>
+	<string name="screen_settings_licenses_label">Mga Lisensya</string>
+	<string name="screen_settings_section_support">Suporta</string>
+	<string name="screen_settings_contact_label">Humingi ng tulong</string>
+	<string name="screen_settings_debug_mode_label">Debug mode</string>
+	<string name="screen_settings_error_report_label">Ipadala ang log file</string>
+	<string name="screen_settings_security_label">Mga pahiwatig ng seguridad</string>
+	<string name="screen_settings_section_version">Bersyon</string>
+	<string name="screen_settings_advanced_settings">Mga advanced na setting</string>
+	<string name="screen_settings_background_unlock_preparation_label">Pabilisin ang pag-unlock</string>
 	<!-- ## screen: cloud settings -->
 	<!-- ## screen: licenses -->
 	<!-- ## screen: authenticate cloud -->
@@ -102,11 +158,28 @@
 	<string name="dialog_progress_please_wait">Pakihintay&#8230;</string>
 	<string name="dialog_progress_encryption">Ineencrypt&#8230;</string>
 	<string name="dialog_progress_decryption">Dinedecrypt&#8230;</string>
+	<string name="dialog_lock_vault">I-lock</string>
+	<string name="dialog_accept_ssl_certificate_title">Hindi wasto ang SSL certificate</string>
+	<string name="dialog_accept_ssl_certificate_hint">Hindi wasto ang SSL certificate. Nais mo paring pagkatiwalaan?</string>
+	<string name="dialog_accept_ssl_certificate_details">Mga detalye</string>
+	<string name="dialog_accept_ssl_certificate_security_checkbox">Maaaring panganib ito sa seguridad. Alam ko ang ginagawa ko.</string>
+	<string name="dialog_http_security_hint">Ang pag-gamit ng HTTP ay hindi ligtas. Kung alam mo ang mga panganib, maaari kang tumuloy gamit ang HTTP.</string>
+	<string name="dialog_http_security_checkbox">Gawing HTTPS</string>
+	<string name="dialog_http_security_title">Gamiting ang HTTPS?</string>
+	<string name="dialog_debug_mode_disclaimer_title">Atensyon</string>
+	<string name="dialog_debug_mode_positive_button">I-enable</string>
+	<string name="dialog_disable_app_obscured_disclaimer_hint">Ang setting na ito ay isang security feature at pinipigilan ang ibang mga apps sa lokohin ang mga gumagamit na gawin ang mga hindi nila gustong gawin.\n\nSa pag-alis nito, kinukumpirma mo na <a href="https://docs.cryptomator.org/en/1.5/android/settings/#block-app-when-obscured"> alam mo ang mga panganib</a>.</string>
+	<string name="dialog_disable_app_obscured_disclaimer_title">Atensyon</string>
+	<string name="dialog_app_is_obscured_info_neutral_button">Isara</string>
+	<string name="dialog_delete_cloud_connection_with_vaults_message">Sigurado ka bang gusto mong tanggalin itong cloud connection?</string>
+	<string name="dialog_confirm_delete_multiple_message">Sigurado ka bang gusto mong burahin ang mga ito?</string>
+	<string name="dialog_confirm_delete_file_message">Sigurado ka bang gusto mong burahin ang file na ito?</string>
 	<string name="dialog_confirm_delete_folder_message">Buburahin nito ang lahat ng laman ng folder. Sigurado ka ba na gusto mong burahin ang folder na ito?</string>
 	<string name="dialog_biometric_auth_key_invalidated_title">Ang biometric authentication feature ay na deactivate na</string>
 	<string name="dialog_biometric_auth_key_invalidated_message">Dahil wala nang bisa ang susi na ito, deactivated na ang biometric authentication feature. Upang paganahin muli, buksan ang settings ng Cryptomator.</string>
 	<string name="dialog_enter_license_title">Magbigay ng wastong lisensya</string>
 	<string name="dialog_enter_license_content">Natuklasan namin na ang nakainstall mong Cryptomator ay hind nanggaling sa Google Play Store. Maaari lamang na magbigay ng wastong lisensya na mabibili sa <a href="https://cryptomator.org/android/">https://cryptomator.org/android/</a></string>
+	<string name="dialog_enter_license_not_valid_content">Ang lisensyang binigay ay hindi wasto. Siguraduhing tama ang iyong pagkakalagay.</string>
 	<string name="dialog_enter_license_decline_button">I-sara</string>
 	<string name="dialog_license_confirmation_message">Salamat %1$s sa pagbigay ng wastong lisensya.</string>
 	<string name="dialog_update_available_update">I-update ngayon</string>
