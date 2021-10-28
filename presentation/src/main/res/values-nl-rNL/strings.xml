@@ -41,6 +41,7 @@
 	<string name="permission_message_export_file">Cryptomator heeft toegang tot opslag nodig om bestanden te exporteren</string>
 	<string name="permission_message_upload_file">Cryptomator heeft toegang tot opslag nodig om bestanden te uploaden</string>
 	<string name="permission_message_share_file">Cryptomator heeft toegang tot opslag nodig om bestanden te delen</string>
+	<string name="permission_revoked_re_request_permission">Cryptomator heeft geen toegang meer tot deze locatie. Selecteer de map opnieuw om de toegangsrechten te herstellen.</string>
 	<string name="snack_bar_action_title_settings">Instellingen</string>
 	<string name="snack_bar_action_title_search">Zoeken</string>
 	<string name="snack_bar_action_title_search_previous">Vorige</string>
@@ -288,6 +289,8 @@
 	<string name="dialog_app_is_obscured_info_title">App is naar de achtergrond gewezen</string>
 	<string name="dialog_app_is_obscured_info_hint">Een andere app toont iets bovenop Cryptomator (bijv. een blauw lichtfilter of nachtmodus). Om veiligheidsredenen is Cryptomator uitgeschakeld.\n\n<a href="https://docs.cryptomator.org/en/1.5/android/settings/#block-app-when-obscured">Hoe kunt u Cryptomator inschakelen</a></string>
 	<string name="dialog_app_is_obscured_info_neutral_button">Sluiten</string>
+	<string name="dialog_vaults_removed_during_migration_title">Voeg de kluis voor %1\'s cloud opnieuw toe</string>
+	<string name="dialog_vault_is_root_folder_of_cloud_title">Kluis is hoofdmap van de cloud-verbinding</string>
 	<string name="dialog_disable_secure_screen_disclaimer_hint">Deze instelling is een beveiligingsfunctie en voorkomt dat andere apps gebruikers misleiden.\n\nDoor deze instelling uit te schakelen bevestig je dat je <a href="https://docs.cryptomator.org/en/1.5/android/settings/#screen-security"> bewust bent van de risico\'s</a>.</string>
 	<string name="dialog_delete_cloud_connection_with_vaults_message">Weet je zeker dat je deze cloud verbinding wilt verwijderen?</string>
 	<string name="dialog_delete_cloud_connection_with_vaults_hint">Deze actie zal de cloud-verbinding en alle kluizen van deze cloud verwijderen.</string>
