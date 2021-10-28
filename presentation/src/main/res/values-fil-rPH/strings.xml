@@ -4,6 +4,8 @@
 	<string name="share_with_label">I-encrypt</string>
 	<!-- # error messages -->
 	<string name="error_generic">Nagkaroon ng error</string>
+	<string name="error_authentication_failed">Bigo ang pagpapatunay</string>
+	<string name="error_authentication_failed_re_authenticate">Bigo ang pagtutunay, maaaring maglogin gamit ang %1$s</string>
 	<string name="error_no_network_connection">Walang koneksyon sa network</string>
 	<string name="error_invalid_passphrase">Mali ang password</string>
 	<string name="error_vault_version_not_supported">Hindi suportado ang vault na ito. Ang vault na ito ay ginawa gamit ang ibang bersyon ng Cryptomator.</string>
@@ -89,7 +91,13 @@
 	<string name="screen_webdav_settings_msg_url_is_invalid">Hindi tama ang URL.</string>
 	<string name="screen_webdav_settings_msg_username_must_not_be_empty">Hindi maaaring walang laman ang username.</string>
 	<!-- ## screen: s3 settings -->
+	<string name="screen_s3_settings_region_label">Rehiyon</string>
+	<string name="screen_s3_settings_msg_bucket_not_empty">Hindi maaaring walang laman ang bucket</string>
+	<string name="screen_s3_settings_msg_endpoint_and_region_not_empty">Hindi maaaring walang laman ang endpoint o ang rehiyon</string>
 	<!-- ## screen: enter vault name -->
+	<string name="screen_enter_vault_name_msg_name_empty">Hindi maaaring walang pangalan ang vault.</string>
+	<string name="screen_enter_vault_name_vault_label">Pangalan ng Vault</string>
+	<string name="screen_enter_vault_name_button_text">Gumawa</string>
 	<!-- ## screen: set password -->
 	<string name="screen_set_password_title">Itakda ang password</string>
 	<string name="screen_set_password_msg_password_mismatch">Hindi nagtugma ang bagong password sa ni-retype na password.</string>
