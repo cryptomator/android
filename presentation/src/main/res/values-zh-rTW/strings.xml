@@ -85,7 +85,6 @@
 	<!-- ## screen: cloud connections -->
 	<string name="screen_cloud_connections_title">選擇位置</string>
 	<string name="screen_cloud_connections_no_connections">點擊此處新增位置</string>
-	<string name="screen_cloud_local_custom_storage_title">自訂位置</string>
 	<!-- ## screen: webdav settings -->
 	<string name="screen_webdav_settings_url_port_label">網址</string>
 	<string name="screen_webdav_settings_username_label">帳號名稱</string>
