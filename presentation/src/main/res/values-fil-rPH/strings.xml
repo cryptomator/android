@@ -13,14 +13,46 @@
 	<!-- ## cloud names -->
 	<!-- # permission -->
 	<!-- ## permission messages -->
+	<string name="snack_bar_action_title_search_previous">Nakaraan</string>
+	<string name="snack_bar_action_title_search_next">Sunod</string>
+	<string name="snack_bar_action_title_sort_az">A - Z</string>
+	<string name="snack_bar_action_title_sort_za">Z - A</string>
 	<!-- # screens -->
 	<!-- # screen: vault list -->
+	<string name="screen_vault_list_actions_title">Idagdag sa Cryptomator</string>
+	<string name="screen_vault_list_action_create_new_vault">Gumawa ng bagong vault</string>
+	<string name="screen_vault_list_action_add_existing_vault">Magdagdag ng umiiral na vault</string>
+	<string name="screen_vault_list_vault_action_delete">Tanggalin</string>
 	<!-- # screen: file browser -->
+	<string name="screen_file_browser_action_create_folder">Gumawa ng folder</string>
+	<string name="screen_file_browser_action_create_new_text_file">Gumawa ng text file</string>
+	<string name="screen_file_browser_action_upload_files">I-upload ang mga files</string>
+	<string name="screen_file_browser_upload_files_chooser_title">Files</string>
+	<string name="screen_file_browser_node_action_share">Ibahagi</string>
+	<string name="screen_file_browser_node_action_rename">Baguhin ang pangalan</string>
+	<string name="screen_file_browser_node_action_delete">Burahin</string>
+	<string name="screen_file_browser_selection_mode_title_one_or_more_elements">%1$d ang nakapili</string>
+	<string name="screen_file_browser_select_items">Piliin</string>
+	<string name="screen_file_browser_select_all_items">Piliin lahat</string>
+	<string name="screen_file_browser_refresh_items">I-refresh</string>
 	<!-- ## screen: text editor -->
 	<!-- ## screen: share files -->
+	<string name="screen_share_files_content_files">files</string>
+	<string name="screen_share_files_msg_filenames_must_be_unique">Natatangi dapat ang pangalan ng mga files, maaari lamang na palitan ang mga may kapareho.</string>
+	<string name="screen_share_files_section_location">I-save ang lokasyon</string>
+	<string name="screen_share_files_save_button_text">I-save</string>
 	<!-- ## screen: choose cloud service -->
 	<!-- ## screen: cloud connections -->
+	<string name="screen_cloud_connections_title">Piliin ang location</string>
+	<string name="screen_cloud_connections_no_connections">Pindutin dito upang magdagdag ng lugar</string>
 	<!-- ## screen: webdav settings -->
+	<string name="screen_webdav_settings_url_port_label">URL</string>
+	<string name="screen_webdav_settings_username_label">Username</string>
+	<string name="screen_webdav_settings_password_label">Password</string>
+	<string name="screen_webdav_settings_done_button_text">Kumonekta</string>
+	<string name="screen_webdav_settings_msg_url_must_not_be_empty">Hindi maaaring walang laman ang URL.</string>
+	<string name="screen_webdav_settings_msg_url_is_invalid">Hindi tama ang URL.</string>
+	<string name="screen_webdav_settings_msg_username_must_not_be_empty">Hindi maaaring walang laman ang username.</string>
 	<!-- ## screen: s3 settings -->
 	<!-- ## screen: enter vault name -->
 	<!-- ## screen: set password -->
@@ -30,15 +62,89 @@
 	<!-- ## screen: authenticate cloud -->
 	<!-- ## screen: insecure android version info -->
 	<!-- # dialogs -->
+	<string name="dialog_change_password_new_password_label">Bagong Password</string>
+	<string name="dialog_change_password">Palitan ang password</string>
+	<string name="dialog_change_password_msg_old_password_empty">Hindi maaaring walang laman ang lumang password field.</string>
+	<string name="dialog_change_password_msg_new_password_empty">Hindi maaaring walang laman ang bagong password field.</string>
+	<string name="dialog_change_password_msg_password_mismatch">Hindi nagtugma ang bagong password sa ni-retype na password.</string>
 	<!-- Vault not found -->
+	<string name="dialog_vault_not_found_positive_button_text">Tanggalin</string>
+	<string name="dialog_existing_file_title">Mayroon na ng file na ito</string>
+	<string name="dialog_existing_file_positive_button">Palitan</string>
+	<string name="dialog_existing_file_message">Umiiral na ang file na may pangalang \'%1$s\'.</string>
+	<string name="dialog_replace_positive_button_all_files_exist">Palitan lahat</string>
+	<string name="dialog_replace_positive_button_some_files_exist">Palitan ang umiiral</string>
+	<string name="dialog_replace_positive_button_single_file_exists">Palitan</string>
+	<string name="dialog_replace_msg_single_file_exists">Umiiral na ang file na may pangalang \'%1$s\'. Nais mo bang palitan ito?</string>
+	<string name="dialog_replace_msg_all_files_exists">Ang lahat ng files ay umiiral na. Nais mo bang palitan ang mga ito?</string>
+	<string name="dialog_replace_title_single_file_exists">Palitan ang file?</string>
+	<string name="dialog_replace_title_multiple_files_exist">Palitan ang mga file?</string>
+	<string name="dialog_unable_to_share_positive_button">OK</string>
+	<string name="dialog_unable_to_share_negative_button">Gumawa ng bagong vault</string>
+	<string name="dialog_enter_license_decline_button">I-sara</string>
+	<string name="dialog_update_available_update">I-update ngayon</string>
+	<string name="dialog_update_available_cancel">Mamaya</string>
+	<string name="dialog_sym_link_title">Ang folder na ito ay isang symbolic link</string>
+	<string name="dialog_sym_link_message">Hindi maaaring puntahan ang symbolic link na ito</string>
+	<string name="dialog_sym_link_back_button">Bumalik</string>
 	<!-- # error reports -->
 	<!-- # misc -->
 	<!-- ## file size helper -->
+	<string name="file_size_zero">Zero kB</string>
+	<string name="file_size_unit_bytes">bytes</string>
+	<string name="file_size_unit_kilo_bytes">kB</string>
+	<string name="file_size_unit_mega_bytes">MB</string>
+	<string name="file_size_unit_giga_bytes">GB</string>
+	<string name="file_size_unit_tera_bytes">TB</string>
 	<!-- ## date helper -->
+	<string name="time_unit_seconds_sg">segundo</string>
+	<string name="time_unit_seconds_pl">segundo</string>
+	<string name="time_unit_minutes_sg">minuto</string>
+	<string name="time_unit_minutes_pl">minuto</string>
+	<string name="time_unit_hours_sg">oras</string>
+	<string name="time_unit_hours_pl">oras</string>
+	<string name="time_unit_days_sg">araw</string>
+	<string name="time_unit_days_pl">araw</string>
+	<string name="time_unit_weeks_sg">linggo</string>
+	<string name="time_unit_weeks_pl">linggo</string>
+	<string name="time_unit_months_sg">buwan</string>
+	<string name="time_unit_months_pl">buwan</string>
+	<string name="time_unit_years_sg">taon</string>
+	<string name="time_unit_years_pl">taon</string>
 	<!-- ## biometric authentication -->
+	<string name="dialog_biometric_auth_title">Biometric login</string>
+	<string name="dialog_biometric_auth_message">Mag-log in gamit ang iyong biometric credential</string>
+	<string name="dialog_biometric_auth_use_password">Gamitin ang vault password</string>
 	<!-- notification -->
+	<string name="notification_unlocked">Vaults na na-unlock: %1$d</string>
+	<string name="notification_timeout">Autolock in %1$s</string>
+	<string name="notification_lock_all">I-lock lahat</string>
+	<string name="notification_cancel_auto_upload">Ikansela ang pag-upload</string>
+	<string name="notification_auto_upload_message">Uploading %1d/%2d</string>
+	<string name="screen_settings_lru_cache">Cache</string>
+	<string name="screen_settings_lru_cache_size">Kabuuang laki ng cache</string>
+	<string name="screen_settings_clear_lru_cache_size">Linisin ang Cache</string>
+	<string name="screen_settings_lru_cache_changed__restart_toast">Ang mga pagbabago ay makikita pagkatapos ng pag-restart ng app</string>
 	<!-- lock timeout names -->
+	<string name="lock_timeout_1m">1 minuto</string>
+	<string name="lock_timeout_2m">2 minuto</string>
+	<string name="lock_timeout_5m">5 minuto</string>
+	<string name="lock_timeout_10m">10 minuto</string>
+	<string name="lock_timeout_never">Hindi kailanman</string>
 	<!-- cache size names -->
+	<string name="cache_size_50m">50 MB</string>
+	<string name="cache_size_100m">100 MB</string>
+	<string name="cache_size_250m">250 MB</string>
+	<string name="cache_size_500m">500 MB</string>
+	<string name="cache_size_1000m">1 GB</string>
+	<string name="cache_size_5000m">5 GB</string>
 	<!-- screen scheme mode names -->
+	<string name="screen_settings_style_mode">Estilo</string>
+	<string name="follow_system">Awtomatico (sundan ang system)</string>
+	<string name="light">Light</string>
+	<string name="dark">Dark</string>
 	<!-- update interval names -->
+	<string name="update_interval_1d">Isang beses sa isang araw</string>
+	<string name="update_interval_1w">Isang beses sa isang linggo</string>
+	<string name="update_interval_1m">Isang beses sa isang buwan</string>
 </resources>
