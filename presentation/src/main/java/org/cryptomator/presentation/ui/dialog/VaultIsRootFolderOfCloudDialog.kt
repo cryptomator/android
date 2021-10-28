@@ -13,7 +13,7 @@ class VaultIsRootFolderOfCloudDialog : BaseDialog<Activity>() {
 	public override fun setupDialog(builder: AlertDialog.Builder): android.app.Dialog {
 		return builder //
 			.setTitle(R.string.dialog_vault_is_root_folder_of_cloud_title) //
-			.setNeutralButton(R.string.dialog_vaults_removed_during_migration_neutral_button) { dialog: DialogInterface, _: Int -> dialog.dismiss() }
+			.setNeutralButton(R.string.dialog_vault_is_root_folder_of_cloud_neutral_button) { dialog: DialogInterface, _: Int -> dialog.dismiss() }
 			.create()
 	}
 

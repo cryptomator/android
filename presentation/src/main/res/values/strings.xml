@@ -421,6 +421,7 @@
 
 	<string name="dialog_vault_is_root_folder_of_cloud_title">Vault is root folder of the cloud connection</string>
 	<string name="dialog_vault_is_root_folder_of_cloud_hint">Create a new cloud connection where you select at least the parent folder of this vault folder as the root directory to add this vault.</string>
+	<string name="dialog_vault_is_root_folder_of_cloud_neutral_button" translatable="false">@string/dialog_unable_to_share_positive_button</string>
 
 	<string name="dialog_disable_secure_screen_disclaimer_hint">This setting is a security feature and prevents other apps from tricking users into doing things they do not wan\'t to do.\n\nBy disabling, you confirm that you are <a href="https://docs.cryptomator.org/en/1.5/android/settings/#screen-security">aware of the risks</a>.</string>
 
