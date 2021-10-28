@@ -41,6 +41,7 @@
 	<string name="permission_message_export_file">Το Cryptomator χρειάζεται πρόσβαση στον αποθηκευτικό χώρο για την εξαγωγή αρχείων</string>
 	<string name="permission_message_upload_file">Το Cryptomator χρειάζεται πρόσβαση στον αποθηκευτικό χώρο για μεταφόρτωση αρχείων</string>
 	<string name="permission_message_share_file">Το Cryptomator χρειάζεται πρόσβαση στον αποθηκευτικό χώρο για κοινή χρήση αρχείων</string>
+	<string name="permission_revoked_re_request_permission">Το Cryptomator έχει χάσει την άδεια πρόσβασης σε αυτήν την τοποθεσία. Παρακαλώ επιλέξτε ξανά αυτόν το φάκελο για να επαναφέρετε το δικαίωμα.</string>
 	<string name="snack_bar_action_title_settings">Ρυθμίσεις</string>
 	<string name="snack_bar_action_title_search">Αναζήτηση</string>
 	<string name="snack_bar_action_title_search_previous">Προηγούμενο</string>
