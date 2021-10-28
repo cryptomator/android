@@ -2,6 +2,13 @@
 <resources>
 	<!-- # app -->
 	<!-- # error messages -->
+	<string name="error_no_network_connection">Walang koneksyon sa network</string>
+	<string name="error_invalid_passphrase">Mali ang password</string>
+	<string name="error_vault_version_not_supported">Hindi suportado ang vault na ito. Ang vault na ito ay ginawa gamit ang ibang bersyon ng Cryptomator.</string>
+	<string name="error_server_not_found">Hindi mahanap ang server.</string>
+	<string name="error_device_policy_manager_not_found">Maaaring buksan ang device settings at sariling itakda ang screen lock</string>
+	<string name="error_name_contains_invalid_characters">Hindi maaring maglagay ng espesyal na mga karakter.</string>
+	<string name="error_names_contains_invalid_characters">Hindi maaaring lagyan ng espesyal na karakter ang pangalan ng file.</string>
 	<!-- # clouds -->
 	<!-- ## cloud names -->
 	<!-- # permission -->
