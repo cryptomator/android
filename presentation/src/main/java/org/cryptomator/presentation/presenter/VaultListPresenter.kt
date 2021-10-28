@@ -12,6 +12,7 @@ import org.cryptomator.data.cloud.crypto.CryptoCloud
 import org.cryptomator.data.util.NetworkConnectionCheck
 import org.cryptomator.domain.Cloud
 import org.cryptomator.domain.CloudFolder
+import org.cryptomator.domain.CloudType
 import org.cryptomator.domain.Vault
 import org.cryptomator.domain.di.PerView
 import org.cryptomator.domain.exception.license.LicenseNotValidException
@@ -46,10 +47,10 @@ import org.cryptomator.presentation.ui.activity.LicenseCheckActivity
 import org.cryptomator.presentation.ui.activity.view.VaultListView
 import org.cryptomator.presentation.ui.dialog.AppIsObscuredInfoDialog
 import org.cryptomator.presentation.ui.dialog.AskForLockScreenDialog
-import org.cryptomator.presentation.ui.dialog.BetaConfirmationDialog
 import org.cryptomator.presentation.ui.dialog.EnterPasswordDialog
 import org.cryptomator.presentation.ui.dialog.UpdateAppAvailableDialog
 import org.cryptomator.presentation.ui.dialog.UpdateAppDialog
+import org.cryptomator.presentation.ui.dialog.VaultsRemovedDuringMigrationDialog
 import org.cryptomator.presentation.util.FileUtil
 import org.cryptomator.presentation.workflow.ActivityResult
 import org.cryptomator.presentation.workflow.AddExistingVaultWorkflow
@@ -104,6 +105,12 @@ class VaultListPresenter @Inject constructor( //
 			sharedPreferencesHandler.setScreenLockDialogAlreadyShown()
 		}
 
+		sharedPreferencesHandler.vaultsRemovedDuringMigration()?.let {
+			val cloudNameString = getString(CloudTypeModel.valueOf(CloudType.valueOf(it.first)).displayNameResource)
+			view?.showDialog(VaultsRemovedDuringMigrationDialog.newInstance(Pair(cloudNameString, it.second)))
+			sharedPreferencesHandler.vaultsRemovedDuringMigration(null)
+		}
+
 		checkLicense()
 	}
 
@@ -119,9 +126,10 @@ class VaultListPresenter @Inject constructor( //
 					}
 
 					override fun onError(e: Throwable) {
-						var license: String? = ""
-						if (e is LicenseNotValidException) {
-							license = e.license
+						val license = if (e is LicenseNotValidException) {
+							e.license
+						} else {
+							""
 						}
 						val intent = Intent(context(), LicenseCheckActivity::class.java)
 						intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
@@ -272,8 +280,8 @@ class VaultListPresenter @Inject constructor( //
 						view?.showVaultCreationHint()
 					} else {
 						view?.hideVaultCreationHint()
-						view?.renderVaultList(vaultModels)
 					}
+					view?.renderVaultList(vaultModels)
 				}
 			})
 		}

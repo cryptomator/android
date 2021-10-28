@@ -67,11 +67,6 @@ public class WebDavCloud implements Cloud {
 	}
 
 	@Override
-	public boolean predefined() {
-		return false;
-	}
-
-	@Override
 	public boolean persistent() {
 		return true;
 	}

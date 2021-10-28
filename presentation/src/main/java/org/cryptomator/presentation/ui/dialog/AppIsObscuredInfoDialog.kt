@@ -13,10 +13,10 @@ import kotlinx.android.synthetic.main.dialog_app_is_obscured_info.tv_app_is_obsc
 class AppIsObscuredInfoDialog : BaseDialog<Activity>() {
 
 	public override fun setupDialog(builder: AlertDialog.Builder): android.app.Dialog {
-		builder //
+		return builder //
 			.setTitle(R.string.dialog_app_is_obscured_info_title) //
-			.setNeutralButton(R.string.dialog_app_is_obscured_info_neutral_button) { dialog: DialogInterface, _: Int -> dialog.dismiss() }
-		return builder.create()
+			.setNeutralButton(R.string.dialog_app_is_obscured_info_neutral_button) { dialog: DialogInterface, _: Int -> dialog.dismiss() } //
+			.create()
 	}
 
 	override fun disableDialogWhenObscured(): Boolean {

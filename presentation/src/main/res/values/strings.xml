@@ -61,6 +61,8 @@
 	<string name="permission_message_upload_file">Cryptomator needs storage access to upload files</string>
 	<string name="permission_message_share_file">Cryptomator needs storage access to share files</string>
 
+	<string name="permission_revoked_re_request_permission">Cryptomator has lost permission to access this location. Please select this folder again to restore the permission.</string>
+
 	<string name="snack_bar_action_title_settings">Settings</string>
 	<string name="snack_bar_action_title_search">Search</string>
 	<string name="snack_bar_action_title_search_previous">Previous</string>
@@ -166,8 +168,6 @@
 	<string name="screen_cloud_settings_option_delete" translatable="false">@string/screen_vault_list_vault_action_delete</string>
 	<string name="screen_cloud_connections_no_connections">Click here to add locations</string>
 	<string name="screen_cloud_error_webdav_not_supported">Server doesn\'t seem to be WebDAV compatible</string>
-	<string name="screen_cloud_local_custom_storage_title">Custom locations</string>
-	<string name="screen_cloud_local_default_storage_title">Default storage</string>
 	<string name="screen_cloud_local_error_no_content_provider">No additional locations available.</string>
 
 	<!-- ## screen: webdav settings -->
@@ -416,6 +416,14 @@
 	<string name="dialog_app_is_obscured_info_title">App is obscured</string>
 	<string name="dialog_app_is_obscured_info_hint">Another app is displaying something on top of Cryptomator (e.g., a blue light filter or night mode app). For security reasons, Cryptomator is disabled.\n\n<a href="https://docs.cryptomator.org/en/1.5/android/settings/#block-app-when-obscured">How to enable Cryptomator</a></string>
 	<string name="dialog_app_is_obscured_info_neutral_button">Close</string>
+
+	<string name="dialog_vaults_removed_during_migration_title">Please re-add vaults for %1s cloud</string>
+	<string name="dialog_vaults_removed_during_migration_hint">While migrating to this app version we need to remove the following vaults from the app:\n%2s \n\nThose vaults aren\'t removed from the cloud but only from this app. Sorry for the inconvenience and please re-add these vaults to continue working with them.</string>
+	<string name="dialog_vaults_removed_during_migration_neutral_button" translatable="false">@string/dialog_unable_to_share_positive_button</string>
+
+	<string name="dialog_vault_is_root_folder_of_cloud_title">Vault is root folder of the cloud connection</string>
+	<string name="dialog_vault_is_root_folder_of_cloud_hint">Create a new cloud connection where you select at least the parent folder of this vault folder as the root directory to add this vault.</string>
+	<string name="dialog_vault_is_root_folder_of_cloud_neutral_button" translatable="false">@string/dialog_unable_to_share_positive_button</string>
 
 	<string name="dialog_disable_secure_screen_disclaimer_hint">This setting is a security feature and prevents other apps from tricking users into doing things they do not wan\'t to do.\n\nBy disabling, you confirm that you are <a href="https://docs.cryptomator.org/en/1.5/android/settings/#screen-security">aware of the risks</a>.</string>
 

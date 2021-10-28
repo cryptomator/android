@@ -1,4 +1,4 @@
-package org.cryptomator.data.cloud.local.storageaccessframework
+package org.cryptomator.data.cloud.local
 
 import android.database.Cursor
 import android.provider.DocumentsContract
