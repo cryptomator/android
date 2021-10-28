@@ -110,8 +110,6 @@
 	<string name="screen_cloud_connections_title">接続先を選択</string>
 	<string name="screen_cloud_connections_no_connections">ここをタップして場所を追加する</string>
 	<string name="screen_cloud_error_webdav_not_supported">サーバーに WebDAV との互換性がありません</string>
-	<string name="screen_cloud_local_custom_storage_title">その他の保存先</string>
-	<string name="screen_cloud_local_default_storage_title">デフォルトの保存先</string>
 	<string name="screen_cloud_local_error_no_content_provider">追加の利用できる保存先はありません。</string>
 	<!-- ## screen: webdav settings -->
 	<string name="screen_webdav_settings_url_port_label">URL</string>
