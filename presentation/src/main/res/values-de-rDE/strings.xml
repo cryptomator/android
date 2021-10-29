@@ -41,6 +41,7 @@
 	<string name="permission_message_export_file">Zum Exportieren von Dateien benötigt Cryptomator Speicherzugriff</string>
 	<string name="permission_message_upload_file">Zum Hochladen von Dateien benötigt Cryptomator Speicherzugriff</string>
 	<string name="permission_message_share_file">Zum Teilen von Dateien benötigt Cryptomator Speicherzugriff</string>
+	<string name="permission_revoked_re_request_permission">Cryptomator hat die Berechtigung zum Zugriff auf diesen Ort verloren. Bitte wähle diesen Ordner erneut aus, um die Berechtigung wiederherzustellen.</string>
 	<string name="snack_bar_action_title_settings">Einstellungen</string>
 	<string name="snack_bar_action_title_search">Suche</string>
 	<string name="snack_bar_action_title_search_previous">Vorheriges</string>
@@ -288,6 +289,7 @@
 	<string name="dialog_app_is_obscured_info_title">App wird verdeckt</string>
 	<string name="dialog_app_is_obscured_info_hint">Eine App zeigt etwas über Cryptomator an (z.B. ein Blaulichtfilter oder eine Nachtmodus-App). Aus Sicherheitsgründen ist Cryptomator deaktiviert.\n\n<a href="https://docs.cryptomator.org/en/1.5/android/settings/#block-app-when-obscured">Wie Cryptomator aktiviert werden kann</a></string>
 	<string name="dialog_app_is_obscured_info_neutral_button">Schließen</string>
+	<string name="dialog_vaults_removed_during_migration_title">Bitte Tresore für die %1s-Cloud erneut hinzufügen</string>
 	<string name="dialog_disable_secure_screen_disclaimer_hint">Dies ist eine Sicherheitsfunktion, die andere Anwendungen daran hindert, Nutzer zu ungewollten Aktionen zu verleiten.\n\nDurch Deaktivieren bestätigst du, dass du dir <a href="https://docs.cryptomator.org/en/1.5/android/settings/#screen-security">der Risiken bewusst</a> bist.</string>
 	<string name="dialog_delete_cloud_connection_with_vaults_message">Bist du dir sicher, dass du die Cloud-Verbindung entfernen möchtest?</string>
 	<string name="dialog_delete_cloud_connection_with_vaults_hint">Dieser Vorgang wird die Cloud-Verbindung und alle zugehörigen Tresore löschen.</string>
