@@ -41,6 +41,7 @@
 	<string name="permission_message_export_file">Cryptomator a besoin de l\'accès au stockage pour exporter des fichiers</string>
 	<string name="permission_message_upload_file">Cryptomateur a besoin de l\'accès au stockage pour téléverser des fichiers</string>
 	<string name="permission_message_share_file">Cryptomator a besoin de l\'accès au stockage pour partager des fichiers</string>
+	<string name="permission_revoked_re_request_permission">Cryptomator n\'a plus accès à cet emplacement. Merci de resélectionner ce répertoire pour restaurer les droits d\'accès.</string>
 	<string name="snack_bar_action_title_settings">Paramètres</string>
 	<string name="snack_bar_action_title_search">Rechercher</string>
 	<string name="snack_bar_action_title_search_previous">Précédent</string>
@@ -288,6 +289,10 @@
 	<string name="dialog_app_is_obscured_info_title">\'application est masquée</string>
 	<string name="dialog_app_is_obscured_info_hint">Une autre application affiche quelque chose au-dessus de Cryptomator (par exemple, un filtre de lumière bleue ou une application forçant le mode nuit). Pour des raisons de sécurité, Cryptomator est désactivé.\n\n<a href="https://docs.cryptomator.org/en/1.5/android/settings/#block-app-when-obscured">Comment activer Cryptomator</a></string>
 	<string name="dialog_app_is_obscured_info_neutral_button">Fermer</string>
+	<string name="dialog_vaults_removed_during_migration_title">Veuillez rajouter les coffres pour le cloud %1s</string>
+	<string name="dialog_vaults_removed_during_migration_hint">Lors de la migration vers cette version de l\'application, nous devons supprimer les coffres suivants de l\'application :\n%2s \n\nCes coffres ne sont pas retirés du cloud mais seulement de cette application. Désolé pour le désagrément et veuillez rajouter ces coffres pour continuer à les utiliser.</string>
+	<string name="dialog_vault_is_root_folder_of_cloud_title">Le coffre est le dossier racine de la connexion cloud</string>
+	<string name="dialog_vault_is_root_folder_of_cloud_hint">Créez une nouvelle connexion cloud où vous sélectionnerez au moins le dossier parent de ce dossier de coffre comme répertoire racine pour ajouter ce coffre.</string>
 	<string name="dialog_disable_secure_screen_disclaimer_hint">Ce paramètre est une fonction de sécurité qui empêche les autres applications de tromper les utilisateurs en leur faisant faire des choses qu\'ils ne veulent pas faire.\n\nEn le désactivant, vous confirmez que vous êtes <a href="https://docs.cryptomator.org/en/1.5/android/settings/#screen-security">conscients des risques</a>.</string>
 	<string name="dialog_delete_cloud_connection_with_vaults_message">Êtes-vous sûr de vouloir supprimer cette connexion au cloud?</string>
 	<string name="dialog_delete_cloud_connection_with_vaults_hint">Cette action retirera l\'accès à ce cloud et à tous les coffre-fort de celui-ci.</string>
