@@ -1,1 +1,3 @@
-- pCloud-Verbindung können wieder auf allen Geräten hinzugefügt werden
+- Fotos können sofort hochgeladen werden, wenn der automatische Fotoupload aktiviert und der Tresor entsperrt ist
+- Wenn der Tresor-Order der Stammordner der Cloud ist, kann dieser nun nicht mehr hinzugefügt werden
+- Überarbeitung des Zugriffs auf den lokalen Speicher
