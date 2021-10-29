@@ -41,6 +41,7 @@
 	<string name="permission_message_export_file">У Cryptomator должен быть доступ к хранилищу для экспорта файлов</string>
 	<string name="permission_message_upload_file">У Cryptomator должен быть доступ к хранилищу для отправки файлов</string>
 	<string name="permission_message_share_file">У Cryptomator должен быть доступ к хранилищу для обмена файлами</string>
+	<string name="permission_revoked_re_request_permission">У Cryptomator больше нет прав доступа к этому местоположению. Выберите эту папку ещё раз, чтобы восстановить права.</string>
 	<string name="snack_bar_action_title_settings">Настройки</string>
 	<string name="snack_bar_action_title_search">Поиск</string>
 	<string name="snack_bar_action_title_search_previous">Назад</string>
@@ -117,8 +118,6 @@
 	<string name="screen_cloud_connections_title">Выберите местоположение</string>
 	<string name="screen_cloud_connections_no_connections">Нажмите, чтобы добавить места</string>
 	<string name="screen_cloud_error_webdav_not_supported">Похоже, сервер не совместим с WebDAV</string>
-	<string name="screen_cloud_local_custom_storage_title">Другие места</string>
-	<string name="screen_cloud_local_default_storage_title">Хранилище по умолчанию</string>
 	<string name="screen_cloud_local_error_no_content_provider">Нет дополнительных мест.</string>
 	<!-- ## screen: webdav settings -->
 	<string name="screen_webdav_settings_url_port_label">URL</string>
@@ -292,6 +291,10 @@
 	<string name="dialog_app_is_obscured_info_title">Приложение скрыто</string>
 	<string name="dialog_app_is_obscured_info_hint">Другое приложение отображает что-то поверх Cryptomator (например синий световой фильтр или ночной режим). В целях безопасности Cryptomator отключён.\n\n<a href="https://docs.cryptomator.org/en/1.5/android/settings/#block-app-when-obscured">Как включить Cryptomator</a></string>
 	<string name="dialog_app_is_obscured_info_neutral_button">Закрыть</string>
+	<string name="dialog_vaults_removed_during_migration_title">Добавьте хранилища заново для облака %1s</string>
+	<string name="dialog_vaults_removed_during_migration_hint">Во время переноса в эту версию приложения необходимо удалить следующие хранилища из приложения:\n%2s \n\nЭти хранилища не удаляются из облака, а только из приложения. Извините за неудобства и добавьте снова эти хранилища, чтобы продолжить работу с ними.</string>
+	<string name="dialog_vault_is_root_folder_of_cloud_title">Хранилище - это корневая папка подключения к облаку</string>
+	<string name="dialog_vault_is_root_folder_of_cloud_hint">Создайте новое облачное соединение, в котором вы выберете по крайней мере родительскую папку этой папки хранилища в качестве корневой папки для добавления этого хранилища.</string>
 	<string name="dialog_disable_secure_screen_disclaimer_hint">Эта настройка связана с безопасностью, она не позволяет другим приложениям обманом вынуждать пользователей делать то, что им не нужно.\n\nОтключив, вы подтверждаете, что <a href="https://docs.cryptomator.org/en/1.5/android/settings/#screen-security">знаете о рисках</a>.</string>
 	<string name="dialog_delete_cloud_connection_with_vaults_message">Вы действительно хотите удалить это облачное соединение?</string>
 	<string name="dialog_delete_cloud_connection_with_vaults_hint">Это действие удалит облако и все хранилища в нём.</string>
