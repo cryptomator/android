@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 	<!-- # app -->
-	<string name="share_with_label">加密</string>
+	<string name="share_with_label">加密保存</string>
 	<!-- # error messages -->
-	<string name="error_generic">出错了</string>
-	<string name="error_authentication_failed">验证失败</string>
-	<string name="error_authentication_failed_re_authenticate">身份验证失败，请通过 %1$s 登录</string>
+	<string name="error_generic">突发一个错误</string>
+	<string name="error_authentication_failed">身份授权失败</string>
+	<string name="error_authentication_failed_re_authenticate">身份验证失败，请使用 %1$s 登录</string>
 	<string name="error_no_network_connection">无网络连接</string>
 	<string name="error_invalid_passphrase">密码错误</string>
 	<string name="error_file_or_folder_exists">文件(夹)已存在</string>
@@ -41,6 +41,7 @@
 	<string name="permission_message_export_file">Cryptomator 需要存储权限以导出文件</string>
 	<string name="permission_message_upload_file">Cryptomator 需要存储权限以上传文件</string>
 	<string name="permission_message_share_file">Cryptomator 需要存储权限以共享文件</string>
+	<string name="permission_revoked_re_request_permission">Cryptomator 已失去此位置的访问权限，请重新选择此文件夹以恢复。</string>
 	<string name="snack_bar_action_title_settings">设置</string>
 	<string name="snack_bar_action_title_search">搜索</string>
 	<string name="snack_bar_action_title_search_previous">上一个</string>
@@ -54,8 +55,8 @@
 	<string name="snack_bar_action_title_sort_smallest">大小 (升序)</string>
 	<!-- # screens -->
 	<!-- # screen: vault list -->
-	<string name="screen_vault_list_actions_title">添加到 Cryptomator</string>
-	<string name="screen_vault_list_action_create_new_vault">新建保险库</string>
+	<string name="screen_vault_list_actions_title">添加到加密器</string>
+	<string name="screen_vault_list_action_create_new_vault">添加新保险库</string>
 	<string name="screen_vault_list_action_add_existing_vault">添加现有保险库</string>
 	<string name="screen_vault_list_vault_action_delete">删除</string>
 	<string name="screen_vault_list_vault_creation_hint">点击此处新建一个保险库</string>
@@ -114,8 +115,6 @@
 	<string name="screen_cloud_connections_title">请选择位置</string>
 	<string name="screen_cloud_connections_no_connections">点击此处添加位置</string>
 	<string name="screen_cloud_error_webdav_not_supported">服务器似乎不兼容 WebDAV</string>
-	<string name="screen_cloud_local_custom_storage_title">自定义位置</string>
-	<string name="screen_cloud_local_default_storage_title">默认存储</string>
 	<string name="screen_cloud_local_error_no_content_provider">无可用其他位置</string>
 	<!-- ## screen: webdav settings -->
 	<string name="screen_webdav_settings_url_port_label">URL</string>
@@ -289,6 +288,10 @@
 	<string name="dialog_app_is_obscured_info_title">应用被遮蔽</string>
 	<string name="dialog_app_is_obscured_info_hint">另一应用正遮罩在 Cryptomator 之上 (例如蓝色光滤镜或夜间模式应用)。出于安全考虑，Cryptomator 已禁用\n\n<a href="https://docs.cryptomator.org/en/1.5/android/settings/#block-app-when-obscured">如何启用 Cryptomator</a></string>
 	<string name="dialog_app_is_obscured_info_neutral_button">关闭</string>
+	<string name="dialog_vaults_removed_during_migration_title">请重新添加 %1s 的保险库</string>
+	<string name="dialog_vaults_removed_during_migration_hint">在进行应用版本迁移前，我们需要从应用中移除下列保险库：\n%2s \n\n这些保险库并不会从云端移除，仅仅是针对当前应用版本，抱歉给您带来不便，请重新添加这些保险库以便继续使之生效。</string>
+	<string name="dialog_vault_is_root_folder_of_cloud_title">保险库是云端的根文件夹</string>
+	<string name="dialog_vault_is_root_folder_of_cloud_hint">创建一个新的云端连接时，您需要选择这个保险库文件夹的父文件夹作为根目录来添加这个保险库。</string>
 	<string name="dialog_disable_secure_screen_disclaimer_hint">此为一项安全功能，可防止其他应用诱使用户做出错误操作\n\n如果禁用，即表示您了解<a href="https://docs.cryptomator.org/en/1.5/android/settings/#screen-security">其中风险</a></string>
 	<string name="dialog_delete_cloud_connection_with_vaults_message">您确定要移除此云连接吗？</string>
 	<string name="dialog_delete_cloud_connection_with_vaults_hint">此操作将移除云连接以及与之相关的所有保险库</string>
@@ -395,8 +398,8 @@
 	<!-- screen scheme mode names -->
 	<string name="screen_settings_style_mode">主题</string>
 	<string name="follow_system">自动 (跟随系统)</string>
-	<string name="light">亮色</string>
-	<string name="dark">暗色</string>
+	<string name="light">浅色</string>
+	<string name="dark">深色</string>
 	<!-- update interval names -->
 	<string name="update_interval_1d">每天一次</string>
 	<string name="update_interval_1w">每周一次</string>
