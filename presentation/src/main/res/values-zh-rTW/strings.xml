@@ -75,6 +75,7 @@
 	<string name="screen_file_browser_share_destination_title">選擇目的地</string>
 	<string name="screen_file_browser_share_button_text">選擇</string>
 	<string name="screen_file_browser_nothing_to_share">沒有東西可分享</string>
+	<string name="screen_file_browser_actions_title">加入至 %1$s</string>
 	<string name="screen_file_browser_action_create_folder">建立新資料夾</string>
 	<string name="screen_file_browser_action_create_new_text_file">建立新文字檔案</string>
 	<string name="screen_file_browser_action_upload_files">上傳檔案</string>
@@ -89,9 +90,11 @@
 	<string name="screen_file_browser_node_action_export">匯出</string>
 	<string name="screen_file_browser_node_action_delete">刪除</string>
 	<string name="screen_file_browser_selection_mode_title_zero_elements">選擇項目</string>
+	<string name="screen_file_browser_selection_mode_title_one_or_more_elements">已選取 %1$d 個項目</string>
 	<string name="screen_file_browser_select_items">選擇</string>
 	<string name="screen_file_browser_select_all_items">選擇全部</string>
 	<string name="screen_file_browser_refresh_items">重新整理</string>
+	<string name="screen_file_browser_no_connection_message">沒有連接</string>
 	<string name="screen_file_browser_no_connection_button_text">重試</string>
 	<!-- ## screen: text editor -->
 	<string name="screen_text_editor_save_success">儲存成功。</string>
