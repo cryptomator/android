@@ -16,18 +16,29 @@
 	<string name="error_cloud_already_exists">雲端硬碟已經存在。</string>
 	<string name="error_activity_not_found">請下載行動裝置應用程式來打開這個檔案。</string>
 	<string name="error_server_not_found">找不到伺服器。</string>
+	<string name="error_device_policy_manager_not_found">請打開你的裝置設定，再手動設定螢幕鎖定。</string>
 	<string name="error_export_illegal_file_name">資料匯出失敗。請把檔案名稱中的特殊字元刪除後，再重新匯出資料。</string>
 	<string name="error_name_contains_invalid_characters">不能含有特殊字元。</string>
 	<string name="error_names_contains_invalid_characters">檔案名稱不能含有特殊字元。</string>
 	<string name="error_vault_name_contains_invalid_characters">加密檔案庫的名稱不能含有特殊字元。</string>
 	<string name="error_general_update">檢查更新失敗。發生一般錯誤。</string>
+	<string name="error_hash_mismatch_update">更新檢查失敗。計算出的 Hash 與上傳檔案不匹配</string>
+	<string name="error_update_no_internet">更新檢查失敗。沒有網絡連接。</string>
+	<string name="error_failed_to_decrypt_webdav_password">解密webdav密碼失敗，請在設定中重新添加</string>
 	<string name="error_play_services_not_available">尚未安裝 Google Play 服務。</string>
+	<string name="error_biometric_auth_aborted">生物身份識別驗證中止</string>
+	<string name="error_vault_version_mismatch">%1$s 中指定的版本不同於 %2$s</string>
+	<string name="error_vault_key_invalid">%1$s 與 %2$s 不匹配</string>
+	<string name="error_vault_config_loading">加載保險庫設定時發生錯誤</string>
+	<string name="error_file_not_found_after_opening_using_3party">切換回 Cryptomator 後，本地檔案不再存在。期間發生的更改無法傳回雲端。</string>
 	<string name="error_no_such_bucket">沒有該儲存貯體</string>
+	<string name="error_masterkey_location_not_supported">尚未支持自定義 MasterKey 位置</string>
 	<!-- # clouds -->
 	<!-- ## cloud names -->
 	<string name="cloud_names_local_storage">本機儲存空間</string>
 	<!-- # permission -->
 	<!-- ## permission messages -->
+	<string name="permission_message_export_file">Cryptomator 需要存儲訪問權限用以導出文件</string>
 	<string name="snack_bar_action_title_settings">設定</string>
 	<string name="snack_bar_action_title_search">搜尋</string>
 	<string name="snack_bar_action_title_search_previous">上一頁</string>
