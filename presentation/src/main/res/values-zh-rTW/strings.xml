@@ -39,6 +39,9 @@
 	<!-- # permission -->
 	<!-- ## permission messages -->
 	<string name="permission_message_export_file">Cryptomator 需要存儲訪問權限用以導出文件</string>
+	<string name="permission_message_upload_file">Cryptomator 需要存儲訪問權限用以上傳文件</string>
+	<string name="permission_message_share_file">Cryptomator 需要存儲訪問權限用以共享文件</string>
+	<string name="permission_revoked_re_request_permission">Cryptomator 已失去訪問此位置的許可。請再次選擇此文件夾以恢復權限。</string>
 	<string name="snack_bar_action_title_settings">設定</string>
 	<string name="snack_bar_action_title_search">搜尋</string>
 	<string name="snack_bar_action_title_search_previous">上一頁</string>
@@ -56,9 +59,16 @@
 	<string name="screen_vault_list_action_create_new_vault">新建加密檔案庫</string>
 	<string name="screen_vault_list_action_add_existing_vault">新增至現有的加密檔案庫</string>
 	<string name="screen_vault_list_vault_action_delete">移除</string>
+	<string name="screen_vault_list_vault_creation_hint">點擊此處新建一個保險庫</string>
+	<string name="screen_vault_list_change_password_successful">密碼變更成功</string>
 	<!-- # screen: file browser -->
 	<string name="screen_file_browser_default_title">加密檔案庫</string>
+	<string name="screen_file_browser_add_existing_vault_extra_text">選擇 Masterkey 檔案</string>
+	<string name="screen_file_browser_create_new_vault_button_text">在此添加</string>
 	<string name="screen_file_browser_create_new_vault_extra_text">加密檔案庫名稱：%1$s</string>
+	<plurals name="screen_file_browser_subtitle_move">
+		<item quantity="other">移動 %1$s 到</item>
+	</plurals>
 	<string name="screen_file_browser_move_button_text">移動</string>
 	<string name="screen_file_browser_msg_empty_folder">清空資料夾</string>
 	<string name="screen_file_browser_share_intent_chooser_title">分享對象</string>
