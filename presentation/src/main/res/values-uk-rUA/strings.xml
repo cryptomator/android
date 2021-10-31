@@ -88,14 +88,60 @@
 	<string name="screen_file_browser_node_action_export">Експорт</string>
 	<string name="screen_file_browser_node_action_delete">Видалити</string>
 	<string name="screen_file_browser_node_action_open_with_text">Відкрити з&#8230;</string>
+	<string name="screen_file_browser_selection_mode_title_zero_elements">Оберіть файли</string>
+	<string name="screen_file_browser_selection_mode_title_one_or_more_elements">%1$d обрано</string>
+	<string name="screen_file_browser_select_items">Оберіть</string>
+	<string name="screen_file_browser_select_all_items">Вибрати все</string>
+	<string name="screen_file_browser_refresh_items">Оновити</string>
+	<string name="screen_file_browser_no_connection_message">Немає підключення</string>
+	<string name="screen_file_browser_no_connection_button_text">Повторити</string>
 	<!-- ## screen: text editor -->
+	<string name="screen_text_editor_save_success">Успішно збережено</string>
 	<!-- ## screen: share files -->
+	<string name="screen_share_files_title">Зберегти %1$s до&#8230;</string>
+	<string name="screen_share_files_content_text">текст</string>
+	<string name="screen_share_files_content_file">файл</string>
+	<string name="screen_share_files_content_files">файли</string>
+	<string name="screen_share_files_msg_filenames_must_be_unique">Імена файлів мають бути унікальними, будь ласка, перейменуйте дублікати.</string>
+	<string name="screen_share_files_section_location">Місце збереження</string>
+	<string name="screen_share_files_save_button_text">Зберегти</string>
+	<string name="screen_share_files_msg_success">Шифрування завершено</string>
 	<!-- ## screen: choose cloud service -->
+	<string name="screen_choose_cloud_service_title">Хмарні служби</string>
 	<!-- ## screen: cloud connections -->
+	<string name="screen_cloud_connections_title">Обрати місцерозташування</string>
+	<string name="screen_cloud_connections_no_connections">Натисніть сюди щоб додати розташування</string>
+	<string name="screen_cloud_error_webdav_not_supported">Схоже, сервер не сумісний з WebDAV</string>
+	<string name="screen_cloud_local_error_no_content_provider">Немає доступних місцерозташувань.</string>
 	<!-- ## screen: webdav settings -->
+	<string name="screen_webdav_settings_url_port_label">Адреса посилання</string>
+	<string name="screen_webdav_settings_username_label">Ім\'я користувача</string>
+	<string name="screen_webdav_settings_password_label">Пароль</string>
+	<string name="screen_webdav_settings_done_button_text">Підключитися</string>
+	<string name="screen_webdav_settings_msg_url_must_not_be_empty">Посилання не може бути порожнім.</string>
+	<string name="screen_webdav_settings_msg_url_is_invalid">Неприпустима URL-адреса.</string>
+	<string name="screen_webdav_settings_msg_username_must_not_be_empty">Поле для імені користувача не може бути порожнім.</string>
+	<string name="screen_webdav_settings_msg_password_must_not_be_empty">Пароль не може бути порожнім.</string>
 	<!-- ## screen: s3 settings -->
+	<string name="screen_s3_settings_display_name_label">Ім\'я для відображення</string>
+	<string name="screen_s3_settings_access_key_label">Ключ доступу</string>
+	<string name="screen_s3_settings_secret_key_label">Секретний ключ</string>
+	<string name="screen_s3_settings_bucket_label">Існуючий бакет</string>
+	<string name="screen_s3_settings_endpoint_label">Кінцева точка</string>
+	<string name="screen_s3_settings_region_label">Регіон</string>
+	<string name="screen_s3_settings_msg_display_name_not_empty">Ім\'я не може бути порожнім</string>
+	<string name="screen_s3_settings_msg_access_key_not_empty">Ключ доступу не може бути порожнім</string>
+	<string name="screen_s3_settings_msg_secret_key_not_empty">Секретний ключ не може бути порожнім</string>
+	<string name="screen_s3_settings_msg_bucket_not_empty">Бакет не може бути порожнім</string>
+	<string name="screen_s3_settings_msg_endpoint_and_region_not_empty">Кінцева точка або регіон не можуть бути порожніми</string>
 	<!-- ## screen: enter vault name -->
+	<string name="screen_enter_vault_name_msg_name_empty">Назва сховища не може бути порожньою.</string>
+	<string name="screen_enter_vault_name_vault_label">Назва сховища</string>
+	<string name="screen_enter_vault_name_button_text">Створити</string>
 	<!-- ## screen: set password -->
+	<string name="screen_set_password_title">Задати пароль</string>
+	<string name="screen_set_password_msg_password_mismatch">Пароль не збігається з введеним паролем.</string>
+	<string name="screen_set_password_button_text">Готово</string>
 	<string name="screen_set_password_strength_indicator_0">Занадто слабкий пароль для створення сховища</string>
 	<string name="screen_set_password_strength_indicator_1">Слабкий</string>
 	<string name="screen_set_password_strength_indicator_2">Середній</string>
