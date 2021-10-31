@@ -147,6 +147,7 @@
 	<string name="screen_settings_section_auto_lock">自動鎖定</string>
 	<string name="screen_settings_auto_lock_on_screen_lock">當螢幕被鎖定</string>
 	<string name="screen_settings_section_auto_photo_upload">自動上傳像片</string>
+	<string name="screen_settings_section_auto_photo_upload_vault">選擇要上傳的加密檔案庫</string>
 	<string name="screen_settings_section_auto_photo_upload_toggle">啟動</string>
 	<string name="screen_settings_section_auto_photo_upload_only_wifi_toggle">僅使用 Wi-Fi 上傳</string>
 	<string name="screen_settings_section_auto_photo_upload_including_videos">上傳影片</string>
@@ -158,11 +159,15 @@
 	<string name="screen_settings_section_support">技術支援</string>
 	<string name="screen_settings_contact_label">請求協助</string>
 	<string name="screen_settings_debug_mode_label">除錯模式</string>
+	<string name="screen_settings_error_report_label">發送日誌檔案</string>
 	<string name="screen_settings_error_report_failed">發送失敗</string>
 	<string name="screen_settings_security_label">安全提示</string>
 	<string name="screen_settings_section_version">版本</string>
 	<string name="screen_settings_advanced_settings">進階設定</string>
 	<!-- ## screen: cloud settings -->
+	<string name="screen_cloud_settings_webdav_connections">WebDAV 連線</string>
+	<string name="screen_cloud_settings_pcloud_connections">pCloud 連線</string>
+	<string name="screen_cloud_settings_s3_connections">S3 連線</string>
 	<string name="screen_cloud_settings_log_in_to">登錄到</string>
 	<!-- ## screen: licenses -->
 	<!-- ## screen: authenticate cloud -->
@@ -176,27 +181,45 @@
 	<string name="dialog_change_password_msg_old_password_empty">舊密碼不可留空。</string>
 	<string name="dialog_change_password_msg_new_password_empty">新密碼不可留空。</string>
 	<!-- Vault not found -->
+	<string name="dialog_vault_not_found_title">找不到名為%1$s的加密檔案庫</string>
 	<string name="dialog_vault_not_found_positive_button_text">移除</string>
 	<string name="dialog_existing_file_title">檔案已經存在</string>
 	<string name="dialog_existing_file_positive_button">取代</string>
 	<string name="dialog_existing_file_message">名稱為「%s」的檔案已經存在。</string>
 	<string name="dialog_replace_negative_button_at_least_two_but_not_all_files_exist">跳過已存在項目</string>
 	<string name="dialog_replace_positive_button_all_files_exist">全部取代</string>
+	<string name="dialog_replace_positive_button_some_files_exist">替換現有的</string>
 	<string name="dialog_replace_positive_button_single_file_exists">取代</string>
+	<string name="dialog_replace_msg_single_file_exists">名為「%1$s」的檔案已經存在。您想要替換它嗎？</string>
+	<string name="dialog_replace_title_single_file_exists">替換檔案？</string>
 	<string name="dialog_unable_to_share_positive_button">確認</string>
 	<string name="dialog_unable_to_share_negative_button">新建加密檔案庫</string>
+	<string name="dialog_rename_vault_title">重命名加密檔案庫</string>
+	<string name="dialog_rename_node_folder_title">重命名檔案夾</string>
+	<string name="dialog_rename_node_file_title">重新命名檔案</string>
+	<string name="dialog_unsaved_changes_title">您有未保存的更改</string>
+	<string name="dialog_unsaved_changes_message">您確定要不保存就離開嗎？</string>
 	<string name="dialog_unsaved_changes_discard">放棄</string>
+	<string name="dialog_file_name_placeholder">文本.txt</string>
+	<string name="dialog_delete_vault_message">您確定要刪除這個加密檔案庫嗎？</string>
 	<string name="action_progress_deleting">正在删除&#8230;</string>
 	<string name="dialog_progress_download_file">正在下載&#8230;</string>
 	<string name="dialog_lock_vault">鎖定</string>
+	<string name="dialog_accept_ssl_certificate_title">無效的 TLS 憑證</string>
+	<string name="dialog_http_security_checkbox">更換為 HTTPS</string>
+	<string name="dialog_http_security_title">是否使用 HTTPS？</string>
 	<string name="dialog_debug_mode_disclaimer_title">注意</string>
 	<string name="dialog_debug_mode_positive_button">啟用</string>
 	<string name="dialog_disable_app_obscured_disclaimer_title">注意</string>
 	<string name="dialog_disable_app_obscured_positive_button">禁用</string>
 	<string name="dialog_app_is_obscured_info_neutral_button">關閉</string>
+	<string name="dialog_enter_license_decline_button">退出</string>
 	<string name="dialog_update_available_title">有可用更新</string>
 	<string name="dialog_update_available_update">現在更新</string>
+	<string name="dialog_update_available_download_site">前往下載網址</string>
 	<string name="dialog_update_available_cancel">以後再說</string>
+	<string name="dialog_download_update_title">正在下載</string>
+	<string name="dialog_download_update_message">下載最新版本的 Cryptomator</string>
 	<string name="dialog_sym_link_back_button">上一頁</string>
 	<!-- # error reports -->
 	<!-- # misc -->
