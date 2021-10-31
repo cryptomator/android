@@ -4,13 +4,90 @@
 	<string name="share_with_label">Зашифрувати</string>
 	<!-- # error messages -->
 	<string name="error_generic">Виникла помилка</string>
+	<string name="error_authentication_failed">Помилка автентифікації</string>
+	<string name="error_authentication_failed_re_authenticate">Помилка автентифікації, будь ласка увійдіть за допомогою %1$s</string>
+	<string name="error_no_network_connection">Відсутнє з\'єднання з мережею</string>
+	<string name="error_invalid_passphrase">Неправильний пароль</string>
+	<string name="error_file_or_folder_exists">Файл чи тека вже існує.</string>
+	<string name="error_vault_version_not_supported">Непідтримуване сховище. Це сховище було створено іншою версією криптоматора.</string>
+	<string name="error_vault_already_exists">Сховище вже існує.</string>
+	<string name="error_no_such_file">Файлу не існує.</string>
+	<string name="error_vault_has_been_locked">Сховище було заблоковано.</string>
+	<string name="error_cloud_already_exists">Ця хмара вже використовується.</string>
+	<string name="error_activity_not_found">Будь ласка, завантажте додаток, що може відкрити цей файл.</string>
+	<string name="error_server_not_found">Сервер не знайдено.</string>
+	<string name="error_device_policy_manager_not_found">Відкрийте налаштування пристрою та встановіть блокування екрану вручну</string>
+	<string name="error_export_illegal_file_name">Не вдалося виконати експорт. Спробуйте видалити спеціальні символи з імен файлів та експортувати знову.</string>
+	<string name="error_name_contains_invalid_characters">Не може містити спеціальні символи.</string>
+	<string name="error_names_contains_invalid_characters">Назва файлу не може містити спеціальні символи.</string>
+	<string name="error_vault_name_contains_invalid_characters">Назва сховища не може містити спеціальні символи.</string>
+	<string name="error_general_update">Помилка перевірки оновлення. Загальна помилка.</string>
+	<string name="error_hash_mismatch_update">Помилка перевірки оновлення. Хеш не збігається з завантаженим файлом</string>
+	<string name="error_update_no_internet">Не вдалося перевірити оновлення. Немає з\'єднання з мережею.</string>
+	<string name="error_failed_to_decrypt_webdav_password">Не вдалося розшифрувати пароль WebDAV, будь ласка, повторно додайте його в налаштування</string>
+	<string name="error_play_services_not_available">Google Play Services не встановлені</string>
+	<string name="error_biometric_auth_aborted">Біометрична автентифікація скасована</string>
+	<string name="error_vault_version_mismatch">Версія вказана в %1$s відрізняється від %2$s</string>
+	<string name="error_vault_key_invalid">%1$s не відповідає %2$s</string>
+	<string name="error_vault_config_loading">Загальна помилка при завантаженні конфігурації сховища</string>
+	<string name="error_file_not_found_after_opening_using_3party">Локальний файл більше не присутній посля повернення до Cryptomator. Можливі зміни не будуть застосовані до хмари.</string>
+	<string name="error_no_such_bucket">Відсутній бакет</string>
+	<string name="error_masterkey_location_not_supported">Користувацьке розташування Masterkey ще не підтримується</string>
 	<!-- # clouds -->
 	<!-- ## cloud names -->
+	<string name="cloud_names_local_storage">Локальне сховище</string>
 	<!-- # permission -->
 	<!-- ## permission messages -->
+	<string name="permission_message_export_file">Cryptomator потребує доступу до сховища для експорту файлів</string>
+	<string name="permission_message_upload_file">Cryptomator потребує доступу до сховища для завантаження файлів</string>
+	<string name="permission_message_share_file">Cryptomator потребує доступу до сховища щоб ділитися файлами</string>
+	<string name="permission_revoked_re_request_permission">Криптоматор втратив дозвіл на доступ до цього розташування. Будь ласка, оберіть цю папку ще раз, щоб відновити дозвіл.</string>
+	<string name="snack_bar_action_title_settings">Налаштування</string>
+	<string name="snack_bar_action_title_search">Пошук</string>
+	<string name="snack_bar_action_title_search_previous">Попередній</string>
+	<string name="snack_bar_action_title_search_next">Наступний</string>
+	<string name="snack_bar_action_title_sort">Сортування</string>
+	<string name="snack_bar_action_title_sort_az">А - Я</string>
+	<string name="snack_bar_action_title_sort_za">Я - А</string>
+	<string name="snack_bar_action_title_sort_newest">Спочатку новіші</string>
+	<string name="snack_bar_action_title_sort_oldest">Спочатку старіші</string>
+	<string name="snack_bar_action_title_sort_biggest">Спочатку найбільші</string>
+	<string name="snack_bar_action_title_sort_smallest">Спершу найменші</string>
 	<!-- # screens -->
 	<!-- # screen: vault list -->
+	<string name="screen_vault_list_actions_title">Додати до Cryptomator</string>
+	<string name="screen_vault_list_action_create_new_vault">Створити нове сховище</string>
+	<string name="screen_vault_list_action_add_existing_vault">Додати існуюче сховище</string>
+	<string name="screen_vault_list_vault_action_delete">Прибрати</string>
+	<string name="screen_vault_list_vault_creation_hint">Натисніть тут, щоб створити нове сховище</string>
+	<string name="screen_vault_list_change_password_successful">Пароль успішно змінено</string>
 	<!-- # screen: file browser -->
+	<string name="screen_file_browser_default_title">Сховище</string>
+	<string name="screen_file_browser_add_existing_vault_extra_text">Виберіть файл майстер-ключа</string>
+	<string name="screen_file_browser_create_new_vault_button_text">Розмістити тут</string>
+	<string name="screen_file_browser_create_new_vault_extra_text">Назва сховища: %1$s</string>
+	<string name="screen_file_browser_move_button_text">Перемістити</string>
+	<string name="screen_file_browser_msg_empty_folder">Порожня тека</string>
+	<string name="screen_file_browser_file_info_label_date">змінено %1$s тому</string>
+	<string name="screen_file_browser_share_intent_chooser_title">Поділитися за допомогою</string>
+	<string name="screen_file_browser_share_destination_title">Оберіть призначення</string>
+	<string name="screen_file_browser_share_button_text">Оберіть</string>
+	<string name="screen_file_browser_nothing_to_share">Відсутні елементи для поширення</string>
+	<string name="screen_file_browser_actions_title">Додати до %1$s</string>
+	<string name="screen_file_browser_action_create_folder">Створити теку</string>
+	<string name="screen_file_browser_action_create_new_text_file">Створити текстовий файл</string>
+	<string name="screen_file_browser_action_upload_files">Завантажити файли</string>
+	<string name="screen_file_browser_upload_files_chooser_title">Файли</string>
+	<string name="screen_file_browser_msg_file_exported">Файл експортовано</string>
+	<string name="screen_file_browser_msg_files_exported">Файли експортовано</string>
+	<string name="screen_file_browser_nothing_to_export">Нічого експортувати</string>
+	<string name="screen_file_browser_msg_creating_download_dir_failed">Не вдалося створити каталог для завантажень</string>
+	<string name="screen_file_browser_node_action_share">Поділитись</string>
+	<string name="screen_file_browser_node_action_rename">Перейменувати</string>
+	<string name="screen_file_browser_node_action_edit_text">Редагувати</string>
+	<string name="screen_file_browser_node_action_export">Експорт</string>
+	<string name="screen_file_browser_node_action_delete">Видалити</string>
+	<string name="screen_file_browser_node_action_open_with_text">Відкрити з&#8230;</string>
 	<!-- ## screen: text editor -->
 	<!-- ## screen: share files -->
 	<!-- ## screen: choose cloud service -->
@@ -19,13 +96,25 @@
 	<!-- ## screen: s3 settings -->
 	<!-- ## screen: enter vault name -->
 	<!-- ## screen: set password -->
+	<string name="screen_set_password_strength_indicator_0">Занадто слабкий пароль для створення сховища</string>
+	<string name="screen_set_password_strength_indicator_1">Слабкий</string>
+	<string name="screen_set_password_strength_indicator_2">Середній</string>
+	<string name="screen_set_password_strength_indicator_3">Надійний</string>
+	<string name="screen_set_password_strength_indicator_4">Дуже надійний</string>
 	<!-- ## screen: settings -->
+	<string name="screen_settings_section_general">Основні налаштування</string>
+	<string name="screen_settings_cloud_settings_label">Хмарні сервіси</string>
+	<string name="screen_settings_biometric_auth">Біометрична автентифікація</string>
+	<string name="screen_settings_activate_biometric_auth">Активувати біометричну автентифікацію</string>
+	<string name="screen_settings_confirm_face_unlock">Підтвердити розблокування обличчям (якщо доступно)</string>
+	<string name="screen_settings_section_search">Пошук</string>
 	<!-- ## screen: cloud settings -->
 	<!-- ## screen: licenses -->
 	<!-- ## screen: authenticate cloud -->
 	<!-- ## screen: insecure android version info -->
 	<!-- # dialogs -->
 	<!-- Vault not found -->
+	<string name="dialog_vault_not_found_positive_button_text">Прибрати</string>
 	<!-- # error reports -->
 	<!-- # misc -->
 	<!-- ## file size helper -->
