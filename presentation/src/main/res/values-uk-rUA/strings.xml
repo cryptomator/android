@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 	<!-- # app -->
+	<string name="share_with_label">Зашифрувати</string>
 	<!-- # error messages -->
+	<string name="error_generic">Виникла помилка</string>
 	<!-- # clouds -->
 	<!-- ## cloud names -->
 	<!-- # permission -->
