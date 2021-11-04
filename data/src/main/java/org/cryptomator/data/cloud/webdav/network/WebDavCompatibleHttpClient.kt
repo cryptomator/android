@@ -22,7 +22,6 @@ import java.io.IOException
 import java.nio.charset.StandardCharsets
 import java.util.concurrent.ConcurrentHashMap
 import java.util.concurrent.TimeUnit
-import javax.net.ssl.X509TrustManager
 import okhttp3.Authenticator
 import okhttp3.Cache
 import okhttp3.CacheControl
@@ -69,16 +68,15 @@ internal class WebDavCompatibleHttpClient(cloud: WebDavCloud, context: Context) 
 					.addInterceptor(provideOfflineCacheInterceptor(context))
 			}
 
-			val trustManager: X509TrustManager
-			if (usingWebDavWithSelfSignedCertificate(webDavCloud)) {
+			val trustManager = if (usingWebDavWithSelfSignedCertificate(webDavCloud)) {
 				val pinningTrustManager = PinningTrustManager(webDavCloud.certificate())
-				trustManager = pinningTrustManager
 				builder.hostnameVerifier(pinningTrustManager.hostnameVerifier())
+				pinningTrustManager
 			} else {
-				trustManager = DefaultTrustManager()
+				DefaultTrustManager()
 			}
-
 			builder.sslSocketFactory(SSLSocketFactories.from(trustManager), trustManager)
+
 			return builder.build()
 		}
 
