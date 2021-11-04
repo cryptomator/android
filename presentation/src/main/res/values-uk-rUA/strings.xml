@@ -168,8 +168,10 @@
 	<!-- ## screen: insecure android version info -->
 	<!-- # dialogs -->
 	<string name="dialog_button_cancel">Відмінити</string>
+	<string name="dialog_enter_password_positive_button">Розблокувати</string>
 	<!-- Vault not found -->
 	<string name="dialog_vault_not_found_positive_button_text">Прибрати</string>
+	<string name="dialog_lock_vault">Заблокувати</string>
 	<string name="dialog_app_is_obscured_info_neutral_button">Закрити</string>
 	<string name="dialog_sym_link_back_button">Назад</string>
 	<!-- # error reports -->
