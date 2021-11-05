@@ -14,11 +14,11 @@
 	<string name="error_no_such_file">Файл не существует.</string>
 	<string name="error_vault_has_been_locked">Хранилище заблокировано.</string>
 	<string name="error_cloud_already_exists">Облако уже существует.</string>
-	<string name="error_activity_not_found">Скачайте приложение, которое может открыть этот файл.</string>
+	<string name="error_activity_not_found">Пожалуйста, скачайте приложение, которое может открыть этот файл.</string>
 	<string name="error_server_not_found">Сервер не найден.</string>
-	<string name="error_device_policy_manager_not_found">Откройте настройки устройств и установите блокировку экрана вручную</string>
-	<string name="error_export_illegal_file_name">Ошибка экспорта. Попробуйте удалить спецсимволы из имён файлов и экспортировать снова.</string>
-	<string name="error_name_contains_invalid_characters">Не может содержать спецсимволы.</string>
+	<string name="error_device_policy_manager_not_found">Откройте настройки устройства и установите блокировку экрана вручную</string>
+	<string name="error_export_illegal_file_name">Не удалось экспортировать. Попробуйте удалить специальные символы из имен файлов и экспортировать снова.</string>
+	<string name="error_name_contains_invalid_characters">Не может содержать специальные символы.</string>
 	<string name="error_names_contains_invalid_characters">В имени файла не может быть спецсимволов.</string>
 	<string name="error_vault_name_contains_invalid_characters">В имени хранилища не может быть спецсимволов.</string>
 	<string name="error_general_update">Не удалось проверить наличие обновления. Общая ошибка.</string>

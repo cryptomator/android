@@ -41,6 +41,7 @@
 	<string name="permission_message_export_file">Cryptomator behöver åtkomst till lagringsutrymme för att exportera filer</string>
 	<string name="permission_message_upload_file">Cryptomator behöver åtkomst till lagringsutrymme för att ladda upp filer</string>
 	<string name="permission_message_share_file">Cryptomator behöver åtkomst till lagringsutrymme för att dela filer</string>
+	<string name="permission_revoked_re_request_permission">Cryptomator har förlorat behörighet att komma åt den här platsen. Välj denna mapp igen för att återställa behörigheten.</string>
 	<string name="snack_bar_action_title_settings">Inställningar</string>
 	<string name="snack_bar_action_title_search">Sök</string>
 	<string name="snack_bar_action_title_search_previous">Föregående</string>
@@ -288,6 +289,10 @@
 	<string name="dialog_app_is_obscured_info_title">Appen är täckt</string>
 	<string name="dialog_app_is_obscured_info_hint">En annan app visar något ovanpå Cryptomator (t.ex., ett blått ljusfilter eller nattläge app). Av säkerhetsskäl är Cryptomator inaktiverad.\n\n<a href="https://docs.cryptomator.org/en/1.5/android/settings/#block-app-when-obscured">Så här aktiverar du Cryptomator</a></string>
 	<string name="dialog_app_is_obscured_info_neutral_button">Stäng</string>
+	<string name="dialog_vaults_removed_during_migration_title">Vänligen lägg till valv igen för %1s molnet</string>
+	<string name="dialog_vaults_removed_during_migration_hint">Medan vi migrerar till den här appversionen måste vi ta bort följande valv från appen:\n%2s \n\nDessa valv tas inte bort från molnet utan endast från den här appen. Ledsen för besväret. Du lägger sedan till dessa valv igen för att fortsätta arbeta med dem.</string>
+	<string name="dialog_vault_is_root_folder_of_cloud_title">Valvet är rotmapp för molnanslutningen</string>
+	<string name="dialog_vault_is_root_folder_of_cloud_hint">Skapa en ny molnanslutning där du väljer minst den överordnade mappen i denna valvkatalog som rotkatalog för att lägga till valvet.</string>
 	<string name="dialog_disable_secure_screen_disclaimer_hint">Den här inställningen är en säkerhetsfunktion och hindrar andra appar från att lura användare att göra saker de inte vill göra.\n\nGenom att inaktivera bekräftar du att du är <a href="https://docs.cryptomator.org/en/1.5/android/settings/#screen-security">medveten om riskerna</a>.</string>
 	<string name="dialog_delete_cloud_connection_with_vaults_message">Är du säker på att du vill ta bort den här molnanslutningen?</string>
 	<string name="dialog_delete_cloud_connection_with_vaults_hint">Denna åtgärd kommer att ta bort molnanslutningen och alla valv i detta moln.</string>
