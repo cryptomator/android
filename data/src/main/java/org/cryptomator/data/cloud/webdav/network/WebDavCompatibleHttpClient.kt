@@ -1,7 +1,6 @@
 package org.cryptomator.data.cloud.webdav.network
 
 import android.content.Context
-import android.net.ConnectivityManager
 import com.burgstaller.okhttp.AuthenticationCacheInterceptor
 import com.burgstaller.okhttp.CachingAuthenticatorDecorator
 import com.burgstaller.okhttp.DispatchingAuthenticator
@@ -22,7 +21,6 @@ import java.io.IOException
 import java.nio.charset.StandardCharsets
 import java.util.concurrent.ConcurrentHashMap
 import java.util.concurrent.TimeUnit
-import javax.net.ssl.X509TrustManager
 import okhttp3.Authenticator
 import okhttp3.Cache
 import okhttp3.CacheControl
@@ -66,33 +64,30 @@ internal class WebDavCompatibleHttpClient(cloud: WebDavCloud, context: Context) 
 				val cache = Cache(LruFileCacheUtil(context).resolve(LruFileCacheUtil.Cache.WEBDAV), lruCacheSize.toLong())
 				builder.cache(cache) //
 					.addNetworkInterceptor(provideCacheInterceptor()) //
-					.addInterceptor(provideOfflineCacheInterceptor(context))
+					.addInterceptor(provideOfflineCacheInterceptor())
 			}
 
-			val trustManager: X509TrustManager
-			if (usingWebDavWithSelfSignedCertificate(webDavCloud)) {
+			val trustManager = if (usingWebDavWithSelfSignedCertificate(webDavCloud)) {
 				val pinningTrustManager = PinningTrustManager(webDavCloud.certificate())
-				trustManager = pinningTrustManager
 				builder.hostnameVerifier(pinningTrustManager.hostnameVerifier())
+				pinningTrustManager
 			} else {
-				trustManager = DefaultTrustManager()
+				DefaultTrustManager()
 			}
-
 			builder.sslSocketFactory(SSLSocketFactories.from(trustManager), trustManager)
+
 			return builder.build()
 		}
 
-		private fun provideOfflineCacheInterceptor(context: Context): Interceptor {
+		private fun provideOfflineCacheInterceptor(): Interceptor {
 			return Interceptor { chain: Interceptor.Chain ->
 				var request = chain.request()
-				if (isNetworkAvailable(context)) {
-					val cacheControl = CacheControl.Builder() //
-						.maxAge(0, TimeUnit.DAYS) //
-						.build()
-					request = request.newBuilder() //
-						.cacheControl(cacheControl) //
-						.build()
-				}
+				val cacheControl = CacheControl.Builder() //
+					.maxAge(0, TimeUnit.DAYS) //
+					.build()
+				request = request.newBuilder() //
+					.cacheControl(cacheControl) //
+					.build()
 				chain.proceed(request)
 			}
 		}
@@ -146,12 +141,6 @@ internal class WebDavCompatibleHttpClient(cloud: WebDavCloud, context: Context) 
 
 		private fun usingWebDavWithSelfSignedCertificate(webDavCloud: WebDavCloud): Boolean {
 			return webDavCloud.certificate() != null
-		}
-
-		private fun isNetworkAvailable(context: Context): Boolean {
-			val connectivityManager = context.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
-			val activeNetworkInfo = connectivityManager.activeNetworkInfo
-			return activeNetworkInfo != null && activeNetworkInfo.isConnected
 		}
 	}
 
