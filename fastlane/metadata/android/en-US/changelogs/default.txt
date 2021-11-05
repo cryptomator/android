@@ -1,3 +1,4 @@
 - Upload photos instantly when auto photo upload is enabled and vault is unlocked
 - Fixed vault name is empty when it is the root folder of the cloud
-- Refactor access to local storage
+- Refactored access to local storage
+- Enhanced security of WebDAV connections
