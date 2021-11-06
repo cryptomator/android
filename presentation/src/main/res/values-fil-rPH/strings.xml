@@ -32,6 +32,7 @@
 	<string name="snack_bar_action_title_search">Hanapin</string>
 	<string name="snack_bar_action_title_search_previous">Nakaraan</string>
 	<string name="snack_bar_action_title_search_next">Sunod</string>
+	<string name="snack_bar_action_title_sort">Ayusin</string>
 	<string name="snack_bar_action_title_sort_az">A - Z</string>
 	<string name="snack_bar_action_title_sort_za">Z - A</string>
 	<string name="snack_bar_action_title_sort_newest">Bago muna</string>
@@ -70,6 +71,7 @@
 	<string name="screen_file_browser_node_action_export">I-export</string>
 	<string name="screen_file_browser_node_action_delete">Burahin</string>
 	<string name="screen_file_browser_node_action_open_with_text">Buksan gamit ang &#8230;</string>
+	<string name="screen_file_browser_selection_mode_title_zero_elements">Pumilii</string>
 	<string name="screen_file_browser_selection_mode_title_one_or_more_elements">%1$d ang nakapili</string>
 	<string name="screen_file_browser_select_items">Piliin</string>
 	<string name="screen_file_browser_select_all_items">Piliin lahat</string>
@@ -92,6 +94,8 @@
 	<!-- ## screen: cloud connections -->
 	<string name="screen_cloud_connections_title">Piliin ang location</string>
 	<string name="screen_cloud_connections_no_connections">Pindutin dito upang magdagdag ng lugar</string>
+	<string name="screen_cloud_error_webdav_not_supported">Ang server na ito ay mukhang hindi tugma sa WebDAV</string>
+	<string name="screen_cloud_local_error_no_content_provider">Walang ibang lokasyon na magagamit.</string>
 	<!-- ## screen: webdav settings -->
 	<string name="screen_webdav_settings_url_port_label">URL</string>
 	<string name="screen_webdav_settings_username_label">Username</string>
@@ -100,7 +104,9 @@
 	<string name="screen_webdav_settings_msg_url_must_not_be_empty">Hindi maaaring walang laman ang URL.</string>
 	<string name="screen_webdav_settings_msg_url_is_invalid">Hindi tama ang URL.</string>
 	<string name="screen_webdav_settings_msg_username_must_not_be_empty">Hindi maaaring walang laman ang username.</string>
+	<string name="screen_webdav_settings_msg_password_must_not_be_empty">Hindi maaaring walang laman ang password.</string>
 	<!-- ## screen: s3 settings -->
+	<string name="screen_s3_settings_access_key_label">Access Key</string>
 	<string name="screen_s3_settings_region_label">Rehiyon</string>
 	<string name="screen_s3_settings_msg_bucket_not_empty">Hindi maaaring walang laman ang bucket</string>
 	<string name="screen_s3_settings_msg_endpoint_and_region_not_empty">Hindi maaaring walang laman ang endpoint o ang rehiyon</string>
