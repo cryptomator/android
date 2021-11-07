@@ -41,6 +41,7 @@
 	<string name="permission_message_export_file">Cryptomator necessita dell\'accesso all\'archivio per esportare i file</string>
 	<string name="permission_message_upload_file">Cryptomator ha bisogno di accesso all\'archivio per caricare i file</string>
 	<string name="permission_message_share_file">Cryptomator ha bisogno di accesso all\'archivio per condividere i file</string>
+	<string name="permission_revoked_re_request_permission">Cryptomator ha perso il permesso di accedere a questa posizione. Si prega di selezionare nuovamente questa cartella per ripristinare il permesso.</string>
 	<string name="snack_bar_action_title_settings">Impostazioni</string>
 	<string name="snack_bar_action_title_search">Cerca</string>
 	<string name="snack_bar_action_title_search_previous">Precedente</string>
@@ -288,6 +289,8 @@
 	<string name="dialog_app_is_obscured_info_title">L\'app è oscurata</string>
 	<string name="dialog_app_is_obscured_info_hint">Un\'altra app sta mostrando qualcosa sopra Cryptomator (ad esempio, un filtro luce blu o un\'app per la modalità notturna). Per motivi di sicurezza, Cryptomator è disabilitato.\n\n<a href="https://docs.cryptomator.org/en/1.5/android/settings/#block-app-when-obscured">Come abilitare Cryptomator</a></string>
 	<string name="dialog_app_is_obscured_info_neutral_button">Chiudi</string>
+	<string name="dialog_vaults_removed_during_migration_title">Si prega di ri-aggiungere cassaforti per il cloud %1s</string>
+	<string name="dialog_vaults_removed_during_migration_hint">Durante la migrazione a questa versione dell\'app abbiamo avuto bisogno di rimuovere le seguenti cassaforti dall\'app:\n%2s \n\nQueste cassaforti non sono state rimosse dal cloud ma solo da questa app. Siamo spiacenti per l\'inconveniente e si prega di ri-aggiungere queste cassaforti per continuare ad usarle.</string>
 	<string name="dialog_disable_secure_screen_disclaimer_hint">Questa impostazione è una funzione di sicurezza e impedisce ad altre applicazioni di ingannare gli utenti a fare cose che non sono in grado di fare.\n\nDisabilitandola confermi di essere <a href="https://docs.cryptomator.org/en/1.5/android/settings/#screen-security">a conoscenza dei rischi</a>.</string>
 	<string name="dialog_delete_cloud_connection_with_vaults_message">Sei sicuro di voler rimuovere questa connessione cloud?</string>
 	<string name="dialog_delete_cloud_connection_with_vaults_hint">Questa azione rimuoverà la connessione cloud e tutte le cassaforti di questo cloud.</string>
