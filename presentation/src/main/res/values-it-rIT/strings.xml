@@ -291,6 +291,8 @@
 	<string name="dialog_app_is_obscured_info_neutral_button">Chiudi</string>
 	<string name="dialog_vaults_removed_during_migration_title">Si prega di ri-aggiungere cassaforti per il cloud %1s</string>
 	<string name="dialog_vaults_removed_during_migration_hint">Durante la migrazione a questa versione dell\'app abbiamo avuto bisogno di rimuovere le seguenti cassaforti dall\'app:\n%2s \n\nQueste cassaforti non sono state rimosse dal cloud ma solo da questa app. Siamo spiacenti per l\'inconveniente e si prega di ri-aggiungere queste cassaforti per continuare ad usarle.</string>
+	<string name="dialog_vault_is_root_folder_of_cloud_title">La cassaforte è la cartella root della connessione al cloud</string>
+	<string name="dialog_vault_is_root_folder_of_cloud_hint">Crea una nuova connessione al cloud dove bisogna selezionare almeno la cartella padre di questa cassaforte come cartella radice per aggiungere questa cassaforte.</string>
 	<string name="dialog_disable_secure_screen_disclaimer_hint">Questa impostazione è una funzione di sicurezza e impedisce ad altre applicazioni di ingannare gli utenti a fare cose che non sono in grado di fare.\n\nDisabilitandola confermi di essere <a href="https://docs.cryptomator.org/en/1.5/android/settings/#screen-security">a conoscenza dei rischi</a>.</string>
 	<string name="dialog_delete_cloud_connection_with_vaults_message">Sei sicuro di voler rimuovere questa connessione cloud?</string>
 	<string name="dialog_delete_cloud_connection_with_vaults_hint">Questa azione rimuoverà la connessione cloud e tutte le cassaforti di questo cloud.</string>
