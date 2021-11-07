@@ -237,7 +237,11 @@
 	<string name="dialog_confirm_delete_multiple_message">您確定要刪除這些項目嗎？</string>
 	<string name="dialog_confirm_delete_file_message">您確定要刪除這個檔案嗎？</string>
 	<string name="dialog_enter_license_title">提供一個有效的許可證書</string>
+	<string name="dialog_enter_license_content">我們檢測到你沒有使用 Google Play 商店安裝 Cryptomator。提供一個有效的許可證書，證書可以從<a href="https://cryptomator.org/android/">https://cryptomator.org/android/</a>購買</string>
+	<string name="dialog_enter_license_not_valid_content">提供的許可證書無效。請確認您輸入無誤。</string>
+	<string name="dialog_enter_license_no_content">未提供許可證書。請輸入一個有效的許可證書。</string>
 	<string name="dialog_enter_license_decline_button">退出</string>
+	<string name="dialog_license_confirmation_title">許可證書確認</string>
 	<string name="dialog_update_available_title">有可用更新</string>
 	<string name="dialog_update_available_update">現在更新</string>
 	<string name="dialog_update_available_download_site">前往下載網址</string>
@@ -248,14 +252,46 @@
 	<!-- # error reports -->
 	<!-- # misc -->
 	<!-- ## file size helper -->
+	<string name="file_size_zero">0 kB</string>
+	<string name="file_size_unit_bytes">位元組</string>
+	<string name="file_size_unit_kilo_bytes">kB</string>
+	<string name="file_size_unit_mega_bytes">MB</string>
+	<string name="file_size_unit_giga_bytes">GB</string>
+	<string name="file_size_unit_tera_bytes">TB</string>
 	<!-- ## date helper -->
+	<string name="time_unit_seconds_sg">秒</string>
+	<string name="time_unit_seconds_pl">秒</string>
+	<string name="time_unit_minutes_sg">分鐘</string>
 	<string name="time_unit_minutes_pl">分鐘</string>
+	<string name="time_unit_hours_sg">小時</string>
+	<string name="time_unit_hours_pl">小時</string>
+	<string name="time_unit_days_sg">天</string>
+	<string name="time_unit_days_pl">天</string>
+	<string name="time_unit_weeks_sg">周</string>
+	<string name="time_unit_weeks_pl">周</string>
+	<string name="time_unit_months_sg">月</string>
+	<string name="time_unit_months_pl">月</string>
+	<string name="time_unit_years_sg">年</string>
+	<string name="time_unit_years_pl">年</string>
 	<!-- ## biometric authentication -->
 	<!-- notification -->
 	<string name="screen_settings_check_updates">檢查更新</string>
 	<!-- lock timeout names -->
+	<string name="lock_timeout_instant">立即</string>
+	<string name="lock_timeout_1m">1分鐘</string>
+	<string name="lock_timeout_2m">2分鐘</string>
+	<string name="lock_timeout_5m">5分鐘</string>
+	<string name="lock_timeout_10m">10分鐘</string>
+	<string name="lock_timeout_never">從不</string>
 	<!-- cache size names -->
+	<string name="cache_size_50m">50 MB</string>
+	<string name="cache_size_100m">100 MB</string>
+	<string name="cache_size_250m">250 MB</string>
+	<string name="cache_size_500m">500 MB</string>
+	<string name="cache_size_1000m">1 GB</string>
+	<string name="cache_size_5000m">5 GB</string>
 	<!-- screen scheme mode names -->
+	<string name="screen_settings_style_mode">樣式</string>
 	<string name="follow_system">自動（跟隨系統）</string>
 	<string name="light">亮色</string>
 	<string name="dark">暗色</string>
