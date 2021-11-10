@@ -22,21 +22,39 @@
 	<!-- # screen: file browser -->
 	<string name="screen_file_browser_share_intent_chooser_title">Itarulaku pampaṇḍi</string>
 	<string name="screen_file_browser_share_button_text">ఎంచుకోండి</string>
+	<string name="screen_file_browser_node_action_share">తో పంచు</string>
+	<string name="screen_file_browser_node_action_edit_text">మార్పు</string>
+	<string name="screen_file_browser_node_action_delete">తొలగించు</string>
+	<string name="screen_file_browser_no_connection_button_text">మళ్ళీ చేయండి</string>
 	<!-- ## screen: text editor -->
 	<!-- ## screen: share files -->
 	<!-- ## screen: choose cloud service -->
 	<!-- ## screen: cloud connections -->
 	<!-- ## screen: webdav settings -->
+	<string name="screen_webdav_settings_url_port_label">URL</string>
 	<!-- ## screen: s3 settings -->
 	<!-- ## screen: enter vault name -->
+	<string name="screen_enter_vault_name_button_text">సృష్టించు</string>
 	<!-- ## screen: set password -->
+	<string name="screen_set_password_button_text">పూర్తయింది</string>
+	<string name="screen_set_password_retype_password_label">పాస్వర్డ్ మళ్ళీ వ్రాయండి</string>
+	<string name="screen_set_password_strength_indicator_1">బలంగా లేదు</string>
+	<string name="screen_set_password_strength_indicator_2">అది సరే</string>
+	<string name="screen_set_password_strength_indicator_3">అది బలంగా ఉంది</string>
+	<string name="screen_set_password_strength_indicator_4">అది చాలా బలంగా ఉంది</string>
 	<!-- ## screen: settings -->
+	<string name="screen_settings_section_search">వెతకండి</string>
+	<string name="screen_settings_section_support">సహాయం</string>
 	<!-- ## screen: cloud settings -->
 	<!-- ## screen: licenses -->
 	<!-- ## screen: authenticate cloud -->
 	<!-- ## screen: insecure android version info -->
 	<!-- # dialogs -->
+	<string name="dialog_button_cancel">ఆపండి</string>
+	<string name="dialog_enter_password_positive_button">తాళం తెరవండి</string>
 	<!-- Vault not found -->
+	<string name="dialog_unable_to_share_positive_button">సరే</string>
+	<string name="dialog_accept_ssl_certificate_title">తప్పు SSL certificate</string>
 	<!-- # error reports -->
 	<!-- # misc -->
 	<!-- ## file size helper -->
