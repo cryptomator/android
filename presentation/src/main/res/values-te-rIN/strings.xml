@@ -7,9 +7,21 @@
 	<!-- ## cloud names -->
 	<!-- # permission -->
 	<!-- ## permission messages -->
+	<string name="snack_bar_action_title_sort">అమర్చు</string>
+	<string name="snack_bar_action_title_sort_az">A - Z</string>
+	<string name="snack_bar_action_title_sort_za">Z - A</string>
+	<string name="snack_bar_action_title_sort_newest">కొత్త మొదటి</string>
+	<string name="snack_bar_action_title_sort_oldest">పాతది ముందు</string>
+	<string name="snack_bar_action_title_sort_biggest">పెద్దది ముందు</string>
+	<string name="snack_bar_action_title_sort_smallest">చిన్న ముందు</string>
 	<!-- # screens -->
 	<!-- # screen: vault list -->
+	<string name="screen_vault_list_actions_title">Kripṭōmēṭar‌lō cērcaṇḍi</string>
+	<string name="screen_vault_list_action_create_new_vault">కొత్త ఖజానాను సృష్టించండి</string>
+	<string name="screen_vault_list_action_add_existing_vault">ఇప్పటికే ఉన్న ఖజానాను తెరవండి</string>
 	<!-- # screen: file browser -->
+	<string name="screen_file_browser_share_intent_chooser_title">Itarulaku pampaṇḍi</string>
+	<string name="screen_file_browser_share_button_text">ఎంచుకోండి</string>
 	<!-- ## screen: text editor -->
 	<!-- ## screen: share files -->
 	<!-- ## screen: choose cloud service -->
