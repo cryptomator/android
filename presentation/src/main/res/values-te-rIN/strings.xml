@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 	<!-- # app -->
+	<string name="share_with_label">ఎన్‌క్రిప్ట్</string>
 	<!-- # error messages -->
 	<!-- # clouds -->
 	<!-- ## cloud names -->
