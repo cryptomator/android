@@ -59,12 +59,6 @@ public class PCloud implements Cloud {
 		return username.equals(cloud.username);
 	}
 
-
-	@Override
-	public boolean predefined() {
-		return false;
-	}
-
 	@Override
 	public boolean persistent() {
 		return true;

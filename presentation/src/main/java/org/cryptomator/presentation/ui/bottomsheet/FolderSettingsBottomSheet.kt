@@ -1,6 +1,5 @@
 package org.cryptomator.presentation.ui.bottomsheet
 
-import android.os.Build
 import android.os.Bundle
 import android.view.View
 import org.cryptomator.generator.BottomSheet
@@ -46,12 +45,10 @@ class FolderSettingsBottomSheet : BaseBottomSheet<FolderSettingsBottomSheet.Call
 			callback?.onMoveFolderClicked(cloudFolderModel)
 			dismiss()
 		}
-		if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-			export_folder.visibility = View.VISIBLE
-			export_folder.setOnClickListener {
-				callback?.onExportFolderClicked(cloudFolderModel)
-				dismiss()
-			}
+		export_folder.visibility = View.VISIBLE
+		export_folder.setOnClickListener {
+			callback?.onExportFolderClicked(cloudFolderModel)
+			dismiss()
 		}
 		delete_folder.setOnClickListener {
 			callback?.onDeleteNodeClicked(cloudFolderModel)

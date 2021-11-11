@@ -90,17 +90,14 @@ class SettingsPresenter @Inject internal constructor(
 		requestPermissions(
 			PermissionsResultCallbacks.onLocalStoragePermissionGranted(),  //
 			R.string.permission_snackbar_auth_auto_upload,  //
-			Manifest.permission.READ_EXTERNAL_STORAGE,  //
-			Manifest.permission.WRITE_EXTERNAL_STORAGE
+			Manifest.permission.READ_EXTERNAL_STORAGE
 		)
 	}
 
 	@Callback
 	fun onLocalStoragePermissionGranted(result: PermissionsResult) {
 		if (result.granted()) {
-			if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-				scheduleJob(context())
-			}
+			scheduleJob(context())
 		} else {
 			view?.disableAutoUpload()
 		}

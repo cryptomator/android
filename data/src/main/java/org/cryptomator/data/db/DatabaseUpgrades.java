@@ -27,7 +27,8 @@ class DatabaseUpgrades {
 			Upgrade5To6 upgrade5To6, //
 			Upgrade6To7 upgrade6To7, //
 			Upgrade7To8 upgrade7To8, //
-			Upgrade8To9 upgrade8To9) {
+			Upgrade8To9 upgrade8To9, //
+			Upgrade9To10 upgrade9To10) {
 
 		availableUpgrades = defineUpgrades( //
 				upgrade0To1, //
@@ -38,7 +39,8 @@ class DatabaseUpgrades {
 				upgrade5To6, //
 				upgrade6To7, //
 				upgrade7To8, //
-				upgrade8To9);
+				upgrade8To9, //
+				upgrade9To10);
 	}
 
 	private static Comparator<DatabaseUpgrade> reverseOrder() {

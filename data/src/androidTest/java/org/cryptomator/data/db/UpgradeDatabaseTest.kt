@@ -50,6 +50,7 @@ class UpgradeDatabaseTest {
 		Upgrade6To7().applyTo(db, 6)
 		Upgrade7To8().applyTo(db, 7)
 		Upgrade8To9(sharedPreferencesHandler).applyTo(db, 8)
+		Upgrade9To10(sharedPreferencesHandler).applyTo(db, 9)
 
 		CloudEntityDao(DaoConfig(db, CloudEntityDao::class.java)).loadAll()
 		VaultEntityDao(DaoConfig(db, VaultEntityDao::class.java)).loadAll()
@@ -407,4 +408,66 @@ class UpgradeDatabaseTest {
 
 		Assert.assertThat(sharedPreferencesHandler.isBetaModeAlreadyShown(), CoreMatchers.`is`(false))
 	}
+
+	@Test
+	fun upgrade9To10() {
+		Upgrade0To1().applyTo(db, 0)
+		Upgrade1To2().applyTo(db, 1)
+		Upgrade2To3(context).applyTo(db, 2)
+		Upgrade3To4().applyTo(db, 3)
+		Upgrade4To5().applyTo(db, 4)
+		Upgrade5To6().applyTo(db, 5)
+		Upgrade6To7().applyTo(db, 6)
+		Upgrade7To8().applyTo(db, 7)
+		Upgrade8To9(sharedPreferencesHandler).applyTo(db, 8)
+
+		Sql.insertInto("CLOUD_ENTITY") //
+			.integer("_id", 15) //
+			.text("TYPE", CloudType.LOCAL.name) //
+			.text("URL", "url") //
+			.text("USERNAME", "username") //
+			.text("WEBDAV_CERTIFICATE", "certificate") //
+			.text("ACCESS_TOKEN", "accessToken")
+			.text("S3_BUCKET", "s3Bucket") //
+			.text("S3_REGION", "s3Region") //
+			.text("S3_SECRET_KEY", "s3SecretKey") //
+			.executeOn(db)
+
+		Sql.insertInto("VAULT_ENTITY") //
+			.integer("_id", 25) //
+			.integer("FOLDER_CLOUD_ID", 15) //
+			.text("FOLDER_PATH", "path") //
+			.text("FOLDER_NAME", "name") //
+			.text("CLOUD_TYPE", CloudType.LOCAL.name) //
+			.text("PASSWORD", "password") //
+			.integer("POSITION", 10) //
+			.executeOn(db)
+
+		Sql.insertInto("VAULT_ENTITY") //
+			.integer("_id", 26) //
+			.integer("FOLDER_CLOUD_ID", 4) //
+			.text("FOLDER_PATH", "pathOfVault26") //
+			.text("FOLDER_NAME", "name") //
+			.text("CLOUD_TYPE", CloudType.LOCAL.name) //
+			.text("PASSWORD", "password") //
+			.integer("POSITION", 11) //
+			.executeOn(db)
+
+		Sql.query("CLOUD_ENTITY").executeOn(db).use {
+			Assert.assertThat(it.count, CoreMatchers.`is`(5))
+		}
+
+		Upgrade9To10(sharedPreferencesHandler).applyTo(db, 9)
+
+		Sql.query("VAULT_ENTITY").executeOn(db).use {
+			Assert.assertThat(it.count, CoreMatchers.`is`(1))
+		}
+
+		Sql.query("CLOUD_ENTITY").executeOn(db).use {
+			Assert.assertThat(it.count, CoreMatchers.`is`(4))
+		}
+
+		Assert.assertThat(sharedPreferencesHandler.vaultsRemovedDuringMigration(), CoreMatchers.`is`(Pair("LOCAL", arrayListOf("pathOfVault26"))))
+	}
+
 }

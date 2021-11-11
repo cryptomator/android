@@ -67,7 +67,7 @@ class UnlockVaultPresenter @Inject constructor(
 		super.destroyed()
 		if (retryUnlockHandler != null) {
 			running = false
-			retryUnlockHandler?.removeCallbacks(null)
+			retryUnlockHandler?.removeCallbacksAndMessages(null)
 		}
 	}
 
@@ -140,11 +140,12 @@ class UnlockVaultPresenter @Inject constructor(
 		}
 	}
 
+	// FIXME why is this method not used?
 	fun onWindowFocusChanged(hasFocus: Boolean) {
 		if (hasFocus) {
 			if (retryUnlockHandler != null) {
 				running = false
-				retryUnlockHandler?.removeCallbacks(null)
+				retryUnlockHandler?.removeCallbacksAndMessages(null)
 			}
 		}
 	}

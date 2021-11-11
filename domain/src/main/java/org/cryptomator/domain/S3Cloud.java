@@ -80,12 +80,6 @@ public class S3Cloud implements Cloud {
 		return s3Bucket.equals(cloud.s3Bucket) && s3Endpoint.equals(cloud.s3Endpoint) && s3Region.equals(cloud.s3Region);
 	}
 
-
-	@Override
-	public boolean predefined() {
-		return false;
-	}
-
 	@Override
 	public boolean persistent() {
 		return true;

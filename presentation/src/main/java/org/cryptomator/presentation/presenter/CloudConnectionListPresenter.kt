@@ -3,9 +3,7 @@ package org.cryptomator.presentation.presenter
 import android.content.ActivityNotFoundException
 import android.content.Intent
 import android.net.Uri
-import android.os.Build
 import android.widget.Toast
-import androidx.annotation.RequiresApi
 import org.cryptomator.domain.Cloud
 import org.cryptomator.domain.LocalStorageCloud
 import org.cryptomator.domain.PCloud
@@ -251,7 +249,6 @@ class CloudConnectionListPresenter @Inject constructor( //
 	}
 
 	@Callback
-	@RequiresApi(api = Build.VERSION_CODES.KITKAT)
 	fun pickedLocalStorageLocation(result: ActivityResult) {
 		val rootTreeUriOfLocalStorage = result.intent().data
 		persistUriPermission(rootTreeUriOfLocalStorage)
@@ -266,7 +263,6 @@ class CloudConnectionListPresenter @Inject constructor( //
 		})
 	}
 
-	@RequiresApi(api = Build.VERSION_CODES.KITKAT)
 	private fun persistUriPermission(rootTreeUriOfLocalStorage: Uri?) {
 		rootTreeUriOfLocalStorage?.let {
 			context() //
@@ -278,7 +274,6 @@ class CloudConnectionListPresenter @Inject constructor( //
 		}
 	}
 
-	@RequiresApi(api = Build.VERSION_CODES.KITKAT)
 	private fun releaseUriPermission(uri: String) {
 		context() //
 			.contentResolver //
@@ -292,10 +287,6 @@ class CloudConnectionListPresenter @Inject constructor( //
 		if (view?.isFinishOnNodeClicked == true) {
 			finishWithResult(SELECTED_CLOUD, cloudModel.toCloud())
 		}
-	}
-
-	fun onDefaultLocalCloudConnectionClicked() {
-		finishWithResult(SELECTED_CLOUD, defaultLocalStorageCloud)
 	}
 
 	companion object {

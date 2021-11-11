@@ -76,9 +76,6 @@ class CloudRepositoryImpl implements CloudRepository {
 
 	@Override
 	public void delete(Cloud cloud) {
-		if (cloud.predefined()) {
-			throw new IllegalArgumentException("Can not delete predefined cloud");
-		}
 		if (!cloud.persistent()) {
 			throw new IllegalArgumentException("Can not delete non persistent cloud");
 		}

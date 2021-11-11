@@ -1,6 +1,5 @@
 package org.cryptomator.data.cloud.webdav.network
 
-import android.content.Context
 import org.cryptomator.data.cloud.webdav.WebDavFolder
 import org.cryptomator.data.cloud.webdav.WebDavNode
 import org.cryptomator.domain.CloudFolder
@@ -26,7 +25,7 @@ import okhttp3.Request
 import okhttp3.RequestBody.Companion.toRequestBody
 import okhttp3.Response
 
-internal class WebDavClient(private val context: Context, private val httpClient: WebDavCompatibleHttpClient) {
+internal class WebDavClient(private val httpClient: WebDavCompatibleHttpClient) {
 
 	private val ASCENDING_BY_DEPTH = Comparator { o1: PropfindEntryData, o2: PropfindEntryData -> o1.getDepth() - o2.getDepth() }
 

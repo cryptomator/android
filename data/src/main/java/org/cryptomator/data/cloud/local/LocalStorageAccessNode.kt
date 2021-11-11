@@ -1,4 +1,4 @@
-package org.cryptomator.data.cloud.local.storageaccessframework
+package org.cryptomator.data.cloud.local
 
 import android.net.Uri
 import org.cryptomator.domain.CloudNode

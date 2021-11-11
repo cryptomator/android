@@ -1,6 +1,5 @@
 package org.cryptomator.domain;
 
-import android.os.Build;
 import android.text.TextUtils;
 
 import org.jetbrains.annotations.NotNull;
@@ -46,11 +45,6 @@ public class LocalStorageCloud implements Cloud {
 	private boolean configurationMatches(LocalStorageCloud cloud) {
 		return TextUtils.equals(rootUri, cloud.rootUri);
 
-	}
-
-	@Override
-	public boolean predefined() {
-		return Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP;
 	}
 
 	@Override

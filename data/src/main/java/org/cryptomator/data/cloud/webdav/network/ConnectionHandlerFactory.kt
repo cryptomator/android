@@ -9,6 +9,6 @@ import javax.inject.Singleton
 class ConnectionHandlerFactory @Inject constructor(private val context: Context) {
 
 	fun createConnectionHandler(cloud: WebDavCloud): ConnectionHandlerHandlerImpl {
-		return ConnectionHandlerHandlerImpl(WebDavCompatibleHttpClient(cloud, context), context)
+		return ConnectionHandlerHandlerImpl(WebDavCompatibleHttpClient(cloud, context))
 	}
 }

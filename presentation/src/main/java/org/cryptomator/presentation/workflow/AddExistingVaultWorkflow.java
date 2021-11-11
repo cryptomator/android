@@ -18,6 +18,7 @@ import org.cryptomator.presentation.model.ProgressModel;
 import org.cryptomator.presentation.model.mappers.CloudModelMapper;
 import org.cryptomator.presentation.presenter.ChooseCloudServicePresenter;
 import org.cryptomator.presentation.presenter.VaultListPresenter;
+import org.cryptomator.presentation.ui.dialog.VaultIsRootFolderOfCloudDialog;
 
 import java.io.Serializable;
 import java.util.Arrays;
@@ -116,9 +117,13 @@ public class AddExistingVaultWorkflow extends Workflow<AddExistingVaultWorkflow.
 	@Callback
 	void cryptomatorFileChosen(SerializableResult<CloudFileModel> result) {
 		CloudFileModel masterkeyFile = result.getResult();
-		state().masterkeyFile = masterkeyFile.toCloudNode();
-		presenter().getView().showProgress(ProgressModel.GENERIC);
-		finish();
+		if(!masterkeyFile.getPath().equals("/masterkey.cryptomator") && !masterkeyFile.getPath().equals("/vault.cryptomator")) {
+			state().masterkeyFile = masterkeyFile.toCloudNode();
+			presenter().getView().showProgress(ProgressModel.GENERIC);
+			finish();
+		} else {
+			presenter().getView().showDialog(VaultIsRootFolderOfCloudDialog.Companion.newInstance());
+		}
 	}
 
 	@Override

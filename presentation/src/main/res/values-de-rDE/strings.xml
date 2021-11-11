@@ -16,7 +16,7 @@
 	<string name="error_cloud_already_exists">Cloud existiert bereits.</string>
 	<string name="error_activity_not_found">Installiere eine App, die diesen Dateityp unterstützt.</string>
 	<string name="error_server_not_found">Server nicht gefunden.</string>
-	<string name="error_device_policy_manager_not_found">Bitte öffne die Einstellungen und setze den Sperrbildschirm von Hand</string>
+	<string name="error_device_policy_manager_not_found">Bitte öffne die Einstellungen Deines Geräts und stelle die Bildschirmsperre von Hand ein</string>
 	<string name="error_export_illegal_file_name">Export fehlgeschlagen. Versuche, Sonderzeichen aus den Dateinamen zu entfernen und erneut zu exportieren.</string>
 	<string name="error_name_contains_invalid_characters">Keine Sonderzeichen möglich.</string>
 	<string name="error_names_contains_invalid_characters">Dateinamen können keine Sonderzeichen enthalten.</string>
@@ -27,7 +27,7 @@
 	<string name="error_failed_to_decrypt_webdav_password">Beim entschlüsseln des WebDAV-Passworts trat ein Fehler auf. Bitte in den Einstellungen erneut festlegen.</string>
 	<string name="error_play_services_not_available">Die Google Play Services sind nicht installiert</string>
 	<string name="error_biometric_auth_aborted">Biometrischer Login abgebrochen</string>
-	<string name="error_vault_version_mismatch">Die in der %1$s-Datei angegebene Version ist nicht identisch mit jener der %2$s-Datei</string>
+	<string name="error_vault_version_mismatch">Die in %1$s angegebene Version ist nicht identisch mit der Version in %2$s</string>
 	<string name="error_vault_key_invalid">%1$s-Datei stimmt nicht mit der %2$s-Datei überein</string>
 	<string name="error_vault_config_loading">Allgemeiner Fehler beim Laden der Tresorkonfiguration</string>
 	<string name="error_file_not_found_after_opening_using_3party">Lokale Datei ist nach dem Zurückwechseln zu Cryptomator nicht mehr vorhanden. Mögliche Änderungen können nicht in die Cloud übertragen werden.</string>
@@ -41,6 +41,7 @@
 	<string name="permission_message_export_file">Zum Exportieren von Dateien benötigt Cryptomator Speicherzugriff</string>
 	<string name="permission_message_upload_file">Zum Hochladen von Dateien benötigt Cryptomator Speicherzugriff</string>
 	<string name="permission_message_share_file">Zum Teilen von Dateien benötigt Cryptomator Speicherzugriff</string>
+	<string name="permission_revoked_re_request_permission">Cryptomator hat die Berechtigung zum Zugriff auf diesen Ort verloren. Bitte wähle diesen Ordner erneut aus, um die Berechtigung wiederherzustellen.</string>
 	<string name="snack_bar_action_title_settings">Einstellungen</string>
 	<string name="snack_bar_action_title_search">Suche</string>
 	<string name="snack_bar_action_title_search_previous">Vorheriges</string>
@@ -115,8 +116,6 @@
 	<string name="screen_cloud_connections_title">Ort auswählen</string>
 	<string name="screen_cloud_connections_no_connections">Hier klicken um einen neuen Ort hinzufügen</string>
 	<string name="screen_cloud_error_webdav_not_supported">Server scheint nicht WebDAV-kompatibel zu sein</string>
-	<string name="screen_cloud_local_custom_storage_title">Benutzerdefinierte Orte</string>
-	<string name="screen_cloud_local_default_storage_title">Standard-Speicher</string>
 	<string name="screen_cloud_local_error_no_content_provider">Weitere Orte sind nicht verfügbar.</string>
 	<!-- ## screen: webdav settings -->
 	<string name="screen_webdav_settings_url_port_label">URL</string>
@@ -290,6 +289,10 @@
 	<string name="dialog_app_is_obscured_info_title">App wird verdeckt</string>
 	<string name="dialog_app_is_obscured_info_hint">Eine App zeigt etwas über Cryptomator an (z.B. ein Blaulichtfilter oder eine Nachtmodus-App). Aus Sicherheitsgründen ist Cryptomator deaktiviert.\n\n<a href="https://docs.cryptomator.org/en/1.5/android/settings/#block-app-when-obscured">Wie Cryptomator aktiviert werden kann</a></string>
 	<string name="dialog_app_is_obscured_info_neutral_button">Schließen</string>
+	<string name="dialog_vaults_removed_during_migration_title">Bitte Tresore für die %1s-Cloud erneut hinzufügen</string>
+	<string name="dialog_vaults_removed_during_migration_hint">Während der Migration auf diese App-Version müssen wir folgende Tresore aus der App entfernen:\n%2s \n\nDiese Tresore werden nicht aus der Cloud entfernt, sondern nur aus dieser App. Entschuldigung für die Unannehmlichkeiten. Füge diese Tresore bitte erneut hinzu, um weiter mit ihnen zu arbeiten.</string>
+	<string name="dialog_vault_is_root_folder_of_cloud_title">Tresor ist Wurzelverzeichnis der Cloud-Verbindung</string>
+	<string name="dialog_vault_is_root_folder_of_cloud_hint">Erstelle eine neue Cloud-Verbindung, wo du mindestens den übergeordneten Ordner dieses Tresors als Wurzelverzeichnis auswählst, um diesen Tresor hinzuzufügen.</string>
 	<string name="dialog_disable_secure_screen_disclaimer_hint">Dies ist eine Sicherheitsfunktion, die andere Anwendungen daran hindert, Nutzer zu ungewollten Aktionen zu verleiten.\n\nDurch Deaktivieren bestätigst du, dass du dir <a href="https://docs.cryptomator.org/en/1.5/android/settings/#screen-security">der Risiken bewusst</a> bist.</string>
 	<string name="dialog_delete_cloud_connection_with_vaults_message">Bist du dir sicher, dass du die Cloud-Verbindung entfernen möchtest?</string>
 	<string name="dialog_delete_cloud_connection_with_vaults_hint">Dieser Vorgang wird die Cloud-Verbindung und alle zugehörigen Tresore löschen.</string>
@@ -321,7 +324,7 @@
 	<string name="dialog_no_more_images_to_display">Keine weiteren Bilder anzuzeigen&#8230;</string>
 	<string name="dialog_pcloud_credentials_updated_title">Anmeldedaten von \'%1$s\' aktualisiert</string>
 	<string name="dialog_pcloud_credentials_updated">Falls du ein neues pCloud-Konto hinzufügen wolltest, klicke auf diese URL <a href="https://www.pcloud.com">www.pcloud.com</a>, melde dich vom aktuellen Konto ab und klicke in dieser App erneut auf das „+“, um eine neue Cloud-Verbindung zu erstellen.</string>
-	<string name="permission_snackbar_auth_local_vault">Cryptomator benötigt Speicherzugriff, um lokale Tresore nutzen zu können</string>
+	<string name="permission_snackbar_auth_local_vault">Um lokale Tresore nutzen zu können benötigt Cryptomator Speicherzugriff</string>
 	<string name="permission_snackbar_auth_auto_upload">Cryptomator benötigt Zugriff auf den Speicher um den automatischen Foto-Upload zu nutzen</string>
 	<!-- # error reports -->
 	<!-- # misc -->

@@ -3,8 +3,6 @@ package org.cryptomator.presentation.presenter
 import android.Manifest
 import android.content.Intent
 import android.net.Uri
-import android.os.Build
-import android.os.Environment
 import org.cryptomator.domain.CloudFile
 import org.cryptomator.domain.CloudNode
 import org.cryptomator.domain.di.PerView
@@ -30,9 +28,7 @@ import org.cryptomator.presentation.util.ShareFileHelper
 import org.cryptomator.presentation.workflow.ActivityResult
 import org.cryptomator.presentation.workflow.PermissionsResult
 import org.cryptomator.util.ExceptionUtil
-import java.io.File
 import java.io.FileNotFoundException
-import java.io.FileOutputStream
 import java.io.IOException
 import java.io.InputStream
 import java.io.OutputStream
@@ -58,37 +54,33 @@ class ImagePreviewPresenter @Inject constructor( //
 	@InstanceState
 	lateinit var pageIndexes: ArrayList<Int>
 
-	fun onExportImageClicked(uri: Uri) {
-		if (Build.VERSION.SDK_INT < Build.VERSION_CODES.KITKAT) {
-			copyFileToDownloadDirectory(uri)
-		} else {
-			copyFileToUserSelectedLocation(uri)
-		}
+	fun exportImageToUserSelectedLocation(uri: Uri) {
+		val intent = Intent(Intent.ACTION_CREATE_DOCUMENT)
+		intent.addCategory(Intent.CATEGORY_OPENABLE)
+		intent.type = "*/*"
+		intent.putExtra(Intent.EXTRA_TITLE, contentResolverUtil.fileName(uri))
+		requestActivityResult(ActivityResultCallbacks.exportImageToUserSelectedLocation(uri.toString()), intent)
 	}
 
-	private fun copyFileToDownloadDirectory(uri: Uri) {
+	@Callback
+	fun exportImageToUserSelectedLocation(result: ActivityResult, sourceUri: String?) {
 		requestPermissions(
-			PermissionsResultCallbacks.copyFileToDownloadDirectory(uri.toString()),  //
-			R.string.permission_message_export_file, Manifest.permission.WRITE_EXTERNAL_STORAGE
+			PermissionsResultCallbacks.exportImageToUserSelectedLocation(result.intent()?.dataString, sourceUri),  //
+			R.string.permission_message_export_file,  //
+			Manifest.permission.READ_EXTERNAL_STORAGE
 		)
 	}
 
 	@Callback
-	fun copyFileToDownloadDirectory(result: PermissionsResult, uriString: String?) {
+	fun exportImageToUserSelectedLocation(result: PermissionsResult, targetUri: String?, sourceUri: String?) {
 		if (result.granted()) {
-			val uriFile = Uri.parse(uriString)
-			val downloads = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS)
-			val cryptomatorDownloads = File(downloads, context().getString(R.string.download_subdirectory_name))
-			cryptomatorDownloads.mkdirs()
-			if (cryptomatorDownloads.isDirectory) {
-				val target = File(cryptomatorDownloads, contentResolverUtil.fileName(uriFile))
-				try {
-					copyFile(contentResolverUtil.openInputStream(uriFile), FileOutputStream(target))
-				} catch (e: FileNotFoundException) {
-					showError(e)
-				}
-			} else {
-				view?.showError(R.string.screen_file_browser_msg_creating_download_dir_failed)
+			try {
+				copyFile(
+					contentResolverUtil.openInputStream(Uri.parse(sourceUri)),  //
+					contentResolverUtil.openOutputStream(Uri.parse(targetUri))
+				)
+			} catch (e: FileNotFoundException) {
+				showError(e)
 			}
 		}
 	}
@@ -105,37 +97,6 @@ class ImagePreviewPresenter @Inject constructor( //
 					view?.showMessage(R.string.screen_file_browser_msg_file_exported)
 				}
 			})
-	}
-
-	private fun copyFileToUserSelectedLocation(uri: Uri) {
-		val intent = Intent(Intent.ACTION_CREATE_DOCUMENT)
-		intent.addCategory(Intent.CATEGORY_OPENABLE)
-		intent.type = "*/*"
-		intent.putExtra(Intent.EXTRA_TITLE, contentResolverUtil.fileName(uri))
-		requestActivityResult(ActivityResultCallbacks.copyFileToUserSelectedLocation(uri.toString()), intent)
-	}
-
-	@Callback
-	fun copyFileToUserSelectedLocation(result: ActivityResult, sourceUri: String?) {
-		requestPermissions(
-			PermissionsResultCallbacks.copyFileToUserSelectedLocation(result.intent()?.dataString, sourceUri),  //
-			R.string.permission_message_export_file,  //
-			Manifest.permission.READ_EXTERNAL_STORAGE
-		)
-	}
-
-	@Callback
-	fun copyFileToUserSelectedLocation(result: PermissionsResult, targetUri: String?, sourceUri: String?) {
-		if (result.granted()) {
-			try {
-				copyFile(
-					contentResolverUtil.openInputStream(Uri.parse(sourceUri)),  //
-					contentResolverUtil.openOutputStream(Uri.parse(targetUri))
-				)
-			} catch (e: FileNotFoundException) {
-				showError(e)
-			}
-		}
 	}
 
 	fun onShareImageClicked(uri: Uri) {

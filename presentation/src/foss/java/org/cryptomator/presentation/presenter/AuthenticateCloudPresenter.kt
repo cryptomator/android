@@ -1,7 +1,9 @@
 package org.cryptomator.presentation.presenter
 
-import android.Manifest
 import android.accounts.AccountManager
+import android.content.Intent
+import android.content.Intent.ACTION_OPEN_DOCUMENT_TREE
+import android.provider.DocumentsContract
 import android.widget.Toast
 import com.dropbox.core.android.Auth
 import org.cryptomator.data.cloud.onedrive.OnedriveClientFactory
@@ -35,6 +37,7 @@ import org.cryptomator.presentation.intent.AuthenticateCloudIntent
 import org.cryptomator.presentation.intent.Intents
 import org.cryptomator.presentation.model.CloudModel
 import org.cryptomator.presentation.model.CloudTypeModel
+import org.cryptomator.presentation.model.LocalStorageModel
 import org.cryptomator.presentation.model.ProgressModel
 import org.cryptomator.presentation.model.ProgressStateModel
 import org.cryptomator.presentation.model.S3CloudModel
@@ -44,7 +47,6 @@ import org.cryptomator.presentation.ui.activity.view.AuthenticateCloudView
 import org.cryptomator.presentation.workflow.ActivityResult
 import org.cryptomator.presentation.workflow.AddExistingVaultWorkflow
 import org.cryptomator.presentation.workflow.CreateNewVaultWorkflow
-import org.cryptomator.presentation.workflow.PermissionsResult
 import org.cryptomator.presentation.workflow.Workflow
 import org.cryptomator.util.ExceptionUtil
 import org.cryptomator.util.crypto.CredentialCryptor
@@ -433,6 +435,7 @@ class AuthenticateCloudPresenter @Inject constructor( //
 	private inner class LocalStorageAuthStrategy : AuthStrategy {
 
 		private var authenticationStarted = false
+
 		override fun supports(cloud: CloudModel): Boolean {
 			return cloud.cloudType() == CloudTypeModel.LOCAL
 		}
@@ -445,22 +448,41 @@ class AuthenticateCloudPresenter @Inject constructor( //
 
 		private fun startAuthentication(cloud: CloudModel) {
 			authenticationStarted = true
-			requestPermissions(
-				PermissionsResultCallbacks.onLocalStorageAuthenticated(cloud),  //
-				R.string.permission_snackbar_auth_local_vault,  //
-				Manifest.permission.READ_EXTERNAL_STORAGE,  //
-				Manifest.permission.WRITE_EXTERNAL_STORAGE
-			)
+
+			val uri = (cloud as LocalStorageModel).uri()
+
+			val permissions = context().contentResolver.persistedUriPermissions
+			for (permission in permissions) {
+				if (permission.uri.toString() == uri) {
+					succeedAuthenticationWith(cloud.toCloud())
+				}
+			}
+
+			Timber.tag("AuthicateCloudPrester").e("Permission revoked, ask to re-pick location")
+
+			Toast.makeText(context(), getString(R.string.permission_revoked_re_request_permission), Toast.LENGTH_LONG).show()
+
+			val openDocumentTree = Intent(ACTION_OPEN_DOCUMENT_TREE).apply {
+				putExtra(DocumentsContract.EXTRA_INITIAL_URI, uri)
+			}
+
+			requestActivityResult(ActivityResultCallbacks.rePickedLocalStorageLocation(cloud), openDocumentTree)
 		}
 	}
 
 	@Callback
-	fun onLocalStorageAuthenticated(result: PermissionsResult, cloud: CloudModel) {
-		if (result.granted()) {
-			succeedAuthenticationWith(cloud.toCloud())
-		} else {
-			failAuthentication(PermissionNotGrantedException(R.string.permission_snackbar_auth_local_vault))
+	fun rePickedLocalStorageLocation(result: ActivityResult, cloud: LocalStorageModel) {
+		val rootTreeUriOfLocalStorage = result.intent().data
+		rootTreeUriOfLocalStorage?.let {
+			context() //
+				.contentResolver //
+				.takePersistableUriPermission( //
+					it,  //
+					Intent.FLAG_GRANT_READ_URI_PERMISSION or Intent.FLAG_GRANT_WRITE_URI_PERMISSION
+				)
 		}
+		Timber.tag("AuthicateCloudPrester").e("Permission granted again")
+		succeedAuthenticationWith(cloud.toCloud())
 	}
 
 	private fun encrypt(password: String): String {

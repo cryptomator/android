@@ -1,7 +1,6 @@
 package org.cryptomator.presentation.ui.dialog
 
 import android.content.DialogInterface
-import android.os.Build
 import android.os.Bundle
 import android.text.Html
 import android.view.View
@@ -32,11 +31,7 @@ class UpdateAppAvailableDialog : BaseProgressErrorDialog<UpdateAppAvailableDialo
 
 	public override fun setupView() {
 		val message = requireArguments().getSerializable(MESSAGE_ARG) as String
-		if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-			tv_message.text = Html.fromHtml(message, Html.FROM_HTML_MODE_COMPACT)
-		} else {
-			tv_message.text = Html.fromHtml(message)
-		}
+		tv_message.text = Html.fromHtml(message, Html.FROM_HTML_MODE_COMPACT)
 	}
 
 	override fun enableViewAfterError(): View {

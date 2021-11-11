@@ -9,38 +9,10 @@
 		android:layout_width="match_parent"
 		android:layout_height="match_parent">
 
-		<RelativeLayout
-			android:id="@+id/rv_local_default_cloud"
-			android:layout_width="wrap_content"
-			android:layout_height="wrap_content"
-			android:visibility="gone">
-
-			<include
-				android:id="@+id/default_local_cloud"
-				layout="@layout/view_default_local_cloud"
-				android:layout_width="match_parent"
-				android:layout_height="72dp"
-				android:clickable="true"
-				android:clipToPadding="true"
-				android:focusable="true" />
-
-			<TextView
-				android:layout_width="match_parent"
-				android:layout_height="wrap_content"
-				android:layout_below="@id/default_local_cloud"
-				android:layout_marginStart="16dp"
-				android:singleLine="true"
-				android:text="@string/screen_cloud_local_custom_storage_title"
-				android:textColor="@color/colorPrimary"
-				android:textSize="16sp" />
-
-		</RelativeLayout>
-
 		<include
 			layout="@layout/recycler_view_layout"
 			android:layout_width="match_parent"
 			android:layout_height="match_parent"
-			android:layout_below="@+id/rv_local_default_cloud"
 			android:clipToPadding="true"
 			android:paddingBottom="88dp" />
 

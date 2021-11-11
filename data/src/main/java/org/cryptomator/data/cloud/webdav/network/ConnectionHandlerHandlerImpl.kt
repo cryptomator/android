@@ -1,6 +1,5 @@
 package org.cryptomator.data.cloud.webdav.network
 
-import android.content.Context
 import org.cryptomator.data.cloud.webdav.WebDavFolder
 import org.cryptomator.data.cloud.webdav.WebDavNode
 import org.cryptomator.domain.CloudFolder
@@ -8,9 +7,9 @@ import org.cryptomator.domain.exception.BackendException
 import java.io.InputStream
 import javax.inject.Inject
 
-class ConnectionHandlerHandlerImpl @Inject internal constructor(httpClient: WebDavCompatibleHttpClient, context: Context) {
+class ConnectionHandlerHandlerImpl @Inject internal constructor(httpClient: WebDavCompatibleHttpClient) {
 
-	private val webDavClient: WebDavClient = WebDavClient(context, httpClient)
+	private val webDavClient: WebDavClient = WebDavClient(httpClient)
 
 	@Throws(BackendException::class)
 	fun dirList(url: String, listedFolder: WebDavFolder): List<WebDavNode> {

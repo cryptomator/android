@@ -41,6 +41,7 @@
 	<string name="permission_message_export_file">Cryptomator necesita acceso al almacenamiento para exportar archivos.</string>
 	<string name="permission_message_upload_file">Cryptomator necesita acceso al almacenamiento para subir archivos.</string>
 	<string name="permission_message_share_file">Cryptomator necesita acceso al almacenamiento para compartir archivos.</string>
+	<string name="permission_revoked_re_request_permission">Cryptomator ha perdido permiso para acceder a esta ubicación. Seleccione esta carpeta de nuevo para restaurar el permiso.</string>
 	<string name="snack_bar_action_title_settings">Configuración</string>
 	<string name="snack_bar_action_title_search">Buscar</string>
 	<string name="snack_bar_action_title_search_previous">Anterior</string>
@@ -115,8 +116,6 @@
 	<string name="screen_cloud_connections_title">Elegir ubicación</string>
 	<string name="screen_cloud_connections_no_connections">Haz clic aquí para añadir ubicaciones</string>
 	<string name="screen_cloud_error_webdav_not_supported">El servidor no parece ser compatible con WebDAV</string>
-	<string name="screen_cloud_local_custom_storage_title">Ubicaciones personalizadas</string>
-	<string name="screen_cloud_local_default_storage_title">Almacenamiento predeterminado</string>
 	<string name="screen_cloud_local_error_no_content_provider">No hay ubicaciones extra disponibles.</string>
 	<!-- ## screen: webdav settings -->
 	<string name="screen_webdav_settings_url_port_label">URL</string>
@@ -290,6 +289,10 @@
 	<string name="dialog_app_is_obscured_info_title">La aplicación está oscura</string>
 	<string name="dialog_app_is_obscured_info_hint">Otra aplicación muestra algo en la parte superior de Cryptomator (por ejemplo, un filtro de luz azul o una aplicación en modo nocturno). Por razones de seguridad, Cryptomator está desactivado.\n\n<a href="https://docs.cryptomator.org/en/1.5/android/settings/#block-app-when-obscured">Cómo activar Cryptomator</a></string>
 	<string name="dialog_app_is_obscured_info_neutral_button">Cerrar</string>
+	<string name="dialog_vaults_removed_during_migration_title">Vuelva a añadir bóvedas para la nube %1s</string>
+	<string name="dialog_vaults_removed_during_migration_hint">Mientras se migra a esta versión de la aplicación, necesitamos eliminar las siguientes bóvedas de la aplicación:\n%2s \n\nEsas bóvedas no se eliminan de la nube sino sólo de esta aplicación. Lamentamos las molestias, por favor añada de nuevo estas bóvedas para seguir trabajando con ellas.</string>
+	<string name="dialog_vault_is_root_folder_of_cloud_title">La bóveda es la carpeta raíz de la conexión a la nube</string>
+	<string name="dialog_vault_is_root_folder_of_cloud_hint">Crear una conexión nueva en la nube donde seleccione al menos la carpeta padre de esta carpeta de bóveda como directorio raíz para añadir esta bóveda.</string>
 	<string name="dialog_disable_secure_screen_disclaimer_hint">Esta opción es una función de seguridad y evita que otras aplicaciones engañen a los usuarios para que hagan cosas que no quieren hacer.\n\nAl desactivar, confirma que es <a href="https://docs.cryptomator.org/en/1.5/android/settings/#screen-security">consciente de los riesgos</a>.</string>
 	<string name="dialog_delete_cloud_connection_with_vaults_message">\"¿Estás seguro de que quieres eliminar esta conexión de nube?</string>
 	<string name="dialog_delete_cloud_connection_with_vaults_hint">Esta acción eliminará la conexión de nube y todas las cajas fuertes de esta nube.</string>

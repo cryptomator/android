@@ -82,7 +82,7 @@ android {
 }
 
 greendao {
-	schemaVersion 9
+	schemaVersion 10
 }
 
 configurations.all {

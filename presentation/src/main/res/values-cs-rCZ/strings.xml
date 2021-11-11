@@ -23,6 +23,7 @@
 	<string name="error_general_update">Kontrola aktualizací se nezdařila. Došlo k obecné chybě.</string>
 	<string name="error_hash_mismatch_update">Kontrola aktualizace se nezdařila. Hash neodpovídá nahranému souboru</string>
 	<string name="error_update_no_internet">Kontrola aktualizací se nezdařila. Žádné připojení k internetu.</string>
+	<string name="error_play_services_not_available">Obchod Google Play není nainstalován</string>
 	<string name="error_biometric_auth_aborted">Ověření pomocí otisků prstů selhalo</string>
 	<string name="error_vault_config_loading">Obecná chyba při načítání konfigurace trezoru</string>
 	<string name="error_file_not_found_after_opening_using_3party">Místní soubor již není přítomen po přepnutí zpět na Cryptomator. Možné změny nelze promítnout zpět do cloudu.</string>
@@ -112,8 +113,6 @@
 	<string name="screen_cloud_connections_title">Vyberte umístění</string>
 	<string name="screen_cloud_connections_no_connections">Klikněte zde pro přidání umístění</string>
 	<string name="screen_cloud_error_webdav_not_supported">Server není kompatibilní s WebDAV</string>
-	<string name="screen_cloud_local_custom_storage_title">Vlastní umístění</string>
-	<string name="screen_cloud_local_default_storage_title">Výchozí úložiště</string>
 	<string name="screen_cloud_local_error_no_content_provider">Nejsou k dispozici žádná další umístění.</string>
 	<!-- ## screen: webdav settings -->
 	<string name="screen_webdav_settings_url_port_label">URL</string>

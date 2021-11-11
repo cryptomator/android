@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+	<!-- # app -->
+	<string name="share_with_label">குறியாக்கு</string>
+	<!-- # error messages -->
+	<string name="error_generic">ஒரு பிழை ஏற்பட்டுள்ளது</string>
+	<string name="error_authentication_failed">அங்கீகரிப்பு தோல்வியுற்றது</string>
+	<string name="error_no_network_connection">நெட்வொர்க் இணைப்பு இல்லை</string>
+	<string name="error_invalid_passphrase">தவறான கடவுச்சொல்</string>
+	<string name="error_no_such_file">கோப்பு இருப்பில் இல்லை.</string>
+	<!-- # clouds -->
+	<!-- ## cloud names -->
+	<string name="cloud_names_local_storage">உள்ளூர் சேமிப்பகம்</string>
+	<!-- # permission -->
+	<!-- ## permission messages -->
+	<string name="snack_bar_action_title_settings">அமைப்புகள்</string>
+	<string name="snack_bar_action_title_search">தேடு</string>
+	<string name="snack_bar_action_title_search_previous">முந்தைய</string>
+	<string name="snack_bar_action_title_search_next">அடுத்து</string>
+	<string name="snack_bar_action_title_sort">வரிசைப்படுத்து</string>
+	<!-- # screens -->
+	<!-- # screen: vault list -->
+	<!-- # screen: file browser -->
+	<string name="screen_file_browser_move_button_text">நகர்த்து</string>
+	<string name="screen_file_browser_msg_empty_folder">காலி கோப்புறை</string>
+	<string name="screen_file_browser_share_intent_chooser_title">இதனுடன் பகிர்</string>
+	<string name="screen_file_browser_select_items">தேர்ந்தெடு</string>
+	<string name="screen_file_browser_select_all_items">அனைத்தையும் தேர்ந்தெடு</string>
+	<string name="screen_file_browser_refresh_items">புதுப்பி</string>
+	<string name="screen_file_browser_no_connection_message">இணைப்பு இல்லை</string>
+	<string name="screen_file_browser_no_connection_button_text">மீண்டும் முயற்சிக்கவும்</string>
+	<!-- ## screen: text editor -->
+	<string name="screen_text_editor_save_success">வெற்றிகரமாக சேமிக்கப்பட்டது</string>
+	<!-- ## screen: share files -->
+	<string name="screen_share_files_content_file">கோப்பு</string>
+	<string name="screen_share_files_content_files">கோப்புகள்</string>
+	<string name="screen_share_files_save_button_text">சேமி</string>
+	<string name="screen_share_files_msg_success">குறியாக்கம் முடிந்தது</string>
+	<!-- ## screen: choose cloud service -->
+	<!-- ## screen: cloud connections -->
+	<!-- ## screen: webdav settings -->
+	<string name="screen_webdav_settings_url_port_label">இணையமுகவரி</string>
+	<string name="screen_webdav_settings_username_label">பயனர்பெயர்</string>
+	<string name="screen_webdav_settings_password_label">கடவுச்சொல்</string>
+	<string name="screen_webdav_settings_msg_url_must_not_be_empty">இணையமுகவரி வெறுமையாக இருக்க கூடாது.</string>
+	<string name="screen_webdav_settings_msg_url_is_invalid">இணையமுகவரி தவறானது.</string>
+	<string name="screen_webdav_settings_msg_username_must_not_be_empty">பயனர்பெயர் காலியாக இருக்க முடியாது.</string>
+	<string name="screen_webdav_settings_msg_password_must_not_be_empty">கடவுச்சொல் காலியாக இருக்கக்கூடாது.</string>
+	<!-- ## screen: s3 settings -->
+	<string name="screen_s3_settings_display_name_label">புனைப்பெயர்</string>
+	<string name="screen_s3_settings_region_label">பகுதி</string>
+	<!-- ## screen: enter vault name -->
+	<!-- ## screen: set password -->
+	<!-- ## screen: settings -->
+	<string name="screen_settings_biometric_auth">உயிரியளவுகள் உறுதிசெய்தல்</string>
+	<string name="screen_settings_section_search">தேடு</string>
+	<string name="screen_settings_live_search">நேரடி தேடல்</string>
+	<string name="screen_settings_auto_lock_timeout">இதன்பிறகு செயலியை பூட்டு</string>
+	<string name="screen_settings_section_auto_photo_upload_toggle">செயல்படுத்து</string>
+	<string name="screen_settings_twitter_label">டுவிட்டரில் எங்களைத் தொடருங்கள்</string>
+	<string name="screen_settings_facebook_label">Facebook இல் எங்களை போன்ற</string>
+	<string name="screen_settings_section_legal">சட்டம்</string>
+	<string name="screen_settings_section_support">ஆதரவு</string>
+	<!-- ## screen: cloud settings -->
+	<!-- ## screen: licenses -->
+	<!-- ## screen: authenticate cloud -->
+	<!-- ## screen: insecure android version info -->
+	<!-- # dialogs -->
+	<string name="dialog_change_password_msg_new_password_empty">கடவுச்சொல் காலியாக இருக்கக்கூடாது.</string>
+	<!-- Vault not found -->
+	<string name="dialog_vault_not_found_positive_button_text">நீக்கு</string>
+	<string name="dialog_existing_file_title">கோப்பு ஏற்கனவே உள்ளது</string>
+	<string name="dialog_existing_file_positive_button">மாற்று</string>
+	<string name="dialog_existing_file_message">ஏற்கனவே \'%1$s\' என்ற பெயரில் வெறெரு கோப்பு உள்ளது.</string>
+	<string name="dialog_replace_negative_button_at_least_two_but_not_all_files_exist">ஏற்கனவே இருப்பதை தவிர்க்கவும்</string>
+	<string name="dialog_replace_positive_button_all_files_exist">அனைத்தையும் மாற்று</string>
+	<string name="dialog_replace_positive_button_some_files_exist">ஏற்கனவே உள்ளதை மாற்றவும்</string>
+	<string name="dialog_replace_positive_button_single_file_exists">மாற்று</string>
+	<string name="dialog_replace_title_single_file_exists">கோப்பை மாற்றிடவா?</string>
+	<string name="dialog_replace_title_multiple_files_exist">கோப்புகளை மாற்றிடவா?</string>
+	<string name="dialog_unable_to_share_positive_button">சரி</string>
+	<string name="dialog_rename_node_folder_title">கோப்புறைக்கு மறுபெயரிடு</string>
+	<string name="dialog_rename_node_file_title">கோப்பை மறுபெயரிடு</string>
+	<string name="dialog_unsaved_changes_title">சேமிக்கப்படாத மாற்றங்கள் உள்ளன</string>
+	<string name="dialog_no_screen_lock_checkbox">திரைப்பூட்டை அமை</string>
+	<string name="dialog_debug_mode_disclaimer_title">கவனிக்க</string>
+	<string name="dialog_debug_mode_positive_button">இயக்கு</string>
+	<string name="dialog_disable_app_obscured_disclaimer_title">கவனிக்க</string>
+	<string name="dialog_disable_app_obscured_positive_button">முடக்கு</string>
+	<string name="dialog_app_is_obscured_info_neutral_button">மூடு</string>
+	<!-- # error reports -->
+	<!-- # misc -->
+	<!-- ## file size helper -->
+	<!-- ## date helper -->
+	<string name="time_unit_minutes_pl">நிமிடங்கள்</string>
+	<string name="time_unit_days_pl">நாட்கள்</string>
+	<string name="time_unit_weeks_sg">வாரம்</string>
+	<string name="time_unit_weeks_pl">வாரங்கள்</string>
+	<string name="time_unit_months_sg">மாதம்</string>
+	<string name="time_unit_months_pl">மாதங்கள்</string>
+	<string name="time_unit_years_sg">ஆண்டு</string>
+	<!-- ## biometric authentication -->
+	<!-- notification -->
+	<!-- lock timeout names -->
+	<!-- cache size names -->
+	<!-- screen scheme mode names -->
+	<string name="light">வெளிச்சம்</string>
+	<string name="dark">இருள்</string>
+	<!-- update interval names -->
+	<string name="update_interval_1d">தினம் ஒரு முறை</string>
+	<string name="update_interval_1w">வாரம் ஒரு முறை</string>
+	<string name="update_interval_1m">மாதம் ஒரு முறை</string>
+</resources>

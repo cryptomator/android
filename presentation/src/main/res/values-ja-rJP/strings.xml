@@ -110,8 +110,6 @@
 	<string name="screen_cloud_connections_title">接続先を選択</string>
 	<string name="screen_cloud_connections_no_connections">ここをタップして場所を追加する</string>
 	<string name="screen_cloud_error_webdav_not_supported">サーバーに WebDAV との互換性がありません</string>
-	<string name="screen_cloud_local_custom_storage_title">その他の保存先</string>
-	<string name="screen_cloud_local_default_storage_title">デフォルトの保存先</string>
 	<string name="screen_cloud_local_error_no_content_provider">追加の利用できる保存先はありません。</string>
 	<!-- ## screen: webdav settings -->
 	<string name="screen_webdav_settings_url_port_label">URL</string>
@@ -284,6 +282,7 @@
 	<string name="dialog_app_is_obscured_info_title">アプリが重なっています</string>
 	<string name="dialog_app_is_obscured_info_hint">他のアプリケーションが Cryptomator の上に何かを表示しています (例: ブルーライト フィルターや night mode アプリ)。このため、セキュリティの観点から Cryptomator が無効化されています。\n\n<a href="https://docs.cryptomator.org/en/1.5/android/settings/#block-app-when-obscured">Cryptomator を有効にするには</a></string>
 	<string name="dialog_app_is_obscured_info_neutral_button">閉じる</string>
+	<string name="dialog_vaults_removed_during_migration_title">%1s クラウンドの金庫を再追加してください</string>
 	<string name="dialog_disable_secure_screen_disclaimer_hint">この設定は安全のための機能です。他のアプリがユーザーを騙してしまうことを防ぎます。\n\n無効にすることで、 <a href="https://docs.cryptomator.org/en/1.5/android/settings/#screen-security">リスクを認識していること</a> に留意する必要があります。</string>
 	<string name="dialog_delete_cloud_connection_with_vaults_message">本当にこのクラウド接続を削除しますか？</string>
 	<string name="dialog_delete_cloud_connection_with_vaults_hint">この操作により、クラウド接続とクラウドのすべての金庫が削除されます。</string>

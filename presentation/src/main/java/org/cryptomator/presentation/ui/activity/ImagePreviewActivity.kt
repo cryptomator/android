@@ -66,7 +66,7 @@ class ImagePreviewActivity : BaseActivity(), ImagePreviewView, ConfirmDeleteClou
 				presenter.onDeleteImageClicked(imagePreviewFiles[imagePreviewSliderAdapter.getIndex(viewPager.currentItem)])
 			}
 			exportImage.setOnClickListener {
-				currentImageUri?.let { presenter.onExportImageClicked(it) }
+				currentImageUri?.let { presenter.exportImageToUserSelectedLocation(it) }
 			}
 			shareImage.setOnClickListener {
 				currentImageUri?.let { presenter.onShareImageClicked(it) }

@@ -129,12 +129,16 @@ constructor(context: Context) : SharedPreferences.OnSharedPreferenceChangeListen
 		defaultSharedPreferences.clear()
 	}
 
-	fun autoPhotoUploadOnlyUsingWifi(): Boolean {
-		return defaultSharedPreferences.getValue(PHOTO_UPLOAD_ONLY_USING_WIFI)
-	}
-
 	fun usePhotoUpload(): Boolean {
 		return defaultSharedPreferences.getValue(PHOTO_UPLOAD, false)
+	}
+
+	fun usePhotoUploadInstant(): Boolean {
+		return defaultSharedPreferences.getValue(PHOTO_UPLOAD_INSTANT, true)
+	}
+
+	fun autoPhotoUploadOnlyUsingWifi(): Boolean {
+		return defaultSharedPreferences.getValue(PHOTO_UPLOAD_ONLY_USING_WIFI)
 	}
 
 	fun photoUploadVault(): Long {
@@ -232,6 +236,31 @@ constructor(context: Context) : SharedPreferences.OnSharedPreferenceChangeListen
 		return defaultSharedPreferences.getBoolean(BACKGROUND_UNLOCK_PREPARATION, true)
 	}
 
+	fun vaultsRemovedDuringMigration(vaultsToBeRemoved: Pair<String, List<String>>?) {
+		vaultsToBeRemoved?.let {
+			val vaultsToBeRemovedString = if (it.second.isNotEmpty()) {
+				it.second.reduce { acc, s -> "$acc,$s" }
+			} else {
+				""
+			}
+			defaultSharedPreferences.setValue(VAULTS_REMOVED_DURING_MIGRATION_TYPE, it.first)
+			defaultSharedPreferences.setValue(VAULTS_REMOVED_DURING_MIGRATION, vaultsToBeRemovedString)
+		} ?: run {
+			defaultSharedPreferences.setValue(VAULTS_REMOVED_DURING_MIGRATION_TYPE, null)
+			defaultSharedPreferences.setValue(VAULTS_REMOVED_DURING_MIGRATION, null)
+		}
+	}
+
+	fun vaultsRemovedDuringMigration(): Pair<String, List<String>>? {
+		val vaultsRemovedDuringMigrationType = defaultSharedPreferences.getString(VAULTS_REMOVED_DURING_MIGRATION_TYPE, null)
+		val vaultsRemovedDuringMigration = defaultSharedPreferences.getString(VAULTS_REMOVED_DURING_MIGRATION, null)
+		return if(vaultsRemovedDuringMigrationType != null && vaultsRemovedDuringMigration != null) {
+			Pair(vaultsRemovedDuringMigrationType, ArrayList(vaultsRemovedDuringMigration.split(',')))
+		} else {
+			null
+		}
+	}
+
 	companion object {
 
 		private const val SCREEN_LOCK_DIALOG_SHOWN = "askForScreenLockDialogShown"
@@ -244,11 +273,14 @@ constructor(context: Context) : SharedPreferences.OnSharedPreferenceChangeListen
 		private const val GLOB_SEARCH = "globSearch"
 		private const val KEEP_UNLOCKED_WHILE_EDITING = "keepUnlockedWhileEditing"
 		private const val BACKGROUND_UNLOCK_PREPARATION = "backgroundUnlockPreparation"
+		private const val VAULTS_REMOVED_DURING_MIGRATION = "vaultsRemovedDuringMigration"
+		private const val VAULTS_REMOVED_DURING_MIGRATION_TYPE = "vaultsRemovedDuringMigrationType"
 		const val DEBUG_MODE = "debugMode"
 		const val DISABLE_APP_WHEN_OBSCURED = "disableAppWhenObscured"
 		const val SECURE_SCREEN = "secureScreen"
 		const val SCREEN_STYLE_MODE = "screenStyleMode"
 		const val PHOTO_UPLOAD = "photoUpload"
+		const val PHOTO_UPLOAD_INSTANT = "photoUploadInstant"
 		const val PHOTO_UPLOAD_ONLY_USING_WIFI = "photoUploadOnlyUsingWifi"
 		const val PHOTO_UPLOAD_VAULT = "photoUploadVault"
 		const val PHOTO_UPLOAD_FOLDER = "photoUploadFolder"
