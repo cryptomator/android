@@ -12,6 +12,7 @@
 	<string name="error_vault_already_exists">Umiiral na ang vault na ito.</string>
 	<string name="error_no_such_file">Ang file na ito ay hindi pa umiiral.</string>
 	<string name="error_vault_has_been_locked">Naisara na ang vault.</string>
+	<string name="error_cloud_already_exists">Umiiral na ang cloud na ito.</string>
 	<string name="error_activity_not_found">Magdownload ng app na kayang buksan ang file na ito.</string>
 	<string name="error_server_not_found">Hindi mahanap ang server.</string>
 	<string name="error_device_policy_manager_not_found">Maaaring buksan ang device settings at sariling itakda ang screen lock</string>
@@ -31,6 +32,7 @@
 	<string name="snack_bar_action_title_search">Hanapin</string>
 	<string name="snack_bar_action_title_search_previous">Nakaraan</string>
 	<string name="snack_bar_action_title_search_next">Sunod</string>
+	<string name="snack_bar_action_title_sort">Ayusin</string>
 	<string name="snack_bar_action_title_sort_az">A - Z</string>
 	<string name="snack_bar_action_title_sort_za">Z - A</string>
 	<string name="snack_bar_action_title_sort_newest">Bago muna</string>
@@ -50,6 +52,8 @@
 	<string name="screen_file_browser_add_existing_vault_extra_text">Piliin ang masterkey file</string>
 	<string name="screen_file_browser_create_new_vault_button_text">Ilagay dito</string>
 	<string name="screen_file_browser_create_new_vault_extra_text">Pangalan ng vault: %1$s</string>
+	<string name="screen_file_browser_move_button_text">Ilipat</string>
+	<string name="screen_file_browser_msg_empty_folder">Walang laman na folder</string>
 	<string name="screen_file_browser_share_intent_chooser_title">Ibahagi kay</string>
 	<string name="screen_file_browser_share_destination_title">Pumili ng destinasyon</string>
 	<string name="screen_file_browser_share_button_text">Pumili</string>
@@ -67,21 +71,31 @@
 	<string name="screen_file_browser_node_action_export">I-export</string>
 	<string name="screen_file_browser_node_action_delete">Burahin</string>
 	<string name="screen_file_browser_node_action_open_with_text">Buksan gamit ang &#8230;</string>
+	<string name="screen_file_browser_selection_mode_title_zero_elements">Pumilii</string>
 	<string name="screen_file_browser_selection_mode_title_one_or_more_elements">%1$d ang nakapili</string>
 	<string name="screen_file_browser_select_items">Piliin</string>
 	<string name="screen_file_browser_select_all_items">Piliin lahat</string>
 	<string name="screen_file_browser_refresh_items">I-refresh</string>
 	<string name="screen_file_browser_no_connection_message">Walang koneksyon</string>
+	<string name="screen_file_browser_no_connection_button_text">Subukan muli</string>
 	<!-- ## screen: text editor -->
+	<string name="screen_text_editor_save_success">Matagumpay na nai-save</string>
 	<!-- ## screen: share files -->
+	<string name="screen_share_files_title">I-save ang %1$s sa &#8230;</string>
+	<string name="screen_share_files_content_text">text</string>
+	<string name="screen_share_files_content_file">file</string>
 	<string name="screen_share_files_content_files">files</string>
 	<string name="screen_share_files_msg_filenames_must_be_unique">Natatangi dapat ang pangalan ng mga files, maaari lamang na palitan ang mga may kapareho.</string>
 	<string name="screen_share_files_section_location">I-save ang lokasyon</string>
 	<string name="screen_share_files_save_button_text">I-save</string>
+	<string name="screen_share_files_msg_success">Natapos na ang pag-encrypt</string>
 	<!-- ## screen: choose cloud service -->
+	<string name="screen_choose_cloud_service_title">Cloud service</string>
 	<!-- ## screen: cloud connections -->
 	<string name="screen_cloud_connections_title">Piliin ang location</string>
 	<string name="screen_cloud_connections_no_connections">Pindutin dito upang magdagdag ng lugar</string>
+	<string name="screen_cloud_error_webdav_not_supported">Ang server na ito ay mukhang hindi tugma sa WebDAV</string>
+	<string name="screen_cloud_local_error_no_content_provider">Walang ibang lokasyon na magagamit.</string>
 	<!-- ## screen: webdav settings -->
 	<string name="screen_webdav_settings_url_port_label">URL</string>
 	<string name="screen_webdav_settings_username_label">Username</string>
@@ -90,7 +104,9 @@
 	<string name="screen_webdav_settings_msg_url_must_not_be_empty">Hindi maaaring walang laman ang URL.</string>
 	<string name="screen_webdav_settings_msg_url_is_invalid">Hindi tama ang URL.</string>
 	<string name="screen_webdav_settings_msg_username_must_not_be_empty">Hindi maaaring walang laman ang username.</string>
+	<string name="screen_webdav_settings_msg_password_must_not_be_empty">Hindi maaaring walang laman ang password.</string>
 	<!-- ## screen: s3 settings -->
+	<string name="screen_s3_settings_access_key_label">Access Key</string>
 	<string name="screen_s3_settings_region_label">Rehiyon</string>
 	<string name="screen_s3_settings_msg_bucket_not_empty">Hindi maaaring walang laman ang bucket</string>
 	<string name="screen_s3_settings_msg_endpoint_and_region_not_empty">Hindi maaaring walang laman ang endpoint o ang rehiyon</string>
