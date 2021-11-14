@@ -71,6 +71,7 @@
 	</plurals>
 	<string name="screen_file_browser_move_button_text">移動</string>
 	<string name="screen_file_browser_msg_empty_folder">清空資料夾</string>
+	<string name="screen_file_browser_file_info_label_date">於%1$s前修改</string>
 	<string name="screen_file_browser_share_intent_chooser_title">分享對象</string>
 	<string name="screen_file_browser_share_destination_title">選擇目的地</string>
 	<string name="screen_file_browser_share_button_text">選擇</string>
@@ -89,6 +90,7 @@
 	<string name="screen_file_browser_node_action_edit_text">編輯</string>
 	<string name="screen_file_browser_node_action_export">匯出</string>
 	<string name="screen_file_browser_node_action_delete">刪除</string>
+	<string name="screen_file_browser_node_action_open_with_text">打開方式……</string>
 	<string name="screen_file_browser_selection_mode_title_zero_elements">選擇項目</string>
 	<string name="screen_file_browser_selection_mode_title_one_or_more_elements">已選取 %1$d 個項目</string>
 	<string name="screen_file_browser_select_items">選擇</string>
@@ -103,6 +105,7 @@
 	<string name="screen_share_files_content_text">文字</string>
 	<string name="screen_share_files_content_file">檔案</string>
 	<string name="screen_share_files_content_files">檔案</string>
+	<string name="screen_share_files_msg_filenames_must_be_unique">檔案名必須是唯一的，請重新命名重復的檔案。</string>
 	<string name="screen_share_files_section_location">儲存位置</string>
 	<string name="screen_share_files_save_button_text">儲存</string>
 	<string name="screen_share_files_msg_success">加密已完成</string>
@@ -111,6 +114,8 @@
 	<!-- ## screen: cloud connections -->
 	<string name="screen_cloud_connections_title">選擇位置</string>
 	<string name="screen_cloud_connections_no_connections">點擊此處新增位置</string>
+	<string name="screen_cloud_error_webdav_not_supported">服務器似乎與 WebDAV 不兼容</string>
+	<string name="screen_cloud_local_error_no_content_provider">沒有更多位置可用。</string>
 	<!-- ## screen: webdav settings -->
 	<string name="screen_webdav_settings_url_port_label">網址</string>
 	<string name="screen_webdav_settings_username_label">帳號名稱</string>
@@ -131,6 +136,7 @@
 	<!-- ## screen: set password -->
 	<string name="screen_set_password_title">設定密碼</string>
 	<string name="screen_set_password_button_text">完成</string>
+	<string name="screen_set_password_hint">重要：如果您遺忘了密碼，您的數據將無法被恢復。</string>
 	<string name="screen_set_password_retype_password_label">再次輸入密碼</string>
 	<string name="screen_set_password_strength_indicator_0">密碼強度不足，無法新建加密檔案庫</string>
 	<string name="screen_set_password_strength_indicator_1">弱</string>
@@ -158,6 +164,7 @@
 	<string name="screen_settings_facebook_label">在臉書上給我們點讚</string>
 	<string name="screen_settings_section_legal">法律</string>
 	<string name="screen_settings_licenses_label">軟體授權</string>
+	<string name="screen_settings_license_terms_label">許可證書條款</string>
 	<string name="screen_settings_section_support">技術支援</string>
 	<string name="screen_settings_contact_label">請求協助</string>
 	<string name="screen_settings_debug_mode_label">除錯模式</string>
@@ -166,6 +173,7 @@
 	<string name="screen_settings_security_label">安全提示</string>
 	<string name="screen_settings_section_version">版本</string>
 	<string name="screen_settings_advanced_settings">進階設定</string>
+	<string name="screen_settings_background_unlock_preparation_label">加速解鎖</string>
 	<string name="screen_settings_keep_unlocked_while_editing_files">保持解鎖</string>
 	<!-- ## screen: cloud settings -->
 	<string name="screen_cloud_settings_webdav_connections">WebDAV 連線</string>
@@ -214,6 +222,7 @@
 	<string name="dialog_export_file_title">正在導出中（%1$d/%2$d）</string>
 	<string name="dialog_progress_please_wait">請稍候……</string>
 	<string name="dialog_progress_creating_folder">正在創建資料夾……</string>
+	<string name="dialog_progress_creating_text_file">正在創建文本檔案……</string>
 	<string name="action_progress_renaming">正在重命名……</string>
 	<string name="action_progress_deleting">正在删除&#8230;</string>
 	<string name="dialog_progress_unlocking_vault">正在解鎖加密檔案庫……</string>
@@ -226,6 +235,8 @@
 	<string name="dialog_lock_vault">鎖定</string>
 	<string name="dialog_accept_ssl_certificate_title">無效的 TLS 憑證</string>
 	<string name="dialog_accept_ssl_certificate_details">詳情</string>
+	<string name="dialog_accept_ssl_certificate_security_checkbox">這可能會是個安全風險。我清楚我在做什麼。</string>
+	<string name="dialog_http_security_hint">使用 HTTP 是不安全的。我們推薦使用 HTTPS 來取代。如果您瞭解風險，您可以使用 HTTP 繼續。</string>
 	<string name="dialog_http_security_checkbox">更換為 HTTPS</string>
 	<string name="dialog_http_security_title">是否使用 HTTPS？</string>
 	<string name="dialog_no_screen_lock_title">設定螢幕鎖定？</string>
@@ -238,6 +249,7 @@
 	<string name="dialog_confirm_delete_multiple_title">是否刪除%1$d個項目？</string>
 	<string name="dialog_confirm_delete_multiple_message">您確定要刪除這些項目嗎？</string>
 	<string name="dialog_confirm_delete_file_message">您確定要刪除這個檔案嗎？</string>
+	<string name="dialog_confirm_delete_folder_message">這將會刪除檔案夾中的全部內容。您確定要刪除這個檔案夾嗎？</string>
 	<string name="dialog_enter_license_title">提供一個有效的許可證書</string>
 	<string name="dialog_enter_license_content">我們檢測到你沒有使用 Google Play 商店安裝 Cryptomator。提供一個有效的許可證書，證書可以從<a href="https://cryptomator.org/android/">https://cryptomator.org/android/</a>購買</string>
 	<string name="dialog_enter_license_not_valid_content">提供的許可證書無效。請確認您輸入無誤。</string>
@@ -276,8 +288,29 @@
 	<string name="time_unit_years_sg">年</string>
 	<string name="time_unit_years_pl">年</string>
 	<!-- ## biometric authentication -->
+	<string name="dialog_biometric_auth_title">生物識別驗證登錄</string>
+	<string name="dialog_biometric_auth_use_password">使用加密檔案庫密碼</string>
+	<string name="dialog_unable_to_auto_upload_files_title">無法自動上傳檔案</string>
 	<!-- notification -->
+	<string name="notification_timeout">%1$s後自動鎖定</string>
+	<string name="notification_lock_all">全部鎖定</string>
+	<string name="notification_cancel_auto_upload">取消上傳</string>
+	<string name="notification_auto_upload_title">正在運行像片自動上傳</string>
+	<string name="notification_auto_upload_message">正在上传 %1d/%2d</string>
+	<string name="notification_auto_upload_finished_title">像片自動上傳已完成</string>
+	<string name="notification_auto_upload_finished_message">已將%1$d張像片上傳至加密檔案庫</string>
+	<string name="notification_auto_upload_failed_title">像片自動上傳失敗</string>
+	<string name="notification_auto_upload_failed_due_to_vault_locked">加密檔案庫在上傳期間鎖定，請重新打開加密檔案庫後繼續</string>
+	<string name="notification_update_check_finished_latest">已安裝最新版本</string>
+	<string name="screen_settings_lru_cache">緩存</string>
+	<string name="screen_settings_lru_cache_size">緩存總大小</string>
+	<string name="screen_settings_clear_lru_cache_size">清除緩存</string>
+	<string name="screen_settings_lru_cache_changed__restart_toast">變更將會在應用程式下次重啓後啓用。</string>
+	<string name="screen_settings_license">註冊給</string>
+	<string name="screen_settings_license_mail">%1$s</string>
+	<string name="dialog_settings_update_check_interval_title">檢查更新間隔</string>
 	<string name="screen_settings_check_updates">檢查更新</string>
+	<string name="screen_settings_last_check_updates">上次檢查於%1$s</string>
 	<!-- lock timeout names -->
 	<string name="lock_timeout_instant">立即</string>
 	<string name="lock_timeout_1m">1分鐘</string>
