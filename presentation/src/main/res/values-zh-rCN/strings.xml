@@ -371,7 +371,7 @@
 	<string name="notification_open_writable_file_message">编辑期间保险库保持解锁</string>
 	<string name="notification_update_check_finished_latest">已安装最新版本</string>
 	<string name="screen_settings_lru_cache">缓存</string>
-	<string name="screen_settings_lru_cache_toggle_summary">缓存是在本地加密的最近访问文件，用以下次快速加载</string>
+	<string name="screen_settings_lru_cache_toggle_summary">缓存最近在本地加密的访问文件，用以下次快速加载</string>
 	<string name="screen_settings_lru_cache_size">缓存总大小</string>
 	<string name="screen_settings_clear_lru_cache_size">清除缓存</string>
 	<string name="screen_settings_lru_cache_changed__restart_toast">更改将在下次应用重启时生效</string>
