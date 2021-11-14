@@ -146,6 +146,7 @@
 	<string name="screen_settings_section_search">搜尋</string>
 	<string name="screen_settings_live_search">即時搜尋</string>
 	<string name="screen_settings_section_auto_lock">自動鎖定</string>
+	<string name="screen_settings_auto_lock_timeout">在多久後鎖定</string>
 	<string name="screen_settings_auto_lock_on_screen_lock">當螢幕被鎖定</string>
 	<string name="screen_settings_section_auto_photo_upload">自動上傳像片</string>
 	<string name="screen_settings_section_auto_photo_upload_vault">選擇要上傳的加密檔案庫</string>
@@ -165,6 +166,7 @@
 	<string name="screen_settings_security_label">安全提示</string>
 	<string name="screen_settings_section_version">版本</string>
 	<string name="screen_settings_advanced_settings">進階設定</string>
+	<string name="screen_settings_keep_unlocked_while_editing_files">保持解鎖</string>
 	<!-- ## screen: cloud settings -->
 	<string name="screen_cloud_settings_webdav_connections">WebDAV 連線</string>
 	<string name="screen_cloud_settings_pcloud_connections">pCloud 連線</string>
