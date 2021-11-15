@@ -368,6 +368,7 @@
 	<string name="notification_auto_upload_failed_general_error">Παρουσιάστηκε γενικό σφάλμα κατά τη μεταφόρτωση.</string>
 	<string name="notification_auto_upload_failed_due_to_folder_not_exists">Ο επιλεγμένος φάκελος για μεταφόρτωση δεν είναι πια διαθέσιμος. Μεταβείτε στις ρυθμίσεις και επιλέξτε ένα νέο</string>
 	<string name="notification_auto_upload_failed_due_to_vault_locked">Κρύπτη κλειδωμένη κατά τη μεταφόρτωση, παρακαλώ ανοίξτε ξανά την κρύπτη για να συνεχίσετε</string>
+	<string name="notification_auto_upload_failed_due_to_vault_not_found">Η κρύπτη που ορίστηκε για αυτόματο ανέβασμα δεν υπάρχει πια.</string>
 	<string name="notification_open_writable_file_title">Άνοιγμα εγγράψιμου αρχείου</string>
 	<string name="notification_open_writable_file_message">Η κρύπτη παραμένει ξεκλείδωτη μέχρι να τελειώσει η επεξεργασία</string>
 	<string name="notification_update_check_finished_latest">Τελευταία έκδοση εγκατεστημένη</string>
