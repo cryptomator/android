@@ -12,6 +12,7 @@ import androidx.multidex.MultiDexApplication
 import org.cryptomator.data.cloud.crypto.Cryptors
 import org.cryptomator.data.cloud.crypto.CryptorsModule
 import org.cryptomator.data.repository.RepositoryModule
+import org.cryptomator.domain.Vault
 import org.cryptomator.presentation.di.HasComponent
 import org.cryptomator.presentation.di.component.ApplicationComponent
 import org.cryptomator.presentation.di.component.DaggerApplicationComponent
@@ -123,10 +124,12 @@ class CryptomatorApp : MultiDexApplication(), HasComponent<ApplicationComponent>
 	fun startAutoUpload() {
 		val sharedPreferencesHandler = SharedPreferencesHandler(applicationContext())
 		if (checkToStartAutoImageUpload(sharedPreferencesHandler)) {
-			val vault = applicationComponent.vaultRepository().load(sharedPreferencesHandler.photoUploadVault())
-			if (vault.isUnlocked) {
+			val vault: Vault? = applicationComponent.vaultRepository().load(sharedPreferencesHandler.photoUploadVault())
+			if (vault?.isUnlocked == true) {
 				val cloud = applicationComponent.cloudRepository().decryptedViewOf(vault)
 				applicationContext().startService(AutoUploadService.startAutoUploadIntent(applicationContext(), cloud))
+			} else if (vault == null) {
+				applicationContext().startService(AutoUploadService.vaultNotFoundUploadIntent(applicationContext()))
 			}
 		}
 	}

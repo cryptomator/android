@@ -96,6 +96,10 @@ class AutoUploadNotification(private val context: Context, private val amountOfP
 		showErrorWithMessage(context.getString(R.string.notification_auto_upload_failed_general_error))
 	}
 
+	fun showVaultNotFoundNotification() {
+		showErrorWithMessage(context.getString(R.string.notification_auto_upload_failed_due_to_vault_not_found))
+	}
+
 	private fun showErrorWithMessage(message: String) {
 		builder.setContentIntent(startTheActivity())
 		builder //
