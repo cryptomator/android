@@ -17,6 +17,7 @@ import org.cryptomator.domain.exception.BackendException;
 import org.cryptomator.domain.exception.CancellationException;
 import org.cryptomator.domain.exception.CloudNodeAlreadyExistsException;
 import org.cryptomator.domain.exception.FatalBackendException;
+import org.cryptomator.domain.exception.FileRemovedDuringUploadException;
 import org.cryptomator.domain.exception.MissingCryptorException;
 import org.cryptomator.domain.exception.NoSuchCloudFileException;
 import org.cryptomator.domain.repository.CloudContentRepository;
@@ -182,7 +183,11 @@ public class AutoUploadService extends Service {
 			} catch (CloudNodeAlreadyExistsException e) {
 				Timber.tag("AutoUploadService").i("Not uploading file because it already exists in the cloud");
 				Timber.tag("AutoUploadService").v(format("Not uploading file because it already exists in the cloud %s", file.getFileName()));
-			} catch (Exception e) {
+			} catch (FileRemovedDuringUploadException e) {
+				Timber.tag("AutoUploadService").i("Not uploading file because it was removed during upload");
+				Timber.tag("AutoUploadService").v(format("Not uploading file because it was removed during upload %s", file.getFileName()));
+			}
+			catch (Exception e) {
 				cancelled = true;
 				fileUtil.removeImagesFromAutoUploads(uploadedCloudFileNames);
 				throw e;
@@ -211,6 +216,9 @@ public class AutoUploadService extends Service {
 
 	private CloudFile writeCloudFile(String fileName, CancelAwareDataSource dataSource, boolean replacing, ProgressAware<UploadState> progressAware) throws BackendException {
 		Long size = dataSource.size(context);
+		if(size == null) {
+			throw new FileRemovedDuringUploadException();
+		}
 		CloudFile source = cloudContentRepository.file(parent, fileName, size);
 		return cloudContentRepository.write(source, dataSource, progressAware, replacing, size);
 	}
