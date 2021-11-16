@@ -368,7 +368,6 @@
 	<string name="notification_auto_upload_failed_general_error">Error general durante la carga.</string>
 	<string name="notification_auto_upload_failed_due_to_folder_not_exists">La carpeta seleccionada para cargar ya no está disponible. Vaya a los ajustes y elija una nueva</string>
 	<string name="notification_auto_upload_failed_due_to_vault_locked">Bóveda bloqueada durante la carga, vuelva a abrir la bóveda para continuar</string>
-	<string name="notification_auto_upload_failed_due_to_vault_not_found">La bóveda especificada para la carga automática ya no existe.</string>
 	<string name="notification_open_writable_file_title">Abrir archivo escribible</string>
 	<string name="notification_open_writable_file_message">La bóveda permanece desbloqueada hasta finalizar la edición</string>
 	<string name="notification_update_check_finished_latest">Última versión instalada</string>
