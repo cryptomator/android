@@ -162,6 +162,20 @@
 	<string name="screen_settings_section_search">Пошук</string>
 	<string name="screen_settings_live_search">\"Живий\" пошук</string>
 	<string name="screen_settings_live_search_summary">Оновити результати пошуку при вході в запит</string>
+	<string name="screen_settings_glob_search">Пошук за допомогою глобального шаблону</string>
+	<string name="screen_settings_glob_search_summary">Використовувати шаблон, що відповідає аліасу.*.jpg</string>
+	<string name="screen_settings_section_auto_lock">Автоматичне блокування</string>
+	<string name="screen_settings_auto_lock_timeout">Блокувати після</string>
+	<string name="screen_settings_auto_lock_on_screen_lock">Коли екран вимкнено</string>
+	<string name="screen_settings_section_auto_photo_upload">Автоматичне завантаження фотографій</string>
+	<string name="screen_settings_section_auto_photo_upload_vault">Вибрати сховище для завантаження</string>
+	<string name="screen_settings_section_auto_photo_upload_toggle">Увімкнено</string>
+	<string name="screen_settings_section_auto_photo_upload_toggle_summary">Захоплювати зображення у фоновому режимі і після розблокування вибраного сховища, почати завантаження</string>
+	<string name="screen_settings_section_auto_photo_upload_toggle_instant_upload">Вивантажити миттєво</string>
+	<string name="screen_settings_section_auto_photo_upload_toggle_instant_upload_summary">Вивантажувати, якщо сховище розблоковано</string>
+	<string name="screen_settings_section_auto_photo_upload_only_wifi_toggle">Вивантажувати лише за допомогою Wi-Fi</string>
+	<string name="screen_settings_section_auto_photo_upload_including_videos">Завантажувати відео</string>
+	<string name="screen_settings_auto_photo_upload_title">Зберігати автозавантажені файли до&#8230;</string>
 	<!-- ## screen: cloud settings -->
 	<!-- ## screen: licenses -->
 	<!-- ## screen: authenticate cloud -->
