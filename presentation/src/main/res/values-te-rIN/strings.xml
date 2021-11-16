@@ -3,6 +3,9 @@
 	<!-- # app -->
 	<string name="share_with_label">ఎన్‌క్రిప్ట్</string>
 	<!-- # error messages -->
+	<string name="error_invalid_passphrase">సరియినది కాని రహస్య పదము</string>
+	<string name="error_vault_already_exists">వాల్ట్ ఇప్పటికే ఉంది.</string>
+	<string name="error_no_such_file">ఫైల్ ఉనికిలో లేదు.</string>
 	<!-- # clouds -->
 	<!-- ## cloud names -->
 	<!-- # permission -->
@@ -33,18 +36,32 @@
 	<!-- ## screen: webdav settings -->
 	<string name="screen_webdav_settings_url_port_label">URL</string>
 	<!-- ## screen: s3 settings -->
+	<string name="screen_s3_settings_msg_bucket_not_empty">బకెట్ ఖాళీగా ఉండకూడదు</string>
 	<!-- ## screen: enter vault name -->
+	<string name="screen_enter_vault_name_vault_label">వాల్ట్ పేరు</string>
 	<string name="screen_enter_vault_name_button_text">సృష్టించు</string>
 	<!-- ## screen: set password -->
+	<string name="screen_set_password_title">పాస్వర్డ్ను సెట్ చేయండి</string>
 	<string name="screen_set_password_button_text">పూర్తయింది</string>
 	<string name="screen_set_password_retype_password_label">పాస్వర్డ్ మళ్ళీ వ్రాయండి</string>
+	<string name="screen_set_password_strength_indicator_0">ఖజానాని సృష్టించడానికి చాలా బలహీనంగా ఉంది</string>
 	<string name="screen_set_password_strength_indicator_1">బలంగా లేదు</string>
 	<string name="screen_set_password_strength_indicator_2">అది సరే</string>
 	<string name="screen_set_password_strength_indicator_3">అది బలంగా ఉంది</string>
 	<string name="screen_set_password_strength_indicator_4">అది చాలా బలంగా ఉంది</string>
 	<!-- ## screen: settings -->
+	<string name="screen_settings_cloud_settings_label">క్లౌడ్ సేవలు</string>
 	<string name="screen_settings_section_search">వెతకండి</string>
+	<string name="screen_settings_section_auto_photo_upload_vault">అప్‌లోడ్ చేయడానికి వాల్ట్‌ని ఎంచుకోండి</string>
+	<string name="screen_settings_website_label">క్రిప్టోమేటర్ వెబ్‌సైట్</string>
+	<string name="screen_settings_section_legal">చట్టబద్ధతలు</string>
+	<string name="screen_settings_licenses_label">లైసెన్స్‌లు</string>
+	<string name="screen_settings_license_terms_label">లైసెన్స్ నిబంధనలు</string>
 	<string name="screen_settings_section_support">సహాయం</string>
+	<string name="screen_settings_contact_label">సహాయం అభ్యర్థించండి</string>
+	<string name="screen_settings_error_report_label">లాగ్ ఫైల్‌ను పంపండి</string>
+	<string name="screen_settings_advanced_settings">ఆధునిక సెట్టింగులు</string>
+	<string name="screen_settings_keep_unlocked_while_editing_files">అన్‌లాక్ చేసి ఉంచండి</string>
 	<!-- ## screen: cloud settings -->
 	<string name="screen_cloud_settings_webdav_connections">WebDAV కనెక్షన్లు</string>
 	<string name="screen_cloud_settings_pcloud_connections">pCloud కనెక్షన్లు</string>
@@ -65,14 +82,18 @@
 	<string name="dialog_change_password_msg_new_password_empty">కొత్త పాస్‌వర్డ్ ఖాళీగా ఉండకూడదు.</string>
 	<string name="dialog_change_password_msg_password_mismatch">కొత్త పాస్‌వర్డ్ మళ్లీ టైప్ చేసిన పాస్‌వర్డ్‌తో సరిపోలడం లేదు.</string>
 	<!-- Vault not found -->
+	<string name="dialog_vault_not_found_title">వాల్ట్ %1$s కనుగొనబడలేదు</string>
 	<string name="dialog_vault_not_found_message">ఖజానా పేరు మార్చబడింది, తరలించబడింది లేదా తొలగించబడింది. జాబితా నుండి ఈ ఖజానాను తీసివేసి, కొనసాగించడానికి దాన్ని మళ్లీ జోడించండి. ఇప్పుడు తీసివేయాలా?</string>
 	<string name="dialog_vault_not_found_positive_button_text">తొలగించు</string>
+	<string name="dialog_existing_file_title">ఫైల్ ఇప్పటికే ఉంది</string>
 	<string name="dialog_existing_file_positive_button">భర్తీ చేయండి</string>
+	<string name="dialog_existing_file_message">\'%1$s\' పేరుతో ఫైల్ ఇప్పటికే ఉంది.</string>
 	<string name="dialog_replace_positive_button_all_files_exist">అన్నింటినీ భర్తీ చేయండి</string>
 	<string name="dialog_replace_positive_button_some_files_exist">ఇప్పటికే ఉన్న వాటిని భర్తీ చేయండి</string>
 	<string name="dialog_replace_positive_button_single_file_exists">భర్తీ చేయండి</string>
 	<string name="dialog_replace_title_single_file_exists">నేను ఫైల్‌ను భర్తీ చేయాలా?</string>
 	<string name="dialog_replace_title_multiple_files_exist">నేను ఫైల్‌లను భర్తీ చేయాలా?</string>
+	<string name="dialog_unable_to_share_title">ఫైల్‌లను భాగస్వామ్యం చేయడం సాధ్యపడలేదు</string>
 	<string name="dialog_unable_to_share_positive_button">సరే</string>
 	<string name="dialog_unable_to_share_negative_button">ఖజానా తయారు</string>
 	<string name="dialog_filetype_not_supported_title">%1$s తెరవడం సాధ్యం కాదు</string>
@@ -91,14 +112,33 @@
 	<string name="dialog_progress_creating_folder">&#8230; ఫోల్డర్‌ని సృష్టిస్తోంది</string>
 	<string name="dialog_progress_creating_text_file">టెక్స్ట్ ఫైల్‌ను సృష్టిస్తోంది &#8230;</string>
 	<string name="action_progress_authentication">ప్రమాణీకరణ &#8230;</string>
+	<string name="dialog_lock_vault">తాళం వేయండి</string>
 	<string name="dialog_accept_ssl_certificate_title">తప్పు SSL certificate</string>
+	<string name="dialog_accept_ssl_certificate_details">వివరాలు</string>
+	<string name="dialog_http_security_checkbox">HTTPSకి మార్చండి</string>
+	<string name="dialog_http_security_title">HTTPSని ఉపయోగించాలా?</string>
+	<string name="dialog_no_screen_lock_title">స్క్రీన్ లాక్‌ని సెట్ చేయాలా?</string>
+	<string name="dialog_no_screen_lock_checkbox">స్క్రీన్ లాక్‌ని సెట్ చేయండి</string>
+	<string name="dialog_debug_mode_positive_button">ప్రారంభించు</string>
+	<string name="dialog_disable_app_obscured_disclaimer_title">శ్రద్ధ వహించండి</string>
+	<string name="dialog_app_is_obscured_info_title">యాప్ అస్పష్టంగా ఉంది</string>
+	<string name="dialog_app_is_obscured_info_neutral_button">దాన్ని మూసివేయండి</string>
 	<string name="dialog_delete_cloud_connection_with_vaults_hint">ఈ చర్య క్లౌడ్ కనెక్షన్ మరియు ఈ క్లౌడ్ యొక్క అన్ని వాల్ట్‌లను తీసివేస్తుంది.</string>
 	<string name="dialog_confirm_delete_multiple_title">%1$d తొలగించాలా?</string>
 	<string name="dialog_confirm_delete_multiple_message">మీరు ఖచ్చితంగా ఈ అంశాలను తొలగించాలనుకుంటున్నారా?</string>
 	<string name="dialog_confirm_delete_file_message">మీరు ఖచ్చితంగా ఈ ఫైల్‌ను తొలగించాలనుకుంటున్నారా?</string>
 	<string name="dialog_confirm_delete_folder_message">ఇది ఫోల్డర్‌లోని అన్ని కంటెంట్‌లను తొలగిస్తుంది. మీరు ఖచ్చితంగా ఈ ఫోల్డర్‌ని తొలగించాలనుకుంటున్నారా?</string>
+	<string name="dialog_enter_license_title">చెల్లుబాటు అయ్యే లైసెన్స్‌ను అందించండి</string>
 	<string name="dialog_enter_license_decline_button">బయటకి దారి</string>
+	<string name="dialog_license_confirmation_title">లైసెన్స్ నిర్ధారణ</string>
+	<string name="dialog_update_available_title">అందుబాటులో నవీకరణ</string>
+	<string name="dialog_update_available_update">ఇప్పుడే నవీకరించండి</string>
+	<string name="dialog_update_available_download_site">డౌన్‌లోడ్‌ల సైట్‌కి వెళ్లండి</string>
 	<string name="dialog_update_available_cancel">తరువాత</string>
+	<string name="dialog_download_update_title">డౌన్‌లోడ్ అమలవుతోంది</string>
+	<string name="dialog_download_update_message">క్రిప్టోమేటర్ యొక్క తాజా సంస్కరణను డౌన్‌లోడ్ చేస్తోంది</string>
+	<string name="dialog_sym_link_title">ఫోల్డర్ అనేది సింబాలిక్ లింక్</string>
+	<string name="dialog_sym_link_back_button">వెనుకకు</string>
 	<!-- # error reports -->
 	<!-- # misc -->
 	<!-- ## file size helper -->
@@ -122,8 +162,14 @@
 	<string name="time_unit_months_sg">నెల</string>
 	<string name="time_unit_months_pl">నెలల</string>
 	<string name="time_unit_years_sg">సంవత్సరం</string>
+	<string name="time_unit_years_pl">సంవత్సరాలు</string>
 	<!-- ## biometric authentication -->
+	<string name="dialog_biometric_auth_title">బయోమెట్రిక్ లాగిన్</string>
+	<string name="dialog_biometric_auth_use_password">వాల్ట్ పాస్‌వర్డ్‌ని ఉపయోగించండి</string>
 	<!-- notification -->
+	<string name="notification_lock_all">అన్నింటినీ లాక్ చేయండి</string>
+	<string name="notification_cancel_auto_upload">అప్‌లోడ్‌ని రద్దు చేయండి</string>
+	<string name="notification_update_check_finished_latest">తాజా వెర్షన్ ఇన్‌స్టాల్ చేయబడింది</string>
 	<string name="screen_settings_lru_cache">కాష్</string>
 	<string name="screen_settings_lru_cache_toggle_summary">మళ్లీ తెరిచినప్పుడు మళ్లీ ఉపయోగించడం కోసం పరికరంలో స్థానికంగా గుప్తీకరించిన ఫైల్‌లను కాష్ ఇటీవల యాక్సెస్ చేసింది</string>
 	<string name="screen_settings_lru_cache_size">మొత్తం కాష్ పరిమాణం</string>
