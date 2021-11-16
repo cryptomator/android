@@ -1,4 +1,1 @@
-- Upload photos instantly when auto photo upload is enabled and vault is unlocked
-- Fixed vault name is empty when it is the root folder of the cloud
-- Refactored access to local storage
-- Enhanced security of WebDAV connections
+- Fixed app crash when vault specified for auto upload doesn't exist anymore and upload starts
