@@ -370,6 +370,7 @@
 	<string name="notification_auto_upload_failed_general_error">Došlo k obecnej chybe počas nahrávania.</string>
 	<string name="notification_auto_upload_failed_due_to_folder_not_exists">Zvolený adresár pre nahrávanie už nie je dostupný. V nastaveniach zvoľte nový</string>
 	<string name="notification_auto_upload_failed_due_to_vault_locked">Trezor počas nahrávania uzamknutý, prosím znovu-otvorte trezor pre pokračovanie</string>
+	<string name="notification_auto_upload_failed_due_to_vault_not_found">Trezor určený pre automatické nahrávanie už viac neexistuje.</string>
 	<string name="notification_open_writable_file_title">Otvoriť zapisovateľný súbor</string>
 	<string name="notification_open_writable_file_message">Trezor zostáva odomknutý pokial nie je ukončené editovanie</string>
 	<string name="notification_update_check_finished_latest">Najnovšia verzia inštalovaná</string>
