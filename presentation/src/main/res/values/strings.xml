@@ -537,6 +537,7 @@
 	<string name="notification_auto_upload_failed_general_error">General error occurred during upload.</string>
 	<string name="notification_auto_upload_failed_due_to_folder_not_exists">Selected folder for upload isn\'t available anymore. Go to settings and choose a new one</string>
 	<string name="notification_auto_upload_failed_due_to_vault_locked">Vault locked during upload, please reopen vault to continue</string>
+	<string name="notification_auto_upload_failed_due_to_vault_not_found">Vault specified for auto upload doesn\'t exist anymore.</string>
 
 	<string name="notification_cancel_open_writable_file" translatable="false">@string/dialog_button_cancel</string>
 	<string name="notification_open_writable_file_title">Open writable file</string>

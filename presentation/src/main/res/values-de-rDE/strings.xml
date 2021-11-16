@@ -368,6 +368,7 @@
 	<string name="notification_auto_upload_failed_general_error">Generaller Fehler während dem Hochladen.</string>
 	<string name="notification_auto_upload_failed_due_to_folder_not_exists">Ausgewählter Ordner für das Photo-Hochladen existiert nicht mehr. In der Einstellungen neuen auswählen</string>
 	<string name="notification_auto_upload_failed_due_to_vault_locked">Tresor gesperrt während dem hochladen, zum weiteren Hochladen entsperren</string>
+	<string name="notification_auto_upload_failed_due_to_vault_not_found">Der Tresor für den automatischen Upload existiert nicht mehr.</string>
 	<string name="notification_open_writable_file_title">Datei mit Schreibrechten geöffnet</string>
 	<string name="notification_open_writable_file_message">Tresor bleibt entsperrt bis die Datei nicht mehr editiert wird</string>
 	<string name="notification_update_check_finished_latest">Neueste Version installiert</string>

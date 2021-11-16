@@ -16,15 +16,35 @@
 	<string name="error_cloud_already_exists">A felhő már létezik.</string>
 	<string name="error_activity_not_found">Kérjük, töltsön le egy alkalmazást, amely képes megnyitni ezt a fájlt.</string>
 	<string name="error_server_not_found">Szerver nem található.</string>
+	<string name="error_device_policy_manager_not_found">Kérjük, nyissa meg a készülék beállításait, majd állítsa be a képernyőzárat szabadkezűleg</string>
 	<string name="error_export_illegal_file_name">Az exportálás sikertelen. Próbálja meg eltávolítani a speciális karaktereket a fájlnevekből és exportálja újra.</string>
 	<string name="error_name_contains_invalid_characters">Nem tartalmazhat speciális karaktereket.</string>
 	<string name="error_names_contains_invalid_characters">A fájl neve nem tartalmazhat speciális karaktereket.</string>
 	<string name="error_vault_name_contains_invalid_characters">A széf neve nem tartalmazhat speciális karaktereket.</string>
 	<string name="error_general_update">A frissítés ellenőrzése sikertelen. Általános hiba történt.</string>
+	<string name="error_hash_mismatch_update">A frissítés keresése sikertelen. A generált hash nem egyezik a feltöltött fájllal</string>
+	<string name="error_update_no_internet">A frissítés keresése sikertelen. Nincs internetkapcsolat.</string>
+	<string name="error_failed_to_decrypt_webdav_password">A WebDAV-jelszó visszafejtése sikertelen. Kérjük, adja meg újra a beállításokban</string>
+	<string name="error_play_services_not_available">A Google Play szolgáltatások nincsenek telepítve</string>
+	<string name="error_biometric_auth_aborted">Sikertelen biometrikus azonosítás</string>
+	<string name="error_vault_version_mismatch">A %1$s -ban megadott verzió eltér a %2$s -tól</string>
+	<string name="error_vault_key_invalid">A(z) %1$s nem egyezik a következővel: %2$s</string>
+	<string name="error_vault_config_loading">Általános hiba a tároló konfigjának betöltése közben</string>
+	<string name="error_file_not_found_after_opening_using_3party">A Cryptomatorra való visszaváltás után a helyi fájl már nem elérthető. Az esetleges változások nem frissíthetik a felhőben lévő fájlt.</string>
+	<string name="error_no_such_bucket">Nem található ilyen adat</string>
+	<string name="error_masterkey_location_not_supported">Az egyéni Masterkey hely választása még nem támogatott</string>
 	<!-- # clouds -->
 	<!-- ## cloud names -->
+	<string name="cloud_names_local_storage">Helyi tároló</string>
 	<!-- # permission -->
 	<!-- ## permission messages -->
+	<string name="permission_message_export_file">A Cryptomatornak tárhely-hozzáférésre van szüksége a fájlok exportálásához</string>
+	<string name="permission_message_upload_file">A Cryptomatornak tárhely-hozzáférésre van szüksége a fájlok feltöltéséhez</string>
+	<string name="permission_message_share_file">A Cryptomatornak tárhely-hozzáférésre van szüksége a fájlok megosztásához</string>
+	<string name="permission_revoked_re_request_permission">A Cryptomator elvesztette a hozzáférési jogosultságát ehhez a forráshoz. Kérjük, válassza ki újra ezt a mappát az engedély visszaállításához.</string>
+	<string name="snack_bar_action_title_settings">Beállítások</string>
+	<string name="snack_bar_action_title_search">Keresés</string>
+	<string name="snack_bar_action_title_search_previous">Előző</string>
 	<string name="snack_bar_action_title_search_next">Következő</string>
 	<string name="snack_bar_action_title_sort">Rendezés</string>
 	<string name="snack_bar_action_title_sort_az">A - Z</string>
@@ -40,9 +60,44 @@
 	<string name="screen_vault_list_action_add_existing_vault">Meglévő széfhez adás</string>
 	<string name="screen_vault_list_vault_action_delete">Eltávolítás</string>
 	<string name="screen_vault_list_vault_creation_hint">Kattintson ide egy új széf létrehozásához</string>
+	<string name="screen_vault_list_change_password_successful">Jelszó sikeresen megváltoztatva</string>
 	<!-- # screen: file browser -->
 	<string name="screen_file_browser_default_title">Széf</string>
+	<string name="screen_file_browser_add_existing_vault_extra_text">Válassza ki a Masterkey fájlt</string>
+	<string name="screen_file_browser_create_new_vault_button_text">Helyezze ide</string>
+	<string name="screen_file_browser_create_new_vault_extra_text">Trezor neve: %1$s</string>
+	<plurals name="screen_file_browser_subtitle_move">
+		<item quantity="one">%1$s áthelyezése ide</item>
+		<item quantity="other">%2$d elem áthelyezése ide</item>
+	</plurals>
+	<string name="screen_file_browser_move_button_text">Áthelyezés</string>
+	<string name="screen_file_browser_msg_empty_folder">Mappa kiürítése</string>
+	<string name="screen_file_browser_file_info_label_date">módosítva ennyi ideje: %1$s</string>
+	<string name="screen_file_browser_share_intent_chooser_title">Megosztás a következővel</string>
+	<string name="screen_file_browser_share_destination_title">Cél kiválasztása</string>
 	<string name="screen_file_browser_share_button_text">Választás</string>
+	<string name="screen_file_browser_nothing_to_share">Nincs mit megosztani</string>
+	<string name="screen_file_browser_actions_title">Hozzáadás ide: %1$s</string>
+	<string name="screen_file_browser_action_create_folder">Mappa létrehozása</string>
+	<string name="screen_file_browser_action_create_new_text_file">Szövegfájlt létrehozása</string>
+	<string name="screen_file_browser_action_upload_files">Fájlok feltöltése</string>
+	<string name="screen_file_browser_upload_files_chooser_title">Fájlok</string>
+	<string name="screen_file_browser_msg_file_exported">Fájl exportálva</string>
+	<string name="screen_file_browser_msg_files_exported">Fájlok exportálva</string>
+	<string name="screen_file_browser_nothing_to_export">Nincs mit exportálni</string>
+	<string name="screen_file_browser_msg_creating_download_dir_failed">Letöltések mappa létrehozása sikertelen</string>
+	<string name="screen_file_browser_node_action_share">Megosztás</string>
+	<string name="screen_file_browser_node_action_rename">Átnevezés</string>
+	<string name="screen_file_browser_node_action_edit_text">Szerkeszt</string>
+	<string name="screen_file_browser_node_action_export">Export</string>
+	<string name="screen_file_browser_node_action_delete">Törlés</string>
+	<string name="screen_file_browser_node_action_open_with_text">Megnyitás a következővel &#8230;</string>
+	<string name="screen_file_browser_selection_mode_title_zero_elements">Elemek kiválasztása</string>
+	<string name="screen_file_browser_selection_mode_title_one_or_more_elements">%1$d kiválasztva</string>
+	<string name="screen_file_browser_select_items">Kijelölés</string>
+	<string name="screen_file_browser_select_all_items">Összes kijelölése</string>
+	<string name="screen_file_browser_refresh_items">Frissítés</string>
+	<string name="screen_file_browser_no_connection_message">Nincs kapcsolat</string>
 	<string name="screen_file_browser_no_connection_button_text">Újra</string>
 	<!-- ## screen: text editor -->
 	<string name="screen_text_editor_save_success">Sikeresen mentve</string>
@@ -106,13 +161,64 @@
 	<string name="screen_settings_confirm_face_unlock">Arcfeloldás megerősítése (ha elérhető)</string>
 	<string name="screen_settings_block_app_when_obscured">Alkalmazás blokkolása, ha nem látható</string>
 	<string name="screen_settings_block_app_when_obscured_summary">A bevitel elfogásának blokkolása és a hamis felhasználói felület megjelenítése</string>
+	<string name="screen_settings_secure_screen">Képernyőképek letiltása</string>
+	<string name="screen_settings_secure_screen_summary">Képernyőképek letiltása a előzmények listáján és az alkalmazáson belül</string>
+	<string name="screen_settings_section_search">Keresés</string>
+	<string name="screen_settings_live_search">Élő keresés</string>
+	<string name="screen_settings_live_search_summary">Frissítse a keresési eredményeket a keresőszavak beírása közben közben</string>
+	<string name="screen_settings_glob_search">Keresés glob-mintával</string>
+	<string name="screen_settings_glob_search_summary">Használjon glob-minta keresést, pl. alice.*.jpg</string>
+	<string name="screen_settings_section_auto_lock">Automatikus zárolás</string>
+	<string name="screen_settings_auto_lock_timeout">Lezárás ennyi idő után</string>
+	<string name="screen_settings_auto_lock_on_screen_lock">Amikor a képernyőt inaktív</string>
+	<string name="screen_settings_section_auto_photo_upload">Automatikus képfeltöltés</string>
+	<string name="screen_settings_section_auto_photo_upload_vault">Trezor kiválasztása a feltöltéshez</string>
+	<string name="screen_settings_section_auto_photo_upload_toggle">Aktiválás</string>
+	<string name="screen_settings_section_auto_photo_upload_toggle_summary">Képek várakoztatása a feltöltéshez, majd a meghatározott trezort feloldását követően a feltöltés megkezdése</string>
+	<string name="screen_settings_section_auto_photo_upload_toggle_instant_upload">Instant feltöltés</string>
+	<string name="screen_settings_section_auto_photo_upload_toggle_instant_upload_summary">Automatikus feltöltés, ha a trezor fel van oldva</string>
+	<string name="screen_settings_section_auto_photo_upload_only_wifi_toggle">Feltöltés WIFI hálózaton</string>
+	<string name="screen_settings_section_auto_photo_upload_including_videos">Videó feltöltése</string>
+	<string name="screen_settings_auto_photo_upload_title">Automatikus feltöltések helye: &#8230;</string>
+	<string name="screen_settings_website_label">Cryptomator weboldala</string>
+	<string name="screen_settings_twitter_label">Kövess minket a Twitteren</string>
+	<string name="screen_settings_facebook_label">Lájkolj minket a Facebookon</string>
+	<string name="screen_settings_section_legal">Jogi nyilatkozat</string>
+	<string name="screen_settings_licenses_label">Licenszek</string>
+	<string name="screen_settings_license_terms_label">Licencfeltételek</string>
+	<string name="screen_settings_section_support">Támogatás</string>
+	<string name="screen_settings_contact_label">Segítségkérés</string>
+	<string name="screen_settings_debug_mode_label">Hibakeresési mód</string>
+	<string name="screen_settings_error_report_label">Naplófájlok küldése</string>
+	<string name="screen_settings_error_report_failed">A küldés sikertelen</string>
+	<string name="screen_settings_security_label">Biztonsági tippek</string>
+	<string name="screen_settings_section_version">Verzió</string>
+	<string name="screen_settings_advanced_settings">Speciális beállítások</string>
+	<string name="screen_settings_background_unlock_preparation_label">A feloldás felgyorsítása</string>
+	<string name="screen_settings_background_unlock_preparation_label_summary">Trezor konfigurációjának letöltése a háttérben a jelszó/biometrikus hitelesítés megadása közben</string>
+	<string name="screen_settings_keep_unlocked_while_editing_files">Feloldvatartás</string>
+	<string name="screen_settings_keep_unlocked_while_editing_files_summary">Fájlok szerkesztése közben tartsa feloldva a trezorokat</string>
 	<!-- ## screen: cloud settings -->
+	<string name="screen_cloud_settings_webdav_connections">WebDAV fiókok</string>
+	<string name="screen_cloud_settings_pcloud_connections">pCloud fiókok</string>
+	<string name="screen_cloud_settings_s3_connections">S3 fiókok</string>
+	<string name="screen_cloud_settings_local_storage_locations">Helyi tárolóhelyek</string>
+	<string name="screen_cloud_settings_log_in_to">Bejelentkezés ide</string>
+	<string name="screen_cloud_settings_sign_out_from_cloud">Kijelentkezés innen</string>
 	<!-- ## screen: licenses -->
 	<!-- ## screen: authenticate cloud -->
+	<string name="screen_authenticate_auth_authentication_failed">A %1$s hitelesítése sikertelen.</string>
+	<string name="screen_update_pcloud_connections_title">pCloud hitelesítő adatainak frissítése</string>
 	<!-- ## screen: insecure android version info -->
 	<!-- # dialogs -->
 	<string name="dialog_button_cancel">Mégse</string>
 	<string name="dialog_enter_password_positive_button">Feloldás</string>
+	<string name="dialog_change_password_old_password_label">Régi jelszó</string>
+	<string name="dialog_change_password_new_password_label">Új jelszó</string>
+	<string name="dialog_change_password">Jelszó megváltoztatása</string>
+	<string name="dialog_change_password_msg_old_password_empty">A régi jelszó nem lehet üres.</string>
+	<string name="dialog_change_password_msg_new_password_empty">Az új jelszó nem lehet üres.</string>
+	<string name="dialog_change_password_msg_password_mismatch">Az új jelszó nem egyezik az ismételten begépelt jelszóval.</string>
 	<!-- Vault not found -->
 	<string name="dialog_vault_not_found_positive_button_text">Eltávolítás</string>
 	<string name="dialog_lock_vault">Zárolás</string>

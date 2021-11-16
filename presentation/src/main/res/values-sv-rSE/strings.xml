@@ -368,6 +368,7 @@
 	<string name="notification_auto_upload_failed_general_error">Allmänt fel uppstod under uppladdning.</string>
 	<string name="notification_auto_upload_failed_due_to_folder_not_exists">Vald mapp för uppladdning finns inte längre. Gå till inställningar och välj en ny</string>
 	<string name="notification_auto_upload_failed_due_to_vault_locked">Valv låstes under uppladdningen, vänligen öppna valvet för att fortsätta</string>
+	<string name="notification_auto_upload_failed_due_to_vault_not_found">Valvet som angets för automatisk uppladdning finns inte längre.</string>
 	<string name="notification_open_writable_file_title">Öppna skrivbar fil</string>
 	<string name="notification_open_writable_file_message">Valvet är upplåst till färdig redigering</string>
 	<string name="notification_update_check_finished_latest">Senaste versionen installerad</string>

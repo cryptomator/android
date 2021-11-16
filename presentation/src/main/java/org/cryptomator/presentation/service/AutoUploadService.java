@@ -47,8 +47,9 @@ import static org.cryptomator.domain.usecases.cloud.UploadFile.anUploadFile;
 
 public class AutoUploadService extends Service {
 
-	private static final String ACTION_CANCEL_AUTO_UPLOAD = "CANCEL_AUTO_UPLOAD";
 	private static final String ACTION_START_AUTO_UPLOAD = "START_AUTO_UPLOAD";
+	private static final String ACTION_CANCEL_AUTO_UPLOAD = "CANCEL_AUTO_UPLOAD";
+	private static final String ACTION_VAULT_NOT_FOUND = "VAULT_NOT_FOUND";
 
 	private static Cloud cloud;
 	private AutoUploadNotification notification;
@@ -69,17 +70,23 @@ public class AutoUploadService extends Service {
 		}
 	};
 
+	public static Intent startAutoUploadIntent(Context context, Cloud myCloud) {
+		cloud = myCloud;
+		Intent startAutoUpload = new Intent(context, AutoUploadService.class);
+		startAutoUpload.setAction(ACTION_START_AUTO_UPLOAD);
+		return startAutoUpload;
+	}
+
 	public static Intent cancelAutoUploadIntent(Context context) {
 		Intent cancelAutoUploadIntent = new Intent(context, AutoUploadService.class);
 		cancelAutoUploadIntent.setAction(ACTION_CANCEL_AUTO_UPLOAD);
 		return cancelAutoUploadIntent;
 	}
 
-	public static Intent startAutoUploadIntent(Context context, Cloud myCloud) {
-		cloud = myCloud;
-		Intent startAutoUpload = new Intent(context, AutoUploadService.class);
-		startAutoUpload.setAction(ACTION_START_AUTO_UPLOAD);
-		return startAutoUpload;
+	public static Intent vaultNotFoundUploadIntent(Context context) {
+		Intent cancelAutoUploadIntent = new Intent(context, AutoUploadService.class);
+		cancelAutoUploadIntent.setAction(ACTION_VAULT_NOT_FOUND);
+		return cancelAutoUploadIntent;
 	}
 
 	private void startBackgroundImageUpload(Cloud cloud) {
@@ -228,6 +235,9 @@ public class AutoUploadService extends Service {
 			cancelled = true;
 
 			hideNotification();
+		} else if(isVaultNotFound(intent)) {
+			Timber.tag("AutoUploadService").i("Received show vault not found notification");
+			notification.showVaultNotFoundNotification();
 		}
 		return START_STICKY;
 	}
@@ -240,6 +250,11 @@ public class AutoUploadService extends Service {
 	private boolean isCancelAutoUpload(Intent intent) {
 		return intent != null //
 				&& ACTION_CANCEL_AUTO_UPLOAD.equals(intent.getAction());
+	}
+
+	private boolean isVaultNotFound(Intent intent) {
+		return intent != null //
+				&& ACTION_VAULT_NOT_FOUND.equals(intent.getAction());
 	}
 
 	@Override
