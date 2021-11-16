@@ -37,7 +37,6 @@ import java.nio.charset.StandardCharsets
 import java.util.UUID
 import java.util.function.Supplier
 import java.util.regex.Pattern
-import kotlin.streams.toList
 import timber.log.Timber
 
 open class CryptoImplVaultFormat7 : CryptoImplDecorator {
@@ -156,7 +155,6 @@ open class CryptoImplVaultFormat7 : CryptoImplDecorator {
 		}
 
 		return ciphertextNodes
-			.parallelStream()
 			.map { node ->
 				ciphertextToCleartextNode(cryptoFolder, dirId, node)
 			}

@@ -98,7 +98,7 @@ internal class DropboxImpl(cloud: DropboxCloud, context: Context) {
 
 	@Throws(AuthenticationException::class, DbxException::class)
 	fun list(folder: DropboxFolder): List<DropboxNode> {
-		val result: MutableList<DropboxNode> = ArrayList()
+		val result = ArrayList<DropboxNode>()
 		var listFolderResult: ListFolderResult? = null
 		do {
 			listFolderResult = if (listFolderResult == null) {
@@ -106,7 +106,7 @@ internal class DropboxImpl(cloud: DropboxCloud, context: Context) {
 			} else {
 				client().files().listFolderContinue(listFolderResult.cursor)
 			}
-			listFolderResult.entries.parallelStream().forEach {
+			listFolderResult.entries.forEach {
 				result.add(from(folder, it))
 			}
 		} while (listFolderResult?.hasMore == true)

@@ -126,7 +126,6 @@ internal class CryptoImplVaultFormatPre7(
 		return cloudContentRepository
 			.list(lvl2Dir)
 			.filterIsInstance<CloudFile>()
-			.parallelStream()
 			.map { node ->
 				ciphertextToCleartextNode(cryptoFolder, dirId, node)
 			}

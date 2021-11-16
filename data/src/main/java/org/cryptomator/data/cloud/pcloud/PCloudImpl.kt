@@ -39,7 +39,6 @@ import java.io.File
 import java.io.IOException
 import java.io.OutputStream
 import java.util.Date
-import java.util.stream.Collectors
 import okio.BufferedSink
 import okio.BufferedSource
 import okio.source
@@ -115,9 +114,7 @@ internal class PCloudImpl(context: Context, cloud: PCloud) {
 				.listFolder(path)
 				.execute()
 				.children()
-				.parallelStream()
 				.map { node -> PCloudNodeFactory.from(folder, node) }
-				.collect(Collectors.toList())
 		} catch (ex: ApiError) {
 			handleApiError(ex, folder.name)
 			throw FatalBackendException(ex)
