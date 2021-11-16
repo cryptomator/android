@@ -94,6 +94,11 @@
 	<string name="dialog_accept_ssl_certificate_title">తప్పు SSL certificate</string>
 	<string name="dialog_delete_cloud_connection_with_vaults_hint">ఈ చర్య క్లౌడ్ కనెక్షన్ మరియు ఈ క్లౌడ్ యొక్క అన్ని వాల్ట్‌లను తీసివేస్తుంది.</string>
 	<string name="dialog_confirm_delete_multiple_title">%1$d తొలగించాలా?</string>
+	<string name="dialog_confirm_delete_multiple_message">మీరు ఖచ్చితంగా ఈ అంశాలను తొలగించాలనుకుంటున్నారా?</string>
+	<string name="dialog_confirm_delete_file_message">మీరు ఖచ్చితంగా ఈ ఫైల్‌ను తొలగించాలనుకుంటున్నారా?</string>
+	<string name="dialog_confirm_delete_folder_message">ఇది ఫోల్డర్‌లోని అన్ని కంటెంట్‌లను తొలగిస్తుంది. మీరు ఖచ్చితంగా ఈ ఫోల్డర్‌ని తొలగించాలనుకుంటున్నారా?</string>
+	<string name="dialog_enter_license_decline_button">బయటకి దారి</string>
+	<string name="dialog_update_available_cancel">తరువాత</string>
 	<!-- # error reports -->
 	<!-- # misc -->
 	<!-- ## file size helper -->
@@ -120,7 +125,16 @@
 	<!-- ## biometric authentication -->
 	<!-- notification -->
 	<string name="screen_settings_lru_cache">కాష్</string>
+	<string name="screen_settings_lru_cache_toggle_summary">మళ్లీ తెరిచినప్పుడు మళ్లీ ఉపయోగించడం కోసం పరికరంలో స్థానికంగా గుప్తీకరించిన ఫైల్‌లను కాష్ ఇటీవల యాక్సెస్ చేసింది</string>
 	<string name="screen_settings_lru_cache_size">మొత్తం కాష్ పరిమాణం</string>
+	<string name="screen_settings_clear_lru_cache_size">కాష్ తొలగించండి</string>
+	<string name="screen_settings_lru_cache_changed__restart_toast">తదుపరి యాప్ పునఃప్రారంభించినప్పుడు మార్పులు వర్తింపజేయబడతాయి</string>
+	<string name="screen_settings_license">కోసం నమోదు చేయబడింది</string>
+	<string name="screen_settings_license_mail">%1$s</string>
+	<string name="dialog_settings_update_check_interval_title">చెక్ విరామాన్ని నవీకరించండి</string>
+	<string name="screen_settings_check_updates">తాజాకరణలకోసం ప్రయత్నించండి</string>
+	<string name="screen_settings_last_check_updates">మునుపటి పని %1$s</string>
+	<string name="dialog_cache_size_title">ప్రతి క్లౌడ్‌కు కాష్ పరిమాణం</string>
 	<!-- lock timeout names -->
 	<string name="lock_timeout_instant">తక్షణ</string>
 	<string name="lock_timeout_1m">ఒక్క నిమిషం</string>
@@ -136,6 +150,8 @@
 	<string name="cache_size_1000m">ఒకటి GB</string>
 	<string name="cache_size_5000m">ఐదు GB</string>
 	<!-- screen scheme mode names -->
+	<string name="screen_settings_style_mode">శైలి</string>
+	<string name="follow_system">స్వయంచాలక (సిస్టమ్‌ను అనుసరించండి)</string>
 	<string name="light">కాంతి</string>
 	<string name="dark">నలుపు</string>
 	<!-- update interval names -->
