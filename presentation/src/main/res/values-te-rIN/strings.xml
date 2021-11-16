@@ -46,23 +46,100 @@
 	<string name="screen_settings_section_search">వెతకండి</string>
 	<string name="screen_settings_section_support">సహాయం</string>
 	<!-- ## screen: cloud settings -->
+	<string name="screen_cloud_settings_webdav_connections">WebDAV కనెక్షన్లు</string>
+	<string name="screen_cloud_settings_pcloud_connections">pCloud కనెక్షన్లు</string>
+	<string name="screen_cloud_settings_s3_connections">S3 Kanekṣanlu</string>
+	<string name="screen_cloud_settings_local_storage_locations">Local నిల్వ స్థానాలు</string>
 	<!-- ## screen: licenses -->
 	<!-- ## screen: authenticate cloud -->
+	<string name="screen_authenticate_auth_authentication_failed">%1$s Pramāṇīkarin̄cabaḍalēdu.</string>
+	<string name="screen_update_pcloud_connections_title">pCloud ఆధారాలను నవీకరించండి</string>
 	<!-- ## screen: insecure android version info -->
 	<!-- # dialogs -->
 	<string name="dialog_button_cancel">ఆపండి</string>
 	<string name="dialog_enter_password_positive_button">తాళం తెరవండి</string>
+	<string name="dialog_change_password_old_password_label">పాత పాస్వర్డ్</string>
+	<string name="dialog_change_password_new_password_label">కొత్త పాస్వర్డ్</string>
+	<string name="dialog_change_password">Pāsvarḍ mārcaṇḍi</string>
+	<string name="dialog_change_password_msg_old_password_empty">పాత పాస్‌వర్డ్ ఖాళీగా ఉండకూడదు.</string>
+	<string name="dialog_change_password_msg_new_password_empty">కొత్త పాస్‌వర్డ్ ఖాళీగా ఉండకూడదు.</string>
+	<string name="dialog_change_password_msg_password_mismatch">కొత్త పాస్‌వర్డ్ మళ్లీ టైప్ చేసిన పాస్‌వర్డ్‌తో సరిపోలడం లేదు.</string>
 	<!-- Vault not found -->
+	<string name="dialog_vault_not_found_message">ఖజానా పేరు మార్చబడింది, తరలించబడింది లేదా తొలగించబడింది. జాబితా నుండి ఈ ఖజానాను తీసివేసి, కొనసాగించడానికి దాన్ని మళ్లీ జోడించండి. ఇప్పుడు తీసివేయాలా?</string>
+	<string name="dialog_vault_not_found_positive_button_text">తొలగించు</string>
+	<string name="dialog_existing_file_positive_button">భర్తీ చేయండి</string>
+	<string name="dialog_replace_positive_button_all_files_exist">అన్నింటినీ భర్తీ చేయండి</string>
+	<string name="dialog_replace_positive_button_some_files_exist">ఇప్పటికే ఉన్న వాటిని భర్తీ చేయండి</string>
+	<string name="dialog_replace_positive_button_single_file_exists">భర్తీ చేయండి</string>
+	<string name="dialog_replace_title_single_file_exists">నేను ఫైల్‌ను భర్తీ చేయాలా?</string>
+	<string name="dialog_replace_title_multiple_files_exist">నేను ఫైల్‌లను భర్తీ చేయాలా?</string>
 	<string name="dialog_unable_to_share_positive_button">సరే</string>
+	<string name="dialog_unable_to_share_negative_button">ఖజానా తయారు</string>
+	<string name="dialog_filetype_not_supported_title">%1$s తెరవడం సాధ్యం కాదు</string>
+	<string name="dialog_rename_vault_title">ఖజానా పేరు మార్చండి</string>
+	<string name="dialog_rename_node_folder_title">ఫోల్డర్ పేరు మార్చండి</string>
+	<string name="dialog_rename_node_file_title">ఫైల్ పేరు మార్చండి</string>
+	<string name="dialog_unsaved_changes_title">మీరు సేవ్ చేయని మార్పులను కలిగి ఉన్నారు</string>
+	<string name="dialog_unsaved_changes_message">మీరు నిజంగా సేవ్ చేయకుండానే నిష్క్రమించాలనుకుంటున్నారా?</string>
+	<string name="dialog_unsaved_changes_discard">విస్మరించండి</string>
+	<string name="dialog_file_name_placeholder">text.txt</string>
+	<string name="dialog_delete_vault_message">మీరు ఖచ్చితంగా ఈ ఖజానాను తీసివేయాలనుకుంటున్నారా?</string>
+	<string name="dialog_delete_vault_hint">ఈ చర్య ఈ జాబితా నుండి వాల్ట్‌ను మాత్రమే తీసివేస్తుంది మరియు భౌతికంగా దానిని తొలగించదు.</string>
+	<string name="dialog_upload_file_remaining">ఫైల్ %1$d యొక్క%2$d</string>
+	<string name="dialog_export_file_title">ఎగుమతి చేస్తోంది (%1$d/%2$d)</string>
+	<string name="dialog_progress_please_wait">దయచేసి వేచి ఉండండి&#8230;</string>
+	<string name="dialog_progress_creating_folder">&#8230; ఫోల్డర్‌ని సృష్టిస్తోంది</string>
+	<string name="dialog_progress_creating_text_file">టెక్స్ట్ ఫైల్‌ను సృష్టిస్తోంది &#8230;</string>
+	<string name="action_progress_authentication">ప్రమాణీకరణ &#8230;</string>
 	<string name="dialog_accept_ssl_certificate_title">తప్పు SSL certificate</string>
+	<string name="dialog_delete_cloud_connection_with_vaults_hint">ఈ చర్య క్లౌడ్ కనెక్షన్ మరియు ఈ క్లౌడ్ యొక్క అన్ని వాల్ట్‌లను తీసివేస్తుంది.</string>
+	<string name="dialog_confirm_delete_multiple_title">%1$d తొలగించాలా?</string>
 	<!-- # error reports -->
 	<!-- # misc -->
 	<!-- ## file size helper -->
+	<string name="file_size_zero">సున్నా kB</string>
+	<string name="file_size_unit_bytes">bytes</string>
+	<string name="file_size_unit_kilo_bytes">kB</string>
+	<string name="file_size_unit_mega_bytes">MB</string>
+	<string name="file_size_unit_giga_bytes">GB</string>
+	<string name="file_size_unit_tera_bytes">TB</string>
 	<!-- ## date helper -->
+	<string name="time_unit_seconds_sg">రెండవ</string>
+	<string name="time_unit_seconds_pl">రెండవ</string>
+	<string name="time_unit_minutes_sg">నిమిషం</string>
+	<string name="time_unit_minutes_pl">నిమిషాలు</string>
+	<string name="time_unit_hours_sg">గంట</string>
+	<string name="time_unit_hours_pl">గంటలు</string>
+	<string name="time_unit_days_sg">రోజు</string>
+	<string name="time_unit_days_pl">రోజులు</string>
+	<string name="time_unit_weeks_sg">వారం</string>
+	<string name="time_unit_weeks_pl">వారాలు</string>
+	<string name="time_unit_months_sg">నెల</string>
+	<string name="time_unit_months_pl">నెలల</string>
+	<string name="time_unit_years_sg">సంవత్సరం</string>
 	<!-- ## biometric authentication -->
 	<!-- notification -->
+	<string name="screen_settings_lru_cache">కాష్</string>
+	<string name="screen_settings_lru_cache_size">మొత్తం కాష్ పరిమాణం</string>
 	<!-- lock timeout names -->
+	<string name="lock_timeout_instant">తక్షణ</string>
+	<string name="lock_timeout_1m">ఒక్క నిమిషం</string>
+	<string name="lock_timeout_2m">రెండు నిమిషాలు</string>
+	<string name="lock_timeout_5m">ఐదు నిమిషాలు</string>
+	<string name="lock_timeout_10m">పది నిముషాలు</string>
+	<string name="lock_timeout_never">ఎప్పటికి కాదు</string>
 	<!-- cache size names -->
+	<string name="cache_size_50m">యాభై MB</string>
+	<string name="cache_size_100m">వంద MB</string>
+	<string name="cache_size_250m">రెండు వందల యాభై MB</string>
+	<string name="cache_size_500m">ఐదు వందలు MB</string>
+	<string name="cache_size_1000m">ఒకటి GB</string>
+	<string name="cache_size_5000m">ఐదు GB</string>
 	<!-- screen scheme mode names -->
+	<string name="light">కాంతి</string>
+	<string name="dark">నలుపు</string>
 	<!-- update interval names -->
+	<string name="update_interval_1d">రోజుకి ఒక్కసారి</string>
+	<string name="update_interval_1w">వారానికి ఒక సారి</string>
+	<string name="update_interval_1m">నెలకొక్క సారి</string>
 </resources>
