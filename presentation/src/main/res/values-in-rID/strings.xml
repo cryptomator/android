@@ -17,12 +17,15 @@
 	<!-- # screen: file browser -->
 	<string name="screen_file_browser_default_title">Brankas</string>
 	<string name="screen_file_browser_share_button_text">Pilih</string>
+	<string name="screen_file_browser_refresh_items">Segarkan</string>
 	<!-- ## screen: text editor -->
 	<!-- ## screen: share files -->
 	<!-- ## screen: choose cloud service -->
 	<!-- ## screen: cloud connections -->
 	<!-- ## screen: webdav settings -->
+	<string name="screen_webdav_settings_msg_username_must_not_be_empty">Nama Pengguna tidak boleh kosong.</string>
 	<!-- ## screen: s3 settings -->
+	<string name="screen_s3_settings_access_key_label">Kunci Akses</string>
 	<!-- ## screen: enter vault name -->
 	<!-- ## screen: set password -->
 	<string name="screen_set_password_button_text">Selesai</string>
