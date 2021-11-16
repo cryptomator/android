@@ -367,11 +367,12 @@
 	<string name="notification_auto_upload_failed_general_error">上传时出错</string>
 	<string name="notification_auto_upload_failed_due_to_folder_not_exists">所选文件夹无法再上传，请转到设置并选择一个新的文件夹</string>
 	<string name="notification_auto_upload_failed_due_to_vault_locked">上传期间保险库锁定了，请重新打开保险库以继续</string>
+	<string name="notification_auto_upload_failed_due_to_vault_not_found">用于自动上传的指定保险库已不存在。</string>
 	<string name="notification_open_writable_file_title">打开可写文件</string>
 	<string name="notification_open_writable_file_message">编辑期间保险库保持解锁</string>
 	<string name="notification_update_check_finished_latest">已安装最新版本</string>
 	<string name="screen_settings_lru_cache">缓存</string>
-	<string name="screen_settings_lru_cache_toggle_summary">缓存是在本地加密的最近访问文件，用以下次快速加载</string>
+	<string name="screen_settings_lru_cache_toggle_summary">缓存最近在本地加密的访问文件，用以下次快速加载</string>
 	<string name="screen_settings_lru_cache_size">缓存总大小</string>
 	<string name="screen_settings_clear_lru_cache_size">清除缓存</string>
 	<string name="screen_settings_lru_cache_changed__restart_toast">更改将在下次应用重启时生效</string>

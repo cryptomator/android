@@ -1,12 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 	<!-- # app -->
+	<string name="share_with_label">Enkripsi</string>
 	<!-- # error messages -->
+	<string name="error_server_not_found">Server tidak ditemukan.</string>
 	<!-- # clouds -->
 	<!-- ## cloud names -->
 	<!-- # permission -->
 	<!-- ## permission messages -->
+	<string name="permission_message_upload_file">Cryptomator membutuhkan akses penyimpanan untuk mengunggah berkas</string>
+	<string name="permission_revoked_re_request_permission">Cryptomator telah kehilangan izin untuk mengakses lokasi ini. Harap pilih folder ini lagi untuk memulihkan izin.</string>
 	<string name="snack_bar_action_title_search_next">Lanjut</string>
+	<string name="snack_bar_action_title_sort_biggest">Terbesar dahulu</string>
 	<!-- # screens -->
 	<!-- # screen: vault list -->
 	<!-- # screen: file browser -->
