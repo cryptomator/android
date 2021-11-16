@@ -236,8 +236,15 @@
 	<string name="dialog_unable_to_share_positive_button">Гаразд</string>
 	<string name="dialog_unable_to_share_negative_button">Створити сховище</string>
 	<string name="dialog_filetype_not_supported_title">Неможливо відкрити %1$s</string>
+	<string name="dialog_filetype_not_supported_message">Будь ласка, завантажте додаток, який може відкрити цей файл чи ви бажаєте зберегти його на ваш пристрій?</string>
+	<string name="dialog_rename_vault_title">Перейменувати сховище</string>
+	<string name="dialog_rename_node_folder_title">Перейменувати папку</string>
 	<string name="dialog_lock_vault">Заблокувати</string>
 	<string name="dialog_app_is_obscured_info_neutral_button">Закрити</string>
+	<string name="dialog_delete_cloud_connection_with_vaults_hint">Ця дія видалить підключення до хмари та всі сховища з цієї хмари.</string>
+	<string name="dialog_confirm_delete_multiple_title">Видалити %1$d об\'єкти?</string>
+	<string name="dialog_confirm_delete_multiple_message">Ви впевнені, що бажаєте видалити ці об\'єкти?</string>
+	<string name="dialog_confirm_delete_file_message">Ви впевнені, що бажаєте видалити цей файл?</string>
 	<string name="dialog_sym_link_back_button">Назад</string>
 	<!-- # error reports -->
 	<!-- # misc -->
