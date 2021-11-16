@@ -370,6 +370,7 @@
 	<string name="notification_auto_upload_failed_general_error">Wystąpił błąd podczas przesyłania.</string>
 	<string name="notification_auto_upload_failed_due_to_folder_not_exists">Wybrany folder do przesłania nie jest już dostępny. Przejdź do ustawień i wybierz nowy</string>
 	<string name="notification_auto_upload_failed_due_to_vault_locked">Sejf został zablokowany podczas przesyłania, otwórz go ponownie aby kontynuować</string>
+	<string name="notification_auto_upload_failed_due_to_vault_not_found">Sejf wybrany do automatycznego wysyłania już nie istnieje.</string>
 	<string name="notification_open_writable_file_title">Otwórz plik zapisywalny</string>
 	<string name="notification_open_writable_file_message">Sejf pozostaje odblokowany do czasu zakończenia edycji</string>
 	<string name="notification_update_check_finished_latest">Zainstalowano najnowszą wersję</string>
