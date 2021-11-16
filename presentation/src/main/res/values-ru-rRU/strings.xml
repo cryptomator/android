@@ -370,7 +370,6 @@
 	<string name="notification_auto_upload_failed_general_error">Ошибка при загрузке.</string>
 	<string name="notification_auto_upload_failed_due_to_folder_not_exists">Выбранная папка для загрузки больше недоступна. Перейдите в настройки и выберите новую папку</string>
 	<string name="notification_auto_upload_failed_due_to_vault_locked">Хранилище заблокировано во время загрузки, откройте хранилище снова, чтобы продолжить</string>
-	<string name="notification_auto_upload_failed_due_to_vault_not_found">Хранилище, выбранное для автозагрузки, больше не существует.</string>
 	<string name="notification_open_writable_file_title">Открыть файл, доступный для записи</string>
 	<string name="notification_open_writable_file_message">Хранилище разблокировано до завершения редактирования</string>
 	<string name="notification_update_check_finished_latest">Установлена новейшая версия</string>
