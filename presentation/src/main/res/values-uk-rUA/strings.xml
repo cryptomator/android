@@ -239,6 +239,16 @@
 	<string name="dialog_filetype_not_supported_message">Будь ласка, завантажте додаток, який може відкрити цей файл чи ви бажаєте зберегти його на ваш пристрій?</string>
 	<string name="dialog_rename_vault_title">Перейменувати сховище</string>
 	<string name="dialog_rename_node_folder_title">Перейменувати папку</string>
+	<string name="dialog_rename_node_file_title">Перейменувати файл</string>
+	<string name="dialog_unsaved_changes_title">У вас є незбережені зміни</string>
+	<string name="dialog_unsaved_changes_message">Ви справді хочете вийти без збереження?</string>
+	<string name="dialog_unsaved_changes_discard">Відхилити</string>
+	<string name="dialog_file_name_placeholder">text.txt</string>
+	<string name="dialog_delete_vault_message">Ви впевнені, що бажаєте видалити це сховище?</string>
+	<string name="dialog_delete_vault_hint">Ця дія тільки прибере сховище з цього списку, але не видалить його.</string>
+	<string name="dialog_upload_file_title">Завантаження&#8230;</string>
+	<string name="dialog_upload_file_remaining">Файл %1$d з %2$d</string>
+	<string name="dialog_progress_upload_file">Завантаження&#8230;</string>
 	<string name="dialog_lock_vault">Заблокувати</string>
 	<string name="dialog_app_is_obscured_info_neutral_button">Закрити</string>
 	<string name="dialog_delete_cloud_connection_with_vaults_hint">Ця дія видалить підключення до хмари та всі сховища з цієї хмари.</string>
