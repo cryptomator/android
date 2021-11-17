@@ -220,16 +220,116 @@
 	<string name="dialog_change_password_msg_new_password_empty">Az új jelszó nem lehet üres.</string>
 	<string name="dialog_change_password_msg_password_mismatch">Az új jelszó nem egyezik az ismételten begépelt jelszóval.</string>
 	<!-- Vault not found -->
+	<string name="dialog_vault_not_found_title">A(z) %1$s trezor nem található</string>
+	<string name="dialog_vault_not_found_message">A trezort átnevezték, áthelyezték vagy törölték. Távolítsa el ezt a trezort a listáról, majd adja hozzá újra a folytatáshoz. Eltávolítja most?</string>
 	<string name="dialog_vault_not_found_positive_button_text">Eltávolítás</string>
+	<string name="dialog_existing_file_title">A fájl már létezik</string>
+	<string name="dialog_existing_file_positive_button">Csere</string>
+	<string name="dialog_existing_file_message">Már létezik „%1$s” nevű fájl.</string>
+	<string name="dialog_replace_negative_button_at_least_two_but_not_all_files_exist">A meglévő kihagyása</string>
+	<string name="dialog_replace_positive_button_all_files_exist">Összes lecserélése</string>
+	<string name="dialog_replace_positive_button_some_files_exist">Létezők lecserélése</string>
+	<string name="dialog_replace_positive_button_single_file_exists">Csere</string>
+	<string name="dialog_replace_msg_single_file_exists">Már létezik „%1$s” nevű fájl. Ki szeretné cserélni?</string>
+	<string name="dialog_replace_msg_all_files_exists">Az összes fájl már létezik. Le szeretné cserélni őket?</string>
+	<string name="dialog_replace_msg_some_files_exists">%1$d fájl már létezik. Le szeretné cserélni őket?</string>
+	<string name="dialog_replace_title_single_file_exists">Leceréli a fájlt?</string>
+	<string name="dialog_replace_title_multiple_files_exist">Lecseréli a fájlokat?</string>
+	<string name="dialog_unable_to_share_title">Nem lehet fájlokat megosztani</string>
+	<string name="dialog_unable_to_share_message">Nem állított fel még trezorokat. Kérjük, először hozzon létre egy új trezort a Cryptomator alkalmazással.</string>
+	<string name="dialog_unable_to_share_positive_button">OK</string>
+	<string name="dialog_unable_to_share_negative_button">Új trezor létrehozása</string>
+	<string name="dialog_filetype_not_supported_title">A(z) %1$s nem nyitható meg</string>
+	<string name="dialog_filetype_not_supported_message">Kérjük, töltsön le egy alkalmazást, amely meg tudja nyitni ezt a fájlt, vagy leszeretné menteni az eszközére?</string>
+	<string name="dialog_rename_vault_title">Trezor átnevezése</string>
+	<string name="dialog_rename_node_folder_title">Mappa átnevezése</string>
+	<string name="dialog_rename_node_file_title">Fájl átnevezése</string>
+	<string name="dialog_unsaved_changes_title">Nem mentett módosításai vannak</string>
+	<string name="dialog_unsaved_changes_message">Biztos, hogy mentés nélkül szeretne kilépni?</string>
+	<string name="dialog_unsaved_changes_discard">Elvetés</string>
+	<string name="dialog_file_name_placeholder">text.txt</string>
+	<string name="dialog_delete_vault_message">Biztosan törli ezt a trezort?</string>
+	<string name="dialog_delete_vault_hint">Ez a művelet eltávolítja a tárolót a listáról, de fizikailag nem törli azt.</string>
+	<string name="dialog_upload_file_title">Feltöltés&#8230;</string>
+	<string name="dialog_upload_file_remaining">%1$d/%2$d fájl</string>
+	<string name="dialog_export_file_title">Exportálás (%1$d/%2$d)</string>
+	<string name="dialog_progress_please_wait">Kis türelmet&#8230;</string>
+	<string name="dialog_progress_creating_folder">Mappa létrehozása&#8230;</string>
+	<string name="dialog_progress_creating_text_file">Szövegfájl létrehozása&#8230;</string>
+	<string name="action_progress_authentication">Hitelesítés&#8230;</string>
+	<string name="action_progress_renaming">Átnevezés&#8230;</string>
+	<string name="action_progress_deleting">Törlés folyamatban&#8230;</string>
+	<string name="dialog_progress_unlocking_vault">Trezor feloldása&#8230;</string>
+	<string name="dialog_progress_change_password">Jelszó módosítása&#8230;</string>
+	<string name="dialog_progress_creating_vault">Trezor létrehozása&#8230;</string>
+	<string name="dialog_progress_upload_file">Feltöltés&#8230;</string>
+	<string name="dialog_progress_download_file">Letöltés&#8230;</string>
+	<string name="dialog_progress_encryption">Titkosítás&#8230;</string>
+	<string name="dialog_progress_decryption">Dekódolás&#8230;</string>
+	<string name="action_progress_moving">Áthelyezés&#8230;</string>
 	<string name="dialog_lock_vault">Zárolás</string>
+	<string name="dialog_accept_ssl_certificate_title">Érvénytelen SSL-tanúsítvány</string>
+	<string name="dialog_accept_ssl_certificate_hint">Az SSL tanúsítvány érvénytelen. El szeretné fogadni ennek ellenére?</string>
+	<string name="dialog_accept_ssl_certificate_details">Részletek</string>
+	<string name="dialog_accept_ssl_certificate_security_checkbox">Ez biztonsági kockázatot jelent. Tudom, mit csinálok.</string>
 	<string name="dialog_app_is_obscured_info_neutral_button">Bezár</string>
 	<string name="dialog_sym_link_back_button">Vissza</string>
+	<string name="permission_snackbar_auth_local_vault">A Cryptomatornak tárhely-hozzáférésre van szüksége a trezorok használatához</string>
+	<string name="permission_snackbar_auth_auto_upload">A Cryptomatornak tárhely-hozzáférésre van szüksége az automatikus fotófeltöltés használatához</string>
 	<!-- # error reports -->
 	<!-- # misc -->
 	<!-- ## file size helper -->
+	<string name="file_size_zero">Nulla kB</string>
+	<string name="file_size_unit_bytes">bájt</string>
+	<string name="file_size_unit_kilo_bytes">kB</string>
+	<string name="file_size_unit_mega_bytes">MB</string>
+	<string name="file_size_unit_giga_bytes">GB</string>
+	<string name="file_size_unit_tera_bytes">TB</string>
 	<!-- ## date helper -->
+	<string name="time_unit_seconds_sg">másodperc</string>
+	<string name="time_unit_seconds_pl">másodperc</string>
+	<string name="time_unit_minutes_sg">perc</string>
+	<string name="time_unit_minutes_pl">percek</string>
+	<string name="time_unit_hours_sg">óra</string>
+	<string name="time_unit_hours_pl">órák</string>
+	<string name="time_unit_days_sg">nap</string>
+	<string name="time_unit_days_pl">napok</string>
+	<string name="time_unit_weeks_sg">hét</string>
+	<string name="time_unit_weeks_pl">hetek</string>
+	<string name="time_unit_months_sg">hónap</string>
+	<string name="time_unit_months_pl">hónapok</string>
+	<string name="time_unit_years_sg">év</string>
+	<string name="time_unit_years_pl">évek</string>
 	<!-- ## biometric authentication -->
+	<string name="dialog_biometric_auth_title">Biometrikus bejelentkezés</string>
+	<string name="dialog_biometric_auth_message">Bejelentkezés a biometrikus azonosítómmal</string>
+	<string name="dialog_biometric_auth_use_password">Használja a trezor jelszavát</string>
+	<string name="dialog_unable_to_auto_upload_files_title">A fájl aut. feltöltése sikertelen</string>
 	<!-- notification -->
+	<string name="notification_unlocked">Feloldott trezorok: %1$d</string>
+	<string name="notification_timeout">Aut. zárásig %1$s</string>
+	<string name="notification_lock_all">Az összes zárolása</string>
+	<string name="notification_cancel_auto_upload">Feltöltés megszakítása</string>
+	<string name="notification_auto_upload_title">Aut. fotófeltöltés fut</string>
+	<string name="notification_auto_upload_message">%1d/%2d feltöltése</string>
+	<string name="notification_auto_upload_finished_title">Az aut. fényképfeltöltés befejeződött</string>
+	<string name="notification_auto_upload_finished_message">%1$d kép feltöltve a trezorba</string>
+	<string name="notification_auto_upload_failed_title">Aut. fotó feltöltés sikertelen</string>
+	<string name="notification_auto_upload_failed_general_error">Hiba történt a feltöltés közben.</string>
+	<string name="notification_auto_upload_failed_due_to_folder_not_exists">A feltöltésre kiválasztott mappa már nem elérhető. Menjen a beállításokhoz, és válasszon egy újat</string>
+	<string name="notification_auto_upload_failed_due_to_vault_locked">A trezor zárolva lett a feltöltés során. A folytatáshoz nyissa meg újra</string>
+	<string name="notification_auto_upload_failed_due_to_vault_not_found">Az automatikus feltöltéshez megadott tároló már nem létezik.</string>
+	<string name="notification_open_writable_file_title">Írható fájl megnyitása</string>
+	<string name="notification_open_writable_file_message">A trezor a szerkesztés idejéig feloldva marad</string>
+	<string name="notification_update_check_finished_latest">A legfrissebb verzió van telepítve</string>
+	<string name="screen_settings_lru_cache">Gyorsítótár</string>
+	<string name="screen_settings_lru_cache_toggle_summary">Helyileg titkosított fájlok gyorsítótárazása az eszközön, később újrafelhasználásra</string>
+	<string name="screen_settings_lru_cache_size">Gyorsítótár mérete</string>
+	<string name="screen_settings_clear_lru_cache_size">Gyorsítótár törlése</string>
+	<string name="screen_settings_lru_cache_changed__restart_toast">A módosítások az alkalmazás újraindítása után lépnek életbe</string>
+	<string name="screen_settings_license">Regisztrált:</string>
+	<string name="screen_settings_license_mail">%1$s</string>
+	<string name="dialog_settings_update_check_interval_title">Frissítések keresésése</string>
 	<!-- lock timeout names -->
 	<!-- cache size names -->
 	<!-- screen scheme mode names -->
