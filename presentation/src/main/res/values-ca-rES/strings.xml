@@ -24,6 +24,8 @@
 	<string name="error_general_update">Ha fallat la comprovació d\'actualització. S\'ha produït un error general.</string>
 	<string name="error_hash_mismatch_update">Ha fallat la comprovació d\'actualització. La suma de comprovació no coincideix amb la del fitxer pujat</string>
 	<string name="error_update_no_internet">Ha fallat la comprovació d\'actualització. No hi ha connexió a Internet.</string>
+	<string name="error_failed_to_decrypt_webdav_password">Error desxifrant la contrasenya WebDAV, torneu a afegir-la a la configuració</string>
+	<string name="error_play_services_not_available">Serveis de Google Play no instal·lats</string>
 	<string name="error_biometric_auth_aborted">Autenticació biomètrica avortada</string>
 	<string name="error_vault_version_mismatch">La versió especificada a %1$s és diferent a la de %2$s</string>
 	<string name="error_vault_config_loading">Error general carregant la configuració de la caixa forta</string>
