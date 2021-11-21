@@ -27,6 +27,7 @@
 	<string name="error_play_services_not_available">Google Play 서비스가 설치되지 않았습니다</string>
 	<string name="error_biometric_auth_aborted">생체 인증 취소됨</string>
 	<string name="error_vault_version_mismatch">%1$s에 기록된 버전이 %2$s에 기록된 버전과 다릅니다</string>
+	<string name="error_vault_config_loading">Vault 설정을 불러오는 중 에러 발생</string>
 	<!-- # clouds -->
 	<!-- ## cloud names -->
 	<string name="cloud_names_local_storage">로컬 저장소</string>
@@ -35,6 +36,7 @@
 	<string name="permission_message_export_file">파일을 내보내기 위해 저장소 접근 권한이 필요합니다.</string>
 	<string name="permission_message_upload_file">파일을 업로드하기 위해 저장소 접근 권한이 필요합니다.</string>
 	<string name="permission_message_share_file">파일을 공유하기 위해 저장소 접근 권한이 필요합니다.</string>
+	<string name="permission_revoked_re_request_permission">Cryptomator에서 이 경로에 접근할 권한을 잃었습니다. 폴더를 선택한 후 권한을 복구해주세요.</string>
 	<string name="snack_bar_action_title_settings">설정</string>
 	<string name="snack_bar_action_title_search">검색</string>
 	<string name="snack_bar_action_title_search_previous">이전</string>
@@ -153,6 +155,7 @@
 	<string name="screen_settings_section_auto_photo_upload">사진 자동 업로드</string>
 	<string name="screen_settings_section_auto_photo_upload_vault">업로드 할 Vault 선택</string>
 	<string name="screen_settings_section_auto_photo_upload_toggle">활성화</string>
+	<string name="screen_settings_section_auto_photo_upload_toggle_instant_upload_summary">Vault가 잠금 해제되어 있을 때 바로 업로드하기</string>
 	<string name="screen_settings_section_auto_photo_upload_only_wifi_toggle">Wi-Fi 상태에서만 업로드</string>
 	<string name="screen_settings_section_auto_photo_upload_including_videos">동영상 업로드</string>
 	<string name="screen_settings_website_label">Cryptomator 웹사이트</string>
@@ -192,6 +195,7 @@
 	<string name="dialog_change_password_msg_new_password_empty">새 비밀번호는 비워둘 수 없습니다</string>
 	<string name="dialog_change_password_msg_password_mismatch">비밀번호가 일치하지 않습니다</string>
 	<!-- Vault not found -->
+	<string name="dialog_vault_not_found_message">이 Vault는 이름이 변경됐거나, 경로가 옮겨졌거나, 삭제되었습니다. 이 Vault를 목록에서 삭제하고 다시 추가하여 계속 진행하세요. 지금 삭제할까요?</string>
 	<string name="dialog_vault_not_found_positive_button_text">제거</string>
 	<string name="dialog_existing_file_title">파일이 이미 존재합니다</string>
 	<string name="dialog_existing_file_positive_button">교체</string>
@@ -240,12 +244,18 @@
 	<string name="dialog_no_screen_lock_hint">화면 잠금 설정이 되어있지 않습니다. 자격증명을 안전하게 보호하기 위해 패턴이나 비밀번호를 설정하세요.</string>
 	<string name="dialog_no_screen_lock_title">화면 잠금 설정을 하시겠습니까?</string>
 	<string name="dialog_no_screen_lock_checkbox">화면 잠금 설정</string>
+	<string name="dialog_debug_mode_disclaimer_hint">이 모드에서는 민감한 정보들이 로그 파일로 기기에 기록될 수 있습니다.(파일명, 경로 등). 비밀번호, 쿠키 등의 정보는 예외입니다.\n\n 가능한 디버그 모드를 빨리 비활성화 하세요.</string>
 	<string name="dialog_debug_mode_disclaimer_title">주의</string>
 	<string name="dialog_debug_mode_positive_button">활성화</string>
 	<string name="dialog_disable_app_obscured_disclaimer_title">주의</string>
 	<string name="dialog_disable_app_obscured_positive_button">비활성화</string>
+	<string name="dialog_app_is_obscured_info_hint">다른 앱이 Cryptomator앱 위에서 화면을 사용하고 있습니다 (블루 라이트 필터 또는 야간 모드 앱 등). 보안을 위하여 Cryptomator가 비활성화 되었습니다.\n\n<a href="https://docs.cryptomator.org/en/1.5/android/settings/#block-app-when-obscured">Cryptomator를 활성화하는 법</a></string>
 	<string name="dialog_app_is_obscured_info_neutral_button">닫기</string>
+	<string name="dialog_delete_cloud_connection_with_vaults_message">정말 이 클라우드 연결을 삭제하시겠습니까?</string>
+	<string name="dialog_delete_cloud_connection_with_vaults_hint">클라우드 연결과 이 클라우드의 Vault들이 삭제될 것입니다.</string>
 	<string name="dialog_confirm_delete_multiple_title">%1$d개의 파일을 삭제하시겠습니까?</string>
+	<string name="dialog_confirm_delete_multiple_message">정말 이 파일들을 삭제하시겠습니까?</string>
+	<string name="dialog_confirm_delete_file_message">정말 이 파일을 삭제하시겠습니까?</string>
 	<string name="dialog_enter_license_title">유효한 라이선스를 입력하세요</string>
 	<string name="dialog_enter_license_content">Google Play 스토어를 이용하지 않고 Cryptomator가 설치되었음을 감지했습니다. 유효한 라이선스를 입력해주세요. 라이선스는 <a href="https://cryptomator.org/android/">https://cryptomator.org/android/</a>에서 구매가능합니다.</string>
 	<string name="dialog_enter_license_not_valid_content">입력된 라이선스는 유효하지 않습니다. 다시한번 확인해주세요.</string>
@@ -270,7 +280,12 @@
 	<string name="file_size_unit_tera_bytes">TB</string>
 	<!-- ## date helper -->
 	<string name="time_unit_seconds_sg">초</string>
+	<string name="time_unit_seconds_pl">초</string>
+	<string name="time_unit_minutes_sg">분</string>
 	<string name="time_unit_minutes_pl">분</string>
+	<string name="time_unit_hours_sg">시간</string>
+	<string name="time_unit_hours_pl">시간</string>
+	<string name="time_unit_days_sg">일</string>
 	<string name="time_unit_days_pl">일</string>
 	<string name="time_unit_weeks_sg">주</string>
 	<string name="time_unit_weeks_pl">주</string>
@@ -282,7 +297,10 @@
 	<string name="dialog_biometric_auth_title">생체인증 로그인</string>
 	<string name="dialog_biometric_auth_message">생체인증정보로 로그인하세요</string>
 	<string name="dialog_biometric_auth_use_password">Vault 비밀번호 사용하기</string>
+	<string name="dialog_unable_to_auto_upload_files_title">자동으로 파일을 업로드할 수 없습니다</string>
 	<!-- notification -->
+	<string name="notification_unlocked">Vault 잠금해제됨: %1$d</string>
+	<string name="notification_timeout">%1$s 후 자동 잠금</string>
 	<string name="notification_lock_all">모두 잠그기</string>
 	<string name="notification_cancel_auto_upload">업로드 취소</string>
 	<string name="notification_auto_upload_title">자동 사진 업로드중</string>
