@@ -28,6 +28,7 @@
 	<string name="error_play_services_not_available">Serveis de Google Play no instal·lats</string>
 	<string name="error_biometric_auth_aborted">Autenticació biomètrica avortada</string>
 	<string name="error_vault_version_mismatch">La versió especificada a %1$s és diferent a la de %2$s</string>
+	<string name="error_vault_key_invalid">%1$s no coincideix amb aquest %2$s</string>
 	<string name="error_vault_config_loading">Error general carregant la configuració de la caixa forta</string>
 	<string name="error_file_not_found_after_opening_using_3party">El fitxer local ja no és present després de tornar a canviar a Cryptomator. Els possibles canvis no és poden propagar cap al núvol.</string>
 	<string name="error_no_such_bucket">No existeix el cubell</string>
@@ -65,6 +66,10 @@
 	<string name="screen_file_browser_add_existing_vault_extra_text">Seleccioneu el fitxer de clau mestra</string>
 	<string name="screen_file_browser_create_new_vault_button_text">Col·locar aquí</string>
 	<string name="screen_file_browser_create_new_vault_extra_text">Nom de la caixa forta: %1$s</string>
+	<plurals name="screen_file_browser_subtitle_move">
+		<item quantity="one">Mou %1$s a</item>
+		<item quantity="other">Mou %2$d a</item>
+	</plurals>
 	<string name="screen_file_browser_move_button_text">Mou</string>
 	<string name="screen_file_browser_msg_empty_folder">Carpeta buida</string>
 	<string name="screen_file_browser_file_info_label_date">modificat fa %1$s</string>
@@ -169,10 +174,12 @@
 	<string name="screen_settings_section_auto_photo_upload">Pujada de fotos automàtica</string>
 	<string name="screen_settings_section_auto_photo_upload_vault">Tria una caixa forta per a pujar</string>
 	<string name="screen_settings_section_auto_photo_upload_toggle">Activa</string>
+	<string name="screen_settings_section_auto_photo_upload_toggle_summary">Captura imatges en el background i un cop la caixa forta seleccionada es desbloqueja, comença la pujada</string>
 	<string name="screen_settings_section_auto_photo_upload_toggle_instant_upload">Pujada inmediata</string>
 	<string name="screen_settings_section_auto_photo_upload_toggle_instant_upload_summary">Puja directament si la caixa forta està desbloquejada</string>
 	<string name="screen_settings_section_auto_photo_upload_only_wifi_toggle">Puja només amb WIFI</string>
 	<string name="screen_settings_section_auto_photo_upload_including_videos">Puja vídeos</string>
+	<string name="screen_settings_auto_photo_upload_title">Desa els fitxers pujats automàticament a&#8230;</string>
 	<string name="screen_settings_website_label">Lloc web de Cryptomator</string>
 	<string name="screen_settings_twitter_label">Seguiu-nos a Twitter</string>
 	<string name="screen_settings_facebook_label">Poseu-nos un \"m\'agrada\" a Facebook</string>
@@ -282,16 +289,25 @@
 	<string name="dialog_app_is_obscured_info_title">Alguna cosa està superposada a l\'aplicació</string>
 	<string name="dialog_app_is_obscured_info_hint">Una altra aplicació està mostrant alguna cosa per sobre de Cryptomator (per exemple un filtre de llum blava o una aplicació de mode nocturn). Per raons de seguretat, Cryptomator s\'ha deshabilitat.\n\n<a href="https://docs.cryptomator.org/en/1.5/android/settings/#block-app-when-obscured">.Com habilitar Crytomator</a></string>
 	<string name="dialog_app_is_obscured_info_neutral_button">Tanca</string>
+	<string name="dialog_vaults_removed_during_migration_title">Si us plau, torna a afegir les caixes fortes per el cloud %1s</string>
+	<string name="dialog_vaults_removed_during_migration_hint">Al migrar cap a aquesta versió de l\'app hem hagut d\'esborrar les següents caixes fortes de l\'aplicació:\n%2s \n\nAquestes caixes fortes no s\'han esborrat del cloud sinó que només de l\'aplicació. Sentim les molèsties ocasionades, si us plau torna a afegir les caixes fortes per a continuar treballant amb elles.</string>
 	<string name="dialog_vault_is_root_folder_of_cloud_title">La caixa forta és la carpeta principal de la connexió al núvol</string>
+	<string name="dialog_disable_secure_screen_disclaimer_hint">Aquest paràmetre és una mesura de seguretat que preveu que altres aplicacions enganyin als usuaris per a que facin accions indesitjades.\n\nAl desactivar-la, confirmes que ets <a href="https://docs.cryptomator.org/en/1.5/android/settings/#screen-security">conscient dels riscs</a>.</string>
 	<string name="dialog_delete_cloud_connection_with_vaults_message">Estàs segur que vols esborrar aquesta connexió al cloud?</string>
+	<string name="dialog_delete_cloud_connection_with_vaults_hint">Aquesta acció esborrarà la connexió al cloud i totes les seves caixes fortes.</string>
 	<string name="dialog_confirm_delete_multiple_title">Voleu suprimir %1$d elements?</string>
 	<string name="dialog_confirm_delete_multiple_message">Esteu segur/a que voleu suprimir aquests elements?</string>
 	<string name="dialog_confirm_delete_file_message">Esteu segur/a que voleu esborrar aquest fitxer?</string>
+	<string name="dialog_confirm_delete_folder_message">Això esborrarà tots els continguts de la carpeta. Estàs segur que la vols esborrar?</string>
+	<string name="dialog_biometric_auth_key_invalidated_title">Autenticació biomètrica desactivada</string>
+	<string name="dialog_biometric_auth_key_invalidated_message">Ja que aquesta clau ha sigut invalidada, s\'ha desactivat l\'autenticació biomètrica. Per tornar-la a activar, obre la configuració de Cryptomator.</string>
 	<string name="dialog_enter_license_title">Proporcioneu una llicència vàlida</string>
+	<string name="dialog_enter_license_content">Hem detectat que has instal·lat Cryptomator sense fer servir la Google Play Store. Proveeix una llicència vàlida, que pot ser adquirida a <a href="https://cryptomator.org/android/">https://cryptomator.org/android/</a></string>
 	<string name="dialog_enter_license_not_valid_content">La llicència introduïda no és vàlida. Assegureu-vos que l\'heu escrita correctament.</string>
 	<string name="dialog_enter_license_no_content">No heu introduït cap llicència. Si us plau, introduïu una llicència vàlida.</string>
 	<string name="dialog_enter_license_decline_button">Surt</string>
 	<string name="dialog_license_confirmation_title">Confirmació de la llicència</string>
+	<string name="dialog_license_confirmation_message">Gràcies %1$s per proveir-nos la teva llicència vàlida.</string>
 	<string name="dialog_update_available_title">Actualització disponible</string>
 	<string name="dialog_update_available_message">Actualizeu Cryptomator a la versió més recent. Si premeu OK l\'app es descarregarà en segon pla i us demanarà permís per a instal·lar-se.</string>
 	<string name="dialog_update_available_update">Actualitza ara</string>
@@ -303,6 +319,12 @@
 	<string name="dialog_sym_link_message">No pots navegar cap a aquest enllaç simbòlic</string>
 	<string name="dialog_sym_link_back_button">Enrere</string>
 	<string name="dialog_no_dir_file_title">No s\'han pogut carregar els continguts de la carpeta</string>
+	<string name="dialog_no_dir_file_message">La carpeta al cloud \'%1$s\' no té un fitxer de directori vàlid. Pot ser que aquesta carpeta s\'hagués creat en un altre dispositiu i encara no s\'hagi sincronitzat al cloud. Si us plau, comprova que en el teu cloud el següent fitxer existeix i no és buit:\n%2$s</string>
+	<string name="dialog_no_more_images_to_display">No hi ha més imatges per mostrar&#8230;</string>
+	<string name="dialog_pcloud_credentials_updated_title">Credencials de \'%1$s\' actualitzades</string>
+	<string name="dialog_pcloud_credentials_updated">Si volies afegir un nou compte de pCloud, clica en aquest enllaç <a href="https://www.pcloud.com">www.pcloud.com</a>, tanca la teva sessió actual i torna a fer click al símbol de \'+\' en aquesta aplicació per a tornar a crear una connexió al cloud.</string>
+	<string name="permission_snackbar_auth_local_vault">Cryptomator necessita accés a l\'emmagatzematge per a fer servir caixes fortes locals</string>
+	<string name="permission_snackbar_auth_auto_upload">Cryptomator necessita accés a l\'emmagatzematge per a la pujada de fotos automàtica</string>
 	<!-- # error reports -->
 	<!-- # misc -->
 	<!-- ## file size helper -->
@@ -328,21 +350,40 @@
 	<string name="time_unit_years_sg">any</string>
 	<string name="time_unit_years_pl">anys</string>
 	<!-- ## biometric authentication -->
+	<string name="dialog_biometric_auth_title">Inici de sessió amb biometria</string>
+	<string name="dialog_biometric_auth_message">Inicia sessió amb credencials biomètriques</string>
+	<string name="dialog_biometric_auth_use_password">Utilitza la contrassenya de la caixa forta</string>
+	<string name="dialog_unable_to_auto_upload_files_title">No s\'han pogut pujar els arxius automàticament</string>
 	<!-- notification -->
 	<string name="notification_unlocked">Caixes fortes desblocades: %1$d</string>
 	<string name="notification_timeout">Autoblocatge en %1$s</string>
 	<string name="notification_lock_all">Bloca-ho tot</string>
 	<string name="notification_cancel_auto_upload">Cancel·la la pujada</string>
+	<string name="notification_auto_upload_title">Pujada automàtica de fotos en progrés</string>
+	<string name="notification_auto_upload_message">Pujant %1d/%2d</string>
+	<string name="notification_auto_upload_finished_title">Pujada automàtica de fotos finalitzada</string>
 	<string name="notification_auto_upload_finished_message">%1$d imatges pujades a la caixa forta</string>
+	<string name="notification_auto_upload_failed_title">Pujada automàtica de fotos fallada</string>
+	<string name="notification_auto_upload_failed_general_error">S\'ha produït un error durant la pujada.</string>
+	<string name="notification_auto_upload_failed_due_to_folder_not_exists">La carpeta seleccionada per a la pujada ja no està disponible. Ves a la configuració i selecciona una nova</string>
+	<string name="notification_auto_upload_failed_due_to_vault_locked">La caixa forta s\'ha bloquejat durant la pujada, si us plau desbloqueja-la per a continuar</string>
+	<string name="notification_auto_upload_failed_due_to_vault_not_found">La caixa forta especificada per a la pujada automàtica ja no existeix.</string>
+	<string name="notification_open_writable_file_title">Obre fitxer editable</string>
+	<string name="notification_open_writable_file_message">La caixa forta seguirà desbloquejada fins que acabi l\'edició</string>
 	<string name="notification_update_check_finished_latest">La versió més recent s\'ha instal·lat</string>
 	<string name="screen_settings_lru_cache">Memòria cau</string>
+	<string name="screen_settings_lru_cache_toggle_summary">La cache dels fitxers accedits recentment s\'ha encriptat localment en el dispositiu per a reaprofitar-se quan es torni a desbloquejar</string>
 	<string name="screen_settings_lru_cache_size">Mida total de la memòria cau</string>
 	<string name="screen_settings_clear_lru_cache_size">Esborra la memòria cau</string>
+	<string name="screen_settings_lru_cache_changed__restart_toast">Els canvis seran aplicats al reinicialitzar l\'aplicació</string>
 	<string name="screen_settings_license">Registrat per</string>
 	<string name="screen_settings_license_mail">%1$s</string>
+	<string name="dialog_settings_update_check_interval_title">Interval entre comprovacions d\'actualitzacions</string>
 	<string name="screen_settings_check_updates">Cerca actualitzacions</string>
-	<string name="dialog_cache_size_title">Tamany de la cache per Cloud</string>
+	<string name="screen_settings_last_check_updates">Darrera comprovació: %1$s</string>
+	<string name="dialog_cache_size_title">Mida de la cache per Cloud</string>
 	<!-- lock timeout names -->
+	<string name="lock_timeout_instant">Instantani</string>
 	<string name="lock_timeout_1m">1 minut</string>
 	<string name="lock_timeout_2m">2 minuts</string>
 	<string name="lock_timeout_5m">5 minuts</string>
@@ -357,6 +398,7 @@
 	<string name="cache_size_5000m">5 GB</string>
 	<!-- screen scheme mode names -->
 	<string name="screen_settings_style_mode">Estil</string>
+	<string name="follow_system">Automàtic (fa servir el del sistema)</string>
 	<string name="light">Clar</string>
 	<string name="dark">Fosc</string>
 	<!-- update interval names -->
