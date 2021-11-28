@@ -283,6 +283,7 @@
 	<string name="dialog_app_is_obscured_info_hint">Una altra aplicació està mostrant alguna cosa per sobre de Cryptomator (per exemple un filtre de llum blava o una aplicació de mode nocturn). Per raons de seguretat, Cryptomator s\'ha deshabilitat.\n\n<a href="https://docs.cryptomator.org/en/1.5/android/settings/#block-app-when-obscured">.Com habilitar Crytomator</a></string>
 	<string name="dialog_app_is_obscured_info_neutral_button">Tanca</string>
 	<string name="dialog_vault_is_root_folder_of_cloud_title">La caixa forta és la carpeta principal de la connexió al núvol</string>
+	<string name="dialog_delete_cloud_connection_with_vaults_message">Estàs segur que vols esborrar aquesta connexió al cloud?</string>
 	<string name="dialog_confirm_delete_multiple_title">Voleu suprimir %1$d elements?</string>
 	<string name="dialog_confirm_delete_multiple_message">Esteu segur/a que voleu suprimir aquests elements?</string>
 	<string name="dialog_confirm_delete_file_message">Esteu segur/a que voleu esborrar aquest fitxer?</string>
@@ -298,7 +299,10 @@
 	<string name="dialog_update_available_cancel">Després</string>
 	<string name="dialog_download_update_title">Descàrrega en procés</string>
 	<string name="dialog_download_update_message">Ara es descarrega la versió més recent de Cryptomator</string>
+	<string name="dialog_sym_link_title">La carpeta és un enllaç simbòlic</string>
+	<string name="dialog_sym_link_message">No pots navegar cap a aquest enllaç simbòlic</string>
 	<string name="dialog_sym_link_back_button">Enrere</string>
+	<string name="dialog_no_dir_file_title">No s\'han pogut carregar els continguts de la carpeta</string>
 	<!-- # error reports -->
 	<!-- # misc -->
 	<!-- ## file size helper -->
@@ -337,6 +341,7 @@
 	<string name="screen_settings_license">Registrat per</string>
 	<string name="screen_settings_license_mail">%1$s</string>
 	<string name="screen_settings_check_updates">Cerca actualitzacions</string>
+	<string name="dialog_cache_size_title">Tamany de la cache per Cloud</string>
 	<!-- lock timeout names -->
 	<string name="lock_timeout_1m">1 minut</string>
 	<string name="lock_timeout_2m">2 minuts</string>
