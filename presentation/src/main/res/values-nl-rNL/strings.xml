@@ -290,7 +290,9 @@
 	<string name="dialog_app_is_obscured_info_hint">Een andere app toont iets bovenop Cryptomator (bijv. een blauw lichtfilter of nachtmodus). Om veiligheidsredenen is Cryptomator uitgeschakeld.\n\n<a href="https://docs.cryptomator.org/en/1.5/android/settings/#block-app-when-obscured">Hoe kunt u Cryptomator inschakelen</a></string>
 	<string name="dialog_app_is_obscured_info_neutral_button">Sluiten</string>
 	<string name="dialog_vaults_removed_during_migration_title">Voeg de kluis voor %1\'s cloud opnieuw toe</string>
+	<string name="dialog_vaults_removed_during_migration_hint">Tijdens het migreren naar deze app versie moeten we de volgende kluizen verwijderen uit de app:\n%2s \n\nDe kluizen worden niet uit de cloud verwijderd, maar alleen uit deze app. Sorry voor het ongemak, voeg deze kluizen opnieuw toe om deze te blijven gebruiken.</string>
 	<string name="dialog_vault_is_root_folder_of_cloud_title">Kluis is hoofdmap van de cloud-verbinding</string>
+	<string name="dialog_vault_is_root_folder_of_cloud_hint">Maak een nieuwe cloud-verbinding waarbij je ten minste de bovenliggende map van deze kluis selecteert als hoofdmap om deze kluis toe te voegen.</string>
 	<string name="dialog_disable_secure_screen_disclaimer_hint">Deze instelling is een beveiligingsfunctie en voorkomt dat andere apps gebruikers misleiden.\n\nDoor deze instelling uit te schakelen bevestig je dat je <a href="https://docs.cryptomator.org/en/1.5/android/settings/#screen-security"> bewust bent van de risico\'s</a>.</string>
 	<string name="dialog_delete_cloud_connection_with_vaults_message">Weet je zeker dat je deze cloud verbinding wilt verwijderen?</string>
 	<string name="dialog_delete_cloud_connection_with_vaults_hint">Deze actie zal de cloud-verbinding en alle kluizen van deze cloud verwijderen.</string>
@@ -366,6 +368,7 @@
 	<string name="notification_auto_upload_failed_general_error">Algemene fout opgetreden tijdens het uploaden.</string>
 	<string name="notification_auto_upload_failed_due_to_folder_not_exists">Geselecteerde map voor uploaden is niet meer beschikbaar. Ga naar instellingen en kies een nieuwe</string>
 	<string name="notification_auto_upload_failed_due_to_vault_locked">Kluis vergrendeld tijdens het uploaden, heropen de kluis om door te gaan</string>
+	<string name="notification_auto_upload_failed_due_to_vault_not_found">De gekozen kluis voor automatische upload bestaat niet meer.</string>
 	<string name="notification_open_writable_file_title">Open schrijfbaar bestand</string>
 	<string name="notification_open_writable_file_message">Kluis blijft ontgrendeld tot het bewerken voltooid is</string>
 	<string name="notification_update_check_finished_latest">Laatste versie geïnstalleerd</string>

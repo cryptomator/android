@@ -176,17 +176,85 @@
 	<string name="screen_settings_section_auto_photo_upload_only_wifi_toggle">Вивантажувати лише за допомогою Wi-Fi</string>
 	<string name="screen_settings_section_auto_photo_upload_including_videos">Завантажувати відео</string>
 	<string name="screen_settings_auto_photo_upload_title">Зберігати автозавантажені файли до&#8230;</string>
+	<string name="screen_settings_website_label">Веб-сайт Cryptomator</string>
+	<string name="screen_settings_twitter_label">Стежте за нами у Twitter</string>
+	<string name="screen_settings_facebook_label">Вподобайте нас на Facebook</string>
+	<string name="screen_settings_section_legal">Правова інформація</string>
+	<string name="screen_settings_licenses_label">Ліцензії</string>
+	<string name="screen_settings_license_terms_label">Ліцензійні умови</string>
+	<string name="screen_settings_section_support">Підтримка</string>
+	<string name="screen_settings_contact_label">Запит про допомогу</string>
+	<string name="screen_settings_debug_mode_label">Режим вiдладки</string>
+	<string name="screen_settings_error_report_label">Надіслати файл журналу</string>
+	<string name="screen_settings_error_report_failed">Помилка надсилання</string>
+	<string name="screen_settings_security_label">Поради з безпеки</string>
+	<string name="screen_settings_section_version">Версія</string>
+	<string name="screen_settings_advanced_settings">Розширені налаштування</string>
+	<string name="screen_settings_background_unlock_preparation_label">Прискорити розблокування</string>
+	<string name="screen_settings_background_unlock_preparation_label_summary">Завантажити конфігурацію сховища у фоновому режимі під час вводу пароля або біометричної автентифікації</string>
+	<string name="screen_settings_keep_unlocked_while_editing_files">Залишати розблокованим</string>
+	<string name="screen_settings_keep_unlocked_while_editing_files_summary">Залишати сховища розблокованими під час редагування файлів</string>
 	<!-- ## screen: cloud settings -->
+	<string name="screen_cloud_settings_webdav_connections">Підключення через WebDAV</string>
+	<string name="screen_cloud_settings_pcloud_connections">підключення до pCloud</string>
+	<string name="screen_cloud_settings_s3_connections">S3 підключення</string>
+	<string name="screen_cloud_settings_local_storage_locations">Розташування локального сховища</string>
+	<string name="screen_cloud_settings_log_in_to">Увійти до</string>
+	<string name="screen_cloud_settings_sign_out_from_cloud">Вийти з</string>
 	<!-- ## screen: licenses -->
 	<!-- ## screen: authenticate cloud -->
+	<string name="screen_authenticate_auth_authentication_failed">%1$s не може бути автентифіковано.</string>
+	<string name="screen_update_pcloud_connections_title">Оновити облікові дані pCloud</string>
 	<!-- ## screen: insecure android version info -->
 	<!-- # dialogs -->
 	<string name="dialog_button_cancel">Відмінити</string>
 	<string name="dialog_enter_password_positive_button">Розблокувати</string>
+	<string name="dialog_change_password_old_password_label">Старий пароль</string>
+	<string name="dialog_change_password_new_password_label">Новий пароль</string>
+	<string name="dialog_change_password">Змінити пароль</string>
+	<string name="dialog_change_password_msg_old_password_empty">Старий пароль не може бути порожнім.</string>
+	<string name="dialog_change_password_msg_new_password_empty">Новий пароль не може бути порожнім.</string>
+	<string name="dialog_change_password_msg_password_mismatch">Новий пароль не збігається з повторно введеним паролем.</string>
 	<!-- Vault not found -->
+	<string name="dialog_vault_not_found_title">Сховище %1$s не знайдено</string>
+	<string name="dialog_vault_not_found_message">Сховище було перейменовано, переміщено або видалено. Видаліть це сховище зі списку та додайте його знову, щоб продовжити. Видалити зараз?</string>
 	<string name="dialog_vault_not_found_positive_button_text">Прибрати</string>
+	<string name="dialog_existing_file_title">Файл вже існує</string>
+	<string name="dialog_existing_file_positive_button">Замінити</string>
+	<string name="dialog_existing_file_message">Файл з іменем \'%1$s\' вже існує.</string>
+	<string name="dialog_replace_negative_button_at_least_two_but_not_all_files_exist">Пропустити існуючі</string>
+	<string name="dialog_replace_positive_button_all_files_exist">Замінити всі</string>
+	<string name="dialog_replace_positive_button_some_files_exist">Замінити існуючі</string>
+	<string name="dialog_replace_positive_button_single_file_exists">Замінити</string>
+	<string name="dialog_replace_msg_single_file_exists">Файл з іменем \'%1$s\' вже існує. Бажаєте замінити його?</string>
+	<string name="dialog_replace_msg_all_files_exists">Усі файли вже існують. Бажаєте замінити їх?</string>
+	<string name="dialog_replace_msg_some_files_exists">%1$d файли вже існують. Бажаєте замінити їх?</string>
+	<string name="dialog_replace_title_single_file_exists">Замінити файл?</string>
+	<string name="dialog_replace_title_multiple_files_exist">Замінити файли?</string>
+	<string name="dialog_unable_to_share_title">Неможливо поширити файли</string>
+	<string name="dialog_unable_to_share_message">Ви не налаштували жодного сховища. Спочатку створіть нове сховище за допомогою програми Cryptomator.</string>
+	<string name="dialog_unable_to_share_positive_button">Гаразд</string>
+	<string name="dialog_unable_to_share_negative_button">Створити сховище</string>
+	<string name="dialog_filetype_not_supported_title">Неможливо відкрити %1$s</string>
+	<string name="dialog_filetype_not_supported_message">Будь ласка, завантажте додаток, який може відкрити цей файл чи ви бажаєте зберегти його на ваш пристрій?</string>
+	<string name="dialog_rename_vault_title">Перейменувати сховище</string>
+	<string name="dialog_rename_node_folder_title">Перейменувати папку</string>
+	<string name="dialog_rename_node_file_title">Перейменувати файл</string>
+	<string name="dialog_unsaved_changes_title">У вас є незбережені зміни</string>
+	<string name="dialog_unsaved_changes_message">Ви справді хочете вийти без збереження?</string>
+	<string name="dialog_unsaved_changes_discard">Відхилити</string>
+	<string name="dialog_file_name_placeholder">text.txt</string>
+	<string name="dialog_delete_vault_message">Ви впевнені, що бажаєте видалити це сховище?</string>
+	<string name="dialog_delete_vault_hint">Ця дія тільки прибере сховище з цього списку, але не видалить його.</string>
+	<string name="dialog_upload_file_title">Завантаження&#8230;</string>
+	<string name="dialog_upload_file_remaining">Файл %1$d з %2$d</string>
+	<string name="dialog_progress_upload_file">Завантаження&#8230;</string>
 	<string name="dialog_lock_vault">Заблокувати</string>
 	<string name="dialog_app_is_obscured_info_neutral_button">Закрити</string>
+	<string name="dialog_delete_cloud_connection_with_vaults_hint">Ця дія видалить підключення до хмари та всі сховища з цієї хмари.</string>
+	<string name="dialog_confirm_delete_multiple_title">Видалити %1$d об\'єкти?</string>
+	<string name="dialog_confirm_delete_multiple_message">Ви впевнені, що бажаєте видалити ці об\'єкти?</string>
+	<string name="dialog_confirm_delete_file_message">Ви впевнені, що бажаєте видалити цей файл?</string>
 	<string name="dialog_sym_link_back_button">Назад</string>
 	<!-- # error reports -->
 	<!-- # misc -->

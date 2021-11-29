@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 	<!-- # app -->
-	<string name="share_with_label">Шифрование</string>
+	<string name="share_with_label">Зашифровать</string>
 	<!-- # error messages -->
 	<string name="error_generic">Произошла ошибка</string>
 	<string name="error_authentication_failed">Ошибка аутентификации</string>

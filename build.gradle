@@ -39,7 +39,7 @@ allprojects {
 	ext {
 		androidApplicationId = 'org.cryptomator'
 		androidVersionCode = getVersionCode()
-		androidVersionName = '1.6.5'
+		androidVersionName = '1.6.6'
 	}
 	repositories {
 		mavenCentral()

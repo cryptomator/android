@@ -285,6 +285,7 @@
 	<string name="dialog_app_is_obscured_info_title">Aplikace je překrytá</string>
 	<string name="dialog_app_is_obscured_info_hint">Jiná aplikace zobrazuje něco nad Cryptomatorem (např. filtr modrého světla nebo aplikace pro noční režim). Z bezpečnostních důvodů je Cryptomator zakázán.\n\n<a href="https://docs.cryptomator.org/en/1.5/android/settings/#block-app-when-obscured">Jak povolit Cryptomator</a></string>
 	<string name="dialog_app_is_obscured_info_neutral_button">Zavřít</string>
+	<string name="dialog_vaults_removed_during_migration_title">Prosím znovu přidejte trezory pro %1s cloud</string>
 	<string name="dialog_disable_secure_screen_disclaimer_hint">Toto nastavení je bezpečnostní funkce a brání ostatním aplikacím v tom, aby oklamaly uživatele dělat věci, se kterými nesouhlasí.\n\nZakázáním potvrzujete, že jste <a href="https://docs.cryptomator.org/en/1.5/android/settings/#screen-security">si vědomi rizik</a>.</string>
 	<string name="dialog_delete_cloud_connection_with_vaults_message">Opravdu chcete odstranit toto cloudové připojení?</string>
 	<string name="dialog_delete_cloud_connection_with_vaults_hint">Tato akce odstraní cloudové připojení a všechny trezory tohoto cloudu.</string>
@@ -360,6 +361,7 @@
 	<string name="notification_auto_upload_failed_general_error">Při nahrávání došlo k obecné chybě.</string>
 	<string name="notification_auto_upload_failed_due_to_folder_not_exists">Vybraná složka pro nahrání již není k dispozici. Přejděte do nastavení a vyberte novou složku</string>
 	<string name="notification_auto_upload_failed_due_to_vault_locked">Během nahrávání došlo k uzamčení trezoru, pro pokračování trezor prosím znovu odemkněte</string>
+	<string name="notification_auto_upload_failed_due_to_vault_not_found">Trezor určený pro automatické nahrávání již neexistuje.</string>
 	<string name="notification_open_writable_file_title">Otevřít zapisovatelný soubor</string>
 	<string name="notification_open_writable_file_message">Trezor zůstane odemknutý dokud nejsou dokončené úpravy</string>
 	<string name="notification_update_check_finished_latest">Nainstalována aktuální verze</string>
