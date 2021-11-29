@@ -368,6 +368,7 @@
 	<string name="notification_auto_upload_failed_general_error">Yükleme sırasında genel hata oluştu.</string>
 	<string name="notification_auto_upload_failed_due_to_folder_not_exists">Yükleme için seçilen klasör artık mevcut değil! Ayarlara gidin ve yeni bir tane seçin</string>
 	<string name="notification_auto_upload_failed_due_to_vault_locked">Kasa yükleme sırasında kilitlendi, devam etmek için kasayı yeniden açın lütfen</string>
+	<string name="notification_auto_upload_failed_due_to_vault_not_found">Otomatik yükleme için belirtilen kasa artık mevcut değil.</string>
 	<string name="notification_open_writable_file_title">Yazılabilir dosyayı aç</string>
 	<string name="notification_open_writable_file_message">Düzenleme tamamlanana kadar, uygulamalar kasası kilidi açık kalır</string>
 	<string name="notification_update_check_finished_latest">En son sürüm yüklendi</string>

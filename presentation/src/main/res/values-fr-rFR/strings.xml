@@ -368,6 +368,7 @@
 	<string name="notification_auto_upload_failed_general_error">Une erreur générale s\'est produite lors du téléversement.</string>
 	<string name="notification_auto_upload_failed_due_to_folder_not_exists">Le dossier sélectionné pour le téléversement n\'est plus disponible. Accédez aux paramètres et choisissez-en un nouveau</string>
 	<string name="notification_auto_upload_failed_due_to_vault_locked">Coffre-fort verrouillé pendant le téléchargement, veuillez rouvrir le coffre-fort pour continuer</string>
+	<string name="notification_auto_upload_failed_due_to_vault_not_found">Le coffre spécifié pour l\'envoi automatique n\'existe plus.</string>
 	<string name="notification_open_writable_file_title">Ouvrir un fichier accessible en écriture</string>
 	<string name="notification_open_writable_file_message">Le coffre-fort reste déverrouillé jusqu\'à la fin des modifications</string>
 	<string name="notification_update_check_finished_latest">Dernière version installée</string>

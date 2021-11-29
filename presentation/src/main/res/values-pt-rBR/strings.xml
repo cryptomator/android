@@ -363,6 +363,7 @@
 	<string name="notification_auto_upload_failed_general_error">Ocorreu um erro geral durante o upload.</string>
 	<string name="notification_auto_upload_failed_due_to_folder_not_exists">A pasta selecionada para envio não está mais disponível. Vá para configurações e escolha uma nova pasta</string>
 	<string name="notification_auto_upload_failed_due_to_vault_locked">Cofre trancado durante o upload, por favor reabra o cofre para continuar</string>
+	<string name="notification_auto_upload_failed_due_to_vault_not_found">O cofre especificado para upload automático não existe mais.</string>
 	<string name="notification_open_writable_file_title">Abrir arquivo gravável</string>
 	<string name="notification_open_writable_file_message">Cofre permanece desbloqueado até terminar de editar</string>
 	<string name="notification_update_check_finished_latest">Versão mais recente instalada</string>
