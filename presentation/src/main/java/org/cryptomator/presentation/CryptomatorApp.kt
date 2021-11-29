@@ -12,6 +12,7 @@ import androidx.multidex.MultiDexApplication
 import org.cryptomator.data.cloud.crypto.Cryptors
 import org.cryptomator.data.cloud.crypto.CryptorsModule
 import org.cryptomator.data.repository.RepositoryModule
+import org.cryptomator.domain.Cloud
 import org.cryptomator.presentation.di.HasComponent
 import org.cryptomator.presentation.di.component.ApplicationComponent
 import org.cryptomator.presentation.di.component.DaggerApplicationComponent
@@ -20,6 +21,7 @@ import org.cryptomator.presentation.di.module.ThreadModule
 import org.cryptomator.presentation.logging.CrashLogging.Companion.setup
 import org.cryptomator.presentation.logging.DebugLogger
 import org.cryptomator.presentation.logging.ReleaseLogger
+import org.cryptomator.presentation.service.AutoUploadNotification
 import org.cryptomator.presentation.service.AutoUploadService
 import org.cryptomator.presentation.service.CryptorsService
 import org.cryptomator.util.NoOpActivityLifecycleCallbacks
@@ -37,7 +39,7 @@ class CryptomatorApp : MultiDexApplication(), HasComponent<ApplicationComponent>
 	private var cryptoServiceBinder: CryptorsService.Binder? = null
 
 	@Volatile
-	private lateinit var autoUploadServiceBinder: AutoUploadService.Binder
+	private var autoUploadServiceBinder: AutoUploadService.Binder? = null
 
 	override fun onCreate() {
 		super.onCreate()
@@ -59,8 +61,8 @@ class CryptomatorApp : MultiDexApplication(), HasComponent<ApplicationComponent>
 		)
 		Timber.tag("App").d("appId %s", BuildConfig.APPLICATION_ID)
 
-		launchServices()
 		initializeInjector()
+		launchServices()
 		registerActivityLifecycleCallbacks(serviceNotifier)
 		AppCompatDelegate.setDefaultNightMode(SharedPreferencesHandler(applicationContext()).screenStyleMode)
 		cleanupCache()
@@ -106,7 +108,7 @@ class CryptomatorApp : MultiDexApplication(), HasComponent<ApplicationComponent>
 			override fun onServiceConnected(name: ComponentName, service: IBinder) {
 				Timber.tag("App").i("Auto upload service connected")
 				autoUploadServiceBinder = service as AutoUploadService.Binder
-				autoUploadServiceBinder.init( //
+				autoUploadServiceBinder?.init( //
 					applicationComponent.cloudContentRepository(),  //
 					applicationComponent.fileUtil(),  //
 					applicationComponent.contentResolverUtil(),  //
@@ -120,6 +122,10 @@ class CryptomatorApp : MultiDexApplication(), HasComponent<ApplicationComponent>
 		}, BIND_AUTO_CREATE)
 	}
 
+	fun startAutoUpload(cloud: Cloud) {
+		autoUploadServiceBinder?.startUpload(cloud)
+	}
+
 	fun startAutoUpload() {
 		val sharedPreferencesHandler = SharedPreferencesHandler(applicationContext())
 		if (checkToStartAutoImageUpload(sharedPreferencesHandler)) {
@@ -130,9 +136,13 @@ class CryptomatorApp : MultiDexApplication(), HasComponent<ApplicationComponent>
 			}
 			if (vault?.isUnlocked == true) {
 				val cloud = applicationComponent.cloudRepository().decryptedViewOf(vault)
-				applicationContext().startService(AutoUploadService.startAutoUploadIntent(applicationContext(), cloud))
+				startAutoUpload(cloud)
 			} else if (vault == null) {
-				applicationContext().startService(AutoUploadService.vaultNotFoundUploadIntent(applicationContext()))
+				autoUploadServiceBinder?.vaultNotFound()
+					?: run {
+						Timber.tag("App").i("autoUploadServiceBinder not yet initialized, manually show notification")
+						AutoUploadNotification(applicationContext, 0).showVaultNotFoundNotification()
+					}
 			}
 		}
 	}

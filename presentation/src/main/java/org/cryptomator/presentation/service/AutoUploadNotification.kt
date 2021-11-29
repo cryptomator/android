@@ -17,6 +17,7 @@ import org.cryptomator.presentation.ui.activity.VaultListActivity
 import org.cryptomator.presentation.util.ResourceHelper.Companion.getColor
 import org.cryptomator.presentation.util.ResourceHelper.Companion.getString
 import java.lang.String.format
+import timber.log.Timber
 
 class AutoUploadNotification(private val context: Context, private val amountOfPictures: Int) {
 
@@ -85,18 +86,22 @@ class AutoUploadNotification(private val context: Context, private val amountOfP
 	}
 
 	fun showFolderMissing() {
+		Timber.tag("AutoUploadNotification").i("Show folder not found notification")
 		showErrorWithMessage(context.getString(R.string.notification_auto_upload_failed_due_to_folder_not_exists))
 	}
 
 	fun showVaultLockedDuringUpload() {
+		Timber.tag("AutoUploadNotification").i("Show vault locked during upload notification")
 		showErrorWithMessage(context.getString(R.string.notification_auto_upload_failed_due_to_vault_locked))
 	}
 
 	fun showGeneralErrorDuringUpload() {
+		Timber.tag("AutoUploadNotification").i("Show general error during upload notficiation")
 		showErrorWithMessage(context.getString(R.string.notification_auto_upload_failed_general_error))
 	}
 
 	fun showVaultNotFoundNotification() {
+		Timber.tag("AutoUploadNotification").i("Show vault not found notification")
 		showErrorWithMessage(context.getString(R.string.notification_auto_upload_failed_due_to_vault_not_found))
 	}
 

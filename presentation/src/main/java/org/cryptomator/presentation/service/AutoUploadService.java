@@ -1,5 +1,8 @@
 package org.cryptomator.presentation.service;
 
+import static org.cryptomator.domain.usecases.cloud.UploadFile.anUploadFile;
+import static java.lang.String.format;
+
 import android.app.Service;
 import android.content.Context;
 import android.content.Intent;
@@ -17,6 +20,7 @@ import org.cryptomator.domain.exception.BackendException;
 import org.cryptomator.domain.exception.CancellationException;
 import org.cryptomator.domain.exception.CloudNodeAlreadyExistsException;
 import org.cryptomator.domain.exception.FatalBackendException;
+import org.cryptomator.domain.exception.FileRemovedDuringUploadException;
 import org.cryptomator.domain.exception.MissingCryptorException;
 import org.cryptomator.domain.exception.NoSuchCloudFileException;
 import org.cryptomator.domain.repository.CloudContentRepository;
@@ -42,16 +46,10 @@ import java.util.Set;
 
 import timber.log.Timber;
 
-import static java.lang.String.format;
-import static org.cryptomator.domain.usecases.cloud.UploadFile.anUploadFile;
-
 public class AutoUploadService extends Service {
 
-	private static final String ACTION_START_AUTO_UPLOAD = "START_AUTO_UPLOAD";
 	private static final String ACTION_CANCEL_AUTO_UPLOAD = "CANCEL_AUTO_UPLOAD";
-	private static final String ACTION_VAULT_NOT_FOUND = "VAULT_NOT_FOUND";
 
-	private static Cloud cloud;
 	private AutoUploadNotification notification;
 	private CloudContentRepository cloudContentRepository;
 	private ContentResolverUtil contentResolverUtil;
@@ -70,22 +68,9 @@ public class AutoUploadService extends Service {
 		}
 	};
 
-	public static Intent startAutoUploadIntent(Context context, Cloud myCloud) {
-		cloud = myCloud;
-		Intent startAutoUpload = new Intent(context, AutoUploadService.class);
-		startAutoUpload.setAction(ACTION_START_AUTO_UPLOAD);
-		return startAutoUpload;
-	}
-
 	public static Intent cancelAutoUploadIntent(Context context) {
 		Intent cancelAutoUploadIntent = new Intent(context, AutoUploadService.class);
 		cancelAutoUploadIntent.setAction(ACTION_CANCEL_AUTO_UPLOAD);
-		return cancelAutoUploadIntent;
-	}
-
-	public static Intent vaultNotFoundUploadIntent(Context context) {
-		Intent cancelAutoUploadIntent = new Intent(context, AutoUploadService.class);
-		cancelAutoUploadIntent.setAction(ACTION_VAULT_NOT_FOUND);
 		return cancelAutoUploadIntent;
 	}
 
@@ -182,7 +167,11 @@ public class AutoUploadService extends Service {
 			} catch (CloudNodeAlreadyExistsException e) {
 				Timber.tag("AutoUploadService").i("Not uploading file because it already exists in the cloud");
 				Timber.tag("AutoUploadService").v(format("Not uploading file because it already exists in the cloud %s", file.getFileName()));
-			} catch (Exception e) {
+			} catch (FileRemovedDuringUploadException e) {
+				Timber.tag("AutoUploadService").i("Not uploading file because it was removed during upload");
+				Timber.tag("AutoUploadService").v(format("Not uploading file because it was removed during upload %s", file.getFileName()));
+			}
+			catch (Exception e) {
 				cancelled = true;
 				fileUtil.removeImagesFromAutoUploads(uploadedCloudFileNames);
 				throw e;
@@ -211,6 +200,9 @@ public class AutoUploadService extends Service {
 
 	private CloudFile writeCloudFile(String fileName, CancelAwareDataSource dataSource, boolean replacing, ProgressAware<UploadState> progressAware) throws BackendException {
 		Long size = dataSource.size(context);
+		if(size == null) {
+			throw new FileRemovedDuringUploadException();
+		}
 		CloudFile source = cloudContentRepository.file(parent, fileName, size);
 		return cloudContentRepository.write(source, dataSource, progressAware, replacing, size);
 	}
@@ -225,36 +217,18 @@ public class AutoUploadService extends Service {
 	@Override
 	public int onStartCommand(Intent intent, int flags, int startId) {
 		Timber.tag("AutoUploadService").i("started");
-		if (isStartAutoUpload(intent)) {
-			Timber.tag("AutoUploadService").i("Received start upload");
-
-			startBackgroundImageUpload(cloud);
-		} else if (isCancelAutoUpload(intent)) {
+		if (isCancelAutoUpload(intent)) {
 			Timber.tag("AutoUploadService").i("Received stop auto upload");
 
 			cancelled = true;
 
 			hideNotification();
-		} else if(isVaultNotFound(intent)) {
-			Timber.tag("AutoUploadService").i("Received show vault not found notification");
-			notification.showVaultNotFoundNotification();
 		}
 		return START_STICKY;
 	}
 
-	private boolean isStartAutoUpload(Intent intent) {
-		return intent != null //
-				&& ACTION_START_AUTO_UPLOAD.equals(intent.getAction());
-	}
-
 	private boolean isCancelAutoUpload(Intent intent) {
-		return intent != null //
-				&& ACTION_CANCEL_AUTO_UPLOAD.equals(intent.getAction());
-	}
-
-	private boolean isVaultNotFound(Intent intent) {
-		return intent != null //
-				&& ACTION_VAULT_NOT_FOUND.equals(intent.getAction());
+		return intent != null && ACTION_CANCEL_AUTO_UPLOAD.equals(intent.getAction());
 	}
 
 	@Override
@@ -293,6 +267,14 @@ public class AutoUploadService extends Service {
 			fileUtil = myFileUtil;
 			contentResolverUtil = myContentResolverUtil;
 			context = myContext;
+		}
+
+		public void startUpload(Cloud cloud) {
+			startBackgroundImageUpload(cloud);
+		}
+
+		public void vaultNotFound() {
+			notification.showVaultNotFoundNotification();
 		}
 	}
 }

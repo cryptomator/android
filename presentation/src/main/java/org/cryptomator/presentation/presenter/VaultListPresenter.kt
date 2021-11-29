@@ -33,6 +33,7 @@ import org.cryptomator.domain.usecases.vault.RenameVaultUseCase
 import org.cryptomator.domain.usecases.vault.SaveVaultUseCase
 import org.cryptomator.generator.Callback
 import org.cryptomator.presentation.BuildConfig
+import org.cryptomator.presentation.CryptomatorApp
 import org.cryptomator.presentation.R
 import org.cryptomator.presentation.exception.ExceptionHandlers
 import org.cryptomator.presentation.intent.Intents
@@ -42,7 +43,6 @@ import org.cryptomator.presentation.model.CloudTypeModel
 import org.cryptomator.presentation.model.ProgressModel
 import org.cryptomator.presentation.model.VaultModel
 import org.cryptomator.presentation.model.mappers.CloudFolderModelMapper
-import org.cryptomator.presentation.service.AutoUploadService
 import org.cryptomator.presentation.ui.activity.LicenseCheckActivity
 import org.cryptomator.presentation.ui.activity.view.VaultListView
 import org.cryptomator.presentation.ui.dialog.AppIsObscuredInfoDialog
@@ -386,12 +386,14 @@ class VaultListPresenter @Inject constructor( //
 			.withCloud(cloud) //
 			.run(object : DefaultResultHandler<CloudFolder>() {
 				override fun onSuccess(folder: CloudFolder) {
-					val vault = (folder.cloud as CryptoCloud).vault
+					val cryptoCloud = (folder.cloud as CryptoCloud)
+					val vault = cryptoCloud.vault
 					view?.addOrUpdateVault(VaultModel(vault))
 					navigateToVaultContent(vault, folder)
 					view?.showProgress(ProgressModel.COMPLETED)
 					if (checkToStartAutoImageUpload(vault)) {
-						context().startService(AutoUploadService.startAutoUploadIntent(context(), folder.cloud))
+						val cryptomatorApp = activity().application as CryptomatorApp
+						cryptomatorApp.startAutoUpload(cryptoCloud)
 					}
 				}
 			})
