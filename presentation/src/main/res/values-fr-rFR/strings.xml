@@ -16,7 +16,7 @@
 	<string name="error_cloud_already_exists">Compte Cloud déjà existant.</string>
 	<string name="error_activity_not_found">Veuillez télécharger une application qui peut ouvrir ce fichier.</string>
 	<string name="error_server_not_found">Serveur introuvable.</string>
-	<string name="error_device_policy_manager_not_found">Veuillez ouvrir les paramètres de votre appareil et régler le verrouillage de l\'écran à la main</string>
+	<string name="error_device_policy_manager_not_found">Veuillez ouvrir les paramètres de votre appareil et activer le verrouillage manuel de l\'écran</string>
 	<string name="error_export_illegal_file_name">L\'exportation a échoué. Essayez de supprimer les caractères spéciaux des noms de fichiers et d\'exporter à nouveau.</string>
 	<string name="error_name_contains_invalid_characters">Ne peut pas contenir de caractères spéciaux.</string>
 	<string name="error_names_contains_invalid_characters">Les noms de fichiers ne peuvent pas contenir de caractères spéciaux.</string>
@@ -24,24 +24,24 @@
 	<string name="error_general_update">La vérification de la mise à jour a échoué. Une erreur générale s\'est produite.</string>
 	<string name="error_hash_mismatch_update">La vérification de la mise à jour a échoué. Le hachage calculé ne correspond pas au fichier téléchargé</string>
 	<string name="error_update_no_internet">La vérification de la mise à jour a échoué. Pas de connexion Internet.</string>
-	<string name="error_failed_to_decrypt_webdav_password">Echec lors du déchiffrement du mot de passe WebDAV, veuillez l\'ajouter une nouvelle fois dans les paramètres</string>
+	<string name="error_failed_to_decrypt_webdav_password">Échec lors du déchiffrement du mot de passe WebDAV, veuillez l\'ajouter une nouvelle fois dans les paramètres</string>
 	<string name="error_play_services_not_available">Les services Google Play ne sont pas installés</string>
 	<string name="error_biometric_auth_aborted">Authentification biométrique avortée</string>
 	<string name="error_vault_version_mismatch">La version spécifiée dans %1$s est différente de %2$s</string>
 	<string name="error_vault_key_invalid">%1$s ne correspond pas à ce %2$s</string>
 	<string name="error_vault_config_loading">Erreur générale lors du chargement de la configuration du coffre</string>
-	<string name="error_file_not_found_after_opening_using_3party">Le fichier local n\'est plus présent après le retour à Cryptomator. Les éventuels modifications ne peuvent être propagées au nuage.</string>
-	<string name="error_no_such_bucket">Aucun compartiment de ce type</string>
-	<string name="error_masterkey_location_not_supported">Localisation personnalisée de Masterkey pas encore prise en charge</string>
+	<string name="error_file_not_found_after_opening_using_3party">Le fichier local n\'est plus présent après le retour à Cryptomator. Les éventuelles modifications ne peuvent être propagées dans le cloud.</string>
+	<string name="error_no_such_bucket">Aucun bucket correspondant</string>
+	<string name="error_masterkey_location_not_supported">Localisation personnalisée de la Masterkey n\'est pas encore prise en charge</string>
 	<!-- # clouds -->
 	<!-- ## cloud names -->
 	<string name="cloud_names_local_storage">Stockage local</string>
 	<!-- # permission -->
 	<!-- ## permission messages -->
 	<string name="permission_message_export_file">Cryptomator a besoin de l\'accès au stockage pour exporter des fichiers</string>
-	<string name="permission_message_upload_file">Cryptomateur a besoin de l\'accès au stockage pour téléverser des fichiers</string>
+	<string name="permission_message_upload_file">Cryptomator a besoin de l\'accès au stockage pour envoyer des fichiers</string>
 	<string name="permission_message_share_file">Cryptomator a besoin de l\'accès au stockage pour partager des fichiers</string>
-	<string name="permission_revoked_re_request_permission">Cryptomator n\'a plus accès à cet emplacement. Merci de resélectionner ce répertoire pour restaurer les droits d\'accès.</string>
+	<string name="permission_revoked_re_request_permission">Cryptomator n\'a plus accès à cet emplacement. Merci de re-sélectionner ce répertoire pour restaurer les droits d\'accès.</string>
 	<string name="snack_bar_action_title_settings">Paramètres</string>
 	<string name="snack_bar_action_title_search">Rechercher</string>
 	<string name="snack_bar_action_title_search_previous">Précédent</string>
@@ -50,7 +50,7 @@
 	<string name="snack_bar_action_title_sort_az">A - Z</string>
 	<string name="snack_bar_action_title_sort_za">Z - A</string>
 	<string name="snack_bar_action_title_sort_newest">Récent d\'abord</string>
-	<string name="snack_bar_action_title_sort_oldest">Plus ancien</string>
+	<string name="snack_bar_action_title_sort_oldest">Ancien d\'abord</string>
 	<string name="snack_bar_action_title_sort_biggest">Taille décroissante</string>
 	<string name="snack_bar_action_title_sort_smallest">Taille croissante</string>
 	<!-- # screens -->
