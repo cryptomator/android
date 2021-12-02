@@ -13,7 +13,7 @@
 	<string name="error_vault_already_exists">Le coffre-fort existe déjà.</string>
 	<string name="error_no_such_file">Le fichier n\'existe pas.</string>
 	<string name="error_vault_has_been_locked">Le coffre-fort a été verrouillé.</string>
-	<string name="error_cloud_already_exists">Cloud existant.</string>
+	<string name="error_cloud_already_exists">Compte Cloud déjà existant.</string>
 	<string name="error_activity_not_found">Veuillez télécharger une application qui peut ouvrir ce fichier.</string>
 	<string name="error_server_not_found">Serveur introuvable.</string>
 	<string name="error_device_policy_manager_not_found">Veuillez ouvrir les paramètres de votre appareil et régler le verrouillage de l\'écran à la main</string>
