@@ -359,6 +359,10 @@ internal class PCloudImpl(context: Context, cloud: PCloud) {
 		}
 	}
 
+	fun logout() {
+		PCloudClientFactory.logout()
+	}
+
 	init {
 		if (cloud.accessToken() == null) {
 			throw NoAuthenticationProvidedException(cloud)

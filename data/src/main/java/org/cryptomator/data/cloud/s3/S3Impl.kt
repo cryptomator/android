@@ -366,6 +366,10 @@ internal class S3Impl(context: Context, cloud: S3Cloud) {
 			}
 	}
 
+	fun logout() {
+		S3ClientFactory.logout()
+	}
+
 	companion object {
 
 		private const val DELIMITER = "/"

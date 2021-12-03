@@ -85,5 +85,10 @@ class S3ClientFactory private constructor() {
 			val activeNetworkInfo = connectivityManager.activeNetworkInfo
 			return activeNetworkInfo != null && activeNetworkInfo.isConnected
 		}
+
+		@Synchronized
+		fun logout() {
+			instance = null
+		}
 	}
 }

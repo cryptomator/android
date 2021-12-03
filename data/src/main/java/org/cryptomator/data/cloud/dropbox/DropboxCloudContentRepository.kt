@@ -203,7 +203,7 @@ internal class DropboxCloudContentRepository(private val cloud: DropboxCloud, co
 
 		@Throws(BackendException::class)
 		override fun logout(cloud: DropboxCloud) {
-			// empty
+			this.cloud.logout()
 		}
 
 	}
