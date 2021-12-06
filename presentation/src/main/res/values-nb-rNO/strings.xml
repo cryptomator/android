@@ -9,10 +9,12 @@
 	<string name="error_no_network_connection">Ingen nettverkstilkobling</string>
 	<string name="error_invalid_passphrase">Feil passord</string>
 	<string name="error_file_or_folder_exists">En fil eller mappe finnes allerede.</string>
+	<string name="error_vault_version_not_supported">Hvelvet støttes ikke. Dette hvelvet er laget med en annen versjon av Cryptomator.</string>
 	<string name="error_vault_already_exists">Hvelvet finnes allerede.</string>
 	<string name="error_no_such_file">Filen finnes ikke.</string>
 	<string name="error_vault_has_been_locked">Hvelvet har blitt låst.</string>
 	<string name="error_cloud_already_exists">Skylagringen finnes allerede.</string>
+	<string name="error_activity_not_found">Vennligst last ned en app som kan åpne denne filen.</string>
 	<!-- # clouds -->
 	<!-- ## cloud names -->
 	<string name="cloud_names_local_storage">Lokal lagring</string>
