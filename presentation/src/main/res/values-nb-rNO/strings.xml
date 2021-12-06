@@ -15,6 +15,13 @@
 	<string name="error_vault_has_been_locked">Hvelvet har blitt låst.</string>
 	<string name="error_cloud_already_exists">Skylagringen finnes allerede.</string>
 	<string name="error_activity_not_found">Vennligst last ned en app som kan åpne denne filen.</string>
+	<string name="error_server_not_found">Serveren ble ikke funnet.</string>
+	<string name="error_device_policy_manager_not_found">Vennligst åpne enhetsinnstillingene og angi skjermlås manuelt</string>
+	<string name="error_export_illegal_file_name">Eksporteringen mislyktes. Prøv å fjerne spesialtegn fra filnavnet og eksporter på nytt.</string>
+	<string name="error_name_contains_invalid_characters">Kan ikke inneholde spesialtegn.</string>
+	<string name="error_names_contains_invalid_characters">Filnavn kan ikke inneholde spesialtegn.</string>
+	<string name="error_vault_name_contains_invalid_characters">Navn på hvelvet kan ikke inneholde spesialtegn.</string>
+	<string name="error_general_update">Oppdateringskontrollen mislyktes. Det oppstod en generell feil.</string>
 	<!-- # clouds -->
 	<!-- ## cloud names -->
 	<string name="cloud_names_local_storage">Lokal lagring</string>
