@@ -47,16 +47,13 @@ class AutoUploadNotification(private val context: Context, private val amountOfP
 	}
 
 	private fun cancelNowAction(): NotificationCompat.Action {
+		val intentAction = cancelAutoUploadIntent(context)
+		val cancelIntent = PendingIntent.getService(context, 0, intentAction, FLAG_CANCEL_CURRENT)
 		return NotificationCompat.Action.Builder( //
 			R.drawable.ic_lock, //
 			getString(R.string.notification_cancel_auto_upload), //
-			cancelNowIntent() //
+			cancelIntent //
 		).build()
-	}
-
-	private fun cancelNowIntent(): PendingIntent {
-		val intentAction = cancelAutoUploadIntent(context)
-		return PendingIntent.getService(context, 0, intentAction, FLAG_CANCEL_CURRENT)
 	}
 
 	private fun startTheActivity(): PendingIntent {
@@ -67,8 +64,8 @@ class AutoUploadNotification(private val context: Context, private val amountOfP
 	}
 
 	fun update(progress: Int) {
-		builder.setContentIntent(startTheActivity())
 		builder //
+			.setContentIntent(startTheActivity())
 			.setContentText( //
 				String.format(
 					context.getString(R.string.notification_auto_upload_message), //
@@ -105,27 +102,32 @@ class AutoUploadNotification(private val context: Context, private val amountOfP
 		showErrorWithMessage(context.getString(R.string.notification_auto_upload_failed_due_to_vault_not_found))
 	}
 
+	fun showPermissionNotGrantedNotification() {
+		Timber.tag("AutoUploadNotification").i("Show storage permission required notification")
+		showErrorWithMessage(context.getString(R.string.notification_auto_upload_permission_not_granted))
+	}
+
 	private fun showErrorWithMessage(message: String) {
-		builder.setContentIntent(startTheActivity())
-		builder //
+		builder
+			.setContentIntent(startTheActivity())
 			.setContentTitle(context.getString(R.string.notification_auto_upload_failed_title))
 			.setContentText(message) //
 			.setProgress(0, 0, false)
 			.setAutoCancel(true)
 			.setOngoing(false)
-			.mActions.clear()
+			.clearActions()
 		show()
 	}
 
 	fun showUploadFinished(size: Int) {
-		builder.setContentIntent(startTheActivity())
-		builder //
+		builder
+			.setContentIntent(startTheActivity())
 			.setContentTitle(context.getString(R.string.notification_auto_upload_finished_title))
-			.setContentText(format(context.getString(R.string.notification_auto_upload_finished_message), size)) //
+			.setContentText(format(context.getString(R.string.notification_auto_upload_finished_message), size))
 			.setProgress(0, 0, false)
 			.setAutoCancel(true)
 			.setOngoing(false)
-			.mActions.clear()
+			.clearActions()
 		show()
 	}
 

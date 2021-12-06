@@ -1,5 +1,6 @@
 package org.cryptomator.presentation.presenter
 
+import android.Manifest
 import android.app.KeyguardManager
 import android.app.admin.DevicePolicyManager
 import android.content.ActivityNotFoundException
@@ -56,6 +57,7 @@ import org.cryptomator.presentation.workflow.ActivityResult
 import org.cryptomator.presentation.workflow.AddExistingVaultWorkflow
 import org.cryptomator.presentation.workflow.AuthenticationExceptionHandler
 import org.cryptomator.presentation.workflow.CreateNewVaultWorkflow
+import org.cryptomator.presentation.workflow.PermissionsResult
 import org.cryptomator.presentation.workflow.Workflow
 import org.cryptomator.util.SharedPreferencesHandler
 import javax.inject.Inject
@@ -112,6 +114,10 @@ class VaultListPresenter @Inject constructor( //
 		}
 
 		checkLicense()
+
+		if(sharedPreferencesHandler.usePhotoUpload()) {
+			checkLocalStoragePermissionRegardingAutoUpload()
+		}
 	}
 
 	private fun checkLicense() {
@@ -185,6 +191,27 @@ class VaultListPresenter @Inject constructor( //
 		}
 	}
 
+	private fun checkLocalStoragePermissionRegardingAutoUpload() {
+		requestPermissions(
+			PermissionsResultCallbacks.onLocalStoragePermissionGrantedForAutoUpload(),  //
+			R.string.permission_snackbar_auth_auto_upload,  //
+			Manifest.permission.READ_EXTERNAL_STORAGE
+		)
+	}
+
+	@Callback
+	fun onLocalStoragePermissionGrantedForAutoUpload(result: PermissionsResult) {
+		if (!result.granted()) {
+			Timber.tag("VaultListPresenter").e("Local storage permission not granted, auto upload will not work")
+		}
+	}
+
+	fun loadVaultList() {
+		view?.hideVaultCreationHint()
+		vaultList
+		assertUnlockingVaultIsLocked()
+	}
+
 	private fun assertUnlockingVaultIsLocked() {
 		if (view?.isShowingDialog(EnterPasswordDialog::class) == true) {
 			if (view?.currentDialog() != null) {
@@ -194,12 +221,6 @@ class VaultListPresenter @Inject constructor( //
 				}
 			}
 		}
-	}
-
-	fun loadVaultList() {
-		view?.hideVaultCreationHint()
-		vaultList
-		assertUnlockingVaultIsLocked()
 	}
 
 	fun deleteVault(vaultModel: VaultModel) {
