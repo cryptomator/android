@@ -188,7 +188,7 @@ internal class GoogleDriveCloudContentRepository(context: Context, private val c
 
 		@Throws(BackendException::class)
 		override fun logout(cloud: GoogleDriveCloud) {
-			// empty
+			impl.logout()
 		}
 
 	}

@@ -171,7 +171,7 @@ internal class PCloudContentRepository(private val cloud: PCloud, context: Conte
 
 		@Throws(BackendException::class)
 		override fun logout(cloud: PCloud) {
-			// empty
+			this.cloud.logout()
 		}
 
 	}

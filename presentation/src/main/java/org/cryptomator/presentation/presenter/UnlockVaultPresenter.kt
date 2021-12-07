@@ -112,6 +112,7 @@ class UnlockVaultPresenter @Inject constructor(
 			view?.closeDialog()
 			val error = result.getSingleResult(Throwable::class.java)
 			error?.let { showError(it) }
+			finishWithResult(null)
 		}
 	}
 
@@ -219,6 +220,7 @@ class UnlockVaultPresenter @Inject constructor(
 			view?.closeDialog()
 			val error = result.getSingleResult(Throwable::class.java)
 			error?.let { showError(it) }
+			finishWithResult(null)
 		}
 	}
 

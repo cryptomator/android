@@ -10,6 +10,8 @@ import android.net.Uri;
 import android.os.Handler;
 import android.os.IBinder;
 import android.os.Looper;
+import android.system.ErrnoException;
+import android.system.OsConstants;
 
 import androidx.annotation.Nullable;
 
@@ -37,6 +39,7 @@ import org.cryptomator.presentation.util.FileUtil;
 import org.cryptomator.util.SharedPreferencesHandler;
 
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Date;
@@ -111,6 +114,8 @@ public class AutoUploadService extends Service {
 					notification.showVaultLockedDuringUpload();
 				} else if (e instanceof CancellationException) {
 					Timber.tag("AutoUploadService").i("Upload canceled by user");
+				} else if (wrappedStoragePermissionException(e)) {
+					notification.showPermissionNotGrantedNotification();
 				} else {
 					notification.showGeneralErrorDuringUpload();
 				}
@@ -120,6 +125,14 @@ public class AutoUploadService extends Service {
 		});
 
 		worker.start();
+	}
+
+	private boolean wrappedStoragePermissionException(Exception e) {
+		return e.getCause() != null //
+				&& e.getCause() instanceof FileNotFoundException //
+				&& e.getCause().getCause() != null //
+				&& e.getCause().getCause() instanceof ErrnoException //
+				&& ((ErrnoException) e.getCause().getCause()).errno == OsConstants.EACCES;
 	}
 
 	private void updateNotification(int asPercentage) {
@@ -170,8 +183,7 @@ public class AutoUploadService extends Service {
 			} catch (FileRemovedDuringUploadException e) {
 				Timber.tag("AutoUploadService").i("Not uploading file because it was removed during upload");
 				Timber.tag("AutoUploadService").v(format("Not uploading file because it was removed during upload %s", file.getFileName()));
-			}
-			catch (Exception e) {
+			} catch (Exception e) {
 				cancelled = true;
 				fileUtil.removeImagesFromAutoUploads(uploadedCloudFileNames);
 				throw e;
@@ -200,7 +212,7 @@ public class AutoUploadService extends Service {
 
 	private CloudFile writeCloudFile(String fileName, CancelAwareDataSource dataSource, boolean replacing, ProgressAware<UploadState> progressAware) throws BackendException {
 		Long size = dataSource.size(context);
-		if(size == null) {
+		if (size == null) {
 			throw new FileRemovedDuringUploadException();
 		}
 		CloudFile source = cloudContentRepository.file(parent, fileName, size);

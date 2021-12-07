@@ -59,5 +59,10 @@ class OnedriveClientFactory private constructor() {
 
 			return HttpLoggingInterceptor(logger, context)
 		}
+
+		@Synchronized
+		fun logout() {
+			instance = null
+		}
 	}
 }

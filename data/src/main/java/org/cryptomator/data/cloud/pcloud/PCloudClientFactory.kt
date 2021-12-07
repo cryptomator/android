@@ -53,5 +53,10 @@ class PCloudClientFactory {
 
 			return HttpLoggingInterceptor(logger, context)
 		}
+
+		@Synchronized
+		fun logout() {
+			instance = null
+		}
 	}
 }

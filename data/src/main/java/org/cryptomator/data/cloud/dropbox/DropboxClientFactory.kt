@@ -56,5 +56,9 @@ class DropboxClientFactory {
 			return HttpLoggingInterceptor(logger, context)
 		}
 
+		fun logout() {
+			instance = null
+		}
+
 	}
 }

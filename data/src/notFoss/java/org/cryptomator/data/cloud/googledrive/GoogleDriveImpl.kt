@@ -382,6 +382,10 @@ internal class GoogleDriveImpl(context: Context, googleDriveCloud: GoogleDriveCl
 		return about.user.displayName
 	}
 
+	fun logout() {
+		GoogleDriveClientFactory.invalidateClient()
+	}
+
 	companion object {
 
 		private const val STATUS_REQUEST_RANGE_NOT_SATISFIABLE = 416

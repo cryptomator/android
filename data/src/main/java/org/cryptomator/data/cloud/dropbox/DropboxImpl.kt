@@ -372,6 +372,10 @@ internal class DropboxImpl(cloud: DropboxCloud, context: Context) {
 		return currentAccount.name.displayName
 	}
 
+	fun logout() {
+		DropboxClientFactory.logout()
+	}
+
 	companion object {
 
 		private const val CHUNKED_UPLOAD_CHUNK_SIZE = 8L shl 20

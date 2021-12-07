@@ -110,12 +110,11 @@ internal class WebDavCompatibleHttpClient(cloud: WebDavCloud, context: Context) 
 			val credentials = Credentials(webDavCloud.username(), decryptPassword(context, webDavCloud.password()))
 			val basicAuthenticator = BasicAuthenticator(credentials, StandardCharsets.UTF_8)
 			val digestAuthenticator = DigestAuthenticator(credentials)
-			var result: Authenticator = DispatchingAuthenticator.Builder() //
+			val authenticator = DispatchingAuthenticator.Builder() //
 				.with("digest", digestAuthenticator) //
 				.with("basic", basicAuthenticator) //
 				.build()
-			result = CachingAuthenticatorDecorator(result, authCache)
-			return result
+			return CachingAuthenticatorDecorator(authenticator, authCache)
 		}
 
 		@Throws(UnableToDecryptWebdavPasswordException::class)

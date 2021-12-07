@@ -481,6 +481,8 @@ internal class OnedriveImpl(cloud: OnedriveCloud, context: Context, nodeInfoCach
 		} catch (e: ExecutionException) {
 			throw FatalBackendException(e)
 		}
+
+		OnedriveClientFactory.logout()
 	}
 
 	companion object {

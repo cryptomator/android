@@ -61,5 +61,9 @@ class GoogleDriveClientFactory internal constructor() {
 				}
 				.build()
 		}
+
+		fun invalidateClient() {
+			instance = null
+		}
 	}
 }

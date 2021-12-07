@@ -1,1 +1,2 @@
-- Automatischer Upload bei Geräten mit Android Version 10 behoben
+- Zeige Dialog und Benachrichtigung an, wenn die Berechtigung "Dateien" widerrufen wird, erforderlich für den automatischen Upload
+- Das Abmelden von einer Cloud löscht nun auch die Anmeldeinformationen einer aktiven Verbindung zu ihr

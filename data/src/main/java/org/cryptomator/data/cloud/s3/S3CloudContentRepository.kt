@@ -169,7 +169,7 @@ internal class S3CloudContentRepository(private val cloud: S3Cloud, context: Con
 
 		@Throws(BackendException::class)
 		override fun logout(cloud: S3Cloud) {
-			// empty
+			this.cloud.logout()
 		}
 
 	}
