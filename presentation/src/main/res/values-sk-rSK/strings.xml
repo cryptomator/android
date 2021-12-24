@@ -31,7 +31,7 @@
 	<string name="error_vault_key_invalid">%1$s nezodpovedá s týmto %2$s</string>
 	<string name="error_vault_config_loading">Chyba počas zavádzania konfigurácie trezora</string>
 	<string name="error_file_not_found_after_opening_using_3party">Lokálny súbor nie je viac prezentovaný po prepnutí naspäť do Cryptomator-a. Možné zmeny sa neprenesú späť do cloudu.</string>
-	<string name="error_no_such_bucket">Žiadna taká nádoba</string>
+	<string name="error_no_such_bucket">Bucket neexistuje</string>
 	<string name="error_masterkey_location_not_supported">Voliteľnost umiestnenia hlavného kľúča zatiaľ nie je podporovaná</string>
 	<!-- # clouds -->
 	<!-- ## cloud names -->
