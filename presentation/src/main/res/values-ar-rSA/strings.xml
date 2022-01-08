@@ -18,9 +18,9 @@
 	<string name="error_server_not_found">لم يتم العثور على الخادم.</string>
 	<string name="error_device_policy_manager_not_found">الرجاء فتح إعدادات أجهزتك وتعيين قفل الشاشة يدوياً</string>
 	<string name="error_export_illegal_file_name">فشل التصدير. حاول إزالة الأحرف الخاصة من أسماء الملفات وتصديرها مرة أخرى.</string>
-	<string name="error_name_contains_invalid_characters">لا يمكن أن يحتوي علي رموز خاصة.</string>
-	<string name="error_names_contains_invalid_characters">اسم الملف لا يمكن أن يحتوي علي رموز خاصة.</string>
-	<string name="error_vault_name_contains_invalid_characters">اسم المخزن لا يمكن أن يحتوي علي رموز خاصة.</string>
+	<string name="error_name_contains_invalid_characters">لا يمكن أن يحتوي على محارف خاصة.</string>
+	<string name="error_names_contains_invalid_characters">اسم الملف لا يمكن أن يحتوي على محارف خاصة.</string>
+	<string name="error_vault_name_contains_invalid_characters">اسم المخزن لا يمكن أن يحتوي على محارف خاصة.</string>
 	<string name="error_general_update">فشل التحقق من التحديث. حدث خطأ عام.</string>
 	<string name="error_hash_mismatch_update">فشل التحقق من التحديث. التجزئة المحسوبة لا تتطابق مع الملف المرفوع</string>
 	<string name="error_update_no_internet">فشل التحقق من التحديث. لا يوجد اتصال بالإنترنت.</string>
@@ -339,6 +339,7 @@
 	<string name="notification_auto_upload_failed_general_error">حدث خطأ عام أثناء الرفع.</string>
 	<string name="notification_auto_upload_failed_due_to_folder_not_exists">المجلد المحدد للرفع لم يعد متوفرًا. اذهب إلى الإعدادات واختيار واحد جديد</string>
 	<string name="notification_auto_upload_failed_due_to_vault_locked">تم قفل المخزن اثناء الرفع، الرجاء قم بفتحه لمتابعة الرفع</string>
+	<string name="notification_auto_upload_failed_due_to_vault_not_found">المخزن المحدد للتحميل التلقائي لم يعد موجودا.</string>
 	<string name="notification_open_writable_file_title">فتح ملف قابل للكتابة</string>
 	<string name="notification_open_writable_file_message">سوف يبقى المخزن مفتوحاً حتي يتم التعديل</string>
 	<string name="notification_update_check_finished_latest">تم تثبيت آخر إصدارة</string>
