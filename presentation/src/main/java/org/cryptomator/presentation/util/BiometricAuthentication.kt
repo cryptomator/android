@@ -1,9 +1,7 @@
 package org.cryptomator.presentation.util
 
 import android.content.Context
-import android.os.Build
 import android.security.keystore.KeyPermanentlyInvalidatedException
-import androidx.annotation.RequiresApi
 import androidx.biometric.BiometricPrompt
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
@@ -12,8 +10,9 @@ import org.cryptomator.presentation.R
 import org.cryptomator.presentation.model.VaultModel
 import org.cryptomator.util.crypto.BiometricAuthCryptor
 import org.cryptomator.util.crypto.UnrecoverableStorageKeyException
-import java.util.concurrent.Executor
 import timber.log.Timber
+import java.util.concurrent.Executor
+import javax.crypto.BadPaddingException
 
 class BiometricAuthentication(val callback: Callback, val context: Context, val cryptoMode: CryptoMode, private val useConfirmationInFaceUnlockAuth: Boolean) {
 
@@ -72,20 +71,28 @@ class BiometricAuthentication(val callback: Callback, val context: Context, val 
 
 					val cipher = result.cryptoObject?.cipher
 
-					val transformedPassword = if (cryptoMode == CryptoMode.ENCRYPT) {
-						biometricAuthCryptor.encrypt(cipher, vaultModel.password)
-					} else {
-						biometricAuthCryptor.decrypt(cipher, vaultModel.password)
+					try {
+						val transformedPassword = if (cryptoMode == CryptoMode.ENCRYPT) {
+							biometricAuthCryptor.encrypt(cipher, vaultModel.password)
+						} else {
+							biometricAuthCryptor.decrypt(cipher, vaultModel.password)
+						}
+
+						val vaultModelPasswordAware = VaultModel(
+							Vault //
+								.aCopyOf(vaultModel.toVault()) //
+								.withSavedPassword(transformedPassword) //
+								.build()
+						)
+
+						callback.onBiometricAuthenticated(vaultModelPasswordAware)
+					} catch (e: BadPaddingException) {
+						Timber.tag("BiometricAuthentication").i(
+							e,
+							"Recover from BadPaddingException which can be thrown on some devices if the key in the keystore is invalidated e.g. due to a fingerprint added because of an upstream error in Android, see #400 for more info"
+						)
+						callback.onBiometricKeyInvalidated(vaultModel)
 					}
-
-					val vaultModelPasswordAware = VaultModel(
-						Vault //
-							.aCopyOf(vaultModel.toVault()) //
-							.withSavedPassword(transformedPassword) //
-							.build()
-					)
-
-					callback.onBiometricAuthenticated(vaultModelPasswordAware)
 				}
 
 				override fun onAuthenticationFailed() {
