@@ -163,6 +163,7 @@
 	<string name="screen_settings_live_search">بحث مباشر</string>
 	<string name="screen_settings_live_search_summary">تحديث نتائج البحث أثناء إدخال الإستعلام</string>
 	<string name="screen_settings_glob_search">البحث باستخدام نمط المطابقة glob</string>
+	<string name="screen_settings_glob_search_summary">استخدام نمط المطابقة glob مثل alice.*.jpg</string>
 	<string name="screen_settings_section_auto_lock">قفل تلقائي</string>
 	<string name="screen_settings_auto_lock_timeout">أقفال بعد</string>
 	<string name="screen_settings_auto_lock_on_screen_lock">عند تعطيل الشاشة</string>
