@@ -1,7 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 	<!-- # app -->
+	<string name="share_with_label">הצפן</string>
 	<!-- # error messages -->
+	<string name="error_generic">ארעה שגיאה</string>
+	<string name="error_authentication_failed">האימות נכשל</string>
+	<string name="error_no_network_connection">אין חיבור לרשת</string>
+	<string name="error_invalid_passphrase">סיסמה שגויה</string>
+	<string name="error_file_or_folder_exists">כבר קיימים תיקייה או קובץ בשם זה.</string>
+	<string name="error_vault_version_not_supported">הכספת לא נתמכת. כספת זו נוצרה בגרסה אחרת של Cryptomator.</string>
+	<string name="error_no_such_file">הקובץ לא קיים.</string>
+	<string name="error_vault_has_been_locked">הכספת ננעלה.</string>
+	<string name="error_cloud_already_exists">אחסון ענן זה כבר בשימוש.</string>
+	<string name="error_activity_not_found">אנא הורד אפליקציה שתומכת בפתיחה של קובץ זה.</string>
+	<string name="error_server_not_found">שרת לא נמצא.</string>
 	<!-- # clouds -->
 	<!-- ## cloud names -->
 	<!-- # permission -->
