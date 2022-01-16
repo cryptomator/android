@@ -16,6 +16,7 @@
 	<string name="error_server_not_found">שרת לא נמצא.</string>
 	<!-- # clouds -->
 	<!-- ## cloud names -->
+	<string name="cloud_names_local_storage">אחסון מקומי</string>
 	<!-- # permission -->
 	<!-- ## permission messages -->
 	<string name="snack_bar_action_title_settings">הגדרות</string>
@@ -27,6 +28,8 @@
 	<string name="snack_bar_action_title_sort_za">ת - א</string>
 	<string name="snack_bar_action_title_sort_newest">החדש ביותר</string>
 	<string name="snack_bar_action_title_sort_oldest">הישן ביותר</string>
+	<string name="snack_bar_action_title_sort_biggest">הכבד ביותר</string>
+	<string name="snack_bar_action_title_sort_smallest">הקל ביותר</string>
 	<!-- # screens -->
 	<!-- # screen: vault list -->
 	<string name="screen_vault_list_actions_title">הוסף ל-Cryptomator</string>
@@ -90,6 +93,9 @@
 	<string name="screen_settings_activate_biometric_auth">הפעל אימות ביומטרי</string>
 	<string name="screen_settings_section_search">חיפוש</string>
 	<string name="screen_settings_section_auto_photo_upload_toggle">הפעל</string>
+	<string name="screen_settings_debug_mode_label">מצב ניפוי תקלות</string>
+	<string name="screen_settings_section_version">גרסה</string>
+	<string name="screen_settings_advanced_settings">הגדרות מתקדמות</string>
 	<!-- ## screen: cloud settings -->
 	<!-- ## screen: licenses -->
 	<!-- ## screen: authenticate cloud -->
