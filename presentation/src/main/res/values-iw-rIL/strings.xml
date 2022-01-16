@@ -113,16 +113,42 @@
 	<string name="dialog_replace_title_single_file_exists">להחליף את הקובץ?</string>
 	<string name="dialog_replace_title_multiple_files_exist">להחליף את הקבצים?</string>
 	<string name="dialog_lock_vault">נעילה</string>
+	<string name="dialog_debug_mode_disclaimer_title">שים לב</string>
+	<string name="dialog_disable_app_obscured_disclaimer_title">שים לב</string>
+	<string name="dialog_app_is_obscured_info_hint">אפליקציה אחרת מציגה משהו מעל Cryptomator (לדוגמאת אפליקציות אור סינון כחול למצב לילה). מטעמי אבטחה, Cryptomator יסגר עכשיו.\n\n<a href="https://docs.cryptomator.org/en/1.5/android/settings/#block-app-when-obscured">איך להפעיל את Cryptomator</a></string>
 	<string name="dialog_app_is_obscured_info_neutral_button">סגור</string>
+	<string name="dialog_enter_license_decline_button">יציאה</string>
+	<string name="dialog_update_available_update">עדכן עכשיו</string>
+	<string name="dialog_update_available_cancel">מאוחר יותר</string>
+	<string name="dialog_download_update_title">מוריד</string>
+	<string name="dialog_download_update_message">מוריד את הגרסה העדכנית ביותר של Cryptomator</string>
 	<string name="dialog_sym_link_back_button">חזור</string>
 	<!-- # error reports -->
 	<!-- # misc -->
 	<!-- ## file size helper -->
 	<!-- ## date helper -->
+	<string name="time_unit_seconds_sg">שנייה</string>
+	<string name="time_unit_seconds_pl">שניות</string>
+	<string name="time_unit_minutes_sg">דקה</string>
+	<string name="time_unit_minutes_pl">דקות</string>
+	<string name="time_unit_hours_sg">שעה</string>
+	<string name="time_unit_hours_pl">שעות</string>
+	<string name="time_unit_days_sg">יום</string>
+	<string name="time_unit_days_pl">ימים</string>
+	<string name="time_unit_weeks_sg">שבוע</string>
+	<string name="time_unit_weeks_pl">שבועות</string>
+	<string name="time_unit_months_sg">חודש</string>
+	<string name="time_unit_months_pl">חודש</string>
+	<string name="time_unit_years_sg">שנה</string>
+	<string name="time_unit_years_pl">שנים</string>
 	<!-- ## biometric authentication -->
+	<string name="dialog_biometric_auth_title">אימות ביומטרי</string>
 	<!-- notification -->
 	<!-- lock timeout names -->
 	<!-- cache size names -->
 	<!-- screen scheme mode names -->
 	<!-- update interval names -->
+	<string name="update_interval_1d">פעם ביום</string>
+	<string name="update_interval_1w">פעם בשבוע</string>
+	<string name="update_interval_1m">פעם בחודש</string>
 </resources>
