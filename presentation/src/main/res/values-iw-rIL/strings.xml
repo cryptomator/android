@@ -70,10 +70,13 @@
 	<string name="screen_share_files_content_text">טקסט</string>
 	<string name="screen_share_files_content_file">קובץ</string>
 	<string name="screen_share_files_content_files">קבצים</string>
+	<string name="screen_share_files_section_location">מיקום שמירה</string>
 	<string name="screen_share_files_save_button_text">שמור</string>
+	<string name="screen_share_files_msg_success">הצפנה הושלמה</string>
 	<!-- ## screen: choose cloud service -->
 	<string name="screen_choose_cloud_service_title">שירותי אחסון בענן</string>
 	<!-- ## screen: cloud connections -->
+	<string name="screen_cloud_connections_title">בחר מיקום</string>
 	<!-- ## screen: webdav settings -->
 	<string name="screen_webdav_settings_url_port_label">כתובת URL</string>
 	<string name="screen_webdav_settings_username_label">שם משתמש</string>
@@ -101,12 +104,28 @@
 	<string name="screen_settings_activate_biometric_auth">הפעל אימות ביומטרי</string>
 	<string name="screen_settings_section_search">חיפוש</string>
 	<string name="screen_settings_section_auto_photo_upload_toggle">הפעל</string>
+	<string name="screen_settings_website_label">לאתר Cryptomator</string>
+	<string name="screen_settings_twitter_label">עקבו אחרינו ב-Twitter</string>
+	<string name="screen_settings_facebook_label">תנו לנו לייק ב-Facebook</string>
+	<string name="screen_settings_section_legal">היבטים משפטיים</string>
+	<string name="screen_settings_licenses_label">רישיונות</string>
+	<string name="screen_settings_section_support">תמיכה</string>
+	<string name="screen_settings_contact_label">בקש תמיכה</string>
 	<string name="screen_settings_debug_mode_label">מצב ניפוי תקלות</string>
+	<string name="screen_settings_error_report_label">שלח יומן אירועים</string>
+	<string name="screen_settings_error_report_failed">השליחה נכשלה</string>
 	<string name="screen_settings_section_version">גרסה</string>
 	<string name="screen_settings_advanced_settings">הגדרות מתקדמות</string>
 	<!-- ## screen: cloud settings -->
+	<string name="screen_cloud_settings_webdav_connections">חיבורי WebDAV</string>
+	<string name="screen_cloud_settings_pcloud_connections">חיבורי pCloud</string>
+	<string name="screen_cloud_settings_s3_connections">חיבורי S3</string>
+	<string name="screen_cloud_settings_log_in_to">התחבר אל</string>
+	<string name="screen_cloud_settings_sign_out_from_cloud">התנתק מ</string>
 	<!-- ## screen: licenses -->
 	<!-- ## screen: authenticate cloud -->
+	<string name="screen_authenticate_auth_authentication_failed">האימות אל \'%1$s\' נכשל.</string>
+	<string name="screen_update_pcloud_connections_title">עדכן את פרטי ההתחברות אל pCloud</string>
 	<!-- ## screen: insecure android version info -->
 	<!-- # dialogs -->
 	<string name="dialog_button_cancel">ביטול</string>
@@ -127,17 +146,26 @@
 	<string name="dialog_replace_title_single_file_exists">להחליף את הקובץ?</string>
 	<string name="dialog_replace_title_multiple_files_exist">להחליף את הקבצים?</string>
 	<string name="dialog_unable_to_share_positive_button">אישור</string>
-	<string name="dialog_rename_node_folder_title">שינוי שם תיקיה</string>
+	<string name="dialog_unable_to_share_negative_button">צור כספת חדשה</string>
+	<string name="dialog_filetype_not_supported_title">הקובץ %1$s לא נתמך</string>
+	<string name="dialog_rename_vault_title">שנה שם כספת</string>
+	<string name="dialog_rename_node_folder_title">שנה שם תיקיה</string>
 	<string name="dialog_rename_node_file_title">שינוי שם קובץ</string>
 	<string name="dialog_unsaved_changes_title">יש לך שינויים שלא נשמרו</string>
+	<string name="dialog_unsaved_changes_message">אתה בטוח שברצנוך לצאת מבלי לשמור את השינויים שביצעת?</string>
+	<string name="dialog_unsaved_changes_discard">ביטול</string>
 	<string name="dialog_file_name_placeholder">text.txt</string>
 	<string name="dialog_delete_vault_message">אתה בטוח שברצונך למחוק כספת זו?</string>
 	<string name="dialog_upload_file_title">שולח&#8230;</string>
 	<string name="dialog_upload_file_remaining">קובץ %1$d מתוך %2$d</string>
 	<string name="dialog_export_file_title">מיצא (%2$d/%1$d)</string>
 	<string name="dialog_progress_please_wait">אנא המתן&#8230;</string>
+	<string name="dialog_progress_creating_folder">יוצר תיקייה&#8230;</string>
 	<string name="dialog_progress_creating_text_file">יוצר קובץ טקסט&#8230;</string>
 	<string name="action_progress_authentication">אימות&#8230;</string>
+	<string name="action_progress_renaming">משנה שם&#8230;</string>
+	<string name="action_progress_deleting">מוחק&#8230;</string>
+	<string name="dialog_progress_unlocking_vault">פותח כספת&#8230;</string>
 	<string name="dialog_progress_change_password">משנה סיסמה&#8230;</string>
 	<string name="dialog_progress_creating_vault">יוצר כספת&#8230;</string>
 	<string name="dialog_progress_upload_file">שולח&#8230;</string>
@@ -146,11 +174,27 @@
 	<string name="dialog_progress_decryption">מפענח&#8230;</string>
 	<string name="action_progress_moving">מעביר&#8230;</string>
 	<string name="dialog_lock_vault">נעילה</string>
+	<string name="dialog_accept_ssl_certificate_title">תעודת SSL לא חוקית</string>
+	<string name="dialog_accept_ssl_certificate_hint">תעודת SSL לא חוקית. תרצה לבטוח בתעודה זו בכל מקרה?</string>
+	<string name="dialog_accept_ssl_certificate_details">פרטים</string>
+	<string name="dialog_http_security_checkbox">עבור ל-HTTPS</string>
+	<string name="dialog_http_security_title">להשתמש ב-HTTPS?</string>
 	<string name="dialog_debug_mode_disclaimer_title">שים לב</string>
 	<string name="dialog_disable_app_obscured_disclaimer_title">שים לב</string>
-	<string name="dialog_app_is_obscured_info_hint">אפליקציה אחרת מציגה משהו מעל Cryptomator (לדוגמאת אפליקציות אור סינון כחול למצב לילה). מטעמי אבטחה, Cryptomator יסגר עכשיו.\n\n<a href="https://docs.cryptomator.org/en/1.5/android/settings/#block-app-when-obscured">איך להפעיל את Cryptomator</a></string>
+	<string name="dialog_app_is_obscured_info_hint">אפליקציה אחרת מציגה משהו מעל Cryptomator (לדוגמה, אפליקציית סינון אור כחול למצב לילה). מטעמי אבטחה, Cryptomator ייסגר עכשיו.\n\n<a href="https://docs.cryptomator.org/en/1.5/android/settings/#block-app-when-obscured">איך להפעיל את Cryptomator</a></string>
 	<string name="dialog_app_is_obscured_info_neutral_button">סגור</string>
+	<string name="dialog_confirm_delete_multiple_title">למחוק %1$d פריטים?</string>
+	<string name="dialog_confirm_delete_multiple_message">אתה בטוח שברצונך למחוק קבצים אלו?</string>
+	<string name="dialog_confirm_delete_file_message">אתה בטוח שברצונך למחוק קובץ זה?</string>
+	<string name="dialog_confirm_delete_folder_message">אתה בטוח שברצונך למחוק תיקייה זו? הפעולה תמחק גם את כל הקבצים שנמצאים בתוך התיקייה.</string>
+	<string name="dialog_biometric_auth_key_invalidated_title">האימות הביומטרי בוטל</string>
+	<string name="dialog_enter_license_title">שימוש במפתח רישיון</string>
+	<string name="dialog_enter_license_content">זיהינו שהתקנת את Cryptomator לא דרך ה-Google Play Store. להפעלת האפליקציה, יש להכניס מפתח רישיון. ניתן לרכוש מפתח ב-<a href="https://cryptomator.org/android/">https://cryptomator.org/android/</a></string>
+	<string name="dialog_enter_license_not_valid_content">המפתח לא אומת. וודא כי הזנת אותו כהלכה.</string>
+	<string name="dialog_enter_license_no_content">לא הוזן מפתח, אנא הזן מפתח רישיון תקין.</string>
 	<string name="dialog_enter_license_decline_button">יציאה</string>
+	<string name="dialog_license_confirmation_title">מפתח הרישיון אומת</string>
+	<string name="dialog_license_confirmation_message">תודה %1$s, על כך שהזנת מפתח רישיון תקין.</string>
 	<string name="dialog_update_available_update">עדכן עכשיו</string>
 	<string name="dialog_update_available_cancel">מאוחר יותר</string>
 	<string name="dialog_download_update_title">מוריד</string>
@@ -159,6 +203,11 @@
 	<!-- # error reports -->
 	<!-- # misc -->
 	<!-- ## file size helper -->
+	<string name="file_size_unit_bytes">bytes</string>
+	<string name="file_size_unit_kilo_bytes">kB</string>
+	<string name="file_size_unit_mega_bytes">MB</string>
+	<string name="file_size_unit_giga_bytes">GB</string>
+	<string name="file_size_unit_tera_bytes">TB</string>
 	<!-- ## date helper -->
 	<string name="time_unit_seconds_sg">שנייה</string>
 	<string name="time_unit_seconds_pl">שניות</string>
@@ -176,10 +225,36 @@
 	<string name="time_unit_years_pl">שנים</string>
 	<!-- ## biometric authentication -->
 	<string name="dialog_biometric_auth_title">אימות ביומטרי</string>
+	<string name="dialog_biometric_auth_message">התחבר באמצעות אימות ביומטרי</string>
 	<!-- notification -->
+	<string name="notification_unlocked">כספות פתוחות: %1$d</string>
+	<string name="notification_timeout">נעילה אוטומטית בעוד %1$s</string>
+	<string name="notification_lock_all">נעל הכל</string>
+	<string name="notification_auto_upload_message">מעלה %1d/%2d</string>
+	<string name="screen_settings_lru_cache">מטמון</string>
+	<string name="screen_settings_lru_cache_size">נפח מטמון</string>
+	<string name="screen_settings_clear_lru_cache_size">נקה מטמון</string>
+	<string name="screen_settings_license">רשום עבור</string>
+	<string name="screen_settings_license_mail">%1$s</string>
 	<!-- lock timeout names -->
+	<string name="lock_timeout_instant">מיידי</string>
+	<string name="lock_timeout_1m">דקה</string>
+	<string name="lock_timeout_2m">2 דקות</string>
+	<string name="lock_timeout_5m">5 דקות</string>
+	<string name="lock_timeout_10m">10 דקות</string>
+	<string name="lock_timeout_never">אף פעם</string>
 	<!-- cache size names -->
+	<string name="cache_size_50m">50 MB</string>
+	<string name="cache_size_100m">100 MB</string>
+	<string name="cache_size_250m">250 MB</string>
+	<string name="cache_size_500m">500 MB</string>
+	<string name="cache_size_1000m">1 GB</string>
+	<string name="cache_size_5000m">5 GB</string>
 	<!-- screen scheme mode names -->
+	<string name="screen_settings_style_mode">עיצוב</string>
+	<string name="follow_system">אוטומטי (לפי מערכת הפעלה)</string>
+	<string name="light">בהיר</string>
+	<string name="dark">כהה</string>
 	<!-- update interval names -->
 	<string name="update_interval_1d">פעם ביום</string>
 	<string name="update_interval_1w">פעם בשבוע</string>
