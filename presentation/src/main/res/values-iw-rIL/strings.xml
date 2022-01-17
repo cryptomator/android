@@ -9,6 +9,7 @@
 	<string name="error_invalid_passphrase">סיסמה שגויה</string>
 	<string name="error_file_or_folder_exists">כבר קיימים תיקייה או קובץ בשם זה.</string>
 	<string name="error_vault_version_not_supported">הכספת לא נתמכת. כספת זו נוצרה בגרסה אחרת של Cryptomator.</string>
+	<string name="error_vault_already_exists">כספת כבר קיימת.</string>
 	<string name="error_no_such_file">הקובץ לא קיים.</string>
 	<string name="error_vault_has_been_locked">הכספת ננעלה.</string>
 	<string name="error_cloud_already_exists">אחסון ענן זה כבר בשימוש.</string>
@@ -48,17 +49,24 @@
 	<string name="screen_file_browser_share_intent_chooser_title">שתף באמצעות</string>
 	<string name="screen_file_browser_share_destination_title">בחר מיקום חדש</string>
 	<string name="screen_file_browser_share_button_text">בחר</string>
+	<string name="screen_file_browser_upload_files_chooser_title">קבצים</string>
 	<string name="screen_file_browser_node_action_share">שתף</string>
 	<string name="screen_file_browser_node_action_rename">שנה שם</string>
 	<string name="screen_file_browser_node_action_edit_text">ערוך</string>
 	<string name="screen_file_browser_node_action_export">ייצא</string>
 	<string name="screen_file_browser_node_action_delete">מחק</string>
 	<string name="screen_file_browser_node_action_open_with_text">פתח באמצעות&#8230;</string>
+	<string name="screen_file_browser_selection_mode_title_zero_elements">בחר פריטים</string>
+	<string name="screen_file_browser_selection_mode_title_one_or_more_elements">%1$d נבחר</string>
 	<string name="screen_file_browser_select_items">בחר</string>
+	<string name="screen_file_browser_select_all_items">בחר הכל</string>
 	<string name="screen_file_browser_refresh_items">רענן</string>
+	<string name="screen_file_browser_no_connection_message">אין חיבור לרשת</string>
 	<string name="screen_file_browser_no_connection_button_text">נסה שוב</string>
 	<!-- ## screen: text editor -->
+	<string name="screen_text_editor_save_success">נשמר בהצלחה</string>
 	<!-- ## screen: share files -->
+	<string name="screen_share_files_title">שמור את %1$s&#8230;</string>
 	<string name="screen_share_files_content_text">טקסט</string>
 	<string name="screen_share_files_content_file">קובץ</string>
 	<string name="screen_share_files_content_files">קבצים</string>
