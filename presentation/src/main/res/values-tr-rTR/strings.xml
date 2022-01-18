@@ -4,10 +4,10 @@
 	<string name="share_with_label">Şifrele</string>
 	<!-- # error messages -->
 	<string name="error_generic">Bir hata oluştu</string>
-	<string name="error_authentication_failed">Kullanıcı adı veya şifre yanlış</string>
+	<string name="error_authentication_failed">Kimlik doğrulaması başarısız oldu</string>
 	<string name="error_authentication_failed_re_authenticate">Kimlik doğrulama başarısız, lütfen %1$s kullanarak giriş yapınız</string>
 	<string name="error_no_network_connection">Ağ bağlantısı yok</string>
-	<string name="error_invalid_passphrase">Şifre yanlış</string>
+	<string name="error_invalid_passphrase">Şifre hatalı</string>
 	<string name="error_file_or_folder_exists">Dosya veya klasör zaten var.</string>
 	<string name="error_vault_version_not_supported">Kasa Desteklenmiyor. Bu kasa, Cryptomator\'un başka bir sürümüyle oluşturuldu.</string>
 	<string name="error_vault_already_exists">Kasa zaten var.</string>

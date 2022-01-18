@@ -4,28 +4,34 @@
 	<string name="share_with_label">تشفير</string>
 	<!-- # error messages -->
 	<string name="error_generic">حدث خطأ ما</string>
-	<string name="error_authentication_failed">المصادقة فشلت</string>
+	<string name="error_authentication_failed">فشلت المصادقة</string>
 	<string name="error_authentication_failed_re_authenticate">فشلت عملية المصادقة، الرجاء تسجيل الدخول باستخدام %1$s</string>
 	<string name="error_no_network_connection">لا يوجد اتصال بالشبكة</string>
-	<string name="error_invalid_passphrase">كلمة المرور غير صحيحة</string>
+	<string name="error_invalid_passphrase">كلمة المرور خاطئة</string>
 	<string name="error_file_or_folder_exists">المجلد أو الملف موجود مسبقاُ.</string>
-	<string name="error_vault_version_not_supported">نوع المخزن غير مدعوم. تم إنشاء هذا المخزن باستخدام نسخة أخري من Cryptomator.</string>
+	<string name="error_vault_version_not_supported">نوع المخزن غير مدعوم. تم إنشاء هذا المخزن باستخدام إصدار آخر من Cryptomator.</string>
 	<string name="error_vault_already_exists">المخزن موجود مسبقاً.</string>
 	<string name="error_no_such_file">ملف غير موجود.</string>
 	<string name="error_vault_has_been_locked">تم قفل المخزن.</string>
 	<string name="error_cloud_already_exists">موفر الخدمة السحابية موجود مسبقاً.</string>
 	<string name="error_activity_not_found">الرجاء تحميل تطبيق يمكنه فتح هذا الملف.</string>
-	<string name="error_server_not_found">لم يتم العثور على الخادم.</string>
-	<string name="error_export_illegal_file_name">فشل التصدير. حاول إزالة الأحرف الخاصة من أسماء الملفات وتصديرها مرة أخرى.</string>
-	<string name="error_name_contains_invalid_characters">لا يمكن أن يحتوي علي رموز خاصة.</string>
-	<string name="error_names_contains_invalid_characters">اسم الملف لا يمكن أن يحتوي علي رموز خاصة.</string>
-	<string name="error_vault_name_contains_invalid_characters">اسم المخزن لا يمكن أن يحتوي علي رموز خاصة.</string>
+	<string name="error_server_not_found">لم يتم العثور على المخدم.</string>
+	<string name="error_device_policy_manager_not_found">الرجاء فتح إعدادات جهازك وتعيين قفل الشاشة يدوياً</string>
+	<string name="error_export_illegal_file_name">فشل التصدير. حاول إزالة المحارف الخاصة من أسماء الملفات وتصديرها مرة أخرى.</string>
+	<string name="error_name_contains_invalid_characters">لا يمكن أن يحتوي على محارف خاصة.</string>
+	<string name="error_names_contains_invalid_characters">اسم الملف لا يمكن أن يحتوي على محارف خاصة.</string>
+	<string name="error_vault_name_contains_invalid_characters">اسم المخزن لا يمكن أن يحتوي على محارف خاصة.</string>
 	<string name="error_general_update">فشل التحقق من التحديث. حدث خطأ عام.</string>
 	<string name="error_hash_mismatch_update">فشل التحقق من التحديث. التجزئة المحسوبة لا تتطابق مع الملف المرفوع</string>
 	<string name="error_update_no_internet">فشل التحقق من التحديث. لا يوجد اتصال بالإنترنت.</string>
+	<string name="error_failed_to_decrypt_webdav_password">فشل فك تشفير كلمة المرور WebDAV، الرجاء إضافتها في الإعدادات</string>
+	<string name="error_play_services_not_available">خدمات متجر Google غير مثبتة!</string>
 	<string name="error_biometric_auth_aborted">تم إلغاء استخدام البصمة في عملية التوثيق</string>
+	<string name="error_vault_version_mismatch">الإصدار المحدد في %1$s يختلف عن %2$s</string>
+	<string name="error_vault_key_invalid">%1$s لا يتطابق مع هذا %2$s</string>
 	<string name="error_vault_config_loading">خطأ عام أثناء تحميل إعدادات المخزن</string>
 	<string name="error_file_not_found_after_opening_using_3party">بعد إعادة التبديل الي Cryptomator لم يعد الملف المحلي موجود. لايمكن نشر التعديلات الي موفر الخدمة السحابية.</string>
+	<string name="error_no_such_bucket">لا يوجد مخزن بهذه المعلومات في S3</string>
 	<string name="error_masterkey_location_not_supported">موقع المفتاح الرئيسي غير مدعوم بعد</string>
 	<!-- # clouds -->
 	<!-- ## cloud names -->
@@ -35,6 +41,7 @@
 	<string name="permission_message_export_file">Cryptomator يحتاج صلاحية الوصول الي التخزين لكي يستطيع تصدير الملفات</string>
 	<string name="permission_message_upload_file">Cryptomator يحتاج صلاحية الوصول الي التخزين لكي يستطيع رفع الملفات</string>
 	<string name="permission_message_share_file">Cryptomator يحتاج صلاحية الوصول الي التخزين لكي تستطيع مشاركة الملفات</string>
+	<string name="permission_revoked_re_request_permission">لقد فقد Cryptomator الإذن للوصول إلى هذا الموقع. الرجاء تحديد هذا المجلد مرة أخرى لاستعادة الإذن.</string>
 	<string name="snack_bar_action_title_settings">الإعدادات</string>
 	<string name="snack_bar_action_title_search">بحث</string>
 	<string name="snack_bar_action_title_search_previous">السابق</string>
@@ -119,11 +126,13 @@
 	<string name="screen_s3_settings_display_name_label">الاسم المعروض</string>
 	<string name="screen_s3_settings_access_key_label">مفتاح الوصول</string>
 	<string name="screen_s3_settings_secret_key_label">المفتاح السري</string>
+	<string name="screen_s3_settings_bucket_label">مخزن موجود مسبقاً</string>
 	<string name="screen_s3_settings_endpoint_label">نقطة الوصول</string>
 	<string name="screen_s3_settings_region_label">المنطقة</string>
 	<string name="screen_s3_settings_msg_display_name_not_empty">إسم العرض لا يمكن أن يكون فارغاً</string>
 	<string name="screen_s3_settings_msg_access_key_not_empty">مفتاح الوصول لا يمكن أن يكون فارغاً</string>
 	<string name="screen_s3_settings_msg_secret_key_not_empty">المفتاح السري لا يمكن أن يكون فارغاً</string>
+	<string name="screen_s3_settings_msg_bucket_not_empty">المخزن لايمكن ان يكون فارغاً</string>
 	<string name="screen_s3_settings_msg_endpoint_and_region_not_empty">نقطة الوصول أو المنطقة لا يمكن أن تكون فارغة</string>
 	<!-- ## screen: enter vault name -->
 	<string name="screen_enter_vault_name_msg_name_empty">إسم المخزن لايمكن ان يكون فارغاً.</string>
@@ -146,11 +155,15 @@
 	<string name="screen_settings_biometric_auth">إستخدام البصمة</string>
 	<string name="screen_settings_activate_biometric_auth">تنشيط توثيق البصمة</string>
 	<string name="screen_settings_confirm_face_unlock">تأكيد فتح الوجه (إذا كان متوفراً)</string>
+	<string name="screen_settings_block_app_when_obscured">حظر التطبيق عندما يحجب</string>
+	<string name="screen_settings_block_app_when_obscured_summary">حظر اعتراض الإدخال وعرض واجهة مستخدم خاطئة</string>
 	<string name="screen_settings_secure_screen">حظر لقطات الشاشة</string>
 	<string name="screen_settings_secure_screen_summary">حظر لقطات الشاشة في قائمة التطبيقات الحديثة وداخل التطبيق</string>
 	<string name="screen_settings_section_search">بحث</string>
 	<string name="screen_settings_live_search">بحث مباشر</string>
 	<string name="screen_settings_live_search_summary">تحديث نتائج البحث أثناء إدخال الإستعلام</string>
+	<string name="screen_settings_glob_search">البحث باستخدام نمط المطابقة glob</string>
+	<string name="screen_settings_glob_search_summary">استخدام نمط المطابقة glob مثل alice.*.jpg</string>
 	<string name="screen_settings_section_auto_lock">قفل تلقائي</string>
 	<string name="screen_settings_auto_lock_timeout">أقفال بعد</string>
 	<string name="screen_settings_auto_lock_on_screen_lock">عند تعطيل الشاشة</string>
@@ -174,6 +187,7 @@
 	<string name="screen_settings_debug_mode_label">وضع التصحيح</string>
 	<string name="screen_settings_error_report_label">ارسال ملفات السجل</string>
 	<string name="screen_settings_error_report_failed">فشل الإرسال</string>
+	<string name="screen_settings_security_label">تلميحات الأمان</string>
 	<string name="screen_settings_section_version">الإصدارة</string>
 	<string name="screen_settings_advanced_settings">إعدادات متقدمة</string>
 	<string name="screen_settings_background_unlock_preparation_label">تسريع فتح القفل</string>
@@ -212,6 +226,7 @@
 	<string name="dialog_replace_positive_button_single_file_exists">إستبدال</string>
 	<string name="dialog_replace_msg_single_file_exists">الملف \'%1$s\' موجود مسبقاً. هل تريد استبداله؟</string>
 	<string name="dialog_replace_msg_all_files_exists">الملفات موجودة مسبقاً. هل تريد استبدالها؟</string>
+	<string name="dialog_replace_msg_some_files_exists">%1$d ملفات موجودة مسبقاً. هل تريد استبدالها؟</string>
 	<string name="dialog_replace_title_single_file_exists">استبدال الملف؟</string>
 	<string name="dialog_replace_title_multiple_files_exist">استبدال الملفات؟</string>
 	<string name="dialog_unable_to_share_title">غير قادر علي مشاركة الملفات</string>
@@ -266,6 +281,7 @@
 	<string name="dialog_disable_app_obscured_disclaimer_title">انتباه</string>
 	<string name="dialog_disable_app_obscured_positive_button">تعطيل</string>
 	<string name="dialog_app_is_obscured_info_title">التطبيق غامض</string>
+	<string name="dialog_app_is_obscured_info_hint">يقوم تطبيق آخر بعرض شيء فوق Cryptomator (على سبيل المثال فلتر الضوء الأزرق أو تطبيق الوضع الليلي). تم تعطيل Cryptomator لأسباب أمنية.\n\n<a href="https://docs.cryptomator.org/en/1.5/android/settings/#block-app-when-obscured">كيفية تمكين Cryptomator</a></string>
 	<string name="dialog_app_is_obscured_info_neutral_button">إغلاق</string>
 	<string name="dialog_disable_secure_screen_disclaimer_hint">هذا الإعداد هو ميزة أمنية ويمنع التطبيقات الأخرى من خداع المستخدمين لفعل أشياء لا يريدون القيام بها.\n\nبتعطيليها, أنت تؤكد أنك <a href="https://docs.cryptomator.org/en/1.5/android/settings/#screen-security">على علم بالمخاطر</a>.</string>
 	<string name="dialog_delete_cloud_connection_with_vaults_message">هل ترغب حقّا بحذف هذا الإتصال الخاص بمقدم الخدمة السحابية؟</string>
@@ -328,6 +344,7 @@
 	<string name="notification_auto_upload_failed_general_error">حدث خطأ عام أثناء الرفع.</string>
 	<string name="notification_auto_upload_failed_due_to_folder_not_exists">المجلد المحدد للرفع لم يعد متوفرًا. اذهب إلى الإعدادات واختيار واحد جديد</string>
 	<string name="notification_auto_upload_failed_due_to_vault_locked">تم قفل المخزن اثناء الرفع، الرجاء قم بفتحه لمتابعة الرفع</string>
+	<string name="notification_auto_upload_failed_due_to_vault_not_found">المخزن المحدد للتحميل التلقائي لم يعد موجودا.</string>
 	<string name="notification_open_writable_file_title">فتح ملف قابل للكتابة</string>
 	<string name="notification_open_writable_file_message">سوف يبقى المخزن مفتوحاً حتي يتم التعديل</string>
 	<string name="notification_update_check_finished_latest">تم تثبيت آخر إصدارة</string>

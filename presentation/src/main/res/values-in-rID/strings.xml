@@ -211,7 +211,7 @@
 	<!-- ## screen: insecure android version info -->
 	<!-- # dialogs -->
 	<string name="dialog_button_cancel">Batalkan</string>
-	<string name="dialog_enter_password_positive_button">Buka Gembok</string>
+	<string name="dialog_enter_password_positive_button">Buka Kunci</string>
 	<string name="dialog_change_password_old_password_label">Kata sandi lama</string>
 	<string name="dialog_change_password_new_password_label">Kata sandi baru</string>
 	<string name="dialog_change_password">Ubah kata sandi</string>
@@ -266,7 +266,7 @@
 	<string name="dialog_progress_encryption">Mengenkripsi&#8230;</string>
 	<string name="dialog_progress_decryption">Mendekripsi&#8230;</string>
 	<string name="action_progress_moving">Memnindahkan&#8230;</string>
-	<string name="dialog_lock_vault">Gembok</string>
+	<string name="dialog_lock_vault">Kunci</string>
 	<string name="dialog_accept_ssl_certificate_title">Sertifikat SSL tidak valid</string>
 	<string name="dialog_accept_ssl_certificate_hint">Sertifikat SSL tidak valid. Apakah Anda ingin mempercayainya?</string>
 	<string name="dialog_accept_ssl_certificate_details">Rincian</string>

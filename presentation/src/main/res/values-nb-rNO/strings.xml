@@ -22,11 +22,18 @@
 	<string name="error_names_contains_invalid_characters">Filnavn kan ikke inneholde spesialtegn.</string>
 	<string name="error_vault_name_contains_invalid_characters">Navn på hvelvet kan ikke inneholde spesialtegn.</string>
 	<string name="error_general_update">Oppdateringskontrollen mislyktes. Det oppstod en generell feil.</string>
+	<string name="error_hash_mismatch_update">Oppdateringskontrollen mislyktes. Den beregnede hash-koden stemmer ikke med den opplastede filen</string>
+	<string name="error_biometric_auth_aborted">Biometrisk autentisering avbrutt</string>
+	<string name="error_masterkey_location_not_supported">Egendefinert posisjon for Masterkey er foreløpig ikke støttet</string>
 	<!-- # clouds -->
 	<!-- ## cloud names -->
 	<string name="cloud_names_local_storage">Lokal lagring</string>
 	<!-- # permission -->
 	<!-- ## permission messages -->
+	<string name="permission_message_export_file">Cryptomator trenger lagringstilgang for å eksportere filer</string>
+	<string name="permission_message_upload_file">Cryptomator trenger lagringstilgang for å laste opp filer</string>
+	<string name="permission_message_share_file">Cryptomator trenger lagringstilgang for å dele filer</string>
+	<string name="permission_revoked_re_request_permission">Cryptomator har mistet tilgangen til denne plasseringen. Velg mappen på nytt for å gjenopprette tillatelsen.</string>
 	<string name="snack_bar_action_title_settings">Innstillinger</string>
 	<string name="snack_bar_action_title_search">Søk</string>
 	<string name="snack_bar_action_title_search_previous">Forrige</string>
@@ -68,6 +75,7 @@
 	<string name="screen_file_browser_node_action_export">Eksporter</string>
 	<string name="screen_file_browser_node_action_delete">Slett</string>
 	<string name="screen_file_browser_node_action_open_with_text">Åpne med&#8230;</string>
+	<string name="screen_file_browser_selection_mode_title_zero_elements">Velg elementer</string>
 	<string name="screen_file_browser_selection_mode_title_one_or_more_elements">%1$d valgt</string>
 	<string name="screen_file_browser_select_all_items">Velg alle</string>
 	<string name="screen_file_browser_refresh_items">Oppdater</string>
@@ -80,7 +88,9 @@
 	<string name="screen_share_files_content_text">tekst</string>
 	<string name="screen_share_files_content_file">fil</string>
 	<string name="screen_share_files_content_files">filer</string>
+	<string name="screen_share_files_msg_filenames_must_be_unique">Filnavnene må være unike, velg nye navn på duplikatene.</string>
 	<string name="screen_share_files_save_button_text">Lagre</string>
+	<string name="screen_share_files_msg_success">Kryptering fullført</string>
 	<!-- ## screen: choose cloud service -->
 	<string name="screen_choose_cloud_service_title">Skylagringstjeneste</string>
 	<!-- ## screen: cloud connections -->
@@ -88,12 +98,21 @@
 	<string name="screen_webdav_settings_url_port_label">URL</string>
 	<string name="screen_webdav_settings_username_label">Brukernavn</string>
 	<string name="screen_webdav_settings_password_label">Passord</string>
+	<string name="screen_webdav_settings_msg_url_must_not_be_empty">URL-adressen kan ikke være tomt.</string>
+	<string name="screen_webdav_settings_msg_username_must_not_be_empty">Brukernavnet kan ikke være tomt.</string>
+	<string name="screen_webdav_settings_msg_password_must_not_be_empty">Passordet kan ikke være tomt.</string>
 	<!-- ## screen: s3 settings -->
+	<string name="screen_s3_settings_display_name_label">Visningsnavn</string>
+	<string name="screen_s3_settings_msg_display_name_not_empty">Visningsnavn kan ikke være tomt</string>
+	<string name="screen_s3_settings_msg_access_key_not_empty">Tilgangsnøkkel kan ikke være tom</string>
+	<string name="screen_s3_settings_msg_secret_key_not_empty">Hemmelig nøkkel kan ikke være tom</string>
 	<!-- ## screen: enter vault name -->
+	<string name="screen_enter_vault_name_msg_name_empty">Navnet på hvelvet kan ikke være tomt.</string>
 	<string name="screen_enter_vault_name_vault_label">Hvelvnavn</string>
 	<string name="screen_enter_vault_name_button_text">Opprett</string>
 	<!-- ## screen: set password -->
 	<string name="screen_set_password_title">Angi passord</string>
+	<string name="screen_set_password_msg_password_mismatch">Passordene stemmer ikke overens.</string>
 	<string name="screen_set_password_button_text">Ferdig</string>
 	<string name="screen_set_password_retype_password_label">Gjenta passordet</string>
 	<string name="screen_set_password_strength_indicator_1">Svakt</string>
@@ -103,6 +122,9 @@
 	<!-- ## screen: settings -->
 	<string name="screen_settings_section_general">Generelt</string>
 	<string name="screen_settings_cloud_settings_label">Skylagringstjenester</string>
+	<string name="screen_settings_biometric_auth">Biometrisk autentisering</string>
+	<string name="screen_settings_activate_biometric_auth">Aktiver biometrisk autentisering</string>
+	<string name="screen_settings_confirm_face_unlock">Bekreft ansiktsopplåsing (hvis tilgjengelig)</string>
 	<string name="screen_settings_section_search">Søk</string>
 	<string name="screen_settings_auto_lock_timeout">Lås etter</string>
 	<string name="screen_settings_section_auto_photo_upload_toggle">Aktiver</string>

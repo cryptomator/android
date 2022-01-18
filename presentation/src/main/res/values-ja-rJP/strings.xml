@@ -40,6 +40,7 @@
 	<string name="permission_message_export_file">ファイルをエクスポートするには、Cryptomator がストレージにアクセスする許可が必要です</string>
 	<string name="permission_message_upload_file">ファイルをアップロードするには、Cryptomator がストレージにアクセスする許可が必要です</string>
 	<string name="permission_message_share_file">ファイルを共有するには、Cryptomator がストレージにアクセスする許可が必要です</string>
+	<string name="permission_revoked_re_request_permission">Cryptomator がこの場所にアクセスする権限がなくなりました。このフォルダーを再度選択して権限を再度取得してください。</string>
 	<string name="snack_bar_action_title_settings">設定</string>
 	<string name="snack_bar_action_title_search">検索</string>
 	<string name="snack_bar_action_title_search_previous">戻る</string>
@@ -188,6 +189,7 @@
 	<string name="screen_settings_security_label">セキュリティのヒント</string>
 	<string name="screen_settings_section_version">バージョン</string>
 	<string name="screen_settings_advanced_settings">高度な設定</string>
+	<string name="screen_settings_background_unlock_preparation_label">解錠</string>
 	<string name="screen_settings_background_unlock_preparation_label_summary">パスワードまたは生体による認証中に、バックグラウンドで金庫の設定をダウンロードします</string>
 	<string name="screen_settings_keep_unlocked_while_editing_files">解錠したままにする</string>
 	<string name="screen_settings_keep_unlocked_while_editing_files_summary">ファイルの編集中は金庫を解錠しておく</string>
@@ -313,6 +315,7 @@
 	<string name="dialog_no_dir_file_title">ディレクトリのコンテンツを読み込むことができません</string>
 	<string name="dialog_no_more_images_to_display">表示する画像がありません&#8230;</string>
 	<string name="dialog_pcloud_credentials_updated_title">\'%1$s\' の資格情報が更新されました</string>
+	<string name="dialog_pcloud_credentials_updated">pCloud アカウントを追加するには、次のリンクをクリックしてください <a href="https://www.pcloud.com">www.pcloud.com</a>。現在のアカウントからログアウトし、このアプリの「+」を再度クリックして、新しいクラウド接続を作成してください。</string>
 	<string name="permission_snackbar_auth_local_vault">ローカルの金庫を使用するには、Cryptomator がストレージにアクセスする許可が必要です</string>
 	<string name="permission_snackbar_auth_auto_upload">自動的に画像をアップロードするには、Cryptomator がストレージにアクセスする許可が必要です</string>
 	<!-- # error reports -->
@@ -355,7 +358,9 @@
 	<string name="notification_auto_upload_finished_message">%1$d 個の画像を金庫にアップロードしました</string>
 	<string name="notification_auto_upload_failed_title">写真の自動アップロードが失敗しました</string>
 	<string name="notification_auto_upload_failed_general_error">アップロード中にエラーが発生しました。</string>
+	<string name="notification_auto_upload_failed_due_to_folder_not_exists">アップロード用として選択されたフォルダーを利用できません。設定に移動して新しいフォルダーを選択してください。</string>
 	<string name="notification_auto_upload_failed_due_to_vault_locked">アップロード中は金庫が施錠されます。続けるには金庫を再度開いてください。</string>
+	<string name="notification_auto_upload_failed_due_to_vault_not_found">自動アップロードに設定された金庫が存在しません。</string>
 	<string name="notification_open_writable_file_title">書き込み可能なファイルを開く</string>
 	<string name="notification_open_writable_file_message">編集が完了するまで金庫は施錠されます</string>
 	<string name="notification_update_check_finished_latest">最新バージョンがインストールされました</string>

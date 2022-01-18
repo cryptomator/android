@@ -5,16 +5,16 @@
 	<!-- # error messages -->
 	<string name="error_generic">Se ha producido un error</string>
 	<string name="error_authentication_failed">Ha fallado la autenticación</string>
-	<string name="error_authentication_failed_re_authenticate">Autenticación fallida. Por favor, inicie sesión usando %1$s</string>
+	<string name="error_authentication_failed_re_authenticate">Error de autenticación. Por favor, inicie sesión usando %1$s</string>
 	<string name="error_no_network_connection">No hay conexión de red</string>
 	<string name="error_invalid_passphrase">Contraseña incorrecta</string>
 	<string name="error_file_or_folder_exists">Ya existe un archivo o carpeta.</string>
-	<string name="error_vault_version_not_supported">Caja fuerte no soportada. Se ha creado con otra versión de Cryptomator.</string>
-	<string name="error_vault_already_exists">La caja fuerte ya existe.</string>
+	<string name="error_vault_version_not_supported">Bóveda no soportada. Se ha creado con otra versión de Cryptomator.</string>
+	<string name="error_vault_already_exists">La bóveda ya existe.</string>
 	<string name="error_no_such_file">El archivo no existe.</string>
-	<string name="error_vault_has_been_locked">Se ha bloqueado la caja fuerte.</string>
+	<string name="error_vault_has_been_locked">Se ha bloqueado la bóveda.</string>
 	<string name="error_cloud_already_exists">La nube ya existe.</string>
-	<string name="error_activity_not_found">Por favor, descarga una aplicación que pueda abrir este archivo.</string>
+	<string name="error_activity_not_found">Descargue una aplicación que pueda abrir este archivo.</string>
 	<string name="error_server_not_found">Servidor no encontrado.</string>
 	<string name="error_device_policy_manager_not_found">Abra los ajustes de su dispositivo y establezca el bloqueo de pantalla manualmente</string>
 	<string name="error_export_illegal_file_name">Exportación fallida. Intente eliminar los caracteres especiales de los nombres de archivo y vuelva a exportar.</string>
@@ -38,9 +38,9 @@
 	<string name="cloud_names_local_storage">Almacenamiento local</string>
 	<!-- # permission -->
 	<!-- ## permission messages -->
-	<string name="permission_message_export_file">Cryptomator necesita acceso al almacenamiento para exportar archivos.</string>
-	<string name="permission_message_upload_file">Cryptomator necesita acceso al almacenamiento para subir archivos.</string>
-	<string name="permission_message_share_file">Cryptomator necesita acceso al almacenamiento para compartir archivos.</string>
+	<string name="permission_message_export_file">Cryptomator necesita acceso al almacenamiento para exportar archivos</string>
+	<string name="permission_message_upload_file">Cryptomator necesita acceso al almacenamiento para subir archivos</string>
+	<string name="permission_message_share_file">Cryptomator necesita acceso al almacenamiento para compartir archivos</string>
 	<string name="permission_revoked_re_request_permission">Cryptomator ha perdido permiso para acceder a esta ubicación. Seleccione esta carpeta de nuevo para restaurar el permiso.</string>
 	<string name="snack_bar_action_title_settings">Configuración</string>
 	<string name="snack_bar_action_title_search">Buscar</string>
@@ -56,16 +56,16 @@
 	<!-- # screens -->
 	<!-- # screen: vault list -->
 	<string name="screen_vault_list_actions_title">Añadir a Cryptomator</string>
-	<string name="screen_vault_list_action_create_new_vault">Crear nueva caja fuerte</string>
-	<string name="screen_vault_list_action_add_existing_vault">Añadir caja fuerte existente</string>
+	<string name="screen_vault_list_action_create_new_vault">Crear bóveda nueva</string>
+	<string name="screen_vault_list_action_add_existing_vault">Añadir bóveda existente</string>
 	<string name="screen_vault_list_vault_action_delete">Eliminar</string>
-	<string name="screen_vault_list_vault_creation_hint">Haz clic aquí para crear una caja fuerte</string>
+	<string name="screen_vault_list_vault_creation_hint">Haga clic aquí para crear una bóveda</string>
 	<string name="screen_vault_list_change_password_successful">Contraseña cambiada con éxito</string>
 	<!-- # screen: file browser -->
-	<string name="screen_file_browser_default_title">Caja fuerte</string>
+	<string name="screen_file_browser_default_title">Bóveda</string>
 	<string name="screen_file_browser_add_existing_vault_extra_text">Seleccionar archivo masterkey</string>
 	<string name="screen_file_browser_create_new_vault_button_text">Dejar aquí</string>
-	<string name="screen_file_browser_create_new_vault_extra_text">Nombre de caja fuerte: %1$s</string>
+	<string name="screen_file_browser_create_new_vault_extra_text">Nombre de la bóveda: %1$s</string>
 	<plurals name="screen_file_browser_subtitle_move">
 		<item quantity="one">Mover %1$s a</item>
 		<item quantity="other">Mover %2$d elementos a</item>
@@ -106,7 +106,7 @@
 	<string name="screen_share_files_content_text">texto</string>
 	<string name="screen_share_files_content_file">archivo</string>
 	<string name="screen_share_files_content_files">archivos</string>
-	<string name="screen_share_files_msg_filenames_must_be_unique">Los nombres de archivo deben ser únicos. Renombra los duplicados.</string>
+	<string name="screen_share_files_msg_filenames_must_be_unique">Los nombres de archivo deben ser únicos. Renombre los duplicados.</string>
 	<string name="screen_share_files_section_location">Guardar ubicación</string>
 	<string name="screen_share_files_save_button_text">Guardar</string>
 	<string name="screen_share_files_msg_success">Cifrado completado</string>
@@ -114,7 +114,7 @@
 	<string name="screen_choose_cloud_service_title">Servicio de nube</string>
 	<!-- ## screen: cloud connections -->
 	<string name="screen_cloud_connections_title">Elegir ubicación</string>
-	<string name="screen_cloud_connections_no_connections">Haz clic aquí para añadir ubicaciones</string>
+	<string name="screen_cloud_connections_no_connections">Haga clic aquí para añadir ubicaciones</string>
 	<string name="screen_cloud_error_webdav_not_supported">El servidor no parece ser compatible con WebDAV</string>
 	<string name="screen_cloud_local_error_no_content_provider">No hay ubicaciones extra disponibles.</string>
 	<!-- ## screen: webdav settings -->
@@ -124,7 +124,7 @@
 	<string name="screen_webdav_settings_done_button_text">Conectar</string>
 	<string name="screen_webdav_settings_msg_url_must_not_be_empty">La URL no puede estar vacía.</string>
 	<string name="screen_webdav_settings_msg_url_is_invalid">La URL no es válida.</string>
-	<string name="screen_webdav_settings_msg_username_must_not_be_empty">El nombre de usuario no puede estar vacio.</string>
+	<string name="screen_webdav_settings_msg_username_must_not_be_empty">El nombre de usuario no puede estar vacío.</string>
 	<string name="screen_webdav_settings_msg_password_must_not_be_empty">La contraseña no puede estar vacía.</string>
 	<!-- ## screen: s3 settings -->
 	<string name="screen_s3_settings_display_name_label">Nombre para mostrar</string>
@@ -139,15 +139,15 @@
 	<string name="screen_s3_settings_msg_bucket_not_empty">La cubeta no puede estar vacía</string>
 	<string name="screen_s3_settings_msg_endpoint_and_region_not_empty">El punto final o la región no puede estar vacío</string>
 	<!-- ## screen: enter vault name -->
-	<string name="screen_enter_vault_name_msg_name_empty">El nombre de la caja fuerte no puede estar vacío.</string>
-	<string name="screen_enter_vault_name_vault_label">Nombre de la caja fuerte</string>
+	<string name="screen_enter_vault_name_msg_name_empty">El nombre de la bóveda no puede estar vacío.</string>
+	<string name="screen_enter_vault_name_vault_label">Nombre de la bóveda</string>
 	<string name="screen_enter_vault_name_button_text">Crear</string>
 	<!-- ## screen: set password -->
 	<string name="screen_set_password_title">Establecer contraseña</string>
 	<string name="screen_set_password_msg_password_mismatch">Las contraseñas no coinciden.</string>
 	<string name="screen_set_password_button_text">Completado</string>
 	<string name="screen_set_password_hint">IMPORTANTE: si olvida su contraseña no habrá manera de recuperar los datos.</string>
-	<string name="screen_set_password_retype_password_label">Reescriba la contraseña</string>
+	<string name="screen_set_password_retype_password_label">Repita la contraseña</string>
 	<string name="screen_set_password_strength_indicator_0">Demasiado débil para crear una bóveda</string>
 	<string name="screen_set_password_strength_indicator_1">Débil</string>
 	<string name="screen_set_password_strength_indicator_2">Aceptable</string>
@@ -181,15 +181,15 @@
 	<string name="screen_settings_section_auto_photo_upload_including_videos">Cargar videos</string>
 	<string name="screen_settings_auto_photo_upload_title">Guardar archivos de carga automática en&#8230;</string>
 	<string name="screen_settings_website_label">Web de Cryptomator</string>
-	<string name="screen_settings_twitter_label">Síguenos en Twitter</string>
-	<string name="screen_settings_facebook_label">Danos me gusta en Facebook</string>
+	<string name="screen_settings_twitter_label">Síganos en Twitter</string>
+	<string name="screen_settings_facebook_label">Denos me gusta en Facebook</string>
 	<string name="screen_settings_section_legal">Legal</string>
 	<string name="screen_settings_licenses_label">Licencias</string>
 	<string name="screen_settings_license_terms_label">Términos de la licencia</string>
 	<string name="screen_settings_section_support">Soporte</string>
 	<string name="screen_settings_contact_label">Solicitar ayuda</string>
 	<string name="screen_settings_debug_mode_label">Modo de depuración</string>
-	<string name="screen_settings_error_report_label">Enviar archivo de trazas</string>
+	<string name="screen_settings_error_report_label">Enviar archivo de registro</string>
 	<string name="screen_settings_error_report_failed">Error en el envío</string>
 	<string name="screen_settings_security_label">Consejos de seguridad</string>
 	<string name="screen_settings_section_version">Versión</string>
@@ -213,12 +213,12 @@
 	<!-- # dialogs -->
 	<string name="dialog_button_cancel">Cancelar</string>
 	<string name="dialog_enter_password_positive_button">Desbloquear</string>
-	<string name="dialog_change_password_old_password_label">Antigua contraseña</string>
-	<string name="dialog_change_password_new_password_label">Nueva contraseña</string>
+	<string name="dialog_change_password_old_password_label">Contraseña anterior</string>
+	<string name="dialog_change_password_new_password_label">Contraseña nueva</string>
 	<string name="dialog_change_password">Cambiar contraseña</string>
-	<string name="dialog_change_password_msg_old_password_empty">La antigua contraseña no puede estar vacía.</string>
-	<string name="dialog_change_password_msg_new_password_empty">La nueva contraseña no puede estar vacía.</string>
-	<string name="dialog_change_password_msg_password_mismatch">Las nuevas contraseñas no coinciden.</string>
+	<string name="dialog_change_password_msg_old_password_empty">La contraseña anterior no puede estar vacía.</string>
+	<string name="dialog_change_password_msg_new_password_empty">La contraseña nueva no puede estar vacía.</string>
+	<string name="dialog_change_password_msg_password_mismatch">Las contraseñas nuevas no coinciden.</string>
 	<!-- Vault not found -->
 	<string name="dialog_vault_not_found_title">Bóveda %1$s no encontrada</string>
 	<string name="dialog_vault_not_found_message">La bóveda ha sido renombrada, movida o eliminada. Eliminar esta bóveda de la lista y añadirla de nuevo para continuar. ¿Eliminar ahora?</string>
@@ -230,53 +230,53 @@
 	<string name="dialog_replace_positive_button_all_files_exist">Reemplazar todos</string>
 	<string name="dialog_replace_positive_button_some_files_exist">Reemplazar existentes</string>
 	<string name="dialog_replace_positive_button_single_file_exists">Reemplazar</string>
-	<string name="dialog_replace_msg_single_file_exists">Ya existe un archivo llamado %1$s. ¿Quieres reemplazarlo?</string>
-	<string name="dialog_replace_msg_all_files_exists">Todos los archivos existen ya.  ¿Quieres reemplazarlos?</string>
-	<string name="dialog_replace_msg_some_files_exists">%1$d archivos existen ya. ¿Quieres reemplazarlos?</string>
-	<string name="dialog_replace_title_single_file_exists">\"¿Reemplazar archivo?</string>
-	<string name="dialog_replace_title_multiple_files_exist">\"¿Reemplazar archivos?</string>
+	<string name="dialog_replace_msg_single_file_exists">Ya existe un archivo llamado %1$s. ¿Desea reemplazarlo?</string>
+	<string name="dialog_replace_msg_all_files_exists">Todos los archivos ya existen. ¿Desea reemplazarlos?</string>
+	<string name="dialog_replace_msg_some_files_exists">%1$d archivos ya existen. ¿Desea reemplazarlos?</string>
+	<string name="dialog_replace_title_single_file_exists">¿Reemplazar archivo?</string>
+	<string name="dialog_replace_title_multiple_files_exist">¿Reemplazar archivos?</string>
 	<string name="dialog_unable_to_share_title">No se puede compartir archivos</string>
-	<string name="dialog_unable_to_share_message">No ha configurado ninguna caja fuerte. Cree antes una nueva caja fuerte con la aplicación Cryptomator.</string>
+	<string name="dialog_unable_to_share_message">No ha configurado ninguna bóveda. Cree primero una bóveda nueva con la aplicación Cryptomator.</string>
 	<string name="dialog_unable_to_share_positive_button">Aceptar</string>
-	<string name="dialog_unable_to_share_negative_button">Crear caja fuerte</string>
+	<string name="dialog_unable_to_share_negative_button">Crear bóveda</string>
 	<string name="dialog_filetype_not_supported_title">No se puede abrir %1$s</string>
-	<string name="dialog_filetype_not_supported_message">Descarga una aplicación que pueda abrir el archivo o, ¿quieres guardarlo en el dispositivo?</string>
-	<string name="dialog_rename_vault_title">Renombrar caja fuerte</string>
+	<string name="dialog_filetype_not_supported_message">Descargue una aplicación que pueda abrir el archivo o ¿desea guardarlo en el dispositivo?</string>
+	<string name="dialog_rename_vault_title">Renombrar bóveda</string>
 	<string name="dialog_rename_node_folder_title">Renombrar carpeta</string>
 	<string name="dialog_rename_node_file_title">Renombrar archivo</string>
-	<string name="dialog_unsaved_changes_title">Tienes cambios sin guardar</string>
-	<string name="dialog_unsaved_changes_message">\"¿De verdad quieres salir sin guardar?</string>
+	<string name="dialog_unsaved_changes_title">Tiene cambios sin guardar</string>
+	<string name="dialog_unsaved_changes_message">¿Realmente desea salir sin guardar?</string>
 	<string name="dialog_unsaved_changes_discard">Descartar</string>
 	<string name="dialog_file_name_placeholder">texto.txt</string>
-	<string name="dialog_delete_vault_message">\"¿Estás seguro de que quieres eliminar esta caja fuerte?</string>
-	<string name="dialog_delete_vault_hint">Esta acción solo eliminará la caja fuerte de esta lista y no la borrará físicamente.</string>
-	<string name="dialog_upload_file_title">Sube&#8230;</string>
+	<string name="dialog_delete_vault_message">¿Está seguro que desea eliminar esta bóveda?</string>
+	<string name="dialog_delete_vault_hint">Esta acción solo borrará la bóveda de esta lista y no la eliminará físicamente.</string>
+	<string name="dialog_upload_file_title">Subiendo&#8230;</string>
 	<string name="dialog_upload_file_remaining">Archivo %1$d de %2$d</string>
 	<string name="dialog_export_file_title">Exportando (%1$d/%2$d)</string>
-	<string name="dialog_progress_please_wait">Espera, por favor&#8230;</string>
+	<string name="dialog_progress_please_wait">Por favor espere&#8230;</string>
 	<string name="dialog_progress_creating_folder">Creando carpeta&#8230;</string>
 	<string name="dialog_progress_creating_text_file">Creando archivo de texto&#8230;</string>
 	<string name="action_progress_authentication">Autenticación&#8230;</string>
 	<string name="action_progress_renaming">Renombrando&#8230;</string>
-	<string name="action_progress_deleting">Borrando&#8230;</string>
-	<string name="dialog_progress_unlocking_vault">Desbloqueando caja fuerte&#8230;</string>
+	<string name="action_progress_deleting">Eliminando&#8230;</string>
+	<string name="dialog_progress_unlocking_vault">Desbloqueando bóveda&#8230;</string>
 	<string name="dialog_progress_change_password">Cambiando contraseña&#8230;</string>
-	<string name="dialog_progress_creating_vault">Creando caja fuerte&#8230;</string>
+	<string name="dialog_progress_creating_vault">Creando bóveda&#8230;</string>
 	<string name="dialog_progress_upload_file">Subiendo&#8230;</string>
 	<string name="dialog_progress_download_file">Descargando&#8230;</string>
 	<string name="dialog_progress_encryption">Cifrando&#8230;</string>
 	<string name="dialog_progress_decryption">Descifrando&#8230;</string>
 	<string name="action_progress_moving">Moviendo&#8230;</string>
 	<string name="dialog_lock_vault">Bloquear</string>
-	<string name="dialog_accept_ssl_certificate_title">Invalidar certificado SSL</string>
-	<string name="dialog_accept_ssl_certificate_hint">El certificado SSL no es válido. ¿Quiere confiar en él de todas formas?</string>
+	<string name="dialog_accept_ssl_certificate_title">Certificado SSL inválido</string>
+	<string name="dialog_accept_ssl_certificate_hint">El certificado SSL es inválido. ¿Desea confiar en él de todas formas?</string>
 	<string name="dialog_accept_ssl_certificate_details">Detalles</string>
 	<string name="dialog_accept_ssl_certificate_security_checkbox">Esto podría ser un riesgo para la seguridad. Sé lo que estoy haciendo.</string>
 	<string name="dialog_http_security_hint">El uso de HTTP no es seguro. Recomendamos usar HTTPS en su lugar. Si conoce los riesgos puede seguir usando HTTP.</string>
 	<string name="dialog_http_security_checkbox">Cambiar a HTTPS</string>
 	<string name="dialog_http_security_title">\"¿Usar HTPPS?</string>
-	<string name="dialog_no_screen_lock_hint">No se ha establecido el bloqueo de pantalla. Para almacenar las credenciales de forma segura, establece con Aceptar un patrón o contraseña.</string>
-	<string name="dialog_no_screen_lock_title">\"¿Establecer bloqueo de pantalla?</string>
+	<string name="dialog_no_screen_lock_hint">No se ha establecido el bloqueo de pantalla. Para almacenar las credenciales de forma segura, defina con OK un patrón o contraseña.</string>
+	<string name="dialog_no_screen_lock_title">¿Establecer bloqueo de pantalla?</string>
 	<string name="dialog_no_screen_lock_checkbox">Establecer bloqueo de pantalla</string>
 	<string name="dialog_no_biometric_auth_set_up_title">No hay autenticación básica configurada en el sistema</string>
 	<string name="dialog_no_biometric_auth_set_up_message">Registre al menos un dedo/rostro para usar este servicio.</string>
@@ -294,12 +294,12 @@
 	<string name="dialog_vault_is_root_folder_of_cloud_title">La bóveda es la carpeta raíz de la conexión a la nube</string>
 	<string name="dialog_vault_is_root_folder_of_cloud_hint">Crear una conexión nueva en la nube donde seleccione al menos la carpeta padre de esta carpeta de bóveda como directorio raíz para añadir esta bóveda.</string>
 	<string name="dialog_disable_secure_screen_disclaimer_hint">Esta opción es una función de seguridad y evita que otras aplicaciones engañen a los usuarios para que hagan cosas que no quieren hacer.\n\nAl desactivar, confirma que es <a href="https://docs.cryptomator.org/en/1.5/android/settings/#screen-security">consciente de los riesgos</a>.</string>
-	<string name="dialog_delete_cloud_connection_with_vaults_message">\"¿Estás seguro de que quieres eliminar esta conexión de nube?</string>
-	<string name="dialog_delete_cloud_connection_with_vaults_hint">Esta acción eliminará la conexión de nube y todas las cajas fuertes de esta nube.</string>
+	<string name="dialog_delete_cloud_connection_with_vaults_message">\"¿Está seguro que desea eliminar esta conexión a la nube?</string>
+	<string name="dialog_delete_cloud_connection_with_vaults_hint">Esta acción eliminará la conexión a la nube y todas las bóvedas de esta nube.</string>
 	<string name="dialog_confirm_delete_multiple_title">¿Eliminar %1$d elementos?</string>
 	<string name="dialog_confirm_delete_multiple_message">¿Está seguro que desea eliminar estos elementos?</string>
-	<string name="dialog_confirm_delete_file_message">\"¿Estás seguro de que quieres borrar este archivo?</string>
-	<string name="dialog_confirm_delete_folder_message">Esto borrará todo el contenido de la carpeta. ¿Estás seguro de que quiere borrar esta carpeta?</string>
+	<string name="dialog_confirm_delete_file_message">¿Está seguro que desea eliminar este archivo?</string>
+	<string name="dialog_confirm_delete_folder_message">Esto borrará todo el contenido de la carpeta. ¿Está seguro que desea eliminar esta carpeta?</string>
 	<string name="dialog_biometric_auth_key_invalidated_title">Función de autenticación biométrica desactivada</string>
 	<string name="dialog_biometric_auth_key_invalidated_message">Debido a que la clave ha sido invalidada, la función de autenticación biométrica ha sido desactivada. Para reactivarla, abra los ajustes de Cryptomator.</string>
 	<string name="dialog_enter_license_title">Proporcione una licencia válida</string>
@@ -356,8 +356,8 @@
 	<string name="dialog_biometric_auth_use_password">Usar contraseña de la bóveda</string>
 	<string name="dialog_unable_to_auto_upload_files_title">No se pueden cargar archivos automáticamente</string>
 	<!-- notification -->
-	<string name="notification_unlocked">Cajas fuertes desbloqueadas: %1$d</string>
-	<string name="notification_timeout">Autobloqueo en %1$s</string>
+	<string name="notification_unlocked">Bóvedas desbloqueadas: %1$d</string>
+	<string name="notification_timeout">Autobloquear en %1$s</string>
 	<string name="notification_lock_all">Bloquear todas</string>
 	<string name="notification_cancel_auto_upload">Cancelar carga</string>
 	<string name="notification_auto_upload_title">Carga automática de fotos en ejecución</string>
@@ -378,7 +378,7 @@
 	<string name="screen_settings_clear_lru_cache_size">Vaciar la caché</string>
 	<string name="screen_settings_lru_cache_changed__restart_toast">Los cambios se aplicarán en el próximo reinicio de la aplicación</string>
 	<string name="screen_settings_license">Registrado para</string>
-	<string name="screen_settings_license_mail">\"%1$s</string>
+	<string name="screen_settings_license_mail">%1$s</string>
 	<string name="dialog_settings_update_check_interval_title">Actualizar intervalo de verificación</string>
 	<string name="screen_settings_check_updates">Comprobar atualizaciones</string>
 	<string name="screen_settings_last_check_updates">Última ejecución %1$s</string>
