@@ -19,14 +19,19 @@
 	<string name="snack_bar_action_title_search">खोज करें</string>
 	<string name="snack_bar_action_title_search_previous">पिछला</string>
 	<string name="snack_bar_action_title_search_next">अगला</string>
+	<string name="snack_bar_action_title_sort_newest">सबसे नया पहले</string>
+	<string name="snack_bar_action_title_sort_oldest">सबसे पुराना पहले</string>
 	<!-- # screens -->
 	<!-- # screen: vault list -->
 	<string name="screen_vault_list_actions_title">क्रिप्टोमेटर में जोड़ें</string>
 	<string name="screen_vault_list_vault_action_delete">हटाएँ</string>
 	<!-- # screen: file browser -->
 	<string name="screen_file_browser_default_title">गुप्त तिजोरी</string>
+	<string name="screen_file_browser_move_button_text">मूव करें</string>
 	<string name="screen_file_browser_share_button_text">चुनें</string>
+	<string name="screen_file_browser_action_create_folder">फोल्डर बनाएं</string>
 	<string name="screen_file_browser_action_create_new_text_file">नया दस्तावेज बनाए</string>
+	<string name="screen_file_browser_action_upload_files">फ़ाइल अपलोड करें</string>
 	<string name="screen_file_browser_upload_files_chooser_title">दस्तावेज</string>
 	<string name="screen_file_browser_msg_file_exported">दस्तावेज निर्यात हुआ</string>
 	<string name="screen_file_browser_msg_files_exported">दस्तावेज निर्यात हुए</string>
@@ -62,6 +67,7 @@
 	<!-- ## screen: s3 settings -->
 	<string name="screen_s3_settings_region_label">क्षेत्र</string>
 	<!-- ## screen: enter vault name -->
+	<string name="screen_enter_vault_name_button_text">बनाएं</string>
 	<!-- ## screen: set password -->
 	<string name="screen_set_password_button_text">हो गया</string>
 	<string name="screen_set_password_strength_indicator_1">कमजोर</string>
