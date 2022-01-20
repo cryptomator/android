@@ -19,6 +19,12 @@
 	<string name="error_name_contains_invalid_characters">הקלט לא יכול להכיל תווים מיוחדים.</string>
 	<string name="error_names_contains_invalid_characters">שם קובץ לא יכול להכיל תווים מיוחדים.</string>
 	<string name="error_vault_name_contains_invalid_characters">שם הכספת לא יכול להכיל תווים מיוחדים.</string>
+	<string name="error_play_services_not_available">שירותי Google Play אינם מותקנים</string>
+	<string name="error_biometric_auth_aborted">אימות ביומטרי הופסק</string>
+	<string name="error_vault_version_mismatch">הגרסה ב %1$s שונה מזו שב %2$s</string>
+	<string name="error_vault_key_invalid">%1$s ו %2$s אינם תואמים</string>
+	<string name="error_vault_config_loading">שגיאה כללית בזמן טעינת הגדרות הכספת</string>
+	<string name="error_no_such_bucket">דלי לא נמצא</string>
 	<!-- # clouds -->
 	<!-- ## cloud names -->
 	<string name="cloud_names_local_storage">אחסון מקומי</string>
@@ -100,13 +106,17 @@
 	<string name="screen_webdav_settings_msg_username_must_not_be_empty">יש להזין שם משתמש.</string>
 	<string name="screen_webdav_settings_msg_password_must_not_be_empty">יש להזין סיסמה.</string>
 	<!-- ## screen: s3 settings -->
+	<string name="screen_s3_settings_display_name_label">שם תצוגה</string>
 	<string name="screen_s3_settings_access_key_label">מפתח גישה</string>
 	<string name="screen_s3_settings_secret_key_label">מפתח סודי</string>
+	<string name="screen_s3_settings_bucket_label">דלי קיים</string>
 	<string name="screen_s3_settings_endpoint_label">נקודת גישה</string>
 	<string name="screen_s3_settings_region_label">אזור</string>
 	<string name="screen_s3_settings_msg_display_name_not_empty">יש להזין שם תצוגה</string>
 	<string name="screen_s3_settings_msg_access_key_not_empty">יש להזין מפתח גישה</string>
 	<string name="screen_s3_settings_msg_secret_key_not_empty">יש להזין מפתח סודי</string>
+	<string name="screen_s3_settings_msg_bucket_not_empty">יש להזין דלי</string>
+	<string name="screen_s3_settings_msg_endpoint_and_region_not_empty">יש להזין מפתח גישה</string>
 	<!-- ## screen: enter vault name -->
 	<string name="screen_enter_vault_name_msg_name_empty">יש להזין שם כספת.</string>
 	<string name="screen_enter_vault_name_vault_label">שם כספת</string>
