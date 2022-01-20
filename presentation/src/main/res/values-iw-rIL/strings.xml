@@ -26,6 +26,7 @@
 	<!-- ## permission messages -->
 	<string name="permission_message_export_file">Cryptomator זקוק להרשאת גישה לזיכרון המכשיר כדי לייצא קבצים</string>
 	<string name="permission_message_upload_file">Cryptomator זקוק להרשאת גישה לזיכרון המכשיר כדי להעלות קבצים</string>
+	<string name="permission_message_share_file">Cryptomator זקוק להרשאת גישה לזיכרון המכשיר כדי לשתף קבצים</string>
 	<string name="snack_bar_action_title_settings">הגדרות</string>
 	<string name="snack_bar_action_title_search">חיפוש</string>
 	<string name="snack_bar_action_title_search_previous">הקודם</string>
@@ -115,6 +116,7 @@
 	<string name="screen_settings_facebook_label">תנו לנו לייק ב-Facebook</string>
 	<string name="screen_settings_section_legal">היבטים משפטיים</string>
 	<string name="screen_settings_licenses_label">רישיונות</string>
+	<string name="screen_settings_license_terms_label">תנאי שימוש</string>
 	<string name="screen_settings_section_support">תמיכה</string>
 	<string name="screen_settings_contact_label">בקש תמיכה</string>
 	<string name="screen_settings_debug_mode_label">מצב ניפוי תקלות</string>
@@ -162,6 +164,7 @@
 	<string name="dialog_unsaved_changes_discard">ביטול</string>
 	<string name="dialog_file_name_placeholder">text.txt</string>
 	<string name="dialog_delete_vault_message">אתה בטוח שברצונך למחוק כספת זו?</string>
+	<string name="dialog_delete_vault_hint">פעולה זו תעלים את הכספת מהרשימה, אך לא תמחק אותה לחלוטין ממקום האחסון.</string>
 	<string name="dialog_upload_file_title">שולח&#8230;</string>
 	<string name="dialog_upload_file_remaining">קובץ %1$d מתוך %2$d</string>
 	<string name="dialog_export_file_title">מיצא (%2$d/%1$d)</string>
