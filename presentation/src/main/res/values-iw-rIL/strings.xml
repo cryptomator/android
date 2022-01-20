@@ -15,11 +15,17 @@
 	<string name="error_cloud_already_exists">אחסון ענן זה כבר בשימוש.</string>
 	<string name="error_activity_not_found">אנא הורד אפליקציה שתומכת בפתיחה של קובץ זה.</string>
 	<string name="error_server_not_found">שרת לא נמצא.</string>
+	<string name="error_device_policy_manager_not_found">אנא הפעל מסך נעילה בהגדרות המכשיר</string>
+	<string name="error_name_contains_invalid_characters">הקלט לא יכול להכיל תווים מיוחדים.</string>
+	<string name="error_names_contains_invalid_characters">שם קובץ לא יכול להכיל תווים מיוחדים.</string>
+	<string name="error_vault_name_contains_invalid_characters">שם הכספת לא יכול להכיל תווים מיוחדים.</string>
 	<!-- # clouds -->
 	<!-- ## cloud names -->
 	<string name="cloud_names_local_storage">אחסון מקומי</string>
 	<!-- # permission -->
 	<!-- ## permission messages -->
+	<string name="permission_message_export_file">Cryptomator זקוק להרשאת גישה לזיכרון המכשיר כדי לייצא קבצים</string>
+	<string name="permission_message_upload_file">Cryptomator זקוק להרשאת גישה לזיכרון המכשיר כדי להעלות קבצים</string>
 	<string name="snack_bar_action_title_settings">הגדרות</string>
 	<string name="snack_bar_action_title_search">חיפוש</string>
 	<string name="snack_bar_action_title_search_previous">הקודם</string>
