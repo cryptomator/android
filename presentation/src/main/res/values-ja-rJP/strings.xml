@@ -20,12 +20,12 @@
 	<string name="error_export_illegal_file_name">エクスポートに失敗しました。ファイル名から特殊文字を削除して再度エクスポートしてください。</string>
 	<string name="error_name_contains_invalid_characters">特殊文字を含めることはできません。</string>
 	<string name="error_names_contains_invalid_characters">特殊文字を含むファイル名は使用できません。</string>
-	<string name="error_vault_name_contains_invalid_characters">特殊文字を含む金庫名は使用できません。</string>
+	<string name="error_vault_name_contains_invalid_characters">金庫名に特殊文字を含めることはできません。</string>
 	<string name="error_general_update">更新の確認に失敗しました。エラーが発生しました。</string>
 	<string name="error_hash_mismatch_update">更新の確認に失敗しました。ハッシュ値がアップロードされたファイルと一致しません。</string>
 	<string name="error_update_no_internet">更新の確認に失敗しました。インターネット接続がありません。</string>
 	<string name="error_failed_to_decrypt_webdav_password">WebDAV パスワードの復号に失敗しました。設定を再度追加してください</string>
-	<string name="error_play_services_not_available">Google Play Services がインストールされていません</string>
+	<string name="error_play_services_not_available">Google Playサービスがインストールされていません</string>
 	<string name="error_biometric_auth_aborted">生体認証が中断されました</string>
 	<string name="error_vault_version_mismatch">%1$s で指定されたバージョンが %2$s と異なります</string>
 	<string name="error_vault_key_invalid">%1$s はこの %2$s と一致しません</string>
@@ -44,7 +44,7 @@
 	<string name="snack_bar_action_title_settings">設定</string>
 	<string name="snack_bar_action_title_search">検索</string>
 	<string name="snack_bar_action_title_search_previous">戻る</string>
-	<string name="snack_bar_action_title_search_next">次へ</string>
+	<string name="snack_bar_action_title_search_next">進む</string>
 	<string name="snack_bar_action_title_sort">ソート</string>
 	<string name="snack_bar_action_title_sort_az">A - Z</string>
 	<string name="snack_bar_action_title_sort_za">Z - A</string>
@@ -80,9 +80,9 @@
 	<string name="screen_file_browser_msg_file_exported">エクスポートされたファイル</string>
 	<string name="screen_file_browser_msg_files_exported">エクスポートされたファイル</string>
 	<string name="screen_file_browser_nothing_to_export">エクスポートするものがありません</string>
-	<string name="screen_file_browser_msg_creating_download_dir_failed">ダウンロード ディレクトリの作成に失敗しました</string>
+	<string name="screen_file_browser_msg_creating_download_dir_failed">ダウンロードディレクトリの作成に失敗しました</string>
 	<string name="screen_file_browser_node_action_share">共有</string>
-	<string name="screen_file_browser_node_action_rename">名前の変更</string>
+	<string name="screen_file_browser_node_action_rename">名前を変更</string>
 	<string name="screen_file_browser_node_action_edit_text">編集</string>
 	<string name="screen_file_browser_node_action_export">エクスポート</string>
 	<string name="screen_file_browser_node_action_delete">削除</string>
@@ -101,7 +101,7 @@
 	<string name="screen_share_files_content_text">テキスト</string>
 	<string name="screen_share_files_content_file">ファイル</string>
 	<string name="screen_share_files_content_files">ファイル</string>
-	<string name="screen_share_files_msg_filenames_must_be_unique">ファイル名は重複しない必要があります。名前を変更してください</string>
+	<string name="screen_share_files_msg_filenames_must_be_unique">ファイル名は重複してはなりません。名前を変更してください</string>
 	<string name="screen_share_files_section_location">保存先</string>
 	<string name="screen_share_files_save_button_text">保存</string>
 	<string name="screen_share_files_msg_success">暗号化が完了しました</string>
@@ -123,13 +123,13 @@
 	<string name="screen_webdav_settings_msg_password_must_not_be_empty">パスワードは空にできません。</string>
 	<!-- ## screen: s3 settings -->
 	<string name="screen_s3_settings_display_name_label">表示名</string>
-	<string name="screen_s3_settings_access_key_label">接続キー</string>
+	<string name="screen_s3_settings_access_key_label">アクセス キー</string>
 	<string name="screen_s3_settings_secret_key_label">秘密鍵</string>
 	<string name="screen_s3_settings_bucket_label">既存の Bucket</string>
 	<string name="screen_s3_settings_endpoint_label">エンドポイント</string>
 	<string name="screen_s3_settings_region_label">地域</string>
 	<string name="screen_s3_settings_msg_display_name_not_empty">表示名は空にできません</string>
-	<string name="screen_s3_settings_msg_access_key_not_empty">接続キーは空にできません</string>
+	<string name="screen_s3_settings_msg_access_key_not_empty">アクセスキーは空にできません</string>
 	<string name="screen_s3_settings_msg_secret_key_not_empty">秘密キーは空にできません</string>
 	<string name="screen_s3_settings_msg_bucket_not_empty">Bucket は空にできません</string>
 	<string name="screen_s3_settings_msg_endpoint_and_region_not_empty">エンドポイントまたは地域は空にできません</string>
@@ -173,7 +173,7 @@
 	<string name="screen_settings_section_auto_photo_upload_toggle_instant_upload">インスタントをアップロード</string>
 	<string name="screen_settings_section_auto_photo_upload_toggle_instant_upload_summary">金庫が解錠されているときに直接アップロード</string>
 	<string name="screen_settings_section_auto_photo_upload_only_wifi_toggle">WIFI を使用しているときのみアップロード</string>
-	<string name="screen_settings_section_auto_photo_upload_including_videos">ビデオをアップロード</string>
+	<string name="screen_settings_section_auto_photo_upload_including_videos">動画をアップロード</string>
 	<string name="screen_settings_auto_photo_upload_title">&#8230; へのファイルの自動アップロードを保存</string>
 	<string name="screen_settings_website_label">Cryptomator のウェブサイト</string>
 	<string name="screen_settings_twitter_label">Twitter でフォローする</string>
@@ -186,10 +186,10 @@
 	<string name="screen_settings_debug_mode_label">デバッグ モード</string>
 	<string name="screen_settings_error_report_label">ログ ファイルを送信</string>
 	<string name="screen_settings_error_report_failed">送信できませんでした</string>
-	<string name="screen_settings_security_label">セキュリティのヒント</string>
+	<string name="screen_settings_security_label">セキュリティの心得</string>
 	<string name="screen_settings_section_version">バージョン</string>
 	<string name="screen_settings_advanced_settings">高度な設定</string>
-	<string name="screen_settings_background_unlock_preparation_label">解錠</string>
+	<string name="screen_settings_background_unlock_preparation_label">高速な解錠</string>
 	<string name="screen_settings_background_unlock_preparation_label_summary">パスワードまたは生体による認証中に、バックグラウンドで金庫の設定をダウンロードします</string>
 	<string name="screen_settings_keep_unlocked_while_editing_files">解錠したままにする</string>
 	<string name="screen_settings_keep_unlocked_while_editing_files_summary">ファイルの編集中は金庫を解錠しておく</string>
@@ -225,7 +225,7 @@
 	<string name="dialog_replace_positive_button_all_files_exist">すべて置換</string>
 	<string name="dialog_replace_positive_button_some_files_exist">今のものを置き換える</string>
 	<string name="dialog_replace_positive_button_single_file_exists">置換</string>
-	<string name="dialog_replace_msg_single_file_exists">ファイル名 \"%1$s\" が既に存在します。置き換えますか?</string>
+	<string name="dialog_replace_msg_single_file_exists">ファイル名 \"%1$s\" が既に存在します。上書きしますか？</string>
 	<string name="dialog_replace_msg_all_files_exists">すべてのファイルが既に存在します。すべて置き換えますか?</string>
 	<string name="dialog_replace_msg_some_files_exists">%1$d ファイルが既に存在します。すべて置き換えますか?</string>
 	<string name="dialog_replace_title_single_file_exists">ファイルを置き換えますか?</string>
@@ -238,7 +238,7 @@
 	<string name="dialog_filetype_not_supported_message">このファイルを開くことができるアプリをダウンロードしてください。それともデバイスに保存しますか？</string>
 	<string name="dialog_rename_vault_title">金庫の名前を変更</string>
 	<string name="dialog_rename_node_folder_title">フォルダーの名前を変更</string>
-	<string name="dialog_rename_node_file_title">ファイルの名前を変更</string>
+	<string name="dialog_rename_node_file_title">ファイル名を変更</string>
 	<string name="dialog_unsaved_changes_title">保存していない変更があります</string>
 	<string name="dialog_unsaved_changes_message">保存せずに終了してもよろしいですか?</string>
 	<string name="dialog_unsaved_changes_discard">破棄</string>
@@ -267,11 +267,11 @@
 	<string name="dialog_accept_ssl_certificate_hint">SSL 証明書が無効です。それでも信頼しますか?</string>
 	<string name="dialog_accept_ssl_certificate_details">詳細</string>
 	<string name="dialog_accept_ssl_certificate_security_checkbox">これはセキュリティ リスクになる可能性があります。リスクについて理解していますか</string>
-	<string name="dialog_http_security_hint">HTTP の使用は安全ではありません。代わりに HTTPS を使用することを推奨します。リスクを承知の上であれば HTTP をご使用ください。</string>
-	<string name="dialog_http_security_checkbox">HTTPS に変更</string>
-	<string name="dialog_http_security_title">HTTPS を使用しますか?</string>
+	<string name="dialog_http_security_hint">HTTP は安全ではありません。代わりに HTTPS を使用することを推奨します。リスクを承知の上であれば HTTP をご使用ください。</string>
+	<string name="dialog_http_security_checkbox">HTTPS を使用</string>
+	<string name="dialog_http_security_title">HTTPS を使用しますか？</string>
 	<string name="dialog_no_screen_lock_hint">画面ロックが設定されていません。認証情報を安全に保存するには、パターンまたはパスワードを設定してください。</string>
-	<string name="dialog_no_screen_lock_title">画面ロックを設定しますか?</string>
+	<string name="dialog_no_screen_lock_title">画面ロックを設定しますか？</string>
 	<string name="dialog_no_screen_lock_checkbox">画面ロックを設定</string>
 	<string name="dialog_no_biometric_auth_set_up_title">システムに基本的な認証が設定されていません</string>
 	<string name="dialog_no_biometric_auth_set_up_message">このサービスを利用するには少なくとも 1 つの指紋/顔を登録してください。</string>
@@ -282,7 +282,7 @@
 	<string name="dialog_disable_app_obscured_disclaimer_title">注意</string>
 	<string name="dialog_disable_app_obscured_positive_button">無効</string>
 	<string name="dialog_app_is_obscured_info_title">アプリが重なっています</string>
-	<string name="dialog_app_is_obscured_info_hint">他のアプリケーションが Cryptomator の上に何かを表示しています (例: ブルーライト フィルターや night mode アプリ)。このため、セキュリティの観点から Cryptomator が無効化されています。\n\n<a href="https://docs.cryptomator.org/en/1.5/android/settings/#block-app-when-obscured">Cryptomator を有効にするには</a></string>
+	<string name="dialog_app_is_obscured_info_hint">他のアプリケーションが Cryptomator の上に何かを表示しています (例: ブルーライト フィルターや night mode アプリ) 。このため、セキュリティの観点から Cryptomator が無効化されています。\n\n<a href="https://docs.cryptomator.org/en/1.5/android/settings/#block-app-when-obscured">Cryptomator を有効にするには</a></string>
 	<string name="dialog_app_is_obscured_info_neutral_button">閉じる</string>
 	<string name="dialog_vaults_removed_during_migration_title">%1s クラウンドの金庫を再追加してください</string>
 	<string name="dialog_vault_is_root_folder_of_cloud_title">金庫がクラウト接続のルート フォルダーです</string>
@@ -375,12 +375,12 @@
 	<string name="screen_settings_last_check_updates">最終実行 %1$s</string>
 	<string name="dialog_cache_size_title">クラウドごとのキャッシュ サイズ</string>
 	<!-- lock timeout names -->
-	<string name="lock_timeout_instant">インスタント</string>
-	<string name="lock_timeout_1m">1分</string>
-	<string name="lock_timeout_2m">2分</string>
-	<string name="lock_timeout_5m">5分</string>
-	<string name="lock_timeout_10m">10分</string>
-	<string name="lock_timeout_never">無期限</string>
+	<string name="lock_timeout_instant">即時</string>
+	<string name="lock_timeout_1m">1分経過後</string>
+	<string name="lock_timeout_2m">2分経過後</string>
+	<string name="lock_timeout_5m">5分経過後</string>
+	<string name="lock_timeout_10m">10分経過後</string>
+	<string name="lock_timeout_never">ロックしない</string>
 	<!-- cache size names -->
 	<string name="cache_size_50m">50 MB</string>
 	<string name="cache_size_100m">100 MB</string>
