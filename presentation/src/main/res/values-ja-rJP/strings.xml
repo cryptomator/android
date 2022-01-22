@@ -164,7 +164,7 @@
 	<string name="screen_settings_glob_search">glob パターンを使用して検索</string>
 	<string name="screen_settings_glob_search_summary">alice.*.jpg のような glob パターン一致を使用する</string>
 	<string name="screen_settings_section_auto_lock">自動的な施錠</string>
-	<string name="screen_settings_auto_lock_timeout">次の場合にロックする</string>
+	<string name="screen_settings_auto_lock_timeout">次の場合に施錠する</string>
 	<string name="screen_settings_auto_lock_on_screen_lock">画面がロックされたとき</string>
 	<string name="screen_settings_section_auto_photo_upload">自動的に画像をアップロード</string>
 	<string name="screen_settings_section_auto_photo_upload_vault">アップロードする金庫を選択</string>
