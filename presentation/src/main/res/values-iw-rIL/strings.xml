@@ -16,6 +16,7 @@
 	<string name="error_activity_not_found">אנא הורד אפליקציה שתומכת בפתיחה של קובץ זה.</string>
 	<string name="error_server_not_found">שרת לא נמצא.</string>
 	<string name="error_device_policy_manager_not_found">אנא הפעל מסך נעילה בהגדרות המכשיר</string>
+	<string name="error_export_illegal_file_name">הייצוא נכשל. מחק תווים מיוחדים משמות הקבצים ונסה שוב.</string>
 	<string name="error_name_contains_invalid_characters">הקלט לא יכול להכיל תווים מיוחדים.</string>
 	<string name="error_names_contains_invalid_characters">שם קובץ לא יכול להכיל תווים מיוחדים.</string>
 	<string name="error_vault_name_contains_invalid_characters">שם הכספת לא יכול להכיל תווים מיוחדים.</string>
@@ -25,6 +26,7 @@
 	<string name="error_vault_key_invalid">%1$s ו %2$s אינם תואמים</string>
 	<string name="error_vault_config_loading">שגיאה כללית בזמן טעינת הגדרות הכספת</string>
 	<string name="error_no_such_bucket">דלי לא נמצא</string>
+	<string name="error_masterkey_location_not_supported">שינוי מיקום ה Masterkey עדיין לא נתמך</string>
 	<!-- # clouds -->
 	<!-- ## cloud names -->
 	<string name="cloud_names_local_storage">אחסון מקומי</string>
@@ -33,6 +35,7 @@
 	<string name="permission_message_export_file">Cryptomator זקוק להרשאת גישה לזיכרון המכשיר כדי לייצא קבצים</string>
 	<string name="permission_message_upload_file">Cryptomator זקוק להרשאת גישה לזיכרון המכשיר כדי להעלות קבצים</string>
 	<string name="permission_message_share_file">Cryptomator זקוק להרשאת גישה לזיכרון המכשיר כדי לשתף קבצים</string>
+	<string name="permission_revoked_re_request_permission">Cryptomator איבד את הרשאות הגישה לתיקייה זו. אנא בחר תיקייה זו בשנית כדי להחזיר את הרשאה.</string>
 	<string name="snack_bar_action_title_settings">הגדרות</string>
 	<string name="snack_bar_action_title_search">חיפוש</string>
 	<string name="snack_bar_action_title_search_previous">הקודם</string>
@@ -55,6 +58,7 @@
 	<!-- # screen: file browser -->
 	<string name="screen_file_browser_default_title">כספת</string>
 	<string name="screen_file_browser_add_existing_vault_extra_text">בחר קובץ masterkey</string>
+	<string name="screen_file_browser_create_new_vault_button_text">מקם כאן</string>
 	<string name="screen_file_browser_create_new_vault_extra_text">שם כספת: %1$s</string>
 	<string name="screen_file_browser_move_button_text">שנה מיקום</string>
 	<string name="screen_file_browser_msg_empty_folder">תיקיה ריקה</string>
@@ -62,11 +66,14 @@
 	<string name="screen_file_browser_share_intent_chooser_title">שתף באמצעות</string>
 	<string name="screen_file_browser_share_destination_title">בחר מיקום חדש</string>
 	<string name="screen_file_browser_share_button_text">בחר</string>
+	<string name="screen_file_browser_nothing_to_share">אין מה לשתף</string>
 	<string name="screen_file_browser_actions_title">הוסף ל %1$s</string>
 	<string name="screen_file_browser_action_create_folder">צור תיקייה</string>
 	<string name="screen_file_browser_action_create_new_text_file">צור קובץ טקסט</string>
 	<string name="screen_file_browser_action_upload_files">העלה קובצים</string>
 	<string name="screen_file_browser_upload_files_chooser_title">קבצים</string>
+	<string name="screen_file_browser_msg_file_exported">הקובץ יוצא</string>
+	<string name="screen_file_browser_msg_files_exported">הקבצים יוצאו</string>
 	<string name="screen_file_browser_nothing_to_export">אין מה לייצא</string>
 	<string name="screen_file_browser_msg_creating_download_dir_failed">יצירת תיקייה להורדות נכשלה</string>
 	<string name="screen_file_browser_node_action_share">שתף</string>
@@ -89,6 +96,7 @@
 	<string name="screen_share_files_content_text">טקסט</string>
 	<string name="screen_share_files_content_file">קובץ</string>
 	<string name="screen_share_files_content_files">קבצים</string>
+	<string name="screen_share_files_msg_filenames_must_be_unique">שם קובץ חייב להיות ייחודי. אנא שנה שמות קבצים בעלי שם זהה.</string>
 	<string name="screen_share_files_section_location">מיקום שמירה</string>
 	<string name="screen_share_files_save_button_text">שמור</string>
 	<string name="screen_share_files_msg_success">הצפנה הושלמה</string>
@@ -96,6 +104,8 @@
 	<string name="screen_choose_cloud_service_title">שירותי אחסון בענן</string>
 	<!-- ## screen: cloud connections -->
 	<string name="screen_cloud_connections_title">בחר מיקום</string>
+	<string name="screen_cloud_connections_no_connections">להוספת מיקומים, לחץ כאן</string>
+	<string name="screen_cloud_error_webdav_not_supported">נראה שהשרת אינו תומך ב WebDAV</string>
 	<!-- ## screen: webdav settings -->
 	<string name="screen_webdav_settings_url_port_label">כתובת URL</string>
 	<string name="screen_webdav_settings_username_label">שם משתמש</string>
@@ -138,7 +148,10 @@
 	<string name="screen_settings_activate_biometric_auth">הפעל אימות ביומטרי</string>
 	<string name="screen_settings_confirm_face_unlock">אפשר פתיחה באמצעות זיהוי פנים (במידה שזמין)</string>
 	<string name="screen_settings_section_search">חיפוש</string>
+	<string name="screen_settings_section_auto_lock">נעילה אוטומטית</string>
+	<string name="screen_settings_auto_lock_timeout">נעל לאחר</string>
 	<string name="screen_settings_section_auto_photo_upload_toggle">הפעל</string>
+	<string name="screen_settings_section_auto_photo_upload_only_wifi_toggle">העלה רק כאשר המכשיר מחובר ל WiFi</string>
 	<string name="screen_settings_website_label">לאתר Cryptomator</string>
 	<string name="screen_settings_twitter_label">עקבו אחרינו ב-Twitter</string>
 	<string name="screen_settings_facebook_label">תנו לנו לייק ב-Facebook</string>
@@ -181,6 +194,8 @@
 	<string name="dialog_replace_positive_button_single_file_exists">החלף</string>
 	<string name="dialog_replace_title_single_file_exists">להחליף את הקובץ?</string>
 	<string name="dialog_replace_title_multiple_files_exist">להחליף את הקבצים?</string>
+	<string name="dialog_unable_to_share_title">אין אפשרות לשתף את הקבצים</string>
+	<string name="dialog_unable_to_share_message">עדיין לא הגדרת כספת. צור כספת חדשה בעזרת אפליקציית Cryptomator.</string>
 	<string name="dialog_unable_to_share_positive_button">אישור</string>
 	<string name="dialog_unable_to_share_negative_button">צור כספת חדשה</string>
 	<string name="dialog_filetype_not_supported_title">הקובץ %1$s לא נתמך</string>
