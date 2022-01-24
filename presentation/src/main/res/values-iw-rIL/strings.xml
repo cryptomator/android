@@ -199,6 +199,7 @@
 	<string name="dialog_unable_to_share_positive_button">אישור</string>
 	<string name="dialog_unable_to_share_negative_button">צור כספת חדשה</string>
 	<string name="dialog_filetype_not_supported_title">הקובץ %1$s לא נתמך</string>
+	<string name="dialog_filetype_not_supported_message">לא נמצאה אפליקצייה שיכולה להציג את הקובץ. האם תרצה לשמור קובץ זה על המכשיר?</string>
 	<string name="dialog_rename_vault_title">שנה שם כספת</string>
 	<string name="dialog_rename_node_folder_title">שנה שם תיקיה</string>
 	<string name="dialog_rename_node_file_title">שינוי שם קובץ</string>
