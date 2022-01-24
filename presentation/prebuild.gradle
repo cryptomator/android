@@ -1,0 +1,36 @@
+import groovy.json.JsonOutput
+import groovy.json.JsonSlurper
+
+task generateAppConfigurationFile() {
+	def jsonSlurper = new JsonSlurper()
+
+	def apiKey = "" + getApiKey('ONEDRIVE_API_KEY')
+	def redirectUri = "" + getApiKey('ONEDRIVE_API_REDIRCT_URI')
+
+	def jsonString = """
+    {
+  		"client_id" : "${apiKey}",
+  		"authorization_user_agent" : "DEFAULT",
+  		"redirect_uri" : "${redirectUri}",
+  		"broker_redirect_uri_registered": true,
+  		"shared_device_mode_supported": true,
+  		"authorities" : [
+			{
+				"type": "AAD",
+				"audience": {
+					"type": "AzureADandPersonalMicrosoftAccount",
+					"tenant_id": "common"
+				}
+			}
+  		]
+	}"""
+
+	def config_file = new File('presentation/src/main/res/raw/auth_config_onedrive.json')
+	config_file.write(JsonOutput.prettyPrint(JsonOutput.toJson(jsonSlurper.parseText(jsonString))))
+}
+
+static def getApiKey(key) {
+	return System.getenv().getOrDefault(key, "")
+}
+
+build.dependsOn generateAppConfigurationFile

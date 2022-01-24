@@ -7,6 +7,7 @@ import org.cryptomator.domain.exception.FatalBackendException
 import org.cryptomator.presentation.R
 import org.cryptomator.presentation.model.CloudModel
 import org.cryptomator.presentation.model.LocalStorageModel
+import org.cryptomator.presentation.model.OnedriveCloudModel
 import org.cryptomator.presentation.model.PCloudModel
 import org.cryptomator.presentation.model.S3CloudModel
 import org.cryptomator.presentation.model.WebDavCloudModel
@@ -55,6 +56,9 @@ internal constructor(context: Context) : RecyclerViewBaseAdapter<CloudModel, Clo
 			itemView.setOnClickListener { callback.onCloudConnectionClicked(cloudModel) }
 
 			when (cloudModel) {
+				is OnedriveCloudModel -> {
+					bindOnedriveCloudModel(cloudModel)
+				}
 				is WebDavCloudModel -> {
 					bindWebDavCloudModel(cloudModel)
 				}
@@ -68,6 +72,12 @@ internal constructor(context: Context) : RecyclerViewBaseAdapter<CloudModel, Clo
 					bindLocalStorageCloudModel(cloudModel)
 				}
 			}
+		}
+
+
+		private fun bindOnedriveCloudModel(cloudModel: OnedriveCloudModel) {
+			itemView.cloudText.text = cloudModel.username()
+			itemView.cloudSubText.visibility = View.GONE
 		}
 
 		private fun bindWebDavCloudModel(cloudModel: WebDavCloudModel) {

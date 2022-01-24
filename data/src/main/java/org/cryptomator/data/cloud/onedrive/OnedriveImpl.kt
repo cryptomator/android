@@ -2,26 +2,25 @@ package org.cryptomator.data.cloud.onedrive
 
 import android.content.Context
 import android.net.Uri
-import com.microsoft.graph.concurrency.ChunkedUploadProvider
 import com.microsoft.graph.http.GraphServiceException
-import com.microsoft.graph.models.extensions.DriveItem
-import com.microsoft.graph.models.extensions.DriveItemUploadableProperties
-import com.microsoft.graph.models.extensions.Folder
-import com.microsoft.graph.models.extensions.IGraphServiceClient
-import com.microsoft.graph.models.extensions.ItemReference
+import com.microsoft.graph.models.DriveItem
+import com.microsoft.graph.models.DriveItemCreateUploadSessionParameterSet
+import com.microsoft.graph.models.DriveItemUploadableProperties
+import com.microsoft.graph.models.Folder
+import com.microsoft.graph.models.ItemReference
 import com.microsoft.graph.options.Option
 import com.microsoft.graph.options.QueryOption
-import com.microsoft.graph.requests.extensions.IDriveRequestBuilder
+import com.microsoft.graph.requests.DriveRequestBuilder
+import com.microsoft.graph.requests.GraphServiceClient
+import com.microsoft.graph.tasks.LargeFileUploadTask
 import com.tomclaw.cache.DiskLruCache
 import org.cryptomator.data.cloud.onedrive.OnedriveCloudNodeFactory.folder
 import org.cryptomator.data.cloud.onedrive.OnedriveCloudNodeFactory.from
 import org.cryptomator.data.cloud.onedrive.OnedriveCloudNodeFactory.getDriveId
 import org.cryptomator.data.cloud.onedrive.OnedriveCloudNodeFactory.getId
 import org.cryptomator.data.cloud.onedrive.OnedriveCloudNodeFactory.isFolder
-import org.cryptomator.data.cloud.onedrive.graph.ClientException
-import org.cryptomator.data.cloud.onedrive.graph.ICallback
-import org.cryptomator.data.cloud.onedrive.graph.IProgressCallback
 import org.cryptomator.data.util.CopyStream
+import org.cryptomator.data.util.TransferredBytesAwareInputStream
 import org.cryptomator.data.util.TransferredBytesAwareOutputStream
 import org.cryptomator.domain.OnedriveCloud
 import org.cryptomator.domain.exception.BackendException
@@ -45,22 +44,20 @@ import java.util.ArrayList
 import java.util.Date
 import java.util.concurrent.CompletableFuture
 import java.util.concurrent.ExecutionException
+import okhttp3.Request
 import timber.log.Timber
 
-internal class OnedriveImpl(cloud: OnedriveCloud, context: Context, nodeInfoCache: OnedriveIdCache) {
+internal class OnedriveImpl(cloud: OnedriveCloud, context: Context, graphServiceClient: GraphServiceClient<Request>, nodeInfoCache: OnedriveIdCache) {
 
 	private val cloud: OnedriveCloud
 	private val context: Context
+	private val graphServiceClient: GraphServiceClient<Request>
 	private val nodeInfoCache: OnedriveIdCache
 	private val sharedPreferencesHandler: SharedPreferencesHandler
 	private var diskLruCache: DiskLruCache? = null
 
-	private fun client(): IGraphServiceClient {
-		return OnedriveClientFactory.getInstance(context, cloud.accessToken())
-	}
-
-	private fun drive(driveId: String?): IDriveRequestBuilder {
-		return if (driveId == null) client().me().drive() else client().drives(driveId)
+	private fun drive(driveId: String?): DriveRequestBuilder {
+		return if (driveId == null) graphServiceClient.me().drive() else graphServiceClient.drives(driveId)
 	}
 
 	fun root(): OnedriveFolder {
@@ -90,11 +87,7 @@ internal class OnedriveImpl(cloud: OnedriveCloud, context: Context, nodeInfoCach
 
 	private fun childByName(parentId: String, parentDriveId: String, name: String): DriveItem? {
 		return try {
-			drive(parentDriveId) //
-				.items(parentId) //
-				.itemWithPath(Uri.encode(name)) //
-				.buildRequest() //
-				.get()
+			drive(parentDriveId).items(parentId).itemWithPath(Uri.encode(name)).buildRequest().get()
 		} catch (e: GraphServiceException) {
 			if (isNotFoundError(e)) {
 				null
@@ -138,18 +131,14 @@ internal class OnedriveImpl(cloud: OnedriveCloud, context: Context, nodeInfoCach
 	fun list(folder: OnedriveFolder): List<OnedriveNode> {
 		val result: MutableList<OnedriveNode> = ArrayList()
 		val nodeInfo = requireNodeInfo(folder)
-		var page = drive(nodeInfo.driveId) //
-			.items(nodeInfo.id) //
-			.children() //
-			.buildRequest() //
-			.get()
+		var page = drive(nodeInfo.driveId).items(nodeInfo.id).children().buildRequest().get()
 		do {
 			removeChildNodeInfo(folder)
-			page.currentPage?.forEach {
+			page?.currentPage?.forEach {
 				result.add(cacheNodeInfo(from(folder, it), it))
 			}
-			page = if (page.nextPage != null) {
-				page.nextPage.buildRequest().get()
+			page = if (page?.nextPage != null) {
+				page.nextPage?.buildRequest()?.get()
 			} else {
 				null
 			}
@@ -170,10 +159,7 @@ internal class OnedriveImpl(cloud: OnedriveCloud, context: Context, nodeInfoCach
 			folderToCreate.name = folder.name
 			folderToCreate.folder = Folder()
 			val parentNodeInfo = requireNodeInfo(parentFolder)
-			val createdFolder = drive(parentNodeInfo.driveId) //
-				.items(parentNodeInfo.id).children() //
-				.buildRequest() //
-				.post(folderToCreate)
+			val createdFolder = drive(parentNodeInfo.driveId).items(parentNodeInfo.id).children().buildRequest().post(folderToCreate)
 			return cacheNodeInfo(folder(parentFolder, createdFolder), createdFolder)
 		} ?: throw ParentFolderIsNullException(folder.name)
 	}
@@ -192,12 +178,10 @@ internal class OnedriveImpl(cloud: OnedriveCloud, context: Context, nodeInfoCach
 			targetParentReference.driveId = targetNodeInfo?.driveId
 			targetItem.parentReference = targetParentReference
 			val sourceNodeInfo = requireNodeInfo(source)
-			val movedItem = drive(sourceNodeInfo.driveId) //
-				.items(sourceNodeInfo.id) //
-				.buildRequest() //
-				.patch(targetItem)
-			removeNodeInfo(source)
-			return cacheNodeInfo(from(targetsParent, movedItem), movedItem)
+			drive(sourceNodeInfo.driveId).items(sourceNodeInfo.id).buildRequest().patch(targetItem)?.let {
+				removeNodeInfo(source)
+				return cacheNodeInfo(from(targetsParent, it), it)
+			} ?: throw FatalBackendException("Failed to move file, response is null")
 		} ?: throw ParentFolderIsNullException(target.name)
 	}
 
@@ -214,7 +198,7 @@ internal class OnedriveImpl(cloud: OnedriveCloud, context: Context, nodeInfoCach
 		val conflictBehaviorOption: Option = QueryOption("@name.conflictBehavior", uploadMode)
 		val result = CompletableFuture<DriveItem>()
 		if (size <= CHUNKED_UPLOAD_MAX_SIZE) {
-			uploadFile(file, data, progressAware, result, conflictBehaviorOption)
+			uploadFile(file, data, progressAware, result, conflictBehaviorOption, size)
 		} else {
 			try {
 				chunkedUploadFile(file, data, progressAware, result, conflictBehaviorOption, size)
@@ -233,88 +217,67 @@ internal class OnedriveImpl(cloud: OnedriveCloud, context: Context, nodeInfoCach
 	}
 
 	@Throws(NoSuchCloudFileException::class)
-	private fun uploadFile( //
-		file: OnedriveFile,  //
-		data: DataSource,  //
-		progressAware: ProgressAware<UploadState>,  //
-		result: CompletableFuture<DriveItem>,  //
-		conflictBehaviorOption: Option
-	) {
-		val parentNodeInfo = requireNodeInfo(file.parent)
-		try {
-			data.open(context)?.use { inputStream ->
-				drive(parentNodeInfo.driveId) //
-					.items(parentNodeInfo.id) //
-					.itemWithPath(file.name) //
-					.content() //
-					.buildRequest(listOf(conflictBehaviorOption)) //
-					.put(CopyStream.toByteArray(inputStream), object : IProgressCallback<DriveItem> {
-						override fun progress(current: Long, max: Long) {
-							progressAware //
-								.onProgress(
-									Progress.progress(UploadState.upload(file)) //
-										.between(0) //
-										.and(max) //
-										.withValue(current)
-								)
+	private fun uploadFile(file: OnedriveFile, data: DataSource, progressAware: ProgressAware<UploadState>, result: CompletableFuture<DriveItem>, conflictBehaviorOption: Option, size: Long) {
+		data.open(context)?.use { inputStream ->
+			object : TransferredBytesAwareInputStream(inputStream) {
+				override fun bytesTransferred(transferred: Long) {
+					progressAware.onProgress(Progress.progress(UploadState.upload(file)).between(0).and(size).withValue(transferred))
+				}
+			}.use {
+				val parentNodeInfo = requireNodeInfo(file.parent)
+				try {
+					drive(parentNodeInfo.driveId) //
+						.items(parentNodeInfo.id) //
+						.itemWithPath(file.name) //
+						.content() //
+						.buildRequest(listOf(conflictBehaviorOption)) //
+						.putAsync(CopyStream.toByteArray(it)) //
+						.whenComplete { driveItem, error ->
+							run {
+								if (error == null) {
+									progressAware.onProgress(Progress.completed(UploadState.upload(file)))
+									result.complete(driveItem)
+									cacheNodeInfo(file, driveItem)
+								} else {
+									result.completeExceptionally(error)
+								}
+							}
 						}
-
-						override fun success(item: DriveItem) {
-							progressAware.onProgress(Progress.completed(UploadState.upload(file)))
-							result.complete(item)
-							cacheNodeInfo(file, item)
-						}
-
-						override fun failure(ex: com.microsoft.graph.core.ClientException) {
-							result.completeExceptionally(ex)
-						}
-					})
-			} ?: throw FatalBackendException("InputStream shouldn't be null")
-		} catch (e: IOException) {
-			throw FatalBackendException(e)
-		}
+				} catch (e: IOException) {
+					throw FatalBackendException(e)
+				}
+			}
+		} ?: throw FatalBackendException("InputStream shouldn't bee null")
 	}
 
 	@Throws(IOException::class, NoSuchCloudFileException::class)
-	private fun chunkedUploadFile( //
-		file: OnedriveFile,  //
-		data: DataSource,  //
-		progressAware: ProgressAware<UploadState>,  //
-		result: CompletableFuture<DriveItem>,  //
-		conflictBehaviorOption: Option,  //
-		size: Long
-	) {
+	private fun chunkedUploadFile(file: OnedriveFile, data: DataSource, progressAware: ProgressAware<UploadState>, result: CompletableFuture<DriveItem>, conflictBehaviorOption: Option, size: Long) {
 		val parentNodeInfo = requireNodeInfo(file.parent)
-		val uploadSession = drive(parentNodeInfo.driveId) //
+		drive(parentNodeInfo.driveId) //
 			.items(parentNodeInfo.id) //
 			.itemWithPath(file.name) //
-			.createUploadSession(DriveItemUploadableProperties()) //
+			.createUploadSession(DriveItemCreateUploadSessionParameterSet.newBuilder().withItem(DriveItemUploadableProperties()).build()) //
 			.buildRequest() //
-			.post()
-		data.open(context).use { inputStream ->
-			ChunkedUploadProvider(uploadSession, client(), inputStream, size, DriveItem::class.java) //
-				.upload(listOf(conflictBehaviorOption), object : IProgressCallback<DriveItem> {
-					override fun progress(current: Long, max: Long) {
-						progressAware.onProgress(
-							Progress //
-								.progress(UploadState.upload(file)) //
-								.between(0) //
-								.and(max) //
-								.withValue(current)
-						)
-					}
-
-					override fun success(item: DriveItem) {
-						progressAware.onProgress(Progress.completed(UploadState.upload(file)))
-						result.complete(item)
-						cacheNodeInfo(file, item)
-					}
-
-					override fun failure(ex: com.microsoft.graph.core.ClientException) {
-						result.completeExceptionally(ex)
-					}
-				}, CHUNKED_UPLOAD_CHUNK_SIZE, CHUNKED_UPLOAD_MAX_ATTEMPTS)
-		}
+			.post()?.let { uploadSession ->
+				data.open(context)?.use { inputStream ->
+					LargeFileUploadTask(uploadSession, graphServiceClient, inputStream, size, DriveItem::class.java) //
+						.uploadAsync(CHUNKED_UPLOAD_CHUNK_SIZE, listOf(conflictBehaviorOption)) { current, max ->
+							progressAware.onProgress(
+								Progress.progress(UploadState.upload(file)).between(0).and(max).withValue(current)
+							)
+						}.whenComplete { driveItemResult, error ->
+							run {
+								if (error == null && driveItemResult.responseBody != null) {
+									progressAware.onProgress(Progress.completed(UploadState.upload(file)))
+									result.complete(driveItemResult.responseBody)
+									cacheNodeInfo(file, driveItemResult.responseBody!!)
+								} else {
+									result.completeExceptionally(error)
+								}
+							}
+						}
+				} ?: throw FatalBackendException("InputStream shouldn't bee null")
+			} ?: throw FatalBackendException("Failed to create upload session, response is null")
 	}
 
 	@Throws(BackendException::class, IOException::class)
@@ -340,27 +303,12 @@ internal class OnedriveImpl(cloud: OnedriveCloud, context: Context, nodeInfoCach
 	}
 
 	@Throws(IOException::class)
-	private fun writeToData(
-		file: OnedriveFile,  //
-		nodeInfo: OnedriveIdCache.NodeInfo,  //
-		data: OutputStream,  //
-		encryptedTmpFile: File?,  //
-		cacheKey: String?,  //
-		progressAware: ProgressAware<DownloadState>
-	) {
-		val request = drive(nodeInfo.driveId) //
-			.items(nodeInfo.id) //
-			.content() //
-			.buildRequest()
-		request.get().use { inputStream ->
+	private fun writeToData(file: OnedriveFile, nodeInfo: OnedriveIdCache.NodeInfo, data: OutputStream, encryptedTmpFile: File?, cacheKey: String?, progressAware: ProgressAware<DownloadState>) {
+		val request = drive(nodeInfo.driveId).items(nodeInfo.id).content().buildRequest()
+		request.get()?.use { inputStream ->
 			object : TransferredBytesAwareOutputStream(data) {
 				override fun bytesTransferred(transferred: Long) {
-					progressAware.onProgress( //
-						Progress.progress(DownloadState.download(file)) //
-							.between(0) //
-							.and(file.size ?: Long.MAX_VALUE) //
-							.withValue(transferred)
-					)
+					progressAware.onProgress(Progress.progress(DownloadState.download(file)).between(0).and(file.size ?: Long.MAX_VALUE).withValue(transferred))
 				}
 			}.use { out -> CopyStream.copyStreamToStream(inputStream, out) }
 		}
@@ -391,10 +339,7 @@ internal class OnedriveImpl(cloud: OnedriveCloud, context: Context, nodeInfoCach
 	@Throws(NoSuchCloudFileException::class)
 	fun delete(node: OnedriveNode) {
 		val nodeInfo = requireNodeInfo(node)
-		drive(nodeInfo.driveId) //
-			.items(nodeInfo.id) //
-			.buildRequest() //
-			.delete()
+		drive(nodeInfo.driveId).items(nodeInfo.id).buildRequest().delete()
 		removeNodeInfo(node)
 	}
 
@@ -440,8 +385,9 @@ internal class OnedriveImpl(cloud: OnedriveCloud, context: Context, nodeInfoCach
 	}
 
 	private fun loadRootNodeInfo(): OnedriveIdCache.NodeInfo {
-		val item = drive(null).root().buildRequest().get()
-		return OnedriveIdCache.NodeInfo(getId(item), getDriveId(item), true, item.cTag)
+		return drive(null).root().buildRequest().get()?.let { rootItem ->
+			OnedriveIdCache.NodeInfo(getId(rootItem), getDriveId(rootItem), true, rootItem.cTag)
+		} ?: throw FatalBackendException("Failed to load root item, item is null")
 	}
 
 	private fun loadNonRootNodeInfo(node: OnedriveNode): OnedriveIdCache.NodeInfo? {
@@ -459,37 +405,20 @@ internal class OnedriveImpl(cloud: OnedriveCloud, context: Context, nodeInfoCach
 		} ?: throw ParentFolderIsNullException(node.name)
 	}
 
-	fun currentAccount(): String {
-		return client().me().drive().buildRequest().get().owner.user.displayName
+	fun currentAccount(username: String): String {
+		// used to check authentication
+		graphServiceClient.me().drive().buildRequest().get()?.owner?.user
+		return username
 	}
 
 	fun logout() {
-		val result = CompletableFuture<Void?>()
-		OnedriveClientFactory.getAuthAdapter(context, cloud.accessToken()).logout(object : ICallback<Void?> {
-			override fun success(aVoid: Void?) {
-				result.complete(null)
-			}
-
-			override fun failure(e: ClientException) {
-				result.completeExceptionally(e)
-			}
-		})
-		try {
-			result.get()
-		} catch (e: InterruptedException) {
-			throw FatalBackendException(e)
-		} catch (e: ExecutionException) {
-			throw FatalBackendException(e)
-		}
-
-		OnedriveClientFactory.logout()
+		// FIXME what about logout?
 	}
 
 	companion object {
 
 		private const val CHUNKED_UPLOAD_MAX_SIZE = 4L shl 20
 		private const val CHUNKED_UPLOAD_CHUNK_SIZE = 327680 * 32
-		private const val CHUNKED_UPLOAD_MAX_ATTEMPTS = 5
 		private const val REPLACE_MODE = "replace"
 		private const val NON_REPLACING_MODE = "rename"
 	}
@@ -500,6 +429,7 @@ internal class OnedriveImpl(cloud: OnedriveCloud, context: Context, nodeInfoCach
 		}
 		this.cloud = cloud
 		this.context = context
+		this.graphServiceClient = graphServiceClient
 		this.nodeInfoCache = nodeInfoCache
 		sharedPreferencesHandler = SharedPreferencesHandler(context)
 	}

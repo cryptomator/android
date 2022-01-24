@@ -55,7 +55,11 @@ public class OnedriveCloud implements Cloud {
 
 	@Override
 	public boolean configurationMatches(Cloud cloud) {
-		return true;
+		return cloud instanceof OnedriveCloud && configurationMatches((OnedriveCloud) cloud);
+	}
+
+	private boolean configurationMatches(OnedriveCloud cloud) {
+		return username.equals(cloud.username);
 	}
 
 	@NotNull

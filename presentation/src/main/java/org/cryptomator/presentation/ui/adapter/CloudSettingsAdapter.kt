@@ -42,6 +42,7 @@ constructor(private val context: Context) : RecyclerViewBaseAdapter<CloudModel, 
 			itemView.cloudImage.setImageResource(cloudModel.cloudType().cloudImageResource)
 
 			when (cloudModel.cloudType()) {
+				CloudTypeModel.ONEDRIVE -> itemView.cloudName.text = context.getString(R.string.screen_cloud_settings_onedrive_connections)
 				CloudTypeModel.PCLOUD -> itemView.cloudName.text = context.getString(R.string.screen_cloud_settings_pcloud_connections)
 				CloudTypeModel.S3 -> itemView.cloudName.text = context.getString(R.string.screen_cloud_settings_s3_connections)
 				CloudTypeModel.WEBDAV -> itemView.cloudName.text = context.getString(R.string.screen_cloud_settings_webdav_connections)

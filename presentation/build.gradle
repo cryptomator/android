@@ -3,6 +3,7 @@ apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-kapt'
 apply plugin: 'kotlin-android-extensions'
 apply plugin: 'de.mannodermaus.android-junit5'
+apply from: 'prebuild.gradle'
 
 android {
 	signingConfigs {
@@ -51,8 +52,9 @@ android {
 			shrinkResources false
 
 			buildConfigField "String", "DROPBOX_API_KEY", "\"" + getApiKey('DROPBOX_API_KEY') + "\""
-			manifestPlaceholders = [DROPBOX_API_KEY: getApiKey('DROPBOX_API_KEY')]
 			buildConfigField "String", "PCLOUD_CLIENT_ID", "\"" + getApiKey('PCLOUD_CLIENT_ID') + "\""
+
+			manifestPlaceholders = [DROPBOX_API_KEY: getApiKey('DROPBOX_API_KEY'), ONEDRIVE_API_KEY_DECODED: getOnedriveApiKey()]
 
 			resValue "string", "app_id", androidApplicationId
 		}
@@ -66,8 +68,9 @@ android {
 			testCoverageEnabled false
 
 			buildConfigField "String", "DROPBOX_API_KEY", "\"" + getApiKey('DROPBOX_API_KEY_DEBUG') + "\""
-			manifestPlaceholders = [DROPBOX_API_KEY: getApiKey('DROPBOX_API_KEY_DEBUG')]
 			buildConfigField "String", "PCLOUD_CLIENT_ID", "\"" + getApiKey('PCLOUD_CLIENT_ID_DEBUG') + "\""
+
+			manifestPlaceholders = [DROPBOX_API_KEY: getApiKey('DROPBOX_API_KEY_DEBUG'), ONEDRIVE_API_KEY_DECODED: getOnedriveApiKey()]
 
 			applicationIdSuffix ".debug"
 			versionNameSuffix '-DEBUG'
@@ -108,6 +111,7 @@ android {
 
 	packagingOptions {
 		exclude 'META-INF/jersey-module-version'
+		exclude 'META-INF/NOTICE.md'
 		exclude 'META-INF/DEPENDENCIES'
 	}
 }
@@ -145,6 +149,7 @@ dependencies {
 	// cloud
 	implementation dependencies.dropbox
 	implementation dependencies.msgraph
+	implementation dependencies.msgraphAuth
 
 	playstoreImplementation(dependencies.googleApiServicesDrive) {
 		exclude module: 'guava-jdk5'
@@ -246,6 +251,13 @@ androidExtensions {
 
 static def getApiKey(key) {
 	return System.getenv().getOrDefault(key, "")
+}
+
+static def getOnedriveApiKey() {
+	String onedrivePath = "" + getApiKey('ONEDRIVE_API_REDIRCT_URI')
+	String idStr = onedrivePath.substring(onedrivePath.lastIndexOf('/') + 1)
+	URI uri = new URI(idStr)
+	return uri.path
 }
 
 tasks.withType(Test) {

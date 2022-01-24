@@ -20,7 +20,7 @@ class PCloudCredentialsUpdatedDialog : BaseDialog<PCloudCredentialsUpdatedDialog
 		fun onNotifyForPCloudCredentialsUpdateFinished()
 	}
 
-	val someActivityResultLauncher = registerForActivityResult(StartActivityForResult()) {
+	private val someActivityResultLauncher = registerForActivityResult(StartActivityForResult()) {
 		dismiss()
 		callback?.onNotifyForPCloudCredentialsUpdateFinished()
 	}

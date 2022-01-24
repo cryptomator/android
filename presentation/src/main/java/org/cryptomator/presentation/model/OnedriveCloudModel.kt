@@ -14,6 +14,10 @@ class OnedriveCloudModel(cloud: Cloud) : CloudModel(cloud) {
 		return cloud().username()
 	}
 
+	fun id(): Long? {
+		return cloud().id()
+	}
+
 	private fun cloud(): OnedriveCloud {
 		return toCloud() as OnedriveCloud
 	}

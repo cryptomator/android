@@ -4,8 +4,16 @@ import android.content.ActivityNotFoundException
 import android.content.Intent
 import android.net.Uri
 import android.widget.Toast
+import com.microsoft.identity.client.AuthenticationCallback
+import com.microsoft.identity.client.IAccount
+import com.microsoft.identity.client.IAuthenticationResult
+import com.microsoft.identity.client.IMultipleAccountPublicClientApplication
+import com.microsoft.identity.client.IPublicClientApplication
+import com.microsoft.identity.client.PublicClientApplication
+import com.microsoft.identity.client.exception.MsalException
 import org.cryptomator.domain.Cloud
 import org.cryptomator.domain.LocalStorageCloud
+import org.cryptomator.domain.OnedriveCloud
 import org.cryptomator.domain.PCloud
 import org.cryptomator.domain.Vault
 import org.cryptomator.domain.di.PerView
@@ -124,38 +132,90 @@ class CloudConnectionListPresenter @Inject constructor( //
 
 	fun onAddConnectionClicked() {
 		when (selectedCloudType.get()) {
-			CloudTypeModel.WEBDAV -> requestActivityResult(
-				ActivityResultCallbacks.addChangeMultiCloud(),  //
-				Intents.webDavAddOrChangeIntent()
-			)
-			CloudTypeModel.PCLOUD -> {
-				requestActivityResult(
-					ActivityResultCallbacks.pCloudAuthenticationFinished(),  //
-					Intents.authenticatePCloudIntent()
-				)
-			}
-			CloudTypeModel.S3 -> requestActivityResult(
-				ActivityResultCallbacks.addChangeMultiCloud(),  //
-				Intents.s3AddOrChangeIntent()
-			)
+			CloudTypeModel.ONEDRIVE -> addOnedriveCloud()
+			CloudTypeModel.WEBDAV -> requestActivityResult(ActivityResultCallbacks.addChangeMultiCloud(), Intents.webDavAddOrChangeIntent())
+			CloudTypeModel.PCLOUD -> requestActivityResult(ActivityResultCallbacks.pCloudAuthenticationFinished(), Intents.authenticatePCloudIntent())
+			CloudTypeModel.S3 -> requestActivityResult(ActivityResultCallbacks.addChangeMultiCloud(), Intents.s3AddOrChangeIntent())
 			CloudTypeModel.LOCAL -> openDocumentTree()
 		}
 	}
 
+	private fun addOnedriveCloud() {
+		PublicClientApplication.createMultipleAccountPublicClientApplication(
+			context(),
+			R.raw.auth_config_onedrive,
+			object : IPublicClientApplication.IMultipleAccountApplicationCreatedListener {
+				override fun onCreated(application: IMultipleAccountPublicClientApplication) {
+					application.getAccounts(object : IPublicClientApplication.LoadAccountsCallback {
+						override fun onTaskCompleted(accounts: List<IAccount>) {
+							application.acquireToken(activity(), AuthenticateCloudPresenter.onedriveScopes(), getAuthInteractiveCallback())
+						}
+
+						override fun onError(e: MsalException) {
+							Timber.tag("AuthenticateCloudPresenter").e(e, "Error to get accounts")
+							showError(e);
+						}
+					})
+				}
+
+				override fun onError(e: MsalException) {
+					Timber.tag("AuthenticateCloudPresenter").i(e, "Error in configuration")
+					showError(e);
+				}
+			})
+	}
+
+	private fun getAuthInteractiveCallback(): AuthenticationCallback {
+		return object : AuthenticationCallback {
+
+			override fun onSuccess(authenticationResult: IAuthenticationResult) {
+				Timber.tag("AuthenticateCloudPresenter").i("Successfully authenticated")
+				val accessToken = CredentialCryptor.getInstance(context()).encrypt(authenticationResult.accessToken)
+				val onedriveSkeleton = OnedriveCloud.aOnedriveCloud().withAccessToken(accessToken).withUsername(authenticationResult.account.username).build()
+				saveOnedriveCloud(onedriveSkeleton)
+			}
+
+			override fun onError(e: MsalException) {
+				Timber.tag("AuthenticateCloudPresenter").e(e, "Successfully authenticated")
+				showError(e);
+			}
+
+			override fun onCancel() {
+				Timber.tag("AuthenticateCloudPresenter").i("User cancelled login")
+			}
+		}
+	}
+
+	private fun saveOnedriveCloud(onedriveSkeleton: OnedriveCloud) {
+		getUsernameUseCase //
+			.withCloud(onedriveSkeleton) //
+			.run(object : DefaultResultHandler<String>() {
+				override fun onSuccess(username: String) {
+					prepareForSavingOnedriveCloud(OnedriveCloud.aCopyOf(onedriveSkeleton).withUsername(username).build())
+				}
+			})
+	}
+
+	fun prepareForSavingOnedriveCloud(cloud: OnedriveCloud) {
+		getCloudsUseCase //
+			.withCloudType(CloudTypeModel.valueOf(selectedCloudType.get())) //
+			.run(object : DefaultResultHandler<List<Cloud>>() {
+				override fun onSuccess(clouds: List<Cloud>) {
+					clouds.firstOrNull {
+						(it as OnedriveCloud).username() == cloud.username()
+					}?.let {
+						saveCloud(OnedriveCloud.aCopyOf(it as OnedriveCloud).withAccessToken(cloud.accessToken()).build())
+						Timber.tag("CloudConnListPresenter").i("OneDrive access token updated")
+					} ?: saveCloud(cloud)
+				}
+			})
+	}
+
 	private fun openDocumentTree() {
 		try {
-			requestActivityResult( //
-				ActivityResultCallbacks.pickedLocalStorageLocation(),  //
-				Intent(Intent.ACTION_OPEN_DOCUMENT_TREE)
-			)
+			requestActivityResult(ActivityResultCallbacks.pickedLocalStorageLocation(), Intent(Intent.ACTION_OPEN_DOCUMENT_TREE))
 		} catch (exception: ActivityNotFoundException) {
-			Toast //
-				.makeText( //
-					activity().applicationContext,  //
-					context().getText(R.string.screen_cloud_local_error_no_content_provider),  //
-					Toast.LENGTH_SHORT
-				) //
-				.show()
+			Toast.makeText(activity().applicationContext, context().getText(R.string.screen_cloud_local_error_no_content_provider), Toast.LENGTH_SHORT).show()
 			Timber.tag("CloudConnListPresenter").e(exception, "No ContentProvider on system")
 		}
 	}
@@ -198,14 +258,8 @@ class CloudConnectionListPresenter @Inject constructor( //
 
 		if (!code.isNullOrEmpty() && !hostname.isNullOrEmpty()) {
 			Timber.tag("CloudConnectionListPresenter").i("PCloud OAuth code successfully retrieved")
-
-			val accessToken = CredentialCryptor //
-				.getInstance(this.context()) //
-				.encrypt(code)
-			val pCloudSkeleton = PCloud.aPCloud() //
-				.withAccessToken(accessToken)
-				.withUrl(hostname)
-				.build();
+			val accessToken = CredentialCryptor.getInstance(this.context()).encrypt(code)
+			val pCloudSkeleton = PCloud.aPCloud().withAccessToken(accessToken).withUrl(hostname).build();
 			getUsernameUseCase //
 				.withCloud(pCloudSkeleton) //
 				.run(object : DefaultResultHandler<String>() {
@@ -226,19 +280,14 @@ class CloudConnectionListPresenter @Inject constructor( //
 					clouds.firstOrNull {
 						(it as PCloud).username() == cloud.username()
 					}?.let {
-						saveCloud(
-							PCloud.aCopyOf(it as PCloud) //
-								.withUrl(cloud.url())
-								.withAccessToken(cloud.accessToken())
-								.build()
-						)
+						saveCloud(PCloud.aCopyOf(it as PCloud).withUrl(cloud.url()).withAccessToken(cloud.accessToken()).build())
 						view?.showDialog(PCloudCredentialsUpdatedDialog.newInstance(it.username()))
 					} ?: saveCloud(cloud)
 				}
 			})
 	}
 
-	fun saveCloud(cloud: PCloud) {
+	fun saveCloud(cloud: Cloud) {
 		addOrChangeCloudConnectionUseCase //
 			.withCloud(cloud) //
 			.run(object : DefaultResultHandler<Void?>() {
@@ -252,15 +301,13 @@ class CloudConnectionListPresenter @Inject constructor( //
 	fun pickedLocalStorageLocation(result: ActivityResult) {
 		val rootTreeUriOfLocalStorage = result.intent().data
 		persistUriPermission(rootTreeUriOfLocalStorage)
-		addOrChangeCloudConnectionUseCase.withCloud(
-			LocalStorageCloud.aLocalStorage() //
-				.withRootUri(rootTreeUriOfLocalStorage.toString()) //
-				.build()
-		).run(object : DefaultResultHandler<Void?>() {
-			override fun onSuccess(void: Void?) {
-				loadCloudList()
-			}
-		})
+		addOrChangeCloudConnectionUseCase
+			.withCloud(LocalStorageCloud.aLocalStorage().withRootUri(rootTreeUriOfLocalStorage.toString()).build())
+			.run(object : DefaultResultHandler<Void?>() {
+				override fun onSuccess(void: Void?) {
+					loadCloudList()
+				}
+			})
 	}
 
 	private fun persistUriPermission(rootTreeUriOfLocalStorage: Uri?) {
