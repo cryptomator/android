@@ -12,14 +12,18 @@ internal class Upgrade10To11 @Inject constructor() : DatabaseUpgrade(10, 11) {
 	override fun internalApplyTo(db: Database, origin: Int) {
 		db.beginTransaction()
 		try {
-			Sql.deleteFrom("CLOUD_ENTITY")
-				.where("_id", Sql.eq(onedriveCloudId))
-				.where("TYPE", Sql.eq("ONEDRIVE"))
-				.executeOn(db)
-
+			deleteOnedriveCloudIfNotSetUp(db)
 			db.setTransactionSuccessful()
 		} finally {
 			db.endTransaction()
 		}
+	}
+
+	private fun deleteOnedriveCloudIfNotSetUp(db: Database) {
+		Sql.deleteFrom("CLOUD_ENTITY")
+			.where("_id", Sql.eq(onedriveCloudId))
+			.where("TYPE", Sql.eq("ONEDRIVE"))
+			.where("ACCESS_TOKEN", Sql.isNull())
+			.executeOn(db)
 	}
 }
