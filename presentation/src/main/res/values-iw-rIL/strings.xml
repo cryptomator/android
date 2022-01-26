@@ -5,6 +5,7 @@
 	<!-- # error messages -->
 	<string name="error_generic">ארעה שגיאה</string>
 	<string name="error_authentication_failed">האימות נכשל</string>
+	<string name="error_authentication_failed_re_authenticate">האימות נכשל, אנא התחבר באמצעות %1$s</string>
 	<string name="error_no_network_connection">אין חיבור לרשת</string>
 	<string name="error_invalid_passphrase">סיסמה שגויה</string>
 	<string name="error_file_or_folder_exists">כבר קיימים תיקייה או קובץ בשם זה.</string>
@@ -20,6 +21,10 @@
 	<string name="error_name_contains_invalid_characters">הקלט לא יכול להכיל תווים מיוחדים.</string>
 	<string name="error_names_contains_invalid_characters">שם קובץ לא יכול להכיל תווים מיוחדים.</string>
 	<string name="error_vault_name_contains_invalid_characters">שם הכספת לא יכול להכיל תווים מיוחדים.</string>
+	<string name="error_general_update">עדכון גרסה נכשל. התרחשה שגיאה כללית.</string>
+	<string name="error_hash_mismatch_update">עדכון גרסה נכשל. אין תאימות בין הקובץ שהועלה לערך ה hash שחושב</string>
+	<string name="error_update_no_internet">עדכון גרסה נכשל. אין חיבור לאינטרנט.</string>
+	<string name="error_failed_to_decrypt_webdav_password">פענוח סיסמת WebDAV נכשל, וודא בהגדרות האפליקצייה שהסיסמה שהוכנסה נכונה</string>
 	<string name="error_play_services_not_available">שירותי Google Play אינם מותקנים</string>
 	<string name="error_biometric_auth_aborted">אימות ביומטרי הופסק</string>
 	<string name="error_vault_version_mismatch">הגרסה ב %1$s שונה מזו שב %2$s</string>
