@@ -6,9 +6,12 @@ import android.content.Intent
 import android.net.Uri
 import android.provider.DocumentsContract
 import android.widget.Toast
+import org.cryptomator.data.cloud.crypto.CryptoCloud
+import org.cryptomator.data.cloud.crypto.CryptoFolder
 import org.cryptomator.domain.CloudFile
 import org.cryptomator.domain.CloudFolder
 import org.cryptomator.domain.CloudNode
+import org.cryptomator.domain.Vault
 import org.cryptomator.domain.di.PerView
 import org.cryptomator.domain.exception.CloudNodeAlreadyExistsException
 import org.cryptomator.domain.exception.EmptyDirFileException
@@ -49,6 +52,7 @@ import org.cryptomator.presentation.intent.IntentBuilder
 import org.cryptomator.presentation.intent.Intents
 import org.cryptomator.presentation.model.CloudFileModel
 import org.cryptomator.presentation.model.CloudFolderModel
+import org.cryptomator.presentation.model.CloudModel
 import org.cryptomator.presentation.model.CloudNodeModel
 import org.cryptomator.presentation.model.ImagePreviewFilesStore
 import org.cryptomator.presentation.model.ProgressModel
@@ -223,7 +227,18 @@ class BrowseFilesPresenter @Inject constructor( //
 
 	@Callback
 	fun getCloudListAfterAuthentication(result: ActivityResult, cloudFolderModel: CloudFolderModel) {
-		getCloudList(cloudFolderModel)
+		val cloudModel = result.getSingleResult(CloudModel::class.java)
+		val cloudNode = cloudFolderModel.toCloudNode()
+
+		val updatedCloud = if (cloudNode is CryptoFolder) {
+			CryptoCloud(Vault.aCopyOf(cloudFolderModel.vault()?.toVault()).withCloud(cloudModel.toCloud()).build())
+		} else {
+			cloudModel.toCloud()
+		}
+
+		cloudNode.withCloud(updatedCloud)?.let {
+			getCloudList(cloudFolderModelMapper.toModel(it))
+		} ?: throw FatalBackendException("cloudFolderModel with updated Cloud shouldn't be null")
 	}
 
 	fun onCreateFolderPressed(cloudFolder: CloudFolderModel, folderName: String?) {
