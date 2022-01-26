@@ -40,7 +40,6 @@ import org.cryptomator.util.file.LruFileCacheUtil.Companion.retrieveFromLruCache
 import java.io.File
 import java.io.IOException
 import java.io.OutputStream
-import java.util.ArrayList
 import java.util.Date
 import java.util.concurrent.CompletableFuture
 import java.util.concurrent.ExecutionException

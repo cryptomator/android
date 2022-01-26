@@ -17,42 +17,42 @@ class OnedriveClientFactory private constructor() {
 
 	companion object {
 
-		fun createInstance(context: Context, token: String?, sharedPreferencesHandler: SharedPreferencesHandler): GraphServiceClient<Request> {
+		fun createInstance(context: Context, encryptedToken: String, sharedPreferencesHandler: SharedPreferencesHandler): GraphServiceClient<Request> {
 			val tokenAuthenticationProvider = object : BaseAuthenticationProvider() {
+				val token = CompletableFuture.completedFuture(CredentialCryptor.getInstance(context).decrypt(encryptedToken))
 				override fun getAuthorizationTokenAsync(requestUrl: URL): CompletableFuture<String> {
 					return if (shouldAuthenticateRequestWithUrl(requestUrl)) {
-						val decryptedToken = CredentialCryptor.getInstance(context).decrypt(token)
-						CompletableFuture.completedFuture(decryptedToken)
+						token
 					} else {
 						CompletableFuture.completedFuture(null)
 					}
 				}
 			}
 
+			val logger = object : ILogger {
+				override fun getLoggingLevel(): LoggerLevel {
+					return if(sharedPreferencesHandler.debugMode()) {
+						LoggerLevel.DEBUG
+					} else {
+						LoggerLevel.ERROR
+					}
+				}
+
+				override fun logDebug(message: String) {
+					Timber.tag("OnedriveClientFactory").d(message)
+				}
+
+				override fun logError(message: String, throwable: Throwable?) {
+					Timber.tag("OnedriveClientFactory").e(throwable, message)
+				}
+
+				override fun setLoggingLevel(level: LoggerLevel) {}
+			}
+
 			return GraphServiceClient //
 				.builder() //
 				.authenticationProvider(tokenAuthenticationProvider) //
-				.logger(object : ILogger {
-					override fun getLoggingLevel(): LoggerLevel {
-						return if(sharedPreferencesHandler.debugMode()) {
-							LoggerLevel.DEBUG
-						} else {
-							LoggerLevel.ERROR
-						}
-					}
-
-					override fun logDebug(message: String) {
-						Timber.tag("OnedriveClientFactory").d(message)
-					}
-
-					override fun logError(message: String, throwable: Throwable?) {
-						Timber.tag("OnedriveClientFactory").e(throwable, message)
-					}
-
-					override fun setLoggingLevel(level: LoggerLevel) {
-						TODO("Not yet implemented")  // FIXME
-					}
-				})
+				.logger(logger)
 				.buildClient()
 		}
 	}

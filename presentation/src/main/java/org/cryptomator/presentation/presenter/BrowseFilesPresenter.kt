@@ -49,7 +49,6 @@ import org.cryptomator.presentation.intent.IntentBuilder
 import org.cryptomator.presentation.intent.Intents
 import org.cryptomator.presentation.model.CloudFileModel
 import org.cryptomator.presentation.model.CloudFolderModel
-import org.cryptomator.presentation.model.CloudModel
 import org.cryptomator.presentation.model.CloudNodeModel
 import org.cryptomator.presentation.model.ImagePreviewFilesStore
 import org.cryptomator.presentation.model.ProgressModel
@@ -224,10 +223,7 @@ class BrowseFilesPresenter @Inject constructor( //
 
 	@Callback
 	fun getCloudListAfterAuthentication(result: ActivityResult, cloudFolderModel: CloudFolderModel) {
-		val cloudModel = result.getSingleResult(CloudModel::class.java)
-		cloudFolderModel.toCloudNode().withCloud(cloudModel.toCloud())?.let {
-			getCloudList(cloudFolderModelMapper.toModel(it))
-		} ?: throw FatalBackendException("cloudFolderModel with updated Cloud shouldn't be null")
+		getCloudList(cloudFolderModel)
 	}
 
 	fun onCreateFolderPressed(cloudFolder: CloudFolderModel, folderName: String?) {
@@ -245,16 +241,16 @@ class BrowseFilesPresenter @Inject constructor( //
 	private fun copyFile(downloadFiles: List<DownloadFile>) {
 		downloadFiles.forEach { downloadFile ->
 			try {
-				val source = FileInputStream(fileUtil.fileFor(cloudFileModelMapper.toModel(downloadFile.downloadFile)))
-
-				copyDataUseCase //
-					.withSource(source) //
-					.andTarget(downloadFile.dataSink) //
-					.run(object : DefaultResultHandler<Void>() {
-						override fun onFinished() {
-							view?.showMessage(R.string.screen_file_browser_msg_file_exported)
-						}
-					})
+				FileInputStream(fileUtil.fileFor(cloudFileModelMapper.toModel(downloadFile.downloadFile))).use {
+					copyDataUseCase //
+						.withSource(it) //
+						.andTarget(downloadFile.dataSink) //
+						.run(object : DefaultResultHandler<Void>() {
+							override fun onFinished() {
+								view?.showMessage(R.string.screen_file_browser_msg_file_exported)
+							}
+						})
+				}
 			} catch (e: FileNotFoundException) {
 				showError(e)
 			}

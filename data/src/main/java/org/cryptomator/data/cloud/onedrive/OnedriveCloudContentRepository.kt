@@ -42,7 +42,6 @@ internal class OnedriveCloudContentRepository(private val cloud: OnedriveCloud, 
 
 	private fun throwWrongCredentialsExceptionIfRequired(e: Exception) {
 		if (isAuthenticationError(e)) {
-			logout(cloud)
 			throw WrongCredentialsException(cloud)
 		}
 	}
