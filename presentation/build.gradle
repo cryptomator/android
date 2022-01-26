@@ -39,11 +39,6 @@ android {
 		coreLibraryDesugaringEnabled true
 	}
 
-	lintOptions {
-		quiet true
-		abortOnError false
-		ignoreWarnings true
-	}
 
 	buildTypes {
 		release {
@@ -108,11 +103,16 @@ android {
 			java.srcDirs = ['src/main/java', 'src/main/java/', 'src/foss/java', 'src/foss/java/']
 		}
 	}
-
 	packagingOptions {
-		exclude 'META-INF/jersey-module-version'
-		exclude 'META-INF/NOTICE.md'
-		exclude 'META-INF/DEPENDENCIES'
+		resources {
+			excludes += ['META-INF/jersey-module-version', 'META-INF/NOTICE.md', 'META-INF/DEPENDENCIES']
+		}
+	}
+
+	lint {
+		abortOnError false
+		ignoreWarnings true
+		quiet true
 	}
 }
 

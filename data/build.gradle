@@ -28,11 +28,6 @@ android {
 		coreLibraryDesugaringEnabled true
 	}
 
-	lintOptions {
-		quiet true
-		abortOnError false
-		ignoreWarnings true
-	}
 
 	buildTypes {
 		release {
@@ -75,10 +70,16 @@ android {
 			java.srcDirs = ['src/main/java', 'src/main/java/', 'src/foss/java', 'src/foss/java/']
 		}
 	}
-
 	packagingOptions {
-		exclude 'META-INF/DEPENDENCIES'
-		exclude 'META-INF/NOTICE.md'
+		resources {
+			excludes += ['META-INF/DEPENDENCIES', 'META-INF/NOTICE.md']
+		}
+	}
+
+	lint {
+		abortOnError false
+		ignoreWarnings true
+		quiet true
 	}
 }
 
