@@ -201,6 +201,7 @@
 	<string name="screen_settings_keep_unlocked_while_editing_files">Держать разблокированным</string>
 	<string name="screen_settings_keep_unlocked_while_editing_files_summary">Не блокировать при редактировании</string>
 	<!-- ## screen: cloud settings -->
+	<string name="screen_cloud_settings_onedrive_connections">Подключения OneDrive</string>
 	<string name="screen_cloud_settings_webdav_connections">Подключения WebDAV</string>
 	<string name="screen_cloud_settings_pcloud_connections">Подключения pCloud</string>
 	<string name="screen_cloud_settings_s3_connections">Подключения S3</string>
@@ -374,6 +375,7 @@
 	<string name="notification_open_writable_file_title">Открыть файл, доступный для записи</string>
 	<string name="notification_open_writable_file_message">Хранилище разблокировано до завершения редактирования</string>
 	<string name="notification_update_check_finished_latest">Установлена новейшая версия</string>
+	<string name="notification_authenticating">Аутентификация&#8230;</string>
 	<string name="screen_settings_lru_cache">Кэш</string>
 	<string name="screen_settings_lru_cache_toggle_summary">Кэшировать зашифрованные локально на устройстве файлы, к которым недавно был доступ, для последующего использования при повторном открытии</string>
 	<string name="screen_settings_lru_cache_size">Общий размер кэша</string>
