@@ -26,12 +26,12 @@ android {
 
 		coreLibraryDesugaringEnabled true
 	}
-
-	lintOptions {
-		quiet true
+	lint {
 		abortOnError false
 		ignoreWarnings true
+		quiet true
 	}
+
 }
 
 dependencies {

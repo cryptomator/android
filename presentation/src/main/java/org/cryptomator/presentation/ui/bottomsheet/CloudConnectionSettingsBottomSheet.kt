@@ -7,6 +7,7 @@ import org.cryptomator.presentation.R
 import org.cryptomator.presentation.model.CloudModel
 import org.cryptomator.presentation.model.CloudTypeModel
 import org.cryptomator.presentation.model.LocalStorageModel
+import org.cryptomator.presentation.model.OnedriveCloudModel
 import org.cryptomator.presentation.model.PCloudModel
 import org.cryptomator.presentation.model.S3CloudModel
 import org.cryptomator.presentation.model.WebDavCloudModel
@@ -29,6 +30,7 @@ class CloudConnectionSettingsBottomSheet : BaseBottomSheet<CloudConnectionSettin
 		val cloudModel = requireArguments().getSerializable(CLOUD_NODE_ARG) as CloudModel
 
 		when (cloudModel.cloudType()) {
+			CloudTypeModel.ONEDRIVE -> bindViewForOnedrive(cloudModel as OnedriveCloudModel)
 			CloudTypeModel.WEBDAV -> bindViewForWebDAV(cloudModel as WebDavCloudModel)
 			CloudTypeModel.PCLOUD -> bindViewForPCloud(cloudModel as PCloudModel)
 			CloudTypeModel.S3 -> bindViewForS3(cloudModel as S3CloudModel)
@@ -55,6 +57,11 @@ class CloudConnectionSettingsBottomSheet : BaseBottomSheet<CloudConnectionSettin
 			tv_cloud_name.text = cloudModel.location()
 			tv_cloud_subtext.text = cloudModel.storage()
 		}
+	}
+
+	private fun bindViewForOnedrive(cloudModel: OnedriveCloudModel) {
+		change_cloud.visibility = View.GONE
+		tv_cloud_subtext.text = cloudModel.username()
 	}
 
 	private fun bindViewForWebDAV(cloudModel: WebDavCloudModel) {

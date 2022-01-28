@@ -2,7 +2,6 @@
 <project version="4">
   <component name="VcsDirectoryMappings">
     <mapping directory="" vcs="Git" />
-    <mapping directory="$PROJECT_DIR$/lib/msa-auth-for-android" vcs="Git" />
     <mapping directory="$PROJECT_DIR$/lib/pcloud-sdk-java" vcs="Git" />
     <mapping directory="$PROJECT_DIR$/lib/subsampling-scale-image-view" vcs="Git" />
   </component>

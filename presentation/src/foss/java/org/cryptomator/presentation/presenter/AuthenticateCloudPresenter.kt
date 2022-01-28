@@ -6,9 +6,16 @@ import android.content.Intent.ACTION_OPEN_DOCUMENT_TREE
 import android.provider.DocumentsContract
 import android.widget.Toast
 import com.dropbox.core.android.Auth
-import org.cryptomator.data.cloud.onedrive.OnedriveClientFactory
-import org.cryptomator.data.cloud.onedrive.graph.ClientException
-import org.cryptomator.data.cloud.onedrive.graph.ICallback
+import com.microsoft.identity.client.AuthenticationCallback
+import com.microsoft.identity.client.IAccount
+import com.microsoft.identity.client.IAuthenticationResult
+import com.microsoft.identity.client.IMultipleAccountPublicClientApplication
+import com.microsoft.identity.client.IPublicClientApplication
+import com.microsoft.identity.client.PublicClientApplication
+import com.microsoft.identity.client.exception.MsalClientException
+import com.microsoft.identity.client.exception.MsalException
+import com.microsoft.identity.client.exception.MsalServiceException
+import com.microsoft.identity.client.exception.MsalUiRequiredException
 import org.cryptomator.data.util.X509CertificateHelper
 import org.cryptomator.domain.Cloud
 import org.cryptomator.domain.CloudType
@@ -225,29 +232,106 @@ class AuthenticateCloudPresenter @Inject constructor( //
 
 		private fun startAuthentication(cloud: CloudModel) {
 			authenticationStarted = true
-			val authenticationAdapter = OnedriveClientFactory.getAuthAdapter(context(), (cloud.toCloud() as OnedriveCloud).accessToken())
-			authenticationAdapter.login(activity(), object : ICallback<String?> {
-				override fun success(accessToken: String?) {
-					if (accessToken == null) {
-						Timber.tag("AuthicateCloudPrester").e("Onedrive access token is empty")
+
+			PublicClientApplication.createMultipleAccountPublicClientApplication(
+				context(),
+				R.raw.auth_config_onedrive,
+				object : IPublicClientApplication.IMultipleAccountApplicationCreatedListener {
+					override fun onCreated(application: IMultipleAccountPublicClientApplication) {
+						application.getAccounts(object : IPublicClientApplication.LoadAccountsCallback {
+							override fun onTaskCompleted(accounts: List<IAccount>) {
+								if (accounts.isEmpty()) {
+									application.acquireToken(activity(), onedriveScopes(), getAuthInteractiveCallback(cloud))
+								} else {
+									accounts.find { account -> account.username == cloud.username() }?.let {
+										application.acquireTokenSilentAsync(
+											onedriveScopes(),
+											it,
+											"https://login.microsoftonline.com/common",
+											getAuthSilentCallback(cloud, application)
+										)
+									} ?: application.acquireToken(activity(), onedriveScopes(), getAuthInteractiveCallback(cloud))
+								}
+							}
+
+							override fun onError(e: MsalException) {
+								Timber.tag("AuthenticateCloudPresenter").e(e, "Error to get accounts")
+								failAuthentication(cloud.name())
+							}
+						})
+					}
+
+					override fun onError(e: MsalException) {
+						Timber.tag("AuthenticateCloudPresenter").i(e, "Error in configuration")
 						failAuthentication(cloud.name())
-					} else {
-						showProgress(ProgressModel(ProgressStateModel.AUTHENTICATION))
-						handleAuthenticationResult(cloud, accessToken)
+					}
+				})
+		}
+
+		private fun getAuthSilentCallback(cloud: CloudModel, application: IMultipleAccountPublicClientApplication): AuthenticationCallback {
+			return object : AuthenticationCallback {
+
+				override fun onSuccess(authenticationResult: IAuthenticationResult) {
+					Timber.tag("AuthenticateCloudPresenter").i("Successfully authenticated")
+					handleAuthenticationResult(cloud, authenticationResult.accessToken)
+				}
+
+				override fun onError(e: MsalException) {
+					Timber.tag("AuthenticateCloudPresenter").e(e, "Failed to acquireToken")
+					when (e) {
+						is MsalClientException -> {
+							/* Exception inside MSAL, more info inside MsalError.java */
+							failAuthentication(cloud.name())
+						}
+						is MsalServiceException -> {
+							/* Exception when communicating with the STS, likely config issue */
+							failAuthentication(cloud.name())
+						}
+						is MsalUiRequiredException -> {
+							/* Tokens expired or no session, retry with interactive */
+							application.acquireToken(activity(), onedriveScopes(), getAuthInteractiveCallback(cloud))
+						}
 					}
 				}
 
-				override fun failure(ex: ClientException) {
-					Timber.tag("AuthicateCloudPrester").e(ex)
+				override fun onCancel() {
+					Timber.tag("AuthenticateCloudPresenter").i("User cancelled login")
+				}
+			}
+		}
+
+		private fun getAuthInteractiveCallback(cloud: CloudModel): AuthenticationCallback {
+			return object : AuthenticationCallback {
+
+				override fun onSuccess(authenticationResult: IAuthenticationResult) {
+					Timber.tag("AuthenticateCloudPresenter").i("Successfully authenticated")
+					handleAuthenticationResult(cloud, authenticationResult.accessToken, authenticationResult.account.username)
+				}
+
+				override fun onError(e: MsalException) {
+					Timber.tag("AuthenticateCloudPresenter").e(e, "Successfully authenticated")
 					failAuthentication(cloud.name())
 				}
-			})
+
+				override fun onCancel() {
+					Timber.tag("AuthenticateCloudPresenter").i("User cancelled login")
+				}
+			}
 		}
 
 		private fun handleAuthenticationResult(cloud: CloudModel, accessToken: String) {
 			getUsernameAndSuceedAuthentication( //
 				OnedriveCloud.aCopyOf(cloud.toCloud() as OnedriveCloud) //
-					.withAccessToken(accessToken) //
+					.withAccessToken(encrypt(accessToken)) //
+					.build()
+			)
+		}
+
+		private fun handleAuthenticationResult(cloud: CloudModel, accessToken: String, username: String) {
+			getUsernameAndSuceedAuthentication( //
+				OnedriveCloud.aCopyOf(cloud.toCloud() as OnedriveCloud) //
+					.withAccessToken(encrypt(accessToken)) //
+					.withUsername(username)
 					.build()
 			)
 		}
@@ -512,6 +596,10 @@ class AuthenticateCloudPresenter @Inject constructor( //
 	companion object {
 
 		const val WEBDAV_ACCEPTED_UNTRUSTED_CERTIFICATE = "acceptedUntrustedCertificate"
+
+		fun onedriveScopes(): Array<String> {
+			return arrayOf("User.Read", "Files.ReadWrite")
+		}
 	}
 
 	init {

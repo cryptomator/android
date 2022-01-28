@@ -282,6 +282,7 @@
 
 	<!-- ## screen: cloud settings -->
 	<string name="screen_cloud_settings_title" translatable="false">@string/screen_settings_cloud_settings_label</string>
+	<string name="screen_cloud_settings_onedrive_connections">OneDrive connections</string>
 	<string name="screen_cloud_settings_webdav_connections">WebDAV connections</string>
 	<string name="screen_cloud_settings_pcloud_connections">pCloud connections</string>
 	<string name="screen_cloud_settings_s3_connections">S3 connections</string>
@@ -545,6 +546,8 @@
 	<string name="notification_open_writable_file_message">Vault stays unlocked until finished editing</string>
 
 	<string name="notification_update_check_finished_latest">Latest version installed</string>
+
+	<string name="notification_authenticating">Authenticating&#8230;</string>
 
 	<string name="screen_settings_lru_cache">Cache</string>
 	<string name="screen_settings_lru_cache_toggle" translatable="false">@string/screen_settings_section_auto_photo_upload_toggle</string>

@@ -219,9 +219,9 @@ class DispatchingCloudContentRepository @Inject constructor(
 	}
 
 	private fun delegateFor(cloud: Cloud): CloudContentRepository<Cloud, CloudNode, CloudFolder, CloudFile> {
-		return delegates.getOrPut(cloud, {
+		return delegates.getOrPut(cloud) {
 			createCloudContentRepositoryFor(cloud)
-		})
+		}
 	}
 
 	private fun createCloudContentRepositoryFor(cloud: Cloud): CloudContentRepository<Cloud, CloudNode, CloudFolder, CloudFile> {

@@ -6,9 +6,12 @@ import android.content.Intent
 import android.net.Uri
 import android.provider.DocumentsContract
 import android.widget.Toast
+import org.cryptomator.data.cloud.crypto.CryptoCloud
+import org.cryptomator.data.cloud.crypto.CryptoFolder
 import org.cryptomator.domain.CloudFile
 import org.cryptomator.domain.CloudFolder
 import org.cryptomator.domain.CloudNode
+import org.cryptomator.domain.Vault
 import org.cryptomator.domain.di.PerView
 import org.cryptomator.domain.exception.CloudNodeAlreadyExistsException
 import org.cryptomator.domain.exception.EmptyDirFileException
@@ -225,8 +228,18 @@ class BrowseFilesPresenter @Inject constructor( //
 	@Callback
 	fun getCloudListAfterAuthentication(result: ActivityResult, cloudFolderModel: CloudFolderModel) {
 		val cloudModel = result.getSingleResult(CloudModel::class.java)
-		cloudFolderModel.toCloudNode().withCloud(cloudModel.toCloud())?.let {
-			getCloudList(cloudFolderModelMapper.toModel(it))
+		val cloudNode = cloudFolderModel.toCloudNode()
+
+		val updatedCloud = if (cloudNode is CryptoFolder) {
+			CryptoCloud(Vault.aCopyOf(cloudFolderModel.vault()?.toVault()).withCloud(cloudModel.toCloud()).build())
+		} else {
+			cloudModel.toCloud()
+		}
+
+		cloudNode.withCloud(updatedCloud)?.let {
+			val folder = cloudFolderModelMapper.toModel(it)
+			view?.updateActiveFolderDueToAuthenticationProblem(folder)
+			getCloudList(folder)
 		} ?: throw FatalBackendException("cloudFolderModel with updated Cloud shouldn't be null")
 	}
 
@@ -245,16 +258,16 @@ class BrowseFilesPresenter @Inject constructor( //
 	private fun copyFile(downloadFiles: List<DownloadFile>) {
 		downloadFiles.forEach { downloadFile ->
 			try {
-				val source = FileInputStream(fileUtil.fileFor(cloudFileModelMapper.toModel(downloadFile.downloadFile)))
-
-				copyDataUseCase //
-					.withSource(source) //
-					.andTarget(downloadFile.dataSink) //
-					.run(object : DefaultResultHandler<Void>() {
-						override fun onFinished() {
-							view?.showMessage(R.string.screen_file_browser_msg_file_exported)
-						}
-					})
+				FileInputStream(fileUtil.fileFor(cloudFileModelMapper.toModel(downloadFile.downloadFile))).use {
+					copyDataUseCase //
+						.withSource(it) //
+						.andTarget(downloadFile.dataSink) //
+						.run(object : DefaultResultHandler<Void>() {
+							override fun onFinished() {
+								view?.showMessage(R.string.screen_file_browser_msg_file_exported)
+							}
+						})
+				}
 			} catch (e: FileNotFoundException) {
 				showError(e)
 			}

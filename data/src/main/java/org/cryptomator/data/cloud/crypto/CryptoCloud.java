@@ -8,7 +8,7 @@ public class CryptoCloud implements Cloud {
 
 	private final Vault vault;
 
-	CryptoCloud(Vault vault) {
+	public CryptoCloud(Vault vault) {
 		this.vault = vault;
 	}
 

@@ -2,6 +2,7 @@ package org.cryptomator.presentation.presenter
 
 import org.cryptomator.domain.Cloud
 import org.cryptomator.domain.LocalStorageCloud
+import org.cryptomator.domain.OnedriveCloud
 import org.cryptomator.domain.PCloud
 import org.cryptomator.domain.S3Cloud
 import org.cryptomator.domain.WebDavCloud
@@ -18,6 +19,7 @@ import org.cryptomator.presentation.intent.Intents
 import org.cryptomator.presentation.model.CloudModel
 import org.cryptomator.presentation.model.CloudTypeModel
 import org.cryptomator.presentation.model.LocalStorageModel
+import org.cryptomator.presentation.model.OnedriveCloudModel
 import org.cryptomator.presentation.model.PCloudModel
 import org.cryptomator.presentation.model.S3CloudModel
 import org.cryptomator.presentation.model.WebDavCloudModel
@@ -39,6 +41,7 @@ class CloudSettingsPresenter @Inject constructor( //
 	private val nonSingleLoginClouds: Set<CloudTypeModel> = EnumSet.of( //
 		CloudTypeModel.CRYPTO,  //
 		CloudTypeModel.LOCAL,  //
+		CloudTypeModel.ONEDRIVE,  //
 		CloudTypeModel.PCLOUD, //
 		CloudTypeModel.S3, //
 		CloudTypeModel.WEBDAV
@@ -95,6 +98,7 @@ class CloudSettingsPresenter @Inject constructor( //
 
 	private fun effectiveTitle(cloudTypeModel: CloudTypeModel): String {
 		when (cloudTypeModel) {
+			CloudTypeModel.ONEDRIVE -> return context().getString(R.string.screen_cloud_settings_onedrive_connections)
 			CloudTypeModel.PCLOUD -> return context().getString(R.string.screen_cloud_settings_pcloud_connections)
 			CloudTypeModel.WEBDAV -> return context().getString(R.string.screen_cloud_settings_webdav_connections)
 			CloudTypeModel.S3 -> return context().getString(R.string.screen_cloud_settings_s3_connections)
@@ -130,12 +134,17 @@ class CloudSettingsPresenter @Inject constructor( //
 				.filter { cloud -> !(BuildConfig.FLAVOR == "fdroid" && cloud.cloudType() == CloudTypeModel.GOOGLE_DRIVE) } //
 				.toMutableList() //
 				.also {
+					it.add(aOnedriveCloud())
 					it.add(aPCloud())
 					it.add(aWebdavCloud())
 					it.add(aS3Cloud())
 					it.add(aLocalCloud())
 				}
 			view?.render(cloudModel)
+		}
+
+		private fun aOnedriveCloud(): OnedriveCloudModel {
+			return OnedriveCloudModel(OnedriveCloud.aOnedriveCloud().build())
 		}
 
 		private fun aPCloud(): PCloudModel {

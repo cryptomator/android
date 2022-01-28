@@ -2,12 +2,25 @@ allprojects {
 	repositories {
 		mavenCentral()
 		maven { url 'https://jitpack.io' }
+		// needed for 'com.microsoft.device.display' required by 'com.microsoft.graph:microsoft-graph'
+		exclusiveContent {
+			forRepository {
+				maven {
+					url 'https://pkgs.dev.azure.com/MicrosoftDeviceSDK/DuoSDK-Public/_packaging/Duo-SDK-Feed/maven/v1'
+					name 'Duo-SDK-Feed'
+				}
+			}
+			filter {
+				// this repository *only* contains artifacts with group "com.microsoft.device.display"
+				includeGroup "com.microsoft.device.display"
+			}
+		}
 	}
 }
 
 ext {
-	androidBuildToolsVersion = "30.0.2"
-	androidMinSdkVersion = 24
+	androidBuildToolsVersion = "30.0.3"
+	androidMinSdkVersion = 26
 	androidTargetSdkVersion = 30
 	androidCompileSdkVersion = 30
 
@@ -63,7 +76,8 @@ ext {
 	 */
 	trackingFreeGoogleCLientVersion = '1.41.1'
 
-	msgraphVersion = '2.10.0'
+	msgraphVersion = '5.12.0'
+	msgraphAuthVersion = '2.2.3'
 
 	minIoVersion = '8.3.5'
 	staxVersion = '1.2.0' // needed for minIO
@@ -139,6 +153,7 @@ ext {
 			mockitoInline         : "org.mockito:mockito-inline:${mockitoVersion}",
 			mockitoKotlin         : "org.mockito.kotlin:mockito-kotlin:${mockitoKotlinVersion}",
 			msgraph               : "com.microsoft.graph:microsoft-graph:${msgraphVersion}",
+			msgraphAuth           : "com.microsoft.identity.client:msal:${msgraphAuthVersion}",
 			multidex              : "androidx.multidex:multidex:${multidexVersion}",
 			okHttp                : "com.squareup.okhttp3:okhttp:${okHttpVersion}",
 			okHttpDigest          : "io.github.rburgst:okhttp-digest:${okHttpDigestVersion}",

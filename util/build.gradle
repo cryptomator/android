@@ -24,15 +24,20 @@ android {
 		sourceCompatibility JavaVersion.VERSION_1_8
 		targetCompatibility JavaVersion.VERSION_1_8
 	}
-
-	lintOptions {
-		quiet true
-		abortOnError false
-		ignoreWarnings true
+	packagingOptions {
+		jniLibs {
+			pickFirsts += ['META-INF/*']
+		}
+		resources {
+			pickFirsts += ['META-INF/*']
+		}
 	}
 
-	packagingOptions {
-		pickFirst 'META-INF/*'
+
+	lint {
+		abortOnError false
+		ignoreWarnings true
+		quiet true
 	}
 }
 
