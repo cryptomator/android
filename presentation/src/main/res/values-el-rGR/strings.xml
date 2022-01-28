@@ -199,6 +199,7 @@
 	<string name="screen_settings_keep_unlocked_while_editing_files">Κρατήστε ξεκλείδωτο</string>
 	<string name="screen_settings_keep_unlocked_while_editing_files_summary">Κρατήστε τις κρύπτες ξεκλειδωμένες κατά την επεξεργασία αρχείων</string>
 	<!-- ## screen: cloud settings -->
+	<string name="screen_cloud_settings_onedrive_connections">Συνδέσεις OneDrive</string>
 	<string name="screen_cloud_settings_webdav_connections">Συνδέσεις WebDAV</string>
 	<string name="screen_cloud_settings_pcloud_connections">Συνδέσεις pCloud</string>
 	<string name="screen_cloud_settings_s3_connections">Συνδέσεις S3</string>
@@ -372,6 +373,7 @@
 	<string name="notification_open_writable_file_title">Άνοιγμα εγγράψιμου αρχείου</string>
 	<string name="notification_open_writable_file_message">Η κρύπτη παραμένει ξεκλείδωτη μέχρι να τελειώσει η επεξεργασία</string>
 	<string name="notification_update_check_finished_latest">Τελευταία έκδοση εγκατεστημένη</string>
+	<string name="notification_authenticating">Ταυτοποίηση&#8230;</string>
 	<string name="screen_settings_lru_cache">Προσωρινή μνήμη</string>
 	<string name="screen_settings_lru_cache_toggle_summary">Η προσωρινή μνήμη απέκτησε πρόσφατα πρόσβαση σε αρχεία που έχουν κρυπτογραφηθεί τοπικά στη συσκευή για μελλοντική επαναχρησιμοποίηση όταν ανοίξουν ξανά</string>
 	<string name="screen_settings_lru_cache_size">Συνολικό μέγεθος προσωρινής μνήμης</string>
