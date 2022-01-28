@@ -199,6 +199,7 @@
 	<string name="screen_settings_keep_unlocked_while_editing_files">Kilidi açık tut</string>
 	<string name="screen_settings_keep_unlocked_while_editing_files_summary">Düzenlerken kasa kilidi açık</string>
 	<!-- ## screen: cloud settings -->
+	<string name="screen_cloud_settings_onedrive_connections">OneDrive bağlantıları</string>
 	<string name="screen_cloud_settings_webdav_connections">WebDAV bağlantıları</string>
 	<string name="screen_cloud_settings_pcloud_connections">pCloud bağlantıları</string>
 	<string name="screen_cloud_settings_s3_connections">S3 bağlantıları</string>
@@ -372,6 +373,7 @@
 	<string name="notification_open_writable_file_title">Yazılabilir dosyayı aç</string>
 	<string name="notification_open_writable_file_message">Düzenleme tamamlanana kadar, uygulamalar kasası kilidi açık kalır</string>
 	<string name="notification_update_check_finished_latest">En son sürüm yüklendi</string>
+	<string name="notification_authenticating">Doğrulanıyor&#8230;</string>
 	<string name="screen_settings_lru_cache">Önbellek</string>
 	<string name="screen_settings_lru_cache_toggle_summary">Yeniden açıldıklarında daha sonra yeniden kullanılmak üzere, cihazda yerel olarak şifrelenmiş yakın zamanda erişilen dosyaları önbelleğe alın</string>
 	<string name="screen_settings_lru_cache_size">Toplam önbellek boyutu</string>
