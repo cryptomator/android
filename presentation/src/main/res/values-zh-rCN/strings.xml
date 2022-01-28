@@ -198,6 +198,7 @@
 	<string name="screen_settings_keep_unlocked_while_editing_files">保持解锁状态</string>
 	<string name="screen_settings_keep_unlocked_while_editing_files_summary">编辑文件时保持保险库解锁</string>
 	<!-- ## screen: cloud settings -->
+	<string name="screen_cloud_settings_onedrive_connections">OneDrive 连接</string>
 	<string name="screen_cloud_settings_webdav_connections">WebDAV 连接</string>
 	<string name="screen_cloud_settings_pcloud_connections">pCloud 连接</string>
 	<string name="screen_cloud_settings_s3_connections">S3 连接</string>
@@ -371,6 +372,7 @@
 	<string name="notification_open_writable_file_title">打开可写文件</string>
 	<string name="notification_open_writable_file_message">编辑期间保险库保持解锁</string>
 	<string name="notification_update_check_finished_latest">已安装最新版本</string>
+	<string name="notification_authenticating">正在验证 &#8230;</string>
 	<string name="screen_settings_lru_cache">缓存</string>
 	<string name="screen_settings_lru_cache_toggle_summary">缓存最近在本地加密的访问文件，用以下次快速加载</string>
 	<string name="screen_settings_lru_cache_size">缓存总大小</string>
