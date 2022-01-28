@@ -237,7 +237,9 @@ class BrowseFilesPresenter @Inject constructor( //
 		}
 
 		cloudNode.withCloud(updatedCloud)?.let {
-			getCloudList(cloudFolderModelMapper.toModel(it))
+			val folder = cloudFolderModelMapper.toModel(it)
+			view?.updateActiveFolderDueToAuthenticationProblem(folder)
+			getCloudList(folder)
 		} ?: throw FatalBackendException("cloudFolderModel with updated Cloud shouldn't be null")
 	}
 
