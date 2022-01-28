@@ -372,6 +372,7 @@
 	<string name="notification_open_writable_file_title">Datei mit Schreibrechten geöffnet</string>
 	<string name="notification_open_writable_file_message">Tresor bleibt entsperrt bis die Datei nicht mehr editiert wird</string>
 	<string name="notification_update_check_finished_latest">Neueste Version installiert</string>
+	<string name="notification_authenticating">Melde an&#8230;</string>
 	<string name="screen_settings_lru_cache">Zwischenspeicher</string>
 	<string name="screen_settings_lru_cache_toggle_summary">Speichere kürzlich geöffnete Dateien lokal und verschlüsselt auf dem Gerät für eine spätere Wiederverwendung beim erneuten öffnen</string>
 	<string name="screen_settings_lru_cache_size">Zwischenspeichergröße insgesamt</string>
