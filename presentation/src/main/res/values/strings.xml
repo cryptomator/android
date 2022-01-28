@@ -547,6 +547,8 @@
 
 	<string name="notification_update_check_finished_latest">Latest version installed</string>
 
+	<string name="notification_authenticating">Authenticating&#8230;</string>
+
 	<string name="screen_settings_lru_cache">Cache</string>
 	<string name="screen_settings_lru_cache_toggle" translatable="false">@string/screen_settings_section_auto_photo_upload_toggle</string>
 	<string name="screen_settings_lru_cache_toggle_summary">Cache recently accessed files encrypted locally on the device for later reuse when reopened</string>

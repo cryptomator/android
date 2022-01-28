@@ -274,6 +274,8 @@ class AuthenticateCloudPresenter @Inject constructor( //
 		private fun startAuthentication(cloud: CloudModel) {
 			authenticationStarted = true
 
+			Toast.makeText(context(), R.string.notification_authenticating, Toast.LENGTH_SHORT).show()
+
 			PublicClientApplication.createMultipleAccountPublicClientApplication(
 				context(),
 				R.raw.auth_config_onedrive,
