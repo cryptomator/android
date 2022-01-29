@@ -199,6 +199,7 @@
 	<string name="screen_settings_keep_unlocked_while_editing_files">Entsperrt bleiben</string>
 	<string name="screen_settings_keep_unlocked_while_editing_files_summary">Halte Tresore geöffnet während dem Editieren einer Datei</string>
 	<!-- ## screen: cloud settings -->
+	<string name="screen_cloud_settings_onedrive_connections">OneDrive Verbindungen</string>
 	<string name="screen_cloud_settings_webdav_connections">WebDAV-Verbindungen</string>
 	<string name="screen_cloud_settings_pcloud_connections">pCloud-Verbindungen</string>
 	<string name="screen_cloud_settings_s3_connections">S3-Verbindungen</string>
