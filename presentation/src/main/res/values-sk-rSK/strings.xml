@@ -201,6 +201,7 @@
 	<string name="screen_settings_keep_unlocked_while_editing_files">Držať odomknuté</string>
 	<string name="screen_settings_keep_unlocked_while_editing_files_summary">Držať trezory odomknuté pokiaľ sa editujú súbory</string>
 	<!-- ## screen: cloud settings -->
+	<string name="screen_cloud_settings_onedrive_connections">OneDrive pripojenia</string>
 	<string name="screen_cloud_settings_webdav_connections">WebDAV pripojenia</string>
 	<string name="screen_cloud_settings_pcloud_connections">pCloud pripojenia</string>
 	<string name="screen_cloud_settings_s3_connections">S3 pripojenia</string>
@@ -374,6 +375,7 @@
 	<string name="notification_open_writable_file_title">Otvoriť zapisovateľný súbor</string>
 	<string name="notification_open_writable_file_message">Trezor zostáva odomknutý pokial nie je ukončené editovanie</string>
 	<string name="notification_update_check_finished_latest">Najnovšia verzia inštalovaná</string>
+	<string name="notification_authenticating">Autentikujem&#8230;</string>
 	<string name="screen_settings_lru_cache">Vyrovnávacia pamäť</string>
 	<string name="screen_settings_lru_cache_toggle_summary">Nedávno sprístupnené súbory vyrovnávaciej pamäťe lokálne zašifrované na zariadení pre neskoršie použitie pri novom otvoreni</string>
 	<string name="screen_settings_lru_cache_size">Celková veľkosť vyrovovnávacej pamäte</string>
