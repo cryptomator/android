@@ -16,6 +16,7 @@
 	<string name="error_cloud_already_exists">Cloud již existuje.</string>
 	<string name="error_activity_not_found">Stáhněte si prosím aplikaci, která umí otevřít tento soubor.</string>
 	<string name="error_server_not_found">Server nenalezen.</string>
+	<string name="error_device_policy_manager_not_found">Otevřete prosím nastavení zařízení a nastavte zámek obrazovky ručně</string>
 	<string name="error_export_illegal_file_name">Export se nezdařil. Zkuste odstranit speciální znaky z názvů souborů a znovu exportovat.</string>
 	<string name="error_name_contains_invalid_characters">Nesmí obsahovat speciální znaky.</string>
 	<string name="error_names_contains_invalid_characters">Názvy souborů nesmí obsahovat speciální znaky.</string>
@@ -23,8 +24,11 @@
 	<string name="error_general_update">Kontrola aktualizací se nezdařila. Došlo k obecné chybě.</string>
 	<string name="error_hash_mismatch_update">Kontrola aktualizace se nezdařila. Hash neodpovídá nahranému souboru</string>
 	<string name="error_update_no_internet">Kontrola aktualizací se nezdařila. Žádné připojení k internetu.</string>
+	<string name="error_failed_to_decrypt_webdav_password">Dešifrování WebDAV hesla se nezdařilo, přidejte jej prosím znovu do nastavení</string>
 	<string name="error_play_services_not_available">Obchod Google Play není nainstalován</string>
 	<string name="error_biometric_auth_aborted">Ověření pomocí otisků prstů selhalo</string>
+	<string name="error_vault_version_mismatch">Verze zadaná v %1$s se liší od verze %2$s</string>
+	<string name="error_vault_key_invalid">%1$s se neshoduje s %2$s</string>
 	<string name="error_vault_config_loading">Obecná chyba při načítání konfigurace trezoru</string>
 	<string name="error_file_not_found_after_opening_using_3party">Místní soubor již není přítomen po přepnutí zpět na Cryptomator. Možné změny nelze promítnout zpět do cloudu.</string>
 	<string name="error_no_such_bucket">Bucket neexistuje</string>
@@ -37,6 +41,7 @@
 	<string name="permission_message_export_file">Cryptomator potřebuje přístup k úložišti pro export souborů</string>
 	<string name="permission_message_upload_file">Cryptomator potřebuje přístup k úložišti pro nahrávání souborů</string>
 	<string name="permission_message_share_file">Cryptomator potřebuje přístup k úložišti pro sdílení souborů</string>
+	<string name="permission_revoked_re_request_permission">Cryptomator ztratil oprávnění pro přístup k tomuto umístění. Prosím vyberte tuto složku znovu pro obnovení oprávnění.</string>
 	<string name="snack_bar_action_title_settings">Nastavení</string>
 	<string name="snack_bar_action_title_search">Vyhledat</string>
 	<string name="snack_bar_action_title_search_previous">Předchozí</string>
@@ -219,6 +224,7 @@
 	<string name="dialog_change_password_msg_password_mismatch">Hesla se neshodují.</string>
 	<!-- Vault not found -->
 	<string name="dialog_vault_not_found_title">Trezor %1$s nebyl nalezen</string>
+	<string name="dialog_vault_not_found_message">Trezor byl přejmenován, přesunut nebo odstraněn. Odstraňte tento trezor ze seznamu a znovu jej přidejte pro pokračování. Odstranit nyní?</string>
 	<string name="dialog_vault_not_found_positive_button_text">Odstranit</string>
 	<string name="dialog_existing_file_title">Soubor již existuje</string>
 	<string name="dialog_existing_file_positive_button">Nahradit</string>
@@ -287,6 +293,9 @@
 	<string name="dialog_app_is_obscured_info_hint">Jiná aplikace zobrazuje něco nad Cryptomatorem (např. filtr modrého světla nebo aplikace pro noční režim). Z bezpečnostních důvodů je Cryptomator zakázán.\n\n<a href="https://docs.cryptomator.org/en/1.5/android/settings/#block-app-when-obscured">Jak povolit Cryptomator</a></string>
 	<string name="dialog_app_is_obscured_info_neutral_button">Zavřít</string>
 	<string name="dialog_vaults_removed_during_migration_title">Prosím znovu přidejte trezory pro %1s cloud</string>
+	<string name="dialog_vaults_removed_during_migration_hint">Při migraci na tuto verzi aplikace musíme z aplikace odstranit následující trezory:\n%2s \n\nTyto trezory nejsou odebrány z cloudu, ale pouze z této aplikace. Omlouváme se za nepříjemnosti a znovu přidejte tyto trezory, abyste s nimi mohli dále pracovat.</string>
+	<string name="dialog_vault_is_root_folder_of_cloud_title">Trezor je kořenovou složkou cloudového připojení</string>
+	<string name="dialog_vault_is_root_folder_of_cloud_hint">Vytvořte nové připojení do cloudu, kde jako kořenový adresář zvolíte alespoň nadřazenou složku tohoto trezoru.</string>
 	<string name="dialog_disable_secure_screen_disclaimer_hint">Toto nastavení je bezpečnostní funkce a brání ostatním aplikacím v tom, aby oklamaly uživatele dělat věci, se kterými nesouhlasí.\n\nZakázáním potvrzujete, že jste <a href="https://docs.cryptomator.org/en/1.5/android/settings/#screen-security">si vědomi rizik</a>.</string>
 	<string name="dialog_delete_cloud_connection_with_vaults_message">Opravdu chcete odstranit toto cloudové připojení?</string>
 	<string name="dialog_delete_cloud_connection_with_vaults_hint">Tato akce odstraní cloudové připojení a všechny trezory tohoto cloudu.</string>
