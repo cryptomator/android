@@ -196,6 +196,7 @@
 	<string name="screen_settings_keep_unlocked_while_editing_files">Ponechat odemčené</string>
 	<string name="screen_settings_keep_unlocked_while_editing_files_summary">Ponechat trezory odemčené při úpravách souborů</string>
 	<!-- ## screen: cloud settings -->
+	<string name="screen_cloud_settings_onedrive_connections">Spojení OneDrive</string>
 	<string name="screen_cloud_settings_webdav_connections">Připojení WebDAV</string>
 	<string name="screen_cloud_settings_pcloud_connections">pCloud připojení</string>
 	<string name="screen_cloud_settings_s3_connections">S3 připojení</string>
@@ -365,6 +366,7 @@
 	<string name="notification_open_writable_file_title">Otevřít zapisovatelný soubor</string>
 	<string name="notification_open_writable_file_message">Trezor zůstane odemknutý dokud nejsou dokončené úpravy</string>
 	<string name="notification_update_check_finished_latest">Nainstalována aktuální verze</string>
+	<string name="notification_authenticating">Ověřování&#8230;</string>
 	<string name="screen_settings_lru_cache">Mezipaměť</string>
 	<string name="screen_settings_lru_cache_toggle_summary">Uložit nedávno otevřené soubory šifrovaně do lokální mezipaměti pro pozdější použití</string>
 	<string name="screen_settings_lru_cache_size">Velikost mezipaměti</string>
