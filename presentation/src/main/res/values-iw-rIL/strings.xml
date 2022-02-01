@@ -208,7 +208,9 @@
 	<string name="dialog_existing_file_title">הקובץ כבר קיים</string>
 	<string name="dialog_existing_file_positive_button">החלף</string>
 	<string name="dialog_existing_file_message">כבר קיים קובץ בשם %1$s.</string>
+	<string name="dialog_replace_negative_button_at_least_two_but_not_all_files_exist">דלג על קיימים</string>
 	<string name="dialog_replace_positive_button_all_files_exist">החלף הכל</string>
+	<string name="dialog_replace_positive_button_some_files_exist">החלף קיימים</string>
 	<string name="dialog_replace_positive_button_single_file_exists">החלף</string>
 	<string name="dialog_replace_title_single_file_exists">להחליף את הקובץ?</string>
 	<string name="dialog_replace_title_multiple_files_exist">להחליף את הקבצים?</string>
@@ -248,10 +250,14 @@
 	<string name="dialog_accept_ssl_certificate_title">תעודת SSL לא חוקית</string>
 	<string name="dialog_accept_ssl_certificate_hint">תעודת SSL לא חוקית. תרצה לבטוח בתעודה זו בכל מקרה?</string>
 	<string name="dialog_accept_ssl_certificate_details">פרטים</string>
+	<string name="dialog_accept_ssl_certificate_security_checkbox">פעולה זו יכולה לגרום לפרצות אבטחה. אני מבין מהם ההשלכות.</string>
+	<string name="dialog_http_security_hint">HTTP הוא פרוטוקול לא מאובטח. אנו ממליצים להשתמש ב HTTPS במקום. אם אתה מבין את הסיכונים בכך, אתה יכול להמשיך להשתמש ב HTTP.</string>
 	<string name="dialog_http_security_checkbox">עבור ל-HTTPS</string>
 	<string name="dialog_http_security_title">להשתמש ב-HTTPS?</string>
 	<string name="dialog_debug_mode_disclaimer_title">שים לב</string>
+	<string name="dialog_debug_mode_positive_button">הפעל</string>
 	<string name="dialog_disable_app_obscured_disclaimer_title">שים לב</string>
+	<string name="dialog_disable_app_obscured_positive_button">כבה</string>
 	<string name="dialog_app_is_obscured_info_hint">אפליקציה אחרת מציגה משהו מעל Cryptomator (לדוגמה, אפליקציית סינון אור כחול למצב לילה). מטעמי אבטחה, Cryptomator ייסגר עכשיו.\n\n<a href="https://docs.cryptomator.org/en/1.5/android/settings/#block-app-when-obscured">איך להפעיל את Cryptomator</a></string>
 	<string name="dialog_app_is_obscured_info_neutral_button">סגור</string>
 	<string name="dialog_confirm_delete_multiple_title">למחוק %1$d פריטים?</string>
@@ -266,14 +272,25 @@
 	<string name="dialog_enter_license_decline_button">יציאה</string>
 	<string name="dialog_license_confirmation_title">מפתח הרישיון אומת</string>
 	<string name="dialog_license_confirmation_message">תודה %1$s, על כך שהזנת מפתח רישיון תקין.</string>
+	<string name="dialog_update_available_title">עדכון זמין</string>
+	<string name="dialog_update_available_message">עדכן לגרסה החדשה ביותר של Cryptomator. לאחר שתסכים, העדכון ירד ברקע וכשההורדה תסתיים, תתבקש לבצע את ההתקנה.</string>
 	<string name="dialog_update_available_update">עדכן עכשיו</string>
+	<string name="dialog_update_available_download_site">למעבר לאתר הההורדות</string>
 	<string name="dialog_update_available_cancel">מאוחר יותר</string>
 	<string name="dialog_download_update_title">מוריד</string>
 	<string name="dialog_download_update_message">מוריד את הגרסה העדכנית ביותר של Cryptomator</string>
+	<string name="dialog_sym_link_title">התיקייה היא קישור סימבולי</string>
+	<string name="dialog_sym_link_message">לא ניתן לנווט אל תוך קישור סימבולי זה</string>
 	<string name="dialog_sym_link_back_button">חזור</string>
+	<string name="dialog_no_dir_file_title">טעינת תיקייה זו נכשלה</string>
+	<string name="dialog_no_more_images_to_display">אין עוד תמונות להציג&#8230;</string>
+	<string name="dialog_pcloud_credentials_updated">אם ברצונך להוסיף משתמש pCloud נוסף, לחץ על הקישור <a href="https://www.pcloud.com">www.pcloud.com</a>, התנתק מהמשתמש הנוכחי ולחץ על ה \'+\' באפליקצייה כדי להוסיף חיבור חדש.</string>
+	<string name="permission_snackbar_auth_local_vault">Cryptomator זקוק להרשאת גישה לזיכרון המכשיר כדי להשתמש בכספת מקומית</string>
+	<string name="permission_snackbar_auth_auto_upload">Cryptomator זקוק להרשאת גישה לזיכרון המכשיר כדי לבצע העלאה אוטומטית של תמונות</string>
 	<!-- # error reports -->
 	<!-- # misc -->
 	<!-- ## file size helper -->
+	<string name="file_size_zero">0 kB</string>
 	<string name="file_size_unit_bytes">bytes</string>
 	<string name="file_size_unit_kilo_bytes">kB</string>
 	<string name="file_size_unit_mega_bytes">MB</string>
@@ -297,16 +314,28 @@
 	<!-- ## biometric authentication -->
 	<string name="dialog_biometric_auth_title">אימות ביומטרי</string>
 	<string name="dialog_biometric_auth_message">התחבר באמצעות אימות ביומטרי</string>
+	<string name="dialog_biometric_auth_use_password">השתמש בסיסמת הכספת</string>
+	<string name="dialog_unable_to_auto_upload_files_title">לא ניתן לבצע העלאה אוטומטית של קבצים</string>
 	<!-- notification -->
 	<string name="notification_unlocked">כספות פתוחות: %1$d</string>
 	<string name="notification_timeout">נעילה אוטומטית בעוד %1$s</string>
 	<string name="notification_lock_all">נעל הכל</string>
+	<string name="notification_cancel_auto_upload">בטל העלאה</string>
+	<string name="notification_auto_upload_title">מתבצעת העלאה אוטומטית של תמונות</string>
 	<string name="notification_auto_upload_message">מעלה %1d/%2d</string>
+	<string name="notification_auto_upload_finished_title">העלאה אוטומטית של תמונות הסתיימה</string>
+	<string name="notification_auto_upload_failed_title">העלאה אוטומטית של תמונות נכשלה</string>
+	<string name="notification_auto_upload_failed_due_to_vault_not_found">הכספת המוגדרת להעלאה אוטומטית של קבצים לא קיימת יותר.</string>
+	<string name="notification_update_check_finished_latest">הגרסה העדכנית ביותר מותקנת</string>
 	<string name="screen_settings_lru_cache">מטמון</string>
 	<string name="screen_settings_lru_cache_size">נפח מטמון</string>
 	<string name="screen_settings_clear_lru_cache_size">נקה מטמון</string>
 	<string name="screen_settings_license">רשום עבור</string>
 	<string name="screen_settings_license_mail">%1$s</string>
+	<string name="dialog_settings_update_check_interval_title">בדוק עדכונים אוטומטית</string>
+	<string name="screen_settings_check_updates">חפש עדכונים</string>
+	<string name="screen_settings_last_check_updates">בדיקה אחרונה %1$s</string>
+	<string name="dialog_cache_size_title">גודל המטמון עבור כל שירות ענן</string>
 	<!-- lock timeout names -->
 	<string name="lock_timeout_instant">מיידי</string>
 	<string name="lock_timeout_1m">דקה</string>
