@@ -153,9 +153,14 @@
 	<string name="screen_settings_biometric_auth">אימות ביומטרי</string>
 	<string name="screen_settings_activate_biometric_auth">הפעל אימות ביומטרי</string>
 	<string name="screen_settings_confirm_face_unlock">אפשר פתיחה באמצעות זיהוי פנים (במידה שזמין)</string>
+	<string name="screen_settings_secure_screen">חסום צילומי מסך</string>
+	<string name="screen_settings_secure_screen_summary">חסום צילומי מסך באפליקציה וברשימת היישומים שנפתחו לאחרונה</string>
 	<string name="screen_settings_section_search">חיפוש</string>
+	<string name="screen_settings_glob_search">חפש באמצעות תבניות Glob</string>
+	<string name="screen_settings_glob_search_summary">השתמש בתבניות Glob כדי לבצע חיפוש כדוגמת alice.*.jpg</string>
 	<string name="screen_settings_section_auto_lock">נעילה אוטומטית</string>
 	<string name="screen_settings_auto_lock_timeout">נעל לאחר</string>
+	<string name="screen_settings_auto_lock_on_screen_lock">כאשר מסך המכשיר נכבה</string>
 	<string name="screen_settings_section_auto_photo_upload">העלאה אוטומטית של תמונות</string>
 	<string name="screen_settings_section_auto_photo_upload_vault">בחר כספת להעלאת תמונות</string>
 	<string name="screen_settings_section_auto_photo_upload_toggle">הפעל</string>
@@ -177,9 +182,11 @@
 	<string name="screen_settings_section_version">גרסה</string>
 	<string name="screen_settings_advanced_settings">הגדרות מתקדמות</string>
 	<!-- ## screen: cloud settings -->
+	<string name="screen_cloud_settings_onedrive_connections">חיבורי OneDrive</string>
 	<string name="screen_cloud_settings_webdav_connections">חיבורי WebDAV</string>
 	<string name="screen_cloud_settings_pcloud_connections">חיבורי pCloud</string>
 	<string name="screen_cloud_settings_s3_connections">חיבורי S3</string>
+	<string name="screen_cloud_settings_local_storage_locations">מקומות אחסון במכשיר</string>
 	<string name="screen_cloud_settings_log_in_to">התחבר אל</string>
 	<string name="screen_cloud_settings_sign_out_from_cloud">התנתק מ</string>
 	<!-- ## screen: licenses -->
