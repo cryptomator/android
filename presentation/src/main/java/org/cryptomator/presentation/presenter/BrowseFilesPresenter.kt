@@ -232,7 +232,6 @@ class BrowseFilesPresenter @Inject constructor( //
 
 	@Callback(dispatchResultOkOnly = false)
 	fun getCloudListAfterAuthentication(result: ActivityResult, cloudFolderModel: CloudFolderModel) {
-		resumedAfterAuthentication = false
 		if(result.isResultOk) {
 			val cloudModel = result.getSingleResult(CloudModel::class.java) // FIXME update other vaults using this cloud as well
 			val cloudNode = cloudFolderModel.toCloudNode()
@@ -251,6 +250,7 @@ class BrowseFilesPresenter @Inject constructor( //
 			val folder = cloudFolderModelMapper.toModel(it)
 			view?.updateActiveFolderDueToAuthenticationProblem(folder)
 			getCloudList(folder)
+			resumedAfterAuthentication = false
 		} ?: throw FatalBackendException("cloudFolderModel with updated Cloud shouldn't be null")
 	}
 
@@ -262,6 +262,9 @@ class BrowseFilesPresenter @Inject constructor( //
 					val folder = cloudFolderModelMapper.toModel(cloudFolderModel.toCloudNode().withCloud(cloud)!!)
 					view?.updateActiveFolderDueToAuthenticationProblem(folder)
 					getCloudList(folder)
+				}
+				override fun onFinished() {
+					resumedAfterAuthentication = false
 				}
 			})
 	}
