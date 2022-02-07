@@ -4,6 +4,7 @@
 	<string name="share_with_label">এনক্রিপ্ট করুন</string>
 	<!-- # error messages -->
 	<string name="error_generic">একটি ত্রুটি ঘটেছে</string>
+	<string name="error_no_network_connection">কোনো নেটওয়ার্ক সংযোগ নেই</string>
 	<string name="error_invalid_passphrase">ভুল পাসওয়ার্ড</string>
 	<string name="error_file_or_folder_exists">একটি ফাইল অথবা ফোল্ডার ইতিমধ্যে রয়েছে।</string>
 	<string name="error_vault_version_not_supported">অসমর্থিত ভোল্ট। এই ভোল্টটি ক্রিপ্টোমেটরের অন্য একটি ভার্সন দিয়ে তৈরি হয়েছিল।</string>
@@ -17,22 +18,61 @@
 	<string name="error_name_contains_invalid_characters">বিশেষ অক্ষর থাকা যাবে।</string>
 	<string name="error_names_contains_invalid_characters">ফাইলের নামে বিশেষ অক্ষর থাকা যাবে না।</string>
 	<string name="error_vault_name_contains_invalid_characters">ভোল্ট নামে বিশেষ অক্ষর থাকা যাবে না।</string>
+	<string name="error_general_update">সাধারণ ত্রুটি, হালনাগাদ পরীক্ষায় ব্যর্থ হয়েছে।</string>
+	<string name="error_failed_to_decrypt_webdav_password">WebDev পাসওয়ার্ড ডিক্রিপশন ব্যর্থ হয়েছে, অনুগ্রহ করে সেটিংসে পুনরায় যোগ করুন</string>
+	<string name="error_play_services_not_available">গুগল প্লে সার্ভিস ইন্সটল করা নয়।</string>
 	<!-- # clouds -->
 	<!-- ## cloud names -->
+	<string name="cloud_names_local_storage">সিস্টেম স্টোরেজ</string>
 	<!-- # permission -->
 	<!-- ## permission messages -->
+	<string name="snack_bar_action_title_settings">সেটিংস</string>
+	<string name="snack_bar_action_title_search">খুঁজুন</string>
 	<!-- # screens -->
 	<!-- # screen: vault list -->
 	<!-- # screen: file browser -->
+	<string name="screen_file_browser_action_create_folder">ফোল্ডার তৈরি করুন</string>
+	<string name="screen_file_browser_action_create_new_text_file">টেক্সট ফাইল তৈরি করুন</string>
+	<string name="screen_file_browser_action_upload_files">ফাইল আপলোড করুন</string>
+	<string name="screen_file_browser_upload_files_chooser_title">ফাইল</string>
+	<string name="screen_file_browser_msg_file_exported">ফাইল এক্সপোর্ট হয়েছে</string>
+	<string name="screen_file_browser_msg_files_exported">ফাইলগুলো এক্সপোর্ট হয়েছে</string>
+	<string name="screen_file_browser_node_action_delete">মুছুন</string>
+	<string name="screen_file_browser_node_action_open_with_text">খোলা হক&#8230;</string>
+	<string name="screen_file_browser_selection_mode_title_zero_elements">আইটেম বাছুন</string>
+	<string name="screen_file_browser_selection_mode_title_one_or_more_elements">%1$dটি নির্বাচিত</string>
+	<string name="screen_file_browser_select_items">নির্বাচন করুন</string>
+	<string name="screen_file_browser_select_all_items">সবগুলো নির্বাচন করুন</string>
+	<string name="screen_file_browser_refresh_items">রিফ্রেশ</string>
+	<string name="screen_file_browser_no_connection_message">কোনো সংযোগ নেই</string>
+	<string name="screen_file_browser_no_connection_button_text">পুনরায় চেষ্টা করুন</string>
 	<!-- ## screen: text editor -->
+	<string name="screen_text_editor_save_success">সফলভাবে সংরক্ষিত হয়েছে</string>
 	<!-- ## screen: share files -->
+	<string name="screen_share_files_title">%1$s &#8230; তে সংরক্ষণ করুন</string>
+	<string name="screen_share_files_content_text">টেক্সট</string>
+	<string name="screen_share_files_content_file">ফাইল</string>
+	<string name="screen_share_files_content_files">ফাইল</string>
+	<string name="screen_share_files_msg_filenames_must_be_unique">ফাইলের নাম অনন্য হতে হবে, অনুগ্রহ করে একই নাম পরিবর্তন করুন।</string>
+	<string name="screen_share_files_section_location">সংরক্ষণের ঠিকানা</string>
+	<string name="screen_share_files_save_button_text">সংরক্ষণ করুন</string>
+	<string name="screen_share_files_msg_success">এনক্রিপশন সম্পন্ন হয়েছে</string>
 	<!-- ## screen: choose cloud service -->
+	<string name="screen_choose_cloud_service_title">ক্লাউড পরিষেবা</string>
 	<!-- ## screen: cloud connections -->
+	<string name="screen_cloud_connections_title">একটি ঠিকানা বাছাই করুন</string>
+	<string name="screen_cloud_connections_no_connections">ঠিকানা যোগ করতে এখানে ক্লিক করুন</string>
 	<!-- ## screen: webdav settings -->
+	<string name="screen_webdav_settings_url_port_label">ইউআরএল</string>
+	<string name="screen_webdav_settings_username_label">ব্যবহারকারীর নাম</string>
+	<string name="screen_webdav_settings_password_label">পাসওয়ার্ড</string>
+	<string name="screen_webdav_settings_done_button_text">কানেক্ট</string>
+	<string name="screen_webdav_settings_msg_url_must_not_be_empty">URL খালি রাখা যাবে না।</string>
 	<!-- ## screen: s3 settings -->
 	<!-- ## screen: enter vault name -->
 	<!-- ## screen: set password -->
 	<!-- ## screen: settings -->
+	<string name="screen_settings_section_search">খুঁজুন</string>
 	<!-- ## screen: cloud settings -->
 	<!-- ## screen: licenses -->
 	<!-- ## screen: authenticate cloud -->
