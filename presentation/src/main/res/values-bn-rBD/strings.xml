@@ -1,7 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 	<!-- # app -->
+	<string name="share_with_label">এনক্রিপ্ট করুন</string>
 	<!-- # error messages -->
+	<string name="error_generic">একটি ত্রুটি ঘটেছে</string>
+	<string name="error_invalid_passphrase">ভুল পাসওয়ার্ড</string>
+	<string name="error_file_or_folder_exists">একটি ফাইল অথবা ফোল্ডার ইতিমধ্যে রয়েছে।</string>
+	<string name="error_vault_version_not_supported">অসমর্থিত ভোল্ট। এই ভোল্টটি ক্রিপ্টোমেটরের অন্য একটি ভার্সন দিয়ে তৈরি হয়েছিল।</string>
+	<string name="error_vault_already_exists">ভোল্টটি ইতিমধ্যে রয়েছে।</string>
+	<string name="error_no_such_file">ফাইলটি নেই।</string>
+	<string name="error_vault_has_been_locked">ভোল্টটি লক করা হয়েছে।</string>
+	<string name="error_activity_not_found">ফাইলটি খুলতে পারে এমন একটি আ্যপ ডাউনলোড করুন।</string>
+	<string name="error_server_not_found">সার্ভার খুজে পাওয়া যায়নি।</string>
+	<string name="error_device_policy_manager_not_found">অনুগ্রহ করে ডিভাইস সেটিংস খুলে নিজে স্ক্রিন লক লাগিয়ে নিন। </string>
+	<string name="error_export_illegal_file_name">এক্সপোর্ট ব্যর্থ হয়েছে। ফাইলের নাম থেকে বিশেষ অক্ষরগুলো সরিয়ে আবার এক্সপোর্ট করুন।</string>
+	<string name="error_name_contains_invalid_characters">বিশেষ অক্ষর থাকা যাবে।</string>
+	<string name="error_names_contains_invalid_characters">ফাইলের নামে বিশেষ অক্ষর থাকা যাবে না।</string>
+	<string name="error_vault_name_contains_invalid_characters">ভোল্ট নামে বিশেষ অক্ষর থাকা যাবে না।</string>
 	<!-- # clouds -->
 	<!-- ## cloud names -->
 	<!-- # permission -->
