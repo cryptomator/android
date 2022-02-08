@@ -5,6 +5,7 @@
 	<!-- # error messages -->
 	<string name="error_generic">একটি ত্রুটি ঘটেছে</string>
 	<string name="error_authentication_failed">সনাক্তকরণ ব্যর্থ হয়েছে</string>
+	<string name="error_authentication_failed_re_authenticate">সনাক্তকরণ ব্যর্থ হয়েছে, অনুগ্রহ করে %1$s ব্যবহার করে লগইন করুন</string>
 	<string name="error_no_network_connection">কোনো নেটওয়ার্ক সংযোগ নেই</string>
 	<string name="error_invalid_passphrase">ভুল পাসওয়ার্ড</string>
 	<string name="error_file_or_folder_exists">একটি ফাইল অথবা ফোল্ডার ইতিমধ্যে রয়েছে।</string>
@@ -20,8 +21,15 @@
 	<string name="error_names_contains_invalid_characters">ফাইলের নামে বিশেষ অক্ষর থাকা যাবে না।</string>
 	<string name="error_vault_name_contains_invalid_characters">ভোল্ট নামে বিশেষ অক্ষর থাকা যাবে না।</string>
 	<string name="error_general_update">সাধারণ ত্রুটি, হালনাগাদ পরীক্ষায় ব্যর্থ হয়েছে।</string>
+	<string name="error_hash_mismatch_update">হালনাগাদ পরীক্ষায় ব্যর্থ হয়েছে। গণনা করা হ্যাশ আপলোড করা ফাইলের সাথে মেলে না</string>
+	<string name="error_update_no_internet">ইন্টারনেট সংযোগ নেই। হালনাগাদ পরীক্ষায় ব্যর্থ হয়েছে।</string>
 	<string name="error_failed_to_decrypt_webdav_password">WebDev পাসওয়ার্ড ডিক্রিপশন ব্যর্থ হয়েছে, অনুগ্রহ করে সেটিংসে পুনরায় যোগ করুন</string>
 	<string name="error_play_services_not_available">গুগল প্লে সার্ভিস ইন্সটল করা নয়।</string>
+	<string name="error_biometric_auth_aborted">বায়োমেট্রিক সনাক্তকরণ ব্যর্থ হয়েছে</string>
+	<string name="error_vault_version_mismatch">%1$s এ ভার্সনটি %2$s এর ভার্সন থেকে ভিন্ন</string>
+	<string name="error_vault_key_invalid">%1$s এই %2$s এর সাথে মেলে না</string>
+	<string name="error_vault_config_loading">ভোল্ট কোনফিগারেশন লোডিংএ সাধারণ ত্রুটি দেখা দিয়েছে</string>
+	<string name="error_file_not_found_after_opening_using_3party">ক্রিপ্টোমেটরে ফিরে যাওয়ার পর লোকাল ফাইলটি বিদ্যমান নয়। তাই সম্ভাব্য পরিবর্তনগুলো আবার ক্লাউডে স্থানান্তর করা হবে না।</string>
 	<!-- # clouds -->
 	<!-- ## cloud names -->
 	<string name="cloud_names_local_storage">সিস্টেম স্টোরেজ</string>
@@ -29,9 +37,32 @@
 	<!-- ## permission messages -->
 	<string name="snack_bar_action_title_settings">সেটিংস</string>
 	<string name="snack_bar_action_title_search">খুঁজুন</string>
+	<string name="snack_bar_action_title_search_previous">পিছনে</string>
+	<string name="snack_bar_action_title_search_next">পরবর্তী</string>
+	<string name="snack_bar_action_title_sort">সাজান</string>
+	<string name="snack_bar_action_title_sort_az">A - Z</string>
+	<string name="snack_bar_action_title_sort_za">Z - A</string>
+	<string name="snack_bar_action_title_sort_newest">নতুন থেকে</string>
+	<string name="snack_bar_action_title_sort_oldest">পুরনো থেকে</string>
+	<string name="snack_bar_action_title_sort_biggest">বড় আকারের থেকে</string>
+	<string name="snack_bar_action_title_sort_smallest">ছোট আকারের থেকে</string>
 	<!-- # screens -->
 	<!-- # screen: vault list -->
+	<string name="screen_vault_list_actions_title">ক্রিপ্টোমেটরে যুক্ত করুন</string>
+	<string name="screen_vault_list_action_create_new_vault">নতুন ভোল্ট তৈরি করুন</string>
+	<string name="screen_vault_list_action_add_existing_vault">বিদ্যমান কোনো ভোল্ট যুক্ত করুন</string>
+	<string name="screen_vault_list_vault_action_delete">বাতিল</string>
+	<string name="screen_vault_list_vault_creation_hint">নতুন ভোল্ট তৈরি করতে এখানে ক্লিক করুন</string>
+	<string name="screen_vault_list_change_password_successful">পাসওয়ার্ড সফলভাবে পরিবর্তিত হয়েছে</string>
 	<!-- # screen: file browser -->
+	<string name="screen_file_browser_default_title">ভোল্ট</string>
+	<string name="screen_file_browser_add_existing_vault_extra_text">মাস্টার কী ফাইলটি নির্বাচন করুন</string>
+	<string name="screen_file_browser_create_new_vault_button_text">এখানে রাখুন</string>
+	<string name="screen_file_browser_create_new_vault_extra_text">ভোল্টের নাম: %1$s</string>
+	<plurals name="screen_file_browser_subtitle_move">
+		<item quantity="one">%1$s স্থানান্তর করুন</item>
+		<item quantity="other">%2$d আইটেম স্থানান্তর করুন</item>
+	</plurals>
 	<string name="screen_file_browser_action_create_folder">ফোল্ডার তৈরি করুন</string>
 	<string name="screen_file_browser_action_create_new_text_file">টেক্সট ফাইল তৈরি করুন</string>
 	<string name="screen_file_browser_action_upload_files">ফাইল আপলোড করুন</string>
@@ -89,6 +120,7 @@
 	<!-- ## screen: insecure android version info -->
 	<!-- # dialogs -->
 	<!-- Vault not found -->
+	<string name="dialog_vault_not_found_positive_button_text">বাতিল</string>
 	<!-- # error reports -->
 	<!-- # misc -->
 	<!-- ## file size helper -->
