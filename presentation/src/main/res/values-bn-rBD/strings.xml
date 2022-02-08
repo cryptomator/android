@@ -4,6 +4,7 @@
 	<string name="share_with_label">এনক্রিপ্ট করুন</string>
 	<!-- # error messages -->
 	<string name="error_generic">একটি ত্রুটি ঘটেছে</string>
+	<string name="error_authentication_failed">সনাক্তকরণ ব্যর্থ হয়েছে</string>
 	<string name="error_no_network_connection">কোনো নেটওয়ার্ক সংযোগ নেই</string>
 	<string name="error_invalid_passphrase">ভুল পাসওয়ার্ড</string>
 	<string name="error_file_or_folder_exists">একটি ফাইল অথবা ফোল্ডার ইতিমধ্যে রয়েছে।</string>
