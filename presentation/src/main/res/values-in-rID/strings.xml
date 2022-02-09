@@ -4,8 +4,8 @@
 	<string name="share_with_label">Enkripsi</string>
 	<!-- # error messages -->
 	<string name="error_generic">Kesalahan terjadi</string>
-	<string name="error_authentication_failed">Otentikasi gagal</string>
-	<string name="error_authentication_failed_re_authenticate">Otentikasi gagal, mohon masuk menggunakan %1$s</string>
+	<string name="error_authentication_failed">Autentikasi gagal</string>
+	<string name="error_authentication_failed_re_authenticate">Autentikasi gagal, mohon masuk menggunakan %1$s</string>
 	<string name="error_no_network_connection">Tidak ada koneksi jaringan</string>
 	<string name="error_invalid_passphrase">Kata sandi salah</string>
 	<string name="error_file_or_folder_exists">Berkas atau folder sudah ada.</string>
@@ -26,7 +26,7 @@
 	<string name="error_update_no_internet">Pemeriksaan pembaruan gagal. Tidak ada koneksi internet.</string>
 	<string name="error_failed_to_decrypt_webdav_password">Gagal mendekripsi kata sandi WebDAV, harap tambahkan kembali di pengaturan</string>
 	<string name="error_play_services_not_available">Google Play Services belum terpasang</string>
-	<string name="error_biometric_auth_aborted">Otentikasi biometrik gagal</string>
+	<string name="error_biometric_auth_aborted">Autentikasi biometrik dibatalkan</string>
 	<string name="error_vault_version_mismatch">Versi yang ditentukan di %1$s berbeda dengan %2$s</string>
 	<string name="error_vault_key_invalid">%1$s tidak cocok dengan %2$s ini</string>
 	<string name="error_vault_config_loading">Terjadi kesalahan saat memuat konfigurasi vault</string>
@@ -155,8 +155,8 @@
 	<!-- ## screen: settings -->
 	<string name="screen_settings_section_general">Umum</string>
 	<string name="screen_settings_cloud_settings_label">Layanan cloud</string>
-	<string name="screen_settings_biometric_auth">Otentikasi biometrik</string>
-	<string name="screen_settings_activate_biometric_auth">Aktifkan otentikas biometrik</string>
+	<string name="screen_settings_biometric_auth">Autentikasi biometrik</string>
+	<string name="screen_settings_activate_biometric_auth">Aktifkan autentikasi biometrik</string>
 	<string name="screen_settings_confirm_face_unlock">Konfirmasi face unlock (jika tersedia)</string>
 	<string name="screen_settings_block_app_when_obscured">Blokir aplikasi saat disamarkan</string>
 	<string name="screen_settings_block_app_when_obscured_summary">Blokir mencegat input dan menampilkan antarmuka pengguna yang salah</string>
@@ -198,6 +198,7 @@
 	<string name="screen_settings_keep_unlocked_while_editing_files">Biarkan tidak terkunci</string>
 	<string name="screen_settings_keep_unlocked_while_editing_files_summary">Biarkan vault tidak terkunci saat mengedit file</string>
 	<!-- ## screen: cloud settings -->
+	<string name="screen_cloud_settings_onedrive_connections">Koneksi OneDrive</string>
 	<string name="screen_cloud_settings_webdav_connections">Koneksi WebDAV</string>
 	<string name="screen_cloud_settings_pcloud_connections">koneksi pCloud</string>
 	<string name="screen_cloud_settings_s3_connections">Koneksi S3</string>
@@ -255,7 +256,7 @@
 	<string name="dialog_progress_please_wait">Mohon tunggu&#8230;</string>
 	<string name="dialog_progress_creating_folder">Membuat folder&#8230;</string>
 	<string name="dialog_progress_creating_text_file">Membuat file teks&#8230;</string>
-	<string name="action_progress_authentication">Otentikasi&#8230;</string>
+	<string name="action_progress_authentication">Autentikasi&#8230;</string>
 	<string name="action_progress_renaming">Mengganti nama&#8230;</string>
 	<string name="action_progress_deleting">Menghapus&#8230;</string>
 	<string name="dialog_progress_unlocking_vault">Membuka vault&#8230;</string>
@@ -277,7 +278,7 @@
 	<string name="dialog_no_screen_lock_hint">Tidak ada kunci layar yang disetel. Untuk menyimpan kredensial Anda dengan cara yang aman, atur dengan OK pola atau kata sandi.</string>
 	<string name="dialog_no_screen_lock_title">Atur kunci layar?</string>
 	<string name="dialog_no_screen_lock_checkbox">Atur kunci layar</string>
-	<string name="dialog_no_biometric_auth_set_up_title">Tidak ada otentikasi dasar yang diatur dalam sistem</string>
+	<string name="dialog_no_biometric_auth_set_up_title">Tidak ada autentikasi dasar yang disetel dalam sistem</string>
 	<string name="dialog_no_biometric_auth_set_up_message">Daftarkan setidaknya satu jari/wajah untuk menggunakan layanan ini.</string>
 	<string name="dialog_debug_mode_disclaimer_hint">Dalam mode ini, data sensitif dapat ditulis ke file log di perangkat Anda (misalnya, nama file dan jalur). Kata sandi, cookie, dll. secara eksplisit dikecualikan.\n\nIngat untuk menonaktifkan mode debug sesegera mungkin.</string>
 	<string name="dialog_debug_mode_disclaimer_title">Perhatian</string>
@@ -299,8 +300,8 @@
 	<string name="dialog_confirm_delete_multiple_message">Anda yakin ingin menghapus item ini?</string>
 	<string name="dialog_confirm_delete_file_message">Anda yakin ingin menghapus berkas ini?</string>
 	<string name="dialog_confirm_delete_folder_message">Ini akan menghapus semua isi folder. Anda yakin ingin menghapus folder ini?</string>
-	<string name="dialog_biometric_auth_key_invalidated_title">Fitur otentikasi biometrik dinonaktifkan</string>
-	<string name="dialog_biometric_auth_key_invalidated_message">Karena kunci telah dibatalkan, fitur otentikasi biometrik telah dinonaktifkan. Untuk mengaktifkan kembali, buka pengaturan Cryptomator.</string>
+	<string name="dialog_biometric_auth_key_invalidated_title">Fitur autentikasi biometrik dinonaktifkan</string>
+	<string name="dialog_biometric_auth_key_invalidated_message">Karena kunci telah dibatalkan, fitur autentikasi biometrik telah dinonaktifkan. Untuk mengaktifkan kembali, buka pengaturan Cryptomator.</string>
 	<string name="dialog_enter_license_title">Berikan lisensi yang valid</string>
 	<string name="dialog_enter_license_content">Kami mendeteksi bahwa Anda menginstal Cryptomator tanpa menggunakan Google Play Store. Berikan lisensi yang valid, yang dapat dibeli di <a href="https://cryptomator.org/android/">https://cryptomator.org/android/</a></string>
 	<string name="dialog_enter_license_not_valid_content">Lisensi yang diberikan tidak valid. Pastikan Anda memasukkannya dengan benar.</string>
@@ -350,7 +351,7 @@
 	<string name="time_unit_years_sg">tahun</string>
 	<string name="time_unit_years_pl">tahun</string>
 	<!-- ## biometric authentication -->
-	<string name="dialog_biometric_auth_title">Masuk dengan biometrik</string>
+	<string name="dialog_biometric_auth_title">Login dengan biometrik</string>
 	<string name="dialog_biometric_auth_message">Buka kunci dengan kredensial biometrik</string>
 	<string name="dialog_biometric_auth_use_password">Gunakan kata sandi vault</string>
 	<string name="dialog_unable_to_auto_upload_files_title">Tidak dapat mengunggah file</string>
@@ -371,6 +372,7 @@
 	<string name="notification_open_writable_file_title">Buka file yang dapat ditulis</string>
 	<string name="notification_open_writable_file_message">Vault tetap tidak terkunci sampai selesai mengedit</string>
 	<string name="notification_update_check_finished_latest">Versi terbaru sudah terpasang</string>
+	<string name="notification_authenticating">Mengautentikasi&#8230;</string>
 	<string name="screen_settings_lru_cache">Cache</string>
 	<string name="screen_settings_lru_cache_toggle_summary">Cache file yang baru saja diakses yang dienkripsi secara lokal di perangkat untuk digunakan kembali nanti saat dibuka kembali</string>
 	<string name="screen_settings_lru_cache_size">Total ukuran cache</string>
