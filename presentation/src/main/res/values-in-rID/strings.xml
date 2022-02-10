@@ -59,7 +59,7 @@
 	<string name="screen_vault_list_action_create_new_vault">Buat vault baru</string>
 	<string name="screen_vault_list_action_add_existing_vault">Tambahkan vault yang ada</string>
 	<string name="screen_vault_list_vault_action_delete">Hapus</string>
-	<string name="screen_vault_list_vault_creation_hint">Klik disini untuk membuat vault baru</string>
+	<string name="screen_vault_list_vault_creation_hint">Ketuk disini untuk membuat vault baru</string>
 	<string name="screen_vault_list_change_password_successful">Kasa Sandi berhasil diubah</string>
 	<!-- # screen: file browser -->
 	<string name="screen_file_browser_default_title">Vault</string>
@@ -113,7 +113,7 @@
 	<string name="screen_choose_cloud_service_title">Layanan Cloud</string>
 	<!-- ## screen: cloud connections -->
 	<string name="screen_cloud_connections_title">Pilih lokasi</string>
-	<string name="screen_cloud_connections_no_connections">Klik disini untuk menambahkan lokasi</string>
+	<string name="screen_cloud_connections_no_connections">Ketuk disini untuk menambahkan lokasi</string>
 	<string name="screen_cloud_error_webdav_not_supported">Server tampaknya tidak kompatibel dengan WebDAV</string>
 	<string name="screen_cloud_local_error_no_content_provider">Tidak ada lokasi tambahan yang tersedia.</string>
 	<!-- ## screen: webdav settings -->
@@ -323,7 +323,7 @@
 	<string name="dialog_no_dir_file_message">Folder cloud \'%1$s\' tidak memiliki file direktori yang valid. Bisa jadi folder tersebut dibuat di perangkat lain dan belum sepenuhnya tersinkronisasi ke cloud. Harap periksa di cloud Anda jika file berikut ada dan tidak kosong:\n%2$s</string>
 	<string name="dialog_no_more_images_to_display">Tidak ada lagi gambar untuk ditampilkan&#8230;</string>
 	<string name="dialog_pcloud_credentials_updated_title">Kredensial \'%1$s\' diperbarui</string>
-	<string name="dialog_pcloud_credentials_updated">Jika Anda ingin menambahkan akun pCloud baru, klik url ini <a href="https://www.pcloud.com">www.pcloud.com</a>, keluar dari akun saat ini dan klik lagi \'+\' di aplikasi ini untuk membuat koneksi cloud baru.</string>
+	<string name="dialog_pcloud_credentials_updated">Jika Anda ingin menambahkan akun pCloud baru, ketuk url berikut <a href="https://www.pcloud.com">www.pcloud.com</a>, keluar dari akun saat ini kemudian ketuk tombol \'+\' lagi di aplikasi ini untuk membuat koneksi cloud baru.</string>
 	<string name="permission_snackbar_auth_local_vault">Cryptomator membutuhkan akses penyimpanan untuk menggunakan vault lokal</string>
 	<string name="permission_snackbar_auth_auto_upload">Cryptomator membutuhkan akses penyimpanan untuk menggunakan unggahan foto otomatis</string>
 	<!-- # error reports -->
