@@ -70,7 +70,7 @@
 		<item quantity="other">Pindah %2$d item ke</item>
 	</plurals>
 	<string name="screen_file_browser_move_button_text">Pindah</string>
-	<string name="screen_file_browser_msg_empty_folder">Filder kosong</string>
+	<string name="screen_file_browser_msg_empty_folder">Folder kosong</string>
 	<string name="screen_file_browser_file_info_label_date">dimodifikasi %1$s lalu</string>
 	<string name="screen_file_browser_share_intent_chooser_title">Bagikan dengan</string>
 	<string name="screen_file_browser_share_destination_title">Pilih tujuan</string>
