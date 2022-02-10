@@ -57,7 +57,7 @@
 	<!-- # screen: vault list -->
 	<string name="screen_vault_list_actions_title">Tambah ke Cryptomator</string>
 	<string name="screen_vault_list_action_create_new_vault">Buat vault baru</string>
-	<string name="screen_vault_list_action_add_existing_vault">Tambahkan vault yang ada</string>
+	<string name="screen_vault_list_action_add_existing_vault">Tambahkan vault yang sudah ada</string>
 	<string name="screen_vault_list_vault_action_delete">Hapus</string>
 	<string name="screen_vault_list_vault_creation_hint">Ketuk disini untuk membuat vault baru</string>
 	<string name="screen_vault_list_change_password_successful">Kasa Sandi berhasil diubah</string>
@@ -173,7 +173,7 @@
 	<string name="screen_settings_section_auto_photo_upload">Unggah foto otomatis</string>
 	<string name="screen_settings_section_auto_photo_upload_vault">Pilih vault untuk unggah</string>
 	<string name="screen_settings_section_auto_photo_upload_toggle">Aktifkan</string>
-	<string name="screen_settings_section_auto_photo_upload_toggle_summary">Ambil gambar di background dan setelah vault yang dipilih dibuka, mulai mengunggah</string>
+	<string name="screen_settings_section_auto_photo_upload_toggle_summary">Ambil gambar di background, kemudian mulai proses unggah setelah vault yang dipilih dibuka</string>
 	<string name="screen_settings_section_auto_photo_upload_toggle_instant_upload">Unggah instan</string>
 	<string name="screen_settings_section_auto_photo_upload_toggle_instant_upload_summary">Unggah langsung jika vault tidak terkunci</string>
 	<string name="screen_settings_section_auto_photo_upload_only_wifi_toggle">Hanya unggah melalui WIFI</string>
@@ -203,7 +203,7 @@
 	<string name="screen_cloud_settings_pcloud_connections">koneksi pCloud</string>
 	<string name="screen_cloud_settings_s3_connections">Koneksi S3</string>
 	<string name="screen_cloud_settings_local_storage_locations">Lokasi penyimpanan lokal</string>
-	<string name="screen_cloud_settings_log_in_to">Masuk ke</string>
+	<string name="screen_cloud_settings_log_in_to">Login ke</string>
 	<string name="screen_cloud_settings_sign_out_from_cloud">Keluar dari</string>
 	<!-- ## screen: licenses -->
 	<!-- ## screen: authenticate cloud -->
@@ -236,7 +236,7 @@
 	<string name="dialog_replace_title_single_file_exists">Menimpa file?</string>
 	<string name="dialog_replace_title_multiple_files_exist">Menimpa file?</string>
 	<string name="dialog_unable_to_share_title">Tidak dapat membagikan file</string>
-	<string name="dialog_unable_to_share_message">Anda belum menyiapkan vault apa pun. Silakan buat vault baru dengan aplikasi Cryptomator terlebih dahulu.</string>
+	<string name="dialog_unable_to_share_message">Anda belum menyiapkan vault sama sekali. Silahkan buat vault baru terlebih dahulu melalui aplikasi Cryptomator.</string>
 	<string name="dialog_unable_to_share_positive_button">OK</string>
 	<string name="dialog_unable_to_share_negative_button">Buat vault</string>
 	<string name="dialog_filetype_not_supported_title">Tidak dapat membuka %1$s</string>
@@ -280,9 +280,9 @@
 	<string name="dialog_no_screen_lock_checkbox">Atur kunci layar</string>
 	<string name="dialog_no_biometric_auth_set_up_title">Tidak ada autentikasi dasar yang disetel dalam sistem</string>
 	<string name="dialog_no_biometric_auth_set_up_message">Daftarkan setidaknya satu jari/wajah untuk menggunakan layanan ini.</string>
-	<string name="dialog_debug_mode_disclaimer_hint">Dalam mode ini, data sensitif dapat ditulis ke file log di perangkat Anda (misalnya, nama file dan jalur). Kata sandi, cookie, dll. secara eksplisit dikecualikan.\n\nIngat untuk menonaktifkan mode debug sesegera mungkin.</string>
+	<string name="dialog_debug_mode_disclaimer_hint">Dalam mode ini, data sensitif dapat ditulis ke file log di perangkat Anda (misalnya, nama dan lokasi file). Kata sandi, cookie, dll secara eksplisit dikecualikan.\n\nJangan lupa untuk menonaktifkan mode debug sesegera mungkin.</string>
 	<string name="dialog_debug_mode_disclaimer_title">Perhatian</string>
-	<string name="dialog_debug_mode_positive_button">Aktif</string>
+	<string name="dialog_debug_mode_positive_button">Aktifkan</string>
 	<string name="dialog_disable_app_obscured_disclaimer_hint">Setelan ini adalah fitur keamanan dan mencegah aplikasi lain menipu pengguna agar melakukan hal-hal yang tidak ingin mereka lakukan.\n\nDengan menonaktifkan, Anda mengonfirmasi bahwa Anda <a href="https://docs.cryptomator.org/en/1.5/android/settings/#block-app-when-obscured">sadar akan risiko</a>.</string>
 	<string name="dialog_disable_app_obscured_disclaimer_title">Perhatian</string>
 	<string name="dialog_disable_app_obscured_positive_button">Matikan</string>
@@ -354,7 +354,7 @@
 	<string name="dialog_biometric_auth_title">Login dengan biometrik</string>
 	<string name="dialog_biometric_auth_message">Buka kunci dengan kredensial biometrik</string>
 	<string name="dialog_biometric_auth_use_password">Gunakan kata sandi vault</string>
-	<string name="dialog_unable_to_auto_upload_files_title">Tidak dapat mengunggah file</string>
+	<string name="dialog_unable_to_auto_upload_files_title">Tidak dapat mengunggah file secara otomatis</string>
 	<!-- notification -->
 	<string name="notification_unlocked">Vaults tidak terkunci: %1$d</string>
 	<string name="notification_timeout">Otomatis terkunci dalam %1$s</string>
@@ -374,7 +374,7 @@
 	<string name="notification_update_check_finished_latest">Versi terbaru sudah terpasang</string>
 	<string name="notification_authenticating">Mengautentikasi&#8230;</string>
 	<string name="screen_settings_lru_cache">Cache</string>
-	<string name="screen_settings_lru_cache_toggle_summary">Cache file yang baru saja diakses yang dienkripsi secara lokal di perangkat untuk digunakan kembali nanti saat dibuka kembali</string>
+	<string name="screen_settings_lru_cache_toggle_summary">Gunakan cache yang terenkripsi di perangkat lokal untuk file yang baru-baru ini diakses agar bisa digunakan lagi ketika dibuka kembali</string>
 	<string name="screen_settings_lru_cache_size">Total ukuran cache</string>
 	<string name="screen_settings_clear_lru_cache_size">Bersihkan Cache</string>
 	<string name="screen_settings_lru_cache_changed__restart_toast">Perubahan akan diterapkan pada saat aplikasi dibuka kembali</string>
