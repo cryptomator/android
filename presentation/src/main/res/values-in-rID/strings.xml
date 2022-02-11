@@ -158,7 +158,7 @@
 	<string name="screen_settings_biometric_auth">Autentikasi biometrik</string>
 	<string name="screen_settings_activate_biometric_auth">Aktifkan autentikasi biometrik</string>
 	<string name="screen_settings_confirm_face_unlock">Konfirmasi face unlock (jika tersedia)</string>
-	<string name="screen_settings_block_app_when_obscured">Blokir aplikasi saat disamarkan</string>
+	<string name="screen_settings_block_app_when_obscured">Blokir aplikasi ketika dihalangi</string>
 	<string name="screen_settings_block_app_when_obscured_summary">Blokir mencegat input dan menampilkan antarmuka pengguna yang salah</string>
 	<string name="screen_settings_secure_screen">Blokir screenshot</string>
 	<string name="screen_settings_secure_screen_summary">Blokir screenshot di daftar terbaru dan di dalam aplikasi</string>
