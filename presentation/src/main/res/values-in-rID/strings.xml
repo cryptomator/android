@@ -12,7 +12,7 @@
 	<string name="error_vault_version_not_supported">Vault tidak didukung. Vault ini telah dibuat dengan Cryptomator versi lain.</string>
 	<string name="error_vault_already_exists">Vault sudah ada.</string>
 	<string name="error_no_such_file">Berkas tidak ada.</string>
-	<string name="error_vault_has_been_locked">Vaukt telah terkunci.</string>
+	<string name="error_vault_has_been_locked">Vault telah dikunci.</string>
 	<string name="error_cloud_already_exists">Cloud sudah ada.</string>
 	<string name="error_activity_not_found">Silakan unduh aplikasi yang dapat membuka file ini.</string>
 	<string name="error_server_not_found">Server tidak ditemukan.</string>
@@ -30,7 +30,7 @@
 	<string name="error_vault_version_mismatch">Versi yang ditentukan di %1$s berbeda dengan %2$s</string>
 	<string name="error_vault_key_invalid">%1$s tidak cocok dengan %2$s ini</string>
 	<string name="error_vault_config_loading">Terjadi kesalahan saat memuat konfigurasi vault</string>
-	<string name="error_file_not_found_after_opening_using_3party">File lokal tidak ada lagi setelah beralih kembali ke Cryptomator. Kemungkinan perubahan tidak dapat disebarkan kembali ke cloud.</string>
+	<string name="error_file_not_found_after_opening_using_3party">File lokal sudah tidak tersedia setelah beralih kembali ke Cryptomator. Perubahan yang terjadi tidak dapat disebarkan kembali ke cloud.</string>
 	<string name="error_no_such_bucket">Bucket tidak ada</string>
 	<string name="error_masterkey_location_not_supported">Lokasi Masterkey khusus belum didukung</string>
 	<!-- # clouds -->
