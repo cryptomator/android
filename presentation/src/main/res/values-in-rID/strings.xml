@@ -30,7 +30,7 @@
 	<string name="error_vault_version_mismatch">Versi yang ditentukan di %1$s berbeda dengan %2$s</string>
 	<string name="error_vault_key_invalid">%1$s tidak cocok dengan %2$s ini</string>
 	<string name="error_vault_config_loading">Terjadi kesalahan saat memuat konfigurasi vault</string>
-	<string name="error_file_not_found_after_opening_using_3party">File lokal sudah tidak tersedia setelah beralih kembali ke Cryptomator. Perubahan yang terjadi tidak dapat disebarkan kembali ke cloud.</string>
+	<string name="error_file_not_found_after_opening_using_3party">File lokal sudah tidak tersedia setelah beralih kembali ke Cryptomator. Perubahan yang ada tidak dapat disimpan kembali ke cloud.</string>
 	<string name="error_no_such_bucket">Bucket tidak ada</string>
 	<string name="error_masterkey_location_not_supported">Lokasi Masterkey khusus belum didukung</string>
 	<!-- # clouds -->
@@ -173,7 +173,7 @@
 	<string name="screen_settings_section_auto_photo_upload">Unggah foto otomatis</string>
 	<string name="screen_settings_section_auto_photo_upload_vault">Pilih vault untuk unggah</string>
 	<string name="screen_settings_section_auto_photo_upload_toggle">Aktifkan</string>
-	<string name="screen_settings_section_auto_photo_upload_toggle_summary">Ambil gambar di background, kemudian mulai proses unggah setelah vault yang dipilih dibuka</string>
+	<string name="screen_settings_section_auto_photo_upload_toggle_summary">Ambil gambar di background, kemudian mulai proses unggah setelah vault terpilih dibuka</string>
 	<string name="screen_settings_section_auto_photo_upload_toggle_instant_upload">Unggah instan</string>
 	<string name="screen_settings_section_auto_photo_upload_toggle_instant_upload_summary">Unggah langsung jika vault tidak terkunci</string>
 	<string name="screen_settings_section_auto_photo_upload_only_wifi_toggle">Hanya unggah melalui WIFI</string>
