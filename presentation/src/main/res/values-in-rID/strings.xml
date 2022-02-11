@@ -159,7 +159,7 @@
 	<string name="screen_settings_activate_biometric_auth">Aktifkan autentikasi biometrik</string>
 	<string name="screen_settings_confirm_face_unlock">Konfirmasi face unlock (jika tersedia)</string>
 	<string name="screen_settings_block_app_when_obscured">Blokir aplikasi ketika dihalangi</string>
-	<string name="screen_settings_block_app_when_obscured_summary">Blokir mencegat input dan menampilkan antarmuka pengguna yang salah</string>
+	<string name="screen_settings_block_app_when_obscured_summary">Memblokir pembajakan input serta tampilan antarmuka pengguna yang menyesatkan</string>
 	<string name="screen_settings_secure_screen">Blokir screenshot</string>
 	<string name="screen_settings_secure_screen_summary">Blokir screenshot di daftar terbaru dan di dalam aplikasi</string>
 	<string name="screen_settings_section_search">Cari</string>
@@ -283,11 +283,11 @@
 	<string name="dialog_debug_mode_disclaimer_hint">Dalam mode ini, data sensitif dapat ditulis ke file log di perangkat Anda (misalnya, nama dan lokasi file). Kata sandi, cookie, dll secara eksplisit dikecualikan.\n\nJangan lupa untuk menonaktifkan mode debug sesegera mungkin.</string>
 	<string name="dialog_debug_mode_disclaimer_title">Perhatian</string>
 	<string name="dialog_debug_mode_positive_button">Aktifkan</string>
-	<string name="dialog_disable_app_obscured_disclaimer_hint">Setelan ini adalah fitur keamanan dan mencegah aplikasi lain menipu pengguna agar melakukan hal-hal yang tidak ingin mereka lakukan.\n\nDengan menonaktifkan, Anda mengonfirmasi bahwa Anda <a href="https://docs.cryptomator.org/en/1.5/android/settings/#block-app-when-obscured">sadar akan risiko</a>.</string>
+	<string name="dialog_disable_app_obscured_disclaimer_hint">Setelan ini adalah fitur keamanan yang dapat mencegah aplikasi lain menipu pengguna agar melakukan hal-hal yang tidak ingin mereka lakukan.\n\nDengan menonaktifkan, artinya mengonfirmasi bahwa Anda <a href="https://docs.cryptomator.org/en/1.5/android/settings/#block-app-when-obscured">paham dengan resikonya</a>.</string>
 	<string name="dialog_disable_app_obscured_disclaimer_title">Perhatian</string>
 	<string name="dialog_disable_app_obscured_positive_button">Matikan</string>
-	<string name="dialog_app_is_obscured_info_title">Aplikasi tidak jelas</string>
-	<string name="dialog_app_is_obscured_info_hint">Aplikasi lain menampilkan sesuatu di atas Cryptomator (misal, Filter cahaya biru atau aplikasi mode malam). Untuk alasan keamanan, Cryptomator dinonaktifkan.\n\n<a href="https://docs.cryptomator.org/en/1.5/android/settings/#block-app-when-obscured">Cara mengaktifkan Cryptomator</a></string>
+	<string name="dialog_app_is_obscured_info_title">Aplikasi terhalang</string>
+	<string name="dialog_app_is_obscured_info_hint">Aplikasi lain menampilkan sesuatu di atas tampilan Cryptomator (misal, Filter cahaya biru atau aplikasi mode malam). Untuk alasan keamanan, Cryptomator dinonaktifkan.\n\n<a href="https://docs.cryptomator.org/en/1.5/android/settings/#block-app-when-obscured">Cara mengaktifkan Cryptomator</a></string>
 	<string name="dialog_app_is_obscured_info_neutral_button">Tutup</string>
 	<string name="dialog_vaults_removed_during_migration_title">Harap tambahkan kembali vault untuk cloud %1s</string>
 	<string name="dialog_vaults_removed_during_migration_hint">Saat bermigrasi ke versi aplikasi ini, kita perlu menghapus vault berikut dari aplikasi:\n%2s \n\nVault tersebut tidak dihapus dari cloud, tetapi hanya dari aplikasi ini. Maaf atas ketidaknyamanan ini dan harap tambahkan kembali vault ini untuk terus bekerja dengannya.</string>
