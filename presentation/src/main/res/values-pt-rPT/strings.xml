@@ -40,6 +40,7 @@
 	<!-- ## screen: settings -->
 	<string name="screen_settings_section_general">Geral</string>
 	<!-- ## screen: cloud settings -->
+	<string name="screen_cloud_settings_onedrive_connections">Conexões do OneDrive</string>
 	<!-- ## screen: licenses -->
 	<!-- ## screen: authenticate cloud -->
 	<!-- ## screen: insecure android version info -->
@@ -56,6 +57,7 @@
 	<!-- ## date helper -->
 	<!-- ## biometric authentication -->
 	<!-- notification -->
+	<string name="notification_authenticating">Autenticação&#8230;</string>
 	<!-- lock timeout names -->
 	<!-- cache size names -->
 	<!-- screen scheme mode names -->
