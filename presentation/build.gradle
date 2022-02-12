@@ -105,7 +105,7 @@ android {
 	}
 	packagingOptions {
 		resources {
-			excludes += ['META-INF/jersey-module-version', 'META-INF/NOTICE.md', 'META-INF/DEPENDENCIES']
+			excludes += ['META-INF/jersey-module-version', 'META-INF/NOTICE.md', 'META-INF/DEPENDENCIES', 'META-INF/INDEX.LIST']
 		}
 	}
 
