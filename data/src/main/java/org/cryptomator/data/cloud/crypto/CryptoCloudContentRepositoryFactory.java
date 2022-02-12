@@ -78,4 +78,13 @@ public class CryptoCloudContentRepositoryFactory implements CloudContentReposito
 			throw new IllegalStateException(format("Cryptor already registered for vault %s", vault));
 		}
 	}
+
+	public void updateCloudInCryptor(Vault vault, Cloud cloud) {
+		try {
+			Cryptor cryptor = cryptors.get(vault).get();
+			cryptors.replace(vault, Vault.aCopyOf(vault).withCloud(cloud).build(), cryptor);
+		} catch (MissingCryptorException e) {
+			// no-op
+		}
+	}
 }

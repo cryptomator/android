@@ -68,7 +68,7 @@ class CloudRepositoryImpl implements CloudRepository {
 
 		Cloud storedCloud = mapper.fromEntity(database.store(mapper.toEntity(cloud)));
 
-		dispatchingCloudContentRepository.removeCloudContentRepositoryFor(storedCloud);
+		dispatchingCloudContentRepository.updateCloudContentRepositoryFor(storedCloud);
 		database.clearCache();
 
 		return storedCloud;
