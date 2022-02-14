@@ -1,5 +1,11 @@
 package org.cryptomator.presentation.presenter;
 
+import static org.mockito.Mockito.never;
+import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
+import static java.util.Arrays.asList;
+
 import android.app.Activity;
 
 import org.cryptomator.data.util.NetworkConnectionCheck;
@@ -20,6 +26,7 @@ import org.cryptomator.domain.usecases.vault.MoveVaultPositionUseCase;
 import org.cryptomator.domain.usecases.vault.RenameVaultUseCase;
 import org.cryptomator.domain.usecases.vault.SaveVaultUseCase;
 import org.cryptomator.domain.usecases.vault.UnlockToken;
+import org.cryptomator.domain.usecases.vault.UpdateVaultParameterIfChangedRemotelyUseCase;
 import org.cryptomator.presentation.exception.ExceptionHandlers;
 import org.cryptomator.presentation.model.VaultModel;
 import org.cryptomator.presentation.model.mappers.CloudFolderModelMapper;
@@ -36,12 +43,6 @@ import org.mockito.Mockito;
 
 import java.util.Collections;
 import java.util.List;
-
-import static java.util.Arrays.asList;
-import static org.mockito.Mockito.never;
-import static org.mockito.Mockito.times;
-import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
 
 public class VaultListPresenterTest {
 
@@ -103,6 +104,7 @@ public class VaultListPresenterTest {
 	private DoLicenseCheckUseCase doLicenceCheckUsecase = Mockito.mock(DoLicenseCheckUseCase.class);
 	private DoUpdateCheckUseCase updateCheckUseCase = Mockito.mock(DoUpdateCheckUseCase.class);
 	private DoUpdateUseCase updateUseCase = Mockito.mock(DoUpdateUseCase.class);
+	private UpdateVaultParameterIfChangedRemotelyUseCase updateVaultParameterIfChangedRemotelyUseCase = Mockito.mock(UpdateVaultParameterIfChangedRemotelyUseCase.class);
 	private NetworkConnectionCheck networkConnectionCheck = Mockito.mock(NetworkConnectionCheck.class);
 	private FileUtil fileUtil = Mockito.mock(FileUtil.class);
 	private AuthenticationExceptionHandler authenticationExceptionHandler = Mockito.mock(AuthenticationExceptionHandler.class);
@@ -125,6 +127,7 @@ public class VaultListPresenterTest {
 				doLicenceCheckUsecase, //
 				updateCheckUseCase, //
 				updateUseCase, //
+				updateVaultParameterIfChangedRemotelyUseCase, //
 				networkConnectionCheck, //
 				fileUtil, //
 				authenticationExceptionHandler, //

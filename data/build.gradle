@@ -70,7 +70,7 @@ android {
 	}
 	packagingOptions {
 		resources {
-			excludes += ['META-INF/DEPENDENCIES', 'META-INF/NOTICE.md']
+			excludes += ['META-INF/DEPENDENCIES', 'META-INF/NOTICE.md', 'META-INF/INDEX.LIST']
 		}
 	}
 

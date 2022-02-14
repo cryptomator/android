@@ -504,11 +504,22 @@ class UpgradeDatabaseTest {
 			Assert.assertThat(it.count, CoreMatchers.`is`(1))
 		}
 
+		Sql.query("VAULT_ENTITY").executeOn(db).use {
+			it.moveToFirst()
+			Assert.assertThat(it.getString(it.getColumnIndex("FOLDER_CLOUD_ID")), CoreMatchers.`is`("3"))
+			Assert.assertThat(it.getString(it.getColumnIndex("FOLDER_PATH")), CoreMatchers.`is`("path"))
+			Assert.assertThat(it.getString(it.getColumnIndex("FOLDER_NAME")), CoreMatchers.`is`("name"))
+			Assert.assertThat(it.getString(it.getColumnIndex("CLOUD_TYPE")), CoreMatchers.`is`(CloudType.ONEDRIVE.name))
+			Assert.assertThat(it.getString(it.getColumnIndex("PASSWORD")), CoreMatchers.`is`("password"))
+			Assert.assertThat(it.getString(it.getColumnIndex("POSITION")), CoreMatchers.`is`("10"))
+			Assert.assertThat(it.getString(it.getColumnIndex("FORMAT")), CoreMatchers.`is`("8"))
+			Assert.assertThat(it.getString(it.getColumnIndex("SHORTENING_THRESHOLD")), CoreMatchers.`is`("220"))
+		}
+
 		Sql.query("CLOUD_ENTITY").executeOn(db).use {
 			Assert.assertThat(it.count, CoreMatchers.`is`(2))
 		}
 	}
-
 
 	@Test
 	fun upgrade10To11UsedOnedriveCloudPreservesCloud() {
@@ -550,6 +561,18 @@ class UpgradeDatabaseTest {
 
 		Sql.query("VAULT_ENTITY").executeOn(db).use {
 			Assert.assertThat(it.count, CoreMatchers.`is`(1))
+		}
+
+		Sql.query("VAULT_ENTITY").executeOn(db).use {
+			it.moveToFirst()
+			Assert.assertThat(it.getString(it.getColumnIndex("FOLDER_CLOUD_ID")), CoreMatchers.`is`("3"))
+			Assert.assertThat(it.getString(it.getColumnIndex("FOLDER_PATH")), CoreMatchers.`is`("path"))
+			Assert.assertThat(it.getString(it.getColumnIndex("FOLDER_NAME")), CoreMatchers.`is`("name"))
+			Assert.assertThat(it.getString(it.getColumnIndex("CLOUD_TYPE")), CoreMatchers.`is`(CloudType.ONEDRIVE.name))
+			Assert.assertThat(it.getString(it.getColumnIndex("PASSWORD")), CoreMatchers.`is`("password"))
+			Assert.assertThat(it.getString(it.getColumnIndex("POSITION")), CoreMatchers.`is`("10"))
+			Assert.assertThat(it.getString(it.getColumnIndex("FORMAT")), CoreMatchers.`is`("8"))
+			Assert.assertThat(it.getString(it.getColumnIndex("SHORTENING_THRESHOLD")), CoreMatchers.`is`("220"))
 		}
 
 		Sql.query("CLOUD_ENTITY").executeOn(db).use {
