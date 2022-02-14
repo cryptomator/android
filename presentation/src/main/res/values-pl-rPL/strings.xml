@@ -201,6 +201,7 @@
 	<string name="screen_settings_keep_unlocked_while_editing_files">Zachowaj odblokowany</string>
 	<string name="screen_settings_keep_unlocked_while_editing_files_summary">Zachowaj odblokowane sejfy podczas edycji plików</string>
 	<!-- ## screen: cloud settings -->
+	<string name="screen_cloud_settings_onedrive_connections">Połączenia OneDrive</string>
 	<string name="screen_cloud_settings_webdav_connections">Połączenia WebDAV</string>
 	<string name="screen_cloud_settings_pcloud_connections">Połączenia pCloud</string>
 	<string name="screen_cloud_settings_s3_connections">Połączenia S3</string>
@@ -374,6 +375,7 @@
 	<string name="notification_open_writable_file_title">Otwórz plik zapisywalny</string>
 	<string name="notification_open_writable_file_message">Sejf pozostaje odblokowany do czasu zakończenia edycji</string>
 	<string name="notification_update_check_finished_latest">Zainstalowano najnowszą wersję</string>
+	<string name="notification_authenticating">Uwierzytelnianie&#8230;</string>
 	<string name="screen_settings_lru_cache">Pamięć podręczna</string>
 	<string name="screen_settings_lru_cache_toggle_summary">Pamięć podręczna ostatnio uruchomionych plików zaszyfrowanych lokalnie na urządzeniu w celu ponownego użycia po ponownym otwarciu</string>
 	<string name="screen_settings_lru_cache_size">Rozmiar całkowity pamięci podręcznej</string>
