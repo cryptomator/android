@@ -124,11 +124,7 @@ class BrowseFilesActivity : BaseActivity(), //
 			override fun onReceive(context: Context, intent: Intent) {
 				finish()
 			}
-		}
-
-		finishActivityDueToScreenLockEventReceiver?.let {
-			LocalBroadcastManager.getInstance(this).registerReceiver(it, IntentFilter(CryptorsService.SCREEN_AND_VAULT_LOCKED))
-		}
+		}.also { LocalBroadcastManager.getInstance(this).registerReceiver(it, IntentFilter(CryptorsService.SCREEN_AND_VAULT_LOCKED)) }
 	}
 
 	override fun onBackPressed() {
