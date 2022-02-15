@@ -44,7 +44,7 @@ ext {
 
 	daggerVersion = '2.40.5'
 
-	gsonVersion = '2.8.9'
+	gsonVersion = '2.9.0'
 
 	okHttpVersion = '4.9.3'
 	okHttpDigestVersion = '2.6'
