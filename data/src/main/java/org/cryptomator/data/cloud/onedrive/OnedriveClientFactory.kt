@@ -2,13 +2,15 @@ package org.cryptomator.data.cloud.onedrive
 
 import android.content.Context
 import com.microsoft.graph.authentication.BaseAuthenticationProvider
-import com.microsoft.graph.logger.ILogger
-import com.microsoft.graph.logger.LoggerLevel
+import com.microsoft.graph.httpcore.HttpClients
 import com.microsoft.graph.requests.GraphServiceClient
+import org.cryptomator.data.cloud.okhttplogging.HttpLoggingInterceptor
+import org.cryptomator.data.util.NetworkTimeout
 import org.cryptomator.util.SharedPreferencesHandler
 import org.cryptomator.util.crypto.CredentialCryptor
 import java.net.URL
 import java.util.concurrent.CompletableFuture
+import okhttp3.Interceptor
 import okhttp3.Request
 import timber.log.Timber
 
@@ -29,31 +31,28 @@ class OnedriveClientFactory private constructor() {
 				}
 			}
 
-			val logger = object : ILogger {
-				override fun getLoggingLevel(): LoggerLevel {
-					return if(sharedPreferencesHandler.debugMode()) {
-						LoggerLevel.DEBUG
-					} else {
-						LoggerLevel.ERROR
-					}
-				}
-
-				override fun logDebug(message: String) {
-					Timber.tag("OnedriveClientFactory").d(message)
-				}
-
-				override fun logError(message: String, throwable: Throwable?) {
-					Timber.tag("OnedriveClientFactory").e(throwable, message)
-				}
-
-				override fun setLoggingLevel(level: LoggerLevel) {}
-			}
+			val httpClient = HttpClients.createDefault(tokenAuthenticationProvider)
+				.newBuilder()
+				.connectTimeout(NetworkTimeout.CONNECTION.timeout, NetworkTimeout.CONNECTION.unit) //
+				.readTimeout(NetworkTimeout.READ.timeout, NetworkTimeout.READ.unit) //
+				.writeTimeout(NetworkTimeout.WRITE.timeout, NetworkTimeout.WRITE.unit) //
+				.addInterceptor(httpLoggingInterceptor(context)) //
+				.build();
 
 			return GraphServiceClient //
 				.builder() //
+				.httpClient(httpClient) //
 				.authenticationProvider(tokenAuthenticationProvider) //
-				.logger(logger)
 				.buildClient()
+		}
+
+		private fun httpLoggingInterceptor(context: Context): Interceptor {
+			val logger = object : HttpLoggingInterceptor.Logger {
+				override fun log(message: String) {
+					Timber.tag("OkHttp").d(message)
+				}
+			}
+			return HttpLoggingInterceptor(logger, context)
 		}
 	}
 }
