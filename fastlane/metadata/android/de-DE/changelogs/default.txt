@@ -1,2 +1,5 @@
-- Zeige Dialog und Benachrichtigung an, wenn die Berechtigung "Dateien" widerrufen wird, erforderlich für den automatischen Upload
-- Das Abmelden von einer Cloud löscht nun auch die Anmeldeinformationen einer aktiven Verbindung zu ihr
+- Unterstützung für mehrere OneDrive-Konten hinzugefügt
+- Zugriff auf Tresore, die sich in "Shared with Me", "My Computer" und "My Drive" von Google Drive befinden, wurde mit Hilfe von Shortcuts hinzugefügt
+- Viele Übersetzungen hinzugefügt
+- Verbesserte Suchfunktion, nun wird eine "enthält"-Suche anstelle von "beginnt mit" verwendet
+- Absturz auf einigen Geräten während des Entsperrens aufgrund einer Keystore-Ausnahme behoben
