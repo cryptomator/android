@@ -3,3 +3,4 @@
 - Added a lot of translations
 - Improved search functionality, now a "contains" search is used instead of "starts with"
 - Fixed crash on some devices during unlock due to keystore exception
+- Fixed problem during deletion of a cloud

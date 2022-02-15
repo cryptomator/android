@@ -3,3 +3,4 @@
 - Viele Übersetzungen hinzugefügt
 - Verbesserte Suchfunktion, nun wird eine "enthält"-Suche anstelle von "beginnt mit" verwendet
 - Absturz auf einigen Geräten während des Entsperrens aufgrund einer Keystore-Ausnahme behoben
+- Problem beim Löschen einer Cloud behoben
