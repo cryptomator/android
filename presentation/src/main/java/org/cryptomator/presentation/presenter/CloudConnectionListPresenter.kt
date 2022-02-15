@@ -93,7 +93,7 @@ class CloudConnectionListPresenter @Inject constructor( //
 	}
 
 	private fun vaultsFor(cloudModel: CloudModel, allVaults: List<Vault>): ArrayList<Vault> {
-		return allVaults.filterTo(ArrayList()) { it.cloud.type() == cloudModel.toCloud().type() }
+		return allVaults.filterTo(ArrayList()) { it.cloud.id() == cloudModel.toCloud().id() }
 	}
 
 	fun onDeleteCloudConnectionAndVaults(cloudModel: CloudModel, vaultsOfCloud: ArrayList<Vault>) {
