@@ -119,6 +119,9 @@
 	<string name="screen_webdav_settings_msg_password_must_not_be_empty">পাসওয়ার্ড খালি থাকতে পারবে না।</string>
 	<!-- ## screen: s3 settings -->
 	<string name="screen_s3_settings_display_name_label">নাম প্রদর্শন করুন</string>
+	<string name="screen_s3_settings_bucket_label">বিদ্যমান বাকেট</string>
+	<string name="screen_s3_settings_endpoint_label">এন্ডপয়েন্ট</string>
+	<string name="screen_s3_settings_region_label">অঞ্চল</string>
 	<string name="screen_s3_settings_msg_display_name_not_empty">নাম খালি হতে পারব না</string>
 	<!-- ## screen: enter vault name -->
 	<string name="screen_enter_vault_name_vault_label">ভোল্ট এর নাম</string>
@@ -127,7 +130,9 @@
 	<string name="screen_set_password_title">পাসওয়ার্ড সেট করুন</string>
 	<string name="screen_set_password_msg_password_mismatch">পাসওয়ার্ড মেলেনা, আবার লিখুন।</string>
 	<string name="screen_set_password_button_text">সম্পন্ন হয়েছে</string>
+	<string name="screen_set_password_hint">সতর্কতা: আপনি যদি আপনার পাসওয়ার্ড ভুলে যান, তাহলে পাসওয়ার্ডটি পুনরুদ্ধার করার কোনো উপায় থাকবে না।</string>
 	<string name="screen_set_password_retype_password_label">পুনরায় পাসওয়ার্ডটি লিখুন</string>
+	<string name="screen_set_password_strength_indicator_0">ভোল্টটি তৈরির জন্য পাসওয়ার্ডটি অত্যন্ত দুর্বল</string>
 	<string name="screen_set_password_strength_indicator_1">দুর্বল</string>
 	<string name="screen_set_password_strength_indicator_2">ভালো</string>
 	<string name="screen_set_password_strength_indicator_3">শক্তিশালী</string>
@@ -137,15 +142,69 @@
 	<string name="screen_settings_cloud_settings_label">ক্লাউড পরিষেবাসমূহ</string>
 	<string name="screen_settings_biometric_auth">বায়োমেট্রিক সনাক্তকরণ</string>
 	<string name="screen_settings_activate_biometric_auth">বায়োমেট্রিক সনাক্তকরণ সক্রিয় করুন</string>
+	<string name="screen_settings_confirm_face_unlock">ফেইস আনলক নিশ্চিত করুন (যদি থাকে)</string>
+	<string name="screen_settings_block_app_when_obscured">অন্যান্য আ্যপকে ক্রিপ্টোমেটর ব্যবহারে বাধা দিন</string>
 	<string name="screen_settings_secure_screen">স্ক্রিনশট নিতে বাধা দিন</string>
 	<string name="screen_settings_section_search">খুঁজুন</string>
+	<string name="screen_settings_auto_lock_on_screen_lock">যখন স্ক্রিন বন্ধ থাকে</string>
+	<string name="screen_settings_section_auto_photo_upload">স্বয়ংক্রিয় ছবি আপলোড</string>
+	<string name="screen_settings_section_auto_photo_upload_vault">আপলোডের জন্য ভোল্ট নির্বাচন করুন</string>
+	<string name="screen_settings_section_auto_photo_upload_toggle">সক্রিয় করুন</string>
+	<string name="screen_settings_section_auto_photo_upload_toggle_summary">ব্যাকগ্রাউন্ডে ছবি তুলুন এবং যখন নির্বাচিত ভোল্টটি আনলক করা হবে, আপলোড করুন</string>
+	<string name="screen_settings_section_auto_photo_upload_toggle_instant_upload_summary">ভোল্ট আনলোক থাকলে সরাসরি আপলোড করুন</string>
+	<string name="screen_settings_section_auto_photo_upload_only_wifi_toggle">শুধু WiFi ব্যবহার করে আপলোড করুন</string>
+	<string name="screen_settings_section_auto_photo_upload_including_videos">ভিডিও আপলোড করুন</string>
+	<string name="screen_settings_auto_photo_upload_title">&#8230; তে অটো আপলোড ফাইলগুলি সংরক্ষণ করুন</string>
+	<string name="screen_settings_website_label">ক্রিপ্টোমেটরের ওয়েবসাইট</string>
+	<string name="screen_settings_twitter_label">টুইটারে আমাদের অনুসরণ করুন</string>
+	<string name="screen_settings_facebook_label">ফেসবুকে আমাদের লাইক দিন</string>
+	<string name="screen_settings_section_legal">আইনি</string>
+	<string name="screen_settings_licenses_label">লাইসেন্স</string>
+	<string name="screen_settings_license_terms_label">লাইসেন্স এর শর্তাবলি</string>
+	<string name="screen_settings_section_support">সহায়তা</string>
+	<string name="screen_settings_contact_label">সাহায্য জিজ্ঞাসা</string>
+	<string name="screen_settings_debug_mode_label">ডিবাগ মোড</string>
+	<string name="screen_settings_error_report_label">লগ ফাইলটি পাঠান</string>
+	<string name="screen_settings_error_report_failed">পাঠাতে ব্যর্থ হয়েছে</string>
+	<string name="screen_settings_section_version">সংস্করণ</string>
+	<string name="screen_settings_advanced_settings">অ্যাডভান্স সেটিংস</string>
+	<string name="screen_settings_keep_unlocked_while_editing_files">আনলক রাখুন</string>
+	<string name="screen_settings_keep_unlocked_while_editing_files_summary">ফাইল সম্পাদনার সময় ভোল্ট আনলক রাখুন</string>
 	<!-- ## screen: cloud settings -->
+	<string name="screen_cloud_settings_onedrive_connections">OneDrive সংযোগ</string>
+	<string name="screen_cloud_settings_webdav_connections">WebDAV সংযোগ</string>
+	<string name="screen_cloud_settings_pcloud_connections">pCloud সংযোগ</string>
+	<string name="screen_cloud_settings_s3_connections">S3 সংযোগ</string>
+	<string name="screen_cloud_settings_local_storage_locations">লোকাল স্টোরেজ এর ঠিকানা</string>
+	<string name="screen_cloud_settings_log_in_to">লগ ইন</string>
+	<string name="screen_cloud_settings_sign_out_from_cloud">সাইন আউট</string>
 	<!-- ## screen: licenses -->
 	<!-- ## screen: authenticate cloud -->
 	<!-- ## screen: insecure android version info -->
 	<!-- # dialogs -->
+	<string name="dialog_button_cancel">বাতিল করুন</string>
+	<string name="dialog_enter_password_positive_button">আনলক করুন</string>
+	<string name="dialog_change_password_old_password_label">পুরাতন পাসওয়ার্ড</string>
+	<string name="dialog_change_password_new_password_label">নতুন পাসওয়ার্ড</string>
+	<string name="dialog_change_password">পাসওয়ার্ড পরিবর্তন করুন</string>
+	<string name="dialog_change_password_msg_old_password_empty">পুরনো পাসওয়ার্ড অংশ খালি থাকতে পারবে না।</string>
+	<string name="dialog_change_password_msg_new_password_empty">নতুন পাসওয়ার্ড অংশ খালি থাকতে পারবে না।</string>
+	<string name="dialog_change_password_msg_password_mismatch">নতুন পাসওয়ার্ডটি পুনরায় টাইপ করা পাসওয়ার্ডের সাথে মেলে না।</string>
 	<!-- Vault not found -->
+	<string name="dialog_vault_not_found_title">%1$s ভোল্টটি পাওয়া যায়নি</string>
+	<string name="dialog_vault_not_found_message">ভোল্টটির হয়তো নাম পরিবর্তন, স্থানান্তর বা মুছে ফেলা হয়েছে। তালিকা থেকে ভোল্টটি সরান এবং চালিয়ে যেতে পুনরায় যোগ করুন। ভোল্টটি সরাবেন?</string>
 	<string name="dialog_vault_not_found_positive_button_text">বাতিল</string>
+	<string name="dialog_existing_file_title">ফাইলটি ইতিমধ্যে রয়েছে</string>
+	<string name="dialog_existing_file_positive_button">প্রতিস্থাপন করুন</string>
+	<string name="dialog_existing_file_message">%1$s নামে একটি ফাইল ইতিমধ্যে রয়েছে.</string>
+	<string name="dialog_replace_negative_button_at_least_two_but_not_all_files_exist">বিদ্যমান ফাইলটি এড়িয়ে যান</string>
+	<string name="dialog_replace_positive_button_all_files_exist">সবগুলো প্রতিস্থাপন করুন</string>
+	<string name="dialog_replace_positive_button_some_files_exist">বিদ্যমানটি প্রতিস্থাপন করুন</string>
+	<string name="dialog_replace_positive_button_single_file_exists">প্রতিস্থাপন করুন</string>
+	<string name="dialog_replace_msg_single_file_exists">%1$s নামে একটি ফাইল ইতিমধ্যে রয়েছে। আপনি কি এটা প্রতিস্থাপন করতে চান?</string>
+	<string name="dialog_replace_msg_all_files_exists">সব ফাইলগুলি ইতিমধ্যে রয়েছে। আপনি কি তাদের প্রতিস্থাপন করতে চান?</string>
+	<string name="dialog_app_is_obscured_info_neutral_button">বন্ধ করুন</string>
+	<string name="dialog_sym_link_back_button">পিছনে</string>
 	<!-- # error reports -->
 	<!-- # misc -->
 	<!-- ## file size helper -->
