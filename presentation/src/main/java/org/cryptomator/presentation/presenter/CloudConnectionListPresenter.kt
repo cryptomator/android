@@ -21,7 +21,7 @@ import org.cryptomator.domain.usecases.cloud.AddOrChangeCloudConnectionUseCase
 import org.cryptomator.domain.usecases.cloud.GetCloudsUseCase
 import org.cryptomator.domain.usecases.cloud.GetUsernameUseCase
 import org.cryptomator.domain.usecases.cloud.RemoveCloudUseCase
-import org.cryptomator.domain.usecases.vault.DeleteVaultUseCase
+import org.cryptomator.domain.usecases.vault.DeleteVaultsUseCase
 import org.cryptomator.domain.usecases.vault.GetVaultListUseCase
 import org.cryptomator.generator.Callback
 import org.cryptomator.presentation.R
@@ -48,7 +48,7 @@ class CloudConnectionListPresenter @Inject constructor( //
 	private val removeCloudUseCase: RemoveCloudUseCase,  //
 	private val addOrChangeCloudConnectionUseCase: AddOrChangeCloudConnectionUseCase,  //
 	private val getVaultListUseCase: GetVaultListUseCase,  //
-	private val deleteVaultUseCase: DeleteVaultUseCase,  //
+	private val deleteVaultsUseCase: DeleteVaultsUseCase,  //
 	private val cloudModelMapper: CloudModelMapper,  //
 	exceptionMappings: ExceptionHandlers
 ) : Presenter<CloudConnectionListView>(exceptionMappings) {
@@ -97,14 +97,21 @@ class CloudConnectionListPresenter @Inject constructor( //
 	}
 
 	fun onDeleteCloudConnectionAndVaults(cloudModel: CloudModel, vaultsOfCloud: ArrayList<Vault>) {
-		vaultsOfCloud.forEach { vault ->
-			deleteVault(vault)
-		}
-		deleteCloud(cloudModel)
-	}
+		if (vaultsOfCloud.isEmpty()) {
+			deleteCloud(cloudModel)
+		} else {
+			deleteVaultsUseCase
+				.withVaults(vaultsOfCloud)
+				.run(object : DefaultResultHandler<List<Long>>() {
+					override fun onFinished() {
+						deleteCloud(cloudModel)
+					}
 
-	private fun deleteVault(vault: Vault) {
-		deleteVaultUseCase.withVault(vault).run(DefaultResultHandler())
+					override fun onError(e: Throwable) {
+						Timber.tag("CloudConnectionListPresenter").e(e, "Failed to remove all vaults")
+					}
+				})
+		}
 	}
 
 	private fun deleteCloud(cloudModel: CloudModel) {
@@ -345,6 +352,6 @@ class CloudConnectionListPresenter @Inject constructor( //
 	}
 
 	init {
-		unsubscribeOnDestroy(getCloudsUseCase, removeCloudUseCase, addOrChangeCloudConnectionUseCase, getVaultListUseCase, deleteVaultUseCase)
+		unsubscribeOnDestroy(getCloudsUseCase, removeCloudUseCase, addOrChangeCloudConnectionUseCase, getVaultListUseCase, deleteVaultsUseCase)
 	}
 }

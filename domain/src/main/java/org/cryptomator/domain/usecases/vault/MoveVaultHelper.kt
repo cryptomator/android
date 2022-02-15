@@ -3,7 +3,6 @@ package org.cryptomator.domain.usecases.vault;
 import org.cryptomator.domain.Vault
 import org.cryptomator.domain.repository.VaultRepository
 import java.util.Collections
-import java.util.Comparator
 
 class MoveVaultHelper {
 
@@ -40,7 +39,9 @@ class MoveVaultHelper {
 		}
 
 		fun updateVaultsInDatabase(vaults: List<Vault>, vaultRepository: VaultRepository): List<Vault> {
-			vaults.forEach { vault -> vaultRepository.store(vault) }
+			for(vault in vaults) {
+				vaultRepository.store(vault)
+			}
 			return vaultRepository.vaults()
 		}
 	}
