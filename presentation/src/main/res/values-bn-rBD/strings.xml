@@ -203,6 +203,7 @@
 	<string name="dialog_replace_positive_button_single_file_exists">প্রতিস্থাপন করুন</string>
 	<string name="dialog_replace_msg_single_file_exists">%1$s নামে একটি ফাইল ইতিমধ্যে রয়েছে। আপনি কি এটা প্রতিস্থাপন করতে চান?</string>
 	<string name="dialog_replace_msg_all_files_exists">সব ফাইলগুলি ইতিমধ্যে রয়েছে। আপনি কি তাদের প্রতিস্থাপন করতে চান?</string>
+	<string name="dialog_lock_vault">লক করুন</string>
 	<string name="dialog_app_is_obscured_info_neutral_button">বন্ধ করুন</string>
 	<string name="dialog_sym_link_back_button">পিছনে</string>
 	<!-- # error reports -->
