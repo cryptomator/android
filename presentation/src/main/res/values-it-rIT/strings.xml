@@ -199,6 +199,7 @@
 	<string name="screen_settings_keep_unlocked_while_editing_files">Mantieni sbloccato</string>
 	<string name="screen_settings_keep_unlocked_while_editing_files_summary">Mantieni le cassaforte sbloccate durante la modifica dei file</string>
 	<!-- ## screen: cloud settings -->
+	<string name="screen_cloud_settings_onedrive_connections">Connessioni OneDrive</string>
 	<string name="screen_cloud_settings_webdav_connections">Connessioni WebDAV</string>
 	<string name="screen_cloud_settings_pcloud_connections">connessioni pCloud</string>
 	<string name="screen_cloud_settings_s3_connections">Collegamenti S3</string>
@@ -372,6 +373,7 @@
 	<string name="notification_open_writable_file_title">Apri file scrivibile</string>
 	<string name="notification_open_writable_file_message">La cassaforte rimane sbloccata fino alla modifica completata</string>
 	<string name="notification_update_check_finished_latest">Ultima versione installata</string>
+	<string name="notification_authenticating">Autenticazione&#8230;</string>
 	<string name="screen_settings_lru_cache">Cache</string>
 	<string name="screen_settings_lru_cache_toggle_summary">La cache ha recentemente acceso ai file crittografati localmente sul dispositivo per un riutilizzo successivo quando riaperto</string>
 	<string name="screen_settings_lru_cache_size">Dimensione totale della cache</string>
