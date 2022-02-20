@@ -30,6 +30,7 @@
 	<string name="error_vault_version_mismatch">%1$s で指定されたバージョンが %2$s と異なります</string>
 	<string name="error_vault_key_invalid">%1$s はこの %2$s と一致しません</string>
 	<string name="error_vault_config_loading">金庫の設定を読み込み中に失敗しました</string>
+	<string name="error_file_not_found_after_opening_using_3party">Cryptomatorに切り替えた後、ローカルファイルは存在しなくなりました。変更をクラウドに戻すことはできません。</string>
 	<string name="error_no_such_bucket">バケットがありません</string>
 	<string name="error_masterkey_location_not_supported">好きな場所に Masterkey を置くことはまだできません</string>
 	<!-- # clouds -->
@@ -65,6 +66,9 @@
 	<string name="screen_file_browser_add_existing_vault_extra_text">Masterkey ファイルを選択</string>
 	<string name="screen_file_browser_create_new_vault_button_text">ここにおく</string>
 	<string name="screen_file_browser_create_new_vault_extra_text">金庫の名前: %1$s</string>
+	<plurals name="screen_file_browser_subtitle_move">
+		<item quantity="other">%2$d アイテムを移動する</item>
+	</plurals>
 	<string name="screen_file_browser_move_button_text">移動</string>
 	<string name="screen_file_browser_msg_empty_folder">空のフォルダー</string>
 	<string name="screen_file_browser_file_info_label_date">%1$s 前に編集</string>
@@ -194,6 +198,7 @@
 	<string name="screen_settings_keep_unlocked_while_editing_files">解錠したままにする</string>
 	<string name="screen_settings_keep_unlocked_while_editing_files_summary">ファイルの編集中は金庫を解錠しておく</string>
 	<!-- ## screen: cloud settings -->
+	<string name="screen_cloud_settings_onedrive_connections">OneDrive 接続</string>
 	<string name="screen_cloud_settings_webdav_connections">WebDAV 接続</string>
 	<string name="screen_cloud_settings_pcloud_connections">pCloud 接続</string>
 	<string name="screen_cloud_settings_s3_connections">S3 接続</string>
@@ -286,6 +291,7 @@
 	<string name="dialog_app_is_obscured_info_neutral_button">閉じる</string>
 	<string name="dialog_vaults_removed_during_migration_title">%1s クラウンドの金庫を再追加してください</string>
 	<string name="dialog_vault_is_root_folder_of_cloud_title">金庫がクラウト接続のルート フォルダーです</string>
+	<string name="dialog_vault_is_root_folder_of_cloud_hint">この保管庫を追加するルートディレクトリとして、少なくともこの保管庫フォルダの親フォルダを選択する新しいクラウド接続を作成する必要があります。</string>
 	<string name="dialog_disable_secure_screen_disclaimer_hint">この設定は安全のための機能です。他のアプリがユーザーを騙してしまうことを防ぎます。\n\n無効にすることで、 <a href="https://docs.cryptomator.org/en/1.5/android/settings/#screen-security">リスクを認識していること</a> に留意する必要があります。</string>
 	<string name="dialog_delete_cloud_connection_with_vaults_message">本当にこのクラウド接続を削除しますか？</string>
 	<string name="dialog_delete_cloud_connection_with_vaults_hint">この操作により、クラウド接続とクラウドのすべての金庫が削除されます。</string>
