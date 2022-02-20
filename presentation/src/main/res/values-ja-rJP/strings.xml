@@ -290,6 +290,7 @@
 	<string name="dialog_app_is_obscured_info_hint">他のアプリケーションが Cryptomator の上に何かを表示しています（例: ブルーライト フィルターやナイト・モードアプリ）。このため、セキュリティの観点から Cryptomator が無効化されています。\n\n<a href="https://docs.cryptomator.org/en/1.5/android/settings/#block-app-when-obscured">Cryptomator を有効にするには</a></string>
 	<string name="dialog_app_is_obscured_info_neutral_button">閉じる</string>
 	<string name="dialog_vaults_removed_during_migration_title">%1s クラウンドの金庫を再追加してください</string>
+	<string name="dialog_vaults_removed_during_migration_hint">このアプリのバージョンに移行に際して、アプリから次の保管庫を削除する必要があります:\n%2s \n\nこれらの保管庫はクラウドからではなく、このアプリからのみ削除されます。 ご不便をおかけして申し訳ありませんが、保管庫を再度追加してください。</string>
 	<string name="dialog_vault_is_root_folder_of_cloud_title">金庫がクラウト接続のルート フォルダーです</string>
 	<string name="dialog_vault_is_root_folder_of_cloud_hint">この保管庫を追加するルートディレクトリとして、少なくともこの保管庫フォルダの親フォルダを選択する新しいクラウド接続を作成する必要があります。</string>
 	<string name="dialog_disable_secure_screen_disclaimer_hint">この設定は安全のための機能です。他のアプリがユーザーを騙してしまうことを防ぎます。\n\n無効にすることで、 <a href="https://docs.cryptomator.org/en/1.5/android/settings/#screen-security">リスクを認識していること</a> に留意する必要があります。</string>
@@ -319,6 +320,7 @@
 	<string name="dialog_sym_link_message">このシンボリックリンクに移動することはできません</string>
 	<string name="dialog_sym_link_back_button">戻る</string>
 	<string name="dialog_no_dir_file_title">ディレクトリのコンテンツを読み込むことができません</string>
+	<string name="dialog_no_dir_file_message">クラウドのフォルダ \'%1$s\' には有効なディレクトリファイルがありません。このフォルダは他のデバイスで作成され、まだクラウドに完全に同期されていない可能性があります。クラウドで以下のファイルが存在し、かつ空でないことを確認してください。: \n%2$s</string>
 	<string name="dialog_no_more_images_to_display">表示する画像がありません&#8230;</string>
 	<string name="dialog_pcloud_credentials_updated_title">\'%1$s\' の資格情報が更新されました</string>
 	<string name="dialog_pcloud_credentials_updated">pCloud アカウントを追加するには、次のリンクをクリックしてください <a href="https://www.pcloud.com">www.pcloud.com</a>。現在のアカウントからログアウトし、このアプリの「+」を再度クリックして、新しいクラウド接続を作成してください。</string>
@@ -370,7 +372,9 @@
 	<string name="notification_open_writable_file_title">書き込み可能なファイルを開く</string>
 	<string name="notification_open_writable_file_message">編集が完了するまで金庫は施錠されます</string>
 	<string name="notification_update_check_finished_latest">最新バージョンがインストールされました</string>
+	<string name="notification_authenticating">認証中&#8230;</string>
 	<string name="screen_settings_lru_cache">キャッシュ</string>
+	<string name="screen_settings_lru_cache_toggle_summary">最近アクセスしたファイルを暗号化して端末のローカルにキャッシュし、後で再び開いたときに再利用することができます。</string>
 	<string name="screen_settings_lru_cache_size">キャッシュの合計サイズ</string>
 	<string name="screen_settings_clear_lru_cache_size">キャッシュを削除する</string>
 	<string name="screen_settings_lru_cache_changed__restart_toast">変更は次のアプリの再起動時に適用されます</string>
