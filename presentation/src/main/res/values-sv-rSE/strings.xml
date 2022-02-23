@@ -199,6 +199,7 @@
 	<string name="screen_settings_keep_unlocked_while_editing_files">Behåll olåst</string>
 	<string name="screen_settings_keep_unlocked_while_editing_files_summary">Håll valven upplåsta medan filer ändras</string>
 	<!-- ## screen: cloud settings -->
+	<string name="screen_cloud_settings_onedrive_connections">OneDrive-anslutningar</string>
 	<string name="screen_cloud_settings_webdav_connections">WebDAV-anslutningar</string>
 	<string name="screen_cloud_settings_pcloud_connections">pCloud-anslutningar</string>
 	<string name="screen_cloud_settings_s3_connections">S3 anslutningar</string>
@@ -372,6 +373,7 @@
 	<string name="notification_open_writable_file_title">Öppna skrivbar fil</string>
 	<string name="notification_open_writable_file_message">Valvet är upplåst till färdig redigering</string>
 	<string name="notification_update_check_finished_latest">Senaste versionen installerad</string>
+	<string name="notification_authenticating">Autentiserar&#8230;</string>
 	<string name="screen_settings_lru_cache">Cache</string>
 	<string name="screen_settings_lru_cache_toggle_summary">Cachen har nyligen kommit åt filer krypterade lokalt på enheten för senare återanvändning när de öppnas igen</string>
 	<string name="screen_settings_lru_cache_size">Total cachestorlek</string>
