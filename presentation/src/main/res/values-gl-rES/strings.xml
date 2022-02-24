@@ -14,6 +14,12 @@
 	<string name="error_no_such_file">O ficheiro non existe.</string>
 	<string name="error_vault_has_been_locked">A caixa forte foi bloqueada.</string>
 	<string name="error_cloud_already_exists">Nube xa existente.</string>
+	<string name="error_activity_not_found">Por favor, descargue unha aplicación que poida abrir o ficheiro.</string>
+	<string name="error_server_not_found">Servidor non atopado.</string>
+	<string name="error_device_policy_manager_not_found">Por favor, abra a configuración do dispositivo e defina o bloqueo de pantalla manualmente</string>
+	<string name="error_export_illegal_file_name">Fallo na exportación. Tente borrar caracteres especiais do nome do ficheiro e exporte de novo.</string>
+	<string name="error_name_contains_invalid_characters">Non pode conter caracteres especiais.</string>
+	<string name="error_names_contains_invalid_characters">Os nomes de ficheiro non poden conter caracteres especiais.</string>
 	<!-- # clouds -->
 	<!-- ## cloud names -->
 	<!-- # permission -->
