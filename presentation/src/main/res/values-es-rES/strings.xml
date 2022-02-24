@@ -306,6 +306,7 @@
 	<string name="dialog_enter_license_title">Proporcione una licencia válida</string>
 	<string name="dialog_enter_license_content">Hemos detectado que ha instalado Cryptomator sin usar Google Play Store. Proporcione una licencia válida, que se puede adquirir en <a href="https://cryptomator.org/android/">https://cryptomator.org/android/</a></string>
 	<string name="dialog_enter_license_not_valid_content">La licencia proporcionada no es válida. Asegúrese de que la ha ingresado correctamente.</string>
+	<string name="dialog_enter_license_not_valid_content_desktop_supporter_certificate">La clave proporcionada es un certificado de soporte de escritorio. Ingrese una licencia válida.</string>
 	<string name="dialog_enter_license_no_content">Ninguna licencia proporcionada. Por favor, ingrese una licencia válida.</string>
 	<string name="dialog_enter_license_decline_button">Salir</string>
 	<string name="dialog_license_confirmation_title">Confirmación de licencia</string>
