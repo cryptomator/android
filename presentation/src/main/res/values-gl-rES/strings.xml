@@ -8,6 +8,7 @@
 	<string name="error_authentication_failed_re_authenticate">Fallo na autenticación, por favor acceda usando %1$s</string>
 	<string name="error_no_network_connection">Non hai conexión de rede</string>
 	<string name="error_invalid_passphrase">Contrasinal incorrecto</string>
+	<string name="error_file_or_folder_exists">Un ficheiro ou cartafol xa existe.</string>
 	<!-- # clouds -->
 	<!-- ## cloud names -->
 	<!-- # permission -->
