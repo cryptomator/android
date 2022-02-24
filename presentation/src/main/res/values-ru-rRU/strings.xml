@@ -308,6 +308,7 @@
 	<string name="dialog_enter_license_title">Предоставьте действительную лицензию</string>
 	<string name="dialog_enter_license_content">Мы обнаружили, что вы установили Cryptomator, не используя Google Play. Предоставьте действительную лицензию, которую можно приобрести на <a href="https://cryptomator.org/android/">https://cryptomator.org/android/</a></string>
 	<string name="dialog_enter_license_not_valid_content">Лицензия недействительна. Убедитесь, что вы ввели её правильно.</string>
+	<string name="dialog_enter_license_not_valid_content_desktop_supporter_certificate">Предоставленный ключ - это сертификат спонсора. Введите действительную лицензию.</string>
 	<string name="dialog_enter_license_no_content">Нет лицензии. Введите действительную лицензию.</string>
 	<string name="dialog_enter_license_decline_button">Выход</string>
 	<string name="dialog_license_confirmation_title">Подтверждение лицензии</string>
