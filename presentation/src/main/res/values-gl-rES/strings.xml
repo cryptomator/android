@@ -1,7 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 	<!-- # app -->
+	<string name="share_with_label">Cifrar</string>
 	<!-- # error messages -->
+	<string name="error_generic">Produciuse un erro</string>
+	<string name="error_authentication_failed">Fallo na autenticación</string>
+	<string name="error_authentication_failed_re_authenticate">Fallo na autenticación, por favor acceda usando %1$s</string>
+	<string name="error_no_network_connection">Non hai conexión de rede</string>
+	<string name="error_invalid_passphrase">Contrasinal incorrecto</string>
 	<!-- # clouds -->
 	<!-- ## cloud names -->
 	<!-- # permission -->
