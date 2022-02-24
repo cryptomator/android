@@ -306,6 +306,7 @@
 	<string name="dialog_enter_license_title">APK-Store Lizenz</string>
 	<string name="dialog_enter_license_content">Cryptomator wurde nicht über den Google Play Store installiert; gib daher eine gültige Lizenz ein. Diese kann auf <a href="https://cryptomator.org/android/">https://cryptomator.org/android/</a> erworben werden.</string>
 	<string name="dialog_enter_license_not_valid_content">Die eingegebene Lizenz ist ungültig. Stelle sicher, dass sie korrekt eingegeben wurde.</string>
+	<string name="dialog_enter_license_not_valid_content_desktop_supporter_certificate">Der angegebene Schlüssel ist ein Desktop-Unterstützer-Zertifikat. Bitte gib eine gültige Lizenz an.</string>
 	<string name="dialog_enter_license_no_content">Keine Lizenz vorhanden. Gib eine gültige Lizenz ein.</string>
 	<string name="dialog_enter_license_decline_button">Beenden</string>
 	<string name="dialog_license_confirmation_title">Lizenzbestätigung</string>
