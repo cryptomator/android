@@ -13,6 +13,7 @@ import org.cryptomator.domain.exception.NoSuchCloudFileException
 import org.cryptomator.domain.exception.UnableToDecryptWebdavPasswordException
 import org.cryptomator.domain.exception.VaultAlreadyExistException
 import org.cryptomator.domain.exception.authentication.AuthenticationException
+import org.cryptomator.domain.exception.license.DesktopSupporterCertificateException
 import org.cryptomator.domain.exception.license.LicenseNotValidException
 import org.cryptomator.domain.exception.license.NoLicenseAvailableException
 import org.cryptomator.domain.exception.update.GeneralUpdateErrorException
@@ -25,7 +26,6 @@ import org.cryptomator.domain.exception.vaultconfig.VaultVersionMismatchExceptio
 import org.cryptomator.presentation.R
 import org.cryptomator.presentation.ui.activity.view.View
 import org.cryptomator.presentation.util.ResourceHelper
-import java.util.ArrayList
 import java.util.Collections
 import javax.inject.Inject
 import timber.log.Timber
@@ -48,6 +48,7 @@ class ExceptionHandlers @Inject constructor(private val context: Context, defaul
 		staticHandler(NoSuchCloudFileException::class.java, R.string.error_no_such_file)
 		staticHandler(IllegalFileNameException::class.java, R.string.error_export_illegal_file_name)
 		staticHandler(UnableToDecryptWebdavPasswordException::class.java, R.string.error_failed_to_decrypt_webdav_password)
+		staticHandler(DesktopSupporterCertificateException::class.java, R.string.dialog_enter_license_not_valid_content_desktop_supporter_certificate)
 		staticHandler(LicenseNotValidException::class.java, R.string.dialog_enter_license_not_valid_content)
 		staticHandler(NoLicenseAvailableException::class.java, R.string.dialog_enter_license_no_content)
 		staticHandler(HashMismatchUpdateCheckException::class.java, R.string.error_hash_mismatch_update)
