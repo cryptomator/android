@@ -308,6 +308,7 @@
 	<string name="dialog_enter_license_title">Zadajte platný licenčný kľúč</string>
 	<string name="dialog_enter_license_content">Detekovali sme že máte nainštalovaný Cryptomator bez použitia Google Play Store. Poskytnite platnú licenciu, ktorá bola zakúpená v <a href="https://cryptomator.org/android/">https://cryptomator.org/android/</a></string>
 	<string name="dialog_enter_license_not_valid_content">Poskytnutá licencia nie je platná. Uistite sa či bola zadaná korektne.</string>
+	<string name="dialog_enter_license_not_valid_content_desktop_supporter_certificate">Poskytnuty kľúč je pracovná plocha certifikátu podporovateľa. Prosím zadajte platnú licenciu.</string>
 	<string name="dialog_enter_license_no_content">Licencia neposkytnutá. Prosím zadajte platnú licenciu.</string>
 	<string name="dialog_enter_license_decline_button">Ukončiť</string>
 	<string name="dialog_license_confirmation_title">Potvrdenie licencie</string>
