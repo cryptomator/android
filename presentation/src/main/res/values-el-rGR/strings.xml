@@ -306,6 +306,7 @@
 	<string name="dialog_enter_license_title">Δώστε μια έγκυρη άδεια</string>
 	<string name="dialog_enter_license_content">Εντοπίσαμε ότι εγκαταστήσατε Cryptomator χωρίς τη χρήση του Google Play Store. Παρέχετε έγκυρη άδεια, η οποία μπορεί να αγοραστεί στο <a href="https://cryptomator.org/android/">https://cryptomator.org/android/</a></string>
 	<string name="dialog_enter_license_not_valid_content">Η παρεχόμενη άδεια δεν είναι έγκυρη. Βεβαιωθείτε ότι την εισαγάγατε σωστά.</string>
+	<string name="dialog_enter_license_not_valid_content_desktop_supporter_certificate">Το κλειδί που παρέχεται είναι ένα πιστοποιητικό υποστήριξης επιφάνειας εργασίας. Παρακαλώ εισαγάγετε μια έγκυρη άδεια.</string>
 	<string name="dialog_enter_license_no_content">Δεν παρέχεται άδεια. Παρακαλώ εισάγετε μια έγκυρη άδεια.</string>
 	<string name="dialog_enter_license_decline_button">Έξοδος</string>
 	<string name="dialog_license_confirmation_title">Επιβεβαίωση άδειας</string>
