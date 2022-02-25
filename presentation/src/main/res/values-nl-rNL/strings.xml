@@ -306,6 +306,7 @@
 	<string name="dialog_enter_license_title">Geef een geldige licentie op</string>
 	<string name="dialog_enter_license_content">U heeft Cryptomator gedownload zonder Google Play Store te gebruiken. Geef een geldige licentie in. Een geldige licentie kan worden gekocht op <a href="https://cryptomator.org/android/">https://cryptomator.org/android/</a></string>
 	<string name="dialog_enter_license_not_valid_content">De opgegeven licentie is niet geldig. Zorg ervoor dat u deze correct hebt ingevoerd.</string>
+	<string name="dialog_enter_license_not_valid_content_desktop_supporter_certificate">De verstrekte sleutel is een desktop supportercertificaat. Voer een geldige licentie in.</string>
 	<string name="dialog_enter_license_no_content">Geen licentie ingegeven. Voer een geldige licentie in.</string>
 	<string name="dialog_enter_license_decline_button">Afsluiten</string>
 	<string name="dialog_license_confirmation_title">Licentie bevestiging</string>
