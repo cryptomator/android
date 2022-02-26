@@ -96,8 +96,17 @@
 	<string name="screen_file_browser_selection_mode_title_one_or_more_elements">%1$d seleccionados</string>
 	<string name="screen_file_browser_select_items">Seleccionar</string>
 	<string name="screen_file_browser_select_all_items">Seleccionar todo</string>
+	<string name="screen_file_browser_refresh_items">Actualizar</string>
+	<string name="screen_file_browser_no_connection_message">Sen conexión</string>
+	<string name="screen_file_browser_no_connection_button_text">Tentar de novo</string>
 	<!-- ## screen: text editor -->
+	<string name="screen_text_editor_save_success">Gardado correctamente</string>
 	<!-- ## screen: share files -->
+	<string name="screen_share_files_title">Gardar %1$s en&#8230;</string>
+	<string name="screen_share_files_content_text">texto</string>
+	<string name="screen_share_files_content_file">ficheiro</string>
+	<string name="screen_share_files_content_files">ficheiros</string>
+	<string name="screen_share_files_msg_filenames_must_be_unique">Os nomes de ficheiro han de ser únicos, por favor cambie o nome dos duplicados.</string>
 	<!-- ## screen: choose cloud service -->
 	<!-- ## screen: cloud connections -->
 	<!-- ## screen: webdav settings -->
