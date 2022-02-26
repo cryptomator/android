@@ -153,10 +153,19 @@
 	<string name="screen_cloud_settings_webdav_connections">Conexións WebDAV</string>
 	<string name="screen_cloud_settings_pcloud_connections">Conexións pCloud</string>
 	<string name="screen_cloud_settings_s3_connections">Conexións S3</string>
+	<string name="screen_cloud_settings_local_storage_locations">Localizacións de almacenamento local</string>
+	<string name="screen_cloud_settings_log_in_to">Acceder a</string>
+	<string name="screen_cloud_settings_sign_out_from_cloud">Desconectarse de</string>
 	<!-- ## screen: licenses -->
 	<!-- ## screen: authenticate cloud -->
+	<string name="screen_authenticate_auth_authentication_failed">%1$s non puido ser autenticado.</string>
+	<string name="screen_update_pcloud_connections_title">Actualizar as credenciais de pCloud</string>
 	<!-- ## screen: insecure android version info -->
 	<!-- # dialogs -->
+	<string name="dialog_button_cancel">Cancelar</string>
+	<string name="dialog_enter_password_positive_button">Desbloquear</string>
+	<string name="dialog_change_password_old_password_label">Antigo contrasinal</string>
+	<string name="dialog_change_password_new_password_label">Novo Contrasinal</string>
 	<!-- Vault not found -->
 	<string name="dialog_vault_not_found_positive_button_text">Eliminar</string>
 	<!-- # error reports -->
