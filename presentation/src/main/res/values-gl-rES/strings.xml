@@ -166,8 +166,26 @@
 	<string name="dialog_enter_password_positive_button">Desbloquear</string>
 	<string name="dialog_change_password_old_password_label">Antigo contrasinal</string>
 	<string name="dialog_change_password_new_password_label">Novo Contrasinal</string>
+	<string name="dialog_change_password">Cambiar o contrasinal</string>
+	<string name="dialog_change_password_msg_old_password_empty">O antigo contrasinal non pode ficar baleiro.</string>
+	<string name="dialog_change_password_msg_new_password_empty">O novo contrasinal non pode ficar baleiro.</string>
+	<string name="dialog_change_password_msg_password_mismatch">O novo contrasinal non coincide co contrasinal escrito.</string>
 	<!-- Vault not found -->
+	<string name="dialog_vault_not_found_title">Non se encontra a caixa forte %1$s</string>
+	<string name="dialog_vault_not_found_message">A caixa forte foi cambiada de nome, movida ou eliminada. Elimine esta caixa forte da lista e engádaa de novo para continuar. Eliminar agora?</string>
 	<string name="dialog_vault_not_found_positive_button_text">Eliminar</string>
+	<string name="dialog_existing_file_title">O ficheiro xa existe</string>
+	<string name="dialog_existing_file_positive_button">Substituír</string>
+	<string name="dialog_existing_file_message">Xa existe un ficheiro co nome \'%1$s\'.</string>
+	<string name="dialog_replace_negative_button_at_least_two_but_not_all_files_exist">Ignorar xa existentes</string>
+	<string name="dialog_replace_positive_button_all_files_exist">Substituír todo</string>
+	<string name="dialog_replace_positive_button_some_files_exist">Substituír xa existentes</string>
+	<string name="dialog_replace_positive_button_single_file_exists">Substituír</string>
+	<string name="dialog_replace_msg_single_file_exists">Xa existe un ficheiro co nome \"%1$s\". Desexas substituílo?</string>
+	<string name="dialog_replace_msg_all_files_exists">Todos os ficheiros xa existen. Desexas substituílos?</string>
+	<string name="dialog_replace_msg_some_files_exists">%1$d ficheiros xa existen. Desexas substituílos?</string>
+	<string name="dialog_replace_title_single_file_exists">Substituír o ficheiro?</string>
+	<string name="dialog_replace_title_multiple_files_exist">Substituír os ficheiros?</string>
 	<!-- # error reports -->
 	<!-- # misc -->
 	<!-- ## file size helper -->
