@@ -20,10 +20,29 @@
 	<string name="error_export_illegal_file_name">Fallo na exportación. Tente borrar caracteres especiais do nome do ficheiro e exporte de novo.</string>
 	<string name="error_name_contains_invalid_characters">Non pode conter caracteres especiais.</string>
 	<string name="error_names_contains_invalid_characters">Os nomes de ficheiro non poden conter caracteres especiais.</string>
+	<string name="error_vault_name_contains_invalid_characters">O nome da caixa forte non pode conter caracteres especiais.</string>
+	<string name="error_general_update">Fallo na comprobación de actualización. Ocorreu un erro xeral.</string>
+	<string name="error_hash_mismatch_update">Fallo na comprobación de actualización. O hash calculado non coincide co do ficheiro subido</string>
+	<string name="error_update_no_internet">Fallo na comprobación de actualización. Non hai conexión a Internet.</string>
+	<string name="error_failed_to_decrypt_webdav_password">Fallo ao descifrar o contrasinal WebDAV, por favor engádao de novo en configuración</string>
+	<string name="error_play_services_not_available">Google Play Services non está instalado</string>
+	<string name="error_biometric_auth_aborted">Autenticación biométrica abortada</string>
+	<string name="error_vault_version_mismatch">A versión especificada en %1$s é diferente a %2$s</string>
+	<string name="error_vault_key_invalid">%1$s non coincide con esta %2$s</string>
+	<string name="error_vault_config_loading">Erro xeral cargando a configuración da caixa forte</string>
+	<string name="error_file_not_found_after_opening_using_3party">O ficheiro local xa non está presente ao volver a Cryptomator. Os posíbeis cambios non poden ser propagados de volta á nube.</string>
+	<string name="error_no_such_bucket">Non existe tal bucket</string>
+	<string name="error_masterkey_location_not_supported">A localización personalizada de chave maestra aínda non está soportada</string>
 	<!-- # clouds -->
 	<!-- ## cloud names -->
+	<string name="cloud_names_local_storage">Almacenamento local</string>
 	<!-- # permission -->
 	<!-- ## permission messages -->
+	<string name="permission_message_export_file">Cryptomator require acceso ao almacenamento para exportar ficheiros</string>
+	<string name="permission_message_upload_file">Cryptomator require acceso ao almacenamento para subir ficheiros</string>
+	<string name="permission_message_share_file">Cryptomator require acceso ao almacenamento para compartir ficheiros</string>
+	<string name="permission_revoked_re_request_permission">Cryptomator perdeu o permiso para acceder a esta localización. Por favor, seleccione este cartafol de novo para restaurar o permiso.</string>
+	<string name="snack_bar_action_title_settings">Axustes</string>
 	<!-- # screens -->
 	<!-- # screen: vault list -->
 	<!-- # screen: file browser -->
