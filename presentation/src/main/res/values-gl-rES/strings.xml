@@ -107,15 +107,52 @@
 	<string name="screen_share_files_content_file">ficheiro</string>
 	<string name="screen_share_files_content_files">ficheiros</string>
 	<string name="screen_share_files_msg_filenames_must_be_unique">Os nomes de ficheiro han de ser únicos, por favor cambie o nome dos duplicados.</string>
+	<string name="screen_share_files_section_location">Gardar localización</string>
+	<string name="screen_share_files_save_button_text">Gardar</string>
+	<string name="screen_share_files_msg_success">Cifrado completado</string>
 	<!-- ## screen: choose cloud service -->
+	<string name="screen_choose_cloud_service_title">Servizo na nube</string>
 	<!-- ## screen: cloud connections -->
+	<string name="screen_cloud_connections_title">Elixir unha localización</string>
+	<string name="screen_cloud_connections_no_connections">Prema aquí para engadir localizacións</string>
+	<string name="screen_cloud_error_webdav_not_supported">O servidor non é compatíbel con WebDAV</string>
+	<string name="screen_cloud_local_error_no_content_provider">Non hai localizacións adicionais dispoñíbeis.</string>
 	<!-- ## screen: webdav settings -->
+	<string name="screen_webdav_settings_url_port_label">URL</string>
+	<string name="screen_webdav_settings_username_label">Nome de usuario</string>
+	<string name="screen_webdav_settings_password_label">Contrasinal</string>
+	<string name="screen_webdav_settings_done_button_text">Conectar</string>
+	<string name="screen_webdav_settings_msg_url_must_not_be_empty">A URL non pode ficar baleira.</string>
+	<string name="screen_webdav_settings_msg_url_is_invalid">A URL non é válida.</string>
+	<string name="screen_webdav_settings_msg_username_must_not_be_empty">O nome de usuario non pode ficar baleiro.</string>
+	<string name="screen_webdav_settings_msg_password_must_not_be_empty">O contrasinal non pode ficar baleiro.</string>
 	<!-- ## screen: s3 settings -->
+	<string name="screen_s3_settings_display_name_label">Nome a mostrar</string>
+	<string name="screen_s3_settings_access_key_label">Chave de acceso</string>
+	<string name="screen_s3_settings_secret_key_label">Chave secreta</string>
+	<string name="screen_s3_settings_bucket_label">Bucket existente</string>
+	<string name="screen_s3_settings_endpoint_label">Endpoint</string>
+	<string name="screen_s3_settings_region_label">Rexión</string>
+	<string name="screen_s3_settings_msg_display_name_not_empty">O nome a mostrar non pode ficar baleiro</string>
+	<string name="screen_s3_settings_msg_access_key_not_empty">A chave de acceso non pode ficar baleira</string>
+	<string name="screen_s3_settings_msg_secret_key_not_empty">A chave secreta non pode ficar baleira</string>
 	<!-- ## screen: enter vault name -->
 	<!-- ## screen: set password -->
 	<!-- ## screen: settings -->
 	<string name="screen_settings_section_search">Buscar</string>
+	<string name="screen_settings_error_report_failed">Erro ao enviar</string>
+	<string name="screen_settings_security_label">Consellos de seguridade</string>
+	<string name="screen_settings_section_version">Versión</string>
+	<string name="screen_settings_advanced_settings">Configuración avanzada</string>
+	<string name="screen_settings_background_unlock_preparation_label">Acelerar o desbloqueo</string>
+	<string name="screen_settings_background_unlock_preparation_label_summary">Descargue a configuración da caixa forte en segundo plano mentres introduce o contrasinal ou a autenticación biométrica</string>
+	<string name="screen_settings_keep_unlocked_while_editing_files">Manter desbloqueado</string>
+	<string name="screen_settings_keep_unlocked_while_editing_files_summary">Manter as caixas fortes desbloqueadas durante a edición de ficheiros</string>
 	<!-- ## screen: cloud settings -->
+	<string name="screen_cloud_settings_onedrive_connections">Conexións OneDrive</string>
+	<string name="screen_cloud_settings_webdav_connections">Conexións WebDAV</string>
+	<string name="screen_cloud_settings_pcloud_connections">Conexións pCloud</string>
+	<string name="screen_cloud_settings_s3_connections">Conexións S3</string>
 	<!-- ## screen: licenses -->
 	<!-- ## screen: authenticate cloud -->
 	<!-- ## screen: insecure android version info -->
