@@ -305,7 +305,7 @@
 	<string name="dialog_enter_license_title">请提供有效许可证</string>
 	<string name="dialog_enter_license_content">我们检测到您在没有使用 Play 商店的情况下安装了 Cryptomator。请提供有效许可证，可前往 <a href="https://cryptomator.org/android/">https://cryptomator.org/android/</a> 购买</string>
 	<string name="dialog_enter_license_not_valid_content">提供的许可证无效，请确保输入正确</string>
-	<string name="dialog_enter_license_not_valid_content_desktop_supporter_certificate">所提供的密钥是桌面端支持者证书，请输入有效的许可证</string>
+	<string name="dialog_enter_license_not_valid_content_desktop_supporter_certificate">提供的密钥为桌面版赞助者证书。请输入有效的许可证。</string>
 	<string name="dialog_enter_license_no_content">未提供许可证，请输入有效许可证</string>
 	<string name="dialog_enter_license_decline_button">退出</string>
 	<string name="dialog_license_confirmation_title">授权通过</string>
