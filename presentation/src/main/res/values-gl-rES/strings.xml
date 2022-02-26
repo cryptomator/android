@@ -24,7 +24,7 @@
 	<string name="error_general_update">Fallo na comprobación de actualización. Ocorreu un erro xeral.</string>
 	<string name="error_hash_mismatch_update">Fallo na comprobación de actualización. O hash calculado non coincide co do ficheiro subido</string>
 	<string name="error_update_no_internet">Fallo na comprobación de actualización. Non hai conexión a Internet.</string>
-	<string name="error_failed_to_decrypt_webdav_password">Fallo ao descifrar o contrasinal WebDAV, por favor engádao de novo en configuración</string>
+	<string name="error_failed_to_decrypt_webdav_password">Fallo ao descifrar o contrasinal WebDAV, por favor engádao de novo en axustes</string>
 	<string name="error_play_services_not_available">Google Play Services non está instalado</string>
 	<string name="error_biometric_auth_aborted">Autenticación biométrica abortada</string>
 	<string name="error_vault_version_mismatch">A versión especificada en %1$s é diferente a %2$s</string>
@@ -32,7 +32,7 @@
 	<string name="error_vault_config_loading">Erro xeral cargando a configuración da caixa forte</string>
 	<string name="error_file_not_found_after_opening_using_3party">O ficheiro local xa non está presente ao volver a Cryptomator. Os posíbeis cambios non poden ser propagados de volta á nube.</string>
 	<string name="error_no_such_bucket">Non existe tal bucket</string>
-	<string name="error_masterkey_location_not_supported">A localización personalizada de chave maestra aínda non está soportada</string>
+	<string name="error_masterkey_location_not_supported">A localización personalizada de chave mestra aínda non está soportada</string>
 	<!-- # clouds -->
 	<!-- ## cloud names -->
 	<string name="cloud_names_local_storage">Almacenamento local</string>
@@ -43,9 +43,59 @@
 	<string name="permission_message_share_file">Cryptomator require acceso ao almacenamento para compartir ficheiros</string>
 	<string name="permission_revoked_re_request_permission">Cryptomator perdeu o permiso para acceder a esta localización. Por favor, seleccione este cartafol de novo para restaurar o permiso.</string>
 	<string name="snack_bar_action_title_settings">Axustes</string>
+	<string name="snack_bar_action_title_search">Buscar</string>
+	<string name="snack_bar_action_title_search_previous">Anterior</string>
+	<string name="snack_bar_action_title_search_next">Seguinte</string>
+	<string name="snack_bar_action_title_sort">Ordenar</string>
+	<string name="snack_bar_action_title_sort_az">A - Z</string>
+	<string name="snack_bar_action_title_sort_za">Z - A</string>
+	<string name="snack_bar_action_title_sort_newest">Mais recentes primeiro</string>
+	<string name="snack_bar_action_title_sort_oldest">Mais antigos primeiro</string>
+	<string name="snack_bar_action_title_sort_biggest">Mais grandes primeiro</string>
+	<string name="snack_bar_action_title_sort_smallest">Mais pequenos primeiro</string>
 	<!-- # screens -->
 	<!-- # screen: vault list -->
+	<string name="screen_vault_list_actions_title">Engadir a Cryptomator</string>
+	<string name="screen_vault_list_action_create_new_vault">Crear unha nova caixa forte</string>
+	<string name="screen_vault_list_action_add_existing_vault">Engadir unha caixa forte xa existente</string>
+	<string name="screen_vault_list_vault_action_delete">Eliminar</string>
+	<string name="screen_vault_list_vault_creation_hint">Prema aquí para crear unha nova caixa forte</string>
+	<string name="screen_vault_list_change_password_successful">O contrasinal cambiouse correctamente</string>
 	<!-- # screen: file browser -->
+	<string name="screen_file_browser_default_title">Caixa forte</string>
+	<string name="screen_file_browser_add_existing_vault_extra_text">Seleccione o ficheiro da chave mestra</string>
+	<string name="screen_file_browser_create_new_vault_button_text">Colocar aquí</string>
+	<string name="screen_file_browser_create_new_vault_extra_text">Nome da caixa forte: %1$s</string>
+	<plurals name="screen_file_browser_subtitle_move">
+		<item quantity="one">Mover %1$s a</item>
+		<item quantity="other">Mover %2$d elementos a</item>
+	</plurals>
+	<string name="screen_file_browser_move_button_text">Mover</string>
+	<string name="screen_file_browser_msg_empty_folder">Cartafol baleiro</string>
+	<string name="screen_file_browser_file_info_label_date">modificado fai %1$s</string>
+	<string name="screen_file_browser_share_intent_chooser_title">Compartir con</string>
+	<string name="screen_file_browser_share_destination_title">Seleccione un destino</string>
+	<string name="screen_file_browser_share_button_text">Seleccionar</string>
+	<string name="screen_file_browser_nothing_to_share">Non hai nada para compartir</string>
+	<string name="screen_file_browser_actions_title">Engadir a %1$s</string>
+	<string name="screen_file_browser_action_create_folder">Crear cartafol</string>
+	<string name="screen_file_browser_action_create_new_text_file">Crear un ficheiro de texto</string>
+	<string name="screen_file_browser_action_upload_files">Subir ficheiros</string>
+	<string name="screen_file_browser_upload_files_chooser_title">Ficheiros</string>
+	<string name="screen_file_browser_msg_file_exported">Ficheiro exportado</string>
+	<string name="screen_file_browser_msg_files_exported">Ficheiros exportados</string>
+	<string name="screen_file_browser_nothing_to_export">Non hai nada para exportar</string>
+	<string name="screen_file_browser_msg_creating_download_dir_failed">Fallo ao crear o cartafol de descarga</string>
+	<string name="screen_file_browser_node_action_share">Compartir</string>
+	<string name="screen_file_browser_node_action_rename">Cambiar o nome</string>
+	<string name="screen_file_browser_node_action_edit_text">Editar</string>
+	<string name="screen_file_browser_node_action_export">Exportar</string>
+	<string name="screen_file_browser_node_action_delete">Eliminar</string>
+	<string name="screen_file_browser_node_action_open_with_text">Abrir con&#8230;</string>
+	<string name="screen_file_browser_selection_mode_title_zero_elements">Seleccionar elementos</string>
+	<string name="screen_file_browser_selection_mode_title_one_or_more_elements">%1$d seleccionados</string>
+	<string name="screen_file_browser_select_items">Seleccionar</string>
+	<string name="screen_file_browser_select_all_items">Seleccionar todo</string>
 	<!-- ## screen: text editor -->
 	<!-- ## screen: share files -->
 	<!-- ## screen: choose cloud service -->
@@ -55,12 +105,14 @@
 	<!-- ## screen: enter vault name -->
 	<!-- ## screen: set password -->
 	<!-- ## screen: settings -->
+	<string name="screen_settings_section_search">Buscar</string>
 	<!-- ## screen: cloud settings -->
 	<!-- ## screen: licenses -->
 	<!-- ## screen: authenticate cloud -->
 	<!-- ## screen: insecure android version info -->
 	<!-- # dialogs -->
 	<!-- Vault not found -->
+	<string name="dialog_vault_not_found_positive_button_text">Eliminar</string>
 	<!-- # error reports -->
 	<!-- # misc -->
 	<!-- ## file size helper -->
