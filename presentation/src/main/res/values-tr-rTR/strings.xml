@@ -306,6 +306,7 @@
 	<string name="dialog_enter_license_title">Geçerli bir lisans sağlayın</string>
 	<string name="dialog_enter_license_content">Cryptomator\'u Google Play Store kullanmadan yüklediğinizi tespit ettik. https://cryptomator.org/android/ adresinden satın alınabilecek geçerli bir lisans edinin lütfen.</string>
 	<string name="dialog_enter_license_not_valid_content">Sağlanan lisans geçerli değil. Doğru girdiğinizden emin olun.</string>
+	<string name="dialog_enter_license_not_valid_content_desktop_supporter_certificate">Sağlanan anahtar, bir masaüstü destek sertifikasıdır. Lütfen geçerli bir lisans girin.</string>
 	<string name="dialog_enter_license_no_content">Lisans verilmemiştir. Lütfen geçerli bir lisans girin.</string>
 	<string name="dialog_enter_license_decline_button">Çıkış</string>
 	<string name="dialog_license_confirmation_title">Lisans onayı</string>
