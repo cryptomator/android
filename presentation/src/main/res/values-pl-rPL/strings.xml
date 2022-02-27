@@ -308,6 +308,7 @@
 	<string name="dialog_enter_license_title">Podaj poprawną licencję</string>
 	<string name="dialog_enter_license_content">Wykryliśmy, że zainstalowałeś Cryptomator bez korzystania ze sklepu Google Play. Podaj poprawną licencję, którą można kupić na <a href="https://cryptomator.org/android/">https://cryptomator.org/android/</a></string>
 	<string name="dialog_enter_license_not_valid_content">Podana licencja jest nieprawidłowa. Upewnij się, że została wprowadzona poprawnie.</string>
+	<string name="dialog_enter_license_not_valid_content_desktop_supporter_certificate">Podany klucz jest certyfikatem darczyńcy. Wprowadź prawidłową licencję.</string>
 	<string name="dialog_enter_license_no_content">Nie udzielono licencji. Wprowadź prawidłową licencję.</string>
 	<string name="dialog_enter_license_decline_button">Wyjdź</string>
 	<string name="dialog_license_confirmation_title">Informacje o licencji</string>
