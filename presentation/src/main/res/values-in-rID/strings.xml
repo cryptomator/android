@@ -305,6 +305,7 @@
 	<string name="dialog_enter_license_title">Berikan lisensi yang valid</string>
 	<string name="dialog_enter_license_content">Kami mendeteksi bahwa Anda menginstal Cryptomator tanpa menggunakan Google Play Store. Berikan lisensi yang valid, yang dapat dibeli di <a href="https://cryptomator.org/android/">https://cryptomator.org/android/</a></string>
 	<string name="dialog_enter_license_not_valid_content">Lisensi yang diberikan tidak valid. Pastikan Anda memasukkannya dengan benar.</string>
+	<string name="dialog_enter_license_not_valid_content_desktop_supporter_certificate">Kunci yang Anda input adalah kunci supporter certificate untuk pengguna desktop. Harap masukkan lisensi yang valid.</string>
 	<string name="dialog_enter_license_no_content">Tidak ada lisensi yang diberikan. Harap masukkan lisensi yang valid.</string>
 	<string name="dialog_enter_license_decline_button">Keluar</string>
 	<string name="dialog_license_confirmation_title">Konfirmasi lisensi</string>
