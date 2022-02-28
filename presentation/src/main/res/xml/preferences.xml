@@ -182,6 +182,12 @@
 	<PreferenceCategory android:title="@string/screen_settings_advanced_settings">
 
 		<androidx.preference.SwitchPreferenceCompat
+			android:defaultValue="false"
+			android:key="shareOfficeFilePublicly"
+			android:summary="@string/screen_settings_microsoft_apps_workaround_summary"
+			android:title="@string/screen_settings_microsoft_apps_workaround_label" />
+
+		<androidx.preference.SwitchPreferenceCompat
 			android:defaultValue="true"
 			android:key="backgroundUnlockPreparation"
 			android:summary="@string/screen_settings_background_unlock_preparation_label_summary"

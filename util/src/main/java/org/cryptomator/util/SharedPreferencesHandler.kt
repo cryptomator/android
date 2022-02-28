@@ -261,6 +261,14 @@ constructor(context: Context) : SharedPreferences.OnSharedPreferenceChangeListen
 		}
 	}
 
+	fun setMicrosoftWorkaround(enabled: Boolean) {
+		defaultSharedPreferences.setValue(MICROSOFT_WORKAROUND, enabled)
+	}
+
+	fun microsoftWorkaround(): Boolean {
+		return defaultSharedPreferences.getBoolean(MICROSOFT_WORKAROUND, false)
+	}
+
 	companion object {
 
 		private const val SCREEN_LOCK_DIALOG_SHOWN = "askForScreenLockDialogShown"
@@ -287,6 +295,7 @@ constructor(context: Context) : SharedPreferences.OnSharedPreferenceChangeListen
 		const val PHOTO_UPLOAD_INCLUDING_VIDEOS = "photoUploadIncludingVideos"
 		const val USE_LRU_CACHE = "lruCache"
 		const val LRU_CACHE_SIZE = "lruCacheSize"
+		const val MICROSOFT_WORKAROUND = "shareOfficeFilePublicly"
 		const val MAIL = "mail"
 		const val UPDATE_INTERVAL = "updateInterval"
 		private const val LAST_UPDATE_CHECK = "lastUpdateCheck"

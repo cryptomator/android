@@ -11,6 +11,7 @@ import org.cryptomator.presentation.ui.activity.view.SettingsView
 import org.cryptomator.presentation.ui.dialog.DebugModeDisclaimerDialog
 import org.cryptomator.presentation.ui.dialog.DisableAppWhenObscuredDisclaimerDialog
 import org.cryptomator.presentation.ui.dialog.DisableSecureScreenDisclaimerDialog
+import org.cryptomator.presentation.ui.dialog.MicrosoftWorkaroundDisclaimerDialog
 import org.cryptomator.presentation.ui.dialog.UpdateAppAvailableDialog
 import org.cryptomator.presentation.ui.dialog.UpdateAppDialog
 import org.cryptomator.presentation.ui.fragment.SettingsFragment
@@ -23,8 +24,9 @@ class SettingsActivity : BaseActivity(),
 	DebugModeDisclaimerDialog.Callback,
 	DisableAppWhenObscuredDisclaimerDialog.Callback,
 	DisableSecureScreenDisclaimerDialog.Callback,
-	UpdateAppAvailableDialog.Callback, //
-	UpdateAppDialog.Callback {
+	UpdateAppAvailableDialog.Callback,
+	UpdateAppDialog.Callback,
+	MicrosoftWorkaroundDisclaimerDialog.Callback {
 
 	@Inject
 	lateinit var presenter: SettingsPresenter
@@ -100,5 +102,13 @@ class SettingsActivity : BaseActivity(),
 
 	override fun onUpdateAppDialogLoaded() {
 		showProgress(ProgressModel.GENERIC)
+	}
+
+	override fun onMicrosoftDisclaimerAccepted() {
+		presenter.onDebugModeChanged(accepted())
+	}
+
+	override fun onMicrosoftDisclaimerRejected() {
+		settingsFragment().deactivateMicrosoftWorkaround()
 	}
 }
