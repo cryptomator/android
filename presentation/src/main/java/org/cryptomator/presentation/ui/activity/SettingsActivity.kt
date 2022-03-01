@@ -105,7 +105,7 @@ class SettingsActivity : BaseActivity(),
 	}
 
 	override fun onMicrosoftDisclaimerAccepted() {
-		presenter.onDebugModeChanged(accepted())
+		presenter.restartApp()
 	}
 
 	override fun onMicrosoftDisclaimerRejected() {

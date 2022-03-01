@@ -411,7 +411,7 @@
 	<string name="dialog_debug_mode_positive_button">Enable</string>
 	<string name="dialog_debug_mode_negative_button" translatable="false">@string/dialog_button_cancel</string>
 
-	<string name="dialog_microsoft_workaround_disclaimer_hint">Due to a bug in Microsoft apps, we need to share the file with them in a public media folder. We only use this using those file types. After resuming to Cryptomator, we delete the public available file again but we can not influence what happens to this file in the meantime. So just enable it if this isn\'t a problem for you.\n\nIf enabled, please restart Cryptomator to apply this change.</string>
+	<string name="dialog_microsoft_workaround_disclaimer_hint">Due to a bug in Microsoft apps, we need to share the file with them in a public media folder. We only use this using those file types. After resuming to Cryptomator, we delete the public available file again but we can not influence what happens to this file in the meantime. So just enable it if this isn\'t a problem for you.\n\nIf enabled, Cryptomator gets restarted.</string>
 	<string name="dialog_microsoft_workaround_disclaimer_title" translatable="false">@string/dialog_debug_mode_disclaimer_title</string>
 	<string name="dialog_microsoft_workaround_positive_button" translatable="false">@string/dialog_debug_mode_positive_button</string>
 	<string name="dialog_microsoft_workaround_negative_button" translatable="false">@string/dialog_button_cancel</string>
