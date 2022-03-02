@@ -116,7 +116,6 @@
 	<string name="screen_cloud_connections_title">Trieu una destinació</string>
 	<string name="screen_cloud_connections_no_connections">Feu clic aquí per afegir destinacions</string>
 	<string name="screen_cloud_error_webdav_not_supported">El servidor no sembla que sigui compatible amb WebDAV</string>
-	<string name="screen_cloud_local_error_no_content_provider">No hi ha ubicacions addicionals disponibles.</string>
 	<!-- ## screen: webdav settings -->
 	<string name="screen_webdav_settings_url_port_label">URL</string>
 	<string name="screen_webdav_settings_username_label">Nom d\'usuari</string>
