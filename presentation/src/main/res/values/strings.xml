@@ -168,7 +168,7 @@
 	<string name="screen_cloud_settings_option_delete" translatable="false">@string/screen_vault_list_vault_action_delete</string>
 	<string name="screen_cloud_connections_no_connections">Click here to add locations</string>
 	<string name="screen_cloud_error_webdav_not_supported">Server doesn\'t seem to be WebDAV compatible</string>
-	<string name="screen_cloud_local_error_no_content_provider">No additional locations available.</string>
+	<string name="screen_cloud_local_error_no_content_provider">No file manager found that supports opening directories</string>
 
 	<!-- ## screen: webdav settings -->
 	<string name="screen_webdav_settings_title" translatable="false">@string/cloud_names_webdav</string>
