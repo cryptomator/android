@@ -116,7 +116,6 @@
 	<string name="screen_cloud_connections_title">Elixir unha localización</string>
 	<string name="screen_cloud_connections_no_connections">Prema aquí para engadir localizacións</string>
 	<string name="screen_cloud_error_webdav_not_supported">O servidor non é compatíbel con WebDAV</string>
-	<string name="screen_cloud_local_error_no_content_provider">Non hai localizacións adicionais dispoñíbeis.</string>
 	<!-- ## screen: webdav settings -->
 	<string name="screen_webdav_settings_url_port_label">URL</string>
 	<string name="screen_webdav_settings_username_label">Nome de usuario</string>
