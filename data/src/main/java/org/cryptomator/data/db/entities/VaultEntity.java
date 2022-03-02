@@ -29,6 +29,11 @@ public class VaultEntity extends DatabaseEntity {
 	private String password;
 
 	private Integer position;
+
+	private Integer format;
+
+	private Integer shorteningThreshold;
+
 	/**
 	 * Used for active entity operations.
 	 */
@@ -42,8 +47,8 @@ public class VaultEntity extends DatabaseEntity {
 	@Generated(hash = 229273163)
 	private transient Long folderCloud__resolvedKey;
 
-	@Generated(hash = 825602374)
-	public VaultEntity(Long id, Long folderCloudId, String folderPath, String folderName, @NotNull String cloudType, String password, Integer position) {
+	@Generated(hash = 530735379)
+	public VaultEntity(Long id, Long folderCloudId, String folderPath, String folderName, @NotNull String cloudType, String password, Integer position, Integer format, Integer shorteningThreshold) {
 		this.id = id;
 		this.folderCloudId = folderCloudId;
 		this.folderPath = folderPath;
@@ -51,6 +56,8 @@ public class VaultEntity extends DatabaseEntity {
 		this.cloudType = cloudType;
 		this.password = password;
 		this.position = position;
+		this.format = format;
+		this.shorteningThreshold = shorteningThreshold;
 	}
 
 	@Generated(hash = 691253864)
@@ -180,6 +187,22 @@ public class VaultEntity extends DatabaseEntity {
 
 	public void setPosition(Integer position) {
 		this.position = position;
+	}
+
+	public Integer getFormat() {
+		return this.format;
+	}
+
+	public void setFormat(Integer format) {
+		this.format = format;
+	}
+
+	public Integer getShorteningThreshold() {
+		return this.shorteningThreshold;
+	}
+
+	public void setShorteningThreshold(Integer shorteningThreshold) {
+		this.shorteningThreshold = shorteningThreshold;
 	}
 
 	/** called by internal mechanisms, do not call yourself. */

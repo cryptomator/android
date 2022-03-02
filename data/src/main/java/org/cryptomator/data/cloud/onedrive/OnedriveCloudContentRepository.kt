@@ -2,8 +2,10 @@ package org.cryptomator.data.cloud.onedrive
 
 import android.content.Context
 import com.microsoft.graph.core.GraphErrorCodes
+import com.microsoft.graph.http.GraphServiceException
+import com.microsoft.graph.requests.GraphServiceClient
+import com.microsoft.identity.common.exception.ClientException
 import org.cryptomator.data.cloud.InterceptingCloudContentRepository
-import org.cryptomator.data.cloud.onedrive.graph.ClientException
 import org.cryptomator.domain.OnedriveCloud
 import org.cryptomator.domain.exception.BackendException
 import org.cryptomator.domain.exception.FatalBackendException
@@ -20,8 +22,10 @@ import java.io.File
 import java.io.IOException
 import java.io.OutputStream
 import java.net.SocketTimeoutException
+import okhttp3.Request
 
-internal class OnedriveCloudContentRepository(private val cloud: OnedriveCloud, context: Context) : InterceptingCloudContentRepository<OnedriveCloud, OnedriveNode, OnedriveFolder, OnedriveFile>(Intercepted(cloud, context)) {
+internal class OnedriveCloudContentRepository(private val cloud: OnedriveCloud, context: Context, graphServiceClient: GraphServiceClient<Request>)
+	: InterceptingCloudContentRepository<OnedriveCloud, OnedriveNode, OnedriveFolder, OnedriveFile>(Intercepted(cloud, context, graphServiceClient)) {
 
 	@Throws(BackendException::class)
 	override fun throwWrappedIfRequired(e: Exception) {
@@ -44,13 +48,14 @@ internal class OnedriveCloudContentRepository(private val cloud: OnedriveCloud, 
 
 	private fun isAuthenticationError(e: Throwable?): Boolean {
 		return (e != null //
-				&& (e is ClientException && e.errorCode() == GraphErrorCodes.AUTHENTICATION_FAILURE //
+				&& (e is ClientException && e.errorCode == GraphErrorCodes.AUTHENTICATION_FAILURE.name //
+				|| e is GraphServiceException && e.serviceError?.code?.equals("InvalidAuthenticationToken") == true
 				|| isAuthenticationError(e.cause)))
 	}
 
-	private class Intercepted(cloud: OnedriveCloud, context: Context) : CloudContentRepository<OnedriveCloud, OnedriveNode, OnedriveFolder, OnedriveFile> {
+	private class Intercepted(cloud: OnedriveCloud, context: Context, graphServiceClient: GraphServiceClient<Request>) : CloudContentRepository<OnedriveCloud, OnedriveNode, OnedriveFolder, OnedriveFile> {
 
-		private val oneDriveImpl: OnedriveImpl = OnedriveImpl(cloud, context, OnedriveIdCache())
+		private val oneDriveImpl: OnedriveImpl = OnedriveImpl(cloud, context, graphServiceClient, OnedriveIdCache())
 
 		override fun root(cloud: OnedriveCloud): OnedriveFolder {
 			return oneDriveImpl.root()
@@ -141,7 +146,7 @@ internal class OnedriveCloudContentRepository(private val cloud: OnedriveCloud, 
 
 		@Throws(BackendException::class)
 		override fun checkAuthenticationAndRetrieveCurrentAccount(cloud: OnedriveCloud): String {
-			return oneDriveImpl.currentAccount()
+			return oneDriveImpl.currentAccount(cloud.username())
 		}
 
 		override fun logout(cloud: OnedriveCloud) {

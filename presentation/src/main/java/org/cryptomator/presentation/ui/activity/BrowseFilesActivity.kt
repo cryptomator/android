@@ -50,7 +50,6 @@ import org.cryptomator.presentation.ui.dialog.ReplaceDialog
 import org.cryptomator.presentation.ui.dialog.SymLinkDialog
 import org.cryptomator.presentation.ui.dialog.UploadCloudFileDialog
 import org.cryptomator.presentation.ui.fragment.BrowseFilesFragment
-import java.util.ArrayList
 import java.util.regex.Pattern
 import javax.inject.Inject
 import kotlinx.android.synthetic.main.toolbar_layout.toolbar
@@ -125,11 +124,7 @@ class BrowseFilesActivity : BaseActivity(), //
 			override fun onReceive(context: Context, intent: Intent) {
 				finish()
 			}
-		}
-
-		finishActivityDueToScreenLockEventReceiver?.let {
-			LocalBroadcastManager.getInstance(this).registerReceiver(it, IntentFilter(CryptorsService.SCREEN_AND_VAULT_LOCKED))
-		}
+		}.also { LocalBroadcastManager.getInstance(this).registerReceiver(it, IntentFilter(CryptorsService.SCREEN_AND_VAULT_LOCKED)) }
 	}
 
 	override fun onBackPressed() {
@@ -613,6 +608,10 @@ class BrowseFilesActivity : BaseActivity(), //
 
 	override fun showNoDirFileDialog(cryptoFolderName: String, cloudFolderPath: String) {
 		showDialog(NoDirFileDialog.newInstance(cryptoFolderName, cloudFolderPath))
+	}
+
+	override fun updateActiveFolderDueToAuthenticationProblem(folder: CloudFolderModel) {
+		browseFilesFragment().folder = folder
 	}
 
 	override fun navigateFolderBackBecauseSymlink() {

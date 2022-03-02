@@ -4,8 +4,6 @@ apply plugin: 'kotlin-android'
 apply plugin: 'de.mannodermaus.android-junit5'
 
 android {
-	defaultPublishConfig "debug"
-
 	def globalConfiguration = rootProject.extensions.getByName("ext")
 
 	compileSdkVersion globalConfiguration["androidCompileSdkVersion"]
@@ -28,11 +26,6 @@ android {
 		coreLibraryDesugaringEnabled true
 	}
 
-	lintOptions {
-		quiet true
-		abortOnError false
-		ignoreWarnings true
-	}
 
 	buildTypes {
 		release {
@@ -75,14 +68,21 @@ android {
 			java.srcDirs = ['src/main/java', 'src/main/java/', 'src/foss/java', 'src/foss/java/']
 		}
 	}
-
 	packagingOptions {
-		exclude 'META-INF/DEPENDENCIES'
+		resources {
+			excludes += ['META-INF/DEPENDENCIES', 'META-INF/NOTICE.md', 'META-INF/INDEX.LIST']
+		}
+	}
+
+	lint {
+		abortOnError false
+		ignoreWarnings true
+		quiet true
 	}
 }
 
 greendao {
-	schemaVersion 10
+	schemaVersion 11
 }
 
 configurations.all {
@@ -95,7 +95,6 @@ dependencies {
 
 	implementation project(':domain')
 	implementation project(':util')
-	implementation project(':msa-auth-for-android')
 	implementation project(':pcloud-sdk-java')
 
 	coreLibraryDesugaring dependencies.coreDesugaring
@@ -115,6 +114,7 @@ dependencies {
 
 	// cloud
 	implementation dependencies.dropbox
+	implementation dependencies.msgraphAuth
 	implementation dependencies.msgraph
 
 	implementation dependencies.stax

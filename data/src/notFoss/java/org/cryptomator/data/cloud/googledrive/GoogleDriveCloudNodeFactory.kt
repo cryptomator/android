@@ -38,15 +38,25 @@ internal object GoogleDriveCloudNodeFactory {
 	}
 
 	fun from(parent: GoogleDriveFolder, file: File): GoogleDriveNode {
-		return if (isFolder(file)) {
-			folder(parent, file)
-		} else {
-			file(parent, file)
+		return when {
+			isFolder(file) -> {
+				folder(parent, file)
+			}
+			isShortcutFolder(file) -> {
+				folder(parent, file.name, getNodePath(parent, file.name), file.shortcutDetails.targetId)
+			}
+			else -> {
+				file(parent, file)
+			}
 		}
 	}
 
 	fun isFolder(file: File): Boolean {
 		return file.mimeType == "application/vnd.google-apps.folder"
+	}
+
+	fun isShortcutFolder(file: File): Boolean {
+		return file.mimeType == "application/vnd.google-apps.shortcut" && file.shortcutDetails.targetMimeType == "application/vnd.google-apps.folder"
 	}
 
 	fun getNodePath(parent: GoogleDriveFolder, name: String): String {

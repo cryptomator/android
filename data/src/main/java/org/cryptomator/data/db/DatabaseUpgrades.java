@@ -1,5 +1,7 @@
 package org.cryptomator.data.db;
 
+import static java.lang.String.format;
+
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
@@ -9,8 +11,6 @@ import java.util.Map;
 
 import javax.inject.Inject;
 import javax.inject.Singleton;
-
-import static java.lang.String.format;
 
 @Singleton
 class DatabaseUpgrades {
@@ -28,7 +28,9 @@ class DatabaseUpgrades {
 			Upgrade6To7 upgrade6To7, //
 			Upgrade7To8 upgrade7To8, //
 			Upgrade8To9 upgrade8To9, //
-			Upgrade9To10 upgrade9To10) {
+			Upgrade9To10 upgrade9To10, //
+			Upgrade10To11 upgrade10To11
+	) {
 
 		availableUpgrades = defineUpgrades( //
 				upgrade0To1, //
@@ -40,11 +42,8 @@ class DatabaseUpgrades {
 				upgrade6To7, //
 				upgrade7To8, //
 				upgrade8To9, //
-				upgrade9To10);
-	}
-
-	private static Comparator<DatabaseUpgrade> reverseOrder() {
-		return (a, b) -> b.compareTo(a);
+				upgrade9To10, //
+				upgrade10To11);
 	}
 
 	private Map<Integer, List<DatabaseUpgrade>> defineUpgrades(DatabaseUpgrade... upgrades) {
@@ -56,7 +55,7 @@ class DatabaseUpgrades {
 			result.get(upgrade.from()).add(upgrade);
 		}
 		for (List<DatabaseUpgrade> list : result.values()) {
-			Collections.sort(list, reverseOrder());
+			Collections.sort(list,  Comparator.reverseOrder());
 		}
 		return result;
 	}

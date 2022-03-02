@@ -250,18 +250,42 @@
 	<string name="dialog_upload_file_remaining">Файл %1$d з %2$d</string>
 	<string name="dialog_progress_upload_file">Завантаження&#8230;</string>
 	<string name="dialog_lock_vault">Заблокувати</string>
+	<string name="dialog_http_security_title">Використовувати HTTPS?</string>
+	<string name="dialog_debug_mode_positive_button">Увімкнути</string>
+	<string name="dialog_disable_app_obscured_positive_button">Вимкнути</string>
 	<string name="dialog_app_is_obscured_info_neutral_button">Закрити</string>
 	<string name="dialog_delete_cloud_connection_with_vaults_hint">Ця дія видалить підключення до хмари та всі сховища з цієї хмари.</string>
 	<string name="dialog_confirm_delete_multiple_title">Видалити %1$d об\'єкти?</string>
 	<string name="dialog_confirm_delete_multiple_message">Ви впевнені, що бажаєте видалити ці об\'єкти?</string>
 	<string name="dialog_confirm_delete_file_message">Ви впевнені, що бажаєте видалити цей файл?</string>
+	<string name="dialog_enter_license_decline_button">Вийти</string>
+	<string name="dialog_update_available_update">Оновити зараз</string>
+	<string name="dialog_update_available_download_site">Перейти на сторінку завантаження</string>
+	<string name="dialog_update_available_cancel">Пізніше</string>
 	<string name="dialog_sym_link_back_button">Назад</string>
 	<!-- # error reports -->
 	<!-- # misc -->
 	<!-- ## file size helper -->
 	<!-- ## date helper -->
+	<string name="time_unit_seconds_sg">секунда</string>
+	<string name="time_unit_seconds_pl">секунд</string>
+	<string name="time_unit_minutes_sg">хвилину</string>
+	<string name="time_unit_minutes_pl">хвилин</string>
+	<string name="time_unit_hours_sg">годин</string>
+	<string name="time_unit_hours_pl">годин</string>
+	<string name="time_unit_days_sg">день</string>
+	<string name="time_unit_days_pl">днів</string>
+	<string name="time_unit_weeks_sg">тиждень</string>
+	<string name="time_unit_weeks_pl">тижнів</string>
+	<string name="time_unit_months_sg">місяць</string>
+	<string name="time_unit_months_pl">місяців</string>
+	<string name="time_unit_years_sg">рік</string>
+	<string name="time_unit_years_pl">років</string>
 	<!-- ## biometric authentication -->
+	<string name="dialog_biometric_auth_title">Біометричний вхід</string>
 	<!-- notification -->
+	<string name="screen_settings_license">Зареєстровано за</string>
+	<string name="screen_settings_check_updates">Перевiрити наявнiсть оновлень</string>
 	<!-- lock timeout names -->
 	<!-- cache size names -->
 	<!-- screen scheme mode names -->

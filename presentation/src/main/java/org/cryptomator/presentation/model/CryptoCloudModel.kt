@@ -11,7 +11,7 @@ class CryptoCloudModel(cloud: Cloud) : CloudModel(cloud) {
 		throw IllegalStateException("Should not be invoked")
 	}
 
-	override fun username(): String? {
+	override fun username(): String {
 		return ""
 	}
 

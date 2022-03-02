@@ -10,7 +10,6 @@ import org.cryptomator.domain.exception.FatalBackendException
 import org.cryptomator.domain.exception.ForbiddenException
 import org.cryptomator.domain.exception.NotFoundException
 import org.cryptomator.domain.exception.ParentFolderDoesNotExistException
-import org.cryptomator.domain.exception.ServerNotWebdavCompatibleException
 import org.cryptomator.domain.exception.TypeMismatchException
 import org.cryptomator.domain.exception.UnauthorizedException
 import org.xmlpull.v1.XmlPullParserException
@@ -18,7 +17,6 @@ import java.io.ByteArrayInputStream
 import java.io.IOException
 import java.io.InputStream
 import java.net.HttpURLConnection
-import java.util.ArrayList
 import java.util.Collections
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.Request

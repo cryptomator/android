@@ -3,8 +3,6 @@ apply plugin: 'kotlin-android'
 apply plugin: 'de.mannodermaus.android-junit5'
 
 android {
-	defaultPublishConfig "debug"
-
 	def globalConfiguration = rootProject.extensions.getByName("ext")
 
 	compileSdkVersion globalConfiguration["androidCompileSdkVersion"]
@@ -24,15 +22,20 @@ android {
 		sourceCompatibility JavaVersion.VERSION_1_8
 		targetCompatibility JavaVersion.VERSION_1_8
 	}
-
-	lintOptions {
-		quiet true
-		abortOnError false
-		ignoreWarnings true
+	packagingOptions {
+		jniLibs {
+			pickFirsts += ['META-INF/*']
+		}
+		resources {
+			pickFirsts += ['META-INF/*']
+		}
 	}
 
-	packagingOptions {
-		pickFirst 'META-INF/*'
+
+	lint {
+		abortOnError false
+		ignoreWarnings true
+		quiet true
 	}
 }
 

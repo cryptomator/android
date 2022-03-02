@@ -118,11 +118,10 @@ internal class CryptoCloudContentRepository(context: Context, cloudContentReposi
 		}
 
 		cryptoImpl = when (cloud.vault.format) {
-			7 -> CryptoImplVaultFormat7(context, cryptor, cloudContentRepository, vaultLocation, DirIdCacheFormat7())
 			8 -> CryptoImplVaultFormat8(context, cryptor, cloudContentRepository, vaultLocation, DirIdCacheFormat7(), cloud.vault.shorteningThreshold)
+			7 -> CryptoImplVaultFormat7(context, cryptor, cloudContentRepository, vaultLocation, DirIdCacheFormat7())
 			6, 5 -> CryptoImplVaultFormatPre7(context, cryptor, cloudContentRepository, vaultLocation, DirIdCacheFormatPre7())
 			else -> throw IllegalStateException(String.format("No CryptoImpl for vault format %d.", cloud.vault.format))
 		}
 	}
-
 }

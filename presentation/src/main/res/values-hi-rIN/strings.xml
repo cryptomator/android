@@ -10,7 +10,10 @@
 	<string name="error_invalid_passphrase">गलत कूटशब्द!</string>
 	<string name="error_file_or_folder_exists">दस्तावेज आथ्वा फ़ोल्डर उपलब्ध नहीं है</string>
 	<string name="error_no_such_file">दस्तावेज उपलब्ध नहीं है</string>
+	<string name="error_activity_not_found">कृपया एक ऐप डाउनलोड करें जो इस फाइल को खोल सकता है।</string>
 	<string name="error_server_not_found">सर्वर नहीं मिला।</string>
+	<string name="error_names_contains_invalid_characters">फ़ाइल नामों में विशेष वर्ण नहीं हो सकते हैं।</string>
+	<string name="error_vault_name_contains_invalid_characters">गुप्त तिजोरी के नाम में विशेष वर्ण नहीं हो सकते हैं।</string>
 	<!-- # clouds -->
 	<!-- ## cloud names -->
 	<!-- # permission -->
@@ -19,14 +22,19 @@
 	<string name="snack_bar_action_title_search">खोज करें</string>
 	<string name="snack_bar_action_title_search_previous">पिछला</string>
 	<string name="snack_bar_action_title_search_next">अगला</string>
+	<string name="snack_bar_action_title_sort_newest">सबसे नया पहले</string>
+	<string name="snack_bar_action_title_sort_oldest">सबसे पुराना पहले</string>
 	<!-- # screens -->
 	<!-- # screen: vault list -->
 	<string name="screen_vault_list_actions_title">क्रिप्टोमेटर में जोड़ें</string>
 	<string name="screen_vault_list_vault_action_delete">हटाएँ</string>
 	<!-- # screen: file browser -->
 	<string name="screen_file_browser_default_title">गुप्त तिजोरी</string>
+	<string name="screen_file_browser_move_button_text">मूव करें</string>
 	<string name="screen_file_browser_share_button_text">चुनें</string>
+	<string name="screen_file_browser_action_create_folder">फोल्डर बनाएं</string>
 	<string name="screen_file_browser_action_create_new_text_file">नया दस्तावेज बनाए</string>
+	<string name="screen_file_browser_action_upload_files">फ़ाइल अपलोड करें</string>
 	<string name="screen_file_browser_upload_files_chooser_title">दस्तावेज</string>
 	<string name="screen_file_browser_msg_file_exported">दस्तावेज निर्यात हुआ</string>
 	<string name="screen_file_browser_msg_files_exported">दस्तावेज निर्यात हुए</string>
@@ -62,6 +70,8 @@
 	<!-- ## screen: s3 settings -->
 	<string name="screen_s3_settings_region_label">क्षेत्र</string>
 	<!-- ## screen: enter vault name -->
+	<string name="screen_enter_vault_name_vault_label">गुप्त तिजोरी का नाम</string>
+	<string name="screen_enter_vault_name_button_text">बनाएं</string>
 	<!-- ## screen: set password -->
 	<string name="screen_set_password_button_text">हो गया</string>
 	<string name="screen_set_password_strength_indicator_1">कमजोर</string>
@@ -79,6 +89,7 @@
 	<string name="dialog_enter_password_positive_button">अनलॉक करें</string>
 	<!-- Vault not found -->
 	<string name="dialog_vault_not_found_positive_button_text">हटाएँ</string>
+	<string name="dialog_unable_to_share_negative_button">गुप्त तिजोरी बनाएं</string>
 	<string name="dialog_lock_vault">लॉक करें</string>
 	<string name="dialog_app_is_obscured_info_neutral_button">बंद करें</string>
 	<string name="dialog_sym_link_back_button">पीछे जाएं</string>

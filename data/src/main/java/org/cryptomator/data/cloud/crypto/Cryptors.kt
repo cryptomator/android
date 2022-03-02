@@ -20,6 +20,8 @@ abstract class Cryptors internal constructor() {
 
 	abstract fun putIfAbsent(vault: Vault, cryptor: Cryptor): Boolean
 
+	abstract fun replace(old: Vault, updated: Vault, cryptor: Cryptor)
+
 	class Delegating : Cryptors() {
 
 		private val fallback = Default()
@@ -65,6 +67,10 @@ abstract class Cryptors internal constructor() {
 			return delegate().putIfAbsent(vault, cryptor)
 		}
 
+		override fun replace(old: Vault, updated: Vault, cryptor: Cryptor) {
+			return delegate().replace(old, updated, cryptor)
+		}
+
 		@Synchronized
 		private fun delegate(): Cryptors {
 			return delegate ?: fallback
@@ -106,6 +112,11 @@ abstract class Cryptors internal constructor() {
 			} else {
 				false
 			}
+		}
+
+		override fun replace(old: Vault, updated: Vault, cryptor: Cryptor) {
+			cryptors.remove(old)
+			cryptors[updated] = cryptor
 		}
 
 		fun setOnChangeListener(onChangeListener: Runnable) {

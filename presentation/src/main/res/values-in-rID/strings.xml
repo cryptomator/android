@@ -4,15 +4,15 @@
 	<string name="share_with_label">Enkripsi</string>
 	<!-- # error messages -->
 	<string name="error_generic">Kesalahan terjadi</string>
-	<string name="error_authentication_failed">Otentikasi gagal</string>
-	<string name="error_authentication_failed_re_authenticate">Otentikasi gagal, mohon masuk menggunakan %1$s</string>
+	<string name="error_authentication_failed">Autentikasi gagal</string>
+	<string name="error_authentication_failed_re_authenticate">Autentikasi gagal, mohon masuk menggunakan %1$s</string>
 	<string name="error_no_network_connection">Tidak ada koneksi jaringan</string>
 	<string name="error_invalid_passphrase">Kata sandi salah</string>
 	<string name="error_file_or_folder_exists">Berkas atau folder sudah ada.</string>
 	<string name="error_vault_version_not_supported">Vault tidak didukung. Vault ini telah dibuat dengan Cryptomator versi lain.</string>
 	<string name="error_vault_already_exists">Vault sudah ada.</string>
 	<string name="error_no_such_file">Berkas tidak ada.</string>
-	<string name="error_vault_has_been_locked">Vaukt telah terkunci.</string>
+	<string name="error_vault_has_been_locked">Vault telah dikunci.</string>
 	<string name="error_cloud_already_exists">Cloud sudah ada.</string>
 	<string name="error_activity_not_found">Silakan unduh aplikasi yang dapat membuka file ini.</string>
 	<string name="error_server_not_found">Server tidak ditemukan.</string>
@@ -26,11 +26,11 @@
 	<string name="error_update_no_internet">Pemeriksaan pembaruan gagal. Tidak ada koneksi internet.</string>
 	<string name="error_failed_to_decrypt_webdav_password">Gagal mendekripsi kata sandi WebDAV, harap tambahkan kembali di pengaturan</string>
 	<string name="error_play_services_not_available">Google Play Services belum terpasang</string>
-	<string name="error_biometric_auth_aborted">Otentikasi biometrik gagal</string>
+	<string name="error_biometric_auth_aborted">Autentikasi biometrik dibatalkan</string>
 	<string name="error_vault_version_mismatch">Versi yang ditentukan di %1$s berbeda dengan %2$s</string>
 	<string name="error_vault_key_invalid">%1$s tidak cocok dengan %2$s ini</string>
 	<string name="error_vault_config_loading">Terjadi kesalahan saat memuat konfigurasi vault</string>
-	<string name="error_file_not_found_after_opening_using_3party">File lokal tidak ada lagi setelah beralih kembali ke Cryptomator. Kemungkinan perubahan tidak dapat disebarkan kembali ke cloud.</string>
+	<string name="error_file_not_found_after_opening_using_3party">File lokal sudah tidak tersedia setelah beralih kembali ke Cryptomator. Perubahan yang ada tidak dapat disimpan kembali ke cloud.</string>
 	<string name="error_no_such_bucket">Bucket tidak ada</string>
 	<string name="error_masterkey_location_not_supported">Lokasi Masterkey khusus belum didukung</string>
 	<!-- # clouds -->
@@ -57,9 +57,9 @@
 	<!-- # screen: vault list -->
 	<string name="screen_vault_list_actions_title">Tambah ke Cryptomator</string>
 	<string name="screen_vault_list_action_create_new_vault">Buat vault baru</string>
-	<string name="screen_vault_list_action_add_existing_vault">Tambahkan vault yang ada</string>
+	<string name="screen_vault_list_action_add_existing_vault">Tambahkan vault yang sudah ada</string>
 	<string name="screen_vault_list_vault_action_delete">Hapus</string>
-	<string name="screen_vault_list_vault_creation_hint">Klik disini untuk membuat vault baru</string>
+	<string name="screen_vault_list_vault_creation_hint">Ketuk disini untuk membuat vault baru</string>
 	<string name="screen_vault_list_change_password_successful">Kasa Sandi berhasil diubah</string>
 	<!-- # screen: file browser -->
 	<string name="screen_file_browser_default_title">Vault</string>
@@ -70,7 +70,7 @@
 		<item quantity="other">Pindah %2$d item ke</item>
 	</plurals>
 	<string name="screen_file_browser_move_button_text">Pindah</string>
-	<string name="screen_file_browser_msg_empty_folder">Filder kosong</string>
+	<string name="screen_file_browser_msg_empty_folder">Folder kosong</string>
 	<string name="screen_file_browser_file_info_label_date">dimodifikasi %1$s lalu</string>
 	<string name="screen_file_browser_share_intent_chooser_title">Bagikan dengan</string>
 	<string name="screen_file_browser_share_destination_title">Pilih tujuan</string>
@@ -113,7 +113,7 @@
 	<string name="screen_choose_cloud_service_title">Layanan Cloud</string>
 	<!-- ## screen: cloud connections -->
 	<string name="screen_cloud_connections_title">Pilih lokasi</string>
-	<string name="screen_cloud_connections_no_connections">Klik disini untuk menambahkan lokasi</string>
+	<string name="screen_cloud_connections_no_connections">Ketuk disini untuk menambahkan lokasi</string>
 	<string name="screen_cloud_error_webdav_not_supported">Server tampaknya tidak kompatibel dengan WebDAV</string>
 	<string name="screen_cloud_local_error_no_content_provider">Tidak ada lokasi tambahan yang tersedia.</string>
 	<!-- ## screen: webdav settings -->
@@ -155,11 +155,11 @@
 	<!-- ## screen: settings -->
 	<string name="screen_settings_section_general">Umum</string>
 	<string name="screen_settings_cloud_settings_label">Layanan cloud</string>
-	<string name="screen_settings_biometric_auth">Otentikasi biometrik</string>
-	<string name="screen_settings_activate_biometric_auth">Aktifkan otentikas biometrik</string>
+	<string name="screen_settings_biometric_auth">Autentikasi biometrik</string>
+	<string name="screen_settings_activate_biometric_auth">Aktifkan autentikasi biometrik</string>
 	<string name="screen_settings_confirm_face_unlock">Konfirmasi face unlock (jika tersedia)</string>
-	<string name="screen_settings_block_app_when_obscured">Blokir aplikasi saat disamarkan</string>
-	<string name="screen_settings_block_app_when_obscured_summary">Blokir mencegat input dan menampilkan antarmuka pengguna yang salah</string>
+	<string name="screen_settings_block_app_when_obscured">Blokir aplikasi ketika dihalangi</string>
+	<string name="screen_settings_block_app_when_obscured_summary">Memblokir pembajakan input serta tampilan antarmuka pengguna yang menyesatkan</string>
 	<string name="screen_settings_secure_screen">Blokir screenshot</string>
 	<string name="screen_settings_secure_screen_summary">Blokir screenshot di daftar terbaru dan di dalam aplikasi</string>
 	<string name="screen_settings_section_search">Cari</string>
@@ -173,7 +173,7 @@
 	<string name="screen_settings_section_auto_photo_upload">Unggah foto otomatis</string>
 	<string name="screen_settings_section_auto_photo_upload_vault">Pilih vault untuk unggah</string>
 	<string name="screen_settings_section_auto_photo_upload_toggle">Aktifkan</string>
-	<string name="screen_settings_section_auto_photo_upload_toggle_summary">Ambil gambar di background dan setelah vault yang dipilih dibuka, mulai mengunggah</string>
+	<string name="screen_settings_section_auto_photo_upload_toggle_summary">Ambil gambar di background, kemudian mulai proses unggah setelah vault terpilih dibuka</string>
 	<string name="screen_settings_section_auto_photo_upload_toggle_instant_upload">Unggah instan</string>
 	<string name="screen_settings_section_auto_photo_upload_toggle_instant_upload_summary">Unggah langsung jika vault tidak terkunci</string>
 	<string name="screen_settings_section_auto_photo_upload_only_wifi_toggle">Hanya unggah melalui WIFI</string>
@@ -198,11 +198,12 @@
 	<string name="screen_settings_keep_unlocked_while_editing_files">Biarkan tidak terkunci</string>
 	<string name="screen_settings_keep_unlocked_while_editing_files_summary">Biarkan vault tidak terkunci saat mengedit file</string>
 	<!-- ## screen: cloud settings -->
+	<string name="screen_cloud_settings_onedrive_connections">Koneksi OneDrive</string>
 	<string name="screen_cloud_settings_webdav_connections">Koneksi WebDAV</string>
 	<string name="screen_cloud_settings_pcloud_connections">koneksi pCloud</string>
 	<string name="screen_cloud_settings_s3_connections">Koneksi S3</string>
 	<string name="screen_cloud_settings_local_storage_locations">Lokasi penyimpanan lokal</string>
-	<string name="screen_cloud_settings_log_in_to">Masuk ke</string>
+	<string name="screen_cloud_settings_log_in_to">Login ke</string>
 	<string name="screen_cloud_settings_sign_out_from_cloud">Keluar dari</string>
 	<!-- ## screen: licenses -->
 	<!-- ## screen: authenticate cloud -->
@@ -211,7 +212,7 @@
 	<!-- ## screen: insecure android version info -->
 	<!-- # dialogs -->
 	<string name="dialog_button_cancel">Batalkan</string>
-	<string name="dialog_enter_password_positive_button">Buka Gembok</string>
+	<string name="dialog_enter_password_positive_button">Buka Kunci</string>
 	<string name="dialog_change_password_old_password_label">Kata sandi lama</string>
 	<string name="dialog_change_password_new_password_label">Kata sandi baru</string>
 	<string name="dialog_change_password">Ubah kata sandi</string>
@@ -235,7 +236,7 @@
 	<string name="dialog_replace_title_single_file_exists">Menimpa file?</string>
 	<string name="dialog_replace_title_multiple_files_exist">Menimpa file?</string>
 	<string name="dialog_unable_to_share_title">Tidak dapat membagikan file</string>
-	<string name="dialog_unable_to_share_message">Anda belum menyiapkan vault apa pun. Silakan buat vault baru dengan aplikasi Cryptomator terlebih dahulu.</string>
+	<string name="dialog_unable_to_share_message">Anda belum menyiapkan vault sama sekali. Silahkan buat vault baru terlebih dahulu melalui aplikasi Cryptomator.</string>
 	<string name="dialog_unable_to_share_positive_button">OK</string>
 	<string name="dialog_unable_to_share_negative_button">Buat vault</string>
 	<string name="dialog_filetype_not_supported_title">Tidak dapat membuka %1$s</string>
@@ -255,7 +256,7 @@
 	<string name="dialog_progress_please_wait">Mohon tunggu&#8230;</string>
 	<string name="dialog_progress_creating_folder">Membuat folder&#8230;</string>
 	<string name="dialog_progress_creating_text_file">Membuat file teks&#8230;</string>
-	<string name="action_progress_authentication">Otentikasi&#8230;</string>
+	<string name="action_progress_authentication">Autentikasi&#8230;</string>
 	<string name="action_progress_renaming">Mengganti nama&#8230;</string>
 	<string name="action_progress_deleting">Menghapus&#8230;</string>
 	<string name="dialog_progress_unlocking_vault">Membuka vault&#8230;</string>
@@ -266,7 +267,7 @@
 	<string name="dialog_progress_encryption">Mengenkripsi&#8230;</string>
 	<string name="dialog_progress_decryption">Mendekripsi&#8230;</string>
 	<string name="action_progress_moving">Memnindahkan&#8230;</string>
-	<string name="dialog_lock_vault">Gembok</string>
+	<string name="dialog_lock_vault">Kunci</string>
 	<string name="dialog_accept_ssl_certificate_title">Sertifikat SSL tidak valid</string>
 	<string name="dialog_accept_ssl_certificate_hint">Sertifikat SSL tidak valid. Apakah Anda ingin mempercayainya?</string>
 	<string name="dialog_accept_ssl_certificate_details">Rincian</string>
@@ -277,16 +278,16 @@
 	<string name="dialog_no_screen_lock_hint">Tidak ada kunci layar yang disetel. Untuk menyimpan kredensial Anda dengan cara yang aman, atur dengan OK pola atau kata sandi.</string>
 	<string name="dialog_no_screen_lock_title">Atur kunci layar?</string>
 	<string name="dialog_no_screen_lock_checkbox">Atur kunci layar</string>
-	<string name="dialog_no_biometric_auth_set_up_title">Tidak ada otentikasi dasar yang diatur dalam sistem</string>
+	<string name="dialog_no_biometric_auth_set_up_title">Tidak ada autentikasi dasar yang disetel dalam sistem</string>
 	<string name="dialog_no_biometric_auth_set_up_message">Daftarkan setidaknya satu jari/wajah untuk menggunakan layanan ini.</string>
-	<string name="dialog_debug_mode_disclaimer_hint">Dalam mode ini, data sensitif dapat ditulis ke file log di perangkat Anda (misalnya, nama file dan jalur). Kata sandi, cookie, dll. secara eksplisit dikecualikan.\n\nIngat untuk menonaktifkan mode debug sesegera mungkin.</string>
+	<string name="dialog_debug_mode_disclaimer_hint">Dalam mode ini, data sensitif dapat ditulis ke file log di perangkat Anda (misalnya, nama dan lokasi file). Kata sandi, cookie, dll secara eksplisit dikecualikan.\n\nJangan lupa untuk menonaktifkan mode debug sesegera mungkin.</string>
 	<string name="dialog_debug_mode_disclaimer_title">Perhatian</string>
-	<string name="dialog_debug_mode_positive_button">Aktif</string>
-	<string name="dialog_disable_app_obscured_disclaimer_hint">Setelan ini adalah fitur keamanan dan mencegah aplikasi lain menipu pengguna agar melakukan hal-hal yang tidak ingin mereka lakukan.\n\nDengan menonaktifkan, Anda mengonfirmasi bahwa Anda <a href="https://docs.cryptomator.org/en/1.5/android/settings/#block-app-when-obscured">sadar akan risiko</a>.</string>
+	<string name="dialog_debug_mode_positive_button">Aktifkan</string>
+	<string name="dialog_disable_app_obscured_disclaimer_hint">Setelan ini adalah fitur keamanan yang dapat mencegah aplikasi lain menipu pengguna agar melakukan hal-hal yang tidak ingin mereka lakukan.\n\nDengan menonaktifkan, artinya mengonfirmasi bahwa Anda <a href="https://docs.cryptomator.org/en/1.5/android/settings/#block-app-when-obscured">paham dengan resikonya</a>.</string>
 	<string name="dialog_disable_app_obscured_disclaimer_title">Perhatian</string>
 	<string name="dialog_disable_app_obscured_positive_button">Matikan</string>
-	<string name="dialog_app_is_obscured_info_title">Aplikasi tidak jelas</string>
-	<string name="dialog_app_is_obscured_info_hint">Aplikasi lain menampilkan sesuatu di atas Cryptomator (misal, Filter cahaya biru atau aplikasi mode malam). Untuk alasan keamanan, Cryptomator dinonaktifkan.\n\n<a href="https://docs.cryptomator.org/en/1.5/android/settings/#block-app-when-obscured">Cara mengaktifkan Cryptomator</a></string>
+	<string name="dialog_app_is_obscured_info_title">Aplikasi terhalang</string>
+	<string name="dialog_app_is_obscured_info_hint">Aplikasi lain menampilkan sesuatu di atas tampilan Cryptomator (misal, Filter cahaya biru atau aplikasi mode malam). Untuk alasan keamanan, Cryptomator dinonaktifkan.\n\n<a href="https://docs.cryptomator.org/en/1.5/android/settings/#block-app-when-obscured">Cara mengaktifkan Cryptomator</a></string>
 	<string name="dialog_app_is_obscured_info_neutral_button">Tutup</string>
 	<string name="dialog_vaults_removed_during_migration_title">Harap tambahkan kembali vault untuk cloud %1s</string>
 	<string name="dialog_vaults_removed_during_migration_hint">Saat bermigrasi ke versi aplikasi ini, kita perlu menghapus vault berikut dari aplikasi:\n%2s \n\nVault tersebut tidak dihapus dari cloud, tetapi hanya dari aplikasi ini. Maaf atas ketidaknyamanan ini dan harap tambahkan kembali vault ini untuk terus bekerja dengannya.</string>
@@ -299,8 +300,8 @@
 	<string name="dialog_confirm_delete_multiple_message">Anda yakin ingin menghapus item ini?</string>
 	<string name="dialog_confirm_delete_file_message">Anda yakin ingin menghapus berkas ini?</string>
 	<string name="dialog_confirm_delete_folder_message">Ini akan menghapus semua isi folder. Anda yakin ingin menghapus folder ini?</string>
-	<string name="dialog_biometric_auth_key_invalidated_title">Fitur otentikasi biometrik dinonaktifkan</string>
-	<string name="dialog_biometric_auth_key_invalidated_message">Karena kunci telah dibatalkan, fitur otentikasi biometrik telah dinonaktifkan. Untuk mengaktifkan kembali, buka pengaturan Cryptomator.</string>
+	<string name="dialog_biometric_auth_key_invalidated_title">Fitur autentikasi biometrik dinonaktifkan</string>
+	<string name="dialog_biometric_auth_key_invalidated_message">Karena kunci telah dibatalkan, fitur autentikasi biometrik telah dinonaktifkan. Untuk mengaktifkan kembali, buka pengaturan Cryptomator.</string>
 	<string name="dialog_enter_license_title">Berikan lisensi yang valid</string>
 	<string name="dialog_enter_license_content">Kami mendeteksi bahwa Anda menginstal Cryptomator tanpa menggunakan Google Play Store. Berikan lisensi yang valid, yang dapat dibeli di <a href="https://cryptomator.org/android/">https://cryptomator.org/android/</a></string>
 	<string name="dialog_enter_license_not_valid_content">Lisensi yang diberikan tidak valid. Pastikan Anda memasukkannya dengan benar.</string>
@@ -322,7 +323,7 @@
 	<string name="dialog_no_dir_file_message">Folder cloud \'%1$s\' tidak memiliki file direktori yang valid. Bisa jadi folder tersebut dibuat di perangkat lain dan belum sepenuhnya tersinkronisasi ke cloud. Harap periksa di cloud Anda jika file berikut ada dan tidak kosong:\n%2$s</string>
 	<string name="dialog_no_more_images_to_display">Tidak ada lagi gambar untuk ditampilkan&#8230;</string>
 	<string name="dialog_pcloud_credentials_updated_title">Kredensial \'%1$s\' diperbarui</string>
-	<string name="dialog_pcloud_credentials_updated">Jika Anda ingin menambahkan akun pCloud baru, klik url ini <a href="https://www.pcloud.com">www.pcloud.com</a>, keluar dari akun saat ini dan klik lagi \'+\' di aplikasi ini untuk membuat koneksi cloud baru.</string>
+	<string name="dialog_pcloud_credentials_updated">Jika Anda ingin menambahkan akun pCloud baru, ketuk url berikut <a href="https://www.pcloud.com">www.pcloud.com</a>, keluar dari akun saat ini kemudian ketuk tombol \'+\' lagi di aplikasi ini untuk membuat koneksi cloud baru.</string>
 	<string name="permission_snackbar_auth_local_vault">Cryptomator membutuhkan akses penyimpanan untuk menggunakan vault lokal</string>
 	<string name="permission_snackbar_auth_auto_upload">Cryptomator membutuhkan akses penyimpanan untuk menggunakan unggahan foto otomatis</string>
 	<!-- # error reports -->
@@ -350,10 +351,10 @@
 	<string name="time_unit_years_sg">tahun</string>
 	<string name="time_unit_years_pl">tahun</string>
 	<!-- ## biometric authentication -->
-	<string name="dialog_biometric_auth_title">Masuk dengan biometrik</string>
+	<string name="dialog_biometric_auth_title">Login dengan biometrik</string>
 	<string name="dialog_biometric_auth_message">Buka kunci dengan kredensial biometrik</string>
 	<string name="dialog_biometric_auth_use_password">Gunakan kata sandi vault</string>
-	<string name="dialog_unable_to_auto_upload_files_title">Tidak dapat mengunggah file</string>
+	<string name="dialog_unable_to_auto_upload_files_title">Tidak dapat mengunggah file secara otomatis</string>
 	<!-- notification -->
 	<string name="notification_unlocked">Vaults tidak terkunci: %1$d</string>
 	<string name="notification_timeout">Otomatis terkunci dalam %1$s</string>
@@ -371,8 +372,9 @@
 	<string name="notification_open_writable_file_title">Buka file yang dapat ditulis</string>
 	<string name="notification_open_writable_file_message">Vault tetap tidak terkunci sampai selesai mengedit</string>
 	<string name="notification_update_check_finished_latest">Versi terbaru sudah terpasang</string>
+	<string name="notification_authenticating">Mengautentikasi&#8230;</string>
 	<string name="screen_settings_lru_cache">Cache</string>
-	<string name="screen_settings_lru_cache_toggle_summary">Cache file yang baru saja diakses yang dienkripsi secara lokal di perangkat untuk digunakan kembali nanti saat dibuka kembali</string>
+	<string name="screen_settings_lru_cache_toggle_summary">Gunakan cache yang terenkripsi di perangkat lokal untuk file yang baru-baru ini diakses agar bisa digunakan lagi ketika dibuka kembali</string>
 	<string name="screen_settings_lru_cache_size">Total ukuran cache</string>
 	<string name="screen_settings_clear_lru_cache_size">Bersihkan Cache</string>
 	<string name="screen_settings_lru_cache_changed__restart_toast">Perubahan akan diterapkan pada saat aplikasi dibuka kembali</string>

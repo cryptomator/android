@@ -51,6 +51,7 @@ class UpgradeDatabaseTest {
 		Upgrade7To8().applyTo(db, 7)
 		Upgrade8To9(sharedPreferencesHandler).applyTo(db, 8)
 		Upgrade9To10(sharedPreferencesHandler).applyTo(db, 9)
+		Upgrade10To11().applyTo(db, 10)
 
 		CloudEntityDao(DaoConfig(db, CloudEntityDao::class.java)).loadAll()
 		VaultEntityDao(DaoConfig(db, VaultEntityDao::class.java)).loadAll()
@@ -468,6 +469,115 @@ class UpgradeDatabaseTest {
 		}
 
 		Assert.assertThat(sharedPreferencesHandler.vaultsRemovedDuringMigration(), CoreMatchers.`is`(Pair("LOCAL", arrayListOf("pathOfVault26"))))
+	}
+
+	@Test
+	fun upgrade10To11EmptyOnedriveCloudRemovesCloud() {
+		Upgrade0To1().applyTo(db, 0)
+		Upgrade1To2().applyTo(db, 1)
+		Upgrade2To3(context).applyTo(db, 2)
+		Upgrade3To4().applyTo(db, 3)
+		Upgrade4To5().applyTo(db, 4)
+		Upgrade5To6().applyTo(db, 5)
+		Upgrade6To7().applyTo(db, 6)
+		Upgrade7To8().applyTo(db, 7)
+		Upgrade8To9(sharedPreferencesHandler).applyTo(db, 8)
+		Upgrade9To10(sharedPreferencesHandler).applyTo(db, 9)
+
+		Sql.insertInto("VAULT_ENTITY") //
+			.integer("_id", 25) //
+			.integer("FOLDER_CLOUD_ID", 3) //
+			.text("FOLDER_PATH", "path") //
+			.text("FOLDER_NAME", "name") //
+			.text("CLOUD_TYPE", CloudType.ONEDRIVE.name) //
+			.text("PASSWORD", "password") //
+			.integer("POSITION", 10) //
+			.executeOn(db)
+
+		Sql.query("CLOUD_ENTITY").executeOn(db).use {
+			Assert.assertThat(it.count, CoreMatchers.`is`(3))
+		}
+
+		Upgrade10To11().applyTo(db, 10)
+
+		Sql.query("VAULT_ENTITY").executeOn(db).use {
+			Assert.assertThat(it.count, CoreMatchers.`is`(1))
+		}
+
+		Sql.query("VAULT_ENTITY").executeOn(db).use {
+			it.moveToFirst()
+			Assert.assertThat(it.getString(it.getColumnIndex("FOLDER_CLOUD_ID")), CoreMatchers.`is`("3"))
+			Assert.assertThat(it.getString(it.getColumnIndex("FOLDER_PATH")), CoreMatchers.`is`("path"))
+			Assert.assertThat(it.getString(it.getColumnIndex("FOLDER_NAME")), CoreMatchers.`is`("name"))
+			Assert.assertThat(it.getString(it.getColumnIndex("CLOUD_TYPE")), CoreMatchers.`is`(CloudType.ONEDRIVE.name))
+			Assert.assertThat(it.getString(it.getColumnIndex("PASSWORD")), CoreMatchers.`is`("password"))
+			Assert.assertThat(it.getString(it.getColumnIndex("POSITION")), CoreMatchers.`is`("10"))
+			Assert.assertThat(it.getString(it.getColumnIndex("FORMAT")), CoreMatchers.`is`("8"))
+			Assert.assertThat(it.getString(it.getColumnIndex("SHORTENING_THRESHOLD")), CoreMatchers.`is`("220"))
+		}
+
+		Sql.query("CLOUD_ENTITY").executeOn(db).use {
+			Assert.assertThat(it.count, CoreMatchers.`is`(2))
+		}
+	}
+
+	@Test
+	fun upgrade10To11UsedOnedriveCloudPreservesCloud() {
+		Upgrade0To1().applyTo(db, 0)
+		Upgrade1To2().applyTo(db, 1)
+		Upgrade2To3(context).applyTo(db, 2)
+		Upgrade3To4().applyTo(db, 3)
+		Upgrade4To5().applyTo(db, 4)
+		Upgrade5To6().applyTo(db, 5)
+		Upgrade6To7().applyTo(db, 6)
+		Upgrade7To8().applyTo(db, 7)
+		Upgrade8To9(sharedPreferencesHandler).applyTo(db, 8)
+		Upgrade9To10(sharedPreferencesHandler).applyTo(db, 9)
+
+		Sql.insertInto("VAULT_ENTITY") //
+			.integer("_id", 25) //
+			.integer("FOLDER_CLOUD_ID", 3) //
+			.text("FOLDER_PATH", "path") //
+			.text("FOLDER_NAME", "name") //
+			.text("CLOUD_TYPE", CloudType.ONEDRIVE.name) //
+			.text("PASSWORD", "password") //
+			.integer("POSITION", 10) //
+			.executeOn(db)
+
+		Sql.query("CLOUD_ENTITY").executeOn(db).use {
+			while (it.moveToNext()) {
+				Sql.update("CLOUD_ENTITY")
+					.where("_id", Sql.eq(3L))
+					.set("ACCESS_TOKEN", Sql.toString("Access token 3000"))
+					.set("USERNAME", Sql.toString("foo@bar.baz"))
+					.executeOn(db)
+			}
+		}
+		Sql.query("CLOUD_ENTITY").executeOn(db).use {
+			Assert.assertThat(it.count, CoreMatchers.`is`(3))
+		}
+
+		Upgrade10To11().applyTo(db, 10)
+
+		Sql.query("VAULT_ENTITY").executeOn(db).use {
+			Assert.assertThat(it.count, CoreMatchers.`is`(1))
+		}
+
+		Sql.query("VAULT_ENTITY").executeOn(db).use {
+			it.moveToFirst()
+			Assert.assertThat(it.getString(it.getColumnIndex("FOLDER_CLOUD_ID")), CoreMatchers.`is`("3"))
+			Assert.assertThat(it.getString(it.getColumnIndex("FOLDER_PATH")), CoreMatchers.`is`("path"))
+			Assert.assertThat(it.getString(it.getColumnIndex("FOLDER_NAME")), CoreMatchers.`is`("name"))
+			Assert.assertThat(it.getString(it.getColumnIndex("CLOUD_TYPE")), CoreMatchers.`is`(CloudType.ONEDRIVE.name))
+			Assert.assertThat(it.getString(it.getColumnIndex("PASSWORD")), CoreMatchers.`is`("password"))
+			Assert.assertThat(it.getString(it.getColumnIndex("POSITION")), CoreMatchers.`is`("10"))
+			Assert.assertThat(it.getString(it.getColumnIndex("FORMAT")), CoreMatchers.`is`("8"))
+			Assert.assertThat(it.getString(it.getColumnIndex("SHORTENING_THRESHOLD")), CoreMatchers.`is`("220"))
+		}
+
+		Sql.query("CLOUD_ENTITY").executeOn(db).use {
+			Assert.assertThat(it.count, CoreMatchers.`is`(3))
+		}
 	}
 
 }

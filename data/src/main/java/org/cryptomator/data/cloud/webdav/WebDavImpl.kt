@@ -2,6 +2,7 @@ package org.cryptomator.data.cloud.webdav
 
 import android.content.Context
 import org.cryptomator.data.cloud.webdav.network.ConnectionHandlerHandlerImpl
+import org.cryptomator.data.cloud.webdav.network.ServerNotWebdavCompatibleException
 import org.cryptomator.data.util.CopyStream
 import org.cryptomator.data.util.TransferredBytesAwareInputStream
 import org.cryptomator.data.util.TransferredBytesAwareOutputStream
@@ -14,6 +15,7 @@ import org.cryptomator.domain.exception.FatalBackendException
 import org.cryptomator.domain.exception.NotFoundException
 import org.cryptomator.domain.exception.ParentFolderDoesNotExistException
 import org.cryptomator.domain.exception.ParentFolderIsNullException
+import org.cryptomator.domain.exception.authentication.WebDavNotSupportedException
 import org.cryptomator.domain.usecases.ProgressAware
 import org.cryptomator.domain.usecases.cloud.DataSource
 import org.cryptomator.domain.usecases.cloud.DownloadState
@@ -142,7 +144,11 @@ internal class WebDavImpl(private val cloud: WebDavCloud, private val connection
 
 	@Throws(BackendException::class)
 	fun checkAuthenticationAndServerCompatibility(url: String) {
-		connectionHandler.checkAuthenticationAndServerCompatibility(url)
+		try {
+			connectionHandler.checkAuthenticationAndServerCompatibility(url)
+		} catch (ex: ServerNotWebdavCompatibleException) {
+			throw WebDavNotSupportedException(cloud)
+		}
 	}
 
 	@Throws(BackendException::class, IOException::class)

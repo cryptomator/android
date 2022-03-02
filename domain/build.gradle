@@ -3,8 +3,6 @@ apply plugin: 'kotlin-android'
 apply plugin: 'de.mannodermaus.android-junit5'
 
 android {
-	defaultPublishConfig "debug"
-
 	def globalConfiguration = rootProject.extensions.getByName("ext")
 
 	compileSdkVersion globalConfiguration["androidCompileSdkVersion"]
@@ -26,12 +24,12 @@ android {
 
 		coreLibraryDesugaringEnabled true
 	}
-
-	lintOptions {
-		quiet true
+	lint {
 		abortOnError false
 		ignoreWarnings true
+		quiet true
 	}
+
 }
 
 dependencies {

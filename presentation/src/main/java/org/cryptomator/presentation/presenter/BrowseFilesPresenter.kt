@@ -6,9 +6,12 @@ import android.content.Intent
 import android.net.Uri
 import android.provider.DocumentsContract
 import android.widget.Toast
+import org.cryptomator.data.cloud.crypto.CryptoFolder
+import org.cryptomator.domain.Cloud
 import org.cryptomator.domain.CloudFile
 import org.cryptomator.domain.CloudFolder
 import org.cryptomator.domain.CloudNode
+import org.cryptomator.domain.Vault
 import org.cryptomator.domain.di.PerView
 import org.cryptomator.domain.exception.CloudNodeAlreadyExistsException
 import org.cryptomator.domain.exception.EmptyDirFileException
@@ -20,6 +23,7 @@ import org.cryptomator.domain.usecases.CloudFolderRecursiveListing
 import org.cryptomator.domain.usecases.CloudNodeRecursiveListing
 import org.cryptomator.domain.usecases.CopyDataUseCase
 import org.cryptomator.domain.usecases.DownloadFile
+import org.cryptomator.domain.usecases.GetDecryptedCloudForVaultUseCase
 import org.cryptomator.domain.usecases.ResultRenamed
 import org.cryptomator.domain.usecases.cloud.CreateFolderUseCase
 import org.cryptomator.domain.usecases.cloud.DeleteNodesUseCase
@@ -107,6 +111,7 @@ class BrowseFilesPresenter @Inject constructor( //
 	private val moveFilesUseCase: MoveFilesUseCase,  //
 	private val moveFoldersUseCase: MoveFoldersUseCase,  //
 	private val getCloudListRecursiveUseCase: GetCloudListRecursiveUseCase,  //
+	private val getDecryptedCloudForVaultUseCase: GetDecryptedCloudForVaultUseCase, //
 	private val contentResolverUtil: ContentResolverUtil,  //
 	private val addExistingVaultWorkflow: AddExistingVaultWorkflow,  //
 	private val createNewVaultWorkflow: CreateNewVaultWorkflow,  //
@@ -128,6 +133,8 @@ class BrowseFilesPresenter @Inject constructor( //
 	private lateinit var filesForUpload: MutableMap<String, UploadFile>
 	private lateinit var existingFilesForUpload: MutableMap<String, UploadFile>
 	private lateinit var downloadFiles: MutableList<DownloadFile>
+
+	private var resumedAfterAuthentication = false
 
 	@InjectIntent
 	lateinit var intent: BrowseFilesIntent
@@ -203,6 +210,7 @@ class BrowseFilesPresenter @Inject constructor( //
 					view?.showLoading(false)
 					when {
 						authenticationExceptionHandler.handleAuthenticationException(this@BrowseFilesPresenter, e, ActivityResultCallbacks.getCloudListAfterAuthentication(cloudFolderModel)) -> {
+							resumedAfterAuthentication = true
 							return
 						}
 						e is EmptyDirFileException -> {
@@ -222,12 +230,43 @@ class BrowseFilesPresenter @Inject constructor( //
 			})
 	}
 
-	@Callback
+	@Callback(dispatchResultOkOnly = false)
 	fun getCloudListAfterAuthentication(result: ActivityResult, cloudFolderModel: CloudFolderModel) {
-		val cloudModel = result.getSingleResult(CloudModel::class.java)
-		cloudFolderModel.toCloudNode().withCloud(cloudModel.toCloud())?.let {
-			getCloudList(cloudFolderModelMapper.toModel(it))
+		if(result.isResultOk) {
+			val cloudModel = result.getSingleResult(CloudModel::class.java) // FIXME update other vaults using this cloud as well
+			val cloudNode = cloudFolderModel.toCloudNode()
+			if (cloudNode is CryptoFolder) {
+				updatedDecryptedCloudFor(Vault.aCopyOf(cloudFolderModel.vault()!!.toVault()).withCloud(cloudModel.toCloud()).build(), cloudFolderModel)
+			} else {
+				updatePlaintextCloud(cloudFolderModel, cloudModel)
+			}
+		} else {
+			Timber.tag("BrowseFilesPresenter").e("Authentication failed")
+		}
+	}
+
+	private fun updatePlaintextCloud(cloudFolderModel: CloudFolderModel, updatedCloud: CloudModel) {
+		cloudFolderModel.toCloudNode().withCloud(updatedCloud.toCloud())?.let {
+			val folder = cloudFolderModelMapper.toModel(it)
+			view?.updateActiveFolderDueToAuthenticationProblem(folder)
+			getCloudList(folder)
+			resumedAfterAuthentication = false
 		} ?: throw FatalBackendException("cloudFolderModel with updated Cloud shouldn't be null")
+	}
+
+	private fun updatedDecryptedCloudFor(vault: Vault, cloudFolderModel: CloudFolderModel) {
+		getDecryptedCloudForVaultUseCase //
+			.withVault(vault) //
+			.run(object : DefaultResultHandler<Cloud>() {
+				override fun onSuccess(cloud: Cloud) {
+					val folder = cloudFolderModelMapper.toModel(cloudFolderModel.toCloudNode().withCloud(cloud)!!)
+					view?.updateActiveFolderDueToAuthenticationProblem(folder)
+					getCloudList(folder)
+				}
+				override fun onFinished() {
+					resumedAfterAuthentication = false
+				}
+			})
 	}
 
 	fun onCreateFolderPressed(cloudFolder: CloudFolderModel, folderName: String?) {
@@ -245,16 +284,16 @@ class BrowseFilesPresenter @Inject constructor( //
 	private fun copyFile(downloadFiles: List<DownloadFile>) {
 		downloadFiles.forEach { downloadFile ->
 			try {
-				val source = FileInputStream(fileUtil.fileFor(cloudFileModelMapper.toModel(downloadFile.downloadFile)))
-
-				copyDataUseCase //
-					.withSource(source) //
-					.andTarget(downloadFile.dataSink) //
-					.run(object : DefaultResultHandler<Void>() {
-						override fun onFinished() {
-							view?.showMessage(R.string.screen_file_browser_msg_file_exported)
-						}
-					})
+				FileInputStream(fileUtil.fileFor(cloudFileModelMapper.toModel(downloadFile.downloadFile))).use {
+					copyDataUseCase //
+						.withSource(it) //
+						.andTarget(downloadFile.dataSink) //
+						.run(object : DefaultResultHandler<Void>() {
+							override fun onFinished() {
+								view?.showMessage(R.string.screen_file_browser_msg_file_exported)
+							}
+						})
+				}
 			} catch (e: FileNotFoundException) {
 				showError(e)
 			}
@@ -1115,7 +1154,9 @@ class BrowseFilesPresenter @Inject constructor( //
 	}
 
 	fun onFolderReloadContent(folder: CloudFolderModel) {
-		getCloudList(folder)
+		if(!resumedAfterAuthentication) {
+			getCloudList(folder)
+		}
 	}
 
 	fun onExportFolderClicked(cloudFolder: CloudFolderModel, exportTriggeredByUser: ExportOperation) {
@@ -1249,6 +1290,7 @@ class BrowseFilesPresenter @Inject constructor( //
 	companion object {
 
 		const val OPEN_FILE_FINISHED = 12
+
 		val EXPORT_AFTER_APP_CHOOSER: ExportOperation = object : ExportOperation {
 			override fun export(presenter: BrowseFilesPresenter, downloadFiles: List<DownloadFile>) {
 				presenter.copyFile(downloadFiles)
@@ -1272,7 +1314,8 @@ class BrowseFilesPresenter @Inject constructor( //
 			renameFolderUseCase,  //
 			copyDataUseCase,  //
 			moveFilesUseCase,  //
-			moveFoldersUseCase
+			moveFoldersUseCase, //
+			getDecryptedCloudForVaultUseCase
 		)
 		this.authenticationExceptionHandler = authenticationExceptionHandler
 	}

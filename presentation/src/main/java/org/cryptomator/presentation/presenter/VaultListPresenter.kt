@@ -32,6 +32,7 @@ import org.cryptomator.domain.usecases.vault.LockVaultUseCase
 import org.cryptomator.domain.usecases.vault.MoveVaultPositionUseCase
 import org.cryptomator.domain.usecases.vault.RenameVaultUseCase
 import org.cryptomator.domain.usecases.vault.SaveVaultUseCase
+import org.cryptomator.domain.usecases.vault.UpdateVaultParameterIfChangedRemotelyUseCase
 import org.cryptomator.generator.Callback
 import org.cryptomator.presentation.BuildConfig
 import org.cryptomator.presentation.CryptomatorApp
@@ -78,6 +79,7 @@ class VaultListPresenter @Inject constructor( //
 	private val licenseCheckUseCase: DoLicenseCheckUseCase,  //
 	private val updateCheckUseCase: DoUpdateCheckUseCase,  //
 	private val updateUseCase: DoUpdateUseCase,  //
+	private val updateVaultParameterIfChangedRemotelyUseCase: UpdateVaultParameterIfChangedRemotelyUseCase, //
 	private val networkConnectionCheck: NetworkConnectionCheck,  //
 	private val fileUtil: FileUtil,  //
 	private val authenticationExceptionHandler: AuthenticationExceptionHandler,  //
@@ -115,7 +117,7 @@ class VaultListPresenter @Inject constructor( //
 
 		checkLicense()
 
-		if(sharedPreferencesHandler.usePhotoUpload()) {
+		if (sharedPreferencesHandler.usePhotoUpload()) {
 			checkLocalStoragePermissionRegardingAutoUpload()
 		}
 	}
@@ -399,16 +401,25 @@ class VaultListPresenter @Inject constructor( //
 	@Callback
 	fun vaultUnlockedVaultList(result: ActivityResult) {
 		val cloud = result.intent().getSerializableExtra(SINGLE_RESULT) as Cloud
-		navigateToVaultContent(cloud)
+		getRootFolderOf(cloud)
 	}
 
-	private fun navigateToVaultContent(cloud: Cloud) {
+	private fun getRootFolderOf(cloud: Cloud) {
 		getRootFolderUseCase //
 			.withCloud(cloud) //
 			.run(object : DefaultResultHandler<CloudFolder>() {
 				override fun onSuccess(folder: CloudFolder) {
-					val cryptoCloud = (folder.cloud as CryptoCloud)
-					val vault = cryptoCloud.vault
+					navigateToVaultContent(folder)
+				}
+			})
+	}
+
+	private fun navigateToVaultContent(folder: CloudFolder) {
+		val cryptoCloud = (folder.cloud as CryptoCloud)
+		updateVaultParameterIfChangedRemotelyUseCase //
+			.withVault(cryptoCloud.vault) //
+			.run(object : DefaultResultHandler<Vault>() {
+				override fun onSuccess(vault: Vault) {
 					view?.addOrUpdateVault(VaultModel(vault))
 					navigateToVaultContent(vault, folder)
 					view?.showProgress(ProgressModel.COMPLETED)
@@ -530,7 +541,8 @@ class VaultListPresenter @Inject constructor( //
 			moveVaultPositionUseCase, //
 			licenseCheckUseCase,  //
 			updateCheckUseCase,  //
-			updateUseCase
+			updateUseCase, //
+			updateVaultParameterIfChangedRemotelyUseCase
 		)
 	}
 }

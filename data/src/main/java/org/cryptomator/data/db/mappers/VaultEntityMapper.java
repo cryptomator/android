@@ -31,6 +31,8 @@ public class VaultEntityMapper extends EntityMapper<VaultEntity, Vault> {
 				.withCloudType(CloudType.valueOf(entity.getCloudType())) //
 				.withSavedPassword(entity.getPassword()) //
 				.withPosition(entity.getPosition()) //
+				.withFormat(entity.getFormat()) //
+				.withShorteningThreshold(entity.getShorteningThreshold()) //
 				.build();
 	}
 
@@ -53,6 +55,8 @@ public class VaultEntityMapper extends EntityMapper<VaultEntity, Vault> {
 		entity.setCloudType(domainObject.getCloudType().name());
 		entity.setPassword(domainObject.getPassword());
 		entity.setPosition(domainObject.getPosition());
+		entity.setFormat(domainObject.getFormat());
+		entity.setShorteningThreshold(domainObject.getShorteningThreshold());
 		return entity;
 	}
 }

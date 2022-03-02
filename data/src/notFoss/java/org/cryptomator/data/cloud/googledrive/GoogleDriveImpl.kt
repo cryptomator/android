@@ -25,7 +25,6 @@ import org.cryptomator.util.file.LruFileCacheUtil
 import org.cryptomator.util.file.LruFileCacheUtil.Companion.retrieveFromLruCache
 import java.io.IOException
 import java.io.OutputStream
-import java.util.ArrayList
 import timber.log.Timber
 
 internal class GoogleDriveImpl(context: Context, googleDriveCloud: GoogleDriveCloud, idCache: GoogleDriveIdCache) {
@@ -57,7 +56,7 @@ internal class GoogleDriveImpl(context: Context, googleDriveCloud: GoogleDriveCl
 
 	@Throws(IOException::class)
 	private fun findFile(parentDriveId: String?, name: String): File? {
-		val fileListQuery = client().files().list().setFields("files(id,mimeType,name,size)")
+		val fileListQuery = client().files().list().setFields("files(id,mimeType,name,size,shortcutDetails)")
 		fileListQuery.q = "name contains '$name' and '$parentDriveId' in parents and trashed = false"
 		return fileListQuery.execute().files.firstOrNull { it.name == name }
 	}
@@ -99,6 +98,8 @@ internal class GoogleDriveImpl(context: Context, googleDriveCloud: GoogleDriveCl
 		folder?.let {
 			if (GoogleDriveCloudNodeFactory.isFolder(it)) {
 				return idCache.cache(GoogleDriveCloudNodeFactory.folder(parent, it))
+			} else if(GoogleDriveCloudNodeFactory.isShortcutFolder(it)) {
+				return idCache.cache(GoogleDriveCloudNodeFactory.folder(parent, name, path, it.shortcutDetails.targetId))
 			}
 		}
 
@@ -127,7 +128,7 @@ internal class GoogleDriveImpl(context: Context, googleDriveCloud: GoogleDriveCl
 			val fileListQuery = client() //
 				.files() //
 				.list() //
-				.setFields("nextPageToken,files(id,mimeType,modifiedTime,name,size)") //
+				.setFields("nextPageToken,files(id,mimeType,modifiedTime,name,size,shortcutDetails)") //
 				.setPageSize(1000) //
 				.setPageToken(pageToken)
 			fileListQuery.q = "'" + folder.driveId + "' in parents and trashed = false"

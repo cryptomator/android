@@ -38,6 +38,7 @@ import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
 import okio.BufferedSink;
+import okio.BufferedSource;
 import okio.Okio;
 
 @Singleton
@@ -112,20 +113,20 @@ public class UpdateCheckRepositoryImpl implements UpdateCheckRepository {
 
 			final Response response = httpClient.newCall(request).execute();
 
-			if (response.isSuccessful()) {
-				final BufferedSink sink = Okio.buffer(Okio.sink(file));
-				sink.writeAll(response.body().source());
-				sink.flush();
-				sink.close();
+			if (response.isSuccessful() && response.body() != null) {
+				try (BufferedSource source = response.body().source(); BufferedSink sink = Okio.buffer(Okio.sink(file))) {
+					sink.writeAll(source);
+					sink.flush();
 
-				String apkSha256 = calculateSha256(file);
+					String apkSha256 = calculateSha256(file);
 
-				if (!apkSha256.equals(entity.getApkSha256())) {
-					file.delete();
-					throw new HashMismatchUpdateCheckException(String.format( //
-							"Sha of calculated hash (%s) doesn't match the specified one (%s)", //
-							apkSha256, //
-							entity.getApkSha256()));
+					if (!apkSha256.equals(entity.getApkSha256())) {
+						file.delete();
+						throw new HashMismatchUpdateCheckException(String.format( //
+								"Sha of calculated hash (%s) doesn't match the specified one (%s)", //
+								apkSha256, //
+								entity.getApkSha256()));
+					}
 				}
 			} else {
 				throw new GeneralUpdateErrorException("Failed to load update file, status code is not correct: " + response.code());
@@ -174,7 +175,7 @@ public class UpdateCheckRepositoryImpl implements UpdateCheckRepository {
 	}
 
 	private LatestVersion toLatestVersion(Response response) throws IOException, GeneralUpdateErrorException {
-		if (response.isSuccessful()) {
+		if (response.isSuccessful() && response.body() != null) {
 			return new LatestVersion(response.body().string());
 		} else {
 			throw new GeneralUpdateErrorException("Failed to update. Wrong status code in response from server: " + response.code());
@@ -182,7 +183,7 @@ public class UpdateCheckRepositoryImpl implements UpdateCheckRepository {
 	}
 
 	private UpdateCheck toUpdateCheck(Response response, LatestVersion latestVersion) throws IOException, GeneralUpdateErrorException {
-		if (response.isSuccessful()) {
+		if (response.isSuccessful() && response.body() != null) {
 			final String releaseNote = response.body().string();
 			return new UpdateCheckImpl(releaseNote, latestVersion);
 		} else {

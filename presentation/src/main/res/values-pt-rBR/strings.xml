@@ -41,6 +41,7 @@
 	<string name="permission_message_export_file">Cryptomator precisa de permissão de acesso ao armazenamento para exportar arquivos</string>
 	<string name="permission_message_upload_file">Cryptomator precisa de permissão de acesso ao armazenamento para fazer upload de arquivos</string>
 	<string name="permission_message_share_file">Cryptomator precisa de permissão de acesso ao armazenamento para compartilhar arquivos</string>
+	<string name="permission_revoked_re_request_permission">O Cryptomator perdeu a permissão para acessar este local. Por favor, selecione esta pasta novamente para restaurar sua permissão.</string>
 	<string name="snack_bar_action_title_settings">Configurações</string>
 	<string name="snack_bar_action_title_search">Buscar</string>
 	<string name="snack_bar_action_title_search_previous">Anterior</string>
@@ -198,6 +199,7 @@
 	<string name="screen_settings_keep_unlocked_while_editing_files">Manter desbloqueado</string>
 	<string name="screen_settings_keep_unlocked_while_editing_files_summary">Mantenha cofres desbloqueados durante a edição de arquivos</string>
 	<!-- ## screen: cloud settings -->
+	<string name="screen_cloud_settings_onedrive_connections">Conexões OneDrive</string>
 	<string name="screen_cloud_settings_webdav_connections">Conexões WebDAV</string>
 	<string name="screen_cloud_settings_pcloud_connections">conexões pCloud</string>
 	<string name="screen_cloud_settings_s3_connections">Conexões S3</string>
@@ -288,6 +290,10 @@
 	<string name="dialog_app_is_obscured_info_title">O aplicativo está escuro</string>
 	<string name="dialog_app_is_obscured_info_hint">Outro aplicativo está exibindo algo no topo do Cryptomator (por exemplo, um filtro de luz azul ou aplicativo de modo noturno). Por razões de segurança, o Cryptomator está desativado.\n\n<a href="https://docs.cryptomator.org/en/1.5/android/settings/#block-app-when-obscured">Como ativar o Cryptomator</a></string>
 	<string name="dialog_app_is_obscured_info_neutral_button">Fechar</string>
+	<string name="dialog_vaults_removed_during_migration_title">Por favor, readicione cofres para %1s nuvem</string>
+	<string name="dialog_vaults_removed_during_migration_hint">Durante a migração para esta versão do aplicativo, precisamos remover os seguintes cofres do aplicativo:\n%2s \n\nEsses cofres não são removidos da nuvem, mas apenas deste aplicativo. Desculpe o incômodo e por favor adicione novamente estes cofres para continuar a trabalhar com eles.</string>
+	<string name="dialog_vault_is_root_folder_of_cloud_title">O cofre é a pasta raiz da conexão com a nuvem</string>
+	<string name="dialog_vault_is_root_folder_of_cloud_hint">Crie uma nova conexão com a nuvem onde você seleciona pelo menos a pasta principal desta pasta de cofre como o diretório raiz para adicionar este cofre.</string>
 	<string name="dialog_disable_secure_screen_disclaimer_hint">Esta configuração é um recurso de segurança e impede que outros aplicativos induzam os usuários a fazer coisas que não devem fazer.\n\nAo desativar, você confirma que está <a href="https://docs.cryptomator.org/en/1.5/android/settings/#screen-security">ciente dos riscos</a>.</string>
 	<string name="dialog_delete_cloud_connection_with_vaults_message">Tem certeza de que deseja remover esta conexão com a nuvem?</string>
 	<string name="dialog_delete_cloud_connection_with_vaults_hint">Esta ação removerá a conexão com o provedor de nuvem e todos os cofres desta nuvem.</string>
@@ -367,6 +373,7 @@
 	<string name="notification_open_writable_file_title">Abrir arquivo gravável</string>
 	<string name="notification_open_writable_file_message">Cofre permanece desbloqueado até terminar de editar</string>
 	<string name="notification_update_check_finished_latest">Versão mais recente instalada</string>
+	<string name="notification_authenticating">Autenticando&#8230;</string>
 	<string name="screen_settings_lru_cache">Cache</string>
 	<string name="screen_settings_lru_cache_toggle_summary">Cache de arquivos acessados recentemente criptografados localmente no dispositivo para reutilização posterior quando reaberto</string>
 	<string name="screen_settings_lru_cache_size">Tamanho total do cache</string>

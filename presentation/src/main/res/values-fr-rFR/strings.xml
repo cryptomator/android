@@ -199,6 +199,7 @@
 	<string name="screen_settings_keep_unlocked_while_editing_files">Maintenir deverouillé</string>
 	<string name="screen_settings_keep_unlocked_while_editing_files_summary">Gardez les coffres forts déverrouillées pendant l\'édition des fichiers</string>
 	<!-- ## screen: cloud settings -->
+	<string name="screen_cloud_settings_onedrive_connections">Connexions OneDrive</string>
 	<string name="screen_cloud_settings_webdav_connections">Connexions WebDAV</string>
 	<string name="screen_cloud_settings_pcloud_connections">Connexions pCloud</string>
 	<string name="screen_cloud_settings_s3_connections">Connexions S3</string>
@@ -372,6 +373,7 @@
 	<string name="notification_open_writable_file_title">Ouvrir un fichier accessible en écriture</string>
 	<string name="notification_open_writable_file_message">Le coffre-fort reste déverrouillé jusqu\'à la fin des modifications</string>
 	<string name="notification_update_check_finished_latest">Dernière version installée</string>
+	<string name="notification_authenticating">Authentification en cours&#8230;</string>
 	<string name="screen_settings_lru_cache">Cache</string>
 	<string name="screen_settings_lru_cache_toggle_summary">Mettre en cache les fichiers récemment consultés chiffrés localement sur l\'appareil pour une réutilisation lors d\'une réouverture ultérieure</string>
 	<string name="screen_settings_lru_cache_size">Taille totale du cache</string>

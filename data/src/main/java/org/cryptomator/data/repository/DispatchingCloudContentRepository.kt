@@ -204,6 +204,16 @@ class DispatchingCloudContentRepository @Inject constructor(
 		}
 	}
 
+	fun updateCloudContentRepositoryFor(cloud: Cloud) {
+		val clouds = delegates.keys.iterator()
+		while (clouds.hasNext()) {
+			val current = clouds.next()
+			if (cloudIsDelegateOfCryptoCloud(current, cloud)) {
+				cryptoCloudContentRepositoryFactory.updateCloudInCryptor((current as CryptoCloud).vault, cloud)
+			}
+		}
+	}
+
 	private fun cloudIsDelegateOfCryptoCloud(potentialCryptoCloud: Cloud, cloud: Cloud): Boolean {
 		if (potentialCryptoCloud is CryptoCloud) {
 			val delegate = potentialCryptoCloud.vault.cloud
@@ -219,9 +229,9 @@ class DispatchingCloudContentRepository @Inject constructor(
 	}
 
 	private fun delegateFor(cloud: Cloud): CloudContentRepository<Cloud, CloudNode, CloudFolder, CloudFile> {
-		return delegates.getOrPut(cloud, {
+		return delegates.getOrPut(cloud) {
 			createCloudContentRepositoryFor(cloud)
-		})
+		}
 	}
 
 	private fun createCloudContentRepositoryFor(cloud: Cloud): CloudContentRepository<Cloud, CloudNode, CloudFolder, CloudFile> {

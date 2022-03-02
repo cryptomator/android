@@ -117,7 +117,7 @@ constructor(
 			if (sharedPreferencesHandler.useGlobSearch()) {
 				nodes?.filter { cloudNode -> PatternMatcher(filterText, PatternMatcher.PATTERN_SIMPLE_GLOB).match(cloudNode.name) }
 			} else {
-				nodes?.filter { cloudNode -> cloudNode.name.lowercase().startsWith(filterText.lowercase()) }
+				nodes?.filter { cloudNode -> cloudNode.name.contains(filterText, true) }
 			}
 		} else {
 			nodes

@@ -199,6 +199,7 @@
 	<string name="screen_settings_keep_unlocked_while_editing_files">Ontgrendeld houden</string>
 	<string name="screen_settings_keep_unlocked_while_editing_files_summary">Houd kluizen ontgrendeld tijdens het bewerken van bestanden</string>
 	<!-- ## screen: cloud settings -->
+	<string name="screen_cloud_settings_onedrive_connections">OneDrive verbindingen</string>
 	<string name="screen_cloud_settings_webdav_connections">WebDAV verbindingen</string>
 	<string name="screen_cloud_settings_pcloud_connections">pCloud verbindingen</string>
 	<string name="screen_cloud_settings_s3_connections">S3 verbindingen</string>
@@ -372,6 +373,7 @@
 	<string name="notification_open_writable_file_title">Open schrijfbaar bestand</string>
 	<string name="notification_open_writable_file_message">Kluis blijft ontgrendeld tot het bewerken voltooid is</string>
 	<string name="notification_update_check_finished_latest">Laatste versie geïnstalleerd</string>
+	<string name="notification_authenticating">Verifiëren&#8230;</string>
 	<string name="screen_settings_lru_cache">Cache</string>
 	<string name="screen_settings_lru_cache_toggle_summary">Bewaar recent geopende bestanden versleuteld en lokaal op het apparaat voor later hergebruik</string>
 	<string name="screen_settings_lru_cache_size">Totale cache grootte</string>

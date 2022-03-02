@@ -26,7 +26,6 @@ import org.cryptomator.presentation.model.ProgressModel
 import org.cryptomator.presentation.presenter.BrowseFilesPresenter
 import org.cryptomator.presentation.ui.adapter.BrowseFilesAdapter
 import org.cryptomator.presentation.util.ResourceHelper.Companion.getPixelOffset
-import java.util.Comparator
 import java.util.Optional
 import javax.inject.Inject
 import kotlinx.android.synthetic.main.floating_action_button_layout.floatingActionButton
@@ -51,8 +50,11 @@ class BrowseFilesFragment : BaseFragment() {
 
 	private var filterText: String = ""
 
-	val folder: CloudFolderModel
+	var folder: CloudFolderModel
 		get() = requireArguments().getSerializable(ARG_FOLDER) as CloudFolderModel
+		set(updatedFolder) {
+			arguments?.putSerializable(ARG_FOLDER, updatedFolder)
+		}
 
 	private val chooseCloudNodeSettings: ChooseCloudNodeSettings?
 		get() = requireArguments().getSerializable(ARG_CHOOSE_CLOUD_NODE_SETTINGS) as ChooseCloudNodeSettings?

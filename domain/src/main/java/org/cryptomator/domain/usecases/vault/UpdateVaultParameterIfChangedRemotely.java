@@ -7,18 +7,23 @@ import org.cryptomator.generator.Parameter;
 import org.cryptomator.generator.UseCase;
 
 @UseCase
-class ReloadVault {
+class UpdateVaultParameterIfChangedRemotely {
 
 	private final VaultRepository vaultRepository;
 	private final Vault vault;
 
-	public ReloadVault(VaultRepository vaultRepository, @Parameter Vault vault) {
+	public UpdateVaultParameterIfChangedRemotely(VaultRepository vaultRepository, @Parameter Vault vault) {
 		this.vaultRepository = vaultRepository;
 		this.vault = vault;
 	}
 
 	public Vault execute() throws BackendException {
-		return vaultRepository.load(vault.getId());
+		Vault oldVault = vaultRepository.load(vault.getId());
+		if(oldVault.getFormat() == vault.getFormat() && oldVault.getShorteningThreshold() == vault.getShorteningThreshold()) {
+			return vault;
+		} else {
+			return vaultRepository.store(vault);
+		}
 	}
 
 }
