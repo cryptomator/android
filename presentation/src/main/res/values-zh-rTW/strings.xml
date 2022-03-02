@@ -115,7 +115,6 @@
 	<string name="screen_cloud_connections_title">選擇位置</string>
 	<string name="screen_cloud_connections_no_connections">點擊此處新增位置</string>
 	<string name="screen_cloud_error_webdav_not_supported">服務器似乎與 WebDAV 不兼容</string>
-	<string name="screen_cloud_local_error_no_content_provider">沒有更多位置可用。</string>
 	<!-- ## screen: webdav settings -->
 	<string name="screen_webdav_settings_url_port_label">網址</string>
 	<string name="screen_webdav_settings_username_label">帳號名稱</string>
