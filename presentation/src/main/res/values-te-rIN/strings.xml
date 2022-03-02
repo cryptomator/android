@@ -74,7 +74,6 @@
 	<!-- ## screen: cloud connections -->
 	<string name="screen_cloud_connections_title">ఒక స్థానాన్ని ఎంచుకోండి</string>
 	<string name="screen_cloud_connections_no_connections">స్థానాలను జోడించడానికి ఇక్కడ క్లిక్ చేయండి</string>
-	<string name="screen_cloud_local_error_no_content_provider">అదనపు స్థానాలు అందుబాటులో లేవు.</string>
 	<!-- ## screen: webdav settings -->
 	<string name="screen_webdav_settings_url_port_label">URL</string>
 	<string name="screen_webdav_settings_username_label">వినియోగదారు పేరు</string>
