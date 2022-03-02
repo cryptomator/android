@@ -116,6 +116,7 @@
 	<string name="screen_cloud_connections_title">Selecionar um local</string>
 	<string name="screen_cloud_connections_no_connections">Clique aqui para adicionar locais</string>
 	<string name="screen_cloud_error_webdav_not_supported">O servidor não parece ser compatível com WebDAV</string>
+	<string name="screen_cloud_local_error_no_content_provider">Nenhum gerenciador de arquivos encontrado que suporte a abertura de pastas</string>
 	<!-- ## screen: webdav settings -->
 	<string name="screen_webdav_settings_url_port_label">URL</string>
 	<string name="screen_webdav_settings_username_label">Usuário</string>
