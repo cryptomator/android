@@ -116,7 +116,6 @@
 	<string name="screen_cloud_connections_title">Válasszon helyt</string>
 	<string name="screen_cloud_connections_no_connections">Kattintson ide a hely hozzáadásához</string>
 	<string name="screen_cloud_error_webdav_not_supported">A kiszolgáló nem tűnik WebDAV kompatibilisnek</string>
-	<string name="screen_cloud_local_error_no_content_provider">További helyszínek nem állnak rendelkezésre.</string>
 	<!-- ## screen: webdav settings -->
 	<string name="screen_webdav_settings_url_port_label">ULR</string>
 	<string name="screen_webdav_settings_username_label">Felhasználónév</string>
