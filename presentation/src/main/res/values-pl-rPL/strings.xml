@@ -118,7 +118,6 @@
 	<string name="screen_cloud_connections_title">Wybierz lokalizację</string>
 	<string name="screen_cloud_connections_no_connections">Kliknij tutaj, aby dodać nową lokalizację</string>
 	<string name="screen_cloud_error_webdav_not_supported">Serwer wydaje się być niekompatybilny z WebDAV</string>
-	<string name="screen_cloud_local_error_no_content_provider">Brak dodatkowych lokalizacji.</string>
 	<!-- ## screen: webdav settings -->
 	<string name="screen_webdav_settings_url_port_label">URL</string>
 	<string name="screen_webdav_settings_username_label">Login</string>
