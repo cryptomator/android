@@ -118,6 +118,7 @@
 	<string name="screen_cloud_connections_title">Vybrať umiestnenie</string>
 	<string name="screen_cloud_connections_no_connections">Kliknite sem pre pridanie umiestnení</string>
 	<string name="screen_cloud_error_webdav_not_supported">Server zdá sa byť WebDAV kompatibilný</string>
+	<string name="screen_cloud_local_error_no_content_provider">Nenašiel sa manažér súborov ktorý podporuje otváranie adresárov</string>
 	<!-- ## screen: webdav settings -->
 	<string name="screen_webdav_settings_url_port_label">URL</string>
 	<string name="screen_webdav_settings_username_label">Uživateľské meno</string>
