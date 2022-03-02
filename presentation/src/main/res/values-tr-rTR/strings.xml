@@ -116,6 +116,7 @@
 	<string name="screen_cloud_connections_title">Bir yer seçin</string>
 	<string name="screen_cloud_connections_no_connections">Konum eklemek için buraya tıklayın</string>
 	<string name="screen_cloud_error_webdav_not_supported">Sunucu WebDAV uyumlu görünmüyor</string>
+	<string name="screen_cloud_local_error_no_content_provider">Dizinlerin açılmasını destekleyen dosya yöneticisi bulunamadı</string>
 	<!-- ## screen: webdav settings -->
 	<string name="screen_webdav_settings_url_port_label">URL</string>
 	<string name="screen_webdav_settings_username_label">Kullanıcı adı</string>
