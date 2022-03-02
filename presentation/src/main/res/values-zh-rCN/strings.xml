@@ -115,6 +115,7 @@
 	<string name="screen_cloud_connections_title">请选择位置</string>
 	<string name="screen_cloud_connections_no_connections">点击此处添加位置</string>
 	<string name="screen_cloud_error_webdav_not_supported">服务器似乎不兼容 WebDAV</string>
+	<string name="screen_cloud_local_error_no_content_provider">没有找到支持打开目录的文件管理器</string>
 	<!-- ## screen: webdav settings -->
 	<string name="screen_webdav_settings_url_port_label">URL</string>
 	<string name="screen_webdav_settings_username_label">用户名</string>
