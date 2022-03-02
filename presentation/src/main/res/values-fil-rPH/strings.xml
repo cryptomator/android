@@ -95,7 +95,6 @@
 	<string name="screen_cloud_connections_title">Piliin ang location</string>
 	<string name="screen_cloud_connections_no_connections">Pindutin dito upang magdagdag ng lugar</string>
 	<string name="screen_cloud_error_webdav_not_supported">Ang server na ito ay mukhang hindi tugma sa WebDAV</string>
-	<string name="screen_cloud_local_error_no_content_provider">Walang ibang lokasyon na magagamit.</string>
 	<!-- ## screen: webdav settings -->
 	<string name="screen_webdav_settings_url_port_label">URL</string>
 	<string name="screen_webdav_settings_username_label">Username</string>
