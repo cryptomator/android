@@ -1,2 +1,6 @@
-- Show information when "Storage" permission revoked, required for auto upload
-- Logging out of a cloud now also clears the credentials of an active connection to it
+- Added support for multiple OneDrive accounts
+- Added access to vaults located in "Shared with Me", "My Computer" and "My Drive" of Google Drive using shortcuts
+- Added a lot of translations
+- Improved search functionality, now a "contains" search is used instead of "starts with"
+- Fixed crash on some devices during unlock due to keystore exception
+- Fixed problem during deletion of a cloud
