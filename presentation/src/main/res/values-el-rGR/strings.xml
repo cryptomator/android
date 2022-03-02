@@ -116,6 +116,7 @@
 	<string name="screen_cloud_connections_title">Επιλέξτε μια τοποθεσία</string>
 	<string name="screen_cloud_connections_no_connections">Κάντε κλικ εδώ για να προσθέσετε τοποθεσίες</string>
 	<string name="screen_cloud_error_webdav_not_supported">Ο διακομιστής δεν φαίνεται να είναι συμβατός με WebDAV</string>
+	<string name="screen_cloud_local_error_no_content_provider">Δε βρέθηκε διαχειριστής αρχείων που να υποστηρίζει το άνοιγμα καταλόγων</string>
 	<!-- ## screen: webdav settings -->
 	<string name="screen_webdav_settings_url_port_label">URL</string>
 	<string name="screen_webdav_settings_username_label">Όνομα χρήστη</string>
