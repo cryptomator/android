@@ -112,7 +112,6 @@
 	<string name="screen_cloud_connections_title">Обрати місцерозташування</string>
 	<string name="screen_cloud_connections_no_connections">Натисніть сюди щоб додати розташування</string>
 	<string name="screen_cloud_error_webdav_not_supported">Схоже, сервер не сумісний з WebDAV</string>
-	<string name="screen_cloud_local_error_no_content_provider">Немає доступних місцерозташувань.</string>
 	<!-- ## screen: webdav settings -->
 	<string name="screen_webdav_settings_url_port_label">Адреса посилання</string>
 	<string name="screen_webdav_settings_username_label">Ім\'я користувача</string>
