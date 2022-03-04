@@ -116,6 +116,7 @@
 	<string name="screen_cloud_connections_title">Kies een locatie</string>
 	<string name="screen_cloud_connections_no_connections">Klik hier om locaties toe te voegen</string>
 	<string name="screen_cloud_error_webdav_not_supported">Server lijkt niet WebDAV compatibel te zijn</string>
+	<string name="screen_cloud_local_error_no_content_provider">Geen bestandsbeheerder gevonden die het openen van mappen ondersteunt</string>
 	<!-- ## screen: webdav settings -->
 	<string name="screen_webdav_settings_url_port_label">URL</string>
 	<string name="screen_webdav_settings_username_label">Gebruikersnaam</string>
