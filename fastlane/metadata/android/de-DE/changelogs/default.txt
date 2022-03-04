@@ -1,6 +1,1 @@
-- Unterstützung für mehrere OneDrive-Konten hinzugefügt
-- Zugriff auf Tresore, die sich in "Shared with Me", "My Computer" und "My Drive" von Google Drive befinden, wurde mit Hilfe von Shortcuts hinzugefügt
-- Viele Übersetzungen hinzugefügt
-- Verbesserte Suchfunktion, nun wird eine "enthält"-Suche anstelle von "beginnt mit" verwendet
-- Absturz auf einigen Geräten während des Entsperrens aufgrund einer Keystore-Ausnahme behoben
-- Problem beim Löschen einer Cloud behoben
+- Problem behoben, bei dem ein "Tresor nicht gefunden"-Dialog beim Entsperren mit OneDrive angezeigt wird, wenn er ein Leerzeichen im Namen enthält
