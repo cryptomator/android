@@ -1,7 +1,6 @@
 package org.cryptomator.data.cloud.onedrive
 
 import android.content.Context
-import android.net.Uri
 import com.microsoft.graph.http.GraphServiceException
 import com.microsoft.graph.models.DriveItem
 import com.microsoft.graph.models.DriveItemCreateUploadSessionParameterSet
@@ -86,7 +85,7 @@ internal class OnedriveImpl(cloud: OnedriveCloud, context: Context, graphService
 
 	private fun childByName(parentId: String, parentDriveId: String, name: String): DriveItem? {
 		return try {
-			drive(parentDriveId).items(parentId).itemWithPath(Uri.encode(name)).buildRequest().get()
+			drive(parentDriveId).items(parentId).itemWithPath(name).buildRequest().get()
 		} catch (e: GraphServiceException) {
 			if (isNotFoundError(e)) {
 				null

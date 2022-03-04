@@ -1,6 +1,1 @@
-- Added support for multiple OneDrive accounts
-- Added access to vaults located in "Shared with Me", "My Computer" and "My Drive" of Google Drive using shortcuts
-- Added a lot of translations
-- Improved search functionality, now a "contains" search is used instead of "starts with"
-- Fixed crash on some devices during unlock due to keystore exception
-- Fixed problem during deletion of a cloud
+- Fixed a problem where a "Vault not found" dialog is shown during unlock with OneDrive cloud if the vault contains a blank character
