@@ -116,6 +116,7 @@
 	<string name="screen_cloud_connections_title">Elixir unha localización</string>
 	<string name="screen_cloud_connections_no_connections">Prema aquí para engadir localizacións</string>
 	<string name="screen_cloud_error_webdav_not_supported">O servidor non é compatíbel con WebDAV</string>
+	<string name="screen_cloud_local_error_no_content_provider">Non se atopa ningún xestor de ficheiros que soporte abrir cartafois</string>
 	<!-- ## screen: webdav settings -->
 	<string name="screen_webdav_settings_url_port_label">URL</string>
 	<string name="screen_webdav_settings_username_label">Nome de usuario</string>
@@ -139,7 +140,12 @@
 	<string name="screen_s3_settings_msg_endpoint_and_region_not_empty">O endpoint ou rexión non poden ficar baleiros</string>
 	<!-- ## screen: enter vault name -->
 	<string name="screen_enter_vault_name_msg_name_empty">O nome da caixa forte non pode ficar baleiro.</string>
+	<string name="screen_enter_vault_name_vault_label">Nome da caixa forte</string>
+	<string name="screen_enter_vault_name_button_text">Crear</string>
 	<!-- ## screen: set password -->
+	<string name="screen_set_password_title">Establecer contrasinal</string>
+	<string name="screen_set_password_msg_password_mismatch">O contrasinal non coincide co contrasinal escrito.</string>
+	<string name="screen_set_password_button_text">Feito</string>
 	<!-- ## screen: settings -->
 	<string name="screen_settings_section_search">Buscar</string>
 	<string name="screen_settings_error_report_failed">Erro ao enviar</string>
