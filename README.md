@@ -21,8 +21,6 @@ git submodule init && git submodule update
 jarsigner presentation/build/outputs/apk/apkstore/release/presentation-apkstore-release-unsigned.apk -keystore KEYSTORE_FILE KEY_ALIAS
 ```
 
-Sign the APK and it is ready.
-
 ### Connecting to OneDrive/Dropbox
 
 Support for OneDrive/Dropbox is not included in my builds since I don't use them.  
