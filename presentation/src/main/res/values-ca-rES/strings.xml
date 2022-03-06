@@ -306,6 +306,7 @@
 	<string name="dialog_enter_license_title">Proporcioneu una llicència vàlida</string>
 	<string name="dialog_enter_license_content">Hem detectat que has instal·lat Cryptomator sense fer servir la Google Play Store. Proveeix una llicència vàlida, que pot ser adquirida a <a href="https://cryptomator.org/android/">https://cryptomator.org/android/</a></string>
 	<string name="dialog_enter_license_not_valid_content">La llicència introduïda no és vàlida. Assegureu-vos que l\'heu escrita correctament.</string>
+	<string name="dialog_enter_license_not_valid_content_desktop_supporter_certificate">La clau proporcionada és un certificat per a escriptori. Si us plau, proporcioneu una llicència vàlida.</string>
 	<string name="dialog_enter_license_no_content">No heu introduït cap llicència. Si us plau, introduïu una llicència vàlida.</string>
 	<string name="dialog_enter_license_decline_button">Surt</string>
 	<string name="dialog_license_confirmation_title">Confirmació de la llicència</string>
@@ -373,6 +374,7 @@
 	<string name="notification_open_writable_file_title">Obre fitxer editable</string>
 	<string name="notification_open_writable_file_message">La caixa forta seguirà desbloquejada fins que acabi l\'edició</string>
 	<string name="notification_update_check_finished_latest">La versió més recent s\'ha instal·lat</string>
+	<string name="notification_authenticating">Autenticació&#8230;</string>
 	<string name="screen_settings_lru_cache">Memòria cau</string>
 	<string name="screen_settings_lru_cache_toggle_summary">La cache dels fitxers accedits recentment s\'ha encriptat localment en el dispositiu per a reaprofitar-se quan es torni a desbloquejar</string>
 	<string name="screen_settings_lru_cache_size">Mida total de la memòria cau</string>
