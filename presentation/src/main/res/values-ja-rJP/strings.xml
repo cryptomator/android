@@ -115,6 +115,7 @@
 	<string name="screen_cloud_connections_title">接続先を選択</string>
 	<string name="screen_cloud_connections_no_connections">ここをタップして接続先を追加する</string>
 	<string name="screen_cloud_error_webdav_not_supported">サーバーに WebDAV との互換性がありません</string>
+	<string name="screen_cloud_local_error_no_content_provider">ディレクトリを開くことができるファイルマネージャが見つかりませんでした</string>
 	<!-- ## screen: webdav settings -->
 	<string name="screen_webdav_settings_url_port_label">URL</string>
 	<string name="screen_webdav_settings_username_label">ユーザー名</string>
@@ -304,6 +305,7 @@
 	<string name="dialog_enter_license_title">有効なライセンスを入力してください</string>
 	<string name="dialog_enter_license_content">Google Play ストアを使用せずに Cryptomator をインストールしたことを検出しました。有効なライセンスを購入してください: <a href="https://cryptomator.org/android/">https://cryptomator.org/android/</a></string>
 	<string name="dialog_enter_license_not_valid_content">入力されたライセンスが無効です。正しく入力されていることを確認してください。</string>
+	<string name="dialog_enter_license_not_valid_content_desktop_supporter_certificate">入力されたキーはデスクトップサポーター証明書です。有効なライセンスを入力してください。</string>
 	<string name="dialog_enter_license_no_content">ライセンスがありません。有効なライセンスを入力してください。</string>
 	<string name="dialog_enter_license_decline_button">終了</string>
 	<string name="dialog_license_confirmation_title">ライセンスの確認を完了</string>
