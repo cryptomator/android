@@ -126,7 +126,9 @@
 	<string name="screen_webdav_settings_msg_password_must_not_be_empty">密碼不可留空。</string>
 	<!-- ## screen: s3 settings -->
 	<string name="screen_s3_settings_display_name_label">顯示名稱</string>
+	<string name="screen_s3_settings_endpoint_label">終端</string>
 	<string name="screen_s3_settings_region_label">區域</string>
+	<string name="screen_s3_settings_msg_display_name_not_empty">暱稱不得為空</string>
 	<string name="screen_s3_settings_msg_bucket_not_empty">儲存貯體不可留空</string>
 	<!-- ## screen: enter vault name -->
 	<string name="screen_enter_vault_name_msg_name_empty">加密檔案庫名稱不可留空。</string>
@@ -157,6 +159,7 @@
 	<string name="screen_settings_section_auto_photo_upload">自動上傳像片</string>
 	<string name="screen_settings_section_auto_photo_upload_vault">選擇要上傳的加密檔案庫</string>
 	<string name="screen_settings_section_auto_photo_upload_toggle">啟動</string>
+	<string name="screen_settings_section_auto_photo_upload_toggle_instant_upload">即時上傳</string>
 	<string name="screen_settings_section_auto_photo_upload_only_wifi_toggle">僅使用 Wi-Fi 上傳</string>
 	<string name="screen_settings_section_auto_photo_upload_including_videos">上傳影片</string>
 	<string name="screen_settings_website_label">Cryptomator 網站</string>
@@ -176,10 +179,13 @@
 	<string name="screen_settings_background_unlock_preparation_label">加速解鎖</string>
 	<string name="screen_settings_keep_unlocked_while_editing_files">保持解鎖</string>
 	<!-- ## screen: cloud settings -->
+	<string name="screen_cloud_settings_onedrive_connections">OneDrive 連結</string>
 	<string name="screen_cloud_settings_webdav_connections">WebDAV 連線</string>
 	<string name="screen_cloud_settings_pcloud_connections">pCloud 連線</string>
 	<string name="screen_cloud_settings_s3_connections">S3 連線</string>
+	<string name="screen_cloud_settings_local_storage_locations">本機儲存位置</string>
 	<string name="screen_cloud_settings_log_in_to">登錄到</string>
+	<string name="screen_cloud_settings_sign_out_from_cloud">登出</string>
 	<!-- ## screen: licenses -->
 	<!-- ## screen: authenticate cloud -->
 	<string name="screen_authenticate_auth_authentication_failed">%1$s 無法完成身份驗證</string>
@@ -235,9 +241,11 @@
 	<string name="dialog_progress_upload_file">正在上傳中……</string>
 	<string name="dialog_progress_download_file">正在下載&#8230;</string>
 	<string name="dialog_progress_encryption">正在加密中……</string>
+	<string name="dialog_progress_decryption">解密中&#8230;</string>
 	<string name="action_progress_moving">正在移動中……</string>
 	<string name="dialog_lock_vault">鎖定</string>
 	<string name="dialog_accept_ssl_certificate_title">無效的 TLS 憑證</string>
+	<string name="dialog_accept_ssl_certificate_hint">這個 SSL 認證無效，您仍要信任它嗎？</string>
 	<string name="dialog_accept_ssl_certificate_details">詳情</string>
 	<string name="dialog_accept_ssl_certificate_security_checkbox">這可能會是個安全風險。我清楚我在做什麼。</string>
 	<string name="dialog_http_security_hint">使用 HTTP 是不安全的。我們推薦使用 HTTPS 來取代。如果您瞭解風險，您可以使用 HTTP 繼續。</string>
@@ -255,6 +263,7 @@
 	<string name="dialog_confirm_delete_multiple_message">您確定要刪除這些項目嗎？</string>
 	<string name="dialog_confirm_delete_file_message">您確定要刪除這個檔案嗎？</string>
 	<string name="dialog_confirm_delete_folder_message">這將會刪除檔案夾中的全部內容。您確定要刪除這個檔案夾嗎？</string>
+	<string name="dialog_biometric_auth_key_invalidated_title">生物識別認證功能已關閉</string>
 	<string name="dialog_enter_license_title">提供一個有效的許可證書</string>
 	<string name="dialog_enter_license_content">我們檢測到你沒有使用 Google Play 商店安裝 Cryptomator。提供一個有效的許可證書，證書可以從<a href="https://cryptomator.org/android/">https://cryptomator.org/android/</a>購買</string>
 	<string name="dialog_enter_license_not_valid_content">提供的許可證書無效。請確認您輸入無誤。</string>
@@ -268,7 +277,11 @@
 	<string name="dialog_download_update_title">正在下載</string>
 	<string name="dialog_download_update_message">下載最新版本的 Cryptomator</string>
 	<string name="dialog_sym_link_back_button">上一頁</string>
-	<string name="dialog_no_dir_file_title">無法讀取資料夾內的資訊</string>
+	<string name="dialog_no_dir_file_title">無法讀取資料夾內的檔案資訊</string>
+	<string name="dialog_no_more_images_to_display">已無更多圖片可供顯示 &#8230;</string>
+	<string name="dialog_pcloud_credentials_updated_title">%1$s 的帳戶資訊已更新</string>
+	<string name="dialog_pcloud_credentials_updated">如果您想要新增一個 pCloud 帳戶，請在點擊此連結 <a href="https://www.pcloud.com">www.pcloud.com</a> 後登出目前的帳號，並重新點擊本程式中的「+」來建立一個新的雲端連結。</string>
+	<string name="permission_snackbar_auth_auto_upload">Cryptomator 需要存儲權限以便開啟自動圖片上傳</string>
 	<!-- # error reports -->
 	<!-- # misc -->
 	<!-- ## file size helper -->
@@ -295,6 +308,7 @@
 	<string name="time_unit_years_pl">年</string>
 	<!-- ## biometric authentication -->
 	<string name="dialog_biometric_auth_title">生物識別驗證登錄</string>
+	<string name="dialog_biometric_auth_message">使用您的生物識別特徵解鎖</string>
 	<string name="dialog_biometric_auth_use_password">使用加密檔案庫密碼</string>
 	<string name="dialog_unable_to_auto_upload_files_title">無法自動上傳檔案</string>
 	<!-- notification -->
@@ -308,7 +322,9 @@
 	<string name="notification_auto_upload_finished_message">已將%1$d張像片上傳至加密檔案庫</string>
 	<string name="notification_auto_upload_failed_title">像片自動上傳失敗</string>
 	<string name="notification_auto_upload_failed_general_error">上傳期間發生錯誤</string>
+	<string name="notification_auto_upload_failed_due_to_folder_not_exists">您選擇的資料夾無法使用，請至設定重新選擇。</string>
 	<string name="notification_auto_upload_failed_due_to_vault_locked">加密檔案庫在上傳期間鎖定，請重新打開加密檔案庫後繼續</string>
+	<string name="notification_auto_upload_failed_due_to_vault_not_found">使用於自動上傳的加密檔案庫已不存在。</string>
 	<string name="notification_open_writable_file_title">開啟可讀寫檔案</string>
 	<string name="notification_open_writable_file_message">加密檔案庫將在編輯期間保持解鎖狀態</string>
 	<string name="notification_update_check_finished_latest">已安裝最新版本</string>
