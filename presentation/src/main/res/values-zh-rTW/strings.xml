@@ -148,6 +148,7 @@
 	<string name="screen_settings_biometric_auth">生物識別驗證</string>
 	<string name="screen_settings_activate_biometric_auth">開啓生物識別驗證</string>
 	<string name="screen_settings_confirm_face_unlock">確認面容解鎖（如果可用）</string>
+	<string name="screen_settings_secure_screen">禁用截圖</string>
 	<string name="screen_settings_section_search">搜尋</string>
 	<string name="screen_settings_live_search">即時搜尋</string>
 	<string name="screen_settings_section_auto_lock">自動鎖定</string>
@@ -182,6 +183,7 @@
 	<!-- ## screen: licenses -->
 	<!-- ## screen: authenticate cloud -->
 	<string name="screen_authenticate_auth_authentication_failed">%1$s 無法完成身份驗證</string>
+	<string name="screen_update_pcloud_connections_title">更新 pCloud 帳戶資訊</string>
 	<!-- ## screen: insecure android version info -->
 	<!-- # dialogs -->
 	<string name="dialog_button_cancel">取消</string>
@@ -194,6 +196,7 @@
 	<string name="dialog_change_password_msg_password_mismatch">新密碼與再次輸入的密碼不匹配</string>
 	<!-- Vault not found -->
 	<string name="dialog_vault_not_found_title">找不到名為%1$s的加密檔案庫</string>
+	<string name="dialog_vault_not_found_message">這個加密檔案庫已經被重新命名、移動或刪除。 請先從清單中移除此加密檔案庫再重新加入。您現在要移除此檔案庫嗎？</string>
 	<string name="dialog_vault_not_found_positive_button_text">移除</string>
 	<string name="dialog_existing_file_title">檔案已經存在</string>
 	<string name="dialog_existing_file_positive_button">取代</string>
@@ -203,6 +206,8 @@
 	<string name="dialog_replace_positive_button_some_files_exist">替換現有的</string>
 	<string name="dialog_replace_positive_button_single_file_exists">取代</string>
 	<string name="dialog_replace_msg_single_file_exists">名為「%1$s」的檔案已經存在。您想要替換它嗎？</string>
+	<string name="dialog_replace_msg_all_files_exists">所有檔案皆已存在，您是否要取代檔案？</string>
+	<string name="dialog_replace_msg_some_files_exists">%1$d 個檔案已經存在，您是否要取代？</string>
 	<string name="dialog_replace_title_single_file_exists">替換檔案？</string>
 	<string name="dialog_replace_title_multiple_files_exist">要取代檔案嗎？</string>
 	<string name="dialog_unable_to_share_title">無法分享檔案</string>
@@ -245,6 +250,7 @@
 	<string name="dialog_disable_app_obscured_disclaimer_title">注意</string>
 	<string name="dialog_disable_app_obscured_positive_button">禁用</string>
 	<string name="dialog_app_is_obscured_info_neutral_button">關閉</string>
+	<string name="dialog_delete_cloud_connection_with_vaults_message">您確定要刪除此雲端連結嗎？</string>
 	<string name="dialog_confirm_delete_multiple_title">是否刪除%1$d個項目？</string>
 	<string name="dialog_confirm_delete_multiple_message">您確定要刪除這些項目嗎？</string>
 	<string name="dialog_confirm_delete_file_message">您確定要刪除這個檔案嗎？</string>
@@ -262,6 +268,7 @@
 	<string name="dialog_download_update_title">正在下載</string>
 	<string name="dialog_download_update_message">下載最新版本的 Cryptomator</string>
 	<string name="dialog_sym_link_back_button">上一頁</string>
+	<string name="dialog_no_dir_file_title">無法讀取資料夾內的資訊</string>
 	<!-- # error reports -->
 	<!-- # misc -->
 	<!-- ## file size helper -->
@@ -291,6 +298,7 @@
 	<string name="dialog_biometric_auth_use_password">使用加密檔案庫密碼</string>
 	<string name="dialog_unable_to_auto_upload_files_title">無法自動上傳檔案</string>
 	<!-- notification -->
+	<string name="notification_unlocked">已解鎖 %1$d 個加密檔案庫</string>
 	<string name="notification_timeout">%1$s後自動鎖定</string>
 	<string name="notification_lock_all">全部鎖定</string>
 	<string name="notification_cancel_auto_upload">取消上傳</string>
@@ -299,8 +307,12 @@
 	<string name="notification_auto_upload_finished_title">像片自動上傳已完成</string>
 	<string name="notification_auto_upload_finished_message">已將%1$d張像片上傳至加密檔案庫</string>
 	<string name="notification_auto_upload_failed_title">像片自動上傳失敗</string>
+	<string name="notification_auto_upload_failed_general_error">上傳期間發生錯誤</string>
 	<string name="notification_auto_upload_failed_due_to_vault_locked">加密檔案庫在上傳期間鎖定，請重新打開加密檔案庫後繼續</string>
+	<string name="notification_open_writable_file_title">開啟可讀寫檔案</string>
+	<string name="notification_open_writable_file_message">加密檔案庫將在編輯期間保持解鎖狀態</string>
 	<string name="notification_update_check_finished_latest">已安裝最新版本</string>
+	<string name="notification_authenticating">正在驗證 &#8230;</string>
 	<string name="screen_settings_lru_cache">緩存</string>
 	<string name="screen_settings_lru_cache_size">緩存總大小</string>
 	<string name="screen_settings_clear_lru_cache_size">清除緩存</string>
@@ -310,6 +322,7 @@
 	<string name="dialog_settings_update_check_interval_title">檢查更新間隔</string>
 	<string name="screen_settings_check_updates">檢查更新</string>
 	<string name="screen_settings_last_check_updates">上次檢查於%1$s</string>
+	<string name="dialog_cache_size_title">每個雲端快取大小</string>
 	<!-- lock timeout names -->
 	<string name="lock_timeout_instant">立即</string>
 	<string name="lock_timeout_1m">1分鐘</string>
