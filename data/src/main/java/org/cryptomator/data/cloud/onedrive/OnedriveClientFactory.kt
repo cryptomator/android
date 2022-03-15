@@ -6,7 +6,6 @@ import com.microsoft.graph.httpcore.HttpClients
 import com.microsoft.graph.requests.GraphServiceClient
 import org.cryptomator.data.cloud.okhttplogging.HttpLoggingInterceptor
 import org.cryptomator.data.util.NetworkTimeout
-import org.cryptomator.util.SharedPreferencesHandler
 import org.cryptomator.util.crypto.CredentialCryptor
 import java.net.URL
 import java.util.concurrent.CompletableFuture
@@ -19,7 +18,7 @@ class OnedriveClientFactory private constructor() {
 
 	companion object {
 
-		fun createInstance(context: Context, encryptedToken: String, sharedPreferencesHandler: SharedPreferencesHandler): GraphServiceClient<Request> {
+		fun createInstance(context: Context, encryptedToken: String): GraphServiceClient<Request> {
 			val tokenAuthenticationProvider = object : BaseAuthenticationProvider() {
 				val token = CompletableFuture.completedFuture(CredentialCryptor.getInstance(context).decrypt(encryptedToken))
 				override fun getAuthorizationTokenAsync(requestUrl: URL): CompletableFuture<String> {

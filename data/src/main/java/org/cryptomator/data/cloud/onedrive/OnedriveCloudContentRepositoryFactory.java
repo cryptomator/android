@@ -33,6 +33,6 @@ public class OnedriveCloudContentRepositoryFactory implements CloudContentReposi
 	@Override
 	public CloudContentRepository<OnedriveCloud, OnedriveNode, OnedriveFolder, OnedriveFile> cloudContentRepositoryFor(Cloud cloud) {
 		OnedriveCloud onedriveCloud = (OnedriveCloud) cloud;
-		return new OnedriveCloudContentRepository(onedriveCloud, context, OnedriveClientFactory.Companion.createInstance(context, onedriveCloud.accessToken(), sharedPreferencesHandler));
+		return new OnedriveCloudContentRepository(onedriveCloud, context, OnedriveClientFactory.Companion.createInstance(context, onedriveCloud.accessToken()));
 	}
 }
