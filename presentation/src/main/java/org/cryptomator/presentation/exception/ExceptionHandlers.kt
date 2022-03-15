@@ -19,6 +19,7 @@ import org.cryptomator.domain.exception.license.NoLicenseAvailableException
 import org.cryptomator.domain.exception.update.GeneralUpdateErrorException
 import org.cryptomator.domain.exception.update.HashMismatchUpdateCheckException
 import org.cryptomator.domain.exception.update.SSLHandshakePreAndroid5UpdateCheckException
+import org.cryptomator.domain.exception.vaultconfig.MissingVaultConfigFileException
 import org.cryptomator.domain.exception.vaultconfig.UnsupportedMasterkeyLocationException
 import org.cryptomator.domain.exception.vaultconfig.VaultConfigLoadException
 import org.cryptomator.domain.exception.vaultconfig.VaultKeyInvalidException
@@ -41,7 +42,6 @@ class ExceptionHandlers @Inject constructor(private val context: Context, defaul
 		staticHandler(NetworkConnectionException::class.java, R.string.error_no_network_connection)
 		staticHandler(InvalidPassphraseException::class.java, R.string.error_invalid_passphrase)
 		staticHandler(CloudNodeAlreadyExistsException::class.java, R.string.error_file_or_folder_exists)
-		staticHandler(UnsupportedVaultFormatException::class.java, R.string.error_vault_version_not_supported)
 		staticHandler(VaultAlreadyExistException::class.java, R.string.error_vault_already_exists)
 		staticHandler(ActivityNotFoundException::class.java, R.string.error_activity_not_found)
 		staticHandler(CloudAlreadyExistsException::class.java, R.string.error_cloud_already_exists)
@@ -54,6 +54,13 @@ class ExceptionHandlers @Inject constructor(private val context: Context, defaul
 		staticHandler(HashMismatchUpdateCheckException::class.java, R.string.error_hash_mismatch_update)
 		staticHandler(GeneralUpdateErrorException::class.java, R.string.error_general_update)
 		staticHandler(SSLHandshakePreAndroid5UpdateCheckException::class.java, R.string.error_general_update)
+		staticHandler(UnsupportedVaultFormatException::class.java, R.string.error_vault_version_not_supported)
+		staticHandler(
+			MissingVaultConfigFileException::class.java, String.format(
+				ResourceHelper.getString(R.string.error_vault_config_file_missing_due_to_format_999),
+				ResourceHelper.getString(R.string.vault_cryptomator)
+			)
+		)
 		staticHandler(
 			VaultVersionMismatchException::class.java, String.format(
 				ResourceHelper.getString(R.string.error_vault_version_mismatch),
