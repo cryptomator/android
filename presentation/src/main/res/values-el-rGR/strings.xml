@@ -9,7 +9,8 @@
 	<string name="error_no_network_connection">Χωρίς σύνδεση δικτύου</string>
 	<string name="error_invalid_passphrase">Λάθος κωδικός πρόσβασης</string>
 	<string name="error_file_or_folder_exists">Υπάρχει ήδη ένα αρχείο ή φάκελος.</string>
-	<string name="error_vault_version_not_supported">Μη υποστηριζόμενη κρύπτη. Αυτή η κρύπτη έχει δημιουργηθεί με μια άλλη έκδοση του Cryptomator.</string>
+	<string name="error_vault_version_not_supported">Η έκδοση %1$s της κρύπτης δεν υποστηρίζεται. Αυτή η κρύπτη έχει δημιουργηθεί με παλαιότερη ή νεότερη έκδοση του Cryptomator.</string>
+	<string name="error_vault_config_file_missing_due_to_format_999">Το αρχείο %1$s λείπει στο φάκελο της κρύπτης σας. Βεβαιωθείτε ότι αυτό το αρχείο υπάρχει στο φάκελο κρύπτης στο cloud.</string>
 	<string name="error_vault_already_exists">Η κρύπτη υπάρχει ήδη.</string>
 	<string name="error_no_such_file">Το αρχείο δεν υπάρχει.</string>
 	<string name="error_vault_has_been_locked">Η κρύπτη έχει κλειδωθεί.</string>
