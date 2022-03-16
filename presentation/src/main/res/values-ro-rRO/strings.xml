@@ -9,7 +9,6 @@
 	<string name="error_no_network_connection">Nu există conexiune la rețea</string>
 	<string name="error_invalid_passphrase">Parolă greşită</string>
 	<string name="error_file_or_folder_exists">Un fișier sau dosar există deja.</string>
-	<string name="error_vault_version_not_supported">Seif nesuportat. Acest seif a fost creat cu o altă versiune de Cryptomator.</string>
 	<string name="error_vault_already_exists">Seiful există deja.</string>
 	<string name="error_no_such_file">Fișierul nu există.</string>
 	<string name="error_vault_has_been_locked">Seiful a fost blocat.</string>
