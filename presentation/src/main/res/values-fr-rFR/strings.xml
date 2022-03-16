@@ -9,6 +9,8 @@
 	<string name="error_no_network_connection">Pas de connexion au réseau</string>
 	<string name="error_invalid_passphrase">Mot de passe erroné</string>
 	<string name="error_file_or_folder_exists">Un fichier ou un dossier existe déjà.</string>
+	<string name="error_vault_version_not_supported">La version du coffre %1$s n\'est pas prise en charge. Ce coffre a été créé avec une version plus ancienne ou plus récente de Cryptomator.</string>
+	<string name="error_vault_config_file_missing_due_to_format_999">Le fichier %1$s est manquant dans le dossier contenant votre coffre. Assurez-vous que ce fichier existe dans votre coffre dans le cloud.</string>
 	<string name="error_vault_already_exists">Le coffre-fort existe déjà.</string>
 	<string name="error_no_such_file">Le fichier n\'existe pas.</string>
 	<string name="error_vault_has_been_locked">Le coffre-fort a été verrouillé.</string>
