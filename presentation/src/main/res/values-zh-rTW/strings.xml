@@ -9,7 +9,6 @@
 	<string name="error_no_network_connection">沒有網路連線</string>
 	<string name="error_invalid_passphrase">密碼錯誤</string>
 	<string name="error_file_or_folder_exists">該檔案或資料夾已存在。</string>
-	<string name="error_vault_version_not_supported">不支援的加密檔案庫。這個加密檔案庫是用其它版本的 Cryptomator 所建立的。</string>
 	<string name="error_vault_already_exists">加密檔案庫已經存在。</string>
 	<string name="error_no_such_file">檔案不存在。</string>
 	<string name="error_vault_has_been_locked">加密檔案庫已鎖定。</string>
