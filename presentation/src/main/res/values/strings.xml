@@ -17,7 +17,7 @@
 	<string name="error_no_network_connection">No network connection</string>
 	<string name="error_invalid_passphrase">Wrong password</string>
 	<string name="error_file_or_folder_exists">A file or folder already exists.</string>
-	<string name="error_vault_version_not_supported">Unsupported vault. This vault has been created with another version of Cryptomator.</string>
+	<string name="error_vault_version_not_supported">Vault version %1$s is unsupported. This vault has been created with an older or newer version of Cryptomator.</string>
 	<string name="error_vault_config_file_missing_due_to_format_999">%1$s file is missing in your vault folder. Make sure that this file exists in your vault folder in the cloud.</string>
 	<string name="error_vault_already_exists">Vault already exists.</string>
 	<string name="error_no_such_file">File does not exist.</string>

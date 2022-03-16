@@ -3,7 +3,6 @@ package org.cryptomator.presentation.exception
 import android.content.ActivityNotFoundException
 import android.content.Context
 import org.cryptomator.cryptolib.api.InvalidPassphraseException
-import org.cryptomator.cryptolib.api.UnsupportedVaultFormatException
 import org.cryptomator.domain.di.PerView
 import org.cryptomator.domain.exception.CloudAlreadyExistsException
 import org.cryptomator.domain.exception.CloudNodeAlreadyExistsException
@@ -54,7 +53,6 @@ class ExceptionHandlers @Inject constructor(private val context: Context, defaul
 		staticHandler(HashMismatchUpdateCheckException::class.java, R.string.error_hash_mismatch_update)
 		staticHandler(GeneralUpdateErrorException::class.java, R.string.error_general_update)
 		staticHandler(SSLHandshakePreAndroid5UpdateCheckException::class.java, R.string.error_general_update)
-		staticHandler(UnsupportedVaultFormatException::class.java, R.string.error_vault_version_not_supported)
 		staticHandler(
 			MissingVaultConfigFileException::class.java, String.format(
 				ResourceHelper.getString(R.string.error_vault_config_file_missing_due_to_format_999),
@@ -82,6 +80,7 @@ class ExceptionHandlers @Inject constructor(private val context: Context, defaul
 		exceptionHandlers.add(CancellationExceptionHandler())
 		exceptionHandlers.add(NoSuchVaultExceptionHandler())
 		exceptionHandlers.add(PermissionNotGrantedExceptionHandler())
+		exceptionHandlers.add(UnsupportedVaultFormatExceptionHandler())
 	}
 
 	fun handle(view: View, e: Throwable) {
