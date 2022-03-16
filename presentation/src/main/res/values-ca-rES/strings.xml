@@ -9,7 +9,6 @@
 	<string name="error_no_network_connection">No hi ha connexió de xarxa</string>
 	<string name="error_invalid_passphrase">Contrasenya incorrecta</string>
 	<string name="error_file_or_folder_exists">Ja existeix un fitxer o carpeta.</string>
-	<string name="error_vault_version_not_supported">Caixa forta no suportada. Caixa forta creada amb una altra versió de Cryptomator.</string>
 	<string name="error_vault_already_exists">La caixa forta ja existeix.</string>
 	<string name="error_no_such_file">El fitxer no existeix.</string>
 	<string name="error_vault_has_been_locked">S\'ha bloquejat la caixa forta.</string>
