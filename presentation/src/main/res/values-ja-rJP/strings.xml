@@ -9,7 +9,6 @@
 	<string name="error_no_network_connection">ネットワーク接続がありません</string>
 	<string name="error_invalid_passphrase">パスワードが正しくありません</string>
 	<string name="error_file_or_folder_exists">ファイルかフォルダーが既に存在します。</string>
-	<string name="error_vault_version_not_supported">サポートされない金庫です。この金庫は別のバージョンの Cryptomator で作成されました。</string>
 	<string name="error_vault_already_exists">金庫が既に存在します。</string>
 	<string name="error_no_such_file">ファイルが存在しません。</string>
 	<string name="error_vault_has_been_locked">金庫が施錠されました。</string>
