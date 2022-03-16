@@ -9,7 +9,8 @@
 	<string name="error_no_network_connection">No hay conexión de red</string>
 	<string name="error_invalid_passphrase">Contraseña incorrecta</string>
 	<string name="error_file_or_folder_exists">Ya existe un archivo o carpeta.</string>
-	<string name="error_vault_version_not_supported">Bóveda no soportada. Se ha creado con otra versión de Cryptomator.</string>
+	<string name="error_vault_version_not_supported">La versión %1$s de la bóveda no es compatible. Esta bóveda ha sido creada con una versión anterior o nueva de Cryptomator.</string>
+	<string name="error_vault_config_file_missing_due_to_format_999">Falta el archivo %1$s en la carpeta de su bóveda. Asegúrese de que este archivo existe en la carpeta de su bóveda en la nube.</string>
 	<string name="error_vault_already_exists">La bóveda ya existe.</string>
 	<string name="error_no_such_file">El archivo no existe.</string>
 	<string name="error_vault_has_been_locked">Se ha bloqueado la bóveda.</string>
