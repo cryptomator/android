@@ -9,7 +9,6 @@
 	<string name="error_no_network_connection">Nincs hálózati kapcsolat</string>
 	<string name="error_invalid_passphrase">Helytelen jelszó</string>
 	<string name="error_file_or_folder_exists">Ez a fájl/mappa már létezik.</string>
-	<string name="error_vault_version_not_supported">Nem támogatott Széf. Ez a Széf a Cryptomator egy másik verziójával készült.</string>
 	<string name="error_vault_already_exists">A széf már létezik.</string>
 	<string name="error_no_such_file">Fájl nem létezik.</string>
 	<string name="error_vault_has_been_locked">A széf zárva van.</string>
