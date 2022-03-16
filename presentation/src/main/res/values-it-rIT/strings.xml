@@ -9,7 +9,6 @@
 	<string name="error_no_network_connection">Nessuna connessione di rete</string>
 	<string name="error_invalid_passphrase">Password errata</string>
 	<string name="error_file_or_folder_exists">Esiste già un file o una cartella.</string>
-	<string name="error_vault_version_not_supported">Cassaforte non supportata. Questa cassaforte è stata creata con un\'altra versione di Cryptomator.</string>
 	<string name="error_vault_already_exists">La cassaforte esiste già.</string>
 	<string name="error_no_such_file">Il file non esiste.</string>
 	<string name="error_vault_has_been_locked">La cassaforte è stata bloccata.</string>
