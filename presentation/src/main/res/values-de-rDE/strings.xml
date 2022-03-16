@@ -9,7 +9,8 @@
 	<string name="error_no_network_connection">Keine Internetverbindung</string>
 	<string name="error_invalid_passphrase">Falsches Passwort</string>
 	<string name="error_file_or_folder_exists">Die Datei oder der Ordner existiert bereits.</string>
-	<string name="error_vault_version_not_supported">Dieser Tresor wird nicht unterstützt, da dieser mit einer anderen Version von Cryptomator erstellt wurde.</string>
+	<string name="error_vault_version_not_supported">Tresorversion %1$s wird nicht unterstützt. Dieser Tresor wurde mit einer älteren oder neueren Version von Cryptomator erstellt.</string>
+	<string name="error_vault_config_file_missing_due_to_format_999">%1$s -Datei fehlt in Ihrem Tresorordner. Stellen Sie sicher, dass diese Datei in Ihrem Tresorordner in der Cloud existiert.</string>
 	<string name="error_vault_already_exists">Tresor existiert bereits.</string>
 	<string name="error_no_such_file">Datei wurde nicht gefunden.</string>
 	<string name="error_vault_has_been_locked">Tresor wurde gesperrt.</string>
