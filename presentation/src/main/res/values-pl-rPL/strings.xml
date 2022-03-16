@@ -9,7 +9,6 @@
 	<string name="error_no_network_connection">Brak połączenia z Internetem</string>
 	<string name="error_invalid_passphrase">Błędne hasło</string>
 	<string name="error_file_or_folder_exists">Plik lub folder już istnieje.</string>
-	<string name="error_vault_version_not_supported">Nieobsługiwany sejf. Ten sejf został utworzony z inną wersją Cryptomator.</string>
 	<string name="error_vault_already_exists">Sejf już istnieje.</string>
 	<string name="error_no_such_file">Plik nie istnieje.</string>
 	<string name="error_vault_has_been_locked">Sejf został zablokowany.</string>
