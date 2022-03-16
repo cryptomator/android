@@ -9,7 +9,6 @@
 	<string name="error_no_network_connection">Bez připojení k síti</string>
 	<string name="error_invalid_passphrase">Chybné heslo</string>
 	<string name="error_file_or_folder_exists">Soubor nebo složka již existuje.</string>
-	<string name="error_vault_version_not_supported">Nepodporovaný trezor. Tento trezor byl vytvořen s jinou verzí Cryptomator.</string>
 	<string name="error_vault_already_exists">Trezor již existuje.</string>
 	<string name="error_no_such_file">Soubor neexistuje.</string>
 	<string name="error_vault_has_been_locked">Trezor byl uzamčen.</string>
