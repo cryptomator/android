@@ -9,7 +9,6 @@
 	<string name="error_no_network_connection">Non hai conexión de rede</string>
 	<string name="error_invalid_passphrase">Contrasinal incorrecto</string>
 	<string name="error_file_or_folder_exists">Ficheiro ou cartafol xa existente.</string>
-	<string name="error_vault_version_not_supported">Caixa forte non compatíbel. Esta caixa forte foi creada cunha versión diferente de Cryptomator.</string>
 	<string name="error_vault_already_exists">Caixa forte xa existente.</string>
 	<string name="error_no_such_file">O ficheiro non existe.</string>
 	<string name="error_vault_has_been_locked">A caixa forte foi bloqueada.</string>
