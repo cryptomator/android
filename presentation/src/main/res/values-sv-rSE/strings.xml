@@ -9,7 +9,6 @@
 	<string name="error_no_network_connection">Ingen nätverksanslutning</string>
 	<string name="error_invalid_passphrase">Felaktigt lösenord</string>
 	<string name="error_file_or_folder_exists">Filen eller katalogen finns redan.</string>
-	<string name="error_vault_version_not_supported">Valvet stöds ej. Detta valv har skapats med en annan version av Cryptomator.</string>
 	<string name="error_vault_already_exists">Valvet finns redan.</string>
 	<string name="error_no_such_file">Filen existerar inte.</string>
 	<string name="error_vault_has_been_locked">Valvet har låsts.</string>
@@ -116,6 +115,7 @@
 	<string name="screen_cloud_connections_title">Välj en plats</string>
 	<string name="screen_cloud_connections_no_connections">Klicka här för att lägga till platser</string>
 	<string name="screen_cloud_error_webdav_not_supported">Servern verkar inte vara WebDAV-kompatibel</string>
+	<string name="screen_cloud_local_error_no_content_provider">Hittade ingen filhanterare som har stöd för att öppna kataloger</string>
 	<!-- ## screen: webdav settings -->
 	<string name="screen_webdav_settings_url_port_label">URL</string>
 	<string name="screen_webdav_settings_username_label">Användarnamn</string>
