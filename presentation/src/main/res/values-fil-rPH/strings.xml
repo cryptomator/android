@@ -8,7 +8,6 @@
 	<string name="error_authentication_failed_re_authenticate">Bigo ang pagtutunay, maaaring maglogin gamit ang %1$s</string>
 	<string name="error_no_network_connection">Walang koneksyon sa network</string>
 	<string name="error_invalid_passphrase">Mali ang password</string>
-	<string name="error_vault_version_not_supported">Hindi suportado ang vault na ito. Ang vault na ito ay ginawa gamit ang ibang bersyon ng Cryptomator.</string>
 	<string name="error_vault_already_exists">Umiiral na ang vault na ito.</string>
 	<string name="error_no_such_file">Ang file na ito ay hindi pa umiiral.</string>
 	<string name="error_vault_has_been_locked">Naisara na ang vault.</string>
