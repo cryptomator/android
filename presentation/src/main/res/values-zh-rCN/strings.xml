@@ -9,7 +9,6 @@
 	<string name="error_no_network_connection">无网络连接</string>
 	<string name="error_invalid_passphrase">密码错误</string>
 	<string name="error_file_or_folder_exists">文件(夹)已存在</string>
-	<string name="error_vault_version_not_supported">不受支持！此保险库经由另一版 Cryptomator 所创建</string>
 	<string name="error_vault_already_exists">保险库已存在</string>
 	<string name="error_no_such_file">文件不存在</string>
 	<string name="error_vault_has_been_locked">保险库已锁定</string>
