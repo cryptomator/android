@@ -9,7 +9,6 @@
 	<string name="error_no_network_connection">Sem ligação à rede</string>
 	<string name="error_invalid_passphrase">Palavra-chave errada</string>
 	<string name="error_file_or_folder_exists">Um ficheiro ou uma pasta já existe.</string>
-	<string name="error_vault_version_not_supported">Cofre não suportado. Este cofre foi criado com outra versão do Cryptomator.</string>
 	<string name="error_vault_already_exists">O cofre já existe.</string>
 	<string name="error_no_such_file">O ficheiro não existe.</string>
 	<string name="error_vault_has_been_locked">O cofre foi bloqueado.</string>
