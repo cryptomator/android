@@ -9,7 +9,6 @@
 	<string name="error_no_network_connection">Geen netwerkverbinding</string>
 	<string name="error_invalid_passphrase">Fout wachtwoord</string>
 	<string name="error_file_or_folder_exists">Een bestand of map bestaat reeds.</string>
-	<string name="error_vault_version_not_supported">Niet-ondersteunde kluis. Deze kluis is gemaakt met een andere versie van Cryptomator.</string>
 	<string name="error_vault_already_exists">Kluis bestaat reeds.</string>
 	<string name="error_no_such_file">Bestand bestaat niet.</string>
 	<string name="error_vault_has_been_locked">Vault is vergrendeld.</string>
