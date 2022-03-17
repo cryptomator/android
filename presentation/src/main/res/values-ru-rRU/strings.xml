@@ -9,7 +9,7 @@
 	<string name="error_no_network_connection">Нет подключения к сети</string>
 	<string name="error_invalid_passphrase">Неверный пароль</string>
 	<string name="error_file_or_folder_exists">Файл или папка уже существует.</string>
-	<string name="error_vault_version_not_supported">Версия хранилища %1$s не поддерживается. Это хранилище было создано в устаревшей, или более новой версии Cryptomator.</string>
+	<string name="error_vault_version_not_supported">Версия хранилища %1$s не поддерживается. Это хранилище было создано либо в устаревшей, либо в более новой версии Cryptomator.</string>
 	<string name="error_vault_config_file_missing_due_to_format_999">Файл %1$s отсутствует в папке хранилища. Убедитесь, что этот файл существует в папке хранилища в облаке.</string>
 	<string name="error_vault_already_exists">Хранилище уже существует.</string>
 	<string name="error_no_such_file">Файл не существует.</string>
