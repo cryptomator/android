@@ -275,6 +275,8 @@
 	<string name="dialog_accept_ssl_certificate_details">Λεπτομέρειες</string>
 	<string name="dialog_accept_ssl_certificate_security_checkbox">Αυτό θα μπορούσε να αποτελέσει κίνδυνο για την ασφάλεια. Γνωρίζω τι κάνω.</string>
 	<string name="dialog_ask_ignore_battery_optimizations_title">Απενεργοποιήστε τις βελτιστοποιήσεις μπαταρίας</string>
+	<string name="dialog_ask_ignore_battery_optimizations_hint">Για να ανακτήσετε νέες εικόνες και βίντεο χωρίς να τρέξετε στο παρασκήνιο, πρέπει να εξαιρέσουμε από τις βελτιστοποιήσεις της μπαταρίας. Αλλά μην ανησυχείτε, το %1$s δεν καταναλώνει πολλή ενέργεια.\n\nΓια να το εφαρμόσετε, αλλάξτε το \'Μη βελτιστοποιημένο\' σε \'Όλες οι εφαρμογές\', επιλέξτε %1$s και επιλέξτε \'Να μην βελτιστοποιείτε\' αφού κάνετε κλικ στο \'%2$s\' σε αυτό το διάλογο.</string>
+	<string name="dialog_ask_ignore_battery_optimizations_checkbox">Να μην ερωτηθώ ξανά;</string>
 	<string name="dialog_http_security_hint">Η χρήση του HTTP είναι μη ασφαλής. Σας συνιστούμε να χρησιμοποιήσετε το HTTPS αντ \'αυτού. Αν γνωρίζετε τους κινδύνους, μπορείτε να συνεχίσετε με το HTTP.</string>
 	<string name="dialog_http_security_checkbox">Αλλαγή σε HTTPS</string>
 	<string name="dialog_http_security_title">Χρήση HTTPS;</string>
