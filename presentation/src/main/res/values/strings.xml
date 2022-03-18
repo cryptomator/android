@@ -394,6 +394,12 @@
 	<string name="dialog_accept_ssl_certificate_details">Details</string>
 	<string name="dialog_accept_ssl_certificate_security_checkbox">This could be a security risk. I know what I am doing.</string>
 
+	<string name="dialog_ask_ignore_battery_optimizations_title">Disable battery optimizations</string>
+	<string name="dialog_ask_ignore_battery_optimizations_hint">To retrieve new pictures and videos without running in the background, we need to opt-out from battery optimizations. But don\'t worry, %1$s doesn\'t consumes much energy.\n\nTo apply it, change \'Not optimized\' to \'All apps\', select %1$s and choose \'Don\'t optimize\' after clicking \'%2$s\' in this dialog.</string>
+	<string name="dialog_ask_ignore_battery_optimizations_neutral_button" translatable="false">@string/dialog_unable_to_share_positive_button</string>
+	<string name="dialog_ask_ignore_battery_optimizations_negative_button" translatable="false">@string/dialog_button_cancel</string>
+	<string name="dialog_ask_ignore_battery_optimizations_checkbox">Don\'t ask again?</string>
+
 	<string name="dialog_http_security_hint">The usage of HTTP is insecure. We recommend to use HTTPS instead. If you know the risks, you can continue with HTTP.</string>
 	<string name="dialog_http_security_checkbox">Change to HTTPS</string>
 	<string name="dialog_http_security_title">Use HTTPS?</string>

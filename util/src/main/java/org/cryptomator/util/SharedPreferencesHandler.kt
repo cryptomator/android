@@ -261,9 +261,18 @@ constructor(context: Context) : SharedPreferences.OnSharedPreferenceChangeListen
 		}
 	}
 
+	fun askBatteryOptimizationsDialogDisabled(): Boolean {
+		return defaultSharedPreferences.getBoolean(ASK_IGNORE_BATTERY_OPTIMIZATIONS_DIALOG_DISABLED, false)
+	}
+
+	fun setAskBatteryOptimizationsDialogDisabled(disable: Boolean) {
+		defaultSharedPreferences.setValue(ASK_IGNORE_BATTERY_OPTIMIZATIONS_DIALOG_DISABLED, disable)
+	}
+
 	companion object {
 
 		private const val SCREEN_LOCK_DIALOG_SHOWN = "askForScreenLockDialogShown"
+		private const val ASK_IGNORE_BATTERY_OPTIMIZATIONS_DIALOG_DISABLED = "askIgnoreBatteryOptimizationsDialogDisabled"
 		private const val SCREEN_BETA_DIALOG_SHOWN = "askForBetaConfirmationDialogShown"
 		private const val USE_BIOMETRIC_AUTHENTICATION = "useFingerprint"
 		private const val USE_CONFIRMATION_IN_FACE_UNLOCK_AUTHENTICATION = "useConfirmationInFaceUnlockBiometricAuthentication"
