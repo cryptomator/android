@@ -274,6 +274,7 @@
 	<string name="dialog_accept_ssl_certificate_hint">Το πιστοποιητικό SSL δεν είναι έγκυρο. Θέλετε να το εμπιστευτείτε ούτως ή άλλως;</string>
 	<string name="dialog_accept_ssl_certificate_details">Λεπτομέρειες</string>
 	<string name="dialog_accept_ssl_certificate_security_checkbox">Αυτό θα μπορούσε να αποτελέσει κίνδυνο για την ασφάλεια. Γνωρίζω τι κάνω.</string>
+	<string name="dialog_ask_ignore_battery_optimizations_title">Απενεργοποιήστε τις βελτιστοποιήσεις μπαταρίας</string>
 	<string name="dialog_http_security_hint">Η χρήση του HTTP είναι μη ασφαλής. Σας συνιστούμε να χρησιμοποιήσετε το HTTPS αντ \'αυτού. Αν γνωρίζετε τους κινδύνους, μπορείτε να συνεχίσετε με το HTTP.</string>
 	<string name="dialog_http_security_checkbox">Αλλαγή σε HTTPS</string>
 	<string name="dialog_http_security_title">Χρήση HTTPS;</string>
