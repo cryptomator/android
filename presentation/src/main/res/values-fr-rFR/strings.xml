@@ -274,6 +274,9 @@
 	<string name="dialog_accept_ssl_certificate_hint">Le certificat SSL n\'est pas valide. Vous voulez quand même lui faire confiance?</string>
 	<string name="dialog_accept_ssl_certificate_details">Détails</string>
 	<string name="dialog_accept_ssl_certificate_security_checkbox">Cela pourrait constituer un risque pour la sécurité. Je sais ce que je fais.</string>
+	<string name="dialog_ask_ignore_battery_optimizations_title">Désactiver les optimisations de la batterie</string>
+	<string name="dialog_ask_ignore_battery_optimizations_hint">Pour récupérer les nouvelles photos et vidéos sans que l\'application fonctionne en arrière-plan, nous devons désactiver l\'optimisation de la batterie. Mais ne vous inquiétez pas, %1$s ne consomme pas beaucoup d\'énergie.\n\nPour l\'appliquer, remplacez \"Non optimisé\" par \"Toutes les applications\", sélectionnez %1$s et choisissez \"Ne pas optimiser\" après avoir cliqué sur \"%2$s\" dans cette boîte de dialogue.</string>
+	<string name="dialog_ask_ignore_battery_optimizations_checkbox">Ne plus demander?</string>
 	<string name="dialog_http_security_hint">L\'utilisation du HTTP n\'est pas sûre. Nous recommandons d\'utiliser plutôt le HTTPS. Si vous connaissez les risques, vous pouvez continuer à utiliser HTTP.</string>
 	<string name="dialog_http_security_checkbox">Passage au HTTPS</string>
 	<string name="dialog_http_security_title">Utiliser le HTTPS?</string>
