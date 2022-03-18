@@ -277,7 +277,7 @@
 	<string name="dialog_accept_ssl_certificate_details">Подробно</string>
 	<string name="dialog_accept_ssl_certificate_security_checkbox">Это может представлять угрозу безопасности. Я знаю, что делаю.</string>
 	<string name="dialog_ask_ignore_battery_optimizations_title">Отключить оптимизацию батареи</string>
-	<string name="dialog_ask_ignore_battery_optimizations_hint">Для получения новых фотографий и видео без работы в фоновом режиме, необходимоотключить оптимизацию заряда аккумулятора. Но не волнуйтесь, %1$s не потребляет много энергии.\n\nЧтобы это сделать, измените \'Не оптимизировано\' на \'Все приложения\', выберите %1$s и в этом диалоге выберите \'Не оптимизировать\' после нажатия \'%2$s\'.</string>
+	<string name="dialog_ask_ignore_battery_optimizations_hint">Чтобы получать новые изображения и видео без работы в фоновом режиме, необходимо отключить оптимизацию заряда аккумулятора. Но не волнуйтесь, %1$s не потребляет много энергии.\n\nЧтобы это сделать, измените \'Не оптимизировано\' на \'Все приложения\', выберите %1$s и в этом окне выберите \'Не оптимизировать\' после нажатия \'%2$s\'.</string>
 	<string name="dialog_ask_ignore_battery_optimizations_checkbox">Больше не спрашивать?</string>
 	<string name="dialog_http_security_hint">Протокол HTTP небезопасен. Рекомендуем использовать HTTPS. Продолжайте с HTTP, только если вы понимаете риски.</string>
 	<string name="dialog_http_security_checkbox">Изменить на HTTPS</string>
