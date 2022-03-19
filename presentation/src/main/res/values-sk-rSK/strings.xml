@@ -277,6 +277,7 @@
 	<string name="dialog_accept_ssl_certificate_details">Podrobnosti</string>
 	<string name="dialog_accept_ssl_certificate_security_checkbox">Toto môže byť bezpečnostné riziko. Viem čo robím.</string>
 	<string name="dialog_ask_ignore_battery_optimizations_title">Vypnúť optimalizácie batérie</string>
+	<string name="dialog_ask_ignore_battery_optimizations_hint">Získať nové obrázky a videá bez behu na pozadí, potrebujeme rozhodnúť na základe optimalzácií batérie. Ale netrápte sa, %1$s nespotrebúva veľa energie. \n\nAplikovať to, zmente \'Neoptimalizované\' na \'Všetky aplikácie\', vyberte %1$s a zvoľte \'Neoptimalizovať\' po odkliknutí \'%2$s\' v tomto dialógu.</string>
 	<string name="dialog_ask_ignore_battery_optimizations_checkbox">Nepýtať sa znovu?</string>
 	<string name="dialog_http_security_hint">Používanie HTTP nie je bezpečné. Odporúčame namiesto toho použiť HTTPS. Ak poznáte riziká, môžte pokračovať s HTTP.</string>
 	<string name="dialog_http_security_checkbox">Zmeniť na HTTPS</string>
