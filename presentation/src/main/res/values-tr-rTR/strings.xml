@@ -274,6 +274,9 @@
 	<string name="dialog_accept_ssl_certificate_hint">SSL sertifikası geçersiz. Yine de güvenmek istiyor musun?</string>
 	<string name="dialog_accept_ssl_certificate_details">Detaylar</string>
 	<string name="dialog_accept_ssl_certificate_security_checkbox">Bu bir güvenlik riski olabilir! Ne yaptığımı biliyorum.</string>
+	<string name="dialog_ask_ignore_battery_optimizations_title">Pil optimizasyonlarını devre dışı bırak</string>
+	<string name="dialog_ask_ignore_battery_optimizations_hint">Arka planda çalışmadan yeni resimler ve videoları almak için pil optimizasyonlarını devre dışı bırakmanız gerekiyor. Ancak endişelenmeyin, %1$s fazla enerji tüketmez.\n\nUygulamak için \'Optimize edilmedi\'yi \'Tüm uygulamalar\' olarak değiştirin, %1$s\'yi seçin ve bu iletişim kutusunda \'%2$s\' tıkladıktan sonra \'Optimize etme\'yi seçin.</string>
+	<string name="dialog_ask_ignore_battery_optimizations_checkbox">Bir daha sorma?</string>
 	<string name="dialog_http_security_hint">HTTP\'nin kullanımı güvensizdir. Bunun yerine HTTPS kullanmanızı öneririz. Riskleri biliyorsanız, HTTP ile devam edebilirsiniz.</string>
 	<string name="dialog_http_security_checkbox">HTTPS\'ye geç</string>
 	<string name="dialog_http_security_title">HTTPS kullanılsın mı?</string>
