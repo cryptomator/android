@@ -9,6 +9,8 @@
 	<string name="error_no_network_connection">Brak połączenia z Internetem</string>
 	<string name="error_invalid_passphrase">Błędne hasło</string>
 	<string name="error_file_or_folder_exists">Plik lub folder już istnieje.</string>
+	<string name="error_vault_version_not_supported">Wersja sejfu %1$s jest nieobsługiwana. Ten sejf został utworzony ze starszą lub nowszą wersją Cryptomator.</string>
+	<string name="error_vault_config_file_missing_due_to_format_999">Brak pliku %1$s w folderze sejfu. Upewnij się, że ten plik istnieje w folderze sejfu w chmurze.</string>
 	<string name="error_vault_already_exists">Sejf już istnieje.</string>
 	<string name="error_no_such_file">Plik nie istnieje.</string>
 	<string name="error_vault_has_been_locked">Sejf został zablokowany.</string>
@@ -274,6 +276,9 @@
 	<string name="dialog_accept_ssl_certificate_hint">Certyfikat SSL jest nieprawidłowy. Czy mimo to chcesz mu zaufać?</string>
 	<string name="dialog_accept_ssl_certificate_details">Szczegóły</string>
 	<string name="dialog_accept_ssl_certificate_security_checkbox">Mogłoby to stanowić zagrożenie dla bezpieczeństwa. Wiem, co robię.</string>
+	<string name="dialog_ask_ignore_battery_optimizations_title">Wyłącz optymalizację baterii</string>
+	<string name="dialog_ask_ignore_battery_optimizations_hint">Aby pobrać nowe zdjęcia i filmy bez uruchamiania w tle, należy wyłączyć optymalizację baterii. Ale nie martw się, %1$s nie zużywa zbyt dużo energii.\n\nAby go zastosować, zmień \'Nie zoptymalizowane\' na \'Wszystkie aplikacje\', wybierz %1$s i wybierz \'Nie optymalizuj\' po kliknięciu \'%2$s\' w tym oknie.</string>
+	<string name="dialog_ask_ignore_battery_optimizations_checkbox">Nie pytać ponownie?</string>
 	<string name="dialog_http_security_hint">Używanie HTTP jest niezabezpieczone. Zamiast tego zalecamy używanie HTTPS. Jeśli znasz ryzyko, możesz kontynuować używając HTTP.</string>
 	<string name="dialog_http_security_checkbox">Zmień na HTTPS</string>
 	<string name="dialog_http_security_title">Używać HTTPS?</string>
