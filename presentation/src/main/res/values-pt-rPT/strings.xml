@@ -48,6 +48,9 @@
 	<string name="dialog_enter_password_positive_button">Destrancar</string>
 	<!-- Vault not found -->
 	<string name="dialog_lock_vault">Trancar</string>
+	<string name="dialog_ask_ignore_battery_optimizations_title">Desativar otimizações de bateria</string>
+	<string name="dialog_ask_ignore_battery_optimizations_hint">Para recuperar novas fotos e vídeos sem executar em segundo plano, precisamos de desativar as otimizações de bateria. Mas não se preocupe, %1$s não consome muita energia. \n\n Para aplicá-lo, altere \'Não otimizado\' para \'Todos os aplicativos\', selecione %1$s e escolha \'Não otimizar\' depois de clicar em \'%2$s\' nesta caixa de diálogo.</string>
+	<string name="dialog_ask_ignore_battery_optimizations_checkbox">Não perguntar novamente?</string>
 	<string name="dialog_app_is_obscured_info_neutral_button">Fechar</string>
 	<string name="dialog_sym_link_back_button">Anterior</string>
 	<!-- # error reports -->
