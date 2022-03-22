@@ -271,6 +271,8 @@
 	<string name="dialog_accept_ssl_certificate_hint">SSL 証明書が無効です。それでも信頼しますか?</string>
 	<string name="dialog_accept_ssl_certificate_details">詳細</string>
 	<string name="dialog_accept_ssl_certificate_security_checkbox">これはセキュリティリスクになる可能性があります。リスクについて理解していますか</string>
+	<string name="dialog_ask_ignore_battery_optimizations_title">バッテリーの最適化を無効にする</string>
+	<string name="dialog_ask_ignore_battery_optimizations_checkbox">今後確認しない</string>
 	<string name="dialog_http_security_hint">HTTP は安全ではありません。代わりに HTTPS を使用することを推奨します。リスクを承知の上であれば HTTP をご使用ください。</string>
 	<string name="dialog_http_security_checkbox">HTTPS を使用</string>
 	<string name="dialog_http_security_title">HTTPS を使用しますか？</string>
