@@ -29,6 +29,7 @@
 	<!-- ## screen: share files -->
 	<!-- ## screen: choose cloud service -->
 	<!-- ## screen: cloud connections -->
+	<string name="screen_cloud_local_error_no_content_provider">Não foi encontrado nenhum gestor de arquivos compatível com a abertura de diretórios</string>
 	<!-- ## screen: webdav settings -->
 	<string name="screen_webdav_settings_password_label">Senha</string>
 	<!-- ## screen: s3 settings -->
