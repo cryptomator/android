@@ -9,6 +9,8 @@
 	<string name="error_no_network_connection">Sem ligação à rede</string>
 	<string name="error_invalid_passphrase">Palavra-chave errada</string>
 	<string name="error_file_or_folder_exists">Um ficheiro ou uma pasta já existe.</string>
+	<string name="error_vault_version_not_supported">A versão do cofre %1$s não é compatível. Este cofre foi criado com uma versão mais antiga ou mais recente do Cryptomator.</string>
+	<string name="error_vault_config_file_missing_due_to_format_999">%1$s ficheiro está faltando na pasta do seu cofre. Certifique-se que esse ficheiro existe na pasta do cofre alojado na nuvem.</string>
 	<string name="error_vault_already_exists">O cofre já existe.</string>
 	<string name="error_no_such_file">O ficheiro não existe.</string>
 	<string name="error_vault_has_been_locked">O cofre foi bloqueado.</string>
@@ -53,6 +55,7 @@
 	<string name="dialog_ask_ignore_battery_optimizations_hint">Para recuperar novas fotos e vídeos sem executar em segundo plano, precisamos de desativar as otimizações de bateria. Mas não se preocupe, %1$s não consome muita energia. \n\n Para aplicá-lo, altere \'Não otimizado\' para \'Todos os aplicativos\', selecione %1$s e escolha \'Não otimizar\' depois de clicar em \'%2$s\' nesta caixa de diálogo.</string>
 	<string name="dialog_ask_ignore_battery_optimizations_checkbox">Não perguntar novamente?</string>
 	<string name="dialog_app_is_obscured_info_neutral_button">Fechar</string>
+	<string name="dialog_enter_license_not_valid_content_desktop_supporter_certificate">A chave fornecida é um certificado de apoiante para computador/portátil. Por favor, insira uma licença válida.</string>
 	<string name="dialog_sym_link_back_button">Anterior</string>
 	<!-- # error reports -->
 	<!-- # misc -->
