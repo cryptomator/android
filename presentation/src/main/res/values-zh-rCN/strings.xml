@@ -275,7 +275,7 @@
 	<string name="dialog_accept_ssl_certificate_security_checkbox">这可能存在安全风险，我知道我在做什么</string>
 	<string name="dialog_ask_ignore_battery_optimizations_title">禁用电池优化</string>
 	<string name="dialog_ask_ignore_battery_optimizations_hint">要在不后台运行的情况下检索新的图片和视频，我们需要解除电池优化。但别担心，%1$s 不会消耗太多电量。\n\n如需应用，点击这个对话框中的“%2$s”后，将“未优化”改为“所有应用”，选择 %1$s 并选择“不要优化”。</string>
-	<string name="dialog_ask_ignore_battery_optimizations_checkbox">不再询问？</string>
+	<string name="dialog_ask_ignore_battery_optimizations_checkbox">不要再次询问我？</string>
 	<string name="dialog_http_security_hint">HTTP 不安全，我们建议使用 HTTPS。如果您知道其中风险，您可以继续使用 HTTP</string>
 	<string name="dialog_http_security_checkbox">换成 HTTPS</string>
 	<string name="dialog_http_security_title">使用 HTTPS?</string>
