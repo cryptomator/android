@@ -77,6 +77,8 @@
 	<string name="snack_bar_action_title_sort_biggest">Biggest first</string>
 	<string name="snack_bar_action_title_sort_smallest">Smallest first</string>
 
+	<string name="snack_bar_action_title_save" translatable="false">@string/screen_share_files_save_button_text</string>
+
 	<!-- # screens -->
 
 	<!-- # screen: vault list -->
