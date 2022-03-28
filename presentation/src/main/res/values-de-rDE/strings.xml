@@ -17,7 +17,7 @@
 	<string name="error_cloud_already_exists">Cloud existiert bereits.</string>
 	<string name="error_activity_not_found">Installiere eine App, die diesen Dateityp unterstützt.</string>
 	<string name="error_server_not_found">Server nicht gefunden.</string>
-	<string name="error_device_policy_manager_not_found">Bitte öffne die Einstellungen Deines Geräts und stelle die Bildschirmsperre von Hand ein</string>
+	<string name="error_device_policy_manager_not_found">Bitte öffne die Einstellungen deines Geräts und stelle die Bildschirmsperre von Hand ein</string>
 	<string name="error_export_illegal_file_name">Export fehlgeschlagen. Versuche, Sonderzeichen aus den Dateinamen zu entfernen und erneut zu exportieren.</string>
 	<string name="error_name_contains_invalid_characters">Keine Sonderzeichen möglich.</string>
 	<string name="error_names_contains_invalid_characters">Dateinamen können keine Sonderzeichen enthalten.</string>
@@ -227,10 +227,10 @@
 	<string name="dialog_vault_not_found_positive_button_text">Entfernen</string>
 	<string name="dialog_existing_file_title">Datei existiert bereits</string>
 	<string name="dialog_existing_file_positive_button">Ersetzen</string>
-	<string name="dialog_existing_file_message">Eine Datei namens \'%1$s\' existiert bereits.</string>
-	<string name="dialog_replace_negative_button_at_least_two_but_not_all_files_exist">Existierende überspringen</string>
+	<string name="dialog_existing_file_message">Eine Datei namens „%1$s“ existiert bereits.</string>
+	<string name="dialog_replace_negative_button_at_least_two_but_not_all_files_exist">Vorhandene überspringen</string>
 	<string name="dialog_replace_positive_button_all_files_exist">Alle ersetzen</string>
-	<string name="dialog_replace_positive_button_some_files_exist">Existierende ersetzen</string>
+	<string name="dialog_replace_positive_button_some_files_exist">Vorhandene ersetzen</string>
 	<string name="dialog_replace_positive_button_single_file_exists">Ersetzen</string>
 	<string name="dialog_replace_msg_single_file_exists">Eine Datei names \'%1$s\' existiert bereits. Soll diese ersetzt werden?</string>
 	<string name="dialog_replace_msg_all_files_exists">Alle Dateien existieren bereits. Sollen diese ersetzt werden?</string>
