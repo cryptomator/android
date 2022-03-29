@@ -58,7 +58,7 @@
 	<!-- # screen: vault list -->
 	<string name="screen_vault_list_actions_title">Zu Cryptomator hinzufügen</string>
 	<string name="screen_vault_list_action_create_new_vault">Neuen Tresor anlegen</string>
-	<string name="screen_vault_list_action_add_existing_vault">Vorhandenen Tresor hinzufügen</string>
+	<string name="screen_vault_list_action_add_existing_vault">Bestehenden Tresor hinzufügen</string>
 	<string name="screen_vault_list_vault_action_delete">Entfernen</string>
 	<string name="screen_vault_list_vault_creation_hint">Hier klicken um einen neuen Tresor zu erstellen</string>
 	<string name="screen_vault_list_change_password_successful">Passwort wurde erfolgreich geändert</string>
@@ -131,7 +131,7 @@
 	<string name="screen_s3_settings_display_name_label">Anzeigename</string>
 	<string name="screen_s3_settings_access_key_label">Access Key</string>
 	<string name="screen_s3_settings_secret_key_label">Secret Key</string>
-	<string name="screen_s3_settings_bucket_label">Vorhandener Bucket</string>
+	<string name="screen_s3_settings_bucket_label">Bestehender Bucket</string>
 	<string name="screen_s3_settings_endpoint_label">Endpoint</string>
 	<string name="screen_s3_settings_region_label">Region</string>
 	<string name="screen_s3_settings_msg_display_name_not_empty">Der Anzeigename darf nicht leer sein</string>
@@ -228,9 +228,9 @@
 	<string name="dialog_existing_file_title">Datei existiert bereits</string>
 	<string name="dialog_existing_file_positive_button">Ersetzen</string>
 	<string name="dialog_existing_file_message">Eine Datei namens „%1$s“ existiert bereits.</string>
-	<string name="dialog_replace_negative_button_at_least_two_but_not_all_files_exist">Vorhandene überspringen</string>
+	<string name="dialog_replace_negative_button_at_least_two_but_not_all_files_exist">Bestehende überspringen</string>
 	<string name="dialog_replace_positive_button_all_files_exist">Alle ersetzen</string>
-	<string name="dialog_replace_positive_button_some_files_exist">Vorhandene ersetzen</string>
+	<string name="dialog_replace_positive_button_some_files_exist">Bestehende ersetzen</string>
 	<string name="dialog_replace_positive_button_single_file_exists">Ersetzen</string>
 	<string name="dialog_replace_msg_single_file_exists">Eine Datei names \'%1$s\' existiert bereits. Soll diese ersetzt werden?</string>
 	<string name="dialog_replace_msg_all_files_exists">Alle Dateien existieren bereits. Sollen diese ersetzt werden?</string>
