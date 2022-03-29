@@ -9,7 +9,8 @@
 	<string name="error_no_network_connection">无网络连接</string>
 	<string name="error_invalid_passphrase">密码错误</string>
 	<string name="error_file_or_folder_exists">文件(夹)已存在</string>
-	<string name="error_vault_version_not_supported">不受支持！此保险库经由另一版 Cryptomator 所创建</string>
+	<string name="error_vault_version_not_supported">不支持的保险库版本 %1$s。这可能是使用太新或太旧的 Cryptomator 版本创建的保险库。</string>
+	<string name="error_vault_config_file_missing_due_to_format_999">您的保险库文件夹中缺少 %1$s 文件。请确保您的云端的保险库文件夹中存在该文件。</string>
 	<string name="error_vault_already_exists">保险库已存在</string>
 	<string name="error_no_such_file">文件不存在</string>
 	<string name="error_vault_has_been_locked">保险库已锁定</string>
@@ -115,7 +116,7 @@
 	<string name="screen_cloud_connections_title">请选择位置</string>
 	<string name="screen_cloud_connections_no_connections">点击此处添加位置</string>
 	<string name="screen_cloud_error_webdav_not_supported">服务器似乎不兼容 WebDAV</string>
-	<string name="screen_cloud_local_error_no_content_provider">无可用其他位置</string>
+	<string name="screen_cloud_local_error_no_content_provider">没有找到支持打开目录的文件管理器</string>
 	<!-- ## screen: webdav settings -->
 	<string name="screen_webdav_settings_url_port_label">URL</string>
 	<string name="screen_webdav_settings_username_label">用户名</string>
@@ -272,6 +273,9 @@
 	<string name="dialog_accept_ssl_certificate_hint">SSL 证书无效，仍要信任它吗？</string>
 	<string name="dialog_accept_ssl_certificate_details">详情</string>
 	<string name="dialog_accept_ssl_certificate_security_checkbox">这可能存在安全风险，我知道我在做什么</string>
+	<string name="dialog_ask_ignore_battery_optimizations_title">禁用电池优化</string>
+	<string name="dialog_ask_ignore_battery_optimizations_hint">要在不后台运行的情况下检索新的图片和视频，我们需要解除电池优化。但别担心，%1$s 不会消耗太多电量。\n\n如需应用，点击这个对话框中的“%2$s”后，将“未优化”改为“所有应用”，选择 %1$s 并选择“不要优化”。</string>
+	<string name="dialog_ask_ignore_battery_optimizations_checkbox">不要再次询问我？</string>
 	<string name="dialog_http_security_hint">HTTP 不安全，我们建议使用 HTTPS。如果您知道其中风险，您可以继续使用 HTTP</string>
 	<string name="dialog_http_security_checkbox">换成 HTTPS</string>
 	<string name="dialog_http_security_title">使用 HTTPS?</string>
@@ -305,6 +309,7 @@
 	<string name="dialog_enter_license_title">请提供有效许可证</string>
 	<string name="dialog_enter_license_content">我们检测到您在没有使用 Play 商店的情况下安装了 Cryptomator。请提供有效许可证，可前往 <a href="https://cryptomator.org/android/">https://cryptomator.org/android/</a> 购买</string>
 	<string name="dialog_enter_license_not_valid_content">提供的许可证无效，请确保输入正确</string>
+	<string name="dialog_enter_license_not_valid_content_desktop_supporter_certificate">提供的密钥为桌面版赞助者证书。请输入有效的许可证。</string>
 	<string name="dialog_enter_license_no_content">未提供许可证，请输入有效许可证</string>
 	<string name="dialog_enter_license_decline_button">退出</string>
 	<string name="dialog_license_confirmation_title">授权通过</string>

@@ -1,1 +1,3 @@
-- Problem behoben, bei dem ein "Tresor nicht gefunden"-Dialog beim Entsperren mit OneDrive angezeigt wird, wenn er ein Leerzeichen im Namen enthält
+- Fehlermeldungen, wenn ein Tresor nicht unterstützt wird, verbessert
+- Anzeigefehler, der beim Verschieben von Ordnern mit lokalem Speicher und direktem Zugriff auf diesen auftritt, behoben
+- Fehler, dass beim automatischen Hochladen aufgrund der Batterieoptimierung nicht immer alle Bilder erfasst werden, behoben

@@ -26,7 +26,7 @@
 	<item
 		android:id="@+id/action_save_changes"
 		android:icon="@drawable/ic_save"
-		android:title="@string/screen_cloud_settings_title"
+		android:title="@string/snack_bar_action_title_save"
 		app:showAsAction="ifRoom" />
 
 </menu>

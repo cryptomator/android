@@ -4,6 +4,7 @@ import com.google.common.io.BaseEncoding;
 
 import org.cryptomator.domain.exception.BackendException;
 import org.cryptomator.domain.exception.FatalBackendException;
+import org.cryptomator.domain.exception.license.DesktopSupporterCertificateException;
 import org.cryptomator.domain.exception.license.LicenseNotValidException;
 import org.cryptomator.domain.exception.license.NoLicenseAvailableException;
 import org.cryptomator.domain.repository.UpdateCheckRepository;
@@ -20,10 +21,19 @@ import java.security.spec.X509EncodedKeySpec;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.JwtException;
 import io.jsonwebtoken.Jwts;
+import io.jsonwebtoken.security.SignatureException;
 
 @UseCase
 public class DoLicenseCheck {
 
+	private static final String ANDROID_PUB_KEY = "MIGbMBAGByqGSM49AgEGBSuBBAAjA4GGAAQBcnb81CfNeL3qBVFMx/yRfm1Y1yib" + //
+			"ajIJkV1s82AQt+mOl4+Kub64wq1OCgBVwWUlKwqgnyF39nmkoXEjakRPFngBzg2J" + //
+			"zo4UR0B7OYmn0uGf3K+zQfxKnNMxGVPtlzE8j9Nqz/dm2YvYLLVwvTSDQX/GaxoP" + //
+			"/EH84Hupw2wuU7qAaFU=";
+	private static final String DESKTOP_SUPPORTER_CERTIFICATE_PUB_KEY = "MIGbMBAGByqGSM49AgEGBSuBBAAjA4GGAAQB7NfnqiZbg2KTmoflmZ71PbXru7oW" + //
+			"fmnV2yv3eDjlDfGruBrqz9TtXBZV/eYWt31xu1osIqaT12lKBvZ511aaAkIBeOEV" + //
+			"gwcBIlJr6kUw7NKzeJt7r2rrsOyQoOG2nWc/Of/NBqA3mIZRHk5Aq1YupFdD26QE" + //
+			"r0DzRyj4ixPIt38CQB8=";
 	private final UpdateCheckRepository updateCheckRepository;
 	private String license;
 
@@ -34,17 +44,13 @@ public class DoLicenseCheck {
 
 	public LicenseCheck execute() throws BackendException {
 		license = useLicenseOrRetrieveFromDb(license);
-
 		try {
-			final Claims claims = Jwts //
-					.parserBuilder() //
-					.setSigningKey(getPublicKey()) //
-					.build() //
-					.parseClaimsJws(license) //
-					.getBody();
-
+			final Claims claims = Jwts.parserBuilder().setSigningKey(getPublicKey(ANDROID_PUB_KEY)).build().parseClaimsJws(license).getBody();
 			return claims::getSubject;
 		} catch (JwtException | FatalBackendException e) {
+			if (e instanceof SignatureException && isDesktopSupporterCertificate(license)) {
+				throw new DesktopSupporterCertificateException(license);
+			}
 			throw new LicenseNotValidException(license);
 		} catch (NoSuchAlgorithmException | InvalidKeySpecException e) {
 			throw new FatalBackendException(e);
@@ -56,28 +62,29 @@ public class DoLicenseCheck {
 			updateCheckRepository.setLicense(license);
 		} else {
 			license = updateCheckRepository.getLicense();
-
 			if (license == null) {
 				throw new NoLicenseAvailableException();
 			}
 		}
-
 		return license;
 	}
 
-	private ECPublicKey getPublicKey() throws NoSuchAlgorithmException, InvalidKeySpecException {
-		final byte[] publicKey = BaseEncoding //
-				.base64() //
-				.decode("MIGbMBAGByqGSM49AgEGBSuBBAAjA4GGAAQBcnb81CfNeL3qBVFMx/yRfm1Y1yib" + //
-						"ajIJkV1s82AQt+mOl4+Kub64wq1OCgBVwWUlKwqgnyF39nmkoXEjakRPFngBzg2J" + //
-						"zo4UR0B7OYmn0uGf3K+zQfxKnNMxGVPtlzE8j9Nqz/dm2YvYLLVwvTSDQX/GaxoP" + //
-						"/EH84Hupw2wuU7qAaFU=");
-
-		Key key = KeyFactory.getInstance("EC").generatePublic(new X509EncodedKeySpec(publicKey));
+	private ECPublicKey getPublicKey(String publicKey) throws NoSuchAlgorithmException, InvalidKeySpecException {
+		final X509EncodedKeySpec keySpec = new X509EncodedKeySpec(BaseEncoding.base64().decode(publicKey));
+		Key key = KeyFactory.getInstance("EC").generatePublic(keySpec);
 		if (key instanceof ECPublicKey) {
 			return (ECPublicKey) key;
 		} else {
 			throw new FatalBackendException("Key not an EC public key.");
+		}
+	}
+
+	private boolean isDesktopSupporterCertificate(String license) {
+		try {
+			Jwts.parserBuilder().setSigningKey(getPublicKey(DESKTOP_SUPPORTER_CERTIFICATE_PUB_KEY)).build().parseClaimsJws(license);
+			return true;
+		} catch (JwtException | NoSuchAlgorithmException | InvalidKeySpecException e) {
+			return false;
 		}
 	}
 }

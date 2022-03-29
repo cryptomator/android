@@ -9,7 +9,8 @@
 	<string name="error_no_network_connection">Bez připojení k síti</string>
 	<string name="error_invalid_passphrase">Chybné heslo</string>
 	<string name="error_file_or_folder_exists">Soubor nebo složka již existuje.</string>
-	<string name="error_vault_version_not_supported">Nepodporovaný trezor. Tento trezor byl vytvořen s jinou verzí Cryptomator.</string>
+	<string name="error_vault_version_not_supported">Verze trezoru %1$s není podporována. Tento trezor byl vytvořen ve starší nebo novější verzí Cryptomator.</string>
+	<string name="error_vault_config_file_missing_due_to_format_999">Soubor %1$s chybí ve složce trezoru. Ujistěte se, že tento soubor existuje ve složce trezoru v cloudu.</string>
 	<string name="error_vault_already_exists">Trezor již existuje.</string>
 	<string name="error_no_such_file">Soubor neexistuje.</string>
 	<string name="error_vault_has_been_locked">Trezor byl uzamčen.</string>
@@ -118,7 +119,7 @@
 	<string name="screen_cloud_connections_title">Vyberte umístění</string>
 	<string name="screen_cloud_connections_no_connections">Klikněte zde pro přidání umístění</string>
 	<string name="screen_cloud_error_webdav_not_supported">Server není kompatibilní s WebDAV</string>
-	<string name="screen_cloud_local_error_no_content_provider">Nejsou k dispozici žádná další umístění.</string>
+	<string name="screen_cloud_local_error_no_content_provider">Nebyl nalezen žádný správce souborů, který by podporoval otevírání adresářů</string>
 	<!-- ## screen: webdav settings -->
 	<string name="screen_webdav_settings_url_port_label">URL</string>
 	<string name="screen_webdav_settings_username_label">Uživatel</string>
@@ -275,6 +276,9 @@
 	<string name="dialog_accept_ssl_certificate_hint">SSL certifikát je neplatný. Chcete mu přesto důvěřovat?</string>
 	<string name="dialog_accept_ssl_certificate_details">Podrobnosti</string>
 	<string name="dialog_accept_ssl_certificate_security_checkbox">Toto by mohlo být bezpečnostní riziko. Vím, co dělám.</string>
+	<string name="dialog_ask_ignore_battery_optimizations_title">Zakázat optimalizace výdrže baterie</string>
+	<string name="dialog_ask_ignore_battery_optimizations_hint">Pro načítání nových obrázků a videí bez běhu na pozadí je třeba se vyvarovat optimalizace baterie. Ale nebojte se, %1$s nespotřebovává mnoho energie.\n\nChcete-li to nastavit, změňte \'Neoptimalizovat\' na \'Všechny aplikace\', vyberte %1$s a vyberte v tomto dialogu \'Neoptimalizovat\' po kliknutí \'%2$s\'.</string>
+	<string name="dialog_ask_ignore_battery_optimizations_checkbox">Příště se neptat?</string>
 	<string name="dialog_http_security_hint">Použití HTTP je nezabezpečené. Doporučujeme použít HTTPS. Pokud znáte rizika, můžete pokračovat s HTTP.</string>
 	<string name="dialog_http_security_checkbox">Změnit na HTTPS</string>
 	<string name="dialog_http_security_title">Použít HTTPS?</string>
@@ -308,6 +312,7 @@
 	<string name="dialog_enter_license_title">Zadejte platnou licenci</string>
 	<string name="dialog_enter_license_content">Zjistili jsme, že jste si nainstalovali Cryptomator bez použití Google Play Store. Zadejte platnou licenci, kterou lze zakoupit na <a href="https://cryptomator.org/android/">https://cryptomator.org/android/</a></string>
 	<string name="dialog_enter_license_not_valid_content">Zadaná licence není platná. Ujistěte se, že jste ji zadali správně.</string>
+	<string name="dialog_enter_license_not_valid_content_desktop_supporter_certificate">Zadaný klíč je certifikátem podporovatele desktopové aplikace. Zadejte prosím platnou licenci.</string>
 	<string name="dialog_enter_license_no_content">Nebyla zadána žádná licence. Zadejte prosím platnou licenci.</string>
 	<string name="dialog_enter_license_decline_button">Zavřít</string>
 	<string name="dialog_license_confirmation_title">Potvrzení licence</string>

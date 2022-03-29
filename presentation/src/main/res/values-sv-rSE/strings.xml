@@ -9,7 +9,8 @@
 	<string name="error_no_network_connection">Ingen nätverksanslutning</string>
 	<string name="error_invalid_passphrase">Felaktigt lösenord</string>
 	<string name="error_file_or_folder_exists">Filen eller katalogen finns redan.</string>
-	<string name="error_vault_version_not_supported">Valvet stöds ej. Detta valv har skapats med en annan version av Cryptomator.</string>
+	<string name="error_vault_version_not_supported">Valv-version %1$s stöds inte. Detta valv har skapats med en äldre eller nyare version av Cryptomator.</string>
+	<string name="error_vault_config_file_missing_due_to_format_999">Filen %1$s saknas i din valvmapp. Se till att den här filen finns i din valvmapp i molnet.</string>
 	<string name="error_vault_already_exists">Valvet finns redan.</string>
 	<string name="error_no_such_file">Filen existerar inte.</string>
 	<string name="error_vault_has_been_locked">Valvet har låsts.</string>
@@ -116,7 +117,7 @@
 	<string name="screen_cloud_connections_title">Välj en plats</string>
 	<string name="screen_cloud_connections_no_connections">Klicka här för att lägga till platser</string>
 	<string name="screen_cloud_error_webdav_not_supported">Servern verkar inte vara WebDAV-kompatibel</string>
-	<string name="screen_cloud_local_error_no_content_provider">Inga ytterligare platser tillgängliga.</string>
+	<string name="screen_cloud_local_error_no_content_provider">Hittade ingen filhanterare som har stöd för att öppna kataloger</string>
 	<!-- ## screen: webdav settings -->
 	<string name="screen_webdav_settings_url_port_label">URL</string>
 	<string name="screen_webdav_settings_username_label">Användarnamn</string>
@@ -199,6 +200,7 @@
 	<string name="screen_settings_keep_unlocked_while_editing_files">Behåll olåst</string>
 	<string name="screen_settings_keep_unlocked_while_editing_files_summary">Håll valven upplåsta medan filer ändras</string>
 	<!-- ## screen: cloud settings -->
+	<string name="screen_cloud_settings_onedrive_connections">OneDrive-anslutningar</string>
 	<string name="screen_cloud_settings_webdav_connections">WebDAV-anslutningar</string>
 	<string name="screen_cloud_settings_pcloud_connections">pCloud-anslutningar</string>
 	<string name="screen_cloud_settings_s3_connections">S3 anslutningar</string>
@@ -272,6 +274,9 @@
 	<string name="dialog_accept_ssl_certificate_hint">SSL-certifikatet är ogiltigt. Vill du lita på det ändå?</string>
 	<string name="dialog_accept_ssl_certificate_details">Detaljer</string>
 	<string name="dialog_accept_ssl_certificate_security_checkbox">Det kan vara en säkerhetsrisk. Jag vet vad jag gör.</string>
+	<string name="dialog_ask_ignore_battery_optimizations_title">Inaktivera batterioptimering</string>
+	<string name="dialog_ask_ignore_battery_optimizations_hint">För att hämta nya bilder och videor utan att köra i bakgrunden måste vi välja bort batterioptimeringar. Men oroa dig inte, %1$s förbrukar inte mycket energi.\n\nFör att tillämpa detta, ändra \'Inte optimerad\' till \'Alla appar\', välj %1$s och välj \"Optimera inte\" efter att du klickat på \"%2$s\" i denna dialogruta.</string>
+	<string name="dialog_ask_ignore_battery_optimizations_checkbox">Visa inte igen?</string>
 	<string name="dialog_http_security_hint">Användning av HTTP är osäkert. Vi rekommenderar att du använder HTTPS istället. Om du känner till riskerna kan du fortsätta med HTTP.</string>
 	<string name="dialog_http_security_checkbox">Ändra till HTTPS</string>
 	<string name="dialog_http_security_title">Använd HTTPS?</string>
@@ -305,6 +310,7 @@
 	<string name="dialog_enter_license_title">Ange en giltig licens</string>
 	<string name="dialog_enter_license_content">Vi upptäckte att du installerade Cryptomator utan att använda Google Play Store. Ange en giltig licens, som kan köpas på <a href="https://cryptomator.org/android/">https://cryptomator.org/android/</a></string>
 	<string name="dialog_enter_license_not_valid_content">Den angivna licensen är inte giltig. Se till att du angav den korrekt.</string>
+	<string name="dialog_enter_license_not_valid_content_desktop_supporter_certificate">Den angivna nyckeln är ett supportercertifikat för skrivbords-versionen. Ange en giltig licens.</string>
 	<string name="dialog_enter_license_no_content">Ingen licens angiven. Ange en giltig licens.</string>
 	<string name="dialog_enter_license_decline_button">Avsluta</string>
 	<string name="dialog_license_confirmation_title">Licensinformation</string>
@@ -372,6 +378,7 @@
 	<string name="notification_open_writable_file_title">Öppna skrivbar fil</string>
 	<string name="notification_open_writable_file_message">Valvet är upplåst till färdig redigering</string>
 	<string name="notification_update_check_finished_latest">Senaste versionen installerad</string>
+	<string name="notification_authenticating">Autentiserar&#8230;</string>
 	<string name="screen_settings_lru_cache">Cache</string>
 	<string name="screen_settings_lru_cache_toggle_summary">Cachen har nyligen kommit åt filer krypterade lokalt på enheten för senare återanvändning när de öppnas igen</string>
 	<string name="screen_settings_lru_cache_size">Total cachestorlek</string>

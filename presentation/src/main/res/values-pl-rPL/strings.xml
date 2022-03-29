@@ -9,7 +9,8 @@
 	<string name="error_no_network_connection">Brak połączenia z Internetem</string>
 	<string name="error_invalid_passphrase">Błędne hasło</string>
 	<string name="error_file_or_folder_exists">Plik lub folder już istnieje.</string>
-	<string name="error_vault_version_not_supported">Nieobsługiwany sejf. Ten sejf został utworzony z inną wersją Cryptomator.</string>
+	<string name="error_vault_version_not_supported">Wersja sejfu %1$s jest nieobsługiwana. Ten sejf został utworzony ze starszą lub nowszą wersją Cryptomator.</string>
+	<string name="error_vault_config_file_missing_due_to_format_999">Brak pliku %1$s w folderze sejfu. Upewnij się, że ten plik istnieje w folderze sejfu w chmurze.</string>
 	<string name="error_vault_already_exists">Sejf już istnieje.</string>
 	<string name="error_no_such_file">Plik nie istnieje.</string>
 	<string name="error_vault_has_been_locked">Sejf został zablokowany.</string>
@@ -118,7 +119,7 @@
 	<string name="screen_cloud_connections_title">Wybierz lokalizację</string>
 	<string name="screen_cloud_connections_no_connections">Kliknij tutaj, aby dodać nową lokalizację</string>
 	<string name="screen_cloud_error_webdav_not_supported">Serwer wydaje się być niekompatybilny z WebDAV</string>
-	<string name="screen_cloud_local_error_no_content_provider">Brak dodatkowych lokalizacji.</string>
+	<string name="screen_cloud_local_error_no_content_provider">Brak menedżera plików z obsługą otwierania katalogów</string>
 	<!-- ## screen: webdav settings -->
 	<string name="screen_webdav_settings_url_port_label">URL</string>
 	<string name="screen_webdav_settings_username_label">Login</string>
@@ -275,6 +276,9 @@
 	<string name="dialog_accept_ssl_certificate_hint">Certyfikat SSL jest nieprawidłowy. Czy mimo to chcesz mu zaufać?</string>
 	<string name="dialog_accept_ssl_certificate_details">Szczegóły</string>
 	<string name="dialog_accept_ssl_certificate_security_checkbox">Mogłoby to stanowić zagrożenie dla bezpieczeństwa. Wiem, co robię.</string>
+	<string name="dialog_ask_ignore_battery_optimizations_title">Wyłącz optymalizację baterii</string>
+	<string name="dialog_ask_ignore_battery_optimizations_hint">Aby pobrać nowe zdjęcia i filmy bez uruchamiania w tle, należy wyłączyć optymalizację baterii. Ale nie martw się, %1$s nie zużywa zbyt dużo energii.\n\nAby go zastosować, zmień \'Nie zoptymalizowane\' na \'Wszystkie aplikacje\', wybierz %1$s i wybierz \'Nie optymalizuj\' po kliknięciu \'%2$s\' w tym oknie.</string>
+	<string name="dialog_ask_ignore_battery_optimizations_checkbox">Nie pytać ponownie?</string>
 	<string name="dialog_http_security_hint">Używanie HTTP jest niezabezpieczone. Zamiast tego zalecamy używanie HTTPS. Jeśli znasz ryzyko, możesz kontynuować używając HTTP.</string>
 	<string name="dialog_http_security_checkbox">Zmień na HTTPS</string>
 	<string name="dialog_http_security_title">Używać HTTPS?</string>
@@ -308,6 +312,7 @@
 	<string name="dialog_enter_license_title">Podaj poprawną licencję</string>
 	<string name="dialog_enter_license_content">Wykryliśmy, że zainstalowałeś Cryptomator bez korzystania ze sklepu Google Play. Podaj poprawną licencję, którą można kupić na <a href="https://cryptomator.org/android/">https://cryptomator.org/android/</a></string>
 	<string name="dialog_enter_license_not_valid_content">Podana licencja jest nieprawidłowa. Upewnij się, że została wprowadzona poprawnie.</string>
+	<string name="dialog_enter_license_not_valid_content_desktop_supporter_certificate">Podany klucz jest certyfikatem darczyńcy. Wprowadź prawidłową licencję.</string>
 	<string name="dialog_enter_license_no_content">Nie udzielono licencji. Wprowadź prawidłową licencję.</string>
 	<string name="dialog_enter_license_decline_button">Wyjdź</string>
 	<string name="dialog_license_confirmation_title">Informacje o licencji</string>

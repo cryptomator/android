@@ -9,7 +9,8 @@
 	<string name="error_no_network_connection">No hay conexión de red</string>
 	<string name="error_invalid_passphrase">Contraseña incorrecta</string>
 	<string name="error_file_or_folder_exists">Ya existe un archivo o carpeta.</string>
-	<string name="error_vault_version_not_supported">Bóveda no soportada. Se ha creado con otra versión de Cryptomator.</string>
+	<string name="error_vault_version_not_supported">La versión %1$s de la bóveda no es compatible. Esta bóveda ha sido creada con una versión anterior o nueva de Cryptomator.</string>
+	<string name="error_vault_config_file_missing_due_to_format_999">Falta el archivo %1$s en la carpeta de su bóveda. Asegúrese de que este archivo existe en la carpeta de su bóveda en la nube.</string>
 	<string name="error_vault_already_exists">La bóveda ya existe.</string>
 	<string name="error_no_such_file">El archivo no existe.</string>
 	<string name="error_vault_has_been_locked">Se ha bloqueado la bóveda.</string>
@@ -116,7 +117,7 @@
 	<string name="screen_cloud_connections_title">Elegir ubicación</string>
 	<string name="screen_cloud_connections_no_connections">Haga clic aquí para añadir ubicaciones</string>
 	<string name="screen_cloud_error_webdav_not_supported">El servidor no parece ser compatible con WebDAV</string>
-	<string name="screen_cloud_local_error_no_content_provider">No hay ubicaciones extra disponibles.</string>
+	<string name="screen_cloud_local_error_no_content_provider">No se encontró ningún administrador de archivos que admita la apertura de directorios</string>
 	<!-- ## screen: webdav settings -->
 	<string name="screen_webdav_settings_url_port_label">URL</string>
 	<string name="screen_webdav_settings_username_label">Nombre de usuario</string>
@@ -273,6 +274,9 @@
 	<string name="dialog_accept_ssl_certificate_hint">El certificado SSL es inválido. ¿Desea confiar en él de todas formas?</string>
 	<string name="dialog_accept_ssl_certificate_details">Detalles</string>
 	<string name="dialog_accept_ssl_certificate_security_checkbox">Esto podría ser un riesgo para la seguridad. Sé lo que estoy haciendo.</string>
+	<string name="dialog_ask_ignore_battery_optimizations_title">Desactivar optimizaciones de la batería</string>
+	<string name="dialog_ask_ignore_battery_optimizations_hint">Para recuperar imágenes y videos nuevos sin ejecutar en segundo plano, tenemos que dejar de usar las optimizaciones de la batería. Pero no se preocupe, %1$s no consume mucha energía.\n\nPara aplicarlo, cambie \'No optimizado\' a \'Todas las aplicaciones\', seleccione %1$s y elija \'No optimizar\' después de hacer clic en \'%2$s\' en esta ventana.</string>
+	<string name="dialog_ask_ignore_battery_optimizations_checkbox">¿No volver a preguntar?</string>
 	<string name="dialog_http_security_hint">El uso de HTTP no es seguro. Recomendamos usar HTTPS en su lugar. Si conoce los riesgos puede seguir usando HTTP.</string>
 	<string name="dialog_http_security_checkbox">Cambiar a HTTPS</string>
 	<string name="dialog_http_security_title">\"¿Usar HTPPS?</string>
@@ -306,6 +310,7 @@
 	<string name="dialog_enter_license_title">Proporcione una licencia válida</string>
 	<string name="dialog_enter_license_content">Hemos detectado que ha instalado Cryptomator sin usar Google Play Store. Proporcione una licencia válida, que se puede adquirir en <a href="https://cryptomator.org/android/">https://cryptomator.org/android/</a></string>
 	<string name="dialog_enter_license_not_valid_content">La licencia proporcionada no es válida. Asegúrese de que la ha ingresado correctamente.</string>
+	<string name="dialog_enter_license_not_valid_content_desktop_supporter_certificate">La clave proporcionada es un certificado de soporte de escritorio. Ingrese una licencia válida.</string>
 	<string name="dialog_enter_license_no_content">Ninguna licencia proporcionada. Por favor, ingrese una licencia válida.</string>
 	<string name="dialog_enter_license_decline_button">Salir</string>
 	<string name="dialog_license_confirmation_title">Confirmación de licencia</string>

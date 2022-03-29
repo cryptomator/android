@@ -24,13 +24,13 @@ public enum FileIcon {
 	PDF(R.drawable.node_file_pdf, //
 			forExtensions("pdf", "ps")), //
 	SLIDES(R.drawable.node_file_presentation, //
-			forExtensions("key", "keynote", "odp", "pps", "ppt", "pptx")), //
+			forExtensions("key", "keynote", "odp", "ppt", "pot", "pps", "ppa", "pptx", "potx", "ppsx", "ppam", "pptm", "potm", "ppsm")), //
 	SOURCECODE(R.drawable.node_file_sourcecode, //
 			forExtensions("bat", "c", "cs", "cpp", "coffee", "d", "e", "for", "go", "h", "java", "js", "lua", "php", "pl", "ps1", "py", "r", "rb", "sh", "vb", "vbs")), //
 	SPREADSHEET(R.drawable.node_file_spreadsheet, //
-			forExtensions("csv", "numbers", "ods", "ots", "xls", "xlsm", "xlsx")), //
+			forExtensions("csv", "numbers", "ods", "ots", "xls", "xlt", "xla", "xlsx", "xltx", "xlsm", "xltm", "xlam", "xlsb")), //
 	TEXT(R.drawable.node_file_text, //
-			forMediaTypeOrExtensions("text", "md", "todo")), //
+			forMediaTypeOrExtensions("text", "md", "todo", "odts", "ods", "doc", "dot", "docx", "dotx", "docm", "dotm")), //
 	VAULT(R.drawable.node_vault, //
 			forExtensions("cryptomator")), //
 	UNKNOWN(R.drawable.node_file_unknown);

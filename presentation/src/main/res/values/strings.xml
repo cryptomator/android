@@ -17,7 +17,8 @@
 	<string name="error_no_network_connection">No network connection</string>
 	<string name="error_invalid_passphrase">Wrong password</string>
 	<string name="error_file_or_folder_exists">A file or folder already exists.</string>
-	<string name="error_vault_version_not_supported">Unsupported vault. This vault has been created with another version of Cryptomator.</string>
+	<string name="error_vault_version_not_supported">Vault version %1$s is unsupported. This vault has been created with an older or newer version of Cryptomator.</string>
+	<string name="error_vault_config_file_missing_due_to_format_999">%1$s file is missing in your vault folder. Make sure that this file exists in your vault folder in the cloud.</string>
 	<string name="error_vault_already_exists">Vault already exists.</string>
 	<string name="error_no_such_file">File does not exist.</string>
 	<string name="error_vault_has_been_locked">Vault has been locked.</string>
@@ -75,6 +76,8 @@
 	<string name="snack_bar_action_title_sort_oldest">Oldest first</string>
 	<string name="snack_bar_action_title_sort_biggest">Biggest first</string>
 	<string name="snack_bar_action_title_sort_smallest">Smallest first</string>
+
+	<string name="snack_bar_action_title_save" translatable="false">@string/screen_share_files_save_button_text</string>
 
 	<!-- # screens -->
 
@@ -168,7 +171,7 @@
 	<string name="screen_cloud_settings_option_delete" translatable="false">@string/screen_vault_list_vault_action_delete</string>
 	<string name="screen_cloud_connections_no_connections">Click here to add locations</string>
 	<string name="screen_cloud_error_webdav_not_supported">Server doesn\'t seem to be WebDAV compatible</string>
-	<string name="screen_cloud_local_error_no_content_provider">No additional locations available.</string>
+	<string name="screen_cloud_local_error_no_content_provider">No file manager found that supports opening directories</string>
 
 	<!-- ## screen: webdav settings -->
 	<string name="screen_webdav_settings_title" translatable="false">@string/cloud_names_webdav</string>
@@ -393,6 +396,12 @@
 	<string name="dialog_accept_ssl_certificate_details">Details</string>
 	<string name="dialog_accept_ssl_certificate_security_checkbox">This could be a security risk. I know what I am doing.</string>
 
+	<string name="dialog_ask_ignore_battery_optimizations_title">Disable battery optimizations</string>
+	<string name="dialog_ask_ignore_battery_optimizations_hint">To retrieve new pictures and videos without running in the background, we need to opt-out from battery optimizations. But don\'t worry, %1$s doesn\'t consume much energy.\n\nTo apply it, change \'Not optimized\' to \'All apps\', select %1$s and choose \'Don\'t optimize\' after clicking \'%2$s\' in this dialog.</string>
+	<string name="dialog_ask_ignore_battery_optimizations_neutral_button" translatable="false">@string/dialog_unable_to_share_positive_button</string>
+	<string name="dialog_ask_ignore_battery_optimizations_negative_button" translatable="false">@string/dialog_button_cancel</string>
+	<string name="dialog_ask_ignore_battery_optimizations_checkbox">Don\'t ask again?</string>
+
 	<string name="dialog_http_security_hint">The usage of HTTP is insecure. We recommend to use HTTPS instead. If you know the risks, you can continue with HTTP.</string>
 	<string name="dialog_http_security_checkbox">Change to HTTPS</string>
 	<string name="dialog_http_security_title">Use HTTPS?</string>
@@ -447,6 +456,7 @@
 	<string name="dialog_enter_license_title">Provide a valid license</string>
 	<string name="dialog_enter_license_content">We detected that you installed Cryptomator without using Google Play Store. Provide a valid license, which can be purchased on <a href="https://cryptomator.org/android/">https://cryptomator.org/android/</a></string>
 	<string name="dialog_enter_license_not_valid_content">The provided license isn\'t valid. Make sure you entered it correctly.</string>
+	<string name="dialog_enter_license_not_valid_content_desktop_supporter_certificate">The provided key is a desktop supporter certificate. Please enter a valid license.</string>
 	<string name="dialog_enter_license_no_content">No license provided. Please enter a valid license.</string>
 	<string name="dialog_enter_license_ok_button" translatable="false">@string/dialog_unable_to_share_positive_button</string>
 	<string name="dialog_enter_license_decline_button">Exit</string>

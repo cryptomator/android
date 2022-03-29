@@ -9,7 +9,8 @@
 	<string name="error_no_network_connection">Нет подключения к сети</string>
 	<string name="error_invalid_passphrase">Неверный пароль</string>
 	<string name="error_file_or_folder_exists">Файл или папка уже существует.</string>
-	<string name="error_vault_version_not_supported">Не поддерживаемое хранилище. Это хранилище было создано другой версией Cryptomator.</string>
+	<string name="error_vault_version_not_supported">Версия хранилища %1$s не поддерживается. Это хранилище было создано либо в устаревшей, либо в более новой версии Cryptomator.</string>
+	<string name="error_vault_config_file_missing_due_to_format_999">Файл %1$s отсутствует в папке хранилища. Убедитесь, что этот файл существует в папке хранилища в облаке.</string>
 	<string name="error_vault_already_exists">Хранилище уже существует.</string>
 	<string name="error_no_such_file">Файл не существует.</string>
 	<string name="error_vault_has_been_locked">Хранилище заблокировано.</string>
@@ -118,7 +119,7 @@
 	<string name="screen_cloud_connections_title">Выберите местоположение</string>
 	<string name="screen_cloud_connections_no_connections">Нажмите, чтобы добавить места</string>
 	<string name="screen_cloud_error_webdav_not_supported">Похоже, сервер не совместим с WebDAV</string>
-	<string name="screen_cloud_local_error_no_content_provider">Нет дополнительных мест.</string>
+	<string name="screen_cloud_local_error_no_content_provider">Не найден файловый менеджер, поддерживающий открытие папок</string>
 	<!-- ## screen: webdav settings -->
 	<string name="screen_webdav_settings_url_port_label">URL</string>
 	<string name="screen_webdav_settings_username_label">Логин</string>
@@ -275,6 +276,9 @@
 	<string name="dialog_accept_ssl_certificate_hint">SSL-сертификат недействителен. Вы всё равно хотите ему доверять?</string>
 	<string name="dialog_accept_ssl_certificate_details">Подробно</string>
 	<string name="dialog_accept_ssl_certificate_security_checkbox">Это может представлять угрозу безопасности. Я знаю, что делаю.</string>
+	<string name="dialog_ask_ignore_battery_optimizations_title">Отключить оптимизацию батареи</string>
+	<string name="dialog_ask_ignore_battery_optimizations_hint">Чтобы получать новые изображения и видео без работы в фоновом режиме, необходимо отключить оптимизацию заряда аккумулятора. Но не волнуйтесь, %1$s не потребляет много энергии.\n\nЧтобы это сделать, измените \'Не оптимизировано\' на \'Все приложения\', выберите %1$s и в этом окне выберите \'Не оптимизировать\' после нажатия \'%2$s\'.</string>
+	<string name="dialog_ask_ignore_battery_optimizations_checkbox">Больше не спрашивать?</string>
 	<string name="dialog_http_security_hint">Протокол HTTP небезопасен. Рекомендуем использовать HTTPS. Продолжайте с HTTP, только если вы понимаете риски.</string>
 	<string name="dialog_http_security_checkbox">Изменить на HTTPS</string>
 	<string name="dialog_http_security_title">Использовать HTTPS?</string>
@@ -308,6 +312,7 @@
 	<string name="dialog_enter_license_title">Предоставьте действительную лицензию</string>
 	<string name="dialog_enter_license_content">Мы обнаружили, что вы установили Cryptomator, не используя Google Play. Предоставьте действительную лицензию, которую можно приобрести на <a href="https://cryptomator.org/android/">https://cryptomator.org/android/</a></string>
 	<string name="dialog_enter_license_not_valid_content">Лицензия недействительна. Убедитесь, что вы ввели её правильно.</string>
+	<string name="dialog_enter_license_not_valid_content_desktop_supporter_certificate">Предоставленный ключ - это сертификат спонсора. Введите действительную лицензию.</string>
 	<string name="dialog_enter_license_no_content">Нет лицензии. Введите действительную лицензию.</string>
 	<string name="dialog_enter_license_decline_button">Выход</string>
 	<string name="dialog_license_confirmation_title">Подтверждение лицензии</string>

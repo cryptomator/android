@@ -9,7 +9,8 @@
 	<string name="error_no_network_connection">Nessuna connessione di rete</string>
 	<string name="error_invalid_passphrase">Password errata</string>
 	<string name="error_file_or_folder_exists">Esiste già un file o una cartella.</string>
-	<string name="error_vault_version_not_supported">Cassaforte non supportata. Questa cassaforte è stata creata con un\'altra versione di Cryptomator.</string>
+	<string name="error_vault_version_not_supported">La versione %1$s della cassaforte non è supportata. Questa cassaforte è stata creata con una versione più vecchia o più recente di Cryptomator.</string>
+	<string name="error_vault_config_file_missing_due_to_format_999">Il file %1$s manca nella cartella della cassaforte. Assicurati che questo file esista nella cartella della cassaforte nel cloud.</string>
 	<string name="error_vault_already_exists">La cassaforte esiste già.</string>
 	<string name="error_no_such_file">Il file non esiste.</string>
 	<string name="error_vault_has_been_locked">La cassaforte è stata bloccata.</string>
@@ -116,7 +117,7 @@
 	<string name="screen_cloud_connections_title">Scegli una posizione</string>
 	<string name="screen_cloud_connections_no_connections">Clicca qui per aggiungere posizioni</string>
 	<string name="screen_cloud_error_webdav_not_supported">Il server non sembra essere compatibile con WebDAV</string>
-	<string name="screen_cloud_local_error_no_content_provider">Nessuna posizione aggiuntiva disponibile.</string>
+	<string name="screen_cloud_local_error_no_content_provider">Nessun file manager trovato che supporta l\'apertura di cartelle</string>
 	<!-- ## screen: webdav settings -->
 	<string name="screen_webdav_settings_url_port_label">URL</string>
 	<string name="screen_webdav_settings_username_label">Nome utente</string>
@@ -199,6 +200,7 @@
 	<string name="screen_settings_keep_unlocked_while_editing_files">Mantieni sbloccato</string>
 	<string name="screen_settings_keep_unlocked_while_editing_files_summary">Mantieni le cassaforte sbloccate durante la modifica dei file</string>
 	<!-- ## screen: cloud settings -->
+	<string name="screen_cloud_settings_onedrive_connections">Connessioni OneDrive</string>
 	<string name="screen_cloud_settings_webdav_connections">Connessioni WebDAV</string>
 	<string name="screen_cloud_settings_pcloud_connections">connessioni pCloud</string>
 	<string name="screen_cloud_settings_s3_connections">Collegamenti S3</string>
@@ -272,6 +274,9 @@
 	<string name="dialog_accept_ssl_certificate_hint">Il certificato SSL non è valido. Vuoi comunque fidarti?</string>
 	<string name="dialog_accept_ssl_certificate_details">Dettagli</string>
 	<string name="dialog_accept_ssl_certificate_security_checkbox">Questo potrebbe essere un rischio per la sicurezza. So cosa sto facendo.</string>
+	<string name="dialog_ask_ignore_battery_optimizations_title">Disattiva ottimizzazioni batteria</string>
+	<string name="dialog_ask_ignore_battery_optimizations_hint">Per recuperare nuove immagini e video senza esecuzione in background, dobbiamo opt-out dalle ottimizzazioni della batteria. Ma non preoccuparti, %1$s non consuma molta energia.\n\nPer abilitare, imposta \'Non ottimizzato\' in \'Tutte le app\', seleziona %1$s e scegli \'Non ottimizzare\' dopo aver cliccato \'%2$s\' in questa finestra di dialogo.</string>
+	<string name="dialog_ask_ignore_battery_optimizations_checkbox">Non chiedere più</string>
 	<string name="dialog_http_security_hint">L\'utilizzo di HTTP non è sicuro. Si consiglia invece di utilizzare HTTPS. Se conosci i rischi, puoi continuare con HTTP.</string>
 	<string name="dialog_http_security_checkbox">Cambia in HTTPS</string>
 	<string name="dialog_http_security_title">Usare HTTPS?</string>
@@ -305,6 +310,7 @@
 	<string name="dialog_enter_license_title">Fornire una licenza valida</string>
 	<string name="dialog_enter_license_content">Abbiamo rilevato che hai installato Cryptomator senza utilizzare Google Play Store. Fornisci una licenza valida, che può essere acquistata su <a href="https://cryptomator.org/android/">https://cryptomator.org/android/</a></string>
 	<string name="dialog_enter_license_not_valid_content">La licenza fornita non è valida. Assicurati di averla inserita correttamente.</string>
+	<string name="dialog_enter_license_not_valid_content_desktop_supporter_certificate">La chiave fornita è un certificato per la versione desktop rilasciata ai supporter. Inserisci una licenza valida.</string>
 	<string name="dialog_enter_license_no_content">Nessuna licenza fornita. Inserisci una licenza valida.</string>
 	<string name="dialog_enter_license_decline_button">Esci</string>
 	<string name="dialog_license_confirmation_title">Conferma licenza</string>
@@ -372,6 +378,7 @@
 	<string name="notification_open_writable_file_title">Apri file scrivibile</string>
 	<string name="notification_open_writable_file_message">La cassaforte rimane sbloccata fino alla modifica completata</string>
 	<string name="notification_update_check_finished_latest">Ultima versione installata</string>
+	<string name="notification_authenticating">Autenticazione&#8230;</string>
 	<string name="screen_settings_lru_cache">Cache</string>
 	<string name="screen_settings_lru_cache_toggle_summary">La cache ha recentemente acceso ai file crittografati localmente sul dispositivo per un riutilizzo successivo quando riaperto</string>
 	<string name="screen_settings_lru_cache_size">Dimensione totale della cache</string>

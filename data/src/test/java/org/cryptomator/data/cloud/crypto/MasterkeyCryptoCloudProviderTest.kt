@@ -6,7 +6,6 @@ import org.cryptomator.cryptolib.api.Cryptor
 import org.cryptomator.cryptolib.api.CryptorProvider
 import org.cryptomator.cryptolib.api.FileNameCryptor
 import org.cryptomator.cryptolib.api.Masterkey
-import org.cryptomator.cryptolib.api.UnsupportedVaultFormatException
 import org.cryptomator.data.cloud.crypto.BackupFileIdSuffixGenerator.generate
 import org.cryptomator.data.cloud.crypto.MasterkeyCryptoCloudProvider.UnlockTokenImpl
 import org.cryptomator.data.cloud.crypto.VaultConfig.VaultConfigBuilder
@@ -19,6 +18,7 @@ import org.cryptomator.domain.CloudType
 import org.cryptomator.domain.UnverifiedVaultConfig
 import org.cryptomator.domain.Vault
 import org.cryptomator.domain.exception.BackendException
+import org.cryptomator.domain.exception.vaultconfig.MissingVaultConfigFileException
 import org.cryptomator.domain.repository.CloudContentRepository
 import org.cryptomator.domain.usecases.ProgressAware
 import org.cryptomator.domain.usecases.cloud.DataSource
@@ -207,7 +207,7 @@ internal class MasterkeyCryptoCloudProviderTest {
 	@DisplayName("unlockLegacyUsingNewVault(\"foo\")")
 	fun testUnlockLegacyVaultUsingVaultFormat8() {
 		val unlockToken: UnlockToken = UnlockTokenImpl(vault, masterkeyV8.toByteArray(StandardCharsets.UTF_8))
-		Assertions.assertThrows(UnsupportedVaultFormatException::class.java) { inTest.unlock(unlockToken, Optional.absent(), "foo", { false }) }
+		Assertions.assertThrows(MissingVaultConfigFileException::class.java) { inTest.unlock(unlockToken, Optional.absent(), "foo", { false }) }
 	}
 
 	@DisplayName("changePassword(\"foo\")")

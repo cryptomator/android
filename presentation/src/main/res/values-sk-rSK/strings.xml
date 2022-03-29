@@ -9,7 +9,8 @@
 	<string name="error_no_network_connection">Chýba sieťové pripojenie</string>
 	<string name="error_invalid_passphrase">Nesprávne heslo</string>
 	<string name="error_file_or_folder_exists">Súbor alebo adresár už existuje.</string>
-	<string name="error_vault_version_not_supported">Nepodporovaný trezor. Tento trezor bol vytvorený s inou verziou Cryptomator-a.</string>
+	<string name="error_vault_version_not_supported">Verzia trezora %1$s je nepodporovaná. Tento trezor bol vytvorený staršou alebo novšou verziou Cryptomator-a.</string>
+	<string name="error_vault_config_file_missing_due_to_format_999">%1$s súbor chýba vo Vašom adresári trezora. Uistite sa že požadovaný súbor existuje vo Vašom adresári trezora v cloude.</string>
 	<string name="error_vault_already_exists">Trezor už existuje.</string>
 	<string name="error_no_such_file">Súbor neexistuje.</string>
 	<string name="error_vault_has_been_locked">Trezor bol zamknutý.</string>
@@ -118,7 +119,7 @@
 	<string name="screen_cloud_connections_title">Vybrať umiestnenie</string>
 	<string name="screen_cloud_connections_no_connections">Kliknite sem pre pridanie umiestnení</string>
 	<string name="screen_cloud_error_webdav_not_supported">Server zdá sa byť WebDAV kompatibilný</string>
-	<string name="screen_cloud_local_error_no_content_provider">Ďalšie úložiská nie sú dostupné.</string>
+	<string name="screen_cloud_local_error_no_content_provider">Nenašiel sa manažér súborov ktorý podporuje otváranie adresárov</string>
 	<!-- ## screen: webdav settings -->
 	<string name="screen_webdav_settings_url_port_label">URL</string>
 	<string name="screen_webdav_settings_username_label">Uživateľské meno</string>
@@ -275,6 +276,9 @@
 	<string name="dialog_accept_ssl_certificate_hint">SSL certifikát je neplatný. Napriek tomu mu chete veriť?</string>
 	<string name="dialog_accept_ssl_certificate_details">Podrobnosti</string>
 	<string name="dialog_accept_ssl_certificate_security_checkbox">Toto môže byť bezpečnostné riziko. Viem čo robím.</string>
+	<string name="dialog_ask_ignore_battery_optimizations_title">Vypnúť optimalizácie batérie</string>
+	<string name="dialog_ask_ignore_battery_optimizations_hint">Získať nové obrázky a videá bez behu na pozadí, potrebujeme rozhodnúť na základe optimalzácií batérie. Ale netrápte sa, %1$s nespotrebúva veľa energie. \n\nAplikovať to, zmente \'Neoptimalizované\' na \'Všetky aplikácie\', vyberte %1$s a zvoľte \'Neoptimalizovať\' po odkliknutí \'%2$s\' v tomto dialógu.</string>
+	<string name="dialog_ask_ignore_battery_optimizations_checkbox">Nepýtať sa znovu?</string>
 	<string name="dialog_http_security_hint">Používanie HTTP nie je bezpečné. Odporúčame namiesto toho použiť HTTPS. Ak poznáte riziká, môžte pokračovať s HTTP.</string>
 	<string name="dialog_http_security_checkbox">Zmeniť na HTTPS</string>
 	<string name="dialog_http_security_title">Použiť HTTPS?</string>
@@ -308,6 +312,7 @@
 	<string name="dialog_enter_license_title">Zadajte platný licenčný kľúč</string>
 	<string name="dialog_enter_license_content">Detekovali sme že máte nainštalovaný Cryptomator bez použitia Google Play Store. Poskytnite platnú licenciu, ktorá bola zakúpená v <a href="https://cryptomator.org/android/">https://cryptomator.org/android/</a></string>
 	<string name="dialog_enter_license_not_valid_content">Poskytnutá licencia nie je platná. Uistite sa či bola zadaná korektne.</string>
+	<string name="dialog_enter_license_not_valid_content_desktop_supporter_certificate">Poskytnuty kľúč je pracovná plocha certifikátu podporovateľa. Prosím zadajte platnú licenciu.</string>
 	<string name="dialog_enter_license_no_content">Licencia neposkytnutá. Prosím zadajte platnú licenciu.</string>
 	<string name="dialog_enter_license_decline_button">Ukončiť</string>
 	<string name="dialog_license_confirmation_title">Potvrdenie licencie</string>

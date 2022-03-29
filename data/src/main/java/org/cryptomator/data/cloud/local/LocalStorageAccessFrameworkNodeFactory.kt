@@ -63,7 +63,7 @@ internal object LocalStorageAccessFrameworkNodeFactory {
 			getNodePath(parent, documentFile.name),  //
 			documentFile.length(),  //
 			Date(documentFile.lastModified()),  //
-			DocumentsContract.getTreeDocumentId(documentFile.uri),  //
+			DocumentsContract.getDocumentId(documentFile.uri),  //
 			documentFile.uri.toString()
 		)
 	}

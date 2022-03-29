@@ -9,7 +9,8 @@
 	<string name="error_no_network_connection">Geen netwerkverbinding</string>
 	<string name="error_invalid_passphrase">Fout wachtwoord</string>
 	<string name="error_file_or_folder_exists">Een bestand of map bestaat reeds.</string>
-	<string name="error_vault_version_not_supported">Niet-ondersteunde kluis. Deze kluis is gemaakt met een andere versie van Cryptomator.</string>
+	<string name="error_vault_version_not_supported">Kluisversie %1$s wordt niet ondersteund. Deze kluis is gemaakt met een oudere of nieuwere versie van Cryptomator.</string>
+	<string name="error_vault_config_file_missing_due_to_format_999">%1$s bestand ontbreekt in de kluis map. Zorg ervoor dat dit bestand bestaat in de kluismap in de cloud.</string>
 	<string name="error_vault_already_exists">Kluis bestaat reeds.</string>
 	<string name="error_no_such_file">Bestand bestaat niet.</string>
 	<string name="error_vault_has_been_locked">Vault is vergrendeld.</string>
@@ -116,7 +117,7 @@
 	<string name="screen_cloud_connections_title">Kies een locatie</string>
 	<string name="screen_cloud_connections_no_connections">Klik hier om locaties toe te voegen</string>
 	<string name="screen_cloud_error_webdav_not_supported">Server lijkt niet WebDAV compatibel te zijn</string>
-	<string name="screen_cloud_local_error_no_content_provider">Geen extra locaties beschikbaar.</string>
+	<string name="screen_cloud_local_error_no_content_provider">Geen bestandsbeheerder gevonden die het openen van mappen ondersteunt</string>
 	<!-- ## screen: webdav settings -->
 	<string name="screen_webdav_settings_url_port_label">URL</string>
 	<string name="screen_webdav_settings_username_label">Gebruikersnaam</string>
@@ -273,6 +274,9 @@
 	<string name="dialog_accept_ssl_certificate_hint">Het SSL-certificaat is ongeldig. Wilt u het toch vertrouwen?</string>
 	<string name="dialog_accept_ssl_certificate_details">Details</string>
 	<string name="dialog_accept_ssl_certificate_security_checkbox">Dit kan een veiligheidsrisico zijn. Ik weet wat ik doe.</string>
+	<string name="dialog_ask_ignore_battery_optimizations_title">Batterij optimalisaties uitschakelen</string>
+	<string name="dialog_ask_ignore_battery_optimizations_hint">Om nieuwe foto\'s en video\'s op te halen zonder in de achtergrond te draaien, schakelt de batterij optimalisatie uit. Maak je geen zorgen, %1$s verbruikt niet veel energie.\n\nOm toe te passen, wijzig \'Niet geoptimaliseerd\' naar \'Alle apps\', selecteer %1$s en kies \'Niet optimaliseren\' na \'%2$s\' in dit dialoogvenster.</string>
+	<string name="dialog_ask_ignore_battery_optimizations_checkbox">Niet opnieuw vragen?</string>
 	<string name="dialog_http_security_hint">Het gebruik van HTTP is onveilig. We raden aan om in plaats daarvan HTTPS te gebruiken. Als u de risico\'s weet, kunt u doorgaan met HTTP.</string>
 	<string name="dialog_http_security_checkbox">Verander naar HTTPS</string>
 	<string name="dialog_http_security_title">HTTPS gebruiken?</string>
@@ -306,6 +310,7 @@
 	<string name="dialog_enter_license_title">Geef een geldige licentie op</string>
 	<string name="dialog_enter_license_content">U heeft Cryptomator gedownload zonder Google Play Store te gebruiken. Geef een geldige licentie in. Een geldige licentie kan worden gekocht op <a href="https://cryptomator.org/android/">https://cryptomator.org/android/</a></string>
 	<string name="dialog_enter_license_not_valid_content">De opgegeven licentie is niet geldig. Zorg ervoor dat u deze correct hebt ingevoerd.</string>
+	<string name="dialog_enter_license_not_valid_content_desktop_supporter_certificate">De verstrekte sleutel is een desktop supportercertificaat. Voer een geldige licentie in.</string>
 	<string name="dialog_enter_license_no_content">Geen licentie ingegeven. Voer een geldige licentie in.</string>
 	<string name="dialog_enter_license_decline_button">Afsluiten</string>
 	<string name="dialog_license_confirmation_title">Licentie bevestiging</string>

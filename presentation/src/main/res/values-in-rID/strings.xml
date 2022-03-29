@@ -9,7 +9,6 @@
 	<string name="error_no_network_connection">Tidak ada koneksi jaringan</string>
 	<string name="error_invalid_passphrase">Kata sandi salah</string>
 	<string name="error_file_or_folder_exists">Berkas atau folder sudah ada.</string>
-	<string name="error_vault_version_not_supported">Vault tidak didukung. Vault ini telah dibuat dengan Cryptomator versi lain.</string>
 	<string name="error_vault_already_exists">Vault sudah ada.</string>
 	<string name="error_no_such_file">Berkas tidak ada.</string>
 	<string name="error_vault_has_been_locked">Vault telah dikunci.</string>
@@ -115,7 +114,7 @@
 	<string name="screen_cloud_connections_title">Pilih lokasi</string>
 	<string name="screen_cloud_connections_no_connections">Ketuk disini untuk menambahkan lokasi</string>
 	<string name="screen_cloud_error_webdav_not_supported">Server tampaknya tidak kompatibel dengan WebDAV</string>
-	<string name="screen_cloud_local_error_no_content_provider">Tidak ada lokasi tambahan yang tersedia.</string>
+	<string name="screen_cloud_local_error_no_content_provider">Tidak ditemukan file manager yang dapat membuka direktori ini</string>
 	<!-- ## screen: webdav settings -->
 	<string name="screen_webdav_settings_url_port_label">URL</string>
 	<string name="screen_webdav_settings_username_label">Nama pengguna</string>
@@ -305,6 +304,7 @@
 	<string name="dialog_enter_license_title">Berikan lisensi yang valid</string>
 	<string name="dialog_enter_license_content">Kami mendeteksi bahwa Anda menginstal Cryptomator tanpa menggunakan Google Play Store. Berikan lisensi yang valid, yang dapat dibeli di <a href="https://cryptomator.org/android/">https://cryptomator.org/android/</a></string>
 	<string name="dialog_enter_license_not_valid_content">Lisensi yang diberikan tidak valid. Pastikan Anda memasukkannya dengan benar.</string>
+	<string name="dialog_enter_license_not_valid_content_desktop_supporter_certificate">Kunci yang Anda input adalah kunci supporter certificate untuk pengguna desktop. Harap masukkan lisensi yang valid.</string>
 	<string name="dialog_enter_license_no_content">Tidak ada lisensi yang diberikan. Harap masukkan lisensi yang valid.</string>
 	<string name="dialog_enter_license_decline_button">Keluar</string>
 	<string name="dialog_license_confirmation_title">Konfirmasi lisensi</string>

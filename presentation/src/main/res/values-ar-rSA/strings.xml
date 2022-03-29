@@ -9,7 +9,6 @@
 	<string name="error_no_network_connection">لا يوجد اتصال بالشبكة</string>
 	<string name="error_invalid_passphrase">كلمة المرور خاطئة</string>
 	<string name="error_file_or_folder_exists">المجلد أو الملف موجود مسبقاُ.</string>
-	<string name="error_vault_version_not_supported">نوع المخزن غير مدعوم. تم إنشاء هذا المخزن باستخدام إصدار آخر من Cryptomator.</string>
 	<string name="error_vault_already_exists">المخزن موجود مسبقاً.</string>
 	<string name="error_no_such_file">ملف غير موجود.</string>
 	<string name="error_vault_has_been_locked">تم قفل المخزن.</string>
@@ -112,7 +111,6 @@
 	<string name="screen_cloud_connections_title">اختر المسار</string>
 	<string name="screen_cloud_connections_no_connections">انقر هنا لإضافة مسار</string>
 	<string name="screen_cloud_error_webdav_not_supported">لا يبدو أن الخادم متوافق مع WebDAV</string>
-	<string name="screen_cloud_local_error_no_content_provider">لا توجد مواقع إضافية متاحة.</string>
 	<!-- ## screen: webdav settings -->
 	<string name="screen_webdav_settings_url_port_label">الرابط</string>
 	<string name="screen_webdav_settings_username_label">اسم المستخدم</string>

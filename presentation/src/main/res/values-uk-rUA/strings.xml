@@ -9,7 +9,6 @@
 	<string name="error_no_network_connection">Відсутнє з\'єднання з мережею</string>
 	<string name="error_invalid_passphrase">Неправильний пароль</string>
 	<string name="error_file_or_folder_exists">Файл чи тека вже існує.</string>
-	<string name="error_vault_version_not_supported">Непідтримуване сховище. Це сховище було створено іншою версією криптоматора.</string>
 	<string name="error_vault_already_exists">Сховище вже існує.</string>
 	<string name="error_no_such_file">Файлу не існує.</string>
 	<string name="error_vault_has_been_locked">Сховище було заблоковано.</string>
@@ -112,7 +111,6 @@
 	<string name="screen_cloud_connections_title">Обрати місцерозташування</string>
 	<string name="screen_cloud_connections_no_connections">Натисніть сюди щоб додати розташування</string>
 	<string name="screen_cloud_error_webdav_not_supported">Схоже, сервер не сумісний з WebDAV</string>
-	<string name="screen_cloud_local_error_no_content_provider">Немає доступних місцерозташувань.</string>
 	<!-- ## screen: webdav settings -->
 	<string name="screen_webdav_settings_url_port_label">Адреса посилання</string>
 	<string name="screen_webdav_settings_username_label">Ім\'я користувача</string>
