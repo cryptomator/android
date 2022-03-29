@@ -9,7 +9,8 @@
 	<string name="error_no_network_connection">Χωρίς σύνδεση δικτύου</string>
 	<string name="error_invalid_passphrase">Λάθος κωδικός πρόσβασης</string>
 	<string name="error_file_or_folder_exists">Υπάρχει ήδη ένα αρχείο ή φάκελος.</string>
-	<string name="error_vault_version_not_supported">Μη υποστηριζόμενη κρύπτη. Αυτή η κρύπτη έχει δημιουργηθεί με μια άλλη έκδοση του Cryptomator.</string>
+	<string name="error_vault_version_not_supported">Η έκδοση %1$s της κρύπτης δεν υποστηρίζεται. Αυτή η κρύπτη έχει δημιουργηθεί με παλαιότερη ή νεότερη έκδοση του Cryptomator.</string>
+	<string name="error_vault_config_file_missing_due_to_format_999">Το αρχείο %1$s λείπει στο φάκελο της κρύπτης σας. Βεβαιωθείτε ότι αυτό το αρχείο υπάρχει στο φάκελο κρύπτης στο cloud.</string>
 	<string name="error_vault_already_exists">Η κρύπτη υπάρχει ήδη.</string>
 	<string name="error_no_such_file">Το αρχείο δεν υπάρχει.</string>
 	<string name="error_vault_has_been_locked">Η κρύπτη έχει κλειδωθεί.</string>
@@ -116,7 +117,7 @@
 	<string name="screen_cloud_connections_title">Επιλέξτε μια τοποθεσία</string>
 	<string name="screen_cloud_connections_no_connections">Κάντε κλικ εδώ για να προσθέσετε τοποθεσίες</string>
 	<string name="screen_cloud_error_webdav_not_supported">Ο διακομιστής δεν φαίνεται να είναι συμβατός με WebDAV</string>
-	<string name="screen_cloud_local_error_no_content_provider">Δεν υπάρχουν διαθέσιμες πρόσθετες τοποθεσίες.</string>
+	<string name="screen_cloud_local_error_no_content_provider">Δε βρέθηκε διαχειριστής αρχείων που να υποστηρίζει το άνοιγμα καταλόγων</string>
 	<!-- ## screen: webdav settings -->
 	<string name="screen_webdav_settings_url_port_label">URL</string>
 	<string name="screen_webdav_settings_username_label">Όνομα χρήστη</string>
@@ -273,6 +274,9 @@
 	<string name="dialog_accept_ssl_certificate_hint">Το πιστοποιητικό SSL δεν είναι έγκυρο. Θέλετε να το εμπιστευτείτε ούτως ή άλλως;</string>
 	<string name="dialog_accept_ssl_certificate_details">Λεπτομέρειες</string>
 	<string name="dialog_accept_ssl_certificate_security_checkbox">Αυτό θα μπορούσε να αποτελέσει κίνδυνο για την ασφάλεια. Γνωρίζω τι κάνω.</string>
+	<string name="dialog_ask_ignore_battery_optimizations_title">Απενεργοποιήστε τις βελτιστοποιήσεις μπαταρίας</string>
+	<string name="dialog_ask_ignore_battery_optimizations_hint">Για να ανακτήσετε νέες εικόνες και βίντεο χωρίς να τρέξετε στο παρασκήνιο, πρέπει να εξαιρέσουμε από τις βελτιστοποιήσεις της μπαταρίας. Αλλά μην ανησυχείτε, το %1$s δεν καταναλώνει πολλή ενέργεια.\n\nΓια να το εφαρμόσετε, αλλάξτε το \'Μη βελτιστοποιημένο\' σε \'Όλες οι εφαρμογές\', επιλέξτε %1$s και επιλέξτε \'Να μην βελτιστοποιείτε\' αφού κάνετε κλικ στο \'%2$s\' σε αυτό το διάλογο.</string>
+	<string name="dialog_ask_ignore_battery_optimizations_checkbox">Να μην ερωτηθώ ξανά;</string>
 	<string name="dialog_http_security_hint">Η χρήση του HTTP είναι μη ασφαλής. Σας συνιστούμε να χρησιμοποιήσετε το HTTPS αντ \'αυτού. Αν γνωρίζετε τους κινδύνους, μπορείτε να συνεχίσετε με το HTTP.</string>
 	<string name="dialog_http_security_checkbox">Αλλαγή σε HTTPS</string>
 	<string name="dialog_http_security_title">Χρήση HTTPS;</string>
@@ -306,6 +310,7 @@
 	<string name="dialog_enter_license_title">Δώστε μια έγκυρη άδεια</string>
 	<string name="dialog_enter_license_content">Εντοπίσαμε ότι εγκαταστήσατε Cryptomator χωρίς τη χρήση του Google Play Store. Παρέχετε έγκυρη άδεια, η οποία μπορεί να αγοραστεί στο <a href="https://cryptomator.org/android/">https://cryptomator.org/android/</a></string>
 	<string name="dialog_enter_license_not_valid_content">Η παρεχόμενη άδεια δεν είναι έγκυρη. Βεβαιωθείτε ότι την εισαγάγατε σωστά.</string>
+	<string name="dialog_enter_license_not_valid_content_desktop_supporter_certificate">Το κλειδί που παρέχεται είναι ένα πιστοποιητικό υποστήριξης επιφάνειας εργασίας. Παρακαλώ εισαγάγετε μια έγκυρη άδεια.</string>
 	<string name="dialog_enter_license_no_content">Δεν παρέχεται άδεια. Παρακαλώ εισάγετε μια έγκυρη άδεια.</string>
 	<string name="dialog_enter_license_decline_button">Έξοδος</string>
 	<string name="dialog_license_confirmation_title">Επιβεβαίωση άδειας</string>

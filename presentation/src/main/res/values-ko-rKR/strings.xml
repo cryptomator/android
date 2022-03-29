@@ -9,7 +9,6 @@
 	<string name="error_no_network_connection">네트워크가 연결되어 있지 않습니다.</string>
 	<string name="error_invalid_passphrase">잘못된 비밀번호입니다.</string>
 	<string name="error_file_or_folder_exists">파일 또는 폴더가 이미 존재합니다.</string>
-	<string name="error_vault_version_not_supported">지원되지 않는 Vault입니다. 이 Vault는 다른 버전의 Cryptomator로 생성되었습니다.</string>
 	<string name="error_vault_already_exists">Vault가 이미 존재합니다.</string>
 	<string name="error_no_such_file">파일이 존재하지 않습니다.</string>
 	<string name="error_vault_has_been_locked">Vault가 잠겼습니다.</string>

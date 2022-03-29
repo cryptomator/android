@@ -9,7 +9,6 @@
 	<string name="error_no_network_connection">Sem conexão com a internet</string>
 	<string name="error_invalid_passphrase">Senha incorreta</string>
 	<string name="error_file_or_folder_exists">Um arquivo ou pasta já existe.</string>
-	<string name="error_vault_version_not_supported">Cofre não suportado. Este cofre foi criado com outra versão do Cryptomator.</string>
 	<string name="error_vault_already_exists">O cofre já existe.</string>
 	<string name="error_no_such_file">O arquivo não existe.</string>
 	<string name="error_vault_has_been_locked">O cofre foi trancado.</string>
@@ -116,7 +115,7 @@
 	<string name="screen_cloud_connections_title">Selecionar um local</string>
 	<string name="screen_cloud_connections_no_connections">Clique aqui para adicionar locais</string>
 	<string name="screen_cloud_error_webdav_not_supported">O servidor não parece ser compatível com WebDAV</string>
-	<string name="screen_cloud_local_error_no_content_provider">Não há localizações adicionais disponíveis.</string>
+	<string name="screen_cloud_local_error_no_content_provider">Nenhum gerenciador de arquivos encontrado que suporte a abertura de pastas</string>
 	<!-- ## screen: webdav settings -->
 	<string name="screen_webdav_settings_url_port_label">URL</string>
 	<string name="screen_webdav_settings_username_label">Usuário</string>
@@ -306,6 +305,7 @@
 	<string name="dialog_enter_license_title">Fornecer uma licença válida</string>
 	<string name="dialog_enter_license_content">Nós detectamos que você instalou o Cryptomator sem usar a Google Play Store. Forneça uma licença válida, que pode ser comprada em <a href="https://cryptomator.org/android/">https://cryptomator.org/android/</a></string>
 	<string name="dialog_enter_license_not_valid_content">A licença fornecida não é válida. Verifique se você digitou corretamente.</string>
+	<string name="dialog_enter_license_not_valid_content_desktop_supporter_certificate">A chave fornecida é um certificado de suporte da área de trabalho. Por favor, insira uma licença válida.</string>
 	<string name="dialog_enter_license_no_content">Nenhuma licença fornecida. Por favor insira uma licença válida.</string>
 	<string name="dialog_enter_license_decline_button">Sair</string>
 	<string name="dialog_license_confirmation_title">Confirmação de licença</string>

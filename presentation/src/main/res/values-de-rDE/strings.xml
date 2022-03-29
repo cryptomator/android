@@ -9,14 +9,15 @@
 	<string name="error_no_network_connection">Keine Internetverbindung</string>
 	<string name="error_invalid_passphrase">Falsches Passwort</string>
 	<string name="error_file_or_folder_exists">Die Datei oder der Ordner existiert bereits.</string>
-	<string name="error_vault_version_not_supported">Dieser Tresor wird nicht unterstützt, da dieser mit einer anderen Version von Cryptomator erstellt wurde.</string>
+	<string name="error_vault_version_not_supported">Tresorversion %1$s wird nicht unterstützt. Dieser Tresor wurde mit einer älteren oder neueren Version von Cryptomator erstellt.</string>
+	<string name="error_vault_config_file_missing_due_to_format_999">%1$s -Datei fehlt in Ihrem Tresorordner. Stellen Sie sicher, dass diese Datei in Ihrem Tresorordner in der Cloud existiert.</string>
 	<string name="error_vault_already_exists">Tresor existiert bereits.</string>
 	<string name="error_no_such_file">Datei wurde nicht gefunden.</string>
 	<string name="error_vault_has_been_locked">Tresor wurde gesperrt.</string>
 	<string name="error_cloud_already_exists">Cloud existiert bereits.</string>
 	<string name="error_activity_not_found">Installiere eine App, die diesen Dateityp unterstützt.</string>
 	<string name="error_server_not_found">Server nicht gefunden.</string>
-	<string name="error_device_policy_manager_not_found">Bitte öffne die Einstellungen Deines Geräts und stelle die Bildschirmsperre von Hand ein</string>
+	<string name="error_device_policy_manager_not_found">Bitte öffne die Einstellungen deines Geräts und stelle die Bildschirmsperre von Hand ein</string>
 	<string name="error_export_illegal_file_name">Export fehlgeschlagen. Versuche, Sonderzeichen aus den Dateinamen zu entfernen und erneut zu exportieren.</string>
 	<string name="error_name_contains_invalid_characters">Keine Sonderzeichen möglich.</string>
 	<string name="error_names_contains_invalid_characters">Dateinamen können keine Sonderzeichen enthalten.</string>
@@ -57,7 +58,7 @@
 	<!-- # screen: vault list -->
 	<string name="screen_vault_list_actions_title">Zu Cryptomator hinzufügen</string>
 	<string name="screen_vault_list_action_create_new_vault">Neuen Tresor anlegen</string>
-	<string name="screen_vault_list_action_add_existing_vault">Vorhandenen Tresor hinzufügen</string>
+	<string name="screen_vault_list_action_add_existing_vault">Bestehenden Tresor hinzufügen</string>
 	<string name="screen_vault_list_vault_action_delete">Entfernen</string>
 	<string name="screen_vault_list_vault_creation_hint">Hier klicken um einen neuen Tresor zu erstellen</string>
 	<string name="screen_vault_list_change_password_successful">Passwort wurde erfolgreich geändert</string>
@@ -116,7 +117,7 @@
 	<string name="screen_cloud_connections_title">Ort auswählen</string>
 	<string name="screen_cloud_connections_no_connections">Hier klicken um einen neuen Ort hinzufügen</string>
 	<string name="screen_cloud_error_webdav_not_supported">Server scheint nicht WebDAV-kompatibel zu sein</string>
-	<string name="screen_cloud_local_error_no_content_provider">Weitere Orte sind nicht verfügbar.</string>
+	<string name="screen_cloud_local_error_no_content_provider">Kein Dateimanager gefunden, der das Öffnen von Verzeichnissen unterstützt</string>
 	<!-- ## screen: webdav settings -->
 	<string name="screen_webdav_settings_url_port_label">URL</string>
 	<string name="screen_webdav_settings_username_label">Benutzername</string>
@@ -130,7 +131,7 @@
 	<string name="screen_s3_settings_display_name_label">Anzeigename</string>
 	<string name="screen_s3_settings_access_key_label">Access Key</string>
 	<string name="screen_s3_settings_secret_key_label">Secret Key</string>
-	<string name="screen_s3_settings_bucket_label">Vorhandener Bucket</string>
+	<string name="screen_s3_settings_bucket_label">Bestehender Bucket</string>
 	<string name="screen_s3_settings_endpoint_label">Endpoint</string>
 	<string name="screen_s3_settings_region_label">Region</string>
 	<string name="screen_s3_settings_msg_display_name_not_empty">Der Anzeigename darf nicht leer sein</string>
@@ -226,10 +227,10 @@
 	<string name="dialog_vault_not_found_positive_button_text">Entfernen</string>
 	<string name="dialog_existing_file_title">Datei existiert bereits</string>
 	<string name="dialog_existing_file_positive_button">Ersetzen</string>
-	<string name="dialog_existing_file_message">Eine Datei namens \'%1$s\' existiert bereits.</string>
-	<string name="dialog_replace_negative_button_at_least_two_but_not_all_files_exist">Existierende überspringen</string>
+	<string name="dialog_existing_file_message">Eine Datei namens „%1$s“ existiert bereits.</string>
+	<string name="dialog_replace_negative_button_at_least_two_but_not_all_files_exist">Bestehende überspringen</string>
 	<string name="dialog_replace_positive_button_all_files_exist">Alle ersetzen</string>
-	<string name="dialog_replace_positive_button_some_files_exist">Existierende ersetzen</string>
+	<string name="dialog_replace_positive_button_some_files_exist">Bestehende ersetzen</string>
 	<string name="dialog_replace_positive_button_single_file_exists">Ersetzen</string>
 	<string name="dialog_replace_msg_single_file_exists">Eine Datei names \'%1$s\' existiert bereits. Soll diese ersetzt werden?</string>
 	<string name="dialog_replace_msg_all_files_exists">Alle Dateien existieren bereits. Sollen diese ersetzt werden?</string>
@@ -273,6 +274,9 @@
 	<string name="dialog_accept_ssl_certificate_hint">Das SSL-Zertifikat ist ungültig. Möchtest du ihm trotzdem vertrauen?</string>
 	<string name="dialog_accept_ssl_certificate_details">Details</string>
 	<string name="dialog_accept_ssl_certificate_security_checkbox">Dies könnte ein Sicherheitsrisiko sein. Ich weiß was ich tue.</string>
+	<string name="dialog_ask_ignore_battery_optimizations_title">Akkuoptimierung deaktivieren</string>
+	<string name="dialog_ask_ignore_battery_optimizations_hint">Um neue Bilder und Videos abzurufen, ohne im Hintergrund zu laufen, müssen wir die Batterieoptimierung deaktivieren. Aber keine Sorge, %1$s verbraucht nicht viel Energie.\n\nUm diese Einstellung anzuwenden, ändere \'Nicht optimiert\' auf \'Alle Apps\', wähle %1$s und wähle \"Nicht optimieren\" nach Klick auf \'%2$s\' in diesem Dialog.</string>
+	<string name="dialog_ask_ignore_battery_optimizations_checkbox">Nicht erneut fragen?</string>
 	<string name="dialog_http_security_hint">Die Verwendung von HTTP ist unsicher. Wir empfehlen stattdessen die Verwendung von HTTPS. Wenn du dir der Risiken bewusst bist, kannst du mit HTTP fortfahren.</string>
 	<string name="dialog_http_security_checkbox">Zu HTTPS ändern</string>
 	<string name="dialog_http_security_title">HTTPS nutzen?</string>
@@ -306,6 +310,7 @@
 	<string name="dialog_enter_license_title">APK-Store Lizenz</string>
 	<string name="dialog_enter_license_content">Cryptomator wurde nicht über den Google Play Store installiert; gib daher eine gültige Lizenz ein. Diese kann auf <a href="https://cryptomator.org/android/">https://cryptomator.org/android/</a> erworben werden.</string>
 	<string name="dialog_enter_license_not_valid_content">Die eingegebene Lizenz ist ungültig. Stelle sicher, dass sie korrekt eingegeben wurde.</string>
+	<string name="dialog_enter_license_not_valid_content_desktop_supporter_certificate">Der angegebene Schlüssel ist ein Desktop-Unterstützer-Zertifikat. Bitte gib eine gültige Lizenz an.</string>
 	<string name="dialog_enter_license_no_content">Keine Lizenz vorhanden. Gib eine gültige Lizenz ein.</string>
 	<string name="dialog_enter_license_decline_button">Beenden</string>
 	<string name="dialog_license_confirmation_title">Lizenzbestätigung</string>

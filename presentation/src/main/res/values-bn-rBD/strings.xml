@@ -9,7 +9,6 @@
 	<string name="error_no_network_connection">কোনো নেটওয়ার্ক সংযোগ নেই</string>
 	<string name="error_invalid_passphrase">ভুল পাসওয়ার্ড</string>
 	<string name="error_file_or_folder_exists">একটি ফাইল অথবা ফোল্ডার ইতিমধ্যে রয়েছে।</string>
-	<string name="error_vault_version_not_supported">অসমর্থিত ভোল্ট। এই ভোল্টটি ক্রিপ্টোমেটরের অন্য একটি ভার্সন দিয়ে তৈরি হয়েছিল।</string>
 	<string name="error_vault_already_exists">ভোল্টটি ইতিমধ্যে রয়েছে।</string>
 	<string name="error_no_such_file">ফাইলটি নেই।</string>
 	<string name="error_vault_has_been_locked">ভোল্টটি লক করা হয়েছে।</string>

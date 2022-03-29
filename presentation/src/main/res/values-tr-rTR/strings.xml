@@ -9,7 +9,8 @@
 	<string name="error_no_network_connection">Ağ bağlantısı yok</string>
 	<string name="error_invalid_passphrase">Şifre hatalı</string>
 	<string name="error_file_or_folder_exists">Dosya veya klasör zaten var.</string>
-	<string name="error_vault_version_not_supported">Kasa Desteklenmiyor. Bu kasa, Cryptomator\'un başka bir sürümüyle oluşturuldu.</string>
+	<string name="error_vault_version_not_supported">%1$s kasa sürümü desteklenmiyor. Bu kasa, Cryptomator\'ın daha eski veya daha yeni bir sürümüyle oluşturuldu.</string>
+	<string name="error_vault_config_file_missing_due_to_format_999">Kasa klasörünüzde %1$s dosyası eksik. Bu dosyanın buluttaki kasa klasörünüzde bulunduğundan emin olun.</string>
 	<string name="error_vault_already_exists">Kasa zaten var.</string>
 	<string name="error_no_such_file">Dosya bulunmuyor.</string>
 	<string name="error_vault_has_been_locked">Kasa kilitlendi.</string>
@@ -116,7 +117,7 @@
 	<string name="screen_cloud_connections_title">Bir yer seçin</string>
 	<string name="screen_cloud_connections_no_connections">Konum eklemek için buraya tıklayın</string>
 	<string name="screen_cloud_error_webdav_not_supported">Sunucu WebDAV uyumlu görünmüyor</string>
-	<string name="screen_cloud_local_error_no_content_provider">Kullanılabilir ek konum yok.</string>
+	<string name="screen_cloud_local_error_no_content_provider">Dizinlerin açılmasını destekleyen dosya yöneticisi bulunamadı</string>
 	<!-- ## screen: webdav settings -->
 	<string name="screen_webdav_settings_url_port_label">URL</string>
 	<string name="screen_webdav_settings_username_label">Kullanıcı adı</string>
@@ -273,6 +274,9 @@
 	<string name="dialog_accept_ssl_certificate_hint">SSL sertifikası geçersiz. Yine de güvenmek istiyor musun?</string>
 	<string name="dialog_accept_ssl_certificate_details">Detaylar</string>
 	<string name="dialog_accept_ssl_certificate_security_checkbox">Bu bir güvenlik riski olabilir! Ne yaptığımı biliyorum.</string>
+	<string name="dialog_ask_ignore_battery_optimizations_title">Pil optimizasyonlarını devre dışı bırak</string>
+	<string name="dialog_ask_ignore_battery_optimizations_hint">Arka planda çalışmadan yeni resimler ve videoları almak için pil optimizasyonlarını devre dışı bırakmanız gerekiyor. Ancak endişelenmeyin, %1$s fazla enerji tüketmez.\n\nUygulamak için \'Optimize edilmedi\'yi \'Tüm uygulamalar\' olarak değiştirin, %1$s\'yi seçin ve bu iletişim kutusunda \'%2$s\' tıkladıktan sonra \'Optimize etme\'yi seçin.</string>
+	<string name="dialog_ask_ignore_battery_optimizations_checkbox">Bir daha sorma?</string>
 	<string name="dialog_http_security_hint">HTTP\'nin kullanımı güvensizdir. Bunun yerine HTTPS kullanmanızı öneririz. Riskleri biliyorsanız, HTTP ile devam edebilirsiniz.</string>
 	<string name="dialog_http_security_checkbox">HTTPS\'ye geç</string>
 	<string name="dialog_http_security_title">HTTPS kullanılsın mı?</string>
@@ -306,6 +310,7 @@
 	<string name="dialog_enter_license_title">Geçerli bir lisans sağlayın</string>
 	<string name="dialog_enter_license_content">Cryptomator\'u Google Play Store kullanmadan yüklediğinizi tespit ettik. https://cryptomator.org/android/ adresinden satın alınabilecek geçerli bir lisans edinin lütfen.</string>
 	<string name="dialog_enter_license_not_valid_content">Sağlanan lisans geçerli değil. Doğru girdiğinizden emin olun.</string>
+	<string name="dialog_enter_license_not_valid_content_desktop_supporter_certificate">Sağlanan anahtar, bir masaüstü destek sertifikasıdır. Lütfen geçerli bir lisans girin.</string>
 	<string name="dialog_enter_license_no_content">Lisans verilmemiştir. Lütfen geçerli bir lisans girin.</string>
 	<string name="dialog_enter_license_decline_button">Çıkış</string>
 	<string name="dialog_license_confirmation_title">Lisans onayı</string>

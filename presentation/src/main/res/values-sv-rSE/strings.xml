@@ -9,7 +9,7 @@
 	<string name="error_no_network_connection">Ingen nätverksanslutning</string>
 	<string name="error_invalid_passphrase">Felaktigt lösenord</string>
 	<string name="error_file_or_folder_exists">Filen eller katalogen finns redan.</string>
-	<string name="error_vault_version_not_supported">Valvet stöds ej. Detta valv har skapats med en annan version av Cryptomator.</string>
+	<string name="error_vault_version_not_supported">Valv-version %1$s stöds inte. Detta valv har skapats med en äldre eller nyare version av Cryptomator.</string>
 	<string name="error_vault_already_exists">Valvet finns redan.</string>
 	<string name="error_no_such_file">Filen existerar inte.</string>
 	<string name="error_vault_has_been_locked">Valvet har låsts.</string>
@@ -116,7 +116,7 @@
 	<string name="screen_cloud_connections_title">Välj en plats</string>
 	<string name="screen_cloud_connections_no_connections">Klicka här för att lägga till platser</string>
 	<string name="screen_cloud_error_webdav_not_supported">Servern verkar inte vara WebDAV-kompatibel</string>
-	<string name="screen_cloud_local_error_no_content_provider">Inga ytterligare platser tillgängliga.</string>
+	<string name="screen_cloud_local_error_no_content_provider">Hittade ingen filhanterare som har stöd för att öppna kataloger</string>
 	<!-- ## screen: webdav settings -->
 	<string name="screen_webdav_settings_url_port_label">URL</string>
 	<string name="screen_webdav_settings_username_label">Användarnamn</string>
@@ -199,6 +199,7 @@
 	<string name="screen_settings_keep_unlocked_while_editing_files">Behåll olåst</string>
 	<string name="screen_settings_keep_unlocked_while_editing_files_summary">Håll valven upplåsta medan filer ändras</string>
 	<!-- ## screen: cloud settings -->
+	<string name="screen_cloud_settings_onedrive_connections">OneDrive-anslutningar</string>
 	<string name="screen_cloud_settings_webdav_connections">WebDAV-anslutningar</string>
 	<string name="screen_cloud_settings_pcloud_connections">pCloud-anslutningar</string>
 	<string name="screen_cloud_settings_s3_connections">S3 anslutningar</string>
@@ -372,6 +373,7 @@
 	<string name="notification_open_writable_file_title">Öppna skrivbar fil</string>
 	<string name="notification_open_writable_file_message">Valvet är upplåst till färdig redigering</string>
 	<string name="notification_update_check_finished_latest">Senaste versionen installerad</string>
+	<string name="notification_authenticating">Autentiserar&#8230;</string>
 	<string name="screen_settings_lru_cache">Cache</string>
 	<string name="screen_settings_lru_cache_toggle_summary">Cachen har nyligen kommit åt filer krypterade lokalt på enheten för senare återanvändning när de öppnas igen</string>
 	<string name="screen_settings_lru_cache_size">Total cachestorlek</string>

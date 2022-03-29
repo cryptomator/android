@@ -9,7 +9,6 @@
 	<string name="error_no_network_connection">Nu există conexiune la rețea</string>
 	<string name="error_invalid_passphrase">Parolă greşită</string>
 	<string name="error_file_or_folder_exists">Un fișier sau dosar există deja.</string>
-	<string name="error_vault_version_not_supported">Seif nesuportat. Acest seif a fost creat cu o altă versiune de Cryptomator.</string>
 	<string name="error_vault_already_exists">Seiful există deja.</string>
 	<string name="error_no_such_file">Fișierul nu există.</string>
 	<string name="error_vault_has_been_locked">Seiful a fost blocat.</string>
@@ -111,7 +110,6 @@
 	<string name="screen_cloud_connections_title">Alegeți o locație</string>
 	<string name="screen_cloud_connections_no_connections">Faceți clic aici pentru a adăuga locații</string>
 	<string name="screen_cloud_error_webdav_not_supported">Serverul nu pare să fie compatibil cu WebDAV</string>
-	<string name="screen_cloud_local_error_no_content_provider">Nu există locații suplimentare disponibile.</string>
 	<!-- ## screen: webdav settings -->
 	<string name="screen_webdav_settings_url_port_label">Adresa URL</string>
 	<string name="screen_webdav_settings_username_label">Nume de utilizator</string>

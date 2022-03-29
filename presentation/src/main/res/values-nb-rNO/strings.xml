@@ -9,7 +9,6 @@
 	<string name="error_no_network_connection">Ingen nettverkstilkobling</string>
 	<string name="error_invalid_passphrase">Feil passord</string>
 	<string name="error_file_or_folder_exists">En fil eller mappe finnes allerede.</string>
-	<string name="error_vault_version_not_supported">Hvelvet støttes ikke. Dette hvelvet er laget med en annen versjon av Cryptomator.</string>
 	<string name="error_vault_already_exists">Hvelvet finnes allerede.</string>
 	<string name="error_no_such_file">Filen finnes ikke.</string>
 	<string name="error_vault_has_been_locked">Hvelvet har blitt låst.</string>
@@ -77,6 +76,7 @@
 	<string name="screen_file_browser_node_action_open_with_text">Åpne med&#8230;</string>
 	<string name="screen_file_browser_selection_mode_title_zero_elements">Velg elementer</string>
 	<string name="screen_file_browser_selection_mode_title_one_or_more_elements">%1$d valgt</string>
+	<string name="screen_file_browser_select_items">Velg</string>
 	<string name="screen_file_browser_select_all_items">Velg alle</string>
 	<string name="screen_file_browser_refresh_items">Oppdater</string>
 	<string name="screen_file_browser_no_connection_message">Ingen forbindelse</string>
@@ -89,6 +89,7 @@
 	<string name="screen_share_files_content_file">fil</string>
 	<string name="screen_share_files_content_files">filer</string>
 	<string name="screen_share_files_msg_filenames_must_be_unique">Filnavnene må være unike, velg nye navn på duplikatene.</string>
+	<string name="screen_share_files_section_location">Lagringssted</string>
 	<string name="screen_share_files_save_button_text">Lagre</string>
 	<string name="screen_share_files_msg_success">Kryptering fullført</string>
 	<!-- ## screen: choose cloud service -->
@@ -145,8 +146,10 @@
 	<string name="screen_cloud_settings_webdav_connections">WebDAV-tilkoblinger</string>
 	<string name="screen_cloud_settings_pcloud_connections">pCloud-tilkoblinger</string>
 	<string name="screen_cloud_settings_log_in_to">Logg inn i</string>
+	<string name="screen_cloud_settings_sign_out_from_cloud">Logg ut fra</string>
 	<!-- ## screen: licenses -->
 	<!-- ## screen: authenticate cloud -->
+	<string name="screen_authenticate_auth_authentication_failed">%1$s kunne ikke autentiseres.</string>
 	<!-- ## screen: insecure android version info -->
 	<!-- # dialogs -->
 	<string name="dialog_button_cancel">Avbryt</string>
@@ -157,11 +160,35 @@
 	<string name="dialog_change_password_msg_old_password_empty">Feltet for gjeldende passord kan ikke være tomt.</string>
 	<string name="dialog_change_password_msg_new_password_empty">Feltet for nytt passordet kan ikke være tomt.</string>
 	<!-- Vault not found -->
+	<string name="dialog_vault_not_found_title">Hvelvet %1$s ble ikke funnet</string>
 	<string name="dialog_vault_not_found_positive_button_text">Fjern</string>
 	<string name="dialog_existing_file_title">Filen finnes allerede</string>
 	<string name="dialog_existing_file_positive_button">Erstatt</string>
 	<string name="dialog_replace_positive_button_all_files_exist">Erstatt alle</string>
 	<string name="dialog_replace_positive_button_single_file_exists">Erstatt</string>
+	<string name="dialog_replace_title_single_file_exists">Erstatt fil?</string>
+	<string name="dialog_replace_title_multiple_files_exist">Erstatt filene?</string>
+	<string name="dialog_unable_to_share_title">Kunne ikke dele filene</string>
+	<string name="dialog_unable_to_share_positive_button">Ok</string>
+	<string name="dialog_unable_to_share_negative_button">Opprett hvelv</string>
+	<string name="dialog_filetype_not_supported_title">Kan ikke åpne %1$s</string>
+	<string name="dialog_rename_vault_title">Endre navn på hvelvet</string>
+	<string name="dialog_rename_node_folder_title">Endre mappenavn</string>
+	<string name="dialog_rename_node_file_title">Endre filnavn</string>
+	<string name="dialog_unsaved_changes_title">Du har ulagrede endringer</string>
+	<string name="dialog_unsaved_changes_message">Vil du virkelig avslutte uten å lagre?</string>
+	<string name="dialog_unsaved_changes_discard">Forkast</string>
+	<string name="dialog_file_name_placeholder">tekst.txt</string>
+	<string name="dialog_delete_vault_message">Er du sikker på at du vil fjerne dette hvelvet?</string>
+	<string name="dialog_delete_vault_hint">Denne handlingen vil bare fjerne hvelvet fra denne listen og ikke slette det fysisk.</string>
+	<string name="dialog_upload_file_title">Laster opp&#8230;</string>
+	<string name="dialog_upload_file_remaining">Fil %1$d av %2$d</string>
+	<string name="dialog_export_file_title">Eksporterer (%1$d/%2$d)</string>
+	<string name="dialog_progress_please_wait">Vent litt&#8230;</string>
+	<string name="dialog_progress_creating_folder">Oppretter mappe&#8230;</string>
+	<string name="dialog_progress_creating_text_file">Oppretter tekstfil&#8230;</string>
+	<string name="action_progress_deleting">Sletter&#8230;</string>
+	<string name="dialog_progress_upload_file">Laster opp&#8230;</string>
 	<string name="dialog_lock_vault">Lås</string>
 	<string name="dialog_app_is_obscured_info_neutral_button">Lukk</string>
 	<string name="dialog_delete_cloud_connection_with_vaults_message">Er du sikker på at du vil fjerne denne skylagringstilkoblingen?</string>

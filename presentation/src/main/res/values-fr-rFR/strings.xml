@@ -9,7 +9,8 @@
 	<string name="error_no_network_connection">Pas de connexion au réseau</string>
 	<string name="error_invalid_passphrase">Mot de passe erroné</string>
 	<string name="error_file_or_folder_exists">Un fichier ou un dossier existe déjà.</string>
-	<string name="error_vault_version_not_supported">Coffre-fort non prise en charge. Ce coffre a été créée avec une autre version de Cryptomator.</string>
+	<string name="error_vault_version_not_supported">La version du coffre %1$s n\'est pas prise en charge. Ce coffre a été créé avec une version plus ancienne ou plus récente de Cryptomator.</string>
+	<string name="error_vault_config_file_missing_due_to_format_999">Le fichier %1$s est manquant dans le dossier contenant votre coffre. Assurez-vous que ce fichier existe dans le dossier contenant votre coffre dans le cloud.</string>
 	<string name="error_vault_already_exists">Le coffre-fort existe déjà.</string>
 	<string name="error_no_such_file">Le fichier n\'existe pas.</string>
 	<string name="error_vault_has_been_locked">Le coffre-fort a été verrouillé.</string>
@@ -116,7 +117,7 @@
 	<string name="screen_cloud_connections_title">Choisissez l\'emplacement</string>
 	<string name="screen_cloud_connections_no_connections">Cliquez ici pour ajouter des emplacements</string>
 	<string name="screen_cloud_error_webdav_not_supported">Le serveur ne semble pas compatible avec WebDAV</string>
-	<string name="screen_cloud_local_error_no_content_provider">Aucun emplacement supplémentaire disponible.</string>
+	<string name="screen_cloud_local_error_no_content_provider">Aucun gestionnaire de fichiers trouvé qui supporte l\'ouverture des répertoires</string>
 	<!-- ## screen: webdav settings -->
 	<string name="screen_webdav_settings_url_port_label">URL</string>
 	<string name="screen_webdav_settings_username_label">Nom d\'utilisateur</string>
@@ -273,6 +274,9 @@
 	<string name="dialog_accept_ssl_certificate_hint">Le certificat SSL n\'est pas valide. Vous voulez quand même lui faire confiance?</string>
 	<string name="dialog_accept_ssl_certificate_details">Détails</string>
 	<string name="dialog_accept_ssl_certificate_security_checkbox">Cela pourrait constituer un risque pour la sécurité. Je sais ce que je fais.</string>
+	<string name="dialog_ask_ignore_battery_optimizations_title">Désactiver les optimisations de la batterie</string>
+	<string name="dialog_ask_ignore_battery_optimizations_hint">Pour récupérer les nouvelles photos et vidéos sans que l\'application fonctionne en arrière-plan, nous devons désactiver l\'optimisation de la batterie. Mais ne vous inquiétez pas, %1$s ne consomme pas beaucoup d\'énergie.\n\nPour l\'appliquer, remplacez \"Non optimisé\" par \"Toutes les applications\", sélectionnez %1$s et choisissez \"Ne pas optimiser\" après avoir cliqué sur \"%2$s\" dans cette boîte de dialogue.</string>
+	<string name="dialog_ask_ignore_battery_optimizations_checkbox">Ne plus demander ?</string>
 	<string name="dialog_http_security_hint">L\'utilisation du HTTP n\'est pas sûre. Nous recommandons d\'utiliser plutôt le HTTPS. Si vous connaissez les risques, vous pouvez continuer à utiliser HTTP.</string>
 	<string name="dialog_http_security_checkbox">Passage au HTTPS</string>
 	<string name="dialog_http_security_title">Utiliser le HTTPS?</string>
@@ -306,6 +310,7 @@
 	<string name="dialog_enter_license_title">Fournir une licence valide</string>
 	<string name="dialog_enter_license_content">Nous avons détecté que vous avez installé Cryptomator sans utiliser le Play Store de Google. Fournissez une licence valide, qui peut être achetée sur <a href="https://cryptomator.org/android/">https://cryptomator.org/android/</a></string>
 	<string name="dialog_enter_license_not_valid_content">La licence fournie n\'est pas valide. Vérifiez que vous l\'avez saisie correctement.</string>
+	<string name="dialog_enter_license_not_valid_content_desktop_supporter_certificate">La clé fournie est un certificat de participation pour la version ordinateur. Merci d\'entrer une licence valide.</string>
 	<string name="dialog_enter_license_no_content">Aucune licence n\'est fournie. Veuillez saisir une licence valide.</string>
 	<string name="dialog_enter_license_decline_button">Sortie</string>
 	<string name="dialog_license_confirmation_title">Confirmation de la licence</string>
