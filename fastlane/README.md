@@ -85,7 +85,7 @@ Create GitHub draft release
 [bundle exec] fastlane android dryRun
 ```
 
-Dry run - check trackin added for all flavors
+Dry run - check tracking added for all flavors
 
 ----
 
