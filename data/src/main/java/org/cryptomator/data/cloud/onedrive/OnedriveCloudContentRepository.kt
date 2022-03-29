@@ -4,7 +4,7 @@ import android.content.Context
 import com.microsoft.graph.core.GraphErrorCodes
 import com.microsoft.graph.http.GraphServiceException
 import com.microsoft.graph.requests.GraphServiceClient
-import com.microsoft.identity.common.exception.ClientException
+import com.microsoft.identity.common.java.exception.ClientException
 import org.cryptomator.data.cloud.InterceptingCloudContentRepository
 import org.cryptomator.domain.OnedriveCloud
 import org.cryptomator.domain.exception.BackendException
