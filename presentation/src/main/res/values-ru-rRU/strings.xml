@@ -15,11 +15,11 @@
 	<string name="error_no_such_file">Файл не существует.</string>
 	<string name="error_vault_has_been_locked">Хранилище заблокировано.</string>
 	<string name="error_cloud_already_exists">Облако уже существует.</string>
-	<string name="error_activity_not_found">Пожалуйста, скачайте приложение, которое может открыть этот файл.</string>
+	<string name="error_activity_not_found">Скачайте приложение, которое может открыть этот файл.</string>
 	<string name="error_server_not_found">Сервер не найден.</string>
 	<string name="error_device_policy_manager_not_found">Откройте настройки устройства и установите блокировку экрана вручную</string>
-	<string name="error_export_illegal_file_name">Не удалось экспортировать. Попробуйте удалить специальные символы из имен файлов и экспортировать снова.</string>
-	<string name="error_name_contains_invalid_characters">Не может содержать специальные символы.</string>
+	<string name="error_export_illegal_file_name">Ошибка экспорта. Попробуйте удалить спецсимволы из имён файлов и экспортировать снова.</string>
+	<string name="error_name_contains_invalid_characters">Не может содержать спецсимволы.</string>
 	<string name="error_names_contains_invalid_characters">В имени файла не может быть спецсимволов.</string>
 	<string name="error_vault_name_contains_invalid_characters">В имени хранилища не может быть спецсимволов.</string>
 	<string name="error_general_update">Не удалось проверить наличие обновления. Общая ошибка.</string>
@@ -33,7 +33,7 @@
 	<string name="error_vault_config_loading">Общая ошибка при загрузке конфигурации хранилища</string>
 	<string name="error_file_not_found_after_opening_using_3party">Локальный файл больше не существует после переключения на Cryptomator. Возможные изменения не могут быть переданы обратно в облако.</string>
 	<string name="error_no_such_bucket">Нет такого бакета</string>
-	<string name="error_masterkey_location_not_supported">Произвольное расположение Masterkey пока поддерживается</string>
+	<string name="error_masterkey_location_not_supported">Произвольное расположение Masterkey пока не поддерживается</string>
 	<!-- # clouds -->
 	<!-- ## cloud names -->
 	<string name="cloud_names_local_storage">Локальное хранилище</string>
@@ -65,7 +65,7 @@
 	<!-- # screen: file browser -->
 	<string name="screen_file_browser_default_title">Хранилище</string>
 	<string name="screen_file_browser_add_existing_vault_extra_text">Выберите файл Masterkey</string>
-	<string name="screen_file_browser_create_new_vault_button_text">Поместить здесь</string>
+	<string name="screen_file_browser_create_new_vault_button_text">Поместить сюда</string>
 	<string name="screen_file_browser_create_new_vault_extra_text">Имя хранилища: %1$s</string>
 	<plurals name="screen_file_browser_subtitle_move">
 		<item quantity="one">Переместить %1$s в</item>
@@ -83,7 +83,7 @@
 	<string name="screen_file_browser_actions_title">Добавить в %1$s</string>
 	<string name="screen_file_browser_action_create_folder">Создать папку</string>
 	<string name="screen_file_browser_action_create_new_text_file">Создать текстовый файл</string>
-	<string name="screen_file_browser_action_upload_files">Загрузить файлы</string>
+	<string name="screen_file_browser_action_upload_files">Отправить файлы</string>
 	<string name="screen_file_browser_upload_files_chooser_title">Файлы</string>
 	<string name="screen_file_browser_msg_file_exported">Файл экспортирован</string>
 	<string name="screen_file_browser_msg_files_exported">Файлы экспортированы</string>
@@ -116,7 +116,7 @@
 	<!-- ## screen: choose cloud service -->
 	<string name="screen_choose_cloud_service_title">Облачные сервисы</string>
 	<!-- ## screen: cloud connections -->
-	<string name="screen_cloud_connections_title">Выберите местоположение</string>
+	<string name="screen_cloud_connections_title">Выберите место</string>
 	<string name="screen_cloud_connections_no_connections">Нажмите, чтобы добавить места</string>
 	<string name="screen_cloud_error_webdav_not_supported">Похоже, сервер не совместим с WebDAV</string>
 	<string name="screen_cloud_local_error_no_content_provider">Не найден файловый менеджер, поддерживающий открытие папок</string>
@@ -127,7 +127,7 @@
 	<string name="screen_webdav_settings_done_button_text">Подключиться</string>
 	<string name="screen_webdav_settings_msg_url_must_not_be_empty">URL не может быть пустым.</string>
 	<string name="screen_webdav_settings_msg_url_is_invalid">Некорректный URL.</string>
-	<string name="screen_webdav_settings_msg_username_must_not_be_empty">Имя пользователя не может быть пустым.</string>
+	<string name="screen_webdav_settings_msg_username_must_not_be_empty">Логин не может быть пустым.</string>
 	<string name="screen_webdav_settings_msg_password_must_not_be_empty">Пароль не может быть пустым.</string>
 	<!-- ## screen: s3 settings -->
 	<string name="screen_s3_settings_display_name_label">Отображаемое имя</string>
@@ -149,7 +149,7 @@
 	<string name="screen_set_password_title">Установить пароль</string>
 	<string name="screen_set_password_msg_password_mismatch">Пароли не совпадают.</string>
 	<string name="screen_set_password_button_text">Готово</string>
-	<string name="screen_set_password_hint">ВАЖНО: Если вы забыли пароль, восстановить данные невозможно.</string>
+	<string name="screen_set_password_hint">ВАЖНО: Если вы забудете пароль, то не сможете восстановить данные.</string>
 	<string name="screen_set_password_retype_password_label">Введите пароль ещё раз</string>
 	<string name="screen_set_password_strength_indicator_0">Слишком слабый для создания хранилища</string>
 	<string name="screen_set_password_strength_indicator_1">Слабый</string>
@@ -371,18 +371,18 @@
 	<string name="notification_auto_upload_title">Выполняется автозагрузка фото</string>
 	<string name="notification_auto_upload_message">Загрузка %1d/%2d</string>
 	<string name="notification_auto_upload_finished_title">Автозагрузка фото завершена</string>
-	<string name="notification_auto_upload_finished_message">Загружено в хранилище изображений: %1$d</string>
-	<string name="notification_auto_upload_failed_title">Ошибка автозагрузки фото</string>
-	<string name="notification_auto_upload_failed_general_error">Ошибка при загрузке.</string>
-	<string name="notification_auto_upload_failed_due_to_folder_not_exists">Выбранная папка для загрузки больше недоступна. Перейдите в настройки и выберите новую папку</string>
-	<string name="notification_auto_upload_failed_due_to_vault_locked">Хранилище заблокировано во время загрузки, откройте хранилище снова, чтобы продолжить</string>
+	<string name="notification_auto_upload_finished_message">Загружено изображений в хранилище: %1$d</string>
+	<string name="notification_auto_upload_failed_title">Ошибка автоотправки фото</string>
+	<string name="notification_auto_upload_failed_general_error">Ошибка при отправке.</string>
+	<string name="notification_auto_upload_failed_due_to_folder_not_exists">Выбранная папка для отправки больше недоступна. Перейдите в настройки и выберите новую папку</string>
+	<string name="notification_auto_upload_failed_due_to_vault_locked">Хранилище заблокировано во время отправки; откройте хранилище снова, чтобы продолжить</string>
 	<string name="notification_auto_upload_failed_due_to_vault_not_found">Хранилище, выбранное для автозагрузки, больше не существует.</string>
 	<string name="notification_open_writable_file_title">Открыть файл, доступный для записи</string>
 	<string name="notification_open_writable_file_message">Хранилище разблокировано до завершения редактирования</string>
 	<string name="notification_update_check_finished_latest">Установлена новейшая версия</string>
 	<string name="notification_authenticating">Аутентификация&#8230;</string>
 	<string name="screen_settings_lru_cache">Кэш</string>
-	<string name="screen_settings_lru_cache_toggle_summary">Кэшировать зашифрованные локально на устройстве файлы, к которым недавно был доступ, для последующего использования при повторном открытии</string>
+	<string name="screen_settings_lru_cache_toggle_summary">Кэшировать файлы, зашифрованные локально на устройстве, к которым недавно был доступ, для последующего использования при повторном открытии</string>
 	<string name="screen_settings_lru_cache_size">Общий размер кэша</string>
 	<string name="screen_settings_clear_lru_cache_size">Очистить кэш</string>
 	<string name="screen_settings_lru_cache_changed__restart_toast">Изменения будут применены при следующем перезапуске приложения</string>
