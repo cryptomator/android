@@ -47,7 +47,7 @@
 	<!-- # screens -->
 	<!-- # screen: vault list -->
 	<string name="screen_vault_list_actions_title">Legg til i Cryptomator</string>
-	<string name="screen_vault_list_action_create_new_vault">Lag et nytt hvelv</string>
+	<string name="screen_vault_list_action_create_new_vault">Opprett et nytt hvelv</string>
 	<string name="screen_vault_list_action_add_existing_vault">Legg til et eksisterende hvelv</string>
 	<string name="screen_vault_list_vault_action_delete">Fjern</string>
 	<string name="screen_vault_list_vault_creation_hint">Klikk her for å lage et nytt hvelv</string>
