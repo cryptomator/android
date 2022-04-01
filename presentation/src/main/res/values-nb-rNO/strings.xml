@@ -95,6 +95,7 @@
 	<!-- ## screen: choose cloud service -->
 	<string name="screen_choose_cloud_service_title">Skylagringstjeneste</string>
 	<!-- ## screen: cloud connections -->
+	<string name="screen_cloud_error_webdav_not_supported">Serveren ser ikke ut til å være WebDAV-kompatibel</string>
 	<!-- ## screen: webdav settings -->
 	<string name="screen_webdav_settings_url_port_label">URL</string>
 	<string name="screen_webdav_settings_username_label">Brukernavn</string>
@@ -206,7 +207,7 @@
 	<string name="screen_settings_lru_cache_size">Total hurtigminnestørrelse</string>
 	<string name="screen_settings_clear_lru_cache_size">Tøm hurtigminnet</string>
 	<string name="screen_settings_lru_cache_changed__restart_toast">Endringer vil bli tatt i bruk ved neste omstart av appen</string>
-	<string name="dialog_cache_size_title">Hurtigminnestørrelse per sky</string>
+	<string name="dialog_cache_size_title">Hurtigminnestørrelse per skytjeneste</string>
 	<!-- lock timeout names -->
 	<!-- cache size names -->
 	<string name="cache_size_50m">50 MB</string>
