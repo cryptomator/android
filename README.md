@@ -29,11 +29,11 @@ git submodule init && git submodule update // (not necessary if cloned using --r
 ./gradlew assembleApkstoreDebug
 ```
 
-Before connecting to OneDrive or Dropbox you have to provide valid API keys using environment variables:   
+Before connecting to Dropbox, OneDrive or pCloud you have to provide valid API keys using environment variables:
 For build type
 
-* **release**: `DROPBOX_API_KEY` or `ONEDRIVE_API_KEY` and  `ONEDRIVE_API_REDIRCT_URI`
-* **debug**: `DROPBOX_API_KEY_DEBUG` or `ONEDRIVE_API_KEY_DEBUG` and `ONEDRIVE_API_REDIRCT_URI_DEBUG`
+* **release**: `DROPBOX_API_KEY`, `ONEDRIVE_API_KEY` and  `ONEDRIVE_API_REDIRCT_URI` or `PCLOUD_CLIENT_ID`
+* **debug**: `DROPBOX_API_KEY_DEBUG`, `ONEDRIVE_API_KEY_DEBUG` and `ONEDRIVE_API_REDIRCT_URI_DEBUG` or `PCLOUD_CLIENT_ID_DEBUG`
 
 Before connecting to Google Drive you have to create a new project in [Google Cloud Platform](https://console.cloud.google.com) with Google Drive API, credentials including Google Drive scopes (read, write, delete,..) and the fingerprint of the key you use to build the app.
 
