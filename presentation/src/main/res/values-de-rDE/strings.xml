@@ -96,7 +96,7 @@
 	<string name="screen_file_browser_selection_mode_title_zero_elements">Elemente auswählen</string>
 	<string name="screen_file_browser_selection_mode_title_one_or_more_elements">%1$d ausgewählt</string>
 	<string name="screen_file_browser_select_items">Auswählen</string>
-	<string name="screen_file_browser_select_all_items">Alle Elemente auswählen</string>
+	<string name="screen_file_browser_select_all_items">Alle auswählen</string>
 	<string name="screen_file_browser_refresh_items">Aktualisieren</string>
 	<string name="screen_file_browser_no_connection_message">Keine Verbindung</string>
 	<string name="screen_file_browser_no_connection_button_text">Wiederholen</string>
@@ -153,7 +153,7 @@
 	<string name="screen_set_password_strength_indicator_1">Schwach</string>
 	<string name="screen_set_password_strength_indicator_2">Mittel</string>
 	<string name="screen_set_password_strength_indicator_3">Stark</string>
-	<string name="screen_set_password_strength_indicator_4">Sehr Stark</string>
+	<string name="screen_set_password_strength_indicator_4">Sehr stark</string>
 	<!-- ## screen: settings -->
 	<string name="screen_settings_section_general">Allgemein</string>
 	<string name="screen_settings_cloud_settings_label">Cloud-Dienste</string>
@@ -232,7 +232,7 @@
 	<string name="dialog_replace_positive_button_all_files_exist">Alle ersetzen</string>
 	<string name="dialog_replace_positive_button_some_files_exist">Bestehende ersetzen</string>
 	<string name="dialog_replace_positive_button_single_file_exists">Ersetzen</string>
-	<string name="dialog_replace_msg_single_file_exists">Eine Datei names \'%1$s\' existiert bereits. Soll diese ersetzt werden?</string>
+	<string name="dialog_replace_msg_single_file_exists">Eine Datei namens „%1$s“ existiert bereits. Soll sie ersetzt werden?</string>
 	<string name="dialog_replace_msg_all_files_exists">Alle Dateien existieren bereits. Sollen diese ersetzt werden?</string>
 	<string name="dialog_replace_msg_some_files_exists">%1$d Dateien existieren bereits. Sollen diese ersetzt werden?</string>
 	<string name="dialog_replace_title_single_file_exists">Datei ersetzen?</string>
