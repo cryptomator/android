@@ -10,6 +10,7 @@
 	<!-- # screens -->
 	<!-- # screen: vault list -->
 	<!-- # screen: file browser -->
+	<string name="screen_file_browser_default_title">Trezor</string>
 	<!-- ## screen: text editor -->
 	<!-- ## screen: share files -->
 	<!-- ## screen: choose cloud service -->
@@ -26,7 +27,9 @@
 	<!-- ## screen: insecure android version info -->
 	<!-- # dialogs -->
 	<string name="dialog_button_cancel">Odustani</string>
+	<string name="dialog_enter_password_positive_button">Otključaj</string>
 	<!-- Vault not found -->
+	<string name="dialog_lock_vault">Zaključaj</string>
 	<string name="dialog_app_is_obscured_info_neutral_button">Zatvori</string>
 	<string name="dialog_sym_link_back_button">Nazad</string>
 	<!-- # error reports -->
