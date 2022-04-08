@@ -79,7 +79,7 @@
 	<string name="screen_file_browser_share_intent_chooser_title">Поделиться с</string>
 	<string name="screen_file_browser_share_destination_title">Выберите место назначения</string>
 	<string name="screen_file_browser_share_button_text">Выбрать</string>
-	<string name="screen_file_browser_nothing_to_share">Нечем делиться</string>
+	<string name="screen_file_browser_nothing_to_share">Нечем поделиться</string>
 	<string name="screen_file_browser_actions_title">Добавить в %1$s</string>
 	<string name="screen_file_browser_action_create_folder">Создать папку</string>
 	<string name="screen_file_browser_action_create_new_text_file">Создать текстовый файл</string>
@@ -109,12 +109,12 @@
 	<string name="screen_share_files_content_text">текст</string>
 	<string name="screen_share_files_content_file">файл</string>
 	<string name="screen_share_files_content_files">файлы</string>
-	<string name="screen_share_files_msg_filenames_must_be_unique">Имена файлов должны быть уникальными. Переименуйте дубликаты.</string>
+	<string name="screen_share_files_msg_filenames_must_be_unique">Имена файлов должны быть уникальными, пожалуйста, переименуйте дубликаты.</string>
 	<string name="screen_share_files_section_location">Место сохранения</string>
 	<string name="screen_share_files_save_button_text">Сохранить</string>
 	<string name="screen_share_files_msg_success">Шифрование завершено</string>
 	<!-- ## screen: choose cloud service -->
-	<string name="screen_choose_cloud_service_title">Облачные сервисы</string>
+	<string name="screen_choose_cloud_service_title">Облачный сервис</string>
 	<!-- ## screen: cloud connections -->
 	<string name="screen_cloud_connections_title">Выберите место</string>
 	<string name="screen_cloud_connections_no_connections">Нажмите, чтобы добавить места</string>
@@ -127,16 +127,16 @@
 	<string name="screen_webdav_settings_done_button_text">Подключиться</string>
 	<string name="screen_webdav_settings_msg_url_must_not_be_empty">URL не может быть пустым.</string>
 	<string name="screen_webdav_settings_msg_url_is_invalid">Некорректный URL.</string>
-	<string name="screen_webdav_settings_msg_username_must_not_be_empty">Логин не может быть пустым.</string>
+	<string name="screen_webdav_settings_msg_username_must_not_be_empty">Имя пользователя не может быть пустым.</string>
 	<string name="screen_webdav_settings_msg_password_must_not_be_empty">Пароль не может быть пустым.</string>
 	<!-- ## screen: s3 settings -->
 	<string name="screen_s3_settings_display_name_label">Отображаемое имя</string>
 	<string name="screen_s3_settings_access_key_label">Ключ доступа</string>
 	<string name="screen_s3_settings_secret_key_label">Секретный ключ</string>
-	<string name="screen_s3_settings_bucket_label">Имеющийся бакет</string>
+	<string name="screen_s3_settings_bucket_label">Существующий бакет</string>
 	<string name="screen_s3_settings_endpoint_label">Конечная точка</string>
-	<string name="screen_s3_settings_region_label">Область</string>
-	<string name="screen_s3_settings_msg_display_name_not_empty">Отображаемое имя не может быть пустым</string>
+	<string name="screen_s3_settings_region_label">Регион</string>
+	<string name="screen_s3_settings_msg_display_name_not_empty">Отображаемое Имя не может быть пустым</string>
 	<string name="screen_s3_settings_msg_access_key_not_empty">Ключ доступа не может быть пустым</string>
 	<string name="screen_s3_settings_msg_secret_key_not_empty">Секретный ключ не может быть пустым</string>
 	<string name="screen_s3_settings_msg_bucket_not_empty">Бакет не может быть пустым</string>
