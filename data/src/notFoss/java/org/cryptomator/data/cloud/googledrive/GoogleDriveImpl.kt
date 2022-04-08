@@ -56,7 +56,7 @@ internal class GoogleDriveImpl(context: Context, googleDriveCloud: GoogleDriveCl
 
 	@Throws(IOException::class)
 	private fun findFile(parentDriveId: String?, name: String): File? {
-		val fileListQuery = client().files().list().setFields("files(id,mimeType,name,size,shortcutDetails)")
+		val fileListQuery = client().files().list().setFields("files(id,mimeType,name,size,shortcutDetails)").setSupportsAllDrives(true).setIncludeItemsFromAllDrives(true)
 		fileListQuery.q = "name contains '$name' and '$parentDriveId' in parents and trashed = false"
 		return fileListQuery.execute().files.firstOrNull { it.name == name }
 	}
@@ -131,6 +131,8 @@ internal class GoogleDriveImpl(context: Context, googleDriveCloud: GoogleDriveCl
 				.setFields("nextPageToken,files(id,mimeType,modifiedTime,name,size,shortcutDetails)") //
 				.setPageSize(1000) //
 				.setPageToken(pageToken)
+				.setSupportsAllDrives(true)
+				.setIncludeItemsFromAllDrives(true)
 			fileListQuery.q = "'" + folder.driveId + "' in parents and trashed = false"
 			val fileList = fileListQuery.execute()
 			for (file in fileList.files) {
@@ -160,6 +162,7 @@ internal class GoogleDriveImpl(context: Context, googleDriveCloud: GoogleDriveCl
 				.files() //
 				.create(metadata) //
 				.setFields("id,name") //
+				.setSupportsAllDrives(true) //
 				.execute()
 			return idCache.cache(GoogleDriveCloudNodeFactory.folder(parentFolder, createdFolder))
 		} ?: throw ParentFolderIsNullException(folder.name)
@@ -181,6 +184,7 @@ internal class GoogleDriveImpl(context: Context, googleDriveCloud: GoogleDriveCl
 					.setFields("id,mimeType,modifiedTime,name,size") //
 					.setAddParents(targetsParent.driveId) //
 					.setRemoveParents(sourcesParent.driveId)  //
+					.setSupportsAllDrives(true) //
 					.execute()
 				idCache.remove(source)
 				return idCache.cache(GoogleDriveCloudNodeFactory.from(targetsParent, movedFile))
@@ -224,6 +228,7 @@ internal class GoogleDriveImpl(context: Context, googleDriveCloud: GoogleDriveCl
 					.files() //
 					.update(file.driveId, metadata, it) //
 					.setFields("id,modifiedTime,name,size") //
+					.setSupportsAllDrives(true) //
 					.execute()
 			}
 		}
@@ -246,6 +251,7 @@ internal class GoogleDriveImpl(context: Context, googleDriveCloud: GoogleDriveCl
 					.files() //
 					.create(metadata, it) //
 					.setFields("id,modifiedTime,name,size") //
+					.setSupportsAllDrives(true) //
 					.execute()
 			}
 		}
@@ -316,6 +322,7 @@ internal class GoogleDriveImpl(context: Context, googleDriveCloud: GoogleDriveCl
 				client() //
 					.files()[file.driveId] //
 					.setAlt("media") //
+					.setSupportsAllDrives(true) //
 					.executeMediaAndDownloadTo(it)
 			}
 		} catch (e: HttpResponseException) {
@@ -373,7 +380,7 @@ internal class GoogleDriveImpl(context: Context, googleDriveCloud: GoogleDriveCl
 
 	@Throws(IOException::class)
 	fun delete(node: GoogleDriveNode) {
-		client().files().delete(node.driveId).execute()
+		client().files().delete(node.driveId).setSupportsAllDrives(true).execute()
 		idCache.remove(node)
 	}
 
