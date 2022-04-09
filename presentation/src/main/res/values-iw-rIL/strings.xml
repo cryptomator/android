@@ -277,10 +277,12 @@
 	<string name="dialog_no_screen_lock_title">הגדר נעילת מסך?</string>
 	<string name="dialog_no_screen_lock_checkbox">הגדר נעילת מסך</string>
 	<string name="dialog_no_biometric_auth_set_up_title">לא הוגדר אימות בסיסי במערכת</string>
+	<string name="dialog_no_biometric_auth_set_up_message">בכדי להשתמש בשירות זה חייבת להיות מוגדרת לפחות זיהוי ביומטרי אחד של אצבע/פנים.</string>
 	<string name="dialog_debug_mode_disclaimer_title">שים לב</string>
 	<string name="dialog_debug_mode_positive_button">הפעל</string>
 	<string name="dialog_disable_app_obscured_disclaimer_title">שים לב</string>
 	<string name="dialog_disable_app_obscured_positive_button">כבה</string>
+	<string name="dialog_app_is_obscured_info_title">אפליקציה אחרת מציגה מעל Cryptomator</string>
 	<string name="dialog_app_is_obscured_info_hint">אפליקציה אחרת מציגה משהו מעל Cryptomator (לדוגמה, אפליקציית סינון אור כחול למצב לילה). מטעמי אבטחה, Cryptomator ייסגר עכשיו.\n\n<a href="https://docs.cryptomator.org/en/1.5/android/settings/#block-app-when-obscured">איך להפעיל את Cryptomator</a></string>
 	<string name="dialog_app_is_obscured_info_neutral_button">סגור</string>
 	<string name="dialog_confirm_delete_multiple_title">למחוק %1$d פריטים?</string>
@@ -307,6 +309,7 @@
 	<string name="dialog_sym_link_back_button">חזור</string>
 	<string name="dialog_no_dir_file_title">טעינת תיקייה זו נכשלה</string>
 	<string name="dialog_no_more_images_to_display">אין עוד תמונות להציג&#8230;</string>
+	<string name="dialog_pcloud_credentials_updated_title">פרטי ההתחברות של \'%1$s\' עודכנו</string>
 	<string name="dialog_pcloud_credentials_updated">אם ברצונך להוסיף משתמש pCloud נוסף, לחץ על הקישור <a href="https://www.pcloud.com">www.pcloud.com</a>, התנתק מהמשתמש הנוכחי ולחץ על ה \'+\' באפליקצייה כדי להוסיף חיבור חדש.</string>
 	<string name="permission_snackbar_auth_local_vault">Cryptomator זקוק להרשאת גישה לזיכרון המכשיר כדי להשתמש בכספת מקומית</string>
 	<string name="permission_snackbar_auth_auto_upload">Cryptomator זקוק להרשאת גישה לזיכרון המכשיר כדי לבצע העלאה אוטומטית של תמונות</string>
@@ -347,9 +350,13 @@
 	<string name="notification_auto_upload_title">מתבצעת העלאה אוטומטית של תמונות</string>
 	<string name="notification_auto_upload_message">מעלה %1d/%2d</string>
 	<string name="notification_auto_upload_finished_title">העלאה אוטומטית של תמונות הסתיימה</string>
+	<string name="notification_auto_upload_finished_message">%1$d תמונות הועלו ל Vault</string>
 	<string name="notification_auto_upload_failed_title">העלאה אוטומטית של תמונות נכשלה</string>
+	<string name="notification_auto_upload_failed_general_error">שגיאה כללית אירעה בעת תהליך ההעלאה.</string>
 	<string name="notification_auto_upload_failed_due_to_vault_not_found">הכספת המוגדרת להעלאה אוטומטית של קבצים לא קיימת יותר.</string>
+	<string name="notification_open_writable_file_title">קובץ פתוח לעריכה</string>
 	<string name="notification_update_check_finished_latest">הגרסה העדכנית ביותר מותקנת</string>
+	<string name="notification_authenticating">אימות&#8230;</string>
 	<string name="screen_settings_lru_cache">מטמון</string>
 	<string name="screen_settings_lru_cache_size">נפח מטמון</string>
 	<string name="screen_settings_clear_lru_cache_size">נקה מטמון</string>
