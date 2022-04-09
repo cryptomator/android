@@ -133,6 +133,7 @@
 	<string name="screen_s3_settings_msg_secret_key_not_empty">Secret Key খালি হতে পারবে না</string>
 	<string name="screen_s3_settings_msg_bucket_not_empty">Bucket খালি হতে পারবে না</string>
 	<!-- ## screen: enter vault name -->
+	<string name="screen_enter_vault_name_msg_name_empty">ভোল্ট এর নাম খালি হতে পারবে না.</string>
 	<string name="screen_enter_vault_name_vault_label">ভোল্ট এর নাম</string>
 	<string name="screen_enter_vault_name_button_text">তৈরি করুন</string>
 	<!-- ## screen: set password -->
@@ -212,6 +213,7 @@
 	<string name="dialog_replace_positive_button_single_file_exists">প্রতিস্থাপন করুন</string>
 	<string name="dialog_replace_msg_single_file_exists">%1$s নামে একটি ফাইল ইতিমধ্যে রয়েছে। আপনি কি এটা প্রতিস্থাপন করতে চান?</string>
 	<string name="dialog_replace_msg_all_files_exists">সব ফাইলগুলি ইতিমধ্যে রয়েছে। আপনি কি তাদের প্রতিস্থাপন করতে চান?</string>
+	<string name="dialog_unable_to_share_positive_button">আচ্ছা</string>
 	<string name="dialog_lock_vault">লক করুন</string>
 	<string name="dialog_app_is_obscured_info_neutral_button">বন্ধ করুন</string>
 	<string name="dialog_sym_link_back_button">পিছনে</string>
