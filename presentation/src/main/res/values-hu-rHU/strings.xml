@@ -271,6 +271,8 @@
 	<string name="dialog_accept_ssl_certificate_details">Részletek</string>
 	<string name="dialog_accept_ssl_certificate_security_checkbox">Ez biztonsági kockázatot jelent. Tudom, mit csinálok.</string>
 	<string name="dialog_app_is_obscured_info_neutral_button">Bezár</string>
+	<string name="dialog_confirm_delete_multiple_message">Biztosan törölni akarja ezeket az elemeket?</string>
+	<string name="dialog_confirm_delete_file_message">Biztosan törli ezt a fájlt?</string>
 	<string name="dialog_enter_license_decline_button">Kilépés</string>
 	<string name="dialog_update_available_title">Frissítés elérhető</string>
 	<string name="dialog_update_available_update">Frissítés most</string>
