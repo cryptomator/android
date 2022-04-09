@@ -45,27 +45,27 @@
 	<string name="snack_bar_action_title_settings">הגדרות</string>
 	<string name="snack_bar_action_title_search">חיפוש</string>
 	<string name="snack_bar_action_title_search_previous">הקודם</string>
-	<string name="snack_bar_action_title_search_next">המשך</string>
+	<string name="snack_bar_action_title_search_next">הבא</string>
 	<string name="snack_bar_action_title_sort">מיון</string>
 	<string name="snack_bar_action_title_sort_az">א - ת</string>
 	<string name="snack_bar_action_title_sort_za">ת - א</string>
 	<string name="snack_bar_action_title_sort_newest">החדש ביותר</string>
 	<string name="snack_bar_action_title_sort_oldest">הישן ביותר</string>
-	<string name="snack_bar_action_title_sort_biggest">הכבד ביותר</string>
-	<string name="snack_bar_action_title_sort_smallest">הקל ביותר</string>
+	<string name="snack_bar_action_title_sort_biggest">הגדול ביותר</string>
+	<string name="snack_bar_action_title_sort_smallest">הקטן ביותר</string>
 	<!-- # screens -->
 	<!-- # screen: vault list -->
 	<string name="screen_vault_list_actions_title">הוסף ל-Cryptomator</string>
 	<string name="screen_vault_list_action_create_new_vault">צור כספת חדשה</string>
 	<string name="screen_vault_list_action_add_existing_vault">הוסף כספת קיימת</string>
-	<string name="screen_vault_list_vault_action_delete">מחק</string>
-	<string name="screen_vault_list_vault_creation_hint">ליצירת כספת חדשה לחץ כאן</string>
-	<string name="screen_vault_list_change_password_successful">הסיסמה שונתה בהצלחה</string>
+	<string name="screen_vault_list_vault_action_delete">הסר</string>
+	<string name="screen_vault_list_vault_creation_hint">יש ללחוץ כאן ליצירת כספת חדשה</string>
+	<string name="screen_vault_list_change_password_successful">הסיסמא שונתה בהצלחה</string>
 	<!-- # screen: file browser -->
 	<string name="screen_file_browser_default_title">כספת</string>
 	<string name="screen_file_browser_add_existing_vault_extra_text">בחר קובץ masterkey</string>
 	<string name="screen_file_browser_create_new_vault_button_text">מקם כאן</string>
-	<string name="screen_file_browser_create_new_vault_extra_text">שם כספת: %1$s</string>
+	<string name="screen_file_browser_create_new_vault_extra_text">שם הכספת: %1$s</string>
 	<string name="screen_file_browser_move_button_text">שנה מיקום</string>
 	<string name="screen_file_browser_msg_empty_folder">תיקיה ריקה</string>
 	<string name="screen_file_browser_file_info_label_date">שונה לפני %1$s</string>
@@ -76,12 +76,12 @@
 	<string name="screen_file_browser_actions_title">הוסף ל %1$s</string>
 	<string name="screen_file_browser_action_create_folder">צור תיקייה</string>
 	<string name="screen_file_browser_action_create_new_text_file">צור קובץ טקסט</string>
-	<string name="screen_file_browser_action_upload_files">העלה קובצים</string>
+	<string name="screen_file_browser_action_upload_files">העלה קבצים</string>
 	<string name="screen_file_browser_upload_files_chooser_title">קבצים</string>
 	<string name="screen_file_browser_msg_file_exported">הקובץ יוצא</string>
 	<string name="screen_file_browser_msg_files_exported">הקבצים יוצאו</string>
 	<string name="screen_file_browser_nothing_to_export">אין מה לייצא</string>
-	<string name="screen_file_browser_msg_creating_download_dir_failed">יצירת תיקייה להורדות נכשלה</string>
+	<string name="screen_file_browser_msg_creating_download_dir_failed">יצירת תיקיית הורדות נכשלה</string>
 	<string name="screen_file_browser_node_action_share">שתף</string>
 	<string name="screen_file_browser_node_action_rename">שנה שם</string>
 	<string name="screen_file_browser_node_action_edit_text">ערוך</string>
@@ -155,7 +155,7 @@
 	<string name="screen_settings_biometric_auth">אימות ביומטרי</string>
 	<string name="screen_settings_activate_biometric_auth">הפעל אימות ביומטרי</string>
 	<string name="screen_settings_confirm_face_unlock">אפשר פתיחה באמצעות זיהוי פנים (במידה שזמין)</string>
-	<string name="screen_settings_block_app_when_obscured">מנע פעולה כאשר יש לאפליקציות אחרות להציג מעל</string>
+	<string name="screen_settings_block_app_when_obscured">מנע פעולה כאשר יש לאפליקציות אחרות רשות להציג מעל</string>
 	<string name="screen_settings_block_app_when_obscured_summary">מנע יירוט של קלט והצגה של ממשק משתמש מדומה</string>
 	<string name="screen_settings_secure_screen">חסום צילומי מסך</string>
 	<string name="screen_settings_secure_screen_summary">חסום צילומי מסך באפליקציה וברשימת היישומים שנפתחו לאחרונה</string>
@@ -204,7 +204,7 @@
 	<string name="screen_cloud_settings_sign_out_from_cloud">התנתק מ</string>
 	<!-- ## screen: licenses -->
 	<!-- ## screen: authenticate cloud -->
-	<string name="screen_authenticate_auth_authentication_failed">האימות אל \'%1$s\' נכשל.</string>
+	<string name="screen_authenticate_auth_authentication_failed">האימות מול \'%1$s\' נכשל.</string>
 	<string name="screen_update_pcloud_connections_title">עדכן את פרטי ההתחברות אל pCloud</string>
 	<!-- ## screen: insecure android version info -->
 	<!-- # dialogs -->
@@ -219,7 +219,7 @@
 	<!-- Vault not found -->
 	<string name="dialog_vault_not_found_title">הכספת %1$s לא נמצאה</string>
 	<string name="dialog_vault_not_found_message">ה Vault הנבחר נמחק, הועבר או השם השתנה. נא להסיר את ה Vault מהרשימה ולהוסיף מחדש בכדי להמשיך. להסיר עכשיו?</string>
-	<string name="dialog_vault_not_found_positive_button_text">מחק</string>
+	<string name="dialog_vault_not_found_positive_button_text">הסר</string>
 	<string name="dialog_existing_file_title">הקובץ כבר קיים</string>
 	<string name="dialog_existing_file_positive_button">החלף</string>
 	<string name="dialog_existing_file_message">כבר קיים קובץ בשם %1$s.</string>
@@ -285,14 +285,18 @@
 	<string name="dialog_app_is_obscured_info_title">אפליקציה אחרת מציגה מעל Cryptomator</string>
 	<string name="dialog_app_is_obscured_info_hint">אפליקציה אחרת מציגה משהו מעל Cryptomator (לדוגמה, אפליקציית סינון אור כחול למצב לילה). מטעמי אבטחה, Cryptomator ייסגר עכשיו.\n\n<a href="https://docs.cryptomator.org/en/1.5/android/settings/#block-app-when-obscured">איך להפעיל את Cryptomator</a></string>
 	<string name="dialog_app_is_obscured_info_neutral_button">סגור</string>
+	<string name="dialog_delete_cloud_connection_with_vaults_message">האם את/ה בטוח/ה שברצונך להסיר את החיבור הזה לענן?</string>
+	<string name="dialog_delete_cloud_connection_with_vaults_hint">פעולה זו תסיר את החיבור לענן ואת כל ה Vault-ים שבענן זה.</string>
 	<string name="dialog_confirm_delete_multiple_title">למחוק %1$d פריטים?</string>
 	<string name="dialog_confirm_delete_multiple_message">אתה בטוח שברצונך למחוק קבצים אלו?</string>
 	<string name="dialog_confirm_delete_file_message">אתה בטוח שברצונך למחוק קובץ זה?</string>
 	<string name="dialog_confirm_delete_folder_message">אתה בטוח שברצונך למחוק תיקייה זו? הפעולה תמחק גם את כל הקבצים שנמצאים בתוך התיקייה.</string>
 	<string name="dialog_biometric_auth_key_invalidated_title">האימות הביומטרי בוטל</string>
+	<string name="dialog_biometric_auth_key_invalidated_message">בגלל שמפתח זה כבר לא חוקי, הזיהו הביומטרי הופסק. להפעלה מחדש יש לפתוח את מסך ההגדרות של Cryptomator.</string>
 	<string name="dialog_enter_license_title">שימוש במפתח רישיון</string>
 	<string name="dialog_enter_license_content">זיהינו שהתקנת את Cryptomator לא דרך ה-Google Play Store. להפעלת האפליקציה, יש להכניס מפתח רישיון. ניתן לרכוש מפתח ב-<a href="https://cryptomator.org/android/">https://cryptomator.org/android/</a></string>
 	<string name="dialog_enter_license_not_valid_content">המפתח לא אומת. וודא כי הזנת אותו כהלכה.</string>
+	<string name="dialog_enter_license_not_valid_content_desktop_supporter_certificate">המפתח שהוזן הוא תעודת תומך. יש להזין מפתח חוקי.</string>
 	<string name="dialog_enter_license_no_content">לא הוזן מפתח, אנא הזן מפתח רישיון תקין.</string>
 	<string name="dialog_enter_license_decline_button">יציאה</string>
 	<string name="dialog_license_confirmation_title">מפתח הרישיון אומת</string>
@@ -353,11 +357,15 @@
 	<string name="notification_auto_upload_finished_message">%1$d תמונות הועלו ל Vault</string>
 	<string name="notification_auto_upload_failed_title">העלאה אוטומטית של תמונות נכשלה</string>
 	<string name="notification_auto_upload_failed_general_error">שגיאה כללית אירעה בעת תהליך ההעלאה.</string>
+	<string name="notification_auto_upload_failed_due_to_folder_not_exists">התיקייה הנבחרת להעלה אינה זמינה יותר. יש לגשת למסך ההגדרות ולבחור תיקייה חדשה</string>
+	<string name="notification_auto_upload_failed_due_to_vault_locked">ה Vault ננעל במהלך ההעלאה, יש לפתוח את ה vault מחדש בכדי להמשיך</string>
 	<string name="notification_auto_upload_failed_due_to_vault_not_found">הכספת המוגדרת להעלאה אוטומטית של קבצים לא קיימת יותר.</string>
 	<string name="notification_open_writable_file_title">קובץ פתוח לעריכה</string>
+	<string name="notification_open_writable_file_message">ה vault יישאר פתוח עד לסיום העריכה</string>
 	<string name="notification_update_check_finished_latest">הגרסה העדכנית ביותר מותקנת</string>
 	<string name="notification_authenticating">אימות&#8230;</string>
 	<string name="screen_settings_lru_cache">מטמון</string>
+	<string name="screen_settings_lru_cache_toggle_summary">קבצים שהיו בשימוש לאחרונה יוצפנו באופן מקומי לשימוש נוסף בעתיד</string>
 	<string name="screen_settings_lru_cache_size">נפח מטמון</string>
 	<string name="screen_settings_clear_lru_cache_size">נקה מטמון</string>
 	<string name="screen_settings_license">רשום עבור</string>
