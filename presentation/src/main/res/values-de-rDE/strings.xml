@@ -200,7 +200,7 @@
 	<string name="screen_settings_keep_unlocked_while_editing_files">Entsperrt bleiben</string>
 	<string name="screen_settings_keep_unlocked_while_editing_files_summary">Halte Tresore geöffnet während dem Editieren einer Datei</string>
 	<!-- ## screen: cloud settings -->
-	<string name="screen_cloud_settings_onedrive_connections">OneDrive Verbindungen</string>
+	<string name="screen_cloud_settings_onedrive_connections">OneDrive-Verbindungen</string>
 	<string name="screen_cloud_settings_webdav_connections">WebDAV-Verbindungen</string>
 	<string name="screen_cloud_settings_pcloud_connections">pCloud-Verbindungen</string>
 	<string name="screen_cloud_settings_s3_connections">S3-Verbindungen</string>
@@ -389,7 +389,7 @@
 	<string name="dialog_settings_update_check_interval_title">Intervall der Aktualisierungsprüfung</string>
 	<string name="screen_settings_check_updates">Nach Aktualisierungen suchen</string>
 	<string name="screen_settings_last_check_updates">Letzte Ausführung %1$s</string>
-	<string name="dialog_cache_size_title">Zwischenspeichergröße pro Cloud</string>
+	<string name="dialog_cache_size_title">Zwischenspeichergröße je Cloud</string>
 	<!-- lock timeout names -->
 	<string name="lock_timeout_instant">Sofort</string>
 	<string name="lock_timeout_1m">1 Minute</string>
@@ -406,11 +406,11 @@
 	<string name="cache_size_5000m">5 GB</string>
 	<!-- screen scheme mode names -->
 	<string name="screen_settings_style_mode">Design</string>
-	<string name="follow_system">Automatisch (System-Einstellung verwenden)</string>
+	<string name="follow_system">Automatisch (Systemeinstellung verwenden)</string>
 	<string name="light">Hell</string>
 	<string name="dark">Dunkel</string>
 	<!-- update interval names -->
-	<string name="update_interval_1d">Einmal am Tag</string>
-	<string name="update_interval_1w">Einmal pro Woche</string>
-	<string name="update_interval_1m">Einmal im Monat</string>
+	<string name="update_interval_1d">Täglich</string>
+	<string name="update_interval_1w">Wöchentlich</string>
+	<string name="update_interval_1m">Monatlich</string>
 </resources>
