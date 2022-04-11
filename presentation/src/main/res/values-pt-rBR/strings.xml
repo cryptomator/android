@@ -9,6 +9,8 @@
 	<string name="error_no_network_connection">Sem conexão com a internet</string>
 	<string name="error_invalid_passphrase">Senha incorreta</string>
 	<string name="error_file_or_folder_exists">Um arquivo ou pasta já existe.</string>
+	<string name="error_vault_version_not_supported">A versão do Cofre %1$s não é suportada. Este cofre foi criado com uma versão mais antiga ou mais recente do Cryptomator.</string>
+	<string name="error_vault_config_file_missing_due_to_format_999">%1$s arquivo está faltando na pasta do seu cofre. Certifique-se de que este arquivo existe na pasta do seu cofre na nuvem.</string>
 	<string name="error_vault_already_exists">O cofre já existe.</string>
 	<string name="error_no_such_file">O arquivo não existe.</string>
 	<string name="error_vault_has_been_locked">O cofre foi trancado.</string>
@@ -272,6 +274,9 @@
 	<string name="dialog_accept_ssl_certificate_hint">O certificado SSL é inválido. Deseja confiar nele mesmo assim?</string>
 	<string name="dialog_accept_ssl_certificate_details">Detalhes</string>
 	<string name="dialog_accept_ssl_certificate_security_checkbox">Isto pode ser um risco para a segurança. Eu sei o que estou fazendo.</string>
+	<string name="dialog_ask_ignore_battery_optimizations_title">Desativar otimizações de bateria</string>
+	<string name="dialog_ask_ignore_battery_optimizations_hint">Para recuperar novas imagens e vídeos sem rodar em segundo plano, precisamos desativar as otimizações de bateria. Mas não se preocupe, %1$s não consome muito energia.\n\nPara aplicá-lo, altere \'Não otimizado\' para \'Todos os aplicativos\', selecione %1$s e escolha \'Não otimizar\' após clicar em \'%2$s\' neste diálogo.</string>
+	<string name="dialog_ask_ignore_battery_optimizations_checkbox">Não pergunte novamente</string>
 	<string name="dialog_http_security_hint">O uso de HTTP é inseguro. Recomendamos a utilização de HTTPS. Se você souber os riscos, você pode continuar com o HTTP.</string>
 	<string name="dialog_http_security_checkbox">Mudar para HTTPS</string>
 	<string name="dialog_http_security_title">Usar HTTPS?</string>

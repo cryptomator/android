@@ -271,9 +271,14 @@
 	<string name="dialog_accept_ssl_certificate_details">Részletek</string>
 	<string name="dialog_accept_ssl_certificate_security_checkbox">Ez biztonsági kockázatot jelent. Tudom, mit csinálok.</string>
 	<string name="dialog_app_is_obscured_info_neutral_button">Bezár</string>
+	<string name="dialog_confirm_delete_multiple_message">Biztosan törölni akarja ezeket az elemeket?</string>
+	<string name="dialog_confirm_delete_file_message">Biztosan törli ezt a fájlt?</string>
+	<string name="dialog_enter_license_decline_button">Kilépés</string>
+	<string name="dialog_update_available_title">Frissítés elérhető</string>
 	<string name="dialog_update_available_update">Frissítés most</string>
 	<string name="dialog_update_available_download_site">Ugrás a Letöltési oldalra</string>
 	<string name="dialog_update_available_cancel">Később</string>
+	<string name="dialog_download_update_title">Letöltés folyamatban</string>
 	<string name="dialog_sym_link_back_button">Vissza</string>
 	<string name="permission_snackbar_auth_local_vault">A Cryptomatornak tárhely-hozzáférésre van szüksége a trezorok használatához</string>
 	<string name="permission_snackbar_auth_auto_upload">A Cryptomatornak tárhely-hozzáférésre van szüksége az automatikus fotófeltöltés használatához</string>
