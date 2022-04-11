@@ -53,7 +53,7 @@ ext {
 
 	timberVersion = '5.0.1'
 
-	zxcvbnVersion = '1.5.2'
+	zxcvbnVersion = '1.6.0'
 
 	scaleImageViewVersion = '3.10.0'
 
@@ -65,7 +65,7 @@ ext {
 	// cloud provider libs
 	cryptolibVersion = '2.0.2'
 
-	dropboxVersion = '5.1.1'
+	dropboxVersion = '5.2.0'
 
 	googleApiServicesVersion = 'v3-rev20220110-1.32.1'
 	googlePlayServicesVersion = '19.2.0'
@@ -76,10 +76,10 @@ ext {
 	 */
 	trackingFreeGoogleCLientVersion = '1.41.5'
 
-	msgraphVersion = '5.17.0'
+	msgraphVersion = '5.19.0'
 	msgraphAuthVersion = '3.0.2'
 
-	minIoVersion = '8.3.7'
+	minIoVersion = '8.3.8'
 	staxVersion = '1.2.0' // needed for minIO
 
 	commonsCodecVersion = '1.15'
