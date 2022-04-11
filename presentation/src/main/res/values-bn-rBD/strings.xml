@@ -9,6 +9,8 @@
 	<string name="error_no_network_connection">কোনো নেটওয়ার্ক সংযোগ নেই</string>
 	<string name="error_invalid_passphrase">ভুল পাসওয়ার্ড</string>
 	<string name="error_file_or_folder_exists">একটি ফাইল অথবা ফোল্ডার ইতিমধ্যে রয়েছে।</string>
+	<string name="error_vault_version_not_supported">ভোল্ট সংস্করণ %1$s অসমর্থিত. এই ভোল্টটি তৈরি করা হয়েছিল ক্রিপ্টোমেটরের একটি নতুন অথবা পুরনো সংস্করণ দিয়ে.</string>
+	<string name="error_vault_config_file_missing_due_to_format_999">%1$s ফাইলটি ভোল্ট ফোল্ডারে অনুপস্থিত. এই ফাইলটি ক্লাউডের ভোল্ট ফোল্ডারে আছে কিনা তা নিশ্চিত করুন.</string>
 	<string name="error_vault_already_exists">ভোল্টটি ইতিমধ্যে রয়েছে।</string>
 	<string name="error_no_such_file">ফাইলটি নেই।</string>
 	<string name="error_vault_has_been_locked">ভোল্টটি লক করা হয়েছে।</string>
@@ -29,11 +31,14 @@
 	<string name="error_vault_key_invalid">%1$s এই %2$s এর সাথে মেলে না</string>
 	<string name="error_vault_config_loading">ভোল্ট কোনফিগারেশন লোডিংএ সাধারণ ত্রুটি দেখা দিয়েছে</string>
 	<string name="error_file_not_found_after_opening_using_3party">ক্রিপ্টোমেটরে ফিরে যাওয়ার পর লোকাল ফাইলটি বিদ্যমান নয়। তাই সম্ভাব্য পরিবর্তনগুলো আবার ক্লাউডে স্থানান্তর করা হবে না।</string>
+	<string name="error_no_such_bucket">এরকম কোন bucket নেই</string>
 	<!-- # clouds -->
 	<!-- ## cloud names -->
 	<string name="cloud_names_local_storage">সিস্টেম স্টোরেজ</string>
 	<!-- # permission -->
 	<!-- ## permission messages -->
+	<string name="permission_message_export_file">ক্রিপ্টোমেটরের ফাইল এক্সপোর্ট করতে স্টোরেজ অনুমতি প্রয়োজন</string>
+	<string name="permission_message_upload_file">ক্রিপ্টোমেটরের ফাইল আপলোড করতে স্টোরেজ অনুমতি প্রয়োজন</string>
 	<string name="snack_bar_action_title_settings">সেটিংস</string>
 	<string name="snack_bar_action_title_search">খুঁজুন</string>
 	<string name="snack_bar_action_title_search_previous">পিছনে</string>
@@ -118,11 +123,17 @@
 	<string name="screen_webdav_settings_msg_password_must_not_be_empty">পাসওয়ার্ড খালি থাকতে পারবে না।</string>
 	<!-- ## screen: s3 settings -->
 	<string name="screen_s3_settings_display_name_label">নাম প্রদর্শন করুন</string>
+	<string name="screen_s3_settings_access_key_label">Access Key</string>
+	<string name="screen_s3_settings_secret_key_label">Secret Key</string>
 	<string name="screen_s3_settings_bucket_label">বিদ্যমান বাকেট</string>
 	<string name="screen_s3_settings_endpoint_label">এন্ডপয়েন্ট</string>
 	<string name="screen_s3_settings_region_label">অঞ্চল</string>
 	<string name="screen_s3_settings_msg_display_name_not_empty">নাম খালি হতে পারব না</string>
+	<string name="screen_s3_settings_msg_access_key_not_empty">Access Key খালি হতে পারবে না</string>
+	<string name="screen_s3_settings_msg_secret_key_not_empty">Secret Key খালি হতে পারবে না</string>
+	<string name="screen_s3_settings_msg_bucket_not_empty">Bucket খালি হতে পারবে না</string>
 	<!-- ## screen: enter vault name -->
+	<string name="screen_enter_vault_name_msg_name_empty">ভোল্ট এর নাম খালি হতে পারবে না.</string>
 	<string name="screen_enter_vault_name_vault_label">ভোল্ট এর নাম</string>
 	<string name="screen_enter_vault_name_button_text">তৈরি করুন</string>
 	<!-- ## screen: set password -->
@@ -202,6 +213,7 @@
 	<string name="dialog_replace_positive_button_single_file_exists">প্রতিস্থাপন করুন</string>
 	<string name="dialog_replace_msg_single_file_exists">%1$s নামে একটি ফাইল ইতিমধ্যে রয়েছে। আপনি কি এটা প্রতিস্থাপন করতে চান?</string>
 	<string name="dialog_replace_msg_all_files_exists">সব ফাইলগুলি ইতিমধ্যে রয়েছে। আপনি কি তাদের প্রতিস্থাপন করতে চান?</string>
+	<string name="dialog_unable_to_share_positive_button">আচ্ছা</string>
 	<string name="dialog_lock_vault">লক করুন</string>
 	<string name="dialog_app_is_obscured_info_neutral_button">বন্ধ করুন</string>
 	<string name="dialog_sym_link_back_button">পিছনে</string>

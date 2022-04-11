@@ -9,6 +9,8 @@
 	<string name="error_no_network_connection">沒有網路連線</string>
 	<string name="error_invalid_passphrase">密碼錯誤</string>
 	<string name="error_file_or_folder_exists">該檔案或資料夾已存在。</string>
+	<string name="error_vault_version_not_supported">不支持 %1$s 版本的保險櫃。此保險櫃是使用Cryptomator的較舊或較新版本創建的。</string>
+	<string name="error_vault_config_file_missing_due_to_format_999">您的vault資料夾中缺少 %1$s 檔案。 確保此檔案存在於雲中的保險櫃資料夾中。</string>
 	<string name="error_vault_already_exists">加密檔案庫已經存在。</string>
 	<string name="error_no_such_file">檔案不存在。</string>
 	<string name="error_vault_has_been_locked">加密檔案庫已鎖定。</string>
@@ -114,6 +116,7 @@
 	<string name="screen_cloud_connections_title">選擇位置</string>
 	<string name="screen_cloud_connections_no_connections">點擊此處新增位置</string>
 	<string name="screen_cloud_error_webdav_not_supported">服務器似乎與 WebDAV 不兼容</string>
+	<string name="screen_cloud_local_error_no_content_provider">未找到支持打開目錄的檔案管理器</string>
 	<!-- ## screen: webdav settings -->
 	<string name="screen_webdav_settings_url_port_label">網址</string>
 	<string name="screen_webdav_settings_username_label">帳號名稱</string>
@@ -125,16 +128,23 @@
 	<string name="screen_webdav_settings_msg_password_must_not_be_empty">密碼不可留空。</string>
 	<!-- ## screen: s3 settings -->
 	<string name="screen_s3_settings_display_name_label">顯示名稱</string>
+	<string name="screen_s3_settings_access_key_label">訪問密鈅</string>
+	<string name="screen_s3_settings_secret_key_label">私密密鈅</string>
+	<string name="screen_s3_settings_bucket_label">現有Bucket</string>
 	<string name="screen_s3_settings_endpoint_label">終端</string>
 	<string name="screen_s3_settings_region_label">區域</string>
 	<string name="screen_s3_settings_msg_display_name_not_empty">暱稱不得為空</string>
+	<string name="screen_s3_settings_msg_access_key_not_empty">訪問密鈅不能為空</string>
+	<string name="screen_s3_settings_msg_secret_key_not_empty">訪問密鈅不能為空</string>
 	<string name="screen_s3_settings_msg_bucket_not_empty">儲存貯體不可留空</string>
+	<string name="screen_s3_settings_msg_endpoint_and_region_not_empty">端点或区域不能为空</string>
 	<!-- ## screen: enter vault name -->
 	<string name="screen_enter_vault_name_msg_name_empty">加密檔案庫名稱不可留空。</string>
 	<string name="screen_enter_vault_name_vault_label">加密檔案庫名稱</string>
 	<string name="screen_enter_vault_name_button_text">新建</string>
 	<!-- ## screen: set password -->
 	<string name="screen_set_password_title">設定密碼</string>
+	<string name="screen_set_password_msg_password_mismatch">新密碼與再次輸入的密碼不匹配</string>
 	<string name="screen_set_password_button_text">完成</string>
 	<string name="screen_set_password_hint">重要：如果您遺忘了密碼，您的數據將無法被恢復。</string>
 	<string name="screen_set_password_retype_password_label">再次輸入密碼</string>
