@@ -21,6 +21,7 @@
 	<!-- ## screen: set password -->
 	<string name="screen_set_password_button_text">Gotovo</string>
 	<!-- ## screen: settings -->
+	<string name="screen_settings_section_general">Općenito</string>
 	<!-- ## screen: cloud settings -->
 	<!-- ## screen: licenses -->
 	<!-- ## screen: authenticate cloud -->
