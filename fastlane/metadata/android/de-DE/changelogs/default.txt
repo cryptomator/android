@@ -1,3 +1,2 @@
-- Fehlermeldungen, wenn ein Tresor nicht unterstützt wird, verbessert
-- Anzeigefehler, der beim Verschieben von Ordnern mit lokalem Speicher und direktem Zugriff auf diesen auftritt, behoben
-- Fehler, dass beim automatischen Hochladen aufgrund der Batterieoptimierung nicht immer alle Bilder erfasst werden, behoben
+- Das Hinzufügen und Erstellen von Tresoren über eine Verknüpfung zu "Meiner Ablage" aus einem Ordner im Bereich "Geteilte Laufwerke" behoben
+- Absturz der App auf einigen Geräten beim Betrachten von Bildern und Klicken auf den Bildschirm behoben
