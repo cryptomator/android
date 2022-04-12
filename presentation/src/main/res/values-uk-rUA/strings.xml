@@ -9,6 +9,8 @@
 	<string name="error_no_network_connection">Відсутнє з\'єднання з мережею</string>
 	<string name="error_invalid_passphrase">Неправильний пароль</string>
 	<string name="error_file_or_folder_exists">Файл чи тека вже існує.</string>
+	<string name="error_vault_version_not_supported">Версія сховища %1$s не підтримується. Це сховище було створено застарілою або новішою версією Cryptomator.</string>
+	<string name="error_vault_config_file_missing_due_to_format_999">%1$s Файл відсутній у вашому сховищі. Переконайтеся, що цей файл існує у теці вашого сховища у хмарі.</string>
 	<string name="error_vault_already_exists">Сховище вже існує.</string>
 	<string name="error_no_such_file">Файлу не існує.</string>
 	<string name="error_vault_has_been_locked">Сховище було заблоковано.</string>
