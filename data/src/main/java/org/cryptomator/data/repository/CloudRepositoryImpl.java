@@ -80,6 +80,7 @@ class CloudRepositoryImpl implements CloudRepository {
 			throw new IllegalArgumentException("Can not delete non persistent cloud");
 		}
 		database.delete(mapper.toEntity(cloud));
+		dispatchingCloudContentRepository.removeCloudContentRepositoryFor(cloud);
 	}
 
 	@Override
