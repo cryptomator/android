@@ -54,7 +54,6 @@ class CloudConnectionListPresenter @Inject constructor( //
 ) : Presenter<CloudConnectionListView>(exceptionMappings) {
 
 	private val selectedCloudType = AtomicReference<CloudTypeModel>()
-	private var defaultLocalStorageCloud: LocalStorageCloud? = null
 	fun setSelectedCloudType(selectedCloudType: CloudTypeModel) {
 		this.selectedCloudType.set(selectedCloudType)
 	}
@@ -64,17 +63,7 @@ class CloudConnectionListPresenter @Inject constructor( //
 			.withCloudType(CloudTypeModel.valueOf(selectedCloudType.get())) //
 			.run(object : DefaultResultHandler<List<Cloud>>() {
 				override fun onSuccess(clouds: List<Cloud>) {
-					val cloudModels: MutableList<CloudModel> = ArrayList()
-					clouds.forEach { cloud ->
-						if (CloudTypeModel.LOCAL == selectedCloudType.get()) {
-							if ((cloud as LocalStorageCloud).rootUri() == null) {
-								defaultLocalStorageCloud = cloud
-								return@forEach
-							}
-						}
-						cloudModels.add(cloudModelMapper.toModel(cloud))
-					}
-					view?.showCloudModels(cloudModels)
+					view?.showCloudModels(clouds.map { cloud -> cloudModelMapper.toModel(cloud) })
 				}
 			})
 	}
