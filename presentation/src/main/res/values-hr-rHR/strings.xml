@@ -37,6 +37,7 @@
 	<!-- # misc -->
 	<!-- ## file size helper -->
 	<!-- ## date helper -->
+	<string name="time_unit_minutes_pl">minute</string>
 	<!-- ## biometric authentication -->
 	<!-- notification -->
 	<!-- lock timeout names -->
