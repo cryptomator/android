@@ -1,2 +1,1 @@
-- Fixed adding and creating vaults using a shortcut to "My Drive" from a folder in the "Shared Drives" location
-- Fixed app crash on some devices when browsing images and clicking the screen
+- Fixed wrong access to files when a connection has been re-added
