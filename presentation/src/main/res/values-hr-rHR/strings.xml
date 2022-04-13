@@ -1,9 +1,42 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 	<!-- # app -->
+	<string name="share_with_label">Šifriraj</string>
 	<!-- # error messages -->
+	<string name="error_generic">Došlo je do greške</string>
+	<string name="error_authentication_failed">Neuspješna autentikacija</string>
+	<string name="error_authentication_failed_re_authenticate">Neuspješna autentikacija, prijavite se koristeći %1$s</string>
+	<string name="error_no_network_connection">Nema mrežne veze</string>
+	<string name="error_invalid_passphrase">Pogrešna lozinka</string>
+	<string name="error_file_or_folder_exists">Datoteka ili mapa već postoje.</string>
+	<string name="error_vault_version_not_supported">Verzija trezora %1$s nije podržana. Ovaj trezor je stvoren sa starijom ili novijom verzijom Cryptomator-a.</string>
+	<string name="error_vault_config_file_missing_due_to_format_999">%1$s datoteka nedostaje u mapi Vašeg trezora. Budite sigurni da ova datoteka postoji u mapi Vašeg trezora u oblaku.</string>
+	<string name="error_vault_already_exists">Trezor već postoji.</string>
+	<string name="error_no_such_file">Datoteka ne postoji.</string>
+	<string name="error_vault_has_been_locked">Trezor je zaključan.</string>
+	<string name="error_cloud_already_exists">Oblak već postoji.</string>
+	<string name="error_activity_not_found">Molimo preuzmite aplikaciju koja može otvoriti ovu datoteku.</string>
+	<string name="error_server_not_found">Poslužitelj nije pronađen.</string>
+	<string name="error_device_policy_manager_not_found">Molimo otvorite postavke svog uređaja i ručno postavite zaključavanje zaslona</string>
+	<string name="error_export_illegal_file_name">Izvoz neuspješan. Uklonite posebne znakove iz imena datoteka i izvezite ponovno.</string>
+	<string name="error_name_contains_invalid_characters">Ne može sadržavati posebne znakove.</string>
+	<string name="error_names_contains_invalid_characters">Nazivi datoteka ne mogu sadržavati posebne znakove.</string>
+	<string name="error_vault_name_contains_invalid_characters">Naziv trezora ne može sadržavati posebne znakove.</string>
+	<string name="error_general_update">Provjera ažuriranja neuspješna. Došlo je do opće greške.</string>
+	<string name="error_hash_mismatch_update">Provjera ažuriranja neuspješna. Izračunati hash ne odgovara učitanoj datoteci</string>
+	<string name="error_update_no_internet">Provjera ažuriranja neuspješna. Nema pristupa Internetu.</string>
+	<string name="error_failed_to_decrypt_webdav_password">Neuspješno dešifriranje WebDAV lozinke, molimo ponovno ju dodajte u postavke</string>
+	<string name="error_play_services_not_available">Usluge za Google Play nisu instalirane</string>
+	<string name="error_biometric_auth_aborted">Biometrijska autentikacija prekinuta</string>
+	<string name="error_vault_version_mismatch">Verzija navedena u %1$s je drugačija od one u %2$s</string>
+	<string name="error_vault_key_invalid">%1$s ne odgovara onom u %2$s</string>
+	<string name="error_vault_config_loading">Opća greška kod učitavanja postavki trezora</string>
+	<string name="error_file_not_found_after_opening_using_3party">Lokalna datoteka više ne postoji nakon povratka u Cryptomator. Moguće promjene ne mogu se propagirati nazad u oblak.</string>
+	<string name="error_no_such_bucket">Nepostojeća kanta</string>
+	<string name="error_masterkey_location_not_supported">Prilagođeno mjesto glavnog ključa još nije podržano</string>
 	<!-- # clouds -->
 	<!-- ## cloud names -->
+	<string name="cloud_names_local_storage">Lokalna pohrana</string>
 	<!-- # permission -->
 	<!-- ## permission messages -->
 	<string name="snack_bar_action_title_search_next">Sljedeći</string>
@@ -16,10 +49,14 @@
 	<!-- ## screen: choose cloud service -->
 	<!-- ## screen: cloud connections -->
 	<!-- ## screen: webdav settings -->
+	<string name="screen_webdav_settings_password_label">Lozinka</string>
 	<!-- ## screen: s3 settings -->
 	<!-- ## screen: enter vault name -->
 	<!-- ## screen: set password -->
 	<string name="screen_set_password_button_text">Gotovo</string>
+	<string name="screen_set_password_strength_indicator_1">Slaba</string>
+	<string name="screen_set_password_strength_indicator_2">Prosječna</string>
+	<string name="screen_set_password_strength_indicator_3">Jaka</string>
 	<!-- ## screen: settings -->
 	<string name="screen_settings_section_general">Općenito</string>
 	<!-- ## screen: cloud settings -->
