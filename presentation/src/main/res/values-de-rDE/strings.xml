@@ -200,7 +200,7 @@
 	<string name="screen_settings_keep_unlocked_while_editing_files">Entsperrt bleiben</string>
 	<string name="screen_settings_keep_unlocked_while_editing_files_summary">Halte Tresore geöffnet während dem Editieren einer Datei</string>
 	<!-- ## screen: cloud settings -->
-	<string name="screen_cloud_settings_onedrive_connections">OneDrive Verbindungen</string>
+	<string name="screen_cloud_settings_onedrive_connections">OneDrive-Verbindungen</string>
 	<string name="screen_cloud_settings_webdav_connections">WebDAV-Verbindungen</string>
 	<string name="screen_cloud_settings_pcloud_connections">pCloud-Verbindungen</string>
 	<string name="screen_cloud_settings_s3_connections">S3-Verbindungen</string>
@@ -246,29 +246,29 @@
 	<string name="dialog_rename_vault_title">Tresor umbenennen</string>
 	<string name="dialog_rename_node_folder_title">Ordner umbenennen</string>
 	<string name="dialog_rename_node_file_title">Datei umbenennen</string>
-	<string name="dialog_unsaved_changes_title">Du hast nicht gespeicherte Änderungen</string>
-	<string name="dialog_unsaved_changes_message">Möchtest du wirklich beenden, ohne zu speichern?</string>
+	<string name="dialog_unsaved_changes_title">Es bestehen ungespeicherte Änderungen</string>
+	<string name="dialog_unsaved_changes_message">Möchtest du die App wirklich ohne zu speichern beenden?</string>
 	<string name="dialog_unsaved_changes_discard">Verwerfen</string>
 	<string name="dialog_file_name_placeholder">text.txt</string>
 	<string name="dialog_delete_vault_message">Möchtest du diesen Tresor wirklich entfernen?</string>
 	<string name="dialog_delete_vault_hint">Dieser Vorgang wird den Tresor nur aus dieser Liste entfernen und nicht tatsächlich löschen.</string>
-	<string name="dialog_upload_file_title">Lade hoch&#8230;</string>
+	<string name="dialog_upload_file_title">Wird hochgeladen &#8230;</string>
 	<string name="dialog_upload_file_remaining">Datei %1$d von %2$d</string>
-	<string name="dialog_export_file_title">Exportiere (%1$d/%2$d)</string>
-	<string name="dialog_progress_please_wait">Bitte warten&#8230;</string>
-	<string name="dialog_progress_creating_folder">Erstelle Ordner&#8230;</string>
+	<string name="dialog_export_file_title">Wird exportiert (%1$d/%2$d)</string>
+	<string name="dialog_progress_please_wait">Bitte warten &#8230;</string>
+	<string name="dialog_progress_creating_folder">Ordner wird erstellt &#8230;</string>
 	<string name="dialog_progress_creating_text_file">Erstelle Text-Datei&#8230;</string>
-	<string name="action_progress_authentication">Authentifizierung&#8230;</string>
-	<string name="action_progress_renaming">Benenne um&#8230;</string>
-	<string name="action_progress_deleting">Lösche&#8230;</string>
-	<string name="dialog_progress_unlocking_vault">Entsperre Tresor&#8230;</string>
-	<string name="dialog_progress_change_password">Passwort ändern&#8230;</string>
-	<string name="dialog_progress_creating_vault">Erstelle&#8230;</string>
-	<string name="dialog_progress_upload_file">Lade hoch&#8230;</string>
-	<string name="dialog_progress_download_file">Lade herunter&#8230;</string>
-	<string name="dialog_progress_encryption">Verschlüssele&#8230;</string>
-	<string name="dialog_progress_decryption">Entschlüssele&#8230;</string>
-	<string name="action_progress_moving">Verschiebe&#8230;</string>
+	<string name="action_progress_authentication">Authentifizierung &#8230;</string>
+	<string name="action_progress_renaming">Wird umbenannt &#8230;</string>
+	<string name="action_progress_deleting">Wird gelöscht &#8230;</string>
+	<string name="dialog_progress_unlocking_vault">Tresor wird entsperrt &#8230;</string>
+	<string name="dialog_progress_change_password">Passwort wird geändert &#8230;</string>
+	<string name="dialog_progress_creating_vault">Tresor wird erstellt &#8230;</string>
+	<string name="dialog_progress_upload_file">Wird hochgeladen &#8230;</string>
+	<string name="dialog_progress_download_file">Wird heruntergeladen &#8230;</string>
+	<string name="dialog_progress_encryption">Wird verschlüsselt &#8230;</string>
+	<string name="dialog_progress_decryption">Wird entschlüsselt &#8230;</string>
+	<string name="action_progress_moving">Wird verschoben &#8230;</string>
 	<string name="dialog_lock_vault">Sperren</string>
 	<string name="dialog_accept_ssl_certificate_title">Ungültiges SSL-Zertifikat</string>
 	<string name="dialog_accept_ssl_certificate_hint">Das SSL-Zertifikat ist ungültig. Möchtest du ihm trotzdem vertrauen?</string>
@@ -376,12 +376,12 @@
 	<string name="notification_auto_upload_failed_due_to_vault_locked">Tresor gesperrt während dem hochladen, zum weiteren Hochladen entsperren</string>
 	<string name="notification_auto_upload_failed_due_to_vault_not_found">Der Tresor für den automatischen Upload existiert nicht mehr.</string>
 	<string name="notification_open_writable_file_title">Datei mit Schreibrechten geöffnet</string>
-	<string name="notification_open_writable_file_message">Tresor bleibt entsperrt bis die Datei nicht mehr editiert wird</string>
+	<string name="notification_open_writable_file_message">Tresor bleibt entsperrt, bis die Bearbeitung abgeschlossen wurde</string>
 	<string name="notification_update_check_finished_latest">Neueste Version installiert</string>
 	<string name="notification_authenticating">Melde an&#8230;</string>
 	<string name="screen_settings_lru_cache">Zwischenspeicher</string>
 	<string name="screen_settings_lru_cache_toggle_summary">Speichere kürzlich geöffnete Dateien lokal und verschlüsselt auf dem Gerät für eine spätere Wiederverwendung beim erneuten öffnen</string>
-	<string name="screen_settings_lru_cache_size">Zwischenspeichergröße insgesamt</string>
+	<string name="screen_settings_lru_cache_size">Zwischenspeichergröße gesamt</string>
 	<string name="screen_settings_clear_lru_cache_size">Zwischenspeicher leeren</string>
 	<string name="screen_settings_lru_cache_changed__restart_toast">Änderungen werden nach einem Neustart der App aktiv</string>
 	<string name="screen_settings_license">Registriert für</string>
@@ -389,7 +389,7 @@
 	<string name="dialog_settings_update_check_interval_title">Intervall der Aktualisierungsprüfung</string>
 	<string name="screen_settings_check_updates">Nach Aktualisierungen suchen</string>
 	<string name="screen_settings_last_check_updates">Letzte Ausführung %1$s</string>
-	<string name="dialog_cache_size_title">Zwischenspeichergröße pro Cloud</string>
+	<string name="dialog_cache_size_title">Zwischenspeichergröße je Cloud</string>
 	<!-- lock timeout names -->
 	<string name="lock_timeout_instant">Sofort</string>
 	<string name="lock_timeout_1m">1 Minute</string>
@@ -406,11 +406,11 @@
 	<string name="cache_size_5000m">5 GB</string>
 	<!-- screen scheme mode names -->
 	<string name="screen_settings_style_mode">Design</string>
-	<string name="follow_system">Automatisch (System-Einstellung verwenden)</string>
+	<string name="follow_system">Automatisch (Systemeinstellung verwenden)</string>
 	<string name="light">Hell</string>
 	<string name="dark">Dunkel</string>
 	<!-- update interval names -->
-	<string name="update_interval_1d">Einmal am Tag</string>
-	<string name="update_interval_1w">Einmal pro Woche</string>
-	<string name="update_interval_1m">Einmal im Monat</string>
+	<string name="update_interval_1d">Täglich</string>
+	<string name="update_interval_1w">Wöchentlich</string>
+	<string name="update_interval_1m">Monatlich</string>
 </resources>

@@ -67,9 +67,9 @@ class CloudRepositoryImpl implements CloudRepository {
 		}
 
 		Cloud storedCloud = mapper.fromEntity(database.store(mapper.toEntity(cloud)));
+		database.clearCache();
 
 		dispatchingCloudContentRepository.updateCloudContentRepositoryFor(storedCloud);
-		database.clearCache();
 
 		return storedCloud;
 	}
@@ -80,6 +80,7 @@ class CloudRepositoryImpl implements CloudRepository {
 			throw new IllegalArgumentException("Can not delete non persistent cloud");
 		}
 		database.delete(mapper.toEntity(cloud));
+		dispatchingCloudContentRepository.removeCloudContentRepositoryFor(cloud);
 	}
 
 	@Override
