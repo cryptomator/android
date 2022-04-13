@@ -1,2 +1,1 @@
-- Das Hinzufügen und Erstellen von Tresoren über eine Verknüpfung zu "Meiner Ablage" aus einem Ordner im Bereich "Geteilte Laufwerke" behoben
-- Absturz der App auf einigen Geräten beim Betrachten von Bildern und Klicken auf den Bildschirm behoben
+- Fehler beim Zugriff auf Dateien wenn eine Verbindung neu hinzugefügt wurde behoben
