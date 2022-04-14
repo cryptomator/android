@@ -9,13 +9,13 @@
 	<string name="error_no_network_connection">Nema mrežne veze</string>
 	<string name="error_invalid_passphrase">Pogrešna lozinka</string>
 	<string name="error_file_or_folder_exists">Datoteka ili mapa već postoje.</string>
-	<string name="error_vault_version_not_supported">Verzija trezora %1$s nije podržana. Ovaj trezor je stvoren sa starijom ili novijom verzijom Cryptomator-a.</string>
+	<string name="error_vault_version_not_supported">Verzija trezora %1$s nije podržana. Ovaj trezor je izrađen sa starijom ili novijom verzijom Cryptomator-a.</string>
 	<string name="error_vault_config_file_missing_due_to_format_999">%1$s datoteka nedostaje u mapi Vašeg trezora. Budite sigurni da ova datoteka postoji u mapi Vašeg trezora u oblaku.</string>
 	<string name="error_vault_already_exists">Trezor već postoji.</string>
 	<string name="error_no_such_file">Datoteka ne postoji.</string>
 	<string name="error_vault_has_been_locked">Trezor je zaključan.</string>
 	<string name="error_cloud_already_exists">Oblak već postoji.</string>
-	<string name="error_activity_not_found">Molimo preuzmite aplikaciju koja može otvoriti ovu datoteku.</string>
+	<string name="error_activity_not_found">Molimo preuzmite program koji može otvoriti ovu datoteku.</string>
 	<string name="error_server_not_found">Poslužitelj nije pronađen.</string>
 	<string name="error_device_policy_manager_not_found">Molimo otvorite postavke svog uređaja i ručno postavite zaključavanje zaslona</string>
 	<string name="error_export_illegal_file_name">Izvoz neuspješan. Uklonite posebne znakove iz imena datoteka i izvezite ponovno.</string>
@@ -33,7 +33,7 @@
 	<string name="error_vault_config_loading">Opća greška kod učitavanja postavki trezora</string>
 	<string name="error_file_not_found_after_opening_using_3party">Lokalna datoteka više ne postoji nakon povratka u Cryptomator. Moguće promjene ne mogu se propagirati nazad u oblak.</string>
 	<string name="error_no_such_bucket">Nepostojeća kanta</string>
-	<string name="error_masterkey_location_not_supported">Prilagođeno mjesto glavnog ključa još nije podržano</string>
+	<string name="error_masterkey_location_not_supported">Prilagođena lokacija glavnog ključa još nije podržano</string>
 	<!-- # clouds -->
 	<!-- ## cloud names -->
 	<string name="cloud_names_local_storage">Lokalna pohrana</string>
@@ -57,10 +57,10 @@
 	<!-- # screens -->
 	<!-- # screen: vault list -->
 	<string name="screen_vault_list_actions_title">Dodaj u Cryptomator</string>
-	<string name="screen_vault_list_action_create_new_vault">Napravi novi trezor</string>
+	<string name="screen_vault_list_action_create_new_vault">Izradi novi trezor</string>
 	<string name="screen_vault_list_action_add_existing_vault">Dodaj postojeći trezor</string>
 	<string name="screen_vault_list_vault_action_delete">Ukloni</string>
-	<string name="screen_vault_list_vault_creation_hint">Pritisnite ovdje za stvaranje novog trezora</string>
+	<string name="screen_vault_list_vault_creation_hint">Pritisnite ovdje za izradu novog trezora</string>
 	<string name="screen_vault_list_change_password_successful">Lozinka je uspješno promijenjena</string>
 	<!-- # screen: file browser -->
 	<string name="screen_file_browser_default_title">Trezor</string>
@@ -138,14 +138,14 @@
 	<!-- ## screen: enter vault name -->
 	<string name="screen_enter_vault_name_msg_name_empty">Ime trezora ne može biti prazno.</string>
 	<string name="screen_enter_vault_name_vault_label">Ime trezora</string>
-	<string name="screen_enter_vault_name_button_text">Stvori</string>
+	<string name="screen_enter_vault_name_button_text">Izradi</string>
 	<!-- ## screen: set password -->
 	<string name="screen_set_password_title">Postavi lozinku</string>
 	<string name="screen_set_password_msg_password_mismatch">Lozinka ne odgovara ponovno upisanoj lozinci.</string>
 	<string name="screen_set_password_button_text">Gotovo</string>
 	<string name="screen_set_password_hint">VAŽNO: Ako zaboravite svoju lozinku, nema načina za povrat Vaših podataka.</string>
 	<string name="screen_set_password_retype_password_label">Ponovno upišite lozinku</string>
-	<string name="screen_set_password_strength_indicator_0">Preslaba za kreiranje trezora</string>
+	<string name="screen_set_password_strength_indicator_0">Preslaba za izradu trezora</string>
 	<string name="screen_set_password_strength_indicator_1">Slaba</string>
 	<string name="screen_set_password_strength_indicator_2">Prosječna</string>
 	<string name="screen_set_password_strength_indicator_3">Jaka</string>
@@ -192,24 +192,63 @@
 	<string name="screen_settings_section_version">Verzija</string>
 	<string name="screen_settings_advanced_settings">Napredne postavke</string>
 	<string name="screen_settings_background_unlock_preparation_label">Ubrzaj otključavanje</string>
+	<string name="screen_settings_background_unlock_preparation_label_summary">Preuzmite postavke trezora u pozadini dok se od vas traži da unesete lozinku ili biometrijska autentikacija</string>
+	<string name="screen_settings_keep_unlocked_while_editing_files">Drži otključano</string>
+	<string name="screen_settings_keep_unlocked_while_editing_files_summary">Neka trezori budu otključani dok se datoteke uređuju</string>
 	<!-- ## screen: cloud settings -->
+	<string name="screen_cloud_settings_onedrive_connections">OneDrive veze</string>
+	<string name="screen_cloud_settings_webdav_connections">WebDAV veze</string>
+	<string name="screen_cloud_settings_pcloud_connections">pCloud veze</string>
+	<string name="screen_cloud_settings_s3_connections">S3 veze</string>
+	<string name="screen_cloud_settings_local_storage_locations">Lokacije lokalne pohrane</string>
+	<string name="screen_cloud_settings_log_in_to">Prijavi se na</string>
+	<string name="screen_cloud_settings_sign_out_from_cloud">Odjavi se iz</string>
 	<!-- ## screen: licenses -->
 	<!-- ## screen: authenticate cloud -->
+	<string name="screen_authenticate_auth_authentication_failed">%1$s se ne može autenticirati.</string>
+	<string name="screen_update_pcloud_connections_title">Ažuriraj pCloud vjerodajnice</string>
 	<!-- ## screen: insecure android version info -->
 	<!-- # dialogs -->
 	<string name="dialog_button_cancel">Odustani</string>
 	<string name="dialog_enter_password_positive_button">Otključaj</string>
+	<string name="dialog_change_password_old_password_label">Stara lozinka</string>
+	<string name="dialog_change_password_new_password_label">Nova lozinka</string>
+	<string name="dialog_change_password">Promijeni lozinku</string>
+	<string name="dialog_change_password_msg_old_password_empty">Stara lozinka ne može biti prazna.</string>
+	<string name="dialog_change_password_msg_new_password_empty">Nova lozinka ne može biti prazna.</string>
 	<string name="dialog_change_password_msg_password_mismatch">Nova lozinka ne odgovara ponovno upisanoj lozinci.</string>
 	<!-- Vault not found -->
+	<string name="dialog_vault_not_found_title">Trezor %1$s nije pronađen</string>
+	<string name="dialog_vault_not_found_message">Trezor je preimenovan, pomaknut ili obrisan. Uklonite trezor s liste i dodajte ga ponovno za nastavak. Ukloniti sada?</string>
 	<string name="dialog_vault_not_found_positive_button_text">Ukloni</string>
+	<string name="dialog_existing_file_title">Datoteka već postoji</string>
 	<string name="dialog_existing_file_positive_button">Zamijeni</string>
 	<string name="dialog_existing_file_message">Datoteka s imenom \'%1$s\' već postoji.</string>
 	<string name="dialog_replace_negative_button_at_least_two_but_not_all_files_exist">Preskoči postojeće</string>
 	<string name="dialog_replace_positive_button_all_files_exist">Zamijeni sve</string>
 	<string name="dialog_replace_positive_button_some_files_exist">Zamijeni postojeće</string>
 	<string name="dialog_replace_positive_button_single_file_exists">Zamijeni</string>
+	<string name="dialog_replace_msg_single_file_exists">Datoteka naziva \'%1$s\' već postoji. Želite li ju zamijeniti?</string>
+	<string name="dialog_replace_msg_all_files_exists">Sve datoteke već postoje. Želite li ih zamijeniti?</string>
+	<string name="dialog_replace_msg_some_files_exists">%1$d datoteka već postoji. Želite li ih zamijeniti?</string>
+	<string name="dialog_replace_title_single_file_exists">Zamijeniti datoteku?</string>
+	<string name="dialog_replace_title_multiple_files_exist">Zamjeniti datoteke?</string>
+	<string name="dialog_unable_to_share_title">Nije moguće dijeliti datoteke</string>
+	<string name="dialog_unable_to_share_message">Niste postavili niti jedan trezor. Izradite novi trezor s Cryptomator-om.</string>
+	<string name="dialog_unable_to_share_positive_button">U redu</string>
+	<string name="dialog_unable_to_share_negative_button">Izradi trezor</string>
+	<string name="dialog_filetype_not_supported_title">Ne mogu otvoriti %1$s</string>
+	<string name="dialog_filetype_not_supported_message">Preuzmite program koji može otvoriti ovu datoteku ili ju želite pohraniti na Vaš uređaj?</string>
+	<string name="dialog_rename_vault_title">Preimenuj trezor</string>
+	<string name="dialog_rename_node_folder_title">Preimenuj mapu</string>
+	<string name="dialog_rename_node_file_title">Preimenuj datoteku</string>
+	<string name="dialog_unsaved_changes_title">Imate nepohranjene promjene</string>
+	<string name="dialog_unsaved_changes_message">Želite li izaći bez spremanja?</string>
+	<string name="dialog_unsaved_changes_discard">Odbaci</string>
 	<string name="dialog_file_name_placeholder">tekst.txt</string>
+	<string name="dialog_delete_vault_message">Sigurno želite ukloniti ovaj trezor?</string>
 	<string name="dialog_upload_file_title">Prenosi se&#8230;</string>
+	<string name="dialog_progress_please_wait">Molimo pričekajte&#8230;</string>
 	<string name="dialog_progress_upload_file">Prenosi se&#8230;</string>
 	<string name="dialog_progress_download_file">Preuzima se&#8230;</string>
 	<string name="dialog_progress_encryption">Šifrira se&#8230;</string>
@@ -220,7 +259,10 @@
 	<string name="dialog_debug_mode_positive_button">Omogući</string>
 	<string name="dialog_disable_app_obscured_disclaimer_title">Pažnja</string>
 	<string name="dialog_app_is_obscured_info_neutral_button">Zatvori</string>
+	<string name="dialog_vault_is_root_folder_of_cloud_hint">Izradite novu vezu prema oblaku pri čemu odaberite barem nadređenu mapu ovog trezora kao korijensku mapu za njegovo dodavanje.</string>
 	<string name="dialog_sym_link_back_button">Nazad</string>
+	<string name="dialog_no_dir_file_message">Mapa u oblaku \'%1$s\' nema valjanu datoteku mape. Može biti da je mapa izrađena na drugom uređaju i nije još u potpunosti sinkronizirana s oblakom. Molimo provjerite u oblaku da slijedeća datoteka postoji i da nije prazna:\n%2$s</string>
+	<string name="dialog_pcloud_credentials_updated">Ako ste namjeravali dodati novi pCloud račun, pritisnite url <a href="https://www.pcloud.com">www.pcloud.com</a>, odjavite se iz postojećeg računa i pritisnite na \'+\' u ovom programu za izradu nove veze prema oblaku.</string>
 	<!-- # error reports -->
 	<!-- # misc -->
 	<!-- ## file size helper -->
