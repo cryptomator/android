@@ -284,23 +284,129 @@
 	<string name="dialog_debug_mode_disclaimer_hint">U ovom načinu, osjetljivi podaci mogu biti zapisani u log datoteku na Vašem uređaju (npr. datoteke i putanje). Lozinke, kolačići itd. su izričito isključeni.\n\nZapamtite da isključite način za otklanjanje pogrešaka čim prije je to moguće.</string>
 	<string name="dialog_debug_mode_disclaimer_title">Pažnja</string>
 	<string name="dialog_debug_mode_positive_button">Omogući</string>
+	<string name="dialog_disable_app_obscured_disclaimer_hint">Ova je postavka sigurnosna značajka i spriječava druge programe da prevare korisnike da rade stvari koje ne žele raditi.\n\nOnemogućavanjem potvrđujete da ste <a href="https://docs.cryptomator.org /en/1.5/android/settings/#block-app-when-obscured">svjesni rizika</a>.</string>
 	<string name="dialog_disable_app_obscured_disclaimer_title">Pažnja</string>
+	<string name="dialog_disable_app_obscured_positive_button">Onemogući</string>
+	<string name="dialog_app_is_obscured_info_title">Program je zaklonjen</string>
+	<string name="dialog_app_is_obscured_info_hint">Drugi program prikazuje nešto na vrhu Cryptomator-a (e.g., a blue light filter or night mode app). Iz sigurnosnih razloga, Cryptomator je onemogućen.\n\n<a href="https://docs.cryptomator.org/en/1.5/android/settings/#block-app-when-obscured">Kako omogućiti Cryptomator</a></string>
 	<string name="dialog_app_is_obscured_info_neutral_button">Zatvori</string>
+	<string name="dialog_vaults_removed_during_migration_title">Ponovno dodajte trezore za %1s oblak</string>
 	<string name="dialog_vaults_removed_during_migration_hint">Tijekom migracije na ovu verziju programa moramo ukloniti sljedeće trezore iz njega:\n%2s \n\nTi trezori se ne uklanjaju iz oblaka, već samo iz ovog programa. Ispričavamo se zbog neugodnosti i molimo da ponovno dodate ove trezore kako biste nastavili raditi s njima.</string>
+	<string name="dialog_vault_is_root_folder_of_cloud_title">Trezor je korijenska mapa veze u oblaku</string>
 	<string name="dialog_vault_is_root_folder_of_cloud_hint">Izradite novu vezu prema oblaku pri čemu odaberite barem nadređenu mapu ovog trezora kao korijensku mapu za njegovo dodavanje.</string>
+	<string name="dialog_disable_secure_screen_disclaimer_hint">Ova je postavka sigurnosna značajka i sprječava druge programe da prevare korisnike da rade stvari koje ne žele raditi.\n\nOnemogućavanjem potvrđujete da ste <a href="https://docs.cryptomator.org/en/1.5/android/settings/#screen-security">svjesni rizika</a>.</string>
+	<string name="dialog_delete_cloud_connection_with_vaults_message">Sigurni ste da želite ukloniti ovu vezu prema oblaku?</string>
+	<string name="dialog_delete_cloud_connection_with_vaults_hint">Ova radnje će ukloniti vezu prema oblaku i sve trezore u njemu.</string>
+	<string name="dialog_confirm_delete_multiple_title">Izbrisati %1$d stavke?</string>
+	<string name="dialog_confirm_delete_multiple_message">Sigurno želite obrisati ove stavke?</string>
+	<string name="dialog_confirm_delete_file_message">Sigurno želite obrisati ove datoteke?</string>
+	<string name="dialog_confirm_delete_folder_message">Ovo će obrisati sav sadržaj mape. Sigurni ste da želite obrisati ovu mapu?</string>
+	<string name="dialog_biometric_auth_key_invalidated_title">Biometrijska autentikacija deaktivirana</string>
+	<string name="dialog_biometric_auth_key_invalidated_message">Budući da je ključ poništen, biometrijska autentikacija je deaktivirana. Da biste ju ponovno omogućili, otvorite postavke Cryptomator-a.</string>
+	<string name="dialog_enter_license_title">Pružite važeću licencu</string>
+	<string name="dialog_enter_license_content">Otkrili smo da ste instalirali Cryptomator bez upotrebe trgovine Google Play. Navedite važeću licencu koja se može kupiti na <a href="https://cryptomator.org/android/">https://cryptomator.org/android/</a></string>
+	<string name="dialog_enter_license_not_valid_content">Navedena licenca nije važeća. Provjerite jeste li ju ispravno unijeli.</string>
+	<string name="dialog_enter_license_not_valid_content_desktop_supporter_certificate">Navedeni ključ je certifikat tzv. stolnog podržavatelja. Molimo unesite važeću licencu.</string>
+	<string name="dialog_enter_license_no_content">Licenca nije pružena. Molimo unesite važeću licencu.</string>
+	<string name="dialog_enter_license_decline_button">Izlaz</string>
+	<string name="dialog_license_confirmation_title">Potvrda licence</string>
+	<string name="dialog_license_confirmation_message">Hvala %1$s za pružanje valjane licence.</string>
+	<string name="dialog_update_available_title">Ažuriranje dostupno</string>
+	<string name="dialog_update_available_message">Ažurirajte Cryptomator na najnoviju verziju. Pritiskom na OK program ćemo preuzeti u pozadini i zatražiti od Vas da ga instalirate.</string>
+	<string name="dialog_update_available_update">Ažuriraj sada</string>
+	<string name="dialog_update_available_download_site">Idi na stranicu za preuzimanja</string>
+	<string name="dialog_update_available_cancel">Kasnije</string>
+	<string name="dialog_download_update_title">Preuzimanje u tijeku</string>
+	<string name="dialog_download_update_message">Preuzimanje zadnje verzije Cryptomator-a</string>
+	<string name="dialog_sym_link_title">Mapa je simbolička veza</string>
+	<string name="dialog_sym_link_message">Ne možete pratiti ovu simboličku vezu</string>
 	<string name="dialog_sym_link_back_button">Nazad</string>
+	<string name="dialog_no_dir_file_title">Nije moguće učitati sadržaj mape</string>
 	<string name="dialog_no_dir_file_message">Mapa u oblaku \'%1$s\' nema valjanu datoteku mape. Može biti da je mapa izrađena na drugom uređaju i nije još u potpunosti sinkronizirana s oblakom. Molimo provjerite u oblaku da slijedeća datoteka postoji i da nije prazna:\n%2$s</string>
+	<string name="dialog_no_more_images_to_display">Nema više slika za prikaz&#8230;</string>
+	<string name="dialog_pcloud_credentials_updated_title">Vjerodajnice od \'%1$s\' ažurirane</string>
 	<string name="dialog_pcloud_credentials_updated">Ako ste namjeravali dodati novi pCloud račun, pritisnite url <a href="https://www.pcloud.com">www.pcloud.com</a>, odjavite se iz postojećeg računa i pritisnite na \'+\' u ovom programu za izradu nove veze prema oblaku.</string>
+	<string name="permission_snackbar_auth_local_vault">Cryptomator treba pristup pohrani da koristi lokalne trezore</string>
+	<string name="permission_snackbar_auth_auto_upload">Cryptomator treba pristup pohrani da koristi automatski prijenos slika</string>
 	<!-- # error reports -->
 	<!-- # misc -->
 	<!-- ## file size helper -->
+	<string name="file_size_zero">Nula kB</string>
+	<string name="file_size_unit_bytes">bajtova</string>
+	<string name="file_size_unit_kilo_bytes">kB</string>
+	<string name="file_size_unit_mega_bytes">MB</string>
+	<string name="file_size_unit_giga_bytes">GB</string>
+	<string name="file_size_unit_tera_bytes">TB</string>
 	<!-- ## date helper -->
+	<string name="time_unit_seconds_sg">sekunda</string>
+	<string name="time_unit_seconds_pl">sekunde</string>
+	<string name="time_unit_minutes_sg">minuta</string>
 	<string name="time_unit_minutes_pl">minute</string>
+	<string name="time_unit_hours_sg">sat</string>
+	<string name="time_unit_hours_pl">sati</string>
+	<string name="time_unit_days_sg">dan</string>
+	<string name="time_unit_days_pl">dani</string>
+	<string name="time_unit_weeks_sg">tjedan</string>
+	<string name="time_unit_weeks_pl">tjedni</string>
+	<string name="time_unit_months_sg">mjesec</string>
+	<string name="time_unit_months_pl">mjeseci</string>
+	<string name="time_unit_years_sg">godina</string>
+	<string name="time_unit_years_pl">godine</string>
 	<!-- ## biometric authentication -->
+	<string name="dialog_biometric_auth_title">Biometrijska prijava</string>
+	<string name="dialog_biometric_auth_message">Prijavite se koristeći svoje biometrijske vjerodajnice</string>
+	<string name="dialog_biometric_auth_use_password">Koristi lozinku trezora</string>
+	<string name="dialog_unable_to_auto_upload_files_title">Nije moguć automatski prijenos datoteka</string>
 	<!-- notification -->
+	<string name="notification_unlocked">Otključanih trezora: %1$d</string>
+	<string name="notification_timeout">Automatsko zaključavanje za %1$s</string>
+	<string name="notification_lock_all">Zaključaj sve</string>
+	<string name="notification_cancel_auto_upload">Odustani od prijenosa</string>
+	<string name="notification_auto_upload_title">Aumatski prijenos slika u tijeku</string>
+	<string name="notification_auto_upload_message">Prenosim %1d/%2d</string>
+	<string name="notification_auto_upload_finished_title">Automatski prijenos slika završen</string>
+	<string name="notification_auto_upload_finished_message">%1$d slika preneseno u trezor</string>
+	<string name="notification_auto_upload_failed_title">Automatski prijenos slika neuspješan</string>
+	<string name="notification_auto_upload_failed_general_error">Došlo je do greške tijekom prijenosa.</string>
+	<string name="notification_auto_upload_failed_due_to_folder_not_exists">Odabrana mapa za prijenos više nije dostupna. Idite na postavke i odaberite novu</string>
+	<string name="notification_auto_upload_failed_due_to_vault_locked">Trezor je zaključan tijekom prijenosa, ponovno ga otvorite za nastavak</string>
+	<string name="notification_auto_upload_failed_due_to_vault_not_found">Trezor određen za automatski prijenos više ne postoji.</string>
+	<string name="notification_open_writable_file_title">Datoteka otvorena za pisanje</string>
+	<string name="notification_open_writable_file_message">Trezor ostaje otvoren dok se ne završi izmjena</string>
+	<string name="notification_update_check_finished_latest">Najnovija verzija je instalirana</string>
+	<string name="notification_authenticating">Autentikacija&#8230;</string>
+	<string name="screen_settings_lru_cache">Predmemorija</string>
+	<string name="screen_settings_lru_cache_toggle_summary">Predmemorija je nedavno pristupila datotekama šifriranima lokalno na uređaju za kasniju ponovnu upotrebu</string>
+	<string name="screen_settings_lru_cache_size">Ukupna veličina predmemorije</string>
+	<string name="screen_settings_clear_lru_cache_size">Očisti predmemoriju</string>
 	<string name="screen_settings_lru_cache_changed__restart_toast">Promjene će se primijeniti kod slijedećeg pokretanja aplikacije</string>
+	<string name="screen_settings_license">Registrirano za</string>
+	<string name="screen_settings_license_mail">%1$s</string>
+	<string name="dialog_settings_update_check_interval_title">Razmak ažuriranja</string>
+	<string name="screen_settings_check_updates">Potraži ažuriranja</string>
+	<string name="screen_settings_last_check_updates">Posljednji put pokrenuto %1$s</string>
+	<string name="dialog_cache_size_title">Veličina predmemorije po oblaku</string>
 	<!-- lock timeout names -->
+	<string name="lock_timeout_instant">Odmah</string>
+	<string name="lock_timeout_1m">1 minuta</string>
+	<string name="lock_timeout_2m">2 minute</string>
+	<string name="lock_timeout_5m">5 minuta</string>
+	<string name="lock_timeout_10m">10 minuta</string>
+	<string name="lock_timeout_never">Nikad</string>
 	<!-- cache size names -->
+	<string name="cache_size_50m">50 MB</string>
+	<string name="cache_size_100m">100 MB</string>
+	<string name="cache_size_250m">250 MB</string>
+	<string name="cache_size_500m">500 MB</string>
+	<string name="cache_size_1000m">1 GB</string>
+	<string name="cache_size_5000m">5 GB</string>
 	<!-- screen scheme mode names -->
+	<string name="screen_settings_style_mode">Stil</string>
+	<string name="follow_system">Automatski (slijedi sustav)</string>
+	<string name="light">Svijetlo</string>
+	<string name="dark">Tamno</string>
 	<!-- update interval names -->
+	<string name="update_interval_1d">Jednom dnevno</string>
+	<string name="update_interval_1w">Jednom tjedno</string>
+	<string name="update_interval_1m">Jednom mjesečno</string>
 </resources>
