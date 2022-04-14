@@ -247,18 +247,46 @@
 	<string name="dialog_unsaved_changes_discard">Odbaci</string>
 	<string name="dialog_file_name_placeholder">tekst.txt</string>
 	<string name="dialog_delete_vault_message">Sigurno želite ukloniti ovaj trezor?</string>
+	<string name="dialog_delete_vault_hint">Ova radnja će samo ukloniti trezor s liste, ali ne i fizički ga obrisati.</string>
 	<string name="dialog_upload_file_title">Prenosi se&#8230;</string>
+	<string name="dialog_upload_file_remaining">Datoteka %1$d od %2$d</string>
+	<string name="dialog_export_file_title">Izvoz (%1$d/%2$d)</string>
 	<string name="dialog_progress_please_wait">Molimo pričekajte&#8230;</string>
+	<string name="dialog_progress_creating_folder">Izrada mape&#8230;</string>
+	<string name="dialog_progress_creating_text_file">Izrada tekstualne datoteke&#8230;</string>
+	<string name="action_progress_authentication">Autentikacija&#8230;</string>
+	<string name="action_progress_renaming">Preimenovanje&#8230;</string>
+	<string name="action_progress_deleting">Brisanje&#8230;</string>
+	<string name="dialog_progress_unlocking_vault">Otključavanje trezora&#8230;</string>
+	<string name="dialog_progress_change_password">Promijeni lozinku&#8230;</string>
+	<string name="dialog_progress_creating_vault">Izrada trezora&#8230;</string>
 	<string name="dialog_progress_upload_file">Prenosi se&#8230;</string>
 	<string name="dialog_progress_download_file">Preuzima se&#8230;</string>
 	<string name="dialog_progress_encryption">Šifrira se&#8230;</string>
+	<string name="dialog_progress_decryption">Dešifriranje&#8230;</string>
+	<string name="action_progress_moving">Premještanje&#8230;</string>
 	<string name="dialog_lock_vault">Zaključaj</string>
+	<string name="dialog_accept_ssl_certificate_title">Nevažeći SSL certifikat</string>
+	<string name="dialog_accept_ssl_certificate_hint">SSL certificate je nevažeći. Želite li mu ipak vjerovati?</string>
 	<string name="dialog_accept_ssl_certificate_details">Detalji</string>
+	<string name="dialog_accept_ssl_certificate_security_checkbox">Ovo bi mogao biti sigurnosni rizik. Znam što činim.</string>
+	<string name="dialog_ask_ignore_battery_optimizations_title">Onemogući optimizacije baterije</string>
+	<string name="dialog_ask_ignore_battery_optimizations_hint">Za dohvat novih slika i videa bez rada u pozadini, moramo onemogućiti optimizacije baterije. Ali ne brinite, %1$s ne troši puno energije.\n\nDa biste ga primijenili, promijenite \"Nije optimizirano\" u \"Svi programi\", odaberite %1$s i odaberite \"Nemoj optimizirati\" nakon što pritisnete \'%2$s\' u ovom dijaloškom okviru.</string>
+	<string name="dialog_ask_ignore_battery_optimizations_checkbox">Ne pitati ponovno?</string>
+	<string name="dialog_http_security_hint">Korištenje HTTP-a je nesigurno. Preporučamo korištenje HTTPS-a umjesto toga. Ako znate rizike, možemo nastaviti s HTTP-om.</string>
+	<string name="dialog_http_security_checkbox">Promijeni u HTTPS</string>
+	<string name="dialog_http_security_title">Koristiti HTTPS?</string>
+	<string name="dialog_no_screen_lock_hint">Zaključavanje zaslona nije postavljeno. Da biste svoje vjerodajnice pohranili na siguran način, postavite s OK uzorak ili lozinku.</string>
+	<string name="dialog_no_screen_lock_title">Postaviti zaključavanje zaslona?</string>
+	<string name="dialog_no_screen_lock_checkbox">Postaviti zaključavanje zaslona</string>
+	<string name="dialog_no_biometric_auth_set_up_title">U sustavu nije postavljena osnovna provjera autentikacije</string>
+	<string name="dialog_no_biometric_auth_set_up_message">Prijavite barem jedan prst/lice za korištenje ove usluge.</string>
 	<string name="dialog_debug_mode_disclaimer_hint">U ovom načinu, osjetljivi podaci mogu biti zapisani u log datoteku na Vašem uređaju (npr. datoteke i putanje). Lozinke, kolačići itd. su izričito isključeni.\n\nZapamtite da isključite način za otklanjanje pogrešaka čim prije je to moguće.</string>
 	<string name="dialog_debug_mode_disclaimer_title">Pažnja</string>
 	<string name="dialog_debug_mode_positive_button">Omogući</string>
 	<string name="dialog_disable_app_obscured_disclaimer_title">Pažnja</string>
 	<string name="dialog_app_is_obscured_info_neutral_button">Zatvori</string>
+	<string name="dialog_vaults_removed_during_migration_hint">Tijekom migracije na ovu verziju programa moramo ukloniti sljedeće trezore iz njega:\n%2s \n\nTi trezori se ne uklanjaju iz oblaka, već samo iz ovog programa. Ispričavamo se zbog neugodnosti i molimo da ponovno dodate ove trezore kako biste nastavili raditi s njima.</string>
 	<string name="dialog_vault_is_root_folder_of_cloud_hint">Izradite novu vezu prema oblaku pri čemu odaberite barem nadređenu mapu ovog trezora kao korijensku mapu za njegovo dodavanje.</string>
 	<string name="dialog_sym_link_back_button">Nazad</string>
 	<string name="dialog_no_dir_file_message">Mapa u oblaku \'%1$s\' nema valjanu datoteku mape. Može biti da je mapa izrađena na drugom uređaju i nije još u potpunosti sinkronizirana s oblakom. Molimo provjerite u oblaku da slijedeća datoteka postoji i da nije prazna:\n%2$s</string>
@@ -270,6 +298,7 @@
 	<string name="time_unit_minutes_pl">minute</string>
 	<!-- ## biometric authentication -->
 	<!-- notification -->
+	<string name="screen_settings_lru_cache_changed__restart_toast">Promjene će se primijeniti kod slijedećeg pokretanja aplikacije</string>
 	<!-- lock timeout names -->
 	<!-- cache size names -->
 	<!-- screen scheme mode names -->
