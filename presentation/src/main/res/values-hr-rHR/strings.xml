@@ -67,6 +67,11 @@
 	<string name="screen_file_browser_add_existing_vault_extra_text">Odaberi datoteku glavnog ključa</string>
 	<string name="screen_file_browser_create_new_vault_button_text">Postavi ovdje</string>
 	<string name="screen_file_browser_create_new_vault_extra_text">Ime trezora: %1$s</string>
+	<plurals name="screen_file_browser_subtitle_move">
+		<item quantity="one">Premjesti %1$s u</item>
+		<item quantity="few">Premjesti %2$d stavke u</item>
+		<item quantity="other">Premjesti %2$d stavki u</item>
+	</plurals>
 	<string name="screen_file_browser_move_button_text">Premjesti</string>
 	<string name="screen_file_browser_msg_empty_folder">Prazna mapa</string>
 	<string name="screen_file_browser_file_info_label_date">izmijenjeno prije %1$s</string>
