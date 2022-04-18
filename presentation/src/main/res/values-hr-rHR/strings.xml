@@ -161,10 +161,10 @@
 	<string name="screen_settings_biometric_auth">Biometrijska autentikacija</string>
 	<string name="screen_settings_activate_biometric_auth">Aktiviraj biometrijsku autentikaciju</string>
 	<string name="screen_settings_confirm_face_unlock">Potvrdi otključavanje licem (ako je dostupno)</string>
-	<string name="screen_settings_block_app_when_obscured">Blokiraj program kada je zaklonjen</string>
+	<string name="screen_settings_block_app_when_obscured">Blokiraj aplikaciju kada je zaklonjena</string>
 	<string name="screen_settings_block_app_when_obscured_summary">Blokiraj presretanje unosa i prikaz lažnog korisničkog sučelja</string>
 	<string name="screen_settings_secure_screen">Blokiraj snimke zaslona</string>
-	<string name="screen_settings_secure_screen_summary">Blokiraj snimke zaslona u listi nedavnih i unutar programa</string>
+	<string name="screen_settings_secure_screen_summary">Blokiraj snimke zaslona u listi nedavnih i unutar aplikacije</string>
 	<string name="screen_settings_section_search">Traži</string>
 	<string name="screen_settings_live_search">Pretraživanje uživo</string>
 	<string name="screen_settings_live_search_summary">Ažuriraj rezultate pretraživanja pri unosu upita</string>
@@ -243,7 +243,7 @@
 	<string name="dialog_unable_to_share_positive_button">U redu</string>
 	<string name="dialog_unable_to_share_negative_button">Izradi trezor</string>
 	<string name="dialog_filetype_not_supported_title">Ne mogu otvoriti %1$s</string>
-	<string name="dialog_filetype_not_supported_message">Preuzmite program koji može otvoriti ovu datoteku ili ju želite pohraniti na Vaš uređaj?</string>
+	<string name="dialog_filetype_not_supported_message">Preuzmite aplikaciju koja može otvoriti ovu datoteku ili ju želite pohraniti na Vaš uređaj?</string>
 	<string name="dialog_rename_vault_title">Preimenuj trezor</string>
 	<string name="dialog_rename_node_folder_title">Preimenuj mapu</string>
 	<string name="dialog_rename_node_file_title">Preimenuj datoteku</string>
@@ -276,7 +276,7 @@
 	<string name="dialog_accept_ssl_certificate_details">Detalji</string>
 	<string name="dialog_accept_ssl_certificate_security_checkbox">Ovo bi mogao biti sigurnosni rizik. Znam što činim.</string>
 	<string name="dialog_ask_ignore_battery_optimizations_title">Onemogući optimizacije baterije</string>
-	<string name="dialog_ask_ignore_battery_optimizations_hint">Za dohvat novih slika i videa bez rada u pozadini, moramo onemogućiti optimizacije baterije. Ali ne brinite, %1$s ne troši puno energije.\n\nDa biste ga primijenili, promijenite \"Nije optimizirano\" u \"Svi programi\", odaberite %1$s i odaberite \"Nemoj optimizirati\" nakon što pritisnete \'%2$s\' u ovom dijaloškom okviru.</string>
+	<string name="dialog_ask_ignore_battery_optimizations_hint">Za dohvat novih slika i videa bez rada u pozadini, moramo onemogućiti optimizacije baterije. Ali ne brinite, %1$s ne troši puno energije.\n\nDa biste ga primijenili, promijenite \"Nije optimizirano\" u \"Sve aplikacije\", odaberite %1$s i odaberite \"Nemoj optimizirati\" nakon što pritisnete \'%2$s\' u ovom dijaloškom okviru.</string>
 	<string name="dialog_ask_ignore_battery_optimizations_checkbox">Ne pitati ponovno?</string>
 	<string name="dialog_http_security_hint">Korištenje HTTP-a je nesigurno. Preporučamo korištenje HTTPS-a umjesto toga. Ako znate rizike, možemo nastaviti s HTTP-om.</string>
 	<string name="dialog_http_security_checkbox">Promijeni u HTTPS</string>
@@ -289,17 +289,17 @@
 	<string name="dialog_debug_mode_disclaimer_hint">U ovom načinu, osjetljivi podaci mogu biti zapisani u log datoteku na Vašem uređaju (npr. datoteke i putanje). Lozinke, kolačići itd. su izričito isključeni.\n\nZapamtite da isključite način za otklanjanje pogrešaka čim prije je to moguće.</string>
 	<string name="dialog_debug_mode_disclaimer_title">Pažnja</string>
 	<string name="dialog_debug_mode_positive_button">Omogući</string>
-	<string name="dialog_disable_app_obscured_disclaimer_hint">Ova je postavka sigurnosna značajka i spriječava druge programe da prevare korisnike da rade stvari koje ne žele raditi.\n\nOnemogućavanjem potvrđujete da ste <a href="https://docs.cryptomator.org /en/1.5/android/settings/#block-app-when-obscured">svjesni rizika</a>.</string>
+	<string name="dialog_disable_app_obscured_disclaimer_hint">Ova je postavka sigurnosna značajka i spriječava druge aplikacije da prevare korisnike da rade stvari koje ne žele raditi.\n\nOnemogućavanjem potvrđujete da ste <a href="https://docs.cryptomator.org /en/1.5/android/settings/#block-app-when-obscured">svjesni rizika</a>.</string>
 	<string name="dialog_disable_app_obscured_disclaimer_title">Pažnja</string>
 	<string name="dialog_disable_app_obscured_positive_button">Onemogući</string>
-	<string name="dialog_app_is_obscured_info_title">Program je zaklonjen</string>
-	<string name="dialog_app_is_obscured_info_hint">Drugi program prikazuje nešto na vrhu Cryptomator-a (e.g., a blue light filter or night mode app). Iz sigurnosnih razloga, Cryptomator je onemogućen.\n\n<a href="https://docs.cryptomator.org/en/1.5/android/settings/#block-app-when-obscured">Kako omogućiti Cryptomator</a></string>
+	<string name="dialog_app_is_obscured_info_title">Aplikacija je zaklonjena</string>
+	<string name="dialog_app_is_obscured_info_hint">Druga aplikacija prikazuje nešto na vrhu Cryptomator-a (e.g., a blue light filter or night mode app). Iz sigurnosnih razloga, Cryptomator je onemogućen.\n\n<a href="https://docs.cryptomator.org/en/1.5/android/settings/#block-app-when-obscured">Kako omogućiti Cryptomator</a></string>
 	<string name="dialog_app_is_obscured_info_neutral_button">Zatvori</string>
 	<string name="dialog_vaults_removed_during_migration_title">Ponovno dodajte trezore za %1s oblak</string>
-	<string name="dialog_vaults_removed_during_migration_hint">Tijekom migracije na ovu verziju programa moramo ukloniti sljedeće trezore iz njega:\n%2s \n\nTi trezori se ne uklanjaju iz oblaka, već samo iz ovog programa. Ispričavamo se zbog neugodnosti i molimo da ponovno dodate ove trezore kako biste nastavili raditi s njima.</string>
+	<string name="dialog_vaults_removed_during_migration_hint">Tijekom migracije na ovu verziju aplikacije moramo ukloniti sljedeće trezore iz njega:\n%2s \n\nTi trezori se ne uklanjaju iz oblaka, već samo iz ove aplikacije. Ispričavamo se zbog neugodnosti i molimo da ponovno dodate ove trezore kako biste nastavili raditi s njima.</string>
 	<string name="dialog_vault_is_root_folder_of_cloud_title">Trezor je korijenska mapa veze u oblaku</string>
 	<string name="dialog_vault_is_root_folder_of_cloud_hint">Izradite novu vezu prema oblaku pri čemu odaberite barem nadređenu mapu ovog trezora kao korijensku mapu za njegovo dodavanje.</string>
-	<string name="dialog_disable_secure_screen_disclaimer_hint">Ova je postavka sigurnosna značajka i sprječava druge programe da prevare korisnike da rade stvari koje ne žele raditi.\n\nOnemogućavanjem potvrđujete da ste <a href="https://docs.cryptomator.org/en/1.5/android/settings/#screen-security">svjesni rizika</a>.</string>
+	<string name="dialog_disable_secure_screen_disclaimer_hint">Ova je postavka sigurnosna značajka i sprječava druge aplikacije da prevare korisnike da rade stvari koje ne žele raditi.\n\nOnemogućavanjem potvrđujete da ste <a href="https://docs.cryptomator.org/en/1.5/android/settings/#screen-security">svjesni rizika</a>.</string>
 	<string name="dialog_delete_cloud_connection_with_vaults_message">Sigurni ste da želite ukloniti ovu vezu prema oblaku?</string>
 	<string name="dialog_delete_cloud_connection_with_vaults_hint">Ova radnje će ukloniti vezu prema oblaku i sve trezore u njemu.</string>
 	<string name="dialog_confirm_delete_multiple_title">Izbrisati %1$d stavke?</string>
@@ -317,7 +317,7 @@
 	<string name="dialog_license_confirmation_title">Potvrda licence</string>
 	<string name="dialog_license_confirmation_message">Hvala %1$s za pružanje valjane licence.</string>
 	<string name="dialog_update_available_title">Ažuriranje dostupno</string>
-	<string name="dialog_update_available_message">Ažurirajte Cryptomator na najnoviju verziju. Pritiskom na OK program ćemo preuzeti u pozadini i zatražiti od Vas da ga instalirate.</string>
+	<string name="dialog_update_available_message">Ažurirajte Cryptomator na najnoviju verziju. Pritiskom na OK aplikaciju ćemo preuzeti u pozadini i zatražiti od Vas da ju instalirate.</string>
 	<string name="dialog_update_available_update">Ažuriraj sada</string>
 	<string name="dialog_update_available_download_site">Idi na stranicu za preuzimanja</string>
 	<string name="dialog_update_available_cancel">Kasnije</string>
@@ -330,7 +330,7 @@
 	<string name="dialog_no_dir_file_message">Mapa u oblaku \'%1$s\' nema valjanu datoteku mape. Može biti da je mapa izrađena na drugom uređaju i nije još u potpunosti sinkronizirana s oblakom. Molimo provjerite u oblaku da slijedeća datoteka postoji i da nije prazna:\n%2$s</string>
 	<string name="dialog_no_more_images_to_display">Nema više slika za prikaz&#8230;</string>
 	<string name="dialog_pcloud_credentials_updated_title">Vjerodajnice od \'%1$s\' ažurirane</string>
-	<string name="dialog_pcloud_credentials_updated">Ako ste namjeravali dodati novi pCloud račun, pritisnite url <a href="https://www.pcloud.com">www.pcloud.com</a>, odjavite se iz postojećeg računa i pritisnite na \'+\' u ovom programu za izradu nove veze prema oblaku.</string>
+	<string name="dialog_pcloud_credentials_updated">Ako ste namjeravali dodati novi pCloud račun, pritisnite url <a href="https://www.pcloud.com">www.pcloud.com</a>, odjavite se iz postojećeg računa i pritisnite na \'+\' u ovoj aplikaciji za izradu nove veze prema oblaku.</string>
 	<string name="permission_snackbar_auth_local_vault">Cryptomator treba pristup pohrani da koristi lokalne trezore</string>
 	<string name="permission_snackbar_auth_auto_upload">Cryptomator treba pristup pohrani da koristi automatski prijenos slika</string>
 	<!-- # error reports -->
