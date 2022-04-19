@@ -277,6 +277,13 @@
 	<string name="dialog_no_screen_lock_hint">Nincs beállítva kijelzőzár. A hitelesítő adatok biztonságos tárolásához az OK-ra kattintva állítson be mintát vagy jelszót.</string>
 	<string name="dialog_no_screen_lock_title">Képernyőzár beállítása?</string>
 	<string name="dialog_no_screen_lock_checkbox">Képernyőzár beállítása</string>
+	<string name="dialog_no_biometric_auth_set_up_title">Nincs beállítva hitelesítés a rendszerben</string>
+	<string name="dialog_no_biometric_auth_set_up_message">A funkció használatához tároljon legalább egy biometrikus adatot.</string>
+	<string name="dialog_debug_mode_disclaimer_hint">Ebben a módban érzékeny adatok kerülhetnek az eszközön lévő naplófájlba (pl. fájlnevek és -útvonalak). Ez jelszavakra és sütikre nem vonatkozik.\n\n Ne felejtse el minél hamarabb kikapcsolni a fejlesztői módot.</string>
+	<string name="dialog_debug_mode_disclaimer_title">Figyelem</string>
+	<string name="dialog_debug_mode_positive_button">Engedélyezés</string>
+	<string name="dialog_disable_app_obscured_disclaimer_title">Figyelem</string>
+	<string name="dialog_disable_app_obscured_positive_button">Letiltás</string>
 	<string name="dialog_app_is_obscured_info_neutral_button">Bezár</string>
 	<string name="dialog_confirm_delete_multiple_message">Biztosan törölni akarja ezeket az elemeket?</string>
 	<string name="dialog_confirm_delete_file_message">Biztosan törli ezt a fájlt?</string>
