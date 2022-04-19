@@ -270,6 +270,13 @@
 	<string name="dialog_accept_ssl_certificate_hint">Az SSL tanúsítvány érvénytelen. El szeretné fogadni ennek ellenére?</string>
 	<string name="dialog_accept_ssl_certificate_details">Részletek</string>
 	<string name="dialog_accept_ssl_certificate_security_checkbox">Ez biztonsági kockázatot jelent. Tudom, mit csinálok.</string>
+	<string name="dialog_ask_ignore_battery_optimizations_checkbox">Ne kérdezze újra</string>
+	<string name="dialog_http_security_hint">A HTTP használata nem biztonságos, helyette a HTTPS használata ajánlott. Ha ismeri a kockázatot, folytathatja HTTP-vel is.</string>
+	<string name="dialog_http_security_checkbox">Váltson HTTPS-re</string>
+	<string name="dialog_http_security_title">HTTPS használata</string>
+	<string name="dialog_no_screen_lock_hint">Nincs beállítva kijelzőzár. A hitelesítő adatok biztonságos tárolásához az OK-ra kattintva állítson be mintát vagy jelszót.</string>
+	<string name="dialog_no_screen_lock_title">Képernyőzár beállítása?</string>
+	<string name="dialog_no_screen_lock_checkbox">Képernyőzár beállítása</string>
 	<string name="dialog_app_is_obscured_info_neutral_button">Bezár</string>
 	<string name="dialog_confirm_delete_multiple_message">Biztosan törölni akarja ezeket az elemeket?</string>
 	<string name="dialog_confirm_delete_file_message">Biztosan törli ezt a fájlt?</string>
