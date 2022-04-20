@@ -33,6 +33,7 @@ import org.mockito.AdditionalMatchers
 import org.mockito.Mockito
 import org.mockito.invocation.InvocationOnMock
 import org.mockito.kotlin.any
+import org.mockito.kotlin.anyOrNull
 import org.mockito.kotlin.eq
 import org.mockito.kotlin.mock
 import org.mockito.kotlin.whenever
@@ -43,7 +44,6 @@ import java.io.InputStreamReader
 import java.io.OutputStream
 import java.nio.ByteBuffer
 import java.nio.charset.StandardCharsets
-import java.util.ArrayList
 import java.util.function.Supplier
 import kotlin.io.path.createTempDirectory
 import kotlin.io.path.deleteExisting
@@ -138,11 +138,11 @@ internal class CryptoImplVaultFormatPre7Test {
 		whenever(cloudContentRepository.folder(lvl2Dir, "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA")).thenReturn(aaFolder)
 		whenever(cloudContentRepository.file(aaFolder, "0dir1")).thenReturn(testDir1)
 		whenever(cloudContentRepository.exists(testDir1)).thenReturn(true)
-		Mockito.doAnswer { invocation: InvocationOnMock ->
-			val out = invocation.getArgument<OutputStream>(2)
+		whenever(cloudContentRepository.read(eq(cryptoFolder1.dirFile!!), any(), any(), any())).thenAnswer { invocationOnMock: InvocationOnMock ->
+			val out = invocationOnMock.getArgument<OutputStream>(2)
 			copyStreamToStream(ByteArrayInputStream(dirId1.toByteArray()), out)
 			null
-		}.`when`(cloudContentRepository).read(eq(cryptoFolder1.dirFile!!), any(), any(), any())
+		}
 		whenever<List<*>>(cloudContentRepository.list(aaFolder)).thenReturn(rootItems)
 		whenever(dirIdCache.put(eq(root), any())).thenReturn(DirIdInfo("", aaFolder))
 	}
@@ -193,11 +193,11 @@ internal class CryptoImplVaultFormatPre7Test {
 
 		val cryptoFolder3 = CryptoFolder(cryptoFolder1, dir3Name, "/Directory 1/$dir3Name", testDir3DirFile)
 
-		Mockito.doAnswer { invocation: InvocationOnMock ->
-			val out = invocation.getArgument<OutputStream>(2)
+		whenever(cloudContentRepository.read(eq(cryptoFolder3.dirFile!!), anyOrNull(), any(), any())).thenAnswer { invocationOnMock: InvocationOnMock ->
+			val out = invocationOnMock.getArgument<OutputStream>(2)
 			copyStreamToStream(ByteArrayInputStream("dir3-id".toByteArray()), out)
 			null
-		}.`when`(cloudContentRepository).read(eq(cryptoFolder3.dirFile!!), any(), any(), any())
+		}
 
 		/*
 		 * │ ├─ Directory 3x250
@@ -217,11 +217,11 @@ internal class CryptoImplVaultFormatPre7Test {
 		whenever(cloudContentRepository.file(directory4x250, "name.c9s")).thenReturn(testDir4NameFile)
 		whenever(fileNameCryptor.encryptFilename(BaseEncoding.base32(), dir4Name, "dir3-id".toByteArray())).thenReturn(dir4Cipher)
 		whenever(fileNameCryptor.decryptFilename(BaseEncoding.base32(), dir4Cipher, "dir3-id".toByteArray())).thenReturn(dir4Name)
-		Mockito.doAnswer { invocation: InvocationOnMock ->
-			val out = invocation.getArgument<OutputStream>(2)
+		whenever(cloudContentRepository.read(eq(testDir4NameFile), any(), any(), any())).thenAnswer { invocationOnMock: InvocationOnMock ->
+			val out = invocationOnMock.getArgument<OutputStream>(2)
 			copyStreamToStream(ByteArrayInputStream(dir4Cipher.toByteArray(charset("UTF-8"))), out)
 			null
-		}.`when`(cloudContentRepository).read(eq(testDir4NameFile), any(), any(), any())
+		}
 
 		val dir4Files: ArrayList<CloudNode> = object : ArrayList<CloudNode>() {
 			init {
@@ -242,11 +242,12 @@ internal class CryptoImplVaultFormatPre7Test {
 		whenever(cloudContentRepository.file(directory5x250, "name.c9s")).thenReturn(testFile5NameFile)
 		whenever(fileNameCryptor.encryptFilename(BaseEncoding.base32(), file5Name, "dir3-id".toByteArray())).thenReturn(file5Cipher)
 		whenever(fileNameCryptor.decryptFilename(BaseEncoding.base32(), file5Cipher, "dir3-id".toByteArray())).thenReturn(file5Name)
-		Mockito.doAnswer { invocation: InvocationOnMock ->
-			val out = invocation.getArgument<OutputStream>(2)
+		whenever(cloudContentRepository.read(eq(testFile5NameFile), any(), any(), any())).thenAnswer { invocationOnMock: InvocationOnMock ->
+			val out = invocationOnMock.getArgument<OutputStream>(2)
 			copyStreamToStream(ByteArrayInputStream(file5Cipher.toByteArray(charset("UTF-8"))), out)
 			null
-		}.`when`(cloudContentRepository).read(eq(testFile5NameFile), any(), any(), any())
+		}
+
 		val dir5Files: ArrayList<CloudNode> = object : ArrayList<CloudNode>() {
 			init {
 				add(testFile5ContentFile)
@@ -286,11 +287,11 @@ internal class CryptoImplVaultFormatPre7Test {
 		whenever(fileHeaderCryptor.decryptHeader(StandardCharsets.UTF_8.encode("hhhhh"))).thenReturn(header)
 		whenever(fileContentCryptor.decryptChunk(eq(StandardCharsets.UTF_8.encode("TOPSECRET!")), any(), eq(header), any()))
 			.then { invocation: InvocationOnMock? -> StandardCharsets.UTF_8.encode("geheim!!") }
-		Mockito.doAnswer { invocation: InvocationOnMock ->
-			val out = invocation.getArgument<OutputStream>(2)
+		whenever(cloudContentRepository.read(eq(cryptoFile1.cloudFile), any(), any(), any())).thenAnswer { invocationOnMock: InvocationOnMock ->
+			val out = invocationOnMock.getArgument<OutputStream>(2)
 			copyStreamToStream(ByteArrayInputStream(file1Content), out)
 			null
-		}.`when`(cloudContentRepository).read(eq(cryptoFile1.cloudFile), any(), any(), any())
+		}
 
 		val outputStream = ByteArrayOutputStream(1000)
 		inTest.read(cryptoFile1, outputStream, ProgressAware.NO_OP_PROGRESS_AWARE_DOWNLOAD)
@@ -318,11 +319,11 @@ internal class CryptoImplVaultFormatPre7Test {
 		whenever(fileContentCryptor.decryptChunk(eq(StandardCharsets.UTF_8.encode("TOPSECRET!")), any(), eq(header), any()))
 			.then { invocation: InvocationOnMock? -> StandardCharsets.UTF_8.encode("geheim!!") }
 		val cryptoFile15 = CryptoFile(root, file3Name, "/$file3Name", null, testFile3ContentFile)
-		Mockito.doAnswer { invocation: InvocationOnMock ->
-			val out = invocation.getArgument<OutputStream>(2)
+		whenever(cloudContentRepository.read(eq(cryptoFile15.cloudFile), any(), any(), any())).thenAnswer { invocationOnMock: InvocationOnMock ->
+			val out = invocationOnMock.getArgument<OutputStream>(2)
 			copyStreamToStream(ByteArrayInputStream(file1Content), out)
 			null
-		}.`when`(cloudContentRepository).read(eq(cryptoFile15.cloudFile), any(), any(), any())
+		}
 
 		val outputStream = ByteArrayOutputStream(1000)
 		inTest.read(cryptoFile15, outputStream, ProgressAware.NO_OP_PROGRESS_AWARE_DOWNLOAD)
@@ -593,11 +594,11 @@ internal class CryptoImplVaultFormatPre7Test {
 		val testDir2DirFile = TestFile(bbFolder, "0dir2", "/d/11/BBBBBBBBBBBBBBBBBBBBBBBBBBBBBB/0dir2", null, null)
 		val cryptoFolder2 = CryptoFolder(cryptoFolder1, "Directory 2", "/Directory 1/Directory 2", testDir2DirFile)
 
-		Mockito.doAnswer { invocation: InvocationOnMock ->
-			val out = invocation.getArgument<OutputStream>(2)
+		whenever(cloudContentRepository.read(eq(cryptoFolder2.dirFile!!), anyOrNull(), any(), any())).thenAnswer { invocationOnMock: InvocationOnMock ->
+			val out = invocationOnMock.getArgument<OutputStream>(2)
 			copyStreamToStream(ByteArrayInputStream(dirId2.toByteArray()), out)
 			null
-		}.`when`(cloudContentRepository).read(eq(cryptoFolder2.dirFile!!), any(), any(), any())
+		}
 
 		val dir1Items: ArrayList<CloudNode> = object : ArrayList<CloudNode>() {
 			init {
@@ -657,6 +658,7 @@ internal class CryptoImplVaultFormatPre7Test {
 		whenever(cloudContentRepository.folder(d, "33")).thenReturn(ddLvl2Dir)
 		whenever(cloudContentRepository.folder(lvl2Dir, "DDDDDDDDDDDDDDDDDDDDDDDDDDDDDD")).thenReturn(ddFolder)
 		whenever(dirIdCache.put(eq(cryptoFolder3), any())).thenReturn(DirIdInfo("dir3-id", ddFolder))
+		whenever(dirIdCache[cryptoFolder3]).thenReturn(DirIdInfo("dir3-id", ddFolder))
 		whenever(cloudContentRepository.file(aaFolder, shortenedFileName)).thenReturn(testDir3DirFile)
 		whenever(cloudContentRepository.file(testDir3NameFile.parent!!, shortenedFileName, 257L)).thenReturn(testDir3NameFile)
 		whenever<List<*>>(cloudContentRepository.list(ddFolder)).thenReturn(ArrayList<CloudNode>())
@@ -767,7 +769,7 @@ internal class CryptoImplVaultFormatPre7Test {
 		val cryptoMovedFile4 = CryptoFile(cryptoFolder1, file4Name, "/Directory 1/$file4Name", null, testFile4ContentFile)
 
 		whenever(cloudContentRepository.move(testFile4ContentFileOld, testFile4ContentFile)).thenReturn(testFile4ContentFile)
-		whenever(cloudContentRepository.create(testFile4NameFile.parent!!)).thenReturn(testFile4NameFile.parent)
+		whenever(cloudContentRepository.create(testFile4NameFile.parent)).thenReturn(testFile4NameFile.parent)
 		whenever(cloudContentRepository.write(eq(testFile4NameFile), any(), any(), eq(true), any())).thenAnswer { invocationOnMock: InvocationOnMock ->
 			val inputStream = invocationOnMock.getArgument<DataSource>(1)
 			val dirContent = BufferedReader(InputStreamReader(inputStream.open(context)!!, StandardCharsets.UTF_8)).readLine()

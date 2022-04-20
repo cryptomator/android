@@ -42,7 +42,6 @@ import java.io.InputStreamReader
 import java.io.OutputStream
 import java.nio.ByteBuffer
 import java.nio.charset.StandardCharsets
-import java.util.ArrayList
 import kotlin.io.path.createTempDirectory
 import kotlin.io.path.deleteExisting
 
@@ -730,6 +729,7 @@ class CryptoImplVaultFormat7Test {
 		whenever(cloudContentRepository.folder(aaFolder, shortenedFileName)).thenReturn(testDir3)
 		whenever(cloudContentRepository.exists(testDir3)).thenReturn(false)
 		whenever(dirIdCache.put(eq(cryptoFolder3), any())).thenReturn(DirIdInfo("dir3-id", ddFolder))
+		whenever(dirIdCache[cryptoFolder3]).thenReturn(DirIdInfo("dir3-id", ddFolder))
 		whenever(cloudContentRepository.file(testDir3, "dir.c9r")).thenReturn(testDir3DirFile)
 		whenever(cloudContentRepository.file(testDir3, "name.c9s", 257L)).thenReturn(testDir3NameFile)
 		whenever<List<*>>(cloudContentRepository.list(ddFolder)).thenReturn(ArrayList<CloudNode>())

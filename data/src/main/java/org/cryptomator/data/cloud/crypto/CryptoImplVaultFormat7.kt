@@ -64,7 +64,7 @@ open class CryptoImplVaultFormat7 : CryptoImplDecorator {
 	@Throws(BackendException::class)
 	override fun folder(cryptoParent: CryptoFolder, cleartextName: String): CryptoFolder {
 		val dirFileName = encryptFolderName(cryptoParent, cleartextName)
-		val dirFolder = cloudContentRepository.folder(dirIdInfo(cryptoParent).cloudFolder, dirFileName)
+		val dirFolder = cloudContentRepository.folder(getOrCreateCachingAwareDirIdInfo(cryptoParent).cloudFolder, dirFileName)
 		val dirFile = cloudContentRepository.file(dirFolder, CLOUD_FOLDER_DIR_FILE_PRE + CLOUD_NODE_EXT)
 		return folder(cryptoParent, cleartextName, dirFile)
 	}
@@ -73,7 +73,7 @@ open class CryptoImplVaultFormat7 : CryptoImplDecorator {
 	override fun encryptName(cryptoParent: CryptoFolder, name: String): String {
 		var ciphertextName: String = cryptor() //
 			.fileNameCryptor() //
-			.encryptFilename(BaseEncoding.base64Url(), name, dirIdInfo(cryptoParent).id.toByteArray(StandardCharsets.UTF_8)) + CLOUD_NODE_EXT
+			.encryptFilename(BaseEncoding.base64Url(), name, getOrCreateCachingAwareDirIdInfo(cryptoParent).id.toByteArray(StandardCharsets.UTF_8)) + CLOUD_NODE_EXT
 		if (ciphertextName.length > shorteningThreshold) {
 			ciphertextName = deflate(cryptoParent, ciphertextName)
 		}
@@ -85,7 +85,7 @@ open class CryptoImplVaultFormat7 : CryptoImplDecorator {
 		val longFilenameBytes = longFileName.toByteArray(StandardCharsets.UTF_8)
 		val hash = MessageDigestSupplier.SHA1.get().digest(longFilenameBytes)
 		val shortFileName = BaseEncoding.base64Url().encode(hash) + LONG_NODE_FILE_EXT
-		var dirFolder = cloudContentRepository.folder(dirIdInfo(cryptoParent).cloudFolder, shortFileName)
+		var dirFolder = cloudContentRepository.folder(getOrCreateCachingAwareDirIdInfo(cryptoParent).cloudFolder, shortFileName)
 
 		// if folder already exists in case of renaming
 		if (!cloudContentRepository.exists(dirFolder)) {
@@ -96,6 +96,14 @@ open class CryptoImplVaultFormat7 : CryptoImplDecorator {
 		val cloudFile = cloudContentRepository.file(dirFolder, LONG_NODE_FILE_CONTENT_NAME + LONG_NODE_FILE_EXT, data.size.toLong())
 		cloudContentRepository.write(cloudFile, from(data), ProgressAware.NO_OP_PROGRESS_AWARE_UPLOAD, true, data.size.toLong())
 		return shortFileName
+	}
+
+	@Throws(BackendException::class)
+	private fun inflate(cloudNode: CloudNode): String {
+		val metadataFile = metadataFile(cloudNode)
+		val out = ByteArrayOutputStream()
+		cloudContentRepository.read(metadataFile, null, out, ProgressAware.NO_OP_PROGRESS_AWARE_DOWNLOAD)
+		return String(out.toByteArray(), StandardCharsets.UTF_8)
 	}
 
 	@Throws(BackendException::class)
@@ -114,14 +122,6 @@ open class CryptoImplVaultFormat7 : CryptoImplDecorator {
 		return cloudContentRepository.file(cloudFolder, LONG_NODE_FILE_CONTENT_NAME + LONG_NODE_FILE_EXT)
 	}
 
-	@Throws(BackendException::class)
-	private fun inflate(cloudNode: CloudNode): String {
-		val metadataFile = metadataFile(cloudNode)
-		val out = ByteArrayOutputStream()
-		cloudContentRepository.read(metadataFile, null, out, ProgressAware.NO_OP_PROGRESS_AWARE_DOWNLOAD)
-		return String(out.toByteArray(), StandardCharsets.UTF_8)
-	}
-
 	override fun decryptName(dirId: String, encryptedName: String): String? {
 		return extractEncryptedName(encryptedName)?.let {
 			return cryptor().fileNameCryptor().decryptFilename(BaseEncoding.base64Url(), it, dirId.toByteArray(StandardCharsets.UTF_8))
@@ -132,34 +132,41 @@ open class CryptoImplVaultFormat7 : CryptoImplDecorator {
 	override fun list(cryptoFolder: CryptoFolder): List<CryptoNode> {
 		dirIdCache.evictSubFoldersOf(cryptoFolder)
 
-		val dirIdInfo = dirIdInfo(cryptoFolder)
-		val dirId = dirIdInfo(cryptoFolder).id
+		val dirIdInfo = getCachingAwareDirIdInfo(cryptoFolder)
+			?: when (cryptoFolder.dirFile) {
+				null -> {
+					Timber.tag("CryptoFs").e(String.format("Dir-file of folder is null %s", cryptoFolder.path))
+					throw FatalBackendException(String.format("Dir-file of folder is null %s", cryptoFolder.path))
+				}
+				else -> {
+					Timber.tag("CryptoFs").e("No dir file exists in %s", cryptoFolder.dirFile.path)
+					throw NoDirFileException(cryptoFolder.name, cryptoFolder.dirFile.path)
+				}
+			}
+
+		val dirId = dirIdInfo.id
 		val lvl2Dir = dirIdInfo.cloudFolder
 
-		val ciphertextNodes: List<CloudNode> = try {
+		return try {
 			cloudContentRepository.list(lvl2Dir)
 		} catch (e: NoSuchCloudFileException) {
-			if (cryptoFolder is RootCryptoFolder) {
-				Timber.tag("CryptoFs").e("No lvl2Dir exists for root folder in %s", lvl2Dir.path)
-				throw FatalBackendException(String.format("No lvl2Dir exists for root folder in %s", lvl2Dir.path), e)
-			} else if (cryptoFolder.dirFile == null) {
-				Timber.tag("CryptoFs").e(String.format("Dir-file of folder is null %s", lvl2Dir.path))
-				throw FatalBackendException(String.format("Dir-file of folder is null %s", lvl2Dir.path))
-			} else if (cloudContentRepository.exists(cloudContentRepository.file(cryptoFolder.dirFile.parent, CLOUD_NODE_SYMLINK_PRE + CLOUD_NODE_EXT))) {
-				throw SymLinkException()
-			} else if (!cloudContentRepository.exists(cryptoFolder.dirFile)) {
-				Timber.tag("CryptoFs").e("No dir file exists in %s", cryptoFolder.dirFile.path)
-				throw NoDirFileException(cryptoFolder.name, cryptoFolder.dirFile.path)
+			when {
+				cryptoFolder is RootCryptoFolder -> {
+					Timber.tag("CryptoFs").e("No lvl2Dir exists for root folder in %s", lvl2Dir.path)
+					throw FatalBackendException(String.format("No lvl2Dir exists for root folder in %s", lvl2Dir.path), e)
+				}
+				cryptoFolder.dirFile == null -> {
+					Timber.tag("CryptoFs").e(String.format("Dir-file of folder is null %s", lvl2Dir.path))
+					throw FatalBackendException(String.format("Dir-file of folder is null %s", lvl2Dir.path))
+				}
+				cloudContentRepository.exists(cloudContentRepository.file(cryptoFolder.dirFile.parent, CLOUD_NODE_SYMLINK_PRE + CLOUD_NODE_EXT)) -> {
+					throw SymLinkException()
+				}
+				else -> return emptyList()
 			}
-			return emptyList()
-		}
-
-		return ciphertextNodes
-			.map { node ->
-				ciphertextToCleartextNode(cryptoFolder, dirId, node)
-			}
-			.toList()
-			.filterNotNull()
+		}.map { node ->
+			ciphertextToCleartextNode(cryptoFolder, dirId, node)
+		}.toList().filterNotNull()
 	}
 
 	@Throws(BackendException::class)
@@ -247,9 +254,15 @@ open class CryptoImplVaultFormat7 : CryptoImplDecorator {
 	}
 
 	@Throws(BackendException::class)
-	override fun createDirIdInfo(folder: CryptoFolder): DirIdInfo {
-		val dirId = loadDirId(folder)
+	override fun getOrCreateDirIdInfo(folder: CryptoFolder): DirIdInfo {
+		val dirId = loadDirId(folder) ?: newDirId()
 		return dirIdCache.put(folder, createDirIdInfoFor(dirId))
+	}
+
+	override fun getDirIdInfo(folder: CryptoFolder): DirIdInfo? {
+		return loadDirId(folder)?.let {
+			dirIdCache.put(folder, createDirIdInfoFor(it))
+		}
 	}
 
 	@Throws(BackendException::class)
@@ -263,17 +276,13 @@ open class CryptoImplVaultFormat7 : CryptoImplDecorator {
 	}
 
 	@Throws(BackendException::class, EmptyDirFileException::class)
-	override fun loadDirId(folder: CryptoFolder): String {
-		var dirFile: CloudFile? = null
-		if (folder.dirFile != null) {
-			dirFile = folder.dirFile
-		}
+	override fun loadDirId(folder: CryptoFolder): String? {
 		return if (RootCryptoFolder.isRoot(folder)) {
 			CryptoConstants.ROOT_DIR_ID
-		} else if (dirFile != null && cloudContentRepository.exists(dirFile)) {
-			String(loadContentsOfDirFile(dirFile), StandardCharsets.UTF_8)
+		} else if (folder.dirFile != null && cloudContentRepository.exists(folder.dirFile)) {
+			String(loadContentsOfDirFile(folder.dirFile), StandardCharsets.UTF_8)
 		} else {
-			newDirId()
+			null
 		}
 	}
 
@@ -302,7 +311,7 @@ open class CryptoImplVaultFormat7 : CryptoImplDecorator {
 			assertCryptoFolderAlreadyExists(folder)
 			shortName = true
 		}
-		val dirIdInfo = dirIdInfo(folder)
+		val dirIdInfo = getOrCreateCachingAwareDirIdInfo(folder)
 		val createdCloudFolder = cloudContentRepository.create(dirIdInfo.cloudFolder)
 		var dirFolder = folder.dirFile.parent
 		var dirFile = folder.dirFile
@@ -407,17 +416,13 @@ open class CryptoImplVaultFormat7 : CryptoImplDecorator {
 			requireNotNull(node.dirFile)
 			val cryptoSubfolders = deepCollectSubfolders(node)
 			for (cryptoSubfolder in cryptoSubfolders) {
-				try {
-					cloudContentRepository.delete(dirIdInfo(cryptoSubfolder).cloudFolder)
-				} catch (e: NoSuchCloudFileException) {
-					// Ignoring because nothing can be done if the dir-file doesn't exists in the cloud
-				}
+				getCachingAwareDirIdInfo(cryptoSubfolder)?.let {
+					cloudContentRepository.delete(it.cloudFolder)
+				} ?: Timber.tag("CryptoFs").w("Dir file doesn't exists of a sub folder while deleting the parent, continue anyway")
 			}
-			try {
-				cloudContentRepository.delete(dirIdInfo(node).cloudFolder)
-			} catch (e: NoSuchCloudFileException) {
-				// Ignoring because nothing can be done if the dir-file doesn't exists in the cloud
-			}
+			getCachingAwareDirIdInfo(node)?.let {
+				cloudContentRepository.delete(it.cloudFolder)
+			} ?: Timber.tag("CryptoFs").w("Dir file doesn't exists while deleting the folder, continue anyway")
 			cloudContentRepository.delete(node.dirFile.parent)
 			evictFromCache(node)
 		} else if (node is CryptoFile) {

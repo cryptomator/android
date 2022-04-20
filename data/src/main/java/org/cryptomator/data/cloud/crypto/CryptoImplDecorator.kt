@@ -85,10 +85,13 @@ abstract class CryptoImplDecorator(
 	abstract fun write(cryptoFile: CryptoFile, data: DataSource, progressAware: ProgressAware<UploadState>, replace: Boolean, length: Long): CryptoFile
 
 	@Throws(BackendException::class, EmptyDirFileException::class)
-	abstract fun loadDirId(folder: CryptoFolder): String
+	abstract fun loadDirId(folder: CryptoFolder): String?
 
 	@Throws(BackendException::class)
-	abstract fun createDirIdInfo(folder: CryptoFolder): DirIdInfo
+	abstract fun getOrCreateDirIdInfo(folder: CryptoFolder): DirIdInfo
+
+	@Throws(BackendException::class)
+	abstract fun getDirIdInfo(folder: CryptoFolder): DirIdInfo?
 
 	private fun dirHash(directoryId: String): String {
 		return cryptor().fileNameCryptor().hashDirectoryId(directoryId)
@@ -162,7 +165,7 @@ abstract class CryptoImplDecorator(
 	@Throws(BackendException::class)
 	private fun file(cryptoParent: CryptoFolder, cleartextName: String, ciphertextName: String, cleartextSize: Long?): CryptoFile {
 		val ciphertextSize = cleartextSize?.let { cryptor().fileContentCryptor().ciphertextSize(it) + cryptor().fileHeaderCryptor().headerSize() }
-		val cloudFile = cloudContentRepository.file(dirIdInfo(cryptoParent).cloudFolder, ciphertextName, ciphertextSize)
+		val cloudFile = cloudContentRepository.file(getOrCreateCachingAwareDirIdInfo(cryptoParent).cloudFolder, ciphertextName, ciphertextSize)
 		return file(cryptoParent, cleartextName, cloudFile, cleartextSize)
 	}
 
@@ -212,7 +215,9 @@ abstract class CryptoImplDecorator(
 	@Throws(BackendException::class)
 	private fun exists(folder: CryptoFolder): Boolean {
 		requireNotNull(folder.dirFile)
-		return cloudContentRepository.exists(folder.dirFile) && cloudContentRepository.exists(dirIdInfo(folder).cloudFolder)
+		return cloudContentRepository.exists(folder.dirFile) && getCachingAwareDirIdInfo(folder)?.let {
+			cloudContentRepository.exists(it.cloudFolder)
+		} ?: false
 	}
 
 	@Throws(BackendException::class)
@@ -352,8 +357,13 @@ abstract class CryptoImplDecorator(
 	}
 
 	@Throws(BackendException::class)
-	fun dirIdInfo(folder: CryptoFolder): DirIdInfo {
-		return dirIdCache[folder] ?: return createDirIdInfo(folder)
+	fun getOrCreateCachingAwareDirIdInfo(folder: CryptoFolder): DirIdInfo {
+		return dirIdCache[folder] ?: return getOrCreateDirIdInfo(folder)
+	}
+
+	@Throws(BackendException::class)
+	fun getCachingAwareDirIdInfo(folder: CryptoFolder): DirIdInfo? {
+		return dirIdCache[folder] ?: return getDirIdInfo(folder)
 	}
 
 	@Throws(BackendException::class)
