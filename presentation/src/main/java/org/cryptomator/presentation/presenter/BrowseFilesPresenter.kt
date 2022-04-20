@@ -233,7 +233,7 @@ class BrowseFilesPresenter @Inject constructor( //
 	@Callback(dispatchResultOkOnly = false)
 	fun getCloudListAfterAuthentication(result: ActivityResult, cloudFolderModel: CloudFolderModel) {
 		if(result.isResultOk) {
-			val cloudModel = result.getSingleResult(CloudModel::class.java) // FIXME update other vaults using this cloud as well
+			val cloudModel = result.getSingleResult(CloudModel::class.java)
 			val cloudNode = cloudFolderModel.toCloudNode()
 			if (cloudNode is CryptoFolder) {
 				updatedDecryptedCloudFor(Vault.aCopyOf(cloudFolderModel.vault()!!.toVault()).withCloud(cloudModel.toCloud()).build(), cloudFolderModel)
