@@ -344,6 +344,7 @@
 	<string name="notification_open_writable_file_title">Írható fájl megnyitása</string>
 	<string name="notification_open_writable_file_message">A trezor a szerkesztés idejéig feloldva marad</string>
 	<string name="notification_update_check_finished_latest">A legfrissebb verzió van telepítve</string>
+	<string name="notification_authenticating">Hitelesítés&#8230;</string>
 	<string name="screen_settings_lru_cache">Gyorsítótár</string>
 	<string name="screen_settings_lru_cache_toggle_summary">Helyileg titkosított fájlok gyorsítótárazása az eszközön, később újrafelhasználásra</string>
 	<string name="screen_settings_lru_cache_size">Gyorsítótár mérete</string>
