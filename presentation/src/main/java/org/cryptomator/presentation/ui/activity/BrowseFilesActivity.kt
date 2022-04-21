@@ -45,7 +45,7 @@ import org.cryptomator.presentation.ui.dialog.CreateFolderDialog
 import org.cryptomator.presentation.ui.dialog.ExportCloudFilesDialog
 import org.cryptomator.presentation.ui.dialog.FileNameDialog
 import org.cryptomator.presentation.ui.dialog.FileTypeNotSupportedDialog
-import org.cryptomator.presentation.ui.dialog.NoDirFileDialog
+import org.cryptomator.presentation.ui.dialog.NoDirFileOrEmptyDialog
 import org.cryptomator.presentation.ui.dialog.ReplaceDialog
 import org.cryptomator.presentation.ui.dialog.SymLinkDialog
 import org.cryptomator.presentation.ui.dialog.UploadCloudFileDialog
@@ -64,7 +64,7 @@ class BrowseFilesActivity : BaseActivity(), //
 	UploadCloudFileDialog.Callback,
 	ExportCloudFilesDialog.Callback,
 	SymLinkDialog.CallBack,
-	NoDirFileDialog.CallBack,
+	NoDirFileOrEmptyDialog.CallBack,
 	SearchView.OnQueryTextListener,
 	SearchView.OnCloseListener {
 
@@ -606,8 +606,8 @@ class BrowseFilesActivity : BaseActivity(), //
 		showDialog(SymLinkDialog.newInstance())
 	}
 
-	override fun showNoDirFileDialog(cryptoFolderName: String, cloudFolderPath: String) {
-		showDialog(NoDirFileDialog.newInstance(cryptoFolderName, cloudFolderPath))
+	override fun showNoDirFileOrEmptyDialog(cryptoFolderName: String, cloudFolderPath: String) {
+		showDialog(NoDirFileOrEmptyDialog.newInstance(cryptoFolderName, cloudFolderPath))
 	}
 
 	override fun updateActiveFolderDueToAuthenticationProblem(folder: CloudFolderModel) {

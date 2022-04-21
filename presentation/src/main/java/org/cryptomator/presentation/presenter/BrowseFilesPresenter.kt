@@ -214,13 +214,13 @@ class BrowseFilesPresenter @Inject constructor( //
 							return
 						}
 						e is EmptyDirFileException -> {
-							view?.showNoDirFileDialog(e.dirName, e.filePath)
+							view?.showNoDirFileOrEmptyDialog(e.dirName, e.filePath)
 						}
 						e is SymLinkException -> {
 							view?.showSymLinkDialog()
 						}
 						e is NoDirFileException -> {
-							view?.showNoDirFileDialog(e.cryptoFolderName, e.cloudFolderPath)
+							view?.showNoDirFileOrEmptyDialog(e.cryptoFolderName, e.cloudFolderPath)
 						}
 						else -> {
 							super.onError(e)
