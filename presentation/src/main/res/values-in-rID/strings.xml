@@ -9,6 +9,8 @@
 	<string name="error_no_network_connection">Tidak ada koneksi jaringan</string>
 	<string name="error_invalid_passphrase">Kata sandi salah</string>
 	<string name="error_file_or_folder_exists">Berkas atau folder sudah ada.</string>
+	<string name="error_vault_version_not_supported">Vault versi %1$s tidak didukung. Vault ini dibuat menggunakan Cryptomator versi lama ataupun lebih baru.</string>
+	<string name="error_vault_config_file_missing_due_to_format_999">File %1$s tidak ditemukan di folder vault Anda. Pastikan file tersebut ada di folder cloud Anda.</string>
 	<string name="error_vault_already_exists">Vault sudah ada.</string>
 	<string name="error_no_such_file">Berkas tidak ada.</string>
 	<string name="error_vault_has_been_locked">Vault telah dikunci.</string>
@@ -271,6 +273,9 @@
 	<string name="dialog_accept_ssl_certificate_hint">Sertifikat SSL tidak valid. Apakah Anda ingin mempercayainya?</string>
 	<string name="dialog_accept_ssl_certificate_details">Rincian</string>
 	<string name="dialog_accept_ssl_certificate_security_checkbox">Ini bisa menjadi risiko keamanan. Saya tahu apa yang saya lakukan.</string>
+	<string name="dialog_ask_ignore_battery_optimizations_title">Nonaktifkan optimalisasi baterai</string>
+	<string name="dialog_ask_ignore_battery_optimizations_hint">Untuk mengambil gambar dan video baru tanpa berjalan di latar belakang, kami perlu keluar dari pengoptimalan baterai. Tidak perlu khawatir, %1$s tidak mengonsumsi banyak daya.\n\nUntuk menerapkannya, ubah \'Tidak dioptimalkan\' menjadi \'Semua aplikasi\', pilih %1$s dan pilih \'Jangan optimalkan\' setelah mengeklik \'%2$s\' dalam dialog ini.</string>
+	<string name="dialog_ask_ignore_battery_optimizations_checkbox">Jangan tanya lagi?</string>
 	<string name="dialog_http_security_hint">Penggunaan HTTP tidak aman. Kami menyarankan untuk menggunakan HTTPS sebagai gantinya. Jika Anda mengetahui risikonya, Anda dapat melanjutkan dengan HTTP.</string>
 	<string name="dialog_http_security_checkbox">Ubah ke HTTPS</string>
 	<string name="dialog_http_security_title">Gunakan HTTPS?</string>

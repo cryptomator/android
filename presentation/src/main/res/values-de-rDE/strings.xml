@@ -373,14 +373,14 @@
 	<string name="notification_auto_upload_failed_title">Fehler beim automatischen Photo-Hochladen</string>
 	<string name="notification_auto_upload_failed_general_error">Generaller Fehler während dem Hochladen.</string>
 	<string name="notification_auto_upload_failed_due_to_folder_not_exists">Ausgewählter Ordner für das Photo-Hochladen existiert nicht mehr. In der Einstellungen neuen auswählen</string>
-	<string name="notification_auto_upload_failed_due_to_vault_locked">Tresor gesperrt während dem hochladen, zum weiteren Hochladen entsperren</string>
+	<string name="notification_auto_upload_failed_due_to_vault_locked">Tresor wurde während dem Hochladen gesperrt, bitte Tresor erneut öffnen, um fortzufahren</string>
 	<string name="notification_auto_upload_failed_due_to_vault_not_found">Der Tresor für den automatischen Upload existiert nicht mehr.</string>
 	<string name="notification_open_writable_file_title">Datei mit Schreibrechten geöffnet</string>
 	<string name="notification_open_writable_file_message">Tresor bleibt entsperrt, bis die Bearbeitung abgeschlossen wurde</string>
 	<string name="notification_update_check_finished_latest">Neueste Version installiert</string>
 	<string name="notification_authenticating">Melde an&#8230;</string>
 	<string name="screen_settings_lru_cache">Zwischenspeicher</string>
-	<string name="screen_settings_lru_cache_toggle_summary">Speichere kürzlich geöffnete Dateien lokal und verschlüsselt auf dem Gerät für eine spätere Wiederverwendung beim erneuten öffnen</string>
+	<string name="screen_settings_lru_cache_toggle_summary">Kürzlich geöffnete Dateien für eine spätere Wiederverwendung beim erneuten Öffnen lokal und verschlüsselt auf dem Gerät zwischenspeichern</string>
 	<string name="screen_settings_lru_cache_size">Zwischenspeichergröße gesamt</string>
 	<string name="screen_settings_clear_lru_cache_size">Zwischenspeicher leeren</string>
 	<string name="screen_settings_lru_cache_changed__restart_toast">Änderungen werden nach einem Neustart der App aktiv</string>

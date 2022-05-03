@@ -14,6 +14,7 @@
 	<string name="error_vault_already_exists">ভোল্টটি ইতিমধ্যে রয়েছে।</string>
 	<string name="error_no_such_file">ফাইলটি নেই।</string>
 	<string name="error_vault_has_been_locked">ভোল্টটি লক করা হয়েছে।</string>
+	<string name="error_cloud_already_exists">ক্লাউড ইতিমধ্যে বিদ্যমান.</string>
 	<string name="error_activity_not_found">ফাইলটি খুলতে পারে এমন একটি আ্যপ ডাউনলোড করুন।</string>
 	<string name="error_server_not_found">সার্ভার খুজে পাওয়া যায়নি।</string>
 	<string name="error_device_policy_manager_not_found">অনুগ্রহ করে ডিভাইস সেটিংস খুলে নিজে স্ক্রিন লক লাগিয়ে নিন। </string>
@@ -39,6 +40,7 @@
 	<!-- ## permission messages -->
 	<string name="permission_message_export_file">ক্রিপ্টোমেটরের ফাইল এক্সপোর্ট করতে স্টোরেজ অনুমতি প্রয়োজন</string>
 	<string name="permission_message_upload_file">ক্রিপ্টোমেটরের ফাইল আপলোড করতে স্টোরেজ অনুমতি প্রয়োজন</string>
+	<string name="permission_message_share_file">ক্রিপ্টোমেটরের ফাইল শেয়ার করতে স্টোরেজ এক্সেস প্রয়োজন</string>
 	<string name="snack_bar_action_title_settings">সেটিংস</string>
 	<string name="snack_bar_action_title_search">খুঁজুন</string>
 	<string name="snack_bar_action_title_search_previous">পিছনে</string>
@@ -213,7 +215,28 @@
 	<string name="dialog_replace_positive_button_single_file_exists">প্রতিস্থাপন করুন</string>
 	<string name="dialog_replace_msg_single_file_exists">%1$s নামে একটি ফাইল ইতিমধ্যে রয়েছে। আপনি কি এটা প্রতিস্থাপন করতে চান?</string>
 	<string name="dialog_replace_msg_all_files_exists">সব ফাইলগুলি ইতিমধ্যে রয়েছে। আপনি কি তাদের প্রতিস্থাপন করতে চান?</string>
+	<string name="dialog_unable_to_share_title">ফাইলগুলো শেয়ার করা যায় নি</string>
+	<string name="dialog_unable_to_share_message">আপনি কোনো ভোল্ট যুক্ত করেননি. অনুগ্রহ করে ক্রিপ্টোমেটর আ্যপ দিয়ে একটি নতুন ভোল্ট তৈরি করুন.</string>
 	<string name="dialog_unable_to_share_positive_button">আচ্ছা</string>
+	<string name="dialog_unable_to_share_negative_button">ভোল্ট তৈরি করুন</string>
+	<string name="dialog_filetype_not_supported_title">%1$s খোলা যাচ্ছে না</string>
+	<string name="dialog_filetype_not_supported_message">অনুগ্রহ করে এমন একটি অ্যাপ ডাউনলোড করুন যেটি ফাইলটি খুলতে পারবে অথবা আপনি কি আপনার ডিভাইসে সংরক্ষণ করতে চান?</string>
+	<string name="dialog_rename_vault_title">ভোল্ট নামকরণ করুন</string>
+	<string name="dialog_rename_node_folder_title">ফোল্ডার পুনঃনামকরন</string>
+	<string name="dialog_rename_node_file_title">ফাইল পুনঃনামকরন</string>
+	<string name="dialog_unsaved_changes_title">আপনার পরিবর্তনগুলো সংরক্ষণ করা হয়নি</string>
+	<string name="dialog_unsaved_changes_message">আপনি সংরক্ষণ না করেই বের হয়ে যাবেন?</string>
+	<string name="dialog_unsaved_changes_discard">অগ্রাহ্য</string>
+	<string name="dialog_file_name_placeholder">text.txt</string>
+	<string name="dialog_delete_vault_message">আপনি কি নিশ্চিতভাবে এই ভোল্ট অপসারণ করতে চান?</string>
+	<string name="dialog_delete_vault_hint">এই প্রক্রিয়ায় ভোল্টটি শুধুমাত্র এই তালিকা থেকে বাতিল হবে এবং মূল জায়গা থেকে মুছবে না.</string>
+	<string name="dialog_upload_file_title">আপলোড হচ্ছে&#8230;</string>
+	<string name="dialog_upload_file_remaining">ফাইল %1$d এর %2$d টি</string>
+	<string name="dialog_export_file_title">এক্সপোর্ট হচ্ছে (%1$d/%2$d)</string>
+	<string name="dialog_progress_please_wait">অনুগ্রহ করে অপেক্ষা করুন&#8230;</string>
+	<string name="dialog_progress_creating_folder">ফোল্ডার তৈরি হচ্ছে&#8230;</string>
+	<string name="dialog_progress_creating_text_file">টেক্সট ফাইল তৈরি হচ্ছে&#8230;</string>
+	<string name="dialog_progress_upload_file">আপলোড হচ্ছে&#8230;</string>
 	<string name="dialog_lock_vault">লক করুন</string>
 	<string name="dialog_app_is_obscured_info_neutral_button">বন্ধ করুন</string>
 	<string name="dialog_sym_link_back_button">পিছনে</string>
