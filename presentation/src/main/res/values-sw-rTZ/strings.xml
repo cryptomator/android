@@ -10,6 +10,12 @@
 	<string name="error_invalid_passphrase">Neno la siri si sahihi</string>
 	<string name="error_file_or_folder_exists">Faili au folda tayari imekuwepo.</string>
 	<string name="error_vault_version_not_supported">Toleo la kuba %1$s haikubaliki. Kuba hii imeundwa na toleo la zamani au jipya zaidi Cryptomator.</string>
+	<string name="error_vault_config_file_missing_due_to_format_999">%1$s faili halipo kwenye folda yako ya kuba. Hakikisha kuwa faili hili lipo kwenye folda yako kwenye wingu.</string>
+	<string name="error_vault_already_exists">Kuba tayari ipo.</string>
+	<string name="error_no_such_file">Faili haipo.</string>
+	<string name="error_vault_has_been_locked">Kuba imefungwa.</string>
+	<string name="error_cloud_already_exists">Wingu tayari lipo.</string>
+	<string name="error_activity_not_found">Tafadhali pakua programu amabyo inaweza kufungua faili hii.</string>
 	<!-- # clouds -->
 	<!-- ## cloud names -->
 	<!-- # permission -->
