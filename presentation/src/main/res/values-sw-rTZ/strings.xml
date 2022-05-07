@@ -16,6 +16,12 @@
 	<string name="error_vault_has_been_locked">Kuba imefungwa.</string>
 	<string name="error_cloud_already_exists">Wingu tayari lipo.</string>
 	<string name="error_activity_not_found">Tafadhali pakua programu amabyo inaweza kufungua faili hii.</string>
+	<string name="error_server_not_found">Server haijapatikana.</string>
+	<string name="error_device_policy_manager_not_found">Tafadhali fungua mpangilio wa kifaa chako na useti loku ya skrini kwa mkono</string>
+	<string name="error_export_illegal_file_name">Uhamishaji umeshindikana. Jaribu kuondoa vibambo maalum kutoka kwa majina ya faili na kuhamisha tena.</string>
+	<string name="error_name_contains_invalid_characters">Haiwezi kuwa na vibambo maalum.</string>
+	<string name="error_names_contains_invalid_characters">Jina na la faili haliwezi kuwa na vibambo maalum.</string>
+	<string name="error_vault_name_contains_invalid_characters">Jina la kuba haliwezi kuwa na vibambo maalum.</string>
 	<!-- # clouds -->
 	<!-- ## cloud names -->
 	<!-- # permission -->
