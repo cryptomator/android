@@ -3,6 +3,13 @@
 	<!-- # app -->
 	<string name="share_with_label">Shiriki_na_maandiko</string>
 	<!-- # error messages -->
+	<string name="error_generic">Hitilafu imetokea</string>
+	<string name="error_authentication_failed">Uthibitisho umeshindikana</string>
+	<string name="error_authentication_failed_re_authenticate">Uthibitisho umeshindikana, tafadhali ingia kwa kutumia %$s</string>
+	<string name="error_no_network_connection">Hakuna muunganisho wa mtandao</string>
+	<string name="error_invalid_passphrase">Neno la siri si sahihi</string>
+	<string name="error_file_or_folder_exists">Faili au folda tayari imekuwepo.</string>
+	<string name="error_vault_version_not_supported">Toleo la kuba %1$s haikubaliki. Kuba hii imeundwa na toleo la zamani au jipya zaidi Cryptomator.</string>
 	<!-- # clouds -->
 	<!-- ## cloud names -->
 	<!-- # permission -->
