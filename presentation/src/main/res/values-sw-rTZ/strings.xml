@@ -25,12 +25,39 @@
 	<string name="error_general_update">Kagua sasishi imeshindikana. Kosa la jumla limetokea.</string>
 	<string name="error_hash_mismatch_update">Kagua sasishi imeshindikana. Hash iliyohesabiwa haioani na faili iliyopakiwa</string>
 	<string name="error_update_no_internet">Kagua sasishi imeshindikana. Hakuna muunganisho wa tovuti.</string>
+	<string name="error_failed_to_decrypt_webdav_password">Imeshindwa kusimbua neno la siri ya WebDAV, tafadhali ongeza tena katika mpangilio</string>
+	<string name="error_play_services_not_available">Huduma ya Google Play haijasanikishwa</string>
+	<string name="error_biometric_auth_aborted">Uhalalishaji wan biometriska umefutwa</string>
+	<string name="error_vault_version_mismatch">Toleo lililobainishwa katika %1$s ni tofati na %2$s</string>
+	<string name="error_vault_key_invalid">%1$s hailingani na hii %2$s</string>
+	<string name="error_vault_config_loading">Kosa la jumla wakati wa kupakia conf ya kuba</string>
+	<string name="error_file_not_found_after_opening_using_3party">Faili ya ndani haipo tena baada ya kurudi kwenye Cryptomator. Mabadiliko yanayowezekana hayawezi kuenezwa tena kwenye wingu.</string>
+	<string name="error_no_such_bucket">Hakuna ndoo ya utafutaji</string>
+	<string name="error_masterkey_location_not_supported">Mahali maalumu pa Masterkey bado haijategemezwa bado</string>
 	<!-- # clouds -->
 	<!-- ## cloud names -->
+	<string name="cloud_names_local_storage">Hifadhi ya ndani</string>
 	<!-- # permission -->
 	<!-- ## permission messages -->
+	<string name="permission_message_export_file">Cryptomator inahitaji ufikiaji wa kuhifadhi ili kuhamisha mafaili</string>
+	<string name="permission_message_upload_file">Cryptomator inahitaji ufikiaji wa kuhifadhi ili kupakia mafaili</string>
+	<string name="permission_message_share_file">Cryptomator inahitaji ufikiaji wa kuhifadhi ili kusiriki mafaili</string>
+	<string name="permission_revoked_re_request_permission">Cryptomator imepoteza ruhusa ya kufikia mahali hapa. Tafadhali teua kabrasha hili tena ili kurejesha kibali.</string>
+	<string name="snack_bar_action_title_settings">Kipimo</string>
+	<string name="snack_bar_action_title_search">Tafuta</string>
+	<string name="snack_bar_action_title_search_previous">Iliyotangulia</string>
+	<string name="snack_bar_action_title_search_next">Ijayo</string>
+	<string name="snack_bar_action_title_sort">Panga</string>
+	<string name="snack_bar_action_title_sort_az">A-Z</string>
+	<string name="snack_bar_action_title_sort_za">Z-A</string>
+	<string name="snack_bar_action_title_sort_newest">Mpya zaidi ya kwanza</string>
+	<string name="snack_bar_action_title_sort_oldest">Zamani zaidi ya kwanza</string>
+	<string name="snack_bar_action_title_sort_biggest">Kubwa ya kwanza</string>
+	<string name="snack_bar_action_title_sort_smallest">Ndogo ya kwanza</string>
 	<!-- # screens -->
 	<!-- # screen: vault list -->
+	<string name="screen_vault_list_actions_title">Ongeza kwenye Cryptomator</string>
+	<string name="screen_vault_list_action_create_new_vault">Unda kuba mpya</string>
 	<!-- # screen: file browser -->
 	<!-- ## screen: text editor -->
 	<!-- ## screen: share files -->
@@ -41,6 +68,7 @@
 	<!-- ## screen: enter vault name -->
 	<!-- ## screen: set password -->
 	<!-- ## screen: settings -->
+	<string name="screen_settings_section_search">Tafuta</string>
 	<!-- ## screen: cloud settings -->
 	<!-- ## screen: licenses -->
 	<!-- ## screen: authenticate cloud -->
