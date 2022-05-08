@@ -22,6 +22,8 @@
 	<string name="error_name_contains_invalid_characters">Haiwezi kuwa na vibambo maalum.</string>
 	<string name="error_names_contains_invalid_characters">Jina na la faili haliwezi kuwa na vibambo maalum.</string>
 	<string name="error_vault_name_contains_invalid_characters">Jina la kuba haliwezi kuwa na vibambo maalum.</string>
+	<string name="error_general_update">Kagua sasishi imeshindikana. Kosa la jumla limetokea.</string>
+	<string name="error_hash_mismatch_update">Kagua sasishi imeshindikana. Hash iliyohesabiwa haioani na faili iliyopakiwa</string>
 	<!-- # clouds -->
 	<!-- ## cloud names -->
 	<!-- # permission -->
