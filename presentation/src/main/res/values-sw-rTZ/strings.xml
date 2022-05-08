@@ -58,7 +58,28 @@
 	<!-- # screen: vault list -->
 	<string name="screen_vault_list_actions_title">Ongeza kwenye Cryptomator</string>
 	<string name="screen_vault_list_action_create_new_vault">Unda kuba mpya</string>
+	<string name="screen_vault_list_action_add_existing_vault">Ongeza kuba iliyopo</string>
+	<string name="screen_vault_list_vault_action_delete">Ondoa</string>
+	<string name="screen_vault_list_vault_creation_hint">Bofya hapa ili kuunda kuba mpya</string>
+	<string name="screen_vault_list_change_password_successful">Neno la siri limebadilishwa kwa ufanisi</string>
 	<!-- # screen: file browser -->
+	<string name="screen_file_browser_default_title">Kuba</string>
+	<string name="screen_file_browser_add_existing_vault_extra_text">Teua faili ya masterkey</string>
+	<string name="screen_file_browser_create_new_vault_button_text">Weka hapa</string>
+	<string name="screen_file_browser_create_new_vault_extra_text">Jina la kuba: %1$s</string>
+	<string name="screen_file_browser_move_button_text">Hamisha</string>
+	<string name="screen_file_browser_msg_empty_folder">Kabrasha tupu</string>
+	<string name="screen_file_browser_file_info_label_date">imerekebishwa %1$s iliyopita</string>
+	<string name="screen_file_browser_share_intent_chooser_title">Shiriki na</string>
+	<string name="screen_file_browser_share_destination_title">Chagua fikio</string>
+	<string name="screen_file_browser_share_button_text">Chagua</string>
+	<string name="screen_file_browser_nothing_to_share">Hakuna kitu cha kushiriki</string>
+	<string name="screen_file_browser_actions_title">Ongeza kwenye %1$s</string>
+	<string name="screen_file_browser_action_create_folder">Unda kabrasha</string>
+	<string name="screen_file_browser_action_create_new_text_file">Unda faili matini</string>
+	<string name="screen_file_browser_action_upload_files">Pakia mafaili</string>
+	<string name="screen_file_browser_upload_files_chooser_title">Mafaili</string>
+	<string name="screen_file_browser_msg_file_exported">Faili imehamishwa</string>
 	<!-- ## screen: text editor -->
 	<!-- ## screen: share files -->
 	<!-- ## screen: choose cloud service -->
@@ -66,8 +87,22 @@
 	<!-- ## screen: webdav settings -->
 	<!-- ## screen: s3 settings -->
 	<!-- ## screen: enter vault name -->
+	<string name="screen_enter_vault_name_msg_name_empty">Jina la kuba haliwezi kuwa tupu.</string>
+	<string name="screen_enter_vault_name_vault_label">Jina la kuba</string>
+	<string name="screen_enter_vault_name_button_text">Unda</string>
 	<!-- ## screen: set password -->
+	<string name="screen_set_password_title">Seti neno la siri</string>
+	<string name="screen_set_password_msg_password_mismatch">Nywila haioani na nywila iliyochapwa upya.</string>
+	<string name="screen_set_password_button_text">Tayari</string>
+	<string name="screen_set_password_hint">MUHIMU: Ikiwa unasahau neno la siri lako, hakuna njia ya kurejesha data yako.</string>
+	<string name="screen_set_password_retype_password_label">Chapa upya neno la siri</string>
+	<string name="screen_set_password_strength_indicator_0">Dhaifu sana kuunda kuba</string>
+	<string name="screen_set_password_strength_indicator_1">Dhaifu</string>
+	<string name="screen_set_password_strength_indicator_2">Haki</string>
+	<string name="screen_set_password_strength_indicator_3">Imara</string>
+	<string name="screen_set_password_strength_indicator_4">Imara sana</string>
 	<!-- ## screen: settings -->
+	<string name="screen_settings_section_general">Jumla</string>
 	<string name="screen_settings_section_search">Tafuta</string>
 	<!-- ## screen: cloud settings -->
 	<!-- ## screen: licenses -->
@@ -75,6 +110,7 @@
 	<!-- ## screen: insecure android version info -->
 	<!-- # dialogs -->
 	<!-- Vault not found -->
+	<string name="dialog_vault_not_found_positive_button_text">Ondoa</string>
 	<!-- # error reports -->
 	<!-- # misc -->
 	<!-- ## file size helper -->
