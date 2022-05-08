@@ -24,6 +24,7 @@
 	<string name="error_vault_name_contains_invalid_characters">Jina la kuba haliwezi kuwa na vibambo maalum.</string>
 	<string name="error_general_update">Kagua sasishi imeshindikana. Kosa la jumla limetokea.</string>
 	<string name="error_hash_mismatch_update">Kagua sasishi imeshindikana. Hash iliyohesabiwa haioani na faili iliyopakiwa</string>
+	<string name="error_update_no_internet">Kagua sasishi imeshindikana. Hakuna muunganisho wa tovuti.</string>
 	<!-- # clouds -->
 	<!-- ## cloud names -->
 	<!-- # permission -->
