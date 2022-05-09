@@ -89,12 +89,52 @@
 	<string name="screen_file_browser_node_action_export">Hamisha</string>
 	<string name="screen_file_browser_node_action_delete">Futa</string>
 	<string name="screen_file_browser_node_action_open_with_text">Funga na&#8230;</string>
+	<string name="screen_file_browser_selection_mode_title_zero_elements">Teua vipengee</string>
+	<string name="screen_file_browser_selection_mode_title_one_or_more_elements">%1$d teuliwa</string>
+	<string name="screen_file_browser_select_items">Teua</string>
+	<string name="screen_file_browser_select_all_items">Teua zote</string>
+	<string name="screen_file_browser_refresh_items">Onesha upya</string>
+	<string name="screen_file_browser_no_connection_message">Hakuna muunganisho</string>
+	<string name="screen_file_browser_no_connection_button_text">Jaribu tena</string>
 	<!-- ## screen: text editor -->
+	<string name="screen_text_editor_save_success">Imehifadhiwa kwa ufanisi</string>
 	<!-- ## screen: share files -->
+	<string name="screen_share_files_title">Hifadhi %1$s kwa &#8230;</string>
+	<string name="screen_share_files_content_text">ujumbe</string>
+	<string name="screen_share_files_content_file">faili</string>
+	<string name="screen_share_files_content_files">mafaili</string>
+	<string name="screen_share_files_msg_filenames_must_be_unique">Majina ya faili yanapaswa kuwa ya kipekee, tafadhali badilisha jina la nakala.</string>
+	<string name="screen_share_files_section_location">Hifadhi mahali</string>
+	<string name="screen_share_files_save_button_text">Hifadhi</string>
+	<string name="screen_share_files_msg_success">Usimbaji fiche umekamilika</string>
 	<!-- ## screen: choose cloud service -->
+	<string name="screen_choose_cloud_service_title">Huduma ya wingu</string>
 	<!-- ## screen: cloud connections -->
+	<string name="screen_cloud_connections_title">Chagua mahali</string>
+	<string name="screen_cloud_connections_no_connections">Bofya hapa ili kuongeza mahali</string>
+	<string name="screen_cloud_error_webdav_not_supported">Seva haionekani kuwa sambamba na WebDAV</string>
+	<string name="screen_cloud_local_error_no_content_provider">Hakuna faili maneja lililopatikana inasaidia kufungua saraka</string>
 	<!-- ## screen: webdav settings -->
+	<string name="screen_webdav_settings_url_port_label">URL</string>
+	<string name="screen_webdav_settings_username_label">Jina la mtumiaji</string>
+	<string name="screen_webdav_settings_password_label">Neno la siri</string>
+	<string name="screen_webdav_settings_done_button_text">Kuunganisha</string>
+	<string name="screen_webdav_settings_msg_url_must_not_be_empty">URL haiwezi kuwa tupu.</string>
+	<string name="screen_webdav_settings_msg_url_is_invalid">URL ni batili.</string>
+	<string name="screen_webdav_settings_msg_username_must_not_be_empty">Jina la mtumiaji haliwezi kuwa tupu.</string>
+	<string name="screen_webdav_settings_msg_password_must_not_be_empty">Neno la siri haliwezi kuwa tupu.</string>
 	<!-- ## screen: s3 settings -->
+	<string name="screen_s3_settings_display_name_label">Onyesha Jina</string>
+	<string name="screen_s3_settings_access_key_label">Ufunguo wa Ufikivu</string>
+	<string name="screen_s3_settings_secret_key_label">Ufunguo wa Siri</string>
+	<string name="screen_s3_settings_bucket_label">Ndoo Iliyopo</string>
+	<string name="screen_s3_settings_endpoint_label">Mwisho pointi</string>
+	<string name="screen_s3_settings_region_label">Mkoa</string>
+	<string name="screen_s3_settings_msg_display_name_not_empty">Onyesha Jina haliwezi kuwa tupu</string>
+	<string name="screen_s3_settings_msg_access_key_not_empty">Ufunguo wa Ufikivu hauwezi kuwa tupu</string>
+	<string name="screen_s3_settings_msg_secret_key_not_empty">Ufunguo wa Siri hauwezi kuwa tupu</string>
+	<string name="screen_s3_settings_msg_bucket_not_empty">Ndoo haiwezi kuwa tupu</string>
+	<string name="screen_s3_settings_msg_endpoint_and_region_not_empty">Mwisho au Mkoa haliwezi kuwa tupu</string>
 	<!-- ## screen: enter vault name -->
 	<string name="screen_enter_vault_name_msg_name_empty">Jina la kuba haliwezi kuwa tupu.</string>
 	<string name="screen_enter_vault_name_vault_label">Jina la kuba</string>
@@ -112,7 +152,25 @@
 	<string name="screen_set_password_strength_indicator_4">Imara sana</string>
 	<!-- ## screen: settings -->
 	<string name="screen_settings_section_general">Jumla</string>
+	<string name="screen_settings_cloud_settings_label">Huduma za wingu</string>
+	<string name="screen_settings_biometric_auth">Uhalalishaji wa Biometriska</string>
+	<string name="screen_settings_activate_biometric_auth">Amilisha uhalalishaji wa biometriska</string>
+	<string name="screen_settings_confirm_face_unlock">Thibitisha kufungua uso (ikiwa inapatikana)</string>
+	<string name="screen_settings_block_app_when_obscured">Zuia programu wakati imefichwa</string>
+	<string name="screen_settings_block_app_when_obscured_summary">Zuia kuzuia ingizo na kuonyesha kiolesura cha uongo cha mtumiaji</string>
+	<string name="screen_settings_secure_screen">Zuia viwambo</string>
+	<string name="screen_settings_secure_screen_summary">Zuia viwambo katika orodha ya hivi karibuni na ndani ya programu</string>
 	<string name="screen_settings_section_search">Tafuta</string>
+	<string name="screen_settings_live_search">Utafutaji wa moja kwa moja</string>
+	<string name="screen_settings_live_search_summary">Sasisha matokeo ya utafutaji wakati wa kuingiza ulizo</string>
+	<string name="screen_settings_glob_search">Tafuta kwa kutumia muundo wa glob</string>
+	<string name="screen_settings_glob_search_summary">Tumia muundo wa glob unaolingana kama alice.*.jpg</string>
+	<string name="screen_settings_section_auto_lock">Ufungashaji Otomatiki</string>
+	<string name="screen_settings_auto_lock_timeout">Funga baada ya</string>
+	<string name="screen_settings_auto_lock_on_screen_lock">Wakati skrini imelemazwa</string>
+	<string name="screen_settings_section_auto_photo_upload">Upakiaji wa picha Otomatiki</string>
+	<string name="screen_settings_section_auto_photo_upload_vault">Chagua kuba kwa ajili ya kupakia</string>
+	<string name="screen_settings_section_auto_photo_upload_toggle">Kuamilisha</string>
 	<!-- ## screen: cloud settings -->
 	<!-- ## screen: licenses -->
 	<!-- ## screen: authenticate cloud -->
