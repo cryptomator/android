@@ -171,6 +171,17 @@
 	<string name="screen_settings_section_auto_photo_upload">Upakiaji wa picha Otomatiki</string>
 	<string name="screen_settings_section_auto_photo_upload_vault">Chagua kuba kwa ajili ya kupakia</string>
 	<string name="screen_settings_section_auto_photo_upload_toggle">Kuamilisha</string>
+	<string name="screen_settings_section_auto_photo_upload_toggle_summary">Kukamata picha kwa nyuma na mara tu kuba iliyochaguliwa inapofunguliwa, anza kupakia</string>
+	<string name="screen_settings_section_auto_photo_upload_toggle_instant_upload">Pakia papo hapo</string>
+	<string name="screen_settings_section_auto_photo_upload_toggle_instant_upload_summary">Pakia moja kwa moja ikiwa kuba imefunguliwa</string>
+	<string name="screen_settings_section_auto_photo_upload_only_wifi_toggle">Pakia tu kwa kutumia WIFI</string>
+	<string name="screen_settings_section_auto_photo_upload_including_videos">Pakia video</string>
+	<string name="screen_settings_auto_photo_upload_title">Hifadhi faili za kupakia kiotomatiki kwenye &#8230;</string>
+	<string name="screen_settings_website_label">Tovuti ya Cryptomator</string>
+	<string name="screen_settings_twitter_label">Tufuate kwenye Twitter</string>
+	<string name="screen_settings_section_legal">Kisheria</string>
+	<string name="screen_settings_licenses_label">Leseni</string>
+	<string name="screen_settings_license_terms_label">Masharti ya leseni</string>
 	<!-- ## screen: cloud settings -->
 	<!-- ## screen: licenses -->
 	<!-- ## screen: authenticate cloud -->
