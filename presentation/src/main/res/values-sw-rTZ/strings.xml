@@ -196,12 +196,33 @@
 	<string name="screen_settings_keep_unlocked_while_editing_files_summary">Weka kuba wazi wakati wa kuhariri faili</string>
 	<!-- ## screen: cloud settings -->
 	<string name="screen_cloud_settings_onedrive_connections">Miunganisho ya OneDrive</string>
+	<string name="screen_cloud_settings_webdav_connections">Miunganisho ya WebDAV</string>
+	<string name="screen_cloud_settings_pcloud_connections">miunganisho ya pCloud</string>
+	<string name="screen_cloud_settings_s3_connections">Miunganisho ya S3</string>
+	<string name="screen_cloud_settings_local_storage_locations">Maeneo ya hifadhi ya ndani</string>
+	<string name="screen_cloud_settings_log_in_to">Ingia kwenye</string>
+	<string name="screen_cloud_settings_sign_out_from_cloud">Ondoka kutoka</string>
 	<!-- ## screen: licenses -->
 	<!-- ## screen: authenticate cloud -->
+	<string name="screen_authenticate_auth_authentication_failed">%1$s haikuweza kuthibitishwa.</string>
+	<string name="screen_update_pcloud_connections_title">Sasisha hati za utambulisho za pCloud</string>
 	<!-- ## screen: insecure android version info -->
 	<!-- # dialogs -->
+	<string name="dialog_button_cancel">Katisha</string>
+	<string name="dialog_enter_password_positive_button">Fungua</string>
+	<string name="dialog_change_password_old_password_label">Neno la siri la zamani</string>
+	<string name="dialog_change_password_new_password_label">Neno la siri jipya</string>
+	<string name="dialog_change_password">Badilisha neno la siri</string>
+	<string name="dialog_change_password_msg_old_password_empty">Neno la siri la zamani haliwezi kuwa tupu.</string>
+	<string name="dialog_change_password_msg_new_password_empty">Neno la siri jipya haliwezi kuwa tupu.</string>
+	<string name="dialog_change_password_msg_password_mismatch">Nneno la siri jipya haioani na neno la siri lililochapwa upya.</string>
 	<!-- Vault not found -->
+	<string name="dialog_vault_not_found_title">Kuba%1$s haijapatikana</string>
+	<string name="dialog_vault_not_found_message">Kuba imepewa jina jipya, kuhamishwa au kufutwa. Ondoa kuba hii kutoka kwenye orodha na uiongeze tena ili kuendelea. Ondoa sasa?</string>
 	<string name="dialog_vault_not_found_positive_button_text">Ondoa</string>
+	<string name="dialog_existing_file_title">Faili tayari ipo</string>
+	<string name="dialog_existing_file_positive_button">Badilisha</string>
+	<string name="dialog_replace_positive_button_single_file_exists">Badilisha</string>
 	<string name="dialog_filetype_not_supported_message">Tafadhali pakua programu ambayo inaweza kufungua faili hii au unapenda kuhifadhi kwenye kifaa chako?</string>
 	<string name="dialog_rename_vault_title">Ita jina jipya kuba</string>
 	<string name="dialog_rename_node_folder_title">Ita jina jipya kabrasha</string>
