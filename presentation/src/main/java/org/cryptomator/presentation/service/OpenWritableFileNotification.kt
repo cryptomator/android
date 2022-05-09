@@ -4,7 +4,6 @@ import android.app.NotificationChannel
 import android.app.NotificationManager
 import android.app.NotificationManager.IMPORTANCE_LOW
 import android.app.PendingIntent
-import android.app.PendingIntent.FLAG_CANCEL_CURRENT
 import android.content.Context
 import android.content.Intent.FLAG_GRANT_READ_URI_PERMISSION
 import android.content.Intent.FLAG_GRANT_WRITE_URI_PERMISSION
@@ -54,7 +53,7 @@ class OpenWritableFileNotification(private val context: Context, private val uri
 	private fun cancelNowIntent(): PendingIntent {
 		context.revokeUriPermission(uriToOpenendFile, FLAG_GRANT_WRITE_URI_PERMISSION or FLAG_GRANT_READ_URI_PERMISSION)
 		val startTheActivity = vaultListIntent().withStopEditFileNotification(true).build(context as ContextHolder)
-		return PendingIntent.getActivity(context, 0, startTheActivity, FLAG_CANCEL_CURRENT)
+		return PendingIntent.getActivity(context, 0, startTheActivity, PendingIntent.FLAG_CANCEL_CURRENT or PendingIntent.FLAG_IMMUTABLE)
 	}
 
 	fun show() {
