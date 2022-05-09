@@ -47,7 +47,7 @@ ext {
 	gsonVersion = '2.9.0'
 
 	okHttpVersion = '4.9.3'
-	okHttpDigestVersion = '2.6'
+	okHttpDigestVersion = '2.7'
 
 	velocityVersion = '2.3'
 
@@ -76,10 +76,10 @@ ext {
 	 */
 	trackingFreeGoogleCLientVersion = '1.41.7'
 
-	msgraphVersion = '5.22.0'
+	msgraphVersion = '5.23.0'
 	msgraphAuthVersion = '3.0.2'
 
-	minIoVersion = '8.3.9'
+	minIoVersion = '8.4.0'
 	staxVersion = '1.2.0' // needed for minIO
 
 	commonsCodecVersion = '1.15'
