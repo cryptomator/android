@@ -286,6 +286,10 @@
 	<string name="dialog_disable_app_obscured_disclaimer_hint">Mpangilio huu ni kipengele cha usalama na huzuia programu zingine kuwadanganya watumiaji kufanya mambo ambayo hawastahili kufanya.\n\nKuzima, unathibitisha kuwa wewe ni <a href="https://docs.cryptomator.org/en/1.5/android/settings/#block-app-when-obscured">kujishwa na hatari</a>.</string>
 	<string name="dialog_disable_app_obscured_disclaimer_title">Makini</string>
 	<string name="dialog_disable_app_obscured_positive_button">Lemaza</string>
+	<string name="dialog_app_is_obscured_info_title">Programu imefichwa</string>
+	<string name="dialog_app_is_obscured_info_hint">Programu nyingine inaonyesha kitu juu ya Cryptomator (kwa mfano, kichujio cha mwanga wa bluu au programu ya hali ya usiku). Kwa sababu za usalama, Cryptomator imezimwa..\n\n<a href="https://docs.cryptomator.org/en/1.5/android/settings/#block-app-when-obscured">How to enable Cryptomator</a></string>
+	<string name="dialog_app_is_obscured_info_neutral_button">Funga</string>
+	<string name="dialog_vaults_removed_during_migration_title">Tafadhali ongeza tena kuba kwa %1s wingu</string>
 	<!-- # error reports -->
 	<!-- # misc -->
 	<!-- ## file size helper -->
@@ -311,7 +315,37 @@
 	<!-- notification -->
 	<string name="notification_unlocked">Kuba imefunguliwa:%1$d</string>
 	<string name="notification_timeout">Otomatiki loku ndani ya %1$s</string>
+	<string name="notification_lock_all">Funga zote</string>
+	<string name="notification_cancel_auto_upload">Katisha upakiaji</string>
+	<string name="notification_auto_upload_title">Upakiaji wa picha kiotomatiki unaendelea</string>
+	<string name="notification_auto_upload_message">Inapakia %1d/%2d</string>
+	<string name="notification_auto_upload_finished_title">Upakiaji wa picha otomatiki umekamilika</string>
+	<string name="notification_auto_upload_finished_message">%1$d picha zilizopakiwa kwenye kuba</string>
+	<string name="notification_auto_upload_failed_title">Upakiaji wa picha otomatiki umeshindikana</string>
+	<string name="notification_auto_upload_failed_general_error">Kosa la jumla limetokea wakati wa kupakia.</string>
+	<string name="notification_auto_upload_failed_due_to_folder_not_exists">Kabrasha lililoteuliwa la kupakia halipatikani tena. Nenda kwenye mipangilio na uchague mpya</string>
+	<string name="notification_auto_upload_failed_due_to_vault_locked">Kuba imefungwa wakati wa kupakia, tafadhali fungua tena kuba ili kuendelea</string>
+	<string name="notification_auto_upload_failed_due_to_vault_not_found">Kuba iliyobainishwa kwa upakiaji wa kiotomatiki haipo tena.</string>
+	<string name="notification_open_writable_file_title">Fungua faili linalo andikika</string>
+	<string name="notification_open_writable_file_message">Kuba inakaa wazi hadi uhariri uliomalizika</string>
+	<string name="notification_update_check_finished_latest">Toleo la hivi karibuni lililosakinishwa</string>
+	<string name="notification_authenticating">Kuthibitisha&#8230;</string>
+	<string name="screen_settings_lru_cache">Kache</string>
+	<string name="screen_settings_lru_cache_toggle_summary">Akiba faili zilizofikiwa hivi karibuni zimesimbwa kwa njia fiche ndani ya kifaa kwa matumizi ya baadaye inapofunguliwa tena</string>
+	<string name="screen_settings_lru_cache_size">Ukubwa wa jumla wa kache</string>
+	<string name="screen_settings_clear_lru_cache_size">Ondoa Kache</string>
+	<string name="screen_settings_lru_cache_changed__restart_toast">Mabadiliko yatatekelezwa kwenye uanzishaji upya wa programu inayofuata</string>
+	<string name="screen_settings_license">Imesajiliwa kwa ajili ya</string>
+	<string name="screen_settings_license_mail">%1$s</string>
+	<string name="dialog_settings_update_check_interval_title">Sasisha muda wa ukaguzi</string>
+	<string name="screen_settings_check_updates">Kagua sasishi</string>
+	<string name="dialog_cache_size_title">Ukubwa wa kache kwa kila Wingu</string>
 	<!-- lock timeout names -->
+	<string name="lock_timeout_instant">Papohapo</string>
+	<string name="lock_timeout_1m">1 dakika</string>
+	<string name="lock_timeout_2m">2 dakika</string>
+	<string name="lock_timeout_5m">5 dakika</string>
+	<string name="lock_timeout_10m">10 dakika</string>
 	<!-- cache size names -->
 	<!-- screen scheme mode names -->
 	<!-- update interval names -->
