@@ -80,6 +80,15 @@
 	<string name="screen_file_browser_action_upload_files">Pakia mafaili</string>
 	<string name="screen_file_browser_upload_files_chooser_title">Mafaili</string>
 	<string name="screen_file_browser_msg_file_exported">Faili imehamishwa</string>
+	<string name="screen_file_browser_msg_files_exported">Faili zilizohamishwa</string>
+	<string name="screen_file_browser_nothing_to_export">Hakuna kitu cha kuuza nje</string>
+	<string name="screen_file_browser_msg_creating_download_dir_failed">Kuunda mpangilio orodha wa upakuaji umeshindikana</string>
+	<string name="screen_file_browser_node_action_share">Kushiriki</string>
+	<string name="screen_file_browser_node_action_rename">Ita jina jipya</string>
+	<string name="screen_file_browser_node_action_edit_text">Hariri</string>
+	<string name="screen_file_browser_node_action_export">Hamisha</string>
+	<string name="screen_file_browser_node_action_delete">Futa</string>
+	<string name="screen_file_browser_node_action_open_with_text">Funga na&#8230;</string>
 	<!-- ## screen: text editor -->
 	<!-- ## screen: share files -->
 	<!-- ## screen: choose cloud service -->
