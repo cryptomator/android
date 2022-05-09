@@ -160,20 +160,20 @@
 	<string name="screen_settings_activate_biometric_auth">启用生物识别认证</string>
 	<string name="screen_settings_confirm_face_unlock">确认人脸解锁 (如果有)</string>
 	<string name="screen_settings_block_app_when_obscured">被遮罩 (比如某些护眼应用) 时停用 Cryptomator</string>
-	<string name="screen_settings_block_app_when_obscured_summary">阻止 \"输入拦截以及显示错误/诱导性的用户界面\"</string>
+	<string name="screen_settings_block_app_when_obscured_summary">阻止 \"输入拦截以及显示错误、诱导性的用户界面\"</string>
 	<string name="screen_settings_secure_screen">防截屏</string>
 	<string name="screen_settings_secure_screen_summary">在最近任务和应用内阻止截图</string>
 	<string name="screen_settings_section_search">搜索</string>
 	<string name="screen_settings_live_search">实时搜索</string>
-	<string name="screen_settings_live_search_summary">边输入边更新搜索结果</string>
+	<string name="screen_settings_live_search_summary">随输入实时更新搜索结果</string>
 	<string name="screen_settings_glob_search">使用 glob 模式搜索</string>
 	<string name="screen_settings_glob_search_summary">使用诸如 alice.*.jpg 的 glob 模式匹配</string>
 	<string name="screen_settings_section_auto_lock">自动锁定</string>
 	<string name="screen_settings_auto_lock_timeout">超时锁定</string>
-	<string name="screen_settings_auto_lock_on_screen_lock">息屏后</string>
+	<string name="screen_settings_auto_lock_on_screen_lock">屏幕锁定后</string>
 	<string name="screen_settings_section_auto_photo_upload">自动上传图片</string>
 	<string name="screen_settings_section_auto_photo_upload_vault">选择目标保险库</string>
-	<string name="screen_settings_section_auto_photo_upload_toggle">激活</string>
+	<string name="screen_settings_section_auto_photo_upload_toggle">启用</string>
 	<string name="screen_settings_section_auto_photo_upload_toggle_summary">后台感知图片，一旦目标保险库解锁即开始上传</string>
 	<string name="screen_settings_section_auto_photo_upload_toggle_instant_upload">实时上传</string>
 	<string name="screen_settings_section_auto_photo_upload_toggle_instant_upload_summary">解锁保险库后直接上传</string>
@@ -284,7 +284,7 @@
 	<string name="dialog_no_screen_lock_checkbox">设置屏幕锁</string>
 	<string name="dialog_no_biometric_auth_set_up_title">系统中未设置基本身份验证</string>
 	<string name="dialog_no_biometric_auth_set_up_message">注册至少一个指纹/面部以使用此服务</string>
-	<string name="dialog_debug_mode_disclaimer_hint">在此模式下，敏感数据可能会写入您设备上的日志文件 (例如文件名和路径)。密码、cookies等除外\n\n请记住尽快关闭调试模式</string>
+	<string name="dialog_debug_mode_disclaimer_hint">在此模式下，敏感数据可能会写入您设备上的日志文件 (例如文件名和路径)。密码、cookies等除外\n\n请记住要尽快关闭调试模式</string>
 	<string name="dialog_debug_mode_disclaimer_title">请注意</string>
 	<string name="dialog_debug_mode_positive_button">启用</string>
 	<string name="dialog_disable_app_obscured_disclaimer_hint">此为一项安全功能，可防止其他应用诱使用户做出错误操作\n\n如果禁用，即表示您了解<a href="https://docs.cryptomator.org/en/1.5/android/settings/#block-app-when-obscured">其中风险</a></string>
