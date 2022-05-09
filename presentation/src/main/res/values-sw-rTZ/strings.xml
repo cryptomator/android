@@ -278,12 +278,39 @@
 	<string name="dialog_no_screen_lock_hint">Hakuna kufuli ya skrini iliyowekwa. Ili kuhifadhi hati zako za utambulisho kwa njia salama, weka na Sawa muundo au neno la siri.</string>
 	<string name="dialog_no_screen_lock_title">Weka kufuli skrini?</string>
 	<string name="dialog_no_screen_lock_checkbox">Weka kufuli skrini</string>
+	<string name="dialog_no_biometric_auth_set_up_title">Hakuna uhalalishaji wa msingi uliosanidiwa katika mfumo</string>
+	<string name="dialog_no_biometric_auth_set_up_message">Jiandikishe angalau kidole kimoja / uso ili kutumia huduma hii.</string>
+	<string name="dialog_debug_mode_disclaimer_hint">Katika hali hii, data nyeti inaweza kuandikwa kwa faili ya kumbukumbu kwenye kifaa chako (kwa mfano, majina ya faili na njia). Nywila, vidakuzi, n.k. zimetengwa wazi.\n\nKukumbuka ili kuzima hali ya utatuzi haraka iwezekanavyo.</string>
+	<string name="dialog_debug_mode_disclaimer_title">Makini</string>
+	<string name="dialog_debug_mode_positive_button">Wezesha</string>
+	<string name="dialog_disable_app_obscured_disclaimer_hint">Mpangilio huu ni kipengele cha usalama na huzuia programu zingine kuwadanganya watumiaji kufanya mambo ambayo hawastahili kufanya.\n\nKuzima, unathibitisha kuwa wewe ni <a href="https://docs.cryptomator.org/en/1.5/android/settings/#block-app-when-obscured">kujishwa na hatari</a>.</string>
+	<string name="dialog_disable_app_obscured_disclaimer_title">Makini</string>
+	<string name="dialog_disable_app_obscured_positive_button">Lemaza</string>
 	<!-- # error reports -->
 	<!-- # misc -->
 	<!-- ## file size helper -->
 	<!-- ## date helper -->
+	<string name="time_unit_seconds_pl">sekunde</string>
+	<string name="time_unit_minutes_sg">dakika</string>
+	<string name="time_unit_minutes_pl">dakika</string>
+	<string name="time_unit_hours_sg">saa</string>
+	<string name="time_unit_hours_pl">masaa</string>
+	<string name="time_unit_days_sg">siku</string>
+	<string name="time_unit_days_pl">siku</string>
+	<string name="time_unit_weeks_sg">wiki</string>
+	<string name="time_unit_weeks_pl">wiki</string>
+	<string name="time_unit_months_sg">mwezi</string>
+	<string name="time_unit_months_pl">miezi</string>
+	<string name="time_unit_years_sg">mwaka</string>
+	<string name="time_unit_years_pl">miaka</string>
 	<!-- ## biometric authentication -->
+	<string name="dialog_biometric_auth_title">Kuingia kwa Biometriska</string>
+	<string name="dialog_biometric_auth_message">Ingia kwa kutumia hati yako ya utambulisho ya biometriska</string>
+	<string name="dialog_biometric_auth_use_password">Tumia neno la siri ya kuba</string>
+	<string name="dialog_unable_to_auto_upload_files_title">Haiwezi kupakia faili otomatiki</string>
 	<!-- notification -->
+	<string name="notification_unlocked">Kuba imefunguliwa:%1$d</string>
+	<string name="notification_timeout">Otomatiki loku ndani ya %1$s</string>
 	<!-- lock timeout names -->
 	<!-- cache size names -->
 	<!-- screen scheme mode names -->
