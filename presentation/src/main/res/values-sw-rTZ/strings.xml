@@ -189,6 +189,32 @@
 	<!-- # dialogs -->
 	<!-- Vault not found -->
 	<string name="dialog_vault_not_found_positive_button_text">Ondoa</string>
+	<string name="dialog_filetype_not_supported_message">Tafadhali pakua programu ambayo inaweza kufungua faili hii au unapenda kuhifadhi kwenye kifaa chako?</string>
+	<string name="dialog_rename_vault_title">Ita jina jipya kuba</string>
+	<string name="dialog_rename_node_folder_title">Ita jina jipya kabrasha</string>
+	<string name="dialog_rename_node_file_title">Ita jina jipya la faili</string>
+	<string name="dialog_unsaved_changes_title">Una mabadiliko ambayo hayajahifadhiwa</string>
+	<string name="dialog_unsaved_changes_message">Je, kweli unataka kuacha bila kuhifadhi?</string>
+	<string name="dialog_unsaved_changes_discard">Tupa</string>
+	<string name="dialog_file_name_placeholder">ujumbe.txt</string>
+	<string name="dialog_delete_vault_message">Una uhakika unataka kuondoa kuba hii?</string>
+	<string name="dialog_delete_vault_hint">Kitendo hiki kitaondoa tu kuba kutoka kwenye orodha hii na sio kuifuta kimwili.</string>
+	<string name="dialog_upload_file_title">Inapakia&#8230;</string>
+	<string name="dialog_upload_file_remaining">Faili %1$d ya %2$d</string>
+	<string name="dialog_export_file_title">Kusafirisha (%1$d/%2$d)</string>
+	<string name="dialog_progress_please_wait">Tafadhali subiri&#8230;</string>
+	<string name="dialog_progress_creating_folder">Kuunda kabrasha&#8230;</string>
+	<string name="dialog_progress_creating_text_file">Unda faili matini&#8230;</string>
+	<string name="action_progress_authentication">Uhalalishaji&#8230;</string>
+	<string name="action_progress_renaming">Inaita jina jipya&#8230;</string>
+	<string name="action_progress_deleting">Kufuta&#8230;</string>
+	<string name="dialog_progress_unlocking_vault">Inafungua kuba&#8230;</string>
+	<string name="dialog_progress_change_password">Kubadilisha neno la siri&#8230;</string>
+	<string name="dialog_progress_creating_vault">Kutengeneza kuba&#8230;</string>
+	<string name="dialog_progress_upload_file">Inapakia&#8230;</string>
+	<string name="dialog_progress_download_file">Inapakua&#8230;</string>
+	<string name="dialog_progress_encryption">Inasimba&#8230;</string>
+	<string name="dialog_progress_decryption">Kusimbua =&#8230;</string>
 	<!-- # error reports -->
 	<!-- # misc -->
 	<!-- ## file size helper -->
