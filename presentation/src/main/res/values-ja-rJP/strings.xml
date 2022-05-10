@@ -9,6 +9,8 @@
 	<string name="error_no_network_connection">ネットワーク接続がありません</string>
 	<string name="error_invalid_passphrase">パスワードが正しくありません</string>
 	<string name="error_file_or_folder_exists">ファイルかフォルダーが既に存在します。</string>
+	<string name="error_vault_version_not_supported">金庫のバージョン %1$s はサポートされていません。この金庫は、現在のものより古いか新しいバージョンの Cryptomator で作成されています。</string>
+	<string name="error_vault_config_file_missing_due_to_format_999">%1$s ファイルが金庫のフォルダーに見つかりませんでした。クラウドの金庫フォルダーにこのファイルが存在することをご確認ください。</string>
 	<string name="error_vault_already_exists">金庫が既に存在します。</string>
 	<string name="error_no_such_file">ファイルが存在しません。</string>
 	<string name="error_vault_has_been_locked">金庫が施錠されました。</string>
@@ -272,6 +274,7 @@
 	<string name="dialog_accept_ssl_certificate_details">詳細</string>
 	<string name="dialog_accept_ssl_certificate_security_checkbox">これはセキュリティリスクになる可能性があります。リスクについて理解していますか</string>
 	<string name="dialog_ask_ignore_battery_optimizations_title">バッテリーの最適化を無効にする</string>
+	<string name="dialog_ask_ignore_battery_optimizations_hint">バックグラウンド中に新しい画像やビデオを取得するには、バッテリーの最適化オプションからオプトアウトする必要があります。%1$s が多くのエネルギーを消費することはありません。\n\n 「最適化されていない状態」から「すべてのアプリ」に変更するには、このダイアログで \'%2$s\' をクリックした後に、%1$s を選び「最適化しない」を指定してください。</string>
 	<string name="dialog_ask_ignore_battery_optimizations_checkbox">今後確認しない</string>
 	<string name="dialog_http_security_hint">HTTP は安全ではありません。代わりに HTTPS を使用することを推奨します。リスクを承知の上であれば HTTP をご使用ください。</string>
 	<string name="dialog_http_security_checkbox">HTTPS を使用</string>

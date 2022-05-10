@@ -33,8 +33,16 @@ class AutoUploadChooseVaultActivity : BaseActivity(), //
 		}
 	}
 
-	override fun createFragment(): Fragment = AutoUploadChooseVaultFragment()
+	override fun onMenuItemSelected(itemId: Int): Boolean = when (itemId) {
+		android.R.id.home -> {
+			// finish this activity and does not call the onCreate method of the parent activity
+			finish()
+			true
+		}
+		else -> super.onMenuItemSelected(itemId)
+	}
 
+	override fun createFragment(): Fragment = AutoUploadChooseVaultFragment()
 
 	override fun displayVaults(vaults: List<VaultModel>) {
 		autoUploadChooseVaultFragment().displayVaults(vaults)

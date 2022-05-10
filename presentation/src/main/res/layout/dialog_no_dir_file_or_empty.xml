@@ -9,7 +9,7 @@
 		android:padding="@dimen/activity_vertical_margin">
 
 		<TextView
-			android:id="@+id/tv_no_dir_file_info"
+			android:id="@+id/tv_no_dir_file_or_empty_info"
 			android:layout_width="wrap_content"
 			android:layout_height="wrap_content" />
 

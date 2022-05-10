@@ -1,1 +1,3 @@
-- Fixed wrong access to files when a connection has been re-added
+- Updated to the latest Android target version
+- Fixed deletion of folders without a dir-file in local storage cloud
+- Fixed file export when no app can process the selected file type

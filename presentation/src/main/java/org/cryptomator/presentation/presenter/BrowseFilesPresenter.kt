@@ -214,13 +214,13 @@ class BrowseFilesPresenter @Inject constructor( //
 							return
 						}
 						e is EmptyDirFileException -> {
-							view?.showNoDirFileDialog(e.dirName, e.filePath)
+							view?.showNoDirFileOrEmptyDialog(e.dirName, e.filePath)
 						}
 						e is SymLinkException -> {
 							view?.showSymLinkDialog()
 						}
 						e is NoDirFileException -> {
-							view?.showNoDirFileDialog(e.cryptoFolderName, e.cloudFolderPath)
+							view?.showNoDirFileOrEmptyDialog(e.cryptoFolderName, e.cloudFolderPath)
 						}
 						else -> {
 							super.onError(e)
@@ -233,7 +233,7 @@ class BrowseFilesPresenter @Inject constructor( //
 	@Callback(dispatchResultOkOnly = false)
 	fun getCloudListAfterAuthentication(result: ActivityResult, cloudFolderModel: CloudFolderModel) {
 		if(result.isResultOk) {
-			val cloudModel = result.getSingleResult(CloudModel::class.java) // FIXME update other vaults using this cloud as well
+			val cloudModel = result.getSingleResult(CloudModel::class.java)
 			val cloudNode = cloudFolderModel.toCloudNode()
 			if (cloudNode is CryptoFolder) {
 				updatedDecryptedCloudFor(Vault.aCopyOf(cloudFolderModel.vault()!!.toVault()).withCloud(cloudModel.toCloud()).build(), cloudFolderModel)
@@ -284,16 +284,18 @@ class BrowseFilesPresenter @Inject constructor( //
 	private fun copyFile(downloadFiles: List<DownloadFile>) {
 		downloadFiles.forEach { downloadFile ->
 			try {
-				FileInputStream(fileUtil.fileFor(cloudFileModelMapper.toModel(downloadFile.downloadFile))).use {
-					copyDataUseCase //
-						.withSource(it) //
-						.andTarget(downloadFile.dataSink) //
-						.run(object : DefaultResultHandler<Void>() {
-							override fun onFinished() {
-								view?.showMessage(R.string.screen_file_browser_msg_file_exported)
-							}
-						})
-				}
+				val source = FileInputStream(fileUtil.fileFor(cloudFileModelMapper.toModel(downloadFile.downloadFile)))
+				copyDataUseCase //
+					.withSource(source) //
+					.andTarget(downloadFile.dataSink) //
+					.run(object : DefaultResultHandler<Void>() {
+						override fun onSuccess(t: Void?) {
+							view?.showMessage(R.string.screen_file_browser_msg_file_exported)
+						}
+						override fun onFinished() {
+							source.close()
+						}
+					})
 			} catch (e: FileNotFoundException) {
 				showError(e)
 			}
