@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 	<!-- # app -->
-	<string name="share_with_label">Szyfruj</string>
+	<string name="share_with_label">Zaszyfruj</string>
 	<!-- # error messages -->
-	<string name="error_generic">Błąd programu</string>
+	<string name="error_generic">Wystąpił błąd</string>
 	<string name="error_authentication_failed">Uwierzytelnianie nie powiodło się</string>
 	<string name="error_authentication_failed_re_authenticate">Uwierzytelnianie nie powiodło się, zaloguj się za pomocą %1$s</string>
 	<string name="error_no_network_connection">Brak połączenia z Internetem</string>
