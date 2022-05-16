@@ -411,6 +411,4 @@
 	<string name="dark">Mørk</string>
 	<!-- update interval names -->
 	<string name="update_interval_1d">Daglig</string>
-	<string name="update_interval_1w">Ukentlig</string>
-	<string name="update_interval_1m">Månedlig</string>
 </resources>
