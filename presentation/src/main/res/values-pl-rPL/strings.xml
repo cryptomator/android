@@ -413,6 +413,4 @@
 	<string name="dark">Ciemny</string>
 	<!-- update interval names -->
 	<string name="update_interval_1d">Raz dziennie</string>
-	<string name="update_interval_1w">Raz w tygodniu</string>
-	<string name="update_interval_1m">Raz w miesiącu</string>
 </resources>
