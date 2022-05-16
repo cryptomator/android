@@ -410,6 +410,4 @@
 	<string name="dark">Gelap</string>
 	<!-- update interval names -->
 	<string name="update_interval_1d">Sehari sekali</string>
-	<string name="update_interval_1w">Seminggu sekali</string>
-	<string name="update_interval_1m">Sebulan sekali</string>
 </resources>
