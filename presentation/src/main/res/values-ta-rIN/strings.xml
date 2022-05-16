@@ -108,6 +108,4 @@
 	<string name="dark">இருள்</string>
 	<!-- update interval names -->
 	<string name="update_interval_1d">தினம் ஒரு முறை</string>
-	<string name="update_interval_1w">வாரம் ஒரு முறை</string>
-	<string name="update_interval_1m">மாதம் ஒரு முறை</string>
 </resources>
