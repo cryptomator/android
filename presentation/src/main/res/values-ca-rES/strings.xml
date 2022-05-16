@@ -406,6 +406,4 @@
 	<string name="dark">Fosc</string>
 	<!-- update interval names -->
 	<string name="update_interval_1d">Una vegada al dia</string>
-	<string name="update_interval_1w">Una vegada a la setmana</string>
-	<string name="update_interval_1m">Una vegada al mes</string>
 </resources>
