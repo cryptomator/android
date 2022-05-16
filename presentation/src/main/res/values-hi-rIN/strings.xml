@@ -115,6 +115,4 @@
 	<!-- screen scheme mode names -->
 	<!-- update interval names -->
 	<string name="update_interval_1d">दिन में एक बार</string>
-	<string name="update_interval_1w">सप्ताह में एक बार</string>
-	<string name="update_interval_1m">महीने में एक बार</string>
 </resources>
