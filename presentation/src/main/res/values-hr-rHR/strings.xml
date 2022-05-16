@@ -412,6 +412,4 @@
 	<string name="dark">Tamno</string>
 	<!-- update interval names -->
 	<string name="update_interval_1d">Jednom dnevno</string>
-	<string name="update_interval_1w">Jednom tjedno</string>
-	<string name="update_interval_1m">Jednom mjesečno</string>
 </resources>
