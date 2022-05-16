@@ -244,7 +244,7 @@
 			android:title="@string/app_name" />
 
 		<ListPreference
-			android:defaultValue="7"
+			android:defaultValue="1"
 			android:dialogTitle="@string/dialog_settings_update_check_interval_title"
 			android:entries="@array/update_interval_entries"
 			android:entryValues="@array/update_interval_values"

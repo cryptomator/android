@@ -580,4 +580,66 @@ class UpgradeDatabaseTest {
 		}
 	}
 
+	@Test
+	fun upgrade11To12IfOldDefaultSet() {
+		Upgrade0To1().applyTo(db, 0)
+		Upgrade1To2().applyTo(db, 1)
+		Upgrade2To3(context).applyTo(db, 2)
+		Upgrade3To4().applyTo(db, 3)
+		Upgrade4To5().applyTo(db, 4)
+		Upgrade5To6().applyTo(db, 5)
+		Upgrade6To7().applyTo(db, 6)
+		Upgrade7To8().applyTo(db, 7)
+		Upgrade8To9(sharedPreferencesHandler).applyTo(db, 8)
+		Upgrade9To10(sharedPreferencesHandler).applyTo(db, 9)
+		Upgrade10To11().applyTo(db, 10)
+
+		sharedPreferencesHandler.setUpdateIntervalInDays(Optional.of(7))
+
+		Upgrade11To12(sharedPreferencesHandler).applyTo(db, 11)
+
+		Assert.assertThat(sharedPreferencesHandler.updateIntervalInDays(), CoreMatchers.`is`(Optional.of(1)))
+	}
+
+	@Test
+	fun upgrade11To12MonthlySet() {
+		Upgrade0To1().applyTo(db, 0)
+		Upgrade1To2().applyTo(db, 1)
+		Upgrade2To3(context).applyTo(db, 2)
+		Upgrade3To4().applyTo(db, 3)
+		Upgrade4To5().applyTo(db, 4)
+		Upgrade5To6().applyTo(db, 5)
+		Upgrade6To7().applyTo(db, 6)
+		Upgrade7To8().applyTo(db, 7)
+		Upgrade8To9(sharedPreferencesHandler).applyTo(db, 8)
+		Upgrade9To10(sharedPreferencesHandler).applyTo(db, 9)
+		Upgrade10To11().applyTo(db, 10)
+
+		sharedPreferencesHandler.setUpdateIntervalInDays(Optional.of(30))
+
+		Upgrade11To12(sharedPreferencesHandler).applyTo(db, 11)
+
+		Assert.assertThat(sharedPreferencesHandler.updateIntervalInDays(), CoreMatchers.`is`(Optional.of(1)))
+	}
+
+	@Test
+	fun upgrade11To12MonthlyNever() {
+		Upgrade0To1().applyTo(db, 0)
+		Upgrade1To2().applyTo(db, 1)
+		Upgrade2To3(context).applyTo(db, 2)
+		Upgrade3To4().applyTo(db, 3)
+		Upgrade4To5().applyTo(db, 4)
+		Upgrade5To6().applyTo(db, 5)
+		Upgrade6To7().applyTo(db, 6)
+		Upgrade7To8().applyTo(db, 7)
+		Upgrade8To9(sharedPreferencesHandler).applyTo(db, 8)
+		Upgrade9To10(sharedPreferencesHandler).applyTo(db, 9)
+		Upgrade10To11().applyTo(db, 10)
+
+		sharedPreferencesHandler.setUpdateIntervalInDays(Optional.absent())
+
+		Upgrade11To12(sharedPreferencesHandler).applyTo(db, 11)
+
+		Assert.assertThat(sharedPreferencesHandler.updateIntervalInDays(), CoreMatchers.`is`(Optional.absent()))
+	}
 }

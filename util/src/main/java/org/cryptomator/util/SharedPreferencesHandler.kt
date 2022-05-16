@@ -190,14 +190,20 @@ constructor(context: Context) : SharedPreferences.OnSharedPreferenceChangeListen
 		return defaultSharedPreferences.getBoolean(KEEP_UNLOCKED_WHILE_EDITING, false)
 	}
 
-	private fun updateIntervalInDays(): Optional<Int> {
-		val updateInterval = defaultSharedPreferences.getValue(UPDATE_INTERVAL, "7")
+	fun updateIntervalInDays(): Optional<Int> {
+		val updateInterval = defaultSharedPreferences.getValue(UPDATE_INTERVAL, "1")
 
 		if (updateInterval == "Never") {
 			return Optional.absent()
 		}
 
 		return Optional.of(Integer.parseInt(updateInterval))
+	}
+
+	fun setUpdateIntervalInDays(days: Optional<Int>) = if (days.isPresent) {
+		defaultSharedPreferences.setValue(UPDATE_INTERVAL, days.get().toString())
+	} else {
+		defaultSharedPreferences.setValue(UPDATE_INTERVAL, "Never")
 	}
 
 	fun lastUpdateCheck(): Date? {
@@ -254,7 +260,7 @@ constructor(context: Context) : SharedPreferences.OnSharedPreferenceChangeListen
 	fun vaultsRemovedDuringMigration(): Pair<String, List<String>>? {
 		val vaultsRemovedDuringMigrationType = defaultSharedPreferences.getString(VAULTS_REMOVED_DURING_MIGRATION_TYPE, null)
 		val vaultsRemovedDuringMigration = defaultSharedPreferences.getString(VAULTS_REMOVED_DURING_MIGRATION, null)
-		return if(vaultsRemovedDuringMigrationType != null && vaultsRemovedDuringMigration != null) {
+		return if (vaultsRemovedDuringMigrationType != null && vaultsRemovedDuringMigration != null) {
 			Pair(vaultsRemovedDuringMigrationType, ArrayList(vaultsRemovedDuringMigration.split(',')))
 		} else {
 			null
