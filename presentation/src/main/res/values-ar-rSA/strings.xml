@@ -377,6 +377,4 @@
 	<string name="dark">مظلم (أسود)</string>
 	<!-- update interval names -->
 	<string name="update_interval_1d">مرة في اليوم</string>
-	<string name="update_interval_1w">مرة في الإسبوع</string>
-	<string name="update_interval_1m">مرة في الشهر</string>
 </resources>
