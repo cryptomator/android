@@ -284,16 +284,18 @@ class BrowseFilesPresenter @Inject constructor( //
 	private fun copyFile(downloadFiles: List<DownloadFile>) {
 		downloadFiles.forEach { downloadFile ->
 			try {
-				FileInputStream(fileUtil.fileFor(cloudFileModelMapper.toModel(downloadFile.downloadFile))).use {
-					copyDataUseCase //
-						.withSource(it) //
-						.andTarget(downloadFile.dataSink) //
-						.run(object : DefaultResultHandler<Void>() {
-							override fun onFinished() {
-								view?.showMessage(R.string.screen_file_browser_msg_file_exported)
-							}
-						})
-				}
+				val source = FileInputStream(fileUtil.fileFor(cloudFileModelMapper.toModel(downloadFile.downloadFile)))
+				copyDataUseCase //
+					.withSource(source) //
+					.andTarget(downloadFile.dataSink) //
+					.run(object : DefaultResultHandler<Void>() {
+						override fun onSuccess(t: Void?) {
+							view?.showMessage(R.string.screen_file_browser_msg_file_exported)
+						}
+						override fun onFinished() {
+							source.close()
+						}
+					})
 			} catch (e: FileNotFoundException) {
 				showError(e)
 			}

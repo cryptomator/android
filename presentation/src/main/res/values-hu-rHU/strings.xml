@@ -197,6 +197,7 @@
 	<string name="screen_settings_keep_unlocked_while_editing_files">Feloldvatartás</string>
 	<string name="screen_settings_keep_unlocked_while_editing_files_summary">Fájlok szerkesztése közben tartsa feloldva a trezorokat</string>
 	<!-- ## screen: cloud settings -->
+	<string name="screen_cloud_settings_onedrive_connections">OneDrive kapcsolat</string>
 	<string name="screen_cloud_settings_webdav_connections">WebDAV fiókok</string>
 	<string name="screen_cloud_settings_pcloud_connections">pCloud fiókok</string>
 	<string name="screen_cloud_settings_s3_connections">S3 fiókok</string>
@@ -270,6 +271,21 @@
 	<string name="dialog_accept_ssl_certificate_hint">Az SSL tanúsítvány érvénytelen. El szeretné fogadni ennek ellenére?</string>
 	<string name="dialog_accept_ssl_certificate_details">Részletek</string>
 	<string name="dialog_accept_ssl_certificate_security_checkbox">Ez biztonsági kockázatot jelent. Tudom, mit csinálok.</string>
+	<string name="dialog_ask_ignore_battery_optimizations_title">Akkumulátor-optimalizálás kikapcsolása</string>
+	<string name="dialog_ask_ignore_battery_optimizations_checkbox">Ne kérdezze újra</string>
+	<string name="dialog_http_security_hint">A HTTP használata nem biztonságos, helyette a HTTPS használata ajánlott. Ha ismeri a kockázatot, folytathatja HTTP-vel is.</string>
+	<string name="dialog_http_security_checkbox">Váltson HTTPS-re</string>
+	<string name="dialog_http_security_title">HTTPS használata</string>
+	<string name="dialog_no_screen_lock_hint">Nincs beállítva kijelzőzár. A hitelesítő adatok biztonságos tárolásához az OK-ra kattintva állítson be mintát vagy jelszót.</string>
+	<string name="dialog_no_screen_lock_title">Képernyőzár beállítása?</string>
+	<string name="dialog_no_screen_lock_checkbox">Képernyőzár beállítása</string>
+	<string name="dialog_no_biometric_auth_set_up_title">Nincs beállítva hitelesítés a rendszerben</string>
+	<string name="dialog_no_biometric_auth_set_up_message">A funkció használatához tároljon legalább egy biometrikus adatot.</string>
+	<string name="dialog_debug_mode_disclaimer_hint">Ebben a módban érzékeny adatok kerülhetnek az eszközön lévő naplófájlba (pl. fájlnevek és -útvonalak). Ez jelszavakra és sütikre nem vonatkozik.\n\n Ne felejtse el minél hamarabb kikapcsolni a fejlesztői módot.</string>
+	<string name="dialog_debug_mode_disclaimer_title">Figyelem</string>
+	<string name="dialog_debug_mode_positive_button">Engedélyezés</string>
+	<string name="dialog_disable_app_obscured_disclaimer_title">Figyelem</string>
+	<string name="dialog_disable_app_obscured_positive_button">Letiltás</string>
 	<string name="dialog_app_is_obscured_info_neutral_button">Bezár</string>
 	<string name="dialog_confirm_delete_multiple_message">Biztosan törölni akarja ezeket az elemeket?</string>
 	<string name="dialog_confirm_delete_file_message">Biztosan törli ezt a fájlt?</string>
@@ -328,6 +344,7 @@
 	<string name="notification_open_writable_file_title">Írható fájl megnyitása</string>
 	<string name="notification_open_writable_file_message">A trezor a szerkesztés idejéig feloldva marad</string>
 	<string name="notification_update_check_finished_latest">A legfrissebb verzió van telepítve</string>
+	<string name="notification_authenticating">Hitelesítés&#8230;</string>
 	<string name="screen_settings_lru_cache">Gyorsítótár</string>
 	<string name="screen_settings_lru_cache_toggle_summary">Helyileg titkosított fájlok gyorsítótárazása az eszközön, később újrafelhasználásra</string>
 	<string name="screen_settings_lru_cache_size">Gyorsítótár mérete</string>
@@ -336,10 +353,28 @@
 	<string name="screen_settings_license">Regisztrált:</string>
 	<string name="screen_settings_license_mail">%1$s</string>
 	<string name="dialog_settings_update_check_interval_title">Frissítések keresésése</string>
+	<string name="screen_settings_check_updates">Frissítések keresése</string>
 	<!-- lock timeout names -->
+	<string name="lock_timeout_instant">Azonnal</string>
+	<string name="lock_timeout_1m">1 perc</string>
+	<string name="lock_timeout_2m">2 perc</string>
+	<string name="lock_timeout_5m">5 perc</string>
+	<string name="lock_timeout_10m">10 perc</string>
+	<string name="lock_timeout_never">Soha</string>
 	<!-- cache size names -->
+	<string name="cache_size_50m">50 MB</string>
+	<string name="cache_size_100m">100 MB</string>
+	<string name="cache_size_250m">250 MB</string>
+	<string name="cache_size_500m">500 MB</string>
+	<string name="cache_size_1000m">1 GB</string>
+	<string name="cache_size_5000m">5 GB</string>
 	<!-- screen scheme mode names -->
+	<string name="screen_settings_style_mode">Stílus</string>
+	<string name="follow_system">Automatikus (A rendszeren alapuló)</string>
 	<string name="light">Világos</string>
 	<string name="dark">Sötét</string>
 	<!-- update interval names -->
+	<string name="update_interval_1d">Naponta egyszer</string>
+	<string name="update_interval_1w">Hetente egyszer</string>
+	<string name="update_interval_1m">Havonta egyszer</string>
 </resources>

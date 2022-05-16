@@ -82,7 +82,7 @@ android {
 }
 
 greendao {
-	schemaVersion 11
+	schemaVersion 12
 }
 
 configurations.all {
@@ -191,6 +191,7 @@ dependencies {
 	testRuntimeOnly dependencies.junitEngine
 	testImplementation dependencies.junitParams
 	testRuntimeOnly dependencies.junit4Engine
+	implementation dependencies.androidxTestJunitKtln
 
 	testImplementation dependencies.mockito
 	testImplementation dependencies.mockitoKotlin

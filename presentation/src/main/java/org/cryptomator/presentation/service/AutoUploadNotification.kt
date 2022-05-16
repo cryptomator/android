@@ -48,7 +48,7 @@ class AutoUploadNotification(private val context: Context, private val amountOfP
 
 	private fun cancelNowAction(): NotificationCompat.Action {
 		val intentAction = cancelAutoUploadIntent(context)
-		val cancelIntent = PendingIntent.getService(context, 0, intentAction, FLAG_CANCEL_CURRENT)
+		val cancelIntent = PendingIntent.getService(context, 0, intentAction, FLAG_CANCEL_CURRENT or PendingIntent.FLAG_IMMUTABLE)
 		return NotificationCompat.Action.Builder( //
 			R.drawable.ic_lock, //
 			getString(R.string.notification_cancel_auto_upload), //
@@ -60,7 +60,7 @@ class AutoUploadNotification(private val context: Context, private val amountOfP
 		val startTheActivity = Intent(context, VaultListActivity::class.java)
 		startTheActivity.action = ACTION_MAIN
 		startTheActivity.flags = FLAG_ACTIVITY_CLEAR_TASK or FLAG_ACTIVITY_NEW_TASK
-		return PendingIntent.getActivity(context, 0, startTheActivity, FLAG_CANCEL_CURRENT)
+		return PendingIntent.getActivity(context, 0, startTheActivity, FLAG_CANCEL_CURRENT or PendingIntent.FLAG_IMMUTABLE)
 	}
 
 	fun update(progress: Int) {
