@@ -411,6 +411,4 @@
 	<string name="dark">Dunkel</string>
 	<!-- update interval names -->
 	<string name="update_interval_1d">Täglich</string>
-	<string name="update_interval_1w">Wöchentlich</string>
-	<string name="update_interval_1m">Monatlich</string>
 </resources>
