@@ -406,6 +406,4 @@
 	<string name="dark">Giza</string>
 	<!-- update interval names -->
 	<string name="update_interval_1d">Mara moja kwa siku</string>
-	<string name="update_interval_1w">Mara moja kwa wiki</string>
-	<string name="update_interval_1m">Mara moja kwa mwezi</string>
 </resources>
