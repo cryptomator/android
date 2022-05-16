@@ -269,6 +269,4 @@
 	<string name="dark">Dark</string>
 	<!-- update interval names -->
 	<string name="update_interval_1d">Isang beses sa isang araw</string>
-	<string name="update_interval_1w">Isang beses sa isang linggo</string>
-	<string name="update_interval_1m">Isang beses sa isang buwan</string>
 </resources>
