@@ -410,6 +410,4 @@
 	<string name="dark">暗色</string>
 	<!-- update interval names -->
 	<string name="update_interval_1d">每日一次</string>
-	<string name="update_interval_1w">每週一次</string>
-	<string name="update_interval_1m">每月一次</string>
 </resources>
