@@ -411,6 +411,4 @@
 	<string name="dark">Scuro</string>
 	<!-- update interval names -->
 	<string name="update_interval_1d">Una volta al giorno</string>
-	<string name="update_interval_1w">Una volta alla settimana</string>
-	<string name="update_interval_1m">Una volta al mese</string>
 </resources>
