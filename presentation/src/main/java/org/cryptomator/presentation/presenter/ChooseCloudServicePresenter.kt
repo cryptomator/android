@@ -37,6 +37,11 @@ class ChooseCloudServicePresenter @Inject constructor( //
 
 		if (BuildConfig.FLAVOR == "fdroid") {
 			cloudTypeModels.remove(CloudTypeModel.GOOGLE_DRIVE)
+		} else if (BuildConfig.FLAVOR == "fdroidmain") {
+			cloudTypeModels.remove(CloudTypeModel.GOOGLE_DRIVE)
+			cloudTypeModels.remove(CloudTypeModel.DROPBOX)
+			cloudTypeModels.remove(CloudTypeModel.ONEDRIVE)
+			cloudTypeModels.remove(CloudTypeModel.PCLOUD)
 		}
 
 		view?.render(cloudTypeModels)

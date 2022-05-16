@@ -83,6 +83,9 @@ class SettingsPresenter @Inject internal constructor(
 			"fdroid" -> {
 				"F-Droid"
 			}
+			"fdroidmain" -> {
+				"F-Droid Main Repo Edition"
+			}
 			else -> "Google Play"
 		}
 		return StringBuilder().append("## ").append(context().getString(R.string.error_report_subject)).append("\n\n") //

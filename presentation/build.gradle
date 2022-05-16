@@ -88,19 +88,27 @@ android {
 		fdroid {
 			dimension "version"
 		}
+
+		fdroidmain {
+			dimension "version"
+		}
 	}
 
 	sourceSets {
 		playstore {
-			java.srcDirs = ['src/main/java', 'src/main/java/', 'src/notFoss/java', 'src/notFoss/java/']
+			java.srcDirs = ['src/main/java', 'src/apiKey/java/', 'src/apkStorePlaystore/java/']
 		}
 
 		apkstore {
-			java.srcDirs = ['src/main/java', 'src/main/java/', 'src/notFoss/java', 'src/notFoss/java/']
+			java.srcDirs = ['src/main/java/', 'src/apiKey/java/', 'src/apkStorePlaystore/java/']
 		}
 
 		fdroid {
-			java.srcDirs = ['src/main/java', 'src/main/java/', 'src/foss/java', 'src/foss/java/']
+			java.srcDirs = ['src/main/java/', 'src/apiKey/java/', 'src/fdroid/java/', 'src/fdroidAndfdroidmain/java/']
+		}
+
+		fdroidmain {
+			java.srcDirs = ['src/main/java/', 'src/fdroidmain/java/', 'src/fdroidAndfdroidmain/java/']
 		}
 	}
 	packagingOptions {
@@ -147,9 +155,16 @@ dependencies {
 	implementation dependencies.androidxBiometric
 
 	// cloud
-	implementation dependencies.dropbox
-	implementation dependencies.msgraph
-	implementation dependencies.msgraphAuth
+	playstoreImplementation dependencies.dropbox
+	apkstoreImplementation dependencies.dropbox
+	fdroidImplementation dependencies.dropbox
+
+	playstoreImplementation dependencies.msgraphAuth
+	apkstoreImplementation dependencies.msgraphAuth
+	fdroidImplementation dependencies.msgraphAuth
+	playstoreImplementation dependencies.msgraph
+	apkstoreImplementation dependencies.msgraph
+	fdroidImplementation dependencies.msgraph
 
 	playstoreImplementation(dependencies.googleApiServicesDrive) {
 		exclude module: 'guava-jdk5'
