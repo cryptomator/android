@@ -395,6 +395,4 @@
 	<string name="dark">כהה</string>
 	<!-- update interval names -->
 	<string name="update_interval_1d">פעם ביום</string>
-	<string name="update_interval_1w">פעם בשבוע</string>
-	<string name="update_interval_1m">פעם בחודש</string>
 </resources>
