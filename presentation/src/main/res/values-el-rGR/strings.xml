@@ -411,6 +411,4 @@
 	<string name="dark">Σκούρο</string>
 	<!-- update interval names -->
 	<string name="update_interval_1d">Μία φορά την ημέρα</string>
-	<string name="update_interval_1w">Μία φορά την εβδομάδα</string>
-	<string name="update_interval_1m">Μία φορά το μήνα</string>
 </resources>
