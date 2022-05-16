@@ -413,6 +413,4 @@
 	<string name="dark">Тёмная</string>
 	<!-- update interval names -->
 	<string name="update_interval_1d">Раз в день</string>
-	<string name="update_interval_1w">Раз в неделю</string>
-	<string name="update_interval_1m">Раз в месяц</string>
 </resources>
