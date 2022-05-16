@@ -375,6 +375,4 @@
 	<string name="dark">Sötét</string>
 	<!-- update interval names -->
 	<string name="update_interval_1d">Naponta egyszer</string>
-	<string name="update_interval_1w">Hetente egyszer</string>
-	<string name="update_interval_1m">Havonta egyszer</string>
 </resources>
