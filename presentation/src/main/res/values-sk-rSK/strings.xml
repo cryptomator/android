@@ -413,6 +413,4 @@
 	<string name="dark">Tmavý</string>
 	<!-- update interval names -->
 	<string name="update_interval_1d">Raz za deň</string>
-	<string name="update_interval_1w">Raz za týždeň</string>
-	<string name="update_interval_1m">Raz za mesiac</string>
 </resources>
