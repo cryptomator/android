@@ -411,6 +411,4 @@
 	<string name="dark">Karanlık</string>
 	<!-- update interval names -->
 	<string name="update_interval_1d">Günde bir</string>
-	<string name="update_interval_1w">Haftada bir</string>
-	<string name="update_interval_1m">Ayda bir</string>
 </resources>
