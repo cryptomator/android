@@ -411,6 +411,4 @@
 	<string name="dark">Donker</string>
 	<!-- update interval names -->
 	<string name="update_interval_1d">Een keer per dag</string>
-	<string name="update_interval_1w">Een keer per week</string>
-	<string name="update_interval_1m">Een keer per maand</string>
 </resources>
