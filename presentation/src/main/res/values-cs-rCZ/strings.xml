@@ -413,6 +413,4 @@
 	<string name="dark">Tmavý</string>
 	<!-- update interval names -->
 	<string name="update_interval_1d">Jednou denně</string>
-	<string name="update_interval_1w">Jednou týdně</string>
-	<string name="update_interval_1m">Jednou měsíčně</string>
 </resources>
