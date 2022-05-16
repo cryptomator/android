@@ -337,6 +337,4 @@
 	<string name="dark">어둡게</string>
 	<!-- update interval names -->
 	<string name="update_interval_1d">하루에 한번</string>
-	<string name="update_interval_1w">일주일에 한번</string>
-	<string name="update_interval_1m">한달에 한 번</string>
 </resources>
