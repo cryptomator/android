@@ -388,6 +388,4 @@
 	<string name="dark">Întunecat</string>
 	<!-- update interval names -->
 	<string name="update_interval_1d">O dată pe zi</string>
-	<string name="update_interval_1w">O dată pe săptămână</string>
-	<string name="update_interval_1m">O dată pe lună</string>
 </resources>
