@@ -2,9 +2,10 @@ package org.cryptomator.data.db
 
 import android.content.Context
 import android.database.sqlite.SQLiteDatabase
-import androidx.test.InstrumentationRegistry
+import androidx.test.ext.junit.runners.AndroidJUnit4
 import androidx.test.filters.SmallTest
-import androidx.test.runner.AndroidJUnit4
+import androidx.test.platform.app.InstrumentationRegistry
+import com.google.common.base.Optional
 import org.cryptomator.data.db.entities.CloudEntityDao
 import org.cryptomator.data.db.entities.UpdateCheckEntityDao
 import org.cryptomator.data.db.entities.VaultEntityDao
@@ -25,7 +26,7 @@ import org.junit.runner.RunWith
 @SmallTest
 class UpgradeDatabaseTest {
 
-	private val context = InstrumentationRegistry.getTargetContext()
+	private val context = InstrumentationRegistry.getInstrumentation().context
 	private val sharedPreferencesHandler = SharedPreferencesHandler(context)
 	private lateinit var db: Database
 

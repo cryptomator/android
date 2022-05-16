@@ -100,6 +100,7 @@ ext {
 	rulesVersion = '1.4.0'
 	contributionVersion = '3.4.0'
 	uiautomatorVersion = '2.2.0'
+	androidxTestJunitKtlnVersion = '1.1.3'
 
 	androidxCoreVersion = '1.6.0'
 	androidxFragmentVersion = '1.3.6'
@@ -126,6 +127,7 @@ ext {
 			documentFile          : "androidx.documentfile:documentfile:${androidxDocumentfileVersion}",
 			recyclerView          : "androidx.recyclerview:recyclerview:${androidxRecyclerViewVersion}",
 			androidxTestCore      : "androidx.test:core:${androidxTestCoreVersion}",
+			androidxTestJunitKtln : "androidx.test.ext:junit-ktx:${androidxTestJunitKtlnVersion}",
 			commonsCodec          : "commons-codec:commons-codec:${commonsCodecVersion}",
 			cryptolib             : "org.cryptomator:cryptolib:${cryptolibVersion}",
 			dagger                : "com.google.dagger:dagger:${daggerVersion}",
