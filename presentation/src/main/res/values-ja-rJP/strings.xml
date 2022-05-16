@@ -410,6 +410,4 @@
 	<string name="dark">ダーク</string>
 	<!-- update interval names -->
 	<string name="update_interval_1d">毎日</string>
-	<string name="update_interval_1w">毎週</string>
-	<string name="update_interval_1m">毎月</string>
 </resources>
