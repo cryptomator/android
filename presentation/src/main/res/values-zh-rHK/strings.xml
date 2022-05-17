@@ -242,18 +242,141 @@
 	<string name="dialog_unable_to_share_negative_button">建立加密庫</string>
 	<string name="dialog_filetype_not_supported_title">不能打開 %1$s</string>
 	<string name="dialog_filetype_not_supported_message">請下載一個可以打開此文件的應用程序。或者你想保存到你的設備嗎？</string>
+	<string name="dialog_rename_vault_title">重新命名加密庫</string>
+	<string name="dialog_rename_node_folder_title">重新命名資料夾</string>
+	<string name="dialog_rename_node_file_title">重新命名檔案</string>
+	<string name="dialog_unsaved_changes_title">你有未儲存的更改</string>
+	<string name="dialog_unsaved_changes_message">你確定要不儲存就離開嗎？</string>
+	<string name="dialog_unsaved_changes_discard">捨棄</string>
+	<string name="dialog_file_name_placeholder">文檔.txt</string>
+	<string name="dialog_delete_vault_message">確定要移除這個加密庫嗎？</string>
+	<string name="dialog_delete_vault_hint">此操作只會從該列表中移除加密庫，而不是實際上刪除它。</string>
+	<string name="dialog_upload_file_title">上載中…</string>
+	<string name="dialog_upload_file_remaining">第 %1$d 個（共 %2$d 個）</string>
+	<string name="dialog_export_file_title">匯出中（%1$d / %2$d ）</string>
+	<string name="dialog_progress_please_wait">請稍候…</string>
+	<string name="dialog_progress_creating_folder">正建立資料夾…</string>
+	<string name="dialog_progress_creating_text_file">正建立文字檔案…</string>
+	<string name="action_progress_authentication">驗證中…</string>
+	<string name="action_progress_renaming">重新命名中…</string>
+	<string name="action_progress_deleting">刪除中…</string>
+	<string name="dialog_progress_unlocking_vault">解鎖加密庫中…</string>
+	<string name="dialog_progress_change_password">更改密碼中…</string>
+	<string name="dialog_progress_creating_vault">建立加密庫中…</string>
+	<string name="dialog_progress_upload_file">上載中…</string>
+	<string name="dialog_progress_download_file">下載中…</string>
+	<string name="dialog_progress_encryption">加密中…</string>
+	<string name="dialog_progress_decryption">解密中…</string>
+	<string name="action_progress_moving">移動中…</string>
 	<string name="dialog_lock_vault">鎖定</string>
+	<string name="dialog_accept_ssl_certificate_title">無效的 SSL 憑證</string>
+	<string name="dialog_accept_ssl_certificate_hint">此 SSL 認證無效。你仍要信任它嗎？</string>
+	<string name="dialog_accept_ssl_certificate_details">詳情</string>
+	<string name="dialog_accept_ssl_certificate_security_checkbox">這可能會是個安全風險。我清楚我在做甚麼。</string>
+	<string name="dialog_ask_ignore_battery_optimizations_title">停用電池效能最佳化設定</string>
+	<string name="dialog_ask_ignore_battery_optimizations_hint">要在不在背景運行的情況下檢索新圖片和影片，我們需要選擇退出電池優化。不過不用擔心， %1$s 不會消耗太多電量。\n\n要應用它，請把「未最佳化」更改為「所有應用程式」。在此對話框中選擇「%2$s」後，選擇「%1$s」再選擇「不最佳化」。</string>
+	<string name="dialog_ask_ignore_battery_optimizations_checkbox">不再詢問？</string>
+	<string name="dialog_http_security_hint">使用 HTTP 是不安全的。我們推薦使用 HTTPS 來取代。如果您瞭解風險，您可以使用 HTTP 繼續。</string>
+	<string name="dialog_http_security_checkbox">更改為 HTTPS</string>
+	<string name="dialog_http_security_title">使用 HTTPS？</string>
+	<string name="dialog_no_screen_lock_hint">未設定螢幕鎖定。要以安全的方式儲存您的憑據，請設置鎖定模式或密碼。</string>
+	<string name="dialog_no_screen_lock_title">設定螢幕鎖定？</string>
+	<string name="dialog_no_screen_lock_checkbox">設定螢幕鎖定</string>
+	<string name="dialog_no_biometric_auth_set_up_title">系統中未設置基本身份驗證</string>
+	<string name="dialog_no_biometric_auth_set_up_message">註冊至少一個手指/面部以使用此服務。</string>
+	<string name="dialog_debug_mode_disclaimer_hint">在此模式下，敏感數據可能會寫入您設備上的日誌文件（例如文件名和路徑）。密碼、 cookies 等被明確排除在外。\n\n請記住盡快停用除錯模式。</string>
+	<string name="dialog_debug_mode_disclaimer_title">注意</string>
+	<string name="dialog_debug_mode_positive_button">啟用</string>
+	<string name="dialog_disable_app_obscured_disclaimer_hint">此設置是一項安全功能，可防止其他應用程式欺騙用戶做他們不想做的事情。\n\n如果禁用這項功能，請確定你已經<a href="https://docs.cryptomator.org/en/1.5/android/settings/#block-app-when-obscured">了解風險</a>。</string>
+	<string name="dialog_disable_app_obscured_disclaimer_title">注意</string>
+	<string name="dialog_disable_app_obscured_positive_button">停用</string>
+	<string name="dialog_app_is_obscured_info_title">應用程式被遮擋</string>
+	<string name="dialog_app_is_obscured_info_hint">另一個應用程序在 Cryptomator 上顯示一些東西（例如藍光過濾器或夜間模式應用程序）。基於安全考慮，Cryptomator 已經被禁用。\n\n<a href="https://docs.cryptomator.org/en/1.5/android/settings/#block-app-when-obscured">如何啟用 Cryptomator</a></string>
 	<string name="dialog_app_is_obscured_info_neutral_button">關閉</string>
+	<string name="dialog_vaults_removed_during_migration_title">請在 %1s 雲端重新加入加密庫</string>
+	<string name="dialog_vaults_removed_during_migration_hint">在更新到此應用程式版本時，我們需要從程式移除以下加密庫。\n%2s\n\n這些加密檔案庫不會從雲端刪除，而只是從這程式中移除。很抱歉給您帶來不便，請重新加入這些加密庫以繼續使用它們。</string>
+	<string name="dialog_confirm_delete_multiple_title">是否刪除 %1$d 個項目？</string>
+	<string name="dialog_confirm_delete_multiple_message">確定要刪除這些項目嗎？</string>
+	<string name="dialog_confirm_delete_file_message">確定要刪除這檔案嗎？</string>
+	<string name="dialog_enter_license_title">提供有效的授權</string>
+	<string name="dialog_enter_license_content">我們檢測到你沒有使用 Google Play 商店安裝 Cryptomator。請提供一個有效的授權，授權可以從<a href="https://cryptomator.org/android/">https://cryptomator.org/android/</a>購買</string>
+	<string name="dialog_enter_license_not_valid_content">提供的授權無效。請確認輸入無誤。</string>
+	<string name="dialog_enter_license_not_valid_content_desktop_supporter_certificate">所提供的授權是桌面上的贊助憑證。請輸入有效的授權。</string>
+	<string name="dialog_enter_license_no_content">未提供授權。請輸入一個有效的授權。</string>
+	<string name="dialog_enter_license_decline_button">退出</string>
+	<string name="dialog_license_confirmation_title">授權確認</string>
+	<string name="dialog_license_confirmation_message">感謝 %1$s 提供你的授權。</string>
+	<string name="dialog_update_available_title">有可用更新</string>
+	<string name="dialog_update_available_message">將 Cryptomator 更新到最新版本。按 OK 後，我們將在背景下載該應用程式並要求你安裝。</string>
+	<string name="dialog_update_available_update">立即更新</string>
+	<string name="dialog_update_available_download_site">前往下載頁面</string>
+	<string name="dialog_update_available_cancel">以後再說</string>
+	<string name="dialog_download_update_title">正在下載</string>
+	<string name="dialog_download_update_message">正在下載最新版本的 Cryptomator</string>
 	<string name="dialog_sym_link_back_button">返回</string>
+	<string name="dialog_no_dir_file_title">無法讀取資料夾內的檔案資訊</string>
+	<string name="dialog_no_more_images_to_display">無更多圖片可供顯示…</string>
 	<!-- # error reports -->
 	<!-- # misc -->
 	<!-- ## file size helper -->
+	<string name="file_size_zero">0 kB</string>
+	<string name="file_size_unit_bytes">位元組</string>
+	<string name="file_size_unit_kilo_bytes">kB</string>
+	<string name="file_size_unit_mega_bytes">MB</string>
+	<string name="file_size_unit_giga_bytes">GB</string>
+	<string name="file_size_unit_tera_bytes">TB</string>
 	<!-- ## date helper -->
+	<string name="time_unit_seconds_sg">秒</string>
+	<string name="time_unit_seconds_pl">秒</string>
+	<string name="time_unit_minutes_sg">分鐘</string>
 	<string name="time_unit_minutes_pl">分鐘</string>
+	<string name="time_unit_hours_sg">小時</string>
+	<string name="time_unit_hours_pl">小時</string>
+	<string name="time_unit_days_sg">日</string>
+	<string name="time_unit_days_pl">日</string>
+	<string name="time_unit_weeks_sg">周</string>
+	<string name="time_unit_weeks_pl">周</string>
+	<string name="time_unit_months_sg">月</string>
+	<string name="time_unit_months_pl">月</string>
+	<string name="time_unit_years_sg">年</string>
+	<string name="time_unit_years_pl">年</string>
 	<!-- ## biometric authentication -->
+	<string name="dialog_biometric_auth_title">生物識別驗證登入</string>
+	<string name="dialog_biometric_auth_message">以生物識別驗證登入</string>
+	<string name="dialog_biometric_auth_use_password">使用加密庫密碼</string>
+	<string name="dialog_unable_to_auto_upload_files_title">無法自動上載檔案</string>
 	<!-- notification -->
+	<string name="notification_lock_all">全部鎖定</string>
+	<string name="notification_cancel_auto_upload">取消上載</string>
+	<string name="screen_settings_lru_cache">快取</string>
+	<string name="screen_settings_lru_cache_toggle_summary">把本機上最近開啟的加密檔案加到快取，以便以後重新打開時使用</string>
+	<string name="screen_settings_lru_cache_size">快取總大小</string>
+	<string name="screen_settings_clear_lru_cache_size">清理快取</string>
+	<string name="screen_settings_lru_cache_changed__restart_toast">變更將會在應用程式下次重啟後啟用</string>
+	<string name="screen_settings_license">註冊給</string>
+	<string name="screen_settings_license_mail">%1$s</string>
+	<string name="dialog_settings_update_check_interval_title">檢查更新間隔</string>
+	<string name="screen_settings_check_updates">檢查更新</string>
+	<string name="dialog_cache_size_title">每個雲端的快取大小</string>
 	<!-- lock timeout names -->
+	<string name="lock_timeout_instant">立即</string>
+	<string name="lock_timeout_1m">1 分鐘</string>
+	<string name="lock_timeout_2m">2 分鐘</string>
+	<string name="lock_timeout_5m">5 分鐘</string>
+	<string name="lock_timeout_10m">10 分鐘</string>
+	<string name="lock_timeout_never">永不</string>
 	<!-- cache size names -->
+	<string name="cache_size_50m">50 MB</string>
+	<string name="cache_size_100m">100 MB</string>
+	<string name="cache_size_250m">250 MB</string>
+	<string name="cache_size_500m">500 MB</string>
+	<string name="cache_size_1000m">1 GB</string>
+	<string name="cache_size_5000m">5 GB</string>
 	<!-- screen scheme mode names -->
+	<string name="screen_settings_style_mode">樣式</string>
+	<string name="follow_system">自動（跟隨系統）</string>
+	<string name="light">淺色</string>
+	<string name="dark">深色</string>
 	<!-- update interval names -->
+	<string name="update_interval_1d">每日一次</string>
 </resources>
