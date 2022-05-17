@@ -295,9 +295,17 @@
 	<string name="dialog_app_is_obscured_info_neutral_button">關閉</string>
 	<string name="dialog_vaults_removed_during_migration_title">請在 %1s 雲端重新加入加密庫</string>
 	<string name="dialog_vaults_removed_during_migration_hint">在更新到此應用程式版本時，我們需要從程式移除以下加密庫。\n%2s\n\n這些加密檔案庫不會從雲端刪除，而只是從這程式中移除。很抱歉給您帶來不便，請重新加入這些加密庫以繼續使用它們。</string>
+	<string name="dialog_vault_is_root_folder_of_cloud_title">加密庫是雲端連接的根資料夾</string>
+	<string name="dialog_vault_is_root_folder_of_cloud_hint">要加入此加密庫，請先建立一個新的雲端連接、並選擇此加密庫資料夾的上一層作為根文件夾。</string>
+	<string name="dialog_disable_secure_screen_disclaimer_hint">此設定是一項安全功能，可防止其他應用程式欺騙用戶做他們不想做的事情。\n\n如果停用這項功能，請確定你已經<a href="https://docs.cryptomator.org/en/1.5/android/settings/#screen-security">了解風險</a>。</string>
+	<string name="dialog_delete_cloud_connection_with_vaults_message">確定要刪除此雲端連結嗎？</string>
+	<string name="dialog_delete_cloud_connection_with_vaults_hint">此操作將移除雲端連接、並刪除該雲端上所有的加密庫。</string>
 	<string name="dialog_confirm_delete_multiple_title">是否刪除 %1$d 個項目？</string>
 	<string name="dialog_confirm_delete_multiple_message">確定要刪除這些項目嗎？</string>
 	<string name="dialog_confirm_delete_file_message">確定要刪除這檔案嗎？</string>
+	<string name="dialog_confirm_delete_folder_message">這將會刪除資料夾中的全部內容。確定要刪除這個資料夾嗎？</string>
+	<string name="dialog_biometric_auth_key_invalidated_title">生物識別驗證已停用</string>
+	<string name="dialog_biometric_auth_key_invalidated_message">由於密鑰已失效，生物識別驗證功能已停用。 要重新啟用，請打開 Cryptomator 設置。</string>
 	<string name="dialog_enter_license_title">提供有效的授權</string>
 	<string name="dialog_enter_license_content">我們檢測到你沒有使用 Google Play 商店安裝 Cryptomator。請提供一個有效的授權，授權可以從<a href="https://cryptomator.org/android/">https://cryptomator.org/android/</a>購買</string>
 	<string name="dialog_enter_license_not_valid_content">提供的授權無效。請確認輸入無誤。</string>
@@ -313,9 +321,16 @@
 	<string name="dialog_update_available_cancel">以後再說</string>
 	<string name="dialog_download_update_title">正在下載</string>
 	<string name="dialog_download_update_message">正在下載最新版本的 Cryptomator</string>
+	<string name="dialog_sym_link_title">資料夾是符號鏈接</string>
+	<string name="dialog_sym_link_message">你不去進入此符號鏈接</string>
 	<string name="dialog_sym_link_back_button">返回</string>
 	<string name="dialog_no_dir_file_title">無法讀取資料夾內的檔案資訊</string>
+	<string name="dialog_no_dir_file_message">雲端文件夾「%1$s」沒有有效的資料夾文件。可能是該資料夾是在另一台設備上建立的，並且尚未完全同步到雲端。 如果以下文件存在且不為空，請檢查您的雲端：\n%2$s</string>
 	<string name="dialog_no_more_images_to_display">無更多圖片可供顯示…</string>
+	<string name="dialog_pcloud_credentials_updated_title">「%1$s 」的帳戶資訊已更新</string>
+	<string name="dialog_pcloud_credentials_updated">如果您想要新增一個 pCloud 帳戶，請在點擊此連結 <a href="https://www.pcloud.com">www.pcloud.com</a> 後登出目前的帳號，並重新點擊本程式中的「+」來建立一個新的雲端連結。</string>
+	<string name="permission_snackbar_auth_local_vault">Cryptomator 需要儲存權限以存取本機上的加密庫</string>
+	<string name="permission_snackbar_auth_auto_upload">Cryptomator 需要儲存權限以便開啟自動圖片上傳。</string>
 	<!-- # error reports -->
 	<!-- # misc -->
 	<!-- ## file size helper -->
@@ -346,8 +361,23 @@
 	<string name="dialog_biometric_auth_use_password">使用加密庫密碼</string>
 	<string name="dialog_unable_to_auto_upload_files_title">無法自動上載檔案</string>
 	<!-- notification -->
+	<string name="notification_unlocked">已解鎖 %1$d 個加密檔案庫</string>
+	<string name="notification_timeout">%1$s後自動鎖定</string>
 	<string name="notification_lock_all">全部鎖定</string>
 	<string name="notification_cancel_auto_upload">取消上載</string>
+	<string name="notification_auto_upload_title">相片自動上傳執行中</string>
+	<string name="notification_auto_upload_message">上載中 %1d/%2d</string>
+	<string name="notification_auto_upload_finished_title">相片自動上傳已完成</string>
+	<string name="notification_auto_upload_finished_message">已將 %1$d 張相片上載至加密庫</string>
+	<string name="notification_auto_upload_failed_title">相片自動上傳失敗</string>
+	<string name="notification_auto_upload_failed_general_error">上傳期間發生錯誤。</string>
+	<string name="notification_auto_upload_failed_due_to_folder_not_exists">已選擇的資料夾無法使用，請在設定重新選擇。</string>
+	<string name="notification_auto_upload_failed_due_to_vault_locked">加密庫在上載期間鎖定，請重新解鎖加密庫後繼續。</string>
+	<string name="notification_auto_upload_failed_due_to_vault_not_found">使用於自動上傳的加密庫已不存在。</string>
+	<string name="notification_open_writable_file_title">可讀寫檔案開啟中</string>
+	<string name="notification_open_writable_file_message">加密庫將在編輯期間保持解鎖狀態</string>
+	<string name="notification_update_check_finished_latest">已安裝最新版本</string>
+	<string name="notification_authenticating">驗證中…</string>
 	<string name="screen_settings_lru_cache">快取</string>
 	<string name="screen_settings_lru_cache_toggle_summary">把本機上最近開啟的加密檔案加到快取，以便以後重新打開時使用</string>
 	<string name="screen_settings_lru_cache_size">快取總大小</string>
@@ -357,6 +387,7 @@
 	<string name="screen_settings_license_mail">%1$s</string>
 	<string name="dialog_settings_update_check_interval_title">檢查更新間隔</string>
 	<string name="screen_settings_check_updates">檢查更新</string>
+	<string name="screen_settings_last_check_updates">上次檢查於 %1$s</string>
 	<string name="dialog_cache_size_title">每個雲端的快取大小</string>
 	<!-- lock timeout names -->
 	<string name="lock_timeout_instant">立即</string>
