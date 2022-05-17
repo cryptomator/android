@@ -25,7 +25,7 @@
 	<string name="error_general_update">檢查更新失敗。發生一般錯誤。</string>
 	<string name="error_hash_mismatch_update">更新檢查失敗。計算出的 Hash 與上傳檔案不匹配</string>
 	<string name="error_update_no_internet">更新檢查失敗。沒有網絡連接。</string>
-	<string name="error_failed_to_decrypt_webdav_password">解密webdav密碼失敗，請在設定中重新添加</string>
+	<string name="error_failed_to_decrypt_webdav_password">不能解密 WebDAV 的密碼，請在設定中重新添加</string>
 	<string name="error_play_services_not_available">尚未安裝 Google Play 服務。</string>
 	<string name="error_biometric_auth_aborted">生物身份識別驗證中止</string>
 	<string name="error_vault_version_mismatch">%1$s 中指定的版本不同於 %2$s</string>
