@@ -23,6 +23,7 @@
 	<string name="error_names_contains_invalid_characters">फ़ाइल नामों में विशेष वर्ण नहीं हो सकते हैं।</string>
 	<string name="error_vault_name_contains_invalid_characters">गुप्त तिजोरी के नाम में विशेष वर्ण नहीं हो सकते हैं।</string>
 	<string name="error_general_update">अपडेट की जांच नहीं कर पाए। साधारण गलती हुई है।</string>
+	<string name="error_hash_mismatch_update">अपडेट की जांच नहीं कर पाए। परिकलित हैश अपलोड की गई फ़ाइल से मेल नहीं खाती।</string>
 	<string name="error_no_such_bucket">ऐसा कोई भंडारण जलाशय नहीं है।</string>
 	<!-- # clouds -->
 	<!-- ## cloud names -->
@@ -102,6 +103,9 @@
 	<string name="dialog_unable_to_share_negative_button">गुप्त तिजोरी बनाएं</string>
 	<string name="dialog_lock_vault">लॉक करें</string>
 	<string name="dialog_app_is_obscured_info_neutral_button">बंद करें</string>
+	<string name="dialog_update_available_cancel">बाद में</string>
+	<string name="dialog_download_update_title">डाउनलोड चल रहा है।</string>
+	<string name="dialog_download_update_message">क्रिप्टोमेटर का नवीनतम संस्करण डाउनलोड हो रहा है।</string>
 	<string name="dialog_sym_link_back_button">पीछे जाएं</string>
 	<!-- # error reports -->
 	<!-- # misc -->
@@ -109,6 +113,8 @@
 	<!-- ## date helper -->
 	<!-- ## biometric authentication -->
 	<!-- notification -->
+	<string name="notification_update_check_finished_latest">नवीनतम संस्करण इनस्टॉल हो गया है</string>
+	<string name="screen_settings_last_check_updates">%1$s को चलाया गया है</string>
 	<!-- lock timeout names -->
 	<string name="lock_timeout_1m">1 मिनट</string>
 	<string name="lock_timeout_2m">2 मिनट</string>
