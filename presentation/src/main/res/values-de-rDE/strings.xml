@@ -15,7 +15,7 @@
 	<string name="error_no_such_file">Datei wurde nicht gefunden.</string>
 	<string name="error_vault_has_been_locked">Tresor wurde gesperrt.</string>
 	<string name="error_cloud_already_exists">Cloud existiert bereits.</string>
-	<string name="error_activity_not_found">Installiere eine App, die diesen Dateityp unterstützt.</string>
+	<string name="error_activity_not_found">Bitte installiere eine App, die diesen Dateityp unterstützt.</string>
 	<string name="error_server_not_found">Server nicht gefunden.</string>
 	<string name="error_device_policy_manager_not_found">Bitte öffne die Einstellungen deines Geräts und stelle die Bildschirmsperre von Hand ein</string>
 	<string name="error_export_illegal_file_name">Export fehlgeschlagen. Versuche, Sonderzeichen aus den Dateinamen zu entfernen und erneut zu exportieren.</string>
