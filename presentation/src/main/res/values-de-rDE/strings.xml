@@ -23,7 +23,7 @@
 	<string name="error_names_contains_invalid_characters">Dateinamen können keine Sonderzeichen enthalten.</string>
 	<string name="error_vault_name_contains_invalid_characters">Tresorname kann keine Sonderzeichen enthalten.</string>
 	<string name="error_general_update">Prüfung auf Aktualisierungen fehlgeschlagen. Ein Fehler ist aufgetreten.</string>
-	<string name="error_hash_mismatch_update">Update-Überprüfung fehlgeschlagen. Berechnete Prüfsumme entspricht nicht der der hochgeladenen Datei</string>
+	<string name="error_hash_mismatch_update">Prüfung auf Aktualisierungen fehlgeschlagen. Berechnete Prüfsumme entspricht nicht der hochgeladenen Datei.</string>
 	<string name="error_update_no_internet">Prüfung auf Aktualisierungen fehlgeschlagen. Keine Internetverbindung.</string>
 	<string name="error_failed_to_decrypt_webdav_password">Beim entschlüsseln des WebDAV-Passworts trat ein Fehler auf. Bitte in den Einstellungen erneut festlegen.</string>
 	<string name="error_play_services_not_available">Die Google Play Services sind nicht installiert</string>
@@ -60,7 +60,7 @@
 	<string name="screen_vault_list_action_create_new_vault">Neuen Tresor anlegen</string>
 	<string name="screen_vault_list_action_add_existing_vault">Bestehenden Tresor hinzufügen</string>
 	<string name="screen_vault_list_vault_action_delete">Entfernen</string>
-	<string name="screen_vault_list_vault_creation_hint">Hier klicken um einen neuen Tresor zu erstellen</string>
+	<string name="screen_vault_list_vault_creation_hint">Hier antippen, um einen neuen Tresor zu erstellen</string>
 	<string name="screen_vault_list_change_password_successful">Passwort wurde erfolgreich geändert</string>
 	<!-- # screen: file browser -->
 	<string name="screen_file_browser_default_title">Tresor</string>
@@ -68,7 +68,7 @@
 	<string name="screen_file_browser_create_new_vault_button_text">Hier ablegen</string>
 	<string name="screen_file_browser_create_new_vault_extra_text">Tresorname: %1$s</string>
 	<plurals name="screen_file_browser_subtitle_move">
-		<item quantity="one">Verschieben von %1$s nach</item>
+		<item quantity="one">%1$s verschieben nach</item>
 		<item quantity="other">%2$d Elemente verschieben nach</item>
 	</plurals>
 	<string name="screen_file_browser_move_button_text">Verschieben</string>
@@ -103,7 +103,7 @@
 	<!-- ## screen: text editor -->
 	<string name="screen_text_editor_save_success">Erfolgreich gespeichert</string>
 	<!-- ## screen: share files -->
-	<string name="screen_share_files_title">Speicher %1$s unter&#8230;</string>
+	<string name="screen_share_files_title">%1$s speichern unter &#8230;</string>
 	<string name="screen_share_files_content_text">Text</string>
 	<string name="screen_share_files_content_file">Datei</string>
 	<string name="screen_share_files_content_files">Dateien</string>
@@ -115,7 +115,7 @@
 	<string name="screen_choose_cloud_service_title">Cloud-Dienst</string>
 	<!-- ## screen: cloud connections -->
 	<string name="screen_cloud_connections_title">Ort auswählen</string>
-	<string name="screen_cloud_connections_no_connections">Hier klicken um einen neuen Ort hinzufügen</string>
+	<string name="screen_cloud_connections_no_connections">Hier antippen, um einen neuen Ort hinzufügen</string>
 	<string name="screen_cloud_error_webdav_not_supported">Server scheint nicht WebDAV-kompatibel zu sein</string>
 	<string name="screen_cloud_local_error_no_content_provider">Kein Dateimanager gefunden, der das Öffnen von Verzeichnissen unterstützt</string>
 	<!-- ## screen: webdav settings -->
@@ -144,7 +144,7 @@
 	<string name="screen_enter_vault_name_vault_label">Tresorname</string>
 	<string name="screen_enter_vault_name_button_text">Erstellen</string>
 	<!-- ## screen: set password -->
-	<string name="screen_set_password_title">Passwort setzen</string>
+	<string name="screen_set_password_title">Passwort festlegen</string>
 	<string name="screen_set_password_msg_password_mismatch">Passwort stimmt nicht mit dem wiederholten Passwort überein.</string>
 	<string name="screen_set_password_button_text">Fertig</string>
 	<string name="screen_set_password_hint">WICHTIG: Falls du dein Passwort vergisst, können deine Daten nicht wiederhergestellt werden.</string>
