@@ -316,6 +316,7 @@ abstract class BaseActivity : AppCompatActivity(), View, ActivityCompat.OnReques
 
 	internal open fun snackbarView(): android.view.View {
 		return activity().findViewById(R.id.locationsRecyclerView) as android.view.View?
+			?: activity().findViewById(R.id.rlChooseCloudService) as android.view.View?
 			?: return activity().findViewById(R.id.coordinatorLayout)
 	}
 

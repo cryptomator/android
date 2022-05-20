@@ -91,6 +91,9 @@ android {
 
 		fdroidmain {
 			dimension "version"
+
+			applicationIdSuffix ".lite"
+			resValue "string", "app_id", androidApplicationId + applicationIdSuffix
 		}
 	}
 

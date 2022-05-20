@@ -42,6 +42,7 @@
 	<string name="error_file_not_found_after_opening_using_3party">Local file isn\'t present anymore after switching back to Cryptomator. Possible changes cannot be propagated back to the cloud.</string>
 	<string name="error_no_such_bucket">No such bucket</string>
 	<string name="error_masterkey_location_not_supported">Custom Masterkey location not supported yet</string>
+	<string name="error_interact_with_fdroid_but_fdroid_missing">Failed to communicate with the F-Droid app. Not installed?</string>
 
 	<!-- # clouds -->
 
@@ -78,6 +79,9 @@
 	<string name="snack_bar_action_title_sort_smallest">Smallest first</string>
 
 	<string name="snack_bar_action_title_save" translatable="false">@string/screen_share_files_save_button_text</string>
+
+	<string name="snack_bar_cryptomator_variants_title">READ MORE</string>
+	<string name="snack_bar_cryptomator_variants_hint">Cloud not in the list?</string>
 
 	<!-- # screens -->
 
@@ -300,7 +304,21 @@
 	<string name="screen_authenticate_auth_authentication_failed">%1$s could not be authenticated.</string>
 	<string name="screen_update_pcloud_connections_title">Update pCloud credentials</string>
 
-	<!-- ## screen: insecure android version info -->
+	<!-- ## screen: cryptomator app variants -->
+	<string name="screen_cryptomator_variants_title">Variants of Cryptomator</string>
+	<string name="screen_cryptomator_variants_fdroid_main_title">Main F-Droid Repository</string>
+	<string name="screen_cryptomator_variants_fdroid_main_description">Excluded because they require API keys.</string>
+	<string name="screen_cryptomator_variants_fdroid_main_install">Install</string>
+	<string name="screen_cryptomator_variants_fdroid_title">Cryptomator F-Droid Repository</string>
+	<string name="screen_cryptomator_variants_fdroid_description">Excluded because it contains proprietary dependencies.</string>
+	<string name="screen_cryptomator_variants_fdroid_add_repo_hint">Add Cryptomator repository to the F-Droid app.</string>
+	<string name="screen_cryptomator_variants_fdroid_add_repo">Add</string>
+	<string name="screen_cryptomator_variants_fdroid_install_hint">Install Cryptomator using F-Droid.\nIf a not found error is displayed, wait until the F-Droid synchronisation is finished.</string>
+	<string name="screen_cryptomator_variants_fdroid_install" translatable="false">@string/screen_cryptomator_variants_fdroid_main_install</string>
+	<string name="screen_cryptomator_variants_website_title">Website</string>
+	<string name="screen_cryptomator_variants_website_description">Contains proprietary dependencies.</string>
+	<string name="screen_cryptomator_variants_website_install" translatable="false">@string/screen_cryptomator_variants_fdroid_main_install</string>
+	<string name="screen_cryptomator_variants_installation_hint">Switching from or to the Main F-Droid repository variant requires a fresh setup of the app.</string>
 
 	<!-- # dialogs -->
 	<string name="dialog_button_cancel">Cancel</string>

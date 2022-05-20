@@ -1,0 +1,314 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+	android:layout_width="match_parent"
+	android:layout_height="match_parent"
+	android:orientation="vertical">
+
+	<include
+		layout="@layout/toolbar_layout"
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content" />
+
+	<RelativeLayout
+		android:layout_width="match_parent"
+		android:layout_height="match_parent"
+		android:padding="@dimen/activity_vertical_margin">
+
+		<ScrollView
+			android:layout_width="match_parent"
+			android:layout_height="match_parent"
+			android:layout_above="@+id/tvHint">
+
+			<LinearLayout
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"
+				android:orientation="vertical">
+
+				<!-- <website> -->
+				<RelativeLayout
+					android:layout_width="match_parent"
+					android:layout_height="wrap_content"
+					android:paddingBottom="16dp">
+
+					<TextView
+						android:id="@+id/tvWebsiteTitle"
+						android:layout_width="match_parent"
+						android:layout_height="wrap_content"
+						android:text="@string/screen_cryptomator_variants_website_title"
+						android:textColor="@color/colorPrimary"
+						android:textSize="16sp" />
+
+					<LinearLayout
+						android:layout_width="wrap_content"
+						android:layout_height="wrap_content"
+						android:layout_below="@+id/tvWebsiteTitle"
+						android:layout_toLeftOf="@id/btnInstallWebsiteVariant"
+						android:orientation="vertical">
+
+						<RelativeLayout
+							android:layout_width="wrap_content"
+							android:layout_height="wrap_content"
+							android:background="?android:attr/selectableItemBackground"
+							android:foreground="@drawable/item_browse_files_node_selector">
+
+							<ImageView
+								android:id="@+id/supportedWebsiteIcon"
+								android:layout_width="@dimen/thumbnail_size"
+								android:layout_height="@dimen/thumbnail_size"
+								android:src="@drawable/ic_done_gray" />
+
+							<TextView
+								android:id="@+id/tvWebsiteAllowed"
+								android:layout_width="wrap_content"
+								android:layout_height="wrap_content"
+								android:layout_centerVertical="true"
+								android:layout_toRightOf="@id/supportedWebsiteIcon" />
+
+						</RelativeLayout>
+
+						<TextView
+							android:layout_width="match_parent"
+							android:layout_height="wrap_content"
+							android:text="@string/screen_cryptomator_variants_website_description" />
+
+					</LinearLayout>
+
+					<Button
+						android:id="@+id/btnInstallWebsiteVariant"
+						android:layout_width="wrap_content"
+						android:layout_height="wrap_content"
+						android:layout_alignParentRight="true"
+						android:layout_centerVertical="true"
+						android:background="@drawable/primary_button_selector"
+						android:text="@string/screen_cryptomator_variants_website_install"
+						android:textColor="@color/textColorWhite" />
+
+				</RelativeLayout>
+				<!-- </website> -->
+
+				<TextView
+					android:layout_width="match_parent"
+					android:layout_height="1dp"
+					android:layout_alignParentBottom="true"
+					android:background="@color/list_divider" />
+
+				<!-- <f-droid-main> -->
+				<RelativeLayout
+					android:layout_width="match_parent"
+					android:layout_height="wrap_content"
+					android:layout_marginTop="@dimen/global_padding"
+					android:paddingBottom="16dp">
+
+					<TextView
+						android:id="@+id/tvFdroidMainTitle"
+						android:layout_width="match_parent"
+						android:layout_height="wrap_content"
+						android:text="@string/screen_cryptomator_variants_fdroid_main_title"
+						android:textColor="@color/colorPrimary"
+						android:textSize="16sp" />
+
+					<LinearLayout
+						android:layout_width="wrap_content"
+						android:layout_height="wrap_content"
+						android:layout_below="@+id/tvFdroidMainTitle"
+						android:layout_toLeftOf="@id/btnInstallMainFDroidVariant"
+						android:orientation="vertical">
+
+						<RelativeLayout
+							android:layout_width="match_parent"
+							android:layout_height="wrap_content"
+							android:background="?android:attr/selectableItemBackground"
+							android:foreground="@drawable/item_browse_files_node_selector">
+
+							<ImageView
+								android:id="@+id/supportedMainRepoIcon"
+								android:layout_width="@dimen/thumbnail_size"
+								android:layout_height="@dimen/thumbnail_size"
+								android:src="@drawable/ic_done_gray" />
+
+							<TextView
+								android:id="@+id/tvFdroidMainSupported"
+								android:layout_width="wrap_content"
+								android:layout_height="wrap_content"
+								android:layout_centerVertical="true"
+								android:layout_toRightOf="@id/supportedMainRepoIcon" />
+
+						</RelativeLayout>
+
+						<RelativeLayout
+							android:layout_width="match_parent"
+							android:layout_height="wrap_content"
+							android:background="?android:attr/selectableItemBackground"
+							android:foreground="@drawable/item_browse_files_node_selector">
+
+							<ImageView
+								android:id="@+id/unsupportedMainRepoIcon"
+								android:layout_width="@dimen/thumbnail_size"
+								android:layout_height="@dimen/thumbnail_size"
+								android:src="@drawable/ic_clear_gray" />
+
+							<TextView
+								android:id="@+id/tvFdroidMainUnsupported"
+								android:layout_width="wrap_content"
+								android:layout_height="wrap_content"
+								android:layout_centerVertical="true"
+								android:layout_toRightOf="@id/unsupportedMainRepoIcon"/>
+
+						</RelativeLayout>
+
+						<TextView
+							android:layout_width="match_parent"
+							android:layout_height="wrap_content"
+							android:text="@string/screen_cryptomator_variants_website_description" />
+
+					</LinearLayout>
+
+					<Button
+						android:id="@+id/btnInstallMainFDroidVariant"
+						android:layout_width="wrap_content"
+						android:layout_height="wrap_content"
+						android:layout_alignParentRight="true"
+						android:layout_centerVertical="true"
+						android:background="@drawable/primary_button_selector"
+						android:text="@string/screen_cryptomator_variants_fdroid_main_install"
+						android:textColor="@color/textColorWhite" />
+
+				</RelativeLayout>
+				<!-- </f-droid-main> -->
+
+				<TextView
+					android:layout_width="match_parent"
+					android:layout_height="1dp"
+					android:layout_alignParentBottom="true"
+					android:background="@color/list_divider" />
+
+				<!-- <f-droid-custom> -->
+				<TextView
+					android:id="@+id/tvFdroidTitle"
+					android:layout_width="match_parent"
+					android:layout_height="wrap_content"
+					android:layout_marginTop="@dimen/global_padding"
+					android:text="@string/screen_cryptomator_variants_fdroid_title"
+					android:textColor="@color/colorPrimary"
+					android:textSize="16sp" />
+
+				<RelativeLayout
+					android:layout_width="match_parent"
+					android:layout_height="wrap_content"
+					android:background="?android:attr/selectableItemBackground"
+					android:foreground="@drawable/item_browse_files_node_selector">
+
+					<ImageView
+						android:id="@+id/supportedMainCloudsIcon"
+						android:layout_width="@dimen/thumbnail_size"
+						android:layout_height="@dimen/thumbnail_size"
+						android:src="@drawable/ic_done_gray" />
+
+					<TextView
+						android:id="@+id/tvFdroidCustomSupported"
+						android:layout_width="wrap_content"
+						android:layout_height="wrap_content"
+						android:layout_centerVertical="true"
+						android:layout_toRightOf="@id/supportedMainCloudsIcon" />
+				</RelativeLayout>
+
+				<RelativeLayout
+					android:layout_width="match_parent"
+					android:layout_height="wrap_content"
+					android:background="?android:attr/selectableItemBackground"
+					android:foreground="@drawable/item_browse_files_node_selector">
+
+					<ImageView
+						android:id="@+id/unsupportedCustomRepoIcon"
+						android:layout_width="@dimen/thumbnail_size"
+						android:layout_height="@dimen/thumbnail_size"
+						android:src="@drawable/ic_clear_gray" />
+
+					<TextView
+						android:id="@+id/tvFdroidCustomUnsupported"
+						android:layout_width="wrap_content"
+						android:layout_height="wrap_content"
+						android:layout_centerVertical="true"
+						android:layout_toRightOf="@id/unsupportedCustomRepoIcon" />
+				</RelativeLayout>
+
+				<TextView
+					android:layout_width="match_parent"
+					android:layout_height="wrap_content"
+					android:paddingBottom="16dp"
+					android:text="@string/screen_cryptomator_variants_fdroid_description" />
+
+				<RelativeLayout
+					android:layout_width="match_parent"
+					android:layout_height="wrap_content"
+					android:layout_marginBottom="16dp">
+
+					<TextView
+						android:id="@+id/tvAddRepo"
+						android:layout_width="wrap_content"
+						android:layout_height="wrap_content"
+						android:layout_centerVertical="true"
+						android:layout_toStartOf="@+id/btnAddRepo"
+						android:text="@string/screen_cryptomator_variants_fdroid_add_repo_hint" />
+
+					<Button
+						android:id="@+id/btnAddRepo"
+						android:layout_width="wrap_content"
+						android:layout_height="wrap_content"
+						android:layout_alignParentEnd="true"
+						android:layout_centerVertical="true"
+						android:background="@drawable/primary_button_selector"
+						android:text="@string/screen_cryptomator_variants_fdroid_add_repo"
+						android:textColor="@color/textColorWhite" />
+
+				</RelativeLayout>
+
+				<RelativeLayout
+					android:layout_width="match_parent"
+					android:layout_height="wrap_content"
+					android:layout_marginBottom="16dp"
+					android:background="?android:attr/selectableItemBackground"
+					android:foreground="@drawable/item_browse_files_node_selector">
+
+					<TextView
+						android:id="@+id/tvAskInstallApp"
+						android:layout_width="wrap_content"
+						android:layout_height="wrap_content"
+						android:layout_centerVertical="true"
+						android:layout_toStartOf="@+id/btnInstallFDroidVariant"
+						android:text="@string/screen_cryptomator_variants_fdroid_install_hint" />
+
+					<Button
+						android:id="@+id/btnInstallFDroidVariant"
+						android:layout_width="wrap_content"
+						android:layout_height="wrap_content"
+						android:layout_alignParentEnd="true"
+						android:layout_centerVertical="true"
+						android:background="@drawable/primary_button_selector"
+						android:text="@string/screen_cryptomator_variants_fdroid_install"
+						android:textColor="@color/textColorWhite" />
+
+				</RelativeLayout>
+
+				<!-- </f-droid-custom> -->
+
+			</LinearLayout>
+
+		</ScrollView>
+
+		<TextView
+			android:layout_width="match_parent"
+			android:layout_height="1dp"
+			android:layout_above="@+id/tvHint"
+			android:background="@color/list_divider" />
+
+		<TextView
+			android:id="@+id/tvHint"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:layout_alignParentBottom="true"
+			android:text="@string/screen_cryptomator_variants_installation_hint" />
+
+	</RelativeLayout>
+
+</LinearLayout>
