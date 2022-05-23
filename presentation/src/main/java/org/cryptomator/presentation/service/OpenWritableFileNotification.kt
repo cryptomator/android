@@ -35,7 +35,7 @@ class OpenWritableFileNotification(private val context: Context, private val uri
 		this.builder = NotificationCompat.Builder(context, NOTIFICATION_CHANNEL_ID) //
 			.setContentTitle(context.getString(R.string.notification_open_writable_file_title)) //
 			.setContentText(context.getString(R.string.notification_open_writable_file_message)) //
-			.setSmallIcon(R.drawable.background_splash_cryptomator) //
+			.setSmallIcon(R.drawable.ic_notification) //
 			.setColor(getColor(R.color.colorPrimary)) //
 			.setGroup(NOTIFICATION_GROUP_KEY)
 			.setOngoing(true)
