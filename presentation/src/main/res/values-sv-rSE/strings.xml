@@ -288,17 +288,14 @@
 	<string name="dialog_debug_mode_disclaimer_hint">I detta läge kan känsliga data skrivas till en loggfil på din enhet (t.ex. filnamn och sökvägar). Lösenord, cookies etc. är uttryckligen uteslutna.\n\nKom ihåg att inaktivera felsökningsläge så snart som möjligt.</string>
 	<string name="dialog_debug_mode_disclaimer_title">Observera</string>
 	<string name="dialog_debug_mode_positive_button">Aktivera</string>
-	<string name="dialog_disable_app_obscured_disclaimer_hint">Den här inställningen är en säkerhetsfunktion och hindrar andra appar från att lura användare att göra saker de inte vill göra.\n\nGenom att inaktivera bekräftar du att du är <a href="https://docs.cryptomator.org/en/1.5/android/settings/#block-app-when-obscured">medveten om riskerna</a>.</string>
 	<string name="dialog_disable_app_obscured_disclaimer_title">Observera</string>
 	<string name="dialog_disable_app_obscured_positive_button">Inaktivera</string>
 	<string name="dialog_app_is_obscured_info_title">Appen är täckt</string>
-	<string name="dialog_app_is_obscured_info_hint">En annan app visar något ovanpå Cryptomator (t.ex., ett blått ljusfilter eller nattläge app). Av säkerhetsskäl är Cryptomator inaktiverad.\n\n<a href="https://docs.cryptomator.org/en/1.5/android/settings/#block-app-when-obscured">Så här aktiverar du Cryptomator</a></string>
 	<string name="dialog_app_is_obscured_info_neutral_button">Stäng</string>
 	<string name="dialog_vaults_removed_during_migration_title">Vänligen lägg till valv igen för %1s molnet</string>
 	<string name="dialog_vaults_removed_during_migration_hint">Medan vi migrerar till den här appversionen måste vi ta bort följande valv från appen:\n%2s \n\nDessa valv tas inte bort från molnet utan endast från den här appen. Ledsen för besväret. Du lägger sedan till dessa valv igen för att fortsätta arbeta med dem.</string>
 	<string name="dialog_vault_is_root_folder_of_cloud_title">Valvet är rotmapp för molnanslutningen</string>
 	<string name="dialog_vault_is_root_folder_of_cloud_hint">Skapa en ny molnanslutning där du väljer minst den överordnade mappen i denna valvkatalog som rotkatalog för att lägga till valvet.</string>
-	<string name="dialog_disable_secure_screen_disclaimer_hint">Den här inställningen är en säkerhetsfunktion och hindrar andra appar från att lura användare att göra saker de inte vill göra.\n\nGenom att inaktivera bekräftar du att du är <a href="https://docs.cryptomator.org/en/1.5/android/settings/#screen-security">medveten om riskerna</a>.</string>
 	<string name="dialog_delete_cloud_connection_with_vaults_message">Är du säker på att du vill ta bort den här molnanslutningen?</string>
 	<string name="dialog_delete_cloud_connection_with_vaults_hint">Denna åtgärd kommer att ta bort molnanslutningen och alla valv i detta moln.</string>
 	<string name="dialog_confirm_delete_multiple_title">Ta bort %1$d objekt?</string>
