@@ -288,14 +288,17 @@
 	<string name="dialog_debug_mode_disclaimer_hint">En este modo, los datos sensibles pueden ser escritos en un archivo de registro de su dispositivo (por ejemplo, nombres de archivos y rutas). Las contraseñas, las cookies, etc., se excluyen explícitamente.\n\nRecuerde desactivar el modo de depuración tan pronto como sea posible.</string>
 	<string name="dialog_debug_mode_disclaimer_title">Aviso</string>
 	<string name="dialog_debug_mode_positive_button">Activar</string>
+	<string name="dialog_disable_app_obscured_disclaimer_hint">Esta opción es una función de seguridad y evita que otras aplicaciones engañen a los usuarios para que hagan cosas que no quieren hacer.\n\nAl desactivarla, confirma que es <a href="https://docs.cryptomator.org/en/1.6/android/settings/#block-app-when-obscured">consciente de los riesgos</a>.</string>
 	<string name="dialog_disable_app_obscured_disclaimer_title">Aviso</string>
 	<string name="dialog_disable_app_obscured_positive_button">Desactivar</string>
 	<string name="dialog_app_is_obscured_info_title">La aplicación está oscura</string>
+	<string name="dialog_app_is_obscured_info_hint">Otra aplicación está mostrando algo en la parte superior de Cryptomator (por ejemplo, un filtro de luz azul o una aplicación en modo nocturno). Por razones de seguridad, Cryptomator está desactivado.\n\n<a href="https://docs.cryptomator.org/en/1.6/android/settings/#block-app-when-obscured">Cómo activar Cryptomator</a></string>
 	<string name="dialog_app_is_obscured_info_neutral_button">Cerrar</string>
 	<string name="dialog_vaults_removed_during_migration_title">Vuelva a añadir bóvedas para la nube %1s</string>
 	<string name="dialog_vaults_removed_during_migration_hint">Mientras se migra a esta versión de la aplicación, necesitamos eliminar las siguientes bóvedas de la aplicación:\n%2s \n\nEsas bóvedas no se eliminan de la nube sino sólo de esta aplicación. Lamentamos las molestias, por favor añada de nuevo estas bóvedas para seguir trabajando con ellas.</string>
 	<string name="dialog_vault_is_root_folder_of_cloud_title">La bóveda es la carpeta raíz de la conexión a la nube</string>
 	<string name="dialog_vault_is_root_folder_of_cloud_hint">Crear una conexión nueva en la nube donde seleccione al menos la carpeta padre de esta carpeta de bóveda como directorio raíz para añadir esta bóveda.</string>
+	<string name="dialog_disable_secure_screen_disclaimer_hint">Esta opción es una función de seguridad y evita que otras aplicaciones engañen a los usuarios para que hagan cosas que no quieren hacer.\n\nAl desactivarla, confirma que es <a href="https://docs.cryptomator.org/en/1.6/android/settings/#screen-security">consciente de los riesgos</a>.</string>
 	<string name="dialog_delete_cloud_connection_with_vaults_message">\"¿Está seguro que desea eliminar esta conexión a la nube?</string>
 	<string name="dialog_delete_cloud_connection_with_vaults_hint">Esta acción eliminará la conexión a la nube y todas las bóvedas de esta nube.</string>
 	<string name="dialog_confirm_delete_multiple_title">¿Eliminar %1$d elementos?</string>
