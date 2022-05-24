@@ -290,17 +290,17 @@
 	<string name="dialog_debug_mode_disclaimer_hint">V tomto režimu mohou být citlivé údaje zapsány do souboru protokolu na vašem zařízení (např. názvy souborů a cesty). Hesla, soubory cookie atd. jsou výslovně vyloučeny.\n\nNezapomeňte co nejdříve vypnout režim ladění.</string>
 	<string name="dialog_debug_mode_disclaimer_title">Upozornění</string>
 	<string name="dialog_debug_mode_positive_button">Povolit</string>
-	<string name="dialog_disable_app_obscured_disclaimer_hint">Toto nastavení je bezpečnostní funkce a brání ostatním aplikacím v tom, aby oklamaly uživatele dělat věci, se kterými nesouhlasí.\n\nZakázáním potvrzujete, že jste <a href="https://docs.cryptomator.org/en/1.5/android/settings/#block-app-when-obscured">si vědomi rizik</a>.</string>
+	<string name="dialog_disable_app_obscured_disclaimer_hint">Toto nastavení je bezpečnostní funkce a brání ostatním aplikacím v tom, aby oklamaly uživatele dělat věci, se kterými nesouhlasí.\n\nZakázáním potvrzujete, že jste <a href="https://docs.cryptomator.org/en/1.6/android/settings/#block-app-when-obscured">si vědomi rizik</a>.</string>
 	<string name="dialog_disable_app_obscured_disclaimer_title">Upozornění</string>
 	<string name="dialog_disable_app_obscured_positive_button">Zakázat</string>
 	<string name="dialog_app_is_obscured_info_title">Aplikace je překrytá</string>
-	<string name="dialog_app_is_obscured_info_hint">Jiná aplikace zobrazuje něco nad Cryptomatorem (např. filtr modrého světla nebo aplikace pro noční režim). Z bezpečnostních důvodů je Cryptomator zakázán.\n\n<a href="https://docs.cryptomator.org/en/1.5/android/settings/#block-app-when-obscured">Jak povolit Cryptomator</a></string>
+	<string name="dialog_app_is_obscured_info_hint">Jiná aplikace zobrazuje něco nad Cryptomatorem (např. filtr modrého světla nebo aplikace pro noční režim). Z bezpečnostních důvodů je Cryptomator zakázán.\n\n<a href="https://docs.cryptomator.org/en/1.6/android/settings/#block-app-when-obscured">Jak povolit Cryptomator</a></string>
 	<string name="dialog_app_is_obscured_info_neutral_button">Zavřít</string>
 	<string name="dialog_vaults_removed_during_migration_title">Prosím znovu přidejte trezory pro %1s cloud</string>
 	<string name="dialog_vaults_removed_during_migration_hint">Při migraci na tuto verzi aplikace musíme z aplikace odstranit následující trezory:\n%2s \n\nTyto trezory nejsou odebrány z cloudu, ale pouze z této aplikace. Omlouváme se za nepříjemnosti a znovu přidejte tyto trezory, abyste s nimi mohli dále pracovat.</string>
 	<string name="dialog_vault_is_root_folder_of_cloud_title">Trezor je kořenovou složkou cloudového připojení</string>
 	<string name="dialog_vault_is_root_folder_of_cloud_hint">Vytvořte nové připojení do cloudu, kde jako kořenový adresář zvolíte alespoň nadřazenou složku tohoto trezoru.</string>
-	<string name="dialog_disable_secure_screen_disclaimer_hint">Toto nastavení je bezpečnostní funkce a brání ostatním aplikacím v tom, aby oklamaly uživatele dělat věci, se kterými nesouhlasí.\n\nZakázáním potvrzujete, že jste <a href="https://docs.cryptomator.org/en/1.5/android/settings/#screen-security">si vědomi rizik</a>.</string>
+	<string name="dialog_disable_secure_screen_disclaimer_hint">Toto nastavení je bezpečnostní funkce a brání ostatním aplikacím v tom, aby oklamaly uživatele dělat věci, se kterými nesouhlasí.\n\nZakázáním potvrzujete, že jste <a href="https://docs.cryptomator.org/en/1.6/android/settings/#screen-security">si vědomi rizik</a>.</string>
 	<string name="dialog_delete_cloud_connection_with_vaults_message">Opravdu chcete odstranit toto cloudové připojení?</string>
 	<string name="dialog_delete_cloud_connection_with_vaults_hint">Tato akce odstraní cloudové připojení a všechny trezory tohoto cloudu.</string>
 	<string name="dialog_confirm_delete_multiple_title">Smazat %1$d položek?</string>

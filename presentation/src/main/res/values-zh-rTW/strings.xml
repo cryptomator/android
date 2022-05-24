@@ -287,17 +287,17 @@
 	<string name="dialog_debug_mode_disclaimer_hint">在此模式下，敏感數據可能會寫入您設備上的日誌文件(例如文件名和路徑)。 密碼、cookies 等被明確排除在外。\n\n請記住盡快禁用調試模式。</string>
 	<string name="dialog_debug_mode_disclaimer_title">注意</string>
 	<string name="dialog_debug_mode_positive_button">啟用</string>
-	<string name="dialog_disable_app_obscured_disclaimer_hint">此設置是一項安全功能，可防止其他應用程序欺騙用戶做他們不想做的事情\n\n如果禁用這項功能，請確定你已經<a href="https://docs.cryptomator.org/en/1.5/android/settings/#block-app-when-obscured">了解風險</a></string>
+	<string name="dialog_disable_app_obscured_disclaimer_hint">此設置是一項安全功能，可防止其他應用程序欺騙用戶做他們不想做的事情\n\n如果禁用這項功能，請確定你已經<a href="https://docs.cryptomator.org/en/1.6/android/settings/#block-app-when-obscured">了解風險</a></string>
 	<string name="dialog_disable_app_obscured_disclaimer_title">注意</string>
 	<string name="dialog_disable_app_obscured_positive_button">禁用</string>
 	<string name="dialog_app_is_obscured_info_title">應用程序被遮擋</string>
-	<string name="dialog_app_is_obscured_info_hint">另一個應用程序在 Cryptomator 上顯示一些東西(例如，藍光過濾器或夜間模式應用程序)。出於安全考慮，Cryptomator 已經被禁用。\n\n<a href="https://docs.cryptomator.org/en/1.5/android/settings/#block-app-when-obscured">怎樣啟用Cryptomator</a></string>
+	<string name="dialog_app_is_obscured_info_hint">另一個應用程序在 Cryptomator 上顯示一些東西(例如，藍光過濾器或夜間模式應用程序)。出於安全考慮，Cryptomator 已經被禁用。\n\n<a href="https://docs.cryptomator.org/en/1.6/android/settings/#block-app-when-obscured">怎樣啟用Cryptomator</a></string>
 	<string name="dialog_app_is_obscured_info_neutral_button">關閉</string>
 	<string name="dialog_vaults_removed_during_migration_title">請為 %1s 雲重新添加加密檔案庫</string>
 	<string name="dialog_vaults_removed_during_migration_hint">在遷移到此應用程序版本時，我們需要從應用程序中刪除以下保管庫\n%2s\n\n這些加密檔案庫不會從雲中刪除，而只是從這個應用程序中刪除。 很抱歉給您帶來不便，請重新添加這些加密檔案庫以繼續使用它們。</string>
 	<string name="dialog_vault_is_root_folder_of_cloud_title">加密檔案庫是雲連接的根文件夾</string>
 	<string name="dialog_vault_is_root_folder_of_cloud_hint">創建一個新的雲連接，您至少選擇此加密檔案庫文件夾的父文件夾作為根目錄以添加此加密檔案庫。</string>
-	<string name="dialog_disable_secure_screen_disclaimer_hint">此設置是一項安全功能，可防止其他應用程序欺騙用戶做他們不想做的事情\n\n如果禁用這項功能，請確定你已經<a href="https://docs.cryptomator.org/en/1.5/android/settings/#screen-security">了解風險</a></string>
+	<string name="dialog_disable_secure_screen_disclaimer_hint">此設置是一項安全功能，可防止其他應用程序欺騙用戶做他們不想做的事情\n\n如果禁用這項功能，請確定你已經<a href="https://docs.cryptomator.org/en/1.6/android/settings/#screen-security">了解風險</a></string>
 	<string name="dialog_delete_cloud_connection_with_vaults_message">您確定要刪除此雲端連結嗎？</string>
 	<string name="dialog_delete_cloud_connection_with_vaults_hint">此操作將刪除雲連接和該雲的所有加密檔案庫。</string>
 	<string name="dialog_confirm_delete_multiple_title">是否刪除%1$d個項目？</string>

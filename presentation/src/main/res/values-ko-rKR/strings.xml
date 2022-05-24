@@ -248,7 +248,7 @@
 	<string name="dialog_debug_mode_positive_button">활성화</string>
 	<string name="dialog_disable_app_obscured_disclaimer_title">주의</string>
 	<string name="dialog_disable_app_obscured_positive_button">비활성화</string>
-	<string name="dialog_app_is_obscured_info_hint">다른 앱이 Cryptomator앱 위에서 화면을 사용하고 있습니다 (블루 라이트 필터 또는 야간 모드 앱 등). 보안을 위하여 Cryptomator가 비활성화 되었습니다.\n\n<a href="https://docs.cryptomator.org/en/1.5/android/settings/#block-app-when-obscured">Cryptomator를 활성화하는 법</a></string>
+	<string name="dialog_app_is_obscured_info_hint">다른 앱이 Cryptomator앱 위에서 화면을 사용하고 있습니다 (블루 라이트 필터 또는 야간 모드 앱 등). 보안을 위하여 Cryptomator가 비활성화 되었습니다.\n\n<a href="https://docs.cryptomator.org/en/1.6/android/settings/#block-app-when-obscured">Cryptomator를 활성화하는 법</a></string>
 	<string name="dialog_app_is_obscured_info_neutral_button">닫기</string>
 	<string name="dialog_delete_cloud_connection_with_vaults_message">정말 이 클라우드 연결을 삭제하시겠습니까?</string>
 	<string name="dialog_delete_cloud_connection_with_vaults_hint">클라우드 연결과 이 클라우드의 Vault들이 삭제될 것입니다.</string>
