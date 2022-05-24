@@ -287,6 +287,7 @@
 	<string name="dialog_debug_mode_disclaimer_hint">Dalam mode ini, data sensitif dapat ditulis ke file log di perangkat Anda (misalnya, nama dan lokasi file). Kata sandi, cookie, dll secara eksplisit dikecualikan.\n\nJangan lupa untuk menonaktifkan mode debug sesegera mungkin.</string>
 	<string name="dialog_debug_mode_disclaimer_title">Perhatian</string>
 	<string name="dialog_debug_mode_positive_button">Aktifkan</string>
+	<string name="dialog_disable_app_obscured_disclaimer_hint">Pengaturan ini adalah fitur keamanan untuk mencegah aplikasi lain mengelabui pengguna melakukan hal-hal yang tidak ingin mereka lakukan.\n\nDengan menonaktifkan, Anda mengonfirmasi bahwa telah <a href="https://docs.cryptomator.org/en/1.6/android/settings/#block-app-when-obscured">menyadari akan risiko tersebut</a>.</string>
 	<string name="dialog_disable_app_obscured_disclaimer_title">Perhatian</string>
 	<string name="dialog_disable_app_obscured_positive_button">Matikan</string>
 	<string name="dialog_app_is_obscured_info_title">Aplikasi terhalang</string>
