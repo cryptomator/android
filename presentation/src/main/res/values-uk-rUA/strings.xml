@@ -286,7 +286,6 @@
 	<string name="dialog_disable_app_obscured_disclaimer_title">Увага</string>
 	<string name="dialog_disable_app_obscured_positive_button">Вимкнути</string>
 	<string name="dialog_app_is_obscured_info_title">Програму перекрито</string>
-	<string name="dialog_app_is_obscured_info_hint">Інша програма відображає щось поверх Cryptomator (наприклад фільтр синього світла чи нічний режим). Задля безпеки Cryptomator вимкнено.\n\n<a href="https://docs.cryptomator.org/en/1.5/android/settings/#block-app-when-obscured">Як ввімкнути Cryptomator</a></string>
 	<string name="dialog_app_is_obscured_info_neutral_button">Закрити</string>
 	<string name="dialog_delete_cloud_connection_with_vaults_hint">Ця дія видалить підключення до хмари та всі сховища з цієї хмари.</string>
 	<string name="dialog_confirm_delete_multiple_title">Видалити %1$d об\'єкти?</string>
