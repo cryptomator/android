@@ -290,17 +290,14 @@
 	<string name="dialog_debug_mode_disclaimer_hint">W tym trybie poufne dane mogą być zapisywane do pliku dziennika na urządzeniu (np. nazwy plików i ścieżki). Hasła, ciasteczka itp. są wykluczone.\n\nPamiętaj, aby wyłączyć tryb debugowania tak szybko, jak to możliwe.</string>
 	<string name="dialog_debug_mode_disclaimer_title">Uwaga</string>
 	<string name="dialog_debug_mode_positive_button">Włącz</string>
-	<string name="dialog_disable_app_obscured_disclaimer_hint">To ustawienie jest funkcją bezpieczeństwa i uniemożliwia innym aplikacjom oszukiwanie użytkowników do robienia rzeczy, których nie chcą robić.\n\nWyłączając je potwierdzasz, że jesteś <a href="https://docs.cryptomator.org/en/1.5/android/settings/#block-app-when-obscured">świadomy ryzyka</a>.</string>
 	<string name="dialog_disable_app_obscured_disclaimer_title">Uwaga</string>
 	<string name="dialog_disable_app_obscured_positive_button">Wyłącz</string>
 	<string name="dialog_app_is_obscured_info_title">Aplikacja jest zasłonięta inną</string>
-	<string name="dialog_app_is_obscured_info_hint">Inna aplikacja jest wyświetlana nad Cryptomatorem (na przykład filtr niebieskiego światła, tryb nocny). Dla twojego bezpieczeństwa Cryptomator jest wyłączony.\n\n<a href="https://docs.cryptomator.org/en/1.5/android/settings/#block-app-when-obscured">Jak ponownie włączyć aplikację. </a></string>
 	<string name="dialog_app_is_obscured_info_neutral_button">Zamknij</string>
 	<string name="dialog_vaults_removed_during_migration_title">Proszę ponownie dodać sejfy dla chmury %1s</string>
 	<string name="dialog_vaults_removed_during_migration_hint">Podczas migracji do tej wersji aplikacji musimy usunąć następujące sejfy z aplikacji:\n%2s \n\nTe sejfy nie są usuwane z chmury, ale tylko z tej aplikacji. Przepraszamy za niedogodności. Dodaj ponownie te sejfy, aby dalej z nich korzystać.</string>
 	<string name="dialog_vault_is_root_folder_of_cloud_title">Sejf jest głównym folderem w połączonej chmurze</string>
 	<string name="dialog_vault_is_root_folder_of_cloud_hint">Utwórz nowe połączenie z chmurą, gdzie wybierzesz przynajmniej folder nadrzędny tego sejfu jako główny katalog, aby dodać ten sejf.</string>
-	<string name="dialog_disable_secure_screen_disclaimer_hint">To ustawienie jest funkcją bezpieczeństwa i uniemożliwia innym aplikacjom oszukiwanie użytkowników do robienia rzeczy, których nie chcą robić.\n\nWyłączając je potwierdzasz, że jesteś <a href="https://docs.cryptomator.org/en/1.5/android/settings/#screen-security">świadomy ryzyka</a>.</string>
 	<string name="dialog_delete_cloud_connection_with_vaults_message">Czy na pewno chcesz usunąć to połączenie z serwerem chmury?</string>
 	<string name="dialog_delete_cloud_connection_with_vaults_hint">Ta akcja usunie połączenie z usługą chmury i wszystkimi sejfami w tej chmurze.</string>
 	<string name="dialog_confirm_delete_multiple_title">Usunąć %1$d elementów?</string>
