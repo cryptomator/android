@@ -283,17 +283,14 @@
 	<string name="dialog_debug_mode_disclaimer_hint">En aquest mode, informació sensible pot ser escrita en un arxiu de registre al teu dispositiu (per exemple, noms d\'arxius i rutes). Contrasenyes, galetes, etc. són explícitament excloses.\n\nRecorda desactivar el mode de depuració tan aviat com sigui possible.</string>
 	<string name="dialog_debug_mode_disclaimer_title">Atenció</string>
 	<string name="dialog_debug_mode_positive_button">Activa</string>
-	<string name="dialog_disable_app_obscured_disclaimer_hint">Aquest ajustament és una funció de seguretat i evita que d\'altres aplicacions puguin enganyar a usuaris per a fer coses que no volen fer.\n\nDeshabilitant-la, confirmes que ets<a href="https://docs.cryptomator.org/en/1.5/android/settings/#block-app-when-obscured">conscient dels riscos</a>.</string>
 	<string name="dialog_disable_app_obscured_disclaimer_title">Atenció</string>
 	<string name="dialog_disable_app_obscured_positive_button">Desactiva</string>
 	<string name="dialog_app_is_obscured_info_title">Alguna cosa està superposada a l\'aplicació</string>
-	<string name="dialog_app_is_obscured_info_hint">Una altra aplicació està mostrant alguna cosa per sobre de Cryptomator (per exemple un filtre de llum blava o una aplicació de mode nocturn). Per raons de seguretat, Cryptomator s\'ha deshabilitat.\n\n<a href="https://docs.cryptomator.org/en/1.5/android/settings/#block-app-when-obscured">.Com habilitar Crytomator</a></string>
 	<string name="dialog_app_is_obscured_info_neutral_button">Tanca</string>
 	<string name="dialog_vaults_removed_during_migration_title">Si us plau, torna a afegir les caixes fortes per el cloud %1s</string>
 	<string name="dialog_vaults_removed_during_migration_hint">Al migrar cap a aquesta versió de l\'app hem hagut d\'esborrar les següents caixes fortes de l\'aplicació:\n%2s \n\nAquestes caixes fortes no s\'han esborrat del cloud sinó que només de l\'aplicació. Sentim les molèsties ocasionades, si us plau torna a afegir les caixes fortes per a continuar treballant amb elles.</string>
 	<string name="dialog_vault_is_root_folder_of_cloud_title">La caixa forta és la carpeta principal de la connexió al núvol</string>
 	<string name="dialog_vault_is_root_folder_of_cloud_hint">Crea una nova connexió al núvol on podeu seleccionar si més no la carpeta mare d\'aquesta caixa forta com a carpeta arrel per a afegir aquesta caixa forta.</string>
-	<string name="dialog_disable_secure_screen_disclaimer_hint">Aquest paràmetre és una mesura de seguretat que preveu que altres aplicacions enganyin als usuaris per a que facin accions indesitjades.\n\nAl desactivar-la, confirmes que ets <a href="https://docs.cryptomator.org/en/1.5/android/settings/#screen-security">conscient dels riscs</a>.</string>
 	<string name="dialog_delete_cloud_connection_with_vaults_message">Estàs segur que vols esborrar aquesta connexió al cloud?</string>
 	<string name="dialog_delete_cloud_connection_with_vaults_hint">Aquesta acció esborrarà la connexió al cloud i totes les seves caixes fortes.</string>
 	<string name="dialog_confirm_delete_multiple_title">Voleu suprimir %1$d elements?</string>
