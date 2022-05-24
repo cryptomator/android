@@ -87,23 +87,6 @@
 			android:exported="false"
 			android:theme="@style/TransparentPopUp" />
 
-		<!-- Cloud Services -->
-		<!-- TODO move out into custom manifest-->
-		<activity
-			android:name="com.dropbox.core.android.AuthActivity"
-			android:configChanges="orientation|keyboard"
-			android:exported="true"
-			android:launchMode="singleTask">
-			<intent-filter>
-				<data android:scheme="db-${DROPBOX_API_KEY}" />
-
-				<action android:name="android.intent.action.VIEW" />
-
-				<category android:name="android.intent.category.BROWSABLE" />
-				<category android:name="android.intent.category.DEFAULT" />
-			</intent-filter>
-		</activity>
-
 		<!-- Settings -->
 		<activity
 			android:name=".ui.activity.AutoUploadChooseVaultActivity"
@@ -186,23 +169,6 @@
 					android:host="android.cryptomator.org"
 					android:pathPrefix="/app/license"
 					android:scheme="https" />
-			</intent-filter>
-		</activity>
-
-		<!-- TODO move out into custom manifest-->
-		<activity
-			android:name="com.microsoft.identity.client.BrowserTabActivity"
-			android:exported="true">
-			<intent-filter>
-				<action android:name="android.intent.action.VIEW" />
-
-				<category android:name="android.intent.category.DEFAULT" />
-				<category android:name="android.intent.category.BROWSABLE" />
-
-				<data
-					android:host="org.cryptomator"
-					android:path="/${ONEDRIVE_API_KEY_DECODED}"
-					android:scheme="msauth" />
 			</intent-filter>
 		</activity>
 
