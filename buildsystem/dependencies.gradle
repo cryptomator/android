@@ -111,6 +111,7 @@ ext {
 	androidxDocumentfileVersion = '1.0.1'
 	androidxBiometricVersion = '1.1.0'
 	androidxTestCoreVersion = '1.4.0'
+	androidxSplashscreenVersion = '1.0.0-rc01'
 
 	jsonWebTokenApiVersion = '0.11.5'
 
@@ -126,6 +127,7 @@ ext {
 			androidxPreference    : "androidx.preference:preference:${androidxPreferenceVersion}",
 			documentFile          : "androidx.documentfile:documentfile:${androidxDocumentfileVersion}",
 			recyclerView          : "androidx.recyclerview:recyclerview:${androidxRecyclerViewVersion}",
+			androidxSplashscreen  : "androidx.core:core-splashscreen:${androidxSplashscreenVersion}",
 			androidxTestCore      : "androidx.test:core:${androidxTestCoreVersion}",
 			androidxTestJunitKtln : "androidx.test.ext:junit-ktx:${androidxTestJunitKtlnVersion}",
 			commonsCodec          : "commons-codec:commons-codec:${commonsCodecVersion}",

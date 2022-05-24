@@ -21,7 +21,6 @@ import org.cryptomator.presentation.ui.activity.S3AddOrChangeActivity;
 import org.cryptomator.presentation.ui.activity.SetPasswordActivity;
 import org.cryptomator.presentation.ui.activity.SettingsActivity;
 import org.cryptomator.presentation.ui.activity.SharedFilesActivity;
-import org.cryptomator.presentation.ui.activity.SplashActivity;
 import org.cryptomator.presentation.ui.activity.TextEditorActivity;
 import org.cryptomator.presentation.ui.activity.UnlockVaultActivity;
 import org.cryptomator.presentation.ui.activity.VaultListActivity;
@@ -50,8 +49,6 @@ import dagger.Component;
 public interface ActivityComponent {
 
 	Activity activity();
-
-	void inject(SplashActivity splashActivity);
 
 	void inject(VaultListActivity vaultListActivity);
 

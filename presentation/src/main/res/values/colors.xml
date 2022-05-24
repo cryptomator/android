@@ -8,6 +8,7 @@
 	<color name="textColorWhite">#F7F7F7</color>
 	<color name="textColorLight">#9E9E9E</color>
 	<color name="textColorError">#E74C3C</color>
+	<color name="colorWhite">#FFFFFF</color>
 
 	<color name="colorBlackTransparent">#50000000</color>
 	<color name="colorBlack">#000000</color>

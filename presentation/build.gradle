@@ -153,6 +153,7 @@ dependencies {
 	implementation dependencies.androidxCore
 	implementation dependencies.androidxFragment
 	implementation dependencies.androidxViewpager
+	implementation dependencies.androidxSplashscreen
 	implementation dependencies.androidxSwiperefresh
 	implementation dependencies.androidxPreference
 	implementation dependencies.androidxBiometric
