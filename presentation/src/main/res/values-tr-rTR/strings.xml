@@ -288,17 +288,17 @@
 	<string name="dialog_debug_mode_disclaimer_hint">Bu modda, hassas veriler cihazınızdaki bir günlük dosyasına (örn. Dosya adları ve yolları) yazılabilir. Şifreler, tanımlama vb. bilgiler hariç tutulmuştur.\n\nHata ayıklama modunu mümkün olan en kısa sürede devre dışı bırakmayı unutmayın.</string>
 	<string name="dialog_debug_mode_disclaimer_title">Dikkat</string>
 	<string name="dialog_debug_mode_positive_button">Etkinleştir</string>
-	<string name="dialog_disable_app_obscured_disclaimer_hint">Bu ayar bir güvenlik özelliğidir ve diğer uygulamaların, kullanıcıları kandırmasını engeller.\n\nDevre dışı bırakarak, <a href="https://docs.cryptomator.org/en/1.6/android/settings/#block-app-when-obscured">risklerin farkında olduğunuzu onaylamış olursunuz</a>.</string>
+	<string name="dialog_disable_app_obscured_disclaimer_hint">Bu ayar bir güvenlik özelliğidir ve diğer uygulamaların, kullanıcıları kandırmasını engeller.\n\nDevre dışı bırakarak, <a href="https://docs.cryptomator.org/en/1.5/android/settings/#block-app-when-obscured">risklerin farkında olduğunuzu onaylamış olursunuz</a>.</string>
 	<string name="dialog_disable_app_obscured_disclaimer_title">Dikkat</string>
 	<string name="dialog_disable_app_obscured_positive_button">Devre dışı bırak</string>
 	<string name="dialog_app_is_obscured_info_title">Uygulama gizlendi</string>
-	<string name="dialog_app_is_obscured_info_hint">Cryptomator\'un üstünde çalışan bazı uygulamalar, (örn. Mavi ışık filtresi ve gece modu uygulamaları gibi) içeriği görüntüler! Bu nedenden dolayı, güvenlik amacıyla Cryptomator devre dışı bırakılır!\n\n<a href="https://docs.cryptomator.org/en/1.6/android/settings/#block-app-when-obscured">Cryptomator\'u tekrar nasıl etkinleştirebilirim?</a></string>
+	<string name="dialog_app_is_obscured_info_hint">Cryptomator\'un üstünde çalışan bazı uygulamalar, (örn. Mavi ışık filtresi ve gece modu uygulamaları gibi) içeriği görüntüler! Bu nedenden dolayı, güvenlik amacıyla Cryptomator devre dışı bırakılır!\n\n<a href="https://docs.cryptomator.org/en/1.5/android/settings/#block-app-when-obscured">Cryptomator\'u tekrar nasıl etkinleştirebilirim?</a></string>
 	<string name="dialog_app_is_obscured_info_neutral_button">Kapat</string>
 	<string name="dialog_vaults_removed_during_migration_title">Lütfen %1s bulutu için kasaları yeniden ekleyin</string>
 	<string name="dialog_vaults_removed_during_migration_hint">Bu uygulama sürümüne geçiş yaparken aşağıdaki kasaları uygulamadan kaldırmamız gerekiyor:\n%2s \n\nBu kasalar buluttan değil, yalnızca bu uygulamadan kaldırılır. Rahatsızlık için özür dileriz ve onlarla çalışmaya devam etmek için lütfen bu kasaları yeniden ekleyin.</string>
 	<string name="dialog_vault_is_root_folder_of_cloud_title">Vault, bulut bağlantısının kök klasörüdür</string>
 	<string name="dialog_vault_is_root_folder_of_cloud_hint">Bu kasayı eklemek için kök dizin olarak bu kasa klasörünün en azından üst klasörünü seçtiğiniz yeni bir bulut bağlantısı oluşturun.</string>
-	<string name="dialog_disable_secure_screen_disclaimer_hint">Bu ayar bir güvenlik özelliğidir ve diğer uygulamaların, kullanıcıları kandırmasını engeller.\n\nDevre dışı bırakarak, <a href="https://docs.cryptomator.org/en/1.6/android/settings/#screen-security">risklerin farkında olduğunuzu onaylamış olursunuz</a>.</string>
+	<string name="dialog_disable_secure_screen_disclaimer_hint">Bu ayar bir güvenlik özelliğidir ve diğer uygulamaların, kullanıcıları kandırmasını engeller.\n\nDevre dışı bırakarak, <a href="https://docs.cryptomator.org/en/1.5/android/settings/#screen-security">risklerin farkında olduğunuzu onaylamış olursunuz</a>.</string>
 	<string name="dialog_delete_cloud_connection_with_vaults_message">Bu bulut bağlantısını kaldırmak istediğinizden emin misiniz?</string>
 	<string name="dialog_delete_cloud_connection_with_vaults_hint">Bu işlem, bulut bağlantısını ve bu bulutun tüm kasalarını kaldıracak.</string>
 	<string name="dialog_confirm_delete_multiple_title">%1$d öğe silinsin mi?</string>

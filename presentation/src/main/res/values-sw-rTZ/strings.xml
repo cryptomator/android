@@ -283,17 +283,17 @@
 	<string name="dialog_debug_mode_disclaimer_hint">Katika hali hii, data nyeti inaweza kuandikwa kwa faili ya kumbukumbu kwenye kifaa chako (kwa mfano, majina ya faili na njia). Nywila, vidakuzi, n.k. zimetengwa wazi.\n\nKukumbuka ili kuzima hali ya utatuzi haraka iwezekanavyo.</string>
 	<string name="dialog_debug_mode_disclaimer_title">Makini</string>
 	<string name="dialog_debug_mode_positive_button">Wezesha</string>
-	<string name="dialog_disable_app_obscured_disclaimer_hint">Mpangilio huu ni kipengele cha usalama na huzuia programu zingine kuwadanganya watumiaji kufanya mambo ambayo hawastahili kufanya.\n\nKuzima, unathibitisha kuwa wewe ni <a href="https://docs.cryptomator.org/en/1.6/android/settings/#block-app-when-obscured">kujishwa na hatari</a>.</string>
+	<string name="dialog_disable_app_obscured_disclaimer_hint">Mpangilio huu ni kipengele cha usalama na huzuia programu zingine kuwadanganya watumiaji kufanya mambo ambayo hawastahili kufanya.\n\nKuzima, unathibitisha kuwa wewe ni <a href="https://docs.cryptomator.org/en/1.5/android/settings/#block-app-when-obscured">kujishwa na hatari</a>.</string>
 	<string name="dialog_disable_app_obscured_disclaimer_title">Makini</string>
 	<string name="dialog_disable_app_obscured_positive_button">Lemaza</string>
 	<string name="dialog_app_is_obscured_info_title">Programu imefichwa</string>
-	<string name="dialog_app_is_obscured_info_hint">Programu nyingine inaonyesha kitu juu ya Cryptomator (kwa mfano, kichujio cha mwanga wa bluu au programu ya hali ya usiku). Kwa sababu za usalama, Cryptomator imezimwa..\n\n<a href="https://docs.cryptomator.org/en/1.6/android/settings/#block-app-when-obscured">How to enable Cryptomator</a></string>
+	<string name="dialog_app_is_obscured_info_hint">Programu nyingine inaonyesha kitu juu ya Cryptomator (kwa mfano, kichujio cha mwanga wa bluu au programu ya hali ya usiku). Kwa sababu za usalama, Cryptomator imezimwa..\n\n<a href="https://docs.cryptomator.org/en/1.5/android/settings/#block-app-when-obscured">How to enable Cryptomator</a></string>
 	<string name="dialog_app_is_obscured_info_neutral_button">Funga</string>
 	<string name="dialog_vaults_removed_during_migration_title">Tafadhali ongeza tena kuba kwa %1s wingu</string>
 	<string name="dialog_vaults_removed_during_migration_hint">Wakati wa kuhamia kwenye toleo hili la programu tunahitaji kuondoa vaults zifuatazo kutoka kwa programu:\n%2s \n\nKuboreshaji hazijaondolewa kwenye wingu lakini tu kutoka kwa programu hii. Samahani kwa usumbufu na tafadhali ongeza tena vaults hizi ili kuendelea kufanya kazi nao.</string>
 	<string name="dialog_vault_is_root_folder_of_cloud_title">Kuba ni folda ya mizizi ya muunganisho wa wingu</string>
 	<string name="dialog_vault_is_root_folder_of_cloud_hint">Unda muunganisho mpya wa wingu ambapo unachagua angalau folda kuu ya folda hii ya kuba kama saraka ya mizizi ili kuongeza kuba hii.</string>
-	<string name="dialog_disable_secure_screen_disclaimer_hint">Mpangilio huu ni kipengele cha usalama na huzuia programu zingine kuwadanganya watumiaji kufanya mambo ambayo hawastahili kufanya.\n\nKuzima, unathibitisha kuwa wewe ni <a href="https://docs.cryptomator.org/en/1.6/android/settings/#screen-security">aware of the risks</a>.</string>
+	<string name="dialog_disable_secure_screen_disclaimer_hint">Mpangilio huu ni kipengele cha usalama na huzuia programu zingine kuwadanganya watumiaji kufanya mambo ambayo hawastahili kufanya.\n\nKuzima, unathibitisha kuwa wewe ni <a href="https://docs.cryptomator.org/en/1.5/android/settings/#screen-security">aware of the risks</a>.</string>
 	<string name="dialog_delete_cloud_connection_with_vaults_message">Una hakika unataka kuondoa muunganisho huu wa wingu?</string>
 	<string name="dialog_delete_cloud_connection_with_vaults_hint">Hatua hii itaondoa unganisho la wingu na kuba zote za wingu hili.</string>
 	<string name="dialog_confirm_delete_multiple_title">Futa %1$d vipengee?</string>

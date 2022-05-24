@@ -288,17 +288,17 @@
 	<string name="dialog_debug_mode_disclaimer_hint">In diesem Modus könnten sensible Daten in eine Log-Datei auf diesem Gerät geschrieben werden (z.B. Dateinamen und Pfade). Ausgeschlossen davon sind u.a. Passwörter und Cookies.\n\nDenke daran, den Debug-Modus so schnell wie möglich wieder zu deaktivieren.</string>
 	<string name="dialog_debug_mode_disclaimer_title">Achtung</string>
 	<string name="dialog_debug_mode_positive_button">Aktivieren</string>
-	<string name="dialog_disable_app_obscured_disclaimer_hint">Dies ist eine Sicherheitsfunktion und verhindert, dass andere Apps Nutzer dazu bringen, Dinge zu tun, die sie nicht tun wollen.\n\nDurch die Deaktivierung bestätigst du, dass du dich <a href="https://docs.cryptomator.org/en/1.6/android/settings/#block-app-when-obscured">der Risiken bewusst</a> bist.</string>
+	<string name="dialog_disable_app_obscured_disclaimer_hint">Dies ist eine Sicherheitsfunktion und verhindert, dass andere Apps Nutzer dazu bringen, Dinge zu tun, die sie nicht tun wollen.\n\nDurch die Deaktivierung bestätigst du, dass du dich <a href="https://docs.cryptomator.org/en/1.5/android/settings/#block-app-when-obscured">der Risiken bewusst</a> bist.</string>
 	<string name="dialog_disable_app_obscured_disclaimer_title">Achtung</string>
 	<string name="dialog_disable_app_obscured_positive_button">Deaktivieren</string>
 	<string name="dialog_app_is_obscured_info_title">App wird verdeckt</string>
-	<string name="dialog_app_is_obscured_info_hint">Eine App zeigt etwas über Cryptomator an (z.B. ein Blaulichtfilter oder eine Nachtmodus-App). Aus Sicherheitsgründen ist Cryptomator deaktiviert.\n\n<a href="https://docs.cryptomator.org/en/1.6/android/settings/#block-app-when-obscured">Wie Cryptomator aktiviert werden kann</a></string>
+	<string name="dialog_app_is_obscured_info_hint">Eine App zeigt etwas über Cryptomator an (z.B. ein Blaulichtfilter oder eine Nachtmodus-App). Aus Sicherheitsgründen ist Cryptomator deaktiviert.\n\n<a href="https://docs.cryptomator.org/en/1.5/android/settings/#block-app-when-obscured">Wie Cryptomator aktiviert werden kann</a></string>
 	<string name="dialog_app_is_obscured_info_neutral_button">Schließen</string>
 	<string name="dialog_vaults_removed_during_migration_title">Bitte Tresore für die %1s-Cloud erneut hinzufügen</string>
 	<string name="dialog_vaults_removed_during_migration_hint">Während der Migration auf diese App-Version müssen wir folgende Tresore aus der App entfernen:\n%2s \n\nDiese Tresore werden nicht aus der Cloud entfernt, sondern nur aus dieser App. Entschuldigung für die Unannehmlichkeiten. Füge diese Tresore bitte erneut hinzu, um weiter mit ihnen zu arbeiten.</string>
 	<string name="dialog_vault_is_root_folder_of_cloud_title">Tresor ist Wurzelverzeichnis der Cloud-Verbindung</string>
 	<string name="dialog_vault_is_root_folder_of_cloud_hint">Erstelle eine neue Cloud-Verbindung, wo du mindestens den übergeordneten Ordner dieses Tresors als Wurzelverzeichnis auswählst, um diesen Tresor hinzuzufügen.</string>
-	<string name="dialog_disable_secure_screen_disclaimer_hint">Dies ist eine Sicherheitsfunktion, die andere Anwendungen daran hindert, Nutzer zu ungewollten Aktionen zu verleiten.\n\nDurch Deaktivieren bestätigst du, dass du dir <a href="https://docs.cryptomator.org/en/1.6/android/settings/#screen-security">der Risiken bewusst</a> bist.</string>
+	<string name="dialog_disable_secure_screen_disclaimer_hint">Dies ist eine Sicherheitsfunktion, die andere Anwendungen daran hindert, Nutzer zu ungewollten Aktionen zu verleiten.\n\nDurch Deaktivieren bestätigst du, dass du dir <a href="https://docs.cryptomator.org/en/1.5/android/settings/#screen-security">der Risiken bewusst</a> bist.</string>
 	<string name="dialog_delete_cloud_connection_with_vaults_message">Bist du dir sicher, dass du die Cloud-Verbindung entfernen möchtest?</string>
 	<string name="dialog_delete_cloud_connection_with_vaults_hint">Dieser Vorgang wird die Cloud-Verbindung und alle zugehörigen Tresore löschen.</string>
 	<string name="dialog_confirm_delete_multiple_title">%1$d Elemente löschen?</string>

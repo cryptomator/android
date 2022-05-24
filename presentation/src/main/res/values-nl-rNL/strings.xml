@@ -288,17 +288,17 @@
 	<string name="dialog_debug_mode_disclaimer_hint">In deze modus kunnen gevoelige gegevens naar een logbestand op je apparaat geschreven worden (bijv. bestandsnamen en paden). Wachtwoorden, cookies, etc. worden expliciet uitgesloten.\n\nVergeet niet om de foutopsporingsmodus zo snel mogelijk uit te schakelen.</string>
 	<string name="dialog_debug_mode_disclaimer_title">Aandacht</string>
 	<string name="dialog_debug_mode_positive_button">Inschakelen</string>
-	<string name="dialog_disable_app_obscured_disclaimer_hint">Deze instelling is een beveiligingsfunctie en voorkomt dat andere apps gebruikers misleiden.\n\nDoor deze instelling uit te schakelen bevestig je dat je <a href="https://docs.cryptomator.org/en/1.6/android/settings/#block-app-when-obscured"> bewust bent van de risico\'s</a>.</string>
+	<string name="dialog_disable_app_obscured_disclaimer_hint">Deze instelling is een beveiligingsfunctie en voorkomt dat andere apps gebruikers misleiden.\n\nDoor deze instelling uit te schakelen bevestig je dat je <a href="https://docs.cryptomator.org/en/1.5/android/settings/#block-app-when-obscured"> bewust bent van de risico\'s</a>.</string>
 	<string name="dialog_disable_app_obscured_disclaimer_title">Aandacht</string>
 	<string name="dialog_disable_app_obscured_positive_button">Uitschakelen</string>
 	<string name="dialog_app_is_obscured_info_title">App is naar de achtergrond gewezen</string>
-	<string name="dialog_app_is_obscured_info_hint">Een andere app toont iets bovenop Cryptomator (bijv. een blauw lichtfilter of nachtmodus). Om veiligheidsredenen is Cryptomator uitgeschakeld.\n\n<a href="https://docs.cryptomator.org/en/1.6/android/settings/#block-app-when-obscured">Hoe kunt u Cryptomator inschakelen</a></string>
+	<string name="dialog_app_is_obscured_info_hint">Een andere app toont iets bovenop Cryptomator (bijv. een blauw lichtfilter of nachtmodus). Om veiligheidsredenen is Cryptomator uitgeschakeld.\n\n<a href="https://docs.cryptomator.org/en/1.5/android/settings/#block-app-when-obscured">Hoe kunt u Cryptomator inschakelen</a></string>
 	<string name="dialog_app_is_obscured_info_neutral_button">Sluiten</string>
 	<string name="dialog_vaults_removed_during_migration_title">Voeg de kluis voor %1\'s cloud opnieuw toe</string>
 	<string name="dialog_vaults_removed_during_migration_hint">Tijdens het migreren naar deze app versie moeten we de volgende kluizen verwijderen uit de app:\n%2s \n\nDe kluizen worden niet uit de cloud verwijderd, maar alleen uit deze app. Sorry voor het ongemak, voeg deze kluizen opnieuw toe om deze te blijven gebruiken.</string>
 	<string name="dialog_vault_is_root_folder_of_cloud_title">Kluis is hoofdmap van de cloud-verbinding</string>
 	<string name="dialog_vault_is_root_folder_of_cloud_hint">Maak een nieuwe cloud-verbinding waarbij je ten minste de bovenliggende map van deze kluis selecteert als hoofdmap om deze kluis toe te voegen.</string>
-	<string name="dialog_disable_secure_screen_disclaimer_hint">Deze instelling is een beveiligingsfunctie en voorkomt dat andere apps gebruikers misleiden.\n\nDoor deze instelling uit te schakelen bevestig je dat je <a href="https://docs.cryptomator.org/en/1.6/android/settings/#screen-security"> bewust bent van de risico\'s</a>.</string>
+	<string name="dialog_disable_secure_screen_disclaimer_hint">Deze instelling is een beveiligingsfunctie en voorkomt dat andere apps gebruikers misleiden.\n\nDoor deze instelling uit te schakelen bevestig je dat je <a href="https://docs.cryptomator.org/en/1.5/android/settings/#screen-security"> bewust bent van de risico\'s</a>.</string>
 	<string name="dialog_delete_cloud_connection_with_vaults_message">Weet je zeker dat je deze cloud verbinding wilt verwijderen?</string>
 	<string name="dialog_delete_cloud_connection_with_vaults_hint">Deze actie zal de cloud-verbinding en alle kluizen van deze cloud verwijderen.</string>
 	<string name="dialog_confirm_delete_multiple_title">Verwijder %1$d items?</string>
