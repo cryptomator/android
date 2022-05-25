@@ -289,14 +289,17 @@
 	<string name="dialog_debug_mode_disclaimer_hint">U ovom načinu, osjetljivi podaci mogu biti zapisani u log datoteku na Vašem uređaju (npr. datoteke i putanje). Lozinke, kolačići itd. su izričito isključeni.\n\nZapamtite da isključite način za otklanjanje pogrešaka čim prije je to moguće.</string>
 	<string name="dialog_debug_mode_disclaimer_title">Pažnja</string>
 	<string name="dialog_debug_mode_positive_button">Omogući</string>
+	<string name="dialog_disable_app_obscured_disclaimer_hint">Ova je postavka sigurnosna značajka i spriječava druge aplikacije da prevare korisnike da rade stvari koje ne žele raditi.\n\nOnemogućavanjem potvrđujete da ste <a href="https://docs.cryptomator.org /en/1.6/android/settings/#block-app-when-obscured">svjesni rizika</a>.</string>
 	<string name="dialog_disable_app_obscured_disclaimer_title">Pažnja</string>
 	<string name="dialog_disable_app_obscured_positive_button">Onemogući</string>
 	<string name="dialog_app_is_obscured_info_title">Aplikacija je zaklonjena</string>
+	<string name="dialog_app_is_obscured_info_hint">Druga aplikacija prikazuje nešto iznad Cryptomator-a (npr. filter plavog svjetla ili aplikacija za noćni način rada). Iz sigurnosnih razloga, Cryptomator je onemogućen.\n\n<a href="https://docs.cryptomator.org/en/1.6/android/settings/#block-app-when-obscured">Kako omogućiti Cryptomator</a></string>
 	<string name="dialog_app_is_obscured_info_neutral_button">Zatvori</string>
 	<string name="dialog_vaults_removed_during_migration_title">Ponovno dodajte trezore za %1s oblak</string>
 	<string name="dialog_vaults_removed_during_migration_hint">Tijekom migracije na ovu verziju aplikacije moramo ukloniti sljedeće trezore iz njega:\n%2s \n\nTi trezori se ne uklanjaju iz oblaka, već samo iz ove aplikacije. Ispričavamo se zbog neugodnosti i molimo da ponovno dodate ove trezore kako biste nastavili raditi s njima.</string>
 	<string name="dialog_vault_is_root_folder_of_cloud_title">Trezor je korijenska mapa veze u oblaku</string>
 	<string name="dialog_vault_is_root_folder_of_cloud_hint">Izradite novu vezu prema oblaku pri čemu odaberite barem nadređenu mapu ovog trezora kao korijensku mapu za njegovo dodavanje.</string>
+	<string name="dialog_disable_secure_screen_disclaimer_hint">Ova je postavka sigurnosna značajka i sprječava druge aplikacije da prevare korisnike da rade stvari koje ne žele raditi.\n\nOnemogućavanjem potvrđujete da ste <a href="https://docs.cryptomator.org /en/1.6/android/settings/#screen-security">svjesni rizika</a>.</string>
 	<string name="dialog_delete_cloud_connection_with_vaults_message">Sigurni ste da želite ukloniti ovu vezu prema oblaku?</string>
 	<string name="dialog_delete_cloud_connection_with_vaults_hint">Ova radnje će ukloniti vezu prema oblaku i sve trezore u njemu.</string>
 	<string name="dialog_confirm_delete_multiple_title">Izbrisati %1$d stavke?</string>
