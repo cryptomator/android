@@ -13,7 +13,7 @@ import kotlinx.android.synthetic.main.activity_cryptomator_variants.tvFdroidCust
 import kotlinx.android.synthetic.main.activity_cryptomator_variants.tvFdroidCustomUnsupported
 import kotlinx.android.synthetic.main.activity_cryptomator_variants.tvFdroidMainSupported
 import kotlinx.android.synthetic.main.activity_cryptomator_variants.tvFdroidMainUnsupported
-import kotlinx.android.synthetic.main.activity_cryptomator_variants.tvWebsiteAllowed
+import kotlinx.android.synthetic.main.activity_cryptomator_variants.tvWebsiteSupported
 import kotlinx.android.synthetic.main.toolbar_layout.toolbar
 
 @Activity(layout = R.layout.activity_cryptomator_variants)
@@ -32,7 +32,7 @@ class CryptomatorVariantsActivity : BaseActivity(), CryptomatorVariantsView {
 		tvFdroidCustomSupported.text = "Dropbox, OneDrive, pCloud, WebDAV, S3, Local Storage"
 		tvFdroidCustomUnsupported.text = "Google Drive"
 
-		tvWebsiteAllowed.text = "Dropbox, Google Drive, OneDrive, pCloud, WebDAV, S3, Local Storage"
+		tvWebsiteSupported.text = "Dropbox, Google Drive, OneDrive, pCloud, WebDAV, S3, Local Storage"
 
 		btnInstallMainFDroidVariant.setOnClickListener {
 			presenter.onInstallMainFDroidVariantClicked()
