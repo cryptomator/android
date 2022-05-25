@@ -62,6 +62,31 @@ class SettingsFragment : PreferenceFragmentCompat() {
 		true
 	}
 
+	private val cloudSettingsClickListener = Preference.OnPreferenceClickListener {
+		onCloudSettingsClicked()
+		true
+	}
+
+	private val biometricAuthSettingsClickListener = Preference.OnPreferenceClickListener {
+		onBiometricAuthSettingsClicked()
+		true
+	}
+
+	private val cryptomatorVariantsClickListener = Preference.OnPreferenceClickListener {
+		onCryptomatorVariantsClicked()
+		true
+	}
+
+	private val autoUploadChooseVaultClickListener = Preference.OnPreferenceClickListener {
+		onAutoUploadChooseVaultClicked()
+		true
+	}
+
+	private val licensesClickListener = Preference.OnPreferenceClickListener {
+		onLicensedClicked()
+		true
+	}
+
 	private val useAutoPhotoUploadChangedListener = Preference.OnPreferenceChangeListener { _, newValue ->
 		onUseAutoPhotoUploadChanged(TRUE == newValue)
 		true
@@ -209,6 +234,11 @@ class SettingsFragment : PreferenceFragmentCompat() {
 		if (BuildConfig.FLAVOR == "apkstore") {
 			(findPreference(UPDATE_CHECK_ITEM_KEY) as Preference?)?.onPreferenceClickListener = updateCheckClickListener
 		}
+		(findPreference(SharedPreferencesHandler.CLOUD_SETTINGS) as Preference?)?.onPreferenceClickListener = cloudSettingsClickListener
+		(findPreference(SharedPreferencesHandler.BIOMETRIC_AUTHENTICATION) as Preference?)?.onPreferenceClickListener = biometricAuthSettingsClickListener
+		(findPreference(SharedPreferencesHandler.CRYPTOMATOR_VARIANTS) as Preference?)?.onPreferenceClickListener = cryptomatorVariantsClickListener
+		(findPreference(SharedPreferencesHandler.PHOTO_UPLOAD_VAULT) as Preference?)?.onPreferenceClickListener = autoUploadChooseVaultClickListener
+		(findPreference(SharedPreferencesHandler.LICENSES_ACTIVITY) as Preference?)?.onPreferenceClickListener = licensesClickListener
 	}
 
 	fun deactivateDebugMode() {
@@ -232,6 +262,26 @@ class SettingsFragment : PreferenceFragmentCompat() {
 
 	private fun onCheckUpdateClicked() {
 		activity().presenter().onCheckUpdateClicked()
+	}
+
+	private fun onCloudSettingsClicked() {
+		activity().presenter().onCloudSettingsClicked()
+	}
+
+	private fun onBiometricAuthSettingsClicked() {
+		activity().presenter().onBiometricAuthSettingsClicked()
+	}
+
+	private fun onCryptomatorVariantsClicked() {
+		activity().presenter().onCryptomatorVariantsClicked()
+	}
+
+	private fun onAutoUploadChooseVaultClicked() {
+		activity().presenter().onAutoUploadChooseVaultClicked()
+	}
+
+	private fun onLicensedClicked() {
+		activity().presenter().onLicensedClicked()
 	}
 
 	private fun onDebugModeChanged(enabled: Boolean) {

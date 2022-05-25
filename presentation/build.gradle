@@ -50,8 +50,6 @@ android {
 			buildConfigField "String", "PCLOUD_CLIENT_ID", "\"" + getApiKey('PCLOUD_CLIENT_ID') + "\""
 
 			manifestPlaceholders = [DROPBOX_API_KEY: getApiKey('DROPBOX_API_KEY'), ONEDRIVE_API_KEY_DECODED: getOnedriveApiKey()]
-
-			resValue "string", "app_id", androidApplicationId
 		}
 
 		debug {
@@ -69,8 +67,6 @@ android {
 
 			applicationIdSuffix ".debug"
 			versionNameSuffix '-DEBUG'
-
-			resValue "string", "app_id", androidApplicationId + applicationIdSuffix
 		}
 	}
 

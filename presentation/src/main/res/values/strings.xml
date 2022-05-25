@@ -287,6 +287,9 @@
 	<string name="screen_settings_keep_unlocked_while_editing_files">Keep unlocked</string>
 	<string name="screen_settings_keep_unlocked_while_editing_files_summary">Keep vaults unlocked while editing files</string>
 
+	<string name="screen_settings_cryptomator_variants_label" translatable="false">@string/screen_cryptomator_variants_title</string>
+	<string name="screen_settings_cryptomator_variants_summary" translatable="false">Show variants of this app</string>
+
 	<!-- ## screen: cloud settings -->
 	<string name="screen_cloud_settings_title" translatable="false">@string/screen_settings_cloud_settings_label</string>
 	<string name="screen_cloud_settings_onedrive_connections">OneDrive connections</string>

@@ -16,25 +16,13 @@
 		android:key="@string/screen_settings_section_general"
 		android:title="@string/screen_settings_section_general">
 
-		<androidx.preference.PreferenceScreen android:title="@string/screen_settings_cloud_settings_label">
-
-			<intent
-				android:action="android.intent.action.MAIN"
-				android:targetClass="org.cryptomator.presentation.ui.activity.CloudSettingsActivity"
-				android:targetPackage="@string/app_id" />
-
-		</androidx.preference.PreferenceScreen>
+		<androidx.preference.PreferenceScreen
+			android:key="cloudSettings"
+			android:title="@string/screen_settings_cloud_settings_label" />
 
 		<androidx.preference.PreferenceScreen
 			android:key="biometricAuthentication"
-			android:title="@string/screen_settings_biometric_auth">
-
-			<intent
-				android:action="android.intent.action.MAIN"
-				android:targetClass="org.cryptomator.presentation.ui.activity.BiometricAuthSettingsActivity"
-				android:targetPackage="@string/app_id" />
-
-		</androidx.preference.PreferenceScreen>
+			android:title="@string/screen_settings_biometric_auth" />
 
 		<androidx.preference.SwitchPreferenceCompat
 			android:defaultValue="true"
@@ -56,6 +44,11 @@
 			android:key="screenStyleMode"
 			android:summary="%s"
 			android:title="@string/screen_settings_style_mode" />
+
+		<androidx.preference.PreferenceScreen
+			android:key="cryptomatorVariants"
+			android:summary="@string/screen_settings_cryptomator_variants_summary"
+			android:title="@string/screen_settings_cryptomator_variants_label" />
 
 	</PreferenceCategory>
 
@@ -123,13 +116,7 @@
 
 		<androidx.preference.PreferenceScreen
 			android:key="photoUploadVault"
-			android:title="@string/screen_settings_section_auto_photo_upload_vault">
-
-			<intent
-				android:action="android.intent.action.MAIN"
-				android:targetClass="org.cryptomator.presentation.ui.activity.AutoUploadChooseVaultActivity"
-				android:targetPackage="@string/app_id" />
-		</androidx.preference.PreferenceScreen>
+			android:title="@string/screen_settings_section_auto_photo_upload_vault" />
 
 	</PreferenceCategory>
 
@@ -219,12 +206,9 @@
 
 	<PreferenceCategory android:title="@string/screen_settings_section_legal">
 
-		<androidx.preference.PreferenceScreen android:title="@string/screen_settings_licenses_label">
-			<intent
-				android:action="android.intent.action.MAIN"
-				android:targetClass="org.cryptomator.presentation.ui.activity.LicensesActivity"
-				android:targetPackage="@string/app_id" />
-		</androidx.preference.PreferenceScreen>
+		<androidx.preference.PreferenceScreen
+			android:key="licensesActivity"
+			android:title="@string/screen_settings_licenses_label" />
 
 		<androidx.preference.PreferenceScreen android:title="@string/screen_settings_security_label">
 			<intent
