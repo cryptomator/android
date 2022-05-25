@@ -20,6 +20,7 @@ import org.cryptomator.presentation.ui.dialog.DebugModeDisclaimerDialog
 import org.cryptomator.presentation.ui.dialog.DisableAppWhenObscuredDisclaimerDialog
 import org.cryptomator.presentation.ui.dialog.DisableSecureScreenDisclaimerDialog
 import org.cryptomator.util.SharedPreferencesHandler
+import org.cryptomator.util.SharedPreferencesHandler.Companion.CRYPTOMATOR_VARIANTS
 import org.cryptomator.util.file.LruFileCacheUtil
 import java.lang.Boolean.FALSE
 import java.lang.Boolean.TRUE
@@ -39,6 +40,7 @@ class SettingsFragment : PreferenceFragmentCompat() {
 		setupAppVersion()
 		setupLruCacheSize()
 		setupLicense()
+		setupCryptomatorVariants()
 	}
 
 	private val sendErrorReportClickListener = Preference.OnPreferenceClickListener {
@@ -220,6 +222,13 @@ class SettingsFragment : PreferenceFragmentCompat() {
 		preference?.summary = date
 	}
 
+	private fun setupCryptomatorVariants() {
+		if (BuildConfig.FLAVOR == "playstore") {
+			val generalCategory = findPreference(getString(R.string.screen_settings_section_general)) as PreferenceCategory?
+			generalCategory?.removePreference(findPreference(CRYPTOMATOR_VARIANTS))
+		}
+	}
+
 	override fun onResume() {
 		super.onResume()
 		(findPreference(SEND_ERROR_REPORT_ITEM_KEY) as Preference?)?.onPreferenceClickListener = sendErrorReportClickListener
@@ -236,7 +245,9 @@ class SettingsFragment : PreferenceFragmentCompat() {
 		}
 		(findPreference(SharedPreferencesHandler.CLOUD_SETTINGS) as Preference?)?.onPreferenceClickListener = cloudSettingsClickListener
 		(findPreference(SharedPreferencesHandler.BIOMETRIC_AUTHENTICATION) as Preference?)?.onPreferenceClickListener = biometricAuthSettingsClickListener
-		(findPreference(SharedPreferencesHandler.CRYPTOMATOR_VARIANTS) as Preference?)?.onPreferenceClickListener = cryptomatorVariantsClickListener
+		if (BuildConfig.FLAVOR != "playstore") {
+			(findPreference(SharedPreferencesHandler.CRYPTOMATOR_VARIANTS) as Preference?)?.onPreferenceClickListener = cryptomatorVariantsClickListener
+		}
 		(findPreference(SharedPreferencesHandler.PHOTO_UPLOAD_VAULT) as Preference?)?.onPreferenceClickListener = autoUploadChooseVaultClickListener
 		(findPreference(SharedPreferencesHandler.LICENSES_ACTIVITY) as Preference?)?.onPreferenceClickListener = licensesClickListener
 	}
