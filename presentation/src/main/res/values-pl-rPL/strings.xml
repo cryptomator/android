@@ -290,7 +290,7 @@
 	<string name="dialog_debug_mode_disclaimer_hint">W tym trybie poufne dane mogą być zapisywane do pliku dziennika na urządzeniu (np. nazwy plików i ścieżki). Hasła, ciasteczka itp. są wykluczone.\n\nPamiętaj, aby wyłączyć tryb debugowania tak szybko, jak to możliwe.</string>
 	<string name="dialog_debug_mode_disclaimer_title">Uwaga</string>
 	<string name="dialog_debug_mode_positive_button">Włącz</string>
-	<string name="dialog_disable_app_obscured_disclaimer_hint">To ustawienie jest funkcją bezpieczeństwa i uniemożliwia innym aplikacjom oszukiwanie użytkowników do robienia rzeczy, których nie chcą robić.\n\nWyłączając je potwierdzasz, że jesteś <a href="https://docs.cryptomator.org/en/1.6/android/settings/#block-app-when-obscured">świadomy ryzyka</a>.</string>
+	<string name="dialog_disable_app_obscured_disclaimer_hint">To ustawienie jest funkcją bezpieczeństwa i uniemożliwia innym aplikacjom oszukiwanie użytkowników.\n\nWyłączając je potwierdzasz, że jesteś <a href="https://docs.cryptomator.org/en/1.6/android/settings/#block-app-when-obscured">świadomy ryzyka</a>.</string>
 	<string name="dialog_disable_app_obscured_disclaimer_title">Uwaga</string>
 	<string name="dialog_disable_app_obscured_positive_button">Wyłącz</string>
 	<string name="dialog_app_is_obscured_info_title">Aplikacja jest zasłonięta inną</string>
