@@ -184,7 +184,7 @@ class SettingsFragment : PreferenceFragmentCompat() {
 				(findPreference(SharedPreferencesHandler.MAIL) as Preference?)?.title = format(getString(R.string.screen_settings_license_mail), sharedPreferencesHandler.mail())
 				setupUpdateCheck()
 			}
-			"fdroid", "fdroidmain" -> {
+			"fdroid", "lite" -> {
 				(findPreference(SharedPreferencesHandler.MAIL) as Preference?)?.title = format(getString(R.string.screen_settings_license_mail), sharedPreferencesHandler.mail())
 				removeUpdateCheck()
 			}

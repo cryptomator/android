@@ -85,7 +85,7 @@ android {
 			dimension "version"
 		}
 
-		fdroidmain {
+		lite {
 			dimension "version"
 
 			applicationIdSuffix ".lite"
@@ -103,11 +103,11 @@ android {
 		}
 
 		fdroid {
-			java.srcDirs = ['src/main/java/', 'src/apiKey/java/', 'src/fdroid/java/', 'src/fdroidAndfdroidmain/java/']
+			java.srcDirs = ['src/main/java/', 'src/apiKey/java/', 'src/fdroid/java/', 'src/fdroidAndLite/java/']
 		}
 
-		fdroidmain {
-			java.srcDirs = ['src/main/java/', 'src/fdroidmain/java/', 'src/fdroidAndfdroidmain/java/']
+		lite {
+			java.srcDirs = ['src/main/java/', 'src/lite/java/', 'src/fdroidAndLite/java/']
 		}
 	}
 	packagingOptions {

@@ -39,7 +39,7 @@ class ChooseCloudServicePresenter @Inject constructor( //
 
 		if (BuildConfig.FLAVOR == "fdroid") {
 			cloudTypeModels.remove(CloudTypeModel.GOOGLE_DRIVE)
-		} else if (BuildConfig.FLAVOR == "fdroidmain") {
+		} else if (BuildConfig.FLAVOR == "lite") {
 			cloudTypeModels.remove(CloudTypeModel.GOOGLE_DRIVE)
 			cloudTypeModels.remove(CloudTypeModel.DROPBOX)
 			cloudTypeModels.remove(CloudTypeModel.ONEDRIVE)
@@ -94,8 +94,8 @@ class ChooseCloudServicePresenter @Inject constructor( //
 		finishWithResult(cloudModelMapper.toModel(cloud))
 	}
 
-	fun showCloudMissingSnackbarHintInFDroidMainVariant() {
-		if (BuildConfig.FLAVOR == "fdroidmain") {
+	fun showCloudMissingSnackbarHintInLiteVariant() {
+		if (BuildConfig.FLAVOR == "lite") {
 			view?.showSnackbar(R.string.snack_bar_cryptomator_variants_hint, object: SnackbarAction {
 				override fun onClick(v: View?) {
 					startIntent(Intents.cryptomatorVariantsIntent())

@@ -51,7 +51,7 @@ class CryptomatorApp : MultiDexApplication(), HasComponent<ApplicationComponent>
 			"fdroid" -> {
 				"F-Droid Edition"
 			}
-			"fdroidmain" -> {
+			"lite" -> {
 				"F-Droid Main Repo Edition"
 			}
 			else -> "Google Play Edition"

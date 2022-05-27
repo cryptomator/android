@@ -140,11 +140,11 @@ class CloudSettingsPresenter @Inject constructor( //
 					it.add(aS3Cloud())
 					it.add(aLocalCloud())
 				}
-				.filter { cloud -> !(BuildConfig.FLAVOR == "fdroidmain" && excludeApiCloudsInFdroidMain(cloud.cloudType())) } //
+				.filter { cloud -> !(BuildConfig.FLAVOR == "lite" && excludeApiCloudsInLite(cloud.cloudType())) } //
 			view?.render(cloudModel)
 		}
 
-		private fun excludeApiCloudsInFdroidMain(cloudType: CloudTypeModel): Boolean {
+		private fun excludeApiCloudsInLite(cloudType: CloudTypeModel): Boolean {
 			return when (cloudType) {
 				CloudTypeModel.GOOGLE_DRIVE -> {
 					true

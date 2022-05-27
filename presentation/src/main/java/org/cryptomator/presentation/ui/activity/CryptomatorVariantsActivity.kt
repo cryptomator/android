@@ -7,12 +7,12 @@ import org.cryptomator.presentation.ui.activity.view.CryptomatorVariantsView
 import javax.inject.Inject
 import kotlinx.android.synthetic.main.activity_cryptomator_variants.btnAddRepo
 import kotlinx.android.synthetic.main.activity_cryptomator_variants.btnInstallFDroidVariant
-import kotlinx.android.synthetic.main.activity_cryptomator_variants.btnInstallMainFDroidVariant
+import kotlinx.android.synthetic.main.activity_cryptomator_variants.btnInstallLiteVariant
 import kotlinx.android.synthetic.main.activity_cryptomator_variants.btnInstallWebsiteVariant
 import kotlinx.android.synthetic.main.activity_cryptomator_variants.tvFdroidCustomSupported
 import kotlinx.android.synthetic.main.activity_cryptomator_variants.tvFdroidCustomUnsupported
-import kotlinx.android.synthetic.main.activity_cryptomator_variants.tvFdroidMainSupported
-import kotlinx.android.synthetic.main.activity_cryptomator_variants.tvFdroidMainUnsupported
+import kotlinx.android.synthetic.main.activity_cryptomator_variants.tvLiteSupported
+import kotlinx.android.synthetic.main.activity_cryptomator_variants.tvLiteUnsupported
 import kotlinx.android.synthetic.main.activity_cryptomator_variants.tvWebsiteSupported
 import kotlinx.android.synthetic.main.toolbar_layout.toolbar
 
@@ -26,15 +26,15 @@ class CryptomatorVariantsActivity : BaseActivity(), CryptomatorVariantsView {
 		toolbar.title = getString(R.string.screen_cryptomator_variants_title)
 		setSupportActionBar(toolbar)
 
-		tvFdroidMainSupported.text = "WebDAV, S3, Local Storage"
-		tvFdroidMainUnsupported.text = "Dropbox, Google Drive, OneDrive, pCloud"
+		tvLiteSupported.text = "WebDAV, S3, Local Storage"
+		tvLiteUnsupported.text = "Dropbox, Google Drive, OneDrive, pCloud"
 
 		tvFdroidCustomSupported.text = "Dropbox, OneDrive, pCloud, WebDAV, S3, Local Storage"
 		tvFdroidCustomUnsupported.text = "Google Drive"
 
 		tvWebsiteSupported.text = "Dropbox, Google Drive, OneDrive, pCloud, WebDAV, S3, Local Storage"
 
-		btnInstallMainFDroidVariant.setOnClickListener {
+		btnInstallLiteVariant.setOnClickListener {
 			presenter.onInstallMainFDroidVariantClicked()
 		}
 		btnAddRepo.setOnClickListener {

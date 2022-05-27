@@ -54,7 +54,7 @@ android {
 			dimension "version"
 		}
 
-		fdroidmain {
+		lite {
 			dimension "version"
 		}
 	}
@@ -72,8 +72,8 @@ android {
 			java.srcDirs = ['src/main/java/', 'src/apiKey/java/', 'src/fdroid/java/']
 		}
 
-		fdroidmain {
-			java.srcDirs = ['src/main/java/', 'src/fdroidmain/java/']
+		lite {
+			java.srcDirs = ['src/main/java/', 'src/lite/java/']
 		}
 	}
 	packagingOptions {

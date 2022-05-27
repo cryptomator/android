@@ -84,7 +84,7 @@ class SettingsPresenter @Inject internal constructor(
 			"fdroid" -> {
 				"F-Droid"
 			}
-			"fdroidmain" -> {
+			"lite" -> {
 				"F-Droid Main Repo Edition"
 			}
 			else -> "Google Play"

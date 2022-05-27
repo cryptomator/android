@@ -92,7 +92,7 @@
 					android:layout_alignParentBottom="true"
 					android:background="@color/list_divider" />
 
-				<!-- <f-droid-main> -->
+				<!-- <lite> -->
 				<RelativeLayout
 					android:layout_width="match_parent"
 					android:layout_height="wrap_content"
@@ -100,18 +100,18 @@
 					android:paddingBottom="16dp">
 
 					<TextView
-						android:id="@+id/tvFdroidMainTitle"
+						android:id="@+id/tvLiteTitle"
 						android:layout_width="match_parent"
 						android:layout_height="wrap_content"
-						android:text="@string/screen_cryptomator_variants_fdroid_main_title"
+						android:text="@string/screen_cryptomator_variants_lite_title"
 						android:textColor="@color/colorPrimary"
 						android:textSize="16sp" />
 
 					<LinearLayout
 						android:layout_width="wrap_content"
 						android:layout_height="wrap_content"
-						android:layout_below="@+id/tvFdroidMainTitle"
-						android:layout_toLeftOf="@id/btnInstallMainFDroidVariant"
+						android:layout_below="@+id/tvLiteTitle"
+						android:layout_toLeftOf="@id/btnInstallLiteVariant"
 						android:orientation="vertical">
 
 						<RelativeLayout
@@ -121,17 +121,17 @@
 							android:foreground="@drawable/item_browse_files_node_selector">
 
 							<ImageView
-								android:id="@+id/supportedMainRepoIcon"
+								android:id="@+id/supportedLiteRepoIcon"
 								android:layout_width="@dimen/thumbnail_size"
 								android:layout_height="@dimen/thumbnail_size"
 								android:src="@drawable/ic_done_gray" />
 
 							<TextView
-								android:id="@+id/tvFdroidMainSupported"
+								android:id="@+id/tvLiteSupported"
 								android:layout_width="wrap_content"
 								android:layout_height="wrap_content"
 								android:layout_centerVertical="true"
-								android:layout_toRightOf="@id/supportedMainRepoIcon" />
+								android:layout_toRightOf="@id/supportedLiteRepoIcon" />
 
 						</RelativeLayout>
 
@@ -142,39 +142,39 @@
 							android:foreground="@drawable/item_browse_files_node_selector">
 
 							<ImageView
-								android:id="@+id/unsupportedMainRepoIcon"
+								android:id="@+id/unsupportedLiteRepoIcon"
 								android:layout_width="@dimen/thumbnail_size"
 								android:layout_height="@dimen/thumbnail_size"
 								android:src="@drawable/ic_clear_gray" />
 
 							<TextView
-								android:id="@+id/tvFdroidMainUnsupported"
+								android:id="@+id/tvLiteUnsupported"
 								android:layout_width="wrap_content"
 								android:layout_height="wrap_content"
 								android:layout_centerVertical="true"
-								android:layout_toRightOf="@id/unsupportedMainRepoIcon"/>
+								android:layout_toRightOf="@id/unsupportedLiteRepoIcon" />
 
 						</RelativeLayout>
 
 						<TextView
 							android:layout_width="match_parent"
 							android:layout_height="wrap_content"
-							android:text="@string/screen_cryptomator_variants_fdroid_main_description" />
+							android:text="@string/screen_cryptomator_variants_lite_description" />
 
 					</LinearLayout>
 
 					<Button
-						android:id="@+id/btnInstallMainFDroidVariant"
+						android:id="@+id/btnInstallLiteVariant"
 						android:layout_width="wrap_content"
 						android:layout_height="wrap_content"
 						android:layout_alignParentRight="true"
 						android:layout_centerVertical="true"
 						android:background="@drawable/primary_button_selector"
-						android:text="@string/screen_cryptomator_variants_fdroid_main_install"
+						android:text="@string/screen_cryptomator_variants_lite_install"
 						android:textColor="@color/textColorWhite" />
 
 				</RelativeLayout>
-				<!-- </f-droid-main> -->
+				<!-- </lite> -->
 
 				<TextView
 					android:layout_width="match_parent"
@@ -199,7 +199,7 @@
 					android:foreground="@drawable/item_browse_files_node_selector">
 
 					<ImageView
-						android:id="@+id/supportedMainCloudsIcon"
+						android:id="@+id/supportedFdroidCloudsIcon"
 						android:layout_width="@dimen/thumbnail_size"
 						android:layout_height="@dimen/thumbnail_size"
 						android:src="@drawable/ic_done_gray" />
@@ -209,7 +209,7 @@
 						android:layout_width="wrap_content"
 						android:layout_height="wrap_content"
 						android:layout_centerVertical="true"
-						android:layout_toRightOf="@id/supportedMainCloudsIcon" />
+						android:layout_toRightOf="@id/supportedFdroidCloudsIcon" />
 				</RelativeLayout>
 
 				<RelativeLayout
