@@ -206,7 +206,7 @@ class VaultListActivity : BaseActivity(), //
 	}
 
 	override fun showUpdateWebsite() {
-		val url = "https://cryptomator.org/de/android/"
+		val url = "https://cryptomator.org/android/"
 		val intent = Intent(Intent.ACTION_VIEW)
 		intent.data = Uri.parse(url)
 		startActivity(intent)
