@@ -26,6 +26,7 @@
 	<!-- ## screen: insecure android version info -->
 	<!-- # dialogs -->
 	<string name="dialog_button_cancel">අවලංගු</string>
+	<string name="dialog_enter_password_positive_button">අගුළුහරින්න</string>
 	<!-- Vault not found -->
 	<string name="dialog_app_is_obscured_info_neutral_button">වසන්න</string>
 	<string name="dialog_sym_link_back_button">ආපසු</string>
