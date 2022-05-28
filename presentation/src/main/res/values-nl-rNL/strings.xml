@@ -33,7 +33,7 @@
 	<string name="error_vault_config_loading">Algemene fout tijdens het laden van de kluisconfiguratie</string>
 	<string name="error_file_not_found_after_opening_using_3party">Lokaal bestand is niet meer aanwezig na het terugschakelen naar Cryptomator. Mogelijke wijzigingen kunnen niet worden verzonden naar de cloud.</string>
 	<string name="error_no_such_bucket">Deze bucket is niet gevonden</string>
-	<string name="error_masterkey_location_not_supported">Aangepaste Masterkey-locatie nog niet ondersteund</string>
+	<string name="error_masterkey_location_not_supported">Aangepaste Masterkey locatie nog niet ondersteund</string>
 	<!-- # clouds -->
 	<!-- ## cloud names -->
 	<string name="cloud_names_local_storage">Lokale opslag</string>
