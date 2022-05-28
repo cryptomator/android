@@ -6,6 +6,7 @@
 	<!-- ## cloud names -->
 	<!-- # permission -->
 	<!-- ## permission messages -->
+	<string name="snack_bar_action_title_search_next">ඊළඟ</string>
 	<!-- # screens -->
 	<!-- # screen: vault list -->
 	<!-- # screen: file browser -->
@@ -17,13 +18,17 @@
 	<!-- ## screen: s3 settings -->
 	<!-- ## screen: enter vault name -->
 	<!-- ## screen: set password -->
+	<string name="screen_set_password_button_text">සම්පූර්ණයි</string>
 	<!-- ## screen: settings -->
 	<!-- ## screen: cloud settings -->
 	<!-- ## screen: licenses -->
 	<!-- ## screen: authenticate cloud -->
 	<!-- ## screen: insecure android version info -->
 	<!-- # dialogs -->
+	<string name="dialog_button_cancel">අවලංගු</string>
 	<!-- Vault not found -->
+	<string name="dialog_app_is_obscured_info_neutral_button">වසන්න</string>
+	<string name="dialog_sym_link_back_button">ආපසු</string>
 	<!-- # error reports -->
 	<!-- # misc -->
 	<!-- ## file size helper -->
