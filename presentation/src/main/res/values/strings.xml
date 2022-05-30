@@ -91,7 +91,7 @@
 	<string name="screen_vault_list_action_add_existing_vault">Add existing vault</string>
 	<string name="screen_vault_list_vault_action_rename" translatable="false">@string/screen_file_browser_node_action_rename</string>
 	<string name="screen_vault_list_vault_action_delete">Remove</string>
-	<string name="screen_vault_list_vault_creation_hint">Click here to create a new vault</string>
+	<string name="screen_vault_list_vault_creation_hint">Tap here to create a new vault</string>
 	<string name="screen_vault_list_change_password_successful">Password successfully changed</string>
 
 	<!-- # screen: file browser -->
@@ -173,7 +173,7 @@
 	<string name="screen_cloud_connections_title">Choose a location</string>
 	<string name="screen_cloud_settings_option_edit" translatable="false">@string/screen_file_browser_node_action_edit_text</string>
 	<string name="screen_cloud_settings_option_delete" translatable="false">@string/screen_vault_list_vault_action_delete</string>
-	<string name="screen_cloud_connections_no_connections">Click here to add locations</string>
+	<string name="screen_cloud_connections_no_connections">Tap here to add locations</string>
 	<string name="screen_cloud_error_webdav_not_supported">Server doesn\'t seem to be WebDAV compatible</string>
 	<string name="screen_cloud_local_error_no_content_provider">No file manager found that supports opening directories</string>
 
@@ -418,7 +418,7 @@
 	<string name="dialog_accept_ssl_certificate_security_checkbox">This could be a security risk. I know what I am doing.</string>
 
 	<string name="dialog_ask_ignore_battery_optimizations_title">Disable battery optimizations</string>
-	<string name="dialog_ask_ignore_battery_optimizations_hint">To retrieve new pictures and videos without running in the background, we need to opt-out from battery optimizations. But don\'t worry, %1$s doesn\'t consume much energy.\n\nTo apply it, change \'Not optimized\' to \'All apps\', select %1$s and choose \'Don\'t optimize\' after clicking \'%2$s\' in this dialog.</string>
+	<string name="dialog_ask_ignore_battery_optimizations_hint">To retrieve new pictures and videos without running in the background, we need to opt-out from battery optimizations. But don\'t worry, %1$s doesn\'t consume much energy.\n\nTo apply it, change \'Not optimized\' to \'All apps\', select %1$s and choose \'Don\'t optimize\' after tapping \'%2$s\' in this dialog.</string>
 	<string name="dialog_ask_ignore_battery_optimizations_neutral_button" translatable="false">@string/dialog_unable_to_share_positive_button</string>
 	<string name="dialog_ask_ignore_battery_optimizations_negative_button" translatable="false">@string/dialog_button_cancel</string>
 	<string name="dialog_ask_ignore_battery_optimizations_checkbox">Don\'t ask again?</string>
@@ -509,7 +509,7 @@
 	<string name="dialog_no_more_images_to_display">No more images to display&#8230;</string>
 
 	<string name="dialog_pcloud_credentials_updated_title">Credentials of \'%1$s\' updated</string>
-	<string name="dialog_pcloud_credentials_updated">If you intended to add a new pCloud account, click on this url <a href="https://www.pcloud.com">www.pcloud.com</a>, log out from the current account and click again on the \'+\' in this app to create a new cloud connection.</string>
+	<string name="dialog_pcloud_credentials_updated">If you intended to add a new pCloud account, tap on this url <a href="https://www.pcloud.com">www.pcloud.com</a>, log out from the current account and tap again on the \'+\' in this app to create a new cloud connection.</string>
 
 	<string name="permission_snackbar_auth_local_vault">Cryptomator needs storage access to use local vaults</string>
 	<string name="permission_snackbar_auth_auto_upload">Cryptomator needs storage access to use auto photo upload</string>
