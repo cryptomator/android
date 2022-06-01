@@ -132,10 +132,9 @@ class SettingsFragment : PreferenceFragmentCompat() {
 		if (biometricAuthenticationAvailable != BiometricManager.BIOMETRIC_SUCCESS
 			&& biometricAuthenticationAvailable != BiometricManager.BIOMETRIC_ERROR_NONE_ENROLLED
 		) {
-			val preference = findPreference(BIOMETRIC_AUTHENTICATION_ITEM_KEY) as Preference?
-			val generalCategory = findPreference(getString(R.string.screen_settings_section_general)) as PreferenceCategory?
-			generalCategory?.removePreference(preference)
-
+			(findPreference(BIOMETRIC_AUTHENTICATION_ITEM_KEY) as Preference?)?.let { preference ->
+				(findPreference(getString(R.string.screen_settings_section_general)) as PreferenceCategory?)?.removePreference(preference)
+			}
 			Timber //
 				.tag("SettingsFragment") //
 				.d("No working biometric hardware detected")
@@ -189,7 +188,7 @@ class SettingsFragment : PreferenceFragmentCompat() {
 				removeUpdateCheck()
 			}
 			else -> {
-				preferenceScreen.removePreference(findPreference(LICENSE_ITEM_KEY))
+				(findPreference(LICENSE_ITEM_KEY) as Preference?)?.let { preferenceScreen.removePreference(it) }
 				removeUpdateCheck()
 			}
 		}
@@ -197,8 +196,8 @@ class SettingsFragment : PreferenceFragmentCompat() {
 
 	private fun removeUpdateCheck() {
 		val versionCategory = findPreference("versionCategory") as PreferenceCategory?
-		versionCategory?.removePreference(findPreference(UPDATE_CHECK_ITEM_KEY))
-		versionCategory?.removePreference(findPreference(UPDATE_INTERVAL_ITEM_KEY))
+		(findPreference(UPDATE_CHECK_ITEM_KEY) as Preference?)?.let { versionCategory?.removePreference(it) }
+		(findPreference(UPDATE_INTERVAL_ITEM_KEY) as Preference?)?.let { versionCategory?.removePreference(it) }
 	}
 
 	fun setupUpdateCheck() {
@@ -224,8 +223,9 @@ class SettingsFragment : PreferenceFragmentCompat() {
 
 	private fun setupCryptomatorVariants() {
 		if (BuildConfig.FLAVOR == "playstore") {
-			val generalCategory = findPreference(getString(R.string.screen_settings_section_general)) as PreferenceCategory?
-			generalCategory?.removePreference(findPreference(CRYPTOMATOR_VARIANTS))
+			(findPreference(CRYPTOMATOR_VARIANTS) as Preference?)?.let { preference ->
+				(findPreference(getString(R.string.screen_settings_section_general)) as PreferenceCategory?)?.removePreference(preference)
+			}
 		}
 	}
 
