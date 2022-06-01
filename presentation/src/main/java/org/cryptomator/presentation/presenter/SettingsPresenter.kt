@@ -19,7 +19,6 @@ import org.cryptomator.generator.Callback
 import org.cryptomator.presentation.BuildConfig
 import org.cryptomator.presentation.R
 import org.cryptomator.presentation.exception.ExceptionHandlers
-import org.cryptomator.presentation.intent.Intents
 import org.cryptomator.presentation.logging.Logfiles
 import org.cryptomator.presentation.logging.ReleaseLogger
 import org.cryptomator.presentation.model.ProgressModel
@@ -193,26 +192,6 @@ class SettingsPresenter @Inject internal constructor(
 					context().startActivity(intent)
 				}
 			})
-	}
-
-	fun onCloudSettingsClicked() {
-		startIntent(Intents.cloudSettingsIntent())
-	}
-
-	fun onBiometricAuthSettingsClicked() {
-		startIntent(Intents.biometricAuthSettingsIntent())
-	}
-
-	fun onCryptomatorVariantsClicked() {
-		startIntent(Intents.cryptomatorVariantsIntent())
-	}
-
-	fun onAutoUploadChooseVaultClicked() {
-		startIntent(Intents.autoUploadChooseVaultIntent())
-	}
-
-	fun onLicensedClicked() {
-		startIntent(Intents.licenseIntent())
 	}
 
 	private inner class CreateErrorReportArchiveTask : AsyncTask<Void?, IOException?, File?>() {
