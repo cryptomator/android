@@ -129,7 +129,9 @@ class SettingsFragment : PreferenceFragmentCompat() {
 			ForegroundColorSpan(ContextCompat.getColor(activity(), R.color.textColorLight)), //
 			0, versionName.length, 0
 		)
-		preference?.summary = versionName
+		preference?.summaryProvider = Preference.SummaryProvider<Preference> {
+			versionName
+		}
 	}
 
 	private fun setupLruCacheSize() {
@@ -155,7 +157,9 @@ class SettingsFragment : PreferenceFragmentCompat() {
 			ForegroundColorSpan(ContextCompat.getColor(activity(), R.color.textColorLight)), //
 			0, lruCacheSize.length, 0
 		)
-		preference?.summary = lruCacheSize
+		preference?.summaryProvider = Preference.SummaryProvider<Preference> {
+			lruCacheSize
+		}
 	}
 
 	private fun setupLicense() {
@@ -199,7 +203,9 @@ class SettingsFragment : PreferenceFragmentCompat() {
 			ForegroundColorSpan(ContextCompat.getColor(activity(), R.color.textColorLight)), //
 			0, date.length, 0
 		)
-		preference?.summary = date
+		preference?.summaryProvider = Preference.SummaryProvider<Preference> {
+			date
+		}
 	}
 
 	private fun setupCryptomatorVariants() {
