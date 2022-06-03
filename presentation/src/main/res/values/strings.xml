@@ -381,6 +381,7 @@
 	<string name="dialog_unsaved_changes_save" translatable="false">@string/screen_share_files_save_button_text</string>
 
 	<string name="dialog_file_name_title" translatable="false">@string/screen_file_browser_action_create_new_text_file</string>
+	<string name="dialog_file_name_hint">File name</string>
 	<string name="dialog_file_name_create" translatable="false">@string/screen_enter_vault_name_button_text</string>
 	<string name="dialog_file_name_cancel" translatable="false">@string/dialog_button_cancel</string>
 	<string name="dialog_file_name_placeholder">text.txt</string>

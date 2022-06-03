@@ -4,6 +4,8 @@
 	<color name="colorPrimaryTransparent">#66CC68</color>
 	<color name="colorPrimaryDark">#407F41</color>
 
+	<color name="colorSecondary">#008A7B</color>
+
 	<color name="textColorPrimary">#222222</color>
 	<color name="textColorWhite">#F7F7F7</color>
 	<color name="textColorLight">#9E9E9E</color>

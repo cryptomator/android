@@ -1,124 +1,16 @@
 <resources>
 
-	<!-- Base application theme. -->
-	<style name="AppTheme" parent="AppTheme.Base" />
-
-	<style name="Theme.AppCompat.DayNight" parent="Theme.AppCompat" />
-
-	<style name="AppTheme.Base" parent="Theme.AppCompat.DayNight.NoActionBar">
-		<item name="colorPrimary">@color/colorPrimary</item>
-		<item name="colorPrimaryDark">@color/colorPrimaryDark</item>
-		<item name="colorAccent">@color/colorPrimary</item>
-
-		<item name="alertDialogTheme">@style/AlertDialogCustom</item>
-		<item name="android:windowAnimationStyle">@style/CustomActivityAnimation</item>
-
-		<item name="preferenceTheme">@style/PreferenceTheme</item>
-		<item name="preferenceStyle">@style/PreferenceTheme</item>
-
-		<item name="android:fontFamily">@font/open_sans</item>
+	<style name="AppTheme.Snackbar" parent="Widget.Material3.Snackbar">
+		<item name="materialThemeOverlay">@style/Snackbar</item>
+		<item name="backgroundTint">@color/colorBlack</item>
 	</style>
 
-	<style name="AppTheme.Starting" parent="Theme.SplashScreen.IconBackground">
-		<item name="windowSplashScreenBackground">@color/colorPrimary</item>
-		<item name="windowSplashScreenAnimatedIcon">@drawable/ic_launcher_foreground</item>
-		<item name="windowSplashScreenIconBackgroundColor">@color/material_grey_850</item>
-		<item name="postSplashScreenTheme">@style/AppTheme</item>
+	<style name="Snackbar" parent="">
+		<item name="backgroundTint">@color/colorBlack</item>
 	</style>
 
-	<style name="PreferenceTheme" parent="PreferenceThemeOverlay">
-		<item name="android:textColor">@color/textColorWhite</item>
-		<item name="android:textColorPrimary">@color/colorPrimary</item>
-		<item name="android:textColorSecondary">@color/textColorLight</item>
-	</style>
-
-	<style name="AlertDialogCustom" parent="Theme.AppCompat.DayNight.Dialog.Alert">
-		<item name="colorAccent">@color/colorPrimary</item>
-	</style>
-
-	<style name="Toolbar.Theme" parent="ThemeOverlay.AppCompat.Dark.ActionBar">
-		<item name="colorAccent">@color/textColorWhite</item>
-	</style>
-
-	<style name="AppTheme.Hint">
-		<item name="android:layout_width">wrap_content</item>
-		<item name="android:layout_height">wrap_content</item>
-		<item name="android:layout_centerVertical">true</item>
-		<item name="android:layout_centerHorizontal">true</item>
-		<item name="android:layout_gravity">center</item>
-	</style>
-
-	<style name="AppTheme.ProgressBar">
-		<item name="android:layout_width">wrap_content</item>
-		<item name="android:layout_height">wrap_content</item>
-		<item name="android:layout_centerInParent">true</item>
-		<item name="android:layout_gravity">center</item>
-		<item name="android:visibility">visible</item>
-	</style>
-
-	<style name="AppTheme.RetryButton">
-		<item name="android:layout_width">wrap_content</item>
-		<item name="android:layout_height">wrap_content</item>
-		<item name="android:layout_centerVertical">true</item>
-		<item name="android:layout_centerHorizontal">true</item>
-		<item name="android:layout_gravity">center</item>
-	</style>
-
-	<style name="AppTheme.ListItem">
-		<item name="android:gravity">center_vertical</item>
-		<item name="android:layout_height">48dp</item>
-		<item name="android:textSize">16sp</item>
-		<item name="android:layout_width">match_parent</item>
-		<item name="android:layout_marginStart">16dp</item>
-		<item name="android:layout_marginEnd">16dp</item>
-		<item name="android:paddingBottom">16dp</item>
-		<item name="android:drawablePadding">32dp</item>
-		<item name="android:clickable">true</item>
-		<item name="android:focusable">true</item>
-	</style>
-
-	<style name="AppTheme.ListItemDarkTextColor">
-		<item name="android:textColor">@color/textColorPrimary</item>
-	</style>
-
-	<style name="AppTheme.ListItemLightTextColor">
-		<item name="android:textColor">@color/textColorLight</item>
-	</style>
-
-	<style name="BottomSheetBackground" parent="AppTheme">
-		<item name="android:background">@color/colorGray</item>
-	</style>
-
-	<style name="Toolbar.TitleText" parent="TextAppearance.Widget.AppCompat.Toolbar.Title">
-		<item name="android:textSize">20sp</item>
-		<item name="android:textColor">@color/textColorWhite</item>
-		<item name="android:fontFamily">@font/quicksand_medium</item>
-	</style>
-
-	<style name="Toolbar.SubtitleText" parent="TextAppearance.Widget.AppCompat.Toolbar.Subtitle">
-		<item name="android:textSize">14sp</item>
-		<item name="android:fontFamily">@font/quicksand_medium</item>
-	</style>
-
-	<style name="CustomActivityAnimation" parent="@android:style/Animation.Activity">
-		<item name="android:activityOpenEnterAnimation">@anim/slide_in_right</item>
-		<item name="android:activityOpenExitAnimation">@anim/slide_out_left</item>
-		<item name="android:activityCloseEnterAnimation">@anim/slide_in_left</item>
-		<item name="android:activityCloseExitAnimation">@anim/slide_out_right</item>
-	</style>
-
-	<style name="Theme.Transparent" parent="@style/Theme.AppCompat.DayNight.NoActionBar">
-		<item name="colorPrimaryDark">@color/colorPrimaryDark</item>
-		<item name="android:windowNoTitle">true</item>
-		<item name="android:windowBackground">@android:color/transparent</item>
-		<item name="android:colorBackgroundCacheHint">@null</item>
-		<!-- windowIsTranslucent=false due to https://issuetracker.google.com/issues/68454482 see #467 -->
-		<item name="android:windowIsTranslucent">false</item>
-		<item name="android:windowAnimationStyle">@null</item>
-	</style>
-
-	<style name="FullscreenTheme" parent="AppTheme">
-		<item name="android:windowBackground">@null</item>
+	<style name="ModalBottomSheet" parent="Widget.Material3.BottomSheet.Modal">
+		<item name="backgroundTint">@color/colorBlack</item>
 	</style>
 
 </resources>

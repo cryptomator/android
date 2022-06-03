@@ -8,25 +8,32 @@
 		android:layout_height="wrap_content"
 		android:padding="@dimen/global_padding">
 
-		<com.google.android.material.textfield.TextInputEditText
-			android:id="@+id/file_name"
+		<com.google.android.material.textfield.TextInputLayout
+			android:id="@+id/til_file_name"
 			android:layout_width="match_parent"
-			android:layout_height="wrap_content"
-			android:hint="@string/dialog_file_name_placeholder"
-			android:imeOptions="flagNoPersonalizedLearning"
-			android:inputType="text"
-			android:maxLines="1" />
+			android:layout_height="wrap_content">
+
+			<com.google.android.material.textfield.TextInputEditText
+				android:id="@+id/et_file_name"
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"
+				android:hint="@string/dialog_file_name_hint"
+				android:text="@string/dialog_file_name_placeholder"
+				android:imeOptions="flagNoPersonalizedLearning"
+				android:inputType="text"
+				android:maxLines="1" />
+		</com.google.android.material.textfield.TextInputLayout>
 
 		<include
 			layout="@layout/view_dialog_progress"
 			android:layout_width="match_parent"
 			android:layout_height="wrap_content"
-			android:layout_below="@+id/file_name" />
+			android:layout_below="@+id/til_file_name" />
 
 		<include
 			layout="@layout/view_dialog_error"
 			android:layout_width="match_parent"
 			android:layout_height="wrap_content"
-			android:layout_below="@+id/file_name" />
+			android:layout_below="@+id/til_file_name" />
 	</RelativeLayout>
 </androidx.core.widget.NestedScrollView>

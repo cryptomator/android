@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <org.cryptomator.presentation.ui.layout.ObscuredAwareDialogCoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+	xmlns:app="http://schemas.android.com/apk/res-auto"
 	android:id="@+id/dssialogRootView"
 	android:layout_width="match_parent"
 	android:layout_height="match_parent">
@@ -20,17 +21,12 @@
 				android:layout_marginBottom="5dp"
 				android:text="@string/dialog_enter_license_content" />
 
-			<LinearLayout
-				android:id="@+id/ll_license"
+			<com.google.android.material.textfield.TextInputLayout
+				android:id="@+id/til_license"
 				android:layout_width="match_parent"
 				android:layout_height="wrap_content"
-				android:layout_below="@+id/tv_message"
-				android:orientation="horizontal">
-
-				<ImageView
-					android:layout_width="40dp"
-					android:layout_height="40dp"
-					android:src="@drawable/ic_license_key" />
+				android:layout_below="@id/tv_message"
+				app:startIconDrawable="@drawable/ic_license_key">
 
 				<com.google.android.material.textfield.TextInputEditText
 					android:id="@+id/et_license"
@@ -38,19 +34,19 @@
 					android:layout_height="wrap_content"
 					android:imeOptions="actionDone|flagNoPersonalizedLearning"
 					android:inputType="text" />
-			</LinearLayout>
+			</com.google.android.material.textfield.TextInputLayout>
 
 			<include
 				layout="@layout/view_dialog_progress"
 				android:layout_width="match_parent"
 				android:layout_height="wrap_content"
-				android:layout_below="@+id/til_password" />
+				android:layout_below="@+id/til_license" />
 
 			<include
 				layout="@layout/view_dialog_error"
 				android:layout_width="match_parent"
 				android:layout_height="wrap_content"
-				android:layout_below="@+id/ll_license" />
+				android:layout_below="@+id/til_license" />
 
 		</RelativeLayout>
 	</androidx.core.widget.NestedScrollView>

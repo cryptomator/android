@@ -12,7 +12,7 @@ import androidx.core.content.ContextCompat
 import androidx.preference.Preference
 import androidx.preference.PreferenceCategory
 import androidx.preference.PreferenceFragmentCompat
-import androidx.preference.SwitchPreferenceCompat
+import androidx.preference.SwitchPreference
 import org.cryptomator.presentation.BuildConfig
 import org.cryptomator.presentation.R
 import org.cryptomator.presentation.service.PhotoContentJob
@@ -242,17 +242,17 @@ class SettingsFragment : PreferenceFragmentCompat() {
 
 	fun deactivateDebugMode() {
 		sharedPreferencesHandler.setDebugMode(false)
-		(findPreference(SharedPreferencesHandler.DEBUG_MODE) as SwitchPreferenceCompat?)?.isChecked = false
+		(findPreference(SharedPreferencesHandler.DEBUG_MODE) as SwitchPreference?)?.isChecked = false
 	}
 
 	fun disableAppWhenObscured() {
 		sharedPreferencesHandler.setDisableAppWhenObscured(true)
-		(findPreference(SharedPreferencesHandler.DISABLE_APP_WHEN_OBSCURED) as SwitchPreferenceCompat?)?.isChecked = true
+		(findPreference(SharedPreferencesHandler.DISABLE_APP_WHEN_OBSCURED) as SwitchPreference?)?.isChecked = true
 	}
 
 	fun secureScreen() {
 		sharedPreferencesHandler.setSecureScreen(true)
-		(findPreference(SharedPreferencesHandler.SECURE_SCREEN) as SwitchPreferenceCompat?)?.isChecked = true
+		(findPreference(SharedPreferencesHandler.SECURE_SCREEN) as SwitchPreference?)?.isChecked = true
 	}
 
 	private fun onSendErrorReportClicked() {
@@ -289,7 +289,7 @@ class SettingsFragment : PreferenceFragmentCompat() {
 		} else {
 			PhotoContentJob.cancelJob(activity().applicationContext)
 		}
-		(findPreference(SharedPreferencesHandler.PHOTO_UPLOAD) as SwitchPreferenceCompat?)?.isChecked = enabled
+		(findPreference(SharedPreferencesHandler.PHOTO_UPLOAD) as SwitchPreference?)?.isChecked = enabled
 	}
 
 	fun rootView(): View {
