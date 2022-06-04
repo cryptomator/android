@@ -2,7 +2,7 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
 	android:layout_width="match_parent"
 	android:layout_height="match_parent"
-	android:paddingStart="17dp"
+	android:paddingStart="16dp"
 	android:paddingEnd="16dp">
 
 	<LinearLayout
@@ -22,12 +22,12 @@
 				android:layout_height="wrap_content"
 				android:layout_alignParentStart="true"
 				android:layout_centerVertical="true"
-				android:layout_marginEnd="6dp"
+				android:layout_marginEnd="16dp"
 				android:layout_toStartOf="@+id/toggleBiometricAuth"
 				android:text="@string/screen_settings_activate_biometric_auth"
-				android:textSize="16sp" />
+				android:textSize="18sp" />
 
-			<com.google.android.material.switchmaterial.SwitchMaterial
+			<Switch
 				android:id="@+id/toggleBiometricAuth"
 				android:layout_width="wrap_content"
 				android:layout_height="wrap_content"
@@ -46,12 +46,13 @@
 				android:layout_width="wrap_content"
 				android:layout_height="wrap_content"
 				android:layout_alignParentStart="true"
-				android:layout_marginEnd="46dp"
+				android:layout_centerVertical="true"
+				android:layout_marginEnd="16dp"
 				android:layout_toStartOf="@+id/toggleFaceUnlockConfirmation"
 				android:text="@string/screen_settings_confirm_face_unlock"
-				android:textSize="16sp" />
+				android:textSize="18sp" />
 
-			<com.google.android.material.switchmaterial.SwitchMaterial
+			<Switch
 				android:id="@+id/toggleFaceUnlockConfirmation"
 				android:layout_width="wrap_content"
 				android:layout_height="wrap_content"
@@ -71,8 +72,7 @@
 	<androidx.coordinatorlayout.widget.CoordinatorLayout
 		android:layout_width="match_parent"
 		android:layout_height="match_parent"
-		android:layout_below="@id/rv_biometric_auth_settings"
-		android:layout_marginTop="16dp">
+		android:layout_below="@id/rv_biometric_auth_settings">
 
 		<include
 			layout="@layout/recycler_view_layout"
