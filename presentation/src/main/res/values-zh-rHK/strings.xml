@@ -60,7 +60,6 @@
 	<string name="screen_vault_list_action_create_new_vault">建立新加密庫</string>
 	<string name="screen_vault_list_action_add_existing_vault">加入現有的加密庫</string>
 	<string name="screen_vault_list_vault_action_delete">移除</string>
-	<string name="screen_vault_list_vault_creation_hint">按此建立新的加密庫</string>
 	<string name="screen_vault_list_change_password_successful">密碼已成功更改</string>
 	<!-- # screen: file browser -->
 	<string name="screen_file_browser_default_title">加密庫</string>
@@ -114,7 +113,6 @@
 	<string name="screen_choose_cloud_service_title">雲端服務</string>
 	<!-- ## screen: cloud connections -->
 	<string name="screen_cloud_connections_title">選擇位置</string>
-	<string name="screen_cloud_connections_no_connections">按此加入位置</string>
 	<string name="screen_cloud_error_webdav_not_supported">伺服器似乎與 WebDAV 不兼容</string>
 	<string name="screen_cloud_local_error_no_content_provider">未找到支援打開目錄的檔案管理器</string>
 	<!-- ## screen: webdav settings -->
@@ -210,7 +208,7 @@
 	<!-- ## screen: authenticate cloud -->
 	<string name="screen_authenticate_auth_authentication_failed">無法驗證 %1$s 。</string>
 	<string name="screen_update_pcloud_connections_title">更新 pCloud 帳戶資訊</string>
-	<!-- ## screen: insecure android version info -->
+	<!-- ## screen: cryptomator app variants -->
 	<!-- # dialogs -->
 	<string name="dialog_button_cancel">取消</string>
 	<string name="dialog_enter_password_positive_button">解鎖</string>
@@ -274,7 +272,6 @@
 	<string name="dialog_accept_ssl_certificate_details">詳情</string>
 	<string name="dialog_accept_ssl_certificate_security_checkbox">這可能會是個安全風險。我清楚我在做甚麼。</string>
 	<string name="dialog_ask_ignore_battery_optimizations_title">停用電池效能最佳化設定</string>
-	<string name="dialog_ask_ignore_battery_optimizations_hint">要在不在背景運行的情況下檢索新圖片和影片，我們需要選擇退出電池優化。不過不用擔心， %1$s 不會消耗太多電量。\n\n要應用它，請把「未最佳化」更改為「所有應用程式」。在此對話框中選擇「%2$s」後，選擇「%1$s」再選擇「不最佳化」。</string>
 	<string name="dialog_ask_ignore_battery_optimizations_checkbox">不再詢問？</string>
 	<string name="dialog_http_security_hint">使用 HTTP 是不安全的。我們推薦使用 HTTPS 來取代。如果您瞭解風險，您可以使用 HTTP 繼續。</string>
 	<string name="dialog_http_security_checkbox">更改為 HTTPS</string>
@@ -328,7 +325,6 @@
 	<string name="dialog_no_dir_file_message">雲端文件夾「%1$s」沒有有效的資料夾文件。可能是該資料夾是在另一台設備上建立的，並且尚未完全同步到雲端。 如果以下文件存在且不為空，請檢查您的雲端：\n%2$s</string>
 	<string name="dialog_no_more_images_to_display">無更多圖片可供顯示…</string>
 	<string name="dialog_pcloud_credentials_updated_title">「%1$s 」的帳戶資訊已更新</string>
-	<string name="dialog_pcloud_credentials_updated">如果您想要新增一個 pCloud 帳戶，請在點擊此連結 <a href="https://www.pcloud.com">www.pcloud.com</a> 後登出目前的帳號，並重新點擊本程式中的「+」來建立一個新的雲端連結。</string>
 	<string name="permission_snackbar_auth_local_vault">Cryptomator 需要儲存權限以存取本機上的加密庫</string>
 	<string name="permission_snackbar_auth_auto_upload">Cryptomator 需要儲存權限以便開啟自動圖片上傳。</string>
 	<!-- # error reports -->
