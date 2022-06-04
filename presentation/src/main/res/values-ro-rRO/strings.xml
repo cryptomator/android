@@ -52,7 +52,6 @@
 	<string name="screen_vault_list_action_create_new_vault">Creează seif nou</string>
 	<string name="screen_vault_list_action_add_existing_vault">Adaugă seif existent</string>
 	<string name="screen_vault_list_vault_action_delete">Șterge</string>
-	<string name="screen_vault_list_vault_creation_hint">Faceți clic aici pentru a crea un seif nou</string>
 	<string name="screen_vault_list_change_password_successful">Parola a fost modificată cu succes</string>
 	<!-- # screen: file browser -->
 	<string name="screen_file_browser_default_title">Seif</string>
@@ -108,7 +107,6 @@
 	<string name="screen_choose_cloud_service_title">Serviciu Cloud</string>
 	<!-- ## screen: cloud connections -->
 	<string name="screen_cloud_connections_title">Alegeți o locație</string>
-	<string name="screen_cloud_connections_no_connections">Faceți clic aici pentru a adăuga locații</string>
 	<string name="screen_cloud_error_webdav_not_supported">Serverul nu pare să fie compatibil cu WebDAV</string>
 	<!-- ## screen: webdav settings -->
 	<string name="screen_webdav_settings_url_port_label">Adresa URL</string>
@@ -200,7 +198,7 @@
 	<!-- ## screen: authenticate cloud -->
 	<string name="screen_authenticate_auth_authentication_failed">%1$s nu a putut fi autentificat.</string>
 	<string name="screen_update_pcloud_connections_title">Actualizare acreditări pCloud</string>
-	<!-- ## screen: insecure android version info -->
+	<!-- ## screen: cryptomator app variants -->
 	<!-- # dialogs -->
 	<string name="dialog_button_cancel">Anulează</string>
 	<string name="dialog_enter_password_positive_button">Deblocați</string>
@@ -305,7 +303,6 @@
 	<string name="dialog_no_dir_file_title">Nu s-a putut încărca conținutul dosarului</string>
 	<string name="dialog_no_more_images_to_display">Nu mai sunt imagini de afișat&#8230;</string>
 	<string name="dialog_pcloud_credentials_updated_title">Acreditări ale \'%1$s\' au fost actualizate</string>
-	<string name="dialog_pcloud_credentials_updated">Dacă doriți să adăugaţi un cont nou de tip pCloud, faceţi clic pe acest link <a href="https://www.pcloud.com">www.pcloud. om</a>, deconectați-vă de la contul curent, și faceți clic din nou pe \'+\' din această aplicație pentru a crea o nouă conexiune cloud.</string>
 	<string name="permission_snackbar_auth_local_vault">Cryptomator are nevoie de acces la stocare pentru a utiliza seifuri locale</string>
 	<string name="permission_snackbar_auth_auto_upload">Cryptomator are nevoie de acces la stocare pentru a folosi încărcarea automată a fotografiilor</string>
 	<!-- # error reports -->
