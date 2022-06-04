@@ -283,7 +283,7 @@
 	<string name="dialog_disable_app_obscured_disclaimer_title">שים לב</string>
 	<string name="dialog_disable_app_obscured_positive_button">כבה</string>
 	<string name="dialog_app_is_obscured_info_title">אפליקציה אחרת מציגה מעל Cryptomator</string>
-	<string name="dialog_app_is_obscured_info_hint">אפליקציה אחרת מציגה משהו מעל Cryptomator (לדוגמה, אפליקציית סינון אור כחול למצב לילה). מטעמי אבטחה, Cryptomator ייסגר עכשיו.\n\n<a href="https://docs.cryptomator.org/en/1.5/android/settings/#block-app-when-obscured">איך להפעיל את Cryptomator</a></string>
+	<string name="dialog_app_is_obscured_info_hint">אפליקציה אחרת מציגה משהו מעל Cryptomator (לדוגמה, אפליקציית סינון אור כחול למצב לילה). מטעמי אבטחה, Cryptomator ייסגר עכשיו.\n\n<a href="https://docs.cryptomator.org/en/1.6/android/settings/#block-app-when-obscured">איך להפעיל את Cryptomator</a></string>
 	<string name="dialog_app_is_obscured_info_neutral_button">סגור</string>
 	<string name="dialog_delete_cloud_connection_with_vaults_message">האם את/ה בטוח/ה שברצונך להסיר את החיבור הזה לענן?</string>
 	<string name="dialog_delete_cloud_connection_with_vaults_hint">פעולה זו תסיר את החיבור לענן ואת כל ה Vault-ים שבענן זה.</string>
@@ -395,6 +395,4 @@
 	<string name="dark">כהה</string>
 	<!-- update interval names -->
 	<string name="update_interval_1d">פעם ביום</string>
-	<string name="update_interval_1w">פעם בשבוע</string>
-	<string name="update_interval_1m">פעם בחודש</string>
 </resources>

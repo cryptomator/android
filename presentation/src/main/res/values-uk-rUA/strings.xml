@@ -285,12 +285,16 @@
 	<string name="dialog_debug_mode_positive_button">Увімкнути</string>
 	<string name="dialog_disable_app_obscured_disclaimer_title">Увага</string>
 	<string name="dialog_disable_app_obscured_positive_button">Вимкнути</string>
+	<string name="dialog_app_is_obscured_info_title">Програму перекрито</string>
 	<string name="dialog_app_is_obscured_info_neutral_button">Закрити</string>
 	<string name="dialog_delete_cloud_connection_with_vaults_hint">Ця дія видалить підключення до хмари та всі сховища з цієї хмари.</string>
 	<string name="dialog_confirm_delete_multiple_title">Видалити %1$d об\'єкти?</string>
 	<string name="dialog_confirm_delete_multiple_message">Ви впевнені, що бажаєте видалити ці об\'єкти?</string>
 	<string name="dialog_confirm_delete_file_message">Ви впевнені, що бажаєте видалити цей файл?</string>
+	<string name="dialog_enter_license_title">Вкажіть дійсну ліцензію</string>
 	<string name="dialog_enter_license_decline_button">Вийти</string>
+	<string name="dialog_license_confirmation_title">Підтвердження ліцензії</string>
+	<string name="dialog_update_available_title">Доступне оновлення</string>
 	<string name="dialog_update_available_update">Оновити зараз</string>
 	<string name="dialog_update_available_download_site">Перейти на сторінку завантаження</string>
 	<string name="dialog_update_available_cancel">Пізніше</string>
@@ -316,6 +320,9 @@
 	<!-- ## biometric authentication -->
 	<string name="dialog_biometric_auth_title">Біометричний вхід</string>
 	<!-- notification -->
+	<string name="notification_timeout">Автоблокування через %1$s</string>
+	<string name="notification_lock_all">Заблокувати всі</string>
+	<string name="notification_auto_upload_finished_title">Автозавантаження фото завершено</string>
 	<string name="screen_settings_license">Зареєстровано за</string>
 	<string name="screen_settings_check_updates">Перевiрити наявнiсть оновлень</string>
 	<!-- lock timeout names -->
