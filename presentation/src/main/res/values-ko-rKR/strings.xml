@@ -53,7 +53,6 @@
 	<string name="screen_vault_list_action_create_new_vault">새 Vault 생성</string>
 	<string name="screen_vault_list_action_add_existing_vault">기존 Vault 추가</string>
 	<string name="screen_vault_list_vault_action_delete">제거</string>
-	<string name="screen_vault_list_vault_creation_hint">여기를 클릭하여 새 Vault를 생성하세요</string>
 	<string name="screen_vault_list_change_password_successful">비밀번호 변경 성공</string>
 	<!-- # screen: file browser -->
 	<string name="screen_file_browser_default_title">Vault</string>
@@ -183,7 +182,7 @@
 	<!-- ## screen: licenses -->
 	<!-- ## screen: authenticate cloud -->
 	<string name="screen_update_pcloud_connections_title">pCloud 자격증명 업데이트</string>
-	<!-- ## screen: insecure android version info -->
+	<!-- ## screen: cryptomator app variants -->
 	<!-- # dialogs -->
 	<string name="dialog_button_cancel">취소</string>
 	<string name="dialog_enter_password_positive_button">잠금해제</string>
