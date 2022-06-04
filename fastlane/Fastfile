@@ -29,7 +29,7 @@ platform :android do |options|
     deployToPlaystore(alpha:options[:alpha], beta:options[:beta])
     deployToServer(alpha:options[:alpha], beta:options[:beta])
     deployToFDroid(alpha:options[:alpha], beta:options[:beta])
-    testLite(alpha:options[:alpha], beta:options[:beta])
+    deployLite(alpha:options[:alpha], beta:options[:beta])
     createGitHubDraftRelease(alpha:options[:alpha], beta:options[:beta])
 
     slack(
