@@ -291,6 +291,7 @@
 	<string name="dialog_accept_ssl_certificate_details">Détails</string>
 	<string name="dialog_accept_ssl_certificate_security_checkbox">Cela pourrait constituer un risque pour la sécurité. Je sais ce que je fais.</string>
 	<string name="dialog_ask_ignore_battery_optimizations_title">Désactiver les optimisations de la batterie</string>
+	<string name="dialog_ask_ignore_battery_optimizations_hint">Pour récupérer les nouvelles photos et vidéos sans que l\'application ne fonctionne en arrière-plan, nous devons l\'exclure des optimisations de la batterie. Mais ne vous inquiétez pas, %1$s ne consomme pas beaucoup d\'énergie.\n\nPour ce faire, remplacez \"Non optimisé\" par \"Toutes les applications\", sélectionnez %1$s et choisissez \"Ne pas optimiser\" après avoir cliqué sur \"%2$s\" dans cette boîte de dialogue-ci.</string>
 	<string name="dialog_ask_ignore_battery_optimizations_checkbox">Ne plus demander ?</string>
 	<string name="dialog_http_security_hint">L\'utilisation du HTTP n\'est pas sûre. Nous recommandons d\'utiliser plutôt le HTTPS. Si vous connaissez les risques, vous pouvez continuer à utiliser HTTP.</string>
 	<string name="dialog_http_security_checkbox">Passage au HTTPS</string>
@@ -344,6 +345,7 @@
 	<string name="dialog_no_dir_file_message">Le dossier dans le cloud \'%1$s\' n\'a pas de fichier de répertoire valide. Il se peut que le dossier ait été créé sur un autre appareil et qu\'il n\'ait pas encore été entièrement synchronisé avec le cloud. Veuillez vérifier dans votre cloud si le fichier suivant existe et n\'est pas vide : \n%2$s</string>
 	<string name="dialog_no_more_images_to_display">Plus d\'images à afficher&#8230;</string>
 	<string name="dialog_pcloud_credentials_updated_title">Les identifiants de \'%1$s\' ont été mis à jour</string>
+	<string name="dialog_pcloud_credentials_updated">Si vous avez l\'intention d\'ajouter un nouveau compte pCloud, cliquez sur cette url <a href="https://www.pcloud.com">www.pcloud.com</a>, déconnectez-vous du compte actuel et cliquez à nouveau sur le \'+\' dans cette application pour créer une nouvelle connexion pCloud.</string>
 	<string name="permission_snackbar_auth_local_vault">Cryptomator a besoin de l\'accès au stockage pour utiliser les coffres locaux</string>
 	<string name="permission_snackbar_auth_auto_upload">Cryptomator a besoin de l\'accès au stockage pour effectuer le téléversement automatique de photos</string>
 	<!-- # error reports -->
