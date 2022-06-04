@@ -290,17 +290,17 @@
 	<string name="dialog_debug_mode_disclaimer_hint">V tomto móde, môžu byť zapisované citlivé dáta do logovacieho súboru na Vašom zariadení (ako napr. mená súborov a cesty). Heslá, cookies, a pod. sú explicitne vynechané.\n\nPamätajte na vypnutie debug módu ako najskôr to pôjde.</string>
 	<string name="dialog_debug_mode_disclaimer_title">Upozornenie</string>
 	<string name="dialog_debug_mode_positive_button">Povoliť</string>
-	<string name="dialog_disable_app_obscured_disclaimer_hint">Tieto nastavenia sú bezpečnostnou vlastnosťou a zabraňujú ostatným aplikáciám klamať užívateľov robiť veci ktoré nechcú robiť.\n\nVypnutím súhlasíte s tým že <a href="https://docs.cryptomator.org/en/1.5/android/settings/#block-app-when-obscured">ste si vedomí nebezpečia</a>.</string>
+	<string name="dialog_disable_app_obscured_disclaimer_hint">Toto nastavenie je bezpečnostná vlastnosť a chráni ostatné aplikácie pred klamaním užívateľov robiť veci, ktoré nechcú obiť.\n\nVypnutím súhlasíte, že &lt;a href="https://docs.cryptomator.org/en/1.6/android/settings/#block-app-when-obscured"&gt;ste si vedomí rizika.</string>
 	<string name="dialog_disable_app_obscured_disclaimer_title">Upozornenie</string>
 	<string name="dialog_disable_app_obscured_positive_button">Zakázať</string>
 	<string name="dialog_app_is_obscured_info_title">Aplikácia je zatmavená</string>
-	<string name="dialog_app_is_obscured_info_hint">Ďalšia aplikácia zobrazuje niečo na vrchu Cryptomator-a (ako napr. modré svetlo alebo nočný režim). Z bezpečnostných dôvodov je Cryptomator zakázaný.\n\n<a href="https://docs.cryptomator.org/en/1.5/android/settings/#block-app-when-obscured">Ako povoliť Cryptomator</a></string>
+	<string name="dialog_app_is_obscured_info_hint">Ďalšia aplikácia zobrazuje niečo na vrchu Cryptomator-a (ako napr. filter modrého svetla alebo nočný režim). Z bezpečnostných dôvodov je Cryptomator zakázaný.\n\n<a href="https://docs.cryptomator.org/en/1.6/android/settings/#block-app-when-obscured">Ako povoliť Cryptomator</a></string>
 	<string name="dialog_app_is_obscured_info_neutral_button">Zavrieť</string>
 	<string name="dialog_vaults_removed_during_migration_title">Prosím zadajte znovu trezory pre %1s cloud</string>
 	<string name="dialog_vaults_removed_during_migration_hint">Počas migrácie na túto verziu aplikácie potrebujeme odstrániť nasledujúce trezory z aplikácie:\n%2s \n\n Tieto trezory nebudú odstránené z cloudu, ale len z tejto aplikácie. Prepáčte za nepohodlie a prosím znovu zadajte trezory pre pokračovanie ich používania.</string>
 	<string name="dialog_vault_is_root_folder_of_cloud_title">Trezor je koreňovým adresárom cloudového spojenia</string>
 	<string name="dialog_vault_is_root_folder_of_cloud_hint">Vytvorte nové cloudové pripojenie kde vyberiete minimálne nadradený adresár tohto trezora ako koreňový adresár pre pridanie tohot trezora.</string>
-	<string name="dialog_disable_secure_screen_disclaimer_hint">Toto nastavenie je bezpečnostná vlastnosť a zabraňuje ostatným aplikáciám klamať užívateľov robiť veci čo nechcú robiť.\n\nVypnutím súhlasíte s tým že<a href="https://docs.cryptomator.org/en/1.5/android/settings/#screen-security">ste si vedomí rizika</a>.</string>
+	<string name="dialog_disable_secure_screen_disclaimer_hint">Toto nastavenie je bezpečnostná vlastnosť a zabraňuje ostatným aplikáciám klamať užívateľov robiť veci čo nechcú robiť.\n\nVypnutím súhlasíte s tým, že<a href="https://docs.cryptomator.org/en/1.6/android/settings/#screen-security">ste si vedomí rizika</a>.</string>
 	<string name="dialog_delete_cloud_connection_with_vaults_message">Ste si istý že chcete odstrániť toto cloudové pripojenie?</string>
 	<string name="dialog_delete_cloud_connection_with_vaults_hint">Táto akcia odstráni pripojenie cloudu a všetky trezory tohto cloudu.</string>
 	<string name="dialog_confirm_delete_multiple_title">Odstrániť %1$d položky?</string>
@@ -413,6 +413,4 @@
 	<string name="dark">Tmavý</string>
 	<!-- update interval names -->
 	<string name="update_interval_1d">Raz za deň</string>
-	<string name="update_interval_1w">Raz za týždeň</string>
-	<string name="update_interval_1m">Raz za mesiac</string>
 </resources>

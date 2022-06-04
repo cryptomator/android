@@ -287,6 +287,4 @@
 	<string name="dark">నలుపు</string>
 	<!-- update interval names -->
 	<string name="update_interval_1d">రోజుకి ఒక్కసారి</string>
-	<string name="update_interval_1w">వారానికి ఒక సారి</string>
-	<string name="update_interval_1m">నెలకొక్క సారి</string>
 </resources>

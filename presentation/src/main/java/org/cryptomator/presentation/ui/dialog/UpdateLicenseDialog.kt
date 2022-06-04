@@ -1,6 +1,8 @@
 package org.cryptomator.presentation.ui.dialog
 
 import android.content.DialogInterface
+import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import android.view.View
 import android.widget.Button
@@ -11,6 +13,7 @@ import org.cryptomator.presentation.ui.layout.ObscuredAwareDialogCoordinatorLayo
 import org.cryptomator.util.SharedPreferencesHandler
 import kotlinx.android.synthetic.main.dialog_enter_license.dssialogRootView
 import kotlinx.android.synthetic.main.dialog_enter_license.et_license
+import kotlinx.android.synthetic.main.dialog_enter_license.tv_message
 
 @Dialog(R.layout.dialog_enter_license)
 class UpdateLicenseDialog : BaseProgressErrorDialog<UpdateLicenseDialog.Callback>() {
@@ -37,6 +40,12 @@ class UpdateLicenseDialog : BaseProgressErrorDialog<UpdateLicenseDialog.Callback
 			}
 			checkLicenseButton?.let { button ->
 				et_license.nextFocusForwardId = button.id
+			}
+			tv_message?.setOnClickListener {
+				Intent(Intent.ACTION_VIEW).let {
+					it.data = Uri.parse("https://cryptomator.org/android/")
+					startActivity(it)
+				}
 			}
 		}
 

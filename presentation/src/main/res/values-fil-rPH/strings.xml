@@ -192,7 +192,6 @@
 	<string name="dialog_http_security_title">Gamiting ang HTTPS?</string>
 	<string name="dialog_debug_mode_disclaimer_title">Atensyon</string>
 	<string name="dialog_debug_mode_positive_button">I-enable</string>
-	<string name="dialog_disable_app_obscured_disclaimer_hint">Ang setting na ito ay isang security feature at pinipigilan ang ibang mga apps sa lokohin ang mga gumagamit na gawin ang mga hindi nila gustong gawin.\n\nSa pag-alis nito, kinukumpirma mo na <a href="https://docs.cryptomator.org/en/1.5/android/settings/#block-app-when-obscured"> alam mo ang mga panganib</a>.</string>
 	<string name="dialog_disable_app_obscured_disclaimer_title">Atensyon</string>
 	<string name="dialog_app_is_obscured_info_neutral_button">Isara</string>
 	<string name="dialog_delete_cloud_connection_with_vaults_message">Sigurado ka bang gusto mong tanggalin itong cloud connection?</string>
@@ -269,6 +268,4 @@
 	<string name="dark">Dark</string>
 	<!-- update interval names -->
 	<string name="update_interval_1d">Isang beses sa isang araw</string>
-	<string name="update_interval_1w">Isang beses sa isang linggo</string>
-	<string name="update_interval_1m">Isang beses sa isang buwan</string>
 </resources>

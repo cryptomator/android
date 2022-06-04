@@ -275,13 +275,10 @@
 	<string name="dialog_debug_mode_disclaimer_hint">في هذا الوضع، يمكن كتابة البيانات الحساسة إلى ملف تسجيل على جهازك (على سبيل المثال أسماء الملفات والمسارات). كلمة المرور، ملفات تعريف الارتباط، إلخ. مستبعدة صراحة.\n\nتذكر تعطيل وضع التصحيح في أقرب وقت ممكن.</string>
 	<string name="dialog_debug_mode_disclaimer_title">انتباه</string>
 	<string name="dialog_debug_mode_positive_button">تفعيل</string>
-	<string name="dialog_disable_app_obscured_disclaimer_hint">هذا الإعداد هو ميزة أمنية ويمنع التطبيقات الأخرى من خداع المستخدمين لفعل أشياء لا يريدون القيام بها.\n\nبتعطيليها, أنت تؤكد أنك <a href="https://docs.cryptomator.org/en/1.5/android/settings/#block-app-when-obscured">على علم بالمخاطر</a>.</string>
 	<string name="dialog_disable_app_obscured_disclaimer_title">انتباه</string>
 	<string name="dialog_disable_app_obscured_positive_button">تعطيل</string>
 	<string name="dialog_app_is_obscured_info_title">التطبيق غامض</string>
-	<string name="dialog_app_is_obscured_info_hint">يقوم تطبيق آخر بعرض شيء فوق Cryptomator (على سبيل المثال فلتر الضوء الأزرق أو تطبيق الوضع الليلي). تم تعطيل Cryptomator لأسباب أمنية.\n\n<a href="https://docs.cryptomator.org/en/1.5/android/settings/#block-app-when-obscured">كيفية تمكين Cryptomator</a></string>
 	<string name="dialog_app_is_obscured_info_neutral_button">إغلاق</string>
-	<string name="dialog_disable_secure_screen_disclaimer_hint">هذا الإعداد هو ميزة أمنية ويمنع التطبيقات الأخرى من خداع المستخدمين لفعل أشياء لا يريدون القيام بها.\n\nبتعطيليها, أنت تؤكد أنك <a href="https://docs.cryptomator.org/en/1.5/android/settings/#screen-security">على علم بالمخاطر</a>.</string>
 	<string name="dialog_delete_cloud_connection_with_vaults_message">هل ترغب حقّا بحذف هذا الإتصال الخاص بمقدم الخدمة السحابية؟</string>
 	<string name="dialog_delete_cloud_connection_with_vaults_hint">سوف يقوم هذا الأمر بحذف الإتصال بمقدم الخدمة السحابية و كل المخازن المرتبطة به.</string>
 	<string name="dialog_confirm_delete_multiple_title">حذف %1$d عناصر؟</string>
@@ -377,6 +374,4 @@
 	<string name="dark">مظلم (أسود)</string>
 	<!-- update interval names -->
 	<string name="update_interval_1d">مرة في اليوم</string>
-	<string name="update_interval_1w">مرة في الإسبوع</string>
-	<string name="update_interval_1m">مرة في الشهر</string>
 </resources>
