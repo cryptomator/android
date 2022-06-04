@@ -60,7 +60,6 @@
 	<string name="screen_vault_list_action_create_new_vault">Створити нове сховище</string>
 	<string name="screen_vault_list_action_add_existing_vault">Додати існуюче сховище</string>
 	<string name="screen_vault_list_vault_action_delete">Прибрати</string>
-	<string name="screen_vault_list_vault_creation_hint">Натисніть тут, щоб створити нове сховище</string>
 	<string name="screen_vault_list_change_password_successful">Пароль успішно змінено</string>
 	<!-- # screen: file browser -->
 	<string name="screen_file_browser_default_title">Сховище</string>
@@ -111,7 +110,6 @@
 	<string name="screen_choose_cloud_service_title">Хмарні служби</string>
 	<!-- ## screen: cloud connections -->
 	<string name="screen_cloud_connections_title">Обрати місцерозташування</string>
-	<string name="screen_cloud_connections_no_connections">Натисніть сюди щоб додати розташування</string>
 	<string name="screen_cloud_error_webdav_not_supported">Схоже, сервер не сумісний з WebDAV</string>
 	<string name="screen_cloud_local_error_no_content_provider">Не знайдено менеджер файлів, який підтримує відкриття директорій</string>
 	<!-- ## screen: webdav settings -->
@@ -207,7 +205,7 @@
 	<!-- ## screen: authenticate cloud -->
 	<string name="screen_authenticate_auth_authentication_failed">%1$s не може бути автентифіковано.</string>
 	<string name="screen_update_pcloud_connections_title">Оновити облікові дані pCloud</string>
-	<!-- ## screen: insecure android version info -->
+	<!-- ## screen: cryptomator app variants -->
 	<!-- # dialogs -->
 	<string name="dialog_button_cancel">Відмінити</string>
 	<string name="dialog_enter_password_positive_button">Розблокувати</string>
@@ -271,7 +269,6 @@
 	<string name="dialog_accept_ssl_certificate_details">Докладно</string>
 	<string name="dialog_accept_ssl_certificate_security_checkbox">Це може спричинити ризики безпеки. Я знаю, що роблю.</string>
 	<string name="dialog_ask_ignore_battery_optimizations_title">Вимкнути оптимізацію використання батареї</string>
-	<string name="dialog_ask_ignore_battery_optimizations_hint">Щоб отримати нові зображення та відео, не працюючи у фоновому режимі, нам потрібно відмовитися від оптимізації батареї. Але не хвилюйся, %1$s не споживає багато енергії.\n\nЩоб застосувати його, змініть \'Не оптимізовано\' на \'Усі програми\', виберіть %1$s і виберіть «Не оптимівати» після натискання на «%2$s» в цьому діалоговому вікні.</string>
 	<string name="dialog_ask_ignore_battery_optimizations_checkbox">Не запитувати знову?</string>
 	<string name="dialog_http_security_hint">Використання HTTP небезпечне. Рекомендуємо замість цього використовувати HTTPS. Якщо ви усвідомлюєте ризики, ви можете продовжити з HTTP.</string>
 	<string name="dialog_http_security_checkbox">Змінити на HTTPS</string>

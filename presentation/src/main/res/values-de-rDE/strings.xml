@@ -34,6 +34,7 @@
 	<string name="error_file_not_found_after_opening_using_3party">Lokale Datei ist nach dem Zurückwechseln zu Cryptomator nicht mehr vorhanden. Mögliche Änderungen können nicht in die Cloud übertragen werden.</string>
 	<string name="error_no_such_bucket">Bucket existiert nicht</string>
 	<string name="error_masterkey_location_not_supported">Benutzerdefinierter Ort der Masterkey-Datei wird noch nicht unterstützt</string>
+	<string name="error_interact_with_fdroid_but_fdroid_missing">Fehler bei der Kommunikation mit der F-Droid-App. Nicht installiert?</string>
 	<!-- # clouds -->
 	<!-- ## cloud names -->
 	<string name="cloud_names_local_storage">Lokaler Speicher</string>
@@ -54,13 +55,15 @@
 	<string name="snack_bar_action_title_sort_oldest">Älteste zuerst</string>
 	<string name="snack_bar_action_title_sort_biggest">Größte zuerst</string>
 	<string name="snack_bar_action_title_sort_smallest">Kleinste zuerst</string>
+	<string name="snack_bar_cryptomator_variants_title">Mehr lesen</string>
+	<string name="snack_bar_cryptomator_variants_hint">Cloud nicht in der Liste?</string>
 	<!-- # screens -->
 	<!-- # screen: vault list -->
 	<string name="screen_vault_list_actions_title">Zu Cryptomator hinzufügen</string>
 	<string name="screen_vault_list_action_create_new_vault">Neuen Tresor anlegen</string>
 	<string name="screen_vault_list_action_add_existing_vault">Bestehenden Tresor hinzufügen</string>
 	<string name="screen_vault_list_vault_action_delete">Entfernen</string>
-	<string name="screen_vault_list_vault_creation_hint">Hier antippen, um einen neuen Tresor zu erstellen</string>
+	<string name="screen_vault_list_vault_creation_hint">Tippen Sie hier, um einen neuen Tresor zu erstellen</string>
 	<string name="screen_vault_list_change_password_successful">Passwort wurde erfolgreich geändert</string>
 	<!-- # screen: file browser -->
 	<string name="screen_file_browser_default_title">Tresor</string>
@@ -115,7 +118,7 @@
 	<string name="screen_choose_cloud_service_title">Cloud-Dienst</string>
 	<!-- ## screen: cloud connections -->
 	<string name="screen_cloud_connections_title">Ort auswählen</string>
-	<string name="screen_cloud_connections_no_connections">Hier antippen, um einen neuen Ort hinzufügen</string>
+	<string name="screen_cloud_connections_no_connections">Hier tippen, um einen neuen Ort hinzuzufügen</string>
 	<string name="screen_cloud_error_webdav_not_supported">Server scheint nicht WebDAV-kompatibel zu sein</string>
 	<string name="screen_cloud_local_error_no_content_provider">Kein Dateimanager gefunden, der das Öffnen von Verzeichnissen unterstützt</string>
 	<!-- ## screen: webdav settings -->
@@ -211,7 +214,19 @@
 	<!-- ## screen: authenticate cloud -->
 	<string name="screen_authenticate_auth_authentication_failed">%1$s-Authentifizierung fehlgeschlagen.</string>
 	<string name="screen_update_pcloud_connections_title">pCloud-Anmeldedaten aktualisieren</string>
-	<!-- ## screen: insecure android version info -->
+	<!-- ## screen: cryptomator app variants -->
+	<string name="screen_cryptomator_variants_title">Varianten von Kryptomator</string>
+	<string name="screen_cryptomator_variants_lite_title">Haupt-F-Droid Repository</string>
+	<string name="screen_cryptomator_variants_lite_description">Ausgeschlossen weil sie API-Schlüssel benötigen.</string>
+	<string name="screen_cryptomator_variants_lite_install">Installieren</string>
+	<string name="screen_cryptomator_variants_fdroid_title">Cryptomator F-Droid Repository</string>
+	<string name="screen_cryptomator_variants_fdroid_description">Ausgeschlossen, weil es proprietäre Abhängigkeiten enthält.</string>
+	<string name="screen_cryptomator_variants_fdroid_add_repo_hint">Cryptomator Repository zur F-Droid App hinzufügen.</string>
+	<string name="screen_cryptomator_variants_fdroid_add_repo">Hinzufügen</string>
+	<string name="screen_cryptomator_variants_fdroid_install_hint">Installiere Cryptomator mit F-Droid.\nWenn ein nicht gefundener Fehler angezeigt wird, warte bis die F-Droid-Synchronisation abgeschlossen ist.</string>
+	<string name="screen_cryptomator_variants_website_title">Webseite</string>
+	<string name="screen_cryptomator_variants_website_description">Enthält proprietäre Abhängigkeiten.</string>
+	<string name="screen_cryptomator_variants_installation_hint">Der Wechsel von oder zur Haupt-F-Droid Repository-Variante erfordert ein neues Setup der App.</string>
 	<!-- # dialogs -->
 	<string name="dialog_button_cancel">Abbrechen</string>
 	<string name="dialog_enter_password_positive_button">Entsperren</string>
@@ -249,6 +264,7 @@
 	<string name="dialog_unsaved_changes_title">Es bestehen ungespeicherte Änderungen</string>
 	<string name="dialog_unsaved_changes_message">Möchtest du die App wirklich ohne zu speichern beenden?</string>
 	<string name="dialog_unsaved_changes_discard">Verwerfen</string>
+	<string name="dialog_file_name_hint">Dateiname</string>
 	<string name="dialog_file_name_placeholder">text.txt</string>
 	<string name="dialog_delete_vault_message">Möchtest du diesen Tresor wirklich entfernen?</string>
 	<string name="dialog_delete_vault_hint">Dieser Vorgang wird den Tresor nur aus dieser Liste entfernen und nicht tatsächlich löschen.</string>
@@ -329,7 +345,7 @@
 	<string name="dialog_no_dir_file_message">Der Ordner \'%1$s\' in der Cloud hat keine gültige Verzeichnis-Datei. Es könnte sein, dass der Ordner auf einem anderen Gerät erstellt und noch nicht vollständig mit der Cloud synchronisiert wurde. Bitte überprüfe, ob die folgende Datei in der Cloud existiert und nicht leer ist:\n%2$s</string>
 	<string name="dialog_no_more_images_to_display">Keine weiteren Bilder anzuzeigen&#8230;</string>
 	<string name="dialog_pcloud_credentials_updated_title">Anmeldedaten von \'%1$s\' aktualisiert</string>
-	<string name="dialog_pcloud_credentials_updated">Falls du ein neues pCloud-Konto hinzufügen wolltest, klicke auf diese URL <a href="https://www.pcloud.com">www.pcloud.com</a>, melde dich vom aktuellen Konto ab und klicke in dieser App erneut auf das „+“, um eine neue Cloud-Verbindung zu erstellen.</string>
+	<string name="dialog_pcloud_credentials_updated">Falls du ein neues pCloud-Konto hinzufügen wolltest, klicke auf diese Url <a href="https://www.pcloud.com">www.pcloud.com</a>, melde dich vom aktuellen Konto ab und klicke in dieser App erneut auf das „+“, um eine neue Cloud-Verbindung zu erstellen.</string>
 	<string name="permission_snackbar_auth_local_vault">Um lokale Tresore nutzen zu können benötigt Cryptomator Speicherzugriff</string>
 	<string name="permission_snackbar_auth_auto_upload">Cryptomator benötigt Zugriff auf den Speicher um den automatischen Foto-Upload zu nutzen</string>
 	<!-- # error reports -->

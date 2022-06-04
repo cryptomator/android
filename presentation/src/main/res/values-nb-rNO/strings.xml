@@ -60,7 +60,6 @@
 	<string name="screen_vault_list_action_create_new_vault">Opprett et nytt hvelv</string>
 	<string name="screen_vault_list_action_add_existing_vault">Legg til et eksisterende hvelv</string>
 	<string name="screen_vault_list_vault_action_delete">Fjern</string>
-	<string name="screen_vault_list_vault_creation_hint">Klikk her for å lage et nytt hvelv</string>
 	<string name="screen_vault_list_change_password_successful">Passordet er endret</string>
 	<!-- # screen: file browser -->
 	<string name="screen_file_browser_default_title">Hvelv</string>
@@ -115,7 +114,6 @@
 	<string name="screen_choose_cloud_service_title">Skylagringstjeneste</string>
 	<!-- ## screen: cloud connections -->
 	<string name="screen_cloud_connections_title">Velg en plassering</string>
-	<string name="screen_cloud_connections_no_connections">Klikk her for å legge til lokasjoner</string>
 	<string name="screen_cloud_error_webdav_not_supported">Serveren ser ikke ut til å være WebDAV-kompatibel</string>
 	<string name="screen_cloud_local_error_no_content_provider">Ingen filbehandler funnet som støtter å åpne mapper</string>
 	<!-- ## screen: webdav settings -->
@@ -211,7 +209,7 @@
 	<!-- ## screen: authenticate cloud -->
 	<string name="screen_authenticate_auth_authentication_failed">%1$s kunne ikke autentiseres.</string>
 	<string name="screen_update_pcloud_connections_title">Oppdater pCloud legitimasjoner</string>
-	<!-- ## screen: insecure android version info -->
+	<!-- ## screen: cryptomator app variants -->
 	<!-- # dialogs -->
 	<string name="dialog_button_cancel">Avbryt</string>
 	<string name="dialog_enter_password_positive_button">Lås opp</string>
@@ -275,7 +273,6 @@
 	<string name="dialog_accept_ssl_certificate_details">Detaljer</string>
 	<string name="dialog_accept_ssl_certificate_security_checkbox">Dette kan være en sikkerhetsrisiko. Jeg vet hva jeg gjør.</string>
 	<string name="dialog_ask_ignore_battery_optimizations_title">Deaktiver batterioptimaliseringer</string>
-	<string name="dialog_ask_ignore_battery_optimizations_hint">For å hente nye bilder og videoer uten å kjøre i bakgrunnen, må vi velge bort batterioptimaliseringer. Men ikke bekymre deg, %1$s konsumerer ikke mye energi.\n\nFor å bruke den, endre \'Ikke optimalisert\' til \'Alle apper\', velg %1$s og velg \'Ikke optimaliser\' etter å ha klikket \'%2$s\' i denne dialogboksen.</string>
 	<string name="dialog_ask_ignore_battery_optimizations_checkbox">Ikke spør igjen?</string>
 	<string name="dialog_http_security_hint">Bruk av HTTP er usikker. Vi anbefaler å bruke HTTPS i stedet. Hvis du er klar over risikoen, kan du fortsette med HTTP.</string>
 	<string name="dialog_http_security_checkbox">Endre til HTTPS</string>
@@ -326,7 +323,6 @@
 	<string name="dialog_no_dir_file_message">Skymappen \'%1$s\' har ikke en gyldig mappefil. Det kan være at mappen ble opprettet på en annen enhet og er ennå ikke fullt synkronisert til skyen. Sjekk i skyen om følgende fil eksisterer og ikke er tom:\n%2$s</string>
 	<string name="dialog_no_more_images_to_display">Ingen flere bilder å vise&#8230;</string>
 	<string name="dialog_pcloud_credentials_updated_title">Legitimasjonen til \'%1$s\' er oppdatert</string>
-	<string name="dialog_pcloud_credentials_updated">Hvis du planlegger å legge til en ny pCloud konto, klikk på denne nettadressen <a href="https://www.pcloud.com">www.pcloud. om</a>, logg ut fra gjeldende konto og klikk igjen på \'+\' i denne appen for å opprette en ny skyforbindelse.</string>
 	<string name="permission_snackbar_auth_local_vault">Cryptomator trenger lagringstilgang for å bruke lokale hvelv</string>
 	<string name="permission_snackbar_auth_auto_upload">Cryptomator trenger lagringstilgang for å bruke automatisk bildeopplasting</string>
 	<!-- # error reports -->

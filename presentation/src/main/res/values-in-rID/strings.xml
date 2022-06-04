@@ -60,7 +60,6 @@
 	<string name="screen_vault_list_action_create_new_vault">Buat vault baru</string>
 	<string name="screen_vault_list_action_add_existing_vault">Tambahkan vault yang sudah ada</string>
 	<string name="screen_vault_list_vault_action_delete">Hapus</string>
-	<string name="screen_vault_list_vault_creation_hint">Ketuk disini untuk membuat vault baru</string>
 	<string name="screen_vault_list_change_password_successful">Kasa Sandi berhasil diubah</string>
 	<!-- # screen: file browser -->
 	<string name="screen_file_browser_default_title">Vault</string>
@@ -114,7 +113,6 @@
 	<string name="screen_choose_cloud_service_title">Layanan Cloud</string>
 	<!-- ## screen: cloud connections -->
 	<string name="screen_cloud_connections_title">Pilih lokasi</string>
-	<string name="screen_cloud_connections_no_connections">Ketuk disini untuk menambahkan lokasi</string>
 	<string name="screen_cloud_error_webdav_not_supported">Server tampaknya tidak kompatibel dengan WebDAV</string>
 	<string name="screen_cloud_local_error_no_content_provider">Tidak ditemukan file manager yang dapat membuka direktori ini</string>
 	<!-- ## screen: webdav settings -->
@@ -210,7 +208,7 @@
 	<!-- ## screen: authenticate cloud -->
 	<string name="screen_authenticate_auth_authentication_failed">%1$s tidak dapat diautentikasi.</string>
 	<string name="screen_update_pcloud_connections_title">Perbarui kredensial pCloud</string>
-	<!-- ## screen: insecure android version info -->
+	<!-- ## screen: cryptomator app variants -->
 	<!-- # dialogs -->
 	<string name="dialog_button_cancel">Batalkan</string>
 	<string name="dialog_enter_password_positive_button">Buka Kunci</string>
@@ -274,7 +272,6 @@
 	<string name="dialog_accept_ssl_certificate_details">Rincian</string>
 	<string name="dialog_accept_ssl_certificate_security_checkbox">Ini bisa menjadi risiko keamanan. Saya tahu apa yang saya lakukan.</string>
 	<string name="dialog_ask_ignore_battery_optimizations_title">Nonaktifkan optimalisasi baterai</string>
-	<string name="dialog_ask_ignore_battery_optimizations_hint">Untuk mengambil gambar dan video baru tanpa berjalan di latar belakang, kami perlu keluar dari pengoptimalan baterai. Tidak perlu khawatir, %1$s tidak mengonsumsi banyak daya.\n\nUntuk menerapkannya, ubah \'Tidak dioptimalkan\' menjadi \'Semua aplikasi\', pilih %1$s dan pilih \'Jangan optimalkan\' setelah mengeklik \'%2$s\' dalam dialog ini.</string>
 	<string name="dialog_ask_ignore_battery_optimizations_checkbox">Jangan tanya lagi?</string>
 	<string name="dialog_http_security_hint">Penggunaan HTTP tidak aman. Kami menyarankan untuk menggunakan HTTPS sebagai gantinya. Jika Anda mengetahui risikonya, Anda dapat melanjutkan dengan HTTP.</string>
 	<string name="dialog_http_security_checkbox">Ubah ke HTTPS</string>
@@ -328,7 +325,6 @@
 	<string name="dialog_no_dir_file_message">Folder cloud \'%1$s\' tidak memiliki file direktori yang valid. Bisa jadi folder tersebut dibuat di perangkat lain dan belum sepenuhnya tersinkronisasi ke cloud. Harap periksa di cloud Anda jika file berikut ada dan tidak kosong:\n%2$s</string>
 	<string name="dialog_no_more_images_to_display">Tidak ada lagi gambar untuk ditampilkan&#8230;</string>
 	<string name="dialog_pcloud_credentials_updated_title">Kredensial \'%1$s\' diperbarui</string>
-	<string name="dialog_pcloud_credentials_updated">Jika Anda ingin menambahkan akun pCloud baru, ketuk url berikut <a href="https://www.pcloud.com">www.pcloud.com</a>, keluar dari akun saat ini kemudian ketuk tombol \'+\' lagi di aplikasi ini untuk membuat koneksi cloud baru.</string>
 	<string name="permission_snackbar_auth_local_vault">Cryptomator membutuhkan akses penyimpanan untuk menggunakan vault lokal</string>
 	<string name="permission_snackbar_auth_auto_upload">Cryptomator membutuhkan akses penyimpanan untuk menggunakan unggahan foto otomatis</string>
 	<!-- # error reports -->

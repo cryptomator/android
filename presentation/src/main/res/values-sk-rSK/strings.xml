@@ -60,7 +60,6 @@
 	<string name="screen_vault_list_action_create_new_vault">Vytvoriť nový trezor</string>
 	<string name="screen_vault_list_action_add_existing_vault">Pridať existujúci trezor</string>
 	<string name="screen_vault_list_vault_action_delete">Odstrániť</string>
-	<string name="screen_vault_list_vault_creation_hint">Kliknite sem pre vytvorenie nového trezora</string>
 	<string name="screen_vault_list_change_password_successful">Heslo úspešne zmenené</string>
 	<!-- # screen: file browser -->
 	<string name="screen_file_browser_default_title">Trezor</string>
@@ -117,7 +116,6 @@
 	<string name="screen_choose_cloud_service_title">Cloudová služba</string>
 	<!-- ## screen: cloud connections -->
 	<string name="screen_cloud_connections_title">Vybrať umiestnenie</string>
-	<string name="screen_cloud_connections_no_connections">Kliknite sem pre pridanie umiestnení</string>
 	<string name="screen_cloud_error_webdav_not_supported">Server zdá sa byť WebDAV kompatibilný</string>
 	<string name="screen_cloud_local_error_no_content_provider">Nenašiel sa manažér súborov ktorý podporuje otváranie adresárov</string>
 	<!-- ## screen: webdav settings -->
@@ -213,7 +211,7 @@
 	<!-- ## screen: authenticate cloud -->
 	<string name="screen_authenticate_auth_authentication_failed">%1$s nemohol byť autentikovaný.</string>
 	<string name="screen_update_pcloud_connections_title">Aktualizovať pCloud prístupy</string>
-	<!-- ## screen: insecure android version info -->
+	<!-- ## screen: cryptomator app variants -->
 	<!-- # dialogs -->
 	<string name="dialog_button_cancel">Zrušiť</string>
 	<string name="dialog_enter_password_positive_button">Odomknúť</string>
@@ -277,7 +275,6 @@
 	<string name="dialog_accept_ssl_certificate_details">Podrobnosti</string>
 	<string name="dialog_accept_ssl_certificate_security_checkbox">Toto môže byť bezpečnostné riziko. Viem čo robím.</string>
 	<string name="dialog_ask_ignore_battery_optimizations_title">Vypnúť optimalizácie batérie</string>
-	<string name="dialog_ask_ignore_battery_optimizations_hint">Získať nové obrázky a videá bez behu na pozadí, potrebujeme rozhodnúť na základe optimalizácií batérie. Ale netrápte sa, %1$s nespotrebúva veľa energie. \n\nAplikovať to, zmeňte \'Neoptimalizované\' na \'Všetky aplikácie\', vyberte %1$s a zvoľte \'Neoptimalizovať\' po odkliknutí \'%2$s\' v tomto dialógu.</string>
 	<string name="dialog_ask_ignore_battery_optimizations_checkbox">Nepýtať sa znovu?</string>
 	<string name="dialog_http_security_hint">Používanie HTTP nie je bezpečné. Odporúčame namiesto toho použiť HTTPS. Ak poznáte riziká, môžte pokračovať s HTTP.</string>
 	<string name="dialog_http_security_checkbox">Zmeniť na HTTPS</string>
@@ -331,7 +328,6 @@
 	<string name="dialog_no_dir_file_message">Cloudový adresár \'%1$s\' nemá platný adresárový súbor. Tento aresár mohol byť vytvorený iným zariadením a doposiať nebol plne synchronizovaný do cloudu. Prosím skontrolujte v cloude či nasledujúci súbor existuje a nie je prázdny:\n%2$s</string>
 	<string name="dialog_no_more_images_to_display">Niet už viac obrázkov k zobrazeniu&#8230;</string>
 	<string name="dialog_pcloud_credentials_updated_title">Prístupy k %1$s aktualizované</string>
-	<string name="dialog_pcloud_credentials_updated">Ak zamýšlate pridať nový pCloud účet, kliknite na tento link <a href="https://www.pcloud.com">www.pcloud.com</a>, odhláste sa zo súčasného účtu a opätovne kliknite na \'+\' v tejto aplikácii pre vytvorenie nového cloudového pripojenia.</string>
 	<string name="permission_snackbar_auth_local_vault">Cryptomator potrebuje prístup k úložisku pre prácu s lokálnymi trezormy</string>
 	<string name="permission_snackbar_auth_auto_upload">Cryptomator potrebuje prístup k úložisku pre automatické nahrávanie fotografii</string>
 	<!-- # error reports -->

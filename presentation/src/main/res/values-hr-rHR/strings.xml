@@ -60,7 +60,6 @@
 	<string name="screen_vault_list_action_create_new_vault">Izradi novi trezor</string>
 	<string name="screen_vault_list_action_add_existing_vault">Dodaj postojeći trezor</string>
 	<string name="screen_vault_list_vault_action_delete">Ukloni</string>
-	<string name="screen_vault_list_vault_creation_hint">Pritisnite ovdje za izradu novog trezora</string>
 	<string name="screen_vault_list_change_password_successful">Lozinka je uspješno promijenjena</string>
 	<!-- # screen: file browser -->
 	<string name="screen_file_browser_default_title">Trezor</string>
@@ -116,7 +115,6 @@
 	<string name="screen_choose_cloud_service_title">Usluga u oblaku</string>
 	<!-- ## screen: cloud connections -->
 	<string name="screen_cloud_connections_title">Odaberi lokaciju</string>
-	<string name="screen_cloud_connections_no_connections">Pritisnite ovdje da biste dodali lokacije</string>
 	<string name="screen_cloud_error_webdav_not_supported">Čini se da poslužitelj nije WebDAV kompatibilan</string>
 	<string name="screen_cloud_local_error_no_content_provider">Nije pronađen upravitelj dodateka koji podržava otvaranje mapa</string>
 	<!-- ## screen: webdav settings -->
@@ -212,7 +210,7 @@
 	<!-- ## screen: authenticate cloud -->
 	<string name="screen_authenticate_auth_authentication_failed">%1$s se ne može autenticirati.</string>
 	<string name="screen_update_pcloud_connections_title">Ažuriraj pCloud vjerodajnice</string>
-	<!-- ## screen: insecure android version info -->
+	<!-- ## screen: cryptomator app variants -->
 	<!-- # dialogs -->
 	<string name="dialog_button_cancel">Odustani</string>
 	<string name="dialog_enter_password_positive_button">Otključaj</string>
@@ -276,7 +274,6 @@
 	<string name="dialog_accept_ssl_certificate_details">Detalji</string>
 	<string name="dialog_accept_ssl_certificate_security_checkbox">Ovo bi mogao biti sigurnosni rizik. Znam što činim.</string>
 	<string name="dialog_ask_ignore_battery_optimizations_title">Onemogući optimizacije baterije</string>
-	<string name="dialog_ask_ignore_battery_optimizations_hint">Za dohvat novih slika i videa bez rada u pozadini, moramo onemogućiti optimizacije baterije. Ali ne brinite, %1$s ne troši puno energije.\n\nDa biste ga primijenili, promijenite \"Nije optimizirano\" u \"Sve aplikacije\", odaberite %1$s i odaberite \"Nemoj optimizirati\" nakon što pritisnete \'%2$s\' u ovom dijaloškom okviru.</string>
 	<string name="dialog_ask_ignore_battery_optimizations_checkbox">Ne pitati ponovno?</string>
 	<string name="dialog_http_security_hint">Korištenje HTTP-a je nesigurno. Preporučamo korištenje HTTPS-a umjesto toga. Ako znate rizike, možemo nastaviti s HTTP-om.</string>
 	<string name="dialog_http_security_checkbox">Promijeni u HTTPS</string>
@@ -330,7 +327,6 @@
 	<string name="dialog_no_dir_file_message">Mapa u oblaku \'%1$s\' nema valjanu datoteku mape. Može biti da je mapa izrađena na drugom uređaju i nije još u potpunosti sinkronizirana s oblakom. Molimo provjerite u oblaku da slijedeća datoteka postoji i da nije prazna:\n%2$s</string>
 	<string name="dialog_no_more_images_to_display">Nema više slika za prikaz&#8230;</string>
 	<string name="dialog_pcloud_credentials_updated_title">Vjerodajnice od \'%1$s\' ažurirane</string>
-	<string name="dialog_pcloud_credentials_updated">Ako ste namjeravali dodati novi pCloud račun, pritisnite url <a href="https://www.pcloud.com">www.pcloud.com</a>, odjavite se iz postojećeg računa i pritisnite na \'+\' u ovoj aplikaciji za izradu nove veze prema oblaku.</string>
 	<string name="permission_snackbar_auth_local_vault">Cryptomator treba pristup pohrani da koristi lokalne trezore</string>
 	<string name="permission_snackbar_auth_auto_upload">Cryptomator treba pristup pohrani da koristi automatski prijenos slika</string>
 	<!-- # error reports -->

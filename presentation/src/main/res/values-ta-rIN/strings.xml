@@ -64,7 +64,7 @@
 	<!-- ## screen: cloud settings -->
 	<!-- ## screen: licenses -->
 	<!-- ## screen: authenticate cloud -->
-	<!-- ## screen: insecure android version info -->
+	<!-- ## screen: cryptomator app variants -->
 	<!-- # dialogs -->
 	<string name="dialog_change_password_msg_new_password_empty">கடவுச்சொல் காலியாக இருக்கக்கூடாது.</string>
 	<!-- Vault not found -->

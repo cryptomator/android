@@ -60,7 +60,6 @@
 	<string name="screen_vault_list_action_create_new_vault">Unda kuba mpya</string>
 	<string name="screen_vault_list_action_add_existing_vault">Ongeza kuba iliyopo</string>
 	<string name="screen_vault_list_vault_action_delete">Ondoa</string>
-	<string name="screen_vault_list_vault_creation_hint">Bofya hapa ili kuunda kuba mpya</string>
 	<string name="screen_vault_list_change_password_successful">Neno la siri limebadilishwa kwa ufanisi</string>
 	<!-- # screen: file browser -->
 	<string name="screen_file_browser_default_title">Kuba</string>
@@ -111,7 +110,6 @@
 	<string name="screen_choose_cloud_service_title">Huduma ya wingu</string>
 	<!-- ## screen: cloud connections -->
 	<string name="screen_cloud_connections_title">Chagua mahali</string>
-	<string name="screen_cloud_connections_no_connections">Bofya hapa ili kuongeza mahali</string>
 	<string name="screen_cloud_error_webdav_not_supported">Seva haionekani kuwa sambamba na WebDAV</string>
 	<string name="screen_cloud_local_error_no_content_provider">Hakuna faili maneja lililopatikana inasaidia kufungua saraka</string>
 	<!-- ## screen: webdav settings -->
@@ -206,7 +204,7 @@
 	<!-- ## screen: authenticate cloud -->
 	<string name="screen_authenticate_auth_authentication_failed">%1$s haikuweza kuthibitishwa.</string>
 	<string name="screen_update_pcloud_connections_title">Sasisha hati za utambulisho za pCloud</string>
-	<!-- ## screen: insecure android version info -->
+	<!-- ## screen: cryptomator app variants -->
 	<!-- # dialogs -->
 	<string name="dialog_button_cancel">Katisha</string>
 	<string name="dialog_enter_password_positive_button">Fungua</string>
@@ -270,7 +268,6 @@
 	<string name="dialog_accept_ssl_certificate_details">Maelezo</string>
 	<string name="dialog_accept_ssl_certificate_security_checkbox">Hii inaweza kuwa hatari kwa usalama. Najua kile ninachofanya.</string>
 	<string name="dialog_ask_ignore_battery_optimizations_title">Lemaza uboreshaji wa betri</string>
-	<string name="dialog_ask_ignore_battery_optimizations_hint">Ili kupata picha na video mpya bila kukimbia kwa mandharinyuma, tunahitaji kuchagua kutoka kwa uboreshaji wa betri. Lakini usijali, %1$s haitumii nishati nyingi.\n\nKuitumia, badilisha \'Haijaboreshwa\' kuwa \'Programu zote\', chagua %1$s na uchague \'Usiboreshe\' baada ya kubofya \'%2$s\' katika mazungumzo haya.</string>
 	<string name="dialog_ask_ignore_battery_optimizations_checkbox">Je, si kuuliza tena?</string>
 	<string name="dialog_http_security_hint">Matumizi ya HTTP ni salama. Tunapendekeza kutumia HTTPS badala yake. Ikiwa unajua hatari, unaweza kuendelea na HTTP.</string>
 	<string name="dialog_http_security_checkbox">Badilisha hadi HTTPS</string>
@@ -324,7 +321,6 @@
 	<string name="dialog_no_dir_file_message">Folda ya wingu \'%1$s\' haina faili halali ya saraka. Inaweza kuwa kwamba folda iliundwa kwenye kifaa kingine na bado haijalandanishwa kikamilifu kwenye wingu. Tafadhali angalia katika wingu lako ikiwa faili ifuatayo ipo na sio tupu:\n%2$s</string>
 	<string name="dialog_no_more_images_to_display">Hakuna picha zaidi za kuonyesha&#8230;</string>
 	<string name="dialog_pcloud_credentials_updated_title">Hati za utambulisho za \'%1$s\' zimesasishwa</string>
-	<string name="dialog_pcloud_credentials_updated">Ikiwa ulikusudia kuongeza akaunti mpya ya pWingu, bofya url hii <a href="https://www.pcloud.com">www.pcloud.com</a>, log kutoka kwa akaunti ya sasa na ubofye tena kwenye \' \' katika programu hii ili kuunda muunganisho mpya wa wingu.</string>
 	<string name="permission_snackbar_auth_local_vault">Cryptomator inahitaji ufikiaji wa kuhifadhi ili kutumia kuba za ndani</string>
 	<string name="permission_snackbar_auth_auto_upload">Cryptomator inahitaji ufikiaji wa kuhifadhi ili kutumia upakiaji wa picha kiotomatiki</string>
 	<!-- # error reports -->
