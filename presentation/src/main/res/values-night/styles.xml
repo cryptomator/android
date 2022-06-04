@@ -9,8 +9,4 @@
 		<item name="backgroundTint">@color/colorBlack</item>
 	</style>
 
-	<style name="ModalBottomSheet" parent="Widget.Material3.BottomSheet.Modal">
-		<item name="backgroundTint">@color/colorBlack</item>
-	</style>
-
 </resources>

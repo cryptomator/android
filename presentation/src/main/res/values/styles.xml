@@ -24,6 +24,8 @@
 		<item name="snackbarTextViewStyle">@style/AppTheme.SnackbarTextview</item>
 		<item name="preferenceTheme">@style/PreferenceTheme</item>
 		<item name="bottomSheetDialogTheme">@style/ModalBottomSheetDialog</item>
+
+		<item name="popupMenuBackground">@color/popupMenuBackgroundColor</item>
 	</style>
 
 	<style name="AppTheme.Starting" parent="Theme.SplashScreen.IconBackground">
@@ -140,7 +142,8 @@
 	</style>
 
 	<style name="ModalBottomSheet" parent="Widget.Material3.BottomSheet.Modal">
-		<item name="backgroundTint">@color/colorWhite</item>
+		<item name="backgroundColor">@color/popupMenuBackgroundColor</item>
+		<item name="backgroundTint">@color/popupMenuBackgroundTintColor</item>
 	</style>
 
 	<style name="CustomActivityAnimation" parent="@android:style/Animation.Activity">
