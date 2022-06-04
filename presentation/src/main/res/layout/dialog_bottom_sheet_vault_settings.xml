@@ -52,6 +52,13 @@
 		</LinearLayout>
 
 		<TextView
+			android:layout_marginBottom="16dp"
+			android:layout_width="match_parent"
+			android:layout_height="1dp"
+			android:layout_alignParentBottom="true"
+			android:background="@color/list_divider" />
+
+		<TextView
 			android:id="@+id/lock_vault"
 			style="@style/AppTheme.ListItem"
 			android:text="@string/dialog_lock_vault"

@@ -21,6 +21,13 @@
 			android:textSize="16sp" />
 
 		<TextView
+			android:layout_width="match_parent"
+			android:layout_height="1dp"
+			android:layout_alignParentBottom="true"
+			android:layout_marginBottom="16dp"
+			android:background="@color/list_divider" />
+
+		<TextView
 			android:id="@+id/create_new_vault"
 			style="@style/AppTheme.ListItem"
 			android:text="@string/screen_vault_list_action_create_new_vault"

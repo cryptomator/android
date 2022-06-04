@@ -52,14 +52,15 @@
 				<!-- using android:singleLine to fix https://code.google.com/p/android/issues/detail?id=33868 -->
 			</LinearLayout>
 
-			<TextView
-				android:layout_width="match_parent"
-				android:layout_height="1dp"
-				android:layout_alignParentBottom="true"
-				android:layout_toEndOf="@+id/iv_cloud_image"
-				android:background="@color/list_divider" />
-
 		</RelativeLayout>
+
+		<TextView
+			android:layout_width="match_parent"
+			android:layout_height="1dp"
+			android:layout_alignParentBottom="true"
+			android:layout_marginBottom="16dp"
+			android:layout_toEndOf="@+id/iv_cloud_image"
+			android:background="@color/list_divider" />
 
 		<TextView
 			android:id="@+id/change_cloud"
