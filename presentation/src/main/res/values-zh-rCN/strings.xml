@@ -60,7 +60,6 @@
 	<string name="screen_vault_list_action_create_new_vault">添加新保险库</string>
 	<string name="screen_vault_list_action_add_existing_vault">添加现有保险库</string>
 	<string name="screen_vault_list_vault_action_delete">删除</string>
-	<string name="screen_vault_list_vault_creation_hint">点击此处新建一个保险库</string>
 	<string name="screen_vault_list_change_password_successful">密码修改成功</string>
 	<!-- # screen: file browser -->
 	<string name="screen_file_browser_default_title">保险库</string>
@@ -114,7 +113,6 @@
 	<string name="screen_choose_cloud_service_title">云服务</string>
 	<!-- ## screen: cloud connections -->
 	<string name="screen_cloud_connections_title">请选择位置</string>
-	<string name="screen_cloud_connections_no_connections">点击此处添加位置</string>
 	<string name="screen_cloud_error_webdav_not_supported">服务器似乎不兼容 WebDAV</string>
 	<string name="screen_cloud_local_error_no_content_provider">没有找到支持打开目录的文件管理器</string>
 	<!-- ## screen: webdav settings -->
@@ -210,7 +208,7 @@
 	<!-- ## screen: authenticate cloud -->
 	<string name="screen_authenticate_auth_authentication_failed">%1$s 无法通过身份验证</string>
 	<string name="screen_update_pcloud_connections_title">更新 pCloud 凭证</string>
-	<!-- ## screen: insecure android version info -->
+	<!-- ## screen: cryptomator app variants -->
 	<!-- # dialogs -->
 	<string name="dialog_button_cancel">取消</string>
 	<string name="dialog_enter_password_positive_button">解锁</string>
@@ -274,7 +272,6 @@
 	<string name="dialog_accept_ssl_certificate_details">详情</string>
 	<string name="dialog_accept_ssl_certificate_security_checkbox">这可能存在安全风险，我知道我在做什么</string>
 	<string name="dialog_ask_ignore_battery_optimizations_title">禁用电池优化</string>
-	<string name="dialog_ask_ignore_battery_optimizations_hint">要在不后台运行的情况下检索新的图片和视频，我们需要解除电池优化。但别担心，%1$s 不会消耗太多电量。\n\n如需应用，点击这个对话框中的“%2$s”后，将“未优化”改为“所有应用”，选择 %1$s 并选择“不要优化”。</string>
 	<string name="dialog_ask_ignore_battery_optimizations_checkbox">不要再次询问我？</string>
 	<string name="dialog_http_security_hint">HTTP 不安全，我们建议使用 HTTPS。如果您知道其中风险，您可以继续使用 HTTP</string>
 	<string name="dialog_http_security_checkbox">换成 HTTPS</string>
@@ -328,7 +325,6 @@
 	<string name="dialog_no_dir_file_message">云文件夹 \'%1$s\' 没有有效的目录文件。可能文件夹是在另一设备上创建的，尚未完全同步到云端。请检查云端是否存在且不为空的以下文件：\n%2$s</string>
 	<string name="dialog_no_more_images_to_display">已到达文件夹末尾&#8230;</string>
 	<string name="dialog_pcloud_credentials_updated_title">\'%1$s\' 的证书已更新</string>
-	<string name="dialog_pcloud_credentials_updated">如果您打算添加一个新的 pCloud 帐户，请点击此链接 <a href="https://www.pcloud.com">www.pcloud.com</a>，登出当前账户，然后点击此应用中的 \'+\' 来创建新的云连接</string>
 	<string name="permission_snackbar_auth_local_vault">Cryptomator 需要存储权限以使用本地保险库</string>
 	<string name="permission_snackbar_auth_auto_upload">Cryptomator 需要存储权限以自动上传图片</string>
 	<!-- # error reports -->
