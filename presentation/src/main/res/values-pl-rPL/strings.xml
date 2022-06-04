@@ -60,7 +60,6 @@
 	<string name="screen_vault_list_action_create_new_vault">Utwórz nowy sejf</string>
 	<string name="screen_vault_list_action_add_existing_vault">Dodaj istniejący sejf</string>
 	<string name="screen_vault_list_vault_action_delete">Usuń</string>
-	<string name="screen_vault_list_vault_creation_hint">Kliknij tutaj, aby utworzyć nowy sejf</string>
 	<string name="screen_vault_list_change_password_successful">Hasło zostało pomyślnie zmienione</string>
 	<!-- # screen: file browser -->
 	<string name="screen_file_browser_default_title">Sejf</string>
@@ -117,7 +116,6 @@
 	<string name="screen_choose_cloud_service_title">Usługi chmury</string>
 	<!-- ## screen: cloud connections -->
 	<string name="screen_cloud_connections_title">Wybierz lokalizację</string>
-	<string name="screen_cloud_connections_no_connections">Kliknij tutaj, aby dodać nową lokalizację</string>
 	<string name="screen_cloud_error_webdav_not_supported">Serwer wydaje się być niekompatybilny z WebDAV</string>
 	<string name="screen_cloud_local_error_no_content_provider">Brak menedżera plików z obsługą otwierania katalogów</string>
 	<!-- ## screen: webdav settings -->
@@ -213,7 +211,7 @@
 	<!-- ## screen: authenticate cloud -->
 	<string name="screen_authenticate_auth_authentication_failed">Nie można uwierzytelnić %1$s.</string>
 	<string name="screen_update_pcloud_connections_title">Aktualizuj dane logowania pCloud</string>
-	<!-- ## screen: insecure android version info -->
+	<!-- ## screen: cryptomator app variants -->
 	<!-- # dialogs -->
 	<string name="dialog_button_cancel">Anuluj</string>
 	<string name="dialog_enter_password_positive_button">Odblokuj</string>
@@ -277,7 +275,6 @@
 	<string name="dialog_accept_ssl_certificate_details">Szczegóły</string>
 	<string name="dialog_accept_ssl_certificate_security_checkbox">Mogłoby to stanowić zagrożenie dla bezpieczeństwa. Wiem, co robię.</string>
 	<string name="dialog_ask_ignore_battery_optimizations_title">Wyłącz optymalizację baterii</string>
-	<string name="dialog_ask_ignore_battery_optimizations_hint">Aby pobrać nowe zdjęcia i filmy bez uruchamiania w tle, należy wyłączyć optymalizację baterii. Ale nie martw się, %1$s nie zużywa zbyt dużo energii.\n\nAby go zastosować, zmień \'Nie zoptymalizowane\' na \'Wszystkie aplikacje\', wybierz %1$s i wybierz \'Nie optymalizuj\' po kliknięciu \'%2$s\' w tym oknie.</string>
 	<string name="dialog_ask_ignore_battery_optimizations_checkbox">Nie pytać ponownie?</string>
 	<string name="dialog_http_security_hint">Używanie HTTP jest niezabezpieczone. Zamiast tego zalecamy używanie HTTPS. Jeśli znasz ryzyko, możesz kontynuować używając HTTP.</string>
 	<string name="dialog_http_security_checkbox">Zmień na HTTPS</string>
@@ -331,7 +328,6 @@
 	<string name="dialog_no_dir_file_message">Folder chmury \'%1$s\' nie ma prawidłowego pliku katalogowego. Być może został on utworzony na innym urządzeniu i nie został jeszcze w pełni zsynchronizowany z chmurą. Sprawdź w chmurze, czy następujący plik istnieje i nie jest pusty:\n%2$s</string>
 	<string name="dialog_no_more_images_to_display">Brak obrazów do wyświetlenia&#8230;</string>
 	<string name="dialog_pcloud_credentials_updated_title">Zaktualizowano dane logowania \'%1$s\'</string>
-	<string name="dialog_pcloud_credentials_updated">Jeśli chciałaś/eś dodać nowe konto pCloud, przejdź na podany adres <a href="https://www.pcloud.com">www.pcloud.com</a>, wyloguj się z aktualnie zalogowanego konta i ponownie kliknij na \'+\' aby utworzyć nowe połączenie z chmurą.</string>
 	<string name="permission_snackbar_auth_local_vault">Cryptomator potrzebuje dostępu do pamięci lokalnej, aby uzyskać dostęp do sejfu</string>
 	<string name="permission_snackbar_auth_auto_upload">Cryptomator potrzebuje dostępu do pamięci lokalnej, aby automatycznie przesyłać zdjęcia</string>
 	<!-- # error reports -->
