@@ -60,7 +60,6 @@
 	<string name="screen_vault_list_action_create_new_vault">Skapa nytt valv</string>
 	<string name="screen_vault_list_action_add_existing_vault">Lägg till befintligt valv</string>
 	<string name="screen_vault_list_vault_action_delete">Ta bort</string>
-	<string name="screen_vault_list_vault_creation_hint">Klicka här för att skapa ett nytt valv</string>
 	<string name="screen_vault_list_change_password_successful">Lösenordet har ändrats</string>
 	<!-- # screen: file browser -->
 	<string name="screen_file_browser_default_title">Valv</string>
@@ -115,7 +114,6 @@
 	<string name="screen_choose_cloud_service_title">Molntjänst</string>
 	<!-- ## screen: cloud connections -->
 	<string name="screen_cloud_connections_title">Välj en plats</string>
-	<string name="screen_cloud_connections_no_connections">Klicka här för att lägga till platser</string>
 	<string name="screen_cloud_error_webdav_not_supported">Servern verkar inte vara WebDAV-kompatibel</string>
 	<string name="screen_cloud_local_error_no_content_provider">Hittade ingen filhanterare som har stöd för att öppna kataloger</string>
 	<!-- ## screen: webdav settings -->
@@ -211,7 +209,7 @@
 	<!-- ## screen: authenticate cloud -->
 	<string name="screen_authenticate_auth_authentication_failed">%1$s kunde inte autentiseras.</string>
 	<string name="screen_update_pcloud_connections_title">Uppdatera pCloud-uppgifter</string>
-	<!-- ## screen: insecure android version info -->
+	<!-- ## screen: cryptomator app variants -->
 	<!-- # dialogs -->
 	<string name="dialog_button_cancel">Avbryt</string>
 	<string name="dialog_enter_password_positive_button">Lås upp</string>
@@ -275,7 +273,6 @@
 	<string name="dialog_accept_ssl_certificate_details">Detaljer</string>
 	<string name="dialog_accept_ssl_certificate_security_checkbox">Det kan vara en säkerhetsrisk. Jag vet vad jag gör.</string>
 	<string name="dialog_ask_ignore_battery_optimizations_title">Inaktivera batterioptimering</string>
-	<string name="dialog_ask_ignore_battery_optimizations_hint">För att hämta nya bilder och videor utan att köra i bakgrunden måste vi välja bort batterioptimeringar. Men oroa dig inte, %1$s förbrukar inte mycket energi.\n\nFör att tillämpa detta, ändra \'Inte optimerad\' till \'Alla appar\', välj %1$s och välj \"Optimera inte\" efter att du klickat på \"%2$s\" i denna dialogruta.</string>
 	<string name="dialog_ask_ignore_battery_optimizations_checkbox">Visa inte igen?</string>
 	<string name="dialog_http_security_hint">Användning av HTTP är osäkert. Vi rekommenderar att du använder HTTPS istället. Om du känner till riskerna kan du fortsätta med HTTP.</string>
 	<string name="dialog_http_security_checkbox">Ändra till HTTPS</string>
@@ -329,7 +326,6 @@
 	<string name="dialog_no_dir_file_message">Moln-mappen \'%1$s\' har ingen giltig katalog-fil. Det kan bero på att mappen skapades på en annan enhet och ännu inte har synkroniserats fullt ut med molnet. Kontrollera i ditt moln om följande fil finns:\n%2$s</string>
 	<string name="dialog_no_more_images_to_display">Inga fler bilder att visa&#8230;</string>
 	<string name="dialog_pcloud_credentials_updated_title">Användaruppgifter för \'%1$s\' uppdaterad</string>
-	<string name="dialog_pcloud_credentials_updated">Om du tänkte lägga till ett nytt pCloud-konto, klicka på denna url <a href="https://www.pcloud.com">www.pcloud. Om</a>, logga ut från det aktuella kontot och klicka igen på \'+\' i den här appen för att skapa en ny molnanslutning.</string>
 	<string name="permission_snackbar_auth_local_vault">Cryptomator behöver åtkomst till lagringsutrymmet för att använda lokala valv</string>
 	<string name="permission_snackbar_auth_auto_upload">Cryptomator behöver åtkomst till lagringsutrymmet för att kunna använda automatisk uppladdning av foton</string>
 	<!-- # error reports -->

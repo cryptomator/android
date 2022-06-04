@@ -58,7 +58,6 @@
 	<string name="screen_vault_list_action_create_new_vault">নতুন ভোল্ট তৈরি করুন</string>
 	<string name="screen_vault_list_action_add_existing_vault">বিদ্যমান কোনো ভোল্ট যুক্ত করুন</string>
 	<string name="screen_vault_list_vault_action_delete">বাতিল</string>
-	<string name="screen_vault_list_vault_creation_hint">নতুন ভোল্ট তৈরি করতে এখানে ক্লিক করুন</string>
 	<string name="screen_vault_list_change_password_successful">পাসওয়ার্ড সফলভাবে পরিবর্তিত হয়েছে</string>
 	<!-- # screen: file browser -->
 	<string name="screen_file_browser_default_title">ভোল্ট</string>
@@ -113,7 +112,6 @@
 	<string name="screen_choose_cloud_service_title">ক্লাউড পরিষেবা</string>
 	<!-- ## screen: cloud connections -->
 	<string name="screen_cloud_connections_title">একটি ঠিকানা বাছাই করুন</string>
-	<string name="screen_cloud_connections_no_connections">ঠিকানা যোগ করতে এখানে ক্লিক করুন</string>
 	<!-- ## screen: webdav settings -->
 	<string name="screen_webdav_settings_url_port_label">ইউআরএল</string>
 	<string name="screen_webdav_settings_username_label">ব্যবহারকারীর নাম</string>
@@ -192,7 +190,7 @@
 	<string name="screen_cloud_settings_sign_out_from_cloud">সাইন আউট</string>
 	<!-- ## screen: licenses -->
 	<!-- ## screen: authenticate cloud -->
-	<!-- ## screen: insecure android version info -->
+	<!-- ## screen: cryptomator app variants -->
 	<!-- # dialogs -->
 	<string name="dialog_button_cancel">বাতিল করুন</string>
 	<string name="dialog_enter_password_positive_button">আনলক করুন</string>

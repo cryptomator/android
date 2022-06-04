@@ -60,7 +60,6 @@
 	<string name="screen_vault_list_action_create_new_vault">新しい金庫を作成</string>
 	<string name="screen_vault_list_action_add_existing_vault">既存の金庫を追加</string>
 	<string name="screen_vault_list_vault_action_delete">削除</string>
-	<string name="screen_vault_list_vault_creation_hint">ここをクリックして新しい金庫を作成</string>
 	<string name="screen_vault_list_change_password_successful">パスワードが正常に変更されました</string>
 	<!-- # screen: file browser -->
 	<string name="screen_file_browser_default_title">金庫</string>
@@ -114,7 +113,6 @@
 	<string name="screen_choose_cloud_service_title">クラウド・サービス</string>
 	<!-- ## screen: cloud connections -->
 	<string name="screen_cloud_connections_title">接続先を選択</string>
-	<string name="screen_cloud_connections_no_connections">ここをタップして接続先を追加する</string>
 	<string name="screen_cloud_error_webdav_not_supported">サーバーに WebDAV との互換性がありません</string>
 	<string name="screen_cloud_local_error_no_content_provider">ディレクトリを開くことができるファイルマネージャが見つかりませんでした</string>
 	<!-- ## screen: webdav settings -->
@@ -210,7 +208,7 @@
 	<!-- ## screen: authenticate cloud -->
 	<string name="screen_authenticate_auth_authentication_failed">%1$s は認証できませんでした。</string>
 	<string name="screen_update_pcloud_connections_title">pCloud アカウント情報を更新</string>
-	<!-- ## screen: insecure android version info -->
+	<!-- ## screen: cryptomator app variants -->
 	<!-- # dialogs -->
 	<string name="dialog_button_cancel">キャンセル</string>
 	<string name="dialog_enter_password_positive_button">解錠</string>
@@ -274,7 +272,6 @@
 	<string name="dialog_accept_ssl_certificate_details">詳細</string>
 	<string name="dialog_accept_ssl_certificate_security_checkbox">これはセキュリティリスクになる可能性があります。リスクについて理解していますか</string>
 	<string name="dialog_ask_ignore_battery_optimizations_title">バッテリーの最適化を無効にする</string>
-	<string name="dialog_ask_ignore_battery_optimizations_hint">バックグラウンド中に新しい画像やビデオを取得するには、バッテリーの最適化オプションからオプトアウトする必要があります。%1$s が多くのエネルギーを消費することはありません。\n\n 「最適化されていない状態」から「すべてのアプリ」に変更するには、このダイアログで \'%2$s\' をクリックした後に、%1$s を選び「最適化しない」を指定してください。</string>
 	<string name="dialog_ask_ignore_battery_optimizations_checkbox">今後確認しない</string>
 	<string name="dialog_http_security_hint">HTTP は安全ではありません。代わりに HTTPS を使用することを推奨します。リスクを承知の上であれば HTTP をご使用ください。</string>
 	<string name="dialog_http_security_checkbox">HTTPS を使用</string>
@@ -325,7 +322,6 @@
 	<string name="dialog_no_dir_file_message">クラウドのフォルダ \'%1$s\' には有効なディレクトリファイルがありません。このフォルダは他のデバイスで作成され、まだクラウドに完全に同期されていない可能性があります。クラウドで以下のファイルが存在し、かつ空でないことを確認してください。: \n%2$s</string>
 	<string name="dialog_no_more_images_to_display">表示する画像がありません&#8230;</string>
 	<string name="dialog_pcloud_credentials_updated_title">\'%1$s\' の資格情報が更新されました</string>
-	<string name="dialog_pcloud_credentials_updated">pCloud アカウントを追加するには、次のリンクをクリックしてください <a href="https://www.pcloud.com">www.pcloud.com</a>。現在のアカウントからログアウトし、このアプリの「+」を再度クリックして、新しいクラウド接続を作成してください。</string>
 	<string name="permission_snackbar_auth_local_vault">ローカルの金庫を使用するには、Cryptomator がストレージにアクセスする許可が必要です</string>
 	<string name="permission_snackbar_auth_auto_upload">自動的に画像をアップロードするには、Cryptomator がストレージにアクセスする許可が必要です</string>
 	<!-- # error reports -->

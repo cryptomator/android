@@ -60,7 +60,6 @@
 	<string name="screen_vault_list_action_create_new_vault">Nieuwe kluis aanmaken</string>
 	<string name="screen_vault_list_action_add_existing_vault">Bestaande kluis toevoegen</string>
 	<string name="screen_vault_list_vault_action_delete">Verwijderen</string>
-	<string name="screen_vault_list_vault_creation_hint">Klik hier om een nieuwe kluis aan te maken</string>
 	<string name="screen_vault_list_change_password_successful">Wachtwoord succesvol gewijzigd</string>
 	<!-- # screen: file browser -->
 	<string name="screen_file_browser_default_title">Kluis</string>
@@ -115,7 +114,6 @@
 	<string name="screen_choose_cloud_service_title">Cloud service</string>
 	<!-- ## screen: cloud connections -->
 	<string name="screen_cloud_connections_title">Kies een locatie</string>
-	<string name="screen_cloud_connections_no_connections">Klik hier om locaties toe te voegen</string>
 	<string name="screen_cloud_error_webdav_not_supported">Server lijkt niet WebDAV compatibel te zijn</string>
 	<string name="screen_cloud_local_error_no_content_provider">Geen bestandsbeheerder gevonden die het openen van mappen ondersteunt</string>
 	<!-- ## screen: webdav settings -->
@@ -211,7 +209,7 @@
 	<!-- ## screen: authenticate cloud -->
 	<string name="screen_authenticate_auth_authentication_failed">%1$s kon niet worden geverifieerd.</string>
 	<string name="screen_update_pcloud_connections_title">PCloud inloggegevens bijwerken</string>
-	<!-- ## screen: insecure android version info -->
+	<!-- ## screen: cryptomator app variants -->
 	<!-- # dialogs -->
 	<string name="dialog_button_cancel">Annuleren</string>
 	<string name="dialog_enter_password_positive_button">Ontgrendel</string>
@@ -275,7 +273,6 @@
 	<string name="dialog_accept_ssl_certificate_details">Details</string>
 	<string name="dialog_accept_ssl_certificate_security_checkbox">Dit kan een veiligheidsrisico zijn. Ik weet wat ik doe.</string>
 	<string name="dialog_ask_ignore_battery_optimizations_title">Batterij optimalisaties uitschakelen</string>
-	<string name="dialog_ask_ignore_battery_optimizations_hint">Om nieuwe foto\'s en video\'s op te halen zonder in de achtergrond te draaien, schakelt de batterij optimalisatie uit. Maak je geen zorgen, %1$s verbruikt niet veel energie.\n\nOm toe te passen, wijzig \'Niet geoptimaliseerd\' naar \'Alle apps\', selecteer %1$s en kies \'Niet optimaliseren\' na \'%2$s\' in dit dialoogvenster.</string>
 	<string name="dialog_ask_ignore_battery_optimizations_checkbox">Niet opnieuw vragen?</string>
 	<string name="dialog_http_security_hint">Het gebruik van HTTP is onveilig. We raden aan om in plaats daarvan HTTPS te gebruiken. Als u de risico\'s weet, kunt u doorgaan met HTTP.</string>
 	<string name="dialog_http_security_checkbox">Verander naar HTTPS</string>
@@ -329,7 +326,6 @@
 	<string name="dialog_no_dir_file_message">Cloud map \'%1$s\' heeft geen geldig sleutelbestand. Het kan zijn dat de map op een ander apparaat is aangemaakt en nog niet volledig is gesynchroniseerd met de cloud. Controleer in de cloud of het volgende bestand bestaat en niet leeg is:\n%2$s</string>
 	<string name="dialog_no_more_images_to_display">Geen afbeeldingen meer om weer te geven&#8230;</string>
 	<string name="dialog_pcloud_credentials_updated_title">Gebruiksgegevens van \'%1$s\' bijgewerkt</string>
-	<string name="dialog_pcloud_credentials_updated">Als je een nieuwe pCloud account probeerde toe te voegen, klik dan op deze url <a href="https://www.pcloud.com">www.pcloud. om</a>, log de huidige account uit en klik opnieuw op de \'+\' in deze app om een nieuwe cloud verbinding te maken.</string>
 	<string name="permission_snackbar_auth_local_vault">Cryptomator heeft toegang tot opslag nodig om lokale kluizen te kunnen gebruiken</string>
 	<string name="permission_snackbar_auth_auto_upload">Cryptomator heeft toegang tot opslag nodig om automatisch uploaden van foto\'s te kunnen gebruiken</string>
 	<!-- # error reports -->

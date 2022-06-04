@@ -60,7 +60,6 @@
 	<string name="screen_vault_list_action_create_new_vault">Yeni kasa oluştur</string>
 	<string name="screen_vault_list_action_add_existing_vault">Mevcut kasayı ekle</string>
 	<string name="screen_vault_list_vault_action_delete">Kaldır</string>
-	<string name="screen_vault_list_vault_creation_hint">Kasa oluşturmak/eklemek için burayı tıklayın</string>
 	<string name="screen_vault_list_change_password_successful">Şifre başarıyla değiştirildi</string>
 	<!-- # screen: file browser -->
 	<string name="screen_file_browser_default_title">Kasa</string>
@@ -115,7 +114,6 @@
 	<string name="screen_choose_cloud_service_title">Bulut hizmeti</string>
 	<!-- ## screen: cloud connections -->
 	<string name="screen_cloud_connections_title">Bir yer seçin</string>
-	<string name="screen_cloud_connections_no_connections">Konum eklemek için buraya tıklayın</string>
 	<string name="screen_cloud_error_webdav_not_supported">Sunucu WebDAV uyumlu görünmüyor</string>
 	<string name="screen_cloud_local_error_no_content_provider">Dizinlerin açılmasını destekleyen dosya yöneticisi bulunamadı</string>
 	<!-- ## screen: webdav settings -->
@@ -211,7 +209,7 @@
 	<!-- ## screen: authenticate cloud -->
 	<string name="screen_authenticate_auth_authentication_failed">%1$s kimliği doğrulanamadı.</string>
 	<string name="screen_update_pcloud_connections_title">pCloud kimlik bilgilerini güncelleyin</string>
-	<!-- ## screen: insecure android version info -->
+	<!-- ## screen: cryptomator app variants -->
 	<!-- # dialogs -->
 	<string name="dialog_button_cancel">İptal</string>
 	<string name="dialog_enter_password_positive_button">Kilidi Aç</string>
@@ -275,7 +273,6 @@
 	<string name="dialog_accept_ssl_certificate_details">Detaylar</string>
 	<string name="dialog_accept_ssl_certificate_security_checkbox">Bu bir güvenlik riski olabilir! Ne yaptığımı biliyorum.</string>
 	<string name="dialog_ask_ignore_battery_optimizations_title">Pil optimizasyonlarını devre dışı bırak</string>
-	<string name="dialog_ask_ignore_battery_optimizations_hint">Arka planda çalışmadan yeni resimler ve videoları almak için pil optimizasyonlarını devre dışı bırakmanız gerekiyor. Ancak endişelenmeyin, %1$s fazla enerji tüketmez.\n\nUygulamak için \'Optimize edilmedi\'yi \'Tüm uygulamalar\' olarak değiştirin, %1$s\'yi seçin ve bu iletişim kutusunda \'%2$s\' tıkladıktan sonra \'Optimize etme\'yi seçin.</string>
 	<string name="dialog_ask_ignore_battery_optimizations_checkbox">Bir daha sorma?</string>
 	<string name="dialog_http_security_hint">HTTP\'nin kullanımı güvensizdir. Bunun yerine HTTPS kullanmanızı öneririz. Riskleri biliyorsanız, HTTP ile devam edebilirsiniz.</string>
 	<string name="dialog_http_security_checkbox">HTTPS\'ye geç</string>
@@ -329,7 +326,6 @@
 	<string name="dialog_no_dir_file_message">\'%1$s\' bulut klasörü geçerli bir dizin dosyasına sahip değil. Klasör başka bir cihazda oluşturulmuş ve henüz bulutla tam olarak senkronize edilmemiş olabilir. Lütfen bulutunuzda aşağıdaki dosyanın olup olmadığını ve boş olup olmadığını kontrol edin:\n%2$s</string>
 	<string name="dialog_no_more_images_to_display">&#8230; göstermek için daha fazla resim yok</string>
 	<string name="dialog_pcloud_credentials_updated_title">%1$s kimlik bilgileri güncellendi</string>
-	<string name="dialog_pcloud_credentials_updated">Yeni bir pCloud hesabı eklemeyi düşünüyorsanız, bu url <a href="https://www.pcloud.com">www.pcloud.com</a> tıklayın, mevcut hesaptan çıkın ve yeni bir bulut bağlantısı oluşturmak için \'+\'. tekrar tıklayın.</string>
 	<string name="permission_snackbar_auth_local_vault">Cryptomator\'un yerel kasaları kullanmak için depolama erişimine ihtiyacı var</string>
 	<string name="permission_snackbar_auth_auto_upload">Cryptomator\'un otomatik fotoğraf yüklemesi için depolama erişimine ihtiyacı var</string>
 	<!-- # error reports -->

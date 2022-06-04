@@ -58,7 +58,6 @@
 	<string name="screen_vault_list_action_create_new_vault">Új széf készítése</string>
 	<string name="screen_vault_list_action_add_existing_vault">Meglévő széfhez adás</string>
 	<string name="screen_vault_list_vault_action_delete">Eltávolítás</string>
-	<string name="screen_vault_list_vault_creation_hint">Kattintson ide egy új széf létrehozásához</string>
 	<string name="screen_vault_list_change_password_successful">Jelszó sikeresen megváltoztatva</string>
 	<!-- # screen: file browser -->
 	<string name="screen_file_browser_default_title">Széf</string>
@@ -113,7 +112,6 @@
 	<string name="screen_choose_cloud_service_title">Felhőszolgáltatás</string>
 	<!-- ## screen: cloud connections -->
 	<string name="screen_cloud_connections_title">Válasszon helyt</string>
-	<string name="screen_cloud_connections_no_connections">Kattintson ide a hely hozzáadásához</string>
 	<string name="screen_cloud_error_webdav_not_supported">A kiszolgáló nem tűnik WebDAV kompatibilisnek</string>
 	<!-- ## screen: webdav settings -->
 	<string name="screen_webdav_settings_url_port_label">ULR</string>
@@ -208,7 +206,7 @@
 	<!-- ## screen: authenticate cloud -->
 	<string name="screen_authenticate_auth_authentication_failed">A %1$s hitelesítése sikertelen.</string>
 	<string name="screen_update_pcloud_connections_title">pCloud hitelesítő adatainak frissítése</string>
-	<!-- ## screen: insecure android version info -->
+	<!-- ## screen: cryptomator app variants -->
 	<!-- # dialogs -->
 	<string name="dialog_button_cancel">Mégse</string>
 	<string name="dialog_enter_password_positive_button">Feloldás</string>

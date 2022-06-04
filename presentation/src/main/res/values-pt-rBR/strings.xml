@@ -60,7 +60,6 @@
 	<string name="screen_vault_list_action_create_new_vault">Criar novo cofre</string>
 	<string name="screen_vault_list_action_add_existing_vault">Adicionar ao cofre existente</string>
 	<string name="screen_vault_list_vault_action_delete">Remover</string>
-	<string name="screen_vault_list_vault_creation_hint">Clique aqui para criar um novo cofre</string>
 	<string name="screen_vault_list_change_password_successful">Senha alterada com sucesso</string>
 	<!-- # screen: file browser -->
 	<string name="screen_file_browser_default_title">Cofre</string>
@@ -115,7 +114,6 @@
 	<string name="screen_choose_cloud_service_title">Serviço de nuvem</string>
 	<!-- ## screen: cloud connections -->
 	<string name="screen_cloud_connections_title">Selecionar um local</string>
-	<string name="screen_cloud_connections_no_connections">Clique aqui para adicionar locais</string>
 	<string name="screen_cloud_error_webdav_not_supported">O servidor não parece ser compatível com WebDAV</string>
 	<string name="screen_cloud_local_error_no_content_provider">Nenhum gerenciador de arquivos encontrado que suporte a abertura de pastas</string>
 	<!-- ## screen: webdav settings -->
@@ -211,7 +209,7 @@
 	<!-- ## screen: authenticate cloud -->
 	<string name="screen_authenticate_auth_authentication_failed">%1$s não pôde ser autenticado.</string>
 	<string name="screen_update_pcloud_connections_title">Atualizar credenciais do pCloud</string>
-	<!-- ## screen: insecure android version info -->
+	<!-- ## screen: cryptomator app variants -->
 	<!-- # dialogs -->
 	<string name="dialog_button_cancel">Cancelar</string>
 	<string name="dialog_enter_password_positive_button">Desbloquear</string>
@@ -275,7 +273,6 @@
 	<string name="dialog_accept_ssl_certificate_details">Detalhes</string>
 	<string name="dialog_accept_ssl_certificate_security_checkbox">Isto pode ser um risco para a segurança. Eu sei o que estou fazendo.</string>
 	<string name="dialog_ask_ignore_battery_optimizations_title">Desativar otimizações de bateria</string>
-	<string name="dialog_ask_ignore_battery_optimizations_hint">Para recuperar novas imagens e vídeos sem rodar em segundo plano, precisamos desativar as otimizações de bateria. Mas não se preocupe, %1$s não consome muito energia.\n\nPara aplicá-lo, altere \'Não otimizado\' para \'Todos os aplicativos\', selecione %1$s e escolha \'Não otimizar\' após clicar em \'%2$s\' neste diálogo.</string>
 	<string name="dialog_ask_ignore_battery_optimizations_checkbox">Não pergunte novamente</string>
 	<string name="dialog_http_security_hint">O uso de HTTP é inseguro. Recomendamos a utilização de HTTPS. Se você souber os riscos, você pode continuar com o HTTP.</string>
 	<string name="dialog_http_security_checkbox">Mudar para HTTPS</string>
@@ -329,7 +326,6 @@
 	<string name="dialog_no_dir_file_message">A pasta na nuvem \'%1$s\' não tem um arquivo de diretório válido. Pode ser que a pasta foi criada em outro dispositivo e ainda não foi totalmente sincronizada com a nuvem. Por favor, verifique em sua nuvem se o seguinte arquivo existe:\n%2$s</string>
 	<string name="dialog_no_more_images_to_display">Sem mais imagens para exibir&#8230;</string>
 	<string name="dialog_pcloud_credentials_updated_title">Credenciais de \'%1$s\' atualizadas</string>
-	<string name="dialog_pcloud_credentials_updated">Se você pretendia adicionar uma nova conta pCloud, clique neste url <a href="https://www.pcloud.com">www.pcloud. um</a>, sair da conta atual e clicar novamente em \'+\' neste aplicativo para criar uma nova conexão com a nuvem.</string>
 	<string name="permission_snackbar_auth_local_vault">Cryptomator precisa de permissão de acesso ao armazenamento para fazer upload de arquivos</string>
 	<string name="permission_snackbar_auth_auto_upload">Cryptomator precisa de permissão de acesso ao armazenamento para fazer upload de arquivos</string>
 	<!-- # error reports -->

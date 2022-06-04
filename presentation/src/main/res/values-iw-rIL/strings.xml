@@ -59,7 +59,6 @@
 	<string name="screen_vault_list_action_create_new_vault">צור כספת חדשה</string>
 	<string name="screen_vault_list_action_add_existing_vault">הוסף כספת קיימת</string>
 	<string name="screen_vault_list_vault_action_delete">הסר</string>
-	<string name="screen_vault_list_vault_creation_hint">יש ללחוץ כאן ליצירת כספת חדשה</string>
 	<string name="screen_vault_list_change_password_successful">הסיסמא שונתה בהצלחה</string>
 	<!-- # screen: file browser -->
 	<string name="screen_file_browser_default_title">כספת</string>
@@ -110,7 +109,6 @@
 	<string name="screen_choose_cloud_service_title">שירותי אחסון בענן</string>
 	<!-- ## screen: cloud connections -->
 	<string name="screen_cloud_connections_title">בחר מיקום</string>
-	<string name="screen_cloud_connections_no_connections">להוספת מיקומים, לחץ כאן</string>
 	<string name="screen_cloud_error_webdav_not_supported">נראה שהשרת אינו תומך ב WebDAV</string>
 	<string name="screen_cloud_local_error_no_content_provider">לא נמצא סייר קבצים שתומך בפתיחה של תיקיות</string>
 	<!-- ## screen: webdav settings -->
@@ -206,7 +204,7 @@
 	<!-- ## screen: authenticate cloud -->
 	<string name="screen_authenticate_auth_authentication_failed">האימות מול \'%1$s\' נכשל.</string>
 	<string name="screen_update_pcloud_connections_title">עדכן את פרטי ההתחברות אל pCloud</string>
-	<!-- ## screen: insecure android version info -->
+	<!-- ## screen: cryptomator app variants -->
 	<!-- # dialogs -->
 	<string name="dialog_button_cancel">ביטול</string>
 	<string name="dialog_enter_password_positive_button">בטל נעילה</string>
@@ -314,7 +312,6 @@
 	<string name="dialog_no_dir_file_title">טעינת תיקייה זו נכשלה</string>
 	<string name="dialog_no_more_images_to_display">אין עוד תמונות להציג&#8230;</string>
 	<string name="dialog_pcloud_credentials_updated_title">פרטי ההתחברות של \'%1$s\' עודכנו</string>
-	<string name="dialog_pcloud_credentials_updated">אם ברצונך להוסיף משתמש pCloud נוסף, לחץ על הקישור <a href="https://www.pcloud.com">www.pcloud.com</a>, התנתק מהמשתמש הנוכחי ולחץ על ה \'+\' באפליקצייה כדי להוסיף חיבור חדש.</string>
 	<string name="permission_snackbar_auth_local_vault">Cryptomator זקוק להרשאת גישה לזיכרון המכשיר כדי להשתמש בכספת מקומית</string>
 	<string name="permission_snackbar_auth_auto_upload">Cryptomator זקוק להרשאת גישה לזיכרון המכשיר כדי לבצע העלאה אוטומטית של תמונות</string>
 	<!-- # error reports -->
