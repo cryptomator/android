@@ -297,6 +297,7 @@
 	<string name="dialog_vaults_removed_during_migration_hint">在遷移到此應用程序版本時，我們需要從應用程序中刪除以下加密檔案庫。\n%2s\n\n這些加密檔案庫不會從雲端刪除，而只是從這個應用程序中刪除。很抱歉給您帶來不便，請重新添加這些加密檔案庫以繼續使用它們。</string>
 	<string name="dialog_vault_is_root_folder_of_cloud_title">加密檔案庫是雲連接的根文件夾</string>
 	<string name="dialog_vault_is_root_folder_of_cloud_hint">要加入此加密庫，請先建立一個新的雲端連接、並選擇此加密庫資料夾的上一層作為根文件夾。</string>
+	<string name="dialog_disable_secure_screen_disclaimer_hint">此設定是一項安全功能，可防止其他應用程式欺騙用戶做他們不想做的事情。\n\n如果停用這項功能，請確定你已經<a href="https://docs.cryptomator.org/en/1.6/android/settings/#screen-security">了解風險</a>。</string>
 	<string name="dialog_delete_cloud_connection_with_vaults_message">您確定要刪除此雲端連結嗎？</string>
 	<string name="dialog_delete_cloud_connection_with_vaults_hint">此操作將移除雲端連接、並刪除該雲端上所有的加密檔案庫。</string>
 	<string name="dialog_confirm_delete_multiple_title">是否刪除%1$d個項目？</string>
