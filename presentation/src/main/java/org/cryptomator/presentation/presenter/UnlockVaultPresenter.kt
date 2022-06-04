@@ -402,6 +402,10 @@ class UnlockVaultPresenter @Inject constructor(
 		finishWithResult(null)
 	}
 
+	fun onChangePasswordCanceled() {
+		finishWithResult(null)
+	}
+
 	private open class PendingUnlock(private val vault: Vault?) : Serializable {
 
 		private var unlockToken: UnlockToken? = null

@@ -110,6 +110,10 @@ class UnlockVaultActivity : BaseActivity(), //
 		presenter.onChangePasswordClick(vaultModel, unverifiedVaultConfig, oldPassword, newPassword)
 	}
 
+	override fun onChangePasswordCanceled() {
+		presenter.onChangePasswordCanceled()
+	}
+
 	override fun onDeleteMissingVaultClicked(vault: Vault) {
 		presenter.onDeleteMissingVaultClicked(vault)
 	}
