@@ -140,7 +140,26 @@ class CloudSettingsPresenter @Inject constructor( //
 					it.add(aS3Cloud())
 					it.add(aLocalCloud())
 				}
+				.filter { cloud -> !(BuildConfig.FLAVOR == "lite" && excludeApiCloudsInLite(cloud.cloudType())) } //
 			view?.render(cloudModel)
+		}
+
+		private fun excludeApiCloudsInLite(cloudType: CloudTypeModel): Boolean {
+			return when (cloudType) {
+				CloudTypeModel.GOOGLE_DRIVE -> {
+					true
+				}
+				CloudTypeModel.ONEDRIVE -> {
+					true
+				}
+				CloudTypeModel.DROPBOX -> {
+					true
+				}
+				CloudTypeModel.PCLOUD -> {
+					true
+				}
+				else -> false
+			}
 		}
 
 		private fun aOnedriveCloud(): OnedriveCloudModel {

@@ -53,19 +53,27 @@ android {
 		fdroid {
 			dimension "version"
 		}
+
+		lite {
+			dimension "version"
+		}
 	}
 
 	sourceSets {
 		playstore {
-			java.srcDirs = ['src/main/java', 'src/main/java/', 'src/notFoss/java', 'src/notFoss/java/']
+			java.srcDirs = ['src/main/java/', 'src/apiKey/java/', 'src/apkStorePlaystore/java/']
 		}
 
 		apkstore {
-			java.srcDirs = ['src/main/java', 'src/main/java/', 'src/notFoss/java', 'src/notFoss/java/']
+			java.srcDirs = ['src/main/java/', 'src/apiKey/java/', 'src/apkStorePlaystore/java/']
 		}
 
 		fdroid {
-			java.srcDirs = ['src/main/java', 'src/main/java/', 'src/foss/java', 'src/foss/java/']
+			java.srcDirs = ['src/main/java/', 'src/apiKey/java/', 'src/fdroid/java/']
+		}
+
+		lite {
+			java.srcDirs = ['src/main/java/', 'src/lite/java/']
 		}
 	}
 	packagingOptions {
@@ -95,7 +103,9 @@ dependencies {
 
 	implementation project(':domain')
 	implementation project(':util')
-	implementation project(':pcloud-sdk-java')
+	playstoreImplementation project(':pcloud-sdk-java')
+	apkstoreImplementation project(':pcloud-sdk-java')
+	fdroidImplementation project(':pcloud-sdk-java')
 
 	coreLibraryDesugaring dependencies.coreDesugaring
 
@@ -113,9 +123,16 @@ dependencies {
 	implementation dependencies.jsonWebTokenJson
 
 	// cloud
-	implementation dependencies.dropbox
-	implementation dependencies.msgraphAuth
-	implementation dependencies.msgraph
+	playstoreImplementation dependencies.dropbox
+	apkstoreImplementation dependencies.dropbox
+	fdroidImplementation dependencies.dropbox
+
+	playstoreImplementation dependencies.msgraphAuth
+	apkstoreImplementation dependencies.msgraphAuth
+	fdroidImplementation dependencies.msgraphAuth
+	playstoreImplementation dependencies.msgraph
+	apkstoreImplementation dependencies.msgraph
+	fdroidImplementation dependencies.msgraph
 
 	implementation dependencies.stax
 	api dependencies.minIo

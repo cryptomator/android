@@ -290,6 +290,7 @@ constructor(context: Context) : SharedPreferences.OnSharedPreferenceChangeListen
 		private const val BACKGROUND_UNLOCK_PREPARATION = "backgroundUnlockPreparation"
 		private const val VAULTS_REMOVED_DURING_MIGRATION = "vaultsRemovedDuringMigration"
 		private const val VAULTS_REMOVED_DURING_MIGRATION_TYPE = "vaultsRemovedDuringMigrationType"
+		private const val LAST_UPDATE_CHECK = "lastUpdateCheck"
 		const val DEBUG_MODE = "debugMode"
 		const val DISABLE_APP_WHEN_OBSCURED = "disableAppWhenObscured"
 		const val SECURE_SCREEN = "secureScreen"
@@ -304,7 +305,10 @@ constructor(context: Context) : SharedPreferences.OnSharedPreferenceChangeListen
 		const val LRU_CACHE_SIZE = "lruCacheSize"
 		const val MAIL = "mail"
 		const val UPDATE_INTERVAL = "updateInterval"
-		private const val LAST_UPDATE_CHECK = "lastUpdateCheck"
+		const val CLOUD_SETTINGS = "cloudSettings"
+		const val BIOMETRIC_AUTHENTICATION = "biometricAuthentication"
+		const val CRYPTOMATOR_VARIANTS = "cryptomatorVariants"
+		const val LICENSES_ACTIVITY = "licensesActivity"
 	}
 
 	private inline fun SharedPreferences.edit(operation: (SharedPreferences.Editor) -> Unit) {

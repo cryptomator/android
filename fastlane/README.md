@@ -55,6 +55,14 @@ Deploy new version to server
 
 Deploy new version to F-Droid
 
+### android deployLite
+
+```sh
+[bundle exec] fastlane android deployLite
+```
+
+Deploy new lite version
+
 ### android checkTrackingAddedInDependencyUsingIzzyScript
 
 ```sh

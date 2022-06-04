@@ -16,33 +16,21 @@
 		android:key="@string/screen_settings_section_general"
 		android:title="@string/screen_settings_section_general">
 
-		<androidx.preference.PreferenceScreen android:title="@string/screen_settings_cloud_settings_label">
-
-			<intent
-				android:action="android.intent.action.MAIN"
-				android:targetClass="org.cryptomator.presentation.ui.activity.CloudSettingsActivity"
-				android:targetPackage="@string/app_id" />
-
-		</androidx.preference.PreferenceScreen>
+		<androidx.preference.PreferenceScreen
+			android:key="cloudSettings"
+			android:title="@string/screen_settings_cloud_settings_label" />
 
 		<androidx.preference.PreferenceScreen
 			android:key="biometricAuthentication"
-			android:title="@string/screen_settings_biometric_auth">
+			android:title="@string/screen_settings_biometric_auth" />
 
-			<intent
-				android:action="android.intent.action.MAIN"
-				android:targetClass="org.cryptomator.presentation.ui.activity.BiometricAuthSettingsActivity"
-				android:targetPackage="@string/app_id" />
-
-		</androidx.preference.PreferenceScreen>
-
-		<androidx.preference.SwitchPreferenceCompat
+		<SwitchPreference
 			android:defaultValue="true"
 			android:key="disableAppWhenObscured"
 			android:summary="@string/screen_settings_block_app_when_obscured_summary"
 			android:title="@string/screen_settings_block_app_when_obscured" />
 
-		<androidx.preference.SwitchPreferenceCompat
+		<SwitchPreference
 			android:defaultValue="true"
 			android:key="secureScreen"
 			android:summary="@string/screen_settings_secure_screen_summary"
@@ -57,17 +45,22 @@
 			android:summary="%s"
 			android:title="@string/screen_settings_style_mode" />
 
+		<androidx.preference.PreferenceScreen
+			android:key="cryptomatorVariants"
+			android:summary="@string/screen_settings_cryptomator_variants_summary"
+			android:title="@string/screen_settings_cryptomator_variants_label" />
+
 	</PreferenceCategory>
 
 	<PreferenceCategory android:title="@string/screen_settings_section_search">
 
-		<androidx.preference.SwitchPreferenceCompat
+		<SwitchPreference
 			android:defaultValue="false"
 			android:key="liveSearch"
 			android:summary="@string/screen_settings_live_search_summary"
 			android:title="@string/screen_settings_live_search" />
 
-		<androidx.preference.SwitchPreferenceCompat
+		<SwitchPreference
 			android:defaultValue="false"
 			android:key="globSearch"
 			android:summary="@string/screen_settings_glob_search_summary"
@@ -79,7 +72,7 @@
 		android:key="@string/screen_settings_section_auto_lock"
 		android:title="@string/screen_settings_section_auto_lock">
 
-		<androidx.preference.SwitchPreferenceCompat
+		<SwitchPreference
 			android:defaultValue="true"
 			android:key="lockOnScreenOff"
 			android:title="@string/screen_settings_auto_lock_on_screen_lock" />
@@ -99,43 +92,37 @@
 		android:key="@string/screen_settings_section_auto_photo_upload"
 		android:title="@string/screen_settings_section_auto_photo_upload">
 
-		<androidx.preference.SwitchPreferenceCompat
+		<SwitchPreference
 			android:defaultValue="false"
 			android:key="photoUpload"
 			android:summary="@string/screen_settings_section_auto_photo_upload_toggle_summary"
 			android:title="@string/screen_settings_section_auto_photo_upload_toggle" />
 
-		<androidx.preference.SwitchPreferenceCompat
+		<SwitchPreference
 			android:defaultValue="true"
 			android:key="photoUploadInstant"
 			android:summary="@string/screen_settings_section_auto_photo_upload_toggle_instant_upload_summary"
 			android:title="@string/screen_settings_section_auto_photo_upload_toggle_instant_upload" />
 
-		<androidx.preference.SwitchPreferenceCompat
+		<SwitchPreference
 			android:defaultValue="true"
 			android:key="photoUploadOnlyUsingWifi"
 			android:title="@string/screen_settings_section_auto_photo_upload_only_wifi_toggle" />
 
-		<androidx.preference.SwitchPreferenceCompat
+		<SwitchPreference
 			android:defaultValue="false"
 			android:key="photoUploadIncludingVideos"
 			android:title="@string/screen_settings_section_auto_photo_upload_including_videos" />
 
 		<androidx.preference.PreferenceScreen
 			android:key="photoUploadVault"
-			android:title="@string/screen_settings_section_auto_photo_upload_vault">
-
-			<intent
-				android:action="android.intent.action.MAIN"
-				android:targetClass="org.cryptomator.presentation.ui.activity.AutoUploadChooseVaultActivity"
-				android:targetPackage="@string/app_id" />
-		</androidx.preference.PreferenceScreen>
+			android:title="@string/screen_settings_section_auto_photo_upload_vault" />
 
 	</PreferenceCategory>
 
 	<PreferenceCategory android:title="@string/screen_settings_lru_cache">
 
-		<androidx.preference.SwitchPreferenceCompat
+		<SwitchPreference
 			android:defaultValue="true"
 			android:key="lruCache"
 			android:summary="@string/screen_settings_lru_cache_toggle_summary"
@@ -168,7 +155,7 @@
 				android:data="@string/screen_settings_support_uri" />
 		</androidx.preference.PreferenceScreen>
 
-		<androidx.preference.SwitchPreferenceCompat
+		<SwitchPreference
 			android:defaultValue="false"
 			android:key="debugMode"
 			android:title="@string/screen_settings_debug_mode_label" />
@@ -181,13 +168,13 @@
 
 	<PreferenceCategory android:title="@string/screen_settings_advanced_settings">
 
-		<androidx.preference.SwitchPreferenceCompat
+		<SwitchPreference
 			android:defaultValue="true"
 			android:key="backgroundUnlockPreparation"
 			android:summary="@string/screen_settings_background_unlock_preparation_label_summary"
 			android:title="@string/screen_settings_background_unlock_preparation_label" />
 
-		<androidx.preference.SwitchPreferenceCompat
+		<SwitchPreference
 			android:defaultValue="false"
 			android:key="keepUnlockedWhileEditing"
 			android:summary="@string/screen_settings_keep_unlocked_while_editing_files_summary"
@@ -219,12 +206,9 @@
 
 	<PreferenceCategory android:title="@string/screen_settings_section_legal">
 
-		<androidx.preference.PreferenceScreen android:title="@string/screen_settings_licenses_label">
-			<intent
-				android:action="android.intent.action.MAIN"
-				android:targetClass="org.cryptomator.presentation.ui.activity.LicensesActivity"
-				android:targetPackage="@string/app_id" />
-		</androidx.preference.PreferenceScreen>
+		<androidx.preference.PreferenceScreen
+			android:key="licensesActivity"
+			android:title="@string/screen_settings_licenses_label" />
 
 		<androidx.preference.PreferenceScreen android:title="@string/screen_settings_security_label">
 			<intent

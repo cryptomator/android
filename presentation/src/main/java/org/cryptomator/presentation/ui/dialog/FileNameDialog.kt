@@ -9,7 +9,7 @@ import androidx.appcompat.app.AlertDialog
 import org.cryptomator.generator.Dialog
 import org.cryptomator.presentation.R
 import org.cryptomator.presentation.util.FileUtil
-import kotlinx.android.synthetic.main.dialog_file_name.file_name
+import kotlinx.android.synthetic.main.dialog_file_name.et_file_name
 
 @Dialog(R.layout.dialog_file_name)
 class FileNameDialog : BaseProgressErrorDialog<FileNameDialog.Callback>() {
@@ -28,20 +28,20 @@ class FileNameDialog : BaseProgressErrorDialog<FileNameDialog.Callback>() {
 			createFileButton = dialog.getButton(android.app.Dialog.BUTTON_POSITIVE)
 			createFileButton?.setOnClickListener {
 				callback?.onCreateNewTextFileClicked(effectiveTextFileName())
-				onWaitForResponse(file_name)
+				onWaitForResponse(et_file_name)
 			}
 			dialog.setCanceledOnTouchOutside(false)
-			file_name.requestFocus()
+			et_file_name.requestFocus()
 			createFileButton?.let { button ->
-				file_name.nextFocusForwardId = button.id
+				et_file_name.nextFocusForwardId = button.id
 			}
 		}
 	}
 
 	private fun effectiveTextFileName(): String {
-		return if (file_name.text.toString().isEmpty()) //
+		return if (et_file_name.text.toString().isEmpty()) //
 			requireContext().getString(R.string.dialog_file_name_placeholder) else  //
-			effectiveNewFileName(file_name.text.toString())
+			effectiveNewFileName(et_file_name.text.toString())
 	}
 
 	override fun setupDialog(builder: AlertDialog.Builder): android.app.Dialog {
@@ -60,8 +60,8 @@ class FileNameDialog : BaseProgressErrorDialog<FileNameDialog.Callback>() {
 	}
 
 	override fun setupView() {
-		createFileButton?.let { registerOnEditorDoneActionAndPerformButtonClick(file_name) { it } }
-		file_name.addTextChangedListener(object : TextWatcher {
+		createFileButton?.let { registerOnEditorDoneActionAndPerformButtonClick(et_file_name) { it } }
+		et_file_name.addTextChangedListener(object : TextWatcher {
 			override fun beforeTextChanged(s: CharSequence, start: Int, count: Int, after: Int) {}
 			override fun onTextChanged(s: CharSequence, start: Int, before: Int, count: Int) {}
 			override fun afterTextChanged(s: Editable) {
@@ -75,6 +75,6 @@ class FileNameDialog : BaseProgressErrorDialog<FileNameDialog.Callback>() {
 	}
 
 	override fun enableViewAfterError(): View {
-		return file_name
+		return et_file_name
 	}
 }

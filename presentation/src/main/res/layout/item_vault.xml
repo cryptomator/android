@@ -44,8 +44,8 @@
 
 	<ImageView
 		android:id="@+id/unlockedImage"
-		android:layout_width="49dp"
-		android:layout_height="48dp"
+		android:layout_width="59dp"
+		android:layout_height="59dp"
 		android:layout_centerVertical="true"
 		android:layout_toStartOf="@+id/settings"
 		android:background="?android:attr/selectableItemBackground"
@@ -53,7 +53,7 @@
 		android:paddingTop="10dp"
 		android:paddingEnd="14dp"
 		android:paddingBottom="10dp"
-		android:src="@drawable/vault_unlocked"
+		android:src="@drawable/ic_lock_open"
 		android:visibility="gone"
 		app:tint="@color/colorPrimary" />
 

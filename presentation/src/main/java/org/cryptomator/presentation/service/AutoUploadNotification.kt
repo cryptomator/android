@@ -39,7 +39,7 @@ class AutoUploadNotification(private val context: Context, private val amountOfP
 
 		this.builder = NotificationCompat.Builder(context, NOTIFICATION_CHANNEL_ID) //
 			.setContentTitle(context.getString(R.string.notification_auto_upload_title)) //
-			.setSmallIcon(R.drawable.background_splash_cryptomator) //
+			.setSmallIcon(R.drawable.ic_notification) //
 			.setColor(getColor(R.color.colorPrimary)) //
 			.addAction(cancelNowAction())
 			.setGroup(NOTIFICATION_GROUP_KEY)

@@ -21,13 +21,15 @@
 			layout="@layout/view_dialog_intermediate_progress"
 			android:layout_width="match_parent"
 			android:layout_height="wrap_content"
-			android:layout_below="@id/file_upload" />
+			android:layout_below="@id/file_upload"
+			android:layout_marginTop="16dp" />
 
 		<include
 			layout="@layout/view_dialog_error"
 			android:layout_width="match_parent"
 			android:layout_height="wrap_content"
-			android:layout_below="@id/file_upload" />
+			android:layout_below="@id/file_upload"
+			android:layout_marginTop="16dp" />
 
 	</RelativeLayout>
 </androidx.core.widget.NestedScrollView>

@@ -5,7 +5,6 @@
 	android:layout_height="match_parent">
 
 	<LinearLayout
-		style="@style/BottomSheetBackground"
 		android:layout_width="match_parent"
 		android:layout_height="match_parent"
 		android:orientation="vertical"
@@ -51,6 +50,13 @@
 			</LinearLayout>
 
 		</LinearLayout>
+
+		<TextView
+			android:layout_marginBottom="16dp"
+			android:layout_width="match_parent"
+			android:layout_height="1dp"
+			android:layout_alignParentBottom="true"
+			android:background="@color/list_divider" />
 
 		<TextView
 			android:id="@+id/lock_vault"

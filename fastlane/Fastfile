@@ -29,6 +29,7 @@ platform :android do |options|
     deployToPlaystore(alpha:options[:alpha], beta:options[:beta])
     deployToServer(alpha:options[:alpha], beta:options[:beta])
     deployToFDroid(alpha:options[:alpha], beta:options[:beta])
+    testLite(alpha:options[:alpha], beta:options[:beta])
     createGitHubDraftRelease(alpha:options[:alpha], beta:options[:beta])
 
     slack(
@@ -220,6 +221,29 @@ platform :android do |options|
     FileUtils.cp(lane_context[SharedValues::GRADLE_APK_OUTPUT_PATH], "release/Cryptomator-#{version}_fdroid_signed.apk")
   end
 
+  desc "Deploy new lite version"
+  lane :deployLite do |options|
+    gradle(task: "clean")
+
+    gradle(
+      task: "assemble",
+      build_type: "Release",
+      flavor: "lite",
+      print_command: false,
+      properties: {
+        "android.injected.signing.store.file" => ENV["SIGNING_KEYSTORE_PATH"],
+        "android.injected.signing.store.password" => ENV["SIGNING_KEYSTORE_PASSWORD"],
+        "android.injected.signing.key.alias" => ENV["SIGNING_KEY_ALIAS"],
+        "android.injected.signing.key.password" => ENV["SIGNING_KEY_PASSWORD"],
+      }
+    )
+
+    checkTrackingAddedInDependencyUsingIzzyScript(alpha:options[:alpha], beta:options[:beta], flavor: 'lite')
+    checkTrackingAddedInDependencyUsingExodus(alpha:options[:alpha], beta:options[:beta], flavor: 'lite')
+
+    FileUtils.cp(lane_context[SharedValues::GRADLE_APK_OUTPUT_PATH], "release/Cryptomator-#{version}_lite_signed.apk")
+  end
+
   desc "Check if tracking added in some dependency using Izzy's script"
   lane :checkTrackingAddedInDependencyUsingIzzyScript do |options|
     flavor = options[:flavor]
@@ -289,8 +313,9 @@ platform :android do |options|
 
     website_apk_sha256 = Digest::SHA256.hexdigest File.read "release/Cryptomator-#{version}_signed.apk"
     fdroid_apk_sha256 = Digest::SHA256.hexdigest File.read "release/Cryptomator-#{version}_fdroid_signed.apk"
+    lite_sha256 = Digest::SHA256.hexdigest File.read "release/Cryptomator-#{version}_lite_signed.apk"
 
-    release_note = "## What's New\n\n" + File.read(release_note_path_en) + "\n\n---\n\nSHA256 Signature: `#{website_apk_sha256}`\nSHA256 Signature fdroid: `#{fdroid_apk_sha256}`\n"
+    release_note = "## What's New\n\n" + File.read(release_note_path_en) + "\n\n---\n\nSHA256 Signature: `#{website_apk_sha256}`\nSHA256 Signature fdroid: `#{fdroid_apk_sha256}`\nSHA256 Signature lite: `#{lite_sha256}`\n"
 
     puts release_note
 
@@ -303,7 +328,7 @@ platform :android do |options|
       commitish: target_branch,
       is_draft: true,
       is_prerelease: prerelease,
-      upload_assets: ["fastlane/release/Cryptomator-#{version}_fdroid_signed.apk", "fastlane/release/Cryptomator-#{version}_signed.apk"]
+      upload_assets: ["fastlane/release/Cryptomator-#{version}_fdroid_signed.apk", "fastlane/release/Cryptomator-#{version}_lite_signed.apk", "fastlane/release/Cryptomator-#{version}_signed.apk"]
     )
   end
 
@@ -362,5 +387,23 @@ platform :android do |options|
 
     checkTrackingAddedInDependencyUsingIzzyScript(alpha:options[:alpha], beta:options[:beta], flavor: 'fdroid')
     checkTrackingAddedInDependencyUsingExodus(alpha:options[:alpha], beta:options[:beta], flavor: 'fdroid')
+
+    gradle(task: "clean")
+
+    gradle(
+      task: "assemble",
+      build_type: "Release",
+      flavor: "lite",
+      print_command: false,
+      properties: {
+        "android.injected.signing.store.file" => ENV["SIGNING_KEYSTORE_PATH"],
+        "android.injected.signing.store.password" => ENV["SIGNING_KEYSTORE_PASSWORD"],
+        "android.injected.signing.key.alias" => ENV["SIGNING_KEY_ALIAS"],
+        "android.injected.signing.key.password" => ENV["SIGNING_KEY_PASSWORD"],
+      }
+    )
+
+    checkTrackingAddedInDependencyUsingIzzyScript(alpha:options[:alpha], beta:options[:beta], flavor: 'lite')
+    checkTrackingAddedInDependencyUsingExodus(alpha:options[:alpha], beta:options[:beta], flavor: 'lite')
   end
 end
