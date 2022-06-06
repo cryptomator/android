@@ -225,8 +225,10 @@
 	<string name="screen_cryptomator_variants_fdroid_description">Vynechané z dôvodu, že obsahuje proprietárne závislosti.</string>
 	<string name="screen_cryptomator_variants_fdroid_add_repo_hint">Pridať Cryptomator depozitár do F-Droid aplikácie.</string>
 	<string name="screen_cryptomator_variants_fdroid_add_repo">Pridať</string>
+	<string name="screen_cryptomator_variants_fdroid_install_hint">Inštalovať Cryptomator použitím F-Droid.\nAk sa zobrazí nájdená chyba, počkajte kým sa dokončí synchronizácia F-Droid.</string>
 	<string name="screen_cryptomator_variants_website_title">Webstránka</string>
 	<string name="screen_cryptomator_variants_website_description">Obsahuje proprietárne závislosti.</string>
+	<string name="screen_cryptomator_variants_installation_hint">Prepnutie z alebo do hlavného F-Droid repozitára vyžaduje čerstvé nastavenie aplikácie.</string>
 	<!-- # dialogs -->
 	<string name="dialog_button_cancel">Zrušiť</string>
 	<string name="dialog_enter_password_positive_button">Odomknúť</string>
