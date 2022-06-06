@@ -54,12 +54,15 @@
 	<string name="snack_bar_action_title_sort_oldest">Od najstaršieho</string>
 	<string name="snack_bar_action_title_sort_biggest">Od najväčšieho</string>
 	<string name="snack_bar_action_title_sort_smallest">Od najmenšieho</string>
+	<string name="snack_bar_cryptomator_variants_title">Čítať viac</string>
+	<string name="snack_bar_cryptomator_variants_hint">Cloud nie je v ponuke?</string>
 	<!-- # screens -->
 	<!-- # screen: vault list -->
 	<string name="screen_vault_list_actions_title">Pridať do Cryptomator-a</string>
 	<string name="screen_vault_list_action_create_new_vault">Vytvoriť nový trezor</string>
 	<string name="screen_vault_list_action_add_existing_vault">Pridať existujúci trezor</string>
 	<string name="screen_vault_list_vault_action_delete">Odstrániť</string>
+	<string name="screen_vault_list_vault_creation_hint">Kliknúť sem pre vytvorenie nového trezora</string>
 	<string name="screen_vault_list_change_password_successful">Heslo úspešne zmenené</string>
 	<!-- # screen: file browser -->
 	<string name="screen_file_browser_default_title">Trezor</string>
@@ -116,6 +119,7 @@
 	<string name="screen_choose_cloud_service_title">Cloudová služba</string>
 	<!-- ## screen: cloud connections -->
 	<string name="screen_cloud_connections_title">Vybrať umiestnenie</string>
+	<string name="screen_cloud_connections_no_connections">Kliknúť sem pre pridanie umiestnení</string>
 	<string name="screen_cloud_error_webdav_not_supported">Server zdá sa byť WebDAV kompatibilný</string>
 	<string name="screen_cloud_local_error_no_content_provider">Nenašiel sa manažér súborov ktorý podporuje otváranie adresárov</string>
 	<!-- ## screen: webdav settings -->
@@ -212,6 +216,10 @@
 	<string name="screen_authenticate_auth_authentication_failed">%1$s nemohol byť autentikovaný.</string>
 	<string name="screen_update_pcloud_connections_title">Aktualizovať pCloud prístupy</string>
 	<!-- ## screen: cryptomator app variants -->
+	<string name="screen_cryptomator_variants_lite_title">Hlavný F-Droid repozitár</string>
+	<string name="screen_cryptomator_variants_lite_install">Inštalovať</string>
+	<string name="screen_cryptomator_variants_fdroid_add_repo">Pridať</string>
+	<string name="screen_cryptomator_variants_website_title">Webstránka</string>
 	<!-- # dialogs -->
 	<string name="dialog_button_cancel">Zrušiť</string>
 	<string name="dialog_enter_password_positive_button">Odomknúť</string>
@@ -249,6 +257,7 @@
 	<string name="dialog_unsaved_changes_title">Máte neuložené zmeny</string>
 	<string name="dialog_unsaved_changes_message">Skutočne chcete skončiť bez uloženia?</string>
 	<string name="dialog_unsaved_changes_discard">Zrušiť</string>
+	<string name="dialog_file_name_hint">Názov súboru</string>
 	<string name="dialog_file_name_placeholder">text.txt</string>
 	<string name="dialog_delete_vault_message">Ste si istý odstrániť tento trezor?</string>
 	<string name="dialog_delete_vault_hint">Tento úkon iba odstráni trezor zo zoznamu a nezmaže ho fyzicky.</string>
