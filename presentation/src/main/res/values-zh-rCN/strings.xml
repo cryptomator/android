@@ -34,6 +34,7 @@
 	<string name="error_file_not_found_after_opening_using_3party">切换回 Cryptomator 后，本地文件不再存在。期间所做更改无法传回云端</string>
 	<string name="error_no_such_bucket">没有这样的 bucket</string>
 	<string name="error_masterkey_location_not_supported">尚不支持自定义 Masterkey 路径</string>
+	<string name="error_interact_with_fdroid_but_fdroid_missing">无法找到F-Droid应用程序。可能未安装？</string>
 	<!-- # clouds -->
 	<!-- ## cloud names -->
 	<string name="cloud_names_local_storage">本地存储</string>
@@ -54,12 +55,15 @@
 	<string name="snack_bar_action_title_sort_oldest">日期 (降序)</string>
 	<string name="snack_bar_action_title_sort_biggest">大小 (降序)</string>
 	<string name="snack_bar_action_title_sort_smallest">大小 (升序)</string>
+	<string name="snack_bar_cryptomator_variants_title">了解更多</string>
+	<string name="snack_bar_cryptomator_variants_hint">Cloud不在列表中</string>
 	<!-- # screens -->
 	<!-- # screen: vault list -->
 	<string name="screen_vault_list_actions_title">添加到加密器</string>
 	<string name="screen_vault_list_action_create_new_vault">添加新保险库</string>
 	<string name="screen_vault_list_action_add_existing_vault">添加现有保险库</string>
 	<string name="screen_vault_list_vault_action_delete">删除</string>
+	<string name="screen_vault_list_vault_creation_hint">新建保险库</string>
 	<string name="screen_vault_list_change_password_successful">密码修改成功</string>
 	<!-- # screen: file browser -->
 	<string name="screen_file_browser_default_title">保险库</string>
@@ -113,6 +117,7 @@
 	<string name="screen_choose_cloud_service_title">云服务</string>
 	<!-- ## screen: cloud connections -->
 	<string name="screen_cloud_connections_title">请选择位置</string>
+	<string name="screen_cloud_connections_no_connections">添加位置</string>
 	<string name="screen_cloud_error_webdav_not_supported">服务器似乎不兼容 WebDAV</string>
 	<string name="screen_cloud_local_error_no_content_provider">没有找到支持打开目录的文件管理器</string>
 	<!-- ## screen: webdav settings -->
@@ -209,6 +214,7 @@
 	<string name="screen_authenticate_auth_authentication_failed">%1$s 无法通过身份验证</string>
 	<string name="screen_update_pcloud_connections_title">更新 pCloud 凭证</string>
 	<!-- ## screen: cryptomator app variants -->
+	<string name="screen_cryptomator_variants_title">Cryptomator变体</string>
 	<!-- # dialogs -->
 	<string name="dialog_button_cancel">取消</string>
 	<string name="dialog_enter_password_positive_button">解锁</string>
