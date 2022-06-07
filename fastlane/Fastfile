@@ -223,6 +223,11 @@ platform :android do |options|
 
   desc "Deploy new lite version"
   lane :deployLite do |options|
+    ENV["DROPBOX_API_KEY"] = ""
+    ENV["ONEDRIVE_API_KEY"] = ""
+    ENV["ONEDRIVE_API_REDIRCT_URI"] = ""
+    ENV["PCLOUD_CLIENT_ID"] = ""
+
     gradle(task: "clean")
 
     gradle(
