@@ -1,5 +1,7 @@
 Mit Cryptomator liegt der Schlüssel zu deinen Daten bei dir. Durch Cryptomator ver­schlüsselst du deine Daten schnell und unkompliziert. Anschließend lädst du sie geschützt in deinen Lieblingscloudservice hoch.
 
+<i>Cryptomator benötigt einen Lizenzschlüssel, den du von <a href="https://cryptomator.org/android/">https://cryptomator.org/android/</a> beziehen kannst.</i>
+
 <b>EINFACH</b>
 
 Cryptomator ist ein einfaches Tool zur digitalen Selbstverteidigung. Es ermöglicht dir, deine Cloud-Daten eigenständig und unabhängig zu schützen.
@@ -12,7 +14,7 @@ Cryptomator ist ein einfaches Tool zur digitalen Selbstverteidigung. Es ermögli
 
 Cryptomator ist kompatibel mit den meistgenutzten Cloudspeichern und verfügbar für alle gängigen Betriebssysteme.
 
-• Kompatibel mit Dropbox, Google Drive, OneDrive, S3- und WebDAV-basierten Cloudspeicher-Diensten
+• Kompatibel mit S3- und WebDAV-basierten Cloudspeicher-Diensten
 • Erstelle auch Tresore in Androids lokalem Speicher (funktioniert bspw. zusammen mit Sync-Apps von Drittanbietern)
 • Greife auf deine Tresore von allen deinen mobilen Endgeräten und Computern zu
 
