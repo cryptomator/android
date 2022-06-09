@@ -291,6 +291,7 @@
 	<string name="dialog_accept_ssl_certificate_details">Detaljer</string>
 	<string name="dialog_accept_ssl_certificate_security_checkbox">Det kan vara en säkerhetsrisk. Jag vet vad jag gör.</string>
 	<string name="dialog_ask_ignore_battery_optimizations_title">Inaktivera batterioptimering</string>
+	<string name="dialog_ask_ignore_battery_optimizations_hint">För att hämta nya bilder och videor utan att köra i bakgrunden måste batterioptimeringar stängas av för appen. Men oroa dig inte, %1$s förbrukar inte mycket energi.\n\nFör att göra ändringen, ändra \'Inte optimerad\' till \'Alla appar\', välj %1$s och välj \"Optimera inte\" efter att du tryckt på \"%2$s\" i denna dialogruta.</string>
 	<string name="dialog_ask_ignore_battery_optimizations_checkbox">Visa inte igen?</string>
 	<string name="dialog_http_security_hint">Användning av HTTP är osäkert. Vi rekommenderar att du använder HTTPS istället. Om du känner till riskerna kan du fortsätta med HTTP.</string>
 	<string name="dialog_http_security_checkbox">Ändra till HTTPS</string>
@@ -344,6 +345,7 @@
 	<string name="dialog_no_dir_file_message">Moln-mappen \'%1$s\' har ingen giltig katalog-fil. Det kan bero på att mappen skapades på en annan enhet och ännu inte har synkroniserats fullt ut med molnet. Kontrollera i ditt moln om följande fil finns:\n%2$s</string>
 	<string name="dialog_no_more_images_to_display">Inga fler bilder att visa&#8230;</string>
 	<string name="dialog_pcloud_credentials_updated_title">Användaruppgifter för \'%1$s\' uppdaterad</string>
+	<string name="dialog_pcloud_credentials_updated">Om du avsåg att lägga till ett nytt pCloud-konto, tryck på denna url <a href="https://www.pcloud.com">www.pcloud.com</a>, logga ut från det nuvarande kontot och tryck igen på \'+\' i den här appen för att skapa en ny molnanslutning.</string>
 	<string name="permission_snackbar_auth_local_vault">Cryptomator behöver åtkomst till lagringsutrymmet för att använda lokala valv</string>
 	<string name="permission_snackbar_auth_auto_upload">Cryptomator behöver åtkomst till lagringsutrymmet för att kunna använda automatisk uppladdning av foton</string>
 	<!-- # error reports -->
