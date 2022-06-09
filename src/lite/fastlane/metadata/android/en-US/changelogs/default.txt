@@ -1,0 +1,3 @@
+- Migrated to the new Material3 design
+- Fixed umlauts in WebDAV password using digest authentication leads to authentication fail
+- Fixed opening the purchase link in the F-Droid and website variant
