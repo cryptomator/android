@@ -226,6 +226,7 @@
 	<string name="screen_cryptomator_variants_fdroid_install_hint">Instale o Cryptomator usando F-Droid.\nSe a mensagem erro \"não encontrado\" for exibido, aguarde até que a sincronização do F-Droid seja concluída.</string>
 	<string name="screen_cryptomator_variants_website_title">Site</string>
 	<string name="screen_cryptomator_variants_website_description">Contém dependências proprietárias.</string>
+	<string name="screen_cryptomator_variants_installation_hint">Mudando de/para o reposit[orio principal do F-Driod requer uma nova configuração do aplicativo.</string>
 	<!-- # dialogs -->
 	<string name="dialog_button_cancel">Cancelar</string>
 	<string name="dialog_enter_password_positive_button">Desbloquear</string>
@@ -290,6 +291,7 @@
 	<string name="dialog_accept_ssl_certificate_details">Detalhes</string>
 	<string name="dialog_accept_ssl_certificate_security_checkbox">Isto pode ser um risco para a segurança. Eu sei o que estou fazendo.</string>
 	<string name="dialog_ask_ignore_battery_optimizations_title">Desativar otimizações de bateria</string>
+	<string name="dialog_ask_ignore_battery_optimizations_hint">Para recuperar novas fotos e vídeos sem executar em segundo plano, precisamos desativar as otimizações de bateria. Mas não se preocupe, %1$s não consome muita energia.\n\nPara aplicá-lo, altere \'Não otimizado\' para \'Todos os aplicativos\', selecione %1$s e escolha \'Não otimizar\' depois de tocar \'%2$s\' nesta caixa de diálogo.</string>
 	<string name="dialog_ask_ignore_battery_optimizations_checkbox">Não pergunte novamente</string>
 	<string name="dialog_http_security_hint">O uso de HTTP é inseguro. Recomendamos a utilização de HTTPS. Se você souber os riscos, você pode continuar com o HTTP.</string>
 	<string name="dialog_http_security_checkbox">Mudar para HTTPS</string>
@@ -343,6 +345,7 @@
 	<string name="dialog_no_dir_file_message">A pasta na nuvem \'%1$s\' não tem um arquivo de diretório válido. Pode ser que a pasta foi criada em outro dispositivo e ainda não foi totalmente sincronizada com a nuvem. Por favor, verifique em sua nuvem se o seguinte arquivo existe:\n%2$s</string>
 	<string name="dialog_no_more_images_to_display">Sem mais imagens para exibir&#8230;</string>
 	<string name="dialog_pcloud_credentials_updated_title">Credenciais de \'%1$s\' atualizadas</string>
+	<string name="dialog_pcloud_credentials_updated">Se você pretende adicionar uma nova conta pCloud, toque no link <a href="https://www.pcloud.com">www.pcloud.com</a>, saia da conta atual e toque novamente no \'+\' neste aplicativo para criar uma nova conexão de nuvem.</string>
 	<string name="permission_snackbar_auth_local_vault">Cryptomator precisa de permissão de acesso ao armazenamento para fazer upload de arquivos</string>
 	<string name="permission_snackbar_auth_auto_upload">Cryptomator precisa de permissão de acesso ao armazenamento para fazer upload de arquivos</string>
 	<!-- # error reports -->
