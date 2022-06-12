@@ -75,7 +75,7 @@
 	</plurals>
 	<string name="screen_file_browser_move_button_text">移动</string>
 	<string name="screen_file_browser_msg_empty_folder">空文件夹</string>
-	<string name="screen_file_browser_file_info_label_date">修改于 %1$s 前</string>
+	<string name="screen_file_browser_file_info_label_date">修改于%1$s前</string>
 	<string name="screen_file_browser_share_intent_chooser_title">分享到</string>
 	<string name="screen_file_browser_share_destination_title">请选择目标位置</string>
 	<string name="screen_file_browser_share_button_text">选择</string>
@@ -225,6 +225,7 @@
 	<string name="screen_cryptomator_variants_fdroid_install_hint">使用 F-Droid 安装 Cryptomator \n如果未发现错误，请等待 F-Droid 同步完成。</string>
 	<string name="screen_cryptomator_variants_website_title">网站</string>
 	<string name="screen_cryptomator_variants_website_description">包含专有依赖项</string>
+	<string name="screen_cryptomator_variants_installation_hint">在F-Droid主仓库的变体之间切换需要重新设置应用</string>
 	<!-- # dialogs -->
 	<string name="dialog_button_cancel">取消</string>
 	<string name="dialog_enter_password_positive_button">解锁</string>
