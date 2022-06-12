@@ -34,6 +34,7 @@
 	<string name="error_file_not_found_after_opening_using_3party">O arquivo local não está mais presente depois de voltar ao Cryptomator. Possíveis alterações não podem ser propagadas de volta para o provedor de nuvem.</string>
 	<string name="error_no_such_bucket">Não existe tal bucket no nome de domínio</string>
 	<string name="error_masterkey_location_not_supported">Localização de Masterkey personalizada ainda não é suportada</string>
+	<string name="error_interact_with_fdroid_but_fdroid_missing">Falha na comunicação com o aplicativo F-Droid. Ele está instalado?</string>
 	<!-- # clouds -->
 	<!-- ## cloud names -->
 	<string name="cloud_names_local_storage">Armazenamento Local</string>
@@ -54,12 +55,15 @@
 	<string name="snack_bar_action_title_sort_oldest">Antigos primeiro</string>
 	<string name="snack_bar_action_title_sort_biggest">Maiores primeiro</string>
 	<string name="snack_bar_action_title_sort_smallest">Menores primeiro</string>
+	<string name="snack_bar_cryptomator_variants_title">Saiba mais</string>
+	<string name="snack_bar_cryptomator_variants_hint">Nuvem não está listada?</string>
 	<!-- # screens -->
 	<!-- # screen: vault list -->
 	<string name="screen_vault_list_actions_title">Adicionar ao Cryptomator</string>
 	<string name="screen_vault_list_action_create_new_vault">Criar novo cofre</string>
 	<string name="screen_vault_list_action_add_existing_vault">Adicionar ao cofre existente</string>
 	<string name="screen_vault_list_vault_action_delete">Remover</string>
+	<string name="screen_vault_list_vault_creation_hint">Toque aqui para criar um cofre</string>
 	<string name="screen_vault_list_change_password_successful">Senha alterada com sucesso</string>
 	<!-- # screen: file browser -->
 	<string name="screen_file_browser_default_title">Cofre</string>
@@ -114,6 +118,7 @@
 	<string name="screen_choose_cloud_service_title">Serviço de nuvem</string>
 	<!-- ## screen: cloud connections -->
 	<string name="screen_cloud_connections_title">Selecionar um local</string>
+	<string name="screen_cloud_connections_no_connections">Toque aqui para adicionar nova localização</string>
 	<string name="screen_cloud_error_webdav_not_supported">O servidor não parece ser compatível com WebDAV</string>
 	<string name="screen_cloud_local_error_no_content_provider">Nenhum gerenciador de arquivos encontrado que suporte a abertura de pastas</string>
 	<!-- ## screen: webdav settings -->
@@ -210,6 +215,17 @@
 	<string name="screen_authenticate_auth_authentication_failed">%1$s não pôde ser autenticado.</string>
 	<string name="screen_update_pcloud_connections_title">Atualizar credenciais do pCloud</string>
 	<!-- ## screen: cryptomator app variants -->
+	<string name="screen_cryptomator_variants_title">Variantes do Cryptomator</string>
+	<string name="screen_cryptomator_variants_lite_title">Repositório principal do F-Droid</string>
+	<string name="screen_cryptomator_variants_lite_description">Excluídas porque requerem chaves API.</string>
+	<string name="screen_cryptomator_variants_lite_install">Instalar</string>
+	<string name="screen_cryptomator_variants_fdroid_title">Repositório do Cryptomator no F-Droid</string>
+	<string name="screen_cryptomator_variants_fdroid_description">Excluído porque contém dependências proprietárias.</string>
+	<string name="screen_cryptomator_variants_fdroid_add_repo_hint">Adicionar o repositório Cryptomator ao aplicativo F-Droid.</string>
+	<string name="screen_cryptomator_variants_fdroid_add_repo">Adicionar</string>
+	<string name="screen_cryptomator_variants_fdroid_install_hint">Instale o Cryptomator usando F-Droid.\nSe a mensagem erro \"não encontrado\" for exibido, aguarde até que a sincronização do F-Droid seja concluída.</string>
+	<string name="screen_cryptomator_variants_website_title">Site</string>
+	<string name="screen_cryptomator_variants_website_description">Contém dependências proprietárias.</string>
 	<!-- # dialogs -->
 	<string name="dialog_button_cancel">Cancelar</string>
 	<string name="dialog_enter_password_positive_button">Desbloquear</string>
@@ -247,6 +263,7 @@
 	<string name="dialog_unsaved_changes_title">Você tem modificações não salvas</string>
 	<string name="dialog_unsaved_changes_message">Você realmente deseja sair sem salvar?</string>
 	<string name="dialog_unsaved_changes_discard">Descartar</string>
+	<string name="dialog_file_name_hint">Nome do arquivo</string>
 	<string name="dialog_file_name_placeholder">texto.txt</string>
 	<string name="dialog_delete_vault_message">Tem certeza que deseja remover este cofre?</string>
 	<string name="dialog_delete_vault_hint">Essa ação somente removerá o cofre desta lista e não irá excluí-lo fisicamente.</string>
