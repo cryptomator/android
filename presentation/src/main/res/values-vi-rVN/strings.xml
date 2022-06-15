@@ -62,13 +62,31 @@
 	<string name="screen_settings_auto_lock_timeout">Khóa sau</string>
 	<string name="screen_settings_section_auto_photo_upload">Tự động tải ảnh lên</string>
 	<string name="screen_settings_section_auto_photo_upload_toggle">Kích hoạt</string>
+	<string name="screen_settings_website_label">Cryptomator website</string>
+	<string name="screen_settings_twitter_label">Theo dõi trên Twitter</string>
+	<string name="screen_settings_facebook_label">Hãy like chúng tôi trên Facebook</string>
+	<string name="screen_settings_licenses_label">Giấy phép</string>
+	<string name="screen_settings_section_support">Hỗ Trợ</string>
+	<string name="screen_settings_contact_label">Yêu cầu trợ giúp</string>
+	<string name="screen_settings_section_version">Phiên bản</string>
+	<string name="screen_settings_advanced_settings">Cài đặt nâng cao</string>
 	<!-- ## screen: cloud settings -->
+	<string name="screen_cloud_settings_sign_out_from_cloud">Đăng xuất từ</string>
 	<!-- ## screen: licenses -->
 	<!-- ## screen: authenticate cloud -->
 	<!-- ## screen: cryptomator app variants -->
+	<string name="screen_cryptomator_variants_lite_install">Cài đặt</string>
+	<string name="screen_cryptomator_variants_fdroid_add_repo">Thêm</string>
+	<string name="screen_cryptomator_variants_website_title">Website</string>
 	<!-- # dialogs -->
+	<string name="dialog_change_password_old_password_label">Mật khẩu cũ</string>
+	<string name="dialog_change_password_new_password_label">Mật khẩu mới</string>
+	<string name="dialog_change_password">Đổi mật khẩu</string>
 	<!-- Vault not found -->
 	<string name="dialog_vault_not_found_positive_button_text">Xóa</string>
+	<string name="dialog_replace_positive_button_all_files_exist">Thay thế tất cả</string>
+	<string name="dialog_replace_positive_button_some_files_exist">Thay thế hiện có</string>
+	<string name="dialog_replace_positive_button_single_file_exists">Thay thế</string>
 	<!-- # error reports -->
 	<!-- # misc -->
 	<!-- ## file size helper -->
