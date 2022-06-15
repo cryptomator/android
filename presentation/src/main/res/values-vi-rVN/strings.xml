@@ -18,6 +18,7 @@
 	<!-- ## permission messages -->
 	<string name="snack_bar_action_title_settings">Cài đặt</string>
 	<string name="snack_bar_action_title_search">Tìm kiếm</string>
+	<string name="snack_bar_action_title_search_next">Tiếp</string>
 	<string name="snack_bar_action_title_sort">Phân loại</string>
 	<string name="snack_bar_action_title_sort_newest">Mới nhất trước</string>
 	<string name="snack_bar_action_title_sort_oldest">Cũ nhất trước</string>
@@ -38,6 +39,8 @@
 	<string name="screen_file_browser_node_action_share">Chia sẻ</string>
 	<string name="screen_file_browser_node_action_rename">Đổi tên</string>
 	<string name="screen_file_browser_node_action_edit_text">Chỉnh sửa</string>
+	<string name="screen_file_browser_node_action_export">Xuất</string>
+	<string name="screen_file_browser_node_action_delete">Xóa</string>
 	<string name="screen_file_browser_select_items">Chọn</string>
 	<string name="screen_file_browser_select_all_items">Chọn tất cả</string>
 	<string name="screen_file_browser_refresh_items">Làm mới</string>
@@ -69,6 +72,7 @@
 	<string name="screen_s3_settings_msg_display_name_not_empty">Tên hiển thị không được để trống</string>
 	<!-- ## screen: enter vault name -->
 	<!-- ## screen: set password -->
+	<string name="screen_set_password_button_text">Xong</string>
 	<string name="screen_set_password_retype_password_label">Nhập lại mật khẩu</string>
 	<string name="screen_set_password_strength_indicator_1">Yếu</string>
 	<string name="screen_set_password_strength_indicator_2">Khá</string>
@@ -106,6 +110,7 @@
 	<string name="dialog_change_password">Đổi mật khẩu</string>
 	<!-- Vault not found -->
 	<string name="dialog_vault_not_found_positive_button_text">Xóa</string>
+	<string name="dialog_existing_file_positive_button">Thay thế</string>
 	<string name="dialog_replace_positive_button_all_files_exist">Thay thế tất cả</string>
 	<string name="dialog_replace_positive_button_some_files_exist">Thay thế hiện có</string>
 	<string name="dialog_replace_positive_button_single_file_exists">Thay thế</string>
@@ -113,14 +118,64 @@
 	<string name="dialog_unable_to_share_positive_button">OK</string>
 	<string name="dialog_rename_node_file_title">Đổi tên file</string>
 	<string name="dialog_lock_vault">Khoá</string>
+	<string name="dialog_accept_ssl_certificate_details">Chi tiết</string>
+	<string name="dialog_ask_ignore_battery_optimizations_title">Tắt tối ưu pin</string>
+	<string name="dialog_ask_ignore_battery_optimizations_checkbox">Không hỏi lại?</string>
+	<string name="dialog_http_security_title">Dùng HTTPS?</string>
+	<string name="dialog_disable_app_obscured_disclaimer_title">Chú ý</string>
+	<string name="dialog_app_is_obscured_info_neutral_button">Đóng</string>
+	<string name="dialog_enter_license_decline_button">Thoát</string>
+	<string name="dialog_update_available_title">Đã có bản cập nhật</string>
+	<string name="dialog_update_available_update">Cập nhật ngay</string>
+	<string name="dialog_update_available_cancel">Để sau</string>
+	<string name="dialog_sym_link_back_button">Quay lại</string>
 	<!-- # error reports -->
 	<!-- # misc -->
 	<!-- ## file size helper -->
+	<string name="file_size_unit_kilo_bytes">kB</string>
+	<string name="file_size_unit_mega_bytes">MB</string>
+	<string name="file_size_unit_giga_bytes">GB</string>
+	<string name="file_size_unit_tera_bytes">TB</string>
 	<!-- ## date helper -->
+	<string name="time_unit_seconds_sg">giây</string>
+	<string name="time_unit_seconds_pl">giây</string>
+	<string name="time_unit_minutes_sg">phút</string>
+	<string name="time_unit_minutes_pl">phút</string>
+	<string name="time_unit_hours_sg">giờ</string>
+	<string name="time_unit_hours_pl">giờ</string>
+	<string name="time_unit_days_sg">ngày</string>
+	<string name="time_unit_days_pl">ngày</string>
+	<string name="time_unit_weeks_sg">tuần</string>
+	<string name="time_unit_weeks_pl">tuần</string>
+	<string name="time_unit_months_sg">tháng</string>
+	<string name="time_unit_months_pl">tháng</string>
+	<string name="time_unit_years_sg">năm</string>
+	<string name="time_unit_years_pl">năm</string>
 	<!-- ## biometric authentication -->
 	<!-- notification -->
+	<string name="notification_lock_all">Khóa tất cả</string>
+	<string name="notification_cancel_auto_upload">Hủy tải lên</string>
+	<string name="screen_settings_lru_cache">Bộ nhớ cache</string>
+	<string name="screen_settings_clear_lru_cache_size">Xóa bộ nhớ Cache</string>
+	<string name="screen_settings_check_updates">Kiểm tra cập nhật</string>
 	<!-- lock timeout names -->
+	<string name="lock_timeout_1m">1 phút</string>
+	<string name="lock_timeout_2m">2 phút</string>
+	<string name="lock_timeout_5m">5 phút</string>
+	<string name="lock_timeout_10m">10 phút</string>
+	<string name="lock_timeout_never">Không bao giờ</string>
 	<!-- cache size names -->
+	<string name="cache_size_50m">50 MB</string>
+	<string name="cache_size_100m">100 MB</string>
+	<string name="cache_size_250m">250 MB</string>
+	<string name="cache_size_500m">500 MB</string>
+	<string name="cache_size_1000m">1 GB</string>
+	<string name="cache_size_5000m">5 GB</string>
 	<!-- screen scheme mode names -->
+	<string name="screen_settings_style_mode">Kiểu</string>
+	<string name="follow_system">Tự động (theo hệ thống)</string>
+	<string name="light">Sáng</string>
+	<string name="dark">Tối</string>
 	<!-- update interval names -->
+	<string name="update_interval_1d">Ngày một lần</string>
 </resources>
