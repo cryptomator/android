@@ -19,25 +19,44 @@
 	<string name="snack_bar_action_title_settings">Cài đặt</string>
 	<string name="snack_bar_action_title_search">Tìm kiếm</string>
 	<string name="snack_bar_action_title_sort">Phân loại</string>
+	<string name="snack_bar_action_title_sort_newest">Mới nhất trước</string>
+	<string name="snack_bar_action_title_sort_oldest">Cũ nhất trước</string>
+	<string name="snack_bar_action_title_sort_smallest">Nhỏ nhất trước</string>
 	<string name="snack_bar_cryptomator_variants_title">Xem thêm</string>
 	<!-- # screens -->
 	<!-- # screen: vault list -->
 	<string name="screen_vault_list_vault_action_delete">Xóa</string>
+	<string name="screen_vault_list_vault_creation_hint">Nhấn vào đây để tạo một cái mới</string>
 	<string name="screen_vault_list_change_password_successful">Thay đổi mật khẩu thành công</string>
 	<!-- # screen: file browser -->
 	<string name="screen_file_browser_move_button_text">Di chuyển</string>
 	<string name="screen_file_browser_msg_empty_folder">Thư mục trống</string>
+	<string name="screen_file_browser_share_intent_chooser_title">Chia sẻ với</string>
+	<string name="screen_file_browser_share_button_text">Chọn</string>
+	<string name="screen_file_browser_action_create_folder">Tạo thư mục</string>
+	<string name="screen_file_browser_action_upload_files">Tải tệp tin lên</string>
 	<string name="screen_file_browser_node_action_share">Chia sẻ</string>
 	<string name="screen_file_browser_node_action_rename">Đổi tên</string>
 	<string name="screen_file_browser_node_action_edit_text">Chỉnh sửa</string>
+	<string name="screen_file_browser_select_items">Chọn</string>
+	<string name="screen_file_browser_select_all_items">Chọn tất cả</string>
+	<string name="screen_file_browser_refresh_items">Làm mới</string>
+	<string name="screen_file_browser_no_connection_message">Không có kết nối</string>
+	<string name="screen_file_browser_no_connection_button_text">Thử lại</string>
 	<!-- ## screen: text editor -->
 	<!-- ## screen: share files -->
+	<string name="screen_share_files_content_text">ội dung</string>
+	<string name="screen_share_files_content_file">tệp tin</string>
+	<string name="screen_share_files_content_files">tệp tin</string>
+	<string name="screen_share_files_section_location">Lưu vào</string>
 	<string name="screen_share_files_save_button_text">Lưu</string>
 	<string name="screen_share_files_msg_success">Hoàn tất mã hóa</string>
 	<!-- ## screen: choose cloud service -->
 	<string name="screen_choose_cloud_service_title">Dịch vụ đám mây</string>
 	<!-- ## screen: cloud connections -->
+	<string name="screen_cloud_connections_title">Chọn vị trí</string>
 	<!-- ## screen: webdav settings -->
+	<string name="screen_webdav_settings_url_port_label">URL</string>
 	<string name="screen_webdav_settings_username_label">Tên đăng nhập</string>
 	<string name="screen_webdav_settings_password_label">Mật khẩu</string>
 	<string name="screen_webdav_settings_done_button_text">Kết nối</string>
@@ -62,6 +81,7 @@
 	<string name="screen_settings_auto_lock_timeout">Khóa sau</string>
 	<string name="screen_settings_section_auto_photo_upload">Tự động tải ảnh lên</string>
 	<string name="screen_settings_section_auto_photo_upload_toggle">Kích hoạt</string>
+	<string name="screen_settings_section_auto_photo_upload_including_videos">Tải lên video</string>
 	<string name="screen_settings_website_label">Cryptomator website</string>
 	<string name="screen_settings_twitter_label">Theo dõi trên Twitter</string>
 	<string name="screen_settings_facebook_label">Hãy like chúng tôi trên Facebook</string>
@@ -79,6 +99,8 @@
 	<string name="screen_cryptomator_variants_fdroid_add_repo">Thêm</string>
 	<string name="screen_cryptomator_variants_website_title">Website</string>
 	<!-- # dialogs -->
+	<string name="dialog_button_cancel">Hủy</string>
+	<string name="dialog_enter_password_positive_button">Mở khoá</string>
 	<string name="dialog_change_password_old_password_label">Mật khẩu cũ</string>
 	<string name="dialog_change_password_new_password_label">Mật khẩu mới</string>
 	<string name="dialog_change_password">Đổi mật khẩu</string>
@@ -87,6 +109,10 @@
 	<string name="dialog_replace_positive_button_all_files_exist">Thay thế tất cả</string>
 	<string name="dialog_replace_positive_button_some_files_exist">Thay thế hiện có</string>
 	<string name="dialog_replace_positive_button_single_file_exists">Thay thế</string>
+	<string name="dialog_replace_title_single_file_exists">Thay thế tệp tin?</string>
+	<string name="dialog_unable_to_share_positive_button">OK</string>
+	<string name="dialog_rename_node_file_title">Đổi tên file</string>
+	<string name="dialog_lock_vault">Khoá</string>
 	<!-- # error reports -->
 	<!-- # misc -->
 	<!-- ## file size helper -->
