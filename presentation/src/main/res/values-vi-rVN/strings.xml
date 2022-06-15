@@ -1,29 +1,74 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 	<!-- # app -->
+	<string name="share_with_label">Mã hoá</string>
 	<!-- # error messages -->
+	<string name="error_generic">Đã xảy ra lỗi</string>
+	<string name="error_authentication_failed">Xác thực thất bại</string>
+	<string name="error_no_network_connection">Không có kết nối mạng</string>
+	<string name="error_invalid_passphrase">Sai mật khẩu</string>
+	<string name="error_no_such_file">Tệp tin không tồn tại.</string>
+	<string name="error_server_not_found">Không tìm thấy máy chủ.</string>
+	<string name="error_names_contains_invalid_characters">Tên tệp tin không thể chứa ký tự đặc biệt.</string>
+	<string name="error_play_services_not_available">Dịch vụ Google Play chưa được cài đặt</string>
 	<!-- # clouds -->
 	<!-- ## cloud names -->
+	<string name="cloud_names_local_storage">Bộ nhớ cục bộ</string>
 	<!-- # permission -->
 	<!-- ## permission messages -->
+	<string name="snack_bar_action_title_settings">Cài đặt</string>
+	<string name="snack_bar_action_title_search">Tìm kiếm</string>
+	<string name="snack_bar_action_title_sort">Phân loại</string>
+	<string name="snack_bar_cryptomator_variants_title">Xem thêm</string>
 	<!-- # screens -->
 	<!-- # screen: vault list -->
+	<string name="screen_vault_list_vault_action_delete">Xóa</string>
+	<string name="screen_vault_list_change_password_successful">Thay đổi mật khẩu thành công</string>
 	<!-- # screen: file browser -->
+	<string name="screen_file_browser_move_button_text">Di chuyển</string>
+	<string name="screen_file_browser_msg_empty_folder">Thư mục trống</string>
+	<string name="screen_file_browser_node_action_share">Chia sẻ</string>
+	<string name="screen_file_browser_node_action_rename">Đổi tên</string>
+	<string name="screen_file_browser_node_action_edit_text">Chỉnh sửa</string>
 	<!-- ## screen: text editor -->
 	<!-- ## screen: share files -->
+	<string name="screen_share_files_save_button_text">Lưu</string>
+	<string name="screen_share_files_msg_success">Hoàn tất mã hóa</string>
 	<!-- ## screen: choose cloud service -->
+	<string name="screen_choose_cloud_service_title">Dịch vụ đám mây</string>
 	<!-- ## screen: cloud connections -->
 	<!-- ## screen: webdav settings -->
+	<string name="screen_webdav_settings_username_label">Tên đăng nhập</string>
+	<string name="screen_webdav_settings_password_label">Mật khẩu</string>
+	<string name="screen_webdav_settings_done_button_text">Kết nối</string>
+	<string name="screen_webdav_settings_msg_url_must_not_be_empty">URL không được để trống.</string>
+	<string name="screen_webdav_settings_msg_url_is_invalid">URL không hợp lệ.</string>
+	<string name="screen_webdav_settings_msg_username_must_not_be_empty">Tên đăng nhập không được để trống.</string>
+	<string name="screen_webdav_settings_msg_password_must_not_be_empty">Mật khẩu không được để trống.</string>
 	<!-- ## screen: s3 settings -->
+	<string name="screen_s3_settings_display_name_label">Tên hiển thị</string>
+	<string name="screen_s3_settings_msg_display_name_not_empty">Tên hiển thị không được để trống</string>
 	<!-- ## screen: enter vault name -->
 	<!-- ## screen: set password -->
+	<string name="screen_set_password_retype_password_label">Nhập lại mật khẩu</string>
+	<string name="screen_set_password_strength_indicator_1">Yếu</string>
+	<string name="screen_set_password_strength_indicator_2">Khá</string>
+	<string name="screen_set_password_strength_indicator_3">Mạnh</string>
+	<string name="screen_set_password_strength_indicator_4">Rất mạnh</string>
 	<!-- ## screen: settings -->
+	<string name="screen_settings_section_general">Chung</string>
+	<string name="screen_settings_biometric_auth">Xác thực sinh trắc học</string>
+	<string name="screen_settings_section_search">Tìm kiếm</string>
+	<string name="screen_settings_auto_lock_timeout">Khóa sau</string>
+	<string name="screen_settings_section_auto_photo_upload">Tự động tải ảnh lên</string>
+	<string name="screen_settings_section_auto_photo_upload_toggle">Kích hoạt</string>
 	<!-- ## screen: cloud settings -->
 	<!-- ## screen: licenses -->
 	<!-- ## screen: authenticate cloud -->
 	<!-- ## screen: cryptomator app variants -->
 	<!-- # dialogs -->
 	<!-- Vault not found -->
+	<string name="dialog_vault_not_found_positive_button_text">Xóa</string>
 	<!-- # error reports -->
 	<!-- # misc -->
 	<!-- ## file size helper -->
