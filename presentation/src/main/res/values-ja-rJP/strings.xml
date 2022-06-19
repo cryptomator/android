@@ -34,6 +34,7 @@
 	<string name="error_file_not_found_after_opening_using_3party">Cryptomatorに切り替えた後、ローカルファイルは存在しなくなりました。変更をクラウドに戻すことはできません。</string>
 	<string name="error_no_such_bucket">バケットがありません</string>
 	<string name="error_masterkey_location_not_supported">好きな場所に Masterkey を置くことはまだできません</string>
+	<string name="error_interact_with_fdroid_but_fdroid_missing">F-Droidアプリと通信ができません。インストールしてありませんか？</string>
 	<!-- # clouds -->
 	<!-- ## cloud names -->
 	<string name="cloud_names_local_storage">ローカルストレージ</string>
@@ -54,12 +55,14 @@
 	<string name="snack_bar_action_title_sort_oldest">古い順</string>
 	<string name="snack_bar_action_title_sort_biggest">大きい順</string>
 	<string name="snack_bar_action_title_sort_smallest">小さい順</string>
+	<string name="snack_bar_cryptomator_variants_hint">クラウドがリストにありませんか？</string>
 	<!-- # screens -->
 	<!-- # screen: vault list -->
 	<string name="screen_vault_list_actions_title">Cryptomator に追加</string>
 	<string name="screen_vault_list_action_create_new_vault">新しい金庫を作成</string>
 	<string name="screen_vault_list_action_add_existing_vault">既存の金庫を追加</string>
 	<string name="screen_vault_list_vault_action_delete">削除</string>
+	<string name="screen_vault_list_vault_creation_hint">金庫の作成ためにここをタップ</string>
 	<string name="screen_vault_list_change_password_successful">パスワードが正常に変更されました</string>
 	<!-- # screen: file browser -->
 	<string name="screen_file_browser_default_title">金庫</string>
@@ -209,6 +212,10 @@
 	<string name="screen_authenticate_auth_authentication_failed">%1$s は認証できませんでした。</string>
 	<string name="screen_update_pcloud_connections_title">pCloud アカウント情報を更新</string>
 	<!-- ## screen: cryptomator app variants -->
+	<string name="screen_cryptomator_variants_title">Cryptomatorの種類</string>
+	<string name="screen_cryptomator_variants_lite_title">F-Droidのメインリポジトリ</string>
+	<string name="screen_cryptomator_variants_lite_description">APIキーが必要なため除外しています。</string>
+	<string name="screen_cryptomator_variants_lite_install">インストール</string>
 	<!-- # dialogs -->
 	<string name="dialog_button_cancel">キャンセル</string>
 	<string name="dialog_enter_password_positive_button">解錠</string>
