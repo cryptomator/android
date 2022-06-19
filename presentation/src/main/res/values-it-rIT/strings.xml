@@ -221,8 +221,12 @@
 	<string name="screen_cryptomator_variants_lite_install">Installa</string>
 	<string name="screen_cryptomator_variants_fdroid_title">Repository F-Droid di Cryptomator</string>
 	<string name="screen_cryptomator_variants_fdroid_description">Escluso perché contiene dipendenze proprietarie.</string>
+	<string name="screen_cryptomator_variants_fdroid_add_repo_hint">Aggiungi repository Cryptomator all\'app F-Droid.</string>
+	<string name="screen_cryptomator_variants_fdroid_add_repo">Aggiungi</string>
+	<string name="screen_cryptomator_variants_fdroid_install_hint">Installa Cryptomator usando F-Droid.\nSe viene visualizzato un errore non trovato, attendi che la sincronizzazione F-Droid sia terminata.</string>
 	<string name="screen_cryptomator_variants_website_title">Sito web</string>
 	<string name="screen_cryptomator_variants_website_description">Contiene dipendenze proprietarie.</string>
+	<string name="screen_cryptomator_variants_installation_hint">Passare dalla o alla variante principale del repository F-Droid richiede una nuova configurazione dell\'app.</string>
 	<!-- # dialogs -->
 	<string name="dialog_button_cancel">Annulla</string>
 	<string name="dialog_enter_password_positive_button">Sblocca</string>
