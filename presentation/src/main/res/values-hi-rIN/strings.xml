@@ -7,29 +7,29 @@
 	<string name="error_authentication_failed">प्रमाणिकरण ‌असफल</string>
 	<string name="error_authentication_failed_re_authenticate">प्रमाणीकरण असफल! कृपया लॉग इन करने के लिए %1$s इस्तेमाल करें!</string>
 	<string name="error_no_network_connection">नेटवर्क कनेक्शन नहीं है</string>
-	<string name="error_invalid_passphrase">गलत कूटशब्द!</string>
-	<string name="error_file_or_folder_exists">दस्तावेज आथ्वा फ़ोल्डर उपलब्ध नहीं है</string>
-	<string name="error_vault_version_not_supported">%1$s वॉल्ट संस्करण असमर्थित हैं। इस वॉल्ट को एक पुराने या फिर नए क्रिप्टोमैटोर संस्कारन में बनाया गया है।</string>
-	<string name="error_vault_config_file_missing_due_to_format_999">%1$s फ़ाइल मौजूद नहीं है। सुनिश्चित करें कि यह फ़ाइल क्लाउड में आपके वॉल्ट फ़ोल्डर में मौजूद है।</string>
+	<string name="error_invalid_passphrase">गलत पासवर्ड!</string>
+	<string name="error_file_or_folder_exists">फ़ाइल और फ़ोल्डर पहले से मौजूद है</string>
+	<string name="error_vault_version_not_supported">यह वॉल्ट का वर्शन %1$s असमर्थित है। इस वॉल्ट को क्रिप्टोमैटोर के नए या पुराने वर्शन में बनाया गया है |</string>
+	<string name="error_vault_config_file_missing_due_to_format_999">%1$s फ़ाइल मौजूद नहीं है। सुनिश्चित करें कि यह फ़ाइल आपके क्लाउड के वॉल्ट फोल्डर में मौजूद ।</string>
 	<string name="error_vault_already_exists">वॉल्ट पहले से ही मौजूद है।</string>
-	<string name="error_no_such_file">दस्तावेज उपलब्ध नहीं है</string>
+	<string name="error_no_such_file">फ़ाइल मौजूद नहीं है|</string>
 	<string name="error_vault_has_been_locked">वॉल्ट को बंद कर दिया है।</string>
 	<string name="error_cloud_already_exists">क्लाउड पहले से ही मौजूद है।</string>
 	<string name="error_activity_not_found">कृपया एक ऐप डाउनलोड करें जो इस फाइल को खोल सकता है।</string>
 	<string name="error_server_not_found">सर्वर नहीं मिला।</string>
-	<string name="error_device_policy_manager_not_found">कृपया अपने डिवाइस का सेटिंग्स खोलें और स्क्रीन लॉक अपने सेट करें।</string>
+	<string name="error_device_policy_manager_not_found">कृपया अपने डिवाइस की सेटिंग्स खोलें और स्क्रीन लॉक को सेट करें।</string>
 	<string name="error_export_illegal_file_name">फाइल का निर्यात नहीं हो पाया है। फाइल के नाम से विशेष पात्रों को निकाल कर निर्यात करने की कोशिश करें।</string>
 	<string name="error_name_contains_invalid_characters">नाम में विशेष वर्ण नहीं हो सकते।</string>
 	<string name="error_names_contains_invalid_characters">फ़ाइल नामों में विशेष वर्ण नहीं हो सकते हैं।</string>
-	<string name="error_vault_name_contains_invalid_characters">गुप्त तिजोरी के नाम में विशेष वर्ण नहीं हो सकते हैं।</string>
+	<string name="error_vault_name_contains_invalid_characters">वॉल्ट के नाम में विशेष वर्ण नहीं हो सकते हैं।</string>
 	<string name="error_general_update">अपडेट की जांच नहीं कर पाए। साधारण गलती हुई है।</string>
 	<string name="error_hash_mismatch_update">अपडेट की जांच नहीं कर पाए। परिकलित हैश अपलोड की गई फ़ाइल से मेल नहीं खाती।</string>
-	<string name="error_no_such_bucket">ऐसा कोई भंडारण जलाशय नहीं है।</string>
+	<string name="error_no_such_bucket">ऐसी कोई बकेट नहीं है।</string>
 	<!-- # clouds -->
 	<!-- ## cloud names -->
 	<!-- # permission -->
 	<!-- ## permission messages -->
-	<string name="snack_bar_action_title_settings">समायोजन</string>
+	<string name="snack_bar_action_title_settings">सेटिंग्स</string>
 	<string name="snack_bar_action_title_search">खोज करें</string>
 	<string name="snack_bar_action_title_search_previous">पिछला</string>
 	<string name="snack_bar_action_title_search_next">अगला</string>
@@ -44,14 +44,14 @@
 	<string name="screen_file_browser_move_button_text">मूव करें</string>
 	<string name="screen_file_browser_share_button_text">चुनें</string>
 	<string name="screen_file_browser_action_create_folder">फोल्डर बनाएं</string>
-	<string name="screen_file_browser_action_create_new_text_file">नया दस्तावेज बनाए</string>
+	<string name="screen_file_browser_action_create_new_text_file">नई टेक्स्ट फाइल बनाए</string>
 	<string name="screen_file_browser_action_upload_files">फ़ाइल अपलोड करें</string>
-	<string name="screen_file_browser_upload_files_chooser_title">दस्तावेज</string>
+	<string name="screen_file_browser_upload_files_chooser_title">फ़ाइलें</string>
 	<string name="screen_file_browser_msg_file_exported">दस्तावेज निर्यात हुआ</string>
 	<string name="screen_file_browser_msg_files_exported">दस्तावेज निर्यात हुए</string>
 	<string name="screen_file_browser_nothing_to_export">निर्यात करने के लिए कुछ भी नहीं</string>
 	<string name="screen_file_browser_node_action_share">साझा करें</string>
-	<string name="screen_file_browser_node_action_rename">नाम संपादन</string>
+	<string name="screen_file_browser_node_action_rename">नाम बदलें</string>
 	<string name="screen_file_browser_node_action_edit_text">संपादित करें</string>
 	<string name="screen_file_browser_node_action_export">निर्यात करें</string>
 	<string name="screen_file_browser_node_action_delete">मिटायें</string>
@@ -60,7 +60,7 @@
 	<string name="screen_file_browser_selection_mode_title_one_or_more_elements">%1$d चयनित</string>
 	<string name="screen_file_browser_select_items">चुनें</string>
 	<string name="screen_file_browser_select_all_items">सभी चुनें</string>
-	<string name="screen_file_browser_refresh_items">ताज़ा करें</string>
+	<string name="screen_file_browser_refresh_items">रीफ्रेश करें</string>
 	<string name="screen_file_browser_no_connection_message">संपर्क नहीं</string>
 	<string name="screen_file_browser_no_connection_button_text">पुन: प्रयास करें</string>
 	<!-- ## screen: text editor -->
@@ -68,8 +68,8 @@
 	<!-- ## screen: share files -->
 	<string name="screen_share_files_title">दस्तावेज %1$s को &#8230; सहेजा गया</string>
 	<string name="screen_share_files_content_text">टेक्स्ट</string>
-	<string name="screen_share_files_content_file">दस्तावेज</string>
-	<string name="screen_share_files_content_files">दस्तावेज</string>
+	<string name="screen_share_files_content_file">फ़ाइल</string>
+	<string name="screen_share_files_content_files">फ़ाइलें</string>
 	<string name="screen_share_files_msg_filenames_must_be_unique">दस्तावेज के नाम अलग होने चाहिए! कृपया नाम बदल कर सहेजें!</string>
 	<string name="screen_share_files_section_location">सहेजने का स्थान</string>
 	<string name="screen_share_files_save_button_text">सहेजें</string>
@@ -81,7 +81,7 @@
 	<!-- ## screen: s3 settings -->
 	<string name="screen_s3_settings_region_label">क्षेत्र</string>
 	<!-- ## screen: enter vault name -->
-	<string name="screen_enter_vault_name_vault_label">गुप्त तिजोरी का नाम</string>
+	<string name="screen_enter_vault_name_vault_label">वॉल्ट का नाम</string>
 	<string name="screen_enter_vault_name_button_text">बनाएं</string>
 	<!-- ## screen: set password -->
 	<string name="screen_set_password_button_text">हो गया</string>
@@ -100,7 +100,7 @@
 	<string name="dialog_enter_password_positive_button">अनलॉक करें</string>
 	<!-- Vault not found -->
 	<string name="dialog_vault_not_found_positive_button_text">हटाएँ</string>
-	<string name="dialog_unable_to_share_negative_button">गुप्त तिजोरी बनाएं</string>
+	<string name="dialog_unable_to_share_negative_button">वॉल्ट बनाएं</string>
 	<string name="dialog_lock_vault">लॉक करें</string>
 	<string name="dialog_app_is_obscured_info_neutral_button">बंद करें</string>
 	<string name="dialog_update_available_cancel">बाद में</string>
