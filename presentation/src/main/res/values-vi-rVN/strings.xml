@@ -34,6 +34,7 @@
 	<string name="screen_vault_list_vault_creation_hint">Nhấn vào đây để tạo một cái mới</string>
 	<string name="screen_vault_list_change_password_successful">Thay đổi mật khẩu thành công</string>
 	<!-- # screen: file browser -->
+	<string name="screen_file_browser_default_title">Vault</string>
 	<string name="screen_file_browser_move_button_text">Di chuyển</string>
 	<string name="screen_file_browser_msg_empty_folder">Thư mục trống</string>
 	<string name="screen_file_browser_share_intent_chooser_title">Chia sẻ với</string>
