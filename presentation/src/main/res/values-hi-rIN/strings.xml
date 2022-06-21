@@ -24,6 +24,7 @@
 	<string name="error_vault_name_contains_invalid_characters">वॉल्ट के नाम में विशेष वर्ण नहीं हो सकते हैं।</string>
 	<string name="error_general_update">अपडेट की जांच नहीं कर पाए। साधारण गलती हुई है।</string>
 	<string name="error_hash_mismatch_update">अपडेट की जांच नहीं कर पाए। परिकलित हैश अपलोड की गई फ़ाइल से मेल नहीं खाती।</string>
+	<string name="error_update_no_internet">अपडेट की जांच सफल। कोई इंटरनेट कनेक्शन नहीं है।</string>
 	<string name="error_no_such_bucket">ऐसी कोई बकेट नहीं है।</string>
 	<!-- # clouds -->
 	<!-- ## cloud names -->
@@ -33,11 +34,18 @@
 	<string name="snack_bar_action_title_search">खोज करें</string>
 	<string name="snack_bar_action_title_search_previous">पिछला</string>
 	<string name="snack_bar_action_title_search_next">अगला</string>
+	<string name="snack_bar_action_title_sort_az">A - Z</string>
+	<string name="snack_bar_action_title_sort_za">Z - A</string>
 	<string name="snack_bar_action_title_sort_newest">सबसे नया पहले</string>
 	<string name="snack_bar_action_title_sort_oldest">सबसे पुराना पहले</string>
+	<string name="snack_bar_action_title_sort_biggest">सबसे बड़ा पहले</string>
+	<string name="snack_bar_action_title_sort_smallest">सबसे छोटा पहले</string>
+	<string name="snack_bar_cryptomator_variants_title">अधिक जानकारी के लिए पढ़ें ।</string>
 	<!-- # screens -->
 	<!-- # screen: vault list -->
 	<string name="screen_vault_list_actions_title">क्रिप्टोमेटर में जोड़ें</string>
+	<string name="screen_vault_list_action_create_new_vault">नयी वॉल्ट बनाए</string>
+	<string name="screen_vault_list_action_add_existing_vault">मौजूदा वॉल्ट ऐड करें</string>
 	<string name="screen_vault_list_vault_action_delete">हटाएँ</string>
 	<!-- # screen: file browser -->
 	<string name="screen_file_browser_default_title">गुप्त तिजोरी</string>
