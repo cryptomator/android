@@ -20,6 +20,9 @@
 	<string name="cloud_names_local_storage">Bộ nhớ cục bộ</string>
 	<!-- # permission -->
 	<!-- ## permission messages -->
+	<string name="permission_message_export_file">Cryptomator cần quyền truy cập bộ nhớ để xuất tệp</string>
+	<string name="permission_message_upload_file">Cryptomator cần quyền truy cập bộ nhớ tải tệp lên</string>
+	<string name="permission_message_share_file">Cryptomator cần quyền truy cập bộ nhớ chia sẻ tệp</string>
 	<string name="snack_bar_action_title_settings">Cài đặt</string>
 	<string name="snack_bar_action_title_search">Tìm kiếm</string>
 	<string name="snack_bar_action_title_search_next">Tiếp</string>
