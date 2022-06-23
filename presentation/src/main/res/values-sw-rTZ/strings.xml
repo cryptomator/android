@@ -34,6 +34,7 @@
 	<string name="error_file_not_found_after_opening_using_3party">Faili ya ndani haipo tena baada ya kurudi kwenye Cryptomator. Mabadiliko yanayowezekana hayawezi kuenezwa tena kwenye wingu.</string>
 	<string name="error_no_such_bucket">Hakuna ndoo ya utafutaji</string>
 	<string name="error_masterkey_location_not_supported">Mahali maalumu pa Masterkey bado haijategemezwa bado</string>
+	<string name="error_interact_with_fdroid_but_fdroid_missing">Imeshindwa kuwasiliana na programu ya F-Droid. Je, haijasakinishwa?</string>
 	<!-- # clouds -->
 	<!-- ## cloud names -->
 	<string name="cloud_names_local_storage">Hifadhi ya ndani</string>
@@ -54,12 +55,15 @@
 	<string name="snack_bar_action_title_sort_oldest">Zamani zaidi ya kwanza</string>
 	<string name="snack_bar_action_title_sort_biggest">Kubwa ya kwanza</string>
 	<string name="snack_bar_action_title_sort_smallest">Ndogo ya kwanza</string>
+	<string name="snack_bar_cryptomator_variants_title">Soma zaidi</string>
+	<string name="snack_bar_cryptomator_variants_hint">Wingu haipo kwenye orodha?</string>
 	<!-- # screens -->
 	<!-- # screen: vault list -->
 	<string name="screen_vault_list_actions_title">Ongeza kwenye Cryptomator</string>
 	<string name="screen_vault_list_action_create_new_vault">Unda kuba mpya</string>
 	<string name="screen_vault_list_action_add_existing_vault">Ongeza kuba iliyopo</string>
 	<string name="screen_vault_list_vault_action_delete">Ondoa</string>
+	<string name="screen_vault_list_vault_creation_hint">Gusa hapa ili kuunda kuba mpya</string>
 	<string name="screen_vault_list_change_password_successful">Neno la siri limebadilishwa kwa ufanisi</string>
 	<!-- # screen: file browser -->
 	<string name="screen_file_browser_default_title">Kuba</string>
@@ -110,6 +114,7 @@
 	<string name="screen_choose_cloud_service_title">Huduma ya wingu</string>
 	<!-- ## screen: cloud connections -->
 	<string name="screen_cloud_connections_title">Chagua mahali</string>
+	<string name="screen_cloud_connections_no_connections">Gusa hapa ili kuongeza maeneo</string>
 	<string name="screen_cloud_error_webdav_not_supported">Seva haionekani kuwa sambamba na WebDAV</string>
 	<string name="screen_cloud_local_error_no_content_provider">Hakuna faili maneja lililopatikana inasaidia kufungua saraka</string>
 	<!-- ## screen: webdav settings -->
@@ -205,6 +210,9 @@
 	<string name="screen_authenticate_auth_authentication_failed">%1$s haikuweza kuthibitishwa.</string>
 	<string name="screen_update_pcloud_connections_title">Sasisha hati za utambulisho za pCloud</string>
 	<!-- ## screen: cryptomator app variants -->
+	<string name="screen_cryptomator_variants_title">Lahaja za Cryptomator</string>
+	<string name="screen_cryptomator_variants_lite_title">Hazina kuu ya F-Droid</string>
+	<string name="screen_cryptomator_variants_lite_description">Haijajumuishwa kwa sababu zinahitaji funguo za API.</string>
 	<!-- # dialogs -->
 	<string name="dialog_button_cancel">Katisha</string>
 	<string name="dialog_enter_password_positive_button">Fungua</string>
