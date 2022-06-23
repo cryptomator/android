@@ -152,7 +152,7 @@
 	<string name="screen_set_password_title">Установить пароль</string>
 	<string name="screen_set_password_msg_password_mismatch">Пароли не совпадают.</string>
 	<string name="screen_set_password_button_text">Готово</string>
-	<string name="screen_set_password_hint">ВАЖНО: Если вы забудете пароль, то не сможете восстановить данные.</string>
+	<string name="screen_set_password_hint">ВАЖНО: Если вы забудете пароль, то не сможете восстановить свои данные.</string>
 	<string name="screen_set_password_retype_password_label">Введите пароль ещё раз</string>
 	<string name="screen_set_password_strength_indicator_0">Слишком слабый для создания хранилища</string>
 	<string name="screen_set_password_strength_indicator_1">Слабый</string>
