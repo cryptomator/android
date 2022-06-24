@@ -86,6 +86,8 @@
 	<!-- ## screen: webdav settings -->
 	<string name="screen_webdav_settings_username_label">उपयोगकर्ता नाम</string>
 	<string name="screen_webdav_settings_password_label">पासवर्ड</string>
+	<string name="screen_webdav_settings_msg_username_must_not_be_empty">यूसरनाम खाली नहीं रह सकता</string>
+	<string name="screen_webdav_settings_msg_password_must_not_be_empty">पासवर्ड खाली नहीं छोड़ा जा सकता</string>
 	<!-- ## screen: s3 settings -->
 	<string name="screen_s3_settings_region_label">क्षेत्र</string>
 	<!-- ## screen: enter vault name -->
