@@ -6,11 +6,31 @@
 	<!-- ## cloud names -->
 	<!-- # permission -->
 	<!-- ## permission messages -->
+	<string name="snack_bar_action_title_settings">Налады</string>
+	<string name="snack_bar_action_title_search">Шукаць</string>
+	<string name="snack_bar_action_title_search_previous">Папярэдні</string>
 	<string name="snack_bar_action_title_search_next">Далей</string>
+	<string name="snack_bar_action_title_sort">Сартаваць</string>
+	<string name="snack_bar_action_title_sort_az">А - Я</string>
+	<string name="snack_bar_action_title_sort_za">Я - А</string>
+	<string name="snack_bar_action_title_sort_newest">Найноўшыя спачатку</string>
+	<string name="snack_bar_action_title_sort_oldest">Найстарэйшыя спачатку</string>
+	<string name="snack_bar_action_title_sort_biggest">Найбуйнейшыя спачатку</string>
+	<string name="snack_bar_action_title_sort_smallest">Найменшыя спачатку</string>
+	<string name="snack_bar_cryptomator_variants_title">Чытаць далей</string>
 	<!-- # screens -->
 	<!-- # screen: vault list -->
 	<!-- # screen: file browser -->
 	<string name="screen_file_browser_default_title">Скарбніца</string>
+	<string name="screen_file_browser_node_action_share">Абагуліць</string>
+	<string name="screen_file_browser_node_action_rename">Пераназваць</string>
+	<string name="screen_file_browser_node_action_edit_text">Рэдагаваць</string>
+	<string name="screen_file_browser_node_action_export">Экспартаваць</string>
+	<string name="screen_file_browser_node_action_delete">Выдаліць</string>
+	<string name="screen_file_browser_selection_mode_title_zero_elements">Вылучыць элементы</string>
+	<string name="screen_file_browser_selection_mode_title_one_or_more_elements">%1$d вылучана</string>
+	<string name="screen_file_browser_select_items">Вылучыць</string>
+	<string name="screen_file_browser_select_all_items">Вылучыць усё</string>
 	<!-- ## screen: text editor -->
 	<!-- ## screen: share files -->
 	<!-- ## screen: choose cloud service -->
@@ -20,14 +40,30 @@
 	<!-- ## screen: enter vault name -->
 	<!-- ## screen: set password -->
 	<string name="screen_set_password_button_text">Файна</string>
+	<string name="screen_set_password_strength_indicator_1">Слабы</string>
+	<string name="screen_set_password_strength_indicator_2">Нармалёвы</string>
+	<string name="screen_set_password_strength_indicator_3">Моцны</string>
 	<!-- ## screen: settings -->
+	<string name="screen_settings_section_search">Шукаць</string>
 	<!-- ## screen: cloud settings -->
 	<!-- ## screen: licenses -->
 	<!-- ## screen: authenticate cloud -->
 	<!-- ## screen: cryptomator app variants -->
+	<string name="screen_cryptomator_variants_lite_install">Усталяваць</string>
+	<string name="screen_cryptomator_variants_fdroid_title">Рэпазыторый Cryptomator F-Droid</string>
+	<string name="screen_cryptomator_variants_fdroid_add_repo">Дадаць</string>
+	<string name="screen_cryptomator_variants_website_title">Ўэбсайт</string>
 	<!-- # dialogs -->
 	<string name="dialog_button_cancel">Скасаваць</string>
 	<!-- Vault not found -->
+	<string name="dialog_unable_to_share_positive_button">Добра</string>
+	<string name="dialog_unable_to_share_negative_button">Стварыць скарбніцу</string>
+	<string name="dialog_filetype_not_supported_title">Немагчыма адчыніць %1$s</string>
+	<string name="dialog_rename_vault_title">Пераназваць скарбніцу</string>
+	<string name="dialog_rename_node_folder_title">Пераназваць тэчку</string>
+	<string name="dialog_rename_node_file_title">Пераназваць файл</string>
+	<string name="dialog_file_name_hint">Назва файла</string>
+	<string name="dialog_file_name_placeholder">text.txt</string>
 	<string name="dialog_app_is_obscured_info_neutral_button">Зачыніць</string>
 	<string name="dialog_sym_link_back_button">Назад</string>
 	<!-- # error reports -->
