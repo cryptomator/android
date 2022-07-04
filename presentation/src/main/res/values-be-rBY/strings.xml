@@ -55,6 +55,7 @@
 	<string name="screen_cryptomator_variants_website_title">Ўэбсайт</string>
 	<!-- # dialogs -->
 	<string name="dialog_button_cancel">Скасаваць</string>
+	<string name="dialog_enter_password_positive_button">Адамкнуць</string>
 	<!-- Vault not found -->
 	<string name="dialog_unable_to_share_positive_button">Добра</string>
 	<string name="dialog_unable_to_share_negative_button">Стварыць скарбніцу</string>
@@ -64,6 +65,7 @@
 	<string name="dialog_rename_node_file_title">Пераназваць файл</string>
 	<string name="dialog_file_name_hint">Назва файла</string>
 	<string name="dialog_file_name_placeholder">text.txt</string>
+	<string name="dialog_lock_vault">Замкнуць</string>
 	<string name="dialog_app_is_obscured_info_neutral_button">Зачыніць</string>
 	<string name="dialog_sym_link_back_button">Назад</string>
 	<!-- # error reports -->
