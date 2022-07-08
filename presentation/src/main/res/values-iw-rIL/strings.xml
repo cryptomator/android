@@ -53,6 +53,7 @@
 	<string name="snack_bar_action_title_sort_oldest">הישן ביותר</string>
 	<string name="snack_bar_action_title_sort_biggest">הגדול ביותר</string>
 	<string name="snack_bar_action_title_sort_smallest">הקטן ביותר</string>
+	<string name="snack_bar_cryptomator_variants_title">למידע נוסף</string>
 	<!-- # screens -->
 	<!-- # screen: vault list -->
 	<string name="screen_vault_list_actions_title">הוסף ל-Cryptomator</string>
