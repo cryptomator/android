@@ -214,9 +214,11 @@
 	<string name="screen_update_pcloud_connections_title">pCloud アカウント情報を更新</string>
 	<!-- ## screen: cryptomator app variants -->
 	<string name="screen_cryptomator_variants_title">Cryptomatorの種類</string>
-	<string name="screen_cryptomator_variants_lite_title">F-Droidのメインリポジトリ</string>
+	<string name="screen_cryptomator_variants_lite_title">F-Droid のメインリポジトリ</string>
 	<string name="screen_cryptomator_variants_lite_description">APIキーが必要なため除外しています。</string>
 	<string name="screen_cryptomator_variants_lite_install">インストール</string>
+	<string name="screen_cryptomator_variants_fdroid_title">Cryptomator F-Droid リポジトリ</string>
+	<string name="screen_cryptomator_variants_fdroid_add_repo_hint">F-Droid アプリに Cryptomator リポジトリを追加します。</string>
 	<string name="screen_cryptomator_variants_fdroid_add_repo">追加</string>
 	<string name="screen_cryptomator_variants_website_title">ウェブサイト</string>
 	<!-- # dialogs -->
