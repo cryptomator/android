@@ -66,6 +66,12 @@
 	<string name="screen_file_browser_add_existing_vault_extra_text">בחר קובץ masterkey</string>
 	<string name="screen_file_browser_create_new_vault_button_text">מקם כאן</string>
 	<string name="screen_file_browser_create_new_vault_extra_text">שם הכספת: %1$s</string>
+	<plurals name="screen_file_browser_subtitle_move">
+		<item quantity="one">העברת %1$s אל</item>
+		<item quantity="two">העברת %2$d פריטים אל</item>
+		<item quantity="many">העברת %2$d פריטים אל</item>
+		<item quantity="other">העבר %2$d פריטים אל</item>
+	</plurals>
 	<string name="screen_file_browser_move_button_text">שנה מיקום</string>
 	<string name="screen_file_browser_msg_empty_folder">תיקיה ריקה</string>
 	<string name="screen_file_browser_file_info_label_date">שונה לפני %1$s</string>
@@ -206,6 +212,9 @@
 	<string name="screen_authenticate_auth_authentication_failed">האימות מול \'%1$s\' נכשל.</string>
 	<string name="screen_update_pcloud_connections_title">עדכן את פרטי ההתחברות אל pCloud</string>
 	<!-- ## screen: cryptomator app variants -->
+	<string name="screen_cryptomator_variants_lite_install">התקנה</string>
+	<string name="screen_cryptomator_variants_fdroid_title">Cryptomator במאגר F-Droid</string>
+	<string name="screen_cryptomator_variants_fdroid_description">לא זמין בגלל שהוא כולל רכיבים קנייניים.</string>
 	<!-- # dialogs -->
 	<string name="dialog_button_cancel">ביטול</string>
 	<string name="dialog_enter_password_positive_button">בטל נעילה</string>
