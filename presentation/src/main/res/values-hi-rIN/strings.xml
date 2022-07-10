@@ -25,6 +25,10 @@
 	<string name="error_general_update">अपडेट की जांच नहीं कर पाए। साधारण गलती हुई है।</string>
 	<string name="error_hash_mismatch_update">अपडेट की जांच नहीं कर पाए। परिकलित हैश अपलोड की गई फ़ाइल से मेल नहीं खाती।</string>
 	<string name="error_update_no_internet">अपडेट की जांच सफल। कोई इंटरनेट कनेक्शन नहीं है।</string>
+	<string name="error_failed_to_decrypt_webdav_password">WebDAV पासवर्ड को डिक्रिप्ट करने में विफल, कृपया सेटिंग्स में फिर से जोड़ें</string>
+	<string name="error_play_services_not_available">Google Play सेवाएं स्थापित नहीं हैं</string>
+	<string name="error_biometric_auth_aborted">बायोमेट्रिक प्रमाणीकरण निरस्त</string>
+	<string name="error_vault_config_loading">वॉल्ट कॉन्फ़िगरेशन लोड करते समय सामान्य त्रुटि</string>
 	<string name="error_no_such_bucket">ऐसी कोई बकेट नहीं है।</string>
 	<!-- # clouds -->
 	<!-- ## cloud names -->
