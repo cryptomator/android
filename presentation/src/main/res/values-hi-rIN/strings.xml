@@ -29,15 +29,23 @@
 	<string name="error_play_services_not_available">Google Play सेवाएं स्थापित नहीं हैं</string>
 	<string name="error_biometric_auth_aborted">बायोमेट्रिक प्रमाणीकरण निरस्त</string>
 	<string name="error_vault_config_loading">वॉल्ट कॉन्फ़िगरेशन लोड करते समय सामान्य त्रुटि</string>
+	<string name="error_file_not_found_after_opening_using_3party">Cryptomator पर वापस जाने के बाद स्थानीय फ़ाइल अब मौजूद नहीं है। संभावित परिवर्तनों को वापस क्लाउड पर प्रचारित नहीं किया जा सकता है।</string>
 	<string name="error_no_such_bucket">ऐसी कोई बकेट नहीं है।</string>
+	<string name="error_interact_with_fdroid_but_fdroid_missing">F-Droid एप्लिकेशन के साथ संचार करने में विफल। स्थापित नहीं है?</string>
 	<!-- # clouds -->
 	<!-- ## cloud names -->
+	<string name="cloud_names_local_storage">स्थानीय भंडार</string>
 	<!-- # permission -->
 	<!-- ## permission messages -->
+	<string name="permission_message_export_file">Cryptomator को निर्यात फ़ाइलों के लिए भंडारण पहुंच की आवश्यकता है</string>
+	<string name="permission_message_upload_file">Cryptomator को फाइल अपलोड करने के लिए स्टोरेज एक्सेस की आवश्यकता होती है</string>
+	<string name="permission_message_share_file">Cryptomator को फाइलों को साझा करने के लिए स्टोरेज एक्सेस की आवश्यकता होती है</string>
+	<string name="permission_revoked_re_request_permission">Cryptomator ने इस स्थान तक पहुँचने की अनुमति खो दी है। अनुमति को पुनर्स्थापित करने के लिए कृपया इस फ़ोल्डर को फिर से चुनें।</string>
 	<string name="snack_bar_action_title_settings">सेटिंग्स</string>
 	<string name="snack_bar_action_title_search">खोज करें</string>
 	<string name="snack_bar_action_title_search_previous">पिछला</string>
 	<string name="snack_bar_action_title_search_next">अगला</string>
+	<string name="snack_bar_action_title_sort">सॉर्ट करें</string>
 	<string name="snack_bar_action_title_sort_az">A - Z</string>
 	<string name="snack_bar_action_title_sort_za">Z - A</string>
 	<string name="snack_bar_action_title_sort_newest">सबसे नया पहले</string>
