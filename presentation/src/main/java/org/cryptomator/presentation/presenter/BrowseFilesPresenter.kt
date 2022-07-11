@@ -540,7 +540,7 @@ class BrowseFilesPresenter @Inject constructor( //
 		}.also {
 			openedCloudFile = cloudFile
 			openedCloudFileMd5 = calculateDigestFromUri(it)
-			viewFileIntent.setDataAndType(uriToOpenedFile, mimeTypes.fromFilename(cloudFile.name)?.toString())
+			viewFileIntent.setDataAndType(it, mimeTypes.fromFilename(cloudFile.name)?.toString())
 			viewFileIntent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION or Intent.FLAG_GRANT_WRITE_URI_PERMISSION)
 			if (sharedPreferencesHandler.keepUnlockedWhileEditing()) {
 				openWritableFileNotification = OpenWritableFileNotification(context(), it)

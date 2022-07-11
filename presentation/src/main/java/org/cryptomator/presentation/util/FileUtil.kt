@@ -122,8 +122,9 @@ class FileUtil @Inject constructor(private val context: Context, private val mim
 	private fun getPublicDecryptedFileStorage(): File? {
 		return try {
 			val mediaDir = context.getExternalMediaDirs().first { dir -> dir.startsWith("/storage/emulated/0") }
-			val publicDecryptedFileStorage = File(mediaDir, "decrypted")
-			if (publicDecryptedFileStorage.canWrite()) {
+			if (mediaDir.canWrite()) {
+				val publicDecryptedFileStorage = File(mediaDir, "decrypted")
+				publicDecryptedFileStorage.mkdir()
 				publicDecryptedFileStorage
 			} else {
 				Timber.tag("FileUtil").e("Media storage isn't writable")
