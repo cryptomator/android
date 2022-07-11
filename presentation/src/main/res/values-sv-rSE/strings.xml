@@ -9,7 +9,8 @@
 	<string name="error_no_network_connection">Ingen nätverksanslutning</string>
 	<string name="error_invalid_passphrase">Felaktigt lösenord</string>
 	<string name="error_file_or_folder_exists">Filen eller katalogen finns redan.</string>
-	<string name="error_vault_version_not_supported">Valvet stöds ej. Detta valv har skapats med en annan version av Cryptomator.</string>
+	<string name="error_vault_version_not_supported">Valv-version %1$s stöds inte. Detta valv har skapats med en äldre eller nyare version av Cryptomator.</string>
+	<string name="error_vault_config_file_missing_due_to_format_999">Filen %1$s saknas i din valvmapp. Se till att den här filen finns i din valvmapp i molnet.</string>
 	<string name="error_vault_already_exists">Valvet finns redan.</string>
 	<string name="error_no_such_file">Filen existerar inte.</string>
 	<string name="error_vault_has_been_locked">Valvet har låsts.</string>
@@ -59,7 +60,6 @@
 	<string name="screen_vault_list_action_create_new_vault">Skapa nytt valv</string>
 	<string name="screen_vault_list_action_add_existing_vault">Lägg till befintligt valv</string>
 	<string name="screen_vault_list_vault_action_delete">Ta bort</string>
-	<string name="screen_vault_list_vault_creation_hint">Klicka här för att skapa ett nytt valv</string>
 	<string name="screen_vault_list_change_password_successful">Lösenordet har ändrats</string>
 	<!-- # screen: file browser -->
 	<string name="screen_file_browser_default_title">Valv</string>
@@ -114,9 +114,8 @@
 	<string name="screen_choose_cloud_service_title">Molntjänst</string>
 	<!-- ## screen: cloud connections -->
 	<string name="screen_cloud_connections_title">Välj en plats</string>
-	<string name="screen_cloud_connections_no_connections">Klicka här för att lägga till platser</string>
 	<string name="screen_cloud_error_webdav_not_supported">Servern verkar inte vara WebDAV-kompatibel</string>
-	<string name="screen_cloud_local_error_no_content_provider">Inga ytterligare platser tillgängliga.</string>
+	<string name="screen_cloud_local_error_no_content_provider">Hittade ingen filhanterare som har stöd för att öppna kataloger</string>
 	<!-- ## screen: webdav settings -->
 	<string name="screen_webdav_settings_url_port_label">URL</string>
 	<string name="screen_webdav_settings_username_label">Användarnamn</string>
@@ -199,6 +198,7 @@
 	<string name="screen_settings_keep_unlocked_while_editing_files">Behåll olåst</string>
 	<string name="screen_settings_keep_unlocked_while_editing_files_summary">Håll valven upplåsta medan filer ändras</string>
 	<!-- ## screen: cloud settings -->
+	<string name="screen_cloud_settings_onedrive_connections">OneDrive-anslutningar</string>
 	<string name="screen_cloud_settings_webdav_connections">WebDAV-anslutningar</string>
 	<string name="screen_cloud_settings_pcloud_connections">pCloud-anslutningar</string>
 	<string name="screen_cloud_settings_s3_connections">S3 anslutningar</string>
@@ -209,7 +209,7 @@
 	<!-- ## screen: authenticate cloud -->
 	<string name="screen_authenticate_auth_authentication_failed">%1$s kunde inte autentiseras.</string>
 	<string name="screen_update_pcloud_connections_title">Uppdatera pCloud-uppgifter</string>
-	<!-- ## screen: insecure android version info -->
+	<!-- ## screen: cryptomator app variants -->
 	<!-- # dialogs -->
 	<string name="dialog_button_cancel">Avbryt</string>
 	<string name="dialog_enter_password_positive_button">Lås upp</string>
@@ -272,6 +272,8 @@
 	<string name="dialog_accept_ssl_certificate_hint">SSL-certifikatet är ogiltigt. Vill du lita på det ändå?</string>
 	<string name="dialog_accept_ssl_certificate_details">Detaljer</string>
 	<string name="dialog_accept_ssl_certificate_security_checkbox">Det kan vara en säkerhetsrisk. Jag vet vad jag gör.</string>
+	<string name="dialog_ask_ignore_battery_optimizations_title">Inaktivera batterioptimering</string>
+	<string name="dialog_ask_ignore_battery_optimizations_checkbox">Visa inte igen?</string>
 	<string name="dialog_http_security_hint">Användning av HTTP är osäkert. Vi rekommenderar att du använder HTTPS istället. Om du känner till riskerna kan du fortsätta med HTTP.</string>
 	<string name="dialog_http_security_checkbox">Ändra till HTTPS</string>
 	<string name="dialog_http_security_title">Använd HTTPS?</string>
@@ -283,17 +285,17 @@
 	<string name="dialog_debug_mode_disclaimer_hint">I detta läge kan känsliga data skrivas till en loggfil på din enhet (t.ex. filnamn och sökvägar). Lösenord, cookies etc. är uttryckligen uteslutna.\n\nKom ihåg att inaktivera felsökningsläge så snart som möjligt.</string>
 	<string name="dialog_debug_mode_disclaimer_title">Observera</string>
 	<string name="dialog_debug_mode_positive_button">Aktivera</string>
-	<string name="dialog_disable_app_obscured_disclaimer_hint">Den här inställningen är en säkerhetsfunktion och hindrar andra appar från att lura användare att göra saker de inte vill göra.\n\nGenom att inaktivera bekräftar du att du är <a href="https://docs.cryptomator.org/en/1.5/android/settings/#block-app-when-obscured">medveten om riskerna</a>.</string>
+	<string name="dialog_disable_app_obscured_disclaimer_hint">Den här inställningen är en säkerhetsfunktion som hindrar andra appar från att lura användare att göra saker de inte vill.\n\nGenom att stänga av säkerhetsfunktionen bekräftar du att du är <a href="https://docs.cryptomator.org/en/1.6/android/settings/#block-app-when-obscured">medveten om riskerna</a>.</string>
 	<string name="dialog_disable_app_obscured_disclaimer_title">Observera</string>
 	<string name="dialog_disable_app_obscured_positive_button">Inaktivera</string>
 	<string name="dialog_app_is_obscured_info_title">Appen är täckt</string>
-	<string name="dialog_app_is_obscured_info_hint">En annan app visar något ovanpå Cryptomator (t.ex., ett blått ljusfilter eller nattläge app). Av säkerhetsskäl är Cryptomator inaktiverad.\n\n<a href="https://docs.cryptomator.org/en/1.5/android/settings/#block-app-when-obscured">Så här aktiverar du Cryptomator</a></string>
+	<string name="dialog_app_is_obscured_info_hint">Ett annat program visar något ovanpå Cryptomator (t.ex. ett blått ljusfilter eller nattläge app). Av säkerhetsskäl är Cryptomator inaktiverad.\n\n<a href="https://docs.cryptomator.org/en/1.6/android/settings/#block-app-when-obscured">Så här aktiverar du Cryptomator</a></string>
 	<string name="dialog_app_is_obscured_info_neutral_button">Stäng</string>
 	<string name="dialog_vaults_removed_during_migration_title">Vänligen lägg till valv igen för %1s molnet</string>
 	<string name="dialog_vaults_removed_during_migration_hint">Medan vi migrerar till den här appversionen måste vi ta bort följande valv från appen:\n%2s \n\nDessa valv tas inte bort från molnet utan endast från den här appen. Ledsen för besväret. Du lägger sedan till dessa valv igen för att fortsätta arbeta med dem.</string>
 	<string name="dialog_vault_is_root_folder_of_cloud_title">Valvet är rotmapp för molnanslutningen</string>
 	<string name="dialog_vault_is_root_folder_of_cloud_hint">Skapa en ny molnanslutning där du väljer minst den överordnade mappen i denna valvkatalog som rotkatalog för att lägga till valvet.</string>
-	<string name="dialog_disable_secure_screen_disclaimer_hint">Den här inställningen är en säkerhetsfunktion och hindrar andra appar från att lura användare att göra saker de inte vill göra.\n\nGenom att inaktivera bekräftar du att du är <a href="https://docs.cryptomator.org/en/1.5/android/settings/#screen-security">medveten om riskerna</a>.</string>
+	<string name="dialog_disable_secure_screen_disclaimer_hint">Den här inställningen är en säkerhetsfunktion som hindrar andra appar från att lura användare att göra saker de inte vill.\n\nGenom att stänga av säkerhetsfunktionen bekräftar du att du är <a href="https://docs.cryptomator.org/en/1.6/android/settings/#screen-security">medveten om riskerna</a>.</string>
 	<string name="dialog_delete_cloud_connection_with_vaults_message">Är du säker på att du vill ta bort den här molnanslutningen?</string>
 	<string name="dialog_delete_cloud_connection_with_vaults_hint">Denna åtgärd kommer att ta bort molnanslutningen och alla valv i detta moln.</string>
 	<string name="dialog_confirm_delete_multiple_title">Ta bort %1$d objekt?</string>
@@ -305,6 +307,7 @@
 	<string name="dialog_enter_license_title">Ange en giltig licens</string>
 	<string name="dialog_enter_license_content">Vi upptäckte att du installerade Cryptomator utan att använda Google Play Store. Ange en giltig licens, som kan köpas på <a href="https://cryptomator.org/android/">https://cryptomator.org/android/</a></string>
 	<string name="dialog_enter_license_not_valid_content">Den angivna licensen är inte giltig. Se till att du angav den korrekt.</string>
+	<string name="dialog_enter_license_not_valid_content_desktop_supporter_certificate">Den angivna nyckeln är ett supportercertifikat för skrivbords-versionen. Ange en giltig licens.</string>
 	<string name="dialog_enter_license_no_content">Ingen licens angiven. Ange en giltig licens.</string>
 	<string name="dialog_enter_license_decline_button">Avsluta</string>
 	<string name="dialog_license_confirmation_title">Licensinformation</string>
@@ -323,7 +326,6 @@
 	<string name="dialog_no_dir_file_message">Moln-mappen \'%1$s\' har ingen giltig katalog-fil. Det kan bero på att mappen skapades på en annan enhet och ännu inte har synkroniserats fullt ut med molnet. Kontrollera i ditt moln om följande fil finns:\n%2$s</string>
 	<string name="dialog_no_more_images_to_display">Inga fler bilder att visa&#8230;</string>
 	<string name="dialog_pcloud_credentials_updated_title">Användaruppgifter för \'%1$s\' uppdaterad</string>
-	<string name="dialog_pcloud_credentials_updated">Om du tänkte lägga till ett nytt pCloud-konto, klicka på denna url <a href="https://www.pcloud.com">www.pcloud. Om</a>, logga ut från det aktuella kontot och klicka igen på \'+\' i den här appen för att skapa en ny molnanslutning.</string>
 	<string name="permission_snackbar_auth_local_vault">Cryptomator behöver åtkomst till lagringsutrymmet för att använda lokala valv</string>
 	<string name="permission_snackbar_auth_auto_upload">Cryptomator behöver åtkomst till lagringsutrymmet för att kunna använda automatisk uppladdning av foton</string>
 	<!-- # error reports -->
@@ -372,6 +374,7 @@
 	<string name="notification_open_writable_file_title">Öppna skrivbar fil</string>
 	<string name="notification_open_writable_file_message">Valvet är upplåst till färdig redigering</string>
 	<string name="notification_update_check_finished_latest">Senaste versionen installerad</string>
+	<string name="notification_authenticating">Autentiserar&#8230;</string>
 	<string name="screen_settings_lru_cache">Cache</string>
 	<string name="screen_settings_lru_cache_toggle_summary">Cachen har nyligen kommit åt filer krypterade lokalt på enheten för senare återanvändning när de öppnas igen</string>
 	<string name="screen_settings_lru_cache_size">Total cachestorlek</string>
@@ -404,6 +407,4 @@
 	<string name="dark">Mörkt</string>
 	<!-- update interval names -->
 	<string name="update_interval_1d">Varje dag</string>
-	<string name="update_interval_1w">Varje vecka</string>
-	<string name="update_interval_1m">Varje månad</string>
 </resources>

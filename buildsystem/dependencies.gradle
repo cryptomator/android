@@ -21,8 +21,8 @@ allprojects {
 ext {
 	androidBuildToolsVersion = "30.0.3"
 	androidMinSdkVersion = 26
-	androidTargetSdkVersion = 30
-	androidCompileSdkVersion = 30
+	androidTargetSdkVersion = 31
+	androidCompileSdkVersion = 31
 
 	// android and java libs
 	androidVersion = '4.1.1.4'
@@ -30,9 +30,9 @@ ext {
 	javaxAnnotationVersion = '1.0'
 
 	// support lib
-	androidSupportAnnotationsVersion = '1.2.0'
-	androidSupportAppcompatVersion = '1.3.1'
-	androidSupportDesignVersion = '1.4.0'
+	androidSupportAnnotationsVersion = '1.3.0'
+	androidSupportAppcompatVersion = '1.4.1'
+	androidMaterialDesignVersion = '1.6.0'
 
 	coreDesugaringVersion = '1.1.5'
 
@@ -42,18 +42,18 @@ ext {
 	rxAndroidVersion = '2.1.1'
 	rxBindingVersion = '2.2.0'
 
-	daggerVersion = '2.40.5'
+	daggerVersion = '2.42'
 
 	gsonVersion = '2.9.0'
 
 	okHttpVersion = '4.9.3'
-	okHttpDigestVersion = '2.6'
+	okHttpDigestVersion = '2.7'
 
 	velocityVersion = '2.3'
 
 	timberVersion = '5.0.1'
 
-	zxcvbnVersion = '1.5.2'
+	zxcvbnVersion = '1.7.0'
 
 	scaleImageViewVersion = '3.10.0'
 
@@ -65,21 +65,21 @@ ext {
 	// cloud provider libs
 	cryptolibVersion = '2.0.2'
 
-	dropboxVersion = '5.1.1'
+	dropboxVersion = '5.2.0'
 
-	googleApiServicesVersion = 'v3-rev20220110-1.32.1'
+	googleApiServicesVersion = 'v3-rev20220508-1.32.1'
 	googlePlayServicesVersion = '19.2.0'
-	googleClientVersion = '1.33.2' // keep in sync with https://github.com/SailReal/google-http-java-client
+	googleClientVersion = '1.35.0' // keep in sync with https://github.com/SailReal/google-http-java-client
 	/*
 		update using https://github.com/SailReal/google-http-java-client with `mvn clean install`,
 		copying `google-http-client-*.jar` and `google-http-client-android-*.jar` into the lib folder of this project
 	 */
-	trackingFreeGoogleCLientVersion = '1.41.4'
+	trackingFreeGoogleCLientVersion = '1.41.8'
 
-	msgraphVersion = '5.14.0'
-	msgraphAuthVersion = '2.2.3'
+	msgraphVersion = '5.25.0'
+	msgraphAuthVersion = '3.0.2'
 
-	minIoVersion = '8.3.6'
+	minIoVersion = '8.4.1'
 	staxVersion = '1.2.0' // needed for minIO
 
 	commonsCodecVersion = '1.15'
@@ -90,7 +90,7 @@ ext {
 
 	jUnitVersion = '5.8.2'
 	assertJVersion = '1.7.1'
-	mockitoVersion = '4.3.1'
+	mockitoVersion = '4.6.1'
 	mockitoKotlinVersion = '4.0.0'
 	hamcrestVersion = '1.3'
 	dexmakerVersion = '1.0'
@@ -100,18 +100,20 @@ ext {
 	rulesVersion = '1.4.0'
 	contributionVersion = '3.4.0'
 	uiautomatorVersion = '2.2.0'
+	androidxTestJunitKtlnVersion = '1.1.3'
 
-	androidxCoreVersion = '1.6.0'
-	androidxFragmentVersion = '1.3.6'
+	androidxCoreVersion = '1.7.0'
+	androidxFragmentVersion = '1.4.1'
 	androidxViewpagerVersion = '1.0.0'
 	androidxSwiperefreshVersion = '1.1.0'
-	androidxPreferenceVersion = '1.1.1'
+	androidxPreferenceVersion = '1.2.0'
 	androidxRecyclerViewVersion = '1.2.1'
 	androidxDocumentfileVersion = '1.0.1'
 	androidxBiometricVersion = '1.1.0'
 	androidxTestCoreVersion = '1.4.0'
+	androidxSplashscreenVersion = '1.0.0-rc01'
 
-	jsonWebTokenApiVersion = '0.11.2'
+	jsonWebTokenApiVersion = '0.11.5'
 
 	dependencies = [
 			android               : "com.google.android:android:${androidVersion}",
@@ -125,12 +127,14 @@ ext {
 			androidxPreference    : "androidx.preference:preference:${androidxPreferenceVersion}",
 			documentFile          : "androidx.documentfile:documentfile:${androidxDocumentfileVersion}",
 			recyclerView          : "androidx.recyclerview:recyclerview:${androidxRecyclerViewVersion}",
+			androidxSplashscreen  : "androidx.core:core-splashscreen:${androidxSplashscreenVersion}",
 			androidxTestCore      : "androidx.test:core:${androidxTestCoreVersion}",
+			androidxTestJunitKtln : "androidx.test.ext:junit-ktx:${androidxTestJunitKtlnVersion}",
 			commonsCodec          : "commons-codec:commons-codec:${commonsCodecVersion}",
 			cryptolib             : "org.cryptomator:cryptolib:${cryptolibVersion}",
 			dagger                : "com.google.dagger:dagger:${daggerVersion}",
 			daggerCompiler        : "com.google.dagger:dagger-compiler:${daggerVersion}",
-			design                : "com.google.android.material:material:${androidSupportDesignVersion}",
+			design                : "com.google.android.material:material:${androidMaterialDesignVersion}",
 			coreDesugaring        : "com.android.tools:desugar_jdk_libs:${coreDesugaringVersion}",
 			dropbox               : "com.dropbox.core:dropbox-core-sdk:${dropboxVersion}",
 			espresso              : "androidx.test.espresso:espresso-core:${espressoVersion}",

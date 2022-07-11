@@ -9,7 +9,8 @@
 	<string name="error_no_network_connection">Χωρίς σύνδεση δικτύου</string>
 	<string name="error_invalid_passphrase">Λάθος κωδικός πρόσβασης</string>
 	<string name="error_file_or_folder_exists">Υπάρχει ήδη ένα αρχείο ή φάκελος.</string>
-	<string name="error_vault_version_not_supported">Μη υποστηριζόμενη κρύπτη. Αυτή η κρύπτη έχει δημιουργηθεί με μια άλλη έκδοση του Cryptomator.</string>
+	<string name="error_vault_version_not_supported">Η έκδοση %1$s της κρύπτης δεν υποστηρίζεται. Αυτή η κρύπτη έχει δημιουργηθεί με παλαιότερη ή νεότερη έκδοση του Cryptomator.</string>
+	<string name="error_vault_config_file_missing_due_to_format_999">Το αρχείο %1$s λείπει στο φάκελο της κρύπτης σας. Βεβαιωθείτε ότι αυτό το αρχείο υπάρχει στο φάκελο κρύπτης στο cloud.</string>
 	<string name="error_vault_already_exists">Η κρύπτη υπάρχει ήδη.</string>
 	<string name="error_no_such_file">Το αρχείο δεν υπάρχει.</string>
 	<string name="error_vault_has_been_locked">Η κρύπτη έχει κλειδωθεί.</string>
@@ -59,7 +60,6 @@
 	<string name="screen_vault_list_action_create_new_vault">Δημιουργία νέας κρύπτης</string>
 	<string name="screen_vault_list_action_add_existing_vault">Προσθήκη υπάρχοντος κρύπτης</string>
 	<string name="screen_vault_list_vault_action_delete">Αφαίρεση</string>
-	<string name="screen_vault_list_vault_creation_hint">Κάντε κλικ εδώ για να δημιουργήσετε μια νέα κρύπτη</string>
 	<string name="screen_vault_list_change_password_successful">Ο κωδικός πρόσβασης άλλαξε επιτυχώς</string>
 	<!-- # screen: file browser -->
 	<string name="screen_file_browser_default_title">Κρύπτη</string>
@@ -114,9 +114,8 @@
 	<string name="screen_choose_cloud_service_title">Υπηρεσίες cloud</string>
 	<!-- ## screen: cloud connections -->
 	<string name="screen_cloud_connections_title">Επιλέξτε μια τοποθεσία</string>
-	<string name="screen_cloud_connections_no_connections">Κάντε κλικ εδώ για να προσθέσετε τοποθεσίες</string>
 	<string name="screen_cloud_error_webdav_not_supported">Ο διακομιστής δεν φαίνεται να είναι συμβατός με WebDAV</string>
-	<string name="screen_cloud_local_error_no_content_provider">Δεν υπάρχουν διαθέσιμες πρόσθετες τοποθεσίες.</string>
+	<string name="screen_cloud_local_error_no_content_provider">Δε βρέθηκε διαχειριστής αρχείων που να υποστηρίζει το άνοιγμα καταλόγων</string>
 	<!-- ## screen: webdav settings -->
 	<string name="screen_webdav_settings_url_port_label">URL</string>
 	<string name="screen_webdav_settings_username_label">Όνομα χρήστη</string>
@@ -210,7 +209,7 @@
 	<!-- ## screen: authenticate cloud -->
 	<string name="screen_authenticate_auth_authentication_failed">%1$s δεν ήταν δυνατή η ταυτοποίηση.</string>
 	<string name="screen_update_pcloud_connections_title">Ενημέρωση διαπιστευτηρίων pCloud</string>
-	<!-- ## screen: insecure android version info -->
+	<!-- ## screen: cryptomator app variants -->
 	<!-- # dialogs -->
 	<string name="dialog_button_cancel">Ακύρωση</string>
 	<string name="dialog_enter_password_positive_button">Ξεκλείδωμα</string>
@@ -273,6 +272,8 @@
 	<string name="dialog_accept_ssl_certificate_hint">Το πιστοποιητικό SSL δεν είναι έγκυρο. Θέλετε να το εμπιστευτείτε ούτως ή άλλως;</string>
 	<string name="dialog_accept_ssl_certificate_details">Λεπτομέρειες</string>
 	<string name="dialog_accept_ssl_certificate_security_checkbox">Αυτό θα μπορούσε να αποτελέσει κίνδυνο για την ασφάλεια. Γνωρίζω τι κάνω.</string>
+	<string name="dialog_ask_ignore_battery_optimizations_title">Απενεργοποιήστε τις βελτιστοποιήσεις μπαταρίας</string>
+	<string name="dialog_ask_ignore_battery_optimizations_checkbox">Να μην ερωτηθώ ξανά;</string>
 	<string name="dialog_http_security_hint">Η χρήση του HTTP είναι μη ασφαλής. Σας συνιστούμε να χρησιμοποιήσετε το HTTPS αντ \'αυτού. Αν γνωρίζετε τους κινδύνους, μπορείτε να συνεχίσετε με το HTTP.</string>
 	<string name="dialog_http_security_checkbox">Αλλαγή σε HTTPS</string>
 	<string name="dialog_http_security_title">Χρήση HTTPS;</string>
@@ -284,17 +285,17 @@
 	<string name="dialog_debug_mode_disclaimer_hint">Σε αυτή τη λειτουργία, μπορεί να γραφτούν ευαίσθητα δεδομένα σε ένα αρχείο καταγραφής στη συσκευή σας (π.χ. ονόματα αρχείων και διαδρομές). Οι κωδικοί πρόσβασης, τα cookies κλπ. αποκλείονται ρητά.\n\nΘυμηθείτε να απενεργοποιήσετε τη λειτουργία εντοπισμού σφαλμάτων το συντομότερο δυνατό.</string>
 	<string name="dialog_debug_mode_disclaimer_title">Προσοχή</string>
 	<string name="dialog_debug_mode_positive_button">Ενεργοποίηση</string>
-	<string name="dialog_disable_app_obscured_disclaimer_hint">Αυτή η ρύθμιση είναι μια λειτουργία ασφαλείας και αποτρέπει άλλες εφαρμογές από το να ξεγελάσουν τους χρήστες να κάνουν πράγματα που δεν θέλουν να κάνουν.\n\nΜε την απενεργοποίηση, επιβεβαιώνετε ότι γνωρίζετε <a href="https://docs.cryptomator.org/en/1.5/android/settings/#block-app-when-obscured">τους κινδύνους</a>.</string>
+	<string name="dialog_disable_app_obscured_disclaimer_hint">Αυτή η ρύθμιση είναι μια λειτουργία ασφαλείας και αποτρέπει άλλες εφαρμογές από το να ξεγελάσουν τους χρήστες να κάνουν πράγματα που δεν θέλουν να κάνουν.\n\nΜε την απενεργοποίηση, επιβεβαιώνετε ότι γνωρίζετε <a href="https://docs.cryptomator.org/en/1.6/android/settings/#block-app-when-obscured">τους κινδύνους</a>.</string>
 	<string name="dialog_disable_app_obscured_disclaimer_title">Προσοχή</string>
 	<string name="dialog_disable_app_obscured_positive_button">Απενεργοποίηση</string>
 	<string name="dialog_app_is_obscured_info_title">Η εφαρμογή αποκρύπτεται</string>
-	<string name="dialog_app_is_obscured_info_hint">Μια άλλη εφαρμογή εμφανίζει κάτι πάνω από το Cryptomator (π.χ. ένα φίλτρο μπλε φωτός ή μια εφαρμογή νυχτερινής λειτουργίας). Για λόγους ασφαλείας, το Cryptomator είναι απενεργοποιημένο.\n\n<a href="https://docs.cryptomator.org/en/1.5/android/settings/#block-app-when-obscured">Πώς να ενεργοποιήσετε το Cryptomator</a></string>
+	<string name="dialog_app_is_obscured_info_hint">Μια άλλη εφαρμογή εμφανίζει κάτι πάνω από το Cryptomator (π.χ. ένα φίλτρο μπλε φωτός ή μια εφαρμογή νυχτερινής λειτουργίας). Για λόγους ασφαλείας, το Cryptomator είναι απενεργοποιημένο.\n\n<a href="https://docs.cryptomator.org/en/1.6/android/settings/#block-app-when-obscured">Πώς να ενεργοποιήσετε το Cryptomator</a></string>
 	<string name="dialog_app_is_obscured_info_neutral_button">Κλείσιμο</string>
 	<string name="dialog_vaults_removed_during_migration_title">Παρακαλώ προσθέστε ξανά κρύπτες για %1s cloud</string>
 	<string name="dialog_vaults_removed_during_migration_hint">Κατά τη μετάβαση σε αυτήν την έκδοση της εφαρμογής, πρέπει να αφαιρέσουμε τις ακόλουθες κρύπτες από την εφαρμογή:\n%2s\n\nΑυτές οι κρύπτες δεν έχουν αφαιρεθεί από το cloud αλλά μόνο από αυτήν την εφαρμογή. Λυπούμαστε για την ταλαιπωρία και παρακαλούμε προσθέστε ξανά αυτές τις κρύπτες για να συνεχίσετε να εργάζεστε μαζί τους.</string>
 	<string name="dialog_vault_is_root_folder_of_cloud_title">Η κρύπτη είναι ριζικός φάκελος της σύνδεσης cloud</string>
 	<string name="dialog_vault_is_root_folder_of_cloud_hint">Δημιουργήστε μια νέα σύνδεση στο cloud όπου επιλέγετε τουλάχιστον τον γονικό φάκελο αυτού του φακέλου κρύπτης ως ριζικό κατάλογο για να προσθέσετε αυτή την κρύπτη.</string>
-	<string name="dialog_disable_secure_screen_disclaimer_hint">Αυτή η ρύθμιση είναι μια λειτουργία ασφαλείας και αποτρέπει άλλες εφαρμογές από το να ξεγελάσουν τους χρήστες να κάνουν πράγματα που δεν θέλουν να κάνουν.\n\nΜε την απενεργοποίηση, επιβεβαιώνετε ότι γνωρίζετε <a href="https://docs.cryptomator.org/en/1.5/android/settings/#screen-security">τους κινδύνους</a>.</string>
+	<string name="dialog_disable_secure_screen_disclaimer_hint">Αυτή η ρύθμιση είναι μια λειτουργία ασφαλείας και αποτρέπει άλλες εφαρμογές από το να ξεγελάσουν τους χρήστες να κάνουν πράγματα που δεν θέλουν να κάνουν.\n\nΜε την απενεργοποίηση, επιβεβαιώνετε ότι γνωρίζετε <a href="https://docs.cryptomator.org/en/1.6/android/settings/#screen-security">τους κινδύνους</a>.</string>
 	<string name="dialog_delete_cloud_connection_with_vaults_message">Είστε βέβαιοι ότι θέλετε να καταργήσετε αυτή τη σύνδεση cloud;</string>
 	<string name="dialog_delete_cloud_connection_with_vaults_hint">Αυτή η ενέργεια θα αφαιρέσει τη σύνδεση στο cloud και όλες οι κρύπτες αυτού του cloud.</string>
 	<string name="dialog_confirm_delete_multiple_title">Διαγραφή %1$d στοιχείων;</string>
@@ -306,6 +307,7 @@
 	<string name="dialog_enter_license_title">Δώστε μια έγκυρη άδεια</string>
 	<string name="dialog_enter_license_content">Εντοπίσαμε ότι εγκαταστήσατε Cryptomator χωρίς τη χρήση του Google Play Store. Παρέχετε έγκυρη άδεια, η οποία μπορεί να αγοραστεί στο <a href="https://cryptomator.org/android/">https://cryptomator.org/android/</a></string>
 	<string name="dialog_enter_license_not_valid_content">Η παρεχόμενη άδεια δεν είναι έγκυρη. Βεβαιωθείτε ότι την εισαγάγατε σωστά.</string>
+	<string name="dialog_enter_license_not_valid_content_desktop_supporter_certificate">Το κλειδί που παρέχεται είναι ένα πιστοποιητικό υποστήριξης επιφάνειας εργασίας. Παρακαλώ εισαγάγετε μια έγκυρη άδεια.</string>
 	<string name="dialog_enter_license_no_content">Δεν παρέχεται άδεια. Παρακαλώ εισάγετε μια έγκυρη άδεια.</string>
 	<string name="dialog_enter_license_decline_button">Έξοδος</string>
 	<string name="dialog_license_confirmation_title">Επιβεβαίωση άδειας</string>
@@ -324,7 +326,6 @@
 	<string name="dialog_no_dir_file_message">Ο φάκελος Cloud \'%1$s\' δεν έχει ένα έγκυρο αρχείο καταλόγου. Θα μπορούσε να είναι ότι ο φάκελος δημιουργήθηκε σε μια άλλη συσκευή και δεν έχει ακόμη πλήρως συγχρονιστεί με το cloud. Παρακαλούμε ελέγξτε στο cloud σας εάν το ακόλουθο αρχείο υπάρχει και δεν είναι κενό:\n%2$s</string>
 	<string name="dialog_no_more_images_to_display">Δεν υπάρχουν άλλες εικόνες για εμφάνιση&#8230;</string>
 	<string name="dialog_pcloud_credentials_updated_title">Τα διαπιστευτήρια του \'%1$s\' ενημερώθηκαν</string>
-	<string name="dialog_pcloud_credentials_updated">Αν σκοπεύετε να προσθέσετε ένα νέο λογαριασμό pCloud, κάντε κλικ σε αυτό το url <a href="https://www.pcloud.com">www.pcloud. om</a>, αποσυνδεθείτε από τον τρέχοντα λογαριασμό και κάντε κλικ ξανά στο \'+\' σε αυτή την εφαρμογή για να δημιουργήσετε μια νέα σύνδεση στο cloud.</string>
 	<string name="permission_snackbar_auth_local_vault">Το Cryptomator χρειάζεται πρόσβαση στον αποθηκευτικό χώρο για τη χρήση τοπικών κρυπτών</string>
 	<string name="permission_snackbar_auth_auto_upload">Το Cryptomator χρειάζεται πρόσβαση στον αποθηκευτικό χώρο για να χρησιμοποιηθεί η αυτόματη μεταφόρτωση φωτογραφιών</string>
 	<!-- # error reports -->
@@ -406,6 +407,4 @@
 	<string name="dark">Σκούρο</string>
 	<!-- update interval names -->
 	<string name="update_interval_1d">Μία φορά την ημέρα</string>
-	<string name="update_interval_1w">Μία φορά την εβδομάδα</string>
-	<string name="update_interval_1m">Μία φορά το μήνα</string>
 </resources>

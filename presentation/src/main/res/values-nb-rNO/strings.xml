@@ -9,7 +9,8 @@
 	<string name="error_no_network_connection">Ingen nettverkstilkobling</string>
 	<string name="error_invalid_passphrase">Feil passord</string>
 	<string name="error_file_or_folder_exists">En fil eller mappe finnes allerede.</string>
-	<string name="error_vault_version_not_supported">Hvelvet støttes ikke. Dette hvelvet er laget med en annen versjon av Cryptomator.</string>
+	<string name="error_vault_version_not_supported">Versjon %1$s av hvelvet støttes ikke. Dette hvelvet har blitt opprettet med en eldre eller nyere versjon av Cryptomator.</string>
+	<string name="error_vault_config_file_missing_due_to_format_999">%1$s filen mangler i mappen til hvelvet ditt. Sørg for at filen eksisterer i hvelvet ditt i skyen.</string>
 	<string name="error_vault_already_exists">Hvelvet finnes allerede.</string>
 	<string name="error_no_such_file">Filen finnes ikke.</string>
 	<string name="error_vault_has_been_locked">Hvelvet har blitt låst.</string>
@@ -23,8 +24,16 @@
 	<string name="error_vault_name_contains_invalid_characters">Navn på hvelvet kan ikke inneholde spesialtegn.</string>
 	<string name="error_general_update">Oppdateringskontrollen mislyktes. Det oppstod en generell feil.</string>
 	<string name="error_hash_mismatch_update">Oppdateringskontrollen mislyktes. Den beregnede hash-koden stemmer ikke med den opplastede filen</string>
+	<string name="error_update_no_internet">Oppdateringssjekken mislyktes. Ingen internettforbindelse.</string>
+	<string name="error_failed_to_decrypt_webdav_password">Klarte ikke å dekryptere WebDAV-passord, vennligst legg inn nytt i innstillingene</string>
+	<string name="error_play_services_not_available">Google Play Services er ikke installert</string>
 	<string name="error_biometric_auth_aborted">Biometrisk autentisering avbrutt</string>
-	<string name="error_masterkey_location_not_supported">Egendefinert posisjon for Masterkey er foreløpig ikke støttet</string>
+	<string name="error_vault_version_mismatch">Versjon spesifisert i %1$s er forskjellig fra %2$s</string>
+	<string name="error_vault_key_invalid">%1$s samsvarer ikke med denne %2$s</string>
+	<string name="error_vault_config_loading">Generell feil under lasting av hvelvkonfigurasjon</string>
+	<string name="error_file_not_found_after_opening_using_3party">Lokal fil finnes ikke lenger etter å ha byttet tilbake til Cryptomator. Mulige endringer kan ikke sendes tilbake til skyen.</string>
+	<string name="error_no_such_bucket">Ingen slik bøtte</string>
+	<string name="error_masterkey_location_not_supported">Egendefinert lokasjon for Hovednøkkel er foreløpig ikke støttet</string>
 	<!-- # clouds -->
 	<!-- ## cloud names -->
 	<string name="cloud_names_local_storage">Lokal lagring</string>
@@ -38,7 +47,7 @@
 	<string name="snack_bar_action_title_search">Søk</string>
 	<string name="snack_bar_action_title_search_previous">Forrige</string>
 	<string name="snack_bar_action_title_search_next">Neste</string>
-	<string name="snack_bar_action_title_sort">Sorter</string>
+	<string name="snack_bar_action_title_sort">Sortere</string>
 	<string name="snack_bar_action_title_sort_az">A - Å</string>
 	<string name="snack_bar_action_title_sort_za">Å - A</string>
 	<string name="snack_bar_action_title_sort_newest">Nyeste først</string>
@@ -48,21 +57,29 @@
 	<!-- # screens -->
 	<!-- # screen: vault list -->
 	<string name="screen_vault_list_actions_title">Legg til i Cryptomator</string>
-	<string name="screen_vault_list_action_create_new_vault">Lag et nytt hvelv</string>
+	<string name="screen_vault_list_action_create_new_vault">Opprett et nytt hvelv</string>
 	<string name="screen_vault_list_action_add_existing_vault">Legg til et eksisterende hvelv</string>
 	<string name="screen_vault_list_vault_action_delete">Fjern</string>
-	<string name="screen_vault_list_vault_creation_hint">Klikk her for å lage et nytt hvelv</string>
+	<string name="screen_vault_list_change_password_successful">Passordet er endret</string>
 	<!-- # screen: file browser -->
 	<string name="screen_file_browser_default_title">Hvelv</string>
+	<string name="screen_file_browser_add_existing_vault_extra_text">Velg hovednøkkelfil</string>
 	<string name="screen_file_browser_create_new_vault_button_text">Plasser her</string>
-	<string name="screen_file_browser_create_new_vault_extra_text">Hvelvnavn: %1$s</string>
+	<string name="screen_file_browser_create_new_vault_extra_text">Navn på hvelvet: %1$s</string>
+	<plurals name="screen_file_browser_subtitle_move">
+		<item quantity="one">Flytt %1$s til</item>
+		<item quantity="other">Flytt %2$d elementer til</item>
+	</plurals>
 	<string name="screen_file_browser_move_button_text">Flytt</string>
 	<string name="screen_file_browser_msg_empty_folder">Tom mappe</string>
 	<string name="screen_file_browser_file_info_label_date">endret for %1$s siden</string>
 	<string name="screen_file_browser_share_intent_chooser_title">Del med</string>
+	<string name="screen_file_browser_share_destination_title">Velg en lokasjon</string>
 	<string name="screen_file_browser_share_button_text">Velg</string>
+	<string name="screen_file_browser_nothing_to_share">Ingenting å dele</string>
+	<string name="screen_file_browser_actions_title">Legg til %1$s</string>
 	<string name="screen_file_browser_action_create_folder">Opprett mappe</string>
-	<string name="screen_file_browser_action_create_new_text_file">Lag en tekstfil</string>
+	<string name="screen_file_browser_action_create_new_text_file">Opprett tekstfil</string>
 	<string name="screen_file_browser_action_upload_files">Last opp filer</string>
 	<string name="screen_file_browser_upload_files_chooser_title">Filer</string>
 	<string name="screen_file_browser_msg_file_exported">Fil eksportert</string>
@@ -77,6 +94,7 @@
 	<string name="screen_file_browser_node_action_open_with_text">Åpne med&#8230;</string>
 	<string name="screen_file_browser_selection_mode_title_zero_elements">Velg elementer</string>
 	<string name="screen_file_browser_selection_mode_title_one_or_more_elements">%1$d valgt</string>
+	<string name="screen_file_browser_select_items">Velg</string>
 	<string name="screen_file_browser_select_all_items">Velg alle</string>
 	<string name="screen_file_browser_refresh_items">Oppdater</string>
 	<string name="screen_file_browser_no_connection_message">Ingen forbindelse</string>
@@ -89,23 +107,36 @@
 	<string name="screen_share_files_content_file">fil</string>
 	<string name="screen_share_files_content_files">filer</string>
 	<string name="screen_share_files_msg_filenames_must_be_unique">Filnavnene må være unike, velg nye navn på duplikatene.</string>
+	<string name="screen_share_files_section_location">Lagringssted</string>
 	<string name="screen_share_files_save_button_text">Lagre</string>
 	<string name="screen_share_files_msg_success">Kryptering fullført</string>
 	<!-- ## screen: choose cloud service -->
 	<string name="screen_choose_cloud_service_title">Skylagringstjeneste</string>
 	<!-- ## screen: cloud connections -->
+	<string name="screen_cloud_connections_title">Velg en plassering</string>
+	<string name="screen_cloud_error_webdav_not_supported">Serveren ser ikke ut til å være WebDAV-kompatibel</string>
+	<string name="screen_cloud_local_error_no_content_provider">Ingen filbehandler funnet som støtter å åpne mapper</string>
 	<!-- ## screen: webdav settings -->
 	<string name="screen_webdav_settings_url_port_label">URL</string>
 	<string name="screen_webdav_settings_username_label">Brukernavn</string>
 	<string name="screen_webdav_settings_password_label">Passord</string>
+	<string name="screen_webdav_settings_done_button_text">Koble til</string>
 	<string name="screen_webdav_settings_msg_url_must_not_be_empty">URL-adressen kan ikke være tomt.</string>
+	<string name="screen_webdav_settings_msg_url_is_invalid">URL-en er ugyldig.</string>
 	<string name="screen_webdav_settings_msg_username_must_not_be_empty">Brukernavnet kan ikke være tomt.</string>
 	<string name="screen_webdav_settings_msg_password_must_not_be_empty">Passordet kan ikke være tomt.</string>
 	<!-- ## screen: s3 settings -->
 	<string name="screen_s3_settings_display_name_label">Visningsnavn</string>
+	<string name="screen_s3_settings_access_key_label">Tilgangsnøkkel</string>
+	<string name="screen_s3_settings_secret_key_label">Hemmelig nøkkel</string>
+	<string name="screen_s3_settings_bucket_label">Eksisterende bøtte</string>
+	<string name="screen_s3_settings_endpoint_label">Endepunkt</string>
+	<string name="screen_s3_settings_region_label">Region</string>
 	<string name="screen_s3_settings_msg_display_name_not_empty">Visningsnavn kan ikke være tomt</string>
 	<string name="screen_s3_settings_msg_access_key_not_empty">Tilgangsnøkkel kan ikke være tom</string>
 	<string name="screen_s3_settings_msg_secret_key_not_empty">Hemmelig nøkkel kan ikke være tom</string>
+	<string name="screen_s3_settings_msg_bucket_not_empty">Bøtte kan ikke være tom</string>
+	<string name="screen_s3_settings_msg_endpoint_and_region_not_empty">Endepunkt eller region kan ikke være tomt</string>
 	<!-- ## screen: enter vault name -->
 	<string name="screen_enter_vault_name_msg_name_empty">Navnet på hvelvet kan ikke være tomt.</string>
 	<string name="screen_enter_vault_name_vault_label">Hvelvnavn</string>
@@ -114,7 +145,9 @@
 	<string name="screen_set_password_title">Angi passord</string>
 	<string name="screen_set_password_msg_password_mismatch">Passordene stemmer ikke overens.</string>
 	<string name="screen_set_password_button_text">Ferdig</string>
+	<string name="screen_set_password_hint">VIKTIG: Hvis du glemmer passordet ditt, er det ikke mulig å gjenopprette dataene dine.</string>
 	<string name="screen_set_password_retype_password_label">Gjenta passordet</string>
+	<string name="screen_set_password_strength_indicator_0">For svakt for å lage et hvelv</string>
 	<string name="screen_set_password_strength_indicator_1">Svakt</string>
 	<string name="screen_set_password_strength_indicator_2">Ok</string>
 	<string name="screen_set_password_strength_indicator_3">Sterkt</string>
@@ -125,29 +158,58 @@
 	<string name="screen_settings_biometric_auth">Biometrisk autentisering</string>
 	<string name="screen_settings_activate_biometric_auth">Aktiver biometrisk autentisering</string>
 	<string name="screen_settings_confirm_face_unlock">Bekreft ansiktsopplåsing (hvis tilgjengelig)</string>
+	<string name="screen_settings_block_app_when_obscured">Blokker app når tilslørt</string>
+	<string name="screen_settings_block_app_when_obscured_summary">Blokker å fange opp inndata samt visning av falsk brukergrensesnitt</string>
+	<string name="screen_settings_secure_screen">Blokker skjermbilder</string>
+	<string name="screen_settings_secure_screen_summary">Blokker skjermbilder i sist brukte-listen og i programmet</string>
 	<string name="screen_settings_section_search">Søk</string>
+	<string name="screen_settings_live_search">Live søk</string>
+	<string name="screen_settings_live_search_summary">Oppdater søkeresultater mens du angir spørringen</string>
+	<string name="screen_settings_glob_search">Søk med glob mønster</string>
+	<string name="screen_settings_glob_search_summary">Bruk glob mønster tilsvarende som alice.*.jpg</string>
+	<string name="screen_settings_section_auto_lock">Automatisk låsing</string>
 	<string name="screen_settings_auto_lock_timeout">Lås etter</string>
+	<string name="screen_settings_auto_lock_on_screen_lock">Når skjermen er deaktivert</string>
+	<string name="screen_settings_section_auto_photo_upload">Automatisk bildeopplasting</string>
+	<string name="screen_settings_section_auto_photo_upload_vault">Velg hvelv for opplasting</string>
 	<string name="screen_settings_section_auto_photo_upload_toggle">Aktiver</string>
+	<string name="screen_settings_section_auto_photo_upload_toggle_summary">Fang bilder i bakgrunnen og når det valgte hvelvet er ulåst, start opplasting</string>
+	<string name="screen_settings_section_auto_photo_upload_toggle_instant_upload">Last opp øyeblikkelig</string>
+	<string name="screen_settings_section_auto_photo_upload_toggle_instant_upload_summary">Last opp direkte hvis hvelvet er låst opp</string>
+	<string name="screen_settings_section_auto_photo_upload_only_wifi_toggle">Last opp kun ved hjelp av WIFI</string>
 	<string name="screen_settings_section_auto_photo_upload_including_videos">Last opp videoer</string>
+	<string name="screen_settings_auto_photo_upload_title">Lagre de automatisk opplastede filene til &#8230;</string>
 	<string name="screen_settings_website_label">Cryptomators nettside</string>
 	<string name="screen_settings_twitter_label">Følg oss på Twitter</string>
 	<string name="screen_settings_facebook_label">Lik oss på Facebook</string>
 	<string name="screen_settings_section_legal">Juridisk</string>
 	<string name="screen_settings_licenses_label">Lisenser</string>
+	<string name="screen_settings_license_terms_label">Lisensvilkår</string>
 	<string name="screen_settings_section_support">Brukerstøtte</string>
 	<string name="screen_settings_contact_label">Be om hjelp</string>
 	<string name="screen_settings_debug_mode_label">Feilsøkingsmodus</string>
 	<string name="screen_settings_error_report_label">Send loggfil</string>
 	<string name="screen_settings_error_report_failed">Sending feilet</string>
+	<string name="screen_settings_security_label">Sikkerhetstips</string>
 	<string name="screen_settings_section_version">Versjon</string>
 	<string name="screen_settings_advanced_settings">Avanserte innstillinger</string>
+	<string name="screen_settings_background_unlock_preparation_label">Akselerer opplåsing</string>
+	<string name="screen_settings_background_unlock_preparation_label_summary">Last ned hvelvkonfigurasjonen i bakgrunnen mens du blir bedt om å skrive inn passord eller biometrisk autentisering</string>
+	<string name="screen_settings_keep_unlocked_while_editing_files">Behold ulåst</string>
+	<string name="screen_settings_keep_unlocked_while_editing_files_summary">Beholdt hvelvet opplåst mens du redigerer filer</string>
 	<!-- ## screen: cloud settings -->
+	<string name="screen_cloud_settings_onedrive_connections">OneDrive tilkoblinger</string>
 	<string name="screen_cloud_settings_webdav_connections">WebDAV-tilkoblinger</string>
 	<string name="screen_cloud_settings_pcloud_connections">pCloud-tilkoblinger</string>
+	<string name="screen_cloud_settings_s3_connections">S3 tilkoblinger</string>
+	<string name="screen_cloud_settings_local_storage_locations">Lokal lagringsplass</string>
 	<string name="screen_cloud_settings_log_in_to">Logg inn i</string>
+	<string name="screen_cloud_settings_sign_out_from_cloud">Logg ut fra</string>
 	<!-- ## screen: licenses -->
 	<!-- ## screen: authenticate cloud -->
-	<!-- ## screen: insecure android version info -->
+	<string name="screen_authenticate_auth_authentication_failed">%1$s kunne ikke autentiseres.</string>
+	<string name="screen_update_pcloud_connections_title">Oppdater pCloud legitimasjoner</string>
+	<!-- ## screen: cryptomator app variants -->
 	<!-- # dialogs -->
 	<string name="dialog_button_cancel">Avbryt</string>
 	<string name="dialog_enter_password_positive_button">Lås opp</string>
@@ -156,31 +218,178 @@
 	<string name="dialog_change_password">Bytt passord</string>
 	<string name="dialog_change_password_msg_old_password_empty">Feltet for gjeldende passord kan ikke være tomt.</string>
 	<string name="dialog_change_password_msg_new_password_empty">Feltet for nytt passordet kan ikke være tomt.</string>
+	<string name="dialog_change_password_msg_password_mismatch">Det nye passordet stemmer ikke overens med det har skrevet på nytt.</string>
 	<!-- Vault not found -->
+	<string name="dialog_vault_not_found_title">Hvelvet %1$s ble ikke funnet</string>
+	<string name="dialog_vault_not_found_message">Hvelvet har fått nytt navn, blitt endret eller slettet. Fjern hvelvet fra listen og legg det til igjen for å fortsette. Fjern nå?</string>
 	<string name="dialog_vault_not_found_positive_button_text">Fjern</string>
 	<string name="dialog_existing_file_title">Filen finnes allerede</string>
 	<string name="dialog_existing_file_positive_button">Erstatt</string>
+	<string name="dialog_existing_file_message">En fil med navnet \'%1$s\' finnes allerede.</string>
+	<string name="dialog_replace_negative_button_at_least_two_but_not_all_files_exist">Hopp over eksisterende</string>
 	<string name="dialog_replace_positive_button_all_files_exist">Erstatt alle</string>
+	<string name="dialog_replace_positive_button_some_files_exist">Erstatt eksisterende</string>
 	<string name="dialog_replace_positive_button_single_file_exists">Erstatt</string>
+	<string name="dialog_replace_msg_single_file_exists">En fil med navnet \'%1$s\' finnes allerede. Vil du erstatte den?</string>
+	<string name="dialog_replace_msg_all_files_exists">Alle filene finnes allerede. Vil du erstatte dem?</string>
+	<string name="dialog_replace_msg_some_files_exists">%1$d filer finnes allerede. Vil du erstatte dem?</string>
+	<string name="dialog_replace_title_single_file_exists">Erstatt fil?</string>
+	<string name="dialog_replace_title_multiple_files_exist">Erstatt filene?</string>
+	<string name="dialog_unable_to_share_title">Kunne ikke dele filene</string>
+	<string name="dialog_unable_to_share_message">Du har ikke konfigurert noen hvelv. Vennligst lag et nytt hvelv med Cryptomator appen først.</string>
+	<string name="dialog_unable_to_share_positive_button">Ok</string>
+	<string name="dialog_unable_to_share_negative_button">Opprett hvelv</string>
+	<string name="dialog_filetype_not_supported_title">Kan ikke åpne %1$s</string>
+	<string name="dialog_filetype_not_supported_message">Last ned en app som kan åpne denne filen, eller vil du lagre filen på enheten?</string>
+	<string name="dialog_rename_vault_title">Endre navn på hvelvet</string>
+	<string name="dialog_rename_node_folder_title">Endre mappenavn</string>
+	<string name="dialog_rename_node_file_title">Endre filnavn</string>
+	<string name="dialog_unsaved_changes_title">Du har ulagrede endringer</string>
+	<string name="dialog_unsaved_changes_message">Vil du virkelig avslutte uten å lagre?</string>
+	<string name="dialog_unsaved_changes_discard">Forkast</string>
+	<string name="dialog_file_name_placeholder">tekst.txt</string>
+	<string name="dialog_delete_vault_message">Er du sikker på at du vil fjerne dette hvelvet?</string>
+	<string name="dialog_delete_vault_hint">Denne handlingen vil bare fjerne hvelvet fra denne listen og ikke slette det fysisk.</string>
+	<string name="dialog_upload_file_title">Laster opp&#8230;</string>
+	<string name="dialog_upload_file_remaining">Fil %1$d av %2$d</string>
+	<string name="dialog_export_file_title">Eksporterer (%1$d/%2$d)</string>
+	<string name="dialog_progress_please_wait">Vent litt&#8230;</string>
+	<string name="dialog_progress_creating_folder">Oppretter mappe&#8230;</string>
+	<string name="dialog_progress_creating_text_file">Oppretter tekstfil&#8230;</string>
+	<string name="action_progress_authentication">Autentisering&#8230;</string>
+	<string name="action_progress_renaming">Gir nytt navn&#8230;</string>
+	<string name="action_progress_deleting">Sletter&#8230;</string>
+	<string name="dialog_progress_unlocking_vault">Låser opp hvelv&#8230;</string>
+	<string name="dialog_progress_change_password">Endrer passord&#8230;</string>
+	<string name="dialog_progress_creating_vault">Oppretter hvelv&#8230;</string>
+	<string name="dialog_progress_upload_file">Laster opp&#8230;</string>
+	<string name="dialog_progress_download_file">Laster ned&#8230;</string>
+	<string name="dialog_progress_encryption">Krypterer&#8230;</string>
+	<string name="dialog_progress_decryption">Dekrypterer&#8230;</string>
+	<string name="action_progress_moving">Flytter&#8230;</string>
 	<string name="dialog_lock_vault">Lås</string>
+	<string name="dialog_accept_ssl_certificate_title">Ugyldig SSL sertifikat</string>
+	<string name="dialog_accept_ssl_certificate_hint">SSL-sertifikatet er ugyldig. Vil du stole på det likevel?</string>
+	<string name="dialog_accept_ssl_certificate_details">Detaljer</string>
+	<string name="dialog_accept_ssl_certificate_security_checkbox">Dette kan være en sikkerhetsrisiko. Jeg vet hva jeg gjør.</string>
+	<string name="dialog_ask_ignore_battery_optimizations_title">Deaktiver batterioptimaliseringer</string>
+	<string name="dialog_ask_ignore_battery_optimizations_checkbox">Ikke spør igjen?</string>
+	<string name="dialog_http_security_hint">Bruk av HTTP er usikker. Vi anbefaler å bruke HTTPS i stedet. Hvis du er klar over risikoen, kan du fortsette med HTTP.</string>
+	<string name="dialog_http_security_checkbox">Endre til HTTPS</string>
+	<string name="dialog_http_security_title">Bruk HTTPS?</string>
+	<string name="dialog_no_screen_lock_hint">Ingen skjermlås er satt. For å lagre dine innloggingsopplysninger på en sikker måte, sett med OK et mønster eller passord.</string>
+	<string name="dialog_no_screen_lock_title">Sett skjermlås?</string>
+	<string name="dialog_no_screen_lock_checkbox">Sett skjermlås</string>
+	<string name="dialog_no_biometric_auth_set_up_title">Ingen grunnleggende autentisering er satt opp i systemet</string>
+	<string name="dialog_no_biometric_auth_set_up_message">Registrer minst én finger/ansikt for å bruke denne tjenesten.</string>
+	<string name="dialog_debug_mode_disclaimer_hint">I denne modusen kan sensitive data skrives til en loggfil på enheten (f.eks. filnavn og stier). Passord, cookies, etc. er eksplisitt ekskludert.\n\nHusk å deaktivere feilsøkingsmodus så snart som mulig.</string>
+	<string name="dialog_debug_mode_disclaimer_title">Merk følgende</string>
+	<string name="dialog_debug_mode_positive_button">Aktiver</string>
+	<string name="dialog_disable_app_obscured_disclaimer_title">Merk følgende</string>
+	<string name="dialog_disable_app_obscured_positive_button">Deaktiver</string>
+	<string name="dialog_app_is_obscured_info_title">Appen er tilslørt</string>
 	<string name="dialog_app_is_obscured_info_neutral_button">Lukk</string>
+	<string name="dialog_vaults_removed_during_migration_title">Vennligst legg til hvelv på nytt for %1s sky</string>
+	<string name="dialog_vaults_removed_during_migration_hint">Mens vi migrerer til denne appversjonen må vi fjerne følgende hvelv fra appen:\n%2s \n\nDisse hvelvene er ikke fjernet fra skyen, men bare fra denne appen. Beklager ulempen. Legg disse hvelvene til på nytt for å fortsette å jobbe med dem.</string>
+	<string name="dialog_vault_is_root_folder_of_cloud_title">Hvelvet er rotmappen på skytilkoblingen</string>
+	<string name="dialog_vault_is_root_folder_of_cloud_hint">Opprett en ny sky-tilkobling der du velger minst den overordnede mappen av dette hvelvet sin mappe som rotkatalog for å legge til dette hvelvet.</string>
 	<string name="dialog_delete_cloud_connection_with_vaults_message">Er du sikker på at du vil fjerne denne skylagringstilkoblingen?</string>
 	<string name="dialog_delete_cloud_connection_with_vaults_hint">Denne handlingen vil fjerne skylagringsforbindelsen og alle hvelv i denne skyen.</string>
+	<string name="dialog_confirm_delete_multiple_title">Slette %1$d elementer?</string>
+	<string name="dialog_confirm_delete_multiple_message">Er du sikker på at du vil slette disse elementene?</string>
+	<string name="dialog_confirm_delete_file_message">Er du sikker på at du vil slette denne filen?</string>
+	<string name="dialog_confirm_delete_folder_message">Dette vil slette hele mappens innhold. Er du sikker på at du vil slette mappen?</string>
+	<string name="dialog_biometric_auth_key_invalidated_title">Biometrisk autentisering deaktivert</string>
+	<string name="dialog_biometric_auth_key_invalidated_message">Fordi nøkkelen er ugyldig, er biometrisk autentisering deaktivert. For å re-aktivere, åpne innstillingene for Cryptomator.</string>
+	<string name="dialog_enter_license_title">Oppgi en gyldig lisens</string>
+	<string name="dialog_enter_license_content">Vi oppdaget at du installerte Cryptomator uten å bruke Google Play Store. Oppgi en gyldig lisens, som kan kjøpes på <a href="https://cryptomator.org/android/">https://cryptomator.org/android/</a></string>
+	<string name="dialog_enter_license_not_valid_content">Den oppgitte lisensen er ikke gyldig. Kontroller at du har skrevet den inn riktig.</string>
+	<string name="dialog_enter_license_not_valid_content_desktop_supporter_certificate">Denne nøkkelen er et skrivebord supporter sertifikat. Vennligst angi en gyldig lisens.</string>
+	<string name="dialog_enter_license_no_content">Ingen lisens oppgitt. Vennligst skriv inn en gyldig lisens.</string>
+	<string name="dialog_enter_license_decline_button">Avslutt</string>
+	<string name="dialog_license_confirmation_title">Lisensbekreftelse</string>
+	<string name="dialog_license_confirmation_message">Takk %1$s for at du oppgir en gyldig lisens.</string>
+	<string name="dialog_update_available_title">Oppdatering tilgjengelig</string>
+	<string name="dialog_update_available_message">Oppdater Cryptomator til den nyeste versjonen. Ved å trykke OK laster vi ned appen i bakgrunnen og ber deg om å installere den.</string>
+	<string name="dialog_update_available_update">Oppdater nå</string>
+	<string name="dialog_update_available_download_site">Gå til nedlastingsside</string>
+	<string name="dialog_update_available_cancel">Senere</string>
+	<string name="dialog_download_update_title">Laster ned</string>
+	<string name="dialog_download_update_message">Laster ned siste versjon av Cryptomator</string>
+	<string name="dialog_sym_link_title">Mappen er en symbolsk kobling</string>
+	<string name="dialog_sym_link_message">Du kan ikke navigere i denne symbolske lenken</string>
 	<string name="dialog_sym_link_back_button">Tilbake</string>
+	<string name="dialog_no_dir_file_title">Kunne ikke laste innholdet i katalogen</string>
+	<string name="dialog_no_dir_file_message">Skymappen \'%1$s\' har ikke en gyldig mappefil. Det kan være at mappen ble opprettet på en annen enhet og er ennå ikke fullt synkronisert til skyen. Sjekk i skyen om følgende fil eksisterer og ikke er tom:\n%2$s</string>
+	<string name="dialog_no_more_images_to_display">Ingen flere bilder å vise&#8230;</string>
+	<string name="dialog_pcloud_credentials_updated_title">Legitimasjonen til \'%1$s\' er oppdatert</string>
+	<string name="permission_snackbar_auth_local_vault">Cryptomator trenger lagringstilgang for å bruke lokale hvelv</string>
+	<string name="permission_snackbar_auth_auto_upload">Cryptomator trenger lagringstilgang for å bruke automatisk bildeopplasting</string>
 	<!-- # error reports -->
 	<!-- # misc -->
 	<!-- ## file size helper -->
+	<string name="file_size_zero">Null kB</string>
+	<string name="file_size_unit_bytes">byte</string>
+	<string name="file_size_unit_kilo_bytes">kB</string>
+	<string name="file_size_unit_mega_bytes">MB</string>
+	<string name="file_size_unit_giga_bytes">GB</string>
+	<string name="file_size_unit_tera_bytes">TB</string>
 	<!-- ## date helper -->
+	<string name="time_unit_seconds_sg">sekund</string>
+	<string name="time_unit_seconds_pl">sekunder</string>
+	<string name="time_unit_minutes_sg">minutt</string>
 	<string name="time_unit_minutes_pl">minutter</string>
+	<string name="time_unit_hours_sg">time</string>
+	<string name="time_unit_hours_pl">timer</string>
+	<string name="time_unit_days_sg">dag</string>
+	<string name="time_unit_days_pl">dager</string>
+	<string name="time_unit_weeks_sg">uke</string>
+	<string name="time_unit_weeks_pl">uker</string>
+	<string name="time_unit_months_sg">måned</string>
+	<string name="time_unit_months_pl">måneder</string>
+	<string name="time_unit_years_sg">år</string>
+	<string name="time_unit_years_pl">år</string>
 	<!-- ## biometric authentication -->
+	<string name="dialog_biometric_auth_title">Biometrisk innlogging</string>
+	<string name="dialog_biometric_auth_message">Logg inn med biometriske legitimasjon</string>
+	<string name="dialog_biometric_auth_use_password">Bruk hvelv passord</string>
+	<string name="dialog_unable_to_auto_upload_files_title">Kan ikke laste opp filer automatisk</string>
 	<!-- notification -->
+	<string name="notification_unlocked">Hvelv opplåst: %1$d</string>
+	<string name="notification_timeout">Autolås om %1$s</string>
+	<string name="notification_lock_all">Lås alle</string>
+	<string name="notification_cancel_auto_upload">Avbryt opplasting</string>
+	<string name="notification_auto_upload_title">Automatisk bildeopplasting kjører</string>
+	<string name="notification_auto_upload_message">Laster opp %1d/%2d</string>
+	<string name="notification_auto_upload_finished_title">Automatisk bildeopplasting fullført</string>
+	<string name="notification_auto_upload_finished_message">%1$d bilder lastet opp til hvelvet</string>
+	<string name="notification_auto_upload_failed_title">Automatisk bildeopplasting mislyktes</string>
+	<string name="notification_auto_upload_failed_general_error">Generell feil oppstod under opplasting.</string>
+	<string name="notification_auto_upload_failed_due_to_folder_not_exists">Valgte mappe for opplasting er ikke tilgjengelig lenger. Gå til innstillinger og velg en ny</string>
+	<string name="notification_auto_upload_failed_due_to_vault_locked">Hvelvet ble låst under opplasting, åpne hvelvet på nytt for å fortsette</string>
+	<string name="notification_auto_upload_failed_due_to_vault_not_found">Det angitte hvelvet for automatisk opplasting eksisterer ikke lenger.</string>
+	<string name="notification_open_writable_file_title">Åpne skrivbar fil</string>
+	<string name="notification_open_writable_file_message">Hvelvet forblir opplåst til redigeringen er ferdig</string>
+	<string name="notification_update_check_finished_latest">Siste versjon er installert</string>
+	<string name="notification_authenticating">Autentiserer&#8230;</string>
 	<string name="screen_settings_lru_cache">Hurtigminne</string>
 	<string name="screen_settings_lru_cache_toggle_summary">Hurtigminnet åpnet nylig filer som er kryptert lokalt på enheten, for senere gjenbruk når de åpnes igjen</string>
 	<string name="screen_settings_lru_cache_size">Total hurtigminnestørrelse</string>
 	<string name="screen_settings_clear_lru_cache_size">Tøm hurtigminnet</string>
 	<string name="screen_settings_lru_cache_changed__restart_toast">Endringer vil bli tatt i bruk ved neste omstart av appen</string>
-	<string name="dialog_cache_size_title">Hurtigminnestørrelse per sky</string>
+	<string name="screen_settings_license">Registrert for</string>
+	<string name="screen_settings_license_mail">%1$s</string>
+	<string name="dialog_settings_update_check_interval_title">Intervall for å se etter oppdateringer</string>
+	<string name="screen_settings_check_updates">Se etter oppdateringer</string>
+	<string name="screen_settings_last_check_updates">Sist kjørt %1$s</string>
+	<string name="dialog_cache_size_title">Hurtigminnestørrelse per skytjeneste</string>
 	<!-- lock timeout names -->
+	<string name="lock_timeout_instant">Med en gang</string>
+	<string name="lock_timeout_1m">1 minutt</string>
+	<string name="lock_timeout_2m">2 minutter</string>
+	<string name="lock_timeout_5m">5 minutter</string>
+	<string name="lock_timeout_10m">10 minutter</string>
+	<string name="lock_timeout_never">Aldri</string>
 	<!-- cache size names -->
 	<string name="cache_size_50m">50 MB</string>
 	<string name="cache_size_100m">100 MB</string>
@@ -189,7 +398,10 @@
 	<string name="cache_size_1000m">1 GB</string>
 	<string name="cache_size_5000m">5 GB</string>
 	<!-- screen scheme mode names -->
+	<string name="screen_settings_style_mode">Stil</string>
+	<string name="follow_system">Automatisk (følg systemet)</string>
 	<string name="light">Lys</string>
 	<string name="dark">Mørk</string>
 	<!-- update interval names -->
+	<string name="update_interval_1d">Daglig</string>
 </resources>

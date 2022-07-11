@@ -5,6 +5,8 @@ import android.content.Context
 import android.content.Intent
 import android.os.AsyncTask
 import android.os.Build
+import android.os.PowerManager
+import android.provider.Settings
 import android.widget.Toast
 import com.google.common.base.Optional
 import org.cryptomator.data.util.NetworkConnectionCheck
@@ -20,8 +22,9 @@ import org.cryptomator.presentation.exception.ExceptionHandlers
 import org.cryptomator.presentation.logging.Logfiles
 import org.cryptomator.presentation.logging.ReleaseLogger
 import org.cryptomator.presentation.model.ProgressModel
-import org.cryptomator.presentation.service.PhotoContentJob.Companion.scheduleJob
+import org.cryptomator.presentation.service.PhotoContentJob
 import org.cryptomator.presentation.ui.activity.view.SettingsView
+import org.cryptomator.presentation.ui.dialog.AskIgnoreBatteryOptimizationsDialog
 import org.cryptomator.presentation.ui.dialog.UpdateAppAvailableDialog
 import org.cryptomator.presentation.ui.dialog.UpdateAppDialog
 import org.cryptomator.presentation.util.EmailBuilder
@@ -47,6 +50,12 @@ class SettingsPresenter @Inject internal constructor(
 	private val fileUtil: FileUtil,  //
 	private val sharedPreferencesHandler: SharedPreferencesHandler
 ) : Presenter<SettingsView>(exceptionMappings) {
+
+	fun checkAutoUploadEnabledAndBatteryOptimizationDisabled() {
+		if (sharedPreferencesHandler.usePhotoUpload()) {
+			showAskIgnoreBatteryOptimizationsDialogWhenDisabled()
+		}
+	}
 
 	fun onSendErrorReportClicked() {
 		view?.showProgress(ProgressModel.GENERIC)
@@ -75,6 +84,9 @@ class SettingsPresenter @Inject internal constructor(
 			"fdroid" -> {
 				"F-Droid"
 			}
+			"lite" -> {
+				"F-Droid Main Repo Edition"
+			}
 			else -> "Google Play"
 		}
 		return StringBuilder().append("## ").append(context().getString(R.string.error_report_subject)).append("\n\n") //
@@ -98,9 +110,29 @@ class SettingsPresenter @Inject internal constructor(
 	@Callback
 	fun onLocalStoragePermissionGranted(result: PermissionsResult) {
 		if (result.granted()) {
-			scheduleJob(context())
+			PhotoContentJob.scheduleJob(context())
+			showAskIgnoreBatteryOptimizationsDialogWhenDisabled()
 		} else {
 			view?.disableAutoUpload()
+		}
+	}
+
+	private fun showAskIgnoreBatteryOptimizationsDialogWhenDisabled() {
+		val powerManager = context().getSystemService(Context.POWER_SERVICE) as PowerManager
+		if (!powerManager.isIgnoringBatteryOptimizations(context().packageName) && !sharedPreferencesHandler.askBatteryOptimizationsDialogDisabled()) {
+			view?.showDialog(AskIgnoreBatteryOptimizationsDialog.newInstance())
+		}
+	}
+
+	fun askIgnoreBatteryOptimizationsAccepted() {
+		val intent = Intent()
+		intent.action = Settings.ACTION_IGNORE_BATTERY_OPTIMIZATION_SETTINGS
+		startIntent(intent)
+	}
+
+	fun onAskIgnoreBatteryOptimizationsRejected(askAgain: Boolean) {
+		if (!askAgain) {
+			sharedPreferencesHandler.setAskBatteryOptimizationsDialogDisabled(true)
 		}
 	}
 

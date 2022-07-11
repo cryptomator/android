@@ -9,7 +9,6 @@
 	<string name="error_no_network_connection">Nu există conexiune la rețea</string>
 	<string name="error_invalid_passphrase">Parolă greşită</string>
 	<string name="error_file_or_folder_exists">Un fișier sau dosar există deja.</string>
-	<string name="error_vault_version_not_supported">Seif nesuportat. Acest seif a fost creat cu o altă versiune de Cryptomator.</string>
 	<string name="error_vault_already_exists">Seiful există deja.</string>
 	<string name="error_no_such_file">Fișierul nu există.</string>
 	<string name="error_vault_has_been_locked">Seiful a fost blocat.</string>
@@ -53,7 +52,6 @@
 	<string name="screen_vault_list_action_create_new_vault">Creează seif nou</string>
 	<string name="screen_vault_list_action_add_existing_vault">Adaugă seif existent</string>
 	<string name="screen_vault_list_vault_action_delete">Șterge</string>
-	<string name="screen_vault_list_vault_creation_hint">Faceți clic aici pentru a crea un seif nou</string>
 	<string name="screen_vault_list_change_password_successful">Parola a fost modificată cu succes</string>
 	<!-- # screen: file browser -->
 	<string name="screen_file_browser_default_title">Seif</string>
@@ -109,9 +107,7 @@
 	<string name="screen_choose_cloud_service_title">Serviciu Cloud</string>
 	<!-- ## screen: cloud connections -->
 	<string name="screen_cloud_connections_title">Alegeți o locație</string>
-	<string name="screen_cloud_connections_no_connections">Faceți clic aici pentru a adăuga locații</string>
 	<string name="screen_cloud_error_webdav_not_supported">Serverul nu pare să fie compatibil cu WebDAV</string>
-	<string name="screen_cloud_local_error_no_content_provider">Nu există locații suplimentare disponibile.</string>
 	<!-- ## screen: webdav settings -->
 	<string name="screen_webdav_settings_url_port_label">Adresa URL</string>
 	<string name="screen_webdav_settings_username_label">Nume de utilizator</string>
@@ -202,7 +198,7 @@
 	<!-- ## screen: authenticate cloud -->
 	<string name="screen_authenticate_auth_authentication_failed">%1$s nu a putut fi autentificat.</string>
 	<string name="screen_update_pcloud_connections_title">Actualizare acreditări pCloud</string>
-	<!-- ## screen: insecure android version info -->
+	<!-- ## screen: cryptomator app variants -->
 	<!-- # dialogs -->
 	<string name="dialog_button_cancel">Anulează</string>
 	<string name="dialog_enter_password_positive_button">Deblocați</string>
@@ -275,13 +271,10 @@
 	<string name="dialog_debug_mode_disclaimer_hint">În acest mod, datele sensibile pot fi scrise într-un fișier jurnal de pe dispozitivul dumneavoastră (de exemplu, nume de fișiere și căi de fișiere). Parolele, cookie-urile etc. sunt excluse în mod explicit.\n\nNu uitați să dezactivați modul de depanare cât mai curând posibil.</string>
 	<string name="dialog_debug_mode_disclaimer_title">Atenție</string>
 	<string name="dialog_debug_mode_positive_button">Activează</string>
-	<string name="dialog_disable_app_obscured_disclaimer_hint">Această setare este o caracteristică de securitate și previne alte aplicații să păcălească utilizatorii să facă lucruri pe care nu ar trebui să le facă.\n\nPrin dezactivare, confirmați că sunteți <a href="https://docs.cryptomator.org/en/1.5/android/settings/#block-app-when-obscured">conștient de riscurile</a>.</string>
 	<string name="dialog_disable_app_obscured_disclaimer_title">Atenție</string>
 	<string name="dialog_disable_app_obscured_positive_button">Dezactivează</string>
 	<string name="dialog_app_is_obscured_info_title">Aplicația este ascunsă</string>
-	<string name="dialog_app_is_obscured_info_hint">O altă aplicație afișează ceva deasupra Cryptomator (de exemplu, un filtru de lumină albastră sau o aplicație pentru modul de noapte). Din motive de securitate, Cryptomator este dezactivat.\n\n<a href="https://docs.cryptomator.org/en/1.5/android/settings/#block-app-when-obscured">Cum să activezi Cryptomator</a></string>
 	<string name="dialog_app_is_obscured_info_neutral_button">Închide</string>
-	<string name="dialog_disable_secure_screen_disclaimer_hint">Această setare este o caracteristică de securitate și previne alte aplicații să păcălească utilizatorii să facă lucruri pe care nu ar trebui să le facă.\n\nPrin dezactivare, confirmați că sunteți <a href="https://docs.cryptomator.org/en/1.5/android/settings/#screen-security">conștient de riscurile</a>.</string>
 	<string name="dialog_delete_cloud_connection_with_vaults_message">Sunteţi sigur că doriţi să eliminaţi această conexiune cloud?</string>
 	<string name="dialog_delete_cloud_connection_with_vaults_hint">Această acțiune va elimina conexiunea în cloud și toate seifurile acestui cloud.</string>
 	<string name="dialog_confirm_delete_multiple_title">Ștergeți %1$d elemente?</string>
@@ -310,7 +303,6 @@
 	<string name="dialog_no_dir_file_title">Nu s-a putut încărca conținutul dosarului</string>
 	<string name="dialog_no_more_images_to_display">Nu mai sunt imagini de afișat&#8230;</string>
 	<string name="dialog_pcloud_credentials_updated_title">Acreditări ale \'%1$s\' au fost actualizate</string>
-	<string name="dialog_pcloud_credentials_updated">Dacă doriți să adăugaţi un cont nou de tip pCloud, faceţi clic pe acest link <a href="https://www.pcloud.com">www.pcloud. om</a>, deconectați-vă de la contul curent, și faceți clic din nou pe \'+\' din această aplicație pentru a crea o nouă conexiune cloud.</string>
 	<string name="permission_snackbar_auth_local_vault">Cryptomator are nevoie de acces la stocare pentru a utiliza seifuri locale</string>
 	<string name="permission_snackbar_auth_auto_upload">Cryptomator are nevoie de acces la stocare pentru a folosi încărcarea automată a fotografiilor</string>
 	<!-- # error reports -->
@@ -390,6 +382,4 @@
 	<string name="dark">Întunecat</string>
 	<!-- update interval names -->
 	<string name="update_interval_1d">O dată pe zi</string>
-	<string name="update_interval_1w">O dată pe săptămână</string>
-	<string name="update_interval_1m">O dată pe lună</string>
 </resources>

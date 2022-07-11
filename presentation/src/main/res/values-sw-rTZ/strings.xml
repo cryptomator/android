@@ -1,0 +1,405 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+	<!-- # app -->
+	<string name="share_with_label">Shiriki_na_maandiko</string>
+	<!-- # error messages -->
+	<string name="error_generic">Hitilafu imetokea</string>
+	<string name="error_authentication_failed">Uthibitisho umeshindikana</string>
+	<string name="error_authentication_failed_re_authenticate">Uthibitisho umeshindikana, tafadhali ingia kwa kutumia %1$s</string>
+	<string name="error_no_network_connection">Hakuna muunganisho wa mtandao</string>
+	<string name="error_invalid_passphrase">Neno la siri si sahihi</string>
+	<string name="error_file_or_folder_exists">Faili au folda tayari imekuwepo.</string>
+	<string name="error_vault_version_not_supported">Toleo la kuba %1$s haikubaliki. Kuba hii imeundwa na toleo la zamani au jipya zaidi Cryptomator.</string>
+	<string name="error_vault_config_file_missing_due_to_format_999">%1$s faili halipo kwenye folda yako ya kuba. Hakikisha kuwa faili hili lipo kwenye folda yako kwenye wingu.</string>
+	<string name="error_vault_already_exists">Kuba tayari ipo.</string>
+	<string name="error_no_such_file">Faili haipo.</string>
+	<string name="error_vault_has_been_locked">Kuba imefungwa.</string>
+	<string name="error_cloud_already_exists">Wingu tayari lipo.</string>
+	<string name="error_activity_not_found">Tafadhali pakua programu amabyo inaweza kufungua faili hii.</string>
+	<string name="error_server_not_found">Server haijapatikana.</string>
+	<string name="error_device_policy_manager_not_found">Tafadhali fungua mpangilio wa kifaa chako na useti loku ya skrini kwa mkono</string>
+	<string name="error_export_illegal_file_name">Uhamishaji umeshindikana. Jaribu kuondoa vibambo maalum kutoka kwa majina ya faili na kuhamisha tena.</string>
+	<string name="error_name_contains_invalid_characters">Haiwezi kuwa na vibambo maalum.</string>
+	<string name="error_names_contains_invalid_characters">Jina na la faili haliwezi kuwa na vibambo maalum.</string>
+	<string name="error_vault_name_contains_invalid_characters">Jina la kuba haliwezi kuwa na vibambo maalum.</string>
+	<string name="error_general_update">Kagua sasishi imeshindikana. Kosa la jumla limetokea.</string>
+	<string name="error_hash_mismatch_update">Kagua sasishi imeshindikana. Hash iliyohesabiwa haioani na faili iliyopakiwa</string>
+	<string name="error_update_no_internet">Kagua sasishi imeshindikana. Hakuna muunganisho wa tovuti.</string>
+	<string name="error_failed_to_decrypt_webdav_password">Imeshindwa kusimbua neno la siri ya WebDAV, tafadhali ongeza tena katika mpangilio</string>
+	<string name="error_play_services_not_available">Huduma ya Google Play haijasanikishwa</string>
+	<string name="error_biometric_auth_aborted">Uhalalishaji wan biometriska umefutwa</string>
+	<string name="error_vault_version_mismatch">Toleo lililobainishwa katika %1$s ni tofati na %2$s</string>
+	<string name="error_vault_key_invalid">%1$s hailingani na hii %2$s</string>
+	<string name="error_vault_config_loading">Kosa la jumla wakati wa kupakia conf ya kuba</string>
+	<string name="error_file_not_found_after_opening_using_3party">Faili ya ndani haipo tena baada ya kurudi kwenye Cryptomator. Mabadiliko yanayowezekana hayawezi kuenezwa tena kwenye wingu.</string>
+	<string name="error_no_such_bucket">Hakuna ndoo ya utafutaji</string>
+	<string name="error_masterkey_location_not_supported">Mahali maalumu pa Masterkey bado haijategemezwa bado</string>
+	<!-- # clouds -->
+	<!-- ## cloud names -->
+	<string name="cloud_names_local_storage">Hifadhi ya ndani</string>
+	<!-- # permission -->
+	<!-- ## permission messages -->
+	<string name="permission_message_export_file">Cryptomator inahitaji ufikiaji wa kuhifadhi ili kuhamisha mafaili</string>
+	<string name="permission_message_upload_file">Cryptomator inahitaji ufikiaji wa kuhifadhi ili kupakia mafaili</string>
+	<string name="permission_message_share_file">Cryptomator inahitaji ufikiaji wa kuhifadhi ili kusiriki mafaili</string>
+	<string name="permission_revoked_re_request_permission">Cryptomator imepoteza ruhusa ya kufikia mahali hapa. Tafadhali teua kabrasha hili tena ili kurejesha kibali.</string>
+	<string name="snack_bar_action_title_settings">Kipimo</string>
+	<string name="snack_bar_action_title_search">Tafuta</string>
+	<string name="snack_bar_action_title_search_previous">Iliyotangulia</string>
+	<string name="snack_bar_action_title_search_next">Ijayo</string>
+	<string name="snack_bar_action_title_sort">Panga</string>
+	<string name="snack_bar_action_title_sort_az">A-Z</string>
+	<string name="snack_bar_action_title_sort_za">Z-A</string>
+	<string name="snack_bar_action_title_sort_newest">Mpya zaidi ya kwanza</string>
+	<string name="snack_bar_action_title_sort_oldest">Zamani zaidi ya kwanza</string>
+	<string name="snack_bar_action_title_sort_biggest">Kubwa ya kwanza</string>
+	<string name="snack_bar_action_title_sort_smallest">Ndogo ya kwanza</string>
+	<!-- # screens -->
+	<!-- # screen: vault list -->
+	<string name="screen_vault_list_actions_title">Ongeza kwenye Cryptomator</string>
+	<string name="screen_vault_list_action_create_new_vault">Unda kuba mpya</string>
+	<string name="screen_vault_list_action_add_existing_vault">Ongeza kuba iliyopo</string>
+	<string name="screen_vault_list_vault_action_delete">Ondoa</string>
+	<string name="screen_vault_list_change_password_successful">Neno la siri limebadilishwa kwa ufanisi</string>
+	<!-- # screen: file browser -->
+	<string name="screen_file_browser_default_title">Kuba</string>
+	<string name="screen_file_browser_add_existing_vault_extra_text">Teua faili ya masterkey</string>
+	<string name="screen_file_browser_create_new_vault_button_text">Weka hapa</string>
+	<string name="screen_file_browser_create_new_vault_extra_text">Jina la kuba: %1$s</string>
+	<string name="screen_file_browser_move_button_text">Hamisha</string>
+	<string name="screen_file_browser_msg_empty_folder">Kabrasha tupu</string>
+	<string name="screen_file_browser_file_info_label_date">imerekebishwa %1$s iliyopita</string>
+	<string name="screen_file_browser_share_intent_chooser_title">Shiriki na</string>
+	<string name="screen_file_browser_share_destination_title">Chagua fikio</string>
+	<string name="screen_file_browser_share_button_text">Chagua</string>
+	<string name="screen_file_browser_nothing_to_share">Hakuna kitu cha kushiriki</string>
+	<string name="screen_file_browser_actions_title">Ongeza kwenye %1$s</string>
+	<string name="screen_file_browser_action_create_folder">Unda kabrasha</string>
+	<string name="screen_file_browser_action_create_new_text_file">Unda faili matini</string>
+	<string name="screen_file_browser_action_upload_files">Pakia mafaili</string>
+	<string name="screen_file_browser_upload_files_chooser_title">Mafaili</string>
+	<string name="screen_file_browser_msg_file_exported">Faili imehamishwa</string>
+	<string name="screen_file_browser_msg_files_exported">Faili zilizohamishwa</string>
+	<string name="screen_file_browser_nothing_to_export">Hakuna kitu cha kuuza nje</string>
+	<string name="screen_file_browser_msg_creating_download_dir_failed">Kuunda mpangilio orodha wa upakuaji umeshindikana</string>
+	<string name="screen_file_browser_node_action_share">Kushiriki</string>
+	<string name="screen_file_browser_node_action_rename">Ita jina jipya</string>
+	<string name="screen_file_browser_node_action_edit_text">Hariri</string>
+	<string name="screen_file_browser_node_action_export">Hamisha</string>
+	<string name="screen_file_browser_node_action_delete">Futa</string>
+	<string name="screen_file_browser_node_action_open_with_text">Funga na&#8230;</string>
+	<string name="screen_file_browser_selection_mode_title_zero_elements">Teua vipengee</string>
+	<string name="screen_file_browser_selection_mode_title_one_or_more_elements">%1$d teuliwa</string>
+	<string name="screen_file_browser_select_items">Teua</string>
+	<string name="screen_file_browser_select_all_items">Teua zote</string>
+	<string name="screen_file_browser_refresh_items">Onesha upya</string>
+	<string name="screen_file_browser_no_connection_message">Hakuna muunganisho</string>
+	<string name="screen_file_browser_no_connection_button_text">Jaribu tena</string>
+	<!-- ## screen: text editor -->
+	<string name="screen_text_editor_save_success">Imehifadhiwa kwa ufanisi</string>
+	<!-- ## screen: share files -->
+	<string name="screen_share_files_title">Hifadhi %1$s kwa &#8230;</string>
+	<string name="screen_share_files_content_text">ujumbe</string>
+	<string name="screen_share_files_content_file">faili</string>
+	<string name="screen_share_files_content_files">mafaili</string>
+	<string name="screen_share_files_msg_filenames_must_be_unique">Majina ya faili yanapaswa kuwa ya kipekee, tafadhali badilisha jina la nakala.</string>
+	<string name="screen_share_files_section_location">Hifadhi mahali</string>
+	<string name="screen_share_files_save_button_text">Hifadhi</string>
+	<string name="screen_share_files_msg_success">Usimbaji fiche umekamilika</string>
+	<!-- ## screen: choose cloud service -->
+	<string name="screen_choose_cloud_service_title">Huduma ya wingu</string>
+	<!-- ## screen: cloud connections -->
+	<string name="screen_cloud_connections_title">Chagua mahali</string>
+	<string name="screen_cloud_error_webdav_not_supported">Seva haionekani kuwa sambamba na WebDAV</string>
+	<string name="screen_cloud_local_error_no_content_provider">Hakuna faili maneja lililopatikana inasaidia kufungua saraka</string>
+	<!-- ## screen: webdav settings -->
+	<string name="screen_webdav_settings_url_port_label">URL</string>
+	<string name="screen_webdav_settings_username_label">Jina la mtumiaji</string>
+	<string name="screen_webdav_settings_password_label">Neno la siri</string>
+	<string name="screen_webdav_settings_done_button_text">Kuunganisha</string>
+	<string name="screen_webdav_settings_msg_url_must_not_be_empty">URL haiwezi kuwa tupu.</string>
+	<string name="screen_webdav_settings_msg_url_is_invalid">URL ni batili.</string>
+	<string name="screen_webdav_settings_msg_username_must_not_be_empty">Jina la mtumiaji haliwezi kuwa tupu.</string>
+	<string name="screen_webdav_settings_msg_password_must_not_be_empty">Neno la siri haliwezi kuwa tupu.</string>
+	<!-- ## screen: s3 settings -->
+	<string name="screen_s3_settings_display_name_label">Onyesha Jina</string>
+	<string name="screen_s3_settings_access_key_label">Ufunguo wa Ufikivu</string>
+	<string name="screen_s3_settings_secret_key_label">Ufunguo wa Siri</string>
+	<string name="screen_s3_settings_bucket_label">Ndoo Iliyopo</string>
+	<string name="screen_s3_settings_endpoint_label">Mwisho pointi</string>
+	<string name="screen_s3_settings_region_label">Mkoa</string>
+	<string name="screen_s3_settings_msg_display_name_not_empty">Onyesha Jina haliwezi kuwa tupu</string>
+	<string name="screen_s3_settings_msg_access_key_not_empty">Ufunguo wa Ufikivu hauwezi kuwa tupu</string>
+	<string name="screen_s3_settings_msg_secret_key_not_empty">Ufunguo wa Siri hauwezi kuwa tupu</string>
+	<string name="screen_s3_settings_msg_bucket_not_empty">Ndoo haiwezi kuwa tupu</string>
+	<string name="screen_s3_settings_msg_endpoint_and_region_not_empty">Mwisho au Mkoa haliwezi kuwa tupu</string>
+	<!-- ## screen: enter vault name -->
+	<string name="screen_enter_vault_name_msg_name_empty">Jina la kuba haliwezi kuwa tupu.</string>
+	<string name="screen_enter_vault_name_vault_label">Jina la kuba</string>
+	<string name="screen_enter_vault_name_button_text">Unda</string>
+	<!-- ## screen: set password -->
+	<string name="screen_set_password_title">Seti neno la siri</string>
+	<string name="screen_set_password_msg_password_mismatch">Nywila haioani na nywila iliyochapwa upya.</string>
+	<string name="screen_set_password_button_text">Tayari</string>
+	<string name="screen_set_password_hint">MUHIMU: Ikiwa unasahau neno la siri lako, hakuna njia ya kurejesha data yako.</string>
+	<string name="screen_set_password_retype_password_label">Chapa upya neno la siri</string>
+	<string name="screen_set_password_strength_indicator_0">Dhaifu sana kuunda kuba</string>
+	<string name="screen_set_password_strength_indicator_1">Dhaifu</string>
+	<string name="screen_set_password_strength_indicator_2">Haki</string>
+	<string name="screen_set_password_strength_indicator_3">Imara</string>
+	<string name="screen_set_password_strength_indicator_4">Imara sana</string>
+	<!-- ## screen: settings -->
+	<string name="screen_settings_section_general">Jumla</string>
+	<string name="screen_settings_cloud_settings_label">Huduma za wingu</string>
+	<string name="screen_settings_biometric_auth">Uhalalishaji wa Biometriska</string>
+	<string name="screen_settings_activate_biometric_auth">Amilisha uhalalishaji wa biometriska</string>
+	<string name="screen_settings_confirm_face_unlock">Thibitisha kufungua uso (ikiwa inapatikana)</string>
+	<string name="screen_settings_block_app_when_obscured">Zuia programu wakati imefichwa</string>
+	<string name="screen_settings_block_app_when_obscured_summary">Zuia kuzuia ingizo na kuonyesha kiolesura cha uongo cha mtumiaji</string>
+	<string name="screen_settings_secure_screen">Zuia viwambo</string>
+	<string name="screen_settings_secure_screen_summary">Zuia viwambo katika orodha ya hivi karibuni na ndani ya programu</string>
+	<string name="screen_settings_section_search">Tafuta</string>
+	<string name="screen_settings_live_search">Utafutaji wa moja kwa moja</string>
+	<string name="screen_settings_live_search_summary">Sasisha matokeo ya utafutaji wakati wa kuingiza ulizo</string>
+	<string name="screen_settings_glob_search">Tafuta kwa kutumia muundo wa glob</string>
+	<string name="screen_settings_glob_search_summary">Tumia muundo wa glob unaolingana kama alice.*.jpg</string>
+	<string name="screen_settings_section_auto_lock">Ufungashaji Otomatiki</string>
+	<string name="screen_settings_auto_lock_timeout">Funga baada ya</string>
+	<string name="screen_settings_auto_lock_on_screen_lock">Wakati skrini imelemazwa</string>
+	<string name="screen_settings_section_auto_photo_upload">Upakiaji wa picha Otomatiki</string>
+	<string name="screen_settings_section_auto_photo_upload_vault">Chagua kuba kwa ajili ya kupakia</string>
+	<string name="screen_settings_section_auto_photo_upload_toggle">Kuamilisha</string>
+	<string name="screen_settings_section_auto_photo_upload_toggle_summary">Kukamata picha kwa nyuma na mara tu kuba iliyochaguliwa inapofunguliwa, anza kupakia</string>
+	<string name="screen_settings_section_auto_photo_upload_toggle_instant_upload">Pakia papo hapo</string>
+	<string name="screen_settings_section_auto_photo_upload_toggle_instant_upload_summary">Pakia moja kwa moja ikiwa kuba imefunguliwa</string>
+	<string name="screen_settings_section_auto_photo_upload_only_wifi_toggle">Pakia tu kwa kutumia WIFI</string>
+	<string name="screen_settings_section_auto_photo_upload_including_videos">Pakia video</string>
+	<string name="screen_settings_auto_photo_upload_title">Hifadhi faili za kupakia kiotomatiki kwenye &#8230;</string>
+	<string name="screen_settings_website_label">Tovuti ya Cryptomator</string>
+	<string name="screen_settings_twitter_label">Tufuate kwenye Twitter</string>
+	<string name="screen_settings_section_legal">Kisheria</string>
+	<string name="screen_settings_licenses_label">Leseni</string>
+	<string name="screen_settings_license_terms_label">Masharti ya leseni</string>
+	<string name="screen_settings_section_support">Msaada</string>
+	<string name="screen_settings_contact_label">Omba msaada</string>
+	<string name="screen_settings_debug_mode_label">Rekebisha hali</string>
+	<string name="screen_settings_error_report_label">Tuma faili logi</string>
+	<string name="screen_settings_error_report_failed">Kutuma kumeshindikana</string>
+	<string name="screen_settings_security_label">Vidokezo vya usalama</string>
+	<string name="screen_settings_section_version">Toleo</string>
+	<string name="screen_settings_advanced_settings">Mipangilio Pevu</string>
+	<string name="screen_settings_background_unlock_preparation_label">Kuharakisha kufungua</string>
+	<string name="screen_settings_background_unlock_preparation_label_summary">Pakua usanidi wa kuba mandharinyuma unapoombwa kuingiza nenosiri au auth ya biometriska</string>
+	<string name="screen_settings_keep_unlocked_while_editing_files">Endelea kufungua</string>
+	<string name="screen_settings_keep_unlocked_while_editing_files_summary">Weka kuba wazi wakati wa kuhariri faili</string>
+	<!-- ## screen: cloud settings -->
+	<string name="screen_cloud_settings_onedrive_connections">Miunganisho ya OneDrive</string>
+	<string name="screen_cloud_settings_webdav_connections">Miunganisho ya WebDAV</string>
+	<string name="screen_cloud_settings_pcloud_connections">miunganisho ya pCloud</string>
+	<string name="screen_cloud_settings_s3_connections">Miunganisho ya S3</string>
+	<string name="screen_cloud_settings_local_storage_locations">Maeneo ya hifadhi ya ndani</string>
+	<string name="screen_cloud_settings_log_in_to">Ingia kwenye</string>
+	<string name="screen_cloud_settings_sign_out_from_cloud">Ondoka kutoka</string>
+	<!-- ## screen: licenses -->
+	<!-- ## screen: authenticate cloud -->
+	<string name="screen_authenticate_auth_authentication_failed">%1$s haikuweza kuthibitishwa.</string>
+	<string name="screen_update_pcloud_connections_title">Sasisha hati za utambulisho za pCloud</string>
+	<!-- ## screen: cryptomator app variants -->
+	<!-- # dialogs -->
+	<string name="dialog_button_cancel">Katisha</string>
+	<string name="dialog_enter_password_positive_button">Fungua</string>
+	<string name="dialog_change_password_old_password_label">Neno la siri la zamani</string>
+	<string name="dialog_change_password_new_password_label">Neno la siri jipya</string>
+	<string name="dialog_change_password">Badilisha neno la siri</string>
+	<string name="dialog_change_password_msg_old_password_empty">Neno la siri la zamani haliwezi kuwa tupu.</string>
+	<string name="dialog_change_password_msg_new_password_empty">Neno la siri jipya haliwezi kuwa tupu.</string>
+	<string name="dialog_change_password_msg_password_mismatch">Nneno la siri jipya haioani na neno la siri lililochapwa upya.</string>
+	<!-- Vault not found -->
+	<string name="dialog_vault_not_found_title">Kuba%1$s haijapatikana</string>
+	<string name="dialog_vault_not_found_message">Kuba imepewa jina jipya, kuhamishwa au kufutwa. Ondoa kuba hii kutoka kwenye orodha na uiongeze tena ili kuendelea. Ondoa sasa?</string>
+	<string name="dialog_vault_not_found_positive_button_text">Ondoa</string>
+	<string name="dialog_existing_file_title">Faili tayari ipo</string>
+	<string name="dialog_existing_file_positive_button">Badilisha</string>
+	<string name="dialog_existing_file_message">Faili inayoitwa \'%1$s\' tayari ipo.</string>
+	<string name="dialog_replace_negative_button_at_least_two_but_not_all_files_exist">Ruka iliyopo</string>
+	<string name="dialog_replace_positive_button_all_files_exist">Badilisha yote</string>
+	<string name="dialog_replace_positive_button_some_files_exist">Badilisha iliyopo</string>
+	<string name="dialog_replace_positive_button_single_file_exists">Badilisha</string>
+	<string name="dialog_replace_msg_single_file_exists">Faili inayoitwa \'%1$s\' tayari ipo. Unataka kuibadilisha?</string>
+	<string name="dialog_replace_msg_all_files_exists">Faili zote tayari zipo. Unataka kubadilisha yao?</string>
+	<string name="dialog_replace_msg_some_files_exists">%1$d faili tayari zipo. Unataka kubadilisha yao?</string>
+	<string name="dialog_replace_title_single_file_exists">Badilisha faili?</string>
+	<string name="dialog_replace_title_multiple_files_exist">Badilisha faili?</string>
+	<string name="dialog_unable_to_share_title">Haiwezi kugawiza mafaili</string>
+	<string name="dialog_unable_to_share_message">Hujasanidi kuba yoyote. Tafadhali unda kuba mpya na programu ya Cryptomator kwanza.</string>
+	<string name="dialog_unable_to_share_positive_button">Sawa</string>
+	<string name="dialog_unable_to_share_negative_button">Unda kuba</string>
+	<string name="dialog_filetype_not_supported_title">Haiwezi fungua%1$s</string>
+	<string name="dialog_filetype_not_supported_message">Tafadhali pakua programu ambayo inaweza kufungua faili hii au unapenda kuhifadhi kwenye kifaa chako?</string>
+	<string name="dialog_rename_vault_title">Ita jina jipya kuba</string>
+	<string name="dialog_rename_node_folder_title">Ita jina jipya kabrasha</string>
+	<string name="dialog_rename_node_file_title">Ita jina jipya la faili</string>
+	<string name="dialog_unsaved_changes_title">Una mabadiliko ambayo hayajahifadhiwa</string>
+	<string name="dialog_unsaved_changes_message">Je, kweli unataka kuacha bila kuhifadhi?</string>
+	<string name="dialog_unsaved_changes_discard">Tupa</string>
+	<string name="dialog_file_name_placeholder">ujumbe.txt</string>
+	<string name="dialog_delete_vault_message">Una uhakika unataka kuondoa kuba hii?</string>
+	<string name="dialog_delete_vault_hint">Kitendo hiki kitaondoa tu kuba kutoka kwenye orodha hii na sio kuifuta kimwili.</string>
+	<string name="dialog_upload_file_title">Inapakia&#8230;</string>
+	<string name="dialog_upload_file_remaining">Faili %1$d ya %2$d</string>
+	<string name="dialog_export_file_title">Kusafirisha (%1$d/%2$d)</string>
+	<string name="dialog_progress_please_wait">Tafadhali subiri&#8230;</string>
+	<string name="dialog_progress_creating_folder">Kuunda kabrasha&#8230;</string>
+	<string name="dialog_progress_creating_text_file">Unda faili matini&#8230;</string>
+	<string name="action_progress_authentication">Uhalalishaji&#8230;</string>
+	<string name="action_progress_renaming">Inaita jina jipya&#8230;</string>
+	<string name="action_progress_deleting">Kufuta&#8230;</string>
+	<string name="dialog_progress_unlocking_vault">Inafungua kuba&#8230;</string>
+	<string name="dialog_progress_change_password">Kubadilisha neno la siri&#8230;</string>
+	<string name="dialog_progress_creating_vault">Kutengeneza kuba&#8230;</string>
+	<string name="dialog_progress_upload_file">Inapakia&#8230;</string>
+	<string name="dialog_progress_download_file">Inapakua&#8230;</string>
+	<string name="dialog_progress_encryption">Inasimba&#8230;</string>
+	<string name="dialog_progress_decryption">Kusimbua =&#8230;</string>
+	<string name="action_progress_moving">Kusonga&#8230;</string>
+	<string name="dialog_lock_vault">Funga</string>
+	<string name="dialog_accept_ssl_certificate_title">Cheti batili cha SSL</string>
+	<string name="dialog_accept_ssl_certificate_hint">Heti cha SSL ni batili. Je, unataka kuamini hilo hata hivyo?</string>
+	<string name="dialog_accept_ssl_certificate_details">Maelezo</string>
+	<string name="dialog_accept_ssl_certificate_security_checkbox">Hii inaweza kuwa hatari kwa usalama. Najua kile ninachofanya.</string>
+	<string name="dialog_ask_ignore_battery_optimizations_title">Lemaza uboreshaji wa betri</string>
+	<string name="dialog_ask_ignore_battery_optimizations_checkbox">Je, si kuuliza tena?</string>
+	<string name="dialog_http_security_hint">Matumizi ya HTTP ni salama. Tunapendekeza kutumia HTTPS badala yake. Ikiwa unajua hatari, unaweza kuendelea na HTTP.</string>
+	<string name="dialog_http_security_checkbox">Badilisha hadi HTTPS</string>
+	<string name="dialog_http_security_title">Tumia HTTPS?</string>
+	<string name="dialog_no_screen_lock_hint">Hakuna kufuli ya skrini iliyowekwa. Ili kuhifadhi hati zako za utambulisho kwa njia salama, weka na Sawa muundo au neno la siri.</string>
+	<string name="dialog_no_screen_lock_title">Weka kufuli skrini?</string>
+	<string name="dialog_no_screen_lock_checkbox">Weka kufuli skrini</string>
+	<string name="dialog_no_biometric_auth_set_up_title">Hakuna uhalalishaji wa msingi uliosanidiwa katika mfumo</string>
+	<string name="dialog_no_biometric_auth_set_up_message">Jiandikishe angalau kidole kimoja / uso ili kutumia huduma hii.</string>
+	<string name="dialog_debug_mode_disclaimer_hint">Katika hali hii, data nyeti inaweza kuandikwa kwa faili ya kumbukumbu kwenye kifaa chako (kwa mfano, majina ya faili na njia). Nywila, vidakuzi, n.k. zimetengwa wazi.\n\nKukumbuka ili kuzima hali ya utatuzi haraka iwezekanavyo.</string>
+	<string name="dialog_debug_mode_disclaimer_title">Makini</string>
+	<string name="dialog_debug_mode_positive_button">Wezesha</string>
+	<string name="dialog_disable_app_obscured_disclaimer_hint">Mipangilio hii ni kipengele cha usalama na huzuia programu nyingine kuwahadaa watumiaji kufanya mambo ambayo hawataki kufanya.\n\nKwa kuzima, unathibitisha kuwa wewe ni <a href="https://docs.cryptomator.org /sw/1.6/android/settings/#block-app-when-obscured">fahamu kuhusu hatari</a>.</string>
+	<string name="dialog_disable_app_obscured_disclaimer_title">Makini</string>
+	<string name="dialog_disable_app_obscured_positive_button">Lemaza</string>
+	<string name="dialog_app_is_obscured_info_title">Programu imefichwa</string>
+	<string name="dialog_app_is_obscured_info_hint">Programu nyingine inaonyesha kitu juu ya Cryptomator (k.m., kichujio cha mwanga wa bluu au programu ya hali ya usiku). Kwa sababu za usalama, Cryptomator imezimwa.\n\n&lt;a href="https://docs.cryptomator.org/en/1.6/android/settings/#block-app-when-obscured"&gt;Jinsi ya kuwezesha Cryptomator&lt; /a&gt;</string>
+	<string name="dialog_app_is_obscured_info_neutral_button">Funga</string>
+	<string name="dialog_vaults_removed_during_migration_title">Tafadhali ongeza tena kuba kwa %1s wingu</string>
+	<string name="dialog_vaults_removed_during_migration_hint">Wakati wa kuhamia kwenye toleo hili la programu tunahitaji kuondoa vaults zifuatazo kutoka kwa programu:\n%2s \n\nKuboreshaji hazijaondolewa kwenye wingu lakini tu kutoka kwa programu hii. Samahani kwa usumbufu na tafadhali ongeza tena vaults hizi ili kuendelea kufanya kazi nao.</string>
+	<string name="dialog_vault_is_root_folder_of_cloud_title">Kuba ni folda ya mizizi ya muunganisho wa wingu</string>
+	<string name="dialog_vault_is_root_folder_of_cloud_hint">Unda muunganisho mpya wa wingu ambapo unachagua angalau folda kuu ya folda hii ya kuba kama saraka ya mizizi ili kuongeza kuba hii.</string>
+	<string name="dialog_disable_secure_screen_disclaimer_hint">Mipangilio hii ni kipengele cha usalama na huzuia programu nyingine kuwahadaa watumiaji kufanya mambo ambayo hawataki kufanya.\n\nKwa kuzima, unathibitisha kuwa wewe ni <a href="https://docs.cryptomator.org /sw/1.6/android/settings/#screen-security">kufahamu hatari</a>.</string>
+	<string name="dialog_delete_cloud_connection_with_vaults_message">Una hakika unataka kuondoa muunganisho huu wa wingu?</string>
+	<string name="dialog_delete_cloud_connection_with_vaults_hint">Hatua hii itaondoa unganisho la wingu na kuba zote za wingu hili.</string>
+	<string name="dialog_confirm_delete_multiple_title">Futa %1$d vipengee?</string>
+	<string name="dialog_confirm_delete_multiple_message">Una hakika unataka kufuta vipengee hivi?</string>
+	<string name="dialog_confirm_delete_file_message">Una hakika unataka kufuta faili hili?</string>
+	<string name="dialog_confirm_delete_folder_message">Hii itafuta yaliyomo kwenye folda yote. Una hakika unataka kufuta kabrasha hili?</string>
+	<string name="dialog_biometric_auth_key_invalidated_title">Kipengele cha uthibitishaji wa Biometriska kimezimwa</string>
+	<string name="dialog_biometric_auth_key_invalidated_message">Kwa sababu ufunguo umebatilishwa, kipengele cha uthibitishaji wa biometriska kimezimwa. Ili kuwezesha tena, fungua mipangilio ya Cryptomator.</string>
+	<string name="dialog_enter_license_title">Toa leseni halali</string>
+	<string name="dialog_enter_license_content">Tuligundua kuwa ulisakinisha Cryptomator bila kutumia Duka la Google Play. Toa leseni halali, ambayo inaweza kununuliwa kwenye <a href="https://cryptomator.org/android/">https://cryptomator.org/android/</a></string>
+	<string name="dialog_enter_license_not_valid_content">Leseni iliyotolewa sio halali. Hakikisha umeiingiza kwa usahihi.</string>
+	<string name="dialog_enter_license_not_valid_content_desktop_supporter_certificate">Ufunguo uliotolewa ni cheti cha msaidizi wa eneo-kazi. Tafadhali ingiza leseni halali.</string>
+	<string name="dialog_enter_license_no_content">Hakuna leseni iliyotolewa. Tafadhali ingiza leseni halali.</string>
+	<string name="dialog_enter_license_decline_button">Toka</string>
+	<string name="dialog_license_confirmation_title">Uthibitisho wa leseni</string>
+	<string name="dialog_license_confirmation_message">Asante %1$s kwa kutoa leseni yako halali.</string>
+	<string name="dialog_update_available_title">Sasisha inapatikana</string>
+	<string name="dialog_update_available_message">Sasisha Cryptomator hadi toleo la hivi karibuni. Kwa kubonyeza Sawa tutapakua programu chinichini na tutakuuliza uikinishe.</string>
+	<string name="dialog_update_available_update">Sasisha sasa</string>
+	<string name="dialog_update_available_download_site">Nenda kwenye tovuti ya kupakua</string>
+	<string name="dialog_update_available_cancel">Baadae</string>
+	<string name="dialog_download_update_title">Upakuaji unaendesha</string>
+	<string name="dialog_download_update_message">Inapakua toleo la hivi karibuni la Cryptomator</string>
+	<string name="dialog_sym_link_title">Kabrasha ni kiungo cha mfano</string>
+	<string name="dialog_sym_link_message">Huwezi kuingia kwenye kiungo hiki cha mfano</string>
+	<string name="dialog_sym_link_back_button">Rudi</string>
+	<string name="dialog_no_dir_file_title">Haiwezi kupakia yaliyomo kwenye mpangilio orodha</string>
+	<string name="dialog_no_dir_file_message">Folda ya wingu \'%1$s\' haina faili halali ya saraka. Inaweza kuwa kwamba folda iliundwa kwenye kifaa kingine na bado haijalandanishwa kikamilifu kwenye wingu. Tafadhali angalia katika wingu lako ikiwa faili ifuatayo ipo na sio tupu:\n%2$s</string>
+	<string name="dialog_no_more_images_to_display">Hakuna picha zaidi za kuonyesha&#8230;</string>
+	<string name="dialog_pcloud_credentials_updated_title">Hati za utambulisho za \'%1$s\' zimesasishwa</string>
+	<string name="permission_snackbar_auth_local_vault">Cryptomator inahitaji ufikiaji wa kuhifadhi ili kutumia kuba za ndani</string>
+	<string name="permission_snackbar_auth_auto_upload">Cryptomator inahitaji ufikiaji wa kuhifadhi ili kutumia upakiaji wa picha kiotomatiki</string>
+	<!-- # error reports -->
+	<!-- # misc -->
+	<!-- ## file size helper -->
+	<string name="file_size_zero">Sifuri kB</string>
+	<string name="file_size_unit_bytes">baiti</string>
+	<string name="file_size_unit_kilo_bytes">kB</string>
+	<string name="file_size_unit_mega_bytes">MB</string>
+	<string name="file_size_unit_giga_bytes">GB</string>
+	<string name="file_size_unit_tera_bytes">TB</string>
+	<!-- ## date helper -->
+	<string name="time_unit_seconds_sg">sekunde</string>
+	<string name="time_unit_seconds_pl">sekunde</string>
+	<string name="time_unit_minutes_sg">dakika</string>
+	<string name="time_unit_minutes_pl">dakika</string>
+	<string name="time_unit_hours_sg">saa</string>
+	<string name="time_unit_hours_pl">masaa</string>
+	<string name="time_unit_days_sg">siku</string>
+	<string name="time_unit_days_pl">siku</string>
+	<string name="time_unit_weeks_sg">wiki</string>
+	<string name="time_unit_weeks_pl">wiki</string>
+	<string name="time_unit_months_sg">mwezi</string>
+	<string name="time_unit_months_pl">miezi</string>
+	<string name="time_unit_years_sg">mwaka</string>
+	<string name="time_unit_years_pl">miaka</string>
+	<!-- ## biometric authentication -->
+	<string name="dialog_biometric_auth_title">Kuingia kwa Biometriska</string>
+	<string name="dialog_biometric_auth_message">Ingia kwa kutumia hati yako ya utambulisho ya biometriska</string>
+	<string name="dialog_biometric_auth_use_password">Tumia neno la siri ya kuba</string>
+	<string name="dialog_unable_to_auto_upload_files_title">Haiwezi kupakia faili otomatiki</string>
+	<!-- notification -->
+	<string name="notification_unlocked">Kuba imefunguliwa:%1$d</string>
+	<string name="notification_timeout">Otomatiki loku ndani ya %1$s</string>
+	<string name="notification_lock_all">Funga zote</string>
+	<string name="notification_cancel_auto_upload">Katisha upakiaji</string>
+	<string name="notification_auto_upload_title">Upakiaji wa picha kiotomatiki unaendelea</string>
+	<string name="notification_auto_upload_message">Inapakia %1d/%2d</string>
+	<string name="notification_auto_upload_finished_title">Upakiaji wa picha otomatiki umekamilika</string>
+	<string name="notification_auto_upload_finished_message">%1$d picha zilizopakiwa kwenye kuba</string>
+	<string name="notification_auto_upload_failed_title">Upakiaji wa picha otomatiki umeshindikana</string>
+	<string name="notification_auto_upload_failed_general_error">Kosa la jumla limetokea wakati wa kupakia.</string>
+	<string name="notification_auto_upload_failed_due_to_folder_not_exists">Kabrasha lililoteuliwa la kupakia halipatikani tena. Nenda kwenye mipangilio na uchague mpya</string>
+	<string name="notification_auto_upload_failed_due_to_vault_locked">Kuba imefungwa wakati wa kupakia, tafadhali fungua tena kuba ili kuendelea</string>
+	<string name="notification_auto_upload_failed_due_to_vault_not_found">Kuba iliyobainishwa kwa upakiaji wa kiotomatiki haipo tena.</string>
+	<string name="notification_open_writable_file_title">Fungua faili linalo andikika</string>
+	<string name="notification_open_writable_file_message">Kuba inakaa wazi hadi uhariri uliomalizika</string>
+	<string name="notification_update_check_finished_latest">Toleo la hivi karibuni lililosakinishwa</string>
+	<string name="notification_authenticating">Kuthibitisha&#8230;</string>
+	<string name="screen_settings_lru_cache">Kache</string>
+	<string name="screen_settings_lru_cache_toggle_summary">Akiba faili zilizofikiwa hivi karibuni zimesimbwa kwa njia fiche ndani ya kifaa kwa matumizi ya baadaye inapofunguliwa tena</string>
+	<string name="screen_settings_lru_cache_size">Ukubwa wa jumla wa kache</string>
+	<string name="screen_settings_clear_lru_cache_size">Ondoa Kache</string>
+	<string name="screen_settings_lru_cache_changed__restart_toast">Mabadiliko yatatekelezwa kwenye uanzishaji upya wa programu inayofuata</string>
+	<string name="screen_settings_license">Imesajiliwa kwa ajili ya</string>
+	<string name="screen_settings_license_mail">%1$s</string>
+	<string name="dialog_settings_update_check_interval_title">Sasisha muda wa ukaguzi</string>
+	<string name="screen_settings_check_updates">Kagua sasishi</string>
+	<string name="screen_settings_last_check_updates">Endesha mwisho%1$s</string>
+	<string name="dialog_cache_size_title">Ukubwa wa kache kwa kila Wingu</string>
+	<!-- lock timeout names -->
+	<string name="lock_timeout_instant">Papohapo</string>
+	<string name="lock_timeout_1m">1 dakika</string>
+	<string name="lock_timeout_2m">2 dakika</string>
+	<string name="lock_timeout_5m">5 dakika</string>
+	<string name="lock_timeout_10m">10 dakika</string>
+	<string name="lock_timeout_never">Kamwe</string>
+	<!-- cache size names -->
+	<string name="cache_size_50m">50 MB</string>
+	<string name="cache_size_100m">100 MB</string>
+	<string name="cache_size_250m">250 MB</string>
+	<string name="cache_size_500m">500 MB</string>
+	<string name="cache_size_1000m">1 GB</string>
+	<string name="cache_size_5000m">5 GB</string>
+	<!-- screen scheme mode names -->
+	<string name="screen_settings_style_mode">Mtindo</string>
+	<string name="follow_system">Moja kwa moja (kufuata mfumo)</string>
+	<string name="light">Mwanga</string>
+	<string name="dark">Giza</string>
+	<!-- update interval names -->
+	<string name="update_interval_1d">Mara moja kwa siku</string>
+</resources>

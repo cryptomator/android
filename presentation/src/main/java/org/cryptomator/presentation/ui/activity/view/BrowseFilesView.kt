@@ -34,7 +34,7 @@ interface BrowseFilesView : View {
 	fun updateSelectionTitle(numberSelected: Int)
 	fun disableSelectionMode()
 	fun showSymLinkDialog()
-	fun showNoDirFileDialog(cryptoFolderName: String, cloudFolderPath: String)
+	fun showNoDirFileOrEmptyDialog(cryptoFolderName: String, cloudFolderPath: String)
 	fun updateActiveFolderDueToAuthenticationProblem(folder: CloudFolderModel)
 
 }

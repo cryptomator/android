@@ -8,6 +8,7 @@ import org.cryptomator.presentation.R
 import org.cryptomator.presentation.model.ProgressModel
 import org.cryptomator.presentation.presenter.SettingsPresenter
 import org.cryptomator.presentation.ui.activity.view.SettingsView
+import org.cryptomator.presentation.ui.dialog.AskIgnoreBatteryOptimizationsDialog
 import org.cryptomator.presentation.ui.dialog.DebugModeDisclaimerDialog
 import org.cryptomator.presentation.ui.dialog.DisableAppWhenObscuredDisclaimerDialog
 import org.cryptomator.presentation.ui.dialog.DisableSecureScreenDisclaimerDialog
@@ -21,6 +22,7 @@ import kotlinx.android.synthetic.main.toolbar_layout.toolbar
 @Activity(layout = R.layout.activity_settings)
 class SettingsActivity : BaseActivity(),
 	SettingsView,
+	AskIgnoreBatteryOptimizationsDialog.Callback,
 	DebugModeDisclaimerDialog.Callback,
 	DisableAppWhenObscuredDisclaimerDialog.Callback,
 	DisableSecureScreenDisclaimerDialog.Callback,
@@ -33,6 +35,7 @@ class SettingsActivity : BaseActivity(),
 
 	override fun setupView() {
 		setupToolbar()
+		presenter.checkAutoUploadEnabledAndBatteryOptimizationDisabled()
 	}
 
 	private fun setupToolbar() {
@@ -41,6 +44,14 @@ class SettingsActivity : BaseActivity(),
 	}
 
 	fun presenter(): SettingsPresenter = presenter
+
+	override fun onAskIgnoreBatteryOptimizationsAccepted() {
+		presenter.askIgnoreBatteryOptimizationsAccepted()
+	}
+
+	override fun onAskIgnoreBatteryOptimizationsRejected(askAgain: Boolean) {
+		presenter.onAskIgnoreBatteryOptimizationsRejected(askAgain);
+	}
 
 	override fun onDisclaimerAccepted() {
 		presenter.onDebugModeChanged(accepted())
@@ -90,7 +101,7 @@ class SettingsActivity : BaseActivity(),
 	}
 
 	override fun showUpdateWebsite() {
-		val url = "https://cryptomator.org/de/android/"
+		val url = "https://cryptomator.org/android/"
 		val intent = Intent(Intent.ACTION_VIEW)
 		intent.data = Uri.parse(url)
 		startActivity(intent)

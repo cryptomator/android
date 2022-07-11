@@ -27,6 +27,7 @@ class ChooseCloudServiceFragment : BaseFragment() {
 
 	override fun setupView() {
 		setupRecyclerView()
+		chooseCloudServicePresenter.showCloudMissingSnackbarHintInLiteVariant()
 	}
 
 	fun render(cloudModels: List<CloudTypeModel>?) {

@@ -4,10 +4,13 @@
 	<color name="colorPrimaryTransparent">#66CC68</color>
 	<color name="colorPrimaryDark">#407F41</color>
 
+	<color name="colorSecondary">#008A7B</color>
+
 	<color name="textColorPrimary">#222222</color>
 	<color name="textColorWhite">#F7F7F7</color>
 	<color name="textColorLight">#9E9E9E</color>
 	<color name="textColorError">#E74C3C</color>
+	<color name="colorWhite">#FFFFFF</color>
 
 	<color name="colorBlackTransparent">#50000000</color>
 	<color name="colorBlack">#000000</color>
@@ -22,5 +25,8 @@
 	<color name="password_strength_4">#27ae60</color>
 
 	<color name="list_divider">#1f000000</color>
+
+	<color name="popupMenuBackgroundColor">@color/m3_sys_color_light_background</color>
+	<color name="popupMenuBackgroundTintColor">@color/colorWhite</color>
 
 </resources>

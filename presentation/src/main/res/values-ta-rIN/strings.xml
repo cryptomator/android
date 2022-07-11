@@ -64,7 +64,7 @@
 	<!-- ## screen: cloud settings -->
 	<!-- ## screen: licenses -->
 	<!-- ## screen: authenticate cloud -->
-	<!-- ## screen: insecure android version info -->
+	<!-- ## screen: cryptomator app variants -->
 	<!-- # dialogs -->
 	<string name="dialog_change_password_msg_new_password_empty">கடவுச்சொல் காலியாக இருக்கக்கூடாது.</string>
 	<!-- Vault not found -->
@@ -108,6 +108,4 @@
 	<string name="dark">இருள்</string>
 	<!-- update interval names -->
 	<string name="update_interval_1d">தினம் ஒரு முறை</string>
-	<string name="update_interval_1w">வாரம் ஒரு முறை</string>
-	<string name="update_interval_1m">மாதம் ஒரு முறை</string>
 </resources>

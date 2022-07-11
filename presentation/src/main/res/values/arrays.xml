@@ -44,14 +44,10 @@
 	</string-array>
 	<string-array name="update_interval_entries">
 		<item>@string/update_interval_1d</item>
-		<item>@string/update_interval_1w</item>
-		<item>@string/update_interval_1m</item>
 		<item>@string/update_interval_never</item>
 	</string-array>
 	<string-array name="update_interval_values">
 		<item>1</item>
-		<item>7</item>
-		<item>30</item>
 		<item>Never</item>
 	</string-array>
 

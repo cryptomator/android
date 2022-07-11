@@ -9,6 +9,10 @@
 	android:paddingEnd="16dp"
 	android:visibility="gone">
 
+	<Space
+		android:layout_width="0dp"
+		android:layout_height="48dp" />
+
 	<TextView
 		android:id="@+id/tv_error"
 		android:layout_width="match_parent"

@@ -9,7 +9,8 @@
 	<string name="error_no_network_connection">Ağ bağlantısı yok</string>
 	<string name="error_invalid_passphrase">Şifre hatalı</string>
 	<string name="error_file_or_folder_exists">Dosya veya klasör zaten var.</string>
-	<string name="error_vault_version_not_supported">Kasa Desteklenmiyor. Bu kasa, Cryptomator\'un başka bir sürümüyle oluşturuldu.</string>
+	<string name="error_vault_version_not_supported">%1$s kasa sürümü desteklenmiyor. Bu kasa, Cryptomator\'ın daha eski veya daha yeni bir sürümüyle oluşturuldu.</string>
+	<string name="error_vault_config_file_missing_due_to_format_999">Kasa klasörünüzde %1$s dosyası eksik. Bu dosyanın buluttaki kasa klasörünüzde bulunduğundan emin olun.</string>
 	<string name="error_vault_already_exists">Kasa zaten var.</string>
 	<string name="error_no_such_file">Dosya bulunmuyor.</string>
 	<string name="error_vault_has_been_locked">Kasa kilitlendi.</string>
@@ -59,7 +60,6 @@
 	<string name="screen_vault_list_action_create_new_vault">Yeni kasa oluştur</string>
 	<string name="screen_vault_list_action_add_existing_vault">Mevcut kasayı ekle</string>
 	<string name="screen_vault_list_vault_action_delete">Kaldır</string>
-	<string name="screen_vault_list_vault_creation_hint">Kasa oluşturmak/eklemek için burayı tıklayın</string>
 	<string name="screen_vault_list_change_password_successful">Şifre başarıyla değiştirildi</string>
 	<!-- # screen: file browser -->
 	<string name="screen_file_browser_default_title">Kasa</string>
@@ -114,9 +114,8 @@
 	<string name="screen_choose_cloud_service_title">Bulut hizmeti</string>
 	<!-- ## screen: cloud connections -->
 	<string name="screen_cloud_connections_title">Bir yer seçin</string>
-	<string name="screen_cloud_connections_no_connections">Konum eklemek için buraya tıklayın</string>
 	<string name="screen_cloud_error_webdav_not_supported">Sunucu WebDAV uyumlu görünmüyor</string>
-	<string name="screen_cloud_local_error_no_content_provider">Kullanılabilir ek konum yok.</string>
+	<string name="screen_cloud_local_error_no_content_provider">Dizinlerin açılmasını destekleyen dosya yöneticisi bulunamadı</string>
 	<!-- ## screen: webdav settings -->
 	<string name="screen_webdav_settings_url_port_label">URL</string>
 	<string name="screen_webdav_settings_username_label">Kullanıcı adı</string>
@@ -210,7 +209,7 @@
 	<!-- ## screen: authenticate cloud -->
 	<string name="screen_authenticate_auth_authentication_failed">%1$s kimliği doğrulanamadı.</string>
 	<string name="screen_update_pcloud_connections_title">pCloud kimlik bilgilerini güncelleyin</string>
-	<!-- ## screen: insecure android version info -->
+	<!-- ## screen: cryptomator app variants -->
 	<!-- # dialogs -->
 	<string name="dialog_button_cancel">İptal</string>
 	<string name="dialog_enter_password_positive_button">Kilidi Aç</string>
@@ -273,6 +272,8 @@
 	<string name="dialog_accept_ssl_certificate_hint">SSL sertifikası geçersiz. Yine de güvenmek istiyor musun?</string>
 	<string name="dialog_accept_ssl_certificate_details">Detaylar</string>
 	<string name="dialog_accept_ssl_certificate_security_checkbox">Bu bir güvenlik riski olabilir! Ne yaptığımı biliyorum.</string>
+	<string name="dialog_ask_ignore_battery_optimizations_title">Pil optimizasyonlarını devre dışı bırak</string>
+	<string name="dialog_ask_ignore_battery_optimizations_checkbox">Bir daha sorma?</string>
 	<string name="dialog_http_security_hint">HTTP\'nin kullanımı güvensizdir. Bunun yerine HTTPS kullanmanızı öneririz. Riskleri biliyorsanız, HTTP ile devam edebilirsiniz.</string>
 	<string name="dialog_http_security_checkbox">HTTPS\'ye geç</string>
 	<string name="dialog_http_security_title">HTTPS kullanılsın mı?</string>
@@ -284,17 +285,17 @@
 	<string name="dialog_debug_mode_disclaimer_hint">Bu modda, hassas veriler cihazınızdaki bir günlük dosyasına (örn. Dosya adları ve yolları) yazılabilir. Şifreler, tanımlama vb. bilgiler hariç tutulmuştur.\n\nHata ayıklama modunu mümkün olan en kısa sürede devre dışı bırakmayı unutmayın.</string>
 	<string name="dialog_debug_mode_disclaimer_title">Dikkat</string>
 	<string name="dialog_debug_mode_positive_button">Etkinleştir</string>
-	<string name="dialog_disable_app_obscured_disclaimer_hint">Bu ayar bir güvenlik özelliğidir ve diğer uygulamaların, kullanıcıları kandırmasını engeller.\n\nDevre dışı bırakarak, <a href="https://docs.cryptomator.org/en/1.5/android/settings/#block-app-when-obscured">risklerin farkında olduğunuzu onaylamış olursunuz</a>.</string>
+	<string name="dialog_disable_app_obscured_disclaimer_hint">Bu ayar bir güvenlik özelliğidir ve diğer uygulamaların, kullanıcıları kandırmasını engeller.\n\nDevre dışı bırakarak, <a href="https://docs.cryptomator.org/en/1.6/android/settings/#block-app-when-obscured">risklerin farkında olduğunuzu</a> onaylamış olursunuz.</string>
 	<string name="dialog_disable_app_obscured_disclaimer_title">Dikkat</string>
 	<string name="dialog_disable_app_obscured_positive_button">Devre dışı bırak</string>
 	<string name="dialog_app_is_obscured_info_title">Uygulama gizlendi</string>
-	<string name="dialog_app_is_obscured_info_hint">Cryptomator\'un üstünde çalışan bazı uygulamalar, (örn. Mavi ışık filtresi ve gece modu uygulamaları gibi) içeriği görüntüler! Bu nedenden dolayı, güvenlik amacıyla Cryptomator devre dışı bırakılır!\n\n<a href="https://docs.cryptomator.org/en/1.5/android/settings/#block-app-when-obscured">Cryptomator\'u tekrar nasıl etkinleştirebilirim?</a></string>
+	<string name="dialog_app_is_obscured_info_hint">Başka bir uygulama Cryptomator\'un üstünde birşeyler gösteriyor (örneğin, bir mavi ışık filtresi ya da gece modu uygulaması). Güvenlik nedeniyle, Cryptomator devre dışı bırakıldı.\n\n<a href="https://docs.cryptomator.org/en/1.6/android/settings/#block-app-when-obscured">Cryptomator nasıl etkinleştirilir</a></string>
 	<string name="dialog_app_is_obscured_info_neutral_button">Kapat</string>
 	<string name="dialog_vaults_removed_during_migration_title">Lütfen %1s bulutu için kasaları yeniden ekleyin</string>
 	<string name="dialog_vaults_removed_during_migration_hint">Bu uygulama sürümüne geçiş yaparken aşağıdaki kasaları uygulamadan kaldırmamız gerekiyor:\n%2s \n\nBu kasalar buluttan değil, yalnızca bu uygulamadan kaldırılır. Rahatsızlık için özür dileriz ve onlarla çalışmaya devam etmek için lütfen bu kasaları yeniden ekleyin.</string>
 	<string name="dialog_vault_is_root_folder_of_cloud_title">Vault, bulut bağlantısının kök klasörüdür</string>
 	<string name="dialog_vault_is_root_folder_of_cloud_hint">Bu kasayı eklemek için kök dizin olarak bu kasa klasörünün en azından üst klasörünü seçtiğiniz yeni bir bulut bağlantısı oluşturun.</string>
-	<string name="dialog_disable_secure_screen_disclaimer_hint">Bu ayar bir güvenlik özelliğidir ve diğer uygulamaların, kullanıcıları kandırmasını engeller.\n\nDevre dışı bırakarak, <a href="https://docs.cryptomator.org/en/1.5/android/settings/#screen-security">risklerin farkında olduğunuzu onaylamış olursunuz</a>.</string>
+	<string name="dialog_disable_secure_screen_disclaimer_hint">Bu ayar bir güvenlik özelliğidir ve diğer uygulamaların, kullanıcıları kandırmasını engeller.\n\nDevre dışı bırakarak, <a href="https://docs.cryptomator.org/en/1.6/android/settings/#screen-security">risklerin farkında olduğunuzu</a> onaylamış olursunuz.</string>
 	<string name="dialog_delete_cloud_connection_with_vaults_message">Bu bulut bağlantısını kaldırmak istediğinizden emin misiniz?</string>
 	<string name="dialog_delete_cloud_connection_with_vaults_hint">Bu işlem, bulut bağlantısını ve bu bulutun tüm kasalarını kaldıracak.</string>
 	<string name="dialog_confirm_delete_multiple_title">%1$d öğe silinsin mi?</string>
@@ -306,6 +307,7 @@
 	<string name="dialog_enter_license_title">Geçerli bir lisans sağlayın</string>
 	<string name="dialog_enter_license_content">Cryptomator\'u Google Play Store kullanmadan yüklediğinizi tespit ettik. https://cryptomator.org/android/ adresinden satın alınabilecek geçerli bir lisans edinin lütfen.</string>
 	<string name="dialog_enter_license_not_valid_content">Sağlanan lisans geçerli değil. Doğru girdiğinizden emin olun.</string>
+	<string name="dialog_enter_license_not_valid_content_desktop_supporter_certificate">Sağlanan anahtar, bir masaüstü destek sertifikasıdır. Lütfen geçerli bir lisans girin.</string>
 	<string name="dialog_enter_license_no_content">Lisans verilmemiştir. Lütfen geçerli bir lisans girin.</string>
 	<string name="dialog_enter_license_decline_button">Çıkış</string>
 	<string name="dialog_license_confirmation_title">Lisans onayı</string>
@@ -324,7 +326,6 @@
 	<string name="dialog_no_dir_file_message">\'%1$s\' bulut klasörü geçerli bir dizin dosyasına sahip değil. Klasör başka bir cihazda oluşturulmuş ve henüz bulutla tam olarak senkronize edilmemiş olabilir. Lütfen bulutunuzda aşağıdaki dosyanın olup olmadığını ve boş olup olmadığını kontrol edin:\n%2$s</string>
 	<string name="dialog_no_more_images_to_display">&#8230; göstermek için daha fazla resim yok</string>
 	<string name="dialog_pcloud_credentials_updated_title">%1$s kimlik bilgileri güncellendi</string>
-	<string name="dialog_pcloud_credentials_updated">Yeni bir pCloud hesabı eklemeyi düşünüyorsanız, bu url <a href="https://www.pcloud.com">www.pcloud.com</a> tıklayın, mevcut hesaptan çıkın ve yeni bir bulut bağlantısı oluşturmak için \'+\'. tekrar tıklayın.</string>
 	<string name="permission_snackbar_auth_local_vault">Cryptomator\'un yerel kasaları kullanmak için depolama erişimine ihtiyacı var</string>
 	<string name="permission_snackbar_auth_auto_upload">Cryptomator\'un otomatik fotoğraf yüklemesi için depolama erişimine ihtiyacı var</string>
 	<!-- # error reports -->
@@ -406,6 +407,4 @@
 	<string name="dark">Karanlık</string>
 	<!-- update interval names -->
 	<string name="update_interval_1d">Günde bir</string>
-	<string name="update_interval_1w">Haftada bir</string>
-	<string name="update_interval_1m">Ayda bir</string>
 </resources>

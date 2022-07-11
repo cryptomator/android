@@ -16,6 +16,7 @@ import org.cryptomator.domain.CloudNode
 import org.cryptomator.domain.exception.AlreadyExistException
 import org.cryptomator.domain.exception.BackendException
 import org.cryptomator.domain.exception.EmptyDirFileException
+import org.cryptomator.domain.exception.NoDirFileException
 import org.cryptomator.domain.exception.NoSuchCloudFileException
 import org.cryptomator.domain.exception.ParentFolderIsNullException
 import org.cryptomator.domain.repository.CloudContentRepository
@@ -27,7 +28,6 @@ import java.io.ByteArrayOutputStream
 import java.nio.charset.StandardCharsets
 import java.util.function.Supplier
 import java.util.regex.Pattern
-import kotlin.streams.toList
 import timber.log.Timber
 
 internal class CryptoImplVaultFormatPre7(
@@ -44,7 +44,7 @@ internal class CryptoImplVaultFormatPre7(
 	@Throws(BackendException::class)
 	override fun folder(cryptoParent: CryptoFolder, cleartextName: String): CryptoFolder {
 		val dirFileName = encryptFolderName(cryptoParent, cleartextName)
-		val dirFile = cloudContentRepository.file(dirIdInfo(cryptoParent).cloudFolder, dirFileName)
+		val dirFile = cloudContentRepository.file(getOrCreateCachingAwareDirIdInfo(cryptoParent).cloudFolder, dirFileName)
 		return folder(cryptoParent, cleartextName, dirFile)
 	}
 
@@ -52,7 +52,7 @@ internal class CryptoImplVaultFormatPre7(
 	override fun create(folder: CryptoFolder): CryptoFolder {
 		requireNotNull(folder.dirFile)
 		assertCryptoFolderAlreadyExists(folder)
-		val dirIdInfo = dirIdInfo(folder)
+		val dirIdInfo = getOrCreateCachingAwareDirIdInfo(folder)
 		val createdCloudFolder = cloudContentRepository.create(dirIdInfo.cloudFolder)
 		val dirId = dirIdInfo.id.toByteArray(StandardCharsets.UTF_8)
 		val createdDirFile = cloudContentRepository.write(folder.dirFile, from(dirId), ProgressAware.NO_OP_PROGRESS_AWARE_UPLOAD, false, dirId.size.toLong())
@@ -68,7 +68,7 @@ internal class CryptoImplVaultFormatPre7(
 
 	@Throws(BackendException::class)
 	private fun encryptName(cryptoParent: CryptoFolder, name: String, prefix: String): String {
-		var ciphertextName = prefix + cryptor().fileNameCryptor().encryptFilename(BaseEncoding.base32(), name, dirIdInfo(cryptoParent).id.toByteArray(StandardCharsets.UTF_8))
+		var ciphertextName = prefix + cryptor().fileNameCryptor().encryptFilename(BaseEncoding.base32(), name, getOrCreateCachingAwareDirIdInfo(cryptoParent).id.toByteArray(StandardCharsets.UTF_8))
 		if (ciphertextName.length > shorteningThreshold) {
 			ciphertextName = deflate(ciphertextName)
 		}
@@ -120,8 +120,8 @@ internal class CryptoImplVaultFormatPre7(
 
 	@Throws(BackendException::class)
 	override fun list(cryptoFolder: CryptoFolder): List<CryptoNode> {
-		val dirIdInfo = dirIdInfo(cryptoFolder)
-		val dirId = dirIdInfo(cryptoFolder).id
+		val dirIdInfo = getDirIdInfo(cryptoFolder) ?: throw NoDirFileException(cryptoFolder.name, cryptoFolder.dirFile?.path)
+		val dirId = dirIdInfo.id
 		val lvl2Dir = dirIdInfo.cloudFolder
 		return cloudContentRepository
 			.list(lvl2Dir)
@@ -198,7 +198,7 @@ internal class CryptoImplVaultFormatPre7(
 	@Throws(BackendException::class)
 	override fun symlink(cryptoParent: CryptoFolder, cleartextName: String, target: String): CryptoSymlink {
 		val ciphertextName = encryptSymlinkName(cryptoParent, cleartextName)
-		val cloudFile = cloudContentRepository.file(dirIdInfo(cryptoParent).cloudFolder, ciphertextName)
+		val cloudFile = cloudContentRepository.file(getOrCreateCachingAwareDirIdInfo(cryptoParent).cloudFolder, ciphertextName)
 		return CryptoSymlink(cryptoParent, cleartextName, path(cryptoParent, cleartextName), target, cloudFile)
 	}
 
@@ -237,9 +237,13 @@ internal class CryptoImplVaultFormatPre7(
 			requireNotNull(node.dirFile)
 			val cryptoSubfolders = deepCollectSubfolders(node)
 			for (cryptoSubfolder in cryptoSubfolders) {
-				cloudContentRepository.delete(dirIdInfo(cryptoSubfolder).cloudFolder)
+				getCachingAwareDirIdInfo(cryptoSubfolder)?.let {
+					cloudContentRepository.delete(it.cloudFolder)
+				} ?: Timber.tag("CryptoFs").w("Dir file doesn't exists of a sub folder while deleting the parent, continue anyway")
 			}
-			cloudContentRepository.delete(dirIdInfo(node).cloudFolder)
+			getCachingAwareDirIdInfo(node)?.let {
+				cloudContentRepository.delete(it.cloudFolder)
+			} ?: Timber.tag("CryptoFs").w("Dir file doesn't exists while deleting the folder, continue anyway")
 			cloudContentRepository.delete(node.dirFile)
 			evictFromCache(node)
 		} else if (node is CryptoFile) {
@@ -248,20 +252,26 @@ internal class CryptoImplVaultFormatPre7(
 	}
 
 	@Throws(BackendException::class, EmptyDirFileException::class)
-	override fun loadDirId(folder: CryptoFolder): String {
+	override fun loadDirId(folder: CryptoFolder): String? {
 		return if (isRoot(folder)) {
 			CryptoConstants.ROOT_DIR_ID
 		} else if (folder.dirFile != null && cloudContentRepository.exists(folder.dirFile)) {
 			String(loadContentsOfDirFile(folder), StandardCharsets.UTF_8)
 		} else {
-			newDirId()
+			null
 		}
 	}
 
 	@Throws(BackendException::class)
-	override fun createDirIdInfo(folder: CryptoFolder): DirIdInfo {
-		val dirId = loadDirId(folder)
+	override fun getOrCreateDirIdInfo(folder: CryptoFolder): DirIdInfo {
+		val dirId = loadDirId(folder) ?: newDirId()
 		return dirIdCache.put(folder, createDirIdInfoFor(dirId))
+	}
+
+	override fun getDirIdInfo(folder: CryptoFolder): DirIdInfo? {
+		return loadDirId(folder)?.let {
+			dirIdCache.put(folder, createDirIdInfoFor(it))
+		}
 	}
 
 	@Throws(BackendException::class)

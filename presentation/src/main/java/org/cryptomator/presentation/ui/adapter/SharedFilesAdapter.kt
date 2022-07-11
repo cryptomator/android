@@ -1,21 +1,22 @@
 package org.cryptomator.presentation.ui.adapter
 
+import android.content.Context
 import android.text.Editable
 import android.text.TextWatcher
 import android.view.View
+import androidx.appcompat.content.res.AppCompatResources
 import org.cryptomator.presentation.R
 import org.cryptomator.presentation.model.SharedFileModel
 import org.cryptomator.presentation.ui.adapter.SharedFilesAdapter.FileViewHolder
 import org.cryptomator.presentation.util.FileIcon
 import org.cryptomator.presentation.util.FileUtil
 import org.cryptomator.util.Comparators
-import java.util.HashSet
 import javax.inject.Inject
-import kotlinx.android.synthetic.main.item_shared_files.view.fileImage
 import kotlinx.android.synthetic.main.item_shared_files.view.fileName
+import kotlinx.android.synthetic.main.item_shared_files.view.til_file_name
 
 class SharedFilesAdapter @Inject
-constructor(private val fileUtil: FileUtil) : RecyclerViewBaseAdapter<SharedFileModel, SharedFilesAdapter.Callback, FileViewHolder>(Comparators.naturalOrder()) {
+constructor(private val fileUtil: FileUtil, private val context: Context) : RecyclerViewBaseAdapter<SharedFileModel, SharedFilesAdapter.Callback, FileViewHolder>(Comparators.naturalOrder()) {
 
 	interface Callback {
 
@@ -55,7 +56,7 @@ constructor(private val fileUtil: FileUtil) : RecyclerViewBaseAdapter<SharedFile
 				itemView.fileName.removeTextChangedListener(et_file_name_watcher)
 			}
 			val file = getItem(position)
-			itemView.fileImage.setImageResource(bindFileIcon(file.fileName))
+			itemView.til_file_name.startIconDrawable = AppCompatResources.getDrawable(context, FileIcon.fileIconFor(file.fileName, fileUtil).iconResource)
 			itemView.fileName.setText(file.fileName)
 			et_file_name_watcher = object : TextWatcher {
 				override fun beforeTextChanged(s: CharSequence, start: Int, count: Int, after: Int) {
@@ -72,10 +73,6 @@ constructor(private val fileUtil: FileUtil) : RecyclerViewBaseAdapter<SharedFile
 				}
 			}
 			itemView.fileName.addTextChangedListener(et_file_name_watcher)
-		}
-
-		private fun bindFileIcon(fileName: String): Int {
-			return FileIcon.fileIconFor(fileName, fileUtil).iconResource
 		}
 	}
 

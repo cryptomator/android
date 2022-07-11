@@ -9,7 +9,8 @@
 	<string name="error_no_network_connection">无网络连接</string>
 	<string name="error_invalid_passphrase">密码错误</string>
 	<string name="error_file_or_folder_exists">文件(夹)已存在</string>
-	<string name="error_vault_version_not_supported">不受支持！此保险库经由另一版 Cryptomator 所创建</string>
+	<string name="error_vault_version_not_supported">不支持的保险库版本 %1$s。这可能是使用太新或太旧的 Cryptomator 版本创建的保险库。</string>
+	<string name="error_vault_config_file_missing_due_to_format_999">您的保险库文件夹中缺少 %1$s 文件。请确保您的云端的保险库文件夹中存在该文件。</string>
 	<string name="error_vault_already_exists">保险库已存在</string>
 	<string name="error_no_such_file">文件不存在</string>
 	<string name="error_vault_has_been_locked">保险库已锁定</string>
@@ -59,7 +60,6 @@
 	<string name="screen_vault_list_action_create_new_vault">添加新保险库</string>
 	<string name="screen_vault_list_action_add_existing_vault">添加现有保险库</string>
 	<string name="screen_vault_list_vault_action_delete">删除</string>
-	<string name="screen_vault_list_vault_creation_hint">点击此处新建一个保险库</string>
 	<string name="screen_vault_list_change_password_successful">密码修改成功</string>
 	<!-- # screen: file browser -->
 	<string name="screen_file_browser_default_title">保险库</string>
@@ -113,9 +113,8 @@
 	<string name="screen_choose_cloud_service_title">云服务</string>
 	<!-- ## screen: cloud connections -->
 	<string name="screen_cloud_connections_title">请选择位置</string>
-	<string name="screen_cloud_connections_no_connections">点击此处添加位置</string>
 	<string name="screen_cloud_error_webdav_not_supported">服务器似乎不兼容 WebDAV</string>
-	<string name="screen_cloud_local_error_no_content_provider">无可用其他位置</string>
+	<string name="screen_cloud_local_error_no_content_provider">没有找到支持打开目录的文件管理器</string>
 	<!-- ## screen: webdav settings -->
 	<string name="screen_webdav_settings_url_port_label">URL</string>
 	<string name="screen_webdav_settings_username_label">用户名</string>
@@ -159,20 +158,20 @@
 	<string name="screen_settings_activate_biometric_auth">启用生物识别认证</string>
 	<string name="screen_settings_confirm_face_unlock">确认人脸解锁 (如果有)</string>
 	<string name="screen_settings_block_app_when_obscured">被遮罩 (比如某些护眼应用) 时停用 Cryptomator</string>
-	<string name="screen_settings_block_app_when_obscured_summary">阻止 \"输入拦截以及显示错误/诱导性的用户界面\"</string>
+	<string name="screen_settings_block_app_when_obscured_summary">阻止 \"输入拦截以及显示错误、诱导性的用户界面\"</string>
 	<string name="screen_settings_secure_screen">防截屏</string>
 	<string name="screen_settings_secure_screen_summary">在最近任务和应用内阻止截图</string>
 	<string name="screen_settings_section_search">搜索</string>
 	<string name="screen_settings_live_search">实时搜索</string>
-	<string name="screen_settings_live_search_summary">边输入边更新搜索结果</string>
+	<string name="screen_settings_live_search_summary">随输入实时更新搜索结果</string>
 	<string name="screen_settings_glob_search">使用 glob 模式搜索</string>
 	<string name="screen_settings_glob_search_summary">使用诸如 alice.*.jpg 的 glob 模式匹配</string>
 	<string name="screen_settings_section_auto_lock">自动锁定</string>
 	<string name="screen_settings_auto_lock_timeout">超时锁定</string>
-	<string name="screen_settings_auto_lock_on_screen_lock">息屏后</string>
+	<string name="screen_settings_auto_lock_on_screen_lock">屏幕锁定后</string>
 	<string name="screen_settings_section_auto_photo_upload">自动上传图片</string>
 	<string name="screen_settings_section_auto_photo_upload_vault">选择目标保险库</string>
-	<string name="screen_settings_section_auto_photo_upload_toggle">激活</string>
+	<string name="screen_settings_section_auto_photo_upload_toggle">启用</string>
 	<string name="screen_settings_section_auto_photo_upload_toggle_summary">后台感知图片，一旦目标保险库解锁即开始上传</string>
 	<string name="screen_settings_section_auto_photo_upload_toggle_instant_upload">实时上传</string>
 	<string name="screen_settings_section_auto_photo_upload_toggle_instant_upload_summary">解锁保险库后直接上传</string>
@@ -209,7 +208,7 @@
 	<!-- ## screen: authenticate cloud -->
 	<string name="screen_authenticate_auth_authentication_failed">%1$s 无法通过身份验证</string>
 	<string name="screen_update_pcloud_connections_title">更新 pCloud 凭证</string>
-	<!-- ## screen: insecure android version info -->
+	<!-- ## screen: cryptomator app variants -->
 	<!-- # dialogs -->
 	<string name="dialog_button_cancel">取消</string>
 	<string name="dialog_enter_password_positive_button">解锁</string>
@@ -272,6 +271,8 @@
 	<string name="dialog_accept_ssl_certificate_hint">SSL 证书无效，仍要信任它吗？</string>
 	<string name="dialog_accept_ssl_certificate_details">详情</string>
 	<string name="dialog_accept_ssl_certificate_security_checkbox">这可能存在安全风险，我知道我在做什么</string>
+	<string name="dialog_ask_ignore_battery_optimizations_title">禁用电池优化</string>
+	<string name="dialog_ask_ignore_battery_optimizations_checkbox">不要再次询问我？</string>
 	<string name="dialog_http_security_hint">HTTP 不安全，我们建议使用 HTTPS。如果您知道其中风险，您可以继续使用 HTTP</string>
 	<string name="dialog_http_security_checkbox">换成 HTTPS</string>
 	<string name="dialog_http_security_title">使用 HTTPS?</string>
@@ -280,20 +281,20 @@
 	<string name="dialog_no_screen_lock_checkbox">设置屏幕锁</string>
 	<string name="dialog_no_biometric_auth_set_up_title">系统中未设置基本身份验证</string>
 	<string name="dialog_no_biometric_auth_set_up_message">注册至少一个指纹/面部以使用此服务</string>
-	<string name="dialog_debug_mode_disclaimer_hint">在此模式下，敏感数据可能会写入您设备上的日志文件 (例如文件名和路径)。密码、cookies等除外\n\n请记住尽快关闭调试模式</string>
+	<string name="dialog_debug_mode_disclaimer_hint">在此模式下，敏感数据可能会写入您设备上的日志文件 (例如文件名和路径)。密码、cookies等除外\n\n请记住要尽快关闭调试模式</string>
 	<string name="dialog_debug_mode_disclaimer_title">请注意</string>
 	<string name="dialog_debug_mode_positive_button">启用</string>
-	<string name="dialog_disable_app_obscured_disclaimer_hint">此为一项安全功能，可防止其他应用诱使用户做出错误操作\n\n如果禁用，即表示您了解<a href="https://docs.cryptomator.org/en/1.5/android/settings/#block-app-when-obscured">其中风险</a></string>
+	<string name="dialog_disable_app_obscured_disclaimer_hint">此为一项安全功能，可防止其他应用诱使用户做出错误操作\n\n如果禁用，即表示您了解<a href="https://docs.cryptomator.org/en/1.6/android/settings/#block-app-when-obscured">其中风险</a></string>
 	<string name="dialog_disable_app_obscured_disclaimer_title">请注意</string>
 	<string name="dialog_disable_app_obscured_positive_button">关闭</string>
 	<string name="dialog_app_is_obscured_info_title">应用被遮蔽</string>
-	<string name="dialog_app_is_obscured_info_hint">另一应用正遮罩在 Cryptomator 之上 (例如蓝色光滤镜或夜间模式应用)。出于安全考虑，Cryptomator 已禁用\n\n<a href="https://docs.cryptomator.org/en/1.5/android/settings/#block-app-when-obscured">如何启用 Cryptomator</a></string>
+	<string name="dialog_app_is_obscured_info_hint">另一应用正遮罩在 Cryptomator 之上 (例如蓝色光滤镜或夜间模式应用)。出于安全考虑，Cryptomator 已禁用\n\n<a href="https://docs.cryptomator.org/en/1.6/android/settings/#block-app-when-obscured">如何启用 Cryptomator</a></string>
 	<string name="dialog_app_is_obscured_info_neutral_button">关闭</string>
 	<string name="dialog_vaults_removed_during_migration_title">请重新添加 %1s 的保险库</string>
 	<string name="dialog_vaults_removed_during_migration_hint">在进行应用版本迁移前，我们需要从应用中移除下列保险库：\n%2s \n\n这些保险库并不会从云端移除，仅仅是针对当前应用版本，抱歉给您带来不便，请重新添加这些保险库以便继续使之生效。</string>
 	<string name="dialog_vault_is_root_folder_of_cloud_title">保险库是云端的根文件夹</string>
 	<string name="dialog_vault_is_root_folder_of_cloud_hint">创建一个新的云端连接时，您需要选择这个保险库文件夹的父文件夹作为根目录来添加这个保险库。</string>
-	<string name="dialog_disable_secure_screen_disclaimer_hint">此为一项安全功能，可防止其他应用诱使用户做出错误操作\n\n如果禁用，即表示您了解<a href="https://docs.cryptomator.org/en/1.5/android/settings/#screen-security">其中风险</a></string>
+	<string name="dialog_disable_secure_screen_disclaimer_hint">此为一项安全功能，可防止其他应用诱使用户做出错误操作\n\n如果禁用，即表示您了解<a href="https://docs.cryptomator.org/en/1.6/android/settings/#screen-security">其中风险</a></string>
 	<string name="dialog_delete_cloud_connection_with_vaults_message">您确定要移除此云连接吗？</string>
 	<string name="dialog_delete_cloud_connection_with_vaults_hint">此操作将移除云连接以及与之相关的所有保险库</string>
 	<string name="dialog_confirm_delete_multiple_title">删除 %1$d 项？</string>
@@ -305,6 +306,7 @@
 	<string name="dialog_enter_license_title">请提供有效许可证</string>
 	<string name="dialog_enter_license_content">我们检测到您在没有使用 Play 商店的情况下安装了 Cryptomator。请提供有效许可证，可前往 <a href="https://cryptomator.org/android/">https://cryptomator.org/android/</a> 购买</string>
 	<string name="dialog_enter_license_not_valid_content">提供的许可证无效，请确保输入正确</string>
+	<string name="dialog_enter_license_not_valid_content_desktop_supporter_certificate">提供的密钥为桌面版赞助者证书。请输入有效的许可证。</string>
 	<string name="dialog_enter_license_no_content">未提供许可证，请输入有效许可证</string>
 	<string name="dialog_enter_license_decline_button">退出</string>
 	<string name="dialog_license_confirmation_title">授权通过</string>
@@ -323,7 +325,6 @@
 	<string name="dialog_no_dir_file_message">云文件夹 \'%1$s\' 没有有效的目录文件。可能文件夹是在另一设备上创建的，尚未完全同步到云端。请检查云端是否存在且不为空的以下文件：\n%2$s</string>
 	<string name="dialog_no_more_images_to_display">已到达文件夹末尾&#8230;</string>
 	<string name="dialog_pcloud_credentials_updated_title">\'%1$s\' 的证书已更新</string>
-	<string name="dialog_pcloud_credentials_updated">如果您打算添加一个新的 pCloud 帐户，请点击此链接 <a href="https://www.pcloud.com">www.pcloud.com</a>，登出当前账户，然后点击此应用中的 \'+\' 来创建新的云连接</string>
 	<string name="permission_snackbar_auth_local_vault">Cryptomator 需要存储权限以使用本地保险库</string>
 	<string name="permission_snackbar_auth_auto_upload">Cryptomator 需要存储权限以自动上传图片</string>
 	<!-- # error reports -->
@@ -405,6 +406,4 @@
 	<string name="dark">深色</string>
 	<!-- update interval names -->
 	<string name="update_interval_1d">每天一次</string>
-	<string name="update_interval_1w">每周一次</string>
-	<string name="update_interval_1m">每月一次</string>
 </resources>

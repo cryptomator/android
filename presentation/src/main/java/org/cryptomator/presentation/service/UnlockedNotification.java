@@ -16,7 +16,6 @@ import org.cryptomator.presentation.util.ResourceHelper;
 import timber.log.Timber;
 
 import static android.app.NotificationManager.IMPORTANCE_LOW;
-import static android.app.PendingIntent.FLAG_CANCEL_CURRENT;
 import static android.content.Intent.ACTION_MAIN;
 import static android.content.Intent.FLAG_ACTIVITY_CLEAR_TASK;
 import static android.content.Intent.FLAG_ACTIVITY_NEW_TASK;
@@ -53,7 +52,7 @@ class UnlockedNotification {
 		}
 
 		this.builder = new NotificationCompat.Builder(service, NOTIFICATION_CHANNEL_ID) //
-				.setSmallIcon(R.drawable.background_splash_cryptomator) //
+				.setSmallIcon(R.drawable.ic_notification) //
 				.setColor(ResourceHelper.Companion.getColor(R.color.colorPrimary)) //
 				.addAction(lockNowAction()) //
 				.setGroup(NOTIFICATION_GROUP_KEY) //
@@ -73,15 +72,15 @@ class UnlockedNotification {
 		return PendingIntent.getService( //
 				service.getApplicationContext(), //
 				0, //
-				CryptorsService.lockAllIntent(service.getApplicationContext()), //
-				FLAG_CANCEL_CURRENT);
+				CryptorsService.lockAllIntent(service.getApplicationContext()),
+				PendingIntent.FLAG_CANCEL_CURRENT | PendingIntent.FLAG_IMMUTABLE);
 	}
 
 	private PendingIntent startTheActivity() {
 		Intent startTheActivity = new Intent(service, VaultListActivity.class);
 		startTheActivity.setAction(ACTION_MAIN);
 		startTheActivity.setFlags(FLAG_ACTIVITY_CLEAR_TASK | FLAG_ACTIVITY_NEW_TASK);
-		return PendingIntent.getActivity(service, 0, startTheActivity, 0);
+		return PendingIntent.getActivity(service, 0, startTheActivity, PendingIntent.FLAG_IMMUTABLE);
 	}
 
 	public void setUnlockedCount(int unlocked) {

@@ -1,0 +1,216 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+	<!-- # app -->
+	<string name="share_with_label">Cifrar</string>
+	<!-- # error messages -->
+	<string name="error_generic">Produciuse un erro</string>
+	<string name="error_authentication_failed">Fallo na autenticación</string>
+	<string name="error_authentication_failed_re_authenticate">Fallo na autenticación, por favor acceda usando %1$s</string>
+	<string name="error_no_network_connection">Non hai conexión de rede</string>
+	<string name="error_invalid_passphrase">Contrasinal incorrecto</string>
+	<string name="error_file_or_folder_exists">Ficheiro ou cartafol xa existente.</string>
+	<string name="error_vault_already_exists">Caixa forte xa existente.</string>
+	<string name="error_no_such_file">O ficheiro non existe.</string>
+	<string name="error_vault_has_been_locked">A caixa forte foi bloqueada.</string>
+	<string name="error_cloud_already_exists">Nube xa existente.</string>
+	<string name="error_activity_not_found">Por favor, descargue unha aplicación que poida abrir o ficheiro.</string>
+	<string name="error_server_not_found">Servidor non atopado.</string>
+	<string name="error_device_policy_manager_not_found">Por favor, abra a configuración do dispositivo e defina o bloqueo de pantalla manualmente</string>
+	<string name="error_export_illegal_file_name">Fallo na exportación. Tente borrar caracteres especiais do nome do ficheiro e exporte de novo.</string>
+	<string name="error_name_contains_invalid_characters">Non pode conter caracteres especiais.</string>
+	<string name="error_names_contains_invalid_characters">Os nomes de ficheiro non poden conter caracteres especiais.</string>
+	<string name="error_vault_name_contains_invalid_characters">O nome da caixa forte non pode conter caracteres especiais.</string>
+	<string name="error_general_update">Fallo na comprobación de actualización. Ocorreu un erro xeral.</string>
+	<string name="error_hash_mismatch_update">Fallo na comprobación de actualización. O hash calculado non coincide co do ficheiro subido</string>
+	<string name="error_update_no_internet">Fallo na comprobación de actualización. Non hai conexión a Internet.</string>
+	<string name="error_failed_to_decrypt_webdav_password">Fallo ao descifrar o contrasinal WebDAV, por favor engádao de novo en axustes</string>
+	<string name="error_play_services_not_available">Google Play Services non está instalado</string>
+	<string name="error_biometric_auth_aborted">Autenticación biométrica abortada</string>
+	<string name="error_vault_version_mismatch">A versión especificada en %1$s é diferente a %2$s</string>
+	<string name="error_vault_key_invalid">%1$s non coincide con esta %2$s</string>
+	<string name="error_vault_config_loading">Erro xeral cargando a configuración da caixa forte</string>
+	<string name="error_file_not_found_after_opening_using_3party">O ficheiro local xa non está presente ao volver a Cryptomator. Os posíbeis cambios non poden ser propagados de volta á nube.</string>
+	<string name="error_no_such_bucket">Non existe tal bucket</string>
+	<string name="error_masterkey_location_not_supported">A localización personalizada de chave mestra aínda non está soportada</string>
+	<!-- # clouds -->
+	<!-- ## cloud names -->
+	<string name="cloud_names_local_storage">Almacenamento local</string>
+	<!-- # permission -->
+	<!-- ## permission messages -->
+	<string name="permission_message_export_file">Cryptomator require acceso ao almacenamento para exportar ficheiros</string>
+	<string name="permission_message_upload_file">Cryptomator require acceso ao almacenamento para subir ficheiros</string>
+	<string name="permission_message_share_file">Cryptomator require acceso ao almacenamento para compartir ficheiros</string>
+	<string name="permission_revoked_re_request_permission">Cryptomator perdeu o permiso para acceder a esta localización. Por favor, seleccione este cartafol de novo para restaurar o permiso.</string>
+	<string name="snack_bar_action_title_settings">Axustes</string>
+	<string name="snack_bar_action_title_search">Buscar</string>
+	<string name="snack_bar_action_title_search_previous">Anterior</string>
+	<string name="snack_bar_action_title_search_next">Seguinte</string>
+	<string name="snack_bar_action_title_sort">Ordenar</string>
+	<string name="snack_bar_action_title_sort_az">A - Z</string>
+	<string name="snack_bar_action_title_sort_za">Z - A</string>
+	<string name="snack_bar_action_title_sort_newest">Mais recentes primeiro</string>
+	<string name="snack_bar_action_title_sort_oldest">Mais antigos primeiro</string>
+	<string name="snack_bar_action_title_sort_biggest">Mais grandes primeiro</string>
+	<string name="snack_bar_action_title_sort_smallest">Mais pequenos primeiro</string>
+	<!-- # screens -->
+	<!-- # screen: vault list -->
+	<string name="screen_vault_list_actions_title">Engadir a Cryptomator</string>
+	<string name="screen_vault_list_action_create_new_vault">Crear unha nova caixa forte</string>
+	<string name="screen_vault_list_action_add_existing_vault">Engadir unha caixa forte xa existente</string>
+	<string name="screen_vault_list_vault_action_delete">Eliminar</string>
+	<string name="screen_vault_list_change_password_successful">O contrasinal cambiouse correctamente</string>
+	<!-- # screen: file browser -->
+	<string name="screen_file_browser_default_title">Caixa forte</string>
+	<string name="screen_file_browser_add_existing_vault_extra_text">Seleccione o ficheiro da chave mestra</string>
+	<string name="screen_file_browser_create_new_vault_button_text">Colocar aquí</string>
+	<string name="screen_file_browser_create_new_vault_extra_text">Nome da caixa forte: %1$s</string>
+	<plurals name="screen_file_browser_subtitle_move">
+		<item quantity="one">Mover %1$s a</item>
+		<item quantity="other">Mover %2$d elementos a</item>
+	</plurals>
+	<string name="screen_file_browser_move_button_text">Mover</string>
+	<string name="screen_file_browser_msg_empty_folder">Cartafol baleiro</string>
+	<string name="screen_file_browser_file_info_label_date">modificado fai %1$s</string>
+	<string name="screen_file_browser_share_intent_chooser_title">Compartir con</string>
+	<string name="screen_file_browser_share_destination_title">Seleccione un destino</string>
+	<string name="screen_file_browser_share_button_text">Seleccionar</string>
+	<string name="screen_file_browser_nothing_to_share">Non hai nada para compartir</string>
+	<string name="screen_file_browser_actions_title">Engadir a %1$s</string>
+	<string name="screen_file_browser_action_create_folder">Crear cartafol</string>
+	<string name="screen_file_browser_action_create_new_text_file">Crear un ficheiro de texto</string>
+	<string name="screen_file_browser_action_upload_files">Subir ficheiros</string>
+	<string name="screen_file_browser_upload_files_chooser_title">Ficheiros</string>
+	<string name="screen_file_browser_msg_file_exported">Ficheiro exportado</string>
+	<string name="screen_file_browser_msg_files_exported">Ficheiros exportados</string>
+	<string name="screen_file_browser_nothing_to_export">Non hai nada para exportar</string>
+	<string name="screen_file_browser_msg_creating_download_dir_failed">Fallo ao crear o cartafol de descarga</string>
+	<string name="screen_file_browser_node_action_share">Compartir</string>
+	<string name="screen_file_browser_node_action_rename">Cambiar o nome</string>
+	<string name="screen_file_browser_node_action_edit_text">Editar</string>
+	<string name="screen_file_browser_node_action_export">Exportar</string>
+	<string name="screen_file_browser_node_action_delete">Eliminar</string>
+	<string name="screen_file_browser_node_action_open_with_text">Abrir con&#8230;</string>
+	<string name="screen_file_browser_selection_mode_title_zero_elements">Seleccionar elementos</string>
+	<string name="screen_file_browser_selection_mode_title_one_or_more_elements">%1$d seleccionados</string>
+	<string name="screen_file_browser_select_items">Seleccionar</string>
+	<string name="screen_file_browser_select_all_items">Seleccionar todo</string>
+	<string name="screen_file_browser_refresh_items">Actualizar</string>
+	<string name="screen_file_browser_no_connection_message">Sen conexión</string>
+	<string name="screen_file_browser_no_connection_button_text">Tentar de novo</string>
+	<!-- ## screen: text editor -->
+	<string name="screen_text_editor_save_success">Gardado correctamente</string>
+	<!-- ## screen: share files -->
+	<string name="screen_share_files_title">Gardar %1$s en&#8230;</string>
+	<string name="screen_share_files_content_text">texto</string>
+	<string name="screen_share_files_content_file">ficheiro</string>
+	<string name="screen_share_files_content_files">ficheiros</string>
+	<string name="screen_share_files_msg_filenames_must_be_unique">Os nomes de ficheiro han de ser únicos, por favor cambie o nome dos duplicados.</string>
+	<string name="screen_share_files_section_location">Gardar localización</string>
+	<string name="screen_share_files_save_button_text">Gardar</string>
+	<string name="screen_share_files_msg_success">Cifrado completado</string>
+	<!-- ## screen: choose cloud service -->
+	<string name="screen_choose_cloud_service_title">Servizo na nube</string>
+	<!-- ## screen: cloud connections -->
+	<string name="screen_cloud_connections_title">Elixir unha localización</string>
+	<string name="screen_cloud_error_webdav_not_supported">O servidor non é compatíbel con WebDAV</string>
+	<string name="screen_cloud_local_error_no_content_provider">Non se atopa ningún xestor de ficheiros que soporte abrir cartafois</string>
+	<!-- ## screen: webdav settings -->
+	<string name="screen_webdav_settings_url_port_label">URL</string>
+	<string name="screen_webdav_settings_username_label">Nome de usuario</string>
+	<string name="screen_webdav_settings_password_label">Contrasinal</string>
+	<string name="screen_webdav_settings_done_button_text">Conectar</string>
+	<string name="screen_webdav_settings_msg_url_must_not_be_empty">A URL non pode ficar baleira.</string>
+	<string name="screen_webdav_settings_msg_url_is_invalid">A URL non é válida.</string>
+	<string name="screen_webdav_settings_msg_username_must_not_be_empty">O nome de usuario non pode ficar baleiro.</string>
+	<string name="screen_webdav_settings_msg_password_must_not_be_empty">O contrasinal non pode ficar baleiro.</string>
+	<!-- ## screen: s3 settings -->
+	<string name="screen_s3_settings_display_name_label">Nome a mostrar</string>
+	<string name="screen_s3_settings_access_key_label">Chave de acceso</string>
+	<string name="screen_s3_settings_secret_key_label">Chave secreta</string>
+	<string name="screen_s3_settings_bucket_label">Bucket existente</string>
+	<string name="screen_s3_settings_endpoint_label">Endpoint</string>
+	<string name="screen_s3_settings_region_label">Rexión</string>
+	<string name="screen_s3_settings_msg_display_name_not_empty">O nome a mostrar non pode ficar baleiro</string>
+	<string name="screen_s3_settings_msg_access_key_not_empty">A chave de acceso non pode ficar baleira</string>
+	<string name="screen_s3_settings_msg_secret_key_not_empty">A chave secreta non pode ficar baleira</string>
+	<string name="screen_s3_settings_msg_bucket_not_empty">O bucket non pode ficar baleiro</string>
+	<string name="screen_s3_settings_msg_endpoint_and_region_not_empty">O endpoint ou rexión non poden ficar baleiros</string>
+	<!-- ## screen: enter vault name -->
+	<string name="screen_enter_vault_name_msg_name_empty">O nome da caixa forte non pode ficar baleiro.</string>
+	<string name="screen_enter_vault_name_vault_label">Nome da caixa forte</string>
+	<string name="screen_enter_vault_name_button_text">Crear</string>
+	<!-- ## screen: set password -->
+	<string name="screen_set_password_title">Establecer contrasinal</string>
+	<string name="screen_set_password_msg_password_mismatch">O contrasinal non coincide co contrasinal escrito.</string>
+	<string name="screen_set_password_button_text">Feito</string>
+	<string name="screen_set_password_hint">IMPORTANTE: Se esqueces o teu contrasinal, non será posíbel recuperar os teus datos.</string>
+	<string name="screen_set_password_retype_password_label">Reescriba o contrasinal</string>
+	<string name="screen_set_password_strength_indicator_0">Demasiado débil para crear unha caixa forte</string>
+	<string name="screen_set_password_strength_indicator_1">Débil</string>
+	<string name="screen_set_password_strength_indicator_2">Aceptable</string>
+	<string name="screen_set_password_strength_indicator_3">Forte</string>
+	<string name="screen_set_password_strength_indicator_4">Moi forte</string>
+	<!-- ## screen: settings -->
+	<string name="screen_settings_section_general">Xeral</string>
+	<string name="screen_settings_cloud_settings_label">Servizos na nube</string>
+	<string name="screen_settings_biometric_auth">Autenticación biométrica</string>
+	<string name="screen_settings_activate_biometric_auth">Activar autenticación biométrica</string>
+	<string name="screen_settings_confirm_face_unlock">Confirmar desbloqueo facial (se está dispoñíbel)</string>
+	<string name="screen_settings_section_search">Buscar</string>
+	<string name="screen_settings_error_report_failed">Erro ao enviar</string>
+	<string name="screen_settings_security_label">Consellos de seguridade</string>
+	<string name="screen_settings_section_version">Versión</string>
+	<string name="screen_settings_advanced_settings">Configuración avanzada</string>
+	<string name="screen_settings_background_unlock_preparation_label">Acelerar o desbloqueo</string>
+	<string name="screen_settings_background_unlock_preparation_label_summary">Descargue a configuración da caixa forte en segundo plano mentres introduce o contrasinal ou a autenticación biométrica</string>
+	<string name="screen_settings_keep_unlocked_while_editing_files">Manter desbloqueado</string>
+	<string name="screen_settings_keep_unlocked_while_editing_files_summary">Manter as caixas fortes desbloqueadas durante a edición de ficheiros</string>
+	<!-- ## screen: cloud settings -->
+	<string name="screen_cloud_settings_onedrive_connections">Conexións OneDrive</string>
+	<string name="screen_cloud_settings_webdav_connections">Conexións WebDAV</string>
+	<string name="screen_cloud_settings_pcloud_connections">Conexións pCloud</string>
+	<string name="screen_cloud_settings_s3_connections">Conexións S3</string>
+	<string name="screen_cloud_settings_local_storage_locations">Localizacións de almacenamento local</string>
+	<string name="screen_cloud_settings_log_in_to">Acceder a</string>
+	<string name="screen_cloud_settings_sign_out_from_cloud">Desconectarse de</string>
+	<!-- ## screen: licenses -->
+	<!-- ## screen: authenticate cloud -->
+	<string name="screen_authenticate_auth_authentication_failed">%1$s non puido ser autenticado.</string>
+	<string name="screen_update_pcloud_connections_title">Actualizar as credenciais de pCloud</string>
+	<!-- ## screen: cryptomator app variants -->
+	<!-- # dialogs -->
+	<string name="dialog_button_cancel">Cancelar</string>
+	<string name="dialog_enter_password_positive_button">Desbloquear</string>
+	<string name="dialog_change_password_old_password_label">Antigo contrasinal</string>
+	<string name="dialog_change_password_new_password_label">Novo Contrasinal</string>
+	<string name="dialog_change_password">Cambiar o contrasinal</string>
+	<string name="dialog_change_password_msg_old_password_empty">O antigo contrasinal non pode ficar baleiro.</string>
+	<string name="dialog_change_password_msg_new_password_empty">O novo contrasinal non pode ficar baleiro.</string>
+	<string name="dialog_change_password_msg_password_mismatch">O novo contrasinal non coincide co contrasinal escrito.</string>
+	<!-- Vault not found -->
+	<string name="dialog_vault_not_found_title">Non se encontra a caixa forte %1$s</string>
+	<string name="dialog_vault_not_found_message">A caixa forte foi cambiada de nome, movida ou eliminada. Elimine esta caixa forte da lista e engádaa de novo para continuar. Eliminar agora?</string>
+	<string name="dialog_vault_not_found_positive_button_text">Eliminar</string>
+	<string name="dialog_existing_file_title">O ficheiro xa existe</string>
+	<string name="dialog_existing_file_positive_button">Substituír</string>
+	<string name="dialog_existing_file_message">Xa existe un ficheiro co nome \'%1$s\'.</string>
+	<string name="dialog_replace_negative_button_at_least_two_but_not_all_files_exist">Ignorar xa existentes</string>
+	<string name="dialog_replace_positive_button_all_files_exist">Substituír todo</string>
+	<string name="dialog_replace_positive_button_some_files_exist">Substituír xa existentes</string>
+	<string name="dialog_replace_positive_button_single_file_exists">Substituír</string>
+	<string name="dialog_replace_msg_single_file_exists">Xa existe un ficheiro co nome \"%1$s\". Desexas substituílo?</string>
+	<string name="dialog_replace_msg_all_files_exists">Todos os ficheiros xa existen. Desexas substituílos?</string>
+	<string name="dialog_replace_msg_some_files_exists">%1$d ficheiros xa existen. Desexas substituílos?</string>
+	<string name="dialog_replace_title_single_file_exists">Substituír o ficheiro?</string>
+	<string name="dialog_replace_title_multiple_files_exist">Substituír os ficheiros?</string>
+	<!-- # error reports -->
+	<!-- # misc -->
+	<!-- ## file size helper -->
+	<!-- ## date helper -->
+	<!-- ## biometric authentication -->
+	<!-- notification -->
+	<!-- lock timeout names -->
+	<!-- cache size names -->
+	<!-- screen scheme mode names -->
+	<!-- update interval names -->
+</resources>

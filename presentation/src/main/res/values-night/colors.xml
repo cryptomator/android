@@ -23,4 +23,7 @@
 
 	<color name="list_divider">#80ffffff</color>
 
+	<color name="popupMenuBackgroundColor">@color/m3_sys_color_dark_background</color>
+	<color name="popupMenuBackgroundTintColor">@color/colorBlack</color>
+
 </resources>

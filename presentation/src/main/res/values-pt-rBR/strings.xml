@@ -1,15 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 	<!-- # app -->
-	<string name="share_with_label">Encriptar</string>
+	<string name="share_with_label">Criptografar</string>
 	<!-- # error messages -->
-	<string name="error_generic">Ocorreu um erro</string>
+	<string name="error_generic">Um erro ocorreu</string>
 	<string name="error_authentication_failed">Falha de autenticação</string>
 	<string name="error_authentication_failed_re_authenticate">Falha na autenticação, por favor faça o login usando %1$s</string>
 	<string name="error_no_network_connection">Sem conexão com a internet</string>
 	<string name="error_invalid_passphrase">Senha incorreta</string>
 	<string name="error_file_or_folder_exists">Um arquivo ou pasta já existe.</string>
-	<string name="error_vault_version_not_supported">Cofre não suportado. Este cofre foi criado com outra versão do Cryptomator.</string>
+	<string name="error_vault_version_not_supported">A versão do Cofre %1$s não é suportada. Este cofre foi criado com uma versão mais antiga ou mais recente do Cryptomator.</string>
+	<string name="error_vault_config_file_missing_due_to_format_999">%1$s arquivo está faltando na pasta do seu cofre. Certifique-se de que este arquivo existe na pasta do seu cofre na nuvem.</string>
 	<string name="error_vault_already_exists">O cofre já existe.</string>
 	<string name="error_no_such_file">O arquivo não existe.</string>
 	<string name="error_vault_has_been_locked">O cofre foi trancado.</string>
@@ -47,11 +48,11 @@
 	<string name="snack_bar_action_title_search_previous">Anterior</string>
 	<string name="snack_bar_action_title_search_next">Próximo</string>
 	<string name="snack_bar_action_title_sort">Ordenar</string>
-	<string name="snack_bar_action_title_sort_az">A - Z</string>
-	<string name="snack_bar_action_title_sort_za">Z - A</string>
+	<string name="snack_bar_action_title_sort_az">A — Z</string>
+	<string name="snack_bar_action_title_sort_za">Z — A</string>
 	<string name="snack_bar_action_title_sort_newest">Mais recentes primeiro</string>
-	<string name="snack_bar_action_title_sort_oldest">Mais antigos primeiro</string>
-	<string name="snack_bar_action_title_sort_biggest">Maior primeiro</string>
+	<string name="snack_bar_action_title_sort_oldest">Antigos primeiro</string>
+	<string name="snack_bar_action_title_sort_biggest">Maiores primeiro</string>
 	<string name="snack_bar_action_title_sort_smallest">Menores primeiro</string>
 	<!-- # screens -->
 	<!-- # screen: vault list -->
@@ -59,7 +60,6 @@
 	<string name="screen_vault_list_action_create_new_vault">Criar novo cofre</string>
 	<string name="screen_vault_list_action_add_existing_vault">Adicionar ao cofre existente</string>
 	<string name="screen_vault_list_vault_action_delete">Remover</string>
-	<string name="screen_vault_list_vault_creation_hint">Clique aqui para criar um novo cofre</string>
 	<string name="screen_vault_list_change_password_successful">Senha alterada com sucesso</string>
 	<!-- # screen: file browser -->
 	<string name="screen_file_browser_default_title">Cofre</string>
@@ -114,9 +114,8 @@
 	<string name="screen_choose_cloud_service_title">Serviço de nuvem</string>
 	<!-- ## screen: cloud connections -->
 	<string name="screen_cloud_connections_title">Selecionar um local</string>
-	<string name="screen_cloud_connections_no_connections">Clique aqui para adicionar locais</string>
 	<string name="screen_cloud_error_webdav_not_supported">O servidor não parece ser compatível com WebDAV</string>
-	<string name="screen_cloud_local_error_no_content_provider">Não há localizações adicionais disponíveis.</string>
+	<string name="screen_cloud_local_error_no_content_provider">Nenhum gerenciador de arquivos encontrado que suporte a abertura de pastas</string>
 	<!-- ## screen: webdav settings -->
 	<string name="screen_webdav_settings_url_port_label">URL</string>
 	<string name="screen_webdav_settings_username_label">Usuário</string>
@@ -210,7 +209,7 @@
 	<!-- ## screen: authenticate cloud -->
 	<string name="screen_authenticate_auth_authentication_failed">%1$s não pôde ser autenticado.</string>
 	<string name="screen_update_pcloud_connections_title">Atualizar credenciais do pCloud</string>
-	<!-- ## screen: insecure android version info -->
+	<!-- ## screen: cryptomator app variants -->
 	<!-- # dialogs -->
 	<string name="dialog_button_cancel">Cancelar</string>
 	<string name="dialog_enter_password_positive_button">Desbloquear</string>
@@ -273,6 +272,8 @@
 	<string name="dialog_accept_ssl_certificate_hint">O certificado SSL é inválido. Deseja confiar nele mesmo assim?</string>
 	<string name="dialog_accept_ssl_certificate_details">Detalhes</string>
 	<string name="dialog_accept_ssl_certificate_security_checkbox">Isto pode ser um risco para a segurança. Eu sei o que estou fazendo.</string>
+	<string name="dialog_ask_ignore_battery_optimizations_title">Desativar otimizações de bateria</string>
+	<string name="dialog_ask_ignore_battery_optimizations_checkbox">Não pergunte novamente</string>
 	<string name="dialog_http_security_hint">O uso de HTTP é inseguro. Recomendamos a utilização de HTTPS. Se você souber os riscos, você pode continuar com o HTTP.</string>
 	<string name="dialog_http_security_checkbox">Mudar para HTTPS</string>
 	<string name="dialog_http_security_title">Usar HTTPS?</string>
@@ -284,17 +285,17 @@
 	<string name="dialog_debug_mode_disclaimer_hint">Neste modo, dados confidenciais podem ser gravados em um arquivo de log no seu dispositivo (por exemplo, nomes de arquivos e caminhos). Senhas, cookies, etc. são explicitamente excluídos.\n\nLembre-se de desativar o modo de depuração o mais rápido possível.</string>
 	<string name="dialog_debug_mode_disclaimer_title">Atenção</string>
 	<string name="dialog_debug_mode_positive_button">Habilitar</string>
-	<string name="dialog_disable_app_obscured_disclaimer_hint">Esta configuração é um recurso de segurança e impede que outros aplicativos induzam os usuários a fazer coisas que não devem fazer.\n\nAo desativar, você confirma que está <a href="https://docs.cryptomator.org/en/1.5/android/settings/#block-app-when-obscured">ciente dos riscos</a>.</string>
+	<string name="dialog_disable_app_obscured_disclaimer_hint">Esta configuração é um recurso de segurança e impede que outros aplicativos induzam os usuários a fazer coisas que não devem fazer.\n\nAo desativar, você confirma que está <a href="https://docs.cryptomator.org/en/1.6/android/settings/#block-app-when-obscured">ciente dos riscos</a>.</string>
 	<string name="dialog_disable_app_obscured_disclaimer_title">Atenção</string>
 	<string name="dialog_disable_app_obscured_positive_button">Desabilitar</string>
 	<string name="dialog_app_is_obscured_info_title">O aplicativo está escuro</string>
-	<string name="dialog_app_is_obscured_info_hint">Outro aplicativo está exibindo algo no topo do Cryptomator (por exemplo, um filtro de luz azul ou aplicativo de modo noturno). Por razões de segurança, o Cryptomator está desativado.\n\n<a href="https://docs.cryptomator.org/en/1.5/android/settings/#block-app-when-obscured">Como ativar o Cryptomator</a></string>
+	<string name="dialog_app_is_obscured_info_hint">Outro aplicativo está exibindo algo no topo do Cryptomator (por exemplo, um filtro de luz azul ou aplicativo de modo noturno). Por razões de segurança, o Cryptomator está desativado.\n\n<a href="https://docs.cryptomator.org/en/1.6/android/settings/#block-app-when-obscured">Como ativar o Cryptomator</a></string>
 	<string name="dialog_app_is_obscured_info_neutral_button">Fechar</string>
 	<string name="dialog_vaults_removed_during_migration_title">Por favor, readicione cofres para %1s nuvem</string>
 	<string name="dialog_vaults_removed_during_migration_hint">Durante a migração para esta versão do aplicativo, precisamos remover os seguintes cofres do aplicativo:\n%2s \n\nEsses cofres não são removidos da nuvem, mas apenas deste aplicativo. Desculpe o incômodo e por favor adicione novamente estes cofres para continuar a trabalhar com eles.</string>
 	<string name="dialog_vault_is_root_folder_of_cloud_title">O cofre é a pasta raiz da conexão com a nuvem</string>
 	<string name="dialog_vault_is_root_folder_of_cloud_hint">Crie uma nova conexão com a nuvem onde você seleciona pelo menos a pasta principal desta pasta de cofre como o diretório raiz para adicionar este cofre.</string>
-	<string name="dialog_disable_secure_screen_disclaimer_hint">Esta configuração é um recurso de segurança e impede que outros aplicativos induzam os usuários a fazer coisas que não devem fazer.\n\nAo desativar, você confirma que está <a href="https://docs.cryptomator.org/en/1.5/android/settings/#screen-security">ciente dos riscos</a>.</string>
+	<string name="dialog_disable_secure_screen_disclaimer_hint">Esta configuração é um recurso de segurança e impede que outros aplicativos induzam os usuários a fazer coisas que não devem fazer.\n\nAo desativar, você confirma que está <a href="https://docs.cryptomator.org/en/1.6/android/settings/#screen-security">ciente dos riscos</a>.</string>
 	<string name="dialog_delete_cloud_connection_with_vaults_message">Tem certeza de que deseja remover esta conexão com a nuvem?</string>
 	<string name="dialog_delete_cloud_connection_with_vaults_hint">Esta ação removerá a conexão com o provedor de nuvem e todos os cofres desta nuvem.</string>
 	<string name="dialog_confirm_delete_multiple_title">Excluir %1$d itens?</string>
@@ -306,6 +307,7 @@
 	<string name="dialog_enter_license_title">Fornecer uma licença válida</string>
 	<string name="dialog_enter_license_content">Nós detectamos que você instalou o Cryptomator sem usar a Google Play Store. Forneça uma licença válida, que pode ser comprada em <a href="https://cryptomator.org/android/">https://cryptomator.org/android/</a></string>
 	<string name="dialog_enter_license_not_valid_content">A licença fornecida não é válida. Verifique se você digitou corretamente.</string>
+	<string name="dialog_enter_license_not_valid_content_desktop_supporter_certificate">A chave fornecida é um certificado de suporte da área de trabalho. Por favor, insira uma licença válida.</string>
 	<string name="dialog_enter_license_no_content">Nenhuma licença fornecida. Por favor insira uma licença válida.</string>
 	<string name="dialog_enter_license_decline_button">Sair</string>
 	<string name="dialog_license_confirmation_title">Confirmação de licença</string>
@@ -324,7 +326,6 @@
 	<string name="dialog_no_dir_file_message">A pasta na nuvem \'%1$s\' não tem um arquivo de diretório válido. Pode ser que a pasta foi criada em outro dispositivo e ainda não foi totalmente sincronizada com a nuvem. Por favor, verifique em sua nuvem se o seguinte arquivo existe:\n%2$s</string>
 	<string name="dialog_no_more_images_to_display">Sem mais imagens para exibir&#8230;</string>
 	<string name="dialog_pcloud_credentials_updated_title">Credenciais de \'%1$s\' atualizadas</string>
-	<string name="dialog_pcloud_credentials_updated">Se você pretendia adicionar uma nova conta pCloud, clique neste url <a href="https://www.pcloud.com">www.pcloud. um</a>, sair da conta atual e clicar novamente em \'+\' neste aplicativo para criar uma nova conexão com a nuvem.</string>
 	<string name="permission_snackbar_auth_local_vault">Cryptomator precisa de permissão de acesso ao armazenamento para fazer upload de arquivos</string>
 	<string name="permission_snackbar_auth_auto_upload">Cryptomator precisa de permissão de acesso ao armazenamento para fazer upload de arquivos</string>
 	<!-- # error reports -->
@@ -406,6 +407,4 @@
 	<string name="dark">Escuro</string>
 	<!-- update interval names -->
 	<string name="update_interval_1d">Uma vez por dia</string>
-	<string name="update_interval_1w">Uma vez por semana</string>
-	<string name="update_interval_1m">Uma vez por mês</string>
 </resources>

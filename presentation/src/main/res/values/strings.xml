@@ -17,7 +17,8 @@
 	<string name="error_no_network_connection">No network connection</string>
 	<string name="error_invalid_passphrase">Wrong password</string>
 	<string name="error_file_or_folder_exists">A file or folder already exists.</string>
-	<string name="error_vault_version_not_supported">Unsupported vault. This vault has been created with another version of Cryptomator.</string>
+	<string name="error_vault_version_not_supported">Vault version %1$s is unsupported. This vault has been created with an older or newer version of Cryptomator.</string>
+	<string name="error_vault_config_file_missing_due_to_format_999">%1$s file is missing in your vault folder. Make sure that this file exists in your vault folder in the cloud.</string>
 	<string name="error_vault_already_exists">Vault already exists.</string>
 	<string name="error_no_such_file">File does not exist.</string>
 	<string name="error_vault_has_been_locked">Vault has been locked.</string>
@@ -41,6 +42,7 @@
 	<string name="error_file_not_found_after_opening_using_3party">Local file isn\'t present anymore after switching back to Cryptomator. Possible changes cannot be propagated back to the cloud.</string>
 	<string name="error_no_such_bucket">No such bucket</string>
 	<string name="error_masterkey_location_not_supported">Custom Masterkey location not supported yet</string>
+	<string name="error_interact_with_fdroid_but_fdroid_missing">Failed to communicate with the F-Droid app. Not installed?</string>
 
 	<!-- # clouds -->
 
@@ -76,6 +78,11 @@
 	<string name="snack_bar_action_title_sort_biggest">Biggest first</string>
 	<string name="snack_bar_action_title_sort_smallest">Smallest first</string>
 
+	<string name="snack_bar_action_title_save" translatable="false">@string/screen_share_files_save_button_text</string>
+
+	<string name="snack_bar_cryptomator_variants_title">Read more</string>
+	<string name="snack_bar_cryptomator_variants_hint">Cloud not in the list?</string>
+
 	<!-- # screens -->
 
 	<!-- # screen: vault list -->
@@ -84,7 +91,7 @@
 	<string name="screen_vault_list_action_add_existing_vault">Add existing vault</string>
 	<string name="screen_vault_list_vault_action_rename" translatable="false">@string/screen_file_browser_node_action_rename</string>
 	<string name="screen_vault_list_vault_action_delete">Remove</string>
-	<string name="screen_vault_list_vault_creation_hint">Click here to create a new vault</string>
+	<string name="screen_vault_list_vault_creation_hint">Tap here to create a new vault</string>
 	<string name="screen_vault_list_change_password_successful">Password successfully changed</string>
 
 	<!-- # screen: file browser -->
@@ -166,9 +173,9 @@
 	<string name="screen_cloud_connections_title">Choose a location</string>
 	<string name="screen_cloud_settings_option_edit" translatable="false">@string/screen_file_browser_node_action_edit_text</string>
 	<string name="screen_cloud_settings_option_delete" translatable="false">@string/screen_vault_list_vault_action_delete</string>
-	<string name="screen_cloud_connections_no_connections">Click here to add locations</string>
+	<string name="screen_cloud_connections_no_connections">Tap here to add locations</string>
 	<string name="screen_cloud_error_webdav_not_supported">Server doesn\'t seem to be WebDAV compatible</string>
-	<string name="screen_cloud_local_error_no_content_provider">No additional locations available.</string>
+	<string name="screen_cloud_local_error_no_content_provider">No file manager found that supports opening directories</string>
 
 	<!-- ## screen: webdav settings -->
 	<string name="screen_webdav_settings_title" translatable="false">@string/cloud_names_webdav</string>
@@ -270,7 +277,7 @@
 	<string name="screen_settings_error_report_label">Send log file</string>
 	<string name="screen_settings_error_report_failed">Sending failed</string>
 	<string name="screen_settings_security_label">Security hints</string>
-	<string name="screen_settings_security_url" translatable="false">https://docs.cryptomator.org/en/1.5/security/best-practices/</string>
+	<string name="screen_settings_security_url" translatable="false">https://docs.cryptomator.org/en/1.6/security/best-practices/</string>
 
 	<string name="screen_settings_section_version">Version</string>
 
@@ -281,6 +288,9 @@
 	<string name="screen_settings_background_unlock_preparation_label_summary">Download vault config in the background while prompted to enter the password or biometric auth</string>
 	<string name="screen_settings_keep_unlocked_while_editing_files">Keep unlocked</string>
 	<string name="screen_settings_keep_unlocked_while_editing_files_summary">Keep vaults unlocked while editing files</string>
+
+	<string name="screen_settings_cryptomator_variants_label" translatable="false">@string/screen_cryptomator_variants_title</string>
+	<string name="screen_settings_cryptomator_variants_summary" translatable="false">Show variants of this app</string>
 
 	<!-- ## screen: cloud settings -->
 	<string name="screen_cloud_settings_title" translatable="false">@string/screen_settings_cloud_settings_label</string>
@@ -299,7 +309,21 @@
 	<string name="screen_authenticate_auth_authentication_failed">%1$s could not be authenticated.</string>
 	<string name="screen_update_pcloud_connections_title">Update pCloud credentials</string>
 
-	<!-- ## screen: insecure android version info -->
+	<!-- ## screen: cryptomator app variants -->
+	<string name="screen_cryptomator_variants_title">Variants of Cryptomator</string>
+	<string name="screen_cryptomator_variants_lite_title">Main F-Droid Repository</string>
+	<string name="screen_cryptomator_variants_lite_description">Excluded because they require API keys.</string>
+	<string name="screen_cryptomator_variants_lite_install">Install</string>
+	<string name="screen_cryptomator_variants_fdroid_title">Cryptomator F-Droid Repository</string>
+	<string name="screen_cryptomator_variants_fdroid_description">Excluded because it contains proprietary dependencies.</string>
+	<string name="screen_cryptomator_variants_fdroid_add_repo_hint">Add Cryptomator repository to the F-Droid app.</string>
+	<string name="screen_cryptomator_variants_fdroid_add_repo">Add</string>
+	<string name="screen_cryptomator_variants_fdroid_install_hint">Install Cryptomator using F-Droid.\nIf a not found error is displayed, wait until the F-Droid synchronisation is finished.</string>
+	<string name="screen_cryptomator_variants_fdroid_install" translatable="false">@string/screen_cryptomator_variants_lite_install</string>
+	<string name="screen_cryptomator_variants_website_title">Website</string>
+	<string name="screen_cryptomator_variants_website_description">Contains proprietary dependencies.</string>
+	<string name="screen_cryptomator_variants_website_install" translatable="false">@string/screen_cryptomator_variants_lite_install</string>
+	<string name="screen_cryptomator_variants_installation_hint">Switching from or to the main F-Droid repository variant requires a fresh setup of the app.</string>
 
 	<!-- # dialogs -->
 	<string name="dialog_button_cancel">Cancel</string>
@@ -359,6 +383,7 @@
 	<string name="dialog_unsaved_changes_save" translatable="false">@string/screen_share_files_save_button_text</string>
 
 	<string name="dialog_file_name_title" translatable="false">@string/screen_file_browser_action_create_new_text_file</string>
+	<string name="dialog_file_name_hint">File name</string>
 	<string name="dialog_file_name_create" translatable="false">@string/screen_enter_vault_name_button_text</string>
 	<string name="dialog_file_name_cancel" translatable="false">@string/dialog_button_cancel</string>
 	<string name="dialog_file_name_placeholder">text.txt</string>
@@ -395,6 +420,12 @@
 	<string name="dialog_accept_ssl_certificate_details">Details</string>
 	<string name="dialog_accept_ssl_certificate_security_checkbox">This could be a security risk. I know what I am doing.</string>
 
+	<string name="dialog_ask_ignore_battery_optimizations_title">Disable battery optimizations</string>
+	<string name="dialog_ask_ignore_battery_optimizations_hint">To retrieve new pictures and videos without running in the background, we need to opt-out from battery optimizations. But don\'t worry, %1$s doesn\'t consume much energy.\n\nTo apply it, change \'Not optimized\' to \'All apps\', select %1$s and choose \'Don\'t optimize\' after tapping \'%2$s\' in this dialog.</string>
+	<string name="dialog_ask_ignore_battery_optimizations_neutral_button" translatable="false">@string/dialog_unable_to_share_positive_button</string>
+	<string name="dialog_ask_ignore_battery_optimizations_negative_button" translatable="false">@string/dialog_button_cancel</string>
+	<string name="dialog_ask_ignore_battery_optimizations_checkbox">Don\'t ask again?</string>
+
 	<string name="dialog_http_security_hint">The usage of HTTP is insecure. We recommend to use HTTPS instead. If you know the risks, you can continue with HTTP.</string>
 	<string name="dialog_http_security_checkbox">Change to HTTPS</string>
 	<string name="dialog_http_security_title">Use HTTPS?</string>
@@ -416,13 +447,13 @@
 	<string name="dialog_microsoft_workaround_positive_button" translatable="false">@string/dialog_debug_mode_positive_button</string>
 	<string name="dialog_microsoft_workaround_negative_button" translatable="false">@string/dialog_button_cancel</string>
 
-	<string name="dialog_disable_app_obscured_disclaimer_hint">This setting is a security feature and prevents other apps from tricking users into doing things they do not wan\'t to do.\n\nBy disabling, you confirm that you are <a href="https://docs.cryptomator.org/en/1.5/android/settings/#block-app-when-obscured">aware of the risks</a>.</string>
+	<string name="dialog_disable_app_obscured_disclaimer_hint">This setting is a security feature and prevents other apps from tricking users into doing things they do not wan\'t to do.\n\nBy disabling, you confirm that you are <a href="https://docs.cryptomator.org/en/1.6/android/settings/#block-app-when-obscured">aware of the risks</a>.</string>
 	<string name="dialog_disable_app_obscured_disclaimer_title">Attention</string>
 	<string name="dialog_disable_app_obscured_positive_button">Disable</string>
 	<string name="dialog_disable_app_obscured_negative_button" translatable="false">@string/dialog_button_cancel</string>
 
 	<string name="dialog_app_is_obscured_info_title">App is obscured</string>
-	<string name="dialog_app_is_obscured_info_hint">Another app is displaying something on top of Cryptomator (e.g., a blue light filter or night mode app). For security reasons, Cryptomator is disabled.\n\n<a href="https://docs.cryptomator.org/en/1.5/android/settings/#block-app-when-obscured">How to enable Cryptomator</a></string>
+	<string name="dialog_app_is_obscured_info_hint">Another app is displaying something on top of Cryptomator (e.g., a blue light filter or night mode app). For security reasons, Cryptomator is disabled.\n\n<a href="https://docs.cryptomator.org/en/1.6/android/settings/#block-app-when-obscured">How to enable Cryptomator</a></string>
 	<string name="dialog_app_is_obscured_info_neutral_button">Close</string>
 
 	<string name="dialog_vaults_removed_during_migration_title">Please re-add vaults for %1s cloud</string>
@@ -433,7 +464,7 @@
 	<string name="dialog_vault_is_root_folder_of_cloud_hint">Create a new cloud connection where you select at least the parent folder of this vault folder as the root directory to add this vault.</string>
 	<string name="dialog_vault_is_root_folder_of_cloud_neutral_button" translatable="false">@string/dialog_unable_to_share_positive_button</string>
 
-	<string name="dialog_disable_secure_screen_disclaimer_hint">This setting is a security feature and prevents other apps from tricking users into doing things they do not wan\'t to do.\n\nBy disabling, you confirm that you are <a href="https://docs.cryptomator.org/en/1.5/android/settings/#screen-security">aware of the risks</a>.</string>
+	<string name="dialog_disable_secure_screen_disclaimer_hint">This setting is a security feature and prevents other apps from tricking users into doing things they do not wan\'t to do.\n\nBy disabling, you confirm that you are <a href="https://docs.cryptomator.org/en/1.6/android/settings/#screen-security">aware of the risks</a>.</string>
 
 	<string name="dialog_delete_cloud_connection_with_vaults_message">Are you sure you want to remove this cloud connection?</string>
 	<string name="dialog_delete_cloud_connection_with_vaults_hint">This action will remove the cloud connection and all vaults of this cloud.</string>
@@ -486,7 +517,7 @@
 	<string name="dialog_no_more_images_to_display">No more images to display&#8230;</string>
 
 	<string name="dialog_pcloud_credentials_updated_title">Credentials of \'%1$s\' updated</string>
-	<string name="dialog_pcloud_credentials_updated">If you intended to add a new pCloud account, click on this url <a href="https://www.pcloud.com">www.pcloud.com</a>, log out from the current account and click again on the \'+\' in this app to create a new cloud connection.</string>
+	<string name="dialog_pcloud_credentials_updated">If you intended to add a new pCloud account, tap on this url <a href="https://www.pcloud.com">www.pcloud.com</a>, log out from the current account and tap again on the \'+\' in this app to create a new cloud connection.</string>
 
 	<string name="permission_snackbar_auth_local_vault">Cryptomator needs storage access to use local vaults</string>
 	<string name="permission_snackbar_auth_auto_upload">Cryptomator needs storage access to use auto photo upload</string>
@@ -598,8 +629,6 @@
 
 	<!-- update interval names -->
 	<string name="update_interval_1d">Once a day</string>
-	<string name="update_interval_1w">Once a week</string>
-	<string name="update_interval_1m">Once a month</string>
 	<string name="update_interval_never" translatable="false">@string/lock_timeout_never</string>
 
 </resources>

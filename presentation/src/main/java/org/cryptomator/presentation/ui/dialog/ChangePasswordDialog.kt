@@ -25,6 +25,7 @@ class ChangePasswordDialog : BaseProgressErrorDialog<ChangePasswordDialog.Callba
 	interface Callback {
 
 		fun onChangePasswordClick(vaultModel: VaultModel, unverifiedVaultConfig: UnverifiedVaultConfig?, oldPassword: String, newPassword: String)
+		fun onChangePasswordCanceled()
 	}
 
 	override fun onStart() {
@@ -94,7 +95,7 @@ class ChangePasswordDialog : BaseProgressErrorDialog<ChangePasswordDialog.Callba
 		return builder //
 			.setTitle(vaultModel.name) //
 			.setPositiveButton(getString(R.string.dialog_change_password)) { _: DialogInterface, _: Int -> } //
-			.setNegativeButton(getString(R.string.dialog_button_cancel)) { _: DialogInterface?, _: Int -> } //
+			.setNegativeButton(getString(R.string.dialog_button_cancel)) { _: DialogInterface?, _: Int -> callback?.onChangePasswordCanceled() } //
 			.create()
 	}
 

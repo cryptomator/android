@@ -190,14 +190,20 @@ constructor(context: Context) : SharedPreferences.OnSharedPreferenceChangeListen
 		return defaultSharedPreferences.getBoolean(KEEP_UNLOCKED_WHILE_EDITING, false)
 	}
 
-	private fun updateIntervalInDays(): Optional<Int> {
-		val updateInterval = defaultSharedPreferences.getValue(UPDATE_INTERVAL, "7")
+	fun updateIntervalInDays(): Optional<Int> {
+		val updateInterval = defaultSharedPreferences.getValue(UPDATE_INTERVAL, "1")
 
 		if (updateInterval == "Never") {
 			return Optional.absent()
 		}
 
 		return Optional.of(Integer.parseInt(updateInterval))
+	}
+
+	fun setUpdateIntervalInDays(days: Optional<Int>) = if (days.isPresent) {
+		defaultSharedPreferences.setValue(UPDATE_INTERVAL, days.get().toString())
+	} else {
+		defaultSharedPreferences.setValue(UPDATE_INTERVAL, "Never")
 	}
 
 	fun lastUpdateCheck(): Date? {
@@ -254,11 +260,19 @@ constructor(context: Context) : SharedPreferences.OnSharedPreferenceChangeListen
 	fun vaultsRemovedDuringMigration(): Pair<String, List<String>>? {
 		val vaultsRemovedDuringMigrationType = defaultSharedPreferences.getString(VAULTS_REMOVED_DURING_MIGRATION_TYPE, null)
 		val vaultsRemovedDuringMigration = defaultSharedPreferences.getString(VAULTS_REMOVED_DURING_MIGRATION, null)
-		return if(vaultsRemovedDuringMigrationType != null && vaultsRemovedDuringMigration != null) {
+		return if (vaultsRemovedDuringMigrationType != null && vaultsRemovedDuringMigration != null) {
 			Pair(vaultsRemovedDuringMigrationType, ArrayList(vaultsRemovedDuringMigration.split(',')))
 		} else {
 			null
 		}
+	}
+
+	fun askBatteryOptimizationsDialogDisabled(): Boolean {
+		return defaultSharedPreferences.getBoolean(ASK_IGNORE_BATTERY_OPTIMIZATIONS_DIALOG_DISABLED, false)
+	}
+
+	fun setAskBatteryOptimizationsDialogDisabled(disable: Boolean) {
+		defaultSharedPreferences.setValue(ASK_IGNORE_BATTERY_OPTIMIZATIONS_DIALOG_DISABLED, disable)
 	}
 
 	fun setMicrosoftWorkaround(enabled: Boolean) {
@@ -272,6 +286,7 @@ constructor(context: Context) : SharedPreferences.OnSharedPreferenceChangeListen
 	companion object {
 
 		private const val SCREEN_LOCK_DIALOG_SHOWN = "askForScreenLockDialogShown"
+		private const val ASK_IGNORE_BATTERY_OPTIMIZATIONS_DIALOG_DISABLED = "askIgnoreBatteryOptimizationsDialogDisabled"
 		private const val SCREEN_BETA_DIALOG_SHOWN = "askForBetaConfirmationDialogShown"
 		private const val USE_BIOMETRIC_AUTHENTICATION = "useFingerprint"
 		private const val USE_CONFIRMATION_IN_FACE_UNLOCK_AUTHENTICATION = "useConfirmationInFaceUnlockBiometricAuthentication"
@@ -283,6 +298,7 @@ constructor(context: Context) : SharedPreferences.OnSharedPreferenceChangeListen
 		private const val BACKGROUND_UNLOCK_PREPARATION = "backgroundUnlockPreparation"
 		private const val VAULTS_REMOVED_DURING_MIGRATION = "vaultsRemovedDuringMigration"
 		private const val VAULTS_REMOVED_DURING_MIGRATION_TYPE = "vaultsRemovedDuringMigrationType"
+		private const val LAST_UPDATE_CHECK = "lastUpdateCheck"
 		const val DEBUG_MODE = "debugMode"
 		const val DISABLE_APP_WHEN_OBSCURED = "disableAppWhenObscured"
 		const val SECURE_SCREEN = "secureScreen"
@@ -298,7 +314,10 @@ constructor(context: Context) : SharedPreferences.OnSharedPreferenceChangeListen
 		const val MICROSOFT_WORKAROUND = "shareOfficeFilePublicly"
 		const val MAIL = "mail"
 		const val UPDATE_INTERVAL = "updateInterval"
-		private const val LAST_UPDATE_CHECK = "lastUpdateCheck"
+		const val CLOUD_SETTINGS = "cloudSettings"
+		const val BIOMETRIC_AUTHENTICATION = "biometricAuthentication"
+		const val CRYPTOMATOR_VARIANTS = "cryptomatorVariants"
+		const val LICENSES_ACTIVITY = "licensesActivity"
 	}
 
 	private inline fun SharedPreferences.edit(operation: (SharedPreferences.Editor) -> Unit) {

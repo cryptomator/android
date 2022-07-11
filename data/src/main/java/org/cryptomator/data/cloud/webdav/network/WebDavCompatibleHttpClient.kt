@@ -109,7 +109,7 @@ internal class WebDavCompatibleHttpClient(cloud: WebDavCloud, context: Context) 
 		private fun httpAuthenticator(context: Context, webDavCloud: WebDavCloud, authCache: Map<String, CachingAuthenticator>): Authenticator {
 			val credentials = Credentials(webDavCloud.username(), decryptPassword(context, webDavCloud.password()))
 			val basicAuthenticator = BasicAuthenticator(credentials, StandardCharsets.UTF_8)
-			val digestAuthenticator = DigestAuthenticator(credentials)
+			val digestAuthenticator = DigestAuthenticator(credentials, StandardCharsets.UTF_8)
 			val authenticator = DispatchingAuthenticator.Builder() //
 				.with("digest", digestAuthenticator) //
 				.with("basic", basicAuthenticator) //

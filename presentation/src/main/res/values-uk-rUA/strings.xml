@@ -9,7 +9,8 @@
 	<string name="error_no_network_connection">Відсутнє з\'єднання з мережею</string>
 	<string name="error_invalid_passphrase">Неправильний пароль</string>
 	<string name="error_file_or_folder_exists">Файл чи тека вже існує.</string>
-	<string name="error_vault_version_not_supported">Непідтримуване сховище. Це сховище було створено іншою версією криптоматора.</string>
+	<string name="error_vault_version_not_supported">Версія сховища %1$s не підтримується. Це сховище було створено застарілою або новішою версією Cryptomator.</string>
+	<string name="error_vault_config_file_missing_due_to_format_999">%1$s Файл відсутній у вашому сховищі. Переконайтеся, що цей файл існує у теці вашого сховища у хмарі.</string>
 	<string name="error_vault_already_exists">Сховище вже існує.</string>
 	<string name="error_no_such_file">Файлу не існує.</string>
 	<string name="error_vault_has_been_locked">Сховище було заблоковано.</string>
@@ -59,7 +60,6 @@
 	<string name="screen_vault_list_action_create_new_vault">Створити нове сховище</string>
 	<string name="screen_vault_list_action_add_existing_vault">Додати існуюче сховище</string>
 	<string name="screen_vault_list_vault_action_delete">Прибрати</string>
-	<string name="screen_vault_list_vault_creation_hint">Натисніть тут, щоб створити нове сховище</string>
 	<string name="screen_vault_list_change_password_successful">Пароль успішно змінено</string>
 	<!-- # screen: file browser -->
 	<string name="screen_file_browser_default_title">Сховище</string>
@@ -110,9 +110,8 @@
 	<string name="screen_choose_cloud_service_title">Хмарні служби</string>
 	<!-- ## screen: cloud connections -->
 	<string name="screen_cloud_connections_title">Обрати місцерозташування</string>
-	<string name="screen_cloud_connections_no_connections">Натисніть сюди щоб додати розташування</string>
 	<string name="screen_cloud_error_webdav_not_supported">Схоже, сервер не сумісний з WebDAV</string>
-	<string name="screen_cloud_local_error_no_content_provider">Немає доступних місцерозташувань.</string>
+	<string name="screen_cloud_local_error_no_content_provider">Не знайдено менеджер файлів, який підтримує відкриття директорій</string>
 	<!-- ## screen: webdav settings -->
 	<string name="screen_webdav_settings_url_port_label">Адреса посилання</string>
 	<string name="screen_webdav_settings_username_label">Ім\'я користувача</string>
@@ -195,6 +194,7 @@
 	<string name="screen_settings_keep_unlocked_while_editing_files">Залишати розблокованим</string>
 	<string name="screen_settings_keep_unlocked_while_editing_files_summary">Залишати сховища розблокованими під час редагування файлів</string>
 	<!-- ## screen: cloud settings -->
+	<string name="screen_cloud_settings_onedrive_connections">Підключення OneDrive</string>
 	<string name="screen_cloud_settings_webdav_connections">Підключення через WebDAV</string>
 	<string name="screen_cloud_settings_pcloud_connections">підключення до pCloud</string>
 	<string name="screen_cloud_settings_s3_connections">S3 підключення</string>
@@ -205,7 +205,7 @@
 	<!-- ## screen: authenticate cloud -->
 	<string name="screen_authenticate_auth_authentication_failed">%1$s не може бути автентифіковано.</string>
 	<string name="screen_update_pcloud_connections_title">Оновити облікові дані pCloud</string>
-	<!-- ## screen: insecure android version info -->
+	<!-- ## screen: cryptomator app variants -->
 	<!-- # dialogs -->
 	<string name="dialog_button_cancel">Відмінити</string>
 	<string name="dialog_enter_password_positive_button">Розблокувати</string>
@@ -248,17 +248,50 @@
 	<string name="dialog_delete_vault_hint">Ця дія тільки прибере сховище з цього списку, але не видалить його.</string>
 	<string name="dialog_upload_file_title">Завантаження&#8230;</string>
 	<string name="dialog_upload_file_remaining">Файл %1$d з %2$d</string>
+	<string name="dialog_export_file_title">Експорт (%1$d/%2$d)</string>
+	<string name="dialog_progress_please_wait">Будь ласка, зачекайте&#8230;</string>
+	<string name="dialog_progress_creating_folder">Створення папки&#8230;</string>
+	<string name="dialog_progress_creating_text_file">Створення текстового файлу&#8230;</string>
+	<string name="action_progress_authentication">Автентифікація&#8230;</string>
+	<string name="action_progress_renaming">Перейменування&#8230;</string>
+	<string name="action_progress_deleting">Видалення&#8230;</string>
+	<string name="dialog_progress_unlocking_vault">Розблокування сховища&#8230;</string>
+	<string name="dialog_progress_change_password">Зміна пароля&#8230;</string>
+	<string name="dialog_progress_creating_vault">Створення сховища&#8230;</string>
 	<string name="dialog_progress_upload_file">Завантаження&#8230;</string>
+	<string name="dialog_progress_download_file">Завантаження&#8230;</string>
+	<string name="dialog_progress_encryption">Шифрування&#8230;</string>
+	<string name="dialog_progress_decryption">Розшифрування&#8230;</string>
+	<string name="action_progress_moving">Переміщення&#8230;</string>
 	<string name="dialog_lock_vault">Заблокувати</string>
+	<string name="dialog_accept_ssl_certificate_title">Неправильний SSL сертифікат</string>
+	<string name="dialog_accept_ssl_certificate_hint">Сертифікат SSL недійсний. Довіряти йому у будь-якому випадку?</string>
+	<string name="dialog_accept_ssl_certificate_details">Докладно</string>
+	<string name="dialog_accept_ssl_certificate_security_checkbox">Це може спричинити ризики безпеки. Я знаю, що роблю.</string>
+	<string name="dialog_ask_ignore_battery_optimizations_title">Вимкнути оптимізацію використання батареї</string>
+	<string name="dialog_ask_ignore_battery_optimizations_checkbox">Не запитувати знову?</string>
+	<string name="dialog_http_security_hint">Використання HTTP небезпечне. Рекомендуємо замість цього використовувати HTTPS. Якщо ви усвідомлюєте ризики, ви можете продовжити з HTTP.</string>
+	<string name="dialog_http_security_checkbox">Змінити на HTTPS</string>
 	<string name="dialog_http_security_title">Використовувати HTTPS?</string>
+	<string name="dialog_no_screen_lock_hint">Не встановлено блокування екрану. Щоб надійно зберегти свої облікові дані, встановіть ключ чи пароль після натискання ОК.</string>
+	<string name="dialog_no_screen_lock_title">Встановити блокування екрану?</string>
+	<string name="dialog_no_screen_lock_checkbox">Встановлення блокування екрану</string>
+	<string name="dialog_no_biometric_auth_set_up_title">В системі не налаштовано базову автентифікацію</string>
+	<string name="dialog_no_biometric_auth_set_up_message">Встановіть як мінімум один відбиток/одне обличчя для використання цього сервісу.</string>
+	<string name="dialog_debug_mode_disclaimer_title">Увага</string>
 	<string name="dialog_debug_mode_positive_button">Увімкнути</string>
+	<string name="dialog_disable_app_obscured_disclaimer_title">Увага</string>
 	<string name="dialog_disable_app_obscured_positive_button">Вимкнути</string>
+	<string name="dialog_app_is_obscured_info_title">Програму перекрито</string>
 	<string name="dialog_app_is_obscured_info_neutral_button">Закрити</string>
 	<string name="dialog_delete_cloud_connection_with_vaults_hint">Ця дія видалить підключення до хмари та всі сховища з цієї хмари.</string>
 	<string name="dialog_confirm_delete_multiple_title">Видалити %1$d об\'єкти?</string>
 	<string name="dialog_confirm_delete_multiple_message">Ви впевнені, що бажаєте видалити ці об\'єкти?</string>
 	<string name="dialog_confirm_delete_file_message">Ви впевнені, що бажаєте видалити цей файл?</string>
+	<string name="dialog_enter_license_title">Вкажіть дійсну ліцензію</string>
 	<string name="dialog_enter_license_decline_button">Вийти</string>
+	<string name="dialog_license_confirmation_title">Підтвердження ліцензії</string>
+	<string name="dialog_update_available_title">Доступне оновлення</string>
 	<string name="dialog_update_available_update">Оновити зараз</string>
 	<string name="dialog_update_available_download_site">Перейти на сторінку завантаження</string>
 	<string name="dialog_update_available_cancel">Пізніше</string>
@@ -284,6 +317,9 @@
 	<!-- ## biometric authentication -->
 	<string name="dialog_biometric_auth_title">Біометричний вхід</string>
 	<!-- notification -->
+	<string name="notification_timeout">Автоблокування через %1$s</string>
+	<string name="notification_lock_all">Заблокувати всі</string>
+	<string name="notification_auto_upload_finished_title">Автозавантаження фото завершено</string>
 	<string name="screen_settings_license">Зареєстровано за</string>
 	<string name="screen_settings_check_updates">Перевiрити наявнiсть оновлень</string>
 	<!-- lock timeout names -->

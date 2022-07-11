@@ -1,2 +1,3 @@
-- Zeige Dialog und Benachrichtigung an, wenn die Berechtigung "Dateien" widerrufen wird, erforderlich für den automatischen Upload
-- Das Abmelden von einer Cloud löscht nun auch die Anmeldeinformationen einer aktiven Verbindung zu ihr
+- Update auf die neueste Android-Zielplatform-Version
+- Löschen von Ordnern ohne Verzeichnisdatei im lokalen Cloud-Speicher behoben
+- Dateiexport wenn keine App den ausgewählten Dateityp verarbeiten kann behoben

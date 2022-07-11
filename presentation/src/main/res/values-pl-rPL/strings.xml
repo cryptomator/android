@@ -1,15 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 	<!-- # app -->
-	<string name="share_with_label">Szyfruj</string>
+	<string name="share_with_label">Zaszyfruj</string>
 	<!-- # error messages -->
-	<string name="error_generic">Błąd programu</string>
+	<string name="error_generic">Wystąpił błąd</string>
 	<string name="error_authentication_failed">Uwierzytelnianie nie powiodło się</string>
 	<string name="error_authentication_failed_re_authenticate">Uwierzytelnianie nie powiodło się, zaloguj się za pomocą %1$s</string>
 	<string name="error_no_network_connection">Brak połączenia z Internetem</string>
 	<string name="error_invalid_passphrase">Błędne hasło</string>
 	<string name="error_file_or_folder_exists">Plik lub folder już istnieje.</string>
-	<string name="error_vault_version_not_supported">Nieobsługiwany sejf. Ten sejf został utworzony z inną wersją Cryptomator.</string>
+	<string name="error_vault_version_not_supported">Wersja sejfu %1$s jest nieobsługiwana. Ten sejf został utworzony ze starszą lub nowszą wersją Cryptomator.</string>
+	<string name="error_vault_config_file_missing_due_to_format_999">Brak pliku %1$s w folderze sejfu. Upewnij się, że ten plik istnieje w folderze sejfu w chmurze.</string>
 	<string name="error_vault_already_exists">Sejf już istnieje.</string>
 	<string name="error_no_such_file">Plik nie istnieje.</string>
 	<string name="error_vault_has_been_locked">Sejf został zablokowany.</string>
@@ -59,7 +60,6 @@
 	<string name="screen_vault_list_action_create_new_vault">Utwórz nowy sejf</string>
 	<string name="screen_vault_list_action_add_existing_vault">Dodaj istniejący sejf</string>
 	<string name="screen_vault_list_vault_action_delete">Usuń</string>
-	<string name="screen_vault_list_vault_creation_hint">Kliknij tutaj, aby utworzyć nowy sejf</string>
 	<string name="screen_vault_list_change_password_successful">Hasło zostało pomyślnie zmienione</string>
 	<!-- # screen: file browser -->
 	<string name="screen_file_browser_default_title">Sejf</string>
@@ -116,9 +116,8 @@
 	<string name="screen_choose_cloud_service_title">Usługi chmury</string>
 	<!-- ## screen: cloud connections -->
 	<string name="screen_cloud_connections_title">Wybierz lokalizację</string>
-	<string name="screen_cloud_connections_no_connections">Kliknij tutaj, aby dodać nową lokalizację</string>
 	<string name="screen_cloud_error_webdav_not_supported">Serwer wydaje się być niekompatybilny z WebDAV</string>
-	<string name="screen_cloud_local_error_no_content_provider">Brak dodatkowych lokalizacji.</string>
+	<string name="screen_cloud_local_error_no_content_provider">Brak menedżera plików z obsługą otwierania katalogów</string>
 	<!-- ## screen: webdav settings -->
 	<string name="screen_webdav_settings_url_port_label">URL</string>
 	<string name="screen_webdav_settings_username_label">Login</string>
@@ -212,7 +211,8 @@
 	<!-- ## screen: authenticate cloud -->
 	<string name="screen_authenticate_auth_authentication_failed">Nie można uwierzytelnić %1$s.</string>
 	<string name="screen_update_pcloud_connections_title">Aktualizuj dane logowania pCloud</string>
-	<!-- ## screen: insecure android version info -->
+	<!-- ## screen: cryptomator app variants -->
+	<string name="screen_cryptomator_variants_installation_hint">Przełączenie z lub na główny wariant repozytorium F-Droid wymaga nowej konfiguracji aplikacji.</string>
 	<!-- # dialogs -->
 	<string name="dialog_button_cancel">Anuluj</string>
 	<string name="dialog_enter_password_positive_button">Odblokuj</string>
@@ -250,6 +250,7 @@
 	<string name="dialog_unsaved_changes_title">Istnieją niezapisane zmiany</string>
 	<string name="dialog_unsaved_changes_message">Czy na pewno chcesz wyjść bez zapisywania?</string>
 	<string name="dialog_unsaved_changes_discard">Zaniechaj</string>
+	<string name="dialog_file_name_hint">Nazwa pliku</string>
 	<string name="dialog_file_name_placeholder">tekst.txt</string>
 	<string name="dialog_delete_vault_message">Czy na pewno chcesz usunąć ten sejf?</string>
 	<string name="dialog_delete_vault_hint">Ta akcja usunie tylko sejf z tej listy i nie usunie go fizycznie.</string>
@@ -275,6 +276,9 @@
 	<string name="dialog_accept_ssl_certificate_hint">Certyfikat SSL jest nieprawidłowy. Czy mimo to chcesz mu zaufać?</string>
 	<string name="dialog_accept_ssl_certificate_details">Szczegóły</string>
 	<string name="dialog_accept_ssl_certificate_security_checkbox">Mogłoby to stanowić zagrożenie dla bezpieczeństwa. Wiem, co robię.</string>
+	<string name="dialog_ask_ignore_battery_optimizations_title">Wyłącz optymalizację baterii</string>
+	<string name="dialog_ask_ignore_battery_optimizations_hint">Aby pobrać nowe zdjęcia i filmy bez uruchamiania w tle, należy wyłączyć optymalizację baterii. Ale nie martw się, %1$s nie zużywa zbyt dużo energii.\n\nAby go zastosować, zmień \'Niezoptymalizowane\' na \'Wszystkie aplikacje\', wybierz %1$s i wybierz \'Nie optymalizuj\' po kliknięciu \'%2$s\' w tym oknie.</string>
+	<string name="dialog_ask_ignore_battery_optimizations_checkbox">Nie pytać ponownie?</string>
 	<string name="dialog_http_security_hint">Używanie HTTP jest niezabezpieczone. Zamiast tego zalecamy używanie HTTPS. Jeśli znasz ryzyko, możesz kontynuować używając HTTP.</string>
 	<string name="dialog_http_security_checkbox">Zmień na HTTPS</string>
 	<string name="dialog_http_security_title">Używać HTTPS?</string>
@@ -286,17 +290,17 @@
 	<string name="dialog_debug_mode_disclaimer_hint">W tym trybie poufne dane mogą być zapisywane do pliku dziennika na urządzeniu (np. nazwy plików i ścieżki). Hasła, ciasteczka itp. są wykluczone.\n\nPamiętaj, aby wyłączyć tryb debugowania tak szybko, jak to możliwe.</string>
 	<string name="dialog_debug_mode_disclaimer_title">Uwaga</string>
 	<string name="dialog_debug_mode_positive_button">Włącz</string>
-	<string name="dialog_disable_app_obscured_disclaimer_hint">To ustawienie jest funkcją bezpieczeństwa i uniemożliwia innym aplikacjom oszukiwanie użytkowników do robienia rzeczy, których nie chcą robić.\n\nWyłączając je potwierdzasz, że jesteś <a href="https://docs.cryptomator.org/en/1.5/android/settings/#block-app-when-obscured">świadomy ryzyka</a>.</string>
+	<string name="dialog_disable_app_obscured_disclaimer_hint">To ustawienie jest funkcją bezpieczeństwa i uniemożliwia innym aplikacjom oszukiwanie użytkowników.\n\nWyłączając je potwierdzasz, że jesteś <a href="https://docs.cryptomator.org/en/1.6/android/settings/#block-app-when-obscured">świadomy ryzyka</a>.</string>
 	<string name="dialog_disable_app_obscured_disclaimer_title">Uwaga</string>
 	<string name="dialog_disable_app_obscured_positive_button">Wyłącz</string>
 	<string name="dialog_app_is_obscured_info_title">Aplikacja jest zasłonięta inną</string>
-	<string name="dialog_app_is_obscured_info_hint">Inna aplikacja jest wyświetlana nad Cryptomatorem (na przykład filtr niebieskiego światła, tryb nocny). Dla twojego bezpieczeństwa Cryptomator jest wyłączony.\n\n<a href="https://docs.cryptomator.org/en/1.5/android/settings/#block-app-when-obscured">Jak ponownie włączyć aplikację. </a></string>
+	<string name="dialog_app_is_obscured_info_hint">Inna aplikacja jest wyświetlana nad Cryptomatorem (na przykład filtr niebieskiego światła, tryb nocny). Dla Twojego bezpieczeństwa Cryptomator jest wyłączony.\n\n<a href="https://docs.cryptomator.org/en/1.6/android/settings/#block-app-when-obscured">Jak ponownie włączyć aplikację. </a></string>
 	<string name="dialog_app_is_obscured_info_neutral_button">Zamknij</string>
 	<string name="dialog_vaults_removed_during_migration_title">Proszę ponownie dodać sejfy dla chmury %1s</string>
 	<string name="dialog_vaults_removed_during_migration_hint">Podczas migracji do tej wersji aplikacji musimy usunąć następujące sejfy z aplikacji:\n%2s \n\nTe sejfy nie są usuwane z chmury, ale tylko z tej aplikacji. Przepraszamy za niedogodności. Dodaj ponownie te sejfy, aby dalej z nich korzystać.</string>
 	<string name="dialog_vault_is_root_folder_of_cloud_title">Sejf jest głównym folderem w połączonej chmurze</string>
 	<string name="dialog_vault_is_root_folder_of_cloud_hint">Utwórz nowe połączenie z chmurą, gdzie wybierzesz przynajmniej folder nadrzędny tego sejfu jako główny katalog, aby dodać ten sejf.</string>
-	<string name="dialog_disable_secure_screen_disclaimer_hint">To ustawienie jest funkcją bezpieczeństwa i uniemożliwia innym aplikacjom oszukiwanie użytkowników do robienia rzeczy, których nie chcą robić.\n\nWyłączając je potwierdzasz, że jesteś <a href="https://docs.cryptomator.org/en/1.5/android/settings/#screen-security">świadomy ryzyka</a>.</string>
+	<string name="dialog_disable_secure_screen_disclaimer_hint">To ustawienie jest funkcją bezpieczeństwa i uniemożliwia innym aplikacjom oszukiwanie użytkowników do robienia rzeczy, których nie chcą robić.\n\nWyłączając je potwierdzasz, że jesteś <a href="https://docs.cryptomator.org/en/1.6/android/settings/#screen-security">świadomy ryzyka</a>.</string>
 	<string name="dialog_delete_cloud_connection_with_vaults_message">Czy na pewno chcesz usunąć to połączenie z serwerem chmury?</string>
 	<string name="dialog_delete_cloud_connection_with_vaults_hint">Ta akcja usunie połączenie z usługą chmury i wszystkimi sejfami w tej chmurze.</string>
 	<string name="dialog_confirm_delete_multiple_title">Usunąć %1$d elementów?</string>
@@ -308,6 +312,7 @@
 	<string name="dialog_enter_license_title">Podaj poprawną licencję</string>
 	<string name="dialog_enter_license_content">Wykryliśmy, że zainstalowałeś Cryptomator bez korzystania ze sklepu Google Play. Podaj poprawną licencję, którą można kupić na <a href="https://cryptomator.org/android/">https://cryptomator.org/android/</a></string>
 	<string name="dialog_enter_license_not_valid_content">Podana licencja jest nieprawidłowa. Upewnij się, że została wprowadzona poprawnie.</string>
+	<string name="dialog_enter_license_not_valid_content_desktop_supporter_certificate">Podany klucz jest certyfikatem darczyńcy. Wprowadź prawidłową licencję.</string>
 	<string name="dialog_enter_license_no_content">Nie udzielono licencji. Wprowadź prawidłową licencję.</string>
 	<string name="dialog_enter_license_decline_button">Wyjdź</string>
 	<string name="dialog_license_confirmation_title">Informacje o licencji</string>
@@ -326,7 +331,7 @@
 	<string name="dialog_no_dir_file_message">Folder chmury \'%1$s\' nie ma prawidłowego pliku katalogowego. Być może został on utworzony na innym urządzeniu i nie został jeszcze w pełni zsynchronizowany z chmurą. Sprawdź w chmurze, czy następujący plik istnieje i nie jest pusty:\n%2$s</string>
 	<string name="dialog_no_more_images_to_display">Brak obrazów do wyświetlenia&#8230;</string>
 	<string name="dialog_pcloud_credentials_updated_title">Zaktualizowano dane logowania \'%1$s\'</string>
-	<string name="dialog_pcloud_credentials_updated">Jeśli chciałaś/eś dodać nowe konto pCloud, przejdź na podany adres <a href="https://www.pcloud.com">www.pcloud.com</a>, wyloguj się z aktualnie zalogowanego konta i ponownie kliknij na \'+\' aby utworzyć nowe połączenie z chmurą.</string>
+	<string name="dialog_pcloud_credentials_updated">Jeśli chcesz dodać nowe konto pCloud, przejdź na podany adres <a href="https://www.pcloud.com">www.pcloud.com</a>, wyloguj się z aktualnie zalogowanego konta i ponownie kliknij na \'+\' aby utworzyć nowe połączenie z chmurą.</string>
 	<string name="permission_snackbar_auth_local_vault">Cryptomator potrzebuje dostępu do pamięci lokalnej, aby uzyskać dostęp do sejfu</string>
 	<string name="permission_snackbar_auth_auto_upload">Cryptomator potrzebuje dostępu do pamięci lokalnej, aby automatycznie przesyłać zdjęcia</string>
 	<!-- # error reports -->
@@ -408,6 +413,4 @@
 	<string name="dark">Ciemny</string>
 	<!-- update interval names -->
 	<string name="update_interval_1d">Raz dziennie</string>
-	<string name="update_interval_1w">Raz w tygodniu</string>
-	<string name="update_interval_1m">Raz w miesiącu</string>
 </resources>

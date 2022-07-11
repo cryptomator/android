@@ -9,10 +9,12 @@
 	<string name="error_no_network_connection">কোনো নেটওয়ার্ক সংযোগ নেই</string>
 	<string name="error_invalid_passphrase">ভুল পাসওয়ার্ড</string>
 	<string name="error_file_or_folder_exists">একটি ফাইল অথবা ফোল্ডার ইতিমধ্যে রয়েছে।</string>
-	<string name="error_vault_version_not_supported">অসমর্থিত ভোল্ট। এই ভোল্টটি ক্রিপ্টোমেটরের অন্য একটি ভার্সন দিয়ে তৈরি হয়েছিল।</string>
+	<string name="error_vault_version_not_supported">ভোল্ট সংস্করণ %1$s অসমর্থিত. এই ভোল্টটি তৈরি করা হয়েছিল ক্রিপ্টোমেটরের একটি নতুন অথবা পুরনো সংস্করণ দিয়ে.</string>
+	<string name="error_vault_config_file_missing_due_to_format_999">%1$s ফাইলটি ভোল্ট ফোল্ডারে অনুপস্থিত. এই ফাইলটি ক্লাউডের ভোল্ট ফোল্ডারে আছে কিনা তা নিশ্চিত করুন.</string>
 	<string name="error_vault_already_exists">ভোল্টটি ইতিমধ্যে রয়েছে।</string>
 	<string name="error_no_such_file">ফাইলটি নেই।</string>
 	<string name="error_vault_has_been_locked">ভোল্টটি লক করা হয়েছে।</string>
+	<string name="error_cloud_already_exists">ক্লাউড ইতিমধ্যে বিদ্যমান.</string>
 	<string name="error_activity_not_found">ফাইলটি খুলতে পারে এমন একটি আ্যপ ডাউনলোড করুন।</string>
 	<string name="error_server_not_found">সার্ভার খুজে পাওয়া যায়নি।</string>
 	<string name="error_device_policy_manager_not_found">অনুগ্রহ করে ডিভাইস সেটিংস খুলে নিজে স্ক্রিন লক লাগিয়ে নিন। </string>
@@ -30,11 +32,15 @@
 	<string name="error_vault_key_invalid">%1$s এই %2$s এর সাথে মেলে না</string>
 	<string name="error_vault_config_loading">ভোল্ট কোনফিগারেশন লোডিংএ সাধারণ ত্রুটি দেখা দিয়েছে</string>
 	<string name="error_file_not_found_after_opening_using_3party">ক্রিপ্টোমেটরে ফিরে যাওয়ার পর লোকাল ফাইলটি বিদ্যমান নয়। তাই সম্ভাব্য পরিবর্তনগুলো আবার ক্লাউডে স্থানান্তর করা হবে না।</string>
+	<string name="error_no_such_bucket">এরকম কোন bucket নেই</string>
 	<!-- # clouds -->
 	<!-- ## cloud names -->
 	<string name="cloud_names_local_storage">সিস্টেম স্টোরেজ</string>
 	<!-- # permission -->
 	<!-- ## permission messages -->
+	<string name="permission_message_export_file">ক্রিপ্টোমেটরের ফাইল এক্সপোর্ট করতে স্টোরেজ অনুমতি প্রয়োজন</string>
+	<string name="permission_message_upload_file">ক্রিপ্টোমেটরের ফাইল আপলোড করতে স্টোরেজ অনুমতি প্রয়োজন</string>
+	<string name="permission_message_share_file">ক্রিপ্টোমেটরের ফাইল শেয়ার করতে স্টোরেজ এক্সেস প্রয়োজন</string>
 	<string name="snack_bar_action_title_settings">সেটিংস</string>
 	<string name="snack_bar_action_title_search">খুঁজুন</string>
 	<string name="snack_bar_action_title_search_previous">পিছনে</string>
@@ -52,7 +58,6 @@
 	<string name="screen_vault_list_action_create_new_vault">নতুন ভোল্ট তৈরি করুন</string>
 	<string name="screen_vault_list_action_add_existing_vault">বিদ্যমান কোনো ভোল্ট যুক্ত করুন</string>
 	<string name="screen_vault_list_vault_action_delete">বাতিল</string>
-	<string name="screen_vault_list_vault_creation_hint">নতুন ভোল্ট তৈরি করতে এখানে ক্লিক করুন</string>
 	<string name="screen_vault_list_change_password_successful">পাসওয়ার্ড সফলভাবে পরিবর্তিত হয়েছে</string>
 	<!-- # screen: file browser -->
 	<string name="screen_file_browser_default_title">ভোল্ট</string>
@@ -107,7 +112,6 @@
 	<string name="screen_choose_cloud_service_title">ক্লাউড পরিষেবা</string>
 	<!-- ## screen: cloud connections -->
 	<string name="screen_cloud_connections_title">একটি ঠিকানা বাছাই করুন</string>
-	<string name="screen_cloud_connections_no_connections">ঠিকানা যোগ করতে এখানে ক্লিক করুন</string>
 	<!-- ## screen: webdav settings -->
 	<string name="screen_webdav_settings_url_port_label">ইউআরএল</string>
 	<string name="screen_webdav_settings_username_label">ব্যবহারকারীর নাম</string>
@@ -119,11 +123,17 @@
 	<string name="screen_webdav_settings_msg_password_must_not_be_empty">পাসওয়ার্ড খালি থাকতে পারবে না।</string>
 	<!-- ## screen: s3 settings -->
 	<string name="screen_s3_settings_display_name_label">নাম প্রদর্শন করুন</string>
+	<string name="screen_s3_settings_access_key_label">Access Key</string>
+	<string name="screen_s3_settings_secret_key_label">Secret Key</string>
 	<string name="screen_s3_settings_bucket_label">বিদ্যমান বাকেট</string>
 	<string name="screen_s3_settings_endpoint_label">এন্ডপয়েন্ট</string>
 	<string name="screen_s3_settings_region_label">অঞ্চল</string>
 	<string name="screen_s3_settings_msg_display_name_not_empty">নাম খালি হতে পারব না</string>
+	<string name="screen_s3_settings_msg_access_key_not_empty">Access Key খালি হতে পারবে না</string>
+	<string name="screen_s3_settings_msg_secret_key_not_empty">Secret Key খালি হতে পারবে না</string>
+	<string name="screen_s3_settings_msg_bucket_not_empty">Bucket খালি হতে পারবে না</string>
 	<!-- ## screen: enter vault name -->
+	<string name="screen_enter_vault_name_msg_name_empty">ভোল্ট এর নাম খালি হতে পারবে না.</string>
 	<string name="screen_enter_vault_name_vault_label">ভোল্ট এর নাম</string>
 	<string name="screen_enter_vault_name_button_text">তৈরি করুন</string>
 	<!-- ## screen: set password -->
@@ -180,7 +190,7 @@
 	<string name="screen_cloud_settings_sign_out_from_cloud">সাইন আউট</string>
 	<!-- ## screen: licenses -->
 	<!-- ## screen: authenticate cloud -->
-	<!-- ## screen: insecure android version info -->
+	<!-- ## screen: cryptomator app variants -->
 	<!-- # dialogs -->
 	<string name="dialog_button_cancel">বাতিল করুন</string>
 	<string name="dialog_enter_password_positive_button">আনলক করুন</string>
@@ -203,6 +213,28 @@
 	<string name="dialog_replace_positive_button_single_file_exists">প্রতিস্থাপন করুন</string>
 	<string name="dialog_replace_msg_single_file_exists">%1$s নামে একটি ফাইল ইতিমধ্যে রয়েছে। আপনি কি এটা প্রতিস্থাপন করতে চান?</string>
 	<string name="dialog_replace_msg_all_files_exists">সব ফাইলগুলি ইতিমধ্যে রয়েছে। আপনি কি তাদের প্রতিস্থাপন করতে চান?</string>
+	<string name="dialog_unable_to_share_title">ফাইলগুলো শেয়ার করা যায় নি</string>
+	<string name="dialog_unable_to_share_message">আপনি কোনো ভোল্ট যুক্ত করেননি. অনুগ্রহ করে ক্রিপ্টোমেটর আ্যপ দিয়ে একটি নতুন ভোল্ট তৈরি করুন.</string>
+	<string name="dialog_unable_to_share_positive_button">আচ্ছা</string>
+	<string name="dialog_unable_to_share_negative_button">ভোল্ট তৈরি করুন</string>
+	<string name="dialog_filetype_not_supported_title">%1$s খোলা যাচ্ছে না</string>
+	<string name="dialog_filetype_not_supported_message">অনুগ্রহ করে এমন একটি অ্যাপ ডাউনলোড করুন যেটি ফাইলটি খুলতে পারবে অথবা আপনি কি আপনার ডিভাইসে সংরক্ষণ করতে চান?</string>
+	<string name="dialog_rename_vault_title">ভোল্ট নামকরণ করুন</string>
+	<string name="dialog_rename_node_folder_title">ফোল্ডার পুনঃনামকরন</string>
+	<string name="dialog_rename_node_file_title">ফাইল পুনঃনামকরন</string>
+	<string name="dialog_unsaved_changes_title">আপনার পরিবর্তনগুলো সংরক্ষণ করা হয়নি</string>
+	<string name="dialog_unsaved_changes_message">আপনি সংরক্ষণ না করেই বের হয়ে যাবেন?</string>
+	<string name="dialog_unsaved_changes_discard">অগ্রাহ্য</string>
+	<string name="dialog_file_name_placeholder">text.txt</string>
+	<string name="dialog_delete_vault_message">আপনি কি নিশ্চিতভাবে এই ভোল্ট অপসারণ করতে চান?</string>
+	<string name="dialog_delete_vault_hint">এই প্রক্রিয়ায় ভোল্টটি শুধুমাত্র এই তালিকা থেকে বাতিল হবে এবং মূল জায়গা থেকে মুছবে না.</string>
+	<string name="dialog_upload_file_title">আপলোড হচ্ছে&#8230;</string>
+	<string name="dialog_upload_file_remaining">ফাইল %1$d এর %2$d টি</string>
+	<string name="dialog_export_file_title">এক্সপোর্ট হচ্ছে (%1$d/%2$d)</string>
+	<string name="dialog_progress_please_wait">অনুগ্রহ করে অপেক্ষা করুন&#8230;</string>
+	<string name="dialog_progress_creating_folder">ফোল্ডার তৈরি হচ্ছে&#8230;</string>
+	<string name="dialog_progress_creating_text_file">টেক্সট ফাইল তৈরি হচ্ছে&#8230;</string>
+	<string name="dialog_progress_upload_file">আপলোড হচ্ছে&#8230;</string>
 	<string name="dialog_lock_vault">লক করুন</string>
 	<string name="dialog_app_is_obscured_info_neutral_button">বন্ধ করুন</string>
 	<string name="dialog_sym_link_back_button">পিছনে</string>

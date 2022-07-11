@@ -9,7 +9,7 @@
 	<string name="error_no_network_connection">אין חיבור לרשת</string>
 	<string name="error_invalid_passphrase">סיסמה שגויה</string>
 	<string name="error_file_or_folder_exists">כבר קיימים תיקייה או קובץ בשם זה.</string>
-	<string name="error_vault_version_not_supported">הכספת לא נתמכת. כספת זו נוצרה בגרסה אחרת של Cryptomator.</string>
+	<string name="error_vault_version_not_supported">גרסת Vault %1$s אינה נתמכת. גרסא Vault זו נוצרה עם גרסא חדשה או ישנה יותר של Cryptomator.</string>
 	<string name="error_vault_already_exists">כספת כבר קיימת.</string>
 	<string name="error_no_such_file">הקובץ לא קיים.</string>
 	<string name="error_vault_has_been_locked">הכספת ננעלה.</string>
@@ -30,6 +30,7 @@
 	<string name="error_vault_version_mismatch">הגרסה ב %1$s שונה מזו שב %2$s</string>
 	<string name="error_vault_key_invalid">%1$s ו %2$s אינם תואמים</string>
 	<string name="error_vault_config_loading">שגיאה כללית בזמן טעינת הגדרות הכספת</string>
+	<string name="error_file_not_found_after_opening_using_3party">קובץ מקומי לא יופיע לאחר מעבר חזרה ל Cryptomator. שינויים שנעשו עלולים לא להתעדכן בחזרה לענן.</string>
 	<string name="error_no_such_bucket">דלי לא נמצא</string>
 	<string name="error_masterkey_location_not_supported">שינוי מיקום ה Masterkey עדיין לא נתמך</string>
 	<!-- # clouds -->
@@ -44,27 +45,26 @@
 	<string name="snack_bar_action_title_settings">הגדרות</string>
 	<string name="snack_bar_action_title_search">חיפוש</string>
 	<string name="snack_bar_action_title_search_previous">הקודם</string>
-	<string name="snack_bar_action_title_search_next">המשך</string>
+	<string name="snack_bar_action_title_search_next">הבא</string>
 	<string name="snack_bar_action_title_sort">מיון</string>
 	<string name="snack_bar_action_title_sort_az">א - ת</string>
 	<string name="snack_bar_action_title_sort_za">ת - א</string>
 	<string name="snack_bar_action_title_sort_newest">החדש ביותר</string>
 	<string name="snack_bar_action_title_sort_oldest">הישן ביותר</string>
-	<string name="snack_bar_action_title_sort_biggest">הכבד ביותר</string>
-	<string name="snack_bar_action_title_sort_smallest">הקל ביותר</string>
+	<string name="snack_bar_action_title_sort_biggest">הגדול ביותר</string>
+	<string name="snack_bar_action_title_sort_smallest">הקטן ביותר</string>
 	<!-- # screens -->
 	<!-- # screen: vault list -->
 	<string name="screen_vault_list_actions_title">הוסף ל-Cryptomator</string>
 	<string name="screen_vault_list_action_create_new_vault">צור כספת חדשה</string>
 	<string name="screen_vault_list_action_add_existing_vault">הוסף כספת קיימת</string>
-	<string name="screen_vault_list_vault_action_delete">מחק</string>
-	<string name="screen_vault_list_vault_creation_hint">ליצירת כספת חדשה לחץ כאן</string>
-	<string name="screen_vault_list_change_password_successful">הסיסמה שונתה בהצלחה</string>
+	<string name="screen_vault_list_vault_action_delete">הסר</string>
+	<string name="screen_vault_list_change_password_successful">הסיסמא שונתה בהצלחה</string>
 	<!-- # screen: file browser -->
 	<string name="screen_file_browser_default_title">כספת</string>
 	<string name="screen_file_browser_add_existing_vault_extra_text">בחר קובץ masterkey</string>
 	<string name="screen_file_browser_create_new_vault_button_text">מקם כאן</string>
-	<string name="screen_file_browser_create_new_vault_extra_text">שם כספת: %1$s</string>
+	<string name="screen_file_browser_create_new_vault_extra_text">שם הכספת: %1$s</string>
 	<string name="screen_file_browser_move_button_text">שנה מיקום</string>
 	<string name="screen_file_browser_msg_empty_folder">תיקיה ריקה</string>
 	<string name="screen_file_browser_file_info_label_date">שונה לפני %1$s</string>
@@ -75,12 +75,12 @@
 	<string name="screen_file_browser_actions_title">הוסף ל %1$s</string>
 	<string name="screen_file_browser_action_create_folder">צור תיקייה</string>
 	<string name="screen_file_browser_action_create_new_text_file">צור קובץ טקסט</string>
-	<string name="screen_file_browser_action_upload_files">העלה קובצים</string>
+	<string name="screen_file_browser_action_upload_files">העלה קבצים</string>
 	<string name="screen_file_browser_upload_files_chooser_title">קבצים</string>
 	<string name="screen_file_browser_msg_file_exported">הקובץ יוצא</string>
 	<string name="screen_file_browser_msg_files_exported">הקבצים יוצאו</string>
 	<string name="screen_file_browser_nothing_to_export">אין מה לייצא</string>
-	<string name="screen_file_browser_msg_creating_download_dir_failed">יצירת תיקייה להורדות נכשלה</string>
+	<string name="screen_file_browser_msg_creating_download_dir_failed">יצירת תיקיית הורדות נכשלה</string>
 	<string name="screen_file_browser_node_action_share">שתף</string>
 	<string name="screen_file_browser_node_action_rename">שנה שם</string>
 	<string name="screen_file_browser_node_action_edit_text">ערוך</string>
@@ -109,8 +109,8 @@
 	<string name="screen_choose_cloud_service_title">שירותי אחסון בענן</string>
 	<!-- ## screen: cloud connections -->
 	<string name="screen_cloud_connections_title">בחר מיקום</string>
-	<string name="screen_cloud_connections_no_connections">להוספת מיקומים, לחץ כאן</string>
 	<string name="screen_cloud_error_webdav_not_supported">נראה שהשרת אינו תומך ב WebDAV</string>
+	<string name="screen_cloud_local_error_no_content_provider">לא נמצא סייר קבצים שתומך בפתיחה של תיקיות</string>
 	<!-- ## screen: webdav settings -->
 	<string name="screen_webdav_settings_url_port_label">כתובת URL</string>
 	<string name="screen_webdav_settings_username_label">שם משתמש</string>
@@ -153,9 +153,13 @@
 	<string name="screen_settings_biometric_auth">אימות ביומטרי</string>
 	<string name="screen_settings_activate_biometric_auth">הפעל אימות ביומטרי</string>
 	<string name="screen_settings_confirm_face_unlock">אפשר פתיחה באמצעות זיהוי פנים (במידה שזמין)</string>
+	<string name="screen_settings_block_app_when_obscured">מנע פעולה כאשר יש לאפליקציות אחרות רשות להציג מעל</string>
+	<string name="screen_settings_block_app_when_obscured_summary">מנע יירוט של קלט והצגה של ממשק משתמש מדומה</string>
 	<string name="screen_settings_secure_screen">חסום צילומי מסך</string>
 	<string name="screen_settings_secure_screen_summary">חסום צילומי מסך באפליקציה וברשימת היישומים שנפתחו לאחרונה</string>
 	<string name="screen_settings_section_search">חיפוש</string>
+	<string name="screen_settings_live_search">חיפוש בלייב</string>
+	<string name="screen_settings_live_search_summary">עדכן תצוצאות חיפוש תוך כדי הקלדה</string>
 	<string name="screen_settings_glob_search">חפש באמצעות תבניות Glob</string>
 	<string name="screen_settings_glob_search_summary">השתמש בתבניות Glob כדי לבצע חיפוש כדוגמת alice.*.jpg</string>
 	<string name="screen_settings_section_auto_lock">נעילה אוטומטית</string>
@@ -164,7 +168,9 @@
 	<string name="screen_settings_section_auto_photo_upload">העלאה אוטומטית של תמונות</string>
 	<string name="screen_settings_section_auto_photo_upload_vault">בחר כספת להעלאת תמונות</string>
 	<string name="screen_settings_section_auto_photo_upload_toggle">הפעל</string>
+	<string name="screen_settings_section_auto_photo_upload_toggle_summary">לכוד תמונות ברקע והתחל להעלות לאחר פתיחה של ה Vault</string>
 	<string name="screen_settings_section_auto_photo_upload_toggle_instant_upload">העלאה מיידית</string>
+	<string name="screen_settings_section_auto_photo_upload_toggle_instant_upload_summary">התחל להעלות מיד לאחר פתיחה של ה Vault</string>
 	<string name="screen_settings_section_auto_photo_upload_only_wifi_toggle">העלה רק כאשר המכשיר מחובר ל WiFi</string>
 	<string name="screen_settings_section_auto_photo_upload_including_videos">העלה סרטוני וידאו</string>
 	<string name="screen_settings_auto_photo_upload_title">שמור קבצים מועלים אוטומטית ל&#8230;</string>
@@ -179,8 +185,13 @@
 	<string name="screen_settings_debug_mode_label">מצב ניפוי תקלות</string>
 	<string name="screen_settings_error_report_label">שלח יומן אירועים</string>
 	<string name="screen_settings_error_report_failed">השליחה נכשלה</string>
+	<string name="screen_settings_security_label">טיפים לאבטחה</string>
 	<string name="screen_settings_section_version">גרסה</string>
 	<string name="screen_settings_advanced_settings">הגדרות מתקדמות</string>
+	<string name="screen_settings_background_unlock_preparation_label">האץ פתיחה ברקע</string>
+	<string name="screen_settings_background_unlock_preparation_label_summary">הורד ברקע את הקונפיגורציה של ה Vault בזמן הבקשה להכנסת סיסמא או זיהוי ביומטרי</string>
+	<string name="screen_settings_keep_unlocked_while_editing_files">השאר נעול</string>
+	<string name="screen_settings_keep_unlocked_while_editing_files_summary">השאר את ה Vault נעול בזמן עריכת קבצים</string>
 	<!-- ## screen: cloud settings -->
 	<string name="screen_cloud_settings_onedrive_connections">חיבורי OneDrive</string>
 	<string name="screen_cloud_settings_webdav_connections">חיבורי WebDAV</string>
@@ -191,9 +202,9 @@
 	<string name="screen_cloud_settings_sign_out_from_cloud">התנתק מ</string>
 	<!-- ## screen: licenses -->
 	<!-- ## screen: authenticate cloud -->
-	<string name="screen_authenticate_auth_authentication_failed">האימות אל \'%1$s\' נכשל.</string>
+	<string name="screen_authenticate_auth_authentication_failed">האימות מול \'%1$s\' נכשל.</string>
 	<string name="screen_update_pcloud_connections_title">עדכן את פרטי ההתחברות אל pCloud</string>
-	<!-- ## screen: insecure android version info -->
+	<!-- ## screen: cryptomator app variants -->
 	<!-- # dialogs -->
 	<string name="dialog_button_cancel">ביטול</string>
 	<string name="dialog_enter_password_positive_button">בטל נעילה</string>
@@ -202,9 +213,11 @@
 	<string name="dialog_change_password">שנה סיסמה</string>
 	<string name="dialog_change_password_msg_old_password_empty">יש להזין סיסמה ישנה.</string>
 	<string name="dialog_change_password_msg_new_password_empty">יש להזין סיסמה חדשה.</string>
+	<string name="dialog_change_password_msg_password_mismatch">הסיסמא החדשה אינה תואמת לסיסמה שהוזנה.</string>
 	<!-- Vault not found -->
 	<string name="dialog_vault_not_found_title">הכספת %1$s לא נמצאה</string>
-	<string name="dialog_vault_not_found_positive_button_text">מחק</string>
+	<string name="dialog_vault_not_found_message">ה Vault הנבחר נמחק, הועבר או השם השתנה. נא להסיר את ה Vault מהרשימה ולהוסיף מחדש בכדי להמשיך. להסיר עכשיו?</string>
+	<string name="dialog_vault_not_found_positive_button_text">הסר</string>
 	<string name="dialog_existing_file_title">הקובץ כבר קיים</string>
 	<string name="dialog_existing_file_positive_button">החלף</string>
 	<string name="dialog_existing_file_message">כבר קיים קובץ בשם %1$s.</string>
@@ -212,6 +225,8 @@
 	<string name="dialog_replace_positive_button_all_files_exist">החלף הכל</string>
 	<string name="dialog_replace_positive_button_some_files_exist">החלף קיימים</string>
 	<string name="dialog_replace_positive_button_single_file_exists">החלף</string>
+	<string name="dialog_replace_msg_single_file_exists">הקובץ \'%1$s\' כבר קיים. האם ברצונך להחליף אותו?</string>
+	<string name="dialog_replace_msg_some_files_exists">הקבצים %1$d כבר קיימים. האם ברצונך להחליפם?</string>
 	<string name="dialog_replace_title_single_file_exists">להחליף את הקובץ?</string>
 	<string name="dialog_replace_title_multiple_files_exist">להחליף את הקבצים?</string>
 	<string name="dialog_unable_to_share_title">אין אפשרות לשתף את הקבצים</string>
@@ -251,23 +266,35 @@
 	<string name="dialog_accept_ssl_certificate_hint">תעודת SSL לא חוקית. תרצה לבטוח בתעודה זו בכל מקרה?</string>
 	<string name="dialog_accept_ssl_certificate_details">פרטים</string>
 	<string name="dialog_accept_ssl_certificate_security_checkbox">פעולה זו יכולה לגרום לפרצות אבטחה. אני מבין מהם ההשלכות.</string>
+	<string name="dialog_ask_ignore_battery_optimizations_title">השבת אופטימיזציה של הסוללה עבור אפליקציה זו</string>
+	<string name="dialog_ask_ignore_battery_optimizations_checkbox">לא לשאול שוב?</string>
 	<string name="dialog_http_security_hint">HTTP הוא פרוטוקול לא מאובטח. אנו ממליצים להשתמש ב HTTPS במקום. אם אתה מבין את הסיכונים בכך, אתה יכול להמשיך להשתמש ב HTTP.</string>
 	<string name="dialog_http_security_checkbox">עבור ל-HTTPS</string>
 	<string name="dialog_http_security_title">להשתמש ב-HTTPS?</string>
+	<string name="dialog_no_screen_lock_hint">לא הוגדרה נעילת מסך. בכדי לשמור את פרטי ההתחברות באופן מאובטח, לחץ על OK בכדי ליצור תבנית או סיסמא.</string>
+	<string name="dialog_no_screen_lock_title">הגדר נעילת מסך?</string>
+	<string name="dialog_no_screen_lock_checkbox">הגדר נעילת מסך</string>
+	<string name="dialog_no_biometric_auth_set_up_title">לא הוגדר אימות בסיסי במערכת</string>
+	<string name="dialog_no_biometric_auth_set_up_message">בכדי להשתמש בשירות זה חייבת להיות מוגדרת לפחות זיהוי ביומטרי אחד של אצבע/פנים.</string>
 	<string name="dialog_debug_mode_disclaimer_title">שים לב</string>
 	<string name="dialog_debug_mode_positive_button">הפעל</string>
 	<string name="dialog_disable_app_obscured_disclaimer_title">שים לב</string>
 	<string name="dialog_disable_app_obscured_positive_button">כבה</string>
-	<string name="dialog_app_is_obscured_info_hint">אפליקציה אחרת מציגה משהו מעל Cryptomator (לדוגמה, אפליקציית סינון אור כחול למצב לילה). מטעמי אבטחה, Cryptomator ייסגר עכשיו.\n\n<a href="https://docs.cryptomator.org/en/1.5/android/settings/#block-app-when-obscured">איך להפעיל את Cryptomator</a></string>
+	<string name="dialog_app_is_obscured_info_title">אפליקציה אחרת מציגה מעל Cryptomator</string>
+	<string name="dialog_app_is_obscured_info_hint">אפליקציה אחרת מציגה משהו מעל Cryptomator (לדוגמה, אפליקציית סינון אור כחול למצב לילה). מטעמי אבטחה, Cryptomator ייסגר עכשיו.\n\n<a href="https://docs.cryptomator.org/en/1.6/android/settings/#block-app-when-obscured">איך להפעיל את Cryptomator</a></string>
 	<string name="dialog_app_is_obscured_info_neutral_button">סגור</string>
+	<string name="dialog_delete_cloud_connection_with_vaults_message">האם את/ה בטוח/ה שברצונך להסיר את החיבור הזה לענן?</string>
+	<string name="dialog_delete_cloud_connection_with_vaults_hint">פעולה זו תסיר את החיבור לענן ואת כל ה Vault-ים שבענן זה.</string>
 	<string name="dialog_confirm_delete_multiple_title">למחוק %1$d פריטים?</string>
 	<string name="dialog_confirm_delete_multiple_message">אתה בטוח שברצונך למחוק קבצים אלו?</string>
 	<string name="dialog_confirm_delete_file_message">אתה בטוח שברצונך למחוק קובץ זה?</string>
 	<string name="dialog_confirm_delete_folder_message">אתה בטוח שברצונך למחוק תיקייה זו? הפעולה תמחק גם את כל הקבצים שנמצאים בתוך התיקייה.</string>
 	<string name="dialog_biometric_auth_key_invalidated_title">האימות הביומטרי בוטל</string>
+	<string name="dialog_biometric_auth_key_invalidated_message">בגלל שמפתח זה כבר לא חוקי, הזיהו הביומטרי הופסק. להפעלה מחדש יש לפתוח את מסך ההגדרות של Cryptomator.</string>
 	<string name="dialog_enter_license_title">שימוש במפתח רישיון</string>
 	<string name="dialog_enter_license_content">זיהינו שהתקנת את Cryptomator לא דרך ה-Google Play Store. להפעלת האפליקציה, יש להכניס מפתח רישיון. ניתן לרכוש מפתח ב-<a href="https://cryptomator.org/android/">https://cryptomator.org/android/</a></string>
 	<string name="dialog_enter_license_not_valid_content">המפתח לא אומת. וודא כי הזנת אותו כהלכה.</string>
+	<string name="dialog_enter_license_not_valid_content_desktop_supporter_certificate">המפתח שהוזן הוא תעודת תומך. יש להזין מפתח חוקי.</string>
 	<string name="dialog_enter_license_no_content">לא הוזן מפתח, אנא הזן מפתח רישיון תקין.</string>
 	<string name="dialog_enter_license_decline_button">יציאה</string>
 	<string name="dialog_license_confirmation_title">מפתח הרישיון אומת</string>
@@ -284,7 +311,7 @@
 	<string name="dialog_sym_link_back_button">חזור</string>
 	<string name="dialog_no_dir_file_title">טעינת תיקייה זו נכשלה</string>
 	<string name="dialog_no_more_images_to_display">אין עוד תמונות להציג&#8230;</string>
-	<string name="dialog_pcloud_credentials_updated">אם ברצונך להוסיף משתמש pCloud נוסף, לחץ על הקישור <a href="https://www.pcloud.com">www.pcloud.com</a>, התנתק מהמשתמש הנוכחי ולחץ על ה \'+\' באפליקצייה כדי להוסיף חיבור חדש.</string>
+	<string name="dialog_pcloud_credentials_updated_title">פרטי ההתחברות של \'%1$s\' עודכנו</string>
 	<string name="permission_snackbar_auth_local_vault">Cryptomator זקוק להרשאת גישה לזיכרון המכשיר כדי להשתמש בכספת מקומית</string>
 	<string name="permission_snackbar_auth_auto_upload">Cryptomator זקוק להרשאת גישה לזיכרון המכשיר כדי לבצע העלאה אוטומטית של תמונות</string>
 	<!-- # error reports -->
@@ -324,10 +351,18 @@
 	<string name="notification_auto_upload_title">מתבצעת העלאה אוטומטית של תמונות</string>
 	<string name="notification_auto_upload_message">מעלה %1d/%2d</string>
 	<string name="notification_auto_upload_finished_title">העלאה אוטומטית של תמונות הסתיימה</string>
+	<string name="notification_auto_upload_finished_message">%1$d תמונות הועלו ל Vault</string>
 	<string name="notification_auto_upload_failed_title">העלאה אוטומטית של תמונות נכשלה</string>
+	<string name="notification_auto_upload_failed_general_error">שגיאה כללית אירעה בעת תהליך ההעלאה.</string>
+	<string name="notification_auto_upload_failed_due_to_folder_not_exists">התיקייה הנבחרת להעלה אינה זמינה יותר. יש לגשת למסך ההגדרות ולבחור תיקייה חדשה</string>
+	<string name="notification_auto_upload_failed_due_to_vault_locked">ה Vault ננעל במהלך ההעלאה, יש לפתוח את ה vault מחדש בכדי להמשיך</string>
 	<string name="notification_auto_upload_failed_due_to_vault_not_found">הכספת המוגדרת להעלאה אוטומטית של קבצים לא קיימת יותר.</string>
+	<string name="notification_open_writable_file_title">קובץ פתוח לעריכה</string>
+	<string name="notification_open_writable_file_message">ה vault יישאר פתוח עד לסיום העריכה</string>
 	<string name="notification_update_check_finished_latest">הגרסה העדכנית ביותר מותקנת</string>
+	<string name="notification_authenticating">אימות&#8230;</string>
 	<string name="screen_settings_lru_cache">מטמון</string>
+	<string name="screen_settings_lru_cache_toggle_summary">קבצים שהיו בשימוש לאחרונה יוצפנו באופן מקומי לשימוש נוסף בעתיד</string>
 	<string name="screen_settings_lru_cache_size">נפח מטמון</string>
 	<string name="screen_settings_clear_lru_cache_size">נקה מטמון</string>
 	<string name="screen_settings_license">רשום עבור</string>
@@ -357,6 +392,4 @@
 	<string name="dark">כהה</string>
 	<!-- update interval names -->
 	<string name="update_interval_1d">פעם ביום</string>
-	<string name="update_interval_1w">פעם בשבוע</string>
-	<string name="update_interval_1m">פעם בחודש</string>
 </resources>

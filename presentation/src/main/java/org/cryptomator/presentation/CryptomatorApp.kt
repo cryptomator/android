@@ -52,6 +52,9 @@ class CryptomatorApp : MultiDexApplication(), HasComponent<ApplicationComponent>
 			"fdroid" -> {
 				"F-Droid Edition"
 			}
+			"lite" -> {
+				"F-Droid Main Repo Edition"
+			}
 			else -> "Google Play Edition"
 		}
 		Timber.tag("App").i(

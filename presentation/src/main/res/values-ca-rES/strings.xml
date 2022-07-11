@@ -9,7 +9,6 @@
 	<string name="error_no_network_connection">No hi ha connexió de xarxa</string>
 	<string name="error_invalid_passphrase">Contrasenya incorrecta</string>
 	<string name="error_file_or_folder_exists">Ja existeix un fitxer o carpeta.</string>
-	<string name="error_vault_version_not_supported">Caixa forta no suportada. Caixa forta creada amb una altra versió de Cryptomator.</string>
 	<string name="error_vault_already_exists">La caixa forta ja existeix.</string>
 	<string name="error_no_such_file">El fitxer no existeix.</string>
 	<string name="error_vault_has_been_locked">S\'ha bloquejat la caixa forta.</string>
@@ -59,7 +58,6 @@
 	<string name="screen_vault_list_action_create_new_vault">Crea una caixa forta nova</string>
 	<string name="screen_vault_list_action_add_existing_vault">Afegeix una caixa forta existent</string>
 	<string name="screen_vault_list_vault_action_delete">Elimina</string>
-	<string name="screen_vault_list_vault_creation_hint">Feu clic aquí per crear una caixa forta</string>
 	<string name="screen_vault_list_change_password_successful">La contrasenya s\'han canviat correctament</string>
 	<!-- # screen: file browser -->
 	<string name="screen_file_browser_default_title">Caixa forta</string>
@@ -114,9 +112,8 @@
 	<string name="screen_choose_cloud_service_title">Servei al núvol</string>
 	<!-- ## screen: cloud connections -->
 	<string name="screen_cloud_connections_title">Trieu una destinació</string>
-	<string name="screen_cloud_connections_no_connections">Feu clic aquí per afegir destinacions</string>
 	<string name="screen_cloud_error_webdav_not_supported">El servidor no sembla que sigui compatible amb WebDAV</string>
-	<string name="screen_cloud_local_error_no_content_provider">No hi ha ubicacions addicionals disponibles.</string>
+	<string name="screen_cloud_local_error_no_content_provider">No s\'ha trobat cap gestor de fitxers que suporte l\'obertura de directoris/carpetes</string>
 	<!-- ## screen: webdav settings -->
 	<string name="screen_webdav_settings_url_port_label">URL</string>
 	<string name="screen_webdav_settings_username_label">Nom d\'usuari</string>
@@ -199,6 +196,7 @@
 	<string name="screen_settings_keep_unlocked_while_editing_files">Manté desblocat</string>
 	<string name="screen_settings_keep_unlocked_while_editing_files_summary">Manté les caixes fortes desblocades quan s\'editen els fitxers</string>
 	<!-- ## screen: cloud settings -->
+	<string name="screen_cloud_settings_onedrive_connections">Connexions OneDrive</string>
 	<string name="screen_cloud_settings_webdav_connections">Connexions WebDAV</string>
 	<string name="screen_cloud_settings_pcloud_connections">connexions pCloud</string>
 	<string name="screen_cloud_settings_s3_connections">Connexions S3</string>
@@ -209,7 +207,7 @@
 	<!-- ## screen: authenticate cloud -->
 	<string name="screen_authenticate_auth_authentication_failed">%1$s no s\'ha pogut autenticar.</string>
 	<string name="screen_update_pcloud_connections_title">Actualitza les credencials de pCloud</string>
-	<!-- ## screen: insecure android version info -->
+	<!-- ## screen: cryptomator app variants -->
 	<!-- # dialogs -->
 	<string name="dialog_button_cancel">Cancel·la</string>
 	<string name="dialog_enter_password_positive_button">Desbloqueja</string>
@@ -283,16 +281,14 @@
 	<string name="dialog_debug_mode_disclaimer_hint">En aquest mode, informació sensible pot ser escrita en un arxiu de registre al teu dispositiu (per exemple, noms d\'arxius i rutes). Contrasenyes, galetes, etc. són explícitament excloses.\n\nRecorda desactivar el mode de depuració tan aviat com sigui possible.</string>
 	<string name="dialog_debug_mode_disclaimer_title">Atenció</string>
 	<string name="dialog_debug_mode_positive_button">Activa</string>
-	<string name="dialog_disable_app_obscured_disclaimer_hint">Aquest ajustament és una funció de seguretat i evita que d\'altres aplicacions puguin enganyar a usuaris per a fer coses que no volen fer.\n\nDeshabilitant-la, confirmes que ets<a href="https://docs.cryptomator.org/en/1.5/android/settings/#block-app-when-obscured">conscient dels riscos</a>.</string>
 	<string name="dialog_disable_app_obscured_disclaimer_title">Atenció</string>
 	<string name="dialog_disable_app_obscured_positive_button">Desactiva</string>
 	<string name="dialog_app_is_obscured_info_title">Alguna cosa està superposada a l\'aplicació</string>
-	<string name="dialog_app_is_obscured_info_hint">Una altra aplicació està mostrant alguna cosa per sobre de Cryptomator (per exemple un filtre de llum blava o una aplicació de mode nocturn). Per raons de seguretat, Cryptomator s\'ha deshabilitat.\n\n<a href="https://docs.cryptomator.org/en/1.5/android/settings/#block-app-when-obscured">.Com habilitar Crytomator</a></string>
 	<string name="dialog_app_is_obscured_info_neutral_button">Tanca</string>
 	<string name="dialog_vaults_removed_during_migration_title">Si us plau, torna a afegir les caixes fortes per el cloud %1s</string>
 	<string name="dialog_vaults_removed_during_migration_hint">Al migrar cap a aquesta versió de l\'app hem hagut d\'esborrar les següents caixes fortes de l\'aplicació:\n%2s \n\nAquestes caixes fortes no s\'han esborrat del cloud sinó que només de l\'aplicació. Sentim les molèsties ocasionades, si us plau torna a afegir les caixes fortes per a continuar treballant amb elles.</string>
 	<string name="dialog_vault_is_root_folder_of_cloud_title">La caixa forta és la carpeta principal de la connexió al núvol</string>
-	<string name="dialog_disable_secure_screen_disclaimer_hint">Aquest paràmetre és una mesura de seguretat que preveu que altres aplicacions enganyin als usuaris per a que facin accions indesitjades.\n\nAl desactivar-la, confirmes que ets <a href="https://docs.cryptomator.org/en/1.5/android/settings/#screen-security">conscient dels riscs</a>.</string>
+	<string name="dialog_vault_is_root_folder_of_cloud_hint">Crea una nova connexió al núvol on podeu seleccionar si més no la carpeta mare d\'aquesta caixa forta com a carpeta arrel per a afegir aquesta caixa forta.</string>
 	<string name="dialog_delete_cloud_connection_with_vaults_message">Estàs segur que vols esborrar aquesta connexió al cloud?</string>
 	<string name="dialog_delete_cloud_connection_with_vaults_hint">Aquesta acció esborrarà la connexió al cloud i totes les seves caixes fortes.</string>
 	<string name="dialog_confirm_delete_multiple_title">Voleu suprimir %1$d elements?</string>
@@ -304,6 +300,7 @@
 	<string name="dialog_enter_license_title">Proporcioneu una llicència vàlida</string>
 	<string name="dialog_enter_license_content">Hem detectat que has instal·lat Cryptomator sense fer servir la Google Play Store. Proveeix una llicència vàlida, que pot ser adquirida a <a href="https://cryptomator.org/android/">https://cryptomator.org/android/</a></string>
 	<string name="dialog_enter_license_not_valid_content">La llicència introduïda no és vàlida. Assegureu-vos que l\'heu escrita correctament.</string>
+	<string name="dialog_enter_license_not_valid_content_desktop_supporter_certificate">La clau proporcionada és un certificat per a escriptori. Si us plau, proporcioneu una llicència vàlida.</string>
 	<string name="dialog_enter_license_no_content">No heu introduït cap llicència. Si us plau, introduïu una llicència vàlida.</string>
 	<string name="dialog_enter_license_decline_button">Surt</string>
 	<string name="dialog_license_confirmation_title">Confirmació de la llicència</string>
@@ -322,7 +319,6 @@
 	<string name="dialog_no_dir_file_message">La carpeta al cloud \'%1$s\' no té un fitxer de directori vàlid. Pot ser que aquesta carpeta s\'hagués creat en un altre dispositiu i encara no s\'hagi sincronitzat al cloud. Si us plau, comprova que en el teu cloud el següent fitxer existeix i no és buit:\n%2$s</string>
 	<string name="dialog_no_more_images_to_display">No hi ha més imatges per mostrar&#8230;</string>
 	<string name="dialog_pcloud_credentials_updated_title">Credencials de \'%1$s\' actualitzades</string>
-	<string name="dialog_pcloud_credentials_updated">Si volies afegir un nou compte de pCloud, clica en aquest enllaç <a href="https://www.pcloud.com">www.pcloud.com</a>, tanca la teva sessió actual i torna a fer click al símbol de \'+\' en aquesta aplicació per a tornar a crear una connexió al cloud.</string>
 	<string name="permission_snackbar_auth_local_vault">Cryptomator necessita accés a l\'emmagatzematge per a fer servir caixes fortes locals</string>
 	<string name="permission_snackbar_auth_auto_upload">Cryptomator necessita accés a l\'emmagatzematge per a la pujada de fotos automàtica</string>
 	<!-- # error reports -->
@@ -371,6 +367,7 @@
 	<string name="notification_open_writable_file_title">Obre fitxer editable</string>
 	<string name="notification_open_writable_file_message">La caixa forta seguirà desbloquejada fins que acabi l\'edició</string>
 	<string name="notification_update_check_finished_latest">La versió més recent s\'ha instal·lat</string>
+	<string name="notification_authenticating">Autenticació&#8230;</string>
 	<string name="screen_settings_lru_cache">Memòria cau</string>
 	<string name="screen_settings_lru_cache_toggle_summary">La cache dels fitxers accedits recentment s\'ha encriptat localment en el dispositiu per a reaprofitar-se quan es torni a desbloquejar</string>
 	<string name="screen_settings_lru_cache_size">Mida total de la memòria cau</string>
@@ -403,6 +400,4 @@
 	<string name="dark">Fosc</string>
 	<!-- update interval names -->
 	<string name="update_interval_1d">Una vegada al dia</string>
-	<string name="update_interval_1w">Una vegada a la setmana</string>
-	<string name="update_interval_1m">Una vegada al mes</string>
 </resources>

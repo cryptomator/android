@@ -1,5 +1,6 @@
 package org.cryptomator.presentation.ui.fragment
 
+import android.content.Intent
 import android.os.Bundle
 import android.text.SpannableString
 import android.text.style.ForegroundColorSpan
@@ -11,16 +12,22 @@ import androidx.core.content.ContextCompat
 import androidx.preference.Preference
 import androidx.preference.PreferenceCategory
 import androidx.preference.PreferenceFragmentCompat
-import androidx.preference.SwitchPreferenceCompat
+import androidx.preference.SwitchPreference
 import org.cryptomator.presentation.BuildConfig
 import org.cryptomator.presentation.R
 import org.cryptomator.presentation.service.PhotoContentJob
+import org.cryptomator.presentation.ui.activity.AutoUploadChooseVaultActivity
+import org.cryptomator.presentation.ui.activity.BiometricAuthSettingsActivity
+import org.cryptomator.presentation.ui.activity.CloudSettingsActivity
+import org.cryptomator.presentation.ui.activity.CryptomatorVariantsActivity
+import org.cryptomator.presentation.ui.activity.LicensesActivity
 import org.cryptomator.presentation.ui.activity.SettingsActivity
 import org.cryptomator.presentation.ui.dialog.DebugModeDisclaimerDialog
 import org.cryptomator.presentation.ui.dialog.DisableAppWhenObscuredDisclaimerDialog
 import org.cryptomator.presentation.ui.dialog.DisableSecureScreenDisclaimerDialog
 import org.cryptomator.presentation.ui.dialog.MicrosoftWorkaroundDisclaimerDialog
 import org.cryptomator.util.SharedPreferencesHandler
+import org.cryptomator.util.SharedPreferencesHandler.Companion.CRYPTOMATOR_VARIANTS
 import org.cryptomator.util.file.LruFileCacheUtil
 import java.lang.Boolean.FALSE
 import java.lang.Boolean.TRUE
@@ -40,6 +47,7 @@ class SettingsFragment : PreferenceFragmentCompat() {
 		setupAppVersion()
 		setupLruCacheSize()
 		setupLicense()
+		setupCryptomatorVariants()
 	}
 
 	private val sendErrorReportClickListener = Preference.OnPreferenceClickListener {
@@ -111,10 +119,9 @@ class SettingsFragment : PreferenceFragmentCompat() {
 		if (biometricAuthenticationAvailable != BiometricManager.BIOMETRIC_SUCCESS
 			&& biometricAuthenticationAvailable != BiometricManager.BIOMETRIC_ERROR_NONE_ENROLLED
 		) {
-			val preference = findPreference(BIOMETRIC_AUTHENTICATION_ITEM_KEY) as Preference?
-			val generalCategory = findPreference(getString(R.string.screen_settings_section_general)) as PreferenceCategory?
-			generalCategory?.removePreference(preference)
-
+			(findPreference(BIOMETRIC_AUTHENTICATION_ITEM_KEY) as Preference?)?.let { preference ->
+				(findPreference(getString(R.string.screen_settings_section_general)) as PreferenceCategory?)?.removePreference(preference)
+			}
 			Timber //
 				.tag("SettingsFragment") //
 				.d("No working biometric hardware detected")
@@ -128,7 +135,9 @@ class SettingsFragment : PreferenceFragmentCompat() {
 			ForegroundColorSpan(ContextCompat.getColor(activity(), R.color.textColorLight)), //
 			0, versionName.length, 0
 		)
-		preference?.summary = versionName
+		preference?.summaryProvider = Preference.SummaryProvider<Preference> {
+			versionName
+		}
 	}
 
 	private fun setupLruCacheSize() {
@@ -154,7 +163,9 @@ class SettingsFragment : PreferenceFragmentCompat() {
 			ForegroundColorSpan(ContextCompat.getColor(activity(), R.color.textColorLight)), //
 			0, lruCacheSize.length, 0
 		)
-		preference?.summary = lruCacheSize
+		preference?.summaryProvider = Preference.SummaryProvider<Preference> {
+			lruCacheSize
+		}
 	}
 
 	private fun setupLicense() {
@@ -163,12 +174,12 @@ class SettingsFragment : PreferenceFragmentCompat() {
 				(findPreference(SharedPreferencesHandler.MAIL) as Preference?)?.title = format(getString(R.string.screen_settings_license_mail), sharedPreferencesHandler.mail())
 				setupUpdateCheck()
 			}
-			"fdroid" -> {
+			"fdroid", "lite" -> {
 				(findPreference(SharedPreferencesHandler.MAIL) as Preference?)?.title = format(getString(R.string.screen_settings_license_mail), sharedPreferencesHandler.mail())
 				removeUpdateCheck()
 			}
 			else -> {
-				preferenceScreen.removePreference(findPreference(LICENSE_ITEM_KEY))
+				(findPreference(LICENSE_ITEM_KEY) as Preference?)?.let { preferenceScreen.removePreference(it) }
 				removeUpdateCheck()
 			}
 		}
@@ -176,8 +187,8 @@ class SettingsFragment : PreferenceFragmentCompat() {
 
 	private fun removeUpdateCheck() {
 		val versionCategory = findPreference("versionCategory") as PreferenceCategory?
-		versionCategory?.removePreference(findPreference(UPDATE_CHECK_ITEM_KEY))
-		versionCategory?.removePreference(findPreference(UPDATE_INTERVAL_ITEM_KEY))
+		(findPreference(UPDATE_CHECK_ITEM_KEY) as Preference?)?.let { versionCategory?.removePreference(it) }
+		(findPreference(UPDATE_INTERVAL_ITEM_KEY) as Preference?)?.let { versionCategory?.removePreference(it) }
 	}
 
 	fun setupUpdateCheck() {
@@ -198,7 +209,17 @@ class SettingsFragment : PreferenceFragmentCompat() {
 			ForegroundColorSpan(ContextCompat.getColor(activity(), R.color.textColorLight)), //
 			0, date.length, 0
 		)
-		preference?.summary = date
+		preference?.summaryProvider = Preference.SummaryProvider<Preference> {
+			date
+		}
+	}
+
+	private fun setupCryptomatorVariants() {
+		if (BuildConfig.FLAVOR == "playstore") {
+			(findPreference(CRYPTOMATOR_VARIANTS) as Preference?)?.let { preference ->
+				(findPreference(getString(R.string.screen_settings_section_general)) as PreferenceCategory?)?.removePreference(preference)
+			}
+		}
 	}
 
 	override fun onResume() {
@@ -216,21 +237,29 @@ class SettingsFragment : PreferenceFragmentCompat() {
 		if (BuildConfig.FLAVOR == "apkstore") {
 			(findPreference(UPDATE_CHECK_ITEM_KEY) as Preference?)?.onPreferenceClickListener = updateCheckClickListener
 		}
+
+		(findPreference(SharedPreferencesHandler.CLOUD_SETTINGS) as Preference?)?.intent = Intent(context, CloudSettingsActivity::class.java)
+		(findPreference(SharedPreferencesHandler.BIOMETRIC_AUTHENTICATION) as Preference?)?.intent = Intent(context, BiometricAuthSettingsActivity::class.java)
+		if (BuildConfig.FLAVOR != "playstore") {
+			(findPreference(SharedPreferencesHandler.CRYPTOMATOR_VARIANTS) as Preference?)?.intent = Intent(context, CryptomatorVariantsActivity::class.java)
+		}
+		(findPreference(SharedPreferencesHandler.PHOTO_UPLOAD_VAULT) as Preference?)?.intent = Intent(context, AutoUploadChooseVaultActivity::class.java)
+		(findPreference(SharedPreferencesHandler.LICENSES_ACTIVITY) as Preference?)?.intent = Intent(context, LicensesActivity::class.java)
 	}
 
 	fun deactivateDebugMode() {
 		sharedPreferencesHandler.setDebugMode(false)
-		(findPreference(SharedPreferencesHandler.DEBUG_MODE) as SwitchPreferenceCompat?)?.isChecked = false
+		(findPreference(SharedPreferencesHandler.DEBUG_MODE) as SwitchPreference?)?.isChecked = false
 	}
 
 	fun disableAppWhenObscured() {
 		sharedPreferencesHandler.setDisableAppWhenObscured(true)
-		(findPreference(SharedPreferencesHandler.DISABLE_APP_WHEN_OBSCURED) as SwitchPreferenceCompat?)?.isChecked = true
+		(findPreference(SharedPreferencesHandler.DISABLE_APP_WHEN_OBSCURED) as SwitchPreference?)?.isChecked = true
 	}
 
 	fun secureScreen() {
 		sharedPreferencesHandler.setSecureScreen(true)
-		(findPreference(SharedPreferencesHandler.SECURE_SCREEN) as SwitchPreferenceCompat?)?.isChecked = true
+		(findPreference(SharedPreferencesHandler.SECURE_SCREEN) as SwitchPreference?)?.isChecked = true
 	}
 
 	private fun onSendErrorReportClicked() {
@@ -267,7 +296,7 @@ class SettingsFragment : PreferenceFragmentCompat() {
 		} else {
 			PhotoContentJob.cancelJob(activity().applicationContext)
 		}
-		(findPreference(SharedPreferencesHandler.PHOTO_UPLOAD) as SwitchPreferenceCompat?)?.isChecked = enabled
+		(findPreference(SharedPreferencesHandler.PHOTO_UPLOAD) as SwitchPreference?)?.isChecked = enabled
 	}
 
 	fun disableAutoUpload() {

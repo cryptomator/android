@@ -36,36 +36,40 @@
 			android:required="false" />
 
 		<activity
-			android:name=".ui.activity.SplashActivity"
-			android:screenOrientation="portrait"
-			android:theme="@style/SplashTheme">
+			android:name=".ui.activity.VaultListActivity"
+			android:exported="true"
+			android:theme="@style/AppTheme.Starting"
+			android:windowSoftInputMode="adjustPan">
 			<intent-filter>
 				<action android:name="android.intent.action.MAIN" />
 
 				<category android:name="android.intent.category.LAUNCHER" />
 			</intent-filter>
 		</activity>
-		<activity
-			android:name=".ui.activity.VaultListActivity"
-			android:windowSoftInputMode="adjustPan" />
+
 		<activity android:name=".ui.activity.ChooseCloudServiceActivity" />
 		<activity
 			android:name=".ui.activity.CreateVaultActivity"
+			android:exported="false"
 			android:windowSoftInputMode="stateVisible" />
 		<activity
 			android:name=".ui.activity.BrowseFilesActivity"
+			android:exported="false"
 			android:windowSoftInputMode="adjustPan" />
 		<activity
 			android:name=".ui.activity.SetPasswordActivity"
+			android:exported="false"
 			android:windowSoftInputMode="stateVisible" />
 
 		<activity
 			android:name=".ui.activity.TextEditorActivity"
+			android:exported="false"
 			android:windowSoftInputMode="stateVisible" />
 
 		<activity
 			android:name=".ui.activity.SharedFilesActivity"
 			android:excludeFromRecents="true"
+			android:exported="true"
 			android:taskAffinity=".share"
 			android:windowSoftInputMode="stateHidden|adjustPan">
 			<intent-filter android:label="@string/share_with_label">
@@ -80,40 +84,47 @@
 
 		<activity
 			android:name=".ui.activity.UnlockVaultActivity"
+			android:exported="false"
 			android:theme="@style/TransparentPopUp" />
 
-		<!-- Cloud Services -->
-		<activity
-			android:name="com.dropbox.core.android.AuthActivity"
-			android:configChanges="orientation|keyboard"
-			android:launchMode="singleTask">
-			<intent-filter>
-				<data android:scheme="db-${DROPBOX_API_KEY}" />
-
-				<action android:name="android.intent.action.VIEW" />
-
-				<category android:name="android.intent.category.BROWSABLE" />
-				<category android:name="android.intent.category.DEFAULT" />
-			</intent-filter>
-		</activity>
-
 		<!-- Settings -->
-		<activity android:name=".ui.activity.AutoUploadChooseVaultActivity" />
-		<activity android:name=".ui.activity.BiometricAuthSettingsActivity" />
-		<activity android:name=".ui.activity.CloudConnectionListActivity" />
-		<activity android:name=".ui.activity.CloudSettingsActivity" />
-		<activity android:name=".ui.activity.LicensesActivity" />
-		<activity android:name=".ui.activity.SettingsActivity" />
-		<activity android:name=".ui.activity.WebDavAddOrChangeActivity" />
-		<activity android:name=".ui.activity.S3AddOrChangeActivity" />
+		<activity
+			android:name=".ui.activity.AutoUploadChooseVaultActivity"
+			android:exported="false" />
+		<activity
+			android:name=".ui.activity.BiometricAuthSettingsActivity"
+			android:exported="false" />
+		<activity
+			android:name=".ui.activity.CloudConnectionListActivity"
+			android:exported="false" />
+		<activity
+			android:name=".ui.activity.CloudSettingsActivity"
+			android:exported="false" />
+		<activity
+			android:name=".ui.activity.CryptomatorVariantsActivity"
+			android:exported="false" />
+		<activity
+			android:name=".ui.activity.LicensesActivity"
+			android:exported="true" />
+		<activity
+			android:name=".ui.activity.SettingsActivity"
+			android:exported="false" />
+		<activity
+			android:name=".ui.activity.WebDavAddOrChangeActivity"
+			android:exported="false" />
+		<activity
+			android:name=".ui.activity.S3AddOrChangeActivity"
+			android:exported="false" />
 
 		<activity
 			android:name=".ui.activity.AuthenticateCloudActivity"
+			android:exported="false"
 			android:theme="@style/Theme.Transparent" />
 
 		<activity
 			android:name=".ui.activity.AuthenticatePCloudActivity"
 			android:configChanges="orientation|keyboard"
+			android:exported="true"
 			android:launchMode="singleTask">
 
 			<intent-filter>
@@ -131,10 +142,12 @@
 
 		<activity
 			android:name=".ui.activity.ImagePreviewActivity"
+			android:exported="false"
 			android:theme="@style/FullscreenTheme" />
 
 		<activity
 			android:name=".ui.activity.LicenseCheckActivity"
+			android:exported="true"
 			android:launchMode="singleTask">
 			<intent-filter android:label="@string/dialog_enter_license_title">
 				<action android:name="android.intent.action.VIEW" />
@@ -156,18 +169,6 @@
 					android:host="android.cryptomator.org"
 					android:pathPrefix="/app/license"
 					android:scheme="https" />
-			</intent-filter>
-		</activity>
-
-		<activity android:name="com.microsoft.identity.client.BrowserTabActivity">
-			<intent-filter>
-				<action android:name="android.intent.action.VIEW" />
-				<category android:name="android.intent.category.DEFAULT" />
-				<category android:name="android.intent.category.BROWSABLE" />
-				<data
-					android:host="org.cryptomator"
-					android:path="/${ONEDRIVE_API_KEY_DECODED}"
-					android:scheme="msauth" />
 			</intent-filter>
 		</activity>
 
@@ -200,6 +201,7 @@
 
 		<receiver
 			android:name=".AutoPhotoUploadReceiver"
+			android:exported="true"
 			android:label="AutoPhotoUploadReceiver">
 			<intent-filter>
 				<action android:name="android.hardware.action.NEW_PICTURE" />
@@ -209,7 +211,9 @@
 			</intent-filter>
 		</receiver>
 
-		<receiver android:name=".BootAwareReceiver">
+		<receiver
+			android:name=".BootAwareReceiver"
+			android:exported="true">
 			<intent-filter>
 				<action android:name="android.intent.action.BOOT_COMPLETED" />
 				<action android:name="android.intent.action.ACTION_SHUTDOWN" />

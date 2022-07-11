@@ -19,6 +19,7 @@ import org.cryptomator.domain.Vault
 import org.cryptomator.domain.exception.BackendException
 import org.cryptomator.domain.exception.CancellationException
 import org.cryptomator.domain.exception.FatalBackendException
+import org.cryptomator.domain.exception.vaultconfig.MissingVaultConfigFileException
 import org.cryptomator.domain.exception.vaultconfig.UnsupportedMasterkeyLocationException
 import org.cryptomator.domain.repository.CloudContentRepository
 import org.cryptomator.domain.usecases.ProgressAware
@@ -204,10 +205,16 @@ class MasterkeyCryptoCloudProvider(
 	}
 
 	private fun assertLegacyVaultVersionIsSupported(version: Int) {
-		if (version < CryptoConstants.MIN_VAULT_VERSION) {
-			throw UnsupportedVaultFormatException(version, CryptoConstants.MIN_VAULT_VERSION)
-		} else if (version > CryptoConstants.MAX_VAULT_VERSION_WITHOUT_VAULT_CONFIG) {
-			throw UnsupportedVaultFormatException(version, CryptoConstants.MAX_VAULT_VERSION_WITHOUT_VAULT_CONFIG)
+		when {
+			version < CryptoConstants.MIN_VAULT_VERSION -> {
+				throw UnsupportedVaultFormatException(version, CryptoConstants.MIN_VAULT_VERSION)
+			}
+			version == CryptoConstants.DEFAULT_MASTERKEY_FILE_VERSION -> {
+				throw MissingVaultConfigFileException()
+			}
+			version > CryptoConstants.MAX_VAULT_VERSION_WITHOUT_VAULT_CONFIG -> {
+				throw UnsupportedVaultFormatException(version, CryptoConstants.MAX_VAULT_VERSION_WITHOUT_VAULT_CONFIG)
+			}
 		}
 	}
 

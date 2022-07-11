@@ -9,7 +9,8 @@
 	<string name="error_no_network_connection">Bez připojení k síti</string>
 	<string name="error_invalid_passphrase">Chybné heslo</string>
 	<string name="error_file_or_folder_exists">Soubor nebo složka již existuje.</string>
-	<string name="error_vault_version_not_supported">Nepodporovaný trezor. Tento trezor byl vytvořen s jinou verzí Cryptomator.</string>
+	<string name="error_vault_version_not_supported">Verze trezoru %1$s není podporována. Tento trezor byl vytvořen ve starší nebo novější verzí Cryptomator.</string>
+	<string name="error_vault_config_file_missing_due_to_format_999">Soubor %1$s chybí ve složce trezoru. Ujistěte se, že tento soubor existuje ve složce trezoru v cloudu.</string>
 	<string name="error_vault_already_exists">Trezor již existuje.</string>
 	<string name="error_no_such_file">Soubor neexistuje.</string>
 	<string name="error_vault_has_been_locked">Trezor byl uzamčen.</string>
@@ -59,7 +60,6 @@
 	<string name="screen_vault_list_action_create_new_vault">Vytvořit nový trezor</string>
 	<string name="screen_vault_list_action_add_existing_vault">Přidat existující trezor</string>
 	<string name="screen_vault_list_vault_action_delete">Odstranit</string>
-	<string name="screen_vault_list_vault_creation_hint">Klikněte zde pro vytvoření nového trezoru</string>
 	<string name="screen_vault_list_change_password_successful">Heslo bylo úspěšně změněno</string>
 	<!-- # screen: file browser -->
 	<string name="screen_file_browser_default_title">Trezor</string>
@@ -116,9 +116,8 @@
 	<string name="screen_choose_cloud_service_title">Cloudová služba</string>
 	<!-- ## screen: cloud connections -->
 	<string name="screen_cloud_connections_title">Vyberte umístění</string>
-	<string name="screen_cloud_connections_no_connections">Klikněte zde pro přidání umístění</string>
 	<string name="screen_cloud_error_webdav_not_supported">Server není kompatibilní s WebDAV</string>
-	<string name="screen_cloud_local_error_no_content_provider">Nejsou k dispozici žádná další umístění.</string>
+	<string name="screen_cloud_local_error_no_content_provider">Nebyl nalezen žádný správce souborů, který by podporoval otevírání adresářů</string>
 	<!-- ## screen: webdav settings -->
 	<string name="screen_webdav_settings_url_port_label">URL</string>
 	<string name="screen_webdav_settings_username_label">Uživatel</string>
@@ -212,7 +211,7 @@
 	<!-- ## screen: authenticate cloud -->
 	<string name="screen_authenticate_auth_authentication_failed">%1$s nebylo možno ověřit.</string>
 	<string name="screen_update_pcloud_connections_title">Aktualizovat přihlašovací údaje k pCloudu</string>
-	<!-- ## screen: insecure android version info -->
+	<!-- ## screen: cryptomator app variants -->
 	<!-- # dialogs -->
 	<string name="dialog_button_cancel">Zrušit</string>
 	<string name="dialog_enter_password_positive_button">Odemknout</string>
@@ -275,6 +274,8 @@
 	<string name="dialog_accept_ssl_certificate_hint">SSL certifikát je neplatný. Chcete mu přesto důvěřovat?</string>
 	<string name="dialog_accept_ssl_certificate_details">Podrobnosti</string>
 	<string name="dialog_accept_ssl_certificate_security_checkbox">Toto by mohlo být bezpečnostní riziko. Vím, co dělám.</string>
+	<string name="dialog_ask_ignore_battery_optimizations_title">Zakázat optimalizace výdrže baterie</string>
+	<string name="dialog_ask_ignore_battery_optimizations_checkbox">Příště se neptat?</string>
 	<string name="dialog_http_security_hint">Použití HTTP je nezabezpečené. Doporučujeme použít HTTPS. Pokud znáte rizika, můžete pokračovat s HTTP.</string>
 	<string name="dialog_http_security_checkbox">Změnit na HTTPS</string>
 	<string name="dialog_http_security_title">Použít HTTPS?</string>
@@ -286,17 +287,17 @@
 	<string name="dialog_debug_mode_disclaimer_hint">V tomto režimu mohou být citlivé údaje zapsány do souboru protokolu na vašem zařízení (např. názvy souborů a cesty). Hesla, soubory cookie atd. jsou výslovně vyloučeny.\n\nNezapomeňte co nejdříve vypnout režim ladění.</string>
 	<string name="dialog_debug_mode_disclaimer_title">Upozornění</string>
 	<string name="dialog_debug_mode_positive_button">Povolit</string>
-	<string name="dialog_disable_app_obscured_disclaimer_hint">Toto nastavení je bezpečnostní funkce a brání ostatním aplikacím v tom, aby oklamaly uživatele dělat věci, se kterými nesouhlasí.\n\nZakázáním potvrzujete, že jste <a href="https://docs.cryptomator.org/en/1.5/android/settings/#block-app-when-obscured">si vědomi rizik</a>.</string>
+	<string name="dialog_disable_app_obscured_disclaimer_hint">Toto nastavení je bezpečnostní funkce a brání ostatním aplikacím v tom, aby oklamaly uživatele dělat věci, se kterými nesouhlasí.\n\nZakázáním potvrzujete, že jste <a href="https://docs.cryptomator.org/en/1.6/android/settings/#block-app-when-obscured">si vědomi rizik</a>.</string>
 	<string name="dialog_disable_app_obscured_disclaimer_title">Upozornění</string>
 	<string name="dialog_disable_app_obscured_positive_button">Zakázat</string>
 	<string name="dialog_app_is_obscured_info_title">Aplikace je překrytá</string>
-	<string name="dialog_app_is_obscured_info_hint">Jiná aplikace zobrazuje něco nad Cryptomatorem (např. filtr modrého světla nebo aplikace pro noční režim). Z bezpečnostních důvodů je Cryptomator zakázán.\n\n<a href="https://docs.cryptomator.org/en/1.5/android/settings/#block-app-when-obscured">Jak povolit Cryptomator</a></string>
+	<string name="dialog_app_is_obscured_info_hint">Jiná aplikace zobrazuje něco nad Cryptomatorem (např. filtr modrého světla nebo aplikace pro noční režim). Z bezpečnostních důvodů je Cryptomator zakázán.\n\n<a href="https://docs.cryptomator.org/en/1.6/android/settings/#block-app-when-obscured">Jak povolit Cryptomator</a></string>
 	<string name="dialog_app_is_obscured_info_neutral_button">Zavřít</string>
 	<string name="dialog_vaults_removed_during_migration_title">Prosím znovu přidejte trezory pro %1s cloud</string>
 	<string name="dialog_vaults_removed_during_migration_hint">Při migraci na tuto verzi aplikace musíme z aplikace odstranit následující trezory:\n%2s \n\nTyto trezory nejsou odebrány z cloudu, ale pouze z této aplikace. Omlouváme se za nepříjemnosti a znovu přidejte tyto trezory, abyste s nimi mohli dále pracovat.</string>
 	<string name="dialog_vault_is_root_folder_of_cloud_title">Trezor je kořenovou složkou cloudového připojení</string>
 	<string name="dialog_vault_is_root_folder_of_cloud_hint">Vytvořte nové připojení do cloudu, kde jako kořenový adresář zvolíte alespoň nadřazenou složku tohoto trezoru.</string>
-	<string name="dialog_disable_secure_screen_disclaimer_hint">Toto nastavení je bezpečnostní funkce a brání ostatním aplikacím v tom, aby oklamaly uživatele dělat věci, se kterými nesouhlasí.\n\nZakázáním potvrzujete, že jste <a href="https://docs.cryptomator.org/en/1.5/android/settings/#screen-security">si vědomi rizik</a>.</string>
+	<string name="dialog_disable_secure_screen_disclaimer_hint">Toto nastavení je bezpečnostní funkce a brání ostatním aplikacím v tom, aby oklamaly uživatele dělat věci, se kterými nesouhlasí.\n\nZakázáním potvrzujete, že jste <a href="https://docs.cryptomator.org/en/1.6/android/settings/#screen-security">si vědomi rizik</a>.</string>
 	<string name="dialog_delete_cloud_connection_with_vaults_message">Opravdu chcete odstranit toto cloudové připojení?</string>
 	<string name="dialog_delete_cloud_connection_with_vaults_hint">Tato akce odstraní cloudové připojení a všechny trezory tohoto cloudu.</string>
 	<string name="dialog_confirm_delete_multiple_title">Smazat %1$d položek?</string>
@@ -308,6 +309,7 @@
 	<string name="dialog_enter_license_title">Zadejte platnou licenci</string>
 	<string name="dialog_enter_license_content">Zjistili jsme, že jste si nainstalovali Cryptomator bez použití Google Play Store. Zadejte platnou licenci, kterou lze zakoupit na <a href="https://cryptomator.org/android/">https://cryptomator.org/android/</a></string>
 	<string name="dialog_enter_license_not_valid_content">Zadaná licence není platná. Ujistěte se, že jste ji zadali správně.</string>
+	<string name="dialog_enter_license_not_valid_content_desktop_supporter_certificate">Zadaný klíč je certifikátem podporovatele desktopové aplikace. Zadejte prosím platnou licenci.</string>
 	<string name="dialog_enter_license_no_content">Nebyla zadána žádná licence. Zadejte prosím platnou licenci.</string>
 	<string name="dialog_enter_license_decline_button">Zavřít</string>
 	<string name="dialog_license_confirmation_title">Potvrzení licence</string>
@@ -326,7 +328,6 @@
 	<string name="dialog_no_dir_file_message">Složka v cloudu \'%1$s\' nemá adresářový soubor. Mohlo dojít k tomu, že složka byla vytvořena na jiném zařízení a ještě nebyla plně synchronizována s cloudem. Prosím zkontrolujte v cloudu, zda existuje následující soubor a není prázdný: \n%2$s</string>
 	<string name="dialog_no_more_images_to_display">Žádné další obrázky k zobrazení&#8230;</string>
 	<string name="dialog_pcloud_credentials_updated_title">Údaje o \'%1$s\' byly aktualizovány</string>
-	<string name="dialog_pcloud_credentials_updated">Pokud máte v úmyslu přidat nový účet na pCloud, klikněte na tento odkaz <a href="https://www.pcloud.com">www.pcloud. om</a>, odhlaste se z aktuálního účtu a znovu klikněte na \'+\' v této aplikaci pro vytvoření nového cloudového připojení.</string>
 	<string name="permission_snackbar_auth_local_vault">Cryptomator potřebuje přístup k úložišti, aby mohl používat místní trezory</string>
 	<string name="permission_snackbar_auth_auto_upload">Cryptomator potřebuje přístup k úložišti pro automatické nahrávání fotek</string>
 	<!-- # error reports -->
@@ -408,6 +409,4 @@
 	<string name="dark">Tmavý</string>
 	<!-- update interval names -->
 	<string name="update_interval_1d">Jednou denně</string>
-	<string name="update_interval_1w">Jednou týdně</string>
-	<string name="update_interval_1m">Jednou měsíčně</string>
 </resources>

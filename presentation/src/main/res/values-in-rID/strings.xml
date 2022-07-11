@@ -9,7 +9,8 @@
 	<string name="error_no_network_connection">Tidak ada koneksi jaringan</string>
 	<string name="error_invalid_passphrase">Kata sandi salah</string>
 	<string name="error_file_or_folder_exists">Berkas atau folder sudah ada.</string>
-	<string name="error_vault_version_not_supported">Vault tidak didukung. Vault ini telah dibuat dengan Cryptomator versi lain.</string>
+	<string name="error_vault_version_not_supported">Vault versi %1$s tidak didukung. Vault ini dibuat menggunakan Cryptomator versi lama ataupun lebih baru.</string>
+	<string name="error_vault_config_file_missing_due_to_format_999">File %1$s tidak ditemukan di folder vault Anda. Pastikan file tersebut ada di folder cloud Anda.</string>
 	<string name="error_vault_already_exists">Vault sudah ada.</string>
 	<string name="error_no_such_file">Berkas tidak ada.</string>
 	<string name="error_vault_has_been_locked">Vault telah dikunci.</string>
@@ -59,7 +60,6 @@
 	<string name="screen_vault_list_action_create_new_vault">Buat vault baru</string>
 	<string name="screen_vault_list_action_add_existing_vault">Tambahkan vault yang sudah ada</string>
 	<string name="screen_vault_list_vault_action_delete">Hapus</string>
-	<string name="screen_vault_list_vault_creation_hint">Ketuk disini untuk membuat vault baru</string>
 	<string name="screen_vault_list_change_password_successful">Kasa Sandi berhasil diubah</string>
 	<!-- # screen: file browser -->
 	<string name="screen_file_browser_default_title">Vault</string>
@@ -113,9 +113,8 @@
 	<string name="screen_choose_cloud_service_title">Layanan Cloud</string>
 	<!-- ## screen: cloud connections -->
 	<string name="screen_cloud_connections_title">Pilih lokasi</string>
-	<string name="screen_cloud_connections_no_connections">Ketuk disini untuk menambahkan lokasi</string>
 	<string name="screen_cloud_error_webdav_not_supported">Server tampaknya tidak kompatibel dengan WebDAV</string>
-	<string name="screen_cloud_local_error_no_content_provider">Tidak ada lokasi tambahan yang tersedia.</string>
+	<string name="screen_cloud_local_error_no_content_provider">Tidak ditemukan file manager yang dapat membuka direktori ini</string>
 	<!-- ## screen: webdav settings -->
 	<string name="screen_webdav_settings_url_port_label">URL</string>
 	<string name="screen_webdav_settings_username_label">Nama pengguna</string>
@@ -209,7 +208,7 @@
 	<!-- ## screen: authenticate cloud -->
 	<string name="screen_authenticate_auth_authentication_failed">%1$s tidak dapat diautentikasi.</string>
 	<string name="screen_update_pcloud_connections_title">Perbarui kredensial pCloud</string>
-	<!-- ## screen: insecure android version info -->
+	<!-- ## screen: cryptomator app variants -->
 	<!-- # dialogs -->
 	<string name="dialog_button_cancel">Batalkan</string>
 	<string name="dialog_enter_password_positive_button">Buka Kunci</string>
@@ -272,6 +271,8 @@
 	<string name="dialog_accept_ssl_certificate_hint">Sertifikat SSL tidak valid. Apakah Anda ingin mempercayainya?</string>
 	<string name="dialog_accept_ssl_certificate_details">Rincian</string>
 	<string name="dialog_accept_ssl_certificate_security_checkbox">Ini bisa menjadi risiko keamanan. Saya tahu apa yang saya lakukan.</string>
+	<string name="dialog_ask_ignore_battery_optimizations_title">Nonaktifkan optimalisasi baterai</string>
+	<string name="dialog_ask_ignore_battery_optimizations_checkbox">Jangan tanya lagi?</string>
 	<string name="dialog_http_security_hint">Penggunaan HTTP tidak aman. Kami menyarankan untuk menggunakan HTTPS sebagai gantinya. Jika Anda mengetahui risikonya, Anda dapat melanjutkan dengan HTTP.</string>
 	<string name="dialog_http_security_checkbox">Ubah ke HTTPS</string>
 	<string name="dialog_http_security_title">Gunakan HTTPS?</string>
@@ -283,17 +284,17 @@
 	<string name="dialog_debug_mode_disclaimer_hint">Dalam mode ini, data sensitif dapat ditulis ke file log di perangkat Anda (misalnya, nama dan lokasi file). Kata sandi, cookie, dll secara eksplisit dikecualikan.\n\nJangan lupa untuk menonaktifkan mode debug sesegera mungkin.</string>
 	<string name="dialog_debug_mode_disclaimer_title">Perhatian</string>
 	<string name="dialog_debug_mode_positive_button">Aktifkan</string>
-	<string name="dialog_disable_app_obscured_disclaimer_hint">Setelan ini adalah fitur keamanan yang dapat mencegah aplikasi lain menipu pengguna agar melakukan hal-hal yang tidak ingin mereka lakukan.\n\nDengan menonaktifkan, artinya mengonfirmasi bahwa Anda <a href="https://docs.cryptomator.org/en/1.5/android/settings/#block-app-when-obscured">paham dengan resikonya</a>.</string>
+	<string name="dialog_disable_app_obscured_disclaimer_hint">Pengaturan ini adalah fitur keamanan untuk mencegah aplikasi lain mengelabui pengguna melakukan hal-hal yang tidak ingin mereka lakukan.\n\nDengan menonaktifkan, Anda mengonfirmasi bahwa telah <a href="https://docs.cryptomator.org/en/1.6/android/settings/#block-app-when-obscured">menyadari akan bahaya tersebut</a>.</string>
 	<string name="dialog_disable_app_obscured_disclaimer_title">Perhatian</string>
 	<string name="dialog_disable_app_obscured_positive_button">Matikan</string>
 	<string name="dialog_app_is_obscured_info_title">Aplikasi terhalang</string>
-	<string name="dialog_app_is_obscured_info_hint">Aplikasi lain menampilkan sesuatu di atas tampilan Cryptomator (misal, Filter cahaya biru atau aplikasi mode malam). Untuk alasan keamanan, Cryptomator dinonaktifkan.\n\n<a href="https://docs.cryptomator.org/en/1.5/android/settings/#block-app-when-obscured">Cara mengaktifkan Cryptomator</a></string>
+	<string name="dialog_app_is_obscured_info_hint">Aplikasi lain menampilkan sesuatu di atas Cryptomator (misalnya, filter cahaya biru atau aplikasi mode malam). Demi alasan keamanan, Cryptomator dinonaktifkan.\n\n<a href="https://docs.cryptomator.org/en/1.6/android/settings/#block-app-when-obscured">Cara mengaktifkan Cryptomator</a></string>
 	<string name="dialog_app_is_obscured_info_neutral_button">Tutup</string>
 	<string name="dialog_vaults_removed_during_migration_title">Harap tambahkan kembali vault untuk cloud %1s</string>
 	<string name="dialog_vaults_removed_during_migration_hint">Saat bermigrasi ke versi aplikasi ini, kita perlu menghapus vault berikut dari aplikasi:\n%2s \n\nVault tersebut tidak dihapus dari cloud, tetapi hanya dari aplikasi ini. Maaf atas ketidaknyamanan ini dan harap tambahkan kembali vault ini untuk terus bekerja dengannya.</string>
 	<string name="dialog_vault_is_root_folder_of_cloud_title">Vault adalah folder induk dari koneksi cloud</string>
 	<string name="dialog_vault_is_root_folder_of_cloud_hint">Buat koneksi cloud baru di mana Anda memilih setidaknya folder induk dari folder vault ini sebagai direktori induk untuk menambahkan vault ini.</string>
-	<string name="dialog_disable_secure_screen_disclaimer_hint">Setelan ini adalah fitur keamanan dan mencegah aplikasi lain menipu pengguna agar melakukan hal-hal yang tidak ingin mereka lakukan.\n\nDengan menonaktifkan, Anda mengonfirmasi bahwa Anda <a href="https://docs.cryptomator.org/en/1.5/android/settings/#screen-security">sadar akan risiko</a>.</string>
+	<string name="dialog_disable_secure_screen_disclaimer_hint">Pengaturan ini adalah fitur keamanan untuk mencegah aplikasi lain mengelabui pengguna melakukan hal-hal yang tidak ingin mereka lakukan.\n\nDengan menonaktifkan, Anda mengonfirmasi bahwa telah <a href="https://docs.cryptomator.org/en/1.6/android/settings/#screen-security">\">menyadari akan bahaya tersebut</a>.</string>
 	<string name="dialog_delete_cloud_connection_with_vaults_message">Anda yakin ingin menghapus koneksi cloud ini?</string>
 	<string name="dialog_delete_cloud_connection_with_vaults_hint">Tindakan ini akan menghapus koneksi cloud dan semua vault pada cloud ini.</string>
 	<string name="dialog_confirm_delete_multiple_title">Hapus %1$d item?</string>
@@ -305,6 +306,7 @@
 	<string name="dialog_enter_license_title">Berikan lisensi yang valid</string>
 	<string name="dialog_enter_license_content">Kami mendeteksi bahwa Anda menginstal Cryptomator tanpa menggunakan Google Play Store. Berikan lisensi yang valid, yang dapat dibeli di <a href="https://cryptomator.org/android/">https://cryptomator.org/android/</a></string>
 	<string name="dialog_enter_license_not_valid_content">Lisensi yang diberikan tidak valid. Pastikan Anda memasukkannya dengan benar.</string>
+	<string name="dialog_enter_license_not_valid_content_desktop_supporter_certificate">Kunci yang Anda input adalah kunci supporter certificate untuk pengguna desktop. Harap masukkan lisensi yang valid.</string>
 	<string name="dialog_enter_license_no_content">Tidak ada lisensi yang diberikan. Harap masukkan lisensi yang valid.</string>
 	<string name="dialog_enter_license_decline_button">Keluar</string>
 	<string name="dialog_license_confirmation_title">Konfirmasi lisensi</string>
@@ -323,7 +325,6 @@
 	<string name="dialog_no_dir_file_message">Folder cloud \'%1$s\' tidak memiliki file direktori yang valid. Bisa jadi folder tersebut dibuat di perangkat lain dan belum sepenuhnya tersinkronisasi ke cloud. Harap periksa di cloud Anda jika file berikut ada dan tidak kosong:\n%2$s</string>
 	<string name="dialog_no_more_images_to_display">Tidak ada lagi gambar untuk ditampilkan&#8230;</string>
 	<string name="dialog_pcloud_credentials_updated_title">Kredensial \'%1$s\' diperbarui</string>
-	<string name="dialog_pcloud_credentials_updated">Jika Anda ingin menambahkan akun pCloud baru, ketuk url berikut <a href="https://www.pcloud.com">www.pcloud.com</a>, keluar dari akun saat ini kemudian ketuk tombol \'+\' lagi di aplikasi ini untuk membuat koneksi cloud baru.</string>
 	<string name="permission_snackbar_auth_local_vault">Cryptomator membutuhkan akses penyimpanan untuk menggunakan vault lokal</string>
 	<string name="permission_snackbar_auth_auto_upload">Cryptomator membutuhkan akses penyimpanan untuk menggunakan unggahan foto otomatis</string>
 	<!-- # error reports -->
@@ -405,6 +406,4 @@
 	<string name="dark">Gelap</string>
 	<!-- update interval names -->
 	<string name="update_interval_1d">Sehari sekali</string>
-	<string name="update_interval_1w">Seminggu sekali</string>
-	<string name="update_interval_1m">Sebulan sekali</string>
 </resources>

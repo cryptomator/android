@@ -9,16 +9,17 @@
 	<string name="error_no_network_connection">Нет подключения к сети</string>
 	<string name="error_invalid_passphrase">Неверный пароль</string>
 	<string name="error_file_or_folder_exists">Файл или папка уже существует.</string>
-	<string name="error_vault_version_not_supported">Не поддерживаемое хранилище. Это хранилище было создано другой версией Cryptomator.</string>
+	<string name="error_vault_version_not_supported">Версия хранилища %1$s не поддерживается. Это хранилище было создано либо в устаревшей, либо в более новой версии Cryptomator.</string>
+	<string name="error_vault_config_file_missing_due_to_format_999">Файл %1$s отсутствует в папке хранилища. Убедитесь, что этот файл существует в папке хранилища в облаке.</string>
 	<string name="error_vault_already_exists">Хранилище уже существует.</string>
 	<string name="error_no_such_file">Файл не существует.</string>
 	<string name="error_vault_has_been_locked">Хранилище заблокировано.</string>
 	<string name="error_cloud_already_exists">Облако уже существует.</string>
-	<string name="error_activity_not_found">Пожалуйста, скачайте приложение, которое может открыть этот файл.</string>
+	<string name="error_activity_not_found">Скачайте приложение, которое может открыть этот файл.</string>
 	<string name="error_server_not_found">Сервер не найден.</string>
 	<string name="error_device_policy_manager_not_found">Откройте настройки устройства и установите блокировку экрана вручную</string>
-	<string name="error_export_illegal_file_name">Не удалось экспортировать. Попробуйте удалить специальные символы из имен файлов и экспортировать снова.</string>
-	<string name="error_name_contains_invalid_characters">Не может содержать специальные символы.</string>
+	<string name="error_export_illegal_file_name">Ошибка экспорта. Попробуйте удалить спецсимволы из имён файлов и экспортировать снова.</string>
+	<string name="error_name_contains_invalid_characters">Не может содержать спецсимволы.</string>
 	<string name="error_names_contains_invalid_characters">В имени файла не может быть спецсимволов.</string>
 	<string name="error_vault_name_contains_invalid_characters">В имени хранилища не может быть спецсимволов.</string>
 	<string name="error_general_update">Не удалось проверить наличие обновления. Общая ошибка.</string>
@@ -32,7 +33,8 @@
 	<string name="error_vault_config_loading">Общая ошибка при загрузке конфигурации хранилища</string>
 	<string name="error_file_not_found_after_opening_using_3party">Локальный файл больше не существует после переключения на Cryptomator. Возможные изменения не могут быть переданы обратно в облако.</string>
 	<string name="error_no_such_bucket">Нет такого бакета</string>
-	<string name="error_masterkey_location_not_supported">Произвольное расположение Masterkey пока поддерживается</string>
+	<string name="error_masterkey_location_not_supported">Произвольное расположение Masterkey пока не поддерживается</string>
+	<string name="error_interact_with_fdroid_but_fdroid_missing">Не удалось связаться с приложением F-Droid. Не установлено?</string>
 	<!-- # clouds -->
 	<!-- ## cloud names -->
 	<string name="cloud_names_local_storage">Локальное хранилище</string>
@@ -53,6 +55,8 @@
 	<string name="snack_bar_action_title_sort_oldest">Сначала старые</string>
 	<string name="snack_bar_action_title_sort_biggest">Сначала большие</string>
 	<string name="snack_bar_action_title_sort_smallest">Сначала маленькие</string>
+	<string name="snack_bar_cryptomator_variants_title">Подробнее</string>
+	<string name="snack_bar_cryptomator_variants_hint">Облака нет в списке?</string>
 	<!-- # screens -->
 	<!-- # screen: vault list -->
 	<string name="screen_vault_list_actions_title">Добавить в Cryptomator</string>
@@ -64,7 +68,7 @@
 	<!-- # screen: file browser -->
 	<string name="screen_file_browser_default_title">Хранилище</string>
 	<string name="screen_file_browser_add_existing_vault_extra_text">Выберите файл Masterkey</string>
-	<string name="screen_file_browser_create_new_vault_button_text">Поместить здесь</string>
+	<string name="screen_file_browser_create_new_vault_button_text">Поместить сюда</string>
 	<string name="screen_file_browser_create_new_vault_extra_text">Имя хранилища: %1$s</string>
 	<plurals name="screen_file_browser_subtitle_move">
 		<item quantity="one">Переместить %1$s в</item>
@@ -78,11 +82,11 @@
 	<string name="screen_file_browser_share_intent_chooser_title">Поделиться с</string>
 	<string name="screen_file_browser_share_destination_title">Выберите место назначения</string>
 	<string name="screen_file_browser_share_button_text">Выбрать</string>
-	<string name="screen_file_browser_nothing_to_share">Нечем делиться</string>
+	<string name="screen_file_browser_nothing_to_share">Нечем поделиться</string>
 	<string name="screen_file_browser_actions_title">Добавить в %1$s</string>
 	<string name="screen_file_browser_action_create_folder">Создать папку</string>
 	<string name="screen_file_browser_action_create_new_text_file">Создать текстовый файл</string>
-	<string name="screen_file_browser_action_upload_files">Загрузить файлы</string>
+	<string name="screen_file_browser_action_upload_files">Отправить файлы</string>
 	<string name="screen_file_browser_upload_files_chooser_title">Файлы</string>
 	<string name="screen_file_browser_msg_file_exported">Файл экспортирован</string>
 	<string name="screen_file_browser_msg_files_exported">Файлы экспортированы</string>
@@ -108,17 +112,17 @@
 	<string name="screen_share_files_content_text">текст</string>
 	<string name="screen_share_files_content_file">файл</string>
 	<string name="screen_share_files_content_files">файлы</string>
-	<string name="screen_share_files_msg_filenames_must_be_unique">Имена файлов должны быть уникальными. Переименуйте дубликаты.</string>
+	<string name="screen_share_files_msg_filenames_must_be_unique">Имена файлов должны быть уникальными, пожалуйста, переименуйте дубликаты.</string>
 	<string name="screen_share_files_section_location">Место сохранения</string>
 	<string name="screen_share_files_save_button_text">Сохранить</string>
 	<string name="screen_share_files_msg_success">Шифрование завершено</string>
 	<!-- ## screen: choose cloud service -->
-	<string name="screen_choose_cloud_service_title">Облачные сервисы</string>
+	<string name="screen_choose_cloud_service_title">Облачный сервис</string>
 	<!-- ## screen: cloud connections -->
-	<string name="screen_cloud_connections_title">Выберите местоположение</string>
-	<string name="screen_cloud_connections_no_connections">Нажмите, чтобы добавить места</string>
+	<string name="screen_cloud_connections_title">Выберите место</string>
+	<string name="screen_cloud_connections_no_connections">Нажмите, чтобы добавить местоположения</string>
 	<string name="screen_cloud_error_webdav_not_supported">Похоже, сервер не совместим с WebDAV</string>
-	<string name="screen_cloud_local_error_no_content_provider">Нет дополнительных мест.</string>
+	<string name="screen_cloud_local_error_no_content_provider">Не найден файловый менеджер, поддерживающий открытие папок</string>
 	<!-- ## screen: webdav settings -->
 	<string name="screen_webdav_settings_url_port_label">URL</string>
 	<string name="screen_webdav_settings_username_label">Логин</string>
@@ -132,9 +136,9 @@
 	<string name="screen_s3_settings_display_name_label">Отображаемое имя</string>
 	<string name="screen_s3_settings_access_key_label">Ключ доступа</string>
 	<string name="screen_s3_settings_secret_key_label">Секретный ключ</string>
-	<string name="screen_s3_settings_bucket_label">Имеющийся бакет</string>
+	<string name="screen_s3_settings_bucket_label">Существующий бакет</string>
 	<string name="screen_s3_settings_endpoint_label">Конечная точка</string>
-	<string name="screen_s3_settings_region_label">Область</string>
+	<string name="screen_s3_settings_region_label">Регион</string>
 	<string name="screen_s3_settings_msg_display_name_not_empty">Отображаемое имя не может быть пустым</string>
 	<string name="screen_s3_settings_msg_access_key_not_empty">Ключ доступа не может быть пустым</string>
 	<string name="screen_s3_settings_msg_secret_key_not_empty">Секретный ключ не может быть пустым</string>
@@ -148,7 +152,7 @@
 	<string name="screen_set_password_title">Установить пароль</string>
 	<string name="screen_set_password_msg_password_mismatch">Пароли не совпадают.</string>
 	<string name="screen_set_password_button_text">Готово</string>
-	<string name="screen_set_password_hint">ВАЖНО: Если вы забыли пароль, восстановить данные невозможно.</string>
+	<string name="screen_set_password_hint">ВАЖНО: Если вы забудете пароль, то не сможете восстановить данные.</string>
 	<string name="screen_set_password_retype_password_label">Введите пароль ещё раз</string>
 	<string name="screen_set_password_strength_indicator_0">Слишком слабый для создания хранилища</string>
 	<string name="screen_set_password_strength_indicator_1">Слабый</string>
@@ -212,7 +216,19 @@
 	<!-- ## screen: authenticate cloud -->
 	<string name="screen_authenticate_auth_authentication_failed">Аутентификация %1$s невозможна.</string>
 	<string name="screen_update_pcloud_connections_title">Обновить учётные данные pCloud</string>
-	<!-- ## screen: insecure android version info -->
+	<!-- ## screen: cryptomator app variants -->
+	<string name="screen_cryptomator_variants_title">Варианты Cryptomator</string>
+	<string name="screen_cryptomator_variants_lite_title">Основной репозиторий F-Droid</string>
+	<string name="screen_cryptomator_variants_lite_description">Исключено, потому что требуются API-ключи.</string>
+	<string name="screen_cryptomator_variants_lite_install">Установить</string>
+	<string name="screen_cryptomator_variants_fdroid_title">Репозиторий F-Droid Cryptomator</string>
+	<string name="screen_cryptomator_variants_fdroid_description">Исключено, поскольку содержит собственные зависимости.</string>
+	<string name="screen_cryptomator_variants_fdroid_add_repo_hint">Добавить репозиторий Cryptomator в приложение F-Droid.</string>
+	<string name="screen_cryptomator_variants_fdroid_add_repo">Добавить</string>
+	<string name="screen_cryptomator_variants_fdroid_install_hint">Установить Cryptomator с помощью F-Droid.\nЕсли отображается сообщение об ошибке \"Не найдено\", дождитесь окончания синхронизации F-Droid.</string>
+	<string name="screen_cryptomator_variants_website_title">Сайт</string>
+	<string name="screen_cryptomator_variants_website_description">Содержит собственные зависимости.</string>
+	<string name="screen_cryptomator_variants_installation_hint">Переключение с главного варианта репозитория F-Droid или на него требует новой настройки приложения.</string>
 	<!-- # dialogs -->
 	<string name="dialog_button_cancel">Отмена</string>
 	<string name="dialog_enter_password_positive_button">Разблокировать</string>
@@ -250,6 +266,7 @@
 	<string name="dialog_unsaved_changes_title">Есть несохранённые изменения</string>
 	<string name="dialog_unsaved_changes_message">Хотите выйти без сохранения?</string>
 	<string name="dialog_unsaved_changes_discard">Не сохранять</string>
+	<string name="dialog_file_name_hint">Имя файла</string>
 	<string name="dialog_file_name_placeholder">text.txt</string>
 	<string name="dialog_delete_vault_message">Вы действительно хотите удалить это хранилище?</string>
 	<string name="dialog_delete_vault_hint">Это действие только уберёт хранилище из списка, но не удалит его физически.</string>
@@ -275,6 +292,9 @@
 	<string name="dialog_accept_ssl_certificate_hint">SSL-сертификат недействителен. Вы всё равно хотите ему доверять?</string>
 	<string name="dialog_accept_ssl_certificate_details">Подробно</string>
 	<string name="dialog_accept_ssl_certificate_security_checkbox">Это может представлять угрозу безопасности. Я знаю, что делаю.</string>
+	<string name="dialog_ask_ignore_battery_optimizations_title">Отключить оптимизацию батареи</string>
+	<string name="dialog_ask_ignore_battery_optimizations_hint">Чтобы получать новые изображения и видео без работы в фоновом режиме, необходимо отключить оптимизацию заряда аккумулятора. Но не волнуйтесь, %1$s не потребляет много энергии.\n\nЧтобы это сделать, измените \"Не оптимизировано\" на \"Все приложения\", выберите %1$s и в этом окне выберите \"Не оптимизировать\" после нажатия \'%2$s\'.</string>
+	<string name="dialog_ask_ignore_battery_optimizations_checkbox">Больше не спрашивать?</string>
 	<string name="dialog_http_security_hint">Протокол HTTP небезопасен. Рекомендуем использовать HTTPS. Продолжайте с HTTP, только если вы понимаете риски.</string>
 	<string name="dialog_http_security_checkbox">Изменить на HTTPS</string>
 	<string name="dialog_http_security_title">Использовать HTTPS?</string>
@@ -286,17 +306,17 @@
 	<string name="dialog_debug_mode_disclaimer_hint">В этом режиме в файл журнала на вашем устройстве могут попасть конфиденциальные данные (например имена файлов и пути). Пароли, cookie-файлы и т.п. явно исключены.\n\nНе забудьте как можно скорее отключить режим отладки.</string>
 	<string name="dialog_debug_mode_disclaimer_title">Внимание</string>
 	<string name="dialog_debug_mode_positive_button">Вкл.</string>
-	<string name="dialog_disable_app_obscured_disclaimer_hint">Эта настройка связана с безопасностью, она не позволяет другим приложениям обманом вынуждать пользователей делать то, что им не нужно.\n\nОтключив, вы подтверждаете, что <a href="https://docs.cryptomator.org/en/1.5/android/settings/#block-app-when-obscured">знаете о рисках</a>.</string>
+	<string name="dialog_disable_app_obscured_disclaimer_hint">Эта настройка связана с безопасностью, она не позволяет другим приложениям обманом вынуждать пользователей делать то, что им не нужно.\n\nОтключая её, вы подтверждаете, что <a href="https://docs.cryptomator.org/en/1.6/android/settings/#block-app-when-obscured">осознаёте риски</a>.</string>
 	<string name="dialog_disable_app_obscured_disclaimer_title">Внимание</string>
 	<string name="dialog_disable_app_obscured_positive_button">Выкл.</string>
 	<string name="dialog_app_is_obscured_info_title">Приложение скрыто</string>
-	<string name="dialog_app_is_obscured_info_hint">Другое приложение отображает что-то поверх Cryptomator (например синий световой фильтр или ночной режим). В целях безопасности Cryptomator отключён.\n\n<a href="https://docs.cryptomator.org/en/1.5/android/settings/#block-app-when-obscured">Как включить Cryptomator</a></string>
+	<string name="dialog_app_is_obscured_info_hint">Другое приложение отображает что-то поверх Cryptomator (например синий световой фильтр или ночной режим). В целях безопасности Cryptomator отключён.\n\n<a href="https://docs.cryptomator.org/en/1.6/android/settings/#block-app-when-obscured">Как включить Cryptomator</a></string>
 	<string name="dialog_app_is_obscured_info_neutral_button">Закрыть</string>
 	<string name="dialog_vaults_removed_during_migration_title">Добавьте хранилища заново для облака %1s</string>
 	<string name="dialog_vaults_removed_during_migration_hint">Во время переноса в эту версию приложения необходимо удалить следующие хранилища из приложения:\n%2s \n\nЭти хранилища не удаляются из облака, а только из приложения. Извините за неудобства и добавьте снова эти хранилища, чтобы продолжить работу с ними.</string>
 	<string name="dialog_vault_is_root_folder_of_cloud_title">Хранилище - это корневая папка подключения к облаку</string>
 	<string name="dialog_vault_is_root_folder_of_cloud_hint">Создайте новое облачное соединение, в котором вы выберете по крайней мере родительскую папку этой папки хранилища в качестве корневой папки для добавления этого хранилища.</string>
-	<string name="dialog_disable_secure_screen_disclaimer_hint">Эта настройка связана с безопасностью, она не позволяет другим приложениям обманом вынуждать пользователей делать то, что им не нужно.\n\nОтключив, вы подтверждаете, что <a href="https://docs.cryptomator.org/en/1.5/android/settings/#screen-security">знаете о рисках</a>.</string>
+	<string name="dialog_disable_secure_screen_disclaimer_hint">Эта настройка связана с безопасностью, она не позволяет другим приложениям обманом вынуждать пользователей делать то, что им не нужно.\n\nОтключая её, вы подтверждаете, что <a href="https://docs.cryptomator.org/en/1.6/android/settings/#screen-security">осознаёте риски</a>.</string>
 	<string name="dialog_delete_cloud_connection_with_vaults_message">Вы действительно хотите удалить это облачное соединение?</string>
 	<string name="dialog_delete_cloud_connection_with_vaults_hint">Это действие удалит облако и все хранилища в нём.</string>
 	<string name="dialog_confirm_delete_multiple_title">Удалить элементы (%1$d)?</string>
@@ -308,6 +328,7 @@
 	<string name="dialog_enter_license_title">Предоставьте действительную лицензию</string>
 	<string name="dialog_enter_license_content">Мы обнаружили, что вы установили Cryptomator, не используя Google Play. Предоставьте действительную лицензию, которую можно приобрести на <a href="https://cryptomator.org/android/">https://cryptomator.org/android/</a></string>
 	<string name="dialog_enter_license_not_valid_content">Лицензия недействительна. Убедитесь, что вы ввели её правильно.</string>
+	<string name="dialog_enter_license_not_valid_content_desktop_supporter_certificate">Предоставленный ключ - это сертификат спонсора. Введите действительную лицензию.</string>
 	<string name="dialog_enter_license_no_content">Нет лицензии. Введите действительную лицензию.</string>
 	<string name="dialog_enter_license_decline_button">Выход</string>
 	<string name="dialog_license_confirmation_title">Подтверждение лицензии</string>
@@ -366,18 +387,18 @@
 	<string name="notification_auto_upload_title">Выполняется автозагрузка фото</string>
 	<string name="notification_auto_upload_message">Загрузка %1d/%2d</string>
 	<string name="notification_auto_upload_finished_title">Автозагрузка фото завершена</string>
-	<string name="notification_auto_upload_finished_message">Загружено в хранилище изображений: %1$d</string>
-	<string name="notification_auto_upload_failed_title">Ошибка автозагрузки фото</string>
-	<string name="notification_auto_upload_failed_general_error">Ошибка при загрузке.</string>
-	<string name="notification_auto_upload_failed_due_to_folder_not_exists">Выбранная папка для загрузки больше недоступна. Перейдите в настройки и выберите новую папку</string>
-	<string name="notification_auto_upload_failed_due_to_vault_locked">Хранилище заблокировано во время загрузки, откройте хранилище снова, чтобы продолжить</string>
+	<string name="notification_auto_upload_finished_message">Загружено изображений в хранилище: %1$d</string>
+	<string name="notification_auto_upload_failed_title">Ошибка автоотправки фото</string>
+	<string name="notification_auto_upload_failed_general_error">Ошибка при отправке.</string>
+	<string name="notification_auto_upload_failed_due_to_folder_not_exists">Выбранная папка для отправки больше недоступна. Перейдите в настройки и выберите новую папку</string>
+	<string name="notification_auto_upload_failed_due_to_vault_locked">Хранилище заблокировано во время отправки; откройте хранилище снова, чтобы продолжить</string>
 	<string name="notification_auto_upload_failed_due_to_vault_not_found">Хранилище, выбранное для автозагрузки, больше не существует.</string>
 	<string name="notification_open_writable_file_title">Открыть файл, доступный для записи</string>
 	<string name="notification_open_writable_file_message">Хранилище разблокировано до завершения редактирования</string>
 	<string name="notification_update_check_finished_latest">Установлена новейшая версия</string>
 	<string name="notification_authenticating">Аутентификация&#8230;</string>
 	<string name="screen_settings_lru_cache">Кэш</string>
-	<string name="screen_settings_lru_cache_toggle_summary">Кэшировать зашифрованные локально на устройстве файлы, к которым недавно был доступ, для последующего использования при повторном открытии</string>
+	<string name="screen_settings_lru_cache_toggle_summary">Кэшировать файлы, зашифрованные локально на устройстве, к которым недавно был доступ, для последующего использования при повторном открытии</string>
 	<string name="screen_settings_lru_cache_size">Общий размер кэша</string>
 	<string name="screen_settings_clear_lru_cache_size">Очистить кэш</string>
 	<string name="screen_settings_lru_cache_changed__restart_toast">Изменения будут применены при следующем перезапуске приложения</string>
@@ -408,6 +429,4 @@
 	<string name="dark">Тёмная</string>
 	<!-- update interval names -->
 	<string name="update_interval_1d">Раз в день</string>
-	<string name="update_interval_1w">Раз в неделю</string>
-	<string name="update_interval_1m">Раз в месяц</string>
 </resources>
