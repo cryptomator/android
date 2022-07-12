@@ -442,9 +442,9 @@
 	<string name="dialog_debug_mode_positive_button">Enable</string>
 	<string name="dialog_debug_mode_negative_button" translatable="false">@string/dialog_button_cancel</string>
 
-	<string name="dialog_microsoft_workaround_disclaimer_hint">Due to a bug in Microsoft apps, we need to share the file with them in a public media folder. We only use this using those file types. After resuming to Cryptomator, we delete the public available file again but we can not influence what happens to this file in the meantime. So just enable it if this isn\'t a problem for you.\n\nIf enabled, Cryptomator gets restarted.</string>
+	<string name="dialog_microsoft_workaround_disclaimer_hint">Due to a bug in Microsoft apps, the file to be edited must be shared with these apps in a public media folder on your device. After Cryptomator is resumed, the publicly accessible file is deleted again, but Cryptomator cannot influence what has happened to this file in the meantime. Make sure that you are aware of this behavior when activating this option. This will only apply to Microsoft file types.\n\nCryptomator will restart after activation.</string>
 	<string name="dialog_microsoft_workaround_disclaimer_title" translatable="false">@string/dialog_debug_mode_disclaimer_title</string>
-	<string name="dialog_microsoft_workaround_positive_button" translatable="false">@string/dialog_debug_mode_positive_button</string>
+	<string name="dialog_microsoft_workaround_positive_button" translatable="false">@string/screen_settings_section_auto_photo_upload_toggle</string>
 	<string name="dialog_microsoft_workaround_negative_button" translatable="false">@string/dialog_button_cancel</string>
 
 	<string name="dialog_disable_app_obscured_disclaimer_hint">This setting is a security feature and prevents other apps from tricking users into doing things they do not wan\'t to do.\n\nBy disabling, you confirm that you are <a href="https://docs.cryptomator.org/en/1.6/android/settings/#block-app-when-obscured">aware of the risks</a>.</string>
