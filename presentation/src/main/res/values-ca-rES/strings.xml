@@ -9,6 +9,8 @@
 	<string name="error_no_network_connection">No hi ha connexió de xarxa</string>
 	<string name="error_invalid_passphrase">Contrasenya incorrecta</string>
 	<string name="error_file_or_folder_exists">Ja existeix un fitxer o carpeta.</string>
+	<string name="error_vault_version_not_supported">La versió %1$s de la caixa forta no està suportada. Aquesta caixa forta ha estat creada amb una versió més antiga o més nova de Cryptomator.</string>
+	<string name="error_vault_config_file_missing_due_to_format_999">L\'arxiu %1$s no existeix a la caixa forta. Si us plau, revisa que l\'arxiu existeix en la caixa forta sincronitzada al núvol.</string>
 	<string name="error_vault_already_exists">La caixa forta ja existeix.</string>
 	<string name="error_no_such_file">El fitxer no existeix.</string>
 	<string name="error_vault_has_been_locked">S\'ha bloquejat la caixa forta.</string>
@@ -32,6 +34,7 @@
 	<string name="error_file_not_found_after_opening_using_3party">El fitxer local ja no és present després de tornar a canviar a Cryptomator. Els possibles canvis no és poden propagar cap al núvol.</string>
 	<string name="error_no_such_bucket">No existeix el cubell</string>
 	<string name="error_masterkey_location_not_supported">Encara no es permet la ubicació personalitzada de la clau mestra</string>
+	<string name="error_interact_with_fdroid_but_fdroid_missing">Error en la comunicació amb l\'aplicació F-Droid. Està instal·lada?</string>
 	<!-- # clouds -->
 	<!-- ## cloud names -->
 	<string name="cloud_names_local_storage">Emmagatzematge local</string>
@@ -52,12 +55,15 @@
 	<string name="snack_bar_action_title_sort_oldest">El més antic primer</string>
 	<string name="snack_bar_action_title_sort_biggest">El més gros primer</string>
 	<string name="snack_bar_action_title_sort_smallest">El més petit primer</string>
+	<string name="snack_bar_cryptomator_variants_title">Llegir més</string>
+	<string name="snack_bar_cryptomator_variants_hint">El seu servei al núvol (Cloud) no està a la llista?</string>
 	<!-- # screens -->
 	<!-- # screen: vault list -->
 	<string name="screen_vault_list_actions_title">Afegeix a Criptomator</string>
 	<string name="screen_vault_list_action_create_new_vault">Crea una caixa forta nova</string>
 	<string name="screen_vault_list_action_add_existing_vault">Afegeix una caixa forta existent</string>
 	<string name="screen_vault_list_vault_action_delete">Elimina</string>
+	<string name="screen_vault_list_vault_creation_hint">Cliqueu aquí per crear una nova caixa forta</string>
 	<string name="screen_vault_list_change_password_successful">La contrasenya s\'han canviat correctament</string>
 	<!-- # screen: file browser -->
 	<string name="screen_file_browser_default_title">Caixa forta</string>
@@ -112,6 +118,7 @@
 	<string name="screen_choose_cloud_service_title">Servei al núvol</string>
 	<!-- ## screen: cloud connections -->
 	<string name="screen_cloud_connections_title">Trieu una destinació</string>
+	<string name="screen_cloud_connections_no_connections">Cliqueu aquí per afegir localitzacions</string>
 	<string name="screen_cloud_error_webdav_not_supported">El servidor no sembla que sigui compatible amb WebDAV</string>
 	<string name="screen_cloud_local_error_no_content_provider">No s\'ha trobat cap gestor de fitxers que suporte l\'obertura de directoris/carpetes</string>
 	<!-- ## screen: webdav settings -->
@@ -208,6 +215,17 @@
 	<string name="screen_authenticate_auth_authentication_failed">%1$s no s\'ha pogut autenticar.</string>
 	<string name="screen_update_pcloud_connections_title">Actualitza les credencials de pCloud</string>
 	<!-- ## screen: cryptomator app variants -->
+	<string name="screen_cryptomator_variants_title">Variables de Cryptomator</string>
+	<string name="screen_cryptomator_variants_lite_title">Repositori principal de F-Droid</string>
+	<string name="screen_cryptomator_variants_lite_description">Exclosos perquè requereixen claus API.</string>
+	<string name="screen_cryptomator_variants_lite_install">Instal·lar</string>
+	<string name="screen_cryptomator_variants_fdroid_title">Repositori Cryptomator F-Droid</string>
+	<string name="screen_cryptomator_variants_fdroid_description">Exclòs perquè requereix dependències propietàries.</string>
+	<string name="screen_cryptomator_variants_fdroid_add_repo_hint">Afegir repositori Cryptomator a l\'aplicació F-Droid.</string>
+	<string name="screen_cryptomator_variants_fdroid_add_repo">Afegir</string>
+	<string name="screen_cryptomator_variants_fdroid_install_hint">Instal·lar Cryptomator utilitzant F-Droid.\nIf mostra un error de no trobat, esperi fins que finalitzi la sincronització de F-Droid.</string>
+	<string name="screen_cryptomator_variants_website_title">Lloc web</string>
+	<string name="screen_cryptomator_variants_website_description">Conté dependències propietàries.</string>
 	<!-- # dialogs -->
 	<string name="dialog_button_cancel">Cancel·la</string>
 	<string name="dialog_enter_password_positive_button">Desbloqueja</string>
