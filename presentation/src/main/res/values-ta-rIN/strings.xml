@@ -18,9 +18,25 @@
 	<string name="snack_bar_action_title_search_previous">முந்தைய</string>
 	<string name="snack_bar_action_title_search_next">அடுத்து</string>
 	<string name="snack_bar_action_title_sort">வரிசைப்படுத்து</string>
+	<string name="snack_bar_action_title_sort_newest">புதியது முதலில்</string>
+	<string name="snack_bar_action_title_sort_oldest">பழயது முதலில்</string>
+	<string name="snack_bar_action_title_sort_biggest">மிகப்பெரியது முதலில்</string>
+	<string name="snack_bar_action_title_sort_smallest">மிகச்சிறியது முதலில்</string>
+	<string name="snack_bar_cryptomator_variants_title">மேலும் வாசிக்க</string>
+	<string name="snack_bar_cryptomator_variants_hint">கிளவுட் பட்டியலில் இல்லையா?</string>
 	<!-- # screens -->
 	<!-- # screen: vault list -->
+	<string name="screen_vault_list_actions_title">Cryptomator இல் சேர்</string>
+	<string name="screen_vault_list_change_password_successful">கடவுச்சொல் வெற்றிகரமாக மாற்றப்பட்டது</string>
 	<!-- # screen: file browser -->
+	<string name="screen_file_browser_default_title">பெட்டகம்</string>
+	<string name="screen_file_browser_add_existing_vault_extra_text">தலைமைவிசை கோப்பை தேர்ந்தெடுக்கவும்</string>
+	<string name="screen_file_browser_create_new_vault_button_text">இங்கே வைக்கவும்</string>
+	<string name="screen_file_browser_create_new_vault_extra_text">பெட்டகத்தின் பெயர்: %1$s</string>
+	<plurals name="screen_file_browser_subtitle_move">
+		<item quantity="one">%1$s -ஐ இதற்கு நகர்த்து</item>
+		<item quantity="other">%2$d உருப்படிகளை இதற்கு நகர்த்து</item>
+	</plurals>
 	<string name="screen_file_browser_move_button_text">நகர்த்து</string>
 	<string name="screen_file_browser_msg_empty_folder">காலி கோப்புறை</string>
 	<string name="screen_file_browser_share_intent_chooser_title">இதனுடன் பகிர்</string>
@@ -83,6 +99,7 @@
 	<string name="dialog_rename_node_file_title">கோப்பை மறுபெயரிடு</string>
 	<string name="dialog_unsaved_changes_title">சேமிக்கப்படாத மாற்றங்கள் உள்ளன</string>
 	<string name="dialog_no_screen_lock_checkbox">திரைப்பூட்டை அமை</string>
+	<string name="dialog_no_biometric_auth_set_up_title">கைப்பேசியில் அடிப்படை அங்கீகாரம் எதுவும் அமைக்கப்படவில்லை</string>
 	<string name="dialog_debug_mode_disclaimer_title">கவனிக்க</string>
 	<string name="dialog_debug_mode_positive_button">இயக்கு</string>
 	<string name="dialog_disable_app_obscured_disclaimer_title">கவனிக்க</string>
@@ -102,10 +119,20 @@
 	<!-- ## biometric authentication -->
 	<!-- notification -->
 	<!-- lock timeout names -->
+	<string name="lock_timeout_10m">10 நிமிடங்கள்</string>
+	<string name="lock_timeout_never">ஒருபோதுமில்லை</string>
 	<!-- cache size names -->
+	<string name="cache_size_50m">50 எம்பி</string>
+	<string name="cache_size_100m">100 எம்பி</string>
+	<string name="cache_size_250m">250 எம்பி</string>
+	<string name="cache_size_500m">500 எம்பி</string>
+	<string name="cache_size_1000m">1 ஜிபி</string>
+	<string name="cache_size_5000m">5 ஜிபி</string>
 	<!-- screen scheme mode names -->
-	<string name="light">வெளிச்சம்</string>
+	<string name="screen_settings_style_mode">பாங்கு</string>
+	<string name="follow_system">தானியங்கி (கைப்பேசியைப் பின்தொடரவும்)</string>
+	<string name="light">ஒளி</string>
 	<string name="dark">இருள்</string>
 	<!-- update interval names -->
-	<string name="update_interval_1d">தினம் ஒரு முறை</string>
+	<string name="update_interval_1d">தினம் ஒருமுறை</string>
 </resources>
