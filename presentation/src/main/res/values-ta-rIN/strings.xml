@@ -10,7 +10,7 @@
 	<string name="error_no_such_file">கோப்பு இருப்பில் இல்லை.</string>
 	<!-- # clouds -->
 	<!-- ## cloud names -->
-	<string name="cloud_names_local_storage">உள்ளூர் சேமிப்பகம்</string>
+	<string name="cloud_names_local_storage">அகச் சேமிப்பகம்</string>
 	<!-- # permission -->
 	<!-- ## permission messages -->
 	<string name="snack_bar_action_title_settings">அமைப்புகள்</string>
@@ -55,11 +55,11 @@
 	<!-- ## screen: choose cloud service -->
 	<!-- ## screen: cloud connections -->
 	<!-- ## screen: webdav settings -->
-	<string name="screen_webdav_settings_url_port_label">இணையமுகவரி</string>
+	<string name="screen_webdav_settings_url_port_label">URL</string>
 	<string name="screen_webdav_settings_username_label">பயனர்பெயர்</string>
 	<string name="screen_webdav_settings_password_label">கடவுச்சொல்</string>
-	<string name="screen_webdav_settings_msg_url_must_not_be_empty">இணையமுகவரி வெறுமையாக இருக்க கூடாது.</string>
-	<string name="screen_webdav_settings_msg_url_is_invalid">இணையமுகவரி தவறானது.</string>
+	<string name="screen_webdav_settings_msg_url_must_not_be_empty">URL வெறுமையாக இருக்க கூடாது.</string>
+	<string name="screen_webdav_settings_msg_url_is_invalid">URL தவறானது.</string>
 	<string name="screen_webdav_settings_msg_username_must_not_be_empty">பயனர்பெயர் காலியாக இருக்க முடியாது.</string>
 	<string name="screen_webdav_settings_msg_password_must_not_be_empty">கடவுச்சொல் காலியாக இருக்கக்கூடாது.</string>
 	<!-- ## screen: s3 settings -->
@@ -67,6 +67,7 @@
 	<string name="screen_s3_settings_region_label">பகுதி</string>
 	<!-- ## screen: enter vault name -->
 	<!-- ## screen: set password -->
+	<string name="screen_set_password_button_text">முடிந்தது</string>
 	<!-- ## screen: settings -->
 	<string name="screen_settings_biometric_auth">உயிரியளவுகள் உறுதிசெய்தல்</string>
 	<string name="screen_settings_section_search">தேடு</string>
@@ -82,6 +83,7 @@
 	<!-- ## screen: authenticate cloud -->
 	<!-- ## screen: cryptomator app variants -->
 	<!-- # dialogs -->
+	<string name="dialog_button_cancel">ரத்து செய்</string>
 	<string name="dialog_change_password_msg_new_password_empty">கடவுச்சொல் காலியாக இருக்கக்கூடாது.</string>
 	<!-- Vault not found -->
 	<string name="dialog_vault_not_found_positive_button_text">நீக்கு</string>
@@ -105,6 +107,7 @@
 	<string name="dialog_disable_app_obscured_disclaimer_title">கவனிக்க</string>
 	<string name="dialog_disable_app_obscured_positive_button">முடக்கு</string>
 	<string name="dialog_app_is_obscured_info_neutral_button">மூடு</string>
+	<string name="dialog_sym_link_back_button">பின் செல்</string>
 	<!-- # error reports -->
 	<!-- # misc -->
 	<!-- ## file size helper -->
@@ -118,16 +121,22 @@
 	<string name="time_unit_years_sg">ஆண்டு</string>
 	<!-- ## biometric authentication -->
 	<!-- notification -->
+	<string name="screen_settings_license_mail">%1$s</string>
+	<string name="dialog_settings_update_check_interval_title">சரிபார்ப்பு இடைவெளியைப் புதுப்பி</string>
+	<string name="screen_settings_check_updates">புதுப்பிப்புகளை தேடு</string>
 	<!-- lock timeout names -->
+	<string name="lock_timeout_1m">1 நிமிடம்</string>
+	<string name="lock_timeout_2m">2 நிமிடங்கள்</string>
+	<string name="lock_timeout_5m">5 நிமிடங்கள்</string>
 	<string name="lock_timeout_10m">10 நிமிடங்கள்</string>
 	<string name="lock_timeout_never">ஒருபோதுமில்லை</string>
 	<!-- cache size names -->
-	<string name="cache_size_50m">50 எம்பி</string>
-	<string name="cache_size_100m">100 எம்பி</string>
-	<string name="cache_size_250m">250 எம்பி</string>
-	<string name="cache_size_500m">500 எம்பி</string>
-	<string name="cache_size_1000m">1 ஜிபி</string>
-	<string name="cache_size_5000m">5 ஜிபி</string>
+	<string name="cache_size_50m">50 MB</string>
+	<string name="cache_size_100m">100 MB</string>
+	<string name="cache_size_250m">250 MB</string>
+	<string name="cache_size_500m">500 MB</string>
+	<string name="cache_size_1000m">1 GB</string>
+	<string name="cache_size_5000m">5 GB</string>
 	<!-- screen scheme mode names -->
 	<string name="screen_settings_style_mode">பாங்கு</string>
 	<string name="follow_system">தானியங்கி (கைப்பேசியைப் பின்தொடரவும்)</string>
