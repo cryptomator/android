@@ -264,6 +264,7 @@
 	<string name="dialog_unsaved_changes_title">Hi ha canvis sense desar</string>
 	<string name="dialog_unsaved_changes_message">Voleu tancar sense desar?</string>
 	<string name="dialog_unsaved_changes_discard">Descarta</string>
+	<string name="dialog_file_name_hint">Nom de l\'arxiu</string>
 	<string name="dialog_file_name_placeholder">text.txt</string>
 	<string name="dialog_delete_vault_message">Esteu segur/a que voleu suprimir aquesta caixa forta?</string>
 	<string name="dialog_delete_vault_hint">Aquesta acció només eliminarà la caixa forta d\'aquesta llista però no l\'eliminarà físicament.</string>
