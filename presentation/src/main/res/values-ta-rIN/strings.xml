@@ -98,6 +98,8 @@
 	<!-- ## screen: enter vault name -->
 	<!-- ## screen: set password -->
 	<string name="screen_set_password_button_text">முடிந்தது</string>
+	<string name="screen_set_password_strength_indicator_1">பலவீனமானது</string>
+	<string name="screen_set_password_strength_indicator_2">சுமார்</string>
 	<string name="screen_set_password_strength_indicator_3">வலுவான</string>
 	<!-- ## screen: settings -->
 	<string name="screen_settings_cloud_settings_label">மேகக்கணி சேவைகள்</string>
