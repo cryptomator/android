@@ -226,6 +226,7 @@
 	<string name="screen_cryptomator_variants_fdroid_install_hint">Instal·lar Cryptomator utilitzant F-Droid.\nIf mostra un error de no trobat, esperi fins que finalitzi la sincronització de F-Droid.</string>
 	<string name="screen_cryptomator_variants_website_title">Lloc web</string>
 	<string name="screen_cryptomator_variants_website_description">Conté dependències propietàries.</string>
+	<string name="screen_cryptomator_variants_installation_hint">Canviar des de o cap a la variant principal del repositori F-Droid requereix una nova configuració de l\'aplicació.</string>
 	<!-- # dialogs -->
 	<string name="dialog_button_cancel">Cancel·la</string>
 	<string name="dialog_enter_password_positive_button">Desbloqueja</string>
