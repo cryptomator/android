@@ -214,7 +214,18 @@
 	<string name="screen_authenticate_auth_authentication_failed">%1$s 無法完成身份驗證</string>
 	<string name="screen_update_pcloud_connections_title">更新 pCloud 帳戶資訊</string>
 	<!-- ## screen: cryptomator app variants -->
+	<string name="screen_cryptomator_variants_title">Cryptomator變體</string>
+	<string name="screen_cryptomator_variants_lite_title">F-Droid 主程式庫</string>
+	<string name="screen_cryptomator_variants_lite_description">已被排除，因為他們需要 API 密鑰。</string>
 	<string name="screen_cryptomator_variants_lite_install">安裝</string>
+	<string name="screen_cryptomator_variants_fdroid_title">Cryptomator F-Droid 程式庫</string>
+	<string name="screen_cryptomator_variants_fdroid_description">已被排除，因為它包含專有依賴項。</string>
+	<string name="screen_cryptomator_variants_fdroid_add_repo_hint">將 Cryptomator 程式庫添加到 F-Droid 應用程式。</string>
+	<string name="screen_cryptomator_variants_fdroid_add_repo">添加</string>
+	<string name="screen_cryptomator_variants_fdroid_install_hint">使用 F-Droid 安裝 Cryptomator \n如果未發現錯誤，請等待 F-Droid 同步完成。</string>
+	<string name="screen_cryptomator_variants_website_title">網站</string>
+	<string name="screen_cryptomator_variants_website_description">包含專有依賴項。</string>
+	<string name="screen_cryptomator_variants_installation_hint">在F-Droid主程式庫的變體之間切換需要重新設置應用。</string>
 	<!-- # dialogs -->
 	<string name="dialog_button_cancel">取消</string>
 	<string name="dialog_enter_password_positive_button">解鎖</string>
@@ -252,6 +263,7 @@
 	<string name="dialog_unsaved_changes_title">您有未保存的更改</string>
 	<string name="dialog_unsaved_changes_message">您確定要不保存就離開嗎？</string>
 	<string name="dialog_unsaved_changes_discard">捨棄</string>
+	<string name="dialog_file_name_hint">檔案名</string>
 	<string name="dialog_file_name_placeholder">文檔.txt</string>
 	<string name="dialog_delete_vault_message">您確定要移除這個加密檔案庫嗎？</string>
 	<string name="dialog_delete_vault_hint">此操作只會從該列表中移除加密檔案庫，而不是實際上刪除它。</string>
@@ -278,6 +290,7 @@
 	<string name="dialog_accept_ssl_certificate_details">詳情</string>
 	<string name="dialog_accept_ssl_certificate_security_checkbox">這可能會是個安全風險。我清楚我在做什麼。</string>
 	<string name="dialog_ask_ignore_battery_optimizations_title">停用電池效能最佳化設定</string>
+	<string name="dialog_ask_ignore_battery_optimizations_hint">要在不在背景運行的情況下檢索新圖片和影片，我們需要選擇退出電池優化。不過不用擔心， %1$s 不會消耗太多電量。\n\n要應用它，請把「未最佳化」更改為「所有應用程式」。在此對話框中選擇「%2$s」後，選擇「%1$s」再選擇「不最佳化」。</string>
 	<string name="dialog_ask_ignore_battery_optimizations_checkbox">不要再詢問？</string>
 	<string name="dialog_http_security_hint">使用 HTTP 是不安全的。我們推薦使用 HTTPS 來取代。如果您瞭解風險，您可以使用 HTTP 繼續。</string>
 	<string name="dialog_http_security_checkbox">更換為 HTTPS</string>
