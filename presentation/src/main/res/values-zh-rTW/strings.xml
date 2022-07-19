@@ -34,6 +34,7 @@
 	<string name="error_file_not_found_after_opening_using_3party">切換回 Cryptomator 後，本地檔案不再存在。期間發生的更改無法傳回雲端。</string>
 	<string name="error_no_such_bucket">沒有該儲存貯體</string>
 	<string name="error_masterkey_location_not_supported">尚未支援自訂主金鑰位置</string>
+	<string name="error_interact_with_fdroid_but_fdroid_missing">無法找到F-Droid應用程式。可能未安裝？</string>
 	<!-- # clouds -->
 	<!-- ## cloud names -->
 	<string name="cloud_names_local_storage">本機儲存空間</string>
@@ -55,6 +56,7 @@
 	<string name="snack_bar_action_title_sort_biggest">最大的優先</string>
 	<string name="snack_bar_action_title_sort_smallest">最小的優先</string>
 	<string name="snack_bar_cryptomator_variants_title">閱讀更多</string>
+	<string name="snack_bar_cryptomator_variants_hint">Cloud不在列表中？</string>
 	<!-- # screens -->
 	<!-- # screen: vault list -->
 	<string name="screen_vault_list_actions_title">加到 Cryptomator</string>
@@ -115,6 +117,7 @@
 	<string name="screen_choose_cloud_service_title">雲端服務</string>
 	<!-- ## screen: cloud connections -->
 	<string name="screen_cloud_connections_title">選擇位置</string>
+	<string name="screen_cloud_connections_no_connections">點擊此處新增位置</string>
 	<string name="screen_cloud_error_webdav_not_supported">伺服器似乎與 WebDAV 不兼容</string>
 	<string name="screen_cloud_local_error_no_content_provider">未找到支援打開目錄的檔案管理器</string>
 	<!-- ## screen: webdav settings -->
