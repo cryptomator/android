@@ -222,10 +222,18 @@
 	<string name="screen_cryptomator_variants_fdroid_install_hint">Installér Cryptomator ved hjælp af F-Droid.\nHvis fejlen \"ikke fundet\" vises, da vent indtil F-Droid-synkroniseringen er færdig.</string>
 	<string name="screen_cryptomator_variants_website_title">Hjemmeside</string>
 	<string name="screen_cryptomator_variants_website_description">Indeholder proprietære afhængigheder.</string>
+	<string name="screen_cryptomator_variants_installation_hint">At skifte fra eller til det primære F-Droid depot, kræver en frisk opsætning af appen.</string>
 	<!-- # dialogs -->
 	<string name="dialog_button_cancel">Annullér</string>
 	<string name="dialog_enter_password_positive_button">Lås op</string>
+	<string name="dialog_change_password_old_password_label">Gammel adgangskode</string>
+	<string name="dialog_change_password_new_password_label">Ny adgangskode</string>
+	<string name="dialog_change_password">Skift adgangskode</string>
+	<string name="dialog_change_password_msg_old_password_empty">Gammel adgangskode er obligatorisk.</string>
+	<string name="dialog_change_password_msg_new_password_empty">Ny adgangskode er obligatorisk.</string>
+	<string name="dialog_change_password_msg_password_mismatch">Adgangskoden matcher ikke den nye adgangskode.</string>
 	<!-- Vault not found -->
+	<string name="dialog_vault_not_found_title">Boks %1$s ikke fundet</string>
 	<string name="dialog_vault_not_found_message">Boksen er blevet omdøbt, flyttet eller slettet. Fjern denne boks fra listen og tilføj den igen for at fortsætte. Fjern nu?</string>
 	<string name="dialog_vault_not_found_positive_button_text">Fjern</string>
 	<string name="dialog_existing_file_title">Filen findes allerede</string>
@@ -385,8 +393,33 @@
 	<string name="screen_settings_lru_cache">Cache</string>
 	<string name="screen_settings_lru_cache_toggle_summary">Gem nyligt tilgåede filer lokalt, i krypteret form, så de hurtigt kan åbnes igen senere</string>
 	<string name="screen_settings_lru_cache_size">Total cachestørrelse</string>
+	<string name="screen_settings_clear_lru_cache_size">Tøm cache</string>
+	<string name="screen_settings_lru_cache_changed__restart_toast">Ændringerne bliver anvendt næste gang du genstarter appen</string>
+	<string name="screen_settings_license">Registreret til</string>
+	<string name="screen_settings_license_mail">%1$s</string>
+	<string name="dialog_settings_update_check_interval_title">Tjek for nye opdateringer</string>
+	<string name="screen_settings_check_updates">Søg efter opdateringer</string>
+	<string name="screen_settings_last_check_updates">Seneste tjek %1$s</string>
+	<string name="dialog_cache_size_title">Cache størrelse pr. sky-tjeneste</string>
 	<!-- lock timeout names -->
+	<string name="lock_timeout_instant">Straks</string>
+	<string name="lock_timeout_1m">1 minut</string>
+	<string name="lock_timeout_2m">2 minutter</string>
+	<string name="lock_timeout_5m">5 minutter</string>
+	<string name="lock_timeout_10m">10 minutter</string>
+	<string name="lock_timeout_never">Aldrig</string>
 	<!-- cache size names -->
+	<string name="cache_size_50m">50 MB</string>
+	<string name="cache_size_100m">100 MB</string>
+	<string name="cache_size_250m">250 MB</string>
+	<string name="cache_size_500m">500 MB</string>
+	<string name="cache_size_1000m">1 GB</string>
+	<string name="cache_size_5000m">5 GB</string>
 	<!-- screen scheme mode names -->
+	<string name="screen_settings_style_mode">Udseende</string>
+	<string name="follow_system">Automatisk (følg system)</string>
+	<string name="light">Lys</string>
+	<string name="dark">Mørk</string>
 	<!-- update interval names -->
+	<string name="update_interval_1d">Dagligt</string>
 </resources>
