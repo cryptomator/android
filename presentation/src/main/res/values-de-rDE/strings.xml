@@ -26,7 +26,7 @@
 	<string name="error_hash_mismatch_update">Prüfung auf Aktualisierungen fehlgeschlagen. Berechnete Prüfsumme entspricht nicht der hochgeladenen Datei.</string>
 	<string name="error_update_no_internet">Prüfung auf Aktualisierungen fehlgeschlagen. Keine Internetverbindung.</string>
 	<string name="error_failed_to_decrypt_webdav_password">Beim entschlüsseln des WebDAV-Passworts trat ein Fehler auf. Bitte in den Einstellungen erneut festlegen.</string>
-	<string name="error_play_services_not_available">Die Google Play Services sind nicht installiert</string>
+	<string name="error_play_services_not_available">Google-Play-Dienste nicht installiert</string>
 	<string name="error_biometric_auth_aborted">Biometrischer Login abgebrochen</string>
 	<string name="error_vault_version_mismatch">Die in %1$s angegebene Version ist nicht identisch mit der Version in %2$s</string>
 	<string name="error_vault_key_invalid">%1$s stimmt nicht mit %2$s überein</string>
@@ -216,10 +216,10 @@
 	<string name="screen_update_pcloud_connections_title">pCloud-Anmeldedaten aktualisieren</string>
 	<!-- ## screen: cryptomator app variants -->
 	<string name="screen_cryptomator_variants_title">Varianten von Cryptomator</string>
-	<string name="screen_cryptomator_variants_lite_title">Haupt-F-Droid Repository</string>
+	<string name="screen_cryptomator_variants_lite_title">Haupt-Repository von F-Droid</string>
 	<string name="screen_cryptomator_variants_lite_description">Ausgeschlossen weil sie API-Schlüssel benötigen.</string>
 	<string name="screen_cryptomator_variants_lite_install">Installieren</string>
-	<string name="screen_cryptomator_variants_fdroid_title">Cryptomator F-Droid Repository</string>
+	<string name="screen_cryptomator_variants_fdroid_title">F-Droid-Repository von Cryptomator</string>
 	<string name="screen_cryptomator_variants_fdroid_description">Ausgeschlossen, weil es proprietäre Abhängigkeiten enthält.</string>
 	<string name="screen_cryptomator_variants_fdroid_add_repo_hint">Cryptomator Repository zur F-Droid App hinzufügen.</string>
 	<string name="screen_cryptomator_variants_fdroid_add_repo">Hinzufügen</string>
