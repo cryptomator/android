@@ -203,6 +203,8 @@
 	<string name="dialog_replace_msg_some_files_exists">%1$d ficheiros xa existen. Desexas substituílos?</string>
 	<string name="dialog_replace_title_single_file_exists">Substituír o ficheiro?</string>
 	<string name="dialog_replace_title_multiple_files_exist">Substituír os ficheiros?</string>
+	<string name="dialog_app_is_obscured_info_neutral_button">Pechar</string>
+	<string name="dialog_sym_link_back_button">Volver</string>
 	<!-- # error reports -->
 	<!-- # misc -->
 	<!-- ## file size helper -->
