@@ -530,6 +530,7 @@ class CryptoImplVaultFormat7Test {
 		val ddFolder = TestFolder(lvl2Dir, "DDDDDDDDDDDDDDDDDDDDDDDDDDDDDD", "/d/33/DDDDDDDDDDDDDDDDDDDDDDDDDDDDDD")
 		val testDir3 = TestFolder(aaFolder, "dir3.c9r", "/d/00/AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA/dir3.c9r")
 		val testDir3DirFile = TestFile(testDir3, "dir.c9r", "/d/00/AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA/dir3.c9r/dir.c9r", null, null)
+		val testDir3DirBackupFile = TestFile(ddFolder, "dirid.c9r", "/d/33/DDDDDDDDDDDDDDDDDDDDDDDDDDDDDD/dirid.c9r", null, null)
 		val cryptoFolder3 = CryptoFolder(root, "Directory 3", "/Directory 3", testDir3DirFile)
 
 		whenever(fileNameCryptor.encryptFilename(BaseEncoding.base64Url(), "Directory 3", dirIdRoot.toByteArray())).thenReturn("dir3")
@@ -538,23 +539,47 @@ class CryptoImplVaultFormat7Test {
 		whenever(cloudContentRepository.folder(d, "33")).thenReturn(lvl2Dir)
 		whenever(cloudContentRepository.folder(lvl2Dir, "DDDDDDDDDDDDDDDDDDDDDDDDDDDDDD")).thenReturn(ddFolder)
 		whenever(cloudContentRepository.file(testDir3, "dir.c9r")).thenReturn(testDir3DirFile)
+		whenever(cloudContentRepository.file(ddFolder, "dirid.c9r")).thenReturn(testDir3DirBackupFile)
 		whenever(dirIdCache.put(eq(cryptoFolder3), any())).thenReturn(DirIdInfo("dir3-id", ddFolder))
 		whenever(cloudContentRepository.create(lvl2Dir)).thenReturn(lvl2Dir)
 		whenever(cloudContentRepository.create(ddFolder)).thenReturn(ddFolder)
 		whenever(cloudContentRepository.create(testDir3)).thenReturn(testDir3)
 		whenever(cloudContentRepository.write(eq(testDir3DirFile), any(), any(), eq(false), any())).thenReturn(testDir3DirFile)
 
+		val header = Mockito.mock(FileHeader::class.java)
+
+		whenever(fileHeaderCryptor.create()).thenReturn(header)
+		whenever(fileHeaderCryptor.encryptHeader(header)).thenReturn(ByteBuffer.wrap("hhhhh".toByteArray()))
+		whenever(fileHeaderCryptor.headerSize()).thenReturn(5)
+		whenever(fileContentCryptor.cleartextChunkSize()).thenReturn(7)
+		whenever(fileContentCryptor.ciphertextChunkSize()).thenReturn(7)
+		whenever(fileContentCryptor.encryptChunk(any(ByteBuffer::class.java), any(), any(FileHeader::class.java)))
+			.thenAnswer { invocation: InvocationOnMock ->
+				val input = invocation.getArgument<ByteBuffer>(0)
+				val inStr = StandardCharsets.UTF_8.decode(input).toString()
+				ByteBuffer.wrap(inStr.uppercase().toByteArray(StandardCharsets.UTF_8))
+			}
+
+		whenever(cloudContentRepository.write(eq(testDir3DirBackupFile), any(DataSource::class.java), any(), eq(false), any()))
+			.thenAnswer { invocationOnMock: InvocationOnMock ->
+				val inputStream = invocationOnMock.getArgument<DataSource>(1)
+				val encrypted = BufferedReader(InputStreamReader(inputStream.open(context)!!, StandardCharsets.UTF_8)).readLine()
+				MatcherAssert.assertThat(encrypted, CoreMatchers.`is`("hhhhhDIR3-ID"))
+				invocationOnMock.getArgument(0)
+			}
+
 		// just for the exits check
 		whenever(cloudContentRepository.file(aaFolder, "dir3.c9r", null))
 			.thenReturn(TestFile(aaFolder, "dir3.c9r", "/d/00/AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA/dir3.c9r", null, null))
 
-		val cloudFolder: CloudFolder = inTest.create(cryptoFolder3)
+		val cloudFolder = inTest.create(cryptoFolder3)
 
 		MatcherAssert.assertThat(cloudFolder, CoreMatchers.`is`(cryptoFolder3))
 
 		Mockito.verify(cloudContentRepository).create(ddFolder)
 		Mockito.verify(cloudContentRepository).create(testDir3)
 		Mockito.verify(cloudContentRepository).write(eq(testDir3DirFile), any(), any(), eq(false), any())
+		Mockito.verify(cloudContentRepository).write(eq(testDir3DirBackupFile), any(), any(), eq(false), any())
 	}
 
 	@Test
@@ -580,6 +605,7 @@ class CryptoImplVaultFormat7Test {
 		val testDir3 = TestFolder(aaFolder, shortenedFileName, "/d/00/AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA/$shortenedFileName")
 		val testDir3DirFile = TestFile(testDir3, "dir.c9r", "/d/00/AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA/$shortenedFileName/dir.c9r", null, null)
 		val testDir3NameFile = TestFile(testDir3, "name.c9s", "/d/00/AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA/$shortenedFileName/name.c9s", 257L, null)
+		val testDir3DirBackupFile = TestFile(ddFolder, "dirid.c9r", "/d/33/DDDDDDDDDDDDDDDDDDDDDDDDDDDDDD/dirid.c9r", null, null)
 
 		whenever(fileNameCryptor.encryptFilename(BaseEncoding.base64Url(), dir3Name, dirIdRoot.toByteArray())).thenReturn(dir3Cipher)
 		whenever(fileNameCryptor.decryptFilename(BaseEncoding.base64Url(), dir3Cipher, dirIdRoot.toByteArray())).thenReturn(dir3Name)
@@ -590,6 +616,7 @@ class CryptoImplVaultFormat7Test {
 		whenever(cloudContentRepository.exists(testDir3)).thenReturn(false)
 		whenever(cloudContentRepository.file(testDir3, "dir.c9r")).thenReturn(testDir3DirFile)
 		whenever(cloudContentRepository.file(testDir3, "name.c9s", 257L)).thenReturn(testDir3NameFile)
+		whenever(cloudContentRepository.file(ddFolder, "dirid.c9r")).thenReturn(testDir3DirBackupFile)
 
 		val cryptoFolder3 = CryptoFolder(root, dir3Name, "/$dir3Name", testDir3DirFile)
 
@@ -618,6 +645,28 @@ class CryptoImplVaultFormat7Test {
 		whenever(cloudContentRepository.file(aaFolder, "dir3.c9r", null))
 			.thenReturn(TestFile(aaFolder, "dir3.c9r", "/d/00/AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA/dir3.c9r", null, null))
 
+		val header = Mockito.mock(FileHeader::class.java)
+
+		whenever(fileHeaderCryptor.create()).thenReturn(header)
+		whenever(fileHeaderCryptor.encryptHeader(header)).thenReturn(ByteBuffer.wrap("hhhhh".toByteArray()))
+		whenever(fileHeaderCryptor.headerSize()).thenReturn(5)
+		whenever(fileContentCryptor.cleartextChunkSize()).thenReturn(7)
+		whenever(fileContentCryptor.ciphertextChunkSize()).thenReturn(7)
+		whenever(fileContentCryptor.encryptChunk(any(ByteBuffer::class.java), any(), any(FileHeader::class.java)))
+			.thenAnswer { invocation: InvocationOnMock ->
+				val input = invocation.getArgument<ByteBuffer>(0)
+				val inStr = StandardCharsets.UTF_8.decode(input).toString()
+				ByteBuffer.wrap(inStr.uppercase().toByteArray(StandardCharsets.UTF_8))
+			}
+
+		whenever(cloudContentRepository.write(eq(testDir3DirBackupFile), any(DataSource::class.java), any(), eq(false), any()))
+			.thenAnswer { invocationOnMock: InvocationOnMock ->
+				val inputStream = invocationOnMock.getArgument<DataSource>(1)
+				val encrypted = BufferedReader(InputStreamReader(inputStream.open(context)!!, StandardCharsets.UTF_8)).readLine()
+				MatcherAssert.assertThat(encrypted, CoreMatchers.`is`("hhhhhDIR3-ID"))
+				invocationOnMock.getArgument(0)
+			}
+
 		var cloudFolder: CloudFolder = inTest.folder(root, dir3Name)
 
 		cloudFolder = inTest.create(cryptoFolder3)
@@ -627,6 +676,7 @@ class CryptoImplVaultFormat7Test {
 		Mockito.verify(cloudContentRepository).create(testDir3)
 		Mockito.verify(cloudContentRepository).write(eq(testDir3DirFile), any(), any(), eq(false), any())
 		Mockito.verify(cloudContentRepository).write(eq(testDir3NameFile), any(), any(), eq(true), any())
+		Mockito.verify(cloudContentRepository).write(eq(testDir3DirBackupFile), any(), any(), eq(false), any())
 	}
 
 	@Test

@@ -16,6 +16,7 @@ object CryptoConstants {
 	const val VERSION_WITH_NORMALIZED_PASSWORDS = 6
 	const val MIN_VAULT_VERSION = 5
 	const val DEFAULT_MAX_FILE_NAME = 220
+	const val DIR_ID_FILE = "dirid.c9r"
 	val PEPPER = ByteArray(0)
 	val DEFAULT_CIPHER_COMBO = CryptorProvider.Scheme.SIV_CTRMAC
 

@@ -323,7 +323,25 @@ open class CryptoImplVaultFormat7 : CryptoImplDecorator {
 		val createdDirFile = cloudContentRepository.write(dirFile, from(dirId), ProgressAware.NO_OP_PROGRESS_AWARE_UPLOAD, false, dirId.size.toLong())
 		val result = folder(folder, createdDirFile)
 		addFolderToCache(result, dirIdInfo.withCloudFolder(createdCloudFolder))
+		silentlyUploadBackupDirIdFile(dirId, createdCloudFolder)
 		return result
+	}
+
+	private fun silentlyUploadBackupDirIdFile(dirId: ByteArray, dirFolder: CloudFolder) {
+		val data = ByteArrayOutputStream()
+
+		Channels.newChannel(data).use { channel ->
+			EncryptingWritableByteChannel(channel, cryptor()).use { encryptingChannel ->
+				encryptingChannel.write(ByteBuffer.wrap(dirId))
+			}
+		}
+
+		try {
+			val dirIdBackupFile = cloudContentRepository.file(dirFolder, CryptoConstants.DIR_ID_FILE)
+			cloudContentRepository.write(dirIdBackupFile, from(data.toByteArray()), ProgressAware.NO_OP_PROGRESS_AWARE_UPLOAD, false, data.size().toLong())
+		} catch (e: BackendException) {
+			Timber.tag("CryptoFs").e(e, "Failed to create DirIdBackupFile")
+		}
 	}
 
 	override fun extractEncryptedName(ciphertextName: String): String? {
