@@ -8,6 +8,9 @@ import org.cryptomator.generator.utils.Method;
 
 import java.io.IOException;
 import java.io.Writer;
+import java.util.ArrayList;
+import java.util.Comparator;
+import java.util.List;
 
 import javax.annotation.processing.RoundEnvironment;
 import javax.annotation.processing.SupportedAnnotationTypes;
@@ -25,7 +28,9 @@ public class CallbackProcessor extends BaseProcessor {
 	@Override
 	public void process(RoundEnvironment environment) throws IOException {
 		CallbacksModel callbacksModel = new CallbacksModel();
-		for (Element element : environment.getElementsAnnotatedWith(Callback.class)) {
+		List<Element> elements = new ArrayList<>(environment.getElementsAnnotatedWith(Callback.class));
+		elements.sort(Comparator.comparing(e -> e.getSimpleName().toString()));
+		for (Element element : elements) {
 			try {
 				CallbackModel callbackModel = new CallbackModel(new Method(utils, (ExecutableElement) element));
 				callbacksModel.add(callbackModel);

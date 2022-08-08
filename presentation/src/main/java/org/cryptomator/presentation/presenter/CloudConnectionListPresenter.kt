@@ -164,7 +164,7 @@ class CloudConnectionListPresenter @Inject constructor( //
 
 	private fun openDocumentTree() {
 		try {
-			requestActivityResult(ActivityResultCallbacks.pickedLocalStorageLocation(), Intent(Intent.ACTION_OPEN_DOCUMENT_TREE))
+			requestActivityResult(ActivityResultCallbacks.pickedLocalStorageLocationForLocalCloud(), Intent(Intent.ACTION_OPEN_DOCUMENT_TREE))
 		} catch (exception: ActivityNotFoundException) {
 			Toast.makeText(activity().applicationContext, context().getText(R.string.screen_cloud_local_error_no_content_provider), Toast.LENGTH_SHORT).show()
 			Timber.tag("CloudConnListPresenter").e(exception, "No ContentProvider on system")
@@ -249,7 +249,7 @@ class CloudConnectionListPresenter @Inject constructor( //
 	}
 
 	@Callback
-	fun pickedLocalStorageLocation(result: ActivityResult) {
+	fun pickedLocalStorageLocationForLocalCloud(result: ActivityResult) {
 		val rootTreeUriOfLocalStorage = result.intent().data
 		persistUriPermission(rootTreeUriOfLocalStorage)
 		addOrChangeCloudConnectionUseCase

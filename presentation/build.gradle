@@ -3,7 +3,10 @@ apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-kapt'
 apply plugin: 'kotlin-android-extensions'
 apply plugin: 'de.mannodermaus.android-junit5'
-apply from: 'prebuild.gradle'
+
+if (!liteFlavor()) {
+	apply from: 'prebuild.gradle'
+}
 
 android {
 	signingConfigs {
@@ -260,15 +263,22 @@ configurations {
 	all*.exclude group: 'com.google.guava', module: 'listenablefuture'
 }
 
+def liteFlavor() {
+	gradle.startParameter.taskNames.stream().filter(t -> t.contains("Lite")).findAny().isPresent()
+}
+
 androidExtensions {
 	experimental = true
 }
 
-static def getApiKey(key) {
-	return System.getenv().getOrDefault(key, "")
+def getApiKey(key) {
+	return !liteFlavor() ? System.getenv().getOrDefault(key, "") : ""
 }
 
-static def getOnedriveApiKey() {
+def getOnedriveApiKey() {
+	if (liteFlavor()) {
+		return ""
+	}
 	String onedrivePath = "" + getApiKey('ONEDRIVE_API_REDIRCT_URI')
 	String idStr = onedrivePath.substring(onedrivePath.lastIndexOf('/') + 1)
 	URI uri = new URI(idStr)

@@ -8,7 +8,7 @@ buildscript {
 		google()
 	}
 	dependencies {
-		classpath 'com.android.tools.build:gradle:7.2.1'
+		classpath 'com.android.tools.build:gradle:7.2.2'
 		classpath 'org.greenrobot:greendao-gradle-plugin:3.3.0'
 		classpath 'com.vanniktech:gradle-android-junit-jacoco-plugin:0.16.0'
 		classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
@@ -52,4 +52,5 @@ allprojects {
 
 task clean(type: Delete) {
 	delete rootProject.buildDir
+	delete new File('presentation/src/main/res/raw/auth_config_onedrive.json')
 }
