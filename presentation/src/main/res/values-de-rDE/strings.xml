@@ -25,7 +25,7 @@
 	<string name="error_general_update">Prüfung auf Aktualisierungen fehlgeschlagen. Ein Fehler ist aufgetreten.</string>
 	<string name="error_hash_mismatch_update">Prüfung auf Aktualisierungen fehlgeschlagen. Berechnete Prüfsumme entspricht nicht der hochgeladenen Datei.</string>
 	<string name="error_update_no_internet">Prüfung auf Aktualisierungen fehlgeschlagen. Keine Internetverbindung.</string>
-	<string name="error_failed_to_decrypt_webdav_password">Beim entschlüsseln des WebDAV-Passworts trat ein Fehler auf. Bitte in den Einstellungen erneut festlegen.</string>
+	<string name="error_failed_to_decrypt_webdav_password">Beim Entschlüsseln des WebDAV-Passworts trat ein Fehler auf. Bitte lege es in den Einstellungen erneut fest.</string>
 	<string name="error_play_services_not_available">Google-Play-Dienste nicht installiert</string>
 	<string name="error_biometric_auth_aborted">Biometrischer Login abgebrochen</string>
 	<string name="error_vault_version_mismatch">Die in %1$s angegebene Version ist nicht identisch mit der Version in %2$s</string>
