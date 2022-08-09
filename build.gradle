@@ -52,5 +52,4 @@ allprojects {
 
 task clean(type: Delete) {
 	delete rootProject.buildDir
-	delete new File('presentation/src/main/res/raw/auth_config_onedrive.json')
 }

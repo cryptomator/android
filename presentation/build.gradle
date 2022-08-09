@@ -6,6 +6,8 @@ apply plugin: 'de.mannodermaus.android-junit5'
 
 if (!liteFlavor()) {
 	apply from: 'prebuild.gradle'
+} else {
+	delete new File('src/main/res/raw/auth_config_onedrive.json')
 }
 
 android {
@@ -263,12 +265,12 @@ configurations {
 	all*.exclude group: 'com.google.guava', module: 'listenablefuture'
 }
 
-def liteFlavor() {
-	gradle.startParameter.taskNames.stream().filter(t -> t.contains("Lite")).findAny().isPresent()
-}
-
 androidExtensions {
 	experimental = true
+}
+
+def liteFlavor() {
+	gradle.startParameter.taskNames.stream().filter(t -> t.contains("Lite")).findAny().isPresent()
 }
 
 def getApiKey(key) {
