@@ -346,7 +346,7 @@
 	<string name="dialog_no_more_images_to_display">Keine weiteren Bilder anzuzeigen&#8230;</string>
 	<string name="dialog_pcloud_credentials_updated_title">Anmeldedaten von \'%1$s\' aktualisiert</string>
 	<string name="dialog_pcloud_credentials_updated">Falls du ein neues pCloud-Konto hinzufügen wolltest, klicke auf diese Url <a href="https://www.pcloud.com">www.pcloud.com</a>, melde dich vom aktuellen Konto ab und klicke in dieser App erneut auf das „+“, um eine neue Cloud-Verbindung zu erstellen.</string>
-	<string name="permission_snackbar_auth_local_vault">Um lokale Tresore nutzen zu können benötigt Cryptomator Speicherzugriff</string>
+	<string name="permission_snackbar_auth_local_vault">Cryptomator benötigt Speicherzugriff, um lokale Tresore nutzen zu können</string>
 	<string name="permission_snackbar_auth_auto_upload">Cryptomator benötigt Zugriff auf den Speicher um den automatischen Foto-Upload zu nutzen</string>
 	<!-- # error reports -->
 	<!-- # misc -->
