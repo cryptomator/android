@@ -223,30 +223,16 @@ platform :android do |options|
 
   desc "Deploy new lite version"
   lane :deployLite do |options|
-    ENV["DROPBOX_API_KEY"] = ""
-    ENV["ONEDRIVE_API_KEY"] = ""
-    ENV["ONEDRIVE_API_REDIRCT_URI"] = ""
-    ENV["PCLOUD_CLIENT_ID"] = ""
+    sh("docker build -t cryptomator-android ../buildsystem")
+    sh("docker run --rm -v $(cd .. && pwd):/project -w /project cryptomator-android ./gradlew clean assembleLiteRelease")
 
-    gradle(task: "clean")
+    sh("zipalign -v -p 4 ../presentation/build/outputs/apk/lite/release/presentation-lite-release-unsigned.apk presentation-lite-release-unsigned-aligned.apk")
+    sh("apksigner sign --ks #{ENV["SIGNING_KEYSTORE_PATH"]} --ks-key-alias #{ENV["SIGNING_KEY_ALIAS"]} --ks-pass env:SIGNING_KEYSTORE_PASSWORD --key-pass env:SIGNING_KEY_PASSWORD --out release/Cryptomator-#{version}_lite_signed.apk presentation-lite-release-unsigned-aligned.apk")
+	sh("rm presentation-lite-release-unsigned-aligned.apk")
 
-    gradle(
-      task: "assemble",
-      build_type: "Release",
-      flavor: "lite",
-      print_command: false,
-      properties: {
-        "android.injected.signing.store.file" => ENV["SIGNING_KEYSTORE_PATH"],
-        "android.injected.signing.store.password" => ENV["SIGNING_KEYSTORE_PASSWORD"],
-        "android.injected.signing.key.alias" => ENV["SIGNING_KEY_ALIAS"],
-        "android.injected.signing.key.password" => ENV["SIGNING_KEY_PASSWORD"],
-      }
-    )
-
+    lane_context[SharedValues::GRADLE_APK_OUTPUT_PATH] = "release/Cryptomator-#{version}_lite_signed.apk"
     checkTrackingAddedInDependencyUsingIzzyScript(alpha:options[:alpha], beta:options[:beta], flavor: 'lite')
     checkTrackingAddedInDependencyUsingExodus(alpha:options[:alpha], beta:options[:beta], flavor: 'lite')
-
-    FileUtils.cp(lane_context[SharedValues::GRADLE_APK_OUTPUT_PATH], "release/Cryptomator-#{version}_lite_signed.apk")
   end
 
   desc "Check if tracking added in some dependency using Izzy's script"
