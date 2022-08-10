@@ -177,7 +177,7 @@
 	<string name="screen_settings_section_auto_photo_upload">自动上传图片</string>
 	<string name="screen_settings_section_auto_photo_upload_vault">选择目标保险库</string>
 	<string name="screen_settings_section_auto_photo_upload_toggle">启用</string>
-	<string name="screen_settings_section_auto_photo_upload_toggle_summary">后台感知图片，一旦目标保险库解锁即开始上传</string>
+	<string name="screen_settings_section_auto_photo_upload_toggle_summary">后台检测图片变动，一旦目标保险库解锁立即开始上传</string>
 	<string name="screen_settings_section_auto_photo_upload_toggle_instant_upload">实时上传</string>
 	<string name="screen_settings_section_auto_photo_upload_toggle_instant_upload_summary">解锁保险库后直接上传</string>
 	<string name="screen_settings_section_auto_photo_upload_only_wifi_toggle">仅限 WIFI</string>
