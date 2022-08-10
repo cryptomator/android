@@ -126,6 +126,7 @@ class CloudConnectionListPresenter @Inject constructor( //
 			CloudTypeModel.PCLOUD -> requestActivityResult(ActivityResultCallbacks.pCloudAuthenticationFinished(), Intents.authenticatePCloudIntent())
 			CloudTypeModel.S3 -> requestActivityResult(ActivityResultCallbacks.addChangeMultiCloud(), Intents.s3AddOrChangeIntent())
 			CloudTypeModel.LOCAL -> openDocumentTree()
+			else -> throw IllegalStateException("Cloud type is not supported")
 		}
 	}
 

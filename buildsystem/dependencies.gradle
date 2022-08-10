@@ -42,9 +42,9 @@ ext {
 	rxAndroidVersion = '2.1.1'
 	rxBindingVersion = '2.2.0'
 
-	daggerVersion = '2.42'
+	daggerVersion = '2.43.2'
 
-	gsonVersion = '2.9.0'
+	gsonVersion = '2.9.1'
 
 	okHttpVersion = '4.9.3'
 	okHttpDigestVersion = '2.7'
@@ -65,7 +65,7 @@ ext {
 	// cloud provider libs
 	cryptolibVersion = '2.0.2'
 
-	dropboxVersion = '5.2.0'
+	dropboxVersion = '5.3.0'
 
 	googleApiServicesVersion = 'v3-rev20220508-1.32.1'
 	googlePlayServicesVersion = '19.2.0'
@@ -76,10 +76,10 @@ ext {
 	 */
 	trackingFreeGoogleCLientVersion = '1.41.8'
 
-	msgraphVersion = '5.25.0'
-	msgraphAuthVersion = '3.0.2'
+	msgraphVersion = '5.31.0'
+	msgraphAuthVersion = '4.0.0'
 
-	minIoVersion = '8.4.1'
+	minIoVersion = '8.4.3'
 	staxVersion = '1.2.0' // needed for minIO
 
 	commonsCodecVersion = '1.15'
@@ -88,7 +88,7 @@ ext {
 
 	// testing dependencies
 
-	jUnitVersion = '5.8.2'
+	jUnitVersion = '5.9.0'
 	assertJVersion = '1.7.1'
 	mockitoVersion = '4.6.1'
 	mockitoKotlinVersion = '4.0.0'

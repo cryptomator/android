@@ -187,6 +187,7 @@ class SharedFilesPresenter @Inject constructor( //
 							location = cloudFolderModelMapper.toModel(folder)
 							checkForUsedFileNames(folder)
 						}
+						else -> {}
 					}
 				}
 			})
