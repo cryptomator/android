@@ -9,6 +9,7 @@
 	<string name="error_no_network_connection">لا يوجد اتصال بالشبكة</string>
 	<string name="error_invalid_passphrase">كلمة المرور خاطئة</string>
 	<string name="error_file_or_folder_exists">المجلد أو الملف موجود مسبقاُ.</string>
+	<string name="error_vault_version_not_supported">إصدار الخزينة %1$s غير مدعوم. تم إنشاء هذه الخزينة بإصدار قديم أو أحدث من Cryptomter.</string>
 	<string name="error_vault_already_exists">المخزن موجود مسبقاً.</string>
 	<string name="error_no_such_file">ملف غير موجود.</string>
 	<string name="error_vault_has_been_locked">تم قفل المخزن.</string>
@@ -60,6 +61,7 @@
 	<string name="screen_vault_list_action_create_new_vault">إنشاء مخزن جديد</string>
 	<string name="screen_vault_list_action_add_existing_vault">إضافة مخزن موجود مسبقاً</string>
 	<string name="screen_vault_list_vault_action_delete">حذف</string>
+	<string name="screen_vault_list_vault_creation_hint">أنقر هنا لإنشاء خزينة جديدة</string>
 	<string name="screen_vault_list_change_password_successful">تم تغيير كلمة السر بنجاح</string>
 	<!-- # screen: file browser -->
 	<string name="screen_file_browser_default_title">مخزن</string>
@@ -110,6 +112,7 @@
 	<string name="screen_choose_cloud_service_title">الخدمات السحابية</string>
 	<!-- ## screen: cloud connections -->
 	<string name="screen_cloud_connections_title">اختر المسار</string>
+	<string name="screen_cloud_connections_no_connections">انقر هنا لإضافة مسارات</string>
 	<string name="screen_cloud_error_webdav_not_supported">لا يبدو أن الخادم متوافق مع WebDAV</string>
 	<!-- ## screen: webdav settings -->
 	<string name="screen_webdav_settings_url_port_label">الرابط</string>
@@ -191,6 +194,7 @@
 	<string name="screen_settings_background_unlock_preparation_label">تسريع فتح القفل</string>
 	<string name="screen_settings_background_unlock_preparation_label_summary">تنزيل إعدادات المخزن في الخلفية أثناء مطالبته بإدخال كلمة المرور أو البصمة</string>
 	<string name="screen_settings_keep_unlocked_while_editing_files">أبقه فاتح</string>
+	<string name="screen_settings_keep_unlocked_while_editing_files_summary">عدم إقفال الخزينات أثناء تحرير الملفات</string>
 	<!-- ## screen: cloud settings -->
 	<string name="screen_cloud_settings_webdav_connections">اتصالات WebDAV</string>
 	<string name="screen_cloud_settings_pcloud_connections">اتصالات pCloud</string>
@@ -203,6 +207,9 @@
 	<string name="screen_authenticate_auth_authentication_failed">تعذر المصادقة على %1$s.</string>
 	<string name="screen_update_pcloud_connections_title">تحديث بيانات اعتماد pCloud</string>
 	<!-- ## screen: cryptomator app variants -->
+	<string name="screen_cryptomator_variants_lite_install">تثبيت</string>
+	<string name="screen_cryptomator_variants_fdroid_add_repo">إضافة</string>
+	<string name="screen_cryptomator_variants_website_title">الموقع</string>
 	<!-- # dialogs -->
 	<string name="dialog_button_cancel">الغاء</string>
 	<string name="dialog_enter_password_positive_button">افتح</string>
@@ -239,6 +246,7 @@
 	<string name="dialog_unsaved_changes_title">لديك تغييرات غير محفوظة</string>
 	<string name="dialog_unsaved_changes_message">هل فعلا تود الخروج بدون حفظ ؟</string>
 	<string name="dialog_unsaved_changes_discard">تجاهل</string>
+	<string name="dialog_file_name_hint">إسم الملف</string>
 	<string name="dialog_file_name_placeholder">text.txt</string>
 	<string name="dialog_delete_vault_message">هل أنت متأكد من أنك تريد حذف هذا المخزن؟</string>
 	<string name="dialog_delete_vault_hint">سيؤدي هذا الإجراء فقط إلى إزالة المخزن من هذه القائمة وعدم حذفه فعلياً من الذاكرة.</string>
@@ -264,6 +272,7 @@
 	<string name="dialog_accept_ssl_certificate_hint">شهادة SSL غير صالحة. هل تريد أن تثق بها على أي حال؟</string>
 	<string name="dialog_accept_ssl_certificate_details">تفاصيل</string>
 	<string name="dialog_accept_ssl_certificate_security_checkbox">قد يشكل ذلك خطرا أمنياً، وأنا أعرف ما أفعله.</string>
+	<string name="dialog_ask_ignore_battery_optimizations_checkbox">لا تسأل مرة أخرى؟</string>
 	<string name="dialog_http_security_hint">استخدام HTTP غير آمن. نوصي باستخدام HTTPS بدلاً من ذلك. إذا كنت تعرف المخاطر، يمكنك الاستمرار مع HTTP.</string>
 	<string name="dialog_http_security_checkbox">تغيير إلى HTTPS</string>
 	<string name="dialog_http_security_title">إستخدام HTTPS؟</string>
@@ -294,7 +303,10 @@
 	<string name="dialog_update_available_update">حدّث الآن</string>
 	<string name="dialog_update_available_download_site">انتقل إلى صفحة التحميل</string>
 	<string name="dialog_update_available_cancel">لاحقاً</string>
+	<string name="dialog_download_update_title">جاري التحميل</string>
+	<string name="dialog_download_update_message">تحميل الإصدار الجديد من Cryptomator</string>
 	<string name="dialog_sym_link_back_button">رجوع</string>
+	<string name="dialog_no_more_images_to_display">لا مزيد من الصور للعرض&#8230;</string>
 	<string name="dialog_pcloud_credentials_updated_title">تم تحديث وثائق تفويض \'%1$s\'</string>
 	<!-- # error reports -->
 	<!-- # misc -->
