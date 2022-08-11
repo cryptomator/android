@@ -52,6 +52,8 @@
 	<string name="snack_bar_action_title_sort_oldest">الأقدم أولاً</string>
 	<string name="snack_bar_action_title_sort_biggest">الأكبر حجماً اولاً</string>
 	<string name="snack_bar_action_title_sort_smallest">الأصغر حجماً اولاً</string>
+	<string name="snack_bar_cryptomator_variants_title">إقرأ المزيد</string>
+	<string name="snack_bar_cryptomator_variants_hint">السحابة ليست في اللائحة؟</string>
 	<!-- # screens -->
 	<!-- # screen: vault list -->
 	<string name="screen_vault_list_actions_title">إضافة إلى Cryptomator</string>
