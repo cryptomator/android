@@ -270,7 +270,7 @@ androidExtensions {
 }
 
 def liteFlavor() {
-	gradle.startParameter.taskNames.stream().filter(t -> t.contains("Lite")).findAny().isPresent()
+	gradle.startParameter.taskNames.stream().filter(t -> t.toLowerCase().contains("lite")).findAny().isPresent()
 }
 
 def getApiKey(key) {
