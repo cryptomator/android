@@ -65,7 +65,7 @@ ext {
 	// cloud provider libs
 	cryptolibVersion = '2.0.2'
 
-	dropboxVersion = '5.3.0'
+	dropboxVersion = '5.2.0'
 
 	googleApiServicesVersion = 'v3-rev20220508-1.32.1'
 	googlePlayServicesVersion = '19.2.0'
