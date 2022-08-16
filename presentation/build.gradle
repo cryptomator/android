@@ -287,6 +287,12 @@ def getOnedriveApiKey() {
 	return uri.path
 }
 
+task updateGradleVerification {
+	dependsOn 'clean',
+			'test',
+			'assemblePlaystoreRelease'
+}
+
 tasks.withType(Test) {
 	testLogging {
 		events "failed"
