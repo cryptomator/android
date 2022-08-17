@@ -70,6 +70,10 @@
 	<string name="screen_file_browser_add_existing_vault_extra_text">Vælg hovednøgle-fil</string>
 	<string name="screen_file_browser_create_new_vault_button_text">Placér her</string>
 	<string name="screen_file_browser_create_new_vault_extra_text">Boks-navn: %1$s</string>
+	<plurals name="screen_file_browser_subtitle_move">
+		<item quantity="one">Flyt %1$s til</item>
+		<item quantity="other">Flyt %2$d elementer til</item>
+	</plurals>
 	<string name="screen_file_browser_move_button_text">Flyt</string>
 	<string name="screen_file_browser_msg_empty_folder">Tom mappe</string>
 	<string name="screen_file_browser_file_info_label_date">ændret %1$s siden</string>
@@ -309,6 +313,7 @@
 	<string name="dialog_vaults_removed_during_migration_title">Tilføj venligst boksene til %1s skyen igen</string>
 	<string name="dialog_vaults_removed_during_migration_hint">Mens vi migrerer til denne app-version, skal vi fjerne følgende bokse fra appen:\n%2s \n\nDisse bokse fjernes ikke fra skyen, men kun fra denne app. Beklager ulejligheden! Tilføj venligst disse bokse igen for at fortsætte med at arbejde med dem.</string>
 	<string name="dialog_vault_is_root_folder_of_cloud_title">Boksen er rodmappen for cloudforbindelsen</string>
+	<string name="dialog_vault_is_root_folder_of_cloud_hint">For at tilføje denne boks, lav en ny forbindelse til skyen hvor du mindst vælger den overordnede mappe som din root-mappe.</string>
 	<string name="dialog_disable_secure_screen_disclaimer_hint">Denne indstilling er en sikkerhedsfunktion og forhindrer andre apps i at narre brugere til at gøre ting, de ikke ønsker at gøre.\n\nVed at deaktivere, bekræfter du, at du er <a href="https://docs.cryptomator.org/en/1.6/android/settings/#screen-security">bekendt med de involverede ricisi</a>.</string>
 	<string name="dialog_delete_cloud_connection_with_vaults_message">Er du sikke på, at du vil fjerne denne forbindelse?</string>
 	<string name="dialog_delete_cloud_connection_with_vaults_hint">Denne handling vil fjerne forbindelsen og alle bokse i denne sky.</string>
