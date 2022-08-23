@@ -50,9 +50,10 @@
 	<!-- ## screen: cryptomator app variants -->
 	<!-- # dialogs -->
 	<string name="dialog_button_cancel">Cancelar</string>
-	<string name="dialog_enter_password_positive_button">Destrancar</string>
+	<string name="dialog_enter_password_positive_button">Desbloquear</string>
 	<!-- Vault not found -->
-	<string name="dialog_lock_vault">Trancar</string>
+	<string name="dialog_file_name_placeholder">texto.txt</string>
+	<string name="dialog_lock_vault">Bloquear</string>
 	<string name="dialog_ask_ignore_battery_optimizations_title">Desativar otimizações de bateria</string>
 	<string name="dialog_ask_ignore_battery_optimizations_checkbox">Não perguntar novamente?</string>
 	<string name="dialog_app_is_obscured_info_neutral_button">Fechar</string>
