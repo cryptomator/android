@@ -73,9 +73,8 @@ internal class S3Impl(private val cloud: S3Cloud, private val client: MinioClien
 				client.statObject(StatObjectArgs.builder().bucket(cloud.s3Bucket()).`object`(node.key).build())
 				true
 			} else {
-				// stat requests throws an IllegalStateException if key is empty string
-				val request = ListObjectsArgs.builder().bucket(cloud.s3Bucket()).prefix(node.key).delimiter(DELIMITER).build()
-				client.listObjects(request).iterator().hasNext()
+				// if the bucket exists the root folder is there too. Otherwise there is no exists check possible
+				client.bucketExists(BucketExistsArgs.builder().bucket(cloud.s3Bucket()).build())
 			}
 		} catch (e: ErrorResponseException) {
 			if (S3CloudApiErrorCodes.NO_SUCH_KEY.value == e.errorResponse().code()) {
