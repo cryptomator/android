@@ -1,5 +1,7 @@
 package org.cryptomator.data.cloud.pcloud;
 
+import static org.cryptomator.domain.CloudType.PCLOUD;
+
 import android.content.Context;
 
 import org.cryptomator.data.repository.CloudContentRepositoryFactory;
@@ -9,8 +11,6 @@ import org.cryptomator.domain.repository.CloudContentRepository;
 
 import javax.inject.Inject;
 import javax.inject.Singleton;
-
-import static org.cryptomator.domain.CloudType.PCLOUD;
 
 @Singleton
 public class PCloudContentRepositoryFactory implements CloudContentRepositoryFactory {
@@ -29,7 +29,8 @@ public class PCloudContentRepositoryFactory implements CloudContentRepositoryFac
 
 	@Override
 	public CloudContentRepository<PCloud, PCloudNode, PCloudFolder, PCloudFile> cloudContentRepositoryFor(Cloud cloud) {
-		return new PCloudContentRepository((PCloud) cloud, context);
+		PCloud pCloud = (PCloud) cloud;
+		return new PCloudContentRepository(pCloud, PCloudClient.Companion.createClient(pCloud, context), context);
 	}
 
 }

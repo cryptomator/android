@@ -1,27 +1,25 @@
-package org.cryptomator.data.cloud.pcloud
+package org.cryptomator.data.cloud.dropbox
 
 import android.content.Context
-import com.pcloud.sdk.ApiClient
-import com.pcloud.sdk.Authenticators
-import com.pcloud.sdk.PCloudSdk
+import com.dropbox.core.DbxRequestConfig
+import com.dropbox.core.http.OkHttp3Requestor
+import com.dropbox.core.v2.DbxClientV2
+import org.cryptomator.data.BuildConfig
 import org.cryptomator.data.cloud.okhttplogging.HttpLoggingInterceptor
 import org.cryptomator.data.util.NetworkTimeout
 import org.cryptomator.util.crypto.CredentialCryptor
+import java.util.Locale
 import okhttp3.Interceptor
 import okhttp3.OkHttpClient
 import timber.log.Timber
 
-class PCloudClientFactory {
+class DropboxClient {
 
 	companion object {
 
-		@Volatile
-		private var instance: ApiClient? = null
+		fun createClient(accessToken: String, context: Context): DbxClientV2 {
+			val userLocale = Locale.getDefault().toString()
 
-		@Synchronized
-		fun getInstance(accessToken: String, url: String, context: Context): ApiClient = instance ?: createApiClient(accessToken, url, context).also { instance = it }
-
-		private fun createApiClient(accessToken: String, url: String, context: Context): ApiClient {
 			val okHttpClient = OkHttpClient() //
 				.newBuilder() //
 				.connectTimeout(NetworkTimeout.CONNECTION.timeout, NetworkTimeout.CONNECTION.unit) //
@@ -30,18 +28,17 @@ class PCloudClientFactory {
 				.addInterceptor(httpLoggingInterceptor(context)) //
 				.build()
 
-			return PCloudSdk //
-				.newClientBuilder() //
-				.authenticator(Authenticators.newOAuthAuthenticator(decrypt(accessToken, context))) //
-				.withClient(okHttpClient) //
-				.apiHost(url) //
-				.create()
+			val requestConfig = DbxRequestConfig //
+				.newBuilder("Cryptomator-Android/" + BuildConfig.VERSION_NAME) //
+				.withUserLocale(userLocale) //
+				.withHttpRequestor(OkHttp3Requestor(okHttpClient)) //
+				.build()
+
+			return DbxClientV2(requestConfig, decrypt(accessToken, context))
 		}
 
 		private fun decrypt(password: String, context: Context): String {
-			return CredentialCryptor //
-				.getInstance(context) //
-				.decrypt(password)
+			return CredentialCryptor.getInstance(context).decrypt(password)
 		}
 
 		private fun httpLoggingInterceptor(context: Context): Interceptor {
@@ -50,13 +47,7 @@ class PCloudClientFactory {
 					Timber.tag("OkHttp").d(message)
 				}
 			}
-
 			return HttpLoggingInterceptor(logger, context)
-		}
-
-		@Synchronized
-		fun logout() {
-			instance = null
 		}
 	}
 }

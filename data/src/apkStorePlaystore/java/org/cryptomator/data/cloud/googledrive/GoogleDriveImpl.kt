@@ -27,18 +27,11 @@ import java.io.IOException
 import java.io.OutputStream
 import timber.log.Timber
 
-internal class GoogleDriveImpl(context: Context, googleDriveCloud: GoogleDriveCloud, idCache: GoogleDriveIdCache) {
+internal class GoogleDriveImpl(googleDriveCloud: GoogleDriveCloud, private val idCache: GoogleDriveIdCache, private val client: Drive, private val context: Context) {
 
-	private val idCache: GoogleDriveIdCache
-	private val context: Context
-	private val googleDriveCloud: GoogleDriveCloud
 	private val sharedPreferencesHandler: SharedPreferencesHandler
-	private val root: RootGoogleDriveFolder
+	private val root = RootGoogleDriveFolder(googleDriveCloud)
 	private var diskLruCache: DiskLruCache? = null
-
-	private fun client(): Drive {
-		return GoogleDriveClientFactory.getInstance(googleDriveCloud.accessToken(), context)
-	}
 
 	fun root(): GoogleDriveFolder {
 		return root
@@ -56,7 +49,7 @@ internal class GoogleDriveImpl(context: Context, googleDriveCloud: GoogleDriveCl
 
 	@Throws(IOException::class)
 	private fun findFile(parentDriveId: String?, name: String): File? {
-		val fileListQuery = client().files().list().setFields("files(id,mimeType,name,size,shortcutDetails)").setSupportsAllDrives(true).setIncludeItemsFromAllDrives(true)
+		val fileListQuery = client.files().list().setFields("files(id,mimeType,name,size,shortcutDetails)").setSupportsAllDrives(true).setIncludeItemsFromAllDrives(true)
 		fileListQuery.q = "name contains '$name' and '$parentDriveId' in parents and trashed = false"
 		return fileListQuery.execute().files.firstOrNull { it.name == name }
 	}
@@ -125,7 +118,7 @@ internal class GoogleDriveImpl(context: Context, googleDriveCloud: GoogleDriveCl
 		val result: MutableList<GoogleDriveNode> = ArrayList()
 		var pageToken: String? = null
 		do {
-			val fileListQuery = client() //
+			val fileListQuery = client //
 				.files() //
 				.list() //
 				.setFields("nextPageToken,files(id,mimeType,modifiedTime,name,size,shortcutDetails)") //
@@ -158,7 +151,7 @@ internal class GoogleDriveImpl(context: Context, googleDriveCloud: GoogleDriveCl
 			metadata.name = folder.name
 			metadata.mimeType = "application/vnd.google-apps.folder"
 			metadata.parents = listOf(parentFolder.driveId)
-			val createdFolder = client() //
+			val createdFolder = client //
 				.files() //
 				.create(metadata) //
 				.setFields("id,name") //
@@ -178,7 +171,7 @@ internal class GoogleDriveImpl(context: Context, googleDriveCloud: GoogleDriveCl
 			target.parent?.let { targetsParent ->
 				val metadata = File()
 				metadata.name = target.name
-				val movedFile = client() //
+				val movedFile = client //
 					.files() //
 					.update(source.driveId, metadata) //
 					.setFields("id,mimeType,modifiedTime,name,size") //
@@ -224,7 +217,7 @@ internal class GoogleDriveImpl(context: Context, googleDriveCloud: GoogleDriveCl
 					)
 				}
 			}.use {
-				client() //
+				client //
 					.files() //
 					.update(file.driveId, metadata, it) //
 					.setFields("id,modifiedTime,name,size") //
@@ -247,7 +240,7 @@ internal class GoogleDriveImpl(context: Context, googleDriveCloud: GoogleDriveCl
 					)
 				}
 			}.use {
-				client() //
+				client //
 					.files() //
 					.create(metadata, it) //
 					.setFields("id,modifiedTime,name,size") //
@@ -283,7 +276,7 @@ internal class GoogleDriveImpl(context: Context, googleDriveCloud: GoogleDriveCl
 		val revisions: MutableList<Revision> = ArrayList()
 		var pageToken: String? = null
 		do {
-			val revisionList = client() //
+			val revisionList = client //
 				.revisions() //
 				.list(file.driveId) //
 				.setPageToken(pageToken) //
@@ -319,7 +312,7 @@ internal class GoogleDriveImpl(context: Context, googleDriveCloud: GoogleDriveCl
 					)
 				}
 			}.use {
-				client() //
+				client //
 					.files()[file.driveId] //
 					.setAlt("media") //
 					.setSupportsAllDrives(true) //
@@ -380,18 +373,18 @@ internal class GoogleDriveImpl(context: Context, googleDriveCloud: GoogleDriveCl
 
 	@Throws(IOException::class)
 	fun delete(node: GoogleDriveNode) {
-		client().files().delete(node.driveId).setSupportsAllDrives(true).execute()
+		client.files().delete(node.driveId).setSupportsAllDrives(true).execute()
 		idCache.remove(node)
 	}
 
 	@Throws(IOException::class)
 	fun currentAccount(): String {
-		val about = client().about().get().execute()
+		val about = client.about().get().execute()
 		return about.user.displayName
 	}
 
 	fun logout() {
-		GoogleDriveClientFactory.invalidateClient()
+		// FIXME what about logout?
 	}
 
 	companion object {
@@ -403,10 +396,6 @@ internal class GoogleDriveImpl(context: Context, googleDriveCloud: GoogleDriveCl
 		if (googleDriveCloud.accessToken() == null) {
 			throw NoAuthenticationProvidedException(googleDriveCloud)
 		}
-		this.context = context
-		this.googleDriveCloud = googleDriveCloud
-		this.idCache = idCache
-		this.root = RootGoogleDriveFolder(googleDriveCloud)
 		sharedPreferencesHandler = SharedPreferencesHandler(context)
 	}
 }

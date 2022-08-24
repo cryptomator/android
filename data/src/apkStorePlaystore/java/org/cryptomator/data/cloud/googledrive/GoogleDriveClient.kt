@@ -9,7 +9,6 @@ import com.google.api.client.util.ExponentialBackOff
 import com.google.api.services.drive.Drive
 import com.google.api.services.drive.DriveScopes
 import org.cryptomator.data.BuildConfig
-import org.cryptomator.domain.exception.FatalBackendException
 import org.cryptomator.util.SharedPreferencesHandler
 import java.util.logging.Handler
 import java.util.logging.Level
@@ -17,17 +16,10 @@ import java.util.logging.LogRecord
 import java.util.logging.Logger
 import timber.log.Timber
 
-class GoogleDriveClientFactory internal constructor() {
+class GoogleDriveClient private constructor() {
 
 	companion object {
 
-		@Volatile
-		private var instance: Drive? = null
-
-		@Synchronized
-		fun getInstance(accountName: String, context: Context): Drive = instance ?: createClient(accountName, context).also { instance = it }
-
-		@Throws(FatalBackendException::class)
 		fun createClient(accountName: String, context: Context): Drive {
 			if (SharedPreferencesHandler(context).debugMode()) {
 				Logger.getLogger("com.google.api.client").level = Level.CONFIG
@@ -60,10 +52,6 @@ class GoogleDriveClientFactory internal constructor() {
 					request.contentLoggingLimit = 0
 				}
 				.build()
-		}
-
-		fun invalidateClient() {
-			instance = null
 		}
 	}
 }

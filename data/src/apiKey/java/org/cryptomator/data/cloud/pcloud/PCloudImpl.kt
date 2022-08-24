@@ -44,17 +44,11 @@ import okio.BufferedSource
 import okio.source
 import timber.log.Timber
 
-internal class PCloudImpl(context: Context, cloud: PCloud) {
+internal class PCloudImpl(private val cloud: PCloud, private val client: ApiClient, private val context: Context) {
 
-	private val cloud: PCloud
-	private val root: RootPCloudFolder
-	private val context: Context
+	private val root = RootPCloudFolder(cloud)
 	private val sharedPreferencesHandler: SharedPreferencesHandler
 	private var diskLruCache: DiskLruCache? = null
-
-	private fun client(): ApiClient {
-		return PCloudClientFactory.getInstance(cloud.accessToken(), cloud.url(), context)
-	}
 
 	fun root(): PCloudFolder {
 		return root
@@ -85,13 +79,13 @@ internal class PCloudImpl(context: Context, cloud: PCloud) {
 		return try {
 			when (node) {
 				is RootPCloudFolder -> {
-					client().loadFolder("/").execute()
+					client.loadFolder("/").execute()
 				}
 				is PCloudFolder -> {
-					client().loadFolder(node.path).execute()
+					client.loadFolder(node.path).execute()
 				}
 				else -> {
-					client().loadFile(node.path).execute()
+					client.loadFile(node.path).execute()
 				}
 			}
 			true
@@ -110,7 +104,7 @@ internal class PCloudImpl(context: Context, cloud: PCloud) {
 		}
 
 		return try {
-			client()
+			client
 				.listFolder(path)
 				.execute()
 				.children()
@@ -132,7 +126,7 @@ internal class PCloudImpl(context: Context, cloud: PCloud) {
 
 		folder.parent?.let { parentFolder ->
 			return try {
-				val createdFolder = client() //
+				val createdFolder = client //
 					.createFolder(folder.path) //
 					.execute()
 				PCloudNodeFactory.folder(parentFolder, createdFolder)
@@ -151,9 +145,9 @@ internal class PCloudImpl(context: Context, cloud: PCloud) {
 			}
 			return try {
 				if (source is PCloudFolder) {
-					PCloudNodeFactory.from(targetsParent, client().moveFolder(source.path, target.path).execute())
+					PCloudNodeFactory.from(targetsParent, client.moveFolder(source.path, target.path).execute())
 				} else {
-					PCloudNodeFactory.from(targetsParent, client().moveFile(source.path, target.path).execute())
+					PCloudNodeFactory.from(targetsParent, client.moveFile(source.path, target.path).execute())
 				}
 			} catch (ex: ApiError) {
 				when {
@@ -211,7 +205,7 @@ internal class PCloudImpl(context: Context, cloud: PCloud) {
 			}
 		}
 		return try {
-			client() //
+			client //
 				.createFile(file.parent.path, file.name, pCloudDataSource, Date(), listener, uploadOptions) //
 				.execute()
 		} catch (ex: ApiError) {
@@ -228,7 +222,7 @@ internal class PCloudImpl(context: Context, cloud: PCloud) {
 		val remoteFile: RemoteFile
 		if (sharedPreferencesHandler.useLruCache() && createLruCache(sharedPreferencesHandler.lruCacheSize())) {
 			try {
-				remoteFile = client().loadFile(file.path).execute().asFile()
+				remoteFile = client.loadFile(file.path).execute().asFile()
 				cacheKey = remoteFile.fileId().toString() + remoteFile.hash()
 			} catch (ex: ApiError) {
 				handleApiError(ex, file.name)
@@ -257,7 +251,7 @@ internal class PCloudImpl(context: Context, cloud: PCloud) {
 		progressAware: ProgressAware<DownloadState>
 	) {
 		try {
-			val fileLink = client().createFileLink(file.path, DownloadOptions.DEFAULT).execute()
+			val fileLink = client.createFileLink(file.path, DownloadOptions.DEFAULT).execute()
 			val listener = ProgressListener { done: Long, _: Long ->
 				progressAware.onProgress( //
 					Progress.progress(DownloadState.download(file)) //
@@ -271,7 +265,7 @@ internal class PCloudImpl(context: Context, cloud: PCloud) {
 					CopyStream.copyStreamToStream(source.inputStream(), data)
 				}
 			}
-			client().download(fileLink, sink, listener).execute()
+			client.download(fileLink, sink, listener).execute()
 		} catch (ex: ApiError) {
 			handleApiError(ex, file.name)
 		}
@@ -290,9 +284,9 @@ internal class PCloudImpl(context: Context, cloud: PCloud) {
 	fun delete(node: PCloudNode) {
 		try {
 			if (node is PCloudFolder) {
-				client().deleteFolder(node.path, true).execute()
+				client.deleteFolder(node.path, true).execute()
 			} else {
-				client().deleteFile(node.path).execute()
+				client.deleteFile(node.path).execute()
 			}
 		} catch (ex: ApiError) {
 			handleApiError(ex, node.name)
@@ -302,7 +296,7 @@ internal class PCloudImpl(context: Context, cloud: PCloud) {
 	@Throws(IOException::class, BackendException::class)
 	fun currentAccount(): String {
 		return try {
-			client() //
+			client //
 				.userInfo //
 				.execute() //
 				.email()
@@ -360,16 +354,13 @@ internal class PCloudImpl(context: Context, cloud: PCloud) {
 	}
 
 	fun logout() {
-		PCloudClientFactory.logout()
+		// FIXME what about logout?
 	}
 
 	init {
 		if (cloud.accessToken() == null) {
 			throw NoAuthenticationProvidedException(cloud)
 		}
-		this.context = context
-		this.cloud = cloud
-		this.root = RootPCloudFolder(cloud)
 		sharedPreferencesHandler = SharedPreferencesHandler(context)
 	}
 }

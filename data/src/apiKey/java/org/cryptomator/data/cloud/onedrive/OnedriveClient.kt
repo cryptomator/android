@@ -14,7 +14,7 @@ import okhttp3.Request
 import timber.log.Timber
 
 
-class OnedriveClientFactory private constructor() {
+class OnedriveClient private constructor() {
 
 	companion object {
 

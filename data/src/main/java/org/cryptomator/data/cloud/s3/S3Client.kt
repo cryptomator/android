@@ -16,18 +16,11 @@ import okhttp3.Interceptor
 import okhttp3.OkHttpClient
 import timber.log.Timber
 
-class S3ClientFactory private constructor() {
+class S3Client private constructor() {
 
 	companion object {
 
-		@Volatile
-		private var instance: MinioClient? = null
-
-		@Synchronized
-		fun getInstance(context: Context, cloud: S3Cloud): MinioClient = instance ?: createClient(context, cloud).also { instance = it }
-
-		private fun createClient(context: Context, cloud: S3Cloud): MinioClient {
-			val sharedPreferencesHandler = SharedPreferencesHandler(context)
+		fun createClient(cloud: S3Cloud, context: Context, sharedPreferencesHandler: SharedPreferencesHandler): MinioClient {
 			val minioClientBuilder = MinioClient.builder()
 
 			minioClientBuilder.endpoint(cloud.s3Endpoint())
@@ -84,11 +77,6 @@ class S3ClientFactory private constructor() {
 			val connectivityManager = context.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
 			val activeNetworkInfo = connectivityManager.activeNetworkInfo
 			return activeNetworkInfo != null && activeNetworkInfo.isConnected
-		}
-
-		@Synchronized
-		fun logout() {
-			instance = null
 		}
 	}
 }

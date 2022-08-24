@@ -4,6 +4,7 @@ import android.content.Context
 import com.dropbox.core.DbxException
 import com.dropbox.core.InvalidAccessTokenException
 import com.dropbox.core.NetworkIOException
+import com.dropbox.core.v2.DbxClientV2
 import com.dropbox.core.v2.files.CreateFolderErrorException
 import com.dropbox.core.v2.files.DeleteErrorException
 import com.dropbox.core.v2.files.DownloadErrorException
@@ -28,7 +29,7 @@ import java.io.File
 import java.io.IOException
 import java.io.OutputStream
 
-internal class DropboxCloudContentRepository(private val cloud: DropboxCloud, context: Context) : InterceptingCloudContentRepository<DropboxCloud, DropboxNode, DropboxFolder, DropboxFile>(Intercepted(cloud, context)){
+internal class DropboxCloudContentRepository(private val cloud: DropboxCloud, client: DbxClientV2, context: Context) : InterceptingCloudContentRepository<DropboxCloud, DropboxNode, DropboxFolder, DropboxFile>(Intercepted(cloud, client, context)){
 
 	@Throws(BackendException::class)
 	override fun throwWrappedIfRequired(e: Exception) {
@@ -49,9 +50,9 @@ internal class DropboxCloudContentRepository(private val cloud: DropboxCloud, co
 		}
 	}
 
-	private class Intercepted(cloud: DropboxCloud, context: Context) : CloudContentRepository<DropboxCloud, DropboxNode, DropboxFolder, DropboxFile> {
+	private class Intercepted(cloud: DropboxCloud, client: DbxClientV2, context: Context) : CloudContentRepository<DropboxCloud, DropboxNode, DropboxFolder, DropboxFile> {
 
-		private val cloud: DropboxImpl = DropboxImpl(cloud, context)
+		private val cloud: DropboxImpl = DropboxImpl(cloud, client, context)
 
 		override fun root(cloud: DropboxCloud): DropboxFolder {
 			return this.cloud.root()

@@ -45,17 +45,13 @@ import java.util.concurrent.ExecutionException
 import okhttp3.Request
 import timber.log.Timber
 
-internal class OnedriveImpl(cloud: OnedriveCloud, context: Context, graphServiceClient: GraphServiceClient<Request>, nodeInfoCache: OnedriveIdCache) {
+internal class OnedriveImpl(private val cloud: OnedriveCloud, private val client: GraphServiceClient<Request>, private val idCache: OnedriveIdCache, private val context: Context) {
 
-	private val cloud: OnedriveCloud
-	private val context: Context
-	private val graphServiceClient: GraphServiceClient<Request>
-	private val nodeInfoCache: OnedriveIdCache
 	private val sharedPreferencesHandler: SharedPreferencesHandler
 	private var diskLruCache: DiskLruCache? = null
 
 	private fun drive(driveId: String?): DriveRequestBuilder {
-		return if (driveId == null) graphServiceClient.me().drive() else graphServiceClient.drives(driveId)
+		return if (driveId == null) client.me().drive() else client.drives(driveId)
 	}
 
 	fun root(): OnedriveFolder {
@@ -258,7 +254,7 @@ internal class OnedriveImpl(cloud: OnedriveCloud, context: Context, graphService
 			.buildRequest() //
 			.post()?.let { uploadSession ->
 				data.open(context)?.use { inputStream ->
-					LargeFileUploadTask(uploadSession, graphServiceClient, inputStream, size, DriveItem::class.java) //
+					LargeFileUploadTask(uploadSession, client, inputStream, size, DriveItem::class.java) //
 						.uploadAsync(CHUNKED_UPLOAD_CHUNK_SIZE, listOf(conflictBehaviorOption)) { current, max ->
 							progressAware.onProgress(
 								Progress.progress(UploadState.upload(file)).between(0).and(max).withValue(current)
@@ -347,13 +343,13 @@ internal class OnedriveImpl(cloud: OnedriveCloud, context: Context, graphService
 	}
 
 	private fun nodeInfo(node: OnedriveNode): OnedriveIdCache.NodeInfo? {
-		var result = nodeInfoCache[node.path]
+		var result = idCache[node.path]
 		if (result == null) {
 			result = loadNodeInfo(node)
 			if (result == null) {
 				return null
 			} else {
-				nodeInfoCache.add(node.path, result)
+				idCache.add(node.path, result)
 			}
 		}
 		return if (result.isFolder != node.isFolder) {
@@ -362,16 +358,16 @@ internal class OnedriveImpl(cloud: OnedriveCloud, context: Context, graphService
 	}
 
 	private fun <T : OnedriveNode> cacheNodeInfo(node: T, item: DriveItem): T {
-		nodeInfoCache.add(node.path, OnedriveIdCache.NodeInfo(getId(item), getDriveId(item), isFolder(item), item.cTag))
+		idCache.add(node.path, OnedriveIdCache.NodeInfo(getId(item), getDriveId(item), isFolder(item), item.cTag))
 		return node
 	}
 
 	private fun removeNodeInfo(node: OnedriveNode) {
-		nodeInfoCache.remove(node.path)
+		idCache.remove(node.path)
 	}
 
 	private fun removeChildNodeInfo(folder: OnedriveFolder) {
-		nodeInfoCache.removeChildren(folder.path)
+		idCache.removeChildren(folder.path)
 	}
 
 	private fun loadNodeInfo(node: OnedriveNode): OnedriveIdCache.NodeInfo? {
@@ -405,7 +401,7 @@ internal class OnedriveImpl(cloud: OnedriveCloud, context: Context, graphService
 
 	fun currentAccount(username: String): String {
 		// used to check authentication
-		graphServiceClient.me().drive().buildRequest().get()?.owner?.user
+		client.me().drive().buildRequest().get()?.owner?.user
 		return username
 	}
 
@@ -425,10 +421,6 @@ internal class OnedriveImpl(cloud: OnedriveCloud, context: Context, graphService
 		if (cloud.accessToken() == null) {
 			throw NoAuthenticationProvidedException(cloud)
 		}
-		this.cloud = cloud
-		this.context = context
-		this.graphServiceClient = graphServiceClient
-		this.nodeInfoCache = nodeInfoCache
 		sharedPreferencesHandler = SharedPreferencesHandler(context)
 	}
 }
