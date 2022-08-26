@@ -44,12 +44,12 @@ android {
 		coreLibraryDesugaringEnabled true
 	}
 
-
 	buildTypes {
 		release {
 			crunchPngs false
 			minifyEnabled false
 			shrinkResources false
+			zipAlignEnabled true
 
 			buildConfigField "String", "DROPBOX_API_KEY", "\"" + getApiKey('DROPBOX_API_KEY') + "\""
 			buildConfigField "String", "PCLOUD_CLIENT_ID", "\"" + getApiKey('PCLOUD_CLIENT_ID') + "\""

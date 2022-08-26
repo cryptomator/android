@@ -1,4 +1,4 @@
 # From https://github.com/signalapp/Signal-Android
 
-deb http://snapshot.debian.org/archive/debian-security/20200731T201723Z stretch/updates main
-deb http://snapshot.debian.org/archive/debian/20200731T211026Z/ unstable main
+#deb http://snapshot.debian.org/archive/debian-security/20220816T110409Z/ bullseye/updates main
+deb http://snapshot.debian.org/archive/debian/20220816T041409Z/ unstable main

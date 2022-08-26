@@ -21,8 +21,8 @@ allprojects {
 ext {
 	androidBuildToolsVersion = "33.0.0"
 	androidMinSdkVersion = 26
-	androidTargetSdkVersion = 31
-	androidCompileSdkVersion = 31
+	androidTargetSdkVersion = 33
+	androidCompileSdkVersion = 33
 
 	// android and java libs
 	androidVersion = '4.1.1.4'

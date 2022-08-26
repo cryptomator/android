@@ -7,20 +7,20 @@
 #  3. Build the image using `docker build -t cryptomator-android .` in this directory
 #  4. Build Cryptomator using `docker run --rm -v $(pwd):/project -w /project cryptomator-android ./gradlew clean assembleLiteRelease` in the root of this project
 
-FROM debian:stretch
+FROM debian:bullseye
 
 COPY docker/ docker/
 COPY docker/apt.conf docker/sources.list /etc/apt/
 
 RUN dpkg --add-architecture i386
 
-RUN apt-get update -y && apt-get install -y apt-utils
+RUN apt-get update -y && apt-get install -y apt-utils wget git unzip
 
 RUN apt-get update -y && apt-get install -y $(cat docker/dependencies.txt)
 RUN docker/print-versions.sh docker/dependencies.txt
 
 ENV ANDROID_COMMAND_LINE_TOOLS_FILENAME commandlinetools-linux-8512546_latest.zip
-ENV ANDROID_API_LEVELS                  android-31
+ENV ANDROID_API_LEVELS                  android-33
 ENV ANDROID_BUILD_TOOLS_VERSION         33.0.0
 
 ENV ANDROID_HOME /usr/local/android-sdk-linux
@@ -32,9 +32,12 @@ RUN unzip ${ANDROID_COMMAND_LINE_TOOLS_FILENAME} -d /usr/local/android-sdk-linux
 RUN rm ${ANDROID_COMMAND_LINE_TOOLS_FILENAME}
 
 RUN yes | sdkmanager --update --sdk_root="${ANDROID_HOME}"
-RUN yes | sdkmanager --sdk_root="${ANDROID_HOME}" "platforms;${ANDROID_API_LEVELS}" "build-tools;${ANDROID_BUILD_TOOLS_VERSION}" "extras;google;m2repository" "extras;android;m2repository" "extras;google;google_play_services"
+RUN yes | sdkmanager --sdk_root="${ANDROID_HOME}" "platforms;${ANDROID_API_LEVELS}" "build-tools;${ANDROID_BUILD_TOOLS_VERSION}"
 
 RUN yes | sdkmanager --licenses --sdk_root="${ANDROID_HOME}"
 RUN update-java-alternatives -s java-1.11.0-openjdk-amd64
 
 RUN rm -rf ${ANDROID_HOME}/tools
+
+# Create users with typical UIDs to avoid problems with Docker when remapping the UID
+RUN chmod a+w /home && for newuid in $(seq 1000 1010); do useradd -M -d /home  -u $newuid -s /bin/bash "user$newuid"; done
