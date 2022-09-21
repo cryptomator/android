@@ -117,6 +117,7 @@
 	<string name="screen_choose_cloud_service_title">クラウド・サービス</string>
 	<!-- ## screen: cloud connections -->
 	<string name="screen_cloud_connections_title">接続先を選択</string>
+	<string name="screen_cloud_connections_no_connections">ここをタップして場所を追加する</string>
 	<string name="screen_cloud_error_webdav_not_supported">サーバーに WebDAV との互換性がありません</string>
 	<string name="screen_cloud_local_error_no_content_provider">ディレクトリを開くことができるファイルマネージャが見つかりませんでした</string>
 	<!-- ## screen: webdav settings -->
@@ -224,6 +225,7 @@
 	<string name="screen_cryptomator_variants_fdroid_install_hint">F-Droidを使用してCryptomatorをインストールします。\n見つかりませんとエラーが表示される場合は、F-Droidの同期が完了するまでお待ちください。</string>
 	<string name="screen_cryptomator_variants_website_title">ウェブサイト</string>
 	<string name="screen_cryptomator_variants_website_description">独自の依存関係が含まれています。</string>
+	<string name="screen_cryptomator_variants_installation_hint">F-Droid リポジトリのバリアントに切り替えるには、アプリの再インストールが必要です。</string>
 	<!-- # dialogs -->
 	<string name="dialog_button_cancel">キャンセル</string>
 	<string name="dialog_enter_password_positive_button">解錠</string>
@@ -288,6 +290,7 @@
 	<string name="dialog_accept_ssl_certificate_details">詳細</string>
 	<string name="dialog_accept_ssl_certificate_security_checkbox">これはセキュリティリスクになる可能性があります。リスクについて理解していますか</string>
 	<string name="dialog_ask_ignore_battery_optimizations_title">バッテリーの最適化を無効にする</string>
+	<string name="dialog_ask_ignore_battery_optimizations_hint">バックグラウンド中に新しい画像やビデオを取得するには、バッテリーの最適化オプションからオプトアウトする必要があります。%1$s が多くのエネルギーを消費することはありません。\n\n 「最適化されていない状態」から「すべてのアプリ」に変更するには、このダイアログで \'%2$s\' をクリックした後に、%1$s を選び「最適化しない」を指定してください。</string>
 	<string name="dialog_ask_ignore_battery_optimizations_checkbox">今後確認しない</string>
 	<string name="dialog_http_security_hint">HTTP は安全ではありません。代わりに HTTPS を使用することを推奨します。リスクを承知の上であれば HTTP をご使用ください。</string>
 	<string name="dialog_http_security_checkbox">HTTPS を使用</string>
@@ -300,14 +303,17 @@
 	<string name="dialog_debug_mode_disclaimer_hint">このモードでは、デバイスのログファイルに機密情報が書き込まれることがあります(例: ファイル名やパス)。パスワードや cookie 等は除外されます。\n\n できるだけ早くデバッグ モードを無効化をすることを忘れないでください。</string>
 	<string name="dialog_debug_mode_disclaimer_title">注意</string>
 	<string name="dialog_debug_mode_positive_button">有効にする</string>
+	<string name="dialog_disable_app_obscured_disclaimer_hint">この設定は安全のための機能です。他のアプリがユーザーを騙してしまうことを防ぎます。\n\n無効にすることで、 <a href="https://docs.cryptomator.org/en/1.6/android/settings/#block-app-when-obscured">リスクを認識していること</a> に留意する必要があります。</string>
 	<string name="dialog_disable_app_obscured_disclaimer_title">注意</string>
 	<string name="dialog_disable_app_obscured_positive_button">無効</string>
 	<string name="dialog_app_is_obscured_info_title">アプリが重なっています</string>
+	<string name="dialog_app_is_obscured_info_hint">他のアプリケーションが Cryptomator の上に何かを表示しています（例: ブルーライト フィルターやナイト・モードアプリ）。このため、セキュリティの観点から Cryptomator が無効化されています。\n\n<a href="https://docs.cryptomator.org/en/1.6/android/settings/#block-app-when-obscured">Cryptomator を有効にするには</a></string>
 	<string name="dialog_app_is_obscured_info_neutral_button">閉じる</string>
 	<string name="dialog_vaults_removed_during_migration_title">%1s クラウンドの金庫を再追加してください</string>
 	<string name="dialog_vaults_removed_during_migration_hint">このアプリのバージョンに移行に際して、アプリから次の保管庫を削除する必要があります:\n%2s \n\nこれらの保管庫はクラウドからではなく、このアプリからのみ削除されます。 ご不便をおかけして申し訳ありませんが、保管庫を再度追加してください。</string>
 	<string name="dialog_vault_is_root_folder_of_cloud_title">金庫がクラウト接続のルート フォルダーです</string>
 	<string name="dialog_vault_is_root_folder_of_cloud_hint">この保管庫を追加するルートディレクトリとして、少なくともこの保管庫フォルダの親フォルダを選択する新しいクラウド接続を作成する必要があります。</string>
+	<string name="dialog_disable_secure_screen_disclaimer_hint">この設定は安全のための機能です。他のアプリがユーザーを騙してしまうことを防ぎます。\n\n無効にすることで、 <a href="https://docs.cryptomator.org/en/1.6/android/settings/#screen-security">リスクを認識していること</a> に留意する必要があります。</string>
 	<string name="dialog_delete_cloud_connection_with_vaults_message">本当にこのクラウド接続を削除しますか？</string>
 	<string name="dialog_delete_cloud_connection_with_vaults_hint">この操作により、クラウド接続とクラウドのすべての金庫が削除されます。</string>
 	<string name="dialog_confirm_delete_multiple_title">%1$d 個の項目を削除しますか？</string>
