@@ -3,8 +3,8 @@
 	<!-- # app -->
 	<string name="share_with_label">加密</string>
 	<!-- # error messages -->
-	<string name="error_generic">發生了一個錯誤</string>
-	<string name="error_authentication_failed">認證失敗</string>
+	<string name="error_generic">出現錯誤</string>
+	<string name="error_authentication_failed">驗證失敗</string>
 	<string name="error_authentication_failed_re_authenticate">認證失敗，請重新使用 %1$s 登入</string>
 	<string name="error_no_network_connection">沒有網路連線</string>
 	<string name="error_invalid_passphrase">密碼錯誤</string>
@@ -46,8 +46,8 @@
 	<string name="permission_revoked_re_request_permission">Cryptomator 已失去訪問此位置的權限。請再次選擇此資料夾以恢復權限。</string>
 	<string name="snack_bar_action_title_settings">設定</string>
 	<string name="snack_bar_action_title_search">搜尋</string>
-	<string name="snack_bar_action_title_search_previous">返回</string>
-	<string name="snack_bar_action_title_search_next">繼續</string>
+	<string name="snack_bar_action_title_search_previous">上一個</string>
+	<string name="snack_bar_action_title_search_next">下一個</string>
 	<string name="snack_bar_action_title_sort">排序</string>
 	<string name="snack_bar_action_title_sort_az">依英文字母順序</string>
 	<string name="snack_bar_action_title_sort_za">依英文字母倒序</string>
@@ -144,7 +144,7 @@
 	<!-- ## screen: enter vault name -->
 	<string name="screen_enter_vault_name_msg_name_empty">加密檔案庫名稱不可留空。</string>
 	<string name="screen_enter_vault_name_vault_label">加密檔案庫名稱</string>
-	<string name="screen_enter_vault_name_button_text">新增</string>
+	<string name="screen_enter_vault_name_button_text">建立</string>
 	<!-- ## screen: set password -->
 	<string name="screen_set_password_title">設定密碼</string>
 	<string name="screen_set_password_msg_password_mismatch">新密碼與再次輸入的密碼不相符。</string>
