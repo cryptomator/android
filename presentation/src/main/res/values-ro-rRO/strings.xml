@@ -350,6 +350,7 @@
 	<string name="notification_open_writable_file_title">Deschide fișier inscriptibil</string>
 	<string name="notification_open_writable_file_message">Seiful rămâne deblocat până la editarea finalizată</string>
 	<string name="notification_update_check_finished_latest">Ultima versiune instalată</string>
+	<string name="notification_authenticating">In proces de autentificare&#8230;</string>
 	<string name="screen_settings_lru_cache">Memorie cache</string>
 	<string name="screen_settings_lru_cache_toggle_summary">Recent memoria cache a accesat fișiere criptate local pe acest dispozitiv pentru a fi reutilizare ulterior la redeschidere</string>
 	<string name="screen_settings_lru_cache_size">Total memorie cache</string>
