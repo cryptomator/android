@@ -45,6 +45,7 @@
 	<string name="screen_set_password_strength_indicator_2">Нармалёвы</string>
 	<string name="screen_set_password_strength_indicator_3">Моцны</string>
 	<!-- ## screen: settings -->
+	<string name="screen_settings_section_general">Агульныя</string>
 	<string name="screen_settings_section_search">Шукаць</string>
 	<string name="screen_settings_keep_unlocked_while_editing_files">Трымаць разамкнёным</string>
 	<string name="screen_settings_keep_unlocked_while_editing_files_summary">Трымаць скарбніцы разамкнёнымі падчас рэдагавання файлаў</string>
