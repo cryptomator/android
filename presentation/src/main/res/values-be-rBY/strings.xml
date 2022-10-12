@@ -1,7 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 	<!-- # app -->
+	<string name="share_with_label">Зашыфраваць</string>
 	<!-- # error messages -->
+	<string name="error_generic">Адбылася памылка</string>
+	<string name="error_authentication_failed">Не ўдалося аўтэнтыфікавацца</string>
+	<string name="error_authentication_failed_re_authenticate">Няўдачы аўтэнтыфікацыі. Калі ласка, увайдзі з дапамогаю %1$s</string>
+	<string name="error_no_network_connection">Адсутнічае падлучэнне да сеткі</string>
+	<string name="error_invalid_passphrase">Няправільны пароль</string>
+	<string name="error_file_or_folder_exists">Такі файл альбо тэчка ўжо існуе.</string>
+	<string name="error_vault_already_exists">Скарбніца ўжо існуе.</string>
+	<string name="error_no_such_file">Файл не існуе.</string>
+	<string name="error_vault_has_been_locked">Скарбніца замкнёная.</string>
+	<string name="error_cloud_already_exists">Воблака ўжо існуе.</string>
+	<string name="error_activity_not_found">Калі ласка, усталюй праграму, што зможа адчыніць гэты файл.</string>
+	<string name="error_server_not_found">Сэрвер ня знойдзены.</string>
 	<!-- # clouds -->
 	<!-- ## cloud names -->
 	<!-- # permission -->
@@ -20,6 +33,7 @@
 	<string name="snack_bar_cryptomator_variants_title">Чытаць далей</string>
 	<!-- # screens -->
 	<!-- # screen: vault list -->
+	<string name="screen_vault_list_vault_action_delete">Выдаліць</string>
 	<!-- # screen: file browser -->
 	<string name="screen_file_browser_default_title">Скарбніца</string>
 	<string name="screen_file_browser_node_action_share">Абагуліць</string>
@@ -33,13 +47,39 @@
 	<string name="screen_file_browser_select_all_items">Вылучыць усё</string>
 	<!-- ## screen: text editor -->
 	<!-- ## screen: share files -->
+	<string name="screen_share_files_content_text">тэкст</string>
+	<string name="screen_share_files_content_file">файл</string>
+	<string name="screen_share_files_content_files">файлы</string>
+	<string name="screen_share_files_section_location">Захаваць месцазнаходжанне</string>
+	<string name="screen_share_files_save_button_text">Захаваць</string>
+	<string name="screen_share_files_msg_success">Шыфраванне завершана</string>
 	<!-- ## screen: choose cloud service -->
+	<string name="screen_choose_cloud_service_title">Воблачны сэрвіс</string>
 	<!-- ## screen: cloud connections -->
+	<string name="screen_cloud_connections_title">Абяры месцазнаходжанне</string>
+	<string name="screen_cloud_connections_no_connections">Пстрыкні тут, каб дадаць месцазнаходжанні</string>
 	<!-- ## screen: webdav settings -->
+	<string name="screen_webdav_settings_url_port_label">URL</string>
+	<string name="screen_webdav_settings_username_label">Імя карыстальніка</string>
 	<string name="screen_webdav_settings_password_label">Пароль</string>
+	<string name="screen_webdav_settings_done_button_text">Падлучыцца</string>
+	<string name="screen_webdav_settings_msg_url_must_not_be_empty">URL ня можа быць пустым.</string>
+	<string name="screen_webdav_settings_msg_url_is_invalid">Некарэктны URL.</string>
+	<string name="screen_webdav_settings_msg_username_must_not_be_empty">Імя карыстальніка ня можа быць пустым.</string>
+	<string name="screen_webdav_settings_msg_password_must_not_be_empty">Пароль ня можа быць пустым.</string>
 	<!-- ## screen: s3 settings -->
+	<string name="screen_s3_settings_display_name_label">Бачнае імя</string>
+	<string name="screen_s3_settings_access_key_label">Ключ доступу</string>
+	<string name="screen_s3_settings_secret_key_label">Сакрэтны ключ</string>
+	<string name="screen_s3_settings_region_label">Рэгіён</string>
+	<string name="screen_s3_settings_msg_display_name_not_empty">Бачнае імя ня можа быць пустым</string>
+	<string name="screen_s3_settings_msg_access_key_not_empty">Ключ доступу ня можа быць пустым</string>
+	<string name="screen_s3_settings_msg_secret_key_not_empty">Сакрэтны ключ ня можа быць пустым</string>
 	<!-- ## screen: enter vault name -->
+	<string name="screen_enter_vault_name_vault_label">Назва скарбніцы</string>
+	<string name="screen_enter_vault_name_button_text">Стварыць</string>
 	<!-- ## screen: set password -->
+	<string name="screen_set_password_title">Задаць пароль</string>
 	<string name="screen_set_password_button_text">Файна</string>
 	<string name="screen_set_password_strength_indicator_1">Слабы</string>
 	<string name="screen_set_password_strength_indicator_2">Нармалёвы</string>
@@ -61,6 +101,7 @@
 	<string name="dialog_button_cancel">Скасаваць</string>
 	<string name="dialog_enter_password_positive_button">Адамкнуць</string>
 	<!-- Vault not found -->
+	<string name="dialog_vault_not_found_positive_button_text">Выдаліць</string>
 	<string name="dialog_unable_to_share_positive_button">Добра</string>
 	<string name="dialog_unable_to_share_negative_button">Стварыць скарбніцу</string>
 	<string name="dialog_filetype_not_supported_title">Немагчыма адчыніць %1$s</string>
