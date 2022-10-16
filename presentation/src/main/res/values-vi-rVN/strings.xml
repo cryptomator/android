@@ -104,6 +104,7 @@
 	<string name="screen_webdav_settings_msg_password_must_not_be_empty">Mật khẩu không được để trống.</string>
 	<!-- ## screen: s3 settings -->
 	<string name="screen_s3_settings_display_name_label">Tên hiển thị</string>
+	<string name="screen_s3_settings_region_label">Khu vực</string>
 	<string name="screen_s3_settings_msg_display_name_not_empty">Tên hiển thị không được để trống</string>
 	<!-- ## screen: enter vault name -->
 	<string name="screen_enter_vault_name_msg_name_empty">Tên ault không thể để trống.</string>
@@ -149,6 +150,10 @@
 	<string name="screen_settings_section_version">Phiên bản</string>
 	<string name="screen_settings_advanced_settings">Cài đặt nâng cao</string>
 	<!-- ## screen: cloud settings -->
+	<string name="screen_cloud_settings_onedrive_connections">Kết nối OneDrive</string>
+	<string name="screen_cloud_settings_webdav_connections">Kết nối WebDAV</string>
+	<string name="screen_cloud_settings_pcloud_connections">Kết nối pCloud</string>
+	<string name="screen_cloud_settings_s3_connections">Kết nối S3</string>
 	<string name="screen_cloud_settings_log_in_to">Đăng nhập vào</string>
 	<string name="screen_cloud_settings_sign_out_from_cloud">Đăng xuất từ</string>
 	<!-- ## screen: licenses -->
@@ -172,11 +177,15 @@
 	<string name="dialog_replace_positive_button_single_file_exists">Thay thế</string>
 	<string name="dialog_replace_title_single_file_exists">Thay thế tệp tin?</string>
 	<string name="dialog_unable_to_share_positive_button">OK</string>
+	<string name="dialog_unable_to_share_negative_button">Tạo vault</string>
+	<string name="dialog_filetype_not_supported_title">Không thể mở %1$s</string>
+	<string name="dialog_rename_vault_title">Đổi tên vault</string>
 	<string name="dialog_rename_node_file_title">Đổi tên file</string>
 	<string name="dialog_unsaved_changes_title">Bạn chưa lưu thay đổi</string>
 	<string name="dialog_unsaved_changes_message">Bạn có thực sự muốn thoát mà không lưu?</string>
 	<string name="dialog_file_name_hint">Tên tệp</string>
 	<string name="dialog_file_name_placeholder">text.txt</string>
+	<string name="action_progress_deleting">Đang xóa&#8230;</string>
 	<string name="dialog_lock_vault">Khoá</string>
 	<string name="dialog_accept_ssl_certificate_details">Chi tiết</string>
 	<string name="dialog_ask_ignore_battery_optimizations_title">Tắt tối ưu pin</string>
