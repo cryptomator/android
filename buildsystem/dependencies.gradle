@@ -42,7 +42,7 @@ ext {
 	rxAndroidVersion = '2.1.1'
 	rxBindingVersion = '2.2.0'
 
-	daggerVersion = '2.43.2'
+	daggerVersion = '2.44'
 
 	gsonVersion = '2.9.1'
 
@@ -76,10 +76,10 @@ ext {
 	 */
 	trackingFreeGoogleCLientVersion = '1.41.8'
 
-	msgraphVersion = '5.31.0'
-	msgraphAuthVersion = '4.0.0'
+	msgraphVersion = '5.39.0'
+	msgraphAuthVersion = '4.0.4'
 
-	minIoVersion = '8.4.3'
+	minIoVersion = '8.4.5'
 	staxVersion = '1.2.0' // needed for minIO
 
 	commonsCodecVersion = '1.15'
@@ -88,9 +88,9 @@ ext {
 
 	// testing dependencies
 
-	jUnitVersion = '5.9.0'
+	jUnitVersion = '5.9.1'
 	assertJVersion = '1.7.1'
-	mockitoVersion = '4.6.1'
+	mockitoVersion = '4.8.1'
 	mockitoKotlinVersion = '4.0.0'
 	hamcrestVersion = '1.3'
 	dexmakerVersion = '1.0'

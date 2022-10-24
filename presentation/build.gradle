@@ -126,6 +126,7 @@ android {
 		ignoreWarnings true
 		quiet true
 	}
+	namespace 'org.cryptomator.presentation'
 }
 
 dependencies {
@@ -287,10 +288,8 @@ def getOnedriveApiKey() {
 	return uri.path
 }
 
-task updateGradleVerification {
-	dependsOn 'clean',
-			'test',
-			'assemblePlaystoreRelease'
+task updateGradleVerification(type: Exec) {
+	commandLine 'sh', '../buildsystem/updateGradleVerification.sh'
 }
 
 tasks.withType(Test) {

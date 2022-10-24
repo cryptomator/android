@@ -86,6 +86,7 @@ android {
 		ignoreWarnings true
 		quiet true
 	}
+	namespace 'org.cryptomator.data'
 }
 
 greendao {
