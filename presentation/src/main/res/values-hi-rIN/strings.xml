@@ -165,8 +165,21 @@
 	<!-- ## file size helper -->
 	<!-- ## date helper -->
 	<!-- ## biometric authentication -->
+	<string name="dialog_biometric_auth_title">बायोमेट्रिक लॉग-इन</string>
+	<string name="dialog_biometric_auth_message">अपने बायोमेट्रिक क्रेडेंशियल्स से लॉग इन करें</string>
+	<string name="dialog_unable_to_auto_upload_files_title">फाइल्स ऑटो अपलोड करने में असमर्थ</string>
 	<!-- notification -->
+	<string name="notification_unlocked">वॉल्ट्स अनलॉक की गईं: %1$d</string>
+	<string name="notification_timeout">%1$s में ऑटोलॉक होगी</string>
+	<string name="notification_lock_all">सभी को लॉक करें</string>
+	<string name="notification_cancel_auto_upload">अपलोड रद्द करें</string>
+	<string name="notification_auto_upload_title">ऑटो फोटो अपलोड जारी है</string>
+	<string name="notification_auto_upload_message">अपलोडिंग %1d/%2d</string>
+	<string name="notification_auto_upload_finished_title">ऑटो फोटो अपलोड समाप्त</string>
+	<string name="notification_auto_upload_finished_message">%1$d इमेजेस वॉल्ट में अपलोड की गयी</string>
+	<string name="notification_auto_upload_failed_title">ऑटो फोटो अपलोड असफल</string>
 	<string name="notification_update_check_finished_latest">नवीनतम संस्करण इनस्टॉल किया गया</string>
+	<string name="screen_settings_lru_cache">कैशे</string>
 	<string name="screen_settings_last_check_updates">%1$s को चलाया गया है</string>
 	<!-- lock timeout names -->
 	<string name="lock_timeout_1m">1 मिनट</string>
@@ -182,6 +195,10 @@
 	<string name="cache_size_1000m">1 GB</string>
 	<string name="cache_size_5000m">5 GB</string>
 	<!-- screen scheme mode names -->
+	<string name="screen_settings_style_mode">स्टाइल</string>
+	<string name="follow_system">ऑटोमैटिक (सिस्टम को फॉलो करें)</string>
+	<string name="light">लाइट</string>
+	<string name="dark">डार्क</string>
 	<!-- update interval names -->
 	<string name="update_interval_1d">दिन में एक बार</string>
 </resources>
