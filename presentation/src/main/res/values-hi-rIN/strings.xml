@@ -101,7 +101,9 @@
 	<string name="screen_share_files_msg_filenames_must_be_unique">दस्तावेज के नाम अलग होने चाहिए! कृपया नाम बदल कर सहेजें!</string>
 	<string name="screen_share_files_section_location">सहेजने का स्थान</string>
 	<string name="screen_share_files_save_button_text">सहेजें</string>
+	<string name="screen_share_files_msg_success">एन्क्रिप्शन कि प्रक्रिया पूर्ण हुई</string>
 	<!-- ## screen: choose cloud service -->
+	<string name="screen_choose_cloud_service_title">क्लाउड सेवा</string>
 	<!-- ## screen: cloud connections -->
 	<!-- ## screen: webdav settings -->
 	<string name="screen_webdav_settings_url_port_label">URL</string>
