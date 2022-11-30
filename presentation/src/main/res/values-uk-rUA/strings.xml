@@ -34,6 +34,7 @@
 	<string name="error_file_not_found_after_opening_using_3party">Локальний файл більше не присутній посля повернення до Cryptomator. Можливі зміни не будуть застосовані до хмари.</string>
 	<string name="error_no_such_bucket">Відсутній бакет</string>
 	<string name="error_masterkey_location_not_supported">Користувацьке розташування Masterkey ще не підтримується</string>
+	<string name="error_interact_with_fdroid_but_fdroid_missing">Не вдалося зв\'язатися із застосунком F-Droid. Не встановлено?</string>
 	<!-- # clouds -->
 	<!-- ## cloud names -->
 	<string name="cloud_names_local_storage">Локальне сховище</string>
@@ -54,6 +55,7 @@
 	<string name="snack_bar_action_title_sort_oldest">Спочатку старіші</string>
 	<string name="snack_bar_action_title_sort_biggest">Спочатку найбільші</string>
 	<string name="snack_bar_action_title_sort_smallest">Спершу найменші</string>
+	<string name="snack_bar_cryptomator_variants_title">Детальніше</string>
 	<!-- # screens -->
 	<!-- # screen: vault list -->
 	<string name="screen_vault_list_actions_title">Додати до Cryptomator</string>
@@ -207,7 +209,7 @@
 	<string name="screen_update_pcloud_connections_title">Оновити облікові дані pCloud</string>
 	<!-- ## screen: cryptomator app variants -->
 	<!-- # dialogs -->
-	<string name="dialog_button_cancel">Відмінити</string>
+	<string name="dialog_button_cancel">Скасувати</string>
 	<string name="dialog_enter_password_positive_button">Розблокувати</string>
 	<string name="dialog_change_password_old_password_label">Старий пароль</string>
 	<string name="dialog_change_password_new_password_label">Новий пароль</string>
