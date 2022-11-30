@@ -56,6 +56,7 @@
 	<string name="snack_bar_action_title_sort_biggest">Спочатку найбільші</string>
 	<string name="snack_bar_action_title_sort_smallest">Спершу найменші</string>
 	<string name="snack_bar_cryptomator_variants_title">Детальніше</string>
+	<string name="snack_bar_cryptomator_variants_hint">Немає у списку?</string>
 	<!-- # screens -->
 	<!-- # screen: vault list -->
 	<string name="screen_vault_list_actions_title">Додати до Cryptomator</string>
