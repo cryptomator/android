@@ -8,6 +8,7 @@ import com.pcloud.sdk.DownloadOptions
 import com.pcloud.sdk.ProgressListener
 import com.pcloud.sdk.RemoteFile
 import com.pcloud.sdk.UploadOptions
+import com.pcloud.sdk.internal.networking.APIHttpException
 import com.tomclaw.cache.DiskLruCache
 import org.cryptomator.data.cloud.pcloud.PCloudApiError.isCloudNodeAlreadyExistsException
 import org.cryptomator.data.cloud.pcloud.PCloudApiError.isForbiddenException
@@ -39,6 +40,7 @@ import java.io.File
 import java.io.IOException
 import java.io.OutputStream
 import java.util.Date
+import kotlin.math.pow
 import okio.BufferedSink
 import okio.BufferedSource
 import okio.source
@@ -52,8 +54,8 @@ internal class PCloudImpl(context: Context, cloud: PCloud) {
 	private val sharedPreferencesHandler: SharedPreferencesHandler
 	private var diskLruCache: DiskLruCache? = null
 
-	private fun client(): ApiClient {
-		return PCloudClientFactory.getInstance(cloud.accessToken(), cloud.url(), context)
+	private val apiClient: ApiClient by lazy {
+		PCloudClientFactory.getInstance(cloud.accessToken(), cloud.url(), context)
 	}
 
 	fun root(): PCloudFolder {
@@ -85,13 +87,13 @@ internal class PCloudImpl(context: Context, cloud: PCloud) {
 		return try {
 			when (node) {
 				is RootPCloudFolder -> {
-					client().loadFolder("/").execute()
+					apiClient.loadFolder("/").execute()
 				}
 				is PCloudFolder -> {
-					client().loadFolder(node.path).execute()
+					apiClient.loadFolder(node.path).execute()
 				}
 				else -> {
-					client().loadFile(node.path).execute()
+					apiClient.loadFile(node.path).execute()
 				}
 			}
 			true
@@ -110,7 +112,7 @@ internal class PCloudImpl(context: Context, cloud: PCloud) {
 		}
 
 		return try {
-			client()
+			apiClient
 				.listFolder(path)
 				.execute()
 				.children()
@@ -132,7 +134,7 @@ internal class PCloudImpl(context: Context, cloud: PCloud) {
 
 		folder.parent?.let { parentFolder ->
 			return try {
-				val createdFolder = client() //
+				val createdFolder = apiClient //
 					.createFolder(folder.path) //
 					.execute()
 				PCloudNodeFactory.folder(parentFolder, createdFolder)
@@ -151,9 +153,9 @@ internal class PCloudImpl(context: Context, cloud: PCloud) {
 			}
 			return try {
 				if (source is PCloudFolder) {
-					PCloudNodeFactory.from(targetsParent, client().moveFolder(source.path, target.path).execute())
+					PCloudNodeFactory.from(targetsParent, apiClient.moveFolder(source.path, target.path).execute())
 				} else {
-					PCloudNodeFactory.from(targetsParent, client().moveFile(source.path, target.path).execute())
+					PCloudNodeFactory.from(targetsParent, apiClient.moveFile(source.path, target.path).execute())
 				}
 			} catch (ex: ApiError) {
 				when {
@@ -211,7 +213,7 @@ internal class PCloudImpl(context: Context, cloud: PCloud) {
 			}
 		}
 		return try {
-			client() //
+			apiClient //
 				.createFile(file.parent.path, file.name, pCloudDataSource, Date(), listener, uploadOptions) //
 				.execute()
 		} catch (ex: ApiError) {
@@ -228,8 +230,8 @@ internal class PCloudImpl(context: Context, cloud: PCloud) {
 		val remoteFile: RemoteFile
 		if (sharedPreferencesHandler.useLruCache() && createLruCache(sharedPreferencesHandler.lruCacheSize())) {
 			try {
-				remoteFile = client().loadFile(file.path).execute().asFile()
-				cacheKey = remoteFile.fileId().toString() + remoteFile.hash()
+				remoteFile = apiClient.loadFile(file.path).execute().asFile()
+				cacheKey = "${remoteFile.fileId()}${remoteFile.hash()}"
 			} catch (ex: ApiError) {
 				handleApiError(ex, file.name)
 			}
@@ -256,22 +258,60 @@ internal class PCloudImpl(context: Context, cloud: PCloud) {
 		cacheKey: String?,  //
 		progressAware: ProgressAware<DownloadState>
 	) {
-		try {
-			val fileLink = client().createFileLink(file.path, DownloadOptions.DEFAULT).execute()
-			val listener = ProgressListener { done: Long, _: Long ->
-				progressAware.onProgress( //
-					Progress.progress(DownloadState.download(file)) //
-						.between(0) //
-						.and(file.size ?: Long.MAX_VALUE) //
-						.withValue(done)
-				)
+		val listener = ProgressListener { done: Long, total: Long ->
+			progressAware.onProgress( //
+				Progress.progress(DownloadState.download(file)) //
+					.between(0) //
+					.and(total) //
+					.withValue(done)
+			)
+		}
+
+		val sink: DataSink = object : DataSink() {
+			override fun readAll(source: BufferedSource) {
+				CopyStream.copyStreamToStream(source.inputStream(), data)
 			}
-			val sink: DataSink = object : DataSink() {
-				override fun readAll(source: BufferedSource) {
-					CopyStream.copyStreamToStream(source.inputStream(), data)
+		}
+
+		try {
+			var attempts = 0
+			while (++attempts <= MaxContentLinkDownloadAttempts) {
+				val fileLink = apiClient.createFileLink(file.path, DownloadOptions.DEFAULT).execute()
+				try {
+					apiClient.download(fileLink, sink, listener).execute()
+				} catch (e: APIHttpException) {
+					if (e.code == 410/* Gone */) {
+						// The link to the file's content has expired or became otherwise invalid
+						// due to a network switch, signalled with a `410 - Gone` HTTP error code.
+						//
+						// Content links have a very limited lifetime and apart form the time expiration
+						// they are restricted to be used only from the IP that was used when making the
+						// API call for generating them.
+						//
+						// The IP-switching limitation can be hit quite easily on mobile devices with multiple
+						// sources of connectivity (mobile/wifi/...) where the system will follow
+						// a strategy that aims to use the fastest and cheapest (non-metered) network
+						// present at the moment.
+
+						// Purge cached connections from OkHttp to potentially avoid any
+						// new IP-switch issues where the opened connections of the previously-active network
+						// have not yet been terminated by the systems network manager.
+						//
+						// For more insight and details on the network change behavior on Android, see:
+						// https://developer.android.com/training/basics/network-ops/reading-network-state
+						apiClient.connectionPool().evictAll()
+
+						// Attempt to generate a new link (with a backoff delay) on the new network
+						// or give up if the maximum attempt count has been reached.
+						if (attempts < MaxContentLinkDownloadAttempts) {
+							val nextSleepPeriodMs = ((attempts - 1f).pow(2f)
+									* ContentLinkDownloadAttemptDelayStepMs).toLong()
+							Thread.sleep(nextSleepPeriodMs)
+							continue
+						} else throw e
+					}
 				}
 			}
-			client().download(fileLink, sink, listener).execute()
 		} catch (ex: ApiError) {
 			handleApiError(ex, file.name)
 		}
@@ -290,9 +330,9 @@ internal class PCloudImpl(context: Context, cloud: PCloud) {
 	fun delete(node: PCloudNode) {
 		try {
 			if (node is PCloudFolder) {
-				client().deleteFolder(node.path, true).execute()
+				apiClient.deleteFolder(node.path, true).execute()
 			} else {
-				client().deleteFile(node.path).execute()
+				apiClient.deleteFile(node.path).execute()
 			}
 		} catch (ex: ApiError) {
 			handleApiError(ex, node.name)
@@ -302,7 +342,7 @@ internal class PCloudImpl(context: Context, cloud: PCloud) {
 	@Throws(IOException::class, BackendException::class)
 	fun currentAccount(): String {
 		return try {
-			client() //
+			apiClient //
 				.userInfo //
 				.execute() //
 				.email()
@@ -371,5 +411,10 @@ internal class PCloudImpl(context: Context, cloud: PCloud) {
 		this.cloud = cloud
 		this.root = RootPCloudFolder(cloud)
 		sharedPreferencesHandler = SharedPreferencesHandler(context)
+	}
+
+	companion object {
+		private const val MaxContentLinkDownloadAttempts = 5
+		private const val ContentLinkDownloadAttemptDelayStepMs = 200L
 	}
 }
