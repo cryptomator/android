@@ -34,6 +34,7 @@
 	<string name="error_file_not_found_after_opening_using_3party">切換回 Cryptomator 後，本地檔案不再存在。期間發生的更改無法傳回雲端。</string>
 	<string name="error_no_such_bucket">沒有指定的儲存槽</string>
 	<string name="error_masterkey_location_not_supported">尚未支援自訂主金鑰位置</string>
+	<string name="error_interact_with_fdroid_but_fdroid_missing">無法連結到 F-Droid，是否未安裝 F-Droid?</string>
 	<!-- # clouds -->
 	<!-- ## cloud names -->
 	<string name="cloud_names_local_storage">本機儲存空間</string>
@@ -54,6 +55,8 @@
 	<string name="snack_bar_action_title_sort_oldest">由舊至新</string>
 	<string name="snack_bar_action_title_sort_biggest">由大至小</string>
 	<string name="snack_bar_action_title_sort_smallest">由小至大</string>
+	<string name="snack_bar_cryptomator_variants_title">了解更多</string>
+	<string name="snack_bar_cryptomator_variants_hint">未列出您的雲端服務？</string>
 	<!-- # screens -->
 	<!-- # screen: vault list -->
 	<string name="screen_vault_list_actions_title">加到 Cryptomator</string>
