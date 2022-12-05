@@ -279,6 +279,16 @@ internal class PCloudImpl(context: Context, cloud: PCloud) {
 				val fileLink = apiClient.createFileLink(file.path, DownloadOptions.DEFAULT).execute()
 				try {
 					apiClient.download(fileLink, sink, listener).execute()
+					if (sharedPreferencesHandler.useLruCache() && encryptedTmpFile != null && cacheKey != null) {
+						try {
+							diskLruCache?.let {
+								LruFileCacheUtil.storeToLruCache(it, cacheKey, encryptedTmpFile)
+							} ?: Timber.tag("PCloudImpl").e("Failed to store item in LRU cache")
+						} catch (e: IOException) {
+							Timber.tag("PCloudImpl").e(e, "Failed to write downloaded file in LRU cache")
+						}
+					}
+					break
 				} catch (e: APIHttpException) {
 					if (e.code == 410/* Gone */) {
 						// The link to the file's content has expired or became otherwise invalid
@@ -314,15 +324,6 @@ internal class PCloudImpl(context: Context, cloud: PCloud) {
 			}
 		} catch (ex: ApiError) {
 			handleApiError(ex, file.name)
-		}
-		if (sharedPreferencesHandler.useLruCache() && encryptedTmpFile != null && cacheKey != null) {
-			try {
-				diskLruCache?.let {
-					LruFileCacheUtil.storeToLruCache(it, cacheKey, encryptedTmpFile)
-				} ?: Timber.tag("PCloudImpl").e("Failed to store item in LRU cache")
-			} catch (e: IOException) {
-				Timber.tag("PCloudImpl").e(e, "Failed to write downloaded file in LRU cache")
-			}
 		}
 	}
 
