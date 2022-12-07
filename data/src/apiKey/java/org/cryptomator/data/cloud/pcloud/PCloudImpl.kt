@@ -273,57 +273,75 @@ internal class PCloudImpl(context: Context, cloud: PCloud) {
 			}
 		}
 
-		try {
-			var attempts = 0
-			while (++attempts <= MaxContentLinkDownloadAttempts) {
-				val fileLink = apiClient.createFileLink(file.path, DownloadOptions.DEFAULT).execute()
-				try {
-					apiClient.download(fileLink, sink, listener).execute()
-					if (sharedPreferencesHandler.useLruCache() && encryptedTmpFile != null && cacheKey != null) {
-						try {
-							diskLruCache?.let {
-								LruFileCacheUtil.storeToLruCache(it, cacheKey, encryptedTmpFile)
-							} ?: Timber.tag("PCloudImpl").e("Failed to store item in LRU cache")
-						} catch (e: IOException) {
-							Timber.tag("PCloudImpl").e(e, "Failed to write downloaded file in LRU cache")
+		readFile(file.path, sink, listener)
+		if (sharedPreferencesHandler.useLruCache() && encryptedTmpFile != null && cacheKey != null) {
+			try {
+				diskLruCache?.let {
+					LruFileCacheUtil.storeToLruCache(it, cacheKey, encryptedTmpFile)
+				} ?: Timber.tag("PCloudImpl").e("Failed to store item in LRU cache")
+			} catch (e: IOException) {
+				Timber.tag("PCloudImpl").e(e, "Failed to write downloaded file in LRU cache")
+			}
+		}
+	}
+
+	private fun readFile(filePath : String, sink: DataSink, listener : ProgressListener) {
+		var attempts = 0
+		while (++attempts <= MaxContentLinkDownloadAttempts) {
+			val fileLink = apiClient.createFileLink(filePath, DownloadOptions.DEFAULT).execute()
+			try {
+				// Attempt to download the link's content, starting with the best link variant.
+				for (url in fileLink.urls()) {
+					try {
+						fileLink.download(url, sink, listener)
+					} catch (e : APIHttpException) {
+						// HTTP 404's denote that the file may have been moved on another
+						// storage service node.
+						if (e.code == 404) {
+							// Check if more link variants are available, either try opening
+							// the next variant or give up by fall-through and throwing.
+							if (url != fileLink.urls().last()) {
+								continue
+							}
 						}
-					}
-					break
-				} catch (e: APIHttpException) {
-					if (e.code == 410/* Gone */) {
-						// The link to the file's content has expired or became otherwise invalid
-						// due to a network switch, signalled with a `410 - Gone` HTTP error code.
-						//
-						// Content links have a very limited lifetime and apart form the time expiration
-						// they are restricted to be used only from the IP that was used when making the
-						// API call for generating them.
-						//
-						// The IP-switching limitation can be hit quite easily on mobile devices with multiple
-						// sources of connectivity (mobile/wifi/...) where the system will follow
-						// a strategy that aims to use the fastest and cheapest (non-metered) network
-						// present at the moment.
 
-						// Purge cached connections from OkHttp to potentially avoid any
-						// new IP-switch issues where the opened connections of the previously-active network
-						// have not yet been terminated by the systems network manager.
-						//
-						// For more insight and details on the network change behavior on Android, see:
-						// https://developer.android.com/training/basics/network-ops/reading-network-state
-						apiClient.connectionPool().evictAll()
-
-						// Attempt to generate a new link (with a backoff delay) on the new network
-						// or give up if the maximum attempt count has been reached.
-						if (attempts < MaxContentLinkDownloadAttempts) {
-							val nextSleepPeriodMs = ((attempts - 1f).pow(2f)
-									* ContentLinkDownloadAttemptDelayStepMs).toLong()
-							Thread.sleep(nextSleepPeriodMs)
-							continue
-						} else throw e
+						throw e
 					}
 				}
+			} catch (e: APIHttpException) {
+				if (e.code == 410/* Gone */) {
+					// The link to the file's content has expired or became otherwise invalid
+					// due to a network switch, signalled with a `410 - Gone` HTTP error code.
+					//
+					// Content links have a very limited lifetime and apart form the time expiration
+					// they are restricted to be used only from the IP that was used when making the
+					// API call for generating them.
+					//
+					// The IP-switching limitation can be hit quite easily on mobile devices with multiple
+					// sources of connectivity (mobile/wifi/...) where the system will follow
+					// a strategy that aims to use the fastest and cheapest (non-metered) network
+					// present at the moment.
+
+					// Purge cached connections from OkHttp to potentially avoid any
+					// new IP-switch issues where the opened connections of the previously-active network
+					// have not yet been terminated by the systems network manager.
+					//
+					// For more insight and details on the network change behavior on Android, see:
+					// https://developer.android.com/training/basics/network-ops/reading-network-state
+					apiClient.connectionPool().evictAll()
+
+					// Attempt to generate a new link (with a backoff delay) on the new network
+					// or if the maximum attempt count has been reached give up by
+					// falling-through and throwing.
+					if (attempts < MaxContentLinkDownloadAttempts) {
+						val nextSleepPeriodMs = ((attempts - 1f).pow(2f)
+								* ContentLinkDownloadAttemptDelayStepMs).toLong()
+						Thread.sleep(nextSleepPeriodMs)
+						continue
+					}
+				}
+				throw e
 			}
-		} catch (ex: ApiError) {
-			handleApiError(ex, file.name)
 		}
 	}
 
