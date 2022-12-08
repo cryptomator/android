@@ -71,7 +71,7 @@
 	<string name="screen_file_browser_create_new_vault_button_text">存放在此</string>
 	<string name="screen_file_browser_create_new_vault_extra_text">加密庫名稱：%1$s</string>
 	<plurals name="screen_file_browser_subtitle_move">
-		<item quantity="other">移動 %2$d 至</item>
+		<item quantity="other">移動 %2$d 個項目至</item>
 	</plurals>
 	<string name="screen_file_browser_move_button_text">移動</string>
 	<string name="screen_file_browser_msg_empty_folder">無檔案</string>
@@ -94,7 +94,7 @@
 	<string name="screen_file_browser_node_action_edit_text">編輯</string>
 	<string name="screen_file_browser_node_action_export">匯出</string>
 	<string name="screen_file_browser_node_action_delete">刪除</string>
-	<string name="screen_file_browser_node_action_open_with_text">以……打開</string>
+	<string name="screen_file_browser_node_action_open_with_text">使用 &#8230; 開啟</string>
 	<string name="screen_file_browser_selection_mode_title_zero_elements">選擇項目</string>
 	<string name="screen_file_browser_selection_mode_title_one_or_more_elements">已選取 %1$d 個項目</string>
 	<string name="screen_file_browser_select_items">選擇</string>
@@ -134,7 +134,7 @@
 	<string name="screen_s3_settings_access_key_label">存取金鑰（Access Key）</string>
 	<string name="screen_s3_settings_secret_key_label">私密存取金鑰（Secret Key）</string>
 	<string name="screen_s3_settings_bucket_label">現有儲存槽（Bucket）</string>
-	<string name="screen_s3_settings_endpoint_label">終端節點(Endpoint)</string>
+	<string name="screen_s3_settings_endpoint_label">終端節點（Endpoint）</string>
 	<string name="screen_s3_settings_region_label">地域（Region）</string>
 	<string name="screen_s3_settings_msg_display_name_not_empty">顯示名稱不可為空</string>
 	<string name="screen_s3_settings_msg_access_key_not_empty">存取金鑰（Access Key）不可為空</string>
