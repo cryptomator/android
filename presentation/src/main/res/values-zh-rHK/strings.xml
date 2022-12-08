@@ -14,7 +14,7 @@
 	<string name="error_vault_already_exists">加密庫已經存在。</string>
 	<string name="error_no_such_file">檔案不存在。</string>
 	<string name="error_vault_has_been_locked">加密庫已鎖定。</string>
-	<string name="error_cloud_already_exists">雲端硬碟已經存在。</string>
+	<string name="error_cloud_already_exists">已登入該雲端硬碟帳號，雲端硬碟已存在。</string>
 	<string name="error_activity_not_found">請下載相關應用程式來打開這個檔案。</string>
 	<string name="error_server_not_found">找不到伺服器。</string>
 	<string name="error_device_policy_manager_not_found">請打開你的裝置設定，再手動設定螢幕鎖定</string>
@@ -22,17 +22,17 @@
 	<string name="error_name_contains_invalid_characters">不能含有特殊字元。</string>
 	<string name="error_names_contains_invalid_characters">檔案名稱不能含有特殊字元。</string>
 	<string name="error_vault_name_contains_invalid_characters">加密庫的名稱不能含有特殊字元。</string>
-	<string name="error_general_update">檢查更新失敗。發生一般錯誤。</string>
+	<string name="error_general_update">檢查更新失敗。發生一般性錯誤。</string>
 	<string name="error_hash_mismatch_update">更新檢查失敗。計算出的雜湊值與上傳檔案不相符</string>
 	<string name="error_update_no_internet">更新檢查失敗。沒有網絡連接。</string>
 	<string name="error_failed_to_decrypt_webdav_password">不能解密 WebDAV 的密碼，請在設定中重新加入</string>
 	<string name="error_play_services_not_available">尚未安裝 Google Play 服務</string>
-	<string name="error_biometric_auth_aborted">生物識別驗證中止</string>
-	<string name="error_vault_version_mismatch">%1$s 中指定的版本不同於 %2$s</string>
+	<string name="error_biometric_auth_aborted">生物識別驗證失敗</string>
+	<string name="error_vault_version_mismatch">%1$s 中指定的加密庫版本不同於 %2$s</string>
 	<string name="error_vault_key_invalid">%1$s 與 %2$s 不匹配</string>
-	<string name="error_vault_config_loading">載入加密庫設定時發生錯誤</string>
-	<string name="error_file_not_found_after_opening_using_3party">切換回 Cryptomator 後，本地檔案不再存在。期間發生的更改無法傳回雲端。</string>
-	<string name="error_no_such_bucket">沒有指定的儲存槽</string>
+	<string name="error_vault_config_loading">載入加密庫設定時發生一般性錯誤</string>
+	<string name="error_file_not_found_after_opening_using_3party">切換回 Cryptomator 後，本地檔案消失無法找到。期間發生的更改無法傳送回雲端。</string>
+	<string name="error_no_such_bucket">沒有指定的儲存槽(bucket)</string>
 	<string name="error_masterkey_location_not_supported">尚未支援自訂主金鑰位置</string>
 	<string name="error_interact_with_fdroid_but_fdroid_missing">無法連結到 F-Droid，是否未安裝 F-Droid?</string>
 	<!-- # clouds -->
@@ -68,7 +68,7 @@
 	<!-- # screen: file browser -->
 	<string name="screen_file_browser_default_title">加密庫</string>
 	<string name="screen_file_browser_add_existing_vault_extra_text">選擇主金鑰檔案</string>
-	<string name="screen_file_browser_create_new_vault_button_text">放在此</string>
+	<string name="screen_file_browser_create_new_vault_button_text">存放在此</string>
 	<string name="screen_file_browser_create_new_vault_extra_text">加密庫名稱：%1$s</string>
 	<plurals name="screen_file_browser_subtitle_move">
 		<item quantity="other">移動 %2$d 至</item>
@@ -134,7 +134,7 @@
 	<string name="screen_s3_settings_access_key_label">存取金鑰（Access Key）</string>
 	<string name="screen_s3_settings_secret_key_label">私密存取金鑰（Secret Key）</string>
 	<string name="screen_s3_settings_bucket_label">現有儲存槽（Bucket）</string>
-	<string name="screen_s3_settings_endpoint_label">終端節點（Endpoint）</string>
+	<string name="screen_s3_settings_endpoint_label">終端節點(Endpoint)</string>
 	<string name="screen_s3_settings_region_label">地域（Region）</string>
 	<string name="screen_s3_settings_msg_display_name_not_empty">顯示名稱不可為空</string>
 	<string name="screen_s3_settings_msg_access_key_not_empty">存取金鑰（Access Key）不可為空</string>
@@ -386,7 +386,7 @@
 	<string name="notification_auto_upload_finished_title">相片自動上傳已完成</string>
 	<string name="notification_auto_upload_finished_message">已將 %1$d 張相片上載至加密庫</string>
 	<string name="notification_auto_upload_failed_title">相片自動上傳失敗</string>
-	<string name="notification_auto_upload_failed_general_error">上傳期間發生錯誤。</string>
+	<string name="notification_auto_upload_failed_general_error">上傳期間發生一般性錯誤。</string>
 	<string name="notification_auto_upload_failed_due_to_folder_not_exists">已選擇的資料夾無法使用，請在設定重新選擇。</string>
 	<string name="notification_auto_upload_failed_due_to_vault_locked">加密庫在上載期間鎖定，請解鎖加密庫以繼續上載。</string>
 	<string name="notification_auto_upload_failed_due_to_vault_not_found">指定自動上傳的加密庫已不存在。</string>
