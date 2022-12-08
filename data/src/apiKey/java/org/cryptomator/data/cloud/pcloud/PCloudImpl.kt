@@ -285,27 +285,27 @@ internal class PCloudImpl(context: Context, cloud: PCloud) {
 		}
 	}
 
-	private fun readFile(filePath : String, sink: DataSink, listener : ProgressListener) {
+	private fun readFile(filePath: String, sink: DataSink, listener: ProgressListener) {
 		var attempts = 0
 		while (++attempts <= MaxContentLinkDownloadAttempts) {
 			val fileLink = apiClient.createFileLink(filePath, DownloadOptions.DEFAULT).execute()
 			try {
 				// Attempt to download the link's content, starting with the best link variant.
-				for (url in fileLink.urls()) {
+				fileLink.urls().forEach { url ->
 					try {
-						fileLink.download(url, sink, listener)
-					} catch (e : APIHttpException) {
+						return fileLink.download(url, sink, listener)
+					} catch (e: APIHttpException) {
 						// HTTP 404's denote that the file may have been moved on another
 						// storage service node.
-						if (e.code == 404) {
-							// Check if more link variants are available, either try opening
-							// the next variant or give up by fall-through and throwing.
-							if (url != fileLink.urls().last()) {
-								continue
-							}
-						}
 
-						throw e
+						// Check if more link variants are available,
+						// either continue trying to open the next variant
+						// or give up by throwing the latest error.
+						if (e.code != 404 /* Not Found */ ||
+							url == fileLink.urls().last()
+						) {
+							throw e
+						}
 					}
 				}
 			} catch (e: APIHttpException) {
