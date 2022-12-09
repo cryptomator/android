@@ -32,7 +32,7 @@
 	<string name="error_vault_key_invalid">%1$s 與 %2$s 不匹配</string>
 	<string name="error_vault_config_loading">載入加密庫設定時發生一般性錯誤</string>
 	<string name="error_file_not_found_after_opening_using_3party">切換回 Cryptomator 後，本地檔案消失無法找到。期間發生的更改無法傳送回雲端。</string>
-	<string name="error_no_such_bucket">沒有指定的儲存槽(bucket)</string>
+	<string name="error_no_such_bucket">沒有指定的儲存槽（bucket）</string>
 	<string name="error_masterkey_location_not_supported">尚未支援自訂主金鑰位置</string>
 	<string name="error_interact_with_fdroid_but_fdroid_missing">無法連結到 F-Droid，是否未安裝 F-Droid?</string>
 	<!-- # clouds -->
@@ -105,7 +105,7 @@
 	<!-- ## screen: text editor -->
 	<string name="screen_text_editor_save_success">成功儲存</string>
 	<!-- ## screen: share files -->
-	<string name="screen_share_files_title">儲存 %1$s 至…</string>
+	<string name="screen_share_files_title">儲存 %1$s 至 &#8230;</string>
 	<string name="screen_share_files_content_text">文字</string>
 	<string name="screen_share_files_content_file">檔案</string>
 	<string name="screen_share_files_content_files">檔案</string>
