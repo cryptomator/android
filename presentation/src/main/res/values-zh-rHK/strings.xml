@@ -256,7 +256,7 @@
 	<string name="dialog_unable_to_share_positive_button">確認</string>
 	<string name="dialog_unable_to_share_negative_button">建立加密庫</string>
 	<string name="dialog_filetype_not_supported_title">不能打開 %1$s</string>
-	<string name="dialog_filetype_not_supported_message">請下載一個可以打開此文件的應用程序。或者你想保存到你的設備嗎？</string>
+	<string name="dialog_filetype_not_supported_message">請下載安裝可以打開此文件的應用程序。或者你想保存此文件到你的設備嗎？</string>
 	<string name="dialog_rename_vault_title">重新命名加密庫</string>
 	<string name="dialog_rename_node_folder_title">重新命名資料夾</string>
 	<string name="dialog_rename_node_file_title">重新命名檔案</string>
