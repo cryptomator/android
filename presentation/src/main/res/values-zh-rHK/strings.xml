@@ -272,10 +272,10 @@
 	<string name="dialog_export_file_title">匯出中（%1$d / %2$d ）</string>
 	<string name="dialog_progress_please_wait">請稍候…</string>
 	<string name="dialog_progress_creating_folder">正建立資料夾…</string>
-	<string name="dialog_progress_creating_text_file">正建立文字檔案…</string>
-	<string name="action_progress_authentication">驗證中…</string>
-	<string name="action_progress_renaming">重新命名中…</string>
-	<string name="action_progress_deleting">刪除中…</string>
+	<string name="dialog_progress_creating_text_file">正建立文字檔案&#8230;</string>
+	<string name="action_progress_authentication">正在驗證&#8230;</string>
+	<string name="action_progress_renaming">重新命名&#8230; 中</string>
+	<string name="action_progress_deleting">正在刪除&#8230;</string>
 	<string name="dialog_progress_unlocking_vault">正在解鎖 &#8230; 加密庫</string>
 	<string name="dialog_progress_change_password">更改密碼中…</string>
 	<string name="dialog_progress_creating_vault">建立 &#8230; 加密庫中…</string>
@@ -313,7 +313,7 @@
 	<string name="dialog_vaults_removed_during_migration_hint">更新到此應用程式版本時，需要從程式移除以下加密庫。\n%2s\n\n這些加密檔案庫不會從雲端刪除，而只是從這程式中移除。很抱歉給您帶來不便，請重新加入這些加密庫以繼續使用。</string>
 	<string name="dialog_vault_is_root_folder_of_cloud_title">加密庫是雲端連接的原始資料夾（根目錄）</string>
 	<string name="dialog_vault_is_root_folder_of_cloud_hint">若要加入此加密庫，請先建立新的雲端連接、並選擇此加密庫資料夾的上一層作為根文件夾。</string>
-	<string name="dialog_disable_secure_screen_disclaimer_hint">此設定是一項安全功能，可防止其他應用程式誤導用戶錯誤地操作。\n\n如果停用這項功能，請確定你已經了解<a href="https://docs.cryptomator.org/en/1.6/android/settings/#screen-security">風險</a>。</string>
+	<string name="dialog_disable_secure_screen_disclaimer_hint">此設定是一項安全功能，可防止其他應用程式誤導用戶，導致錯誤操作。\n\n如果停用這項功能，請確定你已經了解<a href="https://docs.cryptomator.org/en/1.6/android/settings/#screen-security">風險</a>。</string>
 	<string name="dialog_delete_cloud_connection_with_vaults_message">確定要取消此雲端連結嗎？</string>
 	<string name="dialog_delete_cloud_connection_with_vaults_hint">此操作將取消所有雲端連接、並刪除該雲端的加密庫。</string>
 	<string name="dialog_confirm_delete_multiple_title">是否刪除 %1$d 個項目？</string>
@@ -325,7 +325,7 @@
 	<string name="dialog_enter_license_title">提供有效的授權</string>
 	<string name="dialog_enter_license_content">我們檢測到你沒有使用 Google Play 商店安裝 Cryptomator。請提供一個有效的授權，授權可以從<a href="https://cryptomator.org/android/">https://cryptomator.org/android/</a>購買</string>
 	<string name="dialog_enter_license_not_valid_content">提供的授權無效。請確認輸入無誤。</string>
-	<string name="dialog_enter_license_not_valid_content_desktop_supporter_certificate">所提供的授權是桌面上的贊助憑證。請輸入有效的授權。</string>
+	<string name="dialog_enter_license_not_valid_content_desktop_supporter_certificate">所提供的授權是桌面版上的贊助憑證。請輸入有效的授權。</string>
 	<string name="dialog_enter_license_no_content">未提供授權。請輸入一個有效的授權。</string>
 	<string name="dialog_enter_license_decline_button">退出</string>
 	<string name="dialog_license_confirmation_title">授權確認</string>
