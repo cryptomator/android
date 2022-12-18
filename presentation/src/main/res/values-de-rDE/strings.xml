@@ -290,7 +290,7 @@
 	<string name="dialog_accept_ssl_certificate_hint">Das SSL-Zertifikat ist ungültig. Möchtest du ihm trotzdem vertrauen?</string>
 	<string name="dialog_accept_ssl_certificate_details">Details</string>
 	<string name="dialog_accept_ssl_certificate_security_checkbox">Dies könnte ein Sicherheitsrisiko sein. Ich weiß was ich tue.</string>
-	<string name="dialog_ask_ignore_battery_optimizations_title">Akkuoptimierung deaktivieren</string>
+	<string name="dialog_ask_ignore_battery_optimizations_title">Akkuoptimierungen deaktivieren</string>
 	<string name="dialog_ask_ignore_battery_optimizations_hint">Um neue Bilder und Videos abzurufen, ohne im Hintergrund zu laufen, müssen wir die Batterieoptimierung deaktivieren. Aber keine Sorge, %1$s verbraucht nicht viel Energie.\n\nUm diese Einstellung anzuwenden, ändere \'Nicht optimiert\' auf \'Alle Apps\', wähle %1$s und wähle \"Nicht optimieren\" nach Klick auf \'%2$s\' in diesem Dialog.</string>
 	<string name="dialog_ask_ignore_battery_optimizations_checkbox">Nicht erneut fragen?</string>
 	<string name="dialog_http_security_hint">Die Verwendung von HTTP ist unsicher. Wir empfehlen stattdessen die Verwendung von HTTPS. Wenn du dir der Risiken bewusst bist, kannst du mit HTTP fortfahren.</string>
