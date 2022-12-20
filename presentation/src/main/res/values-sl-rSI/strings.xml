@@ -1,7 +1,34 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 	<!-- # app -->
+	<string name="share_with_label">Šifrirano</string>
 	<!-- # error messages -->
+	<string name="error_generic">Prišlo je do napake</string>
+	<string name="error_authentication_failed">Preverjanje pristnosti ni uspelo</string>
+	<string name="error_authentication_failed_re_authenticate">Preverjanje pristnosti ni uspelo, prosim prijavite se s pomočjo %1$s</string>
+	<string name="error_no_network_connection">Ni omrežne povezave</string>
+	<string name="error_invalid_passphrase">Napačno geslo</string>
+	<string name="error_file_or_folder_exists">Datoteka ali mapa že obstaja.</string>
+	<string name="error_vault_version_not_supported">Trezorji verzije %1$s niso podprti. Ta trezor je bil izdelan s starejšo ali novejšo verzijo Cryptomator-ja.</string>
+	<string name="error_vault_config_file_missing_due_to_format_999">Datoteka %1$s manjka v vašem trezorju. Poskrbite, da ta datoteka obstaja v trezorju v oblaku.</string>
+	<string name="error_vault_already_exists">Ta trezor že obstaja.</string>
+	<string name="error_no_such_file">Ta datoteka ne obstaja.</string>
+	<string name="error_vault_has_been_locked">Ta trezor je bil zaklenjen.</string>
+	<string name="error_cloud_already_exists">Ta povezava na oblačno storitev že obstaja.</string>
+	<string name="error_activity_not_found">Prosim naložite aplikacijo, ki lahko odpre to datoteko.</string>
+	<string name="error_server_not_found">Strežnika ni mogoče najti.</string>
+	<string name="error_device_policy_manager_not_found">Prosimo odprite nastavitve vaše naprave in nastavite ročno zaklepanje zaslona</string>
+	<string name="error_export_illegal_file_name">Izvoz ni bil uspešen. Odstranite posebne znake iz imen datotek in poskusite znova.</string>
+	<string name="error_name_contains_invalid_characters">Imena ne smejo vsebovati posebnih znakov.</string>
+	<string name="error_names_contains_invalid_characters">Imena datotek ne smejo vsebovati posebnih znakov.</string>
+	<string name="error_vault_name_contains_invalid_characters">Ime trezorja ne sme vsebovati posebnih znakov.</string>
+	<string name="error_general_update">Preverjanje posodobitve ni uspelo. Prišlo je do splošne napake.</string>
+	<string name="error_hash_mismatch_update">Preverjanje posodobitve ni bilo uspešno. Izračunana zgoščena vrednost se ne ujema z naloženo datoteko</string>
+	<string name="error_update_no_internet">Preverjanje posodobitve ni bilo uspešno. Internet ni dostopen.</string>
+	<string name="error_failed_to_decrypt_webdav_password">Dešifriranje WebDAV gesla ni uspelo, prosimo ponovno ga dodajte v nastavitvah</string>
+	<string name="error_play_services_not_available">Storitev Google Play ni naložena</string>
+	<string name="error_biometric_auth_aborted">Biometrična overitev je bila preklicana</string>
+	<string name="error_vault_version_mismatch">Verzija navedena v %1$s je drugačna od verzije v %2$s</string>
 	<!-- # clouds -->
 	<!-- ## cloud names -->
 	<!-- # permission -->
