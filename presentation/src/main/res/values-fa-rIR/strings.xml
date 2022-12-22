@@ -1,7 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 	<!-- # app -->
+	<string name="share_with_label">رمزگذاری</string>
 	<!-- # error messages -->
+	<string name="error_generic">خطایی رخ داد</string>
+	<string name="error_authentication_failed">احراز هویت ناموفق بود</string>
+	<string name="error_authentication_failed_re_authenticate">احراز هویت ناموفق بود، لطفا با استفاده از %1$s وارد شوید</string>
+	<string name="error_no_network_connection">اتصال به شبکه‌ وجود ندارد</string>
+	<string name="error_invalid_passphrase">رمز عبور اشتباه است</string>
 	<!-- # clouds -->
 	<!-- ## cloud names -->
 	<!-- # permission -->
