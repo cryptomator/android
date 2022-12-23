@@ -8,6 +8,30 @@
 	<string name="error_authentication_failed_re_authenticate">احراز هویت ناموفق بود، لطفا با استفاده از %1$s وارد شوید</string>
 	<string name="error_no_network_connection">اتصال به شبکه‌ وجود ندارد</string>
 	<string name="error_invalid_passphrase">رمز عبور اشتباه است</string>
+	<string name="error_file_or_folder_exists">این فایل یا پوشه از قبل وجود دارد.</string>
+	<string name="error_vault_version_not_supported">نسخه Vault %1$s پشتیبانی نمی‌شود. این Vault با نسخه قدیمی تر یا جدیدتر کریپتوماتور ایجاد شده است.</string>
+	<string name="error_vault_config_file_missing_due_to_format_999">فایل %1$s در پوشه خزانه شما وجود ندارد. مطمئن شوید که این فایل در پوشه خزانه شما در فضای ابری وجود دارد.</string>
+	<string name="error_vault_already_exists">این خزانه از قبل وجود دارد.</string>
+	<string name="error_no_such_file">فایل وجود ندارد.</string>
+	<string name="error_vault_has_been_locked">خرانه قفل شده است.</string>
+	<string name="error_cloud_already_exists">اتصال با این حساب از قبل وجود دارد برای این ارائه دهنده ابری.</string>
+	<string name="error_activity_not_found">لطفاً برنامه ای را دانلود کنید که بتواند این فایل را باز کند.</string>
+	<string name="error_server_not_found">سرور یافت نشد.</string>
+	<string name="error_device_policy_manager_not_found">لطفاً تنظیمات دستگاه خود را باز کنید و قفل صفحه را با دست تنظیم کنید</string>
+	<string name="error_export_illegal_file_name">فایل صادر نشد. سعی کنید نویسه های خاص را از نام فایل ها حذف کنید و دوباره صادر کنید.</string>
+	<string name="error_name_contains_invalid_characters">نمی تواند شامل نویسه های خاص باشد.</string>
+	<string name="error_names_contains_invalid_characters">نام فایل نمی تواند شامل نویسه های خاص باشد.</string>
+	<string name="error_vault_name_contains_invalid_characters">نام Vault نمی تواند شامل نویسه های خاص باشد.</string>
+	<string name="error_general_update">بررسی از روز رسانی ناموفق بود. خطای عمومی رخ داده است.</string>
+	<string name="error_hash_mismatch_update">بررسی از روز رسانی ناموفق بود. هش محاسبه شده با فایل آپلود شده مطابقت ندارد</string>
+	<string name="error_update_no_internet">بررسی از روز رسانی ناموفق بود. اتصال به اینترنت وجود ندارد.</string>
+	<string name="error_failed_to_decrypt_webdav_password">رمز عبور WebDAV رمزگشایی نشد، لطفاً دوباره در تنظیمات آن را اضافه کنید</string>
+	<string name="error_play_services_not_available">خدمات Google Play نصب نشده است</string>
+	<string name="error_biometric_auth_aborted">احراز هویت بیومتریک لغو شد</string>
+	<string name="error_vault_version_mismatch">نسخه مشخص شده در %1$s با %2$s متفاوت است</string>
+	<string name="error_vault_key_invalid">%1$s با این %2$s مطابقت ندارد</string>
+	<string name="error_vault_config_loading">خطای عمومی در هنگام بارگذاری پیکربندی خزانه</string>
+	<string name="error_file_not_found_after_opening_using_3party">پس از بازگشت به کریپتوماتور، فایل محلی دیگر وجود ندارد. تغییرات ممکن را نمی توان به ابر تکثیر کرد.</string>
 	<!-- # clouds -->
 	<!-- ## cloud names -->
 	<!-- # permission -->
