@@ -40,19 +40,35 @@
 	<string name="cloud_names_local_storage">ذخیره‌سازی محلی</string>
 	<!-- # permission -->
 	<!-- ## permission messages -->
+	<string name="snack_bar_action_title_settings">تنظیمات</string>
+	<string name="snack_bar_action_title_search">جستجو</string>
+	<string name="snack_bar_action_title_search_previous">پیشین</string>
 	<string name="snack_bar_action_title_search_next">بعدی</string>
+	<string name="snack_bar_action_title_sort">بر حسب:</string>
+	<string name="snack_bar_action_title_sort_az">A تا Z</string>
+	<string name="snack_bar_action_title_sort_za">Z تا A</string>
+	<string name="snack_bar_action_title_sort_newest">ابتدا جدیدترین</string>
+	<string name="snack_bar_action_title_sort_oldest">ابتدا قدیمی‌ترین</string>
+	<string name="snack_bar_action_title_sort_biggest">ابتدا بزرگترین</string>
+	<string name="snack_bar_action_title_sort_smallest">ابتدا کوچک‌ترین</string>
+	<string name="snack_bar_cryptomator_variants_title">ادامه مطلب</string>
+	<string name="snack_bar_cryptomator_variants_hint">ابر در لیست نیست؟</string>
 	<!-- # screens -->
 	<!-- # screen: vault list -->
 	<!-- # screen: file browser -->
 	<!-- ## screen: text editor -->
 	<!-- ## screen: share files -->
+	<string name="screen_share_files_save_button_text">ذخیره</string>
+	<string name="screen_share_files_msg_success">رمزگذاری کامل شد</string>
 	<!-- ## screen: choose cloud service -->
+	<string name="screen_choose_cloud_service_title">خدمات ابری</string>
 	<!-- ## screen: cloud connections -->
 	<!-- ## screen: webdav settings -->
 	<!-- ## screen: s3 settings -->
 	<!-- ## screen: enter vault name -->
 	<!-- ## screen: set password -->
 	<!-- ## screen: settings -->
+	<string name="screen_settings_section_search">جستجو</string>
 	<!-- ## screen: cloud settings -->
 	<!-- ## screen: licenses -->
 	<!-- ## screen: authenticate cloud -->
