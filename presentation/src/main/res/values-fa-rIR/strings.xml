@@ -9,11 +9,11 @@
 	<string name="error_no_network_connection">اتصال به شبکه‌ وجود ندارد</string>
 	<string name="error_invalid_passphrase">رمز عبور اشتباه است</string>
 	<string name="error_file_or_folder_exists">این فایل یا پوشه از قبل وجود دارد.</string>
-	<string name="error_vault_version_not_supported">نسخه Vault %1$s پشتیبانی نمی‌شود. این Vault با نسخه قدیمی تر یا جدیدتر کریپتوماتور ایجاد شده است.</string>
+	<string name="error_vault_version_not_supported">نسخه %1$s گاوصندوق پشتیبانی نمی‌شود. این گاوصندوق با نسخه قدیمی تر یا جدیدتر کریپتوماتور ایجاد شده است.</string>
 	<string name="error_vault_config_file_missing_due_to_format_999">فایل %1$s در پوشه خزانه شما وجود ندارد. مطمئن شوید که این فایل در پوشه خزانه شما در فضای ابری وجود دارد.</string>
-	<string name="error_vault_already_exists">این خزانه از قبل وجود دارد.</string>
+	<string name="error_vault_already_exists">این گاوصندوق از قبل وجود دارد.</string>
 	<string name="error_no_such_file">فایل وجود ندارد.</string>
-	<string name="error_vault_has_been_locked">خرانه قفل شده است.</string>
+	<string name="error_vault_has_been_locked">گاوصندوق قفل شده است.</string>
 	<string name="error_cloud_already_exists">اتصال با این حساب از قبل وجود دارد برای این ارائه دهنده ابری.</string>
 	<string name="error_activity_not_found">لطفاً برنامه ای را دانلود کنید که بتواند این فایل را باز کند.</string>
 	<string name="error_server_not_found">سرور یافت نشد.</string>
@@ -21,7 +21,7 @@
 	<string name="error_export_illegal_file_name">فایل صادر نشد. سعی کنید نویسه های خاص را از نام فایل ها حذف کنید و دوباره صادر کنید.</string>
 	<string name="error_name_contains_invalid_characters">نمی تواند شامل نویسه های خاص باشد.</string>
 	<string name="error_names_contains_invalid_characters">نام فایل نمی تواند شامل نویسه های خاص باشد.</string>
-	<string name="error_vault_name_contains_invalid_characters">نام Vault نمی تواند شامل نویسه های خاص باشد.</string>
+	<string name="error_vault_name_contains_invalid_characters">نام گاوصندوق نمی تواند شامل نویسه های خاص باشد.</string>
 	<string name="error_general_update">بررسی از روز رسانی ناموفق بود. خطای عمومی رخ داده است.</string>
 	<string name="error_hash_mismatch_update">بررسی از روز رسانی ناموفق بود. هش محاسبه شده با فایل آپلود شده مطابقت ندارد</string>
 	<string name="error_update_no_internet">بررسی از روز رسانی ناموفق بود. اتصال به اینترنت وجود ندارد.</string>
@@ -37,7 +37,7 @@
 	<string name="error_interact_with_fdroid_but_fdroid_missing">برقراری ارتباط با برنامه F-Droid انجام نشد. نصب نشده؟</string>
 	<!-- # clouds -->
 	<!-- ## cloud names -->
-	<string name="cloud_names_local_storage">ذخیره‌سازی محلی</string>
+	<string name="cloud_names_local_storage">ذخیره‌ محلی</string>
 	<!-- # permission -->
 	<!-- ## permission messages -->
 	<string name="snack_bar_action_title_settings">تنظیمات</string>
@@ -56,6 +56,7 @@
 	<!-- # screens -->
 	<!-- # screen: vault list -->
 	<!-- # screen: file browser -->
+	<string name="screen_file_browser_default_title">گاوصندوق</string>
 	<!-- ## screen: text editor -->
 	<!-- ## screen: share files -->
 	<string name="screen_share_files_save_button_text">ذخیره</string>
@@ -66,14 +67,22 @@
 	<string name="screen_cloud_connections_title">محل را انتخاب کنید</string>
 	<string name="screen_cloud_connections_no_connections">برای افزودن مکان‌ها، اینجا ضربه بزنید</string>
 	<string name="screen_cloud_error_webdav_not_supported">به نظر نمی رسد سرور با WebDAV سازگار باشد</string>
+	<string name="screen_cloud_local_error_no_content_provider">هیچ مدیر فایلی یافت نشد که از باز کردن دایرکتوری ها پشتیبانی کند</string>
 	<!-- ## screen: webdav settings -->
 	<string name="screen_webdav_settings_url_port_label">آدرس اینترنتی</string>
 	<string name="screen_webdav_settings_username_label">نام کاربری</string>
 	<string name="screen_webdav_settings_password_label">رمز عبور</string>
 	<string name="screen_webdav_settings_done_button_text">متصل شوید</string>
+	<string name="screen_webdav_settings_msg_url_must_not_be_empty">آدرس نمی‌تواند خالی باشد</string>
+	<string name="screen_webdav_settings_msg_url_is_invalid">نشانی نامعتبر است.</string>
+	<string name="screen_webdav_settings_msg_username_must_not_be_empty">نام کاربری نمی‌تواند خالی باشد.</string>
+	<string name="screen_webdav_settings_msg_password_must_not_be_empty">رمزعبور نمی‌تواند خالی باشد.</string>
 	<!-- ## screen: s3 settings -->
+	<string name="screen_s3_settings_access_key_label">کلید دسترسی</string>
+	<string name="screen_s3_settings_secret_key_label">کلید مخفی</string>
 	<!-- ## screen: enter vault name -->
 	<!-- ## screen: set password -->
+	<string name="screen_set_password_button_text">انجام شده</string>
 	<!-- ## screen: settings -->
 	<string name="screen_settings_section_search">جستجو</string>
 	<!-- ## screen: cloud settings -->
@@ -81,9 +90,11 @@
 	<!-- ## screen: authenticate cloud -->
 	<!-- ## screen: cryptomator app variants -->
 	<!-- # dialogs -->
+	<string name="dialog_button_cancel">انصراف</string>
 	<string name="dialog_enter_password_positive_button">بازکردن قفل</string>
 	<!-- Vault not found -->
 	<string name="dialog_lock_vault">قفل</string>
+	<string name="dialog_app_is_obscured_info_neutral_button">ببند</string>
 	<string name="dialog_sym_link_back_button">بازگشت</string>
 	<!-- # error reports -->
 	<!-- # misc -->
