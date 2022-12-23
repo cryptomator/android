@@ -63,7 +63,14 @@
 	<!-- ## screen: choose cloud service -->
 	<string name="screen_choose_cloud_service_title">خدمات ابری</string>
 	<!-- ## screen: cloud connections -->
+	<string name="screen_cloud_connections_title">محل را انتخاب کنید</string>
+	<string name="screen_cloud_connections_no_connections">برای افزودن مکان‌ها، اینجا ضربه بزنید</string>
+	<string name="screen_cloud_error_webdav_not_supported">به نظر نمی رسد سرور با WebDAV سازگار باشد</string>
 	<!-- ## screen: webdav settings -->
+	<string name="screen_webdav_settings_url_port_label">آدرس اینترنتی</string>
+	<string name="screen_webdav_settings_username_label">نام کاربری</string>
+	<string name="screen_webdav_settings_password_label">رمز عبور</string>
+	<string name="screen_webdav_settings_done_button_text">متصل شوید</string>
 	<!-- ## screen: s3 settings -->
 	<!-- ## screen: enter vault name -->
 	<!-- ## screen: set password -->
