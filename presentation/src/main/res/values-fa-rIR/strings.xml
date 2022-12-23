@@ -34,8 +34,10 @@
 	<string name="error_file_not_found_after_opening_using_3party">پس از بازگشت به کریپتوماتور، فایل محلی دیگر وجود ندارد. تغییرات ممکن را نمی توان به ابر تکثیر کرد.</string>
 	<string name="error_no_such_bucket">چنین پارامتری وجود ندارد</string>
 	<string name="error_masterkey_location_not_supported">مکان سفارشی شاه کلید هنوز پشتیبانی نمی شود</string>
+	<string name="error_interact_with_fdroid_but_fdroid_missing">برقراری ارتباط با برنامه F-Droid انجام نشد. نصب نشده؟</string>
 	<!-- # clouds -->
 	<!-- ## cloud names -->
+	<string name="cloud_names_local_storage">ذخیره‌سازی محلی</string>
 	<!-- # permission -->
 	<!-- ## permission messages -->
 	<string name="snack_bar_action_title_search_next">بعدی</string>
