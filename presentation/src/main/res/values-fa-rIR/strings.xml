@@ -32,6 +32,8 @@
 	<string name="error_vault_key_invalid">%1$s با این %2$s مطابقت ندارد</string>
 	<string name="error_vault_config_loading">خطای عمومی در هنگام بارگذاری پیکربندی خزانه</string>
 	<string name="error_file_not_found_after_opening_using_3party">پس از بازگشت به کریپتوماتور، فایل محلی دیگر وجود ندارد. تغییرات ممکن را نمی توان به ابر تکثیر کرد.</string>
+	<string name="error_no_such_bucket">چنین پارامتری وجود ندارد</string>
+	<string name="error_masterkey_location_not_supported">مکان سفارشی شاه کلید هنوز پشتیبانی نمی شود</string>
 	<!-- # clouds -->
 	<!-- ## cloud names -->
 	<!-- # permission -->
