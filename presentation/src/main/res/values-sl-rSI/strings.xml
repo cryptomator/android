@@ -143,15 +143,113 @@
 	<string name="screen_enter_vault_name_vault_label">Ime trezorja</string>
 	<string name="screen_enter_vault_name_button_text">Ustvari</string>
 	<!-- ## screen: set password -->
+	<string name="screen_set_password_title">Nastavi geslo</string>
+	<string name="screen_set_password_msg_password_mismatch">Ponovno natipkano geslo se ne ujema.</string>
+	<string name="screen_set_password_button_text">Opravljeno</string>
+	<string name="screen_set_password_hint">POMEMBNO: Če pozabite geslo, ni nobene možnosti za obnovitev vaših podatkov.</string>
+	<string name="screen_set_password_retype_password_label">Ponovno vnesite geslo</string>
+	<string name="screen_set_password_strength_indicator_0">Geslo je preslabo za ustvarjanje trezorja</string>
+	<string name="screen_set_password_strength_indicator_1">Šibko</string>
+	<string name="screen_set_password_strength_indicator_2">Solidno</string>
+	<string name="screen_set_password_strength_indicator_3">Močno</string>
+	<string name="screen_set_password_strength_indicator_4">Zelo močno</string>
 	<!-- ## screen: settings -->
+	<string name="screen_settings_section_general">Splošno</string>
+	<string name="screen_settings_cloud_settings_label">Storitve v oblaku</string>
+	<string name="screen_settings_biometric_auth">Biometrična overitev</string>
+	<string name="screen_settings_activate_biometric_auth">Omogoči biometrično overitev</string>
+	<string name="screen_settings_confirm_face_unlock">Potrdi odklepanje z obrazom (če je na voljo)</string>
+	<string name="screen_settings_block_app_when_obscured">Blokiraj aplikacijo, ko je prekrita</string>
+	<string name="screen_settings_block_app_when_obscured_summary">Blokiraj prestrezanje vnosa in prikaz lažnega uporabniškega vmesnika</string>
+	<string name="screen_settings_secure_screen">Prepreči zajemanje zaslona</string>
+	<string name="screen_settings_secure_screen_summary">Prepreči zajemanje zaslona v seznamu zadnjih aplikacij in znotraj aplikacije</string>
 	<string name="screen_settings_section_search">Iskanje</string>
+	<string name="screen_settings_live_search">Takojšnje iskanje</string>
+	<string name="screen_settings_live_search_summary">Posodabljaj rezultate iskanja med vnosom</string>
+	<string name="screen_settings_glob_search">Išči z uporabo globalnega vzorca</string>
+	<string name="screen_settings_glob_search_summary">Uporabi globalni vzorec za iskanje kot je metka.*.jpg</string>
+	<string name="screen_settings_section_auto_lock">Samodejno zaklepanje</string>
+	<string name="screen_settings_auto_lock_timeout">Zakleni po</string>
+	<string name="screen_settings_auto_lock_on_screen_lock">Ko je ekran onemogočen</string>
+	<string name="screen_settings_section_auto_photo_upload">Samodejno nalaganje fotografij</string>
+	<string name="screen_settings_section_auto_photo_upload_vault">Izberite trezor za nalaganje</string>
+	<string name="screen_settings_section_auto_photo_upload_toggle">Aktiviraj</string>
+	<string name="screen_settings_section_auto_photo_upload_toggle_summary">Shranjuj slike v ozadju in ko bo izbrani trezor odklenjen, začni nalaganje</string>
+	<string name="screen_settings_section_auto_photo_upload_toggle_instant_upload">Takojšnje nalaganje</string>
+	<string name="screen_settings_section_auto_photo_upload_toggle_instant_upload_summary">Če je trezor odklenjen, takoj naloži</string>
+	<string name="screen_settings_section_auto_photo_upload_only_wifi_toggle">Nalagaj samo preko WIFI</string>
+	<string name="screen_settings_section_auto_photo_upload_including_videos">Naloži videe</string>
+	<string name="screen_settings_auto_photo_upload_title">Shrani samodejno naložene datoteko v&#8230;</string>
+	<string name="screen_settings_website_label">Cryptomatorjeva spletna stran</string>
+	<string name="screen_settings_twitter_label">Sledite nam na Twitterju</string>
+	<string name="screen_settings_facebook_label">Všečkaj nas na Facebooku</string>
+	<string name="screen_settings_section_legal">Pravni podatki</string>
+	<string name="screen_settings_licenses_label">Licence</string>
+	<string name="screen_settings_license_terms_label">Licenčni pogoji</string>
+	<string name="screen_settings_section_support">Podpora</string>
+	<string name="screen_settings_contact_label">Zahtevaj pomoč</string>
+	<string name="screen_settings_debug_mode_label">Način razhroščevanja</string>
+	<string name="screen_settings_error_report_label">Pošlji dnevniške datoteke</string>
+	<string name="screen_settings_error_report_failed">Pošiljanje ni uspelo</string>
+	<string name="screen_settings_security_label">Varnostni namigi</string>
+	<string name="screen_settings_section_version">Različica</string>
+	<string name="screen_settings_advanced_settings">Napredne nastavitve</string>
+	<string name="screen_settings_background_unlock_preparation_label">Pospeši odklepanje</string>
+	<string name="screen_settings_background_unlock_preparation_label_summary">Naloži nastavitve trezorja v ozadju medtem ko čakaš na geslo ali biometrično overitev</string>
+	<string name="screen_settings_keep_unlocked_while_editing_files">Pusti odklenjeno</string>
+	<string name="screen_settings_keep_unlocked_while_editing_files_summary">Med urejanjem datotek pusti trezor odklenjen</string>
 	<!-- ## screen: cloud settings -->
+	<string name="screen_cloud_settings_onedrive_connections">Povezave na OneDrive</string>
+	<string name="screen_cloud_settings_webdav_connections">Povezave na WebDAV</string>
+	<string name="screen_cloud_settings_pcloud_connections">Povezave na pCloud</string>
+	<string name="screen_cloud_settings_s3_connections">Povezave na S3</string>
+	<string name="screen_cloud_settings_local_storage_locations">Lokacije v lokalni shrambi</string>
+	<string name="screen_cloud_settings_log_in_to">Prijavi se v</string>
+	<string name="screen_cloud_settings_sign_out_from_cloud">Izpiši se iz</string>
 	<!-- ## screen: licenses -->
 	<!-- ## screen: authenticate cloud -->
+	<string name="screen_authenticate_auth_authentication_failed">%1$s nismo mogli overiti.</string>
+	<string name="screen_update_pcloud_connections_title">Posodobi pCloud prijavne informacije</string>
 	<!-- ## screen: cryptomator app variants -->
+	<string name="screen_cryptomator_variants_title">Različice Cryptomator-ja</string>
+	<string name="screen_cryptomator_variants_lite_title">Glavni F-Droid repozitorij</string>
+	<string name="screen_cryptomator_variants_lite_description">Izločen ker zahteva API ključe.</string>
+	<string name="screen_cryptomator_variants_lite_install">Namesti</string>
+	<string name="screen_cryptomator_variants_fdroid_title">Cryptomator F-Droid repozitorij</string>
+	<string name="screen_cryptomator_variants_fdroid_description">Izključeno, ker vsebuje lastniške odvisnosti.</string>
+	<string name="screen_cryptomator_variants_fdroid_add_repo_hint">Dodaj Cryptomatorjev repozitorij v F-Droid aplikacijo.</string>
+	<string name="screen_cryptomator_variants_fdroid_add_repo">Dodaj</string>
+	<string name="screen_cryptomator_variants_fdroid_install_hint">Namestite Cryptomator s F-Droidom.\nČe se prikaže napaka ni najden, počakajte, da se sinhronizacija F-Droid konča.</string>
+	<string name="screen_cryptomator_variants_website_title">Spletna stran</string>
+	<string name="screen_cryptomator_variants_website_description">Vsebuje lastniške odvisnosti.</string>
+	<string name="screen_cryptomator_variants_installation_hint">Preklop z ali na glavno različico repozitorija F-Droid zahteva novo namestitev aplikacije.</string>
 	<!-- # dialogs -->
+	<string name="dialog_button_cancel">Prekliči</string>
+	<string name="dialog_enter_password_positive_button">Odkleni</string>
+	<string name="dialog_change_password_old_password_label">Staro geslo</string>
+	<string name="dialog_change_password_new_password_label">Novo geslo</string>
+	<string name="dialog_change_password">Spremenite geslo</string>
+	<string name="dialog_change_password_msg_old_password_empty">Staro geslo ne sme biti prazno.</string>
+	<string name="dialog_change_password_msg_new_password_empty">Novo geslo ne sme biti prazno.</string>
+	<string name="dialog_change_password_msg_password_mismatch">Ponovno natipkano geslo se ne ujema.</string>
 	<!-- Vault not found -->
+	<string name="dialog_vault_not_found_title">Trezorja %1$s ne najdem</string>
+	<string name="dialog_vault_not_found_message">Trezor je bil preimenovan, premaknjen ali izbrisan. Za nadaljevanje odstranite ta trezor s seznama in ga znova dodajte. Odstranim zdaj?</string>
 	<string name="dialog_vault_not_found_positive_button_text">Odstrani</string>
+	<string name="dialog_existing_file_title">Datoteka že obstaja</string>
+	<string name="dialog_existing_file_positive_button">Zamenjaj</string>
+	<string name="dialog_existing_file_message">Datoteka \'%1$s\' že obstaja.</string>
+	<string name="dialog_replace_negative_button_at_least_two_but_not_all_files_exist">Preskoči izhod</string>
+	<string name="dialog_replace_positive_button_all_files_exist">Zamenjaj vse</string>
+	<string name="dialog_replace_positive_button_some_files_exist">Zamenjaj obstoječe</string>
+	<string name="dialog_replace_positive_button_single_file_exists">Zamenjaj</string>
+	<string name="dialog_replace_msg_single_file_exists">Ta datoteka \'%1$s\' že obstaja. Ali jo želite zamenjati?</string>
+	<string name="dialog_replace_msg_all_files_exists">Vse datoteke že obstajajo. Jih želite zamenjati?</string>
+	<string name="dialog_replace_msg_some_files_exists">%1$d datoteke že obstajajo. Bi jih radi zamenjali?</string>
+	<string name="dialog_replace_title_single_file_exists">Zamenjam datoteko?</string>
+	<string name="dialog_replace_title_multiple_files_exist">Zamenjam datoteke?</string>
+	<string name="dialog_app_is_obscured_info_neutral_button">Zapri</string>
+	<string name="dialog_sym_link_back_button">Nazaj</string>
 	<!-- # error reports -->
 	<!-- # misc -->
 	<!-- ## file size helper -->
