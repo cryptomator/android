@@ -175,11 +175,11 @@
 	<string name="screen_settings_glob_search">Искать по шаблону glob</string>
 	<string name="screen_settings_glob_search_summary">Использовать шаблон glob для сопоставлений типа alice.*.jpg</string>
 	<string name="screen_settings_section_auto_lock">Автоматическая блокировка</string>
-	<string name="screen_settings_auto_lock_timeout">Блокировать после</string>
+	<string name="screen_settings_auto_lock_timeout">Блокировать через</string>
 	<string name="screen_settings_auto_lock_on_screen_lock">Когда экран отключён</string>
 	<string name="screen_settings_section_auto_photo_upload">Автоматическая отправка фото</string>
 	<string name="screen_settings_section_auto_photo_upload_vault">Выберите хранилище для отправки</string>
-	<string name="screen_settings_section_auto_photo_upload_toggle">Включено</string>
+	<string name="screen_settings_section_auto_photo_upload_toggle">Включить</string>
 	<string name="screen_settings_section_auto_photo_upload_toggle_summary">Захватывать изображения в фоновом режиме и начинать отправку при разблокировании выбранного хранилища</string>
 	<string name="screen_settings_section_auto_photo_upload_toggle_instant_upload">Мгновенная отправка</string>
 	<string name="screen_settings_section_auto_photo_upload_toggle_instant_upload_summary">Загружать напрямую, если хранилище разблокировано</string>
@@ -310,21 +310,21 @@
 	<string name="dialog_disable_app_obscured_disclaimer_title">Внимание</string>
 	<string name="dialog_disable_app_obscured_positive_button">Выкл.</string>
 	<string name="dialog_app_is_obscured_info_title">Приложение скрыто</string>
-	<string name="dialog_app_is_obscured_info_hint">Другое приложение отображает что-то поверх Cryptomator (например синий световой фильтр или ночной режим). В целях безопасности Cryptomator отключён.\n\n<a href="https://docs.cryptomator.org/en/1.6/android/settings/#block-app-when-obscured">Как включить Cryptomator</a></string>
+	<string name="dialog_app_is_obscured_info_hint">Другое приложение отображает что-то поверх Cryptomator (например, фильтр синего цвета или приложение ночного режима). В целях безопасности Cryptomator отключён.\n\n<a href="https://docs.cryptomator.org/en/1.6/android/settings/#block-app-when-obscured">Как включить Cryptomator</a></string>
 	<string name="dialog_app_is_obscured_info_neutral_button">Закрыть</string>
 	<string name="dialog_vaults_removed_during_migration_title">Добавьте хранилища заново для облака %1s</string>
 	<string name="dialog_vaults_removed_during_migration_hint">Во время переноса в эту версию приложения необходимо удалить следующие хранилища из приложения:\n%2s \n\nЭти хранилища не удаляются из облака, а только из приложения. Извините за неудобства и добавьте снова эти хранилища, чтобы продолжить работу с ними.</string>
-	<string name="dialog_vault_is_root_folder_of_cloud_title">Хранилище - это корневая папка подключения к облаку</string>
+	<string name="dialog_vault_is_root_folder_of_cloud_title">Хранилище — это корневая папка подключения к облаку</string>
 	<string name="dialog_vault_is_root_folder_of_cloud_hint">Создайте новое облачное соединение, в котором вы выберете по крайней мере родительскую папку этой папки хранилища в качестве корневой папки для добавления этого хранилища.</string>
 	<string name="dialog_disable_secure_screen_disclaimer_hint">Эта настройка связана с безопасностью, она не позволяет другим приложениям обманом вынуждать пользователей делать то, что им не нужно.\n\nОтключая её, вы подтверждаете, что <a href="https://docs.cryptomator.org/en/1.6/android/settings/#screen-security">осознаёте риски</a>.</string>
 	<string name="dialog_delete_cloud_connection_with_vaults_message">Вы действительно хотите удалить это облачное соединение?</string>
 	<string name="dialog_delete_cloud_connection_with_vaults_hint">Это действие удалит облако и все хранилища в нём.</string>
-	<string name="dialog_confirm_delete_multiple_title">Удалить элементы (%1$d)?</string>
+	<string name="dialog_confirm_delete_multiple_title">Удалить %1$d элем.?</string>
 	<string name="dialog_confirm_delete_multiple_message">Вы действительно хотите удалить эти элементы?</string>
 	<string name="dialog_confirm_delete_file_message">Вы действительно хотите удалить этот файл?</string>
-	<string name="dialog_confirm_delete_folder_message">Будет удалено всё содержимое папки. Вы уверены?</string>
-	<string name="dialog_biometric_auth_key_invalidated_title">Биометрическая аутентификация деактивирована</string>
-	<string name="dialog_biometric_auth_key_invalidated_message">Поскольку ключ был аннулирован, биометрическая аутентификация отключена. Для повторной активации откройте настройки Cryptomator.</string>
+	<string name="dialog_confirm_delete_folder_message">Это удалит всё содержимое папки. Вы уверены, что хотите удалить папку?</string>
+	<string name="dialog_biometric_auth_key_invalidated_title">Биометрическая аутентификация отключена</string>
+	<string name="dialog_biometric_auth_key_invalidated_message">Поскольку ключ был аннулирован, биометрическая аутентификация была отключена. Для повторной активации откройте настройки Cryptomator.</string>
 	<string name="dialog_enter_license_title">Предоставьте действительную лицензию</string>
 	<string name="dialog_enter_license_content">Мы обнаружили, что вы установили Cryptomator, не используя Google Play. Предоставьте действительную лицензию, которую можно приобрести на <a href="https://cryptomator.org/android/">https://cryptomator.org/android/</a></string>
 	<string name="dialog_enter_license_not_valid_content">Лицензия недействительна. Убедитесь, что вы ввели её правильно.</string>
@@ -336,7 +336,7 @@
 	<string name="dialog_update_available_title">Доступно обновление</string>
 	<string name="dialog_update_available_message">Обновите Cryptomator до новейшей версии. Нажмите OK, чтобы загрузить приложение в фоновом режиме, затем появится запрос на установку.</string>
 	<string name="dialog_update_available_update">Обновить</string>
-	<string name="dialog_update_available_download_site">Перейти на сайт</string>
+	<string name="dialog_update_available_download_site">Перейти на сайт загрузки</string>
 	<string name="dialog_update_available_cancel">Позже</string>
 	<string name="dialog_download_update_title">Идёт загрузка</string>
 	<string name="dialog_download_update_message">Загрузка новейшей версии Cryptomator</string>
