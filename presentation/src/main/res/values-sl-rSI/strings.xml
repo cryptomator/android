@@ -29,28 +29,129 @@
 	<string name="error_play_services_not_available">Storitev Google Play ni naložena</string>
 	<string name="error_biometric_auth_aborted">Biometrična overitev je bila preklicana</string>
 	<string name="error_vault_version_mismatch">Verzija navedena v %1$s je drugačna od verzije v %2$s</string>
+	<string name="error_vault_key_invalid">%1$s se ne ujema s %2$s</string>
+	<string name="error_vault_config_loading">Napaka pri branju nastavitev trezorja</string>
+	<string name="error_file_not_found_after_opening_using_3party">Lokalna datoteka ni več na voljo potem ko ste preklopili nazaj na Cryptomator. Morebitne spremembe ne moremo zapisati nazaj na oblak.</string>
+	<string name="error_no_such_bucket">Ni takšnega bucket-a</string>
+	<string name="error_masterkey_location_not_supported">Poljubna lokacija glavnega ključa še ni podprta</string>
+	<string name="error_interact_with_fdroid_but_fdroid_missing">Ne uspem komunicirat s F-Droid aplikacijo. Morda ni naložena?</string>
 	<!-- # clouds -->
 	<!-- ## cloud names -->
+	<string name="cloud_names_local_storage">Lokalna shramba</string>
 	<!-- # permission -->
 	<!-- ## permission messages -->
+	<string name="permission_message_export_file">Za izvoz datotek Cryptomator potrebuje dostop do shrambe</string>
+	<string name="permission_message_upload_file">Za nalaganje datotek Cryptomator potrebuje dostop do shrambe</string>
+	<string name="permission_message_share_file">Za deljenje datotek Cryptomator potrebuje dostop do shrambe</string>
+	<string name="permission_revoked_re_request_permission">Crptomator nima več dovoljena za dostop do te lokacije. Prosim ponovno izberite to mapo da boste ponovno dovolili dostop.</string>
+	<string name="snack_bar_action_title_settings">Nastavitve</string>
+	<string name="snack_bar_action_title_search">Iskanje</string>
+	<string name="snack_bar_action_title_search_previous">Prejšnji</string>
+	<string name="snack_bar_action_title_search_next">Naslednji</string>
+	<string name="snack_bar_action_title_sort">Razvrsti</string>
+	<string name="snack_bar_action_title_sort_az">A - Z</string>
+	<string name="snack_bar_action_title_sort_za">Z - A</string>
+	<string name="snack_bar_action_title_sort_newest">Najnovejši najprej</string>
+	<string name="snack_bar_action_title_sort_oldest">Najprej najstarejši</string>
+	<string name="snack_bar_action_title_sort_biggest">Najprej največja</string>
+	<string name="snack_bar_action_title_sort_smallest">Najprej najmanjša</string>
+	<string name="snack_bar_cryptomator_variants_title">Preberite več</string>
+	<string name="snack_bar_cryptomator_variants_hint">Oblak ni na seznamu?</string>
 	<!-- # screens -->
 	<!-- # screen: vault list -->
+	<string name="screen_vault_list_actions_title">Dodaj v Cryptomator</string>
+	<string name="screen_vault_list_action_create_new_vault">Ustvari nov trezor</string>
+	<string name="screen_vault_list_action_add_existing_vault">Dodaj obstoječi trezor</string>
+	<string name="screen_vault_list_vault_action_delete">Odstrani</string>
+	<string name="screen_vault_list_vault_creation_hint">Pritisnite to za ustvarjanje novega trezorja</string>
+	<string name="screen_vault_list_change_password_successful">Geslo je bilo uspešno spremenjeno</string>
 	<!-- # screen: file browser -->
+	<string name="screen_file_browser_default_title">Trezor</string>
+	<string name="screen_file_browser_add_existing_vault_extra_text">Izberite datoteko z glavnim ključem</string>
+	<string name="screen_file_browser_create_new_vault_button_text">Shrani tu</string>
+	<string name="screen_file_browser_create_new_vault_extra_text">Ime trezorja: %1$s</string>
+	<string name="screen_file_browser_move_button_text">Premakni</string>
+	<string name="screen_file_browser_msg_empty_folder">Prazna mapa</string>
+	<string name="screen_file_browser_file_info_label_date">spremenjen pred %1$s</string>
+	<string name="screen_file_browser_share_intent_chooser_title">Skupna raba</string>
+	<string name="screen_file_browser_share_destination_title">Izberi cilj</string>
+	<string name="screen_file_browser_share_button_text">Izberi</string>
+	<string name="screen_file_browser_nothing_to_share">Ničesar ni za prikazati</string>
+	<string name="screen_file_browser_actions_title">Dodaj v %1$s</string>
+	<string name="screen_file_browser_action_create_folder">Ustvari mapo</string>
+	<string name="screen_file_browser_action_create_new_text_file">Ustvari datoteko z besedilom</string>
+	<string name="screen_file_browser_action_upload_files">Naloži datoteke</string>
+	<string name="screen_file_browser_upload_files_chooser_title">Datoteke</string>
+	<string name="screen_file_browser_msg_file_exported">Datoteka je bila izvožena</string>
+	<string name="screen_file_browser_msg_files_exported">Datoteke so bile izvožene</string>
+	<string name="screen_file_browser_nothing_to_export">Ničesar ni za izvoz</string>
+	<string name="screen_file_browser_msg_creating_download_dir_failed">Ustvarjanje mape za nalaganje ni supelo</string>
+	<string name="screen_file_browser_node_action_share">Deli</string>
+	<string name="screen_file_browser_node_action_rename">Preimenuj</string>
+	<string name="screen_file_browser_node_action_edit_text">Uredi</string>
+	<string name="screen_file_browser_node_action_export">Izvozi</string>
+	<string name="screen_file_browser_node_action_delete">Izbriši</string>
+	<string name="screen_file_browser_node_action_open_with_text">Odpri z&#8230;</string>
+	<string name="screen_file_browser_selection_mode_title_zero_elements">Izberite elemete</string>
+	<string name="screen_file_browser_selection_mode_title_one_or_more_elements">Št. izbranih: %1$d</string>
+	<string name="screen_file_browser_select_items">Izberi</string>
+	<string name="screen_file_browser_select_all_items">Izberite vse</string>
+	<string name="screen_file_browser_refresh_items">Osveži</string>
+	<string name="screen_file_browser_no_connection_message">Ni povezave</string>
+	<string name="screen_file_browser_no_connection_button_text">Poizkusi znova</string>
 	<!-- ## screen: text editor -->
+	<string name="screen_text_editor_save_success">Uspešno shranjeno</string>
 	<!-- ## screen: share files -->
+	<string name="screen_share_files_title">Shrani %1$s v&#8230;</string>
+	<string name="screen_share_files_content_text">besedilo</string>
+	<string name="screen_share_files_content_file">datoteka</string>
+	<string name="screen_share_files_content_files">datoteke</string>
+	<string name="screen_share_files_msg_filenames_must_be_unique">Imena datotek morajo biti unikatna, prosim preimenujte dvojnike.</string>
+	<string name="screen_share_files_section_location">Kam shraniti</string>
+	<string name="screen_share_files_save_button_text">Shrani</string>
+	<string name="screen_share_files_msg_success">Šifriranje je dokončano</string>
 	<!-- ## screen: choose cloud service -->
+	<string name="screen_choose_cloud_service_title">Storitev v oblaku</string>
 	<!-- ## screen: cloud connections -->
+	<string name="screen_cloud_connections_title">Izberite mesto</string>
+	<string name="screen_cloud_connections_no_connections">Tapnite sem da dodate lokacijo</string>
+	<string name="screen_cloud_error_webdav_not_supported">Strežni ni združljiv z WebDAV</string>
+	<string name="screen_cloud_local_error_no_content_provider">Urejevalnik datotek, ki bi lahko odpiral mape ni bil najden</string>
 	<!-- ## screen: webdav settings -->
+	<string name="screen_webdav_settings_url_port_label">URL naslov</string>
+	<string name="screen_webdav_settings_username_label">Uporabniško ime</string>
+	<string name="screen_webdav_settings_password_label">Geslo</string>
+	<string name="screen_webdav_settings_done_button_text">Povežite</string>
+	<string name="screen_webdav_settings_msg_url_must_not_be_empty">URL vnos ne sme biti prazen.</string>
+	<string name="screen_webdav_settings_msg_url_is_invalid">Naslov URL ni veljaven.</string>
+	<string name="screen_webdav_settings_msg_username_must_not_be_empty">Uporabniško ime ne sme biti prazno.</string>
+	<string name="screen_webdav_settings_msg_password_must_not_be_empty">Geslo ne sme biti prazno.</string>
 	<!-- ## screen: s3 settings -->
+	<string name="screen_s3_settings_display_name_label">Prikazno ime</string>
+	<string name="screen_s3_settings_access_key_label">Ključ za dostop</string>
+	<string name="screen_s3_settings_secret_key_label">Ključ</string>
+	<string name="screen_s3_settings_bucket_label">Obstoječ bucket</string>
+	<string name="screen_s3_settings_endpoint_label">Končna točka</string>
+	<string name="screen_s3_settings_region_label">Regija</string>
+	<string name="screen_s3_settings_msg_display_name_not_empty">Prikazno ime ne sme biti prazno</string>
+	<string name="screen_s3_settings_msg_access_key_not_empty">Ključ za dostop ne sem biti prazen</string>
+	<string name="screen_s3_settings_msg_secret_key_not_empty">Ključ ne sme biti prazen</string>
+	<string name="screen_s3_settings_msg_bucket_not_empty">Polje Bucket ne sme biti prazno</string>
+	<string name="screen_s3_settings_msg_endpoint_and_region_not_empty">Končna točka ali regija ne smeta biti prazna</string>
 	<!-- ## screen: enter vault name -->
+	<string name="screen_enter_vault_name_msg_name_empty">Ime trezorja ne sme biti prazno.</string>
+	<string name="screen_enter_vault_name_vault_label">Ime trezorja</string>
+	<string name="screen_enter_vault_name_button_text">Ustvari</string>
 	<!-- ## screen: set password -->
 	<!-- ## screen: settings -->
+	<string name="screen_settings_section_search">Iskanje</string>
 	<!-- ## screen: cloud settings -->
 	<!-- ## screen: licenses -->
 	<!-- ## screen: authenticate cloud -->
 	<!-- ## screen: cryptomator app variants -->
 	<!-- # dialogs -->
 	<!-- Vault not found -->
+	<string name="dialog_vault_not_found_positive_button_text">Odstrani</string>
 	<!-- # error reports -->
 	<!-- # misc -->
 	<!-- ## file size helper -->
