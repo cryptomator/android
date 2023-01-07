@@ -3,18 +3,18 @@
 	<!-- # app -->
 	<string name="share_with_label">رمزگذاری</string>
 	<!-- # error messages -->
-	<string name="error_generic">خطایی رخ داد</string>
+	<string name="error_generic">خطایی رخ داده است</string>
 	<string name="error_authentication_failed">احراز هویت ناموفق بود</string>
 	<string name="error_authentication_failed_re_authenticate">احراز هویت ناموفق بود، لطفا با استفاده از %1$s وارد شوید</string>
 	<string name="error_no_network_connection">اتصال به شبکه‌ وجود ندارد</string>
 	<string name="error_invalid_passphrase">رمز عبور اشتباه است</string>
 	<string name="error_file_or_folder_exists">این فایل یا پوشه از قبل وجود دارد.</string>
-	<string name="error_vault_version_not_supported">نسخه %1$s گاوصندوق پشتیبانی نمی‌شود. این گاوصندوق با نسخه قدیمی تر یا جدیدتر کریپتوماتور ایجاد شده است.</string>
-	<string name="error_vault_config_file_missing_due_to_format_999">فایل %1$s در پوشه خزانه شما وجود ندارد. مطمئن شوید که این فایل در پوشه خزانه شما در فضای ابری وجود دارد.</string>
-	<string name="error_vault_already_exists">این گاوصندوق از قبل وجود دارد.</string>
+	<string name="error_vault_version_not_supported">نسخه %1$s مخزن پشتیبانی نمی‌شود. این مخزن با نسخه قدیمی‌تر یا جدیدتر کریپتوماتور ایجاد شده است.</string>
+	<string name="error_vault_config_file_missing_due_to_format_999">فایل %1$s در پوشه مخزن شما وجود ندارد. مطمئن شوید که این فایل در پوشه مخزن شما در فضای ابری وجود دارد.</string>
+	<string name="error_vault_already_exists">این مخزن از قبل وجود دارد.</string>
 	<string name="error_no_such_file">فایل وجود ندارد.</string>
-	<string name="error_vault_has_been_locked">گاوصندوق قفل شده است.</string>
-	<string name="error_cloud_already_exists">اتصال با این حساب از قبل وجود دارد برای این ارائه دهنده ابری.</string>
+	<string name="error_vault_has_been_locked">مخزن قفل شده است.</string>
+	<string name="error_cloud_already_exists">این فضای ابری از قبل وجود دارد.</string>
 	<string name="error_activity_not_found">لطفاً برنامه ای را دانلود کنید که بتواند این فایل را باز کند.</string>
 	<string name="error_server_not_found">سرور یافت نشد.</string>
 	<string name="error_device_policy_manager_not_found">لطفاً تنظیمات دستگاه خود را باز کنید و قفل صفحه را با دست تنظیم کنید</string>
