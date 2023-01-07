@@ -17,38 +17,38 @@
 	<string name="error_cloud_already_exists">این فضای ابری از قبل وجود دارد.</string>
 	<string name="error_activity_not_found">لطفاً برنامه ای را دانلود کنید که بتواند این فایل را باز کند.</string>
 	<string name="error_server_not_found">سرور یافت نشد.</string>
-	<string name="error_device_policy_manager_not_found">لطفاً تنظیمات دستگاه خود را باز کنید و قفل صفحه را با دست تنظیم کنید</string>
-	<string name="error_export_illegal_file_name">فایل صادر نشد. سعی کنید نویسه های خاص را از نام فایل ها حذف کنید و دوباره صادر کنید.</string>
-	<string name="error_name_contains_invalid_characters">نمی تواند شامل نویسه های خاص باشد.</string>
-	<string name="error_names_contains_invalid_characters">نام فایل نمی تواند شامل نویسه های خاص باشد.</string>
-	<string name="error_vault_name_contains_invalid_characters">نام گاوصندوق نمی تواند شامل نویسه های خاص باشد.</string>
-	<string name="error_general_update">بررسی از روز رسانی ناموفق بود. خطای عمومی رخ داده است.</string>
-	<string name="error_hash_mismatch_update">بررسی از روز رسانی ناموفق بود. هش محاسبه شده با فایل آپلود شده مطابقت ندارد</string>
-	<string name="error_update_no_internet">بررسی از روز رسانی ناموفق بود. اتصال به اینترنت وجود ندارد.</string>
-	<string name="error_failed_to_decrypt_webdav_password">رمز عبور WebDAV رمزگشایی نشد، لطفاً دوباره در تنظیمات آن را اضافه کنید</string>
-	<string name="error_play_services_not_available">خدمات Google Play نصب نشده است</string>
+	<string name="error_device_policy_manager_not_found">لطفاً تنظیمات دستگاه خود را باز کرده و قفل صفحه را تنظیم کنید</string>
+	<string name="error_export_illegal_file_name">خروجی ناموفق بود. سعی کنید کاراکترهای خاص را از نام فایل‌ها حذف کرده و دوباره خروجی بگیرید.</string>
+	<string name="error_name_contains_invalid_characters">نمی‌تواند حاوی کاراکترهای خاص باشد.</string>
+	<string name="error_names_contains_invalid_characters">نام فایل‌ها نمی‌تواند حاوی کاراکترهای خاص باشد.</string>
+	<string name="error_vault_name_contains_invalid_characters">نام مخزن نمی‌تواند حاوی کاراکترهای خاص باشد.</string>
+	<string name="error_general_update">بررسی به‌روزرسانی ناموفق بود. خطای عمومی رخ داده است.</string>
+	<string name="error_hash_mismatch_update">بررسی به‌روزرسانی ناموفق بود. هش محاسبه شده با فایل بارگذاری شده مطابقت ندارد</string>
+	<string name="error_update_no_internet">بررسی به‌روزرسانی ناموفق بود. اتصال به اینترنت وجود ندارد.</string>
+	<string name="error_failed_to_decrypt_webdav_password">رمزگشایی رمز عبور WebDAV موفقیت آمیز نبود، لطفاً دوباره آن را در تنظیمات اضافه کنید</string>
+	<string name="error_play_services_not_available">خدمات گوگل پلی نصب نشده است</string>
 	<string name="error_biometric_auth_aborted">احراز هویت بیومتریک لغو شد</string>
-	<string name="error_vault_version_mismatch">نسخه مشخص شده در %1$s با %2$s متفاوت است</string>
+	<string name="error_vault_version_mismatch">نسخه تعیین شده در %1$s با %2$s متفاوت است</string>
 	<string name="error_vault_key_invalid">%1$s با این %2$s مطابقت ندارد</string>
-	<string name="error_vault_config_loading">خطای عمومی در هنگام بارگذاری پیکربندی خزانه</string>
-	<string name="error_file_not_found_after_opening_using_3party">پس از بازگشت به کریپتوماتور، فایل محلی دیگر وجود ندارد. تغییرات ممکن را نمی توان به ابر تکثیر کرد.</string>
+	<string name="error_vault_config_loading">خطای عمومی در هنگام بارگذاری پیکربندی مخزن</string>
+	<string name="error_file_not_found_after_opening_using_3party">پس از بازگشت به کریپتوماتور، فایل محلی دیگر موجود نیست. تغییرات احتمالی را نمی توان به فضای ابری اضافه کرد.</string>
 	<string name="error_no_such_bucket">چنین پارامتری وجود ندارد</string>
-	<string name="error_masterkey_location_not_supported">مکان سفارشی شاه کلید هنوز پشتیبانی نمی شود</string>
-	<string name="error_interact_with_fdroid_but_fdroid_missing">برقراری ارتباط با برنامه F-Droid انجام نشد. نصب نشده؟</string>
+	<string name="error_masterkey_location_not_supported">مکان سفارشی برای کلید اصلی هم اکنون پشتیبانی نمی‌شود</string>
+	<string name="error_interact_with_fdroid_but_fdroid_missing">برقراری ارتباط با برنامه F-Droid ناموفق بود. نصب نشده است؟</string>
 	<!-- # clouds -->
 	<!-- ## cloud names -->
-	<string name="cloud_names_local_storage">ذخیره‌ محلی</string>
+	<string name="cloud_names_local_storage">فضای ذخیره‌سازی محلی</string>
 	<!-- # permission -->
 	<!-- ## permission messages -->
-	<string name="permission_message_export_file">Cryptomator جهت ایجاد فایل‌های خروجی نیاز به دسترسی به فضای ذخیره‌سازی دارد</string>
-	<string name="permission_message_upload_file">Cryptomator جهت بارگذاری فایل‌ها نیاز به دسترسی به فضای ذخیره‌سازی دارد</string>
-	<string name="permission_message_share_file">Cryptomator جهت اشتراک‌گذاری فایل‌ها نیاز به دسترسی به فضای ذخیره‌سازی دارد</string>
-	<string name="permission_revoked_re_request_permission">Cryptomator اجازه دسترسی به این مکان را از دست داده است. لطفاً دوباره این پوشه را جهت بازیابی مجوز انتخاب کنید.</string>
+	<string name="permission_message_export_file">کریپتوماتور جهت ایجاد فایل‌های خروجی نیاز به دسترسی به فضای ذخیره‌سازی دارد</string>
+	<string name="permission_message_upload_file">کریپتوماتور جهت بارگذاری فایل‌ها نیاز به دسترسی به فضای ذخیره‌سازی دارد</string>
+	<string name="permission_message_share_file">کریپتوماتور جهت اشتراک‌گذاری فایل‌ها نیاز به دسترسی به فضای ذخیره‌سازی دارد</string>
+	<string name="permission_revoked_re_request_permission">کریپتوماتور اجازه دسترسی به این مکان را از دست داده است. لطفاً دوباره این پوشه را جهت بازیابی مجوز انتخاب کنید.</string>
 	<string name="snack_bar_action_title_settings">تنظیمات</string>
 	<string name="snack_bar_action_title_search">جستجو</string>
-	<string name="snack_bar_action_title_search_previous">پیشین</string>
+	<string name="snack_bar_action_title_search_previous">قبلی</string>
 	<string name="snack_bar_action_title_search_next">بعدی</string>
-	<string name="snack_bar_action_title_sort">بر حسب:</string>
+	<string name="snack_bar_action_title_sort">چینش</string>
 	<string name="snack_bar_action_title_sort_az">A تا Z</string>
 	<string name="snack_bar_action_title_sort_za">Z تا A</string>
 	<string name="snack_bar_action_title_sort_newest">ابتدا جدیدترین</string>
@@ -56,24 +56,62 @@
 	<string name="snack_bar_action_title_sort_biggest">ابتدا بزرگترین</string>
 	<string name="snack_bar_action_title_sort_smallest">ابتدا کوچک‌ترین</string>
 	<string name="snack_bar_cryptomator_variants_title">ادامه مطلب</string>
-	<string name="snack_bar_cryptomator_variants_hint">ابر در لیست نیست؟</string>
+	<string name="snack_bar_cryptomator_variants_hint">فضای ابری در لیست نمی‌باشد؟</string>
 	<!-- # screens -->
 	<!-- # screen: vault list -->
-	<string name="screen_vault_list_actions_title">به Cryptomator اضافه کنید</string>
+	<string name="screen_vault_list_actions_title">اضافه کردن به کریپتوماتور</string>
 	<string name="screen_vault_list_action_create_new_vault">ساخت مخزن جدید</string>
 	<string name="screen_vault_list_action_add_existing_vault">اضافه کردن مخزن موجود</string>
 	<string name="screen_vault_list_vault_action_delete">حذف</string>
 	<string name="screen_vault_list_vault_creation_hint">برای ایجاد یک مخزن جدید، اینجا را ضربه بزنید</string>
 	<string name="screen_vault_list_change_password_successful">رمز عبور با موفقیت تغییر یافت</string>
 	<!-- # screen: file browser -->
-	<string name="screen_file_browser_default_title">گاوصندوق</string>
+	<string name="screen_file_browser_default_title">مخزن</string>
 	<string name="screen_file_browser_add_existing_vault_extra_text">فایل کلید اصلی را انتخاب کنید</string>
 	<string name="screen_file_browser_create_new_vault_button_text">اینجا قرار دهید</string>
 	<string name="screen_file_browser_create_new_vault_extra_text">نام مخزن: %1$s</string>
+	<plurals name="screen_file_browser_subtitle_move">
+		<item quantity="one">انتقال %1$s به</item>
+		<item quantity="other">انتقال %2$d مورد به</item>
+	</plurals>
 	<string name="screen_file_browser_move_button_text">انتقال</string>
 	<string name="screen_file_browser_msg_empty_folder">پوشه خالی</string>
+	<string name="screen_file_browser_file_info_label_date">تغییر داده شده %1$s قبل</string>
+	<string name="screen_file_browser_share_intent_chooser_title">به اشتراک گذاشتن با</string>
+	<string name="screen_file_browser_share_destination_title">مقصد را انتخاب کنید</string>
+	<string name="screen_file_browser_share_button_text">انتخاب کنید</string>
+	<string name="screen_file_browser_nothing_to_share">چیزی برای به اشتراک گذاری وجود ندارد</string>
+	<string name="screen_file_browser_actions_title">اضافه کردن به %1$s</string>
+	<string name="screen_file_browser_action_create_folder">ایجاد پوشه جدید</string>
+	<string name="screen_file_browser_action_create_new_text_file">ایجاد فایل متنی</string>
+	<string name="screen_file_browser_action_upload_files">بارگذاری فایل‌ها</string>
+	<string name="screen_file_browser_upload_files_chooser_title">فایل‌ها</string>
+	<string name="screen_file_browser_msg_file_exported">فایل خروجی ایجاد گردید</string>
+	<string name="screen_file_browser_msg_files_exported">فایل‌های خروجی ایجاد گردید</string>
+	<string name="screen_file_browser_nothing_to_export">چیزی برای گرفتن خروجی وجود ندارد</string>
+	<string name="screen_file_browser_msg_creating_download_dir_failed">ایجاد پوشه دانلود ناموفق بود</string>
+	<string name="screen_file_browser_node_action_share">اشتراک‌گذاری</string>
+	<string name="screen_file_browser_node_action_rename">تغییر نام</string>
+	<string name="screen_file_browser_node_action_edit_text">ویرایش</string>
+	<string name="screen_file_browser_node_action_export">خروجی</string>
+	<string name="screen_file_browser_node_action_delete">حذف</string>
+	<string name="screen_file_browser_node_action_open_with_text">بازکردن با&#8230;</string>
+	<string name="screen_file_browser_selection_mode_title_zero_elements">انتخاب موارد</string>
+	<string name="screen_file_browser_selection_mode_title_one_or_more_elements">%1$d مورد انتخاب شده</string>
+	<string name="screen_file_browser_select_items">انتخاب</string>
+	<string name="screen_file_browser_select_all_items">انتخاب همه</string>
+	<string name="screen_file_browser_refresh_items">نوسازی</string>
+	<string name="screen_file_browser_no_connection_message">ارتباط برقرار نیست</string>
+	<string name="screen_file_browser_no_connection_button_text">تلاش مجدد</string>
 	<!-- ## screen: text editor -->
+	<string name="screen_text_editor_save_success">ذخیره‌سازی با موفقیت انجام شد</string>
 	<!-- ## screen: share files -->
+	<string name="screen_share_files_title">ذخیره‌سازی %1$s در&#8230;</string>
+	<string name="screen_share_files_content_text">متن</string>
+	<string name="screen_share_files_content_file">فایل</string>
+	<string name="screen_share_files_content_files">فایل‌ها</string>
+	<string name="screen_share_files_msg_filenames_must_be_unique">نام فایل‌ها باید منحصر به فرد باشد، لطفاً موارد تکراری را تغییر نام دهید.</string>
+	<string name="screen_share_files_section_location">مکان ذخیره‌سازی</string>
 	<string name="screen_share_files_save_button_text">ذخیره</string>
 	<string name="screen_share_files_msg_success">رمزگذاری کامل شد</string>
 	<!-- ## screen: choose cloud service -->
