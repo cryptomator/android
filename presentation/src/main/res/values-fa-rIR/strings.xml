@@ -40,9 +40,9 @@
 	<string name="cloud_names_local_storage">ذخیره‌ محلی</string>
 	<!-- # permission -->
 	<!-- ## permission messages -->
-	<string name="permission_message_export_file">Cryptomator جهت ایجاد فایل‌های خروجی نیاز دسترسی به فضای ذخیره‌سازی دارد</string>
-	<string name="permission_message_upload_file">Cryptomator جهت بارگذاری فایل‌ها نیاز دسترسی به فضای ذخیره‌سازی دارد</string>
-	<string name="permission_message_share_file">Cryptomator جهت اشتراک‌گذاری فایل‌ها نیاز دسترسی به فضای ذخیره‌سازی دارد</string>
+	<string name="permission_message_export_file">Cryptomator جهت ایجاد فایل‌های خروجی نیاز به دسترسی به فضای ذخیره‌سازی دارد</string>
+	<string name="permission_message_upload_file">Cryptomator جهت بارگذاری فایل‌ها نیاز به دسترسی به فضای ذخیره‌سازی دارد</string>
+	<string name="permission_message_share_file">Cryptomator جهت اشتراک‌گذاری فایل‌ها نیاز به دسترسی به فضای ذخیره‌سازی دارد</string>
 	<string name="permission_revoked_re_request_permission">Cryptomator اجازه دسترسی به این مکان را از دست داده است. لطفاً دوباره این پوشه را جهت بازیابی مجوز انتخاب کنید.</string>
 	<string name="snack_bar_action_title_settings">تنظیمات</string>
 	<string name="snack_bar_action_title_search">جستجو</string>
@@ -60,8 +60,18 @@
 	<!-- # screens -->
 	<!-- # screen: vault list -->
 	<string name="screen_vault_list_actions_title">به Cryptomator اضافه کنید</string>
+	<string name="screen_vault_list_action_create_new_vault">ساخت مخزن جدید</string>
+	<string name="screen_vault_list_action_add_existing_vault">اضافه کردن مخزن موجود</string>
+	<string name="screen_vault_list_vault_action_delete">حذف</string>
+	<string name="screen_vault_list_vault_creation_hint">برای ایجاد یک مخزن جدید، اینجا را ضربه بزنید</string>
+	<string name="screen_vault_list_change_password_successful">رمز عبور با موفقیت تغییر یافت</string>
 	<!-- # screen: file browser -->
 	<string name="screen_file_browser_default_title">گاوصندوق</string>
+	<string name="screen_file_browser_add_existing_vault_extra_text">فایل کلید اصلی را انتخاب کنید</string>
+	<string name="screen_file_browser_create_new_vault_button_text">اینجا قرار دهید</string>
+	<string name="screen_file_browser_create_new_vault_extra_text">نام مخزن: %1$s</string>
+	<string name="screen_file_browser_move_button_text">انتقال</string>
+	<string name="screen_file_browser_msg_empty_folder">پوشه خالی</string>
 	<!-- ## screen: text editor -->
 	<!-- ## screen: share files -->
 	<string name="screen_share_files_save_button_text">ذخیره</string>
@@ -98,6 +108,7 @@
 	<string name="dialog_button_cancel">انصراف</string>
 	<string name="dialog_enter_password_positive_button">بازکردن قفل</string>
 	<!-- Vault not found -->
+	<string name="dialog_vault_not_found_positive_button_text">حذف</string>
 	<string name="dialog_lock_vault">قفل</string>
 	<string name="dialog_app_is_obscured_info_neutral_button">ببند</string>
 	<string name="dialog_sym_link_back_button">بازگشت</string>
