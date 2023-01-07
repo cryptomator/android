@@ -40,6 +40,10 @@
 	<string name="cloud_names_local_storage">ذخیره‌ محلی</string>
 	<!-- # permission -->
 	<!-- ## permission messages -->
+	<string name="permission_message_export_file">Cryptomator جهت ایجاد فایل‌های خروجی نیاز دسترسی به فضای ذخیره‌سازی دارد</string>
+	<string name="permission_message_upload_file">Cryptomator جهت بارگذاری فایل‌ها نیاز دسترسی به فضای ذخیره‌سازی دارد</string>
+	<string name="permission_message_share_file">Cryptomator جهت اشتراک‌گذاری فایل‌ها نیاز دسترسی به فضای ذخیره‌سازی دارد</string>
+	<string name="permission_revoked_re_request_permission">Cryptomator اجازه دسترسی به این مکان را از دست داده است. لطفاً دوباره این پوشه را جهت بازیابی مجوز انتخاب کنید.</string>
 	<string name="snack_bar_action_title_settings">تنظیمات</string>
 	<string name="snack_bar_action_title_search">جستجو</string>
 	<string name="snack_bar_action_title_search_previous">پیشین</string>
@@ -55,6 +59,7 @@
 	<string name="snack_bar_cryptomator_variants_hint">ابر در لیست نیست؟</string>
 	<!-- # screens -->
 	<!-- # screen: vault list -->
+	<string name="screen_vault_list_actions_title">به Cryptomator اضافه کنید</string>
 	<!-- # screen: file browser -->
 	<string name="screen_file_browser_default_title">گاوصندوق</string>
 	<!-- ## screen: text editor -->
