@@ -54,6 +54,8 @@
 	<string name="snack_bar_action_title_sort_oldest">Od nejstarších</string>
 	<string name="snack_bar_action_title_sort_biggest">Od největších</string>
 	<string name="snack_bar_action_title_sort_smallest">Od nejmenších</string>
+	<string name="snack_bar_cryptomator_variants_title">Další informace</string>
+	<string name="snack_bar_cryptomator_variants_hint">Cloud není v seznamu?</string>
 	<!-- # screens -->
 	<!-- # screen: vault list -->
 	<string name="screen_vault_list_actions_title">Přidat do Cryptomatoru</string>
@@ -212,6 +214,11 @@
 	<string name="screen_authenticate_auth_authentication_failed">%1$s nebylo možno ověřit.</string>
 	<string name="screen_update_pcloud_connections_title">Aktualizovat přihlašovací údaje k pCloudu</string>
 	<!-- ## screen: cryptomator app variants -->
+	<string name="screen_cryptomator_variants_title">Varianty Cryptomatoru</string>
+	<string name="screen_cryptomator_variants_lite_install">Instalovat</string>
+	<string name="screen_cryptomator_variants_fdroid_add_repo">Přidat</string>
+	<string name="screen_cryptomator_variants_website_title">Webová stránka</string>
+	<string name="screen_cryptomator_variants_website_description">Obsahuje vlastní závislosti.</string>
 	<!-- # dialogs -->
 	<string name="dialog_button_cancel">Zrušit</string>
 	<string name="dialog_enter_password_positive_button">Odemknout</string>
