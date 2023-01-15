@@ -62,6 +62,7 @@
 	<string name="screen_vault_list_action_create_new_vault">Vytvořit nový trezor</string>
 	<string name="screen_vault_list_action_add_existing_vault">Přidat existující trezor</string>
 	<string name="screen_vault_list_vault_action_delete">Odstranit</string>
+	<string name="screen_vault_list_vault_creation_hint">Klepnutím sem vytvoříte nový trezor</string>
 	<string name="screen_vault_list_change_password_successful">Heslo bylo úspěšně změněno</string>
 	<!-- # screen: file browser -->
 	<string name="screen_file_browser_default_title">Trezor</string>
@@ -118,6 +119,7 @@
 	<string name="screen_choose_cloud_service_title">Cloudová služba</string>
 	<!-- ## screen: cloud connections -->
 	<string name="screen_cloud_connections_title">Vyberte umístění</string>
+	<string name="screen_cloud_connections_no_connections">Klepnutím sem přidáte umístění</string>
 	<string name="screen_cloud_error_webdav_not_supported">Server není kompatibilní s WebDAV</string>
 	<string name="screen_cloud_local_error_no_content_provider">Nebyl nalezen žádný správce souborů, který by podporoval otevírání adresářů</string>
 	<!-- ## screen: webdav settings -->
