@@ -17,6 +17,9 @@
 	<string name="error_cloud_already_exists">A nuvem já existe.</string>
 	<string name="error_activity_not_found">Por favor faça o download de uma aplicação que possa abrir este ficheiro.</string>
 	<string name="error_server_not_found">Servidor não foi encontrado.</string>
+	<string name="error_device_policy_manager_not_found">Por favor, abra as definições do seu dispositivo e defina o bloqueio do ecrã à mão</string>
+	<string name="error_export_illegal_file_name">A exportação falhou. Por favor, remover caracteres especiais dos nomes dos ficheiros e tentar novamente.</string>
+	<string name="error_name_contains_invalid_characters">Não são permitidos caracteres especiais.</string>
 	<!-- # clouds -->
 	<!-- ## cloud names -->
 	<!-- # permission -->
