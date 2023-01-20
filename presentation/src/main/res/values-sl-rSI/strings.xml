@@ -270,6 +270,11 @@
 	<string name="dialog_progress_please_wait">Prosim počakajte&#8230;</string>
 	<string name="dialog_progress_creating_folder">Ustvarjam mapo&#8230;</string>
 	<string name="dialog_progress_upload_file">Nalaganje&#8230;</string>
+	<string name="dialog_lock_vault">Zakleni</string>
+	<string name="dialog_accept_ssl_certificate_title">Napačen SSL certifikat</string>
+	<string name="dialog_accept_ssl_certificate_hint">SSL certifikat je neveljaven. Bi mu res rad zaupal?</string>
+	<string name="dialog_accept_ssl_certificate_details">Podrobnosti</string>
+	<string name="dialog_accept_ssl_certificate_security_checkbox">To bi bilo lahko nevarno. Vem kaj delam.</string>
 	<string name="dialog_app_is_obscured_info_neutral_button">Zapri</string>
 	<string name="dialog_sym_link_back_button">Nazaj</string>
 	<!-- # error reports -->
