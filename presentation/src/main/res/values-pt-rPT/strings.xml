@@ -24,10 +24,14 @@
 	<string name="error_vault_name_contains_invalid_characters">O nome do cofre não pode conter caracteres especiais.</string>
 	<string name="error_general_update">Verificação da atualização falhou. Ocorreu um erro geral.</string>
 	<string name="error_hash_mismatch_update">Verificação da atualização falhou. O hash calculado não corresponde ao ficheiro carregado.</string>
+	<string name="error_update_no_internet">Verificação da atualização falhou. Sem ligação à internet.</string>
 	<string name="error_failed_to_decrypt_webdav_password">Falha ao descriptografar palavra-passe WebDAV, por favor adicione novamente nas definições</string>
 	<string name="error_play_services_not_available">Serviços da Google Play não instalados</string>
+	<string name="error_biometric_auth_aborted">Autenticação biométrica cancelada</string>
 	<string name="error_vault_version_mismatch">Versão especificada em %1$s difere de %2$s</string>
 	<string name="error_vault_key_invalid">%1$s não corresponde com esta %2$s</string>
+	<string name="error_vault_config_loading">Erro geral ao carregar a configuração do cofre</string>
+	<string name="error_file_not_found_after_opening_using_3party">O ficheiro local não está presente ao voltar para Cryptomator. Novas alterações não serão guardadas na nuvem.</string>
 	<string name="error_no_such_bucket">Bucket inexistente</string>
 	<string name="error_interact_with_fdroid_but_fdroid_missing">Falha em comunicar-se com a aplicação F-Droid. Não está instalado?</string>
 	<!-- # clouds -->
@@ -69,8 +73,23 @@
 	<string name="screen_file_browser_nothing_to_share">Nada a partilhar</string>
 	<string name="screen_file_browser_actions_title">Adicionar a %1$s</string>
 	<string name="screen_file_browser_action_upload_files">Carregar ficheiros</string>
+	<string name="screen_file_browser_upload_files_chooser_title">Ficheiros</string>
+	<string name="screen_file_browser_msg_file_exported">Ficheiro Exportado</string>
+	<string name="screen_file_browser_msg_files_exported">Ficheiros Exportados</string>
+	<string name="screen_file_browser_nothing_to_export">Nada para exportar</string>
+	<string name="screen_file_browser_node_action_share">Compartilhar</string>
+	<string name="screen_file_browser_node_action_rename">Renomear</string>
+	<string name="screen_file_browser_node_action_edit_text">Editar</string>
+	<string name="screen_file_browser_node_action_export">Exportar</string>
+	<string name="screen_file_browser_node_action_delete">Apagar</string>
+	<string name="screen_file_browser_node_action_open_with_text">Abrir com&#8230;</string>
+	<string name="screen_file_browser_selection_mode_title_zero_elements">Selecionar itens</string>
 	<!-- ## screen: text editor -->
 	<!-- ## screen: share files -->
+	<string name="screen_share_files_content_text">texto</string>
+	<string name="screen_share_files_content_file">ficheiro</string>
+	<string name="screen_share_files_content_files">ficheiros</string>
+	<string name="screen_share_files_save_button_text">Salvar</string>
 	<!-- ## screen: choose cloud service -->
 	<!-- ## screen: cloud connections -->
 	<string name="screen_cloud_local_error_no_content_provider">Não foi encontrado nenhum gestor de arquivos compatível com a abertura de diretórios</string>
