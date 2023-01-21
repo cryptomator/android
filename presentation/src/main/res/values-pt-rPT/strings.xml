@@ -22,6 +22,8 @@
 	<string name="error_name_contains_invalid_characters">Não são permitidos caracteres especiais.</string>
 	<string name="error_names_contains_invalid_characters">O nome do ficheiro não pode conter caracteres especiais.</string>
 	<string name="error_vault_name_contains_invalid_characters">O nome do cofre não pode conter caracteres especiais.</string>
+	<string name="error_general_update">Verificação da atualização falhou. Ocorreu um erro geral.</string>
+	<string name="error_hash_mismatch_update">Verificação da atualização falhou. O hash calculado não corresponde ao ficheiro carregado.</string>
 	<string name="error_failed_to_decrypt_webdav_password">Falha ao descriptografar palavra-passe WebDAV, por favor adicione novamente nas definições</string>
 	<string name="error_play_services_not_available">Serviços da Google Play não instalados</string>
 	<string name="error_vault_version_mismatch">Versão especificada em %1$s difere de %2$s</string>
