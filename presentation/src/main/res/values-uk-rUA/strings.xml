@@ -246,6 +246,7 @@
 	<string name="dialog_unsaved_changes_title">У вас є незбережені зміни</string>
 	<string name="dialog_unsaved_changes_message">Ви справді хочете вийти без збереження?</string>
 	<string name="dialog_unsaved_changes_discard">Відхилити</string>
+	<string name="dialog_file_name_hint">Назва файлу</string>
 	<string name="dialog_file_name_placeholder">text.txt</string>
 	<string name="dialog_delete_vault_message">Ви впевнені, що бажаєте видалити це сховище?</string>
 	<string name="dialog_delete_vault_hint">Ця дія тільки прибере сховище з цього списку, але не видалить його.</string>
