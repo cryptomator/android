@@ -10,6 +10,7 @@
 	<string name="error_invalid_passphrase">كلمة المرور خاطئة</string>
 	<string name="error_file_or_folder_exists">المجلد أو الملف موجود مسبقاُ.</string>
 	<string name="error_vault_version_not_supported">إصدار الخزينة %1$s غير مدعوم. تم إنشاء هذه الخزينة بإصدار قديم أو أحدث من Cryptomter.</string>
+	<string name="error_vault_config_file_missing_due_to_format_999">الملف %1$s مفقود في مجلد الخزنة. تأكد من وجود الملف في مجلد الخزنة المحفوظ في الغيمة.</string>
 	<string name="error_vault_already_exists">المخزن موجود مسبقاً.</string>
 	<string name="error_no_such_file">ملف غير موجود.</string>
 	<string name="error_vault_has_been_locked">تم قفل المخزن.</string>
@@ -33,6 +34,7 @@
 	<string name="error_file_not_found_after_opening_using_3party">بعد إعادة التبديل الي Cryptomator لم يعد الملف المحلي موجود. لايمكن نشر التعديلات الي موفر الخدمة السحابية.</string>
 	<string name="error_no_such_bucket">لا يوجد مخزن بهذه المعلومات في S3</string>
 	<string name="error_masterkey_location_not_supported">موقع المفتاح الرئيسي غير مدعوم بعد</string>
+	<string name="error_interact_with_fdroid_but_fdroid_missing">فشل في التواصل مع تطبيق F-Droid. غير مثبت؟</string>
 	<!-- # clouds -->
 	<!-- ## cloud names -->
 	<string name="cloud_names_local_storage">ذاكرة التخزين المحلية</string>
