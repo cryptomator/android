@@ -353,6 +353,7 @@
 	<string name="notification_auto_upload_failed_due_to_folder_not_exists">Вибрана тека для вивантаження більше недоступна. Перейдіть у налаштування для вибору іншої</string>
 	<string name="notification_auto_upload_failed_due_to_vault_locked">Vault заблоковано під час вивантаження, будь ласка, відкрийте vault знову, щоб продовжити</string>
 	<string name="notification_auto_upload_failed_due_to_vault_not_found">Vault, визначений для автоматичного вивантаження, більше не існує.</string>
+	<string name="screen_settings_clear_lru_cache_size">Очистити кеш</string>
 	<string name="screen_settings_license">Зареєстровано за</string>
 	<string name="screen_settings_check_updates">Перевiрити наявнiсть оновлень</string>
 	<!-- lock timeout names -->
