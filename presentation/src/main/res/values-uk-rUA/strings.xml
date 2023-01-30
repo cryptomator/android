@@ -70,6 +70,12 @@
 	<string name="screen_file_browser_add_existing_vault_extra_text">Виберіть файл майстер-ключа</string>
 	<string name="screen_file_browser_create_new_vault_button_text">Розмістити тут</string>
 	<string name="screen_file_browser_create_new_vault_extra_text">Назва сховища: %1$s</string>
+	<plurals name="screen_file_browser_subtitle_move">
+		<item quantity="one">Перемістити %1$s у</item>
+		<item quantity="few">Перемістити %2$d елементи у</item>
+		<item quantity="many">Перемістити %2$d елементів у</item>
+		<item quantity="other">Перемістити %2$d елементів у</item>
+	</plurals>
 	<string name="screen_file_browser_move_button_text">Перемістити</string>
 	<string name="screen_file_browser_msg_empty_folder">Порожня тека</string>
 	<string name="screen_file_browser_file_info_label_date">змінено %1$s тому</string>
@@ -306,6 +312,7 @@
 	<string name="dialog_confirm_delete_multiple_title">Видалити %1$d об\'єкти?</string>
 	<string name="dialog_confirm_delete_multiple_message">Ви впевнені, що бажаєте видалити ці об\'єкти?</string>
 	<string name="dialog_confirm_delete_file_message">Ви впевнені, що бажаєте видалити цей файл?</string>
+	<string name="dialog_biometric_auth_key_invalidated_title">Функція біометричної автентифікації деактивована</string>
 	<string name="dialog_enter_license_title">Вкажіть дійсну ліцензію</string>
 	<string name="dialog_enter_license_decline_button">Вийти</string>
 	<string name="dialog_license_confirmation_title">Підтвердження ліцензії</string>
@@ -353,10 +360,16 @@
 	<string name="notification_auto_upload_failed_due_to_folder_not_exists">Вибрана тека для вивантаження більше недоступна. Перейдіть у налаштування для вибору іншої</string>
 	<string name="notification_auto_upload_failed_due_to_vault_locked">Vault заблоковано під час вивантаження, будь ласка, відкрийте vault знову, щоб продовжити</string>
 	<string name="notification_auto_upload_failed_due_to_vault_not_found">Vault, визначений для автоматичного вивантаження, більше не існує.</string>
+	<string name="screen_settings_lru_cache">Кеш</string>
 	<string name="screen_settings_clear_lru_cache_size">Очистити кеш</string>
 	<string name="screen_settings_license">Зареєстровано за</string>
+	<string name="dialog_settings_update_check_interval_title">Інтервал перевірки оновлень</string>
 	<string name="screen_settings_check_updates">Перевiрити наявнiсть оновлень</string>
+	<string name="screen_settings_last_check_updates">Останній запуск %1$s</string>
 	<!-- lock timeout names -->
+	<string name="lock_timeout_instant">Миттєво</string>
+	<string name="lock_timeout_1m">1 хвилини</string>
+	<string name="lock_timeout_2m">2 хвилини</string>
 	<string name="lock_timeout_5m">5 хвилин</string>
 	<string name="lock_timeout_10m">10 хвилин</string>
 	<string name="lock_timeout_never">Ніколи</string>
