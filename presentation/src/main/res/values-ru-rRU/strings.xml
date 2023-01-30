@@ -404,7 +404,7 @@
 	<string name="screen_settings_lru_cache_changed__restart_toast">Изменения будут применены при следующем перезапуске приложения</string>
 	<string name="screen_settings_license">Зарегистрировано</string>
 	<string name="screen_settings_license_mail">%1$s</string>
-	<string name="dialog_settings_update_check_interval_title">Частота проверки обновлений</string>
+	<string name="dialog_settings_update_check_interval_title">Интервал проверки обновлений</string>
 	<string name="screen_settings_check_updates">Проверить обновления</string>
 	<string name="screen_settings_last_check_updates">Последняя проверка %1$s</string>
 	<string name="dialog_cache_size_title">Размер кэша в облаке</string>
