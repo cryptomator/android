@@ -269,12 +269,20 @@
 	<string name="dialog_export_file_title">Izvažamo (%1$d/%2$d)</string>
 	<string name="dialog_progress_please_wait">Prosim počakajte&#8230;</string>
 	<string name="dialog_progress_creating_folder">Ustvarjam mapo&#8230;</string>
+	<string name="dialog_progress_unlocking_vault">Odklepanje trezorja&#8230;</string>
+	<string name="dialog_progress_change_password">Spreminjanje gesla&#8230;</string>
+	<string name="dialog_progress_creating_vault">Ustvarjanje trezorja&#8230;</string>
 	<string name="dialog_progress_upload_file">Nalaganje&#8230;</string>
+	<string name="dialog_progress_download_file">Nalaganje&#8230;</string>
+	<string name="dialog_progress_encryption">Šifriranje&#8230;</string>
+	<string name="dialog_progress_decryption">Dešifriranje&#8230;</string>
+	<string name="action_progress_moving">Premikanje&#8230;</string>
 	<string name="dialog_lock_vault">Zakleni</string>
 	<string name="dialog_accept_ssl_certificate_title">Napačen SSL certifikat</string>
 	<string name="dialog_accept_ssl_certificate_hint">SSL certifikat je neveljaven. Bi mu res rad zaupal?</string>
 	<string name="dialog_accept_ssl_certificate_details">Podrobnosti</string>
 	<string name="dialog_accept_ssl_certificate_security_checkbox">To bi bilo lahko nevarno. Vem kaj delam.</string>
+	<string name="dialog_ask_ignore_battery_optimizations_title">Onemogoči optimizacije baterije</string>
 	<string name="dialog_app_is_obscured_info_neutral_button">Zapri</string>
 	<string name="dialog_sym_link_back_button">Nazaj</string>
 	<!-- # error reports -->
