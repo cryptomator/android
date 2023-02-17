@@ -271,7 +271,7 @@
 	<string name="dialog_upload_file_remaining">第 %1$d 個（共 %2$d 個）</string>
 	<string name="dialog_export_file_title">匯出中（%1$d / %2$d ）</string>
 	<string name="dialog_progress_please_wait">請稍候…</string>
-	<string name="dialog_progress_creating_folder">正建立資料夾…</string>
+	<string name="dialog_progress_creating_folder">正在建立資料夾&#8230;</string>
 	<string name="dialog_progress_creating_text_file">正建立文字檔案&#8230;</string>
 	<string name="action_progress_authentication">正在驗證&#8230;</string>
 	<string name="action_progress_renaming">重新命名&#8230; 中</string>
