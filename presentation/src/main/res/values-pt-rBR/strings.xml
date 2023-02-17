@@ -149,7 +149,7 @@
 	<!-- ## screen: set password -->
 	<string name="screen_set_password_title">Definir senha</string>
 	<string name="screen_set_password_msg_password_mismatch">A senha não coincide com a senha digitada.</string>
-	<string name="screen_set_password_button_text">Concluído</string>
+	<string name="screen_set_password_button_text">Pronto</string>
 	<string name="screen_set_password_hint">IMPORTANTE: Se você esquecer sua senha, não há como recuperar seus dados.</string>
 	<string name="screen_set_password_retype_password_label">Redigite a senha</string>
 	<string name="screen_set_password_strength_indicator_0">Senha muito fraca para criar um cofre</string>
