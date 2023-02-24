@@ -14,7 +14,7 @@
 	<string name="error_vault_already_exists">保险库已存在</string>
 	<string name="error_no_such_file">文件不存在</string>
 	<string name="error_vault_has_been_locked">保险库已锁定</string>
-	<string name="error_cloud_already_exists">该云已存在</string>
+	<string name="error_cloud_already_exists">该云存储已存在</string>
 	<string name="error_activity_not_found">请下载一个可以打开此文件的应用</string>
 	<string name="error_server_not_found">未找到服务器</string>
 	<string name="error_device_policy_manager_not_found">请打开系统设置并手动设置屏幕锁</string>
@@ -162,9 +162,9 @@
 	<string name="screen_settings_biometric_auth">生物识别认证</string>
 	<string name="screen_settings_activate_biometric_auth">启用生物识别认证</string>
 	<string name="screen_settings_confirm_face_unlock">确认人脸解锁 (如果有)</string>
-	<string name="screen_settings_block_app_when_obscured">被遮罩 (比如某些护眼应用) 时停用 Cryptomator</string>
+	<string name="screen_settings_block_app_when_obscured">被遮盖时阻止使用</string>
 	<string name="screen_settings_block_app_when_obscured_summary">阻止 \"输入拦截以及显示错误、诱导性的用户界面\"</string>
-	<string name="screen_settings_secure_screen">防截屏</string>
+	<string name="screen_settings_secure_screen">阻止截屏</string>
 	<string name="screen_settings_secure_screen_summary">在最近任务和应用内阻止截图</string>
 	<string name="screen_settings_section_search">搜索</string>
 	<string name="screen_settings_live_search">实时搜索</string>
@@ -323,13 +323,13 @@
 	<string name="dialog_biometric_auth_key_invalidated_title">生物识别认证功能已停用</string>
 	<string name="dialog_biometric_auth_key_invalidated_message">由于密钥已失效，生物识别认证功能已停用。重新启用请打开 Cryptomator 设置</string>
 	<string name="dialog_enter_license_title">请提供有效许可证</string>
-	<string name="dialog_enter_license_content">我们检测到您在没有使用 Play 商店的情况下安装了 Cryptomator。请提供有效许可证，可前往 <a href="https://cryptomator.org/android/">https://cryptomator.org/android/</a> 购买</string>
-	<string name="dialog_enter_license_not_valid_content">提供的许可证无效，请确保输入正确</string>
+	<string name="dialog_enter_license_content">我们检测到您在没有使用 Google Play 商店的情况下安装了 Cryptomator。请提供有效许可证，可前往 <a href="https://cryptomator.org/android/">https://cryptomator.org/android/</a> 购买</string>
+	<string name="dialog_enter_license_not_valid_content">提供的许可证无效，请确保输入正确。</string>
 	<string name="dialog_enter_license_not_valid_content_desktop_supporter_certificate">提供的密钥为桌面版赞助者证书。请输入有效的许可证。</string>
-	<string name="dialog_enter_license_no_content">未提供许可证，请输入有效许可证</string>
+	<string name="dialog_enter_license_no_content">未提供许可证，请输入有效许可证。</string>
 	<string name="dialog_enter_license_decline_button">退出</string>
 	<string name="dialog_license_confirmation_title">授权通过</string>
-	<string name="dialog_license_confirmation_message">感谢 %1$s 提供您有效许可证</string>
+	<string name="dialog_license_confirmation_message">感谢 %1$s 提供您的有效许可证</string>
 	<string name="dialog_update_available_title">发现新版本</string>
 	<string name="dialog_update_available_message">请更新 Cryptomator 到最新版本，点击确定我们将在后台下载应用，并提醒您安装</string>
 	<string name="dialog_update_available_update">立即更新</string>
@@ -377,7 +377,7 @@
 	<string name="dialog_biometric_auth_use_password">使用保险库密码</string>
 	<string name="dialog_unable_to_auto_upload_files_title">无法自动上传文件</string>
 	<!-- notification -->
-	<string name="notification_unlocked">保险库解锁数：%1$d</string>
+	<string name="notification_unlocked">保险库解锁次数：%1$d</string>
 	<string name="notification_timeout">%1$s 后自动锁定</string>
 	<string name="notification_lock_all">全部锁定</string>
 	<string name="notification_cancel_auto_upload">取消上传</string>
