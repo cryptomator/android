@@ -34,7 +34,7 @@
 	<string name="error_file_not_found_after_opening_using_3party">切换回 Cryptomator 后，本地文件不再存在。期间所做更改无法传回云端</string>
 	<string name="error_no_such_bucket">没有这样的 bucket</string>
 	<string name="error_masterkey_location_not_supported">尚不支持自定义 Masterkey 路径</string>
-	<string name="error_interact_with_fdroid_but_fdroid_missing">无法找到F-Droid应用程序。可能未安装？</string>
+	<string name="error_interact_with_fdroid_but_fdroid_missing">无法找到 F-Droid 应用程序。可能未安装？</string>
 	<!-- # clouds -->
 	<!-- ## cloud names -->
 	<string name="cloud_names_local_storage">本地存储</string>
