@@ -266,7 +266,7 @@
 	<string name="dialog_file_name_hint">檔案名</string>
 	<string name="dialog_file_name_placeholder">文檔.txt</string>
 	<string name="dialog_delete_vault_message">您確定要移除這個加密檔案庫嗎？</string>
-	<string name="dialog_delete_vault_hint">此操作只會從該列表中移除加密檔案庫，而不是實際上刪除它。</string>
+	<string name="dialog_delete_vault_hint">此操作只會從該列表中移除加密檔案庫，而不是實際上刪除檔案庫文檔。</string>
 	<string name="dialog_upload_file_title">正在上傳中……</string>
 	<string name="dialog_upload_file_remaining">第 %1$d 個（共 %2$d 個）</string>
 	<string name="dialog_export_file_title">正在匯出中（%1$d/%2$d）</string>
@@ -386,7 +386,7 @@
 	<string name="notification_auto_upload_finished_title">相片自動上傳已完成</string>
 	<string name="notification_auto_upload_finished_message">已將%1$d張像片上傳至加密檔案庫</string>
 	<string name="notification_auto_upload_failed_title">像片自動上傳失敗</string>
-	<string name="notification_auto_upload_failed_general_error">上傳期間發生錯誤</string>
+	<string name="notification_auto_upload_failed_general_error">上傳期間發生一般性錯誤。</string>
 	<string name="notification_auto_upload_failed_due_to_folder_not_exists">您選擇的資料夾無法使用，請至設定重新選擇。</string>
 	<string name="notification_auto_upload_failed_due_to_vault_locked">加密檔案庫在上傳期間鎖定，請重新打開加密檔案庫後繼續</string>
 	<string name="notification_auto_upload_failed_due_to_vault_not_found">使用於自動上傳的加密檔案庫已不存在。</string>
@@ -396,8 +396,8 @@
 	<string name="notification_authenticating">正在驗證 &#8230;</string>
 	<string name="screen_settings_lru_cache">快取</string>
 	<string name="screen_settings_lru_cache_toggle_summary">把本機上最近開啟的加密檔案加到快取，以便以後重新打開時使用</string>
-	<string name="screen_settings_lru_cache_size">緩存總大小</string>
-	<string name="screen_settings_clear_lru_cache_size">清除緩存</string>
+	<string name="screen_settings_lru_cache_size">快取總大小</string>
+	<string name="screen_settings_clear_lru_cache_size">清除快取</string>
 	<string name="screen_settings_lru_cache_changed__restart_toast">變更將會在應用程式下次重啓後啓用。</string>
 	<string name="screen_settings_license">註冊給</string>
 	<string name="screen_settings_license_mail">%1$s</string>
