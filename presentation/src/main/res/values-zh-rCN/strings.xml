@@ -109,7 +109,7 @@
 	<string name="screen_share_files_content_text">文本</string>
 	<string name="screen_share_files_content_file">文件</string>
 	<string name="screen_share_files_content_files">文件</string>
-	<string name="screen_share_files_msg_filenames_must_be_unique">文件名必须是唯一的，请重命名重名文件</string>
+	<string name="screen_share_files_msg_filenames_must_be_unique">文件名必须唯一，请重命名重名文件</string>
 	<string name="screen_share_files_section_location">保存位置</string>
 	<string name="screen_share_files_save_button_text">保存</string>
 	<string name="screen_share_files_msg_success">加密完成</string>
@@ -290,32 +290,32 @@
 	<string name="dialog_accept_ssl_certificate_details">详情</string>
 	<string name="dialog_accept_ssl_certificate_security_checkbox">这可能存在安全风险，我知道我在做什么</string>
 	<string name="dialog_ask_ignore_battery_optimizations_title">禁用电池优化</string>
-	<string name="dialog_ask_ignore_battery_optimizations_hint">要在不后台运行的情况下检索新的图片和视频，我们需要解除电池优化。但别担心，%1$s 不会消耗太多电量。\n\n如需应用，点击这个对话框中的“%2$s”后，将“未优化”改为“所有应用”，选择 %1$s 并选择“不要优化”。</string>
-	<string name="dialog_ask_ignore_battery_optimizations_checkbox">不要再次询问我？</string>
-	<string name="dialog_http_security_hint">HTTP 不安全，我们建议使用 HTTPS。如果您知道其中风险，您可以继续使用 HTTP</string>
+	<string name="dialog_ask_ignore_battery_optimizations_hint">要在非后台运行的情况下检索新的图片和视频，我们需要关闭电池优化。但不要担心，%1$s 不会消耗太多电量。\n\n如需应用设置，点击对话框中的“%2$s”后，将“未优化”改为“所有应用”，选择 %1$s 并选择“不要优化”。</string>
+	<string name="dialog_ask_ignore_battery_optimizations_checkbox">不再询问？</string>
+	<string name="dialog_http_security_hint">HTTP 不安全，我们建议使用 HTTPS。如果您知道其中风险，您可以继续使用 HTTP。</string>
 	<string name="dialog_http_security_checkbox">换成 HTTPS</string>
 	<string name="dialog_http_security_title">使用 HTTPS?</string>
-	<string name="dialog_no_screen_lock_hint">未设置屏幕锁。要以安全的方式存储您的凭据，请使用 OK 设置锁屏图案或密码</string>
-	<string name="dialog_no_screen_lock_title">设置屏幕锁？</string>
-	<string name="dialog_no_screen_lock_checkbox">设置屏幕锁</string>
+	<string name="dialog_no_screen_lock_hint">未设置屏幕锁定。要以安全的方式存储您的凭据，请点击 OK 并设置锁屏图案或密码。</string>
+	<string name="dialog_no_screen_lock_title">设置屏幕锁定？</string>
+	<string name="dialog_no_screen_lock_checkbox">设置屏幕锁定</string>
 	<string name="dialog_no_biometric_auth_set_up_title">系统中未设置基本身份验证</string>
 	<string name="dialog_no_biometric_auth_set_up_message">注册至少一个指纹/面部以使用此服务</string>
-	<string name="dialog_debug_mode_disclaimer_hint">在此模式下，敏感数据可能会写入您设备上的日志文件 (例如文件名和路径)。密码、cookies等除外\n\n请记住要尽快关闭调试模式</string>
+	<string name="dialog_debug_mode_disclaimer_hint">在此模式下，敏感数据可能会写入您设备上的日志文件 (例如文件名和路径)。密码、cookies等除外。\n\n请记得要尽快关闭调试模式。</string>
 	<string name="dialog_debug_mode_disclaimer_title">请注意</string>
 	<string name="dialog_debug_mode_positive_button">启用</string>
 	<string name="dialog_disable_app_obscured_disclaimer_hint">此为一项安全功能，可防止其他应用诱使用户做出错误操作\n\n如果禁用，即表示您了解<a href="https://docs.cryptomator.org/en/1.6/android/settings/#block-app-when-obscured">其中风险</a></string>
 	<string name="dialog_disable_app_obscured_disclaimer_title">请注意</string>
 	<string name="dialog_disable_app_obscured_positive_button">关闭</string>
-	<string name="dialog_app_is_obscured_info_title">应用被遮蔽</string>
-	<string name="dialog_app_is_obscured_info_hint">另一应用正遮罩在 Cryptomator 之上 (例如蓝色光滤镜或夜间模式应用)。出于安全考虑，Cryptomator 已禁用\n\n<a href="https://docs.cryptomator.org/en/1.6/android/settings/#block-app-when-obscured">如何启用 Cryptomator</a></string>
+	<string name="dialog_app_is_obscured_info_title">应用被遮盖</string>
+	<string name="dialog_app_is_obscured_info_hint">另一应用遮盖了 Cryptomator (例如蓝光滤镜或夜间模式应用)。出于安全考虑，Cryptomator 已禁用。\n\n<a href="https://docs.cryptomator.org/en/1.6/android/settings/#block-app-when-obscured">如何启用 Cryptomator</a></string>
 	<string name="dialog_app_is_obscured_info_neutral_button">关闭</string>
 	<string name="dialog_vaults_removed_during_migration_title">请重新添加 %1s 的保险库</string>
-	<string name="dialog_vaults_removed_during_migration_hint">在进行应用版本迁移前，我们需要从应用中移除下列保险库：\n%2s \n\n这些保险库并不会从云端移除，仅仅是针对当前应用版本，抱歉给您带来不便，请重新添加这些保险库以便继续使之生效。</string>
+	<string name="dialog_vaults_removed_during_migration_hint">在进行应用版本迁移前，我们需要从应用中移除下列保险库：\n%2s \n\n这些保险库并不会从云端移除，仅仅在当前应用的列表中移除。抱歉给您带来不便，请重新添加这些保险库以便继续使用它们。</string>
 	<string name="dialog_vault_is_root_folder_of_cloud_title">保险库是云端的根文件夹</string>
-	<string name="dialog_vault_is_root_folder_of_cloud_hint">创建一个新的云端连接时，您需要选择这个保险库文件夹的父文件夹作为根目录来添加这个保险库。</string>
-	<string name="dialog_disable_secure_screen_disclaimer_hint">此为一项安全功能，可防止其他应用诱使用户做出错误操作\n\n如果禁用，即表示您了解<a href="https://docs.cryptomator.org/en/1.6/android/settings/#screen-security">其中风险</a></string>
-	<string name="dialog_delete_cloud_connection_with_vaults_message">您确定要移除此云连接吗？</string>
-	<string name="dialog_delete_cloud_connection_with_vaults_hint">此操作将移除云连接以及与之相关的所有保险库</string>
+	<string name="dialog_vault_is_root_folder_of_cloud_hint">创建一个新的云存储连接时，您至少需要选择这个保险库文件夹的父文件夹作为根目录来添加这个保险库。</string>
+	<string name="dialog_disable_secure_screen_disclaimer_hint">此为一项安全功能，可防止其他应用诱使用户做出错误操作。\n\n如果禁用，即表示您了解<a href="https://docs.cryptomator.org/en/1.6/android/settings/#screen-security">其中风险</a></string>
+	<string name="dialog_delete_cloud_connection_with_vaults_message">您确定要移除此云存储连接吗？</string>
+	<string name="dialog_delete_cloud_connection_with_vaults_hint">此操作将移除云存储连接以及与之相关的所有保险库。</string>
 	<string name="dialog_confirm_delete_multiple_title">删除 %1$d 项？</string>
 	<string name="dialog_confirm_delete_multiple_message">您确定要删除这些项目吗？</string>
 	<string name="dialog_confirm_delete_file_message">您确定要删除此文件吗？</string>
@@ -325,13 +325,13 @@
 	<string name="dialog_enter_license_title">请提供有效许可证</string>
 	<string name="dialog_enter_license_content">我们检测到您在没有使用 Google Play 商店的情况下安装了 Cryptomator。请提供有效许可证，可前往 <a href="https://cryptomator.org/android/">https://cryptomator.org/android/</a> 购买</string>
 	<string name="dialog_enter_license_not_valid_content">提供的许可证无效，请确保输入正确。</string>
-	<string name="dialog_enter_license_not_valid_content_desktop_supporter_certificate">提供的密钥为桌面版赞助者证书。请输入有效的许可证。</string>
+	<string name="dialog_enter_license_not_valid_content_desktop_supporter_certificate">提供的密钥为桌面版支持者证书。请输入有效的许可证。</string>
 	<string name="dialog_enter_license_no_content">未提供许可证，请输入有效许可证。</string>
 	<string name="dialog_enter_license_decline_button">退出</string>
 	<string name="dialog_license_confirmation_title">授权通过</string>
 	<string name="dialog_license_confirmation_message">感谢 %1$s 提供您的有效许可证</string>
 	<string name="dialog_update_available_title">发现新版本</string>
-	<string name="dialog_update_available_message">请更新 Cryptomator 到最新版本，点击确定我们将在后台下载应用，并提醒您安装</string>
+	<string name="dialog_update_available_message">请更新 Cryptomator 到最新版本。点击确定后，我们将在后台下载应用并提醒您安装。</string>
 	<string name="dialog_update_available_update">立即更新</string>
 	<string name="dialog_update_available_download_site">转到下载站点</string>
 	<string name="dialog_update_available_cancel">稍后再说</string>
@@ -386,7 +386,7 @@
 	<string name="notification_auto_upload_finished_title">自动上传图片完成</string>
 	<string name="notification_auto_upload_finished_message">%1$d 张图片已上传到保险库</string>
 	<string name="notification_auto_upload_failed_title">自动上传图片失败</string>
-	<string name="notification_auto_upload_failed_general_error">上传时出错</string>
+	<string name="notification_auto_upload_failed_general_error">上传时出现一般性出错。</string>
 	<string name="notification_auto_upload_failed_due_to_folder_not_exists">所选文件夹无法再上传，请转到设置并选择一个新的文件夹</string>
 	<string name="notification_auto_upload_failed_due_to_vault_locked">上传期间保险库锁定了，请重新打开保险库以继续</string>
 	<string name="notification_auto_upload_failed_due_to_vault_not_found">用于自动上传的指定保险库已不存在。</string>
