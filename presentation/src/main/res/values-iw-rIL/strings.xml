@@ -10,6 +10,7 @@
 	<string name="error_invalid_passphrase">סיסמה שגויה</string>
 	<string name="error_file_or_folder_exists">כבר קיימים תיקייה או קובץ בשם זה.</string>
 	<string name="error_vault_version_not_supported">גרסת Vault %1$s אינה נתמכת. גרסא Vault זו נוצרה עם גרסא חדשה או ישנה יותר של Cryptomator.</string>
+	<string name="error_vault_config_file_missing_due_to_format_999">הקובץ %1$s חסר בתיקית הכספת. ודא שהקובץ קיים בתיקית הכספת בענן.</string>
 	<string name="error_vault_already_exists">כספת כבר קיימת.</string>
 	<string name="error_no_such_file">הקובץ לא קיים.</string>
 	<string name="error_vault_has_been_locked">הכספת ננעלה.</string>
