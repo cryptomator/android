@@ -267,7 +267,12 @@ internal class PCloudImpl(private val cloud: PCloud, private val client: ApiClie
 			}
 		}
 
-		readFile(file.path, sink, listener)
+		try {
+			readFile(file.path, sink, listener)
+		} catch (ex: ApiError) {
+			handleApiError(ex, file.name)
+		}
+
 		if (sharedPreferencesHandler.useLruCache() && encryptedTmpFile != null && cacheKey != null) {
 			try {
 				diskLruCache?.let {
@@ -424,6 +429,7 @@ internal class PCloudImpl(private val cloud: PCloud, private val client: ApiClie
 	}
 
 	companion object {
+
 		private const val MaxContentLinkDownloadAttempts = 5
 		private const val ContentLinkDownloadAttemptDelayStepMs = 200L
 	}
