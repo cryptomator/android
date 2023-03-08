@@ -34,6 +34,7 @@
 	<string name="error_file_not_found_after_opening_using_3party">Cryptomator geri döndükten sonra, lokal dosya artık mevcut olmaz. Muhtemel değişiklikler bulutta tekrar oluşturulamaz.</string>
 	<string name="error_no_such_bucket">Böyle bir kova yok</string>
 	<string name="error_masterkey_location_not_supported">Özel ana anahtar lokasyonu desteklenmiyor</string>
+	<string name="error_interact_with_fdroid_but_fdroid_missing">F-Droid uygulamasıyla iletişim kurulamadı. Yüklü değil mi?</string>
 	<!-- # clouds -->
 	<!-- ## cloud names -->
 	<string name="cloud_names_local_storage">Yerel depolama</string>
@@ -54,12 +55,15 @@
 	<string name="snack_bar_action_title_sort_oldest">Önce en eskisi</string>
 	<string name="snack_bar_action_title_sort_biggest">Önce en büyüğü</string>
 	<string name="snack_bar_action_title_sort_smallest">Önce en küçüğü</string>
+	<string name="snack_bar_cryptomator_variants_title">Daha fazlasını oku</string>
+	<string name="snack_bar_cryptomator_variants_hint">Bulut listede yok mu?</string>
 	<!-- # screens -->
 	<!-- # screen: vault list -->
 	<string name="screen_vault_list_actions_title">Cryptomator\'a ekle</string>
 	<string name="screen_vault_list_action_create_new_vault">Yeni kasa oluştur</string>
 	<string name="screen_vault_list_action_add_existing_vault">Mevcut kasayı ekle</string>
 	<string name="screen_vault_list_vault_action_delete">Kaldır</string>
+	<string name="screen_vault_list_vault_creation_hint">Kasa oluşturmak/eklemek için buraya dokunun</string>
 	<string name="screen_vault_list_change_password_successful">Şifre başarıyla değiştirildi</string>
 	<!-- # screen: file browser -->
 	<string name="screen_file_browser_default_title">Kasa</string>
@@ -114,6 +118,7 @@
 	<string name="screen_choose_cloud_service_title">Bulut hizmeti</string>
 	<!-- ## screen: cloud connections -->
 	<string name="screen_cloud_connections_title">Bir yer seçin</string>
+	<string name="screen_cloud_connections_no_connections">Konum eklemek için buraya dokunun</string>
 	<string name="screen_cloud_error_webdav_not_supported">Sunucu WebDAV uyumlu görünmüyor</string>
 	<string name="screen_cloud_local_error_no_content_provider">Dizinlerin açılmasını destekleyen dosya yöneticisi bulunamadı</string>
 	<!-- ## screen: webdav settings -->
@@ -210,6 +215,18 @@
 	<string name="screen_authenticate_auth_authentication_failed">%1$s kimliği doğrulanamadı.</string>
 	<string name="screen_update_pcloud_connections_title">pCloud kimlik bilgilerini güncelleyin</string>
 	<!-- ## screen: cryptomator app variants -->
+	<string name="screen_cryptomator_variants_title">Cryptomator\'ın Varyantları</string>
+	<string name="screen_cryptomator_variants_lite_title">Ana F-Droid Deposu</string>
+	<string name="screen_cryptomator_variants_lite_description">API anahtarları gerektirdiği için hariç tutulmuştur.</string>
+	<string name="screen_cryptomator_variants_lite_install">Yükle</string>
+	<string name="screen_cryptomator_variants_fdroid_title">Cryptomator F-Droid Deposu</string>
+	<string name="screen_cryptomator_variants_fdroid_description">Tescilli bağımlılıklar içerdiğinden hariç tutulmuştur.</string>
+	<string name="screen_cryptomator_variants_fdroid_add_repo_hint">Cryptomator deposunu F-Droid uygulamasına ekle.</string>
+	<string name="screen_cryptomator_variants_fdroid_add_repo">Ekle</string>
+	<string name="screen_cryptomator_variants_fdroid_install_hint">F-Droid kullanarak Cryptomator\'ı kur.\nBulunamadı hatası görüntülenirse, F-Droid senkronizasyonu bitene kadar bekle.</string>
+	<string name="screen_cryptomator_variants_website_title">Web sitesi</string>
+	<string name="screen_cryptomator_variants_website_description">Tescilli bağımlılıklar içerir.</string>
+	<string name="screen_cryptomator_variants_installation_hint">Ana F-Droid deposu varyantından veya ana F-Droid deposu varyantına geçiş, uygulamanın yeni bir kurulumunu gerektirir.</string>
 	<!-- # dialogs -->
 	<string name="dialog_button_cancel">İptal</string>
 	<string name="dialog_enter_password_positive_button">Kilidi Aç</string>
@@ -247,6 +264,7 @@
 	<string name="dialog_unsaved_changes_title">Kaydedilmemiş değişiklikleriniz mevcut</string>
 	<string name="dialog_unsaved_changes_message">Kaydetmeden çıkmak istiyor musunuz?</string>
 	<string name="dialog_unsaved_changes_discard">Gözardı et</string>
+	<string name="dialog_file_name_hint">Dosya adı</string>
 	<string name="dialog_file_name_placeholder">metin.txt</string>
 	<string name="dialog_delete_vault_message">Bu kasayı kaldırmak istediğinizden emin misiniz?</string>
 	<string name="dialog_delete_vault_hint">Bu işlem kasayı yalnızca bu listeden kaldıracak ve fiziksel olarak silmeyecektir.</string>
@@ -273,6 +291,7 @@
 	<string name="dialog_accept_ssl_certificate_details">Detaylar</string>
 	<string name="dialog_accept_ssl_certificate_security_checkbox">Bu bir güvenlik riski olabilir! Ne yaptığımı biliyorum.</string>
 	<string name="dialog_ask_ignore_battery_optimizations_title">Pil optimizasyonlarını devre dışı bırak</string>
+	<string name="dialog_ask_ignore_battery_optimizations_hint">Arka planda çalışmadan yeni resimler ve videoları almak için pil optimizasyonlarını devre dışı bırakmanız gerekiyor. Ancak endişelenmeyin, %1$s fazla enerji tüketmez.\n\nUygulamak için \'Optimize edilmedi\'yi \'Tüm uygulamalar\' olarak değiştirin, %1$s\'yi seçin ve bu iletişim kutusunda \'%2$s\' tıkladıktan sonra \'Optimize etme\'ye dokunun.</string>
 	<string name="dialog_ask_ignore_battery_optimizations_checkbox">Bir daha sorma?</string>
 	<string name="dialog_http_security_hint">HTTP\'nin kullanımı güvensizdir. Bunun yerine HTTPS kullanmanızı öneririz. Riskleri biliyorsanız, HTTP ile devam edebilirsiniz.</string>
 	<string name="dialog_http_security_checkbox">HTTPS\'ye geç</string>
@@ -326,6 +345,7 @@
 	<string name="dialog_no_dir_file_message">\'%1$s\' bulut klasörü geçerli bir dizin dosyasına sahip değil. Klasör başka bir cihazda oluşturulmuş ve henüz bulutla tam olarak senkronize edilmemiş olabilir. Lütfen bulutunuzda aşağıdaki dosyanın olup olmadığını ve boş olup olmadığını kontrol edin:\n%2$s</string>
 	<string name="dialog_no_more_images_to_display">&#8230; göstermek için daha fazla resim yok</string>
 	<string name="dialog_pcloud_credentials_updated_title">%1$s kimlik bilgileri güncellendi</string>
+	<string name="dialog_pcloud_credentials_updated">Yeni bir pCloud hesabı eklemeyi düşünüyorsanız, bu url <a href="https://www.pcloud.com">www.pcloud.com</a> dokunun, mevcut hesaptan çıkın ve yeni bir bulut bağlantısı oluşturmak için \'+\'. tekrar dokunun.</string>
 	<string name="permission_snackbar_auth_local_vault">Cryptomator\'un yerel kasaları kullanmak için depolama erişimine ihtiyacı var</string>
 	<string name="permission_snackbar_auth_auto_upload">Cryptomator\'un otomatik fotoğraf yüklemesi için depolama erişimine ihtiyacı var</string>
 	<!-- # error reports -->

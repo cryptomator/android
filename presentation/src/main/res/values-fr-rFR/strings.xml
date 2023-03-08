@@ -63,7 +63,7 @@
 	<string name="screen_vault_list_action_create_new_vault">Créer un nouveau coffre-fort</string>
 	<string name="screen_vault_list_action_add_existing_vault">Ajouter un coffre-fort existant</string>
 	<string name="screen_vault_list_vault_action_delete">Retirer</string>
-	<string name="screen_vault_list_vault_creation_hint">Touchez ici pour créer un nouveau coffre-fort</string>
+	<string name="screen_vault_list_vault_creation_hint">Tapez ici pour créer un nouvel espace chiffré</string>
 	<string name="screen_vault_list_change_password_successful">Mot de passe modifié avec succès</string>
 	<!-- # screen: file browser -->
 	<string name="screen_file_browser_default_title">Coffre</string>
@@ -118,7 +118,7 @@
 	<string name="screen_choose_cloud_service_title">Service cloud</string>
 	<!-- ## screen: cloud connections -->
 	<string name="screen_cloud_connections_title">Choisissez l\'emplacement</string>
-	<string name="screen_cloud_connections_no_connections">Touchez ici pour ajouter des emplacements</string>
+	<string name="screen_cloud_connections_no_connections">Tapez ici pour ajouter des emplacements</string>
 	<string name="screen_cloud_error_webdav_not_supported">Le serveur ne semble pas compatible avec WebDAV</string>
 	<string name="screen_cloud_local_error_no_content_provider">Aucun gestionnaire de fichiers trouvé qui supporte l\'ouverture des répertoires</string>
 	<!-- ## screen: webdav settings -->
@@ -221,12 +221,12 @@
 	<string name="screen_cryptomator_variants_lite_install">Installer</string>
 	<string name="screen_cryptomator_variants_fdroid_title">Dépôt F-Droid de Cryptomator</string>
 	<string name="screen_cryptomator_variants_fdroid_description">Exclues car elles ont des dépendances propriétaires.</string>
-	<string name="screen_cryptomator_variants_fdroid_add_repo_hint">Ajouter le dépôt Cryptomator à l\'appli F-Droid.</string>
+	<string name="screen_cryptomator_variants_fdroid_add_repo_hint">Ajouter le dépôt Cryptomator à l\'application F-Droid.</string>
 	<string name="screen_cryptomator_variants_fdroid_add_repo">Ajouter</string>
 	<string name="screen_cryptomator_variants_fdroid_install_hint">Installez Cryptomator via F-Droid.\nSi une erreur \"introuvable\" (not found) apparaît, attendez que la synchronisation F-Droid s\'achève.</string>
 	<string name="screen_cryptomator_variants_website_title">Site web</string>
 	<string name="screen_cryptomator_variants_website_description">Contient des dépendances propriétaires.</string>
-	<string name="screen_cryptomator_variants_installation_hint">Passer au à la variante du dépôt F-Droid principal ou l\'abandonner nécessite une installation fraîche de l\'application.</string>
+	<string name="screen_cryptomator_variants_installation_hint">Passer à la variante du dépôt F-Droid principal ou l\'abandonner nécessite une nouvelle configuration de l\'application.</string>
 	<!-- # dialogs -->
 	<string name="dialog_button_cancel">Annuler</string>
 	<string name="dialog_enter_password_positive_button">Déverrouiller</string>
@@ -291,7 +291,7 @@
 	<string name="dialog_accept_ssl_certificate_details">Détails</string>
 	<string name="dialog_accept_ssl_certificate_security_checkbox">Cela pourrait constituer un risque pour la sécurité. Je sais ce que je fais.</string>
 	<string name="dialog_ask_ignore_battery_optimizations_title">Désactiver les optimisations de la batterie</string>
-	<string name="dialog_ask_ignore_battery_optimizations_hint">Pour récupérer les nouvelles photos et vidéos sans que l\'application ne fonctionne en arrière-plan, nous devons l\'exclure des optimisations de la batterie. Mais ne vous inquiétez pas, %1$s ne consomme pas beaucoup d\'énergie.\n\nPour ce faire, remplacez \"Non optimisé\" par \"Toutes les applications\", sélectionnez %1$s et choisissez \"Ne pas optimiser\" après avoir cliqué sur \"%2$s\" dans cette boîte de dialogue-ci.</string>
+	<string name="dialog_ask_ignore_battery_optimizations_hint">Pour récupérer les nouvelles photos et vidéos sans que l\'application ne fonctionne en arrière-plan, nous devons l\'exclure des optimisations de la batterie. Mais ne vous inquiétez pas, %1$s ne consomme pas beaucoup d\'énergie.\n\nPour ce faire, remplacez \"Non optimisé\" par \"Toutes les applications\", sélectionnez %1$s et choisissez \"Ne pas optimiser\" après avoir cliqué sur \"%2$s\" dans cette boîte de dialogue.</string>
 	<string name="dialog_ask_ignore_battery_optimizations_checkbox">Ne plus demander ?</string>
 	<string name="dialog_http_security_hint">L\'utilisation du HTTP n\'est pas sûre. Nous recommandons d\'utiliser plutôt le HTTPS. Si vous connaissez les risques, vous pouvez continuer à utiliser HTTP.</string>
 	<string name="dialog_http_security_checkbox">Passage au HTTPS</string>
