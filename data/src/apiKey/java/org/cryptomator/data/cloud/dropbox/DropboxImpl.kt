@@ -40,13 +40,21 @@ import org.cryptomator.util.file.LruFileCacheUtil.Companion.retrieveFromLruCache
 import java.io.File
 import java.io.IOException
 import java.io.OutputStream
+import java.util.ArrayList
 import timber.log.Timber
 
-internal class DropboxImpl(cloud: DropboxCloud, private val client: DbxClientV2, private val context: Context) {
+internal class DropboxImpl(cloud: DropboxCloud, context: Context) {
 
-	private val root = RootDropboxFolder(cloud)
+	private val cloud: DropboxCloud
+	private val root: RootDropboxFolder
+	private val context: Context
 	private val sharedPreferencesHandler: SharedPreferencesHandler
 	private var diskLruCache: DiskLruCache? = null
+
+	@Throws(AuthenticationException::class)
+	private fun client(): DbxClientV2 {
+		return DropboxClientFactory.getInstance(cloud.accessToken(), context)
+	}
 
 	fun root(): DropboxFolder {
 		return root
@@ -72,7 +80,7 @@ internal class DropboxImpl(cloud: DropboxCloud, private val client: DbxClientV2,
 	@Throws(AuthenticationException::class, DbxException::class)
 	fun exists(node: CloudNode): Boolean {
 		return try {
-			val metadata = client //
+			val metadata = client() //
 				.files() //
 				.getMetadata(node.path)
 			if (node is CloudFolder) {
@@ -94,9 +102,9 @@ internal class DropboxImpl(cloud: DropboxCloud, private val client: DbxClientV2,
 		var listFolderResult: ListFolderResult? = null
 		do {
 			listFolderResult = if (listFolderResult == null) {
-				client.files().listFolder(folder.path)
+				client().files().listFolder(folder.path)
 			} else {
-				client.files().listFolderContinue(listFolderResult.cursor)
+				client().files().listFolderContinue(listFolderResult.cursor)
 			}
 			listFolderResult.entries.forEach {
 				result.add(from(folder, it))
@@ -108,7 +116,7 @@ internal class DropboxImpl(cloud: DropboxCloud, private val client: DbxClientV2,
 	@Throws(AuthenticationException::class, DbxException::class)
 	fun create(folder: DropboxFolder): DropboxFolder {
 		folder.parent?.let {
-			val createFolderResult = client.files().createFolderV2(folder.path)
+			val createFolderResult = client().files().createFolderV2(folder.path)
 			return from(it, createFolderResult.metadata)
 		} ?: throw ParentFolderIsNullException(folder.name)
 	}
@@ -116,7 +124,7 @@ internal class DropboxImpl(cloud: DropboxCloud, private val client: DbxClientV2,
 	@Throws(AuthenticationException::class, DbxException::class)
 	fun move(source: DropboxNode, target: DropboxNode): DropboxNode {
 		target.parent?.let { targetsParent ->
-			val relocationResult = client.files().moveV2(source.path, target.path)
+			val relocationResult = client().files().moveV2(source.path, target.path)
 			return from(targetsParent, relocationResult.metadata)
 		} ?: throw ParentFolderIsNullException(target.name)
 	}
@@ -140,7 +148,7 @@ internal class DropboxImpl(cloud: DropboxCloud, private val client: DbxClientV2,
 		} else {
 			chunkedUploadFile(file, data, progressAware, writeMode, size)
 		}
-		val metadata = client.files().getMetadata(file.path)
+		val metadata = client().files().getMetadata(file.path)
 		progressAware.onProgress(Progress.completed(UploadState.upload(file)))
 		return from(file.parent, metadata) as DropboxFile
 	}
@@ -158,7 +166,7 @@ internal class DropboxImpl(cloud: DropboxCloud, private val client: DbxClientV2,
 					)
 				}
 			}.use {
-				client //
+				client() //
 					.files() //
 					.uploadBuilder(file.path) //
 					.withMode(writeMode) //
@@ -196,7 +204,7 @@ internal class DropboxImpl(cloud: DropboxCloud, private val client: DbxClientV2,
 
 					// (1) Start
 					if (sessionId == null) {
-						sessionId = client //
+						sessionId = client() //
 							.files() //
 							.uploadSessionStart() //
 							.uploadAndFinish(object : TransferredBytesAwareInputStream(it) {
@@ -222,7 +230,7 @@ internal class DropboxImpl(cloud: DropboxCloud, private val client: DbxClientV2,
 					// (2) Append
 					while (size - uploaded > CHUNKED_UPLOAD_CHUNK_SIZE) {
 						val fullyUploaded = uploaded
-						client //
+						client() //
 							.files() //
 							.uploadSessionAppendV2(cursor) //
 							.uploadAndFinish(object : TransferredBytesAwareInputStream(it) {
@@ -251,7 +259,7 @@ internal class DropboxImpl(cloud: DropboxCloud, private val client: DbxClientV2,
 						.newBuilder(file.path) //
 						.withMode(writeMode) //
 						.build()
-					client //
+					client() //
 						.files() //
 						.uploadSessionFinish(cursor, commitInfo) //
 						.uploadAndFinish(it, remaining)
@@ -294,7 +302,7 @@ internal class DropboxImpl(cloud: DropboxCloud, private val client: DbxClientV2,
 		var cacheKey: String? = null
 		var cacheFile: File? = null
 		if (sharedPreferencesHandler.useLruCache() && createLruCache(sharedPreferencesHandler.lruCacheSize())) {
-			val fileMetadata = client //
+			val fileMetadata = client() //
 				.files() //
 				.getMetadata(file.path) as FileMetadata
 			cacheKey = fileMetadata.id + fileMetadata.rev
@@ -325,7 +333,7 @@ internal class DropboxImpl(cloud: DropboxCloud, private val client: DbxClientV2,
 				)
 			}
 		}.use {
-			client //
+			client() //
 				.files() //
 				.download(file.path) //
 				.download(it)
@@ -355,17 +363,17 @@ internal class DropboxImpl(cloud: DropboxCloud, private val client: DbxClientV2,
 
 	@Throws(AuthenticationException::class, DbxException::class)
 	fun delete(node: CloudNode) {
-		client.files().deleteV2(node.path)
+		client().files().deleteV2(node.path)
 	}
 
 	@Throws(AuthenticationException::class, DbxException::class)
 	fun currentAccount(): String {
-		val currentAccount = client.users().currentAccount
+		val currentAccount = client().users().currentAccount
 		return currentAccount.name.displayName
 	}
 
 	fun logout() {
-		// FIXME what about logout?
+		DropboxClientFactory.logout()
 	}
 
 	companion object {
@@ -385,6 +393,9 @@ internal class DropboxImpl(cloud: DropboxCloud, private val client: DbxClientV2,
 		if (cloud.accessToken() == null) {
 			throw NoAuthenticationProvidedException(cloud)
 		}
+		this.cloud = cloud
+		this.root = RootDropboxFolder(cloud)
+		this.context = context
 		sharedPreferencesHandler = SharedPreferencesHandler(context)
 	}
 }

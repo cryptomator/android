@@ -13,11 +13,21 @@ import okhttp3.Interceptor
 import okhttp3.OkHttpClient
 import timber.log.Timber
 
-class DropboxClient {
+class DropboxClientFactory {
 
 	companion object {
 
-		fun createClient(accessToken: String, context: Context): DbxClientV2 {
+		@Volatile
+		private var instance: DbxClientV2? = null
+
+		@Synchronized
+		fun getInstance(accessToken: String, context: Context): DbxClientV2 = instance ?: createDropboxClient(decrypt(accessToken, context), context).also { instance = it }
+
+		private fun decrypt(password: String, context: Context): String {
+			return CredentialCryptor.getInstance(context).decrypt(password)
+		}
+
+		private fun createDropboxClient(accessToken: String, context: Context): DbxClientV2 {
 			val userLocale = Locale.getDefault().toString()
 
 			val okHttpClient = OkHttpClient() //
@@ -34,11 +44,7 @@ class DropboxClient {
 				.withHttpRequestor(OkHttp3Requestor(okHttpClient)) //
 				.build()
 
-			return DbxClientV2(requestConfig, decrypt(accessToken, context))
-		}
-
-		private fun decrypt(password: String, context: Context): String {
-			return CredentialCryptor.getInstance(context).decrypt(password)
+			return DbxClientV2(requestConfig, accessToken)
 		}
 
 		private fun httpLoggingInterceptor(context: Context): Interceptor {
@@ -49,5 +55,10 @@ class DropboxClient {
 			}
 			return HttpLoggingInterceptor(logger, context)
 		}
+
+		fun logout() {
+			instance = null
+		}
+
 	}
 }

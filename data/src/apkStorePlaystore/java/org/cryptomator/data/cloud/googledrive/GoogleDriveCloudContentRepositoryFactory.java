@@ -30,7 +30,6 @@ public class GoogleDriveCloudContentRepositoryFactory implements CloudContentRep
 
 	@Override
 	public CloudContentRepository<GoogleDriveCloud, GoogleDriveNode, GoogleDriveFolder, GoogleDriveFile> cloudContentRepositoryFor(Cloud cloud) {
-		GoogleDriveCloud googleDriveCloud = (GoogleDriveCloud) cloud;
-		return new GoogleDriveCloudContentRepository(googleDriveCloud, idCache, GoogleDriveClient.Companion.createClient(googleDriveCloud.username(), context), context);
+		return new GoogleDriveCloudContentRepository(context, (GoogleDriveCloud) cloud, idCache);
 	}
 }

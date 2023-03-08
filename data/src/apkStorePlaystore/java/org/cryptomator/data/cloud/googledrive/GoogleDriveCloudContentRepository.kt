@@ -4,7 +4,6 @@ import android.content.Context
 import com.google.api.client.googleapis.extensions.android.gms.auth.UserRecoverableAuthIOException
 import com.google.api.client.googleapis.json.GoogleJsonResponseException
 import com.google.api.client.http.HttpStatusCodes
-import com.google.api.services.drive.Drive
 import org.cryptomator.data.cloud.InterceptingCloudContentRepository
 import org.cryptomator.domain.GoogleDriveCloud
 import org.cryptomator.domain.exception.BackendException
@@ -23,8 +22,8 @@ import java.io.IOException
 import java.io.OutputStream
 import java.net.SocketTimeoutException
 
-internal class GoogleDriveCloudContentRepository(private val cloud: GoogleDriveCloud, idCache: GoogleDriveIdCache, client: Drive, context: Context) :
-	InterceptingCloudContentRepository<GoogleDriveCloud, GoogleDriveNode, GoogleDriveFolder, GoogleDriveFile>(Intercepted(cloud, idCache, client, context)) {
+internal class GoogleDriveCloudContentRepository(context: Context, private val cloud: GoogleDriveCloud, idCache: GoogleDriveIdCache) :
+	InterceptingCloudContentRepository<GoogleDriveCloud, GoogleDriveNode, GoogleDriveFolder, GoogleDriveFile>(Intercepted(context, cloud, idCache)) {
 
 	@Throws(BackendException::class)
 	override fun throwWrappedIfRequired(e: Exception) {
@@ -56,9 +55,9 @@ internal class GoogleDriveCloudContentRepository(private val cloud: GoogleDriveC
 		}
 	}
 
-	private class Intercepted(cloud: GoogleDriveCloud, idCache: GoogleDriveIdCache, client: Drive, context: Context) : CloudContentRepository<GoogleDriveCloud, GoogleDriveNode, GoogleDriveFolder, GoogleDriveFile> {
+	private class Intercepted(context: Context, cloud: GoogleDriveCloud, idCache: GoogleDriveIdCache) : CloudContentRepository<GoogleDriveCloud, GoogleDriveNode, GoogleDriveFolder, GoogleDriveFile> {
 
-		private val impl: GoogleDriveImpl = GoogleDriveImpl(cloud, idCache, client, context)
+		private val impl: GoogleDriveImpl = GoogleDriveImpl(context, cloud, idCache)
 
 		@Throws(BackendException::class)
 		override fun root(cloud: GoogleDriveCloud): GoogleDriveFolder {
