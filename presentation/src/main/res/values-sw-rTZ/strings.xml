@@ -34,6 +34,7 @@
 	<string name="error_file_not_found_after_opening_using_3party">Faili ya ndani haipo tena baada ya kurudi kwenye Cryptomator. Mabadiliko yanayowezekana hayawezi kuenezwa tena kwenye wingu.</string>
 	<string name="error_no_such_bucket">Hakuna ndoo ya utafutaji</string>
 	<string name="error_masterkey_location_not_supported">Mahali maalumu pa Masterkey bado haijategemezwa bado</string>
+	<string name="error_interact_with_fdroid_but_fdroid_missing">Imeshindwa kuwasiliana na programu ya F-Droid. Je, haijasakinishwa?</string>
 	<!-- # clouds -->
 	<!-- ## cloud names -->
 	<string name="cloud_names_local_storage">Hifadhi ya ndani</string>
@@ -54,12 +55,15 @@
 	<string name="snack_bar_action_title_sort_oldest">Zamani zaidi ya kwanza</string>
 	<string name="snack_bar_action_title_sort_biggest">Kubwa ya kwanza</string>
 	<string name="snack_bar_action_title_sort_smallest">Ndogo ya kwanza</string>
+	<string name="snack_bar_cryptomator_variants_title">Soma zaidi</string>
+	<string name="snack_bar_cryptomator_variants_hint">Wingu haipo kwenye orodha?</string>
 	<!-- # screens -->
 	<!-- # screen: vault list -->
 	<string name="screen_vault_list_actions_title">Ongeza kwenye Cryptomator</string>
 	<string name="screen_vault_list_action_create_new_vault">Unda kuba mpya</string>
 	<string name="screen_vault_list_action_add_existing_vault">Ongeza kuba iliyopo</string>
 	<string name="screen_vault_list_vault_action_delete">Ondoa</string>
+	<string name="screen_vault_list_vault_creation_hint">Gusa hapa ili kuunda kuba mpya</string>
 	<string name="screen_vault_list_change_password_successful">Neno la siri limebadilishwa kwa ufanisi</string>
 	<!-- # screen: file browser -->
 	<string name="screen_file_browser_default_title">Kuba</string>
@@ -110,6 +114,7 @@
 	<string name="screen_choose_cloud_service_title">Huduma ya wingu</string>
 	<!-- ## screen: cloud connections -->
 	<string name="screen_cloud_connections_title">Chagua mahali</string>
+	<string name="screen_cloud_connections_no_connections">Gusa hapa ili kuongeza maeneo</string>
 	<string name="screen_cloud_error_webdav_not_supported">Seva haionekani kuwa sambamba na WebDAV</string>
 	<string name="screen_cloud_local_error_no_content_provider">Hakuna faili maneja lililopatikana inasaidia kufungua saraka</string>
 	<!-- ## screen: webdav settings -->
@@ -177,6 +182,7 @@
 	<string name="screen_settings_auto_photo_upload_title">Hifadhi faili za kupakia kiotomatiki kwenye &#8230;</string>
 	<string name="screen_settings_website_label">Tovuti ya Cryptomator</string>
 	<string name="screen_settings_twitter_label">Tufuate kwenye Twitter</string>
+	<string name="screen_settings_facebook_label">Tupende sisi kwenye Facebook</string>
 	<string name="screen_settings_section_legal">Kisheria</string>
 	<string name="screen_settings_licenses_label">Leseni</string>
 	<string name="screen_settings_license_terms_label">Masharti ya leseni</string>
@@ -205,6 +211,18 @@
 	<string name="screen_authenticate_auth_authentication_failed">%1$s haikuweza kuthibitishwa.</string>
 	<string name="screen_update_pcloud_connections_title">Sasisha hati za utambulisho za pCloud</string>
 	<!-- ## screen: cryptomator app variants -->
+	<string name="screen_cryptomator_variants_title">Lahaja za Cryptomator</string>
+	<string name="screen_cryptomator_variants_lite_title">Hazina kuu ya F-Droid</string>
+	<string name="screen_cryptomator_variants_lite_description">Haijajumuishwa kwa sababu zinahitaji funguo za API.</string>
+	<string name="screen_cryptomator_variants_lite_install">Sakinisha</string>
+	<string name="screen_cryptomator_variants_fdroid_title">Hazina ya Cryptomator F-Droid</string>
+	<string name="screen_cryptomator_variants_fdroid_description">Haijajumuishwa kwa sababu ina vitegemezi vya umiliki.</string>
+	<string name="screen_cryptomator_variants_fdroid_add_repo_hint">Ongeza hazina ya Cryptomator kwenye programu ya F-Droid.</string>
+	<string name="screen_cryptomator_variants_fdroid_add_repo">Ongeza</string>
+	<string name="screen_cryptomator_variants_fdroid_install_hint">Sakinisha Cryptomator ukitumia F-Droid.\n iwapo hitilafu ambayo haijapatikana itaonyeshwa, subiri hadi ulandanishi wa F-Droid ukamilike. Contextrequest.</string>
+	<string name="screen_cryptomator_variants_website_title">Tovuti</string>
+	<string name="screen_cryptomator_variants_website_description">Ina tegemezi za umiliki.</string>
+	<string name="screen_cryptomator_variants_installation_hint">Kubadilisha kutoka au kwenda kwa lahaja kuu ya hazina ya F-Droid kunahitaji usanidi mpya wa programu.</string>
 	<!-- # dialogs -->
 	<string name="dialog_button_cancel">Katisha</string>
 	<string name="dialog_enter_password_positive_button">Fungua</string>
@@ -242,6 +260,7 @@
 	<string name="dialog_unsaved_changes_title">Una mabadiliko ambayo hayajahifadhiwa</string>
 	<string name="dialog_unsaved_changes_message">Je, kweli unataka kuacha bila kuhifadhi?</string>
 	<string name="dialog_unsaved_changes_discard">Tupa</string>
+	<string name="dialog_file_name_hint">Jina la Faili</string>
 	<string name="dialog_file_name_placeholder">ujumbe.txt</string>
 	<string name="dialog_delete_vault_message">Una uhakika unataka kuondoa kuba hii?</string>
 	<string name="dialog_delete_vault_hint">Kitendo hiki kitaondoa tu kuba kutoka kwenye orodha hii na sio kuifuta kimwili.</string>
@@ -268,6 +287,7 @@
 	<string name="dialog_accept_ssl_certificate_details">Maelezo</string>
 	<string name="dialog_accept_ssl_certificate_security_checkbox">Hii inaweza kuwa hatari kwa usalama. Najua kile ninachofanya.</string>
 	<string name="dialog_ask_ignore_battery_optimizations_title">Lemaza uboreshaji wa betri</string>
+	<string name="dialog_ask_ignore_battery_optimizations_hint">Ili kurejesha picha na video mpya bila kufanya kazi chinichini, tunahitaji kuchagua kutoka kwa uboreshaji wa betri. Lakini usijali, %1$s haitumii nishati nyingi.\n\nIli kuitumia, badilisha \'Haijaboreshwa\' hadi \'Programu zote\', chagua %1$s na uchague \'Usiboresha\' baada ya kugonga. \'%2$s\' katika kidirisha hiki.</string>
 	<string name="dialog_ask_ignore_battery_optimizations_checkbox">Je, si kuuliza tena?</string>
 	<string name="dialog_http_security_hint">Matumizi ya HTTP ni salama. Tunapendekeza kutumia HTTPS badala yake. Ikiwa unajua hatari, unaweza kuendelea na HTTP.</string>
 	<string name="dialog_http_security_checkbox">Badilisha hadi HTTPS</string>
@@ -321,6 +341,7 @@
 	<string name="dialog_no_dir_file_message">Folda ya wingu \'%1$s\' haina faili halali ya saraka. Inaweza kuwa kwamba folda iliundwa kwenye kifaa kingine na bado haijalandanishwa kikamilifu kwenye wingu. Tafadhali angalia katika wingu lako ikiwa faili ifuatayo ipo na sio tupu:\n%2$s</string>
 	<string name="dialog_no_more_images_to_display">Hakuna picha zaidi za kuonyesha&#8230;</string>
 	<string name="dialog_pcloud_credentials_updated_title">Hati za utambulisho za \'%1$s\' zimesasishwa</string>
+	<string name="dialog_pcloud_credentials_updated">Ikiwa ulitaka kuongeza akaunti mpya ya pCloud, gusa url hii <a href="https://www.pcloud.com">www.pcloud.com</a>, ondoka kwenye akaunti ya sasa na uguse tena \'+\' katika programu hii ili kuunda muunganisho mpya wa wingu.</string>
 	<string name="permission_snackbar_auth_local_vault">Cryptomator inahitaji ufikiaji wa kuhifadhi ili kutumia kuba za ndani</string>
 	<string name="permission_snackbar_auth_auto_upload">Cryptomator inahitaji ufikiaji wa kuhifadhi ili kutumia upakiaji wa picha kiotomatiki</string>
 	<!-- # error reports -->

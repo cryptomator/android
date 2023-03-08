@@ -34,6 +34,7 @@
 	<string name="error_file_not_found_after_opening_using_3party">Το τοπικό αρχείο δεν υπάρχει πλέον μετά την επιστροφή στο Cryptomator. Οι πιθανές αλλαγές δεν μπορούν να μεταδοθούν πίσω στο cloud.</string>
 	<string name="error_no_such_bucket">Δεν υπάρχει τέτοιος κάδος</string>
 	<string name="error_masterkey_location_not_supported">Η προσαρμοσμένη τοποθεσία Masterkey δεν υποστηρίζεται ακόμα</string>
+	<string name="error_interact_with_fdroid_but_fdroid_missing">Αποτυχία επικοινωνίας με την εφαρμογή F-Droid. Δεν έχει εγκατασταθεί;</string>
 	<!-- # clouds -->
 	<!-- ## cloud names -->
 	<string name="cloud_names_local_storage">Τοπική αποθήκευση</string>
@@ -54,12 +55,15 @@
 	<string name="snack_bar_action_title_sort_oldest">Παλαιότερα πρώτα</string>
 	<string name="snack_bar_action_title_sort_biggest">Μεγαλύτερου μεγέθους πρώτα</string>
 	<string name="snack_bar_action_title_sort_smallest">Μικρού μεγέθους πρώτα</string>
+	<string name="snack_bar_cryptomator_variants_title">Διαβάστε περισσότερα</string>
+	<string name="snack_bar_cryptomator_variants_hint">Το Cloud δεν είναι στη λίστα;</string>
 	<!-- # screens -->
 	<!-- # screen: vault list -->
 	<string name="screen_vault_list_actions_title">Προσθήκη στο Cryptomator</string>
 	<string name="screen_vault_list_action_create_new_vault">Δημιουργία νέας κρύπτης</string>
 	<string name="screen_vault_list_action_add_existing_vault">Προσθήκη υπάρχοντος κρύπτης</string>
 	<string name="screen_vault_list_vault_action_delete">Αφαίρεση</string>
+	<string name="screen_vault_list_vault_creation_hint">Πατήστε εδώ για να δημιουργήσετε μια κρύπτη</string>
 	<string name="screen_vault_list_change_password_successful">Ο κωδικός πρόσβασης άλλαξε επιτυχώς</string>
 	<!-- # screen: file browser -->
 	<string name="screen_file_browser_default_title">Κρύπτη</string>
@@ -114,6 +118,7 @@
 	<string name="screen_choose_cloud_service_title">Υπηρεσίες cloud</string>
 	<!-- ## screen: cloud connections -->
 	<string name="screen_cloud_connections_title">Επιλέξτε μια τοποθεσία</string>
+	<string name="screen_cloud_connections_no_connections">Πατήστε εδώ για να προσθέσετε τοποθεσίες</string>
 	<string name="screen_cloud_error_webdav_not_supported">Ο διακομιστής δεν φαίνεται να είναι συμβατός με WebDAV</string>
 	<string name="screen_cloud_local_error_no_content_provider">Δε βρέθηκε διαχειριστής αρχείων που να υποστηρίζει το άνοιγμα καταλόγων</string>
 	<!-- ## screen: webdav settings -->
@@ -210,6 +215,18 @@
 	<string name="screen_authenticate_auth_authentication_failed">%1$s δεν ήταν δυνατή η ταυτοποίηση.</string>
 	<string name="screen_update_pcloud_connections_title">Ενημέρωση διαπιστευτηρίων pCloud</string>
 	<!-- ## screen: cryptomator app variants -->
+	<string name="screen_cryptomator_variants_title">Παραλλαγές του Cryptomator</string>
+	<string name="screen_cryptomator_variants_lite_title">Κύριος Αποθετήριο F-Droid</string>
+	<string name="screen_cryptomator_variants_lite_description">Εξαιρούνται επειδή απαιτούν κλειδιά API.</string>
+	<string name="screen_cryptomator_variants_lite_install">Εγκατάσταση</string>
+	<string name="screen_cryptomator_variants_fdroid_title">Αποθετήριο F-Droid Cryptomator</string>
+	<string name="screen_cryptomator_variants_fdroid_description">Εξαιρούνται επειδή περιέχει ιδιόκτητες εξαρτήσεις.</string>
+	<string name="screen_cryptomator_variants_fdroid_add_repo_hint">Προσθέστε το αποθετήριο Cryptomator στην εφαρμογή F-Droid.</string>
+	<string name="screen_cryptomator_variants_fdroid_add_repo">Προσθήκη</string>
+	<string name="screen_cryptomator_variants_fdroid_install_hint">Εγκαταστήστε το Cryptomator χρησιμοποιώντας το F-Droid.\nΕάν εμφανιστεί ότι δε βρήκε σφάλμα, περιμένετε μέχρι να ολοκληρωθεί ο συγχρονισμός του F-Droid.</string>
+	<string name="screen_cryptomator_variants_website_title">Ιστοσελίδα</string>
+	<string name="screen_cryptomator_variants_website_description">Περιέχει ιδιόκτητες εξαρτήσεις.</string>
+	<string name="screen_cryptomator_variants_installation_hint">Η εναλλαγή από ή προς την κύρια παραλλαγή του αποθετηρίου F-Droid απαιτεί νέα ρύθμιση της εφαρμογής.</string>
 	<!-- # dialogs -->
 	<string name="dialog_button_cancel">Ακύρωση</string>
 	<string name="dialog_enter_password_positive_button">Ξεκλείδωμα</string>
@@ -247,6 +264,7 @@
 	<string name="dialog_unsaved_changes_title">Έχετε μη αποθηκευμένες αλλαγές</string>
 	<string name="dialog_unsaved_changes_message">Θέλετε πραγματικά να βγείτε χωρίς αποθήκευση;</string>
 	<string name="dialog_unsaved_changes_discard">Απόρριψη</string>
+	<string name="dialog_file_name_hint">Όνομα αρχείου</string>
 	<string name="dialog_file_name_placeholder">text.txt</string>
 	<string name="dialog_delete_vault_message">Είστε βέβαιοι ότι θέλετε να καταργήσετε αυτή την κρύπτη;</string>
 	<string name="dialog_delete_vault_hint">Αυτή η ενέργεια θα αφαιρέσει μόνο τη κρύπτη από αυτή τη λίστα και δεν θα το διαγράψει φυσικά.</string>
@@ -273,6 +291,7 @@
 	<string name="dialog_accept_ssl_certificate_details">Λεπτομέρειες</string>
 	<string name="dialog_accept_ssl_certificate_security_checkbox">Αυτό θα μπορούσε να αποτελέσει κίνδυνο για την ασφάλεια. Γνωρίζω τι κάνω.</string>
 	<string name="dialog_ask_ignore_battery_optimizations_title">Απενεργοποιήστε τις βελτιστοποιήσεις μπαταρίας</string>
+	<string name="dialog_ask_ignore_battery_optimizations_hint">Για να ανακτήσετε νέες εικόνες και βίντεο χωρίς να τρέξετε στο παρασκήνιο, πρέπει να εξαιρεθούμε από τις βελτιστοποιήσεις της μπαταρίας. Αλλά μην ανησυχείτε, %1$s δεν καταναλώνουν πολλή ενέργεια.\n\nΓια να το εφαρμόσετε, αλλάξτε το \'Μη βελτιστοποιημένο\' σε \'Όλες οι εφαρμογές\', επιλέξτε %1$s και επιλέξτε \'Να μην βελτιστοποιείται\' μετά το πάτημα \'%2$s\' σε αυτό το διάλογο.</string>
 	<string name="dialog_ask_ignore_battery_optimizations_checkbox">Να μην ερωτηθώ ξανά;</string>
 	<string name="dialog_http_security_hint">Η χρήση του HTTP είναι μη ασφαλής. Σας συνιστούμε να χρησιμοποιήσετε το HTTPS αντ \'αυτού. Αν γνωρίζετε τους κινδύνους, μπορείτε να συνεχίσετε με το HTTP.</string>
 	<string name="dialog_http_security_checkbox">Αλλαγή σε HTTPS</string>
@@ -326,6 +345,7 @@
 	<string name="dialog_no_dir_file_message">Ο φάκελος Cloud \'%1$s\' δεν έχει ένα έγκυρο αρχείο καταλόγου. Θα μπορούσε να είναι ότι ο φάκελος δημιουργήθηκε σε μια άλλη συσκευή και δεν έχει ακόμη πλήρως συγχρονιστεί με το cloud. Παρακαλούμε ελέγξτε στο cloud σας εάν το ακόλουθο αρχείο υπάρχει και δεν είναι κενό:\n%2$s</string>
 	<string name="dialog_no_more_images_to_display">Δεν υπάρχουν άλλες εικόνες για εμφάνιση&#8230;</string>
 	<string name="dialog_pcloud_credentials_updated_title">Τα διαπιστευτήρια του \'%1$s\' ενημερώθηκαν</string>
+	<string name="dialog_pcloud_credentials_updated">Αν σκοπεύατε να προσθέσετε ένα νέο λογαριασμό pCloud, πατήστε σε αυτό το url <a href="https://www.pcloud.com">www.pcloud. om</a>, αποσυνδεθείτε από τον τρέχοντα λογαριασμό και πατήστε ξανά στο \'+\' σε αυτήν την εφαρμογή για να δημιουργήσετε μια νέα σύνδεση στο cloud.</string>
 	<string name="permission_snackbar_auth_local_vault">Το Cryptomator χρειάζεται πρόσβαση στον αποθηκευτικό χώρο για τη χρήση τοπικών κρυπτών</string>
 	<string name="permission_snackbar_auth_auto_upload">Το Cryptomator χρειάζεται πρόσβαση στον αποθηκευτικό χώρο για να χρησιμοποιηθεί η αυτόματη μεταφόρτωση φωτογραφιών</string>
 	<!-- # error reports -->
