@@ -10,6 +10,7 @@ import org.cryptomator.domain.OnedriveCloud
 import org.cryptomator.domain.PCloud
 import org.cryptomator.domain.Vault
 import org.cryptomator.domain.di.PerView
+import org.cryptomator.domain.exception.NetworkConnectionException
 import org.cryptomator.domain.usecases.cloud.AddOrChangeCloudConnectionUseCase
 import org.cryptomator.domain.usecases.cloud.GetCloudsUseCase
 import org.cryptomator.domain.usecases.cloud.GetUsernameUseCase
@@ -29,6 +30,7 @@ import org.cryptomator.presentation.model.mappers.CloudModelMapper
 import org.cryptomator.presentation.ui.activity.view.CloudConnectionListView
 import org.cryptomator.presentation.ui.dialog.PCloudCredentialsUpdatedDialog
 import org.cryptomator.presentation.workflow.ActivityResult
+import org.cryptomator.util.ExceptionUtil
 import org.cryptomator.util.crypto.CredentialCryptor
 import java.util.concurrent.atomic.AtomicReference
 import javax.inject.Inject
@@ -134,7 +136,7 @@ class CloudConnectionListPresenter @Inject constructor( //
 		OnedriveAuthentication.getAuthenticatedOnedriveCloud(activity(), { cloud ->
 			saveOnedriveCloud(cloud)
 		}, { e ->
-			showError(e)
+			ExceptionUtil.extract(e, NetworkConnectionException::class.java).orNull()?.let { showError(it) } ?: showError(e)
 		})
 	}
 

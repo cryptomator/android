@@ -10,8 +10,10 @@ import com.microsoft.identity.client.IPublicClientApplication
 import com.microsoft.identity.client.PublicClientApplication
 import com.microsoft.identity.client.exception.MsalException
 import com.microsoft.identity.client.exception.MsalUiRequiredException
+import com.microsoft.identity.common.java.exception.ClientException
 import org.cryptomator.domain.OnedriveCloud
 import org.cryptomator.domain.exception.FatalBackendException
+import org.cryptomator.domain.exception.NetworkConnectionException
 import org.cryptomator.presentation.R
 import org.cryptomator.util.crypto.CredentialCryptor
 import timber.log.Timber
@@ -74,7 +76,7 @@ object OnedriveAuthentication {
 						/* Tokens expired or no session, retry with interactive */
 						application.acquireToken(activity, AuthenticateCloudPresenter.onedriveScopes(), getAuthInteractiveCallback(activity.applicationContext, cloud, success, failed))
 					}
-					else -> failed(FatalBackendException(e))
+					else -> failed(mapToNetworkExceptionIfRequired(e))
 				}
 			}
 
@@ -105,14 +107,14 @@ object OnedriveAuthentication {
 
 						override fun onError(e: MsalException) {
 							Timber.tag("AuthenticateCloudPresenter").e(e, "Error to get accounts")
-							failed(FatalBackendException(e))
+							failed(mapToNetworkExceptionIfRequired(e))
 						}
 					})
 				}
 
 				override fun onError(e: MsalException) {
 					Timber.tag("AuthenticateCloudPresenter").i(e, "Error in configuration")
-					failed(FatalBackendException(e))
+					failed(mapToNetworkExceptionIfRequired(e))
 				}
 			})
 	}
@@ -125,13 +127,21 @@ object OnedriveAuthentication {
 			}
 
 			override fun onError(e: MsalException) {
-				Timber.tag("AuthenticateCloudPresenter").e(e, "Successfully authenticated")
-				failed(FatalBackendException(e))
+				Timber.tag("AuthenticateCloudPresenter").e(e, "Authentication failed")
+				failed(mapToNetworkExceptionIfRequired(e))
 			}
 
 			override fun onCancel() {
 				Timber.tag("AuthenticateCloudPresenter").i("User cancelled login")
 			}
+		}
+	}
+
+	private fun mapToNetworkExceptionIfRequired(e: MsalException): FatalBackendException {
+		return if (e.errorCode == ClientException.DEVICE_NETWORK_NOT_AVAILABLE) {
+			FatalBackendException(NetworkConnectionException(e))
+		} else {
+			FatalBackendException(e)
 		}
 	}
 }
