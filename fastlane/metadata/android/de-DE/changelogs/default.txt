@@ -1,6 +1,6 @@
-- Umstellung auf das neue Material3-Design
-- Erstellen neuer Tresore mit moderner Verschlüsselungskombination (SIV_GCM)
-- Entschlüsselung von Dateien auf Android pre 10 unter Verwendung des neuen Tresorformats behoben
+- Umstellung auf das Material3-Design
+- Erstellen neuer Tresore mit moderner Verschlüsselungskombo (SIV_GCM)
+- Entschlüsselung von Dateien auf Android pre 10 unter Verwendung der neuen Kombo behoben
 - Probleme mit der pCloud-Verbindung behoben
 - Probleme mit Umlauten in WebDAV-Passwörtern bei der Digest-Authentifizierung behoben
 - Probleme beim Erstellen eines Tresors in S3 behoben, wenn der Tresor komplett leer ist
