@@ -259,8 +259,8 @@ platform :android do |options|
       sh("ISSUEBOT_CURRENT_APPLICATION_ID=org.cryptomator ISSUEBOT_CURRENT_REPLY_FILE=current_result_#{flavor}.json php iod-scan-apk.php")
 
       # clean up
-      FileUtils.rm("libinfo.txt")
-      FileUtils.rm("libsmali.txt")
+      FileUtils.rm("libinfo.jsonl")
+      FileUtils.rm("libsmali.jsonl")
       FileUtils.rm("org.cryptomator_fdroid.apk")
       FileUtils.rm_r("unsigned")
       FileUtils.rm_r("org.cryptomator_fdroid")
