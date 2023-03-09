@@ -46,7 +46,7 @@ ext {
 
 	gsonVersion = '2.10.1'
 
-	okHttpVersion = '4.9.3'
+	okHttpVersion = '4.10.0'
 	okHttpDigestVersion = '3.0'
 
 	velocityVersion = '2.3'
@@ -65,7 +65,7 @@ ext {
 	// cloud provider libs
 	cryptolibVersion = '2.1.2'
 
-	dropboxVersion = '5.2.0'
+	dropboxVersion = '5.4.4'
 
 	googleApiServicesVersion = 'v3-rev20220508-1.32.1'
 	googlePlayServicesVersion = '19.2.0'
