@@ -224,13 +224,14 @@ platform :android do |options|
   desc "Deploy new lite version"
   lane :deployLite do |options|
     sh("docker build -t cryptomator-android ../buildsystem")
-    sh("docker run --rm -v $(cd .. && pwd):/project -w /project cryptomator-android ./gradlew clean assembleLiteRelease")
+    sh("docker run --rm -u $(id -u):$(id -g) -v $(cd .. && pwd):/project -w /project cryptomator-android ./gradlew clean assembleLiteRelease")
 
     sh("zipalign -v -p 4 ../presentation/build/outputs/apk/lite/release/presentation-lite-release-unsigned.apk presentation-lite-release-unsigned-aligned.apk")
     sh("apksigner sign --ks #{ENV["SIGNING_KEYSTORE_PATH"]} --ks-key-alias #{ENV["SIGNING_KEY_ALIAS"]} --ks-pass env:SIGNING_KEYSTORE_PASSWORD --key-pass env:SIGNING_KEY_PASSWORD --out release/Cryptomator-#{version}_lite_signed.apk presentation-lite-release-unsigned-aligned.apk")
-	sh("rm presentation-lite-release-unsigned-aligned.apk")
+	  sh("rm presentation-lite-release-unsigned-aligned.apk")
 
-    lane_context[SharedValues::GRADLE_APK_OUTPUT_PATH] = "release/Cryptomator-#{version}_lite_signed.apk"
+    lane_context[SharedValues::GRADLE_APK_OUTPUT_PATH] = File.join(Dir.pwd, 'release', "Cryptomator-#{version}_lite_signed.apk")
+
     checkTrackingAddedInDependencyUsingIzzyScript(alpha:options[:alpha], beta:options[:beta], flavor: 'lite')
     checkTrackingAddedInDependencyUsingExodus(alpha:options[:alpha], beta:options[:beta], flavor: 'lite')
   end

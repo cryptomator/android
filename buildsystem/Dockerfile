@@ -5,7 +5,7 @@
 #  1. Clone this repository
 #  2. Checkout the tag you want to build, e.g. 1.8.0
 #  3. Build the image using `docker build -t cryptomator-android .` in this directory
-#  4. Build Cryptomator using `docker run --rm -v $(pwd):/project -w /project cryptomator-android ./gradlew clean assembleLiteRelease` in the root of this project
+#  4. Build Cryptomator using `docker run --rm -u $(id -u):$(id -g) -v $(pwd):/project -w /project cryptomator-android ./gradlew clean assembleLiteRelease` in the root of this project
 
 FROM debian:bullseye
 
@@ -38,6 +38,3 @@ RUN yes | sdkmanager --licenses --sdk_root="${ANDROID_HOME}"
 RUN update-java-alternatives -s java-1.11.0-openjdk-amd64
 
 RUN rm -rf ${ANDROID_HOME}/tools
-
-# Create users with typical UIDs to avoid problems with Docker when remapping the UID
-RUN chmod a+w /home && for newuid in $(seq 1000 1010); do useradd -M -d /home  -u $newuid -s /bin/bash "user$newuid"; done
