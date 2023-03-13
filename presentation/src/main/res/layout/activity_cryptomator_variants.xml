@@ -97,7 +97,8 @@
 					android:layout_width="match_parent"
 					android:layout_height="wrap_content"
 					android:layout_marginTop="@dimen/global_padding"
-					android:paddingBottom="16dp">
+					android:paddingBottom="16dp"
+					android:visibility="gone">
 
 					<TextView
 						android:id="@+id/tvLiteTitle"
