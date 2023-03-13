@@ -301,12 +301,16 @@
 	<string name="dialog_debug_mode_disclaimer_hint">في هذا الوضع، يمكن كتابة البيانات الحساسة إلى ملف تسجيل على جهازك (على سبيل المثال أسماء الملفات والمسارات). كلمة المرور، ملفات تعريف الارتباط، إلخ. مستبعدة صراحة.\n\nتذكر تعطيل وضع التصحيح في أقرب وقت ممكن.</string>
 	<string name="dialog_debug_mode_disclaimer_title">انتباه</string>
 	<string name="dialog_debug_mode_positive_button">تفعيل</string>
+	<string name="dialog_disable_app_obscured_disclaimer_hint">هذا الإعداد هو ميزة أمنية ويمنع التطبيقات الأخرى من استدراج المستخدمين لفعل أشياء لا يريدون القيام بها.\n\nبتعطيليها, أنت تؤكد أنك <a href="https://docs.cryptomator.org/en/1.6/android/settings/#block-app-when-obscured">على علم بالمخاطر</a>.</string>
 	<string name="dialog_disable_app_obscured_disclaimer_title">انتباه</string>
 	<string name="dialog_disable_app_obscured_positive_button">تعطيل</string>
 	<string name="dialog_app_is_obscured_info_title">التطبيق غامض</string>
+	<string name="dialog_app_is_obscured_info_hint">هناك تطبيق آخر يعلو الشاشة فوق Cryptomator (مثال: تطبيقات الرؤية الليلية / الأشعة الزرقاء). سيتم تعطيل Cryptomator لدواعي أمنية.\n\n<a href="https://docs.cryptomator.org/en/1.6/android/settings/#block-app-when-obscured">كيفية تمكين Cryptomator</a></string>
 	<string name="dialog_app_is_obscured_info_neutral_button">إغلاق</string>
 	<string name="dialog_vaults_removed_during_migration_title">رجاءً أعِد إضافَةَ خزائن لسحابة %1s</string>
+	<string name="dialog_vaults_removed_during_migration_hint">أثناء التحول إلى إصدار هذا التطبيق، تتوجب إزالة الخزائن التالية:\n%2s \n\nهذه الخزائن ستحذف فقط من هذا التطبيق وليس من التخزين السحابي. عذرا على الإزعاج قم بإعادة إضافة هذه الخزائن لمواصلة العمل بها.</string>
 	<string name="dialog_vault_is_root_folder_of_cloud_title">الخزنة هي \"المجلد الرئيس\" للاتصال السحابي</string>
+	<string name="dialog_vault_is_root_folder_of_cloud_hint">لإضافة هذه الخزنة، أنشئ اتصالًا سحابيا جديدا بحيث يكون مجلده الرئيس هو نفسه المجلد الرئيس لهذه الخزنة.</string>
 	<string name="dialog_delete_cloud_connection_with_vaults_message">هل أنت متيقِّن من رغبتك بحذف هذا الاتصال السحابي؟</string>
 	<string name="dialog_delete_cloud_connection_with_vaults_hint">سوف يقوم هذا الأمر بحذف الإتصال بمقدم الخدمة السحابية و كل المخازن المرتبطة به.</string>
 	<string name="dialog_confirm_delete_multiple_title">حذف %1$d عناصر؟</string>
@@ -324,9 +328,16 @@
 	<string name="dialog_update_available_cancel">لاحقاً</string>
 	<string name="dialog_download_update_title">جاري التحميل</string>
 	<string name="dialog_download_update_message">تحميل الإصدار الجديد من Cryptomator</string>
+	<string name="dialog_sym_link_title">المجلد هو رابط رمزي</string>
+	<string name="dialog_sym_link_message">لا يمكنك التنقل إلى هذا الرابط الرمزي</string>
 	<string name="dialog_sym_link_back_button">رجوع</string>
+	<string name="dialog_no_dir_file_title">تعذَّرَ تحميلُ محتوياتِ المجلد</string>
+	<string name="dialog_no_dir_file_message">المجلد السحابي \'%1$s\' ليس لديه ملف دليل صالح. ربما تم إنشاؤه على جهاز آخر ولم يتم استكمال مزامنته مع السحابة. رجاءً تحقق من وجود الملف أدناه في السحابة الخاصة بك وتأكد من أنه غير فارغ:\n%2$s</string>
 	<string name="dialog_no_more_images_to_display">لا مزيد من الصور للعرض&#8230;</string>
 	<string name="dialog_pcloud_credentials_updated_title">تم تحديث وثائق تفويض \'%1$s\'</string>
+	<string name="dialog_pcloud_credentials_updated">إذا كنت ترغب في إضافة حساب pCloud جديد، انقر على هذا الرابط <a href="https://www.pcloud.com">www.pcloud. om</a>، ثم قم بتسجيل الخروج من الحساب الحالي و بعدها انقر مرة أخرى على \'+\' في هذا التطبيق لإنشاء اتصال سحابي جديد.</string>
+	<string name="permission_snackbar_auth_local_vault">Cryptomator يحتاج صلاحية الوصول إلي التخزين ليستطيع استعمال الخزائن المحلية</string>
+	<string name="permission_snackbar_auth_auto_upload">Cryptomator يحتاج صلاحية الوصول إلي التخزين ليستطيع تحميل الصور تلقائيا</string>
 	<!-- # error reports -->
 	<!-- # misc -->
 	<!-- ## file size helper -->
