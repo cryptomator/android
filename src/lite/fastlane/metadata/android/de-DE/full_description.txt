@@ -1,0 +1,39 @@
+Mit Cryptomator liegt der Schlüssel zu deinen Daten bei dir. Durch Cryptomator ver­schlüsselst du deine Daten schnell und unkompliziert. Anschließend lädst du sie geschützt in deinen Lieblingscloudservice hoch.
+
+<i>Cryptomator benötigt einen Lizenzschlüssel, den du von <a href="https://cryptomator.org/android/">https://cryptomator.org/android/</a> beziehen kannst.</i>
+
+<b>EINFACH</b>
+
+Cryptomator ist ein einfaches Tool zur digitalen Selbstverteidigung. Es ermöglicht dir, deine Cloud-Daten eigenständig und unabhängig zu schützen.
+
+• Erstelle einen Tresor und vergib ein Passwort
+• Keine komplizierte Konfiguration und keine weiteren Accounts notwendig
+• Entsperr Tresore mit deinem Fingerabdruck
+
+<b>KOMPATIBEL</b>
+
+Cryptomator ist kompatibel mit den meistgenutzten Cloudspeichern und verfügbar für alle gängigen Betriebssysteme.
+
+• Kompatibel mit S3- und WebDAV-basierten Cloudspeicher-Diensten
+• Erstelle auch Tresore in Androids lokalem Speicher (funktioniert bspw. zusammen mit Sync-Apps von Drittanbietern)
+• Greife auf deine Tresore von allen deinen mobilen Endgeräten und Computern zu
+
+<b>SICHER</b>
+
+Du musst Cryptomator nicht blind vertrauen, denn <a href="https://github.com/cryptomator/android">die App ist quelloffen</a>, was für dich als Nutzer bedeutet, dass jeder den Code einsehen kann.
+
+• Verschlüsselung der Dateiinhalte und Dateinamen mit AES und 256-Bit-Schlüssellänge
+• Erhöhte Brute-Force-Resistenz des Tresor-Passworts durch Einsatz von scrypt
+• Tresore werden automatisch gesperrt, wenn die App in den Hintergrund geschickt wird
+• Verschlüsselungsimplementierung ist öffentlich dokumentiert
+
+<b>PREISGEKRÖNT</b>
+
+Cryptomator wurde mit dem <b>CeBIT Innovation Award 2016 for Usable Security and Privacy</b> ausgezeichnet. Wir freuen uns, hunderttausenden Cryptomator-Nutzern Sicherheit und Privatsphärenschutz bieten zu können.
+
+<b>CRYPTOMATOR COMMUNITY</b>
+
+Tritt der Cryptomator Community bei und tausche dich mit Cryptomator-Nutzern aus: <a href="https://community.cryptomator.org">https://community.cryptomator.org</a>
+
+• Folge uns auf Twitter <a href="https://twitter.com/Cryptomator">@Cryptomator</a>
+• Like uns auf Facebook <a href="https://facebook.com/Cryptomator">/Cryptomator</a>

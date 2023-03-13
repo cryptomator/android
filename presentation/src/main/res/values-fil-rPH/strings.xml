@@ -8,6 +8,9 @@
 	<string name="error_authentication_failed_re_authenticate">Bigo ang pagtutunay, maaaring maglogin gamit ang %1$s</string>
 	<string name="error_no_network_connection">Walang koneksyon sa network</string>
 	<string name="error_invalid_passphrase">Mali ang password</string>
+	<string name="error_file_or_folder_exists">Mayroon nang file or folder na kapareha.</string>
+	<string name="error_vault_version_not_supported">Ang bersyon %1$s nang Vault ay hindi suportado. Ang vault na ito ay gawa sa mas luma o bago na bersyon nang Cryptomator.</string>
+	<string name="error_vault_config_file_missing_due_to_format_999">%1$s file ay hindi makita sa iyong vault folder. Siguraduhing ang file na ito ay matatagputan sa iyong vault folder sa cloud.</string>
 	<string name="error_vault_already_exists">Umiiral na ang vault na ito.</string>
 	<string name="error_no_such_file">Ang file na ito ay hindi pa umiiral.</string>
 	<string name="error_vault_has_been_locked">Naisara na ang vault.</string>
@@ -15,11 +18,20 @@
 	<string name="error_activity_not_found">Magdownload ng app na kayang buksan ang file na ito.</string>
 	<string name="error_server_not_found">Hindi mahanap ang server.</string>
 	<string name="error_device_policy_manager_not_found">Maaaring buksan ang device settings at sariling itakda ang screen lock</string>
+	<string name="error_export_illegal_file_name">Hindi nagtagumpay ang pag export. Subukang alisin ang mga special characters mula sa pangalan nang files at i-export muli.</string>
 	<string name="error_name_contains_invalid_characters">Hindi maaring maglagay ng espesyal na mga karakter.</string>
 	<string name="error_names_contains_invalid_characters">Hindi maaaring lagyan ng espesyal na karakter ang pangalan ng file.</string>
 	<string name="error_vault_name_contains_invalid_characters">Hindi maaaring lagyan ng espesyal na karakter ang pangalan ng file.</string>
+	<string name="error_general_update">Hindi nagtagumpay ang pag update. Karaniwang kamalian ay naganap.</string>
+	<string name="error_hash_mismatch_update">Hindi nagtagumpay ang pag update. Hindi nag tutugma ang calculated hash nang inupload na file</string>
+	<string name="error_update_no_internet">Hindi nagtagumpay ang pag update. Walang internet connection.</string>
+	<string name="error_failed_to_decrypt_webdav_password">Hindi ma decrypt ang WebDAV password, subukang i-dagdag multi ito sa settings</string>
 	<string name="error_play_services_not_available">Hindi naka-install ang Google Play Services</string>
 	<string name="error_biometric_auth_aborted">Kinansela ang biometric authentication</string>
+	<string name="error_vault_version_mismatch">Ang bersyon na nakasulat sa %1$s ay naiiba sa %2$s</string>
+	<string name="error_vault_key_invalid">%1$s ay naiiba sa %2$s</string>
+	<string name="error_vault_config_loading">Karaniwang kamalian habang nag lo-load ang vault config</string>
+	<string name="error_file_not_found_after_opening_using_3party">Ang lokal na file ay hindi na matagpuan pagkatapos lumipat sa Cryptomator. Maaaring hindi na ma-i upload pabalik sa cloud.</string>
 	<string name="error_no_such_bucket">Hindi matagpuan ang bucket na ito</string>
 	<string name="error_masterkey_location_not_supported">Hindi pa suportado ang custom Masterkey location</string>
 	<!-- # clouds -->
@@ -44,7 +56,6 @@
 	<string name="screen_vault_list_action_create_new_vault">Gumawa ng bagong vault</string>
 	<string name="screen_vault_list_action_add_existing_vault">Magdagdag ng umiiral na vault</string>
 	<string name="screen_vault_list_vault_action_delete">Tanggalin</string>
-	<string name="screen_vault_list_vault_creation_hint">Pindutin dito para gumawa ng bagong vault</string>
 	<string name="screen_vault_list_change_password_successful">Matagumpay na napalitan ang password</string>
 	<!-- # screen: file browser -->
 	<string name="screen_file_browser_default_title">Vault</string>
@@ -92,7 +103,6 @@
 	<string name="screen_choose_cloud_service_title">Cloud service</string>
 	<!-- ## screen: cloud connections -->
 	<string name="screen_cloud_connections_title">Piliin ang location</string>
-	<string name="screen_cloud_connections_no_connections">Pindutin dito upang magdagdag ng lugar</string>
 	<string name="screen_cloud_error_webdav_not_supported">Ang server na ito ay mukhang hindi tugma sa WebDAV</string>
 	<!-- ## screen: webdav settings -->
 	<string name="screen_webdav_settings_url_port_label">URL</string>
@@ -147,7 +157,7 @@
 	<!-- ## screen: cloud settings -->
 	<!-- ## screen: licenses -->
 	<!-- ## screen: authenticate cloud -->
-	<!-- ## screen: insecure android version info -->
+	<!-- ## screen: cryptomator app variants -->
 	<!-- # dialogs -->
 	<string name="dialog_button_cancel">Kanselahin</string>
 	<string name="dialog_enter_password_positive_button">I-unlock</string>
@@ -192,7 +202,6 @@
 	<string name="dialog_http_security_title">Gamiting ang HTTPS?</string>
 	<string name="dialog_debug_mode_disclaimer_title">Atensyon</string>
 	<string name="dialog_debug_mode_positive_button">I-enable</string>
-	<string name="dialog_disable_app_obscured_disclaimer_hint">Ang setting na ito ay isang security feature at pinipigilan ang ibang mga apps sa lokohin ang mga gumagamit na gawin ang mga hindi nila gustong gawin.\n\nSa pag-alis nito, kinukumpirma mo na <a href="https://docs.cryptomator.org/en/1.5/android/settings/#block-app-when-obscured"> alam mo ang mga panganib</a>.</string>
 	<string name="dialog_disable_app_obscured_disclaimer_title">Atensyon</string>
 	<string name="dialog_app_is_obscured_info_neutral_button">Isara</string>
 	<string name="dialog_delete_cloud_connection_with_vaults_message">Sigurado ka bang gusto mong tanggalin itong cloud connection?</string>
@@ -269,6 +278,4 @@
 	<string name="dark">Dark</string>
 	<!-- update interval names -->
 	<string name="update_interval_1d">Isang beses sa isang araw</string>
-	<string name="update_interval_1w">Isang beses sa isang linggo</string>
-	<string name="update_interval_1m">Isang beses sa isang buwan</string>
 </resources>

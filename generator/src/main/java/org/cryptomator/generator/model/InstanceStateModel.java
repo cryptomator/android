@@ -5,6 +5,7 @@ import org.cryptomator.generator.utils.Field;
 import org.cryptomator.generator.utils.Type;
 
 import java.util.Collection;
+import java.util.Comparator;
 import java.util.Map;
 import java.util.SortedSet;
 import java.util.TreeMap;
@@ -38,6 +39,7 @@ public class InstanceStateModel {
 		return types.values().stream() //
 				.flatMap(type -> type.fields.stream()) //
 				.map(InstanceStateField::element) //
+				.sorted(Comparator.comparing(e -> e.getSimpleName().toString())) //
 				.toArray(Element[]::new);
 	}
 

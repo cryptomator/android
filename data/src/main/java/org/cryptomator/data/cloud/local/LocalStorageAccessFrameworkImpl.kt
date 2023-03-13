@@ -33,14 +33,11 @@ import java.io.FileNotFoundException
 import java.io.FileOutputStream
 import java.io.IOException
 import java.io.OutputStream
-import java.util.ArrayList
 import java.util.function.Supplier
 
-internal class LocalStorageAccessFrameworkImpl(context: Context, private val mimeTypes: MimeTypes, cloud: LocalStorageCloud, documentIdCache: DocumentIdCache) {
+internal class LocalStorageAccessFrameworkImpl(private val context: Context, private val mimeTypes: MimeTypes, cloud: LocalStorageCloud, private val idCache: DocumentIdCache) {
 
-	private val context: Context
-	private val root: RootLocalStorageAccessFolder
-	private val idCache: DocumentIdCache
+	private val root: RootLocalStorageAccessFolder = RootLocalStorageAccessFolder(cloud)
 
 	private fun hasUriPermissions(context: Context, uri: String): Boolean {
 		val uriPermission = uriPermissionFor(context, uri)
@@ -395,8 +392,5 @@ internal class LocalStorageAccessFrameworkImpl(context: Context, private val mim
 		if (!hasUriPermissions(context, cloud.rootUri())) {
 			throw NoAuthenticationProvidedException(cloud)
 		}
-		this.context = context
-		this.root = RootLocalStorageAccessFolder(cloud)
-		idCache = documentIdCache
 	}
 }

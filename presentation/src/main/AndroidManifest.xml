@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-	xmlns:tools="http://schemas.android.com/tools"
-	package="org.cryptomator.presentation">
+	xmlns:tools="http://schemas.android.com/tools">
 
 	<uses-permission android:name="android.permission.INTERNET" />
 	<uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
@@ -36,20 +35,17 @@
 			android:required="false" />
 
 		<activity
-			android:name=".ui.activity.SplashActivity"
+			android:name=".ui.activity.VaultListActivity"
 			android:exported="true"
-			android:screenOrientation="portrait"
-			android:theme="@style/SplashTheme">
+			android:theme="@style/AppTheme.Starting"
+			android:windowSoftInputMode="adjustPan">
 			<intent-filter>
 				<action android:name="android.intent.action.MAIN" />
 
 				<category android:name="android.intent.category.LAUNCHER" />
 			</intent-filter>
 		</activity>
-		<activity
-			android:name=".ui.activity.VaultListActivity"
-			android:exported="false"
-			android:windowSoftInputMode="adjustPan" />
+
 		<activity android:name=".ui.activity.ChooseCloudServiceActivity" />
 		<activity
 			android:name=".ui.activity.CreateVaultActivity"
@@ -90,22 +86,6 @@
 			android:exported="false"
 			android:theme="@style/TransparentPopUp" />
 
-		<!-- Cloud Services -->
-		<activity
-			android:name="com.dropbox.core.android.AuthActivity"
-			android:configChanges="orientation|keyboard"
-			android:exported="true"
-			android:launchMode="singleTask">
-			<intent-filter>
-				<data android:scheme="db-${DROPBOX_API_KEY}" />
-
-				<action android:name="android.intent.action.VIEW" />
-
-				<category android:name="android.intent.category.BROWSABLE" />
-				<category android:name="android.intent.category.DEFAULT" />
-			</intent-filter>
-		</activity>
-
 		<!-- Settings -->
 		<activity
 			android:name=".ui.activity.AutoUploadChooseVaultActivity"
@@ -118,6 +98,9 @@
 			android:exported="false" />
 		<activity
 			android:name=".ui.activity.CloudSettingsActivity"
+			android:exported="false" />
+		<activity
+			android:name=".ui.activity.CryptomatorVariantsActivity"
 			android:exported="false" />
 		<activity
 			android:name=".ui.activity.LicensesActivity"
@@ -185,22 +168,6 @@
 					android:host="android.cryptomator.org"
 					android:pathPrefix="/app/license"
 					android:scheme="https" />
-			</intent-filter>
-		</activity>
-
-		<activity
-			android:name="com.microsoft.identity.client.BrowserTabActivity"
-			android:exported="true">
-			<intent-filter>
-				<action android:name="android.intent.action.VIEW" />
-
-				<category android:name="android.intent.category.DEFAULT" />
-				<category android:name="android.intent.category.BROWSABLE" />
-
-				<data
-					android:host="org.cryptomator"
-					android:path="/${ONEDRIVE_API_KEY_DECODED}"
-					android:scheme="msauth" />
 			</intent-filter>
 		</activity>
 

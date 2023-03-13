@@ -1,13 +1,14 @@
 package org.cryptomator.generator.model;
 
 import java.util.Set;
+import java.util.SortedSet;
 import java.util.TreeSet;
 
 public class FragmentsModel {
 
-	private final Set<FragmentModel> fragments;
+	private final SortedSet<FragmentModel> fragments;
 
-	private FragmentsModel(Set<FragmentModel> fragments) {
+	private FragmentsModel(SortedSet<FragmentModel> fragments) {
 		this.fragments = fragments;
 	}
 
@@ -29,7 +30,7 @@ public class FragmentsModel {
 
 	public static class Builder {
 
-		private final Set<FragmentModel> fragments = new TreeSet<>();
+		private final SortedSet<FragmentModel> fragments = new TreeSet<>();
 
 		private Builder() {
 		}

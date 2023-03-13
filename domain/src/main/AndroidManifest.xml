@@ -1,5 +1,4 @@
-<manifest xmlns:android="http://schemas.android.com/apk/res/android"
-	package="org.cryptomator.domain">
+<manifest xmlns:android="http://schemas.android.com/apk/res/android">
 
 	<application android:allowBackup="false" />
 </manifest>

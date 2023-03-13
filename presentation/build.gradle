@@ -3,7 +3,12 @@ apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-kapt'
 apply plugin: 'kotlin-android-extensions'
 apply plugin: 'de.mannodermaus.android-junit5'
-apply from: 'prebuild.gradle'
+
+if (!liteFlavor()) {
+	apply from: 'prebuild.gradle'
+} else {
+	delete new File('src/main/res/raw/auth_config_onedrive.json')
+}
 
 android {
 	signingConfigs {
@@ -39,19 +44,17 @@ android {
 		coreLibraryDesugaringEnabled true
 	}
 
-
 	buildTypes {
 		release {
 			crunchPngs false
 			minifyEnabled false
 			shrinkResources false
+			zipAlignEnabled true
 
 			buildConfigField "String", "DROPBOX_API_KEY", "\"" + getApiKey('DROPBOX_API_KEY') + "\""
 			buildConfigField "String", "PCLOUD_CLIENT_ID", "\"" + getApiKey('PCLOUD_CLIENT_ID') + "\""
 
 			manifestPlaceholders = [DROPBOX_API_KEY: getApiKey('DROPBOX_API_KEY'), ONEDRIVE_API_KEY_DECODED: getOnedriveApiKey()]
-
-			resValue "string", "app_id", androidApplicationId
 		}
 
 		debug {
@@ -69,8 +72,6 @@ android {
 
 			applicationIdSuffix ".debug"
 			versionNameSuffix '-DEBUG'
-
-			resValue "string", "app_id", androidApplicationId + applicationIdSuffix
 		}
 	}
 
@@ -88,19 +89,30 @@ android {
 		fdroid {
 			dimension "version"
 		}
+
+		lite {
+			dimension "version"
+
+			applicationIdSuffix ".lite"
+			resValue "string", "app_id", androidApplicationId + applicationIdSuffix
+		}
 	}
 
 	sourceSets {
 		playstore {
-			java.srcDirs = ['src/main/java', 'src/main/java/', 'src/notFoss/java', 'src/notFoss/java/']
+			java.srcDirs = ['src/main/java', 'src/apiKey/java/', 'src/apkStorePlaystore/java/']
 		}
 
 		apkstore {
-			java.srcDirs = ['src/main/java', 'src/main/java/', 'src/notFoss/java', 'src/notFoss/java/']
+			java.srcDirs = ['src/main/java/', 'src/apiKey/java/', 'src/apkStorePlaystore/java/']
 		}
 
 		fdroid {
-			java.srcDirs = ['src/main/java', 'src/main/java/', 'src/foss/java', 'src/foss/java/']
+			java.srcDirs = ['src/main/java/', 'src/apiKey/java/', 'src/fdroid/java/', 'src/fdroidAndLite/java/']
+		}
+
+		lite {
+			java.srcDirs = ['src/main/java/', 'src/lite/java/', 'src/fdroidAndLite/java/']
 		}
 	}
 	packagingOptions {
@@ -114,6 +126,7 @@ android {
 		ignoreWarnings true
 		quiet true
 	}
+	namespace 'org.cryptomator.presentation'
 }
 
 dependencies {
@@ -142,14 +155,22 @@ dependencies {
 	implementation dependencies.androidxCore
 	implementation dependencies.androidxFragment
 	implementation dependencies.androidxViewpager
+	implementation dependencies.androidxSplashscreen
 	implementation dependencies.androidxSwiperefresh
 	implementation dependencies.androidxPreference
 	implementation dependencies.androidxBiometric
 
 	// cloud
-	implementation dependencies.dropbox
-	implementation dependencies.msgraph
-	implementation dependencies.msgraphAuth
+	playstoreImplementation dependencies.dropbox
+	apkstoreImplementation dependencies.dropbox
+	fdroidImplementation dependencies.dropbox
+
+	playstoreImplementation dependencies.msgraphAuth
+	apkstoreImplementation dependencies.msgraphAuth
+	fdroidImplementation dependencies.msgraphAuth
+	playstoreImplementation dependencies.msgraph
+	apkstoreImplementation dependencies.msgraph
+	fdroidImplementation dependencies.msgraph
 
 	playstoreImplementation(dependencies.googleApiServicesDrive) {
 		exclude module: 'guava-jdk5'
@@ -249,15 +270,26 @@ androidExtensions {
 	experimental = true
 }
 
-static def getApiKey(key) {
-	return System.getenv().getOrDefault(key, "")
+def liteFlavor() {
+	gradle.startParameter.taskNames.stream().filter(t -> t.toLowerCase().contains("lite")).findAny().isPresent()
 }
 
-static def getOnedriveApiKey() {
+def getApiKey(key) {
+	return !liteFlavor() ? System.getenv().getOrDefault(key, "") : ""
+}
+
+def getOnedriveApiKey() {
+	if (liteFlavor()) {
+		return ""
+	}
 	String onedrivePath = "" + getApiKey('ONEDRIVE_API_REDIRCT_URI')
 	String idStr = onedrivePath.substring(onedrivePath.lastIndexOf('/') + 1)
 	URI uri = new URI(idStr)
 	return uri.path
+}
+
+task updateGradleVerification(type: Exec) {
+	commandLine 'sh', '../buildsystem/updateGradleVerification.sh'
 }
 
 tasks.withType(Test) {

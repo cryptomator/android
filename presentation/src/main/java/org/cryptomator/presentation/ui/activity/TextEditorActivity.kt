@@ -46,13 +46,13 @@ class TextEditorActivity : BaseActivity(),
 
 		menu.findItem(R.id.action_search)
 			.setOnActionExpandListener(object : MenuItem.OnActionExpandListener {
-				override fun onMenuItemActionExpand(item: MenuItem?): Boolean {
+				override fun onMenuItemActionExpand(p0: MenuItem): Boolean {
 					menu.findItem(R.id.action_search_previous).isVisible = true
 					menu.findItem(R.id.action_search_next).isVisible = true
 					return true
 				}
 
-				override fun onMenuItemActionCollapse(item: MenuItem?): Boolean {
+				override fun onMenuItemActionCollapse(p0: MenuItem): Boolean {
 					invalidateOptionsMenu()
 					return true
 				}

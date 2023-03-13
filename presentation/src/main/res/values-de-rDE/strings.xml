@@ -15,7 +15,7 @@
 	<string name="error_no_such_file">Datei wurde nicht gefunden.</string>
 	<string name="error_vault_has_been_locked">Tresor wurde gesperrt.</string>
 	<string name="error_cloud_already_exists">Cloud existiert bereits.</string>
-	<string name="error_activity_not_found">Installiere eine App, die diesen Dateityp unterstützt.</string>
+	<string name="error_activity_not_found">Bitte installiere eine App, die diesen Dateityp unterstützt.</string>
 	<string name="error_server_not_found">Server nicht gefunden.</string>
 	<string name="error_device_policy_manager_not_found">Bitte öffne die Einstellungen deines Geräts und stelle die Bildschirmsperre von Hand ein</string>
 	<string name="error_export_illegal_file_name">Export fehlgeschlagen. Versuche, Sonderzeichen aus den Dateinamen zu entfernen und erneut zu exportieren.</string>
@@ -23,10 +23,10 @@
 	<string name="error_names_contains_invalid_characters">Dateinamen können keine Sonderzeichen enthalten.</string>
 	<string name="error_vault_name_contains_invalid_characters">Tresorname kann keine Sonderzeichen enthalten.</string>
 	<string name="error_general_update">Prüfung auf Aktualisierungen fehlgeschlagen. Ein Fehler ist aufgetreten.</string>
-	<string name="error_hash_mismatch_update">Update-Überprüfung fehlgeschlagen. Berechnete Prüfsumme entspricht nicht der der hochgeladenen Datei</string>
+	<string name="error_hash_mismatch_update">Prüfung auf Aktualisierungen fehlgeschlagen. Berechnete Prüfsumme entspricht nicht der hochgeladenen Datei.</string>
 	<string name="error_update_no_internet">Prüfung auf Aktualisierungen fehlgeschlagen. Keine Internetverbindung.</string>
-	<string name="error_failed_to_decrypt_webdav_password">Beim entschlüsseln des WebDAV-Passworts trat ein Fehler auf. Bitte in den Einstellungen erneut festlegen.</string>
-	<string name="error_play_services_not_available">Die Google Play Services sind nicht installiert</string>
+	<string name="error_failed_to_decrypt_webdav_password">Beim Entschlüsseln des WebDAV-Passworts trat ein Fehler auf. Bitte lege es in den Einstellungen erneut fest.</string>
+	<string name="error_play_services_not_available">Google-Play-Dienste nicht installiert</string>
 	<string name="error_biometric_auth_aborted">Biometrischer Login abgebrochen</string>
 	<string name="error_vault_version_mismatch">Die in %1$s angegebene Version ist nicht identisch mit der Version in %2$s</string>
 	<string name="error_vault_key_invalid">%1$s stimmt nicht mit %2$s überein</string>
@@ -34,6 +34,7 @@
 	<string name="error_file_not_found_after_opening_using_3party">Lokale Datei ist nach dem Zurückwechseln zu Cryptomator nicht mehr vorhanden. Mögliche Änderungen können nicht in die Cloud übertragen werden.</string>
 	<string name="error_no_such_bucket">Bucket existiert nicht</string>
 	<string name="error_masterkey_location_not_supported">Benutzerdefinierter Ort der Masterkey-Datei wird noch nicht unterstützt</string>
+	<string name="error_interact_with_fdroid_but_fdroid_missing">Fehler bei der Kommunikation mit der F-Droid-App. Nicht installiert?</string>
 	<!-- # clouds -->
 	<!-- ## cloud names -->
 	<string name="cloud_names_local_storage">Lokaler Speicher</string>
@@ -54,13 +55,15 @@
 	<string name="snack_bar_action_title_sort_oldest">Älteste zuerst</string>
 	<string name="snack_bar_action_title_sort_biggest">Größte zuerst</string>
 	<string name="snack_bar_action_title_sort_smallest">Kleinste zuerst</string>
+	<string name="snack_bar_cryptomator_variants_title">Mehr lesen</string>
+	<string name="snack_bar_cryptomator_variants_hint">Cloud nicht in der Liste?</string>
 	<!-- # screens -->
 	<!-- # screen: vault list -->
 	<string name="screen_vault_list_actions_title">Zu Cryptomator hinzufügen</string>
 	<string name="screen_vault_list_action_create_new_vault">Neuen Tresor anlegen</string>
 	<string name="screen_vault_list_action_add_existing_vault">Bestehenden Tresor hinzufügen</string>
 	<string name="screen_vault_list_vault_action_delete">Entfernen</string>
-	<string name="screen_vault_list_vault_creation_hint">Hier klicken um einen neuen Tresor zu erstellen</string>
+	<string name="screen_vault_list_vault_creation_hint">Hier antippen, um einen neuen Tresor zu erstellen</string>
 	<string name="screen_vault_list_change_password_successful">Passwort wurde erfolgreich geändert</string>
 	<!-- # screen: file browser -->
 	<string name="screen_file_browser_default_title">Tresor</string>
@@ -68,7 +71,7 @@
 	<string name="screen_file_browser_create_new_vault_button_text">Hier ablegen</string>
 	<string name="screen_file_browser_create_new_vault_extra_text">Tresorname: %1$s</string>
 	<plurals name="screen_file_browser_subtitle_move">
-		<item quantity="one">Verschieben von %1$s nach</item>
+		<item quantity="one">%1$s verschieben nach</item>
 		<item quantity="other">%2$d Elemente verschieben nach</item>
 	</plurals>
 	<string name="screen_file_browser_move_button_text">Verschieben</string>
@@ -103,7 +106,7 @@
 	<!-- ## screen: text editor -->
 	<string name="screen_text_editor_save_success">Erfolgreich gespeichert</string>
 	<!-- ## screen: share files -->
-	<string name="screen_share_files_title">Speicher %1$s unter&#8230;</string>
+	<string name="screen_share_files_title">%1$s speichern unter &#8230;</string>
 	<string name="screen_share_files_content_text">Text</string>
 	<string name="screen_share_files_content_file">Datei</string>
 	<string name="screen_share_files_content_files">Dateien</string>
@@ -115,7 +118,7 @@
 	<string name="screen_choose_cloud_service_title">Cloud-Dienst</string>
 	<!-- ## screen: cloud connections -->
 	<string name="screen_cloud_connections_title">Ort auswählen</string>
-	<string name="screen_cloud_connections_no_connections">Hier klicken um einen neuen Ort hinzufügen</string>
+	<string name="screen_cloud_connections_no_connections">Hier antippen, um neue Orte hinzufügen</string>
 	<string name="screen_cloud_error_webdav_not_supported">Server scheint nicht WebDAV-kompatibel zu sein</string>
 	<string name="screen_cloud_local_error_no_content_provider">Kein Dateimanager gefunden, der das Öffnen von Verzeichnissen unterstützt</string>
 	<!-- ## screen: webdav settings -->
@@ -144,7 +147,7 @@
 	<string name="screen_enter_vault_name_vault_label">Tresorname</string>
 	<string name="screen_enter_vault_name_button_text">Erstellen</string>
 	<!-- ## screen: set password -->
-	<string name="screen_set_password_title">Passwort setzen</string>
+	<string name="screen_set_password_title">Passwort festlegen</string>
 	<string name="screen_set_password_msg_password_mismatch">Passwort stimmt nicht mit dem wiederholten Passwort überein.</string>
 	<string name="screen_set_password_button_text">Fertig</string>
 	<string name="screen_set_password_hint">WICHTIG: Falls du dein Passwort vergisst, können deine Daten nicht wiederhergestellt werden.</string>
@@ -211,7 +214,19 @@
 	<!-- ## screen: authenticate cloud -->
 	<string name="screen_authenticate_auth_authentication_failed">%1$s-Authentifizierung fehlgeschlagen.</string>
 	<string name="screen_update_pcloud_connections_title">pCloud-Anmeldedaten aktualisieren</string>
-	<!-- ## screen: insecure android version info -->
+	<!-- ## screen: cryptomator app variants -->
+	<string name="screen_cryptomator_variants_title">Varianten von Cryptomator</string>
+	<string name="screen_cryptomator_variants_lite_title">Haupt-Repository von F-Droid</string>
+	<string name="screen_cryptomator_variants_lite_description">Ausgeschlossen weil sie API-Schlüssel benötigen.</string>
+	<string name="screen_cryptomator_variants_lite_install">Installieren</string>
+	<string name="screen_cryptomator_variants_fdroid_title">F-Droid-Repository von Cryptomator</string>
+	<string name="screen_cryptomator_variants_fdroid_description">Ausgeschlossen, weil es proprietäre Abhängigkeiten enthält.</string>
+	<string name="screen_cryptomator_variants_fdroid_add_repo_hint">Cryptomator Repository zur F-Droid App hinzufügen.</string>
+	<string name="screen_cryptomator_variants_fdroid_add_repo">Hinzufügen</string>
+	<string name="screen_cryptomator_variants_fdroid_install_hint">Installiere Cryptomator mit F-Droid.\nWenn ein nicht gefundener Fehler angezeigt wird, warte bis die F-Droid-Synchronisation abgeschlossen ist.</string>
+	<string name="screen_cryptomator_variants_website_title">Website</string>
+	<string name="screen_cryptomator_variants_website_description">Enthält proprietäre Abhängigkeiten.</string>
+	<string name="screen_cryptomator_variants_installation_hint">Der Wechsel von oder zur Haupt-F-Droid Repository-Variante erfordert ein neues Setup der App.</string>
 	<!-- # dialogs -->
 	<string name="dialog_button_cancel">Abbrechen</string>
 	<string name="dialog_enter_password_positive_button">Entsperren</string>
@@ -249,6 +264,7 @@
 	<string name="dialog_unsaved_changes_title">Es bestehen ungespeicherte Änderungen</string>
 	<string name="dialog_unsaved_changes_message">Möchtest du die App wirklich ohne zu speichern beenden?</string>
 	<string name="dialog_unsaved_changes_discard">Verwerfen</string>
+	<string name="dialog_file_name_hint">Dateiname</string>
 	<string name="dialog_file_name_placeholder">text.txt</string>
 	<string name="dialog_delete_vault_message">Möchtest du diesen Tresor wirklich entfernen?</string>
 	<string name="dialog_delete_vault_hint">Dieser Vorgang wird den Tresor nur aus dieser Liste entfernen und nicht tatsächlich löschen.</string>
@@ -274,7 +290,7 @@
 	<string name="dialog_accept_ssl_certificate_hint">Das SSL-Zertifikat ist ungültig. Möchtest du ihm trotzdem vertrauen?</string>
 	<string name="dialog_accept_ssl_certificate_details">Details</string>
 	<string name="dialog_accept_ssl_certificate_security_checkbox">Dies könnte ein Sicherheitsrisiko sein. Ich weiß was ich tue.</string>
-	<string name="dialog_ask_ignore_battery_optimizations_title">Akkuoptimierung deaktivieren</string>
+	<string name="dialog_ask_ignore_battery_optimizations_title">Akkuoptimierungen deaktivieren</string>
 	<string name="dialog_ask_ignore_battery_optimizations_hint">Um neue Bilder und Videos abzurufen, ohne im Hintergrund zu laufen, müssen wir die Batterieoptimierung deaktivieren. Aber keine Sorge, %1$s verbraucht nicht viel Energie.\n\nUm diese Einstellung anzuwenden, ändere \'Nicht optimiert\' auf \'Alle Apps\', wähle %1$s und wähle \"Nicht optimieren\" nach Klick auf \'%2$s\' in diesem Dialog.</string>
 	<string name="dialog_ask_ignore_battery_optimizations_checkbox">Nicht erneut fragen?</string>
 	<string name="dialog_http_security_hint">Die Verwendung von HTTP ist unsicher. Wir empfehlen stattdessen die Verwendung von HTTPS. Wenn du dir der Risiken bewusst bist, kannst du mit HTTP fortfahren.</string>
@@ -288,17 +304,17 @@
 	<string name="dialog_debug_mode_disclaimer_hint">In diesem Modus könnten sensible Daten in eine Log-Datei auf diesem Gerät geschrieben werden (z.B. Dateinamen und Pfade). Ausgeschlossen davon sind u.a. Passwörter und Cookies.\n\nDenke daran, den Debug-Modus so schnell wie möglich wieder zu deaktivieren.</string>
 	<string name="dialog_debug_mode_disclaimer_title">Achtung</string>
 	<string name="dialog_debug_mode_positive_button">Aktivieren</string>
-	<string name="dialog_disable_app_obscured_disclaimer_hint">Dies ist eine Sicherheitsfunktion und verhindert, dass andere Apps Nutzer dazu bringen, Dinge zu tun, die sie nicht tun wollen.\n\nDurch die Deaktivierung bestätigst du, dass du dich <a href="https://docs.cryptomator.org/en/1.5/android/settings/#block-app-when-obscured">der Risiken bewusst</a> bist.</string>
+	<string name="dialog_disable_app_obscured_disclaimer_hint">Dies ist eine Sicherheitsfunktion und verhindert, dass andere Apps Nutzer dazu bringen, Dinge zu tun, die sie nicht tun wollen.\n\nDurch die Deaktivierung bestätigst du, dass du dich <a href="https://docs.cryptomator.org/en/1.6/android/settings/#block-app-when-obscured">der Risiken bewusst</a> bist.</string>
 	<string name="dialog_disable_app_obscured_disclaimer_title">Achtung</string>
 	<string name="dialog_disable_app_obscured_positive_button">Deaktivieren</string>
 	<string name="dialog_app_is_obscured_info_title">App wird verdeckt</string>
-	<string name="dialog_app_is_obscured_info_hint">Eine App zeigt etwas über Cryptomator an (z.B. ein Blaulichtfilter oder eine Nachtmodus-App). Aus Sicherheitsgründen ist Cryptomator deaktiviert.\n\n<a href="https://docs.cryptomator.org/en/1.5/android/settings/#block-app-when-obscured">Wie Cryptomator aktiviert werden kann</a></string>
+	<string name="dialog_app_is_obscured_info_hint">Eine App blendet etwas über Cryptomator ein (z.B. ein Blaulichtfilter oder eine Nachtmodus-App). Aus Sicherheitsgründen ist Cryptomator deaktiviert.\n\n<a href="https://docs.cryptomator.org/en/1.6/android/settings/#block-app-when-obscured">Wie Cryptomator aktiviert werden kann</a></string>
 	<string name="dialog_app_is_obscured_info_neutral_button">Schließen</string>
 	<string name="dialog_vaults_removed_during_migration_title">Bitte Tresore für die %1s-Cloud erneut hinzufügen</string>
 	<string name="dialog_vaults_removed_during_migration_hint">Während der Migration auf diese App-Version müssen wir folgende Tresore aus der App entfernen:\n%2s \n\nDiese Tresore werden nicht aus der Cloud entfernt, sondern nur aus dieser App. Entschuldigung für die Unannehmlichkeiten. Füge diese Tresore bitte erneut hinzu, um weiter mit ihnen zu arbeiten.</string>
 	<string name="dialog_vault_is_root_folder_of_cloud_title">Tresor ist Wurzelverzeichnis der Cloud-Verbindung</string>
 	<string name="dialog_vault_is_root_folder_of_cloud_hint">Erstelle eine neue Cloud-Verbindung, wo du mindestens den übergeordneten Ordner dieses Tresors als Wurzelverzeichnis auswählst, um diesen Tresor hinzuzufügen.</string>
-	<string name="dialog_disable_secure_screen_disclaimer_hint">Dies ist eine Sicherheitsfunktion, die andere Anwendungen daran hindert, Nutzer zu ungewollten Aktionen zu verleiten.\n\nDurch Deaktivieren bestätigst du, dass du dir <a href="https://docs.cryptomator.org/en/1.5/android/settings/#screen-security">der Risiken bewusst</a> bist.</string>
+	<string name="dialog_disable_secure_screen_disclaimer_hint">Dies ist eine Sicherheitsfunktion, die andere Anwendungen daran hindert, Nutzer zu ungewollten Aktionen zu verleiten.\n\nDurch Deaktivieren bestätigst du, dass du dir <a href="https://docs.cryptomator.org/en/1.6/android/settings/#screen-security">der Risiken bewusst</a> bist.</string>
 	<string name="dialog_delete_cloud_connection_with_vaults_message">Bist du dir sicher, dass du die Cloud-Verbindung entfernen möchtest?</string>
 	<string name="dialog_delete_cloud_connection_with_vaults_hint">Dieser Vorgang wird die Cloud-Verbindung und alle zugehörigen Tresore löschen.</string>
 	<string name="dialog_confirm_delete_multiple_title">%1$d Elemente löschen?</string>
@@ -329,8 +345,8 @@
 	<string name="dialog_no_dir_file_message">Der Ordner \'%1$s\' in der Cloud hat keine gültige Verzeichnis-Datei. Es könnte sein, dass der Ordner auf einem anderen Gerät erstellt und noch nicht vollständig mit der Cloud synchronisiert wurde. Bitte überprüfe, ob die folgende Datei in der Cloud existiert und nicht leer ist:\n%2$s</string>
 	<string name="dialog_no_more_images_to_display">Keine weiteren Bilder anzuzeigen&#8230;</string>
 	<string name="dialog_pcloud_credentials_updated_title">Anmeldedaten von \'%1$s\' aktualisiert</string>
-	<string name="dialog_pcloud_credentials_updated">Falls du ein neues pCloud-Konto hinzufügen wolltest, klicke auf diese URL <a href="https://www.pcloud.com">www.pcloud.com</a>, melde dich vom aktuellen Konto ab und klicke in dieser App erneut auf das „+“, um eine neue Cloud-Verbindung zu erstellen.</string>
-	<string name="permission_snackbar_auth_local_vault">Um lokale Tresore nutzen zu können benötigt Cryptomator Speicherzugriff</string>
+	<string name="dialog_pcloud_credentials_updated">Falls du ein neues pCloud-Konto hinzufügen wolltest, klicke auf diese Url <a href="https://www.pcloud.com">www.pcloud.com</a>, melde dich vom aktuellen Konto ab und klicke in dieser App erneut auf das „+“, um eine neue Cloud-Verbindung zu erstellen.</string>
+	<string name="permission_snackbar_auth_local_vault">Cryptomator benötigt Speicherzugriff, um lokale Tresore nutzen zu können</string>
 	<string name="permission_snackbar_auth_auto_upload">Cryptomator benötigt Zugriff auf den Speicher um den automatischen Foto-Upload zu nutzen</string>
 	<!-- # error reports -->
 	<!-- # misc -->
@@ -411,6 +427,4 @@
 	<string name="dark">Dunkel</string>
 	<!-- update interval names -->
 	<string name="update_interval_1d">Täglich</string>
-	<string name="update_interval_1w">Wöchentlich</string>
-	<string name="update_interval_1m">Monatlich</string>
 </resources>

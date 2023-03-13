@@ -1,5 +1,6 @@
 package org.cryptomator.presentation.presenter
 
+import android.view.View
 import org.cryptomator.domain.Cloud
 import org.cryptomator.domain.di.PerView
 import org.cryptomator.domain.exception.FatalBackendException
@@ -12,6 +13,7 @@ import org.cryptomator.presentation.intent.Intents
 import org.cryptomator.presentation.model.CloudTypeModel
 import org.cryptomator.presentation.model.mappers.CloudModelMapper
 import org.cryptomator.presentation.ui.activity.view.ChooseCloudServiceView
+import org.cryptomator.presentation.ui.snackbar.SnackbarAction
 import org.cryptomator.presentation.workflow.ActivityResult
 import org.cryptomator.presentation.workflow.AddExistingVaultWorkflow
 import org.cryptomator.presentation.workflow.CreateNewVaultWorkflow
@@ -37,6 +39,11 @@ class ChooseCloudServicePresenter @Inject constructor( //
 
 		if (BuildConfig.FLAVOR == "fdroid") {
 			cloudTypeModels.remove(CloudTypeModel.GOOGLE_DRIVE)
+		} else if (BuildConfig.FLAVOR == "lite") {
+			cloudTypeModels.remove(CloudTypeModel.GOOGLE_DRIVE)
+			cloudTypeModels.remove(CloudTypeModel.DROPBOX)
+			cloudTypeModels.remove(CloudTypeModel.ONEDRIVE)
+			cloudTypeModels.remove(CloudTypeModel.PCLOUD)
 		}
 
 		view?.render(cloudTypeModels)
@@ -85,6 +92,18 @@ class ChooseCloudServicePresenter @Inject constructor( //
 
 	private fun onCloudSelected(cloud: Cloud) {
 		finishWithResult(cloudModelMapper.toModel(cloud))
+	}
+
+	fun showCloudMissingSnackbarHintInLiteVariant() {
+		if (BuildConfig.FLAVOR == "lite") {
+			view?.showSnackbar(R.string.snack_bar_cryptomator_variants_hint, object: SnackbarAction {
+				override fun onClick(v: View?) {
+					startIntent(Intents.cryptomatorVariantsIntent())
+				}
+				override val text: Int
+					get() = R.string.snack_bar_cryptomator_variants_title
+			})
+		}
 	}
 
 	init {

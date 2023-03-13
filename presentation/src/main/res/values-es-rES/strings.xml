@@ -34,6 +34,7 @@
 	<string name="error_file_not_found_after_opening_using_3party">El archivo local ya no está presente después de volver a Cryptomator. Los posibles cambios no se pueden propagar a la nube.</string>
 	<string name="error_no_such_bucket">No hay tal cubeta</string>
 	<string name="error_masterkey_location_not_supported">Ubicación personalizada Masterkey aún no soportada</string>
+	<string name="error_interact_with_fdroid_but_fdroid_missing">Error al comunicarse con la aplicación F-Droid. ¿No está instalada?</string>
 	<!-- # clouds -->
 	<!-- ## cloud names -->
 	<string name="cloud_names_local_storage">Almacenamiento local</string>
@@ -54,13 +55,15 @@
 	<string name="snack_bar_action_title_sort_oldest">Más antiguo primero</string>
 	<string name="snack_bar_action_title_sort_biggest">Más grande primero</string>
 	<string name="snack_bar_action_title_sort_smallest">Más pequeño primero</string>
+	<string name="snack_bar_cryptomator_variants_title">Más información</string>
+	<string name="snack_bar_cryptomator_variants_hint">¿La nube no está en la lista?</string>
 	<!-- # screens -->
 	<!-- # screen: vault list -->
 	<string name="screen_vault_list_actions_title">Añadir a Cryptomator</string>
 	<string name="screen_vault_list_action_create_new_vault">Crear bóveda nueva</string>
 	<string name="screen_vault_list_action_add_existing_vault">Añadir bóveda existente</string>
 	<string name="screen_vault_list_vault_action_delete">Eliminar</string>
-	<string name="screen_vault_list_vault_creation_hint">Haga clic aquí para crear una bóveda</string>
+	<string name="screen_vault_list_vault_creation_hint">Pulse aquí para crear una bóveda nueva</string>
 	<string name="screen_vault_list_change_password_successful">Contraseña cambiada con éxito</string>
 	<!-- # screen: file browser -->
 	<string name="screen_file_browser_default_title">Bóveda</string>
@@ -115,7 +118,7 @@
 	<string name="screen_choose_cloud_service_title">Servicio de nube</string>
 	<!-- ## screen: cloud connections -->
 	<string name="screen_cloud_connections_title">Elegir ubicación</string>
-	<string name="screen_cloud_connections_no_connections">Haga clic aquí para añadir ubicaciones</string>
+	<string name="screen_cloud_connections_no_connections">Pulse aquí para añadir ubicaciones</string>
 	<string name="screen_cloud_error_webdav_not_supported">El servidor no parece ser compatible con WebDAV</string>
 	<string name="screen_cloud_local_error_no_content_provider">No se encontró ningún administrador de archivos que admita la apertura de directorios</string>
 	<!-- ## screen: webdav settings -->
@@ -211,7 +214,19 @@
 	<!-- ## screen: authenticate cloud -->
 	<string name="screen_authenticate_auth_authentication_failed">No se pudo autenticar en %1$s.</string>
 	<string name="screen_update_pcloud_connections_title">Actualizar credenciales de pCloud</string>
-	<!-- ## screen: insecure android version info -->
+	<!-- ## screen: cryptomator app variants -->
+	<string name="screen_cryptomator_variants_title">Variantes de Cryptomator</string>
+	<string name="screen_cryptomator_variants_lite_title">Repositorio principal de F-Droid</string>
+	<string name="screen_cryptomator_variants_lite_description">Excluidos porque requieren claves de API.</string>
+	<string name="screen_cryptomator_variants_lite_install">Instalar</string>
+	<string name="screen_cryptomator_variants_fdroid_title">Repositorio F-Droid de Cryptomator</string>
+	<string name="screen_cryptomator_variants_fdroid_description">Excluido porque contiene dependencias propietarias.</string>
+	<string name="screen_cryptomator_variants_fdroid_add_repo_hint">Añadir repositorio de Cryptomator a la app F-Droid.</string>
+	<string name="screen_cryptomator_variants_fdroid_add_repo">Añadir</string>
+	<string name="screen_cryptomator_variants_fdroid_install_hint">Instalar Cryptomator usando F-Droid.\nSi se muestra un error no encontrado, espere hasta que finalice la sincronización de F-Droid.</string>
+	<string name="screen_cryptomator_variants_website_title">Sitio web</string>
+	<string name="screen_cryptomator_variants_website_description">Contiene dependencias propietarias.</string>
+	<string name="screen_cryptomator_variants_installation_hint">Cambiar desde o hacia la variante principal del repositorio F-Droid requiere una configuración nueva de la aplicación.</string>
 	<!-- # dialogs -->
 	<string name="dialog_button_cancel">Cancelar</string>
 	<string name="dialog_enter_password_positive_button">Desbloquear</string>
@@ -249,6 +264,7 @@
 	<string name="dialog_unsaved_changes_title">Tiene cambios sin guardar</string>
 	<string name="dialog_unsaved_changes_message">¿Realmente desea salir sin guardar?</string>
 	<string name="dialog_unsaved_changes_discard">Descartar</string>
+	<string name="dialog_file_name_hint">Nombre de archivo</string>
 	<string name="dialog_file_name_placeholder">texto.txt</string>
 	<string name="dialog_delete_vault_message">¿Está seguro que desea eliminar esta bóveda?</string>
 	<string name="dialog_delete_vault_hint">Esta acción solo borrará la bóveda de esta lista y no la eliminará físicamente.</string>
@@ -275,7 +291,7 @@
 	<string name="dialog_accept_ssl_certificate_details">Detalles</string>
 	<string name="dialog_accept_ssl_certificate_security_checkbox">Esto podría ser un riesgo para la seguridad. Sé lo que estoy haciendo.</string>
 	<string name="dialog_ask_ignore_battery_optimizations_title">Desactivar optimizaciones de la batería</string>
-	<string name="dialog_ask_ignore_battery_optimizations_hint">Para recuperar imágenes y videos nuevos sin ejecutar en segundo plano, tenemos que dejar de usar las optimizaciones de la batería. Pero no se preocupe, %1$s no consume mucha energía.\n\nPara aplicarlo, cambie \'No optimizado\' a \'Todas las aplicaciones\', seleccione %1$s y elija \'No optimizar\' después de hacer clic en \'%2$s\' en esta ventana.</string>
+	<string name="dialog_ask_ignore_battery_optimizations_hint">Para recuperar imágenes y videos nuevos sin ejecutar en segundo plano, tenemos que dejar de usar las optimizaciones de la batería. Pero no se preocupe, %1$s no consume mucha energía.\n\nPara aplicarlo, cambie \'No optimizado\' a \'Todas las aplicaciones\', seleccione %1$s y elija \'No optimizar\' después de pulsar \'%2$s\' en esta ventana.</string>
 	<string name="dialog_ask_ignore_battery_optimizations_checkbox">¿No volver a preguntar?</string>
 	<string name="dialog_http_security_hint">El uso de HTTP no es seguro. Recomendamos usar HTTPS en su lugar. Si conoce los riesgos puede seguir usando HTTP.</string>
 	<string name="dialog_http_security_checkbox">Cambiar a HTTPS</string>
@@ -288,17 +304,17 @@
 	<string name="dialog_debug_mode_disclaimer_hint">En este modo, los datos sensibles pueden ser escritos en un archivo de registro de su dispositivo (por ejemplo, nombres de archivos y rutas). Las contraseñas, las cookies, etc., se excluyen explícitamente.\n\nRecuerde desactivar el modo de depuración tan pronto como sea posible.</string>
 	<string name="dialog_debug_mode_disclaimer_title">Aviso</string>
 	<string name="dialog_debug_mode_positive_button">Activar</string>
-	<string name="dialog_disable_app_obscured_disclaimer_hint">Esta opción es una función de seguridad y evita que otras aplicaciones engañen a los usuarios para que hagan cosas que no quieren hacer.\n\nAl desactivar, confirma que es <a href="https://docs.cryptomator.org/en/1.5/android/settings/#block-app-when-obscured">consciente de los riesgos</a>.</string>
+	<string name="dialog_disable_app_obscured_disclaimer_hint">Esta opción es una función de seguridad y evita que otras aplicaciones engañen a los usuarios para que hagan cosas que no quieren hacer.\n\nAl desactivarla, confirma que es <a href="https://docs.cryptomator.org/en/1.6/android/settings/#block-app-when-obscured">consciente de los riesgos</a>.</string>
 	<string name="dialog_disable_app_obscured_disclaimer_title">Aviso</string>
 	<string name="dialog_disable_app_obscured_positive_button">Desactivar</string>
 	<string name="dialog_app_is_obscured_info_title">La aplicación está oscura</string>
-	<string name="dialog_app_is_obscured_info_hint">Otra aplicación muestra algo en la parte superior de Cryptomator (por ejemplo, un filtro de luz azul o una aplicación en modo nocturno). Por razones de seguridad, Cryptomator está desactivado.\n\n<a href="https://docs.cryptomator.org/en/1.5/android/settings/#block-app-when-obscured">Cómo activar Cryptomator</a></string>
+	<string name="dialog_app_is_obscured_info_hint">Otra aplicación está mostrando algo en la parte superior de Cryptomator (por ejemplo, un filtro de luz azul o una aplicación en modo nocturno). Por razones de seguridad, Cryptomator está desactivado.\n\n<a href="https://docs.cryptomator.org/en/1.6/android/settings/#block-app-when-obscured">Cómo activar Cryptomator</a></string>
 	<string name="dialog_app_is_obscured_info_neutral_button">Cerrar</string>
 	<string name="dialog_vaults_removed_during_migration_title">Vuelva a añadir bóvedas para la nube %1s</string>
 	<string name="dialog_vaults_removed_during_migration_hint">Mientras se migra a esta versión de la aplicación, necesitamos eliminar las siguientes bóvedas de la aplicación:\n%2s \n\nEsas bóvedas no se eliminan de la nube sino sólo de esta aplicación. Lamentamos las molestias, por favor añada de nuevo estas bóvedas para seguir trabajando con ellas.</string>
 	<string name="dialog_vault_is_root_folder_of_cloud_title">La bóveda es la carpeta raíz de la conexión a la nube</string>
 	<string name="dialog_vault_is_root_folder_of_cloud_hint">Crear una conexión nueva en la nube donde seleccione al menos la carpeta padre de esta carpeta de bóveda como directorio raíz para añadir esta bóveda.</string>
-	<string name="dialog_disable_secure_screen_disclaimer_hint">Esta opción es una función de seguridad y evita que otras aplicaciones engañen a los usuarios para que hagan cosas que no quieren hacer.\n\nAl desactivar, confirma que es <a href="https://docs.cryptomator.org/en/1.5/android/settings/#screen-security">consciente de los riesgos</a>.</string>
+	<string name="dialog_disable_secure_screen_disclaimer_hint">Esta opción es una función de seguridad y evita que otras aplicaciones engañen a los usuarios para que hagan cosas que no quieren hacer.\n\nAl desactivarla, confirma que es <a href="https://docs.cryptomator.org/en/1.6/android/settings/#screen-security">consciente de los riesgos</a>.</string>
 	<string name="dialog_delete_cloud_connection_with_vaults_message">\"¿Está seguro que desea eliminar esta conexión a la nube?</string>
 	<string name="dialog_delete_cloud_connection_with_vaults_hint">Esta acción eliminará la conexión a la nube y todas las bóvedas de esta nube.</string>
 	<string name="dialog_confirm_delete_multiple_title">¿Eliminar %1$d elementos?</string>
@@ -329,7 +345,7 @@
 	<string name="dialog_no_dir_file_message">La carpeta en la nube \'%1$s\' no tiene un archivo de directorio válido. Es posible que la carpeta se haya creado en otro dispositivo y aún no se haya sincronizado completamente con la nube. Compruebe en su nube si el siguiente archivo existe y no está vacío:\n%2$s</string>
 	<string name="dialog_no_more_images_to_display">No hay más imágenes para mostrar&#8230;</string>
 	<string name="dialog_pcloud_credentials_updated_title">Credenciales de \'%1$s\' actualizadas</string>
-	<string name="dialog_pcloud_credentials_updated">Si desea añadir una cuenta pCloud nueva, haga clic en esta url <a href="https://www.pcloud.com">www.pcloud.com</a>, cierre la sesión de la cuenta actual y haga clic de nuevo en \'+\' de esta aplicación para crear una conexión nueva en la nube.</string>
+	<string name="dialog_pcloud_credentials_updated">Si desea añadir una cuenta pCloud nueva, pulse en esta url <a href="https://www.pcloud.com">www.pcloud.com</a>, cierre la sesión de la cuenta actual y pulse de nuevo en \'+\' de esta aplicación para crear una conexión nueva en la nube.</string>
 	<string name="permission_snackbar_auth_local_vault">Cryptomator necesita acceso de almacenamiento para usar bóvedas locales</string>
 	<string name="permission_snackbar_auth_auto_upload">Cryptomator necesita acceso de almacenamiento para cargar fotos automáticamente</string>
 	<!-- # error reports -->
@@ -411,6 +427,4 @@
 	<string name="dark">Oscuro</string>
 	<!-- update interval names -->
 	<string name="update_interval_1d">Una vez al día</string>
-	<string name="update_interval_1w">Una vez a la semana</string>
-	<string name="update_interval_1m">Una vez al mes</string>
 </resources>

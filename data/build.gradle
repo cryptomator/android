@@ -26,7 +26,6 @@ android {
 		coreLibraryDesugaringEnabled true
 	}
 
-
 	buildTypes {
 		release {
 			buildConfigField "String", "ONEDRIVE_API_KEY", "\"" + getApiKey('ONEDRIVE_API_KEY') + "\""
@@ -53,19 +52,27 @@ android {
 		fdroid {
 			dimension "version"
 		}
+
+		lite {
+			dimension "version"
+		}
 	}
 
 	sourceSets {
 		playstore {
-			java.srcDirs = ['src/main/java', 'src/main/java/', 'src/notFoss/java', 'src/notFoss/java/']
+			java.srcDirs = ['src/main/java/', 'src/apiKey/java/', 'src/apkStorePlaystore/java/']
 		}
 
 		apkstore {
-			java.srcDirs = ['src/main/java', 'src/main/java/', 'src/notFoss/java', 'src/notFoss/java/']
+			java.srcDirs = ['src/main/java/', 'src/apiKey/java/', 'src/apkStorePlaystore/java/']
 		}
 
 		fdroid {
-			java.srcDirs = ['src/main/java', 'src/main/java/', 'src/foss/java', 'src/foss/java/']
+			java.srcDirs = ['src/main/java/', 'src/apiKey/java/', 'src/fdroid/java/']
+		}
+
+		lite {
+			java.srcDirs = ['src/main/java/', 'src/lite/java/']
 		}
 	}
 	packagingOptions {
@@ -79,10 +86,11 @@ android {
 		ignoreWarnings true
 		quiet true
 	}
+	namespace 'org.cryptomator.data'
 }
 
 greendao {
-	schemaVersion 11
+	schemaVersion 12
 }
 
 configurations.all {
@@ -95,7 +103,9 @@ dependencies {
 
 	implementation project(':domain')
 	implementation project(':util')
-	implementation project(':pcloud-sdk-java')
+	playstoreImplementation project(':pcloud-sdk-java')
+	apkstoreImplementation project(':pcloud-sdk-java')
+	fdroidImplementation project(':pcloud-sdk-java')
 
 	coreLibraryDesugaring dependencies.coreDesugaring
 
@@ -113,9 +123,16 @@ dependencies {
 	implementation dependencies.jsonWebTokenJson
 
 	// cloud
-	implementation dependencies.dropbox
-	implementation dependencies.msgraphAuth
-	implementation dependencies.msgraph
+	playstoreImplementation dependencies.dropbox
+	apkstoreImplementation dependencies.dropbox
+	fdroidImplementation dependencies.dropbox
+
+	playstoreImplementation dependencies.msgraphAuth
+	apkstoreImplementation dependencies.msgraphAuth
+	fdroidImplementation dependencies.msgraphAuth
+	playstoreImplementation dependencies.msgraph
+	apkstoreImplementation dependencies.msgraph
+	fdroidImplementation dependencies.msgraph
 
 	implementation dependencies.stax
 	api dependencies.minIo
@@ -191,6 +208,7 @@ dependencies {
 	testRuntimeOnly dependencies.junitEngine
 	testImplementation dependencies.junitParams
 	testRuntimeOnly dependencies.junit4Engine
+	implementation dependencies.androidxTestJunitKtln
 
 	testImplementation dependencies.mockito
 	testImplementation dependencies.mockitoKotlin
@@ -206,8 +224,12 @@ configurations {
 	all*.exclude group: 'com.google.android', module: 'android'
 }
 
-static def getApiKey(key) {
-	return System.getenv().getOrDefault(key, "")
+def liteFlavor() {
+	gradle.startParameter.taskNames.stream().filter(t -> t.toLowerCase().contains("lite")).findAny().isPresent()
+}
+
+def getApiKey(key) {
+	return !liteFlavor() ? System.getenv().getOrDefault(key, "") : ""
 }
 
 tasks.withType(Test) {

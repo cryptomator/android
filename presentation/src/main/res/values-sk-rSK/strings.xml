@@ -34,6 +34,7 @@
 	<string name="error_file_not_found_after_opening_using_3party">Lokálny súbor nie je viac prezentovaný po prepnutí naspäť do Cryptomator-a. Možné zmeny sa neprenesú späť do cloudu.</string>
 	<string name="error_no_such_bucket">Bucket neexistuje</string>
 	<string name="error_masterkey_location_not_supported">Voliteľnost umiestnenia hlavného kľúča zatiaľ nie je podporovaná</string>
+	<string name="error_interact_with_fdroid_but_fdroid_missing">Komunikácia s aplikáciou F-Droid zlyhala. Nie je nainštalovaná?</string>
 	<!-- # clouds -->
 	<!-- ## cloud names -->
 	<string name="cloud_names_local_storage">Lokálne úložisko</string>
@@ -54,13 +55,15 @@
 	<string name="snack_bar_action_title_sort_oldest">Od najstaršieho</string>
 	<string name="snack_bar_action_title_sort_biggest">Od najväčšieho</string>
 	<string name="snack_bar_action_title_sort_smallest">Od najmenšieho</string>
+	<string name="snack_bar_cryptomator_variants_title">Čítať viac</string>
+	<string name="snack_bar_cryptomator_variants_hint">Cloud nie je v ponuke?</string>
 	<!-- # screens -->
 	<!-- # screen: vault list -->
 	<string name="screen_vault_list_actions_title">Pridať do Cryptomator-a</string>
 	<string name="screen_vault_list_action_create_new_vault">Vytvoriť nový trezor</string>
 	<string name="screen_vault_list_action_add_existing_vault">Pridať existujúci trezor</string>
 	<string name="screen_vault_list_vault_action_delete">Odstrániť</string>
-	<string name="screen_vault_list_vault_creation_hint">Kliknite sem pre vytvorenie nového trezora</string>
+	<string name="screen_vault_list_vault_creation_hint">Kliknúť sem pre vytvorenie nového trezora</string>
 	<string name="screen_vault_list_change_password_successful">Heslo úspešne zmenené</string>
 	<!-- # screen: file browser -->
 	<string name="screen_file_browser_default_title">Trezor</string>
@@ -117,7 +120,7 @@
 	<string name="screen_choose_cloud_service_title">Cloudová služba</string>
 	<!-- ## screen: cloud connections -->
 	<string name="screen_cloud_connections_title">Vybrať umiestnenie</string>
-	<string name="screen_cloud_connections_no_connections">Kliknite sem pre pridanie umiestnení</string>
+	<string name="screen_cloud_connections_no_connections">Kliknúť sem pre pridanie umiestnení</string>
 	<string name="screen_cloud_error_webdav_not_supported">Server zdá sa byť WebDAV kompatibilný</string>
 	<string name="screen_cloud_local_error_no_content_provider">Nenašiel sa manažér súborov ktorý podporuje otváranie adresárov</string>
 	<!-- ## screen: webdav settings -->
@@ -213,7 +216,19 @@
 	<!-- ## screen: authenticate cloud -->
 	<string name="screen_authenticate_auth_authentication_failed">%1$s nemohol byť autentikovaný.</string>
 	<string name="screen_update_pcloud_connections_title">Aktualizovať pCloud prístupy</string>
-	<!-- ## screen: insecure android version info -->
+	<!-- ## screen: cryptomator app variants -->
+	<string name="screen_cryptomator_variants_title">Varianty Cryptomatora</string>
+	<string name="screen_cryptomator_variants_lite_title">Hlavný F-Droid repozitár</string>
+	<string name="screen_cryptomator_variants_lite_description">Vynechané z dôvodu vyžadovaných API kľúčov.</string>
+	<string name="screen_cryptomator_variants_lite_install">Inštalovať</string>
+	<string name="screen_cryptomator_variants_fdroid_title">Cryptomator F-Droid repozitár</string>
+	<string name="screen_cryptomator_variants_fdroid_description">Vynechané z dôvodu, že obsahuje proprietárne závislosti.</string>
+	<string name="screen_cryptomator_variants_fdroid_add_repo_hint">Pridať Cryptomator depozitár do F-Droid aplikácie.</string>
+	<string name="screen_cryptomator_variants_fdroid_add_repo">Pridať</string>
+	<string name="screen_cryptomator_variants_fdroid_install_hint">Inštalovať Cryptomator použitím F-Droid.\nAk sa zobrazí nájdená chyba, počkajte kým sa dokončí synchronizácia F-Droid.</string>
+	<string name="screen_cryptomator_variants_website_title">Webstránka</string>
+	<string name="screen_cryptomator_variants_website_description">Obsahuje proprietárne závislosti.</string>
+	<string name="screen_cryptomator_variants_installation_hint">Prepnutie z alebo do hlavného F-Droid repozitára vyžaduje čerstvé nastavenie aplikácie.</string>
 	<!-- # dialogs -->
 	<string name="dialog_button_cancel">Zrušiť</string>
 	<string name="dialog_enter_password_positive_button">Odomknúť</string>
@@ -251,6 +266,7 @@
 	<string name="dialog_unsaved_changes_title">Máte neuložené zmeny</string>
 	<string name="dialog_unsaved_changes_message">Skutočne chcete skončiť bez uloženia?</string>
 	<string name="dialog_unsaved_changes_discard">Zrušiť</string>
+	<string name="dialog_file_name_hint">Názov súboru</string>
 	<string name="dialog_file_name_placeholder">text.txt</string>
 	<string name="dialog_delete_vault_message">Ste si istý odstrániť tento trezor?</string>
 	<string name="dialog_delete_vault_hint">Tento úkon iba odstráni trezor zo zoznamu a nezmaže ho fyzicky.</string>
@@ -290,17 +306,17 @@
 	<string name="dialog_debug_mode_disclaimer_hint">V tomto móde, môžu byť zapisované citlivé dáta do logovacieho súboru na Vašom zariadení (ako napr. mená súborov a cesty). Heslá, cookies, a pod. sú explicitne vynechané.\n\nPamätajte na vypnutie debug módu ako najskôr to pôjde.</string>
 	<string name="dialog_debug_mode_disclaimer_title">Upozornenie</string>
 	<string name="dialog_debug_mode_positive_button">Povoliť</string>
-	<string name="dialog_disable_app_obscured_disclaimer_hint">Tieto nastavenia sú bezpečnostnou vlastnosťou a zabraňujú ostatným aplikáciám klamať užívateľov robiť veci ktoré nechcú robiť.\n\nVypnutím súhlasíte s tým že <a href="https://docs.cryptomator.org/en/1.5/android/settings/#block-app-when-obscured">ste si vedomí nebezpečia</a>.</string>
+	<string name="dialog_disable_app_obscured_disclaimer_hint">Toto nastavenie je bezpečnostná vlastnosť a chráni ostatné aplikácie pred klamaním užívateľov robiť veci, ktoré nechcú obiť.\n\nVypnutím súhlasíte, že &lt;a href="https://docs.cryptomator.org/en/1.6/android/settings/#block-app-when-obscured"&gt;ste si vedomí rizika.</string>
 	<string name="dialog_disable_app_obscured_disclaimer_title">Upozornenie</string>
 	<string name="dialog_disable_app_obscured_positive_button">Zakázať</string>
 	<string name="dialog_app_is_obscured_info_title">Aplikácia je zatmavená</string>
-	<string name="dialog_app_is_obscured_info_hint">Ďalšia aplikácia zobrazuje niečo na vrchu Cryptomator-a (ako napr. modré svetlo alebo nočný režim). Z bezpečnostných dôvodov je Cryptomator zakázaný.\n\n<a href="https://docs.cryptomator.org/en/1.5/android/settings/#block-app-when-obscured">Ako povoliť Cryptomator</a></string>
+	<string name="dialog_app_is_obscured_info_hint">Ďalšia aplikácia zobrazuje niečo na vrchu Cryptomator-a (ako napr. filter modrého svetla alebo nočný režim). Z bezpečnostných dôvodov je Cryptomator zakázaný.\n\n<a href="https://docs.cryptomator.org/en/1.6/android/settings/#block-app-when-obscured">Ako povoliť Cryptomator</a></string>
 	<string name="dialog_app_is_obscured_info_neutral_button">Zavrieť</string>
 	<string name="dialog_vaults_removed_during_migration_title">Prosím zadajte znovu trezory pre %1s cloud</string>
 	<string name="dialog_vaults_removed_during_migration_hint">Počas migrácie na túto verziu aplikácie potrebujeme odstrániť nasledujúce trezory z aplikácie:\n%2s \n\n Tieto trezory nebudú odstránené z cloudu, ale len z tejto aplikácie. Prepáčte za nepohodlie a prosím znovu zadajte trezory pre pokračovanie ich používania.</string>
 	<string name="dialog_vault_is_root_folder_of_cloud_title">Trezor je koreňovým adresárom cloudového spojenia</string>
 	<string name="dialog_vault_is_root_folder_of_cloud_hint">Vytvorte nové cloudové pripojenie kde vyberiete minimálne nadradený adresár tohto trezora ako koreňový adresár pre pridanie tohot trezora.</string>
-	<string name="dialog_disable_secure_screen_disclaimer_hint">Toto nastavenie je bezpečnostná vlastnosť a zabraňuje ostatným aplikáciám klamať užívateľov robiť veci čo nechcú robiť.\n\nVypnutím súhlasíte s tým že<a href="https://docs.cryptomator.org/en/1.5/android/settings/#screen-security">ste si vedomí rizika</a>.</string>
+	<string name="dialog_disable_secure_screen_disclaimer_hint">Toto nastavenie je bezpečnostná vlastnosť a zabraňuje ostatným aplikáciám klamať užívateľov robiť veci čo nechcú robiť.\n\nVypnutím súhlasíte s tým, že<a href="https://docs.cryptomator.org/en/1.6/android/settings/#screen-security">ste si vedomí rizika</a>.</string>
 	<string name="dialog_delete_cloud_connection_with_vaults_message">Ste si istý že chcete odstrániť toto cloudové pripojenie?</string>
 	<string name="dialog_delete_cloud_connection_with_vaults_hint">Táto akcia odstráni pripojenie cloudu a všetky trezory tohto cloudu.</string>
 	<string name="dialog_confirm_delete_multiple_title">Odstrániť %1$d položky?</string>
@@ -331,7 +347,7 @@
 	<string name="dialog_no_dir_file_message">Cloudový adresár \'%1$s\' nemá platný adresárový súbor. Tento aresár mohol byť vytvorený iným zariadením a doposiať nebol plne synchronizovaný do cloudu. Prosím skontrolujte v cloude či nasledujúci súbor existuje a nie je prázdny:\n%2$s</string>
 	<string name="dialog_no_more_images_to_display">Niet už viac obrázkov k zobrazeniu&#8230;</string>
 	<string name="dialog_pcloud_credentials_updated_title">Prístupy k %1$s aktualizované</string>
-	<string name="dialog_pcloud_credentials_updated">Ak zamýšlate pridať nový pCloud účet, kliknite na tento link <a href="https://www.pcloud.com">www.pcloud.com</a>, odhláste sa zo súčasného účtu a opätovne kliknite na \'+\' v tejto aplikácii pre vytvorenie nového cloudového pripojenia.</string>
+	<string name="dialog_pcloud_credentials_updated">Ak zamýšľate pridať nový pCloud účet, kliknite na tento link <a href="https://www.pcloud.com">www.pcloud.com</a>, odhláste sa zo súčasného účtu a opätovne kliknite na \'+\' v tejto aplikácii pre vytvorenie nového cloudového pripojenia.</string>
 	<string name="permission_snackbar_auth_local_vault">Cryptomator potrebuje prístup k úložisku pre prácu s lokálnymi trezormy</string>
 	<string name="permission_snackbar_auth_auto_upload">Cryptomator potrebuje prístup k úložisku pre automatické nahrávanie fotografii</string>
 	<!-- # error reports -->
@@ -413,6 +429,4 @@
 	<string name="dark">Tmavý</string>
 	<!-- update interval names -->
 	<string name="update_interval_1d">Raz za deň</string>
-	<string name="update_interval_1w">Raz za týždeň</string>
-	<string name="update_interval_1m">Raz za mesiac</string>
 </resources>

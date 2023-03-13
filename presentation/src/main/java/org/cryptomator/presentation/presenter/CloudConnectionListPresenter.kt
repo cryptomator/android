@@ -4,19 +4,13 @@ import android.content.ActivityNotFoundException
 import android.content.Intent
 import android.net.Uri
 import android.widget.Toast
-import com.microsoft.identity.client.AuthenticationCallback
-import com.microsoft.identity.client.IAccount
-import com.microsoft.identity.client.IAuthenticationResult
-import com.microsoft.identity.client.IMultipleAccountPublicClientApplication
-import com.microsoft.identity.client.IPublicClientApplication
-import com.microsoft.identity.client.PublicClientApplication
-import com.microsoft.identity.client.exception.MsalException
 import org.cryptomator.domain.Cloud
 import org.cryptomator.domain.LocalStorageCloud
 import org.cryptomator.domain.OnedriveCloud
 import org.cryptomator.domain.PCloud
 import org.cryptomator.domain.Vault
 import org.cryptomator.domain.di.PerView
+import org.cryptomator.domain.exception.NetworkConnectionException
 import org.cryptomator.domain.usecases.cloud.AddOrChangeCloudConnectionUseCase
 import org.cryptomator.domain.usecases.cloud.GetCloudsUseCase
 import org.cryptomator.domain.usecases.cloud.GetUsernameUseCase
@@ -36,6 +30,7 @@ import org.cryptomator.presentation.model.mappers.CloudModelMapper
 import org.cryptomator.presentation.ui.activity.view.CloudConnectionListView
 import org.cryptomator.presentation.ui.dialog.PCloudCredentialsUpdatedDialog
 import org.cryptomator.presentation.workflow.ActivityResult
+import org.cryptomator.util.ExceptionUtil
 import org.cryptomator.util.crypto.CredentialCryptor
 import java.util.concurrent.atomic.AtomicReference
 import javax.inject.Inject
@@ -133,53 +128,16 @@ class CloudConnectionListPresenter @Inject constructor( //
 			CloudTypeModel.PCLOUD -> requestActivityResult(ActivityResultCallbacks.pCloudAuthenticationFinished(), Intents.authenticatePCloudIntent())
 			CloudTypeModel.S3 -> requestActivityResult(ActivityResultCallbacks.addChangeMultiCloud(), Intents.s3AddOrChangeIntent())
 			CloudTypeModel.LOCAL -> openDocumentTree()
+			else -> throw IllegalStateException("Cloud type is not supported")
 		}
 	}
 
 	private fun addOnedriveCloud() {
-		PublicClientApplication.createMultipleAccountPublicClientApplication(
-			context(),
-			R.raw.auth_config_onedrive,
-			object : IPublicClientApplication.IMultipleAccountApplicationCreatedListener {
-				override fun onCreated(application: IMultipleAccountPublicClientApplication) {
-					application.getAccounts(object : IPublicClientApplication.LoadAccountsCallback {
-						override fun onTaskCompleted(accounts: List<IAccount>) {
-							application.acquireToken(activity(), AuthenticateCloudPresenter.onedriveScopes(), getAuthInteractiveCallback())
-						}
-
-						override fun onError(e: MsalException) {
-							Timber.tag("AuthenticateCloudPresenter").e(e, "Error to get accounts")
-							showError(e);
-						}
-					})
-				}
-
-				override fun onError(e: MsalException) {
-					Timber.tag("AuthenticateCloudPresenter").i(e, "Error in configuration")
-					showError(e);
-				}
-			})
-	}
-
-	private fun getAuthInteractiveCallback(): AuthenticationCallback {
-		return object : AuthenticationCallback {
-
-			override fun onSuccess(authenticationResult: IAuthenticationResult) {
-				Timber.tag("AuthenticateCloudPresenter").i("Successfully authenticated")
-				val accessToken = CredentialCryptor.getInstance(context()).encrypt(authenticationResult.accessToken)
-				val onedriveSkeleton = OnedriveCloud.aOnedriveCloud().withAccessToken(accessToken).withUsername(authenticationResult.account.username).build()
-				saveOnedriveCloud(onedriveSkeleton)
-			}
-
-			override fun onError(e: MsalException) {
-				Timber.tag("AuthenticateCloudPresenter").e(e, "Successfully authenticated")
-				showError(e);
-			}
-
-			override fun onCancel() {
-				Timber.tag("AuthenticateCloudPresenter").i("User cancelled login")
-			}
-		}
+		OnedriveAuthentication.getAuthenticatedOnedriveCloud(activity(), { cloud ->
+			saveOnedriveCloud(cloud)
+		}, { e ->
+			ExceptionUtil.extract(e, NetworkConnectionException::class.java).orNull()?.let { showError(it) } ?: showError(e)
+		})
 	}
 
 	private fun saveOnedriveCloud(onedriveSkeleton: OnedriveCloud) {
@@ -209,7 +167,7 @@ class CloudConnectionListPresenter @Inject constructor( //
 
 	private fun openDocumentTree() {
 		try {
-			requestActivityResult(ActivityResultCallbacks.pickedLocalStorageLocation(), Intent(Intent.ACTION_OPEN_DOCUMENT_TREE))
+			requestActivityResult(ActivityResultCallbacks.pickedLocalStorageLocationForLocalCloud(), Intent(Intent.ACTION_OPEN_DOCUMENT_TREE))
 		} catch (exception: ActivityNotFoundException) {
 			Toast.makeText(activity().applicationContext, context().getText(R.string.screen_cloud_local_error_no_content_provider), Toast.LENGTH_SHORT).show()
 			Timber.tag("CloudConnListPresenter").e(exception, "No ContentProvider on system")
@@ -294,7 +252,7 @@ class CloudConnectionListPresenter @Inject constructor( //
 	}
 
 	@Callback
-	fun pickedLocalStorageLocation(result: ActivityResult) {
+	fun pickedLocalStorageLocationForLocalCloud(result: ActivityResult) {
 		val rootTreeUriOfLocalStorage = result.intent().data
 		persistUriPermission(rootTreeUriOfLocalStorage)
 		addOrChangeCloudConnectionUseCase

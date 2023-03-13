@@ -34,6 +34,7 @@
 	<string name="error_file_not_found_after_opening_using_3party">Локальний файл більше не присутній посля повернення до Cryptomator. Можливі зміни не будуть застосовані до хмари.</string>
 	<string name="error_no_such_bucket">Відсутній бакет</string>
 	<string name="error_masterkey_location_not_supported">Користувацьке розташування Masterkey ще не підтримується</string>
+	<string name="error_interact_with_fdroid_but_fdroid_missing">Не вдалося зв\'язатися із застосунком F-Droid. Не встановлено?</string>
 	<!-- # clouds -->
 	<!-- ## cloud names -->
 	<string name="cloud_names_local_storage">Локальне сховище</string>
@@ -54,19 +55,27 @@
 	<string name="snack_bar_action_title_sort_oldest">Спочатку старіші</string>
 	<string name="snack_bar_action_title_sort_biggest">Спочатку найбільші</string>
 	<string name="snack_bar_action_title_sort_smallest">Спершу найменші</string>
+	<string name="snack_bar_cryptomator_variants_title">Детальніше</string>
+	<string name="snack_bar_cryptomator_variants_hint">Немає у списку?</string>
 	<!-- # screens -->
 	<!-- # screen: vault list -->
 	<string name="screen_vault_list_actions_title">Додати до Cryptomator</string>
 	<string name="screen_vault_list_action_create_new_vault">Створити нове сховище</string>
 	<string name="screen_vault_list_action_add_existing_vault">Додати існуюче сховище</string>
 	<string name="screen_vault_list_vault_action_delete">Прибрати</string>
-	<string name="screen_vault_list_vault_creation_hint">Натисніть тут, щоб створити нове сховище</string>
+	<string name="screen_vault_list_vault_creation_hint">Натисніть тут, щоб створити новий vault</string>
 	<string name="screen_vault_list_change_password_successful">Пароль успішно змінено</string>
 	<!-- # screen: file browser -->
 	<string name="screen_file_browser_default_title">Сховище</string>
 	<string name="screen_file_browser_add_existing_vault_extra_text">Виберіть файл майстер-ключа</string>
 	<string name="screen_file_browser_create_new_vault_button_text">Розмістити тут</string>
 	<string name="screen_file_browser_create_new_vault_extra_text">Назва сховища: %1$s</string>
+	<plurals name="screen_file_browser_subtitle_move">
+		<item quantity="one">Перемістити %1$s у</item>
+		<item quantity="few">Перемістити %2$d елементи у</item>
+		<item quantity="many">Перемістити %2$d елементів у</item>
+		<item quantity="other">Перемістити %2$d елементів у</item>
+	</plurals>
 	<string name="screen_file_browser_move_button_text">Перемістити</string>
 	<string name="screen_file_browser_msg_empty_folder">Порожня тека</string>
 	<string name="screen_file_browser_file_info_label_date">змінено %1$s тому</string>
@@ -111,7 +120,7 @@
 	<string name="screen_choose_cloud_service_title">Хмарні служби</string>
 	<!-- ## screen: cloud connections -->
 	<string name="screen_cloud_connections_title">Обрати місцерозташування</string>
-	<string name="screen_cloud_connections_no_connections">Натисніть сюди щоб додати розташування</string>
+	<string name="screen_cloud_connections_no_connections">Натисніть тут щоб додати нові розташування</string>
 	<string name="screen_cloud_error_webdav_not_supported">Схоже, сервер не сумісний з WebDAV</string>
 	<string name="screen_cloud_local_error_no_content_provider">Не знайдено менеджер файлів, який підтримує відкриття директорій</string>
 	<!-- ## screen: webdav settings -->
@@ -207,9 +216,20 @@
 	<!-- ## screen: authenticate cloud -->
 	<string name="screen_authenticate_auth_authentication_failed">%1$s не може бути автентифіковано.</string>
 	<string name="screen_update_pcloud_connections_title">Оновити облікові дані pCloud</string>
-	<!-- ## screen: insecure android version info -->
+	<!-- ## screen: cryptomator app variants -->
+	<string name="screen_cryptomator_variants_title">Різновиди Cryptomator</string>
+	<string name="screen_cryptomator_variants_lite_title">Головний репозиторій F-Droid</string>
+	<string name="screen_cryptomator_variants_lite_description">Виключені, тому що потребують API ключі.</string>
+	<string name="screen_cryptomator_variants_lite_install">Встановити</string>
+	<string name="screen_cryptomator_variants_fdroid_title">Cryptomator F-Droid Репозиторій</string>
+	<string name="screen_cryptomator_variants_fdroid_description">Виключено, тому що він містить власні залежності.</string>
+	<string name="screen_cryptomator_variants_fdroid_add_repo_hint">Додати репозиторій Cryptomator у додаток F-Droid.</string>
+	<string name="screen_cryptomator_variants_fdroid_add_repo">Додати</string>
+	<string name="screen_cryptomator_variants_fdroid_install_hint">Встановити Cryptomator використовуючи F-Droid.\nЯкщо відображається помилка \"Не знайдено\", зачекайте поки синхронізацію F-Droid буде завершено.</string>
+	<string name="screen_cryptomator_variants_website_title">Вебсайт</string>
+	<string name="screen_cryptomator_variants_website_description">Містить власні залежності.</string>
 	<!-- # dialogs -->
-	<string name="dialog_button_cancel">Відмінити</string>
+	<string name="dialog_button_cancel">Скасувати</string>
 	<string name="dialog_enter_password_positive_button">Розблокувати</string>
 	<string name="dialog_change_password_old_password_label">Старий пароль</string>
 	<string name="dialog_change_password_new_password_label">Новий пароль</string>
@@ -245,6 +265,7 @@
 	<string name="dialog_unsaved_changes_title">У вас є незбережені зміни</string>
 	<string name="dialog_unsaved_changes_message">Ви справді хочете вийти без збереження?</string>
 	<string name="dialog_unsaved_changes_discard">Відхилити</string>
+	<string name="dialog_file_name_hint">Назва файлу</string>
 	<string name="dialog_file_name_placeholder">text.txt</string>
 	<string name="dialog_delete_vault_message">Ви впевнені, що бажаєте видалити це сховище?</string>
 	<string name="dialog_delete_vault_hint">Ця дія тільки прибере сховище з цього списку, але не видалить його.</string>
@@ -271,7 +292,6 @@
 	<string name="dialog_accept_ssl_certificate_details">Докладно</string>
 	<string name="dialog_accept_ssl_certificate_security_checkbox">Це може спричинити ризики безпеки. Я знаю, що роблю.</string>
 	<string name="dialog_ask_ignore_battery_optimizations_title">Вимкнути оптимізацію використання батареї</string>
-	<string name="dialog_ask_ignore_battery_optimizations_hint">Щоб отримати нові зображення та відео, не працюючи у фоновому режимі, нам потрібно відмовитися від оптимізації батареї. Але не хвилюйся, %1$s не споживає багато енергії.\n\nЩоб застосувати його, змініть \'Не оптимізовано\' на \'Усі програми\', виберіть %1$s і виберіть «Не оптимівати» після натискання на «%2$s» в цьому діалоговому вікні.</string>
 	<string name="dialog_ask_ignore_battery_optimizations_checkbox">Не запитувати знову?</string>
 	<string name="dialog_http_security_hint">Використання HTTP небезпечне. Рекомендуємо замість цього використовувати HTTPS. Якщо ви усвідомлюєте ризики, ви можете продовжити з HTTP.</string>
 	<string name="dialog_http_security_checkbox">Змінити на HTTPS</string>
@@ -285,19 +305,31 @@
 	<string name="dialog_debug_mode_positive_button">Увімкнути</string>
 	<string name="dialog_disable_app_obscured_disclaimer_title">Увага</string>
 	<string name="dialog_disable_app_obscured_positive_button">Вимкнути</string>
+	<string name="dialog_app_is_obscured_info_title">Програму перекрито</string>
 	<string name="dialog_app_is_obscured_info_neutral_button">Закрити</string>
+	<string name="dialog_vaults_removed_during_migration_title">Будь ласка, знову додайте vaults для %1s хмари</string>
 	<string name="dialog_delete_cloud_connection_with_vaults_hint">Ця дія видалить підключення до хмари та всі сховища з цієї хмари.</string>
 	<string name="dialog_confirm_delete_multiple_title">Видалити %1$d об\'єкти?</string>
 	<string name="dialog_confirm_delete_multiple_message">Ви впевнені, що бажаєте видалити ці об\'єкти?</string>
 	<string name="dialog_confirm_delete_file_message">Ви впевнені, що бажаєте видалити цей файл?</string>
+	<string name="dialog_biometric_auth_key_invalidated_title">Функція біометричної автентифікації деактивована</string>
+	<string name="dialog_enter_license_title">Вкажіть дійсну ліцензію</string>
 	<string name="dialog_enter_license_decline_button">Вийти</string>
+	<string name="dialog_license_confirmation_title">Підтвердження ліцензії</string>
+	<string name="dialog_update_available_title">Доступне оновлення</string>
 	<string name="dialog_update_available_update">Оновити зараз</string>
 	<string name="dialog_update_available_download_site">Перейти на сторінку завантаження</string>
 	<string name="dialog_update_available_cancel">Пізніше</string>
+	<string name="dialog_download_update_title">Завантаження в процесі</string>
 	<string name="dialog_sym_link_back_button">Назад</string>
 	<!-- # error reports -->
 	<!-- # misc -->
 	<!-- ## file size helper -->
+	<string name="file_size_unit_bytes">байти</string>
+	<string name="file_size_unit_kilo_bytes">кБ</string>
+	<string name="file_size_unit_mega_bytes">МБ</string>
+	<string name="file_size_unit_giga_bytes">ГБ</string>
+	<string name="file_size_unit_tera_bytes">ТБ</string>
 	<!-- ## date helper -->
 	<string name="time_unit_seconds_sg">секунда</string>
 	<string name="time_unit_seconds_pl">секунд</string>
@@ -316,10 +348,43 @@
 	<!-- ## biometric authentication -->
 	<string name="dialog_biometric_auth_title">Біометричний вхід</string>
 	<!-- notification -->
+	<string name="notification_timeout">Автоблокування через %1$s</string>
+	<string name="notification_lock_all">Заблокувати всі</string>
+	<string name="notification_cancel_auto_upload">Скасувати вивантаження</string>
+	<string name="notification_auto_upload_title">Автоматичне вивантаження фотографій в процесі</string>
+	<string name="notification_auto_upload_message">Вивантаження %1d/%2d</string>
+	<string name="notification_auto_upload_finished_title">Автозавантаження фото завершено</string>
+	<string name="notification_auto_upload_finished_message">%1$d зображення вивантажено до vault</string>
+	<string name="notification_auto_upload_failed_title">Помилка при вивантаженні фотографій</string>
+	<string name="notification_auto_upload_failed_general_error">Виникла помилка під час вивантаження.</string>
+	<string name="notification_auto_upload_failed_due_to_folder_not_exists">Вибрана тека для вивантаження більше недоступна. Перейдіть у налаштування для вибору іншої</string>
+	<string name="notification_auto_upload_failed_due_to_vault_locked">Vault заблоковано під час вивантаження, будь ласка, відкрийте vault знову, щоб продовжити</string>
+	<string name="notification_auto_upload_failed_due_to_vault_not_found">Vault, визначений для автоматичного вивантаження, більше не існує.</string>
+	<string name="screen_settings_lru_cache">Кеш</string>
+	<string name="screen_settings_clear_lru_cache_size">Очистити кеш</string>
 	<string name="screen_settings_license">Зареєстровано за</string>
+	<string name="dialog_settings_update_check_interval_title">Інтервал перевірки оновлень</string>
 	<string name="screen_settings_check_updates">Перевiрити наявнiсть оновлень</string>
+	<string name="screen_settings_last_check_updates">Останній запуск %1$s</string>
 	<!-- lock timeout names -->
+	<string name="lock_timeout_instant">Миттєво</string>
+	<string name="lock_timeout_1m">1 хвилини</string>
+	<string name="lock_timeout_2m">2 хвилини</string>
+	<string name="lock_timeout_5m">5 хвилин</string>
+	<string name="lock_timeout_10m">10 хвилин</string>
+	<string name="lock_timeout_never">Ніколи</string>
 	<!-- cache size names -->
+	<string name="cache_size_50m">50 МБ</string>
+	<string name="cache_size_100m">100 МБ</string>
+	<string name="cache_size_250m">250 МБ</string>
+	<string name="cache_size_500m">500 МБ</string>
+	<string name="cache_size_1000m">1 ГБ</string>
+	<string name="cache_size_5000m">5 ГБ</string>
 	<!-- screen scheme mode names -->
+	<string name="screen_settings_style_mode">Стиль</string>
+	<string name="follow_system">Автоматичний (на основі системного)</string>
+	<string name="light">Світлий</string>
+	<string name="dark">Темний</string>
 	<!-- update interval names -->
+	<string name="update_interval_1d">Раз на день</string>
 </resources>

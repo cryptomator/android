@@ -5,7 +5,7 @@ import org.cryptomator.generator.Optional;
 
 import java.util.Comparator;
 import java.util.Map;
-import java.util.Set;
+import java.util.SortedSet;
 import java.util.TreeSet;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
@@ -23,7 +23,7 @@ public class IntentReaderModel implements Comparable<IntentReaderModel> {
 	private final String targetActivity;
 	private final String intentInterface;
 	private final String readMethodName;
-	private final Set<ParameterModel> parameters;
+	private final SortedSet<ParameterModel> parameters;
 
 	public IntentReaderModel(TypeElement type) {
 		this.intentInterface = type.getQualifiedName().toString();
@@ -73,7 +73,7 @@ public class IntentReaderModel implements Comparable<IntentReaderModel> {
 		};
 	}
 
-	private static Set<ParameterModel> parameters(TypeElement type) {
+	private static SortedSet<ParameterModel> parameters(TypeElement type) {
 		return type //
 				.getEnclosedElements() //
 				.stream() //

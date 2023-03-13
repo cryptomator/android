@@ -23,14 +23,12 @@ import org.cryptomator.domain.usecases.cloud.Progress
 import org.cryptomator.domain.usecases.cloud.UploadState
 import java.io.IOException
 import java.io.OutputStream
-import okhttp3.HttpUrl
 import okhttp3.HttpUrl.Companion.toHttpUrlOrNull
 
 internal class WebDavImpl(private val cloud: WebDavCloud, private val connectionHandler: ConnectionHandlerHandlerImpl, private val context: Context) {
 
-	private val baseUrl: HttpUrl = cloud.url().toHttpUrlOrNull() ?: throw FatalBackendException("Cloud url shouldn't be null")
-
-	private val root: RootWebDavFolder = RootWebDavFolder(cloud)
+	private val baseUrl = cloud.url().toHttpUrlOrNull() ?: throw FatalBackendException("Cloud url shouldn't be null")
+	private val root = RootWebDavFolder(cloud)
 
 	fun root(): WebDavFolder {
 		return root

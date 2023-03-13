@@ -53,7 +53,6 @@
 	<string name="screen_vault_list_action_create_new_vault">새 Vault 생성</string>
 	<string name="screen_vault_list_action_add_existing_vault">기존 Vault 추가</string>
 	<string name="screen_vault_list_vault_action_delete">제거</string>
-	<string name="screen_vault_list_vault_creation_hint">여기를 클릭하여 새 Vault를 생성하세요</string>
 	<string name="screen_vault_list_change_password_successful">비밀번호 변경 성공</string>
 	<!-- # screen: file browser -->
 	<string name="screen_file_browser_default_title">Vault</string>
@@ -183,7 +182,7 @@
 	<!-- ## screen: licenses -->
 	<!-- ## screen: authenticate cloud -->
 	<string name="screen_update_pcloud_connections_title">pCloud 자격증명 업데이트</string>
-	<!-- ## screen: insecure android version info -->
+	<!-- ## screen: cryptomator app variants -->
 	<!-- # dialogs -->
 	<string name="dialog_button_cancel">취소</string>
 	<string name="dialog_enter_password_positive_button">잠금해제</string>
@@ -248,7 +247,6 @@
 	<string name="dialog_debug_mode_positive_button">활성화</string>
 	<string name="dialog_disable_app_obscured_disclaimer_title">주의</string>
 	<string name="dialog_disable_app_obscured_positive_button">비활성화</string>
-	<string name="dialog_app_is_obscured_info_hint">다른 앱이 Cryptomator앱 위에서 화면을 사용하고 있습니다 (블루 라이트 필터 또는 야간 모드 앱 등). 보안을 위하여 Cryptomator가 비활성화 되었습니다.\n\n<a href="https://docs.cryptomator.org/en/1.5/android/settings/#block-app-when-obscured">Cryptomator를 활성화하는 법</a></string>
 	<string name="dialog_app_is_obscured_info_neutral_button">닫기</string>
 	<string name="dialog_delete_cloud_connection_with_vaults_message">정말 이 클라우드 연결을 삭제하시겠습니까?</string>
 	<string name="dialog_delete_cloud_connection_with_vaults_hint">클라우드 연결과 이 클라우드의 Vault들이 삭제될 것입니다.</string>
@@ -337,6 +335,4 @@
 	<string name="dark">어둡게</string>
 	<!-- update interval names -->
 	<string name="update_interval_1d">하루에 한번</string>
-	<string name="update_interval_1w">일주일에 한번</string>
-	<string name="update_interval_1m">한달에 한 번</string>
 </resources>

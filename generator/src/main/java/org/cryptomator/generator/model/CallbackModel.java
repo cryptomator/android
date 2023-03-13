@@ -7,10 +7,9 @@ import org.cryptomator.generator.utils.MethodParameter;
 import org.cryptomator.generator.utils.Type;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
-import static java.util.stream.Collectors.toList;
-
-public class CallbackModel {
+public class CallbackModel implements Comparable<CallbackModel> {
 
 	private final String callbacksClassName;
 	private final String name;
@@ -61,7 +60,7 @@ public class CallbackModel {
 	private List<String> additionalParameterTypes(Method method) {
 		return method.parameters().skip(1) //
 				.peek(this::assertIsSerializable).map(MethodParameter::getType) //
-				.map(Type::qualifiedName).collect(toList());
+				.map(Type::qualifiedName).collect(Collectors.toList());
 	}
 
 	private void assertIsSerializable(MethodParameter methodParameter) {
@@ -92,5 +91,10 @@ public class CallbackModel {
 
 	public boolean isDispatchResultOkOnly() {
 		return dispatchResultOkOnly;
+	}
+
+	@Override
+	public int compareTo(CallbackModel callbackModel) {
+		return this.name.compareTo(callbackModel.name);
 	}
 }

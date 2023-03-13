@@ -1,14 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
 	android:layout_width="match_parent"
-	android:layout_height="51dp">
+	android:layout_height="72dp"
+	android:background="?android:attr/selectableItemBackground">
 
-	<ImageButton
+	<ImageView
 		android:id="@+id/cloud"
 		android:layout_width="@dimen/thumbnail_size"
 		android:layout_height="@dimen/thumbnail_size"
 		android:layout_centerVertical="true"
-		android:background="@android:color/transparent" />
+		android:layout_marginStart="16dp" />
 
 	<TextView
 		android:id="@+id/vaultName"
@@ -16,15 +17,15 @@
 		android:layout_width="wrap_content"
 		android:layout_height="wrap_content"
 		android:layout_centerVertical="true"
-		android:layout_marginStart="5dp"
-		android:layout_marginEnd="5dp"
+		android:layout_marginStart="16dp"
+		android:layout_marginEnd="16dp"
 		android:layout_toStartOf="@id/toggleBiometricAuth"
 		android:layout_toEndOf="@+id/cloud"
 		android:ellipsize="middle"
 		android:singleLine="true"
-		android:textSize="20sp" />
+		android:textSize="18sp" />
 
-	<com.google.android.material.switchmaterial.SwitchMaterial
+	<Switch
 		android:id="@+id/toggleBiometricAuth"
 		android:layout_width="wrap_content"
 		android:layout_height="wrap_content"

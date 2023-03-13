@@ -38,15 +38,9 @@ import io.minio.errors.ErrorResponseException
 import io.minio.messages.DeleteObject
 import timber.log.Timber
 
-internal class S3Impl(context: Context, cloud: S3Cloud) {
+internal class S3Impl(private val cloud: S3Cloud, private val client: MinioClient, private val context: Context) {
 
-	private val cloud: S3Cloud
-	private val root: RootS3Folder
-	private val context: Context
-
-	private fun client(): MinioClient {
-		return S3ClientFactory.getInstance(context, cloud)
-	}
+	private val root = RootS3Folder(cloud)
 
 	fun root(): S3Folder {
 		return root
@@ -76,12 +70,11 @@ internal class S3Impl(context: Context, cloud: S3Cloud) {
 	fun exists(node: S3Node): Boolean {
 		try {
 			return if (node !is RootS3Folder) {
-				client().statObject(StatObjectArgs.builder().bucket(cloud.s3Bucket()).`object`(node.key).build())
+				client.statObject(StatObjectArgs.builder().bucket(cloud.s3Bucket()).`object`(node.key).build())
 				true
 			} else {
-				// stat requests throws an IllegalStateException if key is empty string
-				val request = ListObjectsArgs.builder().bucket(cloud.s3Bucket()).prefix(node.key).delimiter(DELIMITER).build()
-				client().listObjects(request).iterator().hasNext()
+				// if the bucket exists the root folder is there too. Otherwise there is no exists check possible
+				client.bucketExists(BucketExistsArgs.builder().bucket(cloud.s3Bucket()).build())
 			}
 		} catch (e: ErrorResponseException) {
 			if (S3CloudApiErrorCodes.NO_SUCH_KEY.value == e.errorResponse().code()) {
@@ -95,7 +88,7 @@ internal class S3Impl(context: Context, cloud: S3Cloud) {
 	fun list(folder: S3Folder): List<S3Node> {
 		val request = ListObjectsArgs.builder().bucket(cloud.s3Bucket()).prefix(folder.key).delimiter(DELIMITER).build()
 
-		val listObjects = client().listObjects(request)
+		val listObjects = client.listObjects(request)
 		return try {
 			listObjects.mapNotNull {
 				run {
@@ -135,7 +128,7 @@ internal class S3Impl(context: Context, cloud: S3Cloud) {
 					.`object`(folder.key) //
 					.stream(ByteArrayInputStream(ByteArray(0)), 0, -1) //
 					.build()
-				client().putObject(putObjectArgs)
+				client.putObject(putObjectArgs)
 
 			} catch (e: ErrorResponseException) {
 				throw handleApiError(e, folder.path)
@@ -164,7 +157,7 @@ internal class S3Impl(context: Context, cloud: S3Cloud) {
 		target.parent?.let { targetsParent ->
 			val request = ListObjectsArgs.builder().bucket(cloud.s3Bucket()).prefix(source.key).recursive(true).build()
 			val sourceKeysIncludingDescendants = try {
-				client().listObjects(request).mapNotNull {
+				client.listObjects(request).mapNotNull {
 					run {
 						it.get().objectName()
 					}
@@ -183,7 +176,7 @@ internal class S3Impl(context: Context, cloud: S3Cloud) {
 
 				val copyObjectArgs = CopyObjectArgs.builder().bucket(cloud.s3Bucket()).`object`(targetKey).source(copySource).build()
 				try {
-					client().copyObject(copyObjectArgs)
+					client.copyObject(copyObjectArgs)
 				} catch (e: ErrorResponseException) {
 					throw handleApiError(e, source.path)
 				}
@@ -191,7 +184,7 @@ internal class S3Impl(context: Context, cloud: S3Cloud) {
 
 			val removeObjectsArgs = RemoveObjectsArgs.builder().bucket(cloud.s3Bucket()).objects(objectsToDelete).build()
 
-			for (result in client().removeObjects(removeObjectsArgs)) {
+			for (result in client.removeObjects(removeObjectsArgs)) {
 				try {
 					result.get()
 				} catch (e: ErrorResponseException) {
@@ -208,7 +201,7 @@ internal class S3Impl(context: Context, cloud: S3Cloud) {
 		val copySource = CopySource.builder().bucket(cloud.s3Bucket()).`object`(source.key).build()
 		val copyObjectArgs = CopyObjectArgs.builder().bucket(cloud.s3Bucket()).`object`(target.key).source(copySource).build()
 		try {
-			val result = client().copyObject(copyObjectArgs)
+			val result = client.copyObject(copyObjectArgs)
 			delete(source)
 			val lastModified = result.headers().getDate("Last-Modified")
 			return S3CloudNodeFactory.file(target.parent, target.name, source.size, lastModified)
@@ -244,10 +237,10 @@ internal class S3Impl(context: Context, cloud: S3Cloud) {
 						.stream(it, data.size(context) ?: Long.MAX_VALUE, -1) //
 						.build()
 
-					val objectWriteResponse = client().putObject(putObjectArgs)
+					val objectWriteResponse = client.putObject(putObjectArgs)
 
 					val lastModified = objectWriteResponse.headers().getDate("Last-Modified") ?: run {
-						val statObjectResponse = client().statObject(
+						val statObjectResponse = client.statObject(
 							StatObjectArgs //
 								.builder() //
 								.bucket(cloud.s3Bucket()) //
@@ -272,7 +265,7 @@ internal class S3Impl(context: Context, cloud: S3Cloud) {
 		progressAware.onProgress(Progress.started(DownloadState.download(file)))
 		val getObjectArgs = GetObjectArgs.builder().bucket(cloud.s3Bucket()).`object`(file.key).build()
 		try {
-			client().getObject(getObjectArgs).use { response ->
+			client.getObject(getObjectArgs).use { response ->
 				object : TransferredBytesAwareOutputStream(data) {
 					override fun bytesTransferred(transferred: Long) {
 						progressAware.onProgress( //
@@ -301,7 +294,7 @@ internal class S3Impl(context: Context, cloud: S3Cloud) {
 	private fun deleteFolder(node: S3Folder) {
 		val request = ListObjectsArgs.builder().bucket(cloud.s3Bucket()).prefix(node.key).recursive(true).delimiter(DELIMITER).build()
 
-		val listObjects = client().listObjects(request)
+		val listObjects = client.listObjects(request)
 
 		val objectsToDelete = try {
 			listObjects.map {
@@ -315,7 +308,7 @@ internal class S3Impl(context: Context, cloud: S3Cloud) {
 		}
 
 		val removeObjectsArgs = RemoveObjectsArgs.builder().bucket(cloud.s3Bucket()).objects(objectsToDelete).build()
-		val results = client().removeObjects(removeObjectsArgs)
+		val results = client.removeObjects(removeObjectsArgs)
 		results.forEach { result ->
 			try {
 				val error = result.get()
@@ -330,7 +323,7 @@ internal class S3Impl(context: Context, cloud: S3Cloud) {
 	private fun deleteFile(node: S3File) {
 		val removeObjectArgs = RemoveObjectArgs.builder().bucket(cloud.s3Bucket()).`object`(node.key).build()
 		try {
-			client().removeObject(removeObjectArgs)
+			client.removeObject(removeObjectArgs)
 		} catch (e: ErrorResponseException) {
 			throw handleApiError(e, "")
 		}
@@ -339,7 +332,7 @@ internal class S3Impl(context: Context, cloud: S3Cloud) {
 	@Throws(NoSuchBucketException::class, BackendException::class)
 	fun checkAuthentication(): String {
 		return try {
-			if (!client().bucketExists(BucketExistsArgs.builder().bucket(cloud.s3Bucket()).build())) {
+			if (!client.bucketExists(BucketExistsArgs.builder().bucket(cloud.s3Bucket()).build())) {
 				throw NoSuchBucketException(cloud.s3Bucket())
 			}
 			""
@@ -367,7 +360,7 @@ internal class S3Impl(context: Context, cloud: S3Cloud) {
 	}
 
 	fun logout() {
-		S3ClientFactory.logout()
+		// FIXME what about logout?
 	}
 
 	companion object {
@@ -379,8 +372,5 @@ internal class S3Impl(context: Context, cloud: S3Cloud) {
 		if (cloud.accessKey() == null || cloud.secretKey() == null) {
 			throw WrongCredentialsException(cloud)
 		}
-		this.context = context
-		this.cloud = cloud
-		this.root = RootS3Folder(cloud)
 	}
 }

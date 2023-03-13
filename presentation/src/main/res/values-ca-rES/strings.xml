@@ -9,6 +9,8 @@
 	<string name="error_no_network_connection">No hi ha connexió de xarxa</string>
 	<string name="error_invalid_passphrase">Contrasenya incorrecta</string>
 	<string name="error_file_or_folder_exists">Ja existeix un fitxer o carpeta.</string>
+	<string name="error_vault_version_not_supported">La versió %1$s de la caixa forta no està suportada. Aquesta caixa forta ha estat creada amb una versió més antiga o més nova de Cryptomator.</string>
+	<string name="error_vault_config_file_missing_due_to_format_999">L\'arxiu %1$s no existeix a la caixa forta. Si us plau, revisa que l\'arxiu existeix en la caixa forta sincronitzada al núvol.</string>
 	<string name="error_vault_already_exists">La caixa forta ja existeix.</string>
 	<string name="error_no_such_file">El fitxer no existeix.</string>
 	<string name="error_vault_has_been_locked">S\'ha bloquejat la caixa forta.</string>
@@ -32,6 +34,7 @@
 	<string name="error_file_not_found_after_opening_using_3party">El fitxer local ja no és present després de tornar a canviar a Cryptomator. Els possibles canvis no és poden propagar cap al núvol.</string>
 	<string name="error_no_such_bucket">No existeix el cubell</string>
 	<string name="error_masterkey_location_not_supported">Encara no es permet la ubicació personalitzada de la clau mestra</string>
+	<string name="error_interact_with_fdroid_but_fdroid_missing">Error en la comunicació amb l\'aplicació F-Droid. Està instal·lada?</string>
 	<!-- # clouds -->
 	<!-- ## cloud names -->
 	<string name="cloud_names_local_storage">Emmagatzematge local</string>
@@ -52,13 +55,15 @@
 	<string name="snack_bar_action_title_sort_oldest">El més antic primer</string>
 	<string name="snack_bar_action_title_sort_biggest">El més gros primer</string>
 	<string name="snack_bar_action_title_sort_smallest">El més petit primer</string>
+	<string name="snack_bar_cryptomator_variants_title">Llegir més</string>
+	<string name="snack_bar_cryptomator_variants_hint">El seu servei al núvol (Cloud) no està a la llista?</string>
 	<!-- # screens -->
 	<!-- # screen: vault list -->
 	<string name="screen_vault_list_actions_title">Afegeix a Criptomator</string>
 	<string name="screen_vault_list_action_create_new_vault">Crea una caixa forta nova</string>
 	<string name="screen_vault_list_action_add_existing_vault">Afegeix una caixa forta existent</string>
 	<string name="screen_vault_list_vault_action_delete">Elimina</string>
-	<string name="screen_vault_list_vault_creation_hint">Feu clic aquí per crear una caixa forta</string>
+	<string name="screen_vault_list_vault_creation_hint">Cliqueu aquí per crear una nova caixa forta</string>
 	<string name="screen_vault_list_change_password_successful">La contrasenya s\'han canviat correctament</string>
 	<!-- # screen: file browser -->
 	<string name="screen_file_browser_default_title">Caixa forta</string>
@@ -113,7 +118,7 @@
 	<string name="screen_choose_cloud_service_title">Servei al núvol</string>
 	<!-- ## screen: cloud connections -->
 	<string name="screen_cloud_connections_title">Trieu una destinació</string>
-	<string name="screen_cloud_connections_no_connections">Feu clic aquí per afegir destinacions</string>
+	<string name="screen_cloud_connections_no_connections">Cliqueu aquí per afegir localitzacions</string>
 	<string name="screen_cloud_error_webdav_not_supported">El servidor no sembla que sigui compatible amb WebDAV</string>
 	<string name="screen_cloud_local_error_no_content_provider">No s\'ha trobat cap gestor de fitxers que suporte l\'obertura de directoris/carpetes</string>
 	<!-- ## screen: webdav settings -->
@@ -209,7 +214,19 @@
 	<!-- ## screen: authenticate cloud -->
 	<string name="screen_authenticate_auth_authentication_failed">%1$s no s\'ha pogut autenticar.</string>
 	<string name="screen_update_pcloud_connections_title">Actualitza les credencials de pCloud</string>
-	<!-- ## screen: insecure android version info -->
+	<!-- ## screen: cryptomator app variants -->
+	<string name="screen_cryptomator_variants_title">Variables de Cryptomator</string>
+	<string name="screen_cryptomator_variants_lite_title">Repositori principal de F-Droid</string>
+	<string name="screen_cryptomator_variants_lite_description">Exclosos perquè requereixen claus API.</string>
+	<string name="screen_cryptomator_variants_lite_install">Instal·lar</string>
+	<string name="screen_cryptomator_variants_fdroid_title">Repositori Cryptomator F-Droid</string>
+	<string name="screen_cryptomator_variants_fdroid_description">Exclòs perquè requereix dependències propietàries.</string>
+	<string name="screen_cryptomator_variants_fdroid_add_repo_hint">Afegir repositori Cryptomator a l\'aplicació F-Droid.</string>
+	<string name="screen_cryptomator_variants_fdroid_add_repo">Afegir</string>
+	<string name="screen_cryptomator_variants_fdroid_install_hint">Instal·lar Cryptomator utilitzant F-Droid.\nIf mostra un error de no trobat, esperi fins que finalitzi la sincronització de F-Droid.</string>
+	<string name="screen_cryptomator_variants_website_title">Lloc web</string>
+	<string name="screen_cryptomator_variants_website_description">Conté dependències propietàries.</string>
+	<string name="screen_cryptomator_variants_installation_hint">Canviar des de o cap a la variant principal del repositori F-Droid requereix una nova configuració de l\'aplicació.</string>
 	<!-- # dialogs -->
 	<string name="dialog_button_cancel">Cancel·la</string>
 	<string name="dialog_enter_password_positive_button">Desbloqueja</string>
@@ -247,6 +264,7 @@
 	<string name="dialog_unsaved_changes_title">Hi ha canvis sense desar</string>
 	<string name="dialog_unsaved_changes_message">Voleu tancar sense desar?</string>
 	<string name="dialog_unsaved_changes_discard">Descarta</string>
+	<string name="dialog_file_name_hint">Nom de l\'arxiu</string>
 	<string name="dialog_file_name_placeholder">text.txt</string>
 	<string name="dialog_delete_vault_message">Esteu segur/a que voleu suprimir aquesta caixa forta?</string>
 	<string name="dialog_delete_vault_hint">Aquesta acció només eliminarà la caixa forta d\'aquesta llista però no l\'eliminarà físicament.</string>
@@ -272,6 +290,9 @@
 	<string name="dialog_accept_ssl_certificate_hint">El certificat SSL no és vàlid. Voleu confiar-hi de tota manera?</string>
 	<string name="dialog_accept_ssl_certificate_details">Detalls</string>
 	<string name="dialog_accept_ssl_certificate_security_checkbox">Això podria ser un risc per a la seguretat. Sé el que em faig.</string>
+	<string name="dialog_ask_ignore_battery_optimizations_title">Desactivar optimitzacions de bateria</string>
+	<string name="dialog_ask_ignore_battery_optimizations_hint">Per recuperar imatges i vídeos nous sense executar-se en segon pla, hem de desactivar les optimitzacions de la bateria. Però no us preocupeu, %1$s no consumeix gaire energia.\n\nPer aplicar-lo, canvieu \"No optimitzat\" per \"Totes les aplicacions\", seleccioneu %1$s i trieu \"No optimitzar\" després de tocar \'%2$s\' en aquest diàleg.</string>
+	<string name="dialog_ask_ignore_battery_optimizations_checkbox">No m\'ho tornis a preguntar</string>
 	<string name="dialog_http_security_hint">L\'ús de HTTP no és segur. Recomanem fer servir HTTPS. Si ets conscient dels riscos, pots continuant fent servir HTTP.</string>
 	<string name="dialog_http_security_checkbox">Canvia a HTTPS</string>
 	<string name="dialog_http_security_title">Utilizar HTTPS?</string>
@@ -283,17 +304,17 @@
 	<string name="dialog_debug_mode_disclaimer_hint">En aquest mode, informació sensible pot ser escrita en un arxiu de registre al teu dispositiu (per exemple, noms d\'arxius i rutes). Contrasenyes, galetes, etc. són explícitament excloses.\n\nRecorda desactivar el mode de depuració tan aviat com sigui possible.</string>
 	<string name="dialog_debug_mode_disclaimer_title">Atenció</string>
 	<string name="dialog_debug_mode_positive_button">Activa</string>
-	<string name="dialog_disable_app_obscured_disclaimer_hint">Aquest ajustament és una funció de seguretat i evita que d\'altres aplicacions puguin enganyar a usuaris per a fer coses que no volen fer.\n\nDeshabilitant-la, confirmes que ets<a href="https://docs.cryptomator.org/en/1.5/android/settings/#block-app-when-obscured">conscient dels riscos</a>.</string>
+	<string name="dialog_disable_app_obscured_disclaimer_hint">Aquesta configuració és una funció de seguretat i evita que altres aplicacions enganyin els usuaris perquè facin coses que no volen fer.\n\nEn desactivar-la, confirmeu que sou &lt;a href="https://docs.cryptomator.org". /en/1.6/android/settings/#block-app-when-obscured"&gt;conscient dels riscos&lt;/a&gt;.</string>
 	<string name="dialog_disable_app_obscured_disclaimer_title">Atenció</string>
 	<string name="dialog_disable_app_obscured_positive_button">Desactiva</string>
 	<string name="dialog_app_is_obscured_info_title">Alguna cosa està superposada a l\'aplicació</string>
-	<string name="dialog_app_is_obscured_info_hint">Una altra aplicació està mostrant alguna cosa per sobre de Cryptomator (per exemple un filtre de llum blava o una aplicació de mode nocturn). Per raons de seguretat, Cryptomator s\'ha deshabilitat.\n\n<a href="https://docs.cryptomator.org/en/1.5/android/settings/#block-app-when-obscured">.Com habilitar Crytomator</a></string>
+	<string name="dialog_app_is_obscured_info_hint">Una altra aplicació mostra alguna cosa a sobre de Cryptomator (p. ex., un filtre de llum blava o una aplicació de mode nocturn). Per motius de seguretat, Cryptomator està desactivat.\n\n<a href="https://docs.cryptomator.org/en/1.6/android/settings/#block-app-when-obscured">Com activar Cryptomator</a></string>
 	<string name="dialog_app_is_obscured_info_neutral_button">Tanca</string>
 	<string name="dialog_vaults_removed_during_migration_title">Si us plau, torna a afegir les caixes fortes per el cloud %1s</string>
 	<string name="dialog_vaults_removed_during_migration_hint">Al migrar cap a aquesta versió de l\'app hem hagut d\'esborrar les següents caixes fortes de l\'aplicació:\n%2s \n\nAquestes caixes fortes no s\'han esborrat del cloud sinó que només de l\'aplicació. Sentim les molèsties ocasionades, si us plau torna a afegir les caixes fortes per a continuar treballant amb elles.</string>
 	<string name="dialog_vault_is_root_folder_of_cloud_title">La caixa forta és la carpeta principal de la connexió al núvol</string>
 	<string name="dialog_vault_is_root_folder_of_cloud_hint">Crea una nova connexió al núvol on podeu seleccionar si més no la carpeta mare d\'aquesta caixa forta com a carpeta arrel per a afegir aquesta caixa forta.</string>
-	<string name="dialog_disable_secure_screen_disclaimer_hint">Aquest paràmetre és una mesura de seguretat que preveu que altres aplicacions enganyin als usuaris per a que facin accions indesitjades.\n\nAl desactivar-la, confirmes que ets <a href="https://docs.cryptomator.org/en/1.5/android/settings/#screen-security">conscient dels riscs</a>.</string>
+	<string name="dialog_disable_secure_screen_disclaimer_hint">Aquesta configuració és una funció de seguretat i impedeix que altres aplicacions enganyin els usuaris perquè facin coses que no volen fer.\n\nEn desactivar-la, confirmeu que sou &lt;a href="https://docs.cryptomator.org". /en/1.6/android/settings/#screen-security"&gt;conscient dels riscos&lt;/a&gt;.</string>
 	<string name="dialog_delete_cloud_connection_with_vaults_message">Estàs segur que vols esborrar aquesta connexió al cloud?</string>
 	<string name="dialog_delete_cloud_connection_with_vaults_hint">Aquesta acció esborrarà la connexió al cloud i totes les seves caixes fortes.</string>
 	<string name="dialog_confirm_delete_multiple_title">Voleu suprimir %1$d elements?</string>
@@ -324,7 +345,7 @@
 	<string name="dialog_no_dir_file_message">La carpeta al cloud \'%1$s\' no té un fitxer de directori vàlid. Pot ser que aquesta carpeta s\'hagués creat en un altre dispositiu i encara no s\'hagi sincronitzat al cloud. Si us plau, comprova que en el teu cloud el següent fitxer existeix i no és buit:\n%2$s</string>
 	<string name="dialog_no_more_images_to_display">No hi ha més imatges per mostrar&#8230;</string>
 	<string name="dialog_pcloud_credentials_updated_title">Credencials de \'%1$s\' actualitzades</string>
-	<string name="dialog_pcloud_credentials_updated">Si volies afegir un nou compte de pCloud, clica en aquest enllaç <a href="https://www.pcloud.com">www.pcloud.com</a>, tanca la teva sessió actual i torna a fer click al símbol de \'+\' en aquesta aplicació per a tornar a crear una connexió al cloud.</string>
+	<string name="dialog_pcloud_credentials_updated">Si teníeu la intenció d\'afegir un compte de pCloud nou, toqueu aquest URL <a href="https://www.pcloud.com">www.pcloud.com</a>, tanqueu la sessió del compte actual i torneu a tocar el \"+\" d\'aquesta aplicació per crear una nova connexió al núvol.</string>
 	<string name="permission_snackbar_auth_local_vault">Cryptomator necessita accés a l\'emmagatzematge per a fer servir caixes fortes locals</string>
 	<string name="permission_snackbar_auth_auto_upload">Cryptomator necessita accés a l\'emmagatzematge per a la pujada de fotos automàtica</string>
 	<!-- # error reports -->
@@ -406,6 +427,4 @@
 	<string name="dark">Fosc</string>
 	<!-- update interval names -->
 	<string name="update_interval_1d">Una vegada al dia</string>
-	<string name="update_interval_1w">Una vegada a la setmana</string>
-	<string name="update_interval_1m">Una vegada al mes</string>
 </resources>

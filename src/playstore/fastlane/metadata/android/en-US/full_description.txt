@@ -1,0 +1,37 @@
+With Cryptomator, the key to your data is in your hands. Cryptomator encrypts your data quickly and easily. Afterwards you upload them protected to your favorite cloud service.
+
+<b>EASY-TO-USE</b>
+
+Cryptomator is a simple tool for digital self-defense. It allows you to protect your cloud data by yourself and independently.
+
+• Simply create a vault and assign a password
+• No additional account or configuration needed
+• Unlock vaults with your fingerprint
+
+<b>COMPATIBLE</b>
+
+Cryptomator is compatible with the most commonly used cloud storages and available for all major operating systems.
+
+• Compatible with Dropbox, Google Drive, OneDrive, S3- and WebDAV-based cloud storage services
+• Create vaults in Android’s local storage (e.g., works with third-party sync apps)
+• Access your vaults on all your mobile devices and computers
+
+<b>SECURE</b>
+
+You don't have to trust Cryptomator blindly, because <a href="https://github.com/cryptomator/android">it is open source software</a>. For you as a user, this means that everyone can see the code.
+
+• File content and filename encryption with AES and 256 bit key length
+• Vault password is secured with scrypt for enhanced brute-force resistance
+• Vaults are automatically locked after sending app to background
+• Crypto implementation is publicly documented
+
+<b>AWARD-WINNING</b>
+
+Cryptomator received the <b>CeBIT Innovation Award 2016 for Usable Security and Privacy</b>. We're proud to provide security and privacy for hundreds of thousands of Cryptomator users.
+
+<b>CRYPTOMATOR COMMUNITY</b>
+
+Join the <a href="https://community.cryptomator.org">Cryptomator Community</a> and participate in the conversations with other Cryptomator users.
+
+• Follow us on Twitter <a href="https://twitter.com/Cryptomator">@Cryptomator</a>
+• Like us on Facebook <a href="https://facebook.com/Cryptomator">/Cryptomator</a>

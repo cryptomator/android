@@ -92,7 +92,8 @@ public abstract class Workflow<State extends Serializable> {
 	}
 
 	public void dispatch(Serializable result) {
-		callback.call(this, new SerializableResult(callback, result));
+		SerializableResult serializable = new SerializableResult(this.callback, result);
+		callback.call(this, serializable);
 	}
 
 	public boolean isRunning() {

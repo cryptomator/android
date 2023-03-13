@@ -38,7 +38,6 @@
 	<string name="screen_vault_list_action_create_new_vault">కొత్త ఖజానాను సృష్టించండి</string>
 	<string name="screen_vault_list_action_add_existing_vault">ఇప్పటికే ఉన్న ఖజానాను తెరవండి</string>
 	<string name="screen_vault_list_vault_action_delete">తొలగించు</string>
-	<string name="screen_vault_list_vault_creation_hint">కొత్త వాల్ట్‌ని సృష్టించడానికి ఇక్కడ క్లిక్ చేయండి</string>
 	<string name="screen_vault_list_change_password_successful">పాస్‌వర్డ్ విజయవంతంగా మార్చబడింది</string>
 	<!-- # screen: file browser -->
 	<string name="screen_file_browser_default_title">ఖజానా</string>
@@ -73,7 +72,6 @@
 	<string name="screen_choose_cloud_service_title">క్లౌడ్ సేవ</string>
 	<!-- ## screen: cloud connections -->
 	<string name="screen_cloud_connections_title">ఒక స్థానాన్ని ఎంచుకోండి</string>
-	<string name="screen_cloud_connections_no_connections">స్థానాలను జోడించడానికి ఇక్కడ క్లిక్ చేయండి</string>
 	<!-- ## screen: webdav settings -->
 	<string name="screen_webdav_settings_url_port_label">URL</string>
 	<string name="screen_webdav_settings_username_label">వినియోగదారు పేరు</string>
@@ -132,7 +130,7 @@
 	<!-- ## screen: authenticate cloud -->
 	<string name="screen_authenticate_auth_authentication_failed">%1$s Pramāṇīkarin̄cabaḍalēdu.</string>
 	<string name="screen_update_pcloud_connections_title">pCloud ఆధారాలను నవీకరించండి</string>
-	<!-- ## screen: insecure android version info -->
+	<!-- ## screen: cryptomator app variants -->
 	<!-- # dialogs -->
 	<string name="dialog_button_cancel">ఆపండి</string>
 	<string name="dialog_enter_password_positive_button">తాళం తెరవండి</string>
@@ -287,6 +285,4 @@
 	<string name="dark">నలుపు</string>
 	<!-- update interval names -->
 	<string name="update_interval_1d">రోజుకి ఒక్కసారి</string>
-	<string name="update_interval_1w">వారానికి ఒక సారి</string>
-	<string name="update_interval_1m">నెలకొక్క సారి</string>
 </resources>

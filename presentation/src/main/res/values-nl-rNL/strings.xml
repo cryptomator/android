@@ -33,7 +33,8 @@
 	<string name="error_vault_config_loading">Algemene fout tijdens het laden van de kluisconfiguratie</string>
 	<string name="error_file_not_found_after_opening_using_3party">Lokaal bestand is niet meer aanwezig na het terugschakelen naar Cryptomator. Mogelijke wijzigingen kunnen niet worden verzonden naar de cloud.</string>
 	<string name="error_no_such_bucket">Deze bucket is niet gevonden</string>
-	<string name="error_masterkey_location_not_supported">Aangepaste Masterkey-locatie nog niet ondersteund</string>
+	<string name="error_masterkey_location_not_supported">Aangepaste Masterkey locatie nog niet ondersteund</string>
+	<string name="error_interact_with_fdroid_but_fdroid_missing">Kan niet communiceren met de F-Droid app. Niet geïnstalleerd?</string>
 	<!-- # clouds -->
 	<!-- ## cloud names -->
 	<string name="cloud_names_local_storage">Lokale opslag</string>
@@ -54,6 +55,8 @@
 	<string name="snack_bar_action_title_sort_oldest">Oudste eerst</string>
 	<string name="snack_bar_action_title_sort_biggest">Grootste eerst</string>
 	<string name="snack_bar_action_title_sort_smallest">Kleinste eerst</string>
+	<string name="snack_bar_cryptomator_variants_title">Lees meer</string>
+	<string name="snack_bar_cryptomator_variants_hint">Cloud niet in de lijst?</string>
 	<!-- # screens -->
 	<!-- # screen: vault list -->
 	<string name="screen_vault_list_actions_title">Toevoegen aan Cryptomator</string>
@@ -211,7 +214,19 @@
 	<!-- ## screen: authenticate cloud -->
 	<string name="screen_authenticate_auth_authentication_failed">%1$s kon niet worden geverifieerd.</string>
 	<string name="screen_update_pcloud_connections_title">PCloud inloggegevens bijwerken</string>
-	<!-- ## screen: insecure android version info -->
+	<!-- ## screen: cryptomator app variants -->
+	<string name="screen_cryptomator_variants_title">Varianten van Cryptomator</string>
+	<string name="screen_cryptomator_variants_lite_title">Ga naar de F-Droid opslagplek</string>
+	<string name="screen_cryptomator_variants_lite_description">Uitgesloten omdat deze API-sleutels vereisen.</string>
+	<string name="screen_cryptomator_variants_lite_install">Installeren</string>
+	<string name="screen_cryptomator_variants_fdroid_title">Cryptomator F-Droid repository</string>
+	<string name="screen_cryptomator_variants_fdroid_description">Uitgesloten omdat het private afhankelijkheden bevat.</string>
+	<string name="screen_cryptomator_variants_fdroid_add_repo_hint">Voeg Cryptomator-repository toe aan de F-Droid app.</string>
+	<string name="screen_cryptomator_variants_fdroid_add_repo">Toevoegen</string>
+	<string name="screen_cryptomator_variants_fdroid_install_hint">Installeer Cryptomator met behulp van F-Droid.\nAls een niet gevonden fout wordt weergegeven, wacht dan tot de F-Droid synchronisatie is voltooid.</string>
+	<string name="screen_cryptomator_variants_website_title">Website</string>
+	<string name="screen_cryptomator_variants_website_description">Bevat private afhankelijkheden.</string>
+	<string name="screen_cryptomator_variants_installation_hint">De overgang van of naar de hoofdvariant F-Droid repository vereist een nieuwe installatie van de app.</string>
 	<!-- # dialogs -->
 	<string name="dialog_button_cancel">Annuleren</string>
 	<string name="dialog_enter_password_positive_button">Ontgrendel</string>
@@ -249,6 +264,7 @@
 	<string name="dialog_unsaved_changes_title">Je hebt niet-opgeslagen wijzigingen</string>
 	<string name="dialog_unsaved_changes_message">Wilt u afsluiten zonder op te slaan?</string>
 	<string name="dialog_unsaved_changes_discard">Negeren</string>
+	<string name="dialog_file_name_hint">Bestandsnaam</string>
 	<string name="dialog_file_name_placeholder">tekst.txt</string>
 	<string name="dialog_delete_vault_message">Ben je zeker dat je deze kluis wilt verwijderen?</string>
 	<string name="dialog_delete_vault_hint">Deze actie zal de kluis alleen uit deze lijst verwijderen en nergens anders.</string>
@@ -275,7 +291,7 @@
 	<string name="dialog_accept_ssl_certificate_details">Details</string>
 	<string name="dialog_accept_ssl_certificate_security_checkbox">Dit kan een veiligheidsrisico zijn. Ik weet wat ik doe.</string>
 	<string name="dialog_ask_ignore_battery_optimizations_title">Batterij optimalisaties uitschakelen</string>
-	<string name="dialog_ask_ignore_battery_optimizations_hint">Om nieuwe foto\'s en video\'s op te halen zonder in de achtergrond te draaien, schakelt de batterij optimalisatie uit. Maak je geen zorgen, %1$s verbruikt niet veel energie.\n\nOm toe te passen, wijzig \'Niet geoptimaliseerd\' naar \'Alle apps\', selecteer %1$s en kies \'Niet optimaliseren\' na \'%2$s\' in dit dialoogvenster.</string>
+	<string name="dialog_ask_ignore_battery_optimizations_hint">Om nieuwe foto\'s en video\'s op te halen zonder in de achtergrond te draaien, schakel je best de batterij optimalisatie uit. Maak je geen zorgen, %1$s verbruikt niet veel energie.\n\nOm toe te passen, wijzig \'Niet geoptimaliseerd\' naar \'Alle apps\', selecteer %1$s en kies \'Niet optimaliseren\' na \'%2$s\' in dit dialoogvenster.</string>
 	<string name="dialog_ask_ignore_battery_optimizations_checkbox">Niet opnieuw vragen?</string>
 	<string name="dialog_http_security_hint">Het gebruik van HTTP is onveilig. We raden aan om in plaats daarvan HTTPS te gebruiken. Als u de risico\'s weet, kunt u doorgaan met HTTP.</string>
 	<string name="dialog_http_security_checkbox">Verander naar HTTPS</string>
@@ -288,17 +304,17 @@
 	<string name="dialog_debug_mode_disclaimer_hint">In deze modus kunnen gevoelige gegevens naar een logbestand op je apparaat geschreven worden (bijv. bestandsnamen en paden). Wachtwoorden, cookies, etc. worden expliciet uitgesloten.\n\nVergeet niet om de foutopsporingsmodus zo snel mogelijk uit te schakelen.</string>
 	<string name="dialog_debug_mode_disclaimer_title">Aandacht</string>
 	<string name="dialog_debug_mode_positive_button">Inschakelen</string>
-	<string name="dialog_disable_app_obscured_disclaimer_hint">Deze instelling is een beveiligingsfunctie en voorkomt dat andere apps gebruikers misleiden.\n\nDoor deze instelling uit te schakelen bevestig je dat je <a href="https://docs.cryptomator.org/en/1.5/android/settings/#block-app-when-obscured"> bewust bent van de risico\'s</a>.</string>
+	<string name="dialog_disable_app_obscured_disclaimer_hint">Deze instelling is een beveiligingsfunctie en voorkomt dat andere apps gebruikers verleiden dingen te doen die ze niet willen doen. \n\nDoor het uitschakelen, bevestigt u dat u <a href="https://docs.cryptomator.org/en/1.6/android/settings/#block-app-when-obscured">bewust bent van de risico\'s</a>.</string>
 	<string name="dialog_disable_app_obscured_disclaimer_title">Aandacht</string>
 	<string name="dialog_disable_app_obscured_positive_button">Uitschakelen</string>
 	<string name="dialog_app_is_obscured_info_title">App is naar de achtergrond gewezen</string>
-	<string name="dialog_app_is_obscured_info_hint">Een andere app toont iets bovenop Cryptomator (bijv. een blauw lichtfilter of nachtmodus). Om veiligheidsredenen is Cryptomator uitgeschakeld.\n\n<a href="https://docs.cryptomator.org/en/1.5/android/settings/#block-app-when-obscured">Hoe kunt u Cryptomator inschakelen</a></string>
+	<string name="dialog_app_is_obscured_info_hint">Een andere app toont iets bovenop Cryptomator (bijv. een blauw lichtfilter of nachtmodus). Om veiligheidsredenen is Cryptomator uitgeschakeld.\n\n<a href="https://docs.cryptomator.org/en/1.6/android/settings/#block-app-when-obscured">Hoe kunt u Cryptomator inschakelen</a></string>
 	<string name="dialog_app_is_obscured_info_neutral_button">Sluiten</string>
 	<string name="dialog_vaults_removed_during_migration_title">Voeg de kluis voor %1\'s cloud opnieuw toe</string>
 	<string name="dialog_vaults_removed_during_migration_hint">Tijdens het migreren naar deze app versie moeten we de volgende kluizen verwijderen uit de app:\n%2s \n\nDe kluizen worden niet uit de cloud verwijderd, maar alleen uit deze app. Sorry voor het ongemak, voeg deze kluizen opnieuw toe om deze te blijven gebruiken.</string>
 	<string name="dialog_vault_is_root_folder_of_cloud_title">Kluis is hoofdmap van de cloud-verbinding</string>
 	<string name="dialog_vault_is_root_folder_of_cloud_hint">Maak een nieuwe cloud-verbinding waarbij je ten minste de bovenliggende map van deze kluis selecteert als hoofdmap om deze kluis toe te voegen.</string>
-	<string name="dialog_disable_secure_screen_disclaimer_hint">Deze instelling is een beveiligingsfunctie en voorkomt dat andere apps gebruikers misleiden.\n\nDoor deze instelling uit te schakelen bevestig je dat je <a href="https://docs.cryptomator.org/en/1.5/android/settings/#screen-security"> bewust bent van de risico\'s</a>.</string>
+	<string name="dialog_disable_secure_screen_disclaimer_hint">Deze instelling is een beveiligingsfunctie en voorkomt dat andere apps gebruikers verleiden dingen te doen die ze niet willen doen. \n\nDoor het uitschakelen, bevestigt u dat u <a href="https://docs.cryptomator.org/en/1.6/android/settings/#screen-security">bewust bent van de risico\'s</a>.</string>
 	<string name="dialog_delete_cloud_connection_with_vaults_message">Weet je zeker dat je deze cloud verbinding wilt verwijderen?</string>
 	<string name="dialog_delete_cloud_connection_with_vaults_hint">Deze actie zal de cloud-verbinding en alle kluizen van deze cloud verwijderen.</string>
 	<string name="dialog_confirm_delete_multiple_title">Verwijder %1$d items?</string>
@@ -411,6 +427,4 @@
 	<string name="dark">Donker</string>
 	<!-- update interval names -->
 	<string name="update_interval_1d">Een keer per dag</string>
-	<string name="update_interval_1w">Een keer per week</string>
-	<string name="update_interval_1m">Een keer per maand</string>
 </resources>

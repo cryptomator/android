@@ -39,7 +39,7 @@
 	<!-- ## screen: cloud settings -->
 	<!-- ## screen: licenses -->
 	<!-- ## screen: authenticate cloud -->
-	<!-- ## screen: insecure android version info -->
+	<!-- ## screen: cryptomator app variants -->
 	<!-- # dialogs -->
 	<string name="dialog_button_cancel">Odustani</string>
 	<string name="dialog_enter_password_positive_button">Otključaj</string>

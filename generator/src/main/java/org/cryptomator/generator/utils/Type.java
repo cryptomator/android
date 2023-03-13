@@ -1,5 +1,10 @@
 package org.cryptomator.generator.utils;
 
+import static javax.lang.model.element.ElementKind.FIELD;
+import static javax.lang.model.type.TypeKind.ARRAY;
+import static javax.lang.model.type.TypeKind.NONE;
+
+import java.util.Comparator;
 import java.util.Optional;
 import java.util.stream.Stream;
 
@@ -9,10 +14,6 @@ import javax.lang.model.element.VariableElement;
 import javax.lang.model.type.DeclaredType;
 import javax.lang.model.type.PrimitiveType;
 import javax.lang.model.type.TypeMirror;
-
-import static javax.lang.model.element.ElementKind.FIELD;
-import static javax.lang.model.type.TypeKind.ARRAY;
-import static javax.lang.model.type.TypeKind.NONE;
 
 public class Type implements Comparable<Type> {
 
@@ -89,7 +90,7 @@ public class Type implements Comparable<Type> {
 		return element //
 				.map(type -> type.getEnclosedElements().stream() //
 						.filter(ExecutableElement.class::isInstance) //
-						.sorted((e1, e2) -> e1.getSimpleName().toString().compareTo(e2.getSimpleName().toString())) //
+						.sorted(Comparator.comparing(e -> e.getSimpleName().toString())) //
 						.map(ExecutableElement.class::cast) //
 						.filter(Method::isConstructor) //
 						.map(executableElement -> new Method(utils, executableElement))).orElse(Stream.empty()); //
@@ -99,7 +100,7 @@ public class Type implements Comparable<Type> {
 		return element //
 				.map(type -> type.getEnclosedElements().stream() //
 						.filter(ExecutableElement.class::isInstance) //
-						.sorted((e1, e2) -> e1.getSimpleName().toString().compareTo(e2.getSimpleName().toString())) //
+						.sorted(Comparator.comparing(e -> e.getSimpleName().toString())) //
 						.map(ExecutableElement.class::cast) //
 						.filter(Method::isRegularMethod) //
 						.map(executableElement -> new Method(utils, executableElement))).orElse(Stream.empty());
@@ -109,7 +110,7 @@ public class Type implements Comparable<Type> {
 		return element //
 				.map(type -> type.getEnclosedElements().stream() //
 						.filter(VariableElement.class::isInstance) //
-						.sorted((e1, e2) -> e1.getSimpleName().toString().compareTo(e2.getSimpleName().toString())) //
+						.sorted(Comparator.comparing(e -> e.getSimpleName().toString())) //
 						.map(VariableElement.class::cast) //
 						.filter(variable -> variable.getKind() == FIELD) //
 						.map(variableElement -> new Field(utils, variableElement))) //

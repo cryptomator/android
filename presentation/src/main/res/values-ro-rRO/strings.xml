@@ -9,12 +9,15 @@
 	<string name="error_no_network_connection">Nu există conexiune la rețea</string>
 	<string name="error_invalid_passphrase">Parolă greşită</string>
 	<string name="error_file_or_folder_exists">Un fișier sau dosar există deja.</string>
+	<string name="error_vault_version_not_supported">Seiful cu versiunea %1$s nu este suportată. Acest seif a fost creat cu o versiune mai veche sau mai nouă de Cryptomator.</string>
+	<string name="error_vault_config_file_missing_due_to_format_999">Lipsește fișierul %1$s din dosarul seif. Asigurați-vă că acest fișier există în folderul seif din cloud.</string>
 	<string name="error_vault_already_exists">Seiful există deja.</string>
 	<string name="error_no_such_file">Fișierul nu există.</string>
 	<string name="error_vault_has_been_locked">Seiful a fost blocat.</string>
 	<string name="error_cloud_already_exists">Acest cloud există deja.</string>
 	<string name="error_activity_not_found">Vă rugăm să descărcați o aplicație care poate deschide acest fișier.</string>
 	<string name="error_server_not_found">Serverul nu a fost găsit.</string>
+	<string name="error_device_policy_manager_not_found">Deschideți setările dispozitivelor dvs. și setați blocarea ecranului manual</string>
 	<string name="error_export_illegal_file_name">Exportul a eșuat. Încercați să eliminați caracterele speciale din numele fișierelor și să exportați din nou.</string>
 	<string name="error_name_contains_invalid_characters">Nu poate să conțină caractere speciale.</string>
 	<string name="error_names_contains_invalid_characters">Numele fișierelor nu pot conține caractere speciale.</string>
@@ -22,11 +25,16 @@
 	<string name="error_general_update">Verificarea actualizării a eșuat. A apărut o eroare generală.</string>
 	<string name="error_hash_mismatch_update">Verificarea actualizării a eșuat. Hash-ul calculat nu se potrivește cu fișierul încărcat</string>
 	<string name="error_update_no_internet">Verificarea actualizării a eșuat. Nu există conexiune la internet.</string>
+	<string name="error_failed_to_decrypt_webdav_password">Nu s-a reușit decriptarea parolei WebDAV, vă rugăm să o introduceți din nou în setări</string>
+	<string name="error_play_services_not_available">Google Play Services nu este instalat</string>
 	<string name="error_biometric_auth_aborted">Autentificare biometrică anulată</string>
+	<string name="error_vault_version_mismatch">Versiunea specificată în %1$s este diferită de %2$s</string>
+	<string name="error_vault_key_invalid">%1$s nu se potrivește cu %2$s</string>
 	<string name="error_vault_config_loading">Eroare generală în timpul încărcării configurației seifului</string>
 	<string name="error_file_not_found_after_opening_using_3party">Fișierul local nu mai este prezent după ce s-a trecut înapoi la Cryptomator. Modificările posibile nu pot fi propagate înapoi în cloud.</string>
 	<string name="error_no_such_bucket">Nu există așa găleată</string>
 	<string name="error_masterkey_location_not_supported">Nu este suportată încă utilizarea locației personalizate pentru masterkey</string>
+	<string name="error_interact_with_fdroid_but_fdroid_missing">Nu s-a putut comunica cu aplicația F-Droid. Este posibil ca aplicația sa nu fie instalata</string>
 	<!-- # clouds -->
 	<!-- ## cloud names -->
 	<string name="cloud_names_local_storage">Stocare locală</string>
@@ -35,6 +43,7 @@
 	<string name="permission_message_export_file">Cryptomator are nevoie de acces la stocare pentru a exporta fișiere</string>
 	<string name="permission_message_upload_file">Cryptomator are nevoie de acces la stocare pentru a încărca fișiere</string>
 	<string name="permission_message_share_file">Cryptomator are nevoie de acces la stocare pentru a exporta fișiere</string>
+	<string name="permission_revoked_re_request_permission">Criptomatorul a pierdut permisiunea de a accesa această locație. Vă rugăm să selectați din nou acest dosar pentru a restabili permisiunea.</string>
 	<string name="snack_bar_action_title_settings">Setări</string>
 	<string name="snack_bar_action_title_search">Căutare</string>
 	<string name="snack_bar_action_title_search_previous">Precedentul</string>
@@ -46,6 +55,8 @@
 	<string name="snack_bar_action_title_sort_oldest">Cel mai vechi mai întâi</string>
 	<string name="snack_bar_action_title_sort_biggest">Cele mai mari mai întâi</string>
 	<string name="snack_bar_action_title_sort_smallest">Cele mai mici mai întâi</string>
+	<string name="snack_bar_cryptomator_variants_title">Citește mai mult</string>
+	<string name="snack_bar_cryptomator_variants_hint">Destinația Cloud nu este in lista?</string>
 	<!-- # screens -->
 	<!-- # screen: vault list -->
 	<string name="screen_vault_list_actions_title">Adaugă la Criptomator</string>
@@ -108,8 +119,9 @@
 	<string name="screen_choose_cloud_service_title">Serviciu Cloud</string>
 	<!-- ## screen: cloud connections -->
 	<string name="screen_cloud_connections_title">Alegeți o locație</string>
-	<string name="screen_cloud_connections_no_connections">Faceți clic aici pentru a adăuga locații</string>
+	<string name="screen_cloud_connections_no_connections">Apasă aici pentru a adăuga o locație nouă</string>
 	<string name="screen_cloud_error_webdav_not_supported">Serverul nu pare să fie compatibil cu WebDAV</string>
+	<string name="screen_cloud_local_error_no_content_provider">Nu a fost găsit niciun manager de fișiere care acceptă deschiderea de dosare</string>
 	<!-- ## screen: webdav settings -->
 	<string name="screen_webdav_settings_url_port_label">Adresa URL</string>
 	<string name="screen_webdav_settings_username_label">Nume de utilizator</string>
@@ -168,6 +180,8 @@
 	<string name="screen_settings_section_auto_photo_upload_vault">Alege seiful pentru încărcare</string>
 	<string name="screen_settings_section_auto_photo_upload_toggle">Activează</string>
 	<string name="screen_settings_section_auto_photo_upload_toggle_summary">Capturează imagini în fundal și odată ce seiful selectat este deblocat, începe încărcarea</string>
+	<string name="screen_settings_section_auto_photo_upload_toggle_instant_upload">Încarcă instant</string>
+	<string name="screen_settings_section_auto_photo_upload_toggle_instant_upload_summary">Încărcați direct dacă seiful este deblocat</string>
 	<string name="screen_settings_section_auto_photo_upload_only_wifi_toggle">Încărcaţi numai folosind WIFI</string>
 	<string name="screen_settings_section_auto_photo_upload_including_videos">Încarcă fişiere video</string>
 	<string name="screen_settings_auto_photo_upload_title">Salvați fișierele încărcate automat în&#8230;</string>
@@ -190,6 +204,7 @@
 	<string name="screen_settings_keep_unlocked_while_editing_files">Păstrați deblocat</string>
 	<string name="screen_settings_keep_unlocked_while_editing_files_summary">Păstrați seifele deblocate în timpul editării fișierelor</string>
 	<!-- ## screen: cloud settings -->
+	<string name="screen_cloud_settings_onedrive_connections">Conexiuni OneDrive</string>
 	<string name="screen_cloud_settings_webdav_connections">Conexiuni WebDAV</string>
 	<string name="screen_cloud_settings_pcloud_connections">conexiuni pCloud</string>
 	<string name="screen_cloud_settings_s3_connections">Conexiuni S3</string>
@@ -200,7 +215,19 @@
 	<!-- ## screen: authenticate cloud -->
 	<string name="screen_authenticate_auth_authentication_failed">%1$s nu a putut fi autentificat.</string>
 	<string name="screen_update_pcloud_connections_title">Actualizare acreditări pCloud</string>
-	<!-- ## screen: insecure android version info -->
+	<!-- ## screen: cryptomator app variants -->
+	<string name="screen_cryptomator_variants_title">Variante ale Criptomatorului</string>
+	<string name="screen_cryptomator_variants_lite_title">Repozitoriul Principal F-Droid</string>
+	<string name="screen_cryptomator_variants_lite_description">Exclus deoarece necesită chei API.</string>
+	<string name="screen_cryptomator_variants_lite_install">Instalează</string>
+	<string name="screen_cryptomator_variants_fdroid_title">Repozitoriul Criptomator F-Droid</string>
+	<string name="screen_cryptomator_variants_fdroid_description">Exclus deoarece conține dependențe brevetate.</string>
+	<string name="screen_cryptomator_variants_fdroid_add_repo_hint">Adăugaţi repozitoriul de Cryptomator în aplicaţia F-Droid.</string>
+	<string name="screen_cryptomator_variants_fdroid_add_repo">Adaugă</string>
+	<string name="screen_cryptomator_variants_fdroid_install_hint">Instalați Cryptomator folosind F-Droid.\nDacă o eroare de tip \'not found\' este afișată, așteptați până sincronizarea F-Droid este completa.</string>
+	<string name="screen_cryptomator_variants_website_title">Pagină Web</string>
+	<string name="screen_cryptomator_variants_website_description">Conține dependențe proprietare.</string>
+	<string name="screen_cryptomator_variants_installation_hint">Trecerea de la sau la varianta principală de repository F-Droid necesită reconfigurarea aplicației.</string>
 	<!-- # dialogs -->
 	<string name="dialog_button_cancel">Anulează</string>
 	<string name="dialog_enter_password_positive_button">Deblocați</string>
@@ -212,6 +239,7 @@
 	<string name="dialog_change_password_msg_password_mismatch">Parola nouă nu se potrivește cu parola reintrodusă.</string>
 	<!-- Vault not found -->
 	<string name="dialog_vault_not_found_title">Seiful %1$s nu a fost găsit</string>
+	<string name="dialog_vault_not_found_message">Seiful a fost redenumit, mutat sau şters. Vă rugăm sa ștergeți acest seif din listă și adaugați-l din nou pentru a continua. Doriți sa îl ștergeți acum?</string>
 	<string name="dialog_vault_not_found_positive_button_text">Șterge</string>
 	<string name="dialog_existing_file_title">Fişierul există deja</string>
 	<string name="dialog_existing_file_positive_button">Înlocuiește</string>
@@ -237,6 +265,7 @@
 	<string name="dialog_unsaved_changes_title">Aveți câteva modificări nesalvate</string>
 	<string name="dialog_unsaved_changes_message">Sigur doriți să ieșiți fără a salva?</string>
 	<string name="dialog_unsaved_changes_discard">Renunţaţi</string>
+	<string name="dialog_file_name_hint">Denumirea fișierului</string>
 	<string name="dialog_file_name_placeholder">text.txt</string>
 	<string name="dialog_delete_vault_message">Sunteţi sigur că doriţi să ştergeţi acest seif?</string>
 	<string name="dialog_delete_vault_hint">Această acţiune va elimina seiful doar din această listă şi nu îl va şterge fizic.</string>
@@ -262,6 +291,9 @@
 	<string name="dialog_accept_ssl_certificate_hint">Certificatul SSL este invalid. Doriți să aveți încredere în el oricum?</string>
 	<string name="dialog_accept_ssl_certificate_details">Detalii</string>
 	<string name="dialog_accept_ssl_certificate_security_checkbox">Acesta ar putea fi un risc pentru securitate. Ştiu ce fac.</string>
+	<string name="dialog_ask_ignore_battery_optimizations_title">Dezactivați funcția de optimizare a bateriei</string>
+	<string name="dialog_ask_ignore_battery_optimizations_hint">Pentru a prelua imagini și videoclipuri noi fără a rula în fundal, trebuie să modificam setările pentru optimizarea bateriei. Dar nu vă faceți griji, %1$s nu consumă multă energie.\n\nPentru a aplica, schimbați \'Neoptimizat\' la \'Toate aplicațiile\', selectează %1$s și alege \'Nu optimiza\' după apăsarea \'%2$s\' în acest chenar.</string>
+	<string name="dialog_ask_ignore_battery_optimizations_checkbox">Nu mai întreba asta în viitor?</string>
 	<string name="dialog_http_security_hint">Utilizarea HTTP este nesigură. Vă recomandăm să utilizați HTTPS în schimb. Dacă cunoașteți riscurile, puteți continua cu HTTP.</string>
 	<string name="dialog_http_security_checkbox">Schimbare la HTTPS</string>
 	<string name="dialog_http_security_title">Folosiți HTTPS?</string>
@@ -273,13 +305,17 @@
 	<string name="dialog_debug_mode_disclaimer_hint">În acest mod, datele sensibile pot fi scrise într-un fișier jurnal de pe dispozitivul dumneavoastră (de exemplu, nume de fișiere și căi de fișiere). Parolele, cookie-urile etc. sunt excluse în mod explicit.\n\nNu uitați să dezactivați modul de depanare cât mai curând posibil.</string>
 	<string name="dialog_debug_mode_disclaimer_title">Atenție</string>
 	<string name="dialog_debug_mode_positive_button">Activează</string>
-	<string name="dialog_disable_app_obscured_disclaimer_hint">Această setare este o caracteristică de securitate și previne alte aplicații să păcălească utilizatorii să facă lucruri pe care nu ar trebui să le facă.\n\nPrin dezactivare, confirmați că sunteți <a href="https://docs.cryptomator.org/en/1.5/android/settings/#block-app-when-obscured">conștient de riscurile</a>.</string>
+	<string name="dialog_disable_app_obscured_disclaimer_hint">Această setare este o caracteristică de securitate și previne alte aplicații să păcălească utilizatorii să facă lucruri pe care nu ar trebui să le facă.\n\nPrin dezactivare, confirmați că sunteți <a href="https://docs.cryptomator.org/en/1.6/android/settings/#block-app-when-obscured">conștient de aceste riscuri</a>.</string>
 	<string name="dialog_disable_app_obscured_disclaimer_title">Atenție</string>
 	<string name="dialog_disable_app_obscured_positive_button">Dezactivează</string>
 	<string name="dialog_app_is_obscured_info_title">Aplicația este ascunsă</string>
-	<string name="dialog_app_is_obscured_info_hint">O altă aplicație afișează ceva deasupra Cryptomator (de exemplu, un filtru de lumină albastră sau o aplicație pentru modul de noapte). Din motive de securitate, Cryptomator este dezactivat.\n\n<a href="https://docs.cryptomator.org/en/1.5/android/settings/#block-app-when-obscured">Cum să activezi Cryptomator</a></string>
+	<string name="dialog_app_is_obscured_info_hint">O altă aplicație afișează ceva deasupra Cryptomator (de exemplu, un filtru de lumină albastră sau o aplicație pentru modul de noapte). Din motive de siguranța, Cryptomator este dezactivat.\n\n<a href="https://docs.cryptomator.org/en/1.6/android/settings/#block-app-when-obscured">Cum să activezi Cryptomator</a></string>
 	<string name="dialog_app_is_obscured_info_neutral_button">Închide</string>
-	<string name="dialog_disable_secure_screen_disclaimer_hint">Această setare este o caracteristică de securitate și previne alte aplicații să păcălească utilizatorii să facă lucruri pe care nu ar trebui să le facă.\n\nPrin dezactivare, confirmați că sunteți <a href="https://docs.cryptomator.org/en/1.5/android/settings/#screen-security">conștient de riscurile</a>.</string>
+	<string name="dialog_vaults_removed_during_migration_title">Vă rugăm să adăugați din nou seifurile pentru %1s cloud</string>
+	<string name="dialog_vaults_removed_during_migration_hint">În timp ce migrăm la această versiune de aplicație, trebuie să eliminăm următoarele seifuri din aplicație:\n%2s \n\nAceste seifuri nu sunt eliminate din cloud, ci doar din această aplicație. Ne cerem scuze pentru inconveniența creata şi vă rugăm să adăugați din nou aceste seifuri pentru a continua să le folosiți.</string>
+	<string name="dialog_vault_is_root_folder_of_cloud_title">Seiful este dosarul principal al conexiunii cloud</string>
+	<string name="dialog_vault_is_root_folder_of_cloud_hint">Creați o nouă conexiune cloud unde selectați dosarul părinte al acestui seif ca dosarul de baza pentru adăugarea acestui seif.</string>
+	<string name="dialog_disable_secure_screen_disclaimer_hint">Această setare este o caracteristică de securitate și previne alte aplicații să păcălească utilizatorii să facă lucruri pe care nu ar trebui să le facă.\n\nPrin dezactivare, confirmați că sunteți <a href="https://docs.cryptomator.org/en/1.6/android/settings/#screen-security">conștient de aceste riscuri</a>.</string>
 	<string name="dialog_delete_cloud_connection_with_vaults_message">Sunteţi sigur că doriţi să eliminaţi această conexiune cloud?</string>
 	<string name="dialog_delete_cloud_connection_with_vaults_hint">Această acțiune va elimina conexiunea în cloud și toate seifurile acestui cloud.</string>
 	<string name="dialog_confirm_delete_multiple_title">Ștergeți %1$d elemente?</string>
@@ -291,6 +327,7 @@
 	<string name="dialog_enter_license_title">Furnizați o licență validă</string>
 	<string name="dialog_enter_license_content">Am detectat că ați instalat Cryptomator fără să utilizați Google Play Store. Furnizați o licență validă, care poate fi cumpărată pe <a href="https://cryptomator.org/android/">https://cryptomator.org/android/</a></string>
 	<string name="dialog_enter_license_not_valid_content">Licența furnizată nu este validă. Asigurați-vă că ați introdus-o corect.</string>
+	<string name="dialog_enter_license_not_valid_content_desktop_supporter_certificate">Cheia furnizată este un certificat de suporter desktop. Introduceți o licență validă.</string>
 	<string name="dialog_enter_license_no_content">Nici o licență furnizată. Introduceți o licență validă.</string>
 	<string name="dialog_enter_license_decline_button">Ieșire</string>
 	<string name="dialog_license_confirmation_title">Confirmare licență</string>
@@ -306,6 +343,7 @@
 	<string name="dialog_sym_link_message">Nu puteți naviga în acest link simbolic</string>
 	<string name="dialog_sym_link_back_button">Înapoi</string>
 	<string name="dialog_no_dir_file_title">Nu s-a putut încărca conținutul dosarului</string>
+	<string name="dialog_no_dir_file_message">Dosarul Cloud \'%1$s\' nu are un fișier index de dosar valid. Aceasta eroare poate fi rezultată din motivul că dosarul a fost creat pe un alt dispozitiv și nu a fost încă sincronizat complet in cloud. Vă rugăm să verificaţi în cloud dacă următorul fişier există și nu este gol:\n%2$s</string>
 	<string name="dialog_no_more_images_to_display">Nu mai sunt imagini de afișat&#8230;</string>
 	<string name="dialog_pcloud_credentials_updated_title">Acreditări ale \'%1$s\' au fost actualizate</string>
 	<string name="dialog_pcloud_credentials_updated">Dacă doriți să adăugaţi un cont nou de tip pCloud, faceţi clic pe acest link <a href="https://www.pcloud.com">www.pcloud. om</a>, deconectați-vă de la contul curent, și faceți clic din nou pe \'+\' din această aplicație pentru a crea o nouă conexiune cloud.</string>
@@ -353,9 +391,11 @@
 	<string name="notification_auto_upload_failed_general_error">Eroare generală în timpul încărcării.</string>
 	<string name="notification_auto_upload_failed_due_to_folder_not_exists">Dosarul selectat pentru încărcare nu mai este disponibil. Mergeți la setări și alegeți unul nou</string>
 	<string name="notification_auto_upload_failed_due_to_vault_locked">Seif blocat în timpul încărcării, vă rugăm să redeschideți seiful pentru a continua</string>
+	<string name="notification_auto_upload_failed_due_to_vault_not_found">Seiful ales pentru încărcare automată nu mai există.</string>
 	<string name="notification_open_writable_file_title">Deschide fișier inscriptibil</string>
 	<string name="notification_open_writable_file_message">Seiful rămâne deblocat până la editarea finalizată</string>
 	<string name="notification_update_check_finished_latest">Ultima versiune instalată</string>
+	<string name="notification_authenticating">In proces de autentificare&#8230;</string>
 	<string name="screen_settings_lru_cache">Memorie cache</string>
 	<string name="screen_settings_lru_cache_toggle_summary">Recent memoria cache a accesat fișiere criptate local pe acest dispozitiv pentru a fi reutilizare ulterior la redeschidere</string>
 	<string name="screen_settings_lru_cache_size">Total memorie cache</string>
@@ -388,6 +428,4 @@
 	<string name="dark">Întunecat</string>
 	<!-- update interval names -->
 	<string name="update_interval_1d">O dată pe zi</string>
-	<string name="update_interval_1w">O dată pe săptămână</string>
-	<string name="update_interval_1m">O dată pe lună</string>
 </resources>

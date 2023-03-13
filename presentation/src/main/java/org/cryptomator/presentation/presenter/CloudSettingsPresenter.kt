@@ -103,6 +103,7 @@ class CloudSettingsPresenter @Inject constructor( //
 			CloudTypeModel.WEBDAV -> return context().getString(R.string.screen_cloud_settings_webdav_connections)
 			CloudTypeModel.S3 -> return context().getString(R.string.screen_cloud_settings_s3_connections)
 			CloudTypeModel.LOCAL -> return context().getString(R.string.screen_cloud_settings_local_storage_locations)
+			else -> {}
 		}
 		return context().getString(R.string.screen_cloud_settings_title)
 	}
@@ -140,7 +141,26 @@ class CloudSettingsPresenter @Inject constructor( //
 					it.add(aS3Cloud())
 					it.add(aLocalCloud())
 				}
+				.filter { cloud -> !(BuildConfig.FLAVOR == "lite" && excludeApiCloudsInLite(cloud.cloudType())) } //
 			view?.render(cloudModel)
+		}
+
+		private fun excludeApiCloudsInLite(cloudType: CloudTypeModel): Boolean {
+			return when (cloudType) {
+				CloudTypeModel.GOOGLE_DRIVE -> {
+					true
+				}
+				CloudTypeModel.ONEDRIVE -> {
+					true
+				}
+				CloudTypeModel.DROPBOX -> {
+					true
+				}
+				CloudTypeModel.PCLOUD -> {
+					true
+				}
+				else -> false
+			}
 		}
 
 		private fun aOnedriveCloud(): OnedriveCloudModel {
