@@ -28,7 +28,7 @@
 	<string name="error_failed_to_decrypt_webdav_password">فشل فك تشفير كلمة المرور WebDAV، الرجاء إضافتها في الإعدادات</string>
 	<string name="error_play_services_not_available">خدمات متجر Google غير مثبتة!</string>
 	<string name="error_biometric_auth_aborted">تم إلغاء استخدام البصمة في عملية التوثيق</string>
-	<string name="error_vault_version_mismatch">الإصدار المحدد في %1$s يختلف عن %2$s</string>
+	<string name="error_vault_version_mismatch">الإصدار المحدد في %1$s مختلف عن %2$s</string>
 	<string name="error_vault_key_invalid">%1$s لا يتطابق مع هذا %2$s</string>
 	<string name="error_vault_config_loading">خطأ عام أثناء تحميل إعدادات المخزن</string>
 	<string name="error_file_not_found_after_opening_using_3party">بعد إعادة التبديل الي Cryptomator لم يعد الملف المحلي موجود. لايمكن نشر التعديلات الي موفر الخدمة السحابية.</string>
@@ -59,12 +59,12 @@
 	<string name="snack_bar_cryptomator_variants_hint">السحابة ليست في اللائحة؟</string>
 	<!-- # screens -->
 	<!-- # screen: vault list -->
-	<string name="screen_vault_list_actions_title">إضافة إلى Cryptomator</string>
+	<string name="screen_vault_list_actions_title">أضف إلى Cryptomator</string>
 	<string name="screen_vault_list_action_create_new_vault">إنشاء مخزن جديد</string>
 	<string name="screen_vault_list_action_add_existing_vault">إضافة مخزن موجود مسبقاً</string>
 	<string name="screen_vault_list_vault_action_delete">حذف</string>
 	<string name="screen_vault_list_vault_creation_hint">أنقر هنا لإنشاء خزينة جديدة</string>
-	<string name="screen_vault_list_change_password_successful">تم تغيير كلمة السر بنجاح</string>
+	<string name="screen_vault_list_change_password_successful">تم تغيير كلمة المرور بنجاح</string>
 	<!-- # screen: file browser -->
 	<string name="screen_file_browser_default_title">مخزن</string>
 	<string name="screen_file_browser_add_existing_vault_extra_text">اختر ملف المفتاح الرئيسي</string>
@@ -365,7 +365,7 @@
 	<string name="notification_auto_upload_failed_due_to_vault_locked">تم قفل المخزن اثناء الرفع، الرجاء قم بفتحه لمتابعة الرفع</string>
 	<string name="notification_auto_upload_failed_due_to_vault_not_found">المخزن المحدد للتحميل التلقائي لم يعد موجودا.</string>
 	<string name="notification_open_writable_file_title">فتح ملف قابل للكتابة</string>
-	<string name="notification_open_writable_file_message">سوف يبقى المخزن مفتوحاً حتي يتم التعديل</string>
+	<string name="notification_open_writable_file_message">تظل الخزنة مفتوحة حتى الانتهاء من التعديل</string>
 	<string name="notification_update_check_finished_latest">تم تثبيت آخر إصدارة</string>
 	<string name="screen_settings_lru_cache">ذاكرة التخزين المؤقت</string>
 	<string name="screen_settings_lru_cache_size">إجمالي حجم ذاكرة التخزين المؤقت</string>
