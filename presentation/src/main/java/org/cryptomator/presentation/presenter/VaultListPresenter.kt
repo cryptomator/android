@@ -118,9 +118,7 @@ class VaultListPresenter @Inject constructor( //
 
 		checkLicense()
 
-		if (sharedPreferencesHandler.usePhotoUpload()) {
-			checkLocalStoragePermissionRegardingAutoUpload()
-		}
+		checkPermissions()
 	}
 
 	private fun checkLicense() {
@@ -194,25 +192,53 @@ class VaultListPresenter @Inject constructor( //
 		}
 	}
 
-	private fun checkLocalStoragePermissionRegardingAutoUpload() {
+
+	private fun checkPermissions() {
+		if (sharedPreferencesHandler.usePhotoUpload()) {
+			checkLocalStoragePermissionRegardingAutoUploadAndNotificationPermission()
+		} else {
+			checkNotificationPermission()
+		}
+	}
+
+	private fun checkLocalStoragePermissionRegardingAutoUploadAndNotificationPermission() {
 		val permissions = if (Build.VERSION.SDK_INT > Build.VERSION_CODES.P) {
 			arrayOf(Manifest.permission.READ_MEDIA_IMAGES, Manifest.permission.READ_MEDIA_VIDEO)
 		} else {
 			arrayOf(Manifest.permission.READ_EXTERNAL_STORAGE)
 		}
 		requestPermissions(
-			PermissionsResultCallbacks.onLocalStoragePermissionGranted(),  //
+			PermissionsResultCallbacks.onLocalStoragePermissionResultForAutoUploadAndCheckNotificationPermission(),  //
 			R.string.permission_snackbar_auth_auto_upload,  //
 			*permissions
 		)
 	}
 
 	@Callback
-	fun onLocalStoragePermissionGrantedForAutoUpload(result: PermissionsResult) {
+	fun onLocalStoragePermissionResultForAutoUploadAndCheckNotificationPermission(result: PermissionsResult) {
 		if (!result.granted()) {
 			Timber.tag("VaultListPresenter").e("Local storage permission not granted, auto upload will not work")
 		}
+		checkNotificationPermission()
 	}
+
+	private fun checkNotificationPermission() {
+		if (Build.VERSION.SDK_INT > Build.VERSION_CODES.R) {
+			requestPermissions(
+				PermissionsResultCallbacks.requestNotificationPermission(),  //
+				R.string.permission_snackbar_notifications,  //
+				Manifest.permission.POST_NOTIFICATIONS
+			)
+		}
+	}
+
+	@Callback
+	fun requestNotificationPermission(result: PermissionsResult) {
+		if (!result.granted()) {
+			Timber.tag("VaultListPresenter").e("Notification permission not granted, notifications will not show")
+		}
+	}
+
 
 	fun loadVaultList() {
 		view?.hideVaultCreationHint()
