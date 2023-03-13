@@ -2,11 +2,10 @@ package org.cryptomator.generator.model;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Comparator;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
-
-import static java.util.stream.Collectors.toList;
 
 public class CallbacksModel {
 
@@ -17,7 +16,12 @@ public class CallbacksModel {
 	}
 
 	public Collection<CallbacksClassModel> getCallbacksClasses() {
-		return callbacks.stream().collect(Collectors.groupingBy(CallbackModel::getCallbacksClassName)).entrySet().stream().map(CallbacksClassModel::new).collect(toList());
+		return callbacks.stream()
+				.collect(Collectors.groupingBy(CallbackModel::getCallbacksClassName))
+				.entrySet().stream()
+				.map(CallbacksClassModel::new)
+				.sorted(Comparator.comparing(e -> e.callbacksClassName))
+				.collect(Collectors.toList());
 	}
 
 	public static class CallbacksClassModel {
@@ -31,7 +35,7 @@ public class CallbacksModel {
 			int lastDot = qualifiedCallbacksClassName.lastIndexOf('.');
 			this.javaPackage = qualifiedCallbacksClassName.substring(0, lastDot);
 			this.callbacksClassName = qualifiedCallbacksClassName.substring(lastDot + 1);
-			this.callbacks = entry.getValue();
+			this.callbacks = entry.getValue().stream().sorted().collect(Collectors.toList());
 		}
 
 		public String getCallbacksClassName() {
@@ -43,7 +47,7 @@ public class CallbacksModel {
 		}
 
 		public List<CallbackModel> getCallbacks() {
-			return callbacks;
+			return callbacks.stream().sorted().collect(Collectors.toList());
 		}
 
 	}

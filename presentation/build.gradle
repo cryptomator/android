@@ -3,7 +3,12 @@ apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-kapt'
 apply plugin: 'kotlin-android-extensions'
 apply plugin: 'de.mannodermaus.android-junit5'
-apply from: 'prebuild.gradle'
+
+if (!liteFlavor()) {
+	apply from: 'prebuild.gradle'
+} else {
+	delete new File('src/main/res/raw/auth_config_onedrive.json')
+}
 
 android {
 	signingConfigs {
@@ -39,12 +44,12 @@ android {
 		coreLibraryDesugaringEnabled true
 	}
 
-
 	buildTypes {
 		release {
 			crunchPngs false
 			minifyEnabled false
 			shrinkResources false
+			zipAlignEnabled true
 
 			buildConfigField "String", "DROPBOX_API_KEY", "\"" + getApiKey('DROPBOX_API_KEY') + "\""
 			buildConfigField "String", "PCLOUD_CLIENT_ID", "\"" + getApiKey('PCLOUD_CLIENT_ID') + "\""
@@ -121,6 +126,7 @@ android {
 		ignoreWarnings true
 		quiet true
 	}
+	namespace 'org.cryptomator.presentation'
 }
 
 dependencies {
@@ -264,15 +270,26 @@ androidExtensions {
 	experimental = true
 }
 
-static def getApiKey(key) {
-	return System.getenv().getOrDefault(key, "")
+def liteFlavor() {
+	gradle.startParameter.taskNames.stream().filter(t -> t.toLowerCase().contains("lite")).findAny().isPresent()
 }
 
-static def getOnedriveApiKey() {
+def getApiKey(key) {
+	return !liteFlavor() ? System.getenv().getOrDefault(key, "") : ""
+}
+
+def getOnedriveApiKey() {
+	if (liteFlavor()) {
+		return ""
+	}
 	String onedrivePath = "" + getApiKey('ONEDRIVE_API_REDIRCT_URI')
 	String idStr = onedrivePath.substring(onedrivePath.lastIndexOf('/') + 1)
 	URI uri = new URI(idStr)
 	return uri.path
+}
+
+task updateGradleVerification(type: Exec) {
+	commandLine 'sh', '../buildsystem/updateGradleVerification.sh'
 }
 
 tasks.withType(Test) {

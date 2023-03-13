@@ -785,7 +785,7 @@ class BrowseFilesPresenter @Inject constructor( //
 	private fun exportNodesToUserSelectedLocation(nodesToExport: ArrayList<CloudNodeModel<*>>, exportOperation: ExportOperation) {
 		try {
 			requestActivityResult( //
-				ActivityResultCallbacks.pickedLocalStorageLocation(nodesToExport, exportOperation),  //
+				ActivityResultCallbacks.pickedLocalStorageLocationForBrowsingFiles(nodesToExport, exportOperation),  //
 				Intent(Intent.ACTION_OPEN_DOCUMENT_TREE)
 			)
 		} catch (exception: ActivityNotFoundException) {
@@ -801,7 +801,7 @@ class BrowseFilesPresenter @Inject constructor( //
 	}
 
 	@Callback
-	fun pickedLocalStorageLocation(
+	fun pickedLocalStorageLocationForBrowsingFiles(
 		result: ActivityResult,  //
 		nodesToExport: ArrayList<CloudNodeModel<*>>,  //
 		exportOperation: ExportOperation

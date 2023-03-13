@@ -6,6 +6,7 @@ import org.cryptomator.generator.Optional;
 import java.util.Comparator;
 import java.util.Map;
 import java.util.Set;
+import java.util.SortedSet;
 import java.util.TreeSet;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
@@ -15,8 +16,6 @@ import javax.lang.model.element.AnnotationValue;
 import javax.lang.model.element.ExecutableElement;
 import javax.lang.model.element.TypeElement;
 import javax.lang.model.type.DeclaredType;
-
-import static java.lang.Character.toLowerCase;
 
 public class IntentBuilderModel implements Comparable<IntentBuilderModel> {
 
@@ -77,10 +76,10 @@ public class IntentBuilderModel implements Comparable<IntentBuilderModel> {
 	private static String targetActivitySimpleName(String targetActivity) {
 		int lastDot = targetActivity.lastIndexOf('.');
 		String name = targetActivity.substring(lastDot + 1);
-		return toLowerCase(name.charAt(0)) + name.substring(1);
+		return Character.toLowerCase(name.charAt(0)) + name.substring(1);
 	}
 
-	private static Set<ParameterModel> parameters(TypeElement type) {
+	private static SortedSet<ParameterModel> parameters(TypeElement type) {
 		return type //
 				.getEnclosedElements() //
 				.stream() //
@@ -94,7 +93,7 @@ public class IntentBuilderModel implements Comparable<IntentBuilderModel> {
 		String qualifiedName = type.getQualifiedName().toString();
 		int lastDot = qualifiedName.lastIndexOf('.');
 		String name = qualifiedName.substring(lastDot + 1);
-		return toLowerCase(name.charAt(0)) + name.substring(1);
+		return Character.toLowerCase(name.charAt(0)) + name.substring(1);
 	}
 
 	public String getJavaPackage() {

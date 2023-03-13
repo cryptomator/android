@@ -380,6 +380,7 @@ class VaultListPresenter @Inject constructor( //
 		when (vaultAction) {
 			VaultAction.UNLOCK -> requireUserAuthentication(authenticatedVaultModel)
 			VaultAction.RENAME -> view?.showRenameDialog(authenticatedVaultModel)
+			else -> {}
 		}
 		vaultAction = null
 	}

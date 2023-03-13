@@ -1,3 +1,7 @@
-- Update auf die neueste Android-Zielplatform-Version
-- Löschen von Ordnern ohne Verzeichnisdatei im lokalen Cloud-Speicher behoben
-- Dateiexport wenn keine App den ausgewählten Dateityp verarbeiten kann behoben
+- Umstellung auf das Material3-Design
+- Erstellen neuer Tresore mit moderner Verschlüsselungskombo (SIV_GCM)
+- Entschlüsselung von Dateien auf Android pre 10 unter Verwendung der neuen Kombo behoben
+- Probleme mit der pCloud-Verbindung behoben
+- Probleme mit Umlauten in WebDAV-Passwörtern bei der Digest-Authentifizierung behoben
+- Probleme beim Erstellen eines Tresors in S3 behoben, wenn der Tresor komplett leer ist
+- Problem beim Öffnen des Kauflinks in F-Droid und Website-Varianten behoben

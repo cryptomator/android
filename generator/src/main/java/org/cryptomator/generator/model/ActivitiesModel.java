@@ -1,13 +1,14 @@
 package org.cryptomator.generator.model;
 
 import java.util.Set;
+import java.util.SortedSet;
 import java.util.TreeSet;
 
 public class ActivitiesModel {
 
-	private final Set<ActivityModel> activities;
+	private final SortedSet<ActivityModel> activities;
 
-	private ActivitiesModel(Set<ActivityModel> activities) {
+	private ActivitiesModel(SortedSet<ActivityModel> activities) {
 		this.activities = activities;
 	}
 
@@ -29,7 +30,7 @@ public class ActivitiesModel {
 
 	public static class Builder {
 
-		private final Set<ActivityModel> activities = new TreeSet<>();
+		private final SortedSet<ActivityModel> activities = new TreeSet<>();
 
 		private Builder() {
 		}

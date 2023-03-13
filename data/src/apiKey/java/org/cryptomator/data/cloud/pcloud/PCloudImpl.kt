@@ -46,17 +46,11 @@ import okio.BufferedSource
 import okio.source
 import timber.log.Timber
 
-internal class PCloudImpl(context: Context, cloud: PCloud) {
+internal class PCloudImpl(private val cloud: PCloud, private val client: ApiClient, private val context: Context) {
 
-	private val cloud: PCloud
-	private val root: RootPCloudFolder
-	private val context: Context
+	private val root = RootPCloudFolder(cloud)
 	private val sharedPreferencesHandler: SharedPreferencesHandler
 	private var diskLruCache: DiskLruCache? = null
-
-	private val apiClient: ApiClient by lazy {
-		PCloudClientFactory.getInstance(cloud.accessToken(), cloud.url(), context)
-	}
 
 	fun root(): PCloudFolder {
 		return root
@@ -87,13 +81,13 @@ internal class PCloudImpl(context: Context, cloud: PCloud) {
 		return try {
 			when (node) {
 				is RootPCloudFolder -> {
-					apiClient.loadFolder("/").execute()
+					client.loadFolder("/").execute()
 				}
 				is PCloudFolder -> {
-					apiClient.loadFolder(node.path).execute()
+					client.loadFolder(node.path).execute()
 				}
 				else -> {
-					apiClient.loadFile(node.path).execute()
+					client.loadFile(node.path).execute()
 				}
 			}
 			true
@@ -112,7 +106,7 @@ internal class PCloudImpl(context: Context, cloud: PCloud) {
 		}
 
 		return try {
-			apiClient
+			client
 				.listFolder(path)
 				.execute()
 				.children()
@@ -134,7 +128,7 @@ internal class PCloudImpl(context: Context, cloud: PCloud) {
 
 		folder.parent?.let { parentFolder ->
 			return try {
-				val createdFolder = apiClient //
+				val createdFolder = client //
 					.createFolder(folder.path) //
 					.execute()
 				PCloudNodeFactory.folder(parentFolder, createdFolder)
@@ -153,9 +147,9 @@ internal class PCloudImpl(context: Context, cloud: PCloud) {
 			}
 			return try {
 				if (source is PCloudFolder) {
-					PCloudNodeFactory.from(targetsParent, apiClient.moveFolder(source.path, target.path).execute())
+					PCloudNodeFactory.from(targetsParent, client.moveFolder(source.path, target.path).execute())
 				} else {
-					PCloudNodeFactory.from(targetsParent, apiClient.moveFile(source.path, target.path).execute())
+					PCloudNodeFactory.from(targetsParent, client.moveFile(source.path, target.path).execute())
 				}
 			} catch (ex: ApiError) {
 				when {
@@ -213,7 +207,7 @@ internal class PCloudImpl(context: Context, cloud: PCloud) {
 			}
 		}
 		return try {
-			apiClient //
+			client //
 				.createFile(file.parent.path, file.name, pCloudDataSource, Date(), listener, uploadOptions) //
 				.execute()
 		} catch (ex: ApiError) {
@@ -230,7 +224,7 @@ internal class PCloudImpl(context: Context, cloud: PCloud) {
 		val remoteFile: RemoteFile
 		if (sharedPreferencesHandler.useLruCache() && createLruCache(sharedPreferencesHandler.lruCacheSize())) {
 			try {
-				remoteFile = apiClient.loadFile(file.path).execute().asFile()
+				remoteFile = client.loadFile(file.path).execute().asFile()
 				cacheKey = "${remoteFile.fileId()}${remoteFile.hash()}"
 			} catch (ex: ApiError) {
 				handleApiError(ex, file.name)
@@ -273,7 +267,12 @@ internal class PCloudImpl(context: Context, cloud: PCloud) {
 			}
 		}
 
-		readFile(file.path, sink, listener)
+		try {
+			readFile(file.path, sink, listener)
+		} catch (ex: ApiError) {
+			handleApiError(ex, file.name)
+		}
+
 		if (sharedPreferencesHandler.useLruCache() && encryptedTmpFile != null && cacheKey != null) {
 			try {
 				diskLruCache?.let {
@@ -288,7 +287,7 @@ internal class PCloudImpl(context: Context, cloud: PCloud) {
 	private fun readFile(filePath: String, sink: DataSink, listener: ProgressListener) {
 		var attempts = 0
 		while (++attempts <= MaxContentLinkDownloadAttempts) {
-			val fileLink = apiClient.createFileLink(filePath, DownloadOptions.DEFAULT).execute()
+			val fileLink = client.createFileLink(filePath, DownloadOptions.DEFAULT).execute()
 			try {
 				// Attempt to download the link's content, starting with the best link variant.
 				fileLink.urls().forEach { url ->
@@ -328,7 +327,7 @@ internal class PCloudImpl(context: Context, cloud: PCloud) {
 					//
 					// For more insight and details on the network change behavior on Android, see:
 					// https://developer.android.com/training/basics/network-ops/reading-network-state
-					apiClient.connectionPool().evictAll()
+					client.connectionPool().evictAll()
 
 					// Attempt to generate a new link (with a backoff delay) on the new network
 					// or if the maximum attempt count has been reached give up by
@@ -349,9 +348,9 @@ internal class PCloudImpl(context: Context, cloud: PCloud) {
 	fun delete(node: PCloudNode) {
 		try {
 			if (node is PCloudFolder) {
-				apiClient.deleteFolder(node.path, true).execute()
+				client.deleteFolder(node.path, true).execute()
 			} else {
-				apiClient.deleteFile(node.path).execute()
+				client.deleteFile(node.path).execute()
 			}
 		} catch (ex: ApiError) {
 			handleApiError(ex, node.name)
@@ -361,7 +360,7 @@ internal class PCloudImpl(context: Context, cloud: PCloud) {
 	@Throws(IOException::class, BackendException::class)
 	fun currentAccount(): String {
 		return try {
-			apiClient //
+			client //
 				.userInfo //
 				.execute() //
 				.email()
@@ -419,20 +418,18 @@ internal class PCloudImpl(context: Context, cloud: PCloud) {
 	}
 
 	fun logout() {
-		PCloudClientFactory.logout()
+		// FIXME what about logout?
 	}
 
 	init {
 		if (cloud.accessToken() == null) {
 			throw NoAuthenticationProvidedException(cloud)
 		}
-		this.context = context
-		this.cloud = cloud
-		this.root = RootPCloudFolder(cloud)
 		sharedPreferencesHandler = SharedPreferencesHandler(context)
 	}
 
 	companion object {
+
 		private const val MaxContentLinkDownloadAttempts = 5
 		private const val ContentLinkDownloadAttemptDelayStepMs = 200L
 	}

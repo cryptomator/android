@@ -37,6 +37,7 @@ android {
 		ignoreWarnings true
 		quiet true
 	}
+	namespace 'org.cryptomator.util'
 }
 
 dependencies {

@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<manifest xmlns:android="http://schemas.android.com/apk/res/android"
-	package="org.cryptomator.presentation">
+<manifest xmlns:android="http://schemas.android.com/apk/res/android">
 
 	<!-- Keep in sync with apkstore, playstore and fdroid -->
 	<application>
