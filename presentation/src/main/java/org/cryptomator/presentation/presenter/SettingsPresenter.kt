@@ -99,10 +99,15 @@ class SettingsPresenter @Inject internal constructor(
 	}
 
 	fun grantLocalStoragePermissionForAutoUpload() {
+		val permissions = if (Build.VERSION.SDK_INT > Build.VERSION_CODES.P) {
+			arrayOf(Manifest.permission.READ_MEDIA_IMAGES, Manifest.permission.READ_MEDIA_VIDEO)
+		} else {
+			arrayOf(Manifest.permission.READ_EXTERNAL_STORAGE)
+		}
 		requestPermissions(
 			PermissionsResultCallbacks.onLocalStoragePermissionGranted(),  //
 			R.string.permission_snackbar_auth_auto_upload,  //
-			Manifest.permission.READ_EXTERNAL_STORAGE
+			*permissions
 		)
 	}
 

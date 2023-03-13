@@ -7,6 +7,7 @@ import android.content.ActivityNotFoundException
 import android.content.Context
 import android.content.Intent
 import android.net.Uri
+import android.os.Build
 import android.widget.Toast
 import com.google.common.base.Optional
 import org.cryptomator.data.cloud.crypto.CryptoCloud
@@ -194,10 +195,15 @@ class VaultListPresenter @Inject constructor( //
 	}
 
 	private fun checkLocalStoragePermissionRegardingAutoUpload() {
+		val permissions = if (Build.VERSION.SDK_INT > Build.VERSION_CODES.P) {
+			arrayOf(Manifest.permission.READ_MEDIA_IMAGES, Manifest.permission.READ_MEDIA_VIDEO)
+		} else {
+			arrayOf(Manifest.permission.READ_EXTERNAL_STORAGE)
+		}
 		requestPermissions(
-			PermissionsResultCallbacks.onLocalStoragePermissionGrantedForAutoUpload(),  //
+			PermissionsResultCallbacks.onLocalStoragePermissionGranted(),  //
 			R.string.permission_snackbar_auth_auto_upload,  //
-			Manifest.permission.READ_EXTERNAL_STORAGE
+			*permissions
 		)
 	}
 

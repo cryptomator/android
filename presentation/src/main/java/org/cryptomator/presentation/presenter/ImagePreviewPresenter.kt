@@ -1,6 +1,5 @@
 package org.cryptomator.presentation.presenter
 
-import android.Manifest
 import android.content.Intent
 import android.net.Uri
 import org.cryptomator.domain.CloudFile
@@ -26,13 +25,11 @@ import org.cryptomator.presentation.util.DownloadFileUtil
 import org.cryptomator.presentation.util.FileUtil
 import org.cryptomator.presentation.util.ShareFileHelper
 import org.cryptomator.presentation.workflow.ActivityResult
-import org.cryptomator.presentation.workflow.PermissionsResult
 import org.cryptomator.util.ExceptionUtil
 import java.io.FileNotFoundException
 import java.io.IOException
 import java.io.InputStream
 import java.io.OutputStream
-import java.util.ArrayList
 import javax.inject.Inject
 import timber.log.Timber
 
@@ -64,24 +61,13 @@ class ImagePreviewPresenter @Inject constructor( //
 
 	@Callback
 	fun exportImageToUserSelectedLocation(result: ActivityResult, sourceUri: String?) {
-		requestPermissions(
-			PermissionsResultCallbacks.exportImageToUserSelectedLocation(result.intent()?.dataString, sourceUri),  //
-			R.string.permission_message_export_file,  //
-			Manifest.permission.READ_EXTERNAL_STORAGE
-		)
-	}
-
-	@Callback
-	fun exportImageToUserSelectedLocation(result: PermissionsResult, targetUri: String?, sourceUri: String?) {
-		if (result.granted()) {
-			try {
-				copyFile(
-					contentResolverUtil.openInputStream(Uri.parse(sourceUri)),  //
-					contentResolverUtil.openOutputStream(Uri.parse(targetUri))
-				)
-			} catch (e: FileNotFoundException) {
-				showError(e)
-			}
+		try {
+			copyFile(
+				contentResolverUtil.openInputStream(Uri.parse(sourceUri)),  //
+				contentResolverUtil.openOutputStream(Uri.parse(result.intent()?.dataString))
+			)
+		} catch (e: FileNotFoundException) {
+			showError(e)
 		}
 	}
 
