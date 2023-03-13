@@ -67,7 +67,7 @@
 	<string name="screen_vault_list_change_password_successful">تم تغيير كلمة المرور بنجاح</string>
 	<!-- # screen: file browser -->
 	<string name="screen_file_browser_default_title">مخزن</string>
-	<string name="screen_file_browser_add_existing_vault_extra_text">اختر ملف المفتاح الرئيسي</string>
+	<string name="screen_file_browser_add_existing_vault_extra_text">اختر مِلَفَ المفتاحِ الرئيسِ</string>
 	<string name="screen_file_browser_create_new_vault_button_text">ضع هنا</string>
 	<string name="screen_file_browser_create_new_vault_extra_text">اسم المخزن: %1$s</string>
 	<string name="screen_file_browser_move_button_text">نقل</string>
@@ -234,6 +234,7 @@
 	<string name="dialog_change_password_msg_password_mismatch">كلمة المرور الجديدة يجب أن تتطابق مع تأكيد كلمة المرور.</string>
 	<!-- Vault not found -->
 	<string name="dialog_vault_not_found_title">المخزن %1$s غير موجود</string>
+	<string name="dialog_vault_not_found_message">تم حذف، نقل أو تغيير اسم الخزنة. قم بحذف هذه الخزنة من اللائحة ثم أضفها مرة أخرى للمتابعة. هل تود حذفها الآن؟</string>
 	<string name="dialog_vault_not_found_positive_button_text">حذف</string>
 	<string name="dialog_existing_file_title">الملف موجود مسبقا</string>
 	<string name="dialog_existing_file_positive_button">إستبدال</string>
@@ -285,6 +286,9 @@
 	<string name="dialog_accept_ssl_certificate_hint">شهادة SSL غير صالحة. هل تريد أن تثق بها على أي حال؟</string>
 	<string name="dialog_accept_ssl_certificate_details">تفاصيل</string>
 	<string name="dialog_accept_ssl_certificate_security_checkbox">قد يشكل ذلك خطرا أمنياً، وأنا أعرف ما أفعله.</string>
+	<string name="dialog_ask_ignore_battery_optimizations_title">تعطيل تحسينات البطارية</string>
+	<string name="dialog_ask_ignore_battery_optimizations_hint">لجلب المزيد من الصور والفيديوهات دون تشغيل في الخلفية، يجب أن يستثنى التطبيق من تحسينات البطارية. ولا داعي للقلق فـ%1$s لا يستهلك كثيرا من الطاقة.\n\n
+لفعل ذلك: اضغط %2$s وتوجه من \"التطبيقات غير المحسنة\" إلى \"جميع التطبيقات\"، ثم حدد %1$s واختر \"إلغاء التحسين\".</string>
 	<string name="dialog_ask_ignore_battery_optimizations_checkbox">لا تسأل مرة أخرى؟</string>
 	<string name="dialog_http_security_hint">استخدام HTTP غير آمن. نوصي باستخدام HTTPS بدلاً من ذلك. إذا كنت تعرف المخاطر، يمكنك الاستمرار مع HTTP.</string>
 	<string name="dialog_http_security_checkbox">تغيير إلى HTTPS</string>
@@ -301,7 +305,9 @@
 	<string name="dialog_disable_app_obscured_positive_button">تعطيل</string>
 	<string name="dialog_app_is_obscured_info_title">التطبيق غامض</string>
 	<string name="dialog_app_is_obscured_info_neutral_button">إغلاق</string>
-	<string name="dialog_delete_cloud_connection_with_vaults_message">هل ترغب حقّا بحذف هذا الإتصال الخاص بمقدم الخدمة السحابية؟</string>
+	<string name="dialog_vaults_removed_during_migration_title">رجاءً أعِد إضافَةَ خزائن لسحابة %1s</string>
+	<string name="dialog_vault_is_root_folder_of_cloud_title">الخزنة هي \"المجلد الرئيس\" للاتصال السحابي</string>
+	<string name="dialog_delete_cloud_connection_with_vaults_message">هل أنت متيقِّن من رغبتك بحذف هذا الاتصال السحابي؟</string>
 	<string name="dialog_delete_cloud_connection_with_vaults_hint">سوف يقوم هذا الأمر بحذف الإتصال بمقدم الخدمة السحابية و كل المخازن المرتبطة به.</string>
 	<string name="dialog_confirm_delete_multiple_title">حذف %1$d عناصر؟</string>
 	<string name="dialog_confirm_delete_multiple_message">هل أنت متأكد من أنك تريد حذف هذه العناصر؟</string>
@@ -367,7 +373,9 @@
 	<string name="notification_open_writable_file_title">فتح ملف قابل للكتابة</string>
 	<string name="notification_open_writable_file_message">تظل الخزنة مفتوحة حتى الانتهاء من التعديل</string>
 	<string name="notification_update_check_finished_latest">تم تثبيت آخر إصدارة</string>
+	<string name="notification_authenticating">جارٍ التحقُقُ من &#8230;</string>
 	<string name="screen_settings_lru_cache">ذاكرة التخزين المؤقت</string>
+	<string name="screen_settings_lru_cache_toggle_summary">سيتم حفظ الملفات المشفرة محليا على الجهاز، لتسهيل الوصول إليها لاحقا</string>
 	<string name="screen_settings_lru_cache_size">إجمالي حجم ذاكرة التخزين المؤقت</string>
 	<string name="screen_settings_clear_lru_cache_size">مسح بيانات الذاكرة المؤقتة</string>
 	<string name="screen_settings_lru_cache_changed__restart_toast">سيتم تطبيق التغييرات عند إعادة تشغيل التطبيق</string>
