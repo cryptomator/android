@@ -70,6 +70,14 @@
 	<string name="screen_file_browser_add_existing_vault_extra_text">اختر مِلَفَ المفتاحِ الرئيسِ</string>
 	<string name="screen_file_browser_create_new_vault_button_text">ضع هنا</string>
 	<string name="screen_file_browser_create_new_vault_extra_text">اسم المخزن: %1$s</string>
+	<plurals name="screen_file_browser_subtitle_move">
+		<item quantity="zero">نقل %1$s إلى</item>
+		<item quantity="one">نقل %1$s إلى</item>
+		<item quantity="two">نقل عنصري %2$d إلى</item>
+		<item quantity="few">نقل عناصر %2$d إلى</item>
+		<item quantity="many">نقل عناصر %2$d إلى</item>
+		<item quantity="other">نقل عناصر %2$d إلى</item>
+	</plurals>
 	<string name="screen_file_browser_move_button_text">نقل</string>
 	<string name="screen_file_browser_msg_empty_folder">مجلد فارغ</string>
 	<string name="screen_file_browser_file_info_label_date">تم التعديل منذ %1$s</string>
@@ -311,6 +319,7 @@
 	<string name="dialog_vaults_removed_during_migration_hint">أثناء التحول إلى إصدار هذا التطبيق، تتوجب إزالة الخزائن التالية:\n%2s \n\nهذه الخزائن ستحذف فقط من هذا التطبيق وليس من التخزين السحابي. عذرا على الإزعاج قم بإعادة إضافة هذه الخزائن لمواصلة العمل بها.</string>
 	<string name="dialog_vault_is_root_folder_of_cloud_title">الخزنة هي \"المجلد الرئيس\" للاتصال السحابي</string>
 	<string name="dialog_vault_is_root_folder_of_cloud_hint">لإضافة هذه الخزنة، أنشئ اتصالًا سحابيا جديدا بحيث يكون مجلده الرئيس هو نفسه المجلد الرئيس لهذه الخزنة.</string>
+	<string name="dialog_disable_secure_screen_disclaimer_hint">هذا الإعداد هو ميزة أمنية تمنع التطبيقات الأخرى من استدراج المستخدمين لفعل أشياء لا يريدون القيام بها.\n\nبتعطيليها, أنت تؤكد أنك <a href="https://docs.cryptomator.org/en/1.6/android/settings/#screen-security">على علم بالمخاطر</a>.</string>
 	<string name="dialog_delete_cloud_connection_with_vaults_message">هل أنت متيقِّن من رغبتك بحذف هذا الاتصال السحابي؟</string>
 	<string name="dialog_delete_cloud_connection_with_vaults_hint">سوف يقوم هذا الأمر بحذف الإتصال بمقدم الخدمة السحابية و كل المخازن المرتبطة به.</string>
 	<string name="dialog_confirm_delete_multiple_title">حذف %1$d عناصر؟</string>
@@ -320,9 +329,15 @@
 	<string name="dialog_biometric_auth_key_invalidated_title">تم تعطيل خاصية البصمة</string>
 	<string name="dialog_biometric_auth_key_invalidated_message">لأنه تم تعطيل المفتاح ، تم تعطيل خاصية البصمة. لإعادة التفعيل ،الرجاء فتح إعدادات Cryptomator.</string>
 	<string name="dialog_enter_license_title">إدخال الترخيص</string>
+	<string name="dialog_enter_license_content">اكتشفنا أنك قمت بتثبيت Cryptomator دون استخدام متجر Google Play. قم بتقديم ترخيص صالح، يمكن شراؤه على <a href="https://cryptomator.org/android/">https://cryptomator.org/android/</a></string>
+	<string name="dialog_enter_license_not_valid_content">الترخيص المقدم غير صالح. تأكد من إدخاله بشكل صحيح.</string>
+	<string name="dialog_enter_license_not_valid_content_desktop_supporter_certificate">المفتاح المقدم هو شهادة داعمة لسطح المكتب. الرجاء إدخال ترخيص صالح.</string>
+	<string name="dialog_enter_license_no_content">لم يتم توفير ترخيص. الرجاء إدخال ترخيص صالح.</string>
 	<string name="dialog_enter_license_decline_button">خروج</string>
 	<string name="dialog_license_confirmation_title">تأكيد الترخيص</string>
+	<string name="dialog_license_confirmation_message">شكرا %1$s لتقديمك ترخيصك الصالح.</string>
 	<string name="dialog_update_available_title">تحديث جديد متوفّر</string>
+	<string name="dialog_update_available_message">قم بتحديث Cryptomator إلى أحدث إصدار. بالضغط على موافق سوف نقوم بتنزيل التطبيق في الخلفية وسيُطلَبُ منك تثبيته.</string>
 	<string name="dialog_update_available_update">حدّث الآن</string>
 	<string name="dialog_update_available_download_site">انتقل إلى صفحة التحميل</string>
 	<string name="dialog_update_available_cancel">لاحقاً</string>
