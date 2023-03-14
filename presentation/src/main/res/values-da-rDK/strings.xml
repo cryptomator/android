@@ -124,7 +124,7 @@
 	<!-- ## screen: webdav settings -->
 	<string name="screen_webdav_settings_url_port_label">URL</string>
 	<string name="screen_webdav_settings_username_label">Brugernavn</string>
-	<string name="screen_webdav_settings_password_label">Passord</string>
+	<string name="screen_webdav_settings_password_label">Adgangskode</string>
 	<string name="screen_webdav_settings_done_button_text">Tilslut</string>
 	<string name="screen_webdav_settings_msg_url_must_not_be_empty">URL må ikke være blank.</string>
 	<string name="screen_webdav_settings_msg_url_is_invalid">URL\'en er ugyldig.</string>
@@ -149,13 +149,13 @@
 	<!-- ## screen: set password -->
 	<string name="screen_set_password_title">Indstil adgangskode</string>
 	<string name="screen_set_password_msg_password_mismatch">Adgangskoden matcher ikke den nye adgangskode.</string>
-	<string name="screen_set_password_button_text">Ferdig</string>
+	<string name="screen_set_password_button_text">Færdig</string>
 	<string name="screen_set_password_hint">VIGTIGT: Hvis du glemmer din adgangskode, er der ingen måde hvorpå dine data kan gendannes.</string>
 	<string name="screen_set_password_retype_password_label">Gentag kodeord</string>
 	<string name="screen_set_password_strength_indicator_0">For dårlig til at oprette en boks</string>
-	<string name="screen_set_password_strength_indicator_1">Svakt</string>
-	<string name="screen_set_password_strength_indicator_2">Ok</string>
-	<string name="screen_set_password_strength_indicator_3">Sterkt</string>
+	<string name="screen_set_password_strength_indicator_1">Svag</string>
+	<string name="screen_set_password_strength_indicator_2">Rimelig</string>
+	<string name="screen_set_password_strength_indicator_3">Stærk</string>
 	<string name="screen_set_password_strength_indicator_4">Meget god</string>
 	<!-- ## screen: settings -->
 	<string name="screen_settings_section_general">Generelt</string>

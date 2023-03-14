@@ -28,7 +28,7 @@
 	<string name="error_failed_to_decrypt_webdav_password">فشل فك تشفير كلمة المرور WebDAV، الرجاء إضافتها في الإعدادات</string>
 	<string name="error_play_services_not_available">خدمات متجر Google غير مثبتة!</string>
 	<string name="error_biometric_auth_aborted">تم إلغاء استخدام البصمة في عملية التوثيق</string>
-	<string name="error_vault_version_mismatch">الإصدار المحدد في %1$s يختلف عن %2$s</string>
+	<string name="error_vault_version_mismatch">الإصدار المحدد في %1$s مختلف عن %2$s</string>
 	<string name="error_vault_key_invalid">%1$s لا يتطابق مع هذا %2$s</string>
 	<string name="error_vault_config_loading">خطأ عام أثناء تحميل إعدادات المخزن</string>
 	<string name="error_file_not_found_after_opening_using_3party">بعد إعادة التبديل الي Cryptomator لم يعد الملف المحلي موجود. لايمكن نشر التعديلات الي موفر الخدمة السحابية.</string>
@@ -59,17 +59,25 @@
 	<string name="snack_bar_cryptomator_variants_hint">السحابة ليست في اللائحة؟</string>
 	<!-- # screens -->
 	<!-- # screen: vault list -->
-	<string name="screen_vault_list_actions_title">إضافة إلى Cryptomator</string>
+	<string name="screen_vault_list_actions_title">أضف إلى Cryptomator</string>
 	<string name="screen_vault_list_action_create_new_vault">إنشاء مخزن جديد</string>
 	<string name="screen_vault_list_action_add_existing_vault">إضافة مخزن موجود مسبقاً</string>
 	<string name="screen_vault_list_vault_action_delete">حذف</string>
 	<string name="screen_vault_list_vault_creation_hint">أنقر هنا لإنشاء خزينة جديدة</string>
-	<string name="screen_vault_list_change_password_successful">تم تغيير كلمة السر بنجاح</string>
+	<string name="screen_vault_list_change_password_successful">تم تغيير كلمة المرور بنجاح</string>
 	<!-- # screen: file browser -->
 	<string name="screen_file_browser_default_title">مخزن</string>
-	<string name="screen_file_browser_add_existing_vault_extra_text">اختر ملف المفتاح الرئيسي</string>
+	<string name="screen_file_browser_add_existing_vault_extra_text">اختر مِلَفَ المفتاحِ الرئيسِ</string>
 	<string name="screen_file_browser_create_new_vault_button_text">ضع هنا</string>
 	<string name="screen_file_browser_create_new_vault_extra_text">اسم المخزن: %1$s</string>
+	<plurals name="screen_file_browser_subtitle_move">
+		<item quantity="zero">نقل %1$s إلى</item>
+		<item quantity="one">نقل %1$s إلى</item>
+		<item quantity="two">نقل عنصري %2$d إلى</item>
+		<item quantity="few">نقل عناصر %2$d إلى</item>
+		<item quantity="many">نقل عناصر %2$d إلى</item>
+		<item quantity="other">نقل عناصر %2$d إلى</item>
+	</plurals>
 	<string name="screen_file_browser_move_button_text">نقل</string>
 	<string name="screen_file_browser_msg_empty_folder">مجلد فارغ</string>
 	<string name="screen_file_browser_file_info_label_date">تم التعديل منذ %1$s</string>
@@ -234,6 +242,7 @@
 	<string name="dialog_change_password_msg_password_mismatch">كلمة المرور الجديدة يجب أن تتطابق مع تأكيد كلمة المرور.</string>
 	<!-- Vault not found -->
 	<string name="dialog_vault_not_found_title">المخزن %1$s غير موجود</string>
+	<string name="dialog_vault_not_found_message">تم حذف، نقل أو تغيير اسم الخزنة. قم بحذف هذه الخزنة من اللائحة ثم أضفها مرة أخرى للمتابعة. هل تود حذفها الآن؟</string>
 	<string name="dialog_vault_not_found_positive_button_text">حذف</string>
 	<string name="dialog_existing_file_title">الملف موجود مسبقا</string>
 	<string name="dialog_existing_file_positive_button">إستبدال</string>
@@ -285,6 +294,9 @@
 	<string name="dialog_accept_ssl_certificate_hint">شهادة SSL غير صالحة. هل تريد أن تثق بها على أي حال؟</string>
 	<string name="dialog_accept_ssl_certificate_details">تفاصيل</string>
 	<string name="dialog_accept_ssl_certificate_security_checkbox">قد يشكل ذلك خطرا أمنياً، وأنا أعرف ما أفعله.</string>
+	<string name="dialog_ask_ignore_battery_optimizations_title">تعطيل تحسينات البطارية</string>
+	<string name="dialog_ask_ignore_battery_optimizations_hint">لجلب المزيد من الصور والفيديوهات دون تشغيل في الخلفية، يجب أن يستثنى التطبيق من تحسينات البطارية. ولا داعي للقلق فـ%1$s لا يستهلك كثيرا من الطاقة.\n\n
+لفعل ذلك: اضغط %2$s وتوجه من \"التطبيقات غير المحسنة\" إلى \"جميع التطبيقات\"، ثم حدد %1$s واختر \"إلغاء التحسين\".</string>
 	<string name="dialog_ask_ignore_battery_optimizations_checkbox">لا تسأل مرة أخرى؟</string>
 	<string name="dialog_http_security_hint">استخدام HTTP غير آمن. نوصي باستخدام HTTPS بدلاً من ذلك. إذا كنت تعرف المخاطر، يمكنك الاستمرار مع HTTP.</string>
 	<string name="dialog_http_security_checkbox">تغيير إلى HTTPS</string>
@@ -297,11 +309,18 @@
 	<string name="dialog_debug_mode_disclaimer_hint">في هذا الوضع، يمكن كتابة البيانات الحساسة إلى ملف تسجيل على جهازك (على سبيل المثال أسماء الملفات والمسارات). كلمة المرور، ملفات تعريف الارتباط، إلخ. مستبعدة صراحة.\n\nتذكر تعطيل وضع التصحيح في أقرب وقت ممكن.</string>
 	<string name="dialog_debug_mode_disclaimer_title">انتباه</string>
 	<string name="dialog_debug_mode_positive_button">تفعيل</string>
+	<string name="dialog_disable_app_obscured_disclaimer_hint">هذا الإعداد هو ميزة أمنية ويمنع التطبيقات الأخرى من استدراج المستخدمين لفعل أشياء لا يريدون القيام بها.\n\nبتعطيليها, أنت تؤكد أنك <a href="https://docs.cryptomator.org/en/1.6/android/settings/#block-app-when-obscured">على علم بالمخاطر</a>.</string>
 	<string name="dialog_disable_app_obscured_disclaimer_title">انتباه</string>
 	<string name="dialog_disable_app_obscured_positive_button">تعطيل</string>
 	<string name="dialog_app_is_obscured_info_title">التطبيق غامض</string>
+	<string name="dialog_app_is_obscured_info_hint">هناك تطبيق آخر يعلو الشاشة فوق Cryptomator (مثال: تطبيقات الرؤية الليلية / الأشعة الزرقاء). سيتم تعطيل Cryptomator لدواعي أمنية.\n\n<a href="https://docs.cryptomator.org/en/1.6/android/settings/#block-app-when-obscured">كيفية تمكين Cryptomator</a></string>
 	<string name="dialog_app_is_obscured_info_neutral_button">إغلاق</string>
-	<string name="dialog_delete_cloud_connection_with_vaults_message">هل ترغب حقّا بحذف هذا الإتصال الخاص بمقدم الخدمة السحابية؟</string>
+	<string name="dialog_vaults_removed_during_migration_title">رجاءً أعِد إضافَةَ خزائن لسحابة %1s</string>
+	<string name="dialog_vaults_removed_during_migration_hint">أثناء التحول إلى إصدار هذا التطبيق، تتوجب إزالة الخزائن التالية:\n%2s \n\nهذه الخزائن ستحذف فقط من هذا التطبيق وليس من التخزين السحابي. عذرا على الإزعاج قم بإعادة إضافة هذه الخزائن لمواصلة العمل بها.</string>
+	<string name="dialog_vault_is_root_folder_of_cloud_title">الخزنة هي \"المجلد الرئيس\" للاتصال السحابي</string>
+	<string name="dialog_vault_is_root_folder_of_cloud_hint">لإضافة هذه الخزنة، أنشئ اتصالًا سحابيا جديدا بحيث يكون مجلده الرئيس هو نفسه المجلد الرئيس لهذه الخزنة.</string>
+	<string name="dialog_disable_secure_screen_disclaimer_hint">هذا الإعداد هو ميزة أمنية تمنع التطبيقات الأخرى من استدراج المستخدمين لفعل أشياء لا يريدون القيام بها.\n\nبتعطيليها, أنت تؤكد أنك <a href="https://docs.cryptomator.org/en/1.6/android/settings/#screen-security">على علم بالمخاطر</a>.</string>
+	<string name="dialog_delete_cloud_connection_with_vaults_message">هل أنت متيقِّن من رغبتك بحذف هذا الاتصال السحابي؟</string>
 	<string name="dialog_delete_cloud_connection_with_vaults_hint">سوف يقوم هذا الأمر بحذف الإتصال بمقدم الخدمة السحابية و كل المخازن المرتبطة به.</string>
 	<string name="dialog_confirm_delete_multiple_title">حذف %1$d عناصر؟</string>
 	<string name="dialog_confirm_delete_multiple_message">هل أنت متأكد من أنك تريد حذف هذه العناصر؟</string>
@@ -310,17 +329,30 @@
 	<string name="dialog_biometric_auth_key_invalidated_title">تم تعطيل خاصية البصمة</string>
 	<string name="dialog_biometric_auth_key_invalidated_message">لأنه تم تعطيل المفتاح ، تم تعطيل خاصية البصمة. لإعادة التفعيل ،الرجاء فتح إعدادات Cryptomator.</string>
 	<string name="dialog_enter_license_title">إدخال الترخيص</string>
+	<string name="dialog_enter_license_content">اكتشفنا أنك قمت بتثبيت Cryptomator دون استخدام متجر Google Play. قم بتقديم ترخيص صالح، يمكن شراؤه على <a href="https://cryptomator.org/android/">https://cryptomator.org/android/</a></string>
+	<string name="dialog_enter_license_not_valid_content">الترخيص المقدم غير صالح. تأكد من إدخاله بشكل صحيح.</string>
+	<string name="dialog_enter_license_not_valid_content_desktop_supporter_certificate">المفتاح المقدم هو شهادة داعمة لسطح المكتب. الرجاء إدخال ترخيص صالح.</string>
+	<string name="dialog_enter_license_no_content">لم يتم توفير ترخيص. الرجاء إدخال ترخيص صالح.</string>
 	<string name="dialog_enter_license_decline_button">خروج</string>
 	<string name="dialog_license_confirmation_title">تأكيد الترخيص</string>
+	<string name="dialog_license_confirmation_message">شكرا %1$s لتقديمك ترخيصك الصالح.</string>
 	<string name="dialog_update_available_title">تحديث جديد متوفّر</string>
+	<string name="dialog_update_available_message">قم بتحديث Cryptomator إلى أحدث إصدار. بالضغط على موافق سوف نقوم بتنزيل التطبيق في الخلفية وسيُطلَبُ منك تثبيته.</string>
 	<string name="dialog_update_available_update">حدّث الآن</string>
 	<string name="dialog_update_available_download_site">انتقل إلى صفحة التحميل</string>
 	<string name="dialog_update_available_cancel">لاحقاً</string>
 	<string name="dialog_download_update_title">جاري التحميل</string>
 	<string name="dialog_download_update_message">تحميل الإصدار الجديد من Cryptomator</string>
+	<string name="dialog_sym_link_title">المجلد هو رابط رمزي</string>
+	<string name="dialog_sym_link_message">لا يمكنك التنقل إلى هذا الرابط الرمزي</string>
 	<string name="dialog_sym_link_back_button">رجوع</string>
+	<string name="dialog_no_dir_file_title">تعذَّرَ تحميلُ محتوياتِ المجلد</string>
+	<string name="dialog_no_dir_file_message">المجلد السحابي \'%1$s\' ليس لديه ملف دليل صالح. ربما تم إنشاؤه على جهاز آخر ولم يتم استكمال مزامنته مع السحابة. رجاءً تحقق من وجود الملف أدناه في السحابة الخاصة بك وتأكد من أنه غير فارغ:\n%2$s</string>
 	<string name="dialog_no_more_images_to_display">لا مزيد من الصور للعرض&#8230;</string>
 	<string name="dialog_pcloud_credentials_updated_title">تم تحديث وثائق تفويض \'%1$s\'</string>
+	<string name="dialog_pcloud_credentials_updated">إذا كنت ترغب في إضافة حساب pCloud جديد، انقر على هذا الرابط <a href="https://www.pcloud.com">www.pcloud. om</a>، ثم قم بتسجيل الخروج من الحساب الحالي و بعدها انقر مرة أخرى على \'+\' في هذا التطبيق لإنشاء اتصال سحابي جديد.</string>
+	<string name="permission_snackbar_auth_local_vault">Cryptomator يحتاج صلاحية الوصول إلي التخزين ليستطيع استعمال الخزائن المحلية</string>
+	<string name="permission_snackbar_auth_auto_upload">Cryptomator يحتاج صلاحية الوصول إلي التخزين ليستطيع تحميل الصور تلقائيا</string>
 	<!-- # error reports -->
 	<!-- # misc -->
 	<!-- ## file size helper -->
@@ -365,9 +397,11 @@
 	<string name="notification_auto_upload_failed_due_to_vault_locked">تم قفل المخزن اثناء الرفع، الرجاء قم بفتحه لمتابعة الرفع</string>
 	<string name="notification_auto_upload_failed_due_to_vault_not_found">المخزن المحدد للتحميل التلقائي لم يعد موجودا.</string>
 	<string name="notification_open_writable_file_title">فتح ملف قابل للكتابة</string>
-	<string name="notification_open_writable_file_message">سوف يبقى المخزن مفتوحاً حتي يتم التعديل</string>
+	<string name="notification_open_writable_file_message">تظل الخزنة مفتوحة حتى الانتهاء من التعديل</string>
 	<string name="notification_update_check_finished_latest">تم تثبيت آخر إصدارة</string>
+	<string name="notification_authenticating">جارٍ التحقُقُ من &#8230;</string>
 	<string name="screen_settings_lru_cache">ذاكرة التخزين المؤقت</string>
+	<string name="screen_settings_lru_cache_toggle_summary">سيتم حفظ الملفات المشفرة محليا على الجهاز، لتسهيل الوصول إليها لاحقا</string>
 	<string name="screen_settings_lru_cache_size">إجمالي حجم ذاكرة التخزين المؤقت</string>
 	<string name="screen_settings_clear_lru_cache_size">مسح بيانات الذاكرة المؤقتة</string>
 	<string name="screen_settings_lru_cache_changed__restart_toast">سيتم تطبيق التغييرات عند إعادة تشغيل التطبيق</string>
