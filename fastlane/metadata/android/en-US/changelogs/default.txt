@@ -1,7 +1,1 @@
-- Migrated to the new Material3 design
-- Create new vaults with modern cipher combination (SIV_GCM)
-- Fixed decrypting files on Android pre 10 using the new vault format
-- Fixed pCloud connection issues
-- Fixed umlauts in WebDAV password using digest authentication causing authentication to fail
-- Fixed creating a vault in S3 when it is completely empty
-- Fixed opening of purchase link in F-Droid and website variants
+- Fixed storage and notification permissions issue on Android version 13
