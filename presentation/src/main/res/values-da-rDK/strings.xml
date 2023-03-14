@@ -348,6 +348,7 @@
 	<string name="dialog_pcloud_credentials_updated">Hvis du har til hensigt at tilføje en ny pCloud-konto, skal du trykke på denne Url <a href="https://www.pcloud.com">www.pcloud.com</a>, logge ud af den aktuelle konto og tryk igen på \'+\' i denne app for at oprette en ny cloud-forbindelse.</string>
 	<string name="permission_snackbar_auth_local_vault">Cryptomator skal bruge lageradgang for at tilgå lokale bokse</string>
 	<string name="permission_snackbar_auth_auto_upload">Cryptomator har brug for lageradgang for at kunne uploade fotos automatisk</string>
+	<string name="permission_snackbar_notifications">Cryptomator har brug for notifikationstilladelser for at vise f.eks. boksstatus</string>
 	<!-- # error reports -->
 	<!-- # misc -->
 	<!-- ## file size helper -->
