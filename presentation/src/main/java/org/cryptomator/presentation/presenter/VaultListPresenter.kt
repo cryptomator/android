@@ -223,7 +223,7 @@ class VaultListPresenter @Inject constructor( //
 	}
 
 	private fun checkNotificationPermission() {
-		if (Build.VERSION.SDK_INT > Build.VERSION_CODES.R) {
+		if (Build.VERSION.SDK_INT > Build.VERSION_CODES.S_V2) {
 			requestPermissions(
 				PermissionsResultCallbacks.requestNotificationPermission(),  //
 				R.string.permission_snackbar_notifications,  //
