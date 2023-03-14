@@ -1,6 +1,5 @@
 package org.cryptomator.presentation.presenter
 
-import android.Manifest
 import android.net.Uri
 import org.cryptomator.data.cloud.crypto.CryptoCloud
 import org.cryptomator.domain.Cloud
@@ -36,7 +35,6 @@ import org.cryptomator.presentation.util.ContentResolverUtil
 import org.cryptomator.presentation.util.FileNameValidator.Companion.isInvalidName
 import org.cryptomator.presentation.workflow.ActivityResult
 import org.cryptomator.presentation.workflow.AuthenticationExceptionHandler
-import org.cryptomator.presentation.workflow.PermissionsResult
 import org.cryptomator.util.file.FileCacheUtils
 import javax.inject.Inject
 import timber.log.Timber
@@ -305,11 +303,6 @@ class SharedFilesPresenter @Inject constructor( //
 		return existingFilesForUpload.mapTo(ArrayList()) { it.fileName }
 	}
 
-	private fun prepareSavingFiles() {
-		location?.let { checkForUsedFileNames(it.toCloudNode()) }
-			?: authenticate(selectedVault, AuthenticationState.INIT_ROOT)
-	}
-
 	fun onSaveButtonPressed(filesForUpload: List<SharedFileModel>) {
 		updateFileNames(filesForUpload)
 		when {
@@ -320,13 +313,14 @@ class SharedFilesPresenter @Inject constructor( //
 				view?.showMessage(R.string.error_names_contains_invalid_characters)
 			}
 			else -> {
-				requestPermissions(
-					PermissionsResultCallbacks.saveFilesPermissionCallback(),  //
-					R.string.permission_message_share_file,  //
-					Manifest.permission.READ_EXTERNAL_STORAGE
-				)
+				prepareSavingFiles()
 			}
 		}
+	}
+
+	private fun prepareSavingFiles() {
+		location?.let { checkForUsedFileNames(it.toCloudNode()) }
+			?: authenticate(selectedVault, AuthenticationState.INIT_ROOT)
 	}
 
 	private fun hasInvalidFileNames(filesForUpload: List<SharedFileModel>): Boolean {
@@ -367,13 +361,6 @@ class SharedFilesPresenter @Inject constructor( //
 		val folder = result.singleResult as CloudFolderModel
 		setLocation(folder)
 		view?.showChosenLocation(folder)
-	}
-
-	@Callback
-	fun saveFilesPermissionCallback(result: PermissionsResult) {
-		if (result.granted()) {
-			prepareSavingFiles()
-		}
 	}
 
 	fun onChooseLocationPressed() {
