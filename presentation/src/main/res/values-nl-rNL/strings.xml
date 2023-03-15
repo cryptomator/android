@@ -348,6 +348,7 @@
 	<string name="dialog_pcloud_credentials_updated">Als je een nieuwe pCloud account probeerde toe te voegen, klik dan op deze url <a href="https://www.pcloud.com">www.pcloud. om</a>, log de huidige account uit en klik opnieuw op de \'+\' in deze app om een nieuwe cloud verbinding te maken.</string>
 	<string name="permission_snackbar_auth_local_vault">Cryptomator heeft toegang tot opslag nodig om lokale kluizen te kunnen gebruiken</string>
 	<string name="permission_snackbar_auth_auto_upload">Cryptomator heeft toegang tot opslag nodig om automatisch uploaden van foto\'s te kunnen gebruiken</string>
+	<string name="permission_snackbar_notifications">Cryptomator heeft notificatie toegang nodig om een voorbeeld van de kluis status weer te geven</string>
 	<!-- # error reports -->
 	<!-- # misc -->
 	<!-- ## file size helper -->
