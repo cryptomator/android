@@ -33,6 +33,7 @@
 	<string name="error_vault_config_loading">Erro geral ao carregar a configuração do cofre</string>
 	<string name="error_file_not_found_after_opening_using_3party">O ficheiro local não está presente ao voltar para Cryptomator. Novas alterações não serão guardadas na nuvem.</string>
 	<string name="error_no_such_bucket">Bucket inexistente</string>
+	<string name="error_masterkey_location_not_supported">A localização de Chave-Mestra personalizada ainda não é suportada</string>
 	<string name="error_interact_with_fdroid_but_fdroid_missing">Falha em comunicar-se com a aplicação F-Droid. Não está instalado?</string>
 	<!-- # clouds -->
 	<!-- ## cloud names -->
@@ -55,6 +56,7 @@
 	<string name="snack_bar_action_title_sort_biggest">Maiores primeiro</string>
 	<string name="snack_bar_action_title_sort_smallest">Menores primeiro</string>
 	<string name="snack_bar_cryptomator_variants_title">Ler mais</string>
+	<string name="snack_bar_cryptomator_variants_hint">Nuvem não está na lista?</string>
 	<!-- # screens -->
 	<!-- # screen: vault list -->
 	<string name="screen_vault_list_actions_title">Adicionar ao Cryptomator</string>
@@ -65,18 +67,25 @@
 	<string name="screen_vault_list_change_password_successful">Palavra-passe alterada com sucesso</string>
 	<!-- # screen: file browser -->
 	<string name="screen_file_browser_default_title">Cofre</string>
+	<string name="screen_file_browser_add_existing_vault_extra_text">Selecionar ficheiro MasterKey</string>
+	<string name="screen_file_browser_create_new_vault_button_text">Colocar aqui</string>
 	<string name="screen_file_browser_create_new_vault_extra_text">Nome do cofre: %1$s</string>
 	<string name="screen_file_browser_move_button_text">Mover</string>
 	<string name="screen_file_browser_msg_empty_folder">Pasta vazia</string>
+	<string name="screen_file_browser_file_info_label_date">modificado %1$s atrás</string>
 	<string name="screen_file_browser_share_intent_chooser_title">Partilhar com</string>
+	<string name="screen_file_browser_share_destination_title">Escolher o destino</string>
 	<string name="screen_file_browser_share_button_text">Escolher</string>
 	<string name="screen_file_browser_nothing_to_share">Nada a partilhar</string>
 	<string name="screen_file_browser_actions_title">Adicionar a %1$s</string>
+	<string name="screen_file_browser_action_create_folder">Criar pasta</string>
+	<string name="screen_file_browser_action_create_new_text_file">Criar documento de texto</string>
 	<string name="screen_file_browser_action_upload_files">Carregar ficheiros</string>
 	<string name="screen_file_browser_upload_files_chooser_title">Ficheiros</string>
 	<string name="screen_file_browser_msg_file_exported">Ficheiro Exportado</string>
 	<string name="screen_file_browser_msg_files_exported">Ficheiros Exportados</string>
 	<string name="screen_file_browser_nothing_to_export">Nada para exportar</string>
+	<string name="screen_file_browser_msg_creating_download_dir_failed">Falha a criar o diretório de transferência</string>
 	<string name="screen_file_browser_node_action_share">Compartilhar</string>
 	<string name="screen_file_browser_node_action_rename">Renomear</string>
 	<string name="screen_file_browser_node_action_edit_text">Editar</string>
@@ -84,16 +93,32 @@
 	<string name="screen_file_browser_node_action_delete">Apagar</string>
 	<string name="screen_file_browser_node_action_open_with_text">Abrir com&#8230;</string>
 	<string name="screen_file_browser_selection_mode_title_zero_elements">Selecionar itens</string>
+	<string name="screen_file_browser_selection_mode_title_one_or_more_elements">%1$d selecionado(s)</string>
+	<string name="screen_file_browser_select_items">Selecionar</string>
+	<string name="screen_file_browser_select_all_items">Selecionar tudo</string>
+	<string name="screen_file_browser_refresh_items">Atualizar</string>
+	<string name="screen_file_browser_no_connection_message">Sem ligação</string>
+	<string name="screen_file_browser_no_connection_button_text">Tentar novamente</string>
 	<!-- ## screen: text editor -->
+	<string name="screen_text_editor_save_success">Guardado com sucesso</string>
 	<!-- ## screen: share files -->
+	<string name="screen_share_files_title">Guardar %1$s em&#8230;</string>
 	<string name="screen_share_files_content_text">texto</string>
 	<string name="screen_share_files_content_file">ficheiro</string>
 	<string name="screen_share_files_content_files">ficheiros</string>
+	<string name="screen_share_files_msg_filenames_must_be_unique">Os nomes de ficheiros têm de ser únicos, por favor renomeia os duplicados.</string>
+	<string name="screen_share_files_section_location">Local de armazenamento</string>
 	<string name="screen_share_files_save_button_text">Salvar</string>
+	<string name="screen_share_files_msg_success">Encriptação concluída</string>
 	<!-- ## screen: choose cloud service -->
+	<string name="screen_choose_cloud_service_title">Serviços na nuvem</string>
 	<!-- ## screen: cloud connections -->
+	<string name="screen_cloud_connections_title">Escolher uma localização</string>
+	<string name="screen_cloud_connections_no_connections">Toque aqui para adicionar localizações</string>
+	<string name="screen_cloud_error_webdav_not_supported">O servidor não parece ser compatível com WebDAV</string>
 	<string name="screen_cloud_local_error_no_content_provider">Não foi encontrado nenhum gestor de arquivos compatível com a abertura de diretórios</string>
 	<!-- ## screen: webdav settings -->
+	<string name="screen_webdav_settings_url_port_label">URL</string>
 	<string name="screen_webdav_settings_username_label">Nome de utilizador</string>
 	<string name="screen_webdav_settings_password_label">Senha</string>
 	<string name="screen_webdav_settings_done_button_text">Conectar</string>
@@ -106,9 +131,23 @@
 	<string name="screen_s3_settings_access_key_label">Chave de acesso</string>
 	<string name="screen_s3_settings_secret_key_label">Chave Secreta</string>
 	<string name="screen_s3_settings_bucket_label">Compartimento existente</string>
+	<string name="screen_s3_settings_region_label">Região</string>
+	<string name="screen_s3_settings_msg_display_name_not_empty">O Nome não pode ser vazio</string>
+	<string name="screen_s3_settings_msg_access_key_not_empty">Chave de acesso não pode estar vazia</string>
+	<string name="screen_s3_settings_msg_secret_key_not_empty">A chave secreta não pode estar vazia</string>
 	<!-- ## screen: enter vault name -->
+	<string name="screen_enter_vault_name_msg_name_empty">O nome do cofre não pode estar vazio.</string>
+	<string name="screen_enter_vault_name_vault_label">Nome do cofre</string>
+	<string name="screen_enter_vault_name_button_text">Criar</string>
 	<!-- ## screen: set password -->
+	<string name="screen_set_password_title">Definir palavra-passe</string>
+	<string name="screen_set_password_msg_password_mismatch">A senha não coincide com a senha digitada.</string>
 	<string name="screen_set_password_button_text">Ok</string>
+	<string name="screen_set_password_hint">IMPORTANTE: Se você se esquecer da palavra-passe, não há forma de recuperar os seus dados.</string>
+	<string name="screen_set_password_retype_password_label">Reescreva a palavra-passe</string>
+	<string name="screen_set_password_strength_indicator_0">Muito fraca para criar um cofre</string>
+	<string name="screen_set_password_strength_indicator_1">Fraca</string>
+	<string name="screen_set_password_strength_indicator_2">Razoável</string>
 	<string name="screen_set_password_strength_indicator_3">Forte</string>
 	<!-- ## screen: settings -->
 	<string name="screen_settings_section_general">Geral</string>
@@ -134,6 +173,7 @@
 	<!-- # misc -->
 	<!-- ## file size helper -->
 	<!-- ## date helper -->
+	<string name="time_unit_minutes_pl">minutos</string>
 	<!-- ## biometric authentication -->
 	<!-- notification -->
 	<string name="notification_authenticating">Autenticação&#8230;</string>
