@@ -348,6 +348,7 @@
 	<string name="dialog_pcloud_credentials_updated">Om du avsåg att lägga till ett nytt pCloud-konto, tryck på denna url <a href="https://www.pcloud.com">www.pcloud.com</a>, logga ut från det nuvarande kontot och tryck igen på \'+\' i den här appen för att skapa en ny molnanslutning.</string>
 	<string name="permission_snackbar_auth_local_vault">Cryptomator behöver åtkomst till lagringsutrymmet för att använda lokala valv</string>
 	<string name="permission_snackbar_auth_auto_upload">Cryptomator behöver åtkomst till lagringsutrymmet för att kunna använda automatisk uppladdning av foton</string>
+	<string name="permission_snackbar_notifications">Cryptomator behöver aviseringsbehörigheter för att till exempel visa valvstatus</string>
 	<!-- # error reports -->
 	<!-- # misc -->
 	<!-- ## file size helper -->
