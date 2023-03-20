@@ -33,9 +33,16 @@
 	<string name="snack_bar_cryptomator_variants_title">Чытаць далей</string>
 	<!-- # screens -->
 	<!-- # screen: vault list -->
+	<string name="screen_vault_list_action_create_new_vault">Стварыць новую скарбніцу</string>
+	<string name="screen_vault_list_action_add_existing_vault">Дадаць існуючую скрабніцу</string>
 	<string name="screen_vault_list_vault_action_delete">Выдаліць</string>
+	<string name="screen_vault_list_vault_creation_hint">Націсні тут, каб стварыць новую скрабніцу</string>
+	<string name="screen_vault_list_change_password_successful">Пароль паспяхова зменены</string>
 	<!-- # screen: file browser -->
 	<string name="screen_file_browser_default_title">Скарбніца</string>
+	<string name="screen_file_browser_add_existing_vault_extra_text">Абяры файл masterkey</string>
+	<string name="screen_file_browser_create_new_vault_button_text">Размясціць тут</string>
+	<string name="screen_file_browser_create_new_vault_extra_text">Імя скрабніцы: %1$s</string>
 	<string name="screen_file_browser_node_action_share">Абагуліць</string>
 	<string name="screen_file_browser_node_action_rename">Пераназваць</string>
 	<string name="screen_file_browser_node_action_edit_text">Рэдагаваць</string>
