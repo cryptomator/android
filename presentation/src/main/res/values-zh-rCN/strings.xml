@@ -51,8 +51,8 @@
 	<string name="snack_bar_action_title_sort">排序</string>
 	<string name="snack_bar_action_title_sort_az">A - Z</string>
 	<string name="snack_bar_action_title_sort_za">Z - A</string>
-	<string name="snack_bar_action_title_sort_newest">日期（升序）</string>
-	<string name="snack_bar_action_title_sort_oldest">日期（降序）</string>
+	<string name="snack_bar_action_title_sort_newest">日期（降序）</string>
+	<string name="snack_bar_action_title_sort_oldest">日期（升序）</string>
 	<string name="snack_bar_action_title_sort_biggest">大小（降序）</string>
 	<string name="snack_bar_action_title_sort_smallest">大小（升序）</string>
 	<string name="snack_bar_cryptomator_variants_title">了解更多</string>
