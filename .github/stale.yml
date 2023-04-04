@@ -1,24 +1,22 @@
-# Number of days of inactivity before an issue becomes stale
-daysUntilStale: 365
-# Number of days of inactivity before a stale issue is closed
-daysUntilClose: 90
-# Issues with these labels will never be considered stale
-exemptLabels:
-  - type:security-issue # never close automatically
-  - type:feature-request # never close automatically
-  - type:enhancement # never close automatically
-  - type:upstream-bug # never close automatically
-  - state:awaiting-response # handled by different bot
-  - state:blocked
-  - state:confirmed
-# Set to true to ignore issues in a milestone (defaults to false)
-exemptMilestones: true
-# Label to use when marking an issue as stale
-staleLabel: state:stale
-# Comment to post when marking an issue as stale. Set to `false` to disable
-markComment: >
-  This issue has been automatically marked as stale because it has not had
-  recent activity. It will be closed if no further activity occurs. Thank you
-  for your contributions.
-# Comment to post when closing a stale issue. Set to `false` to disable
-closeComment: false
+# Configuration for close-stale-issues - https://github.com/marketplace/actions/close-stale-issues
+
+name: 'Close stale issues'
+on:
+  schedule:
+    - cron: '30 1 * * *'
+
+jobs:
+  stale:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/stale@v8
+        with:
+          days-before-stale: 365
+          days-before-close: 90
+          exempt-issue-labels: 'type:security-issue,type:feature-request,type:enhancement,type:upstream-bug,state:awaiting-response,state:blocked,state:confirmed'
+          exempt-all-milestones: true
+          stale-issue-label: 'state:stale'
+          stale-pr-label: 'state:stale'
+          stale-issue-message: 'This issue has been automatically marked as stale because it has not had recent activity. It will be closed if no further activity occurs. Thank you for your contributions.'
+          stale-pr-message: 'This PR has been automatically marked as stale because it has not had recent activity. It will be closed if no further activity occurs. Thank you for your contributions.'
+          debug-only: true
