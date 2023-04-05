@@ -14,8 +14,8 @@ jobs:
     steps:
       - uses: actions/stale@v8
         with:
-          days-before-stale: -1
-          days-before-close: 14
+          days-before-stale: 14
+          days-before-close: 1
           days-before-pr-close: -1
           close-issue-message: "This issue has been automatically closed because there has been no response to our request for more information from the original author. With only the information that is currently in the issue, we don't have enough information to take action. Please reach out if you have or find the answers we need so that we can investigate further."
           only-labels: 'state:awaiting-response'
