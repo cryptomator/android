@@ -3,7 +3,7 @@
 name: 'Close stale issues'
 on:
   schedule:
-    - cron: '00 12 * * *'
+    - cron: '30 13 * * *'
 
 jobs:
   stale:
@@ -22,4 +22,3 @@ jobs:
           stale-pr-label: 'state:stale'
           stale-issue-message: 'This issue has been automatically marked as stale because it has not had recent activity. It will be closed if no further activity occurs. Thank you for your contributions.'
           stale-pr-message: 'This PR has been automatically marked as stale because it has not had recent activity. It will be closed if no further activity occurs. Thank you for your contributions.'
-          debug-only: true
