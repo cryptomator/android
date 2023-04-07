@@ -291,7 +291,7 @@
 	<string name="dialog_accept_ssl_certificate_details">Detalles</string>
 	<string name="dialog_accept_ssl_certificate_security_checkbox">Esto podría ser un riesgo para la seguridad. Sé lo que estoy haciendo.</string>
 	<string name="dialog_ask_ignore_battery_optimizations_title">Desactivar optimizaciones de la batería</string>
-	<string name="dialog_ask_ignore_battery_optimizations_hint">Para recuperar imágenes y videos nuevos sin ejecutar en segundo plano, tenemos que dejar de usar las optimizaciones de la batería. Pero no se preocupe, %1$s no consume mucha energía.\n\nPara aplicarlo, cambie \'No optimizado\' a \'Todas las aplicaciones\', seleccione %1$s y elija \'No optimizar\' después de pulsar \'%2$s\' en esta ventana.</string>
+	<string name="dialog_ask_ignore_battery_optimizations_hint">Para recuperar imágenes y videos nuevos sin ejecutar en segundo plano, es necesario desactivar las optimizaciones de la batería. Pero no se preocupe, %1$s no consume mucha energía.\n\nPara aplicarlo, cambie \'No optimizado\' a \'Todas las aplicaciones\', seleccione %1$s y elija \'No optimizar\' después de pulsar \'%2$s\' en esta ventana.</string>
 	<string name="dialog_ask_ignore_battery_optimizations_checkbox">¿No volver a preguntar?</string>
 	<string name="dialog_http_security_hint">El uso de HTTP no es seguro. Recomendamos usar HTTPS en su lugar. Si conoce los riesgos puede seguir usando HTTP.</string>
 	<string name="dialog_http_security_checkbox">Cambiar a HTTPS</string>
@@ -380,7 +380,7 @@
 	<string name="dialog_unable_to_auto_upload_files_title">No se pueden cargar archivos automáticamente</string>
 	<!-- notification -->
 	<string name="notification_unlocked">Bóvedas desbloqueadas: %1$d</string>
-	<string name="notification_timeout">Autobloquear en %1$s</string>
+	<string name="notification_timeout">Bloqueo automático en %1$s</string>
 	<string name="notification_lock_all">Bloquear todas</string>
 	<string name="notification_cancel_auto_upload">Cancelar carga</string>
 	<string name="notification_auto_upload_title">Carga automática de fotos en ejecución</string>
@@ -397,14 +397,14 @@
 	<string name="notification_update_check_finished_latest">Última versión instalada</string>
 	<string name="notification_authenticating">Autenticando&#8230;</string>
 	<string name="screen_settings_lru_cache">Caché</string>
-	<string name="screen_settings_lru_cache_toggle_summary">Almacene en caché los archivos a los que se accedió recientemente cifrados localmente en el dispositivo para su posterior reutilización cuando se vuelva a abrir</string>
+	<string name="screen_settings_lru_cache_toggle_summary">Almacene en caché los archivos cifrados localmente a los que accedió recientemente en el dispositivo para su posterior reutilización cuando se vuelvan a abrir</string>
 	<string name="screen_settings_lru_cache_size">Tamaño total de la caché</string>
 	<string name="screen_settings_clear_lru_cache_size">Vaciar la caché</string>
 	<string name="screen_settings_lru_cache_changed__restart_toast">Los cambios se aplicarán en el próximo reinicio de la aplicación</string>
 	<string name="screen_settings_license">Registrado para</string>
 	<string name="screen_settings_license_mail">%1$s</string>
 	<string name="dialog_settings_update_check_interval_title">Actualizar intervalo de verificación</string>
-	<string name="screen_settings_check_updates">Comprobar atualizaciones</string>
+	<string name="screen_settings_check_updates">Comprobar actualizaciones</string>
 	<string name="screen_settings_last_check_updates">Última ejecución %1$s</string>
 	<string name="dialog_cache_size_title">Tamaño de la caché por nube</string>
 	<!-- lock timeout names -->
