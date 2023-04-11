@@ -32,7 +32,7 @@ object X509CertificateHelper {
 
 	@Throws(CertificateEncodingException::class)
 	fun getFingerprintFormatted(certificate: X509Certificate): String {
-		var hash = String(Hex.encodeHex(DigestUtils.sha1(certificate.encoded))) //
+		var hash = String(Hex.encodeHex(DigestUtils.sha256(certificate.encoded))) //
 			.uppercase() //
 			.replace("(.{2})".toRegex(), "$1:")
 		hash = hash.substring(0, hash.length - 1)
