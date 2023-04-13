@@ -348,6 +348,7 @@
 	<string name="dialog_pcloud_credentials_updated">Yeni bir pCloud hesabı eklemeyi düşünüyorsanız, bu url <a href="https://www.pcloud.com">www.pcloud.com</a> dokunun, mevcut hesaptan çıkın ve yeni bir bulut bağlantısı oluşturmak için \'+\'. tekrar dokunun.</string>
 	<string name="permission_snackbar_auth_local_vault">Cryptomator\'un yerel kasaları kullanmak için depolama erişimine ihtiyacı var</string>
 	<string name="permission_snackbar_auth_auto_upload">Cryptomator\'un otomatik fotoğraf yüklemesi için depolama erişimine ihtiyacı var</string>
+	<string name="permission_snackbar_notifications">Cryptomator, örneğin kasa durumunu görüntülemek için bildirim izinlerine ihtiyaç duyar</string>
 	<!-- # error reports -->
 	<!-- # misc -->
 	<!-- ## file size helper -->

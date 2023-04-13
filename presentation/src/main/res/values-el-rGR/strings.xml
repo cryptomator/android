@@ -348,6 +348,7 @@
 	<string name="dialog_pcloud_credentials_updated">Αν σκοπεύατε να προσθέσετε ένα νέο λογαριασμό pCloud, πατήστε σε αυτό το url <a href="https://www.pcloud.com">www.pcloud. om</a>, αποσυνδεθείτε από τον τρέχοντα λογαριασμό και πατήστε ξανά στο \'+\' σε αυτήν την εφαρμογή για να δημιουργήσετε μια νέα σύνδεση στο cloud.</string>
 	<string name="permission_snackbar_auth_local_vault">Το Cryptomator χρειάζεται πρόσβαση στον αποθηκευτικό χώρο για τη χρήση τοπικών κρυπτών</string>
 	<string name="permission_snackbar_auth_auto_upload">Το Cryptomator χρειάζεται πρόσβαση στον αποθηκευτικό χώρο για να χρησιμοποιηθεί η αυτόματη μεταφόρτωση φωτογραφιών</string>
+	<string name="permission_snackbar_notifications">Το Cryptomator χρειάζεται δικαιώματα ειδοποίησης για να εμφανίσει για παράδειγμα την κατάσταση κρύπτης</string>
 	<!-- # error reports -->
 	<!-- # misc -->
 	<!-- ## file size helper -->

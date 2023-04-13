@@ -19,9 +19,9 @@ RUN apt-get update -y && apt-get install -y apt-utils wget git unzip
 RUN apt-get update -y && apt-get install -y $(cat docker/dependencies.txt)
 RUN docker/print-versions.sh docker/dependencies.txt
 
-ENV ANDROID_COMMAND_LINE_TOOLS_FILENAME commandlinetools-linux-8512546_latest.zip
+ENV ANDROID_COMMAND_LINE_TOOLS_FILENAME commandlinetools-linux-9477386_latest.zip
 ENV ANDROID_API_LEVELS                  android-33
-ENV ANDROID_BUILD_TOOLS_VERSION         33.0.0
+ENV ANDROID_BUILD_TOOLS_VERSION         33.0.2
 
 ENV ANDROID_HOME /usr/local/android-sdk-linux
 ENV PATH         ${PATH}:${ANDROID_HOME}/tools:${ANDROID_HOME}/platform-tools:${ANDROID_HOME}/cmdline-tools/bin

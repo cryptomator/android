@@ -347,6 +347,7 @@
 	<string name="dialog_pcloud_credentials_updated">如果您想要新增一個 pCloud 帳戶，請在點擊此連結 <a href="https://www.pcloud.com">www.pcloud.com</a> 後登出目前的帳號，並重新點擊本程式中的「+」來建立一個新的雲端連結。</string>
 	<string name="permission_snackbar_auth_local_vault">Cryptomator 需要存儲訪問權限用以使用本地加密檔案庫</string>
 	<string name="permission_snackbar_auth_auto_upload">Cryptomator 需要存儲權限以便開啟自動圖片上傳</string>
+	<string name="permission_snackbar_notifications">Cryptomator 需要通知權限以顯示加密檔案庫的狀態等。</string>
 	<!-- # error reports -->
 	<!-- # misc -->
 	<!-- ## file size helper -->

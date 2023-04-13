@@ -347,6 +347,7 @@
 	<string name="dialog_pcloud_credentials_updated">新しいpCloudのアカウントを追加する場合は、このURL<a href="https://www.pcloud.com">www.pcloud.com</a>をタップし、現在のアカウントからログアウトして、このアプリの「+」をもう一度タップして、新しいクラウド接続を作成してください。</string>
 	<string name="permission_snackbar_auth_local_vault">ローカルの金庫を使用するには、Cryptomator がストレージにアクセスする許可が必要です</string>
 	<string name="permission_snackbar_auth_auto_upload">自動的に画像をアップロードするには、Cryptomator がストレージにアクセスする許可が必要です</string>
+	<string name="permission_snackbar_notifications">金庫の状態などを表示するには、Cryptomator に通知権限が必要です。</string>
 	<!-- # error reports -->
 	<!-- # misc -->
 	<!-- ## file size helper -->

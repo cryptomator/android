@@ -10,7 +10,7 @@
 	<string name="error_invalid_passphrase">Falsches Passwort</string>
 	<string name="error_file_or_folder_exists">Die Datei oder der Ordner existiert bereits.</string>
 	<string name="error_vault_version_not_supported">Tresorversion %1$s wird nicht unterstützt. Dieser Tresor wurde mit einer älteren oder neueren Version von Cryptomator erstellt.</string>
-	<string name="error_vault_config_file_missing_due_to_format_999">%1$s -Datei fehlt in Ihrem Tresorordner. Stellen Sie sicher, dass diese Datei in Ihrem Tresorordner in der Cloud existiert.</string>
+	<string name="error_vault_config_file_missing_due_to_format_999">Datei %1$s fehlt in Ihrem Tresorordner. Stellen Sie sicher, dass diese Datei in Ihrem Tresorordner in der Cloud existiert.</string>
 	<string name="error_vault_already_exists">Tresor existiert bereits.</string>
 	<string name="error_no_such_file">Datei wurde nicht gefunden.</string>
 	<string name="error_vault_has_been_locked">Tresor wurde gesperrt.</string>
@@ -29,7 +29,7 @@
 	<string name="error_play_services_not_available">Google-Play-Dienste nicht installiert</string>
 	<string name="error_biometric_auth_aborted">Biometrischer Login abgebrochen</string>
 	<string name="error_vault_version_mismatch">Die in %1$s angegebene Version ist nicht identisch mit der Version in %2$s</string>
-	<string name="error_vault_key_invalid">%1$s stimmt nicht mit %2$s überein</string>
+	<string name="error_vault_key_invalid">%1$s passt nicht zu diesem %2$s</string>
 	<string name="error_vault_config_loading">Allgemeiner Fehler beim Laden der Tresorkonfiguration</string>
 	<string name="error_file_not_found_after_opening_using_3party">Lokale Datei ist nach dem Zurückwechseln zu Cryptomator nicht mehr vorhanden. Mögliche Änderungen können nicht in die Cloud übertragen werden.</string>
 	<string name="error_no_such_bucket">Bucket existiert nicht</string>
@@ -217,7 +217,7 @@
 	<!-- ## screen: cryptomator app variants -->
 	<string name="screen_cryptomator_variants_title">Varianten von Cryptomator</string>
 	<string name="screen_cryptomator_variants_lite_title">Haupt-Repository von F-Droid</string>
-	<string name="screen_cryptomator_variants_lite_description">Ausgeschlossen weil sie API-Schlüssel benötigen.</string>
+	<string name="screen_cryptomator_variants_lite_description">Ausgeschlossen, weil sie API-Schlüssel benötigen.</string>
 	<string name="screen_cryptomator_variants_lite_install">Installieren</string>
 	<string name="screen_cryptomator_variants_fdroid_title">F-Droid-Repository von Cryptomator</string>
 	<string name="screen_cryptomator_variants_fdroid_description">Ausgeschlossen, weil es proprietäre Abhängigkeiten enthält.</string>
@@ -312,7 +312,7 @@
 	<string name="dialog_app_is_obscured_info_neutral_button">Schließen</string>
 	<string name="dialog_vaults_removed_during_migration_title">Bitte Tresore für die %1s-Cloud erneut hinzufügen</string>
 	<string name="dialog_vaults_removed_during_migration_hint">Während der Migration auf diese App-Version müssen wir folgende Tresore aus der App entfernen:\n%2s \n\nDiese Tresore werden nicht aus der Cloud entfernt, sondern nur aus dieser App. Entschuldigung für die Unannehmlichkeiten. Füge diese Tresore bitte erneut hinzu, um weiter mit ihnen zu arbeiten.</string>
-	<string name="dialog_vault_is_root_folder_of_cloud_title">Tresor ist Wurzelverzeichnis der Cloud-Verbindung</string>
+	<string name="dialog_vault_is_root_folder_of_cloud_title">Tresor ist das Wurzelverzeichnis der Cloud-Verbindung</string>
 	<string name="dialog_vault_is_root_folder_of_cloud_hint">Erstelle eine neue Cloud-Verbindung, wo du mindestens den übergeordneten Ordner dieses Tresors als Wurzelverzeichnis auswählst, um diesen Tresor hinzuzufügen.</string>
 	<string name="dialog_disable_secure_screen_disclaimer_hint">Dies ist eine Sicherheitsfunktion, die andere Anwendungen daran hindert, Nutzer zu ungewollten Aktionen zu verleiten.\n\nDurch Deaktivieren bestätigst du, dass du dir <a href="https://docs.cryptomator.org/en/1.6/android/settings/#screen-security">der Risiken bewusst</a> bist.</string>
 	<string name="dialog_delete_cloud_connection_with_vaults_message">Bist du dir sicher, dass du die Cloud-Verbindung entfernen möchtest?</string>
@@ -348,6 +348,7 @@
 	<string name="dialog_pcloud_credentials_updated">Falls du ein neues pCloud-Konto hinzufügen wolltest, klicke auf diese Url <a href="https://www.pcloud.com">www.pcloud.com</a>, melde dich vom aktuellen Konto ab und klicke in dieser App erneut auf das „+“, um eine neue Cloud-Verbindung zu erstellen.</string>
 	<string name="permission_snackbar_auth_local_vault">Cryptomator benötigt Speicherzugriff, um lokale Tresore nutzen zu können</string>
 	<string name="permission_snackbar_auth_auto_upload">Cryptomator benötigt Zugriff auf den Speicher um den automatischen Foto-Upload zu nutzen</string>
+	<string name="permission_snackbar_notifications">Cryptomator benötigt Benachrichtigungsberechtigungen, beispielsweise zum Anzeigen des Tresorstatus</string>
 	<!-- # error reports -->
 	<!-- # misc -->
 	<!-- ## file size helper -->

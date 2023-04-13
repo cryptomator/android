@@ -350,6 +350,7 @@
 	<string name="dialog_pcloud_credentials_updated">Если вы намеревались добавить новую учётную запись pCloud, нажмите на этот URL <a href="https://www.pcloud.com">www.pcloud.com</a>, выйдите из текущей учётной записи и снова нажмите \'+\' в этом приложении, чтобы создать новое облачное подключение.</string>
 	<string name="permission_snackbar_auth_local_vault">Для использования локальных хранилищ необходим доступ к месту хранения</string>
 	<string name="permission_snackbar_auth_auto_upload">Для автозагрузки фото у Cryptomator должен быть доступ к месту хранения</string>
+	<string name="permission_snackbar_notifications">Для отображения состояния хранилища Cryptomator требуется разрешение на уведомление</string>
 	<!-- # error reports -->
 	<!-- # misc -->
 	<!-- ## file size helper -->
