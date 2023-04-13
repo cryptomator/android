@@ -350,6 +350,7 @@
 	<string name="dialog_pcloud_credentials_updated">Jeśli chcesz dodać nowe konto pCloud, przejdź na podany adres <a href="https://www.pcloud.com">www.pcloud.com</a>, wyloguj się z aktualnie zalogowanego konta i ponownie kliknij na \'+\' aby utworzyć nowe połączenie z chmurą.</string>
 	<string name="permission_snackbar_auth_local_vault">Cryptomator potrzebuje dostępu do pamięci lokalnej, aby uzyskać dostęp do sejfu</string>
 	<string name="permission_snackbar_auth_auto_upload">Cryptomator potrzebuje dostępu do pamięci lokalnej, aby automatycznie przesyłać zdjęcia</string>
+	<string name="permission_snackbar_notifications">Cryptomator potrzebuje uprawnień do powiadomień, aby wyświetlić np. status sejfu</string>
 	<!-- # error reports -->
 	<!-- # misc -->
 	<!-- ## file size helper -->

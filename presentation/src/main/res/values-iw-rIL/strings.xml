@@ -350,6 +350,7 @@
 	<string name="dialog_pcloud_credentials_updated">אם ברצונך להוסיף חשבון pCloud חדש, לחץ על הקישור <a href="https://www.pcloud.com">www.pcloud.com</a>, התנתק מהחשבון הנוכחי ולחץ על ה \'+\' בישום זה ליצירת חיבור ענן חדש.</string>
 	<string name="permission_snackbar_auth_local_vault">Cryptomator זקוק להרשאת גישה לזיכרון המכשיר כדי להשתמש בכספת מקומית</string>
 	<string name="permission_snackbar_auth_auto_upload">Cryptomator זקוק להרשאת גישה לזיכרון המכשיר כדי לבצע העלאה אוטומטית של תמונות</string>
+	<string name="permission_snackbar_notifications">Cryptomator צריך הרשאה לשליחת התראות על מנת, לדוגמה, להציג לכם את מצב הכספת</string>
 	<!-- # error reports -->
 	<!-- # misc -->
 	<!-- ## file size helper -->

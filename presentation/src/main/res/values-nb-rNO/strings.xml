@@ -348,6 +348,7 @@
 	<string name="dialog_pcloud_credentials_updated">Dersom du akter å legge til en ny pCloud-konto, trykk på denne URL-en <a href="https://www.pcloud.com">www.pcloud.com</a>, logg ut fra den nåværende kontoen og trykk på «+» i denne app\'en for å opprette en ny nettskyforbindelse.</string>
 	<string name="permission_snackbar_auth_local_vault">Cryptomator trenger lagringstilgang for å bruke lokale hvelv</string>
 	<string name="permission_snackbar_auth_auto_upload">Cryptomator trenger lagringstilgang for å bruke automatisk bildeopplasting</string>
+	<string name="permission_snackbar_notifications">Cryptomator trenger varseltillatelser for å for eksempel vise hvelvets status</string>
 	<!-- # error reports -->
 	<!-- # misc -->
 	<!-- ## file size helper -->

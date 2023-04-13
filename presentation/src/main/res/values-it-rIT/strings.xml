@@ -348,6 +348,7 @@
 	<string name="dialog_pcloud_credentials_updated">Se hai intenzione di aggiungere un nuovo account pCloud, tocca questo url <a href="https://www.pcloud.com">www.pcloud. om</a>, esci dall\'account corrente e tocca di nuovo il \'+\' in questa app per creare una nuova connessione cloud.</string>
 	<string name="permission_snackbar_auth_local_vault">Cryptomator ha bisogno dell\'accesso all\'archivio per utilizzare le cassaforti locali</string>
 	<string name="permission_snackbar_auth_auto_upload">Cryptomator ha bisogno di accesso all\'archivio per utilizzare il caricamento automatico delle foto</string>
+	<string name="permission_snackbar_notifications">Cryptomator necessita dei permessi di notifica per visualizzare lo stato della cassaforte ad esempio</string>
 	<!-- # error reports -->
 	<!-- # misc -->
 	<!-- ## file size helper -->
