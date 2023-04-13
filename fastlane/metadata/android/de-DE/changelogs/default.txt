@@ -1,1 +1,0 @@
-- Problem mit Speicher- und Benachrichtigungsberechtigungen unter Android Version 13 behoben

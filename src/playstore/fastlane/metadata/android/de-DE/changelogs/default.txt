@@ -1,3 +1,3 @@
-- Update auf das neue Material3-Design
-- Authentifizierungsfehler mit Umlauten im WebDAV-Passwort bei Verwendung der Digest-Authentifizierung behoben
-- Öffnen des Kauflinks in der F-Droid- und Website-Variante behoben
+- Anpassungen zur Integration in das F-Droid Haupt-Repository abgeschlossen
+- SHA-256 Fingerabdruck eines ungültigen WebDAV TLS Zertifikats wird angezeigt
+- Übersetzungen aktualisiert

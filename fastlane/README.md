@@ -31,13 +31,29 @@ Run all the tests
 
 Deploy new version to Google Play and APK Store options: beta:false (default)
 
+### android checkMetadata
+
+```sh
+[bundle exec] fastlane android checkMetadata
+```
+
+Check Metadata
+
+### android updateMetadata
+
+```sh
+[bundle exec] fastlane android updateMetadata
+```
+
+Update Metadata
+
 ### android checkVersionCodeSet
 
 ```sh
 [bundle exec] fastlane android checkVersionCodeSet
 ```
 
-
+Check if the version code was set
 
 ### android checkTrackingAddedInDependencyUsingIzzyScript
 
