@@ -31,37 +31,13 @@ Run all the tests
 
 Deploy new version to Google Play and APK Store options: beta:false (default)
 
-### android deployToPlaystore
+### android checkVersionCodeSet
 
 ```sh
-[bundle exec] fastlane android deployToPlaystore
+[bundle exec] fastlane android checkVersionCodeSet
 ```
 
-Deploy new version to Play Store
 
-### android deployToServer
-
-```sh
-[bundle exec] fastlane android deployToServer
-```
-
-Deploy new version to server
-
-### android deployToFDroid
-
-```sh
-[bundle exec] fastlane android deployToFDroid
-```
-
-Deploy new version to F-Droid
-
-### android deployLite
-
-```sh
-[bundle exec] fastlane android deployLite
-```
-
-Deploy new lite version
 
 ### android checkTrackingAddedInDependencyUsingIzzyScript
 

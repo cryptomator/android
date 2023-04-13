@@ -26,6 +26,8 @@ platform :android do |options|
     # use english-change-log for french language too
     FileUtils.cp(release_note_path_en, "metadata/android/fr-FR/changelogs/default.txt")
 
+    checkVersionCodeSet(alpha:options[:alpha], beta:options[:beta])
+
     deployToPlaystore(alpha:options[:alpha], beta:options[:beta])
     deployToServer(alpha:options[:alpha], beta:options[:beta])
     deployToFDroid(alpha:options[:alpha], beta:options[:beta])
@@ -41,8 +43,16 @@ platform :android do |options|
     )
   end
 
+  lane :checkVersionCodeSet do |options|
+    puts "Make sure you adjusted androidVersionName and set androidVersionCode to #{build} before building and tagging!!!"
+    puts "If check failed, adjust/commit/tag it and restart when finished"
+    puts "When merged to develop, set it back to getVersionCode()"
+
+    sh("cat ../build.gradle | grep -q 'androidVersionCode = #{build}'")
+  end
+
   desc "Deploy new version to Play Store"
-  lane :deployToPlaystore do |options|
+  private_lane :deployToPlaystore do |options|
     deploy_target = "production"
 
     if options[:alpha]
@@ -88,7 +98,7 @@ platform :android do |options|
   end
 
   desc "Deploy new version to server"
-  lane :deployToServer do |options|
+  private_lane :deployToServer do |options|
     gradle(task: "clean")
 
     gradle(
@@ -173,7 +183,7 @@ platform :android do |options|
   end
 
   desc "Deploy new version to F-Droid"
-  lane :deployToFDroid do |options|
+  private_lane :deployToFDroid do |options|
     gradle(task: "clean")
 
     gradle(
@@ -222,7 +232,7 @@ platform :android do |options|
   end
 
   desc "Deploy new lite version"
-  lane :deployLite do |options|
+  private_lane :deployLite do |options|
     sh("docker build -t cryptomator-android ../buildsystem")
     sh("docker run --rm -u $(id -u):$(id -g) -v $(cd .. && pwd):/project -w /project cryptomator-android ./gradlew clean assembleLiteRelease")
 
@@ -326,6 +336,8 @@ platform :android do |options|
 
   desc "Dry run - check tracking added for all flavors"
   lane :dryRun do |options|
+    checkVersionCodeSet(alpha:options[:alpha], beta:options[:beta])
+
     gradle(task: "clean")
 
     gradle(
