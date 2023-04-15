@@ -397,7 +397,7 @@
 	<string name="notification_update_check_finished_latest">Neueste Version installiert</string>
 	<string name="notification_authenticating">Melde an&#8230;</string>
 	<string name="screen_settings_lru_cache">Zwischenspeicher</string>
-	<string name="screen_settings_lru_cache_toggle_summary">Kürzlich geöffnete Dateien für eine spätere Wiederverwendung beim erneuten Öffnen lokal und verschlüsselt auf dem Gerät zwischenspeichern</string>
+	<string name="screen_settings_lru_cache_toggle_summary">Speichere kürzlich geöffnete Dateien lokal und verschlüsselt auf dem Gerät für eine spätere Wiederverwendung beim erneuten öffnen</string>
 	<string name="screen_settings_lru_cache_size">Zwischenspeichergröße gesamt</string>
 	<string name="screen_settings_clear_lru_cache_size">Zwischenspeicher leeren</string>
 	<string name="screen_settings_lru_cache_changed__restart_toast">Änderungen werden nach einem Neustart der App aktiv</string>
