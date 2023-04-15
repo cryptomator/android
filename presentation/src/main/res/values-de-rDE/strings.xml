@@ -10,7 +10,7 @@
 	<string name="error_invalid_passphrase">Falsches Passwort</string>
 	<string name="error_file_or_folder_exists">Die Datei oder der Ordner existiert bereits.</string>
 	<string name="error_vault_version_not_supported">Tresorversion %1$s wird nicht unterstützt. Dieser Tresor wurde mit einer älteren oder neueren Version von Cryptomator erstellt.</string>
-	<string name="error_vault_config_file_missing_due_to_format_999">Datei %1$s fehlt in Ihrem Tresorordner. Stellen Sie sicher, dass diese Datei in Ihrem Tresorordner in der Cloud existiert.</string>
+	<string name="error_vault_config_file_missing_due_to_format_999">Die Datei %1$s fehlt in deinem Tresor-Ordner. Stelle sicher, dass diese Datei in deinem Tresor-Ordner in der Cloud vorhanden ist.</string>
 	<string name="error_vault_already_exists">Tresor existiert bereits.</string>
 	<string name="error_no_such_file">Datei wurde nicht gefunden.</string>
 	<string name="error_vault_has_been_locked">Tresor wurde gesperrt.</string>
@@ -29,7 +29,7 @@
 	<string name="error_play_services_not_available">Google-Play-Dienste nicht installiert</string>
 	<string name="error_biometric_auth_aborted">Biometrischer Login abgebrochen</string>
 	<string name="error_vault_version_mismatch">Die in %1$s angegebene Version ist nicht identisch mit der Version in %2$s</string>
-	<string name="error_vault_key_invalid">%1$s passt nicht zu diesem %2$s</string>
+	<string name="error_vault_key_invalid">%1$s stimmt nicht mit %2$s überein</string>
 	<string name="error_vault_config_loading">Allgemeiner Fehler beim Laden der Tresorkonfiguration</string>
 	<string name="error_file_not_found_after_opening_using_3party">Lokale Datei ist nach dem Zurückwechseln zu Cryptomator nicht mehr vorhanden. Mögliche Änderungen können nicht in die Cloud übertragen werden.</string>
 	<string name="error_no_such_bucket">Bucket existiert nicht</string>
@@ -217,16 +217,16 @@
 	<!-- ## screen: cryptomator app variants -->
 	<string name="screen_cryptomator_variants_title">Varianten von Cryptomator</string>
 	<string name="screen_cryptomator_variants_lite_title">Haupt-Repository von F-Droid</string>
-	<string name="screen_cryptomator_variants_lite_description">Ausgeschlossen, weil sie API-Schlüssel benötigen.</string>
+	<string name="screen_cryptomator_variants_lite_description">Ausgeschlossen, da dieses Feature einen API-Schlüssel benötigt.</string>
 	<string name="screen_cryptomator_variants_lite_install">Installieren</string>
 	<string name="screen_cryptomator_variants_fdroid_title">F-Droid-Repository von Cryptomator</string>
 	<string name="screen_cryptomator_variants_fdroid_description">Ausgeschlossen, weil es proprietäre Abhängigkeiten enthält.</string>
-	<string name="screen_cryptomator_variants_fdroid_add_repo_hint">Cryptomator Repository zur F-Droid App hinzufügen.</string>
+	<string name="screen_cryptomator_variants_fdroid_add_repo_hint">Füge das Cryptomator-Repository zur F-Droid App hinzu.</string>
 	<string name="screen_cryptomator_variants_fdroid_add_repo">Hinzufügen</string>
-	<string name="screen_cryptomator_variants_fdroid_install_hint">Installiere Cryptomator mit F-Droid.\nWenn ein nicht gefundener Fehler angezeigt wird, warte bis die F-Droid-Synchronisation abgeschlossen ist.</string>
+	<string name="screen_cryptomator_variants_fdroid_install_hint">Installiere Cryptomator über F-Droid.\nWenn ein Fehler \"nicht gefunden\" angezeigt wird, warte, bis die F-Droid-Synchronisation abgeschlossen ist.</string>
 	<string name="screen_cryptomator_variants_website_title">Website</string>
 	<string name="screen_cryptomator_variants_website_description">Enthält proprietäre Abhängigkeiten.</string>
-	<string name="screen_cryptomator_variants_installation_hint">Der Wechsel von oder zur Haupt-F-Droid Repository-Variante erfordert ein neues Setup der App.</string>
+	<string name="screen_cryptomator_variants_installation_hint">Ein Wechsel von oder zu der Hauptvariante des F-Droid-Repository erfordert eine neue Einrichtung der App.</string>
 	<!-- # dialogs -->
 	<string name="dialog_button_cancel">Abbrechen</string>
 	<string name="dialog_enter_password_positive_button">Entsperren</string>
@@ -291,7 +291,7 @@
 	<string name="dialog_accept_ssl_certificate_details">Details</string>
 	<string name="dialog_accept_ssl_certificate_security_checkbox">Dies könnte ein Sicherheitsrisiko sein. Ich weiß was ich tue.</string>
 	<string name="dialog_ask_ignore_battery_optimizations_title">Akkuoptimierungen deaktivieren</string>
-	<string name="dialog_ask_ignore_battery_optimizations_hint">Um neue Bilder und Videos abzurufen, ohne im Hintergrund zu laufen, müssen wir die Batterieoptimierung deaktivieren. Aber keine Sorge, %1$s verbraucht nicht viel Energie.\n\nUm diese Einstellung anzuwenden, ändere \'Nicht optimiert\' auf \'Alle Apps\', wähle %1$s und wähle \"Nicht optimieren\" nach Klick auf \'%2$s\' in diesem Dialog.</string>
+	<string name="dialog_ask_ignore_battery_optimizations_hint">Um neue Bilder und Videos abzurufen, ohne dass die App im Hintergrund ausgeführt wird, müssen wir die Batterie-Optimierung deaktivieren. Aber keine Sorge, %1$s verbraucht nicht viel Energie.\n\nUm das zu tun, gehe zu den Einstellungen, wähle \'Alle Apps\' und ändere die Einstellung von %1$s von \'Optimierung an\' zu \'Nicht optimieren\', nachdem du \'%2$s\' in diesem Dialog ausgewählt hast.</string>
 	<string name="dialog_ask_ignore_battery_optimizations_checkbox">Nicht erneut fragen?</string>
 	<string name="dialog_http_security_hint">Die Verwendung von HTTP ist unsicher. Wir empfehlen stattdessen die Verwendung von HTTPS. Wenn du dir der Risiken bewusst bist, kannst du mit HTTP fortfahren.</string>
 	<string name="dialog_http_security_checkbox">Zu HTTPS ändern</string>
@@ -308,7 +308,7 @@
 	<string name="dialog_disable_app_obscured_disclaimer_title">Achtung</string>
 	<string name="dialog_disable_app_obscured_positive_button">Deaktivieren</string>
 	<string name="dialog_app_is_obscured_info_title">App wird verdeckt</string>
-	<string name="dialog_app_is_obscured_info_hint">Eine App blendet etwas über Cryptomator ein (z.B. ein Blaulichtfilter oder eine Nachtmodus-App). Aus Sicherheitsgründen ist Cryptomator deaktiviert.\n\n<a href="https://docs.cryptomator.org/en/1.6/android/settings/#block-app-when-obscured">Wie Cryptomator aktiviert werden kann</a></string>
+	<string name="dialog_app_is_obscured_info_hint">Eine andere App zeigt etwas über Cryptomator an (z.B. ein Blaulichtfilter- oder Nachtmodus-App). Aus Sicherheitsgründen ist Cryptomator deaktiviert.\n\n<a href="https://docs.cryptomator.org/en/1.6/android/settings/#block-app-when-obscured">Wie man Cryptomator aktivieren kann</a></string>
 	<string name="dialog_app_is_obscured_info_neutral_button">Schließen</string>
 	<string name="dialog_vaults_removed_during_migration_title">Bitte Tresore für die %1s-Cloud erneut hinzufügen</string>
 	<string name="dialog_vaults_removed_during_migration_hint">Während der Migration auf diese App-Version müssen wir folgende Tresore aus der App entfernen:\n%2s \n\nDiese Tresore werden nicht aus der Cloud entfernt, sondern nur aus dieser App. Entschuldigung für die Unannehmlichkeiten. Füge diese Tresore bitte erneut hinzu, um weiter mit ihnen zu arbeiten.</string>
@@ -345,10 +345,10 @@
 	<string name="dialog_no_dir_file_message">Der Ordner \'%1$s\' in der Cloud hat keine gültige Verzeichnis-Datei. Es könnte sein, dass der Ordner auf einem anderen Gerät erstellt und noch nicht vollständig mit der Cloud synchronisiert wurde. Bitte überprüfe, ob die folgende Datei in der Cloud existiert und nicht leer ist:\n%2$s</string>
 	<string name="dialog_no_more_images_to_display">Keine weiteren Bilder anzuzeigen&#8230;</string>
 	<string name="dialog_pcloud_credentials_updated_title">Anmeldedaten von \'%1$s\' aktualisiert</string>
-	<string name="dialog_pcloud_credentials_updated">Falls du ein neues pCloud-Konto hinzufügen wolltest, klicke auf diese Url <a href="https://www.pcloud.com">www.pcloud.com</a>, melde dich vom aktuellen Konto ab und klicke in dieser App erneut auf das „+“, um eine neue Cloud-Verbindung zu erstellen.</string>
+	<string name="dialog_pcloud_credentials_updated">Wenn du ein neues pCloud-Konto hinzuzufügen möchtest, tippe auf diese URL <a href="https://www.pcloud.com">www.pcloud.com</a>, melde dich von deinem aktuellen Konto ab und tippe erneut auf das \'+\' in dieser App, um eine neue Cloud-Verbindung zu erstellen.</string>
 	<string name="permission_snackbar_auth_local_vault">Cryptomator benötigt Speicherzugriff, um lokale Tresore nutzen zu können</string>
 	<string name="permission_snackbar_auth_auto_upload">Cryptomator benötigt Zugriff auf den Speicher um den automatischen Foto-Upload zu nutzen</string>
-	<string name="permission_snackbar_notifications">Cryptomator benötigt Benachrichtigungsberechtigungen, beispielsweise zum Anzeigen des Tresorstatus</string>
+	<string name="permission_snackbar_notifications">Cryptomator benötigt die Berechtigung zur Anzeige von Benachrichtigungen, um beispielsweise den Status des Tresors anzeigen zu können</string>
 	<!-- # error reports -->
 	<!-- # misc -->
 	<!-- ## file size helper -->
@@ -380,7 +380,7 @@
 	<string name="dialog_unable_to_auto_upload_files_title">Automatischer Upload nicht möglich</string>
 	<!-- notification -->
 	<string name="notification_unlocked">Tresore entsperrt: %1$d</string>
-	<string name="notification_timeout">Auto-Lock in %1$s</string>
+	<string name="notification_timeout">Automatische Sperre in %1$s</string>
 	<string name="notification_lock_all">Alle sperren</string>
 	<string name="notification_cancel_auto_upload">Hochladen abbrechen</string>
 	<string name="notification_auto_upload_title">Automatisches Foto-Hochladen läuft</string>
@@ -388,8 +388,8 @@
 	<string name="notification_auto_upload_finished_title">Automatisches Foto-Hochladen beendet</string>
 	<string name="notification_auto_upload_finished_message">%1$d Bilder wurden in den Tresor hochgeladen</string>
 	<string name="notification_auto_upload_failed_title">Fehler beim automatischen Photo-Hochladen</string>
-	<string name="notification_auto_upload_failed_general_error">Generaller Fehler während dem Hochladen.</string>
-	<string name="notification_auto_upload_failed_due_to_folder_not_exists">Ausgewählter Ordner für das Photo-Hochladen existiert nicht mehr. In der Einstellungen neuen auswählen</string>
+	<string name="notification_auto_upload_failed_general_error">Ein allgemeiner Fehler ist während dem Hochladen aufgetreten.</string>
+	<string name="notification_auto_upload_failed_due_to_folder_not_exists">Der ausgewählte Ordner für den Upload ist nicht mehr verfügbar. Gehe zu den Einstellungen und wähle einen neuen Ordner aus</string>
 	<string name="notification_auto_upload_failed_due_to_vault_locked">Tresor wurde während dem Hochladen gesperrt, bitte Tresor erneut öffnen, um fortzufahren</string>
 	<string name="notification_auto_upload_failed_due_to_vault_not_found">Der Tresor für den automatischen Upload existiert nicht mehr.</string>
 	<string name="notification_open_writable_file_title">Datei mit Schreibrechten geöffnet</string>
