@@ -1,3 +1,2 @@
-- Completed customizations for integration into the F-Droid main repository
-- Show SHA-256 fingerprint of an invalid WebDAV TLS certificate
+- Further customizations for integration into the F-Droid main repository
 - Update translations

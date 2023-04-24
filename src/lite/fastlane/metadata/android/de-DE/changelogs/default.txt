@@ -1,3 +1,2 @@
-- Anpassungen zur Integration in das F-Droid Haupt-Repository abgeschlossen
-- SHA-256 Fingerabdruck eines ungültigen WebDAV TLS Zertifikats wird angezeigt
+- Weitere Anpassungen zur Integration in das F-Droid Haupt-Repository
 - Übersetzungen aktualisiert

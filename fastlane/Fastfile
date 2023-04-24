@@ -120,7 +120,7 @@ platform :android do |options|
       skip_upload_metadata: false,
       skip_upload_images: true,
       skip_upload_screenshots: true,
-      metadata_path: playstoreMetadataDir
+      metadata_path: "src/playstore/fastlane/metadata/android/"
     )
 
     FileUtils.cp(lane_context[SharedValues::GRADLE_APK_OUTPUT_PATH], "release/Cryptomator-#{version}_playstore_signed.apk")
