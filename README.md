@@ -12,7 +12,8 @@ Cryptomator for Android is currently available in the following  distribution ch
 1. [Using Google Play](https://play.google.com/store/apps/details?id=org.cryptomator)
 2. [Using Cryptomator's Website](https://cryptomator.org/android/)
 3. [Using Cryptomator's F-Droid Repository](https://cryptomator.org/android/)
-4. Building from source using Gradle (instructions below)
+4. [Using F-Droid's Main Repository](https://f-droid.org/en/packages/org.cryptomator.lite)
+5. Building from source using Gradle (instructions below)
 
 ## Building
 
