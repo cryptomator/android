@@ -5,11 +5,11 @@
 	<!-- # error messages -->
 	<string name="error_generic">Виникла помилка</string>
 	<string name="error_authentication_failed">Помилка автентифікації</string>
-	<string name="error_authentication_failed_re_authenticate">Помилка автентифікації, будь ласка увійдіть за допомогою %1$s</string>
+	<string name="error_authentication_failed_re_authenticate">Помилка автентифікації, будь ласка, увійдіть за допомогою %1$s</string>
 	<string name="error_no_network_connection">Відсутнє з\'єднання з мережею</string>
-	<string name="error_invalid_passphrase">Неправильний пароль</string>
-	<string name="error_file_or_folder_exists">Файл чи тека вже існує.</string>
-	<string name="error_vault_version_not_supported">Версія сховища %1$s не підтримується. Це сховище було створено застарілою або новішою версією Cryptomator.</string>
+	<string name="error_invalid_passphrase">Невірний пароль</string>
+	<string name="error_file_or_folder_exists">Файл чи директорія вже існує.</string>
+	<string name="error_vault_version_not_supported">Версія сховища %1$s не підтримується. Це сховище було створено старішою або новішою версією Cryptomator.</string>
 	<string name="error_vault_config_file_missing_due_to_format_999">%1$s Файл відсутній у вашому сховищі. Переконайтеся, що цей файл існує у теці вашого сховища у хмарі.</string>
 	<string name="error_vault_already_exists">Сховище вже існує.</string>
 	<string name="error_no_such_file">Файлу не існує.</string>
@@ -348,10 +348,13 @@
 	<string name="dialog_no_more_images_to_display">Зображень для показу більше немає&#8230;</string>
 	<string name="dialog_pcloud_credentials_updated_title">Дані облікового запису \'%1$s\' оновлено</string>
 	<string name="dialog_pcloud_credentials_updated">Якщо ви хочете додати новий обліковий запис pCloud, натисніть на цю адресу <a href="https://www.pcloud.com">www.pcloud. om</a>, вийдіть з поточного облікового запису та натисніть ще раз на \'+\' у цьому додатку, щоб створити нове хмарне підключення.</string>
-	<string name="permission_snackbar_auth_local_vault">Для використання локальних сховищ необхідно надати доступ до місця зберігання</string>
+	<string name="permission_snackbar_auth_local_vault">Для використання локальних сховищ необхідно надати Cryptomator доступ до місця зберігання</string>
+	<string name="permission_snackbar_auth_auto_upload">Для автоматичного завантаження фото необхідно надати Cryptomator доступ до місця зберігання</string>
+	<string name="permission_snackbar_notifications">Для відображення статусу сховища необхідно надати Cryptomator дозвіл на сповіщення</string>
 	<!-- # error reports -->
 	<!-- # misc -->
 	<!-- ## file size helper -->
+	<string name="file_size_zero">0 КБ</string>
 	<string name="file_size_unit_bytes">байти</string>
 	<string name="file_size_unit_kilo_bytes">кБ</string>
 	<string name="file_size_unit_mega_bytes">МБ</string>
@@ -374,7 +377,11 @@
 	<string name="time_unit_years_pl">років</string>
 	<!-- ## biometric authentication -->
 	<string name="dialog_biometric_auth_title">Біометричний вхід</string>
+	<string name="dialog_biometric_auth_message">Увійдіть, використовуючи ваші біометричні дані</string>
+	<string name="dialog_biometric_auth_use_password">Використовувати пароль сховища</string>
+	<string name="dialog_unable_to_auto_upload_files_title">Не вдалося автоматично завантажити файли</string>
 	<!-- notification -->
+	<string name="notification_unlocked">Розблоковано сховищ: %1$d</string>
 	<string name="notification_timeout">Автоблокування через %1$s</string>
 	<string name="notification_lock_all">Заблокувати всі</string>
 	<string name="notification_cancel_auto_upload">Скасувати вивантаження</string>
@@ -387,12 +394,21 @@
 	<string name="notification_auto_upload_failed_due_to_folder_not_exists">Вибрана тека для вивантаження більше недоступна. Перейдіть у налаштування для вибору іншої</string>
 	<string name="notification_auto_upload_failed_due_to_vault_locked">Vault заблоковано під час вивантаження, будь ласка, відкрийте vault знову, щоб продовжити</string>
 	<string name="notification_auto_upload_failed_due_to_vault_not_found">Vault, визначений для автоматичного вивантаження, більше не існує.</string>
+	<string name="notification_open_writable_file_title">Відкрити доступний для запису файл</string>
+	<string name="notification_open_writable_file_message">Сховище розблоковано до завершення редагування</string>
+	<string name="notification_update_check_finished_latest">Встановлено найновішу версію</string>
+	<string name="notification_authenticating">Аутентифікація&#8230;</string>
 	<string name="screen_settings_lru_cache">Кеш</string>
+	<string name="screen_settings_lru_cache_toggle_summary">Кешувати зашифровані на пристрої нещодавні файли для подальшого використання при повторному відкритті</string>
+	<string name="screen_settings_lru_cache_size">Загальний розмір кешу</string>
 	<string name="screen_settings_clear_lru_cache_size">Очистити кеш</string>
+	<string name="screen_settings_lru_cache_changed__restart_toast">Зміни наберуть чинності після перезапуску додатку</string>
 	<string name="screen_settings_license">Зареєстровано за</string>
+	<string name="screen_settings_license_mail">%1$s</string>
 	<string name="dialog_settings_update_check_interval_title">Інтервал перевірки оновлень</string>
 	<string name="screen_settings_check_updates">Перевiрити наявнiсть оновлень</string>
 	<string name="screen_settings_last_check_updates">Останній запуск %1$s</string>
+	<string name="dialog_cache_size_title">Розмір кешу на кожне хмарне сховище</string>
 	<!-- lock timeout names -->
 	<string name="lock_timeout_instant">Миттєво</string>
 	<string name="lock_timeout_1m">1 хвилини</string>
