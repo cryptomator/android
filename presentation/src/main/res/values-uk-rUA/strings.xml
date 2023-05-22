@@ -228,6 +228,7 @@
 	<string name="screen_cryptomator_variants_fdroid_install_hint">Встановити Cryptomator використовуючи F-Droid.\nЯкщо відображається помилка \"Не знайдено\", зачекайте поки синхронізацію F-Droid буде завершено.</string>
 	<string name="screen_cryptomator_variants_website_title">Вебсайт</string>
 	<string name="screen_cryptomator_variants_website_description">Містить власні залежності.</string>
+	<string name="screen_cryptomator_variants_installation_hint">Перемикання з головного репозиторію F-Droid або на нього потребує нового налаштування додатку.</string>
 	<!-- # dialogs -->
 	<string name="dialog_button_cancel">Скасувати</string>
 	<string name="dialog_enter_password_positive_button">Розблокувати</string>
@@ -292,6 +293,7 @@
 	<string name="dialog_accept_ssl_certificate_details">Докладно</string>
 	<string name="dialog_accept_ssl_certificate_security_checkbox">Це може спричинити ризики безпеки. Я знаю, що роблю.</string>
 	<string name="dialog_ask_ignore_battery_optimizations_title">Вимкнути оптимізацію використання батареї</string>
+	<string name="dialog_ask_ignore_battery_optimizations_hint">Щоб отримувати нові зображення та відео без роботи у фоновому режимі, необхідно відключити оптимізацію заряду аккумулятора. Проте не хвилюйтесь, %1$s не споживає багато енергії.\n\nЩоб це зробити, змініть \"Додатки без оптимізації\" на \"Усі додатки\", оберіть %1$s і в цьому вікні оберіть \"Не оптимізувати\" після натискання \'%2$s\'.</string>
 	<string name="dialog_ask_ignore_battery_optimizations_checkbox">Не запитувати знову?</string>
 	<string name="dialog_http_security_hint">Використання HTTP небезпечне. Рекомендуємо замість цього використовувати HTTPS. Якщо ви усвідомлюєте ризики, ви можете продовжити з HTTP.</string>
 	<string name="dialog_http_security_checkbox">Змінити на HTTPS</string>
