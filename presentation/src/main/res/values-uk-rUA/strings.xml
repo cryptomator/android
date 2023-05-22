@@ -315,20 +315,40 @@
 	<string name="dialog_vaults_removed_during_migration_title">Будь ласка, знову додайте vaults для %1s хмари</string>
 	<string name="dialog_vaults_removed_during_migration_hint">Переходячи на цю версію додатка потрібно прибрати наступні сховища з додатка:\n%2s\n\nЦі сховища не видаляються з хмарного сховища, а лише прибираються з цього додатка. Перепрошуємо за незручності. Будь ласка, додайте ці сховища повторно, щоб продовжити роботу з ними.</string>
 	<string name="dialog_vault_is_root_folder_of_cloud_title">Сховище є кореневим каталогом хмарного підключення</string>
+	<string name="dialog_vault_is_root_folder_of_cloud_hint">Для додавання цього сховища створіть нове хмарне підключення, в якому оберіть (принаймні) батьківський каталог цього сховища як кореневий каталог.</string>
+	<string name="dialog_disable_secure_screen_disclaimer_hint">Це налаштування пов\'язано із безпекою, і не дозволяє іншим додаткам вводити користувачів в оману та змушувати їх робити не те, чого вони хочуть.\n\nВідключаючи його, ви підтверджуєте, що <a href="https://docs.cryptomator.org/en/1.6/android/settings/#screen-security">усвідомлюєте ризики</a>.</string>
+	<string name="dialog_delete_cloud_connection_with_vaults_message">Ви дійсно хочете видалити це хмарне підключення?</string>
 	<string name="dialog_delete_cloud_connection_with_vaults_hint">Ця дія видалить підключення до хмари та всі сховища з цієї хмари.</string>
 	<string name="dialog_confirm_delete_multiple_title">Видалити %1$d об\'єкти?</string>
 	<string name="dialog_confirm_delete_multiple_message">Ви впевнені, що бажаєте видалити ці об\'єкти?</string>
 	<string name="dialog_confirm_delete_file_message">Ви впевнені, що бажаєте видалити цей файл?</string>
+	<string name="dialog_confirm_delete_folder_message">Це призведе до видалення усього вмісту директорії. Ви дійсно хочете видалити цю директорію?</string>
 	<string name="dialog_biometric_auth_key_invalidated_title">Функція біометричної автентифікації деактивована</string>
+	<string name="dialog_biometric_auth_key_invalidated_message">Оскільки ключ було анульовано, біометрична аутентифікація була деактивована. Для повторного увімкнення відкрийте налаштування Cryptomator.</string>
 	<string name="dialog_enter_license_title">Вкажіть дійсну ліцензію</string>
+	<string name="dialog_enter_license_content">Ми виявили, що ви встановили Cryptomator без використання Google Play Store. Надайте дійсну ліцензію, яку можна придбати на <a href="https://cryptomator.org/android/">https://cryptomator.org/android/</a></string>
+	<string name="dialog_enter_license_not_valid_content">Надана ліцензія недійсна. Переконайтеся, що ви ввели її правильно.</string>
+	<string name="dialog_enter_license_not_valid_content_desktop_supporter_certificate">Наданий ключ - це сертифікат спонсора. Введіть дійсну ліцензію.</string>
+	<string name="dialog_enter_license_no_content">Немає ліцензії. Будь ласка, введіть дійсну ліцензію.</string>
 	<string name="dialog_enter_license_decline_button">Вийти</string>
 	<string name="dialog_license_confirmation_title">Підтвердження ліцензії</string>
+	<string name="dialog_license_confirmation_message">Дякую %1$s за надання дійсної ліцензії.</string>
 	<string name="dialog_update_available_title">Доступне оновлення</string>
+	<string name="dialog_update_available_message">Оновіть Cryptomator до останньої версії. Натисніть ОК, щоб завантажити додаток у фоновому режимі, після чого з\'явиться запит на встановлення.</string>
 	<string name="dialog_update_available_update">Оновити зараз</string>
 	<string name="dialog_update_available_download_site">Перейти на сторінку завантаження</string>
 	<string name="dialog_update_available_cancel">Пізніше</string>
 	<string name="dialog_download_update_title">Завантаження в процесі</string>
+	<string name="dialog_download_update_message">Завантаження останньої версії Cryptomator</string>
+	<string name="dialog_sym_link_title">Директорія - це символічне посилання</string>
+	<string name="dialog_sym_link_message">Ви не можете перейти за цим символічним посиланням</string>
 	<string name="dialog_sym_link_back_button">Назад</string>
+	<string name="dialog_no_dir_file_title">Не вдається завантажити вміст директорії</string>
+	<string name="dialog_no_dir_file_message">У хмарній директорії \'%1$s\' немає коректного файлу директорії. Можливо, директорія була створена на іншому пристрої та ще не повністю синхронізована із хмарним сховищем. Перевірте, чи існує у вашому хмарному сховищі цей файл та чи він не пустий:\n%2$s</string>
+	<string name="dialog_no_more_images_to_display">Зображень для показу більше немає&#8230;</string>
+	<string name="dialog_pcloud_credentials_updated_title">Дані облікового запису \'%1$s\' оновлено</string>
+	<string name="dialog_pcloud_credentials_updated">Якщо ви хочете додати новий обліковий запис pCloud, натисніть на цю адресу <a href="https://www.pcloud.com">www.pcloud. om</a>, вийдіть з поточного облікового запису та натисніть ще раз на \'+\' у цьому додатку, щоб створити нове хмарне підключення.</string>
+	<string name="permission_snackbar_auth_local_vault">Для використання локальних сховищ необхідно надати доступ до місця зберігання</string>
 	<!-- # error reports -->
 	<!-- # misc -->
 	<!-- ## file size helper -->
