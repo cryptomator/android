@@ -12,7 +12,8 @@ Cryptomator for Android is currently available in the following  distribution ch
 1. [Using Google Play](https://play.google.com/store/apps/details?id=org.cryptomator)
 2. [Using Cryptomator's Website](https://cryptomator.org/android/)
 3. [Using Cryptomator's F-Droid Repository](https://cryptomator.org/android/)
-4. Building from source using Gradle (instructions below)
+4. [Using F-Droid's Main Repository](https://f-droid.org/en/packages/org.cryptomator.lite)
+5. Building from source using Gradle (instructions below)
 
 ## Building
 
@@ -36,6 +37,29 @@ For build type
 * **debug**: `DROPBOX_API_KEY_DEBUG`, `ONEDRIVE_API_KEY_DEBUG` and `ONEDRIVE_API_REDIRCT_URI_DEBUG` or `PCLOUD_CLIENT_ID_DEBUG`
 
 Before connecting to Google Drive you have to create a new project in [Google Cloud Platform](https://console.cloud.google.com) with Google Drive API, credentials including Google Drive scopes (read, write, delete,..) and the fingerprint of the key you use to build the app.
+
+### Reproducible Build Cryptomator Lite
+
+Use the Docker image to verify the build of the 'lite' flavor:
+
+1. Clone this repository (don't forget `--recurse-submodules`)
+2. Checkout the tag you want to build, e.g. 1.8.0
+3. Build the image using `docker build -t cryptomator-android .` in the `buildsystem/` directory
+4. Build Cryptomator using `docker run --rm -u $(id -u):$(id -g) -v $(pwd):/project -w /project cryptomator-android ./gradlew clean assembleLiteRelease` in the root of this folder
+5. Compare the build APK with the release version, using e.g. `apksigcopier compare --unsigned apk1 apk2`
+
+## Verify downloaded APK
+
+The published APKs are signed using a certificate with the following SHA-256 fingerprint `f7c3ec3b0d588d3cb52983e9eb1a7421c93d4339a286398e71d7b651e8d8ecdd`
+
+You can verify the fingerprint of the signing key used e.g. with `apksigner verify --print-certs Cryptomator.apk`, which should report
+
+```
+Signer #1 certificate DN: O=Skymatic, L=Bonn, ST=North Rhine-Westphalia, C=DE
+Signer #1 certificate SHA-256 digest: f7c3ec3b0d588d3cb52983e9eb1a7421c93d4339a286398e71d7b651e8d8ecdd
+Signer #1 certificate SHA-1 digest: fcc234014be39e980ebca5c477922f2312e80cdd
+Signer #1 certificate MD5 digest: a34b0b5af30529bf5b096d0e00acefe2
+```
 
 ## Contributing to Cryptomator for Android
 

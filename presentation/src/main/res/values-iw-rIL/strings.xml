@@ -10,6 +10,7 @@
 	<string name="error_invalid_passphrase">סיסמה שגויה</string>
 	<string name="error_file_or_folder_exists">כבר קיימים תיקייה או קובץ בשם זה.</string>
 	<string name="error_vault_version_not_supported">גרסת Vault %1$s אינה נתמכת. גרסא Vault זו נוצרה עם גרסא חדשה או ישנה יותר של Cryptomator.</string>
+	<string name="error_vault_config_file_missing_due_to_format_999">הקובץ %1$s חסר בתיקית הכספת. ודא שהקובץ קיים בתיקית הכספת בענן.</string>
 	<string name="error_vault_already_exists">כספת כבר קיימת.</string>
 	<string name="error_no_such_file">הקובץ לא קיים.</string>
 	<string name="error_vault_has_been_locked">הכספת ננעלה.</string>
@@ -33,6 +34,7 @@
 	<string name="error_file_not_found_after_opening_using_3party">קובץ מקומי לא יופיע לאחר מעבר חזרה ל Cryptomator. שינויים שנעשו עלולים לא להתעדכן בחזרה לענן.</string>
 	<string name="error_no_such_bucket">דלי לא נמצא</string>
 	<string name="error_masterkey_location_not_supported">שינוי מיקום ה Masterkey עדיין לא נתמך</string>
+	<string name="error_interact_with_fdroid_but_fdroid_missing">כשלון בתקשורת מול ישום F-Droid. האם הוא מותקן?</string>
 	<!-- # clouds -->
 	<!-- ## cloud names -->
 	<string name="cloud_names_local_storage">אחסון מקומי</string>
@@ -53,18 +55,27 @@
 	<string name="snack_bar_action_title_sort_oldest">הישן ביותר</string>
 	<string name="snack_bar_action_title_sort_biggest">הגדול ביותר</string>
 	<string name="snack_bar_action_title_sort_smallest">הקטן ביותר</string>
+	<string name="snack_bar_cryptomator_variants_title">למידע נוסף</string>
+	<string name="snack_bar_cryptomator_variants_hint">ענן לא ברשימה?</string>
 	<!-- # screens -->
 	<!-- # screen: vault list -->
 	<string name="screen_vault_list_actions_title">הוסף ל-Cryptomator</string>
 	<string name="screen_vault_list_action_create_new_vault">צור כספת חדשה</string>
 	<string name="screen_vault_list_action_add_existing_vault">הוסף כספת קיימת</string>
 	<string name="screen_vault_list_vault_action_delete">הסר</string>
+	<string name="screen_vault_list_vault_creation_hint">לחץ כאן ליצירת כספת חדשה</string>
 	<string name="screen_vault_list_change_password_successful">הסיסמא שונתה בהצלחה</string>
 	<!-- # screen: file browser -->
 	<string name="screen_file_browser_default_title">כספת</string>
 	<string name="screen_file_browser_add_existing_vault_extra_text">בחר קובץ masterkey</string>
 	<string name="screen_file_browser_create_new_vault_button_text">מקם כאן</string>
 	<string name="screen_file_browser_create_new_vault_extra_text">שם הכספת: %1$s</string>
+	<plurals name="screen_file_browser_subtitle_move">
+		<item quantity="one">העברת %1$s אל</item>
+		<item quantity="two">העברת %2$d פריטים אל</item>
+		<item quantity="many">העברת %2$d פריטים אל</item>
+		<item quantity="other">העבר %2$d פריטים אל</item>
+	</plurals>
 	<string name="screen_file_browser_move_button_text">שנה מיקום</string>
 	<string name="screen_file_browser_msg_empty_folder">תיקיה ריקה</string>
 	<string name="screen_file_browser_file_info_label_date">שונה לפני %1$s</string>
@@ -109,6 +120,7 @@
 	<string name="screen_choose_cloud_service_title">שירותי אחסון בענן</string>
 	<!-- ## screen: cloud connections -->
 	<string name="screen_cloud_connections_title">בחר מיקום</string>
+	<string name="screen_cloud_connections_no_connections">לחץ כאן להוספת מיקומים</string>
 	<string name="screen_cloud_error_webdav_not_supported">נראה שהשרת אינו תומך ב WebDAV</string>
 	<string name="screen_cloud_local_error_no_content_provider">לא נמצא סייר קבצים שתומך בפתיחה של תיקיות</string>
 	<!-- ## screen: webdav settings -->
@@ -205,6 +217,18 @@
 	<string name="screen_authenticate_auth_authentication_failed">האימות מול \'%1$s\' נכשל.</string>
 	<string name="screen_update_pcloud_connections_title">עדכן את פרטי ההתחברות אל pCloud</string>
 	<!-- ## screen: cryptomator app variants -->
+	<string name="screen_cryptomator_variants_title">מהדורות שונות של Cryptomator</string>
+	<string name="screen_cryptomator_variants_lite_title">מאגר F-Droid ראשי</string>
+	<string name="screen_cryptomator_variants_lite_description">הוסרו כיוון שהם דורשים מפתחות API.</string>
+	<string name="screen_cryptomator_variants_lite_install">התקנה</string>
+	<string name="screen_cryptomator_variants_fdroid_title">מאגר Cryptomator ב-F-Droid</string>
+	<string name="screen_cryptomator_variants_fdroid_description">לא זמין בגלל שהוא כולל רכיבים קנייניים.</string>
+	<string name="screen_cryptomator_variants_fdroid_add_repo_hint">הוספת מאגר Cryptomator לישום F-Droid.</string>
+	<string name="screen_cryptomator_variants_fdroid_add_repo">הוספה</string>
+	<string name="screen_cryptomator_variants_fdroid_install_hint">התקנת Cryptomator באמצעות F-Droid.\nאם שגיאה של לא נמצא מוצגת, המתן עד שתהליך הסנכרון של F-Droid יסתיים.</string>
+	<string name="screen_cryptomator_variants_website_title">אתר</string>
+	<string name="screen_cryptomator_variants_website_description">מכיל דרישות קדם קנייניות.</string>
+	<string name="screen_cryptomator_variants_installation_hint">החלפה מ/אל המהדורה של מאגר F-Droid דורשת התקנה נקיה של הישום.</string>
 	<!-- # dialogs -->
 	<string name="dialog_button_cancel">ביטול</string>
 	<string name="dialog_enter_password_positive_button">בטל נעילה</string>
@@ -226,6 +250,7 @@
 	<string name="dialog_replace_positive_button_some_files_exist">החלף קיימים</string>
 	<string name="dialog_replace_positive_button_single_file_exists">החלף</string>
 	<string name="dialog_replace_msg_single_file_exists">הקובץ \'%1$s\' כבר קיים. האם ברצונך להחליף אותו?</string>
+	<string name="dialog_replace_msg_all_files_exists">הקבצים כבר קיימים. האם ברצונך להחליפם?</string>
 	<string name="dialog_replace_msg_some_files_exists">הקבצים %1$d כבר קיימים. האם ברצונך להחליפם?</string>
 	<string name="dialog_replace_title_single_file_exists">להחליף את הקובץ?</string>
 	<string name="dialog_replace_title_multiple_files_exist">להחליף את הקבצים?</string>
@@ -241,6 +266,7 @@
 	<string name="dialog_unsaved_changes_title">יש לך שינויים שלא נשמרו</string>
 	<string name="dialog_unsaved_changes_message">אתה בטוח שברצנוך לצאת מבלי לשמור את השינויים שביצעת?</string>
 	<string name="dialog_unsaved_changes_discard">ביטול</string>
+	<string name="dialog_file_name_hint">שם הקובץ</string>
 	<string name="dialog_file_name_placeholder">text.txt</string>
 	<string name="dialog_delete_vault_message">אתה בטוח שברצונך למחוק כספת זו?</string>
 	<string name="dialog_delete_vault_hint">פעולה זו תעלים את הכספת מהרשימה, אך לא תמחק אותה לחלוטין ממקום האחסון.</string>
@@ -267,6 +293,7 @@
 	<string name="dialog_accept_ssl_certificate_details">פרטים</string>
 	<string name="dialog_accept_ssl_certificate_security_checkbox">פעולה זו יכולה לגרום לפרצות אבטחה. אני מבין מהם ההשלכות.</string>
 	<string name="dialog_ask_ignore_battery_optimizations_title">השבת אופטימיזציה של הסוללה עבור אפליקציה זו</string>
+	<string name="dialog_ask_ignore_battery_optimizations_hint">למשיכת תמונות וסרטים חדשים ללא הרצה ברקע, יש לבטל אופטומיזצית סוללה. אל תדאג, %1$s לא משתמש בהרבה אנרגיה.\n\nלביצוע שנה את הבחירה מ- ׳ללא אופטימיזציה׳ ל- ׳כל הישומים׳, בחר ב- %1$s וסמן ׳אל תבצע אופטימיזציה׳ לאחר הלחיצה על %2$s במסך זה.</string>
 	<string name="dialog_ask_ignore_battery_optimizations_checkbox">לא לשאול שוב?</string>
 	<string name="dialog_http_security_hint">HTTP הוא פרוטוקול לא מאובטח. אנו ממליצים להשתמש ב HTTPS במקום. אם אתה מבין את הסיכונים בכך, אתה יכול להמשיך להשתמש ב HTTP.</string>
 	<string name="dialog_http_security_checkbox">עבור ל-HTTPS</string>
@@ -276,13 +303,20 @@
 	<string name="dialog_no_screen_lock_checkbox">הגדר נעילת מסך</string>
 	<string name="dialog_no_biometric_auth_set_up_title">לא הוגדר אימות בסיסי במערכת</string>
 	<string name="dialog_no_biometric_auth_set_up_message">בכדי להשתמש בשירות זה חייבת להיות מוגדרת לפחות זיהוי ביומטרי אחד של אצבע/פנים.</string>
+	<string name="dialog_debug_mode_disclaimer_hint">במצב זה, מידע רגיש עשוי להכתב לקובץ לוג על מכשירך (כגון שמות קבצים ותיקיות). סיסמאות, עוגיות וכו׳ מוחרגים.\n\nזכור לבטל את מצב ניפוי התקלות בהקדם האפשרי.</string>
 	<string name="dialog_debug_mode_disclaimer_title">שים לב</string>
 	<string name="dialog_debug_mode_positive_button">הפעל</string>
+	<string name="dialog_disable_app_obscured_disclaimer_hint">זוהי הגדרה של יכולת אבטחה המונעת מישומים אחרים לעבוד עליך ולגרום לך לעשות דברים שאינך רוצה שיקרו.\n\nעל ידי נטרול האפשרות, אתה מאשר שאתה <a href="https://docs.cryptomator.org/en/1.6/android/settings/#block-app-when-obscured">מודע לסכנות</a>.</string>
 	<string name="dialog_disable_app_obscured_disclaimer_title">שים לב</string>
 	<string name="dialog_disable_app_obscured_positive_button">כבה</string>
 	<string name="dialog_app_is_obscured_info_title">אפליקציה אחרת מציגה מעל Cryptomator</string>
 	<string name="dialog_app_is_obscured_info_hint">אפליקציה אחרת מציגה משהו מעל Cryptomator (לדוגמה, אפליקציית סינון אור כחול למצב לילה). מטעמי אבטחה, Cryptomator ייסגר עכשיו.\n\n<a href="https://docs.cryptomator.org/en/1.6/android/settings/#block-app-when-obscured">איך להפעיל את Cryptomator</a></string>
 	<string name="dialog_app_is_obscured_info_neutral_button">סגור</string>
+	<string name="dialog_vaults_removed_during_migration_title">נא הוסף מחדש את הכספות עבור הענן %1s</string>
+	<string name="dialog_vaults_removed_during_migration_hint">בעת ביצוע הגירה לגרסת הישום, אנו צריכים להסיר את הכספות הבאות מהישום:\n%2s\n\nהכספות האלו לא מוסרות מהענן אלא רק מישום זה. סליחה על אי הנוחות ואנא הוסף מחדש את הכספות כדי להמשיך לעבוד אתם.</string>
+	<string name="dialog_vault_is_root_folder_of_cloud_title">הכספת היא תיקית השורש של החיבור לענן</string>
+	<string name="dialog_vault_is_root_folder_of_cloud_hint">להוספת כספת זו, צור קישור ענן חדש באופן שתבחר לכל הפחות את תיקית האב של תיקית כספת זו כתיקית השורש.</string>
+	<string name="dialog_disable_secure_screen_disclaimer_hint">זוהי הגדרה של יכולת אבטחה המונעת מישומים אחרים לעבוד עליך ולגרום לך לעשות דברים שאינך רוצה שיקרו.\n\nעל ידי נטרול האפשרות, אתה מאשר שאתה <a href="https://docs.cryptomator.org/en/1.6/android/settings/#screen-security">מודע לסכנות</a>.</string>
 	<string name="dialog_delete_cloud_connection_with_vaults_message">האם את/ה בטוח/ה שברצונך להסיר את החיבור הזה לענן?</string>
 	<string name="dialog_delete_cloud_connection_with_vaults_hint">פעולה זו תסיר את החיבור לענן ואת כל ה Vault-ים שבענן זה.</string>
 	<string name="dialog_confirm_delete_multiple_title">למחוק %1$d פריטים?</string>
@@ -310,10 +344,13 @@
 	<string name="dialog_sym_link_message">לא ניתן לנווט אל תוך קישור סימבולי זה</string>
 	<string name="dialog_sym_link_back_button">חזור</string>
 	<string name="dialog_no_dir_file_title">טעינת תיקייה זו נכשלה</string>
+	<string name="dialog_no_dir_file_message">תיקית הענן ׳%1$s׳ לא מכילה קובץ תיקיה תקין. יתכן שהתיקיה נוצרה במכשיר אחר וטרם סונכרנה באופן מלא לענן. אנא בדוק בענן אם הקובץ הבא קיים ואינו ריק:\n%2$s</string>
 	<string name="dialog_no_more_images_to_display">אין עוד תמונות להציג&#8230;</string>
 	<string name="dialog_pcloud_credentials_updated_title">פרטי ההתחברות של \'%1$s\' עודכנו</string>
+	<string name="dialog_pcloud_credentials_updated">אם ברצונך להוסיף חשבון pCloud חדש, לחץ על הקישור <a href="https://www.pcloud.com">www.pcloud.com</a>, התנתק מהחשבון הנוכחי ולחץ על ה \'+\' בישום זה ליצירת חיבור ענן חדש.</string>
 	<string name="permission_snackbar_auth_local_vault">Cryptomator זקוק להרשאת גישה לזיכרון המכשיר כדי להשתמש בכספת מקומית</string>
 	<string name="permission_snackbar_auth_auto_upload">Cryptomator זקוק להרשאת גישה לזיכרון המכשיר כדי לבצע העלאה אוטומטית של תמונות</string>
+	<string name="permission_snackbar_notifications">Cryptomator צריך הרשאה לשליחת התראות על מנת, לדוגמה, להציג לכם את מצב הכספת</string>
 	<!-- # error reports -->
 	<!-- # misc -->
 	<!-- ## file size helper -->
@@ -365,6 +402,7 @@
 	<string name="screen_settings_lru_cache_toggle_summary">קבצים שהיו בשימוש לאחרונה יוצפנו באופן מקומי לשימוש נוסף בעתיד</string>
 	<string name="screen_settings_lru_cache_size">נפח מטמון</string>
 	<string name="screen_settings_clear_lru_cache_size">נקה מטמון</string>
+	<string name="screen_settings_lru_cache_changed__restart_toast">השינויים יכנסו לתוקף בהפעלה מחדש הבאה של הישום</string>
 	<string name="screen_settings_license">רשום עבור</string>
 	<string name="screen_settings_license_mail">%1$s</string>
 	<string name="dialog_settings_update_check_interval_title">בדוק עדכונים אוטומטית</string>

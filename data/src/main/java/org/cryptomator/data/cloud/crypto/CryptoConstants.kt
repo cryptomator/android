@@ -18,6 +18,6 @@ object CryptoConstants {
 	const val DEFAULT_MAX_FILE_NAME = 220
 	const val DIR_ID_FILE = "dirid.c9r"
 	val PEPPER = ByteArray(0)
-	val DEFAULT_CIPHER_COMBO = CryptorProvider.Scheme.SIV_CTRMAC
+	val DEFAULT_CIPHER_COMBO = CryptorProvider.Scheme.SIV_GCM
 
 }

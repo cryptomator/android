@@ -12,7 +12,6 @@ import com.dropbox.core.v2.files.GetMetadataErrorException
 import com.dropbox.core.v2.files.ListFolderResult
 import com.dropbox.core.v2.files.UploadSessionCursor
 import com.dropbox.core.v2.files.UploadSessionFinishErrorException
-import com.dropbox.core.v2.files.UploadSessionLookupErrorException
 import com.dropbox.core.v2.files.WriteMode
 import com.tomclaw.cache.DiskLruCache
 import org.cryptomator.data.cloud.dropbox.DropboxCloudNodeFactory.file
@@ -40,7 +39,6 @@ import org.cryptomator.util.file.LruFileCacheUtil.Companion.retrieveFromLruCache
 import java.io.File
 import java.io.IOException
 import java.io.OutputStream
-import java.util.ArrayList
 import timber.log.Timber
 
 internal class DropboxImpl(cloud: DropboxCloud, context: Context) {
@@ -272,12 +270,12 @@ internal class DropboxImpl(cloud: DropboxCloud, context: Context) {
 				} catch (ex: NetworkIOException) {
 					thrown = ex
 					// Network issue with Dropbox (maybe a timeout?), try again.
-				} catch (ex: UploadSessionLookupErrorException) {
-					if (ex.errorValue.isIncorrectOffset) {
+				} catch (ex: UploadSessionFinishErrorException) {
+					if (ex.errorValue.isLookupFailed && ex.errorValue.lookupFailedValue.isIncorrectOffset) {
 						thrown = ex
 						// Server offset into the stream doesn't match our offset (uploaded). Seek to
 						// the expected offset according to the server and try again.
-						uploaded = ex.errorValue.incorrectOffsetValue.correctOffset
+						uploaded = ex.errorValue.lookupFailedValue.incorrectOffsetValue.correctOffset
 					} else {
 						throw FatalBackendException(ex)
 					}

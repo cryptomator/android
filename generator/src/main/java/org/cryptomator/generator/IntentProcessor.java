@@ -10,6 +10,7 @@ import org.cryptomator.generator.templates.IntentsTemplate;
 import java.io.IOException;
 import java.io.Writer;
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 
 import javax.annotation.processing.RoundEnvironment;
@@ -34,7 +35,7 @@ public class IntentProcessor extends BaseProcessor {
 			intentsModelBuilder.add(generateIntentReader((TypeElement) element));
 		}
 		if (!intentAnnotatedElements.isEmpty()) {
-			intentAnnotatedElements.sort((e1, e2) -> e1.getSimpleName().toString().compareTo(e2.getSimpleName().toString()));
+			intentAnnotatedElements.sort(Comparator.comparing(e -> e.getSimpleName().toString()));
 			generateIntents(intentsModelBuilder.build(), intentAnnotatedElements);
 		}
 	}

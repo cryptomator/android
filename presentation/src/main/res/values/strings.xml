@@ -521,6 +521,7 @@
 
 	<string name="permission_snackbar_auth_local_vault">Cryptomator needs storage access to use local vaults</string>
 	<string name="permission_snackbar_auth_auto_upload">Cryptomator needs storage access to use auto photo upload</string>
+	<string name="permission_snackbar_notifications">Cryptomator needs notification permissions to display vault status for example</string>
 
 	<!-- # error reports -->
 	<string name="error_report_subject" translatable="false">Android Error Report</string>

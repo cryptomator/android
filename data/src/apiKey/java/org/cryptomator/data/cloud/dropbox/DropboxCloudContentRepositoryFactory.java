@@ -1,5 +1,7 @@
 package org.cryptomator.data.cloud.dropbox;
 
+import static org.cryptomator.domain.CloudType.DROPBOX;
+
 import android.content.Context;
 
 import org.cryptomator.data.repository.CloudContentRepositoryFactory;
@@ -9,8 +11,6 @@ import org.cryptomator.domain.repository.CloudContentRepository;
 
 import javax.inject.Inject;
 import javax.inject.Singleton;
-
-import static org.cryptomator.domain.CloudType.DROPBOX;
 
 @Singleton
 public class DropboxCloudContentRepositoryFactory implements CloudContentRepositoryFactory {

@@ -1,6 +1,7 @@
 package org.cryptomator.data.cloud.pcloud
 
 import android.content.Context
+import com.pcloud.sdk.ApiClient
 import com.pcloud.sdk.ApiError
 import org.cryptomator.data.cloud.InterceptingCloudContentRepository
 import org.cryptomator.domain.PCloud
@@ -18,7 +19,7 @@ import java.io.File
 import java.io.IOException
 import java.io.OutputStream
 
-internal class PCloudContentRepository(private val cloud: PCloud, context: Context) : InterceptingCloudContentRepository<PCloud, PCloudNode, PCloudFolder, PCloudFile>(Intercepted(cloud, context)) {
+internal class PCloudContentRepository(private val cloud: PCloud, client: ApiClient, context: Context) : InterceptingCloudContentRepository<PCloud, PCloudNode, PCloudFolder, PCloudFile>(Intercepted(cloud, client, context)) {
 
 	@Throws(BackendException::class)
 	override fun throwWrappedIfRequired(e: Exception) {
@@ -44,9 +45,9 @@ internal class PCloudContentRepository(private val cloud: PCloud, context: Conte
 		}
 	}
 
-	private class Intercepted(cloud: PCloud, context: Context) : CloudContentRepository<PCloud, PCloudNode, PCloudFolder, PCloudFile> {
+	private class Intercepted(cloud: PCloud, client: ApiClient, context: Context) : CloudContentRepository<PCloud, PCloudNode, PCloudFolder, PCloudFile> {
 
-		private val cloud: PCloudImpl = PCloudImpl(context, cloud)
+		private val cloud: PCloudImpl = PCloudImpl(cloud, client, context)
 
 		override fun root(cloud: PCloud): PCloudFolder {
 			return this.cloud.root()

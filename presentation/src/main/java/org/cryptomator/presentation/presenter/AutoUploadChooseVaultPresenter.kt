@@ -131,6 +131,7 @@ class AutoUploadChooseVaultPresenter @Inject constructor( //
 							selectedVault?.let { navigateToVaultContent(it, location) }
 						}
 						AuthenticationState.INIT_ROOT -> location = cloudFolderModelMapper.toModel(folder)
+						else -> {}
 					}
 				}
 			})

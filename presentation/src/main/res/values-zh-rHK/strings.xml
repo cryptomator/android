@@ -14,7 +14,7 @@
 	<string name="error_vault_already_exists">加密庫已經存在。</string>
 	<string name="error_no_such_file">檔案不存在。</string>
 	<string name="error_vault_has_been_locked">加密庫已鎖定。</string>
-	<string name="error_cloud_already_exists">雲端硬碟已經存在。</string>
+	<string name="error_cloud_already_exists">已登入該雲端硬碟帳號，雲端硬碟已存在。</string>
 	<string name="error_activity_not_found">請下載相關應用程式來打開這個檔案。</string>
 	<string name="error_server_not_found">找不到伺服器。</string>
 	<string name="error_device_policy_manager_not_found">請打開你的裝置設定，再手動設定螢幕鎖定</string>
@@ -22,18 +22,19 @@
 	<string name="error_name_contains_invalid_characters">不能含有特殊字元。</string>
 	<string name="error_names_contains_invalid_characters">檔案名稱不能含有特殊字元。</string>
 	<string name="error_vault_name_contains_invalid_characters">加密庫的名稱不能含有特殊字元。</string>
-	<string name="error_general_update">檢查更新失敗。發生一般錯誤。</string>
+	<string name="error_general_update">檢查更新失敗。發生一般性錯誤。</string>
 	<string name="error_hash_mismatch_update">更新檢查失敗。計算出的雜湊值與上傳檔案不相符</string>
 	<string name="error_update_no_internet">更新檢查失敗。沒有網絡連接。</string>
 	<string name="error_failed_to_decrypt_webdav_password">不能解密 WebDAV 的密碼，請在設定中重新加入</string>
 	<string name="error_play_services_not_available">尚未安裝 Google Play 服務</string>
-	<string name="error_biometric_auth_aborted">生物識別驗證中止</string>
-	<string name="error_vault_version_mismatch">%1$s 中指定的版本不同於 %2$s</string>
+	<string name="error_biometric_auth_aborted">生物識別驗證失敗</string>
+	<string name="error_vault_version_mismatch">%1$s 中指定的加密庫版本不同於 %2$s</string>
 	<string name="error_vault_key_invalid">%1$s 與 %2$s 不匹配</string>
-	<string name="error_vault_config_loading">載入加密庫設定時發生錯誤</string>
-	<string name="error_file_not_found_after_opening_using_3party">切換回 Cryptomator 後，本地檔案不再存在。期間發生的更改無法傳回雲端。</string>
-	<string name="error_no_such_bucket">沒有指定的儲存槽</string>
+	<string name="error_vault_config_loading">載入加密庫設定時發生一般性錯誤</string>
+	<string name="error_file_not_found_after_opening_using_3party">切換回 Cryptomator 後，本地檔案消失無法找到。期間發生的更改無法傳送回雲端。</string>
+	<string name="error_no_such_bucket">沒有指定的儲存槽（bucket）</string>
 	<string name="error_masterkey_location_not_supported">尚未支援自訂主金鑰位置</string>
+	<string name="error_interact_with_fdroid_but_fdroid_missing">無法連結到 F-Droid，是否未安裝 F-Droid?</string>
 	<!-- # clouds -->
 	<!-- ## cloud names -->
 	<string name="cloud_names_local_storage">本機儲存空間</string>
@@ -54,20 +55,23 @@
 	<string name="snack_bar_action_title_sort_oldest">由舊至新</string>
 	<string name="snack_bar_action_title_sort_biggest">由大至小</string>
 	<string name="snack_bar_action_title_sort_smallest">由小至大</string>
+	<string name="snack_bar_cryptomator_variants_title">了解更多</string>
+	<string name="snack_bar_cryptomator_variants_hint">未列出您的雲端服務？</string>
 	<!-- # screens -->
 	<!-- # screen: vault list -->
 	<string name="screen_vault_list_actions_title">加到 Cryptomator</string>
 	<string name="screen_vault_list_action_create_new_vault">建立新加密庫</string>
 	<string name="screen_vault_list_action_add_existing_vault">加入現有的加密庫</string>
 	<string name="screen_vault_list_vault_action_delete">移除</string>
+	<string name="screen_vault_list_vault_creation_hint">按此建立新的加密庫</string>
 	<string name="screen_vault_list_change_password_successful">密碼已成功更改</string>
 	<!-- # screen: file browser -->
 	<string name="screen_file_browser_default_title">加密庫</string>
 	<string name="screen_file_browser_add_existing_vault_extra_text">選擇主金鑰檔案</string>
-	<string name="screen_file_browser_create_new_vault_button_text">放在此</string>
+	<string name="screen_file_browser_create_new_vault_button_text">存放在此</string>
 	<string name="screen_file_browser_create_new_vault_extra_text">加密庫名稱：%1$s</string>
 	<plurals name="screen_file_browser_subtitle_move">
-		<item quantity="other">移動 %2$d 至</item>
+		<item quantity="other">移動 %2$d 個項目至</item>
 	</plurals>
 	<string name="screen_file_browser_move_button_text">移動</string>
 	<string name="screen_file_browser_msg_empty_folder">無檔案</string>
@@ -90,7 +94,7 @@
 	<string name="screen_file_browser_node_action_edit_text">編輯</string>
 	<string name="screen_file_browser_node_action_export">匯出</string>
 	<string name="screen_file_browser_node_action_delete">刪除</string>
-	<string name="screen_file_browser_node_action_open_with_text">以……打開</string>
+	<string name="screen_file_browser_node_action_open_with_text">使用 &#8230; 開啟</string>
 	<string name="screen_file_browser_selection_mode_title_zero_elements">選擇項目</string>
 	<string name="screen_file_browser_selection_mode_title_one_or_more_elements">已選取 %1$d 個項目</string>
 	<string name="screen_file_browser_select_items">選擇</string>
@@ -101,7 +105,7 @@
 	<!-- ## screen: text editor -->
 	<string name="screen_text_editor_save_success">成功儲存</string>
 	<!-- ## screen: share files -->
-	<string name="screen_share_files_title">儲存 %1$s 至…</string>
+	<string name="screen_share_files_title">儲存 %1$s 至 &#8230;</string>
 	<string name="screen_share_files_content_text">文字</string>
 	<string name="screen_share_files_content_file">檔案</string>
 	<string name="screen_share_files_content_files">檔案</string>
@@ -113,8 +117,9 @@
 	<string name="screen_choose_cloud_service_title">雲端服務</string>
 	<!-- ## screen: cloud connections -->
 	<string name="screen_cloud_connections_title">選擇位置</string>
+	<string name="screen_cloud_connections_no_connections">點擊此處加入位置</string>
 	<string name="screen_cloud_error_webdav_not_supported">伺服器似乎與 WebDAV 不兼容</string>
-	<string name="screen_cloud_local_error_no_content_provider">未找到支援打開目錄的檔案管理器</string>
+	<string name="screen_cloud_local_error_no_content_provider">未找到支援開啟資料夾的檔案管理器</string>
 	<!-- ## screen: webdav settings -->
 	<string name="screen_webdav_settings_url_port_label">網址</string>
 	<string name="screen_webdav_settings_username_label">使用者名稱</string>
@@ -177,7 +182,7 @@
 	<string name="screen_settings_section_auto_photo_upload_toggle_instant_upload_summary">如加密庫已解鎖直接上傳</string>
 	<string name="screen_settings_section_auto_photo_upload_only_wifi_toggle">僅使用 Wi-Fi 上載</string>
 	<string name="screen_settings_section_auto_photo_upload_including_videos">上載影片</string>
-	<string name="screen_settings_auto_photo_upload_title">把自動上傳文件保存到…</string>
+	<string name="screen_settings_auto_photo_upload_title">把自動上傳文件保存到 &#8230;</string>
 	<string name="screen_settings_website_label">Cryptomator 網站</string>
 	<string name="screen_settings_twitter_label">在 Twitter 上追蹤我們</string>
 	<string name="screen_settings_facebook_label">在 Facebook 上給我們點讚</string>
@@ -209,6 +214,18 @@
 	<string name="screen_authenticate_auth_authentication_failed">無法驗證 %1$s 。</string>
 	<string name="screen_update_pcloud_connections_title">更新 pCloud 帳戶資訊</string>
 	<!-- ## screen: cryptomator app variants -->
+	<string name="screen_cryptomator_variants_title">Cryptomator 的不同版本</string>
+	<string name="screen_cryptomator_variants_lite_title">主流的 F-Droid Repository</string>
+	<string name="screen_cryptomator_variants_lite_description">因為其需要 API 密鑰，所以未含括。</string>
+	<string name="screen_cryptomator_variants_lite_install">安装</string>
+	<string name="screen_cryptomator_variants_fdroid_title">Cryptomator F-Droid Repository</string>
+	<string name="screen_cryptomator_variants_fdroid_description">已排除，因為其含有私有的依賴庫。</string>
+	<string name="screen_cryptomator_variants_fdroid_add_repo_hint">添加 Cryptomator 的 Repository 至 F-Droid</string>
+	<string name="screen_cryptomator_variants_fdroid_add_repo">增加</string>
+	<string name="screen_cryptomator_variants_fdroid_install_hint">透過 F-Droid 安裝 Cryptomator。\n若無法搜索到 Cryptomator，請等待 F-Droid 完成同步。</string>
+	<string name="screen_cryptomator_variants_website_title">網站</string>
+	<string name="screen_cryptomator_variants_website_description">含有私有的依賴庫（proprietary dependencies）。</string>
+	<string name="screen_cryptomator_variants_installation_hint">切換自主流 F-Droid Repository 或切換到主流 F-Droid Repository 的不同版本會需要重新設定 App</string>
 	<!-- # dialogs -->
 	<string name="dialog_button_cancel">取消</string>
 	<string name="dialog_enter_password_positive_button">解鎖</string>
@@ -239,74 +256,76 @@
 	<string name="dialog_unable_to_share_positive_button">確認</string>
 	<string name="dialog_unable_to_share_negative_button">建立加密庫</string>
 	<string name="dialog_filetype_not_supported_title">不能打開 %1$s</string>
-	<string name="dialog_filetype_not_supported_message">請下載一個可以打開此文件的應用程序。或者你想保存到你的設備嗎？</string>
+	<string name="dialog_filetype_not_supported_message">請下載安裝可以打開此文件的應用程序。或者你想保存此文件到你的設備嗎？</string>
 	<string name="dialog_rename_vault_title">重新命名加密庫</string>
 	<string name="dialog_rename_node_folder_title">重新命名資料夾</string>
 	<string name="dialog_rename_node_file_title">重新命名檔案</string>
 	<string name="dialog_unsaved_changes_title">你有未儲存的更改</string>
-	<string name="dialog_unsaved_changes_message">你確定要不儲存就離開嗎？</string>
+	<string name="dialog_unsaved_changes_message">你確定不要儲存檔案，並關閉程序嗎？</string>
 	<string name="dialog_unsaved_changes_discard">捨棄</string>
-	<string name="dialog_file_name_placeholder">文檔.txt</string>
+	<string name="dialog_file_name_hint">檔案名稱</string>
+	<string name="dialog_file_name_placeholder">純文字.txt</string>
 	<string name="dialog_delete_vault_message">確定要移除這個加密庫嗎？</string>
 	<string name="dialog_delete_vault_hint">此操作只會從該列表中移除加密庫，而不是實際上刪除它。</string>
-	<string name="dialog_upload_file_title">上載中…</string>
+	<string name="dialog_upload_file_title">正在上載 &#8230;</string>
 	<string name="dialog_upload_file_remaining">第 %1$d 個（共 %2$d 個）</string>
 	<string name="dialog_export_file_title">匯出中（%1$d / %2$d ）</string>
 	<string name="dialog_progress_please_wait">請稍候…</string>
-	<string name="dialog_progress_creating_folder">正建立資料夾…</string>
-	<string name="dialog_progress_creating_text_file">正建立文字檔案…</string>
-	<string name="action_progress_authentication">驗證中…</string>
-	<string name="action_progress_renaming">重新命名中…</string>
-	<string name="action_progress_deleting">刪除中…</string>
-	<string name="dialog_progress_unlocking_vault">解鎖加密庫中…</string>
+	<string name="dialog_progress_creating_folder">正在建立資料夾&#8230;</string>
+	<string name="dialog_progress_creating_text_file">正建立文字檔案&#8230;</string>
+	<string name="action_progress_authentication">正在驗證&#8230;</string>
+	<string name="action_progress_renaming">重新命名&#8230; 中</string>
+	<string name="action_progress_deleting">正在刪除&#8230;</string>
+	<string name="dialog_progress_unlocking_vault">正在解鎖 &#8230; 加密庫</string>
 	<string name="dialog_progress_change_password">更改密碼中…</string>
-	<string name="dialog_progress_creating_vault">建立加密庫中…</string>
-	<string name="dialog_progress_upload_file">上載中…</string>
-	<string name="dialog_progress_download_file">下載中…</string>
-	<string name="dialog_progress_encryption">加密中…</string>
-	<string name="dialog_progress_decryption">解密中…</string>
-	<string name="action_progress_moving">移動中…</string>
+	<string name="dialog_progress_creating_vault">建立 &#8230; 加密庫中…</string>
+	<string name="dialog_progress_upload_file">正在上載 &#8230;</string>
+	<string name="dialog_progress_download_file">正在下載 &#8230;</string>
+	<string name="dialog_progress_encryption">正在加密 &#8230;</string>
+	<string name="dialog_progress_decryption">正在解密 &#8230;</string>
+	<string name="action_progress_moving">正在移動 &#8230;</string>
 	<string name="dialog_lock_vault">鎖定</string>
 	<string name="dialog_accept_ssl_certificate_title">無效的 SSL 憑證</string>
-	<string name="dialog_accept_ssl_certificate_hint">此 SSL 認證無效。你仍要信任它嗎？</string>
+	<string name="dialog_accept_ssl_certificate_hint">此 SSL 認證無效。仍要信任嗎？</string>
 	<string name="dialog_accept_ssl_certificate_details">詳情</string>
 	<string name="dialog_accept_ssl_certificate_security_checkbox">這可能會是個安全風險。我清楚我在做甚麼。</string>
-	<string name="dialog_ask_ignore_battery_optimizations_title">停用電池效能最佳化設定</string>
+	<string name="dialog_ask_ignore_battery_optimizations_title">停用電池效能優化設定</string>
+	<string name="dialog_ask_ignore_battery_optimizations_hint">要在不在背景運行的情況下檢索新圖片和影片，需要選擇關閉電池優化。不過不用擔心， %1$s 不會消耗太多電量。\n\n要應用，請把「未最佳化」改為「所有應用程式」。在此對話框中選擇「%2$s」後，選擇「%1$s」再選擇「不最佳化」。</string>
 	<string name="dialog_ask_ignore_battery_optimizations_checkbox">不再詢問？</string>
-	<string name="dialog_http_security_hint">使用 HTTP 是不安全的。我們推薦使用 HTTPS 來取代。如果您瞭解風險，您可以使用 HTTP 繼續。</string>
+	<string name="dialog_http_security_hint">HTTP 並不安全。我們推薦使用 HTTPS 來取代。如果您瞭解風險，您可以使用 HTTP 繼續。</string>
 	<string name="dialog_http_security_checkbox">更改為 HTTPS</string>
 	<string name="dialog_http_security_title">使用 HTTPS？</string>
-	<string name="dialog_no_screen_lock_hint">未設定螢幕鎖定。要以安全的方式儲存您的憑據，請設置鎖定模式或密碼。</string>
+	<string name="dialog_no_screen_lock_hint">未設定螢幕鎖定。若要安全地儲存您的憑據，請設置鎖定模式或密碼。</string>
 	<string name="dialog_no_screen_lock_title">設定螢幕鎖定？</string>
 	<string name="dialog_no_screen_lock_checkbox">設定螢幕鎖定</string>
 	<string name="dialog_no_biometric_auth_set_up_title">系統中未設置基本身份驗證</string>
-	<string name="dialog_no_biometric_auth_set_up_message">註冊至少一個手指/面部以使用此服務。</string>
+	<string name="dialog_no_biometric_auth_set_up_message">至少錄入一枚指紋/面部以使用此服務。</string>
 	<string name="dialog_debug_mode_disclaimer_hint">在此模式下，敏感數據可能會寫入您設備上的日誌文件（例如文件名和路徑）。密碼、 cookies 等被明確排除在外。\n\n請記住盡快停用除錯模式。</string>
 	<string name="dialog_debug_mode_disclaimer_title">注意</string>
 	<string name="dialog_debug_mode_positive_button">啟用</string>
-	<string name="dialog_disable_app_obscured_disclaimer_hint">此設定是一項安全功能，可防止其他應用程式欺騙用戶做他們不想做的事情。\n\n如果停用這項功能，請確定你已經<a href="https://docs.cryptomator.org/en/1.6/android/settings/#block-app-when-obscured">了解風險</a>。</string>
+	<string name="dialog_disable_app_obscured_disclaimer_hint">此設定是一項安全功能，可防止其他應用程式誤導用戶錯誤地操作。\n\n如果停用這項功能，請確定你已經了解<a href="https://docs.cryptomator.org/en/1.6/android/settings/#block-app-when-obscured">風險</a>。</string>
 	<string name="dialog_disable_app_obscured_disclaimer_title">注意</string>
 	<string name="dialog_disable_app_obscured_positive_button">停用</string>
-	<string name="dialog_app_is_obscured_info_title">應用程式被遮擋</string>
-	<string name="dialog_app_is_obscured_info_hint">另一個應用程式在 Cryptomator 上顯示一些東西（例如藍光過濾器或夜間模式應用程式）。基於安全考慮，Cryptomator 已被禁用。\n\n<a href="https://docs.cryptomator.org/en/1.6/android/settings/#block-app-when-obscured">如何啟用 Cryptomator</a></string>
+	<string name="dialog_app_is_obscured_info_title">應用程式畫面被遮擋</string>
+	<string name="dialog_app_is_obscured_info_hint">有應用程式在 Cryptomator App 畫面上方顯示著一些元素，例如藍光過濾器，或負責夜間模式的應用程式。基於安全考慮，Cryptomator 已自動禁用。\n\n<a href="https://docs.cryptomator.org/en/1.6/android/settings/#block-app-when-obscured">如何啟用 Cryptomator</a></string>
 	<string name="dialog_app_is_obscured_info_neutral_button">關閉</string>
-	<string name="dialog_vaults_removed_during_migration_title">請在 %1s 雲端重新加入加密庫</string>
-	<string name="dialog_vaults_removed_during_migration_hint">在更新到此應用程式版本時，我們需要從程式移除以下加密庫。\n%2s\n\n這些加密檔案庫不會從雲端刪除，而只是從這程式中移除。很抱歉給您帶來不便，請重新加入這些加密庫以繼續使用它們。</string>
-	<string name="dialog_vault_is_root_folder_of_cloud_title">加密庫是雲端連接的根資料夾</string>
-	<string name="dialog_vault_is_root_folder_of_cloud_hint">要加入此加密庫，請先建立一個新的雲端連接、並選擇此加密庫資料夾的上一層作為根文件夾。</string>
-	<string name="dialog_disable_secure_screen_disclaimer_hint">此設定是一項安全功能，可防止其他應用程式欺騙用戶做他們不想做的事情。\n\n如果停用這項功能，請確定你已經<a href="https://docs.cryptomator.org/en/1.6/android/settings/#screen-security">了解風險</a>。</string>
-	<string name="dialog_delete_cloud_connection_with_vaults_message">確定要刪除此雲端連結嗎？</string>
-	<string name="dialog_delete_cloud_connection_with_vaults_hint">此操作將移除雲端連接、並刪除該雲端上所有的加密庫。</string>
+	<string name="dialog_vaults_removed_during_migration_title">請重新加入 %1s 加密庫的雲端服務。</string>
+	<string name="dialog_vaults_removed_during_migration_hint">更新到此應用程式版本時，需要從程式移除以下加密庫。\n%2s\n\n這些加密檔案庫不會從雲端刪除，而只是從這程式中移除。很抱歉給您帶來不便，請重新加入這些加密庫以繼續使用。</string>
+	<string name="dialog_vault_is_root_folder_of_cloud_title">加密庫是雲端連接的原始資料夾（根目錄）</string>
+	<string name="dialog_vault_is_root_folder_of_cloud_hint">若要加入此加密庫，請先建立新的雲端連接、並選擇此加密庫資料夾的上一層作為根文件夾。</string>
+	<string name="dialog_disable_secure_screen_disclaimer_hint">此設定是一項安全功能，可防止其他應用程式誤導用戶，導致錯誤操作。\n\n如果停用這項功能，請確定你已經了解<a href="https://docs.cryptomator.org/en/1.6/android/settings/#screen-security">風險</a>。</string>
+	<string name="dialog_delete_cloud_connection_with_vaults_message">確定要取消此雲端連結嗎？</string>
+	<string name="dialog_delete_cloud_connection_with_vaults_hint">此操作將取消所有雲端連接、並刪除該雲端的加密庫。</string>
 	<string name="dialog_confirm_delete_multiple_title">是否刪除 %1$d 個項目？</string>
 	<string name="dialog_confirm_delete_multiple_message">確定要刪除這些項目嗎？</string>
 	<string name="dialog_confirm_delete_file_message">確定要刪除這檔案嗎？</string>
 	<string name="dialog_confirm_delete_folder_message">這將會刪除資料夾中的全部內容。確定要刪除這個資料夾嗎？</string>
 	<string name="dialog_biometric_auth_key_invalidated_title">生物識別驗證已停用</string>
-	<string name="dialog_biometric_auth_key_invalidated_message">由於密鑰已失效，生物識別驗證功能已停用。 要重新啟用，請打開 Cryptomator 設置。</string>
+	<string name="dialog_biometric_auth_key_invalidated_message">由於密鑰已失效，生物識別驗證功能已停用。 若要重新啟用，請打開 Cryptomator 設置。</string>
 	<string name="dialog_enter_license_title">提供有效的授權</string>
 	<string name="dialog_enter_license_content">我們檢測到你沒有使用 Google Play 商店安裝 Cryptomator。請提供一個有效的授權，授權可以從<a href="https://cryptomator.org/android/">https://cryptomator.org/android/</a>購買</string>
 	<string name="dialog_enter_license_not_valid_content">提供的授權無效。請確認輸入無誤。</string>
-	<string name="dialog_enter_license_not_valid_content_desktop_supporter_certificate">所提供的授權是桌面上的贊助憑證。請輸入有效的授權。</string>
+	<string name="dialog_enter_license_not_valid_content_desktop_supporter_certificate">所提供的授權是桌面版上的贊助憑證。請輸入有效的授權。</string>
 	<string name="dialog_enter_license_no_content">未提供授權。請輸入一個有效的授權。</string>
 	<string name="dialog_enter_license_decline_button">退出</string>
 	<string name="dialog_license_confirmation_title">授權確認</string>
@@ -319,14 +338,16 @@
 	<string name="dialog_download_update_title">正在下載</string>
 	<string name="dialog_download_update_message">正在下載最新版本的 Cryptomator</string>
 	<string name="dialog_sym_link_title">資料夾是符號鏈接</string>
-	<string name="dialog_sym_link_message">你不去進入此符號鏈接</string>
+	<string name="dialog_sym_link_message">無法開啟此符號鏈接</string>
 	<string name="dialog_sym_link_back_button">返回</string>
 	<string name="dialog_no_dir_file_title">無法讀取資料夾內的檔案資訊</string>
-	<string name="dialog_no_dir_file_message">雲端文件夾「%1$s」沒有有效的資料夾文件。可能是該資料夾是在另一台設備上建立的，並且尚未完全同步到雲端。 如果以下文件存在且不為空，請檢查您的雲端：\n%2$s</string>
+	<string name="dialog_no_dir_file_message">雲端文件夾內「%1$s」沒有有效的資料夾文件。可能是該資料夾是用另一台設備建立的，但尚未同步到雲端。 如果以下文件存在且不為空，請檢查您的雲端：\n%2$s</string>
 	<string name="dialog_no_more_images_to_display">無更多圖片可供顯示…</string>
 	<string name="dialog_pcloud_credentials_updated_title">「%1$s 」的帳戶資訊已更新</string>
+	<string name="dialog_pcloud_credentials_updated">如果您想要新增一個 pCloud 帳戶，請在點擊此連結 <a href="https://www.pcloud.com">www.pcloud.com</a> 後登出目前的帳號，再點擊 App 中的「+」來建立新的雲端連結。</string>
 	<string name="permission_snackbar_auth_local_vault">Cryptomator 需要儲存權限以存取本機上的加密庫</string>
 	<string name="permission_snackbar_auth_auto_upload">Cryptomator 需要儲存權限以便開啟自動圖片上傳。</string>
+	<string name="permission_snackbar_notifications">Cryptomator 需要通知權限以顯示加密檔案庫的狀態等。</string>
 	<!-- # error reports -->
 	<!-- # misc -->
 	<!-- ## file size helper -->
@@ -357,29 +378,29 @@
 	<string name="dialog_biometric_auth_use_password">使用加密庫密碼</string>
 	<string name="dialog_unable_to_auto_upload_files_title">無法自動上載檔案</string>
 	<!-- notification -->
-	<string name="notification_unlocked">已解鎖 %1$d 個加密檔案庫</string>
+	<string name="notification_unlocked">處於解鎖的加密檔案庫：%1$d</string>
 	<string name="notification_timeout">%1$s後自動鎖定</string>
 	<string name="notification_lock_all">全部鎖定</string>
 	<string name="notification_cancel_auto_upload">取消上載</string>
 	<string name="notification_auto_upload_title">相片自動上傳執行中</string>
-	<string name="notification_auto_upload_message">上載中 %1d/%2d</string>
+	<string name="notification_auto_upload_message">正在上傳 %1d/%2d</string>
 	<string name="notification_auto_upload_finished_title">相片自動上傳已完成</string>
 	<string name="notification_auto_upload_finished_message">已將 %1$d 張相片上載至加密庫</string>
 	<string name="notification_auto_upload_failed_title">相片自動上傳失敗</string>
-	<string name="notification_auto_upload_failed_general_error">上傳期間發生錯誤。</string>
+	<string name="notification_auto_upload_failed_general_error">上傳期間發生一般性錯誤。</string>
 	<string name="notification_auto_upload_failed_due_to_folder_not_exists">已選擇的資料夾無法使用，請在設定重新選擇。</string>
-	<string name="notification_auto_upload_failed_due_to_vault_locked">加密庫在上載期間鎖定，請重新解鎖加密庫後繼續。</string>
-	<string name="notification_auto_upload_failed_due_to_vault_not_found">使用於自動上傳的加密庫已不存在。</string>
-	<string name="notification_open_writable_file_title">可讀寫檔案開啟中</string>
+	<string name="notification_auto_upload_failed_due_to_vault_locked">加密庫在上載期間鎖定，請解鎖加密庫以繼續上載。</string>
+	<string name="notification_auto_upload_failed_due_to_vault_not_found">指定自動上傳的加密庫已不存在。</string>
+	<string name="notification_open_writable_file_title">開啟讀取的文件</string>
 	<string name="notification_open_writable_file_message">加密庫將在編輯期間保持解鎖狀態</string>
 	<string name="notification_update_check_finished_latest">已安裝最新版本</string>
-	<string name="notification_authenticating">驗證中…</string>
+	<string name="notification_authenticating">正在驗證 &#8230;</string>
 	<string name="screen_settings_lru_cache">快取</string>
-	<string name="screen_settings_lru_cache_toggle_summary">把本機上最近開啟的加密檔案加到快取，以便以後重新打開時使用</string>
+	<string name="screen_settings_lru_cache_toggle_summary">將本機上最近開啟的加密檔案加入快取，以便以後重新打開時使用</string>
 	<string name="screen_settings_lru_cache_size">快取總大小</string>
 	<string name="screen_settings_clear_lru_cache_size">清理快取</string>
-	<string name="screen_settings_lru_cache_changed__restart_toast">變更將會在應用程式下次重啟後啟用</string>
-	<string name="screen_settings_license">註冊給</string>
+	<string name="screen_settings_lru_cache_changed__restart_toast">變更將會在應用程式重啟後應用</string>
+	<string name="screen_settings_license">註冊</string>
 	<string name="screen_settings_license_mail">%1$s</string>
 	<string name="dialog_settings_update_check_interval_title">檢查更新間隔</string>
 	<string name="screen_settings_check_updates">檢查更新</string>

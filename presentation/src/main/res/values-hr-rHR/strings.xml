@@ -34,6 +34,7 @@
 	<string name="error_file_not_found_after_opening_using_3party">Lokalna datoteka više ne postoji nakon povratka u Cryptomator. Moguće promjene ne mogu se propagirati nazad u oblak.</string>
 	<string name="error_no_such_bucket">Nepostojeća kanta</string>
 	<string name="error_masterkey_location_not_supported">Prilagođena lokacija glavnog ključa još nije podržano</string>
+	<string name="error_interact_with_fdroid_but_fdroid_missing">Komunikacija s aplikacijom F-Droid nije uspjela. Nije instalirana?</string>
 	<!-- # clouds -->
 	<!-- ## cloud names -->
 	<string name="cloud_names_local_storage">Lokalna pohrana</string>
@@ -54,12 +55,15 @@
 	<string name="snack_bar_action_title_sort_oldest">Prvo najstarije</string>
 	<string name="snack_bar_action_title_sort_biggest">Prvo najveće</string>
 	<string name="snack_bar_action_title_sort_smallest">Prvo najmanje</string>
+	<string name="snack_bar_cryptomator_variants_title">Pročitaj više</string>
+	<string name="snack_bar_cryptomator_variants_hint">Oblak nije na popisu?</string>
 	<!-- # screens -->
 	<!-- # screen: vault list -->
 	<string name="screen_vault_list_actions_title">Dodaj u Cryptomator</string>
 	<string name="screen_vault_list_action_create_new_vault">Izradi novi trezor</string>
 	<string name="screen_vault_list_action_add_existing_vault">Dodaj postojeći trezor</string>
 	<string name="screen_vault_list_vault_action_delete">Ukloni</string>
+	<string name="screen_vault_list_vault_creation_hint">Dodirnite ovdje za izradu novog trezora</string>
 	<string name="screen_vault_list_change_password_successful">Lozinka je uspješno promijenjena</string>
 	<!-- # screen: file browser -->
 	<string name="screen_file_browser_default_title">Trezor</string>
@@ -115,6 +119,7 @@
 	<string name="screen_choose_cloud_service_title">Usluga u oblaku</string>
 	<!-- ## screen: cloud connections -->
 	<string name="screen_cloud_connections_title">Odaberi lokaciju</string>
+	<string name="screen_cloud_connections_no_connections">Dodirnite ovdje za dodavanje lokacija</string>
 	<string name="screen_cloud_error_webdav_not_supported">Čini se da poslužitelj nije WebDAV kompatibilan</string>
 	<string name="screen_cloud_local_error_no_content_provider">Nije pronađen upravitelj dodateka koji podržava otvaranje mapa</string>
 	<!-- ## screen: webdav settings -->
@@ -211,6 +216,18 @@
 	<string name="screen_authenticate_auth_authentication_failed">%1$s se ne može autenticirati.</string>
 	<string name="screen_update_pcloud_connections_title">Ažuriraj pCloud vjerodajnice</string>
 	<!-- ## screen: cryptomator app variants -->
+	<string name="screen_cryptomator_variants_title">Varijante Cryptomatora</string>
+	<string name="screen_cryptomator_variants_lite_title">Glavno spremište F-Droida</string>
+	<string name="screen_cryptomator_variants_lite_description">Isključeno jer zahtijevaju API ključeve.</string>
+	<string name="screen_cryptomator_variants_lite_install">Instaliraj</string>
+	<string name="screen_cryptomator_variants_fdroid_title">Cryptomator F-Droid spremište</string>
+	<string name="screen_cryptomator_variants_fdroid_description">Isključeno jer sadrži vlasničke ovisnosti.</string>
+	<string name="screen_cryptomator_variants_fdroid_add_repo_hint">Dodajte Cryptomator-ovo spremište u F-Droid aplikaciju.</string>
+	<string name="screen_cryptomator_variants_fdroid_add_repo">Dodaj</string>
+	<string name="screen_cryptomator_variants_fdroid_install_hint">Instalirajte Cryptomator pomoću F-Droida.\nAko se prikaže greška \"Nije pronađeno\", pričekajte dok se F-Droid sinkronizacija ne završi.</string>
+	<string name="screen_cryptomator_variants_website_title">Web stranica</string>
+	<string name="screen_cryptomator_variants_website_description">Sadrži vlasničke ovisnosti.</string>
+	<string name="screen_cryptomator_variants_installation_hint">Prebacivanje s ili na glavnu varijantu spremišta F-Droid zahtijeva novo postavljanje aplikacije.</string>
 	<!-- # dialogs -->
 	<string name="dialog_button_cancel">Odustani</string>
 	<string name="dialog_enter_password_positive_button">Otključaj</string>
@@ -248,6 +265,7 @@
 	<string name="dialog_unsaved_changes_title">Imate nepohranjene promjene</string>
 	<string name="dialog_unsaved_changes_message">Želite li izaći bez spremanja?</string>
 	<string name="dialog_unsaved_changes_discard">Odbaci</string>
+	<string name="dialog_file_name_hint">Naziv datoteke</string>
 	<string name="dialog_file_name_placeholder">tekst.txt</string>
 	<string name="dialog_delete_vault_message">Sigurno želite ukloniti ovaj trezor?</string>
 	<string name="dialog_delete_vault_hint">Ova radnja će samo ukloniti trezor s liste, ali ne i fizički ga obrisati.</string>
@@ -274,6 +292,7 @@
 	<string name="dialog_accept_ssl_certificate_details">Detalji</string>
 	<string name="dialog_accept_ssl_certificate_security_checkbox">Ovo bi mogao biti sigurnosni rizik. Znam što činim.</string>
 	<string name="dialog_ask_ignore_battery_optimizations_title">Onemogući optimizacije baterije</string>
+	<string name="dialog_ask_ignore_battery_optimizations_hint">Da bismo dohvatili nove slike i videozapise bez rada u pozadini, moramo isključiti optimizaciju baterije. Ali ne brinite, %1$s ne troši puno energije.\n\nDa biste to primijenili, promijenite \"Nije optimizirano\" u \"Sve aplikacije\", odaberite %1$s i nakon dodira odaberite \"Nemoj optimizirati\" \'%2$s\' u ovom dijaloškom okviru.</string>
 	<string name="dialog_ask_ignore_battery_optimizations_checkbox">Ne pitati ponovno?</string>
 	<string name="dialog_http_security_hint">Korištenje HTTP-a je nesigurno. Preporučamo korištenje HTTPS-a umjesto toga. Ako znate rizike, možemo nastaviti s HTTP-om.</string>
 	<string name="dialog_http_security_checkbox">Promijeni u HTTPS</string>
@@ -327,6 +346,7 @@
 	<string name="dialog_no_dir_file_message">Mapa u oblaku \'%1$s\' nema valjanu datoteku mape. Može biti da je mapa izrađena na drugom uređaju i nije još u potpunosti sinkronizirana s oblakom. Molimo provjerite u oblaku da slijedeća datoteka postoji i da nije prazna:\n%2$s</string>
 	<string name="dialog_no_more_images_to_display">Nema više slika za prikaz&#8230;</string>
 	<string name="dialog_pcloud_credentials_updated_title">Vjerodajnice od \'%1$s\' ažurirane</string>
+	<string name="dialog_pcloud_credentials_updated">Ako ste namjeravali dodati novi pCloud račun, dodirnite ovaj url <a href="https://www.pcloud.com">www.pcloud.com</a>, odjavite se s trenutačnog računa i ponovno dodirnite \'+\' u ovoj aplikaciji za stvaranje nove veze u oblaku.</string>
 	<string name="permission_snackbar_auth_local_vault">Cryptomator treba pristup pohrani da koristi lokalne trezore</string>
 	<string name="permission_snackbar_auth_auto_upload">Cryptomator treba pristup pohrani da koristi automatski prijenos slika</string>
 	<!-- # error reports -->

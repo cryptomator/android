@@ -10,6 +10,7 @@ import org.cryptomator.domain.OnedriveCloud
 import org.cryptomator.domain.PCloud
 import org.cryptomator.domain.Vault
 import org.cryptomator.domain.di.PerView
+import org.cryptomator.domain.exception.NetworkConnectionException
 import org.cryptomator.domain.usecases.cloud.AddOrChangeCloudConnectionUseCase
 import org.cryptomator.domain.usecases.cloud.GetCloudsUseCase
 import org.cryptomator.domain.usecases.cloud.GetUsernameUseCase
@@ -29,6 +30,7 @@ import org.cryptomator.presentation.model.mappers.CloudModelMapper
 import org.cryptomator.presentation.ui.activity.view.CloudConnectionListView
 import org.cryptomator.presentation.ui.dialog.PCloudCredentialsUpdatedDialog
 import org.cryptomator.presentation.workflow.ActivityResult
+import org.cryptomator.util.ExceptionUtil
 import org.cryptomator.util.crypto.CredentialCryptor
 import java.util.concurrent.atomic.AtomicReference
 import javax.inject.Inject
@@ -126,6 +128,7 @@ class CloudConnectionListPresenter @Inject constructor( //
 			CloudTypeModel.PCLOUD -> requestActivityResult(ActivityResultCallbacks.pCloudAuthenticationFinished(), Intents.authenticatePCloudIntent())
 			CloudTypeModel.S3 -> requestActivityResult(ActivityResultCallbacks.addChangeMultiCloud(), Intents.s3AddOrChangeIntent())
 			CloudTypeModel.LOCAL -> openDocumentTree()
+			else -> throw IllegalStateException("Cloud type is not supported")
 		}
 	}
 
@@ -133,7 +136,7 @@ class CloudConnectionListPresenter @Inject constructor( //
 		OnedriveAuthentication.getAuthenticatedOnedriveCloud(activity(), { cloud ->
 			saveOnedriveCloud(cloud)
 		}, { e ->
-			showError(e)
+			ExceptionUtil.extract(e, NetworkConnectionException::class.java).orNull()?.let { showError(it) } ?: showError(e)
 		})
 	}
 
@@ -164,7 +167,7 @@ class CloudConnectionListPresenter @Inject constructor( //
 
 	private fun openDocumentTree() {
 		try {
-			requestActivityResult(ActivityResultCallbacks.pickedLocalStorageLocation(), Intent(Intent.ACTION_OPEN_DOCUMENT_TREE))
+			requestActivityResult(ActivityResultCallbacks.pickedLocalStorageLocationForLocalCloud(), Intent(Intent.ACTION_OPEN_DOCUMENT_TREE))
 		} catch (exception: ActivityNotFoundException) {
 			Toast.makeText(activity().applicationContext, context().getText(R.string.screen_cloud_local_error_no_content_provider), Toast.LENGTH_SHORT).show()
 			Timber.tag("CloudConnListPresenter").e(exception, "No ContentProvider on system")
@@ -249,7 +252,7 @@ class CloudConnectionListPresenter @Inject constructor( //
 	}
 
 	@Callback
-	fun pickedLocalStorageLocation(result: ActivityResult) {
+	fun pickedLocalStorageLocationForLocalCloud(result: ActivityResult) {
 		val rootTreeUriOfLocalStorage = result.intent().data
 		persistUriPermission(rootTreeUriOfLocalStorage)
 		addOrChangeCloudConnectionUseCase

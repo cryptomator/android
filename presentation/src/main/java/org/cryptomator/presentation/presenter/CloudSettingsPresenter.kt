@@ -103,6 +103,7 @@ class CloudSettingsPresenter @Inject constructor( //
 			CloudTypeModel.WEBDAV -> return context().getString(R.string.screen_cloud_settings_webdav_connections)
 			CloudTypeModel.S3 -> return context().getString(R.string.screen_cloud_settings_s3_connections)
 			CloudTypeModel.LOCAL -> return context().getString(R.string.screen_cloud_settings_local_storage_locations)
+			else -> {}
 		}
 		return context().getString(R.string.screen_cloud_settings_title)
 	}

@@ -20,9 +20,10 @@ import org.cryptomator.util.ExceptionUtil
 import java.io.File
 import java.io.IOException
 import java.io.OutputStream
+import io.minio.MinioClient
 import io.minio.errors.ErrorResponseException
 
-internal class S3CloudContentRepository(private val cloud: S3Cloud, context: Context) : InterceptingCloudContentRepository<S3Cloud, S3Node, S3Folder, S3File>(Intercepted(cloud, context)) {
+internal class S3CloudContentRepository(private val cloud: S3Cloud, client: MinioClient, context: Context) : InterceptingCloudContentRepository<S3Cloud, S3Node, S3Folder, S3File>(Intercepted(cloud, client, context)) {
 
 	@Throws(BackendException::class)
 	override fun throwWrappedIfRequired(e: Exception) {
@@ -59,9 +60,9 @@ internal class S3CloudContentRepository(private val cloud: S3Cloud, context: Con
 		}
 	}
 
-	private class Intercepted(cloud: S3Cloud, context: Context) : CloudContentRepository<S3Cloud, S3Node, S3Folder, S3File> {
+	private class Intercepted(cloud: S3Cloud, client: MinioClient, context: Context) : CloudContentRepository<S3Cloud, S3Node, S3Folder, S3File> {
 
-		private val cloud: S3Impl = S3Impl(context, cloud)
+		private val cloud: S3Impl = S3Impl(cloud, client, context)
 
 		override fun root(cloud: S3Cloud): S3Folder {
 			return this.cloud.root()

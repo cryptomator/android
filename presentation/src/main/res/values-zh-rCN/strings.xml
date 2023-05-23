@@ -14,7 +14,7 @@
 	<string name="error_vault_already_exists">保险库已存在</string>
 	<string name="error_no_such_file">文件不存在</string>
 	<string name="error_vault_has_been_locked">保险库已锁定</string>
-	<string name="error_cloud_already_exists">该云已存在</string>
+	<string name="error_cloud_already_exists">该云存储已存在</string>
 	<string name="error_activity_not_found">请下载一个可以打开此文件的应用</string>
 	<string name="error_server_not_found">未找到服务器</string>
 	<string name="error_device_policy_manager_not_found">请打开系统设置并手动设置屏幕锁</string>
@@ -31,9 +31,10 @@
 	<string name="error_vault_version_mismatch">%1$s 中指定的版本与 %2$s 中的不同</string>
 	<string name="error_vault_key_invalid">%1$s 与此 %2$s 不匹配</string>
 	<string name="error_vault_config_loading">加载保险库配置时发生常规错误</string>
-	<string name="error_file_not_found_after_opening_using_3party">切换回 Cryptomator 后，本地文件不再存在。期间所做更改无法传回云端</string>
+	<string name="error_file_not_found_after_opening_using_3party">切换回 Cryptomator 后，本地文件不再存在。期间所做可能的改动无法传回云端。</string>
 	<string name="error_no_such_bucket">没有这样的 bucket</string>
 	<string name="error_masterkey_location_not_supported">尚不支持自定义 Masterkey 路径</string>
+	<string name="error_interact_with_fdroid_but_fdroid_missing">无法找到 F-Droid 应用程序。可能未安装？</string>
 	<!-- # clouds -->
 	<!-- ## cloud names -->
 	<string name="cloud_names_local_storage">本地存储</string>
@@ -50,16 +51,19 @@
 	<string name="snack_bar_action_title_sort">排序</string>
 	<string name="snack_bar_action_title_sort_az">A - Z</string>
 	<string name="snack_bar_action_title_sort_za">Z - A</string>
-	<string name="snack_bar_action_title_sort_newest">日期 (升序)</string>
-	<string name="snack_bar_action_title_sort_oldest">日期 (降序)</string>
-	<string name="snack_bar_action_title_sort_biggest">大小 (降序)</string>
-	<string name="snack_bar_action_title_sort_smallest">大小 (升序)</string>
+	<string name="snack_bar_action_title_sort_newest">新文件优先</string>
+	<string name="snack_bar_action_title_sort_oldest">旧文件优先</string>
+	<string name="snack_bar_action_title_sort_biggest">大文件优先</string>
+	<string name="snack_bar_action_title_sort_smallest">小文件优先</string>
+	<string name="snack_bar_cryptomator_variants_title">了解更多</string>
+	<string name="snack_bar_cryptomator_variants_hint">Cloud不在列表中？</string>
 	<!-- # screens -->
 	<!-- # screen: vault list -->
 	<string name="screen_vault_list_actions_title">添加到加密器</string>
 	<string name="screen_vault_list_action_create_new_vault">添加新保险库</string>
 	<string name="screen_vault_list_action_add_existing_vault">添加现有保险库</string>
 	<string name="screen_vault_list_vault_action_delete">删除</string>
+	<string name="screen_vault_list_vault_creation_hint">新建保险库</string>
 	<string name="screen_vault_list_change_password_successful">密码修改成功</string>
 	<!-- # screen: file browser -->
 	<string name="screen_file_browser_default_title">保险库</string>
@@ -71,7 +75,7 @@
 	</plurals>
 	<string name="screen_file_browser_move_button_text">移动</string>
 	<string name="screen_file_browser_msg_empty_folder">空文件夹</string>
-	<string name="screen_file_browser_file_info_label_date">修改于 %1$s 前</string>
+	<string name="screen_file_browser_file_info_label_date">修改于%1$s前</string>
 	<string name="screen_file_browser_share_intent_chooser_title">分享到</string>
 	<string name="screen_file_browser_share_destination_title">请选择目标位置</string>
 	<string name="screen_file_browser_share_button_text">选择</string>
@@ -105,7 +109,7 @@
 	<string name="screen_share_files_content_text">文本</string>
 	<string name="screen_share_files_content_file">文件</string>
 	<string name="screen_share_files_content_files">文件</string>
-	<string name="screen_share_files_msg_filenames_must_be_unique">文件名必须是唯一的，请重命名同名文件</string>
+	<string name="screen_share_files_msg_filenames_must_be_unique">文件名必须唯一，请重命名重名文件</string>
 	<string name="screen_share_files_section_location">保存位置</string>
 	<string name="screen_share_files_save_button_text">保存</string>
 	<string name="screen_share_files_msg_success">加密完成</string>
@@ -113,6 +117,7 @@
 	<string name="screen_choose_cloud_service_title">云服务</string>
 	<!-- ## screen: cloud connections -->
 	<string name="screen_cloud_connections_title">请选择位置</string>
+	<string name="screen_cloud_connections_no_connections">添加位置</string>
 	<string name="screen_cloud_error_webdav_not_supported">服务器似乎不兼容 WebDAV</string>
 	<string name="screen_cloud_local_error_no_content_provider">没有找到支持打开目录的文件管理器</string>
 	<!-- ## screen: webdav settings -->
@@ -144,7 +149,7 @@
 	<string name="screen_set_password_title">设置密码</string>
 	<string name="screen_set_password_msg_password_mismatch">两次密码不匹配</string>
 	<string name="screen_set_password_button_text">完成</string>
-	<string name="screen_set_password_hint">重要提示：一旦您忘记密码，将永远无法恢复您的数据</string>
+	<string name="screen_set_password_hint">重要提示：一旦您忘记密码，将永远无法恢复您的数据！</string>
 	<string name="screen_set_password_retype_password_label">确认密码</string>
 	<string name="screen_set_password_strength_indicator_0">密码太弱，不能创建保险库</string>
 	<string name="screen_set_password_strength_indicator_1">弱</string>
@@ -156,10 +161,10 @@
 	<string name="screen_settings_cloud_settings_label">云服务</string>
 	<string name="screen_settings_biometric_auth">生物识别认证</string>
 	<string name="screen_settings_activate_biometric_auth">启用生物识别认证</string>
-	<string name="screen_settings_confirm_face_unlock">确认人脸解锁 (如果有)</string>
-	<string name="screen_settings_block_app_when_obscured">被遮罩 (比如某些护眼应用) 时停用 Cryptomator</string>
+	<string name="screen_settings_confirm_face_unlock">确认使用人脸解锁 (如果有)</string>
+	<string name="screen_settings_block_app_when_obscured">被其他应用遮盖时阻止使用</string>
 	<string name="screen_settings_block_app_when_obscured_summary">阻止 \"输入拦截以及显示错误、诱导性的用户界面\"</string>
-	<string name="screen_settings_secure_screen">防截屏</string>
+	<string name="screen_settings_secure_screen">阻止截屏</string>
 	<string name="screen_settings_secure_screen_summary">在最近任务和应用内阻止截图</string>
 	<string name="screen_settings_section_search">搜索</string>
 	<string name="screen_settings_live_search">实时搜索</string>
@@ -172,7 +177,7 @@
 	<string name="screen_settings_section_auto_photo_upload">自动上传图片</string>
 	<string name="screen_settings_section_auto_photo_upload_vault">选择目标保险库</string>
 	<string name="screen_settings_section_auto_photo_upload_toggle">启用</string>
-	<string name="screen_settings_section_auto_photo_upload_toggle_summary">后台感知图片，一旦目标保险库解锁即开始上传</string>
+	<string name="screen_settings_section_auto_photo_upload_toggle_summary">后台检测图片变动，一旦目标保险库解锁立即开始上传</string>
 	<string name="screen_settings_section_auto_photo_upload_toggle_instant_upload">实时上传</string>
 	<string name="screen_settings_section_auto_photo_upload_toggle_instant_upload_summary">解锁保险库后直接上传</string>
 	<string name="screen_settings_section_auto_photo_upload_only_wifi_toggle">仅限 WIFI</string>
@@ -209,6 +214,18 @@
 	<string name="screen_authenticate_auth_authentication_failed">%1$s 无法通过身份验证</string>
 	<string name="screen_update_pcloud_connections_title">更新 pCloud 凭证</string>
 	<!-- ## screen: cryptomator app variants -->
+	<string name="screen_cryptomator_variants_title">Cryptomator变体</string>
+	<string name="screen_cryptomator_variants_lite_title">F-Droid 主仓库</string>
+	<string name="screen_cryptomator_variants_lite_description">已被排除，因为他们需要 API 密钥</string>
+	<string name="screen_cryptomator_variants_lite_install">安装</string>
+	<string name="screen_cryptomator_variants_fdroid_title">Cryptomator F-Droid 仓库</string>
+	<string name="screen_cryptomator_variants_fdroid_description">已被排除，因为它包含专有依赖项。</string>
+	<string name="screen_cryptomator_variants_fdroid_add_repo_hint">将 Cryptomator 仓库添加到 F-Droid 应用程序</string>
+	<string name="screen_cryptomator_variants_fdroid_add_repo">添加</string>
+	<string name="screen_cryptomator_variants_fdroid_install_hint">使用 F-Droid 安装 Cryptomator \n如果未发现错误，请等待 F-Droid 同步完成。</string>
+	<string name="screen_cryptomator_variants_website_title">网站</string>
+	<string name="screen_cryptomator_variants_website_description">包含专有依赖项</string>
+	<string name="screen_cryptomator_variants_installation_hint">在F-Droid主仓库的变体之间切换需要重新设置应用</string>
 	<!-- # dialogs -->
 	<string name="dialog_button_cancel">取消</string>
 	<string name="dialog_enter_password_positive_button">解锁</string>
@@ -220,11 +237,11 @@
 	<string name="dialog_change_password_msg_password_mismatch">两次密码不匹配</string>
 	<!-- Vault not found -->
 	<string name="dialog_vault_not_found_title">未找到 %1$s 保险库</string>
-	<string name="dialog_vault_not_found_message">保险库已重命名、移动或删除。请从列表中删除此保险库并再次添加以继续，立即删除吗？</string>
+	<string name="dialog_vault_not_found_message">保险库已重命名、移动或删除。请从列表中删除此保险库并重新添加以继续。立即删除它吗？</string>
 	<string name="dialog_vault_not_found_positive_button_text">删除</string>
 	<string name="dialog_existing_file_title">文件已存在</string>
 	<string name="dialog_existing_file_positive_button">替换</string>
-	<string name="dialog_existing_file_message">已存在名为 \'%1$s\' 的文件</string>
+	<string name="dialog_existing_file_message">已存在名为 \'%1$s\' 的文件。</string>
 	<string name="dialog_replace_negative_button_at_least_two_but_not_all_files_exist">跳过已有文件</string>
 	<string name="dialog_replace_positive_button_all_files_exist">全部替换</string>
 	<string name="dialog_replace_positive_button_some_files_exist">替换已有文件</string>
@@ -235,7 +252,7 @@
 	<string name="dialog_replace_title_single_file_exists">替换文件？</string>
 	<string name="dialog_replace_title_multiple_files_exist">替换文件？</string>
 	<string name="dialog_unable_to_share_title">无法分享文件</string>
-	<string name="dialog_unable_to_share_message">您尚未设置任何保险库，请先创建一个</string>
+	<string name="dialog_unable_to_share_message">您尚未设置任何保险库，请先创建一个。</string>
 	<string name="dialog_unable_to_share_positive_button">确定</string>
 	<string name="dialog_unable_to_share_negative_button">创建保险库</string>
 	<string name="dialog_filetype_not_supported_title">无法打开 %1$s</string>
@@ -246,9 +263,10 @@
 	<string name="dialog_unsaved_changes_title">存在尚未保存的更改</string>
 	<string name="dialog_unsaved_changes_message">确定要不保存退出？</string>
 	<string name="dialog_unsaved_changes_discard">舍弃</string>
+	<string name="dialog_file_name_hint">文件名</string>
 	<string name="dialog_file_name_placeholder">text.txt</string>
 	<string name="dialog_delete_vault_message">您确定要删除此保险库吗？</string>
-	<string name="dialog_delete_vault_hint">此操作只会从此列表中删除保险库，而不会实际删除</string>
+	<string name="dialog_delete_vault_hint">此操作只会从此列表中删除保险库，而不会实际删除保险库文件。</string>
 	<string name="dialog_upload_file_title">上传中&#8230;</string>
 	<string name="dialog_upload_file_remaining">文件 %1$d / %2$d</string>
 	<string name="dialog_export_file_title">导出中 (%1$d/%2$d)</string>
@@ -272,31 +290,32 @@
 	<string name="dialog_accept_ssl_certificate_details">详情</string>
 	<string name="dialog_accept_ssl_certificate_security_checkbox">这可能存在安全风险，我知道我在做什么</string>
 	<string name="dialog_ask_ignore_battery_optimizations_title">禁用电池优化</string>
-	<string name="dialog_ask_ignore_battery_optimizations_checkbox">不要再次询问我？</string>
-	<string name="dialog_http_security_hint">HTTP 不安全，我们建议使用 HTTPS。如果您知道其中风险，您可以继续使用 HTTP</string>
+	<string name="dialog_ask_ignore_battery_optimizations_hint">要在非后台运行的情况下检索新的图片和视频，我们需要关闭电池优化。但不要担心，%1$s 不会消耗太多电量。\n\n如需应用设置，点击对话框中的“%2$s”后，将“未优化”改为“所有应用”，选择 %1$s 并选择“不要优化”。</string>
+	<string name="dialog_ask_ignore_battery_optimizations_checkbox">不再询问？</string>
+	<string name="dialog_http_security_hint">HTTP 不安全，我们建议使用 HTTPS。如果您知道其中风险，您可以继续使用 HTTP。</string>
 	<string name="dialog_http_security_checkbox">换成 HTTPS</string>
 	<string name="dialog_http_security_title">使用 HTTPS?</string>
-	<string name="dialog_no_screen_lock_hint">未设置屏幕锁。要以安全的方式存储您的凭据，请使用 OK 设置锁屏图案或密码</string>
-	<string name="dialog_no_screen_lock_title">设置屏幕锁？</string>
-	<string name="dialog_no_screen_lock_checkbox">设置屏幕锁</string>
+	<string name="dialog_no_screen_lock_hint">未设置屏幕锁定。要以安全的方式存储您的凭据，请点击 OK 并设置锁屏图案或密码。</string>
+	<string name="dialog_no_screen_lock_title">设置屏幕锁定？</string>
+	<string name="dialog_no_screen_lock_checkbox">设置屏幕锁定</string>
 	<string name="dialog_no_biometric_auth_set_up_title">系统中未设置基本身份验证</string>
 	<string name="dialog_no_biometric_auth_set_up_message">注册至少一个指纹/面部以使用此服务</string>
-	<string name="dialog_debug_mode_disclaimer_hint">在此模式下，敏感数据可能会写入您设备上的日志文件 (例如文件名和路径)。密码、cookies等除外\n\n请记住要尽快关闭调试模式</string>
+	<string name="dialog_debug_mode_disclaimer_hint">在此模式下，敏感数据可能会写入您设备上的日志文件 (例如文件名和路径)。密码、cookies等除外。\n\n请记得要尽快关闭调试模式。</string>
 	<string name="dialog_debug_mode_disclaimer_title">请注意</string>
 	<string name="dialog_debug_mode_positive_button">启用</string>
 	<string name="dialog_disable_app_obscured_disclaimer_hint">此为一项安全功能，可防止其他应用诱使用户做出错误操作\n\n如果禁用，即表示您了解<a href="https://docs.cryptomator.org/en/1.6/android/settings/#block-app-when-obscured">其中风险</a></string>
 	<string name="dialog_disable_app_obscured_disclaimer_title">请注意</string>
 	<string name="dialog_disable_app_obscured_positive_button">关闭</string>
-	<string name="dialog_app_is_obscured_info_title">应用被遮蔽</string>
-	<string name="dialog_app_is_obscured_info_hint">另一应用正遮罩在 Cryptomator 之上 (例如蓝色光滤镜或夜间模式应用)。出于安全考虑，Cryptomator 已禁用\n\n<a href="https://docs.cryptomator.org/en/1.6/android/settings/#block-app-when-obscured">如何启用 Cryptomator</a></string>
+	<string name="dialog_app_is_obscured_info_title">应用被遮盖</string>
+	<string name="dialog_app_is_obscured_info_hint">另一应用遮盖了 Cryptomator (例如蓝光滤镜或夜间模式应用)。出于安全考虑，Cryptomator 已禁用。\n\n<a href="https://docs.cryptomator.org/en/1.6/android/settings/#block-app-when-obscured">如何启用 Cryptomator</a></string>
 	<string name="dialog_app_is_obscured_info_neutral_button">关闭</string>
 	<string name="dialog_vaults_removed_during_migration_title">请重新添加 %1s 的保险库</string>
-	<string name="dialog_vaults_removed_during_migration_hint">在进行应用版本迁移前，我们需要从应用中移除下列保险库：\n%2s \n\n这些保险库并不会从云端移除，仅仅是针对当前应用版本，抱歉给您带来不便，请重新添加这些保险库以便继续使之生效。</string>
+	<string name="dialog_vaults_removed_during_migration_hint">在进行应用版本迁移前，我们需要从应用中移除下列保险库：\n%2s \n\n这些保险库并不会从云端移除，仅仅在当前应用的列表中移除。抱歉给您带来不便，请重新添加这些保险库以便继续使用它们。</string>
 	<string name="dialog_vault_is_root_folder_of_cloud_title">保险库是云端的根文件夹</string>
-	<string name="dialog_vault_is_root_folder_of_cloud_hint">创建一个新的云端连接时，您需要选择这个保险库文件夹的父文件夹作为根目录来添加这个保险库。</string>
-	<string name="dialog_disable_secure_screen_disclaimer_hint">此为一项安全功能，可防止其他应用诱使用户做出错误操作\n\n如果禁用，即表示您了解<a href="https://docs.cryptomator.org/en/1.6/android/settings/#screen-security">其中风险</a></string>
-	<string name="dialog_delete_cloud_connection_with_vaults_message">您确定要移除此云连接吗？</string>
-	<string name="dialog_delete_cloud_connection_with_vaults_hint">此操作将移除云连接以及与之相关的所有保险库</string>
+	<string name="dialog_vault_is_root_folder_of_cloud_hint">创建一个新的云存储连接时，您至少需要选择这个保险库文件夹的父文件夹作为根目录来添加这个保险库。</string>
+	<string name="dialog_disable_secure_screen_disclaimer_hint">此为一项安全功能，可防止其他应用诱使用户做出错误操作。\n\n如果禁用，即表示您了解<a href="https://docs.cryptomator.org/en/1.6/android/settings/#screen-security">其中风险</a></string>
+	<string name="dialog_delete_cloud_connection_with_vaults_message">您确定要移除此云存储连接吗？</string>
+	<string name="dialog_delete_cloud_connection_with_vaults_hint">此操作将移除云存储连接以及与之相关的所有保险库。</string>
 	<string name="dialog_confirm_delete_multiple_title">删除 %1$d 项？</string>
 	<string name="dialog_confirm_delete_multiple_message">您确定要删除这些项目吗？</string>
 	<string name="dialog_confirm_delete_file_message">您确定要删除此文件吗？</string>
@@ -304,15 +323,15 @@
 	<string name="dialog_biometric_auth_key_invalidated_title">生物识别认证功能已停用</string>
 	<string name="dialog_biometric_auth_key_invalidated_message">由于密钥已失效，生物识别认证功能已停用。重新启用请打开 Cryptomator 设置</string>
 	<string name="dialog_enter_license_title">请提供有效许可证</string>
-	<string name="dialog_enter_license_content">我们检测到您在没有使用 Play 商店的情况下安装了 Cryptomator。请提供有效许可证，可前往 <a href="https://cryptomator.org/android/">https://cryptomator.org/android/</a> 购买</string>
-	<string name="dialog_enter_license_not_valid_content">提供的许可证无效，请确保输入正确</string>
-	<string name="dialog_enter_license_not_valid_content_desktop_supporter_certificate">提供的密钥为桌面版赞助者证书。请输入有效的许可证。</string>
-	<string name="dialog_enter_license_no_content">未提供许可证，请输入有效许可证</string>
+	<string name="dialog_enter_license_content">我们检测到您在没有使用 Google Play 商店的情况下安装了 Cryptomator。请提供有效许可证，可前往 <a href="https://cryptomator.org/android/">https://cryptomator.org/android/</a> 购买</string>
+	<string name="dialog_enter_license_not_valid_content">提供的许可证无效，请确保输入正确。</string>
+	<string name="dialog_enter_license_not_valid_content_desktop_supporter_certificate">提供的密钥为桌面版支持者证书。请输入有效的许可证。</string>
+	<string name="dialog_enter_license_no_content">未提供许可证，请输入有效许可证。</string>
 	<string name="dialog_enter_license_decline_button">退出</string>
 	<string name="dialog_license_confirmation_title">授权通过</string>
-	<string name="dialog_license_confirmation_message">感谢 %1$s 提供您有效许可证</string>
+	<string name="dialog_license_confirmation_message">感谢 %1$s 提供您的有效许可证</string>
 	<string name="dialog_update_available_title">发现新版本</string>
-	<string name="dialog_update_available_message">请更新 Cryptomator 到最新版本，点击确定我们将在后台下载应用，并提醒您安装</string>
+	<string name="dialog_update_available_message">请更新 Cryptomator 到最新版本。点击确定后，我们将在后台下载应用并提醒您安装。</string>
 	<string name="dialog_update_available_update">立即更新</string>
 	<string name="dialog_update_available_download_site">转到下载站点</string>
 	<string name="dialog_update_available_cancel">稍后再说</string>
@@ -325,8 +344,10 @@
 	<string name="dialog_no_dir_file_message">云文件夹 \'%1$s\' 没有有效的目录文件。可能文件夹是在另一设备上创建的，尚未完全同步到云端。请检查云端是否存在且不为空的以下文件：\n%2$s</string>
 	<string name="dialog_no_more_images_to_display">已到达文件夹末尾&#8230;</string>
 	<string name="dialog_pcloud_credentials_updated_title">\'%1$s\' 的证书已更新</string>
+	<string name="dialog_pcloud_credentials_updated">如果您打算添加一个新的 pCloud 账户，请点击此链接 <a href="https://www.pcloud.com">www.pcloud.com</a>，登出当前账户，然后点击此应用中的 \'+\' 来创建新的云连接</string>
 	<string name="permission_snackbar_auth_local_vault">Cryptomator 需要存储权限以使用本地保险库</string>
 	<string name="permission_snackbar_auth_auto_upload">Cryptomator 需要存储权限以自动上传图片</string>
+	<string name="permission_snackbar_notifications">Cryptomator 需要通知权限以显示保险库状态等</string>
 	<!-- # error reports -->
 	<!-- # misc -->
 	<!-- ## file size helper -->
@@ -357,7 +378,7 @@
 	<string name="dialog_biometric_auth_use_password">使用保险库密码</string>
 	<string name="dialog_unable_to_auto_upload_files_title">无法自动上传文件</string>
 	<!-- notification -->
-	<string name="notification_unlocked">保险库解锁数：%1$d</string>
+	<string name="notification_unlocked">保险库解锁次数：%1$d</string>
 	<string name="notification_timeout">%1$s 后自动锁定</string>
 	<string name="notification_lock_all">全部锁定</string>
 	<string name="notification_cancel_auto_upload">取消上传</string>
@@ -366,7 +387,7 @@
 	<string name="notification_auto_upload_finished_title">自动上传图片完成</string>
 	<string name="notification_auto_upload_finished_message">%1$d 张图片已上传到保险库</string>
 	<string name="notification_auto_upload_failed_title">自动上传图片失败</string>
-	<string name="notification_auto_upload_failed_general_error">上传时出错</string>
+	<string name="notification_auto_upload_failed_general_error">上传时出现一般性出错。</string>
 	<string name="notification_auto_upload_failed_due_to_folder_not_exists">所选文件夹无法再上传，请转到设置并选择一个新的文件夹</string>
 	<string name="notification_auto_upload_failed_due_to_vault_locked">上传期间保险库锁定了，请重新打开保险库以继续</string>
 	<string name="notification_auto_upload_failed_due_to_vault_not_found">用于自动上传的指定保险库已不存在。</string>

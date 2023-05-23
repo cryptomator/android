@@ -125,6 +125,7 @@ class UnlockVaultPresenter @Inject constructor(
 					unlockVault(intent.vaultModel())
 				}
 				UnlockVaultIntent.VaultAction.CHANGE_PASSWORD -> view?.showChangePasswordDialog(intent.vaultModel(), unverifiedVaultConfig.orNull())
+				else -> {}
 			}
 		}
 	}
@@ -269,6 +270,7 @@ class UnlockVaultPresenter @Inject constructor(
 							handleUnlockVaultSuccess(token.vault, cloud, password)
 						}
 						UnlockVaultIntent.VaultAction.UNLOCK -> finishWithResult(cloud)
+						else -> {}
 					}
 				}
 

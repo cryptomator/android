@@ -3,7 +3,7 @@
 	<!-- # app -->
 	<string name="share_with_label">加密</string>
 	<!-- # error messages -->
-	<string name="error_generic">發生了一個錯誤</string>
+	<string name="error_generic">出現錯誤</string>
 	<string name="error_authentication_failed">認證失敗</string>
 	<string name="error_authentication_failed_re_authenticate">認證失敗，請重新使用 %1$s 登入</string>
 	<string name="error_no_network_connection">沒有網路連線</string>
@@ -26,7 +26,7 @@
 	<string name="error_hash_mismatch_update">更新檢查失敗。計算出的雜湊值與上傳檔案不相符</string>
 	<string name="error_update_no_internet">更新檢查失敗。沒有網絡連接。</string>
 	<string name="error_failed_to_decrypt_webdav_password">不能解密 WebDAV 的密碼，請在設定中重新添加</string>
-	<string name="error_play_services_not_available">尚未安裝 Google Play 服務。</string>
+	<string name="error_play_services_not_available">尚未安裝 Google Play 服務</string>
 	<string name="error_biometric_auth_aborted">生物身份識別驗證中止</string>
 	<string name="error_vault_version_mismatch">%1$s 中指定的版本不同於 %2$s</string>
 	<string name="error_vault_key_invalid">%1$s 與 %2$s 不匹配</string>
@@ -34,6 +34,7 @@
 	<string name="error_file_not_found_after_opening_using_3party">切換回 Cryptomator 後，本地檔案不再存在。期間發生的更改無法傳回雲端。</string>
 	<string name="error_no_such_bucket">沒有該儲存貯體</string>
 	<string name="error_masterkey_location_not_supported">尚未支援自訂主金鑰位置</string>
+	<string name="error_interact_with_fdroid_but_fdroid_missing">無法找到F-Droid應用程式。可能未安裝？</string>
 	<!-- # clouds -->
 	<!-- ## cloud names -->
 	<string name="cloud_names_local_storage">本機儲存空間</string>
@@ -45,8 +46,8 @@
 	<string name="permission_revoked_re_request_permission">Cryptomator 已失去訪問此位置的權限。請再次選擇此資料夾以恢復權限。</string>
 	<string name="snack_bar_action_title_settings">設定</string>
 	<string name="snack_bar_action_title_search">搜尋</string>
-	<string name="snack_bar_action_title_search_previous">返回</string>
-	<string name="snack_bar_action_title_search_next">繼續</string>
+	<string name="snack_bar_action_title_search_previous">上一個</string>
+	<string name="snack_bar_action_title_search_next">下一個</string>
 	<string name="snack_bar_action_title_sort">排序</string>
 	<string name="snack_bar_action_title_sort_az">依英文字母順序</string>
 	<string name="snack_bar_action_title_sort_za">依英文字母倒序</string>
@@ -55,6 +56,7 @@
 	<string name="snack_bar_action_title_sort_biggest">最大的優先</string>
 	<string name="snack_bar_action_title_sort_smallest">最小的優先</string>
 	<string name="snack_bar_cryptomator_variants_title">閱讀更多</string>
+	<string name="snack_bar_cryptomator_variants_hint">Cloud不在列表中？</string>
 	<!-- # screens -->
 	<!-- # screen: vault list -->
 	<string name="screen_vault_list_actions_title">加到 Cryptomator</string>
@@ -115,6 +117,7 @@
 	<string name="screen_choose_cloud_service_title">雲端服務</string>
 	<!-- ## screen: cloud connections -->
 	<string name="screen_cloud_connections_title">選擇位置</string>
+	<string name="screen_cloud_connections_no_connections">點擊此處新增位置</string>
 	<string name="screen_cloud_error_webdav_not_supported">伺服器似乎與 WebDAV 不兼容</string>
 	<string name="screen_cloud_local_error_no_content_provider">未找到支援打開目錄的檔案管理器</string>
 	<!-- ## screen: webdav settings -->
@@ -141,7 +144,7 @@
 	<!-- ## screen: enter vault name -->
 	<string name="screen_enter_vault_name_msg_name_empty">加密檔案庫名稱不可留空。</string>
 	<string name="screen_enter_vault_name_vault_label">加密檔案庫名稱</string>
-	<string name="screen_enter_vault_name_button_text">新增</string>
+	<string name="screen_enter_vault_name_button_text">建立</string>
 	<!-- ## screen: set password -->
 	<string name="screen_set_password_title">設定密碼</string>
 	<string name="screen_set_password_msg_password_mismatch">新密碼與再次輸入的密碼不相符。</string>
@@ -211,7 +214,18 @@
 	<string name="screen_authenticate_auth_authentication_failed">%1$s 無法完成身份驗證</string>
 	<string name="screen_update_pcloud_connections_title">更新 pCloud 帳戶資訊</string>
 	<!-- ## screen: cryptomator app variants -->
+	<string name="screen_cryptomator_variants_title">Cryptomator變體</string>
+	<string name="screen_cryptomator_variants_lite_title">F-Droid 主程式庫</string>
+	<string name="screen_cryptomator_variants_lite_description">已被排除，因為他們需要 API 密鑰。</string>
 	<string name="screen_cryptomator_variants_lite_install">安裝</string>
+	<string name="screen_cryptomator_variants_fdroid_title">Cryptomator F-Droid 程式庫</string>
+	<string name="screen_cryptomator_variants_fdroid_description">已被排除，因為它包含專有依賴項。</string>
+	<string name="screen_cryptomator_variants_fdroid_add_repo_hint">將 Cryptomator 程式庫添加到 F-Droid 應用程式。</string>
+	<string name="screen_cryptomator_variants_fdroid_add_repo">添加</string>
+	<string name="screen_cryptomator_variants_fdroid_install_hint">使用 F-Droid 安裝 Cryptomator \n如果未發現錯誤，請等待 F-Droid 同步完成。</string>
+	<string name="screen_cryptomator_variants_website_title">網站</string>
+	<string name="screen_cryptomator_variants_website_description">包含專有依賴項。</string>
+	<string name="screen_cryptomator_variants_installation_hint">在F-Droid主程式庫的變體之間切換需要重新設置應用。</string>
 	<!-- # dialogs -->
 	<string name="dialog_button_cancel">取消</string>
 	<string name="dialog_enter_password_positive_button">解鎖</string>
@@ -249,9 +263,10 @@
 	<string name="dialog_unsaved_changes_title">您有未保存的更改</string>
 	<string name="dialog_unsaved_changes_message">您確定要不保存就離開嗎？</string>
 	<string name="dialog_unsaved_changes_discard">捨棄</string>
+	<string name="dialog_file_name_hint">檔案名</string>
 	<string name="dialog_file_name_placeholder">文檔.txt</string>
 	<string name="dialog_delete_vault_message">您確定要移除這個加密檔案庫嗎？</string>
-	<string name="dialog_delete_vault_hint">此操作只會從該列表中移除加密檔案庫，而不是實際上刪除它。</string>
+	<string name="dialog_delete_vault_hint">此操作只會從該列表中移除加密檔案庫，而不是實際上刪除檔案庫文檔。</string>
 	<string name="dialog_upload_file_title">正在上傳中……</string>
 	<string name="dialog_upload_file_remaining">第 %1$d 個（共 %2$d 個）</string>
 	<string name="dialog_export_file_title">正在匯出中（%1$d/%2$d）</string>
@@ -275,6 +290,7 @@
 	<string name="dialog_accept_ssl_certificate_details">詳情</string>
 	<string name="dialog_accept_ssl_certificate_security_checkbox">這可能會是個安全風險。我清楚我在做什麼。</string>
 	<string name="dialog_ask_ignore_battery_optimizations_title">停用電池效能最佳化設定</string>
+	<string name="dialog_ask_ignore_battery_optimizations_hint">要在不在背景運行的情況下檢索新圖片和影片，我們需要選擇退出電池優化。不過不用擔心， %1$s 不會消耗太多電量。\n\n要應用它，請把「未最佳化」更改為「所有應用程式」。在此對話框中選擇「%2$s」後，選擇「%1$s」再選擇「不最佳化」。</string>
 	<string name="dialog_ask_ignore_battery_optimizations_checkbox">不要再詢問？</string>
 	<string name="dialog_http_security_hint">使用 HTTP 是不安全的。我們推薦使用 HTTPS 來取代。如果您瞭解風險，您可以使用 HTTP 繼續。</string>
 	<string name="dialog_http_security_checkbox">更換為 HTTPS</string>
@@ -331,6 +347,7 @@
 	<string name="dialog_pcloud_credentials_updated">如果您想要新增一個 pCloud 帳戶，請在點擊此連結 <a href="https://www.pcloud.com">www.pcloud.com</a> 後登出目前的帳號，並重新點擊本程式中的「+」來建立一個新的雲端連結。</string>
 	<string name="permission_snackbar_auth_local_vault">Cryptomator 需要存儲訪問權限用以使用本地加密檔案庫</string>
 	<string name="permission_snackbar_auth_auto_upload">Cryptomator 需要存儲權限以便開啟自動圖片上傳</string>
+	<string name="permission_snackbar_notifications">Cryptomator 需要通知權限以顯示加密檔案庫的狀態等。</string>
 	<!-- # error reports -->
 	<!-- # misc -->
 	<!-- ## file size helper -->
@@ -370,7 +387,7 @@
 	<string name="notification_auto_upload_finished_title">相片自動上傳已完成</string>
 	<string name="notification_auto_upload_finished_message">已將%1$d張像片上傳至加密檔案庫</string>
 	<string name="notification_auto_upload_failed_title">像片自動上傳失敗</string>
-	<string name="notification_auto_upload_failed_general_error">上傳期間發生錯誤</string>
+	<string name="notification_auto_upload_failed_general_error">上傳期間發生一般性錯誤。</string>
 	<string name="notification_auto_upload_failed_due_to_folder_not_exists">您選擇的資料夾無法使用，請至設定重新選擇。</string>
 	<string name="notification_auto_upload_failed_due_to_vault_locked">加密檔案庫在上傳期間鎖定，請重新打開加密檔案庫後繼續</string>
 	<string name="notification_auto_upload_failed_due_to_vault_not_found">使用於自動上傳的加密檔案庫已不存在。</string>
@@ -380,8 +397,8 @@
 	<string name="notification_authenticating">正在驗證 &#8230;</string>
 	<string name="screen_settings_lru_cache">快取</string>
 	<string name="screen_settings_lru_cache_toggle_summary">把本機上最近開啟的加密檔案加到快取，以便以後重新打開時使用</string>
-	<string name="screen_settings_lru_cache_size">緩存總大小</string>
-	<string name="screen_settings_clear_lru_cache_size">清除緩存</string>
+	<string name="screen_settings_lru_cache_size">快取總大小</string>
+	<string name="screen_settings_clear_lru_cache_size">清除快取</string>
 	<string name="screen_settings_lru_cache_changed__restart_toast">變更將會在應用程式下次重啓後啓用。</string>
 	<string name="screen_settings_license">註冊給</string>
 	<string name="screen_settings_license_mail">%1$s</string>

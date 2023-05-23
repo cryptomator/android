@@ -57,7 +57,7 @@ internal class MasterkeyCryptoCloudProviderTest {
 	private val masterkeyV7 =
 		"{  \"version\": 7,  \"scryptSalt\": \"AAAAAAAAAAA=\",  \"scryptCostParam\": 32768,  \"scryptBlockSize\": 8,  \"primaryMasterKey\": \"D2kc+xBoAcVY+M7s74YBEy6l7ga2+Nz+HS5o0TQY3JMW1uQ5jTlLIQ==\",  \"hmacMasterKey\": \"D2kc+xBoAcVY+M7s74YBEy6l7ga2+Nz+HS5o0TQY3JMW1uQ5jTlLIQ==\",  \"versionMac\": \"cn2sAK6l9p1/w9deJVUuW3h7br056mpv5srvALiYw+g=\"}"
 	private val vaultConfig =
-		"eyJraWQiOiJtYXN0ZXJrZXlmaWxlOm1hc3RlcmtleS5jcnlwdG9tYXRvciIsImFsZyI6IkhTMjU2In0.eyJmb3JtYXQiOjgsInNob3J0ZW5pbmdUaHJlc2hvbGQiOjIyMCwiY2lwaGVyQ29tYm8iOiJTSVZfQ1RSTUFDIn0.CLOGLhNPwGA84olG9qHoYnan5ju8VlRh3X2n2FwVOOc"
+		"eyJraWQiOiJtYXN0ZXJrZXlmaWxlOm1hc3RlcmtleS5jcnlwdG9tYXRvciIsImFsZyI6IkhTMjU2In0.eyJmb3JtYXQiOjgsInNob3J0ZW5pbmdUaHJlc2hvbGQiOjIyMCwiY2lwaGVyQ29tYm8iOiJTSVZfR0NNIn0.-tDU6GyH7Iv-LAOnFdhpxei2Qyd7DLbx4hfY9Wywc_Y"
 
 	private var context: Context = mock()
 	private var cloud: Cloud = mock()
@@ -154,7 +154,7 @@ internal class MasterkeyCryptoCloudProviderTest {
 	@DisplayName("unlock(\"foo\")")
 	@Throws(BackendException::class, IOException::class)
 	fun testUnlockVault() {
-		val cloudType : CloudType = mock()
+		val cloudType: CloudType = mock()
 
 		whenever(cloud.type()).thenReturn(cloudType)
 		whenever(vault.cloud).thenReturn(cloud)
@@ -173,7 +173,7 @@ internal class MasterkeyCryptoCloudProviderTest {
 		MatcherAssert.assertThat(result.format, CoreMatchers.`is`(8))
 		MatcherAssert.assertThat(result.shorteningThreshold, CoreMatchers.`is`(CryptoConstants.DEFAULT_MAX_FILE_NAME))
 
-		verify(inTest).cryptorFor(unlockToken.getKeyFile("foo"), CryptorProvider.Scheme.SIV_CTRMAC)
+		verify(inTest).cryptorFor(unlockToken.getKeyFile("foo"), CryptorProvider.Scheme.SIV_GCM)
 		verify(cryptoCloudContentRepositoryFactory).registerCryptor(any(Vault::class.java), any(Cryptor::class.java))
 	}
 
@@ -181,7 +181,7 @@ internal class MasterkeyCryptoCloudProviderTest {
 	@DisplayName("unlockLegacy(\"foo\")")
 	@Throws(BackendException::class, IOException::class)
 	fun testUnlockLegacyVault() {
-		val cloudType : CloudType = mock()
+		val cloudType: CloudType = mock()
 
 		whenever(cloud.type()).thenReturn(cloudType)
 		whenever(vault.cloud).thenReturn(cloud)
@@ -215,7 +215,7 @@ internal class MasterkeyCryptoCloudProviderTest {
 	@ValueSource(booleans = [true, false])
 	@Throws(BackendException::class)
 	fun tesChangePassword(legacy: Boolean) {
-		val cloudType : CloudType = mock()
+		val cloudType: CloudType = mock()
 
 		whenever(cloud.type()).thenReturn(cloudType)
 		whenever(vault.cloud).thenReturn(cloud)
@@ -312,7 +312,7 @@ internal class MasterkeyCryptoCloudProviderTest {
 
 			val unlockToken = UnlockTokenImpl(vault, masterkeyV8.toByteArray(StandardCharsets.UTF_8))
 
-			Mockito.verify(inTest).cryptorFor(unlockToken.getKeyFile(password), CryptorProvider.Scheme.SIV_CTRMAC)
+			Mockito.verify(inTest).cryptorFor(unlockToken.getKeyFile(password), CryptorProvider.Scheme.SIV_GCM)
 		}
 	}
 
@@ -332,7 +332,7 @@ internal class MasterkeyCryptoCloudProviderTest {
 
 	@Throws(BackendException::class)
 	private fun testVaultPasswordVault(masterkeyContent: String, unverifiedVaultConfig: Optional<UnverifiedVaultConfig>, password: String): Boolean {
-		val cloudType : CloudType = mock()
+		val cloudType: CloudType = mock()
 
 		whenever(cloud.type()).thenReturn(cloudType)
 		whenever(vault.cloud).thenReturn(cloud)

@@ -1,6 +1,5 @@
 package org.cryptomator.presentation.presenter
 
-import android.Manifest
 import android.content.ActivityNotFoundException
 import android.content.Intent
 import android.net.Uri
@@ -78,7 +77,6 @@ import org.cryptomator.presentation.workflow.ActivityResult
 import org.cryptomator.presentation.workflow.AddExistingVaultWorkflow
 import org.cryptomator.presentation.workflow.AuthenticationExceptionHandler
 import org.cryptomator.presentation.workflow.CreateNewVaultWorkflow
-import org.cryptomator.presentation.workflow.PermissionsResult
 import org.cryptomator.presentation.workflow.Workflow
 import org.cryptomator.util.ExceptionUtil
 import org.cryptomator.util.SharedPreferencesHandler
@@ -898,7 +896,7 @@ class BrowseFilesPresenter @Inject constructor( //
 	private fun exportNodesToUserSelectedLocation(nodesToExport: ArrayList<CloudNodeModel<*>>, exportOperation: ExportOperation) {
 		try {
 			requestActivityResult( //
-				ActivityResultCallbacks.pickedLocalStorageLocation(nodesToExport, exportOperation),  //
+				ActivityResultCallbacks.pickedLocalStorageLocationForBrowsingFiles(nodesToExport, exportOperation),  //
 				Intent(Intent.ACTION_OPEN_DOCUMENT_TREE)
 			)
 		} catch (exception: ActivityNotFoundException) {
@@ -914,7 +912,7 @@ class BrowseFilesPresenter @Inject constructor( //
 	}
 
 	@Callback
-	fun pickedLocalStorageLocation(
+	fun pickedLocalStorageLocationForBrowsingFiles(
 		result: ActivityResult,  //
 		nodesToExport: ArrayList<CloudNodeModel<*>>,  //
 		exportOperation: ExportOperation
@@ -1052,51 +1050,29 @@ class BrowseFilesPresenter @Inject constructor( //
 
 	@Callback
 	fun exportFileToUserSelectedLocation(result: ActivityResult, fileToExport: CloudFileModel, exportOperation: ExportOperation) {
-		requestPermissions(
-			PermissionsResultCallbacks.exportFileToUserSelectedLocation(result.intent().dataString, fileToExport, exportOperation),  //
-			R.string.permission_message_export_file,  //
-			Manifest.permission.READ_EXTERNAL_STORAGE
-		)
-	}
-
-	@Callback
-	fun exportFileToUserSelectedLocation(result: PermissionsResult, uriString: String?, fileToExport: CloudFileModel, exportOperation: ExportOperation) {
-		if (result.granted()) {
-			try {
-				val downloadFile = DownloadFile.Builder() //
-					.setDownloadFile(fileToExport.toCloudNode()) //
-					.setDataSink(contentResolverUtil.openOutputStream(Uri.parse(uriString))) //
-					.build()
-				exportOperation.export(this, listOf(downloadFile))
-			} catch (e: FileNotFoundException) {
-				showError(e)
-			}
+		try {
+			val downloadFile = DownloadFile.Builder() //
+				.setDownloadFile(fileToExport.toCloudNode()) //
+				.setDataSink(contentResolverUtil.openOutputStream(Uri.parse(result.intent().dataString))) //
+				.build()
+			exportOperation.export(this, listOf(downloadFile))
+		} catch (e: FileNotFoundException) {
+			showError(e)
 		}
 	}
 
 	fun onUploadFilesClicked(folder: CloudFolderModel) {
 		uploadLocation = folder
-		requestPermissions(
-			PermissionsResultCallbacks.selectFiles(),  //
-			R.string.permission_message_upload_file,  //
-			Manifest.permission.READ_EXTERNAL_STORAGE
-		)
+		var intent = Intent(Intent.ACTION_GET_CONTENT)
+		intent.addCategory(Intent.CATEGORY_OPENABLE)
+		intent.type = "*/*"
+		intent.putExtra(Intent.EXTRA_ALLOW_MULTIPLE, true)
+		intent = Intent.createChooser(intent, context().getString(R.string.screen_file_browser_upload_files_chooser_title))
+		requestActivityResult(ActivityResultCallbacks.selectedFiles(), intent)
 	}
 
 	fun onUploadCanceled() {
 		uploadFilesUseCase.cancel()
-	}
-
-	@Callback
-	fun selectFiles(result: PermissionsResult) {
-		if (result.granted()) {
-			var intent = Intent(Intent.ACTION_GET_CONTENT)
-			intent.addCategory(Intent.CATEGORY_OPENABLE)
-			intent.type = "*/*"
-			intent.putExtra(Intent.EXTRA_ALLOW_MULTIPLE, true)
-			intent = Intent.createChooser(intent, context().getString(R.string.screen_file_browser_upload_files_chooser_title))
-			requestActivityResult(ActivityResultCallbacks.selectedFiles(), intent)
-		}
 	}
 
 	@Callback

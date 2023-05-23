@@ -34,6 +34,7 @@
 	<string name="error_file_not_found_after_opening_using_3party">Cryptomatorに切り替えた後、ローカルファイルは存在しなくなりました。変更をクラウドに戻すことはできません。</string>
 	<string name="error_no_such_bucket">バケットがありません</string>
 	<string name="error_masterkey_location_not_supported">好きな場所に Masterkey を置くことはまだできません</string>
+	<string name="error_interact_with_fdroid_but_fdroid_missing">F-Droidアプリと通信ができません。インストールしてありませんか？</string>
 	<!-- # clouds -->
 	<!-- ## cloud names -->
 	<string name="cloud_names_local_storage">ローカルストレージ</string>
@@ -54,12 +55,15 @@
 	<string name="snack_bar_action_title_sort_oldest">古い順</string>
 	<string name="snack_bar_action_title_sort_biggest">大きい順</string>
 	<string name="snack_bar_action_title_sort_smallest">小さい順</string>
+	<string name="snack_bar_cryptomator_variants_title">もっと読む</string>
+	<string name="snack_bar_cryptomator_variants_hint">クラウドがリストにありませんか？</string>
 	<!-- # screens -->
 	<!-- # screen: vault list -->
 	<string name="screen_vault_list_actions_title">Cryptomator に追加</string>
 	<string name="screen_vault_list_action_create_new_vault">新しい金庫を作成</string>
 	<string name="screen_vault_list_action_add_existing_vault">既存の金庫を追加</string>
 	<string name="screen_vault_list_vault_action_delete">削除</string>
+	<string name="screen_vault_list_vault_creation_hint">金庫の作成ためにここをタップ</string>
 	<string name="screen_vault_list_change_password_successful">パスワードが正常に変更されました</string>
 	<!-- # screen: file browser -->
 	<string name="screen_file_browser_default_title">金庫</string>
@@ -113,6 +117,7 @@
 	<string name="screen_choose_cloud_service_title">クラウド・サービス</string>
 	<!-- ## screen: cloud connections -->
 	<string name="screen_cloud_connections_title">接続先を選択</string>
+	<string name="screen_cloud_connections_no_connections">ここをタップして場所を追加する</string>
 	<string name="screen_cloud_error_webdav_not_supported">サーバーに WebDAV との互換性がありません</string>
 	<string name="screen_cloud_local_error_no_content_provider">ディレクトリを開くことができるファイルマネージャが見つかりませんでした</string>
 	<!-- ## screen: webdav settings -->
@@ -153,7 +158,7 @@
 	<string name="screen_set_password_strength_indicator_4">非常に強い</string>
 	<!-- ## screen: settings -->
 	<string name="screen_settings_section_general">基本設定</string>
-	<string name="screen_settings_cloud_settings_label">クラウド・サービス</string>
+	<string name="screen_settings_cloud_settings_label">クラウド サービス</string>
 	<string name="screen_settings_biometric_auth">生体認証</string>
 	<string name="screen_settings_activate_biometric_auth">生体認証を有効にする</string>
 	<string name="screen_settings_confirm_face_unlock">顔認証のロック解除（利用できる場合）</string>
@@ -201,7 +206,7 @@
 	<string name="screen_cloud_settings_webdav_connections">WebDAV 接続</string>
 	<string name="screen_cloud_settings_pcloud_connections">pCloud 接続</string>
 	<string name="screen_cloud_settings_s3_connections">S3 接続</string>
-	<string name="screen_cloud_settings_local_storage_locations">ローカル・ストレージの場所</string>
+	<string name="screen_cloud_settings_local_storage_locations">ローカル ストレージの場所</string>
 	<string name="screen_cloud_settings_log_in_to">ログイン</string>
 	<string name="screen_cloud_settings_sign_out_from_cloud">次からサインアウト</string>
 	<!-- ## screen: licenses -->
@@ -209,6 +214,18 @@
 	<string name="screen_authenticate_auth_authentication_failed">%1$s は認証できませんでした。</string>
 	<string name="screen_update_pcloud_connections_title">pCloud アカウント情報を更新</string>
 	<!-- ## screen: cryptomator app variants -->
+	<string name="screen_cryptomator_variants_title">Cryptomatorの種類</string>
+	<string name="screen_cryptomator_variants_lite_title">F-Droid のメインリポジトリ</string>
+	<string name="screen_cryptomator_variants_lite_description">APIキーが必要なため除外しています。</string>
+	<string name="screen_cryptomator_variants_lite_install">インストール</string>
+	<string name="screen_cryptomator_variants_fdroid_title">Cryptomator F-Droid リポジトリ</string>
+	<string name="screen_cryptomator_variants_fdroid_description">独自の依存関係が含まれているため除外します。</string>
+	<string name="screen_cryptomator_variants_fdroid_add_repo_hint">F-Droid アプリに Cryptomator リポジトリを追加します。</string>
+	<string name="screen_cryptomator_variants_fdroid_add_repo">追加</string>
+	<string name="screen_cryptomator_variants_fdroid_install_hint">F-Droidを使用してCryptomatorをインストールします。\n見つかりませんとエラーが表示される場合は、F-Droidの同期が完了するまでお待ちください。</string>
+	<string name="screen_cryptomator_variants_website_title">ウェブサイト</string>
+	<string name="screen_cryptomator_variants_website_description">独自の依存関係が含まれています。</string>
+	<string name="screen_cryptomator_variants_installation_hint">F-Droid リポジトリのバリアントに切り替えるには、アプリの再インストールが必要です。</string>
 	<!-- # dialogs -->
 	<string name="dialog_button_cancel">キャンセル</string>
 	<string name="dialog_enter_password_positive_button">解錠</string>
@@ -246,6 +263,7 @@
 	<string name="dialog_unsaved_changes_title">保存していない変更があります</string>
 	<string name="dialog_unsaved_changes_message">保存せずに終了してもよろしいですか?</string>
 	<string name="dialog_unsaved_changes_discard">破棄</string>
+	<string name="dialog_file_name_hint">ファイル名</string>
 	<string name="dialog_file_name_placeholder">text.txt</string>
 	<string name="dialog_delete_vault_message">本当にこの金庫を削除しますか？</string>
 	<string name="dialog_delete_vault_hint">この操作は、金庫のリストからのみ削除し、物理的な削除は行いません。</string>
@@ -272,6 +290,7 @@
 	<string name="dialog_accept_ssl_certificate_details">詳細</string>
 	<string name="dialog_accept_ssl_certificate_security_checkbox">これはセキュリティリスクになる可能性があります。リスクについて理解していますか</string>
 	<string name="dialog_ask_ignore_battery_optimizations_title">バッテリーの最適化を無効にする</string>
+	<string name="dialog_ask_ignore_battery_optimizations_hint">バックグラウンド中に新しい画像やビデオを取得するには、バッテリーの最適化オプションからオプトアウトする必要があります。%1$s が多くのエネルギーを消費することはありません。\n\n 「最適化されていない状態」から「すべてのアプリ」に変更するには、このダイアログで \'%2$s\' をクリックした後に、%1$s を選び「最適化しない」を指定してください。</string>
 	<string name="dialog_ask_ignore_battery_optimizations_checkbox">今後確認しない</string>
 	<string name="dialog_http_security_hint">HTTP は安全ではありません。代わりに HTTPS を使用することを推奨します。リスクを承知の上であれば HTTP をご使用ください。</string>
 	<string name="dialog_http_security_checkbox">HTTPS を使用</string>
@@ -284,14 +303,17 @@
 	<string name="dialog_debug_mode_disclaimer_hint">このモードでは、デバイスのログファイルに機密情報が書き込まれることがあります(例: ファイル名やパス)。パスワードや cookie 等は除外されます。\n\n できるだけ早くデバッグ モードを無効化をすることを忘れないでください。</string>
 	<string name="dialog_debug_mode_disclaimer_title">注意</string>
 	<string name="dialog_debug_mode_positive_button">有効にする</string>
+	<string name="dialog_disable_app_obscured_disclaimer_hint">この設定は安全のための機能です。他のアプリがユーザーを騙してしまうことを防ぎます。\n\n無効にすることで、 <a href="https://docs.cryptomator.org/en/1.6/android/settings/#block-app-when-obscured">リスクを認識していること</a> に留意する必要があります。</string>
 	<string name="dialog_disable_app_obscured_disclaimer_title">注意</string>
 	<string name="dialog_disable_app_obscured_positive_button">無効</string>
 	<string name="dialog_app_is_obscured_info_title">アプリが重なっています</string>
+	<string name="dialog_app_is_obscured_info_hint">他のアプリケーションが Cryptomator の上に何かを表示しています（例: ブルーライト フィルターやナイト・モードアプリ）。このため、セキュリティの観点から Cryptomator が無効化されています。\n\n<a href="https://docs.cryptomator.org/en/1.6/android/settings/#block-app-when-obscured">Cryptomator を有効にするには</a></string>
 	<string name="dialog_app_is_obscured_info_neutral_button">閉じる</string>
 	<string name="dialog_vaults_removed_during_migration_title">%1s クラウンドの金庫を再追加してください</string>
 	<string name="dialog_vaults_removed_during_migration_hint">このアプリのバージョンに移行に際して、アプリから次の保管庫を削除する必要があります:\n%2s \n\nこれらの保管庫はクラウドからではなく、このアプリからのみ削除されます。 ご不便をおかけして申し訳ありませんが、保管庫を再度追加してください。</string>
 	<string name="dialog_vault_is_root_folder_of_cloud_title">金庫がクラウト接続のルート フォルダーです</string>
 	<string name="dialog_vault_is_root_folder_of_cloud_hint">この保管庫を追加するルートディレクトリとして、少なくともこの保管庫フォルダの親フォルダを選択する新しいクラウド接続を作成する必要があります。</string>
+	<string name="dialog_disable_secure_screen_disclaimer_hint">この設定は安全のための機能です。他のアプリがユーザーを騙してしまうことを防ぎます。\n\n無効にすることで、 <a href="https://docs.cryptomator.org/en/1.6/android/settings/#screen-security">リスクを認識していること</a> に留意する必要があります。</string>
 	<string name="dialog_delete_cloud_connection_with_vaults_message">本当にこのクラウド接続を削除しますか？</string>
 	<string name="dialog_delete_cloud_connection_with_vaults_hint">この操作により、クラウド接続とクラウドのすべての金庫が削除されます。</string>
 	<string name="dialog_confirm_delete_multiple_title">%1$d 個の項目を削除しますか？</string>
@@ -322,8 +344,10 @@
 	<string name="dialog_no_dir_file_message">クラウドのフォルダ \'%1$s\' には有効なディレクトリファイルがありません。このフォルダは他のデバイスで作成され、まだクラウドに完全に同期されていない可能性があります。クラウドで以下のファイルが存在し、かつ空でないことを確認してください。: \n%2$s</string>
 	<string name="dialog_no_more_images_to_display">表示する画像がありません&#8230;</string>
 	<string name="dialog_pcloud_credentials_updated_title">\'%1$s\' の資格情報が更新されました</string>
+	<string name="dialog_pcloud_credentials_updated">新しいpCloudのアカウントを追加する場合は、このURL<a href="https://www.pcloud.com">www.pcloud.com</a>をタップし、現在のアカウントからログアウトして、このアプリの「+」をもう一度タップして、新しいクラウド接続を作成してください。</string>
 	<string name="permission_snackbar_auth_local_vault">ローカルの金庫を使用するには、Cryptomator がストレージにアクセスする許可が必要です</string>
 	<string name="permission_snackbar_auth_auto_upload">自動的に画像をアップロードするには、Cryptomator がストレージにアクセスする許可が必要です</string>
+	<string name="permission_snackbar_notifications">金庫の状態などを表示するには、Cryptomator に通知権限が必要です。</string>
 	<!-- # error reports -->
 	<!-- # misc -->
 	<!-- ## file size helper -->
@@ -384,7 +408,7 @@
 	<string name="dialog_cache_size_title">クラウドごとのキャッシュ サイズ</string>
 	<!-- lock timeout names -->
 	<string name="lock_timeout_instant">即時</string>
-	<string name="lock_timeout_1m">1分経過後</string>
+	<string name="lock_timeout_1m">1分</string>
 	<string name="lock_timeout_2m">2分経過後</string>
 	<string name="lock_timeout_5m">5分経過後</string>
 	<string name="lock_timeout_10m">10分経過後</string>

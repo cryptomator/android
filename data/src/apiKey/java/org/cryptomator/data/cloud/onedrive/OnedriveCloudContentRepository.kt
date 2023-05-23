@@ -24,8 +24,8 @@ import java.io.OutputStream
 import java.net.SocketTimeoutException
 import okhttp3.Request
 
-internal class OnedriveCloudContentRepository(private val cloud: OnedriveCloud, context: Context, graphServiceClient: GraphServiceClient<Request>)
-	: InterceptingCloudContentRepository<OnedriveCloud, OnedriveNode, OnedriveFolder, OnedriveFile>(Intercepted(cloud, context, graphServiceClient)) {
+internal class OnedriveCloudContentRepository(private val cloud: OnedriveCloud, graphServiceClient: GraphServiceClient<Request>, context: Context)
+	: InterceptingCloudContentRepository<OnedriveCloud, OnedriveNode, OnedriveFolder, OnedriveFile>(Intercepted(cloud, graphServiceClient, context)) {
 
 	@Throws(BackendException::class)
 	override fun throwWrappedIfRequired(e: Exception) {
@@ -53,9 +53,9 @@ internal class OnedriveCloudContentRepository(private val cloud: OnedriveCloud, 
 				|| isAuthenticationError(e.cause)))
 	}
 
-	private class Intercepted(cloud: OnedriveCloud, context: Context, graphServiceClient: GraphServiceClient<Request>) : CloudContentRepository<OnedriveCloud, OnedriveNode, OnedriveFolder, OnedriveFile> {
+	private class Intercepted(cloud: OnedriveCloud, graphServiceClient: GraphServiceClient<Request>, context: Context) : CloudContentRepository<OnedriveCloud, OnedriveNode, OnedriveFolder, OnedriveFile> {
 
-		private val oneDriveImpl: OnedriveImpl = OnedriveImpl(cloud, context, graphServiceClient, OnedriveIdCache())
+		private val oneDriveImpl: OnedriveImpl = OnedriveImpl(cloud, graphServiceClient, OnedriveIdCache(), context)
 
 		override fun root(cloud: OnedriveCloud): OnedriveFolder {
 			return oneDriveImpl.root()

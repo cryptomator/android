@@ -1,0 +1,2 @@
+- Weitere Anpassungen zur Integration in das F-Droid Haupt-Repository
+- Übersetzungen aktualisiert

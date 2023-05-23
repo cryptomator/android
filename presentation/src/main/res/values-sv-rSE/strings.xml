@@ -34,6 +34,7 @@
 	<string name="error_file_not_found_after_opening_using_3party">Lokal fil finns inte längre efter att ha bytt tillbaka till Cryptomator. Eventuella ändringar kan inte synkas tillbaka till molnet.</string>
 	<string name="error_no_such_bucket">Ingen sådan bucket</string>
 	<string name="error_masterkey_location_not_supported">Anpassad Masterkey-plats stöds inte ännu</string>
+	<string name="error_interact_with_fdroid_but_fdroid_missing">Det gick inte att kommunicera med F-Droid-appen. Inte installerad?</string>
 	<!-- # clouds -->
 	<!-- ## cloud names -->
 	<string name="cloud_names_local_storage">Lokal lagring</string>
@@ -54,12 +55,15 @@
 	<string name="snack_bar_action_title_sort_oldest">Äldst först</string>
 	<string name="snack_bar_action_title_sort_biggest">Störst först</string>
 	<string name="snack_bar_action_title_sort_smallest">Minst först</string>
+	<string name="snack_bar_cryptomator_variants_title">Läs mer</string>
+	<string name="snack_bar_cryptomator_variants_hint">Finns inte molnet i listan?</string>
 	<!-- # screens -->
 	<!-- # screen: vault list -->
 	<string name="screen_vault_list_actions_title">Lägg till i Cryptomator</string>
 	<string name="screen_vault_list_action_create_new_vault">Skapa nytt valv</string>
 	<string name="screen_vault_list_action_add_existing_vault">Lägg till befintligt valv</string>
 	<string name="screen_vault_list_vault_action_delete">Ta bort</string>
+	<string name="screen_vault_list_vault_creation_hint">Klicka här för att skapa ett nytt valv</string>
 	<string name="screen_vault_list_change_password_successful">Lösenordet har ändrats</string>
 	<!-- # screen: file browser -->
 	<string name="screen_file_browser_default_title">Valv</string>
@@ -114,6 +118,7 @@
 	<string name="screen_choose_cloud_service_title">Molntjänst</string>
 	<!-- ## screen: cloud connections -->
 	<string name="screen_cloud_connections_title">Välj en plats</string>
+	<string name="screen_cloud_connections_no_connections">Tryck här för att lägga till platser</string>
 	<string name="screen_cloud_error_webdav_not_supported">Servern verkar inte vara WebDAV-kompatibel</string>
 	<string name="screen_cloud_local_error_no_content_provider">Hittade ingen filhanterare som har stöd för att öppna kataloger</string>
 	<!-- ## screen: webdav settings -->
@@ -210,6 +215,18 @@
 	<string name="screen_authenticate_auth_authentication_failed">%1$s kunde inte autentiseras.</string>
 	<string name="screen_update_pcloud_connections_title">Uppdatera pCloud-uppgifter</string>
 	<!-- ## screen: cryptomator app variants -->
+	<string name="screen_cryptomator_variants_title">Varianter av Cryptomator</string>
+	<string name="screen_cryptomator_variants_lite_title">F-Droid Huvudförråd</string>
+	<string name="screen_cryptomator_variants_lite_description">Uteslutna eftersom de kräver API-nycklar.</string>
+	<string name="screen_cryptomator_variants_lite_install">Installera</string>
+	<string name="screen_cryptomator_variants_fdroid_title">Cryptomator F-Droid förråd</string>
+	<string name="screen_cryptomator_variants_fdroid_description">Uteslutet eftersom det innehåller proprietära beroenden.</string>
+	<string name="screen_cryptomator_variants_fdroid_add_repo_hint">Lägg till Cryptomators förråd i F-Droid.</string>
+	<string name="screen_cryptomator_variants_fdroid_add_repo">Lägg till</string>
+	<string name="screen_cryptomator_variants_fdroid_install_hint">Installera Cryptomator med F-Droid.\nOm felmeddelandet \"Hittas inte\" visas, vänta tills F-Droid-synkroniseringen är klar.</string>
+	<string name="screen_cryptomator_variants_website_title">Webbplats</string>
+	<string name="screen_cryptomator_variants_website_description">Innehåller proprietära beroenden.</string>
+	<string name="screen_cryptomator_variants_installation_hint">Växla från eller till F-Droids huvudförråd kräver ominstallation av appen.</string>
 	<!-- # dialogs -->
 	<string name="dialog_button_cancel">Avbryt</string>
 	<string name="dialog_enter_password_positive_button">Lås upp</string>
@@ -247,6 +264,7 @@
 	<string name="dialog_unsaved_changes_title">Du har osparade ändringar</string>
 	<string name="dialog_unsaved_changes_message">Vill du avsluta utan att spara?</string>
 	<string name="dialog_unsaved_changes_discard">Kasta</string>
+	<string name="dialog_file_name_hint">Filnamn</string>
 	<string name="dialog_file_name_placeholder">text.txt</string>
 	<string name="dialog_delete_vault_message">Är du säker på att du vill ta bort detta valv?</string>
 	<string name="dialog_delete_vault_hint">Denna åtgärd kommer bara att ta bort valvet från denna lista och inte ta bort det fysiskt.</string>
@@ -273,6 +291,7 @@
 	<string name="dialog_accept_ssl_certificate_details">Detaljer</string>
 	<string name="dialog_accept_ssl_certificate_security_checkbox">Det kan vara en säkerhetsrisk. Jag vet vad jag gör.</string>
 	<string name="dialog_ask_ignore_battery_optimizations_title">Inaktivera batterioptimering</string>
+	<string name="dialog_ask_ignore_battery_optimizations_hint">För att hämta nya bilder och videor utan att köra i bakgrunden måste batterioptimeringar stängas av för appen. Men oroa dig inte, %1$s förbrukar inte mycket energi.\n\nFör att göra ändringen, ändra \'Inte optimerad\' till \'Alla appar\', välj %1$s och välj \"Optimera inte\" efter att du tryckt på \"%2$s\" i denna dialogruta.</string>
 	<string name="dialog_ask_ignore_battery_optimizations_checkbox">Visa inte igen?</string>
 	<string name="dialog_http_security_hint">Användning av HTTP är osäkert. Vi rekommenderar att du använder HTTPS istället. Om du känner till riskerna kan du fortsätta med HTTP.</string>
 	<string name="dialog_http_security_checkbox">Ändra till HTTPS</string>
@@ -326,8 +345,10 @@
 	<string name="dialog_no_dir_file_message">Moln-mappen \'%1$s\' har ingen giltig katalog-fil. Det kan bero på att mappen skapades på en annan enhet och ännu inte har synkroniserats fullt ut med molnet. Kontrollera i ditt moln om följande fil finns:\n%2$s</string>
 	<string name="dialog_no_more_images_to_display">Inga fler bilder att visa&#8230;</string>
 	<string name="dialog_pcloud_credentials_updated_title">Användaruppgifter för \'%1$s\' uppdaterad</string>
+	<string name="dialog_pcloud_credentials_updated">Om du avsåg att lägga till ett nytt pCloud-konto, tryck på denna url <a href="https://www.pcloud.com">www.pcloud.com</a>, logga ut från det nuvarande kontot och tryck igen på \'+\' i den här appen för att skapa en ny molnanslutning.</string>
 	<string name="permission_snackbar_auth_local_vault">Cryptomator behöver åtkomst till lagringsutrymmet för att använda lokala valv</string>
 	<string name="permission_snackbar_auth_auto_upload">Cryptomator behöver åtkomst till lagringsutrymmet för att kunna använda automatisk uppladdning av foton</string>
+	<string name="permission_snackbar_notifications">Cryptomator behöver aviseringsbehörigheter för att till exempel visa valvstatus</string>
 	<!-- # error reports -->
 	<!-- # misc -->
 	<!-- ## file size helper -->

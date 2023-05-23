@@ -26,7 +26,6 @@ android {
 		coreLibraryDesugaringEnabled true
 	}
 
-
 	buildTypes {
 		release {
 			buildConfigField "String", "ONEDRIVE_API_KEY", "\"" + getApiKey('ONEDRIVE_API_KEY') + "\""
@@ -87,6 +86,7 @@ android {
 		ignoreWarnings true
 		quiet true
 	}
+	namespace 'org.cryptomator.data'
 }
 
 greendao {
@@ -224,8 +224,12 @@ configurations {
 	all*.exclude group: 'com.google.android', module: 'android'
 }
 
-static def getApiKey(key) {
-	return System.getenv().getOrDefault(key, "")
+def liteFlavor() {
+	gradle.startParameter.taskNames.stream().filter(t -> t.toLowerCase().contains("lite")).findAny().isPresent()
+}
+
+def getApiKey(key) {
+	return !liteFlavor() ? System.getenv().getOrDefault(key, "") : ""
 }
 
 tasks.withType(Test) {

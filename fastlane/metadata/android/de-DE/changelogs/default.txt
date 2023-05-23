@@ -1,3 +1,0 @@
-- Update auf die neueste Android-Zielplatform-Version
-- Löschen von Ordnern ohne Verzeichnisdatei im lokalen Cloud-Speicher behoben
-- Dateiexport wenn keine App den ausgewählten Dateityp verarbeiten kann behoben
