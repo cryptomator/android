@@ -348,6 +348,7 @@
 	<string name="dialog_pcloud_credentials_updated">Se você pretende adicionar uma nova conta pCloud, toque neste link <a href="https://www.pcloud.com">www.pcloud.com</a>, saia da conta atual e toque novamente no \'+\' neste aplicativo para criar uma nova conexão de nuvem.</string>
 	<string name="permission_snackbar_auth_local_vault">Cryptomator precisa de permissão de acesso ao armazenamento para fazer upload de arquivos</string>
 	<string name="permission_snackbar_auth_auto_upload">Cryptomator precisa de permissão de acesso ao armazenamento para fazer upload de arquivos</string>
+	<string name="permission_snackbar_notifications">O Cryptomator precisa de permissões para notificar o estado dos cofres, por exemplo.</string>
 	<!-- # error reports -->
 	<!-- # misc -->
 	<!-- ## file size helper -->
