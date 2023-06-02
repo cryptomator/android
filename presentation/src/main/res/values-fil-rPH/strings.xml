@@ -160,6 +160,7 @@
 	<!-- ## screen: licenses -->
 	<!-- ## screen: authenticate cloud -->
 	<!-- ## screen: cryptomator app variants -->
+	<string name="screen_cryptomator_variants_website_title">Website</string>
 	<!-- # dialogs -->
 	<string name="dialog_button_cancel">Kanselahin</string>
 	<string name="dialog_enter_password_positive_button">I-unlock</string>
@@ -182,6 +183,7 @@
 	<string name="dialog_replace_msg_all_files_exists">Ang lahat ng files ay umiiral na. Nais mo bang palitan ang mga ito?</string>
 	<string name="dialog_replace_title_single_file_exists">Palitan ang file?</string>
 	<string name="dialog_replace_title_multiple_files_exist">Palitan ang mga file?</string>
+	<string name="dialog_unable_to_share_title">Hindi kayang i-share ang mga files</string>
 	<string name="dialog_unable_to_share_positive_button">OK</string>
 	<string name="dialog_unable_to_share_negative_button">Gumawa ng bagong vault</string>
 	<string name="dialog_filetype_not_supported_message">Mag-download ng app na kayang buksan ang file na ito o nais mo bang i-save sa iyong device?</string>
