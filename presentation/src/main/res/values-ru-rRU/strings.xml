@@ -200,6 +200,8 @@
 	<string name="screen_settings_security_label">Советы по безопасности</string>
 	<string name="screen_settings_section_version">Версия</string>
 	<string name="screen_settings_advanced_settings">Дополнительные настройки</string>
+	<string name="screen_settings_microsoft_apps_workaround_label">Обход открытия файлов Microsoft</string>
+	<string name="screen_settings_microsoft_apps_workaround_summary">Открывать файлы в приложениях Microsoft с разрешением на запись</string>
 	<string name="screen_settings_background_unlock_preparation_label">Ускорить разблокировку</string>
 	<string name="screen_settings_background_unlock_preparation_label_summary">Загружать конфигурацию хранилища в фоне при запросе пароля или биоаутентификации</string>
 	<string name="screen_settings_keep_unlocked_while_editing_files">Держать разблокированным</string>
@@ -306,6 +308,7 @@
 	<string name="dialog_debug_mode_disclaimer_hint">В этом режиме в файл журнала на вашем устройстве могут попасть конфиденциальные данные (например имена файлов и пути). Пароли, cookie-файлы и т.п. явно исключены.\n\nНе забудьте как можно скорее отключить режим отладки.</string>
 	<string name="dialog_debug_mode_disclaimer_title">Внимание</string>
 	<string name="dialog_debug_mode_positive_button">Вкл.</string>
+	<string name="dialog_microsoft_workaround_disclaimer_hint">Из-за ошибки в приложениях Microsoft, редактируемый файл должен быть передан этим приложениям в публичной папке на вашем устройстве. После возобновления работы Cryptomator общедоступный файл снова удаляется, но Cryptomator не может влиять на то, что случилось с этим файлом. При активации этой опции убедитесь, что вы знаете об таком поведении. Применимо только к типам файлов Microsoft.\n\nПосле активации Cryptomator будет перезапущен.</string>
 	<string name="dialog_disable_app_obscured_disclaimer_hint">Эта настройка связана с безопасностью, она не позволяет другим приложениям обманом вынуждать пользователей делать то, что им не нужно.\n\nОтключая её, вы подтверждаете, что <a href="https://docs.cryptomator.org/en/1.6/android/settings/#block-app-when-obscured">осознаёте риски</a>.</string>
 	<string name="dialog_disable_app_obscured_disclaimer_title">Внимание</string>
 	<string name="dialog_disable_app_obscured_positive_button">Выкл.</string>
@@ -394,6 +397,7 @@
 	<string name="notification_auto_upload_failed_due_to_folder_not_exists">Выбранная папка для отправки больше недоступна. Перейдите в настройки и выберите новую папку</string>
 	<string name="notification_auto_upload_failed_due_to_vault_locked">Хранилище заблокировано во время отправки; откройте хранилище снова, чтобы продолжить</string>
 	<string name="notification_auto_upload_failed_due_to_vault_not_found">Хранилище, выбранное для автозагрузки, больше не существует.</string>
+	<string name="notification_auto_upload_failed_due_to_authentication_problem">Нажмите, чтобы обновить аутентификацию.</string>
 	<string name="notification_open_writable_file_title">Открыть файл, доступный для записи</string>
 	<string name="notification_open_writable_file_message">Хранилище разблокировано до завершения редактирования</string>
 	<string name="notification_update_check_finished_latest">Установлена новейшая версия</string>
