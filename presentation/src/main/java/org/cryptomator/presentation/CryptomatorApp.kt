@@ -7,6 +7,7 @@ import android.content.Intent
 import android.content.ServiceConnection
 import android.os.Build
 import android.os.IBinder
+import android.os.StrictMode
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.multidex.MultiDexApplication
 import org.cryptomator.data.cloud.crypto.Cryptors
@@ -69,6 +70,11 @@ class CryptomatorApp : MultiDexApplication(), HasComponent<ApplicationComponent>
 		registerActivityLifecycleCallbacks(serviceNotifier)
 		AppCompatDelegate.setDefaultNightMode(SharedPreferencesHandler(applicationContext()).screenStyleMode)
 		cleanupCache()
+
+		if (SharedPreferencesHandler(applicationContext()).microsoftWorkaround()) {
+			val builder: StrictMode.VmPolicy.Builder = StrictMode.VmPolicy.Builder()
+			StrictMode.setVmPolicy(builder.build())
+		}
 
 		RxJavaPlugins.setErrorHandler { e: Throwable? -> Timber.tag("CryptomatorApp").e(e, "BaseErrorHandler detected a problem") }
 	}

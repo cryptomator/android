@@ -20,8 +20,6 @@ import java.io.InvalidClassException
 import java.io.ObjectInputStream
 import java.io.ObjectOutputStream
 import java.io.OutputStream
-import java.util.ArrayList
-import java.util.HashSet
 import javax.inject.Inject
 import timber.log.Timber
 
@@ -112,6 +110,30 @@ class FileUtil @Inject constructor(private val context: Context, private val mim
 
 	fun fileInfo(name: String): FileInfo {
 		return FileInfo(name, mimeTypes)
+	}
+
+	fun getLegacyFileForMicrosoftWorkaround(cloudFile: CloudFileModel): File {
+		return getPublicDecryptedFileStorage()?.let {
+			val publicOfficeFile = File(it, fileNameLowerCaseExtension(cloudFile))
+			fileFor(cloudFile).copyTo(publicOfficeFile, true)
+		} ?: fileFor(cloudFile)
+	}
+
+	private fun getPublicDecryptedFileStorage(): File? {
+		return try {
+			val mediaDir = context.getExternalMediaDirs().first { dir -> dir.startsWith("/storage/emulated/0") }
+			if (mediaDir.canWrite()) {
+				val publicDecryptedFileStorage = File(mediaDir, "decrypted")
+				publicDecryptedFileStorage.mkdir()
+				publicDecryptedFileStorage
+			} else {
+				Timber.tag("FileUtil").e("Media storage isn't writable")
+				null
+			}
+		} catch (e: NoSuchElementException) {
+			Timber.tag("FileUtil").e("Media storage isn't available")
+			null
+		}
 	}
 
 	fun storeImagePreviewFiles(imagePreviewFilesStore: ImagePreviewFilesStore?): String? {
