@@ -198,6 +198,8 @@
 	<string name="screen_settings_security_label">Dicas de segurança</string>
 	<string name="screen_settings_section_version">Versão</string>
 	<string name="screen_settings_advanced_settings">Configurações Avançadas</string>
+	<string name="screen_settings_microsoft_apps_workaround_label">Solucionar a abertura dos arquivos Microsoft</string>
+	<string name="screen_settings_microsoft_apps_workaround_summary">Abrir arquivos em apps da Microsoft com permissão de gravação</string>
 	<string name="screen_settings_background_unlock_preparation_label">Desbloqueio acelerado</string>
 	<string name="screen_settings_background_unlock_preparation_label_summary">Baixe a configuração do cofre em segundo plano quando solicitado para inserir a senha ou o reconhecimento biométrico</string>
 	<string name="screen_settings_keep_unlocked_while_editing_files">Manter desbloqueado</string>
@@ -304,6 +306,7 @@
 	<string name="dialog_debug_mode_disclaimer_hint">Neste modo, dados confidenciais podem ser gravados em um arquivo de log no seu dispositivo (por exemplo, nomes de arquivos e caminhos). Senhas, cookies, etc. são explicitamente excluídos.\n\nLembre-se de desativar o modo de depuração o mais rápido possível.</string>
 	<string name="dialog_debug_mode_disclaimer_title">Atenção</string>
 	<string name="dialog_debug_mode_positive_button">Habilitar</string>
+	<string name="dialog_microsoft_workaround_disclaimer_hint">Devido a um erro em applicativos da Microsoft, o arquivo a ser editado deve ser compartilhado com esses aplicativos em uma pasta de mídia pública em seu dispositivo. Depois que o Cryptomator é reiniciado, o arquivo acessível ao público será apagado novamente, mas o Cryptomator não pode influenciar o que aconteceu a este arquivo. Esteja ciente desse comportamento ao ativar esta opção. Isso só se aplicará aos tipos de arquivos da Microsoft.\n\nO Cryptomator reiniciará após a ativação.</string>
 	<string name="dialog_disable_app_obscured_disclaimer_hint">Esta configuração é um recurso de segurança e impede que outros aplicativos induzam os usuários a fazer coisas que não devem fazer.\n\nAo desativar, você confirma que está <a href="https://docs.cryptomator.org/en/1.6/android/settings/#block-app-when-obscured">ciente dos riscos</a>.</string>
 	<string name="dialog_disable_app_obscured_disclaimer_title">Atenção</string>
 	<string name="dialog_disable_app_obscured_positive_button">Desabilitar</string>
@@ -392,6 +395,7 @@
 	<string name="notification_auto_upload_failed_due_to_folder_not_exists">A pasta selecionada para envio não está mais disponível. Vá para configurações e escolha uma nova pasta</string>
 	<string name="notification_auto_upload_failed_due_to_vault_locked">Cofre trancado durante o upload, por favor reabra o cofre para continuar</string>
 	<string name="notification_auto_upload_failed_due_to_vault_not_found">O cofre especificado para upload automático não existe mais.</string>
+	<string name="notification_auto_upload_failed_due_to_authentication_problem">Toque para atualizar a autenticação.</string>
 	<string name="notification_open_writable_file_title">Abrir arquivo gravável</string>
 	<string name="notification_open_writable_file_message">Cofre permanece desbloqueado até terminar de editar</string>
 	<string name="notification_update_check_finished_latest">Versão mais recente instalada</string>
