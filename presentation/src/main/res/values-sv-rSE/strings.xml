@@ -198,6 +198,8 @@
 	<string name="screen_settings_security_label">Säkerhetstips</string>
 	<string name="screen_settings_section_version">Version</string>
 	<string name="screen_settings_advanced_settings">Avancerade inställningar</string>
+	<string name="screen_settings_microsoft_apps_workaround_label">Alternativt sätt att öppna Microsoft-filer</string>
+	<string name="screen_settings_microsoft_apps_workaround_summary">Öppna filer i Microsoft-appar med skrivrättigheter</string>
 	<string name="screen_settings_background_unlock_preparation_label">Accelerera upplåsning</string>
 	<string name="screen_settings_background_unlock_preparation_label_summary">Ladda ner valvkonfiguration i bakgrunden medan du uppmanas att låsa upp</string>
 	<string name="screen_settings_keep_unlocked_while_editing_files">Behåll olåst</string>
@@ -392,6 +394,7 @@
 	<string name="notification_auto_upload_failed_due_to_folder_not_exists">Vald mapp för uppladdning finns inte längre. Gå till inställningar och välj en ny</string>
 	<string name="notification_auto_upload_failed_due_to_vault_locked">Valv låstes under uppladdningen, vänligen öppna valvet för att fortsätta</string>
 	<string name="notification_auto_upload_failed_due_to_vault_not_found">Valvet som angets för automatisk uppladdning finns inte längre.</string>
+	<string name="notification_auto_upload_failed_due_to_authentication_problem">Tryck för att förnya inloggningen.</string>
 	<string name="notification_open_writable_file_title">Öppna skrivbar fil</string>
 	<string name="notification_open_writable_file_message">Valvet är upplåst till färdig redigering</string>
 	<string name="notification_update_check_finished_latest">Senaste versionen installerad</string>
