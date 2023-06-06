@@ -197,6 +197,8 @@
 	<string name="screen_settings_security_label">安全提示</string>
 	<string name="screen_settings_section_version">版本</string>
 	<string name="screen_settings_advanced_settings">高级设置</string>
+	<string name="screen_settings_microsoft_apps_workaround_label">打开 Microsoft 文件的解决方法</string>
+	<string name="screen_settings_microsoft_apps_workaround_summary">使用写入权限在 Microsoft 应用中打开文件</string>
 	<string name="screen_settings_background_unlock_preparation_label">快速解锁</string>
 	<string name="screen_settings_background_unlock_preparation_label_summary">提示输入密码或生物识别认证时后台下载保险库配置</string>
 	<string name="screen_settings_keep_unlocked_while_editing_files">保持解锁状态</string>
