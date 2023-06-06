@@ -306,6 +306,7 @@
 	<string name="dialog_debug_mode_disclaimer_hint">I detta läge kan känsliga data skrivas till en loggfil på din enhet (t.ex. filnamn och sökvägar). Lösenord, cookies etc. är uttryckligen uteslutna.\n\nKom ihåg att inaktivera felsökningsläge så snart som möjligt.</string>
 	<string name="dialog_debug_mode_disclaimer_title">Observera</string>
 	<string name="dialog_debug_mode_positive_button">Aktivera</string>
+	<string name="dialog_microsoft_workaround_disclaimer_hint">På grund av ett fel i Microsoft-appar, måste filen som ska redigeras delas med dessa appar i en offentlig mediemapp på din enhet. Efter att Cryptomator återupptas raderas den allmänt tillgängliga filen igen, men Cryptomator kan inte påverka vad som har hänt med filen under tiden. Det är viktigt att du är medveten om detta beteende när du aktiverar detta alternativ. Detta kommer endast att gälla för Microsoft filtyper.\n\nCryptomator startar om efter aktivering.</string>
 	<string name="dialog_disable_app_obscured_disclaimer_hint">Den här inställningen är en säkerhetsfunktion som hindrar andra appar från att lura användare att göra saker de inte vill.\n\nGenom att stänga av säkerhetsfunktionen bekräftar du att du är <a href="https://docs.cryptomator.org/en/1.6/android/settings/#block-app-when-obscured">medveten om riskerna</a>.</string>
 	<string name="dialog_disable_app_obscured_disclaimer_title">Observera</string>
 	<string name="dialog_disable_app_obscured_positive_button">Inaktivera</string>
