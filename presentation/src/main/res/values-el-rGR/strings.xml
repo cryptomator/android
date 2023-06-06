@@ -198,6 +198,8 @@
 	<string name="screen_settings_security_label">Συμβουλές ασφαλείας</string>
 	<string name="screen_settings_section_version">Έκδοση</string>
 	<string name="screen_settings_advanced_settings">Ρυθμίσεις για Προχωρημένους</string>
+	<string name="screen_settings_microsoft_apps_workaround_label">Λύση ανοίγματος αρχείων Microsoft</string>
+	<string name="screen_settings_microsoft_apps_workaround_summary">Άνοιγμα αρχείων σε εφαρμογές Microsoft με άδεια εγγραφής</string>
 	<string name="screen_settings_background_unlock_preparation_label">Επιτάχυνση ξεκλειδώματος</string>
 	<string name="screen_settings_background_unlock_preparation_label_summary">Λήψη ρυθμίσεων κρύπτης στο παρασκήνιο, ενώ σας ζητείτε να εισάγετε τον κωδικό πρόσβασης ή το βιομετρικό πιστοποιητικό</string>
 	<string name="screen_settings_keep_unlocked_while_editing_files">Κρατήστε ξεκλείδωτο</string>
@@ -304,6 +306,7 @@
 	<string name="dialog_debug_mode_disclaimer_hint">Σε αυτή τη λειτουργία, μπορεί να γραφτούν ευαίσθητα δεδομένα σε ένα αρχείο καταγραφής στη συσκευή σας (π.χ. ονόματα αρχείων και διαδρομές). Οι κωδικοί πρόσβασης, τα cookies κλπ. αποκλείονται ρητά.\n\nΘυμηθείτε να απενεργοποιήσετε τη λειτουργία εντοπισμού σφαλμάτων το συντομότερο δυνατό.</string>
 	<string name="dialog_debug_mode_disclaimer_title">Προσοχή</string>
 	<string name="dialog_debug_mode_positive_button">Ενεργοποίηση</string>
+	<string name="dialog_microsoft_workaround_disclaimer_hint">Λόγω σφάλματος στις εφαρμογές της Microsoft, το αρχείο που θα επεξεργαστεί πρέπει να μοιραστεί με αυτές τις εφαρμογές σε ένα δημόσιο φάκελο μέσων στη συσκευή σας. Μετά την επανέναρξη του Cryptomator, το δημόσιο προσβάσιμο αρχείο διαγράφεται και πάλι, αλλά το Cryptomator δεν μπορεί να επηρεάσει τι συνέβη σε αυτό το αρχείο εν τω μεταξύ. Βεβαιωθείτε ότι έχετε επίγνωση αυτής της συμπεριφοράς κατά την ενεργοποίηση αυτής της επιλογής. Αυτό θα ισχύει μόνο για τύπους αρχείων Microsoft.\n\nΤο Cryptomator θα κάνει επανεκκίνηση μετά την ενεργοποίηση.</string>
 	<string name="dialog_disable_app_obscured_disclaimer_hint">Αυτή η ρύθμιση είναι μια λειτουργία ασφαλείας και αποτρέπει άλλες εφαρμογές από το να ξεγελάσουν τους χρήστες να κάνουν πράγματα που δεν θέλουν να κάνουν.\n\nΜε την απενεργοποίηση, επιβεβαιώνετε ότι γνωρίζετε <a href="https://docs.cryptomator.org/en/1.6/android/settings/#block-app-when-obscured">τους κινδύνους</a>.</string>
 	<string name="dialog_disable_app_obscured_disclaimer_title">Προσοχή</string>
 	<string name="dialog_disable_app_obscured_positive_button">Απενεργοποίηση</string>
@@ -392,6 +395,7 @@
 	<string name="notification_auto_upload_failed_due_to_folder_not_exists">Ο επιλεγμένος φάκελος για μεταφόρτωση δεν είναι πια διαθέσιμος. Μεταβείτε στις ρυθμίσεις και επιλέξτε ένα νέο</string>
 	<string name="notification_auto_upload_failed_due_to_vault_locked">Κρύπτη κλειδωμένη κατά τη μεταφόρτωση, παρακαλώ ανοίξτε ξανά την κρύπτη για να συνεχίσετε</string>
 	<string name="notification_auto_upload_failed_due_to_vault_not_found">Η κρύπτη που ορίστηκε για αυτόματο ανέβασμα δεν υπάρχει πια.</string>
+	<string name="notification_auto_upload_failed_due_to_authentication_problem">Πατήστε για ανανέωση ταυτοποίησης.</string>
 	<string name="notification_open_writable_file_title">Άνοιγμα εγγράψιμου αρχείου</string>
 	<string name="notification_open_writable_file_message">Η κρύπτη παραμένει ξεκλείδωτη μέχρι να τελειώσει η επεξεργασία</string>
 	<string name="notification_update_check_finished_latest">Τελευταία έκδοση εγκατεστημένη</string>

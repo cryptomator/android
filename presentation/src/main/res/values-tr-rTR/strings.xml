@@ -198,6 +198,8 @@
 	<string name="screen_settings_security_label">Güvenlik ipuçları</string>
 	<string name="screen_settings_section_version">Sürüm</string>
 	<string name="screen_settings_advanced_settings">Gelişmiş Ayarlar</string>
+	<string name="screen_settings_microsoft_apps_workaround_label">Microsoft dosyalarını açmak için geçici çözüm</string>
+	<string name="screen_settings_microsoft_apps_workaround_summary">Microsoft uygulamalarındaki dosyaları yazma izniyle aç</string>
 	<string name="screen_settings_background_unlock_preparation_label">Kilidi açmayı hızlandır</string>
 	<string name="screen_settings_background_unlock_preparation_label_summary">Parola veya biyometrik doğrulama girmeniz istendiğinde kasa yapılandırmasını arka planda indirin</string>
 	<string name="screen_settings_keep_unlocked_while_editing_files">Kilidi açık tut</string>
@@ -304,6 +306,7 @@
 	<string name="dialog_debug_mode_disclaimer_hint">Bu modda, hassas veriler cihazınızdaki bir günlük dosyasına (örn. Dosya adları ve yolları) yazılabilir. Şifreler, tanımlama vb. bilgiler hariç tutulmuştur.\n\nHata ayıklama modunu mümkün olan en kısa sürede devre dışı bırakmayı unutmayın.</string>
 	<string name="dialog_debug_mode_disclaimer_title">Dikkat</string>
 	<string name="dialog_debug_mode_positive_button">Etkinleştir</string>
+	<string name="dialog_microsoft_workaround_disclaimer_hint">Microsoft uygulamalarındaki bir hata nedeniyle, düzenlenecek dosyanın cihazınızdaki herkese açık bir medya klasöründe bu uygulamalarla paylaşılması gerekir. Cryptomator yeniden başlatıldıktan sonra, herkese açık dosya tekrar silinir, ancak Cryptomator bu arada bu dosyaya ne olduğunu etkileyemez. Bu seçeneği etkinleştirirken bu davranışın farkında olduğunuzdan emin olun. Bu sadece Microsoft dosya türleri için geçerli olacaktır.\n\nCryptomator aktivasyondan sonra yeniden başlayacaktır.</string>
 	<string name="dialog_disable_app_obscured_disclaimer_hint">Bu ayar bir güvenlik özelliğidir ve diğer uygulamaların, kullanıcıları kandırmasını engeller.\n\nDevre dışı bırakarak, <a href="https://docs.cryptomator.org/en/1.6/android/settings/#block-app-when-obscured">risklerin farkında olduğunuzu</a> onaylamış olursunuz.</string>
 	<string name="dialog_disable_app_obscured_disclaimer_title">Dikkat</string>
 	<string name="dialog_disable_app_obscured_positive_button">Devre dışı bırak</string>
@@ -392,6 +395,7 @@
 	<string name="notification_auto_upload_failed_due_to_folder_not_exists">Yükleme için seçilen klasör artık mevcut değil! Ayarlara gidin ve yeni bir tane seçin</string>
 	<string name="notification_auto_upload_failed_due_to_vault_locked">Kasa yükleme sırasında kilitlendi, devam etmek için kasayı yeniden açın lütfen</string>
 	<string name="notification_auto_upload_failed_due_to_vault_not_found">Otomatik yükleme için belirtilen kasa artık mevcut değil.</string>
+	<string name="notification_auto_upload_failed_due_to_authentication_problem">Kimlik doğrulama işlemini yenilemek için dokun.</string>
 	<string name="notification_open_writable_file_title">Yazılabilir dosyayı aç</string>
 	<string name="notification_open_writable_file_message">Düzenleme tamamlanana kadar, uygulamalar kasası kilidi açık kalır</string>
 	<string name="notification_update_check_finished_latest">En son sürüm yüklendi</string>
