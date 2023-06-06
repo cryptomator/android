@@ -199,7 +199,7 @@
 	<string name="screen_settings_section_version">Versie</string>
 	<string name="screen_settings_advanced_settings">Geavanceerde opties</string>
 	<string name="screen_settings_microsoft_apps_workaround_label">Workaround voor het openen van Microsoft-bestanden</string>
-	<string name="screen_settings_microsoft_apps_workaround_summary">Open bestanden in Microsoft-apps met schrijfrechten</string>
+	<string name="screen_settings_microsoft_apps_workaround_summary">Open bestanden in Microsoft apps met schrijfrechten</string>
 	<string name="screen_settings_background_unlock_preparation_label">Ontgrendelen versnellen</string>
 	<string name="screen_settings_background_unlock_preparation_label_summary">Download kluisconfiguratie op de achtergrond wanneer gevraagd wordt om het wachtwoord of biometrische authenticatie in te voeren</string>
 	<string name="screen_settings_keep_unlocked_while_editing_files">Ontgrendeld houden</string>
@@ -395,7 +395,7 @@
 	<string name="notification_auto_upload_failed_due_to_folder_not_exists">Geselecteerde map voor uploaden is niet meer beschikbaar. Ga naar instellingen en kies een nieuwe</string>
 	<string name="notification_auto_upload_failed_due_to_vault_locked">Kluis vergrendeld tijdens het uploaden, heropen de kluis om door te gaan</string>
 	<string name="notification_auto_upload_failed_due_to_vault_not_found">De gekozen kluis voor automatische upload bestaat niet meer.</string>
-	<string name="notification_auto_upload_failed_due_to_authentication_problem">Tik op om de verificatie te vernieuwen.</string>
+	<string name="notification_auto_upload_failed_due_to_authentication_problem">Tik om de authenticatie te vernieuwen.</string>
 	<string name="notification_open_writable_file_title">Open schrijfbaar bestand</string>
 	<string name="notification_open_writable_file_message">Kluis blijft ontgrendeld tot het bewerken voltooid is</string>
 	<string name="notification_update_check_finished_latest">Laatste versie geïnstalleerd</string>
