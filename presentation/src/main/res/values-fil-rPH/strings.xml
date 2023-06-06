@@ -155,6 +155,7 @@
 	<string name="screen_settings_security_label">Mga pahiwatig ng seguridad</string>
 	<string name="screen_settings_section_version">Bersyon</string>
 	<string name="screen_settings_advanced_settings">Mga advanced na setting</string>
+	<string name="screen_settings_microsoft_apps_workaround_summary">Ibukas ang mga files sa Microsoft apps kasamang write permission</string>
 	<string name="screen_settings_background_unlock_preparation_label">Pabilisin ang pag-unlock</string>
 	<!-- ## screen: cloud settings -->
 	<!-- ## screen: licenses -->
