@@ -32,7 +32,6 @@ import org.cryptomator.presentation.model.comparator.CloudNodeModelNameZACompara
 import org.cryptomator.presentation.model.comparator.CloudNodeModelSizeBiggestFirstComparator
 import org.cryptomator.presentation.model.comparator.CloudNodeModelSizeSmallestFirstComparator
 import org.cryptomator.presentation.presenter.BrowseFilesPresenter
-import org.cryptomator.presentation.presenter.BrowseFilesPresenter.Companion.OPEN_FILE_FINISHED
 import org.cryptomator.presentation.service.CryptorsService
 import org.cryptomator.presentation.ui.activity.view.BrowseFilesView
 import org.cryptomator.presentation.ui.bottomsheet.FileSettingsBottomSheet
@@ -247,14 +246,6 @@ class BrowseFilesActivity : BaseActivity(), //
 			super.onMenuItemSelected(itemId)
 		}
 		else -> super.onMenuItemSelected(itemId)
-	}
-
-	override fun onActivityResult(requestCode: Int, resultCode: Int, intent: Intent?) {
-		super.onActivityResult(requestCode, resultCode, intent)
-
-		if (requestCode == OPEN_FILE_FINISHED) {
-			browseFilesPresenter.openFileFinished()
-		}
 	}
 
 	override fun onPrepareOptionsMenu(menu: Menu): Boolean {

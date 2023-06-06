@@ -25,6 +25,7 @@ import org.cryptomator.presentation.ui.activity.SettingsActivity
 import org.cryptomator.presentation.ui.dialog.DebugModeDisclaimerDialog
 import org.cryptomator.presentation.ui.dialog.DisableAppWhenObscuredDisclaimerDialog
 import org.cryptomator.presentation.ui.dialog.DisableSecureScreenDisclaimerDialog
+import org.cryptomator.presentation.ui.dialog.MicrosoftWorkaroundDisclaimerDialog
 import org.cryptomator.util.SharedPreferencesHandler
 import org.cryptomator.util.SharedPreferencesHandler.Companion.CRYPTOMATOR_VARIANTS
 import org.cryptomator.util.file.LruFileCacheUtil
@@ -100,6 +101,11 @@ class SettingsFragment : PreferenceFragmentCompat() {
 		sharedPreferencesHandler.setScreenStyleMode(newValue as String)
 		AppCompatDelegate.setDefaultNightMode(sharedPreferencesHandler.screenStyleMode)
 		activity().delegate.localNightMode = sharedPreferencesHandler.screenStyleMode
+		true
+	}
+
+	private val microsoftWorkaroundChangeListener = Preference.OnPreferenceChangeListener { _, newValue ->
+		onMicrosoftWorkaroundChanged(TRUE == newValue)
 		true
 	}
 
@@ -227,6 +233,7 @@ class SettingsFragment : PreferenceFragmentCompat() {
 		(findPreference(SharedPreferencesHandler.PHOTO_UPLOAD) as Preference?)?.onPreferenceChangeListener = useAutoPhotoUploadChangedListener
 		(findPreference(SharedPreferencesHandler.USE_LRU_CACHE) as Preference?)?.onPreferenceChangeListener = useLruChangedListener
 		(findPreference(SharedPreferencesHandler.LRU_CACHE_SIZE) as Preference?)?.onPreferenceChangeListener = useLruChangedListener
+		(findPreference(SharedPreferencesHandler.MICROSOFT_WORKAROUND) as Preference?)?.onPreferenceChangeListener = microsoftWorkaroundChangeListener
 		if (BuildConfig.FLAVOR == "apkstore") {
 			(findPreference(UPDATE_CHECK_ITEM_KEY) as Preference?)?.onPreferenceClickListener = updateCheckClickListener
 		}
@@ -292,12 +299,22 @@ class SettingsFragment : PreferenceFragmentCompat() {
 		(findPreference(SharedPreferencesHandler.PHOTO_UPLOAD) as SwitchPreference?)?.isChecked = enabled
 	}
 
-	fun rootView(): View {
-		return activity().findViewById(R.id.activityRootView)
-	}
-
 	fun disableAutoUpload() {
 		onUseAutoPhotoUploadChanged(false)
+	}
+
+	private fun onMicrosoftWorkaroundChanged(enabled: Boolean) {
+		if (enabled) {
+			activity().showDialog(MicrosoftWorkaroundDisclaimerDialog.newInstance())
+		}
+	}
+
+	fun deactivateMicrosoftWorkaround() {
+		sharedPreferencesHandler.setMicrosoftWorkaround(false)
+	}
+
+	fun rootView(): View {
+		return activity().findViewById(R.id.activityRootView)
 	}
 
 	companion object {

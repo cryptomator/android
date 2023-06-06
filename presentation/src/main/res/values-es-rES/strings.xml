@@ -198,6 +198,8 @@
 	<string name="screen_settings_security_label">Consejos de seguridad</string>
 	<string name="screen_settings_section_version">Versión</string>
 	<string name="screen_settings_advanced_settings">Ajustes avanzados</string>
+	<string name="screen_settings_microsoft_apps_workaround_label">Solución para abrir archivos de Microsoft</string>
+	<string name="screen_settings_microsoft_apps_workaround_summary">Abrir archivos en apps de Microsoft con permiso de lectura</string>
 	<string name="screen_settings_background_unlock_preparation_label">Acelerar desbloqueo</string>
 	<string name="screen_settings_background_unlock_preparation_label_summary">Descarga la configuración de la bóveda en segundo plano mientras se le pide ingresar la contraseña o la autenticación biométrica</string>
 	<string name="screen_settings_keep_unlocked_while_editing_files">Mantener desbloqueado</string>
@@ -304,6 +306,7 @@
 	<string name="dialog_debug_mode_disclaimer_hint">En este modo, los datos sensibles pueden ser escritos en un archivo de registro de su dispositivo (por ejemplo, nombres de archivos y rutas). Las contraseñas, las cookies, etc., se excluyen explícitamente.\n\nRecuerde desactivar el modo de depuración tan pronto como sea posible.</string>
 	<string name="dialog_debug_mode_disclaimer_title">Aviso</string>
 	<string name="dialog_debug_mode_positive_button">Activar</string>
+	<string name="dialog_microsoft_workaround_disclaimer_hint">Debido a un error en las aplicaciones de Microsoft, el archivo que se va a editar debe compartirse con estas aplicaciones en una carpeta de medios públicos en su dispositivo. Una vez que se reanude Cryptomator, el archivo de acceso público se elimina nuevamente, pero Cryptomator no puede influir en lo que sucedió con este archivo mientras tanto. Asegúrese de conocer este comportamiento al activar esta opción. Esto solo se aplicará a los tipos de archivos de Microsoft.\n\nCryptomator se reiniciará después de la activación.</string>
 	<string name="dialog_disable_app_obscured_disclaimer_hint">Esta opción es una función de seguridad y evita que otras aplicaciones engañen a los usuarios para que hagan cosas que no quieren hacer.\n\nAl desactivarla, confirma que es <a href="https://docs.cryptomator.org/en/1.6/android/settings/#block-app-when-obscured">consciente de los riesgos</a>.</string>
 	<string name="dialog_disable_app_obscured_disclaimer_title">Aviso</string>
 	<string name="dialog_disable_app_obscured_positive_button">Desactivar</string>
@@ -392,6 +395,7 @@
 	<string name="notification_auto_upload_failed_due_to_folder_not_exists">La carpeta seleccionada para cargar ya no está disponible. Vaya a los ajustes y elija una nueva</string>
 	<string name="notification_auto_upload_failed_due_to_vault_locked">Bóveda bloqueada durante la carga, vuelva a abrir la bóveda para continuar</string>
 	<string name="notification_auto_upload_failed_due_to_vault_not_found">La bóveda especificada para la carga automática ya no existe.</string>
+	<string name="notification_auto_upload_failed_due_to_authentication_problem">Toque para actualizar la autenticación.</string>
 	<string name="notification_open_writable_file_title">Abrir archivo escribible</string>
 	<string name="notification_open_writable_file_message">La bóveda permanece desbloqueada hasta finalizar la edición</string>
 	<string name="notification_update_check_finished_latest">Última versión instalada</string>

@@ -38,6 +38,7 @@ import java.io.IOException
 import java.util.zip.ZipEntry
 import java.util.zip.ZipOutputStream
 import javax.inject.Inject
+import kotlin.system.exitProcess
 import timber.log.Timber
 
 @PerView
@@ -197,6 +198,11 @@ class SettingsPresenter @Inject internal constructor(
 					context().startActivity(intent)
 				}
 			})
+	}
+
+	fun restartApp() {
+		// process gets restarted so just exit it
+		exitProcess(0)
 	}
 
 	private inner class CreateErrorReportArchiveTask : AsyncTask<Void?, IOException?, File?>() {

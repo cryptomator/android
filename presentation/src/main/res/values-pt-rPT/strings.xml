@@ -152,8 +152,25 @@
 	<!-- ## screen: settings -->
 	<string name="screen_settings_section_general">Geral</string>
 	<string name="screen_settings_section_search">Buscar</string>
+	<string name="screen_settings_section_legal">Informação Legal</string>
+	<string name="screen_settings_licenses_label">Licenças</string>
+	<string name="screen_settings_license_terms_label">Termos de aceitação</string>
+	<string name="screen_settings_section_support">Apoio</string>
+	<string name="screen_settings_contact_label">Pedir ajuda</string>
+	<string name="screen_settings_debug_mode_label">Modo de depuração</string>
+	<string name="screen_settings_error_report_label">Enviar ficheiro de registos</string>
+	<string name="screen_settings_error_report_failed">Falha ao enviar</string>
+	<string name="screen_settings_security_label">Dicas de segurança</string>
+	<string name="screen_settings_section_version">Versão</string>
+	<string name="screen_settings_advanced_settings">Definições Avançadas</string>
+	<string name="screen_settings_background_unlock_preparation_label">Desbloqueio acelerado</string>
+	<string name="screen_settings_keep_unlocked_while_editing_files">Manter desbloqueado</string>
+	<string name="screen_settings_keep_unlocked_while_editing_files_summary">Mantenha cofres desbloqueados durante a edição de ficheiros</string>
 	<!-- ## screen: cloud settings -->
 	<string name="screen_cloud_settings_onedrive_connections">Conexões do OneDrive</string>
+	<string name="screen_cloud_settings_webdav_connections">Ligações WebDAV</string>
+	<string name="screen_cloud_settings_pcloud_connections">ligações pCloud</string>
+	<string name="screen_cloud_settings_local_storage_locations">Local de armazenamento</string>
 	<!-- ## screen: licenses -->
 	<!-- ## screen: authenticate cloud -->
 	<!-- ## screen: cryptomator app variants -->

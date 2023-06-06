@@ -11,8 +11,11 @@ import android.content.Intent.ACTION_MAIN
 import android.content.Intent.FLAG_ACTIVITY_CLEAR_TASK
 import android.content.Intent.FLAG_ACTIVITY_NEW_TASK
 import androidx.core.app.NotificationCompat
+import org.cryptomator.domain.exception.authentication.AuthenticationException
 import org.cryptomator.presentation.R
 import org.cryptomator.presentation.service.AutoUploadService.cancelAutoUploadIntent
+import org.cryptomator.presentation.ui.activity.AutoUploadRefreshTokenActivity
+import org.cryptomator.presentation.ui.activity.AutoUploadRefreshTokenActivity.Companion.AUTHENTICATION_EXCEPTION_ARG
 import org.cryptomator.presentation.ui.activity.VaultListActivity
 import org.cryptomator.presentation.util.ResourceHelper.Companion.getColor
 import org.cryptomator.presentation.util.ResourceHelper.Companion.getString
@@ -105,6 +108,23 @@ class AutoUploadNotification(private val context: Context, private val amountOfP
 	fun showPermissionNotGrantedNotification() {
 		Timber.tag("AutoUploadNotification").i("Show storage permission required notification")
 		showErrorWithMessage(context.getString(R.string.notification_auto_upload_permission_not_granted))
+	}
+
+	fun showWrongCredentialNotification(authenticationException: AuthenticationException) {
+		val startTheActivity = Intent(context, AutoUploadRefreshTokenActivity::class.java)
+		startTheActivity.action = ACTION_MAIN
+		startTheActivity.flags = FLAG_ACTIVITY_CLEAR_TASK or FLAG_ACTIVITY_NEW_TASK
+		startTheActivity.putExtra(AUTHENTICATION_EXCEPTION_ARG, authenticationException)
+		val intent = PendingIntent.getActivity(context, 0, startTheActivity, FLAG_CANCEL_CURRENT or PendingIntent.FLAG_IMMUTABLE)
+		builder
+			.setContentIntent(intent)
+			.setContentTitle(context.getString(R.string.notification_auto_upload_failed_title))
+			.setContentText(context.getString(R.string.notification_auto_upload_failed_due_to_authentication_problem))
+			.setProgress(0, 0, false)
+			.setAutoCancel(true)
+			.setOngoing(false)
+			.clearActions()
+		show()
 	}
 
 	private fun showErrorWithMessage(message: String) {

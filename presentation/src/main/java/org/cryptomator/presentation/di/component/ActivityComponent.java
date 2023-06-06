@@ -7,6 +7,7 @@ import org.cryptomator.presentation.di.module.ActivityModule;
 import org.cryptomator.presentation.ui.activity.AuthenticateCloudActivity;
 import org.cryptomator.presentation.ui.activity.AuthenticatePCloudActivity;
 import org.cryptomator.presentation.ui.activity.AutoUploadChooseVaultActivity;
+import org.cryptomator.presentation.ui.activity.AutoUploadRefreshTokenActivity;
 import org.cryptomator.presentation.ui.activity.BiometricAuthSettingsActivity;
 import org.cryptomator.presentation.ui.activity.BrowseFilesActivity;
 import org.cryptomator.presentation.ui.activity.ChooseCloudServiceActivity;
@@ -111,6 +112,8 @@ public interface ActivityComponent {
 	void inject(AutoUploadChooseVaultActivity autoUploadChooseVaultActivity);
 
 	void inject(AutoUploadChooseVaultFragment autoUploadChooseVaultFragment);
+
+	void inject(AutoUploadRefreshTokenActivity autoUploadRefreshTokenActivity);
 
 	void inject(LicenseCheckActivity licenseCheckActivity);
 

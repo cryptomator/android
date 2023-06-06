@@ -9,6 +9,8 @@
 	<string name="error_no_network_connection">Nincs hálózati kapcsolat</string>
 	<string name="error_invalid_passphrase">Helytelen jelszó</string>
 	<string name="error_file_or_folder_exists">Ez a fájl/mappa már létezik.</string>
+	<string name="error_vault_version_not_supported">A széf verziója: %1$s, amely nem támogatott. Ezt a széfet a Cryptomator egy régebbi vagy újabbi verziójában hozták létre.</string>
+	<string name="error_vault_config_file_missing_due_to_format_999">A %1$s fájl hiányzik a széf mappájából. Kérem, győződjön meg, hogy ez a fájl létezik a felhőben lévő széf mappájában.</string>
 	<string name="error_vault_already_exists">A széf már létezik.</string>
 	<string name="error_no_such_file">Fájl nem létezik.</string>
 	<string name="error_vault_has_been_locked">A széf zárva van.</string>
@@ -32,6 +34,7 @@
 	<string name="error_file_not_found_after_opening_using_3party">A Cryptomatorra való visszaváltás után a helyi fájl már nem elérthető. Az esetleges változások nem frissíthetik a felhőben lévő fájlt.</string>
 	<string name="error_no_such_bucket">Nem található ilyen adat</string>
 	<string name="error_masterkey_location_not_supported">Az egyéni Masterkey hely választása még nem támogatott</string>
+	<string name="error_interact_with_fdroid_but_fdroid_missing">Nem sikerült kommunikálni az F-Droid alkalmazással. Nincs telepítve?</string>
 	<!-- # clouds -->
 	<!-- ## cloud names -->
 	<string name="cloud_names_local_storage">Helyi tároló</string>
@@ -52,12 +55,15 @@
 	<string name="snack_bar_action_title_sort_oldest">Régebbiek előre</string>
 	<string name="snack_bar_action_title_sort_biggest">Nagyobbak előre</string>
 	<string name="snack_bar_action_title_sort_smallest">Kisebbek előre</string>
+	<string name="snack_bar_cryptomator_variants_title">Olvass tovább</string>
+	<string name="snack_bar_cryptomator_variants_hint">Nincs a felhő a listában?</string>
 	<!-- # screens -->
 	<!-- # screen: vault list -->
 	<string name="screen_vault_list_actions_title">Cryptomator-hoz adás</string>
 	<string name="screen_vault_list_action_create_new_vault">Új széf készítése</string>
 	<string name="screen_vault_list_action_add_existing_vault">Meglévő széfhez adás</string>
 	<string name="screen_vault_list_vault_action_delete">Eltávolítás</string>
+	<string name="screen_vault_list_vault_creation_hint">Koppintson ide egy új széf létrehozásához</string>
 	<string name="screen_vault_list_change_password_successful">Jelszó sikeresen megváltoztatva</string>
 	<!-- # screen: file browser -->
 	<string name="screen_file_browser_default_title">Széf</string>
@@ -112,7 +118,9 @@
 	<string name="screen_choose_cloud_service_title">Felhőszolgáltatás</string>
 	<!-- ## screen: cloud connections -->
 	<string name="screen_cloud_connections_title">Válasszon helyt</string>
+	<string name="screen_cloud_connections_no_connections">Koppintson ide helyek hozzáadásához</string>
 	<string name="screen_cloud_error_webdav_not_supported">A kiszolgáló nem tűnik WebDAV kompatibilisnek</string>
+	<string name="screen_cloud_local_error_no_content_provider">Nem találtunk fájlkezelőt, mely képes megnyitni könyvtárakat</string>
 	<!-- ## screen: webdav settings -->
 	<string name="screen_webdav_settings_url_port_label">ULR</string>
 	<string name="screen_webdav_settings_username_label">Felhasználónév</string>
@@ -207,6 +215,11 @@
 	<string name="screen_authenticate_auth_authentication_failed">A %1$s hitelesítése sikertelen.</string>
 	<string name="screen_update_pcloud_connections_title">pCloud hitelesítő adatainak frissítése</string>
 	<!-- ## screen: cryptomator app variants -->
+	<string name="screen_cryptomator_variants_title">A Cryptomator változatai</string>
+	<string name="screen_cryptomator_variants_lite_title">Fő F-Droid tároló</string>
+	<string name="screen_cryptomator_variants_lite_description">Nincsenek benne, mert API kulcsokra van szükségük.</string>
+	<string name="screen_cryptomator_variants_lite_install">Telepítés</string>
+	<string name="screen_cryptomator_variants_fdroid_title">Cryptomator F-Droid tároló</string>
 	<!-- # dialogs -->
 	<string name="dialog_button_cancel">Mégse</string>
 	<string name="dialog_enter_password_positive_button">Feloldás</string>

@@ -282,6 +282,8 @@
 	<string name="screen_settings_section_version">Version</string>
 
 	<string name="screen_settings_advanced_settings">Advanced Settings</string>
+	<string name="screen_settings_microsoft_apps_workaround_label">Workaround opening Microsoft files</string>
+	<string name="screen_settings_microsoft_apps_workaround_summary">Open files in Microsoft apps with write permission</string>
 	<string name="screen_settings_background_unlock_preparation_label">Accelerate unlock</string>
 	<string name="screen_settings_background_unlock_preparation_label_summary">Download vault config in the background while prompted to enter the password or biometric auth</string>
 	<string name="screen_settings_keep_unlocked_while_editing_files">Keep unlocked</string>
@@ -440,6 +442,11 @@
 	<string name="dialog_debug_mode_positive_button">Enable</string>
 	<string name="dialog_debug_mode_negative_button" translatable="false">@string/dialog_button_cancel</string>
 
+	<string name="dialog_microsoft_workaround_disclaimer_hint">Due to a bug in Microsoft apps, the file to be edited must be shared with these apps in a public media folder on your device. After Cryptomator is resumed, the publicly accessible file is deleted again, but Cryptomator cannot influence what has happened to this file in the meantime. Make sure that you are aware of this behavior when activating this option. This will only apply to Microsoft file types.\n\nCryptomator will restart after activation.</string>
+	<string name="dialog_microsoft_workaround_disclaimer_title" translatable="false">@string/dialog_debug_mode_disclaimer_title</string>
+	<string name="dialog_microsoft_workaround_positive_button" translatable="false">@string/screen_settings_section_auto_photo_upload_toggle</string>
+	<string name="dialog_microsoft_workaround_negative_button" translatable="false">@string/dialog_button_cancel</string>
+
 	<string name="dialog_disable_app_obscured_disclaimer_hint">This setting is a security feature and prevents other apps from tricking users into doing things they do not wan\'t to do.\n\nBy disabling, you confirm that you are <a href="https://docs.cryptomator.org/en/1.6/android/settings/#block-app-when-obscured">aware of the risks</a>.</string>
 	<string name="dialog_disable_app_obscured_disclaimer_title">Attention</string>
 	<string name="dialog_disable_app_obscured_positive_button">Disable</string>
@@ -573,6 +580,7 @@
 	<string name="notification_auto_upload_failed_due_to_vault_locked">Vault locked during upload, please reopen vault to continue</string>
 	<string name="notification_auto_upload_failed_due_to_vault_not_found">Vault specified for auto upload doesn\'t exist anymore.</string>
 	<string name="notification_auto_upload_permission_not_granted" translatable="false">@string/permission_snackbar_auth_auto_upload</string>
+	<string name="notification_auto_upload_failed_due_to_authentication_problem">Tap to refresh authentication.</string>
 
 	<string name="notification_cancel_open_writable_file" translatable="false">@string/dialog_button_cancel</string>
 	<string name="notification_open_writable_file_title">Open writable file</string>
