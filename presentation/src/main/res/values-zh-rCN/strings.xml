@@ -305,6 +305,7 @@
 	<string name="dialog_debug_mode_disclaimer_hint">在此模式下，敏感数据可能会写入您设备上的日志文件 (例如文件名和路径)。密码、cookies等除外。\n\n请记得要尽快关闭调试模式。</string>
 	<string name="dialog_debug_mode_disclaimer_title">请注意</string>
 	<string name="dialog_debug_mode_positive_button">启用</string>
+	<string name="dialog_microsoft_workaround_disclaimer_hint">由于 Microsoft 应用中的 bug，要将文件共享到公共文件夹中才能对其进行编辑。一旦 Cryptomator 继续运行，可公开访问的相应文件将再次被删除，但 Cryptomator 无法影响此文件在此期间发生的情况。请确保您在激活此选项时了解此行为。该问题仅适用于 Microsoft 文件类型\n\nCryptomator 将在激活选项后重新启动</string>
 	<string name="dialog_disable_app_obscured_disclaimer_hint">此为一项安全功能，可防止其他应用诱使用户做出错误操作\n\n如果禁用，即表示您了解<a href="https://docs.cryptomator.org/en/1.6/android/settings/#block-app-when-obscured">其中风险</a></string>
 	<string name="dialog_disable_app_obscured_disclaimer_title">请注意</string>
 	<string name="dialog_disable_app_obscured_positive_button">关闭</string>
@@ -393,6 +394,7 @@
 	<string name="notification_auto_upload_failed_due_to_folder_not_exists">所选文件夹无法再上传，请转到设置并选择一个新的文件夹</string>
 	<string name="notification_auto_upload_failed_due_to_vault_locked">上传期间保险库锁定了，请重新打开保险库以继续</string>
 	<string name="notification_auto_upload_failed_due_to_vault_not_found">用于自动上传的指定保险库已不存在。</string>
+	<string name="notification_auto_upload_failed_due_to_authentication_problem">轻触刷新身份验证</string>
 	<string name="notification_open_writable_file_title">打开可写文件</string>
 	<string name="notification_open_writable_file_message">编辑期间保险库保持解锁</string>
 	<string name="notification_update_check_finished_latest">已安装最新版本</string>
