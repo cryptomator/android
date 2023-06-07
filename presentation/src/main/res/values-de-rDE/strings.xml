@@ -198,8 +198,8 @@
 	<string name="screen_settings_security_label">Sicherheitshinweise</string>
 	<string name="screen_settings_section_version">Version</string>
 	<string name="screen_settings_advanced_settings">Erweiterte Eigenschaften</string>
-	<string name="screen_settings_microsoft_apps_workaround_label">Workaround, um Microsoft Dateien zu öffnen</string>
-	<string name="screen_settings_microsoft_apps_workaround_summary">Dateien in Microsoft Apps mit Schreibberechtigung öffnen</string>
+	<string name="screen_settings_microsoft_apps_workaround_label">Workaround zum Öffnen von Microsoft-Dateien</string>
+	<string name="screen_settings_microsoft_apps_workaround_summary">In Microsoft-Apps Dateien mit Schreibberechtigung öffnen</string>
 	<string name="screen_settings_background_unlock_preparation_label">Entsperren beschleunigen</string>
 	<string name="screen_settings_background_unlock_preparation_label_summary">Während der Passwort-Eingabe oder biometrische Authentifizierung, Tresor-Konfiguration im Hintergrund herunterladen</string>
 	<string name="screen_settings_keep_unlocked_while_editing_files">Entsperrt bleiben</string>
