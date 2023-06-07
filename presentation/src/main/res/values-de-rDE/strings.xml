@@ -306,7 +306,7 @@
 	<string name="dialog_debug_mode_disclaimer_hint">In diesem Modus könnten sensible Daten in eine Log-Datei auf diesem Gerät geschrieben werden (z.B. Dateinamen und Pfade). Ausgeschlossen davon sind u.a. Passwörter und Cookies.\n\nDenke daran, den Debug-Modus so schnell wie möglich wieder zu deaktivieren.</string>
 	<string name="dialog_debug_mode_disclaimer_title">Achtung</string>
 	<string name="dialog_debug_mode_positive_button">Aktivieren</string>
-	<string name="dialog_microsoft_workaround_disclaimer_hint">Wenn du eine Datei mit den Microsoft-Apps bearbeiten möchtest, muss diese Datei diesen Apps über einen öffentlichen Ordner auf deinem Gerät zur Verfügung gestellt werden. Dies liegt an einem Fehler in den Microsoft-Apps. Sobald Cryptomator fortgesetzt wird, wird die entsprechende öffentliche Datei wieder gelöscht. Cryptomator kann jedoch nicht beeinflussen, was in der Zwischenzeit mit dieser Datei passiert. Sei dir diesem Verhalten bewusst, wenn du diese Option aktivierst. Dies gilt nur für Microsoft Dateitypen.\n\nCryptomator wird nach der Aktivierung neu gestartet.</string>
+	<string name="dialog_microsoft_workaround_disclaimer_hint">Aufgrund eines Fehlers in Microsoft-Apps muss die zu bearbeitende Datei in einem öffentlichen Medienordner deines Gerät für diese Apps bereitgestellt werden. Nach dem Fortsetzen von Cryptomator wird die öffentlich zugängliche Datei wieder gelöscht; allerdings kann Cryptomator nicht beeinflussen, was in der Zwischenzeit mit dieser Datei geschehen ist. Achte beim Aktivieren dieser Option darauf, dass du dir dieses Verhaltens bewusst bist. Dies gilt nur für Microsoft-Dateitypen.\n\nCryptomator wird nach der Aktivierung neu gestartet.</string>
 	<string name="dialog_disable_app_obscured_disclaimer_hint">Dies ist eine Sicherheitsfunktion und verhindert, dass andere Apps Nutzer dazu bringen, Dinge zu tun, die sie nicht tun wollen.\n\nDurch die Deaktivierung bestätigst du, dass du dich <a href="https://docs.cryptomator.org/en/1.6/android/settings/#block-app-when-obscured">der Risiken bewusst</a> bist.</string>
 	<string name="dialog_disable_app_obscured_disclaimer_title">Achtung</string>
 	<string name="dialog_disable_app_obscured_positive_button">Deaktivieren</string>
@@ -395,7 +395,7 @@
 	<string name="notification_auto_upload_failed_due_to_folder_not_exists">Der ausgewählte Ordner für den Upload ist nicht mehr verfügbar. Gehe zu den Einstellungen und wähle einen neuen Ordner aus</string>
 	<string name="notification_auto_upload_failed_due_to_vault_locked">Tresor wurde während dem Hochladen gesperrt, bitte Tresor erneut öffnen, um fortzufahren</string>
 	<string name="notification_auto_upload_failed_due_to_vault_not_found">Der Tresor für den automatischen Upload existiert nicht mehr.</string>
-	<string name="notification_auto_upload_failed_due_to_authentication_problem">Tippen, um die Authentifizierung zu aktualisieren.</string>
+	<string name="notification_auto_upload_failed_due_to_authentication_problem">Antippen, um die Authentifizierung zu aktualisieren.</string>
 	<string name="notification_open_writable_file_title">Datei mit Schreibrechten geöffnet</string>
 	<string name="notification_open_writable_file_message">Tresor bleibt entsperrt, bis die Bearbeitung abgeschlossen wurde</string>
 	<string name="notification_update_check_finished_latest">Neueste Version installiert</string>
