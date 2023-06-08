@@ -396,6 +396,7 @@
 	<string name="notification_auto_upload_failed_due_to_folder_not_exists">المجلد المحدد للرفع لم يعد متوفرًا. اذهب إلى الإعدادات واختيار واحد جديد</string>
 	<string name="notification_auto_upload_failed_due_to_vault_locked">تم قفل المخزن اثناء الرفع، الرجاء قم بفتحه لمتابعة الرفع</string>
 	<string name="notification_auto_upload_failed_due_to_vault_not_found">المخزن المحدد للتحميل التلقائي لم يعد موجودا.</string>
+	<string name="notification_auto_upload_failed_due_to_authentication_problem">انقر لتحديث المصادقة.</string>
 	<string name="notification_open_writable_file_title">فتح ملف قابل للكتابة</string>
 	<string name="notification_open_writable_file_message">تظل الخزنة مفتوحة حتى الانتهاء من التعديل</string>
 	<string name="notification_update_check_finished_latest">تم تثبيت آخر إصدارة</string>
