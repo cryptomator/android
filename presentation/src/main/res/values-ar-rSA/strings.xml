@@ -202,6 +202,8 @@
 	<string name="screen_settings_security_label">تلميحات الأمان</string>
 	<string name="screen_settings_section_version">الإصدارة</string>
 	<string name="screen_settings_advanced_settings">إعدادات متقدمة</string>
+	<string name="screen_settings_microsoft_apps_workaround_label">العمل على فتح ملفات مايكروسوفت</string>
+	<string name="screen_settings_microsoft_apps_workaround_summary">فتح الملفات في تطبيقات مايكروسوفت مع السماح بالتعديل</string>
 	<string name="screen_settings_background_unlock_preparation_label">تسريع فتح القفل</string>
 	<string name="screen_settings_background_unlock_preparation_label_summary">تنزيل إعدادات المخزن في الخلفية أثناء مطالبته بإدخال كلمة المرور أو البصمة</string>
 	<string name="screen_settings_keep_unlocked_while_editing_files">أبقه فاتح</string>
