@@ -309,6 +309,7 @@
 	<string name="dialog_debug_mode_disclaimer_hint">في هذا الوضع، يمكن كتابة البيانات الحساسة إلى ملف تسجيل على جهازك (على سبيل المثال أسماء الملفات والمسارات). كلمة المرور، ملفات تعريف الارتباط، إلخ. مستبعدة صراحة.\n\nتذكر تعطيل وضع التصحيح في أقرب وقت ممكن.</string>
 	<string name="dialog_debug_mode_disclaimer_title">انتباه</string>
 	<string name="dialog_debug_mode_positive_button">تفعيل</string>
+	<string name="dialog_microsoft_workaround_disclaimer_hint">بسبب خطأ في تطبيقات مايكروسوفت، يجب مشاركة الملف المراد تعديله مع هذه التطبيقات في مجلد وسائط عام على جهازك. بعد استئناف Cryptomator ، يتم حذف هذا الملف مرة أخرى، ولكن Cryptomator لا يمكنه التأثير على ما حدث لهذا الملف في هذه الأثناء. تأكد من أنك على علم بهذا السلوك عند تفعيل هذا الخيار. سيتم تطبيق هذا فقط على ملفات مايكروسوفت.\n\nسيتم إعادة تشغيل Cryptomator بعد التفعيل.</string>
 	<string name="dialog_disable_app_obscured_disclaimer_hint">هذا الإعداد هو ميزة أمنية ويمنع التطبيقات الأخرى من استدراج المستخدمين لفعل أشياء لا يريدون القيام بها.\n\nبتعطيليها, أنت تؤكد أنك <a href="https://docs.cryptomator.org/en/1.6/android/settings/#block-app-when-obscured">على علم بالمخاطر</a>.</string>
 	<string name="dialog_disable_app_obscured_disclaimer_title">انتباه</string>
 	<string name="dialog_disable_app_obscured_positive_button">تعطيل</string>
