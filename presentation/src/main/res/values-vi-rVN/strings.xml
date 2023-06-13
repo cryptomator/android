@@ -10,21 +10,27 @@
 	<string name="error_invalid_passphrase">Sai mật khẩu</string>
 	<string name="error_file_or_folder_exists">Tệp tin hoặc thư mục đã tồn tại.</string>
 	<string name="error_vault_version_not_supported">Phiên bản Vault %1$s không được hỗ trợ. Vault này đã được tạo bằng phiên bản Cryptomator cũ hơn hoặc mới hơn.</string>
+	<string name="error_vault_config_file_missing_due_to_format_999">Tệp %1$s bị thiếu trong thư mục vault của bạn. Đảm bảo rằng tệp này tồn tại trong thư mục vault của bạn trong đám mây.</string>
 	<string name="error_vault_already_exists">Vault đã tồn tại.</string>
 	<string name="error_no_such_file">Tệp tin không tồn tại.</string>
 	<string name="error_vault_has_been_locked">Vault đã khóa.</string>
+	<string name="error_cloud_already_exists">Đám mây đã tồn tại.</string>
 	<string name="error_activity_not_found">Hãy tải ứng dụng có thể mở được tệp tin này.</string>
 	<string name="error_server_not_found">Không tìm thấy máy chủ.</string>
 	<string name="error_device_policy_manager_not_found">Vui lòng mở cài đặt thiết bị của bạn và đặt khóa màn hình bằng tay</string>
 	<string name="error_export_illegal_file_name">Không xuất được. Cố gắng xóa các ký tự đặc biệt khỏi tên tệp và xuất lại.</string>
 	<string name="error_name_contains_invalid_characters">Không được chứa kí tự đặc biệt.</string>
 	<string name="error_names_contains_invalid_characters">Tên tệp tin không thể chứa ký tự đặc biệt.</string>
+	<string name="error_vault_name_contains_invalid_characters">Tên vault không được chứa các ký tự đặc biệt.</string>
 	<string name="error_general_update">Kiểm tra cập nhật không thành công. Đã xảy ra lỗi chung.</string>
+	<string name="error_hash_mismatch_update">Kiểm tra cập nhật không thành công. Hàm băm được tính toán không khớp với tệp đã tải lên</string>
 	<string name="error_update_no_internet">Kiểm tra cập nhật không thành công. Không có kết nối mạng.</string>
 	<string name="error_failed_to_decrypt_webdav_password">Giải mã mật khẩu WebDAV thất bại, vui lòng thêm lại vào cài đặt</string>
 	<string name="error_play_services_not_available">Dịch vụ Google Play chưa được cài đặt</string>
+	<string name="error_biometric_auth_aborted">Xác thực sinh trắc học bị huỷ bỏ</string>
 	<string name="error_vault_version_mismatch">Phiên bản được chỉ định trong %1$s khác với %2$s</string>
 	<string name="error_vault_key_invalid">%1$s không khớp với %2$s</string>
+	<string name="error_vault_config_loading">Lỗi không rõ khi tải cấu hình vault</string>
 	<string name="error_no_such_bucket">Không có vùng lưu trữ như vậy</string>
 	<!-- # clouds -->
 	<!-- ## cloud names -->
