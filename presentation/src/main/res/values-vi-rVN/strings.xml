@@ -70,9 +70,14 @@
 	<string name="screen_file_browser_add_existing_vault_extra_text">Chọn tệp khoá chính</string>
 	<string name="screen_file_browser_create_new_vault_button_text">Đặt ở đây</string>
 	<string name="screen_file_browser_create_new_vault_extra_text">Tên vault: %1$s</string>
+	<plurals name="screen_file_browser_subtitle_move">
+		<item quantity="other">Di chuyển %2$d mục tới</item>
+	</plurals>
 	<string name="screen_file_browser_move_button_text">Di chuyển</string>
 	<string name="screen_file_browser_msg_empty_folder">Thư mục trống</string>
+	<string name="screen_file_browser_file_info_label_date">đã sửa đổi %1$s trước</string>
 	<string name="screen_file_browser_share_intent_chooser_title">Chia sẻ với</string>
+	<string name="screen_file_browser_share_destination_title">Chọn điểm đến</string>
 	<string name="screen_file_browser_share_button_text">Chọn</string>
 	<string name="screen_file_browser_nothing_to_share">Không có gì để chia sẻ</string>
 	<string name="screen_file_browser_actions_title">Thêm vào %1$s</string>
@@ -89,6 +94,9 @@
 	<string name="screen_file_browser_node_action_edit_text">Chỉnh sửa</string>
 	<string name="screen_file_browser_node_action_export">Xuất</string>
 	<string name="screen_file_browser_node_action_delete">Xóa</string>
+	<string name="screen_file_browser_node_action_open_with_text">Mở bằng&#8230;</string>
+	<string name="screen_file_browser_selection_mode_title_zero_elements">Chọn các mục</string>
+	<string name="screen_file_browser_selection_mode_title_one_or_more_elements">Đã chọn %1$d</string>
 	<string name="screen_file_browser_select_items">Chọn</string>
 	<string name="screen_file_browser_select_all_items">Chọn tất cả</string>
 	<string name="screen_file_browser_refresh_items">Làm mới</string>
@@ -109,6 +117,9 @@
 	<string name="screen_choose_cloud_service_title">Dịch vụ đám mây</string>
 	<!-- ## screen: cloud connections -->
 	<string name="screen_cloud_connections_title">Chọn vị trí</string>
+	<string name="screen_cloud_connections_no_connections">Nhấn vào đây để thêm vị trí</string>
+	<string name="screen_cloud_error_webdav_not_supported">Máy chủ dường như không tương thích với WebDAV</string>
+	<string name="screen_cloud_local_error_no_content_provider">Không tìm thấy trình quản lý tệp nào hỗ trợ mở thư mục</string>
 	<!-- ## screen: webdav settings -->
 	<string name="screen_webdav_settings_url_port_label">URL</string>
 	<string name="screen_webdav_settings_username_label">Tên đăng nhập</string>
@@ -120,8 +131,16 @@
 	<string name="screen_webdav_settings_msg_password_must_not_be_empty">Mật khẩu không được để trống.</string>
 	<!-- ## screen: s3 settings -->
 	<string name="screen_s3_settings_display_name_label">Tên hiển thị</string>
+	<string name="screen_s3_settings_access_key_label">Khoá Truy cập</string>
+	<string name="screen_s3_settings_secret_key_label">Khoá Bí mật</string>
+	<string name="screen_s3_settings_bucket_label">Bucket Hiện có</string>
+	<string name="screen_s3_settings_endpoint_label">Điểm cuối</string>
 	<string name="screen_s3_settings_region_label">Khu vực</string>
 	<string name="screen_s3_settings_msg_display_name_not_empty">Tên hiển thị không được để trống</string>
+	<string name="screen_s3_settings_msg_access_key_not_empty">Khoá Truy cập không được để trống</string>
+	<string name="screen_s3_settings_msg_secret_key_not_empty">Khoá Bí mật không được để trống</string>
+	<string name="screen_s3_settings_msg_bucket_not_empty">Bucket không được để trống</string>
+	<string name="screen_s3_settings_msg_endpoint_and_region_not_empty">Điểm cuối hoặc Khu vực không được để trống</string>
 	<!-- ## screen: enter vault name -->
 	<string name="screen_enter_vault_name_msg_name_empty">Tên ault không thể để trống.</string>
 	<string name="screen_enter_vault_name_vault_label">Tên Vault</string>
