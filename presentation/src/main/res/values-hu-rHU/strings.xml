@@ -352,6 +352,7 @@
 	<string name="notification_auto_upload_failed_due_to_folder_not_exists">A feltöltésre kiválasztott mappa már nem elérhető. Menjen a beállításokhoz, és válasszon egy újat</string>
 	<string name="notification_auto_upload_failed_due_to_vault_locked">A trezor zárolva lett a feltöltés során. A folytatáshoz nyissa meg újra</string>
 	<string name="notification_auto_upload_failed_due_to_vault_not_found">Az automatikus feltöltéshez megadott tároló már nem létezik.</string>
+	<string name="notification_auto_upload_failed_due_to_authentication_problem">Koppintson a hitelesítés frissítéséhez.</string>
 	<string name="notification_open_writable_file_title">Írható fájl megnyitása</string>
 	<string name="notification_open_writable_file_message">A trezor a szerkesztés idejéig feloldva marad</string>
 	<string name="notification_update_check_finished_latest">A legfrissebb verzió van telepítve</string>
@@ -365,6 +366,8 @@
 	<string name="screen_settings_license_mail">%1$s</string>
 	<string name="dialog_settings_update_check_interval_title">Frissítések keresésése</string>
 	<string name="screen_settings_check_updates">Frissítések keresése</string>
+	<string name="screen_settings_last_check_updates">Utolsó keresés %1$s</string>
+	<string name="dialog_cache_size_title">Felhőnkénti gyorsítótár mérete</string>
 	<!-- lock timeout names -->
 	<string name="lock_timeout_instant">Azonnal</string>
 	<string name="lock_timeout_1m">1 perc</string>
