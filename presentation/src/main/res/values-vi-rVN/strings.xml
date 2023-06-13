@@ -31,7 +31,10 @@
 	<string name="error_vault_version_mismatch">Phiên bản được chỉ định trong %1$s khác với %2$s</string>
 	<string name="error_vault_key_invalid">%1$s không khớp với %2$s</string>
 	<string name="error_vault_config_loading">Lỗi không rõ khi tải cấu hình vault</string>
+	<string name="error_file_not_found_after_opening_using_3party">Tệp cục bộ không còn xuất hiện nữa sau khi chuyển về Cryptomator. Những thay đổi có thể xảy ra không thể được truyền trở lại đám mây.</string>
 	<string name="error_no_such_bucket">Không có vùng lưu trữ như vậy</string>
+	<string name="error_masterkey_location_not_supported">Vị trí Khoá Chính tuỳ chỉnh chưa được hỗ trợ</string>
+	<string name="error_interact_with_fdroid_but_fdroid_missing">Không giao tiếp được với ứng dụng F-Droid. Chưa cài đặt?</string>
 	<!-- # clouds -->
 	<!-- ## cloud names -->
 	<string name="cloud_names_local_storage">Bộ nhớ cục bộ</string>
@@ -53,13 +56,20 @@
 	<string name="snack_bar_action_title_sort_biggest">Lớn nhất trước</string>
 	<string name="snack_bar_action_title_sort_smallest">Nhỏ nhất trước</string>
 	<string name="snack_bar_cryptomator_variants_title">Xem thêm</string>
+	<string name="snack_bar_cryptomator_variants_hint">Đám mây không có trong danh sách?</string>
 	<!-- # screens -->
 	<!-- # screen: vault list -->
+	<string name="screen_vault_list_actions_title">Thêm vào Cryptomator</string>
+	<string name="screen_vault_list_action_create_new_vault">Tạo vault mới</string>
+	<string name="screen_vault_list_action_add_existing_vault">Thêm vault hiện có</string>
 	<string name="screen_vault_list_vault_action_delete">Xóa</string>
 	<string name="screen_vault_list_vault_creation_hint">Nhấn vào đây để tạo một cái mới</string>
 	<string name="screen_vault_list_change_password_successful">Thay đổi mật khẩu thành công</string>
 	<!-- # screen: file browser -->
 	<string name="screen_file_browser_default_title">Vault</string>
+	<string name="screen_file_browser_add_existing_vault_extra_text">Chọn tệp khoá chính</string>
+	<string name="screen_file_browser_create_new_vault_button_text">Đặt ở đây</string>
+	<string name="screen_file_browser_create_new_vault_extra_text">Tên vault: %1$s</string>
 	<string name="screen_file_browser_move_button_text">Di chuyển</string>
 	<string name="screen_file_browser_msg_empty_folder">Thư mục trống</string>
 	<string name="screen_file_browser_share_intent_chooser_title">Chia sẻ với</string>
