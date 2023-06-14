@@ -220,6 +220,12 @@
 	<string name="screen_cryptomator_variants_lite_description">Nincsenek benne, mert API kulcsokra van szükségük.</string>
 	<string name="screen_cryptomator_variants_lite_install">Telepítés</string>
 	<string name="screen_cryptomator_variants_fdroid_title">Cryptomator F-Droid tároló</string>
+	<string name="screen_cryptomator_variants_fdroid_add_repo_hint">A Cryptomator tároló hozzáadása az F-Droid apphoz.</string>
+	<string name="screen_cryptomator_variants_fdroid_add_repo">Hozzáadás</string>
+	<string name="screen_cryptomator_variants_fdroid_install_hint">Cryptomator telepítése F-Droid segítségével.\nHa egy nem talált hiba jelenik meg, várjon amíg az F-Droid szinkronizáció befejeződik.</string>
+	<string name="screen_cryptomator_variants_website_title">Weboldal</string>
+	<string name="screen_cryptomator_variants_website_description">Zárt forráskódú függőségeket tartalmaz.</string>
+	<string name="screen_cryptomator_variants_installation_hint">Az alkalmazás fő F-Droid tároló verziójára vagy verziójáról váltáshoz szükséges az alkalmazás teljes újratelepítése.</string>
 	<!-- # dialogs -->
 	<string name="dialog_button_cancel">Mégse</string>
 	<string name="dialog_enter_password_positive_button">Feloldás</string>
@@ -257,6 +263,7 @@
 	<string name="dialog_unsaved_changes_title">Nem mentett módosításai vannak</string>
 	<string name="dialog_unsaved_changes_message">Biztos, hogy mentés nélkül szeretne kilépni?</string>
 	<string name="dialog_unsaved_changes_discard">Elvetés</string>
+	<string name="dialog_file_name_hint">Fájlnév</string>
 	<string name="dialog_file_name_placeholder">text.txt</string>
 	<string name="dialog_delete_vault_message">Biztosan törli ezt a trezort?</string>
 	<string name="dialog_delete_vault_hint">Ez a művelet eltávolítja a tárolót a listáról, de fizikailag nem törli azt.</string>
@@ -297,6 +304,8 @@
 	<string name="dialog_debug_mode_positive_button">Engedélyezés</string>
 	<string name="dialog_disable_app_obscured_disclaimer_title">Figyelem</string>
 	<string name="dialog_disable_app_obscured_positive_button">Letiltás</string>
+	<string name="dialog_app_is_obscured_info_title">Az app el van takarva</string>
+	<string name="dialog_app_is_obscured_info_hint">Egy másik app megjelenít valamit a Cryptomator felett (pl. egy kékfény szűrő vagy éjszakai mód app). Biztonsági okokból a Cryptomator le van tiltva.\n\n<a href="https://docs.cryptomator.org/en/1.6/android/settings/#block-app-when-obscured">Hogyan engedélyezze a Cryptomatort</a></string>
 	<string name="dialog_app_is_obscured_info_neutral_button">Bezár</string>
 	<string name="dialog_confirm_delete_multiple_message">Biztosan törölni akarja ezeket az elemeket?</string>
 	<string name="dialog_confirm_delete_file_message">Biztosan törli ezt a fájlt?</string>
@@ -306,7 +315,9 @@
 	<string name="dialog_update_available_download_site">Ugrás a Letöltési oldalra</string>
 	<string name="dialog_update_available_cancel">Később</string>
 	<string name="dialog_download_update_title">Letöltés folyamatban</string>
+	<string name="dialog_sym_link_title">A mappa egy szimbolikus link</string>
 	<string name="dialog_sym_link_back_button">Vissza</string>
+	<string name="dialog_pcloud_credentials_updated">Ha új pCloud fiókot szeretne hozzáadni, koppintson erre az url-re: <a href="https://www.pcloud.com">www.pcloud.com</a>, jelentkezzen ki a jelenlegi fiókból és koppintson újra a \'+\' gombra az appban, hogy új felhő kapcsolatot létesítsen.</string>
 	<string name="permission_snackbar_auth_local_vault">A Cryptomatornak tárhely-hozzáférésre van szüksége a trezorok használatához</string>
 	<string name="permission_snackbar_auth_auto_upload">A Cryptomatornak tárhely-hozzáférésre van szüksége az automatikus fotófeltöltés használatához</string>
 	<!-- # error reports -->
