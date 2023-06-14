@@ -198,6 +198,7 @@
 	<string name="screen_settings_security_label">Suggerimenti di sicurezza</string>
 	<string name="screen_settings_section_version">Versione</string>
 	<string name="screen_settings_advanced_settings">Impostazioni Avanzate</string>
+	<string name="screen_settings_microsoft_apps_workaround_label">Soluzione per aprire i file Microsoft</string>
 	<string name="screen_settings_microsoft_apps_workaround_summary">Apri file nelle app Microsoft con i permessi di scrittura</string>
 	<string name="screen_settings_background_unlock_preparation_label">Accelera sblocco</string>
 	<string name="screen_settings_background_unlock_preparation_label_summary">Scarica la configurazione della cassaforte in background quando è stato richiesto di inserire la password o l\'autenticazione biometrica</string>
@@ -305,6 +306,7 @@
 	<string name="dialog_debug_mode_disclaimer_hint">In questa modalità, i dati sensibili possono essere scritti in un file di registro sul dispositivo (ad es. nomi di file e percorsi). Password, cookie, ecc. sono esplicitamente esclusi.\n\nRicorda di disabilitare la modalità di debug il prima possibile.</string>
 	<string name="dialog_debug_mode_disclaimer_title">Attenzione</string>
 	<string name="dialog_debug_mode_positive_button">Abilita</string>
+	<string name="dialog_microsoft_workaround_disclaimer_hint">A causa di un bug nelle applicazioni Microsoft, il file da modificare deve essere condiviso con queste applicazioni in una cartella multimediale pubblica sul vostro dispositivo. Dopo la riapertura di Cryptomator, il file accessibile pubblicamente viene nuovamente eliminato, ma Cryptomator non può controllare cosa sia successo a questo file nel frattempo. Assicuratevi di essere a conoscenza di questo comportamento quando attivate questa opzione. Questo si applica solo ai tipi di file Microsoft.\n\nCryptomator si riavvia dopo l\'attivazione.</string>
 	<string name="dialog_disable_app_obscured_disclaimer_hint">Questa impostazione è una funzione di sicurezza e impedisce ad altre applicazioni di ingannare gli utenti a fare cose che non sono in grado di fare.\n\nDisabilitando confermi di essere <a href="https://docs.cryptomator.org/en/1.6/android/settings/#block-app-when-obscured">a conoscenza dei rischi</a>.</string>
 	<string name="dialog_disable_app_obscured_disclaimer_title">Attenzione</string>
 	<string name="dialog_disable_app_obscured_positive_button">Disabilita</string>
