@@ -21,6 +21,8 @@
 	<!-- ## screen: set password -->
 	<string name="screen_set_password_button_text">Готово</string>
 	<!-- ## screen: settings -->
+	<string name="screen_settings_microsoft_apps_workaround_label">Заобиколен начин за отваряне на файлове на Microsoft</string>
+	<string name="screen_settings_microsoft_apps_workaround_summary">Отваряне на файлове в приложения на Microsoft с разрешение за писане</string>
 	<!-- ## screen: cloud settings -->
 	<!-- ## screen: licenses -->
 	<!-- ## screen: authenticate cloud -->
@@ -38,6 +40,7 @@
 	<!-- ## date helper -->
 	<!-- ## biometric authentication -->
 	<!-- notification -->
+	<string name="notification_auto_upload_failed_due_to_authentication_problem">Докоснете, за да презаредите удостоверяването.</string>
 	<!-- lock timeout names -->
 	<!-- cache size names -->
 	<!-- screen scheme mode names -->
