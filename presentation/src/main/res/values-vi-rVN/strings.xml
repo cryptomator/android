@@ -162,11 +162,14 @@
 	<string name="screen_settings_biometric_auth">Xác thực sinh trắc học</string>
 	<string name="screen_settings_activate_biometric_auth">Kích hoạt xác thực sinh trắc học</string>
 	<string name="screen_settings_confirm_face_unlock">Xác nhận mở khóa bằng khuôn mặt (nếu có)</string>
+	<string name="screen_settings_block_app_when_obscured">Chặn ứng dụng khi bị che khuất</string>
+	<string name="screen_settings_block_app_when_obscured_summary">Ngăn chặn chặn đầu vào và hiển thị giao diện người dùng giả</string>
 	<string name="screen_settings_secure_screen">Chặn chụp màn hình</string>
 	<string name="screen_settings_secure_screen_summary">Chặn không cho chụp màn hình trong danh sách gần đây và bên trong ứng dụng</string>
 	<string name="screen_settings_section_search">Tìm kiếm</string>
 	<string name="screen_settings_live_search">Tìm kiếm trực tiếp</string>
 	<string name="screen_settings_live_search_summary">Cập nhật kết quả tìm kiếm trong khi nhập truy vấn</string>
+	<string name="screen_settings_glob_search">Tìm kiếm bằng mẫu glob</string>
 	<string name="screen_settings_section_auto_lock">Tự động khóa</string>
 	<string name="screen_settings_auto_lock_timeout">Khóa sau</string>
 	<string name="screen_settings_section_auto_photo_upload">Tự động tải ảnh lên</string>
