@@ -218,7 +218,10 @@
 	<!-- ## screen: cryptomator app variants -->
 	<string name="screen_cryptomator_variants_title">Các biến thể của Cryptomator</string>
 	<string name="screen_cryptomator_variants_lite_title">Kho lưu trữ F-Droid Chính</string>
+	<string name="screen_cryptomator_variants_lite_description">Bị loại trừ vì chúng yêu cầu khoá API.</string>
 	<string name="screen_cryptomator_variants_lite_install">Cài đặt</string>
+	<string name="screen_cryptomator_variants_fdroid_title">Kho lưu trữ F-Droid Cryptomator</string>
+	<string name="screen_cryptomator_variants_fdroid_description">Bị loại trừ vì nó chứa các phụ thuộc độc quyền.</string>
 	<string name="screen_cryptomator_variants_fdroid_add_repo">Thêm</string>
 	<string name="screen_cryptomator_variants_website_title">Website</string>
 	<!-- # dialogs -->
