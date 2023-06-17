@@ -194,18 +194,30 @@
 	<string name="screen_settings_debug_mode_label">Chế độ gỡ lỗi</string>
 	<string name="screen_settings_error_report_label">Gửi tệp nhật ký</string>
 	<string name="screen_settings_error_report_failed">Gửi thất bại</string>
+	<string name="screen_settings_security_label">Gợi ý bảo mật</string>
 	<string name="screen_settings_section_version">Phiên bản</string>
 	<string name="screen_settings_advanced_settings">Cài đặt nâng cao</string>
+	<string name="screen_settings_microsoft_apps_workaround_label">Giải pháp mở tệp Microsoft</string>
+	<string name="screen_settings_microsoft_apps_workaround_summary">Mở tệp trong ứng dụng Microsoft với quyền ghi</string>
+	<string name="screen_settings_background_unlock_preparation_label">Tăng tốc mở khoá</string>
+	<string name="screen_settings_background_unlock_preparation_label_summary">Tải xuống cấu hình vault trong nền khi được nhắc nhập mật khẩu hoặc xác thực sinh trắc học</string>
+	<string name="screen_settings_keep_unlocked_while_editing_files">Giữ mở khóa</string>
+	<string name="screen_settings_keep_unlocked_while_editing_files_summary">Giữ cho vault được mở khoá trong khi chỉnh sửa tệp</string>
 	<!-- ## screen: cloud settings -->
 	<string name="screen_cloud_settings_onedrive_connections">Kết nối OneDrive</string>
 	<string name="screen_cloud_settings_webdav_connections">Kết nối WebDAV</string>
 	<string name="screen_cloud_settings_pcloud_connections">Kết nối pCloud</string>
 	<string name="screen_cloud_settings_s3_connections">Kết nối S3</string>
+	<string name="screen_cloud_settings_local_storage_locations">Vị trí lưu trữ cục bộ</string>
 	<string name="screen_cloud_settings_log_in_to">Đăng nhập vào</string>
 	<string name="screen_cloud_settings_sign_out_from_cloud">Đăng xuất từ</string>
 	<!-- ## screen: licenses -->
 	<!-- ## screen: authenticate cloud -->
+	<string name="screen_authenticate_auth_authentication_failed">%1$s không thể được xác thực.</string>
+	<string name="screen_update_pcloud_connections_title">Cập nhật thông tin đăng nhập pCloud</string>
 	<!-- ## screen: cryptomator app variants -->
+	<string name="screen_cryptomator_variants_title">Các biến thể của Cryptomator</string>
+	<string name="screen_cryptomator_variants_lite_title">Kho lưu trữ F-Droid Chính</string>
 	<string name="screen_cryptomator_variants_lite_install">Cài đặt</string>
 	<string name="screen_cryptomator_variants_fdroid_add_repo">Thêm</string>
 	<string name="screen_cryptomator_variants_website_title">Website</string>
