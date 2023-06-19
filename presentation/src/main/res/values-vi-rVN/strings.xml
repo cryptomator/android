@@ -306,9 +306,15 @@
 	<string name="dialog_debug_mode_disclaimer_title">Chú ý</string>
 	<string name="dialog_debug_mode_positive_button">Bật</string>
 	<string name="dialog_microsoft_workaround_disclaimer_hint">Do lỗi trong các ứng dụng của Microsoft, tệp cần chỉnh sửa phải được chia sẻ với các ứng dụng này trong thư mục phương tiện công cộng trên thiết bị của bạn. Sau khi Cryptomator được tiếp tục, tệp có thể truy cập công khai sẽ bị xoá một lần nữa, nhưng Cryptomator không thể tác động đến những gì đã xảy ra với tệp này trong lúc ấy. Đảm bảo rằng bạn biết hành vi này khi kích hoạt tuỳ chọn này. Điều này sẽ chỉ áp dụng cho các loại tệp của Microsoft.\n\nCryptomator sẽ khởi động lại sau khi kích hoạt.</string>
+	<string name="dialog_disable_app_obscured_disclaimer_hint">Cài đặt này là một tính năng bảo mật và ngăn các ứng dụng khác lừa người dùng làm những việc mà họ không muốn làm.\n\nBằng việc tắt, bạn xác nhận rằng bạn <a href="https://docs.cryptomator.org/en/1.6/android/settings/#block-app-when-obscured">biết các rủi ro</a>.</string>
 	<string name="dialog_disable_app_obscured_disclaimer_title">Chú ý</string>
 	<string name="dialog_disable_app_obscured_positive_button">Tắt</string>
+	<string name="dialog_app_is_obscured_info_title">Ứng dụng bị che khuất</string>
+	<string name="dialog_app_is_obscured_info_hint">Một ứng dụng khác đang hiển thị thứ gì đó phía trên Cryptomator (ví dụ: bộ lọc ánh sáng xanh hoặc ứng dụng chế độ ban đêm). Vì lý do bảo mật, Cryptomator bị tắt.\n\n<a href="https://docs.cryptomator.org/en/1.6/android/settings/#block-app-when-obscured">Cách bật Cryptomator</a></string>
 	<string name="dialog_app_is_obscured_info_neutral_button">Đóng</string>
+	<string name="dialog_vaults_removed_during_migration_title">Vui lòng thêm lại vault cho đám mây %1s</string>
+	<string name="dialog_vaults_removed_during_migration_hint">Trong khi nâng cấp sang phiên bản ứng dụng này, chúng tôi cần xoá các vault sau khỏi ứng dụng:\n%2s \n\nCác vault đó không bị xoá khỏi đám mây mà chỉ khỏi ứng dụng này. Xin lỗi vì sự bất tiện này và vui lòng thêm lại các vault này để tiếp tục làm việc với chúng.</string>
+	<string name="dialog_vault_is_root_folder_of_cloud_title">Vault nằm ở thư mục gốc của kết nối đám mây</string>
 	<string name="dialog_confirm_delete_file_message">Bạn có chắc chắn muốn xóa file này?</string>
 	<string name="dialog_enter_license_decline_button">Thoát</string>
 	<string name="dialog_update_available_title">Đã có bản cập nhật</string>
