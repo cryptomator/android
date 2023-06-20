@@ -198,8 +198,8 @@
 	<string name="screen_settings_security_label">Conseils de sécurité</string>
 	<string name="screen_settings_section_version">Version</string>
 	<string name="screen_settings_advanced_settings">Paramètres Avancés</string>
-	<string name="screen_settings_microsoft_apps_workaround_label">Solution d\'ouverture des fichiers Microsoft</string>
-	<string name="screen_settings_microsoft_apps_workaround_summary">Ouvrir les fichiers dans les applications Microsoft avec permission d\'écriture</string>
+	<string name="screen_settings_microsoft_apps_workaround_label">Méthode alternative d\'ouverture des fichiers Microsoft</string>
+	<string name="screen_settings_microsoft_apps_workaround_summary">Ouvrir les fichiers dans les appli Microsoft avec permission d\'écriture</string>
 	<string name="screen_settings_background_unlock_preparation_label">Accélérer le déverrouillage</string>
 	<string name="screen_settings_background_unlock_preparation_label_summary">Téléchargez la configuration du coffre-fort en arrière-plan lorsque vous êtes invité à entrer le mot de passe ou l\'authentification biométrique</string>
 	<string name="screen_settings_keep_unlocked_while_editing_files">Maintenir deverouillé</string>
@@ -306,7 +306,7 @@
 	<string name="dialog_debug_mode_disclaimer_hint">Dans ce mode, les données sensibles peuvent être écrites dans un fichier journal sur votre appareil (par exemple, les noms de fichiers et les chemins d\'accès). Les mots de passe, cookies, etc. sont explicitement exclus.\n\nN\'oubliez pas de désactiver le mode de débogage dès que possible.</string>
 	<string name="dialog_debug_mode_disclaimer_title">Avertissement</string>
 	<string name="dialog_debug_mode_positive_button">Activer</string>
-	<string name="dialog_microsoft_workaround_disclaimer_hint">En raison d\'un bug dans les applications Microsoft, le fichier à modifier doit être partagé avec ces applications dans un dossier média public sur votre appareil. Après le rechargement de Cryptomator, le fichier accessible au public est à nouveau supprimé, mais Cryptomator ne peut pas contrôler ce qui est arrivé à ce fichier entre-temps. Assurez-vous d\'être au courant de ce comportement lors de l\'activation de cette option. Cela ne s\'appliquera qu\'aux types de fichiers Microsoft.\n\nCryptomator redémarrera après l\'activation.</string>
+	<string name="dialog_microsoft_workaround_disclaimer_hint">En raison d\'un bug dans les appli Microsoft, le fichier à modifier doit être partagé avec ces appli dans un dossier média public sur votre appareil. Après le rechargement de Cryptomator, le fichier accessible au public est à nouveau supprimé, mais Cryptomator ne peut pas contrôler ce qui est arrivé à ce fichier entre-temps. Assurez-vous d\'être au courant de ce comportement lors de l\'activation de cette option. Cela ne s\'appliquera qu\'aux types de fichiers Microsoft.\n\nCryptomator redémarrera après l\'activation.</string>
 	<string name="dialog_disable_app_obscured_disclaimer_hint">Ce paramètre est une fonction de sécurité qui empêche d\'autres applications de tromper les utilisateurs en leur faisant faire des choses qu\'ils ne veulent pas faire.\n\nEn le désactivant, vous confirmez que vous êtes <a href="https://docs.cryptomator.org/en/1.6/android/settings/#block-app-when-obscured">conscients des risques</a>.</string>
 	<string name="dialog_disable_app_obscured_disclaimer_title">Avertissement</string>
 	<string name="dialog_disable_app_obscured_positive_button">Désactiver</string>
