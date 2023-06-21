@@ -315,7 +315,18 @@
 	<string name="dialog_vaults_removed_during_migration_title">Vui lòng thêm lại vault cho đám mây %1s</string>
 	<string name="dialog_vaults_removed_during_migration_hint">Trong khi nâng cấp sang phiên bản ứng dụng này, chúng tôi cần xoá các vault sau khỏi ứng dụng:\n%2s \n\nCác vault đó không bị xoá khỏi đám mây mà chỉ khỏi ứng dụng này. Xin lỗi vì sự bất tiện này và vui lòng thêm lại các vault này để tiếp tục làm việc với chúng.</string>
 	<string name="dialog_vault_is_root_folder_of_cloud_title">Vault nằm ở thư mục gốc của kết nối đám mây</string>
+	<string name="dialog_vault_is_root_folder_of_cloud_hint">Tạo kết nối đám mây mới, nơi bạn tối thiểu chọn thư mục mẹ của thư mục vault này làm thư mục gốc, để thêm vault này.</string>
+	<string name="dialog_disable_secure_screen_disclaimer_hint">Cài đặt này là một tính năng bảo mật và ngăn các ứng dụng khác lừa người dùng làm những việc mà họ không muốn làm.\n\nBằng việc tắt, bạn xác nhận rằng bạn <a href="https://docs.cryptomator.org/en/1.6/android/settings/#screen-security">biết các rủi ro</a>.</string>
+	<string name="dialog_delete_cloud_connection_with_vaults_message">Bạn có chắc chắn muốn xoá kết nối đám mây này không?</string>
+	<string name="dialog_delete_cloud_connection_with_vaults_hint">Hành động này sẽ xoá kết nối đám mây và tất cả các vault của đám mây này.</string>
+	<string name="dialog_confirm_delete_multiple_title">Xoá %1$d mục?</string>
+	<string name="dialog_confirm_delete_multiple_message">Bạn có chắc chắn muốn xoá các mục này không?</string>
 	<string name="dialog_confirm_delete_file_message">Bạn có chắc chắn muốn xóa file này?</string>
+	<string name="dialog_confirm_delete_folder_message">Thao tác này sẽ xoá tất cả nội dung của thư mục. Bạn có chắc chắn muốn xoá thư mục này?</string>
+	<string name="dialog_biometric_auth_key_invalidated_title">Đã tắt tính năng xác thực sinh trắc học</string>
+	<string name="dialog_biometric_auth_key_invalidated_message">Vì khoá đã bị vô hiệu nên tính năng xác thực sinh trắc học đã bị tắt. Để bật lại, hãy mở cài đặt Cryptomator.</string>
+	<string name="dialog_enter_license_title">Cung cấp giấy phép hợp lệ</string>
+	<string name="dialog_enter_license_content">Chúng tôi phát hiện ra rằng bạn đã cài đặt Cryptomator mà không sử dụng Cửa hàng Google Play. Cung cấp giấy phép hợp lệ, mà bạn có thể mua trên <a href="https://cryptomator.org/android/">https://cryptomator.org/android/</a></string>
 	<string name="dialog_enter_license_decline_button">Thoát</string>
 	<string name="dialog_update_available_title">Đã có bản cập nhật</string>
 	<string name="dialog_update_available_update">Cập nhật ngay</string>
