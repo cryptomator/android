@@ -327,13 +327,20 @@
 	<string name="dialog_biometric_auth_key_invalidated_message">Vì khoá đã bị vô hiệu nên tính năng xác thực sinh trắc học đã bị tắt. Để bật lại, hãy mở cài đặt Cryptomator.</string>
 	<string name="dialog_enter_license_title">Cung cấp giấy phép hợp lệ</string>
 	<string name="dialog_enter_license_content">Chúng tôi phát hiện ra rằng bạn đã cài đặt Cryptomator mà không sử dụng Cửa hàng Google Play. Cung cấp giấy phép hợp lệ, mà bạn có thể mua trên <a href="https://cryptomator.org/android/">https://cryptomator.org/android/</a></string>
+	<string name="dialog_enter_license_not_valid_content">Giấy phép được cung cấp không hợp lệ. Hãy chắc chắn rằng bạn đã nhập nó một cách chính xác.</string>
+	<string name="dialog_enter_license_not_valid_content_desktop_supporter_certificate">Khoá được cung cấp là chứng chỉ người hỗ trợ dành cho máy tính để bàn. Vui lòng nhập giấy phép hợp lệ.</string>
+	<string name="dialog_enter_license_no_content">Không có giấy phép được cung cấp. Vui lòng nhập giấy phép hợp lệ.</string>
 	<string name="dialog_enter_license_decline_button">Thoát</string>
+	<string name="dialog_license_confirmation_title">Xác nhận giấy phép</string>
+	<string name="dialog_license_confirmation_message">Cảm ơn %1$s đã cung cấp giấy phép hợp lệ của bạn.</string>
 	<string name="dialog_update_available_title">Đã có bản cập nhật</string>
+	<string name="dialog_update_available_message">Cập nhật Cryptomator lên phiên bản mới nhất. Bằng cách nhấn OK, chúng tôi sẽ tải xuống ứng dụng ở chế độ nền và sẽ yêu cầu bạn cài đặt ứng dụng đó.</string>
 	<string name="dialog_update_available_update">Cập nhật ngay</string>
 	<string name="dialog_update_available_download_site">Đến trang tải xuống</string>
 	<string name="dialog_update_available_cancel">Để sau</string>
 	<string name="dialog_download_update_title">Đang tải</string>
 	<string name="dialog_download_update_message">Đang tải phiên bản mới nhất của Cryptomator</string>
+	<string name="dialog_sym_link_title">Thư mục là một liên kết tượng trưng</string>
 	<string name="dialog_sym_link_back_button">Quay lại</string>
 	<!-- # error reports -->
 	<!-- # misc -->
