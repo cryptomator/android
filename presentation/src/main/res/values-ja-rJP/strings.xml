@@ -391,6 +391,7 @@
 	<string name="notification_auto_upload_failed_due_to_folder_not_exists">アップロード用として選択されたフォルダーを利用できません。設定に移動して新しいフォルダーを選択してください。</string>
 	<string name="notification_auto_upload_failed_due_to_vault_locked">アップロード中は金庫が施錠されます。続けるには金庫を再度開いてください。</string>
 	<string name="notification_auto_upload_failed_due_to_vault_not_found">自動アップロードに設定された金庫が存在しません。</string>
+	<string name="notification_auto_upload_failed_due_to_authentication_problem">タップして認証を更新します。</string>
 	<string name="notification_open_writable_file_title">書き込み可能なファイルを開く</string>
 	<string name="notification_open_writable_file_message">編集が完了するまで金庫は施錠されます</string>
 	<string name="notification_update_check_finished_latest">最新バージョンがインストールされました</string>
