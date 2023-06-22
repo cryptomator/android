@@ -197,6 +197,7 @@
 	<string name="screen_settings_security_label">セキュリティの心得</string>
 	<string name="screen_settings_section_version">バージョン</string>
 	<string name="screen_settings_advanced_settings">高度な設定</string>
+	<string name="screen_settings_microsoft_apps_workaround_label">Microsoft のファイルを開くための回避策</string>
 	<string name="screen_settings_background_unlock_preparation_label">高速な解錠</string>
 	<string name="screen_settings_background_unlock_preparation_label_summary">パスワードまたは生体による認証中に、バックグラウンドで金庫の設定をダウンロードします</string>
 	<string name="screen_settings_keep_unlocked_while_editing_files">解錠したままにする</string>
