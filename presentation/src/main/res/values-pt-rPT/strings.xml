@@ -152,6 +152,8 @@
 	<!-- ## screen: settings -->
 	<string name="screen_settings_section_general">Geral</string>
 	<string name="screen_settings_section_search">Buscar</string>
+	<string name="screen_settings_section_auto_lock">Bloqueio automático</string>
+	<string name="screen_settings_auto_lock_timeout">Bloquear após</string>
 	<string name="screen_settings_section_legal">Informação Legal</string>
 	<string name="screen_settings_licenses_label">Licenças</string>
 	<string name="screen_settings_license_terms_label">Termos de aceitação</string>
@@ -180,6 +182,7 @@
 	<!-- Vault not found -->
 	<string name="dialog_vault_not_found_positive_button_text">Remover</string>
 	<string name="dialog_file_name_placeholder">texto.txt</string>
+	<string name="dialog_progress_unlocking_vault">Desbloqueando cofre&#8230;</string>
 	<string name="dialog_lock_vault">Bloquear</string>
 	<string name="dialog_ask_ignore_battery_optimizations_title">Desativar otimizações de bateria</string>
 	<string name="dialog_ask_ignore_battery_optimizations_checkbox">Não perguntar novamente?</string>
@@ -193,8 +196,17 @@
 	<string name="time_unit_minutes_pl">minutos</string>
 	<!-- ## biometric authentication -->
 	<!-- notification -->
+	<string name="notification_unlocked">Cofres desbloqueados: %1$d</string>
+	<string name="notification_timeout">Bloqueio automático em %1$s</string>
+	<string name="notification_lock_all">Bloquear todos</string>
 	<string name="notification_authenticating">Autenticação&#8230;</string>
 	<!-- lock timeout names -->
+	<string name="lock_timeout_instant">Instantâneo</string>
+	<string name="lock_timeout_1m">1 minuto</string>
+	<string name="lock_timeout_2m">2 minutos</string>
+	<string name="lock_timeout_5m">5 minutos</string>
+	<string name="lock_timeout_10m">10 minutos</string>
+	<string name="lock_timeout_never">Nunca</string>
 	<!-- cache size names -->
 	<!-- screen scheme mode names -->
 	<!-- update interval names -->
