@@ -341,7 +341,12 @@
 	<string name="dialog_download_update_title">Đang tải</string>
 	<string name="dialog_download_update_message">Đang tải phiên bản mới nhất của Cryptomator</string>
 	<string name="dialog_sym_link_title">Thư mục là một liên kết tượng trưng</string>
+	<string name="dialog_sym_link_message">Bạn không thể điều hướng vào liên kết tượng trưng này</string>
 	<string name="dialog_sym_link_back_button">Quay lại</string>
+	<string name="dialog_no_dir_file_title">Không thể tải nội dung của thư mục</string>
+	<string name="dialog_no_dir_file_message">Thư mục đám mây \'%1$s\' không có tệp thư mục hợp lệ. Có thể thư mục đã được tạo trên một thiết bị khác và chưa được đồng bộ hoá hoàn toàn với đám mây. Vui lòng kiểm tra trong đám mây của bạn rằng tệp sau tồn tại và không trống:\n%2$s</string>
+	<string name="dialog_no_more_images_to_display">Không còn hình ảnh để hiển thị&#8230;</string>
+	<string name="dialog_pcloud_credentials_updated_title">Đã cập nhật thông tin xác thực của \'%1$s\'</string>
 	<!-- # error reports -->
 	<!-- # misc -->
 	<!-- ## file size helper -->
