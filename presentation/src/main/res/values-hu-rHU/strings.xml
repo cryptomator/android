@@ -309,7 +309,14 @@
 	<string name="dialog_app_is_obscured_info_neutral_button">Bezár</string>
 	<string name="dialog_confirm_delete_multiple_message">Biztosan törölni akarja ezeket az elemeket?</string>
 	<string name="dialog_confirm_delete_file_message">Biztosan törli ezt a fájlt?</string>
+	<string name="dialog_enter_license_title">Adjon meg egy érvényes licencet</string>
+	<string name="dialog_enter_license_content">Úgy érzékeltük, hogy a Cryptomatort a Google Play áruházon kívül telepítette. Adjon meg egy érvényes licencet, amit meg tud vásárolni itt: <a href="https://cryptomator.org/android/">https://cryptomator.org/android/</a></string>
+	<string name="dialog_enter_license_not_valid_content">A megadott licenc nem érvényes. Győződjön meg arról, hogy jól írta be.</string>
+	<string name="dialog_enter_license_not_valid_content_desktop_supporter_certificate">A megadott kulcs egy asztali támogatói igazolás. Kérem, adjon meg egy érvényes licencet.</string>
+	<string name="dialog_enter_license_no_content">Nincs licenc megadva. Kérem, adjon meg egy érvényes licencet.</string>
 	<string name="dialog_enter_license_decline_button">Kilépés</string>
+	<string name="dialog_license_confirmation_title">Licenc megerősítése</string>
+	<string name="dialog_license_confirmation_message">Köszönöm %1$s, hogy megadta érvényes licencét.</string>
 	<string name="dialog_update_available_title">Frissítés elérhető</string>
 	<string name="dialog_update_available_update">Frissítés most</string>
 	<string name="dialog_update_available_download_site">Ugrás a Letöltési oldalra</string>
