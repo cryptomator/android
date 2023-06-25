@@ -349,9 +349,13 @@
 	<string name="dialog_pcloud_credentials_updated_title">Đã cập nhật thông tin xác thực của \'%1$s\'</string>
 	<string name="dialog_pcloud_credentials_updated">Nếu bạn định thêm tài khoản pCloud mới, hãy nhấn vào url này <a href="https://www.pcloud.com">www.pcloud.com</a>, đăng xuất khỏi tài khoản hiện tại và nhấn lại vào \'+\' trong ứng dụng này để tạo kết nối đám mây mới.</string>
 	<string name="permission_snackbar_auth_local_vault">Cryptomator cần quyền truy cập bộ nhớ để sử dụng vault cục bộ</string>
+	<string name="permission_snackbar_auth_auto_upload">Cryptomator cần quyền truy cập bộ nhớ để sử dụng tính năng tự động tải ảnh lên</string>
+	<string name="permission_snackbar_notifications">Cryptomator cần quyền thông báo để hiển thị trạng thái vault chẳng hạn</string>
 	<!-- # error reports -->
 	<!-- # misc -->
 	<!-- ## file size helper -->
+	<string name="file_size_zero">0 kB</string>
+	<string name="file_size_unit_bytes">byte</string>
 	<string name="file_size_unit_kilo_bytes">kB</string>
 	<string name="file_size_unit_mega_bytes">MB</string>
 	<string name="file_size_unit_giga_bytes">GB</string>
@@ -373,11 +377,33 @@
 	<string name="time_unit_years_pl">năm</string>
 	<!-- ## biometric authentication -->
 	<string name="dialog_biometric_auth_title">Đăng nhập sinh trắc học</string>
+	<string name="dialog_biometric_auth_message">Đăng nhập bằng thông tin sinh trắc học của bạn</string>
+	<string name="dialog_biometric_auth_use_password">Sử dụng mật khẩu vault</string>
+	<string name="dialog_unable_to_auto_upload_files_title">Không thể tự động tải tệp lên</string>
 	<!-- notification -->
+	<string name="notification_unlocked">Vault đã được mở khoá: %1$d</string>
+	<string name="notification_timeout">Tự động khoá trong %1$s</string>
 	<string name="notification_lock_all">Khóa tất cả</string>
 	<string name="notification_cancel_auto_upload">Hủy tải lên</string>
+	<string name="notification_auto_upload_title">Tải ảnh tự động đang chạy</string>
+	<string name="notification_auto_upload_message">Đang tải lên %1d/%2d</string>
+	<string name="notification_auto_upload_finished_title">Đã hoàn tất tải ảnh tự động lên</string>
+	<string name="notification_auto_upload_finished_message">%1$d hình ảnh được tải lên vault</string>
+	<string name="notification_auto_upload_failed_title">Tự động tải ảnh lên không thành công</string>
+	<string name="notification_auto_upload_failed_general_error">Đã xảy ra lỗi không rõ trong quá trình tải lên.</string>
+	<string name="notification_auto_upload_failed_due_to_folder_not_exists">Thư mục đã chọn để tải lên không còn nữa. Chuyển đến cài đặt và chọn một cái mới</string>
+	<string name="notification_auto_upload_failed_due_to_vault_locked">Vault bị khoá trong khi tải lên, vui lòng mở lại vault để tiếp tục</string>
+	<string name="notification_auto_upload_failed_due_to_vault_not_found">Vault được chỉ định để tự động tải lên không còn tồn tại.</string>
+	<string name="notification_auto_upload_failed_due_to_authentication_problem">Nhấn để làm mới xác thực.</string>
+	<string name="notification_open_writable_file_title">Mở tệp có thể ghi</string>
+	<string name="notification_open_writable_file_message">Vault vẫn mở khoá cho đến khi chỉnh sửa xong</string>
+	<string name="notification_update_check_finished_latest">Phiên bản mới nhất được cài đặt</string>
+	<string name="notification_authenticating">Đang xác thực&#8230;</string>
 	<string name="screen_settings_lru_cache">Bộ nhớ cache</string>
+	<string name="screen_settings_lru_cache_toggle_summary">Lưu đệm các tệp được truy cập gần đây trong khi mã hoá cục bộ trên thiết bị để sử dụng lại sau này khi mở lại</string>
+	<string name="screen_settings_lru_cache_size">Tổng kích thước bộ đệm</string>
 	<string name="screen_settings_clear_lru_cache_size">Xóa bộ nhớ Cache</string>
+	<string name="screen_settings_license_mail">%1$s</string>
 	<string name="screen_settings_check_updates">Kiểm tra cập nhật</string>
 	<!-- lock timeout names -->
 	<string name="lock_timeout_1m">1 phút</string>
