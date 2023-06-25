@@ -347,6 +347,8 @@
 	<string name="dialog_no_dir_file_message">Thư mục đám mây \'%1$s\' không có tệp thư mục hợp lệ. Có thể thư mục đã được tạo trên một thiết bị khác và chưa được đồng bộ hoá hoàn toàn với đám mây. Vui lòng kiểm tra trong đám mây của bạn rằng tệp sau tồn tại và không trống:\n%2$s</string>
 	<string name="dialog_no_more_images_to_display">Không còn hình ảnh để hiển thị&#8230;</string>
 	<string name="dialog_pcloud_credentials_updated_title">Đã cập nhật thông tin xác thực của \'%1$s\'</string>
+	<string name="dialog_pcloud_credentials_updated">Nếu bạn định thêm tài khoản pCloud mới, hãy nhấn vào url này <a href="https://www.pcloud.com">www.pcloud.com</a>, đăng xuất khỏi tài khoản hiện tại và nhấn lại vào \'+\' trong ứng dụng này để tạo kết nối đám mây mới.</string>
+	<string name="permission_snackbar_auth_local_vault">Cryptomator cần quyền truy cập bộ nhớ để sử dụng vault cục bộ</string>
 	<!-- # error reports -->
 	<!-- # misc -->
 	<!-- ## file size helper -->
