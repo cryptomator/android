@@ -198,6 +198,7 @@
 	<string name="screen_settings_section_version">バージョン</string>
 	<string name="screen_settings_advanced_settings">高度な設定</string>
 	<string name="screen_settings_microsoft_apps_workaround_label">Microsoft のファイルを開くための回避策</string>
+	<string name="screen_settings_microsoft_apps_workaround_summary">ファイルを Microsoft アプリから書き込み可能で開く</string>
 	<string name="screen_settings_background_unlock_preparation_label">高速な解錠</string>
 	<string name="screen_settings_background_unlock_preparation_label_summary">パスワードまたは生体による認証中に、バックグラウンドで金庫の設定をダウンロードします</string>
 	<string name="screen_settings_keep_unlocked_while_editing_files">解錠したままにする</string>
@@ -304,6 +305,7 @@
 	<string name="dialog_debug_mode_disclaimer_hint">このモードでは、デバイスのログファイルに機密情報が書き込まれることがあります(例: ファイル名やパス)。パスワードや cookie 等は除外されます。\n\n できるだけ早くデバッグ モードを無効化をすることを忘れないでください。</string>
 	<string name="dialog_debug_mode_disclaimer_title">注意</string>
 	<string name="dialog_debug_mode_positive_button">有効にする</string>
+	<string name="dialog_microsoft_workaround_disclaimer_hint">このオプションを有効にする場合には以下の挙動を必ずご確認ください。Microsoft アプリのバグを回避するため、編集するファイルはデバイス上の公開メディアフォルダを通してアプリに共有する必要があります。編集を終えて Cryptomator に戻った際に公開メディアフォルダ上のファイルは削除されますが、その間ファイルは他アプリからもアクセス可能なままとなります。本回避策は Microsoft のファイルタイプのみに適用されます。\n\nオプションを有効化した後に Cryptomator は再起動します。</string>
 	<string name="dialog_disable_app_obscured_disclaimer_hint">この設定は安全のための機能です。他のアプリがユーザーを騙してしまうことを防ぎます。\n\n無効にすることで、 <a href="https://docs.cryptomator.org/en/1.6/android/settings/#block-app-when-obscured">リスクを認識していること</a> に留意する必要があります。</string>
 	<string name="dialog_disable_app_obscured_disclaimer_title">注意</string>
 	<string name="dialog_disable_app_obscured_positive_button">無効</string>
