@@ -406,7 +406,10 @@
 	<string name="screen_settings_lru_cache_changed__restart_toast">Các thay đổi sẽ được áp dụng vào lần tiếp theo ứng dụng khởi động lại</string>
 	<string name="screen_settings_license">Đăng ký cho</string>
 	<string name="screen_settings_license_mail">%1$s</string>
+	<string name="dialog_settings_update_check_interval_title">Khoảng thời gian kiểm tra cập nhật</string>
 	<string name="screen_settings_check_updates">Kiểm tra cập nhật</string>
+	<string name="screen_settings_last_check_updates">Lần chạy cuối %1$s</string>
+	<string name="dialog_cache_size_title">Kích thước bộ đệm trên mỗi đám mây</string>
 	<!-- lock timeout names -->
 	<string name="lock_timeout_1m">1 phút</string>
 	<string name="lock_timeout_2m">2 phút</string>
