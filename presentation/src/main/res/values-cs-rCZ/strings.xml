@@ -217,7 +217,9 @@
 	<string name="screen_update_pcloud_connections_title">Aktualizovat přihlašovací údaje k pCloudu</string>
 	<!-- ## screen: cryptomator app variants -->
 	<string name="screen_cryptomator_variants_title">Varianty Cryptomatoru</string>
+	<string name="screen_cryptomator_variants_lite_title">Hlavní F-Droid repozitář</string>
 	<string name="screen_cryptomator_variants_lite_install">Instalovat</string>
+	<string name="screen_cryptomator_variants_fdroid_title">Cryptomator F-Droid repozitář</string>
 	<string name="screen_cryptomator_variants_fdroid_add_repo">Přidat</string>
 	<string name="screen_cryptomator_variants_website_title">Webová stránka</string>
 	<string name="screen_cryptomator_variants_website_description">Obsahuje vlastní závislosti.</string>
@@ -339,6 +341,7 @@
 	<string name="dialog_pcloud_credentials_updated_title">Údaje o \'%1$s\' byly aktualizovány</string>
 	<string name="permission_snackbar_auth_local_vault">Cryptomator potřebuje přístup k úložišti, aby mohl používat místní trezory</string>
 	<string name="permission_snackbar_auth_auto_upload">Cryptomator potřebuje přístup k úložišti pro automatické nahrávání fotek</string>
+	<string name="permission_snackbar_notifications">Cryptomator potřebuje oprávnění k oznámení. Například: zobrazení stavu trezoru</string>
 	<!-- # error reports -->
 	<!-- # misc -->
 	<!-- ## file size helper -->
@@ -382,6 +385,7 @@
 	<string name="notification_auto_upload_failed_due_to_folder_not_exists">Vybraná složka pro nahrání již není k dispozici. Přejděte do nastavení a vyberte novou složku</string>
 	<string name="notification_auto_upload_failed_due_to_vault_locked">Během nahrávání došlo k uzamčení trezoru, pro pokračování trezor prosím znovu odemkněte</string>
 	<string name="notification_auto_upload_failed_due_to_vault_not_found">Trezor určený pro automatické nahrávání již neexistuje.</string>
+	<string name="notification_auto_upload_failed_due_to_authentication_problem">Klepnutím obnovíte autentifikaci.</string>
 	<string name="notification_open_writable_file_title">Otevřít zapisovatelný soubor</string>
 	<string name="notification_open_writable_file_message">Trezor zůstane odemknutý dokud nejsou dokončené úpravy</string>
 	<string name="notification_update_check_finished_latest">Nainstalována aktuální verze</string>
