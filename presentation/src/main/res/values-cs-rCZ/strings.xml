@@ -34,6 +34,7 @@
 	<string name="error_file_not_found_after_opening_using_3party">Místní soubor již není přítomen po přepnutí zpět na Cryptomator. Možné změny nelze promítnout zpět do cloudu.</string>
 	<string name="error_no_such_bucket">Bucket neexistuje</string>
 	<string name="error_masterkey_location_not_supported">Vlastní umístění hlavního klíče ještě není podporováno</string>
+	<string name="error_interact_with_fdroid_but_fdroid_missing">Nepodařilo se komunikovat s aplikací F-Droid. Možná není nainstalována?</string>
 	<!-- # clouds -->
 	<!-- ## cloud names -->
 	<string name="cloud_names_local_storage">Místní úložiště</string>
@@ -199,6 +200,8 @@
 	<string name="screen_settings_security_label">Bezpečnostní rady</string>
 	<string name="screen_settings_section_version">Verze</string>
 	<string name="screen_settings_advanced_settings">Rozšířená nastavení</string>
+	<string name="screen_settings_microsoft_apps_workaround_label">Řešení otevírání souborů Microsoft</string>
+	<string name="screen_settings_microsoft_apps_workaround_summary">Otevřít soubory v aplikaci Microsoft s oprávněním k zápisu</string>
 	<string name="screen_settings_background_unlock_preparation_label">Urychlit odemknutí</string>
 	<string name="screen_settings_background_unlock_preparation_label_summary">Stáhnout konfiguraci trezoru na pozadí při vyzvání k zadání hesla nebo biometrického ověření</string>
 	<string name="screen_settings_keep_unlocked_while_editing_files">Ponechat odemčené</string>
@@ -218,11 +221,16 @@
 	<!-- ## screen: cryptomator app variants -->
 	<string name="screen_cryptomator_variants_title">Varianty Cryptomatoru</string>
 	<string name="screen_cryptomator_variants_lite_title">Hlavní F-Droid repozitář</string>
+	<string name="screen_cryptomator_variants_lite_description">Vyloučeny, protože jsou vyžadovány API klíče.</string>
 	<string name="screen_cryptomator_variants_lite_install">Instalovat</string>
 	<string name="screen_cryptomator_variants_fdroid_title">Cryptomator F-Droid repozitář</string>
+	<string name="screen_cryptomator_variants_fdroid_description">Vyloučeno, protože obsahuje proprietární závislosti.</string>
+	<string name="screen_cryptomator_variants_fdroid_add_repo_hint">Přidat Cryptomator repozitář do aplikace F-Droid.</string>
 	<string name="screen_cryptomator_variants_fdroid_add_repo">Přidat</string>
+	<string name="screen_cryptomator_variants_fdroid_install_hint">Nainstalujte Cryptomator pomocí F-Droid.\nPokud není nalezena chyba, počkejte, až bude synchronizace F-Droid dokončena.</string>
 	<string name="screen_cryptomator_variants_website_title">Webová stránka</string>
 	<string name="screen_cryptomator_variants_website_description">Obsahuje vlastní závislosti.</string>
+	<string name="screen_cryptomator_variants_installation_hint">Přechod z nebo do hlavní varianty repozitáře F-Droid vyžaduje nové nastavení aplikace.</string>
 	<!-- # dialogs -->
 	<string name="dialog_button_cancel">Zrušit</string>
 	<string name="dialog_enter_password_positive_button">Odemknout</string>
@@ -260,6 +268,7 @@
 	<string name="dialog_unsaved_changes_title">Máte neuložené změny</string>
 	<string name="dialog_unsaved_changes_message">Opravdu chcete skončit bez uložení?</string>
 	<string name="dialog_unsaved_changes_discard">Zahodit</string>
+	<string name="dialog_file_name_hint">Název souboru</string>
 	<string name="dialog_file_name_placeholder">text.txt</string>
 	<string name="dialog_delete_vault_message">Jste si jisti, že chcete odstranit tento trezor?</string>
 	<string name="dialog_delete_vault_hint">Tato akce odstraní trezor pouze z tohoto seznamu a neodstraní jej fyzicky.</string>
@@ -286,6 +295,7 @@
 	<string name="dialog_accept_ssl_certificate_details">Podrobnosti</string>
 	<string name="dialog_accept_ssl_certificate_security_checkbox">Toto by mohlo být bezpečnostní riziko. Vím, co dělám.</string>
 	<string name="dialog_ask_ignore_battery_optimizations_title">Zakázat optimalizace výdrže baterie</string>
+	<string name="dialog_ask_ignore_battery_optimizations_hint">Abychom mohli načítat nové obrázky a videa, aniž by běžely na pozadí, musíme vypnout optimalizace baterie. Ale nebojte se, %1$s nespotřebovává mnoho energie.\n\nChcete-li ji použít, změňte možnost \"Neoptimalizovat\" na \"Všechny aplikace\", vyberte %1$s a po klepnutí na \"%2$s\" v tomto dialogovém okně vyberte možnost \"Neoptimalizovat\".</string>
 	<string name="dialog_ask_ignore_battery_optimizations_checkbox">Příště se neptat?</string>
 	<string name="dialog_http_security_hint">Použití HTTP je nezabezpečené. Doporučujeme použít HTTPS. Pokud znáte rizika, můžete pokračovat s HTTP.</string>
 	<string name="dialog_http_security_checkbox">Změnit na HTTPS</string>
@@ -298,6 +308,7 @@
 	<string name="dialog_debug_mode_disclaimer_hint">V tomto režimu mohou být citlivé údaje zapsány do souboru protokolu na vašem zařízení (např. názvy souborů a cesty). Hesla, soubory cookie atd. jsou výslovně vyloučeny.\n\nNezapomeňte co nejdříve vypnout režim ladění.</string>
 	<string name="dialog_debug_mode_disclaimer_title">Upozornění</string>
 	<string name="dialog_debug_mode_positive_button">Povolit</string>
+	<string name="dialog_microsoft_workaround_disclaimer_hint">Kvůli chybě v aplikacích společnosti Microsoft musí být upravovaný soubor sdílen s těmito aplikacemi ve veřejné složce médií v zařízení. Po obnovení činnosti aplikace Cryptomator se veřejně přístupný soubor opět odstraní, ale aplikace Cryptomator nemůže ovlivnit, co se s tímto souborem mezitím stalo. Při aktivaci této možnosti se ujistěte, že jste si tohoto chování vědomi. Toto se týká pouze typů souborů společnosti Microsoft.\n\nCryptomator se po aktivaci znovu spustí.</string>
 	<string name="dialog_disable_app_obscured_disclaimer_hint">Toto nastavení je bezpečnostní funkce a brání ostatním aplikacím v tom, aby oklamaly uživatele dělat věci, se kterými nesouhlasí.\n\nZakázáním potvrzujete, že jste <a href="https://docs.cryptomator.org/en/1.6/android/settings/#block-app-when-obscured">si vědomi rizik</a>.</string>
 	<string name="dialog_disable_app_obscured_disclaimer_title">Upozornění</string>
 	<string name="dialog_disable_app_obscured_positive_button">Zakázat</string>
@@ -339,6 +350,7 @@
 	<string name="dialog_no_dir_file_message">Složka v cloudu \'%1$s\' nemá adresářový soubor. Mohlo dojít k tomu, že složka byla vytvořena na jiném zařízení a ještě nebyla plně synchronizována s cloudem. Prosím zkontrolujte v cloudu, zda existuje následující soubor a není prázdný: \n%2$s</string>
 	<string name="dialog_no_more_images_to_display">Žádné další obrázky k zobrazení&#8230;</string>
 	<string name="dialog_pcloud_credentials_updated_title">Údaje o \'%1$s\' byly aktualizovány</string>
+	<string name="dialog_pcloud_credentials_updated">Pokud máte v úmyslu přidat nový účet na pCloud, klepněte na tuto url <a href="https://www.pcloud.com">www.pcloud. om</a>, odhlas jste se z aktuálního účtu a znovu klepněte na \'+\' v této aplikaci pro vytvoření nového cloudového připojení.</string>
 	<string name="permission_snackbar_auth_local_vault">Cryptomator potřebuje přístup k úložišti, aby mohl používat místní trezory</string>
 	<string name="permission_snackbar_auth_auto_upload">Cryptomator potřebuje přístup k úložišti pro automatické nahrávání fotek</string>
 	<string name="permission_snackbar_notifications">Cryptomator potřebuje oprávnění k oznámení. Například: zobrazení stavu trezoru</string>
