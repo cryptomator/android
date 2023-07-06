@@ -205,7 +205,7 @@
 	<string name="screen_settings_keep_unlocked_while_editing_files">Behold ulåst</string>
 	<string name="screen_settings_keep_unlocked_while_editing_files_summary">Beholdt hvelvet opplåst mens du redigerer filer</string>
 	<!-- ## screen: cloud settings -->
-	<string name="screen_cloud_settings_onedrive_connections">OneDrive tilkoblinger</string>
+	<string name="screen_cloud_settings_onedrive_connections">OneDrive-tilkoblinger</string>
 	<string name="screen_cloud_settings_webdav_connections">WebDAV-tilkoblinger</string>
 	<string name="screen_cloud_settings_pcloud_connections">pCloud-tilkoblinger</string>
 	<string name="screen_cloud_settings_s3_connections">S3 tilkoblinger</string>
