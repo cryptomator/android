@@ -198,6 +198,8 @@
 	<string name="screen_settings_security_label">Sikkerhetstips</string>
 	<string name="screen_settings_section_version">Versjon</string>
 	<string name="screen_settings_advanced_settings">Avanserte innstillinger</string>
+	<string name="screen_settings_microsoft_apps_workaround_label">En mulig løsning for å åpne Microsoft-filer</string>
+	<string name="screen_settings_microsoft_apps_workaround_summary">Åpne filer i Microsoft-apper med skrivetilgang</string>
 	<string name="screen_settings_background_unlock_preparation_label">Akselerer opplåsing</string>
 	<string name="screen_settings_background_unlock_preparation_label_summary">Last ned hvelvkonfigurasjonen i bakgrunnen mens du blir bedt om å skrive inn passord eller biometrisk autentisering</string>
 	<string name="screen_settings_keep_unlocked_while_editing_files">Behold ulåst</string>
@@ -392,6 +394,7 @@
 	<string name="notification_auto_upload_failed_due_to_folder_not_exists">Valgte mappe for opplasting er ikke tilgjengelig lenger. Gå til innstillinger og velg en ny</string>
 	<string name="notification_auto_upload_failed_due_to_vault_locked">Hvelvet ble låst under opplasting, åpne hvelvet på nytt for å fortsette</string>
 	<string name="notification_auto_upload_failed_due_to_vault_not_found">Det angitte hvelvet for automatisk opplasting eksisterer ikke lenger.</string>
+	<string name="notification_auto_upload_failed_due_to_authentication_problem">Trykk for å oppdatere autentiseringen.</string>
 	<string name="notification_open_writable_file_title">Åpne skrivbar fil</string>
 	<string name="notification_open_writable_file_message">Hvelvet forblir opplåst til redigeringen er ferdig</string>
 	<string name="notification_update_check_finished_latest">Siste versjon er installert</string>
