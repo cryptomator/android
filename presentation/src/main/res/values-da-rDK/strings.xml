@@ -198,6 +198,8 @@
 	<string name="screen_settings_security_label">Sikkerhedstips</string>
 	<string name="screen_settings_section_version">Version</string>
 	<string name="screen_settings_advanced_settings">Avancerede indstillinger</string>
+	<string name="screen_settings_microsoft_apps_workaround_label">Alternativ løsning til at åbne Microsoft-filer</string>
+	<string name="screen_settings_microsoft_apps_workaround_summary">Åbn filer i Microsoft-apps med skrivetilladelse</string>
 	<string name="screen_settings_background_unlock_preparation_label">Accelerér oplåsning</string>
 	<string name="screen_settings_background_unlock_preparation_label_summary">Download boksens konfiguration i baggrunden, mens du indtaster adgangskoden eller angivet biometrisk information</string>
 	<string name="screen_settings_keep_unlocked_while_editing_files">Hold oplåst</string>
@@ -304,6 +306,7 @@
 	<string name="dialog_debug_mode_disclaimer_hint">I denne tilstand kan følsomme data blive skrevet til en logfil på din enhed (f.eks. filnavne og stier). Adgangskoder, cookies osv. er udtrykkeligt udelukket.\n\nHusk at deaktivere fejlfindingstilstand så hurtigt som muligt.</string>
 	<string name="dialog_debug_mode_disclaimer_title">Vigtigt</string>
 	<string name="dialog_debug_mode_positive_button">Aktivér</string>
+	<string name="dialog_microsoft_workaround_disclaimer_hint">På grund af en fejl i Microsoft-apps skal den fil, der skal redigeres, deles med disse apps i en offentlig mediemappe på din enhed. Når Cryptomator genoptages, slettes den offentligt tilgængelige fil igen, men Cryptomator kan ikke påvirke, hvad der er sket med denne fil i mellemtiden. Sørg for, at du er opmærksom på denne adfærd, når du aktiverer denne indstilling. Dette gælder kun for Microsofts filtyper.\n\nCryptomator genstarter efter aktivering.</string>
 	<string name="dialog_disable_app_obscured_disclaimer_hint">Denne indstilling er en sikkerhedsfunktion og forhindrer andre apps i at narre brugere til at gøre ting, de ikke ønsker at gøre.\n\nVed at deaktivere, bekræfter du, at du er <a href="https://docs.cryptomator.org/en/1.6/android/settings/#block-app-when-obscured">bekendt med de involverede ricisi</a>.</string>
 	<string name="dialog_disable_app_obscured_disclaimer_title">Vigtigt</string>
 	<string name="dialog_disable_app_obscured_positive_button">Deaktivér</string>
@@ -392,6 +395,7 @@
 	<string name="notification_auto_upload_failed_due_to_folder_not_exists">Den valgte upload-mappe er ikke længere tilgængelig. Gå til indstillinger og vælg en ny</string>
 	<string name="notification_auto_upload_failed_due_to_vault_locked">Boks låst under upload, genåbn venligst boks for at fortsætte</string>
 	<string name="notification_auto_upload_failed_due_to_vault_not_found">Boks angivet til auto-upload findes ikke længere.</string>
+	<string name="notification_auto_upload_failed_due_to_authentication_problem">Tryk for at opdatere godkendelse.</string>
 	<string name="notification_open_writable_file_title">Åben fil med skriveadgang</string>
 	<string name="notification_open_writable_file_message">Boks forbliver låst op indtil du er færdig med redigeringen</string>
 	<string name="notification_update_check_finished_latest">Nyeste version er installeret</string>
