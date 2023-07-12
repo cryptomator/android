@@ -175,7 +175,7 @@
 	<string name="screen_settings_section_auto_lock">Automatisk låsning</string>
 	<string name="screen_settings_auto_lock_timeout">Lås efter</string>
 	<string name="screen_settings_auto_lock_on_screen_lock">Når skærmen er slukket</string>
-	<string name="screen_settings_section_auto_photo_upload">Automatisk foto upload</string>
+	<string name="screen_settings_section_auto_photo_upload">Automatisk foto-upload</string>
 	<string name="screen_settings_section_auto_photo_upload_vault">Vælg boks til upload</string>
 	<string name="screen_settings_section_auto_photo_upload_toggle">Aktivér</string>
 	<string name="screen_settings_section_auto_photo_upload_toggle_summary">Håndtér billeder i baggrunden og upload dem når den valgte boks er låst op</string>
