@@ -23,9 +23,9 @@
 	<string name="error_names_contains_invalid_characters">Имена файлов не могут содержать специальные символы.</string>
 	<string name="error_vault_name_contains_invalid_characters">Имя хранилища не может содержать специальные символы.</string>
 	<string name="error_general_update">Ошибка проверки обновления. Общая ошибка.</string>
-	<string name="error_hash_mismatch_update">Не удалось проверить обновление. Вычисленный хеш не соответствует отправленному файлу.</string>
+	<string name="error_hash_mismatch_update">Ошибка проверки обновления. Вычисленный хэш не соответствует загруженному файлу</string>
 	<string name="error_update_no_internet">Ошибка проверки обновления. Нет подключения к Интернету.</string>
-	<string name="error_failed_to_decrypt_webdav_password">Не удалось расшифровать пароль WebDAV, добавьте его заново в настройках</string>
+	<string name="error_failed_to_decrypt_webdav_password">Не удалось расшифровать пароль WebDAV, пожалуйста, добавьте его заново в настройках</string>
 	<string name="error_play_services_not_available">Не установлены сервисы Google Play</string>
 	<string name="error_biometric_auth_aborted">Биометрическая аутентификация прервана</string>
 	<string name="error_vault_version_mismatch">Версия, указанная в %1$s, отличается от %2$s</string>
@@ -120,7 +120,7 @@
 	<string name="screen_choose_cloud_service_title">Облачный сервис</string>
 	<!-- ## screen: cloud connections -->
 	<string name="screen_cloud_connections_title">Выберите место</string>
-	<string name="screen_cloud_connections_no_connections">Нажмите, чтобы добавить местоположения</string>
+	<string name="screen_cloud_connections_no_connections">Нажмите здесь, чтобы добавить местоположения</string>
 	<string name="screen_cloud_error_webdav_not_supported">Похоже, сервер не совместим с WebDAV</string>
 	<string name="screen_cloud_local_error_no_content_provider">Не найден файловый менеджер, поддерживающий открытие папок</string>
 	<!-- ## screen: webdav settings -->
