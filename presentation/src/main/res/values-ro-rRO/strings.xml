@@ -199,6 +199,8 @@
 	<string name="screen_settings_security_label">Indicații de securitate</string>
 	<string name="screen_settings_section_version">Versiune</string>
 	<string name="screen_settings_advanced_settings">Setări avansate</string>
+	<string name="screen_settings_microsoft_apps_workaround_label">Soluție pentru deschiderea fișierelor Microsoft</string>
+	<string name="screen_settings_microsoft_apps_workaround_summary">Deschide fișiere în aplicații Microsoft cu permisiune de scriere</string>
 	<string name="screen_settings_background_unlock_preparation_label">Accelerează deblocarea</string>
 	<string name="screen_settings_background_unlock_preparation_label_summary">Descărcați configurarea seifului în fundal în timp ce vi se solicită introducerea parolei sau a autentificării biometrice</string>
 	<string name="screen_settings_keep_unlocked_while_editing_files">Păstrați deblocat</string>
@@ -305,6 +307,7 @@
 	<string name="dialog_debug_mode_disclaimer_hint">În acest mod, datele sensibile pot fi scrise într-un fișier jurnal de pe dispozitivul dumneavoastră (de exemplu, nume de fișiere și căi de fișiere). Parolele, cookie-urile etc. sunt excluse în mod explicit.\n\nNu uitați să dezactivați modul de depanare cât mai curând posibil.</string>
 	<string name="dialog_debug_mode_disclaimer_title">Atenție</string>
 	<string name="dialog_debug_mode_positive_button">Activează</string>
+	<string name="dialog_microsoft_workaround_disclaimer_hint">Din cauza unei erori în aplicațiile Microsoft, fișierul care urmează să fie editat trebuie să fie partajat cu aceste aplicații într-un folder media public de pe dispozitivul dvs. După ce Cryptomator este repornit, fişierul accesibil publicului este şters din nou, dar Cryptomator nu poate influenţa ceea ce s-a întâmplat cu acest fişier între timp. Asigurați-vă că sunteți conștient de acest comportament atunci când activați această opțiune. Acest comportament se aplica doar tipurilor de fișiere Microsoft.\n\nCryptomator va reporni după activare.</string>
 	<string name="dialog_disable_app_obscured_disclaimer_hint">Această setare este o caracteristică de securitate și previne alte aplicații să păcălească utilizatorii să facă lucruri pe care nu ar trebui să le facă.\n\nPrin dezactivare, confirmați că sunteți <a href="https://docs.cryptomator.org/en/1.6/android/settings/#block-app-when-obscured">conștient de aceste riscuri</a>.</string>
 	<string name="dialog_disable_app_obscured_disclaimer_title">Atenție</string>
 	<string name="dialog_disable_app_obscured_positive_button">Dezactivează</string>
@@ -349,6 +352,7 @@
 	<string name="dialog_pcloud_credentials_updated">Dacă doriți să adăugaţi un cont nou de tip pCloud, faceţi clic pe acest link <a href="https://www.pcloud.com">www.pcloud. om</a>, deconectați-vă de la contul curent, și faceți clic din nou pe \'+\' din această aplicație pentru a crea o nouă conexiune cloud.</string>
 	<string name="permission_snackbar_auth_local_vault">Cryptomator are nevoie de acces la stocare pentru a utiliza seifuri locale</string>
 	<string name="permission_snackbar_auth_auto_upload">Cryptomator are nevoie de acces la stocare pentru a folosi încărcarea automată a fotografiilor</string>
+	<string name="permission_snackbar_notifications">Cryptomator are nevoie de permisiuni de notificare pentru a afișa starea seifului de exemplu</string>
 	<!-- # error reports -->
 	<!-- # misc -->
 	<!-- ## file size helper -->
@@ -392,6 +396,7 @@
 	<string name="notification_auto_upload_failed_due_to_folder_not_exists">Dosarul selectat pentru încărcare nu mai este disponibil. Mergeți la setări și alegeți unul nou</string>
 	<string name="notification_auto_upload_failed_due_to_vault_locked">Seif blocat în timpul încărcării, vă rugăm să redeschideți seiful pentru a continua</string>
 	<string name="notification_auto_upload_failed_due_to_vault_not_found">Seiful ales pentru încărcare automată nu mai există.</string>
+	<string name="notification_auto_upload_failed_due_to_authentication_problem">Atingeți pentru a reîmprospăta autentificarea.</string>
 	<string name="notification_open_writable_file_title">Deschide fișier inscriptibil</string>
 	<string name="notification_open_writable_file_message">Seiful rămâne deblocat până la editarea finalizată</string>
 	<string name="notification_update_check_finished_latest">Ultima versiune instalată</string>
