@@ -307,8 +307,10 @@
 	<string name="dialog_app_is_obscured_info_title">Az app el van takarva</string>
 	<string name="dialog_app_is_obscured_info_hint">Egy másik app megjelenít valamit a Cryptomator felett (pl. egy kékfény szűrő vagy éjszakai mód app). Biztonsági okokból a Cryptomator le van tiltva.\n\n<a href="https://docs.cryptomator.org/en/1.6/android/settings/#block-app-when-obscured">Hogyan engedélyezze a Cryptomatort</a></string>
 	<string name="dialog_app_is_obscured_info_neutral_button">Bezár</string>
+	<string name="dialog_confirm_delete_multiple_title">Töröl %1$d elemet?</string>
 	<string name="dialog_confirm_delete_multiple_message">Biztosan törölni akarja ezeket az elemeket?</string>
 	<string name="dialog_confirm_delete_file_message">Biztosan törli ezt a fájlt?</string>
+	<string name="dialog_confirm_delete_folder_message">Ezzel a mappa teljes tartalma törlődik. Biztos, hogy törölni szeretné ezt a mappát?</string>
 	<string name="dialog_enter_license_title">Adjon meg egy érvényes licencet</string>
 	<string name="dialog_enter_license_content">Úgy érzékeltük, hogy a Cryptomatort a Google Play áruházon kívül telepítette. Adjon meg egy érvényes licencet, amit meg tud vásárolni itt: <a href="https://cryptomator.org/android/">https://cryptomator.org/android/</a></string>
 	<string name="dialog_enter_license_not_valid_content">A megadott licenc nem érvényes. Győződjön meg arról, hogy jól írta be.</string>
@@ -324,6 +326,7 @@
 	<string name="dialog_download_update_title">Letöltés folyamatban</string>
 	<string name="dialog_sym_link_title">A mappa egy szimbolikus link</string>
 	<string name="dialog_sym_link_back_button">Vissza</string>
+	<string name="dialog_no_dir_file_title">Nem lehet betölteni a könyvtár tartalmát</string>
 	<string name="dialog_pcloud_credentials_updated">Ha új pCloud fiókot szeretne hozzáadni, koppintson erre az url-re: <a href="https://www.pcloud.com">www.pcloud.com</a>, jelentkezzen ki a jelenlegi fiókból és koppintson újra a \'+\' gombra az appban, hogy új felhő kapcsolatot létesítsen.</string>
 	<string name="permission_snackbar_auth_local_vault">A Cryptomatornak tárhely-hozzáférésre van szüksége a trezorok használatához</string>
 	<string name="permission_snackbar_auth_auto_upload">A Cryptomatornak tárhely-hozzáférésre van szüksége az automatikus fotófeltöltés használatához</string>
