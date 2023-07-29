@@ -44,7 +44,7 @@ import okio.Okio;
 @Singleton
 public class UpdateCheckRepositoryImpl implements UpdateCheckRepository {
 
-	private static final String HOSTNAME_LATEST_VERSION = "https://static.cryptomator.org/android/latest-version.json";
+	private static final String HOSTNAME_LATEST_VERSION = "https://api.cryptomator.org/android/latest-version.json";
 
 	private final Database database;
 	private final OkHttpClient httpClient;
