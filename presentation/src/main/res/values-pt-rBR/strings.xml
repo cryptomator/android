@@ -131,17 +131,17 @@
 	<string name="screen_webdav_settings_msg_username_must_not_be_empty">Nome de usuário não pode estar vazio.</string>
 	<string name="screen_webdav_settings_msg_password_must_not_be_empty">A senha não pode estar vazia.</string>
 	<!-- ## screen: s3 settings -->
-	<string name="screen_s3_settings_display_name_label">Nome de Exibição</string>
+	<string name="screen_s3_settings_display_name_label">Nome para exibição</string>
 	<string name="screen_s3_settings_access_key_label">Chave de acesso</string>
 	<string name="screen_s3_settings_secret_key_label">Chave Secreta</string>
-	<string name="screen_s3_settings_bucket_label">Bucket do nome de domínio na URL existente</string>
+	<string name="screen_s3_settings_bucket_label">Bucket existente</string>
 	<string name="screen_s3_settings_endpoint_label">Endpoint</string>
 	<string name="screen_s3_settings_region_label">Região</string>
-	<string name="screen_s3_settings_msg_display_name_not_empty">O nome de exibição não pode estar em branco</string>
-	<string name="screen_s3_settings_msg_access_key_not_empty">Chave de acesso não pode estar em branco</string>
+	<string name="screen_s3_settings_msg_display_name_not_empty">O nome para exibição não pode estar em branco</string>
+	<string name="screen_s3_settings_msg_access_key_not_empty">A chave de acesso não pode estar em branco</string>
 	<string name="screen_s3_settings_msg_secret_key_not_empty">A chave secreta não pode estar em branco</string>
-	<string name="screen_s3_settings_msg_bucket_not_empty">Bucket do nome de domínio da URL não pode estar em branco</string>
-	<string name="screen_s3_settings_msg_endpoint_and_region_not_empty">Endpoint ou Região não pode estar em branco</string>
+	<string name="screen_s3_settings_msg_bucket_not_empty">Bucket não pode estar em branco</string>
+	<string name="screen_s3_settings_msg_endpoint_and_region_not_empty">Endpoint e Região não podem estar em branco</string>
 	<!-- ## screen: enter vault name -->
 	<string name="screen_enter_vault_name_msg_name_empty">O nome do cofre não pode estar em branco.</string>
 	<string name="screen_enter_vault_name_vault_label">Nome do cofre</string>
