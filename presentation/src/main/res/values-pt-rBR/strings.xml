@@ -32,7 +32,7 @@
 	<string name="error_vault_key_invalid">%1$s não coincide com este %2$s</string>
 	<string name="error_vault_config_loading">Erro geral ao carregar a configuração do cofre</string>
 	<string name="error_file_not_found_after_opening_using_3party">O arquivo local não está mais presente depois de voltar ao Cryptomator. Possíveis alterações não podem ser propagadas de volta para o provedor de nuvem.</string>
-	<string name="error_no_such_bucket">Não existe tal bucket no nome de domínio</string>
+	<string name="error_no_such_bucket">Bucket não encontrado</string>
 	<string name="error_masterkey_location_not_supported">Localização de Masterkey personalizada ainda não é suportada</string>
 	<string name="error_interact_with_fdroid_but_fdroid_missing">Falha na comunicação com o aplicativo F-Droid. Ele está instalado?</string>
 	<!-- # clouds -->
@@ -132,15 +132,15 @@
 	<string name="screen_webdav_settings_msg_password_must_not_be_empty">A senha não pode estar vazia.</string>
 	<!-- ## screen: s3 settings -->
 	<string name="screen_s3_settings_display_name_label">Nome de Exibição</string>
-	<string name="screen_s3_settings_access_key_label">Chave de acesso</string>
+	<string name="screen_s3_settings_access_key_label">Chave de Acesso</string>
 	<string name="screen_s3_settings_secret_key_label">Chave Secreta</string>
-	<string name="screen_s3_settings_bucket_label">Bucket do nome de domínio na URL existente</string>
+	<string name="screen_s3_settings_bucket_label">Bucket existente</string>
 	<string name="screen_s3_settings_endpoint_label">Endpoint</string>
 	<string name="screen_s3_settings_region_label">Região</string>
-	<string name="screen_s3_settings_msg_display_name_not_empty">O nome de exibição não pode estar em branco</string>
-	<string name="screen_s3_settings_msg_access_key_not_empty">Chave de acesso não pode estar em branco</string>
-	<string name="screen_s3_settings_msg_secret_key_not_empty">A chave secreta não pode estar em branco</string>
-	<string name="screen_s3_settings_msg_bucket_not_empty">Bucket do nome de domínio da URL não pode estar em branco</string>
+	<string name="screen_s3_settings_msg_display_name_not_empty">Nome de Exibição não pode estar vazio</string>
+	<string name="screen_s3_settings_msg_access_key_not_empty">Chave de Acesso não pode estar vazia</string>
+	<string name="screen_s3_settings_msg_secret_key_not_empty">Chave Secreta não pode estar vazia</string>
+	<string name="screen_s3_settings_msg_bucket_not_empty">Bucket não pode estar vazio</string>
 	<string name="screen_s3_settings_msg_endpoint_and_region_not_empty">Endpoint ou Região não pode estar em branco</string>
 	<!-- ## screen: enter vault name -->
 	<string name="screen_enter_vault_name_msg_name_empty">O nome do cofre não pode estar em branco.</string>
@@ -149,7 +149,7 @@
 	<!-- ## screen: set password -->
 	<string name="screen_set_password_title">Definir senha</string>
 	<string name="screen_set_password_msg_password_mismatch">A senha não coincide com a senha digitada.</string>
-	<string name="screen_set_password_button_text">Pronto</string>
+	<string name="screen_set_password_button_text">Concluído</string>
 	<string name="screen_set_password_hint">IMPORTANTE: Se você esquecer sua senha, não há como recuperar seus dados.</string>
 	<string name="screen_set_password_retype_password_label">Redigite a senha</string>
 	<string name="screen_set_password_strength_indicator_0">Senha muito fraca para criar um cofre</string>
