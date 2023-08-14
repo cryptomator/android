@@ -45,6 +45,8 @@ android {
 	}
 
 	buildTypes {
+		def docProviderAuthority = "org.cryptomator.presentation.docprovider.documents"
+
 		release {
 			crunchPngs false
 			minifyEnabled false
@@ -53,8 +55,9 @@ android {
 
 			buildConfigField "String", "DROPBOX_API_KEY", "\"" + getApiKey('DROPBOX_API_KEY') + "\""
 			buildConfigField "String", "PCLOUD_CLIENT_ID", "\"" + getApiKey('PCLOUD_CLIENT_ID') + "\""
+			buildConfigField "String", "DOCUMENTS_PROVIDER_AUTHORITY", "\"" + docProviderAuthority + "\""
 
-			manifestPlaceholders = [DROPBOX_API_KEY: getApiKey('DROPBOX_API_KEY'), ONEDRIVE_API_KEY_DECODED: getOnedriveApiKey()]
+			manifestPlaceholders = [DROPBOX_API_KEY: getApiKey('DROPBOX_API_KEY'), ONEDRIVE_API_KEY_DECODED: getOnedriveApiKey(), DOCUMENTS_PROVIDER_AUTHORITY: docProviderAuthority]
 		}
 
 		debug {
@@ -67,8 +70,9 @@ android {
 
 			buildConfigField "String", "DROPBOX_API_KEY", "\"" + getApiKey('DROPBOX_API_KEY_DEBUG') + "\""
 			buildConfigField "String", "PCLOUD_CLIENT_ID", "\"" + getApiKey('PCLOUD_CLIENT_ID_DEBUG') + "\""
+			buildConfigField "String", "DOCUMENTS_PROVIDER_AUTHORITY", "\"" + docProviderAuthority + "\""
 
-			manifestPlaceholders = [DROPBOX_API_KEY: getApiKey('DROPBOX_API_KEY_DEBUG'), ONEDRIVE_API_KEY_DECODED: getOnedriveApiKey()]
+			manifestPlaceholders = [DROPBOX_API_KEY: getApiKey('DROPBOX_API_KEY_DEBUG'), ONEDRIVE_API_KEY_DECODED: getOnedriveApiKey(), DOCUMENTS_PROVIDER_AUTHORITY: docProviderAuthority]
 
 			applicationIdSuffix ".debug"
 			versionNameSuffix '-DEBUG'
