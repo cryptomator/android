@@ -180,7 +180,7 @@
 	<string name="screen_settings_section_auto_photo_upload_toggle">Ativar</string>
 	<string name="screen_settings_section_auto_photo_upload_toggle_summary">Capture imagens em segundo plano e assim que o cofre selecionado for desbloqueado, inicie o upload</string>
 	<string name="screen_settings_section_auto_photo_upload_toggle_instant_upload">Upload instantâneo</string>
-	<string name="screen_settings_section_auto_photo_upload_toggle_instant_upload_summary">Envie diretamente se o cofre estiver desbloqueado</string>
+	<string name="screen_settings_section_auto_photo_upload_toggle_instant_upload_summary">Enviar imediatamente se o cofre estiver desbloqueado</string>
 	<string name="screen_settings_section_auto_photo_upload_only_wifi_toggle">Fazer upload apenas usando o WIFI</string>
 	<string name="screen_settings_section_auto_photo_upload_including_videos">Upload de vídeos</string>
 	<string name="screen_settings_auto_photo_upload_title">Salvar upload automático de arquivos em&#8230;</string>
@@ -310,10 +310,10 @@
 	<string name="dialog_disable_app_obscured_disclaimer_hint">Esta configuração é um recurso de segurança e impede que outros aplicativos induzam os usuários a fazer coisas que não devem fazer.\n\nAo desativar, você confirma que está <a href="https://docs.cryptomator.org/en/1.6/android/settings/#block-app-when-obscured">ciente dos riscos</a>.</string>
 	<string name="dialog_disable_app_obscured_disclaimer_title">Atenção</string>
 	<string name="dialog_disable_app_obscured_positive_button">Desabilitar</string>
-	<string name="dialog_app_is_obscured_info_title">O aplicativo está escuro</string>
-	<string name="dialog_app_is_obscured_info_hint">Outro aplicativo está exibindo algo no topo do Cryptomator (por exemplo, um filtro de luz azul ou aplicativo de modo noturno). Por razões de segurança, o Cryptomator está desativado.\n\n<a href="https://docs.cryptomator.org/en/1.6/android/settings/#block-app-when-obscured">Como ativar o Cryptomator</a></string>
+	<string name="dialog_app_is_obscured_info_title">O aplicativo está obscurecido</string>
+	<string name="dialog_app_is_obscured_info_hint">Outro aplicativo está exibindo algo sobre o Cryptomator (por exemplo, um filtro de luz azul ou aplicativo de modo noturno). Por motivo de segurança, o Cryptomator está desativado.\n\n<a href="https://docs.cryptomator.org/en/1.6/android/settings/#block-app-when-obscured">Como ativar o Cryptomator</a></string>
 	<string name="dialog_app_is_obscured_info_neutral_button">Fechar</string>
-	<string name="dialog_vaults_removed_during_migration_title">Por favor, readicione cofres para %1s nuvem</string>
+	<string name="dialog_vaults_removed_during_migration_title">Por favor, readicione cofres para a nuvem %1s</string>
 	<string name="dialog_vaults_removed_during_migration_hint">Durante a migração para esta versão do aplicativo, precisamos remover os seguintes cofres do aplicativo:\n%2s \n\nEsses cofres não são removidos da nuvem, mas apenas deste aplicativo. Desculpe o incômodo e por favor adicione novamente estes cofres para continuar a trabalhar com eles.</string>
 	<string name="dialog_vault_is_root_folder_of_cloud_title">O cofre é a pasta raiz da conexão com a nuvem</string>
 	<string name="dialog_vault_is_root_folder_of_cloud_hint">Crie uma nova conexão com a nuvem onde você seleciona pelo menos a pasta principal desta pasta de cofre como o diretório raiz para adicionar este cofre.</string>
@@ -326,7 +326,7 @@
 	<string name="dialog_confirm_delete_folder_message">Isto irá apagar todo o conteúdo da pasta. Tem certeza que deseja excluir esta pasta?</string>
 	<string name="dialog_biometric_auth_key_invalidated_title">Recurso de autenticação biométrica desativado</string>
 	<string name="dialog_biometric_auth_key_invalidated_message">Como a chave foi invalidada, o recurso de autenticação biométrica foi desativado. Para reativar, abra as configurações do Cryptomator.</string>
-	<string name="dialog_enter_license_title">Fornecer uma licença válida</string>
+	<string name="dialog_enter_license_title">Forneça uma licença válida</string>
 	<string name="dialog_enter_license_content">Nós detectamos que você instalou o Cryptomator sem usar a Google Play Store. Forneça uma licença válida, que pode ser comprada em <a href="https://cryptomator.org/android/">https://cryptomator.org/android/</a></string>
 	<string name="dialog_enter_license_not_valid_content">A licença fornecida não é válida. Verifique se você digitou corretamente.</string>
 	<string name="dialog_enter_license_not_valid_content_desktop_supporter_certificate">A chave fornecida é um certificado de suporte da área de trabalho. Por favor, insira uma licença válida.</string>
@@ -371,14 +371,14 @@
 	<string name="time_unit_days_sg">dia</string>
 	<string name="time_unit_days_pl">dias</string>
 	<string name="time_unit_weeks_sg">semana</string>
-	<string name="time_unit_weeks_pl">Semanas</string>
+	<string name="time_unit_weeks_pl">semanas</string>
 	<string name="time_unit_months_sg">mês</string>
 	<string name="time_unit_months_pl">meses</string>
 	<string name="time_unit_years_sg">ano</string>
 	<string name="time_unit_years_pl">anos</string>
 	<!-- ## biometric authentication -->
 	<string name="dialog_biometric_auth_title">Acesso biométrico</string>
-	<string name="dialog_biometric_auth_message">Faça login usando suas credenciais biométricas</string>
+	<string name="dialog_biometric_auth_message">Desbloqueie usando credencial biométrica</string>
 	<string name="dialog_biometric_auth_use_password">Usar senha do cofre</string>
 	<string name="dialog_unable_to_auto_upload_files_title">Não foi possível carregar arquivos automaticamente</string>
 	<!-- notification -->
@@ -387,21 +387,21 @@
 	<string name="notification_lock_all">Bloquear todos</string>
 	<string name="notification_cancel_auto_upload">Cancelar upload</string>
 	<string name="notification_auto_upload_title">Upload automático de fotos em execução</string>
-	<string name="notification_auto_upload_message">Uploading %1d/%2d</string>
+	<string name="notification_auto_upload_message">Enviando %1d/%2d</string>
 	<string name="notification_auto_upload_finished_title">Upload automático de fotos concluído</string>
 	<string name="notification_auto_upload_finished_message">%1$d imagens enviadas para o cofre</string>
 	<string name="notification_auto_upload_failed_title">O upload automático de foto falhou</string>
 	<string name="notification_auto_upload_failed_general_error">Ocorreu um erro geral durante o upload.</string>
-	<string name="notification_auto_upload_failed_due_to_folder_not_exists">A pasta selecionada para envio não está mais disponível. Vá para configurações e escolha uma nova pasta</string>
-	<string name="notification_auto_upload_failed_due_to_vault_locked">Cofre trancado durante o upload, por favor reabra o cofre para continuar</string>
+	<string name="notification_auto_upload_failed_due_to_folder_not_exists">A pasta escolhida para envio não está mais disponível. Vá até configurações e escolha uma nova pasta</string>
+	<string name="notification_auto_upload_failed_due_to_vault_locked">O cofre foi bloqueado durante o upload, por favor desbloqueie o cofre para continuar</string>
 	<string name="notification_auto_upload_failed_due_to_vault_not_found">O cofre especificado para upload automático não existe mais.</string>
 	<string name="notification_auto_upload_failed_due_to_authentication_problem">Toque para atualizar a autenticação.</string>
 	<string name="notification_open_writable_file_title">Abrir arquivo gravável</string>
-	<string name="notification_open_writable_file_message">Cofre permanece desbloqueado até terminar de editar</string>
+	<string name="notification_open_writable_file_message">O cofre permanece desbloqueado até terminar de editar</string>
 	<string name="notification_update_check_finished_latest">Versão mais recente instalada</string>
 	<string name="notification_authenticating">Autenticando&#8230;</string>
 	<string name="screen_settings_lru_cache">Cache</string>
-	<string name="screen_settings_lru_cache_toggle_summary">Cache de arquivos acessados recentemente criptografados localmente no dispositivo para reutilização posterior quando reaberto</string>
+	<string name="screen_settings_lru_cache_toggle_summary">Cache para arquivos acessados recentemente para reutilização posterior quando reabertos</string>
 	<string name="screen_settings_lru_cache_size">Tamanho total do cache</string>
 	<string name="screen_settings_clear_lru_cache_size">Limpar Cache</string>
 	<string name="screen_settings_lru_cache_changed__restart_toast">As alterações serão aplicadas na próxima reinicialização do aplicativo</string>
@@ -412,7 +412,7 @@
 	<string name="screen_settings_last_check_updates">Última execução %1$s</string>
 	<string name="dialog_cache_size_title">Tamanho do cache por provedor de nuvem</string>
 	<!-- lock timeout names -->
-	<string name="lock_timeout_instant">Instantâneo</string>
+	<string name="lock_timeout_instant">Instante</string>
 	<string name="lock_timeout_1m">1 minuto</string>
 	<string name="lock_timeout_2m">2 minutos</string>
 	<string name="lock_timeout_5m">5 minutos</string>
