@@ -141,7 +141,7 @@
 	<string name="screen_s3_settings_msg_access_key_not_empty">Chave de Acesso não pode estar vazia</string>
 	<string name="screen_s3_settings_msg_secret_key_not_empty">Chave Secreta não pode estar vazia</string>
 	<string name="screen_s3_settings_msg_bucket_not_empty">Bucket não pode estar vazio</string>
-	<string name="screen_s3_settings_msg_endpoint_and_region_not_empty">Endpoint ou Região não pode estar em branco</string>
+	<string name="screen_s3_settings_msg_endpoint_and_region_not_empty">Endpoint e Região não podem estar vazios</string>
 	<!-- ## screen: enter vault name -->
 	<string name="screen_enter_vault_name_msg_name_empty">O nome do cofre não pode estar em branco.</string>
 	<string name="screen_enter_vault_name_vault_label">Nome do cofre</string>
@@ -291,11 +291,11 @@
 	<string name="dialog_accept_ssl_certificate_title">Certificado SSL inválido</string>
 	<string name="dialog_accept_ssl_certificate_hint">O certificado SSL é inválido. Deseja confiar nele mesmo assim?</string>
 	<string name="dialog_accept_ssl_certificate_details">Detalhes</string>
-	<string name="dialog_accept_ssl_certificate_security_checkbox">Isto pode ser um risco para a segurança. Eu sei o que estou fazendo.</string>
+	<string name="dialog_accept_ssl_certificate_security_checkbox">Isto pode ser um risco de segurança. Eu sei o que estou fazendo.</string>
 	<string name="dialog_ask_ignore_battery_optimizations_title">Desativar otimizações de bateria</string>
 	<string name="dialog_ask_ignore_battery_optimizations_hint">Para recuperar novas fotos e vídeos sem executar em segundo plano, precisamos desativar as otimizações de bateria. Mas não se preocupe, %1$s não consome muita energia.\n\nPara aplicar, altere \'Não otimizado\' para \'Todos os aplicativos\', selecione %1$s e escolha \'Não otimizar\' depois de tocar \'%2$s\' nesta caixa de diálogo.</string>
-	<string name="dialog_ask_ignore_battery_optimizations_checkbox">Não pergunte novamente</string>
-	<string name="dialog_http_security_hint">O uso de HTTP é inseguro. Recomendamos a utilização de HTTPS. Se você souber os riscos, você pode continuar com o HTTP.</string>
+	<string name="dialog_ask_ignore_battery_optimizations_checkbox">Não perguntar novamente?</string>
+	<string name="dialog_http_security_hint">O uso de HTTP é inseguro. Recomendamos utilizar HTTPS. Se você conhecer os riscos, pode continuar com HTTP.</string>
 	<string name="dialog_http_security_checkbox">Mudar para HTTPS</string>
 	<string name="dialog_http_security_title">Usar HTTPS?</string>
 	<string name="dialog_no_screen_lock_hint">Nenhum bloqueio de tela foi configurado. Para armazenar suas credenciais de forma segura, configure com OK um padrão ou senha.</string>
