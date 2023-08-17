@@ -275,7 +275,13 @@ def liteFlavor() {
 }
 
 def getApiKey(key) {
-	return !liteFlavor() ? System.getenv().getOrDefault(key, "") : ""
+	return !liteFlavor() ? System.getenv().getOrDefault(key, getApiKeyLocal(key)) : ""
+}
+
+def getApiKeyLocal(key) {
+	def localPropertyList = new Properties()
+	localPropertyList.load(new FileInputStream(rootProject.file("local.properties")))
+	return localPropertyList.getOrDefault(key, "")
 }
 
 def getOnedriveApiKey() {
