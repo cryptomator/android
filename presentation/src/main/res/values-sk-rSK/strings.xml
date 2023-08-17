@@ -200,6 +200,7 @@
 	<string name="screen_settings_security_label">Bezpečnostné tipy</string>
 	<string name="screen_settings_section_version">Verzia</string>
 	<string name="screen_settings_advanced_settings">Pokročilé nastavenia</string>
+	<string name="screen_settings_microsoft_apps_workaround_summary">Otvoriť súbory v Microsoft aplikáciách s právom zápisu</string>
 	<string name="screen_settings_background_unlock_preparation_label">Urýchliť odomknutie</string>
 	<string name="screen_settings_background_unlock_preparation_label_summary">Stiahnuť konfiguráciu trezora na pozadí počas vyzvania na zadanie hesla alebo biometrickej autentikácie</string>
 	<string name="screen_settings_keep_unlocked_while_editing_files">Držať odomknuté</string>
