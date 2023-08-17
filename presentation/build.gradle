@@ -279,6 +279,9 @@ def getApiKey(key) {
 }
 
 def getApiKeyLocal(key) {
+	if(!rootProject.file("local.properties").exists()) {
+		return ""
+	}
 	def localPropertyList = new Properties()
 	localPropertyList.load(new FileInputStream(rootProject.file("local.properties")))
 	return localPropertyList.getOrDefault(key, "")
