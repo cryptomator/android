@@ -1,5 +1,6 @@
 package org.cryptomator.presentation.service;
 
+import android.app.Notification;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
@@ -31,8 +32,8 @@ class UnlockedNotification {
 	private static final String NOTIFICATION_GROUP_KEY = "CryptomatorGroup";
 
 	private final Service service;
-	private final NotificationCompat.Builder builder;
 	private final AutolockTimeout autolockTimeout;
+	private NotificationCompat.Builder builder;
 	private int unlocked = 0;
 
 	public UnlockedNotification(Service service, AutolockTimeout autolockTimeout) {
@@ -57,6 +58,11 @@ class UnlockedNotification {
 				.addAction(lockNowAction()) //
 				.setGroup(NOTIFICATION_GROUP_KEY) //
 				.setOngoing(true);
+
+		if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.S) {
+			this.builder = this.builder.setForegroundServiceBehavior(Notification.FOREGROUND_SERVICE_IMMEDIATE);
+		}
+
 		this.autolockTimeout = autolockTimeout;
 	}
 
