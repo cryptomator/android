@@ -5,7 +5,7 @@ import android.database.MatrixCursor
 import android.net.Uri
 import android.os.CancellationSignal
 import android.os.ParcelFileDescriptor
-import android.provider.DocumentsContract
+import android.provider.DocumentsContract.*
 import android.provider.DocumentsProvider
 import org.cryptomator.domain.Vault
 import org.cryptomator.domain.exception.BackendException
@@ -16,23 +16,23 @@ import org.cryptomator.presentation.R
 
 private val SUPPORTED_ROOT_COLUMNS: Array<String> = arrayOf(
 	//Required
-	DocumentsContract.Root.COLUMN_ROOT_ID,
-	DocumentsContract.Root.COLUMN_ICON,
-	DocumentsContract.Root.COLUMN_TITLE,
-	DocumentsContract.Root.COLUMN_FLAGS,
-	DocumentsContract.Root.COLUMN_DOCUMENT_ID,
+	Root.COLUMN_ROOT_ID,
+	Root.COLUMN_ICON,
+	Root.COLUMN_TITLE,
+	Root.COLUMN_FLAGS,
+	Root.COLUMN_DOCUMENT_ID,
 	//Optional
-	DocumentsContract.Root.COLUMN_SUMMARY,
+	Root.COLUMN_SUMMARY,
 )
 
 private val SUPPORTED_DOCUMENT_COLUMNS: Array<String> = arrayOf(
 	//Required
-	DocumentsContract.Document.COLUMN_DOCUMENT_ID,
-	DocumentsContract.Document.COLUMN_DISPLAY_NAME,
-	DocumentsContract.Document.COLUMN_MIME_TYPE,
-	DocumentsContract.Document.COLUMN_FLAGS,
-	DocumentsContract.Document.COLUMN_SIZE,
-	DocumentsContract.Document.COLUMN_LAST_MODIFIED,
+	Document.COLUMN_DOCUMENT_ID,
+	Document.COLUMN_DISPLAY_NAME,
+	Document.COLUMN_MIME_TYPE,
+	Document.COLUMN_FLAGS,
+	Document.COLUMN_SIZE,
+	Document.COLUMN_LAST_MODIFIED,
 	//Optional
 	//...
 )
@@ -63,12 +63,12 @@ class CryptomatorDocumentsProvider : DocumentsProvider() {
 		//TODO Actually only include requested columns
 		vaults.forEach { vault ->
 			result.newRow().apply {
-				add(DocumentsContract.Root.COLUMN_ROOT_ID, vault.id.toString())
-				add(DocumentsContract.Root.COLUMN_SUMMARY, vault.name)
-				add(DocumentsContract.Root.COLUMN_FLAGS, rootFlags())
-				add(DocumentsContract.Root.COLUMN_TITLE, context?.getString(R.string.app_name) ?: "Cryptomator") //TODO Use Vault name?
-				add(DocumentsContract.Root.COLUMN_DOCUMENT_ID, getDocumentIdForPath(vault, null))
-				add(DocumentsContract.Root.COLUMN_ICON, R.mipmap.ic_launcher)
+				add(Root.COLUMN_ROOT_ID, vault.id.toString())
+				add(Root.COLUMN_SUMMARY, vault.name)
+				add(Root.COLUMN_FLAGS, rootFlags())
+				add(Root.COLUMN_TITLE, context?.getString(R.string.app_name) ?: "Cryptomator") //TODO Use Vault name?
+				add(Root.COLUMN_DOCUMENT_ID, getDocumentIdForPath(vault, null))
+				add(Root.COLUMN_ICON, R.mipmap.ic_launcher)
 			}
 		}
 		return result
@@ -93,7 +93,7 @@ class CryptomatorDocumentsProvider : DocumentsProvider() {
 
 	//TODO Call on VaultList change
 	fun refresh() {
-		val rootsUri: Uri = DocumentsContract.buildRootsUri(BuildConfig.DOCUMENTS_PROVIDER_AUTHORITY)
+		val rootsUri: Uri = buildRootsUri(BuildConfig.DOCUMENTS_PROVIDER_AUTHORITY)
 		context?.contentResolver?.notifyChange(rootsUri, null)
 	}
 }
