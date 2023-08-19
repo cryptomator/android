@@ -127,7 +127,7 @@ class CryptomatorDocumentsProvider : DocumentsProvider() {
 				add(Document.COLUMN_DISPLAY_NAME, entry.name)
 				add(Document.COLUMN_MIME_TYPE, mimeType(entry))
 				add(Document.COLUMN_FLAGS, 0) //TODO Flags (rootFlags?)
-				add(Document.COLUMN_SIZE, null) //TODO
+				add(Document.COLUMN_SIZE, fileSize(entry))
 				add(Document.COLUMN_LAST_MODIFIED, 0) //TODO
 			}
 		}
@@ -142,6 +142,17 @@ class CryptomatorDocumentsProvider : DocumentsProvider() {
 			is CryptoFolder -> Document.MIME_TYPE_DIR
 			is CryptoSymlink -> mimeType(entry.cloudFile)
 			else -> throw IllegalArgumentException("Entry needs to be a CryptoNode, was ${entry.javaClass.name}")
+		}
+	}
+
+	private fun fileSize(node: CloudNode): Long? {
+		require(requireNotNull(node.cloud?.type()) == CloudType.CRYPTO)
+
+		return when (node) {
+			is CryptoFile -> node.size
+			is CryptoFolder -> null //TODO
+			is CryptoSymlink -> fileSize(node.cloudFile)
+			else -> throw IllegalArgumentException("Node needs to be a CryptoNode, was ${node.javaClass.name}")
 		}
 	}
 
@@ -189,7 +200,7 @@ class CryptomatorDocumentsProvider : DocumentsProvider() {
 			add(Document.COLUMN_DISPLAY_NAME, documentPath.name)
 			add(Document.COLUMN_MIME_TYPE, mimeType(cloudNode))
 			add(Document.COLUMN_FLAGS, 0) //TODO Flags (rootFlags?)
-			add(Document.COLUMN_SIZE, null) //TODO
+			add(Document.COLUMN_SIZE, fileSize(cloudNode))
 			add(Document.COLUMN_LAST_MODIFIED, 0) //TODO
 		}
 	}
