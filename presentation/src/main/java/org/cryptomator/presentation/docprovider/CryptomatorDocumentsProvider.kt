@@ -5,7 +5,10 @@ import android.database.MatrixCursor
 import android.net.Uri
 import android.os.Bundle
 import android.os.CancellationSignal
+import android.os.Handler
+import android.os.Looper
 import android.os.ParcelFileDescriptor
+import android.os.storage.StorageManager
 import android.provider.DocumentsContract.*
 import android.provider.DocumentsProvider
 import org.cryptomator.data.cloud.crypto.CryptoFile
@@ -209,16 +212,8 @@ class CryptomatorDocumentsProvider : DocumentsProvider() {
 	}
 
 	private fun openDocumentRO(documentPath: VaultPath): ParcelFileDescriptor {
-		val view = appComponent.cloudRepository().decryptedViewOf(documentPath.vault)
-		val cloudNode: CloudNode = resolveNode(view, documentPath)
-
-		val pipe = SafeReliablePipe.createSafeReliablePipe()
-		ParcelFileDescriptor.AutoCloseOutputStream(pipe.writer).use { stream ->
-			//TODO Replace cast with #file() if safe, replace NO_OP_PROGRESS_AWARE_DOWNLOAD
-			contentRepository.read(cloudNode as CloudFile, null, stream, ProgressAware.NO_OP_PROGRESS_AWARE_DOWNLOAD)
-			stream.flush()
-		}
-		return pipe.reader
+		val storageManager = context!!.getSystemService(StorageManager::class.java) //TODO Nullability
+		return storageManager.openProxyFileDescriptor(ParcelFileDescriptor.MODE_READ_WRITE, ROProxyFileDescriptorCallback(documentPath), Handler(Looper.getMainLooper())) //TODO Handler/Looper
 	}
 
 	//TODO Call on VaultList change
