@@ -13,6 +13,13 @@ class VaultPath(val vault: Vault, path: String?) {
 
 	val documentId: String
 		get() = "${vault.id}/${path}"
+
+	val name: String
+		get() = if (isRoot) vault.name else path.substringAfterLast('/')
+
+	val parent: VaultPath?
+		get() = if (isRoot) null else VaultPath(vault, path.substringBeforeLast('/', ""))
+
 }
 
 fun normalizePath(path: String?): String {

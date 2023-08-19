@@ -142,7 +142,52 @@ class CryptomatorDocumentsProvider : DocumentsProvider() {
 	}
 
 	override fun queryDocument(documentId: String?, projection: Array<String>?): Cursor {
-		TODO("Not yet implemented")
+		requireNotNull(documentId)
+
+		//TODO Handle unsupported columns
+		val actualProjection = projection ?: SUPPORTED_DOCUMENT_COLUMNS
+		try {
+			return VaultPath(documentId).let {
+				if (it.isRoot) queryVaultRoot(it, actualProjection) else queryVaultDocument(it, actualProjection)
+			}
+		} catch (e: BackendException) {
+			//TODO Just throw?
+			e.printStackTrace()
+			return MatrixCursor(projection ?: SUPPORTED_DOCUMENT_COLUMNS)
+		}
+	}
+
+	@Throws(BackendException::class)
+	private fun queryVaultRoot(rootPath: VaultPath, actualProjection: Array<String>): Cursor {
+		require(rootPath.isRoot)
+
+		//TODO Actually only include requested columns
+		return singleRowCursor(actualProjection) {
+			add(Document.COLUMN_DOCUMENT_ID, rootPath.documentId)
+			add(Document.COLUMN_DISPLAY_NAME, rootPath.name)
+			add(Document.COLUMN_MIME_TYPE, Document.MIME_TYPE_DIR)
+			add(Document.COLUMN_FLAGS, 0) //TODO Flags (rootFlags?)
+			add(Document.COLUMN_SIZE, null) //TODO
+			add(Document.COLUMN_LAST_MODIFIED, 0) //TODO
+		}
+	}
+
+	@Throws(BackendException::class)
+	private fun queryVaultDocument(documentPath: VaultPath, actualProjection: Array<String>): Cursor {
+		require(!documentPath.isRoot)
+
+		val view = appComponent.cloudRepository().decryptedViewOf(documentPath.vault)
+		val cloudNode: CloudNode = resolveNode(view, documentPath)
+
+		//TODO Actually only include requested columns
+		return singleRowCursor(actualProjection) {
+			add(Document.COLUMN_DOCUMENT_ID, documentPath.documentId)
+			add(Document.COLUMN_DISPLAY_NAME, documentPath.name)
+			add(Document.COLUMN_MIME_TYPE, mimeType(cloudNode))
+			add(Document.COLUMN_FLAGS, 0) //TODO Flags (rootFlags?)
+			add(Document.COLUMN_SIZE, null) //TODO
+			add(Document.COLUMN_LAST_MODIFIED, 0) //TODO
+		}
 	}
 
 	override fun openDocument(documentId: String?, mode: String?, signal: CancellationSignal?): ParcelFileDescriptor {
@@ -154,4 +199,10 @@ class CryptomatorDocumentsProvider : DocumentsProvider() {
 		val rootsUri: Uri = buildRootsUri(BuildConfig.DOCUMENTS_PROVIDER_AUTHORITY)
 		context?.contentResolver?.notifyChange(rootsUri, null)
 	}
+}
+
+private fun singleRowCursor(projection: Array<String>, init: MatrixCursor.RowBuilder.() -> Unit): MatrixCursor {
+	val cursor = MatrixCursor(projection)
+	cursor.newRow().apply(init)
+	return cursor
 }
