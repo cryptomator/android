@@ -7,11 +7,8 @@ import android.os.CancellationSignal
 import android.os.ParcelFileDescriptor
 import android.provider.DocumentsContract.*
 import android.provider.DocumentsProvider
-import org.cryptomator.domain.Vault
 import org.cryptomator.domain.exception.BackendException
 import org.cryptomator.presentation.BuildConfig
-import org.cryptomator.presentation.CryptomatorApp
-import org.cryptomator.presentation.CryptomatorApp.Companion.applicationContext
 import org.cryptomator.presentation.R
 
 private val SUPPORTED_ROOT_COLUMNS: Array<String> = arrayOf(
@@ -56,8 +53,7 @@ class CryptomatorDocumentsProvider : DocumentsProvider() {
 	@Throws(BackendException::class)
 	private fun queryRootsImpl(actualProjection: Array<String>): Cursor {
 		//TODO Use custom cursor impl.?
-		//TODO Only show unlocked vaults
-		val vaults = (applicationContext() as CryptomatorApp).component.vaultRepository().vaults()
+		val vaults = appComponent.vaultRepository().vaults().filter { it.isUnlocked }
 		val result = MatrixCursor(actualProjection)
 
 		//TODO Actually only include requested columns
@@ -67,7 +63,7 @@ class CryptomatorDocumentsProvider : DocumentsProvider() {
 				add(Root.COLUMN_SUMMARY, vault.name)
 				add(Root.COLUMN_FLAGS, rootFlags())
 				add(Root.COLUMN_TITLE, context?.getString(R.string.app_name) ?: "Cryptomator") //TODO Use Vault name?
-				add(Root.COLUMN_DOCUMENT_ID, getDocumentIdForPath(vault, null))
+				add(Root.COLUMN_DOCUMENT_ID, VaultPath(vault).documentId)
 				add(Root.COLUMN_ICON, R.mipmap.ic_launcher)
 			}
 		}
@@ -96,20 +92,4 @@ class CryptomatorDocumentsProvider : DocumentsProvider() {
 		val rootsUri: Uri = buildRootsUri(BuildConfig.DOCUMENTS_PROVIDER_AUTHORITY)
 		context?.contentResolver?.notifyChange(rootsUri, null)
 	}
-}
-
-private fun getPathForDocumentId(documentId: String): Pair<Vault?, String?> {
-	//TODO Symlinks
-	val elements = documentId.split('/', ignoreCase = false, limit = 2)
-	val vault = vaultById(elements.first().let { it.toLongOrNull() ?: throw IllegalArgumentException("Illegal vaultId: $it") })
-	return vault to elements.lastOrNull()
-}
-
-private fun getDocumentIdForPath(vault: Vault, path: String?): String {
-	//TODO Symlinks
-	return "${vault.id}/${path.orEmpty()}"
-}
-
-private fun vaultById(id: Long): Vault? {
-	return (applicationContext() as CryptomatorApp).component.vaultRepository().vaults().find { it.id == id }
 }
