@@ -16,6 +16,7 @@ import org.cryptomator.domain.CloudFolder
 import org.cryptomator.domain.CloudNode
 import org.cryptomator.domain.CloudType
 import org.cryptomator.domain.exception.BackendException
+import org.cryptomator.domain.usecases.ProgressAware
 import org.cryptomator.presentation.BuildConfig
 import org.cryptomator.presentation.R
 import org.cryptomator.util.file.MimeType
@@ -191,7 +192,33 @@ class CryptomatorDocumentsProvider : DocumentsProvider() {
 	}
 
 	override fun openDocument(documentId: String?, mode: String?, signal: CancellationSignal?): ParcelFileDescriptor {
-		TODO("Not yet implemented")
+		requireNotNull(documentId)
+		requireNotNull(mode)
+
+		//TODO Use signal
+		//TODO Support other modes
+		//TODO Use ParcelFileDescriptor.parseMode()
+		if (mode.lowercase() != "r") {
+			throw UnsupportedOperationException()
+		}
+		try {
+			return openDocumentRO(VaultPath(documentId))
+		} catch (e: BackendException) {
+			throw RuntimeException(e)
+		}
+	}
+
+	private fun openDocumentRO(documentPath: VaultPath): ParcelFileDescriptor {
+		val view = appComponent.cloudRepository().decryptedViewOf(documentPath.vault)
+		val cloudNode: CloudNode = resolveNode(view, documentPath)
+
+		val pipe = SafeReliablePipe.createSafeReliablePipe()
+		ParcelFileDescriptor.AutoCloseOutputStream(pipe.writer).use { stream ->
+			//TODO Replace cast with #file() if safe, replace NO_OP_PROGRESS_AWARE_DOWNLOAD
+			contentRepository.read(cloudNode as CloudFile, null, stream, ProgressAware.NO_OP_PROGRESS_AWARE_DOWNLOAD)
+			stream.flush()
+		}
+		return pipe.reader
 	}
 
 	//TODO Call on VaultList change
