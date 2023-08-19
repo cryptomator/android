@@ -3,13 +3,22 @@ package org.cryptomator.presentation.docprovider
 import android.database.Cursor
 import android.database.MatrixCursor
 import android.net.Uri
+import android.os.Bundle
 import android.os.CancellationSignal
 import android.os.ParcelFileDescriptor
 import android.provider.DocumentsContract.*
 import android.provider.DocumentsProvider
+import org.cryptomator.data.cloud.crypto.CryptoFile
+import org.cryptomator.data.cloud.crypto.CryptoFolder
+import org.cryptomator.data.cloud.crypto.CryptoSymlink
+import org.cryptomator.domain.Cloud
+import org.cryptomator.domain.CloudFolder
+import org.cryptomator.domain.CloudNode
+import org.cryptomator.domain.CloudType
 import org.cryptomator.domain.exception.BackendException
 import org.cryptomator.presentation.BuildConfig
 import org.cryptomator.presentation.R
+import org.cryptomator.util.file.MimeType
 
 private val SUPPORTED_ROOT_COLUMNS: Array<String> = arrayOf(
 	//Required
@@ -45,8 +54,9 @@ class CryptomatorDocumentsProvider : DocumentsProvider() {
 		try {
 			return queryRootsImpl(projection ?: SUPPORTED_ROOT_COLUMNS)
 		} catch (e: BackendException) {
+			//TODO Just throw?
 			e.printStackTrace()
-			return MatrixCursor(SUPPORTED_ROOT_COLUMNS) //The actual columns don't matter cause it's empty
+			return MatrixCursor(projection ?: SUPPORTED_ROOT_COLUMNS)
 		}
 	}
 
@@ -76,7 +86,59 @@ class CryptomatorDocumentsProvider : DocumentsProvider() {
 	}
 
 	override fun queryChildDocuments(parentDocumentId: String?, projection: Array<String>?, sortOrder: String?): Cursor {
-		TODO("Not yet implemented")
+		throw UnsupportedOperationException("Use queryChildDocuments(String, String[], Bundle) instead.")
+	}
+
+	override fun queryChildDocuments(parentDocumentId: String?, projection: Array<String>?, queryArgs: Bundle?): Cursor {
+		requireNotNull(parentDocumentId)
+
+		//TODO Handle unsupported columns
+		try {
+			return queryChildDocumentsImpl(VaultPath(parentDocumentId), projection ?: SUPPORTED_DOCUMENT_COLUMNS, queryArgs)
+		} catch (e: BackendException) {
+			//TODO Just throw?
+			e.printStackTrace()
+			return MatrixCursor(projection ?: SUPPORTED_DOCUMENT_COLUMNS)
+		}
+	}
+
+	private fun queryChildDocumentsImpl(directoryPath: VaultPath, projection: Array<String>, queryArgs: Bundle?): Cursor {
+		//TODO queryArgs; e.g. android:query-arg-sort-direction = 0, android:query-arg-sort-columns = [Ljava.lang.String;@e9858a9
+		val view: Cloud = appComponent.cloudRepository().decryptedViewOf(directoryPath.vault)
+
+		//TODO Verify what happens if not a dir? Remove "/"?
+		//TODO Add extension functions/Move to VaultPath
+
+		val cloudDirPath: CloudFolder = safeResolve(view, directoryPath)
+
+		val entries = contentRepository.list(cloudDirPath)
+		val cursor = MatrixCursor(projection, entries.size)
+
+		entries.forEach { entry ->
+			//TODO Actually only include requested columns
+			cursor.newRow().apply {
+				val childPath = VaultPath(directoryPath.vault, entry.path)
+
+				add(Document.COLUMN_DOCUMENT_ID, childPath.documentId)
+				add(Document.COLUMN_DISPLAY_NAME, entry.name)
+				add(Document.COLUMN_MIME_TYPE, mimeType(entry))
+				add(Document.COLUMN_FLAGS, 0) //TODO Flags (rootFlags?)
+				add(Document.COLUMN_SIZE, null) //TODO
+				add(Document.COLUMN_LAST_MODIFIED, 0) //TODO
+			}
+		}
+		return cursor
+	}
+
+	private fun mimeType(entry: CloudNode): String {
+		require(requireNotNull(entry.cloud?.type()) == CloudType.CRYPTO)
+
+		return when (entry) {
+			is CryptoFile -> (mimeTypes.fromFilename(entry.name) ?: MimeType.WILDCARD_MIME_TYPE).toString()
+			is CryptoFolder -> Document.MIME_TYPE_DIR
+			is CryptoSymlink -> mimeType(entry.cloudFile)
+			else -> throw IllegalArgumentException("Entry needs to be a CryptoNode, was ${entry.javaClass.name}")
+		}
 	}
 
 	override fun queryDocument(documentId: String?, projection: Array<String>?): Cursor {
