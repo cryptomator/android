@@ -57,6 +57,11 @@ public class LocalStorageCloud implements Cloud {
 		return false;
 	}
 
+	@Override
+	public boolean isReadOnly() {
+		return false; //TODO Implement read-only check
+	}
+
 	@NotNull
 	@Override
 	public String toString() {

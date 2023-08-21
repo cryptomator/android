@@ -54,6 +54,11 @@ public class OnedriveCloud implements Cloud {
 	}
 
 	@Override
+	public boolean isReadOnly() {
+		return false; //TODO Implement read-only check
+	}
+
+	@Override
 	public boolean configurationMatches(Cloud cloud) {
 		return cloud instanceof OnedriveCloud && configurationMatches((OnedriveCloud) cloud);
 	}
