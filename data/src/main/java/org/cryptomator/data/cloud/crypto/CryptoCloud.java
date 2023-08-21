@@ -41,6 +41,11 @@ public class CryptoCloud implements Cloud {
 		return false;
 	}
 
+	@Override
+	public boolean isReadOnly() {
+		return false; //TODO Implement read-only check
+	}
+
 	public Vault getVault() {
 		return vault;
 	}

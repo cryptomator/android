@@ -58,6 +58,11 @@ public class GoogleDriveCloud implements Cloud {
 		return true;
 	}
 
+	@Override
+	public boolean isReadOnly() {
+		return false; //TODO Implement read-only check
+	}
+
 	@NotNull
 	@Override
 	public String toString() {
