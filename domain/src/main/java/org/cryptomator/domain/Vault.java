@@ -87,6 +87,10 @@ public class Vault implements Serializable {
 		return position;
 	}
 
+	public boolean isReadOnly() {
+		return false; //TODO Implement read-only check
+	}
+
 	@Override
 	public boolean equals(Object obj) {
 		if (obj == null || getClass() != obj.getClass()) {
