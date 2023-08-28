@@ -287,6 +287,7 @@ class CryptomatorDocumentsProvider : DocumentsProvider() {
 		if (canWrite) {
 			flags = flags or (if (isDir) Document.FLAG_DIR_SUPPORTS_CREATE else /*TODO Document.FLAG_SUPPORTS_WRITE*/ 0)
 			flags = flags or Document.FLAG_SUPPORTS_DELETE or //
+					Document.FLAG_SUPPORTS_RENAME or //
 					Document.FLAG_SUPPORTS_MOVE or //
 					Document.FLAG_SUPPORTS_REMOVE
 		}
@@ -447,14 +448,14 @@ class CryptomatorDocumentsProvider : DocumentsProvider() {
 		return VaultPath(vault, movedNode.path).documentId
 	}
 
-	private fun moveInto(cloud: Cloud, node: CloudNode, folderPath: VaultPath): CloudNode {
+	private fun moveInto(cloud: Cloud, node: CloudNode, folderPath: VaultPath, name: String = node.name): CloudNode {
 		require(cloud.type() == CloudType.CRYPTO)
 		require(node is CryptoNode)
 		require(node !is RootCryptoFolder) //Illegal operation
 		require(node !is CryptoSymlink) //Not implemented upstream
 
 		val parentNode = resolveExistingFolder(cloud, folderPath)
-		val newName = resolveUnusedPath(cloud, folderPath, node.name).name
+		val newName = resolveUnusedPath(cloud, folderPath, name).name
 		return when (node) {
 			is CryptoFile -> {
 				contentRepository.move(node, contentRepository.file(parentNode, newName))
@@ -466,6 +467,26 @@ class CryptomatorDocumentsProvider : DocumentsProvider() {
 
 			else -> throw NotImplementedError()
 		}
+	}
+
+	override fun renameDocument(documentId: String?, displayName: String?): String? {
+		LOG.v("renameDocument($documentId, $displayName)")
+		requireNotNull(documentId)
+		requireNotNull(displayName)
+
+		val currentPath = VaultPath(documentId)
+		require(!currentPath.isRoot)
+		//TODO Apparently not called from UI
+		if (currentPath.name == displayName) {
+			LOG.v("renameDocument: ${currentPath.documentId} quietly not renamed; requested name equals current name")
+			return null //No rename, no need to change the documentId
+		}
+
+		val view = appComponent.cloudRepository().decryptedViewOf(currentPath.vault)
+		val movedNode = moveInto(view, requireNotNull(resolveNode(view, currentPath)), currentPath.parent!!, cleanName(displayName)) //TODO Test collision
+
+		notify(currentPath.parent!!)
+		return VaultPath(currentPath.vault, movedNode.path).documentId
 	}
 
 	//TODO Call on VaultList change, lock/unlock, etc.
