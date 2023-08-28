@@ -23,6 +23,7 @@ import org.cryptomator.domain.usecases.ProgressAware
 import org.cryptomator.presentation.BuildConfig
 import org.cryptomator.presentation.R
 import org.cryptomator.util.file.MimeType
+import timber.log.Timber
 
 private val SUPPORTED_ROOT_COLUMNS: Array<String> = arrayOf(
 	//Required
@@ -47,13 +48,17 @@ private val SUPPORTED_DOCUMENT_COLUMNS: Array<String> = arrayOf(
 	//...
 )
 
+private val LOG = Timber.named("CryptomatorDocumentsProvider")
+
 class CryptomatorDocumentsProvider : DocumentsProvider() {
 
 	override fun onCreate(): Boolean {
+		LOG.v("onCreate")
 		return true
 	}
 
 	override fun queryRoots(projection: Array<String>?): Cursor {
+		LOG.v("queryRoots")
 		//TODO Handle unsupported columns
 		try {
 			return queryRootsImpl(projection ?: SUPPORTED_ROOT_COLUMNS)
@@ -94,6 +99,7 @@ class CryptomatorDocumentsProvider : DocumentsProvider() {
 	}
 
 	override fun queryChildDocuments(parentDocumentId: String?, projection: Array<String>?, queryArgs: Bundle?): Cursor {
+		LOG.v("queryChildDocuments($parentDocumentId)")
 		requireNotNull(parentDocumentId)
 
 		//TODO Handle unsupported columns
@@ -157,6 +163,7 @@ class CryptomatorDocumentsProvider : DocumentsProvider() {
 	}
 
 	override fun queryDocument(documentId: String?, projection: Array<String>?): Cursor {
+		LOG.v("queryDocument($documentId)")
 		requireNotNull(documentId)
 
 		//TODO Handle unsupported columns
@@ -206,6 +213,7 @@ class CryptomatorDocumentsProvider : DocumentsProvider() {
 	}
 
 	override fun openDocument(documentId: String?, mode: String?, signal: CancellationSignal?): ParcelFileDescriptor {
+		LOG.v("openDocument($documentId, $mode)")
 		requireNotNull(documentId)
 		requireNotNull(mode)
 
