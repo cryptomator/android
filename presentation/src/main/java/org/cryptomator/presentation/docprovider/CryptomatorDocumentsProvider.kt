@@ -284,6 +284,7 @@ class CryptomatorDocumentsProvider : DocumentsProvider() {
 		if (canWrite) {
 			flags = flags or (if (isDir) Document.FLAG_DIR_SUPPORTS_CREATE else /*TODO Document.FLAG_SUPPORTS_WRITE*/ 0)
 			flags = flags or Document.FLAG_SUPPORTS_DELETE or //
+					Document.FLAG_SUPPORTS_MOVE or //
 					Document.FLAG_SUPPORTS_REMOVE
 		}
 
@@ -405,6 +406,63 @@ class CryptomatorDocumentsProvider : DocumentsProvider() {
 		revokeDocumentPermission(documentId)
 		contentRepository.delete(node)
 		notify(path.parent!!.documentId) //TODO Correct time?
+	}
+
+	//TODO notify
+	override fun moveDocument(sourceDocumentId: String?, sourceParentDocumentId: String?, targetParentDocumentId: String?): String {
+		LOG.v("moveDocument($sourceDocumentId, $sourceParentDocumentId, $targetParentDocumentId)")
+		//TODO Verify
+		requireNotNull(sourceDocumentId)
+		requireNotNull(sourceParentDocumentId) //TODO Remove this check (not needed cause there can only be one parent)? Even check if parent is correct?
+		requireNotNull(targetParentDocumentId)
+
+		//TODO PERMISSIONS
+		return moveDocumentImpl(VaultPath(sourceDocumentId), VaultPath(targetParentDocumentId))
+	}
+
+	private fun moveDocumentImpl(sourcePath: VaultPath, newParentPath: VaultPath): String {
+		val vault = sourcePath.vault
+		require(!sourcePath.isRoot)
+		val oldParentPath = sourcePath.parent!!
+		require(vault == newParentPath.vault)
+
+		if (oldParentPath == newParentPath) {
+			LOG.v("moveDocument: ${sourcePath.documentId} quietly not moved; ${newParentPath.documentId} is already direct parent.")
+			return sourcePath.documentId
+		}
+		//TODO both cases apparently not called from UI
+		// But seems to send notification
+		if (sourcePath == newParentPath || newParentPath.isAnyChildOf(sourcePath)) {
+			throw UnsupportedOperationException("Circular move") //TODO Display error to user
+		}
+
+		val view = appComponent.cloudRepository().decryptedViewOf(sourcePath.vault)
+		val movedNode = moveInto(view, requireNotNull(resolveNode(view, sourcePath)), newParentPath)
+
+		notify(oldParentPath)
+		notify(newParentPath)
+		return VaultPath(vault, movedNode.path).documentId
+	}
+
+	private fun moveInto(cloud: Cloud, node: CloudNode, folderPath: VaultPath): CloudNode {
+		require(cloud.type() == CloudType.CRYPTO)
+		require(node is CryptoNode)
+		require(node !is RootCryptoFolder) //Illegal operation
+		require(node !is CryptoSymlink) //Not implemented upstream
+
+		val parentNode = resolveExistingFolder(cloud, folderPath)
+		val newName = resolveUnusedPath(cloud, folderPath, node.name).name
+		return when (node) {
+			is CryptoFile -> {
+				contentRepository.move(node, contentRepository.file(parentNode, newName))
+			}
+
+			is CryptoFolder -> {
+				contentRepository.move(node, contentRepository.folder(parentNode, newName))
+			}
+
+			else -> throw NotImplementedError()
+		}
 	}
 
 	//TODO Call on VaultList change, lock/unlock, etc.
