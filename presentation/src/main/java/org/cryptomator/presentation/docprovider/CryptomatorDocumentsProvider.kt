@@ -13,6 +13,7 @@ import android.provider.DocumentsContract.*
 import android.provider.DocumentsProvider
 import org.cryptomator.data.cloud.crypto.CryptoFile
 import org.cryptomator.data.cloud.crypto.CryptoFolder
+import org.cryptomator.data.cloud.crypto.CryptoNode
 import org.cryptomator.data.cloud.crypto.CryptoSymlink
 import org.cryptomator.data.cloud.crypto.RootCryptoFolder
 import org.cryptomator.domain.Cloud
@@ -282,6 +283,8 @@ class CryptomatorDocumentsProvider : DocumentsProvider() {
 		var flags = 0
 		if (canWrite) {
 			flags = flags or (if (isDir) Document.FLAG_DIR_SUPPORTS_CREATE else /*TODO Document.FLAG_SUPPORTS_WRITE*/ 0)
+			flags = flags or Document.FLAG_SUPPORTS_DELETE or //
+					Document.FLAG_SUPPORTS_REMOVE
 		}
 
 		//No:
@@ -374,6 +377,34 @@ class CryptomatorDocumentsProvider : DocumentsProvider() {
 	override fun refresh(uri: Uri?, extras: Bundle?, cancellationSignal: CancellationSignal?): Boolean {
 		LOG.v("refresh($uri)")
 		return super.refresh(uri, extras, cancellationSignal) //TODO
+	}
+
+	override fun removeDocument(documentId: String?, parentDocumentId: String?) {
+		//A document can only have one parent in Cryptomator Vaults //TODO Verify
+		LOG.v("removeDocument($documentId)")
+		//TODO Verify
+		requireNotNull(documentId)
+		requireNotNull(parentDocumentId) //TODO Remove this check? Even check if parent is correct?
+
+		return deleteDocument(documentId)
+	}
+
+	override fun deleteDocument(documentId: String?) {
+		LOG.v("deleteDocument($documentId)")
+		//TODO Verify removal of permissions
+		requireNotNull(documentId)
+
+		val path = VaultPath(documentId)
+		require(!path.isRoot)
+		val view = appComponent.cloudRepository().decryptedViewOf(path.vault)
+
+		val node = resolveNode(view, path)!! //TODO Fail quietly?
+		require(node is CryptoNode)
+		require(node !is CryptoSymlink) //Not implemented upstream
+
+		revokeDocumentPermission(documentId)
+		contentRepository.delete(node)
+		notify(path.parent!!.documentId) //TODO Correct time?
 	}
 
 	//TODO Call on VaultList change, lock/unlock, etc.
