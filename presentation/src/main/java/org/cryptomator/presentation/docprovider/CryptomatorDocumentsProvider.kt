@@ -14,10 +14,12 @@ import android.provider.DocumentsProvider
 import org.cryptomator.data.cloud.crypto.CryptoFile
 import org.cryptomator.data.cloud.crypto.CryptoFolder
 import org.cryptomator.data.cloud.crypto.CryptoSymlink
+import org.cryptomator.data.cloud.crypto.RootCryptoFolder
 import org.cryptomator.domain.Cloud
 import org.cryptomator.domain.CloudFolder
 import org.cryptomator.domain.CloudNode
 import org.cryptomator.domain.CloudType
+import org.cryptomator.domain.Vault
 import org.cryptomator.domain.exception.BackendException
 import org.cryptomator.domain.usecases.ProgressAware
 import org.cryptomator.presentation.BuildConfig
@@ -80,7 +82,7 @@ class CryptomatorDocumentsProvider : DocumentsProvider() {
 			result.newRow().apply {
 				add(Root.COLUMN_ROOT_ID, vault.id.toString())
 				add(Root.COLUMN_SUMMARY, vault.name)
-				add(Root.COLUMN_FLAGS, rootFlags())
+				add(Root.COLUMN_FLAGS, rootFlags(vault))
 				add(Root.COLUMN_TITLE, context?.getString(R.string.app_name) ?: "Cryptomator") //TODO Use Vault name?
 				add(Root.COLUMN_DOCUMENT_ID, VaultPath(vault).documentId)
 				add(Root.COLUMN_ICON, R.mipmap.ic_launcher)
@@ -89,8 +91,26 @@ class CryptomatorDocumentsProvider : DocumentsProvider() {
 		return result
 	}
 
-	private fun rootFlags(): Int {
-		return Root.FLAG_SUPPORTS_IS_CHILD
+	private fun rootFlags(vault: Vault): Int {
+		val view = appComponent.cloudRepository().decryptedViewOf(vault)
+		val rootNode = contentRepository.root(view)
+		require(rootNode is RootCryptoFolder)
+
+		var flags = 0
+		if (rootNode.isEmpty()) {
+			flags = flags or Root.FLAG_EMPTY //TODO Test
+		}
+		if (!vault.cloud.requiresNetwork()) { //Ask the backing cloud, not the CryptoCloud
+			flags = flags or Root.FLAG_LOCAL_ONLY
+		}
+		if (!vault.cloud.isReadOnly() && !vault.isReadOnly) {
+			flags = flags or Root.FLAG_SUPPORTS_CREATE
+		}
+		flags = flags or Root.FLAG_SUPPORTS_IS_CHILD
+
+		//TODO FLAG_SUPPORTS_RECENTS, FLAG_SUPPORTS_SEARCH,
+
+		return flags
 	}
 
 	override fun isChildDocument(parentDocumentId: String?, documentId: String?): Boolean {
