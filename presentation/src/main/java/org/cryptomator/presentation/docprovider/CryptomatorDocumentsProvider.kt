@@ -257,7 +257,7 @@ class CryptomatorDocumentsProvider : DocumentsProvider() {
 		val view = appComponent.cloudRepository().decryptedViewOf(documentPath.vault)
 		require(requireNotNull(view.type()) == CloudType.CRYPTO)
 
-		val cloudNode: CloudNode = resolveNode(view, documentPath)
+		val cloudNode: CloudNode = resolveNode(view, documentPath)!!
 		val isDir = cloudNode is CryptoFolder
 
 		//TODO Actually only include requested columns

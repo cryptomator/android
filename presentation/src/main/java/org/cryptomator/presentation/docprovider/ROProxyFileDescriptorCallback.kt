@@ -51,7 +51,7 @@ class ROProxyFileDescriptorCallback(private val documentPath: VaultPath) : Proxy
 
 	private fun fileHandle(): CloudFile {
 		val view = appComponent.cloudRepository().decryptedViewOf(documentPath.vault)
-		val node = resolveNode(view, documentPath)
+		val node = resolveNode(view, documentPath)!!
 
 		require(requireNotNull(node.cloud?.type()) == CloudType.CRYPTO)
 		require(node is CloudFile) //TODO Use #file instead if safe
