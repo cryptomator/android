@@ -321,10 +321,17 @@ class CryptomatorDocumentsProvider : DocumentsProvider() {
 		return storageManager.openProxyFileDescriptor(ParcelFileDescriptor.MODE_READ_ONLY, ROProxyFileDescriptorCallback(documentPath), Handler(Looper.getMainLooper())) //TODO Handler/Looper
 	}
 
-	//TODO Call on VaultList change
-	fun refresh() {
-		val rootsUri: Uri = buildRootsUri(BuildConfig.DOCUMENTS_PROVIDER_AUTHORITY)
-		context?.contentResolver?.notifyChange(rootsUri, null)
+	//TODO Call on VaultList change, lock/unlock, etc.
+	fun notify(path: VaultPath) {
+		return notify(path.documentId)
+	}
+
+	fun notify(documentId: String) {
+		LOG.v("notify(${documentId})")
+		val uri = buildDocumentUri(BuildConfig.DOCUMENTS_PROVIDER_AUTHORITY, documentId) //TODO Security implications
+
+		//TODO notify root with buildRootsUri(BuildConfig.DOCUMENTS_PROVIDER_AUTHORITY)
+		context?.contentResolver?.notifyChange(uri, null) ?: LOG.v("Can't call notifyChange for $documentId") //TODO Flags
 	}
 }
 
