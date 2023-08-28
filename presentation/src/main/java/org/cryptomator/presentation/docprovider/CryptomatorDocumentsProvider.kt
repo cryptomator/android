@@ -153,6 +153,7 @@ class CryptomatorDocumentsProvider : DocumentsProvider() {
 		val cursor = MatrixCursor(projection, entries.size)
 
 		entries.forEach { entry ->
+			val isDir = entry is CryptoFolder
 			//TODO Actually only include requested columns
 			cursor.newRow().apply {
 				val childPath = VaultPath(directoryPath.vault, entry.path)
@@ -160,7 +161,7 @@ class CryptomatorDocumentsProvider : DocumentsProvider() {
 				add(Document.COLUMN_DOCUMENT_ID, childPath.documentId)
 				add(Document.COLUMN_DISPLAY_NAME, entry.name)
 				add(Document.COLUMN_MIME_TYPE, mimeType(entry))
-				add(Document.COLUMN_FLAGS, 0) //TODO Flags (rootFlags?)
+				add(Document.COLUMN_FLAGS, documentFlags(childPath, isDir))
 				add(Document.COLUMN_SIZE, fileSize(entry))
 				add(Document.COLUMN_LAST_MODIFIED, 0) //TODO
 			}
@@ -184,7 +185,7 @@ class CryptomatorDocumentsProvider : DocumentsProvider() {
 
 		return when (node) {
 			is CryptoFile -> node.size
-			is CryptoFolder -> null //TODO
+			is CryptoFolder -> null
 			is CryptoSymlink -> fileSize(node.cloudFile)
 			else -> throw IllegalArgumentException("Node needs to be a CryptoNode, was ${node.javaClass.name}")
 		}
@@ -254,17 +255,47 @@ class CryptomatorDocumentsProvider : DocumentsProvider() {
 		require(!documentPath.isRoot)
 
 		val view = appComponent.cloudRepository().decryptedViewOf(documentPath.vault)
+		require(requireNotNull(view.type()) == CloudType.CRYPTO)
+
 		val cloudNode: CloudNode = resolveNode(view, documentPath)
+		val isDir = cloudNode is CryptoFolder
 
 		//TODO Actually only include requested columns
 		return singleRowCursor(actualProjection) {
 			add(Document.COLUMN_DOCUMENT_ID, documentPath.documentId)
 			add(Document.COLUMN_DISPLAY_NAME, documentPath.name)
 			add(Document.COLUMN_MIME_TYPE, mimeType(cloudNode))
-			add(Document.COLUMN_FLAGS, 0) //TODO Flags (rootFlags?)
+			add(Document.COLUMN_FLAGS, documentFlags(documentPath, isDir))
 			add(Document.COLUMN_SIZE, fileSize(cloudNode))
 			add(Document.COLUMN_LAST_MODIFIED, 0) //TODO
 		}
+	}
+
+	private fun documentFlags(path: VaultPath, isDir: Boolean): Int {
+		val view = appComponent.cloudRepository().decryptedViewOf(path.vault)
+		val rootNode = contentRepository.root(view)
+		require(rootNode is RootCryptoFolder)
+		val canWrite = !path.vault.cloud.isReadOnly() && !path.vault.isReadOnly
+
+		var flags = 0
+		if (canWrite) {
+			//TODO
+		}
+
+		//No:
+		//Document.FLAG_DIR_BLOCKS_OPEN_DOCUMENT_TREE
+		//Document.FLAG_DIR_PREFERS_LAST_MODIFIED
+		//Document.FLAG_VIRTUAL_DOCUMENT
+		//Document.FLAG_WEB_LINKABLE (Hub?)
+
+		//TODO
+		//Document.FLAG_DIR_PREFERS_GRID
+		//Document.FLAG_SUPPORTS_METADATA
+		//Document.FLAG_SUPPORTS_SETTINGS
+		//Document.FLAG_SUPPORTS_THUMBNAIL
+		//Document.FLAG_PARTIAL
+
+		return flags
 	}
 
 	override fun openDocument(documentId: String?, mode: String?, signal: CancellationSignal?): ParcelFileDescriptor {
