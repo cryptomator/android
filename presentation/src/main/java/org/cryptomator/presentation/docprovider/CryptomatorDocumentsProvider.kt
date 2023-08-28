@@ -307,7 +307,7 @@ class CryptomatorDocumentsProvider : DocumentsProvider() {
 		//TODO Support other modes
 		//TODO Use ParcelFileDescriptor.parseMode()
 		if (mode.lowercase() != "r") {
-			throw UnsupportedOperationException()
+			throw UnsupportedOperationException(mode)
 		}
 		try {
 			return openDocumentRO(VaultPath(documentId))
@@ -318,7 +318,7 @@ class CryptomatorDocumentsProvider : DocumentsProvider() {
 
 	private fun openDocumentRO(documentPath: VaultPath): ParcelFileDescriptor {
 		val storageManager = context!!.getSystemService(StorageManager::class.java) //TODO Nullability
-		return storageManager.openProxyFileDescriptor(ParcelFileDescriptor.MODE_READ_WRITE, ROProxyFileDescriptorCallback(documentPath), Handler(Looper.getMainLooper())) //TODO Handler/Looper
+		return storageManager.openProxyFileDescriptor(ParcelFileDescriptor.MODE_READ_ONLY, ROProxyFileDescriptorCallback(documentPath), Handler(Looper.getMainLooper())) //TODO Handler/Looper
 	}
 
 	//TODO Call on VaultList change
