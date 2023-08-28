@@ -90,8 +90,16 @@ class CryptomatorDocumentsProvider : DocumentsProvider() {
 	}
 
 	private fun rootFlags(): Int {
-		//TODO E.g `DocumentsContract.Root.FLAG_SUPPORTS_RECENTS or DocumentsContract.Root.FLAG_SUPPORTS_SEARCH`
-		return 0
+		return Root.FLAG_SUPPORTS_IS_CHILD
+	}
+
+	override fun isChildDocument(parentDocumentId: String?, documentId: String?): Boolean {
+		LOG.v("isChildDocument($parentDocumentId, $documentId)")
+		requireNotNull(parentDocumentId)
+		requireNotNull(documentId)
+
+		//TODO Verify this (Why is there a trailing slash in the parentDocId?)
+		return VaultPath(documentId).isAnyChildOf(VaultPath(parentDocumentId))
 	}
 
 	override fun queryChildDocuments(parentDocumentId: String?, projection: Array<String>?, sortOrder: String?): Cursor {

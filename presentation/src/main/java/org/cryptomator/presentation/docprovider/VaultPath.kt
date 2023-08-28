@@ -12,13 +12,18 @@ class VaultPath(val vault: Vault, path: String?) {
 		get() = path.isEmpty() //TODO .isBlank()?
 
 	val documentId: String
-		get() = "${vault.id}/${path}"
+		get() = "${vault.id}/${path}".trimEnd('/')
 
 	val name: String
 		get() = if (isRoot) vault.name else path.substringAfterLast('/')
 
 	val parent: VaultPath?
 		get() = if (isRoot) null else VaultPath(vault, path.substringBeforeLast('/', ""))
+
+	fun isAnyChildOf(potentialParent: VaultPath): Boolean {
+		//No need for equality check because documentIds can't end with a trailing slash
+		return documentId.startsWith("${potentialParent.documentId}/")
+	}
 
 	override fun equals(other: Any?): Boolean {
 		if (this === other) return true
