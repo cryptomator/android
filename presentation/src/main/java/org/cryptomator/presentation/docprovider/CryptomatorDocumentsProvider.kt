@@ -371,6 +371,11 @@ class CryptomatorDocumentsProvider : DocumentsProvider() {
 		return name //TODO Implement
 	}
 
+	override fun refresh(uri: Uri?, extras: Bundle?, cancellationSignal: CancellationSignal?): Boolean {
+		LOG.v("refresh($uri)")
+		return super.refresh(uri, extras, cancellationSignal) //TODO
+	}
+
 	//TODO Call on VaultList change, lock/unlock, etc.
 	fun notify(path: VaultPath) {
 		return notify(path.documentId)
