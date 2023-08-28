@@ -32,3 +32,7 @@ internal fun safeResolve(cloud: Cloud, path: VaultPath): CloudFolder {
 	//In the CryptoCloud the root folder is an instance of CryptoFolder
 	return if (path.isRoot) contentRepository.root(cloud) else contentRepository.resolve(cloud, "/${path.path}")
 }
+
+internal fun CryptoFolder.isEmpty(): Boolean {
+	return contentRepository.list(this).isEmpty()
+}

@@ -216,10 +216,37 @@ class CryptomatorDocumentsProvider : DocumentsProvider() {
 			add(Document.COLUMN_DOCUMENT_ID, rootPath.documentId)
 			add(Document.COLUMN_DISPLAY_NAME, rootPath.name)
 			add(Document.COLUMN_MIME_TYPE, Document.MIME_TYPE_DIR)
-			add(Document.COLUMN_FLAGS, 0) //TODO Flags (rootFlags?)
+			add(Document.COLUMN_FLAGS, rootDocumentFlags(rootPath.vault))
 			add(Document.COLUMN_SIZE, null) //TODO
 			add(Document.COLUMN_LAST_MODIFIED, 0) //TODO
 		}
+	}
+
+	private fun rootDocumentFlags(vault: Vault): Int {
+		val view = appComponent.cloudRepository().decryptedViewOf(vault)
+		val rootNode = contentRepository.root(view)
+		require(rootNode is RootCryptoFolder)
+
+		var flags = 0
+		if (!vault.cloud.isReadOnly() && !vault.isReadOnly) {
+			flags = flags or Document.FLAG_DIR_SUPPORTS_CREATE
+		}
+
+		//No:
+		//Document.FLAG_DIR_BLOCKS_OPEN_DOCUMENT_TREE
+		//Document.FLAG_DIR_PREFERS_LAST_MODIFIED
+		//Document.FLAG_VIRTUAL_DOCUMENT
+		//Document.FLAG_WEB_LINKABLE (Hub?)
+
+		//TODO
+		//Document.FLAG_DIR_PREFERS_GRID
+		//Document.FLAG_SUPPORTS_METADATA
+		//Document.FLAG_SUPPORTS_SETTINGS
+		//Document.FLAG_SUPPORTS_THUMBNAIL
+
+		//TODO Allow copying a root into another root/outside the vault?
+
+		return flags
 	}
 
 	@Throws(BackendException::class)
