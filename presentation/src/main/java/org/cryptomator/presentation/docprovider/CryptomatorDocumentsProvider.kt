@@ -145,6 +145,7 @@ class CryptomatorDocumentsProvider : DocumentsProvider() {
 	private fun queryChildDocumentsImpl(directoryPath: VaultPath, projection: Array<String>, queryArgs: Bundle?): Cursor {
 		//TODO queryArgs; e.g. android:query-arg-sort-direction = 0, android:query-arg-sort-columns = [Ljava.lang.String;@e9858a9
 		val view: Cloud = appComponent.cloudRepository().decryptedViewOf(directoryPath.vault)
+		require(requireNotNull(view.type()) == CloudType.CRYPTO)
 
 		//TODO Verify what happens if not a dir? Remove "/"?
 		//TODO Add extension functions/Move to VaultPath
@@ -173,6 +174,7 @@ class CryptomatorDocumentsProvider : DocumentsProvider() {
 	}
 
 	private fun mimeType(entry: CloudNode): String {
+		//TODO Check if CryptoNode
 		require(requireNotNull(entry.cloud?.type()) == CloudType.CRYPTO)
 
 		return when (entry) {
@@ -184,6 +186,7 @@ class CryptomatorDocumentsProvider : DocumentsProvider() {
 	}
 
 	private fun fileSize(node: CloudNode): Long? {
+		//TODO Check if CryptoNode
 		require(requireNotNull(node.cloud?.type()) == CloudType.CRYPTO)
 
 		return when (node) {

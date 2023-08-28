@@ -13,8 +13,7 @@ import kotlin.math.min
 class ROProxyFileDescriptorCallback(private val documentPath: VaultPath) : ProxyFileDescriptorCallback() {
 
 	override fun onRelease() {
-		println()
-		//NO-OP
+		//TODO Cleanup
 	}
 
 	@Throws(ErrnoException::class)

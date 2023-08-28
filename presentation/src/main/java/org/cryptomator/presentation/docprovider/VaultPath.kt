@@ -18,6 +18,7 @@ class VaultPath(val vault: Vault, path: String?) {
 		get() = if (isRoot) vault.name else path.substringAfterLast('/')
 
 	val parent: VaultPath?
+		//TODO Insist on a path not being it's own parent?
 		get() = if (isRoot) null else VaultPath(vault, path.substringBeforeLast('/', ""))
 
 	fun resolve(subPath: String): VaultPath {
