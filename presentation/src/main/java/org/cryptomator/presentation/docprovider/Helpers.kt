@@ -1,11 +1,16 @@
 package org.cryptomator.presentation.docprovider
 
+import android.content.ContentResolver
+import android.database.MatrixCursor
+import android.provider.DocumentsContract
+import org.cryptomator.data.cloud.crypto.CryptoFolder
 import org.cryptomator.domain.Cloud
 import org.cryptomator.domain.CloudFile
 import org.cryptomator.domain.CloudFolder
 import org.cryptomator.domain.CloudNode
 import org.cryptomator.domain.CloudType
 import org.cryptomator.domain.repository.CloudContentRepository
+import org.cryptomator.presentation.BuildConfig
 import org.cryptomator.presentation.CryptomatorApp
 import org.cryptomator.presentation.di.component.ApplicationComponent
 import org.cryptomator.util.file.MimeTypeMap
@@ -36,4 +41,12 @@ internal fun safeResolve(cloud: Cloud, path: VaultPath): CloudFolder {
 
 internal fun CryptoFolder.isEmpty(): Boolean {
 	return contentRepository.list(this).isEmpty()
+}
+
+internal fun MatrixCursor.setNotificationUriForPath(cr: ContentResolver, vaultPath: VaultPath) {
+	return setNotificationUriForId(cr, vaultPath.documentId)
+}
+
+internal fun MatrixCursor.setNotificationUriForId(cr: ContentResolver, documentId: String) {
+	setNotificationUri(cr, DocumentsContract.buildDocumentUri(BuildConfig.DOCUMENTS_PROVIDER_AUTHORITY, documentId))
 }

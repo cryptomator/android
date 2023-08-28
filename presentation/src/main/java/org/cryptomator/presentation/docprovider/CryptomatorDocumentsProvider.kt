@@ -22,6 +22,7 @@ import org.cryptomator.domain.CloudType
 import org.cryptomator.domain.Vault
 import org.cryptomator.domain.exception.BackendException
 import org.cryptomator.domain.usecases.ProgressAware
+import org.cryptomator.domain.usecases.cloud.EmptyDataSource
 import org.cryptomator.presentation.BuildConfig
 import org.cryptomator.presentation.R
 import org.cryptomator.util.file.MimeType
@@ -151,6 +152,7 @@ class CryptomatorDocumentsProvider : DocumentsProvider() {
 
 		val entries = contentRepository.list(cloudDirPath)
 		val cursor = MatrixCursor(projection, entries.size)
+		cursor.setNotificationUriForPath(context!!.contentResolver, directoryPath)
 
 		entries.forEach { entry ->
 			val isDir = entry is CryptoFolder
@@ -279,7 +281,7 @@ class CryptomatorDocumentsProvider : DocumentsProvider() {
 
 		var flags = 0
 		if (canWrite) {
-			//TODO
+			flags = flags or (if (isDir) Document.FLAG_DIR_SUPPORTS_CREATE else /*TODO Document.FLAG_SUPPORTS_WRITE*/ 0)
 		}
 
 		//No:
@@ -319,6 +321,54 @@ class CryptomatorDocumentsProvider : DocumentsProvider() {
 	private fun openDocumentRO(documentPath: VaultPath): ParcelFileDescriptor {
 		val storageManager = context!!.getSystemService(StorageManager::class.java) //TODO Nullability
 		return storageManager.openProxyFileDescriptor(ParcelFileDescriptor.MODE_READ_ONLY, ROProxyFileDescriptorCallback(documentPath), Handler(Looper.getMainLooper())) //TODO Handler/Looper
+	}
+
+	override fun createDocument(parentDocumentId: String?, mimeType: String?, displayName: String?): String {
+		LOG.v("createDocument($parentDocumentId, $mimeType, $displayName)")
+		requireNotNull(parentDocumentId)
+		requireNotNull(mimeType) //TODO Verify
+		requireNotNull(displayName) //TODO Verify
+
+		val parent = VaultPath(parentDocumentId)
+		val view = appComponent.cloudRepository().decryptedViewOf(parent.vault)
+
+		val parentNode = resolveExistingFolder(view, parent)
+		val path = resolveUnusedPath(view, parent, cleanName(displayName))
+		if (mimeType == Document.MIME_TYPE_DIR) {
+			contentRepository.create(contentRepository.folder(parentNode, path.name))
+		} else {
+			//TODO Verify ProgressAware
+			contentRepository.write(contentRepository.file(parentNode, path.name, 0), EmptyDataSource, ProgressAware.NO_OP_PROGRESS_AWARE_UPLOAD, false, 0)
+		}
+		notify(parentDocumentId)
+		return path.documentId
+	}
+
+	private fun resolveUnusedPath(cloud: Cloud, parent: VaultPath, name: String): VaultPath {
+		require(cloud.type() == CloudType.CRYPTO)
+
+		val path = parent.resolve(name)
+		val pathNode = resolveNode(cloud, path)
+		if (pathNode != null) {
+			require(contentRepository.exists(pathNode)) //Sanity check //TODO Remove with better implementation of resolveNode
+			return resolveUnusedPath(cloud, parent, "${name}_") //TODO Better (non-recursive) algorithm
+		}
+		return path
+	}
+
+	private fun resolveExistingFolder(cloud: Cloud, nodePath: VaultPath): CloudFolder {
+		require(cloud.type() == CloudType.CRYPTO)
+
+		val node = resolveNode(cloud, nodePath)
+		requireNotNull(node)
+		require(nodePath.isRoot || contentRepository.exists(node))
+		require(node is CloudFolder) //TODO Fix this mess
+
+		return node
+	}
+
+	private fun cleanName(name: String): String {
+		return name //TODO Implement
 	}
 
 	//TODO Call on VaultList change, lock/unlock, etc.

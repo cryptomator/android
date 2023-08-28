@@ -20,6 +20,12 @@ class VaultPath(val vault: Vault, path: String?) {
 	val parent: VaultPath?
 		get() = if (isRoot) null else VaultPath(vault, path.substringBeforeLast('/', ""))
 
+	fun resolve(subPath: String): VaultPath {
+		//TODO Fix diverging semantics with CloudContentRepository, here: Parent/<Empty> = Parent
+		//TODO Sanitize
+		return VaultPath("$documentId/${normalizePath(subPath)}")
+	}
+
 	fun isAnyChildOf(potentialParent: VaultPath): Boolean {
 		//No need for equality check because documentIds can't end with a trailing slash
 		return documentId.startsWith("${potentialParent.documentId}/")
