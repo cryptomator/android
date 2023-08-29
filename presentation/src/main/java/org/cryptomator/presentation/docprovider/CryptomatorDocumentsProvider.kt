@@ -288,6 +288,7 @@ class CryptomatorDocumentsProvider : DocumentsProvider() {
 			flags = flags or (if (isDir) Document.FLAG_DIR_SUPPORTS_CREATE else /*TODO Document.FLAG_SUPPORTS_WRITE*/ 0)
 			flags = flags or Document.FLAG_SUPPORTS_DELETE or //
 					Document.FLAG_SUPPORTS_RENAME or //
+					Document.FLAG_SUPPORTS_COPY or //
 					Document.FLAG_SUPPORTS_MOVE or //
 					Document.FLAG_SUPPORTS_REMOVE
 		}
@@ -435,12 +436,12 @@ class CryptomatorDocumentsProvider : DocumentsProvider() {
 			return sourcePath.documentId
 		}
 		//TODO both cases apparently not called from UI
-		// But seems to send notification
+		// But seems to send notification //TODO Verify (Exception might just not show up in Logcat)
 		if (sourcePath == newParentPath || newParentPath.isAnyChildOf(sourcePath)) {
 			throw UnsupportedOperationException("Circular move") //TODO Display error to user
 		}
 
-		val view = appComponent.cloudRepository().decryptedViewOf(sourcePath.vault)
+		val view = appComponent.cloudRepository().decryptedViewOf(vault)
 		val movedNode = moveInto(view, requireNotNull(resolveNode(view, sourcePath)), newParentPath)
 
 		notify(oldParentPath)
@@ -487,6 +488,54 @@ class CryptomatorDocumentsProvider : DocumentsProvider() {
 
 		notify(currentPath.parent!!)
 		return VaultPath(currentPath.vault, movedNode.path).documentId
+	}
+
+	//TODO Test copying (missing upstream method)
+	override fun copyDocument(sourceDocumentId: String?, targetParentDocumentId: String?): String {
+		LOG.v("copyDocument($sourceDocumentId, $targetParentDocumentId)")
+		requireNotNull(sourceDocumentId)
+		requireNotNull(targetParentDocumentId)
+
+		return copyDocumentImpl(VaultPath(sourceDocumentId), VaultPath(targetParentDocumentId))
+	}
+
+	private fun copyDocumentImpl(sourcePath: VaultPath, newParentPath: VaultPath): String {
+		val vault = sourcePath.vault
+		require(!sourcePath.isRoot) //TODO Allow copying roots?
+		require(vault == newParentPath.vault)
+
+		//TODO both cases apparently not called from UI
+		// But seems to send notification //TODO Verify (Exception might just not show up in Logcat)
+		if (sourcePath == newParentPath || newParentPath.isAnyChildOf(sourcePath)) {
+			throw UnsupportedOperationException("Circular copy") //TODO Allow this OR display error to user
+		}
+
+		val view = appComponent.cloudRepository().decryptedViewOf(vault)
+		val newNode = copyInto(view, requireNotNull(resolveNode(view, sourcePath)), newParentPath)
+
+		//notify(newParentPath) //TODO
+		return VaultPath(vault, newNode.path).documentId
+	}
+
+	private fun copyInto(cloud: Cloud, node: CloudNode, folderPath: VaultPath): CloudNode {
+		require(cloud.type() == CloudType.CRYPTO)
+		require(node is CryptoNode)
+		require(node !is RootCryptoFolder) //Illegal operation //TODO Allow copying roots?
+		require(node !is CryptoSymlink) //Not implemented upstream
+
+		val parentNode = resolveExistingFolder(cloud, folderPath)
+		val newName = resolveUnusedPath(cloud, folderPath, node.name).name
+		return when (node) {
+			is CryptoFile -> {
+				contentRepository.copy(node, contentRepository.file(parentNode, newName))
+			}
+
+			is CryptoFolder -> {
+				contentRepository.copy(node, contentRepository.folder(parentNode, newName))
+			}
+
+			else -> throw NotImplementedError()
+		}
 	}
 
 	//TODO Call on VaultList change, lock/unlock, etc.
