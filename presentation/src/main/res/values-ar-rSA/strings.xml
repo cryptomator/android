@@ -66,7 +66,7 @@
 	<string name="screen_vault_list_vault_creation_hint">أنقر هنا لإنشاء خزينة جديدة</string>
 	<string name="screen_vault_list_change_password_successful">تم تغيير كلمة المرور بنجاح</string>
 	<!-- # screen: file browser -->
-	<string name="screen_file_browser_default_title">مخزن</string>
+	<string name="screen_file_browser_default_title">الخزينة</string>
 	<string name="screen_file_browser_add_existing_vault_extra_text">اختر مِلَفَ المفتاحِ الرئيسِ</string>
 	<string name="screen_file_browser_create_new_vault_button_text">ضع هنا</string>
 	<string name="screen_file_browser_create_new_vault_extra_text">اسم المخزن: %1$s</string>
@@ -234,7 +234,7 @@
 	<string name="screen_cryptomator_variants_website_description">تحتوي برامج ملكية خاصة.</string>
 	<string name="screen_cryptomator_variants_installation_hint">التبديل من أو إلى مستودع تطبيقات F-Droid الرئيسي يستلزم إعداد نسخة جديد من التطبيق.</string>
 	<!-- # dialogs -->
-	<string name="dialog_button_cancel">الغاء</string>
+	<string name="dialog_button_cancel">إلغاء</string>
 	<string name="dialog_enter_password_positive_button">افتح</string>
 	<string name="dialog_change_password_old_password_label">كلمة المرور القديمة</string>
 	<string name="dialog_change_password_new_password_label">كلمة المرور الجديدة</string>
