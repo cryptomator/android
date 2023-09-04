@@ -394,6 +394,7 @@
 	<string name="notification_auto_upload_failed_due_to_folder_not_exists">Вибрана тека для вивантаження більше недоступна. Перейдіть у налаштування для вибору іншої</string>
 	<string name="notification_auto_upload_failed_due_to_vault_locked">Vault заблоковано під час вивантаження, будь ласка, відкрийте vault знову, щоб продовжити</string>
 	<string name="notification_auto_upload_failed_due_to_vault_not_found">Vault, визначений для автоматичного вивантаження, більше не існує.</string>
+	<string name="notification_auto_upload_failed_due_to_authentication_problem">Натисніть, щоб оновити автентифікацію.</string>
 	<string name="notification_open_writable_file_title">Відкрити доступний для запису файл</string>
 	<string name="notification_open_writable_file_message">Сховище розблоковано до завершення редагування</string>
 	<string name="notification_update_check_finished_latest">Встановлено найновішу версію</string>
