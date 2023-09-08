@@ -34,11 +34,16 @@
 	<string name="error_file_not_found_after_opening_using_3party">Ang lokal na file ay hindi na matagpuan pagkatapos lumipat sa Cryptomator. Maaaring hindi na ma-i upload pabalik sa cloud.</string>
 	<string name="error_no_such_bucket">Hindi matagpuan ang bucket na ito</string>
 	<string name="error_masterkey_location_not_supported">Hindi pa suportado ang custom Masterkey location</string>
+	<string name="error_interact_with_fdroid_but_fdroid_missing">Nabigong makipag-ugnayan sa F-Droid app. Hindi naka-install?</string>
 	<!-- # clouds -->
 	<!-- ## cloud names -->
 	<string name="cloud_names_local_storage">Local storage</string>
 	<!-- # permission -->
 	<!-- ## permission messages -->
+	<string name="permission_message_export_file">Kailangan ng Cryptomator ng access sa storage para mag-export ng mga file</string>
+	<string name="permission_message_upload_file">Kailangan ng Cryptomator ng access sa storage para mag-upload ng mga file</string>
+	<string name="permission_message_share_file">Kailangan ng Cryptomator ng access sa storage para makapagbahagi ng mga file</string>
+	<string name="permission_revoked_re_request_permission">Nawalan ng pahintulot ang Cryptomator na i-access ang lokasyong ito. Mangyaring piliin muli ang folder na ito upang maibalik ang pahintulot.</string>
 	<string name="snack_bar_action_title_settings">Settings</string>
 	<string name="snack_bar_action_title_search">Hanapin</string>
 	<string name="snack_bar_action_title_search_previous">Nakaraan</string>
@@ -51,20 +56,27 @@
 	<string name="snack_bar_action_title_sort_biggest">Pinakamalaki muna</string>
 	<string name="snack_bar_action_title_sort_smallest">Pinakamaliit muna</string>
 	<string name="snack_bar_cryptomator_variants_title">Magbasa pa</string>
+	<string name="snack_bar_cryptomator_variants_hint">Wala si Cloud sa listahan?</string>
 	<!-- # screens -->
 	<!-- # screen: vault list -->
 	<string name="screen_vault_list_actions_title">Idagdag sa Cryptomator</string>
 	<string name="screen_vault_list_action_create_new_vault">Gumawa ng bagong vault</string>
 	<string name="screen_vault_list_action_add_existing_vault">Magdagdag ng umiiral na vault</string>
 	<string name="screen_vault_list_vault_action_delete">Tanggalin</string>
+	<string name="screen_vault_list_vault_creation_hint">Mag-tap dito para gumawa ng bagong vault</string>
 	<string name="screen_vault_list_change_password_successful">Matagumpay na napalitan ang password</string>
 	<!-- # screen: file browser -->
 	<string name="screen_file_browser_default_title">Vault</string>
 	<string name="screen_file_browser_add_existing_vault_extra_text">Piliin ang masterkey file</string>
 	<string name="screen_file_browser_create_new_vault_button_text">Ilagay dito</string>
 	<string name="screen_file_browser_create_new_vault_extra_text">Pangalan ng vault: %1$s</string>
+	<plurals name="screen_file_browser_subtitle_move">
+		<item quantity="one">Ilipat ang %1$s sa</item>
+		<item quantity="other">Ilipat ang %2$d item sa</item>
+	</plurals>
 	<string name="screen_file_browser_move_button_text">Ilipat</string>
 	<string name="screen_file_browser_msg_empty_folder">Walang laman na folder</string>
+	<string name="screen_file_browser_file_info_label_date">binago %1$s ang nakalipas</string>
 	<string name="screen_file_browser_share_intent_chooser_title">Ibahagi kay</string>
 	<string name="screen_file_browser_share_destination_title">Pumili ng destinasyon</string>
 	<string name="screen_file_browser_share_button_text">Pumili</string>
@@ -76,6 +88,8 @@
 	<string name="screen_file_browser_upload_files_chooser_title">Files</string>
 	<string name="screen_file_browser_msg_file_exported">Na-export na ang file</string>
 	<string name="screen_file_browser_msg_files_exported">Na-export na ang mga files</string>
+	<string name="screen_file_browser_nothing_to_export">Walang mai-export</string>
+	<string name="screen_file_browser_msg_creating_download_dir_failed">Nabigo ang paggawa ng direktoryo sa pag-download</string>
 	<string name="screen_file_browser_node_action_share">Ibahagi</string>
 	<string name="screen_file_browser_node_action_rename">Baguhin ang pangalan</string>
 	<string name="screen_file_browser_node_action_edit_text">I-edit</string>
@@ -104,7 +118,9 @@
 	<string name="screen_choose_cloud_service_title">Cloud service</string>
 	<!-- ## screen: cloud connections -->
 	<string name="screen_cloud_connections_title">Piliin ang location</string>
+	<string name="screen_cloud_connections_no_connections">Mag-tap dito para magdagdag ng mga lokasyon</string>
 	<string name="screen_cloud_error_webdav_not_supported">Ang server na ito ay mukhang hindi tugma sa WebDAV</string>
+	<string name="screen_cloud_local_error_no_content_provider">Walang nakitang file manager na sumusuporta sa pagbubukas ng mga direktoryo</string>
 	<!-- ## screen: webdav settings -->
 	<string name="screen_webdav_settings_url_port_label">URL</string>
 	<string name="screen_webdav_settings_username_label">Username</string>
