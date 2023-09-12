@@ -130,7 +130,7 @@
 	<!-- Vault not found -->
 	<string name="dialog_vault_not_found_positive_button_text">Премахване</string>
 	<string name="dialog_lock_vault">Заключване</string>
-	<string name="dialog_microsoft_workaround_disclaimer_hint">Поради дефект в приложенията на Microsoft файлът, който трябва да бъде редактиран, трябва да бъде споделен с тези приложения в публична папка на вашето устройство. След възобновяване на работата на Cryptomator публично достъпният файл се изтрива отново, но Cryptomator не може да повлияе на случващото се файла междувременно. Преди да включите тук се уверете, че сте наясно с това поведение. Това ще се прилага само за файлове на Microsoft.\n\nСлед включване Cryptomator ще се рестартира.</string>
+	<string name="dialog_microsoft_workaround_disclaimer_hint">Поради дефект в приложенията на Microsoft, файлът, който трябва да бъде редактиран, трябва да бъде споделен с тези приложения в публична папка на вашето устройство. След възобновяване на работата на Cryptomator, публично достъпният файл се изтрива отново, но Cryptomator не може да повлияе на случващото се с файла междувременно. Преди да включите тук се уверете, че сте наясно с това поведение. Това ще се прилага само за файлове на Microsoft.\n\nСлед включване Cryptomator ще се рестартира.</string>
 	<string name="dialog_app_is_obscured_info_neutral_button">Затваряне</string>
 	<string name="dialog_sym_link_back_button">Назад</string>
 	<!-- # error reports -->
