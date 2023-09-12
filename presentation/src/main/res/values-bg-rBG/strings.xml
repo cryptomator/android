@@ -1,17 +1,44 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 	<!-- # app -->
+	<string name="share_with_label">Криптирай</string>
 	<!-- # error messages -->
+	<string name="error_generic">Възникна грешка</string>
+	<string name="error_authentication_failed">Неуспешно удостоверяване</string>
+	<string name="error_authentication_failed_re_authenticate">Неуспешно удостоверяване, моля опитай чрез %1$s</string>
+	<string name="error_no_network_connection">Няма мрежова връзка</string>
+	<string name="error_invalid_passphrase">Грешна парола</string>
+	<string name="error_file_or_folder_exists">Файлът или папката вече съществува.</string>
+	<string name="error_no_such_file">Файлът не съществува.</string>
+	<string name="error_server_not_found">Сървърът не е намерен.</string>
 	<!-- # clouds -->
 	<!-- ## cloud names -->
 	<!-- # permission -->
 	<!-- ## permission messages -->
+	<string name="snack_bar_action_title_settings">Настройки</string>
+	<string name="snack_bar_action_title_search">Търсене</string>
 	<string name="snack_bar_action_title_search_next">Напред</string>
+	<string name="snack_bar_action_title_sort_az">A - Я</string>
+	<string name="snack_bar_action_title_sort_za">Я - А</string>
 	<!-- # screens -->
 	<!-- # screen: vault list -->
 	<!-- # screen: file browser -->
 	<string name="screen_file_browser_default_title">Хранилище</string>
+	<string name="screen_file_browser_move_button_text">Преместване</string>
+	<string name="screen_file_browser_msg_empty_folder">Празна папка</string>
+	<string name="screen_file_browser_file_info_label_date">променено преди %1$s</string>
+	<string name="screen_file_browser_share_intent_chooser_title">Споделяне чрез</string>
+	<string name="screen_file_browser_actions_title">Добавяне към %1$s</string>
+	<string name="screen_file_browser_action_create_folder">Създай папка</string>
+	<string name="screen_file_browser_action_create_new_text_file">Създай текстов файл</string>
+	<string name="screen_file_browser_action_upload_files">Качи файлове</string>
+	<string name="screen_file_browser_selection_mode_title_zero_elements">Избери елементи</string>
+	<string name="screen_file_browser_selection_mode_title_one_or_more_elements">Избрахте %1$d</string>
+	<string name="screen_file_browser_select_items">Избери</string>
+	<string name="screen_file_browser_select_all_items">Избери всички</string>
+	<string name="screen_file_browser_no_connection_button_text">Повторен опит</string>
 	<!-- ## screen: text editor -->
+	<string name="screen_text_editor_save_success">Успешно запазено</string>
 	<!-- ## screen: share files -->
 	<!-- ## screen: choose cloud service -->
 	<!-- ## screen: cloud connections -->
@@ -21,6 +48,7 @@
 	<!-- ## screen: set password -->
 	<string name="screen_set_password_button_text">Готово</string>
 	<!-- ## screen: settings -->
+	<string name="screen_settings_section_search">Търсене</string>
 	<string name="screen_settings_microsoft_apps_workaround_label">Заобиколен начин за отваряне на файлове на Microsoft</string>
 	<string name="screen_settings_microsoft_apps_workaround_summary">Отваряне на файлове в приложения на Microsoft с разрешение за писане</string>
 	<!-- ## screen: cloud settings -->
