@@ -9,12 +9,32 @@
 	<string name="error_no_network_connection">Няма мрежова връзка</string>
 	<string name="error_invalid_passphrase">Грешна парола</string>
 	<string name="error_file_or_folder_exists">Файлът или папката вече съществува.</string>
+	<string name="error_vault_version_not_supported">Хранилище версия %1$s не се поддържа. Това хранилище е създадено с различна версия на Cryptomator.</string>
+	<string name="error_vault_config_file_missing_due_to_format_999">Файлът %1$s липсва в папката на хранилището. Уверете се, че този файл е в папката на хранилището в облака.</string>
+	<string name="error_vault_already_exists">Хранилището вече съществува.</string>
 	<string name="error_no_such_file">Файлът не съществува.</string>
+	<string name="error_vault_has_been_locked">Хранилището е заключено.</string>
+	<string name="error_cloud_already_exists">Облакът вече съществува.</string>
+	<string name="error_activity_not_found">Свалете приложение, което може да отвори този файл.</string>
 	<string name="error_server_not_found">Сървърът не е намерен.</string>
+	<string name="error_device_policy_manager_not_found">Отворете настройките на устройството си и задайте заключване на екрана ръчно</string>
+	<string name="error_export_illegal_file_name">Експортирането е неуспешно. Премахнете специалните символи от имената на файловете и опитайте отново.</string>
+	<string name="error_name_contains_invalid_characters">Специалните символи не са позволени.</string>
+	<string name="error_names_contains_invalid_characters">Имена на файлове не може да съдържат специални символи.</string>
+	<string name="error_vault_name_contains_invalid_characters">Името на хранилище не може да съдържа специални символи.</string>
+	<string name="error_general_update">Неуспешна проверка за обновяване. Обща грешка.</string>
+	<string name="error_hash_mismatch_update">Неуспешна проверка за обновяване. Изчисленият хеш не съвпада с качения файл</string>
+	<string name="error_update_no_internet">Неуспешна проверка за обновяване. Няма връзка с интернет.</string>
+	<string name="error_play_services_not_available">Google Play услуги не са инсталирани</string>
 	<!-- # clouds -->
 	<!-- ## cloud names -->
+	<string name="cloud_names_local_storage">Локално съхранение</string>
 	<!-- # permission -->
 	<!-- ## permission messages -->
+	<string name="permission_message_export_file">Cryptomator изисква достъп до локалното хранилище, за да експортира файлове</string>
+	<string name="permission_message_upload_file">Cryptomator изисква достъп до локалното хранилище, за да качи файлове</string>
+	<string name="permission_message_share_file">Cryptomator изисква достъп до локалното хранилище, за да сподели файлове</string>
+	<string name="permission_revoked_re_request_permission">Cryptomator вече няма достъп до тук. Моля изберете папката отново, за да възстановите достъпа.</string>
 	<string name="snack_bar_action_title_settings">Настройки</string>
 	<string name="snack_bar_action_title_search">Търсене</string>
 	<string name="snack_bar_action_title_search_next">Напред</string>
