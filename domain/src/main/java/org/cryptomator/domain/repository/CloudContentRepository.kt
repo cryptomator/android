@@ -68,6 +68,24 @@ interface CloudContentRepository<CloudType : Cloud, NodeType : CloudNode, DirTyp
 	fun move(source: FileType, target: FileType): FileType
 
 	/**
+	 * @return created cloud folder (might be different from target)
+	 * @throws org.cryptomator.domain.exception.CloudNodeAlreadyExistsException If a cloud node with the same target name already exists
+	 */
+	@Throws(BackendException::class)
+	fun copy(source: DirType, target: DirType): DirType {
+		TODO()
+	}
+
+	/**
+	 * @return created cloud file (might be different from target)
+	 * @throws org.cryptomator.domain.exception.CloudNodeAlreadyExistsException If a cloud node with the same target name already exists
+	 */
+	@Throws(BackendException::class)
+	fun copy(source: FileType, target: FileType): FileType {
+		TODO()
+	}
+
+	/**
 	 * @throws org.cryptomator.domain.exception.CloudNodeAlreadyExistsException If a cloud node with the same file name already exists
 	 */
 	@Throws(BackendException::class)
