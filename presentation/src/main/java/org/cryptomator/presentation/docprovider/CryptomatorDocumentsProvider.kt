@@ -167,7 +167,7 @@ class CryptomatorDocumentsProvider : DocumentsProvider() {
 				add(Document.COLUMN_MIME_TYPE, mimeType(entry))
 				add(Document.COLUMN_FLAGS, documentFlags(childPath, isDir))
 				add(Document.COLUMN_SIZE, fileSize(entry))
-				add(Document.COLUMN_LAST_MODIFIED, 0) //TODO
+				add(Document.COLUMN_LAST_MODIFIED, lastModified(entry))
 			}
 		}
 		return cursor
@@ -192,9 +192,20 @@ class CryptomatorDocumentsProvider : DocumentsProvider() {
 		return when (node) {
 			is CryptoFile -> node.size
 			is CryptoFolder -> null
-			is CryptoSymlink -> fileSize(node.cloudFile)
+			is CryptoSymlink -> fileSize(node.cloudFile) //TODO Use node.size?
 			else -> throw IllegalArgumentException("Node needs to be a CryptoNode, was ${node.javaClass.name}")
 		}
+	}
+
+	private fun lastModified(node: CloudNode): Long? {
+		require(requireNotNull(node.cloud?.type()) == CloudType.CRYPTO)
+
+		return when (node) {
+			is CryptoFile -> node.modified
+			is CryptoFolder -> null
+			is CryptoSymlink -> node.modified
+			else -> throw IllegalArgumentException("Node needs to be a CryptoNode, was ${node.javaClass.name}")
+		}?.time
 	}
 
 	override fun queryDocument(documentId: String?, projection: Array<String>?): Cursor {
@@ -225,7 +236,7 @@ class CryptomatorDocumentsProvider : DocumentsProvider() {
 			add(Document.COLUMN_MIME_TYPE, Document.MIME_TYPE_DIR)
 			add(Document.COLUMN_FLAGS, rootDocumentFlags(rootPath.vault))
 			add(Document.COLUMN_SIZE, null) //TODO
-			add(Document.COLUMN_LAST_MODIFIED, 0) //TODO
+			add(Document.COLUMN_LAST_MODIFIED, null)
 		}
 	}
 
@@ -273,7 +284,7 @@ class CryptomatorDocumentsProvider : DocumentsProvider() {
 			add(Document.COLUMN_MIME_TYPE, mimeType(cloudNode))
 			add(Document.COLUMN_FLAGS, documentFlags(documentPath, isDir))
 			add(Document.COLUMN_SIZE, fileSize(cloudNode))
-			add(Document.COLUMN_LAST_MODIFIED, 0) //TODO
+			add(Document.COLUMN_LAST_MODIFIED, lastModified(cloudNode))
 		}
 	}
 
