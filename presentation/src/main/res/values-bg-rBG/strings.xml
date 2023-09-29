@@ -110,10 +110,14 @@
 	<!-- ## screen: choose cloud service -->
 	<!-- ## screen: cloud connections -->
 	<!-- ## screen: webdav settings -->
+	<string name="screen_webdav_settings_password_label">Парола</string>
 	<!-- ## screen: s3 settings -->
 	<!-- ## screen: enter vault name -->
 	<!-- ## screen: set password -->
 	<string name="screen_set_password_button_text">Готово</string>
+	<string name="screen_set_password_strength_indicator_1">Слаба</string>
+	<string name="screen_set_password_strength_indicator_2">Задоволителна</string>
+	<string name="screen_set_password_strength_indicator_3">Добра</string>
 	<!-- ## screen: settings -->
 	<string name="screen_settings_section_search">Търсене</string>
 	<string name="screen_settings_section_support">Поддръжка</string>
@@ -137,6 +141,7 @@
 	<!-- # misc -->
 	<!-- ## file size helper -->
 	<!-- ## date helper -->
+	<string name="time_unit_minutes_pl">минути</string>
 	<!-- ## biometric authentication -->
 	<!-- notification -->
 	<string name="notification_auto_upload_failed_due_to_authentication_problem">Докоснете, за да презаредите удостоверяването.</string>
