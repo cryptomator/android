@@ -4,6 +4,7 @@ import android.content.Context;
 
 import org.cryptomator.presentation.CryptomatorApp;
 
+import javax.inject.Inject;
 import javax.inject.Singleton;
 
 import dagger.Module;
@@ -12,15 +13,9 @@ import dagger.Provides;
 @Module
 public class ApplicationModule {
 
-	private final CryptomatorApp application;
-
-	public ApplicationModule(CryptomatorApp application) {
-		this.application = application;
-	}
-
 	@Provides
 	@Singleton
-	Context provideApplicationContext() {
+	Context provideApplicationContext(CryptomatorApp application) {
 		return application;
 	}
 }

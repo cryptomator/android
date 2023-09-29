@@ -11,14 +11,10 @@ import android.os.StrictMode
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.multidex.MultiDexApplication
 import org.cryptomator.data.cloud.crypto.Cryptors
-import org.cryptomator.data.cloud.crypto.CryptorsModule
-import org.cryptomator.data.repository.RepositoryModule
 import org.cryptomator.domain.Cloud
 import org.cryptomator.presentation.di.HasComponent
 import org.cryptomator.presentation.di.component.ApplicationComponent
 import org.cryptomator.presentation.di.component.DaggerApplicationComponent
-import org.cryptomator.presentation.di.module.ApplicationModule
-import org.cryptomator.presentation.di.module.ThreadModule
 import org.cryptomator.presentation.logging.CrashLogging.Companion.setup
 import org.cryptomator.presentation.logging.DebugLogger
 import org.cryptomator.presentation.logging.ReleaseLogger
@@ -162,10 +158,8 @@ class CryptomatorApp : MultiDexApplication(), HasComponent<ApplicationComponent>
 
 	private fun initializeInjector() {
 		applicationComponent = DaggerApplicationComponent.builder() //
-			.applicationModule(ApplicationModule(this)) //
-			.threadModule(ThreadModule()) //
-			.repositoryModule(RepositoryModule()) //
-			.cryptorsModule(CryptorsModule(appCryptors)) //
+			.withApp(this) //
+			.withCryptors(appCryptors) //
 			.build()
 	}
 
