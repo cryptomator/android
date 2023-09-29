@@ -5,12 +5,15 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.net.Uri;
 import android.os.IBinder;
+import android.provider.DocumentsContract;
 
 import androidx.annotation.Nullable;
 import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 
 import org.cryptomator.data.cloud.crypto.Cryptors;
+import org.cryptomator.presentation.BuildConfig;
 import org.cryptomator.presentation.util.FileUtil;
 import org.cryptomator.util.LockTimeout;
 import org.cryptomator.util.SharedPreferencesHandler;
@@ -134,6 +137,12 @@ public class CryptorsService extends Service {
 		notification.setUnlockedCount(unlocked);
 		notification.update();
 		signalVaultsUnlockedAndInBackgroundIfRequired();
+		updateDocumentProviderRoots();
+	}
+
+	private void updateDocumentProviderRoots() {
+		Uri rootsUri = DocumentsContract.buildRootsUri(BuildConfig.DOCUMENTS_PROVIDER_AUTHORITY);
+		getContentResolver().notifyChange(rootsUri, null);
 	}
 
 	private void onAppInForegroundChanged(boolean appInForeground) {
