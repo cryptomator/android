@@ -11,8 +11,6 @@ import org.cryptomator.domain.repository.CloudContentRepository;
 import org.cryptomator.domain.repository.CloudRepository;
 import org.cryptomator.domain.repository.UpdateCheckRepository;
 import org.cryptomator.domain.repository.VaultRepository;
-import org.cryptomator.presentation.CryptomatorApp;
-import org.cryptomator.presentation.di.module.ApplicationModule;
 import org.cryptomator.presentation.di.module.ThreadModule;
 import org.cryptomator.presentation.util.ContentResolverUtil;
 import org.cryptomator.presentation.util.FileUtil;
@@ -23,7 +21,7 @@ import dagger.BindsInstance;
 import dagger.Component;
 
 @Singleton
-@Component(modules = {ApplicationModule.class, ThreadModule.class, RepositoryModule.class})
+@Component(modules = {ThreadModule.class, RepositoryModule.class})
 public interface ApplicationComponent {
 
 	Context context();
@@ -50,7 +48,7 @@ public interface ApplicationComponent {
 	interface Builder {
 
 		@BindsInstance
-		Builder withApp(CryptomatorApp app);
+		Builder withApplicationContext(Context appContext);
 
 		@BindsInstance
 		Builder withCryptors(Cryptors cryptors);

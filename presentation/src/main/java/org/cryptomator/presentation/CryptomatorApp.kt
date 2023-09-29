@@ -158,7 +158,7 @@ class CryptomatorApp : MultiDexApplication(), HasComponent<ApplicationComponent>
 
 	private fun initializeInjector() {
 		applicationComponent = DaggerApplicationComponent.builder() //
-			.withApp(this) //
+			.withApplicationContext(this) //
 			.withCryptors(appCryptors) //
 			.build()
 	}
