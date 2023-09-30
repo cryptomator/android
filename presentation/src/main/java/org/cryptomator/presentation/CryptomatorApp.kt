@@ -116,7 +116,7 @@ class CryptomatorApp : MultiDexApplication(), HasComponent<ApplicationComponent>
 					applicationComponent.cloudContentRepository(),  //
 					applicationComponent.fileUtil(),  //
 					applicationComponent.contentResolverUtil(),  //
-					Companion.applicationContext
+					_applicationContext
 				)
 			}
 
@@ -177,7 +177,7 @@ class CryptomatorApp : MultiDexApplication(), HasComponent<ApplicationComponent>
 		if (BuildConfig.DEBUG) {
 			Timber.plant(DebugLogger())
 		}
-		Timber.plant(ReleaseLogger(Companion.applicationContext))
+		Timber.plant(ReleaseLogger(_applicationContext))
 	}
 
 	override fun getComponent(): ApplicationComponent {
@@ -220,13 +220,18 @@ class CryptomatorApp : MultiDexApplication(), HasComponent<ApplicationComponent>
 
 	companion object {
 
-		private lateinit var applicationContext: Context
+		private lateinit var _applicationContext: Context
+
 		fun applicationContext(): Context {
-			return applicationContext
+			return _applicationContext
+		}
+
+		fun isApplicationContextInitialized(): Boolean {
+			return this::_applicationContext.isInitialized
 		}
 	}
 
 	init {
-		Companion.applicationContext = this
+		_applicationContext = this
 	}
 }
