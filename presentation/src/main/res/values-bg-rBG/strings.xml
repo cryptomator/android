@@ -119,6 +119,7 @@
 	<string name="screen_set_password_strength_indicator_2">Задоволителна</string>
 	<string name="screen_set_password_strength_indicator_3">Добра</string>
 	<!-- ## screen: settings -->
+	<string name="screen_settings_section_general">Общи</string>
 	<string name="screen_settings_section_search">Търсене</string>
 	<string name="screen_settings_section_support">Поддръжка</string>
 	<string name="screen_settings_contact_label">Поискай помощ</string>
