@@ -2,6 +2,7 @@ package org.cryptomator.presentation.docprovider
 
 import android.content.ContentResolver
 import android.database.MatrixCursor
+import android.net.Uri
 import android.provider.DocumentsContract
 import org.cryptomator.data.cloud.crypto.CryptoFolder
 import org.cryptomator.domain.Cloud
@@ -43,10 +44,10 @@ internal fun CryptoFolder.isEmpty(): Boolean {
 	return contentRepository.list(this).isEmpty()
 }
 
-internal fun MatrixCursor.setNotificationUriForPath(cr: ContentResolver, vaultPath: VaultPath) {
+internal fun MatrixCursor.setNotificationUriForPath(cr: ContentResolver, vaultPath: VaultPath): Uri {
 	return setNotificationUriForId(cr, vaultPath.documentId)
 }
 
-internal fun MatrixCursor.setNotificationUriForId(cr: ContentResolver, documentId: String) {
-	setNotificationUri(cr, DocumentsContract.buildDocumentUri(BuildConfig.DOCUMENTS_PROVIDER_AUTHORITY, documentId))
+internal fun MatrixCursor.setNotificationUriForId(cr: ContentResolver, documentId: String): Uri {
+	return DocumentsContract.buildDocumentUri(BuildConfig.DOCUMENTS_PROVIDER_AUTHORITY, documentId).also { setNotificationUri(cr, it) }
 }
