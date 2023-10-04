@@ -1,49 +1,49 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 	<!-- # app -->
-	<string name="share_with_label">Криптирай</string>
+	<string name="share_with_label">Шифроване</string>
 	<!-- # error messages -->
 	<string name="error_generic">Възникна грешка</string>
 	<string name="error_authentication_failed">Неуспешно удостоверяване</string>
-	<string name="error_authentication_failed_re_authenticate">Неуспешно удостоверяване, моля опитай чрез %1$s</string>
-	<string name="error_no_network_connection">Няма мрежова връзка</string>
+	<string name="error_authentication_failed_re_authenticate">Удостоверяването е неуспешно, влезте чрез %1$s</string>
+	<string name="error_no_network_connection">Няма връзка с мрежата</string>
 	<string name="error_invalid_passphrase">Грешна парола</string>
 	<string name="error_file_or_folder_exists">Файлът или папката вече съществува.</string>
 	<string name="error_vault_version_not_supported">Хранилище версия %1$s не се поддържа. Това хранилище е създадено с различна версия на Cryptomator.</string>
-	<string name="error_vault_config_file_missing_due_to_format_999">Файлът %1$s липсва в папката на хранилището. Уверете се, че този файл е в папката на хранилището в облака.</string>
+	<string name="error_vault_config_file_missing_due_to_format_999">Файлът %1$s липсва в папката на хранилището. Уверете се, че файлът се намира в папката на хранилището в облака.</string>
 	<string name="error_vault_already_exists">Хранилището вече съществува.</string>
 	<string name="error_no_such_file">Файлът не съществува.</string>
 	<string name="error_vault_has_been_locked">Хранилището е заключено.</string>
 	<string name="error_cloud_already_exists">Облакът вече съществува.</string>
-	<string name="error_activity_not_found">Свалете приложение, което може да отвори този файл.</string>
+	<string name="error_activity_not_found">Изтеглете приложение, което може да отвори този файл.</string>
 	<string name="error_server_not_found">Сървърът не е намерен.</string>
-	<string name="error_device_policy_manager_not_found">Отворете настройките на устройството си и задайте заключване на екрана ръчно</string>
-	<string name="error_export_illegal_file_name">Експортирането е неуспешно. Премахнете специалните символи от имената на файловете и опитайте отново.</string>
-	<string name="error_name_contains_invalid_characters">Специалните символи не са позволени.</string>
-	<string name="error_names_contains_invalid_characters">Имена на файлове не може да съдържат специални символи.</string>
-	<string name="error_vault_name_contains_invalid_characters">Името на хранилище не може да съдържа специални символи.</string>
+	<string name="error_device_policy_manager_not_found">Отворете настройките на устройството и ръчно задайте заключване на екрана</string>
+	<string name="error_export_illegal_file_name">Експортирането е неуспешно. Премахнете специалните знаци от имената на файловете и опитайте отново.</string>
+	<string name="error_name_contains_invalid_characters">Не са позволени специални знаци.</string>
+	<string name="error_names_contains_invalid_characters">Имената на файловете не трябва да съдържат специални знаци.</string>
+	<string name="error_vault_name_contains_invalid_characters">Имената на хранилищата не трябва да съдържат специални знаци.</string>
 	<string name="error_general_update">Неуспешна проверка за обновяване. Обща грешка.</string>
 	<string name="error_hash_mismatch_update">Неуспешна проверка за обновяване. Изчисленият хеш не съвпада с качения файл</string>
 	<string name="error_update_no_internet">Неуспешна проверка за обновяване. Няма връзка с интернет.</string>
-	<string name="error_failed_to_decrypt_webdav_password">Неуспешно декриптиране на WebDAV парола, моля, добавете я отново от настройките</string>
-	<string name="error_play_services_not_available">Google Play услуги не са инсталирани</string>
-	<string name="error_biometric_auth_aborted">Биометричното удостоверяване е отказано</string>
+	<string name="error_failed_to_decrypt_webdav_password">Неуспешно декриптиране на паролата за WebDAV, добавете я отново от настройките</string>
+	<string name="error_play_services_not_available">Услугите на Google Play не са инсталирани</string>
+	<string name="error_biometric_auth_aborted">Биометричното удостоверяване е прекъснато</string>
 	<string name="error_vault_version_mismatch">Посочената версия в %1$s е различна от тази в %2$s</string>
 	<string name="error_vault_key_invalid">%1$s не съвпада с %2$s</string>
-	<string name="error_vault_config_loading">Обща грешка при зареждане на настройки на хранилището</string>
-	<string name="error_file_not_found_after_opening_using_3party">Локалният файл вече не съществува след връщане в Cryptomator. Потенциалните промени не могат да се синхронизират с облака.</string>
-	<string name="error_no_such_bucket">Не съществува такъв бъкет</string>
-	<string name="error_masterkey_location_not_supported">Различна локация за Masterkey не се поддържа все още</string>
-	<string name="error_interact_with_fdroid_but_fdroid_missing">Неуспешна комуникация с F-Droid. Не е инсталиран?</string>
+	<string name="error_vault_config_loading">Обща грешка при зареждане на настройките на хранилището</string>
+	<string name="error_file_not_found_after_opening_using_3party">При връщане в Криптоматор местният файл вече не съществува. Евентуалните промени не могат да бъдат синхронизирани с облака.</string>
+	<string name="error_no_such_bucket">Не съществува такъв bucket</string>
+	<string name="error_masterkey_location_not_supported">Все още не се поддържа потребителско местоположение на главния ключ</string>
+	<string name="error_interact_with_fdroid_but_fdroid_missing">Грешка при комуникацията с F-Droid. Приложението инсталирано ли е?</string>
 	<!-- # clouds -->
 	<!-- ## cloud names -->
-	<string name="cloud_names_local_storage">Локално съхранение</string>
+	<string name="cloud_names_local_storage">Местно хранилище</string>
 	<!-- # permission -->
 	<!-- ## permission messages -->
-	<string name="permission_message_export_file">Cryptomator изисква достъп до локалното хранилище, за да експортира файлове</string>
-	<string name="permission_message_upload_file">Cryptomator изисква достъп до локалното хранилище, за да качи файлове</string>
-	<string name="permission_message_share_file">Cryptomator изисква достъп до локалното хранилище, за да сподели файлове</string>
-	<string name="permission_revoked_re_request_permission">Cryptomator вече няма достъп до тук. Моля изберете папката отново, за да възстановите достъпа.</string>
+	<string name="permission_message_export_file">За да експортира файлове Криптоматор иска достъп до местното хранилище</string>
+	<string name="permission_message_upload_file">За да качва файлове Криптоматор иска достъп до местното хранилище</string>
+	<string name="permission_message_share_file">За да споделя файлове Криптоматор иска достъп до местното хранилище</string>
+	<string name="permission_revoked_re_request_permission">Криптоматор е загубил достъпа до тук. За да го възстановите изберете папката отново.</string>
 	<string name="snack_bar_action_title_settings">Настройки</string>
 	<string name="snack_bar_action_title_search">Търсене</string>
 	<string name="snack_bar_action_title_search_previous">Назад</string>
@@ -55,21 +55,25 @@
 	<string name="snack_bar_action_title_sort_oldest">Първо старите</string>
 	<string name="snack_bar_action_title_sort_biggest">Първо големите</string>
 	<string name="snack_bar_action_title_sort_smallest">Първо малките</string>
-	<string name="snack_bar_cryptomator_variants_title">Покажи още</string>
+	<string name="snack_bar_cryptomator_variants_title">Повече</string>
 	<string name="snack_bar_cryptomator_variants_hint">Облакът не е в списъка?</string>
 	<!-- # screens -->
 	<!-- # screen: vault list -->
-	<string name="screen_vault_list_actions_title">Добави в Cryptomator</string>
-	<string name="screen_vault_list_action_create_new_vault">Създай ново хранилище</string>
-	<string name="screen_vault_list_action_add_existing_vault">Добави съществуващо хранилище</string>
+	<string name="screen_vault_list_actions_title">Добавяне в Криптоматор</string>
+	<string name="screen_vault_list_action_create_new_vault">Ново хранилище</string>
+	<string name="screen_vault_list_action_add_existing_vault">Добавяне на съществуващо хранилище</string>
 	<string name="screen_vault_list_vault_action_delete">Премахване</string>
-	<string name="screen_vault_list_vault_creation_hint">Натисни тук за създаване на ново хранилище</string>
-	<string name="screen_vault_list_change_password_successful">Паролата е сменена успешно</string>
+	<string name="screen_vault_list_vault_creation_hint">Докоснете за създаване на хранилище</string>
+	<string name="screen_vault_list_change_password_successful">Паролата е сменена</string>
 	<!-- # screen: file browser -->
 	<string name="screen_file_browser_default_title">Хранилище</string>
-	<string name="screen_file_browser_add_existing_vault_extra_text">Избери masterkey файл</string>
+	<string name="screen_file_browser_add_existing_vault_extra_text">Изберете файл на главен ключ</string>
 	<string name="screen_file_browser_create_new_vault_button_text">Постави тук</string>
 	<string name="screen_file_browser_create_new_vault_extra_text">Име на хранилище: %1$s</string>
+	<plurals name="screen_file_browser_subtitle_move">
+		<item quantity="one">Преместване на %1$s в</item>
+		<item quantity="other">Преместване на %2$d елемента в</item>
+	</plurals>
 	<string name="screen_file_browser_move_button_text">Преместване</string>
 	<string name="screen_file_browser_msg_empty_folder">Празна папка</string>
 	<string name="screen_file_browser_file_info_label_date">променено преди %1$s</string>
@@ -78,25 +82,25 @@
 	<string name="screen_file_browser_share_button_text">Избор</string>
 	<string name="screen_file_browser_nothing_to_share">Няма нищо за споделяне</string>
 	<string name="screen_file_browser_actions_title">Добавяне към %1$s</string>
-	<string name="screen_file_browser_action_create_folder">Създай папка</string>
-	<string name="screen_file_browser_action_create_new_text_file">Създай текстов файл</string>
-	<string name="screen_file_browser_action_upload_files">Качи файлове</string>
+	<string name="screen_file_browser_action_create_folder">Нова папка</string>
+	<string name="screen_file_browser_action_create_new_text_file">Нов текстов файл</string>
+	<string name="screen_file_browser_action_upload_files">Качване на файлове</string>
 	<string name="screen_file_browser_upload_files_chooser_title">Файлове</string>
 	<string name="screen_file_browser_msg_file_exported">Файлът е експортиран</string>
 	<string name="screen_file_browser_msg_files_exported">Файловете са експортирани</string>
 	<string name="screen_file_browser_nothing_to_export">Няма нищо за експортиране</string>
-	<string name="screen_file_browser_msg_creating_download_dir_failed">Неуспешно създаване на папка за сваляне</string>
+	<string name="screen_file_browser_msg_creating_download_dir_failed">Грешка при създаване на папка за изтегляне</string>
 	<string name="screen_file_browser_node_action_share">Споделяне</string>
 	<string name="screen_file_browser_node_action_rename">Преименуване</string>
 	<string name="screen_file_browser_node_action_edit_text">Редактиране</string>
 	<string name="screen_file_browser_node_action_export">Експортиране</string>
 	<string name="screen_file_browser_node_action_delete">Изтриване</string>
 	<string name="screen_file_browser_node_action_open_with_text">Отваряне чрез&#8230;</string>
-	<string name="screen_file_browser_selection_mode_title_zero_elements">Избери елементи</string>
-	<string name="screen_file_browser_selection_mode_title_one_or_more_elements">Избрахте %1$d</string>
-	<string name="screen_file_browser_select_items">Избери</string>
-	<string name="screen_file_browser_select_all_items">Избери всички</string>
-	<string name="screen_file_browser_refresh_items">Опресняване</string>
+	<string name="screen_file_browser_selection_mode_title_zero_elements">Избор на елементи</string>
+	<string name="screen_file_browser_selection_mode_title_one_or_more_elements">%1$d избрани</string>
+	<string name="screen_file_browser_select_items">Избиране</string>
+	<string name="screen_file_browser_select_all_items">Избиране всички</string>
+	<string name="screen_file_browser_refresh_items">Презареждане</string>
 	<string name="screen_file_browser_no_connection_message">Няма връзка</string>
 	<string name="screen_file_browser_no_connection_button_text">Повторен опит</string>
 	<!-- ## screen: text editor -->
@@ -106,32 +110,93 @@
 	<string name="screen_share_files_content_text">текст</string>
 	<string name="screen_share_files_content_file">файл</string>
 	<string name="screen_share_files_content_files">файлове</string>
-	<string name="screen_share_files_msg_filenames_must_be_unique">Имената трябва да са уникални, моля, преименувайте идентичните.</string>
+	<string name="screen_share_files_msg_filenames_must_be_unique">Имената трябва да са уникални, преименувайте повтарящите се.</string>
+	<string name="screen_share_files_section_location">Местоположение за запазване</string>
+	<string name="screen_share_files_save_button_text">Запазване</string>
+	<string name="screen_share_files_msg_success">Шифроването е завършено</string>
 	<!-- ## screen: choose cloud service -->
+	<string name="screen_choose_cloud_service_title">Облачна услуга</string>
 	<!-- ## screen: cloud connections -->
+	<string name="screen_cloud_connections_title">Избор на местоположение</string>
+	<string name="screen_cloud_connections_no_connections">Докоснете за добавяне на местоположения</string>
+	<string name="screen_cloud_error_webdav_not_supported">Изглежда сървърът е несъвместим с WebDAV</string>
 	<!-- ## screen: webdav settings -->
+	<string name="screen_webdav_settings_url_port_label">URL</string>
+	<string name="screen_webdav_settings_username_label">Потребител</string>
 	<string name="screen_webdav_settings_password_label">Парола</string>
+	<string name="screen_webdav_settings_done_button_text">Свързване</string>
+	<string name="screen_webdav_settings_msg_url_must_not_be_empty">Адресът не трябва да е празен.</string>
+	<string name="screen_webdav_settings_msg_url_is_invalid">Адресът е неприемлив.</string>
+	<string name="screen_webdav_settings_msg_username_must_not_be_empty">Потребителят не трябва да е празен.</string>
+	<string name="screen_webdav_settings_msg_password_must_not_be_empty">Паролата не трябва да е празна.</string>
 	<!-- ## screen: s3 settings -->
+	<string name="screen_s3_settings_display_name_label">Показвано име</string>
+	<string name="screen_s3_settings_access_key_label">Ключ за достъп</string>
+	<string name="screen_s3_settings_secret_key_label">Таен ключ</string>
+	<string name="screen_s3_settings_bucket_label">Bucket</string>
+	<string name="screen_s3_settings_endpoint_label">Крайна точка</string>
+	<string name="screen_s3_settings_region_label">Регион</string>
+	<string name="screen_s3_settings_msg_display_name_not_empty">Показваното име не трябва да е празно</string>
+	<string name="screen_s3_settings_msg_access_key_not_empty">Ключът за достъп не трябва да е празен</string>
+	<string name="screen_s3_settings_msg_secret_key_not_empty">Тайният ключ не трябва да е празен</string>
+	<string name="screen_s3_settings_msg_bucket_not_empty">Полето „Bucket“ не трябва да е празно</string>
+	<string name="screen_s3_settings_msg_endpoint_and_region_not_empty">Крайната точка или регионът не трябва да са празни</string>
 	<!-- ## screen: enter vault name -->
+	<string name="screen_enter_vault_name_msg_name_empty">Името на хранилището не трябва да е празно.</string>
+	<string name="screen_enter_vault_name_vault_label">Име на хранилището</string>
+	<string name="screen_enter_vault_name_button_text">Създаване</string>
 	<!-- ## screen: set password -->
+	<string name="screen_set_password_title">Задаване на парола</string>
 	<string name="screen_set_password_button_text">Готово</string>
 	<string name="screen_set_password_strength_indicator_1">Слаба</string>
 	<string name="screen_set_password_strength_indicator_2">Задоволителна</string>
 	<string name="screen_set_password_strength_indicator_3">Добра</string>
+	<string name="screen_set_password_strength_indicator_4">Много добра</string>
 	<!-- ## screen: settings -->
 	<string name="screen_settings_section_general">Общи</string>
+	<string name="screen_settings_cloud_settings_label">Облачни услуги</string>
+	<string name="screen_settings_biometric_auth">Биометрично удостоверяване</string>
 	<string name="screen_settings_section_search">Търсене</string>
+	<string name="screen_settings_live_search">Търсене на живо</string>
+	<string name="screen_settings_live_search_summary">Резултатите се обновяват докато въвеждате</string>
+	<string name="screen_settings_glob_search">Търсене чрез заместващи последователности</string>
+	<string name="screen_settings_glob_search_summary">Използва заместващи последователности като alice.*.jpg</string>
+	<string name="screen_settings_section_auto_lock">Автоматично заключване</string>
+	<string name="screen_settings_auto_lock_timeout">Заключване след</string>
+	<string name="screen_settings_auto_lock_on_screen_lock">При изключен екран</string>
+	<string name="screen_settings_section_auto_photo_upload">Автоматично качване на снимки</string>
+	<string name="screen_settings_section_auto_photo_upload_vault">Избиране на хранилище</string>
+	<string name="screen_settings_section_auto_photo_upload_toggle">Включване</string>
+	<string name="screen_settings_website_label">Страница на Криптоматор</string>
+	<string name="screen_settings_twitter_label">Следвайте ни в X</string>
+	<string name="screen_settings_facebook_label">Харесайте ни във Фейсбук</string>
+	<string name="screen_settings_section_legal">Правни въпроси</string>
+	<string name="screen_settings_licenses_label">Лицензи</string>
+	<string name="screen_settings_license_terms_label">Лицензни условия</string>
 	<string name="screen_settings_section_support">Поддръжка</string>
 	<string name="screen_settings_contact_label">Поискай помощ</string>
+	<string name="screen_settings_debug_mode_label">Режим за отстраняване на грешки</string>
+	<string name="screen_settings_error_report_label">Изпращане на дневника</string>
+	<string name="screen_settings_error_report_failed">Изпращането е неуспешно</string>
+	<string name="screen_settings_security_label">Съвети за сигурността</string>
+	<string name="screen_settings_section_version">Издание</string>
+	<string name="screen_settings_advanced_settings">Разширени настройки</string>
 	<string name="screen_settings_microsoft_apps_workaround_label">Заобиколен начин за отваряне на файлове на Microsoft</string>
 	<string name="screen_settings_microsoft_apps_workaround_summary">Отваряне на файлове в приложения на Microsoft с разрешение за писане</string>
 	<!-- ## screen: cloud settings -->
 	<!-- ## screen: licenses -->
 	<!-- ## screen: authenticate cloud -->
 	<!-- ## screen: cryptomator app variants -->
+	<string name="screen_cryptomator_variants_title">Варианти на Криптоматор</string>
+	<string name="screen_cryptomator_variants_lite_title">Основно хранилище на F-Droid</string>
+	<string name="screen_cryptomator_variants_lite_install">Инсталиране</string>
+	<string name="screen_cryptomator_variants_fdroid_add_repo_hint">Добавете хранилището на Криптоматор към F-Droid.</string>
+	<string name="screen_cryptomator_variants_fdroid_add_repo">Добавяне</string>
 	<!-- # dialogs -->
 	<string name="dialog_button_cancel">Отказ</string>
 	<string name="dialog_enter_password_positive_button">Отключване</string>
+	<string name="dialog_change_password_msg_old_password_empty">Старата парола не трябва да е празна.</string>
+	<string name="dialog_change_password_msg_new_password_empty">Новата парола не трябва да е празна.</string>
 	<!-- Vault not found -->
 	<string name="dialog_vault_not_found_positive_button_text">Премахване</string>
 	<string name="dialog_lock_vault">Заключване</string>
