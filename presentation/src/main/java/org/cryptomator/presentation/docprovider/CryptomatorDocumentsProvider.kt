@@ -22,12 +22,14 @@ import org.cryptomator.domain.CloudNode
 import org.cryptomator.domain.CloudType
 import org.cryptomator.domain.Vault
 import org.cryptomator.domain.exception.BackendException
+import org.cryptomator.domain.usecases.NoOpResultHandler
 import org.cryptomator.domain.usecases.ProgressAware
 import org.cryptomator.domain.usecases.cloud.EmptyDataSource
 import org.cryptomator.presentation.BuildConfig
 import org.cryptomator.presentation.R
 import org.cryptomator.presentation.shared.SharedCreation
 import org.cryptomator.util.file.MimeType
+import java.util.concurrent.atomic.AtomicReference
 import timber.log.Timber
 
 private val SUPPORTED_ROOT_COLUMNS: Array<String> = arrayOf(
@@ -153,6 +155,7 @@ class CryptomatorDocumentsProvider : DocumentsProvider() {
 		}
 	}
 
+	val loaded: AtomicReference<List<CloudNode>> = AtomicReference()
 	private fun queryChildDocumentsImpl(directoryPath: VaultPath, projection: Array<String>, queryArgs: Bundle?): Cursor {
 		//TODO queryArgs; e.g. android:query-arg-sort-direction = 0, android:query-arg-sort-columns = [Ljava.lang.String;@e9858a9
 		val view: Cloud = appComponent.cloudRepository().decryptedViewOf(directoryPath.vault)
@@ -162,10 +165,35 @@ class CryptomatorDocumentsProvider : DocumentsProvider() {
 		//TODO Add extension functions/Move to VaultPath
 
 		val cloudDirPath: CloudFolder = safeResolve(view, directoryPath)
+		val entries: List<CloudNode>? = loaded.getAndSet(null)
 
-		val entries = contentRepository.list(cloudDirPath)
-		val cursor = MatrixCursor(projection, entries.size)
-		cursor.setNotificationUriForPath(context!!.contentResolver, directoryPath)
+		val cursor = MatrixCursor(projection, 0) //TODO Size
+		val uri = cursor.setNotificationUriForPath(context!!.contentResolver, directoryPath) //TODO Move
+		if (entries == null) {
+			val extras = Bundle().apply {
+				putBoolean(EXTRA_LOADING, true)
+				putString(EXTRA_INFO, "Loading")
+			}
+			cursor.extras = extras
+			//TODO Unsubscribe
+			component.supplierOfGetCloudListUseCase().get().withFolder(cloudDirPath).run(object : NoOpResultHandler<List<CloudNode>>() {
+				override fun onError(e: Throwable?) {
+					done(listOf())
+					super.onError(e)
+				}
+
+				override fun onSuccess(t: List<CloudNode>?) {
+					done(t ?: listOf())
+					super.onSuccess(t)
+				}
+
+				fun done(result: List<CloudNode>) {
+					loaded.set(result)
+					context?.contentResolver?.notifyChange(uri, null)
+				}
+			})
+			return cursor
+		}
 
 		entries.forEach { entry ->
 			val isDir = entry is CryptoFolder
