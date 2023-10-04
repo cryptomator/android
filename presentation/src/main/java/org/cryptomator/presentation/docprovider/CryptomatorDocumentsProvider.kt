@@ -26,6 +26,7 @@ import org.cryptomator.domain.usecases.ProgressAware
 import org.cryptomator.domain.usecases.cloud.EmptyDataSource
 import org.cryptomator.presentation.BuildConfig
 import org.cryptomator.presentation.R
+import org.cryptomator.presentation.shared.SharedCreation
 import org.cryptomator.util.file.MimeType
 import timber.log.Timber
 
@@ -54,9 +55,19 @@ private val SUPPORTED_DOCUMENT_COLUMNS: Array<String> = arrayOf(
 
 private val LOG = Timber.named("CryptomatorDocumentsProvider")
 
+//context === CryptomatorApp === CryptomatorApp.Companion.applicationContext === CryptomatorApp.applicationContext (Android)
 class CryptomatorDocumentsProvider : DocumentsProvider() {
 
+	val component: DocumentsProviderComponent by lazy {
+		DaggerDocumentsProviderComponent.builder() //
+			.withContext(context!!) //
+			.withCryptors(appComponent.cryptors()) //
+			.build()
+	}
+
+	//TODO Verify when queryRoots is called: Before or after CryptomatorApp onCreate
 	override fun onCreate(): Boolean {
+		SharedCreation.onCreate()
 		LOG.v("onCreate")
 		return true
 	}

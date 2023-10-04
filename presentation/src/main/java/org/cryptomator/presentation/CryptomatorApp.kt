@@ -19,12 +19,10 @@ import org.cryptomator.presentation.di.component.ApplicationComponent
 import org.cryptomator.presentation.di.component.DaggerApplicationComponent
 import org.cryptomator.presentation.di.module.ApplicationModule
 import org.cryptomator.presentation.di.module.ThreadModule
-import org.cryptomator.presentation.logging.CrashLogging.Companion.setup
-import org.cryptomator.presentation.logging.DebugLogger
-import org.cryptomator.presentation.logging.ReleaseLogger
 import org.cryptomator.presentation.service.AutoUploadNotification
 import org.cryptomator.presentation.service.AutoUploadService
 import org.cryptomator.presentation.service.CryptorsService
+import org.cryptomator.presentation.shared.SharedCreation
 import org.cryptomator.util.NoOpActivityLifecycleCallbacks
 import org.cryptomator.util.SharedPreferencesHandler
 import java.util.concurrent.atomic.AtomicInteger
@@ -44,7 +42,7 @@ class CryptomatorApp : MultiDexApplication(), HasComponent<ApplicationComponent>
 
 	override fun onCreate() {
 		super.onCreate()
-		setupLogging()
+		SharedCreation.onCreate()
 		@Suppress("KotlinConstantConditions") //
 		val flavor = when (BuildConfig.FLAVOR) {
 			"apkstore" -> "APK Store Edition"
@@ -155,11 +153,6 @@ class CryptomatorApp : MultiDexApplication(), HasComponent<ApplicationComponent>
 				&& (!sharedPreferencesHandler.autoPhotoUploadOnlyUsingWifi() || applicationComponent.networkConnectionCheck().checkWifiOnAndConnected())
 	}
 
-	private fun setupLogging() {
-		setupLoggingFramework()
-		setup()
-	}
-
 	private fun initializeInjector() {
 		applicationComponent = DaggerApplicationComponent.builder() //
 			.applicationModule(ApplicationModule(this)) //
@@ -171,13 +164,6 @@ class CryptomatorApp : MultiDexApplication(), HasComponent<ApplicationComponent>
 
 	private fun cleanupCache() {
 		CacheCleanupTask(applicationComponent.fileUtil()).execute()
-	}
-
-	private fun setupLoggingFramework() {
-		if (BuildConfig.DEBUG) {
-			Timber.plant(DebugLogger())
-		}
-		Timber.plant(ReleaseLogger(_applicationContext))
 	}
 
 	override fun getComponent(): ApplicationComponent {

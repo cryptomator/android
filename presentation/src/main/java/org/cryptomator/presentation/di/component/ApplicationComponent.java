@@ -2,6 +2,7 @@ package org.cryptomator.presentation.di.component;
 
 import android.content.Context;
 
+import org.cryptomator.data.cloud.crypto.Cryptors;
 import org.cryptomator.data.cloud.crypto.CryptorsModule;
 import org.cryptomator.data.repository.RepositoryModule;
 import org.cryptomator.data.util.NetworkConnectionCheck;
@@ -43,5 +44,7 @@ public interface ApplicationComponent {
 	ContentResolverUtil contentResolverUtil();
 
 	NetworkConnectionCheck networkConnectionCheck();
+
+	Cryptors cryptors();
 
 }
