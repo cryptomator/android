@@ -179,6 +179,7 @@
 	<string name="screen_settings_section_auto_photo_upload_vault">Избиране на хранилище</string>
 	<string name="screen_settings_section_auto_photo_upload_toggle">Включване</string>
 	<string name="screen_settings_section_auto_photo_upload_toggle_summary">Прехваща изображения във фонов режим и при отключеане на хранилището започва да ги изпраща</string>
+	<string name="screen_settings_section_auto_photo_upload_toggle_instant_upload">Казване незабавно</string>
 	<string name="screen_settings_website_label">Страница на Криптоматор</string>
 	<string name="screen_settings_twitter_label">Следвайте ни в X</string>
 	<string name="screen_settings_facebook_label">Харесайте ни във Фейсбук</string>
