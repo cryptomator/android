@@ -209,6 +209,7 @@
 	<string name="screen_cryptomator_variants_title">Варианти на Криптоматор</string>
 	<string name="screen_cryptomator_variants_lite_title">Основно хранилище на F-Droid</string>
 	<string name="screen_cryptomator_variants_lite_install">Инсталиране</string>
+	<string name="screen_cryptomator_variants_fdroid_title">Хранилище на Криптоматор за F-Droid</string>
 	<string name="screen_cryptomator_variants_fdroid_add_repo_hint">Добавете хранилището на Криптоматор към F-Droid.</string>
 	<string name="screen_cryptomator_variants_fdroid_add_repo">Добавяне</string>
 	<!-- # dialogs -->
