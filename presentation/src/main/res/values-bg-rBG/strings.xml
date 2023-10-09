@@ -205,6 +205,11 @@
 	<string name="screen_settings_keep_unlocked_while_editing_files">Оставяне отключено</string>
 	<string name="screen_settings_keep_unlocked_while_editing_files_summary">Оставя хранилищата отключени докато има отворени файлове</string>
 	<!-- ## screen: cloud settings -->
+	<string name="screen_cloud_settings_onedrive_connections">Връзки с OneDrive</string>
+	<string name="screen_cloud_settings_webdav_connections">Връзки с WebDAV</string>
+	<string name="screen_cloud_settings_pcloud_connections">Връзки с pCloud</string>
+	<string name="screen_cloud_settings_s3_connections">Връзки с S3</string>
+	<string name="screen_cloud_settings_log_in_to">Влизане</string>
 	<!-- ## screen: licenses -->
 	<!-- ## screen: authenticate cloud -->
 	<!-- ## screen: cryptomator app variants -->
