@@ -202,6 +202,8 @@
 	<string name="screen_settings_microsoft_apps_workaround_summary">Отваряне на файлове в приложения на Microsoft с разрешение за писане</string>
 	<string name="screen_settings_background_unlock_preparation_label">Ускоряване на отключването</string>
 	<string name="screen_settings_background_unlock_preparation_label_summary">Файла с настройката на хранилището се изтегля във фонов режим още на екрана за парола или биометрично удостоверяване</string>
+	<string name="screen_settings_keep_unlocked_while_editing_files">Оставяне отключено</string>
+	<string name="screen_settings_keep_unlocked_while_editing_files_summary">Оставя хранилищата отключени докато има отворени файлове</string>
 	<!-- ## screen: cloud settings -->
 	<!-- ## screen: licenses -->
 	<!-- ## screen: authenticate cloud -->
