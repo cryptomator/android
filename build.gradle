@@ -53,3 +53,20 @@ allprojects {
 task clean(type: Delete) {
 	delete rootProject.buildDir
 }
+
+def getApiKey(key) {
+	return !liteFlavor() ? System.getenv().getOrDefault(key, getApiKeyLocal(key)) : ""
+}
+
+def liteFlavor() {
+	gradle.startParameter.taskNames.stream().filter(t -> t.toLowerCase().contains("lite")).findAny().isPresent()
+}
+
+def getApiKeyLocal(key) {
+	if(!rootProject.file("local.properties").exists()) {
+		return ""
+	}
+	def localPropertyList = new Properties()
+	localPropertyList.load(new FileInputStream(rootProject.file("local.properties")))
+	return localPropertyList.getOrDefault(key, "")
+}
