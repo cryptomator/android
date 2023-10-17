@@ -11,7 +11,7 @@ import org.cryptomator.data.db.entities.UpdateCheckEntity
 @Dao
 interface UpdateCheckDao {
 
-	@Query("SELECT * FROM UPDATE_CHECK_ENTITY WHERE _id = :id LIMIT 1")
+	@Query("SELECT * FROM UPDATE_CHECK_ENTITY WHERE id = :id LIMIT 1")
 	fun load(id: Long): UpdateCheckEntity
 
 	@Query("SELECT * from UPDATE_CHECK_ENTITY")

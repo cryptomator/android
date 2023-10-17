@@ -11,7 +11,7 @@ import org.cryptomator.data.db.entities.VaultEntity
 @Dao
 interface VaultDao {
 
-	@Query("SELECT * FROM VAULT_ENTITY WHERE _id = :id LIMIT 1")
+	@Query("SELECT * FROM VAULT_ENTITY WHERE id = :id LIMIT 1")
 	fun load(id: Long): VaultEntity
 
 	@Query("SELECT * from VAULT_ENTITY")
