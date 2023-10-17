@@ -59,8 +59,7 @@ ext {
 
 	lruFileCacheVersion = '1.2'
 
-	// KEEP IN SYNC WITH GENERATOR VERSION IN root build.gradle
-	greenDaoVersion = '3.3.0'
+	roomVersion = '2.5.2'
 
 	// cloud provider libs
 	cryptolibVersion = '2.1.2'
@@ -143,7 +142,8 @@ ext {
 			googlePlayServicesAuth: "com.google.android.gms:play-services-auth:${googlePlayServicesVersion}",
 			trackingFreeGoogleCLient       : files("lib/google-http-client-${trackingFreeGoogleCLientVersion}.jar"),
 			trackingFreeGoogleAndroidCLient: files("lib/google-http-client-android-${trackingFreeGoogleCLientVersion}.jar"),
-			greenDao              : "org.greenrobot:greendao:${greenDaoVersion}",
+			room 				  : "androidx.room:room-runtime:${roomVersion}",
+			roomCompiler 		  : "androidx.room:room-compiler:${roomVersion}",
 			gson                  : "com.google.code.gson:gson:${gsonVersion}",
 			hamcrest              : "org.hamcrest:hamcrest-all:${hamcrestVersion}",
 			javaxAnnotation       : "javax.annotation:jsr250-api:${javaxAnnotationVersion}",

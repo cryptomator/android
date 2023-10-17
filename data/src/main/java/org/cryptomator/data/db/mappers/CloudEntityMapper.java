@@ -87,9 +87,7 @@ public class CloudEntityMapper extends EntityMapper<CloudEntity, Cloud> {
 
 	@Override
 	public CloudEntity toEntity(Cloud domainObject) {
-		CloudEntity result = new CloudEntity();
-		result.setId(domainObject.id());
-		result.setType(domainObject.type().name());
+		CloudEntity result = new CloudEntity(domainObject.id(), domainObject.type().name());
 		switch (domainObject.type()) {
 			case DROPBOX:
 				result.setAccessToken(((DropboxCloud) domainObject).accessToken());

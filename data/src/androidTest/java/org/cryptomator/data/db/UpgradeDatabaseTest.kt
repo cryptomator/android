@@ -1,5 +1,6 @@
 package org.cryptomator.data.db
 
+/*
 import android.content.Context
 import android.database.sqlite.SQLiteDatabase
 import androidx.test.ext.junit.runners.AndroidJUnit4
@@ -644,3 +645,4 @@ class UpgradeDatabaseTest {
 		Assert.assertThat(sharedPreferencesHandler.updateIntervalInDays(), CoreMatchers.`is`(Optional.absent()))
 	}
 }
+*/

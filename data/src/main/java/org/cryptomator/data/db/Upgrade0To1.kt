@@ -1,15 +1,16 @@
 package org.cryptomator.data.db
 
+import androidx.room.migration.Migration
+import androidx.sqlite.db.SupportSQLiteDatabase
 import org.cryptomator.data.db.Sql.SqlCreateTableBuilder.ForeignKeyBehaviour
 import org.cryptomator.domain.CloudType
-import org.greenrobot.greendao.database.Database
 import javax.inject.Inject
 import javax.inject.Singleton
 
 @Singleton
-internal class Upgrade0To1 @Inject constructor() : DatabaseUpgrade(0, 1) {
+internal class Upgrade0To1 @Inject constructor() : Migration(0, 1) {
 
-	override fun internalApplyTo(db: Database, origin: Int) {
+	override fun migrate(db: SupportSQLiteDatabase) {
 		createCloudEntityTable(db)
 		createVaultEntityTable(db)
 		createDropboxCloud(db)
@@ -18,7 +19,7 @@ internal class Upgrade0To1 @Inject constructor() : DatabaseUpgrade(0, 1) {
 		createOnedriveCloud(db)
 	}
 
-	private fun createCloudEntityTable(db: Database) {
+	private fun createCloudEntityTable(db: SupportSQLiteDatabase) {
 		Sql.createTable("CLOUD_ENTITY") //
 			.id() //
 			.requiredText("TYPE") //
@@ -29,7 +30,7 @@ internal class Upgrade0To1 @Inject constructor() : DatabaseUpgrade(0, 1) {
 			.executeOn(db)
 	}
 
-	private fun createVaultEntityTable(db: Database) {
+	private fun createVaultEntityTable(db: SupportSQLiteDatabase) {
 		Sql.createTable("VAULT_ENTITY") //
 			.id() //
 			.optionalInt("FOLDER_CLOUD_ID") //
@@ -46,7 +47,7 @@ internal class Upgrade0To1 @Inject constructor() : DatabaseUpgrade(0, 1) {
 			.executeOn(db)
 	}
 
-	private fun createDropboxCloud(db: Database) {
+	private fun createDropboxCloud(db: SupportSQLiteDatabase) {
 		Sql.insertInto("CLOUD_ENTITY") //
 			.integer("_id", 1) //
 			.text("TYPE", CloudType.DROPBOX.name) //
@@ -57,7 +58,7 @@ internal class Upgrade0To1 @Inject constructor() : DatabaseUpgrade(0, 1) {
 			.executeOn(db)
 	}
 
-	private fun createGoogleDriveCloud(db: Database) {
+	private fun createGoogleDriveCloud(db: SupportSQLiteDatabase) {
 		Sql.insertInto("CLOUD_ENTITY") //
 			.integer("_id", 2) //
 			.text("TYPE", CloudType.GOOGLE_DRIVE.name) //
@@ -68,7 +69,7 @@ internal class Upgrade0To1 @Inject constructor() : DatabaseUpgrade(0, 1) {
 			.executeOn(db)
 	}
 
-	private fun createOnedriveCloud(db: Database) {
+	private fun createOnedriveCloud(db: SupportSQLiteDatabase) {
 		Sql.insertInto("CLOUD_ENTITY") //
 			.integer("_id", 3) //
 			.text("TYPE", CloudType.ONEDRIVE.name) //
@@ -79,7 +80,7 @@ internal class Upgrade0To1 @Inject constructor() : DatabaseUpgrade(0, 1) {
 			.executeOn(db)
 	}
 
-	private fun createLocalStorageCloud(db: Database) {
+	private fun createLocalStorageCloud(db: SupportSQLiteDatabase) {
 		Sql.insertInto("CLOUD_ENTITY") //
 			.integer("_id", 4) //
 			.text("TYPE", CloudType.LOCAL.name) //

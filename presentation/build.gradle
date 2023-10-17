@@ -151,6 +151,9 @@ dependencies {
 	implementation project(':subsampling-image-view')
 	implementation dependencies.recyclerViewFastScroll
 
+	// room (required for adding DatabaseModule to the dagger graph)
+	implementation dependencies.room
+
 	// android x
 	implementation dependencies.androidxCore
 	implementation dependencies.androidxFragment

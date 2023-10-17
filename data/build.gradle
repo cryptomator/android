@@ -1,6 +1,6 @@
-apply plugin: 'org.greenrobot.greendao'
 apply plugin: 'com.android.library'
 apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-kapt'
 apply plugin: 'de.mannodermaus.android-junit5'
 
 android {
@@ -17,6 +17,14 @@ android {
 		buildConfigField "String", "VERSION_NAME", "\"${globalConfiguration["androidVersionName"]}\""
 
 		testInstrumentationRunner 'androidx.test.runner.AndroidJUnitRunner'
+
+		javaCompileOptions {
+			annotationProcessorOptions {
+				compilerArgumentProviders(
+						new RoomSchemaArgProvider(new File(projectDir, "room/schemas"))
+				)
+			}
+		}
 	}
 
 	compileOptions {
@@ -89,10 +97,6 @@ android {
 	namespace 'org.cryptomator.data'
 }
 
-greendao {
-	schemaVersion 12
-}
-
 configurations.all {
 	// Check for updates every build (use for cryptolib snapshot)
 	//resolutionStrategy.cacheChangingModulesFor 0, 'seconds'
@@ -112,10 +116,14 @@ dependencies {
 	// cryptomator
 	implementation dependencies.cryptolib
 
-	// greendao
-	api dependencies.greenDao
+	// room
+	implementation dependencies.room
+	annotationProcessor dependencies.roomCompiler
+	kapt dependencies.roomCompiler
+
 	// dagger
 	annotationProcessor dependencies.daggerCompiler
+	kapt dependencies.daggerCompiler
 	implementation dependencies.dagger
 
 	api dependencies.jsonWebTokenApi
@@ -242,5 +250,21 @@ tasks.withType(Test) {
 		showStackTraces true
 
 		showStandardStreams = false
+	}
+}
+
+class RoomSchemaArgProvider implements CommandLineArgumentProvider {
+
+	@InputDirectory
+	@PathSensitive(PathSensitivity.RELATIVE)
+	File schemaDir
+
+	RoomSchemaArgProvider(File schemaDir) {
+		this.schemaDir = schemaDir
+	}
+
+	@Override
+	Iterable<String> asArguments() {
+		return ["-Aroom.schemaLocation=${schemaDir.path}".toString()]
 	}
 }

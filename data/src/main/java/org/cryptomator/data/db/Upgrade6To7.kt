@@ -1,15 +1,16 @@
 package org.cryptomator.data.db
 
 import android.database.sqlite.SQLiteException
-import org.greenrobot.greendao.database.Database
+import androidx.room.migration.Migration
+import androidx.sqlite.db.SupportSQLiteDatabase
 import javax.inject.Inject
 import javax.inject.Singleton
 import timber.log.Timber
 
 @Singleton
-internal class Upgrade6To7 @Inject constructor() : DatabaseUpgrade(6, 7) {
+internal class Upgrade6To7 @Inject constructor() : Migration(6, 7) {
 
-	override fun internalApplyTo(db: Database, origin: Int) {
+	override fun migrate(db: SupportSQLiteDatabase) {
 		db.beginTransaction()
 		try {
 			changeUpdateEntityToSupportSha256Verification(db)
@@ -19,7 +20,7 @@ internal class Upgrade6To7 @Inject constructor() : DatabaseUpgrade(6, 7) {
 		}
 	}
 
-	private fun changeUpdateEntityToSupportSha256Verification(db: Database) {
+	private fun changeUpdateEntityToSupportSha256Verification(db: SupportSQLiteDatabase) {
 		Sql.alterTable("UPDATE_CHECK_ENTITY").renameTo("UPDATE_CHECK_ENTITY_OLD").executeOn(db)
 
 		Sql.createTable("UPDATE_CHECK_ENTITY") //
@@ -46,7 +47,7 @@ internal class Upgrade6To7 @Inject constructor() : DatabaseUpgrade(6, 7) {
 		Sql.dropTable("UPDATE_CHECK_ENTITY_OLD").executeOn(db)
 	}
 
-	fun tryToRecoverFromSQLiteException(db: Database) {
+	fun tryToRecoverFromSQLiteException(db: SupportSQLiteDatabase) {
 		var licenseToken: String? = null
 
 		try {

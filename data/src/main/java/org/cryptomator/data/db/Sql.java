@@ -1,21 +1,24 @@
 package org.cryptomator.data.db;
 
-import android.content.ContentValues;
-import android.database.Cursor;
-import android.database.sqlite.SQLiteDatabase;
-
-import org.greenrobot.greendao.database.Database;
-
-import java.util.ArrayList;
-import java.util.List;
-
-import static java.lang.String.format;
 import static org.cryptomator.data.db.Sql.SqlCreateTableBuilder.ColumnConstraint.NOT_NULL;
 import static org.cryptomator.data.db.Sql.SqlCreateTableBuilder.ColumnConstraint.PRIMARY_KEY;
 import static org.cryptomator.data.db.Sql.SqlCreateTableBuilder.ColumnType.BOOLEAN;
 import static org.cryptomator.data.db.Sql.SqlCreateTableBuilder.ColumnType.INTEGER;
 import static org.cryptomator.data.db.Sql.SqlCreateTableBuilder.ColumnType.TEXT;
+import static java.lang.String.format;
 
+import android.content.ContentValues;
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
+
+import androidx.sqlite.db.SupportSQLiteDatabase;
+
+import java.util.ArrayList;
+import java.util.List;
+
+//TODO Use precompiled statements for all?
+//TODO Compatibility of Rename table with new androids
+//https://developer.android.com/reference/android/database/sqlite/package-summary.html -- API 26 -> 3.18
 class Sql {
 
 	public static SqlInsertBuilder insertInto(String table) {
@@ -85,10 +88,6 @@ class Sql {
 		return (column, contentValues) -> contentValues.putNull(column);
 	}
 
-	private static SQLiteDatabase unwrap(Database wrapped) {
-		return (SQLiteDatabase) wrapped.getRawDatabase();
-	}
-
 	public interface ValueHolder {
 
 		void put(String column, ContentValues contentValues);
@@ -107,9 +106,6 @@ class Sql {
 		private final List<String> whereArgs = new ArrayList<>();
 
 		private List<String> columns = new ArrayList<>();
-		private String groupBy;
-		private String having;
-		private String limit;
 
 		public SqlQueryBuilder(String tableName) {
 			this.tableName = tableName;
@@ -128,26 +124,20 @@ class Sql {
 			return this;
 		}
 
-		public SqlQueryBuilder groupBy(String groupBy) {
-			this.groupBy = groupBy;
-			return this;
-		}
+		public Cursor executeOn(SupportSQLiteDatabase db) {
+			if(columns == null || columns.isEmpty()) {
+				throw new IllegalArgumentException();
+			}
+			if(tableName == null || tableName.trim().isEmpty()) {
+				throw new IllegalArgumentException();
+			}
 
-		public SqlQueryBuilder having(String having) {
-			this.having = having;
-			return this;
-		}
+			StringBuilder query = new StringBuilder().append("SELECT (");
+			appendColumns(query, columns.toArray(new String[0]), null, false);
+			query.append(") FROM ").append('"').append(tableName).append('"').append(" WHERE ").append(whereClause);
 
-		public SqlQueryBuilder limit(String limit) {
-			this.limit = limit;
-			return this;
+			return db.query(query.toString(), whereArgs.toArray());
 		}
-
-		public Cursor executeOn(Database wrapped) {
-			SQLiteDatabase db = unwrap(wrapped);
-			return db.query(tableName, columns.toArray(new String[columns.size()]), whereClause.toString(), whereArgs.toArray(new String[whereArgs.size()]), groupBy, having, limit);
-		}
-
 	}
 
 	public static class SqlUpdateBuilder {
@@ -175,12 +165,13 @@ class Sql {
 			return this;
 		}
 
-		public void executeOn(Database wrapped) {
+		public void executeOn(SupportSQLiteDatabase db) {
 			if (contentValues.size() == 0) {
 				throw new IllegalStateException("At least one value must be set");
 			}
-			SQLiteDatabase db = unwrap(wrapped);
-			db.update(tableName, contentValues, whereClause.toString(), whereArgs.toArray(new String[whereArgs.size()]));
+			//TODO Error handling in replacement of SQLiteDatabase#insertOrThrow, all-null-handling
+			// ... Handling of everything that was changed since the prior implementation
+			db.update(tableName, SQLiteDatabase.CONFLICT_FAIL, contentValues, whereClause.toString(), whereArgs.toArray(new String[whereArgs.size()]));
 		}
 
 	}
@@ -193,8 +184,7 @@ class Sql {
 			this.index = index;
 		}
 
-		public void executeOn(Database wrapped) {
-			SQLiteDatabase db = unwrap(wrapped);
+		public void executeOn(SupportSQLiteDatabase db) {
 			db.execSQL(format("DROP INDEX \"%s\"", index));
 		}
 
@@ -223,8 +213,7 @@ class Sql {
 			return this;
 		}
 
-		public void executeOn(Database wrapped) {
-			SQLiteDatabase db = unwrap(wrapped);
+		public void executeOn(SupportSQLiteDatabase db) {
 			db.execSQL(format("CREATE UNIQUE INDEX \"%s\" ON \"%s\" (%s)", indexName, table, columns));
 		}
 	}
@@ -237,8 +226,7 @@ class Sql {
 			this.table = table;
 		}
 
-		public void executeOn(Database wrapped) {
-			SQLiteDatabase db = unwrap(wrapped);
+		public void executeOn(SupportSQLiteDatabase db) {
 			db.execSQL(format("DROP TABLE \"%s\"", table));
 		}
 
@@ -258,15 +246,13 @@ class Sql {
 			return this;
 		}
 
-		public void executeOn(Database wrapped) {
-			SQLiteDatabase db = unwrap(wrapped);
+		public void executeOn(SupportSQLiteDatabase db) {
 			db.execSQL(format("ALTER TABLE \"%s\" RENAME TO \"%s\"", table, newName));
 		}
 	}
 
 	public static class SqlInsertSelectBuilder {
 
-		private static final int NOT_FOUND = -1;
 		private final String table;
 		private final String[] selectedColumns;
 		private final StringBuilder joinClauses = new StringBuilder();
@@ -284,34 +270,14 @@ class Sql {
 			return this;
 		}
 
-		public void executeOn(Database wrapped) {
-			SQLiteDatabase db = unwrap(wrapped);
+		public void executeOn(SupportSQLiteDatabase db) {
 			StringBuilder query = new StringBuilder().append("INSERT INTO \"").append(table).append("\" (");
-			appendColumns(query, columns, false);
+			appendColumns(query, columns, sourceTableName, false);
 			query.append(") SELECT ");
-			appendColumns(query, selectedColumns, true);
+			appendColumns(query, selectedColumns, sourceTableName, true);
 			query.append(" FROM \"").append(sourceTableName).append('"');
 			query.append(joinClauses);
 			db.execSQL(query.toString());
-		}
-
-		private void appendColumns(StringBuilder query, String[] columns, boolean appendSourceTableName) {
-			boolean notFirst = false;
-
-			for (String column : columns) {
-				if (notFirst) {
-					query.append(',');
-				}
-
-				if (appendSourceTableName && column.indexOf('.') == NOT_FOUND) {
-					query.append('"').append(sourceTableName).append("\".\"").append(column).append('"');
-				} else {
-					column = column.replace(".", "\".\"");
-					query.append('"').append(column).append('"');
-				}
-
-				notFirst = true;
-			}
 		}
 
 		public SqlInsertSelectBuilder join(String targetTable, String sourceColumn) {
@@ -396,8 +362,7 @@ class Sql {
 			return this;
 		}
 
-		public void executeOn(Database wrapped) {
-			SQLiteDatabase db = unwrap(wrapped);
+		public void executeOn(SupportSQLiteDatabase db) {
 			db.execSQL(format("CREATE TABLE \"%s\" (%s%s)", table, columns, foreignKeys));
 		}
 
@@ -492,9 +457,10 @@ class Sql {
 			return this;
 		}
 
-		public Long executeOn(Database wrapped) {
-			SQLiteDatabase db = unwrap(wrapped);
-			return db.insertOrThrow(table, null, contentValues);
+		public Long executeOn(SupportSQLiteDatabase db) {
+			//TODO Error handling in replacement of SQLiteDatabase#insertOrThrow, all-null-handling
+			// ... Handling of everything that was changed since the prior implementation
+			return db.insert(this.table, SQLiteDatabase.CONFLICT_FAIL, contentValues);
 		}
 	}
 
@@ -517,9 +483,28 @@ class Sql {
 			return this;
 		}
 
-		public void executeOn(Database wrapped) {
-			SQLiteDatabase db = unwrap(wrapped);
+		public void executeOn(SupportSQLiteDatabase db) {
 			db.delete(tableName, whereClause.toString(), whereArgs.toArray(new String[whereArgs.size()]));
+		}
+	}
+
+	private static final int NOT_FOUND = -1;
+	private static void appendColumns(StringBuilder query, String[] columns, String sourceTableName, boolean appendSourceTableName) {
+		boolean notFirst = false;
+
+		for (String column : columns) {
+			if (notFirst) {
+				query.append(',');
+			}
+
+			if (appendSourceTableName && column.indexOf('.') == NOT_FOUND) {
+				query.append('"').append(sourceTableName).append("\".\"").append(column).append('"');
+			} else {
+				column = column.replace(".", "\".\"");
+				query.append('"').append(column).append('"');
+			}
+
+			notFirst = true;
 		}
 	}
 

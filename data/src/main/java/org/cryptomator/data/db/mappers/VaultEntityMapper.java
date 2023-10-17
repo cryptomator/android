@@ -1,5 +1,8 @@
 package org.cryptomator.data.db.mappers;
 
+import static org.cryptomator.domain.Vault.aVault;
+
+import org.cryptomator.data.db.CloudDao;
 import org.cryptomator.data.db.entities.VaultEntity;
 import org.cryptomator.domain.Cloud;
 import org.cryptomator.domain.CloudType;
@@ -9,15 +12,15 @@ import org.cryptomator.domain.exception.BackendException;
 import javax.inject.Inject;
 import javax.inject.Singleton;
 
-import static org.cryptomator.domain.Vault.aVault;
-
 @Singleton
 public class VaultEntityMapper extends EntityMapper<VaultEntity, Vault> {
 
 	private final CloudEntityMapper cloudEntityMapper;
+	private final CloudDao cloudDao;
 
 	@Inject
-	public VaultEntityMapper(CloudEntityMapper cloudEntityMapper) {
+	public VaultEntityMapper(CloudEntityMapper cloudEntityMapper, CloudDao cloudDao) {
+		this.cloudDao = cloudDao;
 		this.cloudEntityMapper = cloudEntityMapper;
 	}
 
@@ -37,26 +40,27 @@ public class VaultEntityMapper extends EntityMapper<VaultEntity, Vault> {
 	}
 
 	private Cloud cloudFrom(VaultEntity entity) {
-		if (entity.getFolderCloud() == null) {
+		if (entity.getFolderCloudId() == null) {
 			return null;
 		}
-		return cloudEntityMapper.fromEntity(entity.getFolderCloud());
+		return cloudEntityMapper.fromEntity(cloudDao.load(entity.getFolderCloudId()));
 	}
 
 	@Override
 	public VaultEntity toEntity(Vault domainObject) {
-		VaultEntity entity = new VaultEntity();
-		entity.setId(domainObject.getId());
-		entity.setFolderPath(domainObject.getPath());
-		entity.setFolderName(domainObject.getName());
+		Long folderCloudId = null;
 		if (domainObject.getCloud() != null) {
-			entity.setFolderCloud(cloudEntityMapper.toEntity(domainObject.getCloud()));
+			folderCloudId = cloudEntityMapper.toEntity(domainObject.getCloud()).getId();
 		}
-		entity.setCloudType(domainObject.getCloudType().name());
-		entity.setPassword(domainObject.getPassword());
-		entity.setPosition(domainObject.getPosition());
-		entity.setFormat(domainObject.getFormat());
-		entity.setShorteningThreshold(domainObject.getShorteningThreshold());
-		return entity;
+		return new VaultEntity(domainObject.getId(), //
+				folderCloudId, //
+				domainObject.getPath(), //
+				domainObject.getName(), //
+				domainObject.getCloudType().name(), //
+				domainObject.getPassword(), //
+				domainObject.getPosition(), //
+				domainObject.getFormat(), //
+				domainObject.getShorteningThreshold() //
+		);
 	}
 }

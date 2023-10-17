@@ -1,13 +1,14 @@
 package org.cryptomator.data.db
 
-import org.greenrobot.greendao.database.Database
+import androidx.room.migration.Migration
+import androidx.sqlite.db.SupportSQLiteDatabase
 import javax.inject.Inject
 import javax.inject.Singleton
 
 @Singleton
-internal class Upgrade4To5 @Inject constructor() : DatabaseUpgrade(4, 5) {
+internal class Upgrade4To5 @Inject constructor() : Migration(4, 5) {
 
-	override fun internalApplyTo(db: Database, origin: Int) {
+	override fun migrate(db: SupportSQLiteDatabase) {
 		db.beginTransaction()
 		try {
 			changeWebdavUrlInCloudEntityToUrl(db)
@@ -17,7 +18,7 @@ internal class Upgrade4To5 @Inject constructor() : DatabaseUpgrade(4, 5) {
 		}
 	}
 
-	private fun changeWebdavUrlInCloudEntityToUrl(db: Database) {
+	private fun changeWebdavUrlInCloudEntityToUrl(db: SupportSQLiteDatabase) {
 		Sql.alterTable("CLOUD_ENTITY").renameTo("CLOUD_ENTITY_OLD").executeOn(db)
 
 		Sql.createTable("CLOUD_ENTITY") //
@@ -40,7 +41,7 @@ internal class Upgrade4To5 @Inject constructor() : DatabaseUpgrade(4, 5) {
 		Sql.dropTable("CLOUD_ENTITY_OLD").executeOn(db)
 	}
 
-	private fun recreateVaultEntity(db: Database) {
+	private fun recreateVaultEntity(db: SupportSQLiteDatabase) {
 		Sql.alterTable("VAULT_ENTITY").renameTo("VAULT_ENTITY_OLD").executeOn(db)
 		Sql.createTable("VAULT_ENTITY") //
 			.id() //

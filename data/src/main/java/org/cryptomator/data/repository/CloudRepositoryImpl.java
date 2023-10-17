@@ -3,8 +3,7 @@ package org.cryptomator.data.repository;
 import com.google.common.base.Optional;
 
 import org.cryptomator.data.cloud.crypto.CryptoCloudFactory;
-import org.cryptomator.data.db.Database;
-import org.cryptomator.data.db.entities.CloudEntity;
+import org.cryptomator.data.db.CryptomatorDatabase;
 import org.cryptomator.data.db.mappers.CloudEntityMapper;
 import org.cryptomator.domain.Cloud;
 import org.cryptomator.domain.CloudFolder;
@@ -25,7 +24,7 @@ import javax.inject.Singleton;
 @Singleton
 class CloudRepositoryImpl implements CloudRepository {
 
-	private final Database database;
+	private final CryptomatorDatabase database;
 	private final CryptoCloudFactory cryptoCloudFactory;
 	private final CloudEntityMapper mapper;
 	private final DispatchingCloudContentRepository dispatchingCloudContentRepository;
@@ -33,7 +32,7 @@ class CloudRepositoryImpl implements CloudRepository {
 	@Inject
 	public CloudRepositoryImpl(CloudEntityMapper mapper, //
 			CryptoCloudFactory cryptoCloudFactory, //
-			Database database, //
+			CryptomatorDatabase database, //
 			DispatchingCloudContentRepository dispatchingCloudContentRepository) {
 		this.database = database;
 		this.cryptoCloudFactory = cryptoCloudFactory;
@@ -44,7 +43,7 @@ class CloudRepositoryImpl implements CloudRepository {
 	@Override
 	public List<Cloud> clouds(CloudType cloudType) throws BackendException {
 		List<Cloud> cloudsFromType = new ArrayList<>();
-		List<Cloud> allClouds = mapper.fromEntities(database.loadAll(CloudEntity.class));
+		List<Cloud> allClouds = mapper.fromEntities(database.cloudDao().loadAll());
 
 		for (Cloud cloud : allClouds) {
 			if (cloud.type().equals(cloudType)) {
@@ -57,7 +56,7 @@ class CloudRepositoryImpl implements CloudRepository {
 
 	@Override
 	public List<Cloud> allClouds() throws BackendException {
-		return mapper.fromEntities(database.loadAll(CloudEntity.class));
+		return mapper.fromEntities(database.cloudDao().loadAll());
 	}
 
 	@Override
@@ -66,7 +65,7 @@ class CloudRepositoryImpl implements CloudRepository {
 			throw new IllegalArgumentException("Can not store non persistent cloud");
 		}
 
-		Cloud storedCloud = mapper.fromEntity(database.store(mapper.toEntity(cloud)));
+		Cloud storedCloud = mapper.fromEntity(database.cloudDao().storeReplacingAndReload(mapper.toEntity(cloud)));
 		database.clearCache();
 
 		dispatchingCloudContentRepository.updateCloudContentRepositoryFor(storedCloud);
@@ -79,7 +78,7 @@ class CloudRepositoryImpl implements CloudRepository {
 		if (!cloud.persistent()) {
 			throw new IllegalArgumentException("Can not delete non persistent cloud");
 		}
-		database.delete(mapper.toEntity(cloud));
+		database.cloudDao().delete(mapper.toEntity(cloud));
 		dispatchingCloudContentRepository.removeCloudContentRepositoryFor(cloud);
 	}
 
