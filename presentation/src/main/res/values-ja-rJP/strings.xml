@@ -125,7 +125,7 @@
 	<string name="screen_webdav_settings_username_label">ユーザー名</string>
 	<string name="screen_webdav_settings_password_label">パスワード</string>
 	<string name="screen_webdav_settings_done_button_text">接続</string>
-	<string name="screen_webdav_settings_msg_url_must_not_be_empty">URLは空にできません。</string>
+	<string name="screen_webdav_settings_msg_url_must_not_be_empty">URL は空にできません。</string>
 	<string name="screen_webdav_settings_msg_url_is_invalid">URL が無効です。</string>
 	<string name="screen_webdav_settings_msg_username_must_not_be_empty">ユーザー名は空にできません。</string>
 	<string name="screen_webdav_settings_msg_password_must_not_be_empty">パスワードは空にできません。</string>
@@ -178,7 +178,7 @@
 	<string name="screen_settings_section_auto_photo_upload_vault">アップロードする金庫を選択</string>
 	<string name="screen_settings_section_auto_photo_upload_toggle">有効</string>
 	<string name="screen_settings_section_auto_photo_upload_toggle_summary">バックグラウンドで画像を取得し、選択された金庫が解錠されるとアップロードを開始します</string>
-	<string name="screen_settings_section_auto_photo_upload_toggle_instant_upload">インスタントをアップロード</string>
+	<string name="screen_settings_section_auto_photo_upload_toggle_instant_upload">即時アップロード</string>
 	<string name="screen_settings_section_auto_photo_upload_toggle_instant_upload_summary">金庫が解錠されているときに直接アップロード</string>
 	<string name="screen_settings_section_auto_photo_upload_only_wifi_toggle">WIFI を使用しているときのみアップロード</string>
 	<string name="screen_settings_section_auto_photo_upload_including_videos">動画をアップロード</string>
@@ -385,7 +385,7 @@
 	<string name="notification_timeout">%1$s で自動ロック</string>
 	<string name="notification_lock_all">すべて施錠</string>
 	<string name="notification_cancel_auto_upload">アップロードをキャンセル</string>
-	<string name="notification_auto_upload_title">写真を自動的にアップロードしています</string>
+	<string name="notification_auto_upload_title">写真の自動アップロード中</string>
 	<string name="notification_auto_upload_message">アップロード中 %1d/%2d</string>
 	<string name="notification_auto_upload_finished_title">写真の自動アップロードが完了しました</string>
 	<string name="notification_auto_upload_finished_message">%1$d 個の画像を金庫にアップロードしました</string>
@@ -397,7 +397,7 @@
 	<string name="notification_auto_upload_failed_due_to_authentication_problem">タップして認証を更新します。</string>
 	<string name="notification_open_writable_file_title">書き込み可能なファイルを開く</string>
 	<string name="notification_open_writable_file_message">編集が完了するまで金庫は施錠されます</string>
-	<string name="notification_update_check_finished_latest">最新バージョンがインストールされました</string>
+	<string name="notification_update_check_finished_latest">最新版がインストールされています</string>
 	<string name="notification_authenticating">認証中&#8230;</string>
 	<string name="screen_settings_lru_cache">キャッシュ</string>
 	<string name="screen_settings_lru_cache_toggle_summary">最近アクセスしたファイルを暗号化して端末のローカルにキャッシュし、後で再び開いたときに再利用することができます。</string>
