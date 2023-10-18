@@ -20,8 +20,4 @@ abstract class CryptomatorDatabase : RoomDatabase() {
 	abstract fun updateCheckDao(): UpdateCheckDao
 
 	abstract fun vaultDao(): VaultDao
-
-	fun clearCache() {
-		//TODO
-	}
 }
