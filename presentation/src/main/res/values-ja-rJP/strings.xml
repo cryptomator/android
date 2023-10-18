@@ -9,8 +9,8 @@
 	<string name="error_no_network_connection">ネットワーク接続がありません</string>
 	<string name="error_invalid_passphrase">パスワードが正しくありません</string>
 	<string name="error_file_or_folder_exists">ファイルかフォルダーが既に存在します。</string>
-	<string name="error_vault_version_not_supported">金庫のバージョン %1$s はサポートされていません。この金庫は、現在のものより古いか新しいバージョンの Cryptomator で作成されています。</string>
-	<string name="error_vault_config_file_missing_due_to_format_999">%1$s ファイルが金庫のフォルダーに見つかりませんでした。クラウドの金庫フォルダーにこのファイルが存在することをご確認ください。</string>
+	<string name="error_vault_version_not_supported">バージョン %1$s の金庫には対応していません。この金庫は、現在のものより古いか新しいバージョンの Cryptomator で作成されています。</string>
+	<string name="error_vault_config_file_missing_due_to_format_999">%1$s ファイルが金庫のフォルダーに見つかりませんでした。クラウドの金庫フォルダーにこのファイルが存在することを確認してください。</string>
 	<string name="error_vault_already_exists">金庫が既に存在します。</string>
 	<string name="error_no_such_file">ファイルが存在しません。</string>
 	<string name="error_vault_has_been_locked">金庫が施錠されました。</string>
@@ -71,11 +71,11 @@
 	<string name="screen_file_browser_create_new_vault_button_text">ここにおく</string>
 	<string name="screen_file_browser_create_new_vault_extra_text">金庫の名前: %1$s</string>
 	<plurals name="screen_file_browser_subtitle_move">
-		<item quantity="other">%2$d アイテムを移動する</item>
+		<item quantity="other">%2$d 件のアイテムを移動</item>
 	</plurals>
 	<string name="screen_file_browser_move_button_text">移動</string>
 	<string name="screen_file_browser_msg_empty_folder">空のフォルダー</string>
-	<string name="screen_file_browser_file_info_label_date">%1$s 前に編集</string>
+	<string name="screen_file_browser_file_info_label_date">%1$s前に編集</string>
 	<string name="screen_file_browser_share_intent_chooser_title">次で共有</string>
 	<string name="screen_file_browser_share_destination_title">保存先を選択</string>
 	<string name="screen_file_browser_share_button_text">選択</string>
@@ -365,8 +365,8 @@
 	<string name="time_unit_seconds_pl">秒</string>
 	<string name="time_unit_minutes_sg">分</string>
 	<string name="time_unit_minutes_pl">分</string>
-	<string name="time_unit_hours_sg">時</string>
-	<string name="time_unit_hours_pl">時</string>
+	<string name="time_unit_hours_sg">時間</string>
+	<string name="time_unit_hours_pl">時間</string>
 	<string name="time_unit_days_sg">日</string>
 	<string name="time_unit_days_pl">日</string>
 	<string name="time_unit_weeks_sg">週</string>
