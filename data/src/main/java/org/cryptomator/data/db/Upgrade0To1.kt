@@ -1,6 +1,5 @@
 package org.cryptomator.data.db
 
-import androidx.room.migration.Migration
 import androidx.sqlite.db.SupportSQLiteDatabase
 import org.cryptomator.data.db.Sql.SqlCreateTableBuilder.ForeignKeyBehaviour
 import org.cryptomator.domain.CloudType
@@ -8,9 +7,9 @@ import javax.inject.Inject
 import javax.inject.Singleton
 
 @Singleton
-internal class Upgrade0To1 @Inject constructor() : Migration(0, 1) {
+internal class Upgrade0To1 @Inject constructor() : DatabaseMigration(0, 1) {
 
-	override fun migrate(db: SupportSQLiteDatabase) {
+	override fun migrateInternal(db: SupportSQLiteDatabase) {
 		createCloudEntityTable(db)
 		createVaultEntityTable(db)
 		createDropboxCloud(db)

@@ -1,15 +1,14 @@
 package org.cryptomator.data.db
 
-import androidx.room.migration.Migration
 import androidx.sqlite.db.SupportSQLiteDatabase
 import org.cryptomator.data.db.Sql.SqlCreateTableBuilder.ForeignKeyBehaviour
 import javax.inject.Inject
 import javax.inject.Singleton
 
 @Singleton
-internal class Upgrade3To4 @Inject constructor() : Migration(3, 4) {
+internal class Upgrade3To4 @Inject constructor() : DatabaseMigration(3, 4) {
 
-	override fun migrate(db: SupportSQLiteDatabase) {
+	override fun migrateInternal(db: SupportSQLiteDatabase) {
 		db.beginTransaction()
 		try {
 			addPositionToVaultSchema(db)

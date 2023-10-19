@@ -1,14 +1,13 @@
 package org.cryptomator.data.db
 
-import androidx.room.migration.Migration
 import androidx.sqlite.db.SupportSQLiteDatabase
 import javax.inject.Inject
 import javax.inject.Singleton
 
 @Singleton
-internal class Upgrade5To6 @Inject constructor() : Migration(5, 6) {
+internal class Upgrade5To6 @Inject constructor() : DatabaseMigration(5, 6) {
 
-	override fun migrate(db: SupportSQLiteDatabase) {
+	override fun migrateInternal(db: SupportSQLiteDatabase) {
 		db.beginTransaction()
 		try {
 			changeCloudEntityToSupportS3(db)

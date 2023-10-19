@@ -1,14 +1,13 @@
 package org.cryptomator.data.db
 
-import androidx.room.migration.Migration
 import androidx.sqlite.db.SupportSQLiteDatabase
 import javax.inject.Inject
 import javax.inject.Singleton
 
 @Singleton
-internal class Upgrade1To2 @Inject constructor() : Migration(1, 2) {
+internal class Upgrade1To2 @Inject constructor() : DatabaseMigration(1, 2) {
 
-	override fun migrate(db: SupportSQLiteDatabase) {
+	override fun migrateInternal(db: SupportSQLiteDatabase) {
 		createUpdateCheckTable(db)
 		createInitialUpdateStatus(db)
 	}

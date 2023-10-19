@@ -1,6 +1,5 @@
 package org.cryptomator.data.db
 
-import androidx.room.migration.Migration
 import androidx.sqlite.db.SupportSQLiteDatabase
 import org.cryptomator.domain.CloudType
 import org.cryptomator.util.SharedPreferencesHandler
@@ -9,11 +8,11 @@ import javax.inject.Singleton
 import timber.log.Timber
 
 @Singleton
-internal class Upgrade9To10 @Inject constructor(private val sharedPreferencesHandler: SharedPreferencesHandler) : Migration(9, 10) {
+internal class Upgrade9To10 @Inject constructor(private val sharedPreferencesHandler: SharedPreferencesHandler) : DatabaseMigration(9, 10) {
 
 	private val defaultLocalStorageCloudId = 4L
 
-	override fun migrate(db: SupportSQLiteDatabase) {
+	override fun migrateInternal(db: SupportSQLiteDatabase) {
 		db.beginTransaction()
 
 		try {

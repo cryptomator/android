@@ -1,16 +1,15 @@
 package org.cryptomator.data.db
 
 import android.database.sqlite.SQLiteException
-import androidx.room.migration.Migration
 import androidx.sqlite.db.SupportSQLiteDatabase
 import javax.inject.Inject
 import javax.inject.Singleton
 import timber.log.Timber
 
 @Singleton
-internal class Upgrade6To7 @Inject constructor() : Migration(6, 7) {
+internal class Upgrade6To7 @Inject constructor() : DatabaseMigration(6, 7) {
 
-	override fun migrate(db: SupportSQLiteDatabase) {
+	override fun migrateInternal(db: SupportSQLiteDatabase) {
 		db.beginTransaction()
 		try {
 			changeUpdateEntityToSupportSha256Verification(db)

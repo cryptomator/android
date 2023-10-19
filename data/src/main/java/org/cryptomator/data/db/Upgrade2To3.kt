@@ -2,16 +2,15 @@ package org.cryptomator.data.db
 
 import android.content.Context
 import android.content.SharedPreferences
-import androidx.room.migration.Migration
 import androidx.sqlite.db.SupportSQLiteDatabase
 import org.cryptomator.util.crypto.CredentialCryptor
 import javax.inject.Inject
 import javax.inject.Singleton
 
 @Singleton
-internal class Upgrade2To3 @Inject constructor(private val context: Context) : Migration(2, 3) {
+internal class Upgrade2To3 @Inject constructor(private val context: Context) : DatabaseMigration(2, 3) {
 
-	override fun migrate(db: SupportSQLiteDatabase) {
+	override fun migrateInternal(db: SupportSQLiteDatabase) {
 		db.beginTransaction()
 		try {
 			Sql.query("CLOUD_ENTITY")

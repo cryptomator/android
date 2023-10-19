@@ -1,18 +1,17 @@
 package org.cryptomator.data.db
 
-import androidx.room.migration.Migration
 import androidx.sqlite.db.SupportSQLiteDatabase
 import javax.inject.Inject
 import javax.inject.Singleton
 
 @Singleton
-internal class Upgrade10To11 @Inject constructor() : Migration(10, 11) {
+internal class Upgrade10To11 @Inject constructor() : DatabaseMigration(10, 11) {
 
 	private val defaultThreshold = 220
 	private val defaultVaultFormat = 8
 	private val onedriveCloudId = 3L
 
-	override fun migrate(db: SupportSQLiteDatabase) {
+	override fun migrateInternal(db: SupportSQLiteDatabase) {
 		db.beginTransaction()
 		try {
 			addFormatAndShorteningToDbEntity(db)

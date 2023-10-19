@@ -1,14 +1,13 @@
 package org.cryptomator.data.db
 
-import androidx.room.migration.Migration
 import androidx.sqlite.db.SupportSQLiteDatabase
 import javax.inject.Inject
 import javax.inject.Singleton
 
 @Singleton
-internal class Upgrade7To8 @Inject constructor() : Migration(7, 8) {
+internal class Upgrade7To8 @Inject constructor() : DatabaseMigration(7, 8) {
 
-	override fun migrate(db: SupportSQLiteDatabase) {
+	override fun migrateInternal(db: SupportSQLiteDatabase) {
 		db.beginTransaction()
 		try {
 			dropS3Vaults(db)
