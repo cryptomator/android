@@ -2,11 +2,14 @@ package org.cryptomator.data.db
 
 import android.content.Context
 import androidx.room.Room
+import androidx.room.RoomDatabase
 import androidx.room.migration.Migration
+import androidx.sqlite.db.SupportSQLiteDatabase
 import org.cryptomator.data.db.migrations.Migration12To13
 import javax.inject.Singleton
 import dagger.Module
 import dagger.Provides
+import timber.log.Timber
 
 @Module
 class DatabaseModule {
@@ -14,10 +17,15 @@ class DatabaseModule {
 	@Singleton
 	@Provides
 	fun provideCryptomatorDatabase(context: Context, migrations: Array<Migration>): CryptomatorDatabase {
+		Timber.tag("Database").i("Building database")
 		return Room.databaseBuilder(context, CryptomatorDatabase::class.java, "Cryptomator") //
 			.addMigrations(*migrations) //
 			.addMigrations(Migration12To13) //
-			.build()
+			.addCallback(DatabaseCallback) //
+			.build() //Fails if no migration is found (especially when downgrading)
+			.also { //
+				Timber.tag("Database").i("Database built successfully")
+			}
 	}
 
 	@Singleton
@@ -67,4 +75,20 @@ class DatabaseModule {
 		upgrade10To11,
 		upgrade11To12,
 	)
+}
+
+object DatabaseCallback : RoomDatabase.Callback() {
+
+	override fun onCreate(db: SupportSQLiteDatabase) {
+		Timber.tag("Database").i("Created database (v%s)", db.version)
+	}
+
+	override fun onOpen(db: SupportSQLiteDatabase) {
+		Timber.tag("Database").i("Opened database (v%s)", db.version)
+	}
+
+	override fun onDestructiveMigration(db: SupportSQLiteDatabase) {
+		//This should not be called
+		throw UnsupportedOperationException("Destructive migration is not supported")
+	}
 }
