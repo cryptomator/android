@@ -396,12 +396,23 @@
 	<string name="notification_auto_upload_failed_due_to_vault_locked">Naka-lock ang Vault habang nag-a-upload, mangyaring buksan muli ang vault upang magpatuloy</string>
 	<string name="notification_auto_upload_failed_due_to_vault_not_found">Ang Vault na tinukoy para sa awtomatikong pag-upload ay wala na.</string>
 	<string name="notification_auto_upload_failed_due_to_authentication_problem">I-tap para i-refresh ang pagpapatotoo.</string>
+	<string name="notification_open_writable_file_title">Buksan ang nasusulat na file</string>
+	<string name="notification_open_writable_file_message">Nananatiling naka-unlock ang Vault hanggang matapos ang pag-edit</string>
 	<string name="notification_update_check_finished_latest">Naka-install ang pinakabagong bersyon</string>
+	<string name="notification_authenticating">Pagpapatunay ng&#8230;</string>
 	<string name="screen_settings_lru_cache">Cache</string>
+	<string name="screen_settings_lru_cache_toggle_summary">Na-access kamakailan ng cache ang mga file na naka-encrypt nang lokal sa device para magamit muli sa ibang pagkakataon kapag muling binuksan</string>
 	<string name="screen_settings_lru_cache_size">Kabuuang laki ng cache</string>
 	<string name="screen_settings_clear_lru_cache_size">Linisin ang Cache</string>
 	<string name="screen_settings_lru_cache_changed__restart_toast">Ang mga pagbabago ay makikita pagkatapos ng pag-restart ng app</string>
+	<string name="screen_settings_license">Nakarehistro para sa</string>
+	<string name="screen_settings_license_mail">%1$s</string>
+	<string name="dialog_settings_update_check_interval_title">I-update ang agwat ng pagsusuri</string>
+	<string name="screen_settings_check_updates">Tingnan ang mga update</string>
+	<string name="screen_settings_last_check_updates">Huling pagtakbo %1$s</string>
+	<string name="dialog_cache_size_title">Laki ng cache sa bawat Cloud</string>
 	<!-- lock timeout names -->
+	<string name="lock_timeout_instant">Instant</string>
 	<string name="lock_timeout_1m">1 minuto</string>
 	<string name="lock_timeout_2m">2 minuto</string>
 	<string name="lock_timeout_5m">5 minuto</string>
