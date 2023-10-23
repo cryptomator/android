@@ -1,6 +1,7 @@
-package org.cryptomator.data.db
+package org.cryptomator.data.db.migrations.legacy
 
 import androidx.sqlite.db.SupportSQLiteDatabase
+import org.cryptomator.data.db.DatabaseMigration
 import org.cryptomator.util.SharedPreferencesHandler
 import javax.inject.Inject
 import javax.inject.Singleton

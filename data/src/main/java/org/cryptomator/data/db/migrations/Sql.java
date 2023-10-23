@@ -1,10 +1,10 @@
-package org.cryptomator.data.db;
+package org.cryptomator.data.db.migrations;
 
-import static org.cryptomator.data.db.Sql.SqlCreateTableBuilder.ColumnConstraint.NOT_NULL;
-import static org.cryptomator.data.db.Sql.SqlCreateTableBuilder.ColumnConstraint.PRIMARY_KEY;
-import static org.cryptomator.data.db.Sql.SqlCreateTableBuilder.ColumnType.BOOLEAN;
-import static org.cryptomator.data.db.Sql.SqlCreateTableBuilder.ColumnType.INTEGER;
-import static org.cryptomator.data.db.Sql.SqlCreateTableBuilder.ColumnType.TEXT;
+import static org.cryptomator.data.db.migrations.Sql.SqlCreateTableBuilder.ColumnConstraint.NOT_NULL;
+import static org.cryptomator.data.db.migrations.Sql.SqlCreateTableBuilder.ColumnConstraint.PRIMARY_KEY;
+import static org.cryptomator.data.db.migrations.Sql.SqlCreateTableBuilder.ColumnType.BOOLEAN;
+import static org.cryptomator.data.db.migrations.Sql.SqlCreateTableBuilder.ColumnType.INTEGER;
+import static org.cryptomator.data.db.migrations.Sql.SqlCreateTableBuilder.ColumnType.TEXT;
 import static java.lang.String.format;
 
 import android.content.ContentValues;
@@ -19,7 +19,7 @@ import java.util.List;
 //TODO Use precompiled statements for all?
 //TODO Compatibility of Rename table with new androids
 //https://developer.android.com/reference/android/database/sqlite/package-summary.html -- API 26 -> 3.18
-class Sql {
+public class Sql {
 
 	public static SqlInsertBuilder insertInto(String table) {
 		return new SqlInsertBuilder(table);

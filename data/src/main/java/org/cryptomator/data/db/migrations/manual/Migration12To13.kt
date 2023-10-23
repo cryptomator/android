@@ -1,4 +1,4 @@
-package org.cryptomator.data.db.migrations
+package org.cryptomator.data.db.migrations.manual
 
 import androidx.sqlite.db.SupportSQLiteDatabase
 import org.cryptomator.data.db.DatabaseMigration

@@ -1,7 +1,9 @@
-package org.cryptomator.data.db
+package org.cryptomator.data.db.migrations.legacy
 
 import androidx.sqlite.db.SupportSQLiteDatabase
-import org.cryptomator.data.db.Sql.SqlCreateTableBuilder.ForeignKeyBehaviour
+import org.cryptomator.data.db.DatabaseMigration
+import org.cryptomator.data.db.migrations.Sql
+import org.cryptomator.data.db.migrations.Sql.SqlCreateTableBuilder.ForeignKeyBehaviour
 import org.cryptomator.domain.CloudType
 import javax.inject.Inject
 import javax.inject.Singleton
