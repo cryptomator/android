@@ -2,6 +2,8 @@ package org.cryptomator.data.db.migrations.auto
 
 import androidx.room.RenameColumn
 import androidx.room.migration.AutoMigrationSpec
+import androidx.sqlite.db.SupportSQLiteDatabase
+import org.cryptomator.data.db.DatabaseAutoMigrationSpec
 
 @RenameColumn.Entries(
 	RenameColumn("CLOUD_ENTITY", "_id", "id"),
@@ -32,4 +34,4 @@ import androidx.room.migration.AutoMigrationSpec
 	RenameColumn("VAULT_ENTITY", "FORMAT", "format"),
 	RenameColumn("VAULT_ENTITY", "SHORTENING_THRESHOLD", "shorteningThreshold"),
 )
-class AutoMigration13To14 : AutoMigrationSpec
+class AutoMigration13To14 : DatabaseAutoMigrationSpec()
