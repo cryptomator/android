@@ -24,11 +24,11 @@ import java.util.Arrays
 
 class UploadFileTest {
 
-	private val context :Context = mock()
+	private val context: Context = mock()
 	private var cloudContentRepository: CloudContentRepository<Cloud, CloudNode, CloudFolder, CloudFile> = mock()
-	private val parent :CloudFolder = mock()
-	private val targetFile :CloudFile = mock()
-	private val resultFile :CloudFile = mock()
+	private val parent: CloudFolder = mock()
+	private val targetFile: CloudFile = mock()
+	private val resultFile: CloudFile = mock()
 
 	private val progressAware: ProgressAware<UploadState> = mock()
 
@@ -44,8 +44,8 @@ class UploadFileTest {
 		val dataSource = dataSourceWithBytes(0, fileSize, fileSize)
 		val inTest = testCandidate(dataSource, replacing)
 
-		 whenever(cloudContentRepository.file(parent, fileName, fileSize)).thenReturn(targetFile)
-		 whenever(
+		whenever(cloudContentRepository.file(parent, fileName, fileSize)).thenReturn(targetFile)
+		whenever(
 			cloudContentRepository.write(
 				same(targetFile),
 				any(DataSource::class.java),
@@ -68,9 +68,9 @@ class UploadFileTest {
 		val fileSize: Long = 8893
 		dataSourceWithBytes(85, fileSize, null).use { dataSource ->
 			val inTest = testCandidate(dataSource, replacing)
-			 whenever(cloudContentRepository.file(parent, fileName, fileSize)).thenReturn(targetFile)
+			whenever(cloudContentRepository.file(parent, fileName, fileSize)).thenReturn(targetFile)
 			val capturedStreamData = DataSourceCapturingAnswer<Any?>(resultFile, 1)
-			 whenever(
+			whenever(
 				cloudContentRepository.write(
 					same(targetFile),
 					any(DataSource::class.java),

@@ -38,7 +38,7 @@ public class LocalStorageContentRepositoryFactory implements CloudContentReposit
 	public CloudContentRepository cloudContentRepositoryFor(Cloud cloud) {
 		List<UriPermission> permissions = context.getContentResolver().getPersistedUriPermissions();
 		for (UriPermission permission : permissions) {
-			if(permission.getUri().toString().equals(((LocalStorageCloud) cloud).rootUri())) {
+			if (permission.getUri().toString().equals(((LocalStorageCloud) cloud).rootUri())) {
 				return new LocalStorageAccessFrameworkContentRepository(context, mimeTypes, (LocalStorageCloud) cloud);
 			}
 		}

@@ -27,6 +27,7 @@ class AutoUploadRefreshTokenActivity : BaseActivity(), AutoUploadRefreshTokenVie
 	}
 
 	companion object {
+
 		const val AUTHENTICATION_EXCEPTION_ARG = "authenticationException"
 	}
 

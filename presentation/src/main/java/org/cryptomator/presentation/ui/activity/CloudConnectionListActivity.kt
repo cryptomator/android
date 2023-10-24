@@ -13,7 +13,6 @@ import org.cryptomator.presentation.ui.bottomsheet.CloudConnectionSettingsBottom
 import org.cryptomator.presentation.ui.dialog.DeleteCloudConnectionWithVaultsDialog
 import org.cryptomator.presentation.ui.dialog.PCloudCredentialsUpdatedDialog
 import org.cryptomator.presentation.ui.fragment.CloudConnectionListFragment
-import java.util.ArrayList
 import javax.inject.Inject
 import kotlinx.android.synthetic.main.toolbar_layout.toolbar
 
