@@ -32,7 +32,6 @@ class DatabaseModule {
 		Timber.tag("Database").i("Building database")
 		return Room.databaseBuilder(context, CryptomatorDatabase::class.java, "Cryptomator") //
 			.addMigrations(*migrations) //
-			.addMigrations(Migration12To13) //
 			.addCallback(DatabaseCallback) //
 			.build() //Fails if no migration is found (especially when downgrading)
 			.also { //
@@ -73,6 +72,8 @@ class DatabaseModule {
 		upgrade9To10: Upgrade9To10, //
 		upgrade10To11: Upgrade10To11, //
 		upgrade11To12: Upgrade11To12, //
+		//
+		migration12To13: Migration12To13, //
 	): Array<Migration> = arrayOf(
 		upgrade0To1,
 		upgrade1To2,
@@ -86,6 +87,8 @@ class DatabaseModule {
 		upgrade9To10,
 		upgrade10To11,
 		upgrade11To12,
+		//
+		migration12To13,
 	)
 }
 
