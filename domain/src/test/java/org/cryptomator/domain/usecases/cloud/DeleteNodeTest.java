@@ -11,12 +11,12 @@ import org.mockito.Mockito;
 import java.util.Arrays;
 import java.util.List;
 
-import static java.util.Collections.singletonList;
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.verifyNoMoreInteractions;
+import static java.util.Collections.singletonList;
 
 public class DeleteNodeTest {
 

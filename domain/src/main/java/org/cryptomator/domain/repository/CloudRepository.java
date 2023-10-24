@@ -1,5 +1,7 @@
 package org.cryptomator.domain.repository;
 
+import com.google.common.base.Optional;
+
 import org.cryptomator.domain.Cloud;
 import org.cryptomator.domain.CloudFolder;
 import org.cryptomator.domain.CloudType;
@@ -8,7 +10,6 @@ import org.cryptomator.domain.Vault;
 import org.cryptomator.domain.exception.BackendException;
 import org.cryptomator.domain.usecases.cloud.Flag;
 import org.cryptomator.domain.usecases.vault.UnlockToken;
-import com.google.common.base.Optional;
 
 import java.util.List;
 

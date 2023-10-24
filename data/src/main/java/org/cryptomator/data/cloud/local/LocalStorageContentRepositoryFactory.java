@@ -1,7 +1,5 @@
 package org.cryptomator.data.cloud.local;
 
-import static org.cryptomator.domain.CloudType.LOCAL;
-
 import android.content.Context;
 import android.content.UriPermission;
 
@@ -16,6 +14,8 @@ import java.util.List;
 
 import javax.inject.Inject;
 import javax.inject.Singleton;
+
+import static org.cryptomator.domain.CloudType.LOCAL;
 
 @Singleton
 public class LocalStorageContentRepositoryFactory implements CloudContentRepositoryFactory {
