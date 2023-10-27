@@ -27,9 +27,10 @@ class AskIgnoreBatteryOptimizationsDialog : BaseDialog<AskIgnoreBatteryOptimizat
 
 	public override fun setupView() {
 		tv_ask_ignore_battery_optimizations.text = String.format(
-			getString(R.string.dialog_ask_ignore_battery_optimizations_hint),
-			getString(R.string.app_name),
-			getString(R.string.dialog_ask_ignore_battery_optimizations_neutral_button))
+			getString(R.string.dialog_ask_ignore_battery_optimizations_hint), //
+			getString(R.string.app_name), //
+			getString(R.string.dialog_ask_ignore_battery_optimizations_neutral_button) //
+		)
 	}
 
 	companion object {

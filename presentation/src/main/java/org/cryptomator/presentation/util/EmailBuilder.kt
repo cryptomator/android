@@ -4,7 +4,6 @@ import android.content.Context
 import android.content.Intent
 import androidx.core.content.FileProvider
 import java.io.File
-import java.util.ArrayList
 
 class EmailBuilder private constructor() {
 

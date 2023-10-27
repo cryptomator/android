@@ -3,7 +3,6 @@ package org.cryptomator.presentation.model.comparator
 import android.content.Context
 import org.cryptomator.presentation.model.CloudModel
 import org.cryptomator.presentation.model.WebDavCloudModel
-import java.util.Comparator
 
 class CloudModelComparator(private val context: Context) : Comparator<CloudModel> {
 

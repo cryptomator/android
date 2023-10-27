@@ -98,7 +98,7 @@ internal class GoogleDriveImpl(context: Context, googleDriveCloud: GoogleDriveCl
 		folder?.let {
 			if (GoogleDriveCloudNodeFactory.isFolder(it)) {
 				return idCache.cache(GoogleDriveCloudNodeFactory.folder(parent, it))
-			} else if(GoogleDriveCloudNodeFactory.isShortcutFolder(it)) {
+			} else if (GoogleDriveCloudNodeFactory.isShortcutFolder(it)) {
 				return idCache.cache(GoogleDriveCloudNodeFactory.folder(parent, name, path, it.shortcutDetails.targetId))
 			}
 		}

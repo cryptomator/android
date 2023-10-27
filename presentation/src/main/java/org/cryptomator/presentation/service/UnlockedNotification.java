@@ -78,7 +78,7 @@ class UnlockedNotification {
 		return PendingIntent.getService( //
 				service.getApplicationContext(), //
 				0, //
-				CryptorsService.lockAllIntent(service.getApplicationContext()),
+				CryptorsService.lockAllIntent(service.getApplicationContext()), //
 				PendingIntent.FLAG_CANCEL_CURRENT | PendingIntent.FLAG_IMMUTABLE);
 	}
 

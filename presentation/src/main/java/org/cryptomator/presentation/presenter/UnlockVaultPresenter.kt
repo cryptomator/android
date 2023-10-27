@@ -84,6 +84,7 @@ class UnlockVaultPresenter @Inject constructor(
 				override fun onSuccess(unverifiedVaultConfig: Optional<UnverifiedVaultConfig>) {
 					onUnverifiedVaultConfigRetrieved(unverifiedVaultConfig)
 				}
+
 				override fun onError(e: Throwable) {
 					if (!authenticationExceptionHandler.handleAuthenticationException(this@UnlockVaultPresenter, e, ActivityResultCallbacks.authenticatedAfterGettingVaultConfig(vault))) {
 						super.onError(e)
@@ -103,6 +104,7 @@ class UnlockVaultPresenter @Inject constructor(
 					override fun onSuccess(unverifiedVaultConfig: Optional<UnverifiedVaultConfig>) {
 						onUnverifiedVaultConfigRetrieved(unverifiedVaultConfig)
 					}
+
 					override fun onError(e: Throwable) {
 						super.onError(e)
 						finishWithResult(null)

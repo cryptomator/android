@@ -1,8 +1,8 @@
 package org.cryptomator.util;
 
+import com.google.common.base.Optional;
 import com.google.common.base.Predicates;
 
-import com.google.common.base.Optional;
 import java.util.function.Predicate;
 
 public class ExceptionUtil {
