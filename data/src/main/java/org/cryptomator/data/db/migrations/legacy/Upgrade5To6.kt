@@ -32,7 +32,7 @@ internal class Upgrade5To6 @Inject constructor() : DatabaseMigration(5, 6) {
 			.optionalText("S3_BUCKET") //
 			.optionalText("S3_REGION") //
 			.optionalText("S3_SECRET_KEY") //
-			.executeOn(db);
+			.executeOn(db)
 
 		Sql.insertInto("CLOUD_ENTITY") //
 			.select("_id", "TYPE", "ACCESS_TOKEN", "URL", "USERNAME", "WEBDAV_CERTIFICATE") //

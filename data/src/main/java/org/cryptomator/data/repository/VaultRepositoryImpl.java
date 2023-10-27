@@ -1,7 +1,5 @@
 package org.cryptomator.data.repository;
 
-import static org.cryptomator.domain.Vault.aCopyOf;
-
 import android.database.sqlite.SQLiteConstraintException;
 
 import org.cryptomator.data.cloud.crypto.CryptoCloudContentRepositoryFactory;
@@ -18,6 +16,8 @@ import java.util.List;
 
 import javax.inject.Inject;
 import javax.inject.Singleton;
+
+import static org.cryptomator.domain.Vault.aCopyOf;
 
 @Singleton
 class VaultRepositoryImpl implements VaultRepository {

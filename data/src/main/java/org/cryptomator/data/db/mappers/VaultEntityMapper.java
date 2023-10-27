@@ -1,7 +1,5 @@
 package org.cryptomator.data.db.mappers;
 
-import static org.cryptomator.domain.Vault.aVault;
-
 import org.cryptomator.data.db.CloudDao;
 import org.cryptomator.data.db.entities.VaultEntity;
 import org.cryptomator.domain.Cloud;
@@ -11,6 +9,8 @@ import org.cryptomator.domain.exception.BackendException;
 
 import javax.inject.Inject;
 import javax.inject.Singleton;
+
+import static org.cryptomator.domain.Vault.aVault;
 
 @Singleton
 public class VaultEntityMapper extends EntityMapper<VaultEntity, Vault> {

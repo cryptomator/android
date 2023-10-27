@@ -1,12 +1,5 @@
 package org.cryptomator.data.db.migrations;
 
-import static org.cryptomator.data.db.migrations.Sql.SqlCreateTableBuilder.ColumnConstraint.NOT_NULL;
-import static org.cryptomator.data.db.migrations.Sql.SqlCreateTableBuilder.ColumnConstraint.PRIMARY_KEY;
-import static org.cryptomator.data.db.migrations.Sql.SqlCreateTableBuilder.ColumnType.BOOLEAN;
-import static org.cryptomator.data.db.migrations.Sql.SqlCreateTableBuilder.ColumnType.INTEGER;
-import static org.cryptomator.data.db.migrations.Sql.SqlCreateTableBuilder.ColumnType.TEXT;
-import static java.lang.String.format;
-
 import android.content.ContentValues;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
@@ -15,6 +8,13 @@ import androidx.sqlite.db.SupportSQLiteDatabase;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import static org.cryptomator.data.db.migrations.Sql.SqlCreateTableBuilder.ColumnConstraint.NOT_NULL;
+import static org.cryptomator.data.db.migrations.Sql.SqlCreateTableBuilder.ColumnConstraint.PRIMARY_KEY;
+import static org.cryptomator.data.db.migrations.Sql.SqlCreateTableBuilder.ColumnType.BOOLEAN;
+import static org.cryptomator.data.db.migrations.Sql.SqlCreateTableBuilder.ColumnType.INTEGER;
+import static org.cryptomator.data.db.migrations.Sql.SqlCreateTableBuilder.ColumnType.TEXT;
+import static java.lang.String.format;
 
 //TODO Use precompiled statements for all?
 //TODO Compatibility of Rename table with new androids
@@ -125,10 +125,10 @@ public class Sql {
 		}
 
 		public Cursor executeOn(SupportSQLiteDatabase db) {
-			if(columns == null || columns.isEmpty()) {
+			if (columns == null || columns.isEmpty()) {
 				throw new IllegalArgumentException();
 			}
-			if(tableName == null || tableName.trim().isEmpty()) {
+			if (tableName == null || tableName.trim().isEmpty()) {
 				throw new IllegalArgumentException();
 			}
 
@@ -489,6 +489,7 @@ public class Sql {
 	}
 
 	private static final int NOT_FOUND = -1;
+
 	private static void appendColumns(StringBuilder query, String[] columns, String sourceTableName, boolean appendSourceTableName) {
 		boolean notFirst = false;
 

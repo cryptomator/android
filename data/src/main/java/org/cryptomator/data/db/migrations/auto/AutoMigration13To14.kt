@@ -1,8 +1,6 @@
 package org.cryptomator.data.db.migrations.auto
 
 import androidx.room.RenameColumn
-import androidx.room.migration.AutoMigrationSpec
-import androidx.sqlite.db.SupportSQLiteDatabase
 import org.cryptomator.data.db.DatabaseAutoMigrationSpec
 
 @RenameColumn.Entries(

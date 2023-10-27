@@ -29,7 +29,7 @@ internal class Upgrade4To5 @Inject constructor() : DatabaseMigration(4, 5) {
 			.optionalText("URL") //
 			.optionalText("USERNAME") //
 			.optionalText("WEBDAV_CERTIFICATE") //
-			.executeOn(db);
+			.executeOn(db)
 
 		Sql.insertInto("CLOUD_ENTITY") //
 			.select("_id", "TYPE", "ACCESS_TOKEN", "WEBDAV_URL", "USERNAME", "WEBDAV_CERTIFICATE") //

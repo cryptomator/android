@@ -7,7 +7,6 @@ import androidx.room.OnConflictStrategy
 import androidx.room.Query
 import androidx.room.Transaction
 import org.cryptomator.data.db.entities.CloudEntity
-import org.cryptomator.data.db.entities.VaultEntity
 
 @Dao
 interface CloudDao {
