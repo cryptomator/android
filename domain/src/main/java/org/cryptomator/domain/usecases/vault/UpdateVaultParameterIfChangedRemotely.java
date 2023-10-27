@@ -19,7 +19,7 @@ class UpdateVaultParameterIfChangedRemotely {
 
 	public Vault execute() throws BackendException {
 		Vault oldVault = vaultRepository.load(vault.getId());
-		if(oldVault.getFormat() == vault.getFormat() && oldVault.getShorteningThreshold() == vault.getShorteningThreshold()) {
+		if (oldVault.getFormat() == vault.getFormat() && oldVault.getShorteningThreshold() == vault.getShorteningThreshold()) {
 			return vault;
 		} else {
 			return vaultRepository.store(vault);

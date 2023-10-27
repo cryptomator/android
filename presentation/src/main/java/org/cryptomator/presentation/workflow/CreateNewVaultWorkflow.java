@@ -19,12 +19,12 @@ import java.io.Serializable;
 
 import javax.inject.Inject;
 
-import static java.util.Collections.singletonList;
 import static org.cryptomator.presentation.intent.ChooseCloudNodeSettings.chooseCloudNodeSettings;
 import static org.cryptomator.presentation.intent.Intents.browseFilesIntent;
 import static org.cryptomator.presentation.intent.Intents.chooseCloudServiceIntent;
 import static org.cryptomator.presentation.intent.Intents.createVaultIntent;
 import static org.cryptomator.presentation.intent.Intents.setPasswordIntent;
+import static java.util.Collections.singletonList;
 
 public class CreateNewVaultWorkflow extends Workflow<CreateNewVaultWorkflow.State> {
 

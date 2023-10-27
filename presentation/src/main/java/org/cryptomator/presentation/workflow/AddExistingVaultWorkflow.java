@@ -117,7 +117,7 @@ public class AddExistingVaultWorkflow extends Workflow<AddExistingVaultWorkflow.
 	@Callback
 	void cryptomatorFileChosen(SerializableResult<CloudFileModel> result) {
 		CloudFileModel masterkeyFile = result.getResult();
-		if(!masterkeyFile.getPath().equals("/masterkey.cryptomator") && !masterkeyFile.getPath().equals("/vault.cryptomator")) {
+		if (!masterkeyFile.getPath().equals("/masterkey.cryptomator") && !masterkeyFile.getPath().equals("/vault.cryptomator")) {
 			state().masterkeyFile = masterkeyFile.toCloudNode();
 			presenter().getView().showProgress(ProgressModel.GENERIC);
 			finish();

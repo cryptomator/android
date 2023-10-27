@@ -7,7 +7,6 @@ import org.cryptomator.domain.Vault
 import org.cryptomator.generator.Dialog
 import org.cryptomator.presentation.R
 import org.cryptomator.presentation.model.CloudModel
-import java.util.ArrayList
 
 @Dialog(R.layout.dialog_delete_cloud_connection_with_vaults)
 class DeleteCloudConnectionWithVaultsDialog : BaseDialog<DeleteCloudConnectionWithVaultsDialog.Callback>() {

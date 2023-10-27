@@ -19,7 +19,6 @@ import org.cryptomator.presentation.ui.dialog.ReplaceDialog
 import org.cryptomator.presentation.ui.dialog.UploadCloudFileDialog
 import org.cryptomator.presentation.ui.fragment.SharedFilesFragment
 import java.lang.String.format
-import java.util.ArrayList
 import javax.inject.Inject
 import kotlinx.android.synthetic.main.toolbar_layout.toolbar
 import timber.log.Timber

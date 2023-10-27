@@ -13,9 +13,9 @@ import java.io.File;
 import java.util.Arrays;
 import java.util.List;
 
-import static java.lang.Thread.sleep;
 import static org.hamcrest.CoreMatchers.not;
 import static org.junit.Assert.assertThat;
+import static java.lang.Thread.sleep;
 
 @RunWith(AndroidJUnit4.class)
 @SmallTest

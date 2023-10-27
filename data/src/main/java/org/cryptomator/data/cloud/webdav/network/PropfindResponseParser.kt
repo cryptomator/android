@@ -7,7 +7,6 @@ import org.xmlpull.v1.XmlPullParserException
 import org.xmlpull.v1.XmlPullParserFactory
 import java.io.IOException
 import java.io.InputStream
-import java.util.ArrayList
 import java.util.Date
 import timber.log.Timber
 

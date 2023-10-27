@@ -27,7 +27,6 @@ import org.cryptomator.presentation.util.FileSizeHelper
 import org.cryptomator.presentation.util.FileUtil
 import org.cryptomator.presentation.util.ResourceHelper.Companion.getDrawable
 import org.cryptomator.util.SharedPreferencesHandler
-import java.util.Comparator
 import javax.inject.Inject
 import kotlinx.android.synthetic.main.item_browse_files_node.view.cloudNodeImage
 import kotlinx.android.synthetic.main.item_browse_files_node.view.itemCheckBox

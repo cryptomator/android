@@ -62,7 +62,7 @@ def liteFlavor() {
 }
 
 def getApiKeyLocal(key) {
-	if(!rootProject.file("local.properties").exists()) {
+	if (!rootProject.file("local.properties").exists()) {
 		return ""
 	}
 	def localPropertyList = new Properties()

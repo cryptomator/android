@@ -292,6 +292,7 @@ class BrowseFilesPresenter @Inject constructor( //
 						override fun onSuccess(t: Void?) {
 							view?.showMessage(R.string.screen_file_browser_msg_file_exported)
 						}
+
 						override fun onFinished() {
 							source.close()
 						}
