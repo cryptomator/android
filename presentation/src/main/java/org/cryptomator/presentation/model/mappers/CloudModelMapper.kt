@@ -22,7 +22,7 @@ class CloudModelMapper @Inject constructor() : ModelMapper<CloudModel, Cloud>() 
 	}
 
 	override fun toModel(domainObject: Cloud): CloudModel {
-		return when (domainObject.type().let { CloudTypeModel.valueOf(it) }) {
+		return when (domainObject.type.let { CloudTypeModel.valueOf(it) }) {
 			CloudTypeModel.DROPBOX -> DropboxCloudModel(domainObject)
 			CloudTypeModel.GOOGLE_DRIVE -> GoogleDriveCloudModel(domainObject)
 			CloudTypeModel.LOCAL -> LocalStorageModel(domainObject)

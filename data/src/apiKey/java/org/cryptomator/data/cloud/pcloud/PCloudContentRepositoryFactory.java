@@ -24,7 +24,7 @@ public class PCloudContentRepositoryFactory implements CloudContentRepositoryFac
 
 	@Override
 	public boolean supports(Cloud cloud) {
-		return cloud.type() == PCLOUD;
+		return cloud.getType() == PCLOUD;
 	}
 
 	@Override

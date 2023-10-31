@@ -33,7 +33,7 @@ public class AddOrChangeCloudConnection {
 	}
 
 	private boolean cloudExists(Cloud cloud) throws BackendException {
-		for (Cloud storedCloud : cloudRepository.clouds(cloud.type())) {
+		for (Cloud storedCloud : cloudRepository.clouds(cloud.getType())) {
 			if (cloud.id() != null && cloud.id().equals(storedCloud.id())) {
 				continue;
 			}

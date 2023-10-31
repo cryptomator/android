@@ -159,7 +159,7 @@ public class Vault implements Serializable {
 			this.cloud = cloud;
 
 			if (cloud != null) {
-				this.cloudType = cloud.type();
+				this.cloudType = cloud.getType();
 			}
 
 			return this;
@@ -168,7 +168,7 @@ public class Vault implements Serializable {
 		public Builder withCloudType(CloudType cloudType) {
 			this.cloudType = cloudType;
 
-			if (cloud != null && cloud.type() != cloudType) {
+			if (cloud != null && cloud.getType() != cloudType) {
 				throw new IllegalStateException("Cloud type must match cloud");
 			}
 
@@ -179,7 +179,7 @@ public class Vault implements Serializable {
 			this.name = vaultFolder.getName();
 			this.path = vaultFolder.getPath();
 			this.cloud = vaultFolder.getCloud();
-			this.cloudType = cloud.type();
+			this.cloudType = cloud.getType();
 			return this;
 		}
 

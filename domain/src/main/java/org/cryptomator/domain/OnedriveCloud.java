@@ -40,7 +40,7 @@ public class OnedriveCloud implements Cloud {
 
 	@NotNull
 	@Override
-	public CloudType type() {
+	public CloudType getType() {
 		return CloudType.ONEDRIVE;
 	}
 
