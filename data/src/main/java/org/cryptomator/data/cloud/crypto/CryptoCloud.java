@@ -3,6 +3,7 @@ package org.cryptomator.data.cloud.crypto;
 import org.cryptomator.domain.Cloud;
 import org.cryptomator.domain.CloudType;
 import org.cryptomator.domain.Vault;
+import org.jetbrains.annotations.NotNull;
 
 public class CryptoCloud implements Cloud {
 
@@ -17,6 +18,7 @@ public class CryptoCloud implements Cloud {
 		return null;
 	}
 
+	@NotNull
 	@Override
 	public CloudType type() {
 		return CloudType.CRYPTO;

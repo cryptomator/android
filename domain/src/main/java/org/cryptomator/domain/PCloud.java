@@ -45,6 +45,7 @@ public class PCloud implements Cloud {
 		return username;
 	}
 
+	@NotNull
 	@Override
 	public CloudType type() {
 		return CloudType.PCLOUD;

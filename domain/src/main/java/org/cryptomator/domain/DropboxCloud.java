@@ -38,6 +38,7 @@ public class DropboxCloud implements Cloud {
 		return username;
 	}
 
+	@NotNull
 	@Override
 	public CloudType type() {
 		return CloudType.DROPBOX;

@@ -45,6 +45,7 @@ public class WebDavCloud implements Cloud {
 		return url.equals(cloud.url) && username.equals(cloud.username);
 	}
 
+	@NotNull
 	@Override
 	public CloudType type() {
 		return CloudType.WEBDAV;

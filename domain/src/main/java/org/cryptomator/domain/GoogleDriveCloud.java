@@ -30,6 +30,7 @@ public class GoogleDriveCloud implements Cloud {
 		return id;
 	}
 
+	@NotNull
 	@Override
 	public CloudType type() {
 		return CloudType.GOOGLE_DRIVE;
