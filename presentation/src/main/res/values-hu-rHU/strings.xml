@@ -198,6 +198,7 @@
 	<string name="screen_settings_security_label">Biztonsági tippek</string>
 	<string name="screen_settings_section_version">Verzió</string>
 	<string name="screen_settings_advanced_settings">Speciális beállítások</string>
+	<string name="screen_settings_microsoft_apps_workaround_summary">Fájlok megnyitása Microsoft-alkalmazásokban írási engedéllyel</string>
 	<string name="screen_settings_background_unlock_preparation_label">A feloldás felgyorsítása</string>
 	<string name="screen_settings_background_unlock_preparation_label_summary">Trezor konfigurációjának letöltése a háttérben a jelszó/biometrikus hitelesítés megadása közben</string>
 	<string name="screen_settings_keep_unlocked_while_editing_files">Feloldvatartás</string>
@@ -220,6 +221,7 @@
 	<string name="screen_cryptomator_variants_lite_description">Nincsenek benne, mert API kulcsokra van szükségük.</string>
 	<string name="screen_cryptomator_variants_lite_install">Telepítés</string>
 	<string name="screen_cryptomator_variants_fdroid_title">Cryptomator F-Droid tároló</string>
+	<string name="screen_cryptomator_variants_fdroid_description">Kizárva, mert saját függőségeket tartalmaz.</string>
 	<string name="screen_cryptomator_variants_fdroid_add_repo_hint">A Cryptomator tároló hozzáadása az F-Droid apphoz.</string>
 	<string name="screen_cryptomator_variants_fdroid_add_repo">Hozzáadás</string>
 	<string name="screen_cryptomator_variants_fdroid_install_hint">Cryptomator telepítése F-Droid segítségével.\nHa egy nem talált hiba jelenik meg, várjon amíg az F-Droid szinkronizáció befejeződik.</string>
