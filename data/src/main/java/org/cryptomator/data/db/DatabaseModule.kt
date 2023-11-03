@@ -29,7 +29,7 @@ class DatabaseModule {
 	@Singleton
 	@Provides
 	fun provideCryptomatorDatabase(context: Context, migrations: Array<Migration>): CryptomatorDatabase {
-		Timber.tag("Database").i("Building database")
+		Timber.tag("Database").i("Building database (target version: %s)", CRYPTOMATOR_DATABASE_VERSION)
 		return Room.databaseBuilder(context, CryptomatorDatabase::class.java, "Cryptomator") //
 			.addMigrations(*migrations) //
 			.addCallback(DatabaseCallback) //

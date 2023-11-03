@@ -8,8 +8,10 @@ import org.cryptomator.data.db.entities.UpdateCheckEntity
 import org.cryptomator.data.db.entities.VaultEntity
 import org.cryptomator.data.db.migrations.auto.AutoMigration13To14
 
+const val CRYPTOMATOR_DATABASE_VERSION = 14
+
 @Database(
-	version = 14, entities = [CloudEntity::class, UpdateCheckEntity::class, VaultEntity::class], autoMigrations = [
+	version = CRYPTOMATOR_DATABASE_VERSION, entities = [CloudEntity::class, UpdateCheckEntity::class, VaultEntity::class], autoMigrations = [
 		AutoMigration(from = 13, to = 14, spec = AutoMigration13To14::class)
 	]
 )
