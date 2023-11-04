@@ -84,20 +84,20 @@ class UpgradeDatabaseTest {
 		val webdavCertificate = "webdavCertificate"
 		val accessToken = "accessToken"
 
-		Sql.update("CLOUD_ENTITY")
-			.where("TYPE", Sql.eq("DROPBOX"))
-			.set("ACCESS_TOKEN", Sql.toString(accessToken))
-			.set("WEBDAV_URL", Sql.toString(url))
-			.set("USERNAME", Sql.toString(username))
-			.set("WEBDAV_CERTIFICATE", Sql.toString(webdavCertificate))
+		Sql.update("CLOUD_ENTITY") //
+			.where("TYPE", Sql.eq("DROPBOX")) //
+			.set("ACCESS_TOKEN", Sql.toString(accessToken)) //
+			.set("WEBDAV_URL", Sql.toString(url)) //
+			.set("USERNAME", Sql.toString(username)) //
+			.set("WEBDAV_CERTIFICATE", Sql.toString(webdavCertificate)) //
 			.executeOn(db)
 
-		Sql.update("CLOUD_ENTITY")
-			.where("TYPE", Sql.eq("ONEDRIVE"))
-			.set("ACCESS_TOKEN", Sql.toString("NOT USED"))
-			.set("WEBDAV_URL", Sql.toString(url))
-			.set("USERNAME", Sql.toString(username))
-			.set("WEBDAV_CERTIFICATE", Sql.toString(webdavCertificate))
+		Sql.update("CLOUD_ENTITY") //
+			.where("TYPE", Sql.eq("ONEDRIVE")) //
+			.set("ACCESS_TOKEN", Sql.toString("NOT USED")) //
+			.set("WEBDAV_URL", Sql.toString(url)) //
+			.set("USERNAME", Sql.toString(username)) //
+			.set("WEBDAV_CERTIFICATE", Sql.toString(webdavCertificate)) //
 			.executeOn(db)
 
 		context.getSharedPreferences("com.microsoft.live", Context.MODE_PRIVATE).edit().putString("refresh_token", accessToken).commit()
@@ -295,12 +295,12 @@ class UpgradeDatabaseTest {
 		val urlApk = "urlApk"
 		val urlReleaseNote = "urlReleaseNote"
 
-		Sql.update("UPDATE_CHECK_ENTITY")
-			.set("LICENSE_TOKEN", Sql.toString(licenseToken))
-			.set("RELEASE_NOTE", Sql.toString(releaseNote))
-			.set("VERSION", Sql.toString(version))
-			.set("URL_TO_APK", Sql.toString(urlApk))
-			.set("URL_TO_RELEASE_NOTE", Sql.toString(urlReleaseNote))
+		Sql.update("UPDATE_CHECK_ENTITY") //
+			.set("LICENSE_TOKEN", Sql.toString(licenseToken)) //
+			.set("RELEASE_NOTE", Sql.toString(releaseNote)) //
+			.set("VERSION", Sql.toString(version)) //
+			.set("URL_TO_APK", Sql.toString(urlApk)) //
+			.set("URL_TO_RELEASE_NOTE", Sql.toString(urlReleaseNote)) //
 			.executeOn(db)
 
 		Upgrade6To7().migrate(db)
@@ -327,12 +327,12 @@ class UpgradeDatabaseTest {
 
 		val licenseToken = "licenseToken"
 
-		Sql.update("UPDATE_CHECK_ENTITY")
-			.set("LICENSE_TOKEN", Sql.toString(licenseToken))
-			.set("RELEASE_NOTE", Sql.toString("releaseNote"))
-			.set("VERSION", Sql.toString("version"))
-			.set("URL_TO_APK", Sql.toString("urlApk"))
-			.set("URL_TO_RELEASE_NOTE", Sql.toString("urlReleaseNote"))
+		Sql.update("UPDATE_CHECK_ENTITY") //
+			.set("LICENSE_TOKEN", Sql.toString(licenseToken)) //
+			.set("RELEASE_NOTE", Sql.toString("releaseNote")) //
+			.set("VERSION", Sql.toString("version")) //
+			.set("URL_TO_APK", Sql.toString("urlApk")) //
+			.set("URL_TO_RELEASE_NOTE", Sql.toString("urlReleaseNote")) //
 			.executeOn(db)
 
 		Sql.alterTable("UPDATE_CHECK_ENTITY").renameTo("UPDATE_CHECK_ENTITY_OLD").executeOn(db)
@@ -376,7 +376,7 @@ class UpgradeDatabaseTest {
 			.text("URL", "url") //
 			.text("USERNAME", "username") //
 			.text("WEBDAV_CERTIFICATE", "certificate") //
-			.text("ACCESS_TOKEN", "accessToken")
+			.text("ACCESS_TOKEN", "accessToken") //
 			.text("S3_BUCKET", "s3Bucket") //
 			.text("S3_REGION", "s3Region") //
 			.text("S3_SECRET_KEY", "s3SecretKey") //
@@ -443,7 +443,7 @@ class UpgradeDatabaseTest {
 			.text("URL", "url") //
 			.text("USERNAME", "username") //
 			.text("WEBDAV_CERTIFICATE", "certificate") //
-			.text("ACCESS_TOKEN", "accessToken")
+			.text("ACCESS_TOKEN", "accessToken") //
 			.text("S3_BUCKET", "s3Bucket") //
 			.text("S3_REGION", "s3Region") //
 			.text("S3_SECRET_KEY", "s3SecretKey") //
@@ -561,10 +561,10 @@ class UpgradeDatabaseTest {
 
 		Sql.query("CLOUD_ENTITY").executeOn(db).use {
 			while (it.moveToNext()) {
-				Sql.update("CLOUD_ENTITY")
-					.where("_id", Sql.eq(3L))
-					.set("ACCESS_TOKEN", Sql.toString("Access token 3000"))
-					.set("USERNAME", Sql.toString("foo@bar.baz"))
+				Sql.update("CLOUD_ENTITY") //
+					.where("_id", Sql.eq(3L)) //
+					.set("ACCESS_TOKEN", Sql.toString("Access token 3000")) //
+					.set("USERNAME", Sql.toString("foo@bar.baz")) //
 					.executeOn(db)
 			}
 		}
