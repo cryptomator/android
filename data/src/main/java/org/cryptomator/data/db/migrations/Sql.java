@@ -125,16 +125,24 @@ public class Sql {
 		}
 
 		public Cursor executeOn(SupportSQLiteDatabase db) {
-			if (columns == null || columns.isEmpty()) {
-				throw new IllegalArgumentException();
-			}
 			if (tableName == null || tableName.trim().isEmpty()) {
 				throw new IllegalArgumentException();
 			}
 
-			StringBuilder query = new StringBuilder().append("SELECT (");
-			appendColumns(query, columns.toArray(new String[0]), null, false);
-			query.append(") FROM ").append('"').append(tableName).append('"').append(" WHERE ").append(whereClause);
+			StringBuilder query = new StringBuilder().append("SELECT ");
+			if (columns == null || columns.isEmpty()) {
+				query.append("*");
+			} else {
+				query.append("(");
+				appendColumns(query, columns.toArray(new String[0]), null, false);
+				query.append(")");
+			}
+
+			query.append(" FROM ").append('"').append(tableName).append('"');
+
+			if (whereClause.length() > 0) {
+				query.append(" WHERE ").append(whereClause);
+			}
 
 			return db.query(query.toString(), whereArgs.toArray());
 		}
