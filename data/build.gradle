@@ -3,6 +3,7 @@ apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-kapt'
 apply plugin: 'de.mannodermaus.android-junit5'
 
+def roomSchemasDir = new File(projectDir, "room/schemas")
 android {
 	def globalConfiguration = rootProject.extensions.getByName("ext")
 
@@ -21,7 +22,7 @@ android {
 		javaCompileOptions {
 			annotationProcessorOptions {
 				compilerArgumentProviders(
-						new RoomSchemaArgProvider(new File(projectDir, "room/schemas"))
+						new RoomSchemaArgProvider(roomSchemasDir)
 				)
 			}
 		}
@@ -82,6 +83,8 @@ android {
 		lite {
 			java.srcDirs = ['src/main/java/', 'src/lite/java/']
 		}
+
+		androidTest.assets.srcDirs += roomSchemasDir
 	}
 	packagingOptions {
 		resources {
@@ -223,6 +226,7 @@ dependencies {
 	testImplementation dependencies.mockitoInline
 	testImplementation dependencies.hamcrest
 
+	androidTestImplementation dependencies.roomTesting
 	androidTestImplementation(dependencies.runner) {
 		exclude group: 'com.android.support', module: 'support-annotations'
 	}

@@ -144,6 +144,7 @@ ext {
 			trackingFreeGoogleAndroidCLient: files("lib/google-http-client-android-${trackingFreeGoogleCLientVersion}.jar"),
 			room                           : "androidx.room:room-runtime:${roomVersion}",
 			roomCompiler                   : "androidx.room:room-compiler:${roomVersion}",
+			roomTesting                    : "androidx.room:room-testing:${roomVersion}",
 			gson                           : "com.google.code.gson:gson:${gsonVersion}",
 			hamcrest                       : "org.hamcrest:hamcrest-all:${hamcrestVersion}",
 			javaxAnnotation                : "javax.annotation:jsr250-api:${javaxAnnotationVersion}",
