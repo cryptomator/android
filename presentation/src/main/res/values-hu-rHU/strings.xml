@@ -198,6 +198,7 @@
 	<string name="screen_settings_security_label">Biztonsági tippek</string>
 	<string name="screen_settings_section_version">Verzió</string>
 	<string name="screen_settings_advanced_settings">Speciális beállítások</string>
+	<string name="screen_settings_microsoft_apps_workaround_label">Megkerülés Microsoft-fájlok megnyitásával</string>
 	<string name="screen_settings_microsoft_apps_workaround_summary">Fájlok megnyitása Microsoft-alkalmazásokban írási engedéllyel</string>
 	<string name="screen_settings_background_unlock_preparation_label">A feloldás felgyorsítása</string>
 	<string name="screen_settings_background_unlock_preparation_label_summary">Trezor konfigurációjának letöltése a háttérben a jelszó/biometrikus hitelesítés megadása közben</string>
@@ -292,6 +293,7 @@
 	<string name="dialog_accept_ssl_certificate_details">Részletek</string>
 	<string name="dialog_accept_ssl_certificate_security_checkbox">Ez biztonsági kockázatot jelent. Tudom, mit csinálok.</string>
 	<string name="dialog_ask_ignore_battery_optimizations_title">Akkumulátor-optimalizálás kikapcsolása</string>
+	<string name="dialog_ask_ignore_battery_optimizations_hint">Az új képek és videók lekérdezéséhez anélkül, hogy a háttérben futna, ki kell kapcsolnunk az akkumulátor optimalizálását. De ne aggódj, a %1$s nem fogyaszt sok energiát.\n\nAz alkalmazáshoz állítsd át a \"Nem optimalizált\" opciót \"Minden alkalmazás\"-ra, válaszd ki a %1$s-t, és a \"%2$s\" megérintése után válaszd ki a \"Nem optimalizál\" opciót ebben a párbeszédpanelben.</string>
 	<string name="dialog_ask_ignore_battery_optimizations_checkbox">Ne kérdezze újra</string>
 	<string name="dialog_http_security_hint">A HTTP használata nem biztonságos, helyette a HTTPS használata ajánlott. Ha ismeri a kockázatot, folytathatja HTTP-vel is.</string>
 	<string name="dialog_http_security_checkbox">Váltson HTTPS-re</string>
@@ -304,6 +306,7 @@
 	<string name="dialog_debug_mode_disclaimer_hint">Ebben a módban érzékeny adatok kerülhetnek az eszközön lévő naplófájlba (pl. fájlnevek és -útvonalak). Ez jelszavakra és sütikre nem vonatkozik.\n\n Ne felejtse el minél hamarabb kikapcsolni a fejlesztői módot.</string>
 	<string name="dialog_debug_mode_disclaimer_title">Figyelem</string>
 	<string name="dialog_debug_mode_positive_button">Engedélyezés</string>
+	<string name="dialog_microsoft_workaround_disclaimer_hint">A Microsoft-alkalmazások egy hibája miatt a szerkesztendő fájlt meg kell osztani ezekkel az alkalmazásokkal az eszközön lévő nyilvános médiamappában. Miután a Cryptomator végzett, a nyilvánosan elérhető fájl ismét törlődik, de a Cryptomatornak nincs befolyása arra, hogy mi történik időközben ezzel a fájlal. Győződj meg róla, hogy tisztában vagy ezzel a viselkedéssel, amikor bekapcsolod ezt az opciót. Ez csak a Microsoft fájltípusokra vonatkozik.\n\nAz bekapcsolás után a Cryptomator újraindul.</string>
 	<string name="dialog_disable_app_obscured_disclaimer_title">Figyelem</string>
 	<string name="dialog_disable_app_obscured_positive_button">Letiltás</string>
 	<string name="dialog_app_is_obscured_info_title">Az app el van takarva</string>
