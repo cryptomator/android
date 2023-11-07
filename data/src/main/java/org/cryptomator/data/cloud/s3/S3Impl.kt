@@ -332,12 +332,11 @@ internal class S3Impl(private val cloud: S3Cloud, private val client: MinioClien
 	@Throws(NoSuchBucketException::class, BackendException::class)
 	fun checkAuthentication(): String {
 		return try {
-			if (!client.bucketExists(BucketExistsArgs.builder().bucket(cloud.s3Bucket()).build())) {
-				throw NoSuchBucketException(cloud.s3Bucket())
-			}
+			//Throw appropriate exception implicitly through "handleApiError"
+			client.listObjects(ListObjectsArgs.builder().bucket(cloud.s3Bucket()).maxKeys(1).build())
 			""
 		} catch (e: ErrorResponseException) {
-			throw handleApiError(e, "")
+			throw handleApiError(e, cloud.s3Bucket())
 		}
 	}
 
