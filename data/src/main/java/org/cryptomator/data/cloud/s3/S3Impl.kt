@@ -341,21 +341,21 @@ internal class S3Impl(private val cloud: S3Cloud, private val client: MinioClien
 	}
 
 	private fun handleApiError(e: ErrorResponseException, name: String): Exception {
-			val errorCode = e.errorResponse().code()
-			return when {
-				isAccessProblem(errorCode) -> {
-					ForbiddenException()
-				}
-				S3CloudApiErrorCodes.NO_SUCH_BUCKET.value == errorCode -> {
-					NoSuchBucketException(name)
-				}
-				S3CloudApiErrorCodes.NO_SUCH_KEY.value == errorCode -> {
-					NoSuchCloudFileException(name)
-				}
-				else -> {
-					FatalBackendException(e)
-				}
+		val errorCode = e.errorResponse().code()
+		return when {
+			isAccessProblem(errorCode) -> {
+				ForbiddenException()
 			}
+			S3CloudApiErrorCodes.NO_SUCH_BUCKET.value == errorCode -> {
+				NoSuchBucketException(name)
+			}
+			S3CloudApiErrorCodes.NO_SUCH_KEY.value == errorCode -> {
+				NoSuchCloudFileException(name)
+			}
+			else -> {
+				FatalBackendException(e)
+			}
+		}
 	}
 
 	fun logout() {

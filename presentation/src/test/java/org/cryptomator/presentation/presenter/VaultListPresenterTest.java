@@ -1,11 +1,5 @@
 package org.cryptomator.presentation.presenter;
 
-import static org.mockito.Mockito.never;
-import static org.mockito.Mockito.times;
-import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
-import static java.util.Arrays.asList;
-
 import android.app.Activity;
 
 import org.cryptomator.data.util.NetworkConnectionCheck;
@@ -43,6 +37,12 @@ import org.mockito.Mockito;
 
 import java.util.Collections;
 import java.util.List;
+
+import static org.mockito.Mockito.never;
+import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
+import static java.util.Arrays.asList;
 
 public class VaultListPresenterTest {
 

@@ -25,9 +25,9 @@ public class KeyStoreBuilder {
 			keyStore.load(null);
 			return keyStore;
 		} catch (IOException //
-				| KeyStoreException //
-				| CertificateException //
-				| NoSuchAlgorithmException e) {
+				 | KeyStoreException //
+				 | CertificateException //
+				 | NoSuchAlgorithmException e) {
 			throw new RuntimeException(e);
 		}
 	}
@@ -94,9 +94,9 @@ public class KeyStoreBuilder {
 				keyStore.load(null);
 				isKeyStoreCertAliasExisted = keyStore.containsAlias(alias);
 			} catch (KeyStoreException //
-					| CertificateException //
-					| NoSuchAlgorithmException //
-					| IOException e) {
+					 | CertificateException //
+					 | NoSuchAlgorithmException //
+					 | IOException e) {
 				throw new RuntimeException(e);
 			}
 

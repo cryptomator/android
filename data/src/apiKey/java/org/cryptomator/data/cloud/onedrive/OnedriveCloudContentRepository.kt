@@ -24,8 +24,8 @@ import java.io.OutputStream
 import java.net.SocketTimeoutException
 import okhttp3.Request
 
-internal class OnedriveCloudContentRepository(private val cloud: OnedriveCloud, graphServiceClient: GraphServiceClient<Request>, context: Context)
-	: InterceptingCloudContentRepository<OnedriveCloud, OnedriveNode, OnedriveFolder, OnedriveFile>(Intercepted(cloud, graphServiceClient, context)) {
+internal class OnedriveCloudContentRepository(private val cloud: OnedriveCloud, graphServiceClient: GraphServiceClient<Request>, context: Context) :
+	InterceptingCloudContentRepository<OnedriveCloud, OnedriveNode, OnedriveFolder, OnedriveFile>(Intercepted(cloud, graphServiceClient, context)) {
 
 	@Throws(BackendException::class)
 	override fun throwWrappedIfRequired(e: Exception) {

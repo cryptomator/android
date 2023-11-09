@@ -1,7 +1,5 @@
 package org.cryptomator.data.cloud.s3;
 
-import static org.cryptomator.domain.CloudType.S3;
-
 import android.content.Context;
 
 import org.cryptomator.data.repository.CloudContentRepositoryFactory;
@@ -12,6 +10,8 @@ import org.cryptomator.util.SharedPreferencesHandler;
 
 import javax.inject.Inject;
 import javax.inject.Singleton;
+
+import static org.cryptomator.domain.CloudType.S3;
 
 @Singleton
 public class S3CloudContentRepositoryFactory implements CloudContentRepositoryFactory {

@@ -10,7 +10,6 @@ import org.cryptomator.presentation.model.FileProgressStateModel
 import org.cryptomator.presentation.model.ProgressModel
 import org.cryptomator.presentation.model.ProgressStateModel
 import org.cryptomator.presentation.util.ResourceHelper
-import java.util.HashSet
 import kotlinx.android.synthetic.main.view_dialog_intermediate_progress.iv_progress_icon
 import kotlinx.android.synthetic.main.view_dialog_intermediate_progress.pb_dialog
 

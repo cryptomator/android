@@ -16,7 +16,6 @@ import org.cryptomator.presentation.model.VaultModel
 import org.cryptomator.presentation.ui.activity.view.BiometricAuthSettingsView
 import org.cryptomator.presentation.workflow.ActivityResult
 import org.cryptomator.util.SharedPreferencesHandler
-import java.util.ArrayList
 import javax.inject.Inject
 import timber.log.Timber
 
@@ -81,7 +80,8 @@ class BiometricAuthSettingsPresenter @Inject constructor( //
 		val vault = Vault.aCopyOf(vaultModel.toVault()).withCloud(cloud).withSavedPassword(password).build()
 		requestActivityResult( //
 			ActivityResultCallbacks.encryptVaultPassword(vaultModel), //
-			Intents.unlockVaultIntent().withVaultModel(VaultModel(vault)).withVaultAction(UnlockVaultIntent.VaultAction.ENCRYPT_PASSWORD))
+			Intents.unlockVaultIntent().withVaultModel(VaultModel(vault)).withVaultAction(UnlockVaultIntent.VaultAction.ENCRYPT_PASSWORD) //
+		)
 	}
 
 	@Callback
