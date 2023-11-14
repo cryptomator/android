@@ -165,8 +165,14 @@
 	<string name="screen_settings_section_search">Buscar</string>
 	<string name="screen_settings_live_search">Pesquisa em tempo real</string>
 	<string name="screen_settings_live_search_summary">Atualizar resultados de pesquisa ao inserir o texto</string>
+	<string name="screen_settings_glob_search">Pesquisar com padrão \"glob\"</string>
+	<string name="screen_settings_glob_search_summary">Usar padrão \"glob\" correspondente, como alice.*.jpg</string>
 	<string name="screen_settings_section_auto_lock">Bloqueio automático</string>
 	<string name="screen_settings_auto_lock_timeout">Bloquear após</string>
+	<string name="screen_settings_auto_lock_on_screen_lock">Quando o ecrã estiver desativado</string>
+	<string name="screen_settings_section_auto_photo_upload">Upload de foto automático</string>
+	<string name="screen_settings_section_auto_photo_upload_vault">Escolha o cofre para upload</string>
+	<string name="screen_settings_section_auto_photo_upload_toggle">Ativar</string>
 	<string name="screen_settings_section_legal">Informação Legal</string>
 	<string name="screen_settings_licenses_label">Licenças</string>
 	<string name="screen_settings_license_terms_label">Termos de aceitação</string>
