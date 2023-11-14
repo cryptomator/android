@@ -24,7 +24,6 @@ import java.io.IOException
 import java.io.OutputStream
 import java.util.Date
 import java.util.LinkedList
-import io.minio.BucketExistsArgs
 import io.minio.CopyObjectArgs
 import io.minio.CopySource
 import io.minio.GetObjectArgs
@@ -74,7 +73,14 @@ internal class S3Impl(private val cloud: S3Cloud, private val client: MinioClien
 				true
 			} else {
 				// if the bucket exists the root folder is there too. Otherwise there is no exists check possible
-				client.bucketExists(BucketExistsArgs.builder().bucket(cloud.s3Bucket()).build())
+				try {
+					requireBucketExists()
+					return true
+				} catch (e: NoSuchBucketException) {
+					return false
+				} catch (e: BackendException) {
+					throw FatalBackendException(e)
+				}
 			}
 		} catch (e: ErrorResponseException) {
 			if (S3CloudApiErrorCodes.NO_SUCH_KEY.value == e.errorResponse().code()) {
