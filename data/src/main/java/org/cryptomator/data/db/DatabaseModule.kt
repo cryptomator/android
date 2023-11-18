@@ -35,6 +35,9 @@ class DatabaseModule {
 			.addCallback(DatabaseCallback) //
 			.build() //Fails if no migration is found (especially when downgrading)
 			.also { //
+				//Migrations are only triggered once the database is used for the first time.
+				//-- Let's do that now and verify all went well before returning the database.
+				require(it.openHelper.writableDatabase.version == CRYPTOMATOR_DATABASE_VERSION)
 				Timber.tag("Database").i("Database built successfully")
 			}
 	}
