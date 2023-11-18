@@ -5,7 +5,6 @@ import androidx.room.Room
 import androidx.room.RoomDatabase
 import androidx.room.migration.Migration
 import androidx.sqlite.db.SupportSQLiteDatabase
-import org.cryptomator.data.db.migrations.legacy.Upgrade0To1
 import org.cryptomator.data.db.migrations.legacy.Upgrade10To11
 import org.cryptomator.data.db.migrations.legacy.Upgrade11To12
 import org.cryptomator.data.db.migrations.legacy.Upgrade1To2
@@ -24,6 +23,8 @@ import dagger.Module
 import dagger.Provides
 import timber.log.Timber
 
+private const val BASE_DATABASE_ASSET = "databases/legacy/Cryptomator_DB_v1.db"
+
 @Module
 class DatabaseModule {
 
@@ -32,6 +33,7 @@ class DatabaseModule {
 	fun provideCryptomatorDatabase(context: Context, migrations: Array<Migration>): CryptomatorDatabase {
 		Timber.tag("Database").i("Building database (target version: %s)", CRYPTOMATOR_DATABASE_VERSION)
 		return Room.databaseBuilder(context, CryptomatorDatabase::class.java, "Cryptomator") //
+			.createFromAsset(BASE_DATABASE_ASSET) //
 			.addMigrations(*migrations) //
 			.addCallback(DatabaseCallback) //
 			.build() //Fails if no migration is found (especially when downgrading)
@@ -64,7 +66,6 @@ class DatabaseModule {
 	@Singleton
 	@Provides
 	internal fun provideMigrations(
-		upgrade0To1: Upgrade0To1, //
 		upgrade1To2: Upgrade1To2, //
 		upgrade2To3: Upgrade2To3, //
 		upgrade3To4: Upgrade3To4, //
@@ -79,7 +80,6 @@ class DatabaseModule {
 		//
 		migration12To13: Migration12To13, //
 	): Array<Migration> = arrayOf(
-		upgrade0To1,
 		upgrade1To2,
 		upgrade2To3,
 		upgrade5To6,
