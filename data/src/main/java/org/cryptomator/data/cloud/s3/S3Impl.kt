@@ -1,5 +1,6 @@
 package org.cryptomator.data.cloud.s3
 
+import io.minio.Result as ListObjectsResult
 import android.content.Context
 import org.cryptomator.data.cloud.s3.S3CloudApiExceptions.isAccessProblem
 import org.cryptomator.data.util.CopyStream
@@ -35,6 +36,7 @@ import io.minio.RemoveObjectsArgs
 import io.minio.StatObjectArgs
 import io.minio.errors.ErrorResponseException
 import io.minio.messages.DeleteObject
+import io.minio.messages.Item
 import timber.log.Timber
 
 internal class S3Impl(private val cloud: S3Cloud, private val client: MinioClient, private val context: Context) {
@@ -345,7 +347,32 @@ internal class S3Impl(private val cloud: S3Cloud, private val client: MinioClien
 	private fun requireBucketExists() {
 		try {
 			//Throw appropriate exception implicitly through "handleApiError"
-			client.listObjects(ListObjectsArgs.builder().bucket(cloud.s3Bucket()).maxKeys(1).build())
+			val results: List<Result<Item?>> = ListObjectsArgs.builder() //
+				.bucket(cloud.s3Bucket()) //
+				.recursive(true) //
+				.maxKeys(1) //
+				.build() //
+				.let { client.listObjects(it) } //
+				.map { result -> result.runCatching(ListObjectsResult<Item?>::get) } //
+
+			if(results.isEmpty()) {
+				return
+			}
+
+			if (results.any { it.isSuccess }) {
+				results.asSequence().filter { it.isFailure }.forEach { Timber.d(it.exceptionOrNull(), "Non-critical exception while checking for bucket %s", cloud.s3Bucket()) }
+				return
+			}
+
+			val exceptions = results.map { it.exceptionOrNull()!! }
+			if(exceptions.any { it is ErrorResponseException && it.errorResponse().code() == S3CloudApiErrorCodes.NO_SUCH_BUCKET.value }) {
+				results.asSequence().filter { it.isFailure }.forEach { Timber.d(it.exceptionOrNull(), "Non-critical exception while checking for bucket %s", cloud.s3Bucket()) }
+				throw NoSuchBucketException(cloud.s3Bucket())
+			}
+			//No success and no NoSuchBucketException
+			val toThrow = exceptions.first()
+			results.asSequence().drop(1).filter { it.isFailure }.forEach { Timber.d(it.exceptionOrNull(), "Exception while checking for bucket %s", cloud.s3Bucket()) }
+			throw toThrow
 		} catch (e: ErrorResponseException) {
 			throw handleApiError(e, cloud.s3Bucket())
 		}
