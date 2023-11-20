@@ -411,3 +411,7 @@ internal class S3Impl(private val cloud: S3Cloud, private val client: MinioClien
 		}
 	}
 }
+
+fun MinioClient.listObjectsLimit(args: ListObjectsArgs, maxObjects: Int): Sequence<Result<Item?>?> {
+	return this.listObjects(args).asSequence().constrainOnce().take(maxObjects)
+}
