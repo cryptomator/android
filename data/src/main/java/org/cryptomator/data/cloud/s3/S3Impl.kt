@@ -1,6 +1,5 @@
 package org.cryptomator.data.cloud.s3
 
-import io.minio.Result as ListObjectsResult
 import android.content.Context
 import org.cryptomator.data.cloud.s3.S3CloudApiExceptions.isAccessProblem
 import org.cryptomator.data.util.CopyStream
@@ -33,6 +32,7 @@ import io.minio.MinioClient
 import io.minio.PutObjectArgs
 import io.minio.RemoveObjectArgs
 import io.minio.RemoveObjectsArgs
+import io.minio.Result
 import io.minio.StatObjectArgs
 import io.minio.errors.ErrorResponseException
 import io.minio.messages.DeleteObject
@@ -346,33 +346,23 @@ internal class S3Impl(private val cloud: S3Cloud, private val client: MinioClien
 	@Throws(NoSuchBucketException::class, BackendException::class)
 	private fun requireBucketExists() {
 		try {
-			//Throw appropriate exception implicitly through "handleApiError"
-			val results: List<Result<Item?>> = ListObjectsArgs.builder() //
+			val returned: Sequence<Result<Item?>?> = ListObjectsArgs.builder() //
 				.bucket(cloud.s3Bucket()) //
-				.recursive(true) //
-				.maxKeys(1) //
+				.recursive(true) // //TODO
+				.maxKeys(1) // Batch size
 				.build() //
-				.let { client.listObjects(it) } //
-				.map { result -> result.runCatching(ListObjectsResult<Item?>::get) } //
+				.let { client.listObjectsLimit(it, 1) }
+			//returned
+			//	|-- <Empty>					No elements in bucket
+			//	|-- Result<Err>				Any error
+			//	|-- Result<Item>
+			//		|-- "name/.bzEmpty"		Web interface folder
+			//		|-- "name/"				0 Byte folder
+			//		|-- "name"				0 or X Byte file
+			//Note: This implementation depends on listObjects/listObjectsLimit returning elements in a sensible order
 
-			if(results.isEmpty()) {
-				return
-			}
-
-			if (results.any { it.isSuccess }) {
-				results.asSequence().filter { it.isFailure }.forEach { Timber.d(it.exceptionOrNull(), "Non-critical exception while checking for bucket %s", cloud.s3Bucket()) }
-				return
-			}
-
-			val exceptions = results.map { it.exceptionOrNull()!! }
-			if(exceptions.any { it is ErrorResponseException && it.errorResponse().code() == S3CloudApiErrorCodes.NO_SUCH_BUCKET.value }) {
-				results.asSequence().filter { it.isFailure }.forEach { Timber.d(it.exceptionOrNull(), "Non-critical exception while checking for bucket %s", cloud.s3Bucket()) }
-				throw NoSuchBucketException(cloud.s3Bucket())
-			}
-			//No success and no NoSuchBucketException
-			val toThrow = exceptions.first()
-			results.asSequence().drop(1).filter { it.isFailure }.forEach { Timber.d(it.exceptionOrNull(), "Exception while checking for bucket %s", cloud.s3Bucket()) }
-			throw toThrow
+			val result: Result<Item?> = returned.firstOrNull() ?: return //No item, but above all no exception, ergo: Bucket exists
+			result.get() //Throw appropriate exception (if any) implicitly through "handleApiError"
 		} catch (e: ErrorResponseException) {
 			throw handleApiError(e, cloud.s3Bucket())
 		}
