@@ -1,6 +1,7 @@
 package org.cryptomator.data.db
 
 import android.content.Context
+import androidx.room.testing.MigrationTestHelper
 import androidx.sqlite.db.SupportSQLiteDatabase
 import androidx.sqlite.db.SupportSQLiteOpenHelper
 import androidx.sqlite.db.framework.FrameworkSQLiteOpenHelperFactory
@@ -21,6 +22,7 @@ import org.cryptomator.data.db.migrations.legacy.Upgrade6To7
 import org.cryptomator.data.db.migrations.legacy.Upgrade7To8
 import org.cryptomator.data.db.migrations.legacy.Upgrade8To9
 import org.cryptomator.data.db.migrations.legacy.Upgrade9To10
+import org.cryptomator.data.db.migrations.manual.Migration12To13
 import org.cryptomator.domain.CloudType
 import org.cryptomator.util.SharedPreferencesHandler
 import org.cryptomator.util.crypto.CredentialCryptor
@@ -28,20 +30,33 @@ import org.hamcrest.CoreMatchers
 import org.junit.After
 import org.junit.Assert
 import org.junit.Before
+import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
+
+private const val TEST_DB = "migration-test"
+private const val LATEST_LEGACY_MIGRATION = 12
 
 @RunWith(AndroidJUnit4::class)
 @SmallTest
 class UpgradeDatabaseTest {
 
-	private val context = InstrumentationRegistry.getInstrumentation().context
+	private val instrumentation = InstrumentationRegistry.getInstrumentation()
+	private val context = instrumentation.context
 	private val sharedPreferencesHandler = SharedPreferencesHandler(context)
+
 	private lateinit var db: SupportSQLiteDatabase
+
+	@get:Rule
+	val helper: MigrationTestHelper = MigrationTestHelper( //
+		instrumentation, //
+		CryptomatorDatabase::class.java, //
+		listOf() //TODO AutoSpecs
+	)
 
 	@Before
 	fun setup() {
-		db = SupportSQLiteOpenHelper.Configuration(context, null, object : SupportSQLiteOpenHelper.Callback(1) {
+		db = SupportSQLiteOpenHelper.Configuration(context, TEST_DB, object : SupportSQLiteOpenHelper.Callback(LATEST_LEGACY_MIGRATION) {
 			override fun onCreate(db: SupportSQLiteDatabase) {}
 
 			override fun onUpgrade(db: SupportSQLiteDatabase, oldVersion: Int, newVersion: Int) {}
@@ -52,6 +67,8 @@ class UpgradeDatabaseTest {
 	@After
 	fun tearDown() {
 		db.close()
+		//Room handles creating/deleting room-only databases correctly, but this falls apart when using the FrameworkSQLiteOpenHelper directly
+		context.getDatabasePath(TEST_DB).delete()
 	}
 
 	@Test
@@ -67,10 +84,12 @@ class UpgradeDatabaseTest {
 		Upgrade8To9(sharedPreferencesHandler).migrate(db)
 		Upgrade9To10(sharedPreferencesHandler).migrate(db)
 		Upgrade10To11().migrate(db)
+		Upgrade11To12(sharedPreferencesHandler).migrate(db)
+		db.close()
 
-		/*CloudEntityDao(DaoConfig(db, CloudEntityDao::class.java)).loadAll()
-		VaultEntityDao(DaoConfig(db, VaultEntityDao::class.java)).loadAll()
-		UpdateCheckEntityDao(DaoConfig(db, UpdateCheckEntityDao::class.java)).loadAll()*/ //TODO
+		helper.runMigrationsAndValidate(TEST_DB, 13, true, Migration12To13())
+		helper.runMigrationsAndValidate(TEST_DB, 14, true, CryptomatorDatabase_AutoMigration_13_14_Impl()) //TODO Use correctly
+		//TODO Verify content (e.g. by using "loadAll")
 	}
 
 
