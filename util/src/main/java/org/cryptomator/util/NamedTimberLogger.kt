@@ -16,7 +16,7 @@
  *
  * THIS FILE WAS CHANGED BY THE LICENSEE, I.E. IT CONTAINS CHANGES NOT MADE BY THE ORIGINAL CONTRIBUTORS LISTED ABOVE.
  */
-package org.cryptomator.presentation.docprovider
+package org.cryptomator.util
 
 import org.jetbrains.annotations.NonNls
 import timber.log.Timber
