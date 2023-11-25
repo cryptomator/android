@@ -27,22 +27,23 @@ import java.io.InputStream
 import java.nio.file.Files
 import java.util.concurrent.Callable
 import javax.inject.Provider
+import javax.inject.Qualifier
 import javax.inject.Singleton
 import dagger.Lazy
 import dagger.Module
 import dagger.Provides
 import timber.log.Timber
 
+private val DATABASE_NAME = "Cryptomator"
+private val LOG = Timber.Forest.named("DatabaseModule")
+
 @Module
 class DatabaseModule {
 
-	private val DATABASE_NAME = "Cryptomator"
-	private val LOG = Timber.Forest.named("DatabaseModule")
-
 	@Singleton
 	@Provides
-	fun provideCryptomatorDatabase(context: Context, migrations: Array<Migration>, dbTemplateStreamCallable: Callable<InputStream>): CryptomatorDatabase {
-		Timber.tag("Database").i("Building database (target version: %s)", CRYPTOMATOR_DATABASE_VERSION)
+	fun provideCryptomatorDatabase(context: Context, @DbInternal migrations: Array<Migration>, @DbInternal dbTemplateStreamCallable: Callable<InputStream>): CryptomatorDatabase {
+		LOG.i("Building database (target version: %s)", CRYPTOMATOR_DATABASE_VERSION)
 		return Room.databaseBuilder(context, CryptomatorDatabase::class.java, DATABASE_NAME) //
 			.createFromInputStream(dbTemplateStreamCallable) //
 			.addMigrations(*migrations) //
@@ -52,19 +53,21 @@ class DatabaseModule {
 				//Migrations are only triggered once the database is used for the first time.
 				//-- Let's do that now and verify all went well before returning the database.
 				require(it.openHelper.writableDatabase.version == CRYPTOMATOR_DATABASE_VERSION)
-				Timber.tag("Database").i("Database built successfully")
+				LOG.i("Database built successfully")
 			}
 	}
 
 	@Singleton
 	@Provides
-	fun provideDbTemplateStreamCallable(dbTemplateFile: Lazy<File>): Callable<InputStream> = Callable {
+	@DbInternal
+	fun provideDbTemplateStreamCallable(@DbInternal dbTemplateFile: Lazy<File>): Callable<InputStream> = Callable {
 		LOG.d("Creating database template stream")
 		return@Callable dbTemplateFile.get().inputStream()
 	}
 
 	@Singleton
 	@Provides
+	@DbInternal
 	fun provideDbTemplateFile(context: Context): File {
 		LOG.d("Creating database template file")
 		val delegatingContext = object : ContextWrapper(context) {
@@ -81,8 +84,7 @@ class DatabaseModule {
 				}
 
 				override fun onUpgrade(db: SupportSQLiteDatabase, oldVersion: Int, newVersion: Int) = Unit
-			}).build()
-			.let { FrameworkSQLiteOpenHelperFactory().create(it).writableDatabase }
+			}).build().let { FrameworkSQLiteOpenHelperFactory().create(it).writableDatabase }
 		require(db.version == 1)
 		db.close()
 
@@ -110,6 +112,7 @@ class DatabaseModule {
 
 	@Singleton
 	@Provides
+	@DbInternal
 	internal fun provideMigrations(
 		upgrade1To2: Upgrade1To2, //
 		upgrade2To3: Upgrade2To3, //
@@ -149,11 +152,11 @@ class DatabaseModule {
 object DatabaseCallback : RoomDatabase.Callback() {
 
 	override fun onCreate(db: SupportSQLiteDatabase) {
-		Timber.tag("Database").i("Created database (v%s)", db.version)
+		LOG.i("Created database (v%s)", db.version)
 	}
 
 	override fun onOpen(db: SupportSQLiteDatabase) {
-		Timber.tag("Database").i("Opened database (v%s)", db.version)
+		LOG.i("Opened database (v%s)", db.version)
 	}
 
 	override fun onDestructiveMigration(db: SupportSQLiteDatabase) {
@@ -161,3 +164,8 @@ object DatabaseCallback : RoomDatabase.Callback() {
 		throw UnsupportedOperationException("Destructive migration is not supported")
 	}
 }
+
+@Qualifier
+@MustBeDocumented
+@Retention(AnnotationRetention.RUNTIME)
+private annotation class DbInternal
