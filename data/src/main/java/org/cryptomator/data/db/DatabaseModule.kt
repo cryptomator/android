@@ -23,7 +23,9 @@ import org.cryptomator.data.db.migrations.legacy.Upgrade9To10
 import org.cryptomator.data.db.migrations.manual.Migration12To13
 import org.cryptomator.util.named
 import java.io.File
+import java.io.InputStream
 import java.nio.file.Files
+import java.util.concurrent.Callable
 import javax.inject.Provider
 import javax.inject.Singleton
 import dagger.Module
@@ -41,7 +43,7 @@ class DatabaseModule {
 	fun provideCryptomatorDatabase(context: Context, migrations: Array<Migration>): CryptomatorDatabase {
 		Timber.tag("Database").i("Building database (target version: %s)", CRYPTOMATOR_DATABASE_VERSION)
 		return Room.databaseBuilder(context, CryptomatorDatabase::class.java, DATABASE_NAME) //
-			.createFromFile(createDbTemplate(context))
+			.createFromInputStream(createTemplateInputStream(context)) //
 			.addMigrations(*migrations) //
 			.addCallback(DatabaseCallback) //
 			.build() //Fails if no migration is found (especially when downgrading)
@@ -51,6 +53,10 @@ class DatabaseModule {
 				require(it.openHelper.writableDatabase.version == CRYPTOMATOR_DATABASE_VERSION)
 				Timber.tag("Database").i("Database built successfully")
 			}
+	}
+
+	private fun createTemplateInputStream(context: Context): Callable<InputStream> {
+		return Callable { createDbTemplate(context).inputStream() }
 	}
 
 	private fun createDbTemplate(context: Context): File {
