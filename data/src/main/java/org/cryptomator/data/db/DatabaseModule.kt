@@ -28,6 +28,7 @@ import java.nio.file.Files
 import java.util.concurrent.Callable
 import javax.inject.Provider
 import javax.inject.Singleton
+import dagger.Lazy
 import dagger.Module
 import dagger.Provides
 import timber.log.Timber
@@ -40,10 +41,10 @@ class DatabaseModule {
 
 	@Singleton
 	@Provides
-	fun provideCryptomatorDatabase(context: Context, migrations: Array<Migration>): CryptomatorDatabase {
+	fun provideCryptomatorDatabase(context: Context, migrations: Array<Migration>, dbTemplateStreamCallable: Callable<InputStream>): CryptomatorDatabase {
 		Timber.tag("Database").i("Building database (target version: %s)", CRYPTOMATOR_DATABASE_VERSION)
 		return Room.databaseBuilder(context, CryptomatorDatabase::class.java, DATABASE_NAME) //
-			.createFromInputStream(createTemplateInputStream(context)) //
+			.createFromInputStream(dbTemplateStreamCallable) //
 			.addMigrations(*migrations) //
 			.addCallback(DatabaseCallback) //
 			.build() //Fails if no migration is found (especially when downgrading)
@@ -55,14 +56,21 @@ class DatabaseModule {
 			}
 	}
 
-	private fun createTemplateInputStream(context: Context): Callable<InputStream> {
-		return Callable { createDbTemplate(context).inputStream() }
+	@Singleton
+	@Provides
+	fun provideDbTemplateStreamCallable(dbTemplateFile: Lazy<File>): Callable<InputStream> = Callable {
+		LOG.d("Creating database template stream")
+		return@Callable dbTemplateFile.get().inputStream()
 	}
 
-	private fun createDbTemplate(context: Context): File {
+	@Singleton
+	@Provides
+	fun provideDbTemplateFile(context: Context): File {
+		LOG.d("Creating database template file")
 		val delegatingContext = object : ContextWrapper(context) {
 			override fun getDatabasePath(name: String?): File {
-				return Files.createTempDirectory(context.cacheDir.toPath(), "BaseDb").resolve(name).toFile()
+				require(name == DATABASE_NAME)
+				return Files.createTempDirectory(context.cacheDir.toPath(), "DbTemplate").resolve(name).toFile()
 			}
 		}
 		val db = SupportSQLiteOpenHelper.Configuration.builder(delegatingContext) //
@@ -78,6 +86,7 @@ class DatabaseModule {
 		require(db.version == 1)
 		db.close()
 
+		LOG.d("Created database template file")
 		return File(requireNotNull(db.path))
 	}
 
