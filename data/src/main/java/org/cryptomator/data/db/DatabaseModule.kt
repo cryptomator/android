@@ -18,6 +18,7 @@ import org.cryptomator.data.db.migrations.legacy.Upgrade7To8
 import org.cryptomator.data.db.migrations.legacy.Upgrade8To9
 import org.cryptomator.data.db.migrations.legacy.Upgrade9To10
 import org.cryptomator.data.db.migrations.manual.Migration12To13
+import javax.inject.Provider
 import javax.inject.Singleton
 import dagger.Module
 import dagger.Provides
@@ -44,20 +45,20 @@ class DatabaseModule {
 
 	@Singleton
 	@Provides
-	fun provideCloudDao(database: CryptomatorDatabase): CloudDao {
-		return database.cloudDao()
+	fun provideCloudDao(database: Provider<CryptomatorDatabase>): CloudDao {
+		return database.get().cloudDao()
 	}
 
 	@Singleton
 	@Provides
-	fun provideUpdateCheckDao(database: CryptomatorDatabase): UpdateCheckDao {
-		return database.updateCheckDao()
+	fun provideUpdateCheckDao(database: Provider<CryptomatorDatabase>): UpdateCheckDao {
+		return database.get().updateCheckDao()
 	}
 
 	@Singleton
 	@Provides
-	fun provideVaultDao(database: CryptomatorDatabase): VaultDao {
-		return database.vaultDao()
+	fun provideVaultDao(database: Provider<CryptomatorDatabase>): VaultDao {
+		return database.get().vaultDao()
 	}
 
 	@Singleton
