@@ -23,8 +23,6 @@ import dagger.Module
 import dagger.Provides
 import timber.log.Timber
 
-private const val BASE_DATABASE_ASSET = "databases/legacy/Cryptomator_DB_v1.db"
-
 @Module
 class DatabaseModule {
 
@@ -94,6 +92,11 @@ class DatabaseModule {
 		//
 		migration12To13,
 	)
+
+	companion object {
+
+		const val BASE_DATABASE_ASSET = "databases/legacy/Cryptomator_DB_v1.db"
+	}
 }
 
 object DatabaseCallback : RoomDatabase.Callback() {
