@@ -21,6 +21,7 @@ import org.cryptomator.data.db.migrations.legacy.Upgrade7To8
 import org.cryptomator.data.db.migrations.legacy.Upgrade8To9
 import org.cryptomator.data.db.migrations.legacy.Upgrade9To10
 import org.cryptomator.data.db.migrations.manual.Migration12To13
+import org.cryptomator.util.ThreadUtil
 import org.cryptomator.util.named
 import java.io.File
 import java.io.InputStream
@@ -44,6 +45,7 @@ class DatabaseModule {
 	@Provides
 	fun provideCryptomatorDatabase(context: Context, @DbInternal migrations: Array<Migration>, @DbInternal dbTemplateStreamCallable: Callable<InputStream>): CryptomatorDatabase {
 		LOG.i("Building database (target version: %s)", CRYPTOMATOR_DATABASE_VERSION)
+		ThreadUtil.assumeNotMainThread()
 		return Room.databaseBuilder(context, CryptomatorDatabase::class.java, DATABASE_NAME) //
 			.createFromInputStream(dbTemplateStreamCallable) //
 			.addMigrations(*migrations) //
@@ -70,6 +72,7 @@ class DatabaseModule {
 	@DbInternal
 	fun provideDbTemplateFile(context: Context): File {
 		LOG.d("Creating database template file")
+		ThreadUtil.assumeNotMainThread()
 		val delegatingContext = object : ContextWrapper(context) {
 			override fun getDatabasePath(name: String?): File {
 				require(name == DATABASE_NAME)
