@@ -47,6 +47,10 @@ class UpgradeDatabaseTest {
 	private val context = instrumentation.context
 	private val sharedPreferencesHandler = SharedPreferencesHandler(context)
 
+	private val templateDbFile = DatabaseModule().provideDbTemplateFile(TemplateDatabaseContext(context)).also {
+		it.deleteOnExit()
+	}
+
 	private lateinit var db: SupportSQLiteDatabase
 
 	@get:Rule
@@ -58,11 +62,7 @@ class UpgradeDatabaseTest {
 
 	@Before
 	fun setup() {
-		context.assets.open(DatabaseModule.BASE_DATABASE_ASSET).use { originStream ->
-			context.getDatabasePath(TEST_DB).outputStream().use { targetStream ->
-				originStream.copyTo(targetStream)
-			}
-		}
+		templateDbFile.copyTo(context.getDatabasePath(TEST_DB))
 		db = SupportSQLiteOpenHelper.Configuration(context, TEST_DB, object : SupportSQLiteOpenHelper.Callback(LATEST_LEGACY_MIGRATION) {
 			override fun onCreate(db: SupportSQLiteDatabase) {
 				fail("Database should not be created, but copied from asset")
@@ -84,7 +84,6 @@ class UpgradeDatabaseTest {
 
 	@Test
 	fun upgradeAll() {
-		//Upgrade0To1().migrate(db)
 		Upgrade1To2().migrate(db)
 		Upgrade2To3(context).migrate(db)
 		Upgrade3To4().migrate(db)
@@ -106,7 +105,6 @@ class UpgradeDatabaseTest {
 
 	@Test
 	fun upgrade2To3() {
-		//Upgrade0To1().migrate(db)
 		Upgrade1To2().migrate(db)
 
 		val url = "url"
@@ -152,7 +150,6 @@ class UpgradeDatabaseTest {
 
 	@Test
 	fun upgrade3To4() {
-		//Upgrade0To1().migrate(db)
 		Upgrade1To2().migrate(db)
 		Upgrade2To3(context).migrate(db)
 
@@ -187,7 +184,6 @@ class UpgradeDatabaseTest {
 
 	@Test
 	fun upgrade4To5() {
-		//Upgrade0To1().migrate(db)
 		Upgrade1To2().migrate(db)
 		Upgrade2To3(context).migrate(db)
 		Upgrade3To4().migrate(db)
@@ -249,7 +245,6 @@ class UpgradeDatabaseTest {
 
 	@Test
 	fun upgrade5To6() {
-		//Upgrade0To1().migrate(db)
 		Upgrade1To2().migrate(db)
 		Upgrade2To3(context).migrate(db)
 		Upgrade3To4().migrate(db)
@@ -312,7 +307,6 @@ class UpgradeDatabaseTest {
 
 	@Test
 	fun upgrade6To7() {
-		//Upgrade0To1().migrate(db)
 		Upgrade1To2().migrate(db)
 		Upgrade2To3(context).migrate(db)
 		Upgrade3To4().migrate(db)
@@ -348,7 +342,6 @@ class UpgradeDatabaseTest {
 
 	@Test
 	fun recoverUpgrade6to7DueToSQLiteExceptionThrown() {
-		//Upgrade0To1().migrate(db)
 		Upgrade1To2().migrate(db)
 		Upgrade2To3(context).migrate(db)
 		Upgrade3To4().migrate(db)
@@ -392,7 +385,6 @@ class UpgradeDatabaseTest {
 
 	@Test
 	fun upgrade7To8() {
-		//Upgrade0To1().migrate(db)
 		Upgrade1To2().migrate(db)
 		Upgrade2To3(context).migrate(db)
 		Upgrade3To4().migrate(db)
@@ -439,7 +431,6 @@ class UpgradeDatabaseTest {
 
 	@Test
 	fun upgrade8To9() {
-		//Upgrade0To1().migrate(db)
 		Upgrade1To2().migrate(db)
 		Upgrade2To3(context).migrate(db)
 		Upgrade3To4().migrate(db)
@@ -457,7 +448,6 @@ class UpgradeDatabaseTest {
 
 	@Test
 	fun upgrade9To10() {
-		//Upgrade0To1().migrate(db)
 		Upgrade1To2().migrate(db)
 		Upgrade2To3(context).migrate(db)
 		Upgrade3To4().migrate(db)
@@ -518,7 +508,6 @@ class UpgradeDatabaseTest {
 
 	@Test
 	fun upgrade10To11EmptyOnedriveCloudRemovesCloud() {
-		//Upgrade0To1().migrate(db)
 		Upgrade1To2().migrate(db)
 		Upgrade2To3(context).migrate(db)
 		Upgrade3To4().migrate(db)
@@ -568,7 +557,6 @@ class UpgradeDatabaseTest {
 
 	@Test
 	fun upgrade10To11UsedOnedriveCloudPreservesCloud() {
-		//Upgrade0To1().migrate(db)
 		Upgrade1To2().migrate(db)
 		Upgrade2To3(context).migrate(db)
 		Upgrade3To4().migrate(db)
@@ -627,7 +615,6 @@ class UpgradeDatabaseTest {
 
 	@Test
 	fun upgrade11To12IfOldDefaultSet() {
-		//Upgrade0To1().migrate(db)
 		Upgrade1To2().migrate(db)
 		Upgrade2To3(context).migrate(db)
 		Upgrade3To4().migrate(db)
@@ -648,7 +635,6 @@ class UpgradeDatabaseTest {
 
 	@Test
 	fun upgrade11To12MonthlySet() {
-		//Upgrade0To1().migrate(db)
 		Upgrade1To2().migrate(db)
 		Upgrade2To3(context).migrate(db)
 		Upgrade3To4().migrate(db)
@@ -669,7 +655,6 @@ class UpgradeDatabaseTest {
 
 	@Test
 	fun upgrade11To12MonthlyNever() {
-		//Upgrade0To1().migrate(db)
 		Upgrade1To2().migrate(db)
 		Upgrade2To3(context).migrate(db)
 		Upgrade3To4().migrate(db)
