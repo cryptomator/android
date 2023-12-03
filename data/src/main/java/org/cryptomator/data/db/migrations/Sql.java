@@ -64,6 +64,13 @@ public class Sql {
 		};
 	}
 
+	public static Criterion notEq(final String value) {
+		return (column, whereClause, whereArgs) -> {
+			whereClause.append('"').append(column).append("\" != ?");
+			whereArgs.add(value);
+		};
+	}
+
 	public static Criterion isNull() {
 		return (column, whereClause, whereArgs) -> whereClause.append('"').append(column).append("\" IS NULL");
 	}

@@ -150,9 +150,13 @@ class DatabaseModule {
 @Singleton
 class TemplateDatabaseContext @Inject constructor(context: Context) : ContextWrapper(context) {
 
+	private val dbFile: File by lazy {
+		return@lazy Files.createTempDirectory(cacheDir.toPath(), "DbTemplate").resolve(DATABASE_NAME).toFile()
+	}
+
 	override fun getDatabasePath(name: String?): File {
 		require(name == DATABASE_NAME)
-		return Files.createTempDirectory(cacheDir.toPath(), "DbTemplate").resolve(DATABASE_NAME).toFile()
+		return dbFile
 	}
 }
 
