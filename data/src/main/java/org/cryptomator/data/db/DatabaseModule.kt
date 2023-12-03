@@ -27,6 +27,7 @@ import java.io.File
 import java.io.InputStream
 import java.nio.file.Files
 import java.util.concurrent.Callable
+import javax.inject.Inject
 import javax.inject.Provider
 import javax.inject.Qualifier
 import javax.inject.Singleton
@@ -70,16 +71,10 @@ class DatabaseModule {
 	@Singleton
 	@Provides
 	@DbInternal
-	fun provideDbTemplateFile(context: Context): File {
+	fun provideDbTemplateFile(templateDatabaseContext: TemplateDatabaseContext): File {
 		LOG.d("Creating database template file")
 		ThreadUtil.assumeNotMainThread()
-		val delegatingContext = object : ContextWrapper(context) {
-			override fun getDatabasePath(name: String?): File {
-				require(name == DATABASE_NAME)
-				return Files.createTempDirectory(context.cacheDir.toPath(), "DbTemplate").resolve(name).toFile()
-			}
-		}
-		val db = SupportSQLiteOpenHelper.Configuration.builder(delegatingContext) //
+		val db = SupportSQLiteOpenHelper.Configuration.builder(templateDatabaseContext) //
 			.name(DATABASE_NAME) //
 			.callback(object : SupportSQLiteOpenHelper.Callback(1) {
 				override fun onCreate(db: SupportSQLiteDatabase) {
@@ -149,6 +144,15 @@ class DatabaseModule {
 	companion object {
 
 		const val BASE_DATABASE_ASSET = "databases/legacy/Cryptomator_DB_v1.db"
+	}
+}
+
+@Singleton
+class TemplateDatabaseContext @Inject constructor(context: Context) : ContextWrapper(context) {
+
+	override fun getDatabasePath(name: String?): File {
+		require(name == DATABASE_NAME)
+		return Files.createTempDirectory(cacheDir.toPath(), "DbTemplate").resolve(DATABASE_NAME).toFile()
 	}
 }
 
