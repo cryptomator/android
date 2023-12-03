@@ -36,7 +36,6 @@ import dagger.Module
 import dagger.Provides
 import timber.log.Timber
 
-private val DATABASE_NAME = "Cryptomator"
 private val LOG = Timber.Forest.named("DatabaseModule")
 
 @Module
@@ -81,7 +80,9 @@ class DatabaseModule {
 					Upgrade0To1().migrate(db)
 				}
 
-				override fun onUpgrade(db: SupportSQLiteDatabase, oldVersion: Int, newVersion: Int) = Unit
+				override fun onUpgrade(db: SupportSQLiteDatabase, oldVersion: Int, newVersion: Int) {
+					throw IllegalStateException("Template may not be upgraded")
+				}
 			}).build().let { FrameworkSQLiteOpenHelperFactory().create(it).writableDatabase }
 		require(db.version == 1)
 		db.close()

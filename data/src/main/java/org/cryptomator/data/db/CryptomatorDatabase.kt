@@ -8,6 +8,7 @@ import org.cryptomator.data.db.entities.UpdateCheckEntity
 import org.cryptomator.data.db.entities.VaultEntity
 import org.cryptomator.data.db.migrations.auto.AutoMigration13To14
 
+const val DATABASE_NAME = "Cryptomator"
 const val CRYPTOMATOR_DATABASE_VERSION = 14
 
 @Database(
