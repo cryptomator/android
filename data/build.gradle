@@ -4,6 +4,12 @@ apply plugin: 'kotlin-kapt'
 apply plugin: 'de.mannodermaus.android-junit5'
 
 def roomSchemasDir = new File(projectDir, "room/schemas")
+def androidTestRoomSchemasDir = new File(buildDir, "tmp/room/schemas/androidTest")
+def copyRoomSchemasTask = tasks.register("copyRoomSchemasToAndroidTestAssets", Sync.class) {
+	from(roomSchemasDir)
+	into(androidTestRoomSchemasDir)
+}
+
 android {
 	def globalConfiguration = rootProject.extensions.getByName("ext")
 
@@ -84,11 +90,22 @@ android {
 			java.srcDirs = ['src/main/java/', 'src/lite/java/']
 		}
 
-		androidTest.assets.srcDirs += roomSchemasDir
+		androidTest.assets.srcDir(androidTestRoomSchemasDir)
 	}
 	packagingOptions {
 		resources {
 			excludes += ['META-INF/DEPENDENCIES', 'META-INF/NOTICE.md', 'META-INF/INDEX.LIST']
+		}
+	}
+	libraryVariants.configureEach { variant ->
+		tasks.findByName("kapt${variant.name.capitalize()}Kotlin")?.configure { kaptTask ->
+			copyRoomSchemasTask.configure { it.mustRunAfter(kaptTask) }
+		}
+		tasks.findByName("kapt${variant.name.capitalize()}AndroidTestKotlin")?.configure { kaptTask ->
+			copyRoomSchemasTask.configure { it.mustRunAfter(kaptTask) }
+		}
+		tasks.findByName("merge${variant.name.capitalize()}AndroidTestAssets")?.configure {
+			it.dependsOn(copyRoomSchemasTask)
 		}
 	}
 
