@@ -2,7 +2,7 @@
   "formatVersion": 1,
   "database": {
     "version": 14,
-    "identityHash": "a2a147e1f1c849da62d2c334c3c3d49a",
+    "identityHash": "5a294fd8ee96abf919ac6097dcab3306",
     "entities": [
       {
         "tableName": "CLOUD_ENTITY",
@@ -130,7 +130,7 @@
       },
       {
         "tableName": "VAULT_ENTITY",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER, `folderCloudId` INTEGER, `folderPath` TEXT, `folderName` TEXT, `cloudType` TEXT NOT NULL, `password` TEXT, `position` INTEGER, `format` INTEGER, `shorteningThreshold` INTEGER, PRIMARY KEY(`id`), FOREIGN KEY(`folderCloudId`) REFERENCES `CLOUD_ENTITY`(`id`) ON UPDATE NO ACTION ON DELETE SET NULL )",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER, `folderCloudId` INTEGER, `folderPath` TEXT, `folderName` TEXT, `cloudType` TEXT NOT NULL, `password` TEXT, `position` INTEGER, `format` INTEGER, `shorteningThreshold` INTEGER, PRIMARY KEY(`id`), FOREIGN KEY(`folderCloudId`) REFERENCES `CLOUD_ENTITY`(`id`) ON UPDATE NO ACTION ON DELETE RESTRICT )",
         "fields": [
           {
             "fieldPath": "id",
@@ -208,7 +208,7 @@
         "foreignKeys": [
           {
             "table": "CLOUD_ENTITY",
-            "onDelete": "SET NULL",
+            "onDelete": "RESTRICT",
             "onUpdate": "NO ACTION",
             "columns": [
               "folderCloudId"
@@ -223,7 +223,7 @@
     "views": [],
     "setupQueries": [
       "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
-      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, 'a2a147e1f1c849da62d2c334c3c3d49a')"
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '5a294fd8ee96abf919ac6097dcab3306')"
     ]
   }
 }
