@@ -131,13 +131,21 @@
 	<string name="screen_webdav_settings_msg_username_must_not_be_empty">نام کاربری نمی‌تواند خالی باشد.</string>
 	<string name="screen_webdav_settings_msg_password_must_not_be_empty">رمزعبور نمی‌تواند خالی باشد.</string>
 	<!-- ## screen: s3 settings -->
+	<string name="screen_s3_settings_display_name_label">نام</string>
 	<string name="screen_s3_settings_access_key_label">کلید دسترسی</string>
 	<string name="screen_s3_settings_secret_key_label">کلید مخفی</string>
+	<string name="screen_s3_settings_bucket_label">صندوقچه فعلی</string>
 	<string name="screen_s3_settings_region_label">منطقه</string>
+	<string name="screen_s3_settings_msg_display_name_not_empty">نام نمی تواند خالی باشد</string>
+	<string name="screen_s3_settings_msg_access_key_not_empty">کلید دسترسی نمی تواند خالی باشد</string>
+	<string name="screen_s3_settings_msg_secret_key_not_empty">مقدار کلید نمی تواند خالی باشد</string>
+	<string name="screen_s3_settings_msg_bucket_not_empty">مقدار صندوقچه نمی تواند خالی باشد</string>
 	<!-- ## screen: enter vault name -->
 	<string name="screen_enter_vault_name_vault_label">نام مخزن</string>
 	<string name="screen_enter_vault_name_button_text">ایجاد</string>
 	<!-- ## screen: set password -->
+	<string name="screen_set_password_title">تنظیم رمز عبور</string>
+	<string name="screen_set_password_msg_password_mismatch">رمز عبور با تکرار آن مطابقت ندارد.</string>
 	<string name="screen_set_password_button_text">انجام شده</string>
 	<string name="screen_set_password_hint">مهم: اگر پسروردتان را از یاد ببرید، هیچ راهی برای بازگردانی اطلاعاتتان نیست.</string>
 	<string name="screen_set_password_retype_password_label">تکرار گذرواژه</string>
