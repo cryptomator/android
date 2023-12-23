@@ -170,8 +170,15 @@
 	<string name="screen_settings_website_label">وب‌سایت کریپتوماتور</string>
 	<string name="screen_settings_twitter_label">ما را در توییتر دنبال کنید</string>
 	<string name="screen_settings_facebook_label">ما را در فیس بوک بپسندید</string>
+	<string name="screen_settings_section_legal">قوانین</string>
 	<string name="screen_settings_licenses_label">مجوزها</string>
+	<string name="screen_settings_section_support">پشتیبانی</string>
+	<string name="screen_settings_contact_label">درخواست کمک</string>
+	<string name="screen_settings_debug_mode_label">حالت عیب‌ یابی</string>
 	<string name="screen_settings_error_report_label">ارسال فایل گزارش</string>
+	<string name="screen_settings_error_report_failed">ارسال با خطا مواجه شد</string>
+	<string name="screen_settings_section_version">نسخه</string>
+	<string name="screen_settings_advanced_settings">تنظیمات پیشرفته</string>
 	<!-- ## screen: cloud settings -->
 	<!-- ## screen: licenses -->
 	<!-- ## screen: authenticate cloud -->
