@@ -7,7 +7,7 @@
 	<string name="error_authentication_failed">Аутентиклау хатаһы</string>
 	<string name="error_authentication_failed_re_authenticate">Аутентиклау хатаһы, %1$s менән инегеҙ</string>
 	<string name="error_no_network_connection">Селтәр бәйләнеше юҡ</string>
-	<string name="error_invalid_passphrase">Яңылыш серһүҙ</string>
+	<string name="error_invalid_passphrase">Серһүҙ дөрөҫ түгел</string>
 	<string name="error_file_or_folder_exists">Файл йәки папка бар инде.</string>
 	<string name="error_vault_version_not_supported">Һаҡлағыстың терәкһеҙ версияһы: %1$s. Был һаҡлағыс Cryptomator-ҙың башҡа версияһы менән яһалған.</string>
 	<string name="error_vault_config_file_missing_due_to_format_999">%1$s файлы һаҡлағыс папкаһында юҡ. Файлдың болоттағы һаҡлағыс папкаһында булыуын тикшерегеҙ.</string>
@@ -18,13 +18,13 @@
 	<string name="error_activity_not_found">Был файлды аса алған ҡушымтаны күсереп алығыҙ.</string>
 	<string name="error_server_not_found">Сервер табылманы.</string>
 	<string name="error_device_policy_manager_not_found">Йыһаз көйләүҙәрен асығыҙ һәм экран биген ҡул менән көйләгеҙ</string>
-	<string name="error_export_illegal_file_name">Экспорт уңышһыҙ. Файл исемдәренән махсус билдәләрҙе алып ташлағыҙ һәм яңынан экспортлап ҡарағыҙ.</string>
+	<string name="error_export_illegal_file_name">Экспортлау уңышһыҙ булды. Файл исемдәренән махсус билдәләрҙе алып ташлағыҙ һәм яңынан экспортлап ҡарағыҙ.</string>
 	<string name="error_name_contains_invalid_characters">Махсус билдәләр булырға тейеш түгел.</string>
 	<string name="error_names_contains_invalid_characters">Файл исемдәрендә махсус билдәләр була алмай.</string>
 	<string name="error_vault_name_contains_invalid_characters">Һаҡлағыс исемендә махсус билдәләр була алмай.</string>
-	<string name="error_general_update">Яңыртыу тикшереүе уңышһыҙ. Дөйөм хата килеп сыҡты.</string>
-	<string name="error_hash_mismatch_update">Яңыртыу тикшереүе уңышһыҙ. Иҫәпләнгән хеш тейәлгән файл менән тап килмәй</string>
-	<string name="error_update_no_internet">Яңыртыу тикшереүе уңышһыҙ. Интернет бәйләнеше юҡ.</string>
+	<string name="error_general_update">Яңыртыу тикшереүе уңышһыҙ булды. Дөйөм хата килеп сыҡты.</string>
+	<string name="error_hash_mismatch_update">Яңыртыу тикшереүе уңышһыҙ булды. Иҫәпләнгән хеш тейәлгән файл менән тап килмәй</string>
+	<string name="error_update_no_internet">Яңыртыу тикшереүе уңышһыҙ булды. Интернет бәйләнеше юҡ.</string>
 	<string name="error_failed_to_decrypt_webdav_password">WebDAV серһүҙ шифрын асып булманы. Зинһар, көйләүҙәрҙә ҡабаттан өҫтәгеҙ</string>
 	<string name="error_play_services_not_available">Google Play сервистары ҡуйылмаған</string>
 	<string name="error_biometric_auth_aborted">Биометрик аутентиклау өҙөлдө</string>
@@ -131,10 +131,69 @@
 	<string name="screen_webdav_settings_msg_password_must_not_be_empty">Серһүҙ буш була алмай.</string>
 	<!-- ## screen: s3 settings -->
 	<string name="screen_s3_settings_display_name_label">Күренәсәк исем</string>
+	<string name="screen_s3_settings_access_key_label">Инеү асҡысы (Access Key)</string>
+	<string name="screen_s3_settings_secret_key_label">Серле асҡыс (Secret Key)</string>
+	<string name="screen_s3_settings_bucket_label">Булған кәрзин (Bucket)</string>
+	<string name="screen_s3_settings_endpoint_label">Ос нөктә (Endpoint)</string>
+	<string name="screen_s3_settings_region_label">Регион</string>
+	<string name="screen_s3_settings_msg_display_name_not_empty">Күренәсәк исем юлы буш була алмай</string>
+	<string name="screen_s3_settings_msg_access_key_not_empty">Инеү асҡысы юлы буш була алмай</string>
+	<string name="screen_s3_settings_msg_secret_key_not_empty">Серле асҡыс юлы буш була алмай</string>
+	<string name="screen_s3_settings_msg_bucket_not_empty">Кәрзин юлы буш була алмай</string>
+	<string name="screen_s3_settings_msg_endpoint_and_region_not_empty">Ос нөктә йәки регион юлы буш була алмай</string>
 	<!-- ## screen: enter vault name -->
+	<string name="screen_enter_vault_name_msg_name_empty">Һаҡлағыс исеме юлы буш була алмай.</string>
+	<string name="screen_enter_vault_name_vault_label">Һаҡлағыс исеме</string>
+	<string name="screen_enter_vault_name_button_text">Яһа</string>
 	<!-- ## screen: set password -->
+	<string name="screen_set_password_title">Серһүҙ ҡуйыу</string>
+	<string name="screen_set_password_msg_password_mismatch">Серһүҙ ҡабатлап яҙылған серһүҙ менән тап килмәй.</string>
+	<string name="screen_set_password_button_text">Башҡарылды</string>
+	<string name="screen_set_password_hint">МӨҺИМ: әгәр серһүҙҙе онотһағыҙ, уны тергеҙеү ысулы юҡ.</string>
+	<string name="screen_set_password_retype_password_label">Серһүҙҙе ҡабатлап яҙығыҙ</string>
+	<string name="screen_set_password_strength_indicator_0">Һаҡлағыс булдырыу өсөн бик көсһөҙ</string>
+	<string name="screen_set_password_strength_indicator_1">Көсһөҙ</string>
+	<string name="screen_set_password_strength_indicator_2">Уртаса</string>
+	<string name="screen_set_password_strength_indicator_3">Көслө</string>
+	<string name="screen_set_password_strength_indicator_4">Бик көслө</string>
 	<!-- ## screen: settings -->
+	<string name="screen_settings_section_general">Дөйөм</string>
+	<string name="screen_settings_cloud_settings_label">Болот хеҙмәттәре</string>
+	<string name="screen_settings_biometric_auth">Биометрик аутентиклау</string>
+	<string name="screen_settings_activate_biometric_auth">Биометрик аутентиклау</string>
+	<string name="screen_settings_confirm_face_unlock">Йөҙ менән асыу (булған осраҡта)</string>
+	<string name="screen_settings_block_app_when_obscured">Ҡушымта ябылған саҡта бикләү</string>
+	<string name="screen_settings_block_app_when_obscured_summary">Яҙылғандарҙы тотоп алыуҙы һәм ялған арайөҙ күрһәтеүҙе тыйыу</string>
+	<string name="screen_settings_secure_screen">Скриншоттарҙы тыйыу</string>
+	<string name="screen_settings_secure_screen_summary">Ҡушымта эсендә һәм яңыраҡ ҡулланылғандар исемлегендә скриншоттарҙы тыйыу</string>
 	<string name="screen_settings_section_search">Эҙлә</string>
+	<string name="screen_settings_live_search">Тере эҙләү</string>
+	<string name="screen_settings_live_search_summary">Һорау яҙғанда эҙләү һөҙөмтәләрен яңыртып барыу</string>
+	<string name="screen_settings_glob_search">Glob ҡалыбы менән эҙләү</string>
+	<string name="screen_settings_glob_search_summary">Alice.*.jpg кеүек glob ҡалыбын ҡулланыу</string>
+	<string name="screen_settings_section_auto_lock">Автоматик бикләү</string>
+	<string name="screen_settings_auto_lock_timeout">Бикләү ваҡыты</string>
+	<string name="screen_settings_auto_lock_on_screen_lock">Экран һүндерелгәндә</string>
+	<string name="screen_settings_section_auto_photo_upload">Автоматик фото тейәү</string>
+	<string name="screen_settings_section_auto_photo_upload_vault">Тейәү өсөн һаҡлағыс һайларға</string>
+	<string name="screen_settings_section_auto_photo_upload_toggle">Ғәмәлдә</string>
+	<string name="screen_settings_section_auto_photo_upload_toggle_summary">Һүрәттәрҙе артҡы планда тотоп барырға һәм һаҡлағыс асылған ваҡытта тейәүҙе башларға</string>
+	<string name="screen_settings_section_auto_photo_upload_toggle_instant_upload">Тиҙ тейәү</string>
+	<string name="screen_settings_section_auto_photo_upload_toggle_instant_upload_summary">Һаҡлағыс асыҡ саҡта тура тейәргә</string>
+	<string name="screen_settings_section_auto_photo_upload_only_wifi_toggle">WIFI аша ғына тейәү</string>
+	<string name="screen_settings_section_auto_photo_upload_including_videos">Видео тейәү</string>
+	<string name="screen_settings_auto_photo_upload_title">Автоматик тейәлгән файлдар урыны&#8230;</string>
+	<string name="screen_settings_website_label">Cryptomator сайты</string>
+	<string name="screen_settings_twitter_label">Twitter селтәрендә</string>
+	<string name="screen_settings_facebook_label">Facebook селтәрендә</string>
+	<string name="screen_settings_section_legal">Хоҡуҡи мәғлүмәт</string>
+	<string name="screen_settings_licenses_label">Рөхсәтнамәләр</string>
+	<string name="screen_settings_license_terms_label">Рөхсәтнамә шарттары</string>
+	<string name="screen_settings_section_support">Ярҙам</string>
+	<string name="screen_settings_contact_label">Ярҙам һорау</string>
+	<string name="screen_settings_debug_mode_label">Төҙөкләндереү режимы</string>
+	<string name="screen_settings_error_report_label">Журнал файлын ебәрергә</string>
+	<string name="screen_settings_error_report_failed">Ебәреү уңышһыҙ булды</string>
 	<!-- ## screen: cloud settings -->
 	<!-- ## screen: licenses -->
 	<!-- ## screen: authenticate cloud -->
@@ -149,7 +208,17 @@
 	<!-- ## biometric authentication -->
 	<!-- notification -->
 	<!-- lock timeout names -->
+	<string name="lock_timeout_1m">1 минут</string>
+	<string name="lock_timeout_2m">2 минут</string>
+	<string name="lock_timeout_5m">5 минут</string>
+	<string name="lock_timeout_10m">10 минут</string>
 	<!-- cache size names -->
+	<string name="cache_size_50m">50 МБ</string>
+	<string name="cache_size_100m">100 МБ</string>
+	<string name="cache_size_250m">250 МБ</string>
+	<string name="cache_size_500m">500 МБ</string>
+	<string name="cache_size_1000m">1 ГБ</string>
+	<string name="cache_size_5000m">5 ГБ</string>
 	<!-- screen scheme mode names -->
 	<!-- update interval names -->
 </resources>
