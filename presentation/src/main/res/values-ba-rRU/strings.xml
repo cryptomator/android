@@ -210,10 +210,17 @@
 	<string name="screen_cloud_settings_s3_connections">S3 бәйләнештәре</string>
 	<string name="screen_cloud_settings_local_storage_locations">Урындағы һаҡлау урындары</string>
 	<string name="screen_cloud_settings_log_in_to">Инеү</string>
+	<string name="screen_cloud_settings_sign_out_from_cloud">Сығыу</string>
 	<!-- ## screen: licenses -->
 	<!-- ## screen: authenticate cloud -->
+	<string name="screen_authenticate_auth_authentication_failed">%1$s танып булманы.</string>
+	<string name="screen_update_pcloud_connections_title">pCloud иҫәп яҙыуы мәғлүмәттәрен яңыртыу</string>
 	<!-- ## screen: cryptomator app variants -->
+	<string name="screen_cryptomator_variants_title">Cryptomator варианттары</string>
+	<string name="screen_cryptomator_variants_lite_title">Төп F-Droid репозиторийы</string>
+	<string name="screen_cryptomator_variants_lite_description">API асҡыстары кәрәк булғанға төшөрөп ҡалдырылды.</string>
 	<string name="screen_cryptomator_variants_lite_install">Ҡорорға</string>
+	<string name="screen_cryptomator_variants_fdroid_title">Cryptomator F-Droid репозиторийы</string>
 	<string name="screen_cryptomator_variants_fdroid_add_repo">Өҫтәү</string>
 	<string name="screen_cryptomator_variants_website_title">Сайт</string>
 	<!-- # dialogs -->
@@ -222,7 +229,11 @@
 	<string name="dialog_change_password_old_password_label">Иҫке серһүҙ</string>
 	<string name="dialog_change_password_new_password_label">Яңы серһүҙ</string>
 	<string name="dialog_change_password">Серһүҙҙе үҙгәрт</string>
+	<string name="dialog_change_password_msg_old_password_empty">Иҫке серһүҙ буш була алмай.</string>
+	<string name="dialog_change_password_msg_new_password_empty">Яңы серһүҙ буш була алмай.</string>
+	<string name="dialog_change_password_msg_password_mismatch">Яңы серһүҙ ҡабатлап яҙылған серһүҙ менән тап килмәй.</string>
 	<!-- Vault not found -->
+	<string name="dialog_vault_not_found_title">%1$s һаҡлағысы табылманы</string>
 	<string name="dialog_vault_not_found_positive_button_text">Алып ташлау</string>
 	<string name="dialog_existing_file_title">Файл бар инде</string>
 	<string name="dialog_existing_file_positive_button">Алмаштыр</string>
@@ -231,16 +242,73 @@
 	<string name="dialog_replace_positive_button_all_files_exist">Барыһын да алмаштыр</string>
 	<string name="dialog_replace_positive_button_some_files_exist">Булғандарҙы алмаштыр</string>
 	<string name="dialog_replace_positive_button_single_file_exists">Алмаштыр</string>
+	<string name="dialog_replace_title_single_file_exists">Файлды алмаштырырғамы?</string>
+	<string name="dialog_replace_title_multiple_files_exist">Файлдары алмаштырырғамы?</string>
+	<string name="dialog_unable_to_share_title">Файлдарҙы уртаҡлашып булмай</string>
 	<string name="dialog_unable_to_share_positive_button">Ярай</string>
+	<string name="dialog_unable_to_share_negative_button">Яңы һаҡлағыс яһа</string>
+	<string name="dialog_filetype_not_supported_title">%1$s файлын асып булмай</string>
+	<string name="dialog_rename_vault_title">Һаҡлағыс исемен үҙгәртеү</string>
+	<string name="dialog_rename_node_folder_title">Папка исемен үҙгәртеү</string>
+	<string name="dialog_rename_node_file_title">Файл исемен үҙгәртеү</string>
+	<string name="dialog_unsaved_changes_title">Һаҡланмаған үҙгәртеүҙәрегеҙ бар</string>
+	<string name="dialog_unsaved_changes_message">Үҙгәртеүҙәрҙе һаҡламайынса сығырға теләйһегеҙме?</string>
+	<string name="dialog_unsaved_changes_discard">Һаҡламаҫҡа</string>
 	<string name="dialog_file_name_hint">Файл исеме</string>
 	<string name="dialog_file_name_placeholder">text.txt</string>
+	<string name="dialog_upload_file_title">Тейәү&#8230;</string>
+	<string name="dialog_upload_file_remaining">%2$d файлдан %1$d файл</string>
+	<string name="dialog_export_file_title">Экспортлау (%1$d/%2$d)</string>
+	<string name="dialog_progress_please_wait">Көтөгөҙ зинһар&#8230;</string>
+	<string name="dialog_progress_creating_folder">Папка яһау бара&#8230;</string>
+	<string name="dialog_progress_creating_text_file">Текст файлы яһау бара&#8230;</string>
+	<string name="action_progress_authentication">Таныу бара&#8230;</string>
+	<string name="action_progress_renaming">Исемен үҙгәртеү бара&#8230;</string>
+	<string name="action_progress_deleting">Юйыу бара&#8230;</string>
+	<string name="dialog_progress_unlocking_vault">Һаҡлағыстың биген сисеү бара&#8230;</string>
+	<string name="dialog_progress_change_password">Серһүҙҙе үҙгәртеү бара&#8230;</string>
+	<string name="dialog_progress_creating_vault">Һаҡлағыс яһау бара&#8230;</string>
+	<string name="dialog_progress_upload_file">Тейәү бара&#8230;</string>
+	<string name="dialog_progress_download_file">Күсереп алыу бара&#8230;</string>
+	<string name="dialog_progress_encryption">Шифрлау бара&#8230;</string>
+	<string name="dialog_progress_decryption">Шифрын асыу бара&#8230;</string>
+	<string name="action_progress_moving">Күсереү бара&#8230;</string>
 	<string name="dialog_lock_vault">Бикләргә</string>
+	<string name="dialog_accept_ssl_certificate_title">Ғәмәлдә булмаған SSL сертификаты</string>
+	<string name="dialog_accept_ssl_certificate_details">Тулыраҡ мәғлүмәт</string>
+	<string name="dialog_http_security_title">HTTPS ҡулланырғамы?</string>
+	<string name="dialog_debug_mode_disclaimer_title">Иғтибар</string>
+	<string name="dialog_debug_mode_positive_button">Ғәмәлгә индер</string>
+	<string name="dialog_disable_app_obscured_disclaimer_title">Иғтибар</string>
+	<string name="dialog_app_is_obscured_info_neutral_button">Ябырға</string>
 	<!-- # error reports -->
 	<!-- # misc -->
 	<!-- ## file size helper -->
+	<string name="file_size_zero">0 кБ</string>
+	<string name="file_size_unit_bytes">байт</string>
+	<string name="file_size_unit_kilo_bytes">кБ</string>
+	<string name="file_size_unit_mega_bytes">МБ</string>
+	<string name="file_size_unit_giga_bytes">ГБ</string>
+	<string name="file_size_unit_tera_bytes">ТБ</string>
 	<!-- ## date helper -->
+	<string name="time_unit_seconds_sg">секунд</string>
+	<string name="time_unit_seconds_pl">секунд</string>
+	<string name="time_unit_minutes_sg">минут</string>
+	<string name="time_unit_minutes_pl">минут</string>
+	<string name="time_unit_hours_sg">сәғәт</string>
+	<string name="time_unit_hours_pl">сәғәт</string>
+	<string name="time_unit_days_sg">көн</string>
+	<string name="time_unit_days_pl">көн</string>
+	<string name="time_unit_weeks_sg">аҙна</string>
+	<string name="time_unit_weeks_pl">аҙна</string>
+	<string name="time_unit_months_sg">ай</string>
+	<string name="time_unit_months_pl">ай</string>
+	<string name="time_unit_years_sg">йыл</string>
+	<string name="time_unit_years_pl">йыл</string>
 	<!-- ## biometric authentication -->
+	<string name="dialog_biometric_auth_title">Биометрик таныу</string>
 	<!-- notification -->
+	<string name="screen_settings_lru_cache">Кэш</string>
 	<!-- lock timeout names -->
 	<string name="lock_timeout_1m">1 минут</string>
 	<string name="lock_timeout_2m">2 минут</string>
@@ -254,5 +322,7 @@
 	<string name="cache_size_1000m">1 ГБ</string>
 	<string name="cache_size_5000m">5 ГБ</string>
 	<!-- screen scheme mode names -->
+	<string name="screen_settings_style_mode">Күренеш</string>
 	<!-- update interval names -->
+	<string name="update_interval_1d">Көндә бер тапҡыр</string>
 </resources>
