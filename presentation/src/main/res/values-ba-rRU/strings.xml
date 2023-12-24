@@ -194,7 +194,12 @@
 	<string name="screen_settings_debug_mode_label">Төҙөкләндереү режимы</string>
 	<string name="screen_settings_error_report_label">Журнал файлын ебәрергә</string>
 	<string name="screen_settings_error_report_failed">Ебәреү уңышһыҙ булды</string>
+	<string name="screen_settings_section_version">Версия</string>
 	<!-- ## screen: cloud settings -->
+	<string name="screen_cloud_settings_onedrive_connections">OneDrive бәйләнештәре</string>
+	<string name="screen_cloud_settings_webdav_connections">WebDAV бәйләнештәре</string>
+	<string name="screen_cloud_settings_pcloud_connections">pCloud бәйләнештәре</string>
+	<string name="screen_cloud_settings_s3_connections">S3 бәйләнештәре</string>
 	<!-- ## screen: licenses -->
 	<!-- ## screen: authenticate cloud -->
 	<!-- ## screen: cryptomator app variants -->
