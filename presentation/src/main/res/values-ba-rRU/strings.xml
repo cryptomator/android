@@ -1,7 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 	<!-- # app -->
+	<string name="share_with_label">Шифрла</string>
 	<!-- # error messages -->
+	<string name="error_generic">Хата килеп сыҡты</string>
+	<string name="error_authentication_failed">Аутентиклау хатаһы</string>
+	<string name="error_authentication_failed_re_authenticate">Аутентиклау хатаһы, %1$s менән инегеҙ</string>
+	<string name="error_no_network_connection">Селтәр бәйләнеше юҡ</string>
+	<string name="error_invalid_passphrase">Яңылыш серһүҙ</string>
+	<string name="error_file_or_folder_exists">Файл йәки папка бар инде.</string>
+	<string name="error_vault_version_not_supported">Һаҡлағыстың терәкләнмәгән версияһы: %1$s. Был һаҡлағыс Cryptomator-ҙың башҡа версияһы менән яһалған.</string>
 	<!-- # clouds -->
 	<!-- ## cloud names -->
 	<!-- # permission -->
