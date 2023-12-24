@@ -281,6 +281,22 @@
 	<string name="dialog_debug_mode_positive_button">Ғәмәлгә индер</string>
 	<string name="dialog_disable_app_obscured_disclaimer_title">Иғтибар</string>
 	<string name="dialog_app_is_obscured_info_neutral_button">Ябырға</string>
+	<string name="dialog_license_confirmation_title">Рөхсәтнамә раҫлау</string>
+	<string name="dialog_license_confirmation_message">Ғәмәлдәге рөхсәтнамә биргәнегеҙ өсөн рәхмәт %1$s.</string>
+	<string name="dialog_update_available_title">Яңыртыу бар</string>
+	<string name="dialog_update_available_message">Cryptomator-ҙы һуңғы версияға яңыртыу. ОК төймәһенә баҫҡандан һәм ҡушымта артҡы планда күсереп алынғандан һуң уны ҡуйыуығыҙҙы һораясаҡбыҙ.</string>
+	<string name="dialog_update_available_update">Хәҙер яңыртырға</string>
+	<string name="dialog_update_available_download_site">Күсереп алыу битен асырға</string>
+	<string name="dialog_update_available_cancel">Аҙаҡтан</string>
+	<string name="dialog_download_update_title">Күсереп алыу бара</string>
+	<string name="dialog_download_update_message">Cryptomator-ҙың һуңғы версияһын күсереп алыу бара</string>
+	<string name="dialog_sym_link_title">Был папка символик һылтанма</string>
+	<string name="dialog_sym_link_message">Был символик һылтанма аша күсә алмайһығыҙ</string>
+	<string name="dialog_sym_link_back_button">Артҡа</string>
+	<string name="dialog_no_dir_file_title">Папканың эстәлеген күсереп алып булмай</string>
+	<string name="dialog_no_dir_file_message">\'%1$s\' болот папкаһының ғәмәлдәге каталог файлы юҡ. Бәлки, папка икенсе йыһызда эшләнгән һәм әлегә тулыһынса болотҡа синхронлашмағандыр. Түбәндәге файл бармы-юҡмы икәнлеген болотығыҙҙа тикшерегеҙ: \n%2$s</string>
+	<string name="dialog_no_more_images_to_display">Күрһәтерлек һүрәттәр юҡ&#8230;</string>
+	<string name="dialog_pcloud_credentials_updated_title">\'%1$s\' иҫәп яҙыуы мәғлүмәттәре яңыртылды</string>
 	<!-- # error reports -->
 	<!-- # misc -->
 	<!-- ## file size helper -->
