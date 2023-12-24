@@ -9,7 +9,7 @@
 	<string name="error_no_network_connection">Селтәр бәйләнеше юҡ</string>
 	<string name="error_invalid_passphrase">Яңылыш серһүҙ</string>
 	<string name="error_file_or_folder_exists">Файл йәки папка бар инде.</string>
-	<string name="error_vault_version_not_supported">Һаҡлағыстың терәкләнмәгән версияһы: %1$s. Был һаҡлағыс Cryptomator-ҙың башҡа версияһы менән яһалған.</string>
+	<string name="error_vault_version_not_supported">Һаҡлағыстың терәкһеҙ версияһы: %1$s. Был һаҡлағыс Cryptomator-ҙың башҡа версияһы менән яһалған.</string>
 	<string name="error_vault_config_file_missing_due_to_format_999">%1$s файлы һаҡлағыс папкаһында юҡ. Файлдың болоттағы һаҡлағыс папкаһында булыуын тикшерегеҙ.</string>
 	<string name="error_vault_already_exists">Һаҡлаығыс бар инде.</string>
 	<string name="error_no_such_file">Файл юҡ.</string>
@@ -41,24 +41,81 @@
 	<!-- # permission -->
 	<!-- ## permission messages -->
 	<string name="permission_message_export_file">Файлдарҙы экспортлау өсөн Cryptomator-ға һаҡлағысҡа инеү рәхсәте кәрәк</string>
+	<string name="permission_message_upload_file">Файлдарҙы тейәү өсөн Cryptomator-ға һаҡлағысҡа инеү рәхсәте кәрәк</string>
+	<string name="permission_message_share_file">Файлдарҙы уртаҡлашыу өсөн Cryptomator-ға һаҡлағысҡа инеү рәхсәте кәрәк</string>
+	<string name="permission_revoked_re_request_permission">Cryptomator был урынға инеү рөхсәтен юғалтҡан. Рөхсәтте тергеҙеү өсөн был папканы ҡабаттан һайлағыҙ.</string>
+	<string name="snack_bar_action_title_settings">Көйләүҙәр</string>
+	<string name="snack_bar_action_title_search">Эҙлә</string>
+	<string name="snack_bar_action_title_search_previous">Алдағы</string>
+	<string name="snack_bar_action_title_search_next">Киләһе</string>
+	<string name="snack_bar_action_title_sort">Теҙеү</string>
+	<string name="snack_bar_action_title_sort_az">А - Я</string>
+	<string name="snack_bar_action_title_sort_za">Я - А</string>
+	<string name="snack_bar_action_title_sort_newest">Яңылар тәүҙә</string>
+	<string name="snack_bar_action_title_sort_oldest">Иҫкеләр тәүҙә</string>
+	<string name="snack_bar_action_title_sort_biggest">Ҙурҙар тәүҙә</string>
+	<string name="snack_bar_action_title_sort_smallest">Бәләкәйҙәр тәүҙә</string>
+	<string name="snack_bar_cryptomator_variants_title">Артабан уҡырға</string>
+	<string name="snack_bar_cryptomator_variants_hint">Болот исемлектә юҡмы?</string>
 	<!-- # screens -->
 	<!-- # screen: vault list -->
+	<string name="screen_vault_list_actions_title">Cryptomator-ға өҫтә</string>
+	<string name="screen_vault_list_action_create_new_vault">Яңы һаҡлағыс яһау</string>
+	<string name="screen_vault_list_action_add_existing_vault">Булған һаҡлағыс өҫтәү</string>
+	<string name="screen_vault_list_vault_action_delete">Алып ташлау</string>
+	<string name="screen_vault_list_vault_creation_hint">Яңы һаҡлағыс яһау өсөн бында баҫығыҙ</string>
+	<string name="screen_vault_list_change_password_successful">Серһүҙ уңышлы үҙгәртелде</string>
 	<!-- # screen: file browser -->
+	<string name="screen_file_browser_default_title">Һаҡлағыс</string>
+	<string name="screen_file_browser_add_existing_vault_extra_text">Masterkey файлын һайлағыҙ</string>
+	<string name="screen_file_browser_create_new_vault_button_text">Бында ҡуйығыҙ</string>
+	<string name="screen_file_browser_create_new_vault_extra_text">Һаҡлағыс исеме: %1$s</string>
+	<plurals name="screen_file_browser_subtitle_move">
+		<item quantity="other">%2$d күсереләсәк урын</item>
+	</plurals>
+	<string name="screen_file_browser_move_button_text">Күсер</string>
+	<string name="screen_file_browser_msg_empty_folder">Буш папка</string>
+	<string name="screen_file_browser_file_info_label_date">%1$s элек үҙгәртелгән</string>
+	<string name="screen_file_browser_share_intent_chooser_title">Уртаҡлашыу</string>
+	<string name="screen_file_browser_share_destination_title">Тәғәйен урын һайлау</string>
+	<string name="screen_file_browser_share_button_text">Һайларға</string>
+	<string name="screen_file_browser_nothing_to_share">Уртаҡлашырлыҡ бер нәмә лә юҡ</string>
+	<string name="screen_file_browser_actions_title">%1$s каталогына өҫтәү</string>
+	<string name="screen_file_browser_action_create_folder">Папка өҫтәү</string>
+	<string name="screen_file_browser_action_create_new_text_file">Текст файлы өҫтәү</string>
+	<string name="screen_file_browser_action_upload_files">Файл тейәү</string>
+	<string name="screen_file_browser_upload_files_chooser_title">Файлдар</string>
+	<string name="screen_file_browser_msg_file_exported">Файл экспортланды</string>
+	<string name="screen_file_browser_msg_files_exported">Файлдар экспортланды</string>
+	<string name="screen_file_browser_nothing_to_export">Экспортланасаҡ бер нәмә лә юҡ</string>
+	<string name="screen_file_browser_msg_creating_download_dir_failed">Күсереп алыу каталогын яһау булманы</string>
+	<string name="screen_file_browser_node_action_share">Уртаҡлаш</string>
+	<string name="screen_file_browser_node_action_rename">Исемен үҙгәрт</string>
 	<!-- ## screen: text editor -->
 	<!-- ## screen: share files -->
+	<string name="screen_share_files_content_text">текст</string>
+	<string name="screen_share_files_content_file">файл</string>
+	<string name="screen_share_files_content_files">файлдар</string>
 	<!-- ## screen: choose cloud service -->
+	<string name="screen_choose_cloud_service_title">Болот хеҙмәте</string>
 	<!-- ## screen: cloud connections -->
+	<string name="screen_cloud_connections_title">Урын һайлағыҙ</string>
+	<string name="screen_cloud_connections_no_connections">Урын өҫтәү өсөн бында баҫығыҙ</string>
+	<string name="screen_cloud_error_webdav_not_supported">Сервер WebDAV менән яраҡлы түгел</string>
+	<string name="screen_cloud_local_error_no_content_provider">Каталогтарҙы асыу терәге булған файл менеджеры табылманы</string>
 	<!-- ## screen: webdav settings -->
 	<!-- ## screen: s3 settings -->
 	<!-- ## screen: enter vault name -->
 	<!-- ## screen: set password -->
 	<!-- ## screen: settings -->
+	<string name="screen_settings_section_search">Эҙлә</string>
 	<!-- ## screen: cloud settings -->
 	<!-- ## screen: licenses -->
 	<!-- ## screen: authenticate cloud -->
 	<!-- ## screen: cryptomator app variants -->
 	<!-- # dialogs -->
 	<!-- Vault not found -->
+	<string name="dialog_vault_not_found_positive_button_text">Алып ташлау</string>
 	<!-- # error reports -->
 	<!-- # misc -->
 	<!-- ## file size helper -->
