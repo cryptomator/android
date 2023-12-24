@@ -31,9 +31,9 @@
 	<string name="error_vault_version_mismatch">%1$s에 기록된 버전이 %2$s에 기록된 버전과 다릅니다</string>
 	<string name="error_vault_key_invalid">%1$s 및 이 %2$s 동일하지 않습니다</string>
 	<string name="error_vault_config_loading">Vault 설정을 불러오는 중 에러 발생</string>
-	<string name="error_file_not_found_after_opening_using_3party">로컬 파일은 Cryptomator으로 전환 후 더 이상 존재하지 않습니다. 추가적인 수정 사항은 클라우드에 적용되지 않습니다.</string>
+	<string name="error_file_not_found_after_opening_using_3party">Cryptomator로 다시 돌아와서 로컬 파일이 없어졌습니다. 추가적인 수정 사항은 클라우드에 적용되지 않습니다.</string>
 	<string name="error_no_such_bucket">해당 버킷을 찾을 수 없습니다.</string>
-	<string name="error_masterkey_location_not_supported">사용자 지정 마스터키 경로는 아직 지원하지 않습니다</string>
+	<string name="error_masterkey_location_not_supported">사용자 지정이 가능한 마스터키 경로는 아직 지원하지 않습니다</string>
 	<string name="error_interact_with_fdroid_but_fdroid_missing">F-Droid 앱을 찾을 수 없습니다. 앱을 설치했는지 확인해주세요.</string>
 	<!-- # clouds -->
 	<!-- ## cloud names -->
@@ -117,9 +117,9 @@
 	<string name="screen_choose_cloud_service_title">클라우드 서비스</string>
 	<!-- ## screen: cloud connections -->
 	<string name="screen_cloud_connections_title">위치 선택</string>
-	<string name="screen_cloud_connections_no_connections">여기를 눌러 위치 추가</string>
+	<string name="screen_cloud_connections_no_connections">여기를 눌러 경로 위치 추가</string>
 	<string name="screen_cloud_error_webdav_not_supported">WebDAV가 지원되지 않는 서버입니다</string>
-	<string name="screen_cloud_local_error_no_content_provider">디렉토리를 열 수 있는 파일 관리자를 찾지 못하였습니다.</string>
+	<string name="screen_cloud_local_error_no_content_provider">디렉토리를 열 수 있는 파일 관리자를 찾지 못 했습니다</string>
 	<!-- ## screen: webdav settings -->
 	<string name="screen_webdav_settings_url_port_label">URL</string>
 	<string name="screen_webdav_settings_username_label">사용자명</string>
@@ -133,7 +133,7 @@
 	<string name="screen_s3_settings_display_name_label">표시 이름</string>
 	<string name="screen_s3_settings_access_key_label">액세스 키</string>
 	<string name="screen_s3_settings_secret_key_label">비밀키</string>
-	<string name="screen_s3_settings_bucket_label">존재하는 버킷</string>
+	<string name="screen_s3_settings_bucket_label">이미 존재하는 버킷</string>
 	<string name="screen_s3_settings_endpoint_label">엔드포인트</string>
 	<string name="screen_s3_settings_region_label">지역</string>
 	<string name="screen_s3_settings_msg_display_name_not_empty">표시 이름은 비워둘 수 없습니다</string>
@@ -182,7 +182,7 @@
 	<string name="screen_settings_section_auto_photo_upload_toggle_instant_upload_summary">Vault가 잠금 해제되어 있을 때 바로 업로드하기</string>
 	<string name="screen_settings_section_auto_photo_upload_only_wifi_toggle">Wi-Fi 상태에서만 업로드</string>
 	<string name="screen_settings_section_auto_photo_upload_including_videos">동영상 업로드</string>
-	<string name="screen_settings_auto_photo_upload_title">자동 업로드 파일을 &#8230;에 저장</string>
+	<string name="screen_settings_auto_photo_upload_title">&#8230;에 자동 업로드 대상 파일을 저장</string>
 	<string name="screen_settings_website_label">Cryptomator 웹사이트</string>
 	<string name="screen_settings_twitter_label">Twitter에서 팔로우하기</string>
 	<string name="screen_settings_facebook_label">Facebook에서 좋아요 누르기</string>
@@ -197,12 +197,12 @@
 	<string name="screen_settings_security_label">보안 힌트</string>
 	<string name="screen_settings_section_version">버전</string>
 	<string name="screen_settings_advanced_settings">고급 설정</string>
-	<string name="screen_settings_microsoft_apps_workaround_label">Microsoft 파일을 여는 방법</string>
+	<string name="screen_settings_microsoft_apps_workaround_label">Microsoft 파일 열람 시도</string>
 	<string name="screen_settings_microsoft_apps_workaround_summary">파일을 읽기 권한과 함께 Microsoft 앱에서 열기</string>
 	<string name="screen_settings_background_unlock_preparation_label">잠금해제 가속</string>
-	<string name="screen_settings_background_unlock_preparation_label_summary">비밀번호 입력 혹은 생체 인증을 하는 동안 백그라운드에서 Vault 설정 다운로드</string>
+	<string name="screen_settings_background_unlock_preparation_label_summary">비밀번호 입력 혹은 생체 인증을 진행하는 동안 백그라운드에서 Vault 설정 다운로드</string>
 	<string name="screen_settings_keep_unlocked_while_editing_files">잠금해제유지</string>
-	<string name="screen_settings_keep_unlocked_while_editing_files_summary">파일을 편집하는 동안 Vault를 잠금 해제된 상태로 유지</string>
+	<string name="screen_settings_keep_unlocked_while_editing_files_summary">파일을 편집하는 동안 Vault들을 잠금 해제 상태로 유지</string>
 	<!-- ## screen: cloud settings -->
 	<string name="screen_cloud_settings_onedrive_connections">OneDrive 연결</string>
 	<string name="screen_cloud_settings_webdav_connections">WebDAV 연결</string>
@@ -216,18 +216,18 @@
 	<string name="screen_authenticate_auth_authentication_failed">%1$s 인증할 수 없습니다.</string>
 	<string name="screen_update_pcloud_connections_title">pCloud 자격증명 업데이트</string>
 	<!-- ## screen: cryptomator app variants -->
-	<string name="screen_cryptomator_variants_title">Cryptomator의 변형</string>
+	<string name="screen_cryptomator_variants_title">Cryptomator 종류</string>
 	<string name="screen_cryptomator_variants_lite_title">주 F-Droid 리포지토리</string>
 	<string name="screen_cryptomator_variants_lite_description">API키가 필요하므로 제외되었습니다.</string>
 	<string name="screen_cryptomator_variants_lite_install">설치</string>
 	<string name="screen_cryptomator_variants_fdroid_title">Cryptomator F-Droid 리포지토리</string>
-	<string name="screen_cryptomator_variants_fdroid_description">이것은 독점 의존성으로 인해 포함되지 않았습니다.</string>
-	<string name="screen_cryptomator_variants_fdroid_add_repo_hint">F-Droid 앱에 Cryptomator 레포지토리 추가</string>
+	<string name="screen_cryptomator_variants_fdroid_description">독점 의존성을 가지고 있어 포함되지 않았습니다.</string>
+	<string name="screen_cryptomator_variants_fdroid_add_repo_hint">F-Droid 앱에 Cryptomator 레포지토리를 추가합니다.</string>
 	<string name="screen_cryptomator_variants_fdroid_add_repo">추가</string>
-	<string name="screen_cryptomator_variants_fdroid_install_hint">Cryptomator를 F-Droid로 설치합니다.\n만약 찾을 수 없다는 오류가 표시된다면, F-Droid 동기화가 완료될 때 까지 기다리세요.</string>
+	<string name="screen_cryptomator_variants_fdroid_install_hint">F-Droid로 Cryptomator를 설치합니다.\n만약 찾을 수 없음 오류가 표시된다면, F-Droid 동기화가 완료될 시점까지 기다리세요.</string>
 	<string name="screen_cryptomator_variants_website_title">웹사이트</string>
-	<string name="screen_cryptomator_variants_website_description">독점 의존성 포함.</string>
-	<string name="screen_cryptomator_variants_installation_hint">F-Droid 레포지토리 판으로 상호 전환하려면 앱의 재설정이 필요합니다.</string>
+	<string name="screen_cryptomator_variants_website_description">독점 의존성을 포함합니다.</string>
+	<string name="screen_cryptomator_variants_installation_hint">F-Droid 레포지토리 판에서 상호 전환하려면 앱의 완전한 재설정이 필요합니다.</string>
 	<!-- # dialogs -->
 	<string name="dialog_button_cancel">취소</string>
 	<string name="dialog_enter_password_positive_button">잠금해제</string>
@@ -268,7 +268,7 @@
 	<string name="dialog_file_name_hint">파일명</string>
 	<string name="dialog_file_name_placeholder">text.txt</string>
 	<string name="dialog_delete_vault_message">이 Vault를 정말로 제거하시겠습니까?</string>
-	<string name="dialog_delete_vault_hint">이 동작은 Vault를 리스트에서만 제거하며, 실제로 삭제하지는 않습니다.</string>
+	<string name="dialog_delete_vault_hint">이 동작은 Vault를 이 리스트에서만 제거하며, 실제로 삭제하지는 않습니다.</string>
 	<string name="dialog_upload_file_title">&#8230; 업로드 중</string>
 	<string name="dialog_upload_file_remaining">파일 %2$d 중 %1$d</string>
 	<string name="dialog_export_file_title">내보내는중 (%1$d/%2$d)</string>
@@ -276,7 +276,7 @@
 	<string name="dialog_progress_creating_folder">폴더 만드는 중&#8230;</string>
 	<string name="dialog_progress_creating_text_file">텍스트 파일 만드는 중&#8230;</string>
 	<string name="action_progress_authentication">인증 중&#8230;</string>
-	<string name="action_progress_renaming">이름 변경 중 &#8230;</string>
+	<string name="action_progress_renaming">&#8230; 이름 변경 중</string>
 	<string name="action_progress_deleting">삭제 중&#8230;</string>
 	<string name="dialog_progress_unlocking_vault">Vault 잠금해제 중&#8230;</string>
 	<string name="dialog_progress_change_password">비밀번호 변경 중&#8230;</string>
@@ -292,7 +292,7 @@
 	<string name="dialog_accept_ssl_certificate_details">세부정보</string>
 	<string name="dialog_accept_ssl_certificate_security_checkbox">이는 보안 문제를 야기할 수 있습니다. 나는 지금 나의 행동을 이해합니다.</string>
 	<string name="dialog_ask_ignore_battery_optimizations_title">배터리 최적화 비활성화</string>
-	<string name="dialog_ask_ignore_battery_optimizations_hint">백그라운드에서 실행하지 않고 새로운 사진과 영상을 불러오려면, 배터리 최적화에서 제외해야 합니다. 하지만 걱정하지 마세요, %1$s 많은 에너지를 소모하지 않습니다.\n\n적용하려면, \'최적화되지 않음\' 을 \'모든 어플리케이션\'으로 변경하고, %1$s 선택하여 다이얼로그에서 \'%2$s\' 누른 후에 \'최적화하지 않음\'을 고르세요.</string>
+	<string name="dialog_ask_ignore_battery_optimizations_hint">백그라운드에서 실행하지 않고 새로운 사진과 영상을 가져오려면, 배터리 최적화에서 제외해야 합니다. 하지만 걱정하지 마세요, %1$s 많은 에너지를 소모하지 않습니다.\n\n적용하려면, \'최적화되지 않음\' 을 \'모든 앱\'으로 변경하고, %1$s 선택하여 다이얼로그에서 \'%2$s\' 누른 후에 \'최적화하지 않음\'을 고르세요.</string>
 	<string name="dialog_ask_ignore_battery_optimizations_checkbox">다시 묻지 않기</string>
 	<string name="dialog_http_security_hint">HTTP 사용은 안전하지 않습니다. HTTPS 사용을 권장합니다. HTTP 사용으로 야기될 문제를 숙지하고 있다면, HTTP를 사용할 수 있습니다.</string>
 	<string name="dialog_http_security_checkbox">HTTPS로 변경</string>
@@ -315,6 +315,8 @@
 	<string name="dialog_vaults_removed_during_migration_title">Vaults를 %1s 클라우드를 사용하기 위해 다시 추가하세요</string>
 	<string name="dialog_vaults_removed_during_migration_hint">이 버전의 앱을 전환하려면 다음의 Vault 들을 앱에서 제거해야 합니다:\n%2s \n\n이 Vault 들은 클라우드가 아닌 이 앱에서만 제거됩니다. 계속 사용하기 위해 이 Vault 들을 다시 추가하세요.</string>
 	<string name="dialog_vault_is_root_folder_of_cloud_title">Vault가 클라우드의 최상위 폴더입니다</string>
+	<string name="dialog_vault_is_root_folder_of_cloud_hint">이 Vault를 추가하기 위해, 루트 디렉토리인 이 Vault 폴더의 상위 폴더에 새로운 클라우드 연결을 생성합니다.</string>
+	<string name="dialog_disable_secure_screen_disclaimer_hint">이 설정은 보안 기능이며 다른 앱들이 사용자가 원하지 않는 행동을 하도록 속이는 것을 방지합니다.\n\n비활성화한다면, <a href="https://docs.cryptomator.org/en/1.6/android/settings/#screen-security">위험성에 대해</a> 숙지함을 동의하는 것입니다.</string>
 	<string name="dialog_delete_cloud_connection_with_vaults_message">정말 이 클라우드 연결을 삭제하시겠습니까?</string>
 	<string name="dialog_delete_cloud_connection_with_vaults_hint">클라우드 연결과 이 클라우드의 Vault들이 삭제될 것입니다.</string>
 	<string name="dialog_confirm_delete_multiple_title">%1$d개의 파일을 삭제하시겠습니까?</string>
@@ -322,6 +324,7 @@
 	<string name="dialog_confirm_delete_file_message">정말 이 파일을 삭제하시겠습니까?</string>
 	<string name="dialog_confirm_delete_folder_message">폴더의 모든 내용을 삭제합니다. 그래도 이 폴더를 삭제할까요?</string>
 	<string name="dialog_biometric_auth_key_invalidated_title">생체 인증 기능이 비활성화됨</string>
+	<string name="dialog_biometric_auth_key_invalidated_message">키가 유효하지 않게 되어, 생체 인증 기능이 비활성화 되었습니다. 다시 활성화하려면 Cryptomator 설정을 여세요.</string>
 	<string name="dialog_enter_license_title">유효한 라이선스를 입력하세요</string>
 	<string name="dialog_enter_license_content">Google Play 스토어를 이용하지 않고 Cryptomator가 설치되었음을 감지했습니다. 유효한 라이선스를 입력해주세요. 라이선스는 <a href="https://cryptomator.org/android/">https://cryptomator.org/android/</a>에서 구매가능합니다.</string>
 	<string name="dialog_enter_license_not_valid_content">입력된 라이선스는 유효하지 않습니다. 다시한번 확인해주세요.</string>
@@ -341,6 +344,7 @@
 	<string name="dialog_sym_link_message">이 심볼릭 링크를 탐색할 수 없습니다</string>
 	<string name="dialog_sym_link_back_button">이전</string>
 	<string name="dialog_no_dir_file_title">디렉토리의 내용을 불러올 수 없음</string>
+	<string name="dialog_no_dir_file_message">클라우드 폴더 \'%1$s\'에 유효한 디렉토리 파일이 없습니다. 이 폴더가 다른 장치에서 생성되었으며 클라우드에 완전히 동기화되지 않았을 수 있습니다. 다음 파일이 클라우드에 존재하고 비어있지 않은지 확인하세요:\n%2$s</string>
 	<string name="dialog_no_more_images_to_display">더 띄울 사진들이 없습니다.</string>
 	<string name="dialog_pcloud_credentials_updated_title">\'%1$s\' 자격증명 업데이트됨</string>
 	<string name="dialog_pcloud_credentials_updated">새 pCloud 계정을 추가하려면 이 링크 <a href="https://www.pcloud.com">www.pcloud.com</a>를 누르고, 현재 계정에서 로그아웃한 뒤 여기에서 \'+\'를 다시 눌러서 추가해주세요.</string>
