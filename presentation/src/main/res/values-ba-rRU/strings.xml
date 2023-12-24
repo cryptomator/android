@@ -89,13 +89,30 @@
 	<string name="screen_file_browser_msg_files_exported">Файлдар экспортланды</string>
 	<string name="screen_file_browser_nothing_to_export">Экспортланасаҡ бер нәмә лә юҡ</string>
 	<string name="screen_file_browser_msg_creating_download_dir_failed">Күсереп алыу каталогын яһау булманы</string>
-	<string name="screen_file_browser_node_action_share">Уртаҡлаш</string>
-	<string name="screen_file_browser_node_action_rename">Исемен үҙгәрт</string>
+	<string name="screen_file_browser_node_action_share">Уртаҡлашырға</string>
+	<string name="screen_file_browser_node_action_rename">Исемен үҙгәртергә</string>
+	<string name="screen_file_browser_node_action_edit_text">Мөхәррирләргә</string>
+	<string name="screen_file_browser_node_action_export">Экспортларға</string>
+	<string name="screen_file_browser_node_action_delete">Юйырға</string>
+	<string name="screen_file_browser_node_action_open_with_text">Асыу өсөн&#8230;</string>
+	<string name="screen_file_browser_selection_mode_title_zero_elements">Элементтар һайлағыҙ</string>
+	<string name="screen_file_browser_selection_mode_title_one_or_more_elements">%1$d һайланды</string>
+	<string name="screen_file_browser_select_items">Һайларға</string>
+	<string name="screen_file_browser_select_all_items">Барыһын да һайларға</string>
+	<string name="screen_file_browser_refresh_items">Яңыртырға</string>
+	<string name="screen_file_browser_no_connection_message">Бәйләнеш юҡ</string>
+	<string name="screen_file_browser_no_connection_button_text">Ҡабатларға</string>
 	<!-- ## screen: text editor -->
+	<string name="screen_text_editor_save_success">Уңышлы һаҡланды</string>
 	<!-- ## screen: share files -->
+	<string name="screen_share_files_title">%1$s һаҡланасаҡ урын&#8230;</string>
 	<string name="screen_share_files_content_text">текст</string>
 	<string name="screen_share_files_content_file">файл</string>
 	<string name="screen_share_files_content_files">файлдар</string>
+	<string name="screen_share_files_msg_filenames_must_be_unique">Файл исемдәре ҡабатланмаҫҡа тейеш, дубликаттарҙың исемдәрен үҙгәртегеҙ.</string>
+	<string name="screen_share_files_section_location">Һаҡлау урыны</string>
+	<string name="screen_share_files_save_button_text">Һаҡла</string>
+	<string name="screen_share_files_msg_success">Шифрлау тамамланды</string>
 	<!-- ## screen: choose cloud service -->
 	<string name="screen_choose_cloud_service_title">Болот хеҙмәте</string>
 	<!-- ## screen: cloud connections -->
@@ -104,7 +121,16 @@
 	<string name="screen_cloud_error_webdav_not_supported">Сервер WebDAV менән яраҡлы түгел</string>
 	<string name="screen_cloud_local_error_no_content_provider">Каталогтарҙы асыу терәге булған файл менеджеры табылманы</string>
 	<!-- ## screen: webdav settings -->
+	<string name="screen_webdav_settings_url_port_label">URL</string>
+	<string name="screen_webdav_settings_username_label">Ҡулланыусы исеме</string>
+	<string name="screen_webdav_settings_password_label">Серһүҙ</string>
+	<string name="screen_webdav_settings_done_button_text">Бәйләнеш</string>
+	<string name="screen_webdav_settings_msg_url_must_not_be_empty">URL буш була алмай.</string>
+	<string name="screen_webdav_settings_msg_url_is_invalid">URL дөрөҫ түгел.</string>
+	<string name="screen_webdav_settings_msg_username_must_not_be_empty">Ҡулланыусы исеме буш була алмай.</string>
+	<string name="screen_webdav_settings_msg_password_must_not_be_empty">Серһүҙ буш була алмай.</string>
 	<!-- ## screen: s3 settings -->
+	<string name="screen_s3_settings_display_name_label">Күренәсәк исем</string>
 	<!-- ## screen: enter vault name -->
 	<!-- ## screen: set password -->
 	<!-- ## screen: settings -->
