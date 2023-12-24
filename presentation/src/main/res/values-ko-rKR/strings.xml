@@ -70,6 +70,9 @@
 	<string name="screen_file_browser_add_existing_vault_extra_text">마스터키 파일 선택</string>
 	<string name="screen_file_browser_create_new_vault_button_text">여기에 만들기</string>
 	<string name="screen_file_browser_create_new_vault_extra_text">Vault 이름: %1$s</string>
+	<plurals name="screen_file_browser_subtitle_move">
+		<item quantity="other">%2$d 이동 위치</item>
+	</plurals>
 	<string name="screen_file_browser_move_button_text">이동</string>
 	<string name="screen_file_browser_msg_empty_folder">빈 폴더</string>
 	<string name="screen_file_browser_file_info_label_date">%1$s 전 변경됨</string>
@@ -106,6 +109,7 @@
 	<string name="screen_share_files_content_text">텍스트</string>
 	<string name="screen_share_files_content_file">파일</string>
 	<string name="screen_share_files_content_files">파일</string>
+	<string name="screen_share_files_msg_filenames_must_be_unique">파일 이름은 유일해야 합니다, 중복된 이름을 변경하세요.</string>
 	<string name="screen_share_files_section_location">저장 위치</string>
 	<string name="screen_share_files_save_button_text">저장</string>
 	<string name="screen_share_files_msg_success">암호화 완료</string>
@@ -113,7 +117,9 @@
 	<string name="screen_choose_cloud_service_title">클라우드 서비스</string>
 	<!-- ## screen: cloud connections -->
 	<string name="screen_cloud_connections_title">위치 선택</string>
+	<string name="screen_cloud_connections_no_connections">여기를 눌러 위치 추가</string>
 	<string name="screen_cloud_error_webdav_not_supported">WebDAV가 지원되지 않는 서버입니다</string>
+	<string name="screen_cloud_local_error_no_content_provider">디렉토리를 열 수 있는 파일 관리자를 찾지 못하였습니다.</string>
 	<!-- ## screen: webdav settings -->
 	<string name="screen_webdav_settings_url_port_label">URL</string>
 	<string name="screen_webdav_settings_username_label">사용자명</string>
@@ -127,11 +133,13 @@
 	<string name="screen_s3_settings_display_name_label">표시 이름</string>
 	<string name="screen_s3_settings_access_key_label">액세스 키</string>
 	<string name="screen_s3_settings_secret_key_label">비밀키</string>
+	<string name="screen_s3_settings_bucket_label">존재하는 버킷</string>
 	<string name="screen_s3_settings_endpoint_label">엔드포인트</string>
 	<string name="screen_s3_settings_region_label">지역</string>
 	<string name="screen_s3_settings_msg_display_name_not_empty">표시 이름은 비워둘 수 없습니다</string>
 	<string name="screen_s3_settings_msg_access_key_not_empty">액세스 키를 입력해주세요</string>
 	<string name="screen_s3_settings_msg_secret_key_not_empty">비밀 키를 입력해주세요</string>
+	<string name="screen_s3_settings_msg_bucket_not_empty">버킷은 비어있을 수 없습니다</string>
 	<string name="screen_s3_settings_msg_endpoint_and_region_not_empty">엔드포인트 또는 지역은 비워둘 수 없습니다</string>
 	<!-- ## screen: enter vault name -->
 	<string name="screen_enter_vault_name_msg_name_empty">Vault 이름을 입력해주세요.</string>
@@ -155,6 +163,7 @@
 	<string name="screen_settings_activate_biometric_auth">생체 인증 활성화</string>
 	<string name="screen_settings_confirm_face_unlock">얼굴인식 잠금해제 적용 (가능한 경우)</string>
 	<string name="screen_settings_block_app_when_obscured">타 앱이 화면을 가릴 경우 Cryptomator 비활성화</string>
+	<string name="screen_settings_block_app_when_obscured_summary">입력을 가로채는 것을 막고 가장된 유저 인터페이스를 표시합니다</string>
 	<string name="screen_settings_secure_screen">스크린샷 차단</string>
 	<string name="screen_settings_secure_screen_summary">최근 사용 목록과 앱 내부에서 스크린샷 차단</string>
 	<string name="screen_settings_section_search">검색</string>
@@ -168,10 +177,12 @@
 	<string name="screen_settings_section_auto_photo_upload">사진 자동 업로드</string>
 	<string name="screen_settings_section_auto_photo_upload_vault">업로드 할 Vault 선택</string>
 	<string name="screen_settings_section_auto_photo_upload_toggle">활성화</string>
+	<string name="screen_settings_section_auto_photo_upload_toggle_summary">백그라운드에서 사진을 감지하고, 선택된 Vault가 잠금 해제되면 업로드를 시작합니다</string>
 	<string name="screen_settings_section_auto_photo_upload_toggle_instant_upload">바로 업로드하기</string>
 	<string name="screen_settings_section_auto_photo_upload_toggle_instant_upload_summary">Vault가 잠금 해제되어 있을 때 바로 업로드하기</string>
 	<string name="screen_settings_section_auto_photo_upload_only_wifi_toggle">Wi-Fi 상태에서만 업로드</string>
 	<string name="screen_settings_section_auto_photo_upload_including_videos">동영상 업로드</string>
+	<string name="screen_settings_auto_photo_upload_title">자동 업로드 파일을 &#8230;에 저장</string>
 	<string name="screen_settings_website_label">Cryptomator 웹사이트</string>
 	<string name="screen_settings_twitter_label">Twitter에서 팔로우하기</string>
 	<string name="screen_settings_facebook_label">Facebook에서 좋아요 누르기</string>
@@ -186,8 +197,12 @@
 	<string name="screen_settings_security_label">보안 힌트</string>
 	<string name="screen_settings_section_version">버전</string>
 	<string name="screen_settings_advanced_settings">고급 설정</string>
+	<string name="screen_settings_microsoft_apps_workaround_label">Microsoft 파일을 여는 방법</string>
+	<string name="screen_settings_microsoft_apps_workaround_summary">파일을 읽기 권한과 함께 Microsoft 앱에서 열기</string>
 	<string name="screen_settings_background_unlock_preparation_label">잠금해제 가속</string>
+	<string name="screen_settings_background_unlock_preparation_label_summary">비밀번호 입력 혹은 생체 인증을 하는 동안 백그라운드에서 Vault 설정 다운로드</string>
 	<string name="screen_settings_keep_unlocked_while_editing_files">잠금해제유지</string>
+	<string name="screen_settings_keep_unlocked_while_editing_files_summary">파일을 편집하는 동안 Vault를 잠금 해제된 상태로 유지</string>
 	<!-- ## screen: cloud settings -->
 	<string name="screen_cloud_settings_onedrive_connections">OneDrive 연결</string>
 	<string name="screen_cloud_settings_webdav_connections">WebDAV 연결</string>
@@ -198,14 +213,21 @@
 	<string name="screen_cloud_settings_sign_out_from_cloud">로그아웃</string>
 	<!-- ## screen: licenses -->
 	<!-- ## screen: authenticate cloud -->
+	<string name="screen_authenticate_auth_authentication_failed">%1$s 인증할 수 없습니다.</string>
 	<string name="screen_update_pcloud_connections_title">pCloud 자격증명 업데이트</string>
 	<!-- ## screen: cryptomator app variants -->
+	<string name="screen_cryptomator_variants_title">Cryptomator의 변형</string>
 	<string name="screen_cryptomator_variants_lite_title">주 F-Droid 리포지토리</string>
 	<string name="screen_cryptomator_variants_lite_description">API키가 필요하므로 제외되었습니다.</string>
 	<string name="screen_cryptomator_variants_lite_install">설치</string>
 	<string name="screen_cryptomator_variants_fdroid_title">Cryptomator F-Droid 리포지토리</string>
+	<string name="screen_cryptomator_variants_fdroid_description">이것은 독점 의존성으로 인해 포함되지 않았습니다.</string>
+	<string name="screen_cryptomator_variants_fdroid_add_repo_hint">F-Droid 앱에 Cryptomator 레포지토리 추가</string>
 	<string name="screen_cryptomator_variants_fdroid_add_repo">추가</string>
+	<string name="screen_cryptomator_variants_fdroid_install_hint">Cryptomator를 F-Droid로 설치합니다.\n만약 찾을 수 없다는 오류가 표시된다면, F-Droid 동기화가 완료될 때 까지 기다리세요.</string>
 	<string name="screen_cryptomator_variants_website_title">웹사이트</string>
+	<string name="screen_cryptomator_variants_website_description">독점 의존성 포함.</string>
+	<string name="screen_cryptomator_variants_installation_hint">F-Droid 레포지토리 판으로 상호 전환하려면 앱의 재설정이 필요합니다.</string>
 	<!-- # dialogs -->
 	<string name="dialog_button_cancel">취소</string>
 	<string name="dialog_enter_password_positive_button">잠금해제</string>
@@ -226,6 +248,9 @@
 	<string name="dialog_replace_positive_button_all_files_exist">모두 바꾸기</string>
 	<string name="dialog_replace_positive_button_some_files_exist">중복 파일 덮어쓰기</string>
 	<string name="dialog_replace_positive_button_single_file_exists">교체</string>
+	<string name="dialog_replace_msg_single_file_exists">\'%1$s\' 이름을 가진 파일이 이미 존재합니다. 덮어쓸까요?</string>
+	<string name="dialog_replace_msg_all_files_exists">모든 파일이 이미 존재합니다. 덮어쓸까요?</string>
+	<string name="dialog_replace_msg_some_files_exists">%1$d 파일이 이미 존재합니다. 덮어쓸까요?</string>
 	<string name="dialog_replace_title_single_file_exists">파일을 덮어쓰겠습니까?</string>
 	<string name="dialog_replace_title_multiple_files_exist">파일을 덮어쓰겠습니까?</string>
 	<string name="dialog_unable_to_share_title">파일을 공유할 수 없습니다</string>
@@ -243,12 +268,15 @@
 	<string name="dialog_file_name_hint">파일명</string>
 	<string name="dialog_file_name_placeholder">text.txt</string>
 	<string name="dialog_delete_vault_message">이 Vault를 정말로 제거하시겠습니까?</string>
+	<string name="dialog_delete_vault_hint">이 동작은 Vault를 리스트에서만 제거하며, 실제로 삭제하지는 않습니다.</string>
 	<string name="dialog_upload_file_title">&#8230; 업로드 중</string>
+	<string name="dialog_upload_file_remaining">파일 %2$d 중 %1$d</string>
 	<string name="dialog_export_file_title">내보내는중 (%1$d/%2$d)</string>
 	<string name="dialog_progress_please_wait">잠시 기다려주세요&#8230;</string>
 	<string name="dialog_progress_creating_folder">폴더 만드는 중&#8230;</string>
 	<string name="dialog_progress_creating_text_file">텍스트 파일 만드는 중&#8230;</string>
 	<string name="action_progress_authentication">인증 중&#8230;</string>
+	<string name="action_progress_renaming">이름 변경 중 &#8230;</string>
 	<string name="action_progress_deleting">삭제 중&#8230;</string>
 	<string name="dialog_progress_unlocking_vault">Vault 잠금해제 중&#8230;</string>
 	<string name="dialog_progress_change_password">비밀번호 변경 중&#8230;</string>
@@ -263,6 +291,8 @@
 	<string name="dialog_accept_ssl_certificate_hint">SSL 인증서가 유효하지 않습니다. 인증서를 신뢰하고 계속 진행하겠습니까?</string>
 	<string name="dialog_accept_ssl_certificate_details">세부정보</string>
 	<string name="dialog_accept_ssl_certificate_security_checkbox">이는 보안 문제를 야기할 수 있습니다. 나는 지금 나의 행동을 이해합니다.</string>
+	<string name="dialog_ask_ignore_battery_optimizations_title">배터리 최적화 비활성화</string>
+	<string name="dialog_ask_ignore_battery_optimizations_hint">백그라운드에서 실행하지 않고 새로운 사진과 영상을 불러오려면, 배터리 최적화에서 제외해야 합니다. 하지만 걱정하지 마세요, %1$s 많은 에너지를 소모하지 않습니다.\n\n적용하려면, \'최적화되지 않음\' 을 \'모든 어플리케이션\'으로 변경하고, %1$s 선택하여 다이얼로그에서 \'%2$s\' 누른 후에 \'최적화하지 않음\'을 고르세요.</string>
 	<string name="dialog_ask_ignore_battery_optimizations_checkbox">다시 묻지 않기</string>
 	<string name="dialog_http_security_hint">HTTP 사용은 안전하지 않습니다. HTTPS 사용을 권장합니다. HTTP 사용으로 야기될 문제를 숙지하고 있다면, HTTP를 사용할 수 있습니다.</string>
 	<string name="dialog_http_security_checkbox">HTTPS로 변경</string>
@@ -270,30 +300,43 @@
 	<string name="dialog_no_screen_lock_hint">화면 잠금 설정이 되어있지 않습니다. 자격증명을 안전하게 보호하기 위해 패턴이나 비밀번호를 설정하세요.</string>
 	<string name="dialog_no_screen_lock_title">화면 잠금 설정을 하시겠습니까?</string>
 	<string name="dialog_no_screen_lock_checkbox">화면 잠금 설정</string>
+	<string name="dialog_no_biometric_auth_set_up_title">시스템에 기본 인증이 설정되지 않았습니다</string>
+	<string name="dialog_no_biometric_auth_set_up_message">이 서비스를 사용하려면 최소한 하나의 지문/얼굴을 등록하세요.</string>
 	<string name="dialog_debug_mode_disclaimer_hint">이 모드에서는 민감한 정보들이 로그 파일로 기기에 기록될 수 있습니다.(파일명, 경로 등). 비밀번호, 쿠키 등의 정보는 예외입니다.\n\n 가능한 디버그 모드를 빨리 비활성화 하세요.</string>
 	<string name="dialog_debug_mode_disclaimer_title">주의</string>
 	<string name="dialog_debug_mode_positive_button">활성화</string>
 	<string name="dialog_disable_app_obscured_disclaimer_title">주의</string>
 	<string name="dialog_disable_app_obscured_positive_button">비활성화</string>
+	<string name="dialog_app_is_obscured_info_title">앱이 가려짐</string>
 	<string name="dialog_app_is_obscured_info_neutral_button">닫기</string>
+	<string name="dialog_vaults_removed_during_migration_title">Vaults를 %1s 클라우드를 사용하기 위해 다시 추가하세요</string>
+	<string name="dialog_vault_is_root_folder_of_cloud_title">Vault가 클라우드의 최상위 폴더입니다</string>
 	<string name="dialog_delete_cloud_connection_with_vaults_message">정말 이 클라우드 연결을 삭제하시겠습니까?</string>
 	<string name="dialog_delete_cloud_connection_with_vaults_hint">클라우드 연결과 이 클라우드의 Vault들이 삭제될 것입니다.</string>
 	<string name="dialog_confirm_delete_multiple_title">%1$d개의 파일을 삭제하시겠습니까?</string>
 	<string name="dialog_confirm_delete_multiple_message">정말 이 파일들을 삭제하시겠습니까?</string>
 	<string name="dialog_confirm_delete_file_message">정말 이 파일을 삭제하시겠습니까?</string>
+	<string name="dialog_confirm_delete_folder_message">폴더의 모든 내용을 삭제합니다. 그래도 이 폴더를 삭제할까요?</string>
+	<string name="dialog_biometric_auth_key_invalidated_title">생체 인증 기능이 비활성화됨</string>
 	<string name="dialog_enter_license_title">유효한 라이선스를 입력하세요</string>
 	<string name="dialog_enter_license_content">Google Play 스토어를 이용하지 않고 Cryptomator가 설치되었음을 감지했습니다. 유효한 라이선스를 입력해주세요. 라이선스는 <a href="https://cryptomator.org/android/">https://cryptomator.org/android/</a>에서 구매가능합니다.</string>
 	<string name="dialog_enter_license_not_valid_content">입력된 라이선스는 유효하지 않습니다. 다시한번 확인해주세요.</string>
+	<string name="dialog_enter_license_not_valid_content_desktop_supporter_certificate">제공된 키는 데스크톱 판의 서포터 인증서입니다. 유효한 라이선스를 입력하세요.</string>
 	<string name="dialog_enter_license_no_content">라이선스가 입력되지 않았습니다. 유효한 라이선스를 입력해주세요.</string>
 	<string name="dialog_enter_license_decline_button">종료</string>
 	<string name="dialog_license_confirmation_title">라이선스 확인</string>
+	<string name="dialog_license_confirmation_message">%1$s 유효한 라이선스를 제공한 것에 대해 감사합니다.</string>
 	<string name="dialog_update_available_title">업데이트가 출시되었습니다</string>
+	<string name="dialog_update_available_message">Cryptomator을 최신 버전으로 업데이트합니다. OK를 누르면 백그라운드에서 앱을 다운로드하고 설치를 요청합니다.</string>
 	<string name="dialog_update_available_update">지금 업데이트 하기</string>
 	<string name="dialog_update_available_download_site">다운로드 페이지로 가기</string>
 	<string name="dialog_update_available_cancel">다음에 하기</string>
 	<string name="dialog_download_update_title">다운로드중</string>
 	<string name="dialog_download_update_message">최신 버전의 Cryptomator 다운로드중</string>
+	<string name="dialog_sym_link_title">폴더가 심볼릭 링크입니다</string>
+	<string name="dialog_sym_link_message">이 심볼릭 링크를 탐색할 수 없습니다</string>
 	<string name="dialog_sym_link_back_button">이전</string>
+	<string name="dialog_no_dir_file_title">디렉토리의 내용을 불러올 수 없음</string>
 	<string name="dialog_no_more_images_to_display">더 띄울 사진들이 없습니다.</string>
 	<string name="dialog_pcloud_credentials_updated_title">\'%1$s\' 자격증명 업데이트됨</string>
 	<string name="dialog_pcloud_credentials_updated">새 pCloud 계정을 추가하려면 이 링크 <a href="https://www.pcloud.com">www.pcloud.com</a>를 누르고, 현재 계정에서 로그아웃한 뒤 여기에서 \'+\'를 다시 눌러서 추가해주세요.</string>
@@ -343,6 +386,7 @@
 	<string name="notification_auto_upload_failed_due_to_folder_not_exists">선택한 폴더로 더이상 업로드할 수 없습니다. 설정에서 새로 선택해주세요.</string>
 	<string name="notification_auto_upload_failed_due_to_vault_locked">업로드중에 vault가 잠겼습니다. 해당 vault를 다시 열어주세요.</string>
 	<string name="notification_auto_upload_failed_due_to_vault_not_found">자동 업로드를 할 vault가 더이상 존재하지 않습니다.</string>
+	<string name="notification_auto_upload_failed_due_to_authentication_problem">눌러서 인증 재시도</string>
 	<string name="notification_open_writable_file_title">쓰기 가능한 파일 열림</string>
 	<string name="notification_open_writable_file_message">파일 수정이 완료될 때까지 Vault가 계속 잠금해제됩니다</string>
 	<string name="notification_update_check_finished_latest">최신 버전 설치됨</string>
@@ -359,6 +403,7 @@
 	<string name="screen_settings_last_check_updates">마지막 확인 %1$s</string>
 	<string name="dialog_cache_size_title">클라우드당 캐시 크기</string>
 	<!-- lock timeout names -->
+	<string name="lock_timeout_instant">즉시</string>
 	<string name="lock_timeout_1m">1분</string>
 	<string name="lock_timeout_2m">2분</string>
 	<string name="lock_timeout_5m">5분</string>
