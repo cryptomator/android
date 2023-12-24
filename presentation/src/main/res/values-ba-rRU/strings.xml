@@ -4,8 +4,8 @@
 	<string name="share_with_label">Шифрла</string>
 	<!-- # error messages -->
 	<string name="error_generic">Хата килеп сыҡты</string>
-	<string name="error_authentication_failed">Аутентиклау хатаһы</string>
-	<string name="error_authentication_failed_re_authenticate">Аутентиклау хатаһы, %1$s менән инегеҙ</string>
+	<string name="error_authentication_failed">Таныу хатаһы</string>
+	<string name="error_authentication_failed_re_authenticate">Таныу хатаһы, %1$s менән инегеҙ</string>
 	<string name="error_no_network_connection">Селтәр бәйләнеше юҡ</string>
 	<string name="error_invalid_passphrase">Серһүҙ дөрөҫ түгел</string>
 	<string name="error_file_or_folder_exists">Файл йәки папка бар инде.</string>
@@ -27,7 +27,7 @@
 	<string name="error_update_no_internet">Яңыртыу тикшереүе уңышһыҙ булды. Интернет бәйләнеше юҡ.</string>
 	<string name="error_failed_to_decrypt_webdav_password">WebDAV серһүҙ шифрын асып булманы. Зинһар, көйләүҙәрҙә ҡабаттан өҫтәгеҙ</string>
 	<string name="error_play_services_not_available">Google Play сервистары ҡуйылмаған</string>
-	<string name="error_biometric_auth_aborted">Биометрик аутентиклау өҙөлдө</string>
+	<string name="error_biometric_auth_aborted">Биометрик таныу өҙөлдө</string>
 	<string name="error_vault_version_mismatch">Тәғәйенләнгән %1$s версияһы %2$s версияһынан айырала</string>
 	<string name="error_vault_key_invalid">%1$s менән %2$s тап килмәй</string>
 	<string name="error_vault_config_loading">Һаҡлағыс конфигурацияһын йөкләгәндә дөйөм хата</string>
@@ -159,8 +159,8 @@
 	<!-- ## screen: settings -->
 	<string name="screen_settings_section_general">Дөйөм</string>
 	<string name="screen_settings_cloud_settings_label">Болот хеҙмәттәре</string>
-	<string name="screen_settings_biometric_auth">Биометрик аутентиклау</string>
-	<string name="screen_settings_activate_biometric_auth">Биометрик аутентиклау</string>
+	<string name="screen_settings_biometric_auth">Биометрик таныу</string>
+	<string name="screen_settings_activate_biometric_auth">Биометрик таныу ғәмәлдә</string>
 	<string name="screen_settings_confirm_face_unlock">Йөҙ менән асыу (булған осраҡта)</string>
 	<string name="screen_settings_block_app_when_obscured">Ҡушымта ябылған саҡта бикләү</string>
 	<string name="screen_settings_block_app_when_obscured_summary">Яҙылғандарҙы тотоп алыуҙы һәм ялған арайөҙ күрһәтеүҙе тыйыу</string>
@@ -194,18 +194,47 @@
 	<string name="screen_settings_debug_mode_label">Төҙөкләндереү режимы</string>
 	<string name="screen_settings_error_report_label">Журнал файлын ебәрергә</string>
 	<string name="screen_settings_error_report_failed">Ебәреү уңышһыҙ булды</string>
+	<string name="screen_settings_security_label">Хәүефһеҙлек кәңәштәре</string>
 	<string name="screen_settings_section_version">Версия</string>
+	<string name="screen_settings_advanced_settings">Өҫтәмә көйләүҙәр</string>
+	<string name="screen_settings_microsoft_apps_workaround_label">Microsoft файлдарын асыуҙың урау юлдары</string>
+	<string name="screen_settings_microsoft_apps_workaround_summary">Microsoft ҡушымталарында файлдарҙы яҙыу рөхсәте менән асыу</string>
+	<string name="screen_settings_background_unlock_preparation_label">Бикте асыуҙы тиҙләтеү</string>
+	<string name="screen_settings_background_unlock_preparation_label_summary">Серһүҙ йәки биометрик таныу һоралған ваҡытта һаҡлағыс көйләүҙәрен артҡы планда күсереп алырға</string>
+	<string name="screen_settings_keep_unlocked_while_editing_files">Биге асыҡ килеш тоторға</string>
+	<string name="screen_settings_keep_unlocked_while_editing_files_summary">Файл мөхәррирләгәндә һаҡлағысты асыҡ килеш тоторға</string>
 	<!-- ## screen: cloud settings -->
 	<string name="screen_cloud_settings_onedrive_connections">OneDrive бәйләнештәре</string>
 	<string name="screen_cloud_settings_webdav_connections">WebDAV бәйләнештәре</string>
 	<string name="screen_cloud_settings_pcloud_connections">pCloud бәйләнештәре</string>
 	<string name="screen_cloud_settings_s3_connections">S3 бәйләнештәре</string>
+	<string name="screen_cloud_settings_local_storage_locations">Урындағы һаҡлау урындары</string>
+	<string name="screen_cloud_settings_log_in_to">Инеү</string>
 	<!-- ## screen: licenses -->
 	<!-- ## screen: authenticate cloud -->
 	<!-- ## screen: cryptomator app variants -->
+	<string name="screen_cryptomator_variants_lite_install">Ҡорорға</string>
+	<string name="screen_cryptomator_variants_fdroid_add_repo">Өҫтәү</string>
+	<string name="screen_cryptomator_variants_website_title">Сайт</string>
 	<!-- # dialogs -->
+	<string name="dialog_button_cancel">Кире ал</string>
+	<string name="dialog_enter_password_positive_button">Биген ас</string>
+	<string name="dialog_change_password_old_password_label">Иҫке серһүҙ</string>
+	<string name="dialog_change_password_new_password_label">Яңы серһүҙ</string>
+	<string name="dialog_change_password">Серһүҙҙе үҙгәрт</string>
 	<!-- Vault not found -->
 	<string name="dialog_vault_not_found_positive_button_text">Алып ташлау</string>
+	<string name="dialog_existing_file_title">Файл бар инде</string>
+	<string name="dialog_existing_file_positive_button">Алмаштыр</string>
+	<string name="dialog_existing_file_message">\'%1$s\' исемле файл бар инде.</string>
+	<string name="dialog_replace_negative_button_at_least_two_but_not_all_files_exist">Булғандарҙы үт</string>
+	<string name="dialog_replace_positive_button_all_files_exist">Барыһын да алмаштыр</string>
+	<string name="dialog_replace_positive_button_some_files_exist">Булғандарҙы алмаштыр</string>
+	<string name="dialog_replace_positive_button_single_file_exists">Алмаштыр</string>
+	<string name="dialog_unable_to_share_positive_button">Ярай</string>
+	<string name="dialog_file_name_hint">Файл исеме</string>
+	<string name="dialog_file_name_placeholder">text.txt</string>
+	<string name="dialog_lock_vault">Бикләргә</string>
 	<!-- # error reports -->
 	<!-- # misc -->
 	<!-- ## file size helper -->
