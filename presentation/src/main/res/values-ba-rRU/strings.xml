@@ -10,10 +10,37 @@
 	<string name="error_invalid_passphrase">Яңылыш серһүҙ</string>
 	<string name="error_file_or_folder_exists">Файл йәки папка бар инде.</string>
 	<string name="error_vault_version_not_supported">Һаҡлағыстың терәкләнмәгән версияһы: %1$s. Был һаҡлағыс Cryptomator-ҙың башҡа версияһы менән яһалған.</string>
+	<string name="error_vault_config_file_missing_due_to_format_999">%1$s файлы һаҡлағыс папкаһында юҡ. Файлдың болоттағы һаҡлағыс папкаһында булыуын тикшерегеҙ.</string>
+	<string name="error_vault_already_exists">Һаҡлаығыс бар инде.</string>
+	<string name="error_no_such_file">Файл юҡ.</string>
+	<string name="error_vault_has_been_locked">Һаҡлағыс бикләнгән.</string>
+	<string name="error_cloud_already_exists">Болот бар инде.</string>
+	<string name="error_activity_not_found">Был файлды аса алған ҡушымтаны күсереп алығыҙ.</string>
+	<string name="error_server_not_found">Сервер табылманы.</string>
+	<string name="error_device_policy_manager_not_found">Йыһаз көйләүҙәрен асығыҙ һәм экран биген ҡул менән көйләгеҙ</string>
+	<string name="error_export_illegal_file_name">Экспорт уңышһыҙ. Файл исемдәренән махсус билдәләрҙе алып ташлағыҙ һәм яңынан экспортлап ҡарағыҙ.</string>
+	<string name="error_name_contains_invalid_characters">Махсус билдәләр булырға тейеш түгел.</string>
+	<string name="error_names_contains_invalid_characters">Файл исемдәрендә махсус билдәләр була алмай.</string>
+	<string name="error_vault_name_contains_invalid_characters">Һаҡлағыс исемендә махсус билдәләр була алмай.</string>
+	<string name="error_general_update">Яңыртыу тикшереүе уңышһыҙ. Дөйөм хата килеп сыҡты.</string>
+	<string name="error_hash_mismatch_update">Яңыртыу тикшереүе уңышһыҙ. Иҫәпләнгән хеш тейәлгән файл менән тап килмәй</string>
+	<string name="error_update_no_internet">Яңыртыу тикшереүе уңышһыҙ. Интернет бәйләнеше юҡ.</string>
+	<string name="error_failed_to_decrypt_webdav_password">WebDAV серһүҙ шифрын асып булманы. Зинһар, көйләүҙәрҙә ҡабаттан өҫтәгеҙ</string>
+	<string name="error_play_services_not_available">Google Play сервистары ҡуйылмаған</string>
+	<string name="error_biometric_auth_aborted">Биометрик аутентиклау өҙөлдө</string>
+	<string name="error_vault_version_mismatch">Тәғәйенләнгән %1$s версияһы %2$s версияһынан айырала</string>
+	<string name="error_vault_key_invalid">%1$s менән %2$s тап килмәй</string>
+	<string name="error_vault_config_loading">Һаҡлағыс конфигурацияһын йөкләгәндә дөйөм хата</string>
+	<string name="error_file_not_found_after_opening_using_3party">Cryptomator программаһына кире күскәндән һуң урындағы файл юҡ инде. Буласаҡ үҙгәрештәр кире болотҡа күсерелә алмай.</string>
+	<string name="error_no_such_bucket">Бындай bucket юҡ</string>
+	<string name="error_masterkey_location_not_supported">Ирекле Masterkey урыны терәкләнмәй</string>
+	<string name="error_interact_with_fdroid_but_fdroid_missing">F-Droid ҡушымтаһы менән бәйләнешкә инеп булманы. Ҡуйылмағанмы?</string>
 	<!-- # clouds -->
 	<!-- ## cloud names -->
+	<string name="cloud_names_local_storage">Урындағы һаҡлағыс</string>
 	<!-- # permission -->
 	<!-- ## permission messages -->
+	<string name="permission_message_export_file">Файлдарҙы экспортлау өсөн Cryptomator-ға һаҡлағысҡа инеү рәхсәте кәрәк</string>
 	<!-- # screens -->
 	<!-- # screen: vault list -->
 	<!-- # screen: file browser -->
