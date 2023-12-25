@@ -186,6 +186,8 @@
 	<!-- # dialogs -->
 	<string name="dialog_button_cancel">انصراف</string>
 	<string name="dialog_enter_password_positive_button">بازکردن قفل</string>
+	<string name="dialog_change_password_msg_old_password_empty">رمز عبور فعلی نمی‌تواند خالی باشد.</string>
+	<string name="dialog_change_password_msg_password_mismatch">رمز عبور جدید با تکرار آن مطابقت ندارد.</string>
 	<!-- Vault not found -->
 	<string name="dialog_vault_not_found_positive_button_text">حذف</string>
 	<string name="dialog_lock_vault">قفل</string>
