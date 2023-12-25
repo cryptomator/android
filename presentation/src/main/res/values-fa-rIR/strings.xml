@@ -189,7 +189,17 @@
 	<string name="dialog_change_password_msg_old_password_empty">رمز عبور فعلی نمی‌تواند خالی باشد.</string>
 	<string name="dialog_change_password_msg_password_mismatch">رمز عبور جدید با تکرار آن مطابقت ندارد.</string>
 	<!-- Vault not found -->
+	<string name="dialog_vault_not_found_title">خزانه %1$s پیدا نشد</string>
+	<string name="dialog_vault_not_found_message">نام خزانه تغییر پیدا کرده، منتقل شده یا حذف شده است. برای ادامه این خزانه را از لیست حذف کرده و دوباره اضافه کنید. اکنون حذف شود؟</string>
 	<string name="dialog_vault_not_found_positive_button_text">حذف</string>
+	<string name="dialog_existing_file_title">فایل هم اکنون وجود دارد</string>
+	<string name="dialog_existing_file_positive_button">جایگزین کردن</string>
+	<string name="dialog_existing_file_message">فایل با نام \'%1$s\' در حال حاضر وجود دارد.</string>
+	<string name="dialog_replace_positive_button_all_files_exist">جایگزین کردن همه</string>
+	<string name="dialog_replace_positive_button_single_file_exists">جایگزین کردن</string>
+	<string name="dialog_replace_title_single_file_exists">فایل جایگزین شود؟</string>
+	<string name="dialog_unsaved_changes_discard">صرف‌نظر کردن</string>
+	<string name="dialog_file_name_hint">نام فایل</string>
 	<string name="dialog_lock_vault">قفل</string>
 	<string name="dialog_app_is_obscured_info_neutral_button">ببند</string>
 	<string name="dialog_sym_link_back_button">بازگشت</string>
