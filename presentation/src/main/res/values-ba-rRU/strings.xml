@@ -91,7 +91,7 @@
 	<string name="screen_file_browser_msg_creating_download_dir_failed">Күсереп алыу каталогын яһау булманы</string>
 	<string name="screen_file_browser_node_action_share">Уртаҡлашырға</string>
 	<string name="screen_file_browser_node_action_rename">Исемен үҙгәртергә</string>
-	<string name="screen_file_browser_node_action_edit_text">Мөхәррирләргә</string>
+	<string name="screen_file_browser_node_action_edit_text">Төҙәтергә</string>
 	<string name="screen_file_browser_node_action_export">Экспортларға</string>
 	<string name="screen_file_browser_node_action_delete">Юйырға</string>
 	<string name="screen_file_browser_node_action_open_with_text">Асыу өсөн&#8230;</string>
@@ -202,7 +202,7 @@
 	<string name="screen_settings_background_unlock_preparation_label">Бикте асыуҙы тиҙләтеү</string>
 	<string name="screen_settings_background_unlock_preparation_label_summary">Серһүҙ йәки биометрик таныу һоралған ваҡытта һаҡлағыс көйләүҙәрен артҡы планда күсереп алырға</string>
 	<string name="screen_settings_keep_unlocked_while_editing_files">Биге асыҡ килеш тоторға</string>
-	<string name="screen_settings_keep_unlocked_while_editing_files_summary">Файл мөхәррирләгәндә һаҡлағысты асыҡ килеш тоторға</string>
+	<string name="screen_settings_keep_unlocked_while_editing_files_summary">Файл төҙәткәндә һаҡлағысты асыҡ килеш тоторға</string>
 	<!-- ## screen: cloud settings -->
 	<string name="screen_cloud_settings_onedrive_connections">OneDrive бәйләнештәре</string>
 	<string name="screen_cloud_settings_webdav_connections">WebDAV бәйләнештәре</string>
@@ -305,7 +305,7 @@
 	<string name="dialog_debug_mode_disclaimer_hint">Был режимда нескә мәғлүмәттәрҙең (мәҫәлән, файл исемдәре, юлдар) йыһаздың журнал файлына яҙылыуы ихтимал. Серһүҙҙәр, cookie-файлдар һ.б. тура алып ташлана.\n\nЯйлау (debug) режимын тиҙ арала ябырға онотмағыҙ.</string>
 	<string name="dialog_debug_mode_disclaimer_title">Иғтибар</string>
 	<string name="dialog_debug_mode_positive_button">Ғәмәлгә индер</string>
-	<string name="dialog_microsoft_workaround_disclaimer_hint">Microsoft ҡушымталарындағы хата арҡаһында, мөхәррирләнәсәк файл йыһазығыҙҙағы дөйөм медиа папкалала был ҡушымталар араһында уртаҡлашылырға тейеш. Cryptomator кире асылғандан һуң, уртаҡ файл яңынан юйыла, әммә Cryptomator был файл менән ни булыуына йоғонто яһай алмай. Был параметрҙы активлаштырғанда был хәл тураһында белеүегеҙҙе тикшерегеҙ. Был Microsoft файл төрҙәренә генә ҡағыла.\n\nАктивлаштырғандан һуң Cryptomator яңынан асыла.</string>
+	<string name="dialog_microsoft_workaround_disclaimer_hint">Microsoft ҡушымталарындағы хата арҡаһында, төҙәтеләсәк файл йыһазығыҙҙағы дөйөм медиа папкала был ҡушымталар араһында уртаҡлашылырға тейеш. Cryptomator кире асылғандан һуң, уртаҡ файл яңынан юйыла, әммә Cryptomator был файл менән ни булыуына йоғонто яһай алмай. Был параметрҙы активлаштырғанда был хәл тураһында белеүегеҙҙе тикшерегеҙ. Был Microsoft файл төрҙәренә генә ҡағыла.\n\nАктивлаштырғандан һуң Cryptomator яңынан асыла.</string>
 	<string name="dialog_disable_app_obscured_disclaimer_hint">Был көйләү хәүефһеҙлек үҙенсәлеге булып тора һәм ҡулланыусыларҙы башҡа ҡушымталарҙан алдап, улар теләмәгән эштәрҙе эшләтеүҙән һаҡлай.\n\nҺүндергән ваҡытта <a href="https://docs.cryptomator.org/en/1.6/android/settings/#block-app-when-obscured">хәүеф-янауҙар тураһында</a> белеүегеҙҙе раҫлайһығыҙ.</string>
 	<string name="dialog_disable_app_obscured_disclaimer_title">Иғтибар</string>
 	<string name="dialog_disable_app_obscured_positive_button">Һүндер</string>
@@ -329,6 +329,8 @@
 	<string name="dialog_enter_license_content">Google Play Store ҡулланмайынса Cryptomator ҡуйыуығыҙҙы асыҡланыҡ. <a href="https://cryptomator.org/android/">https://cryptomator.org/android/</a> сайтында һатып алып булған һәм ғәмәлдәге рөхсәтнамә яҙығыҙ.</string>
 	<string name="dialog_enter_license_not_valid_content">Бирелгән рөхсәтнамә ғәмәлдә түгел. Уны дөрөҫ яҙғанығыҙҙы тикшерегеҙ.</string>
 	<string name="dialog_enter_license_not_valid_content_desktop_supporter_certificate">Бирелгән асҡыс — ярҙамсы сертификаты. Ғәмәлдә булған рөхсәтнамә яҙығыҙ.</string>
+	<string name="dialog_enter_license_no_content">Рөхсәтнамә яҙылмаған. Ғәмәлдә булған рөхсәтнамә яҙығыҙ.</string>
+	<string name="dialog_enter_license_decline_button">Сыҡ</string>
 	<string name="dialog_license_confirmation_title">Рөхсәтнамә раҫлау</string>
 	<string name="dialog_license_confirmation_message">Ғәмәлдәге рөхсәтнамә биргәнегеҙ өсөн рәхмәт %1$s.</string>
 	<string name="dialog_update_available_title">Яңыртыу бар</string>
@@ -345,6 +347,10 @@
 	<string name="dialog_no_dir_file_message">\'%1$s\' болот папкаһының ғәмәлдәге каталог файлы юҡ. Бәлки, папка икенсе йыһызда эшләнгән һәм әлегә тулыһынса болотҡа синхронлашмағандыр. Түбәндәге файл бармы-юҡмы икәнлеген болотығыҙҙа тикшерегеҙ: \n%2$s</string>
 	<string name="dialog_no_more_images_to_display">Күрһәтерлек һүрәттәр юҡ&#8230;</string>
 	<string name="dialog_pcloud_credentials_updated_title">\'%1$s\' иҫәп яҙыуы мәғлүмәттәре яңыртылды</string>
+	<string name="dialog_pcloud_credentials_updated">Әгәр ҙә һеҙ яңы pCloud иҫәп яҙмаһы өҫтәргә ниәтләһәгеҙ, ошо url <a href="https://www.pcloud.com">www.pcloud.com</a> аша күсегеҙ, ағымдағы иҫәп яҙмаһынан сығығыҙ һәм яңы болот бәйләнеше булдырыу өсөн был ҡушымталағы \'+\' төймәһенә баҫығыҙ.</string>
+	<string name="permission_snackbar_auth_local_vault">Урындағы һаҡлағыстарҙы ҡулланыу өсөн Cryptomator-ға һаҡлағысҡа инеү рәхсәте кәрәк</string>
+	<string name="permission_snackbar_auth_auto_upload">Автоматик фото тейәү өсөн Cryptomator-ға һаҡлағысҡа инеү рәхсәте кәрәк</string>
+	<string name="permission_snackbar_notifications">Cryptomator-ға белдереү ебәреү хоҡуҡтары кәрәк. Мәҫәлән, һаҡлағыс торошо тураһында.</string>
 	<!-- # error reports -->
 	<!-- # misc -->
 	<!-- ## file size helper -->
@@ -371,14 +377,46 @@
 	<string name="time_unit_years_pl">йыл</string>
 	<!-- ## biometric authentication -->
 	<string name="dialog_biometric_auth_title">Биометрик инеү</string>
+	<string name="dialog_biometric_auth_message">Биометрик иҫәп яҙмаһын ҡулланып ин</string>
+	<string name="dialog_biometric_auth_use_password">Һаҡлағыс серһүҙен ҡуллан</string>
+	<string name="dialog_unable_to_auto_upload_files_title">Файлдарҙы автоматик рәүештә тейәп булмай</string>
 	<!-- notification -->
+	<string name="notification_unlocked">Биге асыҡ һаҡлағыс: %1$d</string>
+	<string name="notification_timeout">%1$s эсендә автоматик бикләү</string>
+	<string name="notification_lock_all">Барыһын да биклә</string>
+	<string name="notification_cancel_auto_upload">Тейәүҙе туҡтат</string>
+	<string name="notification_auto_upload_title">Автоматик фото тейәү бара</string>
+	<string name="notification_auto_upload_message">%1d/%2d тейәлә</string>
+	<string name="notification_auto_upload_finished_title">Автоматик фото тейәү тамамланды</string>
+	<string name="notification_auto_upload_finished_message">Һаҡлағысҡа %1$d һүрәт тейәлде</string>
+	<string name="notification_auto_upload_failed_title">Автомат фото тейәү уңышһыҙ булды</string>
+	<string name="notification_auto_upload_failed_general_error">Тейәү ваҡытында дөйөм хата килеп сыҡты.</string>
+	<string name="notification_auto_upload_failed_due_to_folder_not_exists">Тейәү өсөн һайланған папка хәҙер юҡ. Көйләүҙәргә барығыҙ һәм яңыһын һайлағыҙ</string>
+	<string name="notification_auto_upload_failed_due_to_vault_locked">Тейәү ваҡытында һаҡлағыс бикләнгән, дауам итеү өсөн һаҡлағысты яңынан асығыҙ</string>
+	<string name="notification_auto_upload_failed_due_to_vault_not_found">Автоматик тейәү өсөн һайланған папка хәҙер юҡ.</string>
 	<string name="notification_auto_upload_failed_due_to_authentication_problem">Аутентификлауҙы яңыртыу өсөн баҫығыҙ.</string>
+	<string name="notification_open_writable_file_title">Яҙып булған файл асыу</string>
+	<string name="notification_open_writable_file_message">Төҙәтеү тамамланғансы һаҡлаҡыс бикләнмәй ҡала</string>
+	<string name="notification_update_check_finished_latest">Һуңғы версия ҡуйылған</string>
+	<string name="notification_authenticating">Аутентификлау&#8230;</string>
 	<string name="screen_settings_lru_cache">Кэш</string>
+	<string name="screen_settings_lru_cache_toggle_summary">Йыһазда шифрланған, һуңғы ваҡытта ҡулланылған файлдарҙы аҙаҡтан кире асҡанда ҡулланыр өсөн кэшларға</string>
+	<string name="screen_settings_lru_cache_size">Дөйөм кэш күләме</string>
+	<string name="screen_settings_clear_lru_cache_size">Кэшты таҙартыу</string>
+	<string name="screen_settings_lru_cache_changed__restart_toast">Үҙгәрештәр ҡушымтаны ҡайтанан эшләтеп ебәргәндә ҡулланыласаҡ</string>
+	<string name="screen_settings_license">Теркәлеүсе</string>
+	<string name="screen_settings_license_mail">%1$s</string>
+	<string name="dialog_settings_update_check_interval_title">Яңыртыу тикшереү интервалы</string>
+	<string name="screen_settings_check_updates">Яңыртыуҙарҙы тикшереү</string>
+	<string name="screen_settings_last_check_updates">Һуңғы тикшереү %1$s</string>
+	<string name="dialog_cache_size_title">Болот башына кэш күләме</string>
 	<!-- lock timeout names -->
+	<string name="lock_timeout_instant">Шунда уҡ</string>
 	<string name="lock_timeout_1m">1 минут</string>
 	<string name="lock_timeout_2m">2 минут</string>
 	<string name="lock_timeout_5m">5 минут</string>
 	<string name="lock_timeout_10m">10 минут</string>
+	<string name="lock_timeout_never">Бер ҡасан да</string>
 	<!-- cache size names -->
 	<string name="cache_size_50m">50 МБ</string>
 	<string name="cache_size_100m">100 МБ</string>
@@ -388,6 +426,9 @@
 	<string name="cache_size_5000m">5 ГБ</string>
 	<!-- screen scheme mode names -->
 	<string name="screen_settings_style_mode">Күренеш</string>
+	<string name="follow_system">Автоматик (систамалағы һымаҡ)</string>
+	<string name="light">Яҡты</string>
+	<string name="dark">Ҡараңғы</string>
 	<!-- update interval names -->
 	<string name="update_interval_1d">Көндә бер тапҡыр</string>
 </resources>
