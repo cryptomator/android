@@ -218,9 +218,10 @@
 	<!-- ## screen: cryptomator app variants -->
 	<string name="screen_cryptomator_variants_title">Cryptomator варианттары</string>
 	<string name="screen_cryptomator_variants_lite_title">Төп F-Droid репозиторийы</string>
-	<string name="screen_cryptomator_variants_lite_description">API асҡыстары кәрәк булғанға төшөрөп ҡалдырылды.</string>
+	<string name="screen_cryptomator_variants_lite_description">API асҡыстары кәрәк булғанлыҡтан төшөрөп ҡалдырылды.</string>
 	<string name="screen_cryptomator_variants_lite_install">Ҡорорға</string>
 	<string name="screen_cryptomator_variants_fdroid_title">Cryptomator F-Droid репозиторийы</string>
+	<string name="screen_cryptomator_variants_fdroid_description">Проприетар бәйлелек булғанлыҡтан төшөрөп ҡалдырылды.</string>
 	<string name="screen_cryptomator_variants_fdroid_add_repo">Өҫтәү</string>
 	<string name="screen_cryptomator_variants_website_title">Сайт</string>
 	<!-- # dialogs -->
