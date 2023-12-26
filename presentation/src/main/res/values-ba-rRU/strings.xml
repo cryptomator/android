@@ -222,8 +222,12 @@
 	<string name="screen_cryptomator_variants_lite_install">Ҡорорға</string>
 	<string name="screen_cryptomator_variants_fdroid_title">Cryptomator F-Droid репозиторийы</string>
 	<string name="screen_cryptomator_variants_fdroid_description">Проприетар бәйлелек булғанлыҡтан төшөрөп ҡалдырылды.</string>
+	<string name="screen_cryptomator_variants_fdroid_add_repo_hint">F-Droid ҡушымтаһына Cryptomator репозиторийы өҫтәү.</string>
 	<string name="screen_cryptomator_variants_fdroid_add_repo">Өҫтәү</string>
+	<string name="screen_cryptomator_variants_fdroid_install_hint">F-Droid аша Cryptomator ҡуйыу.\n\"Табылманы\" хатаһы күренгән ваҡытта F-Droid синхронлашыуының тамамланғанын көтөгөҙ.</string>
 	<string name="screen_cryptomator_variants_website_title">Сайт</string>
+	<string name="screen_cryptomator_variants_website_description">Эсендә проприетар бәйлелектәр бар.</string>
+	<string name="screen_cryptomator_variants_installation_hint">Төп F-Droid репозиторийы вариантындан йәки вариантына күсер өсөн ҡушымтаны яңынан ҡуйыу кәрәк.</string>
 	<!-- # dialogs -->
 	<string name="dialog_button_cancel">Кире ал</string>
 	<string name="dialog_enter_password_positive_button">Биген ас</string>
@@ -235,6 +239,7 @@
 	<string name="dialog_change_password_msg_password_mismatch">Яңы серһүҙ ҡабатлап яҙылған серһүҙ менән тап килмәй.</string>
 	<!-- Vault not found -->
 	<string name="dialog_vault_not_found_title">%1$s һаҡлағысы табылманы</string>
+	<string name="dialog_vault_not_found_message">Һаҡлағыстың исеме үҙгәртелгән, күсерелгән йәки юйылған. Дауам итер өсөн уны исемлектән алып ташлағыҙ һәм яңынан өҫтәгеҙ. Хәҙер алып ташларғамы?</string>
 	<string name="dialog_vault_not_found_positive_button_text">Алып ташлау</string>
 	<string name="dialog_existing_file_title">Файл бар инде</string>
 	<string name="dialog_existing_file_positive_button">Алмаштыр</string>
@@ -243,9 +248,13 @@
 	<string name="dialog_replace_positive_button_all_files_exist">Барыһын да алмаштыр</string>
 	<string name="dialog_replace_positive_button_some_files_exist">Булғандарҙы алмаштыр</string>
 	<string name="dialog_replace_positive_button_single_file_exists">Алмаштыр</string>
+	<string name="dialog_replace_msg_single_file_exists">\'%1$s\' исемле файл бар инде. Алмаштырырға теләйһегеҙме?</string>
+	<string name="dialog_replace_msg_all_files_exists">Бөтә файлдар ҙа бар инде. Уларҙы алмаштырырға теләйһегеҙме?</string>
+	<string name="dialog_replace_msg_some_files_exists">%1$d файлдары бар инде. Уларҙы алмаштырырға теләйһегеҙме?</string>
 	<string name="dialog_replace_title_single_file_exists">Файлды алмаштырырғамы?</string>
 	<string name="dialog_replace_title_multiple_files_exist">Файлдары алмаштырырғамы?</string>
 	<string name="dialog_unable_to_share_title">Файлдарҙы уртаҡлашып булмай</string>
+	<string name="dialog_unable_to_share_message">Ҡоролған һаҡлағысығыҙ юҡ. Тәүҙә Cryptomator ҡушымтаһы менән яңы һаҡлағыс яһағыҙ.</string>
 	<string name="dialog_unable_to_share_positive_button">Ярай</string>
 	<string name="dialog_unable_to_share_negative_button">Яңы һаҡлағыс яһа</string>
 	<string name="dialog_filetype_not_supported_title">%1$s файлын асып булмай</string>
