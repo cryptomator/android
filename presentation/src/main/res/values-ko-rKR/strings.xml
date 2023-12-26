@@ -22,7 +22,7 @@
 	<string name="error_name_contains_invalid_characters">특수문자는 포함할 수 없습니다.</string>
 	<string name="error_names_contains_invalid_characters">파일명에 특수 문자는 포함할 수 없습니다.</string>
 	<string name="error_vault_name_contains_invalid_characters">Vault 이름은 특수문자를 포함할 수 없습니다.</string>
-	<string name="error_general_update">업데이트 확인 실패. 에러가 발생했습니다.</string>
+	<string name="error_general_update">업데이트 확인 실패. 오류가 발생했습니다.</string>
 	<string name="error_hash_mismatch_update">업데이트 확인 실패. 업로드된 파일과 해쉬값이 일치하지 않습니다.</string>
 	<string name="error_update_no_internet">업데이트 확인 실패. 인터넷에 연결되지 않았습니다.</string>
 	<string name="error_failed_to_decrypt_webdav_password">WebDAV 비밀번호를 복호화하는데 실패했습니다. 다시 설정해주세요.</string>
@@ -31,7 +31,7 @@
 	<string name="error_vault_version_mismatch">%1$s에 기록된 버전이 %2$s에 기록된 버전과 다릅니다</string>
 	<string name="error_vault_key_invalid">%1$s 및 이 %2$s 동일하지 않습니다</string>
 	<string name="error_vault_config_loading">Vault 설정을 불러오는 중 에러 발생</string>
-	<string name="error_file_not_found_after_opening_using_3party">Cryptomator로 다시 돌아와서 로컬 파일이 없어졌습니다. 추가적인 수정 사항은 클라우드에 적용되지 않습니다.</string>
+	<string name="error_file_not_found_after_opening_using_3party">로컬 파일은 Cryptomator로 돌아온 후 더 이상 존재하지 않습니다. 추가적인 수정 사항이 클라우드에 적용되지 않습니다.</string>
 	<string name="error_no_such_bucket">해당 버킷을 찾을 수 없습니다.</string>
 	<string name="error_masterkey_location_not_supported">사용자 지정이 가능한 마스터키 경로는 아직 지원하지 않습니다</string>
 	<string name="error_interact_with_fdroid_but_fdroid_missing">F-Droid 앱을 찾을 수 없습니다. 앱을 설치했는지 확인해주세요.</string>
@@ -177,12 +177,12 @@
 	<string name="screen_settings_section_auto_photo_upload">사진 자동 업로드</string>
 	<string name="screen_settings_section_auto_photo_upload_vault">업로드 할 Vault 선택</string>
 	<string name="screen_settings_section_auto_photo_upload_toggle">활성화</string>
-	<string name="screen_settings_section_auto_photo_upload_toggle_summary">백그라운드에서 사진을 감지하고, 선택된 Vault가 잠금 해제되면 업로드를 시작합니다</string>
+	<string name="screen_settings_section_auto_photo_upload_toggle_summary">백그라운드에서 사진을 감지하고, 선택된 Vault가 잠금 해제될 시 업로드를 시작합니다</string>
 	<string name="screen_settings_section_auto_photo_upload_toggle_instant_upload">바로 업로드하기</string>
 	<string name="screen_settings_section_auto_photo_upload_toggle_instant_upload_summary">Vault가 잠금 해제되어 있을 때 바로 업로드하기</string>
 	<string name="screen_settings_section_auto_photo_upload_only_wifi_toggle">Wi-Fi 상태에서만 업로드</string>
 	<string name="screen_settings_section_auto_photo_upload_including_videos">동영상 업로드</string>
-	<string name="screen_settings_auto_photo_upload_title">&#8230;에 자동 업로드 대상 파일을 저장</string>
+	<string name="screen_settings_auto_photo_upload_title">&#8230;에 자동 업로드할 파일들을 저장</string>
 	<string name="screen_settings_website_label">Cryptomator 웹사이트</string>
 	<string name="screen_settings_twitter_label">Twitter에서 팔로우하기</string>
 	<string name="screen_settings_facebook_label">Facebook에서 좋아요 누르기</string>
@@ -197,10 +197,10 @@
 	<string name="screen_settings_security_label">보안 힌트</string>
 	<string name="screen_settings_section_version">버전</string>
 	<string name="screen_settings_advanced_settings">고급 설정</string>
-	<string name="screen_settings_microsoft_apps_workaround_label">Microsoft 파일 열람 시도</string>
-	<string name="screen_settings_microsoft_apps_workaround_summary">파일을 읽기 권한과 함께 Microsoft 앱에서 열기</string>
+	<string name="screen_settings_microsoft_apps_workaround_label">Microsoft 파일 열람을 시도하기</string>
+	<string name="screen_settings_microsoft_apps_workaround_summary">파일을 쓰기 권한과 함께 Microsoft 앱에서 열기</string>
 	<string name="screen_settings_background_unlock_preparation_label">잠금해제 가속</string>
-	<string name="screen_settings_background_unlock_preparation_label_summary">비밀번호 입력 혹은 생체 인증을 진행하는 동안 백그라운드에서 Vault 설정 다운로드</string>
+	<string name="screen_settings_background_unlock_preparation_label_summary">비밀번호 입력 혹은 생체 인증을 진행하는 동안 백그라운드에서 Vault 설정을 다운로드합니다</string>
 	<string name="screen_settings_keep_unlocked_while_editing_files">잠금해제유지</string>
 	<string name="screen_settings_keep_unlocked_while_editing_files_summary">파일을 편집하는 동안 Vault들을 잠금 해제 상태로 유지</string>
 	<!-- ## screen: cloud settings -->
@@ -249,8 +249,8 @@
 	<string name="dialog_replace_positive_button_some_files_exist">중복 파일 덮어쓰기</string>
 	<string name="dialog_replace_positive_button_single_file_exists">교체</string>
 	<string name="dialog_replace_msg_single_file_exists">\'%1$s\' 이름을 가진 파일이 이미 존재합니다. 덮어쓸까요?</string>
-	<string name="dialog_replace_msg_all_files_exists">모든 파일이 이미 존재합니다. 덮어쓸까요?</string>
-	<string name="dialog_replace_msg_some_files_exists">%1$d 파일이 이미 존재합니다. 덮어쓸까요?</string>
+	<string name="dialog_replace_msg_all_files_exists">기존의 모든 파일들이 이미 존재합니다. 덮어쓸까요?</string>
+	<string name="dialog_replace_msg_some_files_exists">%1$d 파일들이 이미 존재합니다. 덮어쓸까요?</string>
 	<string name="dialog_replace_title_single_file_exists">파일을 덮어쓰겠습니까?</string>
 	<string name="dialog_replace_title_multiple_files_exist">파일을 덮어쓰겠습니까?</string>
 	<string name="dialog_unable_to_share_title">파일을 공유할 수 없습니다</string>
@@ -312,10 +312,10 @@
 	<string name="dialog_app_is_obscured_info_title">앱이 가려짐</string>
 	<string name="dialog_app_is_obscured_info_hint">다른 앱이 Cryptomator 위에 무언가를 표시하고 있습니다 (예: 블루 라이트 필터 혹은 야간 모드 앱 등). 보안을 위해, Cryptomator가 비활성화 되었습니다.\n\n<a href="https://docs.cryptomator.org/en/1.6/android/settings/#block-app-when-obscured">Cryptomator를 활성화하는 방법</a></string>
 	<string name="dialog_app_is_obscured_info_neutral_button">닫기</string>
-	<string name="dialog_vaults_removed_during_migration_title">Vaults를 %1s 클라우드를 사용하기 위해 다시 추가</string>
-	<string name="dialog_vaults_removed_during_migration_hint">이 버전의 앱으로 전환하려면 다음의 Vault 들을 앱에서 제거해야 합니다:\n%2s \n\n이 Vault 들은 클라우드가 아닌 이 앱에서만 제거됩니다. 계속 사용하기 위해 이 Vault 들을 다시 추가하세요.</string>
-	<string name="dialog_vault_is_root_folder_of_cloud_title">Vault가 클라우드의 최상위 폴더</string>
-	<string name="dialog_vault_is_root_folder_of_cloud_hint">이 Vault를 추가하기 위해, 루트 디렉토리인 이 Vault 폴더의 상위 폴더에 새로운 클라우드 연결을 생성합니다.</string>
+	<string name="dialog_vaults_removed_during_migration_title">Vault들을 %1s 클라우드를 사용하기 위해 다시 추가해야 함</string>
+	<string name="dialog_vaults_removed_during_migration_hint">이 버전의 앱으로 전환하기 위해 다음의 Vault들을 앱에서 제거해야 합니다:\n%2s \n\n이 Vault 들은 클라우드가 아닌 이 앱에서만 제거됩니다. 계속 사용하기 위해 이 Vault들을 다시 추가하세요.</string>
+	<string name="dialog_vault_is_root_folder_of_cloud_title">Vault가 클라우드의 최상위 폴더임</string>
+	<string name="dialog_vault_is_root_folder_of_cloud_hint">이 Vault를 추가하려면, 최소한 이 Vault의 최상위 디렉토리 폴더의 상위 폴더에 새로운 클라우드 연결을 생성해야 합니다.</string>
 	<string name="dialog_disable_secure_screen_disclaimer_hint">이 설정은 보안 기능이며 다른 앱들이 사용자가 원하지 않는 행동을 하도록 속이는 것을 방지합니다.\n\n비활성화한다면, <a href="https://docs.cryptomator.org/en/1.6/android/settings/#screen-security">위험성에 대해</a> 숙지함을 동의하는 것입니다.</string>
 	<string name="dialog_delete_cloud_connection_with_vaults_message">정말 이 클라우드 연결을 삭제하시겠습니까?</string>
 	<string name="dialog_delete_cloud_connection_with_vaults_hint">클라우드 연결과 이 클라우드의 Vault들이 삭제될 것입니다.</string>
@@ -344,7 +344,7 @@
 	<string name="dialog_sym_link_message">이 심볼릭 링크를 탐색할 수 없습니다</string>
 	<string name="dialog_sym_link_back_button">이전</string>
 	<string name="dialog_no_dir_file_title">디렉토리의 내용을 불러올 수 없음</string>
-	<string name="dialog_no_dir_file_message">클라우드 폴더 \'%1$s\'에 유효한 디렉토리 파일이 없습니다. 이 폴더가 다른 장치에서 생성되었으며 클라우드에 완전히 동기화되지 않았을 수 있습니다. 다음 파일이 클라우드에 존재하고 비어있지 않은지 확인하세요:\n%2$s</string>
+	<string name="dialog_no_dir_file_message">클라우드 폴더 \'%1$s\'에 유효한 디렉토리 파일이 없습니다. 이 폴더가 다른 장치에서 생성되었으며 클라우드에 완전히 동기화되지 못했을 가능성이 있습니다. 다음 파일이 클라우드에 존재하고 비어있지 않은지 확인하세요:\n%2$s</string>
 	<string name="dialog_no_more_images_to_display">더 띄울 사진들이 없습니다.</string>
 	<string name="dialog_pcloud_credentials_updated_title">\'%1$s\' 자격증명 업데이트됨</string>
 	<string name="dialog_pcloud_credentials_updated">새 pCloud 계정을 추가하려면 이 링크 <a href="https://www.pcloud.com">www.pcloud.com</a>를 누르고, 현재 계정에서 로그아웃한 뒤 여기에서 \'+\'를 다시 눌러서 추가해주세요.</string>
