@@ -183,10 +183,15 @@
 	<!-- ## screen: licenses -->
 	<!-- ## screen: authenticate cloud -->
 	<!-- ## screen: cryptomator app variants -->
+	<string name="screen_cryptomator_variants_website_title">وب سایت</string>
 	<!-- # dialogs -->
 	<string name="dialog_button_cancel">انصراف</string>
 	<string name="dialog_enter_password_positive_button">بازکردن قفل</string>
+	<string name="dialog_change_password_old_password_label">رمز عبور قدیمی</string>
+	<string name="dialog_change_password_new_password_label">رمز عبور جدید</string>
+	<string name="dialog_change_password">تغییر رمز عبور</string>
 	<string name="dialog_change_password_msg_old_password_empty">رمز عبور فعلی نمی‌تواند خالی باشد.</string>
+	<string name="dialog_change_password_msg_new_password_empty">رمز عبور جدید نمی‌تواند خالی باشد.</string>
 	<string name="dialog_change_password_msg_password_mismatch">رمز عبور جدید با تکرار آن مطابقت ندارد.</string>
 	<!-- Vault not found -->
 	<string name="dialog_vault_not_found_title">خزانه %1$s پیدا نشد</string>
