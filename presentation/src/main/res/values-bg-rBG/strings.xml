@@ -211,8 +211,11 @@
 	<string name="screen_cloud_settings_s3_connections">Връзки с S3</string>
 	<string name="screen_cloud_settings_local_storage_locations">Местоположения на местното хранилище</string>
 	<string name="screen_cloud_settings_log_in_to">Влизане</string>
+	<string name="screen_cloud_settings_sign_out_from_cloud">Изход от</string>
 	<!-- ## screen: licenses -->
 	<!-- ## screen: authenticate cloud -->
+	<string name="screen_authenticate_auth_authentication_failed">%1$s не може да бъде удостоветен.</string>
+	<string name="screen_update_pcloud_connections_title">Обновяване на даните за вход в pCloud</string>
 	<!-- ## screen: cryptomator app variants -->
 	<string name="screen_cryptomator_variants_title">Варианти на Криптоматор</string>
 	<string name="screen_cryptomator_variants_lite_title">Основно хранилище на F-Droid</string>
