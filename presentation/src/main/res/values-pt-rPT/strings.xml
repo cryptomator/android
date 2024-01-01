@@ -136,6 +136,7 @@
 	<string name="screen_s3_settings_msg_display_name_not_empty">O Nome não pode ser vazio</string>
 	<string name="screen_s3_settings_msg_access_key_not_empty">Chave de acesso não pode estar vazia</string>
 	<string name="screen_s3_settings_msg_secret_key_not_empty">A chave secreta não pode estar vazia</string>
+	<string name="screen_s3_settings_msg_bucket_not_empty">Não pode estar vazio</string>
 	<string name="screen_s3_settings_msg_endpoint_and_region_not_empty">URL ou região não podem estar vazios</string>
 	<!-- ## screen: enter vault name -->
 	<string name="screen_enter_vault_name_msg_name_empty">O nome do cofre não pode estar vazio.</string>
@@ -173,6 +174,15 @@
 	<string name="screen_settings_section_auto_photo_upload">Upload de foto automático</string>
 	<string name="screen_settings_section_auto_photo_upload_vault">Escolha o cofre para upload</string>
 	<string name="screen_settings_section_auto_photo_upload_toggle">Ativar</string>
+	<string name="screen_settings_section_auto_photo_upload_toggle_summary">Capturar imagens em segundo plano e assim que o cofre selecionado for desbloqueado, iniciar o envio</string>
+	<string name="screen_settings_section_auto_photo_upload_toggle_instant_upload">Envio instantâneo</string>
+	<string name="screen_settings_section_auto_photo_upload_toggle_instant_upload_summary">Enviar diretamente se o cofre está desbloqueado</string>
+	<string name="screen_settings_section_auto_photo_upload_only_wifi_toggle">Enviar apenas usando WIFI</string>
+	<string name="screen_settings_section_auto_photo_upload_including_videos">Enviar vídeos</string>
+	<string name="screen_settings_auto_photo_upload_title">Guardar arquivos enviados automaticamente em&#8230;</string>
+	<string name="screen_settings_website_label">Site do Cryptomator</string>
+	<string name="screen_settings_twitter_label">Siga-nos no Twitter</string>
+	<string name="screen_settings_facebook_label">Siga-nos no Facebook</string>
 	<string name="screen_settings_section_legal">Informação Legal</string>
 	<string name="screen_settings_licenses_label">Licenças</string>
 	<string name="screen_settings_license_terms_label">Termos de aceitação</string>
@@ -184,6 +194,8 @@
 	<string name="screen_settings_security_label">Dicas de segurança</string>
 	<string name="screen_settings_section_version">Versão</string>
 	<string name="screen_settings_advanced_settings">Definições Avançadas</string>
+	<string name="screen_settings_microsoft_apps_workaround_label">Solução para a abertura de arquivos Microsoft</string>
+	<string name="screen_settings_microsoft_apps_workaround_summary">Abrir ficheiros em apps da Microsoft com permissão de gravação</string>
 	<string name="screen_settings_background_unlock_preparation_label">Desbloqueio acelerado</string>
 	<string name="screen_settings_keep_unlocked_while_editing_files">Manter desbloqueado</string>
 	<string name="screen_settings_keep_unlocked_while_editing_files_summary">Mantenha cofres desbloqueados durante a edição de ficheiros</string>
