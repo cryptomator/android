@@ -197,34 +197,142 @@
 	<string name="screen_settings_microsoft_apps_workaround_label">Solução para a abertura de arquivos Microsoft</string>
 	<string name="screen_settings_microsoft_apps_workaround_summary">Abrir ficheiros em apps da Microsoft com permissão de gravação</string>
 	<string name="screen_settings_background_unlock_preparation_label">Desbloqueio acelerado</string>
+	<string name="screen_settings_background_unlock_preparation_label_summary">Descarregar a configuração do cofre em segundo plano enquanto é solicitado para inserir a palavra-passe ou o reconhecimento biométrico</string>
 	<string name="screen_settings_keep_unlocked_while_editing_files">Manter desbloqueado</string>
 	<string name="screen_settings_keep_unlocked_while_editing_files_summary">Mantenha cofres desbloqueados durante a edição de ficheiros</string>
 	<!-- ## screen: cloud settings -->
 	<string name="screen_cloud_settings_onedrive_connections">Conexões do OneDrive</string>
 	<string name="screen_cloud_settings_webdav_connections">Ligações WebDAV</string>
 	<string name="screen_cloud_settings_pcloud_connections">ligações pCloud</string>
+	<string name="screen_cloud_settings_s3_connections">Ligações S3</string>
 	<string name="screen_cloud_settings_local_storage_locations">Local de armazenamento</string>
+	<string name="screen_cloud_settings_log_in_to">Iniciar sessão em</string>
+	<string name="screen_cloud_settings_sign_out_from_cloud">Terminar sessão em</string>
 	<!-- ## screen: licenses -->
 	<!-- ## screen: authenticate cloud -->
+	<string name="screen_authenticate_auth_authentication_failed">%1$s não pôde ser autenticado.</string>
+	<string name="screen_update_pcloud_connections_title">Atualizar credenciais do pCloud</string>
 	<!-- ## screen: cryptomator app variants -->
+	<string name="screen_cryptomator_variants_title">Variantes do Cryptomator</string>
+	<string name="screen_cryptomator_variants_lite_title">Repositório principal no F-Droid</string>
+	<string name="screen_cryptomator_variants_lite_description">Excluídos porque requerem chaves API.</string>
+	<string name="screen_cryptomator_variants_lite_install">Instalar</string>
+	<string name="screen_cryptomator_variants_fdroid_title">Repositório do Cryptomator no F-Droid</string>
+	<string name="screen_cryptomator_variants_fdroid_description">Excluído porque contém dependências proprietárias.</string>
+	<string name="screen_cryptomator_variants_fdroid_add_repo_hint">Adicione repositório de Cryptomator ao aplicativo F-Droid.</string>
+	<string name="screen_cryptomator_variants_fdroid_add_repo">Adicionar</string>
+	<string name="screen_cryptomator_variants_fdroid_install_hint">Instalar o Cryptomator utilizando F-Droid.\nSe um erro de não encontrado for exibido, aguarde até que a sincronização do F-Droid termine.</string>
+	<string name="screen_cryptomator_variants_website_title">Página web</string>
+	<string name="screen_cryptomator_variants_website_description">Contém dependências proprietárias.</string>
+	<string name="screen_cryptomator_variants_installation_hint">Mudar de ou para a variante principal do repositório F-Droid requer uma nova configuração do aplicativo.</string>
 	<!-- # dialogs -->
 	<string name="dialog_button_cancel">Cancelar</string>
 	<string name="dialog_enter_password_positive_button">Desbloquear</string>
+	<string name="dialog_change_password_old_password_label">Palavra-passe antiga</string>
+	<string name="dialog_change_password_new_password_label">Nova palavra-passe</string>
+	<string name="dialog_change_password">Alterar palavra-passe</string>
+	<string name="dialog_change_password_msg_old_password_empty">Palavra-passe antiga não pode estar vazia.</string>
+	<string name="dialog_change_password_msg_new_password_empty">Nova palavra-passe não pode estar vazia.</string>
+	<string name="dialog_change_password_msg_password_mismatch">A nova palavra-passe não corresponde à digitada no outro campo.</string>
 	<!-- Vault not found -->
+	<string name="dialog_vault_not_found_title">Cofre %1$s não encontrado</string>
+	<string name="dialog_vault_not_found_message">O cofre foi renomeado, movido ou apagado. Remova este cofre da lista e adicione-o novamente para prosseguir. Remover agora?</string>
 	<string name="dialog_vault_not_found_positive_button_text">Remover</string>
+	<string name="dialog_existing_file_title">O ficheiro já existe</string>
+	<string name="dialog_existing_file_positive_button">Substituir</string>
+	<string name="dialog_existing_file_message">Um ficheiro com o nome \'%1$s\' já existe.</string>
+	<string name="dialog_replace_negative_button_at_least_two_but_not_all_files_exist">Saltar existente</string>
+	<string name="dialog_replace_positive_button_all_files_exist">Substituir todos</string>
+	<string name="dialog_replace_positive_button_some_files_exist">Substituir existente</string>
+	<string name="dialog_replace_positive_button_single_file_exists">Substituir</string>
+	<string name="dialog_replace_msg_single_file_exists">Um ficheiro chamado \'%1$s\' já existe. Deseja substituí-lo?</string>
+	<string name="dialog_replace_msg_all_files_exists">Todos os ficheiros já existem. Quer substituí-los?</string>
+	<string name="dialog_replace_msg_some_files_exists">Já existem %1$d ficheiros. Quer substituí-los?</string>
+	<string name="dialog_replace_title_single_file_exists">Substituir ficheiro?</string>
+	<string name="dialog_replace_title_multiple_files_exist">Substituir ficheiros?</string>
+	<string name="dialog_unable_to_share_title">Não foi possível partilhar os ficheiros</string>
+	<string name="dialog_unable_to_share_message">Você não configurou nenhum cofre. Por favor, crie primeiro um novo cofre com o aplicativo Cryptomator.</string>
+	<string name="dialog_unable_to_share_positive_button">OK</string>
+	<string name="dialog_unable_to_share_negative_button">Criar cofre</string>
+	<string name="dialog_filetype_not_supported_title">Não é possível abrir %1$s</string>
+	<string name="dialog_filetype_not_supported_message">Por favor, descarregar um aplicativo que pode abrir este arquivo ou você gostaria de salvar no seu dispositivo?</string>
+	<string name="dialog_rename_vault_title">Renomear cofre</string>
+	<string name="dialog_rename_node_folder_title">Renomear pasta</string>
+	<string name="dialog_rename_node_file_title">Renomear ficheiro</string>
+	<string name="dialog_unsaved_changes_title">Tem alterações não guardadas</string>
+	<string name="dialog_unsaved_changes_message">Deseja realmente sair sem guardar?</string>
+	<string name="dialog_unsaved_changes_discard">Descartar</string>
+	<string name="dialog_file_name_hint">Nome do ficheiro</string>
 	<string name="dialog_file_name_placeholder">texto.txt</string>
+	<string name="dialog_delete_vault_message">Tem a certeza que deseja remover este cofre?</string>
+	<string name="dialog_delete_vault_hint">Esta ação só vai remover o cofre desta lista e não excluí-lo fisicamente.</string>
+	<string name="dialog_upload_file_title">Enviando&#8230;</string>
+	<string name="dialog_upload_file_remaining">Ficheiro %1$d de %2$d</string>
+	<string name="dialog_export_file_title">Exportando (%1$d/%2$d)</string>
+	<string name="dialog_progress_please_wait">Por favor, aguarde&#8230;</string>
 	<string name="dialog_progress_unlocking_vault">Desbloqueando cofre&#8230;</string>
+	<string name="dialog_progress_upload_file">Enviando&#8230;</string>
 	<string name="dialog_lock_vault">Bloquear</string>
 	<string name="dialog_ask_ignore_battery_optimizations_title">Desativar otimizações de bateria</string>
 	<string name="dialog_ask_ignore_battery_optimizations_checkbox">Não perguntar novamente?</string>
 	<string name="dialog_app_is_obscured_info_neutral_button">Fechar</string>
+	<string name="dialog_vaults_removed_during_migration_hint">Durante a migração para esta versão do aplicativo, precisamos remover os seguintes cofres do aplicativo:\n%2s \n\nEsses cofres não são removidos da nuvem, somente deste aplicativo. Desculpe o inconveniente e por favor adicione novamente esses cofres para continuar a trabalhar com eles.</string>
+	<string name="dialog_vault_is_root_folder_of_cloud_title">O cofre é a pasta raiz da ligação com a nuvem</string>
+	<string name="dialog_vault_is_root_folder_of_cloud_hint">Criar uma nova ligação com a nuvem onde deve selecionar pelo menos a pasta principal, desta pasta de cofre, como o diretório raiz para adicionar este cofre.</string>
+	<string name="dialog_disable_secure_screen_disclaimer_hint">Esta configuração é uma opção de segurança que previne outras apps de iludir os utilizadores a fazer coisas que não querem fazer.\n\nAo desativar, você confirma que está <a href="https://docs.cryptomator.org/en/1.6/android/settings/#screen-security">ciente de todos os riscos</a>.</string>
+	<string name="dialog_delete_cloud_connection_with_vaults_message">Tem certeza de que deseja remover esta ligação com a nuvem?</string>
+	<string name="dialog_delete_cloud_connection_with_vaults_hint">Esta ação removerá a ligação com a nuvem e todos os cofres desta nuvem.</string>
+	<string name="dialog_confirm_delete_multiple_title">Apagar %1$d ficheiros?</string>
+	<string name="dialog_confirm_delete_multiple_message">Tem a certeza que deseja eliminar estes ficheiros?</string>
+	<string name="dialog_confirm_delete_file_message">Temba certeza que deseja apagar este ficheiro?</string>
+	<string name="dialog_confirm_delete_folder_message">Isto irá apagar todo o conteúdo da pasta. Tem certeza que deseja apagar esta pasta?</string>
+	<string name="dialog_biometric_auth_key_invalidated_title">Autenticação biométrica desativada</string>
+	<string name="dialog_biometric_auth_key_invalidated_message">Como a chave foi invalidada, o recurso de autenticação biométrica foi desativado. Para reativar, abra as configurações do Cryptomator.</string>
+	<string name="dialog_enter_license_title">Fornecer uma licença válida</string>
+	<string name="dialog_enter_license_content">Detectamos que instalou o Cryptomator sem usar a Google Play Store. Forneça uma licença válida que pode ser comprada em <a href="https://cryptomator.org/android/">https://cryptomator.org/android/</a></string>
+	<string name="dialog_enter_license_not_valid_content">A licença fornecida não é válida. Verifique se a digitou corretamente.</string>
 	<string name="dialog_enter_license_not_valid_content_desktop_supporter_certificate">A chave fornecida é um certificado de apoiante para computador/portátil. Por favor, insira uma licença válida.</string>
+	<string name="dialog_enter_license_no_content">Nenhuma licença fornecida. Por favor insira uma licença válida.</string>
+	<string name="dialog_enter_license_decline_button">Sair</string>
+	<string name="dialog_license_confirmation_title">Confirmação de licença</string>
+	<string name="dialog_license_confirmation_message">Obrigado %1$s por fornecer a sua licença válida.</string>
+	<string name="dialog_update_available_title">Atualização disponível</string>
+	<string name="dialog_update_available_message">Atualize o Cryptomator para a versão mais recente. Pressionando OK, vamos descarregar o aplicativo em segundo plano e pediremos que você o instale.</string>
+	<string name="dialog_update_available_update">Atualizar agora</string>
+	<string name="dialog_update_available_download_site">Ir para a página de transferências</string>
+	<string name="dialog_update_available_cancel">Mais tarde</string>
+	<string name="dialog_download_update_title">Descarga em execução</string>
+	<string name="dialog_download_update_message">Descarregando a versão mais recente do Cryptomator</string>
+	<string name="dialog_sym_link_title">A pasta é um link simbólico</string>
+	<string name="dialog_sym_link_message">Não é possível ir para este link simbólico</string>
 	<string name="dialog_sym_link_back_button">Anterior</string>
+	<string name="dialog_no_dir_file_title">Não foi possível carregar o conteúdo do diretório</string>
+	<string name="dialog_no_dir_file_message">A pasta na nuvem \'%1$s\' não tem um arquivo de diretório válido. A pasta pode ter sido criada em outro dispositivo e ainda não foi totalmente sincronizada com a nuvem. Por favor, verifique na sua nuvem se o seguinte arquivo existe e não está vazio:\n%2$s</string>
+	<string name="dialog_no_more_images_to_display">Sem mais imagens para exibir&#8230;</string>
+	<string name="dialog_pcloud_credentials_updated_title">Credenciais de \'%1$s\' atualizadas</string>
+	<string name="dialog_pcloud_credentials_updated">Se você pretendia adicionar uma nova conta pCloud, toque nesta ligação <a href="https://www.pcloud.com">www.pcloud. om</a>, saia da conta atual e toque novamente em \'+\' deste aplicativo para criar uma nova ligação com a nuvem.</string>
+	<string name="permission_snackbar_auth_local_vault">Cryptomator precisa de acesso ao armazenamento para usar cofres locais</string>
+	<string name="permission_snackbar_auth_auto_upload">Cryptomator precisa de acesso ao armazenamento para usar o envio automático de fotos</string>
+	<string name="permission_snackbar_notifications">O Cryptomator precisa de permissões de notificação para exibir, como exemplo, o estado do cofre</string>
 	<!-- # error reports -->
 	<!-- # misc -->
 	<!-- ## file size helper -->
+	<string name="file_size_zero">Zero kB</string>
+	<string name="file_size_unit_bytes">bytes</string>
+	<string name="file_size_unit_kilo_bytes">kB</string>
+	<string name="file_size_unit_mega_bytes">MB</string>
+	<string name="file_size_unit_giga_bytes">GB</string>
+	<string name="file_size_unit_tera_bytes">TB</string>
 	<!-- ## date helper -->
+	<string name="time_unit_seconds_sg">segundo</string>
+	<string name="time_unit_seconds_pl">segundos</string>
+	<string name="time_unit_minutes_sg">minuto</string>
 	<string name="time_unit_minutes_pl">minutos</string>
+	<string name="time_unit_hours_sg">hora</string>
+	<string name="time_unit_hours_pl">horas</string>
+	<string name="time_unit_days_sg">dia</string>
+	<string name="time_unit_days_pl">dias</string>
+	<string name="time_unit_weeks_sg">semana</string>
 	<!-- ## biometric authentication -->
 	<!-- notification -->
 	<string name="notification_unlocked">Cofres desbloqueados: %1$d</string>
