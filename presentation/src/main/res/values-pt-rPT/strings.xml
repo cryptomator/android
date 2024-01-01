@@ -70,6 +70,10 @@
 	<string name="screen_file_browser_add_existing_vault_extra_text">Selecionar ficheiro MasterKey</string>
 	<string name="screen_file_browser_create_new_vault_button_text">Colocar aqui</string>
 	<string name="screen_file_browser_create_new_vault_extra_text">Nome do cofre: %1$s</string>
+	<plurals name="screen_file_browser_subtitle_move">
+		<item quantity="one">Mover %1$s para</item>
+		<item quantity="other">Mover %2$d para</item>
+	</plurals>
 	<string name="screen_file_browser_move_button_text">Mover</string>
 	<string name="screen_file_browser_msg_empty_folder">Pasta vazia</string>
 	<string name="screen_file_browser_file_info_label_date">modificado %1$s atrás</string>
@@ -270,12 +274,46 @@
 	<string name="dialog_upload_file_remaining">Ficheiro %1$d de %2$d</string>
 	<string name="dialog_export_file_title">Exportando (%1$d/%2$d)</string>
 	<string name="dialog_progress_please_wait">Por favor, aguarde&#8230;</string>
+	<string name="dialog_progress_creating_folder">Criando pasta&#8230;</string>
+	<string name="dialog_progress_creating_text_file">Criando ficheiro de texto&#8230;</string>
+	<string name="action_progress_authentication">Autenticação&#8230;</string>
+	<string name="action_progress_renaming">Renomeando&#8230;</string>
+	<string name="action_progress_deleting">Apagando&#8230;</string>
 	<string name="dialog_progress_unlocking_vault">Desbloqueando cofre&#8230;</string>
+	<string name="dialog_progress_change_password">Alterando palavra-passe&#8230;</string>
+	<string name="dialog_progress_creating_vault">Criando cofre&#8230;</string>
 	<string name="dialog_progress_upload_file">Enviando&#8230;</string>
+	<string name="dialog_progress_download_file">Descarregando&#8230;</string>
+	<string name="dialog_progress_encryption">Encriptando&#8230;</string>
+	<string name="dialog_progress_decryption">Desencriptando&#8230;</string>
+	<string name="action_progress_moving">Movendo&#8230;</string>
 	<string name="dialog_lock_vault">Bloquear</string>
+	<string name="dialog_accept_ssl_certificate_title">Certificado SSL inválido</string>
+	<string name="dialog_accept_ssl_certificate_hint">O certificado SSL é inválido. Deseja confiar nele mesmo assim?</string>
+	<string name="dialog_accept_ssl_certificate_details">Detalhes</string>
+	<string name="dialog_accept_ssl_certificate_security_checkbox">Isto pode ser um risco para a segurança. Sei o que estou a fazer.</string>
 	<string name="dialog_ask_ignore_battery_optimizations_title">Desativar otimizações de bateria</string>
+	<string name="dialog_ask_ignore_battery_optimizations_hint">Para recuperar novas fotos e vídeos sem correr em segundo plano, precisamos desativar as optimizações de bateria. Não se preocupe, %1$s não consome muita energia.\n\n Para aplicá-lo, altere \'Não optimizado\' para \'Todos os aplicativos\', selecione %1$s e escolha \'Não optimizar\' após clicar em \'%2$s\' nesta caixa de diálogo.</string>
 	<string name="dialog_ask_ignore_battery_optimizations_checkbox">Não perguntar novamente?</string>
+	<string name="dialog_http_security_hint">O uso de HTTP é inseguro. Recomendamos a utilização de HTTPS. Se você souber os riscos, você pode continuar com HTTP.</string>
+	<string name="dialog_http_security_checkbox">Alterar para HTTPS</string>
+	<string name="dialog_http_security_title">Usar HTTPS?</string>
+	<string name="dialog_no_screen_lock_hint">Não está configurado nenhum bloqueio de ecrã. Para armazenar as suas credenciais de uma forma segura, defina com OK um padrão ou senha.</string>
+	<string name="dialog_no_screen_lock_title">Configurar bloqueio de ecrã?</string>
+	<string name="dialog_no_screen_lock_checkbox">Definir bloqueio de ecrã</string>
+	<string name="dialog_no_biometric_auth_set_up_title">Nenhuma configuração de autenticação básica configurada no sistema</string>
+	<string name="dialog_no_biometric_auth_set_up_message">Registar pelo menos um dedo/rosto para usar este serviço.</string>
+	<string name="dialog_debug_mode_disclaimer_hint">Neste modo, dados confidenciais podem ser gravados num arquivo de registo alojado no seu dispositivo (por exemplo, nomes de arquivos e caminhos). Palavras-passe, cookies, etc. são explicitamente excluídos.\n\nLembre-se de desativar o modo de depuração o mais rápido possível.</string>
+	<string name="dialog_debug_mode_disclaimer_title">Atenção</string>
+	<string name="dialog_debug_mode_positive_button">Ativar</string>
+	<string name="dialog_microsoft_workaround_disclaimer_hint">Devido a um erro nas apps da Microsoft, o arquivo a ser editado deve ser partilhado com esses aplicativos numa pasta de média pública no seu dispositivo. Depois que o Cryptomator é retomado, o arquivo acessível ao público é apagado novamente, mas o Cryptomator não pode influenciar o que acontece a este arquivo, enquanto isso decore. Esteja ciente desse comportamento ao ativar esta opção. Isso só se aplicará aos tipos de arquivos da Microsoft.\n\nCryptomator reiniciará após a ativação.</string>
+	<string name="dialog_disable_app_obscured_disclaimer_hint">Esta configuração é uma opção de segurança que previne outras apps de iludir os utilizadores a fazer coisas que não querem fazer.\n\nAo desativar, você confirma que está <a href="https://docs.cryptomator.org/en/1.6/android/settings/#block-app-when-obscured">ciente de todos os riscos</a>.</string>
+	<string name="dialog_disable_app_obscured_disclaimer_title">Atenção</string>
+	<string name="dialog_disable_app_obscured_positive_button">Desativar</string>
+	<string name="dialog_app_is_obscured_info_title">O aplicativo está obscurecido</string>
+	<string name="dialog_app_is_obscured_info_hint">Outro aplicativo está exibindo algo em cima do Cryptomator (por exemplo, um filtro de luz azul ou aplicativo de modo noturno). Por razões de segurança, o Cryptomator está desativado.\n\n<a href="https://docs.cryptomator.org/en/1.6/android/settings/#block-app-when-obscured">Como ativar o Cryptomator</a></string>
 	<string name="dialog_app_is_obscured_info_neutral_button">Fechar</string>
+	<string name="dialog_vaults_removed_during_migration_title">Por favor, adicionar novamente os cofres para a nuvem %1s</string>
 	<string name="dialog_vaults_removed_during_migration_hint">Durante a migração para esta versão do aplicativo, precisamos remover os seguintes cofres do aplicativo:\n%2s \n\nEsses cofres não são removidos da nuvem, somente deste aplicativo. Desculpe o inconveniente e por favor adicione novamente esses cofres para continuar a trabalhar com eles.</string>
 	<string name="dialog_vault_is_root_folder_of_cloud_title">O cofre é a pasta raiz da ligação com a nuvem</string>
 	<string name="dialog_vault_is_root_folder_of_cloud_hint">Criar uma nova ligação com a nuvem onde deve selecionar pelo menos a pasta principal, desta pasta de cofre, como o diretório raiz para adicionar este cofre.</string>
@@ -333,12 +371,46 @@
 	<string name="time_unit_days_sg">dia</string>
 	<string name="time_unit_days_pl">dias</string>
 	<string name="time_unit_weeks_sg">semana</string>
+	<string name="time_unit_weeks_pl">semanas</string>
+	<string name="time_unit_months_sg">mês</string>
+	<string name="time_unit_months_pl">meses</string>
+	<string name="time_unit_years_sg">ano</string>
+	<string name="time_unit_years_pl">anos</string>
 	<!-- ## biometric authentication -->
+	<string name="dialog_biometric_auth_title">Acesso biométrico</string>
+	<string name="dialog_biometric_auth_message">Iniciar sessão utilizando as suas credenciais biométricas</string>
+	<string name="dialog_biometric_auth_use_password">Usar palavra-passe do cofre</string>
+	<string name="dialog_unable_to_auto_upload_files_title">Não foi possível carregar arquivos automaticamente</string>
 	<!-- notification -->
 	<string name="notification_unlocked">Cofres desbloqueados: %1$d</string>
 	<string name="notification_timeout">Bloqueio automático em %1$s</string>
 	<string name="notification_lock_all">Bloquear todos</string>
+	<string name="notification_cancel_auto_upload">Cancelar envio</string>
+	<string name="notification_auto_upload_title">Envio de fotos automático em execução</string>
+	<string name="notification_auto_upload_message">Enviando %1d/%2d</string>
+	<string name="notification_auto_upload_finished_title">Envio de foto automático concluído</string>
+	<string name="notification_auto_upload_finished_message">%1$d imagens enviadas para o cofre</string>
+	<string name="notification_auto_upload_failed_title">Falha no envio automático de foto</string>
+	<string name="notification_auto_upload_failed_general_error">Ocorreu um erro geral durante o envio.</string>
+	<string name="notification_auto_upload_failed_due_to_folder_not_exists">A pasta selecionada para envio não está mais disponível. Vá para as configurações e escolha uma nova</string>
+	<string name="notification_auto_upload_failed_due_to_vault_locked">Cofre bloqueado durante o envio, por favor reabra o cofre para continuar</string>
+	<string name="notification_auto_upload_failed_due_to_vault_not_found">Cofre especificado para envio automático não existe mais.</string>
+	<string name="notification_auto_upload_failed_due_to_authentication_problem">Toque para atualizar a autenticação.</string>
+	<string name="notification_open_writable_file_title">Abrir arquivo gravável</string>
+	<string name="notification_open_writable_file_message">Cofre permanece desbloqueado até terminar de editar</string>
+	<string name="notification_update_check_finished_latest">Última versão instalada</string>
 	<string name="notification_authenticating">Autenticação&#8230;</string>
+	<string name="screen_settings_lru_cache">Cache</string>
+	<string name="screen_settings_lru_cache_toggle_summary">Cache de arquivos acedidos recentemente, encriptados localmente no dispositivo para reutilização posterior quando reaberto</string>
+	<string name="screen_settings_lru_cache_size">Tamanho total do cache</string>
+	<string name="screen_settings_clear_lru_cache_size">Limpar cache</string>
+	<string name="screen_settings_lru_cache_changed__restart_toast">As alterações serão aplicadas na próxima inicialização do aplicativo</string>
+	<string name="screen_settings_license">Registado para</string>
+	<string name="screen_settings_license_mail">%1$s</string>
+	<string name="dialog_settings_update_check_interval_title">Intervalo de verificação de actualizações</string>
+	<string name="screen_settings_check_updates">Procurar actualizações</string>
+	<string name="screen_settings_last_check_updates">Última execução %1$s</string>
+	<string name="dialog_cache_size_title">Tamanho do cache por nuvem</string>
 	<!-- lock timeout names -->
 	<string name="lock_timeout_instant">Instantâneo</string>
 	<string name="lock_timeout_1m">1 minuto</string>
@@ -347,6 +419,17 @@
 	<string name="lock_timeout_10m">10 minutos</string>
 	<string name="lock_timeout_never">Nunca</string>
 	<!-- cache size names -->
+	<string name="cache_size_50m">50 MB</string>
+	<string name="cache_size_100m">100 MB</string>
+	<string name="cache_size_250m">250 MB</string>
+	<string name="cache_size_500m">500 MB</string>
+	<string name="cache_size_1000m">1 GB</string>
+	<string name="cache_size_5000m">5 GB</string>
 	<!-- screen scheme mode names -->
+	<string name="screen_settings_style_mode">Estilo</string>
+	<string name="follow_system">Automático (seguir sistema)</string>
+	<string name="light">Claro</string>
+	<string name="dark">Escuro</string>
 	<!-- update interval names -->
+	<string name="update_interval_1d">Uma vez por dia</string>
 </resources>
