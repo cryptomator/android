@@ -3,6 +3,7 @@ package org.cryptomator.data.db.migrations;
 import android.content.ContentValues;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.database.sqlite.SQLiteQueryBuilder;
 
 import androidx.sqlite.db.SupportSQLiteDatabase;
 
@@ -16,8 +17,6 @@ import static org.cryptomator.data.db.migrations.Sql.SqlCreateTableBuilder.Colum
 import static org.cryptomator.data.db.migrations.Sql.SqlCreateTableBuilder.ColumnType.TEXT;
 import static java.lang.String.format;
 
-//TODO Use precompiled statements for all?
-//TODO Compatibility of Rename table with new androids
 //https://developer.android.com/reference/android/database/sqlite/package-summary.html -- API 26 -> 3.18
 public class Sql {
 
@@ -113,6 +112,9 @@ public class Sql {
 		private final List<String> whereArgs = new ArrayList<>();
 
 		private List<String> columns = new ArrayList<>();
+		private String groupBy;
+		private String having;
+		private String limit;
 
 		public SqlQueryBuilder(String tableName) {
 			this.tableName = tableName;
@@ -131,27 +133,38 @@ public class Sql {
 			return this;
 		}
 
+		public SqlQueryBuilder groupBy(String groupBy) {
+			this.groupBy = groupBy;
+			return this;
+		}
+
+		public SqlQueryBuilder having(String having) {
+			this.having = having;
+			return this;
+		}
+
+		public SqlQueryBuilder limit(String limit) {
+			this.limit = limit;
+			return this;
+		}
+
 		public Cursor executeOn(SupportSQLiteDatabase db) {
 			if (tableName == null || tableName.trim().isEmpty()) {
 				throw new IllegalArgumentException();
 			}
-
-			StringBuilder query = new StringBuilder().append("SELECT ");
-			if (columns == null || columns.isEmpty()) {
-				query.append("*");
-			} else {
-				query.append("(");
-				appendColumns(query, columns.toArray(new String[0]), null, false);
-				query.append(")");
-			}
-
-			query.append(" FROM ").append('"').append(tableName).append('"');
-
-			if (whereClause.length() > 0) {
-				query.append(" WHERE ").append(whereClause);
-			}
-
-			return db.query(query.toString(), whereArgs.toArray());
+			String query = SQLiteQueryBuilder.buildQueryString( //
+					/* distinct */ false, //
+					tableName, //
+					columns.toArray(new String[columns.size()]), //
+					whereClause.toString(), //
+					groupBy, //
+					having, //
+					/* orderBy */ null, //
+					limit  //
+			);
+			//In contrast to "SupportSQLiteDatabase#update" "query" doesn't define how the contents of "whereArgs" are bound.
+			//As of now we always pass an "Array<String>", but this has to be kept in mind if we ever change this. See: "SqlUpdateBuilder#executeOn"
+			return db.query(query, whereArgs.toArray());
 		}
 	}
 
@@ -184,11 +197,14 @@ public class Sql {
 			if (contentValues.size() == 0) {
 				throw new IllegalStateException("At least one value must be set");
 			}
-			//TODO Error handling in replacement of SQLiteDatabase#insertOrThrow, all-null-handling
-			// ... Handling of everything that was changed since the prior implementation
-			db.update(tableName, SQLiteDatabase.CONFLICT_FAIL, contentValues, whereClause.toString(), whereArgs.toArray(new String[whereArgs.size()]));
-		}
 
+			//The behavior of "SupportSQLiteDatabase#update" is a bit strange, which caused me to investigate:
+			//The docs say that the contents of "whereArgs" are bound as "Strings", even if the parameter is of type "Array<Object/Any>".
+			//The internal binding methods are type-safe, but resolve to just putting all args into an "Array<Object/Any>" in "SQLiteProgram" anyway.
+			//This array is also used by "SQLiteDatabase#update". Apparently the contents of the array are then bound as "Strings".
+			//As of now we always pass an "Array<String>", but all of this has to be kept in mind if we ever change this.
+			db.update(tableName, SQLiteDatabase.CONFLICT_NONE, contentValues, whereClause.toString(), whereArgs.toArray(new String[whereArgs.size()]));
+		}
 	}
 
 	public static class SqlDropIndexBuilder {
@@ -268,6 +284,7 @@ public class Sql {
 
 	public static class SqlInsertSelectBuilder {
 
+		private static final int NOT_FOUND = -1;
 		private final String table;
 		private final String[] selectedColumns;
 		private final StringBuilder joinClauses = new StringBuilder();
@@ -287,12 +304,31 @@ public class Sql {
 
 		public void executeOn(SupportSQLiteDatabase db) {
 			StringBuilder query = new StringBuilder().append("INSERT INTO \"").append(table).append("\" (");
-			appendColumns(query, columns, sourceTableName, false);
+			appendColumns(query, columns, false);
 			query.append(") SELECT ");
-			appendColumns(query, selectedColumns, sourceTableName, true);
+			appendColumns(query, selectedColumns, true);
 			query.append(" FROM \"").append(sourceTableName).append('"');
 			query.append(joinClauses);
 			db.execSQL(query.toString());
+		}
+
+		private void appendColumns(StringBuilder query, String[] columns, boolean appendSourceTableName) {
+			boolean notFirst = false;
+
+			for (String column : columns) {
+				if (notFirst) {
+					query.append(',');
+				}
+
+				if (appendSourceTableName && column.indexOf('.') == NOT_FOUND) {
+					query.append('"').append(sourceTableName).append("\".\"").append(column).append('"');
+				} else {
+					column = column.replace(".", "\".\"");
+					query.append('"').append(column).append('"');
+				}
+
+				notFirst = true;
+			}
 		}
 
 		public SqlInsertSelectBuilder join(String targetTable, String sourceColumn) {
@@ -467,15 +503,12 @@ public class Sql {
 			return this;
 		}
 
-		public SqlInsertBuilder bool(String column, Boolean value) {
-			contentValues.put(column, value);
-			return this;
-		}
-
 		public Long executeOn(SupportSQLiteDatabase db) {
-			//TODO Error handling in replacement of SQLiteDatabase#insertOrThrow, all-null-handling
-			// ... Handling of everything that was changed since the prior implementation
-			return db.insert(this.table, SQLiteDatabase.CONFLICT_FAIL, contentValues);
+			//In contrast to "SupportSQLiteDatabase#update" "insert" doesn't define how the contents of "contentValues" are bound.
+			//As opposed to the other methods in this class, we do actually pass "Integers" and "Strings" here and again they appear
+			//to end up in the "Array<Object/Any>" in "SQLiteProgram". Currently there is no issue,
+			//but this has to be kept in mind if we ever change this method. See: "SqlUpdateBuilder#executeOn"
+			return db.insert(this.table, SQLiteDatabase.CONFLICT_NONE, contentValues);
 		}
 	}
 
@@ -499,29 +532,9 @@ public class Sql {
 		}
 
 		public void executeOn(SupportSQLiteDatabase db) {
+			//"SupportSQLiteDatabase#delete" always binds the contents of "whereArgs" as "Strings".
+			//As of now we always pass an "Array<String>", but this has to be kept in mind if we ever change this. See: "SqlUpdateBuilder#executeOn"
 			db.delete(tableName, whereClause.toString(), whereArgs.toArray(new String[whereArgs.size()]));
 		}
 	}
-
-	private static final int NOT_FOUND = -1;
-
-	private static void appendColumns(StringBuilder query, String[] columns, String sourceTableName, boolean appendSourceTableName) {
-		boolean notFirst = false;
-
-		for (String column : columns) {
-			if (notFirst) {
-				query.append(',');
-			}
-
-			if (appendSourceTableName && column.indexOf('.') == NOT_FOUND) {
-				query.append('"').append(sourceTableName).append("\".\"").append(column).append('"');
-			} else {
-				column = column.replace(".", "\".\"");
-				query.append('"').append(column).append('"');
-			}
-
-			notFirst = true;
-		}
-	}
-
 }
