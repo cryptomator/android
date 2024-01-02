@@ -55,7 +55,7 @@
 	<string name="snack_bar_action_title_sort_oldest">Иҫкеләр тәүҙә</string>
 	<string name="snack_bar_action_title_sort_biggest">Ҙурҙар тәүҙә</string>
 	<string name="snack_bar_action_title_sort_smallest">Бәләкәйҙәр тәүҙә</string>
-	<string name="snack_bar_cryptomator_variants_title">Артабан уҡырға</string>
+	<string name="snack_bar_cryptomator_variants_title">Артабан уҡыу</string>
 	<string name="snack_bar_cryptomator_variants_hint">Болот исемлектә юҡмы?</string>
 	<!-- # screens -->
 	<!-- # screen: vault list -->
@@ -78,7 +78,7 @@
 	<string name="screen_file_browser_file_info_label_date">%1$s элек үҙгәртелгән</string>
 	<string name="screen_file_browser_share_intent_chooser_title">Уртаҡлашыу</string>
 	<string name="screen_file_browser_share_destination_title">Тәғәйен урын һайлау</string>
-	<string name="screen_file_browser_share_button_text">Һайларға</string>
+	<string name="screen_file_browser_share_button_text">Һайла</string>
 	<string name="screen_file_browser_nothing_to_share">Уртаҡлашырлыҡ бер нәмә лә юҡ</string>
 	<string name="screen_file_browser_actions_title">%1$s каталогына өҫтәү</string>
 	<string name="screen_file_browser_action_create_folder">Папка өҫтәү</string>
@@ -311,7 +311,7 @@
 	<string name="dialog_disable_app_obscured_positive_button">Һүндер</string>
 	<string name="dialog_app_is_obscured_info_title">Ҡушымта йәшерелгән</string>
 	<string name="dialog_app_is_obscured_info_hint">Икенсе ҡушымта Cryptomator өҫтөндә нимәлер күрһәтә (мәҫәлән, зәңгәр яҡтылыҡ фильтры йәки төнгө режим ҡушымтаһы). Хәүефһеҙлек сәбәптәре буйынса Cryptomator һүндерелгән.\n\n<a href="https://docs.cryptomator.org/en/1.6/android/settings/#block-app-when-obscured"> Cryptomator нисек асыла</a></string>
-	<string name="dialog_app_is_obscured_info_neutral_button">Ябырға</string>
+	<string name="dialog_app_is_obscured_info_neutral_button">Яп</string>
 	<string name="dialog_vaults_removed_during_migration_title">%1s болото өсөн һаҡлағыстарҙы яңынан өҫтәү</string>
 	<string name="dialog_vaults_removed_during_migration_hint">Был ҡушымта версияһына күскәндә ҡушымтанан түбәндәге һаҡлағыстарҙы алып ташларға кәрәк:\n%2s \n\nБыл һаҡлағыстар болоттан түгел, ә тик ошо ҡушымтанан ғына алына. Уңайһыҙлыҡтар өсөн ғәфү итегеҙ һәм улар менән эшләүҙе дауам итер өсөн һаҡлағыстарҙы яңынан өҫтәгеҙ.</string>
 	<string name="dialog_vault_is_root_folder_of_cloud_title">Һаҡлағыс болот бәйләнешенең тамыр папкаһы</string>
