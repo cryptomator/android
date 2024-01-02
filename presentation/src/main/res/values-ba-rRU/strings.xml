@@ -89,19 +89,19 @@
 	<string name="screen_file_browser_msg_files_exported">Файлдар экспортланды</string>
 	<string name="screen_file_browser_nothing_to_export">Экспортланасаҡ бер нәмә лә юҡ</string>
 	<string name="screen_file_browser_msg_creating_download_dir_failed">Күсереп алыу каталогын яһау булманы</string>
-	<string name="screen_file_browser_node_action_share">Уртаҡлашырға</string>
-	<string name="screen_file_browser_node_action_rename">Исемен үҙгәртергә</string>
-	<string name="screen_file_browser_node_action_edit_text">Төҙәтергә</string>
-	<string name="screen_file_browser_node_action_export">Экспортларға</string>
-	<string name="screen_file_browser_node_action_delete">Юйырға</string>
+	<string name="screen_file_browser_node_action_share">Уртаҡлаш</string>
+	<string name="screen_file_browser_node_action_rename">Исемен үҙгәрт</string>
+	<string name="screen_file_browser_node_action_edit_text">Төҙәт</string>
+	<string name="screen_file_browser_node_action_export">Экспортла</string>
+	<string name="screen_file_browser_node_action_delete">Юй</string>
 	<string name="screen_file_browser_node_action_open_with_text">Асыу өсөн&#8230;</string>
 	<string name="screen_file_browser_selection_mode_title_zero_elements">Элементтар һайлағыҙ</string>
 	<string name="screen_file_browser_selection_mode_title_one_or_more_elements">%1$d һайланды</string>
-	<string name="screen_file_browser_select_items">Һайларға</string>
-	<string name="screen_file_browser_select_all_items">Барыһын да һайларға</string>
-	<string name="screen_file_browser_refresh_items">Яңыртырға</string>
+	<string name="screen_file_browser_select_items">Һайла</string>
+	<string name="screen_file_browser_select_all_items">Барыһын да һайла</string>
+	<string name="screen_file_browser_refresh_items">Яңырт</string>
 	<string name="screen_file_browser_no_connection_message">Бәйләнеш юҡ</string>
-	<string name="screen_file_browser_no_connection_button_text">Ҡабатларға</string>
+	<string name="screen_file_browser_no_connection_button_text">Ҡабатла</string>
 	<!-- ## screen: text editor -->
 	<string name="screen_text_editor_save_success">Уңышлы һаҡланды</string>
 	<!-- ## screen: share files -->
@@ -175,7 +175,7 @@
 	<string name="screen_settings_auto_lock_timeout">Бикләү ваҡыты</string>
 	<string name="screen_settings_auto_lock_on_screen_lock">Экран һүндерелгәндә</string>
 	<string name="screen_settings_section_auto_photo_upload">Автоматик фото тейәү</string>
-	<string name="screen_settings_section_auto_photo_upload_vault">Тейәү өсөн һаҡлағыс һайларға</string>
+	<string name="screen_settings_section_auto_photo_upload_vault">Тейәү өсөн һаҡлағыс һайлау</string>
 	<string name="screen_settings_section_auto_photo_upload_toggle">Ғәмәлдә</string>
 	<string name="screen_settings_section_auto_photo_upload_toggle_summary">Һүрәттәрҙе артҡы планда тотоп барырға һәм һаҡлағыс асылған ваҡытта тейәүҙе башларға</string>
 	<string name="screen_settings_section_auto_photo_upload_toggle_instant_upload">Тиҙ тейәү</string>
@@ -192,7 +192,7 @@
 	<string name="screen_settings_section_support">Ярҙам</string>
 	<string name="screen_settings_contact_label">Ярҙам һорау</string>
 	<string name="screen_settings_debug_mode_label">Төҙөкләндереү режимы</string>
-	<string name="screen_settings_error_report_label">Журнал файлын ебәрергә</string>
+	<string name="screen_settings_error_report_label">Журнал файлын ебәр</string>
 	<string name="screen_settings_error_report_failed">Ебәреү уңышһыҙ булды</string>
 	<string name="screen_settings_security_label">Хәүефһеҙлек кәңәштәре</string>
 	<string name="screen_settings_section_version">Версия</string>
@@ -201,7 +201,7 @@
 	<string name="screen_settings_microsoft_apps_workaround_summary">Microsoft ҡушымталарында файлдарҙы яҙыу рөхсәте менән асыу</string>
 	<string name="screen_settings_background_unlock_preparation_label">Бикте асыуҙы тиҙләтеү</string>
 	<string name="screen_settings_background_unlock_preparation_label_summary">Серһүҙ йәки биометрик таныу һоралған ваҡытта һаҡлағыс көйләүҙәрен артҡы планда күсереп алырға</string>
-	<string name="screen_settings_keep_unlocked_while_editing_files">Биге асыҡ килеш тоторға</string>
+	<string name="screen_settings_keep_unlocked_while_editing_files">Биге асыҡ килеш тот</string>
 	<string name="screen_settings_keep_unlocked_while_editing_files_summary">Файл төҙәткәндә һаҡлағысты асыҡ килеш тоторға</string>
 	<!-- ## screen: cloud settings -->
 	<string name="screen_cloud_settings_onedrive_connections">OneDrive бәйләнештәре</string>
@@ -219,7 +219,7 @@
 	<string name="screen_cryptomator_variants_title">Cryptomator варианттары</string>
 	<string name="screen_cryptomator_variants_lite_title">Төп F-Droid репозиторийы</string>
 	<string name="screen_cryptomator_variants_lite_description">API асҡыстары кәрәк булғанлыҡтан төшөрөп ҡалдырылды.</string>
-	<string name="screen_cryptomator_variants_lite_install">Ҡорорға</string>
+	<string name="screen_cryptomator_variants_lite_install">Ҡор</string>
 	<string name="screen_cryptomator_variants_fdroid_title">Cryptomator F-Droid репозиторийы</string>
 	<string name="screen_cryptomator_variants_fdroid_description">Проприетар бәйлелек булғанлыҡтан төшөрөп ҡалдырылды.</string>
 	<string name="screen_cryptomator_variants_fdroid_add_repo_hint">F-Droid ҡушымтаһына Cryptomator репозиторийы өҫтәү.</string>
@@ -252,7 +252,7 @@
 	<string name="dialog_replace_msg_all_files_exists">Бөтә файлдар ҙа бар инде. Уларҙы алмаштырырға теләйһегеҙме?</string>
 	<string name="dialog_replace_msg_some_files_exists">%1$d файлдары бар инде. Уларҙы алмаштырырға теләйһегеҙме?</string>
 	<string name="dialog_replace_title_single_file_exists">Файлды алмаштырырғамы?</string>
-	<string name="dialog_replace_title_multiple_files_exist">Файлдары алмаштырырғамы?</string>
+	<string name="dialog_replace_title_multiple_files_exist">Файлдарҙы алмаштырырғамы?</string>
 	<string name="dialog_unable_to_share_title">Файлдарҙы уртаҡлашып булмай</string>
 	<string name="dialog_unable_to_share_message">Ҡоролған һаҡлағысығыҙ юҡ. Тәүҙә Cryptomator ҡушымтаһы менән яңы һаҡлағыс яһағыҙ.</string>
 	<string name="dialog_unable_to_share_positive_button">Ярай</string>
@@ -286,7 +286,7 @@
 	<string name="dialog_progress_encryption">Шифрлау бара&#8230;</string>
 	<string name="dialog_progress_decryption">Шифрын асыу бара&#8230;</string>
 	<string name="action_progress_moving">Күсереү бара&#8230;</string>
-	<string name="dialog_lock_vault">Бикләргә</string>
+	<string name="dialog_lock_vault">Биклә</string>
 	<string name="dialog_accept_ssl_certificate_title">Ғәмәлдә булмаған SSL сертификаты</string>
 	<string name="dialog_accept_ssl_certificate_hint">SSL сертификаты ғәмәлдә түгел. Уға һәр хәлдә ышанырға теләйһегеҙме?</string>
 	<string name="dialog_accept_ssl_certificate_details">Тулыраҡ мәғлүмәт</string>
@@ -335,8 +335,8 @@
 	<string name="dialog_license_confirmation_message">Ғәмәлдәге рөхсәтнамә биргәнегеҙ өсөн рәхмәт %1$s.</string>
 	<string name="dialog_update_available_title">Яңыртыу бар</string>
 	<string name="dialog_update_available_message">Cryptomator-ҙы һуңғы версияға яңыртыу. ОК төймәһенә баҫҡандан һәм ҡушымта артҡы планда күсереп алынғандан һуң уны ҡуйыуығыҙҙы һораясаҡбыҙ.</string>
-	<string name="dialog_update_available_update">Хәҙер яңыртырға</string>
-	<string name="dialog_update_available_download_site">Күсереп алыу битен асырға</string>
+	<string name="dialog_update_available_update">Хәҙер яңырт</string>
+	<string name="dialog_update_available_download_site">Күсереп алыу битен ас</string>
 	<string name="dialog_update_available_cancel">Аҙаҡтан</string>
 	<string name="dialog_download_update_title">Күсереп алыу бара</string>
 	<string name="dialog_download_update_message">Cryptomator-ҙың һуңғы версияһын күсереп алыу бара</string>
