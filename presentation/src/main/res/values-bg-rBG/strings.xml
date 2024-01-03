@@ -223,6 +223,8 @@
 	<string name="screen_cryptomator_variants_fdroid_title">Хранилище на Криптоматор за F-Droid</string>
 	<string name="screen_cryptomator_variants_fdroid_add_repo_hint">Добавете хранилището на Криптоматор към F-Droid.</string>
 	<string name="screen_cryptomator_variants_fdroid_add_repo">Добавяне</string>
+	<string name="screen_cryptomator_variants_website_title">Страница в интернет</string>
+	<string name="screen_cryptomator_variants_website_description">Съдържа собственически зависимости.</string>
 	<!-- # dialogs -->
 	<string name="dialog_button_cancel">Отказ</string>
 	<string name="dialog_enter_password_positive_button">Отключване</string>
