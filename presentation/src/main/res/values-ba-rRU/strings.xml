@@ -4,8 +4,8 @@
 	<string name="share_with_label">Шифрла</string>
 	<!-- # error messages -->
 	<string name="error_generic">Хата килеп сыҡты</string>
-	<string name="error_authentication_failed">Аутентификлау хатаһы</string>
-	<string name="error_authentication_failed_re_authenticate">Аутентификлау хатаһы, %1$s менән инегеҙ</string>
+	<string name="error_authentication_failed">Аутентиклау хатаһы</string>
+	<string name="error_authentication_failed_re_authenticate">Аутентиклау хатаһы, %1$s менән инегеҙ</string>
 	<string name="error_no_network_connection">Селтәр бәйләнеше юҡ</string>
 	<string name="error_invalid_passphrase">Серһүҙ дөрөҫ түгел</string>
 	<string name="error_file_or_folder_exists">Файл йәки папка бар инде.</string>
@@ -27,7 +27,7 @@
 	<string name="error_update_no_internet">Яңыртыу тикшереүе уңышһыҙ булды. Интернет бәйләнеше юҡ.</string>
 	<string name="error_failed_to_decrypt_webdav_password">WebDAV серһүҙ шифрын асып булманы. Зинһар, көйләүҙәрҙә ҡабаттан өҫтәгеҙ</string>
 	<string name="error_play_services_not_available">Google Play сервистары ҡуйылмаған</string>
-	<string name="error_biometric_auth_aborted">Биометрик аутентификлау өҙөлдө</string>
+	<string name="error_biometric_auth_aborted">Биометрик аутентиклау өҙөлдө</string>
 	<string name="error_vault_version_mismatch">Тәғәйенләнгән %1$s версияһы %2$s версияһынан айырала</string>
 	<string name="error_vault_key_invalid">%1$s менән %2$s тап килмәй</string>
 	<string name="error_vault_config_loading">Һаҡлағыс конфигурацияһын йөкләгәндә дөйөм хата</string>
@@ -159,8 +159,8 @@
 	<!-- ## screen: settings -->
 	<string name="screen_settings_section_general">Дөйөм</string>
 	<string name="screen_settings_cloud_settings_label">Болот хеҙмәттәре</string>
-	<string name="screen_settings_biometric_auth">Биометрик аутентификлау</string>
-	<string name="screen_settings_activate_biometric_auth">Биометрик аутентификлау ғәмәлдә</string>
+	<string name="screen_settings_biometric_auth">Биометрик аутентиклау</string>
+	<string name="screen_settings_activate_biometric_auth">Биометрик аутентиклау ғәмәлдә</string>
 	<string name="screen_settings_confirm_face_unlock">Йөҙ менән асыу (булған осраҡта)</string>
 	<string name="screen_settings_block_app_when_obscured">Ҡушымта ябылған саҡта бикләү</string>
 	<string name="screen_settings_block_app_when_obscured_summary">Яҙылғандарҙы тотоп алыуҙы һәм ялған арайөҙ күрһәтеүҙе тыйыу</string>
@@ -200,7 +200,7 @@
 	<string name="screen_settings_microsoft_apps_workaround_label">Microsoft файлдарын асыуҙың урау юлдары</string>
 	<string name="screen_settings_microsoft_apps_workaround_summary">Microsoft ҡушымталарында файлдарҙы яҙыу рөхсәте менән асыу</string>
 	<string name="screen_settings_background_unlock_preparation_label">Бикте асыуҙы тиҙләтеү</string>
-	<string name="screen_settings_background_unlock_preparation_label_summary">Серһүҙ йәки биометрик таныу һоралған ваҡытта һаҡлағыс көйләүҙәрен артҡы планда күсереп алырға</string>
+	<string name="screen_settings_background_unlock_preparation_label_summary">Серһүҙ йәки биометрик таныу һоралған ваҡытта һаҡлағыс конфигурацияһын артҡы планда күсереп алырға</string>
 	<string name="screen_settings_keep_unlocked_while_editing_files">Биге асыҡ килеш тот</string>
 	<string name="screen_settings_keep_unlocked_while_editing_files_summary">Файл төҙәткәндә һаҡлағысты асыҡ килеш тоторға</string>
 	<!-- ## screen: cloud settings -->
@@ -213,7 +213,7 @@
 	<string name="screen_cloud_settings_sign_out_from_cloud">Сығыу</string>
 	<!-- ## screen: licenses -->
 	<!-- ## screen: authenticate cloud -->
-	<string name="screen_authenticate_auth_authentication_failed">%1$s аутентификланманы.</string>
+	<string name="screen_authenticate_auth_authentication_failed">%1$s аутентикланманы.</string>
 	<string name="screen_update_pcloud_connections_title">pCloud иҫәп яҙыуы мәғлүмәттәрен яңыртыу</string>
 	<!-- ## screen: cryptomator app variants -->
 	<string name="screen_cryptomator_variants_title">Cryptomator варианттары</string>
@@ -275,7 +275,7 @@
 	<string name="dialog_progress_please_wait">Көтөгөҙ зинһар&#8230;</string>
 	<string name="dialog_progress_creating_folder">Папка яһау бара&#8230;</string>
 	<string name="dialog_progress_creating_text_file">Текст файлы яһау бара&#8230;</string>
-	<string name="action_progress_authentication">Аутентификлау бара&#8230;</string>
+	<string name="action_progress_authentication">Аутентиклау бара&#8230;</string>
 	<string name="action_progress_renaming">Исемен үҙгәртеү бара&#8230;</string>
 	<string name="action_progress_deleting">Юйыу бара&#8230;</string>
 	<string name="dialog_progress_unlocking_vault">Һаҡлағыстың биген сисеү бара&#8230;</string>
@@ -300,7 +300,7 @@
 	<string name="dialog_no_screen_lock_hint">Экран биге ҡуйылмаған. Иҫәп яҙмаһы мәғлүмәттәрен ышаныслы һаҡлар өсөн ҡалып йәки серһүҙ ҡуйығыҙ.</string>
 	<string name="dialog_no_screen_lock_title">Экран биге ҡуйырғамы?</string>
 	<string name="dialog_no_screen_lock_checkbox">Экран биге ҡуйыу</string>
-	<string name="dialog_no_biometric_auth_set_up_title">Системала нигеҙ аутентификлау ҡоролмаған</string>
+	<string name="dialog_no_biometric_auth_set_up_title">Системала нигеҙ аутентиклау ҡоролмаған</string>
 	<string name="dialog_no_biometric_auth_set_up_message">Был хеҙмәттән файҙаланыу өсөн, кәм тигәндә, бер бармаҡ эҙен йәки йөҙҙө теркәгеҙ.</string>
 	<string name="dialog_debug_mode_disclaimer_hint">Был режимда нескә мәғлүмәттәрҙең (мәҫәлән, файл исемдәре, юлдар) йыһаздың журнал файлына яҙылыуы ихтимал. Серһүҙҙәр, cookie-файлдар һ.б. тура алып ташлана.\n\nЯйлау (debug) режимын тиҙ арала ябырға онотмағыҙ.</string>
 	<string name="dialog_debug_mode_disclaimer_title">Иғтибар</string>
@@ -323,8 +323,8 @@
 	<string name="dialog_confirm_delete_multiple_message">Был элементтарҙы ысындан да юйырға теләйһегеҙме?</string>
 	<string name="dialog_confirm_delete_file_message">Был файлды ысындан да юйырға теләйһегеҙме?</string>
 	<string name="dialog_confirm_delete_folder_message">Был папканың бөтә эстәлеген юясаҡ. Был папканы ысындан да юйырға теләйһегеҙме?</string>
-	<string name="dialog_biometric_auth_key_invalidated_title">Биометрик аутентификлау үҙенсәлеге ябылған</string>
-	<string name="dialog_biometric_auth_key_invalidated_message">Асҡыс ғәмәлдән сығарылғанға күрә, биометрик аутентификлау һүндерелгән. Яңынан активлаштырыу өсөн Cryptomator көйләүҙәрен асығыҙ.</string>
+	<string name="dialog_biometric_auth_key_invalidated_title">Биометрик аутентиклау үҙенсәлеге ябылған</string>
+	<string name="dialog_biometric_auth_key_invalidated_message">Асҡыс ғәмәлдән сығарылғанға күрә, биометрик аутентиклау һүндерелгән. Яңынан активлаштырыу өсөн Cryptomator көйләүҙәрен асығыҙ.</string>
 	<string name="dialog_enter_license_title">Ғәмәлдә булған рөхсәтнамә яҙығыҙ</string>
 	<string name="dialog_enter_license_content">Google Play Store ҡулланмайынса Cryptomator ҡуйыуығыҙҙы асыҡланыҡ. <a href="https://cryptomator.org/android/">https://cryptomator.org/android/</a> сайтында һатып алып булған һәм ғәмәлдәге рөхсәтнамә яҙығыҙ.</string>
 	<string name="dialog_enter_license_not_valid_content">Бирелгән рөхсәтнамә ғәмәлдә түгел. Уны дөрөҫ яҙғанығыҙҙы тикшерегеҙ.</string>
@@ -394,11 +394,11 @@
 	<string name="notification_auto_upload_failed_due_to_folder_not_exists">Тейәү өсөн һайланған папка хәҙер юҡ. Көйләүҙәргә барығыҙ һәм яңыһын һайлағыҙ</string>
 	<string name="notification_auto_upload_failed_due_to_vault_locked">Тейәү ваҡытында һаҡлағыс бикләнгән, дауам итеү өсөн һаҡлағысты яңынан асығыҙ</string>
 	<string name="notification_auto_upload_failed_due_to_vault_not_found">Автоматик тейәү өсөн һайланған папка хәҙер юҡ.</string>
-	<string name="notification_auto_upload_failed_due_to_authentication_problem">Аутентификлауҙы яңыртыу өсөн баҫығыҙ.</string>
+	<string name="notification_auto_upload_failed_due_to_authentication_problem">Аутентиклауҙы яңыртыу өсөн баҫығыҙ.</string>
 	<string name="notification_open_writable_file_title">Яҙып булған файл асыу</string>
 	<string name="notification_open_writable_file_message">Төҙәтеү тамамланғансы һаҡлаҡыс бикләнмәй ҡала</string>
 	<string name="notification_update_check_finished_latest">Һуңғы версия ҡуйылған</string>
-	<string name="notification_authenticating">Аутентификлау&#8230;</string>
+	<string name="notification_authenticating">Аутентиклау&#8230;</string>
 	<string name="screen_settings_lru_cache">Кэш</string>
 	<string name="screen_settings_lru_cache_toggle_summary">Йыһазда шифрланған, һуңғы ваҡытта ҡулланылған файлдарҙы аҙаҡтан кире асҡанда ҡулланыр өсөн кэшларға</string>
 	<string name="screen_settings_lru_cache_size">Дөйөм кэш күләме</string>
