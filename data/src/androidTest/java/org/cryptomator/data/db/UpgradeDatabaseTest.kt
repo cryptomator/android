@@ -368,7 +368,7 @@ class UpgradeDatabaseTest {
 		Sql.alterTable("UPDATE_CHECK_ENTITY").renameTo("UPDATE_CHECK_ENTITY_OLD").executeOn(db)
 
 		Sql.createTable("UPDATE_CHECK_ENTITY") //
-			.id() //
+			.pre14Id() //
 			.optionalText("LICENSE_TOKEN") //
 			.optionalText("RELEASE_NOTE") //
 			.optionalText("VERSION") //

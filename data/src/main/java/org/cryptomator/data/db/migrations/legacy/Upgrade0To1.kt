@@ -22,7 +22,7 @@ internal class Upgrade0To1 @Inject constructor() : DatabaseMigration(0, 1) {
 
 	private fun createCloudEntityTable(db: SupportSQLiteDatabase) {
 		Sql.createTable("CLOUD_ENTITY") //
-			.id() //
+			.pre14Id() //
 			.requiredText("TYPE") //
 			.optionalText("ACCESS_TOKEN") //
 			.optionalText("WEBDAV_URL") //
@@ -33,13 +33,13 @@ internal class Upgrade0To1 @Inject constructor() : DatabaseMigration(0, 1) {
 
 	private fun createVaultEntityTable(db: SupportSQLiteDatabase) {
 		Sql.createTable("VAULT_ENTITY") //
-			.id() //
+			.pre14Id() //
 			.optionalInt("FOLDER_CLOUD_ID") //
 			.optionalText("FOLDER_PATH") //
 			.optionalText("FOLDER_NAME") //
 			.requiredText("CLOUD_TYPE") //
 			.optionalText("PASSWORD") //
-			.foreignKey("FOLDER_CLOUD_ID", "CLOUD_ENTITY", ForeignKeyBehaviour.ON_DELETE_SET_NULL) //
+			.pre14ForeignKey("FOLDER_CLOUD_ID", "CLOUD_ENTITY", ForeignKeyBehaviour.ON_DELETE_SET_NULL) //
 			.executeOn(db)
 		Sql.createUniqueIndex("IDX_VAULT_ENTITY_FOLDER_PATH_FOLDER_CLOUD_ID") //
 			.on("VAULT_ENTITY") //

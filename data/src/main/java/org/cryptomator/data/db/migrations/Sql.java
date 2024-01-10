@@ -332,6 +332,14 @@ public class Sql {
 		}
 
 		public SqlInsertSelectBuilder join(String targetTable, String sourceColumn) {
+			return join(targetTable, "id", sourceColumn);
+		}
+
+		public SqlInsertSelectBuilder pre14Join(String targetTable, String sourceColumn) {
+			return join(targetTable, "_id", sourceColumn);
+		}
+
+		public SqlInsertSelectBuilder join(String targetTable, String targetColumn, String sourceColumn) {
 			sourceColumn = sourceColumn.replace(".", "\".\"");
 			joinClauses.append(" JOIN \"") //
 					.append(targetTable) //
@@ -339,7 +347,9 @@ public class Sql {
 					.append(sourceColumn) //
 					.append("\" = \"") //
 					.append(targetTable) //
-					.append("\".\"_id\" ");
+					.append("\".\"") //
+					.append(targetColumn) //
+					.append("\" ");
 
 			return this;
 		}
@@ -368,6 +378,11 @@ public class Sql {
 		}
 
 		public SqlCreateTableBuilder id() {
+			column("id", INTEGER, PRIMARY_KEY);
+			return this;
+		}
+
+		public SqlCreateTableBuilder pre14Id() {
 			column("_id", INTEGER, PRIMARY_KEY);
 			return this;
 		}
@@ -418,6 +433,14 @@ public class Sql {
 		}
 
 		public SqlCreateTableBuilder foreignKey(String column, String targetTable, ForeignKeyBehaviour... behaviours) {
+			return foreignKey(column, targetTable, "id", behaviours);
+		}
+
+		public SqlCreateTableBuilder pre14ForeignKey(String column, String targetTable, ForeignKeyBehaviour... behaviours) {
+			return foreignKey(column, targetTable, "_id", behaviours);
+		}
+
+		public SqlCreateTableBuilder foreignKey(String column, String targetTable, String targetColumn, ForeignKeyBehaviour... behaviours) {
 			foreignKeys //
 					.append(", CONSTRAINT FK_") //
 					.append(column) //
@@ -427,7 +450,9 @@ public class Sql {
 					.append(column) //
 					.append(") REFERENCES ") //
 					.append(targetTable) //
-					.append("(_id)");
+					.append("(") //
+					.append(targetColumn) //
+					.append(")");
 
 			for (ForeignKeyBehaviour behaviour : behaviours) {
 				foreignKeys.append(" ").append(behaviour.getText());
