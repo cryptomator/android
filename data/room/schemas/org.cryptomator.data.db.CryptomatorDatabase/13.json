@@ -2,7 +2,7 @@
   "formatVersion": 1,
   "database": {
     "version": 13,
-    "identityHash": "ab8cd826759896443cfcac2f825a509c",
+    "identityHash": "932cb16d86be1f723e0e4b0ef2bc542a",
     "entities": [
       {
         "tableName": "CLOUD_ENTITY",
@@ -201,8 +201,11 @@
               "FOLDER_PATH",
               "FOLDER_CLOUD_ID"
             ],
-            "orders": [],
-            "createSql": "CREATE UNIQUE INDEX IF NOT EXISTS `IDX_VAULT_ENTITY_FOLDER_PATH_FOLDER_CLOUD_ID` ON `${TABLE_NAME}` (`FOLDER_PATH`, `FOLDER_CLOUD_ID`)"
+            "orders": [
+              "ASC",
+              "ASC"
+            ],
+            "createSql": "CREATE UNIQUE INDEX IF NOT EXISTS `IDX_VAULT_ENTITY_FOLDER_PATH_FOLDER_CLOUD_ID` ON `${TABLE_NAME}` (`FOLDER_PATH` ASC, `FOLDER_CLOUD_ID` ASC)"
           }
         ],
         "foreignKeys": [
@@ -223,7 +226,7 @@
     "views": [],
     "setupQueries": [
       "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
-      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, 'ab8cd826759896443cfcac2f825a509c')"
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '932cb16d86be1f723e0e4b0ef2bc542a')"
     ]
   }
 }
