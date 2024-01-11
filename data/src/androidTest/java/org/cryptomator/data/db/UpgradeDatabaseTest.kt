@@ -63,7 +63,14 @@ class UpgradeDatabaseTest {
 
 	@Before
 	fun setup() {
-		templateDbFile.copyTo(context.getDatabasePath(TEST_DB))
+		context.getDatabasePath(TEST_DB).also { dbFile ->
+			if (dbFile.exists()) {
+				//This may happen when killing the process while using the debugger
+				println("Test database \"${dbFile.absolutePath}\" not cleaned up. Deleting...")
+				dbFile.delete()
+			}
+			templateDbFile.copyTo(dbFile)
+		}
 
 		//This needs to stay in sync with changes to DatabaseOpenHelperFactory/PatchedCallback
 		db = SupportSQLiteOpenHelper.Configuration(context, TEST_DB, object : SupportSQLiteOpenHelper.Callback(LATEST_LEGACY_MIGRATION) {
