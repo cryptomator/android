@@ -11,6 +11,8 @@ import org.cryptomator.domain.PCloud;
 import org.cryptomator.domain.S3Cloud;
 import org.cryptomator.domain.WebDavCloud;
 
+import java.util.Objects;
+
 import javax.inject.Inject;
 import javax.inject.Singleton;
 
@@ -87,8 +89,9 @@ public class CloudEntityMapper extends EntityMapper<CloudEntity, Cloud> {
 
 	@Override
 	public CloudEntity toEntity(Cloud domainObject) {
-		CloudEntity result = new CloudEntity(domainObject.id(), domainObject.type().name());
-		switch (domainObject.type()) {
+		CloudType type = Objects.requireNonNull(domainObject.type());
+		CloudEntity result = CloudEntity.newEntity(domainObject.id(), type.name());
+		switch (type) {
 			case DROPBOX:
 				result.setAccessToken(((DropboxCloud) domainObject).accessToken());
 				result.setUsername(((DropboxCloud) domainObject).username());
