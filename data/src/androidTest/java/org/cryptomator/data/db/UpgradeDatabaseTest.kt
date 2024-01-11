@@ -57,13 +57,20 @@ class UpgradeDatabaseTest {
 	val helper: MigrationTestHelper = MigrationTestHelper( //
 		instrumentation, //
 		CryptomatorDatabase::class.java, //
-		listOf() //TODO AutoSpecs
+		listOf(), //TODO AutoSpecs
+		DatabaseOpenHelperFactory()
 	)
 
 	@Before
 	fun setup() {
 		templateDbFile.copyTo(context.getDatabasePath(TEST_DB))
+
+		//This needs to stay in sync with changes to DatabaseOpenHelperFactory/PatchedCallback
 		db = SupportSQLiteOpenHelper.Configuration(context, TEST_DB, object : SupportSQLiteOpenHelper.Callback(LATEST_LEGACY_MIGRATION) {
+			override fun onConfigure(db: SupportSQLiteDatabase) {
+				db.setForeignKeyConstraintsEnabled(true)
+			}
+
 			override fun onCreate(db: SupportSQLiteDatabase) {
 				fail("Database should not be created, but copied from template")
 			}

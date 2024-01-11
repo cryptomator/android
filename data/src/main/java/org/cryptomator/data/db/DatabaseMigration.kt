@@ -9,6 +9,7 @@ abstract class DatabaseMigration(startVersion: Int, endVersion: Int) : Migration
 
 	final override fun migrate(database: SupportSQLiteDatabase) {
 		Timber.tag("DatabaseMigration").i("Running %s (%d -> %d)", javaClass.simpleName, startVersion, endVersion)
+		require(database.foreignKeyConstraintsEnabled)
 		migrateInternal(database)
 	}
 

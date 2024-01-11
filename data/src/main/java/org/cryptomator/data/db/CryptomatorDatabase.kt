@@ -3,6 +3,7 @@ package org.cryptomator.data.db
 import androidx.room.AutoMigration
 import androidx.room.Database
 import androidx.room.RoomDatabase
+import androidx.sqlite.db.SupportSQLiteDatabase
 import org.cryptomator.data.db.entities.CloudEntity
 import org.cryptomator.data.db.entities.UpdateCheckEntity
 import org.cryptomator.data.db.entities.VaultEntity
@@ -24,3 +25,11 @@ abstract class CryptomatorDatabase : RoomDatabase() {
 
 	abstract fun vaultDao(): VaultDao
 }
+
+val SupportSQLiteDatabase.foreignKeyConstraintsEnabled: Boolean
+	get() {
+		query("PRAGMA foreign_keys;").use { cursor ->
+			check(cursor.count == 1 && cursor.moveToNext()) { "\"PRAGMA foreign_keys\" returned invalid value" }
+			return cursor.getLong(0) == 1L
+		}
+	}

@@ -9,6 +9,7 @@ abstract class DatabaseAutoMigrationSpec : AutoMigrationSpec {
 
 	final override fun onPostMigrate(db: SupportSQLiteDatabase) {
 		Timber.tag("DatabaseMigration").i("Ran automatic migration %s", javaClass.simpleName)
+		require(db.foreignKeyConstraintsEnabled)
 		onPostMigrateInternal(db)
 	}
 

@@ -50,11 +50,15 @@ class DatabaseModule {
 			.createFromInputStream(dbTemplateStreamCallable) //
 			.addMigrations(*migrations) //
 			.addCallback(DatabaseCallback) //
+			.openHelperFactory(DatabaseOpenHelperFactory()) //
 			.build() //Fails if no migration is found (especially when downgrading)
 			.also { //
 				//Migrations are only triggered once the database is used for the first time.
 				//-- Let's do that now and verify all went well before returning the database.
-				require(it.openHelper.writableDatabase.version == CRYPTOMATOR_DATABASE_VERSION)
+				it.openHelper.writableDatabase.run {
+					require(this.version == CRYPTOMATOR_DATABASE_VERSION)
+					require(this.foreignKeyConstraintsEnabled)
+				}
 				LOG.i("Database built successfully")
 			}
 	}
@@ -76,6 +80,11 @@ class DatabaseModule {
 		val db = SupportSQLiteOpenHelper.Configuration.builder(templateDatabaseContext) //
 			.name(DATABASE_NAME) //
 			.callback(object : SupportSQLiteOpenHelper.Callback(1) {
+				override fun onConfigure(db: SupportSQLiteDatabase) {
+					db.disableWriteAheadLogging()
+					db.setForeignKeyConstraintsEnabled(true)
+				}
+
 				override fun onCreate(db: SupportSQLiteDatabase) {
 					Upgrade0To1().migrate(db)
 				}
