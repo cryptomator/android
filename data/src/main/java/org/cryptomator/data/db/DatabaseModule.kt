@@ -159,7 +159,8 @@ class TemplateDatabaseContext @Inject constructor(context: Context) : ContextWra
 object DatabaseCallback : RoomDatabase.Callback() {
 
 	override fun onCreate(db: SupportSQLiteDatabase) {
-		LOG.i("Created database (v%s)", db.version)
+		//This should not be called
+		throw UnsupportedOperationException("Creation is handled as upgrade")
 	}
 
 	override fun onOpen(db: SupportSQLiteDatabase) {

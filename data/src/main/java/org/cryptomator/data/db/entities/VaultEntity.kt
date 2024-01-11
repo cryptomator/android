@@ -10,9 +10,9 @@ import androidx.room.PrimaryKey
 	indices = [Index(name = "IDX_VAULT_ENTITY_FOLDER_PATH_FOLDER_CLOUD_ID", value = ["folderPath", "folderCloudId"], unique = true)], //
 	foreignKeys = [ForeignKey(CloudEntity::class, ["id"], ["folderCloudId"], onDelete = ForeignKey.RESTRICT)]
 )
-data class VaultEntity constructor(
+data class VaultEntity(
 	@PrimaryKey override val id: Long?,
-	val folderCloudId: Long?, //TODO Map to CloudEntity
+	val folderCloudId: Long?,
 	val folderPath: String?,
 	val folderName: String?,
 	val cloudType: String,

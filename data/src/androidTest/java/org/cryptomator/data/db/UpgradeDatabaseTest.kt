@@ -65,7 +65,7 @@ class UpgradeDatabaseTest {
 		templateDbFile.copyTo(context.getDatabasePath(TEST_DB))
 		db = SupportSQLiteOpenHelper.Configuration(context, TEST_DB, object : SupportSQLiteOpenHelper.Callback(LATEST_LEGACY_MIGRATION) {
 			override fun onCreate(db: SupportSQLiteDatabase) {
-				fail("Database should not be created, but copied from asset")
+				fail("Database should not be created, but copied from template")
 			}
 
 			override fun onUpgrade(db: SupportSQLiteDatabase, oldVersion: Int, newVersion: Int) {
