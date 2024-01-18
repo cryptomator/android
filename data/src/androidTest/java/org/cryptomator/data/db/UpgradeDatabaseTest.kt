@@ -29,6 +29,8 @@ import org.hamcrest.CoreMatchers
 import org.junit.After
 import org.junit.Assert
 import org.junit.Assert.assertEquals
+import org.junit.Assert.assertFalse
+import org.junit.Assert.assertTrue
 import org.junit.Assert.fail
 import org.junit.Before
 import org.junit.Rule
@@ -685,5 +687,99 @@ class UpgradeDatabaseTest {
 		Upgrade11To12(sharedPreferencesHandler).migrate(db)
 
 		Assert.assertThat(sharedPreferencesHandler.updateIntervalInDays(), CoreMatchers.`is`(Optional.absent()))
+	}
+
+	@Test
+	fun migrate12To14ForeignKeySideEffects() { //See: Migration12To13
+		Upgrade1To2().migrate(db)
+		Upgrade2To3(context).migrate(db)
+		Upgrade3To4().migrate(db)
+		Upgrade4To5().migrate(db)
+		Upgrade5To6().migrate(db)
+		Upgrade6To7().migrate(db)
+		Upgrade7To8().migrate(db)
+		Upgrade8To9(sharedPreferencesHandler).migrate(db)
+		Upgrade9To10(sharedPreferencesHandler).migrate(db)
+		Upgrade10To11().migrate(db)
+		Upgrade11To12(sharedPreferencesHandler).migrate(db)
+
+		val pre13Statement = referencesStatement(db)
+		val pre13Expected = "CONSTRAINT FK_FOLDER_CLOUD_ID_CLOUD_ENTITY FOREIGN KEY (FOLDER_CLOUD_ID) REFERENCES CLOUD_ENTITY(_id) ON DELETE SET NULL"
+		//This is a sanity check and may need to be updated if Sql.java is changed
+		assertTrue("Expected \".*$pre13Expected.*\", got \"$pre13Statement\"", pre13Statement.contains(pre13Expected))
+		db.close()
+
+		helper.runMigrationsAndValidate(TEST_DB, 13, true, Migration12To13()).also { migratedDb ->
+			val statement = referencesStatement(migratedDb)
+			assertEquals(pre13Statement, statement)
+		}
+
+		helper.runMigrationsAndValidate(TEST_DB, 14, true, CryptomatorDatabase_AutoMigration_13_14_Impl()).also { migratedDb ->
+			val statement = referencesStatement(migratedDb)
+			val expected = "FOREIGN KEY(folderCloudId) REFERENCES CLOUD_ENTITY(id) ON"
+			assertTrue("Expected \".*$expected.*\", got \"$statement\"", statement.contains(expected))
+			assertFalse(statement.contains("CONSTRAINT"))
+			assertFalse(statement.contains("FK_FOLDER_CLOUD_ID_CLOUD_ENTITY"))
+
+			assertTrue(statement.contains("ON UPDATE NO ACTION"))
+			assertTrue(statement.contains("ON DELETE RESTRICT"))
+		}
+	}
+
+	private fun referencesStatement(db: SupportSQLiteDatabase): String {
+		return Sql.SqlQueryBuilder("sqlite_master") //
+			.columns(listOf("sql")) //
+			.where("tbl_name", Sql.eq("VAULT_ENTITY")) //
+			.where("sql", Sql.like("%REFERENCES%")) //
+			.executeOn(db).use {
+				assertEquals(it.count, 1)
+				assertTrue(it.moveToNext())
+				it.getString(0)
+			}.filterNot { it in "\"'`" }
+	}
+
+	@Test
+	fun migrate12To14IndexSideEffects() { //See: Migration12To13
+		Upgrade1To2().migrate(db)
+		Upgrade2To3(context).migrate(db)
+		Upgrade3To4().migrate(db)
+		Upgrade4To5().migrate(db)
+		Upgrade5To6().migrate(db)
+		Upgrade6To7().migrate(db)
+		Upgrade7To8().migrate(db)
+		Upgrade8To9(sharedPreferencesHandler).migrate(db)
+		Upgrade9To10(sharedPreferencesHandler).migrate(db)
+		Upgrade10To11().migrate(db)
+		Upgrade11To12(sharedPreferencesHandler).migrate(db)
+
+		val pre13Statement = indexStatement(db)
+		val pre13Expected = "CREATE UNIQUE INDEX \"IDX_VAULT_ENTITY_FOLDER_PATH_FOLDER_CLOUD_ID\" ON \"VAULT_ENTITY\" (\"FOLDER_PATH\" ASC,\"FOLDER_CLOUD_ID\" ASC)"
+		//This is a sanity check and may need to be updated if Sql.java is changed
+		assertEquals(pre13Expected, pre13Statement)
+		db.close()
+
+		helper.runMigrationsAndValidate(TEST_DB, 13, true, Migration12To13()).also { migratedDb ->
+			val statement = indexStatement(migratedDb)
+			assertEquals(pre13Statement, statement)
+		}
+
+		helper.runMigrationsAndValidate(TEST_DB, 14, true, CryptomatorDatabase_AutoMigration_13_14_Impl()).also { migratedDb ->
+			val statement = indexStatement(migratedDb)
+			val expected = "CREATE UNIQUE INDEX `IDX_VAULT_ENTITY_FOLDER_PATH_FOLDER_CLOUD_ID` ON `VAULT_ENTITY` (`folderPath` ASC, `folderCloudId` ASC)"
+			assertEquals(expected, statement)
+		}
+	}
+
+	private fun indexStatement(db: SupportSQLiteDatabase): String {
+		return Sql.SqlQueryBuilder("sqlite_master") //
+			.columns(listOf("sql")) //
+			.where("type", Sql.eq("index"))
+			.where("name", Sql.eq("IDX_VAULT_ENTITY_FOLDER_PATH_FOLDER_CLOUD_ID"))
+			.where("tbl_name", Sql.eq("VAULT_ENTITY")) //
+			.executeOn(db).use {
+				assertEquals(it.count, 1)
+				assertTrue(it.moveToNext())
+				it.getString(0)
+			}
 	}
 }

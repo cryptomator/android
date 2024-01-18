@@ -78,6 +78,13 @@ public class Sql {
 		return (column, whereClause, whereArgs) -> whereClause.append('"').append(column).append("\" = ").append(value);
 	}
 
+	public static Criterion like(final String value) {
+		return (column, whereClause, whereArgs) -> {
+			whereClause.append('"').append(column).append("\" LIKE(?)");
+			whereArgs.add(value);
+		};
+	}
+
 	public static ValueHolder toString(final String value) {
 		return (column, contentValues) -> contentValues.put(column, value);
 	}
