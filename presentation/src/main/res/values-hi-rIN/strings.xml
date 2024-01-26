@@ -28,9 +28,12 @@
 	<string name="error_failed_to_decrypt_webdav_password">WebDAV पासवर्ड को डिक्रिप्ट करने में विफल, कृपया सेटिंग्स में फिर से जोड़ें</string>
 	<string name="error_play_services_not_available">Google Play सेवाएं स्थापित नहीं हैं</string>
 	<string name="error_biometric_auth_aborted">बायोमेट्रिक प्रमाणीकरण निरस्त</string>
+	<string name="error_vault_version_mismatch">%1$s में निर्दिष्ट किया हुआ अनुवाद संख्या %2$s से भिन्न है|</string>
+	<string name="error_vault_key_invalid">%1$s इस %2$s से मेल नहीं खाता |</string>
 	<string name="error_vault_config_loading">वॉल्ट कॉन्फ़िगरेशन लोड करते समय सामान्य त्रुटि</string>
 	<string name="error_file_not_found_after_opening_using_3party">Cryptomator पर वापस जाने के बाद स्थानीय फ़ाइल अब मौजूद नहीं है। संभावित परिवर्तनों को वापस क्लाउड पर प्रचारित नहीं किया जा सकता है।</string>
 	<string name="error_no_such_bucket">ऐसी कोई बकेट नहीं है।</string>
+	<string name="error_masterkey_location_not_supported">व्यक्तिगत मास्टरकी स्थान का सपोर्ट अभीतक उपलब्ध नहीं हैं|</string>
 	<string name="error_interact_with_fdroid_but_fdroid_missing">F-Droid एप्लिकेशन के साथ संचार करने में विफल। स्थापित नहीं है?</string>
 	<!-- # clouds -->
 	<!-- ## cloud names -->
@@ -53,15 +56,18 @@
 	<string name="snack_bar_action_title_sort_biggest">सबसे बड़ा पहले</string>
 	<string name="snack_bar_action_title_sort_smallest">सबसे छोटा पहले</string>
 	<string name="snack_bar_cryptomator_variants_title">अधिक जानकारी के लिए पढ़ें ।</string>
+	<string name="snack_bar_cryptomator_variants_hint">क्लॉउड सूची में नहीं हैं|</string>
 	<!-- # screens -->
 	<!-- # screen: vault list -->
 	<string name="screen_vault_list_actions_title">क्रिप्टोमेटर में जोड़ें</string>
 	<string name="screen_vault_list_action_create_new_vault">नयी वॉल्ट बनाए</string>
 	<string name="screen_vault_list_action_add_existing_vault">मौजूदा वॉल्ट ऐड करें</string>
 	<string name="screen_vault_list_vault_action_delete">हटाएँ</string>
+	<string name="screen_vault_list_vault_creation_hint">नया तिजोरी बनाने के लिए यहां टैप करें।</string>
 	<string name="screen_vault_list_change_password_successful">पासवर्ड सफलतापूर्वक बदला गया।</string>
 	<!-- # screen: file browser -->
 	<string name="screen_file_browser_default_title">गुप्त तिजोरी</string>
+	<string name="screen_file_browser_add_existing_vault_extra_text">मास्टरकी फ़ाइल का चयन करें|</string>
 	<string name="screen_file_browser_create_new_vault_button_text">यहाँ रखें</string>
 	<string name="screen_file_browser_create_new_vault_extra_text">वॉल्ट का नाम: %1$s</string>
 	<string name="screen_file_browser_move_button_text">मूव करें</string>
