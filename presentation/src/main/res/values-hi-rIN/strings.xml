@@ -227,9 +227,25 @@
 	<string name="dialog_change_password">पासवर्ड बदलें</string>
 	<string name="dialog_change_password_msg_old_password_empty">पुराना पासवर्ड खाली नहीं हो सकता |</string>
 	<string name="dialog_change_password_msg_new_password_empty">नया पासवर्ड खाली नहीं हो सकता |</string>
+	<string name="dialog_change_password_msg_password_mismatch">नया पासवर्ड दोबारा टाइप किये गए पासवर्ड से मेल नहीं खाता।</string>
 	<!-- Vault not found -->
+	<string name="dialog_vault_not_found_title">तिजोरी %1$s नहीं मिली |</string>
+	<string name="dialog_vault_not_found_message">तिजोरी का नाम बदल दिया गया है, स्थानांतरित कर दिया गया है या हटा दिया गया है। इस वॉल्ट को सूची से हटाएं और आगे बढ़ने के लिए इसे फिर से जोड़ें। अभी हटाएं?</string>
 	<string name="dialog_vault_not_found_positive_button_text">हटाएँ</string>
+	<string name="dialog_existing_file_title">फ़ाइल पहले से ही मौजूद है</string>
+	<string name="dialog_existing_file_positive_button">फ़ाइलो को बदलें</string>
+	<string name="dialog_existing_file_message">\'%1$s\' नाम की फ़ाइल पहले से मौजूद है।</string>
+	<string name="dialog_replace_negative_button_at_least_two_but_not_all_files_exist">मौजूदा फ़ाइलो को छोड़ें</string>
+	<string name="dialog_replace_positive_button_all_files_exist">सभी फ़ाइलो को बदलें</string>
+	<string name="dialog_replace_positive_button_some_files_exist">मौजूदा फ़ाइलें बदलें</string>
+	<string name="dialog_replace_positive_button_single_file_exists">फ़ाइलो को बदलें</string>
+	<string name="dialog_replace_title_single_file_exists">फ़ाइल बदलें?</string>
+	<string name="dialog_replace_title_multiple_files_exist">फ़ाइलो को बदलें?</string>
+	<string name="dialog_unable_to_share_title">फ़ाइलो को साझा (share) करने में असमर्थ</string>
+	<string name="dialog_unable_to_share_message">आपने तिजोरी स्थापित नहीं की है | कृपया पहले क्रिप्टोमेटर आप्स से नयी तिजोरी बनाएं।</string>
+	<string name="dialog_unable_to_share_positive_button">ठीक है</string>
 	<string name="dialog_unable_to_share_negative_button">वॉल्ट बनाएं</string>
+	<string name="dialog_filetype_not_supported_title">%1$s फ़ाइल प्रकार खुल नहीं सका</string>
 	<string name="dialog_lock_vault">लॉक करें</string>
 	<string name="dialog_app_is_obscured_info_neutral_button">बंद करें</string>
 	<string name="dialog_update_available_cancel">बाद में</string>
