@@ -28,12 +28,12 @@
 	<string name="error_failed_to_decrypt_webdav_password">WebDAV पासवर्ड को डिक्रिप्ट करने में विफल, कृपया सेटिंग्स में फिर से जोड़ें</string>
 	<string name="error_play_services_not_available">Google Play सेवाएं स्थापित नहीं हैं</string>
 	<string name="error_biometric_auth_aborted">बायोमेट्रिक प्रमाणीकरण निरस्त</string>
-	<string name="error_vault_version_mismatch">%1$s में निर्दिष्ट किया हुआ अनुवाद संख्या %2$s से भिन्न है|</string>
+	<string name="error_vault_version_mismatch">%1$s में निर्दिष्ट किया हुआ अनुवाद संख्या %2$s से भिन्न है |</string>
 	<string name="error_vault_key_invalid">%1$s इस %2$s से मेल नहीं खाता |</string>
 	<string name="error_vault_config_loading">वॉल्ट कॉन्फ़िगरेशन लोड करते समय सामान्य त्रुटि</string>
 	<string name="error_file_not_found_after_opening_using_3party">Cryptomator पर वापस जाने के बाद स्थानीय फ़ाइल अब मौजूद नहीं है। संभावित परिवर्तनों को वापस क्लाउड पर प्रचारित नहीं किया जा सकता है।</string>
 	<string name="error_no_such_bucket">ऐसी कोई बकेट नहीं है।</string>
-	<string name="error_masterkey_location_not_supported">व्यक्तिगत मास्टरकी स्थान का सपोर्ट अभीतक उपलब्ध नहीं हैं|</string>
+	<string name="error_masterkey_location_not_supported">व्यक्तिगत मास्टरकी स्थान का सपोर्ट अभीतक उपलब्ध नहीं हैं |</string>
 	<string name="error_interact_with_fdroid_but_fdroid_missing">F-Droid एप्लिकेशन के साथ संचार करने में विफल। स्थापित नहीं है?</string>
 	<!-- # clouds -->
 	<!-- ## cloud names -->
@@ -56,7 +56,7 @@
 	<string name="snack_bar_action_title_sort_biggest">सबसे बड़ा पहले</string>
 	<string name="snack_bar_action_title_sort_smallest">सबसे छोटा पहले</string>
 	<string name="snack_bar_cryptomator_variants_title">अधिक जानकारी के लिए पढ़ें ।</string>
-	<string name="snack_bar_cryptomator_variants_hint">क्लॉउड सूची में नहीं हैं|</string>
+	<string name="snack_bar_cryptomator_variants_hint">क्लॉउड सूची में नहीं हैं |</string>
 	<!-- # screens -->
 	<!-- # screen: vault list -->
 	<string name="screen_vault_list_actions_title">क्रिप्टोमेटर में जोड़ें</string>
@@ -67,13 +67,14 @@
 	<string name="screen_vault_list_change_password_successful">पासवर्ड सफलतापूर्वक बदला गया।</string>
 	<!-- # screen: file browser -->
 	<string name="screen_file_browser_default_title">गुप्त तिजोरी</string>
-	<string name="screen_file_browser_add_existing_vault_extra_text">मास्टरकी फ़ाइल का चयन करें|</string>
+	<string name="screen_file_browser_add_existing_vault_extra_text">मास्टरकी फ़ाइल का चयन करें |</string>
 	<string name="screen_file_browser_create_new_vault_button_text">यहाँ रखें</string>
 	<string name="screen_file_browser_create_new_vault_extra_text">वॉल्ट का नाम: %1$s</string>
 	<string name="screen_file_browser_move_button_text">मूव करें</string>
 	<string name="screen_file_browser_msg_empty_folder">खाली फ़ोल्डर</string>
 	<string name="screen_file_browser_file_info_label_date">%1$s पहले बदला गया</string>
 	<string name="screen_file_browser_share_intent_chooser_title">शेयर करे</string>
+	<string name="screen_file_browser_share_destination_title">स्थान का चुनाव करें |</string>
 	<string name="screen_file_browser_share_button_text">चुनें</string>
 	<string name="screen_file_browser_nothing_to_share">शेयर करने के लिए कुछ नहीं है</string>
 	<string name="screen_file_browser_actions_title">%1$s में डालें</string>
@@ -84,6 +85,7 @@
 	<string name="screen_file_browser_msg_file_exported">दस्तावेज निर्यात हुआ</string>
 	<string name="screen_file_browser_msg_files_exported">दस्तावेज निर्यात हुए</string>
 	<string name="screen_file_browser_nothing_to_export">निर्यात करने के लिए कुछ भी नहीं</string>
+	<string name="screen_file_browser_msg_creating_download_dir_failed">डाउनलोड डिरेक्टररी बनाना विफल हुआ |</string>
 	<string name="screen_file_browser_node_action_share">साझा करें</string>
 	<string name="screen_file_browser_node_action_rename">नाम बदलें</string>
 	<string name="screen_file_browser_node_action_edit_text">संपादित करें</string>
@@ -111,11 +113,16 @@
 	<!-- ## screen: choose cloud service -->
 	<string name="screen_choose_cloud_service_title">क्लाउड सेवा</string>
 	<!-- ## screen: cloud connections -->
+	<string name="screen_cloud_connections_title">स्थान चुनें |</string>
+	<string name="screen_cloud_connections_no_connections">खाता खोलने के लिए यहाँ दबाएँ |</string>
+	<string name="screen_cloud_error_webdav_not_supported">सर्वर वेबडेव (WebDAV) के साथ अनुरूप नहीं है |</string>
+	<string name="screen_cloud_local_error_no_content_provider">ऐसा कोई फ़ाइल प्रबंधक नहीं मिला जो निर्देशिका खोलने का समर्थन करता हो |</string>
 	<!-- ## screen: webdav settings -->
 	<string name="screen_webdav_settings_url_port_label">URL</string>
 	<string name="screen_webdav_settings_username_label">उपयोगकर्ता नाम</string>
 	<string name="screen_webdav_settings_password_label">पासवर्ड</string>
 	<string name="screen_webdav_settings_done_button_text">जुड़ें</string>
+	<string name="screen_webdav_settings_msg_url_must_not_be_empty">यूआरएल (URL) खाली नहीं हो सकता |</string>
 	<string name="screen_webdav_settings_msg_url_is_invalid">यूआरएल अमान्य है।</string>
 	<string name="screen_webdav_settings_msg_username_must_not_be_empty">यूजरनेम खाली नहीं रह सकता</string>
 	<string name="screen_webdav_settings_msg_password_must_not_be_empty">पासवर्ड खाली नहीं छोड़ा जा सकता</string>
@@ -127,6 +134,9 @@
 	<string name="screen_s3_settings_endpoint_label">एंडपॉइन्ट</string>
 	<string name="screen_s3_settings_region_label">क्षेत्र</string>
 	<string name="screen_s3_settings_msg_display_name_not_empty">प्रदर्शित नाम खाली नहीं रह सकता</string>
+	<string name="screen_s3_settings_msg_access_key_not_empty">एक्सेस कुंजी खाली नहीं हो सकती |</string>
+	<string name="screen_s3_settings_msg_secret_key_not_empty">गुप्त कुंजी खाली नहीं हो सकती |</string>
+	<string name="screen_s3_settings_msg_bucket_not_empty">बाल्टी के गुण खाली नहीं हो सकती |</string>
 	<string name="screen_s3_settings_msg_endpoint_and_region_not_empty">एंडपॉइन्ट या क्षेत्र खाली नहीं रह सकते</string>
 	<!-- ## screen: enter vault name -->
 	<string name="screen_enter_vault_name_msg_name_empty">वॉल्ट का नाम खाली नहीं रह सकता।</string>
@@ -136,30 +146,74 @@
 	<string name="screen_set_password_title">पासवर्ड सेट करें</string>
 	<string name="screen_set_password_msg_password_mismatch">पासवर्ड दोबारा टाइप किये गए पासवर्ड से मेल नहीं खाता।</string>
 	<string name="screen_set_password_button_text">हो गया</string>
+	<string name="screen_set_password_hint">महत्वपूर्ण: यदि आप अपना पासवर्ड भूल जाते हैं, तो डेटा को पुनर्प्राप्त करने का कोई तरीका नहीं है।</string>
+	<string name="screen_set_password_retype_password_label">पासवर्ड फिर से लिखें |</string>
 	<string name="screen_set_password_strength_indicator_0">वॉल्ट बनाने के लिए बहुत कमज़ोर</string>
 	<string name="screen_set_password_strength_indicator_1">कमजोर</string>
 	<string name="screen_set_password_strength_indicator_2">बढ़िया</string>
 	<string name="screen_set_password_strength_indicator_3">मजबूत</string>
+	<string name="screen_set_password_strength_indicator_4">बहुत मजबूत |</string>
 	<!-- ## screen: settings -->
 	<string name="screen_settings_section_general">सामान्य</string>
 	<string name="screen_settings_cloud_settings_label">क्लाउड सेवाएं</string>
 	<string name="screen_settings_biometric_auth">बायोमेट्रिक प्रमाणीकरण</string>
+	<string name="screen_settings_activate_biometric_auth">बायोमेट्रिक प्रमाणीकरण सक्रिय करें |</string>
+	<string name="screen_settings_confirm_face_unlock">फेस अनलॉक की पुष्टि करें (यदि उपलब्ध हो) |</string>
+	<string name="screen_settings_block_app_when_obscured">अस्पष्ट होने पर आप्स को ब्लॉक करें |</string>
+	<string name="screen_settings_block_app_when_obscured_summary">इनपुट को इंटरसेप्ट करने और ग़लत यूज़र इंटरफ़ेस प्रदर्शित करने से रोकें |</string>
+	<string name="screen_settings_secure_screen">ब्लॉक स्क्रीनशॉट |</string>
+	<string name="screen_settings_secure_screen_summary">हाल ही की सूची में और आप्स के अंदर स्क्रीनशॉट ब्लॉक करें |</string>
 	<string name="screen_settings_section_search">खोज करें</string>
+	<string name="screen_settings_live_search">सीधा प्रसारित खोज |</string>
+	<string name="screen_settings_live_search_summary">प्रश्न दर्ज करते समय खोज परिणाम अद्यतन (अपडेट) करें |</string>
+	<string name="screen_settings_glob_search">ग्लोब (glob) पैटर्न का उपयोग करके खोजें |</string>
+	<string name="screen_settings_glob_search_summary">ऐलिस.*.जेपिजे (alice.*.jpg) की तरह मेल खाने वाले ग्लोब पैटर्न का उपयोग करें</string>
+	<string name="screen_settings_section_auto_lock">ऑटोमाटिक लॉक करें |</string>
+	<string name="screen_settings_auto_lock_timeout">बादमें लॉक करें |</string>
+	<string name="screen_settings_auto_lock_on_screen_lock">जब स्क्रीन अक्षम हो |</string>
+	<string name="screen_settings_section_auto_photo_upload">ऑटोमाटिक फोटो अपलोड |</string>
+	<string name="screen_settings_section_auto_photo_upload_vault">अपलोड के लिए तिजोरी चुनें |</string>
+	<string name="screen_settings_section_auto_photo_upload_toggle">सक्रिय</string>
+	<string name="screen_settings_section_auto_photo_upload_toggle_summary">पृष्ठभूमि के प्रतिमा अधिकृत करें और तिजोरी को खोलने के बाद, अपलोड प्रारंभ करें |</string>
+	<string name="screen_settings_section_auto_photo_upload_toggle_instant_upload">तुरंत अपलोड करें |</string>
+	<string name="screen_settings_section_auto_photo_upload_toggle_instant_upload_summary">यदि तिजोरी खुली है तो सीधे अपलोड करें |</string>
+	<string name="screen_settings_section_auto_photo_upload_only_wifi_toggle">केवल वाईफ़ाई (WIFI) का उपयोग करके अपलोड करें |</string>
+	<string name="screen_settings_section_auto_photo_upload_including_videos">वीडियो अपलोड करें |</string>
+	<string name="screen_settings_auto_photo_upload_title">अपने आप अपलोड हुए फ़ाइलें को &#8230; में जमा करे |</string>
+	<string name="screen_settings_website_label">क्रिप्टोमेटर वेबसाइट |</string>
 	<string name="screen_settings_twitter_label">हमें Twitter पर फॉलो करें</string>
 	<string name="screen_settings_facebook_label">हमें फ़ेसबुक पर लाइक करें</string>
+	<string name="screen_settings_section_legal">कानूनी</string>
+	<string name="screen_settings_licenses_label">लाइसेंस</string>
 	<string name="screen_settings_license_terms_label">लाइसेंस की शर्तें</string>
 	<string name="screen_settings_section_support">सहायता</string>
 	<string name="screen_settings_contact_label">सहायता माँगे</string>
 	<string name="screen_settings_debug_mode_label">डीबग मोड</string>
 	<string name="screen_settings_error_report_label">लॉग फ़ाइल भेजें</string>
+	<string name="screen_settings_error_report_failed">भेजने में विफल हुआ हैं |</string>
+	<string name="screen_settings_security_label">सुरक्षा के संकेत |</string>
 	<string name="screen_settings_section_version">संस्करण</string>
 	<string name="screen_settings_advanced_settings">एडवांस्ड सेटिंग्स</string>
+	<string name="screen_settings_microsoft_apps_workaround_label">माइक्रोसॉफ्ट फ़ाइल खुलनेका वैकल्पिक हल |</string>
+	<string name="screen_settings_microsoft_apps_workaround_summary">फ़ाइलें को माइक्रोसॉ आप्स में लिखने के अनुमती के साथ खोले |</string>
+	<string name="screen_settings_background_unlock_preparation_label">अनलॉक में तेजी लाएं |</string>
+	<string name="screen_settings_background_unlock_preparation_label_summary">पासवर्ड या बायोमेट्रिक प्रमाण दर्ज करने के लिए संकेत देते समय पृष्ठभूमि में तिजोरी के कॉन्फ़िगरेशन को डाउनलोड करें |</string>
 	<string name="screen_settings_keep_unlocked_while_editing_files">अनलॉक्ड रखें</string>
 	<string name="screen_settings_keep_unlocked_while_editing_files_summary">फाइल्स एडिट करते वक़्त वॉल्ट अनलॉक्ड रखें</string>
 	<!-- ## screen: cloud settings -->
+	<string name="screen_cloud_settings_onedrive_connections">वनड्राइव (OneDrive) कनेक्शन |</string>
+	<string name="screen_cloud_settings_webdav_connections">वेबडीएवी (WebDAV) कनेक्शन |</string>
+	<string name="screen_cloud_settings_pcloud_connections">पीक्लाउड (pCloud) कनेक्शन |</string>
+	<string name="screen_cloud_settings_s3_connections">S3 कनेक्शन |</string>
+	<string name="screen_cloud_settings_local_storage_locations">स्थानीय जमा करने का स्थान |</string>
+	<string name="screen_cloud_settings_log_in_to">में प्रवेश करें |</string>
+	<string name="screen_cloud_settings_sign_out_from_cloud">से बाहर पढ़े |</string>
 	<!-- ## screen: licenses -->
 	<!-- ## screen: authenticate cloud -->
+	<string name="screen_authenticate_auth_authentication_failed">%1$s को प्रमाणित नहीं किया जा सका.</string>
+	<string name="screen_update_pcloud_connections_title">pCloud क्रेडेंशियल अपडेट करें |</string>
 	<!-- ## screen: cryptomator app variants -->
+	<string name="screen_cryptomator_variants_title">क्रिप्टोमेटर के प्रकार |</string>
 	<!-- # dialogs -->
 	<string name="dialog_button_cancel">रद्द करें</string>
 	<string name="dialog_enter_password_positive_button">अनलॉक करें</string>
