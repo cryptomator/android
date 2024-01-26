@@ -266,7 +266,17 @@
 	<string name="dialog_export_file_title">ऐप्स बाहर भेजने के लिए फाइल का नाम (%1$d/%2$d)</string>
 	<string name="dialog_progress_please_wait">कृपया प्रतीक्षा करे&#8230;</string>
 	<string name="dialog_progress_creating_folder">फ़ोल्डर बनाये&#8230;</string>
+	<string name="dialog_progress_creating_text_file">टेक्स्ट फ़ाइल बनाये&#8230;</string>
+	<string name="action_progress_authentication">प्रमाणीत करे&#8230;</string>
+	<string name="action_progress_renaming">नाम बदल रहा हैं&#8230;</string>
+	<string name="action_progress_deleting">हटाया जा रहा है&#8230;</string>
+	<string name="dialog_progress_unlocking_vault">तिजोरी खुल रही है&#8230;</string>
+	<string name="dialog_progress_change_password">पासवर्ड बदल रहा है&#8230;</string>
+	<string name="dialog_progress_creating_vault">तिजोरी संस्थापित हो रही है&#8230;</string>
 	<string name="dialog_progress_upload_file">अपलोड हो रहा है&#8230;</string>
+	<string name="dialog_progress_download_file">डाउनलोड हो रहा है&#8230;</string>
+	<string name="dialog_progress_encryption">कूट लेखन (एन्क्रिप्ट) हो रहा है&#8230;</string>
+	<string name="dialog_progress_decryption">विकोड लेखन (डिक्रिप्ट) हो रहा है&#8230;</string>
 	<string name="dialog_lock_vault">लॉक करें</string>
 	<string name="dialog_app_is_obscured_info_neutral_button">बंद करें</string>
 	<string name="dialog_update_available_cancel">बाद में</string>
