@@ -32,9 +32,9 @@
 	<string name="error_vault_key_invalid">%1$s non corrisponde a questo %2$s</string>
 	<string name="error_vault_config_loading">Errore generale durante il caricamento della configurazione della cassaforte</string>
 	<string name="error_file_not_found_after_opening_using_3party">Il file locale non è più presente dopo essere tornato a Cryptomator. Le eventuali modifiche non possono essere riprodotte nel cloud.</string>
-	<string name="error_no_such_bucket">Nessun secchio simile</string>
-	<string name="error_masterkey_location_not_supported">Posizione della Chiave Principale Personalizzata non ancora supportata</string>
-	<string name="error_interact_with_fdroid_but_fdroid_missing">Non sei riuscito a comunicare con l\'app F-Droid. Non installata?</string>
+	<string name="error_no_such_bucket">Nessun bucket di questo tipo</string>
+	<string name="error_masterkey_location_not_supported">Posizione personalizzata della Chiave Principale non ancora supportata</string>
+	<string name="error_interact_with_fdroid_but_fdroid_missing">Impossibile comunicare con l\'app F-Droid. Forse non è installata?</string>
 	<!-- # clouds -->
 	<!-- ## cloud names -->
 	<string name="cloud_names_local_storage">Archivio locale</string>
