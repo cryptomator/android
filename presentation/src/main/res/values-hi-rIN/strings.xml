@@ -278,6 +278,8 @@
 	<string name="dialog_progress_encryption">कूट लेखन (एन्क्रिप्ट) हो रहा है&#8230;</string>
 	<string name="dialog_progress_decryption">विकोड लेखन (डिक्रिप्ट) हो रहा है&#8230;</string>
 	<string name="dialog_lock_vault">लॉक करें</string>
+	<string name="dialog_http_security_checkbox">HTTPS में बदलें</string>
+	<string name="dialog_http_security_title">HTTPS का उपयोग करें?</string>
 	<string name="dialog_app_is_obscured_info_neutral_button">बंद करें</string>
 	<string name="dialog_update_available_cancel">बाद में</string>
 	<string name="dialog_download_update_title">डाउनलोड चल रहा है।</string>
