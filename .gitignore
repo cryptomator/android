@@ -9,12 +9,14 @@
 .idea/assetWizardSettings.xml
 .idea/dictionaries
 .idea/**/libraries/
+.idea/**/shelf
 .idea/caches
 .idea/modules.xml
 .idea/navEditor.xml
 .idea/encodings.xml
 .idea/compiler.xml
 .idea/jarRepositories.xml
+.idea/androidTestResultsUserPreferences.xml
 
 ###Android###
 
