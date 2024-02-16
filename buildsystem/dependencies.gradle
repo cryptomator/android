@@ -1,7 +1,20 @@
+Action<InclusiveRepositoryContentDescriptor> jitpackFilterConfigurationAction = { filter ->
+	filter.includeModule('com.github.solkin', 'disk-lru-cache')
+}
+
 allprojects {
 	repositories {
 		mavenCentral()
-		maven { url 'https://jitpack.io' }
+		exclusiveContent {
+			forRepository {
+				maven {
+					url 'https://jitpack.io'
+					//Apparently this filter is already applied implicitly, but it's not documented...
+					content(jitpackFilterConfigurationAction)
+				}
+			}
+			filter(jitpackFilterConfigurationAction)
+		}
 		// needed for 'com.microsoft.device.display' required by 'com.microsoft.graph:microsoft-graph'
 		exclusiveContent {
 			forRepository {
