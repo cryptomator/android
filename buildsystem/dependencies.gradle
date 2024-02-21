@@ -69,9 +69,9 @@ ext {
 
 	googleApiServicesVersion = 'v3-rev20220508-1.32.1'
 	googlePlayServicesVersion = '19.2.0'
-	googleClientVersion = '2.2.0' // keep in sync with https://github.com/SailReal/google-http-java-client
+	googleClientVersion = '2.2.0' // keep in sync with https://github.com/cryptomator/google-http-java-client
 	/*
-		update using https://github.com/SailReal/google-http-java-client with `mvn clean install`,
+		update using https://github.com/cryptomator/google-http-java-client with `mvn clean install`,
 		copying `google-http-client-*.jar` and `google-http-client-android-*.jar` into the lib folder of this project
 	 */
 	trackingFreeGoogleCLientVersion = '1.43.0'
