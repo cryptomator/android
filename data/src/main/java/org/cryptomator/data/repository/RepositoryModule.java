@@ -1,5 +1,6 @@
 package org.cryptomator.data.repository;
 
+import org.cryptomator.data.db.DatabaseModule;
 import org.cryptomator.domain.repository.CloudContentRepository;
 import org.cryptomator.domain.repository.CloudRepository;
 import org.cryptomator.domain.repository.UpdateCheckRepository;
@@ -10,7 +11,7 @@ import javax.inject.Singleton;
 import dagger.Module;
 import dagger.Provides;
 
-@Module
+@Module(includes = {DatabaseModule.class})
 public class RepositoryModule {
 
 	@Singleton

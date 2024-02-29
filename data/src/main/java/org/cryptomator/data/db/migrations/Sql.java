@@ -1,22 +1,24 @@
-package org.cryptomator.data.db;
+package org.cryptomator.data.db.migrations;
 
 import android.content.ContentValues;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.database.sqlite.SQLiteQueryBuilder;
 
-import org.greenrobot.greendao.database.Database;
+import androidx.sqlite.db.SupportSQLiteDatabase;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import static org.cryptomator.data.db.migrations.Sql.SqlCreateTableBuilder.ColumnConstraint.NOT_NULL;
+import static org.cryptomator.data.db.migrations.Sql.SqlCreateTableBuilder.ColumnConstraint.PRIMARY_KEY;
+import static org.cryptomator.data.db.migrations.Sql.SqlCreateTableBuilder.ColumnType.BOOLEAN;
+import static org.cryptomator.data.db.migrations.Sql.SqlCreateTableBuilder.ColumnType.INTEGER;
+import static org.cryptomator.data.db.migrations.Sql.SqlCreateTableBuilder.ColumnType.TEXT;
 import static java.lang.String.format;
-import static org.cryptomator.data.db.Sql.SqlCreateTableBuilder.ColumnConstraint.NOT_NULL;
-import static org.cryptomator.data.db.Sql.SqlCreateTableBuilder.ColumnConstraint.PRIMARY_KEY;
-import static org.cryptomator.data.db.Sql.SqlCreateTableBuilder.ColumnType.BOOLEAN;
-import static org.cryptomator.data.db.Sql.SqlCreateTableBuilder.ColumnType.INTEGER;
-import static org.cryptomator.data.db.Sql.SqlCreateTableBuilder.ColumnType.TEXT;
 
-class Sql {
+//https://developer.android.com/reference/android/database/sqlite/package-summary.html -- API 26 -> 3.18
+public class Sql {
 
 	public static SqlInsertBuilder insertInto(String table) {
 		return new SqlInsertBuilder(table);
@@ -61,6 +63,13 @@ class Sql {
 		};
 	}
 
+	public static Criterion notEq(final String value) {
+		return (column, whereClause, whereArgs) -> {
+			whereClause.append('"').append(column).append("\" != ?");
+			whereArgs.add(value);
+		};
+	}
+
 	public static Criterion isNull() {
 		return (column, whereClause, whereArgs) -> whereClause.append('"').append(column).append("\" IS NULL");
 	}
@@ -83,10 +92,6 @@ class Sql {
 
 	public static ValueHolder toNull() {
 		return (column, contentValues) -> contentValues.putNull(column);
-	}
-
-	private static SQLiteDatabase unwrap(Database wrapped) {
-		return (SQLiteDatabase) wrapped.getRawDatabase();
 	}
 
 	public interface ValueHolder {
@@ -143,11 +148,24 @@ class Sql {
 			return this;
 		}
 
-		public Cursor executeOn(Database wrapped) {
-			SQLiteDatabase db = unwrap(wrapped);
-			return db.query(tableName, columns.toArray(new String[columns.size()]), whereClause.toString(), whereArgs.toArray(new String[whereArgs.size()]), groupBy, having, limit);
+		public Cursor executeOn(SupportSQLiteDatabase db) {
+			if (tableName == null || tableName.trim().isEmpty()) {
+				throw new IllegalArgumentException();
+			}
+			String query = SQLiteQueryBuilder.buildQueryString( //
+					/* distinct */ false, //
+					tableName, //
+					columns.toArray(new String[columns.size()]), //
+					whereClause.toString(), //
+					groupBy, //
+					having, //
+					/* orderBy */ null, //
+					limit  //
+			);
+			//In contrast to "SupportSQLiteDatabase#update" "query" doesn't define how the contents of "whereArgs" are bound.
+			//As of now we always pass an "Array<String>", but this has to be kept in mind if we ever change this. See: "SqlUpdateBuilder#executeOn"
+			return db.query(query, whereArgs.toArray());
 		}
-
 	}
 
 	public static class SqlUpdateBuilder {
@@ -175,14 +193,18 @@ class Sql {
 			return this;
 		}
 
-		public void executeOn(Database wrapped) {
+		public void executeOn(SupportSQLiteDatabase db) {
 			if (contentValues.size() == 0) {
 				throw new IllegalStateException("At least one value must be set");
 			}
-			SQLiteDatabase db = unwrap(wrapped);
-			db.update(tableName, contentValues, whereClause.toString(), whereArgs.toArray(new String[whereArgs.size()]));
-		}
 
+			//The behavior of "SupportSQLiteDatabase#update" is a bit strange, which caused me to investigate:
+			//The docs say that the contents of "whereArgs" are bound as "Strings", even if the parameter is of type "Array<Object/Any>".
+			//The internal binding methods are type-safe, but resolve to just putting all args into an "Array<Object/Any>" in "SQLiteProgram" anyway.
+			//This array is also used by "SQLiteDatabase#update". Apparently the contents of the array are then bound as "Strings".
+			//As of now we always pass an "Array<String>", but all of this has to be kept in mind if we ever change this.
+			db.update(tableName, SQLiteDatabase.CONFLICT_NONE, contentValues, whereClause.toString(), whereArgs.toArray(new String[whereArgs.size()]));
+		}
 	}
 
 	public static class SqlDropIndexBuilder {
@@ -193,8 +215,7 @@ class Sql {
 			this.index = index;
 		}
 
-		public void executeOn(Database wrapped) {
-			SQLiteDatabase db = unwrap(wrapped);
+		public void executeOn(SupportSQLiteDatabase db) {
 			db.execSQL(format("DROP INDEX \"%s\"", index));
 		}
 
@@ -223,8 +244,7 @@ class Sql {
 			return this;
 		}
 
-		public void executeOn(Database wrapped) {
-			SQLiteDatabase db = unwrap(wrapped);
+		public void executeOn(SupportSQLiteDatabase db) {
 			db.execSQL(format("CREATE UNIQUE INDEX \"%s\" ON \"%s\" (%s)", indexName, table, columns));
 		}
 	}
@@ -237,8 +257,7 @@ class Sql {
 			this.table = table;
 		}
 
-		public void executeOn(Database wrapped) {
-			SQLiteDatabase db = unwrap(wrapped);
+		public void executeOn(SupportSQLiteDatabase db) {
 			db.execSQL(format("DROP TABLE \"%s\"", table));
 		}
 
@@ -258,8 +277,7 @@ class Sql {
 			return this;
 		}
 
-		public void executeOn(Database wrapped) {
-			SQLiteDatabase db = unwrap(wrapped);
+		public void executeOn(SupportSQLiteDatabase db) {
 			db.execSQL(format("ALTER TABLE \"%s\" RENAME TO \"%s\"", table, newName));
 		}
 	}
@@ -284,8 +302,7 @@ class Sql {
 			return this;
 		}
 
-		public void executeOn(Database wrapped) {
-			SQLiteDatabase db = unwrap(wrapped);
+		public void executeOn(SupportSQLiteDatabase db) {
 			StringBuilder query = new StringBuilder().append("INSERT INTO \"").append(table).append("\" (");
 			appendColumns(query, columns, false);
 			query.append(") SELECT ");
@@ -315,6 +332,14 @@ class Sql {
 		}
 
 		public SqlInsertSelectBuilder join(String targetTable, String sourceColumn) {
+			return join(targetTable, "id", sourceColumn);
+		}
+
+		public SqlInsertSelectBuilder pre14Join(String targetTable, String sourceColumn) {
+			return join(targetTable, "_id", sourceColumn);
+		}
+
+		public SqlInsertSelectBuilder join(String targetTable, String targetColumn, String sourceColumn) {
 			sourceColumn = sourceColumn.replace(".", "\".\"");
 			joinClauses.append(" JOIN \"") //
 					.append(targetTable) //
@@ -322,7 +347,9 @@ class Sql {
 					.append(sourceColumn) //
 					.append("\" = \"") //
 					.append(targetTable) //
-					.append("\".\"_id\" ");
+					.append("\".\"") //
+					.append(targetColumn) //
+					.append("\" ");
 
 			return this;
 		}
@@ -351,6 +378,11 @@ class Sql {
 		}
 
 		public SqlCreateTableBuilder id() {
+			column("id", INTEGER, PRIMARY_KEY);
+			return this;
+		}
+
+		public SqlCreateTableBuilder pre14Id() {
 			column("_id", INTEGER, PRIMARY_KEY);
 			return this;
 		}
@@ -396,12 +428,19 @@ class Sql {
 			return this;
 		}
 
-		public void executeOn(Database wrapped) {
-			SQLiteDatabase db = unwrap(wrapped);
+		public void executeOn(SupportSQLiteDatabase db) {
 			db.execSQL(format("CREATE TABLE \"%s\" (%s%s)", table, columns, foreignKeys));
 		}
 
 		public SqlCreateTableBuilder foreignKey(String column, String targetTable, ForeignKeyBehaviour... behaviours) {
+			return foreignKey(column, targetTable, "id", behaviours);
+		}
+
+		public SqlCreateTableBuilder pre14ForeignKey(String column, String targetTable, ForeignKeyBehaviour... behaviours) {
+			return foreignKey(column, targetTable, "_id", behaviours);
+		}
+
+		public SqlCreateTableBuilder foreignKey(String column, String targetTable, String targetColumn, ForeignKeyBehaviour... behaviours) {
 			foreignKeys //
 					.append(", CONSTRAINT FK_") //
 					.append(column) //
@@ -411,7 +450,9 @@ class Sql {
 					.append(column) //
 					.append(") REFERENCES ") //
 					.append(targetTable) //
-					.append("(_id)");
+					.append("(") //
+					.append(targetColumn) //
+					.append(")");
 
 			for (ForeignKeyBehaviour behaviour : behaviours) {
 				foreignKeys.append(" ").append(behaviour.getText());
@@ -487,14 +528,12 @@ class Sql {
 			return this;
 		}
 
-		public SqlInsertBuilder bool(String column, Boolean value) {
-			contentValues.put(column, value);
-			return this;
-		}
-
-		public Long executeOn(Database wrapped) {
-			SQLiteDatabase db = unwrap(wrapped);
-			return db.insertOrThrow(table, null, contentValues);
+		public Long executeOn(SupportSQLiteDatabase db) {
+			//In contrast to "SupportSQLiteDatabase#update" "insert" doesn't define how the contents of "contentValues" are bound.
+			//As opposed to the other methods in this class, we do actually pass "Integers" and "Strings" here and again they appear
+			//to end up in the "Array<Object/Any>" in "SQLiteProgram". Currently there is no issue,
+			//but this has to be kept in mind if we ever change this method. See: "SqlUpdateBuilder#executeOn"
+			return db.insert(this.table, SQLiteDatabase.CONFLICT_NONE, contentValues);
 		}
 	}
 
@@ -517,10 +556,10 @@ class Sql {
 			return this;
 		}
 
-		public void executeOn(Database wrapped) {
-			SQLiteDatabase db = unwrap(wrapped);
+		public void executeOn(SupportSQLiteDatabase db) {
+			//"SupportSQLiteDatabase#delete" always binds the contents of "whereArgs" as "Strings".
+			//As of now we always pass an "Array<String>", but this has to be kept in mind if we ever change this. See: "SqlUpdateBuilder#executeOn"
 			db.delete(tableName, whereClause.toString(), whereArgs.toArray(new String[whereArgs.size()]));
 		}
 	}
-
 }

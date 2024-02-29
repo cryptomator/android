@@ -1,22 +1,24 @@
-package org.cryptomator.data.db
+package org.cryptomator.data.db.migrations.legacy
 
-import org.greenrobot.greendao.database.Database
+import androidx.sqlite.db.SupportSQLiteDatabase
+import org.cryptomator.data.db.DatabaseMigration
+import org.cryptomator.data.db.migrations.Sql
 import javax.inject.Inject
 import javax.inject.Singleton
 
 @Singleton
-internal class Upgrade1To2 @Inject constructor() : DatabaseUpgrade(1, 2) {
+internal class Upgrade1To2 @Inject constructor() : DatabaseMigration(1, 2) {
 
-	override fun internalApplyTo(db: Database, origin: Int) {
+	override fun migrateInternal(db: SupportSQLiteDatabase) {
 		createUpdateCheckTable(db)
 		createInitialUpdateStatus(db)
 	}
 
-	private fun createUpdateCheckTable(db: Database) {
+	private fun createUpdateCheckTable(db: SupportSQLiteDatabase) {
 		db.beginTransaction()
 		try {
 			Sql.createTable("UPDATE_CHECK_ENTITY") //
-				.id() //
+				.pre14Id() //
 				.optionalText("LICENSE_TOKEN") //
 				.optionalText("RELEASE_NOTE") //
 				.optionalText("VERSION") //
@@ -29,7 +31,7 @@ internal class Upgrade1To2 @Inject constructor() : DatabaseUpgrade(1, 2) {
 		}
 	}
 
-	private fun createInitialUpdateStatus(db: Database) {
+	private fun createInitialUpdateStatus(db: SupportSQLiteDatabase) {
 		Sql.insertInto("UPDATE_CHECK_ENTITY") //
 			.integer("_id", 1) //
 			.text("LICENSE_TOKEN", null) //

@@ -1,14 +1,16 @@
-package org.cryptomator.data.db
+package org.cryptomator.data.db.migrations.legacy
 
-import org.cryptomator.data.db.Sql.SqlCreateTableBuilder.ForeignKeyBehaviour
-import org.greenrobot.greendao.database.Database
+import androidx.sqlite.db.SupportSQLiteDatabase
+import org.cryptomator.data.db.DatabaseMigration
+import org.cryptomator.data.db.migrations.Sql
+import org.cryptomator.data.db.migrations.Sql.SqlCreateTableBuilder.ForeignKeyBehaviour
 import javax.inject.Inject
 import javax.inject.Singleton
 
 @Singleton
-internal class Upgrade3To4 @Inject constructor() : DatabaseUpgrade(3, 4) {
+internal class Upgrade3To4 @Inject constructor() : DatabaseMigration(3, 4) {
 
-	override fun internalApplyTo(db: Database, origin: Int) {
+	override fun migrateInternal(db: SupportSQLiteDatabase) {
 		db.beginTransaction()
 		try {
 			addPositionToVaultSchema(db)
@@ -19,24 +21,24 @@ internal class Upgrade3To4 @Inject constructor() : DatabaseUpgrade(3, 4) {
 		}
 	}
 
-	private fun addPositionToVaultSchema(db: Database) {
+	private fun addPositionToVaultSchema(db: SupportSQLiteDatabase) {
 		Sql.alterTable("VAULT_ENTITY").renameTo("VAULT_ENTITY_OLD").executeOn(db)
 		Sql.createTable("VAULT_ENTITY") //
-			.id() //
+			.pre14Id() //
 			.optionalInt("FOLDER_CLOUD_ID") //
 			.optionalText("FOLDER_PATH") //
 			.optionalText("FOLDER_NAME") //
 			.requiredText("CLOUD_TYPE") //
 			.optionalText("PASSWORD") //
 			.optionalInt("POSITION") //
-			.foreignKey("FOLDER_CLOUD_ID", "CLOUD_ENTITY", ForeignKeyBehaviour.ON_DELETE_SET_NULL) //
+			.pre14ForeignKey("FOLDER_CLOUD_ID", "CLOUD_ENTITY", ForeignKeyBehaviour.ON_DELETE_SET_NULL) //
 			.executeOn(db)
 
 		Sql.insertInto("VAULT_ENTITY") //
 			.select("_id", "FOLDER_CLOUD_ID", "FOLDER_PATH", "FOLDER_NAME", "PASSWORD", "CLOUD_ENTITY.TYPE") //
 			.columns("_id", "FOLDER_CLOUD_ID", "FOLDER_PATH", "FOLDER_NAME", "PASSWORD", "CLOUD_TYPE") //
 			.from("VAULT_ENTITY_OLD") //
-			.join("CLOUD_ENTITY", "VAULT_ENTITY_OLD.FOLDER_CLOUD_ID") //
+			.pre14Join("CLOUD_ENTITY", "VAULT_ENTITY_OLD.FOLDER_CLOUD_ID") //
 			.executeOn(db)
 
 		Sql.dropIndex("IDX_VAULT_ENTITY_FOLDER_PATH_FOLDER_CLOUD_ID").executeOn(db)
@@ -50,7 +52,7 @@ internal class Upgrade3To4 @Inject constructor() : DatabaseUpgrade(3, 4) {
 		Sql.dropTable("VAULT_ENTITY_OLD").executeOn(db)
 	}
 
-	private fun initVaultPositionUsingCurrentSortOrder(db: Database) {
+	private fun initVaultPositionUsingCurrentSortOrder(db: SupportSQLiteDatabase) {
 		Sql.query("VAULT_ENTITY").executeOn(db).use {
 			while (it.moveToNext()) {
 				Sql.update("VAULT_ENTITY")

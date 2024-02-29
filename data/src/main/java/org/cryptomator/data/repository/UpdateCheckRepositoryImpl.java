@@ -7,7 +7,7 @@ import com.google.common.base.Optional;
 import com.google.common.io.BaseEncoding;
 
 import org.apache.commons.codec.binary.Hex;
-import org.cryptomator.data.db.Database;
+import org.cryptomator.data.db.UpdateCheckDao;
 import org.cryptomator.data.db.entities.UpdateCheckEntity;
 import org.cryptomator.data.util.UserAgentInterceptor;
 import org.cryptomator.domain.exception.BackendException;
@@ -30,6 +30,7 @@ import java.security.spec.X509EncodedKeySpec;
 
 import javax.annotation.Nullable;
 import javax.inject.Inject;
+import javax.inject.Provider;
 import javax.inject.Singleton;
 
 import io.jsonwebtoken.Claims;
@@ -46,14 +47,14 @@ public class UpdateCheckRepositoryImpl implements UpdateCheckRepository {
 
 	private static final String HOSTNAME_LATEST_VERSION = "https://api.cryptomator.org/android/latest-version.json";
 
-	private final Database database;
+	private final Provider<UpdateCheckDao> updateCheckDao;
 	private final OkHttpClient httpClient;
 	private final Context context;
 
 	@Inject
-	UpdateCheckRepositoryImpl(Database database, Context context) {
+	UpdateCheckRepositoryImpl(Provider<UpdateCheckDao> updateCheckDao, Context context) {
 		this.httpClient = httpClient();
-		this.database = database;
+		this.updateCheckDao = updateCheckDao;
 		this.context = context;
 	}
 
@@ -71,7 +72,7 @@ public class UpdateCheckRepositoryImpl implements UpdateCheckRepository {
 			return Optional.absent();
 		}
 
-		final UpdateCheckEntity entity = database.load(UpdateCheckEntity.class, 1L);
+		final UpdateCheckEntity entity = updateCheckDao.get().load(1L);
 
 		if (entity.getVersion() != null && entity.getVersion().equals(latestVersion.version) && entity.getApkSha256() != null) {
 			return Optional.of(new UpdateCheckImpl("", entity));
@@ -82,7 +83,7 @@ public class UpdateCheckRepositoryImpl implements UpdateCheckRepository {
 		entity.setVersion(updateCheck.getVersion());
 		entity.setApkSha256(updateCheck.getApkSha256());
 
-		database.store(entity);
+		updateCheckDao.get().storeReplacing(entity);
 
 		return Optional.of(updateCheck);
 	}
@@ -90,22 +91,22 @@ public class UpdateCheckRepositoryImpl implements UpdateCheckRepository {
 	@Nullable
 	@Override
 	public String getLicense() {
-		return database.load(UpdateCheckEntity.class, 1L).getLicenseToken();
+		return updateCheckDao.get().load(1L).getLicenseToken();
 	}
 
 	@Override
 	public void setLicense(String license) {
-		final UpdateCheckEntity entity = database.load(UpdateCheckEntity.class, 1L);
+		final UpdateCheckEntity entity = updateCheckDao.get().load(1L);
 
 		entity.setLicenseToken(license);
 
-		database.store(entity);
+		updateCheckDao.get().storeReplacing(entity);
 	}
 
 	@Override
 	public void update(File file) throws GeneralUpdateErrorException {
 		try {
-			final UpdateCheckEntity entity = database.load(UpdateCheckEntity.class, 1L);
+			final UpdateCheckEntity entity = updateCheckDao.get().load(1L);
 
 			final Request request = new Request //
 					.Builder() //

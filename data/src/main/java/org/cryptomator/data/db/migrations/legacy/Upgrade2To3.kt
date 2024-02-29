@@ -1,16 +1,18 @@
-package org.cryptomator.data.db
+package org.cryptomator.data.db.migrations.legacy
 
 import android.content.Context
 import android.content.SharedPreferences
+import androidx.sqlite.db.SupportSQLiteDatabase
+import org.cryptomator.data.db.DatabaseMigration
+import org.cryptomator.data.db.migrations.Sql
 import org.cryptomator.util.crypto.CredentialCryptor
-import org.greenrobot.greendao.database.Database
 import javax.inject.Inject
 import javax.inject.Singleton
 
 @Singleton
-internal class Upgrade2To3 @Inject constructor(private val context: Context) : DatabaseUpgrade(2, 3) {
+internal class Upgrade2To3 @Inject constructor(private val context: Context) : DatabaseMigration(2, 3) {
 
-	override fun internalApplyTo(db: Database, origin: Int) {
+	override fun migrateInternal(db: SupportSQLiteDatabase) {
 		db.beginTransaction()
 		try {
 			Sql.query("CLOUD_ENTITY")

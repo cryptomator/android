@@ -1,13 +1,15 @@
-package org.cryptomator.data.db
+package org.cryptomator.data.db.migrations.legacy
 
-import org.greenrobot.greendao.database.Database
+import androidx.sqlite.db.SupportSQLiteDatabase
+import org.cryptomator.data.db.DatabaseMigration
+import org.cryptomator.data.db.migrations.Sql
 import javax.inject.Inject
 import javax.inject.Singleton
 
 @Singleton
-internal class Upgrade5To6 @Inject constructor() : DatabaseUpgrade(5, 6) {
+internal class Upgrade5To6 @Inject constructor() : DatabaseMigration(5, 6) {
 
-	override fun internalApplyTo(db: Database, origin: Int) {
+	override fun migrateInternal(db: SupportSQLiteDatabase) {
 		db.beginTransaction()
 		try {
 			changeCloudEntityToSupportS3(db)
@@ -17,11 +19,11 @@ internal class Upgrade5To6 @Inject constructor() : DatabaseUpgrade(5, 6) {
 		}
 	}
 
-	private fun changeCloudEntityToSupportS3(db: Database) {
+	private fun changeCloudEntityToSupportS3(db: SupportSQLiteDatabase) {
 		Sql.alterTable("CLOUD_ENTITY").renameTo("CLOUD_ENTITY_OLD").executeOn(db)
 
 		Sql.createTable("CLOUD_ENTITY") //
-			.id() //
+			.pre14Id() //
 			.requiredText("TYPE") //
 			.optionalText("ACCESS_TOKEN") //
 			.optionalText("URL") //
@@ -30,7 +32,7 @@ internal class Upgrade5To6 @Inject constructor() : DatabaseUpgrade(5, 6) {
 			.optionalText("S3_BUCKET") //
 			.optionalText("S3_REGION") //
 			.optionalText("S3_SECRET_KEY") //
-			.executeOn(db);
+			.executeOn(db)
 
 		Sql.insertInto("CLOUD_ENTITY") //
 			.select("_id", "TYPE", "ACCESS_TOKEN", "URL", "USERNAME", "WEBDAV_CERTIFICATE") //
@@ -43,24 +45,24 @@ internal class Upgrade5To6 @Inject constructor() : DatabaseUpgrade(5, 6) {
 		Sql.dropTable("CLOUD_ENTITY_OLD").executeOn(db)
 	}
 
-	private fun recreateVaultEntity(db: Database) {
+	private fun recreateVaultEntity(db: SupportSQLiteDatabase) {
 		Sql.alterTable("VAULT_ENTITY").renameTo("VAULT_ENTITY_OLD").executeOn(db)
 		Sql.createTable("VAULT_ENTITY") //
-			.id() //
+			.pre14Id() //
 			.optionalInt("FOLDER_CLOUD_ID") //
 			.optionalText("FOLDER_PATH") //
 			.optionalText("FOLDER_NAME") //
 			.requiredText("CLOUD_TYPE") //
 			.optionalText("PASSWORD") //
 			.optionalInt("POSITION") //
-			.foreignKey("FOLDER_CLOUD_ID", "CLOUD_ENTITY", Sql.SqlCreateTableBuilder.ForeignKeyBehaviour.ON_DELETE_SET_NULL) //
+			.pre14ForeignKey("FOLDER_CLOUD_ID", "CLOUD_ENTITY", Sql.SqlCreateTableBuilder.ForeignKeyBehaviour.ON_DELETE_SET_NULL) //
 			.executeOn(db)
 
 		Sql.insertInto("VAULT_ENTITY") //
 			.select("_id", "FOLDER_CLOUD_ID", "FOLDER_PATH", "FOLDER_NAME", "PASSWORD", "POSITION", "CLOUD_ENTITY.TYPE") //
 			.columns("_id", "FOLDER_CLOUD_ID", "FOLDER_PATH", "FOLDER_NAME", "PASSWORD", "POSITION", "CLOUD_TYPE") //
 			.from("VAULT_ENTITY_OLD") //
-			.join("CLOUD_ENTITY", "VAULT_ENTITY_OLD.FOLDER_CLOUD_ID") //
+			.pre14Join("CLOUD_ENTITY", "VAULT_ENTITY_OLD.FOLDER_CLOUD_ID") //
 			.executeOn(db)
 
 		Sql.dropIndex("IDX_VAULT_ENTITY_FOLDER_PATH_FOLDER_CLOUD_ID").executeOn(db)

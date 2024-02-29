@@ -1,18 +1,20 @@
-package org.cryptomator.data.db
+package org.cryptomator.data.db.migrations.legacy
 
+import androidx.sqlite.db.SupportSQLiteDatabase
+import org.cryptomator.data.db.DatabaseMigration
+import org.cryptomator.data.db.migrations.Sql
 import org.cryptomator.domain.CloudType
 import org.cryptomator.util.SharedPreferencesHandler
-import org.greenrobot.greendao.database.Database
 import javax.inject.Inject
 import javax.inject.Singleton
 import timber.log.Timber
 
 @Singleton
-internal class Upgrade9To10 @Inject constructor(private val sharedPreferencesHandler: SharedPreferencesHandler) : DatabaseUpgrade(9, 10) {
+internal class Upgrade9To10 @Inject constructor(private val sharedPreferencesHandler: SharedPreferencesHandler) : DatabaseMigration(9, 10) {
 
 	private val defaultLocalStorageCloudId = 4L
 
-	override fun internalApplyTo(db: Database, origin: Int) {
+	override fun migrateInternal(db: SupportSQLiteDatabase) {
 		db.beginTransaction()
 
 		try {

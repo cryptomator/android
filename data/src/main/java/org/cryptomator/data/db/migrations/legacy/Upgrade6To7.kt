@@ -1,15 +1,17 @@
-package org.cryptomator.data.db
+package org.cryptomator.data.db.migrations.legacy
 
 import android.database.sqlite.SQLiteException
-import org.greenrobot.greendao.database.Database
+import androidx.sqlite.db.SupportSQLiteDatabase
+import org.cryptomator.data.db.DatabaseMigration
+import org.cryptomator.data.db.migrations.Sql
 import javax.inject.Inject
 import javax.inject.Singleton
 import timber.log.Timber
 
 @Singleton
-internal class Upgrade6To7 @Inject constructor() : DatabaseUpgrade(6, 7) {
+internal class Upgrade6To7 @Inject constructor() : DatabaseMigration(6, 7) {
 
-	override fun internalApplyTo(db: Database, origin: Int) {
+	override fun migrateInternal(db: SupportSQLiteDatabase) {
 		db.beginTransaction()
 		try {
 			changeUpdateEntityToSupportSha256Verification(db)
@@ -19,11 +21,11 @@ internal class Upgrade6To7 @Inject constructor() : DatabaseUpgrade(6, 7) {
 		}
 	}
 
-	private fun changeUpdateEntityToSupportSha256Verification(db: Database) {
+	private fun changeUpdateEntityToSupportSha256Verification(db: SupportSQLiteDatabase) {
 		Sql.alterTable("UPDATE_CHECK_ENTITY").renameTo("UPDATE_CHECK_ENTITY_OLD").executeOn(db)
 
 		Sql.createTable("UPDATE_CHECK_ENTITY") //
-			.id() //
+			.pre14Id() //
 			.optionalText("LICENSE_TOKEN") //
 			.optionalText("RELEASE_NOTE") //
 			.optionalText("VERSION") //
@@ -46,7 +48,7 @@ internal class Upgrade6To7 @Inject constructor() : DatabaseUpgrade(6, 7) {
 		Sql.dropTable("UPDATE_CHECK_ENTITY_OLD").executeOn(db)
 	}
 
-	fun tryToRecoverFromSQLiteException(db: Database) {
+	fun tryToRecoverFromSQLiteException(db: SupportSQLiteDatabase) {
 		var licenseToken: String? = null
 
 		try {
