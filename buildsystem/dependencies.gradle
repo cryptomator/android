@@ -1,7 +1,25 @@
+Action<InclusiveRepositoryContentDescriptor> jitpackFilterConfigurationAction = { filter ->
+	filter.includeModule('com.github.solkin', 'disk-lru-cache')
+	filter.includeModule('com.github.cryptomator', 'subsampling-scale-image-view')
+	filter.includeModule('com.github.cryptomator.pcloud-sdk-java', 'java-core')
+	filter.includeModule('com.github.cryptomator.google-http-java-client', 'google-http-client-parent') //Required by com.github.cryptomator.google-http-java-client:*
+	filter.includeModule('com.github.cryptomator.google-http-java-client', 'google-http-client')
+	filter.includeModule('com.github.cryptomator.google-http-java-client', 'google-http-client-android')
+}
+
 allprojects {
 	repositories {
 		mavenCentral()
-		maven { url 'https://jitpack.io' }
+		exclusiveContent {
+			forRepository {
+				maven {
+					url 'https://jitpack.io'
+					//Apparently this filter is already applied implicitly, but it's not documented...
+					content(jitpackFilterConfigurationAction)
+				}
+			}
+			filter(jitpackFilterConfigurationAction)
+		}
 		// needed for 'com.microsoft.device.display' required by 'com.microsoft.graph:microsoft-graph'
 		exclusiveContent {
 			forRepository {
@@ -55,7 +73,7 @@ ext {
 
 	zxcvbnVersion = '1.7.0'
 
-	scaleImageViewVersion = '3.10.0'
+	scaleImageViewVersion = '3.10.1-dev.0002'
 
 	lruFileCacheVersion = '1.2'
 
@@ -70,16 +88,13 @@ ext {
 	googleApiServicesVersion = 'v3-rev20220508-1.32.1'
 	googlePlayServicesVersion = '19.2.0'
 	googleClientVersion = '2.2.0' // keep in sync with https://github.com/cryptomator/google-http-java-client
-	/*
-		update using https://github.com/cryptomator/google-http-java-client with `mvn clean install`,
-		copying `google-http-client-*.jar` and `google-http-client-android-*.jar` into the lib folder of this project
-	 */
-	trackingFreeGoogleCLientVersion = '1.43.0'
+	trackingFreeGoogleCLientVersion = '1.44.2-dev.0001'
 
 	msgraphVersion = '5.47.0'
 	msgraphAuthVersion = '4.0.5' // contains com.microsoft.identity:common lib which added opentelemetry in 9.0.0, do we need to fork another lib before updating to >=4.2.0 ???
 
 	minIoVersion = '8.5.2'
+	pcloudVersion = '1.9.2-dev.0001'
 	staxVersion = '1.2.0' // needed for minIO
 
 	commonsCodecVersion = '1.15'
@@ -141,8 +156,8 @@ ext {
 			googleApiClientAndroid         : "com.google.api-client:google-api-client-android:${googleClientVersion}",
 			googleApiServicesDrive         : "com.google.apis:google-api-services-drive:${googleApiServicesVersion}",
 			googlePlayServicesAuth         : "com.google.android.gms:play-services-auth:${googlePlayServicesVersion}",
-			trackingFreeGoogleCLient       : files("lib/google-http-client-${trackingFreeGoogleCLientVersion}.jar"),
-			trackingFreeGoogleAndroidCLient: files("lib/google-http-client-android-${trackingFreeGoogleCLientVersion}.jar"),
+			trackingFreeGoogleCLient       : "com.github.cryptomator.google-http-java-client:google-http-client:${trackingFreeGoogleCLientVersion}",
+			trackingFreeGoogleAndroidCLient: "com.github.cryptomator.google-http-java-client:google-http-client-android:${trackingFreeGoogleCLientVersion}",
 			greenDao                       : "org.greenrobot:greendao:${greenDaoVersion}",
 			gson                           : "com.google.code.gson:gson:${gsonVersion}",
 			hamcrest                       : "org.hamcrest:hamcrest-all:${hamcrestVersion}",
@@ -161,6 +176,7 @@ ext {
 			multidex                       : "androidx.multidex:multidex:${multidexVersion}",
 			okHttp                         : "com.squareup.okhttp3:okhttp:${okHttpVersion}",
 			okHttpDigest                   : "io.github.rburgst:okhttp-digest:${okHttpDigestVersion}",
+			pcloud                         : "com.github.cryptomator.pcloud-sdk-java:java-core:${pcloudVersion}",
 			recyclerViewFastScroll         : "com.simplecityapps:recyclerview-fastscroll:${recyclerViewFastScrollVersion}",
 			rxJava                         : "io.reactivex.rxjava2:rxjava:${rxJavaVersion}",
 			rxAndroid                      : "io.reactivex.rxjava2:rxandroid:${rxAndroidVersion}",
@@ -174,7 +190,7 @@ ext {
 			contribution                   : "androidx.test.espresso:espresso-contrib:${contributionVersion}",
 			uiAutomator                    : "androidx.test.uiautomator:uiautomator:${uiautomatorVersion}",
 			zxcvbn                         : "com.nulab-inc:zxcvbn:${zxcvbnVersion}",
-			scaleImageView                 : "com.davemorrissey.labs:subsampling-scale-image-view:${scaleImageViewVersion}",
+			scaleImageView                 : "com.github.cryptomator:subsampling-scale-image-view:${scaleImageViewVersion}",
 			lruFileCache                   : "com.github.solkin:disk-lru-cache:${lruFileCacheVersion}",
 			jsonWebTokenApi                : "io.jsonwebtoken:jjwt-api:${jsonWebTokenApiVersion}",
 			jsonWebTokenImpl               : "io.jsonwebtoken:jjwt-impl:${jsonWebTokenApiVersion}",
