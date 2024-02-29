@@ -127,9 +127,9 @@ dependencies {
 
 	implementation project(':domain')
 	implementation project(':util')
-	playstoreImplementation project(':pcloud-sdk-java')
-	apkstoreImplementation project(':pcloud-sdk-java')
-	fdroidImplementation project(':pcloud-sdk-java')
+	playstoreImplementation dependencies.pcloud
+	apkstoreImplementation dependencies.pcloud
+	fdroidImplementation dependencies.pcloud
 
 	coreLibraryDesugaring dependencies.coreDesugaring
 

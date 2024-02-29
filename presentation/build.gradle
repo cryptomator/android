@@ -148,7 +148,7 @@ dependencies {
 	implementation dependencies.appcompat
 	implementation dependencies.recyclerView
 	implementation dependencies.design
-	implementation project(':subsampling-image-view')
+	implementation dependencies.scaleImageView
 	implementation dependencies.recyclerViewFastScroll
 
 	// room (required for adding DatabaseModule to the dagger graph)
