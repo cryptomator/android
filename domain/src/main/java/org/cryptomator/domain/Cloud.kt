@@ -5,7 +5,7 @@ import java.io.Serializable
 interface Cloud : Serializable {
 
 	fun id(): Long?
-	fun type(): CloudType?
+	val type: CloudType
 	fun configurationMatches(cloud: Cloud?): Boolean
 	fun persistent(): Boolean
 	fun requiresNetwork(): Boolean
