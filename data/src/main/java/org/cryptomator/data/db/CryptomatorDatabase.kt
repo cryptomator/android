@@ -144,15 +144,20 @@ fun Cursor?.stringify(): String {
 	}
 
 	this.moveToPosition(startPos)
-	return buildString(((this.count + 1) * (columnWidths.values.sum() + this.columnCount))) {
+	val stringifiedRowCount = this.count + 1 /* Header */
+	val rowCapacity = columnWidths.values.sum() + this.columnCount /* V-Spaces */ // - 1 (V-Spaces) + 1 (Line breaks)
+	val capacity = stringifiedRowCount * rowCapacity // + 1 (H-Space) - 1 (No Line break in last line)
+	return buildString(capacity) {
 		appendLine(columnNames.asSequence().map { it.padEnd(columnWidths[it]!!) }.joinToString(" "))
 		appendLine()
 		values.forEachIndexed { i: Int, value: String ->
 			append(value.padEnd(columnWidths[columnNames[i % columnCount]]!!))
 			if ((i == values.size - 1)) {
+				//Last element
 				return@buildString
 			}
 			if ((i + 1) % columnCount == 0) {
+				//Last element in line
 				appendLine()
 			} else {
 				append(" ")
