@@ -200,6 +200,8 @@
 	<string name="screen_settings_security_label">Поради з безпеки</string>
 	<string name="screen_settings_section_version">Версія</string>
 	<string name="screen_settings_advanced_settings">Розширені налаштування</string>
+	<string name="screen_settings_microsoft_apps_workaround_label">Альтернативний спосіб відкриття файлів Microsoft</string>
+	<string name="screen_settings_microsoft_apps_workaround_summary">Відкривати файли в додатках Microsoft з дозволом на запис</string>
 	<string name="screen_settings_background_unlock_preparation_label">Прискорити розблокування</string>
 	<string name="screen_settings_background_unlock_preparation_label_summary">Завантажити конфігурацію сховища у фоновому режимі під час вводу пароля або біометричної автентифікації</string>
 	<string name="screen_settings_keep_unlocked_while_editing_files">Залишати розблокованим</string>
