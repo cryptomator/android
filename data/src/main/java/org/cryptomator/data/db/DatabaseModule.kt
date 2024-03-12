@@ -8,6 +8,7 @@ import androidx.room.migration.Migration
 import androidx.sqlite.db.SupportSQLiteDatabase
 import androidx.sqlite.db.SupportSQLiteOpenHelper
 import androidx.sqlite.db.framework.FrameworkSQLiteOpenHelperFactory
+import org.cryptomator.data.db.cachecontrol.CacheControlledSupportSQLiteOpenHelperFactory
 import org.cryptomator.data.db.migrations.legacy.Upgrade0To1
 import org.cryptomator.data.db.migrations.legacy.Upgrade10To11
 import org.cryptomator.data.db.migrations.legacy.Upgrade11To12
@@ -50,7 +51,7 @@ class DatabaseModule {
 			.createFromInputStream(dbTemplateStreamCallable) //
 			.addMigrations(*migrations) //
 			.addCallback(DatabaseCallback) //
-			.openHelperFactory(DatabaseOpenHelperFactory()) //
+			.openHelperFactory(CacheControlledSupportSQLiteOpenHelperFactory(DatabaseOpenHelperFactory())) //
 			.setJournalMode(RoomDatabase.JournalMode.TRUNCATE) //
 			.build() //Fails if no migration is found (especially when downgrading)
 			.also { //
