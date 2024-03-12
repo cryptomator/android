@@ -51,6 +51,7 @@ class DatabaseModule {
 			.addMigrations(*migrations) //
 			.addCallback(DatabaseCallback) //
 			.openHelperFactory(DatabaseOpenHelperFactory()) //
+			.setJournalMode(RoomDatabase.JournalMode.TRUNCATE) //
 			.build() //Fails if no migration is found (especially when downgrading)
 			.also { //
 				//Migrations are only triggered once the database is used for the first time.
