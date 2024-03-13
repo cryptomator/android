@@ -395,7 +395,7 @@
 	<string name="notification_auto_upload_failed_due_to_folder_not_exists">Geselecteerde map voor uploaden is niet meer beschikbaar. Ga naar instellingen en kies een nieuwe</string>
 	<string name="notification_auto_upload_failed_due_to_vault_locked">Kluis vergrendeld tijdens het uploaden, heropen de kluis om door te gaan</string>
 	<string name="notification_auto_upload_failed_due_to_vault_not_found">De gekozen kluis voor automatische upload bestaat niet meer.</string>
-	<string name="notification_auto_upload_failed_due_to_authentication_problem">Tik om de authenticatie te vernieuwen.</string>
+	<string name="notification_auto_upload_failed_due_to_authentication_problem">Aantikken om de authenticatie te vernieuwen.</string>
 	<string name="notification_open_writable_file_title">Open schrijfbaar bestand</string>
 	<string name="notification_open_writable_file_message">Kluis blijft ontgrendeld tot het bewerken voltooid is</string>
 	<string name="notification_update_check_finished_latest">Laatste versie geïnstalleerd</string>

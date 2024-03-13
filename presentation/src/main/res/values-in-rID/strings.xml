@@ -20,7 +20,7 @@
 	<string name="error_device_policy_manager_not_found">Silakan buka pengaturan perangkat Anda dan atur kunci layar dengan tangan</string>
 	<string name="error_export_illegal_file_name">Ekspor gagal. Coba hapus karakter khusus dari nama file dan ekspor lagi.</string>
 	<string name="error_name_contains_invalid_characters">Tidak boleh mengandung karakter khusus.</string>
-	<string name="error_names_contains_invalid_characters">Nama file tidak boleh mengandung karakter khusus.</string>
+	<string name="error_names_contains_invalid_characters">Nama berkas tidak boleh mengandung karakter khusus.</string>
 	<string name="error_vault_name_contains_invalid_characters">Nama vault tidak boleh mengandung karakter khusus.</string>
 	<string name="error_general_update">Pemeriksaan pembaruan gagal. Terjadi kesalahan.</string>
 	<string name="error_hash_mismatch_update">Pemeriksaan pembaruan gagal. Hash yang dihitung tidak cocok dengan file yang diunggah</string>
@@ -34,6 +34,7 @@
 	<string name="error_file_not_found_after_opening_using_3party">File lokal sudah tidak tersedia setelah beralih kembali ke Cryptomator. Perubahan yang ada tidak dapat disimpan kembali ke cloud.</string>
 	<string name="error_no_such_bucket">Bucket tidak ada</string>
 	<string name="error_masterkey_location_not_supported">Lokasi Masterkey khusus belum didukung</string>
+	<string name="error_interact_with_fdroid_but_fdroid_missing">Gagal berkomunikasi dengan aplikasi F-Droid. Belum dipasang?</string>
 	<!-- # clouds -->
 	<!-- ## cloud names -->
 	<string name="cloud_names_local_storage">Penyimpanan lokal</string>
@@ -54,12 +55,15 @@
 	<string name="snack_bar_action_title_sort_oldest">Terlama dulu</string>
 	<string name="snack_bar_action_title_sort_biggest">Terbesar dulu</string>
 	<string name="snack_bar_action_title_sort_smallest">Terkecil dulu</string>
+	<string name="snack_bar_cryptomator_variants_title">Baca lebih lanjut</string>
+	<string name="snack_bar_cryptomator_variants_hint">Cloud tidak ada di dalam daftar?</string>
 	<!-- # screens -->
 	<!-- # screen: vault list -->
 	<string name="screen_vault_list_actions_title">Tambah ke Cryptomator</string>
 	<string name="screen_vault_list_action_create_new_vault">Buat vault baru</string>
 	<string name="screen_vault_list_action_add_existing_vault">Tambahkan vault yang sudah ada</string>
 	<string name="screen_vault_list_vault_action_delete">Hapus</string>
+	<string name="screen_vault_list_vault_creation_hint">Ketuk disini untuk membuat vault baru</string>
 	<string name="screen_vault_list_change_password_successful">Kasa Sandi berhasil diubah</string>
 	<!-- # screen: file browser -->
 	<string name="screen_file_browser_default_title">Vault</string>
@@ -113,6 +117,7 @@
 	<string name="screen_choose_cloud_service_title">Layanan Cloud</string>
 	<!-- ## screen: cloud connections -->
 	<string name="screen_cloud_connections_title">Pilih lokasi</string>
+	<string name="screen_cloud_connections_no_connections">Ketuk disini untuk menambahkan lokasi</string>
 	<string name="screen_cloud_error_webdav_not_supported">Server tampaknya tidak kompatibel dengan WebDAV</string>
 	<string name="screen_cloud_local_error_no_content_provider">Tidak ditemukan file manager yang dapat membuka direktori ini</string>
 	<!-- ## screen: webdav settings -->
@@ -192,6 +197,8 @@
 	<string name="screen_settings_security_label">Petunjuk keamanan</string>
 	<string name="screen_settings_section_version">Versi</string>
 	<string name="screen_settings_advanced_settings">Pengaturan Lanjutan</string>
+	<string name="screen_settings_microsoft_apps_workaround_label">Solusi membuka berkas Microsoft</string>
+	<string name="screen_settings_microsoft_apps_workaround_summary">Buka file di aplikasi Microsoft dengan izin menulis</string>
 	<string name="screen_settings_background_unlock_preparation_label">Percepat buka kunci</string>
 	<string name="screen_settings_background_unlock_preparation_label_summary">Unduh konfigurasi vault di latar belakang saat diminta memasukkan kata sandi atau otentikasi biometrik</string>
 	<string name="screen_settings_keep_unlocked_while_editing_files">Biarkan tidak terkunci</string>
@@ -209,6 +216,18 @@
 	<string name="screen_authenticate_auth_authentication_failed">%1$s tidak dapat diautentikasi.</string>
 	<string name="screen_update_pcloud_connections_title">Perbarui kredensial pCloud</string>
 	<!-- ## screen: cryptomator app variants -->
+	<string name="screen_cryptomator_variants_title">Varian Cryptomator</string>
+	<string name="screen_cryptomator_variants_lite_title">Repositori Utama F-Droid</string>
+	<string name="screen_cryptomator_variants_lite_description">Dikecualikan karena mereka memerlukan kunci API.</string>
+	<string name="screen_cryptomator_variants_lite_install">Pasang</string>
+	<string name="screen_cryptomator_variants_fdroid_title">Repositori Cryptomator F-Droid</string>
+	<string name="screen_cryptomator_variants_fdroid_description">Dikecualikan karena mengandung dependensi hak milik.</string>
+	<string name="screen_cryptomator_variants_fdroid_add_repo_hint">Tambahkan repositori Cryptomator ke aplikasi F-Droid.</string>
+	<string name="screen_cryptomator_variants_fdroid_add_repo">Tambah</string>
+	<string name="screen_cryptomator_variants_fdroid_install_hint">Pasang Cryptomator menggunakan F-Droid.\nJika muncul error tidak ditemukan, tunggu hingga sinkronisasi F-Droid selesai.</string>
+	<string name="screen_cryptomator_variants_website_title">Situs Web</string>
+	<string name="screen_cryptomator_variants_website_description">Berisi dependensi hak milik.</string>
+	<string name="screen_cryptomator_variants_installation_hint">Beralih dari atau ke varian repositori utama F-Droid memerlukan pengaturan aplikasi yang baru.</string>
 	<!-- # dialogs -->
 	<string name="dialog_button_cancel">Batalkan</string>
 	<string name="dialog_enter_password_positive_button">Buka Kunci</string>
@@ -246,6 +265,7 @@
 	<string name="dialog_unsaved_changes_title">Anda memiliki perubahan yang belum disimpan</string>
 	<string name="dialog_unsaved_changes_message">Apakah Anda yakin ingin keluar tanpa menyimpan?</string>
 	<string name="dialog_unsaved_changes_discard">Buang</string>
+	<string name="dialog_file_name_hint">Nama berkas</string>
 	<string name="dialog_file_name_placeholder">text.txt</string>
 	<string name="dialog_delete_vault_message">Apakah Anda yakin ingin menghapus vault ini?</string>
 	<string name="dialog_delete_vault_hint">Tindakan ini hanya akan menghapus vault dari daftar ini dan tidak menghapusnya secara fisik.</string>
@@ -272,6 +292,7 @@
 	<string name="dialog_accept_ssl_certificate_details">Rincian</string>
 	<string name="dialog_accept_ssl_certificate_security_checkbox">Ini bisa menjadi risiko keamanan. Saya tahu apa yang saya lakukan.</string>
 	<string name="dialog_ask_ignore_battery_optimizations_title">Nonaktifkan optimalisasi baterai</string>
+	<string name="dialog_ask_ignore_battery_optimizations_hint">Untuk mengambil gambar dan video baru tanpa berjalan di latar belakang, kita perlu memilih untuk tidak ikut serta dalam pengoptimalan baterai. Namun jangan khawatir, %1$s tidak menghabiskan banyak energi.\n\nUntuk menerapkannya, ubah \'Tidak dioptimalkan\' menjadi \'Semua aplikasi\', pilih %1$s dan pilih \'Jangan optimalkan\' setelah mengetuk \'%2$s\' dalam dialog ini.</string>
 	<string name="dialog_ask_ignore_battery_optimizations_checkbox">Jangan tanya lagi?</string>
 	<string name="dialog_http_security_hint">Penggunaan HTTP tidak aman. Kami menyarankan untuk menggunakan HTTPS sebagai gantinya. Jika Anda mengetahui risikonya, Anda dapat melanjutkan dengan HTTP.</string>
 	<string name="dialog_http_security_checkbox">Ubah ke HTTPS</string>
@@ -284,6 +305,7 @@
 	<string name="dialog_debug_mode_disclaimer_hint">Dalam mode ini, data sensitif dapat ditulis ke file log di perangkat Anda (misalnya, nama dan lokasi file). Kata sandi, cookie, dll secara eksplisit dikecualikan.\n\nJangan lupa untuk menonaktifkan mode debug sesegera mungkin.</string>
 	<string name="dialog_debug_mode_disclaimer_title">Perhatian</string>
 	<string name="dialog_debug_mode_positive_button">Aktifkan</string>
+	<string name="dialog_microsoft_workaround_disclaimer_hint">Karena adanya bug pada aplikasi Microsoft, berkas yang akan diedit harus dibagikan dengan aplikasi ini di folder media publik di perangkat Anda. Setelah Cryptomator dilanjutkan, berkas yang dapat diakses publik akan dihapus lagi, namun Cryptomator tidak dapat memengaruhi apa yang terjadi pada berkas ini untuk sementara. Pastikan Anda mengetahui perilaku ini saat mengaktifkan opsi ini. Ini hanya berlaku untuk jenis berkas Microsoft.\n\nCryptomator akan dimulai ulang setelah aktivasi.</string>
 	<string name="dialog_disable_app_obscured_disclaimer_hint">Pengaturan ini adalah fitur keamanan untuk mencegah aplikasi lain mengelabui pengguna melakukan hal-hal yang tidak ingin mereka lakukan.\n\nDengan menonaktifkan, Anda mengonfirmasi bahwa telah <a href="https://docs.cryptomator.org/en/1.6/android/settings/#block-app-when-obscured">menyadari akan bahaya tersebut</a>.</string>
 	<string name="dialog_disable_app_obscured_disclaimer_title">Perhatian</string>
 	<string name="dialog_disable_app_obscured_positive_button">Matikan</string>
@@ -325,8 +347,10 @@
 	<string name="dialog_no_dir_file_message">Folder cloud \'%1$s\' tidak memiliki file direktori yang valid. Bisa jadi folder tersebut dibuat di perangkat lain dan belum sepenuhnya tersinkronisasi ke cloud. Harap periksa di cloud Anda jika file berikut ada dan tidak kosong:\n%2$s</string>
 	<string name="dialog_no_more_images_to_display">Tidak ada lagi gambar untuk ditampilkan&#8230;</string>
 	<string name="dialog_pcloud_credentials_updated_title">Kredensial \'%1$s\' diperbarui</string>
+	<string name="dialog_pcloud_credentials_updated">Jika Anda ingin menambahkan akun pCloud baru, ketuk url berikut <a href="https://www.pcloud.com">www.pcloud.com</a>, keluar dari akun saat ini kemudian ketuk tombol \'+\' lagi di aplikasi ini untuk membuat koneksi cloud baru.</string>
 	<string name="permission_snackbar_auth_local_vault">Cryptomator membutuhkan akses penyimpanan untuk menggunakan vault lokal</string>
 	<string name="permission_snackbar_auth_auto_upload">Cryptomator membutuhkan akses penyimpanan untuk menggunakan unggahan foto otomatis</string>
+	<string name="permission_snackbar_notifications">Cryptomator perlu izin pemberitahuan untuk menampilkan status brankas, misalnya</string>
 	<!-- # error reports -->
 	<!-- # misc -->
 	<!-- ## file size helper -->
@@ -370,6 +394,7 @@
 	<string name="notification_auto_upload_failed_due_to_folder_not_exists">Folder yang dipilih untuk mengunggah tudak lagi tersedia. Buka pengaturan dan pilih yang baru</string>
 	<string name="notification_auto_upload_failed_due_to_vault_locked">Vault terkunci selama unggahan, silakan buka kembali vault untuk melanjutkan</string>
 	<string name="notification_auto_upload_failed_due_to_vault_not_found">Vault yang ditentukan untuk unggah otomatis tidak ada lagi.</string>
+	<string name="notification_auto_upload_failed_due_to_authentication_problem">Ketuk untuk menyegarkan otentikasi.</string>
 	<string name="notification_open_writable_file_title">Buka file yang dapat ditulis</string>
 	<string name="notification_open_writable_file_message">Vault tetap tidak terkunci sampai selesai mengedit</string>
 	<string name="notification_update_check_finished_latest">Versi terbaru sudah terpasang</string>

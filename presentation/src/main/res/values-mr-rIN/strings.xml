@@ -6,11 +6,9 @@
 	<!-- ## cloud names -->
 	<!-- # permission -->
 	<!-- ## permission messages -->
-	<string name="snack_bar_action_title_search_next">Продолжи</string>
 	<!-- # screens -->
 	<!-- # screen: vault list -->
 	<!-- # screen: file browser -->
-	<string name="screen_file_browser_default_title">Сеф</string>
 	<!-- ## screen: text editor -->
 	<!-- ## screen: share files -->
 	<!-- ## screen: choose cloud service -->
@@ -19,19 +17,13 @@
 	<!-- ## screen: s3 settings -->
 	<!-- ## screen: enter vault name -->
 	<!-- ## screen: set password -->
-	<string name="screen_set_password_button_text">Прифати</string>
 	<!-- ## screen: settings -->
 	<!-- ## screen: cloud settings -->
 	<!-- ## screen: licenses -->
 	<!-- ## screen: authenticate cloud -->
 	<!-- ## screen: cryptomator app variants -->
 	<!-- # dialogs -->
-	<string name="dialog_button_cancel">Откажи</string>
-	<string name="dialog_enter_password_positive_button">Отклучи</string>
 	<!-- Vault not found -->
-	<string name="dialog_lock_vault">Заклучи</string>
-	<string name="dialog_app_is_obscured_info_neutral_button">Затвори</string>
-	<string name="dialog_sym_link_back_button">Назад</string>
 	<!-- # error reports -->
 	<!-- # misc -->
 	<!-- ## file size helper -->

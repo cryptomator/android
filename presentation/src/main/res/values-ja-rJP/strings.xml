@@ -9,8 +9,8 @@
 	<string name="error_no_network_connection">ネットワーク接続がありません</string>
 	<string name="error_invalid_passphrase">パスワードが正しくありません</string>
 	<string name="error_file_or_folder_exists">ファイルかフォルダーが既に存在します。</string>
-	<string name="error_vault_version_not_supported">金庫のバージョン %1$s はサポートされていません。この金庫は、現在のものより古いか新しいバージョンの Cryptomator で作成されています。</string>
-	<string name="error_vault_config_file_missing_due_to_format_999">%1$s ファイルが金庫のフォルダーに見つかりませんでした。クラウドの金庫フォルダーにこのファイルが存在することをご確認ください。</string>
+	<string name="error_vault_version_not_supported">バージョン %1$s の金庫には対応していません。この金庫は、現在のものより古いか新しいバージョンの Cryptomator で作成されています。</string>
+	<string name="error_vault_config_file_missing_due_to_format_999">%1$s ファイルが金庫のフォルダーに見つかりませんでした。クラウドの金庫フォルダーにこのファイルが存在することを確認してください。</string>
 	<string name="error_vault_already_exists">金庫が既に存在します。</string>
 	<string name="error_no_such_file">ファイルが存在しません。</string>
 	<string name="error_vault_has_been_locked">金庫が施錠されました。</string>
@@ -71,11 +71,11 @@
 	<string name="screen_file_browser_create_new_vault_button_text">ここにおく</string>
 	<string name="screen_file_browser_create_new_vault_extra_text">金庫の名前: %1$s</string>
 	<plurals name="screen_file_browser_subtitle_move">
-		<item quantity="other">%2$d アイテムを移動する</item>
+		<item quantity="other">%2$d 件のアイテムを移動</item>
 	</plurals>
 	<string name="screen_file_browser_move_button_text">移動</string>
 	<string name="screen_file_browser_msg_empty_folder">空のフォルダー</string>
-	<string name="screen_file_browser_file_info_label_date">%1$s 前に編集</string>
+	<string name="screen_file_browser_file_info_label_date">%1$s前に編集</string>
 	<string name="screen_file_browser_share_intent_chooser_title">次で共有</string>
 	<string name="screen_file_browser_share_destination_title">保存先を選択</string>
 	<string name="screen_file_browser_share_button_text">選択</string>
@@ -125,7 +125,7 @@
 	<string name="screen_webdav_settings_username_label">ユーザー名</string>
 	<string name="screen_webdav_settings_password_label">パスワード</string>
 	<string name="screen_webdav_settings_done_button_text">接続</string>
-	<string name="screen_webdav_settings_msg_url_must_not_be_empty">URLは空にできません。</string>
+	<string name="screen_webdav_settings_msg_url_must_not_be_empty">URL は空にできません。</string>
 	<string name="screen_webdav_settings_msg_url_is_invalid">URL が無効です。</string>
 	<string name="screen_webdav_settings_msg_username_must_not_be_empty">ユーザー名は空にできません。</string>
 	<string name="screen_webdav_settings_msg_password_must_not_be_empty">パスワードは空にできません。</string>
@@ -178,7 +178,7 @@
 	<string name="screen_settings_section_auto_photo_upload_vault">アップロードする金庫を選択</string>
 	<string name="screen_settings_section_auto_photo_upload_toggle">有効</string>
 	<string name="screen_settings_section_auto_photo_upload_toggle_summary">バックグラウンドで画像を取得し、選択された金庫が解錠されるとアップロードを開始します</string>
-	<string name="screen_settings_section_auto_photo_upload_toggle_instant_upload">インスタントをアップロード</string>
+	<string name="screen_settings_section_auto_photo_upload_toggle_instant_upload">即時アップロード</string>
 	<string name="screen_settings_section_auto_photo_upload_toggle_instant_upload_summary">金庫が解錠されているときに直接アップロード</string>
 	<string name="screen_settings_section_auto_photo_upload_only_wifi_toggle">WIFI を使用しているときのみアップロード</string>
 	<string name="screen_settings_section_auto_photo_upload_including_videos">動画をアップロード</string>
@@ -197,6 +197,8 @@
 	<string name="screen_settings_security_label">セキュリティの心得</string>
 	<string name="screen_settings_section_version">バージョン</string>
 	<string name="screen_settings_advanced_settings">高度な設定</string>
+	<string name="screen_settings_microsoft_apps_workaround_label">Microsoft のファイルを開くための回避策</string>
+	<string name="screen_settings_microsoft_apps_workaround_summary">ファイルを Microsoft アプリから書き込み可能で開く</string>
 	<string name="screen_settings_background_unlock_preparation_label">高速な解錠</string>
 	<string name="screen_settings_background_unlock_preparation_label_summary">パスワードまたは生体による認証中に、バックグラウンドで金庫の設定をダウンロードします</string>
 	<string name="screen_settings_keep_unlocked_while_editing_files">解錠したままにする</string>
@@ -303,6 +305,7 @@
 	<string name="dialog_debug_mode_disclaimer_hint">このモードでは、デバイスのログファイルに機密情報が書き込まれることがあります(例: ファイル名やパス)。パスワードや cookie 等は除外されます。\n\n できるだけ早くデバッグ モードを無効化をすることを忘れないでください。</string>
 	<string name="dialog_debug_mode_disclaimer_title">注意</string>
 	<string name="dialog_debug_mode_positive_button">有効にする</string>
+	<string name="dialog_microsoft_workaround_disclaimer_hint">このオプションを有効にする場合には以下の挙動を必ずご確認ください。Microsoft アプリのバグを回避するため、編集するファイルはデバイス上の公開メディアフォルダを通してアプリに共有する必要があります。編集を終えて Cryptomator に戻った際に公開メディアフォルダ上のファイルは削除されますが、その間ファイルは他アプリからもアクセス可能なままとなります。本回避策は Microsoft のファイルタイプのみに適用されます。\n\nオプションを有効化した後に Cryptomator は再起動します。</string>
 	<string name="dialog_disable_app_obscured_disclaimer_hint">この設定は安全のための機能です。他のアプリがユーザーを騙してしまうことを防ぎます。\n\n無効にすることで、 <a href="https://docs.cryptomator.org/en/1.6/android/settings/#block-app-when-obscured">リスクを認識していること</a> に留意する必要があります。</string>
 	<string name="dialog_disable_app_obscured_disclaimer_title">注意</string>
 	<string name="dialog_disable_app_obscured_positive_button">無効</string>
@@ -362,8 +365,8 @@
 	<string name="time_unit_seconds_pl">秒</string>
 	<string name="time_unit_minutes_sg">分</string>
 	<string name="time_unit_minutes_pl">分</string>
-	<string name="time_unit_hours_sg">時</string>
-	<string name="time_unit_hours_pl">時</string>
+	<string name="time_unit_hours_sg">時間</string>
+	<string name="time_unit_hours_pl">時間</string>
 	<string name="time_unit_days_sg">日</string>
 	<string name="time_unit_days_pl">日</string>
 	<string name="time_unit_weeks_sg">週</string>
@@ -382,7 +385,7 @@
 	<string name="notification_timeout">%1$s で自動ロック</string>
 	<string name="notification_lock_all">すべて施錠</string>
 	<string name="notification_cancel_auto_upload">アップロードをキャンセル</string>
-	<string name="notification_auto_upload_title">写真を自動的にアップロードしています</string>
+	<string name="notification_auto_upload_title">写真の自動アップロード中</string>
 	<string name="notification_auto_upload_message">アップロード中 %1d/%2d</string>
 	<string name="notification_auto_upload_finished_title">写真の自動アップロードが完了しました</string>
 	<string name="notification_auto_upload_finished_message">%1$d 個の画像を金庫にアップロードしました</string>
@@ -391,9 +394,10 @@
 	<string name="notification_auto_upload_failed_due_to_folder_not_exists">アップロード用として選択されたフォルダーを利用できません。設定に移動して新しいフォルダーを選択してください。</string>
 	<string name="notification_auto_upload_failed_due_to_vault_locked">アップロード中は金庫が施錠されます。続けるには金庫を再度開いてください。</string>
 	<string name="notification_auto_upload_failed_due_to_vault_not_found">自動アップロードに設定された金庫が存在しません。</string>
+	<string name="notification_auto_upload_failed_due_to_authentication_problem">タップして認証を更新します。</string>
 	<string name="notification_open_writable_file_title">書き込み可能なファイルを開く</string>
 	<string name="notification_open_writable_file_message">編集が完了するまで金庫は施錠されます</string>
-	<string name="notification_update_check_finished_latest">最新バージョンがインストールされました</string>
+	<string name="notification_update_check_finished_latest">最新版がインストールされています</string>
 	<string name="notification_authenticating">認証中&#8230;</string>
 	<string name="screen_settings_lru_cache">キャッシュ</string>
 	<string name="screen_settings_lru_cache_toggle_summary">最近アクセスしたファイルを暗号化して端末のローカルにキャッシュし、後で再び開いたときに再利用することができます。</string>

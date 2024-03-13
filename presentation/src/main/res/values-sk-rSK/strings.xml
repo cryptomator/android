@@ -200,6 +200,8 @@
 	<string name="screen_settings_security_label">Bezpečnostné tipy</string>
 	<string name="screen_settings_section_version">Verzia</string>
 	<string name="screen_settings_advanced_settings">Pokročilé nastavenia</string>
+	<string name="screen_settings_microsoft_apps_workaround_label">Obídenie otvorenia súborov Microsoftu</string>
+	<string name="screen_settings_microsoft_apps_workaround_summary">Otvoriť súbory v Microsoft aplikáciách s právom zápisu</string>
 	<string name="screen_settings_background_unlock_preparation_label">Urýchliť odomknutie</string>
 	<string name="screen_settings_background_unlock_preparation_label_summary">Stiahnuť konfiguráciu trezora na pozadí počas vyzvania na zadanie hesla alebo biometrickej autentikácie</string>
 	<string name="screen_settings_keep_unlocked_while_editing_files">Držať odomknuté</string>
@@ -306,6 +308,7 @@
 	<string name="dialog_debug_mode_disclaimer_hint">V tomto móde, môžu byť zapisované citlivé dáta do logovacieho súboru na Vašom zariadení (ako napr. mená súborov a cesty). Heslá, cookies, a pod. sú explicitne vynechané.\n\nPamätajte na vypnutie debug módu ako najskôr to pôjde.</string>
 	<string name="dialog_debug_mode_disclaimer_title">Upozornenie</string>
 	<string name="dialog_debug_mode_positive_button">Povoliť</string>
+	<string name="dialog_microsoft_workaround_disclaimer_hint">Kvôli chybe v aplikáciách spoločnosti Microsoft musí byť upravovaný súbor zdieľaný s týmito aplikáciami vo verejnom priečinku médií vo vašom zariadení. Po obnovení programu Cryptomator sa verejne prístupný súbor opäť odstráni, ale program Cryptomator nemôže ovplyvniť, čo sa s týmto súborom medzitým stalo. Pri aktivácii tejto možnosti sa uistite, že ste si vedomí tohto správania. Toto sa vzťahuje len na typy súborov spoločnosti Microsoft.\n\nCryptomator sa po aktivácii znovu spustí.</string>
 	<string name="dialog_disable_app_obscured_disclaimer_hint">Toto nastavenie je bezpečnostná vlastnosť a chráni ostatné aplikácie pred klamaním užívateľov robiť veci, ktoré nechcú obiť.\n\nVypnutím súhlasíte, že &lt;a href="https://docs.cryptomator.org/en/1.6/android/settings/#block-app-when-obscured"&gt;ste si vedomí rizika.</string>
 	<string name="dialog_disable_app_obscured_disclaimer_title">Upozornenie</string>
 	<string name="dialog_disable_app_obscured_positive_button">Zakázať</string>
@@ -350,6 +353,7 @@
 	<string name="dialog_pcloud_credentials_updated">Ak zamýšľate pridať nový pCloud účet, kliknite na tento link <a href="https://www.pcloud.com">www.pcloud.com</a>, odhláste sa zo súčasného účtu a opätovne kliknite na \'+\' v tejto aplikácii pre vytvorenie nového cloudového pripojenia.</string>
 	<string name="permission_snackbar_auth_local_vault">Cryptomator potrebuje prístup k úložisku pre prácu s lokálnymi trezormy</string>
 	<string name="permission_snackbar_auth_auto_upload">Cryptomator potrebuje prístup k úložisku pre automatické nahrávanie fotografii</string>
+	<string name="permission_snackbar_notifications">Cryptomator potrebuje povolenie notifikácií, napríklad na zobrazenie stavu trezoru</string>
 	<!-- # error reports -->
 	<!-- # misc -->
 	<!-- ## file size helper -->

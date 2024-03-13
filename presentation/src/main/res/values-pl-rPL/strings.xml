@@ -200,6 +200,8 @@
 	<string name="screen_settings_security_label">Wskazówki bezpieczeństwa</string>
 	<string name="screen_settings_section_version">Wersja</string>
 	<string name="screen_settings_advanced_settings">Ustawienia zaawansowane</string>
+	<string name="screen_settings_microsoft_apps_workaround_label">Otwieranie plików Microsoft</string>
+	<string name="screen_settings_microsoft_apps_workaround_summary">Otwórz pliki w aplikacjach firmy Microsoft z uprawnieniami do zapisu</string>
 	<string name="screen_settings_background_unlock_preparation_label">Przyspiesz odblokowanie</string>
 	<string name="screen_settings_background_unlock_preparation_label_summary">Pobierz konfigurację sejfu w tle, gdy zostaniesz poproszony o wprowadzenie hasła lub autoryzację biometryczną</string>
 	<string name="screen_settings_keep_unlocked_while_editing_files">Zachowaj odblokowany</string>
@@ -306,6 +308,7 @@
 	<string name="dialog_debug_mode_disclaimer_hint">W tym trybie poufne dane mogą być zapisywane do pliku dziennika na urządzeniu (np. nazwy plików i ścieżki). Hasła, ciasteczka itp. są wykluczone.\n\nPamiętaj, aby wyłączyć tryb debugowania tak szybko, jak to możliwe.</string>
 	<string name="dialog_debug_mode_disclaimer_title">Uwaga</string>
 	<string name="dialog_debug_mode_positive_button">Włącz</string>
+	<string name="dialog_microsoft_workaround_disclaimer_hint">Z powodu błędu w aplikacjach firmy Microsoft, plik do edycji musi być udostępniony tym aplikacjom w folderze mediów publicznych na Twoim urządzeniu. Po wznowieniu działania Cryptomator ponownie usuwa publicznie dostępny plik, ale Cryptomator nie może wpływać na to, co w międzyczasie stało się z tym plikiem. Upewnij się, że jesteś świadomy tego zachowania podczas aktywowania tej opcji. To będzie dotyczyć tylko typów plików firmy Microsoft.\n\nCryptomator uruchomi się ponownie po aktywacji.</string>
 	<string name="dialog_disable_app_obscured_disclaimer_hint">To ustawienie jest funkcją bezpieczeństwa i uniemożliwia innym aplikacjom oszukiwanie użytkowników.\n\nWyłączając je potwierdzasz, że jesteś <a href="https://docs.cryptomator.org/en/1.6/android/settings/#block-app-when-obscured">świadomy ryzyka</a>.</string>
 	<string name="dialog_disable_app_obscured_disclaimer_title">Uwaga</string>
 	<string name="dialog_disable_app_obscured_positive_button">Wyłącz</string>
@@ -394,6 +397,7 @@
 	<string name="notification_auto_upload_failed_due_to_folder_not_exists">Wybrany folder do przesłania nie jest już dostępny. Przejdź do ustawień i wybierz nowy</string>
 	<string name="notification_auto_upload_failed_due_to_vault_locked">Sejf został zablokowany podczas przesyłania, otwórz go ponownie aby kontynuować</string>
 	<string name="notification_auto_upload_failed_due_to_vault_not_found">Sejf wybrany do automatycznego wysyłania już nie istnieje.</string>
+	<string name="notification_auto_upload_failed_due_to_authentication_problem">Dotknij, aby odświeżyć uwierzytelnianie.</string>
 	<string name="notification_open_writable_file_title">Otwórz plik zapisywalny</string>
 	<string name="notification_open_writable_file_message">Sejf pozostaje odblokowany do czasu zakończenia edycji</string>
 	<string name="notification_update_check_finished_latest">Zainstalowano najnowszą wersję</string>

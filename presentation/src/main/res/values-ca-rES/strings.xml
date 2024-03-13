@@ -198,6 +198,8 @@
 	<string name="screen_settings_security_label">Consells de seguretat</string>
 	<string name="screen_settings_section_version">Versió</string>
 	<string name="screen_settings_advanced_settings">Configuració avançada</string>
+	<string name="screen_settings_microsoft_apps_workaround_label">Solució alternativa per obrir fitxers de Microsoft</string>
+	<string name="screen_settings_microsoft_apps_workaround_summary">Obrir fitxers a Microsoft apps amb permís d\'escriptura</string>
 	<string name="screen_settings_background_unlock_preparation_label">Desbloqueja més ràpid</string>
 	<string name="screen_settings_background_unlock_preparation_label_summary">Descarrega la configuració de la caixa forta de fons mentre es demana introduir la contrasenya o l\'autenticació biomètrica</string>
 	<string name="screen_settings_keep_unlocked_while_editing_files">Manté desblocat</string>
@@ -304,6 +306,7 @@
 	<string name="dialog_debug_mode_disclaimer_hint">En aquest mode, informació sensible pot ser escrita en un arxiu de registre al teu dispositiu (per exemple, noms d\'arxius i rutes). Contrasenyes, galetes, etc. són explícitament excloses.\n\nRecorda desactivar el mode de depuració tan aviat com sigui possible.</string>
 	<string name="dialog_debug_mode_disclaimer_title">Atenció</string>
 	<string name="dialog_debug_mode_positive_button">Activa</string>
+	<string name="dialog_microsoft_workaround_disclaimer_hint">A causa d\'un error en les aplicacions de Microsoft, el fitxer que s\'editarà s\'ha de compartir amb aquestes aplicacions en una carpeta de mitjans públics al dispositiu. Quan es reprengui Cryptomator, el fitxer d\'accés públic s\'elimina novament, però Cryptomator no pot influir en el que va passar amb aquest fitxer mentrestant. Assegureu-vos de conèixer aquest comportament en activar aquesta opció. Això només s\'aplicarà als tipus de fitxers de Microsoft.\n\nCryptomator es reiniciarà després de l\'activació.</string>
 	<string name="dialog_disable_app_obscured_disclaimer_hint">Aquesta configuració és una funció de seguretat i evita que altres aplicacions enganyin els usuaris perquè facin coses que no volen fer.\n\nEn desactivar-la, confirmeu que sou &lt;a href="https://docs.cryptomator.org". /en/1.6/android/settings/#block-app-when-obscured"&gt;conscient dels riscos&lt;/a&gt;.</string>
 	<string name="dialog_disable_app_obscured_disclaimer_title">Atenció</string>
 	<string name="dialog_disable_app_obscured_positive_button">Desactiva</string>
@@ -348,6 +351,7 @@
 	<string name="dialog_pcloud_credentials_updated">Si teníeu la intenció d\'afegir un compte de pCloud nou, toqueu aquest URL <a href="https://www.pcloud.com">www.pcloud.com</a>, tanqueu la sessió del compte actual i torneu a tocar el \"+\" d\'aquesta aplicació per crear una nova connexió al núvol.</string>
 	<string name="permission_snackbar_auth_local_vault">Cryptomator necessita accés a l\'emmagatzematge per a fer servir caixes fortes locals</string>
 	<string name="permission_snackbar_auth_auto_upload">Cryptomator necessita accés a l\'emmagatzematge per a la pujada de fotos automàtica</string>
+	<string name="permission_snackbar_notifications">Cryptomator necessita permís de notificacions per poder informar del seu estat, per exemple</string>
 	<!-- # error reports -->
 	<!-- # misc -->
 	<!-- ## file size helper -->
@@ -391,6 +395,7 @@
 	<string name="notification_auto_upload_failed_due_to_folder_not_exists">La carpeta seleccionada per a la pujada ja no està disponible. Ves a la configuració i selecciona una nova</string>
 	<string name="notification_auto_upload_failed_due_to_vault_locked">La caixa forta s\'ha bloquejat durant la pujada, si us plau desbloqueja-la per a continuar</string>
 	<string name="notification_auto_upload_failed_due_to_vault_not_found">La caixa forta especificada per a la pujada automàtica ja no existeix.</string>
+	<string name="notification_auto_upload_failed_due_to_authentication_problem">Toqui per refrescar l\'autenticació.</string>
 	<string name="notification_open_writable_file_title">Obre fitxer editable</string>
 	<string name="notification_open_writable_file_message">La caixa forta seguirà desbloquejada fins que acabi l\'edició</string>
 	<string name="notification_update_check_finished_latest">La versió més recent s\'ha instal·lat</string>

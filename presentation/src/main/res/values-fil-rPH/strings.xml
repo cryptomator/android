@@ -34,11 +34,16 @@
 	<string name="error_file_not_found_after_opening_using_3party">Ang lokal na file ay hindi na matagpuan pagkatapos lumipat sa Cryptomator. Maaaring hindi na ma-i upload pabalik sa cloud.</string>
 	<string name="error_no_such_bucket">Hindi matagpuan ang bucket na ito</string>
 	<string name="error_masterkey_location_not_supported">Hindi pa suportado ang custom Masterkey location</string>
+	<string name="error_interact_with_fdroid_but_fdroid_missing">Nabigong makipag-ugnayan sa F-Droid app. Hindi naka-install?</string>
 	<!-- # clouds -->
 	<!-- ## cloud names -->
 	<string name="cloud_names_local_storage">Local storage</string>
 	<!-- # permission -->
 	<!-- ## permission messages -->
+	<string name="permission_message_export_file">Kailangan ng Cryptomator ng access sa storage para mag-export ng mga file</string>
+	<string name="permission_message_upload_file">Kailangan ng Cryptomator ng access sa storage para mag-upload ng mga file</string>
+	<string name="permission_message_share_file">Kailangan ng Cryptomator ng access sa storage para makapagbahagi ng mga file</string>
+	<string name="permission_revoked_re_request_permission">Nawalan ng pahintulot ang Cryptomator na i-access ang lokasyong ito. Mangyaring piliin muli ang folder na ito upang maibalik ang pahintulot.</string>
 	<string name="snack_bar_action_title_settings">Settings</string>
 	<string name="snack_bar_action_title_search">Hanapin</string>
 	<string name="snack_bar_action_title_search_previous">Nakaraan</string>
@@ -51,20 +56,27 @@
 	<string name="snack_bar_action_title_sort_biggest">Pinakamalaki muna</string>
 	<string name="snack_bar_action_title_sort_smallest">Pinakamaliit muna</string>
 	<string name="snack_bar_cryptomator_variants_title">Magbasa pa</string>
+	<string name="snack_bar_cryptomator_variants_hint">Wala si Cloud sa listahan?</string>
 	<!-- # screens -->
 	<!-- # screen: vault list -->
 	<string name="screen_vault_list_actions_title">Idagdag sa Cryptomator</string>
 	<string name="screen_vault_list_action_create_new_vault">Gumawa ng bagong vault</string>
 	<string name="screen_vault_list_action_add_existing_vault">Magdagdag ng umiiral na vault</string>
 	<string name="screen_vault_list_vault_action_delete">Tanggalin</string>
+	<string name="screen_vault_list_vault_creation_hint">Mag-tap dito para gumawa ng bagong vault</string>
 	<string name="screen_vault_list_change_password_successful">Matagumpay na napalitan ang password</string>
 	<!-- # screen: file browser -->
 	<string name="screen_file_browser_default_title">Vault</string>
 	<string name="screen_file_browser_add_existing_vault_extra_text">Piliin ang masterkey file</string>
 	<string name="screen_file_browser_create_new_vault_button_text">Ilagay dito</string>
 	<string name="screen_file_browser_create_new_vault_extra_text">Pangalan ng vault: %1$s</string>
+	<plurals name="screen_file_browser_subtitle_move">
+		<item quantity="one">Ilipat ang %1$s sa</item>
+		<item quantity="other">Ilipat ang %2$d item sa</item>
+	</plurals>
 	<string name="screen_file_browser_move_button_text">Ilipat</string>
 	<string name="screen_file_browser_msg_empty_folder">Walang laman na folder</string>
+	<string name="screen_file_browser_file_info_label_date">binago %1$s ang nakalipas</string>
 	<string name="screen_file_browser_share_intent_chooser_title">Ibahagi kay</string>
 	<string name="screen_file_browser_share_destination_title">Pumili ng destinasyon</string>
 	<string name="screen_file_browser_share_button_text">Pumili</string>
@@ -76,6 +88,8 @@
 	<string name="screen_file_browser_upload_files_chooser_title">Files</string>
 	<string name="screen_file_browser_msg_file_exported">Na-export na ang file</string>
 	<string name="screen_file_browser_msg_files_exported">Na-export na ang mga files</string>
+	<string name="screen_file_browser_nothing_to_export">Walang mai-export</string>
+	<string name="screen_file_browser_msg_creating_download_dir_failed">Nabigo ang paggawa ng direktoryo sa pag-download</string>
 	<string name="screen_file_browser_node_action_share">Ibahagi</string>
 	<string name="screen_file_browser_node_action_rename">Baguhin ang pangalan</string>
 	<string name="screen_file_browser_node_action_edit_text">I-edit</string>
@@ -104,7 +118,9 @@
 	<string name="screen_choose_cloud_service_title">Cloud service</string>
 	<!-- ## screen: cloud connections -->
 	<string name="screen_cloud_connections_title">Piliin ang location</string>
+	<string name="screen_cloud_connections_no_connections">Mag-tap dito para magdagdag ng mga lokasyon</string>
 	<string name="screen_cloud_error_webdav_not_supported">Ang server na ito ay mukhang hindi tugma sa WebDAV</string>
+	<string name="screen_cloud_local_error_no_content_provider">Walang nakitang file manager na sumusuporta sa pagbubukas ng mga direktoryo</string>
 	<!-- ## screen: webdav settings -->
 	<string name="screen_webdav_settings_url_port_label">URL</string>
 	<string name="screen_webdav_settings_username_label">Username</string>
@@ -115,8 +131,15 @@
 	<string name="screen_webdav_settings_msg_username_must_not_be_empty">Hindi maaaring walang laman ang username.</string>
 	<string name="screen_webdav_settings_msg_password_must_not_be_empty">Hindi maaaring walang laman ang password.</string>
 	<!-- ## screen: s3 settings -->
+	<string name="screen_s3_settings_display_name_label">Display Name</string>
 	<string name="screen_s3_settings_access_key_label">Access Key</string>
+	<string name="screen_s3_settings_secret_key_label">Lihim na Susi</string>
+	<string name="screen_s3_settings_bucket_label">Umiiral na Balde</string>
+	<string name="screen_s3_settings_endpoint_label">Endpoint</string>
 	<string name="screen_s3_settings_region_label">Rehiyon</string>
+	<string name="screen_s3_settings_msg_display_name_not_empty">Hindi maaaring walang laman ang Display Name</string>
+	<string name="screen_s3_settings_msg_access_key_not_empty">Hindi maaaring walang laman ang Access Key</string>
+	<string name="screen_s3_settings_msg_secret_key_not_empty">Hindi maaaring walang laman ang Secret Key</string>
 	<string name="screen_s3_settings_msg_bucket_not_empty">Hindi maaaring walang laman ang bucket</string>
 	<string name="screen_s3_settings_msg_endpoint_and_region_not_empty">Hindi maaaring walang laman ang endpoint o ang rehiyon</string>
 	<!-- ## screen: enter vault name -->
@@ -138,30 +161,74 @@
 	<string name="screen_settings_section_general">Pangkalahatan</string>
 	<string name="screen_settings_cloud_settings_label">Cloud services</string>
 	<string name="screen_settings_biometric_auth">Biometric authentication</string>
+	<string name="screen_settings_activate_biometric_auth">I-activate ang biometric authentication</string>
+	<string name="screen_settings_confirm_face_unlock">Kumpirmahin ang face unlock (kung available)</string>
+	<string name="screen_settings_block_app_when_obscured">I-block ang app kapag nakakubli</string>
+	<string name="screen_settings_block_app_when_obscured_summary">I-block ang pagharang sa input at pagpapakita ng maling user interface</string>
+	<string name="screen_settings_secure_screen">I-block ang mga screenshot</string>
+	<string name="screen_settings_secure_screen_summary">I-block ang mga screenshot sa listahan ng mga kamakailan at sa loob ng app</string>
 	<string name="screen_settings_section_search">Hanapin</string>
+	<string name="screen_settings_live_search">Live na paghahanap</string>
+	<string name="screen_settings_live_search_summary">I-update ang mga resulta ng paghahanap habang ipinapasok ang query</string>
+	<string name="screen_settings_glob_search">Maghanap gamit ang glob pattern</string>
+	<string name="screen_settings_glob_search_summary">Gumamit ng glob pattern matching gaya ni alice.*.jpg</string>
+	<string name="screen_settings_section_auto_lock">Awtomatikong pag-lock</string>
 	<string name="screen_settings_auto_lock_timeout">I-lock pagkatapos ng</string>
 	<string name="screen_settings_auto_lock_on_screen_lock">Kapag ang screen ay disabled</string>
+	<string name="screen_settings_section_auto_photo_upload">Awtomatikong pag-upload ng larawan</string>
 	<string name="screen_settings_section_auto_photo_upload_vault">Pumili ng vault pang upload</string>
 	<string name="screen_settings_section_auto_photo_upload_toggle">I-activate</string>
+	<string name="screen_settings_section_auto_photo_upload_toggle_summary">Kumuha ng mga larawan sa background at kapag na-unlock na ang napiling vault, simulan ang pag-upload</string>
+	<string name="screen_settings_section_auto_photo_upload_toggle_instant_upload">Mag-upload kaagad</string>
+	<string name="screen_settings_section_auto_photo_upload_toggle_instant_upload_summary">Direktang mag-upload kung naka-unlock ang vault</string>
+	<string name="screen_settings_section_auto_photo_upload_only_wifi_toggle">Mag-upload lang gamit ang WIFI</string>
+	<string name="screen_settings_section_auto_photo_upload_including_videos">Mag-upload ng mga video</string>
+	<string name="screen_settings_auto_photo_upload_title">I-save ang awtomatikong pag-upload ng mga file sa&#8230;</string>
 	<string name="screen_settings_website_label">Website ng Cryptomator</string>
 	<string name="screen_settings_twitter_label">Sundan kami sa Twitter</string>
 	<string name="screen_settings_facebook_label">I-like kami sa Facebook</string>
 	<string name="screen_settings_section_legal">Ligal</string>
 	<string name="screen_settings_licenses_label">Mga Lisensya</string>
+	<string name="screen_settings_license_terms_label">Mga tuntunin sa lisensya</string>
 	<string name="screen_settings_section_support">Suporta</string>
 	<string name="screen_settings_contact_label">Humingi ng tulong</string>
 	<string name="screen_settings_debug_mode_label">Debug mode</string>
 	<string name="screen_settings_error_report_label">Ipadala ang log file</string>
+	<string name="screen_settings_error_report_failed">Hindi naipadala</string>
 	<string name="screen_settings_security_label">Mga pahiwatig ng seguridad</string>
 	<string name="screen_settings_section_version">Bersyon</string>
 	<string name="screen_settings_advanced_settings">Mga advanced na setting</string>
+	<string name="screen_settings_microsoft_apps_workaround_label">Workaround sa pagbubukas ng mga file ng Microsoft</string>
 	<string name="screen_settings_microsoft_apps_workaround_summary">Ibukas ang mga files sa Microsoft apps kasamang write permission</string>
 	<string name="screen_settings_background_unlock_preparation_label">Pabilisin ang pag-unlock</string>
+	<string name="screen_settings_background_unlock_preparation_label_summary">I-download ang vault config sa background habang sinenyasan na ilagay ang password o biometric auth</string>
+	<string name="screen_settings_keep_unlocked_while_editing_files">Panatilihing naka-unlock</string>
+	<string name="screen_settings_keep_unlocked_while_editing_files_summary">Panatilihing naka-unlock ang mga vault habang nag-e-edit ng mga file</string>
 	<!-- ## screen: cloud settings -->
+	<string name="screen_cloud_settings_onedrive_connections">Mga koneksyon sa OneDrive</string>
+	<string name="screen_cloud_settings_webdav_connections">Mga koneksyon sa WebDAV</string>
+	<string name="screen_cloud_settings_pcloud_connections">Mga koneksyon sa pCloud</string>
+	<string name="screen_cloud_settings_s3_connections">Mga koneksyon sa S3</string>
+	<string name="screen_cloud_settings_local_storage_locations">Mga lokasyon ng lokal na imbakan</string>
+	<string name="screen_cloud_settings_log_in_to">Mag-log in sa</string>
+	<string name="screen_cloud_settings_sign_out_from_cloud">Mag-sign out mula sa</string>
 	<!-- ## screen: licenses -->
 	<!-- ## screen: authenticate cloud -->
+	<string name="screen_authenticate_auth_authentication_failed">Hindi ma-authenticate ang %1$s.</string>
+	<string name="screen_update_pcloud_connections_title">I-update ang mga kredensyal ng pCloud</string>
 	<!-- ## screen: cryptomator app variants -->
+	<string name="screen_cryptomator_variants_title">Mga variant ng Cryptomator</string>
+	<string name="screen_cryptomator_variants_lite_title">Pangunahing F-Droid Repository</string>
+	<string name="screen_cryptomator_variants_lite_description">Hindi kasama dahil nangangailangan sila ng mga API key.</string>
+	<string name="screen_cryptomator_variants_lite_install">I-install</string>
+	<string name="screen_cryptomator_variants_fdroid_title">Cryptomator F-Droid Repository</string>
+	<string name="screen_cryptomator_variants_fdroid_description">Hindi kasama dahil naglalaman ito ng mga pinagmamay-ariang dependency.</string>
+	<string name="screen_cryptomator_variants_fdroid_add_repo_hint">Magdagdag ng Cryptomator repository sa F-Droid app.</string>
+	<string name="screen_cryptomator_variants_fdroid_add_repo">Idagdag</string>
+	<string name="screen_cryptomator_variants_fdroid_install_hint">I-install ang Cryptomator gamit ang F-Droid.\nKung may ipinapakitang not found error, maghintay hanggang matapos ang F-Droid synchronization.</string>
 	<string name="screen_cryptomator_variants_website_title">Website</string>
+	<string name="screen_cryptomator_variants_website_description">Naglalaman ng pagmamay-ari na dependencies.</string>
+	<string name="screen_cryptomator_variants_installation_hint">Ang paglipat mula sa o sa pangunahing variant ng repository ng F-Droid ay nangangailangan ng bagong setup ng app.</string>
 	<!-- # dialogs -->
 	<string name="dialog_button_cancel">Kanselahin</string>
 	<string name="dialog_enter_password_positive_button">I-unlock</string>
@@ -172,6 +239,8 @@
 	<string name="dialog_change_password_msg_new_password_empty">Hindi maaaring walang laman ang bagong password field.</string>
 	<string name="dialog_change_password_msg_password_mismatch">Hindi nagtugma ang bagong password sa ni-retype na password.</string>
 	<!-- Vault not found -->
+	<string name="dialog_vault_not_found_title">Hindi nahanap ang Vault %1$s</string>
+	<string name="dialog_vault_not_found_message">Ang vault ay pinalitan ng pangalan, inilipat o tinanggal. Alisin ang vault na ito sa listahan at idagdag itong muli upang magpatuloy. Alisin ngayon?</string>
 	<string name="dialog_vault_not_found_positive_button_text">Tanggalin</string>
 	<string name="dialog_existing_file_title">Mayroon na ng file na ito</string>
 	<string name="dialog_existing_file_positive_button">Palitan</string>
@@ -182,37 +251,76 @@
 	<string name="dialog_replace_positive_button_single_file_exists">Palitan</string>
 	<string name="dialog_replace_msg_single_file_exists">Umiiral na ang file na may pangalang \'%1$s\'. Nais mo bang palitan ito?</string>
 	<string name="dialog_replace_msg_all_files_exists">Ang lahat ng files ay umiiral na. Nais mo bang palitan ang mga ito?</string>
+	<string name="dialog_replace_msg_some_files_exists">Umiiral na ang %1$d file. Gusto mo bang palitan sila?</string>
 	<string name="dialog_replace_title_single_file_exists">Palitan ang file?</string>
 	<string name="dialog_replace_title_multiple_files_exist">Palitan ang mga file?</string>
 	<string name="dialog_unable_to_share_title">Hindi kayang i-share ang mga files</string>
+	<string name="dialog_unable_to_share_message">Hindi ka pa nagse-set up ng anumang mga vault. Mangyaring lumikha muna ng bagong vault gamit ang Cryptomator app.</string>
 	<string name="dialog_unable_to_share_positive_button">OK</string>
 	<string name="dialog_unable_to_share_negative_button">Gumawa ng bagong vault</string>
+	<string name="dialog_filetype_not_supported_title">Hindi mabuksan ang %1$s</string>
 	<string name="dialog_filetype_not_supported_message">Mag-download ng app na kayang buksan ang file na ito o nais mo bang i-save sa iyong device?</string>
 	<string name="dialog_rename_vault_title">Palitan ang pangalan ng vault</string>
 	<string name="dialog_rename_node_folder_title">Palitan ang pangalan ng folder</string>
 	<string name="dialog_rename_node_file_title">Palitan ang pangalan ng file</string>
 	<string name="dialog_unsaved_changes_title">Mayroon kang hindi na i-save na pagbabago</string>
+	<string name="dialog_unsaved_changes_message">Gusto mo ba talagang umalis nang hindi nag-iipon?</string>
 	<string name="dialog_unsaved_changes_discard">Ibaliwala</string>
 	<string name="dialog_file_name_hint">Pangalan ng File</string>
+	<string name="dialog_file_name_placeholder">text.txt</string>
 	<string name="dialog_delete_vault_message">Sigurado ka ba na nais mong alisin ang vault?</string>
 	<string name="dialog_delete_vault_hint">Ang aksyon na ito ay aalisin lamang ang vault sa listahan at hindi ito buburahin.</string>
+	<string name="dialog_upload_file_title">Nag-a-upload ng&#8230;</string>
+	<string name="dialog_upload_file_remaining">File %1$d ng %2$d</string>
+	<string name="dialog_export_file_title">Ini-export (%1$d/%2$d)</string>
 	<string name="dialog_progress_please_wait">Pakihintay&#8230;</string>
+	<string name="dialog_progress_creating_folder">Lumilikha ng folder&#8230;</string>
+	<string name="dialog_progress_creating_text_file">Paglikha ng text file&#8230;</string>
+	<string name="action_progress_authentication">Authentication&#8230;</string>
+	<string name="action_progress_renaming">Pagpapalit ng pangalan&#8230;</string>
+	<string name="action_progress_deleting">Tinatanggal ang&#8230;</string>
+	<string name="dialog_progress_unlocking_vault">Ina-unlock ang vault&#8230;</string>
+	<string name="dialog_progress_change_password">Pagpapalit ng password&#8230;</string>
+	<string name="dialog_progress_creating_vault">Paglikha ng vault&#8230;</string>
+	<string name="dialog_progress_upload_file">Nag-a-upload ng&#8230;</string>
+	<string name="dialog_progress_download_file">Nagda-download ng&#8230;</string>
 	<string name="dialog_progress_encryption">Ineencrypt&#8230;</string>
 	<string name="dialog_progress_decryption">Dinedecrypt&#8230;</string>
+	<string name="action_progress_moving">Gumagalaw&#8230;</string>
 	<string name="dialog_lock_vault">I-lock</string>
 	<string name="dialog_accept_ssl_certificate_title">Hindi wasto ang SSL certificate</string>
 	<string name="dialog_accept_ssl_certificate_hint">Hindi wasto ang SSL certificate. Nais mo paring pagkatiwalaan?</string>
 	<string name="dialog_accept_ssl_certificate_details">Mga detalye</string>
 	<string name="dialog_accept_ssl_certificate_security_checkbox">Maaaring panganib ito sa seguridad. Alam ko ang ginagawa ko.</string>
+	<string name="dialog_ask_ignore_battery_optimizations_title">Huwag paganahin ang mga pag-optimize ng baterya</string>
+	<string name="dialog_ask_ignore_battery_optimizations_hint">Upang makakuha ng mga bagong larawan at video nang hindi tumatakbo sa background, kailangan naming mag-opt-out mula sa mga pag-optimize ng baterya. Ngunit huwag mag-alala, hindi kumukonsumo ng maraming enerhiya ang %1$s.\n\nPara ilapat ito, palitan ang \'Hindi na-optimize\' sa \'Lahat ng app\', piliin ang %1$s at piliin ang \'Huwag mag-optimize\' pagkatapos mag-tap \'%2$s\' sa dialog na ito.</string>
 	<string name="dialog_ask_ignore_battery_optimizations_checkbox">Huwag magtanong ulit?</string>
 	<string name="dialog_http_security_hint">Ang pag-gamit ng HTTP ay hindi ligtas. Kung alam mo ang mga panganib, maaari kang tumuloy gamit ang HTTP.</string>
 	<string name="dialog_http_security_checkbox">Gawing HTTPS</string>
 	<string name="dialog_http_security_title">Gamiting ang HTTPS?</string>
+	<string name="dialog_no_screen_lock_hint">Walang nakatakdang lock ng screen. Upang iimbak ang iyong mga kredensyal sa isang secure na paraan, magtakda ng isang pattern o password gamit ang OK.</string>
+	<string name="dialog_no_screen_lock_title">Itakda ang lock ng screen?</string>
+	<string name="dialog_no_screen_lock_checkbox">Itakda ang lock ng screen</string>
+	<string name="dialog_no_biometric_auth_set_up_title">Walang naka-set up na basic authentication sa system</string>
+	<string name="dialog_no_biometric_auth_set_up_message">Mag-enroll ng kahit isang daliri/mukha para gamitin ang serbisyong ito.</string>
+	<string name="dialog_debug_mode_disclaimer_hint">Sa mode na ito, maaaring isulat ang sensitibong data sa isang log file sa iyong device (hal., mga filename at path). Ang mga password, cookies, atbp. ay tahasang hindi kasama.\n\nTandaang i-disable ang debug mode sa lalong madaling panahon.</string>
 	<string name="dialog_debug_mode_disclaimer_title">Atensyon</string>
 	<string name="dialog_debug_mode_positive_button">I-enable</string>
+	<string name="dialog_microsoft_workaround_disclaimer_hint">Dahil sa isang bug sa mga Microsoft app, ang file na ie-edit ay dapat na ibahagi sa mga app na ito sa isang pampublikong media folder sa iyong device. Pagkatapos maipagpatuloy ang Cryptomator, ang file na naa-access ng publiko ay tatanggalin muli, ngunit hindi maimpluwensyahan ng Cryptomator kung ano ang nangyari sa file na ito pansamantala. Tiyaking alam mo ang gawi na ito kapag ina-activate ang opsyong ito. Malalapat lang ito sa mga uri ng file ng Microsoft.\n\nMagre-restart ang Cryptomator pagkatapos ma-activate.</string>
+	<string name="dialog_disable_app_obscured_disclaimer_hint">Ang setting na ito ay isang feature na panseguridad at pinipigilan ang iba pang app na linlangin ang mga user sa paggawa ng mga bagay na hindi nila gustong gawin.\n\nSa pamamagitan ng hindi pagpapagana, kinukumpirma mo na ikaw ay <a href="https://docs.cryptomator.org /en/1.6/android/settings/#block-app-when-obscured">alam sa mga panganib</a>.</string>
 	<string name="dialog_disable_app_obscured_disclaimer_title">Atensyon</string>
+	<string name="dialog_disable_app_obscured_positive_button">Huwag paganahin</string>
+	<string name="dialog_app_is_obscured_info_title">Nakakubli ang app</string>
+	<string name="dialog_app_is_obscured_info_hint">Ang isa pang app ay nagpapakita ng isang bagay sa ibabaw ng Cryptomator (hal., isang asul na light filter o night mode app). Para sa mga kadahilanang pangseguridad, hindi pinagana ang Cryptomator.\n\n&lt;a href="https://docs.cryptomator.org/en/1.6/android/settings/#block-app-when-obscured"&gt;Paano i-enable ang Cryptomator&lt; /a&gt;</string>
 	<string name="dialog_app_is_obscured_info_neutral_button">Isara</string>
+	<string name="dialog_vaults_removed_during_migration_title">Mangyaring muling magdagdag ng mga vault para sa %1s cloud</string>
+	<string name="dialog_vaults_removed_during_migration_hint">Habang lumilipat sa bersyon ng app na ito kailangan naming alisin ang mga sumusunod na vault sa app:\n%2s \n\nAng mga vault na iyon ay hindi inaalis sa cloud ngunit sa app na ito lang. Paumanhin para sa abala at mangyaring muling idagdag ang mga vault na ito upang magpatuloy sa pagtatrabaho sa kanila.</string>
+	<string name="dialog_vault_is_root_folder_of_cloud_title">Ang Vault ay root folder ng koneksyon sa cloud</string>
+	<string name="dialog_vault_is_root_folder_of_cloud_hint">Gumawa ng bagong koneksyon sa cloud kung saan pipiliin mo ang hindi bababa sa parent folder ng vault folder na ito bilang root directory para idagdag ang vault na ito.</string>
+	<string name="dialog_disable_secure_screen_disclaimer_hint">Ang setting na ito ay isang feature na panseguridad at pinipigilan ang iba pang app na linlangin ang mga user sa paggawa ng mga bagay na hindi nila gustong gawin.\n\nSa pamamagitan ng hindi pagpapagana, kinukumpirma mo na ikaw ay <a href="https://docs.cryptomator.org /en/1.6/android/settings/#screen-security">alam sa mga panganib</a>.</string>
 	<string name="dialog_delete_cloud_connection_with_vaults_message">Sigurado ka bang gusto mong tanggalin itong cloud connection?</string>
+	<string name="dialog_delete_cloud_connection_with_vaults_hint">Aalisin ng pagkilos na ito ang koneksyon sa cloud at lahat ng vault ng cloud na ito.</string>
+	<string name="dialog_confirm_delete_multiple_title">Tanggalin ang %1$d item?</string>
 	<string name="dialog_confirm_delete_multiple_message">Sigurado ka bang gusto mong burahin ang mga ito?</string>
 	<string name="dialog_confirm_delete_file_message">Sigurado ka bang gusto mong burahin ang file na ito?</string>
 	<string name="dialog_confirm_delete_folder_message">Buburahin nito ang lahat ng laman ng folder. Sigurado ka ba na gusto mong burahin ang folder na ito?</string>
@@ -221,14 +329,29 @@
 	<string name="dialog_enter_license_title">Magbigay ng wastong lisensya</string>
 	<string name="dialog_enter_license_content">Natuklasan namin na ang nakainstall mong Cryptomator ay hind nanggaling sa Google Play Store. Maaari lamang na magbigay ng wastong lisensya na mabibili sa <a href="https://cryptomator.org/android/">https://cryptomator.org/android/</a></string>
 	<string name="dialog_enter_license_not_valid_content">Ang lisensyang binigay ay hindi wasto. Siguraduhing tama ang iyong pagkakalagay.</string>
+	<string name="dialog_enter_license_not_valid_content_desktop_supporter_certificate">Ang ibinigay na key ay isang desktop supporter certificate. Mangyaring magpasok ng wastong lisensya.</string>
+	<string name="dialog_enter_license_no_content">Walang ibinigay na lisensya. Mangyaring magpasok ng wastong lisensya.</string>
 	<string name="dialog_enter_license_decline_button">I-sara</string>
+	<string name="dialog_license_confirmation_title">Pagkumpirma ng lisensya</string>
 	<string name="dialog_license_confirmation_message">Salamat %1$s sa pagbigay ng wastong lisensya.</string>
+	<string name="dialog_update_available_title">Available ang update</string>
+	<string name="dialog_update_available_message">I-update ang Cryptomator sa pinakabagong bersyon. Sa pamamagitan ng pagpindot sa OK, ida-download namin ang app sa background at hihilingin sa iyo na i-install ito.</string>
 	<string name="dialog_update_available_update">I-update ngayon</string>
 	<string name="dialog_update_available_download_site">Pumunta sa download site</string>
 	<string name="dialog_update_available_cancel">Mamaya</string>
+	<string name="dialog_download_update_title">Tumatakbo ang pag-download</string>
+	<string name="dialog_download_update_message">Nagda-download ng pinakabagong bersyon ng Cryptomator</string>
 	<string name="dialog_sym_link_title">Ang folder na ito ay isang symbolic link</string>
 	<string name="dialog_sym_link_message">Hindi maaaring puntahan ang symbolic link na ito</string>
 	<string name="dialog_sym_link_back_button">Bumalik</string>
+	<string name="dialog_no_dir_file_title">Hindi ma-load ang mga nilalaman ng direktoryo</string>
+	<string name="dialog_no_dir_file_message">Walang wastong directory file ang cloud folder na \'%1$s\'. Maaaring ang folder ay ginawa sa ibang device at hindi pa ganap na naka-synchronize sa cloud. Pakisuri sa iyong cloud kung ang sumusunod na file ay umiiral at walang laman:\n%2$s</string>
+	<string name="dialog_no_more_images_to_display">Wala nang mga imaheng ipapakita&#8230;</string>
+	<string name="dialog_pcloud_credentials_updated_title">Na-update ang mga kredensyal ng \'%1$s\'</string>
+	<string name="dialog_pcloud_credentials_updated">Kung balak mong magdagdag ng bagong pCloud account, i-tap ang url na ito <a href="https://www.pcloud.com">www.pcloud.com</a>, mag-log out sa kasalukuyang account at mag-tap muli sa ang \'+\' sa app na ito upang lumikha ng bagong koneksyon sa ulap.</string>
+	<string name="permission_snackbar_auth_local_vault">Kailangan ng Cryptomator ng access sa storage para magamit ang mga lokal na vault</string>
+	<string name="permission_snackbar_auth_auto_upload">Kailangan ng Cryptomator ng access sa storage upang magamit ang awtomatikong pag-upload ng larawan</string>
+	<string name="permission_snackbar_notifications">Ang Cryptomator ay nangangailangan ng mga pahintulot sa abiso upang ipakita ang status ng vault halimbawa</string>
 	<!-- # error reports -->
 	<!-- # misc -->
 	<!-- ## file size helper -->
@@ -257,18 +380,39 @@
 	<string name="dialog_biometric_auth_title">Biometric login</string>
 	<string name="dialog_biometric_auth_message">Mag-log in gamit ang iyong biometric credential</string>
 	<string name="dialog_biometric_auth_use_password">Gamitin ang vault password</string>
+	<string name="dialog_unable_to_auto_upload_files_title">Hindi makapag-auto upload ng mga file</string>
 	<!-- notification -->
 	<string name="notification_unlocked">Vaults na na-unlock: %1$d</string>
 	<string name="notification_timeout">Autolock in %1$s</string>
 	<string name="notification_lock_all">I-lock lahat</string>
 	<string name="notification_cancel_auto_upload">Ikansela ang pag-upload</string>
+	<string name="notification_auto_upload_title">Tumatakbo ang awtomatikong pag-upload ng larawan</string>
 	<string name="notification_auto_upload_message">Uploading %1d/%2d</string>
+	<string name="notification_auto_upload_finished_title">Tumatakbo ang awtomatikong pag-upload ng larawan</string>
+	<string name="notification_auto_upload_finished_message">%1$d larawan ang na-upload sa vault</string>
+	<string name="notification_auto_upload_failed_title">Nabigo ang awtomatikong pag-upload ng larawan</string>
+	<string name="notification_auto_upload_failed_general_error">Naganap ang pangkalahatang error habang nag-a-upload.</string>
+	<string name="notification_auto_upload_failed_due_to_folder_not_exists">Hindi na available ang napiling folder para sa pag-upload. Pumunta sa mga setting at pumili ng bago</string>
+	<string name="notification_auto_upload_failed_due_to_vault_locked">Naka-lock ang Vault habang nag-a-upload, mangyaring buksan muli ang vault upang magpatuloy</string>
+	<string name="notification_auto_upload_failed_due_to_vault_not_found">Ang Vault na tinukoy para sa awtomatikong pag-upload ay wala na.</string>
+	<string name="notification_auto_upload_failed_due_to_authentication_problem">I-tap para i-refresh ang pagpapatotoo.</string>
+	<string name="notification_open_writable_file_title">Buksan ang nasusulat na file</string>
+	<string name="notification_open_writable_file_message">Nananatiling naka-unlock ang Vault hanggang matapos ang pag-edit</string>
 	<string name="notification_update_check_finished_latest">Naka-install ang pinakabagong bersyon</string>
+	<string name="notification_authenticating">Pagpapatunay ng&#8230;</string>
 	<string name="screen_settings_lru_cache">Cache</string>
+	<string name="screen_settings_lru_cache_toggle_summary">Na-access kamakailan ng cache ang mga file na naka-encrypt nang lokal sa device para magamit muli sa ibang pagkakataon kapag muling binuksan</string>
 	<string name="screen_settings_lru_cache_size">Kabuuang laki ng cache</string>
 	<string name="screen_settings_clear_lru_cache_size">Linisin ang Cache</string>
 	<string name="screen_settings_lru_cache_changed__restart_toast">Ang mga pagbabago ay makikita pagkatapos ng pag-restart ng app</string>
+	<string name="screen_settings_license">Nakarehistro para sa</string>
+	<string name="screen_settings_license_mail">%1$s</string>
+	<string name="dialog_settings_update_check_interval_title">I-update ang agwat ng pagsusuri</string>
+	<string name="screen_settings_check_updates">Tingnan ang mga update</string>
+	<string name="screen_settings_last_check_updates">Huling pagtakbo %1$s</string>
+	<string name="dialog_cache_size_title">Laki ng cache sa bawat Cloud</string>
 	<!-- lock timeout names -->
+	<string name="lock_timeout_instant">Instant</string>
 	<string name="lock_timeout_1m">1 minuto</string>
 	<string name="lock_timeout_2m">2 minuto</string>
 	<string name="lock_timeout_5m">5 minuto</string>
