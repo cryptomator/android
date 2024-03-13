@@ -34,6 +34,7 @@
 	<string name="error_file_not_found_after_opening_using_3party">File lokal sudah tidak tersedia setelah beralih kembali ke Cryptomator. Perubahan yang ada tidak dapat disimpan kembali ke cloud.</string>
 	<string name="error_no_such_bucket">Bucket tidak ada</string>
 	<string name="error_masterkey_location_not_supported">Lokasi Masterkey khusus belum didukung</string>
+	<string name="error_interact_with_fdroid_but_fdroid_missing">Gagal berkomunikasi dengan aplikasi F-Droid. Belum diinstal?</string>
 	<!-- # clouds -->
 	<!-- ## cloud names -->
 	<string name="cloud_names_local_storage">Penyimpanan lokal</string>
@@ -54,12 +55,15 @@
 	<string name="snack_bar_action_title_sort_oldest">Terlama dulu</string>
 	<string name="snack_bar_action_title_sort_biggest">Terbesar dulu</string>
 	<string name="snack_bar_action_title_sort_smallest">Terkecil dulu</string>
+	<string name="snack_bar_cryptomator_variants_title">Baca lebih lanjut</string>
+	<string name="snack_bar_cryptomator_variants_hint">Cloud tidak ada di dalam daftar?</string>
 	<!-- # screens -->
 	<!-- # screen: vault list -->
 	<string name="screen_vault_list_actions_title">Tambah ke Cryptomator</string>
 	<string name="screen_vault_list_action_create_new_vault">Buat vault baru</string>
 	<string name="screen_vault_list_action_add_existing_vault">Tambahkan vault yang sudah ada</string>
 	<string name="screen_vault_list_vault_action_delete">Hapus</string>
+	<string name="screen_vault_list_vault_creation_hint">Ketuk disini untuk membuat vault baru</string>
 	<string name="screen_vault_list_change_password_successful">Kasa Sandi berhasil diubah</string>
 	<!-- # screen: file browser -->
 	<string name="screen_file_browser_default_title">Vault</string>
@@ -113,6 +117,7 @@
 	<string name="screen_choose_cloud_service_title">Layanan Cloud</string>
 	<!-- ## screen: cloud connections -->
 	<string name="screen_cloud_connections_title">Pilih lokasi</string>
+	<string name="screen_cloud_connections_no_connections">Ketuk disini untuk menambahkan lokasi</string>
 	<string name="screen_cloud_error_webdav_not_supported">Server tampaknya tidak kompatibel dengan WebDAV</string>
 	<string name="screen_cloud_local_error_no_content_provider">Tidak ditemukan file manager yang dapat membuka direktori ini</string>
 	<!-- ## screen: webdav settings -->
@@ -192,6 +197,8 @@
 	<string name="screen_settings_security_label">Petunjuk keamanan</string>
 	<string name="screen_settings_section_version">Versi</string>
 	<string name="screen_settings_advanced_settings">Pengaturan Lanjutan</string>
+	<string name="screen_settings_microsoft_apps_workaround_label">Solusi membuka file Microsoft</string>
+	<string name="screen_settings_microsoft_apps_workaround_summary">Buka file di aplikasi Microsoft dengan izin menulis</string>
 	<string name="screen_settings_background_unlock_preparation_label">Percepat buka kunci</string>
 	<string name="screen_settings_background_unlock_preparation_label_summary">Unduh konfigurasi vault di latar belakang saat diminta memasukkan kata sandi atau otentikasi biometrik</string>
 	<string name="screen_settings_keep_unlocked_while_editing_files">Biarkan tidak terkunci</string>
@@ -209,6 +216,7 @@
 	<string name="screen_authenticate_auth_authentication_failed">%1$s tidak dapat diautentikasi.</string>
 	<string name="screen_update_pcloud_connections_title">Perbarui kredensial pCloud</string>
 	<!-- ## screen: cryptomator app variants -->
+	<string name="screen_cryptomator_variants_title">Varian Cryptomator</string>
 	<!-- # dialogs -->
 	<string name="dialog_button_cancel">Batalkan</string>
 	<string name="dialog_enter_password_positive_button">Buka Kunci</string>
