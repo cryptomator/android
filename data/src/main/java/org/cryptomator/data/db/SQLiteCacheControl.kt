@@ -12,8 +12,12 @@ object SQLiteCacheControl {
 		private val newIdentifier: String
 			get() = UUID.randomUUID().toString()
 
-		override fun invoke(sql: String): String {
+		override fun map(sql: String): String {
 			return "$sql -- $newIdentifier"
+		}
+
+		override fun mapWhereClause(whereClause: String?): String {
+			return map(whereClause ?: "1 = 1")
 		}
 	}
 

@@ -72,18 +72,18 @@ internal class MappingSupportSQLiteDatabase(
 	private val helper = AOP_SQLiteDatabase()
 
 	private fun map(sql: String): String {
-		return mappingFunction(sql)
+		return mappingFunction.map(sql)
 	}
 
 	private fun map(query: SupportSQLiteQuery): SupportSQLiteQuery {
 		return MappingSupportSQLiteQuery(query)
 	}
 
-	private fun mapWhereClause(whereClause: String?): String {
+	private fun mapWhereClause(whereClause: String?): String? {
 		if (whereClause != null && whereClause.isBlank()) {
 			throw IllegalArgumentException()
 		}
-		return map(whereClause ?: "1 = 1")
+		return mappingFunction.mapWhereClause(whereClause)
 	}
 
 	private inner class MappingSupportSQLiteStatement(
@@ -188,4 +188,10 @@ fun SupportSQLiteOpenHelper.Factory.asMapped(mappingFunction: SQLMappingFunction
 	return MappingSupportSQLiteOpenHelperFactory(this, mappingFunction)
 }
 
-interface SQLMappingFunction : (String) -> String
+interface SQLMappingFunction {
+
+	fun map(sql: String): String
+
+	fun mapWhereClause(whereClause: String?): String?
+
+}
