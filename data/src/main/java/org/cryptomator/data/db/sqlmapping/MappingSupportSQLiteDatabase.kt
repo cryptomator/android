@@ -1,4 +1,4 @@
-package org.cryptomator.data.db.cachecontrol
+package org.cryptomator.data.db.sqlmapping
 
 import android.content.ContentValues
 import android.database.Cursor

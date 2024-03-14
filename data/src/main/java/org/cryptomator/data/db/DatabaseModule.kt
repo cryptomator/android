@@ -8,7 +8,7 @@ import androidx.room.migration.Migration
 import androidx.sqlite.db.SupportSQLiteDatabase
 import androidx.sqlite.db.SupportSQLiteOpenHelper
 import androidx.sqlite.db.framework.FrameworkSQLiteOpenHelperFactory
-import org.cryptomator.data.db.cachecontrol.asCacheControlled
+import org.cryptomator.data.db.sqlmapping.asCacheControlled
 import org.cryptomator.data.db.migrations.legacy.Upgrade0To1
 import org.cryptomator.data.db.migrations.legacy.Upgrade10To11
 import org.cryptomator.data.db.migrations.legacy.Upgrade11To12
