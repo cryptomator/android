@@ -32,9 +32,9 @@ import android.os.Build;
 
 final class AOP_SQLiteDatabase {
 
-	public static final String[] CONFLICT_VALUES = new String[] {"", " OR ROLLBACK ", " OR ABORT ", " OR FAIL ", " OR IGNORE ", " OR REPLACE "};
+	private static final String[] CONFLICT_VALUES = new String[] {"", " OR ROLLBACK ", " OR ABORT ", " OR FAIL ", " OR IGNORE ", " OR REPLACE "};
 
-	public InsertStatement insertWithOnConflict(String table, String nullColumnHack, ContentValues initialValues, int conflictAlgorithm) {
+	InsertStatement insertWithOnConflict(String table, String nullColumnHack, ContentValues initialValues, int conflictAlgorithm) {
 		//acquireReference();
 		try {
 			StringBuilder sql = new StringBuilder();
@@ -79,7 +79,7 @@ final class AOP_SQLiteDatabase {
 		}
 	}
 
-	public static class InsertStatement {
+	static class InsertStatement {
 
 		private final String sql;
 		private final Object[] bindArgs;
