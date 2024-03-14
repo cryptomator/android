@@ -7,7 +7,7 @@ import java.util.UUID
 
 object SQLiteCacheControl {
 
-	object RandomUUIDSQLMappingFunction : SQLMappingFunction {
+	object RandomUUIDMapping : SQLMappingFunction {
 
 		private val newIdentifier: String
 			get() = UUID.randomUUID().toString()
@@ -17,5 +17,5 @@ object SQLiteCacheControl {
 		}
 	}
 
-	fun SupportSQLiteOpenHelper.Factory.asCacheControlled(): SupportSQLiteOpenHelper.Factory = asMapped(RandomUUIDSQLMappingFunction)
+	fun SupportSQLiteOpenHelper.Factory.asCacheControlled(): SupportSQLiteOpenHelper.Factory = asMapped(RandomUUIDMapping)
 }
