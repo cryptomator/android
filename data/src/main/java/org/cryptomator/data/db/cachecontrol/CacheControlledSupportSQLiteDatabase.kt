@@ -12,7 +12,8 @@ import java.util.Collections
 import java.util.UUID
 
 internal class CacheControlledSupportSQLiteDatabase(
-	private val delegate: SupportSQLiteDatabase
+	private val delegate: SupportSQLiteDatabase,
+	private val mappingFunction: SQLMappingFunction
 ) : SupportSQLiteDatabase by delegate {
 
 	override fun execSQL(sql: String) {
@@ -41,7 +42,7 @@ internal class CacheControlledSupportSQLiteDatabase(
 
 	override fun insert(table: String, conflictAlgorithm: Int, values: ContentValues): Long {
 		val processed = helper.insertWithOnConflict(table, null, values, conflictAlgorithm)
-		val statement = fixCompile(processed.sql, delegate)
+		val statement = CacheControlledSupportSQLiteStatement(processed.sql)
 		SimpleSQLiteQuery.bind(statement, processed.bindArgs)
 
 		return statement.executeInsert()
@@ -66,130 +67,136 @@ internal class CacheControlledSupportSQLiteDatabase(
 	}
 
 	override fun compileStatement(sql: String): SupportSQLiteStatement {
-		return fixCompile(sql, delegate)
-	}
-}
-
-private val helper = AOP_SQLiteDatabase()
-
-private val newIdentifier: String
-	get() = UUID.randomUUID().toString()
-
-private fun fix(sql: String, statementIdentifier: String = newIdentifier): String {
-	return "$sql -- $statementIdentifier"
-}
-
-private fun fix(query: SupportSQLiteQuery): SupportSQLiteQuery {
-	return CacheControlledSupportSQLiteQuery(query)
-}
-
-private fun fixCompile(sql: String, compilerDelegate: SupportSQLiteDatabase): SupportSQLiteStatement {
-	return CacheControlledSupportSQLiteStatement(sql, compilerDelegate)
-}
-
-private fun fixWhereClause(whereClause: String?): String {
-	if (whereClause != null && whereClause.isBlank()) {
-		throw IllegalArgumentException()
-	}
-	return fix(whereClause ?: "1 = 1")
-}
-
-private class CacheControlledSupportSQLiteStatement(
-	private val sql: String,
-	private val delegate: SupportSQLiteDatabase, //This is *not* the owning database, but *the delegate of* the owning database
-) : SupportSQLiteStatement {
-
-	private val bindings = mutableListOf<(SupportSQLiteStatement) -> Unit>()
-
-	override fun bindBlob(index: Int, value: ByteArray) {
-		bindings.add { statement -> statement.bindBlob(index, value) }
+		return CacheControlledSupportSQLiteStatement(sql)
 	}
 
-	override fun bindDouble(index: Int, value: Double) {
-		bindings.add { statement -> statement.bindDouble(index, value) }
+	private val helper = AOP_SQLiteDatabase()
+
+	private fun fix(sql: String): String {
+		return mappingFunction(sql)
 	}
 
-	override fun bindLong(index: Int, value: Long) {
-		bindings.add { statement -> statement.bindLong(index, value) }
+	private fun fix(query: SupportSQLiteQuery): SupportSQLiteQuery {
+		return CacheControlledSupportSQLiteQuery(query)
 	}
 
-	override fun bindNull(index: Int) {
-		bindings.add { statement -> statement.bindNull(index) }
+	private fun fixWhereClause(whereClause: String?): String {
+		if (whereClause != null && whereClause.isBlank()) {
+			throw IllegalArgumentException()
+		}
+		return fix(whereClause ?: "1 = 1")
 	}
 
-	override fun bindString(index: Int, value: String) {
-		bindings.add { statement -> statement.bindString(index, value) }
-	}
+	private inner class CacheControlledSupportSQLiteStatement(
+		private val sql: String
+	) : SupportSQLiteStatement {
 
-	override fun clearBindings() {
-		bindings.clear()
-	}
+		private val bindings = mutableListOf<(SupportSQLiteStatement) -> Unit>()
 
-	override fun close() {
-		//NO-OP
-	}
+		override fun bindBlob(index: Int, value: ByteArray) {
+			bindings.add { statement -> statement.bindBlob(index, value) }
+		}
 
-	override fun execute() {
-		newBoundStatement().use { it.execute() }
-	}
+		override fun bindDouble(index: Int, value: Double) {
+			bindings.add { statement -> statement.bindDouble(index, value) }
+		}
 
-	override fun executeInsert(): Long {
-		return newBoundStatement().use { it.executeInsert() }
-	}
+		override fun bindLong(index: Int, value: Long) {
+			bindings.add { statement -> statement.bindLong(index, value) }
+		}
 
-	override fun executeUpdateDelete(): Int {
-		return newBoundStatement().use { it.executeUpdateDelete() }
-	}
+		override fun bindNull(index: Int) {
+			bindings.add { statement -> statement.bindNull(index) }
+		}
 
-	override fun simpleQueryForLong(): Long {
-		return newBoundStatement().use { it.simpleQueryForLong() }
-	}
+		override fun bindString(index: Int, value: String) {
+			bindings.add { statement -> statement.bindString(index, value) }
+		}
 
-	override fun simpleQueryForString(): String? {
-		return newBoundStatement().use { it.simpleQueryForString() }
-	}
+		override fun clearBindings() {
+			bindings.clear()
+		}
 
-	private fun newBoundStatement(): SupportSQLiteStatement {
-		return delegate.compileStatement(fix(sql)).also { statement ->
-			for (binding: (SupportSQLiteStatement) -> Unit in bindings) {
-				binding(statement)
+		override fun close() {
+			//NO-OP
+		}
+
+		override fun execute() {
+			newBoundStatement().use { it.execute() }
+		}
+
+		override fun executeInsert(): Long {
+			return newBoundStatement().use { it.executeInsert() }
+		}
+
+		override fun executeUpdateDelete(): Int {
+			return newBoundStatement().use { it.executeUpdateDelete() }
+		}
+
+		override fun simpleQueryForLong(): Long {
+			return newBoundStatement().use { it.simpleQueryForLong() }
+		}
+
+		override fun simpleQueryForString(): String? {
+			return newBoundStatement().use { it.simpleQueryForString() }
+		}
+
+		private fun newBoundStatement(): SupportSQLiteStatement {
+			return delegate.compileStatement(fix(sql)).also { statement ->
+				for (binding: (SupportSQLiteStatement) -> Unit in bindings) {
+					binding(statement)
+				}
 			}
 		}
 	}
-}
 
-private class CacheControlledSupportSQLiteQuery(
-	private val delegate: SupportSQLiteQuery
-) : SupportSQLiteQuery by delegate {
+	private inner class CacheControlledSupportSQLiteQuery(
+		private val delegateQuery: SupportSQLiteQuery
+	) : SupportSQLiteQuery by delegateQuery {
 
-	private val identifiers: MutableMap<String, String> = Collections.synchronizedMap(mutableMapOf())
+		private val identifiers: MutableMap<String, String> = Collections.synchronizedMap(mutableMapOf())
 
-	override val sql: String
-		get() = fix(delegate.sql, identifiers.computeIfAbsent(delegate.sql) { newIdentifier })
+		override val sql: String
+			get() = identifiers.computeIfAbsent(delegateQuery.sql) { fix(it) }
+	}
 }
 
 private class CacheControlledSupportSQLiteOpenHelper(
-	private val delegate: SupportSQLiteOpenHelper
+	private val delegate: SupportSQLiteOpenHelper,
+	private val mappingFunction: SQLMappingFunction
 ) : SupportSQLiteOpenHelper by delegate {
 
 	override val writableDatabase: SupportSQLiteDatabase
-		get() = CacheControlledSupportSQLiteDatabase(delegate.writableDatabase)
+		get() = CacheControlledSupportSQLiteDatabase(delegate.writableDatabase, mappingFunction)
 
 	override val readableDatabase: SupportSQLiteDatabase
-		get() = CacheControlledSupportSQLiteDatabase(delegate.readableDatabase)
+		get() = CacheControlledSupportSQLiteDatabase(delegate.readableDatabase, mappingFunction)
 }
 
-class CacheControlledSupportSQLiteOpenHelperFactory(
-	private val delegate: SupportSQLiteOpenHelper.Factory
+private class CacheControlledSupportSQLiteOpenHelperFactory(
+	private val delegate: SupportSQLiteOpenHelper.Factory,
+	private val mappingFunction: SQLMappingFunction
 ) : SupportSQLiteOpenHelper.Factory {
 
 	override fun create(
 		configuration: SupportSQLiteOpenHelper.Configuration
 	): SupportSQLiteOpenHelper {
-		return CacheControlledSupportSQLiteOpenHelper(delegate.create(configuration))
+		return CacheControlledSupportSQLiteOpenHelper(delegate.create(configuration), mappingFunction)
 	}
 }
 
-fun SupportSQLiteOpenHelper.Factory.asCacheControlled(): SupportSQLiteOpenHelper.Factory {
-	return CacheControlledSupportSQLiteOpenHelperFactory(this)
+fun SupportSQLiteOpenHelper.Factory.asCacheControlled(mappingFunction: SQLMappingFunction = RandomUUIDSQLMappingFunction): SupportSQLiteOpenHelper.Factory {
+	return CacheControlledSupportSQLiteOpenHelperFactory(this, mappingFunction)
+}
+
+interface SQLMappingFunction : (String) -> String
+
+object RandomUUIDSQLMappingFunction : SQLMappingFunction {
+
+	private val newIdentifier: String
+		get() = UUID.randomUUID().toString()
+
+	override fun invoke(sql: String): String {
+		return "$sql -- $newIdentifier"
+	}
 }
