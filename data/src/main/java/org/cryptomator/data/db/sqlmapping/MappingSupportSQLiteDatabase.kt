@@ -9,7 +9,6 @@ import androidx.sqlite.db.SupportSQLiteOpenHelper
 import androidx.sqlite.db.SupportSQLiteQuery
 import androidx.sqlite.db.SupportSQLiteStatement
 import java.util.Collections
-import java.util.UUID
 
 internal class MappingSupportSQLiteDatabase(
 	private val delegate: SupportSQLiteDatabase,
@@ -185,18 +184,8 @@ private class MappingSupportSQLiteOpenHelperFactory(
 	}
 }
 
-fun SupportSQLiteOpenHelper.Factory.asMapped(mappingFunction: SQLMappingFunction = RandomUUIDSQLMappingFunction): SupportSQLiteOpenHelper.Factory {
+fun SupportSQLiteOpenHelper.Factory.asMapped(mappingFunction: SQLMappingFunction): SupportSQLiteOpenHelper.Factory {
 	return MappingSupportSQLiteOpenHelperFactory(this, mappingFunction)
 }
 
 interface SQLMappingFunction : (String) -> String
-
-object RandomUUIDSQLMappingFunction : SQLMappingFunction {
-
-	private val newIdentifier: String
-		get() = UUID.randomUUID().toString()
-
-	override fun invoke(sql: String): String {
-		return "$sql -- $newIdentifier"
-	}
-}
