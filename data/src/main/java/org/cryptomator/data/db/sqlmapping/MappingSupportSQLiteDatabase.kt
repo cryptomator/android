@@ -11,38 +11,38 @@ import androidx.sqlite.db.SupportSQLiteStatement
 import java.util.Collections
 import java.util.UUID
 
-internal class CacheControlledSupportSQLiteDatabase(
+internal class MappingSupportSQLiteDatabase(
 	private val delegate: SupportSQLiteDatabase,
 	private val mappingFunction: SQLMappingFunction
 ) : SupportSQLiteDatabase by delegate {
 
 	override fun execSQL(sql: String) {
-		return delegate.execSQL(fix(sql))
+		return delegate.execSQL(map(sql))
 	}
 
 	override fun execSQL(sql: String, bindArgs: Array<out Any?>) {
-		return delegate.execSQL(fix(sql), bindArgs)
+		return delegate.execSQL(map(sql), bindArgs)
 	}
 
 	override fun query(query: SupportSQLiteQuery): Cursor {
-		return delegate.query(fix(query))
+		return delegate.query(map(query))
 	}
 
 	override fun query(query: SupportSQLiteQuery, cancellationSignal: CancellationSignal?): Cursor {
-		return delegate.query(fix(query), cancellationSignal)
+		return delegate.query(map(query), cancellationSignal)
 	}
 
 	override fun query(query: String): Cursor {
-		return delegate.query(fix(query))
+		return delegate.query(map(query))
 	}
 
 	override fun query(query: String, bindArgs: Array<out Any?>): Cursor {
-		return delegate.query(fix(query), bindArgs)
+		return delegate.query(map(query), bindArgs)
 	}
 
 	override fun insert(table: String, conflictAlgorithm: Int, values: ContentValues): Long {
 		val processed = helper.insertWithOnConflict(table, null, values, conflictAlgorithm)
-		val statement = CacheControlledSupportSQLiteStatement(processed.sql)
+		val statement = MappingSupportSQLiteStatement(processed.sql)
 		SimpleSQLiteQuery.bind(statement, processed.bindArgs)
 
 		return statement.executeInsert()
@@ -55,39 +55,39 @@ internal class CacheControlledSupportSQLiteDatabase(
 		whereClause: String?,
 		whereArgs: Array<out Any?>?
 	): Int {
-		return delegate.update(table, conflictAlgorithm, values, fixWhereClause(whereClause), whereArgs)
+		return delegate.update(table, conflictAlgorithm, values, mapWhereClause(whereClause), whereArgs)
 	}
 
 	override fun delete(table: String, whereClause: String?, whereArgs: Array<out Any?>?): Int {
-		return delegate.delete(table, fixWhereClause(whereClause), whereArgs)
+		return delegate.delete(table, mapWhereClause(whereClause), whereArgs)
 	}
 
 	override fun execPerConnectionSQL(sql: String, bindArgs: Array<out Any?>?) {
-		delegate.execPerConnectionSQL(fix(sql), bindArgs)
+		delegate.execPerConnectionSQL(map(sql), bindArgs)
 	}
 
 	override fun compileStatement(sql: String): SupportSQLiteStatement {
-		return CacheControlledSupportSQLiteStatement(sql)
+		return MappingSupportSQLiteStatement(sql)
 	}
 
 	private val helper = AOP_SQLiteDatabase()
 
-	private fun fix(sql: String): String {
+	private fun map(sql: String): String {
 		return mappingFunction(sql)
 	}
 
-	private fun fix(query: SupportSQLiteQuery): SupportSQLiteQuery {
-		return CacheControlledSupportSQLiteQuery(query)
+	private fun map(query: SupportSQLiteQuery): SupportSQLiteQuery {
+		return MappingSupportSQLiteQuery(query)
 	}
 
-	private fun fixWhereClause(whereClause: String?): String {
+	private fun mapWhereClause(whereClause: String?): String {
 		if (whereClause != null && whereClause.isBlank()) {
 			throw IllegalArgumentException()
 		}
-		return fix(whereClause ?: "1 = 1")
+		return map(whereClause ?: "1 = 1")
 	}
 
-	private inner class CacheControlledSupportSQLiteStatement(
+	private inner class MappingSupportSQLiteStatement(
 		private val sql: String
 	) : SupportSQLiteStatement {
 
@@ -142,7 +142,7 @@ internal class CacheControlledSupportSQLiteDatabase(
 		}
 
 		private fun newBoundStatement(): SupportSQLiteStatement {
-			return delegate.compileStatement(fix(sql)).also { statement ->
+			return delegate.compileStatement(map(sql)).also { statement ->
 				for (binding: (SupportSQLiteStatement) -> Unit in bindings) {
 					binding(statement)
 				}
@@ -150,30 +150,30 @@ internal class CacheControlledSupportSQLiteDatabase(
 		}
 	}
 
-	private inner class CacheControlledSupportSQLiteQuery(
+	private inner class MappingSupportSQLiteQuery(
 		private val delegateQuery: SupportSQLiteQuery
 	) : SupportSQLiteQuery by delegateQuery {
 
-		private val identifiers: MutableMap<String, String> = Collections.synchronizedMap(mutableMapOf())
+		private val mappedQueries: MutableMap<String, String> = Collections.synchronizedMap(mutableMapOf())
 
 		override val sql: String
-			get() = identifiers.computeIfAbsent(delegateQuery.sql) { fix(it) }
+			get() = mappedQueries.computeIfAbsent(delegateQuery.sql) { map(it) }
 	}
 }
 
-private class CacheControlledSupportSQLiteOpenHelper(
+private class MappingSupportSQLiteOpenHelper(
 	private val delegate: SupportSQLiteOpenHelper,
 	private val mappingFunction: SQLMappingFunction
 ) : SupportSQLiteOpenHelper by delegate {
 
 	override val writableDatabase: SupportSQLiteDatabase
-		get() = CacheControlledSupportSQLiteDatabase(delegate.writableDatabase, mappingFunction)
+		get() = MappingSupportSQLiteDatabase(delegate.writableDatabase, mappingFunction)
 
 	override val readableDatabase: SupportSQLiteDatabase
-		get() = CacheControlledSupportSQLiteDatabase(delegate.readableDatabase, mappingFunction)
+		get() = MappingSupportSQLiteDatabase(delegate.readableDatabase, mappingFunction)
 }
 
-private class CacheControlledSupportSQLiteOpenHelperFactory(
+private class MappingSupportSQLiteOpenHelperFactory(
 	private val delegate: SupportSQLiteOpenHelper.Factory,
 	private val mappingFunction: SQLMappingFunction
 ) : SupportSQLiteOpenHelper.Factory {
@@ -181,12 +181,12 @@ private class CacheControlledSupportSQLiteOpenHelperFactory(
 	override fun create(
 		configuration: SupportSQLiteOpenHelper.Configuration
 	): SupportSQLiteOpenHelper {
-		return CacheControlledSupportSQLiteOpenHelper(delegate.create(configuration), mappingFunction)
+		return MappingSupportSQLiteOpenHelper(delegate.create(configuration), mappingFunction)
 	}
 }
 
-fun SupportSQLiteOpenHelper.Factory.asCacheControlled(mappingFunction: SQLMappingFunction = RandomUUIDSQLMappingFunction): SupportSQLiteOpenHelper.Factory {
-	return CacheControlledSupportSQLiteOpenHelperFactory(this, mappingFunction)
+fun SupportSQLiteOpenHelper.Factory.asMapped(mappingFunction: SQLMappingFunction = RandomUUIDSQLMappingFunction): SupportSQLiteOpenHelper.Factory {
+	return MappingSupportSQLiteOpenHelperFactory(this, mappingFunction)
 }
 
 interface SQLMappingFunction : (String) -> String
