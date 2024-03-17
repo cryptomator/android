@@ -8,7 +8,7 @@ import androidx.sqlite.db.SupportSQLiteDatabase
 import androidx.sqlite.db.SupportSQLiteOpenHelper
 import androidx.sqlite.db.SupportSQLiteQuery
 import androidx.sqlite.db.SupportSQLiteStatement
-import java.util.Collections
+import timber.log.Timber
 
 internal class MappingSupportSQLiteDatabase(
 	private val delegate: SupportSQLiteDatabase,
@@ -153,10 +153,18 @@ internal class MappingSupportSQLiteDatabase(
 		private val delegateQuery: SupportSQLiteQuery
 	) : SupportSQLiteQuery by delegateQuery {
 
-		private val mappedQueries: MutableMap<String, String> = Collections.synchronizedMap(mutableMapOf())
+		private val lock = Any()
+		private var called = false
 
+		private val _sql = map(delegateQuery.sql)
 		override val sql: String
-			get() = mappedQueries.computeIfAbsent(delegateQuery.sql) { map(it) }
+			get() = synchronized(lock) {
+				if (called) {
+					Timber.tag("MappingSupportSQLiteQuery").e("SQL queried twice")
+				}
+				called = true
+				return _sql
+			}
 	}
 }
 
