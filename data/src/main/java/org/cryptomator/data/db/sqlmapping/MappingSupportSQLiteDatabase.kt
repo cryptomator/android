@@ -2,6 +2,7 @@ package org.cryptomator.data.db.sqlmapping
 
 import android.content.ContentValues
 import android.database.Cursor
+import android.database.sqlite.SQLiteException
 import android.os.CancellationSignal
 import androidx.sqlite.db.SimpleSQLiteQuery
 import androidx.sqlite.db.SupportSQLiteDatabase
@@ -40,6 +41,12 @@ internal class MappingSupportSQLiteDatabase(
 	}
 
 	override fun insert(table: String, conflictAlgorithm: Int, values: ContentValues): Long {
+		if (values.compatIsEmpty()) {
+			throw SQLiteException("Can't insert empty set of values")
+		}
+		if (!helper.isValidConflictAlgorithm(conflictAlgorithm)) {
+			throw SQLiteException("Invalid conflict algorithm")
+		}
 		val processed = helper.insertWithOnConflict(table, null, values, conflictAlgorithm)
 		val statement = MappingSupportSQLiteStatement(processed.sql)
 		SimpleSQLiteQuery.bind(statement, processed.bindArgs)

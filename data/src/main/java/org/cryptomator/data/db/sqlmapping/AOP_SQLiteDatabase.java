@@ -28,7 +28,8 @@
 package org.cryptomator.data.db.sqlmapping;
 
 import android.content.ContentValues;
-import android.os.Build;
+
+import static org.cryptomator.data.db.sqlmapping.HelpersKt.compatIsEmpty;
 
 final class AOP_SQLiteDatabase {
 
@@ -46,7 +47,7 @@ final class AOP_SQLiteDatabase {
 
 			Object[] bindArgs = null;
 			//int size = (initialValues != null && !initialValues.isEmpty()) ? initialValues.size() : 0;
-			int size = (initialValues != null && !isEmpty(initialValues)) ? initialValues.size() : 0;
+			int size = (initialValues != null && !compatIsEmpty(initialValues)) ? initialValues.size() : 0;
 			if (size > 0) {
 				bindArgs = new Object[size];
 				int i = 0;
@@ -71,12 +72,8 @@ final class AOP_SQLiteDatabase {
 		}
 	}
 
-	private boolean isEmpty(ContentValues contentValues) {
-		if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
-			return contentValues.isEmpty();
-		} else {
-			return contentValues.size() == 0;
-		}
+	boolean isValidConflictAlgorithm(int conflictAlgorithm) {
+		return conflictAlgorithm >= 0 && conflictAlgorithm < CONFLICT_VALUES.length;
 	}
 
 	static class InsertStatement {
