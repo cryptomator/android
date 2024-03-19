@@ -8,24 +8,37 @@ import org.mockito.kotlin.argThat as reifiedArgThat
 import android.content.ContentValues
 import android.database.Cursor
 import android.database.MatrixCursor
+import android.database.SQLException
+import android.database.sqlite.SQLiteDatabase
 import android.os.CancellationSignal
 import androidx.sqlite.db.SimpleSQLiteQuery
 import androidx.sqlite.db.SupportSQLiteDatabase
 import androidx.sqlite.db.SupportSQLiteProgram
 import androidx.sqlite.db.SupportSQLiteQuery
+import androidx.sqlite.db.SupportSQLiteStatement
+import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
+import org.junit.jupiter.api.assertDoesNotThrow
+import org.junit.jupiter.api.assertThrows
 import org.junit.jupiter.params.ParameterizedTest
 import org.junit.jupiter.params.provider.Arguments
 import org.junit.jupiter.params.provider.MethodSource
 import org.mockito.ArgumentMatcher
+import org.mockito.ArgumentMatchers.anyInt
+import org.mockito.ArgumentMatchers.anyLong
 import org.mockito.Mockito.anyString
 import org.mockito.Mockito.mock
 import org.mockito.Mockito.verify
+import org.mockito.Mockito.verifyNoInteractions
 import org.mockito.Mockito.verifyNoMoreInteractions
+import org.mockito.internal.verification.VerificationModeFactory.times
+import org.mockito.invocation.InvocationOnMock
 import org.mockito.kotlin.anyArray
 import org.mockito.kotlin.eq
+import org.mockito.kotlin.inOrder
 import org.mockito.kotlin.isNull
+import org.mockito.stubbing.OngoingStubbing
 import java.util.stream.Stream
 import kotlin.streams.asStream
 
@@ -149,7 +162,103 @@ class MappingSupportSQLiteDatabaseTest {
 		verifyNoMoreInteractions(delegateMock)
 	}
 
-	/* TODO insert */
+	@ParameterizedTest
+	@MethodSource("org.cryptomator.data.db.sqlmapping.MappingSupportSQLiteDatabaseTestKt#sourceForTestInsert")
+	fun testInsert(arguments: CallDataTwo<ContentValues, String>) {
+		val (idCompiledStatement: SupportSQLiteStatement, idBindings: Map<Int, Any?>) = mockSupportSQLiteStatement()
+		val (commentCompiledStatement: SupportSQLiteStatement, commentBindings: Map<Int, Any?>) = mockSupportSQLiteStatement()
+
+		whenCalled(delegateMock.compileStatement(arguments.idExpected)).thenReturn(idCompiledStatement)
+		whenCalled(delegateMock.compileStatement(arguments.commentExpected)).thenReturn(commentCompiledStatement)
+
+		val order = inOrder(delegateMock, idCompiledStatement, commentCompiledStatement)
+		identityMapping.insert("id_test", 1, arguments.idCall)
+
+		order.verify(delegateMock).compileStatement(arguments.idExpected)
+		order.verify(idCompiledStatement, times(arguments.idCall.argCount<String>())).bindString(anyInt(), anyString())
+		order.verify(idCompiledStatement, times(arguments.idCall.nullCount())).bindNull(anyInt())
+		order.verify(idCompiledStatement, times(arguments.idCall.argCount<Int>())).bindLong(anyInt(), anyLong())
+		order.verify(idCompiledStatement).executeInsert()
+		order.verify(idCompiledStatement).close()
+		verifyNoMoreInteractions(idCompiledStatement)
+
+		order.verifyNoMoreInteractions()
+		commentMapping.insert("comment_test", 2, arguments.commentCall)
+
+		order.verify(delegateMock).compileStatement(arguments.commentExpected)
+		/* */ verifyNoMoreInteractions(delegateMock)
+		order.verify(commentCompiledStatement, times(arguments.commentCall.argCount<String>())).bindString(anyInt(), anyString())
+		order.verify(commentCompiledStatement, times(arguments.commentCall.nullCount())).bindNull(anyInt())
+		order.verify(commentCompiledStatement, times(arguments.commentCall.argCount<Int>())).bindLong(anyInt(), anyLong())
+		order.verify(commentCompiledStatement).executeInsert()
+		order.verify(commentCompiledStatement).close()
+		verifyNoMoreInteractions(commentCompiledStatement)
+
+		order.verifyNoMoreInteractions()
+
+		assertEquals(arguments.idCall.toBindingsMap(), idBindings)
+		assertEquals(arguments.commentCall.toBindingsMap(), commentBindings)
+	}
+
+	@Test
+	fun testInsertEmptyValues() {
+		val emptyContentValues = mockContentValues()
+
+		assertThrows<SQLException> { identityMapping.insert("id_test", 1, emptyContentValues) }
+		assertThrows<SQLException> { commentMapping.insert("comment_test", 2, emptyContentValues) }
+
+		verifyNoInteractions(delegateMock)
+	}
+
+	@ParameterizedTest
+	@MethodSource("org.cryptomator.data.db.sqlmapping.MappingSupportSQLiteDatabaseTestKt#sourceForTestInsertConflictAlgorithms")
+	fun testInsertConflictAlgorithms(arguments: Triple<Int, String, String>) {
+		val (conflictAlgorithm: Int, idStatement: String, commentStatement: String) = arguments
+
+		val idCompiledStatement = mock(SupportSQLiteStatement::class.java)
+		val commentCompiledStatement = mock(SupportSQLiteStatement::class.java)
+
+		whenCalled(delegateMock.compileStatement(idStatement)).thenReturn(idCompiledStatement)
+		whenCalled(delegateMock.compileStatement(commentStatement)).thenReturn(commentCompiledStatement)
+
+		val order = inOrder(delegateMock, idCompiledStatement, commentCompiledStatement)
+
+		val idContentValues = mockContentValues("col1" to "val1") //Inlining this declaration causes problems for some reason
+		assertDoesNotThrow { identityMapping.insert("id_test", conflictAlgorithm, idContentValues) }
+
+		order.verify(delegateMock).compileStatement(idStatement)
+		order.verify(idCompiledStatement).bindString(1, "val1")
+		order.verify(idCompiledStatement).executeInsert()
+		order.verify(idCompiledStatement).close()
+		verifyNoMoreInteractions(idCompiledStatement)
+
+		order.verifyNoMoreInteractions()
+		val commentContentValues = mockContentValues("col2" to "val2")
+		assertDoesNotThrow { commentMapping.insert("comment_test", conflictAlgorithm, commentContentValues) }
+
+		order.verify(delegateMock).compileStatement(commentStatement)
+		/* */ verifyNoMoreInteractions(delegateMock)
+		order.verify(commentCompiledStatement).bindString(1, "val2")
+		order.verify(commentCompiledStatement).executeInsert()
+		order.verify(commentCompiledStatement).close()
+		verifyNoMoreInteractions(commentCompiledStatement)
+
+		order.verifyNoMoreInteractions()
+	}
+
+	@Test
+	fun testInsertInvalidConflictAlgorithms() {
+		val idContentValues = mockContentValues("col1" to "val1") //Inlining this declaration causes problems for some reason
+		val commentContentValues = mockContentValues("col2" to "val2")
+
+		assertThrows<SQLException> { identityMapping.insert("id_test", -1, idContentValues) }
+		assertThrows<SQLException> { commentMapping.insert("comment_test", -1, commentContentValues) }
+
+		assertThrows<SQLException> { identityMapping.insert("id_test", 6, idContentValues) }
+		assertThrows<SQLException> { commentMapping.insert("comment_test", 6, commentContentValues) }
+
+		verifyNoInteractions(delegateMock)
+	}
 
 	@ParameterizedTest
 	@MethodSource("org.cryptomator.data.db.sqlmapping.MappingSupportSQLiteDatabaseTestKt#sourceForTestUpdate")
@@ -241,6 +350,8 @@ private class PseudoEqualsMatcher<T : Any>(
 	}
 }
 
+private inline fun <T> OngoingStubbing<T>.thenDo(crossinline action: (invocation: InvocationOnMock) -> Unit): OngoingStubbing<T> = thenAnswer { action(it) }
+
 private class NullHandlingMatcher<T>(
 	private val delegate: ArgumentMatcher<T>,
 	private val matchNull: Boolean
@@ -304,10 +415,34 @@ private fun mockCancellationSignal(isCanceled: Boolean): CancellationSignal {
 	return mock
 }
 
+private fun mockSupportSQLiteStatement(): Pair<SupportSQLiteStatement, Map<Int, Any?>> {
+	val bindings: MutableMap<Int, Any?> = mutableMapOf()
+	val mock = mock(SupportSQLiteStatement::class.java)
+	whenCalled(mock.bindString(anyInt(), anyString())).thenDo {
+		bindings[it.getArgument(0, Integer::class.java).toInt()] = it.getArgument(1, String::class.java)
+	}
+	whenCalled(mock.bindLong(anyInt(), anyLong())).thenDo {
+		bindings[it.getArgument(0, Integer::class.java).toInt()] = it.getArgument(1, java.lang.Long::class.java)
+	}
+	whenCalled(mock.bindNull(anyInt())).thenDo {
+		bindings[it.getArgument(0, Integer::class.java).toInt()] = null
+	}
+	return mock to bindings
+}
+
 private fun mockContentValues(vararg elements: Pair<String, Any?>): ContentValues {
-	val entries = mapOf(*elements)
+	return mockContentValues(mapOf(*elements))
+}
+
+private fun mockContentValues(entries: Map<String, Any?>): ContentValues {
 	val mock = mock(ContentValues::class.java)
 	whenCalled(mock.valueSet()).thenReturn(entries.entries)
+	whenCalled(mock.size()).thenReturn(entries.size)
+	whenCalled(mock.isEmpty).thenReturn(entries.isEmpty())
+	whenCalled(mock.keySet()).thenReturn(entries.keys)
+	whenCalled(mock.get(anyString())).then {
+		entries[it.getArgument(0, String::class.java)]
+	}
 	whenCalled(mock.toString()).thenReturn("Mock<ContentValues>${entries}")
 	return mock
 }
@@ -317,6 +452,13 @@ data class CallData<T>(
 	val commentCall: T,
 	val idExpected: T,
 	val commentExpected: T
+)
+
+data class CallDataTwo<C, E>(
+	val idCall: C,
+	val commentCall: C,
+	val idExpected: E,
+	val commentExpected: E
 )
 
 fun sourceForTestQueryCancelable(): Stream<Arguments> {
@@ -351,6 +493,87 @@ fun sourceForTestQueryCancelable(): Stream<Arguments> {
 
 	return queries.cartesianProduct(signals).map { it.toList() }.toArgumentsStream()
 }
+
+fun sourceForTestInsert(): Stream<CallDataTwo<ContentValues, String>> = sequenceOf(
+	//The ContentValues in this dataset always have the following order and counts:
+	//String [0,2], null[0,1], Int[0,1]
+	//This makes the ordered verification a lot easier
+	CallDataTwo(
+		mockContentValues("key1" to null),
+		mockContentValues("key2" to null),
+		"INSERT OR ROLLBACK  INTO id_test(key1) VALUES (?)",
+		"INSERT OR ABORT  INTO comment_test(key2) VALUES (?) -- Comment!"
+	),
+	CallDataTwo(
+		mockContentValues("key1" to "value1"),
+		mockContentValues("key2" to "value2"),
+		"INSERT OR ROLLBACK  INTO id_test(key1) VALUES (?)",
+		"INSERT OR ABORT  INTO comment_test(key2) VALUES (?) -- Comment!"
+	),
+	CallDataTwo(
+		mockContentValues("key1-1" to "value1-1", "key1-2" to "value1-2"),
+		mockContentValues("key2-1" to "value2-1", "key2-2" to "value2-2"),
+		"INSERT OR ROLLBACK  INTO id_test(key1-1,key1-2) VALUES (?,?)",
+		"INSERT OR ABORT  INTO comment_test(key2-1,key2-2) VALUES (?,?) -- Comment!"
+	),
+	CallDataTwo(
+		mockContentValues("key1" to "value1", "intKey1" to 10101),
+		mockContentValues("key2" to "value2", "intKey2" to 20202),
+		"INSERT OR ROLLBACK  INTO id_test(key1,intKey1) VALUES (?,?)",
+		"INSERT OR ABORT  INTO comment_test(key2,intKey2) VALUES (?,?) -- Comment!"
+	),
+	CallDataTwo(
+		mockContentValues("key1" to "value1", "nullKey1" to null),
+		mockContentValues("key2" to "value2", "nullKey2" to null),
+		"INSERT OR ROLLBACK  INTO id_test(key1,nullKey1) VALUES (?,?)",
+		"INSERT OR ABORT  INTO comment_test(key2,nullKey2) VALUES (?,?) -- Comment!"
+	),
+	CallDataTwo(
+		mockContentValues("key1" to "value1", "nullKey1" to null, "intKey1" to 10101),
+		mockContentValues("key2" to "value2"),
+		"INSERT OR ROLLBACK  INTO id_test(key1,nullKey1,intKey1) VALUES (?,?,?)",
+		"INSERT OR ABORT  INTO comment_test(key2) VALUES (?) -- Comment!"
+	),
+	CallDataTwo(
+		mockContentValues("key1" to "value1"),
+		mockContentValues("key2" to "value2", "nullKey2" to null, "intKey2" to 20202),
+		"INSERT OR ROLLBACK  INTO id_test(key1) VALUES (?)",
+		"INSERT OR ABORT  INTO comment_test(key2,nullKey2,intKey2) VALUES (?,?,?) -- Comment!"
+	)
+).asStream()
+
+fun sourceForTestInsertConflictAlgorithms(): Stream<Triple<Int, String, String>> = sequenceOf(
+	Triple(
+		SQLiteDatabase.CONFLICT_NONE,
+		"INSERT INTO id_test(col1) VALUES (?)",
+		"INSERT INTO comment_test(col2) VALUES (?) -- Comment!"
+	),
+	Triple(
+		SQLiteDatabase.CONFLICT_ROLLBACK,
+		"INSERT OR ROLLBACK  INTO id_test(col1) VALUES (?)",
+		"INSERT OR ROLLBACK  INTO comment_test(col2) VALUES (?) -- Comment!"
+	),
+	Triple(
+		SQLiteDatabase.CONFLICT_ABORT,
+		"INSERT OR ABORT  INTO id_test(col1) VALUES (?)",
+		"INSERT OR ABORT  INTO comment_test(col2) VALUES (?) -- Comment!"
+	),
+	Triple(
+		SQLiteDatabase.CONFLICT_FAIL,
+		"INSERT OR FAIL  INTO id_test(col1) VALUES (?)",
+		"INSERT OR FAIL  INTO comment_test(col2) VALUES (?) -- Comment!"
+	),
+	Triple(
+		SQLiteDatabase.CONFLICT_IGNORE,
+		"INSERT OR IGNORE  INTO id_test(col1) VALUES (?)",
+		"INSERT OR IGNORE  INTO comment_test(col2) VALUES (?) -- Comment!"
+	),
+	Triple(
+		SQLiteDatabase.CONFLICT_REPLACE,
+		"INSERT OR REPLACE  INTO id_test(col1) VALUES (?)",
+		"INSERT OR REPLACE  INTO comment_test(col2) VALUES (?) -- Comment!"
+	),
+).asStream()
 
 fun sourceForTestUpdate(): Stream<Arguments> {
 	val contentValues = sequenceOf(
@@ -412,3 +635,15 @@ fun <A, B, C> Sequence<Pair<A, B>>.cartesianProduct(other: Iterable<C>): Sequenc
 fun Sequence<List<Any?>>.toArgumentsStream(): Stream<Arguments> = map {
 	Arguments { it.toTypedArray() }
 }.asStream()
+
+
+private fun ContentValues.nullCount(): Int = valueSet().count { it.value == null }
+
+private inline fun <reified T> ContentValues.argCount(): Int = valueSet().asSequence().map { it.value }.filterIsInstance<T>().count()
+
+private fun ContentValues.toBindingsMap(): Map<Int, Any?> {
+	return valueSet().map { it.value } //
+		.map { if (it is Int) it.toLong() else it } // Required because java.lang.Integer.valueOf(x) != java.lang.Long.valueOf(x)
+		.mapIndexed { index, value -> index + 1 to value } //
+		.toMap()
+}
