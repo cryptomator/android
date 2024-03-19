@@ -5,6 +5,7 @@ import org.mockito.Mockito.`when` as whenCalled
 import org.mockito.kotlin.any as reifiedAny
 import org.mockito.kotlin.anyOrNull as reifiedAnyOrNull
 import org.mockito.kotlin.argThat as reifiedArgThat
+import android.content.ContentValues
 import android.database.Cursor
 import android.database.MatrixCursor
 import android.os.CancellationSignal
@@ -23,6 +24,7 @@ import org.mockito.Mockito.mock
 import org.mockito.Mockito.verify
 import org.mockito.Mockito.verifyNoMoreInteractions
 import org.mockito.kotlin.anyArray
+import org.mockito.kotlin.eq
 import org.mockito.kotlin.isNull
 import java.util.stream.Stream
 import kotlin.streams.asStream
@@ -147,7 +149,18 @@ class MappingSupportSQLiteDatabaseTest {
 		verifyNoMoreInteractions(delegateMock)
 	}
 
-	/* TODO insert, update */
+	/* TODO insert */
+
+	@ParameterizedTest
+	@MethodSource("org.cryptomator.data.db.sqlmapping.MappingSupportSQLiteDatabaseTestKt#sourceForTestUpdate")
+	fun testUpdate(contentValues: CallData<ContentValues>, whereClauses: CallData<String?>, whereArgs: CallData<List<String>?>) {
+		identityMapping.update("id_test", 1001, contentValues.idCall, whereClauses.idCall, whereArgs.idCall?.toTypedArray())
+		commentMapping.update("comment_test", 1002, contentValues.commentCall, whereClauses.commentCall, whereArgs.commentCall?.toTypedArray())
+
+		verify(delegateMock).update(eq("id_test"), eq(1001), anyPseudoEquals(contentValues.idExpected, contentValuesProperties), eq(whereClauses.idExpected), eq(whereArgs.idExpected?.toTypedArray()))
+		verify(delegateMock).update(eq("comment_test"), eq(1002), anyPseudoEquals(contentValues.commentExpected, contentValuesProperties), eq(whereClauses.commentExpected), eq(whereArgs.commentExpected?.toTypedArray()))
+		verifyNoMoreInteractions(delegateMock)
+	}
 
 	@Test
 	fun testDelete() {
@@ -276,6 +289,11 @@ private class CachingSupportSQLiteProgram : SupportSQLiteProgram {
 	override fun close() = throw UnsupportedOperationException("Stub!")
 }
 
+private val contentValuesProperties
+	get() = setOf(
+		ContentValues::valueSet
+	)
+
 private val DUMMY_CURSOR: Cursor
 	get() = MatrixCursor(arrayOf())
 
@@ -283,6 +301,14 @@ private fun mockCancellationSignal(isCanceled: Boolean): CancellationSignal {
 	val mock = mock(CancellationSignal::class.java)
 	whenCalled(mock.isCanceled).thenReturn(isCanceled)
 	whenCalled(mock.toString()).thenReturn("Mock<CancellationSignal>(isCanceled=$isCanceled)")
+	return mock
+}
+
+private fun mockContentValues(vararg elements: Pair<String, Any?>): ContentValues {
+	val entries = mapOf(*elements)
+	val mock = mock(ContentValues::class.java)
+	whenCalled(mock.valueSet()).thenReturn(entries.entries)
+	whenCalled(mock.toString()).thenReturn("Mock<ContentValues>${entries}")
 	return mock
 }
 
@@ -326,9 +352,61 @@ fun sourceForTestQueryCancelable(): Stream<Arguments> {
 	return queries.cartesianProduct(signals).map { it.toList() }.toArgumentsStream()
 }
 
+fun sourceForTestUpdate(): Stream<Arguments> {
+	val contentValues = sequenceOf(
+		CallData(
+			mockContentValues("key1" to "value1"),
+			mockContentValues("key2" to "value2"),
+			mockContentValues("key1" to "value1"),
+			mockContentValues("key2" to "value2")
+		),
+		CallData(
+			mockContentValues("key1" to null),
+			mockContentValues(),
+			mockContentValues("key1" to null),
+			mockContentValues()
+		)
+	)
+	val whereClauses = listOf<CallData<String?>>(
+		CallData(
+			"`col1` = ?",
+			"`col2` = ?",
+			"`col1` = ?",
+			"`col2` = ? -- Comment!"
+		),
+		CallData(
+			null,
+			null,
+			null,
+			"1 = 1 -- Comment!"
+		)
+	)
+	val whereArgs = listOf<CallData<List<String>?>>( //Use List instead of Array to make result data more readable
+		CallData(
+			listOf(),
+			null,
+			listOf(),
+			null
+		),
+		CallData(
+			listOf("val1"),
+			listOf("val2"),
+			listOf("val1"),
+			listOf("val2")
+		)
+	)
+
+	return contentValues.cartesianProduct(whereClauses).cartesianProduct(whereArgs).map { it.toList() }.toArgumentsStream()
+}
+
 @JvmName("cartesianProductTwo")
 fun <A, B> Sequence<A>.cartesianProduct(other: Iterable<B>): Sequence<Pair<A, B>> = flatMap { a ->
 	other.asSequence().map { b -> a to b }
+}
+
+@JvmName("cartesianProductThree")
+fun <A, B, C> Sequence<Pair<A, B>>.cartesianProduct(other: Iterable<C>): Sequence<Triple<A, B, C>> = flatMap { abPair ->
+	other.asSequence().map { c -> Triple(abPair.first, abPair.second, c) }
 }
 
 fun Sequence<List<Any?>>.toArgumentsStream(): Stream<Arguments> = map {
