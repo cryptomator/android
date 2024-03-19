@@ -308,7 +308,7 @@ fun sourceForTestQueryCancelable(): Stream<Arguments> {
 			SimpleSQLiteQuery("SELECT `col` FROM `comment_test` WHERE `col` = ? -- Comment!", arrayOf("test2"))
 		)
 	)
-	val signals = sequenceOf<CallData<CancellationSignal?>>(
+	val signals = listOf<CallData<CancellationSignal?>>(
 		CallData(
 			mockCancellationSignal(true),
 			mockCancellationSignal(false),
@@ -323,7 +323,14 @@ fun sourceForTestQueryCancelable(): Stream<Arguments> {
 		)
 	)
 
-	return queries.flatMap { anyQuery ->
-		signals.map { anySignal -> Arguments.of(anyQuery, anySignal) }
-	}.asStream()
+	return queries.cartesianProduct(signals).map { it.toList() }.toArgumentsStream()
 }
+
+@JvmName("cartesianProductTwo")
+fun <A, B> Sequence<A>.cartesianProduct(other: Iterable<B>): Sequence<Pair<A, B>> = flatMap { a ->
+	other.asSequence().map { b -> a to b }
+}
+
+fun Sequence<List<Any?>>.toArgumentsStream(): Stream<Arguments> = map {
+	Arguments { it.toTypedArray() }
+}.asStream()
