@@ -127,9 +127,10 @@ class MappingSupportSQLiteDatabaseTest {
 		)
 		verifyNoMoreInteractions(delegateMock)
 	}
+
 	@ParameterizedTest
 	@MethodSource("org.cryptomator.data.db.sqlmapping.MappingSupportSQLiteDatabaseTestKt#sourceForTestQueryCancelable")
-	fun testQueryCancelable(queries: DataForTestQueryCancelable<SupportSQLiteQuery>, signals: DataForTestQueryCancelable<CancellationSignal?>) {
+	fun testQueryCancelable(queries: CallData<SupportSQLiteQuery>, signals: CallData<CancellationSignal?>) {
 		whenCalled(delegateMock.query(reifiedAny<SupportSQLiteQuery>(), reifiedAnyOrNull<CancellationSignal>())).thenReturn(DUMMY_CURSOR)
 
 		identityMapping.query(queries.idCall, signals.idCall)
@@ -285,7 +286,7 @@ private fun mockCancellationSignal(isCanceled: Boolean): CancellationSignal {
 	return mock
 }
 
-data class DataForTestQueryCancelable<T>(
+data class CallData<T>(
 	val idCall: T,
 	val commentCall: T,
 	val idExpected: T,
@@ -294,27 +295,27 @@ data class DataForTestQueryCancelable<T>(
 
 fun sourceForTestQueryCancelable(): Stream<Arguments> {
 	val queries = sequenceOf(
-		DataForTestQueryCancelable(
+		CallData(
 			SimpleSQLiteQuery("SELECT `col` FROM `id_test`"),
 			SimpleSQLiteQuery("SELECT `col` FROM `comment_test`"),
 			SimpleSQLiteQuery("SELECT `col` FROM `id_test`"),
 			SimpleSQLiteQuery("SELECT `col` FROM `comment_test` -- Comment!")
 		),
-		DataForTestQueryCancelable(
+		CallData(
 			SimpleSQLiteQuery("SELECT `col` FROM `id_test` WHERE `col` = ?", arrayOf("test1")),
 			SimpleSQLiteQuery("SELECT `col` FROM `comment_test` WHERE `col` = ?", arrayOf("test2")),
 			SimpleSQLiteQuery("SELECT `col` FROM `id_test` WHERE `col` = ?", arrayOf("test1")),
 			SimpleSQLiteQuery("SELECT `col` FROM `comment_test` WHERE `col` = ? -- Comment!", arrayOf("test2"))
 		)
 	)
-	val signals = sequenceOf<DataForTestQueryCancelable<CancellationSignal?>>(
-		DataForTestQueryCancelable(
+	val signals = sequenceOf<CallData<CancellationSignal?>>(
+		CallData(
 			mockCancellationSignal(true),
 			mockCancellationSignal(false),
 			mockCancellationSignal(true),
 			mockCancellationSignal(false)
 		),
-		DataForTestQueryCancelable(
+		CallData(
 			null,
 			null,
 			null,
