@@ -450,6 +450,7 @@ abstract class CryptoImplDecorator(
 							}
 							encryptingWritableByteChannel.close()
 							progressAware.onProgress(Progress.completed(UploadState.encryption(cryptoFile)))
+							data.modifiedDate(context).ifPresent { encryptedTmpFile.setLastModified(it.time) }
 							return writeFromTmpFile(data, cryptoFile, encryptedTmpFile, progressAware, replace)
 						}
 					}

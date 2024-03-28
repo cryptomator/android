@@ -2,8 +2,10 @@ package org.cryptomator.domain.usecases.cloud
 
 import android.content.Context
 import org.cryptomator.domain.exception.CancellationException
+import org.cryptomator.util.Optional
 import java.io.IOException
 import java.io.InputStream
+import java.util.Date
 
 class CancelAwareDataSource private constructor(private val delegate: DataSource, private val cancelled: Flag) : DataSource {
 
@@ -24,6 +26,13 @@ class CancelAwareDataSource private constructor(private val delegate: DataSource
 
 	override fun decorate(delegate: DataSource): CancelAwareDataSource {
 		return CancelAwareDataSource(delegate, cancelled)
+	}
+
+	override fun modifiedDate(context: Context): Optional<Date> {
+		if (cancelled.get()) {
+			throw CancellationException()
+		}
+		return delegate.modifiedDate(context)
 	}
 
 	@Throws(IOException::class)

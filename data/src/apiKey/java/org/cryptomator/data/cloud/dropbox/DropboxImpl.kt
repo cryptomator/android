@@ -167,6 +167,7 @@ internal class DropboxImpl(cloud: DropboxCloud, context: Context) {
 				client() //
 					.files() //
 					.uploadBuilder(file.path) //
+					.withClientModified(data.modifiedDate(context).orElse(null)) //
 					.withMode(writeMode) //
 					.uploadAndFinish(it)
 			}
