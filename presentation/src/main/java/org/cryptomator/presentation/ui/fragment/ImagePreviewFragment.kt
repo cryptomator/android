@@ -65,6 +65,7 @@ class ImagePreviewFragment : Fragment() {
 			imagePreviewFile.uri?.let {
 				hideProgressBar()
 				imageView.orientation = SubsamplingScaleImageView.ORIENTATION_USE_EXIF
+				SubsamplingScaleImageView.setPreferredBitmapConfig(Bitmap.Config.ARGB_8888)
 				showImage(imagePreviewFile)
 			} ?: presenter.onMissingImagePreviewFile(imagePreviewFile)
 		}
