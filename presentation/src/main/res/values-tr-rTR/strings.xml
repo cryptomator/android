@@ -18,7 +18,7 @@
 	<string name="error_activity_not_found">Lütfen bu dosyayı açabilen bir uygulama edinin.</string>
 	<string name="error_server_not_found">Sunucu bulunamadı.</string>
 	<string name="error_device_policy_manager_not_found">Lütfen cihaz ayarlarınızı açın ve ekran kilidini elle ayarlayın</string>
-	<string name="error_export_illegal_file_name">Dışa aktarma başarısız oldu. Özel karakterleri dosya adlarından kaldırmayı ve tekrar dışa aktarmayı deneyin.</string>
+	<string name="error_export_illegal_file_name">Dışa aktarma başarısız oldu. Dosya adlarından özel karakterleri kaldırmayı ve tekrar dışa aktarmayı deneyin.</string>
 	<string name="error_name_contains_invalid_characters">Özel karakterler içeremez.</string>
 	<string name="error_names_contains_invalid_characters">Dosya adları özel karakterler içeremez.</string>
 	<string name="error_vault_name_contains_invalid_characters">Kasa adı özel karakterler içeremez.</string>
