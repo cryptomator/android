@@ -4,7 +4,7 @@
 	<string name="share_with_label">Şifrele</string>
 	<!-- # error messages -->
 	<string name="error_generic">Bir hata oluştu</string>
-	<string name="error_authentication_failed">Kimlik doğrulaması başarısız oldu</string>
+	<string name="error_authentication_failed">Kimlik doğrulama başarısız</string>
 	<string name="error_authentication_failed_re_authenticate">Kimlik doğrulama başarısız, lütfen %1$s kullanarak giriş yapınız</string>
 	<string name="error_no_network_connection">Ağ bağlantısı yok</string>
 	<string name="error_invalid_passphrase">Şifre hatalı</string>
@@ -12,7 +12,7 @@
 	<string name="error_vault_version_not_supported">%1$s kasa sürümü desteklenmiyor. Bu kasa, Cryptomator\'ın daha eski veya daha yeni bir sürümüyle oluşturuldu.</string>
 	<string name="error_vault_config_file_missing_due_to_format_999">Kasa klasörünüzde %1$s dosyası eksik. Bu dosyanın buluttaki kasa klasörünüzde bulunduğundan emin olun.</string>
 	<string name="error_vault_already_exists">Kasa zaten var.</string>
-	<string name="error_no_such_file">Dosya bulunmuyor.</string>
+	<string name="error_no_such_file">Dosya mevcut değil.</string>
 	<string name="error_vault_has_been_locked">Kasa kilitlendi.</string>
 	<string name="error_cloud_already_exists">Bulut zaten var.</string>
 	<string name="error_activity_not_found">Lütfen bu dosyayı açabilen bir uygulama edinin.</string>
@@ -33,7 +33,7 @@
 	<string name="error_vault_config_loading">Cüzdan ayarlarını yüklerken genel hata</string>
 	<string name="error_file_not_found_after_opening_using_3party">Cryptomator geri döndükten sonra, lokal dosya artık mevcut olmaz. Muhtemel değişiklikler bulutta tekrar oluşturulamaz.</string>
 	<string name="error_no_such_bucket">Böyle bir kova yok</string>
-	<string name="error_masterkey_location_not_supported">Ana anahtar konumu henüz özelleştirilemiyor</string>
+	<string name="error_masterkey_location_not_supported">Özel ana anahtar konumu henüz desteklenmiyor</string>
 	<string name="error_interact_with_fdroid_but_fdroid_missing">F-Droid uygulamasıyla iletişim kurulamadı. Yüklü değil mi?</string>
 	<!-- # clouds -->
 	<!-- ## cloud names -->
@@ -110,7 +110,7 @@
 	<string name="screen_share_files_content_text">Metin</string>
 	<string name="screen_share_files_content_file">Dosya</string>
 	<string name="screen_share_files_content_files">Dosyalar</string>
-	<string name="screen_share_files_msg_filenames_must_be_unique">Dosya adları benzersiz olmalıdır, tekrar edenleri lütfen yeniden adlandırın.</string>
+	<string name="screen_share_files_msg_filenames_must_be_unique">Dosya adları benzersiz olmalıdır, lütfen mükerrer olanları yeniden adlandırın.</string>
 	<string name="screen_share_files_section_location">Konumu kaydet</string>
 	<string name="screen_share_files_save_button_text">Kaydet</string>
 	<string name="screen_share_files_msg_success">Şifreleme tamamlandı</string>
