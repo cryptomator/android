@@ -5,6 +5,7 @@ import com.microsoft.graph.http.GraphServiceException
 import com.microsoft.graph.models.DriveItem
 import com.microsoft.graph.models.DriveItemCreateUploadSessionParameterSet
 import com.microsoft.graph.models.DriveItemUploadableProperties
+import com.microsoft.graph.models.FileSystemInfo
 import com.microsoft.graph.models.Folder
 import com.microsoft.graph.models.ItemReference
 import com.microsoft.graph.options.Option
@@ -39,6 +40,7 @@ import org.cryptomator.util.file.LruFileCacheUtil.Companion.retrieveFromLruCache
 import java.io.File
 import java.io.IOException
 import java.io.OutputStream
+import java.time.OffsetDateTime
 import java.util.Date
 import java.util.concurrent.CompletableFuture
 import java.util.concurrent.ExecutionException
@@ -202,7 +204,8 @@ internal class OnedriveImpl(private val cloud: OnedriveCloud, private val client
 		}
 		progressAware.onProgress(Progress.completed(UploadState.upload(file)))
 		return try {
-			OnedriveCloudNodeFactory.file(file.parent, result.get(), Date())
+			val d = Date.from(result.get().fileSystemInfo!!.lastModifiedDateTime!!.toInstant())
+			OnedriveCloudNodeFactory.file(file.parent, result.get(), d)
 		} catch (e: ExecutionException) {
 			throw FatalBackendException(e)
 		} catch (e: InterruptedException) {
@@ -228,13 +231,25 @@ internal class OnedriveImpl(private val cloud: OnedriveCloud, private val client
 						.putAsync(CopyStream.toByteArray(it)) //
 						.whenComplete { driveItem, error ->
 							run {
-								if (error == null) {
-									progressAware.onProgress(Progress.completed(UploadState.upload(file)))
-									result.complete(driveItem)
-									cacheNodeInfo(file, driveItem)
-								} else {
+								if (error != null) {
 									result.completeExceptionally(error)
 								}
+
+								// update the fileSystemInfo.lastModifiedDateTime to the data source date
+								driveItem.fileSystemInfo!!.lastModifiedDateTime = OffsetDateTime.from(data.modifiedDate(context)!!.toInstant())
+								drive(parentNodeInfo.driveId) //
+									.items(parentNodeInfo.id) //
+									.itemWithPath(file.name) //
+									.buildRequest(conflictBehaviorOption)
+									.patchAsync(driveItem)
+									.whenComplete{ driveItem, error ->
+										if(error != null) {
+											result.completeExceptionally(error)
+										}
+										progressAware.onProgress(Progress.completed(UploadState.upload(file)))
+										result.complete(driveItem)
+										cacheNodeInfo(file, driveItem)
+									}
 							}
 						}
 				} catch (e: IOException) {
@@ -247,10 +262,15 @@ internal class OnedriveImpl(private val cloud: OnedriveCloud, private val client
 	@Throws(IOException::class, NoSuchCloudFileException::class)
 	private fun chunkedUploadFile(file: OnedriveFile, data: DataSource, progressAware: ProgressAware<UploadState>, result: CompletableFuture<DriveItem>, conflictBehaviorOption: Option, size: Long) {
 		val parentNodeInfo = requireNodeInfo(file.parent)
+
+		val props = DriveItemUploadableProperties();
+		props.fileSystemInfo = FileSystemInfo();
+		props.fileSystemInfo!!.lastModifiedDateTime = OffsetDateTime.from(data.modifiedDate(context)!!.toInstant())
+
 		drive(parentNodeInfo.driveId) //
 			.items(parentNodeInfo.id) //
 			.itemWithPath(file.name) //
-			.createUploadSession(DriveItemCreateUploadSessionParameterSet.newBuilder().withItem(DriveItemUploadableProperties()).build()) //
+			.createUploadSession(DriveItemCreateUploadSessionParameterSet.newBuilder().withItem(props).build()) //
 			.buildRequest() //
 			.post()?.let { uploadSession ->
 				data.open(context)?.use { inputStream ->
