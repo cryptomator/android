@@ -4,11 +4,16 @@ import android.content.Context
 import java.io.ByteArrayInputStream
 import java.io.IOException
 import java.io.InputStream
+import java.util.Date
 
 class ByteArrayDataSource private constructor(private val bytes: ByteArray) : DataSource {
 
 	override fun size(context: Context): Long {
 		return bytes.size.toLong()
+	}
+
+	override fun modifiedDate(context: Context): Date? {
+		return null
 	}
 
 	@Throws(IOException::class)

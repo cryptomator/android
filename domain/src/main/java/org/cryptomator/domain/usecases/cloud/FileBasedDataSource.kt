@@ -5,13 +5,16 @@ import java.io.File
 import java.io.FileInputStream
 import java.io.IOException
 import java.io.InputStream
+import java.util.Date
 
 class FileBasedDataSource private constructor(private val file: File) : DataSource {
 
 	override fun size(context: Context): Long {
 		return file.length()
 	}
-
+	override fun modifiedDate(context: Context): Date? {
+		return Date(file.lastModified())
+	}
 	@Throws(IOException::class)
 	override fun open(context: Context): InputStream {
 		return FileInputStream(file)

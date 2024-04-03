@@ -6,8 +6,13 @@ import org.cryptomator.domain.usecases.cloud.DataSource
 import org.cryptomator.presentation.util.ContentResolverUtil
 import java.io.IOException
 import java.io.InputStream
+import java.util.Date
 
 class UriBasedDataSource private constructor(private val uri: Uri) : DataSource {
+
+	override fun modifiedDate(context: Context): Date? {
+		return ContentResolverUtil(context).fileModifiedDate(uri)
+	}
 
 	override fun size(context: Context): Long? {
 		return ContentResolverUtil(context).fileSize(uri)
