@@ -133,7 +133,10 @@ internal class WebDavImpl(private val cloud: WebDavCloud, private val connection
 					)
 				}
 			}.use {
-				connectionHandler.writeFile(absoluteUriFrom(uploadFile.path), it)
+				if (data.modifiedDate(context) != null){
+					connectionHandler.writeFile(absoluteUriFrom(uploadFile.path), it, data.modifiedDate(context)!!)
+				}
+				else connectionHandler.writeFile(absoluteUriFrom(uploadFile.path), it)
 			}
 		} ?: throw FatalBackendException("InputStream shouldn't bee null")
 
