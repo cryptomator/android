@@ -41,6 +41,8 @@ import java.io.File
 import java.io.IOException
 import java.io.OutputStream
 import java.time.OffsetDateTime
+import java.time.ZoneId
+import java.time.format.DateTimeFormatter
 import java.util.Date
 import java.util.concurrent.CompletableFuture
 import java.util.concurrent.ExecutionException
@@ -223,6 +225,7 @@ internal class OnedriveImpl(private val cloud: OnedriveCloud, private val client
 			}.use {
 				val parentNodeInfo = requireNodeInfo(file.parent)
 				try {
+
 					drive(parentNodeInfo.driveId) //
 						.items(parentNodeInfo.id) //
 						.itemWithPath(file.name) //
@@ -231,25 +234,31 @@ internal class OnedriveImpl(private val cloud: OnedriveCloud, private val client
 						.putAsync(CopyStream.toByteArray(it)) //
 						.whenComplete { driveItem, error ->
 							run {
-								if (error != null) {
+								if (error == null) {
+
+									val diffItem = DriveItem()
+									diffItem.fileSystemInfo = FileSystemInfo()
+									diffItem.fileSystemInfo!!.lastModifiedDateTime = OffsetDateTime.ofInstant(data.modifiedDate(context)!!.toInstant(), ZoneId.systemDefault())
+
+									drive(parentNodeInfo.driveId)
+										.items(driveItem.id!!)
+										.buildRequest(conflictBehaviorOption)
+										.patchAsync(diffItem)
+										.whenComplete{ driveItem, error ->
+											if(error == null) {
+												progressAware.onProgress(Progress.completed(UploadState.upload(file)))
+												result.complete(driveItem)
+												cacheNodeInfo(file, driveItem)
+											}
+											else{
+												result.completeExceptionally(error)
+											}
+										}
+								}
+								else{
 									result.completeExceptionally(error)
 								}
 
-								// update the fileSystemInfo.lastModifiedDateTime to the data source date
-								driveItem.fileSystemInfo!!.lastModifiedDateTime = OffsetDateTime.from(data.modifiedDate(context)!!.toInstant())
-								drive(parentNodeInfo.driveId) //
-									.items(parentNodeInfo.id) //
-									.itemWithPath(file.name) //
-									.buildRequest(conflictBehaviorOption)
-									.patchAsync(driveItem)
-									.whenComplete{ driveItem, error ->
-										if(error != null) {
-											result.completeExceptionally(error)
-										}
-										progressAware.onProgress(Progress.completed(UploadState.upload(file)))
-										result.complete(driveItem)
-										cacheNodeInfo(file, driveItem)
-									}
 							}
 						}
 				} catch (e: IOException) {
