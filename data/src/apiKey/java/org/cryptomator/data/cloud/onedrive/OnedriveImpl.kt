@@ -238,7 +238,13 @@ internal class OnedriveImpl(private val cloud: OnedriveCloud, private val client
 
 									val diffItem = DriveItem()
 									diffItem.fileSystemInfo = FileSystemInfo()
-									diffItem.fileSystemInfo!!.lastModifiedDateTime = OffsetDateTime.ofInstant(data.modifiedDate(context)!!.toInstant(), ZoneId.systemDefault())
+									if(data.modifiedDate(context).isPresent){
+										diffItem.fileSystemInfo!!.lastModifiedDateTime = OffsetDateTime.ofInstant(data.modifiedDate(context).get().toInstant(), ZoneId.systemDefault())
+									}
+									else{
+										diffItem.fileSystemInfo!!.lastModifiedDateTime = OffsetDateTime.ofInstant(Date().toInstant(), ZoneId.systemDefault())
+									}
+
 
 									drive(parentNodeInfo.driveId)
 										.items(driveItem.id!!)
@@ -274,8 +280,12 @@ internal class OnedriveImpl(private val cloud: OnedriveCloud, private val client
 
 		val props = DriveItemUploadableProperties();
 		props.fileSystemInfo = FileSystemInfo();
-		props.fileSystemInfo!!.lastModifiedDateTime = OffsetDateTime.ofInstant(data.modifiedDate(context)!!.toInstant(), ZoneId.systemDefault())
-
+		if(data.modifiedDate(context).isPresent){
+			props.fileSystemInfo!!.lastModifiedDateTime = OffsetDateTime.ofInstant(data.modifiedDate(context).get().toInstant(), ZoneId.systemDefault())
+		}
+		else{
+			props.fileSystemInfo!!.lastModifiedDateTime = OffsetDateTime.ofInstant(Date().toInstant(), ZoneId.systemDefault())
+		}
 		drive(parentNodeInfo.driveId) //
 			.items(parentNodeInfo.id) //
 			.itemWithPath(file.name) //
