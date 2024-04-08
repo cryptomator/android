@@ -274,7 +274,7 @@ internal class OnedriveImpl(private val cloud: OnedriveCloud, private val client
 
 		val props = DriveItemUploadableProperties();
 		props.fileSystemInfo = FileSystemInfo();
-		props.fileSystemInfo!!.lastModifiedDateTime = OffsetDateTime.from(data.modifiedDate(context)!!.toInstant())
+		props.fileSystemInfo!!.lastModifiedDateTime = OffsetDateTime.ofInstant(data.modifiedDate(context)!!.toInstant(), ZoneId.systemDefault())
 
 		drive(parentNodeInfo.driveId) //
 			.items(parentNodeInfo.id) //
