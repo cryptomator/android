@@ -11,6 +11,10 @@ import java.util.Date
 
 class UriBasedDataSource private constructor(private val uri: Uri) : DataSource {
 
+	override fun modifiedDate(context: Context): Date? {
+		return ContentResolverUtil(context).fileModifiedDate(uri)
+	}
+
 	override fun size(context: Context): Long? {
 		return ContentResolverUtil(context).fileSize(uri)
 	}

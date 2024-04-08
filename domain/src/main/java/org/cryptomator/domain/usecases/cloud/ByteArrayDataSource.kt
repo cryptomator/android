@@ -13,6 +13,10 @@ class ByteArrayDataSource private constructor(private val bytes: ByteArray) : Da
 		return bytes.size.toLong()
 	}
 
+	override fun modifiedDate(context: Context): Date? {
+		return null
+	}
+
 	@Throws(IOException::class)
 	override fun open(context: Context): InputStream {
 		return ByteArrayInputStream(bytes)

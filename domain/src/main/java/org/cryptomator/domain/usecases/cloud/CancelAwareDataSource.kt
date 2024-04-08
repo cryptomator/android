@@ -9,6 +9,13 @@ import java.util.Date
 
 class CancelAwareDataSource private constructor(private val delegate: DataSource, private val cancelled: Flag) : DataSource {
 
+	override fun modifiedDate(context: Context): Date? {
+		if (cancelled.get()) {
+			throw CancellationException()
+		}
+		return delegate.modifiedDate(context)
+	}
+
 	override fun size(context: Context): Long? {
 		if (cancelled.get()) {
 			throw CancellationException()
