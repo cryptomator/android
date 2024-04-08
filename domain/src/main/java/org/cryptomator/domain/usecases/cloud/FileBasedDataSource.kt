@@ -13,9 +13,6 @@ class FileBasedDataSource private constructor(private val file: File) : DataSour
 	override fun size(context: Context): Long {
 		return file.length()
 	}
-	override fun modifiedDate(context: Context): Date? {
-		return Date(file.lastModified())
-	}
 	@Throws(IOException::class)
 	override fun open(context: Context): InputStream {
 		return FileInputStream(file)

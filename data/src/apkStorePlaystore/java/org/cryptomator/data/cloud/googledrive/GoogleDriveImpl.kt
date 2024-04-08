@@ -205,7 +205,7 @@ internal class GoogleDriveImpl(context: Context, googleDriveCloud: GoogleDriveCl
 		val metadata = File()
 		metadata.name = file.name
 		progressAware.onProgress(Progress.started(UploadState.upload(file)))
-		metadata.setModifiedTime(DateTime(data.modifiedDate(context) ?: Date()))
+		metadata.setModifiedTime(DateTime(data.modifiedDate(context).orElse(Date())))
 		val uploadedFile = if (file.driveId != null && replace) {
 			updateFile(file, data, progressAware, size, metadata)
 		} else {

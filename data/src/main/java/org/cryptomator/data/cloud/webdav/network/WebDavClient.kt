@@ -12,6 +12,7 @@ import org.cryptomator.domain.exception.NotFoundException
 import org.cryptomator.domain.exception.ParentFolderDoesNotExistException
 import org.cryptomator.domain.exception.TypeMismatchException
 import org.cryptomator.domain.exception.UnauthorizedException
+import org.cryptomator.util.Optional
 import org.xmlpull.v1.XmlPullParserException
 import java.io.ByteArrayInputStream
 import java.io.IOException
@@ -172,9 +173,9 @@ internal class WebDavClient(private val httpClient: WebDavCompatibleHttpClient) 
 		}
 	}
 
-	fun writeFile(url: String, inputStream: InputStream, modifiedDate: Date?) {
+	fun writeFile(url: String, inputStream: InputStream, modifiedDate: Date) {
 		val builder = Request.Builder()
-			.addHeader("X-OC-Mtime", modifiedDate!!.toInstant().toEpochMilli().div(1000).toString())
+			.addHeader("X-OC-Mtime", modifiedDate	.toInstant().toEpochMilli().div(1000).toString())
 			.put(InputStreamSourceBasedRequestBody.from(inputStream))
 			.url(url)
 		try {

@@ -4,6 +4,7 @@ import org.cryptomator.data.cloud.webdav.WebDavFolder
 import org.cryptomator.data.cloud.webdav.WebDavNode
 import org.cryptomator.domain.CloudFolder
 import org.cryptomator.domain.exception.BackendException
+import org.cryptomator.util.Optional
 import java.io.InputStream
 import java.util.Date
 import javax.inject.Inject
@@ -32,7 +33,7 @@ class ConnectionHandlerHandlerImpl @Inject internal constructor(httpClient: WebD
 		webDavClient.writeFile(url, inputStream)
 	}
 
-	fun writeFile(url: String, inputStream: InputStream, modifiedDate: Date?) {
+	fun writeFile(url: String, inputStream: InputStream, modifiedDate: Date) {
 		webDavClient.writeFile(url, inputStream, modifiedDate)
 	}
 
