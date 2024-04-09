@@ -208,7 +208,7 @@ internal class PCloudImpl(private val cloud: PCloud, private val client: ApiClie
 		}
 		return try {
 			client //
-				.createFile(file.parent.path, file.name, pCloudDataSource, data.modifiedDate(context) ?: Date(), listener, uploadOptions) //
+				.createFile(file.parent.path, file.name, pCloudDataSource, data.modifiedDate(context).orElse(Date()), listener, uploadOptions) //
 				.execute()
 		} catch (ex: ApiError) {
 			handleApiError(ex, file.name)
