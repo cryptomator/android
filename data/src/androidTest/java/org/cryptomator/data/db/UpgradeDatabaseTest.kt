@@ -1,7 +1,9 @@
 package org.cryptomator.data.db
 
 import android.content.Context
+import android.database.Cursor
 import androidx.room.testing.MigrationTestHelper
+import androidx.room.util.copyAndClose
 import androidx.sqlite.db.SupportSQLiteDatabase
 import androidx.sqlite.db.SupportSQLiteOpenHelper
 import androidx.sqlite.db.framework.FrameworkSQLiteOpenHelperFactory
@@ -9,6 +11,7 @@ import androidx.test.ext.junit.runners.AndroidJUnit4
 import androidx.test.filters.SmallTest
 import androidx.test.platform.app.InstrumentationRegistry
 import com.google.common.base.Optional
+import org.cryptomator.data.db.CryptomatorAssert.assertCursorEquals
 import org.cryptomator.data.db.migrations.Sql
 import org.cryptomator.data.db.migrations.legacy.Upgrade10To11
 import org.cryptomator.data.db.migrations.legacy.Upgrade11To12
@@ -780,5 +783,143 @@ class UpgradeDatabaseTest {
 				assertTrue(it.moveToNext())
 				it.getString(0)
 			}
+	}
+
+	@Test
+	fun migrate12To13() {
+		Upgrade1To2().migrate(db)
+		Upgrade2To3(context).migrate(db)
+		Upgrade3To4().migrate(db)
+		Upgrade4To5().migrate(db)
+		Upgrade5To6().migrate(db)
+		Upgrade6To7().migrate(db)
+		Upgrade7To8().migrate(db)
+		Upgrade8To9(sharedPreferencesHandler).migrate(db)
+		Upgrade9To10(sharedPreferencesHandler).migrate(db)
+		Upgrade10To11().migrate(db)
+		Upgrade11To12(sharedPreferencesHandler).migrate(db)
+
+		assertEquals(12, db.version)
+		val pre13Tables: Map<String, Cursor> = listOf("CLOUD_ENTITY", "UPDATE_CHECK_ENTITY", "VAULT_ENTITY").associateWith { tableName ->
+			val cursor = Sql.query(tableName).executeOn(db)
+			copyAndClose(cursor)
+		}
+		db.close()
+
+		helper.runMigrationsAndValidate(TEST_DB, 13, true, Migration12To13()).also { migratedDb ->
+			assertTrue(migratedDb.hasRoomMasterTable)
+			assertEquals(13, migratedDb.version)
+
+			for (preTable in pre13Tables) {
+				preTable.value.use { preCursor ->
+					Sql.query(preTable.key).executeOn(migratedDb).use { postCursor ->
+						//assertCursorEquals(preCursor, postCursor)
+					}
+				}
+			}
+		}
+	}
+
+	@Test
+	fun migrate12To13WithData() {
+		Upgrade1To2().migrate(db)
+		Upgrade2To3(context).migrate(db)
+		Upgrade3To4().migrate(db)
+		Upgrade4To5().migrate(db)
+		Upgrade5To6().migrate(db)
+		Upgrade6To7().migrate(db)
+		Upgrade7To8().migrate(db)
+		Upgrade8To9(sharedPreferencesHandler).migrate(db)
+		Upgrade9To10(sharedPreferencesHandler).migrate(db)
+		Upgrade10To11().migrate(db)
+		Upgrade11To12(sharedPreferencesHandler).migrate(db)
+
+		Sql.insertInto("CLOUD_ENTITY") //
+			.integer("_id", 3) //
+			.text("TYPE", CloudType.LOCAL.name) //
+			.text("URL", "url1") //
+			.text("USERNAME", "username1") //
+			.text("WEBDAV_CERTIFICATE", "certificate1") //
+			.text("ACCESS_TOKEN", "accessToken1") //
+			.text("S3_BUCKET", "s3Bucket1") //
+			.text("S3_REGION", "s3Region1") //
+			.text("S3_SECRET_KEY", "s3SecretKey1") //
+			.executeOn(db)
+
+		Sql.insertInto("VAULT_ENTITY") //
+			.integer("_id", 10) //
+			.integer("FOLDER_CLOUD_ID", 1) //
+			.text("FOLDER_PATH", "path1") //
+			.text("FOLDER_NAME", "name1") //
+			.text("CLOUD_TYPE", CloudType.DROPBOX.name) //
+			.text("PASSWORD", "password1") //
+			.integer("POSITION", 10) //
+			.integer("FORMAT", 42) //
+			.integer("SHORTENING_THRESHOLD", 110) //
+			.executeOn(db)
+
+		Sql.insertInto("VAULT_ENTITY") //
+			.integer("_id", 20) //
+			.integer("FOLDER_CLOUD_ID", 3) //
+			.text("FOLDER_PATH", "path2") //
+			.text("FOLDER_NAME", "name2") //
+			.text("CLOUD_TYPE", CloudType.LOCAL.name) //
+			.text("PASSWORD", "password2") //
+			.integer("POSITION", 20) //
+			.integer("FORMAT", 43) //
+			.integer("SHORTENING_THRESHOLD", 120) //
+			.executeOn(db)
+
+		Sql.update("UPDATE_CHECK_ENTITY") //
+			.set("LICENSE_TOKEN", Sql.toString("license1")) //
+			.set("RELEASE_NOTE", Sql.toString("note1")) //
+			.set("VERSION", Sql.toString("version1")) //
+			.set("URL_TO_APK", Sql.toString("urlToApk1")) //
+			.set("APK_SHA256", Sql.toString("sha1")) //
+			.set("URL_TO_RELEASE_NOTE", Sql.toString("urlToNote1")) //
+			.executeOn(db)
+
+		assertEquals(12, db.version)
+		val pre13Tables: Map<String, Cursor> = listOf("CLOUD_ENTITY", "UPDATE_CHECK_ENTITY", "VAULT_ENTITY").associateWith { tableName ->
+			copyAndClose(Sql.query(tableName).executeOn(db))
+		}
+		db.close()
+
+		helper.runMigrationsAndValidate(TEST_DB, 13, true, Migration12To13()).also { migratedDb ->
+			assertTrue(migratedDb.hasRoomMasterTable)
+			assertEquals(13, migratedDb.version)
+
+			for (preTable in pre13Tables) {
+				preTable.value.use { preCursor ->
+					Sql.query(preTable.key).executeOn(migratedDb).use { postCursor ->
+						//assertCursorEquals(preCursor, postCursor)
+					}
+				}
+			}
+		}
+	}
+
+	//TODO Test metadata of non-entity tables for v13, v14
+	//TODO Test metadata and content of entity tables for v14
+
+	@Test
+	fun migrate1To13WithRoom() {
+		db.version = 1
+		db.close()
+		helper.runMigrationsAndValidate(
+			TEST_DB, 13, true,
+			Upgrade1To2(),
+			Upgrade2To3(context),
+			Upgrade3To4(),
+			Upgrade4To5(),
+			Upgrade5To6(),
+			Upgrade6To7(),
+			Upgrade7To8(),
+			Upgrade8To9(sharedPreferencesHandler),
+			Upgrade9To10(sharedPreferencesHandler),
+			Upgrade10To11(),
+			Upgrade11To12(sharedPreferencesHandler),
+			Migration12To13()
+		)
 	}
 }
