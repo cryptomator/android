@@ -26,7 +26,6 @@ Cryptomator for Android is currently available in the following  distribution ch
 ### Run Git and Gradle
 
 ```
-git submodule init && git submodule update // (not necessary if cloned using --recurse-submodules)
 ./gradlew assembleApkstoreDebug
 ```
 
@@ -42,7 +41,7 @@ Before connecting to Google Drive you have to create a new project in [Google Cl
 
 Use the Docker image to verify the build of the 'lite' flavor:
 
-1. Clone this repository (don't forget `--recurse-submodules`)
+1. Clone this repository
 2. Checkout the tag you want to build, e.g. 1.8.0
 3. Build the image using `docker build -t cryptomator-android .` in the `buildsystem/` directory
 4. Build Cryptomator using `docker run --rm -u $(id -u):$(id -g) -v $(pwd):/project -w /project cryptomator-android ./gradlew clean assembleLiteRelease` in the root of this folder
