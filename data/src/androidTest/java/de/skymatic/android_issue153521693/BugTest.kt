@@ -40,6 +40,8 @@ import org.junit.Before
 import org.junit.Test
 import org.junit.runner.RunWith
 
+// See https://github.com/cryptomator/android/issues/529 to learn more about this class.
+// Also see https://github.com/SailReal/Android-Issue-153521693/tree/cfb5033cf287572ac4b4972700f1656ce2b61d03/src/androidTest/java/de/skymatic/android_issue153521693
 @RunWith(AndroidJUnit4::class)
 class BugTest {
 
