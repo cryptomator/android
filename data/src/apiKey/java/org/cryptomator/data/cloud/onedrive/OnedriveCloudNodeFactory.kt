@@ -74,6 +74,8 @@ internal object OnedriveCloudNodeFactory {
 	}
 
 	private fun lastModified(item: DriveItem): Date? {
-		return Date.from(item.fileSystemInfo!!.lastModifiedDateTime!!.toInstant())
+		return item.fileSystemInfo?.let {
+			return Date.from(it.lastModifiedDateTime?.toInstant())
+		}
 	}
 }

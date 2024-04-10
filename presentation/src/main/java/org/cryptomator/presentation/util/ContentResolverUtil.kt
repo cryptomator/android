@@ -27,6 +27,7 @@ class ContentResolverUtil @Inject constructor(context: Context) {
 			else -> null
 		}
 	}
+
 	private fun fileModifiedDateForContentUri(uri: Uri): Date? {
 		contentResolver.query(uri, null, null, null, null).use { cursor ->
 			if (cursor != null && cursor.moveToFirst()) {
@@ -163,7 +164,6 @@ class ContentResolverUtil @Inject constructor(context: Context) {
 		}
 		return fileUris
 	}
-
 
 	companion object {
 

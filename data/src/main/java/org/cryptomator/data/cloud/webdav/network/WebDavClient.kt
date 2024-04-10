@@ -152,31 +152,10 @@ internal class WebDavClient(private val httpClient: WebDavCompatibleHttpClient) 
 	}
 
 	@Throws(BackendException::class)
-	fun writeFile(url: String, inputStream: InputStream) {
-		val builder = Request.Builder()
-			.put(InputStreamSourceBasedRequestBody.from(inputStream)) //
-			.url(url)
-		try {
-			httpClient.execute(builder).use { response ->
-				if (!response.isSuccessful) {
-					when (response.code) {
-						HttpURLConnection.HTTP_UNAUTHORIZED -> throw UnauthorizedException()
-						HttpURLConnection.HTTP_FORBIDDEN -> throw ForbiddenException()
-						HttpURLConnection.HTTP_BAD_METHOD -> throw TypeMismatchException()
-						HttpURLConnection.HTTP_CONFLICT, HttpURLConnection.HTTP_NOT_FOUND -> throw ParentFolderDoesNotExistException()
-						else -> throw FatalBackendException("Response code isn't between 200 and 300: " + response.code)
-					}
-				}
-			}
-		} catch (e: IOException) {
-			throw FatalBackendException(e)
-		}
-	}
-
 	fun writeFile(url: String, inputStream: InputStream, modifiedDate: Date) {
-		val builder = Request.Builder()
-			.addHeader("X-OC-Mtime", modifiedDate	.toInstant().toEpochMilli().div(1000).toString())
-			.put(InputStreamSourceBasedRequestBody.from(inputStream))
+		val builder = Request.Builder() //
+			.addHeader("X-OC-Mtime", modifiedDate.toInstant().toEpochMilli().div(1000).toString()) //
+			.put(InputStreamSourceBasedRequestBody.from(inputStream)) //
 			.url(url)
 		try {
 			httpClient.execute(builder).use { response ->
