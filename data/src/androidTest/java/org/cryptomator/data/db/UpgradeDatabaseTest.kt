@@ -813,7 +813,7 @@ class UpgradeDatabaseTest {
 			for (preTable in pre13Tables) {
 				preTable.value.use { preCursor ->
 					Sql.query(preTable.key).executeOn(migratedDb).use { postCursor ->
-						//assertCursorEquals(preCursor, postCursor)
+						assertCursorEquals(preCursor, postCursor)
 					}
 				}
 			}
@@ -892,7 +892,7 @@ class UpgradeDatabaseTest {
 			for (preTable in pre13Tables) {
 				preTable.value.use { preCursor ->
 					Sql.query(preTable.key).executeOn(migratedDb).use { postCursor ->
-						//assertCursorEquals(preCursor, postCursor)
+						assertCursorEquals(preCursor, postCursor)
 					}
 				}
 			}
