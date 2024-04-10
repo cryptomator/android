@@ -10,6 +10,7 @@ import org.cryptomator.data.db.entities.UpdateCheckEntity
 import org.cryptomator.data.db.entities.VaultEntity
 import org.cryptomator.data.db.migrations.Sql
 import org.cryptomator.data.db.migrations.auto.AutoMigration13To14
+import kotlin.math.max
 
 const val DATABASE_NAME = "Cryptomator"
 const val CRYPTOMATOR_DATABASE_VERSION = 14
@@ -69,6 +70,20 @@ fun Cursor.getValue(columnIndex: Int): CursorValue {
 	}
 }
 
+fun Cursor.getValueAsString(columnIndex: Int): String {
+	require(0 <= columnIndex && columnIndex < this.columnCount) { "Column index $columnIndex outside range 0 <= index < ${this.columnCount}." }
+	return when (getType(columnIndex)) {
+		Cursor.FIELD_TYPE_INTEGER -> getLong(columnIndex).toString()
+		Cursor.FIELD_TYPE_FLOAT -> getDouble(columnIndex).toBigDecimal().toPlainString()
+		Cursor.FIELD_TYPE_STRING -> "\"${getString(columnIndex)}\""
+		Cursor.FIELD_TYPE_BLOB -> getBlob(columnIndex).asSequence().map {
+			it.toUByte().toString(16)
+		}.joinToString(separator = " ", prefix = "0x")
+		Cursor.FIELD_TYPE_NULL -> "null"
+		else -> throw IllegalArgumentException()
+	}
+}
+
 fun Cursor.equalsCursor(other: Cursor): Boolean {
 	if (this.count != other.count) {
 		return false
@@ -102,6 +117,48 @@ fun Cursor.equalsCursor(other: Cursor): Boolean {
 	this.moveToPosition(thisPos)
 	other.moveToPosition(otherPos)
 	return true
+}
+
+fun Cursor?.stringify(): String {
+	if (this == null) {
+		return "<null>"
+	}
+	if (this.columnCount == 0) {
+		return "<empty>"
+	}
+	if (this.count == 0) {
+		return this.columnNames.joinToString(" ")
+	}
+	val startPos = this.position
+	this.moveToPosition(-1)
+
+	val columnWidths: MutableMap<String, Int> = this.columnNames.associateWithTo(mutableMapOf()) { it.length }
+	val values = buildList(this.count * this.columnCount) {
+		while (moveToNext()) {
+			for (name in columnNames) {
+				val value = getValueAsString(getColumnIndexOrThrow(name))
+				columnWidths.compute(name) { _, currentWidth: Int? -> max(currentWidth!!, value.length) }
+				add(value)
+			}
+		}
+	}
+
+	this.moveToPosition(startPos)
+	return buildString(((this.count + 1) * (columnWidths.values.sum() + this.columnCount))) {
+		appendLine(columnNames.asSequence().map { it.padEnd(columnWidths[it]!!) }.joinToString(" "))
+		appendLine()
+		values.forEachIndexed { i: Int, value: String ->
+			append(value.padEnd(columnWidths[columnNames[i % columnCount]]!!))
+			if ((i == values.size - 1)) {
+				return@buildString
+			}
+			if ((i + 1) % columnCount == 0) {
+				appendLine()
+			} else {
+				append(" ")
+			}
+		}
+	}
 }
 
 private fun <T> Array<T>.uniqueToSet(): Set<T> = toSet().also {
