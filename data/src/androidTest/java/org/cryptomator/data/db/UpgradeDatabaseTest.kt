@@ -36,7 +36,6 @@ import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
-import okio.use
 
 private const val TEST_DB = "migration-test"
 private const val LATEST_LEGACY_MIGRATION = 12
