@@ -1,7 +1,14 @@
 package org.cryptomator.presentation.ui.adapter
 
+import android.content.ContentResolver
+import android.content.Context
+import android.graphics.Bitmap
+import android.graphics.BitmapFactory
+import android.media.ThumbnailUtils
+import android.os.Build
 import android.os.PatternMatcher
 import android.view.LayoutInflater
+import android.util.Size
 import android.view.View
 import android.view.View.GONE
 import android.view.View.VISIBLE
@@ -30,6 +37,11 @@ import org.cryptomator.presentation.util.FileSizeHelper
 import org.cryptomator.presentation.util.FileUtil
 import org.cryptomator.presentation.util.ResourceHelper.Companion.getDrawable
 import org.cryptomator.util.SharedPreferencesHandler
+import org.cryptomator.util.file.LruFileCacheUtil
+import org.cryptomator.util.file.MimeType
+import org.cryptomator.util.file.MimeTypes
+import java.io.File
+import java.io.IOException
 import javax.inject.Inject
 
 class BrowseFilesAdapter @Inject
@@ -37,7 +49,9 @@ constructor(
 	private val dateHelper: DateHelper, //
 	private val fileSizeHelper: FileSizeHelper, //
 	private val fileUtil: FileUtil, //
-	private val sharedPreferencesHandler: SharedPreferencesHandler
+	private val sharedPreferencesHandler: SharedPreferencesHandler, //
+	private val context : Context, //
+	private val mimeTypes: MimeTypes //
 ) : RecyclerViewBaseAdapter<CloudNodeModel<*>, BrowseFilesAdapter.ItemClickListener, VaultContentViewHolder, ItemBrowseFilesNodeBinding>(CloudNodeModelNameAZComparator()), FastScrollRecyclerView.SectionedAdapter {
 
 	private var chooseCloudNodeSettings: ChooseCloudNodeSettings? = null
@@ -122,6 +136,8 @@ constructor(
 
 		private var bound: CloudNodeModel<*>? = null
 
+//		private var diskLruCache: DiskLruCache? = null
+
 		override fun bind(position: Int) {
 			bound = getItem(position)
 			bound?.let { internalBind(it) }
@@ -134,8 +150,42 @@ constructor(
 			bindFileOrFolder(node)
 		}
 
+//		private fun createLruCache(cacheSize: Int): Boolean {
+//			if (diskLruCache == null) {
+//				diskLruCache = try {
+//					DiskLruCache.create(LruFileCacheUtil(context).resolve(LruFileCacheUtil.Cache.GOOGLE_DRIVE), cacheSize.toLong())
+//				} catch (e: IOException) {
+//					Timber.tag("GoogleDriveImpl").e(e, "Failed to setup LRU cache")
+//					return false
+//				}
+//			}
+//			return true
+//		}
+
 		private fun bindNodeImage(node: CloudNodeModel<*>) {
 			binding.cloudNodeImage.setImageResource(bindCloudNodeImage(node))
+//			val s = SharedPreferencesHandler()
+//			if(s.useLruCache() && !s.generateThumbnails().equals("Never") && createLruCache(s.lruCacheSize())) {
+//
+//			}
+
+//			node.toCloudNode().cloud.id()
+			if (isImageMediaType(node.name) && node.thumbnail != 0) {
+				itemView.cloudNodeImage.setImageResource(node.thumbnail)
+//				val thumbnail = retrieveThumbnailBitmap()
+//				itemView.cloudNodeImage.setImageBitmap(thumbnail)
+			} else {
+				itemView.cloudNodeImage.setImageResource(bindCloudNodeImage(node))
+			}
+		}
+
+		private fun retrieveThumbnailBitmap() : Bitmap {
+			TODO("to implement!")
+
+		}
+
+		private fun isImageMediaType(filename: String): Boolean {
+			return (mimeTypes.fromFilename(filename) ?: MimeType.WILDCARD_MIME_TYPE).mediatype == "image"
 		}
 
 		private fun bindCloudNodeImage(cloudNodeModel: CloudNodeModel<*>): Int {
