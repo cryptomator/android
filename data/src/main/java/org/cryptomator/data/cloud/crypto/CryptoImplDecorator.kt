@@ -1,6 +1,11 @@
 package org.cryptomator.data.cloud.crypto
 
 import android.content.Context
+import android.graphics.BitmapFactory
+import android.media.ThumbnailUtils
+import android.os.Build
+import android.util.Size
+import com.tomclaw.cache.DiskLruCache
 import org.cryptomator.cryptolib.api.Cryptor
 import org.cryptomator.cryptolib.common.DecryptingReadableByteChannel
 import org.cryptomator.cryptolib.common.EncryptingWritableByteChannel
@@ -24,18 +29,23 @@ import org.cryptomator.domain.usecases.cloud.DownloadState
 import org.cryptomator.domain.usecases.cloud.FileBasedDataSource.Companion.from
 import org.cryptomator.domain.usecases.cloud.Progress
 import org.cryptomator.domain.usecases.cloud.UploadState
+import org.cryptomator.util.SharedPreferencesHandler
+import org.cryptomator.util.file.LruFileCacheUtil
 import java.io.ByteArrayOutputStream
 import java.io.File
 import java.io.FileInputStream
 import java.io.FileOutputStream
 import java.io.IOException
 import java.io.OutputStream
+import java.nio.Buffer
 import java.nio.ByteBuffer
 import java.nio.channels.Channels
 import java.util.LinkedList
 import java.util.Queue
 import java.util.UUID
 import java.util.function.Supplier
+import okio.appendingSink
+import timber.log.Timber
 
 
 abstract class CryptoImplDecorator(
@@ -49,6 +59,19 @@ abstract class CryptoImplDecorator(
 
 	@Volatile
 	private var root: RootCryptoFolder? = null
+
+	private var diskLruCache: DiskLruCache? = null
+	private fun createLruCache(cacheSize: Int): Boolean {
+		if (diskLruCache == null) {
+			diskLruCache = try {
+				DiskLruCache.create(LruFileCacheUtil(context).resolve(LruFileCacheUtil.Cache.DROPBOX), cacheSize.toLong())
+			} catch (e: IOException) {
+				Timber.tag("DropboxImpl").e(e, "Failed to setup LRU cache")
+				return false
+			}
+		}
+		return true
+	}
 
 	@Throws(BackendException::class)
 	abstract fun folder(cryptoParent: CryptoFolder, cleartextName: String): CryptoFolder
@@ -309,8 +332,25 @@ abstract class CryptoImplDecorator(
 	@Throws(BackendException::class)
 	fun read(cryptoFile: CryptoFile, data: OutputStream, progressAware: ProgressAware<DownloadState>) {
 		val ciphertextFile = cryptoFile.cloudFile
+
+//		// prepare LRU cache
+//		val s = SharedPreferencesHandler(context)
+//
+//		// cacheKey
+//		val cacheKey = "$cryptoFile.name${cryptoFile.hashCode()}"
+//
+//		// generating thumbnail
+//		var genThumbnail = false;
+//		// TODO: externalize string
+//		if(s.useLruCache() && !s.generateThumbnails().equals("Never") && createLruCache(s.lruCacheSize())) {
+//			genThumbnail = true;
+//		}
+
+		val thumbnailTmp = File.createTempFile(UUID.randomUUID().toString(), ".crypto", internalCache)
+		// DiskLruCache
 		try {
 			val encryptedTmpFile = readToTmpFile(cryptoFile, ciphertextFile, progressAware)
+//			val thumbnailTmpSink = thumbnailTmp.appendingSink()
 			progressAware.onProgress(Progress.started(DownloadState.decryption(cryptoFile)))
 			try {
 				Channels.newChannel(FileInputStream(encryptedTmpFile)).use { readableByteChannel ->
@@ -322,6 +362,10 @@ abstract class CryptoImplDecorator(
 						while (decryptingReadableByteChannel.read(buff).also { read = it } > 0) {
 							buff.flip()
 							data.write(buff.array(), 0, buff.remaining())
+
+							// TODO: write into the tmp file
+							// thumbnailTmpSink.write(buff, buff.remaining())
+
 							decrypted += read.toLong()
 							progressAware
 								.onProgress(
@@ -334,12 +378,31 @@ abstract class CryptoImplDecorator(
 					}
 				}
 			} finally {
+//				thumbnailTmpSink.close()
 				encryptedTmpFile.delete()
 				progressAware.onProgress(Progress.completed(DownloadState.decryption(cryptoFile)))
 			}
 		} catch (e: IOException) {
 			throw FatalBackendException(e)
 		}
+
+		// store it in cloud-related LRU cache
+//		if(genThumbnail) {
+//			if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
+//				ThumbnailUtils.createImageThumbnail(thumbnailTmp, Size(100, 100), null)
+//			} else {
+//				ThumbnailUtils.extractThumbnail(BitmapFactory.decodeFile(thumbnailTmp.path), 100, 100);
+//			}
+//
+//
+//			try {
+//				diskLruCache?.let {
+//					LruFileCacheUtil.storeToLruCache(it, cacheKey, thumbnailTmp)
+//				} ?: Timber.tag("CryptoImpl").e("Failed to store item in LRU cache")
+//			} catch (e: IOException) {
+//				Timber.tag("CryptoImpl").e(e, "Failed to write downloaded file in LRU cache")
+//			}
+//		}
 	}
 
 	@Throws(BackendException::class, IOException::class)

@@ -161,6 +161,14 @@ constructor(context: Context) : SharedPreferences.OnSharedPreferenceChangeListen
 		return defaultSharedPreferences.getValue(PHOTO_UPLOAD_INCLUDING_VIDEOS, false)
 	}
 
+	fun generateThumbnails() {
+		defaultSharedPreferences.getValue(THUMBNAIL_GENERATION, "Never")
+	}
+
+	fun generateThumbnails(modality: String) {
+		defaultSharedPreferences.setValue(THUMBNAIL_GENERATION, modality)
+	}
+
 	fun useLruCache(): Boolean {
 		return defaultSharedPreferences.getValue(USE_LRU_CACHE, false)
 	}
@@ -318,6 +326,7 @@ constructor(context: Context) : SharedPreferences.OnSharedPreferenceChangeListen
 		const val BIOMETRIC_AUTHENTICATION = "biometricAuthentication"
 		const val CRYPTOMATOR_VARIANTS = "cryptomatorVariants"
 		const val LICENSES_ACTIVITY = "licensesActivity"
+		const val THUMBNAIL_GENERATION = "thumbnailGeneration"
 	}
 
 	private inline fun SharedPreferences.edit(operation: (SharedPreferences.Editor) -> Unit) {
