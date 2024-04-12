@@ -24,19 +24,19 @@ internal class MappingSupportSQLiteDatabase(
 	}
 
 	override fun query(query: SupportSQLiteQuery): Cursor {
-		return delegate.query(map(query))
+		return mapCursor(delegate.query(map(query)))
 	}
 
 	override fun query(query: SupportSQLiteQuery, cancellationSignal: CancellationSignal?): Cursor {
-		return delegate.query(map(query), cancellationSignal)
+		return mapCursor(delegate.query(map(query), cancellationSignal))
 	}
 
 	override fun query(query: String): Cursor {
-		return delegate.query(map(query))
+		return mapCursor(delegate.query(map(query)))
 	}
 
 	override fun query(query: String, bindArgs: Array<out Any?>): Cursor {
-		return delegate.query(map(query), bindArgs)
+		return mapCursor(delegate.query(map(query), bindArgs))
 	}
 
 	override fun insert(table: String, conflictAlgorithm: Int, values: ContentValues): Long {
@@ -77,6 +77,10 @@ internal class MappingSupportSQLiteDatabase(
 
 	private fun map(query: SupportSQLiteQuery): SupportSQLiteQuery {
 		return MappingSupportSQLiteQuery(query)
+	}
+
+	private fun mapCursor(cursor: Cursor): Cursor {
+		return mappingFunction.mapCursor(cursor)
 	}
 
 	private fun mapWhereClause(whereClause: String?): String? {
@@ -201,5 +205,7 @@ interface SQLMappingFunction {
 	fun map(sql: String): String
 
 	fun mapWhereClause(whereClause: String?): String?
+
+	fun mapCursor(cursor: Cursor): Cursor
 
 }

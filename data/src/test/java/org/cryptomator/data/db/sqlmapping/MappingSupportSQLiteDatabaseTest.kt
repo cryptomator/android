@@ -42,10 +42,12 @@ class MappingSupportSQLiteDatabaseTest {
 		identityMapping = MappingSupportSQLiteDatabase(delegateMock, object : SQLMappingFunction {
 			override fun map(sql: String): String = sql
 			override fun mapWhereClause(whereClause: String?): String? = whereClause
+			override fun mapCursor(cursor: Cursor): Cursor = cursor
 		})
 		commentMapping = MappingSupportSQLiteDatabase(delegateMock, object : SQLMappingFunction {
 			override fun map(sql: String): String = "$sql -- Comment!"
 			override fun mapWhereClause(whereClause: String?): String = map(whereClause ?: "1 = 1")
+			override fun mapCursor(cursor: Cursor): Cursor = cursor //TODO
 		})
 	}
 
