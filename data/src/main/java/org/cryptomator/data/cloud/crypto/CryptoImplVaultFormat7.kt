@@ -27,6 +27,9 @@ import org.cryptomator.domain.usecases.cloud.DataSource
 import org.cryptomator.domain.usecases.cloud.FileBasedDataSource.Companion.from
 import org.cryptomator.domain.usecases.cloud.Progress
 import org.cryptomator.domain.usecases.cloud.UploadState
+import org.cryptomator.util.file.MimeType
+import org.cryptomator.util.file.MimeTypeMap
+import org.cryptomator.util.file.MimeTypes
 import java.io.ByteArrayOutputStream
 import java.io.File
 import java.io.FileOutputStream
@@ -169,7 +172,7 @@ open class CryptoImplVaultFormat7 : CryptoImplDecorator {
 		}.map { cryptoNode ->
 
 			// if present, associate cached-thumbnail to the Cryptofile
-			if(cryptoNode is CryptoFile) {
+			if(cryptoNode is CryptoFile && isImageMediaType(cryptoNode.name)) {
 				val cacheKey = cryptoNode.cloudFile.path.hashCode().toString().substring(3)
 
 				val diskCache = super.getLruCacheFor(cryptoNode.cloudFile.cloud!!.type()!!)
@@ -182,6 +185,11 @@ open class CryptoImplVaultFormat7 : CryptoImplDecorator {
 			}
 			cryptoNode
 		}.toList().filterNotNull()
+	}
+
+	private fun isImageMediaType(filename: String): Boolean {
+		val mimeTypes = MimeTypes(MimeTypeMap()) //TODO not efficient move creation of mimetypes
+		return (mimeTypes.fromFilename(filename) ?: MimeType.WILDCARD_MIME_TYPE).mediatype == "image"
 	}
 
 	@Throws(BackendException::class)
@@ -463,6 +471,17 @@ open class CryptoImplVaultFormat7 : CryptoImplDecorator {
 				cloudContentRepository.delete(node.cloudFile.parent)
 			} else {
 				cloudContentRepository.delete(node.cloudFile)
+			}
+
+			// Delete thumbnail file from cache
+			val diskCache = super.getLruCacheFor(node.cloudFile.cloud!!.type()!!)
+			val cacheKey = node.cloudFile.path.hashCode().toString().substring(3)
+
+			diskCache?.let {
+				val cacheFile = it[cacheKey]
+				if (cacheFile != null) {
+					diskCache.delete(cacheKey)
+				}
 			}
 		}
 	}
