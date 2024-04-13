@@ -9,8 +9,7 @@ abstract class CloudNodeModel<T : CloudNode> internal constructor(private val cl
 	var oldName: String? = null
 	var progress: ProgressModel? = null
 	var isSelected = false
-	var thumbnail: Int = 0 // reference to a file in LRU Cache cloud-related
-	
+
 	val name: String
 		get() = cloudNode.name
 	val simpleName: String

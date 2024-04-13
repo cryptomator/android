@@ -166,6 +166,21 @@ open class CryptoImplVaultFormat7 : CryptoImplDecorator {
 			}
 		}.map { node ->
 			ciphertextToCleartextNode(cryptoFolder, dirId, node)
+		}.map { cryptoNode ->
+
+			// if present, associate cached-thumbnail to the Cryptofile
+			if(cryptoNode is CryptoFile) {
+				val cacheKey = cryptoNode.cloudFile.path.hashCode().toString().substring(3)
+
+				val diskCache = super.getLruCacheFor(cryptoNode.cloudFile.cloud!!.type()!!)
+				diskCache?.let {
+					val cacheFile = it[cacheKey]
+					if (cacheFile != null) {
+						cryptoNode.thumbnail = cacheFile
+					}
+				}
+			}
+			cryptoNode
 		}.toList().filterNotNull()
 	}
 
@@ -493,7 +508,7 @@ open class CryptoImplVaultFormat7 : CryptoImplDecorator {
 									cryptoFile,  //
 									cloudContentRepository.write( //
 										targetFile,  //
-										data.decorate(from(encryptedTmpFile)),
+										data.decorate(from(encryptedTmpFile)), //
 										UploadFileReplacingProgressAware(cryptoFile, progressAware),  //
 										replace,  //
 										encryptedTmpFile.length()
