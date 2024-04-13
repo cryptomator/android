@@ -60,7 +60,6 @@ constructor(
 	private val fileSizeHelper: FileSizeHelper, //
 	private val fileUtil: FileUtil, //
 	private val sharedPreferencesHandler: SharedPreferencesHandler, //
-	private val context : Context, //
 	private val mimeTypes: MimeTypes //
 ) : RecyclerViewBaseAdapter<CloudNodeModel<*>, BrowseFilesAdapter.ItemClickListener, VaultContentViewHolder>(CloudNodeModelNameAZComparator()), FastScrollRecyclerView.SectionedAdapter {
 
@@ -145,8 +144,6 @@ constructor(
 
 		private var bound: CloudNodeModel<*>? = null
 
-//		private var diskLruCache: DiskLruCache? = null
-
 		override fun bind(position: Int) {
 			bound = getItem(position)
 			bound?.let { internalBind(it) }
@@ -159,37 +156,13 @@ constructor(
 			bindFileOrFolder(node)
 		}
 
-//		private fun createLruCache(cacheSize: Int): Boolean {
-//			if (diskLruCache == null) {
-//				diskLruCache = try {
-//					DiskLruCache.create(LruFileCacheUtil(context).resolve(LruFileCacheUtil.Cache.GOOGLE_DRIVE), cacheSize.toLong())
-//				} catch (e: IOException) {
-//					Timber.tag("GoogleDriveImpl").e(e, "Failed to setup LRU cache")
-//					return false
-//				}
-//			}
-//			return true
-//		}
-
 		private fun bindNodeImage(node: CloudNodeModel<*>) {
-//			val s = SharedPreferencesHandler()
-//			if(s.useLruCache() && !s.generateThumbnails().equals("Never") && createLruCache(s.lruCacheSize())) {
-//
-//			}
-
-//			node.toCloudNode().cloud.id()
-			if (isImageMediaType(node.name) && node.thumbnail != 0) {
-				itemView.cloudNodeImage.setImageResource(node.thumbnail)
-//				val thumbnail = retrieveThumbnailBitmap()
-//				itemView.cloudNodeImage.setImageBitmap(thumbnail)
+			if (node is CloudFileModel && isImageMediaType(node.name) && node.thumbnail != null) {
+				val bitmap = BitmapFactory.decodeFile(node.thumbnail!!.absolutePath)
+				itemView.cloudNodeImage.setImageBitmap(bitmap)
 			} else {
 				itemView.cloudNodeImage.setImageResource(bindCloudNodeImage(node))
 			}
-		}
-
-		private fun retrieveThumbnailBitmap() : Bitmap {
-			TODO("to implement!")
-
 		}
 
 		private fun isImageMediaType(filename: String): Boolean {

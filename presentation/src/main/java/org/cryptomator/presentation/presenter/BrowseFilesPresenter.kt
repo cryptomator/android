@@ -375,7 +375,6 @@ class BrowseFilesPresenter @Inject constructor( //
 
 	private fun handleSuccessAfterReadingFiles(files: List<CloudFile>, actionAfterDownload: String) {
 		try {
-			// generateThumbnailUseCase.retrieveAndSetCloudNodeModel()
 			if (Intent.ACTION_VIEW == actionAfterDownload) {
 				viewFile(cloudFileModelMapper.toModel(files[0]))
 			} else {
@@ -515,7 +514,6 @@ class BrowseFilesPresenter @Inject constructor( //
 			)
 		} else if (!lowerFileName.endsWith(".gif") && isImageMediaType(cloudFile.name)) {
 			val cloudFileNodes = previewCloudFileNodes
-			cloudFileNodes.get(cloudFileNodes.indexOf(cloudFile)).thumbnail = R.drawable.happy_doggino
 
 			val imagePreviewStore = ImagePreviewFilesStore( //
 				cloudFileNodes,  //

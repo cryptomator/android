@@ -116,42 +116,42 @@ class VaultListPresenter @Inject constructor( //
 			sharedPreferencesHandler.vaultsRemovedDuringMigration(null)
 		}
 
-		// checkLicense()
+		checkLicense()
 
 		checkPermissions()
 	}
 
-//	private fun checkLicense() {
-//		if (BuildConfig.FLAVOR == "apkstore" || BuildConfig.FLAVOR == "fdroid" || BuildConfig.FLAVOR == "lite") {
-//			licenseCheckUseCase //
-//				.withLicense("") //
-//				.run(object : NoOpResultHandler<LicenseCheck>() {
-//					override fun onSuccess(licenseCheck: LicenseCheck) {
-//						if (BuildConfig.FLAVOR == "apkstore" && sharedPreferencesHandler.doUpdate()) {
-//							checkForAppUpdates()
-//						}
-//					}
-//
-//					override fun onError(e: Throwable) {
-//						val license = if (e is LicenseNotValidException) {
-//							e.license
-//						} else {
-//							""
-//						}
-//						val intent = Intent(context(), LicenseCheckActivity::class.java)
-//						intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
-//						intent.data = Uri.parse(String.format("app://cryptomator/%s", license))
-//
-//						try {
-//							context().startActivity(intent)
-//						} catch (e: ActivityNotFoundException) {
-//							Toast.makeText(context(), "Please contact the support.", Toast.LENGTH_LONG).show()
-//							finish()
-//						}
-//					}
-//				})
-//		}
-//	}
+	private fun checkLicense() {
+		if (BuildConfig.FLAVOR == "apkstore" || BuildConfig.FLAVOR == "fdroid" || BuildConfig.FLAVOR == "lite") {
+			licenseCheckUseCase //
+				.withLicense("") //
+				.run(object : NoOpResultHandler<LicenseCheck>() {
+					override fun onSuccess(licenseCheck: LicenseCheck) {
+						if (BuildConfig.FLAVOR == "apkstore" && sharedPreferencesHandler.doUpdate()) {
+							checkForAppUpdates()
+						}
+					}
+
+					override fun onError(e: Throwable) {
+						val license = if (e is LicenseNotValidException) {
+							e.license
+						} else {
+							""
+						}
+						val intent = Intent(context(), LicenseCheckActivity::class.java)
+						intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+						intent.data = Uri.parse(String.format("app://cryptomator/%s", license))
+
+						try {
+							context().startActivity(intent)
+						} catch (e: ActivityNotFoundException) {
+							Toast.makeText(context(), "Please contact the support.", Toast.LENGTH_LONG).show()
+							finish()
+						}
+					}
+				})
+		}
+	}
 
 	private fun checkForAppUpdates() {
 		if (networkConnectionCheck.isPresent) {

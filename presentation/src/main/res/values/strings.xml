@@ -623,6 +623,10 @@
 	<string name="cache_size_1000m">1 GB</string>
 	<string name="cache_size_5000m">5 GB</string>
 
+	<string name="thumbnail_generation_never">Never</string>
+	<string name="thumbnail_generation_file">Per File</string>
+	<string name="thumbnail_generation_folder">Per Folder</string>
+
 	<!-- screen scheme mode names -->
 	<string name="screen_settings_style_mode">Style</string>
 	<string name="follow_system">Automatic (follow system)</string>
@@ -632,5 +636,7 @@
 	<!-- update interval names -->
 	<string name="update_interval_1d">Once a day</string>
 	<string name="update_interval_never" translatable="false">@string/lock_timeout_never</string>
+	<string name="screen_settings_thumbnail_generation">Thumbnails</string>
+	<string name="dialog_thumbnail_generation_title">Thumbnail generation</string>
 
 </resources>

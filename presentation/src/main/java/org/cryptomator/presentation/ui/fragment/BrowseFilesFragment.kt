@@ -8,7 +8,6 @@ import android.view.View.GONE
 import android.view.View.VISIBLE
 import android.widget.RelativeLayout
 import androidx.core.content.ContextCompat
-import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import org.cryptomator.domain.CloudNode
@@ -108,6 +107,7 @@ class BrowseFilesFragment : BaseFragment() {
 		navigationMode?.let { cloudNodesAdapter.updateNavigationMode(it) }
 
 		recyclerView.layoutManager = LinearLayoutManager(context())
+//		recyclerView.layoutManager = GridLayoutManager(context(), 2)
 		recyclerView.adapter = cloudNodesAdapter
 		recyclerView.setHasFixedSize(true)
 		recyclerView.setPadding(0, 0, 0, TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 88f, resources.displayMetrics).toInt())
