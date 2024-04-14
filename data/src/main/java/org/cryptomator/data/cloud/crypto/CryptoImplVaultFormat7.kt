@@ -187,11 +187,6 @@ open class CryptoImplVaultFormat7 : CryptoImplDecorator {
 		}.toList().filterNotNull()
 	}
 
-	private fun isImageMediaType(filename: String): Boolean {
-		val mimeTypes = MimeTypes(MimeTypeMap()) //TODO not efficient move creation of mimetypes
-		return (mimeTypes.fromFilename(filename) ?: MimeType.WILDCARD_MIME_TYPE).mediatype == "image"
-	}
-
 	@Throws(BackendException::class)
 	private fun ciphertextToCleartextNode(cryptoFolder: CryptoFolder, dirId: String, cloudNode: CloudNode): CryptoNode? {
 		var ciphertextName = cloudNode.name
