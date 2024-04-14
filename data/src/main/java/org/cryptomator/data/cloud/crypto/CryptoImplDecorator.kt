@@ -33,6 +33,9 @@ import org.cryptomator.domain.usecases.cloud.Progress
 import org.cryptomator.domain.usecases.cloud.UploadState
 import org.cryptomator.util.SharedPreferencesHandler
 import org.cryptomator.util.file.LruFileCacheUtil
+import org.cryptomator.util.file.MimeType
+import org.cryptomator.util.file.MimeTypeMap
+import org.cryptomator.util.file.MimeTypes
 import java.io.ByteArrayOutputStream
 import java.io.File
 import java.io.FileInputStream
@@ -63,6 +66,8 @@ abstract class CryptoImplDecorator(
 	private val sharedPreferencesHandler = SharedPreferencesHandler(context)
 
 	private var diskLruCache: MutableMap<LruFileCacheUtil.Cache, DiskLruCache?> = mutableMapOf()
+
+	private val mimeTypes = MimeTypes(MimeTypeMap())
 
 	protected fun getLruCacheFor(type : CloudType): DiskLruCache? {
 		return getOrCreateLruCache(sharedPreferencesHandler.lruCacheSize(), dispatchCloud(type)!!) // unwrap should be safe!
@@ -368,7 +373,9 @@ abstract class CryptoImplDecorator(
 		var genThumbnail = false
 		if(	sharedPreferencesHandler.useLruCache() &&
 			!sharedPreferencesHandler.generateThumbnails().equals("Never") && // TODO: externalize string
-			diskCache != null) {
+			diskCache != null && //
+			isImageMediaType(cryptoFile.name)
+			) {
 			genThumbnail = true
 		}
 
@@ -428,7 +435,7 @@ abstract class CryptoImplDecorator(
 			}
 
 			// write the thumbnail in a file (on disk)
-			thumbnailFile = File.createTempFile(UUID.randomUUID().toString(), ".crypto", internalCache)
+			thumbnailFile = File.createTempFile(UUID.randomUUID().toString(), ".thumbnail", internalCache)
 			bitmap.compress(Bitmap.CompressFormat.JPEG, 100, thumbnailFile.outputStream())
 
 			try {
@@ -443,6 +450,10 @@ abstract class CryptoImplDecorator(
 			thumbnailFile.delete()
 		}
 		thumbnailTmp.delete()
+	}
+
+	protected fun isImageMediaType(filename: String): Boolean {
+		return (mimeTypes.fromFilename(filename) ?: MimeType.WILDCARD_MIME_TYPE).mediatype == "image"
 	}
 
 	@Throws(BackendException::class, IOException::class)
