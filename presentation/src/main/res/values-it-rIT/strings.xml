@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 	<!-- # app -->
-	<string name="share_with_label">Crittografa</string>
+	<string name="share_with_label">Cripta</string>
 	<!-- # error messages -->
 	<string name="error_generic">Si è verificato un errore</string>
 	<string name="error_authentication_failed">Autenticazione non riuscita</string>
