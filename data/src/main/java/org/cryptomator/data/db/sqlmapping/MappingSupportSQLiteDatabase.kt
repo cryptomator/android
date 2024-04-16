@@ -7,6 +7,7 @@ import android.os.CancellationSignal
 import androidx.sqlite.db.SimpleSQLiteQuery
 import androidx.sqlite.db.SupportSQLiteDatabase
 import androidx.sqlite.db.SupportSQLiteOpenHelper
+import androidx.sqlite.db.SupportSQLiteProgram
 import androidx.sqlite.db.SupportSQLiteQuery
 import androidx.sqlite.db.SupportSQLiteStatement
 import timber.log.Timber
@@ -166,9 +167,14 @@ internal class MappingSupportSQLiteDatabase(
 
 		private val _sql = map(delegateQuery.sql)
 		private val sqlDelegate = OneOffDelegate { Timber.tag("MappingSupportSQLiteQuery").e("SQL queried twice") }
+		private val bindToDelegate = OneOffDelegate { Timber.tag("MappingSupportSQLiteQuery").e("bindTo called twice") }
 
 		override val sql: String
 			get() = sqlDelegate.call { _sql }
+
+		override fun bindTo(statement: SupportSQLiteProgram) {
+			bindToDelegate.call { delegateQuery.bindTo(statement) }
+		}
 	}
 }
 
