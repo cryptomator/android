@@ -164,18 +164,11 @@ internal class MappingSupportSQLiteDatabase(
 		private val delegateQuery: SupportSQLiteQuery
 	) : SupportSQLiteQuery by delegateQuery {
 
-		private val lock = Any()
-		private var called = false
-
 		private val _sql = map(delegateQuery.sql)
+		private val sqlDelegate = OneOffDelegate { Timber.tag("MappingSupportSQLiteQuery").e("SQL queried twice") }
+
 		override val sql: String
-			get() = synchronized(lock) {
-				if (called) {
-					Timber.tag("MappingSupportSQLiteQuery").e("SQL queried twice")
-				}
-				called = true
-				return _sql
-			}
+			get() = sqlDelegate.call { _sql }
 	}
 }
 
