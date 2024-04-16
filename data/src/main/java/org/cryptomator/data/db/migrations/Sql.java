@@ -7,6 +7,8 @@ import android.database.sqlite.SQLiteQueryBuilder;
 
 import androidx.sqlite.db.SupportSQLiteDatabase;
 
+import org.cryptomator.data.util.Utils;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -121,6 +123,7 @@ public class Sql {
 		private List<String> columns = new ArrayList<>();
 		private String groupBy;
 		private String having;
+		private String orderBy;
 		private String limit;
 
 		public SqlQueryBuilder(String tableName) {
@@ -141,17 +144,22 @@ public class Sql {
 		}
 
 		public SqlQueryBuilder groupBy(String groupBy) {
-			this.groupBy = groupBy;
+			this.groupBy = Utils.requireNullOrNotBlank(groupBy);
 			return this;
 		}
 
 		public SqlQueryBuilder having(String having) {
-			this.having = having;
+			this.having = Utils.requireNullOrNotBlank(having);
+			return this;
+		}
+
+		public SqlQueryBuilder orderBy(String orderBy) {
+			this.orderBy = Utils.requireNullOrNotBlank(orderBy);
 			return this;
 		}
 
 		public SqlQueryBuilder limit(String limit) {
-			this.limit = limit;
+			this.limit = Utils.requireNullOrNotBlank(limit);
 			return this;
 		}
 
@@ -162,11 +170,11 @@ public class Sql {
 			String query = SQLiteQueryBuilder.buildQueryString( //
 					/* distinct */ false, //
 					tableName, //
-					columns.toArray(new String[columns.size()]), //
-					whereClause.toString(), //
+					Utils.emptyToNull(columns.toArray(new String[columns.size()])), //
+					Utils.blankToNull(whereClause.toString()), //
 					groupBy, //
 					having, //
-					/* orderBy */ null, //
+					orderBy, //
 					limit  //
 			);
 			//In contrast to "SupportSQLiteDatabase#update" "query" doesn't define how the contents of "whereArgs" are bound.
@@ -210,7 +218,7 @@ public class Sql {
 			//The internal binding methods are type-safe, but resolve to just putting all args into an "Array<Object/Any>" in "SQLiteProgram" anyway.
 			//This array is also used by "SQLiteDatabase#update". Apparently the contents of the array are then bound as "Strings".
 			//As of now we always pass an "Array<String>", but all of this has to be kept in mind if we ever change this.
-			db.update(tableName, SQLiteDatabase.CONFLICT_NONE, contentValues, whereClause.toString(), whereArgs.toArray(new String[whereArgs.size()]));
+			db.update(tableName, SQLiteDatabase.CONFLICT_NONE, contentValues, Utils.blankToNull(whereClause.toString()), whereArgs.toArray(new String[whereArgs.size()]));
 		}
 	}
 
@@ -536,6 +544,10 @@ public class Sql {
 		}
 
 		public Long executeOn(SupportSQLiteDatabase db) {
+			if (contentValues.size() == 0) {
+				throw new IllegalStateException("At least one value must be set");
+			}
+
 			//In contrast to "SupportSQLiteDatabase#update" "insert" doesn't define how the contents of "contentValues" are bound.
 			//As opposed to the other methods in this class, we do actually pass "Integers" and "Strings" here and again they appear
 			//to end up in the "Array<Object/Any>" in "SQLiteProgram". Currently there is no issue,
@@ -566,7 +578,7 @@ public class Sql {
 		public void executeOn(SupportSQLiteDatabase db) {
 			//"SupportSQLiteDatabase#delete" always binds the contents of "whereArgs" as "Strings".
 			//As of now we always pass an "Array<String>", but this has to be kept in mind if we ever change this. See: "SqlUpdateBuilder#executeOn"
-			db.delete(tableName, whereClause.toString(), whereArgs.toArray(new String[whereArgs.size()]));
+			db.delete(tableName, Utils.blankToNull(whereClause.toString()), whereArgs.toArray(new String[whereArgs.size()]));
 		}
 	}
 }
