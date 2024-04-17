@@ -315,7 +315,7 @@
 	<string name="dialog_app_is_obscured_info_neutral_button">Luk</string>
 	<string name="dialog_vaults_removed_during_migration_title">Tilføj venligst boksene til %1s skyen igen</string>
 	<string name="dialog_vaults_removed_during_migration_hint">Mens vi migrerer til denne app-version, skal vi fjerne følgende bokse fra appen:\n%2s \n\nDisse bokse fjernes ikke fra skyen, men kun fra denne app. Beklager ulejligheden! Tilføj venligst disse bokse igen for at fortsætte med at arbejde med dem.</string>
-	<string name="dialog_vault_is_root_folder_of_cloud_title">Boksen er rodmappen for cloudforbindelsen</string>
+	<string name="dialog_vault_is_root_folder_of_cloud_title">Boksen er rodmappen for denne forbindelse til skyen</string>
 	<string name="dialog_vault_is_root_folder_of_cloud_hint">For at tilføje denne boks, skal du lave en ny forbindelse til skyen hvor du som minimum vælger mappen over boksens mappe som din rod-mappe.</string>
 	<string name="dialog_disable_secure_screen_disclaimer_hint">Denne indstilling er en sikkerhedsfunktion og forhindrer andre apps i at narre brugere til at gøre ting, de ikke ønsker at gøre.\n\nVed at deaktivere, bekræfter du, at du er <a href="https://docs.cryptomator.org/en/1.6/android/settings/#screen-security">bekendt med de involverede ricisi</a>.</string>
 	<string name="dialog_delete_cloud_connection_with_vaults_message">Er du sikke på, at du vil fjerne denne forbindelse?</string>
@@ -382,7 +382,7 @@
 	<string name="dialog_biometric_auth_use_password">Brug kodeord til boksen</string>
 	<string name="dialog_unable_to_auto_upload_files_title">Kan ikke uploade filer automatisk</string>
 	<!-- notification -->
-	<string name="notification_unlocked">Boks låst op: %1$d</string>
+	<string name="notification_unlocked">Bokse låst op: %1$d</string>
 	<string name="notification_timeout">Låser automatisk om %1$s</string>
 	<string name="notification_lock_all">Lås alle</string>
 	<string name="notification_cancel_auto_upload">Annullér upload</string>
@@ -391,9 +391,9 @@
 	<string name="notification_auto_upload_finished_title">Automatisk upload af fotos færdig</string>
 	<string name="notification_auto_upload_finished_message">%1$d billeder uploadet til boksen</string>
 	<string name="notification_auto_upload_failed_title">Automatisk upload af fotos fejlede</string>
-	<string name="notification_auto_upload_failed_general_error">Der skete en fejl under uploaden.</string>
+	<string name="notification_auto_upload_failed_general_error">Der opstod en generel fejl under upload.</string>
 	<string name="notification_auto_upload_failed_due_to_folder_not_exists">Den valgte upload-mappe er ikke længere tilgængelig. Gå til indstillinger og vælg en ny</string>
-	<string name="notification_auto_upload_failed_due_to_vault_locked">Boks låst under upload, genåbn venligst boks for at fortsætte</string>
+	<string name="notification_auto_upload_failed_due_to_vault_locked">Boks låst under upload, genåbn venligst boksen for at fortsætte</string>
 	<string name="notification_auto_upload_failed_due_to_vault_not_found">Boks angivet til auto-upload findes ikke længere.</string>
 	<string name="notification_auto_upload_failed_due_to_authentication_problem">Tryk for at opdatere godkendelse.</string>
 	<string name="notification_open_writable_file_title">Åben fil med skriveadgang</string>
@@ -401,13 +401,13 @@
 	<string name="notification_update_check_finished_latest">Nyeste version er installeret</string>
 	<string name="notification_authenticating">Godkender&#8230;</string>
 	<string name="screen_settings_lru_cache">Cache</string>
-	<string name="screen_settings_lru_cache_toggle_summary">Gem nyligt tilgåede filer lokalt, i krypteret form, så de hurtigt kan åbnes igen senere</string>
+	<string name="screen_settings_lru_cache_toggle_summary">Gem nyligt tilgåede filer i cachen, i krypteret form, så de hurtigt kan åbnes igen senere</string>
 	<string name="screen_settings_lru_cache_size">Total cachestørrelse</string>
 	<string name="screen_settings_clear_lru_cache_size">Tøm cache</string>
 	<string name="screen_settings_lru_cache_changed__restart_toast">Ændringerne bliver anvendt næste gang du genstarter appen</string>
 	<string name="screen_settings_license">Registreret til</string>
 	<string name="screen_settings_license_mail">%1$s</string>
-	<string name="dialog_settings_update_check_interval_title">Tjek for nye opdateringer</string>
+	<string name="dialog_settings_update_check_interval_title">Interval for tjek af nye opdateringer</string>
 	<string name="screen_settings_check_updates">Søg efter opdateringer</string>
 	<string name="screen_settings_last_check_updates">Seneste tjek %1$s</string>
 	<string name="dialog_cache_size_title">Cache størrelse pr. sky-tjeneste</string>
