@@ -538,8 +538,9 @@ class BrowseFilesPresenter @Inject constructor( //
 			Uri.fromFile(fileUtil.getLegacyFileForMicrosoftWorkaround(cloudFile))
 		} else {
 			fileUtil.contentUriFor(cloudFile)
-		}.also {
-			openedCloudFile = cloudFile
+		}
+		openedCloudFile = cloudFile
+		uriToOpenedFile?.let {
 			openedCloudFileMd5 = calculateDigestFromUri(it)
 			viewFileIntent.setDataAndType(it, mimeTypes.fromFilename(cloudFile.name)?.toString())
 			viewFileIntent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION or Intent.FLAG_GRANT_WRITE_URI_PERMISSION)
