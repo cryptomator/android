@@ -12,7 +12,6 @@ import org.cryptomator.domain.exception.NotFoundException
 import org.cryptomator.domain.exception.ParentFolderDoesNotExistException
 import org.cryptomator.domain.exception.TypeMismatchException
 import org.cryptomator.domain.exception.UnauthorizedException
-import org.cryptomator.util.Optional
 import org.xmlpull.v1.XmlPullParserException
 import java.io.ByteArrayInputStream
 import java.io.IOException
