@@ -300,7 +300,7 @@
 	<string name="dialog_http_security_hint">Використання HTTP небезпечне. Рекомендуємо замість цього використовувати HTTPS. Якщо ви усвідомлюєте ризики, ви можете продовжити з HTTP.</string>
 	<string name="dialog_http_security_checkbox">Змінити на HTTPS</string>
 	<string name="dialog_http_security_title">Використовувати HTTPS?</string>
-	<string name="dialog_no_screen_lock_hint">Не встановлено блокування екрану. Щоб надійно зберегти свої облікові дані, встановіть ключ чи пароль після натискання ОК.</string>
+	<string name="dialog_no_screen_lock_hint">Не встановлено блокування екрану. Щоб надійно зберегти свої облікові дані, встановіть пароль чи графічний ключ після натискання ОК.</string>
 	<string name="dialog_no_screen_lock_title">Встановити блокування екрану?</string>
 	<string name="dialog_no_screen_lock_checkbox">Встановлення блокування екрану</string>
 	<string name="dialog_no_biometric_auth_set_up_title">В системі не налаштовано базову автентифікацію</string>
