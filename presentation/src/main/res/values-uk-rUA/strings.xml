@@ -284,18 +284,18 @@
 	<string name="dialog_progress_unlocking_vault">Розблокування сховища&#8230;</string>
 	<string name="dialog_progress_change_password">Зміна пароля&#8230;</string>
 	<string name="dialog_progress_creating_vault">Створення сховища&#8230;</string>
-	<string name="dialog_progress_upload_file">Завантаження&#8230;</string>
+	<string name="dialog_progress_upload_file">Вивантаження&#8230;</string>
 	<string name="dialog_progress_download_file">Завантаження&#8230;</string>
 	<string name="dialog_progress_encryption">Шифрування&#8230;</string>
 	<string name="dialog_progress_decryption">Розшифрування&#8230;</string>
 	<string name="action_progress_moving">Переміщення&#8230;</string>
-	<string name="dialog_lock_vault">Заблокувати</string>
+	<string name="dialog_lock_vault">Блокування</string>
 	<string name="dialog_accept_ssl_certificate_title">Неправильний SSL сертифікат</string>
 	<string name="dialog_accept_ssl_certificate_hint">Сертифікат SSL недійсний. Довіряти йому у будь-якому випадку?</string>
 	<string name="dialog_accept_ssl_certificate_details">Докладно</string>
 	<string name="dialog_accept_ssl_certificate_security_checkbox">Це може спричинити ризики безпеки. Я знаю, що роблю.</string>
-	<string name="dialog_ask_ignore_battery_optimizations_title">Вимкнути оптимізацію використання батареї</string>
-	<string name="dialog_ask_ignore_battery_optimizations_hint">Щоб отримувати нові зображення та відео без роботи у фоновому режимі, необхідно відключити оптимізацію заряду аккумулятора. Проте не хвилюйтесь, %1$s не споживає багато енергії.\n\nЩоб це зробити, змініть \"Додатки без оптимізації\" на \"Усі додатки\", оберіть %1$s і в цьому вікні оберіть \"Не оптимізувати\" після натискання \'%2$s\'.</string>
+	<string name="dialog_ask_ignore_battery_optimizations_title">Вимкніть оптимізацію використання батареї</string>
+	<string name="dialog_ask_ignore_battery_optimizations_hint">Щоб оновлювати зображення та відео без роботи у фоновому режимі, необхідно відключити оптимізацію споживання заряду аккумулятора для цього додатку. Проте не хвилюйтесь, %1$s не споживає багато енергії.\n\nЩоб це зробити, змініть \"Додатки без оптимізації\" на \"Усі додатки\", оберіть %1$s і встановіть \"Не оптимізувати\" після натискання \'%2$s\' в цьому вікні.</string>
 	<string name="dialog_ask_ignore_battery_optimizations_checkbox">Не запитувати знову?</string>
 	<string name="dialog_http_security_hint">Використання HTTP небезпечне. Рекомендуємо замість цього використовувати HTTPS. Якщо ви усвідомлюєте ризики, ви можете продовжити з HTTP.</string>
 	<string name="dialog_http_security_checkbox">Змінити на HTTPS</string>
@@ -358,17 +358,17 @@
 	<!-- # misc -->
 	<!-- ## file size helper -->
 	<string name="file_size_zero">0 КБ</string>
-	<string name="file_size_unit_bytes">байти</string>
-	<string name="file_size_unit_kilo_bytes">кБ</string>
+	<string name="file_size_unit_bytes">байт</string>
+	<string name="file_size_unit_kilo_bytes">КБ</string>
 	<string name="file_size_unit_mega_bytes">МБ</string>
 	<string name="file_size_unit_giga_bytes">ГБ</string>
 	<string name="file_size_unit_tera_bytes">ТБ</string>
 	<!-- ## date helper -->
 	<string name="time_unit_seconds_sg">секунда</string>
 	<string name="time_unit_seconds_pl">секунд</string>
-	<string name="time_unit_minutes_sg">хвилину</string>
+	<string name="time_unit_minutes_sg">хвилина</string>
 	<string name="time_unit_minutes_pl">хвилин</string>
-	<string name="time_unit_hours_sg">годин</string>
+	<string name="time_unit_hours_sg">година</string>
 	<string name="time_unit_hours_pl">годин</string>
 	<string name="time_unit_days_sg">день</string>
 	<string name="time_unit_days_pl">днів</string>
@@ -382,7 +382,7 @@
 	<string name="dialog_biometric_auth_title">Біометричний вхід</string>
 	<string name="dialog_biometric_auth_message">Увійдіть, використовуючи ваші біометричні дані</string>
 	<string name="dialog_biometric_auth_use_password">Використовувати пароль сховища</string>
-	<string name="dialog_unable_to_auto_upload_files_title">Не вдалося автоматично завантажити файли</string>
+	<string name="dialog_unable_to_auto_upload_files_title">Не вдалося автоматично вивантажити файли</string>
 	<!-- notification -->
 	<string name="notification_unlocked">Розблоковано сховищ: %1$d</string>
 	<string name="notification_timeout">Автоблокування через %1$s</string>
