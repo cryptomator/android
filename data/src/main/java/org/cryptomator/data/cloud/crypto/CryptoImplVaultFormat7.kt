@@ -27,9 +27,6 @@ import org.cryptomator.domain.usecases.cloud.DataSource
 import org.cryptomator.domain.usecases.cloud.FileBasedDataSource.Companion.from
 import org.cryptomator.domain.usecases.cloud.Progress
 import org.cryptomator.domain.usecases.cloud.UploadState
-import org.cryptomator.util.file.MimeType
-import org.cryptomator.util.file.MimeTypeMap
-import org.cryptomator.util.file.MimeTypes
 import java.io.ByteArrayOutputStream
 import java.io.File
 import java.io.FileOutputStream
