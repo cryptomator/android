@@ -3,21 +3,21 @@
 	<!-- # app -->
 	<string name="share_with_label">Зашифрувати</string>
 	<!-- # error messages -->
-	<string name="error_generic">Виникла помилка</string>
-	<string name="error_authentication_failed">Помилка автентифікації</string>
+	<string name="error_generic">Сталася помилка</string>
+	<string name="error_authentication_failed">Не вдалося пройти автентифікацію</string>
 	<string name="error_authentication_failed_re_authenticate">Помилка автентифікації, будь ласка, увійдіть за допомогою %1$s</string>
 	<string name="error_no_network_connection">Відсутнє з\'єднання з мережею</string>
 	<string name="error_invalid_passphrase">Невірний пароль</string>
-	<string name="error_file_or_folder_exists">Файл чи директорія вже існує.</string>
-	<string name="error_vault_version_not_supported">Версія сховища %1$s не підтримується. Це сховище було створено старішою або новішою версією Cryptomator.</string>
-	<string name="error_vault_config_file_missing_due_to_format_999">%1$s Файл відсутній у вашому сховищі. Переконайтеся, що цей файл існує у теці вашого сховища у хмарі.</string>
+	<string name="error_file_or_folder_exists">Файл чи папка вже існує.</string>
+	<string name="error_vault_version_not_supported">Сховище %1$s-ї версії не підтримується. Це сховище було створено старішою або новішою версією Cryptomator.</string>
+	<string name="error_vault_config_file_missing_due_to_format_999">Файл %1$s відсутній у вашому сховищі. Переконайтеся, що цей файл існує у папці вашого сховища у хмарі.</string>
 	<string name="error_vault_already_exists">Сховище вже існує.</string>
 	<string name="error_no_such_file">Файлу не існує.</string>
 	<string name="error_vault_has_been_locked">Сховище було заблоковано.</string>
 	<string name="error_cloud_already_exists">Ця хмара вже використовується.</string>
 	<string name="error_activity_not_found">Будь ласка, завантажте додаток, що може відкрити цей файл.</string>
 	<string name="error_server_not_found">Сервер не знайдено.</string>
-	<string name="error_device_policy_manager_not_found">Відкрийте налаштування пристрою та встановіть блокування екрану вручну</string>
+	<string name="error_device_policy_manager_not_found">Відкрийте налаштування пристрою та вимкніть автоматичне блокування екрану</string>
 	<string name="error_export_illegal_file_name">Не вдалося виконати експорт. Спробуйте видалити спеціальні символи з імен файлів та експортувати знову.</string>
 	<string name="error_name_contains_invalid_characters">Не може містити спеціальні символи.</string>
 	<string name="error_names_contains_invalid_characters">Назва файлу не може містити спеціальні символи.</string>
@@ -308,6 +308,7 @@
 	<string name="dialog_debug_mode_disclaimer_hint">У цьому режимі чутливі дані можуть бути записані в файл журналу на вашому пристрої (наприклад, імена файлів і шляхи). Паролі, файли cookie тощо не включаються.\n\nНе забудьте вимкнути режим налагодження за першої нагоди.</string>
 	<string name="dialog_debug_mode_disclaimer_title">Увага</string>
 	<string name="dialog_debug_mode_positive_button">Увімкнути</string>
+	<string name="dialog_microsoft_workaround_disclaimer_hint">Через помилку в додатках Microsoft, для редагування файлу, доступ до нього має бути надано таким додаткам у публічній папці на вашому пристрої. Після того, як Cryptomator припинить роботу - публічно доступний файл буде видалено, але водночас Cryptomator не впливає на те, що відбувалось з цим файлом, поки він є публічно доступним. Активовуючи цю опцію, ви маєте усвідомлювати наслідки таких дій з файлами. Її буде застосовано лише до типів файлів Microsoft.\n\nCryptomator буде перезавантажений після активації.</string>
 	<string name="dialog_disable_app_obscured_disclaimer_hint">Це налаштування пов\'язано із безпекою, і не дозволяє іншим додаткам вводити користувачів в оману та змушувати їх робити не те, чого вони хочуть.\n\nВідключаючи його, ви підтверджуєте, що <a href="https://docs.cryptomator.org/en/1.6/android/settings/#block-app-when-obscured">усвідомлюєте ризики</a>.</string>
 	<string name="dialog_disable_app_obscured_disclaimer_title">Увага</string>
 	<string name="dialog_disable_app_obscured_positive_button">Вимкнути</string>
