@@ -5,10 +5,13 @@ import android.database.Cursor;
 import com.google.android.gms.common.util.Strings;
 
 import java.text.MessageFormat;
+import java.util.regex.Pattern;
 
 import static org.junit.Assert.fail;
 
 public class CryptomatorAssert {
+
+	private final static Pattern UUID_PATTERN = Pattern.compile("^\\p{XDigit}{8}-\\p{XDigit}{4}-\\p{XDigit}{4}-\\p{XDigit}{4}-\\p{XDigit}{12}$");
 
 	private CryptomatorAssert() {
 	}
@@ -38,6 +41,20 @@ public class CryptomatorAssert {
 				message != null && !Strings.isEmptyOrWhitespace(message) ? message : "", //
 				CryptomatorDatabaseKt.stringify(expected), //
 				CryptomatorDatabaseKt.stringify(actual));
+		fail(failMessage);
+	}
+
+	public static void assertIsUUID(String actual) {
+		assertIsUUID(null, actual);
+	}
+
+	public static void assertIsUUID(String message, String actual) {
+		if (actual != null && UUID_PATTERN.matcher(actual).matches()) {
+			return;
+		}
+		String failMessage = MessageFormat.format("{0}: {1}", //
+				message != null && !Strings.isEmptyOrWhitespace(message) ? message : "String is not a valid UUID", //
+				actual != null ? '"' + actual + '"' : "<null>");
 		fail(failMessage);
 	}
 }

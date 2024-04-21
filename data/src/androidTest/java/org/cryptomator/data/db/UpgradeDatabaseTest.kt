@@ -12,6 +12,7 @@ import androidx.test.filters.SmallTest
 import androidx.test.platform.app.InstrumentationRegistry
 import com.google.common.base.Optional
 import org.cryptomator.data.db.CryptomatorAssert.assertCursorEquals
+import org.cryptomator.data.db.CryptomatorAssert.assertIsUUID
 import org.cryptomator.data.db.migrations.Sql
 import org.cryptomator.data.db.migrations.legacy.Upgrade10To11
 import org.cryptomator.data.db.migrations.legacy.Upgrade11To12
@@ -42,6 +43,8 @@ import org.junit.runner.RunWith
 
 private const val TEST_DB = "migration-test"
 private const val LATEST_LEGACY_MIGRATION = 12
+
+private const val UUID_LENGTH = 36
 
 @RunWith(AndroidJUnit4::class)
 @SmallTest
@@ -755,9 +758,10 @@ class UpgradeDatabaseTest {
 		Upgrade11To12(sharedPreferencesHandler).migrate(db)
 
 		val pre13Statement = indexStatement(db)
-		val pre13Expected = "CREATE UNIQUE INDEX \"IDX_VAULT_ENTITY_FOLDER_PATH_FOLDER_CLOUD_ID\" ON \"VAULT_ENTITY\" (\"FOLDER_PATH\" ASC,\"FOLDER_CLOUD_ID\" ASC)"
+		val pre13Expected = "CREATE UNIQUE INDEX \"IDX_VAULT_ENTITY_FOLDER_PATH_FOLDER_CLOUD_ID\" ON \"VAULT_ENTITY\" (\"FOLDER_PATH\" ASC,\"FOLDER_CLOUD_ID\" ASC) -- "
 		//This is a sanity check and may need to be updated if Sql.java is changed
-		assertEquals(pre13Expected, pre13Statement)
+		assertEquals(pre13Expected, pre13Statement.substring(0, pre13Statement.length - UUID_LENGTH))
+		assertIsUUID(pre13Statement.substring(pre13Statement.length - UUID_LENGTH))
 		db.close()
 
 		helper.runMigrationsAndValidate(TEST_DB, 13, true, Migration12To13()).also { migratedDb ->
