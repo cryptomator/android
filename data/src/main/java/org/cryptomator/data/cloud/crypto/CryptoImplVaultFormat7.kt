@@ -170,7 +170,7 @@ open class CryptoImplVaultFormat7 : CryptoImplDecorator {
 
 			// if present, associate cached-thumbnail to the Cryptofile
 			if(cryptoNode is CryptoFile && isImageMediaType(cryptoNode.name)) {
-				val cacheKey = cryptoNode.cloudFile.path.hashCode().toString().substring(3)
+				val cacheKey = generateCacheKey(cryptoNode.cloudFile)
 
 				val diskCache = super.getLruCacheFor(cryptoNode.cloudFile.cloud!!.type()!!)
 				diskCache?.let {
@@ -467,7 +467,7 @@ open class CryptoImplVaultFormat7 : CryptoImplDecorator {
 
 			// Delete thumbnail file from cache
 			val diskCache = super.getLruCacheFor(node.cloudFile.cloud!!.type()!!)
-			val cacheKey = node.cloudFile.path.hashCode().toString().substring(3)
+			val cacheKey = generateCacheKey(node.cloudFile)
 
 			diskCache?.let {
 				val cacheFile = it[cacheKey]

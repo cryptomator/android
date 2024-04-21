@@ -97,7 +97,7 @@ abstract class CryptoImplDecorator(
 			CloudType.PCLOUD -> LruFileCacheUtil.Cache.PCLOUD
 			CloudType.WEBDAV -> LruFileCacheUtil.Cache.WEBDAV
 			CloudType.S3 -> LruFileCacheUtil.Cache.S3
-			CloudType.LOCAL -> LruFileCacheUtil.Cache.DROPBOX // TODO: where!!!!
+			CloudType.LOCAL -> LruFileCacheUtil.Cache.LOCAL
 			// CloudType.CRYPTO -> ...
 			else -> {
 				// it should be impossible to enter here, a cloud file could not be another type...
@@ -368,27 +368,20 @@ abstract class CryptoImplDecorator(
 		val ciphertextFile = cryptoFile.cloudFile
 
 		val diskCache = getLruCacheFor(cryptoFile.cloudFile.cloud!!.type()!!)
-		val cacheKey = ciphertextFile.path.hashCode().toString().substring(3) // TODO: fare la stessa cacheKey nella list
+		val cacheKey = generateCacheKey(ciphertextFile)
 
-		var genThumbnail = false
-		if(	sharedPreferencesHandler.useLruCache() &&
-			!sharedPreferencesHandler.generateThumbnails().equals("Never") && // TODO: externalize string
-			diskCache != null && //
-			isImageMediaType(cryptoFile.name)
-			) {
-			genThumbnail = true
-		}
+		val genThumbnail = isGenerateThumbnailsEnabled(diskCache, cryptoFile.name)
 
 		// TODO: solo se e' un file immagine!!!
-		val thumbnailTmp : File
+		val decryptedTempFile : File
 		try {
 
 			// cloudContentRepository.read(file, encryptedTmpFile, encryptedData, ...)
 			// file appena letto dalla rete, portato in cache ancora cifrato!
 			val encryptedTmpFile = readToTmpFile(cryptoFile, ciphertextFile, progressAware)
-			thumbnailTmp = File.createTempFile(encryptedTmpFile.nameWithoutExtension, ".tmp", internalCache)
+			decryptedTempFile = File.createTempFile(encryptedTmpFile.nameWithoutExtension, ".tmp", internalCache)
 
-			val thumbnailTmpOutputStream = thumbnailTmp.outputStream()
+			val decryptedTempFileOutputStream = decryptedTempFile.outputStream()
 			progressAware.onProgress(Progress.started(DownloadState.decryption(cryptoFile)))
 			try {
 				Channels.newChannel(FileInputStream(encryptedTmpFile)).use { readableByteChannel ->
@@ -400,7 +393,7 @@ abstract class CryptoImplDecorator(
 						while (decryptingReadableByteChannel.read(buff).also { read = it } > 0) {
 							buff.flip()
 							data.write(buff.array(), 0, buff.remaining())
-							thumbnailTmpOutputStream.write(buff.array(), 0, buff.remaining())
+							decryptedTempFileOutputStream.write(buff.array(), 0, buff.remaining())
 
 							decrypted += read.toLong()
 							progressAware
@@ -414,8 +407,8 @@ abstract class CryptoImplDecorator(
 					}
 				}
 			} finally {
-				thumbnailTmpOutputStream.flush()
-				thumbnailTmpOutputStream.close()
+				decryptedTempFileOutputStream.flush()
+				decryptedTempFileOutputStream.close()
 				encryptedTmpFile.delete()
 				progressAware.onProgress(Progress.completed(DownloadState.decryption(cryptoFile)))
 			}
@@ -424,32 +417,45 @@ abstract class CryptoImplDecorator(
 		}
 
 		// store it in cloud-related LRU cache
-		val thumbnailFile : File
 		if(genThumbnail) {
-
-			// generate the Bitmap (in memory)
-			val bitmap : Bitmap = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
-				ThumbnailUtils.createImageThumbnail(thumbnailTmp, Size(100, 100), null)
-			} else {
-				ThumbnailUtils.extractThumbnail(BitmapFactory.decodeFile(thumbnailTmp.path), 100, 100)
-			}
-
-			// write the thumbnail in a file (on disk)
-			thumbnailFile = File.createTempFile(UUID.randomUUID().toString(), ".thumbnail", internalCache)
-			bitmap.compress(Bitmap.CompressFormat.JPEG, 100, thumbnailFile.outputStream())
-
-			try {
-				diskCache?.let {
-					// store File to LruCache (on disk)
-					LruFileCacheUtil.storeToLruCache(it, cacheKey, thumbnailFile)
-				} ?: Timber.tag("CryptoImplDecorator").e("Failed to store item in LRU cache")
-			} catch (e: IOException) {
-				Timber.tag("CryptoImplDecorator").e(e, "Failed to write downloaded file in LRU cache")
-			}
-
-			thumbnailFile.delete()
+			generateAndStoreThumbNail(diskCache, cacheKey, decryptedTempFile)
 		}
-		thumbnailTmp.delete()
+		decryptedTempFile.delete()
+	}
+
+	protected fun generateCacheKey(cloudFile: CloudFile) : String{
+		return cloudFile.path.hashCode().toString().substring(3)
+	}
+
+	private fun isGenerateThumbnailsEnabled(cache: DiskLruCache?, fileName: String) : Boolean {
+		return 	sharedPreferencesHandler.useLruCache() &&
+				!sharedPreferencesHandler.generateThumbnails().equals("Never") && // TODO: externalize string
+				cache != null && //
+				isImageMediaType(fileName)
+	}
+
+	private fun generateAndStoreThumbNail(cache: DiskLruCache?, cacheKey: String, thumbnailTmp: File){
+		// generate the Bitmap (in memory)
+		val bitmap : Bitmap = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
+			ThumbnailUtils.createImageThumbnail(thumbnailTmp, Size(100, 100), null)
+		} else {
+			ThumbnailUtils.extractThumbnail(BitmapFactory.decodeFile(thumbnailTmp.path), 100, 100)
+		}
+
+		// write the thumbnail in a file (on disk)
+		val thumbnailFile : File = File.createTempFile(UUID.randomUUID().toString(), ".thumbnail", internalCache)
+		bitmap.compress(Bitmap.CompressFormat.JPEG, 100, thumbnailFile.outputStream())
+
+		try {
+			cache?.let {
+				// store File to LruCache (on disk)
+				LruFileCacheUtil.storeToLruCache(it, cacheKey, thumbnailFile)
+			} ?: Timber.tag("CryptoImplDecorator").e("Failed to store item in LRU cache")
+		} catch (e: IOException) {
+			Timber.tag("CryptoImplDecorator").e(e, "Failed to write downloaded file in LRU cache")
+		}
+
+		thumbnailFile.delete()
 	}
 
 	protected fun isImageMediaType(filename: String): Boolean {
