@@ -1,13 +1,7 @@
 package org.cryptomator.presentation.ui.adapter
 
-import android.content.ContentResolver
-import android.content.Context
-import android.graphics.Bitmap
 import android.graphics.BitmapFactory
-import android.media.ThumbnailUtils
-import android.os.Build
 import android.os.PatternMatcher
-import android.util.Size
 import android.view.View
 import android.view.View.GONE
 import android.view.View.VISIBLE
@@ -34,11 +28,8 @@ import org.cryptomator.presentation.util.FileSizeHelper
 import org.cryptomator.presentation.util.FileUtil
 import org.cryptomator.presentation.util.ResourceHelper.Companion.getDrawable
 import org.cryptomator.util.SharedPreferencesHandler
-import org.cryptomator.util.file.LruFileCacheUtil
 import org.cryptomator.util.file.MimeType
 import org.cryptomator.util.file.MimeTypes
-import java.io.File
-import java.io.IOException
 import javax.inject.Inject
 import kotlinx.android.synthetic.main.item_browse_files_node.view.cloudNodeImage
 import kotlinx.android.synthetic.main.item_browse_files_node.view.itemCheckBox
@@ -52,7 +43,6 @@ import kotlinx.android.synthetic.main.view_cloud_file_progress.view.cloudFile
 import kotlinx.android.synthetic.main.view_cloud_folder_content.view.cloudFolderActionText
 import kotlinx.android.synthetic.main.view_cloud_folder_content.view.cloudFolderContent
 import kotlinx.android.synthetic.main.view_cloud_folder_content.view.cloudFolderText
-import timber.log.Timber
 
 class BrowseFilesAdapter @Inject
 constructor(
@@ -138,6 +128,7 @@ constructor(
 	}
 
 	inner class VaultContentViewHolder internal constructor(itemView: View) : RecyclerViewBaseAdapter<*, *, *>.ItemViewHolder(itemView) {
+
 		private var uiState: UiStateTest? = null
 
 		private var currentProgressIcon: Int = 0
