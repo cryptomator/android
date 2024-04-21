@@ -13,6 +13,7 @@ import androidx.test.platform.app.InstrumentationRegistry
 import com.google.common.base.Optional
 import org.cryptomator.data.db.CryptomatorAssert.assertCursorEquals
 import org.cryptomator.data.db.CryptomatorAssert.assertIsUUID
+import org.cryptomator.data.db.SQLiteCacheControl.asCacheControlled
 import org.cryptomator.data.db.migrations.Sql
 import org.cryptomator.data.db.migrations.legacy.Upgrade10To11
 import org.cryptomator.data.db.migrations.legacy.Upgrade11To12
@@ -93,7 +94,7 @@ class UpgradeDatabaseTest {
 				assertEquals(1, oldVersion)
 				assertEquals(LATEST_LEGACY_MIGRATION, newVersion)
 			}
-		}).let { FrameworkSQLiteOpenHelperFactory().create(it).writableDatabase }
+		}).let { FrameworkSQLiteOpenHelperFactory().asCacheControlled().create(it).writableDatabase }
 	}
 
 	@After
