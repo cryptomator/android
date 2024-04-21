@@ -31,7 +31,7 @@ class LruFileCacheUtil(context: Context) {
 			Cache.S3 -> File(parent, "LruCacheS3")
 			Cache.ONEDRIVE -> File(parent, "LruCacheOneDrive")
 			Cache.GOOGLE_DRIVE -> File(parent, "LruCacheGoogleDrive")
-			Cache.LOCAL -> File(parent, "LruChaceLocal")
+			Cache.LOCAL -> File(parent, "LruCacheLocal")
 			else -> throw IllegalStateException()
 		}
 	}
