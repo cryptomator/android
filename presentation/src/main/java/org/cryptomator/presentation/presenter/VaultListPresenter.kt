@@ -18,7 +18,6 @@ import org.cryptomator.domain.CloudType
 import org.cryptomator.domain.Vault
 import org.cryptomator.domain.di.PerView
 import org.cryptomator.domain.exception.license.LicenseNotValidException
-import org.cryptomator.domain.exception.update.SSLHandshakePreAndroid5UpdateCheckException
 import org.cryptomator.domain.usecases.DoLicenseCheckUseCase
 import org.cryptomator.domain.usecases.DoUpdateCheckUseCase
 import org.cryptomator.domain.usecases.DoUpdateUseCase
@@ -168,15 +167,11 @@ class VaultListPresenter @Inject constructor( //
 					}
 
 					override fun onError(e: Throwable) {
-						if (e is SSLHandshakePreAndroid5UpdateCheckException) {
-							Timber.tag("SettingsPresenter").e(e, "Update check failed due to Android pre 5 and SSL Handshake not accepted")
-						} else {
-							showError(e)
-						}
+						showError(e)
 					}
 				})
 		} else {
-			Timber.tag("VaultListPresenter").i("Update check not started due to no internal connection")
+			Timber.tag("VaultListPresenter").i("Update check not started due to no internet connection")
 		}
 	}
 
