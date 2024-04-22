@@ -48,10 +48,10 @@ internal class MappingSupportSQLiteDatabase(
 			throw SQLiteException("Invalid conflict algorithm")
 		}
 		val processed = helper.insertWithOnConflict(table, null, values, conflictAlgorithm)
-		val statement = MappingSupportSQLiteStatement(processed.sql)
+		val statement = delegate.compileStatement(map(processed.sql))
 		SimpleSQLiteQuery.bind(statement, processed.bindArgs)
 
-		return statement.executeInsert()
+		return statement.use { it.executeInsert() }
 	}
 
 	override fun update(
@@ -73,6 +73,9 @@ internal class MappingSupportSQLiteDatabase(
 	}
 
 	override fun compileStatement(sql: String): SupportSQLiteStatement {
+		if(!isOpen) {
+			throw SQLiteException("Database already closed")
+		}
 		return MappingSupportSQLiteStatement(sql)
 	}
 
