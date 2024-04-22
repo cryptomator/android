@@ -153,11 +153,11 @@ class MappingSupportSQLiteDatabaseTest {
 
 		verify(delegateMock).query(
 			anyPseudoEquals(queries.idExpected, supportSQLiteQueryProperties),
-			anyPseudoEqualsUnlessNull(signals.idExpected, setOf(CancellationSignal::isCanceled))
+			anyPseudoEqualsUnlessNull(signals.idExpected, setOf<ValueExtractor<CancellationSignal>>(CancellationSignal::isCanceled))
 		)
 		verify(delegateMock).query(
 			anyPseudoEquals(queries.commentExpected, supportSQLiteQueryProperties),
-			anyPseudoEqualsUnlessNull(signals.commentExpected, setOf(CancellationSignal::isCanceled))
+			anyPseudoEqualsUnlessNull(signals.commentExpected, setOf<ValueExtractor<CancellationSignal>>(CancellationSignal::isCanceled))
 		)
 		verifyNoMoreInteractions(delegateMock)
 	}
@@ -324,22 +324,22 @@ class MappingSupportSQLiteDatabaseTest {
 	/* TODO compileStatement */
 }
 
-private inline fun <reified T : Any> anyPseudoEqualsUnlessNull(other: T?, valueExtractors: Set<(T) -> Any?>): T? {
+private inline fun <reified T : Any> anyPseudoEqualsUnlessNull(other: T?, valueExtractors: Set<ValueExtractor<T>>): T? {
 	return if (other != null) defaultArgThat(NullHandlingMatcher(pseudoEquals(other, valueExtractors), false)) else isNull()
 }
 
-private inline fun <reified T : Any> anyPseudoEquals(other: T, valueExtractors: Set<(T) -> Any?>): T {
+private inline fun <reified T : Any> anyPseudoEquals(other: T, valueExtractors: Set<ValueExtractor<T>>): T {
 	return reifiedArgThat(pseudoEquals(other, valueExtractors))
 }
 
-private fun <T : Any> pseudoEquals(other: T, valueExtractors: Set<(T) -> Any?>): ArgumentMatcher<T> {
+private fun <T : Any> pseudoEquals(other: T, valueExtractors: Set<ValueExtractor<T>>): ArgumentMatcher<T> {
 	require(valueExtractors.isNotEmpty())
 	return PseudoEqualsMatcher(other, valueExtractors)
 }
 
 private class PseudoEqualsMatcher<T : Any>(
 	private val other: T,
-	private val valueExtractors: Set<(T) -> Any?>
+	private val valueExtractors: Set<ValueExtractor<T>>
 ) : ArgumentMatcher<T> {
 
 	override fun matches(argument: T): Boolean {
@@ -349,6 +349,8 @@ private class PseudoEqualsMatcher<T : Any>(
 		return valueExtractors.all { extractor -> extractor(argument) == extractor(other) }
 	}
 }
+
+private typealias ValueExtractor<T> = (T) -> Any?
 
 private inline fun <T> OngoingStubbing<T>.thenDo(crossinline action: (invocation: InvocationOnMock) -> Unit): OngoingStubbing<T> = thenAnswer { action(it) }
 
@@ -365,7 +367,7 @@ private class NullHandlingMatcher<T>(
 	}
 }
 
-private val supportSQLiteQueryProperties
+private val supportSQLiteQueryProperties: Set<ValueExtractor<SupportSQLiteQuery>>
 	get() = setOf(SupportSQLiteQuery::sql, SupportSQLiteQuery::argCount, { query: SupportSQLiteQuery ->
 		CachingSupportSQLiteProgram().also { query.bindTo(it) }.bindings
 	})
@@ -400,7 +402,7 @@ private class CachingSupportSQLiteProgram : SupportSQLiteProgram {
 	override fun close() = throw UnsupportedOperationException("Stub!")
 }
 
-private val contentValuesProperties
+private val contentValuesProperties: Set<ValueExtractor<ContentValues>>
 	get() = setOf(
 		ContentValues::valueSet
 	)
