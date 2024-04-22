@@ -118,6 +118,7 @@ class MappingSupportSQLiteDatabaseTest {
 		identityMapping.query(SimpleSQLiteQuery("SELECT `col` FROM `id_test`"))
 		commentMapping.query(SimpleSQLiteQuery("SELECT `col` FROM `comment_test`"))
 
+		val supportSQLiteQueryProperties = newCachedSupportSQLiteQueryProperties()
 		verify(delegateMock).query(
 			anyPseudoEquals(SimpleSQLiteQuery("SELECT `col` FROM `id_test`"), supportSQLiteQueryProperties)
 		)
@@ -134,6 +135,7 @@ class MappingSupportSQLiteDatabaseTest {
 		identityMapping.query(SimpleSQLiteQuery("SELECT `col` FROM `id_test` WHERE `col` = ?", arrayOf("test1")))
 		commentMapping.query(SimpleSQLiteQuery("SELECT `col` FROM `comment_test` WHERE `col` = ?", arrayOf("test2")))
 
+		val supportSQLiteQueryProperties = newCachedSupportSQLiteQueryProperties()
 		verify(delegateMock).query(
 			anyPseudoEquals(SimpleSQLiteQuery("SELECT `col` FROM `id_test` WHERE `col` = ?", arrayOf("test1")), supportSQLiteQueryProperties)
 		)
@@ -151,6 +153,7 @@ class MappingSupportSQLiteDatabaseTest {
 		identityMapping.query(queries.idCall, signals.idCall)
 		commentMapping.query(queries.commentCall, signals.commentCall)
 
+		val supportSQLiteQueryProperties = newCachedSupportSQLiteQueryProperties()
 		verify(delegateMock).query(
 			anyPseudoEquals(queries.idExpected, supportSQLiteQueryProperties),
 			anyPseudoEqualsUnlessNull(signals.idExpected, setOf<ValueExtractor<CancellationSignal>>(CancellationSignal::isCanceled))
@@ -352,6 +355,15 @@ private class PseudoEqualsMatcher<T : Any>(
 
 private typealias ValueExtractor<T> = (T) -> Any?
 
+private data class CacheEntry(val value: Any?) //Allows correct handling of nulls
+
+private fun <T : Any> ValueExtractor<T>.asCached(): ValueExtractor<T> {
+	val cache = mutableMapOf<T, CacheEntry>()
+	return {
+		cache.computeIfAbsent(it) { key -> CacheEntry(this@asCached(key)) }.value
+	}
+}
+
 private inline fun <T> OngoingStubbing<T>.thenDo(crossinline action: (invocation: InvocationOnMock) -> Unit): OngoingStubbing<T> = thenAnswer { action(it) }
 
 private class NullHandlingMatcher<T>(
@@ -367,10 +379,13 @@ private class NullHandlingMatcher<T>(
 	}
 }
 
-private val supportSQLiteQueryProperties: Set<ValueExtractor<SupportSQLiteQuery>>
-	get() = setOf(SupportSQLiteQuery::sql, SupportSQLiteQuery::argCount, { query: SupportSQLiteQuery ->
+private fun newCachedSupportSQLiteQueryProperties(): Set<ValueExtractor<SupportSQLiteQuery>> = setOf(
+	SupportSQLiteQuery::sql.asCached(),
+	SupportSQLiteQuery::argCount,
+	{ query: SupportSQLiteQuery ->
 		CachingSupportSQLiteProgram().also { query.bindTo(it) }.bindings
-	})
+	}.asCached()
+)
 
 private class CachingSupportSQLiteProgram : SupportSQLiteProgram {
 

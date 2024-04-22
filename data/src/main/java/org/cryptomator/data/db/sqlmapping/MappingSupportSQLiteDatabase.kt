@@ -10,7 +10,6 @@ import androidx.sqlite.db.SupportSQLiteOpenHelper
 import androidx.sqlite.db.SupportSQLiteProgram
 import androidx.sqlite.db.SupportSQLiteQuery
 import androidx.sqlite.db.SupportSQLiteStatement
-import timber.log.Timber
 
 internal class MappingSupportSQLiteDatabase(
 	private val delegate: SupportSQLiteDatabase,
@@ -166,8 +165,8 @@ internal class MappingSupportSQLiteDatabase(
 	) : SupportSQLiteQuery by delegateQuery {
 
 		private val _sql = map(delegateQuery.sql)
-		private val sqlDelegate = OneOffDelegate { Timber.tag("MappingSupportSQLiteQuery").e("SQL queried twice") }
-		private val bindToDelegate = OneOffDelegate { Timber.tag("MappingSupportSQLiteQuery").e("bindTo called twice") }
+		private val sqlDelegate = OneOffDelegate { throw IllegalStateException("SQL queried twice") }
+		private val bindToDelegate = OneOffDelegate { throw IllegalStateException("bindTo called twice") }
 
 		override val sql: String
 			get() = sqlDelegate.call { _sql }
