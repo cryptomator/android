@@ -309,20 +309,20 @@
 	<string name="dialog_debug_mode_disclaimer_title">Увага</string>
 	<string name="dialog_debug_mode_positive_button">Увімкнути</string>
 	<string name="dialog_microsoft_workaround_disclaimer_hint">Через помилку в додатках Microsoft, для редагування файлу, доступ до нього має бути надано таким додаткам у публічній папці на вашому пристрої. Після того, як Cryptomator припинить роботу - публічно доступний файл буде видалено, але водночас Cryptomator не впливає на те, що відбувалось з цим файлом, поки він є публічно доступним. Активовуючи цю опцію, ви маєте усвідомлювати наслідки таких дій з файлами. Її буде застосовано лише до типів файлів Microsoft.\n\nCryptomator буде перезавантажений після активації.</string>
-	<string name="dialog_disable_app_obscured_disclaimer_hint">Це налаштування пов\'язано із безпекою, і не дозволяє іншим додаткам вводити користувачів в оману та змушувати їх робити не те, чого вони хочуть.\n\nВідключаючи його, ви підтверджуєте, що <a href="https://docs.cryptomator.org/en/1.6/android/settings/#block-app-when-obscured">усвідомлюєте ризики</a>.</string>
+	<string name="dialog_disable_app_obscured_disclaimer_hint">Це налаштування пов\'язане з безпекою, і не дозволяє іншим додаткам вводити користувачів в оману та змушувати їх робити те, чого вони не хочуть.\n\nВідключаючи його, ви підтверджуєте, що <a href="https://docs.cryptomator.org/en/1.6/android/settings/#block-app-when-obscured">усвідомлюєте ризики</a>.</string>
 	<string name="dialog_disable_app_obscured_disclaimer_title">Увага</string>
 	<string name="dialog_disable_app_obscured_positive_button">Вимкнути</string>
-	<string name="dialog_app_is_obscured_info_title">Програму перекрито</string>
+	<string name="dialog_app_is_obscured_info_title">Інтерфейс додатка перекрито</string>
 	<string name="dialog_app_is_obscured_info_hint">Інший додаток відображає щось поверх Cryptomator (наприклад, фільтр синього світла або додаток нічного режиму). Cryptomator вимкнено з міркувань безпеки.\n\n<a href="https://docs.cryptomator.org/en/1.6/android/settings/#block-app-when-obscured">Як увімкнути Cryptomator</a></string>
 	<string name="dialog_app_is_obscured_info_neutral_button">Закрити</string>
-	<string name="dialog_vaults_removed_during_migration_title">Будь ласка, знову додайте vaults для %1s хмари</string>
-	<string name="dialog_vaults_removed_during_migration_hint">Переходячи на цю версію додатка потрібно прибрати наступні сховища з додатка:\n%2s\n\nЦі сховища не видаляються з хмарного сховища, а лише прибираються з цього додатка. Перепрошуємо за незручності. Будь ласка, додайте ці сховища повторно, щоб продовжити роботу з ними.</string>
+	<string name="dialog_vaults_removed_during_migration_title">Будь ласка, знову додайте сховища з хмари для %1s</string>
+	<string name="dialog_vaults_removed_during_migration_hint">Переходячи на цю версію додатка ми були змушені прибрати такі сховища з додатка:\n%2s\n\nЦі сховища не видаляються з хмари, а лише прибрано з цього додатка. Перепрошуємо за незручності. Будь ласка, додайте ці сховища повторно, щоб продовжити роботу з ними.</string>
 	<string name="dialog_vault_is_root_folder_of_cloud_title">Сховище є кореневим каталогом хмарного підключення</string>
-	<string name="dialog_vault_is_root_folder_of_cloud_hint">Для додавання цього сховища створіть нове хмарне підключення, в якому оберіть (принаймні) батьківський каталог цього сховища як кореневий каталог.</string>
-	<string name="dialog_disable_secure_screen_disclaimer_hint">Це налаштування пов\'язано із безпекою, і не дозволяє іншим додаткам вводити користувачів в оману та змушувати їх робити не те, чого вони хочуть.\n\nВідключаючи його, ви підтверджуєте, що <a href="https://docs.cryptomator.org/en/1.6/android/settings/#screen-security">усвідомлюєте ризики</a>.</string>
+	<string name="dialog_vault_is_root_folder_of_cloud_hint">Для додавання цього сховища - створіть нове хмарне підключення, в якому оберіть в якості батьківського каталога цього сховища кореневий каталог або будь-яку іншу папку у хмарі.</string>
+	<string name="dialog_disable_secure_screen_disclaimer_hint">Це налаштування пов\'язано із безпекою, і не дозволяє іншим додаткам вводити користувачів в оману та змушувати їх робити те, чого вони не хочуть.\n\nВідключаючи його, ви підтверджуєте, що <a href="https://docs.cryptomator.org/en/1.6/android/settings/#screen-security">усвідомлюєте ризики</a>.</string>
 	<string name="dialog_delete_cloud_connection_with_vaults_message">Ви дійсно хочете видалити це хмарне підключення?</string>
 	<string name="dialog_delete_cloud_connection_with_vaults_hint">Ця дія видалить підключення до хмари та всі сховища з цієї хмари.</string>
-	<string name="dialog_confirm_delete_multiple_title">Видалити %1$d об\'єкти?</string>
+	<string name="dialog_confirm_delete_multiple_title">Видалити %1$d об\'єкт(-и, -ів)?</string>
 	<string name="dialog_confirm_delete_multiple_message">Ви впевнені, що бажаєте видалити ці об\'єкти?</string>
 	<string name="dialog_confirm_delete_file_message">Ви впевнені, що бажаєте видалити цей файл?</string>
 	<string name="dialog_confirm_delete_folder_message">Це призведе до видалення усього вмісту директорії. Ви дійсно хочете видалити цю директорію?</string>
