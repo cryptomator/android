@@ -304,8 +304,8 @@
 	<string name="dialog_no_screen_lock_title">Встановити блокування екрану?</string>
 	<string name="dialog_no_screen_lock_checkbox">Встановлення блокування екрану</string>
 	<string name="dialog_no_biometric_auth_set_up_title">В системі не налаштовано базову автентифікацію</string>
-	<string name="dialog_no_biometric_auth_set_up_message">Встановіть як мінімум один відбиток/одне обличчя для використання цього сервісу.</string>
-	<string name="dialog_debug_mode_disclaimer_hint">У цьому режимі чутливі дані можуть бути записані в файл журналу на вашому пристрої (наприклад, імена файлів і шляхи). Паролі, файли cookie тощо не включаються.\n\nНе забудьте вимкнути режим налагодження за першої нагоди.</string>
+	<string name="dialog_no_biometric_auth_set_up_message">Додайте щонайменше один відбиток пальця чи знімок обличчя для використання цього сервісу.</string>
+	<string name="dialog_debug_mode_disclaimer_hint">У цьому режимі чутливі дані можуть бути записані в файл журналу на вашому пристрої (наприклад, імена файлів і шляхи). Але це не стосується паролів, файлів cookie тощо.\n\nНе забудьте вимкнути режим налагодження якнайшвидше.</string>
 	<string name="dialog_debug_mode_disclaimer_title">Увага</string>
 	<string name="dialog_debug_mode_positive_button">Увімкнути</string>
 	<string name="dialog_microsoft_workaround_disclaimer_hint">Через помилку в додатках Microsoft, для редагування файлу, доступ до нього має бути надано таким додаткам у публічній папці на вашому пристрої. Після того, як Cryptomator припинить роботу - публічно доступний файл буде видалено, але водночас Cryptomator не впливає на те, що відбувалось з цим файлом, поки він є публічно доступним. Активовуючи цю опцію, ви маєте усвідомлювати наслідки таких дій з файлами. Її буде застосовано лише до типів файлів Microsoft.\n\nCryptomator буде перезавантажений після активації.</string>
