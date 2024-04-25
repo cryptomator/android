@@ -16,7 +16,10 @@ import androidx.sqlite.db.SupportSQLiteDatabase
 import androidx.sqlite.db.SupportSQLiteProgram
 import androidx.sqlite.db.SupportSQLiteQuery
 import androidx.sqlite.db.SupportSQLiteStatement
+import org.cryptomator.data.db.sqlmapping.MappingSupportSQLiteDatabase.MappingSupportSQLiteStatement
 import org.junit.jupiter.api.Assertions.assertEquals
+import org.junit.jupiter.api.Assertions.assertInstanceOf
+import org.junit.jupiter.api.Assertions.assertNotSame
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.assertDoesNotThrow
@@ -324,7 +327,34 @@ class MappingSupportSQLiteDatabaseTest {
 		verifyNoMoreInteractions(delegateMock)
 	}
 
-	/* TODO compileStatement */
+	@Test
+	fun testCompileStatement() {
+		whenCalled(delegateMock.isOpen).thenReturn(true)
+
+		val idSql = "INSERT INTO `id_test` (`col1`) VALUES ('val1')"
+		val commentSql = "INSERT INTO `comment_test` (`col2`) VALUES ('val2')"
+
+		val order = inOrder(delegateMock)
+		order.verifyNoMoreInteractions()
+
+		val idStatement1 = identityMapping.compileStatement(idSql)
+		order.verify(delegateMock).isOpen
+		order.verifyNoMoreInteractions()
+		val idStatement2 = identityMapping.compileStatement(idSql)
+		val commentStatement1 = commentMapping.compileStatement(commentSql)
+		val commentStatement2 = commentMapping.compileStatement(commentSql)
+
+		order.verify(delegateMock, times(3)).isOpen
+		order.verifyNoMoreInteractions()
+
+		assertInstanceOf(MappingSupportSQLiteStatement::class.java, idStatement1)
+		assertInstanceOf(MappingSupportSQLiteStatement::class.java, idStatement2)
+		assertInstanceOf(MappingSupportSQLiteStatement::class.java, commentStatement1)
+		assertInstanceOf(MappingSupportSQLiteStatement::class.java, commentStatement2)
+
+		assertNotSame(idStatement1, idStatement2)
+		assertNotSame(commentStatement1, commentStatement2)
+	}
 }
 
 private inline fun <reified T : Any> anyPseudoEqualsUnlessNull(other: T?, valueExtractors: Set<ValueExtractor<T>>): T? {

@@ -10,7 +10,9 @@ import androidx.sqlite.db.SupportSQLiteOpenHelper
 import androidx.sqlite.db.SupportSQLiteProgram
 import androidx.sqlite.db.SupportSQLiteQuery
 import androidx.sqlite.db.SupportSQLiteStatement
+import org.jetbrains.annotations.VisibleForTesting
 
+@VisibleForTesting
 internal class MappingSupportSQLiteDatabase(
 	private val delegate: SupportSQLiteDatabase,
 	private val mappingFunction: SQLMappingFunction
@@ -100,7 +102,9 @@ internal class MappingSupportSQLiteDatabase(
 		return mappingFunction.mapWhereClause(whereClause)
 	}
 
-	private inner class MappingSupportSQLiteStatement(
+
+	@VisibleForTesting
+	internal inner class MappingSupportSQLiteStatement(
 		private val sql: String
 	) : SupportSQLiteStatement {
 
