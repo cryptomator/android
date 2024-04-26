@@ -355,12 +355,41 @@ private class PseudoEqualsMatcher<T : Any>(
 
 private typealias ValueExtractor<T> = (T) -> Any?
 
-private data class CacheEntry(val value: Any?) //Allows correct handling of nulls
+private data class CacheKey<T>(val wrappedKey: T) {
+
+	override fun hashCode(): Int {
+		return if (isPrimitive(wrappedKey)) {
+			wrappedKey!!.hashCode()
+		} else {
+			System.identityHashCode(wrappedKey)
+		}
+	}
+
+	override fun equals(other: Any?): Boolean {
+		if (other == null || other !is CacheKey<*>) {
+			return false
+		}
+		return if (isPrimitive(this.wrappedKey) && isPrimitive(other.wrappedKey)) {
+			this.wrappedKey == other.wrappedKey
+		} else {
+			this.wrappedKey === other.wrappedKey
+		}
+	}
+}
+
+private data class CacheValue(val wrappedValue: Any?) //Allows correct handling of nulls
+
+private fun isPrimitive(obj: Any?): Boolean {
+	return when (obj) {
+		is Boolean, Char, Byte, Short, Int, Long, Float, Double -> true
+		else -> false
+	}
+}
 
 private fun <T : Any> ValueExtractor<T>.asCached(): ValueExtractor<T> {
-	val cache = mutableMapOf<T, CacheEntry>()
+	val cache = mutableMapOf<CacheKey<T>, CacheValue>()
 	return {
-		cache.computeIfAbsent(it) { key -> CacheEntry(this@asCached(key)) }.value
+		cache.computeIfAbsent(CacheKey(it)) { key -> CacheValue(this@asCached(key.wrappedKey)) }.wrappedValue
 	}
 }
 
