@@ -27,6 +27,8 @@ import org.cryptomator.data.db.migrations.legacy.Upgrade7To8
 import org.cryptomator.data.db.migrations.legacy.Upgrade8To9
 import org.cryptomator.data.db.migrations.legacy.Upgrade9To10
 import org.cryptomator.data.db.migrations.manual.Migration12To13
+import org.cryptomator.data.db.templating.DbTemplateModule
+import org.cryptomator.data.db.templating.TemplateDatabaseContext
 import org.cryptomator.domain.CloudType
 import org.cryptomator.util.SharedPreferencesHandler
 import org.cryptomator.util.crypto.CredentialCryptor
@@ -55,7 +57,9 @@ class UpgradeDatabaseTest {
 	private val context = instrumentation.context
 	private val sharedPreferencesHandler = SharedPreferencesHandler(context)
 
-	private val templateDbFile = DatabaseModule().provideDbTemplateFile(TemplateDatabaseContext(context)).also {
+	private val templateDbFile = DbTemplateModule().let {
+		it.provideDbTemplateFile(it.provideConfiguration(TemplateDatabaseContext(context)))
+	}.also {
 		it.deleteOnExit()
 	}
 

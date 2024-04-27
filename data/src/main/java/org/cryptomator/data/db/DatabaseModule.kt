@@ -1,15 +1,11 @@
 package org.cryptomator.data.db
 
 import android.content.Context
-import android.content.ContextWrapper
 import androidx.room.Room
 import androidx.room.RoomDatabase
 import androidx.room.migration.Migration
 import androidx.sqlite.db.SupportSQLiteDatabase
-import androidx.sqlite.db.SupportSQLiteOpenHelper
-import androidx.sqlite.db.framework.FrameworkSQLiteOpenHelperFactory
 import org.cryptomator.data.db.SQLiteCacheControl.asCacheControlled
-import org.cryptomator.data.db.migrations.legacy.Upgrade0To1
 import org.cryptomator.data.db.migrations.legacy.Upgrade10To11
 import org.cryptomator.data.db.migrations.legacy.Upgrade11To12
 import org.cryptomator.data.db.migrations.legacy.Upgrade1To2
@@ -22,13 +18,12 @@ import org.cryptomator.data.db.migrations.legacy.Upgrade7To8
 import org.cryptomator.data.db.migrations.legacy.Upgrade8To9
 import org.cryptomator.data.db.migrations.legacy.Upgrade9To10
 import org.cryptomator.data.db.migrations.manual.Migration12To13
+import org.cryptomator.data.db.templating.DbTemplateComponent
 import org.cryptomator.util.ThreadUtil
 import org.cryptomator.util.named
 import java.io.File
 import java.io.InputStream
-import java.nio.file.Files
 import java.util.concurrent.Callable
-import javax.inject.Inject
 import javax.inject.Provider
 import javax.inject.Qualifier
 import javax.inject.Singleton
@@ -39,7 +34,7 @@ import timber.log.Timber
 
 private val LOG = Timber.Forest.named("DatabaseModule")
 
-@Module
+@Module(subcomponents = [DbTemplateComponent::class])
 class DatabaseModule {
 
 	@Singleton
@@ -76,30 +71,8 @@ class DatabaseModule {
 	@Singleton
 	@Provides
 	@DbInternal
-	fun provideDbTemplateFile(templateDatabaseContext: TemplateDatabaseContext): File {
-		LOG.d("Creating database template file")
-		ThreadUtil.assumeNotMainThread()
-		val db = SupportSQLiteOpenHelper.Configuration.builder(templateDatabaseContext) //
-			.name(DATABASE_NAME) //
-			.callback(object : SupportSQLiteOpenHelper.Callback(1) {
-				override fun onConfigure(db: SupportSQLiteDatabase) {
-					db.disableWriteAheadLogging()
-					db.setForeignKeyConstraintsEnabled(true)
-				}
-
-				override fun onCreate(db: SupportSQLiteDatabase) {
-					Upgrade0To1().migrate(db)
-				}
-
-				override fun onUpgrade(db: SupportSQLiteDatabase, oldVersion: Int, newVersion: Int) {
-					throw IllegalStateException("Template may not be upgraded")
-				}
-			}).build().let { FrameworkSQLiteOpenHelperFactory().create(it).writableDatabase }
-		require(db.version == 1)
-		db.close()
-
-		LOG.d("Created database template file")
-		return File(requireNotNull(db.path))
+	fun provideDbTemplateFile(templateFactory: DbTemplateComponent.Factory): File {
+		return templateFactory.create().templateFile()
 	}
 
 	@Singleton
@@ -152,19 +125,6 @@ class DatabaseModule {
 		//
 		migration12To13,
 	)
-}
-
-@Singleton
-class TemplateDatabaseContext @Inject constructor(context: Context) : ContextWrapper(context) {
-
-	private val dbFile: File by lazy {
-		return@lazy Files.createTempDirectory(cacheDir.toPath(), "DbTemplate").resolve(DATABASE_NAME).toFile()
-	}
-
-	override fun getDatabasePath(name: String?): File {
-		require(name == DATABASE_NAME)
-		return dbFile
-	}
 }
 
 object DatabaseCallback : RoomDatabase.Callback() {

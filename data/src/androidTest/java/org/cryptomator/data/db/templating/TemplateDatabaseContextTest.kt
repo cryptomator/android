@@ -1,8 +1,9 @@
-package org.cryptomator.data.db
+package org.cryptomator.data.db.templating
 
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import androidx.test.filters.SmallTest
 import androidx.test.platform.app.InstrumentationRegistry
+import org.cryptomator.data.db.DATABASE_NAME
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertNotNull
 import org.junit.Assert.assertSame

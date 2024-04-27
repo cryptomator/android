@@ -8,6 +8,8 @@ import androidx.test.ext.junit.runners.AndroidJUnit4
 import androidx.test.filters.SmallTest
 import androidx.test.platform.app.InstrumentationRegistry
 import org.cryptomator.data.db.migrations.Sql
+import org.cryptomator.data.db.templating.DbTemplateModule
+import org.cryptomator.data.db.templating.TemplateDatabaseContext
 import org.junit.Assert.*
 import org.junit.Test
 import org.junit.runner.RunWith
@@ -21,7 +23,7 @@ class CreateDatabaseTest {
 	@Test
 	fun testProvideDbTemplateFile() {
 		val templateDatabaseContext = TemplateDatabaseContext(context)
-		val templateFile = DatabaseModule().provideDbTemplateFile(templateDatabaseContext)
+		val templateFile = DbTemplateModule().let { it.provideDbTemplateFile(it.provideConfiguration(templateDatabaseContext)) }
 		assertTrue(templateFile.exists())
 
 		val templateDb = SupportSQLiteOpenHelper.Configuration(templateDatabaseContext, DATABASE_NAME, object : SupportSQLiteOpenHelper.Callback(1) {
