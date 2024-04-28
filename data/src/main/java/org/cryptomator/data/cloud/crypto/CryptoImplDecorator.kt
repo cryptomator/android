@@ -4,9 +4,8 @@ import android.content.Context
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import android.media.ThumbnailUtils
-import android.os.Build
-import android.util.Size
 import com.tomclaw.cache.DiskLruCache
+import okhttp3.internal.closeQuietly
 import org.cryptomator.cryptolib.api.Cryptor
 import org.cryptomator.cryptolib.common.DecryptingReadableByteChannel
 import org.cryptomator.cryptolib.common.EncryptingWritableByteChannel
@@ -50,6 +49,9 @@ import java.util.Queue
 import java.util.UUID
 import java.util.function.Supplier
 import timber.log.Timber
+import java.io.PipedInputStream
+import java.io.PipedOutputStream
+import kotlin.concurrent.thread
 
 
 abstract class CryptoImplDecorator(
@@ -361,12 +363,30 @@ abstract class CryptoImplDecorator(
 		val diskCache = cryptoFile.cloudFile.cloud?.type()?.let { getLruCacheFor(it) }
 		val cacheKey = generateCacheKey(ciphertextFile)
 		val genThumbnail = isGenerateThumbnailsEnabled(diskCache, cryptoFile.name)
-		val decryptedTempFile : File
-		try {
-			val encryptedTmpFile = readToTmpFile(cryptoFile, ciphertextFile, progressAware)
-			decryptedTempFile = File.createTempFile(encryptedTmpFile.nameWithoutExtension, ".tmp", internalCache)
+		var thumbnailBitmap : Bitmap? = null
 
-			val decryptedTempFileOutputStream = decryptedTempFile.outputStream()
+		val thumbnailWriter = PipedOutputStream()
+		val thumbnailReader = PipedInputStream(thumbnailWriter)
+
+		try {
+			// cloudContentRepository.read(file, encryptedTmpFile, encryptedData, ...)
+			// file appena letto dalla rete, portato in cache ancora cifrato!
+			val encryptedTmpFile = readToTmpFile(cryptoFile, ciphertextFile, progressAware)
+
+			// TODO: reusable thread?
+			// A thread pool is a managed collection of threads that runs tasks in parallel from a queue.
+			// https://developer.android.com/develop/background-work/background-tasks/asynchronous/java-threads
+			val t = thread(start = false, name = "S.AN-DRO") { // Simply A New Data Readable Output
+				try {
+					val bitmap = BitmapFactory.decodeStream(thumbnailReader) // wait for the full image
+					thumbnailBitmap = ThumbnailUtils.extractThumbnail(bitmap, 100, 100)
+					thumbnailReader.closeQuietly()
+				} catch (e : Exception) {
+					Timber.e("Bitmap generation crashed")
+				}
+			}
+
+			t.start()
 			progressAware.onProgress(Progress.started(DownloadState.decryption(cryptoFile)))
 			try {
 				Channels.newChannel(FileInputStream(encryptedTmpFile)).use { readableByteChannel ->
@@ -378,34 +398,36 @@ abstract class CryptoImplDecorator(
 						while (decryptingReadableByteChannel.read(buff).also { read = it } > 0) {
 							buff.flip()
 							data.write(buff.array(), 0, buff.remaining())
-							decryptedTempFileOutputStream.write(buff.array(), 0, buff.remaining())
+							thumbnailWriter.write(buff.array(), 0, buff.remaining())
 
 							decrypted += read.toLong()
+
 							progressAware
-								.onProgress(
-									Progress.progress(DownloadState.decryption(cryptoFile)) //
-										.between(0) //
-										.and(cleartextSize) //
-										.withValue(decrypted)
-								)
+									.onProgress(
+											Progress.progress(DownloadState.decryption(cryptoFile)) //
+													.between(0) //
+													.and(cleartextSize) //
+													.withValue(decrypted)
+									)
 						}
 					}
+					thumbnailWriter.flush()
 				}
 			} finally {
-				decryptedTempFileOutputStream.flush()
-				decryptedTempFileOutputStream.close()
 				encryptedTmpFile.delete()
+				thumbnailWriter.closeQuietly()
 				progressAware.onProgress(Progress.completed(DownloadState.decryption(cryptoFile)))
 			}
+			t.join() // wait the thread
+			thumbnailReader.closeQuietly()
 		} catch (e: IOException) {
 			throw FatalBackendException(e)
 		}
 
 		// store it in cloud-related LRU cache
-		if(genThumbnail) {
-			generateAndStoreThumbnail(diskCache, cacheKey, decryptedTempFile)
+		if(genThumbnail && thumbnailBitmap != null) {
+			generateAndStoreThumbnail(diskCache, cacheKey, thumbnailBitmap!!)
 		}
-		decryptedTempFile.delete()
 	}
 
 	protected fun generateCacheKey(cloudFile: CloudFile) : String{
@@ -428,17 +450,17 @@ abstract class CryptoImplDecorator(
 				isImageMediaType(fileName)
 	}
 
-	private fun generateAndStoreThumbnail(cache: DiskLruCache?, cacheKey: String, thumbnailTmp: File) {
-		// generate the Bitmap (in memory)
-		val bitmap : Bitmap = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
-			ThumbnailUtils.createImageThumbnail(thumbnailTmp, Size(100, 100), null)
-		} else {
-			ThumbnailUtils.extractThumbnail(BitmapFactory.decodeFile(thumbnailTmp.path), 100, 100)
-		}
+	private fun generateAndStoreThumbnail(cache: DiskLruCache?, cacheKey: String, thumbnailBitmap: Bitmap){
+//		// generate the Bitmap (in memory)
+//		val bitmap : Bitmap = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
+//			ThumbnailUtils.createImageThumbnail(thumbnailTmp, Size(100, 100), null)
+//		} else {
+//			ThumbnailUtils.extractThumbnail(BitmapFactory.decodeFile(thumbnailTmp.path), 100, 100)
+//		}
 
 		// write the thumbnail in a file (on disk)
 		val thumbnailFile : File = File.createTempFile(UUID.randomUUID().toString(), ".thumbnail", internalCache)
-		bitmap.compress(Bitmap.CompressFormat.JPEG, 100, thumbnailFile.outputStream())
+		thumbnailBitmap.compress(Bitmap.CompressFormat.JPEG, 100, thumbnailFile.outputStream())
 
 		try {
 			cache?.let {
