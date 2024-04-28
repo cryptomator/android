@@ -70,26 +70,21 @@ abstract class CryptoImplDecorator(
 	private val mimeTypes = MimeTypes(MimeTypeMap())
 
 	protected fun getLruCacheFor(type : CloudType): DiskLruCache? {
-		return getOrCreateLruCache(sharedPreferencesHandler.lruCacheSize(), dispatchCloud(type)!!) // unwrap should be safe!
+		return getOrCreateLruCache(getCacheTypeFromCloudType(type), sharedPreferencesHandler.lruCacheSize())
 	}
-	private fun getOrCreateLruCache(cacheSize: Int, key : LruFileCacheUtil.Cache): DiskLruCache? {
-		if(diskLruCache[key] == null) {
-			diskLruCache[key] = createLruCache(LruFileCacheUtil(context).resolve(key), cacheSize.toLong())
-		}
-		return diskLruCache[key]
-	}
-
-	private fun createLruCache(where: File, size: Long): DiskLruCache? {
-		return try {
-			DiskLruCache.create(where, size)
-		} catch (e: IOException) {
-			Timber.tag("CryptoImplDecorator").e(e, "Failed to setup LRU cache for $where.name")
-			null
+	private fun getOrCreateLruCache(key : LruFileCacheUtil.Cache, cacheSize: Int): DiskLruCache? {
+		return diskLruCache.computeIfAbsent(key) {
+			val where = LruFileCacheUtil(context).resolve(it)
+			try {
+				DiskLruCache.create(where, cacheSize.toLong())
+			} catch (e: IOException) {
+				Timber.tag("CryptoImplDecorator").e(e, "Failed to setup LRU cache for $where.name")
+				null
+			}
 		}
 	}
 
-
-	private fun dispatchCloud(type : CloudType) : LruFileCacheUtil.Cache? {
+	private fun getCacheTypeFromCloudType(type : CloudType) : LruFileCacheUtil.Cache {
 		return when (type) {
 			CloudType.DROPBOX -> LruFileCacheUtil.Cache.DROPBOX
 			CloudType.GOOGLE_DRIVE -> LruFileCacheUtil.Cache.GOOGLE_DRIVE
@@ -98,12 +93,7 @@ abstract class CryptoImplDecorator(
 			CloudType.WEBDAV -> LruFileCacheUtil.Cache.WEBDAV
 			CloudType.S3 -> LruFileCacheUtil.Cache.S3
 			CloudType.LOCAL -> LruFileCacheUtil.Cache.LOCAL
-			// CloudType.CRYPTO -> ...
-			else -> {
-				// it should be impossible to enter here, a cloud file could not be another type...
-				Timber.tag("CryptoImplDecorator").e("Unable to choose which cloud-cache")
-				null
-			}
+			else -> throw IllegalStateException()
 		}
 	}
 
