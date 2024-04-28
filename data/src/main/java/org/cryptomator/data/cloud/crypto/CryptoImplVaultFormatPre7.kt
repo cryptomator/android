@@ -128,6 +128,22 @@ internal class CryptoImplVaultFormatPre7(
 			.filterIsInstance<CloudFile>()
 			.map { node ->
 				ciphertextToCleartextNode(cryptoFolder, dirId, node)
+			}.map { cryptoNode ->
+				// if present, associate cached-thumbnail to the Cryptofile
+				if(cryptoNode is CryptoFile && isImageMediaType(cryptoNode.name)) {
+					val cacheKey = generateCacheKey(cryptoNode.cloudFile)
+
+					cryptoNode.cloudFile.cloud?.type()?.let { cloudType ->
+						val diskCache = super.getLruCacheFor(cloudType)
+						diskCache?.let {
+							val cacheFile = it[cacheKey]
+							if (cacheFile != null) {
+								cryptoNode.thumbnail = cacheFile
+							}
+						}
+					}
+				}
+				cryptoNode
 			}
 			.toList()
 			.filterNotNull()

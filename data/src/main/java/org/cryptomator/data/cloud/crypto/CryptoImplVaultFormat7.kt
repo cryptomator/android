@@ -172,11 +172,13 @@ open class CryptoImplVaultFormat7 : CryptoImplDecorator {
 			if(cryptoNode is CryptoFile && isImageMediaType(cryptoNode.name)) {
 				val cacheKey = generateCacheKey(cryptoNode.cloudFile)
 
-				val diskCache = super.getLruCacheFor(cryptoNode.cloudFile.cloud!!.type()!!)
-				diskCache?.let {
-					val cacheFile = it[cacheKey]
-					if (cacheFile != null) {
-						cryptoNode.thumbnail = cacheFile
+				cryptoNode.cloudFile.cloud?.type()?.let { cloudType ->
+					val diskCache = super.getLruCacheFor(cloudType)
+					diskCache?.let {
+						val cacheFile = it[cacheKey]
+						if (cacheFile != null) {
+							cryptoNode.thumbnail = cacheFile
+						}
 					}
 				}
 			}
