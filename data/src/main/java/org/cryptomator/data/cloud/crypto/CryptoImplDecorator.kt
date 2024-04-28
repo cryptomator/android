@@ -414,7 +414,10 @@ abstract class CryptoImplDecorator(
 	}
 
 	protected fun generateCacheKey(cloudFile: CloudFile) : String{
-		return cloudFile.path.hashCode().toString().substring(3)
+        var cacheKey = ""
+        cloudFile.cloud?.id()?.let { cacheKey += it } // distinguish between two files with same path but on different instances of the same cloud
+		cloudFile.path.hashCode().toString().let{ cacheKey += it }
+		return cacheKey
 	}
 
 	private fun isGenerateThumbnailsEnabled(cache: DiskLruCache?, fileName: String) : Boolean {
