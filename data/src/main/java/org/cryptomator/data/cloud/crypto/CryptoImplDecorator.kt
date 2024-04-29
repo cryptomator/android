@@ -32,6 +32,7 @@ import org.cryptomator.domain.usecases.cloud.FileBasedDataSource.Companion.from
 import org.cryptomator.domain.usecases.cloud.Progress
 import org.cryptomator.domain.usecases.cloud.UploadState
 import org.cryptomator.util.SharedPreferencesHandler
+import org.cryptomator.util.ThumbnailsOption
 import org.cryptomator.util.file.LruFileCacheUtil
 import org.cryptomator.util.file.MimeType
 import org.cryptomator.util.file.MimeTypeMap
@@ -372,7 +373,6 @@ abstract class CryptoImplDecorator(
 
 		val genThumbnail = isGenerateThumbnailsEnabled(diskCache, cryptoFile.name)
 
-		// TODO: solo se e' un file immagine!!!
 		val decryptedTempFile : File
 		try {
 
@@ -429,7 +429,7 @@ abstract class CryptoImplDecorator(
 
 	private fun isGenerateThumbnailsEnabled(cache: DiskLruCache?, fileName: String) : Boolean {
 		return 	sharedPreferencesHandler.useLruCache() &&
-				!sharedPreferencesHandler.generateThumbnails().equals("Never") && // TODO: externalize string
+				sharedPreferencesHandler.generateThumbnails() != ThumbnailsOption.NEVER &&
 				cache != null && //
 				isImageMediaType(fileName)
 	}

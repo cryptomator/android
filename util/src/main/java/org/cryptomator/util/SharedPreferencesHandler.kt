@@ -161,12 +161,13 @@ constructor(context: Context) : SharedPreferences.OnSharedPreferenceChangeListen
 		return defaultSharedPreferences.getValue(PHOTO_UPLOAD_INCLUDING_VIDEOS, false)
 	}
 
-	fun generateThumbnails() {
-		defaultSharedPreferences.getValue(THUMBNAIL_GENERATION, "Never")
-	}
-
-	fun generateThumbnails(modality: String) {
-		defaultSharedPreferences.setValue(THUMBNAIL_GENERATION, modality)
+	fun generateThumbnails(): ThumbnailsOption {
+		return when(defaultSharedPreferences.getValue(THUMBNAIL_GENERATION, "NEVER")){
+			"NEVER" -> ThumbnailsOption.NEVER
+			"PER_FILE" -> ThumbnailsOption.PER_FILE
+			"PER_FOLDER" -> ThumbnailsOption.PER_FOLDER
+			else -> ThumbnailsOption.NEVER
+		}
 	}
 
 	fun useLruCache(): Boolean {
