@@ -197,6 +197,8 @@
 	<string name="screen_settings_security_label">安全提示</string>
 	<string name="screen_settings_section_version">版本</string>
 	<string name="screen_settings_advanced_settings">進階設定</string>
+	<string name="screen_settings_microsoft_apps_workaround_label">開啟 Microsoft 檔案的替代方案</string>
+	<string name="screen_settings_microsoft_apps_workaround_summary">使用寫入權限於 Microsoft 應用程式中開啟檔案</string>
 	<string name="screen_settings_background_unlock_preparation_label">加速解鎖</string>
 	<string name="screen_settings_background_unlock_preparation_label_summary">在提示輸入密碼或生物識別身份驗證時在後台下載保險庫配置</string>
 	<string name="screen_settings_keep_unlocked_while_editing_files">保持解鎖</string>
@@ -303,6 +305,7 @@
 	<string name="dialog_debug_mode_disclaimer_hint">在此模式下，敏感數據可能會寫入您設備上的日誌文件(例如文件名和路徑)。 密碼、cookies 等被明確排除在外。\n\n請記住盡快禁用調試模式。</string>
 	<string name="dialog_debug_mode_disclaimer_title">注意</string>
 	<string name="dialog_debug_mode_positive_button">啟用</string>
+	<string name="dialog_microsoft_workaround_disclaimer_hint">由於 Microsoft 應用程式中的錯誤，必須將檔案分享到公用資料夾才能進行編輯。一旦 Cryptomator 繼續運作，可以公開存取的相應檔案將再次被刪除，但 Cryptomator 無法影響在此期間該檔案所發生的情況。請確保在啟用此選項時了解此行為。此問題僅適用於 Microsoft 文件類型。\n\n啟用該選項後，Cryptomator 將重新啟動。</string>
 	<string name="dialog_disable_app_obscured_disclaimer_hint">此設定是一項安全功能，可防止其他應用程式欺騙用戶做他們不想做的事情。\n\n如果停用這項功能，請確定你已經<a href="https://docs.cryptomator.org/en/1.6/android/settings/#block-app-when-obscured">了解風險</a>。</string>
 	<string name="dialog_disable_app_obscured_disclaimer_title">注意</string>
 	<string name="dialog_disable_app_obscured_positive_button">停用</string>
@@ -391,6 +394,7 @@
 	<string name="notification_auto_upload_failed_due_to_folder_not_exists">您選擇的資料夾無法使用，請至設定重新選擇。</string>
 	<string name="notification_auto_upload_failed_due_to_vault_locked">加密檔案庫在上傳期間鎖定，請重新打開加密檔案庫後繼續</string>
 	<string name="notification_auto_upload_failed_due_to_vault_not_found">使用於自動上傳的加密檔案庫已不存在。</string>
+	<string name="notification_auto_upload_failed_due_to_authentication_problem">輕觸以更新身份驗證。</string>
 	<string name="notification_open_writable_file_title">開啟可讀寫檔案</string>
 	<string name="notification_open_writable_file_message">加密檔案庫將在編輯期間保持解鎖狀態</string>
 	<string name="notification_update_check_finished_latest">已安裝最新版本</string>

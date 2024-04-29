@@ -31,7 +31,7 @@
 	<string name="error_vault_version_mismatch">Versionen angivet i %1$s er forskellig fra %2$s</string>
 	<string name="error_vault_key_invalid">%1$s matcher ikke med denne %2$s</string>
 	<string name="error_vault_config_loading">Generel fejl under indlæsning af boksens konfiguration</string>
-	<string name="error_file_not_found_after_opening_using_3party">Den lokale fil findes ikke længere, efter vi skiftede tilbage til Cryptomator. Ændringer kan ikke propageres tilbage til skyen.</string>
+	<string name="error_file_not_found_after_opening_using_3party">Den lokale fil findes ikke længere, efter vi skiftede tilbage til Cryptomator. Ændringer kan ikke tilbageføres til skyen.</string>
 	<string name="error_no_such_bucket">Bucket findes ikke</string>
 	<string name="error_masterkey_location_not_supported">Brugerdefineret hovednøgle-placering understøttes ikke endnu</string>
 	<string name="error_interact_with_fdroid_but_fdroid_missing">Kunne ikke kommunikere med F-Droid appen. Er den ikke installeret?</string>
@@ -76,7 +76,7 @@
 	</plurals>
 	<string name="screen_file_browser_move_button_text">Flyt</string>
 	<string name="screen_file_browser_msg_empty_folder">Tom mappe</string>
-	<string name="screen_file_browser_file_info_label_date">ændret %1$s siden</string>
+	<string name="screen_file_browser_file_info_label_date">ændret for %1$s siden</string>
 	<string name="screen_file_browser_share_intent_chooser_title">Del med</string>
 	<string name="screen_file_browser_share_destination_title">Vælg destination</string>
 	<string name="screen_file_browser_share_button_text">Vælg</string>
@@ -100,7 +100,7 @@
 	<string name="screen_file_browser_selection_mode_title_one_or_more_elements">%1$d valgt</string>
 	<string name="screen_file_browser_select_items">Vælg</string>
 	<string name="screen_file_browser_select_all_items">Vælg alle</string>
-	<string name="screen_file_browser_refresh_items">Opdatér</string>
+	<string name="screen_file_browser_refresh_items">Genopfrisk</string>
 	<string name="screen_file_browser_no_connection_message">Ingen forbindelse</string>
 	<string name="screen_file_browser_no_connection_button_text">Prøv igen</string>
 	<!-- ## screen: text editor -->
@@ -115,7 +115,7 @@
 	<string name="screen_share_files_save_button_text">Gem</string>
 	<string name="screen_share_files_msg_success">Kryptering færdig</string>
 	<!-- ## screen: choose cloud service -->
-	<string name="screen_choose_cloud_service_title">Cloud-tjeneste</string>
+	<string name="screen_choose_cloud_service_title">Tjenester i skyen</string>
 	<!-- ## screen: cloud connections -->
 	<string name="screen_cloud_connections_title">Vælg en placering</string>
 	<string name="screen_cloud_connections_no_connections">Tryk her for at tilføje placeringer</string>
@@ -175,7 +175,7 @@
 	<string name="screen_settings_section_auto_lock">Automatisk låsning</string>
 	<string name="screen_settings_auto_lock_timeout">Lås efter</string>
 	<string name="screen_settings_auto_lock_on_screen_lock">Når skærmen er slukket</string>
-	<string name="screen_settings_section_auto_photo_upload">Automatisk foto upload</string>
+	<string name="screen_settings_section_auto_photo_upload">Automatisk foto-upload</string>
 	<string name="screen_settings_section_auto_photo_upload_vault">Vælg boks til upload</string>
 	<string name="screen_settings_section_auto_photo_upload_toggle">Aktivér</string>
 	<string name="screen_settings_section_auto_photo_upload_toggle_summary">Håndtér billeder i baggrunden og upload dem når den valgte boks er låst op</string>
@@ -183,7 +183,7 @@
 	<string name="screen_settings_section_auto_photo_upload_toggle_instant_upload_summary">Upload direkte hvis boksen er låst op</string>
 	<string name="screen_settings_section_auto_photo_upload_only_wifi_toggle">Upload kun ved hjælp af WIFI</string>
 	<string name="screen_settings_section_auto_photo_upload_including_videos">Upload videoer</string>
-	<string name="screen_settings_auto_photo_upload_title">Gem automatisk upload af filer i&#8230;</string>
+	<string name="screen_settings_auto_photo_upload_title">Gem automatisk uploadede filer i&#8230;</string>
 	<string name="screen_settings_website_label">Cryptomators hjemmeside</string>
 	<string name="screen_settings_twitter_label">Følg os på Twitter</string>
 	<string name="screen_settings_facebook_label">Synes godt om os på Facebook</string>
@@ -198,6 +198,8 @@
 	<string name="screen_settings_security_label">Sikkerhedstips</string>
 	<string name="screen_settings_section_version">Version</string>
 	<string name="screen_settings_advanced_settings">Avancerede indstillinger</string>
+	<string name="screen_settings_microsoft_apps_workaround_label">Alternativ løsning til at åbne Microsoft-filer</string>
+	<string name="screen_settings_microsoft_apps_workaround_summary">Åbn filer i Microsoft-apps med skrivetilladelse</string>
 	<string name="screen_settings_background_unlock_preparation_label">Accelerér oplåsning</string>
 	<string name="screen_settings_background_unlock_preparation_label_summary">Download boksens konfiguration i baggrunden, mens du indtaster adgangskoden eller angivet biometrisk information</string>
 	<string name="screen_settings_keep_unlocked_while_editing_files">Hold oplåst</string>
@@ -223,7 +225,7 @@
 	<string name="screen_cryptomator_variants_fdroid_description">Udelukket, fordi det indeholder proprietære afhængigheder.</string>
 	<string name="screen_cryptomator_variants_fdroid_add_repo_hint">Tilføj Cryptomator-depotet til F-Droid appen.</string>
 	<string name="screen_cryptomator_variants_fdroid_add_repo">Tilføj</string>
-	<string name="screen_cryptomator_variants_fdroid_install_hint">Installér Cryptomator ved hjælp af F-Droid.\nHvis fejlen \"ikke fundet\" vises, da vent indtil F-Droid-synkroniseringen er færdig.</string>
+	<string name="screen_cryptomator_variants_fdroid_install_hint">Installér Cryptomator ved hjælp af F-Droid.\nHvis fejlen \"ikke fundet\" vises, vent da indtil F-Droid-synkroniseringen er færdig.</string>
 	<string name="screen_cryptomator_variants_website_title">Hjemmeside</string>
 	<string name="screen_cryptomator_variants_website_description">Indeholder proprietære afhængigheder.</string>
 	<string name="screen_cryptomator_variants_installation_hint">At skifte fra eller til det primære F-Droid depot, kræver en frisk opsætning af appen.</string>
@@ -304,6 +306,7 @@
 	<string name="dialog_debug_mode_disclaimer_hint">I denne tilstand kan følsomme data blive skrevet til en logfil på din enhed (f.eks. filnavne og stier). Adgangskoder, cookies osv. er udtrykkeligt udelukket.\n\nHusk at deaktivere fejlfindingstilstand så hurtigt som muligt.</string>
 	<string name="dialog_debug_mode_disclaimer_title">Vigtigt</string>
 	<string name="dialog_debug_mode_positive_button">Aktivér</string>
+	<string name="dialog_microsoft_workaround_disclaimer_hint">På grund af en fejl i Microsoft-apps skal den fil, der skal redigeres, deles med disse apps i en offentlig mediemappe på din enhed. Når Cryptomator genoptages, slettes den offentligt tilgængelige fil igen, men Cryptomator kan ikke påvirke, hvad der er sket med denne fil i mellemtiden. Sørg for, at du er opmærksom på denne adfærd, når du aktiverer denne indstilling. Dette gælder kun for Microsofts filtyper.\n\nCryptomator genstarter efter aktivering.</string>
 	<string name="dialog_disable_app_obscured_disclaimer_hint">Denne indstilling er en sikkerhedsfunktion og forhindrer andre apps i at narre brugere til at gøre ting, de ikke ønsker at gøre.\n\nVed at deaktivere, bekræfter du, at du er <a href="https://docs.cryptomator.org/en/1.6/android/settings/#block-app-when-obscured">bekendt med de involverede ricisi</a>.</string>
 	<string name="dialog_disable_app_obscured_disclaimer_title">Vigtigt</string>
 	<string name="dialog_disable_app_obscured_positive_button">Deaktivér</string>
@@ -312,8 +315,8 @@
 	<string name="dialog_app_is_obscured_info_neutral_button">Luk</string>
 	<string name="dialog_vaults_removed_during_migration_title">Tilføj venligst boksene til %1s skyen igen</string>
 	<string name="dialog_vaults_removed_during_migration_hint">Mens vi migrerer til denne app-version, skal vi fjerne følgende bokse fra appen:\n%2s \n\nDisse bokse fjernes ikke fra skyen, men kun fra denne app. Beklager ulejligheden! Tilføj venligst disse bokse igen for at fortsætte med at arbejde med dem.</string>
-	<string name="dialog_vault_is_root_folder_of_cloud_title">Boksen er rodmappen for cloudforbindelsen</string>
-	<string name="dialog_vault_is_root_folder_of_cloud_hint">For at tilføje denne boks, lav en ny forbindelse til skyen hvor du mindst vælger den overordnede mappe som din rod-mappe.</string>
+	<string name="dialog_vault_is_root_folder_of_cloud_title">Boksen er rodmappen for denne forbindelse til skyen</string>
+	<string name="dialog_vault_is_root_folder_of_cloud_hint">For at tilføje denne boks, skal du lave en ny forbindelse til skyen hvor du som minimum vælger mappen over boksens mappe som din rod-mappe.</string>
 	<string name="dialog_disable_secure_screen_disclaimer_hint">Denne indstilling er en sikkerhedsfunktion og forhindrer andre apps i at narre brugere til at gøre ting, de ikke ønsker at gøre.\n\nVed at deaktivere, bekræfter du, at du er <a href="https://docs.cryptomator.org/en/1.6/android/settings/#screen-security">bekendt med de involverede ricisi</a>.</string>
 	<string name="dialog_delete_cloud_connection_with_vaults_message">Er du sikke på, at du vil fjerne denne forbindelse?</string>
 	<string name="dialog_delete_cloud_connection_with_vaults_hint">Denne handling vil fjerne forbindelsen og alle bokse i denne sky.</string>
@@ -379,7 +382,7 @@
 	<string name="dialog_biometric_auth_use_password">Brug kodeord til boksen</string>
 	<string name="dialog_unable_to_auto_upload_files_title">Kan ikke uploade filer automatisk</string>
 	<!-- notification -->
-	<string name="notification_unlocked">Boks låst op: %1$d</string>
+	<string name="notification_unlocked">Bokse låst op: %1$d</string>
 	<string name="notification_timeout">Låser automatisk om %1$s</string>
 	<string name="notification_lock_all">Lås alle</string>
 	<string name="notification_cancel_auto_upload">Annullér upload</string>
@@ -388,22 +391,23 @@
 	<string name="notification_auto_upload_finished_title">Automatisk upload af fotos færdig</string>
 	<string name="notification_auto_upload_finished_message">%1$d billeder uploadet til boksen</string>
 	<string name="notification_auto_upload_failed_title">Automatisk upload af fotos fejlede</string>
-	<string name="notification_auto_upload_failed_general_error">Der skete en fejl under uploaden.</string>
+	<string name="notification_auto_upload_failed_general_error">Der opstod en generel fejl under upload.</string>
 	<string name="notification_auto_upload_failed_due_to_folder_not_exists">Den valgte upload-mappe er ikke længere tilgængelig. Gå til indstillinger og vælg en ny</string>
-	<string name="notification_auto_upload_failed_due_to_vault_locked">Boks låst under upload, genåbn venligst boks for at fortsætte</string>
+	<string name="notification_auto_upload_failed_due_to_vault_locked">Boks låst under upload, genåbn venligst boksen for at fortsætte</string>
 	<string name="notification_auto_upload_failed_due_to_vault_not_found">Boks angivet til auto-upload findes ikke længere.</string>
+	<string name="notification_auto_upload_failed_due_to_authentication_problem">Tryk for at opdatere godkendelse.</string>
 	<string name="notification_open_writable_file_title">Åben fil med skriveadgang</string>
 	<string name="notification_open_writable_file_message">Boks forbliver låst op indtil du er færdig med redigeringen</string>
 	<string name="notification_update_check_finished_latest">Nyeste version er installeret</string>
 	<string name="notification_authenticating">Godkender&#8230;</string>
 	<string name="screen_settings_lru_cache">Cache</string>
-	<string name="screen_settings_lru_cache_toggle_summary">Gem nyligt tilgåede filer lokalt, i krypteret form, så de hurtigt kan åbnes igen senere</string>
+	<string name="screen_settings_lru_cache_toggle_summary">Gem nyligt tilgåede filer i cachen, i krypteret form, så de hurtigt kan åbnes igen senere</string>
 	<string name="screen_settings_lru_cache_size">Total cachestørrelse</string>
 	<string name="screen_settings_clear_lru_cache_size">Tøm cache</string>
 	<string name="screen_settings_lru_cache_changed__restart_toast">Ændringerne bliver anvendt næste gang du genstarter appen</string>
 	<string name="screen_settings_license">Registreret til</string>
 	<string name="screen_settings_license_mail">%1$s</string>
-	<string name="dialog_settings_update_check_interval_title">Tjek for nye opdateringer</string>
+	<string name="dialog_settings_update_check_interval_title">Interval for tjek af nye opdateringer</string>
 	<string name="screen_settings_check_updates">Søg efter opdateringer</string>
 	<string name="screen_settings_last_check_updates">Seneste tjek %1$s</string>
 	<string name="dialog_cache_size_title">Cache størrelse pr. sky-tjeneste</string>
