@@ -358,16 +358,11 @@ abstract class CryptoImplDecorator(
 	fun read(cryptoFile: CryptoFile, data: OutputStream, progressAware: ProgressAware<DownloadState>) {
 		val ciphertextFile = cryptoFile.cloudFile
 
-		val diskCache = getLruCacheFor(cryptoFile.cloudFile.cloud!!.type()!!)
+		val diskCache = cryptoFile.cloudFile.cloud?.type()?.let { getLruCacheFor(it) }
 		val cacheKey = generateCacheKey(ciphertextFile)
-
 		val genThumbnail = isGenerateThumbnailsEnabled(diskCache, cryptoFile.name)
-
 		val decryptedTempFile : File
 		try {
-
-			// cloudContentRepository.read(file, encryptedTmpFile, encryptedData, ...)
-			// file appena letto dalla rete, portato in cache ancora cifrato!
 			val encryptedTmpFile = readToTmpFile(cryptoFile, ciphertextFile, progressAware)
 			decryptedTempFile = File.createTempFile(encryptedTmpFile.nameWithoutExtension, ".tmp", internalCache)
 
@@ -408,7 +403,7 @@ abstract class CryptoImplDecorator(
 
 		// store it in cloud-related LRU cache
 		if(genThumbnail) {
-			generateAndStoreThumbNail(diskCache, cacheKey, decryptedTempFile)
+			generateAndStoreThumbnail(diskCache, cacheKey, decryptedTempFile)
 		}
 		decryptedTempFile.delete()
 	}
@@ -423,11 +418,11 @@ abstract class CryptoImplDecorator(
 	private fun isGenerateThumbnailsEnabled(cache: DiskLruCache?, fileName: String) : Boolean {
 		return 	sharedPreferencesHandler.useLruCache() &&
 				sharedPreferencesHandler.generateThumbnails() != ThumbnailsOption.NEVER &&
-				cache != null && //
+				cache != null &&
 				isImageMediaType(fileName)
 	}
 
-	private fun generateAndStoreThumbNail(cache: DiskLruCache?, cacheKey: String, thumbnailTmp: File){
+	private fun generateAndStoreThumbnail(cache: DiskLruCache?, cacheKey: String, thumbnailTmp: File) {
 		// generate the Bitmap (in memory)
 		val bitmap : Bitmap = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
 			ThumbnailUtils.createImageThumbnail(thumbnailTmp, Size(100, 100), null)
@@ -445,7 +440,7 @@ abstract class CryptoImplDecorator(
 				LruFileCacheUtil.storeToLruCache(it, cacheKey, thumbnailFile)
 			} ?: Timber.tag("CryptoImplDecorator").e("Failed to store item in LRU cache")
 		} catch (e: IOException) {
-			Timber.tag("CryptoImplDecorator").e(e, "Failed to write downloaded file in LRU cache")
+			Timber.tag("CryptoImplDecorator").e(e, "Failed to write the thumbnail in DiskLruCache")
 		}
 
 		thumbnailFile.delete()
