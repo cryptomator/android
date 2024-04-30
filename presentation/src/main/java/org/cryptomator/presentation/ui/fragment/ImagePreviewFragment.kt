@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.MotionEvent
 import android.view.View
 import android.view.ViewGroup
+import android.graphics.Bitmap
 import androidx.fragment.app.Fragment
 import com.davemorrissey.labs.subscaleview.ImageSource
 import com.davemorrissey.labs.subscaleview.SubsamplingScaleImageView
@@ -65,6 +66,7 @@ class ImagePreviewFragment : Fragment() {
 			imagePreviewFile.uri?.let {
 				hideProgressBar()
 				imageView.orientation = SubsamplingScaleImageView.ORIENTATION_USE_EXIF
+				SubsamplingScaleImageView.setPreferredBitmapConfig(Bitmap.Config.HARDWARE)
 				showImage(imagePreviewFile)
 			} ?: presenter.onMissingImagePreviewFile(imagePreviewFile)
 		}
