@@ -4,8 +4,8 @@ import android.content.Context
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import android.media.ThumbnailUtils
+import com.google.common.util.concurrent.ThreadFactoryBuilder
 import com.tomclaw.cache.DiskLruCache
-import okhttp3.internal.closeQuietly
 import org.cryptomator.cryptolib.api.Cryptor
 import org.cryptomator.cryptolib.common.DecryptingReadableByteChannel
 import org.cryptomator.cryptolib.common.EncryptingWritableByteChannel
@@ -37,6 +37,7 @@ import org.cryptomator.util.file.MimeType
 import org.cryptomator.util.file.MimeTypeMap
 import org.cryptomator.util.file.MimeTypes
 import java.io.ByteArrayOutputStream
+import java.io.Closeable
 import java.io.File
 import java.io.FileInputStream
 import java.io.FileOutputStream
@@ -51,7 +52,10 @@ import java.util.function.Supplier
 import timber.log.Timber
 import java.io.PipedInputStream
 import java.io.PipedOutputStream
-import kotlin.concurrent.thread
+import java.util.concurrent.ExecutorService
+import java.util.concurrent.Executors
+import java.util.concurrent.Future
+import kotlin.math.ceil
 
 
 abstract class CryptoImplDecorator(
@@ -71,6 +75,11 @@ abstract class CryptoImplDecorator(
 	private var diskLruCache: MutableMap<LruFileCacheUtil.Cache, DiskLruCache?> = mutableMapOf()
 
 	private val mimeTypes = MimeTypes(MimeTypeMap())
+
+	private val thumbnailExecutorService: ExecutorService by lazy {
+		val threadFactory = ThreadFactoryBuilder().setNameFormat("thumbnail-generation-thread-%d").build()
+		Executors.newFixedThreadPool(3, threadFactory)
+	}
 
 	protected fun getLruCacheFor(type : CloudType): DiskLruCache? {
 		return getOrCreateLruCache(getCacheTypeFromCloudType(type), sharedPreferencesHandler.lruCacheSize())
@@ -363,30 +372,17 @@ abstract class CryptoImplDecorator(
 		val diskCache = cryptoFile.cloudFile.cloud?.type()?.let { getLruCacheFor(it) }
 		val cacheKey = generateCacheKey(ciphertextFile)
 		val genThumbnail = isGenerateThumbnailsEnabled(diskCache, cryptoFile.name)
-		var thumbnailBitmap : Bitmap? = null
 
 		val thumbnailWriter = PipedOutputStream()
 		val thumbnailReader = PipedInputStream(thumbnailWriter)
 
 		try {
-			// cloudContentRepository.read(file, encryptedTmpFile, encryptedData, ...)
-			// file appena letto dalla rete, portato in cache ancora cifrato!
 			val encryptedTmpFile = readToTmpFile(cryptoFile, ciphertextFile, progressAware)
 
-			// TODO: reusable thread?
-			// A thread pool is a managed collection of threads that runs tasks in parallel from a queue.
-			// https://developer.android.com/develop/background-work/background-tasks/asynchronous/java-threads
-			val t = thread(start = false, name = "S.AN-DRO") { // Simply A New Data Readable Output
-				try {
-					val bitmap = BitmapFactory.decodeStream(thumbnailReader) // wait for the full image
-					thumbnailBitmap = ThumbnailUtils.extractThumbnail(bitmap, 100, 100)
-					thumbnailReader.closeQuietly()
-				} catch (e : Exception) {
-					Timber.e("Bitmap generation crashed")
-				}
+			if (genThumbnail) {
+				startThumbnailGeneratorThread(diskCache, cacheKey, thumbnailReader)
 			}
 
-			t.start()
 			progressAware.onProgress(Progress.started(DownloadState.decryption(cryptoFile)))
 			try {
 				Channels.newChannel(FileInputStream(encryptedTmpFile)).use { readableByteChannel ->
@@ -398,7 +394,9 @@ abstract class CryptoImplDecorator(
 						while (decryptingReadableByteChannel.read(buff).also { read = it } > 0) {
 							buff.flip()
 							data.write(buff.array(), 0, buff.remaining())
-							thumbnailWriter.write(buff.array(), 0, buff.remaining())
+							if (genThumbnail) {
+								thumbnailWriter.write(buff.array(), 0, buff.remaining())
+							}
 
 							decrypted += read.toLong()
 
@@ -412,21 +410,64 @@ abstract class CryptoImplDecorator(
 						}
 					}
 					thumbnailWriter.flush()
+					closeQuietly(thumbnailWriter)
 				}
 			} finally {
 				encryptedTmpFile.delete()
-				thumbnailWriter.closeQuietly()
 				progressAware.onProgress(Progress.completed(DownloadState.decryption(cryptoFile)))
 			}
-			t.join() // wait the thread
-			thumbnailReader.closeQuietly()
+
+			closeQuietly(thumbnailReader)
 		} catch (e: IOException) {
 			throw FatalBackendException(e)
 		}
+	}
 
-		// store it in cloud-related LRU cache
-		if(genThumbnail && thumbnailBitmap != null) {
-			generateAndStoreThumbnail(diskCache, cacheKey, thumbnailBitmap!!)
+	private fun closeQuietly(closeable : Closeable) {
+		try {
+			closeable.close();
+		} catch (e : IOException) {
+			// ignore
+		}
+	}
+	private fun startThumbnailGeneratorThread(diskCache: DiskLruCache?, cacheKey: String, thumbnailReader: PipedInputStream) : Future<*> {
+		return thumbnailExecutorService.submit {
+			try {
+				val options = BitmapFactory.Options()
+				val thumbnailBitmap : Bitmap?
+				// options.inJustDecodeBounds = true
+				// read properties of the image: outWidth, outHeight (no bitmap allocation!)
+				// BitmapFactory.decodeStream(thumbnailReaderTee, null, options)
+				// options.inJustDecodeBounds = false
+				// options.outWidth; options.outHeight
+				options.inSampleSize = 4 // pixel number reduced by a factor of 1/16
+				// options.inSampleSize = 8 // pixel number reduced by a factor of 1/64
+
+				// obtain a subsampled version of the image
+				val bitmap = BitmapFactory.decodeStream(thumbnailReader, null, options)
+
+				val thumbnailWidth = 100
+				val thumbnailHeight = 100
+//				var aspectRatio = 1f
+//				bitmap?.let {
+//					if (it.height != 0) {
+//						aspectRatio = it.width.toFloat() / it.height
+//					}
+//				}
+//				val thumbnailHeight = ceil(1 / aspectRatio * thumbnailWidth).toInt()
+
+				// generate thumbnail preserving aspect ratio
+				thumbnailBitmap = ThumbnailUtils.extractThumbnail(bitmap, thumbnailWidth, thumbnailHeight)
+
+				// store it in cloud-related LRU cache
+				if(thumbnailBitmap != null) {
+					storeThumbnail(diskCache, cacheKey, thumbnailBitmap)
+				}
+
+				closeQuietly(thumbnailReader)
+			} catch (e: Exception) {
+				Timber.e("Bitmap generation crashed")
+			}
 		}
 	}
 
@@ -450,14 +491,7 @@ abstract class CryptoImplDecorator(
 				isImageMediaType(fileName)
 	}
 
-	private fun generateAndStoreThumbnail(cache: DiskLruCache?, cacheKey: String, thumbnailBitmap: Bitmap){
-//		// generate the Bitmap (in memory)
-//		val bitmap : Bitmap = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
-//			ThumbnailUtils.createImageThumbnail(thumbnailTmp, Size(100, 100), null)
-//		} else {
-//			ThumbnailUtils.extractThumbnail(BitmapFactory.decodeFile(thumbnailTmp.path), 100, 100)
-//		}
-
+	private fun storeThumbnail(cache: DiskLruCache?, cacheKey: String, thumbnailBitmap: Bitmap){
 		// write the thumbnail in a file (on disk)
 		val thumbnailFile : File = File.createTempFile(UUID.randomUUID().toString(), ".thumbnail", internalCache)
 		thumbnailBitmap.compress(Bitmap.CompressFormat.JPEG, 100, thumbnailFile.outputStream())
