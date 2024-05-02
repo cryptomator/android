@@ -26,7 +26,6 @@ import org.cryptomator.presentation.model.ProgressModel
 import org.cryptomator.presentation.presenter.BrowseFilesPresenter
 import org.cryptomator.presentation.ui.adapter.BrowseFilesAdapter
 import org.cryptomator.presentation.util.ResourceHelper.Companion.getPixelOffset
-import org.cryptomator.util.SharedPreferencesHandler
 import java.util.Optional
 import javax.inject.Inject
 import kotlinx.android.synthetic.main.floating_action_button_layout.floatingActionButton
@@ -39,7 +38,7 @@ import kotlinx.android.synthetic.main.view_browses_files_extra_text_and_button.e
 import kotlinx.android.synthetic.main.view_empty_folder.emptyFolderHint
 
 @Fragment(R.layout.fragment_browse_files)
-class BrowseFilesFragment : BaseFragment() {
+open class BrowseFilesFragment : BaseFragment(), FilesFragmentInterface {
 
 	@Inject
 	lateinit var cloudNodesAdapter: BrowseFilesAdapter
@@ -51,7 +50,7 @@ class BrowseFilesFragment : BaseFragment() {
 
 	private var filterText: String = ""
 
-	var folder: CloudFolderModel
+	override var folder: CloudFolderModel
 		get() = requireArguments().getSerializable(ARG_FOLDER) as CloudFolderModel
 		set(updatedFolder) {
 			arguments?.putSerializable(ARG_FOLDER, updatedFolder)
@@ -90,7 +89,7 @@ class BrowseFilesFragment : BaseFragment() {
 		}
 	}
 
-	val selectedCloudNodes: List<CloudNodeModel<*>>
+	override val selectedCloudNodes: List<CloudNodeModel<*>>
 		get() = cloudNodesAdapter.selectedCloudNodes()
 
 	override fun setupView() {
@@ -185,19 +184,19 @@ class BrowseFilesFragment : BaseFragment() {
 		browseFilesPresenter.onFolderReloadContent(folder)
 	}
 
-	fun show(nodes: List<CloudNodeModel<*>>?) {
+	override fun show(nodes: List<CloudNodeModel<*>>?) {
 		cloudNodesAdapter.clear()
 		cloudNodesAdapter.addAll(cloudNodesAdapter.filterNodes(nodes, filterText))
 		updateEmptyFolderHint()
 	}
 
-	fun showProgress(nodes: List<CloudNodeModel<*>>?, progress: ProgressModel?) {
+	override fun showProgress(nodes: List<CloudNodeModel<*>>?, progress: ProgressModel?) {
 		nodes?.forEach { node ->
 			showProgress(node, progress)
 		}
 	}
 
-	fun showProgress(node: CloudNodeModel<*>?, progress: ProgressModel?) {
+	override fun showProgress(node: CloudNodeModel<*>?, progress: ProgressModel?) {
 		val viewHolder = viewHolderFor(node)
 		if (viewHolder.isPresent) {
 			viewHolder.get().showProgress(progress)
@@ -207,13 +206,13 @@ class BrowseFilesFragment : BaseFragment() {
 		}
 	}
 
-	fun hideProgress(nodes: List<CloudNodeModel<*>>?) {
+	override fun hideProgress(nodes: List<CloudNodeModel<*>>?) {
 		nodes?.forEach { node ->
 			hideProgress(node)
 		}
 	}
 
-	fun hideProgress(cloudNode: CloudNodeModel<*>?) {
+	override fun hideProgress(cloudNode: CloudNodeModel<*>?) {
 		val viewHolder = viewHolderFor(cloudNode)
 		if (viewHolder.isPresent) {
 			viewHolder.get().hideProgress()
@@ -223,7 +222,7 @@ class BrowseFilesFragment : BaseFragment() {
 		}
 	}
 
-	fun selectAllItems() {
+	override fun selectAllItems() {
 		val hasUnSelectedNode = cloudNodesAdapter.hasUnSelectedNode()
 		cloudNodesAdapter.renderedCloudNodes().forEach { node ->
 			selectNode(node, hasUnSelectedNode)
@@ -240,7 +239,7 @@ class BrowseFilesFragment : BaseFragment() {
 		}
 	}
 
-	fun remove(cloudNode: List<CloudNodeModel<*>>?) {
+	override fun remove(cloudNode: List<CloudNodeModel<*>>?) {
 		cloudNodesAdapter.deleteItems(cloudNode)
 		updateEmptyFolderHint()
 	}
@@ -250,15 +249,15 @@ class BrowseFilesFragment : BaseFragment() {
 		return Optional.ofNullable(recyclerView.findViewHolderForAdapterPosition(positionOf) as? BrowseFilesAdapter.VaultContentViewHolder)
 	}
 
-	fun replaceRenamedCloudFile(cloudFile: CloudNodeModel<out CloudNode>) {
+	override fun replaceRenamedCloudFile(cloudFile: CloudNodeModel<out CloudNode>) {
 		cloudNodesAdapter.replaceRenamedCloudFile(cloudFile)
 	}
 
-	fun showLoading(loading: Boolean?) {
+	override fun showLoading(loading: Boolean?) {
 		loading?.let { swipeRefreshLayout.isRefreshing = it }
 	}
 
-	fun addOrUpdate(cloudNode: CloudNodeModel<*>) {
+	override fun addOrUpdate(cloudNode: CloudNodeModel<*>) {
 		cloudNodesAdapter.addOrReplaceCloudNode(cloudNode)
 		updateEmptyFolderHint()
 	}
@@ -277,11 +276,11 @@ class BrowseFilesFragment : BaseFragment() {
 	private fun isSelectionMode(selectionMode: ChooseCloudNodeSettings.SelectionMode):
 			Boolean = chooseCloudNodeSettings?.selectionMode() == selectionMode
 
-	fun renderedCloudNodes(): List<CloudNodeModel<*>> = cloudNodesAdapter.renderedCloudNodes()
+	override fun renderedCloudNodes(): List<CloudNodeModel<*>> = cloudNodesAdapter.renderedCloudNodes()
 
-	fun rootView(): View = slidingCoordinatorLayout
+	override fun rootView(): View = slidingCoordinatorLayout
 
-	fun navigationModeChanged(navigationMode: ChooseCloudNodeSettings.NavigationMode) {
+	override fun navigationModeChanged(navigationMode: ChooseCloudNodeSettings.NavigationMode) {
 		updateNavigationMode(navigationMode)
 
 		if (navigationMode == SELECT_ITEMS) {
@@ -296,11 +295,11 @@ class BrowseFilesFragment : BaseFragment() {
 		cloudNodesAdapter.updateNavigationMode(navigationMode)
 	}
 
-	fun setFilterText(query: String) {
+	override fun setFilterText(query: String) {
 		filterText = query
 	}
 
-	fun setSort(comparator: Comparator<CloudNodeModel<*>>) {
+	override fun setSort(comparator: Comparator<CloudNodeModel<*>>) {
 		cloudNodesAdapter.setSort(comparator)
 	}
 
