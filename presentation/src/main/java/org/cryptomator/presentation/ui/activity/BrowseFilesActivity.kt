@@ -49,6 +49,8 @@ import org.cryptomator.presentation.ui.dialog.ReplaceDialog
 import org.cryptomator.presentation.ui.dialog.SymLinkDialog
 import org.cryptomator.presentation.ui.dialog.UploadCloudFileDialog
 import org.cryptomator.presentation.ui.fragment.BrowseFilesFragment
+import org.cryptomator.presentation.ui.fragment.FilesFragmentInterface
+import org.cryptomator.presentation.ui.fragment.GalleryFragment
 import java.util.regex.Pattern
 import javax.inject.Inject
 import kotlinx.android.synthetic.main.toolbar_layout.toolbar
@@ -103,10 +105,7 @@ class BrowseFilesActivity : BaseActivity(), //
 		get() = browseFilesFragment().folder
 
 	override fun createFragment(): Fragment =
-		BrowseFilesFragment.newInstance(
-			browseFilesIntent.folder(),
-			browseFilesIntent.chooseCloudNodeSettings()
-		)
+		createFragmentFor(browseFilesIntent.folder(), browseFilesIntent.chooseCloudNodeSettings())
 
 	override fun onDestroy() {
 		super.onDestroy()
@@ -422,12 +421,20 @@ class BrowseFilesActivity : BaseActivity(), //
 
 	override fun navigateTo(folder: CloudFolderModel) {
 		replaceFragment(
-			BrowseFilesFragment.newInstance(
-				folder,
-				browseFilesIntent.chooseCloudNodeSettings()
-			),
+			createFragmentFor(folder),
 			FragmentAnimation.NAVIGATE_IN_TO_FOLDER
 		)
+	}
+
+	private fun createFragmentFor(folder: CloudFolderModel) : Fragment {
+		return createFragmentFor(folder, browseFilesIntent.chooseCloudNodeSettings())
+	}
+	private fun createFragmentFor(folder: CloudFolderModel, chooseCloudNodeSettings : ChooseCloudNodeSettings?) : Fragment {
+		return if(folder.path == sharedPreferencesHandler.photoUploadVaultFolder()) {
+			GalleryFragment.newInstance(folder, chooseCloudNodeSettings)
+		} else {
+			BrowseFilesFragment.newInstance(folder, chooseCloudNodeSettings)
+		}
 	}
 
 	override fun showAddContentDialog() {
@@ -512,10 +519,7 @@ class BrowseFilesActivity : BaseActivity(), //
 
 	private fun createBackStackFor(sourceParent: CloudFolderModel) {
 		replaceFragment(
-			BrowseFilesFragment.newInstance(
-				sourceParent,
-				browseFilesIntent.chooseCloudNodeSettings()
-			),
+			createFragmentFor(sourceParent),
 			FragmentAnimation.NAVIGATE_OUT_OF_FOLDER,
 			false
 		)
@@ -553,7 +557,7 @@ class BrowseFilesActivity : BaseActivity(), //
 		browseFilesFragment().showLoading(loading)
 	}
 
-	private fun browseFilesFragment(): BrowseFilesFragment = getCurrentFragment(R.id.fragmentContainer) as BrowseFilesFragment
+	private fun browseFilesFragment(): FilesFragmentInterface = getCurrentFragment(R.id.fragmentContainer) as FilesFragmentInterface
 
 	override fun onCreateNewTextFileClicked(fileName: String) {
 		browseFilesPresenter.onCreateNewTextFileClicked(browseFilesFragment().folder, fileName)
