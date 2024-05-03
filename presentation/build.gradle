@@ -161,9 +161,12 @@ dependencies {
 	implementation dependencies.androidxBiometric
 
 	// cloud
-	playstoreImplementation dependencies.dropbox
-	apkstoreImplementation dependencies.dropbox
-	fdroidImplementation dependencies.dropbox
+	playstoreImplementation dependencies.dropboxCore
+	playstoreImplementation dependencies.dropboxAndroid
+	apkstoreImplementation dependencies.dropboxCore
+	apkstoreImplementation dependencies.dropboxAndroid
+	fdroidImplementation dependencies.dropboxCore
+	fdroidImplementation dependencies.dropboxAndroid
 
 	playstoreImplementation dependencies.msgraphAuth
 	apkstoreImplementation dependencies.msgraphAuth

@@ -3,6 +3,10 @@ package org.cryptomator.data.repository;
 import android.content.Context;
 import android.net.Uri;
 
+import com.auth0.jwt.JWT;
+import com.auth0.jwt.algorithms.Algorithm;
+import com.auth0.jwt.interfaces.DecodedJWT;
+import com.auth0.jwt.interfaces.JWTVerifier;
 import com.google.common.base.Optional;
 import com.google.common.io.BaseEncoding;
 
@@ -32,8 +36,6 @@ import javax.annotation.Nullable;
 import javax.inject.Inject;
 import javax.inject.Singleton;
 
-import io.jsonwebtoken.Claims;
-import io.jsonwebtoken.Jwts;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
@@ -263,16 +265,14 @@ public class UpdateCheckRepositoryImpl implements UpdateCheckRepository {
 
 		LatestVersion(String json) throws GeneralUpdateErrorException {
 			try {
-				Claims jws = Jwts //
-						.parserBuilder().setSigningKey(getPublicKey()) //
-						.build() //
-						.parseClaimsJws(json) //
-						.getBody();
+				Algorithm algorithm = Algorithm.ECDSA256(getPublicKey(), null);
+				JWTVerifier verifier = JWT.require(algorithm).build();
+				DecodedJWT jwt = verifier.verify(json);
 
-				version = jws.get("version", String.class);
-				urlApk = jws.get("url", String.class);
-				apkSha256 = jws.get("apk_sha_256", String.class);
-				urlReleaseNote = jws.get("release_notes", String.class);
+				version = jwt.getClaim("version").asString();
+				urlApk = jwt.getClaim("url").asString();
+				apkSha256 = jwt.getClaim("apk_sha_256").asString();
+				urlReleaseNote = jwt.getClaim("release_notes").asString();
 			} catch (NoSuchAlgorithmException | InvalidKeySpecException e) {
 				throw new GeneralUpdateErrorException("Failed to parse latest version", e);
 			}

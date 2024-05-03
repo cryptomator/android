@@ -54,9 +54,7 @@ dependencies {
 
 	implementation dependencies.appcompat
 
-	api dependencies.jsonWebTokenApi
-	implementation dependencies.jsonWebTokenImpl
-	implementation dependencies.jsonWebTokenJson
+	implementation dependencies.jsonWebToken
 
 	// test
 	testImplementation dependencies.junit
