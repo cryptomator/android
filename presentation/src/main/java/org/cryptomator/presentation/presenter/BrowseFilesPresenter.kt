@@ -1099,7 +1099,8 @@ class BrowseFilesPresenter @Inject constructor( //
 
 	private fun moveIntentFor(parent: CloudFolderModel, sourceNodes: List<CloudNodeModel<*>>): IntentBuilder {
 		val foldersToMove = nodesFor(sourceNodes, CloudFolderModel::class) as List<CloudFolderModel>
-		return Intents.browseFilesIntent() //
+		val vauldId = view?.folder?.vault()?.vaultId
+		val browseFilesIntentBuilder = Intents.browseFilesIntent() //
 			.withTitle(effectiveMoveTitle()) //
 			.withFolder(parent) //
 			.withChooseCloudNodeSettings( //
@@ -1112,6 +1113,8 @@ class BrowseFilesPresenter @Inject constructor( //
 					.excludingFolder(if (foldersToMove.isEmpty()) null else foldersToMove) //
 					.build()
 			)
+		vauldId?.let { browseFilesIntentBuilder.withVaultId(it) }
+		return browseFilesIntentBuilder
 	}
 
 	private fun effectiveMoveTitle(): String {

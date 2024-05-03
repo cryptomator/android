@@ -153,7 +153,7 @@ class VaultListActivity : BaseActivity(), //
 	}
 
 	override fun navigateToVaultContent(vault: VaultModel, decryptedRoot: CloudFolderModel) {
-		vaultListPresenter.startIntent(browseFilesIntent().withTitle(vault.name).withFolder(decryptedRoot))
+		vaultListPresenter.startIntent(browseFilesIntent().withVaultId(vault.vaultId).withTitle(vault.name).withFolder(decryptedRoot))
 	}
 
 	override fun renameVault(vaultModel: VaultModel) {
