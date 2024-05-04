@@ -25,7 +25,6 @@ import org.cryptomator.presentation.model.CloudFolderModel
 import org.cryptomator.presentation.model.CloudNodeModel
 import org.cryptomator.presentation.model.ProgressModel
 import org.cryptomator.presentation.presenter.BrowseFilesPresenter
-import org.cryptomator.presentation.ui.adapter.BrowseFilesAdapter
 import org.cryptomator.presentation.ui.adapter.GalleryFilesAdapter
 import org.cryptomator.presentation.util.ResourceHelper.Companion.getPixelOffset
 import java.util.Optional
@@ -52,7 +51,7 @@ class GalleryFragment : BaseFragment(), FilesFragmentInterface {
 
 	private var filterText: String = ""
 
-	private final val COLUMNS : Int = 3
+	private val COLUMNS : Int = 3
 
 	override var folder: CloudFolderModel
 		get() = requireArguments().getSerializable(ARG_FOLDER) as CloudFolderModel
@@ -114,7 +113,7 @@ class GalleryFragment : BaseFragment(), FilesFragmentInterface {
 		recyclerView.adapter = cloudNodesAdapter
 		recyclerView.setHasFixedSize(true)
 
-		val spacing = getResources().getDimensionPixelSize(R.dimen.global_padding) / 4
+		val spacing = resources.getDimensionPixelSize(global_padding) / 4
 
 		// bottom = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 88f, resources.displayMetrics).toInt()
 		recyclerView.setPadding(spacing, spacing, spacing, spacing)
@@ -252,6 +251,7 @@ class GalleryFragment : BaseFragment(), FilesFragmentInterface {
 			node.isSelected = selected
 			addOrUpdate(node)
 		}
+		cloudNodesAdapter.triggerUpdateSelectedNodesNumberInfo()
 	}
 
 	override fun remove(cloudNode: List<CloudNodeModel<*>>?) {
@@ -259,9 +259,9 @@ class GalleryFragment : BaseFragment(), FilesFragmentInterface {
 		updateEmptyFolderHint()
 	}
 
-	private fun viewHolderFor(nodeModel: CloudNodeModel<*>?): Optional<BrowseFilesAdapter.VaultContentViewHolder> {
+	private fun viewHolderFor(nodeModel: CloudNodeModel<*>?): Optional<GalleryFilesAdapter.GalleryContentViewHolder> {
 		val positionOf = cloudNodesAdapter.positionOf(nodeModel)
-		return Optional.ofNullable(recyclerView.findViewHolderForAdapterPosition(positionOf) as? BrowseFilesAdapter.VaultContentViewHolder)
+		return Optional.ofNullable(recyclerView.findViewHolderForAdapterPosition(positionOf) as? GalleryFilesAdapter.GalleryContentViewHolder)
 	}
 
 	override fun replaceRenamedCloudFile(cloudFile: CloudNodeModel<out CloudNode>) {

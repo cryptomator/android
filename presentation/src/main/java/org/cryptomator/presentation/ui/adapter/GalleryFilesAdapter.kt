@@ -67,6 +67,10 @@ constructor(
 		}
 	}
 
+	fun triggerUpdateSelectedNodesNumberInfo() {
+		callback.onSelectedNodesChanged(selectedCloudNodes().size)
+	}
+
 	fun replaceRenamedCloudFile(cloudNode: CloudNodeModel<out CloudNode>) {
 		itemCollection.forEach { nodes ->
 			if (nodes.javaClass == cloudNode.javaClass && nodes.name == cloudNode.oldName) {
@@ -136,9 +140,18 @@ constructor(
 		}
 
 		private fun internalBind(node: CloudNodeModel<*>) {
+			clearPreviousHolderSelection()
 			bindNodeImage(node)
 			bindLongNodeClick(node)
 			bindFileOrFolder(node)
+		}
+
+		private fun clearPreviousHolderSelection() {
+			// durante il rebind sta probabilmente riutilizzando lo stesso oggetto grafico (itemView)
+			// di un precente cloudNode che era stato selezionato
+			// e.g. se l'item 22 viene selezionato, cambia il foreground e quando viene
+			// ribindato con l'indice 0 rimane il foregound sbagliato!
+			itemView.galleryItemContainer.foreground = null
 		}
 
 		private fun bindNodeImage(node: CloudNodeModel<*>) {
@@ -239,16 +252,18 @@ constructor(
 			}
 		}
 		private fun bindNodeSelection(cloudNodeModel: CloudNodeModel<*>) {
-			itemView.galleryItemContainer.setOnLongClickListener { /* https://stackoverflow.com/a/12230526
-				As you may know, the View hierarchy in Android is represented by a tree.
-				When you return true from the onItemLongClick() - it means that the View that
-				currently received the event is the true event receiver and the event should
-				not be propagated to the other Views in the tree; when you return false -
-				you let the event be passed to the other Views that may consume it.
-				 */
-				toggleSelection(cloudNodeModel)
-				true
-			}
+			// this method is invoked for each item to be displayed!
+
+//			itemView.galleryItemContainer.setOnLongClickListener { /* https://stackoverflow.com/a/12230526
+//				As you may know, the View hierarchy in Android is represented by a tree.
+//				When you return true from the onItemLongClick() - it means that the View that
+//				currently received the event is the true event receiver and the event should
+//				not be propagated to the other Views in the tree; when you return false -
+//				you let the event be passed to the other Views that may consume it.
+//				 */
+//				toggleSelection(cloudNodeModel)
+//				true
+//			}
 
 			enableNodeClick{
 				toggleSelection(cloudNodeModel)
@@ -257,7 +272,7 @@ constructor(
 			// first set
 			if (cloudNodeModel.isSelected) {
 				itemView.galleryItemContainer.foreground = getDrawable(R.drawable.rectangle_selection_mode)
-				callback.onSelectedNodesChanged(selectedCloudNodes().size)
+				triggerUpdateSelectedNodesNumberInfo()
 			}
 		}
 
@@ -266,13 +281,13 @@ constructor(
 			cloudNodeModel.isSelected = !cloudNodeModel.isSelected
 
 			// toggle rectangle
-			if (itemView.galleryItemContainer.foreground == null)
+			if (cloudNodeModel.isSelected)
 				itemView.galleryItemContainer.foreground = getDrawable(R.drawable.rectangle_selection_mode)
 			else
 				itemView.galleryItemContainer.foreground = null
 
 			// update screen info
-			callback.onSelectedNodesChanged(selectedCloudNodes().size)
+			triggerUpdateSelectedNodesNumberInfo()
 		}
 
 		fun showProgress(progress: ProgressModel?) {
@@ -342,8 +357,13 @@ constructor(
 		}
 
 		fun selectNode(checked: Boolean) {
-			// TODO: something to show that this photo was successfully selected
-//			itemView.itemCheckBox.isChecked = checked
+			if (checked)
+				itemView.galleryItemContainer.foreground = getDrawable(R.drawable.rectangle_selection_mode)
+			else
+				itemView.galleryItemContainer.foreground = null
+
+			bound?.let { it.isSelected = checked }
+			triggerUpdateSelectedNodesNumberInfo()
 		}
 
 		abstract inner class UiStateTest(val isForFile: Boolean) {
