@@ -10,7 +10,7 @@ import javax.inject.Inject
 class DateHelper @Inject constructor() {
 
 	private val dateFormatter by lazy {
-		SimpleDateFormat("MM/yyyy")
+		SimpleDateFormat("yyyy/MM/dd - HH:mm")
 	}
 
 	fun getFormattedModifiedDate(modified: Date?): String? {
