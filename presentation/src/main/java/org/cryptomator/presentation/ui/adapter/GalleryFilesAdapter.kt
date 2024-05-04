@@ -32,6 +32,7 @@ import org.cryptomator.util.file.MimeTypes
 import javax.inject.Inject
 import kotlinx.android.synthetic.main.item_gallery_files_node.view.cloudFileProgress
 import kotlinx.android.synthetic.main.item_gallery_files_node.view.galleryCloudNodeImage
+import kotlinx.android.synthetic.main.item_gallery_files_node.view.galleryItemContainer
 import kotlinx.android.synthetic.main.item_gallery_files_node.view.progressIcon
 import kotlinx.android.synthetic.main.view_cloud_file_progress.view.cloudFile
 
@@ -215,7 +216,7 @@ constructor(
 					switchTo(FolderSelection())
 				}
 				disableNodeLongClick()
-//				bindNodeSelection(node)
+				bindNodeSelection(node)
 			}
 		}
 
@@ -237,16 +238,42 @@ constructor(
 				}
 			}
 		}
+		private fun bindNodeSelection(cloudNodeModel: CloudNodeModel<*>) {
+			itemView.galleryItemContainer.setOnLongClickListener { /* https://stackoverflow.com/a/12230526
+				As you may know, the View hierarchy in Android is represented by a tree.
+				When you return true from the onItemLongClick() - it means that the View that
+				currently received the event is the true event receiver and the event should
+				not be propagated to the other Views in the tree; when you return false -
+				you let the event be passed to the other Views that may consume it.
+				 */
+				toggleSelection(cloudNodeModel)
+				true
+			}
 
-//		private fun bindNodeSelection(cloudNodeModel: CloudNodeModel<*>) {
-//			itemView.itemCheckBox.setOnCheckedChangeListener { _, isChecked ->
-//				cloudNodeModel.isSelected = isChecked
-//				callback.onSelectedNodesChanged(selectedCloudNodes().size)
-//			}
-//			enableNodeClick { itemView.itemCheckBox.toggle() }
-//
-//			itemView.itemCheckBox.isChecked = cloudNodeModel.isSelected
-//		}
+			enableNodeClick{
+				toggleSelection(cloudNodeModel)
+			}
+
+			// first set
+			if (cloudNodeModel.isSelected) {
+				itemView.galleryItemContainer.foreground = getDrawable(R.drawable.rectangle_selection_mode)
+				callback.onSelectedNodesChanged(selectedCloudNodes().size)
+			}
+		}
+
+		private fun toggleSelection(cloudNodeModel : CloudNodeModel<*>) {
+			// toggle selection
+			cloudNodeModel.isSelected = !cloudNodeModel.isSelected
+
+			// toggle rectangle
+			if (itemView.galleryItemContainer.foreground == null)
+				itemView.galleryItemContainer.foreground = getDrawable(R.drawable.rectangle_selection_mode)
+			else
+				itemView.galleryItemContainer.foreground = null
+
+			// update screen info
+			callback.onSelectedNodesChanged(selectedCloudNodes().size)
+		}
 
 		fun showProgress(progress: ProgressModel?) {
 			bound?.progress = progress
