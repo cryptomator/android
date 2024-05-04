@@ -494,11 +494,13 @@ constructor(
 			return node.name.first().toString()
 		}
 
-		val formattedModifiedDate = dateHelper.getModifiedDate((node as CloudFileModel).modified)
+		node as CloudFileModel
+		val formattedFileSize = fileSizeHelper.getFormattedFileSize((node).size)
+		val formattedModifiedDate = dateHelper.getModifiedDate((node).modified)
 
 		return when (comparator) {
 			is CloudNodeModelDateNewestFirstComparator, is CloudNodeModelDateOldestFirstComparator -> formattedModifiedDate ?: node.name.first().toString()
-//			is CloudNodeModelSizeBiggestFirstComparator, is CloudNodeModelSizeSmallestFirstComparator -> formattedFileSize ?: node.name.first().toString()
+			is CloudNodeModelSizeBiggestFirstComparator, is CloudNodeModelSizeSmallestFirstComparator -> formattedFileSize ?: node.name.first().toString()
 			else -> all[position].name.first().toString()
 		}
 	}
