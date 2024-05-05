@@ -430,11 +430,12 @@ class BrowseFilesActivity : BaseActivity(), //
 		return createFragmentFor(folder, browseFilesIntent.chooseCloudNodeSettings())
 	}
 	private fun createFragmentFor(folder: CloudFolderModel, chooseCloudNodeSettings : ChooseCloudNodeSettings?) : Fragment {
-		return if(isAutoUploadFolder(browseFilesIntent.vaultId(), folder.path)) {
-			GalleryFragment.newInstance(folder, chooseCloudNodeSettings)
-		} else {
-			BrowseFilesFragment.newInstance(folder, chooseCloudNodeSettings)
+		browseFilesIntent.vaultId()?.let { id ->
+			if(isAutoUploadFolder(id, folder.path)) {
+				return GalleryFragment.newInstance(folder, chooseCloudNodeSettings)
+			}
 		}
+		return BrowseFilesFragment.newInstance(folder, chooseCloudNodeSettings)
 	}
 
 	private fun isAutoUploadFolder(vaultId : Long, folderPath : String) : Boolean {
