@@ -166,23 +166,19 @@ open class CryptoImplVaultFormat7 : CryptoImplDecorator {
 			}
 		}.map { node ->
 			ciphertextToCleartextNode(cryptoFolder, dirId, node)
-		}.map { cryptoNode ->
-
+		}.onEach { cryptoNode ->
 			// if present, associate cached-thumbnail to the Cryptofile
-			if(cryptoNode is CryptoFile && isImageMediaType(cryptoNode.name)) {
+			if (cryptoNode is CryptoFile && isImageMediaType(cryptoNode.name)) {
 				val cacheKey = generateCacheKey(cryptoNode.cloudFile)
-
 				cryptoNode.cloudFile.cloud?.type()?.let { cloudType ->
-					val diskCache = super.getLruCacheFor(cloudType)
-					diskCache?.let {
-						val cacheFile = it[cacheKey]
+					getLruCacheFor(cloudType)?.let { diskCache ->
+						val cacheFile = diskCache[cacheKey]
 						if (cacheFile != null) {
 							cryptoNode.thumbnail = cacheFile
 						}
 					}
 				}
 			}
-			cryptoNode
 		}.toList().filterNotNull()
 	}
 
@@ -468,13 +464,12 @@ open class CryptoImplVaultFormat7 : CryptoImplDecorator {
 			}
 
 			// Delete thumbnail file from cache
-			val diskCache = super.getLruCacheFor(node.cloudFile.cloud!!.type()!!)
 			val cacheKey = generateCacheKey(node.cloudFile)
-
-			diskCache?.let {
-				val cacheFile = it[cacheKey]
-				if (cacheFile != null) {
-					diskCache.delete(cacheKey)
+			node.cloudFile.cloud?.type()?.let { cloudType ->
+				getLruCacheFor(cloudType)?.let { diskCache ->
+					if (diskCache[cacheKey] != null) {
+						diskCache.delete(cacheKey)
+					}
 				}
 			}
 		}
