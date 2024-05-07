@@ -417,7 +417,6 @@ abstract class CryptoImplDecorator(
 				// this.append(null obj) will add the string "null"
 				this.append("c") // "common"
 			this.append("-")
-
 			this.append(cloudFile.path.hashCode())
 		}
 	}
