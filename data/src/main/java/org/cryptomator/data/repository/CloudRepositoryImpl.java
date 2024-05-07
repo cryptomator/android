@@ -19,13 +19,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.inject.Inject;
-import javax.inject.Provider;
 import javax.inject.Singleton;
 
 @Singleton
 class CloudRepositoryImpl implements CloudRepository {
 
-	private final Provider<CloudDao> cloudDao;
+	private final CloudDao cloudDao;
 	private final CryptoCloudFactory cryptoCloudFactory;
 	private final CloudEntityMapper mapper;
 	private final DispatchingCloudContentRepository dispatchingCloudContentRepository;
@@ -33,7 +32,7 @@ class CloudRepositoryImpl implements CloudRepository {
 	@Inject
 	public CloudRepositoryImpl(CloudEntityMapper mapper, //
 			CryptoCloudFactory cryptoCloudFactory, //
-			Provider<CloudDao> cloudDao, //
+			CloudDao cloudDao, //
 			DispatchingCloudContentRepository dispatchingCloudContentRepository) {
 		this.cloudDao = cloudDao;
 		this.cryptoCloudFactory = cryptoCloudFactory;
@@ -44,7 +43,7 @@ class CloudRepositoryImpl implements CloudRepository {
 	@Override
 	public List<Cloud> clouds(CloudType cloudType) throws BackendException {
 		List<Cloud> cloudsFromType = new ArrayList<>();
-		List<Cloud> allClouds = mapper.fromEntities(cloudDao.get().loadAll());
+		List<Cloud> allClouds = mapper.fromEntities(cloudDao.loadAll());
 
 		for (Cloud cloud : allClouds) {
 			if (cloud.type().equals(cloudType)) {
@@ -57,7 +56,7 @@ class CloudRepositoryImpl implements CloudRepository {
 
 	@Override
 	public List<Cloud> allClouds() throws BackendException {
-		return mapper.fromEntities(cloudDao.get().loadAll());
+		return mapper.fromEntities(cloudDao.loadAll());
 	}
 
 	@Override
@@ -66,7 +65,7 @@ class CloudRepositoryImpl implements CloudRepository {
 			throw new IllegalArgumentException("Can not store non persistent cloud");
 		}
 
-		Cloud storedCloud = mapper.fromEntity(cloudDao.get().storeReplacingAndReload(mapper.toEntity(cloud)));
+		Cloud storedCloud = mapper.fromEntity(cloudDao.storeReplacingAndReload(mapper.toEntity(cloud)));
 
 		dispatchingCloudContentRepository.updateCloudContentRepositoryFor(storedCloud);
 
@@ -78,7 +77,7 @@ class CloudRepositoryImpl implements CloudRepository {
 		if (!cloud.persistent()) {
 			throw new IllegalArgumentException("Can not delete non persistent cloud");
 		}
-		cloudDao.get().delete(mapper.toEntity(cloud));
+		cloudDao.delete(mapper.toEntity(cloud));
 		dispatchingCloudContentRepository.removeCloudContentRepositoryFor(cloud);
 	}
 

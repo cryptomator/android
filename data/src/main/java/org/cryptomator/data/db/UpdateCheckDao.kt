@@ -32,3 +32,21 @@ interface UpdateCheckDao {
 	fun delete(entity: UpdateCheckEntity)
 
 }
+
+internal class DelegatingUpdateCheckDao(private val database: Invalidatable<CryptomatorDatabase>) : UpdateCheckDao {
+
+	private val delegate: UpdateCheckDao
+		get() = database.call().updateCheckDao()
+
+	override fun load(id: Long): UpdateCheckEntity = delegate.load(id)
+
+	override fun loadAll(): List<UpdateCheckEntity> = delegate.loadAll()
+
+	override fun storeReplacing(entity: UpdateCheckEntity): RowId = delegate.storeReplacing(entity)
+
+	override fun loadFromRowId(rowId: RowId): UpdateCheckEntity = delegate.loadFromRowId(rowId)
+
+	override fun storeReplacingAndReload(entity: UpdateCheckEntity): UpdateCheckEntity = delegate.storeReplacingAndReload(entity)
+
+	override fun delete(entity: UpdateCheckEntity) = delegate.delete(entity)
+}

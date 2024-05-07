@@ -31,3 +31,21 @@ interface VaultDao {
 	@Delete
 	fun delete(entity: VaultEntity)
 }
+
+internal class DelegatingVaultDao(private val database: Invalidatable<CryptomatorDatabase>) : VaultDao {
+
+	private val delegate: VaultDao
+		get() = database.call().vaultDao()
+
+	override fun load(id: Long): VaultEntity = delegate.load(id)
+
+	override fun loadAll(): List<VaultEntity> = delegate.loadAll()
+
+	override fun storeReplacing(entity: VaultEntity): RowId = delegate.storeReplacing(entity)
+
+	override fun loadFromRowId(rowId: RowId): VaultEntity = delegate.loadFromRowId(rowId)
+
+	override fun storeReplacingAndReload(entity: VaultEntity): VaultEntity = delegate.storeReplacingAndReload(entity)
+
+	override fun delete(entity: VaultEntity) = delegate.delete(entity)
+}

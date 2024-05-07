@@ -70,7 +70,7 @@ class UpgradeDatabaseTest {
 		instrumentation, //
 		CryptomatorDatabase::class.java, //
 		listOf(), //TODO AutoSpecs
-		DatabaseOpenHelperFactory()
+		DatabaseOpenHelperFactory { throw IllegalStateException() }
 	)
 
 	@Before

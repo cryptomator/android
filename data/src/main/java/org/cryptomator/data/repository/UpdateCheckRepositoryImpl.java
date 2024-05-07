@@ -34,7 +34,6 @@ import java.security.spec.X509EncodedKeySpec;
 
 import javax.annotation.Nullable;
 import javax.inject.Inject;
-import javax.inject.Provider;
 import javax.inject.Singleton;
 
 import okhttp3.OkHttpClient;
@@ -49,12 +48,12 @@ public class UpdateCheckRepositoryImpl implements UpdateCheckRepository {
 
 	private static final String HOSTNAME_LATEST_VERSION = "https://api.cryptomator.org/android/latest-version.json";
 
-	private final Provider<UpdateCheckDao> updateCheckDao;
+	private final UpdateCheckDao updateCheckDao;
 	private final OkHttpClient httpClient;
 	private final Context context;
 
 	@Inject
-	UpdateCheckRepositoryImpl(Provider<UpdateCheckDao> updateCheckDao, Context context) {
+	UpdateCheckRepositoryImpl(UpdateCheckDao updateCheckDao, Context context) {
 		this.httpClient = httpClient();
 		this.updateCheckDao = updateCheckDao;
 		this.context = context;
@@ -74,7 +73,7 @@ public class UpdateCheckRepositoryImpl implements UpdateCheckRepository {
 			return Optional.absent();
 		}
 
-		final UpdateCheckEntity entity = updateCheckDao.get().load(1L);
+		final UpdateCheckEntity entity = updateCheckDao.load(1L);
 
 		if (entity.getVersion() != null && entity.getVersion().equals(latestVersion.version) && entity.getApkSha256() != null) {
 			return Optional.of(new UpdateCheckImpl("", entity));
@@ -85,7 +84,7 @@ public class UpdateCheckRepositoryImpl implements UpdateCheckRepository {
 		entity.setVersion(updateCheck.getVersion());
 		entity.setApkSha256(updateCheck.getApkSha256());
 
-		updateCheckDao.get().storeReplacing(entity);
+		updateCheckDao.storeReplacing(entity);
 
 		return Optional.of(updateCheck);
 	}
@@ -93,22 +92,22 @@ public class UpdateCheckRepositoryImpl implements UpdateCheckRepository {
 	@Nullable
 	@Override
 	public String getLicense() {
-		return updateCheckDao.get().load(1L).getLicenseToken();
+		return updateCheckDao.load(1L).getLicenseToken();
 	}
 
 	@Override
 	public void setLicense(String license) {
-		final UpdateCheckEntity entity = updateCheckDao.get().load(1L);
+		final UpdateCheckEntity entity = updateCheckDao.load(1L);
 
 		entity.setLicenseToken(license);
 
-		updateCheckDao.get().storeReplacing(entity);
+		updateCheckDao.storeReplacing(entity);
 	}
 
 	@Override
 	public void update(File file) throws GeneralUpdateErrorException {
 		try {
-			final UpdateCheckEntity entity = updateCheckDao.get().load(1L);
+			final UpdateCheckEntity entity = updateCheckDao.load(1L);
 
 			final Request request = new Request //
 					.Builder() //

@@ -31,3 +31,21 @@ interface CloudDao {
 	@Delete
 	fun delete(entity: CloudEntity)
 }
+
+internal class DelegatingCloudDao(private val database: Invalidatable<CryptomatorDatabase>) : CloudDao {
+
+	private val delegate: CloudDao
+		get() = database.call().cloudDao()
+
+	override fun load(id: Long): CloudEntity = delegate.load(id)
+
+	override fun loadAll(): List<CloudEntity> = delegate.loadAll()
+
+	override fun storeReplacing(entity: CloudEntity): RowId = delegate.storeReplacing(entity)
+
+	override fun loadFromRowId(rowId: RowId): CloudEntity = delegate.loadFromRowId(rowId)
+
+	override fun storeReplacingAndReload(entity: CloudEntity): CloudEntity = delegate.storeReplacingAndReload(entity)
+
+	override fun delete(entity: CloudEntity) = delegate.delete(entity)
+}

@@ -8,7 +8,6 @@ import org.cryptomator.domain.Vault;
 import org.cryptomator.domain.exception.BackendException;
 
 import javax.inject.Inject;
-import javax.inject.Provider;
 import javax.inject.Singleton;
 
 import static org.cryptomator.domain.Vault.aVault;
@@ -17,10 +16,10 @@ import static org.cryptomator.domain.Vault.aVault;
 public class VaultEntityMapper extends EntityMapper<VaultEntity, Vault> {
 
 	private final CloudEntityMapper cloudEntityMapper;
-	private final Provider<CloudDao> cloudDao;
+	private final CloudDao cloudDao;
 
 	@Inject
-	public VaultEntityMapper(CloudEntityMapper cloudEntityMapper, Provider<CloudDao> cloudDao) {
+	public VaultEntityMapper(CloudEntityMapper cloudEntityMapper, CloudDao cloudDao) {
 		this.cloudDao = cloudDao;
 		this.cloudEntityMapper = cloudEntityMapper;
 	}
@@ -44,7 +43,7 @@ public class VaultEntityMapper extends EntityMapper<VaultEntity, Vault> {
 		if (entity.getFolderCloudId() == null) {
 			return null;
 		}
-		return cloudEntityMapper.fromEntity(cloudDao.get().load(entity.getFolderCloudId()));
+		return cloudEntityMapper.fromEntity(cloudDao.load(entity.getFolderCloudId()));
 	}
 
 	@Override

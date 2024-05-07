@@ -24,6 +24,7 @@ import org.cryptomator.util.named
 import java.io.File
 import java.io.InputStream
 import java.util.concurrent.Callable
+import javax.inject.Named
 import javax.inject.Provider
 import javax.inject.Qualifier
 import javax.inject.Singleton
@@ -39,15 +40,34 @@ class DatabaseModule {
 
 	@Singleton
 	@Provides
-	fun provideCryptomatorDatabase(context: Context, @DbInternal migrations: Array<Migration>, @DbInternal dbTemplateStreamCallable: Callable<InputStream>): CryptomatorDatabase {
+	fun provideCryptomatorDatabase(@DbInternal delegate: Provider<CryptomatorDatabase>): Invalidatable<CryptomatorDatabase> = Invalidatable {
+		delegate.get()
+	}
+
+	@Singleton
+	@Provides
+	@Named("databaseInvalidationCallback")
+	fun provideInvalidationCallback(invalidatable: Invalidatable<CryptomatorDatabase>): Function0<Unit> {
+		return invalidatable::invalidate
+	}
+
+	@Provides
+	@DbInternal
+	internal fun provideInternalCryptomatorDatabase(
+		context: Context, //
+		@DbInternal migrations: Array<Migration>, //
+		@DbInternal dbTemplateStreamCallable: Callable<InputStream>, //
+		openHelperFactory: DatabaseOpenHelperFactory, //
+	): CryptomatorDatabase {
 		LOG.i("Building database (target version: %s)", CRYPTOMATOR_DATABASE_VERSION)
 		ThreadUtil.assumeNotMainThread()
 		return Room.databaseBuilder(context, CryptomatorDatabase::class.java, DATABASE_NAME) //
 			.createFromInputStream(dbTemplateStreamCallable) //
 			.addMigrations(*migrations) //
 			.addCallback(DatabaseCallback) //
-			.openHelperFactory(DatabaseOpenHelperFactory().asCacheControlled()) //
+			.openHelperFactory(openHelperFactory.asCacheControlled()) //
 			.setJournalMode(RoomDatabase.JournalMode.TRUNCATE) //
+			.fallbackToDestructiveMigrationFrom(0) //
 			.build() //Fails if no migration is found (especially when downgrading)
 			.also { //
 				//Migrations are only triggered once the database is used for the first time.
@@ -77,20 +97,20 @@ class DatabaseModule {
 
 	@Singleton
 	@Provides
-	fun provideCloudDao(database: Provider<CryptomatorDatabase>): CloudDao {
-		return database.get().cloudDao()
+	fun provideCloudDao(database: Invalidatable<CryptomatorDatabase>): CloudDao {
+		return DelegatingCloudDao(database)
 	}
 
 	@Singleton
 	@Provides
-	fun provideUpdateCheckDao(database: Provider<CryptomatorDatabase>): UpdateCheckDao {
-		return database.get().updateCheckDao()
+	fun provideUpdateCheckDao(database: Invalidatable<CryptomatorDatabase>): UpdateCheckDao {
+		return DelegatingUpdateCheckDao(database)
 	}
 
 	@Singleton
 	@Provides
-	fun provideVaultDao(database: Provider<CryptomatorDatabase>): VaultDao {
-		return database.get().vaultDao()
+	fun provideVaultDao(database: Invalidatable<CryptomatorDatabase>): VaultDao {
+		return DelegatingVaultDao(database)
 	}
 
 	@Singleton
@@ -130,7 +150,7 @@ class DatabaseModule {
 object DatabaseCallback : RoomDatabase.Callback() {
 
 	override fun onCreate(db: SupportSQLiteDatabase) {
-		//This should not be called
+		//This should not be called except if there was corruption and the recovery in CopyOpenHelper failed; in that case PatchedCallback will invalidate the db
 		throw UnsupportedOperationException("Creation is handled as upgrade")
 	}
 
