@@ -240,6 +240,7 @@ internal class CryptoImplVaultFormatPre7(
 	@Throws(BackendException::class)
 	override fun move(source: CryptoFile, target: CryptoFile): CryptoFile {
 		assertCryptoFileAlreadyExists(target)
+		renameFileInCache(source, target)
 		return file(target, cloudContentRepository.move(source.cloudFile, target.cloudFile), source.size)
 	}
 
