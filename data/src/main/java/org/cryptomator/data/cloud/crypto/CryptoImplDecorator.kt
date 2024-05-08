@@ -439,8 +439,8 @@ abstract class CryptoImplDecorator(
 				options.inSampleSize = 4 // pixel number reduced by a factor of 1/16
 
 				val bitmap = BitmapFactory.decodeStream(thumbnailReader, null, options)
-				val thumbnailWidth = 100
-				val thumbnailHeight = 100
+				val thumbnailWidth = 175
+				val thumbnailHeight = 175
 				thumbnailBitmap = ThumbnailUtils.extractThumbnail(bitmap, thumbnailWidth, thumbnailHeight)
 
 				if (thumbnailBitmap != null) {
