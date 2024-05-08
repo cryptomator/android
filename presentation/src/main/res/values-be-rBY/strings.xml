@@ -17,8 +17,13 @@
 	<string name="error_server_not_found">Сэрвер ня знойдзены.</string>
 	<!-- # clouds -->
 	<!-- ## cloud names -->
+	<string name="cloud_names_local_storage">Мясцовае сховішча</string>
 	<!-- # permission -->
 	<!-- ## permission messages -->
+	<string name="permission_message_export_file">Cryptomator патрэбны доступ да сховішча, каб экспартаваць файлы</string>
+	<string name="permission_message_upload_file">Cryptomator патрэбны доступ да сховішча, каб запампаваць файлы</string>
+	<string name="permission_message_share_file">Cryptomator патрэбны доступ да сховішча, каб абагуліць файлы</string>
+	<string name="permission_revoked_re_request_permission">Cryptomator ня мае дазволу на доступ да гэтай мясцовасьці. Калі ласка, абяры гэту тэчку яшчэ раз, каб аднавіць дазвол.</string>
 	<string name="snack_bar_action_title_settings">Налады</string>
 	<string name="snack_bar_action_title_search">Шукаць</string>
 	<string name="snack_bar_action_title_search_previous">Папярэдні</string>
@@ -31,8 +36,10 @@
 	<string name="snack_bar_action_title_sort_biggest">Найбуйнейшыя спачатку</string>
 	<string name="snack_bar_action_title_sort_smallest">Найменшыя спачатку</string>
 	<string name="snack_bar_cryptomator_variants_title">Чытаць далей</string>
+	<string name="snack_bar_cryptomator_variants_hint">Воблаку ня мае ў сьпісе?</string>
 	<!-- # screens -->
 	<!-- # screen: vault list -->
+	<string name="screen_vault_list_actions_title">Дадаць да Cryptomator</string>
 	<string name="screen_vault_list_action_create_new_vault">Стварыць новую скарбніцу</string>
 	<string name="screen_vault_list_action_add_existing_vault">Дадаць існуючую скрабніцу</string>
 	<string name="screen_vault_list_vault_action_delete">Выдаліць</string>
@@ -45,22 +52,37 @@
 	<string name="screen_file_browser_create_new_vault_extra_text">Імя скрабніцы: %1$s</string>
 	<string name="screen_file_browser_move_button_text">Перамясціць</string>
 	<string name="screen_file_browser_msg_empty_folder">Пустая тэчка</string>
+	<string name="screen_file_browser_file_info_label_date">зьменена %1$s таму</string>
 	<string name="screen_file_browser_share_intent_chooser_title">Абагуліць з</string>
 	<string name="screen_file_browser_share_destination_title">Абяры месцазнаходжанне</string>
 	<string name="screen_file_browser_share_button_text">Абраць</string>
 	<string name="screen_file_browser_nothing_to_share">Няма што абагуліць</string>
+	<string name="screen_file_browser_actions_title">Дадаць да %1$s</string>
+	<string name="screen_file_browser_action_create_folder">Стварыць тэчку</string>
+	<string name="screen_file_browser_action_create_new_text_file">Стварыць тэкставы файл</string>
+	<string name="screen_file_browser_action_upload_files">Запампаваць файлы</string>
+	<string name="screen_file_browser_upload_files_chooser_title">Файлы</string>
+	<string name="screen_file_browser_msg_file_exported">Файл экспартаваны</string>
+	<string name="screen_file_browser_msg_files_exported">Файлы экспартаваныя</string>
+	<string name="screen_file_browser_nothing_to_export">Няма чаго экспартаваць</string>
+	<string name="screen_file_browser_msg_creating_download_dir_failed">Не атрымалася стварыць тэчку для спамповак</string>
 	<string name="screen_file_browser_node_action_share">Абагуліць</string>
 	<string name="screen_file_browser_node_action_rename">Пераназваць</string>
 	<string name="screen_file_browser_node_action_edit_text">Рэдагаваць</string>
 	<string name="screen_file_browser_node_action_export">Экспартаваць</string>
 	<string name="screen_file_browser_node_action_delete">Выдаліць</string>
+	<string name="screen_file_browser_node_action_open_with_text">Адчыніць праз&#8230;</string>
 	<string name="screen_file_browser_selection_mode_title_zero_elements">Вылучыць элементы</string>
 	<string name="screen_file_browser_selection_mode_title_one_or_more_elements">%1$d вылучана</string>
 	<string name="screen_file_browser_select_items">Вылучыць</string>
 	<string name="screen_file_browser_select_all_items">Вылучыць усё</string>
+	<string name="screen_file_browser_refresh_items">Абнавiць</string>
+	<string name="screen_file_browser_no_connection_message">Няма злучэння</string>
+	<string name="screen_file_browser_no_connection_button_text">Паспрабаваць ізноў</string>
 	<!-- ## screen: text editor -->
 	<string name="screen_text_editor_save_success">Паспяхова захавана</string>
 	<!-- ## screen: share files -->
+	<string name="screen_share_files_title">Захаваць %1$s у&#8230;</string>
 	<string name="screen_share_files_content_text">тэкст</string>
 	<string name="screen_share_files_content_file">файл</string>
 	<string name="screen_share_files_content_files">файлы</string>

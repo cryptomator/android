@@ -5,14 +5,29 @@
 	<!-- # error messages -->
 	<string name="error_generic">ஒரு பிழை ஏற்பட்டுள்ளது</string>
 	<string name="error_authentication_failed">அங்கீகரிப்பு தோல்வியுற்றது</string>
+	<string name="error_authentication_failed_re_authenticate">அங்கீகாரம் தோல்வியுற்றது, தயவுசெய்து %1$s பயன்படுத்தி உள்நுழையவும்</string>
 	<string name="error_no_network_connection">நெட்வொர்க் இணைப்பு இல்லை</string>
 	<string name="error_invalid_passphrase">தவறான கடவுச்சொல்</string>
+	<string name="error_file_or_folder_exists">ஏற்கனவே \'\' என்ற பெயரில் வெறெரு அரம் அல்லது கோப்புறை உள்ளது.</string>
+	<string name="error_vault_version_not_supported">%1$s என்ற பதிப்புரு கொண்ட பெட்டகம் ஆதரவற்றது. இப்பெட்டகம் பழைய அல்லது புதிய பதிப்புரு கொண்ட Cryptomator-ஆல் உருவாக்கபட்டது.</string>
+	<string name="error_vault_config_file_missing_due_to_format_999">%1$s என்ற பெயர் கொண்ட கோப்பு உமது vault folder-இல் காணவில்லை. இந்தக் கோப்பு மேகக்கணியில் இருப்பதை உறுதி செய்து கொள்ளவும்.</string>
 	<string name="error_vault_already_exists">பெட்டகம் ஏற்கனவே உள்ளது.</string>
 	<string name="error_no_such_file">கோப்பு இருப்பில் இல்லை.</string>
 	<string name="error_vault_has_been_locked">பெட்டகம் பூட்டப்பட்டுள்ளது.</string>
 	<string name="error_cloud_already_exists">மேகக்கணி ஏற்கனவே உள்ளது.</string>
 	<string name="error_activity_not_found">இந்தக் கோப்பைத் திறக்கக்கூடிய செயலியைப் பதிவிறக்கவும்.</string>
 	<string name="error_server_not_found">சேவையகம் காணப்படவில்லை.</string>
+	<string name="error_device_policy_manager_not_found">உங்கள் சாதன அமைப்புகளைத் திறந்து, திரைப் பூட்டைக் அமைக்கவும்</string>
+	<string name="error_export_illegal_file_name">ஏற்றுமதி தோல்வியடைந்தது. கோப்பு பெயர்களிலிருந்து சிறப்பு எழுத்துக்களை அகற்றி மீண்டும் ஏற்றுமதி செய்ய முயற்சிக்கவும்.</string>
+	<string name="error_name_contains_invalid_characters">சிறப்பு எழுத்துகள் இருக்க கூடாது.</string>
+	<string name="error_names_contains_invalid_characters">கோப்புகளின் பெயரில் சிறப்பு எழுத்துக்கள் இருக்க கூடாது.</string>
+	<string name="error_vault_name_contains_invalid_characters">பெட்டகத்தின் பெயரில் சிறப்பு எழுத்துக்கள் இருக்க கூடாது.</string>
+	<string name="error_general_update">புதுப்பிப்பு சரிபார்ப்பு தோல்வியடைந்தது. பொதுவான பிழை ஏற்பட்டது.</string>
+	<string name="error_update_no_internet">புதுப்பிப்பு சரிபார்ப்பு தோல்வியடைந்தது. இணைய இணைப்பு இல்லை.</string>
+	<string name="error_biometric_auth_aborted">உயிரியளவுகள் உறுதிசெய்தல் கைவிடப்பட்டது</string>
+	<string name="error_vault_config_loading">பெட்டகத்தின் உள்ளமைவை ஏற்றும்போது பொதுவான பிழை ஏற்பட்டது</string>
+	<string name="error_file_not_found_after_opening_using_3party">மீண்டும் Cryptomator-இற்கு மாறியபிறகு, உள்ளூர் கோப்பு இல்லை. சாத்தியமான மாற்றங்களை மீண்டும் மேகக்கணிக்கு பரப்ப முடியாது.</string>
+	<string name="error_no_such_bucket">இப்பெயருள்ள bucket இல்லை</string>
 	<!-- # clouds -->
 	<!-- ## cloud names -->
 	<string name="cloud_names_local_storage">அகச் சேமிப்பகம்</string>

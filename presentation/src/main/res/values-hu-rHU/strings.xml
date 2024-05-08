@@ -198,6 +198,8 @@
 	<string name="screen_settings_security_label">Biztonsági tippek</string>
 	<string name="screen_settings_section_version">Verzió</string>
 	<string name="screen_settings_advanced_settings">Speciális beállítások</string>
+	<string name="screen_settings_microsoft_apps_workaround_label">Megkerülés Microsoft-fájlok megnyitásával</string>
+	<string name="screen_settings_microsoft_apps_workaround_summary">Fájlok megnyitása Microsoft-alkalmazásokban írási engedéllyel</string>
 	<string name="screen_settings_background_unlock_preparation_label">A feloldás felgyorsítása</string>
 	<string name="screen_settings_background_unlock_preparation_label_summary">Trezor konfigurációjának letöltése a háttérben a jelszó/biometrikus hitelesítés megadása közben</string>
 	<string name="screen_settings_keep_unlocked_while_editing_files">Feloldvatartás</string>
@@ -220,6 +222,13 @@
 	<string name="screen_cryptomator_variants_lite_description">Nincsenek benne, mert API kulcsokra van szükségük.</string>
 	<string name="screen_cryptomator_variants_lite_install">Telepítés</string>
 	<string name="screen_cryptomator_variants_fdroid_title">Cryptomator F-Droid tároló</string>
+	<string name="screen_cryptomator_variants_fdroid_description">Kizárva, mert saját függőségeket tartalmaz.</string>
+	<string name="screen_cryptomator_variants_fdroid_add_repo_hint">A Cryptomator tároló hozzáadása az F-Droid apphoz.</string>
+	<string name="screen_cryptomator_variants_fdroid_add_repo">Hozzáadás</string>
+	<string name="screen_cryptomator_variants_fdroid_install_hint">Cryptomator telepítése F-Droid segítségével.\nHa egy nem talált hiba jelenik meg, várjon amíg az F-Droid szinkronizáció befejeződik.</string>
+	<string name="screen_cryptomator_variants_website_title">Weboldal</string>
+	<string name="screen_cryptomator_variants_website_description">Zárt forráskódú függőségeket tartalmaz.</string>
+	<string name="screen_cryptomator_variants_installation_hint">Az alkalmazás fő F-Droid tároló verziójára vagy verziójáról váltáshoz szükséges az alkalmazás teljes újratelepítése.</string>
 	<!-- # dialogs -->
 	<string name="dialog_button_cancel">Mégse</string>
 	<string name="dialog_enter_password_positive_button">Feloldás</string>
@@ -257,6 +266,7 @@
 	<string name="dialog_unsaved_changes_title">Nem mentett módosításai vannak</string>
 	<string name="dialog_unsaved_changes_message">Biztos, hogy mentés nélkül szeretne kilépni?</string>
 	<string name="dialog_unsaved_changes_discard">Elvetés</string>
+	<string name="dialog_file_name_hint">Fájlnév</string>
 	<string name="dialog_file_name_placeholder">text.txt</string>
 	<string name="dialog_delete_vault_message">Biztosan törli ezt a trezort?</string>
 	<string name="dialog_delete_vault_hint">Ez a művelet eltávolítja a tárolót a listáról, de fizikailag nem törli azt.</string>
@@ -283,6 +293,7 @@
 	<string name="dialog_accept_ssl_certificate_details">Részletek</string>
 	<string name="dialog_accept_ssl_certificate_security_checkbox">Ez biztonsági kockázatot jelent. Tudom, mit csinálok.</string>
 	<string name="dialog_ask_ignore_battery_optimizations_title">Akkumulátor-optimalizálás kikapcsolása</string>
+	<string name="dialog_ask_ignore_battery_optimizations_hint">Az új képek és videók lekérdezéséhez anélkül, hogy a háttérben futna, ki kell kapcsolnunk az akkumulátor optimalizálását. De ne aggódj, a %1$s nem fogyaszt sok energiát.\n\nAz alkalmazáshoz állítsd át a \"Nem optimalizált\" opciót \"Minden alkalmazás\"-ra, válaszd ki a %1$s-t, és a \"%2$s\" megérintése után válaszd ki a \"Nem optimalizál\" opciót ebben a párbeszédpanelben.</string>
 	<string name="dialog_ask_ignore_battery_optimizations_checkbox">Ne kérdezze újra</string>
 	<string name="dialog_http_security_hint">A HTTP használata nem biztonságos, helyette a HTTPS használata ajánlott. Ha ismeri a kockázatot, folytathatja HTTP-vel is.</string>
 	<string name="dialog_http_security_checkbox">Váltson HTTPS-re</string>
@@ -295,18 +306,33 @@
 	<string name="dialog_debug_mode_disclaimer_hint">Ebben a módban érzékeny adatok kerülhetnek az eszközön lévő naplófájlba (pl. fájlnevek és -útvonalak). Ez jelszavakra és sütikre nem vonatkozik.\n\n Ne felejtse el minél hamarabb kikapcsolni a fejlesztői módot.</string>
 	<string name="dialog_debug_mode_disclaimer_title">Figyelem</string>
 	<string name="dialog_debug_mode_positive_button">Engedélyezés</string>
+	<string name="dialog_microsoft_workaround_disclaimer_hint">A Microsoft-alkalmazások egy hibája miatt a szerkesztendő fájlt meg kell osztani ezekkel az alkalmazásokkal az eszközön lévő nyilvános médiamappában. Miután a Cryptomator végzett, a nyilvánosan elérhető fájl ismét törlődik, de a Cryptomatornak nincs befolyása arra, hogy mi történik időközben ezzel a fájlal. Győződj meg róla, hogy tisztában vagy ezzel a viselkedéssel, amikor bekapcsolod ezt az opciót. Ez csak a Microsoft fájltípusokra vonatkozik.\n\nAz bekapcsolás után a Cryptomator újraindul.</string>
 	<string name="dialog_disable_app_obscured_disclaimer_title">Figyelem</string>
 	<string name="dialog_disable_app_obscured_positive_button">Letiltás</string>
+	<string name="dialog_app_is_obscured_info_title">Az app el van takarva</string>
+	<string name="dialog_app_is_obscured_info_hint">Egy másik app megjelenít valamit a Cryptomator felett (pl. egy kékfény szűrő vagy éjszakai mód app). Biztonsági okokból a Cryptomator le van tiltva.\n\n<a href="https://docs.cryptomator.org/en/1.6/android/settings/#block-app-when-obscured">Hogyan engedélyezze a Cryptomatort</a></string>
 	<string name="dialog_app_is_obscured_info_neutral_button">Bezár</string>
+	<string name="dialog_confirm_delete_multiple_title">Töröl %1$d elemet?</string>
 	<string name="dialog_confirm_delete_multiple_message">Biztosan törölni akarja ezeket az elemeket?</string>
 	<string name="dialog_confirm_delete_file_message">Biztosan törli ezt a fájlt?</string>
+	<string name="dialog_confirm_delete_folder_message">Ezzel a mappa teljes tartalma törlődik. Biztos, hogy törölni szeretné ezt a mappát?</string>
+	<string name="dialog_enter_license_title">Adjon meg egy érvényes licencet</string>
+	<string name="dialog_enter_license_content">Úgy érzékeltük, hogy a Cryptomatort a Google Play áruházon kívül telepítette. Adjon meg egy érvényes licencet, amit meg tud vásárolni itt: <a href="https://cryptomator.org/android/">https://cryptomator.org/android/</a></string>
+	<string name="dialog_enter_license_not_valid_content">A megadott licenc nem érvényes. Győződjön meg arról, hogy jól írta be.</string>
+	<string name="dialog_enter_license_not_valid_content_desktop_supporter_certificate">A megadott kulcs egy asztali támogatói igazolás. Kérem, adjon meg egy érvényes licencet.</string>
+	<string name="dialog_enter_license_no_content">Nincs licenc megadva. Kérem, adjon meg egy érvényes licencet.</string>
 	<string name="dialog_enter_license_decline_button">Kilépés</string>
+	<string name="dialog_license_confirmation_title">Licenc megerősítése</string>
+	<string name="dialog_license_confirmation_message">Köszönöm %1$s, hogy megadta érvényes licencét.</string>
 	<string name="dialog_update_available_title">Frissítés elérhető</string>
 	<string name="dialog_update_available_update">Frissítés most</string>
 	<string name="dialog_update_available_download_site">Ugrás a Letöltési oldalra</string>
 	<string name="dialog_update_available_cancel">Később</string>
 	<string name="dialog_download_update_title">Letöltés folyamatban</string>
+	<string name="dialog_sym_link_title">A mappa egy szimbolikus link</string>
 	<string name="dialog_sym_link_back_button">Vissza</string>
+	<string name="dialog_no_dir_file_title">Nem lehet betölteni a könyvtár tartalmát</string>
+	<string name="dialog_pcloud_credentials_updated">Ha új pCloud fiókot szeretne hozzáadni, koppintson erre az url-re: <a href="https://www.pcloud.com">www.pcloud.com</a>, jelentkezzen ki a jelenlegi fiókból és koppintson újra a \'+\' gombra az appban, hogy új felhő kapcsolatot létesítsen.</string>
 	<string name="permission_snackbar_auth_local_vault">A Cryptomatornak tárhely-hozzáférésre van szüksége a trezorok használatához</string>
 	<string name="permission_snackbar_auth_auto_upload">A Cryptomatornak tárhely-hozzáférésre van szüksége az automatikus fotófeltöltés használatához</string>
 	<!-- # error reports -->
@@ -352,6 +378,7 @@
 	<string name="notification_auto_upload_failed_due_to_folder_not_exists">A feltöltésre kiválasztott mappa már nem elérhető. Menjen a beállításokhoz, és válasszon egy újat</string>
 	<string name="notification_auto_upload_failed_due_to_vault_locked">A trezor zárolva lett a feltöltés során. A folytatáshoz nyissa meg újra</string>
 	<string name="notification_auto_upload_failed_due_to_vault_not_found">Az automatikus feltöltéshez megadott tároló már nem létezik.</string>
+	<string name="notification_auto_upload_failed_due_to_authentication_problem">Koppintson a hitelesítés frissítéséhez.</string>
 	<string name="notification_open_writable_file_title">Írható fájl megnyitása</string>
 	<string name="notification_open_writable_file_message">A trezor a szerkesztés idejéig feloldva marad</string>
 	<string name="notification_update_check_finished_latest">A legfrissebb verzió van telepítve</string>
@@ -365,6 +392,8 @@
 	<string name="screen_settings_license_mail">%1$s</string>
 	<string name="dialog_settings_update_check_interval_title">Frissítések keresésése</string>
 	<string name="screen_settings_check_updates">Frissítések keresése</string>
+	<string name="screen_settings_last_check_updates">Utolsó keresés %1$s</string>
+	<string name="dialog_cache_size_title">Felhőnkénti gyorsítótár mérete</string>
 	<!-- lock timeout names -->
 	<string name="lock_timeout_instant">Azonnal</string>
 	<string name="lock_timeout_1m">1 perc</string>

@@ -506,6 +506,7 @@ open class CryptoImplVaultFormat7 : CryptoImplDecorator {
 									progressAware.onProgress(Progress.progress(UploadState.encryption(cloudFile)).between(0).and(ciphertextSize).withValue(encrypted))
 								}
 								encryptingWritableByteChannel.close()
+								data.modifiedDate(context).ifPresent { encryptedTmpFile.setLastModified(it.time) }
 								progressAware.onProgress(Progress.completed(UploadState.encryption(cloudFile)))
 								val targetFile = targetFile(cryptoFile, cloudFile, replace)
 								return file(
