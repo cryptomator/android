@@ -2,13 +2,14 @@ package org.cryptomator.presentation.ui.fragment
 
 import android.annotation.SuppressLint
 import android.os.Bundle
-import android.util.TypedValue
+import android.graphics.Rect
 import android.view.View
 import android.view.View.GONE
 import android.view.View.VISIBLE
 import android.widget.RelativeLayout
 import androidx.core.content.ContextCompat
-import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.GridLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import org.cryptomator.domain.CloudNode
 import org.cryptomator.generator.Fragment
@@ -24,7 +25,7 @@ import org.cryptomator.presentation.model.CloudFolderModel
 import org.cryptomator.presentation.model.CloudNodeModel
 import org.cryptomator.presentation.model.ProgressModel
 import org.cryptomator.presentation.presenter.BrowseFilesPresenter
-import org.cryptomator.presentation.ui.adapter.BrowseFilesAdapter
+import org.cryptomator.presentation.ui.adapter.GalleryFilesAdapter
 import org.cryptomator.presentation.util.ResourceHelper.Companion.getPixelOffset
 import java.util.Optional
 import javax.inject.Inject
@@ -37,11 +38,11 @@ import kotlinx.android.synthetic.main.view_browses_files_extra_text_and_button.e
 import kotlinx.android.synthetic.main.view_browses_files_extra_text_and_button.extraTextAndButtonLayout
 import kotlinx.android.synthetic.main.view_empty_folder.emptyFolderHint
 
-@Fragment(R.layout.fragment_browse_files)
-open class BrowseFilesFragment : BaseFragment(), FilesFragmentInterface {
+@Fragment(R.layout.fragment_gallery_view)
+class GalleryFragment : BaseFragment(), FilesFragmentInterface {
 
 	@Inject
-	lateinit var cloudNodesAdapter: BrowseFilesAdapter
+	lateinit var cloudNodesAdapter: GalleryFilesAdapter
 
 	@Inject
 	lateinit var browseFilesPresenter: BrowseFilesPresenter
@@ -49,6 +50,8 @@ open class BrowseFilesFragment : BaseFragment(), FilesFragmentInterface {
 	private var navigationMode: ChooseCloudNodeSettings.NavigationMode? = null
 
 	private var filterText: String = ""
+
+	private val COLUMNS : Int = 3
 
 	override var folder: CloudFolderModel
 		get() = requireArguments().getSerializable(ARG_FOLDER) as CloudFolderModel
@@ -61,7 +64,7 @@ open class BrowseFilesFragment : BaseFragment(), FilesFragmentInterface {
 
 	private val refreshListener = SwipeRefreshLayout.OnRefreshListener { browseFilesPresenter.onRefreshTriggered(folder) }
 
-	private val nodeClickListener = object : BrowseFilesAdapter.ItemClickListener {
+	private val nodeClickListener = object : GalleryFilesAdapter.ItemClickListener {
 		override fun onFolderClicked(cloudFolderModel: CloudFolderModel) {
 			browseFilesPresenter.onFolderClicked(cloudFolderModel)
 			filterText = ""
@@ -105,12 +108,23 @@ open class BrowseFilesFragment : BaseFragment(), FilesFragmentInterface {
 		cloudNodesAdapter.setChooseCloudNodeSettings(chooseCloudNodeSettings)
 		navigationMode?.let { cloudNodesAdapter.updateNavigationMode(it) }
 
-		recyclerView.layoutManager = LinearLayoutManager(context())
-//		recyclerView.layoutManager = GridLayoutManager(context(), 2)
+
+		recyclerView.layoutManager = GridLayoutManager(context(), COLUMNS)
 		recyclerView.adapter = cloudNodesAdapter
 		recyclerView.setHasFixedSize(true)
-		recyclerView.setPadding(0, 0, 0, TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 88f, resources.displayMetrics).toInt())
+
+		val spacing = resources.getDimensionPixelSize(global_padding) / 4
+
+		// bottom = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 88f, resources.displayMetrics).toInt()
+		recyclerView.setPadding(spacing, spacing, spacing, spacing)
 		recyclerView.clipToPadding = false
+		recyclerView.clipChildren = false
+
+		recyclerView.addItemDecoration(object : RecyclerView.ItemDecoration() {
+			override fun getItemOffsets(outRect : Rect, view : View, parent : RecyclerView, state : RecyclerView.State) {
+				outRect.set(spacing, spacing, spacing, spacing)
+			}
+		})
 
 		browseFilesPresenter.onFolderRedisplayed(folder)
 
@@ -237,6 +251,7 @@ open class BrowseFilesFragment : BaseFragment(), FilesFragmentInterface {
 			node.isSelected = selected
 			addOrUpdate(node)
 		}
+		cloudNodesAdapter.triggerUpdateSelectedNodesNumberInfo()
 	}
 
 	override fun remove(cloudNode: List<CloudNodeModel<*>>?) {
@@ -244,9 +259,9 @@ open class BrowseFilesFragment : BaseFragment(), FilesFragmentInterface {
 		updateEmptyFolderHint()
 	}
 
-	private fun viewHolderFor(nodeModel: CloudNodeModel<*>?): Optional<BrowseFilesAdapter.VaultContentViewHolder> {
+	private fun viewHolderFor(nodeModel: CloudNodeModel<*>?): Optional<GalleryFilesAdapter.GalleryContentViewHolder> {
 		val positionOf = cloudNodesAdapter.positionOf(nodeModel)
-		return Optional.ofNullable(recyclerView.findViewHolderForAdapterPosition(positionOf) as? BrowseFilesAdapter.VaultContentViewHolder)
+		return Optional.ofNullable(recyclerView.findViewHolderForAdapterPosition(positionOf) as? GalleryFilesAdapter.GalleryContentViewHolder)
 	}
 
 	override fun replaceRenamedCloudFile(cloudFile: CloudNodeModel<out CloudNode>) {
@@ -308,8 +323,8 @@ open class BrowseFilesFragment : BaseFragment(), FilesFragmentInterface {
 		private const val ARG_FOLDER = "folder"
 		private const val ARG_CHOOSE_CLOUD_NODE_SETTINGS = "chooseCloudNodeSettings"
 
-		fun newInstance(folder: CloudFolderModel, chooseCloudNodeSettings: ChooseCloudNodeSettings?): BrowseFilesFragment {
-			val result = BrowseFilesFragment()
+		fun newInstance(folder: CloudFolderModel, chooseCloudNodeSettings: ChooseCloudNodeSettings?): GalleryFragment {
+			val result = GalleryFragment()
 			val args = Bundle()
 			args.putSerializable(ARG_FOLDER, folder)
 			args.putSerializable(ARG_CHOOSE_CLOUD_NODE_SETTINGS, chooseCloudNodeSettings)

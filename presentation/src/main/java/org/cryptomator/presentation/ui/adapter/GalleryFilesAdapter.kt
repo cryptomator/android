@@ -18,10 +18,9 @@ import org.cryptomator.presentation.model.ProgressModel
 import org.cryptomator.presentation.model.ProgressStateModel.Companion.COMPLETED
 import org.cryptomator.presentation.model.comparator.CloudNodeModelDateNewestFirstComparator
 import org.cryptomator.presentation.model.comparator.CloudNodeModelDateOldestFirstComparator
-import org.cryptomator.presentation.model.comparator.CloudNodeModelNameAZComparator
 import org.cryptomator.presentation.model.comparator.CloudNodeModelSizeBiggestFirstComparator
 import org.cryptomator.presentation.model.comparator.CloudNodeModelSizeSmallestFirstComparator
-import org.cryptomator.presentation.ui.adapter.BrowseFilesAdapter.VaultContentViewHolder
+import org.cryptomator.presentation.ui.adapter.GalleryFilesAdapter.GalleryContentViewHolder
 import org.cryptomator.presentation.util.DateHelper
 import org.cryptomator.presentation.util.FileIcon
 import org.cryptomator.presentation.util.FileSizeHelper
@@ -31,27 +30,20 @@ import org.cryptomator.util.SharedPreferencesHandler
 import org.cryptomator.util.file.MimeType
 import org.cryptomator.util.file.MimeTypes
 import javax.inject.Inject
-import kotlinx.android.synthetic.main.item_browse_files_node.view.cloudNodeImage
-import kotlinx.android.synthetic.main.item_browse_files_node.view.itemCheckBox
-import kotlinx.android.synthetic.main.item_browse_files_node.view.settings
-import kotlinx.android.synthetic.main.view_cloud_file_content.view.cloudFileContent
-import kotlinx.android.synthetic.main.view_cloud_file_content.view.cloudFileProgress
-import kotlinx.android.synthetic.main.view_cloud_file_content.view.cloudFileSubText
-import kotlinx.android.synthetic.main.view_cloud_file_content.view.cloudFileText
-import kotlinx.android.synthetic.main.view_cloud_file_content.view.progressIcon
+import kotlinx.android.synthetic.main.item_gallery_files_node.view.cloudFileProgress
+import kotlinx.android.synthetic.main.item_gallery_files_node.view.galleryCloudNodeImage
+import kotlinx.android.synthetic.main.item_gallery_files_node.view.galleryItemContainer
+import kotlinx.android.synthetic.main.item_gallery_files_node.view.progressIcon
 import kotlinx.android.synthetic.main.view_cloud_file_progress.view.cloudFile
-import kotlinx.android.synthetic.main.view_cloud_folder_content.view.cloudFolderActionText
-import kotlinx.android.synthetic.main.view_cloud_folder_content.view.cloudFolderContent
-import kotlinx.android.synthetic.main.view_cloud_folder_content.view.cloudFolderText
 
-class BrowseFilesAdapter @Inject
+class GalleryFilesAdapter @Inject
 constructor(
 	private val dateHelper: DateHelper, //
 	private val fileSizeHelper: FileSizeHelper, //
 	private val fileUtil: FileUtil, //
 	private val sharedPreferencesHandler: SharedPreferencesHandler, //
 	private val mimeTypes: MimeTypes //
-) : RecyclerViewBaseAdapter<CloudNodeModel<*>, BrowseFilesAdapter.ItemClickListener, VaultContentViewHolder>(CloudNodeModelNameAZComparator()), FastScrollRecyclerView.SectionedAdapter {
+) : RecyclerViewBaseAdapter<CloudNodeModel<*>, GalleryFilesAdapter.ItemClickListener, GalleryContentViewHolder>(CloudNodeModelDateNewestFirstComparator()), FastScrollRecyclerView.SectionedAdapter {
 
 	private var chooseCloudNodeSettings: ChooseCloudNodeSettings? = null
 	private var navigationMode: ChooseCloudNodeSettings.NavigationMode? = null
@@ -60,11 +52,11 @@ constructor(
 		get() = chooseCloudNodeSettings != null
 
 	override fun getItemLayout(viewType: Int): Int {
-		return R.layout.item_browse_files_node
+		return R.layout.item_gallery_files_node
 	}
 
-	override fun createViewHolder(view: View, viewType: Int): VaultContentViewHolder {
-		return VaultContentViewHolder(view)
+	override fun createViewHolder(view: View, viewType: Int): GalleryContentViewHolder {
+		return GalleryContentViewHolder(view)
 	}
 
 	fun addOrReplaceCloudNode(cloudNodeModel: CloudNodeModel<*>) {
@@ -73,6 +65,10 @@ constructor(
 		} else {
 			addItem(cloudNodeModel)
 		}
+	}
+
+	fun triggerUpdateSelectedNodesNumberInfo() {
+		callback.onSelectedNodesChanged(selectedCloudNodes().size)
 	}
 
 	fun replaceRenamedCloudFile(cloudNode: CloudNodeModel<out CloudNode>) {
@@ -127,7 +123,10 @@ constructor(
 		}
 	}
 
-	inner class VaultContentViewHolder internal constructor(itemView: View) : RecyclerViewBaseAdapter<*, *, *>.ItemViewHolder(itemView) {
+	// descritto da R.layout.item_gallery_files_node
+	// sono state importate le sue componenti
+	// kotlinx.android.synthetic.main.item_gallery_files_node.view.galleryCloudNodeImage
+	inner class GalleryContentViewHolder internal constructor(itemView: View) : RecyclerViewBaseAdapter<*, *, *>.ItemViewHolder(itemView) {
 
 		private var uiState: UiStateTest? = null
 
@@ -141,18 +140,26 @@ constructor(
 		}
 
 		private fun internalBind(node: CloudNodeModel<*>) {
+			clearPreviousHolderSelection()
 			bindNodeImage(node)
-			bindSettings(node)
 			bindLongNodeClick(node)
 			bindFileOrFolder(node)
+		}
+
+		private fun clearPreviousHolderSelection() {
+			// durante il rebind sta probabilmente riutilizzando lo stesso oggetto grafico (itemView)
+			// di un precente cloudNode che era stato selezionato
+			// e.g. se l'item 22 viene selezionato, cambia il foreground e quando viene
+			// ribindato con l'indice 0 rimane il foregound sbagliato!
+			itemView.galleryItemContainer.foreground = null
 		}
 
 		private fun bindNodeImage(node: CloudNodeModel<*>) {
 			if (node is CloudFileModel && isImageMediaType(node.name) && node.thumbnail != null) {
 				val bitmap = BitmapFactory.decodeFile(node.thumbnail!!.absolutePath)
-				itemView.cloudNodeImage.setImageBitmap(bitmap)
+				itemView.galleryCloudNodeImage.setImageBitmap(bitmap)
 			} else {
-				itemView.cloudNodeImage.setImageResource(bindCloudNodeImage(node))
+				itemView.galleryCloudNodeImage.setImageResource(bindCloudNodeImage(node))
 			}
 		}
 
@@ -167,10 +174,6 @@ constructor(
 				return R.drawable.node_folder
 			}
 			throw IllegalStateException("Could not identify the CloudNodeModel type")
-		}
-
-		private fun bindSettings(node: CloudNodeModel<*>) {
-			itemView.settings.setOnClickListener { callback.onNodeSettingsClicked(node) }
 		}
 
 		private fun bindLongNodeClick(node: CloudNodeModel<*>) {
@@ -198,19 +201,13 @@ constructor(
 		}
 
 		private fun bindFile(file: CloudFileModel) {
-			itemView.cloudFileText.text = file.name
-			itemView.cloudFileSubText.text = fileDetails(file)
-
 			enableNodeClick { callback.onFileClicked(file) }
 		}
 
 		private fun bindFileSelectionModeIfPresent(file: CloudFileModel) {
 			if (isInSelectionMode) {
 				disableNodeLongClick()
-				hideSettings()
 				if (!isSelectable(file)) {
-					itemView.cloudFileSubText.visibility = GONE
-					itemView.cloudFileSubText.text = ""
 					itemView.isEnabled = false
 				}
 			}
@@ -241,45 +238,56 @@ constructor(
 		}
 
 		private fun bindFolder(folder: CloudFolderModel) {
-			itemView.cloudFolderText.text = folder.name
+//			itemView.cloudFolderText.text = folder.name
 			enableNodeClick { callback.onFolderClicked(folder) }
 		}
 
 		private fun bindFolderSelectionModeIfPresent(folder: CloudFolderModel) {
 			if (isInSelectionMode) {
 				disableNodeLongClick()
-				hideSettings()
+//				hideSettings()
 				if (!isSelectable(folder)) {
 					itemView.isEnabled = false
 				}
 			}
 		}
-
-		private fun hideSettings() {
-			itemView.settings.visibility = GONE
-		}
-
 		private fun bindNodeSelection(cloudNodeModel: CloudNodeModel<*>) {
-			itemView.itemCheckBox.setOnCheckedChangeListener { _, isChecked ->
-				cloudNodeModel.isSelected = isChecked
-				callback.onSelectedNodesChanged(selectedCloudNodes().size)
-			}
-			enableNodeClick { itemView.itemCheckBox.toggle() }
+			// this method is invoked for each item to be displayed!
 
-			itemView.itemCheckBox.isChecked = cloudNodeModel.isSelected
+//			itemView.galleryItemContainer.setOnLongClickListener { /* https://stackoverflow.com/a/12230526
+//				As you may know, the View hierarchy in Android is represented by a tree.
+//				When you return true from the onItemLongClick() - it means that the View that
+//				currently received the event is the true event receiver and the event should
+//				not be propagated to the other Views in the tree; when you return false -
+//				you let the event be passed to the other Views that may consume it.
+//				 */
+//				toggleSelection(cloudNodeModel)
+//				true
+//			}
+
+			enableNodeClick{
+				toggleSelection(cloudNodeModel)
+			}
+
+			// first set
+			if (cloudNodeModel.isSelected) {
+				itemView.galleryItemContainer.foreground = getDrawable(R.drawable.rectangle_selection_mode)
+				triggerUpdateSelectedNodesNumberInfo()
+			}
 		}
 
-		private fun fileDetails(cloudFile: CloudFileModel): String {
-			val formattedFileSize = fileSizeHelper.getFormattedFileSize(cloudFile.size)
-			val formattedModifiedDate = dateHelper.getFormattedModifiedDate(cloudFile.modified)
+		private fun toggleSelection(cloudNodeModel : CloudNodeModel<*>) {
+			// toggle selection
+			cloudNodeModel.isSelected = !cloudNodeModel.isSelected
 
-			return if (formattedFileSize != null) {
-				if (formattedModifiedDate != null) {
-					"$formattedFileSize • $formattedModifiedDate"
-				} else {
-					formattedFileSize
-				}
-			} else formattedModifiedDate ?: ""
+			// toggle rectangle
+			if (cloudNodeModel.isSelected)
+				itemView.galleryItemContainer.foreground = getDrawable(R.drawable.rectangle_selection_mode)
+			else
+				itemView.galleryItemContainer.foreground = null
+
+			// update screen info
+			triggerUpdateSelectedNodesNumberInfo()
 		}
 
 		fun showProgress(progress: ProgressModel?) {
@@ -294,9 +302,9 @@ constructor(
 		private fun showIndeterminateProgress(progress: ProgressModel) {
 			uiState?.let { switchTo(it.indeterminateProgress()) }
 			if (uiState?.isForFile == true) {
-				itemView.cloudFileSubText.setText(progress.state().textResourceId())
+//				itemView.cloudFileSubText.setText(progress.state().textResourceId())
 			} else {
-				itemView.cloudFolderActionText.setText(progress.state().textResourceId())
+//				itemView.cloudFolderActionText.setText(progress.state().textResourceId())
 			}
 
 			if (!progress.state().isSelectable) {
@@ -306,7 +314,7 @@ constructor(
 
 		private fun disableNodeActions() {
 			itemView.isEnabled = false
-			itemView.settings.visibility = GONE
+//			itemView.settings.visibility = GONE
 		}
 
 		private fun enableNodeClick(clickListener: View.OnClickListener) {
@@ -328,11 +336,11 @@ constructor(
 				itemView.cloudFile.progress = progress.progress()
 				if (currentProgressIcon != progress.state().imageResourceId()) {
 					currentProgressIcon = progress.state().imageResourceId()
-					itemView.progressIcon.setImageDrawable(getDrawable(currentProgressIcon))
+					itemView.cloudFileProgress.progressIcon.setImageDrawable(getDrawable(currentProgressIcon))
 				}
 			} else {
 				// no determinate progress for folders
-				itemView.cloudFolderActionText.setText(progress.state().textResourceId())
+//				itemView.cloudFolderActionText.setText(progress.state().textResourceId())
 			}
 		}
 
@@ -349,7 +357,13 @@ constructor(
 		}
 
 		fun selectNode(checked: Boolean) {
-			itemView.itemCheckBox.isChecked = checked
+			if (checked)
+				itemView.galleryItemContainer.foreground = getDrawable(R.drawable.rectangle_selection_mode)
+			else
+				itemView.galleryItemContainer.foreground = null
+
+			bound?.let { it.isSelected = checked }
+			triggerUpdateSelectedNodesNumberInfo()
 		}
 
 		abstract inner class UiStateTest(val isForFile: Boolean) {
@@ -385,13 +399,13 @@ constructor(
 
 			override fun apply() {
 				itemView.isEnabled = true
-				itemView.cloudFolderContent.visibility = GONE
-				itemView.cloudFileContent.visibility = VISIBLE
-				itemView.cloudFileText.visibility = VISIBLE
-				itemView.cloudFileSubText.visibility = VISIBLE
+//				itemView.cloudFolderContent.visibility = GONE
+//				itemView.cloudFileContent.visibility = VISIBLE
+//				itemView.cloudFileText.visibility = VISIBLE
+//				itemView.cloudFileSubText.visibility = VISIBLE
 				itemView.cloudFileProgress.visibility = GONE
-				itemView.settings.visibility = VISIBLE
-				itemView.itemCheckBox.visibility = GONE
+//				itemView.settings.visibility = VISIBLE
+//				itemView.itemCheckBox.visibility = GONE
 			}
 		}
 
@@ -399,36 +413,36 @@ constructor(
 
 			override fun apply() {
 				itemView.isEnabled = true
-				itemView.cloudFileContent.visibility = GONE
-				itemView.cloudFolderContent.visibility = VISIBLE
-				itemView.cloudFolderText.visibility = VISIBLE
-				itemView.cloudFolderActionText.visibility = GONE
-				itemView.settings.visibility = VISIBLE
-				itemView.itemCheckBox.visibility = GONE
+//				itemView.cloudFileContent.visibility = GONE
+//				itemView.cloudFolderContent.visibility = VISIBLE
+//				itemView.cloudFolderText.visibility = VISIBLE
+//				itemView.cloudFolderActionText.visibility = GONE
+//				itemView.settings.visibility = VISIBLE
+//				itemView.itemCheckBox.visibility = GONE
 			}
 		}
 
 		inner class FileDeterminateProgress : UiStateTest(true) {
 
 			override fun apply() {
-				itemView.cloudFolderContent.visibility = GONE
-				itemView.cloudFileContent.visibility = VISIBLE
-				itemView.cloudFileText.visibility = VISIBLE
-				itemView.cloudFileSubText.visibility = GONE
+//				itemView.cloudFolderContent.visibility = GONE
+//				itemView.cloudFileContent.visibility = VISIBLE
+//				itemView.cloudFileText.visibility = VISIBLE
+//				itemView.cloudFileSubText.visibility = GONE
 				itemView.cloudFileProgress.visibility = VISIBLE
-				itemView.itemCheckBox.visibility = GONE
+//				itemView.itemCheckBox.visibility = GONE
 			}
 		}
 
 		inner class FileIndeterminateProgress : UiStateTest(true) {
 
 			override fun apply() {
-				itemView.cloudFolderContent.visibility = GONE
-				itemView.cloudFileContent.visibility = VISIBLE
-				itemView.cloudFileText.visibility = VISIBLE
-				itemView.cloudFileSubText.visibility = VISIBLE
+//				itemView.cloudFolderContent.visibility = GONE
+//				itemView.cloudFileContent.visibility = VISIBLE
+//				itemView.cloudFileText.visibility = VISIBLE
+//				itemView.cloudFileSubText.visibility = VISIBLE
 				itemView.cloudFileProgress.visibility = GONE
-				itemView.itemCheckBox.visibility = GONE
+//				itemView.itemCheckBox.visibility = GONE
 			}
 
 		}
@@ -436,27 +450,27 @@ constructor(
 		inner class FolderIndeterminateProgress : UiStateTest(false) {
 
 			override fun apply() {
-				itemView.cloudFileContent.visibility = GONE
-				itemView.cloudFolderContent.visibility = VISIBLE
-				itemView.cloudFolderText.visibility = VISIBLE
-				itemView.cloudFolderActionText.visibility = VISIBLE
-				itemView.itemCheckBox.visibility = GONE
+//				itemView.cloudFileContent.visibility = GONE
+//				itemView.cloudFolderContent.visibility = VISIBLE
+//				itemView.cloudFolderText.visibility = VISIBLE
+//				itemView.cloudFolderActionText.visibility = VISIBLE
+//				itemView.itemCheckBox.visibility = GONE
 			}
 		}
 
 		inner class FileSelection : UiStateTest(true) {
 
 			override fun apply() {
-				itemView.itemCheckBox.visibility = VISIBLE
-				itemView.settings.visibility = GONE
+//				itemView.itemCheckBox.visibility = VISIBLE
+//				itemView.settings.visibility = GONE
 			}
 		}
 
 		inner class FolderSelection : UiStateTest(false) {
 
 			override fun apply() {
-				itemView.itemCheckBox.visibility = VISIBLE
-				itemView.settings.visibility = GONE
+//				itemView.itemCheckBox.visibility = VISIBLE
+//				itemView.settings.visibility = GONE
 			}
 
 		}
@@ -500,8 +514,9 @@ constructor(
 			return node.name.first().toString()
 		}
 
-		val formattedFileSize = fileSizeHelper.getFormattedFileSize((node as CloudFileModel).size)
-		val formattedModifiedDate = dateHelper.getFormattedModifiedDate(node.modified)
+		node as CloudFileModel
+		val formattedFileSize = fileSizeHelper.getFormattedFileSize((node).size)
+		val formattedModifiedDate = dateHelper.getModifiedDate((node).modified)
 
 		return when (comparator) {
 			is CloudNodeModelDateNewestFirstComparator, is CloudNodeModelDateOldestFirstComparator -> formattedModifiedDate ?: node.name.first().toString()
