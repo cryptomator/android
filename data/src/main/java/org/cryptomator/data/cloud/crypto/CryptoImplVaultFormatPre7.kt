@@ -129,7 +129,6 @@ internal class CryptoImplVaultFormatPre7(
 			.map { node ->
 				ciphertextToCleartextNode(cryptoFolder, dirId, node)
 			}.onEach { cryptoNode ->
-				// if present, associate cached-thumbnail to the Cryptofile
 				if (cryptoNode is CryptoFile && isImageMediaType(cryptoNode.name)) {
 					val cacheKey = generateCacheKey(cryptoNode.cloudFile)
 					cryptoNode.cloudFile.cloud?.type()?.let { cloudType ->
@@ -262,11 +261,10 @@ internal class CryptoImplVaultFormatPre7(
 		} else if (node is CryptoFile) {
 			cloudContentRepository.delete(node.cloudFile)
 
-			// Delete thumbnail file from cache
 			val cacheKey = generateCacheKey(node.cloudFile)
-			node.cloudFile.cloud?.type()?.let{ cloudType ->
+			node.cloudFile.cloud?.type()?.let { cloudType ->
 				getLruCacheFor(cloudType)?.let { diskCache ->
-					if(diskCache[cacheKey] != null) {
+					if (diskCache[cacheKey] != null) {
 						diskCache.delete(cacheKey)
 					}
 				}

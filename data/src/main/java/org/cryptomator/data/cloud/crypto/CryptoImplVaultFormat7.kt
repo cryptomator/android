@@ -87,7 +87,6 @@ open class CryptoImplVaultFormat7 : CryptoImplDecorator {
 		val shortFileName = BaseEncoding.base64Url().encode(hash) + LONG_NODE_FILE_EXT
 		var dirFolder = cloudContentRepository.folder(getOrCreateCachingAwareDirIdInfo(cryptoParent).cloudFolder, shortFileName)
 
-		// if folder already exists in case of renaming
 		if (!cloudContentRepository.exists(dirFolder)) {
 			dirFolder = cloudContentRepository.create(dirFolder)
 		}
@@ -167,7 +166,6 @@ open class CryptoImplVaultFormat7 : CryptoImplDecorator {
 		}.map { node ->
 			ciphertextToCleartextNode(cryptoFolder, dirId, node)
 		}.onEach { cryptoNode ->
-			// if present, associate cached-thumbnail to the Cryptofile
 			if (cryptoNode is CryptoFile && isImageMediaType(cryptoNode.name)) {
 				val cacheKey = generateCacheKey(cryptoNode.cloudFile)
 				cryptoNode.cloudFile.cloud?.type()?.let { cloudType ->
@@ -463,7 +461,6 @@ open class CryptoImplVaultFormat7 : CryptoImplDecorator {
 				cloudContentRepository.delete(node.cloudFile)
 			}
 
-			// Delete thumbnail file from cache
 			val cacheKey = generateCacheKey(node.cloudFile)
 			node.cloudFile.cloud?.type()?.let { cloudType ->
 				getLruCacheFor(cloudType)?.let { diskCache ->
