@@ -43,19 +43,18 @@ import java.io.FileInputStream
 import java.io.FileOutputStream
 import java.io.IOException
 import java.io.OutputStream
+import java.io.PipedInputStream
+import java.io.PipedOutputStream
 import java.nio.ByteBuffer
 import java.nio.channels.Channels
 import java.util.LinkedList
 import java.util.Queue
 import java.util.UUID
-import java.util.function.Supplier
-import timber.log.Timber
-import java.io.PipedInputStream
-import java.io.PipedOutputStream
 import java.util.concurrent.ExecutorService
 import java.util.concurrent.Executors
 import java.util.concurrent.Future
-import kotlin.math.ceil
+import java.util.function.Supplier
+import timber.log.Timber
 
 
 abstract class CryptoImplDecorator(
@@ -81,10 +80,11 @@ abstract class CryptoImplDecorator(
 		Executors.newFixedThreadPool(3, threadFactory)
 	}
 
-	protected fun getLruCacheFor(type : CloudType): DiskLruCache? {
+	protected fun getLruCacheFor(type: CloudType): DiskLruCache? {
 		return getOrCreateLruCache(getCacheTypeFromCloudType(type), sharedPreferencesHandler.lruCacheSize())
 	}
-	private fun getOrCreateLruCache(key : LruFileCacheUtil.Cache, cacheSize: Int): DiskLruCache? {
+
+	private fun getOrCreateLruCache(key: LruFileCacheUtil.Cache, cacheSize: Int): DiskLruCache? {
 		return diskLruCache.computeIfAbsent(key) {
 			val where = LruFileCacheUtil(context).resolve(it)
 			try {
@@ -96,7 +96,7 @@ abstract class CryptoImplDecorator(
 		}
 	}
 
-	private fun getCacheTypeFromCloudType(type : CloudType) : LruFileCacheUtil.Cache {
+	private fun getCacheTypeFromCloudType(type: CloudType): LruFileCacheUtil.Cache {
 		return when (type) {
 			CloudType.DROPBOX -> LruFileCacheUtil.Cache.DROPBOX
 			CloudType.GOOGLE_DRIVE -> LruFileCacheUtil.Cache.GOOGLE_DRIVE
@@ -401,12 +401,12 @@ abstract class CryptoImplDecorator(
 							decrypted += read.toLong()
 
 							progressAware
-									.onProgress(
-											Progress.progress(DownloadState.decryption(cryptoFile)) //
-													.between(0) //
-													.and(cleartextSize) //
-													.withValue(decrypted)
-									)
+								.onProgress(
+									Progress.progress(DownloadState.decryption(cryptoFile)) //
+										.between(0) //
+										.and(cleartextSize) //
+										.withValue(decrypted)
+								)
 						}
 					}
 					thumbnailWriter.flush()
@@ -423,44 +423,27 @@ abstract class CryptoImplDecorator(
 		}
 	}
 
-	private fun closeQuietly(closeable : Closeable) {
+	private fun closeQuietly(closeable: Closeable) {
 		try {
 			closeable.close();
-		} catch (e : IOException) {
+		} catch (e: IOException) {
 			// ignore
 		}
 	}
-	private fun startThumbnailGeneratorThread(diskCache: DiskLruCache?, cacheKey: String, thumbnailReader: PipedInputStream) : Future<*> {
+
+	private fun startThumbnailGeneratorThread(diskCache: DiskLruCache?, cacheKey: String, thumbnailReader: PipedInputStream): Future<*> {
 		return thumbnailExecutorService.submit {
 			try {
 				val options = BitmapFactory.Options()
-				val thumbnailBitmap : Bitmap?
-				// options.inJustDecodeBounds = true
-				// read properties of the image: outWidth, outHeight (no bitmap allocation!)
-				// BitmapFactory.decodeStream(thumbnailReaderTee, null, options)
-				// options.inJustDecodeBounds = false
-				// options.outWidth; options.outHeight
+				val thumbnailBitmap: Bitmap?
 				options.inSampleSize = 4 // pixel number reduced by a factor of 1/16
-				// options.inSampleSize = 8 // pixel number reduced by a factor of 1/64
 
-				// obtain a subsampled version of the image
 				val bitmap = BitmapFactory.decodeStream(thumbnailReader, null, options)
-
 				val thumbnailWidth = 100
 				val thumbnailHeight = 100
-//				var aspectRatio = 1f
-//				bitmap?.let {
-//					if (it.height != 0) {
-//						aspectRatio = it.width.toFloat() / it.height
-//					}
-//				}
-//				val thumbnailHeight = ceil(1 / aspectRatio * thumbnailWidth).toInt()
-
-				// generate thumbnail preserving aspect ratio
 				thumbnailBitmap = ThumbnailUtils.extractThumbnail(bitmap, thumbnailWidth, thumbnailHeight)
 
-				// store it in cloud-related LRU cache
-				if(thumbnailBitmap != null) {
+				if (thumbnailBitmap != null) {
 					storeThumbnail(diskCache, cacheKey, thumbnailBitmap)
 				}
 
@@ -471,34 +454,30 @@ abstract class CryptoImplDecorator(
 		}
 	}
 
-	protected fun generateCacheKey(cloudFile: CloudFile) : String{
+	protected fun generateCacheKey(cloudFile: CloudFile): String {
 		return buildString {
-			// distinguish between two files with same path but on different instances of the same cloud
 			if (cloudFile.cloud?.id() != null)
 				this.append(cloudFile.cloud!!.id())
 			else
-				// this.append(null obj) will add the string "null"
 				this.append("c") // "common"
 			this.append("-")
 			this.append(cloudFile.path.hashCode())
 		}
 	}
 
-	private fun isGenerateThumbnailsEnabled(cache: DiskLruCache?, fileName: String) : Boolean {
-		return 	sharedPreferencesHandler.useLruCache() &&
+	private fun isGenerateThumbnailsEnabled(cache: DiskLruCache?, fileName: String): Boolean {
+		return sharedPreferencesHandler.useLruCache() &&
 				sharedPreferencesHandler.generateThumbnails() != ThumbnailsOption.NEVER &&
 				cache != null &&
 				isImageMediaType(fileName)
 	}
 
-	private fun storeThumbnail(cache: DiskLruCache?, cacheKey: String, thumbnailBitmap: Bitmap){
-		// write the thumbnail in a file (on disk)
-		val thumbnailFile : File = File.createTempFile(UUID.randomUUID().toString(), ".thumbnail", internalCache)
+	private fun storeThumbnail(cache: DiskLruCache?, cacheKey: String, thumbnailBitmap: Bitmap) {
+		val thumbnailFile: File = File.createTempFile(UUID.randomUUID().toString(), ".thumbnail", internalCache)
 		thumbnailBitmap.compress(Bitmap.CompressFormat.JPEG, 100, thumbnailFile.outputStream())
 
 		try {
 			cache?.let {
-				// store File to LruCache (on disk)
 				LruFileCacheUtil.storeToLruCache(it, cacheKey, thumbnailFile)
 			} ?: Timber.tag("CryptoImplDecorator").e("Failed to store item in LRU cache")
 		} catch (e: IOException) {
