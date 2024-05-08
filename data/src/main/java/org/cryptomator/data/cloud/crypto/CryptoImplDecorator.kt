@@ -95,6 +95,18 @@ abstract class CryptoImplDecorator(
 			}
 		}
 	}
+	protected fun renameFileInCache(source: CryptoFile, target: CryptoFile){
+		val oldCacheKey = generateCacheKey(source.cloudFile)
+		val newCacheKey = generateCacheKey(target.cloudFile)
+		source.cloudFile.cloud?.type()?.let { cloudType ->
+			getLruCacheFor(cloudType)?.let { diskCache ->
+				if (diskCache[oldCacheKey] != null) {
+					target.thumbnail = diskCache.put(newCacheKey, diskCache[oldCacheKey])
+					diskCache.delete(oldCacheKey)
+				}
+			}
+		}
+	}
 
 	private fun getCacheTypeFromCloudType(type: CloudType): LruFileCacheUtil.Cache {
 		return when (type) {

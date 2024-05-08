@@ -391,6 +391,7 @@ open class CryptoImplVaultFormat7 : CryptoImplDecorator {
 
 	@Throws(BackendException::class)
 	override fun move(source: CryptoFile, target: CryptoFile): CryptoFile {
+		renameFileInCache(source, target)
 		return if (source.cloudFile.parent.name.endsWith(LONG_NODE_FILE_EXT)) {
 			val targetDirFolder = cloudContentRepository.folder(target.cloudFile.parent, target.cloudFile.name)
 			val cryptoFile: CryptoFile = if (target.cloudFile.name.endsWith(LONG_NODE_FILE_EXT)) {
