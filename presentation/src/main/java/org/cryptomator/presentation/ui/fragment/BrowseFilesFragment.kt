@@ -26,6 +26,7 @@ import org.cryptomator.presentation.model.ProgressModel
 import org.cryptomator.presentation.presenter.BrowseFilesPresenter
 import org.cryptomator.presentation.ui.adapter.BrowseFilesAdapter
 import org.cryptomator.presentation.util.ResourceHelper.Companion.getPixelOffset
+import org.cryptomator.util.SharedPreferencesHandler
 import java.util.Optional
 import javax.inject.Inject
 import kotlinx.android.synthetic.main.floating_action_button_layout.floatingActionButton
@@ -106,6 +107,7 @@ class BrowseFilesFragment : BaseFragment() {
 		navigationMode?.let { cloudNodesAdapter.updateNavigationMode(it) }
 
 		recyclerView.layoutManager = LinearLayoutManager(context())
+//		recyclerView.layoutManager = GridLayoutManager(context(), 2)
 		recyclerView.adapter = cloudNodesAdapter
 		recyclerView.setHasFixedSize(true)
 		recyclerView.setPadding(0, 0, 0, TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 88f, resources.displayMetrics).toInt())

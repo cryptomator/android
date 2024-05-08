@@ -2,6 +2,7 @@ package org.cryptomator.presentation.presenter
 
 import android.content.ActivityNotFoundException
 import android.content.Intent
+import android.graphics.BitmapFactory
 import android.net.Uri
 import android.provider.DocumentsContract
 import android.widget.Toast
@@ -513,6 +514,7 @@ class BrowseFilesPresenter @Inject constructor( //
 			)
 		} else if (!lowerFileName.endsWith(".gif") && isImageMediaType(cloudFile.name)) {
 			val cloudFileNodes = previewCloudFileNodes
+
 			val imagePreviewStore = ImagePreviewFilesStore( //
 				cloudFileNodes,  //
 				cloudFileNodes.indexOf(cloudFile)

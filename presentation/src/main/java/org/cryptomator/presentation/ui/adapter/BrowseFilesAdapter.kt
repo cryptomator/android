@@ -1,5 +1,6 @@
 package org.cryptomator.presentation.ui.adapter
 
+import android.graphics.BitmapFactory
 import android.os.PatternMatcher
 import android.view.View
 import android.view.View.GONE
@@ -27,6 +28,8 @@ import org.cryptomator.presentation.util.FileSizeHelper
 import org.cryptomator.presentation.util.FileUtil
 import org.cryptomator.presentation.util.ResourceHelper.Companion.getDrawable
 import org.cryptomator.util.SharedPreferencesHandler
+import org.cryptomator.util.file.MimeType
+import org.cryptomator.util.file.MimeTypes
 import javax.inject.Inject
 import kotlinx.android.synthetic.main.item_browse_files_node.view.cloudNodeImage
 import kotlinx.android.synthetic.main.item_browse_files_node.view.itemCheckBox
@@ -46,7 +49,8 @@ constructor(
 	private val dateHelper: DateHelper, //
 	private val fileSizeHelper: FileSizeHelper, //
 	private val fileUtil: FileUtil, //
-	private val sharedPreferencesHandler: SharedPreferencesHandler
+	private val sharedPreferencesHandler: SharedPreferencesHandler, //
+	private val mimeTypes: MimeTypes //
 ) : RecyclerViewBaseAdapter<CloudNodeModel<*>, BrowseFilesAdapter.ItemClickListener, VaultContentViewHolder>(CloudNodeModelNameAZComparator()), FastScrollRecyclerView.SectionedAdapter {
 
 	private var chooseCloudNodeSettings: ChooseCloudNodeSettings? = null
@@ -144,7 +148,16 @@ constructor(
 		}
 
 		private fun bindNodeImage(node: CloudNodeModel<*>) {
-			itemView.cloudNodeImage.setImageResource(bindCloudNodeImage(node))
+			if (node is CloudFileModel && isImageMediaType(node.name) && node.thumbnail != null) {
+				val bitmap = BitmapFactory.decodeFile(node.thumbnail!!.absolutePath)
+				itemView.cloudNodeImage.setImageBitmap(bitmap)
+			} else {
+				itemView.cloudNodeImage.setImageResource(bindCloudNodeImage(node))
+			}
+		}
+
+		private fun isImageMediaType(filename: String): Boolean {
+			return (mimeTypes.fromFilename(filename) ?: MimeType.WILDCARD_MIME_TYPE).mediatype == "image"
 		}
 
 		private fun bindCloudNodeImage(cloudNodeModel: CloudNodeModel<*>): Int {
