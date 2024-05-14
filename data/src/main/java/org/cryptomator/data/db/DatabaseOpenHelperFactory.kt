@@ -3,6 +3,7 @@ package org.cryptomator.data.db
 import androidx.sqlite.db.SupportSQLiteDatabase
 import androidx.sqlite.db.SupportSQLiteOpenHelper
 import androidx.sqlite.db.framework.FrameworkSQLiteOpenHelperFactory
+import org.cryptomator.data.util.useFinally
 import org.cryptomator.util.named
 import java.io.File
 import javax.inject.Inject
@@ -74,12 +75,13 @@ private class PatchedCallback(
 		//
 	}
 
-	override fun onCorruption(db: SupportSQLiteDatabase) {
+	override fun onCorruption(db: SupportSQLiteDatabase) = useFinally({
 		//
 		delegateCallback.onCorruption(db)
 		//
+	}, finallyBlock = {
 		invalidationCallback.invoke()
-	}
+	})
 
 	override fun onOpen(db: SupportSQLiteDatabase) {
 		//
