@@ -26,12 +26,21 @@ class DbTemplateModule {
 	internal fun provideDbTemplateFile(configuration: SupportSQLiteOpenHelper.Configuration): File {
 		LOG.d("Creating database template file")
 		ThreadUtil.assumeNotMainThread()
-		val db = configuration.let { FrameworkSQLiteOpenHelperFactory().create(it).writableDatabase }
-		require(db.version == 1)
-		db.close()
+		return FrameworkSQLiteOpenHelperFactory().create(configuration).use {
+			initDatabase(it)
+		}.let {
+			require(it != null && it != ":memory:") { "Template database must not be in-memory" }
+			LOG.d("Created database template file")
+			File(it)
+		}
+	}
 
-		LOG.d("Created database template file")
-		return File(requireNotNull(db.path))
+	private fun initDatabase(openHelper: SupportSQLiteOpenHelper): String? {
+		return openHelper.writableDatabase.use {
+			require(it.version == 1)
+			require(it.compileStatement("SELECT COUNT(*) FROM `CLOUD_ENTITY`").simpleQueryForLong() == 4L)
+			it.path
+		}
 	}
 
 	@DbTemplateScoped
