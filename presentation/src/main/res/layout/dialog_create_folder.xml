@@ -25,6 +25,7 @@
 		</com.google.android.material.textfield.TextInputLayout>
 
 		<include
+			android:id="@+id/ll_dialog_progress"
 			layout="@layout/view_dialog_progress"
 			android:layout_width="match_parent"
 			android:layout_height="wrap_content"
@@ -32,6 +33,7 @@
 			android:layout_marginTop="16dp" />
 
 		<include
+			android:id="@+id/ll_dialog_error"
 			layout="@layout/view_dialog_error"
 			android:layout_width="match_parent"
 			android:layout_height="wrap_content"

@@ -4,12 +4,11 @@ import android.content.Context
 import android.content.DialogInterface
 import androidx.appcompat.app.AlertDialog
 import org.cryptomator.presentation.R
-import org.cryptomator.presentation.util.ResourceHelper
 
 class NotEnoughVaultsDialog private constructor(private val context: Context) {
 
 	private val callback: Callback
-	private var title: String
+	private var titleResourceId: Int
 
 	interface Callback {
 
@@ -17,18 +16,18 @@ class NotEnoughVaultsDialog private constructor(private val context: Context) {
 		fun onNotEnoughVaultsCreateVaultClicked()
 	}
 
-	fun andTitle(title: String): NotEnoughVaultsDialog {
-		this.title = title
+	fun andTitle(titleResourceId: Int): NotEnoughVaultsDialog {
+		this.titleResourceId = titleResourceId
 		return this
 	}
 
 	fun show() {
 		AlertDialog.Builder(context) //
 			.setCancelable(false) //
-			.setTitle(title) //
-			.setMessage(ResourceHelper.getString(R.string.dialog_unable_to_share_message)) //
-			.setPositiveButton(ResourceHelper.getString(R.string.dialog_unable_to_share_positive_button)) { _: DialogInterface, _: Int -> callback.onNotEnoughVaultsOkClicked() } //
-			.setNegativeButton(ResourceHelper.getString(R.string.dialog_unable_to_share_negative_button)) { _: DialogInterface, _: Int -> callback.onNotEnoughVaultsCreateVaultClicked() } //
+			.setTitle(titleResourceId) //
+			.setMessage(R.string.dialog_unable_to_share_message) //
+			.setPositiveButton(R.string.dialog_unable_to_share_positive_button) { _: DialogInterface, _: Int -> callback.onNotEnoughVaultsOkClicked() } //
+			.setNegativeButton(R.string.dialog_unable_to_share_negative_button) { _: DialogInterface, _: Int -> callback.onNotEnoughVaultsCreateVaultClicked() } //
 			.create() //
 			.show()
 	}
@@ -42,6 +41,6 @@ class NotEnoughVaultsDialog private constructor(private val context: Context) {
 
 	init {
 		callback = context as Callback
-		title = ResourceHelper.getString(R.string.dialog_unable_to_share_title)
+		titleResourceId = R.string.dialog_unable_to_share_title
 	}
 }

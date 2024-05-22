@@ -5,15 +5,15 @@ import android.view.View
 import androidx.appcompat.app.AlertDialog
 import org.cryptomator.generator.Dialog
 import org.cryptomator.presentation.R
+import org.cryptomator.presentation.databinding.ActivityEmptyBinding
+import org.cryptomator.presentation.databinding.DialogGenericProgressBinding
 import org.cryptomator.presentation.model.ProgressModel
 import org.cryptomator.presentation.model.ProgressStateModel
 import org.cryptomator.presentation.ui.activity.BaseActivity
 import org.cryptomator.presentation.ui.activity.ProgressAware
-import kotlinx.android.synthetic.main.view_dialog_progress.ll_progress
-import kotlinx.android.synthetic.main.view_dialog_progress.tv_progress
 
-@Dialog(R.layout.dialog_generic_progress)
-class GenericProgressDialog : BaseDialog<BaseActivity>(), ProgressAware {
+@Dialog
+class GenericProgressDialog : BaseDialog<BaseActivity<ActivityEmptyBinding>, DialogGenericProgressBinding>(DialogGenericProgressBinding::inflate), ProgressAware {
 
 	override fun setupDialog(builder: AlertDialog.Builder): android.app.Dialog {
 		return builder.create()
@@ -21,13 +21,13 @@ class GenericProgressDialog : BaseDialog<BaseActivity>(), ProgressAware {
 
 	override fun setupView() {
 		isCancelable = false
-		ll_progress.visibility = View.VISIBLE
+		binding.llDialogProgress.llProgress.visibility = View.VISIBLE
 		enableOrientationChange(false)
 		showProgress((requireArguments().getSerializable(INITIAL_PROGRESS) as ProgressModel))
 	}
 
 	override fun showProgress(progress: ProgressModel) {
-		tv_progress.setText(textFor(progress))
+		binding.llDialogProgress.tvProgress.setText(textFor(progress))
 		if (progress.state() === ProgressStateModel.COMPLETED) {
 			enableOrientationChange(true)
 			callback?.closeDialog()

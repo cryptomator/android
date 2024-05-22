@@ -2,6 +2,7 @@ package org.cryptomator.domain.usecases;
 
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.algorithms.Algorithm;
+import com.auth0.jwt.exceptions.JWTDecodeException;
 import com.auth0.jwt.exceptions.SignatureVerificationException;
 import com.auth0.jwt.interfaces.DecodedJWT;
 import com.auth0.jwt.interfaces.JWTVerifier;
@@ -49,7 +50,7 @@ public class DoLicenseCheck {
 			JWTVerifier verifier = JWT.require(algorithm).build();
 			DecodedJWT jwt = verifier.verify(license);
 			return jwt::getSubject;
-		} catch (SignatureVerificationException | FatalBackendException e) {
+		} catch (SignatureVerificationException | JWTDecodeException | FatalBackendException e) {
 			if (e instanceof SignatureVerificationException && isDesktopSupporterCertificate(license)) {
 				throw new DesktopSupporterCertificateException(license);
 			}

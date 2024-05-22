@@ -1,9 +1,9 @@
 apply plugin: 'java'
 
 //noinspection GroovyUnusedAssignment
-sourceCompatibility = 1.8
+sourceCompatibility = 17
 //noinspection GroovyUnusedAssignment
-targetCompatibility = 1.8
+targetCompatibility = 17
 
 dependencies {
 	def dependencies = rootProject.ext.dependencies

@@ -12,21 +12,21 @@
 		android:layout_marginStart="16dp" />
 
 	<TextView
-		android:id="@+id/vaultName"
+		android:id="@+id/vault_name"
 		style="@style/AppTheme.ListItemDarkTextColor"
 		android:layout_width="wrap_content"
 		android:layout_height="wrap_content"
 		android:layout_centerVertical="true"
 		android:layout_marginStart="16dp"
 		android:layout_marginEnd="16dp"
-		android:layout_toStartOf="@id/toggleBiometricAuth"
-		android:layout_toEndOf="@+id/cloud"
+		android:layout_toStartOf="@id/toggle_biometric_auth"
+		android:layout_toEndOf="@id/cloud"
 		android:ellipsize="middle"
 		android:singleLine="true"
 		android:textSize="18sp" />
 
 	<Switch
-		android:id="@+id/toggleBiometricAuth"
+		android:id="@+id/toggle_biometric_auth"
 		android:layout_width="wrap_content"
 		android:layout_height="wrap_content"
 		android:layout_alignParentEnd="true"
@@ -37,7 +37,7 @@
 		android:layout_height="1dp"
 		android:layout_alignParentBottom="true"
 		android:layout_marginStart="16dp"
-		android:layout_toEndOf="@+id/cloud"
+		android:layout_toEndOf="@id/cloud"
 		android:background="@color/list_divider" />
 
 </RelativeLayout>

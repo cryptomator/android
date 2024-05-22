@@ -1,13 +1,16 @@
 package org.cryptomator.presentation.ui.dialog
 
 import android.view.View
+import android.widget.LinearLayout
+import android.widget.TextView
 import androidx.appcompat.app.AlertDialog
 import org.cryptomator.generator.Dialog
 import org.cryptomator.presentation.R
-import kotlinx.android.synthetic.main.dialog_app_update.tv_message
+import org.cryptomator.presentation.databinding.DialogAppUpdateBinding
+import org.cryptomator.presentation.databinding.ViewDialogErrorBinding
 
-@Dialog(R.layout.dialog_app_update)
-class UpdateAppDialog : BaseProgressErrorDialog<UpdateAppDialog.Callback>() {
+@Dialog
+class UpdateAppDialog : BaseProgressErrorDialog<UpdateAppDialog.Callback, DialogAppUpdateBinding>(DialogAppUpdateBinding::inflate) {
 
 	interface Callback {
 
@@ -27,12 +30,24 @@ class UpdateAppDialog : BaseProgressErrorDialog<UpdateAppDialog.Callback>() {
 	}
 
 	public override fun setupView() {
-		tv_message.setText(R.string.dialog_download_update_message)
-		tv_message.requestFocus()
+		binding.tvMessage.setText(R.string.dialog_download_update_message)
+		binding.tvMessage.requestFocus()
+	}
+
+	override fun dialogProgressLayout(): LinearLayout {
+		return binding.llDialogProgress.llProgress
+	}
+
+	override fun dialogProgressTextView(): TextView {
+		return binding.llDialogProgress.tvProgress
+	}
+
+	override fun dialogErrorBinding(): ViewDialogErrorBinding {
+		return binding.llDialogError
 	}
 
 	override fun enableViewAfterError(): View {
-		return tv_message
+		return binding.tvMessage
 	}
 
 	companion object {

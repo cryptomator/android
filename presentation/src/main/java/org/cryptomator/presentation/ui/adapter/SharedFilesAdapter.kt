@@ -3,32 +3,31 @@ package org.cryptomator.presentation.ui.adapter
 import android.content.Context
 import android.text.Editable
 import android.text.TextWatcher
-import android.view.View
+import android.view.LayoutInflater
+import android.view.ViewGroup
 import androidx.appcompat.content.res.AppCompatResources
-import org.cryptomator.presentation.R
+import org.cryptomator.presentation.databinding.ItemSharedFilesBinding
 import org.cryptomator.presentation.model.SharedFileModel
 import org.cryptomator.presentation.ui.adapter.SharedFilesAdapter.FileViewHolder
 import org.cryptomator.presentation.util.FileIcon
 import org.cryptomator.presentation.util.FileUtil
 import org.cryptomator.util.Comparators
 import javax.inject.Inject
-import kotlinx.android.synthetic.main.item_shared_files.view.fileName
-import kotlinx.android.synthetic.main.item_shared_files.view.til_file_name
 
 class SharedFilesAdapter @Inject
-constructor(private val fileUtil: FileUtil, private val context: Context) : RecyclerViewBaseAdapter<SharedFileModel, SharedFilesAdapter.Callback, FileViewHolder>(Comparators.naturalOrder()) {
+constructor(private val fileUtil: FileUtil, private val context: Context) : RecyclerViewBaseAdapter<SharedFileModel, SharedFilesAdapter.Callback, FileViewHolder, ItemSharedFilesBinding>(Comparators.naturalOrder()) {
 
 	interface Callback {
 
 		fun onFileNameConflict(hasFileNameConflict: Boolean)
 	}
 
-	override fun getItemLayout(viewType: Int): Int {
-		return R.layout.item_shared_files
+	override fun getItemBinding(inflater: LayoutInflater, parent: ViewGroup?, viewType: Int): ItemSharedFilesBinding {
+		return ItemSharedFilesBinding.inflate(inflater, parent, false)
 	}
 
-	override fun createViewHolder(view: View, viewType: Int): FileViewHolder {
-		return FileViewHolder(view)
+	override fun createViewHolder(binding: ItemSharedFilesBinding, viewType: Int): FileViewHolder {
+		return FileViewHolder(binding)
 	}
 
 	fun show(files: List<SharedFileModel>?) {
@@ -47,18 +46,18 @@ constructor(private val fileUtil: FileUtil, private val context: Context) : Recy
 		return false
 	}
 
-	inner class FileViewHolder(itemView: View) : RecyclerViewBaseAdapter<*, *, *>.ItemViewHolder(itemView) {
+	inner class FileViewHolder(private val binding: ItemSharedFilesBinding) : RecyclerViewBaseAdapter<*, *, *, *>.ItemViewHolder(binding.root) {
 
-		private var et_file_name_watcher: TextWatcher? = null
+		private var etFileNameWatcher: TextWatcher? = null
 
 		override fun bind(position: Int) {
-			if (et_file_name_watcher != null) {
-				itemView.fileName.removeTextChangedListener(et_file_name_watcher)
+			if (etFileNameWatcher != null) {
+				binding.fileName.removeTextChangedListener(etFileNameWatcher)
 			}
 			val file = getItem(position)
-			itemView.til_file_name.startIconDrawable = AppCompatResources.getDrawable(context, FileIcon.fileIconFor(file.fileName, fileUtil).iconResource)
-			itemView.fileName.setText(file.fileName)
-			et_file_name_watcher = object : TextWatcher {
+			binding.tilFileName.startIconDrawable = AppCompatResources.getDrawable(context, FileIcon.fileIconFor(file.fileName, fileUtil).iconResource)
+			binding.fileName.setText(file.fileName)
+			etFileNameWatcher = object : TextWatcher {
 				override fun beforeTextChanged(s: CharSequence, start: Int, count: Int, after: Int) {
 
 				}
@@ -72,7 +71,7 @@ constructor(private val fileUtil: FileUtil, private val context: Context) : Recy
 					callback.onFileNameConflict(hasFileNameConflict())
 				}
 			}
-			itemView.fileName.addTextChangedListener(et_file_name_watcher)
+			binding.fileName.addTextChangedListener(etFileNameWatcher)
 		}
 	}
 

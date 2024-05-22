@@ -6,9 +6,10 @@ import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.DialogFragment
 import org.cryptomator.generator.Dialog
 import org.cryptomator.presentation.R
+import org.cryptomator.presentation.databinding.DialogVaultIsRootFolderOfCloudBinding
 
-@Dialog(R.layout.dialog_vault_is_root_folder_of_cloud)
-class VaultIsRootFolderOfCloudDialog : BaseDialog<Activity>() {
+@Dialog
+class VaultIsRootFolderOfCloudDialog : BaseDialog<Activity, DialogVaultIsRootFolderOfCloudBinding>(DialogVaultIsRootFolderOfCloudBinding::inflate) {
 
 	public override fun setupDialog(builder: AlertDialog.Builder): android.app.Dialog {
 		return builder //

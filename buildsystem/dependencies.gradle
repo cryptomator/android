@@ -37,10 +37,10 @@ allprojects {
 }
 
 ext {
-	androidBuildToolsVersion = "33.0.2"
+	androidBuildToolsVersion = "34.0.0"
 	androidMinSdkVersion = 26
-	androidTargetSdkVersion = 33
-	androidCompileSdkVersion = 33
+	androidTargetSdkVersion = 34
+	androidCompileSdkVersion = 34
 
 	// android and java libs
 	androidVersion = '4.1.1.4'
@@ -62,9 +62,9 @@ ext {
 
 	daggerVersion = '2.51.1'
 
-	gsonVersion = '2.10.1'
+	gsonVersion = '2.11.0'
 
-	okHttpVersion = '4.11.0'
+	okHttpVersion = '4.12.0'
 	okHttpDigestVersion = '3.1.0'
 
 	velocityVersion = '2.3'
@@ -93,7 +93,7 @@ ext {
 	msgraphVersion = '5.47.0'
 	msgraphAuthVersion = '4.0.5' // contains com.microsoft.identity:common lib which added opentelemetry in 9.0.0, do we need to fork another lib before updating to >=4.2.0 ???
 
-	minIoVersion = '8.5.2'
+	minIoVersion = '8.5.10'
 	pcloudVersion = '1.9.2-dev.0001'
 	staxVersion = '1.2.0' // needed for minIO
 	commonsCodecVersion = '1.17.0'
@@ -104,7 +104,7 @@ ext {
 
 	jUnitVersion = '5.10.2'
 	assertJVersion = '1.7.1'
-	mockitoVersion = '5.11.0'
+	mockitoVersion = '5.12.0'
 	mockitoKotlinVersion = '5.3.1'
 	mockitoInlineVersion = '5.2.0'
 	hamcrestVersion = '1.3'

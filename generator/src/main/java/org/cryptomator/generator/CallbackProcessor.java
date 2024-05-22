@@ -22,7 +22,7 @@ import javax.tools.Diagnostic;
 import javax.tools.JavaFileObject;
 
 @SupportedAnnotationTypes("org.cryptomator.generator.Callback")
-@SupportedSourceVersion(SourceVersion.RELEASE_8)
+@SupportedSourceVersion(SourceVersion.RELEASE_17)
 public class CallbackProcessor extends BaseProcessor {
 
 	@Override

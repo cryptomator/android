@@ -2,18 +2,16 @@ package org.cryptomator.presentation.ui.fragment
 
 import androidx.recyclerview.widget.LinearLayoutManager
 import org.cryptomator.generator.Fragment
-import org.cryptomator.presentation.R
+import org.cryptomator.presentation.databinding.FragmentAutoUploadChooseVaultBinding
 import org.cryptomator.presentation.model.CloudFolderModel
 import org.cryptomator.presentation.model.VaultModel
 import org.cryptomator.presentation.presenter.AutoUploadChooseVaultPresenter
 import org.cryptomator.presentation.ui.adapter.SharedLocationsAdapter
 import org.cryptomator.util.SharedPreferencesHandler
 import javax.inject.Inject
-import kotlinx.android.synthetic.main.fragment_auto_upload_choose_vault.locationsRecyclerView
-import kotlinx.android.synthetic.main.view_receive_save_button.saveFiles
 
-@Fragment(R.layout.fragment_auto_upload_choose_vault)
-class AutoUploadChooseVaultFragment : BaseFragment() {
+@Fragment
+class AutoUploadChooseVaultFragment : BaseFragment<FragmentAutoUploadChooseVaultBinding>(FragmentAutoUploadChooseVaultBinding::inflate) {
 
 	@Inject
 	lateinit var presenter: AutoUploadChooseVaultPresenter
@@ -25,7 +23,7 @@ class AutoUploadChooseVaultFragment : BaseFragment() {
 	lateinit var sharedPreferencesHandler: SharedPreferencesHandler
 
 	override fun setupView() {
-		saveFiles.setOnClickListener { presenter.onChooseVaultPressed() }
+		binding.toolbarBottom.saveFiles.setOnClickListener { presenter.onChooseVaultPressed() }
 
 		setupRecyclerView()
 	}
@@ -67,9 +65,9 @@ class AutoUploadChooseVaultFragment : BaseFragment() {
 
 	private fun setupRecyclerView() {
 		locationsAdapter.setCallback(locationsAdapterCallback)
-		locationsRecyclerView.setHasFixedSize(true)
-		locationsRecyclerView.layoutManager = LinearLayoutManager(context())
-		locationsRecyclerView.adapter = locationsAdapter
+		binding.locationsRecyclerView.setHasFixedSize(true)
+		binding.locationsRecyclerView.layoutManager = LinearLayoutManager(context())
+		binding.locationsRecyclerView.adapter = locationsAdapter
 	}
 
 	fun showChosenLocation(folder: CloudFolderModel) {

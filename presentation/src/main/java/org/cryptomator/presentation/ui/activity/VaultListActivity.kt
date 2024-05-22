@@ -10,6 +10,7 @@ import org.cryptomator.generator.Activity
 import org.cryptomator.generator.InjectIntent
 import org.cryptomator.presentation.CryptomatorApp
 import org.cryptomator.presentation.R
+import org.cryptomator.presentation.databinding.ActivityLayoutObscureAwareBinding
 import org.cryptomator.presentation.intent.Intents.browseFilesIntent
 import org.cryptomator.presentation.intent.Intents.settingsIntent
 import org.cryptomator.presentation.intent.VaultListIntent
@@ -31,11 +32,9 @@ import org.cryptomator.presentation.ui.dialog.VaultRenameDialog
 import org.cryptomator.presentation.ui.fragment.VaultListFragment
 import org.cryptomator.presentation.ui.layout.ObscuredAwareCoordinatorLayout.Listener
 import javax.inject.Inject
-import kotlinx.android.synthetic.main.activity_layout_obscure_aware.activityRootView
-import kotlinx.android.synthetic.main.toolbar_layout.toolbar
 
-@Activity(layout = R.layout.activity_layout_obscure_aware)
-class VaultListActivity : BaseActivity(), //
+@Activity
+class VaultListActivity : BaseActivity<ActivityLayoutObscureAwareBinding>(ActivityLayoutObscureAwareBinding::inflate), //
 	VaultListView, //
 	VaultListCallback, //
 	AskForLockScreenDialog.Callback, //
@@ -62,7 +61,7 @@ class VaultListActivity : BaseActivity(), //
 	override fun setupView() {
 		setupToolbar()
 		vaultListPresenter.prepareView()
-		activityRootView.setOnFilteredTouchEventForSecurityListener(object : Listener {
+		binding.activityRootView.setOnFilteredTouchEventForSecurityListener(object : Listener {
 			override fun onFilteredTouchEventForSecurity() {
 				vaultListPresenter.onFilteredTouchEventForSecurity()
 			}
@@ -106,8 +105,8 @@ class VaultListActivity : BaseActivity(), //
 	}
 
 	private fun setupToolbar() {
-		toolbar.title = getString(R.string.app_name).uppercase()
-		setSupportActionBar(toolbar)
+		binding.mtToolbar.toolbar.title = getString(R.string.app_name).uppercase()
+		setSupportActionBar(binding.mtToolbar.toolbar)
 	}
 
 	override fun showAddVaultBottomSheet() {
@@ -198,7 +197,7 @@ class VaultListActivity : BaseActivity(), //
 	}
 
 	private fun vaultListFragment(): VaultListFragment = //
-		getCurrentFragment(R.id.fragmentContainer) as VaultListFragment
+		getCurrentFragment(R.id.fragment_container) as VaultListFragment
 
 	override fun onUpdateAppDialogLoaded() {
 		showProgress(ProgressModel.GENERIC)

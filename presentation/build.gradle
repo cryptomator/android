@@ -1,7 +1,7 @@
 apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-kapt'
-apply plugin: 'kotlin-android-extensions'
+apply plugin: 'kotlin-parcelize'
 apply plugin: 'de.mannodermaus.android-junit5'
 
 if (!liteFlavor()) {
@@ -38,10 +38,14 @@ android {
 	}
 
 	compileOptions {
-		sourceCompatibility JavaVersion.VERSION_1_8
-		targetCompatibility JavaVersion.VERSION_1_8
+		sourceCompatibility JavaVersion.VERSION_17
+		targetCompatibility JavaVersion.VERSION_17
 
 		coreLibraryDesugaringEnabled true
+	}
+
+	buildFeatures {
+		viewBinding true
 	}
 
 	buildTypes {
@@ -267,10 +271,6 @@ dependencies {
 configurations {
 	all*.exclude group: 'com.google.android', module: 'android'
 	all*.exclude group: 'com.google.guava', module: 'listenablefuture'
-}
-
-androidExtensions {
-	experimental = true
 }
 
 def liteFlavor() {

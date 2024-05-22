@@ -30,7 +30,7 @@
 				android:layout_centerVertical="true"
 				android:layout_marginStart="4dp"
 				android:layout_marginEnd="16dp"
-				android:layout_toEndOf="@+id/iv_cloud_image"
+				android:layout_toEndOf="@id/iv_cloud_image"
 				android:orientation="vertical">
 
 				<TextView
@@ -59,7 +59,7 @@
 			android:layout_height="1dp"
 			android:layout_alignParentBottom="true"
 			android:layout_marginBottom="16dp"
-			android:layout_toEndOf="@+id/iv_cloud_image"
+			android:layout_toEndOf="@id/iv_cloud_image"
 			android:background="@color/list_divider" />
 
 		<TextView
