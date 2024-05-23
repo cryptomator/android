@@ -7,7 +7,7 @@ import com.dropbox.core.v2.files.Metadata
 internal object DropboxCloudNodeFactory {
 
 	fun from(parent: DropboxFolder, metadata: FileMetadata): DropboxFile {
-		return DropboxFile(parent, metadata.name, metadata.pathDisplay, metadata.size, metadata.clientModified)
+		return DropboxFile(parent, metadata.name, metadata.pathLower!!, metadata.size, metadata.clientModified)
 	}
 
 	@JvmStatic

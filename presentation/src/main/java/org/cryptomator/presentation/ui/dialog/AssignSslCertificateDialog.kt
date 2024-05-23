@@ -9,15 +9,12 @@ import org.cryptomator.domain.WebDavCloud
 import org.cryptomator.domain.exception.FatalBackendException
 import org.cryptomator.generator.Dialog
 import org.cryptomator.presentation.R
+import org.cryptomator.presentation.databinding.DialogHandleSslCertificateBinding
 import java.security.cert.CertificateException
 import java.security.cert.X509Certificate
-import kotlinx.android.synthetic.main.dialog_handle_ssl_certificate.cb_accept_certificate
-import kotlinx.android.synthetic.main.dialog_handle_ssl_certificate.certificate_details
-import kotlinx.android.synthetic.main.dialog_handle_ssl_certificate.show_certificate
-import kotlinx.android.synthetic.main.dialog_handle_ssl_certificate.tv_finger_print_text
 
-@Dialog(R.layout.dialog_handle_ssl_certificate)
-class AssignSslCertificateDialog : BaseDialog<AssignSslCertificateDialog.Callback>() {
+@Dialog
+class AssignSslCertificateDialog : BaseDialog<AssignSslCertificateDialog.Callback, DialogHandleSslCertificateBinding>(DialogHandleSslCertificateBinding::inflate) {
 
 	private lateinit var certificate: X509Certificate
 
@@ -43,20 +40,19 @@ class AssignSslCertificateDialog : BaseDialog<AssignSslCertificateDialog.Callbac
 	public override fun setupView() {
 		certificate = requireArguments().getSerializable(CERTIFICATE) as X509Certificate
 		try {
-			tv_finger_print_text.text = X509CertificateHelper.getFingerprintFormatted(certificate)
-			certificate_details.text = certificate.toString()
+			binding.tvFingerPrintText.text = X509CertificateHelper.getFingerprintFormatted(certificate)
+			binding.certificateDetails.text = certificate.toString()
 		} catch (e: CertificateException) {
 			throw FatalBackendException(e)
 		}
 
-		show_certificate.setOnClickListener {
+		binding.showCertificate.setOnClickListener {
 			run {
-				certificate_details.visibility = View.VISIBLE
-				show_certificate.visibility = View.GONE
+				binding.certificateDetails.visibility = View.VISIBLE
+				binding.showCertificate.visibility = View.GONE
 			}
 		}
-
-		cb_accept_certificate.setOnCheckedChangeListener { _, isChecked ->
+		binding.cbAcceptCertificate.setOnCheckedChangeListener { _, isChecked ->
 			run {
 				alertDialog.getButton(DialogInterface.BUTTON_POSITIVE).isEnabled = isChecked
 			}

@@ -1,17 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
 <org.cryptomator.presentation.ui.layout.ArcAwareCoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
 	xmlns:app="http://schemas.android.com/apk/res-auto"
-	android:id="@+id/coordinatorLayout"
+	android:id="@+id/coordinator_layout"
 	android:layout_width="match_parent"
 	android:layout_height="match_parent">
 
-	<include layout="@layout/recycler_view_layout" />
+	<include
+		android:id="@+id/rv_vaults"
+		layout="@layout/recycler_view_layout" />
 
-	<include layout="@layout/view_vault_creation_hint" />
+	<include
+		android:id="@+id/rl_creation_hint"
+		layout="@layout/view_vault_creation_hint" />
 
 	<include
 		android:id="@+id/floating_action_button"
 		layout="@layout/floating_action_button_layout"
-		app:layout_anchor="@id/recyclerView" />
+		app:layout_anchor="@id/recycler_view" />
 
 </org.cryptomator.presentation.ui.layout.ArcAwareCoordinatorLayout>

@@ -1,24 +1,28 @@
 package org.cryptomator.presentation.ui.dialog
 
+import android.view.LayoutInflater
 import android.view.View
+import android.view.ViewGroup
+import android.widget.LinearLayout
+import android.widget.TextView
+import androidx.viewbinding.ViewBinding
 import org.cryptomator.presentation.R
+import org.cryptomator.presentation.databinding.ViewDialogErrorBinding
 import org.cryptomator.presentation.model.ProgressModel
 import org.cryptomator.presentation.model.ProgressStateModel
 import org.cryptomator.presentation.ui.activity.BaseActivity
 import org.cryptomator.presentation.ui.activity.ErrorDisplay
 import org.cryptomator.presentation.ui.activity.ProgressAware
 import org.cryptomator.presentation.util.FileNameValidator.Companion.isInvalidName
-import kotlinx.android.synthetic.main.view_dialog_error.ll_error
-import kotlinx.android.synthetic.main.view_dialog_error.tv_error
-import kotlinx.android.synthetic.main.view_dialog_progress.ll_progress
-import kotlinx.android.synthetic.main.view_dialog_progress.tv_progress
 
-abstract class BaseProgressErrorDialog<Callback> : BaseDialog<Callback>(), ProgressAware, ErrorDisplay {
+abstract class BaseProgressErrorDialog<Callback, VB : ViewBinding>(
+	mainBindingFactory: (LayoutInflater, ViewGroup?, Boolean) -> VB
+) : BaseDialog<Callback, VB>(mainBindingFactory), ProgressAware, ErrorDisplay {
 
 	override fun showError(message: String) {
-		ll_progress.visibility = View.GONE
-		ll_error.visibility = View.VISIBLE
-		tv_error.text = message
+		dialogProgressLayout().visibility = View.GONE
+		dialogErrorBinding().llError.visibility = View.VISIBLE
+		dialogErrorBinding().tvError.text = message
 		enableOrientationChange(true)
 		onErrorResponse(enableViewAfterError())
 	}
@@ -35,21 +39,25 @@ abstract class BaseProgressErrorDialog<Callback> : BaseDialog<Callback>(), Progr
 		if (hasInvalidInput(input)) {
 			showError(R.string.error_name_contains_invalid_characters)
 		} else {
-			ll_error.visibility = View.GONE
+			dialogErrorBinding().llError.visibility = View.GONE
 		}
 	}
 
 	override fun showProgress(progress: ProgressModel) {
 		if (progress.state() === ProgressStateModel.COMPLETED) {
 			enableOrientationChange(true)
-			(activity as BaseActivity?)?.closeDialog()
+			(activity as BaseActivity<*>?)?.closeDialog()
 		} else {
-			ll_error.visibility = View.GONE
-			ll_progress.visibility = View.VISIBLE
-			tv_progress.setText(progress.state().textResourceId())
+			dialogErrorBinding().llError.visibility = View.GONE
+			dialogProgressLayout().visibility = View.VISIBLE
+			dialogProgressTextView().setText(progress.state().textResourceId())
 			updateProgress(progress.progress())
 		}
 	}
+
+	abstract fun dialogProgressLayout(): LinearLayout
+	abstract fun dialogProgressTextView(): TextView
+	abstract fun dialogErrorBinding(): ViewDialogErrorBinding
 
 	open fun updateProgress(progress: Int) {}
 	open fun enableViewAfterError(): View? {

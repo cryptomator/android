@@ -6,14 +6,14 @@ import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.DialogFragment
 import org.cryptomator.generator.Dialog
 import org.cryptomator.presentation.R
+import org.cryptomator.presentation.databinding.DialogConfirmDeleteCloudNodeBinding
 import org.cryptomator.presentation.model.CloudFileModel
 import org.cryptomator.presentation.model.CloudFolderModel
 import org.cryptomator.presentation.model.CloudNodeModel
 import java.io.Serializable
-import kotlinx.android.synthetic.main.dialog_confirm_delete_cloud_node.tv_message
 
-@Dialog(R.layout.dialog_confirm_delete_cloud_node)
-class ConfirmDeleteCloudNodeDialog : BaseDialog<ConfirmDeleteCloudNodeDialog.Callback>() {
+@Dialog
+class ConfirmDeleteCloudNodeDialog : BaseDialog<ConfirmDeleteCloudNodeDialog.Callback, DialogConfirmDeleteCloudNodeBinding>(DialogConfirmDeleteCloudNodeBinding::inflate) {
 
 	interface Callback {
 
@@ -44,9 +44,9 @@ class ConfirmDeleteCloudNodeDialog : BaseDialog<ConfirmDeleteCloudNodeDialog.Cal
 
 	public override fun setupView() {
 		val nodes = requireArguments().getSerializable(ARG_CLOUD_NODE) as List<CloudNodeModel<*>>
-		tv_message.text = getString(R.string.dialog_confirm_delete_multiple_message)
+		binding.tvMessage.text = getString(R.string.dialog_confirm_delete_multiple_message)
 		if (nodes.size == 1) {
-			tv_message.text = getMessage(nodes[0])
+			binding.tvMessage.text = getMessage(nodes[0])
 		}
 	}
 

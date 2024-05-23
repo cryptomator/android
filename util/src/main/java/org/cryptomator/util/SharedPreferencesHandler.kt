@@ -165,7 +165,7 @@ constructor(context: Context) : SharedPreferences.OnSharedPreferenceChangeListen
 		return defaultSharedPreferences.getValue(USE_LRU_CACHE, false)
 	}
 
-	override fun onSharedPreferenceChanged(sharedPreferences: SharedPreferences, key: String) {
+	override fun onSharedPreferenceChanged(sharedPreferences: SharedPreferences, key: String?) {
 		if (LOCK_TIMEOUT == key) {
 			val lockTimeout = lockTimeout
 			lockTimeoutChangedListeners.keys.forEach { listener ->

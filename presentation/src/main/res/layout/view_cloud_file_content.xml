@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
 	xmlns:app="http://schemas.android.com/apk/res-auto"
-	android:id="@+id/cloudFileContent"
+	android:id="@+id/cloud_file_content"
 	android:layout_width="match_parent"
 	android:layout_height="match_parent"
 	android:orientation="vertical"
 	android:visibility="visible">
 
 	<TextView
-		android:id="@+id/cloudFileText"
+		android:id="@+id/cloud_file_text"
 		style="@style/AppTheme.ListItemDarkTextColor"
 		android:layout_width="match_parent"
 		android:layout_height="wrap_content"
@@ -22,7 +22,7 @@
 		android:layout_height="wrap_content">
 
 		<TextView
-			android:id="@+id/cloudFileSubText"
+			android:id="@+id/cloud_file_sub_text"
 			style="@style/AppTheme.ListItemLightTextColor"
 			android:layout_width="match_parent"
 			android:layout_height="wrap_content"
@@ -34,18 +34,19 @@
 		<!-- using android:singleLine to fix https://code.google.com/p/android/issues/detail?id=33868 -->
 
 		<LinearLayout
-			android:id="@+id/cloudFileProgress"
+			android:id="@+id/cloud_file_progress"
 			android:layout_width="match_parent"
 			android:layout_height="wrap_content"
 			android:visibility="gone">
 
 			<ImageView
-				android:id="@+id/progressIcon"
+				android:id="@+id/progress_icon"
 				android:layout_width="16dp"
 				android:layout_height="16dp"
 				app:tint="@color/textColorLight" />
 
 			<include
+				android:id="@+id/rl_cloud_file_progress"
 				layout="@layout/view_cloud_file_progress"
 				android:layout_width="match_parent"
 				android:layout_height="wrap_content"

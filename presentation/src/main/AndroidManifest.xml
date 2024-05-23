@@ -7,6 +7,7 @@
 	<uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
 	<uses-permission android:name="android.permission.USE_BIOMETRIC" />
 	<uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
+	<uses-permission android:name="android.permission.FOREGROUND_SERVICE_SPECIAL_USE" />
 	<uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
 
 	<!-- Required for Auto photo upload, READ_EXTERNAL_STORAGE for legacy Android < 10 -->
@@ -196,7 +197,15 @@
 
 		<service
 			android:name=".service.CryptorsService"
-			android:enabled="true" />
+			android:enabled="true"
+			android:foregroundServiceType="specialUse">
+			<property
+				android:name="android.app.PROPERTY_SPECIAL_USE_FGS_SUBTYPE"
+				android:value="This app uses client-side encryption, so the users need to unlock vaults before accessing their data.
+				During this access, we need to store the vault keys in memory so that the user does not need to enter their unlock password
+				each time the vault is accessed. The vault is unlocked until a user-defined inactivity timeout is reached or, if not disabled,
+				the screen is locked. All of this requires this permission." />
+		</service>
 
 		<service
 			android:name=".service.AutoUploadService"

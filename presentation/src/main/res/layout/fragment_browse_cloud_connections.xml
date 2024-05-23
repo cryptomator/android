@@ -10,13 +10,16 @@
 		android:layout_height="match_parent">
 
 		<include
+			android:id="@+id/rv_cloud_connections"
 			layout="@layout/recycler_view_layout"
 			android:layout_width="match_parent"
 			android:layout_height="match_parent"
 			android:clipToPadding="true"
 			android:paddingBottom="88dp" />
 
-		<include layout="@layout/view_empty_cloud_connections" />
+		<include
+			android:id="@+id/rl_creation_hint"
+			layout="@layout/view_empty_cloud_connections" />
 
 		<RelativeLayout
 			android:id="@+id/toolbar_bottom"
@@ -36,6 +39,6 @@
 	<include
 		android:id="@+id/floating_action_button"
 		layout="@layout/floating_action_button_layout"
-		app:layout_anchor="@id/recyclerView" />
+		app:layout_anchor="@id/recycler_view" />
 
 </org.cryptomator.presentation.ui.layout.ArcAwareCoordinatorLayout>

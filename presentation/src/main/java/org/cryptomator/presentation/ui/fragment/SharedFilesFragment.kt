@@ -2,7 +2,7 @@ package org.cryptomator.presentation.ui.fragment
 
 import androidx.recyclerview.widget.LinearLayoutManager
 import org.cryptomator.generator.Fragment
-import org.cryptomator.presentation.R
+import org.cryptomator.presentation.databinding.FragmentSharedFilesBinding
 import org.cryptomator.presentation.model.CloudFolderModel
 import org.cryptomator.presentation.model.SharedFileModel
 import org.cryptomator.presentation.model.VaultModel
@@ -12,12 +12,9 @@ import org.cryptomator.presentation.ui.adapter.SharedFilesAdapter
 import org.cryptomator.presentation.ui.adapter.SharedFilesAdapter.Callback
 import org.cryptomator.presentation.ui.adapter.SharedLocationsAdapter
 import javax.inject.Inject
-import kotlinx.android.synthetic.main.fragment_shared_files.filesRecyclerView
-import kotlinx.android.synthetic.main.fragment_shared_files.locationsRecyclerView
-import kotlinx.android.synthetic.main.view_receive_save_button.saveFiles
 
-@Fragment(R.layout.fragment_shared_files)
-class SharedFilesFragment : BaseFragment() {
+@Fragment
+class SharedFilesFragment : BaseFragment<FragmentSharedFilesBinding>(FragmentSharedFilesBinding::inflate) {
 
 	@Inject
 	lateinit var presenter: SharedFilesPresenter
@@ -50,7 +47,7 @@ class SharedFilesFragment : BaseFragment() {
 	}
 
 	override fun setupView() {
-		saveFiles.setOnClickListener { presenter.onSaveButtonPressed(filesAdapter.all) }
+		binding.toolbarBottom.saveFiles.setOnClickListener { presenter.onSaveButtonPressed(filesAdapter.all) }
 		setupRecyclerView()
 	}
 
@@ -60,14 +57,14 @@ class SharedFilesFragment : BaseFragment() {
 
 	private fun setupRecyclerView() {
 		filesAdapter.setCallback(filesAdapterCallback)
-		filesRecyclerView.setHasFixedSize(true)
-		filesRecyclerView.layoutManager = LinearLayoutManager(context())
-		filesRecyclerView.adapter = filesAdapter
+		binding.filesRecyclerView.setHasFixedSize(true)
+		binding.filesRecyclerView.layoutManager = LinearLayoutManager(context())
+		binding.filesRecyclerView.adapter = filesAdapter
 
 		locationsAdapter.setCallback(locationsAdapterCallback)
-		locationsRecyclerView.setHasFixedSize(true)
-		locationsRecyclerView.layoutManager = LinearLayoutManager(context())
-		locationsRecyclerView.adapter = locationsAdapter
+		binding.locationsRecyclerView.setHasFixedSize(true)
+		binding.locationsRecyclerView.layoutManager = LinearLayoutManager(context())
+		binding.locationsRecyclerView.adapter = locationsAdapter
 	}
 
 	fun displayVaults(vaults: List<VaultModel>?) {

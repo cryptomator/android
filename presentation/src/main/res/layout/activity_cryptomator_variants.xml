@@ -5,6 +5,7 @@
 	android:orientation="vertical">
 
 	<include
+		android:id="@+id/mt_toolbar"
 		layout="@layout/toolbar_layout"
 		android:layout_width="match_parent"
 		android:layout_height="wrap_content" />
@@ -17,7 +18,7 @@
 		<ScrollView
 			android:layout_width="match_parent"
 			android:layout_height="match_parent"
-			android:layout_above="@+id/tvHint">
+			android:layout_above="@id/tv_hint">
 
 			<LinearLayout
 				android:layout_width="match_parent"
@@ -31,7 +32,7 @@
 					android:paddingBottom="16dp">
 
 					<TextView
-						android:id="@+id/tvWebsiteTitle"
+						android:id="@+id/tv_website_title"
 						android:layout_width="match_parent"
 						android:layout_height="wrap_content"
 						android:text="@string/screen_cryptomator_variants_website_title"
@@ -41,8 +42,8 @@
 					<LinearLayout
 						android:layout_width="wrap_content"
 						android:layout_height="wrap_content"
-						android:layout_below="@+id/tvWebsiteTitle"
-						android:layout_toLeftOf="@id/btnInstallWebsiteVariant"
+						android:layout_below="@id/tv_website_title"
+						android:layout_toLeftOf="@id/btn_install_website_variant"
 						android:orientation="vertical">
 
 						<RelativeLayout
@@ -52,17 +53,17 @@
 							android:foreground="@drawable/item_browse_files_node_selector">
 
 							<ImageView
-								android:id="@+id/supportedWebsiteIcon"
+								android:id="@+id/supported_website_icon"
 								android:layout_width="@dimen/thumbnail_size"
 								android:layout_height="@dimen/thumbnail_size"
 								android:src="@drawable/ic_done_gray" />
 
 							<TextView
-								android:id="@+id/tvWebsiteSupported"
+								android:id="@+id/tv_website_supported"
 								android:layout_width="wrap_content"
 								android:layout_height="wrap_content"
 								android:layout_centerVertical="true"
-								android:layout_toRightOf="@id/supportedWebsiteIcon" />
+								android:layout_toRightOf="@id/supported_website_icon" />
 
 						</RelativeLayout>
 
@@ -74,7 +75,7 @@
 					</LinearLayout>
 
 					<Button
-						android:id="@+id/btnInstallWebsiteVariant"
+						android:id="@+id/btn_install_website_variant"
 						android:layout_width="wrap_content"
 						android:layout_height="wrap_content"
 						android:layout_alignParentRight="true"
@@ -100,7 +101,7 @@
 					android:paddingBottom="16dp">
 
 					<TextView
-						android:id="@+id/tvLiteTitle"
+						android:id="@+id/tv_lite_title"
 						android:layout_width="match_parent"
 						android:layout_height="wrap_content"
 						android:text="@string/screen_cryptomator_variants_lite_title"
@@ -110,8 +111,8 @@
 					<LinearLayout
 						android:layout_width="wrap_content"
 						android:layout_height="wrap_content"
-						android:layout_below="@+id/tvLiteTitle"
-						android:layout_toLeftOf="@id/btnInstallLiteVariant"
+						android:layout_below="@id/tv_lite_title"
+						android:layout_toLeftOf="@id/btn_install_lite_variant"
 						android:orientation="vertical">
 
 						<RelativeLayout
@@ -121,17 +122,17 @@
 							android:foreground="@drawable/item_browse_files_node_selector">
 
 							<ImageView
-								android:id="@+id/supportedLiteRepoIcon"
+								android:id="@+id/supported_lite_repo_icon"
 								android:layout_width="@dimen/thumbnail_size"
 								android:layout_height="@dimen/thumbnail_size"
 								android:src="@drawable/ic_done_gray" />
 
 							<TextView
-								android:id="@+id/tvLiteSupported"
+								android:id="@+id/tv_lite_supported"
 								android:layout_width="wrap_content"
 								android:layout_height="wrap_content"
 								android:layout_centerVertical="true"
-								android:layout_toRightOf="@id/supportedLiteRepoIcon" />
+								android:layout_toRightOf="@id/supported_lite_repo_icon" />
 
 						</RelativeLayout>
 
@@ -142,17 +143,17 @@
 							android:foreground="@drawable/item_browse_files_node_selector">
 
 							<ImageView
-								android:id="@+id/unsupportedLiteRepoIcon"
+								android:id="@+id/unsupported_lite_repo_icon"
 								android:layout_width="@dimen/thumbnail_size"
 								android:layout_height="@dimen/thumbnail_size"
 								android:src="@drawable/ic_clear_gray" />
 
 							<TextView
-								android:id="@+id/tvLiteUnsupported"
+								android:id="@+id/tv_lite_unsupported"
 								android:layout_width="wrap_content"
 								android:layout_height="wrap_content"
 								android:layout_centerVertical="true"
-								android:layout_toRightOf="@id/unsupportedLiteRepoIcon" />
+								android:layout_toRightOf="@id/unsupported_lite_repo_icon" />
 
 						</RelativeLayout>
 
@@ -164,7 +165,7 @@
 					</LinearLayout>
 
 					<Button
-						android:id="@+id/btnInstallLiteVariant"
+						android:id="@+id/btn_install_lite_variant"
 						android:layout_width="wrap_content"
 						android:layout_height="wrap_content"
 						android:layout_alignParentRight="true"
@@ -184,7 +185,7 @@
 
 				<!-- <f-droid-custom> -->
 				<TextView
-					android:id="@+id/tvFdroidTitle"
+					android:id="@+id/tv_fdroid_title"
 					android:layout_width="match_parent"
 					android:layout_height="wrap_content"
 					android:layout_marginTop="@dimen/global_padding"
@@ -199,17 +200,17 @@
 					android:foreground="@drawable/item_browse_files_node_selector">
 
 					<ImageView
-						android:id="@+id/supportedFdroidCloudsIcon"
+						android:id="@+id/supported_fdroid_clouds_icon"
 						android:layout_width="@dimen/thumbnail_size"
 						android:layout_height="@dimen/thumbnail_size"
 						android:src="@drawable/ic_done_gray" />
 
 					<TextView
-						android:id="@+id/tvFdroidCustomSupported"
+						android:id="@+id/tv_fdroid_custom_supported"
 						android:layout_width="wrap_content"
 						android:layout_height="wrap_content"
 						android:layout_centerVertical="true"
-						android:layout_toRightOf="@id/supportedFdroidCloudsIcon" />
+						android:layout_toRightOf="@id/supported_fdroid_clouds_icon" />
 				</RelativeLayout>
 
 				<RelativeLayout
@@ -219,17 +220,17 @@
 					android:foreground="@drawable/item_browse_files_node_selector">
 
 					<ImageView
-						android:id="@+id/unsupportedCustomRepoIcon"
+						android:id="@+id/unsupported_custom_repo_icon"
 						android:layout_width="@dimen/thumbnail_size"
 						android:layout_height="@dimen/thumbnail_size"
 						android:src="@drawable/ic_clear_gray" />
 
 					<TextView
-						android:id="@+id/tvFdroidCustomUnsupported"
+						android:id="@+id/tv_fdroid_custom_unsupported"
 						android:layout_width="wrap_content"
 						android:layout_height="wrap_content"
 						android:layout_centerVertical="true"
-						android:layout_toRightOf="@id/unsupportedCustomRepoIcon" />
+						android:layout_toRightOf="@id/unsupported_custom_repo_icon" />
 				</RelativeLayout>
 
 				<TextView
@@ -244,15 +245,15 @@
 					android:layout_marginBottom="16dp">
 
 					<TextView
-						android:id="@+id/tvAddRepo"
+						android:id="@+id/tv_add_repo"
 						android:layout_width="wrap_content"
 						android:layout_height="wrap_content"
 						android:layout_centerVertical="true"
-						android:layout_toStartOf="@+id/btnAddRepo"
+						android:layout_toStartOf="@id/btn_add_repo"
 						android:text="@string/screen_cryptomator_variants_fdroid_add_repo_hint" />
 
 					<Button
-						android:id="@+id/btnAddRepo"
+						android:id="@+id/btn_add_repo"
 						android:layout_width="wrap_content"
 						android:layout_height="wrap_content"
 						android:layout_alignParentEnd="true"
@@ -271,15 +272,15 @@
 					android:foreground="@drawable/item_browse_files_node_selector">
 
 					<TextView
-						android:id="@+id/tvAskInstallApp"
+						android:id="@+id/tv_ask_install_app"
 						android:layout_width="wrap_content"
 						android:layout_height="wrap_content"
 						android:layout_centerVertical="true"
-						android:layout_toStartOf="@+id/btnInstallFDroidVariant"
+						android:layout_toStartOf="@id/btn_install_fdroid_variant"
 						android:text="@string/screen_cryptomator_variants_fdroid_install_hint" />
 
 					<Button
-						android:id="@+id/btnInstallFDroidVariant"
+						android:id="@+id/btn_install_fdroid_variant"
 						android:layout_width="wrap_content"
 						android:layout_height="wrap_content"
 						android:layout_alignParentEnd="true"
@@ -299,11 +300,11 @@
 		<TextView
 			android:layout_width="match_parent"
 			android:layout_height="1dp"
-			android:layout_above="@+id/tvHint"
+			android:layout_above="@id/tv_hint"
 			android:background="@color/list_divider" />
 
 		<TextView
-			android:id="@+id/tvHint"
+			android:id="@+id/tv_hint"
 			android:layout_width="wrap_content"
 			android:layout_height="wrap_content"
 			android:layout_alignParentBottom="true"

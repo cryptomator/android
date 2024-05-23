@@ -5,10 +5,10 @@ import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.DialogFragment
 import org.cryptomator.generator.Dialog
 import org.cryptomator.presentation.R
-import kotlinx.android.synthetic.main.dialog_no_screen_lock_set.cb_select_screen_lock
+import org.cryptomator.presentation.databinding.DialogNoScreenLockSetBinding
 
-@Dialog(R.layout.dialog_no_screen_lock_set)
-class AskForLockScreenDialog : BaseDialog<AskForLockScreenDialog.Callback>() {
+@Dialog
+class AskForLockScreenDialog : BaseDialog<AskForLockScreenDialog.Callback, DialogNoScreenLockSetBinding>(DialogNoScreenLockSetBinding::inflate) {
 
 	interface Callback {
 
@@ -18,7 +18,7 @@ class AskForLockScreenDialog : BaseDialog<AskForLockScreenDialog.Callback>() {
 	override fun setupDialog(builder: AlertDialog.Builder): android.app.Dialog {
 		builder //
 			.setTitle(R.string.dialog_no_screen_lock_title) //
-			.setNeutralButton(getString(R.string.dialog_unable_to_share_positive_button)) { _: DialogInterface, _: Int -> callback?.onAskForLockScreenFinished(cb_select_screen_lock.isChecked) }
+			.setNeutralButton(getString(R.string.dialog_unable_to_share_positive_button)) { _: DialogInterface, _: Int -> callback?.onAskForLockScreenFinished(binding.cbSelectScreenLock.isChecked) }
 		return builder.create()
 	}
 

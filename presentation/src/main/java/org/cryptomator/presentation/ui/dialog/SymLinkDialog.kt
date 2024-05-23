@@ -6,10 +6,10 @@ import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.DialogFragment
 import org.cryptomator.generator.Dialog
 import org.cryptomator.presentation.R
-import kotlinx.android.synthetic.main.dialog_sym_link.tv_sym_link_info
+import org.cryptomator.presentation.databinding.DialogSymLinkBinding
 
-@Dialog(R.layout.dialog_sym_link)
-class SymLinkDialog : BaseDialog<SymLinkDialog.CallBack?>() {
+@Dialog
+class SymLinkDialog : BaseDialog<SymLinkDialog.CallBack?, DialogSymLinkBinding>(DialogSymLinkBinding::inflate) {
 
 	interface CallBack {
 
@@ -27,7 +27,7 @@ class SymLinkDialog : BaseDialog<SymLinkDialog.CallBack?>() {
 	}
 
 	public override fun setupView() {
-		tv_sym_link_info.movementMethod = LinkMovementMethod.getInstance()
+		binding.tvSymLinkInfo.movementMethod = LinkMovementMethod.getInstance()
 	}
 
 	companion object {

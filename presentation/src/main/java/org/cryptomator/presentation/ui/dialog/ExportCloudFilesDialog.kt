@@ -2,19 +2,21 @@ package org.cryptomator.presentation.ui.dialog
 
 import android.content.DialogInterface
 import android.os.Bundle
+import android.widget.LinearLayout
+import android.widget.TextView
 import androidx.appcompat.app.AlertDialog
 import org.cryptomator.generator.Dialog
 import org.cryptomator.presentation.R
+import org.cryptomator.presentation.databinding.DialogUploadLoadingBinding
+import org.cryptomator.presentation.databinding.ViewDialogErrorBinding
 import org.cryptomator.presentation.model.CloudFileModel
 import org.cryptomator.presentation.model.FileProgressStateModel
 import org.cryptomator.presentation.model.ProgressModel
 import org.cryptomator.presentation.model.ProgressStateModel
 import org.cryptomator.presentation.util.ResourceHelper
-import kotlinx.android.synthetic.main.view_dialog_intermediate_progress.iv_progress_icon
-import kotlinx.android.synthetic.main.view_dialog_intermediate_progress.pb_dialog
 
-@Dialog(R.layout.dialog_upload_loading)
-class ExportCloudFilesDialog : BaseProgressErrorDialog<ExportCloudFilesDialog.Callback>() {
+@Dialog
+class ExportCloudFilesDialog : BaseProgressErrorDialog<ExportCloudFilesDialog.Callback, DialogUploadLoadingBinding>(DialogUploadLoadingBinding::inflate) {
 
 	interface Callback {
 
@@ -53,7 +55,7 @@ class ExportCloudFilesDialog : BaseProgressErrorDialog<ExportCloudFilesDialog.Ca
 			dismissAllowingStateLoss()
 		} else {
 			if (progress.state().imageResourceId() != 0) {
-				iv_progress_icon.setImageDrawable(ResourceHelper.getDrawable(progress.state().imageResourceId()))
+				binding.llDialogIntermediateProgress.ivProgressIcon.setImageDrawable(ResourceHelper.getDrawable(progress.state().imageResourceId()))
 			}
 			dialog?.setTitle(effectiveTitle(seenFiles.size))
 		}
@@ -67,7 +69,19 @@ class ExportCloudFilesDialog : BaseProgressErrorDialog<ExportCloudFilesDialog.Ca
 	}
 
 	override fun updateProgress(progress: Int) {
-		pb_dialog.progress = progress
+		binding.llDialogIntermediateProgress.pbDialog.progress = progress
+	}
+
+	override fun dialogProgressLayout(): LinearLayout {
+		return binding.llDialogIntermediateProgress.llProgress
+	}
+
+	override fun dialogProgressTextView(): TextView {
+		return binding.llDialogIntermediateProgress.tvProgress
+	}
+
+	override fun dialogErrorBinding(): ViewDialogErrorBinding {
+		return binding.llDialogError
 	}
 
 	companion object {

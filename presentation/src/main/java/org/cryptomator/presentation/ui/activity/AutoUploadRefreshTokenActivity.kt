@@ -3,14 +3,14 @@ package org.cryptomator.presentation.ui.activity
 import android.os.Bundle
 import org.cryptomator.domain.exception.authentication.AuthenticationException
 import org.cryptomator.generator.Activity
-import org.cryptomator.presentation.R
+import org.cryptomator.presentation.databinding.ActivityEmptyBinding
 import org.cryptomator.presentation.presenter.AutoUploadRefreshTokenPresenter
 import org.cryptomator.presentation.ui.activity.view.AutoUploadRefreshTokenView
 import javax.inject.Inject
 import timber.log.Timber
 
-@Activity(layout = R.layout.activity_empty)
-class AutoUploadRefreshTokenActivity : BaseActivity(), AutoUploadRefreshTokenView {
+@Activity
+class AutoUploadRefreshTokenActivity : BaseActivity<ActivityEmptyBinding>(ActivityEmptyBinding::inflate), AutoUploadRefreshTokenView {
 
 	@Inject
 	lateinit var presenter: AutoUploadRefreshTokenPresenter

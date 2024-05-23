@@ -10,7 +10,7 @@
 		android:layout_height="wrap_content">
 
 		<com.google.android.material.textfield.TextInputEditText
-			android:id="@+id/urlPortEditText"
+			android:id="@+id/url_port_edit_text"
 			android:layout_width="match_parent"
 			android:layout_height="wrap_content"
 			android:hint="@string/screen_webdav_settings_url_port_label"
@@ -35,7 +35,7 @@
 		android:layout_height="wrap_content">
 
 		<com.google.android.material.textfield.TextInputEditText
-			android:id="@+id/userNameEditText"
+			android:id="@+id/user_name_edit_text"
 			android:layout_width="match_parent"
 			android:layout_height="wrap_content"
 			android:hint="@string/screen_webdav_settings_username_label"
@@ -50,7 +50,7 @@
 		android:layout_height="wrap_content">
 
 		<com.google.android.material.textfield.TextInputEditText
-			android:id="@+id/passwordEditText"
+			android:id="@+id/password_edit_text"
 			android:layout_width="match_parent"
 			android:layout_height="wrap_content"
 			android:hint="@string/screen_webdav_settings_password_label"
@@ -62,7 +62,7 @@
 	</com.google.android.material.textfield.TextInputLayout>
 
 	<Button
-		android:id="@+id/createCloudButton"
+		android:id="@+id/create_cloud_button"
 		android:layout_width="match_parent"
 		android:layout_height="wrap_content"
 		android:layout_marginTop="16dp"

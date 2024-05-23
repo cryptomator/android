@@ -6,10 +6,10 @@ import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.DialogFragment
 import org.cryptomator.generator.Dialog
 import org.cryptomator.presentation.R
-import kotlinx.android.synthetic.main.dialog_no_dir_file_or_empty.tv_no_dir_file_or_empty_info
+import org.cryptomator.presentation.databinding.DialogNoDirFileOrEmptyBinding
 
-@Dialog(R.layout.dialog_no_dir_file_or_empty)
-class NoDirFileOrEmptyDialog : BaseDialog<NoDirFileOrEmptyDialog.CallBack>() {
+@Dialog
+class NoDirFileOrEmptyDialog : BaseDialog<NoDirFileOrEmptyDialog.CallBack, DialogNoDirFileOrEmptyBinding>(DialogNoDirFileOrEmptyBinding::inflate) {
 
 	interface CallBack {
 
@@ -33,7 +33,7 @@ class NoDirFileOrEmptyDialog : BaseDialog<NoDirFileOrEmptyDialog.CallBack>() {
 	public override fun setupView() {
 		val cryptoFolderName = requireArguments().getSerializable(ARG_CRYPTO_FOLDER_NAME) as String
 		val cloudFolderPath = requireArguments().getSerializable(ARG_CLOUD_FOLDER_PATH) as String
-		tv_no_dir_file_or_empty_info.text = String.format(getString(R.string.dialog_no_dir_file_message), cryptoFolderName, cloudFolderPath)
+		binding.tvNoDirFileOrEmptyInfo.text = String.format(getString(R.string.dialog_no_dir_file_message), cryptoFolderName, cloudFolderPath)
 	}
 
 	companion object {
