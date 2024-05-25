@@ -7,6 +7,7 @@ import org.cryptomator.domain.Vault
 import org.cryptomator.generator.Activity
 import org.cryptomator.generator.InjectIntent
 import org.cryptomator.presentation.R
+import org.cryptomator.presentation.databinding.ActivityUnlockVaultBinding
 import org.cryptomator.presentation.intent.UnlockVaultIntent
 import org.cryptomator.presentation.model.VaultModel
 import org.cryptomator.presentation.presenter.UnlockVaultPresenter
@@ -19,8 +20,8 @@ import org.cryptomator.presentation.ui.fragment.UnlockVaultFragment
 import org.cryptomator.presentation.util.BiometricAuthentication
 import javax.inject.Inject
 
-@Activity(layout = R.layout.activity_unlock_vault)
-class UnlockVaultActivity : BaseActivity(), //
+@Activity
+class UnlockVaultActivity : BaseActivity<ActivityUnlockVaultBinding>(ActivityUnlockVaultBinding::inflate), //
 	UnlockVaultView, //
 	BiometricAuthentication.Callback,
 	ChangePasswordDialog.Callback,
@@ -100,7 +101,7 @@ class UnlockVaultActivity : BaseActivity(), //
 	}
 
 	private fun unlockVaultFragment(): UnlockVaultFragment = //
-		getCurrentFragment(R.id.fragmentContainer) as UnlockVaultFragment
+		getCurrentFragment(R.id.fragment_container) as UnlockVaultFragment
 
 	override fun showChangePasswordDialog(vaultModel: VaultModel, unverifiedVaultConfig: UnverifiedVaultConfig?) {
 		showDialog(ChangePasswordDialog.newInstance(vaultModel, unverifiedVaultConfig))

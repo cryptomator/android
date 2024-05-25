@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.View
 import org.cryptomator.generator.BottomSheet
 import org.cryptomator.presentation.R
+import org.cryptomator.presentation.databinding.DialogBottomSheetCloudSettingsBinding
 import org.cryptomator.presentation.model.CloudModel
 import org.cryptomator.presentation.model.CloudTypeModel
 import org.cryptomator.presentation.model.LocalStorageModel
@@ -11,14 +12,9 @@ import org.cryptomator.presentation.model.OnedriveCloudModel
 import org.cryptomator.presentation.model.PCloudModel
 import org.cryptomator.presentation.model.S3CloudModel
 import org.cryptomator.presentation.model.WebDavCloudModel
-import kotlinx.android.synthetic.main.dialog_bottom_sheet_cloud_settings.change_cloud
-import kotlinx.android.synthetic.main.dialog_bottom_sheet_cloud_settings.delete_cloud
-import kotlinx.android.synthetic.main.dialog_bottom_sheet_cloud_settings.iv_cloud_image
-import kotlinx.android.synthetic.main.dialog_bottom_sheet_cloud_settings.tv_cloud_name
-import kotlinx.android.synthetic.main.dialog_bottom_sheet_cloud_settings.tv_cloud_subtext
 
 @BottomSheet(R.layout.dialog_bottom_sheet_cloud_settings)
-class CloudConnectionSettingsBottomSheet : BaseBottomSheet<CloudConnectionSettingsBottomSheet.Callback>() {
+class CloudConnectionSettingsBottomSheet : BaseBottomSheet<CloudConnectionSettingsBottomSheet.Callback, DialogBottomSheetCloudSettingsBinding>(DialogBottomSheetCloudSettingsBinding::inflate) {
 
 	interface Callback {
 
@@ -38,12 +34,12 @@ class CloudConnectionSettingsBottomSheet : BaseBottomSheet<CloudConnectionSettin
 			else -> throw IllegalStateException("Cloud model is not binded in the view")
 		}
 
-		iv_cloud_image.setImageResource(cloudModel.cloudType().cloudImageResource)
-		change_cloud.setOnClickListener {
+		binding.ivCloudImage.setImageResource(cloudModel.cloudType().cloudImageResource)
+		binding.changeCloud.setOnClickListener {
 			callback?.onChangeCloudClicked(cloudModel)
 			dismiss()
 		}
-		delete_cloud.setOnClickListener {
+		binding.deleteCloud.setOnClickListener {
 			callback?.onDeleteCloudClicked(cloudModel)
 			dismiss()
 		}
@@ -51,33 +47,33 @@ class CloudConnectionSettingsBottomSheet : BaseBottomSheet<CloudConnectionSettin
 
 	private fun bindViewForLocal(cloudModel: LocalStorageModel) {
 		if (cloudModel.location().isEmpty()) {
-			tv_cloud_name.text = cloudModel.storage()
-			tv_cloud_subtext.visibility = View.GONE
+			binding.tvCloudName.text = cloudModel.storage()
+			binding.tvCloudSubtext.visibility = View.GONE
 		} else {
-			tv_cloud_name.text = cloudModel.location()
-			tv_cloud_subtext.text = cloudModel.storage()
+			binding.tvCloudName.text = cloudModel.location()
+			binding.tvCloudSubtext.text = cloudModel.storage()
 		}
 	}
 
 	private fun bindViewForOnedrive(cloudModel: OnedriveCloudModel) {
-		change_cloud.visibility = View.GONE
-		tv_cloud_subtext.text = cloudModel.username()
+		binding.changeCloud.visibility = View.GONE
+		binding.tvCloudSubtext.text = cloudModel.username()
 	}
 
 	private fun bindViewForWebDAV(cloudModel: WebDavCloudModel) {
-		change_cloud.visibility = View.VISIBLE
-		tv_cloud_name.text = cloudModel.url()
-		tv_cloud_subtext.text = cloudModel.username()
+		binding.changeCloud.visibility = View.VISIBLE
+		binding.tvCloudName.text = cloudModel.url()
+		binding.tvCloudSubtext.text = cloudModel.username()
 	}
 
 	private fun bindViewForPCloud(cloudModel: PCloudModel) {
-		change_cloud.visibility = View.GONE
-		tv_cloud_name.text = cloudModel.username()
+		binding.changeCloud.visibility = View.GONE
+		binding.tvCloudName.text = cloudModel.username()
 	}
 
 	private fun bindViewForS3(cloudModel: S3CloudModel) {
-		change_cloud.visibility = View.VISIBLE
-		tv_cloud_name.text = cloudModel.username()
+		binding.changeCloud.visibility = View.VISIBLE
+		binding.tvCloudName.text = cloudModel.username()
 	}
 
 	companion object {

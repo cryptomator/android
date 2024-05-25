@@ -1,24 +1,18 @@
 package org.cryptomator.data.cloud.crypto
 
+import com.auth0.jwt.JWT
+import com.auth0.jwt.algorithms.Algorithm
+import com.auth0.jwt.exceptions.InvalidClaimException
+import com.auth0.jwt.exceptions.JWTVerificationException
+import com.auth0.jwt.exceptions.SignatureVerificationException
+import com.auth0.jwt.interfaces.DecodedJWT
 import org.cryptomator.cryptolib.api.CryptorProvider
 import org.cryptomator.domain.UnverifiedVaultConfig
 import org.cryptomator.domain.exception.vaultconfig.VaultConfigLoadException
 import org.cryptomator.domain.exception.vaultconfig.VaultKeyInvalidException
 import org.cryptomator.domain.exception.vaultconfig.VaultVersionMismatchException
 import java.net.URI
-import java.security.Key
 import java.util.UUID
-import io.jsonwebtoken.Claims
-import io.jsonwebtoken.IncorrectClaimException
-import io.jsonwebtoken.JwsHeader
-import io.jsonwebtoken.JwtException
-import io.jsonwebtoken.Jwts
-import io.jsonwebtoken.MissingClaimException
-import io.jsonwebtoken.SignatureAlgorithm
-import io.jsonwebtoken.SigningKeyResolverAdapter
-import io.jsonwebtoken.security.Keys
-import io.jsonwebtoken.security.SignatureException
-import kotlin.properties.Delegates
 
 class VaultConfig private constructor(builder: VaultConfigBuilder) {
 
@@ -29,14 +23,13 @@ class VaultConfig private constructor(builder: VaultConfigBuilder) {
 	val shorteningThreshold: Int
 
 	fun toToken(rawKey: ByteArray): String {
-		return Jwts.builder()
-			.setHeaderParam(JSON_KEY_ID, keyId.toASCIIString()) //
-			.setId(id) //
-			.claim(JSON_KEY_VAULTFORMAT, vaultFormat) //
-			.claim(JSON_KEY_CIPHERCONFIG, cipherCombo.name) //
-			.claim(JSON_KEY_SHORTENING_THRESHOLD, shorteningThreshold) //
-			.signWith(Keys.hmacShaKeyFor(rawKey), SignatureAlgorithm.HS256) //
-			.compact()
+		return JWT.create() //
+			.withKeyId(keyId.toString()) //
+			.withJWTId(id) //
+			.withClaim(JSON_KEY_VAULTFORMAT, vaultFormat) //
+			.withClaim(JSON_KEY_CIPHERCONFIG, cipherCombo.name) //
+			.withClaim(JSON_KEY_SHORTENING_THRESHOLD, shorteningThreshold) //
+			.sign(Algorithm.HMAC256(rawKey))
 	}
 
 	class VaultConfigBuilder {
@@ -87,60 +80,52 @@ class VaultConfig private constructor(builder: VaultConfigBuilder) {
 		@JvmStatic
 		@Throws(VaultConfigLoadException::class)
 		fun decode(token: String): UnverifiedVaultConfig {
-			val unverifiedSigningKeyResolver = UnverifiedSigningKeyResolver()
-
-			// At this point we can't verify the signature because we don't have the masterkey yet.
-			try {
-				Jwts.parserBuilder().setSigningKeyResolver(unverifiedSigningKeyResolver).build().parse(token)
-			} catch (e: IllegalArgumentException) {
-				return UnverifiedVaultConfig(token, unverifiedSigningKeyResolver.keyId, unverifiedSigningKeyResolver.vaultFormat)
-			}
-			throw VaultConfigLoadException("Failed to load vaultconfig")
+			val unverifiedJwt = JWT.decode(token)
+			val vaultFormat = unverifiedJwt.getClaim(JSON_KEY_VAULTFORMAT).asInt()
+			val keyId = URI.create(unverifiedJwt.keyId)
+			return UnverifiedVaultConfig(token, keyId, vaultFormat)
 		}
 
 		@JvmStatic
 		@Throws(VaultKeyInvalidException::class, VaultVersionMismatchException::class, VaultConfigLoadException::class)
 		fun verify(rawKey: ByteArray, unverifiedVaultConfig: UnverifiedVaultConfig): VaultConfig {
 			return try {
-				val parser = Jwts //
-					.parserBuilder() //
-					.setSigningKey(rawKey) //
-					.require(JSON_KEY_VAULTFORMAT, unverifiedVaultConfig.vaultFormat) //
-					.build() //
-					.parseClaimsJws(unverifiedVaultConfig.jwt)
+				val unverifiedJwt = JWT.decode(unverifiedVaultConfig.jwt)
+				val verifier = JWT.require(initAlgorithm(rawKey, unverifiedJwt)) //
+					.withClaim(JSON_KEY_VAULTFORMAT, unverifiedVaultConfig.vaultFormat) //
+					.build()
+				val verifiedJwt = verifier.verify(unverifiedJwt)
 
 				val vaultConfigBuilder = createVaultConfig() //
-					.keyId(unverifiedVaultConfig.keyId)
-					.id(parser.header[JSON_KEY_ID] as String) //
-					.cipherCombo(CryptorProvider.Scheme.valueOf(parser.body.get(JSON_KEY_CIPHERCONFIG, String::class.java))) //
-					.vaultFormat(unverifiedVaultConfig.vaultFormat) //
-					.shorteningThreshold(parser.body[JSON_KEY_SHORTENING_THRESHOLD] as Int)
+					.keyId(URI.create(verifiedJwt.keyId)) //
+					.id(verifiedJwt.getHeaderClaim(JSON_KEY_ID).asString()) //
+					.cipherCombo(CryptorProvider.Scheme.valueOf(verifiedJwt.getClaim(JSON_KEY_CIPHERCONFIG).asString())) //
+					.vaultFormat(verifiedJwt.getClaim(JSON_KEY_VAULTFORMAT).asInt()) //
+					.shorteningThreshold(verifiedJwt.getClaim(JSON_KEY_SHORTENING_THRESHOLD).asInt()) //
 
 				VaultConfig(vaultConfigBuilder)
-			} catch (e: JwtException) {
-				when (e) {
-					is MissingClaimException, is IncorrectClaimException -> throw VaultVersionMismatchException("Vault config not for version " + unverifiedVaultConfig.vaultFormat)
-					is SignatureException -> throw VaultKeyInvalidException()
-					else -> throw VaultConfigLoadException(e)
-				}
+			} catch (e: SignatureVerificationException) {
+				throw VaultKeyInvalidException()
+			} catch (e: InvalidClaimException) {
+				throw VaultVersionMismatchException("Vault config not for version $unverifiedVaultConfig.vaultFormat")
+			} catch (e: JWTVerificationException) {
+				throw VaultConfigLoadException("Failed to verify vault config")
+			}
+		}
+
+		@Throws(VaultConfigLoadException::class)
+		private fun initAlgorithm(rawKey: ByteArray, jwt: DecodedJWT): Algorithm {
+			return when (val algo = jwt.algorithm) {
+				"HS256" -> Algorithm.HMAC256(rawKey)
+				"HS384" -> Algorithm.HMAC384(rawKey)
+				"HS512" -> Algorithm.HMAC512(rawKey)
+				else -> throw VaultConfigLoadException("Unsupported signature algorithm: $algo")
 			}
 		}
 
 		@JvmStatic
 		fun createVaultConfig(): VaultConfigBuilder {
 			return VaultConfigBuilder()
-		}
-	}
-
-	private class UnverifiedSigningKeyResolver : SigningKeyResolverAdapter() {
-
-		lateinit var keyId: URI
-		var vaultFormat: Int by Delegates.notNull()
-
-		override fun resolveSigningKey(jwsHeader: JwsHeader<*>, claims: Claims): Key? {
-			keyId = URI.create(jwsHeader.keyId)
-			vaultFormat = claims[JSON_KEY_VAULTFORMAT] as Int
-			return null
 		}
 	}
 

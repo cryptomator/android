@@ -3,14 +3,11 @@ package org.cryptomator.presentation.ui.bottomsheet
 import android.os.Bundle
 import org.cryptomator.generator.BottomSheet
 import org.cryptomator.presentation.R
+import org.cryptomator.presentation.databinding.DialogBottomSheetVaultActionBinding
 import org.cryptomator.presentation.model.CloudFolderModel
-import kotlinx.android.synthetic.main.dialog_bottom_sheet_vault_action.create_new_folder
-import kotlinx.android.synthetic.main.dialog_bottom_sheet_vault_action.create_new_text_file
-import kotlinx.android.synthetic.main.dialog_bottom_sheet_vault_action.title
-import kotlinx.android.synthetic.main.dialog_bottom_sheet_vault_action.upload_files
 
 @BottomSheet(R.layout.dialog_bottom_sheet_vault_action)
-class VaultContentActionBottomSheet : BaseBottomSheet<VaultContentActionBottomSheet.Callback>() {
+class VaultContentActionBottomSheet : BaseBottomSheet<VaultContentActionBottomSheet.Callback, DialogBottomSheetVaultActionBinding>(DialogBottomSheetVaultActionBinding::inflate) {
 
 	interface Callback {
 
@@ -22,17 +19,17 @@ class VaultContentActionBottomSheet : BaseBottomSheet<VaultContentActionBottomSh
 	override fun setupView() {
 		val folder = requireArguments().getSerializable(FOLDER_ARG) as CloudFolderModel
 
-		title.text = String.format(getString(R.string.screen_file_browser_actions_title), folderPath(folder))
+		binding.title.text = String.format(getString(R.string.screen_file_browser_actions_title), folderPath(folder))
 
-		create_new_folder.setOnClickListener {
+		binding.createNewFolder.setOnClickListener {
 			callback?.onCreateNewFolderClicked()
 			dismiss()
 		}
-		upload_files.setOnClickListener {
+		binding.uploadFiles.setOnClickListener {
 			callback?.onUploadFilesClicked(folder)
 			dismiss()
 		}
-		create_new_text_file.setOnClickListener {
+		binding.createNewTextFile.setOnClickListener {
 			callback?.onCreateNewTextFileClicked()
 			dismiss()
 		}

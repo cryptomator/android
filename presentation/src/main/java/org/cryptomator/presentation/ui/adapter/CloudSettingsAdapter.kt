@@ -1,30 +1,30 @@
 package org.cryptomator.presentation.ui.adapter
 
 import android.content.Context
+import android.view.LayoutInflater
 import android.view.View
+import android.view.ViewGroup
 import org.cryptomator.presentation.R
+import org.cryptomator.presentation.databinding.ItemCloudSettingBinding
 import org.cryptomator.presentation.model.CloudModel
 import org.cryptomator.presentation.model.CloudTypeModel
 import org.cryptomator.presentation.ui.adapter.CloudSettingsAdapter.CloudSettingViewHolder
 import javax.inject.Inject
-import kotlinx.android.synthetic.main.item_cloud_setting.view.cloudImage
-import kotlinx.android.synthetic.main.item_cloud_setting.view.cloudName
-import kotlinx.android.synthetic.main.item_cloud_setting.view.cloudUsername
 
 class CloudSettingsAdapter @Inject
-constructor(private val context: Context) : RecyclerViewBaseAdapter<CloudModel, CloudSettingsAdapter.OnItemClickListener, CloudSettingViewHolder>() {
+constructor(private val context: Context) : RecyclerViewBaseAdapter<CloudModel, CloudSettingsAdapter.OnItemClickListener, CloudSettingViewHolder, ItemCloudSettingBinding>() {
 
 	interface OnItemClickListener {
 
 		fun onCloudClicked(cloudModel: CloudModel)
 	}
 
-	override fun getItemLayout(viewType: Int): Int {
-		return R.layout.item_cloud_setting
+	override fun getItemBinding(inflater: LayoutInflater, parent: ViewGroup?, viewType: Int): ItemCloudSettingBinding {
+		return ItemCloudSettingBinding.inflate(inflater, parent, false)
 	}
 
-	override fun createViewHolder(view: View, viewType: Int): CloudSettingViewHolder {
-		return CloudSettingViewHolder(view)
+	override fun createViewHolder(binding: ItemCloudSettingBinding, viewType: Int): CloudSettingViewHolder {
+		return CloudSettingViewHolder(binding)
 	}
 
 	fun notifyCloudChanged(changedCloud: CloudModel?) {
@@ -34,26 +34,26 @@ constructor(private val context: Context) : RecyclerViewBaseAdapter<CloudModel, 
 		}
 	}
 
-	inner class CloudSettingViewHolder(itemView: View) : RecyclerViewBaseAdapter<*, *, *>.ItemViewHolder(itemView) {
+	inner class CloudSettingViewHolder(private val binding: ItemCloudSettingBinding) : RecyclerViewBaseAdapter<*, *, *, *>.ItemViewHolder(binding.root) {
 
 		override fun bind(position: Int) {
 			val cloudModel = getItem(position)
 
-			itemView.cloudImage.setImageResource(cloudModel.cloudType().cloudImageResource)
+			binding.cloudImage.setImageResource(cloudModel.cloudType().cloudImageResource)
 
 			when (cloudModel.cloudType()) {
-				CloudTypeModel.ONEDRIVE -> itemView.cloudName.text = context.getString(R.string.screen_cloud_settings_onedrive_connections)
-				CloudTypeModel.PCLOUD -> itemView.cloudName.text = context.getString(R.string.screen_cloud_settings_pcloud_connections)
-				CloudTypeModel.S3 -> itemView.cloudName.text = context.getString(R.string.screen_cloud_settings_s3_connections)
-				CloudTypeModel.WEBDAV -> itemView.cloudName.text = context.getString(R.string.screen_cloud_settings_webdav_connections)
-				CloudTypeModel.LOCAL -> itemView.cloudName.text = context.getString(R.string.screen_cloud_settings_local_storage_locations)
+				CloudTypeModel.ONEDRIVE -> binding.cloudName.text = context.getString(R.string.screen_cloud_settings_onedrive_connections)
+				CloudTypeModel.PCLOUD -> binding.cloudName.text = context.getString(R.string.screen_cloud_settings_pcloud_connections)
+				CloudTypeModel.S3 -> binding.cloudName.text = context.getString(R.string.screen_cloud_settings_s3_connections)
+				CloudTypeModel.WEBDAV -> binding.cloudName.text = context.getString(R.string.screen_cloud_settings_webdav_connections)
+				CloudTypeModel.LOCAL -> binding.cloudName.text = context.getString(R.string.screen_cloud_settings_local_storage_locations)
 				else -> {
-					itemView.cloudName.text = getCloudNameText(isAlreadyLoggedIn(cloudModel), cloudModel)
+					binding.cloudName.text = getCloudNameText(isAlreadyLoggedIn(cloudModel), cloudModel)
 					if (isAlreadyLoggedIn(cloudModel)) {
-						itemView.cloudUsername.text = cloudModel.username()
-						itemView.cloudUsername.visibility = View.VISIBLE
+						binding.cloudUsername.text = cloudModel.username()
+						binding.cloudUsername.visibility = View.VISIBLE
 					} else {
-						itemView.cloudUsername.visibility = View.GONE
+						binding.cloudUsername.visibility = View.GONE
 					}
 				}
 			}

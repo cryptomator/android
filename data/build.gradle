@@ -35,8 +35,8 @@ android {
 	}
 
 	compileOptions {
-		sourceCompatibility JavaVersion.VERSION_1_8
-		targetCompatibility JavaVersion.VERSION_1_8
+		sourceCompatibility JavaVersion.VERSION_17
+		targetCompatibility JavaVersion.VERSION_17
 
 		coreLibraryDesugaringEnabled true
 	}
@@ -146,14 +146,16 @@ dependencies {
 	kapt dependencies.daggerCompiler
 	implementation dependencies.dagger
 
-	api dependencies.jsonWebTokenApi
-	implementation dependencies.jsonWebTokenImpl
-	implementation dependencies.jsonWebTokenJson
+	implementation dependencies.jsonWebToken
 
 	// cloud
-	playstoreImplementation dependencies.dropbox
-	apkstoreImplementation dependencies.dropbox
-	fdroidImplementation dependencies.dropbox
+	playstoreImplementation dependencies.dropboxCore
+	playstoreImplementation dependencies.dropboxAndroid
+	apkstoreImplementation dependencies.dropboxCore
+	apkstoreImplementation dependencies.dropboxAndroid
+	fdroidImplementation dependencies.dropboxCore
+	fdroidImplementation dependencies.dropboxAndroid
+
 
 	playstoreImplementation dependencies.msgraphAuth
 	apkstoreImplementation dependencies.msgraphAuth

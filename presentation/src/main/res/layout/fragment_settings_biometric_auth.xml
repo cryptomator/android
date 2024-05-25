@@ -23,12 +23,12 @@
 				android:layout_alignParentStart="true"
 				android:layout_centerVertical="true"
 				android:layout_marginEnd="16dp"
-				android:layout_toStartOf="@+id/toggleBiometricAuth"
+				android:layout_toStartOf="@id/toggle_biometric_auth"
 				android:text="@string/screen_settings_activate_biometric_auth"
 				android:textSize="18sp" />
 
 			<Switch
-				android:id="@+id/toggleBiometricAuth"
+				android:id="@+id/toggle_biometric_auth"
 				android:layout_width="wrap_content"
 				android:layout_height="wrap_content"
 				android:layout_alignParentEnd="true"
@@ -48,12 +48,12 @@
 				android:layout_alignParentStart="true"
 				android:layout_centerVertical="true"
 				android:layout_marginEnd="16dp"
-				android:layout_toStartOf="@+id/toggleFaceUnlockConfirmation"
+				android:layout_toStartOf="@id/toggle_face_unlock_confirmation"
 				android:text="@string/screen_settings_confirm_face_unlock"
 				android:textSize="18sp" />
 
 			<Switch
-				android:id="@+id/toggleFaceUnlockConfirmation"
+				android:id="@+id/toggle_face_unlock_confirmation"
 				android:layout_width="wrap_content"
 				android:layout_height="wrap_content"
 				android:layout_alignParentEnd="true"
@@ -76,6 +76,7 @@
 
 		<include
 			layout="@layout/recycler_view_layout"
+			android:id="@+id/rv_vaults"
 			android:layout_width="match_parent"
 			android:layout_height="match_parent"
 			android:clipToPadding="true" />

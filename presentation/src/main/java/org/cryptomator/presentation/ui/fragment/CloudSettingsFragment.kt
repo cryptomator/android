@@ -2,16 +2,15 @@ package org.cryptomator.presentation.ui.fragment
 
 import androidx.recyclerview.widget.LinearLayoutManager
 import org.cryptomator.generator.Fragment
-import org.cryptomator.presentation.R
+import org.cryptomator.presentation.databinding.FragmentCloudSettingsBinding
 import org.cryptomator.presentation.model.CloudModel
 import org.cryptomator.presentation.presenter.CloudSettingsPresenter
 import org.cryptomator.presentation.ui.adapter.CloudSettingsAdapter
 import org.cryptomator.presentation.ui.adapter.CloudSettingsAdapter.OnItemClickListener
 import javax.inject.Inject
-import kotlinx.android.synthetic.main.recycler_view_layout.recyclerView
 
-@Fragment(R.layout.fragment_cloud_settings)
-class CloudSettingsFragment : BaseFragment() {
+@Fragment
+class CloudSettingsFragment : BaseFragment<FragmentCloudSettingsBinding>(FragmentCloudSettingsBinding::inflate) {
 
 	@Inject
 	lateinit var cloudSettingsPresenter: CloudSettingsPresenter
@@ -35,10 +34,10 @@ class CloudSettingsFragment : BaseFragment() {
 
 	private fun setupRecyclerView() {
 		cloudSettingsAdapter.setCallback(onItemClickListener)
-		recyclerView.layoutManager = LinearLayoutManager(context())
-		recyclerView.adapter = cloudSettingsAdapter
+		binding.rvCloudSettings.recyclerView.layoutManager = LinearLayoutManager(context())
+		binding.rvCloudSettings.recyclerView.adapter = cloudSettingsAdapter
 		// smoother scrolling
-		recyclerView.setHasFixedSize(true)
+		binding.rvCloudSettings.recyclerView.setHasFixedSize(true)
 	}
 
 	fun showClouds(cloudModels: List<CloudModel>?) {

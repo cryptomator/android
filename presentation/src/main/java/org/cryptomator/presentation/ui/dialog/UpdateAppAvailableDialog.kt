@@ -4,13 +4,16 @@ import android.content.DialogInterface
 import android.os.Bundle
 import android.text.Html
 import android.view.View
+import android.widget.LinearLayout
+import android.widget.TextView
 import androidx.appcompat.app.AlertDialog
 import org.cryptomator.generator.Dialog
 import org.cryptomator.presentation.R
-import kotlinx.android.synthetic.main.dialog_app_update.tv_message
+import org.cryptomator.presentation.databinding.DialogAppUpdateBinding
+import org.cryptomator.presentation.databinding.ViewDialogErrorBinding
 
-@Dialog(R.layout.dialog_app_update)
-class UpdateAppAvailableDialog : BaseProgressErrorDialog<UpdateAppAvailableDialog.Callback>() {
+@Dialog
+class UpdateAppAvailableDialog : BaseProgressErrorDialog<UpdateAppAvailableDialog.Callback, DialogAppUpdateBinding>(DialogAppUpdateBinding::inflate) {
 
 	interface Callback {
 
@@ -31,11 +34,23 @@ class UpdateAppAvailableDialog : BaseProgressErrorDialog<UpdateAppAvailableDialo
 
 	public override fun setupView() {
 		val message = requireArguments().getSerializable(MESSAGE_ARG) as String
-		tv_message.text = Html.fromHtml(message, Html.FROM_HTML_MODE_COMPACT)
+		binding.tvMessage.text = Html.fromHtml(message, Html.FROM_HTML_MODE_COMPACT)
+	}
+
+	override fun dialogProgressLayout(): LinearLayout {
+		return binding.llDialogProgress.llProgress
+	}
+
+	override fun dialogProgressTextView(): TextView {
+		return binding.llDialogProgress.tvProgress
+	}
+
+	override fun dialogErrorBinding(): ViewDialogErrorBinding {
+		return binding.llDialogError
 	}
 
 	override fun enableViewAfterError(): View {
-		return tv_message
+		return binding.tvMessage
 	}
 
 	companion object {

@@ -6,7 +6,7 @@
 	android:background="?android:attr/selectableItemBackground">
 
 	<ImageView
-		android:id="@+id/cloudImage"
+		android:id="@+id/cloud_image"
 		android:layout_width="@dimen/thumbnail_size"
 		android:layout_height="@dimen/thumbnail_size"
 		android:layout_centerVertical="true"
@@ -18,12 +18,12 @@
 		android:layout_centerVertical="true"
 		android:layout_marginStart="16dp"
 		android:layout_marginEnd="16dp"
-		android:layout_toStartOf="@+id/unlockedImage"
-		android:layout_toEndOf="@+id/cloudImage"
+		android:layout_toStartOf="@id/unlocked_image"
+		android:layout_toEndOf="@id/cloud_image"
 		android:orientation="vertical">
 
 		<TextView
-			android:id="@+id/vaultName"
+			android:id="@+id/vault_name"
 			style="@style/AppTheme.ListItemDarkTextColor"
 			android:layout_width="match_parent"
 			android:layout_height="wrap_content"
@@ -32,7 +32,7 @@
 		<!-- using android:singleLine to fix https://code.google.com/p/android/issues/detail?id=33868 -->
 
 		<TextView
-			android:id="@+id/vaultPath"
+			android:id="@+id/vault_path"
 			style="@style/AppTheme.ListItemLightTextColor"
 			android:layout_width="wrap_content"
 			android:layout_height="wrap_content"
@@ -43,11 +43,11 @@
 	</LinearLayout>
 
 	<ImageView
-		android:id="@+id/unlockedImage"
+		android:id="@+id/unlocked_image"
 		android:layout_width="59dp"
 		android:layout_height="59dp"
 		android:layout_centerVertical="true"
-		android:layout_toStartOf="@+id/settings"
+		android:layout_toStartOf="@id/settings"
 		android:background="?android:attr/selectableItemBackground"
 		android:paddingStart="14dp"
 		android:paddingTop="10dp"
@@ -72,6 +72,6 @@
 		android:layout_height="1dp"
 		android:layout_alignParentBottom="true"
 		android:layout_marginStart="16dp"
-		android:layout_toEndOf="@+id/cloudImage"
+		android:layout_toEndOf="@id/cloud_image"
 		android:background="@color/list_divider" />
 </RelativeLayout>

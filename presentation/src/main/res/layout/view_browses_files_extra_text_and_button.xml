@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-	android:id="@+id/extraTextAndButtonLayout"
+	android:id="@+id/extra_text_and_button_layout"
 	android:layout_width="match_parent"
 	android:layout_height="wrap_content"
 	android:minHeight="?attr/actionBarSize"
@@ -10,22 +10,22 @@
 		android:layout_width="match_parent"
 		android:layout_height="1dp"
 		android:layout_alignParentTop="true"
-		android:layout_toStartOf="@id/extraText"
+		android:layout_toStartOf="@id/extra_text"
 		android:background="@color/list_divider" />
 
 	<TextView
-		android:id="@+id/extraText"
+		android:id="@+id/extra_text"
 		android:layout_width="wrap_content"
 		android:layout_height="wrap_content"
 		android:layout_centerVertical="true"
-		android:layout_toStartOf="@id/chooseLocationButton"
+		android:layout_toStartOf="@id/choose_location_button"
 		android:ellipsize="middle"
 		android:singleLine="true"
 		android:textSize="16sp" />
 	<!-- using android:singleLine to fix https://code.google.com/p/android/issues/detail?id=33868 -->
 
 	<Button
-		android:id="@+id/chooseLocationButton"
+		android:id="@+id/choose_location_button"
 		android:layout_width="wrap_content"
 		android:layout_height="35dp"
 		android:layout_alignParentEnd="true"

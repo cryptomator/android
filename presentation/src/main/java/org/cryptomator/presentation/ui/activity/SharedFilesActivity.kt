@@ -8,6 +8,7 @@ import android.net.Uri
 import androidx.fragment.app.Fragment
 import org.cryptomator.generator.Activity
 import org.cryptomator.presentation.R
+import org.cryptomator.presentation.databinding.ActivityLayoutBinding
 import org.cryptomator.presentation.model.CloudFolderModel
 import org.cryptomator.presentation.model.ProgressModel.Companion.COMPLETED
 import org.cryptomator.presentation.model.SharedFileModel
@@ -20,11 +21,10 @@ import org.cryptomator.presentation.ui.dialog.UploadCloudFileDialog
 import org.cryptomator.presentation.ui.fragment.SharedFilesFragment
 import java.lang.String.format
 import javax.inject.Inject
-import kotlinx.android.synthetic.main.toolbar_layout.toolbar
 import timber.log.Timber
 
 @Activity
-class SharedFilesActivity : BaseActivity(), //
+class SharedFilesActivity : BaseActivity<ActivityLayoutBinding>(ActivityLayoutBinding::inflate), //
 	SharedFilesView, //
 	ReplaceDialog.Callback, //
 	NotEnoughVaultsDialog.Callback, //
@@ -110,8 +110,8 @@ class SharedFilesActivity : BaseActivity(), //
 	}
 
 	private fun setupToolbar() {
-		toolbar.title = format(getString(R.string.screen_share_files_title), contentName)
-		setSupportActionBar(toolbar)
+		binding.mtToolbar.toolbar.title = format(getString(R.string.screen_share_files_title), contentName)
+		setSupportActionBar(binding.mtToolbar.toolbar)
 		supportActionBar?.let {
 			it.setDisplayHomeAsUpEnabled(true)
 			it.setHomeAsUpIndicator(R.drawable.ic_clear)
@@ -140,7 +140,7 @@ class SharedFilesActivity : BaseActivity(), //
 		//UnableToShareFilesDialog.withContext(this).show()
 	}
 
-	private fun sharedFilesFragment(): SharedFilesFragment = getCurrentFragment(R.id.fragmentContainer) as SharedFilesFragment
+	private fun sharedFilesFragment(): SharedFilesFragment = getCurrentFragment(R.id.fragment_container) as SharedFilesFragment
 
 	override fun showReplaceDialog(existingFiles: List<String>, size: Int) {
 		ReplaceDialog.withContext(this).show(existingFiles, size)

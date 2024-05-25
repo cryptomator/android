@@ -6,17 +6,20 @@ import android.text.Editable
 import android.text.TextWatcher
 import android.view.View
 import android.widget.Button
+import android.widget.LinearLayout
+import android.widget.TextView
 import androidx.appcompat.app.AlertDialog
 import org.cryptomator.generator.Dialog
 import org.cryptomator.presentation.R
+import org.cryptomator.presentation.databinding.DialogRenameBinding
+import org.cryptomator.presentation.databinding.ViewDialogErrorBinding
 import org.cryptomator.presentation.model.CloudFileModel
 import org.cryptomator.presentation.model.CloudNodeModel
 import org.cryptomator.presentation.model.ProgressModel
 import org.cryptomator.presentation.model.ProgressStateModel
-import kotlinx.android.synthetic.main.dialog_rename.et_rename
 
-@Dialog(R.layout.dialog_rename)
-class CloudNodeRenameDialog : BaseProgressErrorDialog<CloudNodeRenameDialog.Callback>() {
+@Dialog
+class CloudNodeRenameDialog : BaseProgressErrorDialog<CloudNodeRenameDialog.Callback, DialogRenameBinding>(DialogRenameBinding::inflate) {
 
 	private var renameConfirmButton: Button? = null
 
@@ -36,13 +39,13 @@ class CloudNodeRenameDialog : BaseProgressErrorDialog<CloudNodeRenameDialog.Call
 
 				// do action
 				val cloudNodeModel = requireArguments().getSerializable(CLOUD_NODE_ARG) as CloudNodeModel<*>
-				callback?.onRenameCloudNodeClicked(cloudNodeModel, et_rename.text.toString())
-				onWaitForResponse(et_rename)
+				callback?.onRenameCloudNodeClicked(cloudNodeModel, binding.etRename.text.toString())
+				onWaitForResponse(binding.etRename)
 			}
 			dialog.setCanceledOnTouchOutside(false)
-			et_rename.requestFocus()
+			binding.etRename.requestFocus()
 			renameConfirmButton?.let { button ->
-				et_rename.nextFocusForwardId = button.id
+				binding.etRename.nextFocusForwardId = button.id
 			}
 		}
 	}
@@ -66,9 +69,9 @@ class CloudNodeRenameDialog : BaseProgressErrorDialog<CloudNodeRenameDialog.Call
 
 	public override fun setupView() {
 		val cloudNodeModel = requireArguments().getSerializable(CLOUD_NODE_ARG) as CloudNodeModel<*>
-		et_rename.setText(cloudNodeModel.name)
-		renameConfirmButton?.let { registerOnEditorDoneActionAndPerformButtonClick(et_rename) { it } }
-		et_rename.addTextChangedListener(object : TextWatcher {
+		binding.etRename.setText(cloudNodeModel.name)
+		renameConfirmButton?.let { registerOnEditorDoneActionAndPerformButtonClick(binding.etRename) { it } }
+		binding.etRename.addTextChangedListener(object : TextWatcher {
 			override fun beforeTextChanged(s: CharSequence, start: Int, count: Int, after: Int) {}
 			override fun onTextChanged(s: CharSequence, start: Int, before: Int, count: Int) {}
 			override fun afterTextChanged(s: Editable) {
@@ -78,23 +81,35 @@ class CloudNodeRenameDialog : BaseProgressErrorDialog<CloudNodeRenameDialog.Call
 				}
 			}
 		})
-		et_rename.onFocusChangeListener = View.OnFocusChangeListener { _: View, _: Boolean ->
+		binding.etRename.onFocusChangeListener = View.OnFocusChangeListener { _: View, _: Boolean ->
 			if (cloudNodeModel is CloudFileModel) {
-				val indexOf = et_rename.text.toString().lastIndexOf(".")
+				val indexOf = binding.etRename.text.toString().lastIndexOf(".")
 				if (indexOf == -1) {
-					et_rename.selectAll()
+					binding.etRename.selectAll()
 				} else {
-					et_rename.setSelection(0, indexOf)
+					binding.etRename.setSelection(0, indexOf)
 				}
 			} else {
-				et_rename.selectAll()
+				binding.etRename.selectAll()
 			}
 		}
 		dialog?.let { showKeyboard(it) }
 	}
 
+	override fun dialogProgressLayout(): LinearLayout {
+		return binding.llDialogProgress.llProgress
+	}
+
+	override fun dialogProgressTextView(): TextView {
+		return binding.llDialogProgress.tvProgress
+	}
+
+	override fun dialogErrorBinding(): ViewDialogErrorBinding {
+		return binding.llDialogError
+	}
+
 	override fun enableViewAfterError(): View {
-		return et_rename
+		return binding.etRename
 	}
 
 	companion object {
