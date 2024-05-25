@@ -24,7 +24,6 @@ import java.io.IOException
 import java.io.OutputStream
 import java.util.Date
 import java.util.LinkedList
-import io.minio.BucketExistsArgs
 import io.minio.CopyObjectArgs
 import io.minio.CopySource
 import io.minio.GetObjectArgs
@@ -33,9 +32,11 @@ import io.minio.MinioClient
 import io.minio.PutObjectArgs
 import io.minio.RemoveObjectArgs
 import io.minio.RemoveObjectsArgs
+import io.minio.Result
 import io.minio.StatObjectArgs
 import io.minio.errors.ErrorResponseException
 import io.minio.messages.DeleteObject
+import io.minio.messages.Item
 import timber.log.Timber
 
 internal class S3Impl(private val cloud: S3Cloud, private val client: MinioClient, private val context: Context) {
@@ -74,7 +75,14 @@ internal class S3Impl(private val cloud: S3Cloud, private val client: MinioClien
 				true
 			} else {
 				// if the bucket exists the root folder is there too. Otherwise there is no exists check possible
-				client.bucketExists(BucketExistsArgs.builder().bucket(cloud.s3Bucket()).build())
+				try {
+					requireBucketExists()
+					return true
+				} catch (e: NoSuchBucketException) {
+					return false
+				} catch (e: BackendException) {
+					throw FatalBackendException(e)
+				}
 			}
 		} catch (e: ErrorResponseException) {
 			if (S3CloudApiErrorCodes.NO_SUCH_KEY.value == e.errorResponse().code()) {
@@ -331,13 +339,32 @@ internal class S3Impl(private val cloud: S3Cloud, private val client: MinioClien
 
 	@Throws(NoSuchBucketException::class, BackendException::class)
 	fun checkAuthentication(): String {
-		return try {
-			if (!client.bucketExists(BucketExistsArgs.builder().bucket(cloud.s3Bucket()).build())) {
-				throw NoSuchBucketException(cloud.s3Bucket())
-			}
-			""
+		requireBucketExists()
+		return ""
+	}
+
+	@Throws(NoSuchBucketException::class, BackendException::class)
+	private fun requireBucketExists() {
+		try {
+			val returned: Sequence<Result<Item?>?> = ListObjectsArgs.builder() //
+				.bucket(cloud.s3Bucket()) //
+				.recursive(true) // //TODO
+				.maxKeys(1) // Batch size
+				.build() //
+				.let { client.listObjectsLimit(it, 1) }
+			//returned
+			//	|-- <Empty>					No elements in bucket
+			//	|-- Result<Err>				Any error
+			//	|-- Result<Item>
+			//		|-- "name/.bzEmpty"		Web interface folder
+			//		|-- "name/"				0 Byte folder
+			//		|-- "name"				0 or X Byte file
+			//Note: This implementation depends on listObjects/listObjectsLimit returning elements in a sensible order
+
+			val result: Result<Item?> = returned.firstOrNull() ?: return //No item, but above all no exception, ergo: Bucket exists
+			result.get() //Throw appropriate exception (if any) implicitly through "handleApiError"
 		} catch (e: ErrorResponseException) {
-			throw handleApiError(e, "")
+			throw handleApiError(e, cloud.s3Bucket())
 		}
 	}
 
@@ -373,4 +400,8 @@ internal class S3Impl(private val cloud: S3Cloud, private val client: MinioClien
 			throw WrongCredentialsException(cloud)
 		}
 	}
+}
+
+fun MinioClient.listObjectsLimit(args: ListObjectsArgs, maxObjects: Int): Sequence<Result<Item?>?> {
+	return this.listObjects(args).asSequence().constrainOnce().take(maxObjects)
 }
