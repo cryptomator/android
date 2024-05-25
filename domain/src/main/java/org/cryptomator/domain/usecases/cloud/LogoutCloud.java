@@ -48,6 +48,6 @@ class LogoutCloud {
 					.withAccessToken(null) //
 					.build();
 		}
-		throw new IllegalStateException("Logout not supported for cloud with type " + cloud.type());
+		throw new IllegalStateException("Logout not supported for cloud with type " + cloud.getType());
 	}
 }
