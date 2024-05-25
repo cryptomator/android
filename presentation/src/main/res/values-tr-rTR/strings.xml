@@ -4,7 +4,7 @@
 	<string name="share_with_label">Şifrele</string>
 	<!-- # error messages -->
 	<string name="error_generic">Bir hata oluştu</string>
-	<string name="error_authentication_failed">Kimlik doğrulaması başarısız oldu</string>
+	<string name="error_authentication_failed">Kimlik doğrulama başarısız</string>
 	<string name="error_authentication_failed_re_authenticate">Kimlik doğrulama başarısız, lütfen %1$s kullanarak giriş yapınız</string>
 	<string name="error_no_network_connection">Ağ bağlantısı yok</string>
 	<string name="error_invalid_passphrase">Şifre hatalı</string>
@@ -12,13 +12,13 @@
 	<string name="error_vault_version_not_supported">%1$s kasa sürümü desteklenmiyor. Bu kasa, Cryptomator\'ın daha eski veya daha yeni bir sürümüyle oluşturuldu.</string>
 	<string name="error_vault_config_file_missing_due_to_format_999">Kasa klasörünüzde %1$s dosyası eksik. Bu dosyanın buluttaki kasa klasörünüzde bulunduğundan emin olun.</string>
 	<string name="error_vault_already_exists">Kasa zaten var.</string>
-	<string name="error_no_such_file">Dosya bulunmuyor.</string>
+	<string name="error_no_such_file">Dosya mevcut değil.</string>
 	<string name="error_vault_has_been_locked">Kasa kilitlendi.</string>
 	<string name="error_cloud_already_exists">Bulut zaten var.</string>
 	<string name="error_activity_not_found">Lütfen bu dosyayı açabilen bir uygulama edinin.</string>
 	<string name="error_server_not_found">Sunucu bulunamadı.</string>
 	<string name="error_device_policy_manager_not_found">Lütfen cihaz ayarlarınızı açın ve ekran kilidini elle ayarlayın</string>
-	<string name="error_export_illegal_file_name">Dışa aktarma başarısız oldu. Özel karakterleri dosya adlarından kaldırmayı ve tekrar dışa aktarmayı deneyin.</string>
+	<string name="error_export_illegal_file_name">Dışa aktarma başarısız oldu. Dosya adlarından özel karakterleri kaldırın ve dışa aktarmayı tekrar deneyin.</string>
 	<string name="error_name_contains_invalid_characters">Özel karakterler içeremez.</string>
 	<string name="error_names_contains_invalid_characters">Dosya adları özel karakterler içeremez.</string>
 	<string name="error_vault_name_contains_invalid_characters">Kasa adı özel karakterler içeremez.</string>
@@ -33,7 +33,7 @@
 	<string name="error_vault_config_loading">Cüzdan ayarlarını yüklerken genel hata</string>
 	<string name="error_file_not_found_after_opening_using_3party">Cryptomator geri döndükten sonra, lokal dosya artık mevcut olmaz. Muhtemel değişiklikler bulutta tekrar oluşturulamaz.</string>
 	<string name="error_no_such_bucket">Böyle bir kova yok</string>
-	<string name="error_masterkey_location_not_supported">Özel ana anahtar lokasyonu desteklenmiyor</string>
+	<string name="error_masterkey_location_not_supported">Özel ana anahtar konumu henüz desteklenmiyor</string>
 	<string name="error_interact_with_fdroid_but_fdroid_missing">F-Droid uygulamasıyla iletişim kurulamadı. Yüklü değil mi?</string>
 	<!-- # clouds -->
 	<!-- ## cloud names -->
@@ -51,10 +51,10 @@
 	<string name="snack_bar_action_title_sort">Sırala</string>
 	<string name="snack_bar_action_title_sort_az">A - Z</string>
 	<string name="snack_bar_action_title_sort_za">Z - A</string>
-	<string name="snack_bar_action_title_sort_newest">Önce en yenisi</string>
-	<string name="snack_bar_action_title_sort_oldest">Önce en eskisi</string>
-	<string name="snack_bar_action_title_sort_biggest">Önce en büyüğü</string>
-	<string name="snack_bar_action_title_sort_smallest">Önce en küçüğü</string>
+	<string name="snack_bar_action_title_sort_newest">Yeniden eskiye</string>
+	<string name="snack_bar_action_title_sort_oldest">Eskiden yeniye</string>
+	<string name="snack_bar_action_title_sort_biggest">Büyükten küçüğe</string>
+	<string name="snack_bar_action_title_sort_smallest">Küçükten büyüğe</string>
 	<string name="snack_bar_cryptomator_variants_title">Daha fazlasını oku</string>
 	<string name="snack_bar_cryptomator_variants_hint">Bulut listede yok mu?</string>
 	<!-- # screens -->
@@ -63,7 +63,7 @@
 	<string name="screen_vault_list_action_create_new_vault">Yeni kasa oluştur</string>
 	<string name="screen_vault_list_action_add_existing_vault">Mevcut kasayı ekle</string>
 	<string name="screen_vault_list_vault_action_delete">Kaldır</string>
-	<string name="screen_vault_list_vault_creation_hint">Kasa oluşturmak/eklemek için buraya dokunun</string>
+	<string name="screen_vault_list_vault_creation_hint">Yeni bir kasa oluşturmak için buraya dokunun</string>
 	<string name="screen_vault_list_change_password_successful">Şifre başarıyla değiştirildi</string>
 	<!-- # screen: file browser -->
 	<string name="screen_file_browser_default_title">Kasa</string>
@@ -110,7 +110,7 @@
 	<string name="screen_share_files_content_text">Metin</string>
 	<string name="screen_share_files_content_file">Dosya</string>
 	<string name="screen_share_files_content_files">Dosyalar</string>
-	<string name="screen_share_files_msg_filenames_must_be_unique">Dosya adları benzersiz olmalıdır, lütfen kopyaları yeniden adlandırın.</string>
+	<string name="screen_share_files_msg_filenames_must_be_unique">Dosya adları benzersiz olmalıdır, lütfen mükerrer olanları yeniden adlandırın.</string>
 	<string name="screen_share_files_section_location">Konumu kaydet</string>
 	<string name="screen_share_files_save_button_text">Kaydet</string>
 	<string name="screen_share_files_msg_success">Şifreleme tamamlandı</string>
@@ -255,7 +255,7 @@
 	<string name="dialog_replace_title_single_file_exists">Dosya değiştirilsin mi?</string>
 	<string name="dialog_replace_title_multiple_files_exist">Dosyalar değiştirilsin mi?</string>
 	<string name="dialog_unable_to_share_title">Dosyalar paylaşılamıyor</string>
-	<string name="dialog_unable_to_share_message">Daha önce herhangi bir kasa oluşturmadınız! Önce Cryptomator uygulamasıyla yeni bir kasa oluşturun lütfen.</string>
+	<string name="dialog_unable_to_share_message">Daha önce herhangi bir kasa oluşturmadınız! Lütfen önce Cryptomator uygulamasıyla yeni bir kasa oluşturun.</string>
 	<string name="dialog_unable_to_share_positive_button">Tamam</string>
 	<string name="dialog_unable_to_share_negative_button">Kasa oluştur</string>
 	<string name="dialog_filetype_not_supported_title">%1$s açılamıyor</string>
@@ -393,7 +393,7 @@
 	<string name="notification_auto_upload_failed_title">Otomatik fotoğraf yükleme başarısız oldu</string>
 	<string name="notification_auto_upload_failed_general_error">Yükleme sırasında genel hata oluştu.</string>
 	<string name="notification_auto_upload_failed_due_to_folder_not_exists">Yükleme için seçilen klasör artık mevcut değil! Ayarlara gidin ve yeni bir tane seçin</string>
-	<string name="notification_auto_upload_failed_due_to_vault_locked">Kasa yükleme sırasında kilitlendi, devam etmek için kasayı yeniden açın lütfen</string>
+	<string name="notification_auto_upload_failed_due_to_vault_locked">Kasa yükleme sırasında kilitlendi, devam etmek için lütfen kasayı yeniden açın</string>
 	<string name="notification_auto_upload_failed_due_to_vault_not_found">Otomatik yükleme için belirtilen kasa artık mevcut değil.</string>
 	<string name="notification_auto_upload_failed_due_to_authentication_problem">Kimlik doğrulama işlemini yenilemek için dokun.</string>
 	<string name="notification_open_writable_file_title">Yazılabilir dosyayı aç</string>

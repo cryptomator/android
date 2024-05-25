@@ -8,6 +8,7 @@ import org.cryptomator.domain.CloudNode
 import org.cryptomator.domain.exception.BackendException
 import org.cryptomator.domain.repository.CloudContentRepository
 import org.cryptomator.domain.usecases.ProgressAware
+import org.cryptomator.util.Optional
 import org.hamcrest.CoreMatchers
 import org.hamcrest.MatcherAssert
 import org.junit.jupiter.params.ParameterizedTest
@@ -21,6 +22,7 @@ import java.io.ByteArrayInputStream
 import java.io.IOException
 import java.io.InputStream
 import java.util.Arrays
+import java.util.Date
 
 class UploadFileTest {
 
@@ -103,6 +105,10 @@ class UploadFileTest {
 
 			override fun decorate(delegate: DataSource): DataSource {
 				return delegate
+			}
+
+			override fun modifiedDate(context: Context): Optional<Date> {
+				return Optional.of(Date())
 			}
 
 			@Throws(IOException::class)

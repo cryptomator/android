@@ -283,7 +283,16 @@
 	<string name="dialog_accept_ssl_certificate_details">Podrobnosti</string>
 	<string name="dialog_accept_ssl_certificate_security_checkbox">To bi bilo lahko nevarno. Vem kaj delam.</string>
 	<string name="dialog_ask_ignore_battery_optimizations_title">Onemogoči optimizacije baterije</string>
+	<string name="dialog_http_security_title">Uporabi HTTPS?</string>
+	<string name="dialog_debug_mode_disclaimer_title">Pozor</string>
+	<string name="dialog_debug_mode_positive_button">Omogoči</string>
+	<string name="dialog_disable_app_obscured_disclaimer_title">Pozor</string>
 	<string name="dialog_app_is_obscured_info_neutral_button">Zapri</string>
+	<string name="dialog_enter_license_decline_button">Izhod</string>
+	<string name="dialog_license_confirmation_title">Potrditev licence</string>
+	<string name="dialog_update_available_title">Posodobitev je na voljo</string>
+	<string name="dialog_update_available_update">Posodobi zdaj</string>
+	<string name="dialog_update_available_cancel">Pozneje</string>
 	<string name="dialog_sym_link_back_button">Nazaj</string>
 	<!-- # error reports -->
 	<!-- # misc -->

@@ -17,7 +17,6 @@ import org.cryptomator.domain.exception.license.LicenseNotValidException
 import org.cryptomator.domain.exception.license.NoLicenseAvailableException
 import org.cryptomator.domain.exception.update.GeneralUpdateErrorException
 import org.cryptomator.domain.exception.update.HashMismatchUpdateCheckException
-import org.cryptomator.domain.exception.update.SSLHandshakePreAndroid5UpdateCheckException
 import org.cryptomator.domain.exception.vaultconfig.MissingVaultConfigFileException
 import org.cryptomator.domain.exception.vaultconfig.UnsupportedMasterkeyLocationException
 import org.cryptomator.domain.exception.vaultconfig.VaultConfigLoadException
@@ -52,7 +51,6 @@ class ExceptionHandlers @Inject constructor(private val context: Context, defaul
 		staticHandler(NoLicenseAvailableException::class.java, R.string.dialog_enter_license_no_content)
 		staticHandler(HashMismatchUpdateCheckException::class.java, R.string.error_hash_mismatch_update)
 		staticHandler(GeneralUpdateErrorException::class.java, R.string.error_general_update)
-		staticHandler(SSLHandshakePreAndroid5UpdateCheckException::class.java, R.string.error_general_update)
 		staticHandler(
 			MissingVaultConfigFileException::class.java, String.format(
 				ResourceHelper.getString(R.string.error_vault_config_file_missing_due_to_format_999),
