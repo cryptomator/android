@@ -36,7 +36,7 @@ def getVersionCode = { ->
 allprojects {
 	ext {
 		androidApplicationId = 'org.cryptomator'
-		androidVersionCode = getVersionCode() // must be getVersionCode(). only at release tag set the actual value
+		androidVersionCode = 2894 // must be getVersionCode(). only at release tag set the actual value
 		androidVersionName = '1.10.1-alpha1'
 	}
 	repositories {
