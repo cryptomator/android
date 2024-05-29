@@ -58,10 +58,11 @@ class DatabaseModule {
 		@DbInternal migrations: Array<Migration>, //
 		@DbInternal dbTemplateStreamCallable: Callable<InputStream>, //
 		openHelperFactory: DatabaseOpenHelperFactory, //
+		@DbInternal databaseName: String, //
 	): CryptomatorDatabase {
 		LOG.i("Building database (target version: %s)", CRYPTOMATOR_DATABASE_VERSION)
 		ThreadUtil.assumeNotMainThread()
-		return Room.databaseBuilder(context, CryptomatorDatabase::class.java, DATABASE_NAME) //
+		return Room.databaseBuilder(context, CryptomatorDatabase::class.java, databaseName) //
 			.createFromInputStream(dbTemplateStreamCallable) //
 			.addMigrations(*migrations) //
 			.addCallback(DatabaseCallback) //
@@ -94,6 +95,11 @@ class DatabaseModule {
 	fun provideDbTemplateFile(templateFactory: DbTemplateComponent.Factory): File {
 		return templateFactory.create().templateFile()
 	}
+
+	@Singleton
+	@Provides
+	@DbInternal
+	internal fun provideDatabaseName(): String = DATABASE_NAME
 
 	@Singleton
 	@Provides
