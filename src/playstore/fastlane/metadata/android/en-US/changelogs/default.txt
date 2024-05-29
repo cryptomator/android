@@ -1,4 +1,5 @@
-- Add workaround for editing files in Microsoft Office apps
-- Add support for themed Cryptomator icon
-- Refresh stale authentication token during auto upload
-- Update translations
+- Preserve original file modification date during upload (if possible)
+- Update to latest Android version
+- Fix for uploading files larger than 2GB in WebDAV
+- Fix vault unlock on Samsung devices
+- Prevent file overwrite under certain conditions when switching between files that cannot be opened by any app
