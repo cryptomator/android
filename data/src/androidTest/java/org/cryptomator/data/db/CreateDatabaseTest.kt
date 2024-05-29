@@ -10,7 +10,9 @@ import androidx.test.platform.app.InstrumentationRegistry
 import org.cryptomator.data.db.migrations.Sql
 import org.cryptomator.data.db.templating.DbTemplateModule
 import org.cryptomator.data.db.templating.TemplateDatabaseContext
-import org.junit.Assert.*
+import org.junit.Assert.assertEquals
+import org.junit.Assert.assertTrue
+import org.junit.Assert.fail
 import org.junit.Test
 import org.junit.runner.RunWith
 

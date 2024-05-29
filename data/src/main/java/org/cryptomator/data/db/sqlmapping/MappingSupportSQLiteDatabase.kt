@@ -75,13 +75,11 @@ internal class MappingSupportSQLiteDatabase(
 	}
 
 	override fun compileStatement(sql: String): SupportSQLiteStatement {
-		if(!isOpen) {
+		if (!isOpen) {
 			throw SQLiteException("Database already closed")
 		}
 		return MappingSupportSQLiteStatement(sql)
 	}
-
-	private val helper = AOP_SQLiteDatabase()
 
 	private fun map(sql: String): String {
 		return mappingFunction.map(sql)
@@ -111,7 +109,7 @@ internal class MappingSupportSQLiteDatabase(
 		private val bindings = mutableListOf<(SupportSQLiteStatement) -> Unit>()
 
 		override fun bindBlob(index: Int, value: ByteArray) {
-			bindings.add { statement -> statement.bindBlob(index, value) }
+			bindings.add { statement -> statement.bindBlob(index, value.copyOf()) }
 		}
 
 		override fun bindDouble(index: Int, value: Double) {
@@ -183,6 +181,8 @@ internal class MappingSupportSQLiteDatabase(
 		}
 	}
 }
+
+private val helper = AOP_SQLiteDatabase()
 
 private class MappingSupportSQLiteOpenHelper(
 	private val delegate: SupportSQLiteOpenHelper,

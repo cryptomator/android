@@ -38,7 +38,7 @@ public class CryptomatorAssert {
 						"{1}\n" + //
 						"---------- but was ----------\n" + //
 						"{2}", //
-				message != null && !Strings.isEmptyOrWhitespace(message) ? message : "", //
+				message != null && !Strings.isEmptyOrWhitespace(message) ? message : "Cursors are not equal", //
 				CryptomatorDatabaseKt.stringify(expected), //
 				CryptomatorDatabaseKt.stringify(actual));
 		fail(failMessage);

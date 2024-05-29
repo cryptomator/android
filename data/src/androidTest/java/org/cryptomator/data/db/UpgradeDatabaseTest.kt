@@ -87,6 +87,7 @@ class UpgradeDatabaseTest {
 		//This needs to stay in sync with changes to DatabaseOpenHelperFactory/PatchedCallback
 		db = SupportSQLiteOpenHelper.Configuration(context, TEST_DB, object : SupportSQLiteOpenHelper.Callback(LATEST_LEGACY_MIGRATION) {
 			override fun onConfigure(db: SupportSQLiteDatabase) {
+				db.disableWriteAheadLogging()
 				db.setForeignKeyConstraintsEnabled(true)
 			}
 
@@ -784,8 +785,8 @@ class UpgradeDatabaseTest {
 	private fun indexStatement(db: SupportSQLiteDatabase): String {
 		return Sql.SqlQueryBuilder("sqlite_master") //
 			.columns(listOf("sql")) //
-			.where("type", Sql.eq("index"))
-			.where("name", Sql.eq("IDX_VAULT_ENTITY_FOLDER_PATH_FOLDER_CLOUD_ID"))
+			.where("type", Sql.eq("index")) //
+			.where("name", Sql.eq("IDX_VAULT_ENTITY_FOLDER_PATH_FOLDER_CLOUD_ID")) //
 			.where("tbl_name", Sql.eq("VAULT_ENTITY")) //
 			.executeOn(db).use {
 				assertEquals(it.count, 1)
@@ -916,7 +917,9 @@ class UpgradeDatabaseTest {
 		db.version = 1
 		db.close()
 		helper.runMigrationsAndValidate(
-			TEST_DB, 13, true,
+			TEST_DB,
+			13,
+			true,
 			Upgrade1To2(),
 			Upgrade2To3(context),
 			Upgrade3To4(),
