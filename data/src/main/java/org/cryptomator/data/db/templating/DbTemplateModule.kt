@@ -6,6 +6,7 @@ import androidx.sqlite.db.SupportSQLiteDatabase
 import androidx.sqlite.db.SupportSQLiteOpenHelper
 import androidx.sqlite.db.framework.FrameworkSQLiteOpenHelperFactory
 import org.cryptomator.data.db.DATABASE_NAME
+import org.cryptomator.data.db.applyDefaultConfiguration
 import org.cryptomator.data.db.migrations.legacy.Upgrade0To1
 import org.cryptomator.util.ThreadUtil
 import org.cryptomator.util.named
@@ -49,10 +50,9 @@ class DbTemplateModule {
 		return SupportSQLiteOpenHelper.Configuration.builder(templateDatabaseContext) //
 			.name(DATABASE_NAME) //
 			.callback(object : SupportSQLiteOpenHelper.Callback(1) {
-				override fun onConfigure(db: SupportSQLiteDatabase) {
-					db.disableWriteAheadLogging()
-					db.setForeignKeyConstraintsEnabled(true)
-				}
+				override fun onConfigure(db: SupportSQLiteDatabase) = db.applyDefaultConfiguration( //
+					writeAheadLoggingEnabled = false //
+				)
 
 				override fun onCreate(db: SupportSQLiteDatabase) {
 					Upgrade0To1().migrate(db)

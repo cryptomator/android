@@ -46,7 +46,9 @@ private class PatchedCallback(
 
 	override fun onConfigure(db: SupportSQLiteDatabase) {
 		LOG.d("Called onConfigure for \"${db.path}\"@${db.version}")
-		db.setForeignKeyConstraintsEnabled(true)
+		db.applyDefaultConfiguration( //
+			writeAheadLoggingEnabled = null //WAL is handled by Room
+		)
 		//
 		delegateCallback.onConfigure(db)
 		//

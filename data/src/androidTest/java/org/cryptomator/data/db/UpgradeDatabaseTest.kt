@@ -84,12 +84,10 @@ class UpgradeDatabaseTest {
 			templateDbFile.copyTo(dbFile)
 		}
 
-		//This needs to stay in sync with changes to DatabaseOpenHelperFactory/PatchedCallback
 		db = SupportSQLiteOpenHelper.Configuration(context, TEST_DB, object : SupportSQLiteOpenHelper.Callback(LATEST_LEGACY_MIGRATION) {
-			override fun onConfigure(db: SupportSQLiteDatabase) {
-				db.disableWriteAheadLogging()
-				db.setForeignKeyConstraintsEnabled(true)
-			}
+			override fun onConfigure(db: SupportSQLiteDatabase) = db.applyDefaultConfiguration( //
+				writeAheadLoggingEnabled = false //
+			)
 
 			override fun onCreate(db: SupportSQLiteDatabase) {
 				fail("Database should not be created, but copied from template")

@@ -101,10 +101,9 @@ private fun createVersion0Database(context: Context, databaseName: String) {
 	val config = SupportSQLiteOpenHelper.Configuration.builder(context) //
 		.name(databaseName) //
 		.callback(object : SupportSQLiteOpenHelper.Callback(1) {
-			override fun onConfigure(db: SupportSQLiteDatabase) {
-				db.disableWriteAheadLogging()
-				db.setForeignKeyConstraintsEnabled(true)
-			}
+			override fun onConfigure(db: SupportSQLiteDatabase) = db.applyDefaultConfiguration( //
+				writeAheadLoggingEnabled = false //
+			)
 
 			override fun onCreate(db: SupportSQLiteDatabase) = throw InterruptCreationException()
 			override fun onUpgrade(db: SupportSQLiteDatabase, oldVersion: Int, newVersion: Int) = throw IllegalStateException()
