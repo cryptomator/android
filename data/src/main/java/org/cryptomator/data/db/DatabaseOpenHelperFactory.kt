@@ -78,12 +78,32 @@ private class PatchedCallback(
 	}
 
 	override fun onCorruption(db: SupportSQLiteDatabase) = useFinally({
+		LOG.e(Exception(), "Called onCorruption for \"${db.path}\"")
 		//
 		delegateCallback.onCorruption(db)
 		//
 	}, finallyBlock = {
 		invalidationCallback.invoke()
+
+		logCorruptedDbState(db)
 	})
+
+	private fun logCorruptedDbState(db: SupportSQLiteDatabase) {
+		val state = db.path?.let { path ->
+			if (path == ":memory:") null else path
+		}.runCatching {
+			this?.let { path -> (File(path).exists()) }
+		}.map {
+			when (it) {
+				null -> "In memory"
+				true -> "Exists"
+				false -> "Deleted"
+			}
+		}.onFailure { verificationFailure ->
+			LOG.e(verificationFailure, "Couldn't verify state of database \"${db.path}\"")
+		}.getOrDefault("Unknown (see above)")
+		LOG.e(Exception(), "State of \"${db.path}\": $state")
+	}
 
 	override fun onOpen(db: SupportSQLiteDatabase) {
 		//
