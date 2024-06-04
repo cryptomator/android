@@ -8,12 +8,13 @@ import org.junit.Assert.assertEquals
 import org.junit.Test
 import java.lang.reflect.Field
 import java.lang.reflect.Method
+import java.util.SortedSet
 
 class BomVerificationTest {
 
 	@Test //For org.cryptomator.data.db.sqlmapping.MappingSupportSQLiteDatabase
 	fun verifySupportSQLiteDatabase() {
-		val bom = setOf(
+		val bom = sortedSetOf(
 			"androidx.sqlite.db.SupportSQLiteDatabase.beginTransaction(): void",
 			"androidx.sqlite.db.SupportSQLiteDatabase.beginTransactionNonExclusive(): void",
 			"androidx.sqlite.db.SupportSQLiteDatabase.beginTransactionWithListener(android.database.sqlite.SQLiteTransactionListener): void",
@@ -61,7 +62,7 @@ class BomVerificationTest {
 
 	@Test //For org.cryptomator.data.db.sqlmapping.MappingSupportSQLiteDatabase.MappingSupportSQLiteStatement
 	fun verifySupportSQLiteStatement() {
-		val bom = setOf(
+		val bom = sortedSetOf(
 			"androidx.sqlite.db.SupportSQLiteProgram.bindBlob(int, [B): void",
 			"androidx.sqlite.db.SupportSQLiteProgram.bindDouble(int, double): void",
 			"androidx.sqlite.db.SupportSQLiteProgram.bindLong(int, long): void",
@@ -80,7 +81,7 @@ class BomVerificationTest {
 
 	@Test //For org.cryptomator.data.db.sqlmapping.MappingSupportSQLiteDatabase.MappingSupportSQLiteQuery
 	fun verifySupportSQLiteQuery() {
-		val bom = setOf(
+		val bom = sortedSetOf(
 			"androidx.sqlite.db.SupportSQLiteQuery.bindTo(androidx.sqlite.db.SupportSQLiteProgram): void",
 			"androidx.sqlite.db.SupportSQLiteQuery.getArgCount(): int",
 			"androidx.sqlite.db.SupportSQLiteQuery.getSql(): java.lang.String"
@@ -90,7 +91,7 @@ class BomVerificationTest {
 
 	@Test //For org.cryptomator.data.db.sqlmapping.MappingSupportSQLiteOpenHelper
 	fun verifySupportSQLiteOpenHelper() {
-		val bom = setOf(
+		val bom = sortedSetOf(
 			"androidx.sqlite.db.SupportSQLiteOpenHelper.close(): void",
 			"androidx.sqlite.db.SupportSQLiteOpenHelper.getDatabaseName(): java.lang.String",
 			"androidx.sqlite.db.SupportSQLiteOpenHelper.getReadableDatabase(): androidx.sqlite.db.SupportSQLiteDatabase",
@@ -102,7 +103,7 @@ class BomVerificationTest {
 
 	@Test //For org.cryptomator.data.db.PatchedCallback
 	fun verifySupportSQLiteOpenHelperCallback() {
-		val bom = setOf(
+		val bom = sortedSetOf(
 			"androidx.sqlite.db.SupportSQLiteOpenHelper#Callback.version: int",
 			"androidx.sqlite.db.SupportSQLiteOpenHelper#Callback.onConfigure(androidx.sqlite.db.SupportSQLiteDatabase): void",
 			"androidx.sqlite.db.SupportSQLiteOpenHelper#Callback.onCorruption(androidx.sqlite.db.SupportSQLiteDatabase): void",
@@ -118,7 +119,7 @@ class BomVerificationTest {
 
 	@Test //For org.cryptomator.data.db.DatabaseOpenHelperFactoryKt.patchConfiguration
 	fun verifySupportSQLiteOpenHelperConfiguration() {
-		val bom = setOf(
+		val bom = sortedSetOf(
 			"androidx.sqlite.db.SupportSQLiteOpenHelper#Configuration.allowDataLossOnRecovery: boolean",
 			"androidx.sqlite.db.SupportSQLiteOpenHelper#Configuration.callback: androidx.sqlite.db.SupportSQLiteOpenHelper#Callback",
 			"androidx.sqlite.db.SupportSQLiteOpenHelper#Configuration.context: android.content.Context",
@@ -133,7 +134,7 @@ class BomVerificationTest {
 
 	@Test //For org.cryptomator.data.db.DatabaseOpenHelperFactoryKt.patchConfiguration
 	fun verifySupportSQLiteOpenHelperConfigurationBuilder() {
-		val bom = setOf(
+		val bom = sortedSetOf(
 			"androidx.sqlite.db.SupportSQLiteOpenHelper#Configuration#Builder.allowDataLossOnRecovery(boolean): androidx.sqlite.db.SupportSQLiteOpenHelper#Configuration#Builder",
 			"androidx.sqlite.db.SupportSQLiteOpenHelper#Configuration#Builder.callback(androidx.sqlite.db.SupportSQLiteOpenHelper#Callback): androidx.sqlite.db.SupportSQLiteOpenHelper#Configuration#Builder",
 			"androidx.sqlite.db.SupportSQLiteOpenHelper#Configuration#Builder.name(java.lang.String): androidx.sqlite.db.SupportSQLiteOpenHelper#Configuration#Builder",
@@ -145,7 +146,7 @@ class BomVerificationTest {
 	}
 }
 
-private val DEFAULT_MEMBERS = setOf(
+private val DEFAULT_MEMBERS = sortedSetOf(
 	"java.lang.Object.equals(java.lang.Object): boolean",
 	"java.lang.Object.getClass(): java.lang.Class",
 	"java.lang.Object.hashCode(): int",
@@ -157,10 +158,22 @@ private val DEFAULT_MEMBERS = setOf(
 	"java.lang.Object.wait(long, int): void"
 )
 
-private fun Class<*>.getFieldAndMethodNames(): Set<String> {
+private val FORBIDDEN_CLASS_PREFIXES = setOf(
+	"android.", //
+	"java.", //
+	"javax.", //
+)
+
+private fun Class<*>.getFieldAndMethodNames(): SortedSet<String> {
+	for (prefix in FORBIDDEN_CLASS_PREFIXES) {
+		require(!name.startsWith(prefix)) {
+			"Class \"$name\" starts with invalid prefix \"$prefix\":\n" +
+					"Class is probably shipped with android and should not be validated in a non-android unit test."
+		}
+	}
 	val fieldsSequence = fields.asSequence().map { it.signature }
 	val methodsSequence = methods.asSequence().map { it.signature }
-	return (fieldsSequence + methodsSequence - DEFAULT_MEMBERS).toSet()
+	return (fieldsSequence + methodsSequence - DEFAULT_MEMBERS).toSortedSet()
 }
 
 private val Field.signature: String
