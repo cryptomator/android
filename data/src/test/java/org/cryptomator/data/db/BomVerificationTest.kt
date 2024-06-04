@@ -4,17 +4,12 @@ import androidx.sqlite.db.SupportSQLiteDatabase
 import androidx.sqlite.db.SupportSQLiteOpenHelper
 import androidx.sqlite.db.SupportSQLiteQuery
 import androidx.sqlite.db.SupportSQLiteStatement
-import androidx.test.ext.junit.runners.AndroidJUnit4
-import androidx.test.filters.SmallTest
 import org.junit.Assert.assertEquals
 import org.junit.Test
-import org.junit.runner.RunWith
 import java.lang.reflect.Field
 import java.lang.reflect.Method
 
-@RunWith(AndroidJUnit4::class)
-@SmallTest
-class DatabaseOpenHelperFactoryTest {
+class BomVerificationTest {
 
 	@Test //For org.cryptomator.data.db.sqlmapping.MappingSupportSQLiteDatabase
 	fun verifySupportSQLiteDatabase() {
@@ -23,7 +18,7 @@ class DatabaseOpenHelperFactoryTest {
 			"androidx.sqlite.db.SupportSQLiteDatabase.beginTransactionNonExclusive(): void",
 			"androidx.sqlite.db.SupportSQLiteDatabase.beginTransactionWithListener(android.database.sqlite.SQLiteTransactionListener): void",
 			"androidx.sqlite.db.SupportSQLiteDatabase.beginTransactionWithListenerNonExclusive(android.database.sqlite.SQLiteTransactionListener): void",
-			"java.lang.AutoCloseable.close(): void",
+			"java.io.Closeable.close(): void",
 			"androidx.sqlite.db.SupportSQLiteDatabase.compileStatement(java.lang.String): androidx.sqlite.db.SupportSQLiteStatement",
 			"androidx.sqlite.db.SupportSQLiteDatabase.delete(java.lang.String, java.lang.String, [Ljava.lang.Object;): int",
 			"androidx.sqlite.db.SupportSQLiteDatabase.disableWriteAheadLogging(): void",
@@ -73,7 +68,7 @@ class DatabaseOpenHelperFactoryTest {
 			"androidx.sqlite.db.SupportSQLiteProgram.bindNull(int): void",
 			"androidx.sqlite.db.SupportSQLiteProgram.bindString(int, java.lang.String): void",
 			"androidx.sqlite.db.SupportSQLiteProgram.clearBindings(): void",
-			"java.lang.AutoCloseable.close(): void",
+			"java.io.Closeable.close(): void",
 			"androidx.sqlite.db.SupportSQLiteStatement.execute(): void",
 			"androidx.sqlite.db.SupportSQLiteStatement.executeInsert(): long",
 			"androidx.sqlite.db.SupportSQLiteStatement.executeUpdateDelete(): int",
