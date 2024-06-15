@@ -156,7 +156,8 @@ internal class MappingSupportSQLiteDatabase(
 			return newBoundStatement().use { it.simpleQueryForString() }
 		}
 
-		private fun newBoundStatement(): SupportSQLiteStatement {
+		@VisibleForTesting
+		internal fun newBoundStatement(): SupportSQLiteStatement {
 			return delegate.compileStatement(map(sql)).also { statement ->
 				for (binding: (SupportSQLiteStatement) -> Unit in bindings) {
 					binding(statement)

@@ -16,11 +16,16 @@ import androidx.sqlite.db.SupportSQLiteDatabase
 import androidx.sqlite.db.SupportSQLiteProgram
 import androidx.sqlite.db.SupportSQLiteQuery
 import androidx.sqlite.db.SupportSQLiteStatement
+import org.cryptomator.data.db.sqlmapping.Mapping.COMMENT
+import org.cryptomator.data.db.sqlmapping.Mapping.COUNTER
+import org.cryptomator.data.db.sqlmapping.Mapping.IDENTITY
 import org.cryptomator.data.db.sqlmapping.MappingSupportSQLiteDatabase.MappingSupportSQLiteStatement
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Assertions.assertInstanceOf
 import org.junit.jupiter.api.Assertions.assertNotSame
+import org.junit.jupiter.api.Assertions.assertSame
 import org.junit.jupiter.api.BeforeEach
+import org.junit.jupiter.api.Nested
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.assertDoesNotThrow
 import org.junit.jupiter.api.assertThrows
@@ -37,11 +42,15 @@ import org.mockito.Mockito.verifyNoInteractions
 import org.mockito.Mockito.verifyNoMoreInteractions
 import org.mockito.internal.verification.VerificationModeFactory.times
 import org.mockito.invocation.InvocationOnMock
+import org.mockito.kotlin.KInOrder
 import org.mockito.kotlin.anyArray
 import org.mockito.kotlin.eq
 import org.mockito.kotlin.inOrder
 import org.mockito.kotlin.isNull
+import org.mockito.stubbing.Answer
 import org.mockito.stubbing.OngoingStubbing
+import java.util.LinkedList
+import java.util.concurrent.atomic.AtomicInteger
 import java.util.stream.Stream
 import kotlin.streams.asStream
 
@@ -355,7 +364,132 @@ class MappingSupportSQLiteDatabaseTest {
 		assertNotSame(idStatement1, idStatement2)
 		assertNotSame(commentStatement1, commentStatement2)
 	}
+
+	@Nested
+	inner class MappingSupportSQLiteStatementTest {
+
+		private lateinit var counter: AtomicInteger
+		private lateinit var counterMapping: MappingSupportSQLiteDatabase
+
+		@BeforeEach
+		fun beforeEachInner() { //Don't shadow "beforeEach" of outer class
+			counter = AtomicInteger(0)
+			counterMapping = MappingSupportSQLiteDatabase(delegateMock, object : SQLMappingFunction {
+				override fun map(sql: String): String = "$sql -- ${counter.getAndIncrement()}!"
+				override fun mapWhereClause(whereClause: String?): String = map(whereClause ?: "1 = 1")
+				override fun mapCursor(cursor: Cursor): Cursor = cursor
+			})
+		}
+
+		private fun resolveMapping(mapping: Mapping) = when (mapping) {
+			IDENTITY -> identityMapping
+			COMMENT -> commentMapping
+			COUNTER -> counterMapping
+		}
+
+		@ParameterizedTest
+		@MethodSource("org.cryptomator.data.db.sqlmapping.MappingSupportSQLiteDatabaseTestKt#sourceForTestNewBoundStatementSingle")
+		fun testNewBoundStatementSingle(statementData: Triple<Mapping, String, List<String>>, values: List<Any?>?) {
+			val (mapping: MappingSupportSQLiteDatabase, call: String, expected: List<String>) = statementData.resolve(::resolveMapping)
+			val expectedSize = expected.size
+			require(expectedSize >= 1)
+
+			val mappingStatement = mapping.createAndBindStatement(call, values)
+			testConsecutiveNewBoundStatements(List(expectedSize) { statementData }, List(expectedSize) { values }) { _: Mapping, _: String, _: List<Any?>? -> mappingStatement }
+		}
+
+		@ParameterizedTest
+		@MethodSource("org.cryptomator.data.db.sqlmapping.MappingSupportSQLiteDatabaseTestKt#sourceForTestNewBoundStatementMultiple")
+		fun testNewBoundStatementMultiple(statementData: List<Triple<Mapping, String, List<String>>>, values: List<List<Any?>?>) {
+			testConsecutiveNewBoundStatements(statementData, values)
+		}
+
+		private fun testConsecutiveNewBoundStatements(statementData: List<Triple<Mapping, String, List<String>>>, values: List<List<Any?>?>) {
+			val mappingStatementSupplier = { mapping: Mapping, callSql: String, boundValues: List<Any?>? ->
+				resolveMapping(mapping).createAndBindStatement(callSql, boundValues)
+			}
+			testConsecutiveNewBoundStatements(statementData, values, mappingStatementSupplier)
+		}
+
+		private fun testConsecutiveNewBoundStatements( //
+			statementData: List<Triple<Mapping, String, List<String>>>, //
+			values: List<List<Any?>?>, //
+			mappingStatementSupplier: (Mapping, String, List<Any?>?) -> MappingSupportSQLiteStatement //
+		) {
+			val statementCount = statementData.size
+			require(statementCount > 0)
+			require(values.size == statementCount)
+
+			val expected = statementData.fold(emptyList<String>() to 0) { acc, current ->
+				val nextExpectedValue = current.third.let { it.getOrNull(acc.second) ?: it.first() }
+				require(nextExpectedValue != SENTINEL) {
+					"Invalid test data; received sentinel to be added to ${acc.first} from $current @ ${acc.second}"
+				}
+				val nextExpectedAcc = acc.first + nextExpectedValue
+				val nextIndex = if (current.first == COUNTER) acc.second + 1 else acc.second
+				nextExpectedAcc to nextIndex
+			}.first
+			require(expected.size == statementCount)
+
+			val compiledStatements = mutableListOf<SupportSQLiteStatement>()
+			val newBoundStatementData = mutableListOf<NewBoundStatementData>()
+			for ((index, entry) in statementData.withIndex()) {
+				val (compiledStatement: SupportSQLiteStatement, binding: Map<Int, Any?>) = mockSupportSQLiteStatement()
+				val mappingStatement = mappingStatementSupplier(entry.first, entry.second, values[index])
+				compiledStatements.add(compiledStatement)
+				newBoundStatementData.add(NewBoundStatementData(mappingStatement, compiledStatement, expected[index], values[index], binding))
+			}
+
+			val order = inOrder(delegateMock, *compiledStatements.toTypedArray())
+			order.verifyNoMoreInteractions()
+			verifyNoMoreInteractions(delegateMock)
+
+			val results = expected.asSequence().zip(compiledStatements.asSequence()).groupBy({ it.first }) { it.second }
+			whenCalled(delegateMock.compileStatement(reifiedAnyOrNull())).then(throwingInvocationHandler(false, results))
+
+			repeat(statementCount) { index ->
+				val data = newBoundStatementData[index]
+				testSingleNewBoundStatement(order, data.mappingStatement, data.compiledStatement, data.expected, data.values, data.bindings, index == statementCount - 1)
+			}
+
+			order.verifyNoMoreInteractions()
+		}
+	}
+
+	private fun testSingleNewBoundStatement(
+		order: KInOrder,
+		mappingStatement: MappingSupportSQLiteStatement,
+		compiledStatement: SupportSQLiteStatement,
+		expected: String,
+		values: List<Any?>?,
+		bindings: Map<Int, Any?>,
+		lastTest: Boolean
+	) {
+		order.verifyNoMoreInteractions()
+		assertSame(compiledStatement, mappingStatement.newBoundStatement())
+
+		order.verify(delegateMock).compileStatement(expected)
+		if (lastTest) verifyNoMoreInteractions(delegateMock)
+		order.verify(compiledStatement, times(values.argCount<String>())).bindString(anyInt(), anyString())
+		order.verify(compiledStatement, times(values.nullCount())).bindNull(anyInt())
+		order.verify(compiledStatement, times(values.argCount<Int>())).bindLong(anyInt(), anyLong())
+		verifyNoMoreInteractions(compiledStatement)
+
+		assertEquals(values.toBindingsMap(), bindings)
+	}
 }
+
+private data class NewBoundStatementData(
+	val mappingStatement: MappingSupportSQLiteStatement, //
+	val compiledStatement: SupportSQLiteStatement, //
+	val expected: String, //
+	val values: List<Any?>?, //
+	val bindings: Map<Int, Any?>, //
+)
+
+enum class Mapping { IDENTITY, COMMENT, COUNTER }
+
+private const val SENTINEL = "::SENTINEL::"
 
 private inline fun <reified T : Any> anyPseudoEqualsUnlessNull(other: T?, valueExtractors: Set<ValueExtractor<T>>): T? {
 	return if (other != null) defaultArgThat(NullHandlingMatcher(pseudoEquals(other, valueExtractors), false)) else isNull()
@@ -484,6 +618,20 @@ private val contentValuesProperties: Set<ValueExtractor<ContentValues>>
 private val DUMMY_CURSOR: Cursor
 	get() = MatrixCursor(arrayOf())
 
+private fun <T, R> throwingInvocationHandler(retainLast: Boolean, handledResults: Map<T, List<R>>): Answer<R> = object : Answer<R> {
+	val values: Map<T, MutableList<R>> = handledResults.asSequence().map { entry ->
+		require(entry.value.isNotEmpty())
+		entry.key to LinkedList(entry.value)
+	}.toMap()
+
+	override fun answer(invocation: InvocationOnMock): R {
+		val argument = invocation.getArgument<T>(0)
+		val resultsForArg = requireNotNull(values[argument]) { "Undefined invocation $invocation" }
+		require(resultsForArg.isNotEmpty()) { "No results for invocation $invocation" }
+		return if (resultsForArg.size == 1 && retainLast) resultsForArg.first() else resultsForArg.removeFirst()
+	}
+}
+
 private fun mockCancellationSignal(isCanceled: Boolean): CancellationSignal {
 	val mock = mock(CancellationSignal::class.java)
 	whenCalled(mock.isCanceled).thenReturn(isCanceled)
@@ -523,6 +671,12 @@ private fun mockContentValues(entries: Map<String, Any?>): ContentValues {
 	return mock
 }
 
+private fun MappingSupportSQLiteDatabase.createAndBindStatement(sql: String, values: List<Any?>?): MappingSupportSQLiteStatement {
+	val mappingStatement = this.MappingSupportSQLiteStatement(sql)
+	SimpleSQLiteQuery.bind(mappingStatement, values?.toTypedArray())
+	return mappingStatement
+}
+
 data class CallData<T>(
 	val idCall: T,
 	val commentCall: T,
@@ -536,6 +690,8 @@ data class CallDataTwo<C, E>(
 	val idExpected: E,
 	val commentExpected: E
 )
+
+private fun Triple<Mapping, String, List<String>>.resolve(resolver: (Mapping) -> MappingSupportSQLiteDatabase) = Triple(resolver(first), second, third)
 
 fun sourceForTestQueryCancelable(): Stream<Arguments> {
 	val queries = sequenceOf(
@@ -567,7 +723,7 @@ fun sourceForTestQueryCancelable(): Stream<Arguments> {
 		)
 	)
 
-	return queries.cartesianProduct(signals).map { it.toList() }.toArgumentsStream()
+	return queries.cartesianProductTwo(signals).map { it.toList() }.toArgumentsStream()
 }
 
 fun sourceForTestInsert(): Stream<CallDataTwo<ContentValues, String>> = sequenceOf(
@@ -695,16 +851,262 @@ fun sourceForTestUpdate(): Stream<Arguments> {
 		)
 	)
 
-	return contentValues.cartesianProduct(whereClauses).cartesianProduct(whereArgs).map { it.toList() }.toArgumentsStream()
+	return contentValues.cartesianProductTwo(whereClauses).cartesianProductThree(whereArgs).map { it.toList() }.toArgumentsStream()
 }
 
-@JvmName("cartesianProductTwo")
-fun <A, B> Sequence<A>.cartesianProduct(other: Iterable<B>): Sequence<Pair<A, B>> = flatMap { a ->
+private val newBoundStatementValues = listOf<List<Any?>?>( //
+	//The ContentValues in this dataset always have the following order and counts:
+	//String [0,2], null[0,1], Int[0,1]
+	//This makes the ordered verification a lot easier
+	null, //
+	listOf(), //
+	listOf(null), //
+	listOf("value"), //
+	listOf("value1", "value2"), //
+	listOf("value", 10101), //
+	listOf("value", null), //
+	listOf("value", null, 10101) //
+)
+
+fun sourceForTestNewBoundStatementSingle(): Stream<Arguments> {
+	val statementData = sequenceOf( //
+		Triple( //
+			IDENTITY, "INSERT INTO `id_test` (`id_col`) VALUES (?)", listOf( //
+				"INSERT INTO `id_test` (`id_col`) VALUES (?)" //
+			)
+		), Triple( //
+			COMMENT, "INSERT INTO `comment_test` (`comment_col`) VALUES (?)", listOf( //
+				"INSERT INTO `comment_test` (`comment_col`) VALUES (?) -- Comment!" //
+			)
+		), Triple( //
+			COUNTER, "INSERT INTO `counter_test` (`counter_col`) VALUES (?)", listOf( //
+				"INSERT INTO `counter_test` (`counter_col`) VALUES (?) -- 0!", //
+				"INSERT INTO `counter_test` (`counter_col`) VALUES (?) -- 1!", //
+				"INSERT INTO `counter_test` (`counter_col`) VALUES (?) -- 2!" //
+			)
+		), Triple( //
+			IDENTITY, "SELECT count(*) FROM `id_test`", listOf( //
+				"SELECT count(*) FROM `id_test`" //
+			)
+		), Triple( //
+			COMMENT, "SELECT count(*) FROM `comment_test`", listOf( //
+				"SELECT count(*) FROM `comment_test` -- Comment!" //
+			)
+		), Triple( //
+			COUNTER, "SELECT count(*) FROM `counter_test`", listOf( //
+				"SELECT count(*) FROM `counter_test` -- 0!", //
+				"SELECT count(*) FROM `counter_test` -- 1!", //
+				"SELECT count(*) FROM `counter_test` -- 2!" //
+			)
+		), Triple( //
+			IDENTITY, "DELETE FROM `id_test` WHERE `id_col1` = 'id_value' AND `id_col2` = ?", listOf( //
+				"DELETE FROM `id_test` WHERE `id_col1` = 'id_value' AND `id_col2` = ?" //
+			)
+		), Triple( //
+			COMMENT, "DELETE FROM `comment_test` WHERE `comment_col1` = 'comment_value' AND `comment_col2` = ?", listOf( //
+				"DELETE FROM `comment_test` WHERE `comment_col1` = 'comment_value' AND `comment_col2` = ? -- Comment!" //
+			)
+		), Triple( //
+			COUNTER, "DELETE FROM `counter_test` WHERE `counter_col1` = 'counter_value' AND `counter_col2` = ?", listOf( //
+				"DELETE FROM `counter_test` WHERE `counter_col1` = 'counter_value' AND `counter_col2` = ? -- 0!", //
+				"DELETE FROM `counter_test` WHERE `counter_col1` = 'counter_value' AND `counter_col2` = ? -- 1!", //
+				"DELETE FROM `counter_test` WHERE `counter_col1` = 'counter_value' AND `counter_col2` = ? -- 2!" //
+			)
+		)
+	)
+	return statementData //
+		.cartesianProductTwo(newBoundStatementValues) //
+		.map { it.toList() } //
+		.toArgumentsStream()
+}
+
+fun sourceForTestNewBoundStatementMultiple(): Stream<Arguments> {
+	//result.count() == 6 * 18 == 108
+	val statementData = listOf( //
+		Triple( //
+			Triple( //
+				IDENTITY, "INSERT INTO `id_test` (`id_col`) VALUES (?)", listOf( //
+					"INSERT INTO `id_test` (`id_col`) VALUES (?)" //
+				)
+			), //
+			Triple( //
+				COMMENT, "INSERT INTO `comment_test` (`comment_col`) VALUES (?)", listOf( //
+					"INSERT INTO `comment_test` (`comment_col`) VALUES (?) -- Comment!" //
+				)
+			), //
+			Triple( //
+				COUNTER, "INSERT INTO `counter_test` (`counter_col`) VALUES (?)", listOf( //
+					"INSERT INTO `counter_test` (`counter_col`) VALUES (?) -- 0!", //
+					SENTINEL, //
+					SENTINEL //
+				)
+			)
+		), //
+		Triple( //
+			Triple( //
+				COMMENT, "INSERT INTO `comment_test1` (`comment_col1`) VALUES (?)", listOf( //
+					"INSERT INTO `comment_test1` (`comment_col1`) VALUES (?) -- Comment!" //
+				)
+			), //
+			Triple( //
+				COMMENT, "INSERT INTO `comment_test2` (`comment_col2`) VALUES (?)", listOf( //
+					"INSERT INTO `comment_test2` (`comment_col2`) VALUES (?) -- Comment!" //
+				)
+			), //
+			Triple( //
+				COUNTER, "INSERT INTO `counter_test` (`counter_col`) VALUES (?)", listOf( //
+					"INSERT INTO `counter_test` (`counter_col`) VALUES (?) -- 0!", //
+					SENTINEL, //
+					SENTINEL //
+				)
+			)
+		), //
+		Triple( //
+			Triple( //
+				COUNTER, "INSERT INTO `counter_test` (`counter_col`) VALUES (?)", listOf( //
+					"INSERT INTO `counter_test` (`counter_col`) VALUES (?) -- 0!", //
+					SENTINEL, //
+					SENTINEL //
+				)
+			), //
+			Triple( //
+				COMMENT, "INSERT INTO `comment_test` (`comment_col`) VALUES (?)", listOf( //
+					"INSERT INTO `comment_test` (`comment_col`) VALUES (?) -- Comment!" //
+				)
+			), //
+			Triple( //
+				COUNTER, "INSERT INTO `counter_test` (`counter_col`) VALUES (?)", listOf( //
+					SENTINEL, //
+					"INSERT INTO `counter_test` (`counter_col`) VALUES (?) -- 1!", //
+					SENTINEL //
+				)
+			)
+		), //
+		Triple( //
+			Triple( //
+				COUNTER, "INSERT INTO `counter_test1` (`counter_col1`) VALUES (?)", listOf( //
+					"INSERT INTO `counter_test1` (`counter_col1`) VALUES (?) -- 0!", //
+					SENTINEL, //
+					SENTINEL //
+				)
+			), //
+			Triple( //
+				COMMENT, "INSERT INTO `comment_test` (`comment_col`) VALUES (?)", listOf( //
+					"INSERT INTO `comment_test` (`comment_col`) VALUES (?) -- Comment!" //
+				)
+			), //
+			Triple( //
+				COUNTER, "INSERT INTO `counter_test2` (`counter_col2`) VALUES (?)", listOf( //
+					SENTINEL, //
+					"INSERT INTO `counter_test2` (`counter_col2`) VALUES (?) -- 1!", //
+					SENTINEL //
+				)
+			)
+		), //
+		Triple( //
+			Triple( //
+				COUNTER, "DELETE FROM `counter_test`", listOf( //
+					"DELETE FROM `counter_test` -- 0!", //
+					SENTINEL, //
+					SENTINEL //
+				)
+			), //
+			Triple( //
+				COUNTER, "DELETE FROM `counter_test`", listOf( //
+					SENTINEL, //
+					"DELETE FROM `counter_test` -- 1!", //
+					SENTINEL //
+				)
+			), //
+			Triple( //
+				COUNTER, "DELETE FROM `counter_test`", listOf( //
+					SENTINEL, //
+					SENTINEL, //
+					"DELETE FROM `counter_test` -- 2!" //
+				)
+			)
+		), //
+		Triple( //
+			Triple( //
+				COUNTER, "INSERT INTO `counter_test1` (`counter_col1`) VALUES (?)", listOf( //
+					"INSERT INTO `counter_test1` (`counter_col1`) VALUES (?) -- 0!", //
+					SENTINEL, //
+					SENTINEL //
+				)
+			), //
+			Triple( //
+				COUNTER, "DELETE FROM `counter_test2`", listOf( //
+					SENTINEL, //
+					"DELETE FROM `counter_test2` -- 1!", //
+					SENTINEL //
+				)
+			), //
+			Triple( //
+				COUNTER, "SELECT count(*) FROM `counter_test3` WHERE `counter_col3` = ?", listOf( //
+					SENTINEL, //
+					SENTINEL, //
+					"SELECT count(*) FROM `counter_test3` WHERE `counter_col3` = ? -- 2!" //
+				)
+			)
+		)
+	)
+	val values = listOf( //
+		Triple( //
+			null, null, null //
+		), Triple( //
+			listOf(), listOf(), listOf() //
+		), Triple( //
+			listOf(null), listOf(null), listOf(null) //
+		), Triple( //
+			listOf("value"), listOf("value"), listOf("value") //
+		), Triple( //
+			listOf("value"), listOf(null), listOf("value") //
+		), Triple( //
+			listOf("value1"), listOf("value2"), listOf("value3") //
+		), Triple( //
+			listOf("value"), listOf(2_000_0), listOf() //
+		), Triple( //
+			listOf("value"), listOf(2_000_0), listOf(null) //
+		), Triple( //
+			listOf("value", "value"), listOf("value"), listOf() //
+		), Triple( //
+			listOf("value1-1", "value1-2"), listOf("value2-1"), listOf() //
+		), Triple( //
+			listOf("value1-1", 1_000_2), listOf(null), listOf() //
+		), Triple( //
+			listOf("value", "value", "value"), listOf("value"), listOf() //
+		), Triple( //
+			listOf("value", "value", "value"), listOf("value", "value", "value"), listOf("value", "value", "value") //
+		), Triple( //
+			listOf("value1", "value2", "value3"), listOf("value1", "value2", "value3"), listOf("value1", "value2", "value3") //
+		), Triple( //
+			listOf("value1", "value1", "value1"), listOf("value2", "value2", "value2"), listOf("value3", "value3", "value3") //
+		), Triple( //
+			listOf("value1-1", "value1-2", "value1-3"), listOf("value2-1", "value2-2", "value2-3"), listOf("value3-1", "value3-2", "value3-3") //
+		), Triple( //
+			listOf("value1-1", "value1-2", null), listOf("value2-1", null, null), listOf("value3-1", "value3-2", "value3-3") //
+		), Triple( //
+			listOf("value1-1", null, 1_000_3), listOf("value2-1", 2_000_2, 2_000_3), listOf(null, null, 3_000_3) //
+		)
+	)
+
+	val statementDataSets: Sequence<List<Triple<Mapping, String, List<String>>>> = statementData.asSequence() //
+		.map { it.toList() }
+
+	val valueSets: List<List<List<Any?>?>> = values.asSequence() //
+		.map { it.toList() } //
+		.toList()
+	val result: Sequence<Pair<List<Triple<Mapping, String, List<String>>>, List<List<Any?>?>>> = statementDataSets.cartesianProductTwo(valueSets)
+	return result //
+		.map { it.toList() } //
+		.toArgumentsStream()
+}
+
+fun <A, B> Sequence<A>.cartesianProductTwo(other: Iterable<B>): Sequence<Pair<A, B>> = flatMap { a ->
 	other.asSequence().map { b -> a to b }
 }
 
-@JvmName("cartesianProductThree")
-fun <A, B, C> Sequence<Pair<A, B>>.cartesianProduct(other: Iterable<C>): Sequence<Triple<A, B, C>> = flatMap { abPair ->
+fun <A, B, C> Sequence<Pair<A, B>>.cartesianProductThree(other: Iterable<C>): Sequence<Triple<A, B, C>> = flatMap { abPair ->
 	other.asSequence().map { c -> Triple(abPair.first, abPair.second, c) }
 }
 
@@ -713,13 +1115,19 @@ fun Sequence<List<Any?>>.toArgumentsStream(): Stream<Arguments> = map {
 }.asStream()
 
 
-private fun ContentValues.nullCount(): Int = valueSet().count { it.value == null }
+private fun ContentValues.nullCount(): Int = valueSet().asSequence().map { it.value }.asIterable().nullCount()
 
-private inline fun <reified T> ContentValues.argCount(): Int = valueSet().asSequence().map { it.value }.filterIsInstance<T>().count()
+private inline fun <reified T> ContentValues.argCount(): Int = valueSet().asSequence().map { it.value }.asIterable().argCount<T>()
 
-private fun ContentValues.toBindingsMap(): Map<Int, Any?> {
-	return valueSet().map { it.value } //
-		.map { if (it is Int) it.toLong() else it } // Required because java.lang.Integer.valueOf(x) != java.lang.Long.valueOf(x)
-		.mapIndexed { index, value -> index + 1 to value } //
-		.toMap()
+private fun ContentValues.toBindingsMap(): Map<Int, Any?> = valueSet().asSequence().map { it.value }.asIterable().toBindingsMap()
+
+private fun Iterable<Any?>?.nullCount(): Int = this?.count { it == null } ?: 0
+
+private inline fun <reified T> Iterable<Any?>?.argCount(): Int = this?.asSequence()?.filterIsInstance<T>()?.count() ?: 0
+
+private fun Iterable<Any?>?.toBindingsMap(): Map<Int, Any?> {
+	return this?.asSequence() //
+		?.map { if (it is Int) it.toLong() else it } // Required because java.lang.Integer.valueOf(x) != java.lang.Long.valueOf(x)
+		?.mapIndexed { index, value -> index + 1 to value } //
+		?.toMap() ?: emptyMap()
 }
