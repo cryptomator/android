@@ -29,6 +29,7 @@ import org.junit.jupiter.api.Nested
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.assertDoesNotThrow
 import org.junit.jupiter.api.assertThrows
+import org.junit.jupiter.api.condition.EnabledIfEnvironmentVariable
 import org.junit.jupiter.params.ParameterizedTest
 import org.junit.jupiter.params.provider.Arguments
 import org.junit.jupiter.params.provider.MethodSource
@@ -401,6 +402,20 @@ class MappingSupportSQLiteDatabaseTest {
 		@ParameterizedTest
 		@MethodSource("org.cryptomator.data.db.sqlmapping.MappingSupportSQLiteDatabaseTestKt#sourceForTestNewBoundStatementMultiple")
 		fun testNewBoundStatementMultiple(statementData: List<Triple<Mapping, String, List<String>>>, values: List<List<Any?>?>) {
+			testConsecutiveNewBoundStatements(statementData, values)
+		}
+
+		@EnabledIfEnvironmentVariable(named = "RUN_VERY_LARGE_TESTS", matches = "(?i)true|1|yes", disabledReason = "Very large tests are disabled")
+		@ParameterizedTest
+		@MethodSource("org.cryptomator.data.db.sqlmapping.MappingSupportSQLiteDatabaseTestKt#sourceForTestNewBoundStatementNumerous1")
+		fun testNewBoundStatementNumerous1(statementData: List<Triple<Mapping, String, List<String>>>, values: List<List<Any?>?>) {
+			testConsecutiveNewBoundStatements(statementData, values)
+		}
+
+		@EnabledIfEnvironmentVariable(named = "RUN_VERY_LARGE_TESTS", matches = "(?i)true|1|yes", disabledReason = "Very large tests are disabled")
+		@ParameterizedTest
+		@MethodSource("org.cryptomator.data.db.sqlmapping.MappingSupportSQLiteDatabaseTestKt#sourceForTestNewBoundStatementNumerous2")
+		fun testNewBoundStatementNumerous2(statementData: List<Triple<Mapping, String, List<String>>>, values: List<List<Any?>?>) {
 			testConsecutiveNewBoundStatements(statementData, values)
 		}
 
@@ -920,6 +935,16 @@ fun sourceForTestNewBoundStatementSingle(): Stream<Arguments> {
 		.toArgumentsStream()
 }
 
+private val newBoundStatementValuesSmall = listOf<List<Any?>?>( //
+	//The ContentValues in this dataset always have the following order and counts:
+	//String [0,2], null[0,1], Int[0,1]
+	//This makes the ordered verification a lot easier
+	null, //
+	listOf(), //
+	listOf("value"), //
+	listOf("value", null, 10101) //
+)
+
 fun sourceForTestNewBoundStatementMultiple(): Stream<Arguments> {
 	//result.count() == 6 * 18 == 108
 	val statementData = listOf( //
@@ -1102,12 +1127,90 @@ fun sourceForTestNewBoundStatementMultiple(): Stream<Arguments> {
 		.toArgumentsStream()
 }
 
+fun sourceForTestNewBoundStatementNumerous1(): Stream<Arguments> {
+	//result.count() == 3 ^ 3 * 4 ^ 3 == 1,728
+	val statementData = listOf( //
+		Triple( //
+			IDENTITY, "INSERT INTO `id_test` (`id_col`) VALUES (?)", listOf( //
+				"INSERT INTO `id_test` (`id_col`) VALUES (?)" //
+			)
+		), Triple( //
+			COMMENT, "INSERT INTO `comment_test` (`comment_col`) VALUES (?)", listOf( //
+				"INSERT INTO `comment_test` (`comment_col`) VALUES (?) -- Comment!" //
+			)
+		), Triple( //
+			COUNTER, "INSERT INTO `counter_test` (`counter_col`) VALUES (?)", listOf( //
+				"INSERT INTO `counter_test` (`counter_col`) VALUES (?) -- 0!", //
+				"INSERT INTO `counter_test` (`counter_col`) VALUES (?) -- 1!", //
+				"INSERT INTO `counter_test` (`counter_col`) VALUES (?) -- 2!", //
+				"INSERT INTO `counter_test` (`counter_col`) VALUES (?) -- 3!" //
+			)
+		)
+	)
+
+	val statementDataSets: Sequence<List<Triple<Mapping, String, List<String>>>> = statementData.asSequence() //
+		.cartesianProductTwo(statementData) //
+		.cartesianProductThree(statementData) //
+		.map { it.toList() }
+
+	val valueSets: List<List<List<Any?>?>> = newBoundStatementValuesSmall.asSequence() //
+		.cartesianProductTwo(newBoundStatementValuesSmall) //
+		.cartesianProductThree(newBoundStatementValuesSmall) //
+		.map { it.toList() } //
+		.toList()
+	val result: Sequence<Pair<List<Triple<Mapping, String, List<String>>>, List<List<Any?>?>>> = statementDataSets.cartesianProductTwo(valueSets)
+	return result //
+		.map { it.toList() } //
+		.toArgumentsStream()
+}
+
+fun sourceForTestNewBoundStatementNumerous2(): Stream<Arguments> {
+	//result.count() == 3 ^ 4 * 8 ^ 4 == 331,776
+	val statementData = listOf( //
+		Triple( //
+			IDENTITY, "INSERT INTO `id_test` (`id_col`) VALUES (?)", listOf( //
+				"INSERT INTO `id_test` (`id_col`) VALUES (?)" //
+			)
+		), Triple( //
+			COMMENT, "INSERT INTO `comment_test` (`comment_col`) VALUES (?)", listOf( //
+				"INSERT INTO `comment_test` (`comment_col`) VALUES (?) -- Comment!" //
+			)
+		), Triple( //
+			COUNTER, "INSERT INTO `counter_test` (`counter_col`) VALUES (?)", listOf( //
+				"INSERT INTO `counter_test` (`counter_col`) VALUES (?) -- 0!", //
+				"INSERT INTO `counter_test` (`counter_col`) VALUES (?) -- 1!", //
+				"INSERT INTO `counter_test` (`counter_col`) VALUES (?) -- 2!", //
+				"INSERT INTO `counter_test` (`counter_col`) VALUES (?) -- 3!" //
+			)
+		)
+	)
+
+	val statementDataSets: Sequence<List<Triple<Mapping, String, List<String>>>> = statementData.asSequence() //
+		.cartesianProductTwo(statementData) //
+		.cartesianProductThree(statementData) //
+		.cartesianProductFour(statementData)
+
+	val valueSets: List<List<List<Any?>?>> = newBoundStatementValues.asSequence() //
+		.cartesianProductTwo(newBoundStatementValues) //
+		.cartesianProductThree(newBoundStatementValues) //
+		.cartesianProductFour(newBoundStatementValues) //
+		.toList()
+	val result: Sequence<Pair<List<Triple<Mapping, String, List<String>>>, List<List<Any?>?>>> = statementDataSets.cartesianProductTwo(valueSets)
+	return result //
+		.map { it.toList() } //
+		.toArgumentsStream()
+}
+
 fun <A, B> Sequence<A>.cartesianProductTwo(other: Iterable<B>): Sequence<Pair<A, B>> = flatMap { a ->
 	other.asSequence().map { b -> a to b }
 }
 
 fun <A, B, C> Sequence<Pair<A, B>>.cartesianProductThree(other: Iterable<C>): Sequence<Triple<A, B, C>> = flatMap { abPair ->
 	other.asSequence().map { c -> Triple(abPair.first, abPair.second, c) }
+}
+
+fun <T> Sequence<Triple<T, T, T>>.cartesianProductFour(other: Iterable<T>): Sequence<List<T>> = flatMap { triple ->
+	other.asSequence().map { otherElement -> listOf(triple.first, triple.second, triple.third, otherElement) }
 }
 
 fun Sequence<List<Any?>>.toArgumentsStream(): Stream<Arguments> = map {
