@@ -132,10 +132,10 @@ class MappingSupportSQLiteDatabaseTest {
 		commentMapping.query(SimpleSQLiteQuery("SELECT `col` FROM `comment_test`"))
 
 		val supportSQLiteQueryProperties = newCachedSupportSQLiteQueryProperties()
-		verify(delegateMock).query(
+		verify(delegateMock).query( //
 			anyPseudoEquals(SimpleSQLiteQuery("SELECT `col` FROM `id_test`"), supportSQLiteQueryProperties)
 		)
-		verify(delegateMock).query(
+		verify(delegateMock).query( //
 			anyPseudoEquals(SimpleSQLiteQuery("SELECT `col` FROM `comment_test` -- Comment!"), supportSQLiteQueryProperties)
 		)
 		verifyNoMoreInteractions(delegateMock)
@@ -149,10 +149,10 @@ class MappingSupportSQLiteDatabaseTest {
 		commentMapping.query(SimpleSQLiteQuery("SELECT `col` FROM `comment_test` WHERE `col` = ?", arrayOf("test2")))
 
 		val supportSQLiteQueryProperties = newCachedSupportSQLiteQueryProperties()
-		verify(delegateMock).query(
+		verify(delegateMock).query( //
 			anyPseudoEquals(SimpleSQLiteQuery("SELECT `col` FROM `id_test` WHERE `col` = ?", arrayOf("test1")), supportSQLiteQueryProperties)
 		)
-		verify(delegateMock).query(
+		verify(delegateMock).query( //
 			anyPseudoEquals(SimpleSQLiteQuery("SELECT `col` FROM `comment_test` WHERE `col` = ? -- Comment!", arrayOf("test2")), supportSQLiteQueryProperties)
 		)
 		verifyNoMoreInteractions(delegateMock)
@@ -167,12 +167,12 @@ class MappingSupportSQLiteDatabaseTest {
 		commentMapping.query(queries.commentCall, signals.commentCall)
 
 		val supportSQLiteQueryProperties = newCachedSupportSQLiteQueryProperties()
-		verify(delegateMock).query(
-			anyPseudoEquals(queries.idExpected, supportSQLiteQueryProperties),
+		verify(delegateMock).query( //
+			anyPseudoEquals(queries.idExpected, supportSQLiteQueryProperties), //
 			anyPseudoEqualsUnlessNull(signals.idExpected, setOf<ValueExtractor<CancellationSignal>>(CancellationSignal::isCanceled))
 		)
-		verify(delegateMock).query(
-			anyPseudoEquals(queries.commentExpected, supportSQLiteQueryProperties),
+		verify(delegateMock).query( //
+			anyPseudoEquals(queries.commentExpected, supportSQLiteQueryProperties), //
 			anyPseudoEqualsUnlessNull(signals.commentExpected, setOf<ValueExtractor<CancellationSignal>>(CancellationSignal::isCanceled))
 		)
 		verifyNoMoreInteractions(delegateMock)
@@ -518,9 +518,9 @@ private fun <T : Any> pseudoEquals(other: T, valueExtractors: Set<ValueExtractor
 	return PseudoEqualsMatcher(other, valueExtractors)
 }
 
-private class PseudoEqualsMatcher<T : Any>(
-	private val other: T,
-	private val valueExtractors: Set<ValueExtractor<T>>
+private class PseudoEqualsMatcher<T : Any>( //
+	private val other: T, //
+	private val valueExtractors: Set<ValueExtractor<T>> //
 ) : ArgumentMatcher<T> {
 
 	override fun matches(argument: T): Boolean {
@@ -573,9 +573,9 @@ private fun <T : Any> ValueExtractor<T>.asCached(): ValueExtractor<T> {
 
 private inline fun <T> OngoingStubbing<T>.thenDo(crossinline action: (invocation: InvocationOnMock) -> Unit): OngoingStubbing<T> = thenAnswer { action(it) }
 
-private class NullHandlingMatcher<T>(
-	private val delegate: ArgumentMatcher<T>,
-	private val matchNull: Boolean
+private class NullHandlingMatcher<T>( //
+	private val delegate: ArgumentMatcher<T>, //
+	private val matchNull: Boolean //
 ) : ArgumentMatcher<T?> {
 
 	override fun matches(argument: T?): Boolean {
@@ -586,12 +586,12 @@ private class NullHandlingMatcher<T>(
 	}
 }
 
-private fun newCachedSupportSQLiteQueryProperties(): Set<ValueExtractor<SupportSQLiteQuery>> = setOf(
-	SupportSQLiteQuery::sql.asCached(),
-	SupportSQLiteQuery::argCount,
-	{ query: SupportSQLiteQuery ->
-		CachingSupportSQLiteProgram().also { query.bindTo(it) }.bindings
-	}.asCached()
+private fun newCachedSupportSQLiteQueryProperties(): Set<ValueExtractor<SupportSQLiteQuery>> = setOf( //
+	SupportSQLiteQuery::sql.asCached(), //
+	SupportSQLiteQuery::argCount, //
+	{ query: SupportSQLiteQuery -> //
+		CachingSupportSQLiteProgram().also { query.bindTo(it) }.bindings //
+	}.asCached() //
 )
 
 private class CachingSupportSQLiteProgram : SupportSQLiteProgram {
@@ -625,7 +625,7 @@ private class CachingSupportSQLiteProgram : SupportSQLiteProgram {
 }
 
 private val contentValuesProperties: Set<ValueExtractor<ContentValues>>
-	get() = setOf(
+	get() = setOf( //
 		ContentValues::valueSet
 	)
 
@@ -691,177 +691,161 @@ private fun MappingSupportSQLiteDatabase.createAndBindStatement(sql: String, val
 	return mappingStatement
 }
 
-data class CallData<T>(
-	val idCall: T,
-	val commentCall: T,
-	val idExpected: T,
-	val commentExpected: T
+data class CallData<T>( //
+	val idCall: T, //
+	val commentCall: T, //
+	val idExpected: T, //
+	val commentExpected: T //
 )
 
-data class CallDataTwo<C, E>(
-	val idCall: C,
-	val commentCall: C,
-	val idExpected: E,
-	val commentExpected: E
+data class CallDataTwo<C, E>( //
+	val idCall: C, //
+	val commentCall: C, //
+	val idExpected: E, //
+	val commentExpected: E //
 )
 
 private fun Triple<Mapping, String, List<String>>.resolve(resolver: (Mapping) -> MappingSupportSQLiteDatabase) = Triple(resolver(first), second, third)
 
 fun sourceForTestQueryCancelable(): Stream<Arguments> {
-	val queries = sequenceOf(
-		CallData(
-			SimpleSQLiteQuery("SELECT `col` FROM `id_test`"),
-			SimpleSQLiteQuery("SELECT `col` FROM `comment_test`"),
-			SimpleSQLiteQuery("SELECT `col` FROM `id_test`"),
-			SimpleSQLiteQuery("SELECT `col` FROM `comment_test` -- Comment!")
-		),
-		CallData(
-			SimpleSQLiteQuery("SELECT `col` FROM `id_test` WHERE `col` = ?", arrayOf("test1")),
-			SimpleSQLiteQuery("SELECT `col` FROM `comment_test` WHERE `col` = ?", arrayOf("test2")),
-			SimpleSQLiteQuery("SELECT `col` FROM `id_test` WHERE `col` = ?", arrayOf("test1")),
-			SimpleSQLiteQuery("SELECT `col` FROM `comment_test` WHERE `col` = ? -- Comment!", arrayOf("test2"))
+	val queries = sequenceOf( //
+		CallData( //
+			SimpleSQLiteQuery("SELECT `col` FROM `id_test`"), //
+			SimpleSQLiteQuery("SELECT `col` FROM `comment_test`"), //
+			SimpleSQLiteQuery("SELECT `col` FROM `id_test`"), //
+			SimpleSQLiteQuery("SELECT `col` FROM `comment_test` -- Comment!") //
+		), CallData( //
+			SimpleSQLiteQuery("SELECT `col` FROM `id_test` WHERE `col` = ?", arrayOf("test1")), //
+			SimpleSQLiteQuery("SELECT `col` FROM `comment_test` WHERE `col` = ?", arrayOf("test2")), //
+			SimpleSQLiteQuery("SELECT `col` FROM `id_test` WHERE `col` = ?", arrayOf("test1")), //
+			SimpleSQLiteQuery("SELECT `col` FROM `comment_test` WHERE `col` = ? -- Comment!", arrayOf("test2")) //
 		)
 	)
-	val signals = listOf<CallData<CancellationSignal?>>(
-		CallData(
-			mockCancellationSignal(true),
-			mockCancellationSignal(false),
-			mockCancellationSignal(true),
-			mockCancellationSignal(false)
-		),
-		CallData(
-			null,
-			null,
-			null,
-			null
+	val signals = listOf<CallData<CancellationSignal?>>( //
+		CallData( //
+			mockCancellationSignal(true), //
+			mockCancellationSignal(false), //
+			mockCancellationSignal(true), //
+			mockCancellationSignal(false) //
+		), CallData( //
+			null, //
+			null, //
+			null, //
+			null //
 		)
 	)
 
 	return queries.cartesianProductTwo(signals).map { it.toList() }.toArgumentsStream()
 }
 
-fun sourceForTestInsert(): Stream<CallDataTwo<ContentValues, String>> = sequenceOf(
+fun sourceForTestInsert(): Stream<CallDataTwo<ContentValues, String>> = sequenceOf( //
 	//The ContentValues in this dataset always have the following order and counts:
 	//String [0,2], null[0,1], Int[0,1]
 	//This makes the ordered verification a lot easier
-	CallDataTwo(
-		mockContentValues("key1" to null),
-		mockContentValues("key2" to null),
-		"INSERT OR ROLLBACK  INTO id_test(key1) VALUES (?)",
-		"INSERT OR ABORT  INTO comment_test(key2) VALUES (?) -- Comment!"
-	),
-	CallDataTwo(
-		mockContentValues("key1" to "value1"),
-		mockContentValues("key2" to "value2"),
-		"INSERT OR ROLLBACK  INTO id_test(key1) VALUES (?)",
-		"INSERT OR ABORT  INTO comment_test(key2) VALUES (?) -- Comment!"
-	),
-	CallDataTwo(
-		mockContentValues("key1-1" to "value1-1", "key1-2" to "value1-2"),
-		mockContentValues("key2-1" to "value2-1", "key2-2" to "value2-2"),
-		"INSERT OR ROLLBACK  INTO id_test(key1-1,key1-2) VALUES (?,?)",
-		"INSERT OR ABORT  INTO comment_test(key2-1,key2-2) VALUES (?,?) -- Comment!"
-	),
-	CallDataTwo(
-		mockContentValues("key1" to "value1", "intKey1" to 10101),
-		mockContentValues("key2" to "value2", "intKey2" to 20202),
-		"INSERT OR ROLLBACK  INTO id_test(key1,intKey1) VALUES (?,?)",
-		"INSERT OR ABORT  INTO comment_test(key2,intKey2) VALUES (?,?) -- Comment!"
-	),
-	CallDataTwo(
-		mockContentValues("key1" to "value1", "nullKey1" to null),
-		mockContentValues("key2" to "value2", "nullKey2" to null),
-		"INSERT OR ROLLBACK  INTO id_test(key1,nullKey1) VALUES (?,?)",
-		"INSERT OR ABORT  INTO comment_test(key2,nullKey2) VALUES (?,?) -- Comment!"
-	),
-	CallDataTwo(
-		mockContentValues("key1" to "value1", "nullKey1" to null, "intKey1" to 10101),
-		mockContentValues("key2" to "value2"),
-		"INSERT OR ROLLBACK  INTO id_test(key1,nullKey1,intKey1) VALUES (?,?,?)",
-		"INSERT OR ABORT  INTO comment_test(key2) VALUES (?) -- Comment!"
-	),
-	CallDataTwo(
-		mockContentValues("key1" to "value1"),
-		mockContentValues("key2" to "value2", "nullKey2" to null, "intKey2" to 20202),
-		"INSERT OR ROLLBACK  INTO id_test(key1) VALUES (?)",
-		"INSERT OR ABORT  INTO comment_test(key2,nullKey2,intKey2) VALUES (?,?,?) -- Comment!"
+	CallDataTwo( //
+		mockContentValues("key1" to null), //
+		mockContentValues("key2" to null), //
+		"INSERT OR ROLLBACK  INTO id_test(key1) VALUES (?)", //
+		"INSERT OR ABORT  INTO comment_test(key2) VALUES (?) -- Comment!" //
+	), CallDataTwo( //
+		mockContentValues("key1" to "value1"), //
+		mockContentValues("key2" to "value2"), //
+		"INSERT OR ROLLBACK  INTO id_test(key1) VALUES (?)", //
+		"INSERT OR ABORT  INTO comment_test(key2) VALUES (?) -- Comment!" //
+	), CallDataTwo( //
+		mockContentValues("key1-1" to "value1-1", "key1-2" to "value1-2"), //
+		mockContentValues("key2-1" to "value2-1", "key2-2" to "value2-2"), //
+		"INSERT OR ROLLBACK  INTO id_test(key1-1,key1-2) VALUES (?,?)", //
+		"INSERT OR ABORT  INTO comment_test(key2-1,key2-2) VALUES (?,?) -- Comment!" //
+	), CallDataTwo( //
+		mockContentValues("key1" to "value1", "intKey1" to 10101), //
+		mockContentValues("key2" to "value2", "intKey2" to 20202), //
+		"INSERT OR ROLLBACK  INTO id_test(key1,intKey1) VALUES (?,?)", //
+		"INSERT OR ABORT  INTO comment_test(key2,intKey2) VALUES (?,?) -- Comment!" //
+	), CallDataTwo( //
+		mockContentValues("key1" to "value1", "nullKey1" to null), //
+		mockContentValues("key2" to "value2", "nullKey2" to null), //
+		"INSERT OR ROLLBACK  INTO id_test(key1,nullKey1) VALUES (?,?)", //
+		"INSERT OR ABORT  INTO comment_test(key2,nullKey2) VALUES (?,?) -- Comment!" //
+	), CallDataTwo( //
+		mockContentValues("key1" to "value1", "nullKey1" to null, "intKey1" to 10101), //
+		mockContentValues("key2" to "value2"), //
+		"INSERT OR ROLLBACK  INTO id_test(key1,nullKey1,intKey1) VALUES (?,?,?)", //
+		"INSERT OR ABORT  INTO comment_test(key2) VALUES (?) -- Comment!" //
+	), CallDataTwo( //
+		mockContentValues("key1" to "value1"), //
+		mockContentValues("key2" to "value2", "nullKey2" to null, "intKey2" to 20202), //
+		"INSERT OR ROLLBACK  INTO id_test(key1) VALUES (?)", //
+		"INSERT OR ABORT  INTO comment_test(key2,nullKey2,intKey2) VALUES (?,?,?) -- Comment!" //
 	)
 ).asStream()
 
-fun sourceForTestInsertConflictAlgorithms(): Stream<Triple<Int, String, String>> = sequenceOf(
-	Triple(
-		SQLiteDatabase.CONFLICT_NONE,
-		"INSERT INTO id_test(col1) VALUES (?)",
-		"INSERT INTO comment_test(col2) VALUES (?) -- Comment!"
-	),
-	Triple(
-		SQLiteDatabase.CONFLICT_ROLLBACK,
-		"INSERT OR ROLLBACK  INTO id_test(col1) VALUES (?)",
-		"INSERT OR ROLLBACK  INTO comment_test(col2) VALUES (?) -- Comment!"
-	),
-	Triple(
-		SQLiteDatabase.CONFLICT_ABORT,
-		"INSERT OR ABORT  INTO id_test(col1) VALUES (?)",
-		"INSERT OR ABORT  INTO comment_test(col2) VALUES (?) -- Comment!"
-	),
-	Triple(
-		SQLiteDatabase.CONFLICT_FAIL,
-		"INSERT OR FAIL  INTO id_test(col1) VALUES (?)",
-		"INSERT OR FAIL  INTO comment_test(col2) VALUES (?) -- Comment!"
-	),
-	Triple(
-		SQLiteDatabase.CONFLICT_IGNORE,
-		"INSERT OR IGNORE  INTO id_test(col1) VALUES (?)",
-		"INSERT OR IGNORE  INTO comment_test(col2) VALUES (?) -- Comment!"
-	),
-	Triple(
-		SQLiteDatabase.CONFLICT_REPLACE,
-		"INSERT OR REPLACE  INTO id_test(col1) VALUES (?)",
-		"INSERT OR REPLACE  INTO comment_test(col2) VALUES (?) -- Comment!"
-	),
+fun sourceForTestInsertConflictAlgorithms(): Stream<Triple<Int, String, String>> = sequenceOf( //
+	Triple( //
+		SQLiteDatabase.CONFLICT_NONE, //
+		"INSERT INTO id_test(col1) VALUES (?)", //
+		"INSERT INTO comment_test(col2) VALUES (?) -- Comment!" //
+	), Triple( //
+		SQLiteDatabase.CONFLICT_ROLLBACK, //
+		"INSERT OR ROLLBACK  INTO id_test(col1) VALUES (?)", //
+		"INSERT OR ROLLBACK  INTO comment_test(col2) VALUES (?) -- Comment!" //
+	), Triple( //
+		SQLiteDatabase.CONFLICT_ABORT, //
+		"INSERT OR ABORT  INTO id_test(col1) VALUES (?)", //
+		"INSERT OR ABORT  INTO comment_test(col2) VALUES (?) -- Comment!" //
+	), Triple( //
+		SQLiteDatabase.CONFLICT_FAIL, //
+		"INSERT OR FAIL  INTO id_test(col1) VALUES (?)", //
+		"INSERT OR FAIL  INTO comment_test(col2) VALUES (?) -- Comment!" //
+	), Triple( //
+		SQLiteDatabase.CONFLICT_IGNORE, //
+		"INSERT OR IGNORE  INTO id_test(col1) VALUES (?)", //
+		"INSERT OR IGNORE  INTO comment_test(col2) VALUES (?) -- Comment!" //
+	), Triple( //
+		SQLiteDatabase.CONFLICT_REPLACE, //
+		"INSERT OR REPLACE  INTO id_test(col1) VALUES (?)", //
+		"INSERT OR REPLACE  INTO comment_test(col2) VALUES (?) -- Comment!" //
+	)
 ).asStream()
 
 fun sourceForTestUpdate(): Stream<Arguments> {
-	val contentValues = sequenceOf(
-		CallData(
-			mockContentValues("key1" to "value1"),
-			mockContentValues("key2" to "value2"),
-			mockContentValues("key1" to "value1"),
-			mockContentValues("key2" to "value2")
-		),
-		CallData(
-			mockContentValues("key1" to null),
-			mockContentValues(),
-			mockContentValues("key1" to null),
-			mockContentValues()
+	val contentValues = sequenceOf( //
+		CallData( //
+			mockContentValues("key1" to "value1"), //
+			mockContentValues("key2" to "value2"), //
+			mockContentValues("key1" to "value1"), //
+			mockContentValues("key2" to "value2") //
+		), CallData( //
+			mockContentValues("key1" to null), //
+			mockContentValues(), //
+			mockContentValues("key1" to null), //
+			mockContentValues() //
 		)
 	)
-	val whereClauses = listOf<CallData<String?>>(
-		CallData(
-			"`col1` = ?",
-			"`col2` = ?",
-			"`col1` = ?",
-			"`col2` = ? -- Comment!"
-		),
-		CallData(
-			null,
-			null,
-			null,
-			"1 = 1 -- Comment!"
+	val whereClauses = listOf<CallData<String?>>( //
+		CallData( //
+			"`col1` = ?", //
+			"`col2` = ?", //
+			"`col1` = ?", //
+			"`col2` = ? -- Comment!" //
+		), CallData( //
+			null, //
+			null, //
+			null, //
+			"1 = 1 -- Comment!" //
 		)
 	)
 	val whereArgs = listOf<CallData<List<String>?>>( //Use List instead of Array to make result data more readable
-		CallData(
-			listOf(),
-			null,
-			listOf(),
-			null
-		),
-		CallData(
-			listOf("val1"),
-			listOf("val2"),
-			listOf("val1"),
-			listOf("val2")
+		CallData( //
+			listOf(), //
+			null, //
+			listOf(), //
+			null //
+		), CallData( //
+			listOf("val1"), //
+			listOf("val2"), //
+			listOf("val1"), //
+			listOf("val2") //
 		)
 	)
 
