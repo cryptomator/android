@@ -226,34 +226,23 @@ class MappingSupportSQLiteDatabaseTest {
 	@MethodSource("org.cryptomator.data.db.sqlmapping.MappingSupportSQLiteDatabaseTestKt#sourceForTestInsertConflictAlgorithms")
 	fun testInsertConflictAlgorithms(arguments: Triple<Int, String, String>) {
 		val (conflictAlgorithm: Int, idStatement: String, commentStatement: String) = arguments
+		val idContentValues = mockContentValues("col1" to "val1") //Inlining this declaration causes problems for some reason
+		val commentContentValues = mockContentValues("col2" to "val2")
 
-		val idCompiledStatement = mock(SupportSQLiteStatement::class.java)
-		val commentCompiledStatement = mock(SupportSQLiteStatement::class.java)
+		val (idCompiledStatement: SupportSQLiteStatement, idBindings: Map<Int, Any?>) = mockSupportSQLiteStatement()
+		val (commentCompiledStatement: SupportSQLiteStatement, commentBindings: Map<Int, Any?>) = mockSupportSQLiteStatement()
 
 		whenCalled(delegateMock.compileStatement(idStatement)).thenReturn(idCompiledStatement)
 		whenCalled(delegateMock.compileStatement(commentStatement)).thenReturn(commentCompiledStatement)
 
 		val order = inOrder(delegateMock, idCompiledStatement, commentCompiledStatement)
 
-		val idContentValues = mockContentValues("col1" to "val1") //Inlining this declaration causes problems for some reason
-		assertDoesNotThrow { identityMapping.insert("id_test", conflictAlgorithm, idContentValues) }
-
-		order.verify(delegateMock).compileStatement(idStatement)
-		order.verify(idCompiledStatement).bindString(1, "val1")
-		order.verify(idCompiledStatement).executeInsert()
-		order.verify(idCompiledStatement).close()
-		verifyNoMoreInteractions(idCompiledStatement)
-
-		order.verifyNoMoreInteractions()
-		val commentContentValues = mockContentValues("col2" to "val2")
-		assertDoesNotThrow { commentMapping.insert("comment_test", conflictAlgorithm, commentContentValues) }
-
-		order.verify(delegateMock).compileStatement(commentStatement)
-		/* */ verifyNoMoreInteractions(delegateMock)
-		order.verify(commentCompiledStatement).bindString(1, "val2")
-		order.verify(commentCompiledStatement).executeInsert()
-		order.verify(commentCompiledStatement).close()
-		verifyNoMoreInteractions(commentCompiledStatement)
+		testSingleInsert( //
+			order, { assertDoesNotThrow { identityMapping.insert("id_test", conflictAlgorithm, idContentValues) } }, idCompiledStatement, idStatement, idContentValues, idBindings, false //
+		)
+		testSingleInsert( //
+			order, { assertDoesNotThrow { commentMapping.insert("comment_test", conflictAlgorithm, commentContentValues) } }, commentCompiledStatement, commentStatement, commentContentValues, commentBindings, true //
+		)
 
 		order.verifyNoMoreInteractions()
 	}
