@@ -188,32 +188,28 @@ class MappingSupportSQLiteDatabaseTest {
 		whenCalled(delegateMock.compileStatement(arguments.commentExpected)).thenReturn(commentCompiledStatement)
 
 		val order = inOrder(delegateMock, idCompiledStatement, commentCompiledStatement)
-		identityMapping.insert("id_test", 1, arguments.idCall)
 
-		order.verify(delegateMock).compileStatement(arguments.idExpected)
-		order.verify(idCompiledStatement, times(arguments.idCall.argCount<String>())).bindString(anyInt(), anyString())
-		order.verify(idCompiledStatement, times(arguments.idCall.nullCount())).bindNull(anyInt())
-		order.verify(idCompiledStatement, times(arguments.idCall.argCount<Int>())).bindLong(anyInt(), anyLong())
-		order.verify(idCompiledStatement).executeInsert()
-		order.verify(idCompiledStatement).close()
-		verifyNoMoreInteractions(idCompiledStatement)
+		testSingleInsert(order, { identityMapping.insert("id_test", 1, arguments.idCall) }, idCompiledStatement, arguments.idExpected, arguments.idCall, idBindings, false)
+		testSingleInsert(order, { commentMapping.insert("comment_test", 2, arguments.commentCall) }, commentCompiledStatement, arguments.commentExpected, arguments.commentCall, commentBindings, true)
 
 		order.verifyNoMoreInteractions()
-		commentMapping.insert("comment_test", 2, arguments.commentCall)
+	}
 
-		order.verify(delegateMock).compileStatement(arguments.commentExpected)
-		/* */ verifyNoMoreInteractions(delegateMock)
-		order.verify(commentCompiledStatement, times(arguments.commentCall.argCount<String>())).bindString(anyInt(), anyString())
-		order.verify(commentCompiledStatement, times(arguments.commentCall.nullCount())).bindNull(anyInt())
-		order.verify(commentCompiledStatement, times(arguments.commentCall.argCount<Int>())).bindLong(anyInt(), anyLong())
-		order.verify(commentCompiledStatement).executeInsert()
-		order.verify(commentCompiledStatement).close()
-		verifyNoMoreInteractions(commentCompiledStatement)
-
-		order.verifyNoMoreInteractions()
-
-		assertEquals(arguments.idCall.toBindingsMap(), idBindings)
-		assertEquals(arguments.commentCall.toBindingsMap(), commentBindings)
+	private fun testSingleInsert( //
+		order: KInOrder, //
+		toVerify: () -> Unit, //
+		compiledStatement: SupportSQLiteStatement, //
+		expected: String, //
+		values: ContentValues, //
+		bindings: Map<Int, Any?>, //
+		lastTest: Boolean //
+	) {
+		val valueSet: Set<Map.Entry<String?, Any?>?> = values.valueSet()
+		val alsoVerify = {
+			order.verify(compiledStatement).executeInsert()
+			order.verify(compiledStatement).close()
+		}
+		testSingleCompiledStatement(order, toVerify, compiledStatement, expected, valueSet.asSequence().requireNoNulls().map { it.value }.toList(), bindings, alsoVerify, lastTest)
 	}
 
 	@Test
@@ -471,23 +467,37 @@ class MappingSupportSQLiteDatabaseTest {
 		}
 	}
 
-	private fun testSingleNewBoundStatement(
-		order: KInOrder,
-		mappingStatement: MappingSupportSQLiteStatement,
-		compiledStatement: SupportSQLiteStatement,
-		expected: String,
-		values: List<Any?>?,
-		bindings: Map<Int, Any?>,
-		lastTest: Boolean
+	private fun testSingleNewBoundStatement( //
+		order: KInOrder, //
+		mappingStatement: MappingSupportSQLiteStatement, //
+		compiledStatement: SupportSQLiteStatement, //
+		expected: String, //
+		values: List<Any?>?, //
+		bindings: Map<Int, Any?>, //
+		lastTest: Boolean //
+	) = testSingleCompiledStatement( //
+		order, { assertSame(compiledStatement, mappingStatement.newBoundStatement()) }, compiledStatement, expected, values, bindings, { }, lastTest //
+	)
+
+	private fun testSingleCompiledStatement( //
+		order: KInOrder, //
+		toVerify: () -> Unit, //
+		compiledStatement: SupportSQLiteStatement, //
+		expected: String, //
+		values: List<Any?>?, //
+		bindings: Map<Int, Any?>, //
+		alsoVerify: () -> Unit, //
+		lastTest: Boolean //
 	) {
 		order.verifyNoMoreInteractions()
-		assertSame(compiledStatement, mappingStatement.newBoundStatement())
+		toVerify()
 
 		order.verify(delegateMock).compileStatement(expected)
 		if (lastTest) verifyNoMoreInteractions(delegateMock)
 		order.verify(compiledStatement, times(values.argCount<String>())).bindString(anyInt(), anyString())
 		order.verify(compiledStatement, times(values.nullCount())).bindNull(anyInt())
 		order.verify(compiledStatement, times(values.argCount<Int>())).bindLong(anyInt(), anyLong())
+		alsoVerify()
 		verifyNoMoreInteractions(compiledStatement)
 
 		assertEquals(values.toBindingsMap(), bindings)
@@ -1216,13 +1226,6 @@ fun <T> Sequence<Triple<T, T, T>>.cartesianProductFour(other: Iterable<T>): Sequ
 fun Sequence<List<Any?>>.toArgumentsStream(): Stream<Arguments> = map {
 	Arguments { it.toTypedArray() }
 }.asStream()
-
-
-private fun ContentValues.nullCount(): Int = valueSet().asSequence().map { it.value }.asIterable().nullCount()
-
-private inline fun <reified T> ContentValues.argCount(): Int = valueSet().asSequence().map { it.value }.asIterable().argCount<T>()
-
-private fun ContentValues.toBindingsMap(): Map<Int, Any?> = valueSet().asSequence().map { it.value }.asIterable().toBindingsMap()
 
 private fun Iterable<Any?>?.nullCount(): Int = this?.count { it == null } ?: 0
 
