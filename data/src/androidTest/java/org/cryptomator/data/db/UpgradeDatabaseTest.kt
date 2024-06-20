@@ -2,6 +2,7 @@ package org.cryptomator.data.db
 
 import android.content.Context
 import android.database.Cursor
+import androidx.room.migration.Migration
 import androidx.room.testing.MigrationTestHelper
 import androidx.room.util.copyAndClose
 import androidx.sqlite.db.SupportSQLiteDatabase
@@ -43,6 +44,7 @@ import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
+import java.io.IOException
 
 private const val TEST_DB = "migration-test"
 private const val LATEST_LEGACY_MIGRATION = 12
@@ -122,11 +124,14 @@ class UpgradeDatabaseTest {
 		Upgrade11To12(sharedPreferencesHandler).migrate(db)
 		db.close()
 
-		helper.runMigrationsAndValidate(TEST_DB, 13, true, Migration12To13())
-		helper.runMigrationsAndValidate(TEST_DB, 14, true, CryptomatorDatabase_AutoMigration_13_14_Impl()) //TODO Use correctly
-		//TODO Verify content (e.g. by using "loadAll")
+		runMigrationsAndValidate(13, Migration12To13())
+		runMigrationsAndValidate(14, CryptomatorDatabase_AutoMigration_13_14_Impl())
 	}
 
+	@Throws(IOException::class)
+	private fun runMigrationsAndValidate(version: Int, vararg migrations: Migration): SupportSQLiteDatabase {
+		return helper.runMigrationsAndValidate(TEST_DB, version, true, *migrations).also { db -> helper.closeWhenFinished(db) }
+	}
 
 	@Test
 	fun upgrade2To3() {
@@ -718,12 +723,12 @@ class UpgradeDatabaseTest {
 		assertTrue("Expected \".*$pre13Expected.*\", got \"$pre13Statement\"", pre13Statement.contains(pre13Expected))
 		db.close()
 
-		helper.runMigrationsAndValidate(TEST_DB, 13, true, Migration12To13()).also { migratedDb ->
+		runMigrationsAndValidate(13, Migration12To13()).also { migratedDb ->
 			val statement = referencesStatement(migratedDb)
 			assertEquals(pre13Statement, statement)
 		}
 
-		helper.runMigrationsAndValidate(TEST_DB, 14, true, CryptomatorDatabase_AutoMigration_13_14_Impl()).also { migratedDb ->
+		runMigrationsAndValidate(14, CryptomatorDatabase_AutoMigration_13_14_Impl()).also { migratedDb ->
 			val statement = referencesStatement(migratedDb)
 			val expected = "FOREIGN KEY(folderCloudId) REFERENCES CLOUD_ENTITY(id) ON"
 			assertTrue("Expected \".*$expected.*\", got \"$statement\"", statement.contains(expected))
@@ -768,12 +773,12 @@ class UpgradeDatabaseTest {
 		assertIsUUID(pre13Statement.substring(pre13Statement.length - UUID_LENGTH))
 		db.close()
 
-		helper.runMigrationsAndValidate(TEST_DB, 13, true, Migration12To13()).also { migratedDb ->
+		runMigrationsAndValidate(13, Migration12To13()).also { migratedDb ->
 			val statement = indexStatement(migratedDb)
 			assertEquals(pre13Statement, statement)
 		}
 
-		helper.runMigrationsAndValidate(TEST_DB, 14, true, CryptomatorDatabase_AutoMigration_13_14_Impl()).also { migratedDb ->
+		runMigrationsAndValidate(14, CryptomatorDatabase_AutoMigration_13_14_Impl()).also { migratedDb ->
 			val statement = indexStatement(migratedDb)
 			val expected = "CREATE UNIQUE INDEX `IDX_VAULT_ENTITY_FOLDER_PATH_FOLDER_CLOUD_ID` ON `VAULT_ENTITY` (`folderPath` ASC, `folderCloudId` ASC)"
 			assertEquals(expected, statement)
@@ -814,7 +819,7 @@ class UpgradeDatabaseTest {
 		}
 		db.close()
 
-		helper.runMigrationsAndValidate(TEST_DB, 13, true, Migration12To13()).also { migratedDb ->
+		runMigrationsAndValidate(13, Migration12To13()).also { migratedDb ->
 			assertTrue(migratedDb.hasRoomMasterTable)
 			assertEquals(13, migratedDb.version)
 
@@ -893,7 +898,7 @@ class UpgradeDatabaseTest {
 		}
 		db.close()
 
-		helper.runMigrationsAndValidate(TEST_DB, 13, true, Migration12To13()).also { migratedDb ->
+		runMigrationsAndValidate(13, Migration12To13()).also { migratedDb ->
 			assertTrue(migratedDb.hasRoomMasterTable)
 			assertEquals(13, migratedDb.version)
 
@@ -914,10 +919,8 @@ class UpgradeDatabaseTest {
 	fun migrate1To13WithRoom() {
 		db.version = 1
 		db.close()
-		helper.runMigrationsAndValidate(
-			TEST_DB,
+		runMigrationsAndValidate(
 			13,
-			true,
 			Upgrade1To2(),
 			Upgrade2To3(context),
 			Upgrade3To4(),
