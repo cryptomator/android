@@ -77,8 +77,6 @@ ext {
 
 	lruFileCacheVersion = '1.2'
 
-	roomVersion = '2.5.2'
-
 	// cloud provider libs
 	cryptolibVersion = '2.1.2'
 

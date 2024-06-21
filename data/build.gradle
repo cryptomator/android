@@ -1,3 +1,4 @@
+apply plugin: 'androidx.room'
 apply plugin: 'com.android.library'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-kapt'
@@ -24,14 +25,6 @@ android {
 		buildConfigField "String", "VERSION_NAME", "\"${globalConfiguration["androidVersionName"]}\""
 
 		testInstrumentationRunner 'androidx.test.runner.AndroidJUnitRunner'
-
-		javaCompileOptions {
-			annotationProcessorOptions {
-				compilerArgumentProviders(
-						new RoomSchemaArgProvider(roomSchemasDir)
-				)
-			}
-		}
 	}
 
 	compileOptions {
@@ -115,6 +108,10 @@ android {
 		quiet true
 	}
 	namespace 'org.cryptomator.data'
+}
+
+room {
+	schemaDirectory(roomSchemasDir.path)
 }
 
 configurations.all {
@@ -265,21 +262,5 @@ tasks.withType(Test) {
 		showStackTraces true
 
 		showStandardStreams = false
-	}
-}
-
-class RoomSchemaArgProvider implements CommandLineArgumentProvider {
-
-	@InputDirectory
-	@PathSensitive(PathSensitivity.RELATIVE)
-	File schemaDir
-
-	RoomSchemaArgProvider(File schemaDir) {
-		this.schemaDir = schemaDir
-	}
-
-	@Override
-	Iterable<String> asArguments() {
-		return ["-Aroom.schemaLocation=${schemaDir.path}".toString()]
 	}
 }
