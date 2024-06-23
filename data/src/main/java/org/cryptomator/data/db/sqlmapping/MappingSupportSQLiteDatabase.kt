@@ -106,29 +106,33 @@ internal class MappingSupportSQLiteDatabase(
 		private val sql: String
 	) : SupportSQLiteStatement {
 
-		private val bindings = mutableListOf<(SupportSQLiteStatement) -> Unit>()
+		private val bindings = mutableListOf<Any?>()
+
+		private fun saveBinding(index: Int, value: Any?): Any? {
+			return bindings.setLeniently(index - 1, value)
+		}
 
 		override fun bindBlob(index: Int, value: ByteArray) {
-			bindings.add { statement -> statement.bindBlob(index, value.copyOf()) }
+			saveBinding(index, value.copyOf())
 		}
 
 		override fun bindDouble(index: Int, value: Double) {
-			bindings.add { statement -> statement.bindDouble(index, value) }
+			saveBinding(index, value)
 		}
 
 		override fun bindLong(index: Int, value: Long) {
-			bindings.add { statement -> statement.bindLong(index, value) }
+			saveBinding(index, value)
 		}
 
 		override fun bindNull(index: Int) {
-			bindings.add { statement -> statement.bindNull(index) }
+			saveBinding(index, null)
 		}
 
 		override fun bindString(index: Int, value: String) {
-			bindings.add { statement -> statement.bindString(index, value) }
+			saveBinding(index, value)
 		}
 
-		override fun clearBindings() {
+		override fun clearBindings(): Unit {
 			bindings.clear()
 		}
 
@@ -159,9 +163,18 @@ internal class MappingSupportSQLiteDatabase(
 		@VisibleForTesting
 		internal fun newBoundStatement(): SupportSQLiteStatement {
 			return delegate.compileStatement(map(sql)).also { statement ->
-				for (binding: (SupportSQLiteStatement) -> Unit in bindings) {
-					binding(statement)
-				}
+				SimpleSQLiteQuery.bind(statement, prepareBindArgs())
+			}
+		}
+
+		private fun prepareBindArgs(): Array<Any?> {
+			return bindings.asSequence().map { binding -> prepareSingleBindArg(binding) }.toArray(bindings.size)
+		}
+
+		private fun prepareSingleBindArg(binding: Any?): Any? {
+			return when (binding) {
+				is ByteArray -> binding.copyOf()
+				else -> binding
 			}
 		}
 	}

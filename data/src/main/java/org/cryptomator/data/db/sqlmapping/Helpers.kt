@@ -10,3 +10,16 @@ internal fun ContentValues.compatIsEmpty(): Boolean {
 		size() == 0
 	}
 }
+
+internal fun <E> MutableList<E?>.setLeniently(index: Int, element: E?): E? {
+	val limit = index - size
+	for (i in 0..limit) { //The size of the range is 0 if limit < 0, 1 if limit == 0 and limit + 1 else.
+		add(null)
+	}
+	return set(index, element)
+}
+
+internal inline fun <reified T> Sequence<T>.toArray(size: Int): Array<T> {
+	val iterator = iterator()
+	return Array(size) { iterator.next() }
+}
