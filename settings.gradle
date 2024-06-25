@@ -1,7 +1,1 @@
-include ':generator', ':presentation', ':generator-api', ':domain', ':data', ':util', ':pcloud-sdk-java-root', ':pcloud-sdk-java', ':subsampling-image-view'
-
-var libFolder = new File(rootDir, 'lib')
-
-project(':pcloud-sdk-java-root').projectDir = file(new File(libFolder, 'pcloud-sdk-java'))
-project(':pcloud-sdk-java').projectDir = file(new File(libFolder, 'pcloud-sdk-java/java-core'))
-project(':subsampling-image-view').projectDir = file(new File(libFolder, 'subsampling-scale-image-view/library'))
+include ':generator', ':presentation', ':generator-api', ':domain', ':data', ':util'

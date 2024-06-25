@@ -9,4 +9,5 @@ interface Cloud : Serializable {
 	fun configurationMatches(cloud: Cloud?): Boolean
 	fun persistent(): Boolean
 	fun requiresNetwork(): Boolean
+	fun isReadOnly(): Boolean //TODO Implement read-only checks
 }

@@ -12,4 +12,6 @@ public @interface BottomSheet {
 
 	int value();
 
+	boolean secure() default true;
+
 }

@@ -1,8 +1,8 @@
 package org.cryptomator.domain.exception.vaultconfig;
 
-import org.cryptomator.domain.exception.BackendException;
+import com.auth0.jwt.exceptions.JWTVerificationException;
 
-import io.jsonwebtoken.JwtException;
+import org.cryptomator.domain.exception.BackendException;
 
 public class VaultConfigLoadException extends BackendException {
 
@@ -10,7 +10,7 @@ public class VaultConfigLoadException extends BackendException {
 		super(message);
 	}
 
-	public VaultConfigLoadException(String message, JwtException e) {
+	public VaultConfigLoadException(String message, JWTVerificationException e) {
 		super(message, e);
 	}
 

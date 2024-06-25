@@ -1,19 +1,16 @@
 package org.cryptomator.presentation.ui.adapter
 
+import android.view.LayoutInflater
 import android.view.View
-import org.cryptomator.presentation.R
+import android.view.ViewGroup
+import org.cryptomator.presentation.databinding.ItemShareableLocationBinding
 import org.cryptomator.presentation.model.VaultModel
 import org.cryptomator.presentation.model.comparator.VaultPositionComparator
 import org.cryptomator.presentation.ui.adapter.SharedLocationsAdapter.VaultViewHolder
 import javax.inject.Inject
-import kotlinx.android.synthetic.main.item_shareable_location.view.chooseFolderLocation
-import kotlinx.android.synthetic.main.item_shareable_location.view.chosenLocation
-import kotlinx.android.synthetic.main.item_shareable_location.view.cloudImage
-import kotlinx.android.synthetic.main.item_shareable_location.view.selectedVault
-import kotlinx.android.synthetic.main.item_shareable_location.view.vaultName
 
 class SharedLocationsAdapter @Inject
-constructor() : RecyclerViewBaseAdapter<VaultModel, SharedLocationsAdapter.Callback, VaultViewHolder>(VaultPositionComparator()) {
+constructor() : RecyclerViewBaseAdapter<VaultModel, SharedLocationsAdapter.Callback, VaultViewHolder, ItemShareableLocationBinding>(VaultPositionComparator()) {
 
 	private var selectedVault: VaultModel? = null
 	private var selectedLocation: String? = null
@@ -39,12 +36,12 @@ constructor() : RecyclerViewBaseAdapter<VaultModel, SharedLocationsAdapter.Callb
 		replaceItem(this.selectedVault)
 	}
 
-	override fun getItemLayout(viewType: Int): Int {
-		return R.layout.item_shareable_location
+	override fun getItemBinding(inflater: LayoutInflater, parent: ViewGroup?, viewType: Int): ItemShareableLocationBinding {
+		return ItemShareableLocationBinding.inflate(inflater, parent, false)
 	}
 
-	override fun createViewHolder(view: View, viewType: Int): VaultViewHolder {
-		return VaultViewHolder(view)
+	override fun createViewHolder(binding: ItemShareableLocationBinding, viewType: Int): VaultViewHolder {
+		return VaultViewHolder(binding)
 	}
 
 	private fun selectVault(selectedVault: VaultModel?) {
@@ -57,7 +54,7 @@ constructor() : RecyclerViewBaseAdapter<VaultModel, SharedLocationsAdapter.Callb
 		callback.onVaultSelected(this.selectedVault)
 	}
 
-	inner class VaultViewHolder(itemView: View) : RecyclerViewBaseAdapter<*, *, *>.ItemViewHolder(itemView) {
+	inner class VaultViewHolder(private val binding: ItemShareableLocationBinding) : RecyclerViewBaseAdapter<*, *, *, *>.ItemViewHolder(binding.root) {
 
 		private var boundVault: VaultModel? = null
 
@@ -67,24 +64,24 @@ constructor() : RecyclerViewBaseAdapter<VaultModel, SharedLocationsAdapter.Callb
 			boundVault = getItem(position)
 
 			boundVault?.let {
-				itemView.vaultName.text = it.name
+				binding.vaultName.text = it.name
 
 				val boundVaultSelected = it == selectedVault
-				itemView.selectedVault.isChecked = boundVaultSelected
-				itemView.selectedVault.isClickable = !boundVaultSelected
+				binding.selectedVault.isChecked = boundVaultSelected
+				binding.selectedVault.isClickable = !boundVaultSelected
 				if (boundVaultSelected) {
-					itemView.cloudImage.setImageResource(it.cloudType.vaultSelectedImageResource)
+					binding.cloudImage.setImageResource(it.cloudType.vaultSelectedImageResource)
 					if (selectedLocation != null) {
-						itemView.chosenLocation.visibility = View.VISIBLE
-						itemView.chosenLocation.text = selectedLocation
+						binding.chosenLocation.visibility = View.VISIBLE
+						binding.chosenLocation.text = selectedLocation
 					} else {
-						itemView.chosenLocation.visibility = View.GONE
+						binding.chosenLocation.visibility = View.GONE
 					}
-					itemView.chooseFolderLocation.visibility = View.VISIBLE
+					binding.chooseFolderLocation.visibility = View.VISIBLE
 				} else {
-					itemView.cloudImage.setImageResource(it.cloudType.vaultImageResource)
-					itemView.chosenLocation.visibility = View.GONE
-					itemView.chooseFolderLocation.visibility = View.GONE
+					binding.cloudImage.setImageResource(it.cloudType.vaultImageResource)
+					binding.chosenLocation.visibility = View.GONE
+					binding.chooseFolderLocation.visibility = View.GONE
 				}
 			}
 
@@ -93,21 +90,21 @@ constructor() : RecyclerViewBaseAdapter<VaultModel, SharedLocationsAdapter.Callb
 
 		private fun removeListener() {
 			itemView.setOnClickListener(null)
-			itemView.selectedVault.setOnCheckedChangeListener(null)
+			binding.selectedVault.setOnCheckedChangeListener(null)
 		}
 
 		private fun bindListener() {
 			itemView.setOnClickListener {
-				if (!itemView.selectedVault.isChecked) {
+				if (!binding.selectedVault.isChecked) {
 					selectVault(boundVault)
 				}
 			}
-			itemView.selectedVault.setOnCheckedChangeListener { _, isChecked ->
+			binding.selectedVault.setOnCheckedChangeListener { _, isChecked ->
 				if (isChecked) {
 					selectVault(boundVault)
 				}
 			}
-			itemView.chooseFolderLocation.setOnClickListener { callback.onChooseLocationPressed() }
+			binding.chooseFolderLocation.setOnClickListener { callback.onChooseLocationPressed() }
 		}
 	}
 }

@@ -3,6 +3,7 @@ package org.cryptomator.data.cloud.googledrive
 import android.content.Context
 import com.google.api.client.googleapis.json.GoogleJsonResponseException
 import com.google.api.client.http.HttpResponseException
+import com.google.api.client.util.DateTime
 import com.google.api.services.drive.Drive
 import com.google.api.services.drive.model.File
 import com.google.api.services.drive.model.Revision
@@ -25,6 +26,7 @@ import org.cryptomator.util.file.LruFileCacheUtil
 import org.cryptomator.util.file.LruFileCacheUtil.Companion.retrieveFromLruCache
 import java.io.IOException
 import java.io.OutputStream
+import java.util.Date
 import timber.log.Timber
 
 internal class GoogleDriveImpl(context: Context, googleDriveCloud: GoogleDriveCloud, idCache: GoogleDriveIdCache) {
@@ -98,7 +100,7 @@ internal class GoogleDriveImpl(context: Context, googleDriveCloud: GoogleDriveCl
 		folder?.let {
 			if (GoogleDriveCloudNodeFactory.isFolder(it)) {
 				return idCache.cache(GoogleDriveCloudNodeFactory.folder(parent, it))
-			} else if(GoogleDriveCloudNodeFactory.isShortcutFolder(it)) {
+			} else if (GoogleDriveCloudNodeFactory.isShortcutFolder(it)) {
 				return idCache.cache(GoogleDriveCloudNodeFactory.folder(parent, name, path, it.shortcutDetails.targetId))
 			}
 		}
@@ -203,6 +205,7 @@ internal class GoogleDriveImpl(context: Context, googleDriveCloud: GoogleDriveCl
 		val metadata = File()
 		metadata.name = file.name
 		progressAware.onProgress(Progress.started(UploadState.upload(file)))
+		metadata.setModifiedTime(DateTime(data.modifiedDate(context).orElse(Date())))
 		val uploadedFile = if (file.driveId != null && replace) {
 			updateFile(file, data, progressAware, size, metadata)
 		} else {

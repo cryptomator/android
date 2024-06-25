@@ -6,9 +6,9 @@ import org.apache.velocity.app.Velocity;
 import java.io.Writer;
 import java.lang.reflect.Modifier;
 
+import static org.apache.velocity.app.Velocity.mergeTemplate;
 import static java.lang.Character.toLowerCase;
 import static java.util.Arrays.stream;
-import static org.apache.velocity.app.Velocity.mergeTemplate;
 
 abstract class Template<T> {
 

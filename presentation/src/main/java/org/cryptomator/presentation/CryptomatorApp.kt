@@ -45,16 +45,11 @@ class CryptomatorApp : MultiDexApplication(), HasComponent<ApplicationComponent>
 	override fun onCreate() {
 		super.onCreate()
 		setupLogging()
+		@Suppress("KotlinConstantConditions") //
 		val flavor = when (BuildConfig.FLAVOR) {
-			"apkstore" -> {
-				"APK Store Edition"
-			}
-			"fdroid" -> {
-				"F-Droid Edition"
-			}
-			"lite" -> {
-				"F-Droid Main Repo Edition"
-			}
+			"apkstore" -> "APK Store Edition"
+			"fdroid" -> "F-Droid Edition"
+			"lite" -> "F-Droid Main Repo Edition"
 			else -> "Google Play Edition"
 		}
 		Timber.tag("App").i(
@@ -147,17 +142,16 @@ class CryptomatorApp : MultiDexApplication(), HasComponent<ApplicationComponent>
 				val cloud = applicationComponent.cloudRepository().decryptedViewOf(vault)
 				startAutoUpload(cloud)
 			} else if (vault == null) {
-				autoUploadServiceBinder?.vaultNotFound()
-					?: run {
-						Timber.tag("App").i("autoUploadServiceBinder not yet initialized, manually show notification")
-						AutoUploadNotification(applicationContext, 0).showVaultNotFoundNotification()
-					}
+				autoUploadServiceBinder?.vaultNotFound() ?: run {
+					Timber.tag("App").i("autoUploadServiceBinder not yet initialized, manually show notification")
+					AutoUploadNotification(applicationContext, 0).showVaultNotFoundNotification()
+				}
 			}
 		}
 	}
 
 	private fun checkToStartAutoImageUpload(sharedPreferencesHandler: SharedPreferencesHandler): Boolean {
-		return sharedPreferencesHandler.usePhotoUpload()
+		return sharedPreferencesHandler.usePhotoUpload() //
 				&& (!sharedPreferencesHandler.autoPhotoUploadOnlyUsingWifi() || applicationComponent.networkConnectionCheck().checkWifiOnAndConnected())
 	}
 

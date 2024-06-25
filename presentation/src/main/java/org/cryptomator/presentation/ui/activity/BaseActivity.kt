@@ -6,6 +6,7 @@ import android.content.res.Configuration
 import android.content.res.Configuration.ORIENTATION_LANDSCAPE
 import android.content.res.Configuration.ORIENTATION_PORTRAIT
 import android.os.Bundle
+import android.view.LayoutInflater
 import android.view.Menu
 import android.view.MenuItem
 import android.view.WindowManager
@@ -14,6 +15,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.Fragment
+import androidx.viewbinding.ViewBinding
 import com.google.android.material.snackbar.Snackbar
 import org.cryptomator.generator.Activity
 import org.cryptomator.presentation.BuildConfig
@@ -37,13 +39,15 @@ import javax.inject.Inject
 import kotlin.reflect.KClass
 import timber.log.Timber
 
-abstract class BaseActivity : AppCompatActivity(), View, ActivityCompat.OnRequestPermissionsResultCallback, HasComponent<ActivityComponent> {
+abstract class BaseActivity<VB : ViewBinding>(val bindingFactory: (LayoutInflater) -> VB) : AppCompatActivity(), View, ActivityCompat.OnRequestPermissionsResultCallback, HasComponent<ActivityComponent> {
 
 	@Inject
 	lateinit var exceptionMappings: ExceptionHandlers
 
 	@Inject
 	lateinit var sharedPreferencesHandler: SharedPreferencesHandler
+
+	protected val binding: VB by lazy { bindingFactory(layoutInflater) }
 
 	private var activityComponent: ActivityComponent? = null
 
@@ -70,7 +74,7 @@ abstract class BaseActivity : AppCompatActivity(), View, ActivityCompat.OnReques
 		this.activityComponent = initializeDagger()
 
 		javaClass.getAnnotation(Activity::class.java)?.let {
-			setContentView(getContentLayout(it))
+			setContentView(binding.root)
 
 			Activities.setIntent(this)
 			this.presenter = Activities.initializePresenter(this)
@@ -107,7 +111,7 @@ abstract class BaseActivity : AppCompatActivity(), View, ActivityCompat.OnReques
 		logLifecycleAsInfo("onResume")
 
 		// not using android extensions to access activityRootVIew because the view might be from different layouts with different type
-		findViewById<android.view.View>(R.id.activityRootView)?.filterTouchesWhenObscured = sharedPreferencesHandler.disableAppWhenObscured()
+		findViewById<android.view.View>(R.id.activity_root_view)?.filterTouchesWhenObscured = sharedPreferencesHandler.disableAppWhenObscured()
 
 		val config = javaClass.getAnnotation(Activity::class.java)
 		if (config?.secure == true && sharedPreferencesHandler.secureScreen() && !BuildConfig.DEBUG) {
@@ -152,14 +156,6 @@ abstract class BaseActivity : AppCompatActivity(), View, ActivityCompat.OnReques
 		presenter?.destroy()
 	}
 
-	private fun getContentLayout(config: Activity): Int {
-		return if (config.layout == -1) {
-			R.layout.activity_layout
-		} else {
-			config.layout
-		}
-	}
-
 	private fun initializeDagger(): ActivityComponent {
 		val activityComponent = DaggerActivityComponent.builder()
 			.applicationComponent(applicationComponent)
@@ -171,7 +167,7 @@ abstract class BaseActivity : AppCompatActivity(), View, ActivityCompat.OnReques
 
 	private fun createAndAddFragment() {
 		val fragment = createFragment()
-		fragment?.let { addFragment(R.id.fragmentContainer, it) }
+		fragment?.let { addFragment(R.id.fragment_container, it) }
 	}
 
 	private fun afterIntentInjected() {
@@ -222,7 +218,7 @@ abstract class BaseActivity : AppCompatActivity(), View, ActivityCompat.OnReques
 	internal fun replaceFragment(fragment: Fragment, fragmentAnimation: FragmentAnimation, addToBackStack: Boolean = true) {
 		val transaction = supportFragmentManager.beginTransaction()
 		transaction.setCustomAnimations(fragmentAnimation.enter, fragmentAnimation.exit, fragmentAnimation.popEnter, fragmentAnimation.popExit)
-		transaction.replace(R.id.fragmentContainer, fragment)
+		transaction.replace(R.id.fragment_container, fragment)
 		if (addToBackStack) {
 			transaction.addToBackStack(null)
 		}
@@ -315,9 +311,9 @@ abstract class BaseActivity : AppCompatActivity(), View, ActivityCompat.OnReques
 	}
 
 	internal open fun snackbarView(): android.view.View {
-		return activity().findViewById(R.id.locationsRecyclerView) as android.view.View?
-			?: activity().findViewById(R.id.rlChooseCloudService) as android.view.View?
-			?: return activity().findViewById(R.id.coordinatorLayout)
+		return activity().findViewById(R.id.locations_recycler_view)
+			?: activity().findViewById(R.id.rl_choose_cloud_service)
+			?: return activity().findViewById(R.id.coordinator_layout)
 	}
 
 	internal fun getCurrentFragment(fragmentContainer: Int): Fragment? = supportFragmentManager.findFragmentById(fragmentContainer)
@@ -374,7 +370,7 @@ abstract class BaseActivity : AppCompatActivity(), View, ActivityCompat.OnReques
 		Toast.makeText(this, message, Toast.LENGTH_SHORT).show()
 	}
 
-	internal enum class FragmentAnimation constructor(
+	internal enum class FragmentAnimation(
 		val enter: Int,
 		val exit: Int,
 		val popEnter: Int,

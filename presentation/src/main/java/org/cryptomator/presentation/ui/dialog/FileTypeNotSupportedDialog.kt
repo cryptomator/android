@@ -5,10 +5,11 @@ import android.os.Bundle
 import androidx.appcompat.app.AlertDialog
 import org.cryptomator.generator.Dialog
 import org.cryptomator.presentation.R
+import org.cryptomator.presentation.databinding.DialogFileTypeNotSupportedBinding
 import org.cryptomator.presentation.model.CloudFileModel
 
-@Dialog(R.layout.dialog_file_type_not_supported)
-class FileTypeNotSupportedDialog : BaseDialog<FileTypeNotSupportedDialog.Callback>() {
+@Dialog
+class FileTypeNotSupportedDialog : BaseDialog<FileTypeNotSupportedDialog.Callback, DialogFileTypeNotSupportedBinding>(DialogFileTypeNotSupportedBinding::inflate) {
 
 	interface Callback {
 

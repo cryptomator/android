@@ -150,6 +150,13 @@
 		</Preference>
 		<Preference
 			android:summary="Apache License v2"
+			android:title="Timber">
+			<intent
+				android:action="android.intent.action.VIEW"
+				android:data="https://github.com/JakeWharton/timber" />
+		</Preference>
+		<Preference
+			android:summary="Apache License v2"
 			android:title="Velocity (The Apache Software Foundation)">
 			<intent
 				android:action="android.intent.action.VIEW"

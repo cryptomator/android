@@ -1,16 +1,14 @@
 apply from: 'buildsystem/dependencies.gradle'
-apply plugin: "com.vanniktech.android.junit.jacoco"
 
 buildscript {
-	ext.kotlin_version = '1.7.20'
+	ext.kotlin_version = '1.9.24'
 	repositories {
 		mavenCentral()
 		google()
 	}
 	dependencies {
-		classpath 'com.android.tools.build:gradle:7.4.2'
-		classpath 'org.greenrobot:greendao-gradle-plugin:3.3.0'
-		classpath 'com.vanniktech:gradle-android-junit-jacoco-plugin:0.16.0'
+		classpath 'com.android.tools.build:gradle:8.4.1'
+		classpath 'org.greenrobot:greendao-gradle-plugin:3.3.1'
 		classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
 		classpath "de.mannodermaus.gradle.plugins:android-junit5:1.7.1.1"
 	}
@@ -38,8 +36,8 @@ def getVersionCode = { ->
 allprojects {
 	ext {
 		androidApplicationId = 'org.cryptomator'
-		androidVersionCode = 2824 // must be getVersionCode(). only at release tag set the actual value
-		androidVersionName = '1.10.0'
+		androidVersionCode = 2897 // must be getVersionCode(). only at release tag set the actual value
+		androidVersionName = '1.10.1'
 	}
 	repositories {
 		mavenCentral()
@@ -52,4 +50,21 @@ allprojects {
 
 task clean(type: Delete) {
 	delete rootProject.buildDir
+}
+
+def getApiKey(key) {
+	return !liteFlavor() ? System.getenv().getOrDefault(key, getApiKeyLocal(key)) : ""
+}
+
+def liteFlavor() {
+	gradle.startParameter.taskNames.stream().filter(t -> t.toLowerCase().contains("lite")).findAny().isPresent()
+}
+
+def getApiKeyLocal(key) {
+	if (!rootProject.file("local.properties").exists()) {
+		return ""
+	}
+	def localPropertyList = new Properties()
+	localPropertyList.load(new FileInputStream(rootProject.file("local.properties")))
+	return localPropertyList.getOrDefault(key, "")
 }

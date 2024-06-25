@@ -1,6 +1,5 @@
 package org.cryptomator.presentation.ui.dialog
 
-import android.app.Dialog
 import android.content.Context
 import android.content.pm.ActivityInfo
 import android.content.res.Configuration
@@ -9,6 +8,7 @@ import android.view.KeyEvent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.WindowManager
 import android.view.inputmethod.EditorInfo
 import android.widget.Button
 import android.widget.EditText
@@ -16,17 +16,22 @@ import android.widget.TextView
 import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.FragmentManager
+import androidx.viewbinding.ViewBinding
+import org.cryptomator.generator.Dialog
+import org.cryptomator.presentation.BuildConfig
 import org.cryptomator.presentation.util.KeyboardHelper
 import org.cryptomator.util.SharedPreferencesHandler
 import java.util.function.Supplier
 
-abstract class BaseDialog<Callback> : DialogFragment() {
+abstract class BaseDialog<Callback, VB : ViewBinding>(val bindingFactory: (LayoutInflater, ViewGroup?, Boolean) -> VB) : DialogFragment() {
 
 	private lateinit var customDialog: View
 
+	protected lateinit var binding: VB
+
 	var callback: Callback? = null
 
-	protected abstract fun setupDialog(builder: AlertDialog.Builder): Dialog
+	protected abstract fun setupDialog(builder: AlertDialog.Builder): android.app.Dialog
 	protected abstract fun setupView()
 
 	fun show(fragmentManager: FragmentManager) {
@@ -38,21 +43,31 @@ abstract class BaseDialog<Callback> : DialogFragment() {
 		callback = context as Callback
 	}
 
-	override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
+	override fun onCreateDialog(savedInstanceState: Bundle?): android.app.Dialog {
+		val inflater = LayoutInflater.from(context)
+		binding = bindingFactory(inflater, null, false)
+
 		val builder = AlertDialog.Builder(requireActivity())
-		customDialog = requireActivity().layoutInflater.inflate(dialogContent, null)
-		builder.setView(customDialog)
-		val dialog = setupDialog(builder)
+		builder.setView(binding.root)
+		setupDialog(builder)
+
+		val dialog = builder.create()
 		dialog.window?.decorView?.filterTouchesWhenObscured = disableDialogWhenObscured()
+
 		return dialog
 	}
 
-	// Need to return the view here or onViewCreated won't be called by DialogFragment, sigh
 	override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-		return customDialog
+		return binding.root
 	}
 
 	override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+		val config = javaClass.getAnnotation(Dialog::class.java)
+		if (config?.secure == true && SharedPreferencesHandler(requireContext()).secureScreen() && !BuildConfig.DEBUG) {
+			dialog?.window?.setFlags(WindowManager.LayoutParams.FLAG_SECURE, WindowManager.LayoutParams.FLAG_SECURE)
+		} else {
+			dialog?.window?.clearFlags(WindowManager.LayoutParams.FLAG_SECURE)
+		}
 		setupView()
 	}
 
@@ -89,8 +104,8 @@ abstract class BaseDialog<Callback> : DialogFragment() {
 
 	private fun enableButtons(enabled: Boolean) {
 		val dialog = dialog as AlertDialog?
-		dialog?.getButton(Dialog.BUTTON_POSITIVE)?.isEnabled = enabled
-		dialog?.getButton(Dialog.BUTTON_NEGATIVE)?.isEnabled = enabled
+		dialog?.getButton(android.app.Dialog.BUTTON_POSITIVE)?.isEnabled = enabled
+		dialog?.getButton(android.app.Dialog.BUTTON_NEGATIVE)?.isEnabled = enabled
 	}
 
 	fun allowClosingDialog(allow: Boolean) {
@@ -100,16 +115,13 @@ abstract class BaseDialog<Callback> : DialogFragment() {
 		dialog?.setCanceledOnTouchOutside(allow)
 	}
 
-	fun showKeyboard(dialog: Dialog) {
+	fun showKeyboard(dialog: android.app.Dialog) {
 		KeyboardHelper.showKeyboardForDialog(dialog)
 	}
 
 	protected fun hideKeyboard(view: View) {
 		KeyboardHelper.hideKeyboard(requireActivity(), view)
 	}
-
-	private val dialogContent: Int
-		get() = javaClass.getAnnotation(org.cryptomator.generator.Dialog::class.java)!!.value
 
 	protected fun registerOnEditorDoneActionAndPerformButtonClick(editText: EditText, positiveButton: Supplier<Button>) {
 		editText.setOnEditorActionListener { _: TextView?, actionId: Int, _: KeyEvent? ->

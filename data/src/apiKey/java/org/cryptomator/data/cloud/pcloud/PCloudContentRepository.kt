@@ -19,7 +19,8 @@ import java.io.File
 import java.io.IOException
 import java.io.OutputStream
 
-internal class PCloudContentRepository(private val cloud: PCloud, client: ApiClient, context: Context) : InterceptingCloudContentRepository<PCloud, PCloudNode, PCloudFolder, PCloudFile>(Intercepted(cloud, client, context)) {
+internal class PCloudContentRepository(private val cloud: PCloud, client: ApiClient, context: Context) :
+	InterceptingCloudContentRepository<PCloud, PCloudNode, PCloudFolder, PCloudFile>(Intercepted(cloud, client, context)) {
 
 	@Throws(BackendException::class)
 	override fun throwWrappedIfRequired(e: Exception) {

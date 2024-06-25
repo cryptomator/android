@@ -59,7 +59,7 @@ public enum FileIcon {
 
 	private static Predicate<FileInfo> forExtensions(final String... extensions) {
 		return fileInfo -> {
-			if(fileInfo.getExtension() == null) {
+			if (fileInfo.getExtension() == null) {
 				return FALSE;
 			}
 

@@ -5,6 +5,7 @@ import android.net.Uri
 import android.view.View
 import org.cryptomator.generator.Activity
 import org.cryptomator.presentation.R
+import org.cryptomator.presentation.databinding.ActivitySettingsBinding
 import org.cryptomator.presentation.model.ProgressModel
 import org.cryptomator.presentation.presenter.SettingsPresenter
 import org.cryptomator.presentation.ui.activity.view.SettingsView
@@ -17,10 +18,9 @@ import org.cryptomator.presentation.ui.dialog.UpdateAppAvailableDialog
 import org.cryptomator.presentation.ui.dialog.UpdateAppDialog
 import org.cryptomator.presentation.ui.fragment.SettingsFragment
 import javax.inject.Inject
-import kotlinx.android.synthetic.main.toolbar_layout.toolbar
 
-@Activity(layout = R.layout.activity_settings)
-class SettingsActivity : BaseActivity(),
+@Activity
+class SettingsActivity : BaseActivity<ActivitySettingsBinding>(ActivitySettingsBinding::inflate),
 	SettingsView,
 	AskIgnoreBatteryOptimizationsDialog.Callback,
 	DebugModeDisclaimerDialog.Callback,
@@ -39,8 +39,8 @@ class SettingsActivity : BaseActivity(),
 	}
 
 	private fun setupToolbar() {
-		toolbar.setTitle(R.string.screen_settings_title)
-		setSupportActionBar(toolbar)
+		binding.mtToolbar.toolbar.setTitle(R.string.screen_settings_title)
+		setSupportActionBar(binding.mtToolbar.toolbar)
 	}
 
 	fun presenter(): SettingsPresenter = presenter

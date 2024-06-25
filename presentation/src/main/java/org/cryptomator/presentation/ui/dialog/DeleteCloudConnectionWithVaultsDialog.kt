@@ -6,11 +6,11 @@ import androidx.appcompat.app.AlertDialog
 import org.cryptomator.domain.Vault
 import org.cryptomator.generator.Dialog
 import org.cryptomator.presentation.R
+import org.cryptomator.presentation.databinding.DialogDeleteCloudConnectionWithVaultsBinding
 import org.cryptomator.presentation.model.CloudModel
-import java.util.ArrayList
 
-@Dialog(R.layout.dialog_delete_cloud_connection_with_vaults)
-class DeleteCloudConnectionWithVaultsDialog : BaseDialog<DeleteCloudConnectionWithVaultsDialog.Callback>() {
+@Dialog
+class DeleteCloudConnectionWithVaultsDialog : BaseDialog<DeleteCloudConnectionWithVaultsDialog.Callback, DialogDeleteCloudConnectionWithVaultsBinding>(DialogDeleteCloudConnectionWithVaultsBinding::inflate) {
 
 	interface Callback {
 

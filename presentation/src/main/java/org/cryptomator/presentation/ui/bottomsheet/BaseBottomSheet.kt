@@ -6,12 +6,19 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.WindowManager
+import androidx.viewbinding.ViewBinding
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
+import org.cryptomator.generator.BottomSheet
+import org.cryptomator.presentation.BuildConfig
 import org.cryptomator.presentation.R
+import org.cryptomator.util.SharedPreferencesHandler
 
-abstract class BaseBottomSheet<Callback> : BottomSheetDialogFragment() {
+abstract class BaseBottomSheet<Callback, VB : ViewBinding>(val bindingFactory: (LayoutInflater, ViewGroup?, Boolean) -> VB) : BottomSheetDialogFragment() {
 
 	protected abstract fun setupView()
+
+	protected lateinit var binding: VB
 
 	var callback: Callback? = null
 
@@ -28,10 +35,17 @@ abstract class BaseBottomSheet<Callback> : BottomSheetDialogFragment() {
 
 	// Need to return the view here or onViewCreated won't be called by DialogFragment, sigh
 	override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-		return requireActivity().layoutInflater.inflate(bottomSheetContent, null, false)
+		binding = bindingFactory(inflater, container, false)
+		return binding.root
 	}
 
 	override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+		val config = javaClass.getAnnotation(BottomSheet::class.java)
+		if (config?.secure == true && SharedPreferencesHandler(requireContext()).secureScreen() && !BuildConfig.DEBUG) {
+			dialog?.window?.setFlags(WindowManager.LayoutParams.FLAG_SECURE, WindowManager.LayoutParams.FLAG_SECURE)
+		} else {
+			dialog?.window?.clearFlags(WindowManager.LayoutParams.FLAG_SECURE)
+		}
 		setupView()
 	}
 

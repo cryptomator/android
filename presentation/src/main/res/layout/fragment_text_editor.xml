@@ -1,16 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
-	android:id="@+id/coordinatorLayout"
+	android:id="@+id/coordinator_layout"
 	android:layout_width="match_parent"
 	android:layout_height="match_parent">
 
 	<ScrollView
-		android:id="@+id/textViewWrapper"
+		android:id="@+id/text_view_wrapper"
 		android:layout_width="match_parent"
 		android:layout_height="match_parent">
 
 		<com.google.android.material.textfield.TextInputEditText
-			android:id="@+id/textEditor"
+			android:id="@+id/text_editor"
 			android:layout_width="match_parent"
 			android:layout_height="wrap_content"
 			android:gravity="top"

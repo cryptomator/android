@@ -10,6 +10,6 @@ import static java.lang.annotation.RetentionPolicy.RUNTIME;
 @Target(TYPE)
 public @interface Dialog {
 
-	int value();
+	boolean secure() default true;
 
 }

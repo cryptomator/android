@@ -3,38 +3,38 @@
 	<!-- # app -->
 	<string name="share_with_label">Зашифрувати</string>
 	<!-- # error messages -->
-	<string name="error_generic">Виникла помилка</string>
-	<string name="error_authentication_failed">Помилка автентифікації</string>
+	<string name="error_generic">Сталася помилка</string>
+	<string name="error_authentication_failed">Не вдалося пройти автентифікацію</string>
 	<string name="error_authentication_failed_re_authenticate">Помилка автентифікації, будь ласка, увійдіть за допомогою %1$s</string>
 	<string name="error_no_network_connection">Відсутнє з\'єднання з мережею</string>
 	<string name="error_invalid_passphrase">Невірний пароль</string>
-	<string name="error_file_or_folder_exists">Файл чи директорія вже існує.</string>
-	<string name="error_vault_version_not_supported">Версія сховища %1$s не підтримується. Це сховище було створено старішою або новішою версією Cryptomator.</string>
-	<string name="error_vault_config_file_missing_due_to_format_999">%1$s Файл відсутній у вашому сховищі. Переконайтеся, що цей файл існує у теці вашого сховища у хмарі.</string>
+	<string name="error_file_or_folder_exists">Файл чи папка вже існує.</string>
+	<string name="error_vault_version_not_supported">Сховище %1$s-ї версії не підтримується. Це сховище було створено старішою або новішою версією Cryptomator.</string>
+	<string name="error_vault_config_file_missing_due_to_format_999">Файл %1$s відсутній у вашому сховищі. Переконайтеся, що цей файл існує у папці вашого сховища у хмарі.</string>
 	<string name="error_vault_already_exists">Сховище вже існує.</string>
 	<string name="error_no_such_file">Файлу не існує.</string>
 	<string name="error_vault_has_been_locked">Сховище було заблоковано.</string>
 	<string name="error_cloud_already_exists">Ця хмара вже використовується.</string>
 	<string name="error_activity_not_found">Будь ласка, завантажте додаток, що може відкрити цей файл.</string>
 	<string name="error_server_not_found">Сервер не знайдено.</string>
-	<string name="error_device_policy_manager_not_found">Відкрийте налаштування пристрою та встановіть блокування екрану вручну</string>
+	<string name="error_device_policy_manager_not_found">Відкрийте налаштування пристрою та вимкніть автоматичне блокування екрану</string>
 	<string name="error_export_illegal_file_name">Не вдалося виконати експорт. Спробуйте видалити спеціальні символи з імен файлів та експортувати знову.</string>
 	<string name="error_name_contains_invalid_characters">Не може містити спеціальні символи.</string>
 	<string name="error_names_contains_invalid_characters">Назва файлу не може містити спеціальні символи.</string>
 	<string name="error_vault_name_contains_invalid_characters">Назва сховища не може містити спеціальні символи.</string>
-	<string name="error_general_update">Помилка перевірки оновлення. Загальна помилка.</string>
-	<string name="error_hash_mismatch_update">Помилка перевірки оновлення. Хеш не збігається з завантаженим файлом</string>
+	<string name="error_general_update">Не вдалось перевірити наявність оновлення.</string>
+	<string name="error_hash_mismatch_update">Помилка оновлення. Розрахований хеш не відповідає вивантаженому файлу</string>
 	<string name="error_update_no_internet">Не вдалося перевірити оновлення. Немає з\'єднання з мережею.</string>
 	<string name="error_failed_to_decrypt_webdav_password">Не вдалося розшифрувати пароль WebDAV, будь ласка, повторно додайте його в налаштування</string>
-	<string name="error_play_services_not_available">Google Play Services не встановлені</string>
-	<string name="error_biometric_auth_aborted">Біометрична автентифікація скасована</string>
-	<string name="error_vault_version_mismatch">Версія вказана в %1$s відрізняється від %2$s</string>
-	<string name="error_vault_key_invalid">%1$s не відповідає %2$s</string>
-	<string name="error_vault_config_loading">Загальна помилка при завантаженні конфігурації сховища</string>
-	<string name="error_file_not_found_after_opening_using_3party">Локальний файл більше не присутній посля повернення до Cryptomator. Можливі зміни не будуть застосовані до хмари.</string>
-	<string name="error_no_such_bucket">Відсутній бакет</string>
-	<string name="error_masterkey_location_not_supported">Користувацьке розташування Masterkey ще не підтримується</string>
-	<string name="error_interact_with_fdroid_but_fdroid_missing">Не вдалося зв\'язатися із застосунком F-Droid. Не встановлено?</string>
+	<string name="error_play_services_not_available">Сервіси Google Play не встановлено</string>
+	<string name="error_biometric_auth_aborted">Біометрична автентифікація перервана</string>
+	<string name="error_vault_version_mismatch">Версія вказана у %1$s відрізняється від %2$s</string>
+	<string name="error_vault_key_invalid">%1$s та %2$s не відповідають одне одному</string>
+	<string name="error_vault_config_loading">Помилка при завантаженні конфігурації сховища</string>
+	<string name="error_file_not_found_after_opening_using_3party">Локальний файл більше не існує після перепідключення до Cryptomator. Можливі зміни не можуть бути збережені у хмарі.</string>
+	<string name="error_no_such_bucket">Немає такого кошика (сховища)</string>
+	<string name="error_masterkey_location_not_supported">Користувацьке розташування універсального ключа ще не підтримується</string>
+	<string name="error_interact_with_fdroid_but_fdroid_missing">Не вдалося зв\'язатися із застосунком F-Droid. Його встановлено?</string>
 	<!-- # clouds -->
 	<!-- ## cloud names -->
 	<string name="cloud_names_local_storage">Локальне сховище</string>
@@ -42,8 +42,8 @@
 	<!-- ## permission messages -->
 	<string name="permission_message_export_file">Cryptomator потребує доступу до сховища для експорту файлів</string>
 	<string name="permission_message_upload_file">Cryptomator потребує доступу до сховища для завантаження файлів</string>
-	<string name="permission_message_share_file">Cryptomator потребує доступу до сховища щоб ділитися файлами</string>
-	<string name="permission_revoked_re_request_permission">Криптоматор втратив дозвіл на доступ до цього розташування. Будь ласка, оберіть цю папку ще раз, щоб відновити дозвіл.</string>
+	<string name="permission_message_share_file">Cryptomator потребує доступу до сховища, щоб ділитися файлами</string>
+	<string name="permission_revoked_re_request_permission">Cryptomator втратив дозвіл на доступ до цього розташування. Будь ласка, оберіть цю папку ще раз, щоб відновити дозвіл.</string>
 	<string name="snack_bar_action_title_settings">Налаштування</string>
 	<string name="snack_bar_action_title_search">Пошук</string>
 	<string name="snack_bar_action_title_search_previous">Попередній</string>
@@ -51,19 +51,19 @@
 	<string name="snack_bar_action_title_sort">Сортування</string>
 	<string name="snack_bar_action_title_sort_az">А - Я</string>
 	<string name="snack_bar_action_title_sort_za">Я - А</string>
-	<string name="snack_bar_action_title_sort_newest">Спочатку новіші</string>
-	<string name="snack_bar_action_title_sort_oldest">Спочатку старіші</string>
-	<string name="snack_bar_action_title_sort_biggest">Спочатку найбільші</string>
+	<string name="snack_bar_action_title_sort_newest">Спершу новіші</string>
+	<string name="snack_bar_action_title_sort_oldest">Спершу старіші</string>
+	<string name="snack_bar_action_title_sort_biggest">Спершу найбільші</string>
 	<string name="snack_bar_action_title_sort_smallest">Спершу найменші</string>
 	<string name="snack_bar_cryptomator_variants_title">Детальніше</string>
-	<string name="snack_bar_cryptomator_variants_hint">Немає у списку?</string>
+	<string name="snack_bar_cryptomator_variants_hint">Хмара не у списку?</string>
 	<!-- # screens -->
 	<!-- # screen: vault list -->
 	<string name="screen_vault_list_actions_title">Додати до Cryptomator</string>
 	<string name="screen_vault_list_action_create_new_vault">Створити нове сховище</string>
 	<string name="screen_vault_list_action_add_existing_vault">Додати існуюче сховище</string>
 	<string name="screen_vault_list_vault_action_delete">Прибрати</string>
-	<string name="screen_vault_list_vault_creation_hint">Натисніть тут, щоб створити новий vault</string>
+	<string name="screen_vault_list_vault_creation_hint">Натисніть тут, щоб створити нове сховище</string>
 	<string name="screen_vault_list_change_password_successful">Пароль успішно змінено</string>
 	<!-- # screen: file browser -->
 	<string name="screen_file_browser_default_title">Сховище</string>
@@ -71,33 +71,33 @@
 	<string name="screen_file_browser_create_new_vault_button_text">Розмістити тут</string>
 	<string name="screen_file_browser_create_new_vault_extra_text">Назва сховища: %1$s</string>
 	<plurals name="screen_file_browser_subtitle_move">
-		<item quantity="one">Перемістити %1$s у</item>
-		<item quantity="few">Перемістити %2$d елементи у</item>
-		<item quantity="many">Перемістити %2$d елементів у</item>
-		<item quantity="other">Перемістити %2$d елементів у</item>
+		<item quantity="one">Перемістити %1$s до</item>
+		<item quantity="few">Перемістити %2$d файли до</item>
+		<item quantity="many">Перемістити %2$d файлів до</item>
+		<item quantity="other">Перемістити %2$d файлів до</item>
 	</plurals>
 	<string name="screen_file_browser_move_button_text">Перемістити</string>
-	<string name="screen_file_browser_msg_empty_folder">Порожня тека</string>
+	<string name="screen_file_browser_msg_empty_folder">Порожня папка</string>
 	<string name="screen_file_browser_file_info_label_date">змінено %1$s тому</string>
-	<string name="screen_file_browser_share_intent_chooser_title">Поділитися за допомогою</string>
+	<string name="screen_file_browser_share_intent_chooser_title">Поділитися через</string>
 	<string name="screen_file_browser_share_destination_title">Оберіть призначення</string>
 	<string name="screen_file_browser_share_button_text">Оберіть</string>
-	<string name="screen_file_browser_nothing_to_share">Відсутні елементи для поширення</string>
+	<string name="screen_file_browser_nothing_to_share">Немає чим ділитись</string>
 	<string name="screen_file_browser_actions_title">Додати до %1$s</string>
-	<string name="screen_file_browser_action_create_folder">Створити теку</string>
+	<string name="screen_file_browser_action_create_folder">Створити папку</string>
 	<string name="screen_file_browser_action_create_new_text_file">Створити текстовий файл</string>
-	<string name="screen_file_browser_action_upload_files">Завантажити файли</string>
+	<string name="screen_file_browser_action_upload_files">Вивантажити файли</string>
 	<string name="screen_file_browser_upload_files_chooser_title">Файли</string>
 	<string name="screen_file_browser_msg_file_exported">Файл експортовано</string>
 	<string name="screen_file_browser_msg_files_exported">Файли експортовано</string>
-	<string name="screen_file_browser_nothing_to_export">Нічого експортувати</string>
-	<string name="screen_file_browser_msg_creating_download_dir_failed">Не вдалося створити каталог для завантажень</string>
+	<string name="screen_file_browser_nothing_to_export">Відсутні дані для експорту</string>
+	<string name="screen_file_browser_msg_creating_download_dir_failed">Не вдалося створити папку для завантажень</string>
 	<string name="screen_file_browser_node_action_share">Поділитись</string>
 	<string name="screen_file_browser_node_action_rename">Перейменувати</string>
 	<string name="screen_file_browser_node_action_edit_text">Редагувати</string>
-	<string name="screen_file_browser_node_action_export">Експорт</string>
+	<string name="screen_file_browser_node_action_export">Експортувати</string>
 	<string name="screen_file_browser_node_action_delete">Видалити</string>
-	<string name="screen_file_browser_node_action_open_with_text">Відкрити з&#8230;</string>
+	<string name="screen_file_browser_node_action_open_with_text">Відкрити за допомогою&#8230;</string>
 	<string name="screen_file_browser_selection_mode_title_zero_elements">Оберіть файли</string>
 	<string name="screen_file_browser_selection_mode_title_one_or_more_elements">%1$d обрано</string>
 	<string name="screen_file_browser_select_items">Оберіть</string>
@@ -117,75 +117,75 @@
 	<string name="screen_share_files_save_button_text">Зберегти</string>
 	<string name="screen_share_files_msg_success">Шифрування завершено</string>
 	<!-- ## screen: choose cloud service -->
-	<string name="screen_choose_cloud_service_title">Хмарні служби</string>
+	<string name="screen_choose_cloud_service_title">Хмарна служба</string>
 	<!-- ## screen: cloud connections -->
-	<string name="screen_cloud_connections_title">Обрати місцерозташування</string>
+	<string name="screen_cloud_connections_title">Обрати розташування</string>
 	<string name="screen_cloud_connections_no_connections">Натисніть тут щоб додати нові розташування</string>
 	<string name="screen_cloud_error_webdav_not_supported">Схоже, сервер не сумісний з WebDAV</string>
-	<string name="screen_cloud_local_error_no_content_provider">Не знайдено менеджер файлів, який підтримує відкриття директорій</string>
+	<string name="screen_cloud_local_error_no_content_provider">Не знайдено менеджер файлів, який підтримує відкриття папок</string>
 	<!-- ## screen: webdav settings -->
-	<string name="screen_webdav_settings_url_port_label">Адреса посилання</string>
+	<string name="screen_webdav_settings_url_port_label">URL-посилання</string>
 	<string name="screen_webdav_settings_username_label">Ім\'я користувача</string>
 	<string name="screen_webdav_settings_password_label">Пароль</string>
 	<string name="screen_webdav_settings_done_button_text">Підключитися</string>
 	<string name="screen_webdav_settings_msg_url_must_not_be_empty">Посилання не може бути порожнім.</string>
 	<string name="screen_webdav_settings_msg_url_is_invalid">Неприпустима URL-адреса.</string>
-	<string name="screen_webdav_settings_msg_username_must_not_be_empty">Поле для імені користувача не може бути порожнім.</string>
+	<string name="screen_webdav_settings_msg_username_must_not_be_empty">Поле імені користувача не може бути порожнім.</string>
 	<string name="screen_webdav_settings_msg_password_must_not_be_empty">Пароль не може бути порожнім.</string>
 	<!-- ## screen: s3 settings -->
-	<string name="screen_s3_settings_display_name_label">Ім\'я для відображення</string>
+	<string name="screen_s3_settings_display_name_label">Публічне ім\'я</string>
 	<string name="screen_s3_settings_access_key_label">Ключ доступу</string>
 	<string name="screen_s3_settings_secret_key_label">Секретний ключ</string>
-	<string name="screen_s3_settings_bucket_label">Існуючий бакет</string>
-	<string name="screen_s3_settings_endpoint_label">Кінцева точка</string>
+	<string name="screen_s3_settings_bucket_label">Існуючий кошик</string>
+	<string name="screen_s3_settings_endpoint_label">Кінцева адреса з іменем хосту, портом і шляхом до кошика</string>
 	<string name="screen_s3_settings_region_label">Регіон</string>
-	<string name="screen_s3_settings_msg_display_name_not_empty">Ім\'я не може бути порожнім</string>
+	<string name="screen_s3_settings_msg_display_name_not_empty">Публічне ім\'я не може бути порожнім</string>
 	<string name="screen_s3_settings_msg_access_key_not_empty">Ключ доступу не може бути порожнім</string>
 	<string name="screen_s3_settings_msg_secret_key_not_empty">Секретний ключ не може бути порожнім</string>
-	<string name="screen_s3_settings_msg_bucket_not_empty">Бакет не може бути порожнім</string>
-	<string name="screen_s3_settings_msg_endpoint_and_region_not_empty">Кінцева точка або регіон не можуть бути порожніми</string>
+	<string name="screen_s3_settings_msg_bucket_not_empty">Кошик не може бути порожнім</string>
+	<string name="screen_s3_settings_msg_endpoint_and_region_not_empty">Кінцева адреса або регіон не можуть бути порожніми</string>
 	<!-- ## screen: enter vault name -->
 	<string name="screen_enter_vault_name_msg_name_empty">Назва сховища не може бути порожньою.</string>
 	<string name="screen_enter_vault_name_vault_label">Назва сховища</string>
 	<string name="screen_enter_vault_name_button_text">Створити</string>
 	<!-- ## screen: set password -->
 	<string name="screen_set_password_title">Задати пароль</string>
-	<string name="screen_set_password_msg_password_mismatch">Пароль не збігається з введеним паролем.</string>
-	<string name="screen_set_password_button_text">Готово</string>
+	<string name="screen_set_password_msg_password_mismatch">Пароль не відповідає введеному.</string>
+	<string name="screen_set_password_button_text">Виконано</string>
 	<string name="screen_set_password_hint">ВАЖЛИВО: Якщо ви забудете пароль, то не зможете відновити дані.</string>
 	<string name="screen_set_password_retype_password_label">Введіть пароль ще раз</string>
 	<string name="screen_set_password_strength_indicator_0">Занадто слабкий пароль для створення сховища</string>
 	<string name="screen_set_password_strength_indicator_1">Слабкий</string>
-	<string name="screen_set_password_strength_indicator_2">Середній</string>
+	<string name="screen_set_password_strength_indicator_2">Посередній</string>
 	<string name="screen_set_password_strength_indicator_3">Надійний</string>
 	<string name="screen_set_password_strength_indicator_4">Дуже надійний</string>
 	<!-- ## screen: settings -->
 	<string name="screen_settings_section_general">Основні налаштування</string>
 	<string name="screen_settings_cloud_settings_label">Хмарні сервіси</string>
-	<string name="screen_settings_biometric_auth">Біометрична автентифікація</string>
-	<string name="screen_settings_activate_biometric_auth">Активувати біометричну автентифікацію</string>
+	<string name="screen_settings_biometric_auth">Біометрична авторизація</string>
+	<string name="screen_settings_activate_biometric_auth">Активувати біометричну авторизацію</string>
 	<string name="screen_settings_confirm_face_unlock">Підтвердити розблокування обличчям (якщо доступно)</string>
 	<string name="screen_settings_block_app_when_obscured">Блокувати програму при виникненні екрану</string>
-	<string name="screen_settings_block_app_when_obscured_summary">Блокувати перехоплення вводу й відображення інтерфейсу хибного ім\'я користувача</string>
+	<string name="screen_settings_block_app_when_obscured_summary">Блокувати перехоплення вводу й показу хибного інтерфейсу користувача</string>
 	<string name="screen_settings_secure_screen">Блокувати знімки екрану</string>
-	<string name="screen_settings_secure_screen_summary">Блокувати знімки екрану в списку нещодавніх та в середині програми</string>
+	<string name="screen_settings_secure_screen_summary">Блокувати знімки екрану в списку нещодавніх та у додатку</string>
 	<string name="screen_settings_section_search">Пошук</string>
-	<string name="screen_settings_live_search">\"Живий\" пошук</string>
-	<string name="screen_settings_live_search_summary">Оновити результати пошуку при вході в запит</string>
+	<string name="screen_settings_live_search">Пошук в реальному часі</string>
+	<string name="screen_settings_live_search_summary">Оновити результати пошуку при введенні запиту</string>
 	<string name="screen_settings_glob_search">Пошук за допомогою глобального шаблону</string>
 	<string name="screen_settings_glob_search_summary">Використовувати шаблон, що відповідає аліасу.*.jpg</string>
 	<string name="screen_settings_section_auto_lock">Автоматичне блокування</string>
-	<string name="screen_settings_auto_lock_timeout">Блокувати після</string>
+	<string name="screen_settings_auto_lock_timeout">Блокувати через</string>
 	<string name="screen_settings_auto_lock_on_screen_lock">Коли екран вимкнено</string>
-	<string name="screen_settings_section_auto_photo_upload">Автоматичне завантаження фотографій</string>
-	<string name="screen_settings_section_auto_photo_upload_vault">Вибрати сховище для завантаження</string>
-	<string name="screen_settings_section_auto_photo_upload_toggle">Увімкнено</string>
-	<string name="screen_settings_section_auto_photo_upload_toggle_summary">Захоплювати зображення у фоновому режимі і після розблокування вибраного сховища, почати завантаження</string>
+	<string name="screen_settings_section_auto_photo_upload">Автоматичне вивантаження фотографій</string>
+	<string name="screen_settings_section_auto_photo_upload_vault">Вибрати сховище для вивантаження</string>
+	<string name="screen_settings_section_auto_photo_upload_toggle">Активне</string>
+	<string name="screen_settings_section_auto_photo_upload_toggle_summary">Утримувати зображення у фоновому режимі і після розблокування вибраного сховища почати вивантаження</string>
 	<string name="screen_settings_section_auto_photo_upload_toggle_instant_upload">Вивантажити миттєво</string>
 	<string name="screen_settings_section_auto_photo_upload_toggle_instant_upload_summary">Вивантажувати, якщо сховище розблоковано</string>
 	<string name="screen_settings_section_auto_photo_upload_only_wifi_toggle">Вивантажувати лише за допомогою Wi-Fi</string>
-	<string name="screen_settings_section_auto_photo_upload_including_videos">Завантажувати відео</string>
-	<string name="screen_settings_auto_photo_upload_title">Зберігати автозавантажені файли до&#8230;</string>
+	<string name="screen_settings_section_auto_photo_upload_including_videos">Вивантажувати відео</string>
+	<string name="screen_settings_auto_photo_upload_title">Зберігати автовивантажені файли до&#8230;</string>
 	<string name="screen_settings_website_label">Веб-сайт Cryptomator</string>
 	<string name="screen_settings_twitter_label">Стежте за нами у Twitter</string>
 	<string name="screen_settings_facebook_label">Вподобайте нас на Facebook</string>
@@ -194,12 +194,14 @@
 	<string name="screen_settings_license_terms_label">Ліцензійні умови</string>
 	<string name="screen_settings_section_support">Підтримка</string>
 	<string name="screen_settings_contact_label">Запит про допомогу</string>
-	<string name="screen_settings_debug_mode_label">Режим вiдладки</string>
+	<string name="screen_settings_debug_mode_label">Режим налагодження</string>
 	<string name="screen_settings_error_report_label">Надіслати файл журналу</string>
-	<string name="screen_settings_error_report_failed">Помилка надсилання</string>
+	<string name="screen_settings_error_report_failed">Не вдалося надіслати</string>
 	<string name="screen_settings_security_label">Поради з безпеки</string>
 	<string name="screen_settings_section_version">Версія</string>
 	<string name="screen_settings_advanced_settings">Розширені налаштування</string>
+	<string name="screen_settings_microsoft_apps_workaround_label">Альтернативний спосіб відкриття файлів Microsoft</string>
+	<string name="screen_settings_microsoft_apps_workaround_summary">Відкривати файли в додатках Microsoft з дозволом на запис</string>
 	<string name="screen_settings_background_unlock_preparation_label">Прискорити розблокування</string>
 	<string name="screen_settings_background_unlock_preparation_label_summary">Завантажити конфігурацію сховища у фоновому режимі під час вводу пароля або біометричної автентифікації</string>
 	<string name="screen_settings_keep_unlocked_while_editing_files">Залишати розблокованим</string>
@@ -207,21 +209,21 @@
 	<!-- ## screen: cloud settings -->
 	<string name="screen_cloud_settings_onedrive_connections">Підключення OneDrive</string>
 	<string name="screen_cloud_settings_webdav_connections">Підключення через WebDAV</string>
-	<string name="screen_cloud_settings_pcloud_connections">підключення до pCloud</string>
-	<string name="screen_cloud_settings_s3_connections">S3 підключення</string>
+	<string name="screen_cloud_settings_pcloud_connections">Підключення до pCloud</string>
+	<string name="screen_cloud_settings_s3_connections">S3-підключення</string>
 	<string name="screen_cloud_settings_local_storage_locations">Розташування локального сховища</string>
 	<string name="screen_cloud_settings_log_in_to">Увійти до</string>
 	<string name="screen_cloud_settings_sign_out_from_cloud">Вийти з</string>
 	<!-- ## screen: licenses -->
 	<!-- ## screen: authenticate cloud -->
-	<string name="screen_authenticate_auth_authentication_failed">%1$s не може бути автентифіковано.</string>
+	<string name="screen_authenticate_auth_authentication_failed">%1$s не може бути авторизовано.</string>
 	<string name="screen_update_pcloud_connections_title">Оновити облікові дані pCloud</string>
 	<!-- ## screen: cryptomator app variants -->
 	<string name="screen_cryptomator_variants_title">Різновиди Cryptomator</string>
 	<string name="screen_cryptomator_variants_lite_title">Головний репозиторій F-Droid</string>
 	<string name="screen_cryptomator_variants_lite_description">Виключені, тому що потребують API ключі.</string>
 	<string name="screen_cryptomator_variants_lite_install">Встановити</string>
-	<string name="screen_cryptomator_variants_fdroid_title">Cryptomator F-Droid Репозиторій</string>
+	<string name="screen_cryptomator_variants_fdroid_title">Репозиторій Cryptomator на F-Droid</string>
 	<string name="screen_cryptomator_variants_fdroid_description">Виключено, тому що він містить власні залежності.</string>
 	<string name="screen_cryptomator_variants_fdroid_add_repo_hint">Додати репозиторій Cryptomator у додаток F-Droid.</string>
 	<string name="screen_cryptomator_variants_fdroid_add_repo">Додати</string>
@@ -232,16 +234,16 @@
 	<!-- # dialogs -->
 	<string name="dialog_button_cancel">Скасувати</string>
 	<string name="dialog_enter_password_positive_button">Розблокувати</string>
-	<string name="dialog_change_password_old_password_label">Старий пароль</string>
+	<string name="dialog_change_password_old_password_label">Чинний пароль</string>
 	<string name="dialog_change_password_new_password_label">Новий пароль</string>
 	<string name="dialog_change_password">Змінити пароль</string>
-	<string name="dialog_change_password_msg_old_password_empty">Старий пароль не може бути порожнім.</string>
+	<string name="dialog_change_password_msg_old_password_empty">Чинний пароль не може бути порожнім.</string>
 	<string name="dialog_change_password_msg_new_password_empty">Новий пароль не може бути порожнім.</string>
 	<string name="dialog_change_password_msg_password_mismatch">Новий пароль не збігається з повторно введеним паролем.</string>
 	<!-- Vault not found -->
 	<string name="dialog_vault_not_found_title">Сховище %1$s не знайдено</string>
-	<string name="dialog_vault_not_found_message">Сховище було перейменовано, переміщено або видалено. Видаліть це сховище зі списку та додайте його знову, щоб продовжити. Видалити зараз?</string>
-	<string name="dialog_vault_not_found_positive_button_text">Прибрати</string>
+	<string name="dialog_vault_not_found_message">Сховище перейменоване, переміщене або видалене. Вилучіть це сховище зі списку та додайте його знову, щоб продовжити. Вилучити зараз?</string>
+	<string name="dialog_vault_not_found_positive_button_text">Вилучити</string>
 	<string name="dialog_existing_file_title">Файл вже існує</string>
 	<string name="dialog_existing_file_positive_button">Замінити</string>
 	<string name="dialog_existing_file_message">Файл з іменем \'%1$s\' вже існує.</string>
@@ -254,7 +256,7 @@
 	<string name="dialog_replace_msg_some_files_exists">%1$d файли вже існують. Бажаєте замінити їх?</string>
 	<string name="dialog_replace_title_single_file_exists">Замінити файл?</string>
 	<string name="dialog_replace_title_multiple_files_exist">Замінити файли?</string>
-	<string name="dialog_unable_to_share_title">Неможливо поширити файли</string>
+	<string name="dialog_unable_to_share_title">Неможливо поділитись файлами</string>
 	<string name="dialog_unable_to_share_message">Ви не налаштували жодного сховища. Спочатку створіть нове сховище за допомогою програми Cryptomator.</string>
 	<string name="dialog_unable_to_share_positive_button">Гаразд</string>
 	<string name="dialog_unable_to_share_negative_button">Створити сховище</string>
@@ -267,10 +269,10 @@
 	<string name="dialog_unsaved_changes_message">Ви справді хочете вийти без збереження?</string>
 	<string name="dialog_unsaved_changes_discard">Відхилити</string>
 	<string name="dialog_file_name_hint">Назва файлу</string>
-	<string name="dialog_file_name_placeholder">text.txt</string>
+	<string name="dialog_file_name_placeholder">текст.txt</string>
 	<string name="dialog_delete_vault_message">Ви впевнені, що бажаєте видалити це сховище?</string>
 	<string name="dialog_delete_vault_hint">Ця дія тільки прибере сховище з цього списку, але не видалить його.</string>
-	<string name="dialog_upload_file_title">Завантаження&#8230;</string>
+	<string name="dialog_upload_file_title">Вивантаження&#8230;</string>
 	<string name="dialog_upload_file_remaining">Файл %1$d з %2$d</string>
 	<string name="dialog_export_file_title">Експорт (%1$d/%2$d)</string>
 	<string name="dialog_progress_please_wait">Будь ласка, зачекайте&#8230;</string>
@@ -282,44 +284,45 @@
 	<string name="dialog_progress_unlocking_vault">Розблокування сховища&#8230;</string>
 	<string name="dialog_progress_change_password">Зміна пароля&#8230;</string>
 	<string name="dialog_progress_creating_vault">Створення сховища&#8230;</string>
-	<string name="dialog_progress_upload_file">Завантаження&#8230;</string>
+	<string name="dialog_progress_upload_file">Вивантаження&#8230;</string>
 	<string name="dialog_progress_download_file">Завантаження&#8230;</string>
 	<string name="dialog_progress_encryption">Шифрування&#8230;</string>
 	<string name="dialog_progress_decryption">Розшифрування&#8230;</string>
 	<string name="action_progress_moving">Переміщення&#8230;</string>
-	<string name="dialog_lock_vault">Заблокувати</string>
+	<string name="dialog_lock_vault">Блокування</string>
 	<string name="dialog_accept_ssl_certificate_title">Неправильний SSL сертифікат</string>
 	<string name="dialog_accept_ssl_certificate_hint">Сертифікат SSL недійсний. Довіряти йому у будь-якому випадку?</string>
 	<string name="dialog_accept_ssl_certificate_details">Докладно</string>
 	<string name="dialog_accept_ssl_certificate_security_checkbox">Це може спричинити ризики безпеки. Я знаю, що роблю.</string>
-	<string name="dialog_ask_ignore_battery_optimizations_title">Вимкнути оптимізацію використання батареї</string>
-	<string name="dialog_ask_ignore_battery_optimizations_hint">Щоб отримувати нові зображення та відео без роботи у фоновому режимі, необхідно відключити оптимізацію заряду аккумулятора. Проте не хвилюйтесь, %1$s не споживає багато енергії.\n\nЩоб це зробити, змініть \"Додатки без оптимізації\" на \"Усі додатки\", оберіть %1$s і в цьому вікні оберіть \"Не оптимізувати\" після натискання \'%2$s\'.</string>
+	<string name="dialog_ask_ignore_battery_optimizations_title">Вимкніть оптимізацію використання батареї</string>
+	<string name="dialog_ask_ignore_battery_optimizations_hint">Щоб оновлювати зображення та відео без роботи у фоновому режимі, необхідно відключити оптимізацію споживання заряду аккумулятора для цього додатку. Проте не хвилюйтесь, %1$s не споживає багато енергії.\n\nЩоб це зробити, змініть \"Додатки без оптимізації\" на \"Усі додатки\", оберіть %1$s і встановіть \"Не оптимізувати\" після натискання \'%2$s\' в цьому вікні.</string>
 	<string name="dialog_ask_ignore_battery_optimizations_checkbox">Не запитувати знову?</string>
 	<string name="dialog_http_security_hint">Використання HTTP небезпечне. Рекомендуємо замість цього використовувати HTTPS. Якщо ви усвідомлюєте ризики, ви можете продовжити з HTTP.</string>
 	<string name="dialog_http_security_checkbox">Змінити на HTTPS</string>
 	<string name="dialog_http_security_title">Використовувати HTTPS?</string>
-	<string name="dialog_no_screen_lock_hint">Не встановлено блокування екрану. Щоб надійно зберегти свої облікові дані, встановіть ключ чи пароль після натискання ОК.</string>
+	<string name="dialog_no_screen_lock_hint">Не встановлено блокування екрану. Щоб надійно зберегти свої облікові дані, встановіть пароль чи графічний ключ після натискання ОК.</string>
 	<string name="dialog_no_screen_lock_title">Встановити блокування екрану?</string>
 	<string name="dialog_no_screen_lock_checkbox">Встановлення блокування екрану</string>
 	<string name="dialog_no_biometric_auth_set_up_title">В системі не налаштовано базову автентифікацію</string>
-	<string name="dialog_no_biometric_auth_set_up_message">Встановіть як мінімум один відбиток/одне обличчя для використання цього сервісу.</string>
-	<string name="dialog_debug_mode_disclaimer_hint">У цьому режимі чутливі дані можуть бути записані в файл журналу на вашому пристрої (наприклад, імена файлів і шляхи). Паролі, файли cookie тощо не включаються.\n\nНе забудьте вимкнути режим налагодження за першої нагоди.</string>
+	<string name="dialog_no_biometric_auth_set_up_message">Додайте щонайменше один відбиток пальця чи знімок обличчя для використання цього сервісу.</string>
+	<string name="dialog_debug_mode_disclaimer_hint">У цьому режимі чутливі дані можуть бути записані в файл журналу на вашому пристрої (наприклад, імена файлів і шляхи). Але це не стосується паролів, файлів cookie тощо.\n\nНе забудьте вимкнути режим налагодження якнайшвидше.</string>
 	<string name="dialog_debug_mode_disclaimer_title">Увага</string>
 	<string name="dialog_debug_mode_positive_button">Увімкнути</string>
-	<string name="dialog_disable_app_obscured_disclaimer_hint">Це налаштування пов\'язано із безпекою, і не дозволяє іншим додаткам вводити користувачів в оману та змушувати їх робити не те, чого вони хочуть.\n\nВідключаючи його, ви підтверджуєте, що <a href="https://docs.cryptomator.org/en/1.6/android/settings/#block-app-when-obscured">усвідомлюєте ризики</a>.</string>
+	<string name="dialog_microsoft_workaround_disclaimer_hint">Через помилку в додатках Microsoft, для редагування файлу, доступ до нього має бути надано таким додаткам у публічній папці на вашому пристрої. Після того, як Cryptomator припинить роботу - публічно доступний файл буде видалено, але водночас Cryptomator не впливає на те, що відбувалось з цим файлом, поки він є публічно доступним. Активовуючи цю опцію, ви маєте усвідомлювати наслідки таких дій з файлами. Її буде застосовано лише до типів файлів Microsoft.\n\nCryptomator буде перезавантажений після активації.</string>
+	<string name="dialog_disable_app_obscured_disclaimer_hint">Це налаштування пов\'язане з безпекою, і не дозволяє іншим додаткам вводити користувачів в оману та змушувати їх робити те, чого вони не хочуть.\n\nВідключаючи його, ви підтверджуєте, що <a href="https://docs.cryptomator.org/en/1.6/android/settings/#block-app-when-obscured">усвідомлюєте ризики</a>.</string>
 	<string name="dialog_disable_app_obscured_disclaimer_title">Увага</string>
 	<string name="dialog_disable_app_obscured_positive_button">Вимкнути</string>
-	<string name="dialog_app_is_obscured_info_title">Програму перекрито</string>
+	<string name="dialog_app_is_obscured_info_title">Інтерфейс додатка перекрито</string>
 	<string name="dialog_app_is_obscured_info_hint">Інший додаток відображає щось поверх Cryptomator (наприклад, фільтр синього світла або додаток нічного режиму). Cryptomator вимкнено з міркувань безпеки.\n\n<a href="https://docs.cryptomator.org/en/1.6/android/settings/#block-app-when-obscured">Як увімкнути Cryptomator</a></string>
 	<string name="dialog_app_is_obscured_info_neutral_button">Закрити</string>
-	<string name="dialog_vaults_removed_during_migration_title">Будь ласка, знову додайте vaults для %1s хмари</string>
-	<string name="dialog_vaults_removed_during_migration_hint">Переходячи на цю версію додатка потрібно прибрати наступні сховища з додатка:\n%2s\n\nЦі сховища не видаляються з хмарного сховища, а лише прибираються з цього додатка. Перепрошуємо за незручності. Будь ласка, додайте ці сховища повторно, щоб продовжити роботу з ними.</string>
+	<string name="dialog_vaults_removed_during_migration_title">Будь ласка, знову додайте сховища з хмари для %1s</string>
+	<string name="dialog_vaults_removed_during_migration_hint">Переходячи на цю версію додатка ми були змушені прибрати такі сховища з додатка:\n%2s\n\nЦі сховища не видаляються з хмари, а лише прибрано з цього додатка. Перепрошуємо за незручності. Будь ласка, додайте ці сховища повторно, щоб продовжити роботу з ними.</string>
 	<string name="dialog_vault_is_root_folder_of_cloud_title">Сховище є кореневим каталогом хмарного підключення</string>
-	<string name="dialog_vault_is_root_folder_of_cloud_hint">Для додавання цього сховища створіть нове хмарне підключення, в якому оберіть (принаймні) батьківський каталог цього сховища як кореневий каталог.</string>
-	<string name="dialog_disable_secure_screen_disclaimer_hint">Це налаштування пов\'язано із безпекою, і не дозволяє іншим додаткам вводити користувачів в оману та змушувати їх робити не те, чого вони хочуть.\n\nВідключаючи його, ви підтверджуєте, що <a href="https://docs.cryptomator.org/en/1.6/android/settings/#screen-security">усвідомлюєте ризики</a>.</string>
+	<string name="dialog_vault_is_root_folder_of_cloud_hint">Для додавання цього сховища - створіть нове хмарне підключення, в якому оберіть в якості батьківського каталога цього сховища кореневий каталог або будь-яку іншу папку у хмарі.</string>
+	<string name="dialog_disable_secure_screen_disclaimer_hint">Це налаштування пов\'язано із безпекою, і не дозволяє іншим додаткам вводити користувачів в оману та змушувати їх робити те, чого вони не хочуть.\n\nВідключаючи його, ви підтверджуєте, що <a href="https://docs.cryptomator.org/en/1.6/android/settings/#screen-security">усвідомлюєте ризики</a>.</string>
 	<string name="dialog_delete_cloud_connection_with_vaults_message">Ви дійсно хочете видалити це хмарне підключення?</string>
 	<string name="dialog_delete_cloud_connection_with_vaults_hint">Ця дія видалить підключення до хмари та всі сховища з цієї хмари.</string>
-	<string name="dialog_confirm_delete_multiple_title">Видалити %1$d об\'єкти?</string>
+	<string name="dialog_confirm_delete_multiple_title">Видалити %1$d об\'єкт(-и, -ів)?</string>
 	<string name="dialog_confirm_delete_multiple_message">Ви впевнені, що бажаєте видалити ці об\'єкти?</string>
 	<string name="dialog_confirm_delete_file_message">Ви впевнені, що бажаєте видалити цей файл?</string>
 	<string name="dialog_confirm_delete_folder_message">Це призведе до видалення усього вмісту директорії. Ви дійсно хочете видалити цю директорію?</string>
@@ -327,12 +330,12 @@
 	<string name="dialog_biometric_auth_key_invalidated_message">Оскільки ключ було анульовано, біометрична аутентифікація була деактивована. Для повторного увімкнення відкрийте налаштування Cryptomator.</string>
 	<string name="dialog_enter_license_title">Вкажіть дійсну ліцензію</string>
 	<string name="dialog_enter_license_content">Ми виявили, що ви встановили Cryptomator без використання Google Play Store. Надайте дійсну ліцензію, яку можна придбати на <a href="https://cryptomator.org/android/">https://cryptomator.org/android/</a></string>
-	<string name="dialog_enter_license_not_valid_content">Надана ліцензія недійсна. Переконайтеся, що ви ввели її правильно.</string>
-	<string name="dialog_enter_license_not_valid_content_desktop_supporter_certificate">Наданий ключ - це сертифікат спонсора. Введіть дійсну ліцензію.</string>
-	<string name="dialog_enter_license_no_content">Немає ліцензії. Будь ласка, введіть дійсну ліцензію.</string>
+	<string name="dialog_enter_license_not_valid_content">Вказана ліцензія недійсна. Переконайтеся, що введено правильні дані.</string>
+	<string name="dialog_enter_license_not_valid_content_desktop_supporter_certificate">Вказаний ключ призначений лише для комп\'ютерної версії (сертифікат спонсора). Будь ласка, вкажіть правильний ключ.</string>
+	<string name="dialog_enter_license_no_content">Відсутня ліцензія. Будь ласка, вкажіть ключ чинної ліцензії.</string>
 	<string name="dialog_enter_license_decline_button">Вийти</string>
-	<string name="dialog_license_confirmation_title">Підтвердження ліцензії</string>
-	<string name="dialog_license_confirmation_message">Дякую %1$s за надання дійсної ліцензії.</string>
+	<string name="dialog_license_confirmation_title">Ліцензію підтверджено</string>
+	<string name="dialog_license_confirmation_message">Дякуємо %1$s за надання Вашої чинної ліцензії.</string>
 	<string name="dialog_update_available_title">Доступне оновлення</string>
 	<string name="dialog_update_available_message">Оновіть Cryptomator до останньої версії. Натисніть ОК, щоб завантажити додаток у фоновому режимі, після чого з\'явиться запит на встановлення.</string>
 	<string name="dialog_update_available_update">Оновити зараз</string>
@@ -340,14 +343,14 @@
 	<string name="dialog_update_available_cancel">Пізніше</string>
 	<string name="dialog_download_update_title">Завантаження в процесі</string>
 	<string name="dialog_download_update_message">Завантаження останньої версії Cryptomator</string>
-	<string name="dialog_sym_link_title">Директорія - це символічне посилання</string>
+	<string name="dialog_sym_link_title">Папка є символічним посиланням</string>
 	<string name="dialog_sym_link_message">Ви не можете перейти за цим символічним посиланням</string>
 	<string name="dialog_sym_link_back_button">Назад</string>
-	<string name="dialog_no_dir_file_title">Не вдається завантажити вміст директорії</string>
-	<string name="dialog_no_dir_file_message">У хмарній директорії \'%1$s\' немає коректного файлу директорії. Можливо, директорія була створена на іншому пристрої та ще не повністю синхронізована із хмарним сховищем. Перевірте, чи існує у вашому хмарному сховищі цей файл та чи він не пустий:\n%2$s</string>
+	<string name="dialog_no_dir_file_title">Не вдається завантажити вміст папки</string>
+	<string name="dialog_no_dir_file_message">У хмарній папці \'%1$s\' немає коректного файлу директорії. Можливо, папка була створена на іншому пристрої та ще не повністю синхронізована із хмарним сховищем. Перевірте, чи існує у вашому хмарному сховищі цей файл та чи він не пустий:\n%2$s</string>
 	<string name="dialog_no_more_images_to_display">Зображень для показу більше немає&#8230;</string>
-	<string name="dialog_pcloud_credentials_updated_title">Дані облікового запису \'%1$s\' оновлено</string>
-	<string name="dialog_pcloud_credentials_updated">Якщо ви хочете додати новий обліковий запис pCloud, натисніть на цю адресу <a href="https://www.pcloud.com">www.pcloud. om</a>, вийдіть з поточного облікового запису та натисніть ще раз на \'+\' у цьому додатку, щоб створити нове хмарне підключення.</string>
+	<string name="dialog_pcloud_credentials_updated_title">Дані \'%1$s\' оновлено</string>
+	<string name="dialog_pcloud_credentials_updated">Якщо ви хочете додати новий обліковий запис pCloud, натисніть на цю адресу <a href="https://www.pcloud.com">www.pcloud.com</a>, вийдіть з поточного облікового запису та натисніть ще раз на \'+\' у цьому додатку, щоб створити нове хмарне підключення.</string>
 	<string name="permission_snackbar_auth_local_vault">Для використання локальних сховищ необхідно надати Cryptomator доступ до місця зберігання</string>
 	<string name="permission_snackbar_auth_auto_upload">Для автоматичного завантаження фото необхідно надати Cryptomator доступ до місця зберігання</string>
 	<string name="permission_snackbar_notifications">Для відображення статусу сховища необхідно надати Cryptomator дозвіл на сповіщення</string>
@@ -355,17 +358,17 @@
 	<!-- # misc -->
 	<!-- ## file size helper -->
 	<string name="file_size_zero">0 КБ</string>
-	<string name="file_size_unit_bytes">байти</string>
-	<string name="file_size_unit_kilo_bytes">кБ</string>
+	<string name="file_size_unit_bytes">байт</string>
+	<string name="file_size_unit_kilo_bytes">КБ</string>
 	<string name="file_size_unit_mega_bytes">МБ</string>
 	<string name="file_size_unit_giga_bytes">ГБ</string>
 	<string name="file_size_unit_tera_bytes">ТБ</string>
 	<!-- ## date helper -->
 	<string name="time_unit_seconds_sg">секунда</string>
 	<string name="time_unit_seconds_pl">секунд</string>
-	<string name="time_unit_minutes_sg">хвилину</string>
+	<string name="time_unit_minutes_sg">хвилина</string>
 	<string name="time_unit_minutes_pl">хвилин</string>
-	<string name="time_unit_hours_sg">годин</string>
+	<string name="time_unit_hours_sg">година</string>
 	<string name="time_unit_hours_pl">годин</string>
 	<string name="time_unit_days_sg">день</string>
 	<string name="time_unit_days_pl">днів</string>
@@ -379,7 +382,7 @@
 	<string name="dialog_biometric_auth_title">Біометричний вхід</string>
 	<string name="dialog_biometric_auth_message">Увійдіть, використовуючи ваші біометричні дані</string>
 	<string name="dialog_biometric_auth_use_password">Використовувати пароль сховища</string>
-	<string name="dialog_unable_to_auto_upload_files_title">Не вдалося автоматично завантажити файли</string>
+	<string name="dialog_unable_to_auto_upload_files_title">Не вдалося автоматично вивантажити файли</string>
 	<!-- notification -->
 	<string name="notification_unlocked">Розблоковано сховищ: %1$d</string>
 	<string name="notification_timeout">Автоблокування через %1$s</string>
@@ -387,31 +390,32 @@
 	<string name="notification_cancel_auto_upload">Скасувати вивантаження</string>
 	<string name="notification_auto_upload_title">Автоматичне вивантаження фотографій в процесі</string>
 	<string name="notification_auto_upload_message">Вивантаження %1d/%2d</string>
-	<string name="notification_auto_upload_finished_title">Автозавантаження фото завершено</string>
-	<string name="notification_auto_upload_finished_message">%1$d зображення вивантажено до vault</string>
+	<string name="notification_auto_upload_finished_title">Автоматичне вивантаження фотографій завершено</string>
+	<string name="notification_auto_upload_finished_message">Зображення %1$d вивантажено до сховища</string>
 	<string name="notification_auto_upload_failed_title">Помилка при вивантаженні фотографій</string>
 	<string name="notification_auto_upload_failed_general_error">Виникла помилка під час вивантаження.</string>
 	<string name="notification_auto_upload_failed_due_to_folder_not_exists">Вибрана тека для вивантаження більше недоступна. Перейдіть у налаштування для вибору іншої</string>
-	<string name="notification_auto_upload_failed_due_to_vault_locked">Vault заблоковано під час вивантаження, будь ласка, відкрийте vault знову, щоб продовжити</string>
-	<string name="notification_auto_upload_failed_due_to_vault_not_found">Vault, визначений для автоматичного вивантаження, більше не існує.</string>
-	<string name="notification_open_writable_file_title">Відкрити доступний для запису файл</string>
-	<string name="notification_open_writable_file_message">Сховище розблоковано до завершення редагування</string>
+	<string name="notification_auto_upload_failed_due_to_vault_locked">Сховище заблоковано під час вивантаження, будь ласка, відкрийте його знову, щоб продовжити</string>
+	<string name="notification_auto_upload_failed_due_to_vault_not_found">Сховище, визначене для автоматичного вивантаження, більше не існує.</string>
+	<string name="notification_auto_upload_failed_due_to_authentication_problem">Натисніть, щоб повторно авторизуватись.</string>
+	<string name="notification_open_writable_file_title">Відкрито файл</string>
+	<string name="notification_open_writable_file_message">Сховище залишатиметься розблокованим до завершення редагування</string>
 	<string name="notification_update_check_finished_latest">Встановлено найновішу версію</string>
-	<string name="notification_authenticating">Аутентифікація&#8230;</string>
+	<string name="notification_authenticating">Авторизація&#8230;</string>
 	<string name="screen_settings_lru_cache">Кеш</string>
-	<string name="screen_settings_lru_cache_toggle_summary">Кешувати зашифровані на пристрої нещодавні файли для подальшого використання при повторному відкритті</string>
+	<string name="screen_settings_lru_cache_toggle_summary">Кешувати нещодавні файли в зашифрованому стані на пристрої для подальшого використання при повторному відкритті</string>
 	<string name="screen_settings_lru_cache_size">Загальний розмір кешу</string>
-	<string name="screen_settings_clear_lru_cache_size">Очистити кеш</string>
+	<string name="screen_settings_clear_lru_cache_size">Почистити кеш</string>
 	<string name="screen_settings_lru_cache_changed__restart_toast">Зміни наберуть чинності після перезапуску додатку</string>
-	<string name="screen_settings_license">Зареєстровано за</string>
+	<string name="screen_settings_license">Зареєстровано на</string>
 	<string name="screen_settings_license_mail">%1$s</string>
-	<string name="dialog_settings_update_check_interval_title">Інтервал перевірки оновлень</string>
+	<string name="dialog_settings_update_check_interval_title">Періодичність перевірки оновлень</string>
 	<string name="screen_settings_check_updates">Перевiрити наявнiсть оновлень</string>
-	<string name="screen_settings_last_check_updates">Останній запуск %1$s</string>
-	<string name="dialog_cache_size_title">Розмір кешу на кожне хмарне сховище</string>
+	<string name="screen_settings_last_check_updates">Востаннє перевірено %1$s</string>
+	<string name="dialog_cache_size_title">Розмір кешу на хмарне сховище</string>
 	<!-- lock timeout names -->
-	<string name="lock_timeout_instant">Миттєво</string>
-	<string name="lock_timeout_1m">1 хвилини</string>
+	<string name="lock_timeout_instant">Негайно</string>
+	<string name="lock_timeout_1m">1 хвилина</string>
 	<string name="lock_timeout_2m">2 хвилини</string>
 	<string name="lock_timeout_5m">5 хвилин</string>
 	<string name="lock_timeout_10m">10 хвилин</string>
@@ -425,7 +429,7 @@
 	<string name="cache_size_5000m">5 ГБ</string>
 	<!-- screen scheme mode names -->
 	<string name="screen_settings_style_mode">Стиль</string>
-	<string name="follow_system">Автоматичний (на основі системного)</string>
+	<string name="follow_system">Автоматично (системні налаштування)</string>
 	<string name="light">Світлий</string>
 	<string name="dark">Темний</string>
 	<!-- update interval names -->

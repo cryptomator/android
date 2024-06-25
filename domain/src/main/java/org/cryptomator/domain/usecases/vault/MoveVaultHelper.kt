@@ -39,7 +39,7 @@ class MoveVaultHelper {
 		}
 
 		fun updateVaultsInDatabase(vaults: List<Vault>, vaultRepository: VaultRepository): List<Vault> {
-			for(vault in vaults) {
+			for (vault in vaults) {
 				vaultRepository.store(vault)
 			}
 			return vaultRepository.vaults()

@@ -1,5 +1,11 @@
 package org.cryptomator.domain.usecases;
 
+import com.auth0.jwt.JWT;
+import com.auth0.jwt.algorithms.Algorithm;
+import com.auth0.jwt.exceptions.JWTDecodeException;
+import com.auth0.jwt.exceptions.SignatureVerificationException;
+import com.auth0.jwt.interfaces.DecodedJWT;
+import com.auth0.jwt.interfaces.JWTVerifier;
 import com.google.common.io.BaseEncoding;
 
 import org.cryptomator.domain.exception.BackendException;
@@ -17,11 +23,6 @@ import java.security.NoSuchAlgorithmException;
 import java.security.interfaces.ECPublicKey;
 import java.security.spec.InvalidKeySpecException;
 import java.security.spec.X509EncodedKeySpec;
-
-import io.jsonwebtoken.Claims;
-import io.jsonwebtoken.JwtException;
-import io.jsonwebtoken.Jwts;
-import io.jsonwebtoken.security.SignatureException;
 
 @UseCase
 public class DoLicenseCheck {
@@ -45,10 +46,12 @@ public class DoLicenseCheck {
 	public LicenseCheck execute() throws BackendException {
 		license = useLicenseOrRetrieveFromDb(license);
 		try {
-			final Claims claims = Jwts.parserBuilder().setSigningKey(getPublicKey(ANDROID_PUB_KEY)).build().parseClaimsJws(license).getBody();
-			return claims::getSubject;
-		} catch (JwtException | FatalBackendException e) {
-			if (e instanceof SignatureException && isDesktopSupporterCertificate(license)) {
+			Algorithm algorithm = Algorithm.ECDSA512(getPublicKey(ANDROID_PUB_KEY), null);
+			JWTVerifier verifier = JWT.require(algorithm).build();
+			DecodedJWT jwt = verifier.verify(license);
+			return jwt::getSubject;
+		} catch (SignatureVerificationException | JWTDecodeException | FatalBackendException e) {
+			if (e instanceof SignatureVerificationException && isDesktopSupporterCertificate(license)) {
 				throw new DesktopSupporterCertificateException(license);
 			}
 			throw new LicenseNotValidException(license);
@@ -81,9 +84,11 @@ public class DoLicenseCheck {
 
 	private boolean isDesktopSupporterCertificate(String license) {
 		try {
-			Jwts.parserBuilder().setSigningKey(getPublicKey(DESKTOP_SUPPORTER_CERTIFICATE_PUB_KEY)).build().parseClaimsJws(license);
+			Algorithm algorithm = Algorithm.ECDSA512(getPublicKey(DESKTOP_SUPPORTER_CERTIFICATE_PUB_KEY), null);
+			JWTVerifier verifier = JWT.require(algorithm).build();
+			verifier.verify(license);
 			return true;
-		} catch (JwtException | NoSuchAlgorithmException | InvalidKeySpecException e) {
+		} catch (SignatureVerificationException | NoSuchAlgorithmException | InvalidKeySpecException e) {
 			return false;
 		}
 	}

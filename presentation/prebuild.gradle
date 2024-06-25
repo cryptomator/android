@@ -29,8 +29,4 @@ task generateAppConfigurationFile() {
 	config_file.write(JsonOutput.prettyPrint(JsonOutput.toJson(jsonSlurper.parseText(jsonString))))
 }
 
-static def getApiKey(key) {
-	return System.getenv().getOrDefault(key, "")
-}
-
 build.dependsOn generateAppConfigurationFile

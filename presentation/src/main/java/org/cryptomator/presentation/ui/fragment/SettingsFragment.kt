@@ -314,7 +314,7 @@ class SettingsFragment : PreferenceFragmentCompat() {
 	}
 
 	fun rootView(): View {
-		return activity().findViewById(R.id.activityRootView)
+		return activity().findViewById(R.id.activity_root_view)
 	}
 
 	companion object {

@@ -18,6 +18,7 @@ import java.io.IOException
 import java.io.InputStream
 import java.net.HttpURLConnection
 import java.util.Collections
+import java.util.Date
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.Request
 import okhttp3.RequestBody.Companion.toRequestBody
@@ -150,8 +151,9 @@ internal class WebDavClient(private val httpClient: WebDavCompatibleHttpClient) 
 	}
 
 	@Throws(BackendException::class)
-	fun writeFile(url: String, inputStream: InputStream) {
+	fun writeFile(url: String, inputStream: InputStream, modifiedDate: Date) {
 		val builder = Request.Builder() //
+			.addHeader("X-OC-Mtime", modifiedDate.toInstant().toEpochMilli().div(1000).toString()) //
 			.put(InputStreamSourceBasedRequestBody.from(inputStream)) //
 			.url(url)
 		try {

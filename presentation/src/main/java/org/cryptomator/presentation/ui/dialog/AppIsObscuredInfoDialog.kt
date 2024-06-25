@@ -7,10 +7,10 @@ import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.DialogFragment
 import org.cryptomator.generator.Dialog
 import org.cryptomator.presentation.R
-import kotlinx.android.synthetic.main.dialog_app_is_obscured_info.tv_app_is_obscured_info
+import org.cryptomator.presentation.databinding.DialogAppIsObscuredInfoBinding
 
-@Dialog(R.layout.dialog_app_is_obscured_info)
-class AppIsObscuredInfoDialog : BaseDialog<Activity>() {
+@Dialog
+class AppIsObscuredInfoDialog : BaseDialog<Activity, DialogAppIsObscuredInfoBinding>(DialogAppIsObscuredInfoBinding::inflate) {
 
 	public override fun setupDialog(builder: AlertDialog.Builder): android.app.Dialog {
 		return builder //
@@ -24,7 +24,7 @@ class AppIsObscuredInfoDialog : BaseDialog<Activity>() {
 	}
 
 	public override fun setupView() {
-		tv_app_is_obscured_info.movementMethod = LinkMovementMethod.getInstance()
+		binding.tvAppIsObscuredInfo.movementMethod = LinkMovementMethod.getInstance()
 	}
 
 	companion object {

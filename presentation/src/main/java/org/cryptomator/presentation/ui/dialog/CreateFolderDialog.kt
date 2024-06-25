@@ -5,15 +5,18 @@ import android.text.Editable
 import android.text.TextWatcher
 import android.view.View
 import android.widget.Button
+import android.widget.LinearLayout
+import android.widget.TextView
 import androidx.appcompat.app.AlertDialog
 import org.cryptomator.generator.Dialog
 import org.cryptomator.presentation.R
+import org.cryptomator.presentation.databinding.DialogCreateFolderBinding
+import org.cryptomator.presentation.databinding.ViewDialogErrorBinding
 import org.cryptomator.presentation.model.ProgressModel
 import org.cryptomator.presentation.model.ProgressStateModel
-import kotlinx.android.synthetic.main.dialog_create_folder.et_folder_name
 
-@Dialog(R.layout.dialog_create_folder)
-class CreateFolderDialog : BaseProgressErrorDialog<CreateFolderDialog.Callback>() {
+@Dialog
+class CreateFolderDialog : BaseProgressErrorDialog<CreateFolderDialog.Callback, DialogCreateFolderBinding>(DialogCreateFolderBinding::inflate) {
 
 	private var createFolderButton: Button? = null
 
@@ -31,13 +34,13 @@ class CreateFolderDialog : BaseProgressErrorDialog<CreateFolderDialog.Callback>(
 			createFolderButton?.setOnClickListener {
 				showProgress(ProgressModel(ProgressStateModel.CREATING_FOLDER))
 				// do action
-				callback?.onCreateFolderClick(et_folder_name.text.toString())
-				onWaitForResponse(et_folder_name)
+				callback?.onCreateFolderClick(binding.etFolderName.text.toString())
+				onWaitForResponse(binding.etFolderName)
 			}
 			dialog.setCanceledOnTouchOutside(false)
-			et_folder_name.requestFocus()
+			binding.etFolderName.requestFocus()
 			createFolderButton?.let { button ->
-				et_folder_name.nextFocusForwardId = button.id
+				binding.etFolderName.nextFocusForwardId = button.id
 			}
 		}
 	}
@@ -50,11 +53,11 @@ class CreateFolderDialog : BaseProgressErrorDialog<CreateFolderDialog.Callback>(
 	}
 
 	override fun setupView() {
-		et_folder_name.requestFocus()
+		binding.etFolderName.requestFocus()
 		createFolderButton?.let {
-			registerOnEditorDoneActionAndPerformButtonClick(et_folder_name) { it }
+			registerOnEditorDoneActionAndPerformButtonClick(binding.etFolderName) { it }
 		}
-		et_folder_name.addTextChangedListener(object : TextWatcher {
+		binding.etFolderName.addTextChangedListener(object : TextWatcher {
 			override fun beforeTextChanged(s: CharSequence, start: Int, count: Int, after: Int) {}
 			override fun onTextChanged(s: CharSequence, start: Int, before: Int, count: Int) {}
 			override fun afterTextChanged(s: Editable) {
@@ -67,7 +70,19 @@ class CreateFolderDialog : BaseProgressErrorDialog<CreateFolderDialog.Callback>(
 		dialog?.let { showKeyboard(it) }
 	}
 
+	override fun dialogProgressLayout(): LinearLayout {
+		return binding.llDialogProgress.llProgress
+	}
+
+	override fun dialogProgressTextView(): TextView {
+		return binding.llDialogProgress.tvProgress
+	}
+
+	override fun dialogErrorBinding(): ViewDialogErrorBinding {
+		return binding.llDialogError
+	}
+
 	override fun enableViewAfterError(): View {
-		return et_folder_name
+		return binding.etFolderName
 	}
 }

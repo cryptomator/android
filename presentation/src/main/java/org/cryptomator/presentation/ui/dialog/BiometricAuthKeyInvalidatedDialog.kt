@@ -4,9 +4,10 @@ import android.content.DialogInterface
 import androidx.appcompat.app.AlertDialog
 import org.cryptomator.generator.Dialog
 import org.cryptomator.presentation.R
+import org.cryptomator.presentation.databinding.DialogBiometricAuthKeyInvalidatedBinding
 
-@Dialog(R.layout.dialog_biometric_auth_key_invalidated)
-class BiometricAuthKeyInvalidatedDialog : BaseDialog<BiometricAuthKeyInvalidatedDialog>() {
+@Dialog
+class BiometricAuthKeyInvalidatedDialog : BaseDialog<BiometricAuthKeyInvalidatedDialog, DialogBiometricAuthKeyInvalidatedBinding>(DialogBiometricAuthKeyInvalidatedBinding::inflate) {
 
 	public override fun setupDialog(builder: AlertDialog.Builder): android.app.Dialog {
 		builder //

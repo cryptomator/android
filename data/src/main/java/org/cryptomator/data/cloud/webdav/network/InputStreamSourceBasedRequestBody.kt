@@ -13,7 +13,17 @@ internal class InputStreamSourceBasedRequestBody private constructor(private val
 
 	@Throws(IOException::class)
 	override fun contentLength(): Long {
-		return inputStream.available().toLong()
+		val availableBytes = inputStream.available()
+		/**
+		 * inputStream.available() is an int and if the file to upload is > int.max it will overflow to 0.
+		 * In this case we set contentLength to -1, which is fine, it just means the length is unknown.
+		 * If inputStream.available() is actually 0, it does no harm either because we are not uploading a byte.
+		 */
+		return if (availableBytes != 0) {
+			availableBytes.toLong()
+		} else {
+			-1
+		}
 	}
 
 	override fun contentType(): MediaType? {

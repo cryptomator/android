@@ -1,8 +1,6 @@
 package org.cryptomator.util;
 
-import com.google.common.base.Predicates;
-
-import com.google.common.base.Optional;
+import java.util.Optional;
 import java.util.function.Predicate;
 
 public class ExceptionUtil {
@@ -23,16 +21,16 @@ public class ExceptionUtil {
 
 	public static <T extends Throwable> Optional<T> extract(final Throwable e, final Class<T> type, final Predicate<T> test) {
 		if (type.isInstance(e) && test.test(type.cast(e))) {
-			return Optional.fromNullable(type.cast(e));
+			return Optional.ofNullable(type.cast(e));
 		}
 		if (e.getCause() != null) {
 			return extract(e.getCause(), type, test);
 		}
-		return Optional.absent();
+		return Optional.empty();
 	}
 
 	public static <T extends Throwable> Optional<T> extract(final Throwable e, final Class<T> type) {
-		return extract(e, type, Predicates.alwaysTrue());
+		return extract(e, type, t -> true);
 	}
 
 	public static <T extends Throwable> boolean contains(Throwable e, Class<T> type) {
@@ -42,5 +40,4 @@ public class ExceptionUtil {
 	public static <T extends Throwable> boolean contains(Throwable e, Class<T> type, Predicate<T> test) {
 		return extract(e, type, test).isPresent();
 	}
-
 }

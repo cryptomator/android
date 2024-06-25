@@ -23,6 +23,7 @@ import org.cryptomator.domain.usecases.cloud.Progress
 import org.cryptomator.domain.usecases.cloud.UploadState
 import java.io.IOException
 import java.io.OutputStream
+import java.util.Date
 import okhttp3.HttpUrl.Companion.toHttpUrlOrNull
 
 internal class WebDavImpl(private val cloud: WebDavCloud, private val connectionHandler: ConnectionHandlerHandlerImpl, private val context: Context) {
@@ -133,7 +134,7 @@ internal class WebDavImpl(private val cloud: WebDavCloud, private val connection
 					)
 				}
 			}.use {
-				connectionHandler.writeFile(absoluteUriFrom(uploadFile.path), it)
+				connectionHandler.writeFile(absoluteUriFrom(uploadFile.path), it, data.modifiedDate(context).orElse(Date()))
 			}
 		} ?: throw FatalBackendException("InputStream shouldn't bee null")
 
