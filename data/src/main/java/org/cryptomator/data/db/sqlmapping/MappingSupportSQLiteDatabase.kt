@@ -108,8 +108,8 @@ internal class MappingSupportSQLiteDatabase(
 
 		private val bindings = mutableListOf<Any?>()
 
-		private fun saveBinding(index: Int, value: Any?): Any? {
-			return bindings.setLeniently(index - 1, value)
+		private fun saveBinding(index: Int, value: Any?): Any? = synchronized(bindings) {
+			return@synchronized bindings.setLeniently(index - 1, value)
 		}
 
 		override fun bindBlob(index: Int, value: ByteArray) {
@@ -132,8 +132,8 @@ internal class MappingSupportSQLiteDatabase(
 			saveBinding(index, value)
 		}
 
-		override fun clearBindings(): Unit {
-			bindings.clear()
+		override fun clearBindings(): Unit = synchronized(bindings) {
+			return@synchronized bindings.clear()
 		}
 
 		override fun close() {
@@ -167,8 +167,8 @@ internal class MappingSupportSQLiteDatabase(
 			}
 		}
 
-		private fun prepareBindArgs(): Array<Any?> {
-			return bindings.asSequence().map { binding -> prepareSingleBindArg(binding) }.toArray(bindings.size)
+		private fun prepareBindArgs(): Array<Any?> = synchronized(bindings) {
+			return@synchronized bindings.asSequence().map { binding -> prepareSingleBindArg(binding) }.toArray(bindings.size)
 		}
 
 		private fun prepareSingleBindArg(binding: Any?): Any? {
