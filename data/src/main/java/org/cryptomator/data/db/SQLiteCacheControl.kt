@@ -18,7 +18,7 @@ object SQLiteCacheControl {
 		}
 
 		override fun mapWhereClause(whereClause: String?): String {
-			return map(whereClause ?: "1 = 1")
+			return map(whereClause ?: "1")
 		}
 
 		override fun mapCursor(cursor: Cursor): Cursor {

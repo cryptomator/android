@@ -78,7 +78,9 @@ class CorruptedDatabaseTest {
 			Upgrade9To10(sharedPreferencesHandler),
 			Upgrade10To11(),
 			Upgrade11To12(sharedPreferencesHandler),
-			Migration12To13()
+			//
+			Migration12To13(),
+			//Auto: 13 -> 14
 		)
 
 		createVersion0Database(context, TEST_DB)

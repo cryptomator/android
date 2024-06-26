@@ -226,6 +226,9 @@ fun SupportSQLiteOpenHelper.Factory.asMapped(mappingFunction: SQLMappingFunction
 	return MappingSupportSQLiteOpenHelperFactory(this, mappingFunction)
 }
 
+/**
+ * Implementations must be threadsafe.
+ */
 interface SQLMappingFunction {
 
 	fun map(sql: String): String

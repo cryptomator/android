@@ -1,7 +1,6 @@
 package org.cryptomator.data.db.sqlmapping
 
 import org.mockito.ArgumentMatchers.argThat as defaultArgThat
-import org.mockito.Mockito.`when` as whenCalled
 import org.mockito.kotlin.any as reifiedAny
 import org.mockito.kotlin.anyOrNull as reifiedAnyOrNull
 import org.mockito.kotlin.argThat as reifiedArgThat
@@ -48,6 +47,7 @@ import org.mockito.kotlin.anyArray
 import org.mockito.kotlin.eq
 import org.mockito.kotlin.inOrder
 import org.mockito.kotlin.isNull
+import org.mockito.kotlin.whenever
 import org.mockito.stubbing.Answer
 import org.mockito.stubbing.OngoingStubbing
 import java.util.LinkedList
@@ -101,7 +101,7 @@ class MappingSupportSQLiteDatabaseTest {
 
 	@Test
 	fun testQueryString() {
-		whenCalled(delegateMock.query(anyString())).thenReturn(DUMMY_CURSOR)
+		whenever(delegateMock.query(anyString())).thenReturn(DUMMY_CURSOR)
 
 		identityMapping.query("SELECT `col` FROM `id_test`")
 		commentMapping.query("SELECT `col` FROM `comment_test`")
@@ -113,7 +113,7 @@ class MappingSupportSQLiteDatabaseTest {
 
 	@Test
 	fun testQueryStringWithBindings() {
-		whenCalled(delegateMock.query(anyString(), anyArray())).thenReturn(DUMMY_CURSOR)
+		whenever(delegateMock.query(anyString(), anyArray())).thenReturn(DUMMY_CURSOR)
 
 		identityMapping.query("SELECT `col` FROM `id_test` WHERE `col` = ?", arrayOf("test1"))
 		commentMapping.query("SELECT `col` FROM `comment_test` WHERE `col` = ?", arrayOf("test2"))
@@ -126,7 +126,7 @@ class MappingSupportSQLiteDatabaseTest {
 
 	@Test
 	fun testQueryBindable() {
-		whenCalled(delegateMock.query(reifiedAny<SupportSQLiteQuery>())).thenReturn(DUMMY_CURSOR)
+		whenever(delegateMock.query(reifiedAny<SupportSQLiteQuery>())).thenReturn(DUMMY_CURSOR)
 
 		identityMapping.query(SimpleSQLiteQuery("SELECT `col` FROM `id_test`"))
 		commentMapping.query(SimpleSQLiteQuery("SELECT `col` FROM `comment_test`"))
@@ -143,7 +143,7 @@ class MappingSupportSQLiteDatabaseTest {
 
 	@Test
 	fun testQueryBindableWithBindings() {
-		whenCalled(delegateMock.query(reifiedAny<SupportSQLiteQuery>())).thenReturn(DUMMY_CURSOR)
+		whenever(delegateMock.query(reifiedAny<SupportSQLiteQuery>())).thenReturn(DUMMY_CURSOR)
 
 		identityMapping.query(SimpleSQLiteQuery("SELECT `col` FROM `id_test` WHERE `col` = ?", arrayOf("test1")))
 		commentMapping.query(SimpleSQLiteQuery("SELECT `col` FROM `comment_test` WHERE `col` = ?", arrayOf("test2")))
@@ -161,7 +161,7 @@ class MappingSupportSQLiteDatabaseTest {
 	@ParameterizedTest
 	@MethodSource("org.cryptomator.data.db.sqlmapping.MappingSupportSQLiteDatabaseTestKt#sourceForTestQueryCancelable")
 	fun testQueryCancelable(queries: CallData<SupportSQLiteQuery>, signals: CallData<CancellationSignal?>) {
-		whenCalled(delegateMock.query(reifiedAny<SupportSQLiteQuery>(), reifiedAnyOrNull<CancellationSignal>())).thenReturn(DUMMY_CURSOR)
+		whenever(delegateMock.query(reifiedAny<SupportSQLiteQuery>(), reifiedAnyOrNull<CancellationSignal>())).thenReturn(DUMMY_CURSOR)
 
 		identityMapping.query(queries.idCall, signals.idCall)
 		commentMapping.query(queries.commentCall, signals.commentCall)
@@ -184,8 +184,8 @@ class MappingSupportSQLiteDatabaseTest {
 		val (idCompiledStatement: SupportSQLiteStatement, idBindings: Map<Int, Any?>) = mockSupportSQLiteStatement()
 		val (commentCompiledStatement: SupportSQLiteStatement, commentBindings: Map<Int, Any?>) = mockSupportSQLiteStatement()
 
-		whenCalled(delegateMock.compileStatement(arguments.idExpected)).thenReturn(idCompiledStatement)
-		whenCalled(delegateMock.compileStatement(arguments.commentExpected)).thenReturn(commentCompiledStatement)
+		whenever(delegateMock.compileStatement(arguments.idExpected)).thenReturn(idCompiledStatement)
+		whenever(delegateMock.compileStatement(arguments.commentExpected)).thenReturn(commentCompiledStatement)
 
 		val order = inOrder(delegateMock, idCompiledStatement, commentCompiledStatement)
 
@@ -232,8 +232,8 @@ class MappingSupportSQLiteDatabaseTest {
 		val (idCompiledStatement: SupportSQLiteStatement, idBindings: Map<Int, Any?>) = mockSupportSQLiteStatement()
 		val (commentCompiledStatement: SupportSQLiteStatement, commentBindings: Map<Int, Any?>) = mockSupportSQLiteStatement()
 
-		whenCalled(delegateMock.compileStatement(idStatement)).thenReturn(idCompiledStatement)
-		whenCalled(delegateMock.compileStatement(commentStatement)).thenReturn(commentCompiledStatement)
+		whenever(delegateMock.compileStatement(idStatement)).thenReturn(idCompiledStatement)
+		whenever(delegateMock.compileStatement(commentStatement)).thenReturn(commentCompiledStatement)
 
 		val order = inOrder(delegateMock, idCompiledStatement, commentCompiledStatement)
 
@@ -324,7 +324,7 @@ class MappingSupportSQLiteDatabaseTest {
 
 	@Test
 	fun testCompileStatement() {
-		whenCalled(delegateMock.isOpen).thenReturn(true)
+		whenever(delegateMock.isOpen).thenReturn(true)
 
 		val idSql = "INSERT INTO `id_test` (`col1`) VALUES ('val1')"
 		val commentSql = "INSERT INTO `comment_test` (`col2`) VALUES ('val2')"
@@ -445,7 +445,7 @@ class MappingSupportSQLiteDatabaseTest {
 			verifyNoMoreInteractions(delegateMock)
 
 			val results = expected.asSequence().zip(compiledStatements.asSequence()).groupBy({ it.first }) { it.second }
-			whenCalled(delegateMock.compileStatement(reifiedAnyOrNull())).then(throwingInvocationHandler(false, results))
+			whenever(delegateMock.compileStatement(reifiedAnyOrNull())).then(throwingInvocationHandler(false, results))
 
 			repeat(statementCount) { index ->
 				val data = newBoundStatementData[index]
@@ -648,21 +648,21 @@ private fun <T, R> throwingInvocationHandler(retainLast: Boolean, handledResults
 
 private fun mockCancellationSignal(isCanceled: Boolean): CancellationSignal {
 	val mock = mock(CancellationSignal::class.java)
-	whenCalled(mock.isCanceled).thenReturn(isCanceled)
-	whenCalled(mock.toString()).thenReturn("Mock<CancellationSignal>(isCanceled=$isCanceled)")
+	whenever(mock.isCanceled).thenReturn(isCanceled)
+	whenever(mock.toString()).thenReturn("Mock<CancellationSignal>(isCanceled=$isCanceled)")
 	return mock
 }
 
 private fun mockSupportSQLiteStatement(): Pair<SupportSQLiteStatement, Map<Int, Any?>> {
 	val bindings: MutableMap<Int, Any?> = mutableMapOf()
 	val mock = mock(SupportSQLiteStatement::class.java)
-	whenCalled(mock.bindString(anyInt(), anyString())).thenDo {
+	whenever(mock.bindString(anyInt(), anyString())).thenDo {
 		bindings[it.getArgument(0, Integer::class.java).toInt()] = it.getArgument(1, String::class.java)
 	}
-	whenCalled(mock.bindLong(anyInt(), anyLong())).thenDo {
+	whenever(mock.bindLong(anyInt(), anyLong())).thenDo {
 		bindings[it.getArgument(0, Integer::class.java).toInt()] = it.getArgument(1, java.lang.Long::class.java)
 	}
-	whenCalled(mock.bindNull(anyInt())).thenDo {
+	whenever(mock.bindNull(anyInt())).thenDo {
 		bindings[it.getArgument(0, Integer::class.java).toInt()] = null
 	}
 	return mock to bindings
@@ -674,14 +674,14 @@ private fun mockContentValues(vararg elements: Pair<String, Any?>): ContentValue
 
 private fun mockContentValues(entries: Map<String, Any?>): ContentValues {
 	val mock = mock(ContentValues::class.java)
-	whenCalled(mock.valueSet()).thenReturn(entries.entries)
-	whenCalled(mock.size()).thenReturn(entries.size)
-	whenCalled(mock.isEmpty).thenReturn(entries.isEmpty())
-	whenCalled(mock.keySet()).thenReturn(entries.keys)
-	whenCalled(mock.get(anyString())).then {
+	whenever(mock.valueSet()).thenReturn(entries.entries)
+	whenever(mock.size()).thenReturn(entries.size)
+	whenever(mock.isEmpty).thenReturn(entries.isEmpty())
+	whenever(mock.keySet()).thenReturn(entries.keys)
+	whenever(mock.get(anyString())).then {
 		entries[it.getArgument(0, String::class.java)]
 	}
-	whenCalled(mock.toString()).thenReturn("Mock<ContentValues>${entries}")
+	whenever(mock.toString()).thenReturn("Mock<ContentValues>${entries}")
 	return mock
 }
 
