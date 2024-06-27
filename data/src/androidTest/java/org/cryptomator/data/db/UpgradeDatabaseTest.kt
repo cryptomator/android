@@ -45,6 +45,7 @@ import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
 import java.io.IOException
+import java.nio.file.Files
 
 private const val TEST_DB = "migration-test"
 private const val LATEST_LEGACY_MIGRATION = 12
@@ -59,10 +60,11 @@ class UpgradeDatabaseTest {
 	private val context = instrumentation.context
 	private val sharedPreferencesHandler = SharedPreferencesHandler(context)
 
-	private val templateDbFile = DbTemplateModule().let {
-		it.provideDbTemplateFile(it.provideConfiguration(TemplateDatabaseContext(context)))
+	private val templateDbStream = DbTemplateModule().let {
+		it.provideDbTemplateStream(it.provideConfiguration(TemplateDatabaseContext(context)))
 	}.also {
-		it.deleteOnExit()
+		require(it.markSupported())
+		it.mark(it.available())
 	}
 
 	private lateinit var db: SupportSQLiteDatabase
@@ -83,7 +85,7 @@ class UpgradeDatabaseTest {
 				println("Test database \"${dbFile.absolutePath}\" not cleaned up. Deleting...")
 				dbFile.delete()
 			}
-			templateDbFile.copyTo(dbFile)
+			Files.copy(templateDbStream, dbFile.toPath())
 		}
 
 		db = SupportSQLiteOpenHelper.Configuration(context, TEST_DB, object : SupportSQLiteOpenHelper.Callback(LATEST_LEGACY_MIGRATION) {
@@ -107,6 +109,7 @@ class UpgradeDatabaseTest {
 		db.close()
 		//Room handles creating/deleting room-only databases correctly, but this falls apart when using the FrameworkSQLiteOpenHelper directly
 		context.getDatabasePath(TEST_DB).delete()
+		templateDbStream.reset()
 	}
 
 	@Test

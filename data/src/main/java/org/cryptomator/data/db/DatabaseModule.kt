@@ -23,13 +23,13 @@ import org.cryptomator.data.db.templating.DbTemplateComponent
 import org.cryptomator.util.ThreadUtil
 import org.cryptomator.util.named
 import java.io.File
+import java.io.IOException
 import java.io.InputStream
 import java.util.concurrent.Callable
 import javax.inject.Named
 import javax.inject.Provider
 import javax.inject.Qualifier
 import javax.inject.Singleton
-import dagger.Lazy
 import dagger.Module
 import dagger.Provides
 import timber.log.Timber
@@ -85,16 +85,22 @@ class DatabaseModule {
 	@Singleton
 	@Provides
 	@DbInternal
-	fun provideDbTemplateStreamCallable(@DbInternal dbTemplateFile: Lazy<File>): Callable<InputStream> = Callable {
+	fun provideDbTemplateStreamCallable(templateFactory: DbTemplateComponent.Factory): Callable<InputStream> = Callable {
 		LOG.d("Creating database template stream")
-		return@Callable dbTemplateFile.get().inputStream()
-	}
-
-	@Singleton
-	@Provides
-	@DbInternal
-	fun provideDbTemplateFile(templateFactory: DbTemplateComponent.Factory): File {
-		return templateFactory.create().templateFile()
+		try {
+			return@Callable templateFactory.create().templateStream()
+		} catch (t: Throwable) {
+			if (t !is IOException) {
+				throw t
+			}
+			LOG.w(t, "IOException while reading database template, retrying...")
+			try {
+				return@Callable templateFactory.create().templateStream()
+			} catch (tInner: Throwable) {
+				tInner.addSuppressed(t)
+				throw tInner
+			}
+		}
 	}
 
 	@Singleton

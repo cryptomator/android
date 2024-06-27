@@ -1,6 +1,6 @@
 package org.cryptomator.data.db.templating
 
-import java.io.File
+import java.io.InputStream
 import dagger.Subcomponent
 
 @DbTemplateScoped
@@ -8,7 +8,7 @@ import dagger.Subcomponent
 interface DbTemplateComponent {
 
 	@DbTemplateScoped
-	fun templateFile(): File
+	fun templateStream(): InputStream
 
 	@Subcomponent.Factory
 	interface Factory {

@@ -39,10 +39,11 @@ class CorruptedDatabaseTest {
 	private val context = InstrumentationRegistry.getInstrumentation().context
 	private val sharedPreferencesHandler = SharedPreferencesHandler(context)
 	private val openHelperFactory = DatabaseOpenHelperFactory { throw IllegalStateException() }
-	private val templateDbFile = DbTemplateModule().let {
-		it.provideDbTemplateFile(it.provideConfiguration(TemplateDatabaseContext(context)))
+	private val templateDbStream = DbTemplateModule().let {
+		it.provideDbTemplateStream(it.provideConfiguration(TemplateDatabaseContext(context)))
 	}.also {
-		it.deleteOnExit()
+		require(it.markSupported())
+		it.mark(it.available())
 	}
 
 	@Before
@@ -59,6 +60,7 @@ class CorruptedDatabaseTest {
 	@After
 	fun tearDown() {
 		context.getDatabasePath(TEST_DB).delete()
+		templateDbStream.reset()
 	}
 
 	@Test
@@ -83,7 +85,7 @@ class CorruptedDatabaseTest {
 		databaseModule.provideInternalCryptomatorDatabase(
 			context,
 			migrations,
-			databaseModule.provideDbTemplateStreamCallable { templateDbFile },
+			{ templateDbStream },
 			openHelperFactory,
 			TEST_DB
 		).useFinally({ db ->

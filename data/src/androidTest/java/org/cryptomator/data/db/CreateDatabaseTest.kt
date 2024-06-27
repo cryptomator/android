@@ -11,10 +11,16 @@ import org.cryptomator.data.db.migrations.Sql
 import org.cryptomator.data.db.templating.DbTemplateModule
 import org.cryptomator.data.db.templating.TemplateDatabaseContext
 import org.junit.Assert.assertEquals
+import org.junit.Assert.assertFalse
+import org.junit.Assert.assertNotNull
+import org.junit.Assert.assertNull
 import org.junit.Assert.assertTrue
 import org.junit.Assert.fail
+import org.junit.Rule
 import org.junit.Test
+import org.junit.rules.TemporaryFolder
 import org.junit.runner.RunWith
+import java.nio.file.Files
 
 @RunWith(AndroidJUnit4::class)
 @SmallTest
@@ -22,11 +28,17 @@ class CreateDatabaseTest {
 
 	private val context = InstrumentationRegistry.getInstrumentation().context
 
+	@get:Rule
+	val tempFolder: TemporaryFolder = TemporaryFolder()
+
 	@Test
-	fun testProvideDbTemplateFile() {
-		val templateDatabaseContext = TemplateDatabaseContext(context)
-		val templateFile = DbTemplateModule().let { it.provideDbTemplateFile(it.provideConfiguration(templateDatabaseContext)) }
-		assertTrue(templateFile.exists())
+	fun testProvideDbTemplateStream() {
+		val templateStream = DbTemplateModule().let { it.provideDbTemplateStream(it.provideConfiguration(TemplateDatabaseContext(context))) }
+		val templateFile = tempFolder.newFolder("provideDbTemplateStream").resolve(DATABASE_NAME)
+		Files.copy(templateStream, templateFile.toPath())
+		val templateDatabaseContext = TemplateDatabaseContext(context).also {
+			it.templateFile = templateFile
+		}
 
 		val templateDb = SupportSQLiteOpenHelper.Configuration(templateDatabaseContext, DATABASE_NAME, object : SupportSQLiteOpenHelper.Callback(1) {
 			override fun onCreate(db: SupportSQLiteDatabase) = fail("Database should already exist")
@@ -47,4 +59,24 @@ class CreateDatabaseTest {
 				assertTrue("Missing element(s): ${elements.joinToString(prefix = "\"", postfix = "\"")}", elements.isEmpty())
 			}
 	}
+
+	@Test
+	fun testProvideDbTemplateStreamFiles() {
+		val templateDatabaseContext = TemplateDatabaseContext(context)
+		assertNull(templateDatabaseContext.templateFile)
+		DbTemplateModule().let { it.provideDbTemplateStream(it.provideConfiguration(templateDatabaseContext)) }.close()
+
+		val templateFile = assertNotNullObj(templateDatabaseContext.templateFile)
+		assertFalse(templateFile.exists())
+
+		val parentDir = assertNotNullObj(templateFile.parentFile)
+		assertFalse(parentDir.exists())
+		assertEquals(requireNotNull(context.cacheDir), parentDir.parentFile)
+	}
+}
+
+private fun <T> assertNotNullObj(obj: T?): T {
+	//TODO Improve this method by using the kotlin contract API once it's stable
+	assertNotNull(obj)
+	return obj!!
 }
