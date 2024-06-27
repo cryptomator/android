@@ -55,6 +55,14 @@ Update Metadata
 
 Check if the version code was set
 
+### android deployToLenotraAG
+
+```sh
+[bundle exec] fastlane android deployToLenotraAG
+```
+
+Deploy new version to Lenotra AG
+
 ### android checkTrackingAddedInDependencyUsingIzzyScript
 
 ```sh
