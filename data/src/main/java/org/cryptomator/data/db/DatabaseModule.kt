@@ -5,6 +5,7 @@ import androidx.room.Room
 import androidx.room.RoomDatabase
 import androidx.room.migration.Migration
 import androidx.sqlite.db.SupportSQLiteDatabase
+import androidx.sqlite.db.SupportSQLiteOpenHelper
 import org.cryptomator.data.db.SQLiteCacheControl.asCacheControlled
 import org.cryptomator.data.db.migrations.legacy.Upgrade10To11
 import org.cryptomator.data.db.migrations.legacy.Upgrade11To12
@@ -57,7 +58,7 @@ class DatabaseModule {
 		context: Context, //
 		@DbInternal migrations: Array<Migration>, //
 		@DbInternal dbTemplateStreamCallable: Callable<InputStream>, //
-		openHelperFactory: DatabaseOpenHelperFactory, //
+		@DbInternal openHelperFactory: SupportSQLiteOpenHelper.Factory, //
 		@DbInternal databaseName: String, //
 	): CryptomatorDatabase {
 		LOG.i("Building database (target version: %s)", CRYPTOMATOR_DATABASE_VERSION)
@@ -66,7 +67,7 @@ class DatabaseModule {
 			.createFromInputStream(dbTemplateStreamCallable) //
 			.addMigrations(*migrations) //
 			.addCallback(DatabaseCallback) //
-			.openHelperFactory(openHelperFactory.asCacheControlled()) //
+			.openHelperFactory(openHelperFactory) //
 			.setJournalMode(RoomDatabase.JournalMode.TRUNCATE) //
 			.fallbackToDestructiveMigrationFrom(0) //
 			.build() //Fails if no migration is found (especially when downgrading)
@@ -94,6 +95,13 @@ class DatabaseModule {
 	@DbInternal
 	fun provideDbTemplateFile(templateFactory: DbTemplateComponent.Factory): File {
 		return templateFactory.create().templateFile()
+	}
+
+	@Singleton
+	@Provides
+	@DbInternal
+	internal fun provideOpenHelperFactory(openHelperFactory: DatabaseOpenHelperFactory): SupportSQLiteOpenHelper.Factory {
+		return openHelperFactory.asCacheControlled()
 	}
 
 	@Singleton
