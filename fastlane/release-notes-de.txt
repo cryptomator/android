@@ -1,5 +1,1 @@
-- Originales Änderungsdatum der Datei beim Hochladen beibehalten (wenn möglich)
-- Update auf die neueste Android-Version
-- Fehlerbehebung beim Hochladen von Dateien größer als 2GB in WebDAV
-- Fehlerbehebung beim Entsperren des Tresors auf Samsung-Geräten
-- Dateiüberschreibung unter bestimmten Bedingungen verhindern, wenn zwischen Dateien gewechselt wird, die von keiner App geöffnet werden können
+- Fehlerbehebung beim Zurückschreiben geänderter Dateien auf bestimmten Geräten
