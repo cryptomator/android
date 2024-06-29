@@ -34,6 +34,7 @@ platform :android do |options|
     checkVersionCodeSet(alpha:options[:alpha], beta:options[:beta])
 
     deployToPlaystore(alpha:options[:alpha], beta:options[:beta])
+    deployToLenotraAG(alpha:options[:alpha], beta:options[:beta])
     deployToServer(alpha:options[:alpha], beta:options[:beta])
     deployToFDroid(alpha:options[:alpha], beta:options[:beta])
     deployLite(alpha:options[:alpha], beta:options[:beta])
@@ -124,6 +125,37 @@ platform :android do |options|
     )
 
     FileUtils.cp(lane_context[SharedValues::GRADLE_APK_OUTPUT_PATH], "release/Cryptomator-#{version}_playstore_signed.apk")
+  end
+
+  desc "Deploy new version to Lenotra AG"
+  private_lane :deployToLenotraAG do |options|
+    apk_path = "fastlane/release/Cryptomator-#{version}_playstore_signed.apk"
+    if File.exists?("../#{apk_path}")
+      puts "APK found"
+    else
+      puts "No APK available at #{apk_path}, please build it first e.g. using the deployToPlaystore lane"
+      fail
+    end
+
+    if options[:alpha] or options[:beta]
+      puts "Skipping deployment to LenotraAG there isn't currently a alpha/beta channel"
+    else
+      puts "Uploading APK"
+
+      aws_s3(
+        bucket: ENV['S3_LENOTRA_AG_BUCKET'],
+        endpoint: ENV['S3_LENOTRA_AG_ENDPOINT'],
+        region: ENV['S3_LENOTRA_AG_REGION'],
+        access_key: ENV['S3_LENOTRA_AG_ACCESS_KEY'],
+        secret_access_key: ENV['S3_LENOTRA_AG_SECRET_ACCESS_KEY'],
+        path: "Cryptomator",
+        files: [
+          apk_path,
+        ],
+        skip_html_upload: true,
+        apk: ''
+      )
+    end
   end
 
   desc "Deploy new version to server"
