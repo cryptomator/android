@@ -47,21 +47,28 @@ class CreateDatabaseTest {
 				override fun onUpgrade(db: SupportSQLiteDatabase, oldVersion: Int, newVersion: Int) = fail("Database should already be target version")
 			}).build()
 
-		val templateDb = FrameworkSQLiteOpenHelperFactory().create(config).writableDatabase
-		assertEquals(1, templateDb.version)
+		FrameworkSQLiteOpenHelperFactory().create(config).use { openHelper ->
+			verifyDbTemplateStream(openHelper)
+		}
+	}
 
-		val elements = mutableListOf("CLOUD_ENTITY", "VAULT_ENTITY", "IDX_VAULT_ENTITY_FOLDER_PATH_FOLDER_CLOUD_ID")
-		Sql.query("sqlite_master") //
-			.columns(listOf("name")) //
-			.where("name", Sql.notEq("android_metadata")) //
-			.executeOn(templateDb) //
-			.useCursor {
-				while (it.moveToNext()) {
-					val elementName = it.getString(it.getColumnIndex("name"))
-					assertTrue("Unknown/Duplicate element: \"$elementName\"", elements.remove(elementName))
+	private fun verifyDbTemplateStream(openHelper: SupportSQLiteOpenHelper) {
+		openHelper.writableDatabase.use { templateDb ->
+			assertEquals(1, templateDb.version)
+
+			val elements = mutableListOf("CLOUD_ENTITY", "VAULT_ENTITY", "IDX_VAULT_ENTITY_FOLDER_PATH_FOLDER_CLOUD_ID")
+			Sql.query("sqlite_master") //
+				.columns(listOf("name")) //
+				.where("name", Sql.notEq("android_metadata")) //
+				.executeOn(templateDb) //
+				.useCursor {
+					while (it.moveToNext()) {
+						val elementName = it.getString(it.getColumnIndex("name"))
+						assertTrue("Unknown/Duplicate element: \"$elementName\"", elements.remove(elementName))
+					}
+					assertTrue("Missing element(s): ${elements.joinToString(prefix = "\"", postfix = "\"")}", elements.isEmpty())
 				}
-				assertTrue("Missing element(s): ${elements.joinToString(prefix = "\"", postfix = "\"")}", elements.isEmpty())
-			}
+		}
 	}
 
 	@Test

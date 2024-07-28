@@ -67,6 +67,7 @@ class UpgradeDatabaseTest {
 		it.mark(it.available())
 	}
 
+	private lateinit var openHelper: SupportSQLiteOpenHelper
 	private lateinit var db: SupportSQLiteDatabase
 
 	@get:Rule
@@ -105,12 +106,14 @@ class UpgradeDatabaseTest {
 				}
 			}).build()
 
-		db = FrameworkSQLiteOpenHelperFactory().asCacheControlled().create(config).writableDatabase
+		openHelper = FrameworkSQLiteOpenHelperFactory().asCacheControlled().create(config)
+		db = openHelper.writableDatabase
 	}
 
 	@After
 	fun tearDown() {
 		db.close()
+		openHelper.close()
 		//Room handles creating/deleting room-only databases correctly, but this falls apart when using the FrameworkSQLiteOpenHelper directly
 		context.getDatabasePath(TEST_DB).delete()
 		templateDbStream.reset()
