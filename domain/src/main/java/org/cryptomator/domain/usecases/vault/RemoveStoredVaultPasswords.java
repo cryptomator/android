@@ -8,6 +8,7 @@ import org.cryptomator.domain.repository.VaultRepository;
 import org.cryptomator.generator.UseCase;
 import org.cryptomator.util.SharedPreferencesHandler;
 import org.cryptomator.util.crypto.BiometricAuthCryptor;
+import org.cryptomator.util.crypto.CryptoMode;
 
 import static org.cryptomator.domain.Vault.aCopyOf;
 
@@ -27,7 +28,7 @@ class RemoveStoredVaultPasswords {
 	}
 
 	public void execute() throws BackendException {
-		BiometricAuthCryptor.recreateKey(context);
+		BiometricAuthCryptor.recreateKey(context, CryptoMode.GCM);
 
 		sharedPreferencesHandler.changeUseBiometricAuthentication(false);
 

@@ -11,17 +11,27 @@ public class CredentialCryptor {
 
 	private final Cipher cipher;
 
-	private CredentialCryptor(Context context) {
+	private static String getSuffixedAlias(CryptoMode cryptoMode) {
+		// CBC does not have an alias due to legacy reasons
+		return cryptoMode == CryptoMode.GCM ? CredentialCryptor.DEFAULT_KEY_ALIAS + "_GCM" : CredentialCryptor.DEFAULT_KEY_ALIAS;
+	}
+
+	private CredentialCryptor(Context context, CryptoMode cryptoMode) {
+		String suffixedAlias = getSuffixedAlias(cryptoMode);
 		KeyStore keyStore = KeyStoreBuilder.defaultKeyStore() //
-				.withKey(DEFAULT_KEY_ALIAS, false, context) //
+				.withKey(suffixedAlias, false, cryptoMode, context) //
 				.build();
 		this.cipher = CryptoOperationsFactory //
-				.cryptoOperations() //
-				.cryptor(keyStore, DEFAULT_KEY_ALIAS);
+				.cryptoOperations(cryptoMode) //
+				.cryptor(keyStore, suffixedAlias);
 	}
 
 	public static CredentialCryptor getInstance(Context context) {
-		return new CredentialCryptor(context);
+		return new CredentialCryptor(context, CryptoMode.GCM);
+	}
+
+	public static CredentialCryptor getInstance(Context context, CryptoMode cryptoMode) {
+		return new CredentialCryptor(context, cryptoMode);
 	}
 
 	public byte[] encrypt(byte[] decrypted) {

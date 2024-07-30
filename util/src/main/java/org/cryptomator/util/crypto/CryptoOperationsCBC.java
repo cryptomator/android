@@ -13,16 +13,19 @@ import java.security.UnrecoverableKeyException;
 import javax.crypto.NoSuchPaddingException;
 import javax.crypto.SecretKey;
 
-class CryptoOperationsImpl implements CryptoOperations {
+class CryptoOperationsCBC implements CryptoOperations {
+
+	private static final String ENCRYPTION_BLOCK_MODE = KeyProperties.BLOCK_MODE_CBC;
+	private static final String ENCRYPTION_PADDING = KeyProperties.ENCRYPTION_PADDING_PKCS7;
 
 	@Override
 	public Cipher cryptor(KeyStore keyStore, String alias) throws UnrecoverableStorageKeyException {
 		try {
 			final SecretKey key = (SecretKey) keyStore.getKey(alias, null);
-			final javax.crypto.Cipher cipher = javax.crypto.Cipher.getInstance(KeyProperties.KEY_ALGORITHM_AES + "/" //
-					+ KeyProperties.BLOCK_MODE_CBC + "/" //
-					+ KeyProperties.ENCRYPTION_PADDING_PKCS7);
-			return new CipherImpl(cipher, key);
+			final javax.crypto.Cipher cipher = javax.crypto.Cipher.getInstance(ENCRYPTION_ALGORITHM + "/" //
+					+ ENCRYPTION_BLOCK_MODE + "/" //
+					+ ENCRYPTION_PADDING);
+			return new CipherCBC(cipher, key);
 		} catch (UnrecoverableKeyException e) {
 			throw new UnrecoverableStorageKeyException(e);
 		} catch (NoSuchPaddingException | NoSuchAlgorithmException | KeyStoreException e) {
@@ -34,15 +37,15 @@ class CryptoOperationsImpl implements CryptoOperations {
 	public KeyGenerator initializeKeyGenerator(Context context, final String alias) {
 		final javax.crypto.KeyGenerator generator;
 		try {
-			generator = javax.crypto.KeyGenerator.getInstance(KeyProperties.KEY_ALGORITHM_AES, KeyStoreBuilder.DEFAULT_KEYSTORE_NAME);
+			generator = javax.crypto.KeyGenerator.getInstance(ENCRYPTION_ALGORITHM, ANDROID_KEYSTORE);
 		} catch (NoSuchAlgorithmException | NoSuchProviderException e) {
 			throw new FatalCryptoException(e);
 		}
 		return requireUserAuthentication -> {
 			KeyGenParameterSpec.Builder builder = new KeyGenParameterSpec //
 					.Builder(alias, KeyProperties.PURPOSE_ENCRYPT | KeyProperties.PURPOSE_DECRYPT) //
-					.setBlockModes(KeyProperties.BLOCK_MODE_CBC) //
-					.setEncryptionPaddings(KeyProperties.ENCRYPTION_PADDING_PKCS7) //
+					.setBlockModes(ENCRYPTION_BLOCK_MODE) //
+					.setEncryptionPaddings(ENCRYPTION_PADDING) //
 					.setUserAuthenticationRequired(requireUserAuthentication) //
 					.setInvalidatedByBiometricEnrollment(requireUserAuthentication);
 

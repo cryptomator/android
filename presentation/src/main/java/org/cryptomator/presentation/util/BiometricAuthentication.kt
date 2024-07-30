@@ -9,6 +9,7 @@ import org.cryptomator.domain.Vault
 import org.cryptomator.presentation.R
 import org.cryptomator.presentation.model.VaultModel
 import org.cryptomator.util.crypto.BiometricAuthCryptor
+import org.cryptomator.util.crypto.CryptoMode
 import org.cryptomator.util.crypto.UnrecoverableStorageKeyException
 import java.util.concurrent.Executor
 import javax.crypto.BadPaddingException
@@ -45,7 +46,7 @@ class BiometricAuthentication(val callback: Callback, val context: Context, val 
 		val biometricAuthCryptor: BiometricAuthCryptor
 
 		try {
-			biometricAuthCryptor = BiometricAuthCryptor.getInstance(context)
+			biometricAuthCryptor = BiometricAuthCryptor.getInstance(context, org.cryptomator.util.crypto.CryptoMode.GCM)
 		} catch (e: UnrecoverableStorageKeyException) {
 			return callback.onBiometricKeyInvalidated(vaultModel)
 		}
