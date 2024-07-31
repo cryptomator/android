@@ -30,7 +30,8 @@ class DatabaseUpgrades {
 			Upgrade8To9 upgrade8To9, //
 			Upgrade9To10 upgrade9To10, //
 			Upgrade10To11 upgrade10To11, //
-			Upgrade11To12 upgrade11To12
+			Upgrade11To12 upgrade11To12, //
+			Upgrade12To13 upgrade12To13
 	) {
 
 		availableUpgrades = defineUpgrades( //
@@ -45,7 +46,8 @@ class DatabaseUpgrades {
 				upgrade8To9, //
 				upgrade9To10, //
 				upgrade10To11, //
-				upgrade11To12);
+				upgrade11To12, //
+				upgrade12To13);
 	}
 
 	private Map<Integer, List<DatabaseUpgrade>> defineUpgrades(DatabaseUpgrade... upgrades) {
