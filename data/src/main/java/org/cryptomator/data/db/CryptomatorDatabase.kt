@@ -170,11 +170,9 @@ private fun <T> Array<T>.uniqueToSet(): Set<T> = toSet().also {
 	require(this.size == it.size) { "Array contained ${this.size - it.size} duplicate elements." }
 }
 
-fun SupportSQLiteDatabase.applyDefaultConfiguration(writeAheadLoggingEnabled: Boolean?) {
-	when (writeAheadLoggingEnabled) {
-		true -> enableWriteAheadLogging()
-		false -> disableWriteAheadLogging()
-		null -> {}
+fun SupportSQLiteDatabase.applyDefaultConfiguration(assertedWalEnabledStatus: Boolean) {
+	require(isWriteAheadLoggingEnabled == assertedWalEnabledStatus) {
+		"Expected WAL enabled status to be $assertedWalEnabledStatus for \"${path}\", but was $isWriteAheadLoggingEnabled"
 	}
 	setForeignKeyConstraintsEnabled(true)
 }

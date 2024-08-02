@@ -44,7 +44,7 @@ class CreateDatabaseTest {
 			.name(DATABASE_NAME) //
 			.callback(object : SupportSQLiteOpenHelper.Callback(1) {
 				override fun onConfigure(db: SupportSQLiteDatabase) = db.applyDefaultConfiguration( //
-					writeAheadLoggingEnabled = false //
+					assertedWalEnabledStatus = false //
 				)
 
 				override fun onCreate(db: SupportSQLiteDatabase) = fail("Database should already exist")
@@ -52,6 +52,7 @@ class CreateDatabaseTest {
 			}).build()
 
 		FrameworkSQLiteOpenHelperFactory().create(config).use { openHelper ->
+			openHelper.setWriteAheadLoggingEnabled(false)
 			verifyDbTemplateStream(openHelper)
 		}
 	}

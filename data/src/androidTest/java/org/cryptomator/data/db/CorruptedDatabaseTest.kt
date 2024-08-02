@@ -104,7 +104,7 @@ private fun createVersion0Database(context: Context, databaseName: String) {
 		.name(databaseName) //
 		.callback(object : SupportSQLiteOpenHelper.Callback(1) {
 			override fun onConfigure(db: SupportSQLiteDatabase) = db.applyDefaultConfiguration( //
-				writeAheadLoggingEnabled = false //
+				assertedWalEnabledStatus = false //
 			)
 
 			override fun onCreate(db: SupportSQLiteDatabase) = throw InterruptCreationException()
@@ -112,6 +112,7 @@ private fun createVersion0Database(context: Context, databaseName: String) {
 		}).build()
 
 	FrameworkSQLiteOpenHelperFactory().create(config).use { openHelper ->
+		openHelper.setWriteAheadLoggingEnabled(false)
 		try {
 			//The "use" block in "initVersion0Database" should not be reached, let alone finished; ...
 			initVersion0Database(openHelper)

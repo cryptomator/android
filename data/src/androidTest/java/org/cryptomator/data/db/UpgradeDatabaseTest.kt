@@ -93,7 +93,7 @@ class UpgradeDatabaseTest {
 			.name(TEST_DB) //
 			.callback(object : SupportSQLiteOpenHelper.Callback(LATEST_LEGACY_MIGRATION) {
 				override fun onConfigure(db: SupportSQLiteDatabase) = db.applyDefaultConfiguration( //
-					writeAheadLoggingEnabled = false //
+					assertedWalEnabledStatus = false //
 				)
 
 				override fun onCreate(db: SupportSQLiteDatabase) {
@@ -107,6 +107,7 @@ class UpgradeDatabaseTest {
 			}).build()
 
 		openHelper = FrameworkSQLiteOpenHelperFactory().asCacheControlled().create(config)
+		openHelper.setWriteAheadLoggingEnabled(false)
 		db = openHelper.writableDatabase
 	}
 

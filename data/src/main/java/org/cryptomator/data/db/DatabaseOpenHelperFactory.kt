@@ -48,7 +48,7 @@ private class PatchedCallback(
 		LOG.d("Called onConfigure for \"${db.path}\"@${db.version}")
 		require(!db.isWriteAheadLoggingEnabled) { "WAL for \"${db.path}\" should already be disabled by room" }
 		db.applyDefaultConfiguration( //
-			writeAheadLoggingEnabled = null //WAL is handled by Room
+			assertedWalEnabledStatus = false //WAL is handled by Room
 		)
 		//
 		delegateCallback.onConfigure(db)

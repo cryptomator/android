@@ -44,7 +44,10 @@ class DbTemplateModule {
 			val templateFile: Path = parentDir!!.resolve(DATABASE_NAME)
 			templateDatabaseContext.templateFile = templateFile.toFile()
 
-			val initializedPath = FrameworkSQLiteOpenHelperFactory().create(configuration).use { initDatabase(it) }
+			val initializedPath = FrameworkSQLiteOpenHelperFactory().create(configuration).use { openHelper ->
+				openHelper.setWriteAheadLoggingEnabled(false)
+				initDatabase(openHelper)
+			}
 			verifyTemplate(templateFile, Path(requireNotNull(initializedPath)))
 
 			val length: Long = templateFile.fileSize()
@@ -89,7 +92,7 @@ class DbTemplateModule {
 			.name(DATABASE_NAME) //
 			.callback(object : SupportSQLiteOpenHelper.Callback(1) {
 				override fun onConfigure(db: SupportSQLiteDatabase) = db.applyDefaultConfiguration( //
-					writeAheadLoggingEnabled = false //
+					assertedWalEnabledStatus = false //
 				)
 
 				override fun onCreate(db: SupportSQLiteDatabase) {
