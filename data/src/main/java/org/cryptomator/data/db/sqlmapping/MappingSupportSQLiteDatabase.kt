@@ -179,7 +179,8 @@ internal class MappingSupportSQLiteDatabase(
 		}
 	}
 
-	private inner class MappingSupportSQLiteQuery(
+	@VisibleForTesting
+	internal inner class MappingSupportSQLiteQuery(
 		private val delegateQuery: SupportSQLiteQuery
 	) : SupportSQLiteQuery by delegateQuery {
 

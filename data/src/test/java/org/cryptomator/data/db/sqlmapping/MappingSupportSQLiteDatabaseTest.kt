@@ -16,6 +16,7 @@ import androidx.sqlite.db.SupportSQLiteStatement
 import org.cryptomator.data.db.sqlmapping.Mapping.COMMENT
 import org.cryptomator.data.db.sqlmapping.Mapping.COUNTER
 import org.cryptomator.data.db.sqlmapping.Mapping.IDENTITY
+import org.cryptomator.data.db.sqlmapping.MappingSupportSQLiteDatabase.MappingSupportSQLiteQuery
 import org.cryptomator.data.db.sqlmapping.MappingSupportSQLiteDatabase.MappingSupportSQLiteStatement
 import org.cryptomator.data.testing.ValueExtractor
 import org.cryptomator.data.testing.anyPseudoEquals
@@ -51,6 +52,7 @@ import org.mockito.Mockito.verifyNoMoreInteractions
 import org.mockito.internal.verification.VerificationModeFactory.times
 import org.mockito.invocation.InvocationOnMock
 import org.mockito.kotlin.KInOrder
+import org.mockito.kotlin.and
 import org.mockito.kotlin.anyArray
 import org.mockito.kotlin.eq
 import org.mockito.kotlin.inOrder
@@ -140,10 +142,16 @@ class MappingSupportSQLiteDatabaseTest {
 
 		val supportSQLiteQueryProperties = newCachedSupportSQLiteQueryProperties()
 		verify(delegateMock).query( //
-			anyPseudoEquals(SimpleSQLiteQuery("SELECT `col` FROM `id_test`"), supportSQLiteQueryProperties)
+			and( //
+				reifiedAny<MappingSupportSQLiteQuery>(), //
+				anyPseudoEquals(SimpleSQLiteQuery("SELECT `col` FROM `id_test`"), supportSQLiteQueryProperties) //
+			)
 		)
 		verify(delegateMock).query( //
-			anyPseudoEquals(SimpleSQLiteQuery("SELECT `col` FROM `comment_test` -- Comment!"), supportSQLiteQueryProperties)
+			and( //
+				reifiedAny<MappingSupportSQLiteQuery>(), //
+				anyPseudoEquals(SimpleSQLiteQuery("SELECT `col` FROM `comment_test` -- Comment!"), supportSQLiteQueryProperties) //
+			)
 		)
 		verifyNoMoreInteractions(delegateMock)
 	}
@@ -157,10 +165,16 @@ class MappingSupportSQLiteDatabaseTest {
 
 		val supportSQLiteQueryProperties = newCachedSupportSQLiteQueryProperties()
 		verify(delegateMock).query( //
-			anyPseudoEquals(SimpleSQLiteQuery("SELECT `col` FROM `id_test` WHERE `col` = ?", arrayOf("test1")), supportSQLiteQueryProperties)
+			and( //
+				reifiedAny<MappingSupportSQLiteQuery>(), //
+				anyPseudoEquals(SimpleSQLiteQuery("SELECT `col` FROM `id_test` WHERE `col` = ?", arrayOf("test1")), supportSQLiteQueryProperties) //
+			)
 		)
 		verify(delegateMock).query( //
-			anyPseudoEquals(SimpleSQLiteQuery("SELECT `col` FROM `comment_test` WHERE `col` = ? -- Comment!", arrayOf("test2")), supportSQLiteQueryProperties)
+			and( //
+				reifiedAny<MappingSupportSQLiteQuery>(), //
+				anyPseudoEquals(SimpleSQLiteQuery("SELECT `col` FROM `comment_test` WHERE `col` = ? -- Comment!", arrayOf("test2")), supportSQLiteQueryProperties) //
+			)
 		)
 		verifyNoMoreInteractions(delegateMock)
 	}
@@ -175,11 +189,17 @@ class MappingSupportSQLiteDatabaseTest {
 
 		val supportSQLiteQueryProperties = newCachedSupportSQLiteQueryProperties()
 		verify(delegateMock).query( //
-			anyPseudoEquals(queries.idExpected, supportSQLiteQueryProperties), //
+			and(
+				reifiedAny<MappingSupportSQLiteQuery>(), //
+				anyPseudoEquals(queries.idExpected, supportSQLiteQueryProperties), //
+			), //
 			anyPseudoEqualsUnlessNull(signals.idExpected, setOf<ValueExtractor<CancellationSignal>>(CancellationSignal::isCanceled))
 		)
 		verify(delegateMock).query( //
-			anyPseudoEquals(queries.commentExpected, supportSQLiteQueryProperties), //
+			and(
+				reifiedAny<MappingSupportSQLiteQuery>(), //
+				anyPseudoEquals(queries.commentExpected, supportSQLiteQueryProperties), //
+			), //
 			anyPseudoEqualsUnlessNull(signals.commentExpected, setOf<ValueExtractor<CancellationSignal>>(CancellationSignal::isCanceled))
 		)
 		verifyNoMoreInteractions(delegateMock)
