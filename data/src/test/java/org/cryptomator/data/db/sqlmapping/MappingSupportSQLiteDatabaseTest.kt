@@ -1,9 +1,7 @@
 package org.cryptomator.data.db.sqlmapping
 
-import org.mockito.ArgumentMatchers.argThat as defaultArgThat
 import org.mockito.kotlin.any as reifiedAny
 import org.mockito.kotlin.anyOrNull as reifiedAnyOrNull
-import org.mockito.kotlin.argThat as reifiedArgThat
 import android.content.ContentValues
 import android.database.Cursor
 import android.database.MatrixCursor
@@ -19,6 +17,10 @@ import org.cryptomator.data.db.sqlmapping.Mapping.COMMENT
 import org.cryptomator.data.db.sqlmapping.Mapping.COUNTER
 import org.cryptomator.data.db.sqlmapping.Mapping.IDENTITY
 import org.cryptomator.data.db.sqlmapping.MappingSupportSQLiteDatabase.MappingSupportSQLiteStatement
+import org.cryptomator.data.testing.ValueExtractor
+import org.cryptomator.data.testing.anyPseudoEquals
+import org.cryptomator.data.testing.anyPseudoEqualsUnlessNull
+import org.cryptomator.data.testing.asCached
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Assertions.assertInstanceOf
 import org.junit.jupiter.api.Assertions.assertNotSame
@@ -32,7 +34,6 @@ import org.junit.jupiter.api.condition.EnabledIfEnvironmentVariable
 import org.junit.jupiter.params.ParameterizedTest
 import org.junit.jupiter.params.provider.Arguments
 import org.junit.jupiter.params.provider.MethodSource
-import org.mockito.ArgumentMatcher
 import org.mockito.ArgumentMatchers.anyInt
 import org.mockito.ArgumentMatchers.anyLong
 import org.mockito.Mockito.anyString
@@ -46,7 +47,6 @@ import org.mockito.kotlin.KInOrder
 import org.mockito.kotlin.anyArray
 import org.mockito.kotlin.eq
 import org.mockito.kotlin.inOrder
-import org.mockito.kotlin.isNull
 import org.mockito.kotlin.whenever
 import org.mockito.stubbing.Answer
 import org.mockito.stubbing.OngoingStubbing
@@ -505,86 +505,7 @@ enum class Mapping { IDENTITY, COMMENT, COUNTER }
 
 private const val SENTINEL = "::SENTINEL::"
 
-private inline fun <reified T : Any> anyPseudoEqualsUnlessNull(other: T?, valueExtractors: Set<ValueExtractor<T>>): T? {
-	return if (other != null) defaultArgThat(NullHandlingMatcher(pseudoEquals(other, valueExtractors), false)) else isNull()
-}
-
-private inline fun <reified T : Any> anyPseudoEquals(other: T, valueExtractors: Set<ValueExtractor<T>>): T {
-	return reifiedArgThat(pseudoEquals(other, valueExtractors))
-}
-
-private fun <T : Any> pseudoEquals(other: T, valueExtractors: Set<ValueExtractor<T>>): ArgumentMatcher<T> {
-	require(valueExtractors.isNotEmpty())
-	return PseudoEqualsMatcher(other, valueExtractors)
-}
-
-private class PseudoEqualsMatcher<T : Any>( //
-	private val other: T, //
-	private val valueExtractors: Set<ValueExtractor<T>> //
-) : ArgumentMatcher<T> {
-
-	override fun matches(argument: T): Boolean {
-		if (argument === other) {
-			return true
-		}
-		return valueExtractors.all { extractor -> extractor(argument) == extractor(other) }
-	}
-}
-
-private typealias ValueExtractor<T> = (T) -> Any?
-
-private data class CacheKey<T>(val wrappedKey: T) {
-
-	override fun hashCode(): Int {
-		return if (isPrimitive(wrappedKey)) {
-			wrappedKey!!.hashCode()
-		} else {
-			System.identityHashCode(wrappedKey)
-		}
-	}
-
-	override fun equals(other: Any?): Boolean {
-		if (other == null || other !is CacheKey<*>) {
-			return false
-		}
-		return if (isPrimitive(this.wrappedKey) && isPrimitive(other.wrappedKey)) {
-			this.wrappedKey == other.wrappedKey
-		} else {
-			this.wrappedKey === other.wrappedKey
-		}
-	}
-}
-
-private data class CacheValue(val wrappedValue: Any?) //Allows correct handling of nulls
-
-private fun isPrimitive(obj: Any?): Boolean {
-	return when (obj) {
-		is Boolean, Char, Byte, Short, Int, Long, Float, Double -> true
-		else -> false
-	}
-}
-
-private fun <T : Any> ValueExtractor<T>.asCached(): ValueExtractor<T> {
-	val cache = mutableMapOf<CacheKey<T>, CacheValue>()
-	return {
-		cache.computeIfAbsent(CacheKey(it)) { key -> CacheValue(this@asCached(key.wrappedKey)) }.wrappedValue
-	}
-}
-
 private inline fun <T> OngoingStubbing<T>.thenDo(crossinline action: (invocation: InvocationOnMock) -> Unit): OngoingStubbing<T> = thenAnswer { action(it) }
-
-private class NullHandlingMatcher<T>( //
-	private val delegate: ArgumentMatcher<T>, //
-	private val matchNull: Boolean //
-) : ArgumentMatcher<T?> {
-
-	override fun matches(argument: T?): Boolean {
-		if (argument == null) {
-			return matchNull
-		}
-		return delegate.matches(argument)
-	}
-}
 
 private fun newCachedSupportSQLiteQueryProperties(): Set<ValueExtractor<SupportSQLiteQuery>> = setOf( //
 	SupportSQLiteQuery::sql.asCached(), //
