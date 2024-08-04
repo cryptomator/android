@@ -20,7 +20,14 @@ import org.cryptomator.data.db.sqlmapping.MappingSupportSQLiteDatabase.MappingSu
 import org.cryptomator.data.testing.ValueExtractor
 import org.cryptomator.data.testing.anyPseudoEquals
 import org.cryptomator.data.testing.anyPseudoEqualsUnlessNull
+import org.cryptomator.data.testing.argCount
 import org.cryptomator.data.testing.asCached
+import org.cryptomator.data.testing.cartesianProductFour
+import org.cryptomator.data.testing.cartesianProductThree
+import org.cryptomator.data.testing.cartesianProductTwo
+import org.cryptomator.data.testing.nullCount
+import org.cryptomator.data.testing.toArgumentsStream
+import org.cryptomator.data.testing.toBindingsMap
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Assertions.assertInstanceOf
 import org.junit.jupiter.api.Assertions.assertNotSame
@@ -1103,31 +1110,4 @@ fun sourceForTestNewBoundStatementNumerous2(): Stream<Arguments> {
 	return result //
 		.map { it.toList() } //
 		.toArgumentsStream()
-}
-
-fun <A, B> Sequence<A>.cartesianProductTwo(other: Iterable<B>): Sequence<Pair<A, B>> = flatMap { a ->
-	other.asSequence().map { b -> a to b }
-}
-
-fun <A, B, C> Sequence<Pair<A, B>>.cartesianProductThree(other: Iterable<C>): Sequence<Triple<A, B, C>> = flatMap { abPair ->
-	other.asSequence().map { c -> Triple(abPair.first, abPair.second, c) }
-}
-
-fun <T> Sequence<Triple<T, T, T>>.cartesianProductFour(other: Iterable<T>): Sequence<List<T>> = flatMap { triple ->
-	other.asSequence().map { otherElement -> listOf(triple.first, triple.second, triple.third, otherElement) }
-}
-
-fun Sequence<List<Any?>>.toArgumentsStream(): Stream<Arguments> = map {
-	Arguments { it.toTypedArray() }
-}.asStream()
-
-private fun Iterable<Any?>?.nullCount(): Int = this?.count { it == null } ?: 0
-
-private inline fun <reified T> Iterable<Any?>?.argCount(): Int = this?.asSequence()?.filterIsInstance<T>()?.count() ?: 0
-
-private fun Iterable<Any?>?.toBindingsMap(): Map<Int, Any?> {
-	return this?.asSequence() //
-		?.map { if (it is Int) it.toLong() else it } // Required because java.lang.Integer.valueOf(x) != java.lang.Long.valueOf(x)
-		?.mapIndexed { index, value -> index + 1 to value } //
-		?.toMap() ?: emptyMap()
 }
