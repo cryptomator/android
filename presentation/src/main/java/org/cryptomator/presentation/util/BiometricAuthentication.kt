@@ -9,7 +9,6 @@ import org.cryptomator.domain.Vault
 import org.cryptomator.presentation.R
 import org.cryptomator.presentation.model.VaultModel
 import org.cryptomator.util.crypto.BiometricAuthCryptor
-import org.cryptomator.util.crypto.CryptoMode
 import org.cryptomator.util.crypto.UnrecoverableStorageKeyException
 import java.util.concurrent.Executor
 import javax.crypto.BadPaddingException
@@ -82,7 +81,7 @@ class BiometricAuthentication(val callback: Callback, val context: Context, val 
 						val vaultModelPasswordAware = VaultModel(
 							Vault //
 								.aCopyOf(vaultModel.toVault()) //
-								.withSavedPassword(transformedPassword) //
+								.withSavedPassword(transformedPassword, org.cryptomator.util.crypto.CryptoMode.GCM) //
 								.build()
 						)
 

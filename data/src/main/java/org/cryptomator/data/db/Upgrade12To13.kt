@@ -7,6 +7,7 @@ import org.cryptomator.util.crypto.CryptoMode
 import org.greenrobot.greendao.database.Database
 import javax.inject.Inject
 import javax.inject.Singleton
+import timber.log.Timber
 
 @Singleton
 internal class Upgrade12To13 @Inject constructor(private val context: Context) : DatabaseUpgrade(12, 13) {
@@ -15,7 +16,7 @@ internal class Upgrade12To13 @Inject constructor(private val context: Context) :
 		db.beginTransaction()
 		try {
 			addCryptoModeToDbEntities(db)
-			addDefaultPasswordCryptoModeToDb(db)
+			applyVaultPasswordCryptoModeToDb(db)
 			upgradeCloudCryptoModeToGCM(db)
 			db.setTransactionSuccessful()
 		} finally {
@@ -86,11 +87,15 @@ internal class Upgrade12To13 @Inject constructor(private val context: Context) :
 		Sql.dropTable("VAULT_ENTITY_OLD").executeOn(db)
 	}
 
-	private fun addDefaultPasswordCryptoModeToDb(db: Database) {
-		Sql.update("VAULT_ENTITY") //
-			.where("PASSWORD", Sql.isNotNull())
-			.set("PASSWORD_CRYPTO_MODE", Sql.toString(CryptoMode.CBC.name)) //
-			.executeOn(db)
+	private fun applyVaultPasswordCryptoModeToDb(db: Database) {
+		Sql.query("VAULT_ENTITY").where("PASSWORD", Sql.isNotNull()).executeOn(db).use {
+			while (it.moveToNext()) {
+				Sql.update("VAULT_ENTITY") //
+					.where("_id", Sql.eq(it.getLong(it.getColumnIndex("_id")))) //
+					.set("PASSWORD_CRYPTO_MODE", Sql.toString(CryptoMode.CBC.toString())) //
+					.executeOn(db)
+			}
+		}
 	}
 
 	private fun upgradeCloudCryptoModeToGCM(db: Database) {
@@ -99,19 +104,19 @@ internal class Upgrade12To13 @Inject constructor(private val context: Context) :
 
 		Sql.query("CLOUD_ENTITY").where("ACCESS_TOKEN", Sql.isNotNull()).executeOn(db).use {
 			while (it.moveToNext()) {
-				Sql.update("CLOUD_ENTITY")
-					.where("_id", Sql.eq(it.getLong(it.getColumnIndex("_id"))))
-					.set("ACCESS_TOKEN", Sql.toString(reEncrypt(it.getString(it.getColumnIndex("ACCESS_TOKEN")), gcmCryptor, cbcCryptor)))
-					.set("ACCESS_TOKEN_CRYPTO_MODE", Sql.toString(CryptoMode.GCM.name))
+				Sql.update("CLOUD_ENTITY") //
+					.where("_id", Sql.eq(it.getLong(it.getColumnIndex("_id")))) //
+					.set("ACCESS_TOKEN", Sql.toString(reEncrypt(it.getString(it.getColumnIndex("ACCESS_TOKEN")), gcmCryptor, cbcCryptor))) //
+					.set("ACCESS_TOKEN_CRYPTO_MODE", Sql.toString(CryptoMode.GCM.toString())) //
 					.executeOn(db)
 			}
 		}
 		Sql.query("CLOUD_ENTITY").where("S3_SECRET_KEY", Sql.isNotNull()).executeOn(db).use {
 			while (it.moveToNext()) {
-				Sql.update("CLOUD_ENTITY")
-					.where("_id", Sql.eq(it.getLong(it.getColumnIndex("_id"))))
-					.set("S3_SECRET_KEY", Sql.toString(reEncrypt(it.getString(it.getColumnIndex("S3_SECRET_KEY")), gcmCryptor, cbcCryptor)))
-					.set("S3_SECRET_KEY_CRYPTO_MODE", Sql.toString(CryptoMode.GCM.name))
+				Sql.update("CLOUD_ENTITY") //
+					.where("_id", Sql.eq(it.getLong(it.getColumnIndex("_id")))) //
+					.set("S3_SECRET_KEY", Sql.toString(reEncrypt(it.getString(it.getColumnIndex("S3_SECRET_KEY")), gcmCryptor, cbcCryptor))) //
+					.set("S3_SECRET_KEY_CRYPTO_MODE", Sql.toString(CryptoMode.GCM.toString())) //
 					.executeOn(db)
 			}
 		}

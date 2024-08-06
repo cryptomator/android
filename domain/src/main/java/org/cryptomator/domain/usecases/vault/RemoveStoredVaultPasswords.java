@@ -1,41 +1,31 @@
 package org.cryptomator.domain.usecases.vault;
 
-import android.content.Context;
-
 import org.cryptomator.domain.Vault;
 import org.cryptomator.domain.exception.BackendException;
 import org.cryptomator.domain.repository.VaultRepository;
+import org.cryptomator.generator.Parameter;
 import org.cryptomator.generator.UseCase;
-import org.cryptomator.util.SharedPreferencesHandler;
-import org.cryptomator.util.crypto.BiometricAuthCryptor;
-import org.cryptomator.util.crypto.CryptoMode;
+
+import java.util.List;
 
 import static org.cryptomator.domain.Vault.aCopyOf;
 
 @UseCase
 class RemoveStoredVaultPasswords {
 
+	private final List<Vault> vaults;
 	private final VaultRepository vaultRepository;
-	private final SharedPreferencesHandler sharedPreferencesHandler;
-	private final Context context;
 
-	public RemoveStoredVaultPasswords(VaultRepository vaultRepository, //
-			Context context, //
-			SharedPreferencesHandler sharedPreferencesHandler) {
+	public RemoveStoredVaultPasswords(@Parameter List<Vault> vaults, VaultRepository vaultRepository) {
+		this.vaults = vaults;
 		this.vaultRepository = vaultRepository;
-		this.context = context;
-		this.sharedPreferencesHandler = sharedPreferencesHandler;
 	}
 
 	public void execute() throws BackendException {
-		BiometricAuthCryptor.recreateKey(context, CryptoMode.GCM);
-
-		sharedPreferencesHandler.changeUseBiometricAuthentication(false);
-
-		for (Vault vault : vaultRepository.vaults()) {
+		for (Vault vault : vaults) {
 			if (vault.getPassword() != null) {
 				vault = aCopyOf(vault) //
-						.withSavedPassword(null) //
+						.withSavedPassword(null, null) //
 						.build();
 				vaultRepository.store(vault);
 			}

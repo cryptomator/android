@@ -15,7 +15,7 @@ import org.cryptomator.domain.usecases.vault.DeleteVaultUseCase
 import org.cryptomator.domain.usecases.vault.GetUnverifiedVaultConfigUseCase
 import org.cryptomator.domain.usecases.vault.LockVaultUseCase
 import org.cryptomator.domain.usecases.vault.PrepareUnlockUseCase
-import org.cryptomator.domain.usecases.vault.RemoveStoredVaultPasswordsUseCase
+import org.cryptomator.domain.usecases.vault.RemoveStoredVaultPasswordsAndDisableBiometricAuthUseCase
 import org.cryptomator.domain.usecases.vault.SaveVaultUseCase
 import org.cryptomator.domain.usecases.vault.UnlockToken
 import org.cryptomator.domain.usecases.vault.UnlockVaultUsingMasterkeyUseCase
@@ -34,6 +34,7 @@ import org.cryptomator.presentation.ui.dialog.EnterPasswordDialog
 import org.cryptomator.presentation.workflow.ActivityResult
 import org.cryptomator.presentation.workflow.AuthenticationExceptionHandler
 import org.cryptomator.util.SharedPreferencesHandler
+import org.cryptomator.util.crypto.CryptoMode
 import java.io.Serializable
 import javax.inject.Inject
 import timber.log.Timber
@@ -46,7 +47,7 @@ class UnlockVaultPresenter @Inject constructor(
 	private val lockVaultUseCase: LockVaultUseCase,
 	private val unlockVaultUsingMasterkeyUseCase: UnlockVaultUsingMasterkeyUseCase,
 	private val prepareUnlockUseCase: PrepareUnlockUseCase,
-	private val removeStoredVaultPasswordsUseCase: RemoveStoredVaultPasswordsUseCase,
+	private val removeStoredVaultPasswordsAndDisableBiometricAuthUseCase: RemoveStoredVaultPasswordsAndDisableBiometricAuthUseCase,
 	private val saveVaultUseCase: SaveVaultUseCase,
 	private val authenticationExceptionHandler: AuthenticationExceptionHandler,
 	private val sharedPreferencesHandler: SharedPreferencesHandler,
@@ -304,7 +305,7 @@ class UnlockVaultPresenter @Inject constructor(
 	}
 
 	fun onBiometricKeyInvalidated() {
-		removeStoredVaultPasswordsUseCase.run(object : DefaultResultHandler<Void?>() {
+		removeStoredVaultPasswordsAndDisableBiometricAuthUseCase.run(object : DefaultResultHandler<Void?>() {
 			override fun onSuccess(void: Void?) {
 				view?.showBiometricAuthKeyInvalidatedDialog()
 			}
@@ -353,7 +354,7 @@ class UnlockVaultPresenter @Inject constructor(
 						view?.getEncryptedPasswordWithBiometricAuthentication(
 							VaultModel( //
 								Vault.aCopyOf(vaultModel.toVault()) //
-									.withSavedPassword(newPassword) //
+									.withSavedPassword(newPassword, CryptoMode.GCM) //
 									.build()
 							)
 						)
@@ -458,7 +459,7 @@ class UnlockVaultPresenter @Inject constructor(
 			lockVaultUseCase, //
 			unlockVaultUsingMasterkeyUseCase, //
 			prepareUnlockUseCase, //
-			removeStoredVaultPasswordsUseCase, //
+			removeStoredVaultPasswordsAndDisableBiometricAuthUseCase, //
 			saveVaultUseCase
 		)
 	}
