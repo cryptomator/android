@@ -179,10 +179,13 @@
 	<string name="screen_settings_error_report_failed">ارسال با خطا مواجه شد</string>
 	<string name="screen_settings_section_version">نسخه</string>
 	<string name="screen_settings_advanced_settings">تنظیمات پیشرفته</string>
+	<string name="screen_settings_keep_unlocked_while_editing_files">باز نگهدارید</string>
 	<!-- ## screen: cloud settings -->
 	<!-- ## screen: licenses -->
 	<!-- ## screen: authenticate cloud -->
 	<!-- ## screen: cryptomator app variants -->
+	<string name="screen_cryptomator_variants_lite_install">نصب</string>
+	<string name="screen_cryptomator_variants_fdroid_add_repo">اضافه کردن</string>
 	<string name="screen_cryptomator_variants_website_title">وب سایت</string>
 	<!-- # dialogs -->
 	<string name="dialog_button_cancel">انصراف</string>

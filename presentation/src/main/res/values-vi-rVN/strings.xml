@@ -297,7 +297,7 @@
 	<string name="dialog_http_security_hint">Việc sử dụng HTTP không an toàn. Chúng tôi khuyên bạn nên sử dụng HTTPS để thay thế. Nếu bạn biết những rủi ro, bạn có thể tiếp tục với HTTP.</string>
 	<string name="dialog_http_security_checkbox">Chuyển sang HTTPS</string>
 	<string name="dialog_http_security_title">Dùng HTTPS?</string>
-	<string name="dialog_no_screen_lock_hint">Không có khoá màn hình nào được đặt. Để lưu trữ thông tin đăng nhập của bạn theo cách an toàn, hãy đặt một mẫu hình hoặc mật mã sau khi chọn OK.</string>
+	<string name="dialog_no_screen_lock_hint">Không có phương thức khoá màn hình nào được đặt. Để lưu trữ thông tin đăng nhập của bạn một cách an toàn, hãy đặt một Hình mở khóa hoặc Mật mã sau khi chọn OK.</string>
 	<string name="dialog_no_screen_lock_title">Đặt khoá màn hình?</string>
 	<string name="dialog_no_screen_lock_checkbox">Đặt khoá màn hình</string>
 	<string name="dialog_no_biometric_auth_set_up_title">Không có thiết lập xác thực cơ bản trong hệ thống</string>
@@ -411,6 +411,7 @@
 	<string name="screen_settings_last_check_updates">Lần chạy cuối %1$s</string>
 	<string name="dialog_cache_size_title">Kích thước bộ đệm trên mỗi đám mây</string>
 	<!-- lock timeout names -->
+	<string name="lock_timeout_instant">Ngay lập tức</string>
 	<string name="lock_timeout_1m">1 phút</string>
 	<string name="lock_timeout_2m">2 phút</string>
 	<string name="lock_timeout_5m">5 phút</string>

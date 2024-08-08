@@ -37,7 +37,7 @@
 	<string name="error_interact_with_fdroid_but_fdroid_missing">Αποτυχία επικοινωνίας με την εφαρμογή F-Droid. Δεν έχει εγκατασταθεί;</string>
 	<!-- # clouds -->
 	<!-- ## cloud names -->
-	<string name="cloud_names_local_storage">Τοπική αποθήκευση</string>
+	<string name="cloud_names_local_storage">Τοπικός αποθηκευτικός χώρος</string>
 	<!-- # permission -->
 	<!-- ## permission messages -->
 	<string name="permission_message_export_file">Το Cryptomator χρειάζεται πρόσβαση στον αποθηκευτικό χώρο για την εξαγωγή αρχείων</string>
