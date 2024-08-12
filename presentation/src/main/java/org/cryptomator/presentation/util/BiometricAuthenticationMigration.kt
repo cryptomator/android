@@ -1,8 +1,11 @@
 package org.cryptomator.presentation.util
 
+import android.annotation.SuppressLint
 import android.content.Context
 import android.security.keystore.KeyPermanentlyInvalidatedException
+import androidx.biometric.BiometricFragment
 import androidx.biometric.BiometricPrompt
+import androidx.biometric.FingerprintDialogFragment
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import org.cryptomator.domain.Vault
@@ -14,148 +17,126 @@ import org.cryptomator.util.crypto.UnrecoverableStorageKeyException
 import javax.crypto.BadPaddingException
 import timber.log.Timber
 
-class BiometricAuthenticationMigration(val callback: Callback, val context: Context, private val useConfirmationInFaceUnlockAuth: Boolean) {
+class BiometricAuthenticationMigration(
+	private val callback: Callback, private val context: Context, private val useConfirmationInFaceUnlockAuth: Boolean
+) {
 
 	interface Callback {
 
 		fun onBiometricAuthenticationMigrationFinished(vaults: List<VaultModel>)
 		fun onBiometricAuthenticationFailed(vaults: List<VaultModel>)
 		fun onBiometricKeyInvalidated(vaults: List<VaultModel>)
-
 	}
 
-	companion object {
-
-		private lateinit var promptInfo: BiometricPrompt.PromptInfo
-
-	}
+	private lateinit var promptInfo: BiometricPrompt.PromptInfo
 
 	fun migrateVaultsPassword(fragment: Fragment, vaultModels: List<VaultModel>) {
 		val decryptedVaults = mutableListOf<VaultModel>()
+		val reEncryptedVaults = mutableListOf<VaultModel>()
 		val vaultQueue = ArrayDeque(vaultModels)
 
 		promptInfo = BiometricPrompt.PromptInfo.Builder() //
-			.setTitle(context.getString(R.string.dialog_biometric_auth_title)) //
-			.setSubtitle(context.getString(R.string.dialog_biometric_auth_message)) //
+			.setTitle(context.getString(R.string.dialog_biometric_migration_auth_title)) //
+			.setSubtitle(context.getString(R.string.dialog_biometric_migration_auth_message)) //
 			.setConfirmationRequired(useConfirmationInFaceUnlockAuth) //
-			.setNegativeButtonText(context.getString(R.string.dialog_biometric_auth_use_password)) //
+			.setNegativeButtonText(context.getString(R.string.dialog_biometric_migration_auth_use_password)) //
 			.build()
 
-		// Start processing the queue
-		processNextVault(fragment, vaultQueue, decryptedVaults)
+		processNextVault(fragment, vaultQueue, decryptedVaults, reEncryptedVaults, vaultModels)
 	}
 
-	private fun processNextVault(fragment: Fragment, vaultQueue: ArrayDeque<VaultModel>, decryptedVaults: MutableList<VaultModel>) {
-		if (vaultQueue.isEmpty()) {
-			encryptUsingGcm(fragment, decryptedVaults)
-		} else {
-			val currentVault = vaultQueue.removeFirst() // Get the next vault to process
-			decryptVaultPassword(fragment, currentVault, decryptedVaults, vaultQueue)
+	private fun processNextVault(
+		fragment: Fragment, vaultQueue: ArrayDeque<VaultModel>, decryptedVaults: MutableList<VaultModel>, reEncryptedVaults: MutableList<VaultModel>, allVaults: List<VaultModel>
+	) {
+		removeBiometricFragmentFromStack(fragment)
+		when {
+			vaultQueue.isNotEmpty() -> decryptUsingCbc(fragment, vaultQueue.removeFirst(), decryptedVaults, vaultQueue, reEncryptedVaults, allVaults)
+			decryptedVaults.isNotEmpty() -> encryptUsingGcm(fragment, decryptedVaults.removeFirst(), vaultQueue, decryptedVaults, reEncryptedVaults, allVaults)
+			else -> callback.onBiometricAuthenticationMigrationFinished(reEncryptedVaults)
 		}
 	}
 
-	private fun decryptVaultPassword(fragment: Fragment, vaultModel: VaultModel, decryptedVaults: MutableList<VaultModel>, vaultQueue: ArrayDeque<VaultModel>) {
-		Timber.tag("BiometricAuthenticationMigration").d("Show decrypt biometric auth prompt")
+	@SuppressLint("RestrictedApi")
+	private fun removeBiometricFragmentFromStack(fragment: Fragment) {
+		val fragmentManager = fragment.childFragmentManager
+		fragmentManager.fragments.filter { it is BiometricFragment || it is FingerprintDialogFragment }.forEach { fragmentManager.beginTransaction().remove(it).commitNow() }
+	}
+
+	private fun decryptUsingCbc(
+		fragment: Fragment, vaultModel: VaultModel, decryptedVaults: MutableList<VaultModel>, vaultQueue: ArrayDeque<VaultModel>, reEncryptedVaults: MutableList<VaultModel>, allVaults: List<VaultModel>
+	) {
+		Timber.tag("BiometricAuthMigration").d("Prompt for decryption")
+		handleBiometricAuthentication(fragment = fragment, cryptoMode = CryptoMode.CBC, password = vaultModel.password!!, allVaults = allVaults, onSuccess = { decryptedPassword ->
+			decryptedVaults.add(
+				VaultModel(
+					vault = Vault.aCopyOf(vaultModel.toVault()).withSavedPassword(decryptedPassword, CryptoMode.NONE).build()
+				)
+			)
+			processNextVault(fragment, vaultQueue, decryptedVaults, reEncryptedVaults, allVaults)
+		})
+	}
+
+	private fun encryptUsingGcm(
+		fragment: Fragment, vaultModel: VaultModel, vaultQueue: ArrayDeque<VaultModel>, decryptedVaults: MutableList<VaultModel>, reEncryptedVaults: MutableList<VaultModel>, allVaults: List<VaultModel>
+	) {
+		Timber.tag("BiometricAuthMigration").d("Prompt for encryption")
+		handleBiometricAuthentication(fragment = fragment, cryptoMode = CryptoMode.GCM, password = vaultModel.password!!, allVaults = allVaults, onSuccess = { encryptedPassword ->
+			reEncryptedVaults.add(
+				VaultModel(
+					vault = Vault.aCopyOf(vaultModel.toVault()).withSavedPassword(encryptedPassword, CryptoMode.GCM).build()
+				)
+			)
+			processNextVault(fragment, vaultQueue, decryptedVaults, reEncryptedVaults, allVaults)
+		})
+	}
+
+	private fun handleBiometricAuthentication(
+		fragment: Fragment, cryptoMode: CryptoMode, password: String, allVaults: List<VaultModel>, onSuccess: (String) -> Unit
+	) {
 		try {
-			val biometricAuthCryptorCBC = BiometricAuthCryptor.getInstance(context, CryptoMode.CBC)
+			val biometricAuthCryptor = BiometricAuthCryptor.getInstance(context, cryptoMode)
 			val authCallback = object : BiometricPrompt.AuthenticationCallback() {
 				override fun onAuthenticationSucceeded(result: BiometricPrompt.AuthenticationResult) {
 					super.onAuthenticationSucceeded(result)
-					Timber.tag("BiometricAuthenticationMigration").d("Authentication finished successfully")
+					Timber.tag("BiometricAuthMigration").d("Authentication succeeded")
 					val cipher = result.cryptoObject?.cipher
 					try {
-						val decryptedPassword = biometricAuthCryptorCBC.decrypt(cipher, vaultModel.password)
-						val decryptedVaultModel = VaultModel(
-							Vault.aCopyOf(vaultModel.toVault())
-								.withSavedPassword(decryptedPassword, CryptoMode.NONE)
-								.build()
-						)
-						// Add the decrypted vault to the list
-						decryptedVaults.add(decryptedVaultModel)
-						// Process the next vault
-						processNextVault(fragment, vaultQueue, decryptedVaults)
+						val processedPassword = when (cryptoMode) {
+							CryptoMode.CBC -> biometricAuthCryptor.decrypt(cipher, password)
+							CryptoMode.GCM -> biometricAuthCryptor.encrypt(cipher, password)
+							CryptoMode.NONE -> throw IllegalStateException("CryptoMode.NONE is not allowed here")
+						}
+						onSuccess(processedPassword)
 					} catch (e: BadPaddingException) {
-						Timber.tag("BiometricAuthenticationMigration").i(
-							e,
-							"Recover from BadPaddingException which can be thrown on some devices if the key in the keystore is invalidated e.g. due to a fingerprint added because of an upstream error in Android, see #400 for more info"
-						)
-						callback.onBiometricKeyInvalidated(decryptedVaults)
+						Timber.e(e, "BadPaddingException - possibly due to an invalidated key")
+						callback.onBiometricKeyInvalidated(allVaults)
 					}
 				}
 
 				override fun onAuthenticationError(errorCode: Int, errString: CharSequence) {
 					super.onAuthenticationError(errorCode, errString)
-					Timber.tag("BiometricAuthenticationMigration").e(String.format("Authentication error: %s errorCode=%d", errString, errorCode))
-					callback.onBiometricAuthenticationFailed(decryptedVaults)
+					Timber.e("Authentication error: %s errorCode=%d", errString, errorCode)
+					callback.onBiometricAuthenticationFailed(allVaults)
 				}
 
 				override fun onAuthenticationFailed() {
 					super.onAuthenticationFailed()
-					Timber.tag("BiometricAuthenticationMigration").e("Authentication failed")
+					Timber.e("Authentication failed")
 				}
 			}
 			val biometricPrompt = BiometricPrompt(fragment, ContextCompat.getMainExecutor(context), authCallback)
-			try {
-				val cryptoCipher = biometricAuthCryptorCBC.getDecryptCipher(vaultModel.password)
-				biometricPrompt.authenticate(promptInfo, BiometricPrompt.CryptoObject(cryptoCipher))
-			} catch (e: KeyPermanentlyInvalidatedException) {
-				callback.onBiometricKeyInvalidated(decryptedVaults)
+			val cryptoCipher = when (cryptoMode) {
+				CryptoMode.CBC -> biometricAuthCryptor.getDecryptCipher(password)
+				CryptoMode.GCM -> biometricAuthCryptor.encryptCipher
+				CryptoMode.NONE -> throw IllegalStateException("CryptoMode.NONE is not allowed here")
 			}
-		} catch (e: UnrecoverableStorageKeyException) {
-			callback.onBiometricKeyInvalidated(listOf(vaultModel))
-		}
-	}
-
-	private fun encryptUsingGcm(fragment: Fragment, vaultModels: List<VaultModel>) {
-		Timber.tag("BiometricAuthenticationMigration").d("Show encrypt biometric auth prompt")
-		val biometricAuthCryptorGCM: BiometricAuthCryptor
-		try {
-			biometricAuthCryptorGCM = BiometricAuthCryptor.getInstance(context, CryptoMode.GCM)
-		} catch (e: UnrecoverableStorageKeyException) {
-			return callback.onBiometricKeyInvalidated(vaultModels)
-		}
-		val authCallback = object : BiometricPrompt.AuthenticationCallback() {
-			override fun onAuthenticationSucceeded(result: BiometricPrompt.AuthenticationResult) {
-				super.onAuthenticationSucceeded(result)
-				Timber.tag("BiometricAuthenticationMigration").d("Authentication finished successfully")
-				val cipher = result.cryptoObject?.cipher
-				try {
-					val gcmEncryptedVaults = vaultModels.map { vaultModel ->
-						val encryptedPassword = biometricAuthCryptorGCM.encrypt(cipher, vaultModel.password)
-						VaultModel(
-							Vault //
-								.aCopyOf(vaultModel.toVault()) //
-								.withSavedPassword(encryptedPassword, CryptoMode.GCM) //
-								.build()
-						)
-					}
-					callback.onBiometricAuthenticationMigrationFinished(gcmEncryptedVaults)
-				} catch (e: BadPaddingException) {
-					Timber.tag("BiometricAuthenticationMigration").i(
-						e,
-						"Recover from BadPaddingException which can be thrown on some devices if the key in the keystore is invalidated e.g. due to a fingerprint added because of an upstream error in Android, see #400 for more info"
-					)
-					callback.onBiometricKeyInvalidated(vaultModels)
-				}
-			}
-
-			override fun onAuthenticationError(errorCode: Int, errString: CharSequence) {
-				super.onAuthenticationError(errorCode, errString)
-				Timber.tag("BiometricAuthenticationMigration").e(String.format("Authentication error: %s errorCode=%d", errString, errorCode))
-				callback.onBiometricAuthenticationFailed(vaultModels)
-			}
-
-			override fun onAuthenticationFailed() {
-				super.onAuthenticationFailed()
-				Timber.tag("BiometricAuthenticationMigration").e("Authentication failed")
-			}
-		}
-		val biometricPrompt = BiometricPrompt(fragment, ContextCompat.getMainExecutor(context), authCallback)
-		try {
-			val cryptoCipher = biometricAuthCryptorGCM.encryptCipher
 			biometricPrompt.authenticate(promptInfo, BiometricPrompt.CryptoObject(cryptoCipher))
 		} catch (e: KeyPermanentlyInvalidatedException) {
-			callback.onBiometricKeyInvalidated(vaultModels)
+			Timber.e("KeyPermanentlyInvalidatedException during $cryptoMode")
+			callback.onBiometricKeyInvalidated(allVaults)
+		} catch (e: UnrecoverableStorageKeyException) {
+			Timber.e("UnrecoverableStorageKeyException during $cryptoMode")
+			callback.onBiometricKeyInvalidated(allVaults)
 		}
 	}
 }
