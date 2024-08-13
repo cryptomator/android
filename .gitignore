@@ -54,4 +54,4 @@ local.properties
 
 # Fluid Attacks
 **/fastlane/fluidattacks/results.csv
-/apk_files/
+**/fastlane/fluidattacks/apks/**
