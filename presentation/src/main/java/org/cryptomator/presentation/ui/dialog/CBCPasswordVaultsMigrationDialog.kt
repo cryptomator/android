@@ -36,11 +36,11 @@ class CBCPasswordVaultsMigrationDialog : BaseDialog<CBCPasswordVaultsMigrationDi
 
 		private const val VAULTS_ARG = "vaults"
 		fun newInstance(cbcVaults: List<Vault>): DialogFragment {
-			val dialog = CBCPasswordVaultsMigrationDialog()
-			val args = Bundle()
-			args.putSerializable(VAULTS_ARG, ArrayList(cbcVaults))
-			dialog.arguments = args
-			return dialog
+			return CBCPasswordVaultsMigrationDialog().apply {
+				arguments = Bundle().apply {
+					putSerializable(VAULTS_ARG, ArrayList(cbcVaults))
+				}
+			}
 		}
 	}
 }
