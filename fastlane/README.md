@@ -79,6 +79,14 @@ Check if tracking added in some dependency using Izzy's script
 
 Check if tracking added in some dependency using exodus
 
+### android runFluidattacks
+
+```sh
+[bundle exec] fastlane android runFluidattacks
+```
+
+Run fluidattacks
+
 ### android createGitHubDraftRelease
 
 ```sh
