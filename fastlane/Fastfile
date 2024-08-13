@@ -336,18 +336,13 @@ platform :android do |options|
   lane :runFluidattacks do |options|
     # if you want to run it for a specific version just set e.g. version = "1.10.0"
     fluidattacks_apks_path = "fluidattacks/apks"
+    apk_types = %w[signed fdroid_signed lite_signed playstore_signed]
 
     FileUtils.mkdir("#{fluidattacks_apks_path}")
-
-    FileUtils.mkdir("#{fluidattacks_apks_path}/Cryptomator-#{version}_signed/")
-    FileUtils.mkdir("#{fluidattacks_apks_path}/Cryptomator-#{version}_fdroid_signed/")
-    FileUtils.mkdir("#{fluidattacks_apks_path}/Cryptomator-#{version}_lite_signed/")
-    FileUtils.mkdir("#{fluidattacks_apks_path}/Cryptomator-#{version}_playstore_signed/")
-
-    FileUtils.cp("release/Cryptomator-#{version}_signed.apk", "#{fluidattacks_apks_path}/Cryptomator-#{version}_signed/")
-    FileUtils.cp("release/Cryptomator-#{version}_fdroid_signed.apk", "#{fluidattacks_apks_path}/Cryptomator-#{version}_fdroid_signed/")
-    FileUtils.cp("release/Cryptomator-#{version}_lite_signed.apk", "#{fluidattacks_apks_path}/Cryptomator-#{version}_lite_signed/")
-    FileUtils.cp("release/Cryptomator-#{version}_playstore_signed.apk", "#{fluidattacks_apks_path}/Cryptomator-#{version}_playstore_signed/")
+    apk_types.each do |type|
+      FileUtils.mkdir("#{fluidattacks_apks_path}/Cryptomator-#{version}_#{type}/")
+      FileUtils.cp("release/Cryptomator-#{version}_#{type}.apk", "#{fluidattacks_apks_path}/Cryptomator-#{version}_#{type}/")
+    end
 
     puts "Run Fluidattacks. Results are in /src/fastlane/fluidattacks/results.csv"
     sh("docker run -v $(cd .. && pwd):/src -w /src fluidattacks/cli:amd64 skims scan /src/fastlane/fluidattacks/config.yaml")
