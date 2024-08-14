@@ -45,7 +45,7 @@ class BiometricAuthentication(val callback: Callback, val context: Context, val 
 		val biometricAuthCryptor: BiometricAuthCryptor
 
 		try {
-			biometricAuthCryptor = BiometricAuthCryptor.getInstance(context)
+			biometricAuthCryptor = BiometricAuthCryptor.getInstance(context, org.cryptomator.util.crypto.CryptoMode.GCM)
 		} catch (e: UnrecoverableStorageKeyException) {
 			return callback.onBiometricKeyInvalidated(vaultModel)
 		}
@@ -81,7 +81,7 @@ class BiometricAuthentication(val callback: Callback, val context: Context, val 
 						val vaultModelPasswordAware = VaultModel(
 							Vault //
 								.aCopyOf(vaultModel.toVault()) //
-								.withSavedPassword(transformedPassword) //
+								.withSavedPassword(transformedPassword, org.cryptomator.util.crypto.CryptoMode.GCM) //
 								.build()
 						)
 

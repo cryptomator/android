@@ -2,21 +2,28 @@ package org.cryptomator.util.crypto;
 
 class CryptoOperationsFactory {
 
-	private static volatile CryptoOperations cryptoOperations;
+	private static volatile CryptoOperations cryptoOperationsCBC;
+	private static volatile CryptoOperations cryptoOperationsGCM;
 
-	public static CryptoOperations cryptoOperations() {
-		if (cryptoOperations == null) {
-			synchronized (CryptoOperations.class) {
-				if (cryptoOperations == null) {
-					cryptoOperations = createCryptoOperations();
+	public static CryptoOperations cryptoOperations(CryptoMode mode) {
+		if (mode == CryptoMode.CBC) {
+			if (cryptoOperationsCBC == null) {
+				synchronized (CryptoOperations.class) {
+					if (cryptoOperationsCBC == null) {
+						cryptoOperationsCBC = new CryptoOperationsCBC();
+					}
 				}
 			}
+			return cryptoOperationsCBC;
+		} else {
+			if (cryptoOperationsGCM == null) {
+				synchronized (CryptoOperations.class) {
+					if (cryptoOperationsGCM == null) {
+						cryptoOperationsGCM = new CryptoOperationsGCM();
+					}
+				}
+			}
+			return cryptoOperationsGCM;
 		}
-		return cryptoOperations;
 	}
-
-	private static CryptoOperations createCryptoOperations() {
-		return new CryptoOperationsImpl();
-	}
-
 }

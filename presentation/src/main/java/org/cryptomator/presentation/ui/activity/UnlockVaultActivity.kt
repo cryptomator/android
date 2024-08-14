@@ -23,8 +23,8 @@ import javax.inject.Inject
 @Activity
 class UnlockVaultActivity : BaseActivity<ActivityUnlockVaultBinding>(ActivityUnlockVaultBinding::inflate), //
 	UnlockVaultView, //
-	BiometricAuthentication.Callback,
-	ChangePasswordDialog.Callback,
+	BiometricAuthentication.Callback, //
+	ChangePasswordDialog.Callback, //
 	VaultNotFoundDialog.Callback {
 
 	@Inject
@@ -84,7 +84,7 @@ class UnlockVaultActivity : BaseActivity<ActivityUnlockVaultBinding>(ActivityUnl
 	}
 
 	override fun onBiometricAuthenticationFailed(vault: VaultModel) {
-		val vaultWithoutPassword = Vault.aCopyOf(vault.toVault()).withSavedPassword(null).build()
+		val vaultWithoutPassword = Vault.aCopyOf(vault.toVault()).withSavedPassword(null, null).build()
 		when (unlockVaultIntent.vaultAction()) {
 			UnlockVaultIntent.VaultAction.CHANGE_PASSWORD -> presenter.saveVaultAfterChangePasswordButFailedBiometricAuth(vaultWithoutPassword)
 			else -> {

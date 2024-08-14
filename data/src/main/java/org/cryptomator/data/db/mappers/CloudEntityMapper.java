@@ -48,7 +48,7 @@ public class CloudEntityMapper extends EntityMapper<CloudEntity, Cloud> {
 			case LOCAL:
 				return aLocalStorage() //
 						.withId(entity.getId()) //
-						.withRootUri(entity.getAccessToken()).build();
+						.withRootUri(entity.getUrl()).build();
 			case ONEDRIVE:
 				return aOnedriveCloud() //
 						.withId(entity.getId()) //
@@ -100,7 +100,7 @@ public class CloudEntityMapper extends EntityMapper<CloudEntity, Cloud> {
 				result.setUsername(((GoogleDriveCloud) domainObject).username());
 				break;
 			case LOCAL:
-				result.setAccessToken(((LocalStorageCloud) domainObject).rootUri());
+				result.setUrl(((LocalStorageCloud) domainObject).rootUri());
 				break;
 			case ONEDRIVE:
 				result.setAccessToken(((OnedriveCloud) domainObject).accessToken());

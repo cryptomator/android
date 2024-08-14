@@ -1,5 +1,7 @@
 package org.cryptomator.domain;
 
+import org.cryptomator.util.crypto.CryptoMode;
+
 import java.io.Serializable;
 
 public class Vault implements Serializable {
@@ -12,6 +14,7 @@ public class Vault implements Serializable {
 	private final CloudType cloudType;
 	private final boolean unlocked;
 	private final String password;
+	private final CryptoMode passwordCryptoMode;
 	private final int format;
 	private final int shorteningThreshold;
 	private final int position;
@@ -24,6 +27,7 @@ public class Vault implements Serializable {
 		this.unlocked = builder.unlocked;
 		this.cloudType = builder.cloudType;
 		this.password = builder.password;
+		this.passwordCryptoMode = builder.passwordCryptoMode;
 		this.format = builder.format;
 		this.shorteningThreshold = builder.shorteningThreshold;
 		this.position = builder.position;
@@ -41,7 +45,7 @@ public class Vault implements Serializable {
 				.withName(vault.getName()) //
 				.withPath(vault.getPath()) //
 				.withUnlocked(vault.isUnlocked()) //
-				.withSavedPassword(vault.getPassword()) //
+				.withSavedPassword(vault.getPassword(), vault.getPasswordCryptoMode()) //
 				.withFormat(vault.getFormat()) //
 				.withShorteningThreshold(vault.getShorteningThreshold()) //
 				.withPosition(vault.getPosition());
@@ -73,6 +77,10 @@ public class Vault implements Serializable {
 
 	public String getPassword() {
 		return password;
+	}
+
+	public CryptoMode getPasswordCryptoMode() {
+		return passwordCryptoMode;
 	}
 
 	public int getFormat() {
@@ -120,6 +128,7 @@ public class Vault implements Serializable {
 		private CloudType cloudType;
 		private boolean unlocked;
 		private String password;
+		private CryptoMode passwordCryptoMode;
 		private int format = -1;
 		private int shorteningThreshold = -1;
 		private int position = -1;
@@ -183,8 +192,9 @@ public class Vault implements Serializable {
 			return this;
 		}
 
-		public Builder withSavedPassword(String password) {
+		public Builder withSavedPassword(String password, CryptoMode cryptoMode) {
 			this.password = password;
+			this.passwordCryptoMode = cryptoMode;
 			return this;
 		}
 
@@ -223,6 +233,12 @@ public class Vault implements Serializable {
 			}
 			if (position == -1) {
 				throw new IllegalStateException("position must be set");
+			}
+			if (password != null && passwordCryptoMode == null) {
+				throw new IllegalStateException("passwordCryptoMode must be set if password is set");
+			}
+			if (passwordCryptoMode != null && password == null) {
+				throw new IllegalStateException("password must be set if passwordCryptoMode is set");
 			}
 		}
 	}

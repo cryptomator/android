@@ -12,6 +12,7 @@ import org.cryptomator.data.db.entities.VaultEntityDao
 import org.cryptomator.domain.CloudType
 import org.cryptomator.util.SharedPreferencesHandler
 import org.cryptomator.util.crypto.CredentialCryptor
+import org.cryptomator.util.crypto.CryptoMode
 import org.greenrobot.greendao.database.Database
 import org.greenrobot.greendao.database.StandardDatabase
 import org.greenrobot.greendao.internal.DaoConfig
@@ -642,5 +643,144 @@ class UpgradeDatabaseTest {
 		Upgrade11To12(sharedPreferencesHandler).applyTo(db, 11)
 
 		Assert.assertThat(sharedPreferencesHandler.updateIntervalInDays(), CoreMatchers.`is`(Optional.absent()))
+	}
+
+	@Test
+	fun upgrade12To13() {
+		Upgrade0To1().applyTo(db, 0)
+		Upgrade1To2().applyTo(db, 1)
+		Upgrade2To3(context).applyTo(db, 2)
+		Upgrade3To4().applyTo(db, 3)
+		Upgrade4To5().applyTo(db, 4)
+		Upgrade5To6().applyTo(db, 5)
+		Upgrade6To7().applyTo(db, 6)
+		Upgrade7To8().applyTo(db, 7)
+		Upgrade8To9(sharedPreferencesHandler).applyTo(db, 8)
+		Upgrade9To10(sharedPreferencesHandler).applyTo(db, 9)
+		Upgrade10To11().applyTo(db, 10)
+		Upgrade11To12(sharedPreferencesHandler).applyTo(db, 11)
+
+		val gcmCryptor = CredentialCryptor.getInstance(context, CryptoMode.GCM)
+		val cbcCryptor = CredentialCryptor.getInstance(context, CryptoMode.CBC)
+
+		val accessTokenPlain = "accessToken"
+		val accessTokenCiphertext = cbcCryptor.encrypt(accessTokenPlain)
+		val s3SecretPlain = "s3SecretKey"
+		val s3SecretCiphertext = cbcCryptor.encrypt(s3SecretPlain)
+		val vaultPasswordPlain = "password"
+
+		Sql.insertInto("VAULT_ENTITY") //
+			.integer("_id", 25) //
+			.integer("FOLDER_CLOUD_ID", 15) //
+			.text("FOLDER_PATH", "path") //
+			.text("FOLDER_NAME", "name") //
+			.text("CLOUD_TYPE", CloudType.DROPBOX.name) //
+			.text("PASSWORD", "password") //
+			.integer("POSITION", 10) //
+			.integer("FORMAT", 8) //
+			.integer("SHORTENING_THRESHOLD", 4)
+			.executeOn(db)
+
+		Sql.insertInto("CLOUD_ENTITY") //
+			.integer("_id", 15) //
+			.text("TYPE", CloudType.DROPBOX.name) //
+			.text("URL", "url") //
+			.text("USERNAME", "username") //
+			.text("WEBDAV_CERTIFICATE", "certificate") //
+			.text("ACCESS_TOKEN", accessTokenCiphertext)
+			.text("S3_BUCKET", "s3Bucket") //
+			.text("S3_REGION", "s3Region") //
+			.text("S3_SECRET_KEY", s3SecretCiphertext) //
+			.executeOn(db)
+
+		Sql.insertInto("VAULT_ENTITY") //
+			.integer("_id", 3025) //
+			.integer("FOLDER_CLOUD_ID", 3015) //
+			.text("FOLDER_PATH", "path") //
+			.text("FOLDER_NAME", "name") //
+			.text("CLOUD_TYPE", CloudType.DROPBOX.name) //
+			.text("PASSWORD", null) //
+			.integer("POSITION", 10) //
+			.integer("FORMAT", 8) //
+			.integer("SHORTENING_THRESHOLD", 4)
+			.executeOn(db)
+
+		Sql.insertInto("CLOUD_ENTITY") //
+			.integer("_id", 3015) //
+			.text("TYPE", CloudType.DROPBOX.name) //
+			.text("URL", "url") //
+			.text("USERNAME", "username") //
+			.text("WEBDAV_CERTIFICATE", "certificate") //
+			.text("ACCESS_TOKEN", null)
+			.text("S3_BUCKET", "s3Bucket") //
+			.text("S3_REGION", "s3Region") //
+			.text("S3_SECRET_KEY", null) //
+			.executeOn(db)
+
+		Sql.insertInto("CLOUD_ENTITY") //
+			.integer("_id", 30015) //
+			.text("TYPE", CloudType.LOCAL.name) //
+			.text("URL", "url") //
+			.text("USERNAME", "username") //
+			.text("WEBDAV_CERTIFICATE", "certificate") //
+			.text("ACCESS_TOKEN", "testUrl3000")
+			.text("S3_BUCKET", "s3Bucket") //
+			.text("S3_REGION", "s3Region") //
+			.text("S3_SECRET_KEY", null) //
+			.executeOn(db)
+
+		Upgrade12To13(context).applyTo(db, 12)
+
+		Sql.query("VAULT_ENTITY").where("_id", Sql.eq(25)).executeOn(db).use {
+			it.moveToFirst()
+			Assert.assertThat(it.getString(it.getColumnIndex("PASSWORD")), CoreMatchers.`is`(vaultPasswordPlain))
+			Assert.assertThat(it.getString(it.getColumnIndex("PASSWORD_CRYPTO_MODE")), CoreMatchers.`is`(CryptoMode.CBC.name))
+
+			Assert.assertThat(it.getString(it.getColumnIndex("FOLDER_PATH")), CoreMatchers.`is`("path"))
+			Assert.assertThat(it.getString(it.getColumnIndex("FOLDER_NAME")), CoreMatchers.`is`("name"))
+			Assert.assertThat(it.getString(it.getColumnIndex("CLOUD_TYPE")), CoreMatchers.`is`(CloudType.DROPBOX.name))
+			Assert.assertThat(it.getInt(it.getColumnIndex("POSITION")), CoreMatchers.`is`(10))
+			Assert.assertThat(it.getInt(it.getColumnIndex("FORMAT")), CoreMatchers.`is`(8))
+			Assert.assertThat(it.getInt(it.getColumnIndex("SHORTENING_THRESHOLD")), CoreMatchers.`is`(4))
+		}
+
+		Sql.query("CLOUD_ENTITY").where("_id", Sql.eq(15)).executeOn(db).use {
+			it.moveToFirst()
+			Assert.assertThat(gcmCryptor.decrypt(it.getString(it.getColumnIndex("ACCESS_TOKEN"))), CoreMatchers.`is`(accessTokenPlain))
+			Assert.assertThat(it.getString(it.getColumnIndex("ACCESS_TOKEN_CRYPTO_MODE")), CoreMatchers.`is`(CryptoMode.GCM.name))
+			Assert.assertThat(gcmCryptor.decrypt(it.getString(it.getColumnIndex("S3_SECRET_KEY"))), CoreMatchers.`is`(s3SecretPlain))
+			Assert.assertThat(it.getString(it.getColumnIndex("S3_SECRET_KEY_CRYPTO_MODE")), CoreMatchers.`is`(CryptoMode.GCM.name))
+
+			Assert.assertThat(it.getString(it.getColumnIndex("TYPE")), CoreMatchers.`is`(CloudType.DROPBOX.name))
+			Assert.assertThat(it.getString(it.getColumnIndex("URL")), CoreMatchers.`is`("url"))
+			Assert.assertThat(it.getString(it.getColumnIndex("USERNAME")), CoreMatchers.`is`("username"))
+			Assert.assertThat(it.getString(it.getColumnIndex("WEBDAV_CERTIFICATE")), CoreMatchers.`is`("certificate"))
+			Assert.assertThat(it.getString(it.getColumnIndex("S3_BUCKET")), CoreMatchers.`is`("s3Bucket"))
+			Assert.assertThat(it.getString(it.getColumnIndex("S3_REGION")), CoreMatchers.`is`("s3Region"))
+		}
+
+		Sql.query("VAULT_ENTITY").where("_id", Sql.eq(3025)).executeOn(db).use {
+			it.moveToFirst()
+			Assert.assertNull(it.getString(it.getColumnIndex("PASSWORD")))
+			Assert.assertNull(it.getString(it.getColumnIndex("PASSWORD_CRYPTO_MODE")))
+		}
+
+		Sql.query("CLOUD_ENTITY").where("_id", Sql.eq(3015)).executeOn(db).use {
+			it.moveToFirst()
+			Assert.assertNull(it.getString(it.getColumnIndex("ACCESS_TOKEN")))
+			Assert.assertNull(it.getString(it.getColumnIndex("ACCESS_TOKEN_CRYPTO_MODE")))
+			Assert.assertNull(it.getString(it.getColumnIndex("S3_SECRET_KEY")))
+			Assert.assertNull(it.getString(it.getColumnIndex("S3_SECRET_KEY_CRYPTO_MODE")))
+		}
+
+		Sql.query("CLOUD_ENTITY").where("_id", Sql.eq(30015)).executeOn(db).use {
+			it.moveToFirst()
+			Assert.assertThat(it.getString(it.getColumnIndex("URL")), CoreMatchers.`is`("testUrl3000"))
+			Assert.assertNull(it.getString(it.getColumnIndex("ACCESS_TOKEN")))
+
+			Assert.assertNull(it.getString(it.getColumnIndex("ACCESS_TOKEN_CRYPTO_MODE")))
+			Assert.assertNull(it.getString(it.getColumnIndex("S3_SECRET_KEY")))
+			Assert.assertNull(it.getString(it.getColumnIndex("S3_SECRET_KEY_CRYPTO_MODE")))
+		}
 	}
 }

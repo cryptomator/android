@@ -16,6 +16,8 @@ public class CloudEntity extends DatabaseEntity {
 
 	private String accessToken;
 
+	private String accessTokenCryptoMode;
+
 	private String url;
 
 	private String username;
@@ -28,17 +30,22 @@ public class CloudEntity extends DatabaseEntity {
 
 	private String s3SecretKey;
 
-	@Generated(hash = 1685351705)
-	public CloudEntity(Long id, @NotNull String type, String accessToken, String url, String username, String webdavCertificate, String s3Bucket, String s3Region, String s3SecretKey) {
+	private String s3SecretKeyCryptoMode;
+
+	@Generated(hash = 930663276)
+	public CloudEntity(Long id, @NotNull String type, String accessToken, String accessTokenCryptoMode, String url, String username, String webdavCertificate, String s3Bucket,
+			String s3Region, String s3SecretKey, String s3SecretKeyCryptoMode) {
 		this.id = id;
 		this.type = type;
 		this.accessToken = accessToken;
+		this.accessTokenCryptoMode = accessTokenCryptoMode;
 		this.url = url;
 		this.username = username;
 		this.webdavCertificate = webdavCertificate;
 		this.s3Bucket = s3Bucket;
 		this.s3Region = s3Region;
 		this.s3SecretKey = s3SecretKey;
+		this.s3SecretKeyCryptoMode = s3SecretKeyCryptoMode;
 	}
 
 	@Generated(hash = 1354152224)
@@ -115,5 +122,21 @@ public class CloudEntity extends DatabaseEntity {
 
 	public void setS3SecretKey(String s3SecretKey) {
 		this.s3SecretKey = s3SecretKey;
+	}
+
+	public String getAccessTokenCryptoMode() {
+		return this.accessTokenCryptoMode;
+	}
+
+	public void setAccessTokenCryptoMode(String accessTokenCryptoMode) {
+		this.accessTokenCryptoMode = accessTokenCryptoMode;
+	}
+
+	public String getS3SecretKeyCryptoMode() {
+		return this.s3SecretKeyCryptoMode;
+	}
+
+	public void setS3SecretKeyCryptoMode(String s3SecretKeyCryptoMode) {
+		this.s3SecretKeyCryptoMode = s3SecretKeyCryptoMode;
 	}
 }
