@@ -349,6 +349,9 @@
 	<string name="dialog_no_more_images_to_display">No hay más imágenes para mostrar&#8230;</string>
 	<string name="dialog_pcloud_credentials_updated_title">Credenciales de \'%1$s\' actualizadas</string>
 	<string name="dialog_pcloud_credentials_updated">Si desea añadir una cuenta pCloud nueva, pulse en esta url <a href="https://www.pcloud.com">www.pcloud.com</a>, cierre la sesión de la cuenta actual y pulse de nuevo en \'+\' de esta aplicación para crear una conexión nueva en la nube.</string>
+	<string name="dialog_cbc_password_vaults_migration_title">Migración de contraseña de bóveda requerida</string>
+	<string name="dialog_cbc_password_vaults_migration_hint">Debido a las mejoras de seguridad, se le pedirá la autenticación biométrica dos veces por cada bóveda para volver a cifrar sus contraseñas de bóveda. Esto es necesario para continuar protegiendo sus contraseñas de bóveda con la última tecnología. Si no desea que esto suceda, se eliminarán las contraseñas almacenadas.</string>
+	<string name="dialog_cbc_password_vaults_migration_action">Migrar</string>
 	<string name="permission_snackbar_auth_local_vault">Cryptomator necesita acceso de almacenamiento para usar bóvedas locales</string>
 	<string name="permission_snackbar_auth_auto_upload">Cryptomator necesita acceso de almacenamiento para cargar fotos automáticamente</string>
 	<string name="permission_snackbar_notifications">Cryptomator necesita permisos de notificación para mostrar el estado de la bóveda por ejemplo</string>
