@@ -1,7 +1,6 @@
 package org.cryptomator.data.db
 
 import android.content.Context
-import org.cryptomator.util.SharedPreferencesHandler
 import org.cryptomator.util.crypto.CredentialCryptor
 import org.cryptomator.util.crypto.CryptoMode
 import org.greenrobot.greendao.database.Database
@@ -15,12 +14,25 @@ internal class Upgrade12To13 @Inject constructor(private val context: Context) :
 	override fun internalApplyTo(db: Database, origin: Int) {
 		db.beginTransaction()
 		try {
+			moveLocalStorageUrlToUrlProperty(db)
 			addCryptoModeToDbEntities(db)
 			applyVaultPasswordCryptoModeToDb(db)
 			upgradeCloudCryptoModeToGCM(db)
 			db.setTransactionSuccessful()
 		} finally {
 			db.endTransaction()
+		}
+	}
+
+	private fun moveLocalStorageUrlToUrlProperty(db: Database) {
+		Sql.query("CLOUD_ENTITY").where("TYPE", Sql.eq("LOCAL")).executeOn(db).use {
+			while (it.moveToNext()) {
+				Sql.update("CLOUD_ENTITY") //
+					.where("_id", Sql.eq(it.getLong(it.getColumnIndex("_id")))) //
+					.set("URL", Sql.toString(it.getString(it.getColumnIndex("ACCESS_TOKEN")))) //
+					.set("ACCESS_TOKEN", Sql.toNull()) //
+					.executeOn(db)
+			}
 		}
 	}
 

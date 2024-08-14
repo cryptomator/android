@@ -674,7 +674,7 @@ class UpgradeDatabaseTest {
 			.integer("FOLDER_CLOUD_ID", 15) //
 			.text("FOLDER_PATH", "path") //
 			.text("FOLDER_NAME", "name") //
-			.text("CLOUD_TYPE", CloudType.LOCAL.name) //
+			.text("CLOUD_TYPE", CloudType.DROPBOX.name) //
 			.text("PASSWORD", "password") //
 			.integer("POSITION", 10) //
 			.integer("FORMAT", 8) //
@@ -683,7 +683,7 @@ class UpgradeDatabaseTest {
 
 		Sql.insertInto("CLOUD_ENTITY") //
 			.integer("_id", 15) //
-			.text("TYPE", CloudType.LOCAL.name) //
+			.text("TYPE", CloudType.DROPBOX.name) //
 			.text("URL", "url") //
 			.text("USERNAME", "username") //
 			.text("WEBDAV_CERTIFICATE", "certificate") //
@@ -698,7 +698,7 @@ class UpgradeDatabaseTest {
 			.integer("FOLDER_CLOUD_ID", 3015) //
 			.text("FOLDER_PATH", "path") //
 			.text("FOLDER_NAME", "name") //
-			.text("CLOUD_TYPE", CloudType.LOCAL.name) //
+			.text("CLOUD_TYPE", CloudType.DROPBOX.name) //
 			.text("PASSWORD", null) //
 			.integer("POSITION", 10) //
 			.integer("FORMAT", 8) //
@@ -707,11 +707,23 @@ class UpgradeDatabaseTest {
 
 		Sql.insertInto("CLOUD_ENTITY") //
 			.integer("_id", 3015) //
-			.text("TYPE", CloudType.LOCAL.name) //
+			.text("TYPE", CloudType.DROPBOX.name) //
 			.text("URL", "url") //
 			.text("USERNAME", "username") //
 			.text("WEBDAV_CERTIFICATE", "certificate") //
 			.text("ACCESS_TOKEN", null)
+			.text("S3_BUCKET", "s3Bucket") //
+			.text("S3_REGION", "s3Region") //
+			.text("S3_SECRET_KEY", null) //
+			.executeOn(db)
+
+		Sql.insertInto("CLOUD_ENTITY") //
+			.integer("_id", 30015) //
+			.text("TYPE", CloudType.LOCAL.name) //
+			.text("URL", "url") //
+			.text("USERNAME", "username") //
+			.text("WEBDAV_CERTIFICATE", "certificate") //
+			.text("ACCESS_TOKEN", "testUrl3000")
 			.text("S3_BUCKET", "s3Bucket") //
 			.text("S3_REGION", "s3Region") //
 			.text("S3_SECRET_KEY", null) //
@@ -726,7 +738,7 @@ class UpgradeDatabaseTest {
 
 			Assert.assertThat(it.getString(it.getColumnIndex("FOLDER_PATH")), CoreMatchers.`is`("path"))
 			Assert.assertThat(it.getString(it.getColumnIndex("FOLDER_NAME")), CoreMatchers.`is`("name"))
-			Assert.assertThat(it.getString(it.getColumnIndex("CLOUD_TYPE")), CoreMatchers.`is`(CloudType.LOCAL.name))
+			Assert.assertThat(it.getString(it.getColumnIndex("CLOUD_TYPE")), CoreMatchers.`is`(CloudType.DROPBOX.name))
 			Assert.assertThat(it.getInt(it.getColumnIndex("POSITION")), CoreMatchers.`is`(10))
 			Assert.assertThat(it.getInt(it.getColumnIndex("FORMAT")), CoreMatchers.`is`(8))
 			Assert.assertThat(it.getInt(it.getColumnIndex("SHORTENING_THRESHOLD")), CoreMatchers.`is`(4))
@@ -739,7 +751,7 @@ class UpgradeDatabaseTest {
 			Assert.assertThat(gcmCryptor.decrypt(it.getString(it.getColumnIndex("S3_SECRET_KEY"))), CoreMatchers.`is`(s3SecretPlain))
 			Assert.assertThat(it.getString(it.getColumnIndex("S3_SECRET_KEY_CRYPTO_MODE")), CoreMatchers.`is`(CryptoMode.GCM.name))
 
-			Assert.assertThat(it.getString(it.getColumnIndex("TYPE")), CoreMatchers.`is`(CloudType.LOCAL.name))
+			Assert.assertThat(it.getString(it.getColumnIndex("TYPE")), CoreMatchers.`is`(CloudType.DROPBOX.name))
 			Assert.assertThat(it.getString(it.getColumnIndex("URL")), CoreMatchers.`is`("url"))
 			Assert.assertThat(it.getString(it.getColumnIndex("USERNAME")), CoreMatchers.`is`("username"))
 			Assert.assertThat(it.getString(it.getColumnIndex("WEBDAV_CERTIFICATE")), CoreMatchers.`is`("certificate"))
@@ -756,6 +768,16 @@ class UpgradeDatabaseTest {
 		Sql.query("CLOUD_ENTITY").where("_id", Sql.eq(3015)).executeOn(db).use {
 			it.moveToFirst()
 			Assert.assertNull(it.getString(it.getColumnIndex("ACCESS_TOKEN")))
+			Assert.assertNull(it.getString(it.getColumnIndex("ACCESS_TOKEN_CRYPTO_MODE")))
+			Assert.assertNull(it.getString(it.getColumnIndex("S3_SECRET_KEY")))
+			Assert.assertNull(it.getString(it.getColumnIndex("S3_SECRET_KEY_CRYPTO_MODE")))
+		}
+
+		Sql.query("CLOUD_ENTITY").where("_id", Sql.eq(30015)).executeOn(db).use {
+			it.moveToFirst()
+			Assert.assertThat(it.getString(it.getColumnIndex("URL")), CoreMatchers.`is`("testUrl3000"))
+			Assert.assertNull(it.getString(it.getColumnIndex("ACCESS_TOKEN")))
+
 			Assert.assertNull(it.getString(it.getColumnIndex("ACCESS_TOKEN_CRYPTO_MODE")))
 			Assert.assertNull(it.getString(it.getColumnIndex("S3_SECRET_KEY")))
 			Assert.assertNull(it.getString(it.getColumnIndex("S3_SECRET_KEY_CRYPTO_MODE")))
