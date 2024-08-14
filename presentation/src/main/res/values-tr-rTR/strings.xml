@@ -362,12 +362,12 @@
 	<string name="file_size_unit_giga_bytes">GB</string>
 	<string name="file_size_unit_tera_bytes">TB</string>
 	<!-- ## date helper -->
-	<string name="time_unit_seconds_sg">sn</string>
-	<string name="time_unit_seconds_pl">sn</string>
-	<string name="time_unit_minutes_sg">dk</string>
-	<string name="time_unit_minutes_pl">dk</string>
-	<string name="time_unit_hours_sg">sa</string>
-	<string name="time_unit_hours_pl">sa</string>
+	<string name="time_unit_seconds_sg">saniye</string>
+	<string name="time_unit_seconds_pl">saniye</string>
+	<string name="time_unit_minutes_sg">dakika</string>
+	<string name="time_unit_minutes_pl">dakika</string>
+	<string name="time_unit_hours_sg">saat</string>
+	<string name="time_unit_hours_pl">saat</string>
 	<string name="time_unit_days_sg">gün</string>
 	<string name="time_unit_days_pl">gün</string>
 	<string name="time_unit_weeks_sg">hafta</string>
@@ -431,5 +431,5 @@
 	<string name="light">Aydınlık</string>
 	<string name="dark">Karanlık</string>
 	<!-- update interval names -->
-	<string name="update_interval_1d">Günde bir</string>
+	<string name="update_interval_1d">Günde bir kez</string>
 </resources>
