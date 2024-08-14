@@ -349,6 +349,7 @@
 	<string name="dialog_no_more_images_to_display">No hi ha més imatges per mostrar&#8230;</string>
 	<string name="dialog_pcloud_credentials_updated_title">Credencials de \'%1$s\' actualitzades</string>
 	<string name="dialog_pcloud_credentials_updated">Si teníeu la intenció d\'afegir un compte de pCloud nou, toqueu aquest URL <a href="https://www.pcloud.com">www.pcloud.com</a>, tanqueu la sessió del compte actual i torneu a tocar el \"+\" d\'aquesta aplicació per crear una nova connexió al núvol.</string>
+	<string name="dialog_cbc_password_vaults_migration_action">Migra</string>
 	<string name="permission_snackbar_auth_local_vault">Cryptomator necessita accés a l\'emmagatzematge per a fer servir caixes fortes locals</string>
 	<string name="permission_snackbar_auth_auto_upload">Cryptomator necessita accés a l\'emmagatzematge per a la pujada de fotos automàtica</string>
 	<string name="permission_snackbar_notifications">Cryptomator necessita permís de notificacions per poder informar del seu estat, per exemple</string>
