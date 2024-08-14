@@ -349,6 +349,9 @@
 	<string name="dialog_no_more_images_to_display">Plus d\'images à afficher&#8230;</string>
 	<string name="dialog_pcloud_credentials_updated_title">Les identifiants de \'%1$s\' ont été mis à jour</string>
 	<string name="dialog_pcloud_credentials_updated">Si vous avez l\'intention d\'ajouter un nouveau compte pCloud, cliquez sur cette url <a href="https://www.pcloud.com">www.pcloud.com</a>, déconnectez-vous du compte actuel et cliquez à nouveau sur le \'+\' dans cette application pour créer une nouvelle connexion pCloud.</string>
+	<string name="dialog_cbc_password_vaults_migration_title">Mot de passe de migration du coffre-fort requis</string>
+	<string name="dialog_cbc_password_vaults_migration_hint">En raison des améliorations apportées à la sécurité, votre authentification biométrique vous sera demandée deux fois pour chaque coffre-fort de re-chiffrer vos mots de passe. Cette opération est nécessaire pour continuer à protéger vos mots de passe à l\'aide des technologies les plus récentes. Si vous ne le souhaitez pas, les mots de passe stockés seront supprimés.</string>
+	<string name="dialog_cbc_password_vaults_migration_action">Migrer</string>
 	<string name="permission_snackbar_auth_local_vault">Cryptomator a besoin de l\'accès au stockage pour utiliser les coffres locaux</string>
 	<string name="permission_snackbar_auth_auto_upload">Cryptomator a besoin de l\'accès au stockage pour effectuer le téléversement automatique de photos</string>
 	<string name="permission_snackbar_notifications">Cryptomator requiert des permissions de notification pour afficher le statut du coffre, par exemple</string>
