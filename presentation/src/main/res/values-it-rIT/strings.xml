@@ -350,6 +350,7 @@
 	<string name="dialog_pcloud_credentials_updated_title">Credenziali di \'%1$s\' aggiornate</string>
 	<string name="dialog_pcloud_credentials_updated">Se hai intenzione di aggiungere un nuovo account pCloud, tocca questo url <a href="https://www.pcloud.com">www.pcloud. om</a>, esci dall\'account corrente e tocca di nuovo il \'+\' in questa app per creare una nuova connessione cloud.</string>
 	<string name="dialog_cbc_password_vaults_migration_title">Richiesta migrazione password della cassaforte</string>
+	<string name="dialog_cbc_password_vaults_migration_hint">A causa di miglioramenti di sicurezza, ti verrà chiesta l\'autenticazione biometrica due volte per ogni cassaforte per ri-crittografare la password della tua cassaforte. Questo è necessario per continuare a proteggere le password della tua cassaforte con la tecnologia più recente. Se non si desidera che ciò accada, le password memorizzate verranno rimosse.</string>
 	<string name="dialog_cbc_password_vaults_migration_action">Migra</string>
 	<string name="permission_snackbar_auth_local_vault">Cryptomator ha bisogno dell\'accesso all\'archivio per utilizzare le cassaforti locali</string>
 	<string name="permission_snackbar_auth_auto_upload">Cryptomator ha bisogno di accesso all\'archivio per utilizzare il caricamento automatico delle foto</string>
