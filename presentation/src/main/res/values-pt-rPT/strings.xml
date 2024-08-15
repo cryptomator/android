@@ -349,7 +349,7 @@
 	<string name="dialog_no_more_images_to_display">Sem mais imagens para exibir&#8230;</string>
 	<string name="dialog_pcloud_credentials_updated_title">Credenciais de \'%1$s\' atualizadas</string>
 	<string name="dialog_pcloud_credentials_updated">Se você pretendia adicionar uma nova conta pCloud, toque nesta ligação <a href="https://www.pcloud.com">www.pcloud. om</a>, saia da conta atual e toque novamente em \'+\' deste aplicativo para criar uma nova ligação com a nuvem.</string>
-	<string name="dialog_cbc_password_vaults_migration_title">Migração da palavra-passe do cofre necessária</string>
+	<string name="dialog_cbc_password_vaults_migration_title">É necessária a migração da palavra-passe do cofre</string>
 	<string name="dialog_cbc_password_vaults_migration_hint">Devido a alterações de segurança, vai ser pedida a autenticação biométrica duas vezes para cada cofre, para voltar a encriptar as palavras-passe dos cofres. Isso é necessário para continuar a proteção das palavras-passe do cofre com a última tecnologia. Se deseja que isso não aconteça, as palavras-passe armazenadas serão removidas.</string>
 	<string name="dialog_cbc_password_vaults_migration_action">Migrar</string>
 	<string name="permission_snackbar_auth_local_vault">Cryptomator precisa de acesso ao armazenamento para usar cofres locais</string>
