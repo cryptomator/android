@@ -349,6 +349,9 @@
 	<string name="dialog_no_more_images_to_display">Sem mais imagens para exibir&#8230;</string>
 	<string name="dialog_pcloud_credentials_updated_title">Credenciais de \'%1$s\' atualizadas</string>
 	<string name="dialog_pcloud_credentials_updated">Se você pretende adicionar uma nova conta pCloud, toque neste link <a href="https://www.pcloud.com">www.pcloud.com</a>, saia da conta atual e toque novamente no \'+\' neste aplicativo para criar uma nova conexão de nuvem.</string>
+	<string name="dialog_cbc_password_vaults_migration_title">Migração da senha do cofre necessária</string>
+	<string name="dialog_cbc_password_vaults_migration_hint">Devido a aprimoramentos de segurança, você será solicitado pela sua autenticação biométrica duas vezes para cada cofre para recriptografar as senhas do seu cofre. Isto é necessário para continuar a proteger as senhas do seu cofre com a tecnologia mais recente. Se você não deseja que isso aconteça, as senhas armazenadas serão removidas.</string>
+	<string name="dialog_cbc_password_vaults_migration_action">Migrar</string>
 	<string name="permission_snackbar_auth_local_vault">Cryptomator precisa de permissão de acesso ao armazenamento para fazer upload de arquivos</string>
 	<string name="permission_snackbar_auth_auto_upload">Cryptomator precisa de permissão de acesso ao armazenamento para fazer upload de arquivos</string>
 	<string name="permission_snackbar_notifications">O Cryptomator precisa de permissões para notificar o estado dos cofres, por exemplo.</string>
