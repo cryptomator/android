@@ -42,7 +42,6 @@ public class CloudEntityMapper extends EntityMapper<CloudEntity, Cloud> {
 			case GOOGLE_DRIVE:
 				return aGoogleDriveCloud() //
 						.withId(entity.getId()) //
-						.withAccessToken(entity.getAccessToken()) //
 						.withUsername(entity.getUsername()) //
 						.build();
 			case LOCAL:
@@ -96,7 +95,6 @@ public class CloudEntityMapper extends EntityMapper<CloudEntity, Cloud> {
 				result.setUsername(((DropboxCloud) domainObject).username());
 				break;
 			case GOOGLE_DRIVE:
-				result.setAccessToken(((GoogleDriveCloud) domainObject).accessToken());
 				result.setUsername(((GoogleDriveCloud) domainObject).username());
 				break;
 			case LOCAL:
