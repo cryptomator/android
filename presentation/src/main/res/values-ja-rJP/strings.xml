@@ -348,6 +348,9 @@
 	<string name="dialog_no_more_images_to_display">表示する画像がありません&#8230;</string>
 	<string name="dialog_pcloud_credentials_updated_title">\'%1$s\' の資格情報が更新されました</string>
 	<string name="dialog_pcloud_credentials_updated">新しいpCloudのアカウントを追加する場合は、このURL<a href="https://www.pcloud.com">www.pcloud.com</a>をタップし、現在のアカウントからログアウトして、このアプリの「+」をもう一度タップして、新しいクラウド接続を作成してください。</string>
+	<string name="dialog_cbc_password_vaults_migration_title">金庫のパスワード移行が必要です</string>
+	<string name="dialog_cbc_password_vaults_migration_hint">セキュリティ強化のため、金庫ごとに生体認証を２回ずつ要求されます。これは最新技術で金庫のパスワードを保護し続けるために必要です。これを行いたくない場合は保存されたパスワードが削除されます。</string>
+	<string name="dialog_cbc_password_vaults_migration_action">移行</string>
 	<string name="permission_snackbar_auth_local_vault">ローカルの金庫を使用するには、Cryptomator がストレージにアクセスする許可が必要です</string>
 	<string name="permission_snackbar_auth_auto_upload">自動的に画像をアップロードするには、Cryptomator がストレージにアクセスする許可が必要です</string>
 	<string name="permission_snackbar_notifications">金庫の状態などを表示するには、Cryptomator に通知権限が必要です。</string>
