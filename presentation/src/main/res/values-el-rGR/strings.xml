@@ -349,6 +349,9 @@
 	<string name="dialog_no_more_images_to_display">Δεν υπάρχουν άλλες εικόνες για εμφάνιση&#8230;</string>
 	<string name="dialog_pcloud_credentials_updated_title">Τα διαπιστευτήρια του \'%1$s\' ενημερώθηκαν</string>
 	<string name="dialog_pcloud_credentials_updated">Αν σκοπεύατε να προσθέσετε ένα νέο λογαριασμό pCloud, πατήστε σε αυτό το url <a href="https://www.pcloud.com">www.pcloud. om</a>, αποσυνδεθείτε από τον τρέχοντα λογαριασμό και πατήστε ξανά στο \'+\' σε αυτήν την εφαρμογή για να δημιουργήσετε μια νέα σύνδεση στο cloud.</string>
+	<string name="dialog_cbc_password_vaults_migration_title">Απαιτείται κωδικός πρόσβασης μετεγκατάστασης κρύπτης</string>
+	<string name="dialog_cbc_password_vaults_migration_hint">Λόγω βελτιώσεων ασφαλείας, θα σας ζητηθεί η βιομετρική ταυτοποίησή σας δύο φορές για κάθε κρύπτη για να επανκρυπτογραφήσετε τους κωδικούς πρόσβασης της κρύπτης σας. Αυτό είναι απαραίτητο για να συνεχίσετε να προστατεύετε τους κωδικούς πρόσβασης της κρύπτης σας με την τελευταία τεχνολογία. Αν δεν επιθυμείτε να συμβεί αυτό, οι αποθηκευμένοι κωδικοί πρόσβασης θα αφαιρεθούν.</string>
+	<string name="dialog_cbc_password_vaults_migration_action">Μετεγκατάσταση</string>
 	<string name="permission_snackbar_auth_local_vault">Το Cryptomator χρειάζεται πρόσβαση στον αποθηκευτικό χώρο για τη χρήση τοπικών κρυπτών</string>
 	<string name="permission_snackbar_auth_auto_upload">Το Cryptomator χρειάζεται πρόσβαση στον αποθηκευτικό χώρο για να χρησιμοποιηθεί η αυτόματη μεταφόρτωση φωτογραφιών</string>
 	<string name="permission_snackbar_notifications">Το Cryptomator χρειάζεται δικαιώματα ειδοποίησης για να εμφανίσει για παράδειγμα την κατάσταση κρύπτης</string>
