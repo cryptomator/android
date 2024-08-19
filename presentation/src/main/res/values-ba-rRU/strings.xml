@@ -306,17 +306,14 @@
 	<string name="dialog_debug_mode_disclaimer_title">Иғтибар</string>
 	<string name="dialog_debug_mode_positive_button">Ғәмәлгә индер</string>
 	<string name="dialog_microsoft_workaround_disclaimer_hint">Microsoft ҡушымталарындағы хата арҡаһында, төҙәтеләсәк файл йыһазығыҙҙағы дөйөм медиа папкала был ҡушымталар араһында уртаҡлашылырға тейеш. Cryptomator кире асылғандан һуң, уртаҡ файл яңынан юйыла, әммә Cryptomator был файл менән ни булыуына йоғонто яһай алмай. Был параметрҙы активлаштырғанда был хәл тураһында белеүегеҙҙе тикшерегеҙ. Был Microsoft файл төрҙәренә генә ҡағыла.\n\nАктивлаштырғандан һуң Cryptomator яңынан асыла.</string>
-	<string name="dialog_disable_app_obscured_disclaimer_hint">Был көйләү хәүефһеҙлек үҙенсәлеге булып тора һәм ҡулланыусыларҙы башҡа ҡушымталарҙан алдап, улар теләмәгән эштәрҙе эшләтеүҙән һаҡлай.\n\nҺүндергән ваҡытта <a href="https://docs.cryptomator.org/en/1.6/android/settings/#block-app-when-obscured">хәүеф-янауҙар тураһында</a> белеүегеҙҙе раҫлайһығыҙ.</string>
 	<string name="dialog_disable_app_obscured_disclaimer_title">Иғтибар</string>
 	<string name="dialog_disable_app_obscured_positive_button">Һүндер</string>
 	<string name="dialog_app_is_obscured_info_title">Ҡушымта йәшерелгән</string>
-	<string name="dialog_app_is_obscured_info_hint">Икенсе ҡушымта Cryptomator өҫтөндә нимәлер күрһәтә (мәҫәлән, зәңгәр яҡтылыҡ фильтры йәки төнгө режим ҡушымтаһы). Хәүефһеҙлек сәбәптәре буйынса Cryptomator һүндерелгән.\n\n<a href="https://docs.cryptomator.org/en/1.6/android/settings/#block-app-when-obscured"> Cryptomator нисек асыла</a></string>
 	<string name="dialog_app_is_obscured_info_neutral_button">Яп</string>
 	<string name="dialog_vaults_removed_during_migration_title">%1s болото өсөн һаҡлағыстарҙы яңынан өҫтәү</string>
 	<string name="dialog_vaults_removed_during_migration_hint">Был ҡушымта версияһына күскәндә ҡушымтанан түбәндәге һаҡлағыстарҙы алып ташларға кәрәк:\n%2s \n\nБыл һаҡлағыстар болоттан түгел, ә тик ошо ҡушымтанан ғына алына. Уңайһыҙлыҡтар өсөн ғәфү итегеҙ һәм улар менән эшләүҙе дауам итер өсөн һаҡлағыстарҙы яңынан өҫтәгеҙ.</string>
 	<string name="dialog_vault_is_root_folder_of_cloud_title">Һаҡлағыс болот бәйләнешенең тамыр папкаһы</string>
 	<string name="dialog_vault_is_root_folder_of_cloud_hint">Яңы болот бәйләнеше булдырығыҙ, унда һаҡлағысҡа тамыр папка итеп өҫтәр өсөн был папканың кәмендә өҫ папкаһын һайлағыҙ.</string>
-	<string name="dialog_disable_secure_screen_disclaimer_hint">Был көйләү хәүефһеҙлек үҙенсәлеге булып тора һәм ҡулланыусыларҙы башҡа ҡушымталарҙан алдап, улар теләмәгән эштәрҙе эшләтеүҙән һаҡлай.\n\nҺүндергән ваҡытта <a href="https://docs.cryptomator.org/en/1.6/android/settings/#screen-security">хәүеф-янауҙар тураһында</a> белеүегеҙҙе раҫлайһығыҙ.</string>
 	<string name="dialog_delete_cloud_connection_with_vaults_message">Был болот бәйләнешен ысындан алып ташларға теләйһегеҙме?</string>
 	<string name="dialog_delete_cloud_connection_with_vaults_hint">Был ғәмәл болот бәйләнешен һәм был болоттың бөтә һаҡлағыстарын алып ташлай.</string>
 	<string name="dialog_confirm_delete_multiple_title">%1$d элементты юйырғамы?</string>
