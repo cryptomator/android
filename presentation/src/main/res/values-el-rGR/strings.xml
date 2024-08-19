@@ -307,17 +307,14 @@
 	<string name="dialog_debug_mode_disclaimer_title">Προσοχή</string>
 	<string name="dialog_debug_mode_positive_button">Ενεργοποίηση</string>
 	<string name="dialog_microsoft_workaround_disclaimer_hint">Λόγω σφάλματος στις εφαρμογές της Microsoft, το αρχείο που θα επεξεργαστεί πρέπει να μοιραστεί με αυτές τις εφαρμογές σε ένα δημόσιο φάκελο μέσων στη συσκευή σας. Μετά την επανέναρξη του Cryptomator, το δημόσιο προσβάσιμο αρχείο διαγράφεται και πάλι, αλλά το Cryptomator δεν μπορεί να επηρεάσει τι συνέβη σε αυτό το αρχείο εν τω μεταξύ. Βεβαιωθείτε ότι έχετε επίγνωση αυτής της συμπεριφοράς κατά την ενεργοποίηση αυτής της επιλογής. Αυτό θα ισχύει μόνο για τύπους αρχείων Microsoft.\n\nΤο Cryptomator θα κάνει επανεκκίνηση μετά την ενεργοποίηση.</string>
-	<string name="dialog_disable_app_obscured_disclaimer_hint">Αυτή η ρύθμιση είναι μια λειτουργία ασφαλείας και αποτρέπει άλλες εφαρμογές από το να ξεγελάσουν τους χρήστες να κάνουν πράγματα που δεν θέλουν να κάνουν.\n\nΜε την απενεργοποίηση, επιβεβαιώνετε ότι γνωρίζετε <a href="https://docs.cryptomator.org/en/1.6/android/settings/#block-app-when-obscured">τους κινδύνους</a>.</string>
 	<string name="dialog_disable_app_obscured_disclaimer_title">Προσοχή</string>
 	<string name="dialog_disable_app_obscured_positive_button">Απενεργοποίηση</string>
 	<string name="dialog_app_is_obscured_info_title">Η εφαρμογή αποκρύπτεται</string>
-	<string name="dialog_app_is_obscured_info_hint">Μια άλλη εφαρμογή εμφανίζει κάτι πάνω από το Cryptomator (π.χ. ένα φίλτρο μπλε φωτός ή μια εφαρμογή νυχτερινής λειτουργίας). Για λόγους ασφαλείας, το Cryptomator είναι απενεργοποιημένο.\n\n<a href="https://docs.cryptomator.org/en/1.6/android/settings/#block-app-when-obscured">Πώς να ενεργοποιήσετε το Cryptomator</a></string>
 	<string name="dialog_app_is_obscured_info_neutral_button">Κλείσιμο</string>
 	<string name="dialog_vaults_removed_during_migration_title">Παρακαλώ προσθέστε ξανά κρύπτες για %1s cloud</string>
 	<string name="dialog_vaults_removed_during_migration_hint">Κατά τη μετάβαση σε αυτήν την έκδοση της εφαρμογής, πρέπει να αφαιρέσουμε τις ακόλουθες κρύπτες από την εφαρμογή:\n%2s\n\nΑυτές οι κρύπτες δεν έχουν αφαιρεθεί από το cloud αλλά μόνο από αυτήν την εφαρμογή. Λυπούμαστε για την ταλαιπωρία και παρακαλούμε προσθέστε ξανά αυτές τις κρύπτες για να συνεχίσετε να εργάζεστε μαζί τους.</string>
 	<string name="dialog_vault_is_root_folder_of_cloud_title">Η κρύπτη είναι ριζικός φάκελος της σύνδεσης cloud</string>
 	<string name="dialog_vault_is_root_folder_of_cloud_hint">Δημιουργήστε μια νέα σύνδεση στο cloud όπου επιλέγετε τουλάχιστον τον γονικό φάκελο αυτού του φακέλου κρύπτης ως ριζικό κατάλογο για να προσθέσετε αυτή την κρύπτη.</string>
-	<string name="dialog_disable_secure_screen_disclaimer_hint">Αυτή η ρύθμιση είναι μια λειτουργία ασφαλείας και αποτρέπει άλλες εφαρμογές από το να ξεγελάσουν τους χρήστες να κάνουν πράγματα που δεν θέλουν να κάνουν.\n\nΜε την απενεργοποίηση, επιβεβαιώνετε ότι γνωρίζετε <a href="https://docs.cryptomator.org/en/1.6/android/settings/#screen-security">τους κινδύνους</a>.</string>
 	<string name="dialog_delete_cloud_connection_with_vaults_message">Είστε βέβαιοι ότι θέλετε να καταργήσετε αυτή τη σύνδεση cloud;</string>
 	<string name="dialog_delete_cloud_connection_with_vaults_hint">Αυτή η ενέργεια θα αφαιρέσει τη σύνδεση στο cloud και όλες οι κρύπτες αυτού του cloud.</string>
 	<string name="dialog_confirm_delete_multiple_title">Διαγραφή %1$d στοιχείων;</string>
