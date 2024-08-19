@@ -309,6 +309,7 @@
 	<string name="dialog_debug_mode_disclaimer_title">Uwaga</string>
 	<string name="dialog_debug_mode_positive_button">Włącz</string>
 	<string name="dialog_microsoft_workaround_disclaimer_hint">Z powodu błędu w aplikacjach firmy Microsoft, plik do edycji musi być udostępniony tym aplikacjom w folderze mediów publicznych na Twoim urządzeniu. Po wznowieniu działania Cryptomator ponownie usuwa publicznie dostępny plik, ale Cryptomator nie może wpływać na to, co w międzyczasie stało się z tym plikiem. Upewnij się, że jesteś świadomy tego zachowania podczas aktywowania tej opcji. To będzie dotyczyć tylko typów plików firmy Microsoft.\n\nCryptomator uruchomi się ponownie po aktywacji.</string>
+	<string name="dialog_disable_app_obscured_disclaimer_hint">To zabezpieczenie uniemożliwia innym aplikacjom nakłonienie użytkowników do wykonania niezamierzonych działań.\n\nWyłączając je potwierdzasz, że jesteś <a href="https://docs.cryptomator.org/en/latest/android/settings/#block-app-when-obscured">świadomy ryzyka</a>.</string>
 	<string name="dialog_disable_app_obscured_disclaimer_title">Uwaga</string>
 	<string name="dialog_disable_app_obscured_positive_button">Wyłącz</string>
 	<string name="dialog_app_is_obscured_info_title">Aplikacja jest zasłonięta inną</string>
