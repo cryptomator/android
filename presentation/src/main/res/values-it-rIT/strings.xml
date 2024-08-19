@@ -307,14 +307,17 @@
 	<string name="dialog_debug_mode_disclaimer_title">Attenzione</string>
 	<string name="dialog_debug_mode_positive_button">Abilita</string>
 	<string name="dialog_microsoft_workaround_disclaimer_hint">A causa di un bug nelle applicazioni Microsoft, il file da modificare deve essere condiviso con queste applicazioni in una cartella pubblica sul tuo dispositivo. Dopo aver riavviato Cryptomator, il file accessibile pubblicamente viene nuovamente eliminato, ma Cryptomator non può controllare cosa sia successo a questo file nel frattempo. Assicurati di essere a conoscenza di questo comportamento quando attivi questa opzione. Questo si applica solo ai formati di file Microsoft.\n\nCryptomator si riavvia dopo l\'attivazione.</string>
+	<string name="dialog_disable_app_obscured_disclaimer_hint">Questa impostazione è una funzione di sicurezza e impedisce ad altre applicazioni di ingannare gli utenti a fare cose che non vogliono fare.\n\nDisabilitando confermi di essere <a href="https://docs.cryptomator.org/en/latest/android/settings/#block-app-when-obscured">a conoscenza dei rischi</a>.</string>
 	<string name="dialog_disable_app_obscured_disclaimer_title">Attenzione</string>
 	<string name="dialog_disable_app_obscured_positive_button">Disabilita</string>
 	<string name="dialog_app_is_obscured_info_title">L\'app è oscurata</string>
+	<string name="dialog_app_is_obscured_info_hint">Un\'altra app sta mostrando qualcosa sopra a Cryptomator (es. un filtro di luce blu o la modalità notte di un\'app). Per motivi di sicurezza, Cryptomator è disabilitato.\n\n<a href="https://docs.cryptomator.org/en/latest/android/settings/#block-app-when-obscured">Come abilitare Cryptomator</a></string>
 	<string name="dialog_app_is_obscured_info_neutral_button">Chiudi</string>
 	<string name="dialog_vaults_removed_during_migration_title">Si prega di ri-aggiungere cassaforti per il cloud %1s</string>
 	<string name="dialog_vaults_removed_during_migration_hint">Durante la migrazione a questa versione dell\'app abbiamo avuto bisogno di rimuovere le seguenti cassaforti dall\'app:\n%2s \n\nQueste cassaforti non sono state rimosse dal cloud ma solo da questa app. Siamo spiacenti per l\'inconveniente e si prega di ri-aggiungere queste cassaforti per continuare ad usarle.</string>
 	<string name="dialog_vault_is_root_folder_of_cloud_title">La cassaforte è la cartella root della connessione al cloud</string>
 	<string name="dialog_vault_is_root_folder_of_cloud_hint">Crea una nuova connessione al cloud dove bisogna selezionare almeno la cartella padre di questa cassaforte come cartella radice per aggiungere questa cassaforte.</string>
+	<string name="dialog_disable_secure_screen_disclaimer_hint">Questa impostazione è una funzione di sicurezza e impedisce ad altre applicazioni di ingannare gli utenti a fare cose che non vogliono fare.\n\nDisabilitando confermi di essere <a href="https://docs.cryptomator.org/en/latest/android/settings/#screen-security">a conoscenza dei rischi</a>.</string>
 	<string name="dialog_delete_cloud_connection_with_vaults_message">Sei sicuro di voler rimuovere questa connessione cloud?</string>
 	<string name="dialog_delete_cloud_connection_with_vaults_hint">Questa azione rimuoverà la connessione cloud e tutte le cassaforti di questo cloud.</string>
 	<string name="dialog_confirm_delete_multiple_title">Eliminare %1$d elementi?</string>
