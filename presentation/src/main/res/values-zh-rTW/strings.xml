@@ -349,6 +349,7 @@
 	<string name="dialog_pcloud_credentials_updated_title">%1$s 的帳戶資訊已更新</string>
 	<string name="dialog_pcloud_credentials_updated">如果您想要新增一個 pCloud 帳戶，請在點擊此連結 <a href="https://www.pcloud.com">www.pcloud.com</a> 後登出目前的帳號，並重新點擊本程式中的「+」來建立一個新的雲端連結。</string>
 	<string name="dialog_cbc_password_vaults_migration_title">必要的檔案庫密碼遷移</string>
+	<string name="dialog_cbc_password_vaults_migration_hint">基於安全加強，每個檔案庫將會要求您進行兩次生物辨識驗證以重新加密您的檔案庫密碼。這是為了繼續使用最新技術來保護檔案庫密碼所需的必要動作。如果您不想這麼做，儲存的密碼將會被刪除。</string>
 	<string name="dialog_cbc_password_vaults_migration_action">遷移</string>
 	<string name="permission_snackbar_auth_local_vault">Cryptomator 需要存儲訪問權限用以使用本地加密檔案庫</string>
 	<string name="permission_snackbar_auth_auto_upload">Cryptomator 需要存儲權限以便開啟自動圖片上傳</string>
