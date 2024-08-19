@@ -307,17 +307,14 @@
 	<string name="dialog_debug_mode_disclaimer_title">Merk følgende</string>
 	<string name="dialog_debug_mode_positive_button">Aktiver</string>
 	<string name="dialog_microsoft_workaround_disclaimer_hint">På grunn av en feil i Microsoft apper, filen som skal redigeres, må deles med disse appene i en offentlig mediemappe på enheten din. Når Cryptomator er gjenopptatt, slettes den offentlig tilgjengelige filen igjen, men Cryptomator kan ikke påvirke hva som har skjedd i mellomtiden. Pass på at du er klar over denne adferden når du aktiverer dette alternativet. Dette gjelder bare for Microsoft-filtyper.\n\nCryptomator starter på nytt etter aktivering.</string>
-	<string name="dialog_disable_app_obscured_disclaimer_hint">Denne innstillingen er en sikkerhetsfunksjonalitet som hindrer andre app\'er fra å lure brukerne til å gjøre ting de ikke vil.\n\nVed å skru dette av, bekrefter du at du er <a href="https://docs.cryptomator.org/en/1.6/android/settings/#block-app-when-obscured">klar over risikoen</a>.</string>
 	<string name="dialog_disable_app_obscured_disclaimer_title">Merk følgende</string>
 	<string name="dialog_disable_app_obscured_positive_button">Deaktiver</string>
 	<string name="dialog_app_is_obscured_info_title">Appen er tilslørt</string>
-	<string name="dialog_app_is_obscured_info_hint">En annen app vier noe på toppen av Cryptomator (eks., et blått lysfilter eller en nattmodus-app). For sikkerhetsgrunner, er Kryptomator deaktivert.\n\n<a href="https://docs.cryptomator.org/en/1.6/android/settings/#block-app-when-obscured">Hvordan skru på Cryptomator</a></string>
 	<string name="dialog_app_is_obscured_info_neutral_button">Lukk</string>
 	<string name="dialog_vaults_removed_during_migration_title">Vennligst legg til hvelv på nytt for %1s sky</string>
 	<string name="dialog_vaults_removed_during_migration_hint">Mens vi migrerer til denne appversjonen må vi fjerne følgende hvelv fra appen:\n%2s \n\nDisse hvelvene er ikke fjernet fra skyen, men bare fra denne appen. Beklager ulempen. Legg disse hvelvene til på nytt for å fortsette å jobbe med dem.</string>
 	<string name="dialog_vault_is_root_folder_of_cloud_title">Hvelvet er rotmappen på skytilkoblingen</string>
 	<string name="dialog_vault_is_root_folder_of_cloud_hint">Opprett en ny sky-tilkobling der du velger minst den overordnede mappen av dette hvelvet sin mappe som rotkatalog for å legge til dette hvelvet.</string>
-	<string name="dialog_disable_secure_screen_disclaimer_hint">Denne innstillingen er en sikkerhetsfunksjonalitet som hindrer andre app\'er fra å lure brukerne til å gjøre ting de ikke vil.\n\nVed å skru dette av, bekrefter du at du er <a href="https://docs.cryptomator.org/en/1.6/android/settings/#screen-security">klar over risikoen</a>.</string>
 	<string name="dialog_delete_cloud_connection_with_vaults_message">Er du sikker på at du vil fjerne denne skylagringstilkoblingen?</string>
 	<string name="dialog_delete_cloud_connection_with_vaults_hint">Denne handlingen vil fjerne skylagringsforbindelsen og alle hvelv i denne skyen.</string>
 	<string name="dialog_confirm_delete_multiple_title">Slette %1$d elementer?</string>
