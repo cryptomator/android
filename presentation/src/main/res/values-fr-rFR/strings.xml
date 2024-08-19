@@ -307,17 +307,14 @@
 	<string name="dialog_debug_mode_disclaimer_title">Avertissement</string>
 	<string name="dialog_debug_mode_positive_button">Activer</string>
 	<string name="dialog_microsoft_workaround_disclaimer_hint">En raison d\'un bug dans les appli Microsoft, le fichier à modifier doit être partagé avec ces appli dans un dossier média public sur votre appareil. Après le rechargement de Cryptomator, le fichier accessible au public est à nouveau supprimé, mais Cryptomator ne peut pas contrôler ce qui est arrivé à ce fichier entre-temps. Assurez-vous d\'être au courant de ce comportement lors de l\'activation de cette option. Cela ne s\'appliquera qu\'aux types de fichiers Microsoft.\n\nCryptomator redémarrera après l\'activation.</string>
-	<string name="dialog_disable_app_obscured_disclaimer_hint">Ce paramètre est une fonction de sécurité qui empêche d\'autres applications de tromper les utilisateurs en leur faisant faire des choses qu\'ils ne veulent pas faire.\n\nEn le désactivant, vous confirmez que vous êtes <a href="https://docs.cryptomator.org/en/1.6/android/settings/#block-app-when-obscured">conscients des risques</a>.</string>
 	<string name="dialog_disable_app_obscured_disclaimer_title">Avertissement</string>
 	<string name="dialog_disable_app_obscured_positive_button">Désactiver</string>
 	<string name="dialog_app_is_obscured_info_title">\'application est masquée</string>
-	<string name="dialog_app_is_obscured_info_hint">Une autre application affiche quelque chose par-dessus Cryptomator (par exemple, un filtre de lumière bleue ou une application de mode nocturne). Pour des raisons de sécurité, Cryptomator est désactivé.\n\n<a href="https://docs.cryptomator.org/en/1.6/android/settings/#block-app-when-obscured">Comment activer Cryptomator</a></string>
 	<string name="dialog_app_is_obscured_info_neutral_button">Fermer</string>
 	<string name="dialog_vaults_removed_during_migration_title">Veuillez rajouter les coffres pour le cloud %1s</string>
 	<string name="dialog_vaults_removed_during_migration_hint">Lors de la migration vers cette version de l\'application, nous devons supprimer les coffres suivants de l\'application :\n%2s \n\nCes coffres ne sont pas retirés du cloud mais seulement de cette application. Désolé pour le désagrément et veuillez rajouter ces coffres pour continuer à les utiliser.</string>
 	<string name="dialog_vault_is_root_folder_of_cloud_title">Le coffre est le dossier racine de la connexion cloud</string>
 	<string name="dialog_vault_is_root_folder_of_cloud_hint">Créez une nouvelle connexion cloud où vous sélectionnerez au moins le dossier parent de ce dossier de coffre comme répertoire racine pour ajouter ce coffre.</string>
-	<string name="dialog_disable_secure_screen_disclaimer_hint">Ce paramètre est une fonction de sécurité qui empêche d\'autres applications de tromper les utilisateurs en leur faisant faire des choses qu\'ils ne veulent pas faire.\n\n En le désactivant, vous confirmez que vous êtes <a href="https://docs.cryptomator.org/en/1.6/android/settings/#screen-security">conscients des risques</a>.</string>
 	<string name="dialog_delete_cloud_connection_with_vaults_message">Êtes-vous sûr de vouloir supprimer cette connexion au cloud?</string>
 	<string name="dialog_delete_cloud_connection_with_vaults_hint">Cette action retirera l\'accès à ce cloud et à tous les coffre-fort de celui-ci.</string>
 	<string name="dialog_confirm_delete_multiple_title">Supprimé %1$d éléments?</string>
