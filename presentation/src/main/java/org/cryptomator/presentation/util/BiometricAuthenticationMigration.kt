@@ -28,25 +28,22 @@ class BiometricAuthenticationMigration(
 		fun onBiometricKeyInvalidated(vaults: List<VaultModel>)
 	}
 
-	private lateinit var promptInfo: BiometricPrompt.PromptInfo
+	private val promptInfo = BiometricPrompt.PromptInfo.Builder().apply {
+		setTitle(context.getString(R.string.dialog_biometric_migration_auth_title))
+		setSubtitle(context.getString(R.string.dialog_biometric_migration_auth_message))
+		setConfirmationRequired(useConfirmationInFaceUnlockAuth)
+		setNegativeButtonText(context.getString(R.string.dialog_biometric_migration_auth_use_password))
+	}.build()
 
 	fun migrateVaultsPassword(fragment: Fragment, vaultModels: List<VaultModel>) {
 		val decryptedVaults = mutableListOf<VaultModel>()
 		val reEncryptedVaults = mutableListOf<VaultModel>()
-		val vaultQueue = ArrayDeque(vaultModels)
-
-		promptInfo = BiometricPrompt.PromptInfo.Builder() //
-			.setTitle(context.getString(R.string.dialog_biometric_migration_auth_title)) //
-			.setSubtitle(context.getString(R.string.dialog_biometric_migration_auth_message)) //
-			.setConfirmationRequired(useConfirmationInFaceUnlockAuth) //
-			.setNegativeButtonText(context.getString(R.string.dialog_biometric_migration_auth_use_password)) //
-			.build()
-
+		val vaultQueue = vaultModels.toMutableList()
 		processNextVault(fragment, vaultQueue, decryptedVaults, reEncryptedVaults, vaultModels)
 	}
 
 	private fun processNextVault(
-		fragment: Fragment, vaultQueue: ArrayDeque<VaultModel>, decryptedVaults: MutableList<VaultModel>, reEncryptedVaults: MutableList<VaultModel>, allVaults: List<VaultModel>
+		fragment: Fragment, vaultQueue: MutableList<VaultModel>, decryptedVaults: MutableList<VaultModel>, reEncryptedVaults: MutableList<VaultModel>, allVaults: List<VaultModel>
 	) {
 		removeBiometricFragmentFromStack(fragment)
 		when {
@@ -63,7 +60,7 @@ class BiometricAuthenticationMigration(
 	}
 
 	private fun decryptUsingCbc(
-		fragment: Fragment, vaultModel: VaultModel, decryptedVaults: MutableList<VaultModel>, vaultQueue: ArrayDeque<VaultModel>, reEncryptedVaults: MutableList<VaultModel>, allVaults: List<VaultModel>
+		fragment: Fragment, vaultModel: VaultModel, decryptedVaults: MutableList<VaultModel>, vaultQueue: MutableList<VaultModel>, reEncryptedVaults: MutableList<VaultModel>, allVaults: List<VaultModel>
 	) {
 		Timber.tag("BiometricAuthMigration").d("Prompt for decryption")
 		handleBiometricAuthentication(fragment = fragment, cryptoMode = CryptoMode.CBC, password = vaultModel.password!!, allVaults = allVaults, onSuccess = { decryptedPassword ->
@@ -77,7 +74,7 @@ class BiometricAuthenticationMigration(
 	}
 
 	private fun encryptUsingGcm(
-		fragment: Fragment, vaultModel: VaultModel, vaultQueue: ArrayDeque<VaultModel>, decryptedVaults: MutableList<VaultModel>, reEncryptedVaults: MutableList<VaultModel>, allVaults: List<VaultModel>
+		fragment: Fragment, vaultModel: VaultModel, vaultQueue: MutableList<VaultModel>, decryptedVaults: MutableList<VaultModel>, reEncryptedVaults: MutableList<VaultModel>, allVaults: List<VaultModel>
 	) {
 		Timber.tag("BiometricAuthMigration").d("Prompt for encryption")
 		handleBiometricAuthentication(fragment = fragment, cryptoMode = CryptoMode.GCM, password = vaultModel.password!!, allVaults = allVaults, onSuccess = { encryptedPassword ->
