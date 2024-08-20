@@ -29,8 +29,11 @@ public class BiometricAuthCryptor {
 	}
 
 	private static String getSuffixedAlias(CryptoMode cryptoMode) {
-		// CBC does not have an alias due to legacy reasons
-		return cryptoMode == CryptoMode.GCM ? BIOMETRIC_AUTH_KEY_ALIAS + "_GCM" : BIOMETRIC_AUTH_KEY_ALIAS;
+		return switch (cryptoMode) {
+			case CBC -> BIOMETRIC_AUTH_KEY_ALIAS; // CBC does not have an alias due to legacy reasons
+			case GCM -> BIOMETRIC_AUTH_KEY_ALIAS + "_GCM";
+			case NONE -> throw new IllegalStateException("CryptoMode.NONE is not allowed here");
+		};
 	}
 
 	public static BiometricAuthCryptor getInstance(Context context, CryptoMode cryptoMode) throws UnrecoverableStorageKeyException {
@@ -58,7 +61,11 @@ public class BiometricAuthCryptor {
 	}
 
 	public String decrypt(javax.crypto.Cipher cipher, String password) throws IllegalBlockSizeException, BadPaddingException {
-		int ivLength = cryptoMode == CryptoMode.GCM ? CipherGCM.IV_LENGTH : CipherCBC.IV_LENGTH;
+		int ivLength = switch (cryptoMode) {
+			case CBC -> CipherCBC.IV_LENGTH;
+			case GCM -> CipherGCM.IV_LENGTH;
+			case NONE -> throw new IllegalStateException("CryptoMode.NONE is not allowed here");
+		};
 		byte[] ciphered = cipher.doFinal(CryptoByteArrayUtils.getBytes(password.getBytes(StandardCharsets.ISO_8859_1), ivLength));
 		return new String(ciphered, StandardCharsets.UTF_8);
 	}
