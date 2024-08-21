@@ -306,17 +306,14 @@
 	<string name="dialog_debug_mode_disclaimer_title">Perhatian</string>
 	<string name="dialog_debug_mode_positive_button">Aktifkan</string>
 	<string name="dialog_microsoft_workaround_disclaimer_hint">Karena adanya bug pada aplikasi Microsoft, berkas yang akan diedit harus dibagikan dengan aplikasi ini di folder media publik di perangkat Anda. Setelah Cryptomator dilanjutkan, berkas yang dapat diakses publik akan dihapus lagi, namun Cryptomator tidak dapat memengaruhi apa yang terjadi pada berkas ini untuk sementara. Pastikan Anda mengetahui perilaku ini saat mengaktifkan opsi ini. Ini hanya berlaku untuk jenis berkas Microsoft.\n\nCryptomator akan dimulai ulang setelah aktivasi.</string>
-	<string name="dialog_disable_app_obscured_disclaimer_hint">Pengaturan ini adalah fitur keamanan untuk mencegah aplikasi lain mengelabui pengguna melakukan hal-hal yang tidak ingin mereka lakukan.\n\nDengan menonaktifkan, Anda mengonfirmasi bahwa telah <a href="https://docs.cryptomator.org/en/1.6/android/settings/#block-app-when-obscured">menyadari akan bahaya tersebut</a>.</string>
 	<string name="dialog_disable_app_obscured_disclaimer_title">Perhatian</string>
 	<string name="dialog_disable_app_obscured_positive_button">Matikan</string>
 	<string name="dialog_app_is_obscured_info_title">Aplikasi terhalang</string>
-	<string name="dialog_app_is_obscured_info_hint">Aplikasi lain menampilkan sesuatu di atas Cryptomator (misalnya, filter cahaya biru atau aplikasi mode malam). Demi alasan keamanan, Cryptomator dinonaktifkan.\n\n<a href="https://docs.cryptomator.org/en/1.6/android/settings/#block-app-when-obscured">Cara mengaktifkan Cryptomator</a></string>
 	<string name="dialog_app_is_obscured_info_neutral_button">Tutup</string>
 	<string name="dialog_vaults_removed_during_migration_title">Harap tambahkan kembali vault untuk cloud %1s</string>
 	<string name="dialog_vaults_removed_during_migration_hint">Saat bermigrasi ke versi aplikasi ini, kita perlu menghapus vault berikut dari aplikasi:\n%2s \n\nVault tersebut tidak dihapus dari cloud, tetapi hanya dari aplikasi ini. Maaf atas ketidaknyamanan ini dan harap tambahkan kembali vault ini untuk terus bekerja dengannya.</string>
 	<string name="dialog_vault_is_root_folder_of_cloud_title">Vault adalah folder induk dari koneksi cloud</string>
 	<string name="dialog_vault_is_root_folder_of_cloud_hint">Buat koneksi cloud baru di mana Anda memilih setidaknya folder induk dari folder vault ini sebagai direktori induk untuk menambahkan vault ini.</string>
-	<string name="dialog_disable_secure_screen_disclaimer_hint">Pengaturan ini adalah fitur keamanan untuk mencegah aplikasi lain mengelabui pengguna melakukan hal-hal yang tidak ingin mereka lakukan.\n\nDengan menonaktifkan, Anda mengonfirmasi bahwa telah <a href="https://docs.cryptomator.org/en/1.6/android/settings/#screen-security">\">menyadari akan bahaya tersebut</a>.</string>
 	<string name="dialog_delete_cloud_connection_with_vaults_message">Anda yakin ingin menghapus koneksi cloud ini?</string>
 	<string name="dialog_delete_cloud_connection_with_vaults_hint">Tindakan ini akan menghapus koneksi cloud dan semua vault pada cloud ini.</string>
 	<string name="dialog_confirm_delete_multiple_title">Hapus %1$d item?</string>

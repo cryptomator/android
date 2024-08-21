@@ -53,8 +53,6 @@ class VaultListActivity : BaseActivity<ActivityLayoutObscureAwareBinding>(Activi
 	@InjectIntent
 	lateinit var vaultListIntent: VaultListIntent
 
-	private lateinit var biometricAuthenticationMigration: BiometricAuthenticationMigration
-
 	override fun onCreate(savedInstanceState: Bundle?) {
 		installSplashScreen()
 		super.onCreate(savedInstanceState)
@@ -133,7 +131,7 @@ class VaultListActivity : BaseActivity<ActivityLayoutObscureAwareBinding>(Activi
 	}
 
 	override fun migrateCBCEncryptedPasswordVaults(vaults: List<VaultModel>) {
-		biometricAuthenticationMigration = BiometricAuthenticationMigration(this, context(), sharedPreferencesHandler.useConfirmationInFaceUnlockBiometricAuthentication())
+		val biometricAuthenticationMigration = BiometricAuthenticationMigration(this, context(), sharedPreferencesHandler.useConfirmationInFaceUnlockBiometricAuthentication())
 		biometricAuthenticationMigration.migrateVaultsPassword(vaultListFragment(), vaults)
 	}
 

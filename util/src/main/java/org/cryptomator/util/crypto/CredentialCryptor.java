@@ -12,8 +12,11 @@ public class CredentialCryptor {
 	private final Cipher cipher;
 
 	private static String getSuffixedAlias(CryptoMode cryptoMode) {
-		// CBC does not have an alias due to legacy reasons
-		return cryptoMode == CryptoMode.GCM ? CredentialCryptor.DEFAULT_KEY_ALIAS + "_GCM" : CredentialCryptor.DEFAULT_KEY_ALIAS;
+		return switch (cryptoMode) {
+			case CBC -> DEFAULT_KEY_ALIAS; // CBC does not have an alias due to legacy reasons
+			case GCM -> DEFAULT_KEY_ALIAS + "_GCM";
+			case NONE -> throw new IllegalStateException("CryptoMode.NONE is not allowed here");
+		};
 	}
 
 	private CredentialCryptor(Context context, CryptoMode cryptoMode) {

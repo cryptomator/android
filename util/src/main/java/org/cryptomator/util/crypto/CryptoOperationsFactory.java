@@ -6,24 +6,28 @@ class CryptoOperationsFactory {
 	private static volatile CryptoOperations cryptoOperationsGCM;
 
 	public static CryptoOperations cryptoOperations(CryptoMode mode) {
-		if (mode == CryptoMode.CBC) {
-			if (cryptoOperationsCBC == null) {
-				synchronized (CryptoOperations.class) {
-					if (cryptoOperationsCBC == null) {
-						cryptoOperationsCBC = new CryptoOperationsCBC();
+		return switch (mode) {
+			case CBC -> {
+				if (cryptoOperationsCBC == null) {
+					synchronized (CryptoOperations.class) {
+						if (cryptoOperationsCBC == null) {
+							cryptoOperationsCBC = new CryptoOperationsCBC();
+						}
 					}
 				}
+				yield cryptoOperationsCBC;
 			}
-			return cryptoOperationsCBC;
-		} else {
-			if (cryptoOperationsGCM == null) {
-				synchronized (CryptoOperations.class) {
-					if (cryptoOperationsGCM == null) {
-						cryptoOperationsGCM = new CryptoOperationsGCM();
+			case GCM -> {
+				if (cryptoOperationsGCM == null) {
+					synchronized (CryptoOperations.class) {
+						if (cryptoOperationsGCM == null) {
+							cryptoOperationsGCM = new CryptoOperationsGCM();
+						}
 					}
 				}
+				yield cryptoOperationsGCM;
 			}
-			return cryptoOperationsGCM;
-		}
+			case NONE -> throw new IllegalArgumentException("CryptoMode.NONE is not allowed here");
+		};
 	}
 }

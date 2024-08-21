@@ -23,7 +23,7 @@ class ListCBCEncryptedPasswordVaults {
 				.vaults() //
 				.stream() //
 				.filter(vault -> vault.getPasswordCryptoMode() != null && vault.getPasswordCryptoMode().equals(CryptoMode.CBC)) //
-				.collect(Collectors.toUnmodifiableList());
+				.collect(Collectors.toList());
 	}
 
 }
