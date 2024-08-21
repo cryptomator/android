@@ -311,6 +311,7 @@
 	<string name="dialog_disable_app_obscured_disclaimer_title">Achtung</string>
 	<string name="dialog_disable_app_obscured_positive_button">Deaktivieren</string>
 	<string name="dialog_app_is_obscured_info_title">App wird verdeckt</string>
+	<string name="dialog_app_is_obscured_info_hint">Eine App zeigt etwas über Cryptomator an (z.B. ein Blaulichtfilter oder eine Nachtmodus-App). Aus Sicherheitsgründen ist Cryptomator deaktiviert.\n\n<a href="https://docs.cryptomator.org/en/latest/android/settings/#block-app-when-obscured">Wie Cryptomator aktiviert werden kann</a></string>
 	<string name="dialog_app_is_obscured_info_neutral_button">Schließen</string>
 	<string name="dialog_vaults_removed_during_migration_title">Bitte Tresore für die %1s-Cloud erneut hinzufügen</string>
 	<string name="dialog_vaults_removed_during_migration_hint">Während der Migration auf diese App-Version müssen wir folgende Tresore aus der App entfernen:\n%2s \n\nDiese Tresore werden nicht aus der Cloud entfernt, sondern nur aus dieser App. Entschuldigung für die Unannehmlichkeiten. Füge diese Tresore bitte erneut hinzu, um weiter mit ihnen zu arbeiten.</string>
@@ -348,6 +349,9 @@
 	<string name="dialog_no_more_images_to_display">Keine weiteren Bilder anzuzeigen&#8230;</string>
 	<string name="dialog_pcloud_credentials_updated_title">Anmeldedaten von \'%1$s\' aktualisiert</string>
 	<string name="dialog_pcloud_credentials_updated">Wenn du ein neues pCloud-Konto hinzuzufügen möchtest, tippe auf diese URL <a href="https://www.pcloud.com">www.pcloud.com</a>, melde dich von deinem aktuellen Konto ab und tippe erneut auf das \'+\' in dieser App, um eine neue Cloud-Verbindung zu erstellen.</string>
+	<string name="dialog_cbc_password_vaults_migration_title">Tresor Passwort-Migration erforderlich</string>
+	<string name="dialog_cbc_password_vaults_migration_hint">Aufgrund von Sicherheitsverbesserungen wirst du zweimal nach deiner biometrischen Authentifizierung für jeden Tresor gefragt, um deine Tresorpasswörter neu zu verschlüsseln. Dies ist notwendig, um deine Tresorpasswörter weiterhin mit der neuesten Technologie zu schützen. Wenn du dies nicht möchtest, werden die gespeicherten Passwörter entfernt.</string>
+	<string name="dialog_cbc_password_vaults_migration_action">Migrieren</string>
 	<string name="permission_snackbar_auth_local_vault">Cryptomator benötigt Speicherzugriff, um lokale Tresore nutzen zu können</string>
 	<string name="permission_snackbar_auth_auto_upload">Cryptomator benötigt Zugriff auf den Speicher um den automatischen Foto-Upload zu nutzen</string>
 	<string name="permission_snackbar_notifications">Cryptomator benötigt die Berechtigung zur Anzeige von Benachrichtigungen, um beispielsweise den Status des Tresors anzeigen zu können</string>
