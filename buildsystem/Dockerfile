@@ -42,5 +42,7 @@ RUN rm -rf ${ANDROID_HOME}/tools
 # Create a non-root user and group
 RUN groupadd -r appuser && useradd --no-log-init -r -g appuser appuser
 
+# RUN mkdir -p /home/appuser/.gradle && chown -R appuser:appuser /home/appuser/.gradle
+
 # Switch to the non-root user
 USER appuser
