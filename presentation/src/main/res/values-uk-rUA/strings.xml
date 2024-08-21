@@ -309,14 +309,17 @@
 	<string name="dialog_debug_mode_disclaimer_title">Увага</string>
 	<string name="dialog_debug_mode_positive_button">Увімкнути</string>
 	<string name="dialog_microsoft_workaround_disclaimer_hint">Через помилку в додатках Microsoft, для редагування файлу, доступ до нього має бути надано таким додаткам у публічній папці на вашому пристрої. Після того, як Cryptomator припинить роботу - публічно доступний файл буде видалено, але водночас Cryptomator не впливає на те, що відбувалось з цим файлом, поки він є публічно доступним. Активовуючи цю опцію, ви маєте усвідомлювати наслідки таких дій з файлами. Її буде застосовано лише до типів файлів Microsoft.\n\nCryptomator буде перезавантажений після активації.</string>
+	<string name="dialog_disable_app_obscured_disclaimer_hint">Цей параметр є функцією безпеки та не дозволяє іншим програмам обманом змусити користувачів робити те, чого вони не хочуть робити.\n\nВимикаючи його ви підтверджуєте, що <a href="https://docs.cryptomator.org/en/latest/android/settings/#block-app-when-obscured">усвідомлюєте та приймаєте ризики</a>.</string>
 	<string name="dialog_disable_app_obscured_disclaimer_title">Увага</string>
 	<string name="dialog_disable_app_obscured_positive_button">Вимкнути</string>
 	<string name="dialog_app_is_obscured_info_title">Інтерфейс додатка перекрито</string>
+	<string name="dialog_app_is_obscured_info_hint">Інша програма відображає щось поверх Cryptomator (наприклад, фільтр синього світла або нічний режим). З міркувань безпеки Cryptomator вимкнено.\n\n<a href="https://docs.cryptomator.org/en/latest/android/settings/#block-app-when-obscured">Як увімкнути Cryptomator</a></string>
 	<string name="dialog_app_is_obscured_info_neutral_button">Закрити</string>
 	<string name="dialog_vaults_removed_during_migration_title">Будь ласка, знову додайте сховища з хмари для %1s</string>
 	<string name="dialog_vaults_removed_during_migration_hint">Переходячи на цю версію додатка ми були змушені прибрати такі сховища з додатка:\n%2s\n\nЦі сховища не видаляються з хмари, а лише прибрано з цього додатка. Перепрошуємо за незручності. Будь ласка, додайте ці сховища повторно, щоб продовжити роботу з ними.</string>
 	<string name="dialog_vault_is_root_folder_of_cloud_title">Сховище є кореневим каталогом хмарного підключення</string>
 	<string name="dialog_vault_is_root_folder_of_cloud_hint">Для додавання цього сховища - створіть нове хмарне підключення, в якому оберіть в якості батьківського каталога цього сховища кореневий каталог або будь-яку іншу папку у хмарі.</string>
+	<string name="dialog_disable_secure_screen_disclaimer_hint">Цей параметр є функцією безпеки та не дозволяє іншим програмам обманом змусити користувачів робити те, чого вони не хочуть робити.\n\nВимикаючи його ви підтверджуєте, що <a href="https://docs.cryptomator.org/en/latest/android/settings/#screen-security">усвідомлюєте та приймаєте ризики</a>.</string>
 	<string name="dialog_delete_cloud_connection_with_vaults_message">Ви дійсно хочете видалити це хмарне підключення?</string>
 	<string name="dialog_delete_cloud_connection_with_vaults_hint">Ця дія видалить підключення до хмари та всі сховища з цієї хмари.</string>
 	<string name="dialog_confirm_delete_multiple_title">Видалити %1$d об\'єкт(-и, -ів)?</string>
@@ -348,6 +351,7 @@
 	<string name="dialog_no_more_images_to_display">Зображень для показу більше немає&#8230;</string>
 	<string name="dialog_pcloud_credentials_updated_title">Дані \'%1$s\' оновлено</string>
 	<string name="dialog_pcloud_credentials_updated">Якщо ви хочете додати новий обліковий запис pCloud, натисніть на цю адресу <a href="https://www.pcloud.com">www.pcloud.com</a>, вийдіть з поточного облікового запису та натисніть ще раз на \'+\' у цьому додатку, щоб створити нове хмарне підключення.</string>
+	<string name="dialog_cbc_password_vaults_migration_title">Необхідна міграція пароля сховища</string>
 	<string name="permission_snackbar_auth_local_vault">Для використання локальних сховищ необхідно надати Cryptomator доступ до місця зберігання</string>
 	<string name="permission_snackbar_auth_auto_upload">Для автоматичного завантаження фото необхідно надати Cryptomator доступ до місця зберігання</string>
 	<string name="permission_snackbar_notifications">Для відображення статусу сховища необхідно надати Cryptomator дозвіл на сповіщення</string>
