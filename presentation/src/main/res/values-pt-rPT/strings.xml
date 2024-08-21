@@ -307,14 +307,17 @@
 	<string name="dialog_debug_mode_disclaimer_title">Atenção</string>
 	<string name="dialog_debug_mode_positive_button">Ativar</string>
 	<string name="dialog_microsoft_workaround_disclaimer_hint">Devido a um erro nas apps da Microsoft, o arquivo a ser editado deve ser partilhado com esses aplicativos numa pasta de média pública no seu dispositivo. Depois que o Cryptomator é retomado, o arquivo acessível ao público é apagado novamente, mas o Cryptomator não pode influenciar o que acontece a este arquivo, enquanto isso decore. Esteja ciente desse comportamento ao ativar esta opção. Isso só se aplicará aos tipos de arquivos da Microsoft.\n\nCryptomator reiniciará após a ativação.</string>
+	<string name="dialog_disable_app_obscured_disclaimer_hint">Esta configuração é uma opção de segurança que previne outras apps de iludir os utilizadores a fazer coisas que não querem fazer.\n\nAo desativar, você confirma que está <a href="https://docs.cryptomator.org/en/latest/android/settings/#block-app-when-obscured">ciente de todos os riscos</a>.</string>
 	<string name="dialog_disable_app_obscured_disclaimer_title">Atenção</string>
 	<string name="dialog_disable_app_obscured_positive_button">Desativar</string>
 	<string name="dialog_app_is_obscured_info_title">O aplicativo está obscurecido</string>
+	<string name="dialog_app_is_obscured_info_hint">Outra aplicação está exibindo algo em cima do Cryptomator (por exemplo, um filtro de luz azul ou aplicação de modo noturno). Por razões de segurança, o Cryptomator está desativado.\n\n<a href="https://docs.cryptomator.org/en/latest/android/settings/#block-app-when-obscured">Como ativar o Cryptomator</a></string>
 	<string name="dialog_app_is_obscured_info_neutral_button">Fechar</string>
 	<string name="dialog_vaults_removed_during_migration_title">Por favor, adicionar novamente os cofres para a nuvem %1s</string>
 	<string name="dialog_vaults_removed_during_migration_hint">Durante a migração para esta versão do aplicativo, precisamos remover os seguintes cofres do aplicativo:\n%2s \n\nEsses cofres não são removidos da nuvem, somente deste aplicativo. Desculpe o inconveniente e por favor adicione novamente esses cofres para continuar a trabalhar com eles.</string>
 	<string name="dialog_vault_is_root_folder_of_cloud_title">O cofre é a pasta raiz da ligação com a nuvem</string>
 	<string name="dialog_vault_is_root_folder_of_cloud_hint">Criar uma nova ligação com a nuvem onde deve selecionar pelo menos a pasta principal, desta pasta de cofre, como o diretório raiz para adicionar este cofre.</string>
+	<string name="dialog_disable_secure_screen_disclaimer_hint">Esta configuração é uma opção de segurança que previne outras apps de iludir os utilizadores a fazer coisas que não querem fazer.\n\nAo desativar, você confirma que está <a href="https://docs.cryptomator.org/en/latest/android/settings/#screen-security">ciente de todos os riscos</a>.</string>
 	<string name="dialog_delete_cloud_connection_with_vaults_message">Tem certeza de que deseja remover esta ligação com a nuvem?</string>
 	<string name="dialog_delete_cloud_connection_with_vaults_hint">Esta ação removerá a ligação com a nuvem e todos os cofres desta nuvem.</string>
 	<string name="dialog_confirm_delete_multiple_title">Apagar %1$d ficheiros?</string>
