@@ -352,6 +352,8 @@
 	<string name="dialog_pcloud_credentials_updated_title">Дані \'%1$s\' оновлено</string>
 	<string name="dialog_pcloud_credentials_updated">Якщо ви хочете додати новий обліковий запис pCloud, натисніть на цю адресу <a href="https://www.pcloud.com">www.pcloud.com</a>, вийдіть з поточного облікового запису та натисніть ще раз на \'+\' у цьому додатку, щоб створити нове хмарне підключення.</string>
 	<string name="dialog_cbc_password_vaults_migration_title">Необхідна міграція пароля сховища</string>
+	<string name="dialog_cbc_password_vaults_migration_hint">У зв\'язку з покращеннями безпеки, вам буде запропоновано двічі пройти біометричну автентифікацію для кожного сховища, щоб повторно зашифрувати паролі сховища. Це необхідно для продовження захисту паролів вашого сховища з використанням найновішої технології. Якщо ви не хочете, щоб це сталося, збережені паролі будуть видалені.</string>
+	<string name="dialog_cbc_password_vaults_migration_action">Мігрувати</string>
 	<string name="permission_snackbar_auth_local_vault">Для використання локальних сховищ необхідно надати Cryptomator доступ до місця зберігання</string>
 	<string name="permission_snackbar_auth_auto_upload">Для автоматичного завантаження фото необхідно надати Cryptomator доступ до місця зберігання</string>
 	<string name="permission_snackbar_notifications">Для відображення статусу сховища необхідно надати Cryptomator дозвіл на сповіщення</string>
