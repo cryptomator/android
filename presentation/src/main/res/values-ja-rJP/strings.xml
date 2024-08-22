@@ -306,6 +306,7 @@
 	<string name="dialog_debug_mode_disclaimer_title">注意</string>
 	<string name="dialog_debug_mode_positive_button">有効にする</string>
 	<string name="dialog_microsoft_workaround_disclaimer_hint">このオプションを有効にする場合には以下の挙動を必ずご確認ください。Microsoft アプリのバグを回避するため、編集するファイルはデバイス上の公開メディアフォルダを通してアプリに共有する必要があります。編集を終えて Cryptomator に戻った際に公開メディアフォルダ上のファイルは削除されますが、その間ファイルは他アプリからもアクセス可能なままとなります。本回避策は Microsoft のファイルタイプのみに適用されます。\n\nオプションを有効化した後に Cryptomator は再起動します。</string>
+	<string name="dialog_disable_app_obscured_disclaimer_hint">この設定はセキュリティのための機能であり、ユーザーが他のアプリに騙されて望まない操作をしてしまうことを防ぎます。\n\n無効にするには<a href="https://docs.cryptomator.org/en/latest/android/settings/#block-app-when-obscured">リスクを承知</a>してください。</string>
 	<string name="dialog_disable_app_obscured_disclaimer_title">注意</string>
 	<string name="dialog_disable_app_obscured_positive_button">無効</string>
 	<string name="dialog_app_is_obscured_info_title">アプリが重なっています</string>
@@ -314,6 +315,7 @@
 	<string name="dialog_vaults_removed_during_migration_hint">このアプリのバージョンに移行に際して、アプリから次の保管庫を削除する必要があります:\n%2s \n\nこれらの保管庫はクラウドからではなく、このアプリからのみ削除されます。 ご不便をおかけして申し訳ありませんが、保管庫を再度追加してください。</string>
 	<string name="dialog_vault_is_root_folder_of_cloud_title">金庫がクラウト接続のルート フォルダーです</string>
 	<string name="dialog_vault_is_root_folder_of_cloud_hint">この保管庫を追加するルートディレクトリとして、少なくともこの保管庫フォルダの親フォルダを選択する新しいクラウド接続を作成する必要があります。</string>
+	<string name="dialog_disable_secure_screen_disclaimer_hint">この設定はセキュリティのための機能であり、ユーザーが他のアプリに騙されて望まない操作をしてしまうことを防ぎます。\n\n無効にするには<a href="https://docs.cryptomator.org/en/latest/android/settings/#screen-security">リスクを承知</a>してください。</string>
 	<string name="dialog_delete_cloud_connection_with_vaults_message">本当にこのクラウド接続を削除しますか？</string>
 	<string name="dialog_delete_cloud_connection_with_vaults_hint">この操作により、クラウド接続とクラウドのすべての金庫が削除されます。</string>
 	<string name="dialog_confirm_delete_multiple_title">%1$d 個の項目を削除しますか？</string>
