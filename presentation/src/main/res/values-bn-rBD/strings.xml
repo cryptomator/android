@@ -154,6 +154,7 @@
 	<string name="screen_settings_activate_biometric_auth">বায়োমেট্রিক সনাক্তকরণ সক্রিয় করুন</string>
 	<string name="screen_settings_confirm_face_unlock">ফেইস আনলক নিশ্চিত করুন (যদি থাকে)</string>
 	<string name="screen_settings_block_app_when_obscured">অন্যান্য আ্যপকে ক্রিপ্টোমেটর ব্যবহারে বাধা দিন</string>
+	<string name="screen_settings_block_app_when_obscured_summary">ইনপুট ব্লক করা, মিথ্যা ব্যবহারকারী ইন্টারফেস প্রদর্শন করা বন্ধ করুন</string>
 	<string name="screen_settings_secure_screen">স্ক্রিনশট নিতে বাধা দিন</string>
 	<string name="screen_settings_section_search">খুঁজুন</string>
 	<string name="screen_settings_auto_lock_on_screen_lock">যখন স্ক্রিন বন্ধ থাকে</string>
