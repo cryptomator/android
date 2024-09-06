@@ -1,6 +1,5 @@
 package org.cryptomator.presentation.model
 
-import android.graphics.Bitmap
 import org.cryptomator.domain.CloudNode
 import java.io.Serializable
 
@@ -9,7 +8,6 @@ abstract class CloudNodeModel<T : CloudNode> internal constructor(private val cl
 	var oldName: String? = null
 	var progress: ProgressModel? = null
 	var isSelected = false
-
 	val name: String
 		get() = cloudNode.name
 	val simpleName: String

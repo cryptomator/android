@@ -27,7 +27,6 @@ import org.cryptomator.presentation.model.ProgressModel
 import org.cryptomator.presentation.presenter.BrowseFilesPresenter
 import org.cryptomator.presentation.ui.adapter.BrowseFilesAdapter
 import org.cryptomator.presentation.util.ResourceHelper.Companion.getPixelOffset
-import org.cryptomator.util.SharedPreferencesHandler
 import java.util.Optional
 import javax.inject.Inject
 

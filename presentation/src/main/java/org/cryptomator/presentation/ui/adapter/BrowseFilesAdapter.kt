@@ -3,7 +3,6 @@ package org.cryptomator.presentation.ui.adapter
 import android.graphics.BitmapFactory
 import android.os.PatternMatcher
 import android.view.LayoutInflater
-import android.util.Size
 import android.view.View
 import android.view.View.GONE
 import android.view.View.VISIBLE
@@ -140,13 +139,11 @@ constructor(
 		}
 
 		private fun bindNodeImage(node: CloudNodeModel<*>) {
-			binding.cloudNodeImage.setImageResource(bindCloudNodeImage(node))
-
 			if (node is CloudFileModel && isImageMediaType(node.name) && node.thumbnail != null) {
 				val bitmap = BitmapFactory.decodeFile(node.thumbnail!!.absolutePath)
-				itemView.cloudNodeImage.setImageBitmap(bitmap)
+				binding.cloudNodeImage.setImageBitmap(bitmap)
 			} else {
-				itemView.cloudNodeImage.setImageResource(bindCloudNodeImage(node))
+				binding.cloudNodeImage.setImageResource(bindCloudNodeImage(node))
 			}
 		}
 

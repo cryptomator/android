@@ -26,18 +26,15 @@ class FileSettingsBottomSheet : BaseBottomSheet<FileSettingsBottomSheet.Callback
 		val cloudFileModel = requireArguments().getSerializable(FILE_ARG) as CloudFileModel
 		val parentFolderPath = requireArguments().getString(PARENT_FOLDER_PATH_ARG)
 
-		binding.ivFileImage.setImageResource(cloudFileModel.icon.iconResource)
 		binding.tvFileName.text = cloudFileModel.name
 		binding.tvFilePath.text = parentFolderPath
 		cloudFileModel.thumbnail?.let {
 			val thumbnail = BitmapFactory.decodeFile(it.absolutePath)
-			iv_file_image.setImageBitmap(thumbnail)
+			binding.ivFileImage.setImageBitmap(thumbnail)
 		}
-		if(iv_file_image.drawable == null)
-			iv_file_image.setImageResource(cloudFileModel.icon.iconResource)
-
-		tv_file_name.text = cloudFileModel.name
-		tv_file_path.text = parentFolderPath
+		if (binding.ivFileImage.drawable == null) {
+			binding.ivFileImage.setImageResource(cloudFileModel.icon.iconResource)
+		}
 
 		val lowerFileName = cloudFileModel.name.lowercase()
 		if (lowerFileName.endsWith(".txt") || lowerFileName.endsWith(".md") || lowerFileName.endsWith(".todo")) {

@@ -84,18 +84,19 @@ abstract class CryptoImplDecorator(
 		return getOrCreateLruCache(getCacheTypeFromCloudType(type), sharedPreferencesHandler.lruCacheSize())
 	}
 
-	private fun getOrCreateLruCache(key: LruFileCacheUtil.Cache, cacheSize: Int): DiskLruCache? {
-		return diskLruCache.computeIfAbsent(key) {
-			val where = LruFileCacheUtil(context).resolve(it)
+	private fun getOrCreateLruCache(cache: LruFileCacheUtil.Cache, cacheSize: Int): DiskLruCache? {
+		return diskLruCache.computeIfAbsent(cache) {
+			val cacheFile = LruFileCacheUtil(context).resolve(it)
 			try {
-				DiskLruCache.create(where, cacheSize.toLong())
+				DiskLruCache.create(cacheFile, cacheSize.toLong())
 			} catch (e: IOException) {
-				Timber.tag("CryptoImplDecorator").e(e, "Failed to setup LRU cache for $where.name")
+				Timber.tag("CryptoImplDecorator").e(e, "Failed to setup LRU cache for $cacheFile.name")
 				null
 			}
 		}
 	}
-	protected fun renameFileInCache(source: CryptoFile, target: CryptoFile){
+
+	protected fun renameFileInCache(source: CryptoFile, target: CryptoFile) {
 		val oldCacheKey = generateCacheKey(source.cloudFile)
 		val newCacheKey = generateCacheKey(target.cloudFile)
 		source.cloudFile.cloud?.type()?.let { cloudType ->
@@ -467,14 +468,7 @@ abstract class CryptoImplDecorator(
 	}
 
 	protected fun generateCacheKey(cloudFile: CloudFile): String {
-		return buildString {
-			if (cloudFile.cloud?.id() != null)
-				this.append(cloudFile.cloud!!.id())
-			else
-				this.append("c") // "common"
-			this.append("-")
-			this.append(cloudFile.path.hashCode())
-		}
+		return String.format("%s-%d", cloudFile.cloud?.id() ?: "common", cloudFile.path.hashCode())
 	}
 
 	private fun isGenerateThumbnailsEnabled(cache: DiskLruCache?, fileName: String): Boolean {

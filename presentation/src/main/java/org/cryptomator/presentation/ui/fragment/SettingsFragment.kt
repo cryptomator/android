@@ -28,7 +28,6 @@ import org.cryptomator.presentation.ui.dialog.DisableSecureScreenDisclaimerDialo
 import org.cryptomator.presentation.ui.dialog.MicrosoftWorkaroundDisclaimerDialog
 import org.cryptomator.util.SharedPreferencesHandler
 import org.cryptomator.util.SharedPreferencesHandler.Companion.CRYPTOMATOR_VARIANTS
-import org.cryptomator.util.SharedPreferencesHandler.Companion.THUMBNAIL_GENERATION
 import org.cryptomator.util.file.LruFileCacheUtil
 import java.lang.Boolean.FALSE
 import java.lang.Boolean.TRUE
