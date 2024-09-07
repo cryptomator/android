@@ -384,7 +384,7 @@ abstract class CryptoImplDecorator(
 
 		val diskCache = cryptoFile.cloudFile.cloud?.type()?.let { getLruCacheFor(it) }
 		val cacheKey = generateCacheKey(ciphertextFile)
-		val genThumbnail = isGenerateThumbnailsEnabled(diskCache, cryptoFile.name)
+		val genThumbnail = isThumbnailGenerationAvailable(diskCache, cryptoFile.name)
 
 		val thumbnailWriter = PipedOutputStream()
 		val thumbnailReader = PipedInputStream(thumbnailWriter)
@@ -471,11 +471,30 @@ abstract class CryptoImplDecorator(
 		return String.format("%s-%d", cloudFile.cloud?.id() ?: "common", cloudFile.path.hashCode())
 	}
 
-	private fun isGenerateThumbnailsEnabled(cache: DiskLruCache?, fileName: String): Boolean {
-		return sharedPreferencesHandler.useLruCache() &&
-				sharedPreferencesHandler.generateThumbnails() != ThumbnailsOption.NEVER &&
-				cache != null &&
-				isImageMediaType(fileName)
+	private fun isThumbnailGenerationAvailable(cache: DiskLruCache?, fileName: String): Boolean {
+		return isGenerateThumbnailsEnabled() && cache != null && isImageMediaType(fileName)
+	}
+
+	protected fun associateThumbnailIfInCache(list: List<CryptoNode?>): List<CryptoNode?> {
+		if (isGenerateThumbnailsEnabled()) {
+			val firstCryptoFile = list.find { it is CryptoFile } ?: return list
+			val cloudType = (firstCryptoFile as CryptoFile).cloudFile.cloud?.type() ?: return list
+			val diskCache = getLruCacheFor(cloudType) ?: return list
+			list.onEach { cryptoNode ->
+				if (cryptoNode is CryptoFile && isImageMediaType(cryptoNode.name)) {
+					val cacheKey = generateCacheKey(cryptoNode.cloudFile)
+					val cacheFile = diskCache[cacheKey]
+					if (cacheFile != null) {
+						cryptoNode.thumbnail = cacheFile
+					}
+				}
+			}
+		}
+		return list
+	}
+
+	private fun isGenerateThumbnailsEnabled(): Boolean {
+		return sharedPreferencesHandler.useLruCache() && sharedPreferencesHandler.generateThumbnails() != ThumbnailsOption.NEVER
 	}
 
 	private fun storeThumbnail(cache: DiskLruCache?, cacheKey: String, thumbnailBitmap: Bitmap) {
@@ -493,7 +512,7 @@ abstract class CryptoImplDecorator(
 		thumbnailFile.delete()
 	}
 
-	protected fun isImageMediaType(filename: String): Boolean {
+	private fun isImageMediaType(filename: String): Boolean {
 		return (mimeTypes.fromFilename(filename) ?: MimeType.WILDCARD_MIME_TYPE).mediatype == "image"
 	}
 
