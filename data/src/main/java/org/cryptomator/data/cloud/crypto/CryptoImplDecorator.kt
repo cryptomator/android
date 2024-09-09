@@ -480,12 +480,18 @@ abstract class CryptoImplDecorator(
 			val firstCryptoFile = list.find { it is CryptoFile } ?: return list
 			val cloudType = (firstCryptoFile as CryptoFile).cloudFile.cloud?.type() ?: return list
 			val diskCache = getLruCacheFor(cloudType) ?: return list
-			list.onEach { cryptoNode ->
+			list.forEach { cryptoNode ->
 				if (cryptoNode is CryptoFile && isImageMediaType(cryptoNode.name)) {
 					val cacheKey = generateCacheKey(cryptoNode.cloudFile)
 					val cacheFile = diskCache[cacheKey]
 					if (cacheFile != null) {
 						cryptoNode.thumbnail = cacheFile
+					} else {
+						// TODO
+						// force thumbnail generation (~PER FOLDER)
+						val trash = File.createTempFile(cryptoNode.name, ".temp", internalCache)
+						read(cryptoNode, trash.outputStream(), ProgressAware.NO_OP_PROGRESS_AWARE_DOWNLOAD)
+						trash.delete()
 					}
 				}
 			}
