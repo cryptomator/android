@@ -7,6 +7,8 @@
 	<!-- # permission -->
 	<!-- ## permission messages -->
 	<string name="snack_bar_action_title_search_next">ถัดไป</string>
+	<string name="snack_bar_action_title_sort_newest">เรียงจากใหม่สุดก่อน</string>
+	<string name="snack_bar_action_title_sort_oldest">เรียงจากเก่าสุดก่อน</string>
 	<!-- # screens -->
 	<!-- # screen: vault list -->
 	<!-- # screen: file browser -->
@@ -21,6 +23,7 @@
 	<!-- ## screen: set password -->
 	<string name="screen_set_password_button_text">เสร็จสิ้น</string>
 	<!-- ## screen: settings -->
+	<string name="screen_settings_section_auto_photo_upload_toggle_instant_upload">อัปโหลดทันที</string>
 	<!-- ## screen: cloud settings -->
 	<!-- ## screen: licenses -->
 	<!-- ## screen: authenticate cloud -->
