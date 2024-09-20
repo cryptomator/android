@@ -3,37 +3,57 @@
 	<!-- # app -->
 	<string name="share_with_label">เข้ารหัส</string>
 	<!-- # error messages -->
+	<string name="error_generic">เกิดข้อผิดพลาด</string>
+	<string name="error_invalid_passphrase">รหัสผ่านไม่ถูกต้อง</string>
+	<string name="error_vault_has_been_locked">Vault ถูกล็อก</string>
+	<string name="error_server_not_found">ไม่พบเซิฟเวอร์</string>
+	<string name="error_biometric_auth_aborted">การยืนยันตัวตนด้วยไบโอเมตริกซ์ถูกยกเลิก</string>
 	<!-- # clouds -->
 	<!-- ## cloud names -->
 	<!-- # permission -->
 	<!-- ## permission messages -->
+	<string name="snack_bar_action_title_settings">การตั้งค่า</string>
 	<string name="snack_bar_action_title_search">ค้นหา</string>
+	<string name="snack_bar_action_title_search_previous">ก่อนหน้า</string>
 	<string name="snack_bar_action_title_search_next">ถัดไป</string>
 	<string name="snack_bar_action_title_sort">เรียงลำดับ</string>
 	<string name="snack_bar_action_title_sort_az">A - Z</string>
 	<string name="snack_bar_action_title_sort_za">Z - A</string>
 	<string name="snack_bar_action_title_sort_newest">เรียงจากใหม่สุดก่อน</string>
 	<string name="snack_bar_action_title_sort_oldest">เรียงจากเก่าสุดก่อน</string>
+	<string name="snack_bar_cryptomator_variants_title">อ่านเพิ่มเติม</string>
+	<string name="snack_bar_cryptomator_variants_hint">ไม่มีคลาวด์ในรายการ?</string>
 	<!-- # screens -->
 	<!-- # screen: vault list -->
 	<string name="screen_vault_list_actions_title">เพิ่มไปยัง Cryptomator</string>
+	<string name="screen_vault_list_action_create_new_vault">สร้าง Vault ใหม่</string>
 	<string name="screen_vault_list_action_add_existing_vault">เพิ่ม Vault เดิม</string>
 	<string name="screen_vault_list_vault_action_delete">ลบ</string>
 	<!-- # screen: file browser -->
 	<string name="screen_file_browser_default_title">Vault</string>
+	<string name="screen_file_browser_create_new_vault_button_text">วางที่นี่</string>
+	<string name="screen_file_browser_create_new_vault_extra_text">ชื่อ Vault: %1$s</string>
 	<string name="screen_file_browser_move_button_text">ย้าย</string>
 	<string name="screen_file_browser_msg_empty_folder">โฟลเดอร์ว่าง</string>
+	<string name="screen_file_browser_file_info_label_date">แก้ไขเมื่อ %1$s ที่แล้ว</string>
+	<string name="screen_file_browser_share_intent_chooser_title">แชร์กับ</string>
 	<string name="screen_file_browser_share_button_text">เลือก</string>
+	<string name="screen_file_browser_nothing_to_share">ไม่มีสิ่งที่จะแชร์</string>
 	<string name="screen_file_browser_actions_title">เพิ่มไปยัง %1$s</string>
+	<string name="screen_file_browser_action_create_new_text_file">สร้างไฟล์ข้อความ</string>
 	<string name="screen_file_browser_action_upload_files">อัปโหลดไฟล์</string>
 	<string name="screen_file_browser_upload_files_chooser_title">ไฟล์</string>
+	<string name="screen_file_browser_msg_files_exported">ไฟล์ที่ส่งออก</string>
+	<string name="screen_file_browser_nothing_to_export">ไม่มีข้อมูลที่จะส่งออก</string>
 	<string name="screen_file_browser_node_action_share">แชร์</string>
 	<string name="screen_file_browser_node_action_rename">เปลี่ยนชื่อ</string>
 	<string name="screen_file_browser_node_action_edit_text">แก้ไข</string>
 	<string name="screen_file_browser_node_action_export">ส่งออก</string>
 	<string name="screen_file_browser_node_action_delete">ลบ</string>
+	<string name="screen_file_browser_node_action_open_with_text">เปิดด้วย&#8230;</string>
 	<string name="screen_file_browser_selection_mode_title_zero_elements">เลือกไอเท็ม</string>
 	<string name="screen_file_browser_select_items">เลือก</string>
+	<string name="screen_file_browser_select_all_items">เลือกทั้งหมด</string>
 	<string name="screen_file_browser_refresh_items">รีเฟรช</string>
 	<string name="screen_file_browser_no_connection_button_text">ลอง​ใหม่</string>
 	<!-- ## screen: text editor -->
@@ -46,16 +66,24 @@
 	<string name="screen_share_files_save_button_text">บันทึก</string>
 	<!-- ## screen: choose cloud service -->
 	<!-- ## screen: cloud connections -->
+	<string name="screen_cloud_connections_title">เลือกที่อยู่</string>
 	<!-- ## screen: webdav settings -->
 	<string name="screen_webdav_settings_url_port_label">URL</string>
+	<string name="screen_webdav_settings_username_label">ชื่อผู้ใช้</string>
 	<string name="screen_webdav_settings_password_label">รหัสผ่าน</string>
 	<string name="screen_webdav_settings_done_button_text">เชื่อมต่อ</string>
 	<string name="screen_webdav_settings_msg_url_must_not_be_empty">URL ไม่สามารถว่างเปล่าได้</string>
 	<string name="screen_webdav_settings_msg_url_is_invalid">URL ไม่ถูกต้อง</string>
+	<string name="screen_webdav_settings_msg_username_must_not_be_empty">ชื่อผู้ใช้ไม่สามารถเว้นว่างได้</string>
+	<string name="screen_webdav_settings_msg_password_must_not_be_empty">รหัสผ่านไม่สามารถเว้นว่างได้</string>
 	<!-- ## screen: s3 settings -->
 	<string name="screen_s3_settings_display_name_label">ชื่อที่ใช้แสดง</string>
+	<string name="screen_s3_settings_access_key_label">Access Key</string>
+	<string name="screen_s3_settings_secret_key_label">Secret key</string>
+	<string name="screen_s3_settings_endpoint_label">Endpoint</string>
 	<string name="screen_s3_settings_region_label">ภูมิภาค</string>
 	<!-- ## screen: enter vault name -->
+	<string name="screen_enter_vault_name_vault_label">ชื่อ Vault</string>
 	<string name="screen_enter_vault_name_button_text">สร้าง</string>
 	<!-- ## screen: set password -->
 	<string name="screen_set_password_title">กำหนดรหัสผ่าน</string>
@@ -68,23 +96,33 @@
 	<!-- ## screen: settings -->
 	<string name="screen_settings_section_general">ทั่วไป</string>
 	<string name="screen_settings_cloud_settings_label">บริการคลาวด์</string>
+	<string name="screen_settings_biometric_auth">การยืนยันตัวตนด้วยไบโอเมตริกซ์</string>
+	<string name="screen_settings_activate_biometric_auth">เปิดการยืนยันตัวตนด้วยไบโอเมตริกซ์</string>
 	<string name="screen_settings_block_app_when_obscured">บล็อกแอปเมื่อถูกปิดบัง</string>
+	<string name="screen_settings_secure_screen">บล็อกการจับภาพหน้าจอ</string>
 	<string name="screen_settings_section_search">ค้นหา</string>
 	<string name="screen_settings_live_search">ค้นหาแบบเรียลไทม์</string>
+	<string name="screen_settings_section_auto_lock">การล็อกอัตโนมัติ</string>
+	<string name="screen_settings_auto_lock_timeout">ล็อคหลังจาก</string>
 	<string name="screen_settings_auto_lock_on_screen_lock">เมื่อหน้าจอถูกปิด</string>
 	<string name="screen_settings_section_auto_photo_upload">การอัปโหลดภาพอัตโนมัติ</string>
 	<string name="screen_settings_section_auto_photo_upload_vault">เลือก vault สำหรับการอัปโหลด</string>
+	<string name="screen_settings_section_auto_photo_upload_toggle">เปิดใช้งาน</string>
 	<string name="screen_settings_section_auto_photo_upload_toggle_instant_upload">อัปโหลดทันที</string>
 	<string name="screen_settings_section_auto_photo_upload_only_wifi_toggle">อัปโหลดเฉพาะเมื่อใช้ WIFI</string>
 	<string name="screen_settings_website_label">เว็บไซต์ Cryptomator</string>
 	<string name="screen_settings_facebook_label">กดถูกใจเราบน Facebook</string>
 	<string name="screen_settings_section_legal">กฎหมาย</string>
+	<string name="screen_settings_licenses_label">สิทธิ์การใช้งาน</string>
 	<string name="screen_settings_section_support">สนับสนุน</string>
 	<string name="screen_settings_contact_label">ขอความช่วยเหลือ</string>
 	<string name="screen_settings_debug_mode_label">โหมดดีบัก</string>
 	<string name="screen_settings_error_report_failed">ส่งไม่สำเร็จ</string>
 	<string name="screen_settings_security_label">คำแนะนำด้านความปลอดภัย</string>
 	<string name="screen_settings_section_version">เวอร์ชั่น</string>
+	<string name="screen_settings_advanced_settings">การตั้งค่าขั้นสูง</string>
+	<string name="screen_settings_background_unlock_preparation_label">เร่งการปลดล็อก</string>
+	<string name="screen_settings_background_unlock_preparation_label_summary">ดาวน์โหลดการตั้งค่า vault ในพื้นหลังขณะถูกขอให้ป้อนรหัสผ่านหรือไบโอเมตริกซ์</string>
 	<!-- ## screen: cloud settings -->
 	<string name="screen_cloud_settings_webdav_connections">การเชื่อมต่อ WebDAV</string>
 	<string name="screen_cloud_settings_pcloud_connections">การเชื่อมต่อ pCloud</string>
@@ -106,33 +144,51 @@
 	<string name="dialog_existing_file_title">มีไฟล์อยู่แล้ว</string>
 	<string name="dialog_existing_file_positive_button">แทนที่</string>
 	<string name="dialog_replace_positive_button_all_files_exist">แทนที่ทั้งหมด</string>
+	<string name="dialog_replace_positive_button_some_files_exist">แทนที่ที่มีอยู่</string>
 	<string name="dialog_replace_positive_button_single_file_exists">แทนที่</string>
 	<string name="dialog_replace_title_multiple_files_exist">แทนที่ไฟล์?</string>
 	<string name="dialog_unable_to_share_positive_button">ตกลง</string>
 	<string name="dialog_filetype_not_supported_title">ไม่สามารถเปิด %1$s</string>
 	<string name="dialog_rename_node_file_title">เปลี่ยนชื่อไฟล์</string>
+	<string name="dialog_unsaved_changes_title">คุณยังไม่ได้บันทึกการเปลี่ยนแปลง</string>
 	<string name="dialog_unsaved_changes_discard">ไม่ต้องบันทึก</string>
+	<string name="dialog_file_name_hint">ชื่อไฟล์</string>
+	<string name="dialog_file_name_placeholder">ข้อความ.txt</string>
+	<string name="dialog_upload_file_title">กำลังอัปโหลด&#8230;</string>
+	<string name="dialog_upload_file_remaining">ไฟล์ %1$d ใน %2$d</string>
 	<string name="dialog_progress_please_wait">โปรดรอ&#8230;</string>
 	<string name="dialog_progress_creating_folder">กำลังสร้างโฟลเดอร์&#8230;</string>
 	<string name="action_progress_renaming">กำลังเปลี่ยนชื่อ&#8230;</string>
 	<string name="action_progress_deleting">กำลังลบ&#8230;</string>
 	<string name="dialog_progress_unlocking_vault">กำลังปลดล็อก vault&#8230;</string>
+	<string name="dialog_progress_change_password">กำลังเปลี่ยนรหัสผ่าน&#8230;</string>
+	<string name="dialog_progress_upload_file">กำลังอัปโหลด&#8230;</string>
 	<string name="dialog_progress_download_file">กำลังดาวน์โหลด&#8230;</string>
+	<string name="dialog_progress_encryption">กำลังเข้ารหัส&#8230;</string>
+	<string name="dialog_progress_decryption">กำลังถอดรหัส&#8230;</string>
 	<string name="dialog_lock_vault">ล็อก</string>
 	<string name="dialog_accept_ssl_certificate_title">SSL certificate ไม่ถูกต้อง</string>
 	<string name="dialog_accept_ssl_certificate_details">ราย​ละเอียด</string>
+	<string name="dialog_ask_ignore_battery_optimizations_checkbox">ไม่ต้องถามอีก?</string>
 	<string name="dialog_http_security_checkbox">เปลี่ยนเป็น HTTPS</string>
 	<string name="dialog_http_security_title">ใช้ HTTPS?</string>
+	<string name="dialog_no_screen_lock_title">ตั้งค่าการล็อกหน้าจอ?</string>
 	<string name="dialog_no_screen_lock_checkbox">ตั้งค่าการล็อกหน้าจอ</string>
+	<string name="dialog_debug_mode_disclaimer_title">โปรดทราบ</string>
 	<string name="dialog_debug_mode_positive_button">เปิดใช้งาน</string>
+	<string name="dialog_disable_app_obscured_disclaimer_title">โปรดทราบ</string>
 	<string name="dialog_disable_app_obscured_positive_button">ปิดการใช้งาน</string>
 	<string name="dialog_app_is_obscured_info_title">แอปพลิเคชันถูกปิดบัง</string>
 	<string name="dialog_app_is_obscured_info_neutral_button">ปิด</string>
 	<string name="dialog_confirm_delete_multiple_title">ลบ %1$d รายการ?</string>
+	<string name="dialog_biometric_auth_key_invalidated_title">การยืนยันตัวตนด้วยไบโอเมตริกซ์ถูกยกเลิก</string>
+	<string name="dialog_biometric_auth_key_invalidated_message">เนื่องจากรหัสการตรวจสอบถูกยกเลิก ฟีเจอร์การตรวจสอบแบบไบโอเมตริกซ์จึงถูกปิดใช้งาน หากต้องการเปิดใช้งานอีกครั้ง โปรดเปิดการตั้งค่า Cryptomator</string>
 	<string name="dialog_enter_license_decline_button">ออก</string>
+	<string name="dialog_update_available_title">มีการอัปเดตพร้อมใช้งาน</string>
 	<string name="dialog_update_available_update">อัปเดตตอนนี้</string>
 	<string name="dialog_update_available_cancel">ภายหลัง</string>
 	<string name="dialog_sym_link_back_button">ย้อนกลับ</string>
+	<string name="dialog_cbc_password_vaults_migration_hint">เนื่องจากการปรับปรุงด้านความปลอดภัย คุณจะถูกขอให้ตรวจสอบไบโอเมตริกซ์สองครั้งสำหรับแต่ละ vault เพื่อทำการเข้ารหัสรหัสผ่านของคุณใหม่ นี่เป็นสิ่งจำเป็นเพื่อรักษาความปลอดภัยรหัสผ่านของคุณด้วยเทคโนโลยีล่าสุด หากคุณไม่ต้องการ รหัสผ่านที่เก็บไว้จะถูกลบ</string>
 	<string name="dialog_cbc_password_vaults_migration_action">โอนย้าย</string>
 	<!-- # error reports -->
 	<!-- # misc -->
@@ -159,16 +215,27 @@
 	<string name="time_unit_years_sg">ปี</string>
 	<string name="time_unit_years_pl">ปี</string>
 	<!-- ## biometric authentication -->
-	<string name="dialog_biometric_auth_title">การเข้าสู่ระบบด้วยการรับรองตัวตนด้วยการจดจำหน้าหรือลายนิ้วมือ</string>
+	<string name="dialog_biometric_auth_title">การเข้าสู่ระบบด้วยไบโอเมตริกซ์</string>
+	<string name="dialog_biometric_auth_message">เข้าสู่ระบบโดยใช้ข้อมูลประจำตัวไบโอเมตริกซ์ของคุณ</string>
 	<string name="dialog_biometric_auth_use_password">ใช้รหัสผ่าน vault</string>
 	<!-- notification -->
+	<string name="notification_timeout">ล็อกภายใน \"%1$s</string>
+	<string name="notification_lock_all">ล็อกทั้งหมด</string>
+	<string name="notification_auto_upload_message">กำลังอัปโหลด %1d/%2d</string>
+	<string name="notification_auto_upload_failed_title">การอัปโหลดภาพอัตโนมัติล้มเหลว</string>
 	<string name="notification_open_writable_file_title">เปิดไฟล์ที่เขียนได้</string>
+	<string name="notification_update_check_finished_latest">ติดตั้งเวอร์ชันล่าสุดแล้ว</string>
 	<string name="screen_settings_lru_cache">แคช</string>
+	<string name="screen_settings_lru_cache_size">ขนาดแคชทั้งหมด</string>
 	<string name="screen_settings_clear_lru_cache_size">ล้างแคช</string>
 	<string name="screen_settings_license">ลงทะเบียนสำหรับ</string>
 	<string name="screen_settings_license_mail">%1$s</string>
+	<string name="screen_settings_check_updates">ตรวจสอบการอัพเดท</string>
 	<!-- lock timeout names -->
 	<string name="lock_timeout_instant">ทันที</string>
+	<string name="lock_timeout_1m">1 นาที</string>
+	<string name="lock_timeout_2m">2 นาที</string>
+	<string name="lock_timeout_5m">5 นาที</string>
 	<string name="lock_timeout_10m">10 นาที</string>
 	<string name="lock_timeout_never">ไม่เคย</string>
 	<!-- cache size names -->
