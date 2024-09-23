@@ -55,14 +55,6 @@ Update Metadata
 
 Check if the version code was set
 
-### android deployToLenotraAG
-
-```sh
-[bundle exec] fastlane android deployToLenotraAG
-```
-
-Deploy new version to Lenotra AG
-
 ### android checkTrackingAddedInDependencyUsingIzzyScript
 
 ```sh
@@ -78,6 +70,14 @@ Check if tracking added in some dependency using Izzy's script
 ```
 
 Check if tracking added in some dependency using exodus
+
+### android runFluidattacks
+
+```sh
+[bundle exec] fastlane android runFluidattacks
+```
+
+Run fluidattacks
 
 ### android createGitHubDraftRelease
 

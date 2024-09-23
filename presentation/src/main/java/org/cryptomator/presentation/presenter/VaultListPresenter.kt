@@ -28,10 +28,13 @@ import org.cryptomator.domain.usecases.UpdateCheck
 import org.cryptomator.domain.usecases.cloud.GetRootFolderUseCase
 import org.cryptomator.domain.usecases.vault.DeleteVaultUseCase
 import org.cryptomator.domain.usecases.vault.GetVaultListUseCase
+import org.cryptomator.domain.usecases.vault.ListCBCEncryptedPasswordVaultsUseCase
 import org.cryptomator.domain.usecases.vault.LockVaultUseCase
 import org.cryptomator.domain.usecases.vault.MoveVaultPositionUseCase
+import org.cryptomator.domain.usecases.vault.RemoveStoredVaultPasswordsUseCase
 import org.cryptomator.domain.usecases.vault.RenameVaultUseCase
 import org.cryptomator.domain.usecases.vault.SaveVaultUseCase
+import org.cryptomator.domain.usecases.vault.SaveVaultsUseCase
 import org.cryptomator.domain.usecases.vault.UpdateVaultParameterIfChangedRemotelyUseCase
 import org.cryptomator.generator.Callback
 import org.cryptomator.presentation.BuildConfig
@@ -49,6 +52,7 @@ import org.cryptomator.presentation.ui.activity.LicenseCheckActivity
 import org.cryptomator.presentation.ui.activity.view.VaultListView
 import org.cryptomator.presentation.ui.dialog.AppIsObscuredInfoDialog
 import org.cryptomator.presentation.ui.dialog.AskForLockScreenDialog
+import org.cryptomator.presentation.ui.dialog.CBCPasswordVaultsMigrationDialog
 import org.cryptomator.presentation.ui.dialog.EnterPasswordDialog
 import org.cryptomator.presentation.ui.dialog.UpdateAppAvailableDialog
 import org.cryptomator.presentation.ui.dialog.UpdateAppDialog
@@ -61,6 +65,7 @@ import org.cryptomator.presentation.workflow.CreateNewVaultWorkflow
 import org.cryptomator.presentation.workflow.PermissionsResult
 import org.cryptomator.presentation.workflow.Workflow
 import org.cryptomator.util.SharedPreferencesHandler
+import org.cryptomator.util.crypto.CryptoMode
 import javax.inject.Inject
 import timber.log.Timber
 
@@ -80,6 +85,9 @@ class VaultListPresenter @Inject constructor( //
 	private val updateCheckUseCase: DoUpdateCheckUseCase,  //
 	private val updateUseCase: DoUpdateUseCase,  //
 	private val updateVaultParameterIfChangedRemotelyUseCase: UpdateVaultParameterIfChangedRemotelyUseCase, //
+	private val listCBCEncryptedPasswordVaultsUseCase: ListCBCEncryptedPasswordVaultsUseCase, //
+	private val removeStoredVaultPasswordsUseCase: RemoveStoredVaultPasswordsUseCase, //
+	private val saveVaultsUseCase: SaveVaultsUseCase, //
 	private val networkConnectionCheck: NetworkConnectionCheck,  //
 	private val fileUtil: FileUtil,  //
 	private val authenticationExceptionHandler: AuthenticationExceptionHandler,  //
@@ -232,8 +240,66 @@ class VaultListPresenter @Inject constructor( //
 		if (!result.granted()) {
 			Timber.tag("VaultListPresenter").e("Notification permission not granted, notifications will not show")
 		}
+		checkCBCEncryptedVaults()
 	}
 
+	private fun checkCBCEncryptedVaults() {
+		listCBCEncryptedPasswordVaultsUseCase
+			.run(object : DefaultResultHandler<List<Vault>>() {
+				override fun onSuccess(vaults: List<Vault>) {
+					if (vaults.isNotEmpty()) {
+						view?.showDialog(CBCPasswordVaultsMigrationDialog.newInstance(vaults))
+					}
+				}
+			})
+	}
+
+	fun cBCPasswordVaultsMigrationClicked(cbcVaults: List<Vault>) {
+		val vaultModels = cbcVaults.mapTo(ArrayList()) { VaultModel(it) }
+		view?.migrateCBCEncryptedPasswordVaults(vaultModels)
+	}
+
+	fun cBCPasswordVaultsMigrationRejected(cbcVaults: List<Vault>) {
+		removeStoredVaultPasswordsUseCase
+			.withVaults(cbcVaults)
+			.run(object : DefaultResultHandler<Void?>() {
+				override fun onSuccess(ignore: Void?) {
+					loadVaultList()
+				}
+			})
+	}
+
+	fun biometricAuthenticationMigrationFinished(vaultModels: List<VaultModel>) {
+		val vaults = vaultModels.map { vaultModel -> vaultModel.toVault() }
+		saveVaultsUseCase //
+			.withVaults(vaults) //
+			.run(object : NoOpResultHandler<List<Vault>>() {
+				override fun onSuccess(migratedVaults: List<Vault>) {
+					loadVaultList()
+				}
+
+				override fun onError(e: Throwable) {
+					showError(e)
+				}
+			})
+	}
+
+
+	fun biometricKeyInvalidated(cbcVaults: List<VaultModel>) {
+		val vaults = cbcVaults.map { vaultModel -> vaultModel.toVault() }
+		removeStoredVaultPasswordsUseCase
+			.withVaults(vaults)
+			.run(object : DefaultResultHandler<Void?>() {
+				override fun onSuccess(ignore: Void?) {
+					loadVaultList()
+				}
+			})
+	}
+
+	fun biometricAuthenticationFailed(cbcVaults: List<VaultModel>) {
+		val vaults = cbcVaults.map { vaultModel -> vaultModel.toVault() }
+		view?.showDialog(CBCPasswordVaultsMigrationDialog.newInstance(vaults))
+	}
 
 	fun loadVaultList() {
 		view?.hideVaultCreationHint()
@@ -351,21 +417,32 @@ class VaultListPresenter @Inject constructor( //
 	}
 
 	private fun startVaultAction(vault: VaultModel, vaultAction: VaultAction) {
-		this.vaultAction = vaultAction
-		val cloud = vault.toVault().cloud
-		if (cloud != null) {
-			onCloudOfVaultAuthenticated(vault.toVault())
-		} else {
-			if (vault.isLocked) {
-				onVaultWithoutCloudClickedAndLocked(vault)
-			} else {
-				lockVaultUseCase //
-					.withVault(vault.toVault()) //
-					.run(object : DefaultResultHandler<Vault>() {
-						override fun onSuccess(vault: Vault) {
-							onVaultWithoutCloudClickedAndLocked(VaultModel(vault))
+		if (vault.passwordCryptoMode?.equals(CryptoMode.CBC) == true) {
+			listCBCEncryptedPasswordVaultsUseCase
+				.run(object : DefaultResultHandler<List<Vault>>() {
+					override fun onSuccess(vaults: List<Vault>) {
+						if (vaults.isNotEmpty()) {
+							view?.showDialog(CBCPasswordVaultsMigrationDialog.newInstance(vaults))
 						}
-					})
+					}
+				})
+		} else {
+			this.vaultAction = vaultAction
+			val cloud = vault.toVault().cloud
+			if (cloud != null) {
+				onCloudOfVaultAuthenticated(vault.toVault())
+			} else {
+				if (vault.isLocked) {
+					onVaultWithoutCloudClickedAndLocked(vault)
+				} else {
+					lockVaultUseCase //
+						.withVault(vault.toVault()) //
+						.run(object : DefaultResultHandler<Vault>() {
+							override fun onSuccess(vault: Vault) {
+								onVaultWithoutCloudClickedAndLocked(VaultModel(vault))
+							}
+						})
+				}
 			}
 		}
 	}
@@ -570,6 +647,9 @@ class VaultListPresenter @Inject constructor( //
 			licenseCheckUseCase,  //
 			updateCheckUseCase,  //
 			updateUseCase, //
+			listCBCEncryptedPasswordVaultsUseCase, //
+			removeStoredVaultPasswordsUseCase, //
+			saveVaultsUseCase, //
 			updateVaultParameterIfChangedRemotelyUseCase
 		)
 	}

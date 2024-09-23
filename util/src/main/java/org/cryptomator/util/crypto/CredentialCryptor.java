@@ -11,17 +11,30 @@ public class CredentialCryptor {
 
 	private final Cipher cipher;
 
-	private CredentialCryptor(Context context) {
+	private static String getSuffixedAlias(CryptoMode cryptoMode) {
+		return switch (cryptoMode) {
+			case CBC -> DEFAULT_KEY_ALIAS; // CBC does not have an alias due to legacy reasons
+			case GCM -> DEFAULT_KEY_ALIAS + "_GCM";
+			case NONE -> throw new IllegalStateException("CryptoMode.NONE is not allowed here");
+		};
+	}
+
+	private CredentialCryptor(Context context, CryptoMode cryptoMode) {
+		String suffixedAlias = getSuffixedAlias(cryptoMode);
 		KeyStore keyStore = KeyStoreBuilder.defaultKeyStore() //
-				.withKey(DEFAULT_KEY_ALIAS, false, context) //
+				.withKey(suffixedAlias, false, cryptoMode, context) //
 				.build();
 		this.cipher = CryptoOperationsFactory //
-				.cryptoOperations() //
-				.cryptor(keyStore, DEFAULT_KEY_ALIAS);
+				.cryptoOperations(cryptoMode) //
+				.cryptor(keyStore, suffixedAlias);
 	}
 
 	public static CredentialCryptor getInstance(Context context) {
-		return new CredentialCryptor(context);
+		return new CredentialCryptor(context, CryptoMode.GCM);
+	}
+
+	public static CredentialCryptor getInstance(Context context, CryptoMode cryptoMode) {
+		return new CredentialCryptor(context, cryptoMode);
 	}
 
 	public byte[] encrypt(byte[] decrypted) {
