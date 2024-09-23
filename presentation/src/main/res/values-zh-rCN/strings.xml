@@ -342,13 +342,13 @@
 	<string name="dialog_download_update_message">正在下载最新版</string>
 	<string name="dialog_sym_link_title">文件夹是一个符号链接</string>
 	<string name="dialog_sym_link_message">您不能导航到此符号链接</string>
-	<string name="dialog_sym_link_back_button">返回</string>
+	<string name="dialog_sym_link_back_button">后退</string>
 	<string name="dialog_no_dir_file_title">无法加载目录内容</string>
 	<string name="dialog_no_dir_file_message">云文件夹 \'%1$s\' 没有有效的目录文件。可能文件夹是在另一设备上创建的，尚未完全同步到云端。请检查云端是否存在且不为空的以下文件：\n%2$s</string>
 	<string name="dialog_no_more_images_to_display">已到达文件夹末尾&#8230;</string>
 	<string name="dialog_pcloud_credentials_updated_title">\'%1$s\' 的证书已更新</string>
 	<string name="dialog_pcloud_credentials_updated">如果您打算添加一个新的 pCloud 账户，请点击此链接 <a href="https://www.pcloud.com">www.pcloud.com</a>，登出当前账户，然后点击此应用中的 \'+\' 来创建新的云连接</string>
-	<string name="dialog_cbc_password_vaults_migration_title">需要迁移保管库密码</string>
+	<string name="dialog_cbc_password_vaults_migration_title">需要迁移保险库密码</string>
 	<string name="dialog_cbc_password_vaults_migration_hint">由于安全性能增强，每个保险库都会要求您进行两次生物识别验证，以重新加密您的保险库密码。这是继续使用最新技术保护您的保险库密码所必需的。如果您不希望这样做，存储的密码将被删除。</string>
 	<string name="dialog_cbc_password_vaults_migration_action">迁移</string>
 	<string name="permission_snackbar_auth_local_vault">Cryptomator 需要存储权限以使用本地保险库</string>
