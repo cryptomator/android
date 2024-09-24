@@ -50,6 +50,9 @@ import java.nio.channels.Channels
 import java.util.LinkedList
 import java.util.Queue
 import java.util.UUID
+import java.util.concurrent.Callable
+import java.util.concurrent.CompletableFuture
+import java.util.concurrent.ExecutorCompletionService
 import java.util.concurrent.ExecutorService
 import java.util.concurrent.Executors
 import java.util.concurrent.Future
@@ -77,7 +80,7 @@ abstract class CryptoImplDecorator(
 
 	private val thumbnailExecutorService: ExecutorService by lazy {
 		val threadFactory = ThreadFactoryBuilder().setNameFormat("thumbnail-generation-thread-%d").build()
-		Executors.newFixedThreadPool(3, threadFactory)
+		Executors.newCachedThreadPool(threadFactory)
 	}
 
 	protected fun getLruCacheFor(type: CloudType): DiskLruCache? {
@@ -379,6 +382,69 @@ abstract class CryptoImplDecorator(
 	}
 
 	@Throws(BackendException::class)
+	fun readGenerateThumbnail(cryptoFile: CryptoFile, data: OutputStream, progressAware: ProgressAware<DownloadState>): Future<*> {
+		// TODO refactor this method with the real read
+
+		val ciphertextFile = cryptoFile.cloudFile
+		var futureThumbnail: Future<*> = CompletableFuture.completedFuture(null)
+
+		val diskCache = cryptoFile.cloudFile.cloud?.type()?.let { getLruCacheFor(it) }
+		val cacheKey = generateCacheKey(ciphertextFile)
+		val genThumbnail = isThumbnailGenerationAvailable(diskCache, cryptoFile.name)
+
+		val thumbnailWriter = PipedOutputStream()
+		val thumbnailReader = PipedInputStream(thumbnailWriter)
+
+		try {
+			val encryptedTmpFile = readToTmpFile(cryptoFile, ciphertextFile, progressAware)
+
+			if (genThumbnail) {
+				futureThumbnail = startThumbnailGeneratorThread(cryptoFile, diskCache!!, cacheKey, thumbnailReader)
+			}
+
+			progressAware.onProgress(Progress.started(DownloadState.decryption(cryptoFile)))
+			try {
+				Channels.newChannel(FileInputStream(encryptedTmpFile)).use { readableByteChannel ->
+					DecryptingReadableByteChannel(readableByteChannel, cryptor(), true).use { decryptingReadableByteChannel ->
+						val buff = ByteBuffer.allocate(cryptor().fileContentCryptor().ciphertextChunkSize())
+						val cleartextSize = cryptoFile.size ?: Long.MAX_VALUE
+						var decrypted: Long = 0
+						var read: Int
+						while (decryptingReadableByteChannel.read(buff).also { read = it } > 0) {
+							buff.flip()
+							data.write(buff.array(), 0, buff.remaining())
+							if (genThumbnail) {
+								thumbnailWriter.write(buff.array(), 0, buff.remaining())
+							}
+
+							decrypted += read.toLong()
+
+							progressAware
+								.onProgress(
+									Progress.progress(DownloadState.decryption(cryptoFile)) //
+										.between(0) //
+										.and(cleartextSize) //
+										.withValue(decrypted)
+								)
+						}
+					}
+					thumbnailWriter.flush()
+					closeQuietly(thumbnailWriter)
+				}
+			} finally {
+				encryptedTmpFile.delete()
+				progressAware.onProgress(Progress.completed(DownloadState.decryption(cryptoFile)))
+			}
+
+			closeQuietly(thumbnailReader)
+		} catch (e: IOException) {
+			throw FatalBackendException(e)
+		}
+
+		return futureThumbnail
+	}
+
+	@Throws(BackendException::class)
 	fun read(cryptoFile: CryptoFile, data: OutputStream, progressAware: ProgressAware<DownloadState>) {
 		val ciphertextFile = cryptoFile.cloudFile
 
@@ -393,7 +459,7 @@ abstract class CryptoImplDecorator(
 			val encryptedTmpFile = readToTmpFile(cryptoFile, ciphertextFile, progressAware)
 
 			if (genThumbnail) {
-				startThumbnailGeneratorThread(diskCache, cacheKey, thumbnailReader)
+				startThumbnailGeneratorThread(cryptoFile, diskCache!!, cacheKey, thumbnailReader)
 			}
 
 			progressAware.onProgress(Progress.started(DownloadState.decryption(cryptoFile)))
@@ -444,7 +510,7 @@ abstract class CryptoImplDecorator(
 		}
 	}
 
-	private fun startThumbnailGeneratorThread(diskCache: DiskLruCache?, cacheKey: String, thumbnailReader: PipedInputStream): Future<*> {
+	private fun startThumbnailGeneratorThread(cryptoFile: CryptoFile, diskCache: DiskLruCache, cacheKey: String, thumbnailReader: PipedInputStream): Future<*> {
 		return thumbnailExecutorService.submit {
 			try {
 				val options = BitmapFactory.Options()
@@ -461,6 +527,8 @@ abstract class CryptoImplDecorator(
 				}
 
 				closeQuietly(thumbnailReader)
+
+				cryptoFile.thumbnail = diskCache[cacheKey]
 			} catch (e: Exception) {
 				Timber.e("Bitmap generation crashed")
 			}
@@ -476,27 +544,47 @@ abstract class CryptoImplDecorator(
 	}
 
 	protected fun associateThumbnailIfInCache(list: List<CryptoNode?>): List<CryptoNode?> {
+		val completionService = ExecutorCompletionService<Unit>(thumbnailExecutorService)
 		if (isGenerateThumbnailsEnabled()) {
 			val firstCryptoFile = list.find { it is CryptoFile } ?: return list
 			val cloudType = (firstCryptoFile as CryptoFile).cloudFile.cloud?.type() ?: return list
 			val diskCache = getLruCacheFor(cloudType) ?: return list
+			val l = mutableListOf<Callable<Unit>>()
+
+			var len = 0
 			list.forEach { cryptoNode ->
-				if (cryptoNode is CryptoFile && isImageMediaType(cryptoNode.name)) {
-					val cacheKey = generateCacheKey(cryptoNode.cloudFile)
-					val cacheFile = diskCache[cacheKey]
-					if (cacheFile != null) {
-						cryptoNode.thumbnail = cacheFile
-					} else {
-						// TODO
-						// force thumbnail generation (~PER FOLDER)
-						val trash = File.createTempFile(cryptoNode.name, ".temp", internalCache)
-						read(cryptoNode, trash.outputStream(), ProgressAware.NO_OP_PROGRESS_AWARE_DOWNLOAD)
-						trash.delete()
-					}
+				if (cryptoNode is CryptoFile && cryptoNode.thumbnail == null && isImageMediaType(cryptoNode.name)) {
+					Timber.tag("THUMBNAIL").i("Add Thumbnail Generation Service Request")
+					len++
+					completionService.submit { cacheOrGenerate(cryptoNode, diskCache) }
 				}
 			}
+
+			var received = 0
+			while (received < len) {
+				completionService.take(); // blocks if none available
+				received++
+			}
+			Timber.tag("THUMBNAIL").i("WAITED ALL")
 		}
 		return list
+	}
+
+	private fun cacheOrGenerate(cryptoFile: CryptoFile, diskCache: DiskLruCache) {
+		val cacheKey = generateCacheKey(cryptoFile)
+		val cacheFile = diskCache[cacheKey]
+		if (cacheFile != null) {
+			// Timber.tag("THUMBNAIL").i("THREAD - Associo")
+			cryptoFile.thumbnail = cacheFile
+		} else {
+			// TODO
+			// force thumbnail generation (~PER FOLDER)
+			// better usage of the file...
+			val trash = File.createTempFile(cryptoFile.name, ".temp", internalCache)
+			// Timber.tag("THUMBNAIL").i("THREAD - Scarico")
+			readGenerateThumbnail(cryptoFile, trash.outputStream(), ProgressAware.NO_OP_PROGRESS_AWARE_DOWNLOAD).get()
+			trash.delete()
+		}
 	}
 
 	private fun isGenerateThumbnailsEnabled(): Boolean {
