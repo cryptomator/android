@@ -40,10 +40,14 @@ class CreateDatabaseTest {
 			it.templateFile = templateFile
 		}
 
-		val templateDb = SupportSQLiteOpenHelper.Configuration(templateDatabaseContext, DATABASE_NAME, object : SupportSQLiteOpenHelper.Callback(1) {
-			override fun onCreate(db: SupportSQLiteDatabase) = fail("Database should already exist")
-			override fun onUpgrade(db: SupportSQLiteDatabase, oldVersion: Int, newVersion: Int) = fail("Database should already be target version")
-		}).let { FrameworkSQLiteOpenHelperFactory().create(it).writableDatabase }
+		val config = SupportSQLiteOpenHelper.Configuration.builder(templateDatabaseContext) //
+			.name(DATABASE_NAME) //
+			.callback(object : SupportSQLiteOpenHelper.Callback(1) {
+				override fun onCreate(db: SupportSQLiteDatabase) = fail("Database should already exist")
+				override fun onUpgrade(db: SupportSQLiteDatabase, oldVersion: Int, newVersion: Int) = fail("Database should already be target version")
+			}).build()
+
+		val templateDb = FrameworkSQLiteOpenHelperFactory().create(config).writableDatabase
 		assertEquals(1, templateDb.version)
 
 		val elements = mutableListOf("CLOUD_ENTITY", "VAULT_ENTITY", "IDX_VAULT_ENTITY_FOLDER_PATH_FOLDER_CLOUD_ID")

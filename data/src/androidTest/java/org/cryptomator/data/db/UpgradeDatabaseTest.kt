@@ -88,20 +88,24 @@ class UpgradeDatabaseTest {
 			Files.copy(templateDbStream, dbFile.toPath())
 		}
 
-		db = SupportSQLiteOpenHelper.Configuration(context, TEST_DB, object : SupportSQLiteOpenHelper.Callback(LATEST_LEGACY_MIGRATION) {
-			override fun onConfigure(db: SupportSQLiteDatabase) = db.applyDefaultConfiguration( //
-				writeAheadLoggingEnabled = false //
-			)
+		val config = SupportSQLiteOpenHelper.Configuration.builder(context) //
+			.name(TEST_DB) //
+			.callback(object : SupportSQLiteOpenHelper.Callback(LATEST_LEGACY_MIGRATION) {
+				override fun onConfigure(db: SupportSQLiteDatabase) = db.applyDefaultConfiguration( //
+					writeAheadLoggingEnabled = false //
+				)
 
-			override fun onCreate(db: SupportSQLiteDatabase) {
-				fail("Database should not be created, but copied from template")
-			}
+				override fun onCreate(db: SupportSQLiteDatabase) {
+					fail("Database should not be created, but copied from template")
+				}
 
-			override fun onUpgrade(db: SupportSQLiteDatabase, oldVersion: Int, newVersion: Int) {
-				assertEquals(1, oldVersion)
-				assertEquals(LATEST_LEGACY_MIGRATION, newVersion)
-			}
-		}).let { FrameworkSQLiteOpenHelperFactory().asCacheControlled().create(it).writableDatabase }
+				override fun onUpgrade(db: SupportSQLiteDatabase, oldVersion: Int, newVersion: Int) {
+					assertEquals(1, oldVersion)
+					assertEquals(LATEST_LEGACY_MIGRATION, newVersion)
+				}
+			}).build()
+
+		db = FrameworkSQLiteOpenHelperFactory().asCacheControlled().create(config).writableDatabase
 	}
 
 	@After
