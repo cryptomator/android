@@ -162,6 +162,9 @@ dependencies {
 	implementation dependencies.scaleImageView
 	implementation dependencies.recyclerViewFastScroll
 
+	// room (required for adding DatabaseModule to the dagger graph)
+	implementation dependencies.room
+
 	// android x
 	implementation dependencies.androidxCore
 	implementation dependencies.androidxFragment

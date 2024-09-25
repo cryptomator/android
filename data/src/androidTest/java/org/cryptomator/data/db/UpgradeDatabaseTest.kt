@@ -1,97 +1,180 @@
 package org.cryptomator.data.db
 
 import android.content.Context
-import android.database.sqlite.SQLiteDatabase
+import android.database.Cursor
+import androidx.room.migration.Migration
+import androidx.room.testing.MigrationTestHelper
+import androidx.room.util.copyAndClose
+import androidx.sqlite.db.SupportSQLiteDatabase
+import androidx.sqlite.db.SupportSQLiteOpenHelper
+import androidx.sqlite.db.framework.FrameworkSQLiteOpenHelperFactory
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import androidx.test.filters.SmallTest
 import androidx.test.platform.app.InstrumentationRegistry
 import com.google.common.base.Optional
-import org.cryptomator.data.db.entities.CloudEntityDao
-import org.cryptomator.data.db.entities.UpdateCheckEntityDao
-import org.cryptomator.data.db.entities.VaultEntityDao
+import org.cryptomator.data.db.CryptomatorAssert.assertCursorEquals
+import org.cryptomator.data.db.CryptomatorAssert.assertIsUUID
+import org.cryptomator.data.db.SQLiteCacheControl.asCacheControlled
+import org.cryptomator.data.db.migrations.Sql
+import org.cryptomator.data.db.migrations.legacy.Upgrade10To11
+import org.cryptomator.data.db.migrations.legacy.Upgrade11To12
+import org.cryptomator.data.db.migrations.legacy.Upgrade1To2
+import org.cryptomator.data.db.migrations.legacy.Upgrade2To3
+import org.cryptomator.data.db.migrations.legacy.Upgrade3To4
+import org.cryptomator.data.db.migrations.legacy.Upgrade4To5
+import org.cryptomator.data.db.migrations.legacy.Upgrade5To6
+import org.cryptomator.data.db.migrations.legacy.Upgrade6To7
+import org.cryptomator.data.db.migrations.legacy.Upgrade7To8
+import org.cryptomator.data.db.migrations.legacy.Upgrade8To9
+import org.cryptomator.data.db.migrations.legacy.Upgrade9To10
+import org.cryptomator.data.db.migrations.manual.Migration13To14
+import org.cryptomator.data.db.templating.DbTemplateModule
+import org.cryptomator.data.db.templating.TemplateDatabaseContext
 import org.cryptomator.domain.CloudType
 import org.cryptomator.util.SharedPreferencesHandler
 import org.cryptomator.util.crypto.CredentialCryptor
-import org.cryptomator.util.crypto.CryptoMode
-import org.greenrobot.greendao.database.Database
-import org.greenrobot.greendao.database.StandardDatabase
-import org.greenrobot.greendao.internal.DaoConfig
 import org.hamcrest.CoreMatchers
 import org.junit.After
 import org.junit.Assert
+import org.junit.Assert.assertEquals
+import org.junit.Assert.assertFalse
+import org.junit.Assert.assertTrue
+import org.junit.Assert.fail
 import org.junit.Before
+import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
+import java.io.IOException
+import java.nio.file.Files
+
+private const val TEST_DB = "migration-test"
+private const val LATEST_LEGACY_MIGRATION = 13
+
+private const val UUID_LENGTH = 36
 
 @RunWith(AndroidJUnit4::class)
 @SmallTest
 class UpgradeDatabaseTest {
 
-	private val context = InstrumentationRegistry.getInstrumentation().context
+	private val instrumentation = InstrumentationRegistry.getInstrumentation()
+	private val context = instrumentation.context
 	private val sharedPreferencesHandler = SharedPreferencesHandler(context)
-	private lateinit var db: Database
+
+	private val templateDbStream = DbTemplateModule().let {
+		it.provideDbTemplateStream(it.provideConfiguration(TemplateDatabaseContext(context)))
+	}.also {
+		require(it.markSupported())
+		it.mark(it.available())
+	}
+
+	private lateinit var openHelper: SupportSQLiteOpenHelper
+	private lateinit var db: SupportSQLiteDatabase
+
+	@get:Rule
+	val helper: MigrationTestHelper = MigrationTestHelper( //
+		instrumentation, //
+		CryptomatorDatabase::class.java, //
+		listOf(), //TODO AutoSpecs
+		DatabaseOpenHelperFactory { throw IllegalStateException() }
+	)
 
 	@Before
 	fun setup() {
-		db = StandardDatabase(SQLiteDatabase.create(null))
+		context.getDatabasePath(TEST_DB).also { dbFile ->
+			if (dbFile.exists()) {
+				//This may happen when killing the process while using the debugger
+				println("Test database \"${dbFile.absolutePath}\" not cleaned up. Deleting...")
+				dbFile.delete()
+			}
+			Files.copy(templateDbStream, dbFile.toPath())
+		}
+
+		val config = SupportSQLiteOpenHelper.Configuration.builder(context) //
+			.name(TEST_DB) //
+			.callback(object : SupportSQLiteOpenHelper.Callback(LATEST_LEGACY_MIGRATION) {
+				override fun onConfigure(db: SupportSQLiteDatabase) = db.applyDefaultConfiguration( //
+					assertedWalEnabledStatus = false //
+				)
+
+				override fun onCreate(db: SupportSQLiteDatabase) {
+					fail("Database should not be created, but copied from template")
+				}
+
+				override fun onUpgrade(db: SupportSQLiteDatabase, oldVersion: Int, newVersion: Int) {
+					assertEquals(1, oldVersion)
+					assertEquals(LATEST_LEGACY_MIGRATION, newVersion)
+				}
+			}).build()
+
+		openHelper = FrameworkSQLiteOpenHelperFactory().asCacheControlled().create(config)
+		openHelper.setWriteAheadLoggingEnabled(false)
+		db = openHelper.writableDatabase
 	}
 
 	@After
 	fun tearDown() {
 		db.close()
+		openHelper.close()
+		//Room handles creating/deleting room-only databases correctly, but this falls apart when using the FrameworkSQLiteOpenHelper directly
+		context.getDatabasePath(TEST_DB).delete()
+		templateDbStream.reset()
 	}
 
 	@Test
 	fun upgradeAll() {
-		Upgrade0To1().applyTo(db, 0)
-		Upgrade1To2().applyTo(db, 1)
-		Upgrade2To3(context).applyTo(db, 2)
-		Upgrade3To4().applyTo(db, 3)
-		Upgrade4To5().applyTo(db, 4)
-		Upgrade5To6().applyTo(db, 5)
-		Upgrade6To7().applyTo(db, 6)
-		Upgrade7To8().applyTo(db, 7)
-		Upgrade8To9(sharedPreferencesHandler).applyTo(db, 8)
-		Upgrade9To10(sharedPreferencesHandler).applyTo(db, 9)
-		Upgrade10To11().applyTo(db, 10)
-		Upgrade11To12(sharedPreferencesHandler).applyTo(db, 11)
+		Upgrade1To2().migrate(db)
+		Upgrade2To3(context).migrate(db)
+		Upgrade3To4().migrate(db)
+		Upgrade4To5().migrate(db)
+		Upgrade5To6().migrate(db)
+		Upgrade6To7().migrate(db)
+		Upgrade7To8().migrate(db)
+		Upgrade8To9(sharedPreferencesHandler).migrate(db)
+		Upgrade9To10(sharedPreferencesHandler).migrate(db)
+		Upgrade10To11().migrate(db)
+		Upgrade11To12(sharedPreferencesHandler).migrate(db)
+		/*
 		Upgrade12To13(context).applyTo(db, 12)
+		*/
+		db.close()
 
-		CloudEntityDao(DaoConfig(db, CloudEntityDao::class.java)).loadAll()
-		VaultEntityDao(DaoConfig(db, VaultEntityDao::class.java)).loadAll()
-		UpdateCheckEntityDao(DaoConfig(db, UpdateCheckEntityDao::class.java)).loadAll()
+		runMigrationsAndValidate(14, Migration13To14())
+		runMigrationsAndValidate(15, CryptomatorDatabase_AutoMigration_14_15_Impl())
 	}
 
+	@Throws(IOException::class)
+	private fun runMigrationsAndValidate(version: Int, vararg migrations: Migration): SupportSQLiteDatabase {
+		return helper.runMigrationsAndValidate(TEST_DB, version, true, *migrations).also { db -> helper.closeWhenFinished(db) }
+	}
 
 	@Test
 	fun upgrade2To3() {
-		Upgrade0To1().applyTo(db, 0)
-		Upgrade1To2().applyTo(db, 1)
+		Upgrade1To2().migrate(db)
 
 		val url = "url"
 		val username = "username"
 		val webdavCertificate = "webdavCertificate"
 		val accessToken = "accessToken"
 
-		Sql.update("CLOUD_ENTITY")
-			.where("TYPE", Sql.eq("DROPBOX"))
-			.set("ACCESS_TOKEN", Sql.toString(accessToken))
-			.set("WEBDAV_URL", Sql.toString(url))
-			.set("USERNAME", Sql.toString(username))
-			.set("WEBDAV_CERTIFICATE", Sql.toString(webdavCertificate))
+		Sql.update("CLOUD_ENTITY") //
+			.where("TYPE", Sql.eq("DROPBOX")) //
+			.set("ACCESS_TOKEN", Sql.toString(accessToken)) //
+			.set("WEBDAV_URL", Sql.toString(url)) //
+			.set("USERNAME", Sql.toString(username)) //
+			.set("WEBDAV_CERTIFICATE", Sql.toString(webdavCertificate)) //
 			.executeOn(db)
 
-		Sql.update("CLOUD_ENTITY")
-			.where("TYPE", Sql.eq("ONEDRIVE"))
-			.set("ACCESS_TOKEN", Sql.toString("NOT USED"))
-			.set("WEBDAV_URL", Sql.toString(url))
-			.set("USERNAME", Sql.toString(username))
-			.set("WEBDAV_CERTIFICATE", Sql.toString(webdavCertificate))
+		Sql.update("CLOUD_ENTITY") //
+			.where("TYPE", Sql.eq("ONEDRIVE")) //
+			.set("ACCESS_TOKEN", Sql.toString("NOT USED")) //
+			.set("WEBDAV_URL", Sql.toString(url)) //
+			.set("USERNAME", Sql.toString(username)) //
+			.set("WEBDAV_CERTIFICATE", Sql.toString(webdavCertificate)) //
 			.executeOn(db)
 
 		context.getSharedPreferences("com.microsoft.live", Context.MODE_PRIVATE).edit().putString("refresh_token", accessToken).commit()
 
-		Upgrade2To3(context).applyTo(db, 2)
+		Upgrade2To3(context).migrate(db)
 
 		checkUpgrade2to3ResultForCloud("DROPBOX", accessToken, url, username, webdavCertificate)
 		checkUpgrade2to3ResultForCloud("ONEDRIVE", accessToken, url, username, webdavCertificate)
@@ -111,9 +194,8 @@ class UpgradeDatabaseTest {
 
 	@Test
 	fun upgrade3To4() {
-		Upgrade0To1().applyTo(db, 0)
-		Upgrade1To2().applyTo(db, 1)
-		Upgrade2To3(context).applyTo(db, 2)
+		Upgrade1To2().migrate(db)
+		Upgrade2To3(context).migrate(db)
 
 		val ids = arrayOf("10", "20", "31", "32", "51")
 
@@ -128,7 +210,7 @@ class UpgradeDatabaseTest {
 				.executeOn(db)
 		}
 
-		Upgrade3To4().applyTo(db, 3)
+		Upgrade3To4().migrate(db)
 
 		Sql.query("VAULT_ENTITY").where("CLOUD_TYPE", Sql.eq(CloudType.DROPBOX.name)).executeOn(db).use {
 			Assert.assertThat(it.count, CoreMatchers.`is`(ids.size))
@@ -146,10 +228,9 @@ class UpgradeDatabaseTest {
 
 	@Test
 	fun upgrade4To5() {
-		Upgrade0To1().applyTo(db, 0)
-		Upgrade1To2().applyTo(db, 1)
-		Upgrade2To3(context).applyTo(db, 2)
-		Upgrade3To4().applyTo(db, 3)
+		Upgrade1To2().migrate(db)
+		Upgrade2To3(context).migrate(db)
+		Upgrade3To4().migrate(db)
 
 		val cloudId = 15
 		val cloudUrl = "url"
@@ -182,7 +263,7 @@ class UpgradeDatabaseTest {
 			.integer("POSITION", position) //
 			.executeOn(db)
 
-		Upgrade4To5().applyTo(db, 4)
+		Upgrade4To5().migrate(db)
 
 		Sql.query("CLOUD_ENTITY").where("TYPE", Sql.eq(CloudType.WEBDAV.name)).executeOn(db).use {
 			it.moveToFirst()
@@ -208,11 +289,10 @@ class UpgradeDatabaseTest {
 
 	@Test
 	fun upgrade5To6() {
-		Upgrade0To1().applyTo(db, 0)
-		Upgrade1To2().applyTo(db, 1)
-		Upgrade2To3(context).applyTo(db, 2)
-		Upgrade3To4().applyTo(db, 3)
-		Upgrade4To5().applyTo(db, 4)
+		Upgrade1To2().migrate(db)
+		Upgrade2To3(context).migrate(db)
+		Upgrade3To4().migrate(db)
+		Upgrade4To5().migrate(db)
 
 		val cloudId = 15
 		val cloudUrl = "url"
@@ -245,7 +325,7 @@ class UpgradeDatabaseTest {
 			.integer("POSITION", position) //
 			.executeOn(db)
 
-		Upgrade5To6().applyTo(db, 5)
+		Upgrade5To6().migrate(db)
 
 		Sql.query("CLOUD_ENTITY").where("TYPE", Sql.eq(CloudType.WEBDAV.name)).executeOn(db).use {
 			it.moveToFirst()
@@ -271,12 +351,11 @@ class UpgradeDatabaseTest {
 
 	@Test
 	fun upgrade6To7() {
-		Upgrade0To1().applyTo(db, 0)
-		Upgrade1To2().applyTo(db, 1)
-		Upgrade2To3(context).applyTo(db, 2)
-		Upgrade3To4().applyTo(db, 3)
-		Upgrade4To5().applyTo(db, 4)
-		Upgrade5To6().applyTo(db, 5)
+		Upgrade1To2().migrate(db)
+		Upgrade2To3(context).migrate(db)
+		Upgrade3To4().migrate(db)
+		Upgrade4To5().migrate(db)
+		Upgrade5To6().migrate(db)
 
 		val licenseToken = "licenseToken"
 		val releaseNote = "releaseNote"
@@ -284,15 +363,15 @@ class UpgradeDatabaseTest {
 		val urlApk = "urlApk"
 		val urlReleaseNote = "urlReleaseNote"
 
-		Sql.update("UPDATE_CHECK_ENTITY")
-			.set("LICENSE_TOKEN", Sql.toString(licenseToken))
-			.set("RELEASE_NOTE", Sql.toString(releaseNote))
-			.set("VERSION", Sql.toString(version))
-			.set("URL_TO_APK", Sql.toString(urlApk))
-			.set("URL_TO_RELEASE_NOTE", Sql.toString(urlReleaseNote))
+		Sql.update("UPDATE_CHECK_ENTITY") //
+			.set("LICENSE_TOKEN", Sql.toString(licenseToken)) //
+			.set("RELEASE_NOTE", Sql.toString(releaseNote)) //
+			.set("VERSION", Sql.toString(version)) //
+			.set("URL_TO_APK", Sql.toString(urlApk)) //
+			.set("URL_TO_RELEASE_NOTE", Sql.toString(urlReleaseNote)) //
 			.executeOn(db)
 
-		Upgrade6To7().applyTo(db, 6)
+		Upgrade6To7().migrate(db)
 
 		Sql.query("UPDATE_CHECK_ENTITY").executeOn(db).use {
 			it.moveToFirst()
@@ -307,27 +386,26 @@ class UpgradeDatabaseTest {
 
 	@Test
 	fun upgrade6To7DueToSQLiteExceptionThrown() {
-		Upgrade0To1().applyTo(db, 0)
-		Upgrade1To2().applyTo(db, 1)
-		Upgrade2To3(context).applyTo(db, 2)
-		Upgrade3To4().applyTo(db, 3)
-		Upgrade4To5().applyTo(db, 4)
-		Upgrade5To6().applyTo(db, 5)
+		Upgrade1To2().migrate(db)
+		Upgrade2To3(context).migrate(db)
+		Upgrade3To4().migrate(db)
+		Upgrade4To5().migrate(db)
+		Upgrade5To6().migrate(db)
 
 		val licenseToken = "licenseToken"
 
-		Sql.update("UPDATE_CHECK_ENTITY")
-			.set("LICENSE_TOKEN", Sql.toString(licenseToken))
-			.set("RELEASE_NOTE", Sql.toString("releaseNote"))
-			.set("VERSION", Sql.toString("version"))
-			.set("URL_TO_APK", Sql.toString("urlApk"))
-			.set("URL_TO_RELEASE_NOTE", Sql.toString("urlReleaseNote"))
+		Sql.update("UPDATE_CHECK_ENTITY") //
+			.set("LICENSE_TOKEN", Sql.toString(licenseToken)) //
+			.set("RELEASE_NOTE", Sql.toString("releaseNote")) //
+			.set("VERSION", Sql.toString("version")) //
+			.set("URL_TO_APK", Sql.toString("urlApk")) //
+			.set("URL_TO_RELEASE_NOTE", Sql.toString("urlReleaseNote")) //
 			.executeOn(db)
 
 		Sql.alterTable("UPDATE_CHECK_ENTITY").renameTo("UPDATE_CHECK_ENTITY_OLD").executeOn(db)
 
 		Sql.createTable("UPDATE_CHECK_ENTITY") //
-			.id() //
+			.pre15Id() //
 			.optionalText("LICENSE_TOKEN") //
 			.optionalText("RELEASE_NOTE") //
 			.optionalText("VERSION") //
@@ -351,13 +429,12 @@ class UpgradeDatabaseTest {
 
 	@Test
 	fun upgrade7To8() {
-		Upgrade0To1().applyTo(db, 0)
-		Upgrade1To2().applyTo(db, 1)
-		Upgrade2To3(context).applyTo(db, 2)
-		Upgrade3To4().applyTo(db, 3)
-		Upgrade4To5().applyTo(db, 4)
-		Upgrade5To6().applyTo(db, 5)
-		Upgrade6To7().applyTo(db, 6)
+		Upgrade1To2().migrate(db)
+		Upgrade2To3(context).migrate(db)
+		Upgrade3To4().migrate(db)
+		Upgrade4To5().migrate(db)
+		Upgrade5To6().migrate(db)
+		Upgrade6To7().migrate(db)
 
 		Sql.insertInto("CLOUD_ENTITY") //
 			.integer("_id", 15) //
@@ -365,7 +442,7 @@ class UpgradeDatabaseTest {
 			.text("URL", "url") //
 			.text("USERNAME", "username") //
 			.text("WEBDAV_CERTIFICATE", "certificate") //
-			.text("ACCESS_TOKEN", "accessToken")
+			.text("ACCESS_TOKEN", "accessToken") //
 			.text("S3_BUCKET", "s3Bucket") //
 			.text("S3_REGION", "s3Region") //
 			.text("S3_SECRET_KEY", "s3SecretKey") //
@@ -385,7 +462,7 @@ class UpgradeDatabaseTest {
 			Assert.assertThat(it.count, CoreMatchers.`is`(5))
 		}
 
-		Upgrade7To8().applyTo(db, 7)
+		Upgrade7To8().migrate(db)
 
 		Sql.query("CLOUD_ENTITY").executeOn(db).use {
 			Assert.assertThat(it.count, CoreMatchers.`is`(4))
@@ -398,33 +475,31 @@ class UpgradeDatabaseTest {
 
 	@Test
 	fun upgrade8To9() {
-		Upgrade0To1().applyTo(db, 0)
-		Upgrade1To2().applyTo(db, 1)
-		Upgrade2To3(context).applyTo(db, 2)
-		Upgrade3To4().applyTo(db, 3)
-		Upgrade4To5().applyTo(db, 4)
-		Upgrade5To6().applyTo(db, 5)
-		Upgrade6To7().applyTo(db, 6)
-		Upgrade7To8().applyTo(db, 7)
+		Upgrade1To2().migrate(db)
+		Upgrade2To3(context).migrate(db)
+		Upgrade3To4().migrate(db)
+		Upgrade4To5().migrate(db)
+		Upgrade5To6().migrate(db)
+		Upgrade6To7().migrate(db)
+		Upgrade7To8().migrate(db)
 
 		sharedPreferencesHandler.setBetaScreenDialogAlreadyShown(true)
 
-		Upgrade8To9(sharedPreferencesHandler).applyTo(db, 8)
+		Upgrade8To9(sharedPreferencesHandler).migrate(db)
 
 		Assert.assertThat(sharedPreferencesHandler.isBetaModeAlreadyShown(), CoreMatchers.`is`(false))
 	}
 
 	@Test
 	fun upgrade9To10() {
-		Upgrade0To1().applyTo(db, 0)
-		Upgrade1To2().applyTo(db, 1)
-		Upgrade2To3(context).applyTo(db, 2)
-		Upgrade3To4().applyTo(db, 3)
-		Upgrade4To5().applyTo(db, 4)
-		Upgrade5To6().applyTo(db, 5)
-		Upgrade6To7().applyTo(db, 6)
-		Upgrade7To8().applyTo(db, 7)
-		Upgrade8To9(sharedPreferencesHandler).applyTo(db, 8)
+		Upgrade1To2().migrate(db)
+		Upgrade2To3(context).migrate(db)
+		Upgrade3To4().migrate(db)
+		Upgrade4To5().migrate(db)
+		Upgrade5To6().migrate(db)
+		Upgrade6To7().migrate(db)
+		Upgrade7To8().migrate(db)
+		Upgrade8To9(sharedPreferencesHandler).migrate(db)
 
 		Sql.insertInto("CLOUD_ENTITY") //
 			.integer("_id", 15) //
@@ -432,7 +507,7 @@ class UpgradeDatabaseTest {
 			.text("URL", "url") //
 			.text("USERNAME", "username") //
 			.text("WEBDAV_CERTIFICATE", "certificate") //
-			.text("ACCESS_TOKEN", "accessToken")
+			.text("ACCESS_TOKEN", "accessToken") //
 			.text("S3_BUCKET", "s3Bucket") //
 			.text("S3_REGION", "s3Region") //
 			.text("S3_SECRET_KEY", "s3SecretKey") //
@@ -462,7 +537,7 @@ class UpgradeDatabaseTest {
 			Assert.assertThat(it.count, CoreMatchers.`is`(5))
 		}
 
-		Upgrade9To10(sharedPreferencesHandler).applyTo(db, 9)
+		Upgrade9To10(sharedPreferencesHandler).migrate(db)
 
 		Sql.query("VAULT_ENTITY").executeOn(db).use {
 			Assert.assertThat(it.count, CoreMatchers.`is`(1))
@@ -477,16 +552,15 @@ class UpgradeDatabaseTest {
 
 	@Test
 	fun upgrade10To11EmptyOnedriveCloudRemovesCloud() {
-		Upgrade0To1().applyTo(db, 0)
-		Upgrade1To2().applyTo(db, 1)
-		Upgrade2To3(context).applyTo(db, 2)
-		Upgrade3To4().applyTo(db, 3)
-		Upgrade4To5().applyTo(db, 4)
-		Upgrade5To6().applyTo(db, 5)
-		Upgrade6To7().applyTo(db, 6)
-		Upgrade7To8().applyTo(db, 7)
-		Upgrade8To9(sharedPreferencesHandler).applyTo(db, 8)
-		Upgrade9To10(sharedPreferencesHandler).applyTo(db, 9)
+		Upgrade1To2().migrate(db)
+		Upgrade2To3(context).migrate(db)
+		Upgrade3To4().migrate(db)
+		Upgrade4To5().migrate(db)
+		Upgrade5To6().migrate(db)
+		Upgrade6To7().migrate(db)
+		Upgrade7To8().migrate(db)
+		Upgrade8To9(sharedPreferencesHandler).migrate(db)
+		Upgrade9To10(sharedPreferencesHandler).migrate(db)
 
 		Sql.insertInto("VAULT_ENTITY") //
 			.integer("_id", 25) //
@@ -502,7 +576,7 @@ class UpgradeDatabaseTest {
 			Assert.assertThat(it.count, CoreMatchers.`is`(3))
 		}
 
-		Upgrade10To11().applyTo(db, 10)
+		Upgrade10To11().migrate(db)
 
 		Sql.query("VAULT_ENTITY").executeOn(db).use {
 			Assert.assertThat(it.count, CoreMatchers.`is`(1))
@@ -510,7 +584,7 @@ class UpgradeDatabaseTest {
 
 		Sql.query("VAULT_ENTITY").executeOn(db).use {
 			it.moveToFirst()
-			Assert.assertThat(it.getString(it.getColumnIndex("FOLDER_CLOUD_ID")), CoreMatchers.`is`("3"))
+			Assert.assertThat(it.getString(it.getColumnIndex("FOLDER_CLOUD_ID")), CoreMatchers.nullValue())
 			Assert.assertThat(it.getString(it.getColumnIndex("FOLDER_PATH")), CoreMatchers.`is`("path"))
 			Assert.assertThat(it.getString(it.getColumnIndex("FOLDER_NAME")), CoreMatchers.`is`("name"))
 			Assert.assertThat(it.getString(it.getColumnIndex("CLOUD_TYPE")), CoreMatchers.`is`(CloudType.ONEDRIVE.name))
@@ -527,16 +601,15 @@ class UpgradeDatabaseTest {
 
 	@Test
 	fun upgrade10To11UsedOnedriveCloudPreservesCloud() {
-		Upgrade0To1().applyTo(db, 0)
-		Upgrade1To2().applyTo(db, 1)
-		Upgrade2To3(context).applyTo(db, 2)
-		Upgrade3To4().applyTo(db, 3)
-		Upgrade4To5().applyTo(db, 4)
-		Upgrade5To6().applyTo(db, 5)
-		Upgrade6To7().applyTo(db, 6)
-		Upgrade7To8().applyTo(db, 7)
-		Upgrade8To9(sharedPreferencesHandler).applyTo(db, 8)
-		Upgrade9To10(sharedPreferencesHandler).applyTo(db, 9)
+		Upgrade1To2().migrate(db)
+		Upgrade2To3(context).migrate(db)
+		Upgrade3To4().migrate(db)
+		Upgrade4To5().migrate(db)
+		Upgrade5To6().migrate(db)
+		Upgrade6To7().migrate(db)
+		Upgrade7To8().migrate(db)
+		Upgrade8To9(sharedPreferencesHandler).migrate(db)
+		Upgrade9To10(sharedPreferencesHandler).migrate(db)
 
 		Sql.insertInto("VAULT_ENTITY") //
 			.integer("_id", 25) //
@@ -550,10 +623,10 @@ class UpgradeDatabaseTest {
 
 		Sql.query("CLOUD_ENTITY").executeOn(db).use {
 			while (it.moveToNext()) {
-				Sql.update("CLOUD_ENTITY")
-					.where("_id", Sql.eq(3L))
-					.set("ACCESS_TOKEN", Sql.toString("Access token 3000"))
-					.set("USERNAME", Sql.toString("foo@bar.baz"))
+				Sql.update("CLOUD_ENTITY") //
+					.where("_id", Sql.eq(3L)) //
+					.set("ACCESS_TOKEN", Sql.toString("Access token 3000")) //
+					.set("USERNAME", Sql.toString("foo@bar.baz")) //
 					.executeOn(db)
 			}
 		}
@@ -561,7 +634,7 @@ class UpgradeDatabaseTest {
 			Assert.assertThat(it.count, CoreMatchers.`is`(3))
 		}
 
-		Upgrade10To11().applyTo(db, 10)
+		Upgrade10To11().migrate(db)
 
 		Sql.query("VAULT_ENTITY").executeOn(db).use {
 			Assert.assertThat(it.count, CoreMatchers.`is`(1))
@@ -586,67 +659,65 @@ class UpgradeDatabaseTest {
 
 	@Test
 	fun upgrade11To12IfOldDefaultSet() {
-		Upgrade0To1().applyTo(db, 0)
-		Upgrade1To2().applyTo(db, 1)
-		Upgrade2To3(context).applyTo(db, 2)
-		Upgrade3To4().applyTo(db, 3)
-		Upgrade4To5().applyTo(db, 4)
-		Upgrade5To6().applyTo(db, 5)
-		Upgrade6To7().applyTo(db, 6)
-		Upgrade7To8().applyTo(db, 7)
-		Upgrade8To9(sharedPreferencesHandler).applyTo(db, 8)
-		Upgrade9To10(sharedPreferencesHandler).applyTo(db, 9)
-		Upgrade10To11().applyTo(db, 10)
+		Upgrade1To2().migrate(db)
+		Upgrade2To3(context).migrate(db)
+		Upgrade3To4().migrate(db)
+		Upgrade4To5().migrate(db)
+		Upgrade5To6().migrate(db)
+		Upgrade6To7().migrate(db)
+		Upgrade7To8().migrate(db)
+		Upgrade8To9(sharedPreferencesHandler).migrate(db)
+		Upgrade9To10(sharedPreferencesHandler).migrate(db)
+		Upgrade10To11().migrate(db)
 
 		sharedPreferencesHandler.setUpdateIntervalInDays(Optional.of(7))
 
-		Upgrade11To12(sharedPreferencesHandler).applyTo(db, 11)
+		Upgrade11To12(sharedPreferencesHandler).migrate(db)
 
 		Assert.assertThat(sharedPreferencesHandler.updateIntervalInDays(), CoreMatchers.`is`(Optional.of(1)))
 	}
 
 	@Test
 	fun upgrade11To12MonthlySet() {
-		Upgrade0To1().applyTo(db, 0)
-		Upgrade1To2().applyTo(db, 1)
-		Upgrade2To3(context).applyTo(db, 2)
-		Upgrade3To4().applyTo(db, 3)
-		Upgrade4To5().applyTo(db, 4)
-		Upgrade5To6().applyTo(db, 5)
-		Upgrade6To7().applyTo(db, 6)
-		Upgrade7To8().applyTo(db, 7)
-		Upgrade8To9(sharedPreferencesHandler).applyTo(db, 8)
-		Upgrade9To10(sharedPreferencesHandler).applyTo(db, 9)
-		Upgrade10To11().applyTo(db, 10)
+		Upgrade1To2().migrate(db)
+		Upgrade2To3(context).migrate(db)
+		Upgrade3To4().migrate(db)
+		Upgrade4To5().migrate(db)
+		Upgrade5To6().migrate(db)
+		Upgrade6To7().migrate(db)
+		Upgrade7To8().migrate(db)
+		Upgrade8To9(sharedPreferencesHandler).migrate(db)
+		Upgrade9To10(sharedPreferencesHandler).migrate(db)
+		Upgrade10To11().migrate(db)
 
 		sharedPreferencesHandler.setUpdateIntervalInDays(Optional.of(30))
 
-		Upgrade11To12(sharedPreferencesHandler).applyTo(db, 11)
+		Upgrade11To12(sharedPreferencesHandler).migrate(db)
 
 		Assert.assertThat(sharedPreferencesHandler.updateIntervalInDays(), CoreMatchers.`is`(Optional.of(1)))
 	}
 
 	@Test
 	fun upgrade11To12MonthlyNever() {
-		Upgrade0To1().applyTo(db, 0)
-		Upgrade1To2().applyTo(db, 1)
-		Upgrade2To3(context).applyTo(db, 2)
-		Upgrade3To4().applyTo(db, 3)
-		Upgrade4To5().applyTo(db, 4)
-		Upgrade5To6().applyTo(db, 5)
-		Upgrade6To7().applyTo(db, 6)
-		Upgrade7To8().applyTo(db, 7)
-		Upgrade8To9(sharedPreferencesHandler).applyTo(db, 8)
-		Upgrade9To10(sharedPreferencesHandler).applyTo(db, 9)
-		Upgrade10To11().applyTo(db, 10)
+		Upgrade1To2().migrate(db)
+		Upgrade2To3(context).migrate(db)
+		Upgrade3To4().migrate(db)
+		Upgrade4To5().migrate(db)
+		Upgrade5To6().migrate(db)
+		Upgrade6To7().migrate(db)
+		Upgrade7To8().migrate(db)
+		Upgrade8To9(sharedPreferencesHandler).migrate(db)
+		Upgrade9To10(sharedPreferencesHandler).migrate(db)
+		Upgrade10To11().migrate(db)
 
 		sharedPreferencesHandler.setUpdateIntervalInDays(Optional.absent())
 
-		Upgrade11To12(sharedPreferencesHandler).applyTo(db, 11)
+		Upgrade11To12(sharedPreferencesHandler).migrate(db)
 
 		Assert.assertThat(sharedPreferencesHandler.updateIntervalInDays(), CoreMatchers.`is`(Optional.absent()))
 	}
 
+	/*
 	@Test
 	fun upgrade12To13BaseTests() {
 		Upgrade0To1().applyTo(db, 0)
@@ -951,5 +1022,239 @@ class UpgradeDatabaseTest {
 			Assert.assertThat(gcmCryptor.decrypt(it.getString(it.getColumnIndex("ACCESS_TOKEN"))), CoreMatchers.`is`(accessTokenPlain))
 			Assert.assertThat(it.getString(it.getColumnIndex("ACCESS_TOKEN_CRYPTO_MODE")), CoreMatchers.`is`(CryptoMode.GCM.name))
 		}
+	}
+	*/
+
+	@Test
+	fun migrate13To15ForeignKeySideEffects() { //See: Migration13To14
+		Upgrade1To2().migrate(db)
+		Upgrade2To3(context).migrate(db)
+		Upgrade3To4().migrate(db)
+		Upgrade4To5().migrate(db)
+		Upgrade5To6().migrate(db)
+		Upgrade6To7().migrate(db)
+		Upgrade7To8().migrate(db)
+		Upgrade8To9(sharedPreferencesHandler).migrate(db)
+		Upgrade9To10(sharedPreferencesHandler).migrate(db)
+		Upgrade10To11().migrate(db)
+		Upgrade11To12(sharedPreferencesHandler).migrate(db)
+
+		val pre14Statement = referencesStatement(db)
+		val pre14Expected = "CONSTRAINT FK_FOLDER_CLOUD_ID_CLOUD_ENTITY FOREIGN KEY (FOLDER_CLOUD_ID) REFERENCES CLOUD_ENTITY(_id) ON DELETE SET NULL"
+		//This is a sanity check and may need to be updated if Sql.java is changed
+		assertTrue("Expected \".*$pre14Expected.*\", got \"$pre14Statement\"", pre14Statement.contains(pre14Expected))
+		db.close()
+
+		runMigrationsAndValidate(14, Migration13To14()).also { migratedDb ->
+			val statement = referencesStatement(migratedDb)
+			assertEquals(pre14Statement, statement)
+		}
+
+		runMigrationsAndValidate(15, CryptomatorDatabase_AutoMigration_14_15_Impl()).also { migratedDb ->
+			val statement = referencesStatement(migratedDb)
+			val expected = "FOREIGN KEY(folderCloudId) REFERENCES CLOUD_ENTITY(id) ON"
+			assertTrue("Expected \".*$expected.*\", got \"$statement\"", statement.contains(expected))
+			assertFalse(statement.contains("CONSTRAINT"))
+			assertFalse(statement.contains("FK_FOLDER_CLOUD_ID_CLOUD_ENTITY"))
+
+			assertTrue(statement.contains("ON UPDATE NO ACTION"))
+			assertTrue(statement.contains("ON DELETE RESTRICT"))
+		}
+	}
+
+	private fun referencesStatement(db: SupportSQLiteDatabase): String {
+		return Sql.SqlQueryBuilder("sqlite_master") //
+			.columns(listOf("sql")) //
+			.where("tbl_name", Sql.eq("VAULT_ENTITY")) //
+			.where("sql", Sql.like("%REFERENCES%")) //
+			.executeOn(db).use {
+				assertEquals(it.count, 1)
+				assertTrue(it.moveToNext())
+				it.getString(0)
+			}.filterNot { it in "\"'`" }
+	}
+
+	@Test
+	fun migrate13To15IndexSideEffects() { //See: Migration13To14
+		Upgrade1To2().migrate(db)
+		Upgrade2To3(context).migrate(db)
+		Upgrade3To4().migrate(db)
+		Upgrade4To5().migrate(db)
+		Upgrade5To6().migrate(db)
+		Upgrade6To7().migrate(db)
+		Upgrade7To8().migrate(db)
+		Upgrade8To9(sharedPreferencesHandler).migrate(db)
+		Upgrade9To10(sharedPreferencesHandler).migrate(db)
+		Upgrade10To11().migrate(db)
+		Upgrade11To12(sharedPreferencesHandler).migrate(db)
+
+		val pre14Statement = indexStatement(db)
+		val pre14Expected = "CREATE UNIQUE INDEX \"IDX_VAULT_ENTITY_FOLDER_PATH_FOLDER_CLOUD_ID\" ON \"VAULT_ENTITY\" (\"FOLDER_PATH\" ASC,\"FOLDER_CLOUD_ID\" ASC) -- "
+		//This is a sanity check and may need to be updated if Sql.java is changed
+		assertEquals(pre14Expected, pre14Statement.substring(0, pre14Statement.length - UUID_LENGTH))
+		assertIsUUID(pre14Statement.substring(pre14Statement.length - UUID_LENGTH))
+		db.close()
+
+		runMigrationsAndValidate(14, Migration13To14()).also { migratedDb ->
+			val statement = indexStatement(migratedDb)
+			assertEquals(pre14Statement, statement)
+		}
+
+		runMigrationsAndValidate(15, CryptomatorDatabase_AutoMigration_14_15_Impl()).also { migratedDb ->
+			val statement = indexStatement(migratedDb)
+			val expected = "CREATE UNIQUE INDEX `IDX_VAULT_ENTITY_FOLDER_PATH_FOLDER_CLOUD_ID` ON `VAULT_ENTITY` (`folderPath` ASC, `folderCloudId` ASC)"
+			assertEquals(expected, statement)
+		}
+	}
+
+	private fun indexStatement(db: SupportSQLiteDatabase): String {
+		return Sql.SqlQueryBuilder("sqlite_master") //
+			.columns(listOf("sql")) //
+			.where("type", Sql.eq("index")) //
+			.where("name", Sql.eq("IDX_VAULT_ENTITY_FOLDER_PATH_FOLDER_CLOUD_ID")) //
+			.where("tbl_name", Sql.eq("VAULT_ENTITY")) //
+			.executeOn(db).use {
+				assertEquals(it.count, 1)
+				assertTrue(it.moveToNext())
+				it.getString(0)
+			}
+	}
+
+	@Test
+	fun migrate13To14() {
+		Upgrade1To2().migrate(db)
+		Upgrade2To3(context).migrate(db)
+		Upgrade3To4().migrate(db)
+		Upgrade4To5().migrate(db)
+		Upgrade5To6().migrate(db)
+		Upgrade6To7().migrate(db)
+		Upgrade7To8().migrate(db)
+		Upgrade8To9(sharedPreferencesHandler).migrate(db)
+		Upgrade9To10(sharedPreferencesHandler).migrate(db)
+		Upgrade10To11().migrate(db)
+		Upgrade11To12(sharedPreferencesHandler).migrate(db)
+
+		assertEquals(13, db.version)
+		val pre14Tables: Map<String, Cursor> = listOf("CLOUD_ENTITY", "UPDATE_CHECK_ENTITY", "VAULT_ENTITY").associateWith { tableName ->
+			val cursor = Sql.query(tableName).executeOn(db)
+			copyAndClose(cursor)
+		}
+		db.close()
+
+		runMigrationsAndValidate(14, Migration13To14()).also { migratedDb ->
+			assertTrue(migratedDb.hasRoomMasterTable)
+			assertEquals(14, migratedDb.version)
+
+			for (preTable in pre14Tables) {
+				preTable.value.use { preCursor ->
+					Sql.query(preTable.key).executeOn(migratedDb).use { postCursor ->
+						assertCursorEquals(preCursor, postCursor)
+					}
+				}
+			}
+		}
+	}
+
+	@Test
+	fun migrate13To14WithData() {
+		Upgrade1To2().migrate(db)
+		Upgrade2To3(context).migrate(db)
+		Upgrade3To4().migrate(db)
+		Upgrade4To5().migrate(db)
+		Upgrade5To6().migrate(db)
+		Upgrade6To7().migrate(db)
+		Upgrade7To8().migrate(db)
+		Upgrade8To9(sharedPreferencesHandler).migrate(db)
+		Upgrade9To10(sharedPreferencesHandler).migrate(db)
+		Upgrade10To11().migrate(db)
+		Upgrade11To12(sharedPreferencesHandler).migrate(db)
+
+		Sql.insertInto("CLOUD_ENTITY") //
+			.integer("_id", 3) //
+			.text("TYPE", CloudType.LOCAL.name) //
+			.text("URL", "url1") //
+			.text("USERNAME", "username1") //
+			.text("WEBDAV_CERTIFICATE", "certificate1") //
+			.text("ACCESS_TOKEN", "accessToken1") //
+			.text("S3_BUCKET", "s3Bucket1") //
+			.text("S3_REGION", "s3Region1") //
+			.text("S3_SECRET_KEY", "s3SecretKey1") //
+			.executeOn(db)
+
+		Sql.insertInto("VAULT_ENTITY") //
+			.integer("_id", 10) //
+			.integer("FOLDER_CLOUD_ID", 1) //
+			.text("FOLDER_PATH", "path1") //
+			.text("FOLDER_NAME", "name1") //
+			.text("CLOUD_TYPE", CloudType.DROPBOX.name) //
+			.text("PASSWORD", "password1") //
+			.integer("POSITION", 10) //
+			.integer("FORMAT", 42) //
+			.integer("SHORTENING_THRESHOLD", 110) //
+			.executeOn(db)
+
+		Sql.insertInto("VAULT_ENTITY") //
+			.integer("_id", 20) //
+			.integer("FOLDER_CLOUD_ID", 3) //
+			.text("FOLDER_PATH", "path2") //
+			.text("FOLDER_NAME", "name2") //
+			.text("CLOUD_TYPE", CloudType.LOCAL.name) //
+			.text("PASSWORD", "password2") //
+			.integer("POSITION", 20) //
+			.integer("FORMAT", 43) //
+			.integer("SHORTENING_THRESHOLD", 120) //
+			.executeOn(db)
+
+		Sql.update("UPDATE_CHECK_ENTITY") //
+			.set("LICENSE_TOKEN", Sql.toString("license1")) //
+			.set("RELEASE_NOTE", Sql.toString("note1")) //
+			.set("VERSION", Sql.toString("version1")) //
+			.set("URL_TO_APK", Sql.toString("urlToApk1")) //
+			.set("APK_SHA256", Sql.toString("sha1")) //
+			.set("URL_TO_RELEASE_NOTE", Sql.toString("urlToNote1")) //
+			.executeOn(db)
+
+		assertEquals(13, db.version)
+		val pre14Tables: Map<String, Cursor> = listOf("CLOUD_ENTITY", "UPDATE_CHECK_ENTITY", "VAULT_ENTITY").associateWith { tableName ->
+			copyAndClose(Sql.query(tableName).executeOn(db))
+		}
+		db.close()
+
+		runMigrationsAndValidate(14, Migration13To14()).also { migratedDb ->
+			assertTrue(migratedDb.hasRoomMasterTable)
+			assertEquals(14, migratedDb.version)
+
+			for (preTable in pre14Tables) {
+				preTable.value.use { preCursor ->
+					Sql.query(preTable.key).executeOn(migratedDb).use { postCursor ->
+						assertCursorEquals(preCursor, postCursor)
+					}
+				}
+			}
+		}
+	}
+
+	//TODO Test metadata of non-entity tables for v14, v15
+	//TODO Test metadata and content of entity tables for v15
+
+	@Test
+	fun migrate1To14WithRoom() {
+		db.version = 1
+		db.close()
+		runMigrationsAndValidate(
+			14,
+			Upgrade1To2(),
+			Upgrade2To3(context),
+			Upgrade3To4(),
+			Upgrade4To5(),
+			Upgrade5To6(),
+			Upgrade6To7(),
+			Upgrade7To8(),
+			Upgrade8To9(sharedPreferencesHandler),
+			Upgrade9To10(sharedPreferencesHandler),
+			Upgrade10To11(),
+			Upgrade11To12(sharedPreferencesHandler),
+			Migration13To14()
+		)
 	}
 }

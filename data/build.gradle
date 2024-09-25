@@ -1,7 +1,15 @@
-apply plugin: 'org.greenrobot.greendao'
+apply plugin: 'androidx.room'
 apply plugin: 'com.android.library'
 apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-kapt'
 apply plugin: 'de.mannodermaus.android-junit5'
+
+def roomSchemasDir = new File(projectDir, "room/schemas")
+def androidTestRoomSchemasDir = new File(buildDir, "tmp/room/schemas/androidTest")
+def copyRoomSchemasTask = tasks.register("copyRoomSchemasToAndroidTestAssets", Sync.class) {
+	from(roomSchemasDir)
+	into(androidTestRoomSchemasDir)
+}
 
 android {
 	def globalConfiguration = rootProject.extensions.getByName("ext")
@@ -74,10 +82,23 @@ android {
 		lite {
 			java.srcDirs = ['src/main/java/', 'src/lite/java/']
 		}
+
+		androidTest.assets.srcDir(androidTestRoomSchemasDir)
 	}
 	packagingOptions {
 		resources {
 			excludes += ['META-INF/DEPENDENCIES', 'META-INF/NOTICE.md', 'META-INF/INDEX.LIST']
+		}
+	}
+	libraryVariants.configureEach { variant ->
+		tasks.findByName("kapt${variant.name.capitalize()}Kotlin")?.configure { kaptTask ->
+			copyRoomSchemasTask.configure { it.mustRunAfter(kaptTask) }
+		}
+		tasks.findByName("kapt${variant.name.capitalize()}AndroidTestKotlin")?.configure { kaptTask ->
+			copyRoomSchemasTask.configure { it.mustRunAfter(kaptTask) }
+		}
+		tasks.findByName("merge${variant.name.capitalize()}AndroidTestAssets")?.configure {
+			it.dependsOn(copyRoomSchemasTask)
 		}
 	}
 
@@ -89,8 +110,8 @@ android {
 	namespace 'org.cryptomator.data'
 }
 
-greendao {
-	schemaVersion 13
+room {
+	schemaDirectory(roomSchemasDir.path)
 }
 
 configurations.all {
@@ -112,10 +133,14 @@ dependencies {
 	// cryptomator
 	implementation dependencies.cryptolib
 
-	// greendao
-	api dependencies.greenDao
+	// room
+	implementation dependencies.room
+	annotationProcessor dependencies.roomCompiler
+	kapt dependencies.roomCompiler
+
 	// dagger
 	annotationProcessor dependencies.daggerCompiler
+	kapt dependencies.daggerCompiler
 	implementation dependencies.dagger
 
 	implementation dependencies.jsonWebToken
@@ -217,6 +242,7 @@ dependencies {
 	testImplementation dependencies.mockitoInline
 	testImplementation dependencies.hamcrest
 
+	androidTestImplementation dependencies.roomTesting
 	androidTestImplementation(dependencies.runner) {
 		exclude group: 'com.android.support', module: 'support-annotations'
 	}
