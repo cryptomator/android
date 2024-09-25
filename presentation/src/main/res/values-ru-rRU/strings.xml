@@ -9,7 +9,7 @@
 	<string name="error_no_network_connection">Нет подключения к сети</string>
 	<string name="error_invalid_passphrase">Неверный пароль</string>
 	<string name="error_file_or_folder_exists">Файл или папка уже существует.</string>
-	<string name="error_vault_version_not_supported">Версия хранилища %1$s не поддерживается. Это хранилище было создано в устаревшей, или более новой версии Cryptomator.</string>
+	<string name="error_vault_version_not_supported">Версия хранилища %1$s не поддерживается. Это хранилище было создано либо в устаревшей, либо в более новой версии Cryptomator.</string>
 	<string name="error_vault_config_file_missing_due_to_format_999">Файл %1$s отсутствует в папке хранилища. Убедитесь, что этот файл существует в папке хранилища в облаке.</string>
 	<string name="error_vault_already_exists">Хранилище уже существует.</string>
 	<string name="error_no_such_file">Файл не существует.</string>
@@ -20,12 +20,12 @@
 	<string name="error_device_policy_manager_not_found">Откройте настройки устройства и установите блокировку экрана вручную</string>
 	<string name="error_export_illegal_file_name">Ошибка экспорта. Попробуйте удалить спецсимволы из имён файлов и экспортировать снова.</string>
 	<string name="error_name_contains_invalid_characters">Не может содержать спецсимволы.</string>
-	<string name="error_names_contains_invalid_characters">Имена файлов не могут содержать специальные символы.</string>
-	<string name="error_vault_name_contains_invalid_characters">Имя хранилища не может содержать специальные символы.</string>
-	<string name="error_general_update">Ошибка проверки обновления. Общая ошибка.</string>
-	<string name="error_hash_mismatch_update">Ошибка проверки обновления. Вычисленный хэш не соответствует загруженному файлу</string>
+	<string name="error_names_contains_invalid_characters">В имени файла не может быть спецсимволов.</string>
+	<string name="error_vault_name_contains_invalid_characters">В имени хранилища не может быть спецсимволов.</string>
+	<string name="error_general_update">Не удалось проверить наличие обновления. Общая ошибка.</string>
+	<string name="error_hash_mismatch_update">Не удалось проверить обновление. Вычисленный хеш не соответствует отправленному файлу.</string>
 	<string name="error_update_no_internet">Ошибка проверки обновления. Нет подключения к Интернету.</string>
-	<string name="error_failed_to_decrypt_webdav_password">Не удалось расшифровать пароль WebDAV, пожалуйста, добавьте его заново в настройках</string>
+	<string name="error_failed_to_decrypt_webdav_password">Не удалось расшифровать пароль WebDAV, добавьте его заново в настройках</string>
 	<string name="error_play_services_not_available">Не установлены сервисы Google Play</string>
 	<string name="error_biometric_auth_aborted">Биометрическая аутентификация прервана</string>
 	<string name="error_vault_version_mismatch">Версия, указанная в %1$s, отличается от %2$s</string>
@@ -112,38 +112,38 @@
 	<string name="screen_share_files_content_text">текст</string>
 	<string name="screen_share_files_content_file">файл</string>
 	<string name="screen_share_files_content_files">файлы</string>
-	<string name="screen_share_files_msg_filenames_must_be_unique">Имена файлов должны быть уникальными, пожалуйста, переименуйте дубликаты.</string>
+	<string name="screen_share_files_msg_filenames_must_be_unique">Имена файлов должны быть уникальными. Переименуйте дубликаты.</string>
 	<string name="screen_share_files_section_location">Место сохранения</string>
 	<string name="screen_share_files_save_button_text">Сохранить</string>
 	<string name="screen_share_files_msg_success">Шифрование завершено</string>
 	<!-- ## screen: choose cloud service -->
-	<string name="screen_choose_cloud_service_title">Облачный сервис</string>
+	<string name="screen_choose_cloud_service_title">Облачные сервисы</string>
 	<!-- ## screen: cloud connections -->
 	<string name="screen_cloud_connections_title">Выберите место</string>
-	<string name="screen_cloud_connections_no_connections">Нажмите здесь, чтобы добавить местоположения</string>
+	<string name="screen_cloud_connections_no_connections">Нажмите, чтобы добавить местоположения</string>
 	<string name="screen_cloud_error_webdav_not_supported">Похоже, сервер не совместим с WebDAV</string>
 	<string name="screen_cloud_local_error_no_content_provider">Не найден файловый менеджер, поддерживающий открытие папок</string>
 	<!-- ## screen: webdav settings -->
 	<string name="screen_webdav_settings_url_port_label">URL</string>
-	<string name="screen_webdav_settings_username_label">Имя пользователя</string>
+	<string name="screen_webdav_settings_username_label">Логин</string>
 	<string name="screen_webdav_settings_password_label">Пароль</string>
 	<string name="screen_webdav_settings_done_button_text">Подключиться</string>
 	<string name="screen_webdav_settings_msg_url_must_not_be_empty">URL не может быть пустым.</string>
 	<string name="screen_webdav_settings_msg_url_is_invalid">Некорректный URL.</string>
-	<string name="screen_webdav_settings_msg_username_must_not_be_empty">Имя пользователя не может быть пустым.</string>
+	<string name="screen_webdav_settings_msg_username_must_not_be_empty">Логин (имя пользователя) не может быть пустым.</string>
 	<string name="screen_webdav_settings_msg_password_must_not_be_empty">Пароль не может быть пустым.</string>
 	<!-- ## screen: s3 settings -->
 	<string name="screen_s3_settings_display_name_label">Отображаемое имя</string>
 	<string name="screen_s3_settings_access_key_label">Ключ доступа</string>
 	<string name="screen_s3_settings_secret_key_label">Секретный ключ</string>
-	<string name="screen_s3_settings_bucket_label">Существующий бакет</string>
+	<string name="screen_s3_settings_bucket_label">Имеющийся бакет</string>
 	<string name="screen_s3_settings_endpoint_label">Конечная точка</string>
 	<string name="screen_s3_settings_region_label">Регион</string>
 	<string name="screen_s3_settings_msg_display_name_not_empty">Отображаемое имя не может быть пустым</string>
 	<string name="screen_s3_settings_msg_access_key_not_empty">Ключ доступа не может быть пустым</string>
 	<string name="screen_s3_settings_msg_secret_key_not_empty">Секретный ключ не может быть пустым</string>
 	<string name="screen_s3_settings_msg_bucket_not_empty">Бакет не может быть пустым</string>
-	<string name="screen_s3_settings_msg_endpoint_and_region_not_empty">Конечная точка или область не могут быть пустыми</string>
+	<string name="screen_s3_settings_msg_endpoint_and_region_not_empty">Конечная точка или регион не могут быть пустыми</string>
 	<!-- ## screen: enter vault name -->
 	<string name="screen_enter_vault_name_msg_name_empty">Имя хранилища не может быть пустым.</string>
 	<string name="screen_enter_vault_name_vault_label">Имя хранилища</string>
@@ -152,7 +152,7 @@
 	<string name="screen_set_password_title">Установить пароль</string>
 	<string name="screen_set_password_msg_password_mismatch">Пароли не совпадают.</string>
 	<string name="screen_set_password_button_text">Готово</string>
-	<string name="screen_set_password_hint">ВАЖНО: Если вы забудете пароль, то не сможете восстановить свои данные.</string>
+	<string name="screen_set_password_hint">ВАЖНО: Если вы забудете пароль, то не сможете восстановить данные.</string>
 	<string name="screen_set_password_retype_password_label">Введите пароль ещё раз</string>
 	<string name="screen_set_password_strength_indicator_0">Слишком слабый для создания хранилища</string>
 	<string name="screen_set_password_strength_indicator_1">Слабый</string>
@@ -239,7 +239,7 @@
 	<string name="dialog_change_password">Изменить пароль</string>
 	<string name="dialog_change_password_msg_old_password_empty">Старый пароль не может быть пустым.</string>
 	<string name="dialog_change_password_msg_new_password_empty">Новый пароль не может быть пустым.</string>
-	<string name="dialog_change_password_msg_password_mismatch">Новый пароль не совпадает с повторным паролем.</string>
+	<string name="dialog_change_password_msg_password_mismatch">Новый пароль не совпадает с повтором пароля.</string>
 	<!-- Vault not found -->
 	<string name="dialog_vault_not_found_title">Хранилище %1$s не найдено</string>
 	<string name="dialog_vault_not_found_message">Хранилище было переименовано, перемещено или удалено. Удалите это хранилище из списка и добавьте снова, чтобы продолжить. Удалить?</string>
@@ -309,17 +309,17 @@
 	<string name="dialog_debug_mode_disclaimer_title">Внимание</string>
 	<string name="dialog_debug_mode_positive_button">Вкл.</string>
 	<string name="dialog_microsoft_workaround_disclaimer_hint">Из-за ошибки в приложениях Microsoft, редактируемый файл должен быть передан этим приложениям в публичной папке на вашем устройстве. После возобновления работы Cryptomator общедоступный файл снова удаляется, но Cryptomator не может влиять на то, что случилось с этим файлом. При активации этой опции убедитесь, что вы знаете об таком поведении. Применимо только к типам файлов Microsoft.\n\nПосле активации Cryptomator будет перезапущен.</string>
-	<string name="dialog_disable_app_obscured_disclaimer_hint">Эта настройка связана с безопасностью, она не позволяет другим приложениям обманом вынуждать пользователей делать то, что им не нужно.\n\nОтключая её, вы подтверждаете, что <a href="https://docs.cryptomator.org/en/1.6/android/settings/#block-app-when-obscured">осознаёте риски</a>.</string>
+	<string name="dialog_disable_app_obscured_disclaimer_hint">Эта настройка безопасности не позволяет другим приложениям обманом вынуждать пользователей делать то, что им не нужно.\n\nОтключая её, вы подтверждаете, что <a href="https://docs.cryptomator.org/en/latest/android/settings/#block-app-when-obscured">осознаёте риски</a>.</string>
 	<string name="dialog_disable_app_obscured_disclaimer_title">Внимание</string>
 	<string name="dialog_disable_app_obscured_positive_button">Выкл.</string>
 	<string name="dialog_app_is_obscured_info_title">Приложение скрыто</string>
-	<string name="dialog_app_is_obscured_info_hint">Другое приложение отображает что-то поверх Cryptomator (например, фильтр синего цвета или приложение ночного режима). В целях безопасности Cryptomator отключён.\n\n<a href="https://docs.cryptomator.org/en/1.6/android/settings/#block-app-when-obscured">Как включить Cryptomator</a></string>
+	<string name="dialog_app_is_obscured_info_hint">Другое приложение отображает что-то поверх Cryptomator (например, фильтр синего цвета или приложение ночного режима). В целях безопасности Cryptomator отключён.\n\n<a href="https://docs.cryptomator.org/en/latest/android/settings/#block-app-when-obscured">Как включить Cryptomator</a></string>
 	<string name="dialog_app_is_obscured_info_neutral_button">Закрыть</string>
 	<string name="dialog_vaults_removed_during_migration_title">Добавьте хранилища заново для облака %1s</string>
 	<string name="dialog_vaults_removed_during_migration_hint">Во время переноса в эту версию приложения необходимо удалить следующие хранилища из приложения:\n%2s \n\nЭти хранилища не удаляются из облака, а только из приложения. Извините за неудобства и добавьте снова эти хранилища, чтобы продолжить работу с ними.</string>
 	<string name="dialog_vault_is_root_folder_of_cloud_title">Хранилище — это корневая папка подключения к облаку</string>
 	<string name="dialog_vault_is_root_folder_of_cloud_hint">Создайте новое облачное соединение, в котором вы выберете по крайней мере родительскую папку этой папки хранилища в качестве корневой папки для добавления этого хранилища.</string>
-	<string name="dialog_disable_secure_screen_disclaimer_hint">Эта настройка связана с безопасностью, она не позволяет другим приложениям обманом вынуждать пользователей делать то, что им не нужно.\n\nОтключая её, вы подтверждаете, что <a href="https://docs.cryptomator.org/en/1.6/android/settings/#screen-security">осознаёте риски</a>.</string>
+	<string name="dialog_disable_secure_screen_disclaimer_hint">Эта настройка безопасности не позволяет другим приложениям обманом вынуждать пользователей делать то, что им не нужно.\n\nОтключая её, вы подтверждаете, что <a href="https://docs.cryptomator.org/en/latest/android/settings/#screen-security">осознаёте риски</a>.</string>
 	<string name="dialog_delete_cloud_connection_with_vaults_message">Вы действительно хотите удалить это облачное соединение?</string>
 	<string name="dialog_delete_cloud_connection_with_vaults_hint">Это действие удалит облако и все хранилища в нём.</string>
 	<string name="dialog_confirm_delete_multiple_title">Удалить %1$d элем.?</string>
@@ -351,6 +351,9 @@
 	<string name="dialog_no_more_images_to_display">Больше нет изображений для показа&#8230;</string>
 	<string name="dialog_pcloud_credentials_updated_title">Учётные данные для \'%1$s\' обновлены</string>
 	<string name="dialog_pcloud_credentials_updated">Если вы намеревались добавить новую учётную запись pCloud, нажмите на этот URL <a href="https://www.pcloud.com">www.pcloud.com</a>, выйдите из текущей учётной записи и снова нажмите \'+\' в этом приложении, чтобы создать новое облачное подключение.</string>
+	<string name="dialog_cbc_password_vaults_migration_title">Требуется миграция пароля</string>
+	<string name="dialog_cbc_password_vaults_migration_hint">В связи с повышением безопасности вам будет предложено дважды использовать биометрическую аутентификацию для каждого хранилища для повторного шифрования паролей. Это необходимо, чтобы продолжать защищать ваши пароли с помощью новейших технологий. Если вы не хотите, чтобы это произошло, сохранённые пароли будут удалены.</string>
+	<string name="dialog_cbc_password_vaults_migration_action">Миграция</string>
 	<string name="permission_snackbar_auth_local_vault">Для использования локальных хранилищ необходим доступ к месту хранения</string>
 	<string name="permission_snackbar_auth_auto_upload">Для автозагрузки фото у Cryptomator должен быть доступ к месту хранения</string>
 	<string name="permission_snackbar_notifications">Для отображения состояния хранилища Cryptomator требуется разрешение на уведомление</string>

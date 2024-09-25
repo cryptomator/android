@@ -306,17 +306,14 @@
 	<string name="dialog_debug_mode_disclaimer_title">注意</string>
 	<string name="dialog_debug_mode_positive_button">啟用</string>
 	<string name="dialog_microsoft_workaround_disclaimer_hint">由於 Microsoft 應用程式中的錯誤，必須將檔案分享到公用資料夾才能進行編輯。一旦 Cryptomator 繼續運作，可以公開存取的相應檔案將再次被刪除，但 Cryptomator 無法影響在此期間該檔案所發生的情況。請確保在啟用此選項時了解此行為。此問題僅適用於 Microsoft 文件類型。\n\n啟用該選項後，Cryptomator 將重新啟動。</string>
-	<string name="dialog_disable_app_obscured_disclaimer_hint">此設定是一項安全功能，可防止其他應用程式誤導用戶錯誤地操作。\n\n如果停用這項功能，請確定你已經了解<a href="https://docs.cryptomator.org/en/1.6/android/settings/#block-app-when-obscured">風險</a>。</string>
 	<string name="dialog_disable_app_obscured_disclaimer_title">注意</string>
 	<string name="dialog_disable_app_obscured_positive_button">停用</string>
 	<string name="dialog_app_is_obscured_info_title">應用程式畫面被遮擋</string>
-	<string name="dialog_app_is_obscured_info_hint">有應用程式在 Cryptomator App 畫面上方顯示著一些元素，例如藍光過濾器，或負責夜間模式的應用程式。基於安全考慮，Cryptomator 已自動禁用。\n\n<a href="https://docs.cryptomator.org/en/1.6/android/settings/#block-app-when-obscured">如何啟用 Cryptomator</a></string>
 	<string name="dialog_app_is_obscured_info_neutral_button">關閉</string>
 	<string name="dialog_vaults_removed_during_migration_title">請重新加入 %1s 加密庫的雲端服務。</string>
 	<string name="dialog_vaults_removed_during_migration_hint">更新到此應用程式版本時，需要從程式移除以下加密庫。\n%2s\n\n這些加密檔案庫不會從雲端刪除，而只是從這程式中移除。很抱歉給您帶來不便，請重新加入這些加密庫以繼續使用。</string>
 	<string name="dialog_vault_is_root_folder_of_cloud_title">加密庫是雲端連接的原始資料夾（根目錄）</string>
 	<string name="dialog_vault_is_root_folder_of_cloud_hint">若要加入此加密庫，請先建立新的雲端連接、並選擇此加密庫資料夾的上一層作為根文件夾。</string>
-	<string name="dialog_disable_secure_screen_disclaimer_hint">此設定是一項安全功能，可防止其他應用程式誤導用戶，導致錯誤操作。\n\n如果停用這項功能，請確定你已經了解<a href="https://docs.cryptomator.org/en/1.6/android/settings/#screen-security">風險</a>。</string>
 	<string name="dialog_delete_cloud_connection_with_vaults_message">確定要取消此雲端連結嗎？</string>
 	<string name="dialog_delete_cloud_connection_with_vaults_hint">此操作將取消所有雲端連接、並刪除該雲端的加密庫。</string>
 	<string name="dialog_confirm_delete_multiple_title">是否刪除 %1$d 個項目？</string>

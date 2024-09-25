@@ -306,17 +306,14 @@
 	<string name="dialog_debug_mode_disclaimer_hint">במצב זה, מידע רגיש עשוי להכתב לקובץ לוג על מכשירך (כגון שמות קבצים ותיקיות). סיסמאות, עוגיות וכו׳ מוחרגים.\n\nזכור לבטל את מצב ניפוי התקלות בהקדם האפשרי.</string>
 	<string name="dialog_debug_mode_disclaimer_title">שים לב</string>
 	<string name="dialog_debug_mode_positive_button">הפעל</string>
-	<string name="dialog_disable_app_obscured_disclaimer_hint">זוהי הגדרה של יכולת אבטחה המונעת מישומים אחרים לעבוד עליך ולגרום לך לעשות דברים שאינך רוצה שיקרו.\n\nעל ידי נטרול האפשרות, אתה מאשר שאתה <a href="https://docs.cryptomator.org/en/1.6/android/settings/#block-app-when-obscured">מודע לסכנות</a>.</string>
 	<string name="dialog_disable_app_obscured_disclaimer_title">שים לב</string>
 	<string name="dialog_disable_app_obscured_positive_button">כבה</string>
 	<string name="dialog_app_is_obscured_info_title">אפליקציה אחרת מציגה מעל Cryptomator</string>
-	<string name="dialog_app_is_obscured_info_hint">אפליקציה אחרת מציגה משהו מעל Cryptomator (לדוגמה, אפליקציית סינון אור כחול למצב לילה). מטעמי אבטחה, Cryptomator ייסגר עכשיו.\n\n<a href="https://docs.cryptomator.org/en/1.6/android/settings/#block-app-when-obscured">איך להפעיל את Cryptomator</a></string>
 	<string name="dialog_app_is_obscured_info_neutral_button">סגור</string>
 	<string name="dialog_vaults_removed_during_migration_title">נא הוסף מחדש את הכספות עבור הענן %1s</string>
 	<string name="dialog_vaults_removed_during_migration_hint">בעת ביצוע הגירה לגרסת הישום, אנו צריכים להסיר את הכספות הבאות מהישום:\n%2s\n\nהכספות האלו לא מוסרות מהענן אלא רק מישום זה. סליחה על אי הנוחות ואנא הוסף מחדש את הכספות כדי להמשיך לעבוד אתם.</string>
 	<string name="dialog_vault_is_root_folder_of_cloud_title">הכספת היא תיקית השורש של החיבור לענן</string>
 	<string name="dialog_vault_is_root_folder_of_cloud_hint">להוספת כספת זו, צור קישור ענן חדש באופן שתבחר לכל הפחות את תיקית האב של תיקית כספת זו כתיקית השורש.</string>
-	<string name="dialog_disable_secure_screen_disclaimer_hint">זוהי הגדרה של יכולת אבטחה המונעת מישומים אחרים לעבוד עליך ולגרום לך לעשות דברים שאינך רוצה שיקרו.\n\nעל ידי נטרול האפשרות, אתה מאשר שאתה <a href="https://docs.cryptomator.org/en/1.6/android/settings/#screen-security">מודע לסכנות</a>.</string>
 	<string name="dialog_delete_cloud_connection_with_vaults_message">האם את/ה בטוח/ה שברצונך להסיר את החיבור הזה לענן?</string>
 	<string name="dialog_delete_cloud_connection_with_vaults_hint">פעולה זו תסיר את החיבור לענן ואת כל ה Vault-ים שבענן זה.</string>
 	<string name="dialog_confirm_delete_multiple_title">למחוק %1$d פריטים?</string>

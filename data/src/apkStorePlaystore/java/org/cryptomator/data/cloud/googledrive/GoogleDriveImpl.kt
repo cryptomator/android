@@ -39,7 +39,7 @@ internal class GoogleDriveImpl(context: Context, googleDriveCloud: GoogleDriveCl
 	private var diskLruCache: DiskLruCache? = null
 
 	private fun client(): Drive {
-		return GoogleDriveClientFactory.getInstance(googleDriveCloud.accessToken(), context)
+		return GoogleDriveClientFactory.getInstance(googleDriveCloud.username(), context)
 	}
 
 	fun root(): GoogleDriveFolder {
@@ -403,7 +403,7 @@ internal class GoogleDriveImpl(context: Context, googleDriveCloud: GoogleDriveCl
 	}
 
 	init {
-		if (googleDriveCloud.accessToken() == null) {
+		if (googleDriveCloud.username() == null) {
 			throw NoAuthenticationProvidedException(googleDriveCloud)
 		}
 		this.context = context

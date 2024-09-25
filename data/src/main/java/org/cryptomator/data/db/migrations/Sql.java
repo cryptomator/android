@@ -76,6 +76,10 @@ public class Sql {
 		return (column, whereClause, whereArgs) -> whereClause.append('"').append(column).append("\" IS NULL");
 	}
 
+	public static Criterion isNotNull() {
+		return (column, whereClause, whereArgs) -> whereClause.append('"').append(column).append("\" IS NOT NULL");
+	}
+
 	public static Criterion eq(final Long value) {
 		return (column, whereClause, whereArgs) -> whereClause.append('"').append(column).append("\" = ").append(value);
 	}

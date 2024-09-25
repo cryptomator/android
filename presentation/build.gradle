@@ -119,10 +119,16 @@ android {
 			java.srcDirs = ['src/main/java/', 'src/lite/java/', 'src/fdroidAndLite/java/']
 		}
 	}
+
 	packagingOptions {
 		resources {
 			excludes += ['META-INF/jersey-module-version', 'META-INF/NOTICE.md', 'META-INF/DEPENDENCIES', 'META-INF/INDEX.LIST']
 		}
+	}
+
+	dependenciesInfo {
+		// Disables dependency metadata when building APKs, see #539
+		includeInApk = false
 	}
 
 	lint {
@@ -130,6 +136,7 @@ android {
 		ignoreWarnings true
 		quiet true
 	}
+
 	namespace 'org.cryptomator.presentation'
 }
 

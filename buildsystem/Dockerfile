@@ -38,3 +38,11 @@ RUN yes | sdkmanager --licenses --sdk_root="${ANDROID_HOME}"
 RUN update-java-alternatives -s java-1.17.0-openjdk-amd64
 
 RUN rm -rf ${ANDROID_HOME}/tools
+
+# Create a non-root user and group
+RUN groupadd -r appuser && useradd --no-log-init -r -g appuser appuser
+
+# RUN mkdir -p /home/appuser/.gradle && chown -R appuser:appuser /home/appuser/.gradle
+
+# Switch to the non-root user
+USER appuser
