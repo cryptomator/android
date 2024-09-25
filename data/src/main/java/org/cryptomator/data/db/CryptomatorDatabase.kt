@@ -9,15 +9,15 @@ import org.cryptomator.data.db.entities.CloudEntity
 import org.cryptomator.data.db.entities.UpdateCheckEntity
 import org.cryptomator.data.db.entities.VaultEntity
 import org.cryptomator.data.db.migrations.Sql
-import org.cryptomator.data.db.migrations.auto.AutoMigration13To14
+import org.cryptomator.data.db.migrations.auto.AutoMigration14To15
 import kotlin.math.max
 
 const val DATABASE_NAME = "Cryptomator"
-const val CRYPTOMATOR_DATABASE_VERSION = 14
+const val CRYPTOMATOR_DATABASE_VERSION = 15
 
 @Database(
 	version = CRYPTOMATOR_DATABASE_VERSION, entities = [CloudEntity::class, UpdateCheckEntity::class, VaultEntity::class], autoMigrations = [
-		AutoMigration(from = 13, to = 14, spec = AutoMigration13To14::class)
+		AutoMigration(from = 14, to = 15, spec = AutoMigration14To15::class)
 	]
 )
 abstract class CryptomatorDatabase : RoomDatabase() {

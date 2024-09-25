@@ -32,4 +32,4 @@ import org.cryptomator.data.db.DatabaseAutoMigrationSpec
 	RenameColumn("VAULT_ENTITY", "FORMAT", "format"),
 	RenameColumn("VAULT_ENTITY", "SHORTENING_THRESHOLD", "shorteningThreshold"),
 )
-class AutoMigration13To14 : DatabaseAutoMigrationSpec()
+class AutoMigration14To15 : DatabaseAutoMigrationSpec()

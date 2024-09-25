@@ -350,7 +350,7 @@ public class Sql {
 			return join(targetTable, "id", sourceColumn);
 		}
 
-		public SqlInsertSelectBuilder pre14Join(String targetTable, String sourceColumn) {
+		public SqlInsertSelectBuilder pre15Join(String targetTable, String sourceColumn) {
 			return join(targetTable, "_id", sourceColumn);
 		}
 
@@ -397,7 +397,7 @@ public class Sql {
 			return this;
 		}
 
-		public SqlCreateTableBuilder pre14Id() {
+		public SqlCreateTableBuilder pre15Id() {
 			column("_id", INTEGER, PRIMARY_KEY);
 			return this;
 		}
@@ -451,7 +451,7 @@ public class Sql {
 			return foreignKey(column, targetTable, "id", behaviours);
 		}
 
-		public SqlCreateTableBuilder pre14ForeignKey(String column, String targetTable, ForeignKeyBehaviour... behaviours) {
+		public SqlCreateTableBuilder pre15ForeignKey(String column, String targetTable, ForeignKeyBehaviour... behaviours) {
 			return foreignKey(column, targetTable, "_id", behaviours);
 		}
 

@@ -27,7 +27,7 @@ import org.cryptomator.data.db.migrations.legacy.Upgrade6To7
 import org.cryptomator.data.db.migrations.legacy.Upgrade7To8
 import org.cryptomator.data.db.migrations.legacy.Upgrade8To9
 import org.cryptomator.data.db.migrations.legacy.Upgrade9To10
-import org.cryptomator.data.db.migrations.manual.Migration12To13
+import org.cryptomator.data.db.migrations.manual.Migration13To14
 import org.cryptomator.data.db.templating.DbTemplateModule
 import org.cryptomator.data.db.templating.TemplateDatabaseContext
 import org.cryptomator.domain.CloudType
@@ -48,7 +48,7 @@ import java.io.IOException
 import java.nio.file.Files
 
 private const val TEST_DB = "migration-test"
-private const val LATEST_LEGACY_MIGRATION = 12
+private const val LATEST_LEGACY_MIGRATION = 13
 
 private const val UUID_LENGTH = 36
 
@@ -135,8 +135,8 @@ class UpgradeDatabaseTest {
 		Upgrade11To12(sharedPreferencesHandler).migrate(db)
 		db.close()
 
-		runMigrationsAndValidate(13, Migration12To13())
-		runMigrationsAndValidate(14, CryptomatorDatabase_AutoMigration_13_14_Impl())
+		runMigrationsAndValidate(14, Migration13To14())
+		runMigrationsAndValidate(15, CryptomatorDatabase_AutoMigration_14_15_Impl())
 	}
 
 	@Throws(IOException::class)
@@ -402,7 +402,7 @@ class UpgradeDatabaseTest {
 		Sql.alterTable("UPDATE_CHECK_ENTITY").renameTo("UPDATE_CHECK_ENTITY_OLD").executeOn(db)
 
 		Sql.createTable("UPDATE_CHECK_ENTITY") //
-			.pre14Id() //
+			.pre15Id() //
 			.optionalText("LICENSE_TOKEN") //
 			.optionalText("RELEASE_NOTE") //
 			.optionalText("VERSION") //
@@ -715,7 +715,7 @@ class UpgradeDatabaseTest {
 	}
 
 	@Test
-	fun migrate12To14ForeignKeySideEffects() { //See: Migration12To13
+	fun migrate13To15ForeignKeySideEffects() { //See: Migration13To14
 		Upgrade1To2().migrate(db)
 		Upgrade2To3(context).migrate(db)
 		Upgrade3To4().migrate(db)
@@ -728,18 +728,18 @@ class UpgradeDatabaseTest {
 		Upgrade10To11().migrate(db)
 		Upgrade11To12(sharedPreferencesHandler).migrate(db)
 
-		val pre13Statement = referencesStatement(db)
-		val pre13Expected = "CONSTRAINT FK_FOLDER_CLOUD_ID_CLOUD_ENTITY FOREIGN KEY (FOLDER_CLOUD_ID) REFERENCES CLOUD_ENTITY(_id) ON DELETE SET NULL"
+		val pre14Statement = referencesStatement(db)
+		val pre14Expected = "CONSTRAINT FK_FOLDER_CLOUD_ID_CLOUD_ENTITY FOREIGN KEY (FOLDER_CLOUD_ID) REFERENCES CLOUD_ENTITY(_id) ON DELETE SET NULL"
 		//This is a sanity check and may need to be updated if Sql.java is changed
-		assertTrue("Expected \".*$pre13Expected.*\", got \"$pre13Statement\"", pre13Statement.contains(pre13Expected))
+		assertTrue("Expected \".*$pre14Expected.*\", got \"$pre14Statement\"", pre14Statement.contains(pre14Expected))
 		db.close()
 
-		runMigrationsAndValidate(13, Migration12To13()).also { migratedDb ->
+		runMigrationsAndValidate(14, Migration13To14()).also { migratedDb ->
 			val statement = referencesStatement(migratedDb)
-			assertEquals(pre13Statement, statement)
+			assertEquals(pre14Statement, statement)
 		}
 
-		runMigrationsAndValidate(14, CryptomatorDatabase_AutoMigration_13_14_Impl()).also { migratedDb ->
+		runMigrationsAndValidate(15, CryptomatorDatabase_AutoMigration_14_15_Impl()).also { migratedDb ->
 			val statement = referencesStatement(migratedDb)
 			val expected = "FOREIGN KEY(folderCloudId) REFERENCES CLOUD_ENTITY(id) ON"
 			assertTrue("Expected \".*$expected.*\", got \"$statement\"", statement.contains(expected))
@@ -764,7 +764,7 @@ class UpgradeDatabaseTest {
 	}
 
 	@Test
-	fun migrate12To14IndexSideEffects() { //See: Migration12To13
+	fun migrate13To15IndexSideEffects() { //See: Migration13To14
 		Upgrade1To2().migrate(db)
 		Upgrade2To3(context).migrate(db)
 		Upgrade3To4().migrate(db)
@@ -777,19 +777,19 @@ class UpgradeDatabaseTest {
 		Upgrade10To11().migrate(db)
 		Upgrade11To12(sharedPreferencesHandler).migrate(db)
 
-		val pre13Statement = indexStatement(db)
-		val pre13Expected = "CREATE UNIQUE INDEX \"IDX_VAULT_ENTITY_FOLDER_PATH_FOLDER_CLOUD_ID\" ON \"VAULT_ENTITY\" (\"FOLDER_PATH\" ASC,\"FOLDER_CLOUD_ID\" ASC) -- "
+		val pre14Statement = indexStatement(db)
+		val pre14Expected = "CREATE UNIQUE INDEX \"IDX_VAULT_ENTITY_FOLDER_PATH_FOLDER_CLOUD_ID\" ON \"VAULT_ENTITY\" (\"FOLDER_PATH\" ASC,\"FOLDER_CLOUD_ID\" ASC) -- "
 		//This is a sanity check and may need to be updated if Sql.java is changed
-		assertEquals(pre13Expected, pre13Statement.substring(0, pre13Statement.length - UUID_LENGTH))
-		assertIsUUID(pre13Statement.substring(pre13Statement.length - UUID_LENGTH))
+		assertEquals(pre14Expected, pre14Statement.substring(0, pre14Statement.length - UUID_LENGTH))
+		assertIsUUID(pre14Statement.substring(pre14Statement.length - UUID_LENGTH))
 		db.close()
 
-		runMigrationsAndValidate(13, Migration12To13()).also { migratedDb ->
+		runMigrationsAndValidate(14, Migration13To14()).also { migratedDb ->
 			val statement = indexStatement(migratedDb)
-			assertEquals(pre13Statement, statement)
+			assertEquals(pre14Statement, statement)
 		}
 
-		runMigrationsAndValidate(14, CryptomatorDatabase_AutoMigration_13_14_Impl()).also { migratedDb ->
+		runMigrationsAndValidate(15, CryptomatorDatabase_AutoMigration_14_15_Impl()).also { migratedDb ->
 			val statement = indexStatement(migratedDb)
 			val expected = "CREATE UNIQUE INDEX `IDX_VAULT_ENTITY_FOLDER_PATH_FOLDER_CLOUD_ID` ON `VAULT_ENTITY` (`folderPath` ASC, `folderCloudId` ASC)"
 			assertEquals(expected, statement)
@@ -810,7 +810,7 @@ class UpgradeDatabaseTest {
 	}
 
 	@Test
-	fun migrate12To13() {
+	fun migrate13To14() {
 		Upgrade1To2().migrate(db)
 		Upgrade2To3(context).migrate(db)
 		Upgrade3To4().migrate(db)
@@ -823,18 +823,18 @@ class UpgradeDatabaseTest {
 		Upgrade10To11().migrate(db)
 		Upgrade11To12(sharedPreferencesHandler).migrate(db)
 
-		assertEquals(12, db.version)
-		val pre13Tables: Map<String, Cursor> = listOf("CLOUD_ENTITY", "UPDATE_CHECK_ENTITY", "VAULT_ENTITY").associateWith { tableName ->
+		assertEquals(13, db.version)
+		val pre14Tables: Map<String, Cursor> = listOf("CLOUD_ENTITY", "UPDATE_CHECK_ENTITY", "VAULT_ENTITY").associateWith { tableName ->
 			val cursor = Sql.query(tableName).executeOn(db)
 			copyAndClose(cursor)
 		}
 		db.close()
 
-		runMigrationsAndValidate(13, Migration12To13()).also { migratedDb ->
+		runMigrationsAndValidate(14, Migration13To14()).also { migratedDb ->
 			assertTrue(migratedDb.hasRoomMasterTable)
-			assertEquals(13, migratedDb.version)
+			assertEquals(14, migratedDb.version)
 
-			for (preTable in pre13Tables) {
+			for (preTable in pre14Tables) {
 				preTable.value.use { preCursor ->
 					Sql.query(preTable.key).executeOn(migratedDb).use { postCursor ->
 						assertCursorEquals(preCursor, postCursor)
@@ -845,7 +845,7 @@ class UpgradeDatabaseTest {
 	}
 
 	@Test
-	fun migrate12To13WithData() {
+	fun migrate13To14WithData() {
 		Upgrade1To2().migrate(db)
 		Upgrade2To3(context).migrate(db)
 		Upgrade3To4().migrate(db)
@@ -903,17 +903,17 @@ class UpgradeDatabaseTest {
 			.set("URL_TO_RELEASE_NOTE", Sql.toString("urlToNote1")) //
 			.executeOn(db)
 
-		assertEquals(12, db.version)
-		val pre13Tables: Map<String, Cursor> = listOf("CLOUD_ENTITY", "UPDATE_CHECK_ENTITY", "VAULT_ENTITY").associateWith { tableName ->
+		assertEquals(13, db.version)
+		val pre14Tables: Map<String, Cursor> = listOf("CLOUD_ENTITY", "UPDATE_CHECK_ENTITY", "VAULT_ENTITY").associateWith { tableName ->
 			copyAndClose(Sql.query(tableName).executeOn(db))
 		}
 		db.close()
 
-		runMigrationsAndValidate(13, Migration12To13()).also { migratedDb ->
+		runMigrationsAndValidate(14, Migration13To14()).also { migratedDb ->
 			assertTrue(migratedDb.hasRoomMasterTable)
-			assertEquals(13, migratedDb.version)
+			assertEquals(14, migratedDb.version)
 
-			for (preTable in pre13Tables) {
+			for (preTable in pre14Tables) {
 				preTable.value.use { preCursor ->
 					Sql.query(preTable.key).executeOn(migratedDb).use { postCursor ->
 						assertCursorEquals(preCursor, postCursor)
@@ -923,15 +923,15 @@ class UpgradeDatabaseTest {
 		}
 	}
 
-	//TODO Test metadata of non-entity tables for v13, v14
-	//TODO Test metadata and content of entity tables for v14
+	//TODO Test metadata of non-entity tables for v14, v15
+	//TODO Test metadata and content of entity tables for v15
 
 	@Test
-	fun migrate1To13WithRoom() {
+	fun migrate1To14WithRoom() {
 		db.version = 1
 		db.close()
 		runMigrationsAndValidate(
-			13,
+			14,
 			Upgrade1To2(),
 			Upgrade2To3(context),
 			Upgrade3To4(),
@@ -943,7 +943,7 @@ class UpgradeDatabaseTest {
 			Upgrade9To10(sharedPreferencesHandler),
 			Upgrade10To11(),
 			Upgrade11To12(sharedPreferencesHandler),
-			Migration12To13()
+			Migration13To14()
 		)
 	}
 }

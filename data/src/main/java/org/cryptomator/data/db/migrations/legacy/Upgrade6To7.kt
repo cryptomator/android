@@ -25,7 +25,7 @@ internal class Upgrade6To7 @Inject constructor() : DatabaseMigration(6, 7) {
 		Sql.alterTable("UPDATE_CHECK_ENTITY").renameTo("UPDATE_CHECK_ENTITY_OLD").executeOn(db)
 
 		Sql.createTable("UPDATE_CHECK_ENTITY") //
-			.pre14Id() //
+			.pre15Id() //
 			.optionalText("LICENSE_TOKEN") //
 			.optionalText("RELEASE_NOTE") //
 			.optionalText("VERSION") //

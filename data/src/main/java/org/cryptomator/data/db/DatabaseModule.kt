@@ -18,7 +18,7 @@ import org.cryptomator.data.db.migrations.legacy.Upgrade6To7
 import org.cryptomator.data.db.migrations.legacy.Upgrade7To8
 import org.cryptomator.data.db.migrations.legacy.Upgrade8To9
 import org.cryptomator.data.db.migrations.legacy.Upgrade9To10
-import org.cryptomator.data.db.migrations.manual.Migration12To13
+import org.cryptomator.data.db.migrations.manual.Migration13To14
 import org.cryptomator.data.db.templating.DbTemplateComponent
 import org.cryptomator.util.ThreadUtil
 import org.cryptomator.util.named
@@ -149,7 +149,7 @@ class DatabaseModule {
 		upgrade10To11: Upgrade10To11, //
 		upgrade11To12: Upgrade11To12, //
 		//
-		migration12To13: Migration12To13, //
+		migration13To14: Migration13To14, //
 	): Array<Migration> = arrayOf(
 		upgrade1To2,
 		upgrade2To3,
@@ -163,7 +163,7 @@ class DatabaseModule {
 		upgrade10To11,
 		upgrade11To12,
 		//
-		migration12To13,
+		migration13To14,
 	)
 }
 

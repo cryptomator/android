@@ -20,7 +20,7 @@ import org.cryptomator.data.db.migrations.legacy.Upgrade6To7
 import org.cryptomator.data.db.migrations.legacy.Upgrade7To8
 import org.cryptomator.data.db.migrations.legacy.Upgrade8To9
 import org.cryptomator.data.db.migrations.legacy.Upgrade9To10
-import org.cryptomator.data.db.migrations.manual.Migration12To13
+import org.cryptomator.data.db.migrations.manual.Migration13To14
 import org.cryptomator.data.db.templating.DbTemplateModule
 import org.cryptomator.data.db.templating.TemplateDatabaseContext
 import org.cryptomator.data.util.useFinally
@@ -79,8 +79,8 @@ class CorruptedDatabaseTest {
 			Upgrade10To11(),
 			Upgrade11To12(sharedPreferencesHandler),
 			//
-			Migration12To13(),
-			//Auto: 13 -> 14
+			Migration13To14(),
+			//Auto: 14 -> 15
 		)
 
 		createVersion0Database(context, TEST_DB)

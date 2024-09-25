@@ -18,7 +18,7 @@ internal class Upgrade1To2 @Inject constructor() : DatabaseMigration(1, 2) {
 		db.beginTransaction()
 		try {
 			Sql.createTable("UPDATE_CHECK_ENTITY") //
-				.pre14Id() //
+				.pre15Id() //
 				.optionalText("LICENSE_TOKEN") //
 				.optionalText("RELEASE_NOTE") //
 				.optionalText("VERSION") //
