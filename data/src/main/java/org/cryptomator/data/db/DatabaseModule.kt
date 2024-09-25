@@ -9,6 +9,7 @@ import androidx.sqlite.db.SupportSQLiteOpenHelper
 import org.cryptomator.data.db.SQLiteCacheControl.asCacheControlled
 import org.cryptomator.data.db.migrations.legacy.Upgrade10To11
 import org.cryptomator.data.db.migrations.legacy.Upgrade11To12
+import org.cryptomator.data.db.migrations.legacy.Upgrade12To13
 import org.cryptomator.data.db.migrations.legacy.Upgrade1To2
 import org.cryptomator.data.db.migrations.legacy.Upgrade2To3
 import org.cryptomator.data.db.migrations.legacy.Upgrade3To4
@@ -148,6 +149,7 @@ class DatabaseModule {
 		upgrade9To10: Upgrade9To10, //
 		upgrade10To11: Upgrade10To11, //
 		upgrade11To12: Upgrade11To12, //
+		upgrade12To13: Upgrade12To13, //
 		//
 		migration13To14: Migration13To14, //
 	): Array<Migration> = arrayOf(
@@ -162,6 +164,7 @@ class DatabaseModule {
 		upgrade9To10,
 		upgrade10To11,
 		upgrade11To12,
+		upgrade12To13,
 		//
 		migration13To14,
 	)

@@ -1,16 +1,18 @@
-package org.cryptomator.data.db
+package org.cryptomator.data.db.migrations.legacy
 
 import android.content.Context
+import androidx.sqlite.db.SupportSQLiteDatabase
+import org.cryptomator.data.db.DatabaseMigration
+import org.cryptomator.data.db.migrations.Sql
 import org.cryptomator.util.crypto.CredentialCryptor
 import org.cryptomator.util.crypto.CryptoMode
-import org.greenrobot.greendao.database.Database
 import javax.inject.Inject
 import javax.inject.Singleton
 
 @Singleton
-internal class Upgrade12To13 @Inject constructor(private val context: Context) : DatabaseUpgrade(12, 13) {
+internal class Upgrade12To13 @Inject constructor(private val context: Context) : DatabaseMigration(12, 13) {
 
-	override fun internalApplyTo(db: Database, origin: Int) {
+	override fun migrateInternal(db: SupportSQLiteDatabase) {
 		db.beginTransaction()
 		try {
 			moveLocalStorageUrlToUrlProperty(db)
@@ -24,7 +26,7 @@ internal class Upgrade12To13 @Inject constructor(private val context: Context) :
 		}
 	}
 
-	private fun moveLocalStorageUrlToUrlProperty(db: Database) {
+	private fun moveLocalStorageUrlToUrlProperty(db: SupportSQLiteDatabase) {
 		Sql.query("CLOUD_ENTITY").where("TYPE", Sql.eq("LOCAL")).executeOn(db).use {
 			while (it.moveToNext()) {
 				Sql.update("CLOUD_ENTITY") //
@@ -36,18 +38,18 @@ internal class Upgrade12To13 @Inject constructor(private val context: Context) :
 		}
 	}
 
-	private fun dropGoogleDriveUsernameInAccessToken(db: Database) {
+	private fun dropGoogleDriveUsernameInAccessToken(db: SupportSQLiteDatabase) {
 		Sql.update("CLOUD_ENTITY")
 			.set("ACCESS_TOKEN", Sql.toNull()) //
 			.where("TYPE", Sql.eq("GOOGLE_DRIVE"))
 			.executeOn(db)
 	}
 
-	private fun addCryptoModeToDbEntities(db: Database) {
+	private fun addCryptoModeToDbEntities(db: SupportSQLiteDatabase) {
 		Sql.alterTable("CLOUD_ENTITY").renameTo("CLOUD_ENTITY_OLD").executeOn(db)
 
 		Sql.createTable("CLOUD_ENTITY") //
-			.id() //
+			.pre15Id() //
 			.requiredText("TYPE") //
 			.optionalText("ACCESS_TOKEN") //
 			.optionalText("ACCESS_TOKEN_CRYPTO_MODE") //
@@ -72,10 +74,10 @@ internal class Upgrade12To13 @Inject constructor(private val context: Context) :
 		Sql.dropTable("CLOUD_ENTITY_OLD").executeOn(db)
 	}
 
-	private fun addPasswordCryptoModeToVaultDbEntity(db: Database) {
+	private fun addPasswordCryptoModeToVaultDbEntity(db: SupportSQLiteDatabase) {
 		Sql.alterTable("VAULT_ENTITY").renameTo("VAULT_ENTITY_OLD").executeOn(db)
 		Sql.createTable("VAULT_ENTITY") //
-			.id() //
+			.pre15Id() //
 			.optionalInt("FOLDER_CLOUD_ID") //
 			.optionalText("FOLDER_PATH") //
 			.optionalText("FOLDER_NAME") //
@@ -85,14 +87,14 @@ internal class Upgrade12To13 @Inject constructor(private val context: Context) :
 			.optionalText("PASSWORD_CRYPTO_MODE") //
 			.optionalInt("POSITION") //
 			.optionalInt("SHORTENING_THRESHOLD") //
-			.foreignKey("FOLDER_CLOUD_ID", "CLOUD_ENTITY", Sql.SqlCreateTableBuilder.ForeignKeyBehaviour.ON_DELETE_SET_NULL) //
+			.pre15ForeignKey("FOLDER_CLOUD_ID", "CLOUD_ENTITY", Sql.SqlCreateTableBuilder.ForeignKeyBehaviour.ON_DELETE_SET_NULL) //
 			.executeOn(db)
 
 		Sql.insertInto("VAULT_ENTITY") //
 			.select("_id", "FOLDER_CLOUD_ID", "FOLDER_PATH", "FOLDER_NAME", "FORMAT", "PASSWORD", "POSITION", "SHORTENING_THRESHOLD", "CLOUD_ENTITY.TYPE") //
 			.columns("_id", "FOLDER_CLOUD_ID", "FOLDER_PATH", "FOLDER_NAME", "FORMAT", "PASSWORD", "POSITION", "SHORTENING_THRESHOLD", "CLOUD_TYPE") //
 			.from("VAULT_ENTITY_OLD") //
-			.join("CLOUD_ENTITY", "VAULT_ENTITY_OLD.FOLDER_CLOUD_ID") //
+			.pre15Join("CLOUD_ENTITY", "VAULT_ENTITY_OLD.FOLDER_CLOUD_ID") //
 			.executeOn(db)
 
 		Sql.dropIndex("IDX_VAULT_ENTITY_FOLDER_PATH_FOLDER_CLOUD_ID").executeOn(db)
@@ -106,14 +108,14 @@ internal class Upgrade12To13 @Inject constructor(private val context: Context) :
 		Sql.dropTable("VAULT_ENTITY_OLD").executeOn(db)
 	}
 
-	private fun applyVaultPasswordCryptoModeToDb(db: Database) {
+	private fun applyVaultPasswordCryptoModeToDb(db: SupportSQLiteDatabase) {
 		Sql.update("VAULT_ENTITY")
 			.set("PASSWORD_CRYPTO_MODE", Sql.toString(CryptoMode.CBC.name)) //
 			.where("PASSWORD", Sql.isNotNull())
 			.executeOn(db)
 	}
 
-	private fun upgradeCloudCryptoModeToGCM(db: Database) {
+	private fun upgradeCloudCryptoModeToGCM(db: SupportSQLiteDatabase) {
 		val gcmCryptor = CredentialCryptor.getInstance(context, CryptoMode.GCM)
 		val cbcCryptor = CredentialCryptor.getInstance(context, CryptoMode.CBC)
 
