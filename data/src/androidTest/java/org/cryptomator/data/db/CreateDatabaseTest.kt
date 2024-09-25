@@ -43,6 +43,10 @@ class CreateDatabaseTest {
 		val config = SupportSQLiteOpenHelper.Configuration.builder(templateDatabaseContext) //
 			.name(DATABASE_NAME) //
 			.callback(object : SupportSQLiteOpenHelper.Callback(1) {
+				override fun onConfigure(db: SupportSQLiteDatabase) = db.applyDefaultConfiguration( //
+					writeAheadLoggingEnabled = false //
+				)
+
 				override fun onCreate(db: SupportSQLiteDatabase) = fail("Database should already exist")
 				override fun onUpgrade(db: SupportSQLiteDatabase, oldVersion: Int, newVersion: Int) = fail("Database should already be target version")
 			}).build()

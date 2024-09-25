@@ -46,6 +46,7 @@ private class PatchedCallback(
 
 	override fun onConfigure(db: SupportSQLiteDatabase) {
 		LOG.d("Called onConfigure for \"${db.path}\"@${db.version}")
+		require(!db.isWriteAheadLoggingEnabled) { "WAL for \"${db.path}\" should already be disabled by room" }
 		db.applyDefaultConfiguration( //
 			writeAheadLoggingEnabled = null //WAL is handled by Room
 		)
