@@ -1,7 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 	<!-- # app -->
+	<string name="share_with_label">پاروللاش</string>
 	<!-- # error messages -->
+	<string name="error_generic">خاتالىق كۆرۈلدى</string>
+	<string name="error_authentication_failed">دەلىللەش مەغلۇپ بولدى</string>
+	<string name="error_authentication_failed_re_authenticate">دەلىللەش مەغلۇپ بولدى، %1$s نى ئىشلىتىپ كىرىڭ</string>
+	<string name="error_no_network_connection">تور يوق</string>
+	<string name="error_invalid_passphrase">پارول خاتا</string>
+	<string name="error_file_or_folder_exists">ئوخشاش نامدىكى ھۆججەت ياكى قىسقۇچ بار.</string>
+	<string name="error_vault_version_not_supported">ئامبار %1$s نەشىرىنى قوللىمايدۇ. بۇ ئامبار Cryptomator نىڭ كونا ياكى يېڭى نەشرى بىلەن ياسالغان.</string>
+	<string name="error_vault_config_file_missing_due_to_format_999">ھۆججەت ئامبىرىڭىزدا %1$s تېپىلمىدى. بۇ ھۆججەتنىڭ بۇلۇت سۇپىسىدىكى ئامبىرىڭىزدا بارلىقىغا كاپالەتلىك قىلىڭ.</string>
+	<string name="error_vault_already_exists">ئوخشاش ئامبار با.</string>
+	<string name="error_no_such_file">ھۆججەت تېپىلمىدى.</string>
 	<!-- # clouds -->
 	<!-- ## cloud names -->
 	<!-- # permission -->
