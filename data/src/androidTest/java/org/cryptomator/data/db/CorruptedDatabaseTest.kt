@@ -11,6 +11,7 @@ import androidx.test.filters.SmallTest
 import androidx.test.platform.app.InstrumentationRegistry
 import org.cryptomator.data.db.migrations.legacy.Upgrade10To11
 import org.cryptomator.data.db.migrations.legacy.Upgrade11To12
+import org.cryptomator.data.db.migrations.legacy.Upgrade12To13
 import org.cryptomator.data.db.migrations.legacy.Upgrade1To2
 import org.cryptomator.data.db.migrations.legacy.Upgrade2To3
 import org.cryptomator.data.db.migrations.legacy.Upgrade3To4
@@ -78,6 +79,7 @@ class CorruptedDatabaseTest {
 			Upgrade9To10(sharedPreferencesHandler),
 			Upgrade10To11(),
 			Upgrade11To12(sharedPreferencesHandler),
+			Upgrade12To13(context),
 			//
 			Migration13To14(),
 			//Auto: 14 -> 15

@@ -18,6 +18,7 @@ import org.cryptomator.data.db.SQLiteCacheControl.asCacheControlled
 import org.cryptomator.data.db.migrations.Sql
 import org.cryptomator.data.db.migrations.legacy.Upgrade10To11
 import org.cryptomator.data.db.migrations.legacy.Upgrade11To12
+import org.cryptomator.data.db.migrations.legacy.Upgrade12To13
 import org.cryptomator.data.db.migrations.legacy.Upgrade1To2
 import org.cryptomator.data.db.migrations.legacy.Upgrade2To3
 import org.cryptomator.data.db.migrations.legacy.Upgrade3To4
@@ -133,9 +134,7 @@ class UpgradeDatabaseTest {
 		Upgrade9To10(sharedPreferencesHandler).migrate(db)
 		Upgrade10To11().migrate(db)
 		Upgrade11To12(sharedPreferencesHandler).migrate(db)
-		/*
-		Upgrade12To13(context).applyTo(db, 12)
-		*/
+		Upgrade12To13(context).migrate(db)
 		db.close()
 
 		runMigrationsAndValidate(14, Migration13To14())
@@ -1038,6 +1037,7 @@ class UpgradeDatabaseTest {
 		Upgrade9To10(sharedPreferencesHandler).migrate(db)
 		Upgrade10To11().migrate(db)
 		Upgrade11To12(sharedPreferencesHandler).migrate(db)
+		Upgrade12To13(context).migrate(db)
 
 		val pre14Statement = referencesStatement(db)
 		val pre14Expected = "CONSTRAINT FK_FOLDER_CLOUD_ID_CLOUD_ENTITY FOREIGN KEY (FOLDER_CLOUD_ID) REFERENCES CLOUD_ENTITY(_id) ON DELETE SET NULL"
@@ -1087,6 +1087,7 @@ class UpgradeDatabaseTest {
 		Upgrade9To10(sharedPreferencesHandler).migrate(db)
 		Upgrade10To11().migrate(db)
 		Upgrade11To12(sharedPreferencesHandler).migrate(db)
+		Upgrade12To13(context).migrate(db)
 
 		val pre14Statement = indexStatement(db)
 		val pre14Expected = "CREATE UNIQUE INDEX \"IDX_VAULT_ENTITY_FOLDER_PATH_FOLDER_CLOUD_ID\" ON \"VAULT_ENTITY\" (\"FOLDER_PATH\" ASC,\"FOLDER_CLOUD_ID\" ASC) -- "
@@ -1133,6 +1134,7 @@ class UpgradeDatabaseTest {
 		Upgrade9To10(sharedPreferencesHandler).migrate(db)
 		Upgrade10To11().migrate(db)
 		Upgrade11To12(sharedPreferencesHandler).migrate(db)
+		Upgrade12To13(context).migrate(db)
 
 		assertEquals(13, db.version)
 		val pre14Tables: Map<String, Cursor> = listOf("CLOUD_ENTITY", "UPDATE_CHECK_ENTITY", "VAULT_ENTITY").associateWith { tableName ->
@@ -1168,6 +1170,7 @@ class UpgradeDatabaseTest {
 		Upgrade9To10(sharedPreferencesHandler).migrate(db)
 		Upgrade10To11().migrate(db)
 		Upgrade11To12(sharedPreferencesHandler).migrate(db)
+		Upgrade12To13(context).migrate(db)
 
 		Sql.insertInto("CLOUD_ENTITY") //
 			.integer("_id", 3) //
@@ -1254,6 +1257,7 @@ class UpgradeDatabaseTest {
 			Upgrade9To10(sharedPreferencesHandler),
 			Upgrade10To11(),
 			Upgrade11To12(sharedPreferencesHandler),
+			Upgrade12To13(context),
 			Migration13To14()
 		)
 	}
