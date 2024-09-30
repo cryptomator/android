@@ -1,7 +1,6 @@
 package org.cryptomator.data.db
 
 import android.content.Context
-import androidx.room.migration.Migration
 import androidx.room.util.readVersion
 import androidx.sqlite.db.SupportSQLiteDatabase
 import androidx.sqlite.db.SupportSQLiteOpenHelper
@@ -9,6 +8,7 @@ import androidx.sqlite.db.framework.FrameworkSQLiteOpenHelperFactory
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import androidx.test.filters.SmallTest
 import androidx.test.platform.app.InstrumentationRegistry
+import org.cryptomator.data.db.migrations.MigrationContainer
 import org.cryptomator.data.db.migrations.legacy.Upgrade10To11
 import org.cryptomator.data.db.migrations.legacy.Upgrade11To12
 import org.cryptomator.data.db.migrations.legacy.Upgrade12To13
@@ -67,28 +67,28 @@ class CorruptedDatabaseTest {
 	@Test
 	fun testOpenVersion0Database() {
 		val databaseModule = DatabaseModule()
-		val migrations = arrayOf<Migration>(
-			Upgrade1To2(),
-			Upgrade2To3(context),
-			Upgrade3To4(),
-			Upgrade4To5(),
-			Upgrade5To6(),
-			Upgrade6To7(),
-			Upgrade7To8(),
-			Upgrade8To9(sharedPreferencesHandler),
-			Upgrade9To10(sharedPreferencesHandler),
-			Upgrade10To11(),
-			Upgrade11To12(sharedPreferencesHandler),
-			Upgrade12To13(context),
+		val migrationContainer = MigrationContainer(
+			Upgrade1To2(), //
+			Upgrade2To3(context), //
+			Upgrade3To4(), //
+			Upgrade4To5(), //
+			Upgrade5To6(), //
+			Upgrade6To7(), //
+			Upgrade7To8(), //
+			Upgrade8To9(sharedPreferencesHandler), //
+			Upgrade9To10(sharedPreferencesHandler), //
+			Upgrade10To11(), //
+			Upgrade11To12(sharedPreferencesHandler), //
+			Upgrade12To13(context), //
 			//
-			Migration13To14(),
+			Migration13To14(), //
 			//Auto: 14 -> 15
 		)
 
 		createVersion0Database(context, TEST_DB)
 		databaseModule.provideInternalCryptomatorDatabase(
 			context,
-			migrations,
+			migrationContainer.getPath(1).toTypedArray(),
 			{ templateDbStream },
 			openHelperFactory,
 			TEST_DB

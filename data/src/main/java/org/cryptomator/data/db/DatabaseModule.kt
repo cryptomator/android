@@ -7,19 +7,7 @@ import androidx.room.migration.Migration
 import androidx.sqlite.db.SupportSQLiteDatabase
 import androidx.sqlite.db.SupportSQLiteOpenHelper
 import org.cryptomator.data.db.SQLiteCacheControl.asCacheControlled
-import org.cryptomator.data.db.migrations.legacy.Upgrade10To11
-import org.cryptomator.data.db.migrations.legacy.Upgrade11To12
-import org.cryptomator.data.db.migrations.legacy.Upgrade12To13
-import org.cryptomator.data.db.migrations.legacy.Upgrade1To2
-import org.cryptomator.data.db.migrations.legacy.Upgrade2To3
-import org.cryptomator.data.db.migrations.legacy.Upgrade3To4
-import org.cryptomator.data.db.migrations.legacy.Upgrade4To5
-import org.cryptomator.data.db.migrations.legacy.Upgrade5To6
-import org.cryptomator.data.db.migrations.legacy.Upgrade6To7
-import org.cryptomator.data.db.migrations.legacy.Upgrade7To8
-import org.cryptomator.data.db.migrations.legacy.Upgrade8To9
-import org.cryptomator.data.db.migrations.legacy.Upgrade9To10
-import org.cryptomator.data.db.migrations.manual.Migration13To14
+import org.cryptomator.data.db.migrations.MigrationContainer
 import org.cryptomator.data.db.templating.DbTemplateComponent
 import org.cryptomator.util.ThreadUtil
 import org.cryptomator.util.named
@@ -137,37 +125,9 @@ class DatabaseModule {
 	@Singleton
 	@Provides
 	@DbInternal
-	internal fun provideMigrations(
-		upgrade1To2: Upgrade1To2, //
-		upgrade2To3: Upgrade2To3, //
-		upgrade3To4: Upgrade3To4, //
-		upgrade4To5: Upgrade4To5, //
-		upgrade5To6: Upgrade5To6, //
-		upgrade6To7: Upgrade6To7, //
-		upgrade7To8: Upgrade7To8, //
-		upgrade8To9: Upgrade8To9, //
-		upgrade9To10: Upgrade9To10, //
-		upgrade10To11: Upgrade10To11, //
-		upgrade11To12: Upgrade11To12, //
-		upgrade12To13: Upgrade12To13, //
-		//
-		migration13To14: Migration13To14, //
-	): Array<Migration> = arrayOf(
-		upgrade1To2,
-		upgrade2To3,
-		upgrade5To6,
-		upgrade3To4,
-		upgrade4To5,
-		upgrade6To7,
-		upgrade7To8,
-		upgrade8To9,
-		upgrade9To10,
-		upgrade10To11,
-		upgrade11To12,
-		upgrade12To13,
-		//
-		migration13To14,
-	)
+	internal fun provideMigrations(migrationContainer: MigrationContainer): Array<Migration> {
+		return migrationContainer.getPath(1).toTypedArray()
+	}
 }
 
 object DatabaseCallback : RoomDatabase.Callback() {

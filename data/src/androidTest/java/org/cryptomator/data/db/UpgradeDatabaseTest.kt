@@ -15,6 +15,7 @@ import com.google.common.base.Optional
 import org.cryptomator.data.db.CryptomatorAssert.assertCursorEquals
 import org.cryptomator.data.db.CryptomatorAssert.assertIsUUID
 import org.cryptomator.data.db.SQLiteCacheControl.asCacheControlled
+import org.cryptomator.data.db.migrations.MigrationContainer
 import org.cryptomator.data.db.migrations.Sql
 import org.cryptomator.data.db.migrations.legacy.Upgrade10To11
 import org.cryptomator.data.db.migrations.legacy.Upgrade11To12
@@ -69,6 +70,7 @@ class UpgradeDatabaseTest {
 		it.mark(it.available())
 	}
 
+	private lateinit var migrationContainer: MigrationContainer
 	private lateinit var openHelper: SupportSQLiteOpenHelper
 	private lateinit var db: SupportSQLiteDatabase
 
@@ -90,6 +92,24 @@ class UpgradeDatabaseTest {
 			}
 			Files.copy(templateDbStream, dbFile.toPath())
 		}
+
+		migrationContainer = MigrationContainer(
+			Upgrade1To2(), //
+			Upgrade2To3(context), //
+			Upgrade3To4(), //
+			Upgrade4To5(), //
+			Upgrade5To6(), //
+			Upgrade6To7(), //
+			Upgrade7To8(), //
+			Upgrade8To9(sharedPreferencesHandler), //
+			Upgrade9To10(sharedPreferencesHandler), //
+			Upgrade10To11(), //
+			Upgrade11To12(sharedPreferencesHandler), //
+			Upgrade12To13(context), //
+			//
+			Migration13To14(), //
+			//Auto: 14 -> 15
+		)
 
 		val config = SupportSQLiteOpenHelper.Configuration.builder(context) //
 			.name(TEST_DB) //
@@ -124,18 +144,7 @@ class UpgradeDatabaseTest {
 
 	@Test
 	fun upgradeAll() {
-		Upgrade1To2().migrate(db)
-		Upgrade2To3(context).migrate(db)
-		Upgrade3To4().migrate(db)
-		Upgrade4To5().migrate(db)
-		Upgrade5To6().migrate(db)
-		Upgrade6To7().migrate(db)
-		Upgrade7To8().migrate(db)
-		Upgrade8To9(sharedPreferencesHandler).migrate(db)
-		Upgrade9To10(sharedPreferencesHandler).migrate(db)
-		Upgrade10To11().migrate(db)
-		Upgrade11To12(sharedPreferencesHandler).migrate(db)
-		Upgrade12To13(context).migrate(db)
+		migrationContainer.applyPath(db, 1, 13)
 		db.close()
 
 		runMigrationsAndValidate(14, Migration13To14())
@@ -149,7 +158,7 @@ class UpgradeDatabaseTest {
 
 	@Test
 	fun upgrade2To3() {
-		Upgrade1To2().migrate(db)
+		val testedUpgrade = migrationContainer.applyPathAndReturnNext<Upgrade2To3>(db, 1, 2)
 
 		val url = "url"
 		val username = "username"
@@ -174,7 +183,7 @@ class UpgradeDatabaseTest {
 
 		context.getSharedPreferences("com.microsoft.live", Context.MODE_PRIVATE).edit().putString("refresh_token", accessToken).commit()
 
-		Upgrade2To3(context).migrate(db)
+		testedUpgrade.migrate(db)
 
 		checkUpgrade2to3ResultForCloud("DROPBOX", accessToken, url, username, webdavCertificate)
 		checkUpgrade2to3ResultForCloud("ONEDRIVE", accessToken, url, username, webdavCertificate)
@@ -194,8 +203,7 @@ class UpgradeDatabaseTest {
 
 	@Test
 	fun upgrade3To4() {
-		Upgrade1To2().migrate(db)
-		Upgrade2To3(context).migrate(db)
+		val testedUpgrade = migrationContainer.applyPathAndReturnNext<Upgrade3To4>(db, 1, 3)
 
 		val ids = arrayOf("10", "20", "31", "32", "51")
 
@@ -210,7 +218,7 @@ class UpgradeDatabaseTest {
 				.executeOn(db)
 		}
 
-		Upgrade3To4().migrate(db)
+		testedUpgrade.migrate(db)
 
 		Sql.query("VAULT_ENTITY").where("CLOUD_TYPE", Sql.eq(CloudType.DROPBOX.name)).executeOn(db).use {
 			Assert.assertThat(it.count, CoreMatchers.`is`(ids.size))
@@ -228,9 +236,7 @@ class UpgradeDatabaseTest {
 
 	@Test
 	fun upgrade4To5() {
-		Upgrade1To2().migrate(db)
-		Upgrade2To3(context).migrate(db)
-		Upgrade3To4().migrate(db)
+		val testedUpgrade = migrationContainer.applyPathAndReturnNext<Upgrade4To5>(db, 1, 4)
 
 		val cloudId = 15
 		val cloudUrl = "url"
@@ -263,7 +269,7 @@ class UpgradeDatabaseTest {
 			.integer("POSITION", position) //
 			.executeOn(db)
 
-		Upgrade4To5().migrate(db)
+		testedUpgrade.migrate(db)
 
 		Sql.query("CLOUD_ENTITY").where("TYPE", Sql.eq(CloudType.WEBDAV.name)).executeOn(db).use {
 			it.moveToFirst()
@@ -289,10 +295,7 @@ class UpgradeDatabaseTest {
 
 	@Test
 	fun upgrade5To6() {
-		Upgrade1To2().migrate(db)
-		Upgrade2To3(context).migrate(db)
-		Upgrade3To4().migrate(db)
-		Upgrade4To5().migrate(db)
+		val testedUpgrade = migrationContainer.applyPathAndReturnNext<Upgrade5To6>(db, 1, 5)
 
 		val cloudId = 15
 		val cloudUrl = "url"
@@ -325,7 +328,7 @@ class UpgradeDatabaseTest {
 			.integer("POSITION", position) //
 			.executeOn(db)
 
-		Upgrade5To6().migrate(db)
+		testedUpgrade.migrate(db)
 
 		Sql.query("CLOUD_ENTITY").where("TYPE", Sql.eq(CloudType.WEBDAV.name)).executeOn(db).use {
 			it.moveToFirst()
@@ -351,11 +354,7 @@ class UpgradeDatabaseTest {
 
 	@Test
 	fun upgrade6To7() {
-		Upgrade1To2().migrate(db)
-		Upgrade2To3(context).migrate(db)
-		Upgrade3To4().migrate(db)
-		Upgrade4To5().migrate(db)
-		Upgrade5To6().migrate(db)
+		val testedUpgrade = migrationContainer.applyPathAndReturnNext<Upgrade6To7>(db, 1, 6)
 
 		val licenseToken = "licenseToken"
 		val releaseNote = "releaseNote"
@@ -371,7 +370,7 @@ class UpgradeDatabaseTest {
 			.set("URL_TO_RELEASE_NOTE", Sql.toString(urlReleaseNote)) //
 			.executeOn(db)
 
-		Upgrade6To7().migrate(db)
+		testedUpgrade.migrate(db)
 
 		Sql.query("UPDATE_CHECK_ENTITY").executeOn(db).use {
 			it.moveToFirst()
@@ -386,11 +385,7 @@ class UpgradeDatabaseTest {
 
 	@Test
 	fun upgrade6To7DueToSQLiteExceptionThrown() {
-		Upgrade1To2().migrate(db)
-		Upgrade2To3(context).migrate(db)
-		Upgrade3To4().migrate(db)
-		Upgrade4To5().migrate(db)
-		Upgrade5To6().migrate(db)
+		val testedUpgrade = migrationContainer.applyPathAndReturnNext<Upgrade6To7>(db, 1, 6)
 
 		val licenseToken = "licenseToken"
 
@@ -414,7 +409,7 @@ class UpgradeDatabaseTest {
 			.optionalText("URL_TO_RELEASE_NOTE") //
 			.executeOn(db)
 
-		Upgrade6To7().tryToRecoverFromSQLiteException(db)
+		testedUpgrade.tryToRecoverFromSQLiteException(db)
 
 		Sql.query("UPDATE_CHECK_ENTITY").executeOn(db).use {
 			it.moveToFirst()
@@ -429,12 +424,7 @@ class UpgradeDatabaseTest {
 
 	@Test
 	fun upgrade7To8() {
-		Upgrade1To2().migrate(db)
-		Upgrade2To3(context).migrate(db)
-		Upgrade3To4().migrate(db)
-		Upgrade4To5().migrate(db)
-		Upgrade5To6().migrate(db)
-		Upgrade6To7().migrate(db)
+		val testedUpgrade = migrationContainer.applyPathAndReturnNext<Upgrade7To8>(db, 1, 7)
 
 		Sql.insertInto("CLOUD_ENTITY") //
 			.integer("_id", 15) //
@@ -462,7 +452,7 @@ class UpgradeDatabaseTest {
 			Assert.assertThat(it.count, CoreMatchers.`is`(5))
 		}
 
-		Upgrade7To8().migrate(db)
+		testedUpgrade.migrate(db)
 
 		Sql.query("CLOUD_ENTITY").executeOn(db).use {
 			Assert.assertThat(it.count, CoreMatchers.`is`(4))
@@ -475,31 +465,18 @@ class UpgradeDatabaseTest {
 
 	@Test
 	fun upgrade8To9() {
-		Upgrade1To2().migrate(db)
-		Upgrade2To3(context).migrate(db)
-		Upgrade3To4().migrate(db)
-		Upgrade4To5().migrate(db)
-		Upgrade5To6().migrate(db)
-		Upgrade6To7().migrate(db)
-		Upgrade7To8().migrate(db)
+		val testedUpgrade = migrationContainer.applyPathAndReturnNext<Upgrade8To9>(db, 1, 8)
 
 		sharedPreferencesHandler.setBetaScreenDialogAlreadyShown(true)
 
-		Upgrade8To9(sharedPreferencesHandler).migrate(db)
+		testedUpgrade.migrate(db)
 
 		Assert.assertThat(sharedPreferencesHandler.isBetaModeAlreadyShown(), CoreMatchers.`is`(false))
 	}
 
 	@Test
 	fun upgrade9To10() {
-		Upgrade1To2().migrate(db)
-		Upgrade2To3(context).migrate(db)
-		Upgrade3To4().migrate(db)
-		Upgrade4To5().migrate(db)
-		Upgrade5To6().migrate(db)
-		Upgrade6To7().migrate(db)
-		Upgrade7To8().migrate(db)
-		Upgrade8To9(sharedPreferencesHandler).migrate(db)
+		val testedUpgrade = migrationContainer.applyPathAndReturnNext<Upgrade9To10>(db, 1, 9)
 
 		Sql.insertInto("CLOUD_ENTITY") //
 			.integer("_id", 15) //
@@ -537,7 +514,7 @@ class UpgradeDatabaseTest {
 			Assert.assertThat(it.count, CoreMatchers.`is`(5))
 		}
 
-		Upgrade9To10(sharedPreferencesHandler).migrate(db)
+		testedUpgrade.migrate(db)
 
 		Sql.query("VAULT_ENTITY").executeOn(db).use {
 			Assert.assertThat(it.count, CoreMatchers.`is`(1))
@@ -552,15 +529,7 @@ class UpgradeDatabaseTest {
 
 	@Test
 	fun upgrade10To11EmptyOnedriveCloudRemovesCloud() {
-		Upgrade1To2().migrate(db)
-		Upgrade2To3(context).migrate(db)
-		Upgrade3To4().migrate(db)
-		Upgrade4To5().migrate(db)
-		Upgrade5To6().migrate(db)
-		Upgrade6To7().migrate(db)
-		Upgrade7To8().migrate(db)
-		Upgrade8To9(sharedPreferencesHandler).migrate(db)
-		Upgrade9To10(sharedPreferencesHandler).migrate(db)
+		val testedUpgrade = migrationContainer.applyPathAndReturnNext<Upgrade10To11>(db, 1, 10)
 
 		Sql.insertInto("VAULT_ENTITY") //
 			.integer("_id", 25) //
@@ -576,7 +545,7 @@ class UpgradeDatabaseTest {
 			Assert.assertThat(it.count, CoreMatchers.`is`(3))
 		}
 
-		Upgrade10To11().migrate(db)
+		testedUpgrade.migrate(db)
 
 		Sql.query("VAULT_ENTITY").executeOn(db).use {
 			Assert.assertThat(it.count, CoreMatchers.`is`(1))
@@ -601,15 +570,7 @@ class UpgradeDatabaseTest {
 
 	@Test
 	fun upgrade10To11UsedOnedriveCloudPreservesCloud() {
-		Upgrade1To2().migrate(db)
-		Upgrade2To3(context).migrate(db)
-		Upgrade3To4().migrate(db)
-		Upgrade4To5().migrate(db)
-		Upgrade5To6().migrate(db)
-		Upgrade6To7().migrate(db)
-		Upgrade7To8().migrate(db)
-		Upgrade8To9(sharedPreferencesHandler).migrate(db)
-		Upgrade9To10(sharedPreferencesHandler).migrate(db)
+		val testedUpgrade = migrationContainer.applyPathAndReturnNext<Upgrade10To11>(db, 1, 10)
 
 		Sql.insertInto("VAULT_ENTITY") //
 			.integer("_id", 25) //
@@ -634,7 +595,7 @@ class UpgradeDatabaseTest {
 			Assert.assertThat(it.count, CoreMatchers.`is`(3))
 		}
 
-		Upgrade10To11().migrate(db)
+		testedUpgrade.migrate(db)
 
 		Sql.query("VAULT_ENTITY").executeOn(db).use {
 			Assert.assertThat(it.count, CoreMatchers.`is`(1))
@@ -659,77 +620,40 @@ class UpgradeDatabaseTest {
 
 	@Test
 	fun upgrade11To12IfOldDefaultSet() {
-		Upgrade1To2().migrate(db)
-		Upgrade2To3(context).migrate(db)
-		Upgrade3To4().migrate(db)
-		Upgrade4To5().migrate(db)
-		Upgrade5To6().migrate(db)
-		Upgrade6To7().migrate(db)
-		Upgrade7To8().migrate(db)
-		Upgrade8To9(sharedPreferencesHandler).migrate(db)
-		Upgrade9To10(sharedPreferencesHandler).migrate(db)
-		Upgrade10To11().migrate(db)
+		val testedUpgrade = migrationContainer.applyPathAndReturnNext<Upgrade11To12>(db, 1, 11)
 
 		sharedPreferencesHandler.setUpdateIntervalInDays(Optional.of(7))
 
-		Upgrade11To12(sharedPreferencesHandler).migrate(db)
+		testedUpgrade.migrate(db)
 
 		Assert.assertThat(sharedPreferencesHandler.updateIntervalInDays(), CoreMatchers.`is`(Optional.of(1)))
 	}
 
 	@Test
 	fun upgrade11To12MonthlySet() {
-		Upgrade1To2().migrate(db)
-		Upgrade2To3(context).migrate(db)
-		Upgrade3To4().migrate(db)
-		Upgrade4To5().migrate(db)
-		Upgrade5To6().migrate(db)
-		Upgrade6To7().migrate(db)
-		Upgrade7To8().migrate(db)
-		Upgrade8To9(sharedPreferencesHandler).migrate(db)
-		Upgrade9To10(sharedPreferencesHandler).migrate(db)
-		Upgrade10To11().migrate(db)
+		val testedUpgrade = migrationContainer.applyPathAndReturnNext<Upgrade11To12>(db, 1, 11)
 
 		sharedPreferencesHandler.setUpdateIntervalInDays(Optional.of(30))
 
-		Upgrade11To12(sharedPreferencesHandler).migrate(db)
+		testedUpgrade.migrate(db)
 
 		Assert.assertThat(sharedPreferencesHandler.updateIntervalInDays(), CoreMatchers.`is`(Optional.of(1)))
 	}
 
 	@Test
 	fun upgrade11To12MonthlyNever() {
-		Upgrade1To2().migrate(db)
-		Upgrade2To3(context).migrate(db)
-		Upgrade3To4().migrate(db)
-		Upgrade4To5().migrate(db)
-		Upgrade5To6().migrate(db)
-		Upgrade6To7().migrate(db)
-		Upgrade7To8().migrate(db)
-		Upgrade8To9(sharedPreferencesHandler).migrate(db)
-		Upgrade9To10(sharedPreferencesHandler).migrate(db)
-		Upgrade10To11().migrate(db)
+		val testedUpgrade = migrationContainer.applyPathAndReturnNext<Upgrade11To12>(db, 1, 11)
 
 		sharedPreferencesHandler.setUpdateIntervalInDays(Optional.absent())
 
-		Upgrade11To12(sharedPreferencesHandler).migrate(db)
+		testedUpgrade.migrate(db)
 
 		Assert.assertThat(sharedPreferencesHandler.updateIntervalInDays(), CoreMatchers.`is`(Optional.absent()))
 	}
 
 	@Test
 	fun upgrade12To13BaseTests() {
-		Upgrade1To2().migrate(db)
-		Upgrade2To3(context).migrate(db)
-		Upgrade3To4().migrate(db)
-		Upgrade4To5().migrate(db)
-		Upgrade5To6().migrate(db)
-		Upgrade6To7().migrate(db)
-		Upgrade7To8().migrate(db)
-		Upgrade8To9(sharedPreferencesHandler).migrate(db)
-		Upgrade9To10(sharedPreferencesHandler).migrate(db)
-		Upgrade10To11().migrate(db)
-		Upgrade11To12(sharedPreferencesHandler).migrate(db)
+		val testedUpgrade = migrationContainer.applyPathAndReturnNext<Upgrade12To13>(db, 1, 12)
 
 		val gcmCryptor = CredentialCryptor.getInstance(context, CryptoMode.GCM)
 		val cbcCryptor = CredentialCryptor.getInstance(context, CryptoMode.CBC)
@@ -774,7 +698,7 @@ class UpgradeDatabaseTest {
 			.integer("SHORTENING_THRESHOLD", 4)
 			.executeOn(db)
 
-		Upgrade12To13(context).migrate(db)
+		testedUpgrade.migrate(db)
 
 		Sql.query("CLOUD_ENTITY").where("_id", Sql.eq(15)).executeOn(db).use {
 			it.moveToFirst()
@@ -813,17 +737,7 @@ class UpgradeDatabaseTest {
 
 	@Test
 	fun upgrade12To13DropGoogleDriveUsernameInAccessToken() {
-		Upgrade1To2().migrate(db)
-		Upgrade2To3(context).migrate(db)
-		Upgrade3To4().migrate(db)
-		Upgrade4To5().migrate(db)
-		Upgrade5To6().migrate(db)
-		Upgrade6To7().migrate(db)
-		Upgrade7To8().migrate(db)
-		Upgrade8To9(sharedPreferencesHandler).migrate(db)
-		Upgrade9To10(sharedPreferencesHandler).migrate(db)
-		Upgrade10To11().migrate(db)
-		Upgrade11To12(sharedPreferencesHandler).migrate(db)
+		val testedUpgrade = migrationContainer.applyPathAndReturnNext<Upgrade12To13>(db, 1, 12)
 
 		Sql.insertInto("CLOUD_ENTITY") //
 			.integer("_id", 15) //
@@ -832,7 +746,7 @@ class UpgradeDatabaseTest {
 			.text("ACCESS_TOKEN", "username") //
 			.executeOn(db)
 
-		Upgrade12To13(context).migrate(db)
+		testedUpgrade.migrate(db)
 
 		Sql.query("CLOUD_ENTITY").where("_id", Sql.eq(15)).executeOn(db).use {
 			it.moveToFirst()
@@ -842,17 +756,7 @@ class UpgradeDatabaseTest {
 
 	@Test
 	fun upgrade12To13MovingAccessTokenToUrlInLocalStorage() {
-		Upgrade1To2().migrate(db)
-		Upgrade2To3(context).migrate(db)
-		Upgrade3To4().migrate(db)
-		Upgrade4To5().migrate(db)
-		Upgrade5To6().migrate(db)
-		Upgrade6To7().migrate(db)
-		Upgrade7To8().migrate(db)
-		Upgrade8To9(sharedPreferencesHandler).migrate(db)
-		Upgrade9To10(sharedPreferencesHandler).migrate(db)
-		Upgrade10To11().migrate(db)
-		Upgrade11To12(sharedPreferencesHandler).migrate(db)
+		val testedUpgrade = migrationContainer.applyPathAndReturnNext<Upgrade12To13>(db, 1, 12)
 
 		Sql.insertInto("CLOUD_ENTITY") //
 			.integer("_id", 15) //
@@ -860,7 +764,7 @@ class UpgradeDatabaseTest {
 			.text("ACCESS_TOKEN", "testUrl3000") //
 			.executeOn(db)
 
-		Upgrade12To13(context).migrate(db)
+		testedUpgrade.migrate(db)
 
 		Sql.query("CLOUD_ENTITY").where("_id", Sql.eq(15)).executeOn(db).use {
 			it.moveToFirst()
@@ -871,17 +775,7 @@ class UpgradeDatabaseTest {
 
 	@Test
 	fun upgrade12To13Dropbox() {
-		Upgrade1To2().migrate(db)
-		Upgrade2To3(context).migrate(db)
-		Upgrade3To4().migrate(db)
-		Upgrade4To5().migrate(db)
-		Upgrade5To6().migrate(db)
-		Upgrade6To7().migrate(db)
-		Upgrade7To8().migrate(db)
-		Upgrade8To9(sharedPreferencesHandler).migrate(db)
-		Upgrade9To10(sharedPreferencesHandler).migrate(db)
-		Upgrade10To11().migrate(db)
-		Upgrade11To12(sharedPreferencesHandler).migrate(db)
+		val testedUpgrade = migrationContainer.applyPathAndReturnNext<Upgrade12To13>(db, 1, 12)
 
 		val gcmCryptor = CredentialCryptor.getInstance(context, CryptoMode.GCM)
 		val cbcCryptor = CredentialCryptor.getInstance(context, CryptoMode.CBC)
@@ -896,7 +790,7 @@ class UpgradeDatabaseTest {
 			.text("ACCESS_TOKEN", accessTokenCiphertext) //
 			.executeOn(db)
 
-		Upgrade12To13(context).migrate(db)
+		testedUpgrade.migrate(db)
 
 		Sql.query("CLOUD_ENTITY").where("_id", Sql.eq(15)).executeOn(db).use {
 			it.moveToFirst()
@@ -908,17 +802,7 @@ class UpgradeDatabaseTest {
 
 	@Test
 	fun upgrade12To13OneDrive() {
-		Upgrade1To2().migrate(db)
-		Upgrade2To3(context).migrate(db)
-		Upgrade3To4().migrate(db)
-		Upgrade4To5().migrate(db)
-		Upgrade5To6().migrate(db)
-		Upgrade6To7().migrate(db)
-		Upgrade7To8().migrate(db)
-		Upgrade8To9(sharedPreferencesHandler).migrate(db)
-		Upgrade9To10(sharedPreferencesHandler).migrate(db)
-		Upgrade10To11().migrate(db)
-		Upgrade11To12(sharedPreferencesHandler).migrate(db)
+		val testedUpgrade = migrationContainer.applyPathAndReturnNext<Upgrade12To13>(db, 1, 12)
 
 		val gcmCryptor = CredentialCryptor.getInstance(context, CryptoMode.GCM)
 		val cbcCryptor = CredentialCryptor.getInstance(context, CryptoMode.CBC)
@@ -933,7 +817,7 @@ class UpgradeDatabaseTest {
 			.text("ACCESS_TOKEN", accessTokenCiphertext) //
 			.executeOn(db)
 
-		Upgrade12To13(context).migrate(db)
+		testedUpgrade.migrate(db)
 
 		Sql.query("CLOUD_ENTITY").where("_id", Sql.eq(15)).executeOn(db).use {
 			it.moveToFirst()
@@ -944,17 +828,7 @@ class UpgradeDatabaseTest {
 
 	@Test
 	fun upgrade12To13PCloud() {
-		Upgrade1To2().migrate(db)
-		Upgrade2To3(context).migrate(db)
-		Upgrade3To4().migrate(db)
-		Upgrade4To5().migrate(db)
-		Upgrade5To6().migrate(db)
-		Upgrade6To7().migrate(db)
-		Upgrade7To8().migrate(db)
-		Upgrade8To9(sharedPreferencesHandler).migrate(db)
-		Upgrade9To10(sharedPreferencesHandler).migrate(db)
-		Upgrade10To11().migrate(db)
-		Upgrade11To12(sharedPreferencesHandler).migrate(db)
+		val testedUpgrade = migrationContainer.applyPathAndReturnNext<Upgrade12To13>(db, 1, 12)
 
 		val gcmCryptor = CredentialCryptor.getInstance(context, CryptoMode.GCM)
 		val cbcCryptor = CredentialCryptor.getInstance(context, CryptoMode.CBC)
@@ -970,7 +844,7 @@ class UpgradeDatabaseTest {
 			.text("URL", "url") //
 			.executeOn(db)
 
-		Upgrade12To13(context).migrate(db)
+		testedUpgrade.migrate(db)
 
 		Sql.query("CLOUD_ENTITY").where("_id", Sql.eq(15)).executeOn(db).use {
 			it.moveToFirst()
@@ -981,17 +855,7 @@ class UpgradeDatabaseTest {
 
 	@Test
 	fun upgrade12To13Webdav() {
-		Upgrade1To2().migrate(db)
-		Upgrade2To3(context).migrate(db)
-		Upgrade3To4().migrate(db)
-		Upgrade4To5().migrate(db)
-		Upgrade5To6().migrate(db)
-		Upgrade6To7().migrate(db)
-		Upgrade7To8().migrate(db)
-		Upgrade8To9(sharedPreferencesHandler).migrate(db)
-		Upgrade9To10(sharedPreferencesHandler).migrate(db)
-		Upgrade10To11().migrate(db)
-		Upgrade11To12(sharedPreferencesHandler).migrate(db)
+		val testedUpgrade = migrationContainer.applyPathAndReturnNext<Upgrade12To13>(db, 1, 12)
 
 		val gcmCryptor = CredentialCryptor.getInstance(context, CryptoMode.GCM)
 		val cbcCryptor = CredentialCryptor.getInstance(context, CryptoMode.CBC)
@@ -1007,7 +871,7 @@ class UpgradeDatabaseTest {
 			.text("URL", "url") //
 			.executeOn(db)
 
-		Upgrade12To13(context).migrate(db)
+		testedUpgrade.migrate(db)
 
 		Sql.query("CLOUD_ENTITY").where("_id", Sql.eq(15)).executeOn(db).use {
 			it.moveToFirst()
@@ -1018,18 +882,7 @@ class UpgradeDatabaseTest {
 
 	@Test
 	fun migrate13To15ForeignKeySideEffects() { //See: Migration13To14
-		Upgrade1To2().migrate(db)
-		Upgrade2To3(context).migrate(db)
-		Upgrade3To4().migrate(db)
-		Upgrade4To5().migrate(db)
-		Upgrade5To6().migrate(db)
-		Upgrade6To7().migrate(db)
-		Upgrade7To8().migrate(db)
-		Upgrade8To9(sharedPreferencesHandler).migrate(db)
-		Upgrade9To10(sharedPreferencesHandler).migrate(db)
-		Upgrade10To11().migrate(db)
-		Upgrade11To12(sharedPreferencesHandler).migrate(db)
-		Upgrade12To13(context).migrate(db)
+		val testedUpgrade = migrationContainer.applyPathAndReturnNext<Migration13To14>(db, 1, 13)
 
 		val pre14Statement = referencesStatement(db)
 		val pre14Expected = "CONSTRAINT FK_FOLDER_CLOUD_ID_CLOUD_ENTITY FOREIGN KEY (FOLDER_CLOUD_ID) REFERENCES CLOUD_ENTITY(_id) ON DELETE SET NULL"
@@ -1037,7 +890,7 @@ class UpgradeDatabaseTest {
 		assertTrue("Expected \".*$pre14Expected.*\", got \"$pre14Statement\"", pre14Statement.contains(pre14Expected))
 		db.close()
 
-		runMigrationsAndValidate(14, Migration13To14()).also { migratedDb ->
+		runMigrationsAndValidate(14, testedUpgrade).also { migratedDb ->
 			val statement = referencesStatement(migratedDb)
 			assertEquals(pre14Statement, statement)
 		}
@@ -1068,18 +921,7 @@ class UpgradeDatabaseTest {
 
 	@Test
 	fun migrate13To15IndexSideEffects() { //See: Migration13To14
-		Upgrade1To2().migrate(db)
-		Upgrade2To3(context).migrate(db)
-		Upgrade3To4().migrate(db)
-		Upgrade4To5().migrate(db)
-		Upgrade5To6().migrate(db)
-		Upgrade6To7().migrate(db)
-		Upgrade7To8().migrate(db)
-		Upgrade8To9(sharedPreferencesHandler).migrate(db)
-		Upgrade9To10(sharedPreferencesHandler).migrate(db)
-		Upgrade10To11().migrate(db)
-		Upgrade11To12(sharedPreferencesHandler).migrate(db)
-		Upgrade12To13(context).migrate(db)
+		val testedUpgrade = migrationContainer.applyPathAndReturnNext<Migration13To14>(db, 1, 13)
 
 		val pre14Statement = indexStatement(db)
 		val pre14Expected = "CREATE UNIQUE INDEX \"IDX_VAULT_ENTITY_FOLDER_PATH_FOLDER_CLOUD_ID\" ON \"VAULT_ENTITY\" (\"FOLDER_PATH\" ASC,\"FOLDER_CLOUD_ID\" ASC) -- "
@@ -1088,7 +930,7 @@ class UpgradeDatabaseTest {
 		assertIsUUID(pre14Statement.substring(pre14Statement.length - UUID_LENGTH))
 		db.close()
 
-		runMigrationsAndValidate(14, Migration13To14()).also { migratedDb ->
+		runMigrationsAndValidate(14, testedUpgrade).also { migratedDb ->
 			val statement = indexStatement(migratedDb)
 			assertEquals(pre14Statement, statement)
 		}
@@ -1115,18 +957,7 @@ class UpgradeDatabaseTest {
 
 	@Test
 	fun migrate13To14() {
-		Upgrade1To2().migrate(db)
-		Upgrade2To3(context).migrate(db)
-		Upgrade3To4().migrate(db)
-		Upgrade4To5().migrate(db)
-		Upgrade5To6().migrate(db)
-		Upgrade6To7().migrate(db)
-		Upgrade7To8().migrate(db)
-		Upgrade8To9(sharedPreferencesHandler).migrate(db)
-		Upgrade9To10(sharedPreferencesHandler).migrate(db)
-		Upgrade10To11().migrate(db)
-		Upgrade11To12(sharedPreferencesHandler).migrate(db)
-		Upgrade12To13(context).migrate(db)
+		val testedUpgrade = migrationContainer.applyPathAndReturnNext<Migration13To14>(db, 1, 13)
 
 		assertEquals(13, db.version)
 		val pre14Tables: Map<String, Cursor> = listOf("CLOUD_ENTITY", "UPDATE_CHECK_ENTITY", "VAULT_ENTITY").associateWith { tableName ->
@@ -1135,7 +966,7 @@ class UpgradeDatabaseTest {
 		}
 		db.close()
 
-		runMigrationsAndValidate(14, Migration13To14()).also { migratedDb ->
+		runMigrationsAndValidate(14, testedUpgrade).also { migratedDb ->
 			assertTrue(migratedDb.hasRoomMasterTable)
 			assertEquals(14, migratedDb.version)
 
@@ -1151,18 +982,7 @@ class UpgradeDatabaseTest {
 
 	@Test
 	fun migrate13To14WithData() {
-		Upgrade1To2().migrate(db)
-		Upgrade2To3(context).migrate(db)
-		Upgrade3To4().migrate(db)
-		Upgrade4To5().migrate(db)
-		Upgrade5To6().migrate(db)
-		Upgrade6To7().migrate(db)
-		Upgrade7To8().migrate(db)
-		Upgrade8To9(sharedPreferencesHandler).migrate(db)
-		Upgrade9To10(sharedPreferencesHandler).migrate(db)
-		Upgrade10To11().migrate(db)
-		Upgrade11To12(sharedPreferencesHandler).migrate(db)
-		Upgrade12To13(context).migrate(db)
+		val testedUpgrade = migrationContainer.applyPathAndReturnNext<Migration13To14>(db, 1, 13)
 
 		Sql.insertInto("CLOUD_ENTITY") //
 			.integer("_id", 3) //
@@ -1215,7 +1035,7 @@ class UpgradeDatabaseTest {
 		}
 		db.close()
 
-		runMigrationsAndValidate(14, Migration13To14()).also { migratedDb ->
+		runMigrationsAndValidate(14, testedUpgrade).also { migratedDb ->
 			assertTrue(migratedDb.hasRoomMasterTable)
 			assertEquals(14, migratedDb.version)
 
@@ -1238,19 +1058,7 @@ class UpgradeDatabaseTest {
 		db.close()
 		runMigrationsAndValidate(
 			14,
-			Upgrade1To2(),
-			Upgrade2To3(context),
-			Upgrade3To4(),
-			Upgrade4To5(),
-			Upgrade5To6(),
-			Upgrade6To7(),
-			Upgrade7To8(),
-			Upgrade8To9(sharedPreferencesHandler),
-			Upgrade9To10(sharedPreferencesHandler),
-			Upgrade10To11(),
-			Upgrade11To12(sharedPreferencesHandler),
-			Upgrade12To13(context),
-			Migration13To14()
+			*migrationContainer.getPath(1, 14).toTypedArray()
 		)
 	}
 }
