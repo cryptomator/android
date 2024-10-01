@@ -5,18 +5,15 @@ import android.view.View.GONE
 import android.view.View.VISIBLE
 import androidx.recyclerview.widget.LinearLayoutManager
 import org.cryptomator.generator.Fragment
-import org.cryptomator.presentation.R
+import org.cryptomator.presentation.databinding.FragmentBrowseCloudConnectionsBinding
 import org.cryptomator.presentation.model.CloudModel
 import org.cryptomator.presentation.model.CloudTypeModel
 import org.cryptomator.presentation.presenter.CloudConnectionListPresenter
 import org.cryptomator.presentation.ui.adapter.CloudConnectionListAdapter
 import javax.inject.Inject
-import kotlinx.android.synthetic.main.fragment_browse_cloud_connections.floating_action_button
-import kotlinx.android.synthetic.main.recycler_view_layout.recyclerView
-import kotlinx.android.synthetic.main.view_empty_cloud_connections.rl_creation_hint
 
-@Fragment(R.layout.fragment_browse_cloud_connections)
-class CloudConnectionListFragment : BaseFragment() {
+@Fragment
+class CloudConnectionListFragment : BaseFragment<FragmentBrowseCloudConnectionsBinding>(FragmentBrowseCloudConnectionsBinding::inflate) {
 
 	@Inject
 	lateinit var cloudConnectionListPresenter: CloudConnectionListPresenter
@@ -38,7 +35,7 @@ class CloudConnectionListFragment : BaseFragment() {
 
 	override fun setupView() {
 		setupRecyclerView()
-		floating_action_button.setOnClickListener { cloudConnectionListPresenter.onAddConnectionClicked() }
+		binding.floatingActionButton.floatingActionButton.setOnClickListener { cloudConnectionListPresenter.onAddConnectionClicked() }
 	}
 
 	override fun loadContent() {
@@ -47,11 +44,11 @@ class CloudConnectionListFragment : BaseFragment() {
 
 	private fun setupRecyclerView() {
 		cloudConnectionListAdapter.setOnItemClickListener(onItemClickListener)
-		recyclerView.layoutManager = LinearLayoutManager(context())
-		recyclerView.adapter = cloudConnectionListAdapter
-		recyclerView.setHasFixedSize(true) // smoother scrolling
-		recyclerView.setPadding(0, 0, 0, TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 88f, resources.displayMetrics).toInt())
-		recyclerView.clipToPadding = false
+		binding.rvCloudConnections.recyclerView.layoutManager = LinearLayoutManager(context())
+		binding.rvCloudConnections.recyclerView.adapter = cloudConnectionListAdapter
+		binding.rvCloudConnections.recyclerView.setHasFixedSize(true) // smoother scrolling
+		binding.rvCloudConnections.recyclerView.setPadding(0, 0, 0, TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 88f, resources.displayMetrics).toInt())
+		binding.rvCloudConnections.recyclerView.clipToPadding = false
 	}
 
 	fun show(nodes: List<CloudModel>?) {
@@ -61,7 +58,7 @@ class CloudConnectionListFragment : BaseFragment() {
 	}
 
 	private fun updateConnectionListHint() {
-		rl_creation_hint.visibility = if (cloudConnectionListAdapter.isEmpty) VISIBLE else GONE
+		binding.rlCreationHint.creationHint.visibility = if (cloudConnectionListAdapter.isEmpty) VISIBLE else GONE
 	}
 
 	fun setSelectedCloudType(selectedCloudType: CloudTypeModel) {

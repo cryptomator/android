@@ -33,6 +33,8 @@
 	<string name="error_vault_config_loading">ভোল্ট কোনফিগারেশন লোডিংএ সাধারণ ত্রুটি দেখা দিয়েছে</string>
 	<string name="error_file_not_found_after_opening_using_3party">ক্রিপ্টোমেটরে ফিরে যাওয়ার পর লোকাল ফাইলটি বিদ্যমান নয়। তাই সম্ভাব্য পরিবর্তনগুলো আবার ক্লাউডে স্থানান্তর করা হবে না।</string>
 	<string name="error_no_such_bucket">এরকম কোন bucket নেই</string>
+	<string name="error_masterkey_location_not_supported">কাস্টম মাস্টারকি অবস্থান এখনও সমর্থিত নয়</string>
+	<string name="error_interact_with_fdroid_but_fdroid_missing">F-Droid অ্যাপের সাথে যোগাযোগ করতে ব্যর্থ হয়েছে৷ ইনস্টল করা হয়নি?</string>
 	<!-- # clouds -->
 	<!-- ## cloud names -->
 	<string name="cloud_names_local_storage">সিস্টেম স্টোরেজ</string>
@@ -41,6 +43,7 @@
 	<string name="permission_message_export_file">ক্রিপ্টোমেটরের ফাইল এক্সপোর্ট করতে স্টোরেজ অনুমতি প্রয়োজন</string>
 	<string name="permission_message_upload_file">ক্রিপ্টোমেটরের ফাইল আপলোড করতে স্টোরেজ অনুমতি প্রয়োজন</string>
 	<string name="permission_message_share_file">ক্রিপ্টোমেটরের ফাইল শেয়ার করতে স্টোরেজ এক্সেস প্রয়োজন</string>
+	<string name="permission_revoked_re_request_permission">Cryptomator এই অবস্থানে প্রবেশের অনুমতি হারিয়েছে। অনুগ্রহ করে পুনরায় অনুমতি পুনরুদ্ধার করতে এই ফোল্ডারটি আবার নির্বাচন করুন</string>
 	<string name="snack_bar_action_title_settings">সেটিংস</string>
 	<string name="snack_bar_action_title_search">খুঁজুন</string>
 	<string name="snack_bar_action_title_search_previous">পিছনে</string>
@@ -52,12 +55,15 @@
 	<string name="snack_bar_action_title_sort_oldest">পুরনো থেকে</string>
 	<string name="snack_bar_action_title_sort_biggest">বড় আকারের থেকে</string>
 	<string name="snack_bar_action_title_sort_smallest">ছোট আকারের থেকে</string>
+	<string name="snack_bar_cryptomator_variants_title">আরও পড়ুন</string>
+	<string name="snack_bar_cryptomator_variants_hint">ক্লাউড তালিকায় নেই?</string>
 	<!-- # screens -->
 	<!-- # screen: vault list -->
 	<string name="screen_vault_list_actions_title">ক্রিপ্টোমেটরে যুক্ত করুন</string>
 	<string name="screen_vault_list_action_create_new_vault">নতুন ভোল্ট তৈরি করুন</string>
 	<string name="screen_vault_list_action_add_existing_vault">বিদ্যমান কোনো ভোল্ট যুক্ত করুন</string>
 	<string name="screen_vault_list_vault_action_delete">বাতিল</string>
+	<string name="screen_vault_list_vault_creation_hint">নতুন ভল্ট তৈরি করতে এখানে ট্যাপ করুন</string>
 	<string name="screen_vault_list_change_password_successful">পাসওয়ার্ড সফলভাবে পরিবর্তিত হয়েছে</string>
 	<!-- # screen: file browser -->
 	<string name="screen_file_browser_default_title">ভোল্ট</string>
@@ -112,6 +118,9 @@
 	<string name="screen_choose_cloud_service_title">ক্লাউড পরিষেবা</string>
 	<!-- ## screen: cloud connections -->
 	<string name="screen_cloud_connections_title">একটি ঠিকানা বাছাই করুন</string>
+	<string name="screen_cloud_connections_no_connections">অবস্থান যোগ করতে এখানে ট্যাপ করুন</string>
+	<string name="screen_cloud_error_webdav_not_supported">সার্ভারটি WebDAV সামঞ্জস্যপূর্ণ বলে মনে হচ্ছে না।</string>
+	<string name="screen_cloud_local_error_no_content_provider">কোনও ফাইল ম্যানেজার পাওয়া যায়নি যা ডিরেক্টরি খোলার সমর্থন করে</string>
 	<!-- ## screen: webdav settings -->
 	<string name="screen_webdav_settings_url_port_label">ইউআরএল</string>
 	<string name="screen_webdav_settings_username_label">ব্যবহারকারীর নাম</string>
@@ -132,6 +141,7 @@
 	<string name="screen_s3_settings_msg_access_key_not_empty">Access Key খালি হতে পারবে না</string>
 	<string name="screen_s3_settings_msg_secret_key_not_empty">Secret Key খালি হতে পারবে না</string>
 	<string name="screen_s3_settings_msg_bucket_not_empty">Bucket খালি হতে পারবে না</string>
+	<string name="screen_s3_settings_msg_endpoint_and_region_not_empty">এন্ডপয়েন্ট বা অঞ্চল খালি থাকতে পারবে না</string>
 	<!-- ## screen: enter vault name -->
 	<string name="screen_enter_vault_name_msg_name_empty">ভোল্ট এর নাম খালি হতে পারবে না.</string>
 	<string name="screen_enter_vault_name_vault_label">ভোল্ট এর নাম</string>
@@ -154,6 +164,7 @@
 	<string name="screen_settings_activate_biometric_auth">বায়োমেট্রিক সনাক্তকরণ সক্রিয় করুন</string>
 	<string name="screen_settings_confirm_face_unlock">ফেইস আনলক নিশ্চিত করুন (যদি থাকে)</string>
 	<string name="screen_settings_block_app_when_obscured">অন্যান্য আ্যপকে ক্রিপ্টোমেটর ব্যবহারে বাধা দিন</string>
+	<string name="screen_settings_block_app_when_obscured_summary"></string>
 	<string name="screen_settings_secure_screen">স্ক্রিনশট নিতে বাধা দিন</string>
 	<string name="screen_settings_section_search">খুঁজুন</string>
 	<string name="screen_settings_auto_lock_on_screen_lock">যখন স্ক্রিন বন্ধ থাকে</string>

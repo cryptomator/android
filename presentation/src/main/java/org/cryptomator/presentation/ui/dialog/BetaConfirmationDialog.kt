@@ -5,9 +5,10 @@ import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.DialogFragment
 import org.cryptomator.generator.Dialog
 import org.cryptomator.presentation.R
+import org.cryptomator.presentation.databinding.DialogBetaConfirmationBinding
 
-@Dialog(R.layout.dialog_beta_confirmation)
-class BetaConfirmationDialog : BaseDialog<BetaConfirmationDialog.Callback>() {
+@Dialog
+class BetaConfirmationDialog : BaseDialog<BetaConfirmationDialog.Callback, DialogBetaConfirmationBinding>(DialogBetaConfirmationBinding::inflate) {
 
 	interface Callback {
 

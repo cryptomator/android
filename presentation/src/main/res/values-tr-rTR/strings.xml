@@ -307,17 +307,17 @@
 	<string name="dialog_debug_mode_disclaimer_title">Dikkat</string>
 	<string name="dialog_debug_mode_positive_button">Etkinleştir</string>
 	<string name="dialog_microsoft_workaround_disclaimer_hint">Microsoft uygulamalarındaki bir hata nedeniyle, düzenlenecek dosyanın cihazınızdaki herkese açık bir medya klasöründe bu uygulamalarla paylaşılması gerekir. Cryptomator yeniden başlatıldıktan sonra, herkese açık dosya tekrar silinir, ancak Cryptomator bu arada bu dosyaya ne olduğunu etkileyemez. Bu seçeneği etkinleştirirken bu davranışın farkında olduğunuzdan emin olun. Bu sadece Microsoft dosya türleri için geçerli olacaktır.\n\nCryptomator aktivasyondan sonra yeniden başlayacaktır.</string>
-	<string name="dialog_disable_app_obscured_disclaimer_hint">Bu ayar bir güvenlik özelliğidir ve diğer uygulamaların, kullanıcıları kandırmasını engeller.\n\nDevre dışı bırakarak, <a href="https://docs.cryptomator.org/en/1.6/android/settings/#block-app-when-obscured">risklerin farkında olduğunuzu</a> onaylamış olursunuz.</string>
+	<string name="dialog_disable_app_obscured_disclaimer_hint">Bu ayar bir güvenlik özelliğidir ve diğer uygulamaların kullanıcıları yapmak istemedikleri şeyleri yapmaları için kandırmasını önler.\n\nDevre dışı bırakarak <a href="https://docs.cryptomator.org/en/latest/android/settings/#block-app-when-obscured">risklerin farkında olduğunuzu</a> onaylamış olursunuz.</string>
 	<string name="dialog_disable_app_obscured_disclaimer_title">Dikkat</string>
 	<string name="dialog_disable_app_obscured_positive_button">Devre dışı bırak</string>
 	<string name="dialog_app_is_obscured_info_title">Uygulama gizlendi</string>
-	<string name="dialog_app_is_obscured_info_hint">Başka bir uygulama Cryptomator\'un üstünde birşeyler gösteriyor (örneğin, bir mavi ışık filtresi ya da gece modu uygulaması). Güvenlik nedeniyle, Cryptomator devre dışı bırakıldı.\n\n<a href="https://docs.cryptomator.org/en/1.6/android/settings/#block-app-when-obscured">Cryptomator nasıl etkinleştirilir</a></string>
+	<string name="dialog_app_is_obscured_info_hint">Başka bir uygulama Cryptomator\'ın üzerinde bir şey görüntülüyor (örneğin, mavi ışık filtresi veya gece modu uygulaması). Güvenlik nedeniyle Cryptomator devre dışı bırakılmıştır.\n\n<a href="https://docs.cryptomator.org/en/latest/android/settings/#block-app-when-obscured">Cryptomator nasıl etkinleştirilir</a></string>
 	<string name="dialog_app_is_obscured_info_neutral_button">Kapat</string>
 	<string name="dialog_vaults_removed_during_migration_title">Lütfen %1s bulutu için kasaları yeniden ekleyin</string>
 	<string name="dialog_vaults_removed_during_migration_hint">Bu uygulama sürümüne geçiş yaparken aşağıdaki kasaları uygulamadan kaldırmamız gerekiyor:\n%2s \n\nBu kasalar buluttan değil, yalnızca bu uygulamadan kaldırılır. Rahatsızlık için özür dileriz ve onlarla çalışmaya devam etmek için lütfen bu kasaları yeniden ekleyin.</string>
 	<string name="dialog_vault_is_root_folder_of_cloud_title">Vault, bulut bağlantısının kök klasörüdür</string>
 	<string name="dialog_vault_is_root_folder_of_cloud_hint">Bu kasayı eklemek için kök dizin olarak bu kasa klasörünün en azından üst klasörünü seçtiğiniz yeni bir bulut bağlantısı oluşturun.</string>
-	<string name="dialog_disable_secure_screen_disclaimer_hint">Bu ayar bir güvenlik özelliğidir ve diğer uygulamaların, kullanıcıları kandırmasını engeller.\n\nDevre dışı bırakarak, <a href="https://docs.cryptomator.org/en/1.6/android/settings/#screen-security">risklerin farkında olduğunuzu</a> onaylamış olursunuz.</string>
+	<string name="dialog_disable_secure_screen_disclaimer_hint">Bu ayar bir güvenlik özelliğidir ve diğer uygulamaların kullanıcıları yapmak istemedikleri şeyleri yapmaları için kandırmasını önler.\n\nDevre dışı bırakarak <a href="https://docs.cryptomator.org/en/latest/android/settings/#screen-security">risklerin farkında olduğunuzu</a> onaylamış olursunuz.</string>
 	<string name="dialog_delete_cloud_connection_with_vaults_message">Bu bulut bağlantısını kaldırmak istediğinizden emin misiniz?</string>
 	<string name="dialog_delete_cloud_connection_with_vaults_hint">Bu işlem, bulut bağlantısını ve bu bulutun tüm kasalarını kaldıracak.</string>
 	<string name="dialog_confirm_delete_multiple_title">%1$d öğe silinsin mi?</string>
@@ -349,6 +349,9 @@
 	<string name="dialog_no_more_images_to_display">&#8230; göstermek için daha fazla resim yok</string>
 	<string name="dialog_pcloud_credentials_updated_title">%1$s kimlik bilgileri güncellendi</string>
 	<string name="dialog_pcloud_credentials_updated">Yeni bir pCloud hesabı eklemeyi düşünüyorsanız, bu url <a href="https://www.pcloud.com">www.pcloud.com</a> dokunun, mevcut hesaptan çıkın ve yeni bir bulut bağlantısı oluşturmak için \'+\'. tekrar dokunun.</string>
+	<string name="dialog_cbc_password_vaults_migration_title">Kasa şifre geçişi gerekli</string>
+	<string name="dialog_cbc_password_vaults_migration_hint">Güvenlik geliştirmeleri nedeniyle, kasa şifrelerinizi yeniden şifrelemek için her kasa için iki kez biyometrik kimlik doğrulamanız istenecektir. Bu, kasa şifrelerinizi en son teknoloji ile korumaya devam etmek için gereklidir. Bunun olmasını istemezseniz, saklanan şifreler kaldırılacaktır.</string>
+	<string name="dialog_cbc_password_vaults_migration_action">Taşı</string>
 	<string name="permission_snackbar_auth_local_vault">Cryptomator\'un yerel kasaları kullanmak için depolama erişimine ihtiyacı var</string>
 	<string name="permission_snackbar_auth_auto_upload">Cryptomator\'un otomatik fotoğraf yüklemesi için depolama erişimine ihtiyacı var</string>
 	<string name="permission_snackbar_notifications">Cryptomator, örneğin kasa durumunu görüntülemek için bildirim izinlerine ihtiyaç duyar</string>
@@ -362,12 +365,12 @@
 	<string name="file_size_unit_giga_bytes">GB</string>
 	<string name="file_size_unit_tera_bytes">TB</string>
 	<!-- ## date helper -->
-	<string name="time_unit_seconds_sg">sn</string>
-	<string name="time_unit_seconds_pl">sn</string>
-	<string name="time_unit_minutes_sg">dk</string>
-	<string name="time_unit_minutes_pl">dk</string>
-	<string name="time_unit_hours_sg">sa</string>
-	<string name="time_unit_hours_pl">sa</string>
+	<string name="time_unit_seconds_sg">saniye</string>
+	<string name="time_unit_seconds_pl">saniye</string>
+	<string name="time_unit_minutes_sg">dakika</string>
+	<string name="time_unit_minutes_pl">dakika</string>
+	<string name="time_unit_hours_sg">saat</string>
+	<string name="time_unit_hours_pl">saat</string>
 	<string name="time_unit_days_sg">gün</string>
 	<string name="time_unit_days_pl">gün</string>
 	<string name="time_unit_weeks_sg">hafta</string>
@@ -431,5 +434,5 @@
 	<string name="light">Aydınlık</string>
 	<string name="dark">Karanlık</string>
 	<!-- update interval names -->
-	<string name="update_interval_1d">Günde bir</string>
+	<string name="update_interval_1d">Günde bir kez</string>
 </resources>

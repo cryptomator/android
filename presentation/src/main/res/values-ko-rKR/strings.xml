@@ -306,17 +306,14 @@
 	<string name="dialog_debug_mode_disclaimer_title">주의</string>
 	<string name="dialog_debug_mode_positive_button">활성화</string>
 	<string name="dialog_microsoft_workaround_disclaimer_hint">Microsoft 앱의 버그로 인해, 편집할 파일이 장치의 공개 미디어 폴더에서 공유되어야 합니다. Cryptomator의 실행이 재개되면 이 공개 접근이 가능한 파일은 다시 삭제되나, Cryptomator는 해당 파일에 어떠한 일이 일어났는지 알 수 없습니다. 이 항목을 활성화할 경우 이러한 동작이 일어남을 숙지하세요. 이것은 Microsoft 파일 형식에만 적용됩니다. \n\n활성화 후 Cryptomator를 다시 시작합니다.</string>
-	<string name="dialog_disable_app_obscured_disclaimer_hint">이 설정은 보안 기능이며 다른 앱들이 사용자가 원하지 않는 행동을 하도록 속이는 것을 방지합니다.\n\n비활성화한다면, <a href="https://docs.cryptomator.org/en/1.6/android/settings/#block-app-when-obscured">위험성에 대해</a> 동의하는 것입니다.</string>
 	<string name="dialog_disable_app_obscured_disclaimer_title">주의</string>
 	<string name="dialog_disable_app_obscured_positive_button">비활성화</string>
 	<string name="dialog_app_is_obscured_info_title">앱이 가려짐</string>
-	<string name="dialog_app_is_obscured_info_hint">다른 앱이 Cryptomator 위에 무언가를 표시하고 있습니다 (예: 블루 라이트 필터 혹은 야간 모드 앱 등). 보안을 위해, Cryptomator가 비활성화 되었습니다.\n\n<a href="https://docs.cryptomator.org/en/1.6/android/settings/#block-app-when-obscured">Cryptomator를 활성화하는 방법</a></string>
 	<string name="dialog_app_is_obscured_info_neutral_button">닫기</string>
 	<string name="dialog_vaults_removed_during_migration_title">Vault들을 %1s 클라우드를 사용하기 위해 다시 추가해야 함</string>
 	<string name="dialog_vaults_removed_during_migration_hint">이 버전의 앱으로 전환하기 위해 다음의 Vault들을 앱에서 제거해야 합니다:\n%2s \n\n이 Vault 들은 클라우드가 아닌 이 앱에서만 제거됩니다. 계속 사용하기 위해 이 Vault들을 다시 추가하세요.</string>
 	<string name="dialog_vault_is_root_folder_of_cloud_title">Vault가 클라우드의 최상위 폴더임</string>
 	<string name="dialog_vault_is_root_folder_of_cloud_hint">이 Vault를 추가하려면, 최소한 이 Vault의 최상위 디렉토리 폴더의 상위 폴더에 새로운 클라우드 연결을 생성해야 합니다.</string>
-	<string name="dialog_disable_secure_screen_disclaimer_hint">이 설정은 보안 기능이며 다른 앱들이 사용자가 원하지 않는 행동을 하도록 속이는 것을 방지합니다.\n\n비활성화한다면, <a href="https://docs.cryptomator.org/en/1.6/android/settings/#screen-security">위험성에 대해</a> 동의하는 것입니다.</string>
 	<string name="dialog_delete_cloud_connection_with_vaults_message">정말 이 클라우드 연결을 삭제하시겠습니까?</string>
 	<string name="dialog_delete_cloud_connection_with_vaults_hint">클라우드 연결과 이 클라우드의 Vault들이 삭제될 것입니다.</string>
 	<string name="dialog_confirm_delete_multiple_title">%1$d개의 파일을 삭제하시겠습니까?</string>

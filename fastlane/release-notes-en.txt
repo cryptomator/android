@@ -1,4 +1,1 @@
-- Add workaround for editing files in Microsoft Office apps
-- Add support for themed Cryptomator icon
-- Refresh stale authentication token during auto upload
-- Update translations
+- Migrate cloud access tokens and vault passwords to AES 256bit GCM

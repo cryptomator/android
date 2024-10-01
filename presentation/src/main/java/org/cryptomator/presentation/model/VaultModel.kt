@@ -1,6 +1,7 @@
 package org.cryptomator.presentation.model
 
 import org.cryptomator.domain.Vault
+import org.cryptomator.util.crypto.CryptoMode
 import java.io.Serializable
 
 class VaultModel(private val vault: Vault) : Serializable {
@@ -28,6 +29,8 @@ class VaultModel(private val vault: Vault) : Serializable {
 		get() = CloudTypeModel.valueOf(vault.cloudType)
 	val password: String?
 		get() = vault.password
+	val passwordCryptoMode: CryptoMode?
+		get() = vault.passwordCryptoMode
 
 	override fun equals(other: Any?): Boolean {
 		return vault == (other as VaultModel).toVault()

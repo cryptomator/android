@@ -1,12 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 	<!-- # app -->
+	<string name="share_with_label">ਇਨਕ੍ਰਿਪਟ ਕਰੋ</string>
 	<!-- # error messages -->
+	<string name="error_generic">ਇੱਕ ਤਰੁੱਟੀ ਆਈ ਹੈ</string>
+	<string name="error_authentication_failed">ਪ੍ਰਮਾਣਿਕਤਾ ਅਸਫਲ</string>
+	<string name="error_no_network_connection">ਕੋਈ ਨੈੱਟਵਰਕ ਕਨੈਕਸ਼ਨ ਨਹੀਂ</string>
+	<string name="error_invalid_passphrase">ਗ਼ਲਤ ਪਾਸਵਰਡ</string>
+	<string name="error_vault_already_exists">\"%@\" ਪਹਿਲਾਂ ਹੀ ਮੌਜੂਦ ਹੈ।</string>
 	<!-- # clouds -->
 	<!-- ## cloud names -->
 	<!-- # permission -->
 	<!-- ## permission messages -->
+	<string name="snack_bar_action_title_settings">ਸੈਟਿੰਗਾਂ</string>
+	<string name="snack_bar_action_title_search_previous">ਪਿਛਲਾ</string>
 	<string name="snack_bar_action_title_search_next">ਅੱਗੇ</string>
+	<string name="snack_bar_action_title_sort_az">\?</string>
+	<string name="snack_bar_action_title_sort_newest">ਨਵੇਂ ਪਹਿਲਾਂ</string>
+	<string name="snack_bar_action_title_sort_oldest">ਪੁਰਾਣੇ ਪਹਿਲਾਂ</string>
 	<!-- # screens -->
 	<!-- # screen: vault list -->
 	<!-- # screen: file browser -->

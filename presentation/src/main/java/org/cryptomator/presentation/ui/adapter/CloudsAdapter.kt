@@ -1,37 +1,35 @@
 package org.cryptomator.presentation.ui.adapter
 
-import android.view.View
-import org.cryptomator.presentation.R
+import android.view.LayoutInflater
+import android.view.ViewGroup
+import org.cryptomator.presentation.databinding.ItemCloudBinding
 import org.cryptomator.presentation.model.CloudTypeModel
-import org.cryptomator.presentation.ui.adapter.CloudsAdapter.CloudViewHolder
 import javax.inject.Inject
-import kotlinx.android.synthetic.main.item_cloud.view.cloudImage
-import kotlinx.android.synthetic.main.item_cloud.view.cloudName
 
 class CloudsAdapter @Inject
-constructor() : RecyclerViewBaseAdapter<CloudTypeModel, CloudsAdapter.OnItemClickListener, CloudViewHolder>() {
+constructor() : RecyclerViewBaseAdapter<CloudTypeModel, CloudsAdapter.OnItemClickListener, CloudsAdapter.CloudViewHolder, ItemCloudBinding>() {
 
 	interface OnItemClickListener {
 
 		fun onCloudClicked(cloudTypeModel: CloudTypeModel)
 	}
 
-	override fun getItemLayout(viewType: Int): Int {
-		return R.layout.item_cloud
+	override fun getItemBinding(inflater: LayoutInflater, parent: ViewGroup, viewType: Int): ItemCloudBinding {
+		return ItemCloudBinding.inflate(inflater, parent, false)
 	}
 
-	override fun createViewHolder(view: View, viewType: Int): CloudViewHolder {
-		return CloudViewHolder(view)
+	override fun createViewHolder(binding: ItemCloudBinding, viewType: Int): CloudViewHolder {
+		return CloudViewHolder(binding)
 	}
 
-	inner class CloudViewHolder(itemView: View) : RecyclerViewBaseAdapter<*, *, *>.ItemViewHolder(itemView) {
+	inner class CloudViewHolder(private val binding: ItemCloudBinding) : RecyclerViewBaseAdapter<*, *, *, *>.ItemViewHolder(binding.root) {
 
 		override fun bind(position: Int) {
 			val cloudTypeModel = getItem(position)
-			itemView.cloudImage.setImageResource(cloudTypeModel.cloudImageResource)
-			itemView.cloudName.setText(cloudTypeModel.displayNameResource)
+			binding.cloudImage.setImageResource(cloudTypeModel.cloudImageResource)
+			binding.cloudName.setText(cloudTypeModel.displayNameResource)
 
-			itemView.setOnClickListener { callback.onCloudClicked(cloudTypeModel) }
+			binding.root.setOnClickListener { callback.onCloudClicked(cloudTypeModel) }
 		}
 	}
 }

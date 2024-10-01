@@ -6,17 +6,20 @@ import android.text.Editable
 import android.text.TextWatcher
 import android.view.View
 import android.widget.Button
+import android.widget.LinearLayout
+import android.widget.TextView
 import androidx.appcompat.app.AlertDialog
 import org.cryptomator.generator.Dialog
 import org.cryptomator.presentation.R
+import org.cryptomator.presentation.databinding.DialogEnterPasswordBinding
+import org.cryptomator.presentation.databinding.ViewDialogErrorBinding
 import org.cryptomator.presentation.model.ProgressModel
 import org.cryptomator.presentation.model.ProgressStateModel
 import org.cryptomator.presentation.model.VaultModel
-import kotlinx.android.synthetic.main.dialog_enter_password.et_password
 
 
-@Dialog(R.layout.dialog_enter_password)
-class EnterPasswordDialog : BaseProgressErrorDialog<EnterPasswordDialog.Callback>() {
+@Dialog(secure = true)
+class EnterPasswordDialog : BaseProgressErrorDialog<EnterPasswordDialog.Callback, DialogEnterPasswordBinding>(DialogEnterPasswordBinding::inflate) {
 
 	// positive button
 	private var unlockButton: Button? = null
@@ -37,15 +40,15 @@ class EnterPasswordDialog : BaseProgressErrorDialog<EnterPasswordDialog.Callback
 			unlockButton?.setOnClickListener {
 				showProgress(ProgressModel(ProgressStateModel.UNLOCKING_VAULT))
 				val vaultModel = vaultModel()
-				callback?.onUnlockClick(vaultModel, et_password.text.toString())
-				onWaitForResponse(et_password)
+				callback?.onUnlockClick(vaultModel, binding.etPassword.text.toString())
+				onWaitForResponse(binding.etPassword)
 				dialog.getButton(android.app.Dialog.BUTTON_NEGATIVE)?.isEnabled = true
 			}
 			unlockButton?.let { button ->
-				et_password.nextFocusForwardId = button.id
+				binding.etPassword.nextFocusForwardId = button.id
 			}
 			it.setCanceledOnTouchOutside(false)
-			et_password.requestFocus()
+			binding.etPassword.requestFocus()
 		}
 	}
 
@@ -64,8 +67,8 @@ class EnterPasswordDialog : BaseProgressErrorDialog<EnterPasswordDialog.Callback
 	}
 
 	public override fun setupView() {
-		unlockButton?.let { registerOnEditorDoneActionAndPerformButtonClick(et_password) { it } }
-		et_password.addTextChangedListener(object : TextWatcher {
+		unlockButton?.let { registerOnEditorDoneActionAndPerformButtonClick(binding.etPassword) { it } }
+		binding.etPassword.addTextChangedListener(object : TextWatcher {
 			override fun afterTextChanged(s: Editable) {
 				unlockButton?.let { it.isEnabled = s.toString().isNotEmpty() }
 			}
@@ -76,8 +79,20 @@ class EnterPasswordDialog : BaseProgressErrorDialog<EnterPasswordDialog.Callback
 		dialog?.let { showKeyboard(it) }
 	}
 
+	override fun dialogProgressLayout(): LinearLayout {
+		return binding.llDialogProgress.llProgress
+	}
+
+	override fun dialogProgressTextView(): TextView {
+		return binding.llDialogProgress.tvProgress
+	}
+
+	override fun dialogErrorBinding(): ViewDialogErrorBinding {
+		return binding.llDialogError
+	}
+
 	override fun enableViewAfterError(): View {
-		return et_password
+		return binding.etPassword
 	}
 
 	companion object {

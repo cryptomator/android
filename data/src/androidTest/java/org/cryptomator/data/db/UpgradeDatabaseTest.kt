@@ -12,6 +12,7 @@ import org.cryptomator.data.db.entities.VaultEntityDao
 import org.cryptomator.domain.CloudType
 import org.cryptomator.util.SharedPreferencesHandler
 import org.cryptomator.util.crypto.CredentialCryptor
+import org.cryptomator.util.crypto.CryptoMode
 import org.greenrobot.greendao.database.Database
 import org.greenrobot.greendao.database.StandardDatabase
 import org.greenrobot.greendao.internal.DaoConfig
@@ -53,6 +54,8 @@ class UpgradeDatabaseTest {
 		Upgrade8To9(sharedPreferencesHandler).applyTo(db, 8)
 		Upgrade9To10(sharedPreferencesHandler).applyTo(db, 9)
 		Upgrade10To11().applyTo(db, 10)
+		Upgrade11To12(sharedPreferencesHandler).applyTo(db, 11)
+		Upgrade12To13(context).applyTo(db, 12)
 
 		CloudEntityDao(DaoConfig(db, CloudEntityDao::class.java)).loadAll()
 		VaultEntityDao(DaoConfig(db, VaultEntityDao::class.java)).loadAll()
@@ -303,7 +306,7 @@ class UpgradeDatabaseTest {
 	}
 
 	@Test
-	fun recoverUpgrade6to7DueToSQLiteExceptionThrown() {
+	fun upgrade6To7DueToSQLiteExceptionThrown() {
 		Upgrade0To1().applyTo(db, 0)
 		Upgrade1To2().applyTo(db, 1)
 		Upgrade2To3(context).applyTo(db, 2)
@@ -642,5 +645,311 @@ class UpgradeDatabaseTest {
 		Upgrade11To12(sharedPreferencesHandler).applyTo(db, 11)
 
 		Assert.assertThat(sharedPreferencesHandler.updateIntervalInDays(), CoreMatchers.`is`(Optional.absent()))
+	}
+
+	@Test
+	fun upgrade12To13BaseTests() {
+		Upgrade0To1().applyTo(db, 0)
+		Upgrade1To2().applyTo(db, 1)
+		Upgrade2To3(context).applyTo(db, 2)
+		Upgrade3To4().applyTo(db, 3)
+		Upgrade4To5().applyTo(db, 4)
+		Upgrade5To6().applyTo(db, 5)
+		Upgrade6To7().applyTo(db, 6)
+		Upgrade7To8().applyTo(db, 7)
+		Upgrade8To9(sharedPreferencesHandler).applyTo(db, 8)
+		Upgrade9To10(sharedPreferencesHandler).applyTo(db, 9)
+		Upgrade10To11().applyTo(db, 10)
+		Upgrade11To12(sharedPreferencesHandler).applyTo(db, 11)
+
+		val gcmCryptor = CredentialCryptor.getInstance(context, CryptoMode.GCM)
+		val cbcCryptor = CredentialCryptor.getInstance(context, CryptoMode.CBC)
+
+		val accessTokenPlain = "accessToken"
+		val accessTokenCiphertext = cbcCryptor.encrypt(accessTokenPlain)
+		val s3SecretPlain = "s3SecretKey"
+		val s3SecretCiphertext = cbcCryptor.encrypt(s3SecretPlain)
+		val vaultPasswordPlain = "password"
+
+		Sql.insertInto("CLOUD_ENTITY") //
+			.integer("_id", 15) //
+			.text("TYPE", CloudType.S3.name) //
+			.text("URL", "url") //
+			.text("ACCESS_TOKEN", accessTokenCiphertext)
+			.text("S3_BUCKET", "s3Bucket") //
+			.text("S3_REGION", "s3Region") //
+			.text("S3_SECRET_KEY", s3SecretCiphertext) //
+			.executeOn(db)
+
+		Sql.insertInto("VAULT_ENTITY") //
+			.integer("_id", 1) //
+			.integer("FOLDER_CLOUD_ID", 15) //
+			.text("FOLDER_PATH", "path1") //
+			.text("FOLDER_NAME", "name") //
+			.text("CLOUD_TYPE", CloudType.S3.name) //
+			.text("PASSWORD", vaultPasswordPlain) //
+			.integer("POSITION", 1) //
+			.integer("FORMAT", 8) //
+			.integer("SHORTENING_THRESHOLD", 4)
+			.executeOn(db)
+
+		Sql.insertInto("VAULT_ENTITY") //
+			.integer("_id", 2) //
+			.integer("FOLDER_CLOUD_ID", 15) //
+			.text("FOLDER_PATH", "path2") //
+			.text("FOLDER_NAME", "name") //
+			.text("CLOUD_TYPE", CloudType.S3.name) //
+			.text("PASSWORD", null) //
+			.integer("POSITION", 2) //
+			.integer("FORMAT", 8) //
+			.integer("SHORTENING_THRESHOLD", 4)
+			.executeOn(db)
+
+		Upgrade12To13(context).applyTo(db, 12)
+
+		Sql.query("CLOUD_ENTITY").where("_id", Sql.eq(15)).executeOn(db).use {
+			it.moveToFirst()
+			Assert.assertThat(gcmCryptor.decrypt(it.getString(it.getColumnIndex("ACCESS_TOKEN"))), CoreMatchers.`is`(accessTokenPlain))
+			Assert.assertThat(it.getString(it.getColumnIndex("ACCESS_TOKEN_CRYPTO_MODE")), CoreMatchers.`is`(CryptoMode.GCM.name))
+			Assert.assertThat(gcmCryptor.decrypt(it.getString(it.getColumnIndex("S3_SECRET_KEY"))), CoreMatchers.`is`(s3SecretPlain))
+			Assert.assertThat(it.getString(it.getColumnIndex("S3_SECRET_KEY_CRYPTO_MODE")), CoreMatchers.`is`(CryptoMode.GCM.name))
+		}
+
+		Sql.query("VAULT_ENTITY").where("_id", Sql.eq(1)).executeOn(db).use {
+			it.moveToFirst()
+			Assert.assertThat(it.getString(it.getColumnIndex("PASSWORD")), CoreMatchers.`is`(vaultPasswordPlain))
+			Assert.assertThat(it.getString(it.getColumnIndex("PASSWORD_CRYPTO_MODE")), CoreMatchers.`is`(CryptoMode.CBC.name))
+
+			Assert.assertThat(it.getString(it.getColumnIndex("FOLDER_PATH")), CoreMatchers.`is`("path1"))
+			Assert.assertThat(it.getString(it.getColumnIndex("FOLDER_NAME")), CoreMatchers.`is`("name"))
+			Assert.assertThat(it.getString(it.getColumnIndex("CLOUD_TYPE")), CoreMatchers.`is`(CloudType.S3.name))
+			Assert.assertThat(it.getInt(it.getColumnIndex("POSITION")), CoreMatchers.`is`(1))
+			Assert.assertThat(it.getInt(it.getColumnIndex("FORMAT")), CoreMatchers.`is`(8))
+			Assert.assertThat(it.getInt(it.getColumnIndex("SHORTENING_THRESHOLD")), CoreMatchers.`is`(4))
+		}
+
+		Sql.query("VAULT_ENTITY").where("_id", Sql.eq(2)).executeOn(db).use {
+			it.moveToFirst()
+			Assert.assertNull(it.getString(it.getColumnIndex("PASSWORD")))
+			Assert.assertNull(it.getString(it.getColumnIndex("PASSWORD_CRYPTO_MODE")))
+
+			Assert.assertThat(it.getString(it.getColumnIndex("FOLDER_PATH")), CoreMatchers.`is`("path2"))
+			Assert.assertThat(it.getString(it.getColumnIndex("FOLDER_NAME")), CoreMatchers.`is`("name"))
+			Assert.assertThat(it.getString(it.getColumnIndex("CLOUD_TYPE")), CoreMatchers.`is`(CloudType.S3.name))
+			Assert.assertThat(it.getInt(it.getColumnIndex("POSITION")), CoreMatchers.`is`(2))
+			Assert.assertThat(it.getInt(it.getColumnIndex("FORMAT")), CoreMatchers.`is`(8))
+			Assert.assertThat(it.getInt(it.getColumnIndex("SHORTENING_THRESHOLD")), CoreMatchers.`is`(4))
+		}
+	}
+
+	@Test
+	fun upgrade12To13DropGoogleDriveUsernameInAccessToken() {
+		Upgrade0To1().applyTo(db, 0)
+		Upgrade1To2().applyTo(db, 1)
+		Upgrade2To3(context).applyTo(db, 2)
+		Upgrade3To4().applyTo(db, 3)
+		Upgrade4To5().applyTo(db, 4)
+		Upgrade5To6().applyTo(db, 5)
+		Upgrade6To7().applyTo(db, 6)
+		Upgrade7To8().applyTo(db, 7)
+		Upgrade8To9(sharedPreferencesHandler).applyTo(db, 8)
+		Upgrade9To10(sharedPreferencesHandler).applyTo(db, 9)
+		Upgrade10To11().applyTo(db, 10)
+		Upgrade11To12(sharedPreferencesHandler).applyTo(db, 11)
+
+		Sql.insertInto("CLOUD_ENTITY") //
+			.integer("_id", 15) //
+			.text("TYPE", CloudType.GOOGLE_DRIVE.name) //
+			.text("USERNAME", "username") //
+			.text("ACCESS_TOKEN", "username") //
+			.executeOn(db)
+
+		Upgrade12To13(context).applyTo(db, 12)
+
+		Sql.query("CLOUD_ENTITY").where("_id", Sql.eq(15)).executeOn(db).use {
+			it.moveToFirst()
+			Assert.assertNull(it.getString(it.getColumnIndex("ACCESS_TOKEN")))
+		}
+	}
+
+	@Test
+	fun upgrade12To13MovingAccessTokenToUrlInLocalStorage() {
+		Upgrade0To1().applyTo(db, 0)
+		Upgrade1To2().applyTo(db, 1)
+		Upgrade2To3(context).applyTo(db, 2)
+		Upgrade3To4().applyTo(db, 3)
+		Upgrade4To5().applyTo(db, 4)
+		Upgrade5To6().applyTo(db, 5)
+		Upgrade6To7().applyTo(db, 6)
+		Upgrade7To8().applyTo(db, 7)
+		Upgrade8To9(sharedPreferencesHandler).applyTo(db, 8)
+		Upgrade9To10(sharedPreferencesHandler).applyTo(db, 9)
+		Upgrade10To11().applyTo(db, 10)
+		Upgrade11To12(sharedPreferencesHandler).applyTo(db, 11)
+
+		Sql.insertInto("CLOUD_ENTITY") //
+			.integer("_id", 15) //
+			.text("TYPE", CloudType.LOCAL.name) //
+			.text("ACCESS_TOKEN", "testUrl3000") //
+			.executeOn(db)
+
+		Upgrade12To13(context).applyTo(db, 12)
+
+		Sql.query("CLOUD_ENTITY").where("_id", Sql.eq(15)).executeOn(db).use {
+			it.moveToFirst()
+			Assert.assertThat(it.getString(it.getColumnIndex("URL")), CoreMatchers.`is`("testUrl3000"))
+			Assert.assertNull(it.getString(it.getColumnIndex("ACCESS_TOKEN")))
+		}
+	}
+
+	@Test
+	fun upgrade12To13Dropbox() {
+		Upgrade0To1().applyTo(db, 0)
+		Upgrade1To2().applyTo(db, 1)
+		Upgrade2To3(context).applyTo(db, 2)
+		Upgrade3To4().applyTo(db, 3)
+		Upgrade4To5().applyTo(db, 4)
+		Upgrade5To6().applyTo(db, 5)
+		Upgrade6To7().applyTo(db, 6)
+		Upgrade7To8().applyTo(db, 7)
+		Upgrade8To9(sharedPreferencesHandler).applyTo(db, 8)
+		Upgrade9To10(sharedPreferencesHandler).applyTo(db, 9)
+		Upgrade10To11().applyTo(db, 10)
+		Upgrade11To12(sharedPreferencesHandler).applyTo(db, 11)
+
+		val gcmCryptor = CredentialCryptor.getInstance(context, CryptoMode.GCM)
+		val cbcCryptor = CredentialCryptor.getInstance(context, CryptoMode.CBC)
+
+		val accessTokenPlain = "accessToken"
+		val accessTokenCiphertext = cbcCryptor.encrypt(accessTokenPlain)
+
+		Sql.insertInto("CLOUD_ENTITY") //
+			.integer("_id", 15) //
+			.text("TYPE", CloudType.DROPBOX.name) //
+			.text("USERNAME", "username") //
+			.text("ACCESS_TOKEN", accessTokenCiphertext) //
+			.executeOn(db)
+
+		Upgrade12To13(context).applyTo(db, 12)
+
+		Sql.query("CLOUD_ENTITY").where("_id", Sql.eq(15)).executeOn(db).use {
+			it.moveToFirst()
+			Assert.assertThat(gcmCryptor.decrypt(it.getString(it.getColumnIndex("ACCESS_TOKEN"))), CoreMatchers.`is`(accessTokenPlain))
+			Assert.assertThat(it.getString(it.getColumnIndex("ACCESS_TOKEN_CRYPTO_MODE")), CoreMatchers.`is`(CryptoMode.GCM.name))
+		}
+	}
+
+
+	@Test
+	fun upgrade12To13OneDrive() {
+		Upgrade0To1().applyTo(db, 0)
+		Upgrade1To2().applyTo(db, 1)
+		Upgrade2To3(context).applyTo(db, 2)
+		Upgrade3To4().applyTo(db, 3)
+		Upgrade4To5().applyTo(db, 4)
+		Upgrade5To6().applyTo(db, 5)
+		Upgrade6To7().applyTo(db, 6)
+		Upgrade7To8().applyTo(db, 7)
+		Upgrade8To9(sharedPreferencesHandler).applyTo(db, 8)
+		Upgrade9To10(sharedPreferencesHandler).applyTo(db, 9)
+		Upgrade10To11().applyTo(db, 10)
+		Upgrade11To12(sharedPreferencesHandler).applyTo(db, 11)
+
+		val gcmCryptor = CredentialCryptor.getInstance(context, CryptoMode.GCM)
+		val cbcCryptor = CredentialCryptor.getInstance(context, CryptoMode.CBC)
+
+		val accessTokenPlain = "accessToken"
+		val accessTokenCiphertext = cbcCryptor.encrypt(accessTokenPlain)
+
+		Sql.insertInto("CLOUD_ENTITY") //
+			.integer("_id", 15) //
+			.text("TYPE", CloudType.ONEDRIVE.name) //
+			.text("USERNAME", "username") //
+			.text("ACCESS_TOKEN", accessTokenCiphertext) //
+			.executeOn(db)
+
+		Upgrade12To13(context).applyTo(db, 12)
+
+		Sql.query("CLOUD_ENTITY").where("_id", Sql.eq(15)).executeOn(db).use {
+			it.moveToFirst()
+			Assert.assertThat(gcmCryptor.decrypt(it.getString(it.getColumnIndex("ACCESS_TOKEN"))), CoreMatchers.`is`(accessTokenPlain))
+			Assert.assertThat(it.getString(it.getColumnIndex("ACCESS_TOKEN_CRYPTO_MODE")), CoreMatchers.`is`(CryptoMode.GCM.name))
+		}
+	}
+
+	@Test
+	fun upgrade12To13PCloud() {
+		Upgrade0To1().applyTo(db, 0)
+		Upgrade1To2().applyTo(db, 1)
+		Upgrade2To3(context).applyTo(db, 2)
+		Upgrade3To4().applyTo(db, 3)
+		Upgrade4To5().applyTo(db, 4)
+		Upgrade5To6().applyTo(db, 5)
+		Upgrade6To7().applyTo(db, 6)
+		Upgrade7To8().applyTo(db, 7)
+		Upgrade8To9(sharedPreferencesHandler).applyTo(db, 8)
+		Upgrade9To10(sharedPreferencesHandler).applyTo(db, 9)
+		Upgrade10To11().applyTo(db, 10)
+		Upgrade11To12(sharedPreferencesHandler).applyTo(db, 11)
+
+		val gcmCryptor = CredentialCryptor.getInstance(context, CryptoMode.GCM)
+		val cbcCryptor = CredentialCryptor.getInstance(context, CryptoMode.CBC)
+
+		val accessTokenPlain = "accessToken"
+		val accessTokenCiphertext = cbcCryptor.encrypt(accessTokenPlain)
+
+		Sql.insertInto("CLOUD_ENTITY") //
+			.integer("_id", 15) //
+			.text("TYPE", CloudType.PCLOUD.name) //
+			.text("USERNAME", "username") //
+			.text("ACCESS_TOKEN", accessTokenCiphertext) //
+			.text("URL", "url") //
+			.executeOn(db)
+
+		Upgrade12To13(context).applyTo(db, 12)
+
+		Sql.query("CLOUD_ENTITY").where("_id", Sql.eq(15)).executeOn(db).use {
+			it.moveToFirst()
+			Assert.assertThat(gcmCryptor.decrypt(it.getString(it.getColumnIndex("ACCESS_TOKEN"))), CoreMatchers.`is`(accessTokenPlain))
+			Assert.assertThat(it.getString(it.getColumnIndex("ACCESS_TOKEN_CRYPTO_MODE")), CoreMatchers.`is`(CryptoMode.GCM.name))
+		}
+	}
+
+	@Test
+	fun upgrade12To13Webdav() {
+		Upgrade0To1().applyTo(db, 0)
+		Upgrade1To2().applyTo(db, 1)
+		Upgrade2To3(context).applyTo(db, 2)
+		Upgrade3To4().applyTo(db, 3)
+		Upgrade4To5().applyTo(db, 4)
+		Upgrade5To6().applyTo(db, 5)
+		Upgrade6To7().applyTo(db, 6)
+		Upgrade7To8().applyTo(db, 7)
+		Upgrade8To9(sharedPreferencesHandler).applyTo(db, 8)
+		Upgrade9To10(sharedPreferencesHandler).applyTo(db, 9)
+		Upgrade10To11().applyTo(db, 10)
+		Upgrade11To12(sharedPreferencesHandler).applyTo(db, 11)
+
+		val gcmCryptor = CredentialCryptor.getInstance(context, CryptoMode.GCM)
+		val cbcCryptor = CredentialCryptor.getInstance(context, CryptoMode.CBC)
+
+		val accessTokenPlain = "accessToken"
+		val accessTokenCiphertext = cbcCryptor.encrypt(accessTokenPlain)
+
+		Sql.insertInto("CLOUD_ENTITY") //
+			.integer("_id", 15) //
+			.text("TYPE", CloudType.WEBDAV.name) //
+			.text("USERNAME", "username") //
+			.text("ACCESS_TOKEN", accessTokenCiphertext) //
+			.text("URL", "url") //
+			.executeOn(db)
+
+		Upgrade12To13(context).applyTo(db, 12)
+
+		Sql.query("CLOUD_ENTITY").where("_id", Sql.eq(15)).executeOn(db).use {
+			it.moveToFirst()
+			Assert.assertThat(gcmCryptor.decrypt(it.getString(it.getColumnIndex("ACCESS_TOKEN"))), CoreMatchers.`is`(accessTokenPlain))
+			Assert.assertThat(it.getString(it.getColumnIndex("ACCESS_TOKEN_CRYPTO_MODE")), CoreMatchers.`is`(CryptoMode.GCM.name))
+		}
 	}
 }

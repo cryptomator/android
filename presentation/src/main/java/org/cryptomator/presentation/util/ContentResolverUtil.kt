@@ -32,7 +32,7 @@ class ContentResolverUtil @Inject constructor(context: Context) {
 		contentResolver.query(uri, null, null, null, null).use { cursor ->
 			if (cursor != null && cursor.moveToFirst()) {
 				val dateModifiedColumnIndex = cursor.getColumnIndex(DocumentsContract.Document.COLUMN_LAST_MODIFIED)
-				if (!cursor.isNull(dateModifiedColumnIndex)) {
+				if (dateModifiedColumnIndex != -1) {
 					val date = cursor.getLong(dateModifiedColumnIndex)
 					return Date(date);
 				}

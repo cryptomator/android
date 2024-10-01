@@ -5,6 +5,7 @@ import android.net.Uri
 import android.os.Bundle
 import org.cryptomator.generator.Activity
 import org.cryptomator.presentation.R
+import org.cryptomator.presentation.databinding.ActivityLayoutObscureAwareBinding
 import org.cryptomator.presentation.intent.Intents.vaultListIntent
 import org.cryptomator.presentation.presenter.LicenseCheckPresenter
 import org.cryptomator.presentation.ui.activity.view.UpdateLicenseView
@@ -13,19 +14,19 @@ import org.cryptomator.presentation.ui.dialog.UpdateLicenseDialog
 import org.cryptomator.presentation.ui.layout.ObscuredAwareCoordinatorLayout
 import javax.inject.Inject
 import kotlin.system.exitProcess
-import kotlinx.android.synthetic.main.activity_layout_obscure_aware.activityRootView
-import kotlinx.android.synthetic.main.toolbar_layout.toolbar
 
-@Activity(layout = R.layout.activity_layout_obscure_aware)
-class LicenseCheckActivity : BaseActivity(), UpdateLicenseDialog.Callback, LicenseConfirmationDialog.Callback, UpdateLicenseView {
+@Activity
+class LicenseCheckActivity : BaseActivity<ActivityLayoutObscureAwareBinding>(ActivityLayoutObscureAwareBinding::inflate), //
+	UpdateLicenseDialog.Callback, //
+	LicenseConfirmationDialog.Callback, //
+	UpdateLicenseView {
 
 	@Inject
 	lateinit var licenseCheckPresenter: LicenseCheckPresenter
 
 	override fun onCreate(savedInstanceState: Bundle?) {
 		super.onCreate(savedInstanceState)
-
-		activityRootView.setOnFilteredTouchEventForSecurityListener(object : ObscuredAwareCoordinatorLayout.Listener {
+		binding.activityRootView.setOnFilteredTouchEventForSecurityListener(object : ObscuredAwareCoordinatorLayout.Listener {
 			override fun onFilteredTouchEventForSecurity() {
 				licenseCheckPresenter.onFilteredTouchEventForSecurity()
 			}
@@ -67,8 +68,8 @@ class LicenseCheckActivity : BaseActivity(), UpdateLicenseDialog.Callback, Licen
 	}
 
 	private fun setupToolbar() {
-		toolbar.title = getString(R.string.app_name).uppercase()
-		setSupportActionBar(toolbar)
+		binding.mtToolbar.toolbar.title = getString(R.string.app_name).uppercase()
+		setSupportActionBar(binding.mtToolbar.toolbar)
 	}
 
 	override fun showConfirmationDialog(mail: String) {

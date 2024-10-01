@@ -1,19 +1,17 @@
 package org.cryptomator.presentation.ui.adapter
 
-import android.view.View
+import android.view.LayoutInflater
+import android.view.ViewGroup
 import android.widget.Switch
-import org.cryptomator.presentation.R
+import org.cryptomator.presentation.databinding.ItemBiometricAuthVaultBinding
 import org.cryptomator.presentation.model.VaultModel
 import org.cryptomator.presentation.model.comparator.VaultPositionComparator
 import org.cryptomator.presentation.ui.adapter.BiometricAuthSettingsAdapter.BiometricAuthSettingsViewHolder
 import javax.inject.Inject
-import kotlinx.android.synthetic.main.item_biometric_auth_vault.view.cloud
-import kotlinx.android.synthetic.main.item_biometric_auth_vault.view.toggleBiometricAuth
-import kotlinx.android.synthetic.main.item_biometric_auth_vault.view.vaultName
 
 class BiometricAuthSettingsAdapter //
 @Inject
-constructor() : RecyclerViewBaseAdapter<VaultModel, BiometricAuthSettingsAdapter.OnVaultBiometricAuthSettingsChanged, BiometricAuthSettingsViewHolder>(VaultPositionComparator()) {
+constructor() : RecyclerViewBaseAdapter<VaultModel, BiometricAuthSettingsAdapter.OnVaultBiometricAuthSettingsChanged, BiometricAuthSettingsViewHolder, ItemBiometricAuthVaultBinding>(VaultPositionComparator()) {
 
 	private var onVaultBiometricAuthSettingsChanged: OnVaultBiometricAuthSettingsChanged? = null
 
@@ -30,30 +28,30 @@ constructor() : RecyclerViewBaseAdapter<VaultModel, BiometricAuthSettingsAdapter
 		}
 	}
 
-	override fun getItemLayout(viewType: Int): Int {
-		return R.layout.item_biometric_auth_vault
+	override fun getItemBinding(inflater: LayoutInflater, parent: ViewGroup?, viewType: Int): ItemBiometricAuthVaultBinding {
+		return ItemBiometricAuthVaultBinding.inflate(inflater, parent, false)
 	}
 
-	override fun createViewHolder(view: View, viewType: Int): BiometricAuthSettingsViewHolder {
-		return BiometricAuthSettingsViewHolder(view)
+	override fun createViewHolder(binding: ItemBiometricAuthVaultBinding, viewType: Int): BiometricAuthSettingsViewHolder {
+		return BiometricAuthSettingsViewHolder(binding)
 	}
 
 	fun setOnItemClickListener(onVaultBiometricAuthSettingsChanged: OnVaultBiometricAuthSettingsChanged) {
 		this.onVaultBiometricAuthSettingsChanged = onVaultBiometricAuthSettingsChanged
 	}
 
-	inner class BiometricAuthSettingsViewHolder(itemView: View) : RecyclerViewBaseAdapter<*, *, *>.ItemViewHolder(itemView) {
+	inner class BiometricAuthSettingsViewHolder(private val binding: ItemBiometricAuthVaultBinding) : RecyclerViewBaseAdapter<*, *, *, *>.ItemViewHolder(binding.root) {
 
 		override fun bind(position: Int) {
 			val vaultModel = getItem(position)
 
-			itemView.vaultName.text = vaultModel.name
-			itemView.cloud.setImageResource(vaultModel.cloudType.vaultImageResource)
+			binding.vaultName.text = vaultModel.name
+			binding.cloud.setImageResource(vaultModel.cloudType.vaultImageResource)
 
-			itemView.toggleBiometricAuth.isChecked = vaultModel.password != null
+			binding.toggleBiometricAuth.isChecked = vaultModel.password != null
 
 			//itemView.toggleBiometricAuth.setOnCheckedChangeListener doesn't work because bind can be executed multiple times
-			itemView.toggleBiometricAuth.setOnClickListener { switch ->
+			binding.toggleBiometricAuth.setOnClickListener { switch ->
 				onVaultBiometricAuthSettingsChanged?.onVaultBiometricAuthSettingsChanged(vaultModel, (switch as Switch).isChecked)
 			}
 		}

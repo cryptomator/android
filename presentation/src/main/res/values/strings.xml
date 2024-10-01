@@ -277,7 +277,7 @@
 	<string name="screen_settings_error_report_label">Send log file</string>
 	<string name="screen_settings_error_report_failed">Sending failed</string>
 	<string name="screen_settings_security_label">Security hints</string>
-	<string name="screen_settings_security_url" translatable="false">https://docs.cryptomator.org/en/1.6/security/best-practices/</string>
+	<string name="screen_settings_security_url" translatable="false">https://docs.cryptomator.org/en/latest/security/best-practices/</string>
 
 	<string name="screen_settings_section_version">Version</string>
 
@@ -447,13 +447,13 @@
 	<string name="dialog_microsoft_workaround_positive_button" translatable="false">@string/screen_settings_section_auto_photo_upload_toggle</string>
 	<string name="dialog_microsoft_workaround_negative_button" translatable="false">@string/dialog_button_cancel</string>
 
-	<string name="dialog_disable_app_obscured_disclaimer_hint">This setting is a security feature and prevents other apps from tricking users into doing things they do not wan\'t to do.\n\nBy disabling, you confirm that you are <a href="https://docs.cryptomator.org/en/1.6/android/settings/#block-app-when-obscured">aware of the risks</a>.</string>
+	<string name="dialog_disable_app_obscured_disclaimer_hint">This setting is a security feature and prevents other apps from tricking users into doing things they do not wan\'t to do.\n\nBy disabling, you confirm that you are <a href="https://docs.cryptomator.org/en/latest/android/settings/#block-app-when-obscured">aware of the risks</a>.</string>
 	<string name="dialog_disable_app_obscured_disclaimer_title">Attention</string>
 	<string name="dialog_disable_app_obscured_positive_button">Disable</string>
 	<string name="dialog_disable_app_obscured_negative_button" translatable="false">@string/dialog_button_cancel</string>
 
 	<string name="dialog_app_is_obscured_info_title">App is obscured</string>
-	<string name="dialog_app_is_obscured_info_hint">Another app is displaying something on top of Cryptomator (e.g., a blue light filter or night mode app). For security reasons, Cryptomator is disabled.\n\n<a href="https://docs.cryptomator.org/en/1.6/android/settings/#block-app-when-obscured">How to enable Cryptomator</a></string>
+	<string name="dialog_app_is_obscured_info_hint">Another app is displaying something on top of Cryptomator (e.g., a blue light filter or night mode app). For security reasons, Cryptomator is disabled.\n\n<a href="https://docs.cryptomator.org/en/latest/android/settings/#block-app-when-obscured">How to enable Cryptomator</a></string>
 	<string name="dialog_app_is_obscured_info_neutral_button">Close</string>
 
 	<string name="dialog_vaults_removed_during_migration_title">Please re-add vaults for %1s cloud</string>
@@ -464,7 +464,7 @@
 	<string name="dialog_vault_is_root_folder_of_cloud_hint">Create a new cloud connection where you select at least the parent folder of this vault folder as the root directory to add this vault.</string>
 	<string name="dialog_vault_is_root_folder_of_cloud_neutral_button" translatable="false">@string/dialog_unable_to_share_positive_button</string>
 
-	<string name="dialog_disable_secure_screen_disclaimer_hint">This setting is a security feature and prevents other apps from tricking users into doing things they do not wan\'t to do.\n\nBy disabling, you confirm that you are <a href="https://docs.cryptomator.org/en/1.6/android/settings/#screen-security">aware of the risks</a>.</string>
+	<string name="dialog_disable_secure_screen_disclaimer_hint">This setting is a security feature and prevents other apps from tricking users into doing things they do not wan\'t to do.\n\nBy disabling, you confirm that you are <a href="https://docs.cryptomator.org/en/latest/android/settings/#screen-security">aware of the risks</a>.</string>
 
 	<string name="dialog_delete_cloud_connection_with_vaults_message">Are you sure you want to remove this cloud connection?</string>
 	<string name="dialog_delete_cloud_connection_with_vaults_hint">This action will remove the cloud connection and all vaults of this cloud.</string>
@@ -519,6 +519,11 @@
 	<string name="dialog_pcloud_credentials_updated_title">Credentials of \'%1$s\' updated</string>
 	<string name="dialog_pcloud_credentials_updated">If you intended to add a new pCloud account, tap on this url <a href="https://www.pcloud.com">www.pcloud.com</a>, log out from the current account and tap again on the \'+\' in this app to create a new cloud connection.</string>
 
+	<string name="dialog_cbc_password_vaults_migration_title">Vault password migration required</string>
+	<string name="dialog_cbc_password_vaults_migration_hint">Due to security enhancements, you will be asked for your biometric authentication twice for each vault to re-encrypt your vault passwords. This is necessary to continue to protect your vault passwords with the latest technology. If you do not wish this to happen, the stored passwords will be removed.</string>
+	<string name="dialog_cbc_password_vaults_migration_action">Migrate</string>
+	<string name="dialog_cbc_password_vaults_migration_cancel" translatable="false">@string/screen_vault_list_vault_action_delete</string>
+
 	<string name="permission_snackbar_auth_local_vault">Cryptomator needs storage access to use local vaults</string>
 	<string name="permission_snackbar_auth_auto_upload">Cryptomator needs storage access to use auto photo upload</string>
 	<string name="permission_snackbar_notifications">Cryptomator needs notification permissions to display vault status for example</string>
@@ -559,6 +564,10 @@
 	<string name="dialog_biometric_auth_title">Biometric login</string>
 	<string name="dialog_biometric_auth_message">Log in using your biometric credential</string>
 	<string name="dialog_biometric_auth_use_password">Use vault password</string>
+
+	<string name="dialog_biometric_migration_auth_title" translatable="false">@string/dialog_biometric_auth_title</string>
+	<string name="dialog_biometric_migration_auth_message" translatable="false">@string/dialog_biometric_auth_message</string>
+	<string name="dialog_biometric_migration_auth_use_password" translatable="false">@string/dialog_biometric_auth_use_password</string>
 
 	<string name="dialog_unable_to_auto_upload_files_title">Unable to auto upload files</string>
 

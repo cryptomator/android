@@ -15,10 +15,13 @@ import org.cryptomator.domain.usecases.ResultHandler;
 import org.cryptomator.domain.usecases.cloud.GetRootFolderUseCase;
 import org.cryptomator.domain.usecases.vault.DeleteVaultUseCase;
 import org.cryptomator.domain.usecases.vault.GetVaultListUseCase;
+import org.cryptomator.domain.usecases.vault.ListCBCEncryptedPasswordVaultsUseCase;
 import org.cryptomator.domain.usecases.vault.LockVaultUseCase;
 import org.cryptomator.domain.usecases.vault.MoveVaultPositionUseCase;
+import org.cryptomator.domain.usecases.vault.RemoveStoredVaultPasswordsUseCase;
 import org.cryptomator.domain.usecases.vault.RenameVaultUseCase;
 import org.cryptomator.domain.usecases.vault.SaveVaultUseCase;
+import org.cryptomator.domain.usecases.vault.SaveVaultsUseCase;
 import org.cryptomator.domain.usecases.vault.UnlockToken;
 import org.cryptomator.domain.usecases.vault.UpdateVaultParameterIfChangedRemotelyUseCase;
 import org.cryptomator.presentation.exception.ExceptionHandlers;
@@ -105,6 +108,9 @@ public class VaultListPresenterTest {
 	private DoUpdateCheckUseCase updateCheckUseCase = Mockito.mock(DoUpdateCheckUseCase.class);
 	private DoUpdateUseCase updateUseCase = Mockito.mock(DoUpdateUseCase.class);
 	private UpdateVaultParameterIfChangedRemotelyUseCase updateVaultParameterIfChangedRemotelyUseCase = Mockito.mock(UpdateVaultParameterIfChangedRemotelyUseCase.class);
+	private ListCBCEncryptedPasswordVaultsUseCase listCBCEncryptedPasswordVaultsUseCase = Mockito.mock(ListCBCEncryptedPasswordVaultsUseCase.class);
+	private RemoveStoredVaultPasswordsUseCase removeStoredVaultPasswordsUseCase = Mockito.mock(RemoveStoredVaultPasswordsUseCase.class);
+	private SaveVaultsUseCase saveVaultsUseCase = Mockito.mock(SaveVaultsUseCase.class);
 	private NetworkConnectionCheck networkConnectionCheck = Mockito.mock(NetworkConnectionCheck.class);
 	private FileUtil fileUtil = Mockito.mock(FileUtil.class);
 	private AuthenticationExceptionHandler authenticationExceptionHandler = Mockito.mock(AuthenticationExceptionHandler.class);
@@ -128,6 +134,9 @@ public class VaultListPresenterTest {
 				updateCheckUseCase, //
 				updateUseCase, //
 				updateVaultParameterIfChangedRemotelyUseCase, //
+				listCBCEncryptedPasswordVaultsUseCase, //
+				removeStoredVaultPasswordsUseCase, //
+				saveVaultsUseCase, //
 				networkConnectionCheck, //
 				fileUtil, //
 				authenticationExceptionHandler, //

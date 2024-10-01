@@ -1,1 +1,5 @@
-openjdk-11-jdk=11.0.16+8-1
+apt-utils=2.9.3
+wget=1.24.5-1
+git=1:2.45.1-1
+unzip=6.0-28
+openjdk-17-jdk=17.0.11+9-1

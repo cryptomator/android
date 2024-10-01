@@ -56,14 +56,14 @@
 	<string name="snack_bar_action_title_sort_biggest">Спершу найбільші</string>
 	<string name="snack_bar_action_title_sort_smallest">Спершу найменші</string>
 	<string name="snack_bar_cryptomator_variants_title">Детальніше</string>
-	<string name="snack_bar_cryptomator_variants_hint">Немає у списку?</string>
+	<string name="snack_bar_cryptomator_variants_hint">Хмара не у списку?</string>
 	<!-- # screens -->
 	<!-- # screen: vault list -->
 	<string name="screen_vault_list_actions_title">Додати до Cryptomator</string>
 	<string name="screen_vault_list_action_create_new_vault">Створити нове сховище</string>
 	<string name="screen_vault_list_action_add_existing_vault">Додати існуюче сховище</string>
 	<string name="screen_vault_list_vault_action_delete">Прибрати</string>
-	<string name="screen_vault_list_vault_creation_hint">Натисніть тут, щоб створити новий vault</string>
+	<string name="screen_vault_list_vault_creation_hint">Натисніть тут, щоб створити нове сховище</string>
 	<string name="screen_vault_list_change_password_successful">Пароль успішно змінено</string>
 	<!-- # screen: file browser -->
 	<string name="screen_file_browser_default_title">Сховище</string>
@@ -71,33 +71,33 @@
 	<string name="screen_file_browser_create_new_vault_button_text">Розмістити тут</string>
 	<string name="screen_file_browser_create_new_vault_extra_text">Назва сховища: %1$s</string>
 	<plurals name="screen_file_browser_subtitle_move">
-		<item quantity="one">Перемістити %1$s у</item>
-		<item quantity="few">Перемістити %2$d елементи у</item>
-		<item quantity="many">Перемістити %2$d елементів у</item>
-		<item quantity="other">Перемістити %2$d елементів у</item>
+		<item quantity="one">Перемістити %1$s до</item>
+		<item quantity="few">Перемістити %2$d файли до</item>
+		<item quantity="many">Перемістити %2$d файлів до</item>
+		<item quantity="other">Перемістити %2$d файлів до</item>
 	</plurals>
 	<string name="screen_file_browser_move_button_text">Перемістити</string>
-	<string name="screen_file_browser_msg_empty_folder">Порожня тека</string>
+	<string name="screen_file_browser_msg_empty_folder">Порожня папка</string>
 	<string name="screen_file_browser_file_info_label_date">змінено %1$s тому</string>
-	<string name="screen_file_browser_share_intent_chooser_title">Поділитися за допомогою</string>
+	<string name="screen_file_browser_share_intent_chooser_title">Поділитися через</string>
 	<string name="screen_file_browser_share_destination_title">Оберіть призначення</string>
 	<string name="screen_file_browser_share_button_text">Оберіть</string>
-	<string name="screen_file_browser_nothing_to_share">Відсутні елементи для поширення</string>
+	<string name="screen_file_browser_nothing_to_share">Немає чим ділитись</string>
 	<string name="screen_file_browser_actions_title">Додати до %1$s</string>
-	<string name="screen_file_browser_action_create_folder">Створити теку</string>
+	<string name="screen_file_browser_action_create_folder">Створити папку</string>
 	<string name="screen_file_browser_action_create_new_text_file">Створити текстовий файл</string>
-	<string name="screen_file_browser_action_upload_files">Завантажити файли</string>
+	<string name="screen_file_browser_action_upload_files">Вивантажити файли</string>
 	<string name="screen_file_browser_upload_files_chooser_title">Файли</string>
 	<string name="screen_file_browser_msg_file_exported">Файл експортовано</string>
 	<string name="screen_file_browser_msg_files_exported">Файли експортовано</string>
-	<string name="screen_file_browser_nothing_to_export">Нічого експортувати</string>
-	<string name="screen_file_browser_msg_creating_download_dir_failed">Не вдалося створити каталог для завантажень</string>
+	<string name="screen_file_browser_nothing_to_export">Відсутні дані для експорту</string>
+	<string name="screen_file_browser_msg_creating_download_dir_failed">Не вдалося створити папку для завантажень</string>
 	<string name="screen_file_browser_node_action_share">Поділитись</string>
 	<string name="screen_file_browser_node_action_rename">Перейменувати</string>
 	<string name="screen_file_browser_node_action_edit_text">Редагувати</string>
-	<string name="screen_file_browser_node_action_export">Експорт</string>
+	<string name="screen_file_browser_node_action_export">Експортувати</string>
 	<string name="screen_file_browser_node_action_delete">Видалити</string>
-	<string name="screen_file_browser_node_action_open_with_text">Відкрити з&#8230;</string>
+	<string name="screen_file_browser_node_action_open_with_text">Відкрити за допомогою&#8230;</string>
 	<string name="screen_file_browser_selection_mode_title_zero_elements">Оберіть файли</string>
 	<string name="screen_file_browser_selection_mode_title_one_or_more_elements">%1$d обрано</string>
 	<string name="screen_file_browser_select_items">Оберіть</string>
@@ -117,75 +117,75 @@
 	<string name="screen_share_files_save_button_text">Зберегти</string>
 	<string name="screen_share_files_msg_success">Шифрування завершено</string>
 	<!-- ## screen: choose cloud service -->
-	<string name="screen_choose_cloud_service_title">Хмарні служби</string>
+	<string name="screen_choose_cloud_service_title">Хмарна служба</string>
 	<!-- ## screen: cloud connections -->
-	<string name="screen_cloud_connections_title">Обрати місцерозташування</string>
+	<string name="screen_cloud_connections_title">Обрати розташування</string>
 	<string name="screen_cloud_connections_no_connections">Натисніть тут щоб додати нові розташування</string>
 	<string name="screen_cloud_error_webdav_not_supported">Схоже, сервер не сумісний з WebDAV</string>
-	<string name="screen_cloud_local_error_no_content_provider">Не знайдено менеджер файлів, який підтримує відкриття директорій</string>
+	<string name="screen_cloud_local_error_no_content_provider">Не знайдено менеджер файлів, який підтримує відкриття папок</string>
 	<!-- ## screen: webdav settings -->
-	<string name="screen_webdav_settings_url_port_label">Адреса посилання</string>
+	<string name="screen_webdav_settings_url_port_label">URL-посилання</string>
 	<string name="screen_webdav_settings_username_label">Ім\'я користувача</string>
 	<string name="screen_webdav_settings_password_label">Пароль</string>
 	<string name="screen_webdav_settings_done_button_text">Підключитися</string>
 	<string name="screen_webdav_settings_msg_url_must_not_be_empty">Посилання не може бути порожнім.</string>
 	<string name="screen_webdav_settings_msg_url_is_invalid">Неприпустима URL-адреса.</string>
-	<string name="screen_webdav_settings_msg_username_must_not_be_empty">Поле для імені користувача не може бути порожнім.</string>
+	<string name="screen_webdav_settings_msg_username_must_not_be_empty">Поле імені користувача не може бути порожнім.</string>
 	<string name="screen_webdav_settings_msg_password_must_not_be_empty">Пароль не може бути порожнім.</string>
 	<!-- ## screen: s3 settings -->
-	<string name="screen_s3_settings_display_name_label">Ім\'я для відображення</string>
+	<string name="screen_s3_settings_display_name_label">Публічне ім\'я</string>
 	<string name="screen_s3_settings_access_key_label">Ключ доступу</string>
 	<string name="screen_s3_settings_secret_key_label">Секретний ключ</string>
-	<string name="screen_s3_settings_bucket_label">Існуючий бакет</string>
-	<string name="screen_s3_settings_endpoint_label">Кінцева точка</string>
+	<string name="screen_s3_settings_bucket_label">Існуючий кошик</string>
+	<string name="screen_s3_settings_endpoint_label">Кінцева адреса з іменем хосту, портом і шляхом до кошика</string>
 	<string name="screen_s3_settings_region_label">Регіон</string>
-	<string name="screen_s3_settings_msg_display_name_not_empty">Ім\'я не може бути порожнім</string>
+	<string name="screen_s3_settings_msg_display_name_not_empty">Публічне ім\'я не може бути порожнім</string>
 	<string name="screen_s3_settings_msg_access_key_not_empty">Ключ доступу не може бути порожнім</string>
 	<string name="screen_s3_settings_msg_secret_key_not_empty">Секретний ключ не може бути порожнім</string>
-	<string name="screen_s3_settings_msg_bucket_not_empty">Бакет не може бути порожнім</string>
-	<string name="screen_s3_settings_msg_endpoint_and_region_not_empty">Кінцева точка або регіон не можуть бути порожніми</string>
+	<string name="screen_s3_settings_msg_bucket_not_empty">Кошик не може бути порожнім</string>
+	<string name="screen_s3_settings_msg_endpoint_and_region_not_empty">Кінцева адреса або регіон не можуть бути порожніми</string>
 	<!-- ## screen: enter vault name -->
 	<string name="screen_enter_vault_name_msg_name_empty">Назва сховища не може бути порожньою.</string>
 	<string name="screen_enter_vault_name_vault_label">Назва сховища</string>
 	<string name="screen_enter_vault_name_button_text">Створити</string>
 	<!-- ## screen: set password -->
 	<string name="screen_set_password_title">Задати пароль</string>
-	<string name="screen_set_password_msg_password_mismatch">Пароль не збігається з введеним паролем.</string>
-	<string name="screen_set_password_button_text">Готово</string>
+	<string name="screen_set_password_msg_password_mismatch">Пароль не відповідає введеному.</string>
+	<string name="screen_set_password_button_text">Виконано</string>
 	<string name="screen_set_password_hint">ВАЖЛИВО: Якщо ви забудете пароль, то не зможете відновити дані.</string>
 	<string name="screen_set_password_retype_password_label">Введіть пароль ще раз</string>
 	<string name="screen_set_password_strength_indicator_0">Занадто слабкий пароль для створення сховища</string>
 	<string name="screen_set_password_strength_indicator_1">Слабкий</string>
-	<string name="screen_set_password_strength_indicator_2">Середній</string>
+	<string name="screen_set_password_strength_indicator_2">Посередній</string>
 	<string name="screen_set_password_strength_indicator_3">Надійний</string>
 	<string name="screen_set_password_strength_indicator_4">Дуже надійний</string>
 	<!-- ## screen: settings -->
 	<string name="screen_settings_section_general">Основні налаштування</string>
 	<string name="screen_settings_cloud_settings_label">Хмарні сервіси</string>
-	<string name="screen_settings_biometric_auth">Біометрична автентифікація</string>
-	<string name="screen_settings_activate_biometric_auth">Активувати біометричну автентифікацію</string>
+	<string name="screen_settings_biometric_auth">Біометрична авторизація</string>
+	<string name="screen_settings_activate_biometric_auth">Активувати біометричну авторизацію</string>
 	<string name="screen_settings_confirm_face_unlock">Підтвердити розблокування обличчям (якщо доступно)</string>
 	<string name="screen_settings_block_app_when_obscured">Блокувати програму при виникненні екрану</string>
-	<string name="screen_settings_block_app_when_obscured_summary">Блокувати перехоплення вводу й відображення інтерфейсу хибного ім\'я користувача</string>
+	<string name="screen_settings_block_app_when_obscured_summary">Блокувати перехоплення вводу й показу хибного інтерфейсу користувача</string>
 	<string name="screen_settings_secure_screen">Блокувати знімки екрану</string>
-	<string name="screen_settings_secure_screen_summary">Блокувати знімки екрану в списку нещодавніх та в середині програми</string>
+	<string name="screen_settings_secure_screen_summary">Блокувати знімки екрану в списку нещодавніх та у додатку</string>
 	<string name="screen_settings_section_search">Пошук</string>
-	<string name="screen_settings_live_search">\"Живий\" пошук</string>
-	<string name="screen_settings_live_search_summary">Оновити результати пошуку при вході в запит</string>
+	<string name="screen_settings_live_search">Пошук в реальному часі</string>
+	<string name="screen_settings_live_search_summary">Оновити результати пошуку при введенні запиту</string>
 	<string name="screen_settings_glob_search">Пошук за допомогою глобального шаблону</string>
 	<string name="screen_settings_glob_search_summary">Використовувати шаблон, що відповідає аліасу.*.jpg</string>
 	<string name="screen_settings_section_auto_lock">Автоматичне блокування</string>
-	<string name="screen_settings_auto_lock_timeout">Блокувати після</string>
+	<string name="screen_settings_auto_lock_timeout">Блокувати через</string>
 	<string name="screen_settings_auto_lock_on_screen_lock">Коли екран вимкнено</string>
-	<string name="screen_settings_section_auto_photo_upload">Автоматичне завантаження фотографій</string>
-	<string name="screen_settings_section_auto_photo_upload_vault">Вибрати сховище для завантаження</string>
-	<string name="screen_settings_section_auto_photo_upload_toggle">Увімкнено</string>
-	<string name="screen_settings_section_auto_photo_upload_toggle_summary">Захоплювати зображення у фоновому режимі і після розблокування вибраного сховища, почати завантаження</string>
+	<string name="screen_settings_section_auto_photo_upload">Автоматичне вивантаження фотографій</string>
+	<string name="screen_settings_section_auto_photo_upload_vault">Вибрати сховище для вивантаження</string>
+	<string name="screen_settings_section_auto_photo_upload_toggle">Активне</string>
+	<string name="screen_settings_section_auto_photo_upload_toggle_summary">Утримувати зображення у фоновому режимі і після розблокування вибраного сховища почати вивантаження</string>
 	<string name="screen_settings_section_auto_photo_upload_toggle_instant_upload">Вивантажити миттєво</string>
 	<string name="screen_settings_section_auto_photo_upload_toggle_instant_upload_summary">Вивантажувати, якщо сховище розблоковано</string>
 	<string name="screen_settings_section_auto_photo_upload_only_wifi_toggle">Вивантажувати лише за допомогою Wi-Fi</string>
-	<string name="screen_settings_section_auto_photo_upload_including_videos">Завантажувати відео</string>
-	<string name="screen_settings_auto_photo_upload_title">Зберігати автозавантажені файли до&#8230;</string>
+	<string name="screen_settings_section_auto_photo_upload_including_videos">Вивантажувати відео</string>
+	<string name="screen_settings_auto_photo_upload_title">Зберігати автовивантажені файли до&#8230;</string>
 	<string name="screen_settings_website_label">Веб-сайт Cryptomator</string>
 	<string name="screen_settings_twitter_label">Стежте за нами у Twitter</string>
 	<string name="screen_settings_facebook_label">Вподобайте нас на Facebook</string>
@@ -194,9 +194,9 @@
 	<string name="screen_settings_license_terms_label">Ліцензійні умови</string>
 	<string name="screen_settings_section_support">Підтримка</string>
 	<string name="screen_settings_contact_label">Запит про допомогу</string>
-	<string name="screen_settings_debug_mode_label">Режим вiдладки</string>
+	<string name="screen_settings_debug_mode_label">Режим налагодження</string>
 	<string name="screen_settings_error_report_label">Надіслати файл журналу</string>
-	<string name="screen_settings_error_report_failed">Помилка надсилання</string>
+	<string name="screen_settings_error_report_failed">Не вдалося надіслати</string>
 	<string name="screen_settings_security_label">Поради з безпеки</string>
 	<string name="screen_settings_section_version">Версія</string>
 	<string name="screen_settings_advanced_settings">Розширені налаштування</string>
@@ -209,21 +209,21 @@
 	<!-- ## screen: cloud settings -->
 	<string name="screen_cloud_settings_onedrive_connections">Підключення OneDrive</string>
 	<string name="screen_cloud_settings_webdav_connections">Підключення через WebDAV</string>
-	<string name="screen_cloud_settings_pcloud_connections">підключення до pCloud</string>
-	<string name="screen_cloud_settings_s3_connections">S3 підключення</string>
+	<string name="screen_cloud_settings_pcloud_connections">Підключення до pCloud</string>
+	<string name="screen_cloud_settings_s3_connections">S3-підключення</string>
 	<string name="screen_cloud_settings_local_storage_locations">Розташування локального сховища</string>
 	<string name="screen_cloud_settings_log_in_to">Увійти до</string>
 	<string name="screen_cloud_settings_sign_out_from_cloud">Вийти з</string>
 	<!-- ## screen: licenses -->
 	<!-- ## screen: authenticate cloud -->
-	<string name="screen_authenticate_auth_authentication_failed">%1$s не може бути автентифіковано.</string>
+	<string name="screen_authenticate_auth_authentication_failed">%1$s не може бути авторизовано.</string>
 	<string name="screen_update_pcloud_connections_title">Оновити облікові дані pCloud</string>
 	<!-- ## screen: cryptomator app variants -->
 	<string name="screen_cryptomator_variants_title">Різновиди Cryptomator</string>
 	<string name="screen_cryptomator_variants_lite_title">Головний репозиторій F-Droid</string>
 	<string name="screen_cryptomator_variants_lite_description">Виключені, тому що потребують API ключі.</string>
 	<string name="screen_cryptomator_variants_lite_install">Встановити</string>
-	<string name="screen_cryptomator_variants_fdroid_title">Cryptomator F-Droid Репозиторій</string>
+	<string name="screen_cryptomator_variants_fdroid_title">Репозиторій Cryptomator на F-Droid</string>
 	<string name="screen_cryptomator_variants_fdroid_description">Виключено, тому що він містить власні залежності.</string>
 	<string name="screen_cryptomator_variants_fdroid_add_repo_hint">Додати репозиторій Cryptomator у додаток F-Droid.</string>
 	<string name="screen_cryptomator_variants_fdroid_add_repo">Додати</string>
@@ -309,17 +309,17 @@
 	<string name="dialog_debug_mode_disclaimer_title">Увага</string>
 	<string name="dialog_debug_mode_positive_button">Увімкнути</string>
 	<string name="dialog_microsoft_workaround_disclaimer_hint">Через помилку в додатках Microsoft, для редагування файлу, доступ до нього має бути надано таким додаткам у публічній папці на вашому пристрої. Після того, як Cryptomator припинить роботу - публічно доступний файл буде видалено, але водночас Cryptomator не впливає на те, що відбувалось з цим файлом, поки він є публічно доступним. Активовуючи цю опцію, ви маєте усвідомлювати наслідки таких дій з файлами. Її буде застосовано лише до типів файлів Microsoft.\n\nCryptomator буде перезавантажений після активації.</string>
-	<string name="dialog_disable_app_obscured_disclaimer_hint">Це налаштування пов\'язане з безпекою, і не дозволяє іншим додаткам вводити користувачів в оману та змушувати їх робити те, чого вони не хочуть.\n\nВідключаючи його, ви підтверджуєте, що <a href="https://docs.cryptomator.org/en/1.6/android/settings/#block-app-when-obscured">усвідомлюєте ризики</a>.</string>
+	<string name="dialog_disable_app_obscured_disclaimer_hint">Цей параметр є функцією безпеки та не дозволяє іншим програмам обманом змусити користувачів робити те, чого вони не хочуть робити.\n\nВимикаючи його ви підтверджуєте, що <a href="https://docs.cryptomator.org/en/latest/android/settings/#block-app-when-obscured">усвідомлюєте та приймаєте ризики</a>.</string>
 	<string name="dialog_disable_app_obscured_disclaimer_title">Увага</string>
 	<string name="dialog_disable_app_obscured_positive_button">Вимкнути</string>
 	<string name="dialog_app_is_obscured_info_title">Інтерфейс додатка перекрито</string>
-	<string name="dialog_app_is_obscured_info_hint">Інший додаток відображає щось поверх Cryptomator (наприклад, фільтр синього світла або додаток нічного режиму). Cryptomator вимкнено з міркувань безпеки.\n\n<a href="https://docs.cryptomator.org/en/1.6/android/settings/#block-app-when-obscured">Як увімкнути Cryptomator</a></string>
+	<string name="dialog_app_is_obscured_info_hint">Інша програма відображає щось поверх Cryptomator (наприклад, фільтр синього світла або нічний режим). З міркувань безпеки Cryptomator вимкнено.\n\n<a href="https://docs.cryptomator.org/en/latest/android/settings/#block-app-when-obscured">Як увімкнути Cryptomator</a></string>
 	<string name="dialog_app_is_obscured_info_neutral_button">Закрити</string>
 	<string name="dialog_vaults_removed_during_migration_title">Будь ласка, знову додайте сховища з хмари для %1s</string>
 	<string name="dialog_vaults_removed_during_migration_hint">Переходячи на цю версію додатка ми були змушені прибрати такі сховища з додатка:\n%2s\n\nЦі сховища не видаляються з хмари, а лише прибрано з цього додатка. Перепрошуємо за незручності. Будь ласка, додайте ці сховища повторно, щоб продовжити роботу з ними.</string>
 	<string name="dialog_vault_is_root_folder_of_cloud_title">Сховище є кореневим каталогом хмарного підключення</string>
 	<string name="dialog_vault_is_root_folder_of_cloud_hint">Для додавання цього сховища - створіть нове хмарне підключення, в якому оберіть в якості батьківського каталога цього сховища кореневий каталог або будь-яку іншу папку у хмарі.</string>
-	<string name="dialog_disable_secure_screen_disclaimer_hint">Це налаштування пов\'язано із безпекою, і не дозволяє іншим додаткам вводити користувачів в оману та змушувати їх робити те, чого вони не хочуть.\n\nВідключаючи його, ви підтверджуєте, що <a href="https://docs.cryptomator.org/en/1.6/android/settings/#screen-security">усвідомлюєте ризики</a>.</string>
+	<string name="dialog_disable_secure_screen_disclaimer_hint">Цей параметр є функцією безпеки та не дозволяє іншим програмам обманом змусити користувачів робити те, чого вони не хочуть робити.\n\nВимикаючи його ви підтверджуєте, що <a href="https://docs.cryptomator.org/en/latest/android/settings/#screen-security">усвідомлюєте та приймаєте ризики</a>.</string>
 	<string name="dialog_delete_cloud_connection_with_vaults_message">Ви дійсно хочете видалити це хмарне підключення?</string>
 	<string name="dialog_delete_cloud_connection_with_vaults_hint">Ця дія видалить підключення до хмари та всі сховища з цієї хмари.</string>
 	<string name="dialog_confirm_delete_multiple_title">Видалити %1$d об\'єкт(-и, -ів)?</string>
@@ -351,6 +351,9 @@
 	<string name="dialog_no_more_images_to_display">Зображень для показу більше немає&#8230;</string>
 	<string name="dialog_pcloud_credentials_updated_title">Дані \'%1$s\' оновлено</string>
 	<string name="dialog_pcloud_credentials_updated">Якщо ви хочете додати новий обліковий запис pCloud, натисніть на цю адресу <a href="https://www.pcloud.com">www.pcloud.com</a>, вийдіть з поточного облікового запису та натисніть ще раз на \'+\' у цьому додатку, щоб створити нове хмарне підключення.</string>
+	<string name="dialog_cbc_password_vaults_migration_title">Необхідна міграція пароля сховища</string>
+	<string name="dialog_cbc_password_vaults_migration_hint">У зв\'язку з покращеннями безпеки, вам буде запропоновано двічі пройти біометричну автентифікацію для кожного сховища, щоб повторно зашифрувати паролі сховища. Це необхідно для продовження захисту паролів вашого сховища з використанням найновішої технології. Якщо ви не хочете, щоб це сталося, збережені паролі будуть видалені.</string>
+	<string name="dialog_cbc_password_vaults_migration_action">Мігрувати</string>
 	<string name="permission_snackbar_auth_local_vault">Для використання локальних сховищ необхідно надати Cryptomator доступ до місця зберігання</string>
 	<string name="permission_snackbar_auth_auto_upload">Для автоматичного завантаження фото необхідно надати Cryptomator доступ до місця зберігання</string>
 	<string name="permission_snackbar_notifications">Для відображення статусу сховища необхідно надати Cryptomator дозвіл на сповіщення</string>

@@ -14,6 +14,7 @@ import org.cryptomator.domain.CloudNode
 import org.cryptomator.generator.Fragment
 import org.cryptomator.presentation.R
 import org.cryptomator.presentation.R.dimen.global_padding
+import org.cryptomator.presentation.databinding.FragmentBrowseFilesBinding
 import org.cryptomator.presentation.intent.ChooseCloudNodeSettings
 import org.cryptomator.presentation.intent.ChooseCloudNodeSettings.NavigationMode.BROWSE_FILES
 import org.cryptomator.presentation.intent.ChooseCloudNodeSettings.NavigationMode.SELECT_ITEMS
@@ -28,17 +29,9 @@ import org.cryptomator.presentation.ui.adapter.BrowseFilesAdapter
 import org.cryptomator.presentation.util.ResourceHelper.Companion.getPixelOffset
 import java.util.Optional
 import javax.inject.Inject
-import kotlinx.android.synthetic.main.floating_action_button_layout.floatingActionButton
-import kotlinx.android.synthetic.main.fragment_browse_files.slidingCoordinatorLayout
-import kotlinx.android.synthetic.main.fragment_browse_files.swipeRefreshLayout
-import kotlinx.android.synthetic.main.recycler_view_layout.recyclerView
-import kotlinx.android.synthetic.main.view_browses_files_extra_text_and_button.chooseLocationButton
-import kotlinx.android.synthetic.main.view_browses_files_extra_text_and_button.extraText
-import kotlinx.android.synthetic.main.view_browses_files_extra_text_and_button.extraTextAndButtonLayout
-import kotlinx.android.synthetic.main.view_empty_folder.emptyFolderHint
 
-@Fragment(R.layout.fragment_browse_files)
-open class BrowseFilesFragment : BaseFragment(), FilesFragmentInterface {
+@Fragment
+class BrowseFilesFragment : BaseFragment<FragmentBrowseFilesBinding>(FragmentBrowseFilesBinding::inflate), FilesFragmentInterface {
 
 	@Inject
 	lateinit var cloudNodesAdapter: BrowseFilesAdapter
@@ -95,22 +88,22 @@ open class BrowseFilesFragment : BaseFragment(), FilesFragmentInterface {
 	override fun setupView() {
 		setupNavigationMode()
 
-		floatingActionButton.setOnClickListener { browseFilesPresenter.onAddContentClicked() }
-		chooseLocationButton.setOnClickListener { browseFilesPresenter.onFolderChosen(folder) }
+		binding.floatingActionButton.floatingActionButton.setOnClickListener { browseFilesPresenter.onAddContentClicked() }
+		binding.chooseLocationLayout.chooseLocationButton.setOnClickListener { browseFilesPresenter.onFolderChosen(folder) }
 
-		swipeRefreshLayout.setColorSchemeColors(ContextCompat.getColor(context(), R.color.colorPrimary))
-		swipeRefreshLayout.setOnRefreshListener(refreshListener)
+		binding.swipeRefreshLayout.setColorSchemeColors(ContextCompat.getColor(context(), R.color.colorPrimary))
+		binding.swipeRefreshLayout.setOnRefreshListener(refreshListener)
 
 		cloudNodesAdapter.setCallback(nodeClickListener)
 		cloudNodesAdapter.setChooseCloudNodeSettings(chooseCloudNodeSettings)
 		navigationMode?.let { cloudNodesAdapter.updateNavigationMode(it) }
 
-		recyclerView.layoutManager = LinearLayoutManager(context())
+		binding.recyclerViewLayout.recyclerView.layoutManager = LinearLayoutManager(context())
 //		recyclerView.layoutManager = GridLayoutManager(context(), 2)
-		recyclerView.adapter = cloudNodesAdapter
-		recyclerView.setHasFixedSize(true)
-		recyclerView.setPadding(0, 0, 0, TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 88f, resources.displayMetrics).toInt())
-		recyclerView.clipToPadding = false
+		binding.recyclerViewLayout.recyclerView.adapter = cloudNodesAdapter
+		binding.recyclerViewLayout.recyclerView.setHasFixedSize(true)
+		binding.recyclerViewLayout.recyclerView.setPadding(0, 0, 0, TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 88f, resources.displayMetrics).toInt())
+		binding.recyclerViewLayout.recyclerView.clipToPadding = false
 
 		browseFilesPresenter.onFolderRedisplayed(folder)
 
@@ -134,7 +127,7 @@ open class BrowseFilesFragment : BaseFragment(), FilesFragmentInterface {
 
 	private fun setupViewForBrowseFilesMode() {
 		showFloatingActionButton()
-		swipeRefreshLayout.isEnabled = true
+		binding.swipeRefreshLayout.isEnabled = true
 	}
 
 	private fun setupViewForNodeSelectionMode() {
@@ -143,37 +136,37 @@ open class BrowseFilesFragment : BaseFragment(), FilesFragmentInterface {
 	}
 
 	private fun disableSwipeRefresh() {
-		swipeRefreshLayout.isRefreshing = false
-		swipeRefreshLayout.isEnabled = false
+		binding.swipeRefreshLayout.isRefreshing = false
+		binding.swipeRefreshLayout.isEnabled = false
 	}
 
 	private fun setupViewForFilesSelection() {
-		extraTextAndButtonLayout.visibility = VISIBLE
-		chooseLocationButton.visibility = GONE
-		extraText.text = chooseCloudNodeSettings?.extraText()
-		val layoutParams = extraText.layoutParams as RelativeLayout.LayoutParams
+		binding.chooseLocationLayout.extraTextAndButtonLayout.visibility = VISIBLE
+		binding.chooseLocationLayout.chooseLocationButton.visibility = GONE
+		binding.chooseLocationLayout.extraText.text = chooseCloudNodeSettings?.extraText()
+		val layoutParams = binding.chooseLocationLayout.extraText.layoutParams as RelativeLayout.LayoutParams
 		layoutParams.addRule(RelativeLayout.CENTER_HORIZONTAL)
-		extraText?.layoutParams = layoutParams
+		binding.chooseLocationLayout.extraText.layoutParams = layoutParams
 		disableSwipeRefresh()
 	}
 
 	private fun setupViewForFolderSelection() {
-		extraTextAndButtonLayout?.visibility = VISIBLE
-		chooseLocationButton.visibility = VISIBLE
-		chooseLocationButton.text = chooseCloudNodeSettings?.buttonText()
-		extraText.text = chooseCloudNodeSettings?.extraText()
-		extraText.setPadding(getPixelOffset(global_padding), 0, 0, 0)
+		binding.chooseLocationLayout.extraTextAndButtonLayout.visibility = VISIBLE
+		binding.chooseLocationLayout.chooseLocationButton.visibility = VISIBLE
+		binding.chooseLocationLayout.chooseLocationButton.text = chooseCloudNodeSettings?.buttonText()
+		binding.chooseLocationLayout.extraText.text = chooseCloudNodeSettings?.extraText()
+		binding.chooseLocationLayout.extraText.setPadding(getPixelOffset(global_padding), 0, 0, 0)
 		disableSwipeRefresh()
 	}
 
 	@SuppressLint("RestrictedApi") // Due to bug https://stackoverflow.com/questions/50343634/android-p-visibilityawareimagebutton-setvisibility-can-only-be-called-from-the-s
 	private fun showFloatingActionButton() {
-		floatingActionButton.visibility = VISIBLE
+		binding.floatingActionButton.floatingActionButton.visibility = VISIBLE
 	}
 
 	@SuppressLint("RestrictedApi") // Due to bug https://stackoverflow.com/questions/50343634/android-p-visibilityawareimagebutton-setvisibility-can-only-be-called-from-the-s
 	private fun hideFloatingActionButton() {
-		floatingActionButton.visibility = GONE
+		binding.floatingActionButton.floatingActionButton.visibility = GONE
 	}
 
 	override fun loadContent() {
@@ -246,7 +239,7 @@ open class BrowseFilesFragment : BaseFragment(), FilesFragmentInterface {
 
 	private fun viewHolderFor(nodeModel: CloudNodeModel<*>?): Optional<BrowseFilesAdapter.VaultContentViewHolder> {
 		val positionOf = cloudNodesAdapter.positionOf(nodeModel)
-		return Optional.ofNullable(recyclerView.findViewHolderForAdapterPosition(positionOf) as? BrowseFilesAdapter.VaultContentViewHolder)
+		return Optional.ofNullable(binding.recyclerViewLayout.recyclerView.findViewHolderForAdapterPosition(positionOf) as? BrowseFilesAdapter.VaultContentViewHolder)
 	}
 
 	override fun replaceRenamedCloudFile(cloudFile: CloudNodeModel<out CloudNode>) {
@@ -254,7 +247,7 @@ open class BrowseFilesFragment : BaseFragment(), FilesFragmentInterface {
 	}
 
 	override fun showLoading(loading: Boolean?) {
-		loading?.let { swipeRefreshLayout.isRefreshing = it }
+		loading?.let { binding.swipeRefreshLayout.isRefreshing = it }
 	}
 
 	override fun addOrUpdate(cloudNode: CloudNodeModel<*>) {
@@ -263,7 +256,7 @@ open class BrowseFilesFragment : BaseFragment(), FilesFragmentInterface {
 	}
 
 	private fun updateEmptyFolderHint() {
-		emptyFolderHint.visibility = if (cloudNodesAdapter.isEmpty) VISIBLE else GONE
+		binding.rlViewEmptyFolder.emptyFolderHint.visibility = if (cloudNodesAdapter.isEmpty) VISIBLE else GONE
 	}
 
 	private fun fileCanBeChosen(cloudFile: CloudFileModel): Boolean {
@@ -278,7 +271,7 @@ open class BrowseFilesFragment : BaseFragment(), FilesFragmentInterface {
 
 	override fun renderedCloudNodes(): List<CloudNodeModel<*>> = cloudNodesAdapter.renderedCloudNodes()
 
-	override fun rootView(): View = slidingCoordinatorLayout
+	override fun rootView(): View = binding.slidingCoordinatorLayout
 
 	override fun navigationModeChanged(navigationMode: ChooseCloudNodeSettings.NavigationMode) {
 		updateNavigationMode(navigationMode)

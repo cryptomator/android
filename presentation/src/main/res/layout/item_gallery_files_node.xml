@@ -1,47 +1,43 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<LinearLayout
-	xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
 	xmlns:app="http://schemas.android.com/apk/res-auto"
-	android:id="@+id/galleryItemContainer"
+	android:id="@+id/gallery_item_container"
 	android:layout_width="match_parent"
 	android:layout_height="wrap_content"
-	android:orientation="vertical"
 	android:layout_centerVertical="true"
-	android:visibility="visible"
-	>
+	android:orientation="vertical"
+	android:visibility="visible">
 
 	<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
 		xmlns:app="http://schemas.android.com/apk/res-auto"
-		xmlns:tools="http://schemas.android.com/tools"
 		android:layout_width="match_parent"
 		android:layout_height="match_parent">
 
 		<ImageView
-			android:id="@+id/galleryCloudNodeImage"
+			android:id="@+id/gallery_cloud_node_image"
 			android:layout_width="0dp"
 			android:layout_height="0dp"
-			app:layout_constraintDimensionRatio="1"
-
 			app:layout_constraintBottom_toBottomOf="parent"
+			app:layout_constraintDimensionRatio="1"
 			app:layout_constraintLeft_toLeftOf="parent"
 			app:layout_constraintRight_toRightOf="parent"
-			app:layout_constraintTop_toTopOf="parent"
-			/>
+			app:layout_constraintTop_toTopOf="parent" />
 	</androidx.constraintlayout.widget.ConstraintLayout>
 
 	<LinearLayout
-		android:id="@+id/cloudFileProgress"
+		android:id="@+id/cloud_file_progress"
 		android:layout_width="match_parent"
 		android:layout_height="wrap_content">
 
 		<ImageView
-			android:id="@+id/progressIcon"
+			android:id="@+id/progress_icon"
 			android:layout_width="16dp"
 			android:layout_height="16dp"
 			app:tint="@color/textColorLight" />
 
 		<include
+			android:id="@+id/rl_cloud_file_progress"
 			layout="@layout/view_cloud_file_progress"
 			android:layout_width="match_parent"
 			android:layout_height="wrap_content"

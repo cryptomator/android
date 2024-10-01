@@ -310,7 +310,6 @@
 	<string name="dialog_disable_app_obscured_disclaimer_title">Figyelem</string>
 	<string name="dialog_disable_app_obscured_positive_button">Letiltás</string>
 	<string name="dialog_app_is_obscured_info_title">Az app el van takarva</string>
-	<string name="dialog_app_is_obscured_info_hint">Egy másik app megjelenít valamit a Cryptomator felett (pl. egy kékfény szűrő vagy éjszakai mód app). Biztonsági okokból a Cryptomator le van tiltva.\n\n<a href="https://docs.cryptomator.org/en/1.6/android/settings/#block-app-when-obscured">Hogyan engedélyezze a Cryptomatort</a></string>
 	<string name="dialog_app_is_obscured_info_neutral_button">Bezár</string>
 	<string name="dialog_confirm_delete_multiple_title">Töröl %1$d elemet?</string>
 	<string name="dialog_confirm_delete_multiple_message">Biztosan törölni akarja ezeket az elemeket?</string>

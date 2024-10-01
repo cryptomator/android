@@ -31,10 +31,10 @@
 	<string name="error_vault_version_mismatch">Versiunea specificată în %1$s este diferită de %2$s</string>
 	<string name="error_vault_key_invalid">%1$s nu se potrivește cu %2$s</string>
 	<string name="error_vault_config_loading">Eroare generală în timpul încărcării configurației seifului</string>
-	<string name="error_file_not_found_after_opening_using_3party">Fișierul local nu mai este prezent după ce s-a trecut înapoi la Cryptomator. Modificările posibile nu pot fi propagate înapoi în cloud.</string>
+	<string name="error_file_not_found_after_opening_using_3party">Fișierul local nu mai este prezent după ce s-a trecut înapoi la Cryptomator. Modificările posibile nu pot fi propagate înapoi în nor.</string>
 	<string name="error_no_such_bucket">Nu există așa găleată</string>
-	<string name="error_masterkey_location_not_supported">Nu este suportată încă utilizarea locației personalizate pentru masterkey</string>
-	<string name="error_interact_with_fdroid_but_fdroid_missing">Nu s-a putut comunica cu aplicația F-Droid. Este posibil ca aplicația sa nu fie instalata</string>
+	<string name="error_masterkey_location_not_supported">Nu este suportată încă utilizarea locației personalizate pentru cheia master</string>
+	<string name="error_interact_with_fdroid_but_fdroid_missing">Nu s-a putut comunicat cu aplicația F-Droid. Este posibil ca aplicația sa nu fie instalata?</string>
 	<!-- # clouds -->
 	<!-- ## cloud names -->
 	<string name="cloud_names_local_storage">Stocare locală</string>
@@ -308,17 +308,16 @@
 	<string name="dialog_debug_mode_disclaimer_title">Atenție</string>
 	<string name="dialog_debug_mode_positive_button">Activează</string>
 	<string name="dialog_microsoft_workaround_disclaimer_hint">Din cauza unei erori în aplicațiile Microsoft, fișierul care urmează să fie editat trebuie să fie partajat cu aceste aplicații într-un folder media public de pe dispozitivul dvs. După ce Cryptomator este repornit, fişierul accesibil publicului este şters din nou, dar Cryptomator nu poate influenţa ceea ce s-a întâmplat cu acest fişier între timp. Asigurați-vă că sunteți conștient de acest comportament atunci când activați această opțiune. Acest comportament se aplica doar tipurilor de fișiere Microsoft.\n\nCryptomator va reporni după activare.</string>
-	<string name="dialog_disable_app_obscured_disclaimer_hint">Această setare este o caracteristică de securitate și previne alte aplicații să păcălească utilizatorii să facă lucruri pe care nu ar trebui să le facă.\n\nPrin dezactivare, confirmați că sunteți <a href="https://docs.cryptomator.org/en/1.6/android/settings/#block-app-when-obscured">conștient de aceste riscuri</a>.</string>
+	<string name="dialog_disable_app_obscured_disclaimer_hint">Aceasta setare este o caracteristica de securitate si previne alte aplicatii sa pacaleasca utilizatorii sa faca lucruri pe care nu ar trebui sa le faca. \n\nPrin dezactivare, confirmati ca sunteti <a href="https://docs.cryptomator.org/en/latest/android/settings/#block-app-when-obscured"> constient de aceste riscuri</a>.</string>
 	<string name="dialog_disable_app_obscured_disclaimer_title">Atenție</string>
 	<string name="dialog_disable_app_obscured_positive_button">Dezactivează</string>
 	<string name="dialog_app_is_obscured_info_title">Aplicația este ascunsă</string>
-	<string name="dialog_app_is_obscured_info_hint">O altă aplicație afișează ceva deasupra Cryptomator (de exemplu, un filtru de lumină albastră sau o aplicație pentru modul de noapte). Din motive de siguranța, Cryptomator este dezactivat.\n\n<a href="https://docs.cryptomator.org/en/1.6/android/settings/#block-app-when-obscured">Cum să activezi Cryptomator</a></string>
+	<string name="dialog_app_is_obscured_info_hint">O altă aplicație afișează ceva deasupra Cryptomator (de exemplu, un filtru de lumină albastră sau o aplicație pentru modul de noapte). Din motive de siguranța, Cryptomator este dezactivat.\n\n<a href="https://docs.cryptomator.org/en/latest/android/settings/#block-app-when-obscured">Cum să activezi Cryptomator</a></string>
 	<string name="dialog_app_is_obscured_info_neutral_button">Închide</string>
 	<string name="dialog_vaults_removed_during_migration_title">Vă rugăm să adăugați din nou seifurile pentru %1s cloud</string>
 	<string name="dialog_vaults_removed_during_migration_hint">În timp ce migrăm la această versiune de aplicație, trebuie să eliminăm următoarele seifuri din aplicație:\n%2s \n\nAceste seifuri nu sunt eliminate din cloud, ci doar din această aplicație. Ne cerem scuze pentru inconveniența creata şi vă rugăm să adăugați din nou aceste seifuri pentru a continua să le folosiți.</string>
 	<string name="dialog_vault_is_root_folder_of_cloud_title">Seiful este dosarul principal al conexiunii cloud</string>
 	<string name="dialog_vault_is_root_folder_of_cloud_hint">Creați o nouă conexiune cloud unde selectați dosarul părinte al acestui seif ca dosarul de baza pentru adăugarea acestui seif.</string>
-	<string name="dialog_disable_secure_screen_disclaimer_hint">Această setare este o caracteristică de securitate și previne alte aplicații să păcălească utilizatorii să facă lucruri pe care nu ar trebui să le facă.\n\nPrin dezactivare, confirmați că sunteți <a href="https://docs.cryptomator.org/en/1.6/android/settings/#screen-security">conștient de aceste riscuri</a>.</string>
 	<string name="dialog_delete_cloud_connection_with_vaults_message">Sunteţi sigur că doriţi să eliminaţi această conexiune cloud?</string>
 	<string name="dialog_delete_cloud_connection_with_vaults_hint">Această acțiune va elimina conexiunea în cloud și toate seifurile acestui cloud.</string>
 	<string name="dialog_confirm_delete_multiple_title">Ștergeți %1$d elemente?</string>

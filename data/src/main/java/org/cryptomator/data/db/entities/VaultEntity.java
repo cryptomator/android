@@ -28,6 +28,8 @@ public class VaultEntity extends DatabaseEntity {
 
 	private String password;
 
+	private String passwordCryptoMode;
+
 	private Integer position;
 
 	private Integer format;
@@ -44,17 +46,20 @@ public class VaultEntity extends DatabaseEntity {
 	 */
 	@Generated(hash = 2040040024)
 	private transient DaoSession daoSession;
+
 	@Generated(hash = 229273163)
 	private transient Long folderCloud__resolvedKey;
 
-	@Generated(hash = 530735379)
-	public VaultEntity(Long id, Long folderCloudId, String folderPath, String folderName, @NotNull String cloudType, String password, Integer position, Integer format, Integer shorteningThreshold) {
+	@Generated(hash = 1663458645)
+	public VaultEntity(Long id, Long folderCloudId, String folderPath, String folderName, @NotNull String cloudType, String password, String passwordCryptoMode, Integer position, Integer format,
+			Integer shorteningThreshold) {
 		this.id = id;
 		this.folderCloudId = folderCloudId;
 		this.folderPath = folderPath;
 		this.folderName = folderName;
 		this.cloudType = cloudType;
 		this.password = password;
+		this.passwordCryptoMode = passwordCryptoMode;
 		this.position = position;
 		this.format = format;
 		this.shorteningThreshold = shorteningThreshold;
@@ -203,6 +208,14 @@ public class VaultEntity extends DatabaseEntity {
 
 	public void setShorteningThreshold(Integer shorteningThreshold) {
 		this.shorteningThreshold = shorteningThreshold;
+	}
+
+	public String getPasswordCryptoMode() {
+		return this.passwordCryptoMode;
+	}
+
+	public void setPasswordCryptoMode(String passwordCryptoMode) {
+		this.passwordCryptoMode = passwordCryptoMode;
 	}
 
 	/** called by internal mechanisms, do not call yourself. */

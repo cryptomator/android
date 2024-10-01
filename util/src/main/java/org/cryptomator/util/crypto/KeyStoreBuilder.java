@@ -44,9 +44,9 @@ public class KeyStoreBuilder {
 
 	public interface DefaultKeyStoreBuilder extends CustomKeyStoreBuilder {
 
-		DefaultKeyStoreBuilder withKey(String alias, boolean requireUserAuthentication, Context context);
+		DefaultKeyStoreBuilder withKey(String alias, boolean requireUserAuthentication, CryptoMode mode, Context context);
 
-		CustomKeyStoreBuilder withRecreatedKey(String alias, boolean requireUserAuthentication, Context context);
+		CustomKeyStoreBuilder withRecreatedKey(String alias, boolean requireUserAuthentication, CryptoMode mode, Context context);
 	}
 
 	private static class KeyStoreBuilderImpl implements KeyStoreBuilder.CustomKeyStoreBuilder, KeyStoreBuilder.DefaultKeyStoreBuilder {
@@ -57,10 +57,10 @@ public class KeyStoreBuilder {
 			this.keyStore = keyStore;
 		}
 
-		public KeyStoreBuilderImpl withKey(String alias, boolean requireUserAuthentication, Context context) {
+		public KeyStoreBuilderImpl withKey(String alias, boolean requireUserAuthentication, CryptoMode mode, Context context) {
 			try {
 				if (!doesKeyExist(alias)) {
-					CryptoOperationsFactory.cryptoOperations() //
+					CryptoOperationsFactory.cryptoOperations(mode) //
 							.initializeKeyGenerator(context, alias) //
 							.createKey(requireUserAuthentication);
 				}
@@ -70,11 +70,10 @@ public class KeyStoreBuilder {
 			return this;
 		}
 
-		public CustomKeyStoreBuilder withRecreatedKey(String alias, boolean requireUserAuthentication, Context context) {
+		public CustomKeyStoreBuilder withRecreatedKey(String alias, boolean requireUserAuthentication, CryptoMode mode, Context context) {
 			try {
 				keyStore.deleteEntry(alias);
-
-				CryptoOperationsFactory.cryptoOperations() //
+				CryptoOperationsFactory.cryptoOperations(mode) //
 						.initializeKeyGenerator(context, alias) //
 						.createKey(requireUserAuthentication);
 			} catch (Exception e) {

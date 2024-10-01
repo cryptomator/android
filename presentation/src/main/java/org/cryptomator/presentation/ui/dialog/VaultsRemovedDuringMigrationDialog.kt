@@ -7,14 +7,13 @@ import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.DialogFragment
 import org.cryptomator.generator.Dialog
 import org.cryptomator.presentation.R
-import kotlinx.android.synthetic.main.dialog_vaults_removed_during_migration.tv_message
+import org.cryptomator.presentation.databinding.DialogVaultsRemovedDuringMigrationBinding
 
-@Dialog(R.layout.dialog_vaults_removed_during_migration)
-class VaultsRemovedDuringMigrationDialog : BaseDialog<Activity>() {
+@Dialog
+class VaultsRemovedDuringMigrationDialog : BaseDialog<Activity, DialogVaultsRemovedDuringMigrationBinding>(DialogVaultsRemovedDuringMigrationBinding::inflate) {
 
 	public override fun setupDialog(builder: AlertDialog.Builder): android.app.Dialog {
 		val vaultsRemovedDuringMigration = requireArguments().getSerializable(VAULTS_REMOVED_ARG) as Pair<String, ArrayList<String>>
-
 		return builder //
 			.setTitle(String.format(getString(R.string.dialog_vaults_removed_during_migration_title), vaultsRemovedDuringMigration.first)) //
 			.setNeutralButton(R.string.dialog_vaults_removed_during_migration_neutral_button) { dialog: DialogInterface, _: Int -> dialog.dismiss() }
@@ -29,7 +28,7 @@ class VaultsRemovedDuringMigrationDialog : BaseDialog<Activity>() {
 			.map { path -> "* $path" }
 			.reduce { acc, s -> "$acc\n$s" }
 
-		tv_message.text = String.format(getString(R.string.dialog_vaults_removed_during_migration_hint), vaultsRemovedDuringMigrationString)
+		binding.tvMessage.text = String.format(getString(R.string.dialog_vaults_removed_during_migration_hint), vaultsRemovedDuringMigrationString)
 	}
 
 	companion object {

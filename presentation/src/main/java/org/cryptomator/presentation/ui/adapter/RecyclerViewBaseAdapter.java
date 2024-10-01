@@ -6,6 +6,7 @@ import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.viewbinding.ViewBinding;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -13,19 +14,19 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 
-public abstract class RecyclerViewBaseAdapter<Item, Callback, ViewHolder extends RecyclerViewBaseAdapter.ItemViewHolder> extends RecyclerView.Adapter<ViewHolder> {
+public abstract class RecyclerViewBaseAdapter<Item, Callback, ViewHolder extends RecyclerViewBaseAdapter.ItemViewHolder, Binding extends ViewBinding> extends RecyclerView.Adapter<ViewHolder> {
 
 	final List<Item> itemCollection;
 
-	Callback callback;
+	protected Callback callback;
 
 	private Comparator<Item> comparator;
 
-	RecyclerViewBaseAdapter() {
+	protected RecyclerViewBaseAdapter() {
 		this.itemCollection = new ArrayList<>();
 	}
 
-	RecyclerViewBaseAdapter(Comparator<Item> comparator) {
+	protected RecyclerViewBaseAdapter(Comparator<Item> comparator) {
 		this.itemCollection = new ArrayList<>();
 		this.comparator = comparator;
 	}
@@ -33,8 +34,8 @@ public abstract class RecyclerViewBaseAdapter<Item, Callback, ViewHolder extends
 	@NonNull
 	@Override
 	public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-		View view = LayoutInflater.from(parent.getContext()).inflate(getItemLayout(viewType), parent, false);
-		return createViewHolder(view, viewType);
+		Binding binding = getItemBinding(LayoutInflater.from(parent.getContext()), parent, viewType);
+		return createViewHolder(binding, viewType);
 	}
 
 	@Override
@@ -113,9 +114,9 @@ public abstract class RecyclerViewBaseAdapter<Item, Callback, ViewHolder extends
 		return itemCollection.get(position);
 	}
 
-	protected abstract int getItemLayout(int viewType);
+	protected abstract Binding getItemBinding(LayoutInflater inflater, ViewGroup parent, int viewType);
 
-	protected abstract ViewHolder createViewHolder(View view, int viewType);
+	protected abstract ViewHolder createViewHolder(Binding binding, int viewType);
 
 	private void sort() {
 		if (comparator != null) {
@@ -133,7 +134,7 @@ public abstract class RecyclerViewBaseAdapter<Item, Callback, ViewHolder extends
 
 	public abstract class ItemViewHolder extends RecyclerView.ViewHolder {
 
-		ItemViewHolder(View itemView) {
+		protected ItemViewHolder(View itemView) {
 			super(itemView);
 		}
 

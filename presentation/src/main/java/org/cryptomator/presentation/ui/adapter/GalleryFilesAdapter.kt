@@ -2,12 +2,15 @@ package org.cryptomator.presentation.ui.adapter
 
 import android.graphics.BitmapFactory
 import android.os.PatternMatcher
+import android.view.LayoutInflater
 import android.view.View
 import android.view.View.GONE
 import android.view.View.VISIBLE
+import android.view.ViewGroup
 import com.simplecityapps.recyclerview_fastscroll.views.FastScrollRecyclerView
 import org.cryptomator.domain.CloudNode
 import org.cryptomator.presentation.R
+import org.cryptomator.presentation.databinding.ItemGalleryFilesNodeBinding
 import org.cryptomator.presentation.intent.ChooseCloudNodeSettings
 import org.cryptomator.presentation.intent.ChooseCloudNodeSettings.NavigationMode.BROWSE_FILES
 import org.cryptomator.presentation.intent.ChooseCloudNodeSettings.NavigationMode.SELECT_ITEMS
@@ -30,11 +33,6 @@ import org.cryptomator.util.SharedPreferencesHandler
 import org.cryptomator.util.file.MimeType
 import org.cryptomator.util.file.MimeTypes
 import javax.inject.Inject
-import kotlinx.android.synthetic.main.item_gallery_files_node.view.cloudFileProgress
-import kotlinx.android.synthetic.main.item_gallery_files_node.view.galleryCloudNodeImage
-import kotlinx.android.synthetic.main.item_gallery_files_node.view.galleryItemContainer
-import kotlinx.android.synthetic.main.item_gallery_files_node.view.progressIcon
-import kotlinx.android.synthetic.main.view_cloud_file_progress.view.cloudFile
 
 class GalleryFilesAdapter @Inject
 constructor(
@@ -43,7 +41,8 @@ constructor(
 	private val fileUtil: FileUtil, //
 	private val sharedPreferencesHandler: SharedPreferencesHandler, //
 	private val mimeTypes: MimeTypes //
-) : RecyclerViewBaseAdapter<CloudNodeModel<*>, GalleryFilesAdapter.ItemClickListener, GalleryContentViewHolder>(CloudNodeModelDateNewestFirstComparator()), FastScrollRecyclerView.SectionedAdapter {
+) : RecyclerViewBaseAdapter<CloudNodeModel<*>, GalleryFilesAdapter.ItemClickListener, GalleryContentViewHolder, ItemGalleryFilesNodeBinding>(CloudNodeModelDateNewestFirstComparator()),
+	FastScrollRecyclerView.SectionedAdapter {
 
 	private var chooseCloudNodeSettings: ChooseCloudNodeSettings? = null
 	private var navigationMode: ChooseCloudNodeSettings.NavigationMode? = null
@@ -51,12 +50,12 @@ constructor(
 	private val isInSelectionMode: Boolean
 		get() = chooseCloudNodeSettings != null
 
-	override fun getItemLayout(viewType: Int): Int {
-		return R.layout.item_gallery_files_node
+	override fun createViewHolder(binding: ItemGalleryFilesNodeBinding, viewType: Int): GalleryContentViewHolder {
+		return GalleryContentViewHolder(binding)
 	}
 
-	override fun createViewHolder(view: View, viewType: Int): GalleryContentViewHolder {
-		return GalleryContentViewHolder(view)
+	override fun getItemBinding(inflater: LayoutInflater, parent: ViewGroup?, viewType: Int): ItemGalleryFilesNodeBinding {
+		return ItemGalleryFilesNodeBinding.inflate(inflater, parent, false)
 	}
 
 	fun addOrReplaceCloudNode(cloudNodeModel: CloudNodeModel<*>) {
@@ -126,7 +125,7 @@ constructor(
 	// descritto da R.layout.item_gallery_files_node
 	// sono state importate le sue componenti
 	// kotlinx.android.synthetic.main.item_gallery_files_node.view.galleryCloudNodeImage
-	inner class GalleryContentViewHolder internal constructor(itemView: View) : RecyclerViewBaseAdapter<*, *, *>.ItemViewHolder(itemView) {
+	inner class GalleryContentViewHolder internal constructor(private val binding: ItemGalleryFilesNodeBinding) : RecyclerViewBaseAdapter<*, *, *, *>.ItemViewHolder(binding.root) {
 
 		private var uiState: UiStateTest? = null
 
@@ -151,15 +150,15 @@ constructor(
 			// di un precente cloudNode che era stato selezionato
 			// e.g. se l'item 22 viene selezionato, cambia il foreground e quando viene
 			// ribindato con l'indice 0 rimane il foregound sbagliato!
-			itemView.galleryItemContainer.foreground = null
+			binding.galleryItemContainer.foreground = null
 		}
 
 		private fun bindNodeImage(node: CloudNodeModel<*>) {
 			if (node is CloudFileModel && isImageMediaType(node.name) && node.thumbnail != null) {
 				val bitmap = BitmapFactory.decodeFile(node.thumbnail!!.absolutePath)
-				itemView.galleryCloudNodeImage.setImageBitmap(bitmap)
+				binding.galleryCloudNodeImage.setImageBitmap(bitmap)
 			} else {
-				itemView.galleryCloudNodeImage.setImageResource(bindCloudNodeImage(node))
+				binding.galleryCloudNodeImage.setImageResource(bindCloudNodeImage(node))
 			}
 		}
 
@@ -208,7 +207,7 @@ constructor(
 			if (isInSelectionMode) {
 				disableNodeLongClick()
 				if (!isSelectable(file)) {
-					itemView.isEnabled = false
+					binding.galleryItemContainer.isEnabled = false
 				}
 			}
 		}
@@ -251,6 +250,7 @@ constructor(
 				}
 			}
 		}
+
 		private fun bindNodeSelection(cloudNodeModel: CloudNodeModel<*>) {
 			// this method is invoked for each item to be displayed!
 
@@ -265,26 +265,26 @@ constructor(
 //				true
 //			}
 
-			enableNodeClick{
+			enableNodeClick {
 				toggleSelection(cloudNodeModel)
 			}
 
 			// first set
 			if (cloudNodeModel.isSelected) {
-				itemView.galleryItemContainer.foreground = getDrawable(R.drawable.rectangle_selection_mode)
+				binding.galleryItemContainer.foreground = getDrawable(R.drawable.rectangle_selection_mode)
 				triggerUpdateSelectedNodesNumberInfo()
 			}
 		}
 
-		private fun toggleSelection(cloudNodeModel : CloudNodeModel<*>) {
+		private fun toggleSelection(cloudNodeModel: CloudNodeModel<*>) {
 			// toggle selection
 			cloudNodeModel.isSelected = !cloudNodeModel.isSelected
 
 			// toggle rectangle
 			if (cloudNodeModel.isSelected)
-				itemView.galleryItemContainer.foreground = getDrawable(R.drawable.rectangle_selection_mode)
+				binding.galleryItemContainer.foreground = getDrawable(R.drawable.rectangle_selection_mode)
 			else
-				itemView.galleryItemContainer.foreground = null
+				binding.galleryItemContainer.foreground = null
 
 			// update screen info
 			triggerUpdateSelectedNodesNumberInfo()
@@ -333,10 +333,10 @@ constructor(
 			uiState?.let { switchTo(it.determinateProgress()) }
 			if (uiState?.isForFile == true) {
 				disableNodeActions()
-				itemView.cloudFile.progress = progress.progress()
+				binding.rlCloudFileProgress.cloudFile.progress = progress.progress()
 				if (currentProgressIcon != progress.state().imageResourceId()) {
 					currentProgressIcon = progress.state().imageResourceId()
-					itemView.cloudFileProgress.progressIcon.setImageDrawable(getDrawable(currentProgressIcon))
+					binding.progressIcon.setImageDrawable(getDrawable(currentProgressIcon))
 				}
 			} else {
 				// no determinate progress for folders
@@ -358,9 +358,9 @@ constructor(
 
 		fun selectNode(checked: Boolean) {
 			if (checked)
-				itemView.galleryItemContainer.foreground = getDrawable(R.drawable.rectangle_selection_mode)
+				binding.galleryItemContainer.foreground = getDrawable(R.drawable.rectangle_selection_mode)
 			else
-				itemView.galleryItemContainer.foreground = null
+				binding.galleryItemContainer.foreground = null
 
 			bound?.let { it.isSelected = checked }
 			triggerUpdateSelectedNodesNumberInfo()
@@ -403,7 +403,7 @@ constructor(
 //				itemView.cloudFileContent.visibility = VISIBLE
 //				itemView.cloudFileText.visibility = VISIBLE
 //				itemView.cloudFileSubText.visibility = VISIBLE
-				itemView.cloudFileProgress.visibility = GONE
+				binding.cloudFileProgress.visibility = GONE
 //				itemView.settings.visibility = VISIBLE
 //				itemView.itemCheckBox.visibility = GONE
 			}
@@ -429,7 +429,7 @@ constructor(
 //				itemView.cloudFileContent.visibility = VISIBLE
 //				itemView.cloudFileText.visibility = VISIBLE
 //				itemView.cloudFileSubText.visibility = GONE
-				itemView.cloudFileProgress.visibility = VISIBLE
+				binding.cloudFileProgress.visibility = VISIBLE
 //				itemView.itemCheckBox.visibility = GONE
 			}
 		}
@@ -441,7 +441,7 @@ constructor(
 //				itemView.cloudFileContent.visibility = VISIBLE
 //				itemView.cloudFileText.visibility = VISIBLE
 //				itemView.cloudFileSubText.visibility = VISIBLE
-				itemView.cloudFileProgress.visibility = GONE
+				binding.cloudFileProgress.visibility = GONE
 //				itemView.itemCheckBox.visibility = GONE
 			}
 

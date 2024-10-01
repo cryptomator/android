@@ -5,20 +5,12 @@ import android.os.Bundle
 import android.view.View
 import org.cryptomator.generator.BottomSheet
 import org.cryptomator.presentation.R
+import org.cryptomator.presentation.databinding.DialogBottomSheetFileSettingsBinding
 import org.cryptomator.presentation.model.CloudFileModel
 import org.cryptomator.presentation.model.CloudNodeModel
-import kotlinx.android.synthetic.main.dialog_bottom_sheet_file_settings.delete_file
-import kotlinx.android.synthetic.main.dialog_bottom_sheet_file_settings.export_file
-import kotlinx.android.synthetic.main.dialog_bottom_sheet_file_settings.iv_file_image
-import kotlinx.android.synthetic.main.dialog_bottom_sheet_file_settings.move_file
-import kotlinx.android.synthetic.main.dialog_bottom_sheet_file_settings.open_with_text
-import kotlinx.android.synthetic.main.dialog_bottom_sheet_file_settings.rename_file
-import kotlinx.android.synthetic.main.dialog_bottom_sheet_file_settings.share_file
-import kotlinx.android.synthetic.main.dialog_bottom_sheet_file_settings.tv_file_name
-import kotlinx.android.synthetic.main.dialog_bottom_sheet_file_settings.tv_file_path
 
 @BottomSheet(R.layout.dialog_bottom_sheet_file_settings)
-class FileSettingsBottomSheet : BaseBottomSheet<FileSettingsBottomSheet.Callback>() {
+class FileSettingsBottomSheet : BaseBottomSheet<FileSettingsBottomSheet.Callback, DialogBottomSheetFileSettingsBinding>(DialogBottomSheetFileSettingsBinding::inflate) {
 
 	interface Callback {
 
@@ -36,40 +28,40 @@ class FileSettingsBottomSheet : BaseBottomSheet<FileSettingsBottomSheet.Callback
 
 		cloudFileModel.thumbnail?.let {
 			val thumbnail = BitmapFactory.decodeFile(it.absolutePath)
-			iv_file_image.setImageBitmap(thumbnail)
+			binding.ivFileImage.setImageBitmap(thumbnail)
 		}
-		if(iv_file_image.drawable == null)
-			iv_file_image.setImageResource(cloudFileModel.icon.iconResource)
+		if(binding.ivFileImage.drawable == null)
+			binding.ivFileImage.setImageResource(cloudFileModel.icon.iconResource)
 
-		tv_file_name.text = cloudFileModel.name
-		tv_file_path.text = parentFolderPath
+		binding.tvFileName.text = cloudFileModel.name
+		binding.tvFilePath.text = parentFolderPath
 
 		val lowerFileName = cloudFileModel.name.lowercase()
 		if (lowerFileName.endsWith(".txt") || lowerFileName.endsWith(".md") || lowerFileName.endsWith(".todo")) {
-			open_with_text.visibility = View.VISIBLE
-			open_with_text.setOnClickListener {
+			binding.openWithText.visibility = View.VISIBLE
+			binding.openWithText.setOnClickListener {
 				callback?.onOpenWithTextFileClicked(cloudFileModel)
 				dismiss()
 			}
 		}
 
-		share_file.setOnClickListener {
+		binding.shareFile.setOnClickListener {
 			callback?.onShareFileClicked(cloudFileModel)
 			dismiss()
 		}
-		move_file.setOnClickListener {
+		binding.moveFile.setOnClickListener {
 			callback?.onMoveFileClicked(cloudFileModel)
 			dismiss()
 		}
-		export_file.setOnClickListener {
+		binding.exportFile.setOnClickListener {
 			callback?.onExportFileClicked(cloudFileModel)
 			dismiss()
 		}
-		rename_file.setOnClickListener {
+		binding.renameFile.setOnClickListener {
 			callback?.onRenameFileClicked(cloudFileModel)
 			dismiss()
 		}
-		delete_file.setOnClickListener {
+		binding.deleteFile.setOnClickListener {
 			callback?.onDeleteNodeClicked(cloudFileModel)
 			dismiss()
 		}

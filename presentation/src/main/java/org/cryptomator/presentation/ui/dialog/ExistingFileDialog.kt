@@ -6,10 +6,10 @@ import android.os.Bundle
 import androidx.appcompat.app.AlertDialog
 import org.cryptomator.generator.Dialog
 import org.cryptomator.presentation.R
-import kotlinx.android.synthetic.main.dialog_existing_file.tv_message
+import org.cryptomator.presentation.databinding.DialogExistingFileBinding
 
-@Dialog(R.layout.dialog_existing_file)
-class ExistingFileDialog : BaseDialog<ExistingFileDialog.Callback>() {
+@Dialog
+class ExistingFileDialog : BaseDialog<ExistingFileDialog.Callback, DialogExistingFileBinding>(DialogExistingFileBinding::inflate) {
 
 	interface Callback {
 
@@ -26,7 +26,7 @@ class ExistingFileDialog : BaseDialog<ExistingFileDialog.Callback>() {
 
 	override fun setupView() {
 		val fileName = requireArguments().getString(FILE_NAME_ARG)
-		tv_message.text = String.format(getString(R.string.dialog_existing_file_message), fileName)
+		binding.tvMessage.text = String.format(getString(R.string.dialog_existing_file_message), fileName)
 	}
 
 	companion object {

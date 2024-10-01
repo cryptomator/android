@@ -6,10 +6,12 @@ import android.os.Bundle
 import android.view.View
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import androidx.fragment.app.Fragment
+import org.cryptomator.domain.Vault
 import org.cryptomator.generator.Activity
 import org.cryptomator.generator.InjectIntent
 import org.cryptomator.presentation.CryptomatorApp
 import org.cryptomator.presentation.R
+import org.cryptomator.presentation.databinding.ActivityLayoutObscureAwareBinding
 import org.cryptomator.presentation.intent.Intents.browseFilesIntent
 import org.cryptomator.presentation.intent.Intents.settingsIntent
 import org.cryptomator.presentation.intent.VaultListIntent
@@ -24,24 +26,26 @@ import org.cryptomator.presentation.ui.bottomsheet.SettingsVaultBottomSheet
 import org.cryptomator.presentation.ui.callback.VaultListCallback
 import org.cryptomator.presentation.ui.dialog.AskForLockScreenDialog
 import org.cryptomator.presentation.ui.dialog.BetaConfirmationDialog
+import org.cryptomator.presentation.ui.dialog.CBCPasswordVaultsMigrationDialog
 import org.cryptomator.presentation.ui.dialog.UpdateAppAvailableDialog
 import org.cryptomator.presentation.ui.dialog.UpdateAppDialog
 import org.cryptomator.presentation.ui.dialog.VaultDeleteConfirmationDialog
 import org.cryptomator.presentation.ui.dialog.VaultRenameDialog
 import org.cryptomator.presentation.ui.fragment.VaultListFragment
 import org.cryptomator.presentation.ui.layout.ObscuredAwareCoordinatorLayout.Listener
+import org.cryptomator.presentation.util.BiometricAuthenticationMigration
 import javax.inject.Inject
-import kotlinx.android.synthetic.main.activity_layout_obscure_aware.activityRootView
-import kotlinx.android.synthetic.main.toolbar_layout.toolbar
 
-@Activity(layout = R.layout.activity_layout_obscure_aware)
-class VaultListActivity : BaseActivity(), //
+@Activity
+class VaultListActivity : BaseActivity<ActivityLayoutObscureAwareBinding>(ActivityLayoutObscureAwareBinding::inflate), //
 	VaultListView, //
 	VaultListCallback, //
 	AskForLockScreenDialog.Callback, //
 	UpdateAppAvailableDialog.Callback, //
 	UpdateAppDialog.Callback, //
-	BetaConfirmationDialog.Callback {
+	BetaConfirmationDialog.Callback, //
+	CBCPasswordVaultsMigrationDialog.Callback, //
+	BiometricAuthenticationMigration.Callback {
 
 	@Inject
 	lateinit var vaultListPresenter: VaultListPresenter
@@ -62,7 +66,7 @@ class VaultListActivity : BaseActivity(), //
 	override fun setupView() {
 		setupToolbar()
 		vaultListPresenter.prepareView()
-		activityRootView.setOnFilteredTouchEventForSecurityListener(object : Listener {
+		binding.activityRootView.setOnFilteredTouchEventForSecurityListener(object : Listener {
 			override fun onFilteredTouchEventForSecurity() {
 				vaultListPresenter.onFilteredTouchEventForSecurity()
 			}
@@ -106,8 +110,8 @@ class VaultListActivity : BaseActivity(), //
 	}
 
 	private fun setupToolbar() {
-		toolbar.title = getString(R.string.app_name).uppercase()
-		setSupportActionBar(toolbar)
+		binding.mtToolbar.toolbar.title = getString(R.string.app_name).uppercase()
+		setSupportActionBar(binding.mtToolbar.toolbar)
 	}
 
 	override fun showAddVaultBottomSheet() {
@@ -124,6 +128,11 @@ class VaultListActivity : BaseActivity(), //
 
 	override fun vaultMoved(vaults: List<VaultModel>) {
 		vaultListFragment().vaultMoved(vaults)
+	}
+
+	override fun migrateCBCEncryptedPasswordVaults(vaults: List<VaultModel>) {
+		val biometricAuthenticationMigration = BiometricAuthenticationMigration(this, context(), sharedPreferencesHandler.useConfirmationInFaceUnlockBiometricAuthentication())
+		biometricAuthenticationMigration.migrateVaultsPassword(vaultListFragment(), vaults)
 	}
 
 	override fun showVaultSettingsDialog(vaultModel: VaultModel) {
@@ -198,7 +207,7 @@ class VaultListActivity : BaseActivity(), //
 	}
 
 	private fun vaultListFragment(): VaultListFragment = //
-		getCurrentFragment(R.id.fragmentContainer) as VaultListFragment
+		getCurrentFragment(R.id.fragment_container) as VaultListFragment
 
 	override fun onUpdateAppDialogLoaded() {
 		showProgress(ProgressModel.GENERIC)
@@ -222,4 +231,25 @@ class VaultListActivity : BaseActivity(), //
 	override fun onAskForBetaConfirmationFinished() {
 		sharedPreferencesHandler.setBetaScreenDialogAlreadyShown(true)
 	}
+
+	override fun onCBCPasswordVaultsMigrationClicked(cbcVaults: List<Vault>) {
+		vaultListPresenter.cBCPasswordVaultsMigrationClicked(cbcVaults)
+	}
+
+	override fun onCBCPasswordVaultsMigrationRejected(cbcVaults: List<Vault>) {
+		vaultListPresenter.cBCPasswordVaultsMigrationRejected(cbcVaults)
+	}
+
+	override fun onBiometricAuthenticationMigrationFinished(vaults: List<VaultModel>) {
+		vaultListPresenter.biometricAuthenticationMigrationFinished(vaults)
+	}
+
+	override fun onBiometricAuthenticationFailed(vaults: List<VaultModel>) {
+		vaultListPresenter.biometricAuthenticationFailed(vaults)
+	}
+
+	override fun onBiometricKeyInvalidated(vaults: List<VaultModel>) {
+		vaultListPresenter.biometricKeyInvalidated(vaults)
+	}
+
 }

@@ -2,12 +2,10 @@ package org.cryptomator.presentation.ui.bottomsheet
 
 import org.cryptomator.generator.BottomSheet
 import org.cryptomator.presentation.R
-import kotlinx.android.synthetic.main.dialog_bottom_sheet_add_vault.add_existing_vault
-import kotlinx.android.synthetic.main.dialog_bottom_sheet_add_vault.create_new_vault
-import kotlinx.android.synthetic.main.dialog_bottom_sheet_add_vault.title
+import org.cryptomator.presentation.databinding.DialogBottomSheetAddVaultBinding
 
 @BottomSheet(R.layout.dialog_bottom_sheet_add_vault)
-class AddVaultBottomSheet : BaseBottomSheet<AddVaultBottomSheet.Callback>() {
+class AddVaultBottomSheet : BaseBottomSheet<AddVaultBottomSheet.Callback, DialogBottomSheetAddVaultBinding>(DialogBottomSheetAddVaultBinding::inflate) {
 
 	interface Callback {
 
@@ -16,8 +14,8 @@ class AddVaultBottomSheet : BaseBottomSheet<AddVaultBottomSheet.Callback>() {
 	}
 
 	override fun setupView() {
-		title.text = getString(R.string.screen_vault_list_actions_title)
-		create_new_vault.setOnClickListener { callback?.onCreateVault() }
-		add_existing_vault.setOnClickListener { callback?.onAddExistingVault() }
+		binding.title.setText(R.string.screen_vault_list_actions_title)
+		binding.createNewVault.setOnClickListener { callback?.onCreateVault() }
+		binding.addExistingVault.setOnClickListener { callback?.onAddExistingVault() }
 	}
 }

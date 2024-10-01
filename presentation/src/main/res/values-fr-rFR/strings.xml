@@ -9,7 +9,7 @@
 	<string name="error_no_network_connection">Pas de connexion au réseau</string>
 	<string name="error_invalid_passphrase">Mot de passe erroné</string>
 	<string name="error_file_or_folder_exists">Un fichier ou un dossier existe déjà.</string>
-	<string name="error_vault_version_not_supported">La version du coffre %1$s n\'est pas prise en charge. Ce coffre a été créé avec une version plus ancienne ou plus récente de Cryptomator.</string>
+	<string name="error_vault_version_not_supported">La version du coffre-fort %1$s n\'est pas prise en charge. Ce coffre-fort a été créé avec une version plus ancienne ou plus récente de Cryptomator.</string>
 	<string name="error_vault_config_file_missing_due_to_format_999">Le fichier %1$s est manquant dans le dossier contenant votre coffre. Assurez-vous que ce fichier existe dans le dossier contenant votre coffre dans le cloud.</string>
 	<string name="error_vault_already_exists">Le coffre-fort existe déjà.</string>
 	<string name="error_no_such_file">Le fichier n\'existe pas.</string>
@@ -24,9 +24,9 @@
 	<string name="error_vault_name_contains_invalid_characters">Le nom du coffre-fort ne peut pas contenir de caractères spéciaux.</string>
 	<string name="error_general_update">La vérification de la mise à jour a échoué. Une erreur générale s\'est produite.</string>
 	<string name="error_hash_mismatch_update">La vérification de la mise à jour a échoué. Le hachage calculé ne correspond pas au fichier téléchargé</string>
-	<string name="error_update_no_internet">La vérification de la mise à jour a échoué. Pas de connexion Internet.</string>
+	<string name="error_update_no_internet">La vérification de la mise à jour a échoué. Pas de connexion internet.</string>
 	<string name="error_failed_to_decrypt_webdav_password">Échec lors du déchiffrement du mot de passe WebDAV, veuillez l\'ajouter une nouvelle fois dans les paramètres</string>
-	<string name="error_play_services_not_available">Les services Google Play ne sont pas installés</string>
+	<string name="error_play_services_not_available">Services Google Play non installés</string>
 	<string name="error_biometric_auth_aborted">Authentification biométrique avortée</string>
 	<string name="error_vault_version_mismatch">La version spécifiée dans %1$s est différente de %2$s</string>
 	<string name="error_vault_key_invalid">%1$s ne correspond pas à ce %2$s</string>
@@ -51,12 +51,12 @@
 	<string name="snack_bar_action_title_sort">Trier par</string>
 	<string name="snack_bar_action_title_sort_az">A - Z</string>
 	<string name="snack_bar_action_title_sort_za">Z - A</string>
-	<string name="snack_bar_action_title_sort_newest">Récent d\'abord</string>
+	<string name="snack_bar_action_title_sort_newest">Plus récent d\'abord</string>
 	<string name="snack_bar_action_title_sort_oldest">Ancien d\'abord</string>
-	<string name="snack_bar_action_title_sort_biggest">Taille décroissante</string>
-	<string name="snack_bar_action_title_sort_smallest">Taille croissante</string>
+	<string name="snack_bar_action_title_sort_biggest">Plus gros d\'abord</string>
+	<string name="snack_bar_action_title_sort_smallest">Plus petit d\'abord</string>
 	<string name="snack_bar_cryptomator_variants_title">En savoir plus</string>
-	<string name="snack_bar_cryptomator_variants_hint">Cloud absent de la liste ?</string>
+	<string name="snack_bar_cryptomator_variants_hint">Nuage absent de la liste ?</string>
 	<!-- # screens -->
 	<!-- # screen: vault list -->
 	<string name="screen_vault_list_actions_title">Ajouter à Cryptomator</string>
@@ -222,10 +222,10 @@
 	<string name="screen_cryptomator_variants_lite_description">Exclues car elles nécessitent des clés d\'API.</string>
 	<string name="screen_cryptomator_variants_lite_install">Installer</string>
 	<string name="screen_cryptomator_variants_fdroid_title">Dépôt F-Droid de Cryptomator</string>
-	<string name="screen_cryptomator_variants_fdroid_description">Exclues car elles ont des dépendances propriétaires.</string>
+	<string name="screen_cryptomator_variants_fdroid_description">Exclues car elles contiennent des dépendances propriétaires.</string>
 	<string name="screen_cryptomator_variants_fdroid_add_repo_hint">Ajouter le dépôt Cryptomator à l\'application F-Droid.</string>
 	<string name="screen_cryptomator_variants_fdroid_add_repo">Ajouter</string>
-	<string name="screen_cryptomator_variants_fdroid_install_hint">Installez Cryptomator via F-Droid.\nSi une erreur \"introuvable\" (not found) apparaît, attendez que la synchronisation F-Droid s\'achève.</string>
+	<string name="screen_cryptomator_variants_fdroid_install_hint">Installez Cryptomator via F-Droid.\nSi une erreur « introuvable » (not found) apparaît, attendez que la synchronisation F-Droid soit terminée.</string>
 	<string name="screen_cryptomator_variants_website_title">Site web</string>
 	<string name="screen_cryptomator_variants_website_description">Contient des dépendances propriétaires.</string>
 	<string name="screen_cryptomator_variants_installation_hint">Passer à la variante du dépôt F-Droid principal ou l\'abandonner nécessite une nouvelle configuration de l\'application.</string>
@@ -307,17 +307,17 @@
 	<string name="dialog_debug_mode_disclaimer_title">Avertissement</string>
 	<string name="dialog_debug_mode_positive_button">Activer</string>
 	<string name="dialog_microsoft_workaround_disclaimer_hint">En raison d\'un bug dans les appli Microsoft, le fichier à modifier doit être partagé avec ces appli dans un dossier média public sur votre appareil. Après le rechargement de Cryptomator, le fichier accessible au public est à nouveau supprimé, mais Cryptomator ne peut pas contrôler ce qui est arrivé à ce fichier entre-temps. Assurez-vous d\'être au courant de ce comportement lors de l\'activation de cette option. Cela ne s\'appliquera qu\'aux types de fichiers Microsoft.\n\nCryptomator redémarrera après l\'activation.</string>
-	<string name="dialog_disable_app_obscured_disclaimer_hint">Ce paramètre est une fonction de sécurité qui empêche d\'autres applications de tromper les utilisateurs en leur faisant faire des choses qu\'ils ne veulent pas faire.\n\nEn le désactivant, vous confirmez que vous êtes <a href="https://docs.cryptomator.org/en/1.6/android/settings/#block-app-when-obscured">conscients des risques</a>.</string>
+	<string name="dialog_disable_app_obscured_disclaimer_hint">Ce paramètre est une fonction de sécurité qui empêche les autres applications de manipuler les utilisateurs et de les inciter à faire des choses qu\'ils ne souhaitent pas faire.\n\n En le désactivant, vous confirmez que vous êtes <a href="https://docs.cryptomator.org/en/latest/android/settings/#block-app-when-obscured">conscient des risques</a>.</string>
 	<string name="dialog_disable_app_obscured_disclaimer_title">Avertissement</string>
 	<string name="dialog_disable_app_obscured_positive_button">Désactiver</string>
 	<string name="dialog_app_is_obscured_info_title">\'application est masquée</string>
-	<string name="dialog_app_is_obscured_info_hint">Une autre application affiche quelque chose par-dessus Cryptomator (par exemple, un filtre de lumière bleue ou une application de mode nocturne). Pour des raisons de sécurité, Cryptomator est désactivé.\n\n<a href="https://docs.cryptomator.org/en/1.6/android/settings/#block-app-when-obscured">Comment activer Cryptomator</a></string>
+	<string name="dialog_app_is_obscured_info_hint">Une autre application affiche quelque chose par-dessus Cryptomator (par exemple, un filtre de lumière bleue ou une application de mode nocturne). Pour des raisons de sécurité, Cryptomator est désactivé.\n\n<a href="https://docs.cryptomator.org/en/latest/android/settings/#block-app-when-obscured">Comment activer Cryptomator</a></string>
 	<string name="dialog_app_is_obscured_info_neutral_button">Fermer</string>
 	<string name="dialog_vaults_removed_during_migration_title">Veuillez rajouter les coffres pour le cloud %1s</string>
 	<string name="dialog_vaults_removed_during_migration_hint">Lors de la migration vers cette version de l\'application, nous devons supprimer les coffres suivants de l\'application :\n%2s \n\nCes coffres ne sont pas retirés du cloud mais seulement de cette application. Désolé pour le désagrément et veuillez rajouter ces coffres pour continuer à les utiliser.</string>
 	<string name="dialog_vault_is_root_folder_of_cloud_title">Le coffre est le dossier racine de la connexion cloud</string>
 	<string name="dialog_vault_is_root_folder_of_cloud_hint">Créez une nouvelle connexion cloud où vous sélectionnerez au moins le dossier parent de ce dossier de coffre comme répertoire racine pour ajouter ce coffre.</string>
-	<string name="dialog_disable_secure_screen_disclaimer_hint">Ce paramètre est une fonction de sécurité qui empêche d\'autres applications de tromper les utilisateurs en leur faisant faire des choses qu\'ils ne veulent pas faire.\n\n En le désactivant, vous confirmez que vous êtes <a href="https://docs.cryptomator.org/en/1.6/android/settings/#screen-security">conscients des risques</a>.</string>
+	<string name="dialog_disable_secure_screen_disclaimer_hint">Ce paramètre est une fonction de sécurité qui empêche les autres applications de manipuler les utilisateurs et de les inciter à faire des choses qu\'ils ne souhaitent pas faire.\n\n En le désactivant, vous confirmez que vous êtes <a href="https://docs.cryptomator.org/en/latest/android/settings/#screen-security">conscients des risques</a>.</string>
 	<string name="dialog_delete_cloud_connection_with_vaults_message">Êtes-vous sûr de vouloir supprimer cette connexion au cloud?</string>
 	<string name="dialog_delete_cloud_connection_with_vaults_hint">Cette action retirera l\'accès à ce cloud et à tous les coffre-fort de celui-ci.</string>
 	<string name="dialog_confirm_delete_multiple_title">Supprimé %1$d éléments?</string>
@@ -349,6 +349,9 @@
 	<string name="dialog_no_more_images_to_display">Plus d\'images à afficher&#8230;</string>
 	<string name="dialog_pcloud_credentials_updated_title">Les identifiants de \'%1$s\' ont été mis à jour</string>
 	<string name="dialog_pcloud_credentials_updated">Si vous avez l\'intention d\'ajouter un nouveau compte pCloud, cliquez sur cette url <a href="https://www.pcloud.com">www.pcloud.com</a>, déconnectez-vous du compte actuel et cliquez à nouveau sur le \'+\' dans cette application pour créer une nouvelle connexion pCloud.</string>
+	<string name="dialog_cbc_password_vaults_migration_title">Migration du mot de passe du coffre requise</string>
+	<string name="dialog_cbc_password_vaults_migration_hint">En raison des améliorations apportées à la sécurité, votre authentification biométrique vous sera demandée deux fois pour chaque coffre-fort afin de re-chiffrer vos mots de passe. Ceci est nécessaire pour continuer à protéger vos mots de passe de coffres-forts à l\'aide des technologies les plus récentes. Si vous ne souhaitez pas vous réauthentifier, les mots de passe stockés seront supprimés.</string>
+	<string name="dialog_cbc_password_vaults_migration_action">Migrer</string>
 	<string name="permission_snackbar_auth_local_vault">Cryptomator a besoin de l\'accès au stockage pour utiliser les coffres locaux</string>
 	<string name="permission_snackbar_auth_auto_upload">Cryptomator a besoin de l\'accès au stockage pour effectuer le téléversement automatique de photos</string>
 	<string name="permission_snackbar_notifications">Cryptomator requiert des permissions de notification pour afficher le statut du coffre, par exemple</string>

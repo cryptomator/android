@@ -7,19 +7,18 @@ import androidx.core.content.ContextCompat
 import com.google.android.material.textfield.TextInputEditText
 import org.cryptomator.generator.Fragment
 import org.cryptomator.presentation.R
+import org.cryptomator.presentation.databinding.FragmentTextEditorBinding
 import org.cryptomator.presentation.presenter.TextEditorPresenter
 import javax.inject.Inject
-import kotlinx.android.synthetic.main.fragment_text_editor.textEditor
-import kotlinx.android.synthetic.main.fragment_text_editor.textViewWrapper
 
-@Fragment(R.layout.fragment_text_editor)
-class TextEditorFragment : BaseFragment() {
+@Fragment
+class TextEditorFragment : BaseFragment<FragmentTextEditorBinding>(FragmentTextEditorBinding::inflate) {
 
 	@Inject
 	lateinit var textEditorPresenter: TextEditorPresenter
 
 	val textFileContent: String
-		get() = textEditor.text.toString()
+		get() = binding.textEditor.text.toString()
 
 	override fun setupView() {
 		// no-op
@@ -30,13 +29,13 @@ class TextEditorFragment : BaseFragment() {
 	}
 
 	fun displayTextFileContent(textFileContent: String?) {
-		textEditor.setText(textFileContent)
+		binding.textEditor.setText(textFileContent)
 	}
 
 	fun onQueryText(query: String) {
 		textEditorPresenter.query = query
 
-		clearSpans(textEditor)
+		clearSpans(binding.textEditor)
 
 		if (query.isEmpty()) {
 			return
@@ -60,9 +59,9 @@ class TextEditorFragment : BaseFragment() {
 			return
 		}
 
-		clearSpans(textEditor)
+		clearSpans(binding.textEditor)
 
-		val fulltext = textEditor.text.toString().lowercase()
+		val fulltext = binding.textEditor.text.toString().lowercase()
 
 		textEditorPresenter.query?.lowercase()?.let {
 			val index: Int = when (direction) {
@@ -85,7 +84,7 @@ class TextEditorFragment : BaseFragment() {
 				return
 			}
 
-			textEditor.text?.setSpan(
+			binding.textEditor.text?.setSpan(
 				BackgroundColorSpan(ContextCompat.getColor(context(), R.color.colorPrimaryTransparent)),
 				index,
 				index + it.length,
@@ -94,7 +93,7 @@ class TextEditorFragment : BaseFragment() {
 
 			textEditorPresenter.lastFilterLocation = index
 
-			textViewWrapper.scrollTo(0, textEditor.layout.getLineTop(textEditor.layout.getLineForOffset(index)))
+			binding.textViewWrapper.scrollTo(0, binding.textEditor.layout.getLineTop(binding.textEditor.layout.getLineForOffset(index)))
 		}
 	}
 

@@ -307,17 +307,17 @@
 	<string name="dialog_debug_mode_disclaimer_title">Observera</string>
 	<string name="dialog_debug_mode_positive_button">Aktivera</string>
 	<string name="dialog_microsoft_workaround_disclaimer_hint">På grund av ett fel i Microsoft-appar, måste filen som ska redigeras delas med dessa appar i en offentlig mediemapp på din enhet. Efter att Cryptomator återupptas raderas den allmänt tillgängliga filen igen, men Cryptomator kan inte påverka vad som har hänt med filen under tiden. Det är viktigt att du är medveten om detta beteende när du aktiverar detta alternativ. Detta kommer endast att gälla för Microsoft filtyper.\n\nCryptomator startar om efter aktivering.</string>
-	<string name="dialog_disable_app_obscured_disclaimer_hint">Den här inställningen är en säkerhetsfunktion som hindrar andra appar från att lura användare att göra saker de inte vill.\n\nGenom att stänga av säkerhetsfunktionen bekräftar du att du är <a href="https://docs.cryptomator.org/en/1.6/android/settings/#block-app-when-obscured">medveten om riskerna</a>.</string>
+	<string name="dialog_disable_app_obscured_disclaimer_hint">Den här inställningen är en säkerhetsfunktion som hindrar andra appar från att lura användare att göra saker de inte vill.\n\nGenom att stänga av säkerhetsfunktionen bekräftar du att du är <a href="https://docs.cryptomator.org/en/latest/android/settings/#block-app-when-obscured">medveten om riskerna</a>.</string>
 	<string name="dialog_disable_app_obscured_disclaimer_title">Observera</string>
 	<string name="dialog_disable_app_obscured_positive_button">Inaktivera</string>
 	<string name="dialog_app_is_obscured_info_title">Appen är täckt</string>
-	<string name="dialog_app_is_obscured_info_hint">Ett annat program visar något ovanpå Cryptomator (t.ex. ett blått ljusfilter eller nattläge app). Av säkerhetsskäl är Cryptomator inaktiverad.\n\n<a href="https://docs.cryptomator.org/en/1.6/android/settings/#block-app-when-obscured">Så här aktiverar du Cryptomator</a></string>
+	<string name="dialog_app_is_obscured_info_hint">Ett annat program visar något ovanpå Cryptomator (t.ex. ett blåljusfilter eller en app för nattläge). Av säkerhetsskäl är Cryptomator inaktiverad.\n\n<a href="https://docs.cryptomator.org/en/latest/android/settings/#block-app-when-obscured">Så här aktiverar du Cryptomator</a></string>
 	<string name="dialog_app_is_obscured_info_neutral_button">Stäng</string>
 	<string name="dialog_vaults_removed_during_migration_title">Vänligen lägg till valv igen för %1s molnet</string>
 	<string name="dialog_vaults_removed_during_migration_hint">Medan vi migrerar till den här appversionen måste vi ta bort följande valv från appen:\n%2s \n\nDessa valv tas inte bort från molnet utan endast från den här appen. Ledsen för besväret. Du lägger sedan till dessa valv igen för att fortsätta arbeta med dem.</string>
 	<string name="dialog_vault_is_root_folder_of_cloud_title">Valvet är rotmapp för molnanslutningen</string>
 	<string name="dialog_vault_is_root_folder_of_cloud_hint">Skapa en ny molnanslutning där du väljer minst den överordnade mappen i denna valvkatalog som rotkatalog för att lägga till valvet.</string>
-	<string name="dialog_disable_secure_screen_disclaimer_hint">Den här inställningen är en säkerhetsfunktion som hindrar andra appar från att lura användare att göra saker de inte vill.\n\nGenom att stänga av säkerhetsfunktionen bekräftar du att du är <a href="https://docs.cryptomator.org/en/1.6/android/settings/#screen-security">medveten om riskerna</a>.</string>
+	<string name="dialog_disable_secure_screen_disclaimer_hint">Den här inställningen är en säkerhetsfunktion som hindrar andra appar från att lura användare att göra saker de inte vill.\n\nGenom att stänga av säkerhetsfunktionen bekräftar du att du är <a href="https://docs.cryptomator.org/en/latest/android/settings/#screen-security">medveten om riskerna</a>.</string>
 	<string name="dialog_delete_cloud_connection_with_vaults_message">Är du säker på att du vill ta bort den här molnanslutningen?</string>
 	<string name="dialog_delete_cloud_connection_with_vaults_hint">Denna åtgärd kommer att ta bort molnanslutningen och alla valv i detta moln.</string>
 	<string name="dialog_confirm_delete_multiple_title">Ta bort %1$d objekt?</string>
@@ -349,6 +349,9 @@
 	<string name="dialog_no_more_images_to_display">Inga fler bilder att visa&#8230;</string>
 	<string name="dialog_pcloud_credentials_updated_title">Användaruppgifter för \'%1$s\' uppdaterad</string>
 	<string name="dialog_pcloud_credentials_updated">Om du avsåg att lägga till ett nytt pCloud-konto, tryck på denna url <a href="https://www.pcloud.com">www.pcloud.com</a>, logga ut från det nuvarande kontot och tryck igen på \'+\' i den här appen för att skapa en ny molnanslutning.</string>
+	<string name="dialog_cbc_password_vaults_migration_title">Lösenorden behöver överföras till nya valvet</string>
+	<string name="dialog_cbc_password_vaults_migration_hint">På grund av säkerhetsförbättringar kommer du att bli ombedd att använda din biometriska autentisering två gånger för varje valv för att omkryptera dina valvlösenord. Detta är nödvändigt för att fortsätta att skydda ditt valv lösenord med den senaste tekniken. Om du inte vill att detta ska ske kommer de sparade lösenorden att tas bort.</string>
+	<string name="dialog_cbc_password_vaults_migration_action">Migrera</string>
 	<string name="permission_snackbar_auth_local_vault">Cryptomator behöver åtkomst till lagringsutrymmet för att använda lokala valv</string>
 	<string name="permission_snackbar_auth_auto_upload">Cryptomator behöver åtkomst till lagringsutrymmet för att kunna använda automatisk uppladdning av foton</string>
 	<string name="permission_snackbar_notifications">Cryptomator behöver aviseringsbehörigheter för att till exempel visa valvstatus</string>
