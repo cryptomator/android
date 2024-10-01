@@ -40,9 +40,9 @@
 	<string name="cloud_names_local_storage">Yerel depolama</string>
 	<!-- # permission -->
 	<!-- ## permission messages -->
-	<string name="permission_message_export_file">Cryptomator\'un dosyaları dışa aktarmak için depolama erişimine ihtiyacı var</string>
-	<string name="permission_message_upload_file">Cryptomator\'un dosyaları yüklemek için depolama erişimine ihtiyacı var</string>
-	<string name="permission_message_share_file">Cryptomator\'un dosyaları paylaşmak için depolama erişimine ihtiyacı var</string>
+	<string name="permission_message_export_file">Cryptomator\'ın dosyaları dışa aktarmak için depolama erişimine ihtiyacı var</string>
+	<string name="permission_message_upload_file">Cryptomator\'ın dosyaları yüklemek için depolama erişimine ihtiyacı var</string>
+	<string name="permission_message_share_file">Cryptomator\'ın dosyaları paylaşmak için depolama erişimine ihtiyacı var</string>
 	<string name="permission_revoked_re_request_permission">Cryptomator bu konuma erişim iznini kaybetti. İzni geri yüklemek için lütfen bu klasörü tekrar seçin.</string>
 	<string name="snack_bar_action_title_settings">Ayarlar</string>
 	<string name="snack_bar_action_title_search">Ara</string>
@@ -77,7 +77,7 @@
 	<string name="screen_file_browser_move_button_text">Taşı</string>
 	<string name="screen_file_browser_msg_empty_folder">Boş</string>
 	<string name="screen_file_browser_file_info_label_date">%1$s önce değiştirildi</string>
-	<string name="screen_file_browser_share_intent_chooser_title">İle paylaş</string>
+	<string name="screen_file_browser_share_intent_chooser_title">Şununla paylaş</string>
 	<string name="screen_file_browser_share_destination_title">Bir varış noktası seçin</string>
 	<string name="screen_file_browser_share_button_text">Seç</string>
 	<string name="screen_file_browser_nothing_to_share">Paylaşacak bir şey yok</string>
@@ -107,10 +107,10 @@
 	<string name="screen_text_editor_save_success">Başarıyla kaydedildi</string>
 	<!-- ## screen: share files -->
 	<string name="screen_share_files_title">%1$s kaydet&#8230;</string>
-	<string name="screen_share_files_content_text">Metin</string>
-	<string name="screen_share_files_content_file">Dosya</string>
-	<string name="screen_share_files_content_files">Dosyalar</string>
-	<string name="screen_share_files_msg_filenames_must_be_unique">Dosya adları benzersiz olmalıdır, lütfen mükerrer olanları yeniden adlandırın.</string>
+	<string name="screen_share_files_content_text">metin</string>
+	<string name="screen_share_files_content_file">dosya</string>
+	<string name="screen_share_files_content_files">dosyalar</string>
+	<string name="screen_share_files_msg_filenames_must_be_unique">Dosya adları benzersiz olmalıdır, lütfen kopyaları yeniden adlandırın.</string>
 	<string name="screen_share_files_section_location">Konumu kaydet</string>
 	<string name="screen_share_files_save_button_text">Kaydet</string>
 	<string name="screen_share_files_msg_success">Şifreleme tamamlandı</string>
@@ -134,7 +134,7 @@
 	<string name="screen_s3_settings_display_name_label">Görünen Ad</string>
 	<string name="screen_s3_settings_access_key_label">Erişim Anahtarı</string>
 	<string name="screen_s3_settings_secret_key_label">Gizli Anahtar</string>
-	<string name="screen_s3_settings_bucket_label">Mevcut kova</string>
+	<string name="screen_s3_settings_bucket_label">Mevcut Kova</string>
 	<string name="screen_s3_settings_endpoint_label">Uç nokta</string>
 	<string name="screen_s3_settings_region_label">Bölge</string>
 	<string name="screen_s3_settings_msg_display_name_not_empty">Görünen ad boş olamaz</string>
@@ -153,9 +153,9 @@
 	<string name="screen_set_password_hint">ÖNEMLİ UYARI: Parolanızı unutursanız, verilerinizi kurtarmanın herhangi bir yolu yoktur.</string>
 	<string name="screen_set_password_retype_password_label">Yeni şifreyi tekrar yazın</string>
 	<string name="screen_set_password_strength_indicator_0">Cüzdan oluşturmak için çok zayıf</string>
-	<string name="screen_set_password_strength_indicator_1">Güçsüz</string>
+	<string name="screen_set_password_strength_indicator_1">Zayıf</string>
 	<string name="screen_set_password_strength_indicator_2">Makul</string>
-	<string name="screen_set_password_strength_indicator_3">Kuvvetli</string>
+	<string name="screen_set_password_strength_indicator_3">Güçlü</string>
 	<string name="screen_set_password_strength_indicator_4">Çok güçlü</string>
 	<!-- ## screen: settings -->
 	<string name="screen_settings_section_general">Genel</string>
@@ -164,7 +164,7 @@
 	<string name="screen_settings_activate_biometric_auth">Biyometrik kimlik doğrulamayı etkinleştir</string>
 	<string name="screen_settings_confirm_face_unlock">Yüz tanıma kilidini (varsa) onaylayın</string>
 	<string name="screen_settings_block_app_when_obscured">Gizlendiğinde uygulamayı engelle</string>
-	<string name="screen_settings_block_app_when_obscured_summary">Girdiye müdahele etmeyi ve sahte bir kullanıcı arayüzü görüntülemeyi engelle</string>
+	<string name="screen_settings_block_app_when_obscured_summary">Girdiye müdahale etmeyi ve sahte bir kullanıcı arayüzü görüntülemeyi engelle</string>
 	<string name="screen_settings_secure_screen">Ekran alıntılarını engelle</string>
 	<string name="screen_settings_secure_screen_summary">Son uygulamalar görünümünde ve uygulama içinde ekran alıntısı alınmasını engelle</string>
 	<string name="screen_settings_section_search">Arama</string>
@@ -172,10 +172,10 @@
 	<string name="screen_settings_live_search_summary">Sorgulama yaparken, arama sonuçlarını güncelle</string>
 	<string name="screen_settings_glob_search">Glob kalıbı kullanarak ara</string>
 	<string name="screen_settings_glob_search_summary">Glob kalıbı kullan. alice.*.jpg gibi</string>
-	<string name="screen_settings_section_auto_lock">Otomatik Kilitleme</string>
+	<string name="screen_settings_section_auto_lock">Otomatik kilitleme</string>
 	<string name="screen_settings_auto_lock_timeout">Kilitleme zamanı</string>
 	<string name="screen_settings_auto_lock_on_screen_lock">Ekran devre dışı bırakıldığında</string>
-	<string name="screen_settings_section_auto_photo_upload">Otomatik Fotoğraf Yükleme</string>
+	<string name="screen_settings_section_auto_photo_upload">Otomatik fotoğraf yükleme</string>
 	<string name="screen_settings_section_auto_photo_upload_vault">Yükleme için kasa seçin</string>
 	<string name="screen_settings_section_auto_photo_upload_toggle">Etkinleştir</string>
 	<string name="screen_settings_section_auto_photo_upload_toggle_summary">Arka planda görüntüleri yakalayın ve seçilen kasanın kilidi açıldığında yüklemeye başlayın</string>
@@ -261,7 +261,7 @@
 	<string name="dialog_filetype_not_supported_title">%1$s açılamıyor</string>
 	<string name="dialog_filetype_not_supported_message">Lütfen bu dosyayı açabilecek bir uygulama indirin veya cihazınıza kaydetmek ister misiniz?</string>
 	<string name="dialog_rename_vault_title">Kasayı yeniden adlandır</string>
-	<string name="dialog_rename_node_folder_title">Dosyayı yeniden adlandır</string>
+	<string name="dialog_rename_node_folder_title">Klasörü yeniden adlandır</string>
 	<string name="dialog_rename_node_file_title">Dosyayı yeniden adlandır</string>
 	<string name="dialog_unsaved_changes_title">Kaydedilmemiş değişiklikleriniz mevcut</string>
 	<string name="dialog_unsaved_changes_message">Kaydetmeden çıkmak istiyor musunuz?</string>
@@ -271,7 +271,7 @@
 	<string name="dialog_delete_vault_message">Bu kasayı kaldırmak istediğinizden emin misiniz?</string>
 	<string name="dialog_delete_vault_hint">Bu işlem kasayı yalnızca bu listeden kaldıracak ve fiziksel olarak silmeyecektir.</string>
 	<string name="dialog_upload_file_title">Yükleniyor&#8230;</string>
-	<string name="dialog_upload_file_remaining">%1$d / %2$d dosyası</string>
+	<string name="dialog_upload_file_remaining">Dosya %1$d / %2$d</string>
 	<string name="dialog_export_file_title">Dışa aktarılıyor (%1$d/%2$d)</string>
 	<string name="dialog_progress_please_wait">Lütfen bekleyin&#8230;</string>
 	<string name="dialog_progress_creating_folder">Klasör oluşturuluyor&#8230;</string>
@@ -294,7 +294,7 @@
 	<string name="dialog_accept_ssl_certificate_security_checkbox">Bu bir güvenlik riski olabilir! Ne yaptığımı biliyorum.</string>
 	<string name="dialog_ask_ignore_battery_optimizations_title">Pil optimizasyonlarını devre dışı bırak</string>
 	<string name="dialog_ask_ignore_battery_optimizations_hint">Arka planda çalışmadan yeni resimler ve videoları almak için pil optimizasyonlarını devre dışı bırakmanız gerekiyor. Ancak endişelenmeyin, %1$s fazla enerji tüketmez.\n\nUygulamak için \'Optimize edilmedi\'yi \'Tüm uygulamalar\' olarak değiştirin, %1$s\'yi seçin ve bu iletişim kutusunda \'%2$s\' tıkladıktan sonra \'Optimize etme\'ye dokunun.</string>
-	<string name="dialog_ask_ignore_battery_optimizations_checkbox">Bir daha sorma?</string>
+	<string name="dialog_ask_ignore_battery_optimizations_checkbox">Tekrar sorma</string>
 	<string name="dialog_http_security_hint">HTTP\'nin kullanımı güvensizdir. Bunun yerine HTTPS kullanmanızı öneririz. Riskleri biliyorsanız, HTTP ile devam edebilirsiniz.</string>
 	<string name="dialog_http_security_checkbox">HTTPS\'ye geç</string>
 	<string name="dialog_http_security_title">HTTPS kullanılsın mı?</string>
@@ -327,14 +327,14 @@
 	<string name="dialog_biometric_auth_key_invalidated_title">Biyometrik kimlik doğrulama özelliği devre dışı bırakıldı</string>
 	<string name="dialog_biometric_auth_key_invalidated_message">Anahtar geçersiz olduğu için biyometrik kimlik doğrulama özelliği devre dışı bırakıldı. Yeniden etkinleştirmek için Cryptomator ayarlarını açın.</string>
 	<string name="dialog_enter_license_title">Geçerli bir lisans sağlayın</string>
-	<string name="dialog_enter_license_content">Cryptomator\'u Google Play Store kullanmadan yüklediğinizi tespit ettik. https://cryptomator.org/android/ adresinden satın alınabilecek geçerli bir lisans edinin lütfen.</string>
+	<string name="dialog_enter_license_content">Cryptomator\'ı Google Play Store kullanmadan yüklediğinizi tespit ettik. <a href="https://cryptomator.org/android/">https://cryptomator.org/android/</a> adresinden satın alınabilecek geçerli bir lisans edinin.</string>
 	<string name="dialog_enter_license_not_valid_content">Sağlanan lisans geçerli değil. Doğru girdiğinizden emin olun.</string>
 	<string name="dialog_enter_license_not_valid_content_desktop_supporter_certificate">Sağlanan anahtar, bir masaüstü destek sertifikasıdır. Lütfen geçerli bir lisans girin.</string>
 	<string name="dialog_enter_license_no_content">Lisans verilmemiştir. Lütfen geçerli bir lisans girin.</string>
 	<string name="dialog_enter_license_decline_button">Çıkış</string>
 	<string name="dialog_license_confirmation_title">Lisans onayı</string>
 	<string name="dialog_license_confirmation_message">Geçerli lisansınızı sağladığınız için teşekkür ederiz %1$s.</string>
-	<string name="dialog_update_available_title">Güncelleme uygun</string>
+	<string name="dialog_update_available_title">Güncelleme mevcut</string>
 	<string name="dialog_update_available_message">Cryptomator\'ı en son sürüme güncellemek için Tamam\'a dokunun lütfen. Uygulamayı arka planda indireceğiz ve sizden yüklemenizi isteyeceğiz.</string>
 	<string name="dialog_update_available_update">Şimdi güncelle</string>
 	<string name="dialog_update_available_download_site">İndirme sitesine git</string>
@@ -352,8 +352,8 @@
 	<string name="dialog_cbc_password_vaults_migration_title">Kasa şifre geçişi gerekli</string>
 	<string name="dialog_cbc_password_vaults_migration_hint">Güvenlik geliştirmeleri nedeniyle, kasa şifrelerinizi yeniden şifrelemek için her kasa için iki kez biyometrik kimlik doğrulamanız istenecektir. Bu, kasa şifrelerinizi en son teknoloji ile korumaya devam etmek için gereklidir. Bunun olmasını istemezseniz, saklanan şifreler kaldırılacaktır.</string>
 	<string name="dialog_cbc_password_vaults_migration_action">Taşı</string>
-	<string name="permission_snackbar_auth_local_vault">Cryptomator\'un yerel kasaları kullanmak için depolama erişimine ihtiyacı var</string>
-	<string name="permission_snackbar_auth_auto_upload">Cryptomator\'un otomatik fotoğraf yüklemesi için depolama erişimine ihtiyacı var</string>
+	<string name="permission_snackbar_auth_local_vault">Cryptomator\'ın yerel kasaları kullanmak için depolama erişimine ihtiyacı var</string>
+	<string name="permission_snackbar_auth_auto_upload">Cryptomator\'ın otomatik fotoğraf yüklemesi için depolama erişimine ihtiyacı var</string>
 	<string name="permission_snackbar_notifications">Cryptomator, örneğin kasa durumunu görüntülemek için bildirim izinlerine ihtiyaç duyar</string>
 	<!-- # error reports -->
 	<!-- # misc -->
@@ -385,7 +385,7 @@
 	<string name="dialog_biometric_auth_use_password">Kasa şifresini kullan</string>
 	<string name="dialog_unable_to_auto_upload_files_title">Dosyaları otomatik olarak yükleyemiyor</string>
 	<!-- notification -->
-	<string name="notification_unlocked">Kasaların Kilidi Açıldı: %1$d</string>
+	<string name="notification_unlocked">Kilidi açık kasalar: %1$d</string>
 	<string name="notification_timeout">%1$s içinde otomatik kilitlenecek</string>
 	<string name="notification_lock_all">Tümünü kilitle</string>
 	<string name="notification_cancel_auto_upload">Yüklemeyi iptal et</string>
@@ -429,7 +429,7 @@
 	<string name="cache_size_1000m">1 GB</string>
 	<string name="cache_size_5000m">5 GB</string>
 	<!-- screen scheme mode names -->
-	<string name="screen_settings_style_mode">Görünüm modu</string>
+	<string name="screen_settings_style_mode">Görünüm</string>
 	<string name="follow_system">Otomatik</string>
 	<string name="light">Aydınlık</string>
 	<string name="dark">Karanlık</string>
