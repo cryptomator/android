@@ -7,7 +7,7 @@
 	<string name="error_authentication_failed">Kimlik doğrulama başarısız</string>
 	<string name="error_authentication_failed_re_authenticate">Kimlik doğrulama başarısız, lütfen %1$s kullanarak giriş yapınız</string>
 	<string name="error_no_network_connection">Ağ bağlantısı yok</string>
-	<string name="error_invalid_passphrase">Şifre hatalı</string>
+	<string name="error_invalid_passphrase">Şifre yanlış</string>
 	<string name="error_file_or_folder_exists">Dosya veya klasör zaten var.</string>
 	<string name="error_vault_version_not_supported">%1$s kasa sürümü desteklenmiyor. Bu kasa, Cryptomator\'ın daha eski veya daha yeni bir sürümüyle oluşturuldu.</string>
 	<string name="error_vault_config_file_missing_due_to_format_999">Kasa klasörünüzde %1$s dosyası eksik. Bu dosyanın buluttaki kasa klasörünüzde bulunduğundan emin olun.</string>
@@ -23,7 +23,7 @@
 	<string name="error_names_contains_invalid_characters">Dosya adları özel karakterler içeremez.</string>
 	<string name="error_vault_name_contains_invalid_characters">Kasa adı özel karakterler içeremez.</string>
 	<string name="error_general_update">Genel bir hata oluştu ve güncelleme kontrolü başarısız oldu.</string>
-	<string name="error_hash_mismatch_update">Güncelleme kontrolü başarısız. Hesaplanan hash değeri ile yüklenen dosyanın ki eşleşmiyor</string>
+	<string name="error_hash_mismatch_update">Güncelleme kontrolü başarısız. Hesaplanan hash değeri ile yüklenen dosyanınki eşleşmiyor</string>
 	<string name="error_update_no_internet">Güncelleme kontrolü başarısız oldu. İnternet bağlantısı yok.</string>
 	<string name="error_failed_to_decrypt_webdav_password">WebDAV parolasının şifresi çözülemedi, lütfen ayarlarda yeniden ekleyin</string>
 	<string name="error_play_services_not_available">Google Play Hizmetleri yüklenmedi</string>
@@ -55,7 +55,7 @@
 	<string name="snack_bar_action_title_sort_oldest">Eskiden yeniye</string>
 	<string name="snack_bar_action_title_sort_biggest">Büyükten küçüğe</string>
 	<string name="snack_bar_action_title_sort_smallest">Küçükten büyüğe</string>
-	<string name="snack_bar_cryptomator_variants_title">Daha fazlasını oku</string>
+	<string name="snack_bar_cryptomator_variants_title">Daha fazla oku</string>
 	<string name="snack_bar_cryptomator_variants_hint">Bulut listede yok mu?</string>
 	<!-- # screens -->
 	<!-- # screen: vault list -->
@@ -339,7 +339,7 @@
 	<string name="dialog_update_available_update">Şimdi güncelle</string>
 	<string name="dialog_update_available_download_site">İndirme sitesine git</string>
 	<string name="dialog_update_available_cancel">Sonra</string>
-	<string name="dialog_download_update_title">Çalışmayı indir</string>
+	<string name="dialog_download_update_title">İndirme sürüyor</string>
 	<string name="dialog_download_update_message">Cryptomator\'ın son sürümünü indir</string>
 	<string name="dialog_sym_link_title">Klasör sembolik bir bağlantıdır</string>
 	<string name="dialog_sym_link_message">Bu sembolik bağlantıya gidemezsin</string>
