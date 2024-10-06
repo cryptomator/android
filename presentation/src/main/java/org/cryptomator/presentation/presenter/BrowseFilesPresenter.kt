@@ -292,7 +292,6 @@ class BrowseFilesPresenter @Inject constructor( //
 		associateThumbnailsUseCase.withList(cloudNodes)
 			.run(object : DefaultProgressAwareResultHandler<Int, FileTransferState>() {
 				override fun onProgress(progress: Progress<FileTransferState>) {
-					Timber.tag("THUMBNAIL").i("[AssociateThumbnails] onProgress")
 					val state = progress.state()
 					state?.let { state ->
 						view?.addOrUpdateCloudNode(cloudFileModelMapper.toModel(state.file()))
@@ -300,7 +299,6 @@ class BrowseFilesPresenter @Inject constructor( //
 				}
 
 				override fun onSuccess(result: Int) {
-					Timber.tag("THUMBNAIL").i("[AssociateThumbnails] onSuccess")
 					// no thumbnails were associated, start the generation of the first few
 					if (result == 0) {
 						val images = view?.renderedCloudNodes()?.filterIsInstance<CloudFileModel>()?.filter { file -> isImageMediaType(file.name) }
@@ -308,11 +306,6 @@ class BrowseFilesPresenter @Inject constructor( //
 							thumbnailsForVisibleNodes(images.subList(0, min(10, images.count())))
 						}
 					}
-				}
-
-				override fun onError(e: Throwable) {
-					Timber.tag("THUMBNAIL").i("[AssociateThumbnails] onError")
-					super.onError(e)
 				}
 			})
 	}

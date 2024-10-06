@@ -93,7 +93,7 @@ internal class CryptoCloudContentRepository(context: Context, cloudContentReposi
 
 	@Throws(BackendException::class)
 	override fun read(file: CryptoFile, encryptedTmpFile: File?, data: OutputStream, progressAware: ProgressAware<DownloadState>) {
-		cryptoImpl.readGenerateThumbnail(file, data, progressAware)
+		cryptoImpl.read(file, data, progressAware)
 	}
 
 	@Throws(BackendException::class)
