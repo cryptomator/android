@@ -6,10 +6,13 @@ import android.util.TypedValue
 import android.view.View
 import android.view.View.GONE
 import android.view.View.VISIBLE
+import android.widget.AbsListView.OnScrollListener.SCROLL_STATE_IDLE
 import android.widget.RelativeLayout
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+import com.simplecityapps.recyclerview_fastscroll.interfaces.OnFastScrollStateChangeListener
 import org.cryptomator.domain.CloudNode
 import org.cryptomator.generator.Fragment
 import org.cryptomator.presentation.R
@@ -82,6 +85,27 @@ class BrowseFilesFragment : BaseFragment<FragmentBrowseFilesBinding>(FragmentBro
 		}
 	}
 
+	private val onFastScrollStateChangeListener = object : OnFastScrollStateChangeListener {
+		@Override
+		override fun onFastScrollStop() {
+			thumbnailsForVisibleNodes()
+		}
+
+		@Override
+		override fun onFastScrollStart() {
+		}
+	}
+
+	private val onScrollListener = object : RecyclerView.OnScrollListener() {
+		@Override
+		override fun onScrollStateChanged(recyclerView: RecyclerView, newState: Int) {
+			super.onScrollStateChanged(recyclerView, newState)
+			if (newState == SCROLL_STATE_IDLE) {
+				thumbnailsForVisibleNodes()
+			}
+		}
+	}
+
 	val selectedCloudNodes: List<CloudNodeModel<*>>
 		get() = cloudNodesAdapter.selectedCloudNodes()
 
@@ -103,6 +127,8 @@ class BrowseFilesFragment : BaseFragment<FragmentBrowseFilesBinding>(FragmentBro
 		binding.recyclerViewLayout.recyclerView.setHasFixedSize(true)
 		binding.recyclerViewLayout.recyclerView.setPadding(0, 0, 0, TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 88f, resources.displayMetrics).toInt())
 		binding.recyclerViewLayout.recyclerView.clipToPadding = false
+		binding.recyclerViewLayout.recyclerView.setOnFastScrollStateChangeListener(onFastScrollStateChangeListener)
+		binding.recyclerViewLayout.recyclerView.addOnScrollListener(onScrollListener)
 
 		browseFilesPresenter.onFolderRedisplayed(folder)
 
@@ -111,6 +137,16 @@ class BrowseFilesFragment : BaseFragment<FragmentBrowseFilesBinding>(FragmentBro
 			isSelectionMode(FOLDERS_ONLY) -> setupViewForFolderSelection()
 			isSelectionMode(FILES_ONLY) -> setupViewForFilesSelection()
 			isNavigationMode(SELECT_ITEMS) -> setupViewForNodeSelectionMode()
+		}
+	}
+
+	private fun thumbnailsForVisibleNodes() {
+		val layoutManager = binding.recyclerViewLayout.recyclerView.layoutManager as LinearLayoutManager
+		val first = layoutManager.findFirstVisibleItemPosition()
+		val last = layoutManager.findLastVisibleItemPosition()
+		val visibleCloudNodes = cloudNodesAdapter.renderedCloudNodes().subList(first, last + 1)
+		if (!binding.swipeRefreshLayout.isRefreshing) {
+			browseFilesPresenter.thumbnailsForVisibleNodes(visibleCloudNodes)
 		}
 	}
 

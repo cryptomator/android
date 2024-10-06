@@ -80,6 +80,7 @@ import org.cryptomator.presentation.workflow.CreateNewVaultWorkflow
 import org.cryptomator.presentation.workflow.Workflow
 import org.cryptomator.util.ExceptionUtil
 import org.cryptomator.util.SharedPreferencesHandler
+import org.cryptomator.util.ThumbnailsOption
 import org.cryptomator.util.file.FileCacheUtils
 import org.cryptomator.util.file.MimeType
 import org.cryptomator.util.file.MimeTypes
@@ -156,6 +157,59 @@ class BrowseFilesPresenter @Inject constructor( //
 
 	@JvmField
 	var openWritableFileNotification: OpenWritableFileNotification? = null
+
+	fun thumbnailsForVisibleNodes(visibleCloudNodes: List<CloudNodeModel<*>>) {
+		if (!sharedPreferencesHandler.useLruCache() || (sharedPreferencesHandler.generateThumbnails() == ThumbnailsOption.NEVER)) {
+			return
+		}
+		val toDownload = ArrayList<CloudFileModel>()
+		visibleCloudNodes.forEach { node ->
+			if (node is CloudFileModel && isImageMediaType(node.name) && node.thumbnail == null) {
+				toDownload.add(node)
+			}
+		}
+		if (toDownload.isEmpty()) {
+			return
+		}
+		downloadAndGenerateThumbnails(toDownload)
+	}
+
+	private fun downloadAndGenerateThumbnails(visibleCloudFiles: List<CloudFileModel>) {
+		view?.showProgress(
+			visibleCloudFiles,  //
+			ProgressModel(
+				progressStateModelMapper.toModel( //
+					DownloadState.download(visibleCloudFiles[0].toCloudNode())
+				), 0
+			)
+		)
+		downloadFilesUseCase //
+			.withDownloadFiles(downloadFileUtil.createDownloadFilesFor(this, visibleCloudFiles)) //
+			.run(object : DefaultProgressAwareResultHandler<List<CloudFile>, DownloadState>() {
+				override fun onFinished() {
+					view?.hideProgress(visibleCloudFiles)
+				}
+
+				override fun onProgress(progress: Progress<DownloadState>) {
+					if (!progress.isOverallComplete) {
+						view?.showProgress(
+							cloudFileModelMapper.toModel(progress.state().file()),  //
+							progressModelMapper.toModel(progress)
+						)
+					}
+					if (progress.isCompleteAndHasState) {
+						val cloudFile = progress.state().file()
+						val cloudFileModel = cloudFileModelMapper.toModel(cloudFile)
+						view?.addOrUpdateCloudNode(cloudFileModel)
+					}
+				}
+
+				override fun onError(e: Throwable) {
+					view?.hideProgress(visibleCloudFiles)
+					super.onError(e)
+				}
+			})
+	}
 
 	override fun workflows(): Iterable<Workflow<*>> {
 		return listOf(addExistingVaultWorkflow, createNewVaultWorkflow)

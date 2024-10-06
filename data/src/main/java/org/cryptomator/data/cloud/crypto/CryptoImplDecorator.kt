@@ -390,7 +390,11 @@ abstract class CryptoImplDecorator(
 
 		val diskCache = cryptoFile.cloudFile.cloud?.type()?.let { getLruCacheFor(it) }
 		val cacheKey = generateCacheKey(ciphertextFile)
-		val genThumbnail = isThumbnailGenerationAvailable(diskCache, cryptoFile.name)
+		var genThumbnail = isThumbnailGenerationAvailable(diskCache, cryptoFile.name)
+		diskCache?.let { disk ->
+			if (disk[cacheKey] != null)
+				genThumbnail = false
+		}
 
 		val thumbnailWriter = PipedOutputStream()
 		val thumbnailReader = PipedInputStream(thumbnailWriter)
@@ -433,6 +437,7 @@ abstract class CryptoImplDecorator(
 				}
 			} finally {
 				encryptedTmpFile.delete()
+				futureThumbnail.get()
 				progressAware.onProgress(Progress.completed(DownloadState.decryption(cryptoFile)))
 			}
 
@@ -528,6 +533,7 @@ abstract class CryptoImplDecorator(
 
 				closeQuietly(thumbnailReader)
 
+				Timber.tag("THUMBNAIL").i("[FutureThumb] associate")
 				cryptoFile.thumbnail = diskCache[cacheKey]
 			} catch (e: Exception) {
 				Timber.e("Bitmap generation crashed")
@@ -571,10 +577,9 @@ abstract class CryptoImplDecorator(
 	}
 
 	private fun cacheOrGenerate(cryptoFile: CryptoFile, diskCache: DiskLruCache) {
-		val cacheKey = generateCacheKey(cryptoFile)
+		val cacheKey = generateCacheKey(cryptoFile.cloudFile)
 		val cacheFile = diskCache[cacheKey]
 		if (cacheFile != null) {
-			// Timber.tag("THUMBNAIL").i("THREAD - Associo")
 			cryptoFile.thumbnail = cacheFile
 		} else {
 			// TODO
