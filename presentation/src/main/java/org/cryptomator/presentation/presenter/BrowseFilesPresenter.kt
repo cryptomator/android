@@ -25,10 +25,12 @@ import org.cryptomator.domain.usecases.CopyDataUseCase
 import org.cryptomator.domain.usecases.DownloadFile
 import org.cryptomator.domain.usecases.GetDecryptedCloudForVaultUseCase
 import org.cryptomator.domain.usecases.ResultRenamed
+import org.cryptomator.domain.usecases.cloud.AssociateThumbnailsUseCase
 import org.cryptomator.domain.usecases.cloud.CreateFolderUseCase
 import org.cryptomator.domain.usecases.cloud.DeleteNodesUseCase
 import org.cryptomator.domain.usecases.cloud.DownloadFilesUseCase
 import org.cryptomator.domain.usecases.cloud.DownloadState
+import org.cryptomator.domain.usecases.cloud.FileTransferState
 import org.cryptomator.domain.usecases.cloud.GetCloudListRecursiveUseCase
 import org.cryptomator.domain.usecases.cloud.GetCloudListUseCase
 import org.cryptomator.domain.usecases.cloud.MoveFilesUseCase
@@ -91,12 +93,14 @@ import java.security.DigestInputStream
 import java.security.MessageDigest
 import java.util.function.Supplier
 import javax.inject.Inject
+import kotlin.math.min
 import kotlin.reflect.KClass
 import timber.log.Timber
 
 @PerView
 class BrowseFilesPresenter @Inject constructor( //
 	private val getCloudListUseCase: GetCloudListUseCase,  //
+	private val associateThumbnailsUseCase: AssociateThumbnailsUseCase,  //
 	private val createFolderUseCase: CreateFolderUseCase,  //
 	private val downloadFilesUseCase: DownloadFilesUseCase,  //
 	private val deleteNodesUseCase: DeleteNodesUseCase,  //
@@ -255,6 +259,7 @@ class BrowseFilesPresenter @Inject constructor( //
 						clearCloudList()
 					} else {
 						showCloudNodesCollectionInView(cloudNodes)
+						associateThumbnails(cloudNodes)
 					}
 					view?.showLoading(false)
 				}
@@ -279,6 +284,35 @@ class BrowseFilesPresenter @Inject constructor( //
 							super.onError(e)
 						}
 					}
+				}
+			})
+	}
+
+	private fun associateThumbnails(cloudNodes: List<CloudNode>) {
+		associateThumbnailsUseCase.withList(cloudNodes)
+			.run(object : DefaultProgressAwareResultHandler<Int, FileTransferState>() {
+				override fun onProgress(progress: Progress<FileTransferState>) {
+					Timber.tag("THUMBNAIL").i("[AssociateThumbnails] onProgress")
+					val state = progress.state()
+					state?.let { state ->
+						view?.addOrUpdateCloudNode(cloudFileModelMapper.toModel(state.file()))
+					}
+				}
+
+				override fun onSuccess(result: Int) {
+					Timber.tag("THUMBNAIL").i("[AssociateThumbnails] onSuccess")
+					// no thumbnails were associated, start the generation of the first few
+					if (result == 0) {
+						val images = view?.renderedCloudNodes()?.filterIsInstance<CloudFileModel>()?.filter { file -> isImageMediaType(file.name) }
+						images?.let { images ->
+							thumbnailsForVisibleNodes(images.subList(0, min(10, images.count())))
+						}
+					}
+				}
+
+				override fun onError(e: Throwable) {
+					Timber.tag("THUMBNAIL").i("[AssociateThumbnails] onError")
+					super.onError(e)
 				}
 			})
 	}
@@ -1376,7 +1410,8 @@ class BrowseFilesPresenter @Inject constructor( //
 			copyDataUseCase,  //
 			moveFilesUseCase,  //
 			moveFoldersUseCase, //
-			getDecryptedCloudForVaultUseCase
+			getDecryptedCloudForVaultUseCase, //
+			associateThumbnailsUseCase
 		)
 		this.authenticationExceptionHandler = authenticationExceptionHandler
 	}

@@ -128,8 +128,6 @@ internal class CryptoImplVaultFormatPre7(
 			.filterIsInstance<CloudFile>()
 			.map { node ->
 				ciphertextToCleartextNode(cryptoFolder, dirId, node)
-			}.also {
-				associateThumbnailIfInCache(it)
 			}.toList().filterNotNull()
 	}
 

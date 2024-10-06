@@ -165,8 +165,6 @@ open class CryptoImplVaultFormat7 : CryptoImplDecorator {
 			}
 		}.map { node ->
 			ciphertextToCleartextNode(cryptoFolder, dirId, node)
-		}.also {
-			associateThumbnailIfInCache(it)
 		}.toList().filterNotNull()
 	}
 

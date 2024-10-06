@@ -28,6 +28,7 @@ import org.cryptomator.domain.usecases.UploadFileReplacingProgressAware
 import org.cryptomator.domain.usecases.cloud.DataSource
 import org.cryptomator.domain.usecases.cloud.DownloadState
 import org.cryptomator.domain.usecases.cloud.FileBasedDataSource.Companion.from
+import org.cryptomator.domain.usecases.cloud.FileTransferState
 import org.cryptomator.domain.usecases.cloud.Progress
 import org.cryptomator.domain.usecases.cloud.UploadState
 import org.cryptomator.util.SharedPreferencesHandler
@@ -50,13 +51,12 @@ import java.nio.channels.Channels
 import java.util.LinkedList
 import java.util.Queue
 import java.util.UUID
-import java.util.concurrent.Callable
 import java.util.concurrent.CompletableFuture
-import java.util.concurrent.ExecutorCompletionService
 import java.util.concurrent.ExecutorService
 import java.util.concurrent.Executors
 import java.util.concurrent.Future
 import java.util.function.Supplier
+import kotlin.system.measureTimeMillis
 import timber.log.Timber
 
 
@@ -549,31 +549,98 @@ abstract class CryptoImplDecorator(
 		return isGenerateThumbnailsEnabled() && cache != null && isImageMediaType(fileName)
 	}
 
-	protected fun associateThumbnailIfInCache(list: List<CryptoNode?>): List<CryptoNode?> {
-		val completionService = ExecutorCompletionService<Unit>(thumbnailExecutorService)
-		if (isGenerateThumbnailsEnabled()) {
-			val firstCryptoFile = list.find { it is CryptoFile } ?: return list
-			val cloudType = (firstCryptoFile as CryptoFile).cloudFile.cloud?.type() ?: return list
-			val diskCache = getLruCacheFor(cloudType) ?: return list
-			val l = mutableListOf<Callable<Unit>>()
+	// TODO: remove me
+//	protected fun associateThumbnailIfInCache(list: List<CryptoNode?>): List<CryptoNode?> {
+////		val completionService = ExecutorCompletionService<Unit>(thumbnailExecutorService)
+//		if (!isGenerateThumbnailsEnabled()) {
+//			return list
+//		}
+//		val firstCryptoFile = list.find { it is CryptoFile } ?: return list
+//		val cloudType = (firstCryptoFile as CryptoFile).cloudFile.cloud?.type() ?: return list
+//		val diskCache = getLruCacheFor(cloudType) ?: return list
+//
+//		val toProcess = list.filterIsInstance<CryptoFile>().filter { cryptoFile ->
+//			(isImageMediaType(cryptoFile.name) && cryptoFile.thumbnail == null)
+//		}
+//
+//		Timber.tag("THUMBNAIL").i("[Associate] origList.len:${list.size}, toProcessList.len:${toProcess.size}")
+//		var associated = 0
+//		val elapsed = measureTimeMillis {
+//			toProcess.forEach { cryptoFile ->
+//				val cacheKey = generateCacheKey(cryptoFile.cloudFile)
+//				val cacheFile = diskCache[cacheKey]
+//				if (cacheFile != null) {
+//					cryptoFile.thumbnail = cacheFile
+//					associated++
+//				}
+//			}
+//		}
+//		Timber.tag("THUMBNAIL").i("[Associate] associated:${associated} files, elapsed:${elapsed}ms")
+//
+//		val countThumbnails = list.filterIsInstance<CryptoFile>().filter { cryptoFile -> cryptoFile.thumbnail != null }.count()
+//		Timber.tag("THUMBNAIL").i("[Associate] Num. file with thumbnail associated: $countThumbnails")
+////			val l = mutableListOf<Callable<Unit>>()
+////
+////			var len = 0
+////			list.forEach { cryptoNode ->
+////				if (cryptoNode is CryptoFile && cryptoNode.thumbnail == null && isImageMediaType(cryptoNode.name)) {
+////					Timber.tag("THUMBNAIL").i("Add Thumbnail Generation Service Request")
+////					len++
+////					completionService.submit { cacheOrGenerate(cryptoNode, diskCache) }
+////				}
+////
+////			var received = 0
+////			while (received < len) {
+////				completionService.take(); // blocks if none available
+////				received++
+////			}
+////			Timber.tag("THUMBNAIL").i("WAITED ALL")
+////		}
+//		return list
+//	}
 
-			var len = 0
-			list.forEach { cryptoNode ->
-				if (cryptoNode is CryptoFile && cryptoNode.thumbnail == null && isImageMediaType(cryptoNode.name)) {
-					Timber.tag("THUMBNAIL").i("Add Thumbnail Generation Service Request")
-					len++
-					completionService.submit { cacheOrGenerate(cryptoNode, diskCache) }
+	fun associateThumbnails(list: List<CryptoNode>, progressAware: ProgressAware<FileTransferState>): Int {
+		if (!isGenerateThumbnailsEnabled()) {
+			return -1
+		}
+		val cryptoFileList = list.filterIsInstance<CryptoFile>()
+		if (cryptoFileList.isEmpty()) {
+			return -1
+		}
+
+		val firstCryptoFile = cryptoFileList[0]
+		val cloudType = (firstCryptoFile).cloudFile.cloud?.type() ?: return -1
+
+		val diskCache = getLruCacheFor(cloudType) ?: return -1
+		val toProcess = cryptoFileList.filter { cryptoFile ->
+			(isImageMediaType(cryptoFile.name) && cryptoFile.thumbnail == null)
+		}
+
+//		Timber.tag("THUMBNAIL").i("[AssociateThumbnails] origList.len:${list.size}, toProcessList.len:${toProcess.size}")
+		var associated = 0
+		val elapsed = measureTimeMillis {
+			toProcess.forEach { cryptoFile ->
+				val cacheKey = generateCacheKey(cryptoFile.cloudFile)
+				val cacheFile = diskCache.get(cacheKey)
+				if (cacheFile != null && cryptoFile.thumbnail == null) {
+					cryptoFile.thumbnail = cacheFile
+					associated++
+					val state = FileTransferState { cryptoFile }
+					val progress = Progress.progress(state) //
+						.between(0) //
+						.and(toProcess.size.toLong()) //
+						.withValue(associated.toLong())
+
+					progressAware.onProgress(progress)
 				}
 			}
-
-			var received = 0
-			while (received < len) {
-				completionService.take(); // blocks if none available
-				received++
-			}
-			Timber.tag("THUMBNAIL").i("WAITED ALL")
 		}
-		return list
+		Timber.tag("THUMBNAIL").i("[AssociateThumbnails] associated:${associated} files, elapsed:${elapsed}ms")
+
+		// val countThumbnails = cryptoFileList.count { cryptoFile -> cryptoFile.thumbnail != null }
+		// Timber.tag("THUMBNAIL").i("[AssociateThumbnails] Num. file with thumbnail associated: $countThumbnails")
+
+		return associated
 	}
 
 	private fun cacheOrGenerate(cryptoFile: CryptoFile, diskCache: DiskLruCache) {
