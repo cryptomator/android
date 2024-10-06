@@ -12,9 +12,6 @@
     </option>
     <option name="RIGHT_MARGIN" value="220" />
     <JetCodeStyleSettings>
-      <option name="PACKAGES_TO_USE_STAR_IMPORTS">
-        <value />
-      </option>
       <option name="PACKAGES_IMPORT_LAYOUT">
         <value>
           <package name="android" alias="false" withSubpackages="true" />
@@ -36,9 +33,6 @@
     <Properties>
       <option name="KEEP_BLANK_LINES" value="true" />
     </Properties>
-    <XML>
-      <option name="XML_LEGACY_SETTINGS_IMPORTED" value="true" />
-    </XML>
     <codeStyleSettings language="Groovy">
       <indentOptions>
         <option name="USE_TAB_CHARACTER" value="true" />

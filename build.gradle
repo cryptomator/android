@@ -1,5 +1,4 @@
 apply from: 'buildsystem/dependencies.gradle'
-apply plugin: "com.vanniktech.android.junit.jacoco"
 
 buildscript {
 	ext.kotlin_version = '1.7.20'
@@ -9,37 +8,15 @@ buildscript {
 	}
 	dependencies {
 		classpath 'com.android.tools.build:gradle:7.4.2'
-		classpath 'org.greenrobot:greendao-gradle-plugin:3.3.0'
-		classpath 'com.vanniktech:gradle-android-junit-jacoco-plugin:0.16.0'
 		classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
-		classpath "de.mannodermaus.gradle.plugins:android-junit5:1.7.1.1"
-	}
-}
-
-def getVersionCode = { ->
-	try {
-		def branchName = new ByteArrayOutputStream()
-		exec {
-			commandLine 'git', 'rev-parse', '--abbrev-ref', 'HEAD'
-			standardOutput = branchName
-		}
-		def appBuild = new ByteArrayOutputStream()
-		exec {
-			commandLine 'git', 'rev-list', '--count', branchName.toString().trim()
-			standardOutput = appBuild
-		}
-		return Integer.parseInt(appBuild.toString().trim()) + 1958 // adding 1958 for legacy reasons
-	}
-	catch (ignored) {
-		return -1
 	}
 }
 
 allprojects {
 	ext {
 		androidApplicationId = 'org.cryptomator'
-		androidVersionCode = getVersionCode() // must be getVersionCode(). only at release tag set the actual value
-		androidVersionName = '1.11.0-SNAPSHOT'
+		androidVersionCode = 1
+		androidVersionName = '1'
 	}
 	repositories {
 		mavenCentral()

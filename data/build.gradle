@@ -1,7 +1,5 @@
-apply plugin: 'org.greenrobot.greendao'
 apply plugin: 'com.android.library'
 apply plugin: 'kotlin-android'
-apply plugin: 'de.mannodermaus.android-junit5'
 
 android {
 	def globalConfiguration = rootProject.extensions.getByName("ext")
@@ -16,7 +14,6 @@ android {
 		buildConfigField 'int', 'VERSION_CODE', "${globalConfiguration["androidVersionCode"]}"
 		buildConfigField "String", "VERSION_NAME", "\"${globalConfiguration["androidVersionName"]}\""
 
-		testInstrumentationRunner 'androidx.test.runner.AndroidJUnitRunner'
 	}
 
 	compileOptions {
@@ -28,13 +25,11 @@ android {
 
 	buildTypes {
 		release {
-			buildConfigField "String", "ONEDRIVE_API_KEY", "\"" + getApiKey('ONEDRIVE_API_KEY') + "\""
-			buildConfigField "String", "ONEDRIVE_API_REDIRCT_URI", "\"" + getApiKey('ONEDRIVE_API_REDIRCT_URI') + "\""
+
 		}
 
 		debug {
-			buildConfigField "String", "ONEDRIVE_API_KEY", "\"" + getApiKey('ONEDRIVE_API_KEY_DEBUG') + "\""
-			buildConfigField "String", "ONEDRIVE_API_REDIRCT_URI", "\"" + getApiKey('ONEDRIVE_API_REDIRCT_URI_DEBUG') + "\""
+
 		}
 	}
 
@@ -89,10 +84,6 @@ android {
 	namespace 'org.cryptomator.data'
 }
 
-greendao {
-	schemaVersion 12
-}
-
 configurations.all {
 	// Check for updates every build (use for cryptolib snapshot)
 	//resolutionStrategy.cacheChangingModulesFor 0, 'seconds'
@@ -101,123 +92,8 @@ configurations.all {
 dependencies {
 	def dependencies = rootProject.ext.dependencies
 
-	implementation project(':domain')
-	implementation project(':util')
-	playstoreImplementation project(':pcloud-sdk-java')
-	apkstoreImplementation project(':pcloud-sdk-java')
-	fdroidImplementation project(':pcloud-sdk-java')
-
 	coreLibraryDesugaring dependencies.coreDesugaring
 
-	// cryptomator
-	implementation dependencies.cryptolib
-
-	// greendao
-	api dependencies.greenDao
-	// dagger
-	annotationProcessor dependencies.daggerCompiler
-	implementation dependencies.dagger
-
-	api dependencies.jsonWebTokenApi
-	implementation dependencies.jsonWebTokenImpl
-	implementation dependencies.jsonWebTokenJson
-
-	// cloud
-	playstoreImplementation dependencies.dropbox
-	apkstoreImplementation dependencies.dropbox
-	fdroidImplementation dependencies.dropbox
-
-	playstoreImplementation dependencies.msgraphAuth
-	apkstoreImplementation dependencies.msgraphAuth
-	fdroidImplementation dependencies.msgraphAuth
-	playstoreImplementation dependencies.msgraph
-	apkstoreImplementation dependencies.msgraph
-	fdroidImplementation dependencies.msgraph
-
-	implementation dependencies.stax
-	api dependencies.minIo
-
-	playstoreImplementation(dependencies.googlePlayServicesAuth) {
-		exclude module: 'guava-jdk5'
-		exclude module: 'httpclient'
-		exclude module: 'googlehttpclient'
-		exclude group: "com.google.http-client", module: "google-http-client"
-	}
-	apkstoreImplementation(dependencies.googlePlayServicesAuth) {
-		exclude module: 'guava-jdk5'
-		exclude module: 'httpclient'
-		exclude module: "google-http-client"
-		exclude group: "com.google.http-client", module: "google-http-client"
-	}
-
-	playstoreImplementation(dependencies.googleApiServicesDrive) {
-		exclude module: 'guava-jdk5'
-		exclude module: 'httpclient'
-		exclude module: 'googlehttpclient'
-		exclude group: "com.google.http-client", module: "google-http-client"
-	}
-	apkstoreImplementation(dependencies.googleApiServicesDrive) {
-		exclude module: 'guava-jdk5'
-		exclude module: 'httpclient'
-		exclude module: "google-http-client"
-		exclude group: "com.google.http-client", module: "google-http-client"
-	}
-
-	playstoreImplementation(dependencies.googleApiClientAndroid) {
-		exclude module: 'guava-jdk5'
-		exclude module: 'httpclient'
-		exclude module: "google-http-client"
-		exclude module: "jetified-google-http-client"
-		exclude group: "com.google.http-client", module: "google-http-client"
-		exclude group: "com.google.http-client", module: "jetified-google-http-client"
-	}
-	apkstoreImplementation(dependencies.googleApiClientAndroid) {
-		exclude module: 'guava-jdk5'
-		exclude module: 'httpclient'
-		exclude module: "google-http-client"
-		exclude module: "jetified-google-http-client"
-		exclude group: "com.google.http-client", module: "google-http-client"
-		exclude group: "com.google.http-client", module: "jetified-google-http-client"
-	}
-
-	playstoreImplementation dependencies.trackingFreeGoogleCLient
-	apkstoreImplementation dependencies.trackingFreeGoogleCLient
-	playstoreImplementation dependencies.trackingFreeGoogleAndroidCLient
-	apkstoreImplementation dependencies.trackingFreeGoogleAndroidCLient
-
-	// rest
-	implementation dependencies.rxJava
-	implementation dependencies.rxAndroid
-	implementation dependencies.okHttp
-	implementation dependencies.okHttpDigest
-	implementation dependencies.androidAnnotations
-	compileOnly dependencies.javaxAnnotation
-	implementation dependencies.gson
-
-	implementation dependencies.commonsCodec
-
-	implementation dependencies.documentFile
-
-	implementation dependencies.lruFileCache
-
-	implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk8:$kotlin_version"
-
-	// test
-	testImplementation dependencies.junit
-	testImplementation dependencies.junitApi
-	testRuntimeOnly dependencies.junitEngine
-	testImplementation dependencies.junitParams
-	testRuntimeOnly dependencies.junit4Engine
-	implementation dependencies.androidxTestJunitKtln
-
-	testImplementation dependencies.mockito
-	testImplementation dependencies.mockitoKotlin
-	testImplementation dependencies.mockitoInline
-	testImplementation dependencies.hamcrest
-
-	androidTestImplementation(dependencies.runner) {
-		exclude group: 'com.android.support', module: 'support-annotations'
-	}
 }
 
 configurations {

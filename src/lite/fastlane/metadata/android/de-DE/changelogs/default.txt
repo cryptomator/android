@@ -1,4 +1,0 @@
-- Workaround für die Bearbeitung von Dateien in Microsoft Office-Anwendungen hinzugefügt
-- Unterstützung für thematisches Cryptomator-Symbol hinzugefügt
-- Aktualisieren eines veralteten Authentifizierungs-Tokens beim automatischen Hochladen
-- Übersetzungen aktualisiert

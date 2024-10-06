@@ -1,6 +1,0 @@
-org.cryptomator.generator.IntentProcessor
-org.cryptomator.generator.UseCaseProcessor
-org.cryptomator.generator.ActivityProcessor
-org.cryptomator.generator.FragmentProcessor
-org.cryptomator.generator.CallbackProcessor
-org.cryptomator.generator.InstanceStateProcessor

@@ -1,2 +1,0 @@
-json_key_file(ENV["GOOGLE_PLAYSTORE_PRIVATE_KEY_FILE_PATH"])
-package_name("org.cryptomator")

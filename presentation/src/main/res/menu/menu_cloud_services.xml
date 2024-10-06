@@ -1,9 +1,0 @@
-<menu xmlns:android="http://schemas.android.com/apk/res/android"
-	xmlns:app="http://schemas.android.com/apk/res-auto"
-	xmlns:tools="http://schemas.android.com/tools"
-	tools:context=".presentation.ui.activity.ChooseCloudServiceActivity">
-	<item
-		android:icon="@drawable/ic_cloud"
-		android:title="@string/screen_cloud_settings_title"
-		app:showAsAction="ifRoom" />
-</menu>
