@@ -24,6 +24,7 @@ ext {
 
 	// app frameworks and utilities
 
+	roomVersion = '2.5.2'
 
 	dependencies = [
 			android           : "com.google.android:android:${androidVersion}",
@@ -32,6 +33,9 @@ ext {
 
 			design            : "com.google.android.material:material:${androidMaterialDesignVersion}",
 			coreDesugaring    : "com.android.tools:desugar_jdk_libs:${coreDesugaringVersion}",
+
+			room              : "androidx.room:room-runtime:${roomVersion}",
+			roomCompiler      : "androidx.room:room-compiler:${roomVersion}",
 
 			javaxAnnotation   : "javax.annotation:jsr250-api:${javaxAnnotationVersion}",
 

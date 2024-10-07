@@ -1,5 +1,6 @@
 apply plugin: 'com.android.library'
 apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-kapt'
 
 android {
 	def globalConfiguration = rootProject.extensions.getByName("ext")
@@ -14,6 +15,13 @@ android {
 		buildConfigField 'int', 'VERSION_CODE', "${globalConfiguration["androidVersionCode"]}"
 		buildConfigField "String", "VERSION_NAME", "\"${globalConfiguration["androidVersionName"]}\""
 
+		javaCompileOptions {
+			annotationProcessorOptions {
+				compilerArgumentProviders(
+						new RoomSchemaArgProvider(new File(projectDir, "room/schemas"))
+				)
+			}
+		}
 	}
 
 	compileOptions {
@@ -94,6 +102,10 @@ dependencies {
 
 	coreLibraryDesugaring dependencies.coreDesugaring
 
+	// room
+	implementation dependencies.room
+	annotationProcessor dependencies.roomCompiler
+	kapt dependencies.roomCompiler
 }
 
 configurations {
@@ -118,5 +130,21 @@ tasks.withType(Test) {
 		showStackTraces true
 
 		showStandardStreams = false
+	}
+}
+
+class RoomSchemaArgProvider implements CommandLineArgumentProvider {
+
+	@InputDirectory
+	@PathSensitive(PathSensitivity.RELATIVE)
+	File schemaDir
+
+	RoomSchemaArgProvider(File schemaDir) {
+		this.schemaDir = schemaDir
+	}
+
+	@Override
+	Iterable<String> asArguments() {
+		return ["-Aroom.schemaLocation=${schemaDir.path}".toString()]
 	}
 }
