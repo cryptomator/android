@@ -2,6 +2,13 @@ apply plugin: 'com.android.library'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-kapt'
 
+def roomSchemasDir = new File(projectDir, "room/schemas")
+def androidTestRoomSchemasDir = new File(buildDir, "tmp/room/schemas/androidTest")
+def copyRoomSchemasTask = tasks.register("copyRoomSchemasToAndroidTestAssets", Sync.class) {
+	from(roomSchemasDir)
+	into(androidTestRoomSchemasDir)
+}
+
 android {
 	def globalConfiguration = rootProject.extensions.getByName("ext")
 
@@ -18,7 +25,7 @@ android {
 		javaCompileOptions {
 			annotationProcessorOptions {
 				compilerArgumentProviders(
-						new RoomSchemaArgProvider(new File(projectDir, "room/schemas"))
+						new RoomSchemaArgProvider(roomSchemasDir)
 				)
 			}
 		}
@@ -77,10 +84,23 @@ android {
 		lite {
 			java.srcDirs = ['src/main/java/', 'src/lite/java/']
 		}
+
+		androidTest.assets.srcDir(androidTestRoomSchemasDir)
 	}
 	packagingOptions {
 		resources {
 			excludes += ['META-INF/DEPENDENCIES', 'META-INF/NOTICE.md', 'META-INF/INDEX.LIST']
+		}
+	}
+	libraryVariants.configureEach { variant ->
+		tasks.findByName("kapt${variant.name.capitalize()}Kotlin")?.configure { kaptTask ->
+			copyRoomSchemasTask.configure { it.mustRunAfter(kaptTask) }
+		}
+		tasks.findByName("kapt${variant.name.capitalize()}AndroidTestKotlin")?.configure { kaptTask ->
+			copyRoomSchemasTask.configure { it.mustRunAfter(kaptTask) }
+		}
+		tasks.findByName("merge${variant.name.capitalize()}AndroidTestAssets")?.configure {
+			it.dependsOn(copyRoomSchemasTask)
 		}
 	}
 
@@ -110,14 +130,6 @@ dependencies {
 
 configurations {
 	all*.exclude group: 'com.google.android', module: 'android'
-}
-
-def liteFlavor() {
-	gradle.startParameter.taskNames.stream().filter(t -> t.toLowerCase().contains("lite")).findAny().isPresent()
-}
-
-def getApiKey(key) {
-	return !liteFlavor() ? System.getenv().getOrDefault(key, "") : ""
 }
 
 tasks.withType(Test) {
