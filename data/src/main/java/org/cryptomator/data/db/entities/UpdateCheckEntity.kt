@@ -4,8 +4,7 @@ import androidx.room.Entity
 import androidx.room.PrimaryKey
 
 @Entity(tableName = "UPDATE_CHECK_ENTITY")
-data class UpdateCheckEntity @JvmOverloads constructor(
-	//TODO Remove @JvmOverloads
+data class UpdateCheckEntity(
 	@PrimaryKey override var id: Long?,
 	var licenseToken: String?,
 	var releaseNote: String?,
