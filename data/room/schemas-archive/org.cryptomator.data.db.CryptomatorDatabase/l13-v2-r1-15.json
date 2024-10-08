@@ -1,12 +1,12 @@
 {
   "formatVersion": 1,
   "database": {
-    "version": 14,
-    "identityHash": "09c519f6022b510f2ef05f52570806d9",
+    "version": 15,
+    "identityHash": "cf38b0f4b0e95445e2d2b37ea8df36b6",
     "entities": [
       {
         "tableName": "CLOUD_ENTITY",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER, `type` TEXT NOT NULL, `accessToken` TEXT, `url` TEXT, `username` TEXT, `webdavCertificate` TEXT, `s3Bucket` TEXT, `s3Region` TEXT, `s3SecretKey` TEXT, PRIMARY KEY(`id`))",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER, `type` TEXT NOT NULL, `accessToken` TEXT, `accessTokenCryptoMode` TEXT, `url` TEXT, `username` TEXT, `webdavCertificate` TEXT, `s3Bucket` TEXT, `s3Region` TEXT, `s3SecretKey` TEXT, `s3SecretKeyCryptoMode` TEXT, PRIMARY KEY(`id`))",
         "fields": [
           {
             "fieldPath": "id",
@@ -23,6 +23,12 @@
           {
             "fieldPath": "accessToken",
             "columnName": "accessToken",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "accessTokenCryptoMode",
+            "columnName": "accessTokenCryptoMode",
             "affinity": "TEXT",
             "notNull": false
           },
@@ -59,6 +65,12 @@
           {
             "fieldPath": "s3SecretKey",
             "columnName": "s3SecretKey",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "s3SecretKeyCryptoMode",
+            "columnName": "s3SecretKeyCryptoMode",
             "affinity": "TEXT",
             "notNull": false
           }
@@ -130,7 +142,7 @@
       },
       {
         "tableName": "VAULT_ENTITY",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER, `folderCloudId` INTEGER, `folderPath` TEXT, `folderName` TEXT, `cloudType` TEXT NOT NULL, `password` TEXT, `position` INTEGER, `format` INTEGER, `shorteningThreshold` INTEGER, PRIMARY KEY(`id`), FOREIGN KEY(`folderCloudId`) REFERENCES `CLOUD_ENTITY`(`id`) ON UPDATE NO ACTION ON DELETE RESTRICT )",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER, `folderCloudId` INTEGER, `folderPath` TEXT, `folderName` TEXT, `cloudType` TEXT NOT NULL, `password` TEXT, `passwordCryptoMode` TEXT, `position` INTEGER, `format` INTEGER, `shorteningThreshold` INTEGER, PRIMARY KEY(`id`), FOREIGN KEY(`folderCloudId`) REFERENCES `CLOUD_ENTITY`(`id`) ON UPDATE NO ACTION ON DELETE RESTRICT )",
         "fields": [
           {
             "fieldPath": "id",
@@ -165,6 +177,12 @@
           {
             "fieldPath": "password",
             "columnName": "password",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "passwordCryptoMode",
+            "columnName": "passwordCryptoMode",
             "affinity": "TEXT",
             "notNull": false
           },
@@ -226,7 +244,7 @@
     "views": [],
     "setupQueries": [
       "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
-      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '09c519f6022b510f2ef05f52570806d9')"
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, 'cf38b0f4b0e95445e2d2b37ea8df36b6')"
     ]
   }
 }

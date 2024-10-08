@@ -1,13 +1,15 @@
 apply from: 'buildsystem/dependencies.gradle'
 
 buildscript {
-	ext.kotlin_version = '1.7.20'
+	ext.kotlin_version = '1.9.24'
+	ext.roomVersion = '2.6.1'
 	repositories {
 		mavenCentral()
 		google()
 	}
 	dependencies {
-		classpath 'com.android.tools.build:gradle:7.4.2'
+		classpath 'com.android.tools.build:gradle:8.4.1'
+		classpath "androidx.room:room-gradle-plugin:$roomVersion"
 		classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
 	}
 }

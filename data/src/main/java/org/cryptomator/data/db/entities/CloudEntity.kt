@@ -8,12 +8,14 @@ data class CloudEntity(
 	@PrimaryKey override var id: Long?,
 	var type: String,
 	var accessToken: String? = null,
+	var accessTokenCryptoMode: String? = null,
 	var url: String? = null,
 	var username: String? = null,
 	var webdavCertificate: String? = null,
 	var s3Bucket: String? = null,
 	var s3Region: String? = null,
 	var s3SecretKey: String? = null,
+	var s3SecretKeyCryptoMode: String? = null,
 ) : DatabaseEntity {
 
 }

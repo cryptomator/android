@@ -18,6 +18,7 @@ data class VaultEntity(
 	val folderName: String?,
 	val cloudType: String,
 	val password: String?,
+	val passwordCryptoMode: String?,
 	val position: Int?,
 	val format: Int?,
 	val shorteningThreshold: Int?,

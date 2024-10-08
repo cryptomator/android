@@ -1,3 +1,4 @@
+apply plugin: 'androidx.room'
 apply plugin: 'com.android.library'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-kapt'
@@ -21,19 +22,11 @@ android {
 
 		buildConfigField 'int', 'VERSION_CODE', "${globalConfiguration["androidVersionCode"]}"
 		buildConfigField "String", "VERSION_NAME", "\"${globalConfiguration["androidVersionName"]}\""
-
-		javaCompileOptions {
-			annotationProcessorOptions {
-				compilerArgumentProviders(
-						new RoomSchemaArgProvider(roomSchemasDir)
-				)
-			}
-		}
 	}
 
 	compileOptions {
-		sourceCompatibility JavaVersion.VERSION_1_8
-		targetCompatibility JavaVersion.VERSION_1_8
+		sourceCompatibility JavaVersion.VERSION_17
+		targetCompatibility JavaVersion.VERSION_17
 
 		coreLibraryDesugaringEnabled true
 	}
@@ -112,6 +105,10 @@ android {
 	namespace 'org.cryptomator.data'
 }
 
+room {
+	schemaDirectory(roomSchemasDir.path)
+}
+
 configurations.all {
 	// Check for updates every build (use for cryptolib snapshot)
 	//resolutionStrategy.cacheChangingModulesFor 0, 'seconds'
@@ -142,21 +139,5 @@ tasks.withType(Test) {
 		showStackTraces true
 
 		showStandardStreams = false
-	}
-}
-
-class RoomSchemaArgProvider implements CommandLineArgumentProvider {
-
-	@InputDirectory
-	@PathSensitive(PathSensitivity.RELATIVE)
-	File schemaDir
-
-	RoomSchemaArgProvider(File schemaDir) {
-		this.schemaDir = schemaDir
-	}
-
-	@Override
-	Iterable<String> asArguments() {
-		return ["-Aroom.schemaLocation=${schemaDir.path}".toString()]
 	}
 }
