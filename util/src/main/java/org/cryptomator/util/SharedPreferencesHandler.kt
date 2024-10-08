@@ -162,8 +162,9 @@ constructor(context: Context) : SharedPreferences.OnSharedPreferenceChangeListen
 	}
 
 	fun generateThumbnails(): ThumbnailsOption {
-		return when(defaultSharedPreferences.getValue(THUMBNAIL_GENERATION, "NEVER")){
+		return when (defaultSharedPreferences.getValue(THUMBNAIL_GENERATION, "NEVER")) {
 			"NEVER" -> ThumbnailsOption.NEVER
+			"READONLY" -> ThumbnailsOption.READONLY
 			"PER_FILE" -> ThumbnailsOption.PER_FILE
 			"PER_FOLDER" -> ThumbnailsOption.PER_FOLDER
 			else -> ThumbnailsOption.NEVER

@@ -96,9 +96,8 @@ interface CloudContentRepository<CloudType : Cloud, NodeType : CloudNode, DirTyp
 	fun read(file: FileType, encryptedTmpFile: File?, data: OutputStream, progressAware: ProgressAware<DownloadState>)
 
 	@Throws(BackendException::class)
-	fun associateThumbnails(list: List<NodeType>, progressAware: ProgressAware<FileTransferState>): Int {
+	fun associateThumbnails(list: List<NodeType>, progressAware: ProgressAware<FileTransferState>) {
 		// default implementation
-		return -1
 	}
 
 	@Throws(BackendException::class)

@@ -100,8 +100,8 @@ abstract class CryptoImplDecorator(
 	}
 
 	protected fun renameFileInCache(source: CryptoFile, target: CryptoFile) {
-		val oldCacheKey = generateCacheKey(source.cloudFile)
-		val newCacheKey = generateCacheKey(target.cloudFile)
+		val oldCacheKey = generateCacheKey(source)
+		val newCacheKey = generateCacheKey(target)
 		source.cloudFile.cloud?.type()?.let { cloudType ->
 			getLruCacheFor(cloudType)?.let { diskCache ->
 				if (diskCache[oldCacheKey] != null) {
@@ -386,7 +386,7 @@ abstract class CryptoImplDecorator(
 		val ciphertextFile = cryptoFile.cloudFile
 
 		val diskCache = cryptoFile.cloudFile.cloud?.type()?.let { getLruCacheFor(it) }
-		val cacheKey = generateCacheKey(ciphertextFile)
+		val cacheKey = generateCacheKey(cryptoFile)
 		val genThumbnail = isThumbnailGenerationAvailable(diskCache, cryptoFile.name)
 		var futureThumbnail: Future<*> = CompletableFuture.completedFuture(null)
 
@@ -473,12 +473,12 @@ abstract class CryptoImplDecorator(
 		}
 	}
 
-	protected fun generateCacheKey(cloudFile: CloudFile): String {
-		return String.format("%s-%d", cloudFile.cloud?.id() ?: "common", cloudFile.path.hashCode())
+	protected fun generateCacheKey(cryptoFile: CryptoFile): String {
+		return String.format("%s-%d", cryptoFile.cloudFile.cloud?.id() ?: "common", cryptoFile.path.hashCode())
 	}
 
 	private fun isThumbnailGenerationAvailable(cache: DiskLruCache?, fileName: String): Boolean {
-		return isGenerateThumbnailsEnabled() && cache != null && isImageMediaType(fileName)
+		return isGenerateThumbnailsEnabled() && sharedPreferencesHandler.generateThumbnails() != ThumbnailsOption.READONLY && cache != null && isImageMediaType(fileName)
 	}
 
 	// TODO: remove me
@@ -531,27 +531,24 @@ abstract class CryptoImplDecorator(
 //		return list
 //	}
 
-	fun associateThumbnails(list: List<CryptoNode>, progressAware: ProgressAware<FileTransferState>): Int {
+	fun associateThumbnails(list: List<CryptoNode>, progressAware: ProgressAware<FileTransferState>) {
 		if (!isGenerateThumbnailsEnabled()) {
-			return -1
+			return
 		}
 		val cryptoFileList = list.filterIsInstance<CryptoFile>()
 		if (cryptoFileList.isEmpty()) {
-			return -1
+			return
 		}
-
 		val firstCryptoFile = cryptoFileList[0]
-		val cloudType = (firstCryptoFile).cloudFile.cloud?.type() ?: return -1
-
-		val diskCache = getLruCacheFor(cloudType) ?: return -1
+		val cloudType = (firstCryptoFile).cloudFile.cloud?.type() ?: return
+		val diskCache = getLruCacheFor(cloudType) ?: return
 		val toProcess = cryptoFileList.filter { cryptoFile ->
 			(isImageMediaType(cryptoFile.name) && cryptoFile.thumbnail == null)
 		}
-
 		var associated = 0
 		val elapsed = measureTimeMillis {
 			toProcess.forEach { cryptoFile ->
-				val cacheKey = generateCacheKey(cryptoFile.cloudFile)
+				val cacheKey = generateCacheKey(cryptoFile)
 				val cacheFile = diskCache[cacheKey]
 				if (cacheFile != null && cryptoFile.thumbnail == null) {
 					cryptoFile.thumbnail = cacheFile
@@ -563,8 +560,6 @@ abstract class CryptoImplDecorator(
 			}
 		}
 		Timber.tag("THUMBNAIL").i("[AssociateThumbnails] associated:${associated} files, elapsed:${elapsed}ms")
-
-		return associated
 	}
 
 //	private fun cacheOrGenerate(cryptoFile: CryptoFile, diskCache: DiskLruCache) {

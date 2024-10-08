@@ -97,8 +97,8 @@ internal class CryptoCloudContentRepository(context: Context, cloudContentReposi
 	}
 
 	@Throws(BackendException::class)
-	override fun associateThumbnails(list: List<CryptoNode>, progressAware: ProgressAware<FileTransferState>): Int {
-		return cryptoImpl.associateThumbnails(list, progressAware)
+	override fun associateThumbnails(list: List<CryptoNode>, progressAware: ProgressAware<FileTransferState>) {
+		cryptoImpl.associateThumbnails(list, progressAware)
 	}
 
 	@Throws(BackendException::class)

@@ -450,7 +450,7 @@ open class CryptoImplVaultFormat7 : CryptoImplDecorator {
 				cloudContentRepository.delete(node.cloudFile)
 			}
 
-			val cacheKey = generateCacheKey(node.cloudFile)
+			val cacheKey = generateCacheKey(node)
 			node.cloudFile.cloud?.type()?.let { cloudType ->
 				getLruCacheFor(cloudType)?.let { diskCache ->
 					if (diskCache[cacheKey] != null) {

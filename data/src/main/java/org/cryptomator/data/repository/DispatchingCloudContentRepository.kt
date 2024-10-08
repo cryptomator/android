@@ -166,9 +166,11 @@ class DispatchingCloudContentRepository @Inject constructor(
 	}
 
 	@Throws(BackendException::class)
-	override fun associateThumbnails(list: List<CloudNode>, progressAware: ProgressAware<FileTransferState>): Int {
-		return try {
-			// TODO: check if list empty
+	override fun associateThumbnails(list: List<CloudNode>, progressAware: ProgressAware<FileTransferState>) {
+		if (list.isEmpty()) {
+			return
+		}
+		try {
 			list[0].cloud?.let { networkConnectionCheck.assertConnectionIsPresent(it) } ?: throw IllegalStateException("Parent's cloud shouldn't be null")
 			delegateFor(list[0]).associateThumbnails(list, progressAware)
 		} catch (e: AuthenticationException) {

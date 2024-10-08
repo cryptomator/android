@@ -120,18 +120,6 @@
 
 	</PreferenceCategory>
 
-	<PreferenceCategory android:title="@string/screen_settings_thumbnail_generation">
-
-		<ListPreference
-			android:defaultValue="@string/thumbnail_generation_never"
-			android:dialogTitle="@string/dialog_thumbnail_generation_title"
-			android:entries="@array/thumbnail_generation_entries"
-			android:entryValues="@array/thumbnail_generation_values"
-			android:key="thumbnailGeneration"
-			android:summary="%s"
-			android:title="@string/dialog_thumbnail_generation_title" />
-	</PreferenceCategory>
-
 	<PreferenceCategory android:title="@string/screen_settings_lru_cache">
 
 		<SwitchPreference
@@ -152,6 +140,15 @@
 		<androidx.preference.PreferenceScreen
 			android:key="displayLruCacheSize"
 			android:title="@string/screen_settings_lru_cache_size" />
+
+		<ListPreference
+			android:defaultValue="@string/thumbnail_generation_never"
+			android:dialogTitle="@string/dialog_thumbnail_generation_title"
+			android:entries="@array/thumbnail_generation_entries"
+			android:entryValues="@array/thumbnail_generation_values"
+			android:key="thumbnailGeneration"
+			android:summary="%s"
+			android:title="@string/dialog_thumbnail_generation_title" />
 
 		<androidx.preference.PreferenceScreen
 			android:key="lruCacheClear"

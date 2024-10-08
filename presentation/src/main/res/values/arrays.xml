@@ -44,11 +44,13 @@
 	</string-array>
 	<string-array name="thumbnail_generation_entries">
 		<item>@string/thumbnail_generation_never</item>
+		<item>@string/thumbnail_generation_readonly</item>
 		<item>@string/thumbnail_generation_file</item>
 		<item>@string/thumbnail_generation_folder</item>
 	</string-array>
 	<string-array name="thumbnail_generation_values">
 		<item>"NEVER"</item>
+		<item>"READONLY"</item>
 		<item>"PER_FILE"</item>
 		<item>"PER_FOLDER"</item>
 	</string-array>

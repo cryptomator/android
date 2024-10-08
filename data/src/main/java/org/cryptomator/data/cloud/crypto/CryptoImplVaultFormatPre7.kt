@@ -248,7 +248,7 @@ internal class CryptoImplVaultFormatPre7(
 		} else if (node is CryptoFile) {
 			cloudContentRepository.delete(node.cloudFile)
 
-			val cacheKey = generateCacheKey(node.cloudFile)
+			val cacheKey = generateCacheKey(node)
 			node.cloudFile.cloud?.type()?.let { cloudType ->
 				getLruCacheFor(cloudType)?.let { diskCache ->
 					if (diskCache[cacheKey] != null) {

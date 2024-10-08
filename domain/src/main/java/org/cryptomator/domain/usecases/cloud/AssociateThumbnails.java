@@ -21,7 +21,7 @@ public class AssociateThumbnails {
 		this.list = list;
 	}
 
-	public Integer execute(ProgressAware<FileTransferState> progressAware) throws BackendException {
-		return cloudContentRepository.associateThumbnails(list, progressAware);
+	public void execute(ProgressAware<FileTransferState> progressAware) throws BackendException {
+		cloudContentRepository.associateThumbnails(list, progressAware);
 	}
 }

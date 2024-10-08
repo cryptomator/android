@@ -93,7 +93,6 @@ import java.security.DigestInputStream
 import java.security.MessageDigest
 import java.util.function.Supplier
 import javax.inject.Inject
-import kotlin.math.min
 import kotlin.reflect.KClass
 import timber.log.Timber
 
@@ -163,7 +162,7 @@ class BrowseFilesPresenter @Inject constructor( //
 	var openWritableFileNotification: OpenWritableFileNotification? = null
 
 	fun thumbnailsForVisibleNodes(visibleCloudNodes: List<CloudNodeModel<*>>) {
-		if (!sharedPreferencesHandler.useLruCache() || (sharedPreferencesHandler.generateThumbnails() == ThumbnailsOption.NEVER)) {
+		if (!sharedPreferencesHandler.useLruCache() || (sharedPreferencesHandler.generateThumbnails() != ThumbnailsOption.PER_FOLDER)) {
 			return
 		}
 		val toDownload = ArrayList<CloudFileModel>()
@@ -289,8 +288,12 @@ class BrowseFilesPresenter @Inject constructor( //
 	}
 
 	private fun associateThumbnails(cloudNodes: List<CloudNode>) {
+		if (!sharedPreferencesHandler.useLruCache() || sharedPreferencesHandler.generateThumbnails() == ThumbnailsOption.NEVER) {
+			return
+		}
 		associateThumbnailsUseCase.withList(cloudNodes)
-			.run(object : DefaultProgressAwareResultHandler<Int, FileTransferState>() {
+			.run(object : DefaultProgressAwareResultHandler<Void, FileTransferState>() {
+				@Override
 				override fun onProgress(progress: Progress<FileTransferState>) {
 					val state = progress.state()
 					state?.let { state ->
@@ -298,13 +301,13 @@ class BrowseFilesPresenter @Inject constructor( //
 					}
 				}
 
-				override fun onSuccess(result: Int) {
-					// no thumbnails were associated, start the generation of the first few
-					if (result == 0) {
-						val images = view?.renderedCloudNodes()?.filterIsInstance<CloudFileModel>()?.filter { file -> isImageMediaType(file.name) }
-						images?.let { images ->
-							thumbnailsForVisibleNodes(images.subList(0, min(10, images.count())))
-						}
+				@Override
+				override fun onFinished() {
+					val images = view?.renderedCloudNodes()?.filterIsInstance<CloudFileModel>()?.filter { file -> isImageMediaType(file.name) } ?: return
+					val firstImages = images.subList(0, 10)
+					val noThumbnailImages = firstImages.filter { img -> img.thumbnail == null }
+					if (noThumbnailImages.isNotEmpty()) {
+						thumbnailsForVisibleNodes(noThumbnailImages)
 					}
 				}
 			})
