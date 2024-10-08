@@ -6,7 +6,14 @@ import org.cryptomator.data.db.entities.CloudEntity
 import org.cryptomator.data.db.entities.UpdateCheckEntity
 import org.cryptomator.data.db.entities.VaultEntity
 
-@Database(version = 13, entities = [CloudEntity::class, UpdateCheckEntity::class, VaultEntity::class])
+const val DATABASE_NAME = "Cryptomator"
+const val CRYPTOMATOR_DATABASE_VERSION = 14
+
+@Database(
+	version = CRYPTOMATOR_DATABASE_VERSION, entities = [CloudEntity::class, UpdateCheckEntity::class, VaultEntity::class], autoMigrations = [
+
+	]
+)
 abstract class CryptomatorDatabase : RoomDatabase() {
 
 }

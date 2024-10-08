@@ -5,10 +5,10 @@ allprojects {
 }
 
 ext {
-	androidBuildToolsVersion = "33.0.2"
+	androidBuildToolsVersion = "34.0.0"
 	androidMinSdkVersion = 26
-	androidTargetSdkVersion = 33
-	androidCompileSdkVersion = 33
+	androidTargetSdkVersion = 34
+	androidCompileSdkVersion = 34
 
 	// android and java libs
 	androidVersion = '4.1.1.4'
@@ -24,22 +24,20 @@ ext {
 
 	// app frameworks and utilities
 
-	roomVersion = '2.5.2'
-
 	dependencies = [
-			android           : "com.google.android:android:${androidVersion}",
-			androidAnnotations: "androidx.annotation:annotation:${androidSupportAnnotationsVersion}",
-			appcompat         : "androidx.appcompat:appcompat:${androidSupportAppcompatVersion}",
+			android                        : "com.google.android:android:${androidVersion}",
+			androidAnnotations             : "androidx.annotation:annotation:${androidSupportAnnotationsVersion}",
+			appcompat                      : "androidx.appcompat:appcompat:${androidSupportAppcompatVersion}",
 
-			design            : "com.google.android.material:material:${androidMaterialDesignVersion}",
-			coreDesugaring    : "com.android.tools:desugar_jdk_libs:${coreDesugaringVersion}",
+			design                         : "com.google.android.material:material:${androidMaterialDesignVersion}",
+			coreDesugaring                 : "com.android.tools:desugar_jdk_libs:${coreDesugaringVersion}",
 
-			room              : "androidx.room:room-runtime:${roomVersion}",
-			roomCompiler      : "androidx.room:room-compiler:${roomVersion}",
+			room                           : "androidx.room:room-runtime:${roomVersion}",
+			roomCompiler                   : "androidx.room:room-compiler:${roomVersion}",
 
-			javaxAnnotation   : "javax.annotation:jsr250-api:${javaxAnnotationVersion}",
+			javaxAnnotation                : "javax.annotation:jsr250-api:${javaxAnnotationVersion}",
 
-			multidex          : "androidx.multidex:multidex:${multidexVersion}",
+			multidex                       : "androidx.multidex:multidex:${multidexVersion}",
 	]
 
 }
