@@ -1,1 +1,1 @@
-- Fix write back edited file on some devices
+- Migrate cloud access tokens and vault passwords to AES 256bit GCM

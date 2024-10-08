@@ -1,1 +1,1 @@
-- Fehlerbehebung beim Zurückschreiben geänderter Dateien auf bestimmten Geräten
+- Migration von Cloud-Zugangs-Tokens und Tresor-Passwörtern zu AES 256bit GCM
