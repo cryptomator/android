@@ -307,10 +307,15 @@
 	<string name="dialog_debug_mode_disclaimer_title">Figyelem</string>
 	<string name="dialog_debug_mode_positive_button">Engedélyezés</string>
 	<string name="dialog_microsoft_workaround_disclaimer_hint">A Microsoft-alkalmazások egy hibája miatt a szerkesztendő fájlt meg kell osztani ezekkel az alkalmazásokkal az eszközön lévő nyilvános médiamappában. Miután a Cryptomator végzett, a nyilvánosan elérhető fájl ismét törlődik, de a Cryptomatornak nincs befolyása arra, hogy mi történik időközben ezzel a fájlal. Győződj meg róla, hogy tisztában vagy ezzel a viselkedéssel, amikor bekapcsolod ezt az opciót. Ez csak a Microsoft fájltípusokra vonatkozik.\n\nAz bekapcsolás után a Cryptomator újraindul.</string>
+	<string name="dialog_disable_app_obscured_disclaimer_hint">Ez a beállítás egy biztonsági funkció, amely megakadályozza, hogy más alkalmazások megtévesszék a felhasználókat, és olyan dolgokat tegyenek, amelyeket nem akarnak.\n\nA letiltással megerősíti, hogy <a href="https://docs.cryptomator.org/en/latest/android/settings/#block-app-when-obscured">tisztában van a kockázatokkal</a>.</string>
 	<string name="dialog_disable_app_obscured_disclaimer_title">Figyelem</string>
 	<string name="dialog_disable_app_obscured_positive_button">Letiltás</string>
 	<string name="dialog_app_is_obscured_info_title">Az app el van takarva</string>
+	<string name="dialog_app_is_obscured_info_hint">Egy másik alkalmazás jelenít meg valamit a Cryptomator fölött (pl. egy kékfényszűrő vagy éjszakai mód alkalmazás). Biztonsági okokból a Cryptomator le van tiltva.\n\n<a href="https://docs.cryptomator.org/en/latest/android/settings/#block-app-when-obscured">Hogyan engedélyezze a Cryptomator-t</a></string>
 	<string name="dialog_app_is_obscured_info_neutral_button">Bezár</string>
+	<string name="dialog_vaults_removed_during_migration_title">Kérem, adja hozzá újra a széfeket a(z) %1s felhőhöz</string>
+	<string name="dialog_vaults_removed_during_migration_hint">Az alkalmazás ezen verziójára történő frissítés során el kell távolítanunk a következő széfeket az alkalmazásból:\n%2s \n\nEzek a széfek nem kerülnek eltávolításra a felhőből, csak az alkalmazásból. Elnézést a kellemetlenségért, és kérem, adja hozzá újra ezeket a széfeket, hogy folytathassa a munkát velük.</string>
+	<string name="dialog_vault_is_root_folder_of_cloud_title">A széf a felhőkapcsolat gyökérmappája</string>
 	<string name="dialog_confirm_delete_multiple_title">Töröl %1$d elemet?</string>
 	<string name="dialog_confirm_delete_multiple_message">Biztosan törölni akarja ezeket az elemeket?</string>
 	<string name="dialog_confirm_delete_file_message">Biztosan törli ezt a fájlt?</string>
