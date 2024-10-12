@@ -142,7 +142,7 @@
 			android:title="@string/screen_settings_lru_cache_size" />
 
 		<ListPreference
-			android:defaultValue="@string/thumbnail_generation_never"
+			android:defaultValue="NEVER"
 			android:dialogTitle="@string/dialog_thumbnail_generation_title"
 			android:entries="@array/thumbnail_generation_entries"
 			android:entryValues="@array/thumbnail_generation_values"

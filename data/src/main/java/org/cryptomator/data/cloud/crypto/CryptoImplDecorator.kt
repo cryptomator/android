@@ -481,56 +481,6 @@ abstract class CryptoImplDecorator(
 		return isGenerateThumbnailsEnabled() && sharedPreferencesHandler.generateThumbnails() != ThumbnailsOption.READONLY && cache != null && isImageMediaType(fileName)
 	}
 
-	// TODO: remove me
-//	protected fun associateThumbnailIfInCache(list: List<CryptoNode?>): List<CryptoNode?> {
-////		val completionService = ExecutorCompletionService<Unit>(thumbnailExecutorService)
-//		if (!isGenerateThumbnailsEnabled()) {
-//			return list
-//		}
-//		val firstCryptoFile = list.find { it is CryptoFile } ?: return list
-//		val cloudType = (firstCryptoFile as CryptoFile).cloudFile.cloud?.type() ?: return list
-//		val diskCache = getLruCacheFor(cloudType) ?: return list
-//
-//		val toProcess = list.filterIsInstance<CryptoFile>().filter { cryptoFile ->
-//			(isImageMediaType(cryptoFile.name) && cryptoFile.thumbnail == null)
-//		}
-//
-//		Timber.tag("THUMBNAIL").i("[Associate] origList.len:${list.size}, toProcessList.len:${toProcess.size}")
-//		var associated = 0
-//		val elapsed = measureTimeMillis {
-//			toProcess.forEach { cryptoFile ->
-//				val cacheKey = generateCacheKey(cryptoFile.cloudFile)
-//				val cacheFile = diskCache[cacheKey]
-//				if (cacheFile != null) {
-//					cryptoFile.thumbnail = cacheFile
-//					associated++
-//				}
-//			}
-//		}
-//		Timber.tag("THUMBNAIL").i("[Associate] associated:${associated} files, elapsed:${elapsed}ms")
-//
-//		val countThumbnails = list.filterIsInstance<CryptoFile>().filter { cryptoFile -> cryptoFile.thumbnail != null }.count()
-//		Timber.tag("THUMBNAIL").i("[Associate] Num. file with thumbnail associated: $countThumbnails")
-////			val l = mutableListOf<Callable<Unit>>()
-////
-////			var len = 0
-////			list.forEach { cryptoNode ->
-////				if (cryptoNode is CryptoFile && cryptoNode.thumbnail == null && isImageMediaType(cryptoNode.name)) {
-////					Timber.tag("THUMBNAIL").i("Add Thumbnail Generation Service Request")
-////					len++
-////					completionService.submit { cacheOrGenerate(cryptoNode, diskCache) }
-////				}
-////
-////			var received = 0
-////			while (received < len) {
-////				completionService.take(); // blocks if none available
-////				received++
-////			}
-////			Timber.tag("THUMBNAIL").i("WAITED ALL")
-////		}
-//		return list
-//	}
-
 	fun associateThumbnails(list: List<CryptoNode>, progressAware: ProgressAware<FileTransferState>) {
 		if (!isGenerateThumbnailsEnabled()) {
 			return
@@ -561,22 +511,7 @@ abstract class CryptoImplDecorator(
 		}
 		Timber.tag("THUMBNAIL").i("[AssociateThumbnails] associated:${associated} files, elapsed:${elapsed}ms")
 	}
-
-//	private fun cacheOrGenerate(cryptoFile: CryptoFile, diskCache: DiskLruCache) {
-//		val cacheKey = generateCacheKey(cryptoFile.cloudFile)
-//		val cacheFile = diskCache[cacheKey]
-//		if (cacheFile != null) {
-//			cryptoFile.thumbnail = cacheFile
-//		} else {
-//			// force thumbnail generation (~PER FOLDER)
-//			// better usage of the file...
-//			val trash = File.createTempFile(cryptoFile.name, ".temp", internalCache)
-//			// Timber.tag("THUMBNAIL").i("THREAD - Scarico")
-//			readGenerateThumbnail(cryptoFile, trash.outputStream(), ProgressAware.NO_OP_PROGRESS_AWARE_DOWNLOAD).get()
-//			trash.delete()
-//		}
-//	}
-
+	
 	private fun isGenerateThumbnailsEnabled(): Boolean {
 		return sharedPreferencesHandler.useLruCache() && sharedPreferencesHandler.generateThumbnails() != ThumbnailsOption.NEVER
 	}

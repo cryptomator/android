@@ -9,6 +9,7 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.biometric.BiometricManager
 import androidx.core.content.ContextCompat
+import androidx.preference.ListPreference
 import androidx.preference.Preference
 import androidx.preference.PreferenceCategory
 import androidx.preference.PreferenceFragmentCompat
@@ -47,7 +48,6 @@ class SettingsFragment : PreferenceFragmentCompat() {
 		setupAppVersion()
 		setupLruCacheSize()
 		setupLicense()
-		setupThumbnailGeneration()
 		setupCryptomatorVariants()
 	}
 
@@ -81,6 +81,17 @@ class SettingsFragment : PreferenceFragmentCompat() {
 		if (FALSE == newValue) {
 			LruFileCacheUtil(requireContext()).clear()
 			setupLruCacheSize()
+
+			findPreference<ListPreference>(THUMBNAIL_GENERATION)?.let { preference ->
+				preference.isSelectable = false
+			}
+			Toast.makeText(context, context?.getString(R.string.thumbnail_generation__deactivation_toast), Toast.LENGTH_LONG).show()
+		}
+
+		if (TRUE == newValue) {
+			findPreference<ListPreference>(THUMBNAIL_GENERATION)?.let { preference ->
+				preference.isSelectable = true
+			}
 		}
 
 		Toast.makeText(context, context?.getString(R.string.screen_settings_lru_cache_changed__restart_toast), Toast.LENGTH_SHORT).show()
@@ -107,11 +118,6 @@ class SettingsFragment : PreferenceFragmentCompat() {
 
 	private val microsoftWorkaroundChangeListener = Preference.OnPreferenceChangeListener { _, newValue ->
 		onMicrosoftWorkaroundChanged(TRUE == newValue)
-		true
-	}
-
-	private val thumbnailGenerationChangeListener = Preference.OnPreferenceChangeListener { _, newValue ->
-		// TODO ...
 		true
 	}
 
@@ -144,11 +150,6 @@ class SettingsFragment : PreferenceFragmentCompat() {
 		preference?.summaryProvider = Preference.SummaryProvider<Preference> {
 			versionName
 		}
-	}
-
-	private fun setupThumbnailGeneration() {
-		val preference = findPreference(THUMBNAIL_GENERATION) as Preference?
-		// TODO ...
 	}
 
 	private fun setupLruCacheSize() {
@@ -255,7 +256,6 @@ class SettingsFragment : PreferenceFragmentCompat() {
 		}
 		(findPreference(SharedPreferencesHandler.PHOTO_UPLOAD_VAULT) as Preference?)?.intent = Intent(context, AutoUploadChooseVaultActivity::class.java)
 		(findPreference(SharedPreferencesHandler.LICENSES_ACTIVITY) as Preference?)?.intent = Intent(context, LicensesActivity::class.java)
-		(findPreference(SharedPreferencesHandler.THUMBNAIL_GENERATION) as Preference?)?.onPreferenceChangeListener = thumbnailGenerationChangeListener
 	}
 
 	fun deactivateDebugMode() {

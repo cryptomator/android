@@ -636,6 +636,7 @@
 	<string name="thumbnail_generation_readonly">Read Only</string>
 	<string name="thumbnail_generation_file">Generate Per File</string>
 	<string name="thumbnail_generation_folder">Generate Per Folder</string>
+	<string name="thumbnail_generation__deactivation_toast">LRU cache disabled therefore also the thumbnails</string>
 
 	<!-- screen scheme mode names -->
 	<string name="screen_settings_style_mode">Style</string>
