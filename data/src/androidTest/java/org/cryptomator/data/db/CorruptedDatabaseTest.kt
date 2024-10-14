@@ -47,6 +47,8 @@ class CorruptedDatabaseTest {
 		it.mark(it.available())
 	}
 
+	private lateinit var migrationContainer: MigrationContainer
+
 	@Before
 	fun setup() {
 		context.getDatabasePath(TEST_DB).also { dbFile ->
@@ -56,18 +58,8 @@ class CorruptedDatabaseTest {
 				dbFile.delete()
 			}
 		}
-	}
 
-	@After
-	fun tearDown() {
-		context.getDatabasePath(TEST_DB).delete()
-		templateDbStream.reset()
-	}
-
-	@Test
-	fun testOpenVersion0Database() {
-		val databaseModule = DatabaseModule()
-		val migrationContainer = MigrationContainer(
+		migrationContainer = MigrationContainer(
 			Upgrade1To2(), //
 			Upgrade2To3(context), //
 			Upgrade3To4(), //
@@ -84,14 +76,23 @@ class CorruptedDatabaseTest {
 			Migration13To14(), //
 			//Auto: 14 -> 15
 		)
+	}
 
+	@After
+	fun tearDown() {
+		context.getDatabasePath(TEST_DB).delete()
+		templateDbStream.reset()
+	}
+
+	@Test
+	fun testOpenVersion0Database() {
 		createVersion0Database(context, TEST_DB)
-		databaseModule.provideInternalCryptomatorDatabase(
-			context,
-			migrationContainer.getPath(1).toTypedArray(),
-			{ templateDbStream },
-			openHelperFactory,
-			TEST_DB
+		DatabaseModule().provideInternalCryptomatorDatabase( //
+			context, //
+			migrationContainer.getPath(1).toTypedArray(), //
+			{ templateDbStream }, //
+			openHelperFactory, //
+			TEST_DB //
 		).useFinally({ db ->
 			db.compileStatement("SELECT count(*) FROM `sqlite_master` WHERE `name` = 'CLOUD_ENTITY'").use { statement ->
 				require(statement.simpleQueryForLong() == 1L)
