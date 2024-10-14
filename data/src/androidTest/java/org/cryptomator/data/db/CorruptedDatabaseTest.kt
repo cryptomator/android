@@ -27,6 +27,7 @@ import org.cryptomator.data.db.templating.TemplateDatabaseContext
 import org.cryptomator.data.util.useFinally
 import org.cryptomator.util.SharedPreferencesHandler
 import org.junit.After
+import org.junit.Assert.assertEquals
 import org.junit.Before
 import org.junit.Test
 import org.junit.runner.RunWith
@@ -99,6 +100,35 @@ class CorruptedDatabaseTest {
 			}
 		}, finallyBlock = CryptomatorDatabase::close)
 	}
+
+	@Test
+	fun testOpenVersion0DatabaseVerifyStreamAccessed() {
+		var step = 0
+		val templateStreamCallable = {
+			assertEquals(step++, 0)
+			templateDbStream
+		}
+		val listener = object : InterceptorOpenHelperListener {
+			override fun onWritableDatabaseCalled() {
+				assertEquals(step++, 1)
+			}
+		}
+
+		createVersion0Database(context, TEST_DB)
+		DatabaseModule().provideInternalCryptomatorDatabase( //
+			context, //
+			migrationContainer.getPath(1).toTypedArray(), //
+			templateStreamCallable, //
+			InterceptorOpenHelperFactory(openHelperFactory, listener), //
+			TEST_DB //
+		).useFinally({ db ->
+			assertEquals(step++, 2)
+			db.compileStatement("SELECT count(*) FROM `sqlite_master` WHERE `name` = 'CLOUD_ENTITY'").use { statement ->
+				require(statement.simpleQueryForLong() == 1L)
+			}
+		}, finallyBlock = CryptomatorDatabase::close)
+		assertEquals(step++, 3)
+	}
 }
 
 @Suppress("serial")
@@ -133,4 +163,37 @@ private fun initVersion0Database(openHelper: SupportSQLiteOpenHelper): Nothing {
 	openHelper.writableDatabase.use {
 		throw IllegalStateException("Creating a v0 database requires throwing an exception during creation (got ${it.version})")
 	}
+}
+
+private class InterceptorOpenHelperFactory(
+	private val delegate: SupportSQLiteOpenHelper.Factory, //
+	private val listener: InterceptorOpenHelperListener
+) : SupportSQLiteOpenHelper.Factory {
+
+	override fun create(
+		configuration: SupportSQLiteOpenHelper.Configuration
+	): SupportSQLiteOpenHelper {
+		return InterceptorOpenHelper(delegate.create(configuration), listener)
+	}
+}
+
+private class InterceptorOpenHelper(
+	private val delegate: SupportSQLiteOpenHelper, //
+	private val listener: InterceptorOpenHelperListener
+) : SupportSQLiteOpenHelper by delegate {
+
+	override val writableDatabase: SupportSQLiteDatabase
+		get() {
+			listener.onWritableDatabaseCalled()
+			return delegate.writableDatabase
+		}
+
+	override val readableDatabase: SupportSQLiteDatabase
+		get() = throw AssertionError()
+}
+
+private interface InterceptorOpenHelperListener {
+
+	fun onWritableDatabaseCalled()
+
 }
