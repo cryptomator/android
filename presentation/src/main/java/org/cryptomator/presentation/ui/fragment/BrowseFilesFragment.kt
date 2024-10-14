@@ -6,11 +6,12 @@ import android.util.TypedValue
 import android.view.View
 import android.view.View.GONE
 import android.view.View.VISIBLE
-import android.widget.AbsListView.OnScrollListener.SCROLL_STATE_IDLE
 import android.widget.RelativeLayout
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import androidx.recyclerview.widget.RecyclerView.NO_POSITION
+import androidx.recyclerview.widget.RecyclerView.SCROLL_STATE_IDLE
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.simplecityapps.recyclerview_fastscroll.interfaces.OnFastScrollStateChangeListener
 import org.cryptomator.domain.CloudNode
@@ -144,6 +145,9 @@ class BrowseFilesFragment : BaseFragment<FragmentBrowseFilesBinding>(FragmentBro
 		val layoutManager = binding.recyclerViewLayout.recyclerView.layoutManager as LinearLayoutManager
 		val first = layoutManager.findFirstVisibleItemPosition()
 		val last = layoutManager.findLastVisibleItemPosition()
+		if (first == NO_POSITION || last == NO_POSITION) {
+			return
+		}
 		val visibleCloudNodes = cloudNodesAdapter.renderedCloudNodes().subList(first, last + 1)
 		if (!binding.swipeRefreshLayout.isRefreshing) {
 			browseFilesPresenter.thumbnailsForVisibleNodes(visibleCloudNodes)

@@ -121,7 +121,7 @@ abstract class CryptoImplDecorator(
 			CloudType.WEBDAV -> LruFileCacheUtil.Cache.WEBDAV
 			CloudType.S3 -> LruFileCacheUtil.Cache.S3
 			CloudType.LOCAL -> LruFileCacheUtil.Cache.LOCAL
-			else -> throw IllegalStateException()
+			else -> throw IllegalStateException("Unexpected CloudType: $type")
 		}
 	}
 
@@ -458,6 +458,11 @@ abstract class CryptoImplDecorator(
 				val thumbnailBitmap: Bitmap?
 				options.inSampleSize = 4 // pixel number reduced by a factor of 1/16
 				val bitmap = BitmapFactory.decodeStream(thumbnailReader, null, options)
+				if (bitmap == null) {
+					closeQuietly(thumbnailReader)
+					return@submit
+				}
+
 				val thumbnailWidth = 100
 				val thumbnailHeight = 100
 				thumbnailBitmap = ThumbnailUtils.extractThumbnail(bitmap, thumbnailWidth, thumbnailHeight)
@@ -468,7 +473,7 @@ abstract class CryptoImplDecorator(
 
 				cryptoFile.thumbnail = diskCache[cacheKey]
 			} catch (e: Exception) {
-				Timber.e("Bitmap generation crashed")
+				Timber.e(e, "Bitmap generation crashed")
 			}
 		}
 	}
@@ -511,7 +516,7 @@ abstract class CryptoImplDecorator(
 		}
 		Timber.tag("THUMBNAIL").i("[AssociateThumbnails] associated:${associated} files, elapsed:${elapsed}ms")
 	}
-	
+
 	private fun isGenerateThumbnailsEnabled(): Boolean {
 		return sharedPreferencesHandler.useLruCache() && sharedPreferencesHandler.generateThumbnails() != ThumbnailsOption.NEVER
 	}

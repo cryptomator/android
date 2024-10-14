@@ -293,7 +293,6 @@ class BrowseFilesPresenter @Inject constructor( //
 		}
 		associateThumbnailsUseCase.withList(cloudNodes)
 			.run(object : DefaultProgressAwareResultHandler<Void, FileTransferState>() {
-				@Override
 				override fun onProgress(progress: Progress<FileTransferState>) {
 					val state = progress.state()
 					state?.let { state ->
@@ -301,13 +300,12 @@ class BrowseFilesPresenter @Inject constructor( //
 					}
 				}
 
-				@Override
 				override fun onFinished() {
 					val images = view?.renderedCloudNodes()?.filterIsInstance<CloudFileModel>()?.filter { file -> isImageMediaType(file.name) } ?: return
-					val firstImages = images.subList(0, 10)
-					val noThumbnailImages = firstImages.filter { img -> img.thumbnail == null }
-					if (noThumbnailImages.isNotEmpty()) {
-						thumbnailsForVisibleNodes(noThumbnailImages)
+					images.take(10).filter { img -> img.thumbnail == null }.let { firstImagesWithoutThumbnails ->
+						if (firstImagesWithoutThumbnails.isNotEmpty()) {
+							thumbnailsForVisibleNodes(firstImagesWithoutThumbnails)
+						}
 					}
 				}
 			})
