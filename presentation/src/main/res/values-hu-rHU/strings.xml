@@ -316,6 +316,7 @@
 	<string name="dialog_vaults_removed_during_migration_title">Kérem, adja hozzá újra a széfeket a(z) %1s felhőhöz</string>
 	<string name="dialog_vaults_removed_during_migration_hint">Az alkalmazás ezen verziójára történő frissítés során el kell távolítanunk a következő széfeket az alkalmazásból:\n%2s \n\nEzek a széfek nem kerülnek eltávolításra a felhőből, csak az alkalmazásból. Elnézést a kellemetlenségért, és kérem, adja hozzá újra ezeket a széfeket, hogy folytathassa a munkát velük.</string>
 	<string name="dialog_vault_is_root_folder_of_cloud_title">A széf a felhőkapcsolat gyökérmappája</string>
+	<string name="dialog_vault_is_root_folder_of_cloud_hint">Hozzon létre egy új felhőkapcsolatot, ahol legalább a széf mappájának szülőmappáját választja gyökérkönyvtárként a széf hozzáadásához.</string>
 	<string name="dialog_confirm_delete_multiple_title">Töröl %1$d elemet?</string>
 	<string name="dialog_confirm_delete_multiple_message">Biztosan törölni akarja ezeket az elemeket?</string>
 	<string name="dialog_confirm_delete_file_message">Biztosan törli ezt a fájlt?</string>
