@@ -20,7 +20,6 @@ import org.cryptomator.data.db.migrations.Sql
 import org.cryptomator.data.db.migrations.legacy.Upgrade10To11
 import org.cryptomator.data.db.migrations.legacy.Upgrade11To12
 import org.cryptomator.data.db.migrations.legacy.Upgrade12To13
-import org.cryptomator.data.db.migrations.legacy.Upgrade1To2
 import org.cryptomator.data.db.migrations.legacy.Upgrade2To3
 import org.cryptomator.data.db.migrations.legacy.Upgrade3To4
 import org.cryptomator.data.db.migrations.legacy.Upgrade4To5
@@ -42,7 +41,6 @@ import org.junit.Assert
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertFalse
 import org.junit.Assert.assertTrue
-import org.junit.Assert.fail
 import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
@@ -51,7 +49,6 @@ import java.io.IOException
 import java.nio.file.Files
 
 private const val TEST_DB = "migration-test"
-private const val LATEST_LEGACY_MIGRATION = 13
 
 private const val UUID_LENGTH = 36
 
@@ -93,42 +90,9 @@ class UpgradeDatabaseTest {
 			Files.copy(templateDbStream, dbFile.toPath())
 		}
 
-		migrationContainer = MigrationContainer(
-			Upgrade1To2(), //
-			Upgrade2To3(context), //
-			Upgrade3To4(), //
-			Upgrade4To5(), //
-			Upgrade5To6(), //
-			Upgrade6To7(), //
-			Upgrade7To8(), //
-			Upgrade8To9(sharedPreferencesHandler), //
-			Upgrade9To10(sharedPreferencesHandler), //
-			Upgrade10To11(), //
-			Upgrade11To12(sharedPreferencesHandler), //
-			Upgrade12To13(context), //
-			//
-			Migration13To14(), //
-			//Auto: 14 -> 15
-		)
+		migrationContainer = createMigrationContainer(context, sharedPreferencesHandler)
 
-		val config = SupportSQLiteOpenHelper.Configuration.builder(context) //
-			.name(TEST_DB) //
-			.callback(object : SupportSQLiteOpenHelper.Callback(LATEST_LEGACY_MIGRATION) {
-				override fun onConfigure(db: SupportSQLiteDatabase) = db.applyDefaultConfiguration( //
-					assertedWalEnabledStatus = false //
-				)
-
-				override fun onCreate(db: SupportSQLiteDatabase) {
-					fail("Database should not be created, but copied from template")
-				}
-
-				override fun onUpgrade(db: SupportSQLiteDatabase, oldVersion: Int, newVersion: Int) {
-					assertEquals(1, oldVersion)
-					assertEquals(LATEST_LEGACY_MIGRATION, newVersion)
-				}
-			}).build()
-
-		openHelper = FrameworkSQLiteOpenHelperFactory().asCacheControlled().create(config)
+		openHelper = FrameworkSQLiteOpenHelperFactory().asCacheControlled().create(configureTestDatabase(context, TEST_DB))
 		openHelper.setWriteAheadLoggingEnabled(false)
 		db = openHelper.writableDatabase
 	}
