@@ -342,11 +342,19 @@
 	<string name="dialog_download_update_title">Letöltés folyamatban</string>
 	<string name="dialog_download_update_message">A Cryptomator legújabb verziójának letöltése folyamatban</string>
 	<string name="dialog_sym_link_title">A mappa egy szimbolikus link</string>
+	<string name="dialog_sym_link_message">Nem tud navigálni erre a szimbolikus linkre</string>
 	<string name="dialog_sym_link_back_button">Vissza</string>
 	<string name="dialog_no_dir_file_title">Nem lehet betölteni a könyvtár tartalmát</string>
+	<string name="dialog_no_dir_file_message">A(z) \'%1$s\' felhőmappának nincs érvényes könyvtárfájlja. Lehetséges, hogy a mappát egy másik eszközön hozták létre, és még nem szinkronizálódott teljesen a felhőbe. Kérem, ellenőrizze a felhőben, hogy a következő fájl létezik-e, és nem üres-e:\n%2$s</string>
+	<string name="dialog_no_more_images_to_display">Nincs több megjeleníthető kép&#8230;</string>
+	<string name="dialog_pcloud_credentials_updated_title">A(z) „%1$s” hitelesítő adatai frissítve</string>
 	<string name="dialog_pcloud_credentials_updated">Ha új pCloud fiókot szeretne hozzáadni, koppintson erre az url-re: <a href="https://www.pcloud.com">www.pcloud.com</a>, jelentkezzen ki a jelenlegi fiókból és koppintson újra a \'+\' gombra az appban, hogy új felhő kapcsolatot létesítsen.</string>
+	<string name="dialog_cbc_password_vaults_migration_title">Széf jelszó migráció szükséges</string>
+	<string name="dialog_cbc_password_vaults_migration_hint">A biztonsági fejlesztések miatt minden széf esetében kétszer kérjük a biometrikus hitelesítést a széf jelszavainak újratitkosításához. Ez szükséges ahhoz, hogy a széf jelszavait a legújabb technológiával védjük továbbra is. Ha nem kívánja ezt végrehajtani, a tárolt jelszavak eltávolításra kerülnek.</string>
+	<string name="dialog_cbc_password_vaults_migration_action">Migráció</string>
 	<string name="permission_snackbar_auth_local_vault">A Cryptomatornak tárhely-hozzáférésre van szüksége a trezorok használatához</string>
 	<string name="permission_snackbar_auth_auto_upload">A Cryptomatornak tárhely-hozzáférésre van szüksége az automatikus fotófeltöltés használatához</string>
+	<string name="permission_snackbar_notifications">A Cryptomatornak értesítési engedélyekre van szüksége például a széf állapotának megjelenítéséhez</string>
 	<!-- # error reports -->
 	<!-- # misc -->
 	<!-- ## file size helper -->
