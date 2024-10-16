@@ -34,6 +34,7 @@ import org.cryptomator.data.db.templating.TemplateDatabaseContext
 import org.cryptomator.domain.CloudType
 import org.cryptomator.util.SharedPreferencesHandler
 import org.cryptomator.util.crypto.CredentialCryptor
+import org.cryptomator.util.crypto.CryptoMode
 import org.hamcrest.CoreMatchers
 import org.junit.After
 import org.junit.Assert
@@ -716,21 +717,19 @@ class UpgradeDatabaseTest {
 		Assert.assertThat(sharedPreferencesHandler.updateIntervalInDays(), CoreMatchers.`is`(Optional.absent()))
 	}
 
-	/*
 	@Test
 	fun upgrade12To13BaseTests() {
-		Upgrade0To1().applyTo(db, 0)
-		Upgrade1To2().applyTo(db, 1)
-		Upgrade2To3(context).applyTo(db, 2)
-		Upgrade3To4().applyTo(db, 3)
-		Upgrade4To5().applyTo(db, 4)
-		Upgrade5To6().applyTo(db, 5)
-		Upgrade6To7().applyTo(db, 6)
-		Upgrade7To8().applyTo(db, 7)
-		Upgrade8To9(sharedPreferencesHandler).applyTo(db, 8)
-		Upgrade9To10(sharedPreferencesHandler).applyTo(db, 9)
-		Upgrade10To11().applyTo(db, 10)
-		Upgrade11To12(sharedPreferencesHandler).applyTo(db, 11)
+		Upgrade1To2().migrate(db)
+		Upgrade2To3(context).migrate(db)
+		Upgrade3To4().migrate(db)
+		Upgrade4To5().migrate(db)
+		Upgrade5To6().migrate(db)
+		Upgrade6To7().migrate(db)
+		Upgrade7To8().migrate(db)
+		Upgrade8To9(sharedPreferencesHandler).migrate(db)
+		Upgrade9To10(sharedPreferencesHandler).migrate(db)
+		Upgrade10To11().migrate(db)
+		Upgrade11To12(sharedPreferencesHandler).migrate(db)
 
 		val gcmCryptor = CredentialCryptor.getInstance(context, CryptoMode.GCM)
 		val cbcCryptor = CredentialCryptor.getInstance(context, CryptoMode.CBC)
@@ -775,7 +774,7 @@ class UpgradeDatabaseTest {
 			.integer("SHORTENING_THRESHOLD", 4)
 			.executeOn(db)
 
-		Upgrade12To13(context).applyTo(db, 12)
+		Upgrade12To13(context).migrate(db)
 
 		Sql.query("CLOUD_ENTITY").where("_id", Sql.eq(15)).executeOn(db).use {
 			it.moveToFirst()
@@ -814,18 +813,17 @@ class UpgradeDatabaseTest {
 
 	@Test
 	fun upgrade12To13DropGoogleDriveUsernameInAccessToken() {
-		Upgrade0To1().applyTo(db, 0)
-		Upgrade1To2().applyTo(db, 1)
-		Upgrade2To3(context).applyTo(db, 2)
-		Upgrade3To4().applyTo(db, 3)
-		Upgrade4To5().applyTo(db, 4)
-		Upgrade5To6().applyTo(db, 5)
-		Upgrade6To7().applyTo(db, 6)
-		Upgrade7To8().applyTo(db, 7)
-		Upgrade8To9(sharedPreferencesHandler).applyTo(db, 8)
-		Upgrade9To10(sharedPreferencesHandler).applyTo(db, 9)
-		Upgrade10To11().applyTo(db, 10)
-		Upgrade11To12(sharedPreferencesHandler).applyTo(db, 11)
+		Upgrade1To2().migrate(db)
+		Upgrade2To3(context).migrate(db)
+		Upgrade3To4().migrate(db)
+		Upgrade4To5().migrate(db)
+		Upgrade5To6().migrate(db)
+		Upgrade6To7().migrate(db)
+		Upgrade7To8().migrate(db)
+		Upgrade8To9(sharedPreferencesHandler).migrate(db)
+		Upgrade9To10(sharedPreferencesHandler).migrate(db)
+		Upgrade10To11().migrate(db)
+		Upgrade11To12(sharedPreferencesHandler).migrate(db)
 
 		Sql.insertInto("CLOUD_ENTITY") //
 			.integer("_id", 15) //
@@ -834,7 +832,7 @@ class UpgradeDatabaseTest {
 			.text("ACCESS_TOKEN", "username") //
 			.executeOn(db)
 
-		Upgrade12To13(context).applyTo(db, 12)
+		Upgrade12To13(context).migrate(db)
 
 		Sql.query("CLOUD_ENTITY").where("_id", Sql.eq(15)).executeOn(db).use {
 			it.moveToFirst()
@@ -844,18 +842,17 @@ class UpgradeDatabaseTest {
 
 	@Test
 	fun upgrade12To13MovingAccessTokenToUrlInLocalStorage() {
-		Upgrade0To1().applyTo(db, 0)
-		Upgrade1To2().applyTo(db, 1)
-		Upgrade2To3(context).applyTo(db, 2)
-		Upgrade3To4().applyTo(db, 3)
-		Upgrade4To5().applyTo(db, 4)
-		Upgrade5To6().applyTo(db, 5)
-		Upgrade6To7().applyTo(db, 6)
-		Upgrade7To8().applyTo(db, 7)
-		Upgrade8To9(sharedPreferencesHandler).applyTo(db, 8)
-		Upgrade9To10(sharedPreferencesHandler).applyTo(db, 9)
-		Upgrade10To11().applyTo(db, 10)
-		Upgrade11To12(sharedPreferencesHandler).applyTo(db, 11)
+		Upgrade1To2().migrate(db)
+		Upgrade2To3(context).migrate(db)
+		Upgrade3To4().migrate(db)
+		Upgrade4To5().migrate(db)
+		Upgrade5To6().migrate(db)
+		Upgrade6To7().migrate(db)
+		Upgrade7To8().migrate(db)
+		Upgrade8To9(sharedPreferencesHandler).migrate(db)
+		Upgrade9To10(sharedPreferencesHandler).migrate(db)
+		Upgrade10To11().migrate(db)
+		Upgrade11To12(sharedPreferencesHandler).migrate(db)
 
 		Sql.insertInto("CLOUD_ENTITY") //
 			.integer("_id", 15) //
@@ -863,7 +860,7 @@ class UpgradeDatabaseTest {
 			.text("ACCESS_TOKEN", "testUrl3000") //
 			.executeOn(db)
 
-		Upgrade12To13(context).applyTo(db, 12)
+		Upgrade12To13(context).migrate(db)
 
 		Sql.query("CLOUD_ENTITY").where("_id", Sql.eq(15)).executeOn(db).use {
 			it.moveToFirst()
@@ -874,18 +871,17 @@ class UpgradeDatabaseTest {
 
 	@Test
 	fun upgrade12To13Dropbox() {
-		Upgrade0To1().applyTo(db, 0)
-		Upgrade1To2().applyTo(db, 1)
-		Upgrade2To3(context).applyTo(db, 2)
-		Upgrade3To4().applyTo(db, 3)
-		Upgrade4To5().applyTo(db, 4)
-		Upgrade5To6().applyTo(db, 5)
-		Upgrade6To7().applyTo(db, 6)
-		Upgrade7To8().applyTo(db, 7)
-		Upgrade8To9(sharedPreferencesHandler).applyTo(db, 8)
-		Upgrade9To10(sharedPreferencesHandler).applyTo(db, 9)
-		Upgrade10To11().applyTo(db, 10)
-		Upgrade11To12(sharedPreferencesHandler).applyTo(db, 11)
+		Upgrade1To2().migrate(db)
+		Upgrade2To3(context).migrate(db)
+		Upgrade3To4().migrate(db)
+		Upgrade4To5().migrate(db)
+		Upgrade5To6().migrate(db)
+		Upgrade6To7().migrate(db)
+		Upgrade7To8().migrate(db)
+		Upgrade8To9(sharedPreferencesHandler).migrate(db)
+		Upgrade9To10(sharedPreferencesHandler).migrate(db)
+		Upgrade10To11().migrate(db)
+		Upgrade11To12(sharedPreferencesHandler).migrate(db)
 
 		val gcmCryptor = CredentialCryptor.getInstance(context, CryptoMode.GCM)
 		val cbcCryptor = CredentialCryptor.getInstance(context, CryptoMode.CBC)
@@ -900,7 +896,7 @@ class UpgradeDatabaseTest {
 			.text("ACCESS_TOKEN", accessTokenCiphertext) //
 			.executeOn(db)
 
-		Upgrade12To13(context).applyTo(db, 12)
+		Upgrade12To13(context).migrate(db)
 
 		Sql.query("CLOUD_ENTITY").where("_id", Sql.eq(15)).executeOn(db).use {
 			it.moveToFirst()
@@ -912,18 +908,17 @@ class UpgradeDatabaseTest {
 
 	@Test
 	fun upgrade12To13OneDrive() {
-		Upgrade0To1().applyTo(db, 0)
-		Upgrade1To2().applyTo(db, 1)
-		Upgrade2To3(context).applyTo(db, 2)
-		Upgrade3To4().applyTo(db, 3)
-		Upgrade4To5().applyTo(db, 4)
-		Upgrade5To6().applyTo(db, 5)
-		Upgrade6To7().applyTo(db, 6)
-		Upgrade7To8().applyTo(db, 7)
-		Upgrade8To9(sharedPreferencesHandler).applyTo(db, 8)
-		Upgrade9To10(sharedPreferencesHandler).applyTo(db, 9)
-		Upgrade10To11().applyTo(db, 10)
-		Upgrade11To12(sharedPreferencesHandler).applyTo(db, 11)
+		Upgrade1To2().migrate(db)
+		Upgrade2To3(context).migrate(db)
+		Upgrade3To4().migrate(db)
+		Upgrade4To5().migrate(db)
+		Upgrade5To6().migrate(db)
+		Upgrade6To7().migrate(db)
+		Upgrade7To8().migrate(db)
+		Upgrade8To9(sharedPreferencesHandler).migrate(db)
+		Upgrade9To10(sharedPreferencesHandler).migrate(db)
+		Upgrade10To11().migrate(db)
+		Upgrade11To12(sharedPreferencesHandler).migrate(db)
 
 		val gcmCryptor = CredentialCryptor.getInstance(context, CryptoMode.GCM)
 		val cbcCryptor = CredentialCryptor.getInstance(context, CryptoMode.CBC)
@@ -938,7 +933,7 @@ class UpgradeDatabaseTest {
 			.text("ACCESS_TOKEN", accessTokenCiphertext) //
 			.executeOn(db)
 
-		Upgrade12To13(context).applyTo(db, 12)
+		Upgrade12To13(context).migrate(db)
 
 		Sql.query("CLOUD_ENTITY").where("_id", Sql.eq(15)).executeOn(db).use {
 			it.moveToFirst()
@@ -949,18 +944,17 @@ class UpgradeDatabaseTest {
 
 	@Test
 	fun upgrade12To13PCloud() {
-		Upgrade0To1().applyTo(db, 0)
-		Upgrade1To2().applyTo(db, 1)
-		Upgrade2To3(context).applyTo(db, 2)
-		Upgrade3To4().applyTo(db, 3)
-		Upgrade4To5().applyTo(db, 4)
-		Upgrade5To6().applyTo(db, 5)
-		Upgrade6To7().applyTo(db, 6)
-		Upgrade7To8().applyTo(db, 7)
-		Upgrade8To9(sharedPreferencesHandler).applyTo(db, 8)
-		Upgrade9To10(sharedPreferencesHandler).applyTo(db, 9)
-		Upgrade10To11().applyTo(db, 10)
-		Upgrade11To12(sharedPreferencesHandler).applyTo(db, 11)
+		Upgrade1To2().migrate(db)
+		Upgrade2To3(context).migrate(db)
+		Upgrade3To4().migrate(db)
+		Upgrade4To5().migrate(db)
+		Upgrade5To6().migrate(db)
+		Upgrade6To7().migrate(db)
+		Upgrade7To8().migrate(db)
+		Upgrade8To9(sharedPreferencesHandler).migrate(db)
+		Upgrade9To10(sharedPreferencesHandler).migrate(db)
+		Upgrade10To11().migrate(db)
+		Upgrade11To12(sharedPreferencesHandler).migrate(db)
 
 		val gcmCryptor = CredentialCryptor.getInstance(context, CryptoMode.GCM)
 		val cbcCryptor = CredentialCryptor.getInstance(context, CryptoMode.CBC)
@@ -976,7 +970,7 @@ class UpgradeDatabaseTest {
 			.text("URL", "url") //
 			.executeOn(db)
 
-		Upgrade12To13(context).applyTo(db, 12)
+		Upgrade12To13(context).migrate(db)
 
 		Sql.query("CLOUD_ENTITY").where("_id", Sql.eq(15)).executeOn(db).use {
 			it.moveToFirst()
@@ -987,18 +981,17 @@ class UpgradeDatabaseTest {
 
 	@Test
 	fun upgrade12To13Webdav() {
-		Upgrade0To1().applyTo(db, 0)
-		Upgrade1To2().applyTo(db, 1)
-		Upgrade2To3(context).applyTo(db, 2)
-		Upgrade3To4().applyTo(db, 3)
-		Upgrade4To5().applyTo(db, 4)
-		Upgrade5To6().applyTo(db, 5)
-		Upgrade6To7().applyTo(db, 6)
-		Upgrade7To8().applyTo(db, 7)
-		Upgrade8To9(sharedPreferencesHandler).applyTo(db, 8)
-		Upgrade9To10(sharedPreferencesHandler).applyTo(db, 9)
-		Upgrade10To11().applyTo(db, 10)
-		Upgrade11To12(sharedPreferencesHandler).applyTo(db, 11)
+		Upgrade1To2().migrate(db)
+		Upgrade2To3(context).migrate(db)
+		Upgrade3To4().migrate(db)
+		Upgrade4To5().migrate(db)
+		Upgrade5To6().migrate(db)
+		Upgrade6To7().migrate(db)
+		Upgrade7To8().migrate(db)
+		Upgrade8To9(sharedPreferencesHandler).migrate(db)
+		Upgrade9To10(sharedPreferencesHandler).migrate(db)
+		Upgrade10To11().migrate(db)
+		Upgrade11To12(sharedPreferencesHandler).migrate(db)
 
 		val gcmCryptor = CredentialCryptor.getInstance(context, CryptoMode.GCM)
 		val cbcCryptor = CredentialCryptor.getInstance(context, CryptoMode.CBC)
@@ -1014,7 +1007,7 @@ class UpgradeDatabaseTest {
 			.text("URL", "url") //
 			.executeOn(db)
 
-		Upgrade12To13(context).applyTo(db, 12)
+		Upgrade12To13(context).migrate(db)
 
 		Sql.query("CLOUD_ENTITY").where("_id", Sql.eq(15)).executeOn(db).use {
 			it.moveToFirst()
@@ -1022,7 +1015,6 @@ class UpgradeDatabaseTest {
 			Assert.assertThat(it.getString(it.getColumnIndex("ACCESS_TOKEN_CRYPTO_MODE")), CoreMatchers.`is`(CryptoMode.GCM.name))
 		}
 	}
-	*/
 
 	@Test
 	fun migrate13To15ForeignKeySideEffects() { //See: Migration13To14
