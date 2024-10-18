@@ -7,29 +7,76 @@
 	<string name="error_authentication_failed">ਪ੍ਰਮਾਣਿਕਤਾ ਅਸਫਲ</string>
 	<string name="error_no_network_connection">ਕੋਈ ਨੈੱਟਵਰਕ ਕਨੈਕਸ਼ਨ ਨਹੀਂ</string>
 	<string name="error_invalid_passphrase">ਗ਼ਲਤ ਪਾਸਵਰਡ</string>
+	<string name="error_file_or_folder_exists">ਫਾਇਲ ਜਾਂ ਫੋਲਡਰ ਪਹਿਲਾਂ ਹੀ ਮੌਜੂਦ ਹੈ।</string>
 	<string name="error_vault_already_exists">\"%@\" ਪਹਿਲਾਂ ਹੀ ਮੌਜੂਦ ਹੈ।</string>
+	<string name="error_no_such_file">ਫਾਇਲ ਮੌਜੂਦ ਨਹੀਂ ਹੈ।</string>
+	<string name="error_vault_has_been_locked">ਵਾਲਟ ਨੂੰ ਲਾਕ ਕੀਤਾ ਗਿਆ ਹੈ।</string>
+	<string name="error_cloud_already_exists">ਕਲਾਉਡ ਪਹਿਲਾਂ ਹੀ ਮੌਜੂਦ ਹੈ।</string>
+	<string name="error_server_not_found">ਸਰਵਰ ਨਹੀਂ ਲੱਭਿਆ।</string>
 	<!-- # clouds -->
 	<!-- ## cloud names -->
+	<string name="cloud_names_local_storage">ਲੋਕਲ ਸਟੋਰੇਜ਼</string>
 	<!-- # permission -->
 	<!-- ## permission messages -->
 	<string name="snack_bar_action_title_settings">ਸੈਟਿੰਗਾਂ</string>
 	<string name="snack_bar_action_title_search_previous">ਪਿਛਲਾ</string>
 	<string name="snack_bar_action_title_search_next">ਅੱਗੇ</string>
+	<string name="snack_bar_action_title_sort">ਲੜੀਬੱਧ</string>
 	<string name="snack_bar_action_title_sort_az">\?</string>
+	<string name="snack_bar_action_title_sort_za">Z - A</string>
 	<string name="snack_bar_action_title_sort_newest">ਨਵੇਂ ਪਹਿਲਾਂ</string>
 	<string name="snack_bar_action_title_sort_oldest">ਪੁਰਾਣੇ ਪਹਿਲਾਂ</string>
+	<string name="snack_bar_cryptomator_variants_title">ਹੋਰ ਪੜ੍ਹੋ</string>
 	<!-- # screens -->
 	<!-- # screen: vault list -->
+	<string name="screen_vault_list_actions_title">Cryptomator ਵਿੱਚ ਜੋੜੋ</string>
+	<string name="screen_vault_list_action_create_new_vault">ਨਵਾਂ ਵਾਲਟ ਬਣਾਓ</string>
+	<string name="screen_vault_list_action_add_existing_vault">ਮੌਜੂਦਾ ਵਾਲਟ ਨੂੰ ਜੋੜੋ</string>
+	<string name="screen_vault_list_vault_action_delete">ਹਟਾਓ</string>
+	<string name="screen_vault_list_change_password_successful">ਪਾਸਵਰਡ ਨੂੰ ਕਾਮਯਾਬੀ ਨਾਲ ਬਦਲਿਆ</string>
 	<!-- # screen: file browser -->
 	<string name="screen_file_browser_default_title">ਵਾਲਟ</string>
 	<string name="screen_file_browser_share_button_text">ਚੁਣੋ</string>
+	<string name="screen_file_browser_msg_file_exported">ਫਾਇਲ ਐਕਸਪੋਰਟ ਕੀਤੀ</string>
+	<string name="screen_file_browser_msg_files_exported">ਫਾਇਲਾਂ ਨੂੰ ਐਕਸਪੋਰਟ ਕੀਤਾ</string>
+	<string name="screen_file_browser_nothing_to_export">ਐਕਸਪੋਰਟ ਕਰਨ ਲਈ ਕੁਝ ਨਹੀਂ ਹੈ</string>
+	<string name="screen_file_browser_msg_creating_download_dir_failed">ਡਾਊਨਲੋਡ ਡਾਇਰੈਕਟਰੀ ਬਣਾਉਣ ਲਈ ਅਸਫ਼ਲ ਹੈ</string>
+	<string name="screen_file_browser_node_action_share">ਸਾਂਝਾ ਕਰੋ</string>
+	<string name="screen_file_browser_node_action_rename">ਨਾਂ ਬਦਲੋ</string>
+	<string name="screen_file_browser_node_action_edit_text">ਸੋਧੋ</string>
+	<string name="screen_file_browser_node_action_export">ਐਕਸਪੋਰਟ</string>
+	<string name="screen_file_browser_node_action_delete">ਹਟਾਓ</string>
+	<string name="screen_file_browser_selection_mode_title_zero_elements">ਆਈਟਮਾਂ ਨੂੰ ਚੁਣੋ</string>
+	<string name="screen_file_browser_selection_mode_title_one_or_more_elements">%1$d ਨੂੰ ਚੁਣਿਆ</string>
+	<string name="screen_file_browser_select_items">ਚੁਣੋ</string>
+	<string name="screen_file_browser_select_all_items">ਸਭ ਨੂੰ ਚੁਣੋ</string>
+	<string name="screen_file_browser_refresh_items">ਤਾਜ਼ਾ ਕਰੋ</string>
+	<string name="screen_file_browser_no_connection_message">ਕੋਈ ਕਨੈਕਸ਼ਨ ਨਹੀਂ</string>
+	<string name="screen_file_browser_no_connection_button_text">ਮੁੜ-ਕੋਸ਼ਿਸ਼</string>
 	<!-- ## screen: text editor -->
+	<string name="screen_text_editor_save_success">ਕਾਮਯਾਬੀ ਨਾਲ ਸੰਭਾਲਿਆ</string>
 	<!-- ## screen: share files -->
+	<string name="screen_share_files_content_text">ਲਿਖਤ</string>
+	<string name="screen_share_files_content_file">ਫਾਇਲ</string>
+	<string name="screen_share_files_content_files">ਫਾਇਲਾਂ</string>
+	<string name="screen_share_files_section_location">ਸੰਭਾਲਣ ਦੀ ਥਾਂ</string>
+	<string name="screen_share_files_save_button_text">ਸੰਭਾਲੋ</string>
+	<string name="screen_share_files_msg_success">ਇੰਕ੍ਰਿਪਸ਼ਨ ਪੂਰੀ ਹੋਈ</string>
 	<!-- ## screen: choose cloud service -->
+	<string name="screen_choose_cloud_service_title">ਕਲਾਉਡ ਸੇਵਾ</string>
 	<!-- ## screen: cloud connections -->
+	<string name="screen_cloud_connections_title">ਟਿਕਾਣੇ ਨੂੰ ਚੁਣੋ</string>
 	<!-- ## screen: webdav settings -->
+	<string name="screen_webdav_settings_url_port_label">URL</string>
+	<string name="screen_webdav_settings_username_label">ਵਰਤੋਂਕਾਰ ਨਾਂ</string>
 	<string name="screen_webdav_settings_password_label">ਪਾਸਵਰਡ</string>
+	<string name="screen_webdav_settings_done_button_text">ਕਨੈਕਟ</string>
+	<string name="screen_webdav_settings_msg_username_must_not_be_empty">ਵਰਤੋਂਕਾਰ ਨਾਂ ਖਾਲੀ ਨਹੀਂ ਹੋ ਸਕਦਾ ਹੈ।</string>
+	<string name="screen_webdav_settings_msg_password_must_not_be_empty">ਪਾਸਵਰਡ ਖਾਲੀ ਨਹੀਂ ਹੋ ਸਕਦਾ ਹੈ।</string>
 	<!-- ## screen: s3 settings -->
+	<string name="screen_s3_settings_display_name_label">ਦਿਖਾਉਣ ਲਈ ਨਾਂ</string>
+	<string name="screen_s3_settings_access_key_label">ਪਹੁੰਚ ਕੁੰਜੀ</string>
+	<string name="screen_s3_settings_secret_key_label">ਗੁਪਤ ਕੁੰਜੀ</string>
 	<!-- ## screen: enter vault name -->
 	<!-- ## screen: set password -->
 	<string name="screen_set_password_button_text">ਮੁਕੰਮਲ</string>
@@ -46,6 +93,7 @@
 	<string name="dialog_button_cancel">ਰੱਦ ਕਰੋ</string>
 	<string name="dialog_enter_password_positive_button">ਅਣ-ਲਾਕ ਕਰੋ</string>
 	<!-- Vault not found -->
+	<string name="dialog_vault_not_found_positive_button_text">ਹਟਾਓ</string>
 	<string name="dialog_lock_vault">ਲਾਕ ਕਰੋ</string>
 	<string name="dialog_app_is_obscured_info_neutral_button">ਬੰਦ ਕਰੋ</string>
 	<string name="dialog_sym_link_back_button">ਪਿੱਛੇ</string>
@@ -53,6 +101,7 @@
 	<!-- # misc -->
 	<!-- ## file size helper -->
 	<!-- ## date helper -->
+	<string name="time_unit_minutes_pl">ਮਿੰਟ</string>
 	<!-- ## biometric authentication -->
 	<!-- notification -->
 	<!-- lock timeout names -->
