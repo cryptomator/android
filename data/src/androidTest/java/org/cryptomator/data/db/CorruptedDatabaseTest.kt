@@ -5,6 +5,8 @@ import androidx.sqlite.db.SupportSQLiteOpenHelper
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import androidx.test.filters.SmallTest
 import androidx.test.platform.app.InstrumentationRegistry
+import org.cryptomator.data.db.CryptomatorAssert.Order
+import org.cryptomator.data.db.CryptomatorAssert.assertOrder
 import org.cryptomator.data.db.migrations.MigrationContainer
 import org.cryptomator.data.db.templating.DbTemplateModule
 import org.cryptomator.data.db.templating.TemplateDatabaseContext
@@ -13,7 +15,6 @@ import org.cryptomator.util.SharedPreferencesHandler
 import org.hamcrest.CoreMatchers.instanceOf
 import org.hamcrest.MatcherAssert.assertThat
 import org.junit.After
-import org.junit.Assert.assertEquals
 import org.junit.Assert.assertThrows
 import org.junit.Assert.fail
 import org.junit.Before
@@ -79,14 +80,14 @@ class CorruptedDatabaseTest {
 
 	@Test
 	fun testOpenVersion0DatabaseVerifyStreamAccessed() {
-		var step = 0
+		val order = Order()
 		val templateStreamCallable = {
-			assertEquals(step++, 0)
+			assertOrder(order, 0)
 			templateDbStream
 		}
 		val listener = object : InterceptorOpenHelperListener {
 			override fun onWritableDatabaseCalled() {
-				assertEquals(step++, 1)
+				assertOrder(order, 1)
 			}
 		}
 
@@ -98,34 +99,34 @@ class CorruptedDatabaseTest {
 			InterceptorOpenHelperFactory(openHelperFactory(), listener), //
 			TEST_DB //
 		).useFinally({ db ->
-			assertEquals(step++, 2)
+			assertOrder(order, 2)
 			db.compileStatement("SELECT count(*) FROM `sqlite_master` WHERE `name` = 'CLOUD_ENTITY'").use { statement ->
 				require(statement.simpleQueryForLong() == 1L)
 			}
 		}, finallyBlock = CryptomatorDatabase::close)
-		assertEquals(step++, 3)
+		assertOrder(order, 3)
 	}
 
 	@Test
 	fun testOpenDatabaseWithRecovery() {
-		var step = 0
+		val order = Order()
 		val templateStreamCallable = {
-			assertEquals(step++, 0)
+			assertOrder(order, 0)
 			throw IOException()
 		}
 		val listener = object : InterceptorOpenHelperListener {
 			override fun onWritableDatabaseCalled() {
-				assertEquals(step++, 1)
+				assertOrder(order, 1)
 			}
 
 			override fun onWritableDatabaseThrew(exc: Exception): Exception {
-				assertEquals(step++, 3)
+				assertOrder(order, 3)
 				assertThat(exc, instanceOf(UnsupportedOperationException::class.java))
 				return WrappedException(exc)
 			}
 		}
 		val openHelperFactory = openHelperFactory {
-			assertEquals(step++, 2)
+			assertOrder(order, 2)
 		}
 
 		createVersion0Database(context, TEST_DB)
@@ -142,7 +143,7 @@ class CorruptedDatabaseTest {
 		}.also {
 			assertThat(it.cause, instanceOf(UnsupportedOperationException::class.java))
 		}
-		assertEquals(step++, 4)
+		assertOrder(order, 4)
 	}
 }
 

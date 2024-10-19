@@ -5,7 +5,12 @@ import android.database.Cursor;
 import com.google.android.gms.common.util.Strings;
 
 import java.text.MessageFormat;
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 import java.util.regex.Pattern;
+import java.util.stream.IntStream;
 
 import static org.junit.Assert.fail;
 
@@ -56,5 +61,45 @@ public class CryptomatorAssert {
 				message != null && !Strings.isEmptyOrWhitespace(message) ? message : "String is not a valid UUID", //
 				actual != null ? '"' + actual + '"' : "<null>");
 		fail(failMessage);
+	}
+
+	public static void assertOrder(Order order, int firstStep, int... moreSteps) {
+		order.assertOrder(firstStep, moreSteps);
+	}
+
+	public static class Order {
+
+		private final Object lock = new Object();
+		private final Map<Integer, List<Integer>> recognized = new HashMap<>();
+
+		private int currentStep = 0;
+
+		public void assertOrder(int firstStep, int... moreSteps) {
+			List<Integer> steps = IntStream.concat( //
+					IntStream.of(firstStep), //
+					Arrays.stream(moreSteps) //
+			).boxed().toList();
+
+			assertOrder(steps);
+		}
+
+		private void assertOrder(List<Integer> steps) {
+			synchronized (lock) {
+				for (Integer step : steps) {
+					List<Integer> existing = recognized.get(step);
+					if (existing != null) {
+						if (!existing.equals(steps)) {
+							fail("Step has been assigned twice!");
+						}
+					} else {
+						recognized.put(step, steps);
+					}
+				}
+				if (!steps.contains(currentStep)) {
+					fail("Expected step was any of %s; current step is <%d>".formatted(steps, currentStep));
+				}
+				currentStep++;
+			}
+		}
 	}
 }
