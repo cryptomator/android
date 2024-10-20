@@ -87,7 +87,7 @@ class CorruptedDatabaseTest {
 		}
 		val listener = object : InterceptorOpenHelperListener {
 			override fun onWritableDatabaseCalled() {
-				assertOrder(order, 1)
+				assertOrder(order, 1, 3, 4)
 			}
 		}
 
@@ -104,7 +104,7 @@ class CorruptedDatabaseTest {
 				require(statement.simpleQueryForLong() == 1L)
 			}
 		}, finallyBlock = CryptomatorDatabase::close)
-		assertOrder(order, 3)
+		assertOrder(order, 5)
 	}
 
 	@Test
@@ -120,13 +120,13 @@ class CorruptedDatabaseTest {
 			}
 
 			override fun onWritableDatabaseThrew(exc: Exception): Exception {
-				assertOrder(order, 3)
+				assertOrder(order, 4)
 				assertThat(exc, instanceOf(UnsupportedOperationException::class.java))
 				return WrappedException(exc)
 			}
 		}
 		val openHelperFactory = openHelperFactory {
-			assertOrder(order, 2)
+			assertOrder(order, 2, 3)
 		}
 
 		createVersion0Database(context, TEST_DB)
@@ -143,7 +143,7 @@ class CorruptedDatabaseTest {
 		}.also {
 			assertThat(it.cause, instanceOf(UnsupportedOperationException::class.java))
 		}
-		assertOrder(order, 4)
+		assertOrder(order, 5)
 	}
 }
 
