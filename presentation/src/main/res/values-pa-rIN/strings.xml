@@ -88,12 +88,15 @@
 	<string name="screen_enter_vault_name_vault_label">ਵਾਲਟ ਦਾ ਨਾਂ</string>
 	<string name="screen_enter_vault_name_button_text">ਬਣਾਓ</string>
 	<!-- ## screen: set password -->
+	<string name="screen_set_password_title">ਪਾਸਵਰਡ ਸੈੱਟ ਕਰੋ</string>
 	<string name="screen_set_password_button_text">ਮੁਕੰਮਲ</string>
 	<string name="screen_set_password_strength_indicator_1">ਕਮਜ਼ੋਰ</string>
 	<string name="screen_set_password_strength_indicator_2">ਠੀਕ-ਠਾਕ</string>
 	<string name="screen_set_password_strength_indicator_3">ਮਜ਼ਬੂਤ</string>
+	<string name="screen_set_password_strength_indicator_4">ਬਹੁਤ ਮਜ਼ਬੂਤ</string>
 	<!-- ## screen: settings -->
 	<string name="screen_settings_section_general">ਆਮ</string>
+	<string name="screen_settings_cloud_settings_label">ਕਲਾਉਡ ਸੇਵਾਵਾਂ</string>
 	<!-- ## screen: cloud settings -->
 	<!-- ## screen: licenses -->
 	<!-- ## screen: authenticate cloud -->
