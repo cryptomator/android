@@ -5,6 +5,7 @@
 	<!-- # error messages -->
 	<string name="error_generic">ਇੱਕ ਤਰੁੱਟੀ ਆਈ ਹੈ</string>
 	<string name="error_authentication_failed">ਪ੍ਰਮਾਣਿਕਤਾ ਅਸਫਲ</string>
+	<string name="error_authentication_failed_re_authenticate">ਪਰਮਾਣੀਕਰਨ ਅਸਫ਼ਲ ਹੈ, %1$s ਵਰਤ ਕੇ ਲਾਗਇਨ ਹੋਵੋ</string>
 	<string name="error_no_network_connection">ਕੋਈ ਨੈੱਟਵਰਕ ਕਨੈਕਸ਼ਨ ਨਹੀਂ</string>
 	<string name="error_invalid_passphrase">ਗ਼ਲਤ ਪਾਸਵਰਡ</string>
 	<string name="error_file_or_folder_exists">ਫਾਇਲ ਜਾਂ ਫੋਲਡਰ ਪਹਿਲਾਂ ਹੀ ਮੌਜੂਦ ਹੈ।</string>
@@ -13,6 +14,9 @@
 	<string name="error_vault_has_been_locked">ਵਾਲਟ ਨੂੰ ਲਾਕ ਕੀਤਾ ਗਿਆ ਹੈ।</string>
 	<string name="error_cloud_already_exists">ਕਲਾਉਡ ਪਹਿਲਾਂ ਹੀ ਮੌਜੂਦ ਹੈ।</string>
 	<string name="error_server_not_found">ਸਰਵਰ ਨਹੀਂ ਲੱਭਿਆ।</string>
+	<string name="error_name_contains_invalid_characters">ਖਾਸ ਅੱਖਰ ਨਹੀਂ ਹੋ ਸਕਦੇ ਹਨ।</string>
+	<string name="error_update_no_internet">ਅੱਪਡੇਟ ਜਾਂਚ ਲਈ ਅਸਫ਼ਲ ਹੈ। ਕੋਈ ਇੰਟਰਨੈੱਟ ਕਨੈਕਸ਼ਨ ਨਹੀਂ ਹੈ।</string>
+	<string name="error_play_services_not_available">Google Play ਸੇਵਾਵਾਂ ਇੰਸਟਾਲ ਨਹੀਂ ਹਨ</string>
 	<!-- # clouds -->
 	<!-- ## cloud names -->
 	<string name="cloud_names_local_storage">ਲੋਕਲ ਸਟੋਰੇਜ਼</string>
@@ -77,7 +81,12 @@
 	<string name="screen_s3_settings_display_name_label">ਦਿਖਾਉਣ ਲਈ ਨਾਂ</string>
 	<string name="screen_s3_settings_access_key_label">ਪਹੁੰਚ ਕੁੰਜੀ</string>
 	<string name="screen_s3_settings_secret_key_label">ਗੁਪਤ ਕੁੰਜੀ</string>
+	<string name="screen_s3_settings_endpoint_label">ਐਂਡ-ਪੁਆਇੰਟ</string>
+	<string name="screen_s3_settings_region_label">ਖੇਤਰ</string>
 	<!-- ## screen: enter vault name -->
+	<string name="screen_enter_vault_name_msg_name_empty">ਵਾਲਟ ਨਾਂ ਖਾਲੀ ਨਹੀਂ ਹੋ ਸਕਦਾ ਹੈ।</string>
+	<string name="screen_enter_vault_name_vault_label">ਵਾਲਟ ਦਾ ਨਾਂ</string>
+	<string name="screen_enter_vault_name_button_text">ਬਣਾਓ</string>
 	<!-- ## screen: set password -->
 	<string name="screen_set_password_button_text">ਮੁਕੰਮਲ</string>
 	<string name="screen_set_password_strength_indicator_1">ਕਮਜ਼ੋਰ</string>
