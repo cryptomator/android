@@ -27,13 +27,13 @@
 	<string name="error_update_no_internet">Pemeriksaan pembaruan gagal. Tidak ada koneksi internet.</string>
 	<string name="error_failed_to_decrypt_webdav_password">Gagal mendekripsi kata sandi WebDAV, harap tambahkan kembali di pengaturan</string>
 	<string name="error_play_services_not_available">Google Play Services belum terpasang</string>
-	<string name="error_biometric_auth_aborted">Autentikasi biometrik dibatalkan</string>
+	<string name="error_biometric_auth_aborted">Otentikasi biometrik dibatalkan</string>
 	<string name="error_vault_version_mismatch">Versi yang ditentukan di %1$s berbeda dengan %2$s</string>
 	<string name="error_vault_key_invalid">%1$s tidak cocok dengan %2$s ini</string>
 	<string name="error_vault_config_loading">Terjadi kesalahan saat memuat konfigurasi vault</string>
 	<string name="error_file_not_found_after_opening_using_3party">File lokal sudah tidak tersedia setelah beralih kembali ke Cryptomator. Perubahan yang ada tidak dapat disimpan kembali ke cloud.</string>
 	<string name="error_no_such_bucket">Bucket tidak ada</string>
-	<string name="error_masterkey_location_not_supported">Lokasi Masterkey khusus belum didukung</string>
+	<string name="error_masterkey_location_not_supported">Lokasi Kunci utama belum didukung</string>
 	<string name="error_interact_with_fdroid_but_fdroid_missing">Gagal berkomunikasi dengan aplikasi F-Droid. Belum dipasang?</string>
 	<!-- # clouds -->
 	<!-- ## cloud names -->
@@ -48,13 +48,13 @@
 	<string name="snack_bar_action_title_search">Cari</string>
 	<string name="snack_bar_action_title_search_previous">Sebelumnya</string>
 	<string name="snack_bar_action_title_search_next">Lanjut</string>
-	<string name="snack_bar_action_title_sort">Urutkan</string>
+	<string name="snack_bar_action_title_sort">Sortir</string>
 	<string name="snack_bar_action_title_sort_az">A - Z</string>
 	<string name="snack_bar_action_title_sort_za">Z - A</string>
-	<string name="snack_bar_action_title_sort_newest">Terbaru dulu</string>
-	<string name="snack_bar_action_title_sort_oldest">Terlama dulu</string>
-	<string name="snack_bar_action_title_sort_biggest">Terbesar dulu</string>
-	<string name="snack_bar_action_title_sort_smallest">Terkecil dulu</string>
+	<string name="snack_bar_action_title_sort_newest">Diurutkan mulai dari yang terbaru</string>
+	<string name="snack_bar_action_title_sort_oldest">Diurutkan mulai dari yang terlama</string>
+	<string name="snack_bar_action_title_sort_biggest">Diurutkan mulai dari yang terbesar</string>
+	<string name="snack_bar_action_title_sort_smallest">Diurutkan mulai dari yang terkecil</string>
 	<string name="snack_bar_cryptomator_variants_title">Baca lebih lanjut</string>
 	<string name="snack_bar_cryptomator_variants_hint">Cloud tidak ada di dalam daftar?</string>
 	<!-- # screens -->
