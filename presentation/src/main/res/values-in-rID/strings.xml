@@ -4,7 +4,7 @@
 	<string name="share_with_label">Enkripsi</string>
 	<!-- # error messages -->
 	<string name="error_generic">Kesalahan terjadi</string>
-	<string name="error_authentication_failed">Autentikasi gagal</string>
+	<string name="error_authentication_failed">Pengesahan gagal</string>
 	<string name="error_authentication_failed_re_authenticate">Autentikasi gagal, mohon masuk menggunakan %1$s</string>
 	<string name="error_no_network_connection">Tidak ada koneksi jaringan</string>
 	<string name="error_invalid_passphrase">Kata sandi salah</string>
@@ -27,7 +27,7 @@
 	<string name="error_update_no_internet">Pemeriksaan pembaruan gagal. Tidak ada koneksi internet.</string>
 	<string name="error_failed_to_decrypt_webdav_password">Gagal mendekripsi kata sandi WebDAV, harap tambahkan kembali di pengaturan</string>
 	<string name="error_play_services_not_available">Google Play Services belum terpasang</string>
-	<string name="error_biometric_auth_aborted">Otentikasi biometrik dibatalkan</string>
+	<string name="error_biometric_auth_aborted">Pengesahan biometrik dibatalkan</string>
 	<string name="error_vault_version_mismatch">Versi yang ditentukan di %1$s berbeda dengan %2$s</string>
 	<string name="error_vault_key_invalid">%1$s tidak cocok dengan %2$s ini</string>
 	<string name="error_vault_config_loading">Terjadi kesalahan saat memuat konfigurasi vault</string>
