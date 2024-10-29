@@ -7,12 +7,12 @@
 	<string name="error_authentication_failed">Kimlik doğrulama başarısız</string>
 	<string name="error_authentication_failed_re_authenticate">Kimlik doğrulama başarısız, lütfen %1$s kullanarak giriş yapınız</string>
 	<string name="error_no_network_connection">Ağ bağlantısı yok</string>
-	<string name="error_invalid_passphrase">Şifre yanlış</string>
+	<string name="error_invalid_passphrase">Hatalı parola</string>
 	<string name="error_file_or_folder_exists">Dosya veya klasör zaten var.</string>
 	<string name="error_vault_version_not_supported">%1$s kasa sürümü desteklenmiyor. Bu kasa, Cryptomator\'ın daha eski veya daha yeni bir sürümüyle oluşturuldu.</string>
 	<string name="error_vault_config_file_missing_due_to_format_999">Kasa klasörünüzde %1$s dosyası eksik. Bu dosyanın buluttaki kasa klasörünüzde bulunduğundan emin olun.</string>
 	<string name="error_vault_already_exists">Kasa zaten var.</string>
-	<string name="error_no_such_file">Dosya mevcut değil.</string>
+	<string name="error_no_such_file">Dosya bulunmuyor.</string>
 	<string name="error_vault_has_been_locked">Kasa kilitlendi.</string>
 	<string name="error_cloud_already_exists">Bulut zaten var.</string>
 	<string name="error_activity_not_found">Lütfen bu dosyayı açabilen bir uygulama edinin.</string>
@@ -23,15 +23,15 @@
 	<string name="error_names_contains_invalid_characters">Dosya adları özel karakterler içeremez.</string>
 	<string name="error_vault_name_contains_invalid_characters">Kasa adı özel karakterler içeremez.</string>
 	<string name="error_general_update">Genel bir hata oluştu ve güncelleme kontrolü başarısız oldu.</string>
-	<string name="error_hash_mismatch_update">Güncelleme kontrolü başarısız. Hesaplanan hash değeri ile yüklenen dosyanınki eşleşmiyor</string>
+	<string name="error_hash_mismatch_update">Güncelleme kontrolü başarısız. Hesaplanan sağlama özeti, yüklenen dosyanınkiyle ile eşleşmiyor</string>
 	<string name="error_update_no_internet">Güncelleme kontrolü başarısız oldu. İnternet bağlantısı yok.</string>
 	<string name="error_failed_to_decrypt_webdav_password">WebDAV parolasının şifresi çözülemedi, lütfen ayarlarda yeniden ekleyin</string>
 	<string name="error_play_services_not_available">Google Play Hizmetleri yüklenmedi</string>
 	<string name="error_biometric_auth_aborted">Biyometrik kimlik doğrulama iptal edildi</string>
 	<string name="error_vault_version_mismatch">%1$s içinde belirtilen sürüm %2$s\'den farklı</string>
 	<string name="error_vault_key_invalid">%1$s, bu %2$s ile eşleşmiyor</string>
-	<string name="error_vault_config_loading">Cüzdan ayarlarını yüklerken genel hata</string>
-	<string name="error_file_not_found_after_opening_using_3party">Cryptomator geri döndükten sonra, lokal dosya artık mevcut olmaz. Muhtemel değişiklikler bulutta tekrar oluşturulamaz.</string>
+	<string name="error_vault_config_loading">Kasa yapılandırması yüklenirken genel hata</string>
+	<string name="error_file_not_found_after_opening_using_3party">Cryptomator\'a geri döndükten sonra yerel dosya artık mevcut değil. Olası değişiklikler buluta geri aktarılamaz.</string>
 	<string name="error_no_such_bucket">Böyle bir kova yok</string>
 	<string name="error_masterkey_location_not_supported">Özel ana anahtar konumu henüz desteklenmiyor</string>
 	<string name="error_interact_with_fdroid_but_fdroid_missing">F-Droid uygulamasıyla iletişim kurulamadı. Yüklü değil mi?</string>
@@ -40,9 +40,9 @@
 	<string name="cloud_names_local_storage">Yerel depolama</string>
 	<!-- # permission -->
 	<!-- ## permission messages -->
-	<string name="permission_message_export_file">Cryptomator\'ın dosyaları dışa aktarmak için depolama erişimine ihtiyacı var</string>
-	<string name="permission_message_upload_file">Cryptomator\'ın dosyaları yüklemek için depolama erişimine ihtiyacı var</string>
-	<string name="permission_message_share_file">Cryptomator\'ın dosyaları paylaşmak için depolama erişimine ihtiyacı var</string>
+	<string name="permission_message_export_file">Cryptomator\'un dosyaları dışa aktarmak için depolama erişimine ihtiyacı var</string>
+	<string name="permission_message_upload_file">Cryptomator\'un dosyaları yüklemek için depolama erişimine ihtiyacı var</string>
+	<string name="permission_message_share_file">Cryptomator\'un dosyaları paylaşmak için depolama erişimine ihtiyacı var</string>
 	<string name="permission_revoked_re_request_permission">Cryptomator bu konuma erişim iznini kaybetti. İzni geri yüklemek için lütfen bu klasörü tekrar seçin.</string>
 	<string name="snack_bar_action_title_settings">Ayarlar</string>
 	<string name="snack_bar_action_title_search">Ara</string>
@@ -51,11 +51,11 @@
 	<string name="snack_bar_action_title_sort">Sırala</string>
 	<string name="snack_bar_action_title_sort_az">A - Z</string>
 	<string name="snack_bar_action_title_sort_za">Z - A</string>
-	<string name="snack_bar_action_title_sort_newest">Yeniden eskiye</string>
-	<string name="snack_bar_action_title_sort_oldest">Eskiden yeniye</string>
-	<string name="snack_bar_action_title_sort_biggest">Büyükten küçüğe</string>
-	<string name="snack_bar_action_title_sort_smallest">Küçükten büyüğe</string>
-	<string name="snack_bar_cryptomator_variants_title">Daha fazla oku</string>
+	<string name="snack_bar_action_title_sort_newest">Önce en yenisi</string>
+	<string name="snack_bar_action_title_sort_oldest">Önce en eskisi</string>
+	<string name="snack_bar_action_title_sort_biggest">Önce en büyüğü</string>
+	<string name="snack_bar_action_title_sort_smallest">Önce en küçüğü</string>
+	<string name="snack_bar_cryptomator_variants_title">Daha fazlasını oku</string>
 	<string name="snack_bar_cryptomator_variants_hint">Bulut listede yok mu?</string>
 	<!-- # screens -->
 	<!-- # screen: vault list -->
@@ -63,19 +63,19 @@
 	<string name="screen_vault_list_action_create_new_vault">Yeni kasa oluştur</string>
 	<string name="screen_vault_list_action_add_existing_vault">Mevcut kasayı ekle</string>
 	<string name="screen_vault_list_vault_action_delete">Kaldır</string>
-	<string name="screen_vault_list_vault_creation_hint">Yeni bir kasa oluşturmak için buraya dokunun</string>
-	<string name="screen_vault_list_change_password_successful">Şifre başarıyla değiştirildi</string>
+	<string name="screen_vault_list_vault_creation_hint">Yeni kasa oluşturmak için buraya dokunun</string>
+	<string name="screen_vault_list_change_password_successful">Parola başarıyla değiştirildi</string>
 	<!-- # screen: file browser -->
 	<string name="screen_file_browser_default_title">Kasa</string>
 	<string name="screen_file_browser_add_existing_vault_extra_text">Ana anahtar dosyasını seçin</string>
-	<string name="screen_file_browser_create_new_vault_button_text">Buraya kaydet</string>
+	<string name="screen_file_browser_create_new_vault_button_text">Buraya yerleştir</string>
 	<string name="screen_file_browser_create_new_vault_extra_text">Kasa adı: %1$s</string>
 	<plurals name="screen_file_browser_subtitle_move">
 		<item quantity="one">%1$s öğesini şuraya taşı</item>
 		<item quantity="other">%2$d öğeyi şuraya taşı</item>
 	</plurals>
 	<string name="screen_file_browser_move_button_text">Taşı</string>
-	<string name="screen_file_browser_msg_empty_folder">Boş</string>
+	<string name="screen_file_browser_msg_empty_folder">Klasör boş</string>
 	<string name="screen_file_browser_file_info_label_date">%1$s önce değiştirildi</string>
 	<string name="screen_file_browser_share_intent_chooser_title">Şununla paylaş</string>
 	<string name="screen_file_browser_share_destination_title">Bir varış noktası seçin</string>
@@ -86,14 +86,14 @@
 	<string name="screen_file_browser_action_create_new_text_file">Metin dosyası oluştur</string>
 	<string name="screen_file_browser_action_upload_files">Dosya yükle</string>
 	<string name="screen_file_browser_upload_files_chooser_title">Dosyalar</string>
-	<string name="screen_file_browser_msg_file_exported">Dosya başarıyla dışa aktarıldı</string>
-	<string name="screen_file_browser_msg_files_exported">Dosyalar başarıyla dışa aktarıldı</string>
+	<string name="screen_file_browser_msg_file_exported">Dosya dışa aktarıldı</string>
+	<string name="screen_file_browser_msg_files_exported">Dosyalar dışa aktarıldı</string>
 	<string name="screen_file_browser_nothing_to_export">Dışa aktarılacak bir şey yok</string>
 	<string name="screen_file_browser_msg_creating_download_dir_failed">İndirme dizini oluşturulamadı</string>
 	<string name="screen_file_browser_node_action_share">Paylaş</string>
-	<string name="screen_file_browser_node_action_rename">Yeniden adlandır</string>
+	<string name="screen_file_browser_node_action_rename">Yeniden Adlandır</string>
 	<string name="screen_file_browser_node_action_edit_text">Düzenle</string>
-	<string name="screen_file_browser_node_action_export">Dışa aktar</string>
+	<string name="screen_file_browser_node_action_export">Dışa Aktar</string>
 	<string name="screen_file_browser_node_action_delete">Sil</string>
 	<string name="screen_file_browser_node_action_open_with_text">Bununla aç&#8230;</string>
 	<string name="screen_file_browser_selection_mode_title_zero_elements">Öğeleri seç</string>
@@ -110,8 +110,8 @@
 	<string name="screen_share_files_content_text">metin</string>
 	<string name="screen_share_files_content_file">dosya</string>
 	<string name="screen_share_files_content_files">dosyalar</string>
-	<string name="screen_share_files_msg_filenames_must_be_unique">Dosya adları benzersiz olmalıdır, lütfen kopyaları yeniden adlandırın.</string>
-	<string name="screen_share_files_section_location">Konumu kaydet</string>
+	<string name="screen_share_files_msg_filenames_must_be_unique">Dosya adları benzersiz olmalıdır, lütfen mükerrer olanları yeniden adlandırın.</string>
+	<string name="screen_share_files_section_location">Kaydetme konumu</string>
 	<string name="screen_share_files_save_button_text">Kaydet</string>
 	<string name="screen_share_files_msg_success">Şifreleme tamamlandı</string>
 	<!-- ## screen: choose cloud service -->
@@ -120,7 +120,7 @@
 	<string name="screen_cloud_connections_title">Bir yer seçin</string>
 	<string name="screen_cloud_connections_no_connections">Konum eklemek için buraya dokunun</string>
 	<string name="screen_cloud_error_webdav_not_supported">Sunucu WebDAV uyumlu görünmüyor</string>
-	<string name="screen_cloud_local_error_no_content_provider">Dizinlerin açılmasını destekleyen dosya yöneticisi bulunamadı</string>
+	<string name="screen_cloud_local_error_no_content_provider">Dizin açmayı destekleyen dosya yöneticisi bulunamadı</string>
 	<!-- ## screen: webdav settings -->
 	<string name="screen_webdav_settings_url_port_label">URL</string>
 	<string name="screen_webdav_settings_username_label">Kullanıcı adı</string>
@@ -147,12 +147,12 @@
 	<string name="screen_enter_vault_name_vault_label">Kasa adı</string>
 	<string name="screen_enter_vault_name_button_text">Oluştur</string>
 	<!-- ## screen: set password -->
-	<string name="screen_set_password_title">Şifreyi belirle</string>
+	<string name="screen_set_password_title">Parola belirle</string>
 	<string name="screen_set_password_msg_password_mismatch">Parola, yeniden yazılan parolayla eşleşmiyor.</string>
 	<string name="screen_set_password_button_text">Bitti</string>
 	<string name="screen_set_password_hint">ÖNEMLİ UYARI: Parolanızı unutursanız, verilerinizi kurtarmanın herhangi bir yolu yoktur.</string>
-	<string name="screen_set_password_retype_password_label">Yeni şifreyi tekrar yazın</string>
-	<string name="screen_set_password_strength_indicator_0">Cüzdan oluşturmak için çok zayıf</string>
+	<string name="screen_set_password_retype_password_label">Yeni parolayı tekrar yazın</string>
+	<string name="screen_set_password_strength_indicator_0">Kasa oluşturmak için çok zayıf</string>
 	<string name="screen_set_password_strength_indicator_1">Zayıf</string>
 	<string name="screen_set_password_strength_indicator_2">Makul</string>
 	<string name="screen_set_password_strength_indicator_3">Güçlü</string>
