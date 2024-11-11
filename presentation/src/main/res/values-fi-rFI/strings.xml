@@ -1,7 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 	<!-- # app -->
+	<string name="share_with_label">Salaa</string>
 	<!-- # error messages -->
+	<string name="error_generic">Tapahtui virhe</string>
+	<string name="error_authentication_failed">Tunnistautuminen epäonnistui</string>
+	<string name="error_authentication_failed_re_authenticate">Todennus epäonnistui, kirjaudu sisään käyttäen %1$s</string>
+	<string name="error_no_network_connection">Ei verkkoyhteyttä</string>
+	<string name="error_invalid_passphrase">Väärä salasana</string>
+	<string name="error_file_or_folder_exists">Tiedosto tai kansio on jo olemassa.</string>
+	<string name="error_vault_version_not_supported">Holvin versiota %1$s ei tueta. Tämä holvi on luotu Cryptomatorin vanhemmalla tai uudemmalla versiolla.</string>
+	<string name="error_vault_config_file_missing_due_to_format_999">%1$s tiedosto puuttuu holvikansiostasi. Varmista, että tämä tiedosto on olemassa holvikansiossa pilvessä.</string>
+	<string name="error_vault_already_exists">Holvi on jo olemassa.</string>
+	<string name="error_no_such_file">Tiedostoa ei ole olemassa.</string>
+	<string name="error_vault_has_been_locked">Holvi on lukittu.</string>
+	<string name="error_cloud_already_exists">Pilvi on jo olemassa.</string>
+	<string name="error_activity_not_found">Lataa sovellus, joka voi avata tämän tiedoston.</string>
+	<string name="error_server_not_found">Palvelinta ei löytynyt.</string>
 	<!-- # clouds -->
 	<!-- ## cloud names -->
 	<!-- # permission -->
