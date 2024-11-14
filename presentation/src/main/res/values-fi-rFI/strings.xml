@@ -54,7 +54,7 @@
 	<string name="screen_vault_list_vault_creation_hint">Napauta tätä luodaksesi uuden holvin</string>
 	<string name="screen_vault_list_change_password_successful">Salasanan vaihto onnistui</string>
 	<!-- # screen: file browser -->
-	<string name="screen_file_browser_default_title">Vault</string>
+	<string name="screen_file_browser_default_title">Holvi</string>
 	<string name="screen_file_browser_create_new_vault_extra_text">Holvin nimi: %1$s</string>
 	<plurals name="screen_file_browser_subtitle_move">
 		<item quantity="one">Siirrä %1$s</item>
@@ -86,6 +86,7 @@
 	<!-- ## screen: set password -->
 	<string name="screen_set_password_button_text">Valmis</string>
 	<!-- ## screen: settings -->
+	<string name="screen_settings_section_general">Yleiset</string>
 	<!-- ## screen: cloud settings -->
 	<!-- ## screen: licenses -->
 	<!-- ## screen: authenticate cloud -->
