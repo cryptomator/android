@@ -27,7 +27,7 @@ public class S3CloudContentRepositoryFactory implements CloudContentRepositoryFa
 
 	@Override
 	public boolean supports(Cloud cloud) {
-		return cloud.type() == S3;
+		return cloud.getType() == S3;
 	}
 
 	@Override
