@@ -7,7 +7,7 @@
 	<string name="error_authentication_failed">Autentificare eșuată</string>
 	<string name="error_authentication_failed_re_authenticate">Autentificare eșuată, vă rugăm să vă conectați din nou prin %1$s</string>
 	<string name="error_no_network_connection">Nu există conexiune la rețea</string>
-	<string name="error_invalid_passphrase">Parolă greşită</string>
+	<string name="error_invalid_passphrase">Parolă greșită</string>
 	<string name="error_file_or_folder_exists">Un fișier sau dosar există deja.</string>
 	<string name="error_vault_version_not_supported">Seiful cu versiunea %1$s nu este suportată. Acest seif a fost creat cu o versiune mai veche sau mai nouă de Cryptomator.</string>
 	<string name="error_vault_config_file_missing_due_to_format_999">Lipsește fișierul %1$s din dosarul seif. Asigurați-vă că acest fișier există în folderul seif din cloud.</string>
@@ -318,6 +318,7 @@
 	<string name="dialog_vaults_removed_during_migration_hint">În timp ce migrăm la această versiune de aplicație, trebuie să eliminăm următoarele seifuri din aplicație:\n%2s \n\nAceste seifuri nu sunt eliminate din cloud, ci doar din această aplicație. Ne cerem scuze pentru inconveniența creata şi vă rugăm să adăugați din nou aceste seifuri pentru a continua să le folosiți.</string>
 	<string name="dialog_vault_is_root_folder_of_cloud_title">Seiful este dosarul principal al conexiunii cloud</string>
 	<string name="dialog_vault_is_root_folder_of_cloud_hint">Creați o nouă conexiune cloud unde selectați dosarul părinte al acestui seif ca dosarul de baza pentru adăugarea acestui seif.</string>
+	<string name="dialog_disable_secure_screen_disclaimer_hint">Această setare este o caracteristică de securitate și previne alte aplicații să păcălească utilizatorii să facă lucruri pe care nu ar trebui să le facă.\n\nPrin dezactivare, confirmați că sunteți <a href="https://docs.cryptomator.org/en/latest/android/settings/#screen-security">conștient de riscurile mentionate</a>.</string>
 	<string name="dialog_delete_cloud_connection_with_vaults_message">Sunteţi sigur că doriţi să eliminaţi această conexiune cloud?</string>
 	<string name="dialog_delete_cloud_connection_with_vaults_hint">Această acțiune va elimina conexiunea în cloud și toate seifurile acestui cloud.</string>
 	<string name="dialog_confirm_delete_multiple_title">Ștergeți %1$d elemente?</string>
@@ -349,6 +350,9 @@
 	<string name="dialog_no_more_images_to_display">Nu mai sunt imagini de afișat&#8230;</string>
 	<string name="dialog_pcloud_credentials_updated_title">Acreditări ale \'%1$s\' au fost actualizate</string>
 	<string name="dialog_pcloud_credentials_updated">Dacă doriți să adăugaţi un cont nou de tip pCloud, faceţi clic pe acest link <a href="https://www.pcloud.com">www.pcloud. om</a>, deconectați-vă de la contul curent, și faceți clic din nou pe \'+\' din această aplicație pentru a crea o nouă conexiune cloud.</string>
+	<string name="dialog_cbc_password_vaults_migration_title">Este necesară migrarea parolei seifului</string>
+	<string name="dialog_cbc_password_vaults_migration_hint">Din cauza actualizărilor de securitate, ți se va cere autentificarea biometrică de două ori pentru fiecare seif ca să re-criptați parolele seifului. Acest lucru este necesar pentru a continua să îți protejezi parolele seifului cu ajutorul tehnologiei de ultimă oră. Dacă nu doriţi să se întâmple acest lucru, parolele stocate vor fi eliminate.</string>
+	<string name="dialog_cbc_password_vaults_migration_action">Migrează</string>
 	<string name="permission_snackbar_auth_local_vault">Cryptomator are nevoie de acces la stocare pentru a utiliza seifuri locale</string>
 	<string name="permission_snackbar_auth_auto_upload">Cryptomator are nevoie de acces la stocare pentru a folosi încărcarea automată a fotografiilor</string>
 	<string name="permission_snackbar_notifications">Cryptomator are nevoie de permisiuni de notificare pentru a afișa starea seifului de exemplu</string>
