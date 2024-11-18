@@ -85,6 +85,9 @@
 	<!-- ## screen: enter vault name -->
 	<!-- ## screen: set password -->
 	<string name="screen_set_password_button_text">Valmis</string>
+	<string name="screen_set_password_strength_indicator_1">Heikko</string>
+	<string name="screen_set_password_strength_indicator_2">Kohtalainen</string>
+	<string name="screen_set_password_strength_indicator_3">Vahva</string>
 	<!-- ## screen: settings -->
 	<string name="screen_settings_section_general">Yleiset</string>
 	<!-- ## screen: cloud settings -->
