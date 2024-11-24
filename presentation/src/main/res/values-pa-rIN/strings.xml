@@ -23,6 +23,7 @@
 	<!-- # permission -->
 	<!-- ## permission messages -->
 	<string name="snack_bar_action_title_settings">ਸੈਟਿੰਗਾਂ</string>
+	<string name="snack_bar_action_title_search">ਖੋਜੋ</string>
 	<string name="snack_bar_action_title_search_previous">ਪਿਛਲਾ</string>
 	<string name="snack_bar_action_title_search_next">ਅੱਗੇ</string>
 	<string name="snack_bar_action_title_sort">ਲੜੀਬੱਧ</string>
@@ -30,6 +31,8 @@
 	<string name="snack_bar_action_title_sort_za">Z - A</string>
 	<string name="snack_bar_action_title_sort_newest">ਨਵੇਂ ਪਹਿਲਾਂ</string>
 	<string name="snack_bar_action_title_sort_oldest">ਪੁਰਾਣੇ ਪਹਿਲਾਂ</string>
+	<string name="snack_bar_action_title_sort_biggest">ਸਭ ਤੋਂ ਵੱਡੀ ਪਹਿਲਾਂ</string>
+	<string name="snack_bar_action_title_sort_smallest">ਸਭ ਤੋਂ ਛੋਟੇ ਪਹਿਲਾਂ</string>
 	<string name="snack_bar_cryptomator_variants_title">ਹੋਰ ਪੜ੍ਹੋ</string>
 	<!-- # screens -->
 	<!-- # screen: vault list -->
@@ -37,10 +40,25 @@
 	<string name="screen_vault_list_action_create_new_vault">ਨਵਾਂ ਵਾਲਟ ਬਣਾਓ</string>
 	<string name="screen_vault_list_action_add_existing_vault">ਮੌਜੂਦਾ ਵਾਲਟ ਨੂੰ ਜੋੜੋ</string>
 	<string name="screen_vault_list_vault_action_delete">ਹਟਾਓ</string>
+	<string name="screen_vault_list_vault_creation_hint">ਨਵਾਂ ਵਾਲਟ ਬਣਾਉਣ ਲਈ ਇੱਥੇ ਛੂਹੋ</string>
 	<string name="screen_vault_list_change_password_successful">ਪਾਸਵਰਡ ਨੂੰ ਕਾਮਯਾਬੀ ਨਾਲ ਬਦਲਿਆ</string>
 	<!-- # screen: file browser -->
 	<string name="screen_file_browser_default_title">ਵਾਲਟ</string>
+	<string name="screen_file_browser_add_existing_vault_extra_text">ਮਾਸਟਰ-ਕੁੰਜੀ ਫਾਇਲ ਨੂੰ ਚੁਣੋ</string>
+	<string name="screen_file_browser_create_new_vault_button_text">ਇੱਥੇ ਰੱਖੋ</string>
+	<string name="screen_file_browser_create_new_vault_extra_text">ਵਾਲਟ ਦਾ ਨਾਂ: %1$s</string>
+	<string name="screen_file_browser_move_button_text">ਭੇਜੋ</string>
+	<string name="screen_file_browser_msg_empty_folder">ਖਾਲੀ ਫ਼ੋਲਡਰ</string>
+	<string name="screen_file_browser_file_info_label_date">%1$s ਪਹਿਲਾਂ ਸੋਧ ਕੀਤੀ</string>
+	<string name="screen_file_browser_share_intent_chooser_title">ਇਸ ਨਾਲ ਸਾਂਝਾ</string>
+	<string name="screen_file_browser_share_destination_title">ਟਿਕਾਣੇ ਨੂੰ ਚੁਣੋ</string>
 	<string name="screen_file_browser_share_button_text">ਚੁਣੋ</string>
+	<string name="screen_file_browser_nothing_to_share">ਸਾਂਝਾ ਕਰਨ ਲਈ ਕੁਝ ਨਹੀਂ ਹੈ</string>
+	<string name="screen_file_browser_actions_title">%1$s ਵਿੱਚ ਜੋੜੋ</string>
+	<string name="screen_file_browser_action_create_folder">ਫੋਲਡਰ ਨੂੰ ਬਣਾਓ</string>
+	<string name="screen_file_browser_action_create_new_text_file">ਲਿਖਤ ਫਾਇਲ ਨੂੰ ਬਣਾਓ</string>
+	<string name="screen_file_browser_action_upload_files">ਫਾਇਲਾਂ ਨੂੰ ਅੱਪਲੋਡ ਕਰੋ</string>
+	<string name="screen_file_browser_upload_files_chooser_title">ਫਾਇਲਾਂ</string>
 	<string name="screen_file_browser_msg_file_exported">ਫਾਇਲ ਐਕਸਪੋਰਟ ਕੀਤੀ</string>
 	<string name="screen_file_browser_msg_files_exported">ਫਾਇਲਾਂ ਨੂੰ ਐਕਸਪੋਰਟ ਕੀਤਾ</string>
 	<string name="screen_file_browser_nothing_to_export">ਐਕਸਪੋਰਟ ਕਰਨ ਲਈ ਕੁਝ ਨਹੀਂ ਹੈ</string>
@@ -50,6 +68,7 @@
 	<string name="screen_file_browser_node_action_edit_text">ਸੋਧੋ</string>
 	<string name="screen_file_browser_node_action_export">ਐਕਸਪੋਰਟ</string>
 	<string name="screen_file_browser_node_action_delete">ਹਟਾਓ</string>
+	<string name="screen_file_browser_node_action_open_with_text">ਇਸ ਨਾਲ ਖੋਲ੍ਹੋ&#8230;</string>
 	<string name="screen_file_browser_selection_mode_title_zero_elements">ਆਈਟਮਾਂ ਨੂੰ ਚੁਣੋ</string>
 	<string name="screen_file_browser_selection_mode_title_one_or_more_elements">%1$d ਨੂੰ ਚੁਣਿਆ</string>
 	<string name="screen_file_browser_select_items">ਚੁਣੋ</string>
@@ -60,9 +79,11 @@
 	<!-- ## screen: text editor -->
 	<string name="screen_text_editor_save_success">ਕਾਮਯਾਬੀ ਨਾਲ ਸੰਭਾਲਿਆ</string>
 	<!-- ## screen: share files -->
+	<string name="screen_share_files_title">%1$s ਨੂੰ ਇੱਥੇ ਸੰਭਾਲੋ&#8230;</string>
 	<string name="screen_share_files_content_text">ਲਿਖਤ</string>
 	<string name="screen_share_files_content_file">ਫਾਇਲ</string>
 	<string name="screen_share_files_content_files">ਫਾਇਲਾਂ</string>
+	<string name="screen_share_files_msg_filenames_must_be_unique">ਫਾਇਲ ਦਾ ਨਾਂ ਵਿਲੱਖਣ ਹੋਣਾ ਚਾਹੀਦਾ ਹੈ, ਡੁਪਲੀਕੇਟ ਦੇ ਨਾਂ ਨੂੰ ਬਦਲੋ।</string>
 	<string name="screen_share_files_section_location">ਸੰਭਾਲਣ ਦੀ ਥਾਂ</string>
 	<string name="screen_share_files_save_button_text">ਸੰਭਾਲੋ</string>
 	<string name="screen_share_files_msg_success">ਇੰਕ੍ਰਿਪਸ਼ਨ ਪੂਰੀ ਹੋਈ</string>
@@ -70,11 +91,14 @@
 	<string name="screen_choose_cloud_service_title">ਕਲਾਉਡ ਸੇਵਾ</string>
 	<!-- ## screen: cloud connections -->
 	<string name="screen_cloud_connections_title">ਟਿਕਾਣੇ ਨੂੰ ਚੁਣੋ</string>
+	<string name="screen_cloud_connections_no_connections">ਟਿਕਾਣੇ ਨੂੰ ਜੋੜਨ ਲਈ ਇੱਥੇ ਛੂਹੋ</string>
 	<!-- ## screen: webdav settings -->
 	<string name="screen_webdav_settings_url_port_label">URL</string>
 	<string name="screen_webdav_settings_username_label">ਵਰਤੋਂਕਾਰ ਨਾਂ</string>
 	<string name="screen_webdav_settings_password_label">ਪਾਸਵਰਡ</string>
 	<string name="screen_webdav_settings_done_button_text">ਕਨੈਕਟ</string>
+	<string name="screen_webdav_settings_msg_url_must_not_be_empty">URL ਖਾਲੀ ਨਹੀਂ ਹੋ ਸਕਦਾ ਹੈ।</string>
+	<string name="screen_webdav_settings_msg_url_is_invalid">URL ਗ਼ੈਰ-ਵਾਜਬ ਹੈ।</string>
 	<string name="screen_webdav_settings_msg_username_must_not_be_empty">ਵਰਤੋਂਕਾਰ ਨਾਂ ਖਾਲੀ ਨਹੀਂ ਹੋ ਸਕਦਾ ਹੈ।</string>
 	<string name="screen_webdav_settings_msg_password_must_not_be_empty">ਪਾਸਵਰਡ ਖਾਲੀ ਨਹੀਂ ਹੋ ਸਕਦਾ ਹੈ।</string>
 	<!-- ## screen: s3 settings -->
@@ -97,6 +121,7 @@
 	<!-- ## screen: settings -->
 	<string name="screen_settings_section_general">ਆਮ</string>
 	<string name="screen_settings_cloud_settings_label">ਕਲਾਉਡ ਸੇਵਾਵਾਂ</string>
+	<string name="screen_settings_section_search">ਖੋਜੋ</string>
 	<!-- ## screen: cloud settings -->
 	<!-- ## screen: licenses -->
 	<!-- ## screen: authenticate cloud -->
