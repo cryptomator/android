@@ -15,6 +15,8 @@
 	<string name="error_cloud_already_exists">ਕਲਾਉਡ ਪਹਿਲਾਂ ਹੀ ਮੌਜੂਦ ਹੈ।</string>
 	<string name="error_server_not_found">ਸਰਵਰ ਨਹੀਂ ਲੱਭਿਆ।</string>
 	<string name="error_name_contains_invalid_characters">ਖਾਸ ਅੱਖਰ ਨਹੀਂ ਹੋ ਸਕਦੇ ਹਨ।</string>
+	<string name="error_names_contains_invalid_characters">ਫਾਇਲ ਦੇ ਨਾਂ ਵਿੱਚ ਖਾਸ ਅੱਖਰ ਨਹੀਂ ਹੋ ਸਕਦੇ ਹਨ।</string>
+	<string name="error_vault_name_contains_invalid_characters">ਵਾਲਟ ਦੇ ਨਾਂ ਵਿੱਚ ਖਾਸ ਅੱਖਰ ਨਹੀਂ ਹੋ ਸਕਦੇ ਹਨ।</string>
 	<string name="error_update_no_internet">ਅੱਪਡੇਟ ਜਾਂਚ ਲਈ ਅਸਫ਼ਲ ਹੈ। ਕੋਈ ਇੰਟਰਨੈੱਟ ਕਨੈਕਸ਼ਨ ਨਹੀਂ ਹੈ।</string>
 	<string name="error_play_services_not_available">Google Play ਸੇਵਾਵਾਂ ਇੰਸਟਾਲ ਨਹੀਂ ਹਨ</string>
 	<!-- # clouds -->
@@ -107,6 +109,11 @@
 	<string name="screen_s3_settings_secret_key_label">ਗੁਪਤ ਕੁੰਜੀ</string>
 	<string name="screen_s3_settings_endpoint_label">ਐਂਡ-ਪੁਆਇੰਟ</string>
 	<string name="screen_s3_settings_region_label">ਖੇਤਰ</string>
+	<string name="screen_s3_settings_msg_display_name_not_empty">ਦਿਖਾਉਣ ਵਾਲਾ ਨਾਂ ਖਾਲੀ ਨਹੀਂ ਹੋ ਸਕਦਾ ਹੈ</string>
+	<string name="screen_s3_settings_msg_access_key_not_empty">ਐਕਸੈਸ ਕੁੰਜੀ ਖਾਲੀ ਨਹੀਂ ਹੋ ਸਕਦੀ ਹੈ</string>
+	<string name="screen_s3_settings_msg_secret_key_not_empty">ਗੁਪਤ ਕੁੰਜੀ ਖਾਲੀ ਨਹੀਂ ਹੋ ਸਕਦੀ ਹੈ</string>
+	<string name="screen_s3_settings_msg_bucket_not_empty">ਬਕਟ ਕੁੰਜੀ ਖਾਲੀ ਨਹੀਂ ਹੋ ਸਕਦੀ ਹੈ</string>
+	<string name="screen_s3_settings_msg_endpoint_and_region_not_empty">ਐਂਡ-ਪੁਆਇੰਟ ਜਾਂ ਸਰਵਰ ਖਾਲੀ ਨਹੀਂ ਹੋ ਸਕਦਾ ਹੈ</string>
 	<!-- ## screen: enter vault name -->
 	<string name="screen_enter_vault_name_msg_name_empty">ਵਾਲਟ ਨਾਂ ਖਾਲੀ ਨਹੀਂ ਹੋ ਸਕਦਾ ਹੈ।</string>
 	<string name="screen_enter_vault_name_vault_label">ਵਾਲਟ ਦਾ ਨਾਂ</string>
@@ -114,6 +121,9 @@
 	<!-- ## screen: set password -->
 	<string name="screen_set_password_title">ਪਾਸਵਰਡ ਸੈੱਟ ਕਰੋ</string>
 	<string name="screen_set_password_button_text">ਮੁਕੰਮਲ</string>
+	<string name="screen_set_password_hint">ਜ਼ਰੂਰੀ: ਜੇ ਤੁਸੀਂ ਆਪਣਾ ਪਾਸਵਰਡ ਭੁੱਲ ਗਏ ਤਾਂ ਤੁਹਾਡੇ ਡਾਟੇ ਨੂੰ ਬਹਾਲ ਕਰਨ ਦਾ ਕੋਈ ਵੀ ਢੰਗ ਨਹੀਂ ਹੈ।</string>
+	<string name="screen_set_password_retype_password_label">ਪਾਸਵਰਡ ਨੂੰ ਮੁੜ ਲਿਖੋ</string>
+	<string name="screen_set_password_strength_indicator_0">ਵਾਲਟ ਬਣਾਉਣ ਲਈ ਬਹੁਤ ਕਮਜ਼ੋਰ ਹੈ</string>
 	<string name="screen_set_password_strength_indicator_1">ਕਮਜ਼ੋਰ</string>
 	<string name="screen_set_password_strength_indicator_2">ਠੀਕ-ਠਾਕ</string>
 	<string name="screen_set_password_strength_indicator_3">ਮਜ਼ਬੂਤ</string>
@@ -121,30 +131,190 @@
 	<!-- ## screen: settings -->
 	<string name="screen_settings_section_general">ਆਮ</string>
 	<string name="screen_settings_cloud_settings_label">ਕਲਾਉਡ ਸੇਵਾਵਾਂ</string>
+	<string name="screen_settings_biometric_auth">ਬਾਇਓ-ਮੈਟਰਿਕ ਪਰਮਾਣੀਕਰਨ</string>
+	<string name="screen_settings_secure_screen">ਸਕਰੀਨਸ਼ਾਟ ਲੈਣ ਉੱਤੇ ਪਾਬੰਦੀ ਲਾਓ</string>
 	<string name="screen_settings_section_search">ਖੋਜੋ</string>
+	<string name="screen_settings_section_auto_lock">ਆਪਣੇ-ਆਪ ਲਾਕ ਕਰੋ</string>
+	<string name="screen_settings_auto_lock_timeout">ਇਸ ਦੇ ਬਾਅਦ ਲਾਕ</string>
+	<string name="screen_settings_auto_lock_on_screen_lock">ਜਦੋਂ ਸਕਰੀਨ ਅਸਮਰੱਥ ਹੁੰਦੀ ਹੈ</string>
+	<string name="screen_settings_section_auto_photo_upload">ਆਪਣੇ-ਆਪ ਫੋਟੋ ਨੂੰ ਅਪੱਲੋਡ ਕਰੋ</string>
+	<string name="screen_settings_section_auto_photo_upload_vault">ਅੱਪਲੋਡ ਕਰਨ ਲਈ ਵਾਲਟ ਨੂੰ ਚੁਣੋ</string>
+	<string name="screen_settings_section_auto_photo_upload_toggle">ਸਰਗਰਮ</string>
+	<string name="screen_settings_section_auto_photo_upload_toggle_instant_upload">ਫ਼ੌਰਨ ਅੱਪਲੋਡ ਕਰੋ</string>
+	<string name="screen_settings_section_auto_photo_upload_toggle_instant_upload_summary">ਜਦੋਂ ਵੀ ਵਾਲਟ ਅਣ-ਲਾਕ ਹੋਵੇ ਤਾਂ ਸਿੱਧਾ ਅੱਪਲੋਡ ਕਰੋ</string>
+	<string name="screen_settings_section_auto_photo_upload_only_wifi_toggle">ਸਿਰਫ਼ WIFI ਵਰਤ ਕੇ ਅੱਪਲੋਡ ਕਰੋ</string>
+	<string name="screen_settings_section_auto_photo_upload_including_videos">ਵੀਡੀਓ ਨੂੰ ਅੱਪਲੋਡ ਕਰੋ</string>
+	<string name="screen_settings_website_label">Cryptomator ਦੀ ਵੈੱਬਸਾਈਟ</string>
+	<string name="screen_settings_twitter_label">ਟਵਿੱਟਰ ਉੱਤੇ ਸਾਨੂੰ ਫ਼ਾਲੋ ਕਰੋ</string>
+	<string name="screen_settings_facebook_label">ਫੇਸਬੁੱਕ ਉੱਤੇ ਸਾਨੂੰ ਪਸੰਦ ਕਰੋ</string>
+	<string name="screen_settings_section_legal">ਕਨੂੰਨੀ</string>
+	<string name="screen_settings_licenses_label">ਲਸੰਸ</string>
+	<string name="screen_settings_license_terms_label">ਲਸੰਸ ਦੀਆਂ ਸ਼ਰਤਾਂ</string>
+	<string name="screen_settings_section_support">ਸਹਿਯੋਗ</string>
+	<string name="screen_settings_contact_label">ਮਦਦ ਲਈ ਬੇਨਤੀ</string>
+	<string name="screen_settings_debug_mode_label">ਡੀਬੱਗ ਮੋਡ</string>
+	<string name="screen_settings_error_report_label">ਲਾਗ ਫਾਇਲ ਨੂੰ ਭੇਜੋ</string>
+	<string name="screen_settings_error_report_failed">ਭੇਜਣਾ ਅਸਫ਼ਲ ਹੈ</string>
+	<string name="screen_settings_security_label">ਸੁਰੱਖਿਆ ਇਸ਼ਾਰੇ</string>
+	<string name="screen_settings_section_version">ਵਰਜ਼ਨ</string>
+	<string name="screen_settings_advanced_settings">ਤਕਨੀਕੀ ਸੈਟਿੰਗਾਂ</string>
+	<string name="screen_settings_keep_unlocked_while_editing_files">ਅਣ-ਲਾਕ ਰੱਖਿਆ</string>
 	<!-- ## screen: cloud settings -->
+	<string name="screen_cloud_settings_onedrive_connections">OneDrive ਕਨੈਕਸ਼ਨ</string>
+	<string name="screen_cloud_settings_webdav_connections">WebDAV ਕਨੈਕਸ਼ਨ</string>
+	<string name="screen_cloud_settings_s3_connections">S3 ਕਨੈਕਸ਼ਨ</string>
+	<string name="screen_cloud_settings_local_storage_locations">ਲੋਕਲ ਸਟੋਰੇਜ਼ ਟਿਕਾਣੇ</string>
+	<string name="screen_cloud_settings_log_in_to">ਇਸ ਵਿੱਚ ਲਾਗਇਨ</string>
+	<string name="screen_cloud_settings_sign_out_from_cloud">ਇਸ ਤੋਂ ਸਾਈਨ ਆਉਟ</string>
 	<!-- ## screen: licenses -->
 	<!-- ## screen: authenticate cloud -->
 	<!-- ## screen: cryptomator app variants -->
+	<string name="screen_cryptomator_variants_lite_install">ਇੰਸਟਾਲ ਕਰੋ</string>
+	<string name="screen_cryptomator_variants_fdroid_add_repo">ਜੋੜੋ</string>
+	<string name="screen_cryptomator_variants_website_title">ਵੈੱਬਸਾਈਟ</string>
 	<!-- # dialogs -->
 	<string name="dialog_button_cancel">ਰੱਦ ਕਰੋ</string>
 	<string name="dialog_enter_password_positive_button">ਅਣ-ਲਾਕ ਕਰੋ</string>
+	<string name="dialog_change_password_old_password_label">ਪੁਰਾਣਾ ਪਾਸਵਰਡ</string>
+	<string name="dialog_change_password_new_password_label">ਨਵਾਂ ਪਾਸਵਰਡ</string>
+	<string name="dialog_change_password">ਪਾਸਵਰਡ ਨੂੰ ਬਦਲੋ</string>
+	<string name="dialog_change_password_msg_old_password_empty">ਪੁਰਾਣਾ ਪਾਸਵਰਡ ਖਾਲੀ ਨਹੀਂ ਹੋ ਸਕਦਾ ਹੈ।</string>
+	<string name="dialog_change_password_msg_new_password_empty">ਨਵਾਂ ਪਾਸਵਰਡ ਖਾਲੀ ਨਹੀਂ ਹੋ ਸਕਦਾ ਹੈ।</string>
 	<!-- Vault not found -->
+	<string name="dialog_vault_not_found_title">%1$s ਵਾਲਟ ਨਹੀਂ ਲੱਭਿਆ</string>
 	<string name="dialog_vault_not_found_positive_button_text">ਹਟਾਓ</string>
+	<string name="dialog_existing_file_title">ਫਾਇਲ ਪਹਿਲਾਂ ਹੀ ਮੌਜੂਦ ਹੈ</string>
+	<string name="dialog_existing_file_positive_button">ਬਦਲੋ</string>
+	<string name="dialog_existing_file_message">\'%1$s\' ਨਾਂ ਨਾਲ ਫਾਇਲ ਪਹਿਲਾਂ ਹੀ ਮੌਜੂਦ ਹੈ।</string>
+	<string name="dialog_replace_positive_button_all_files_exist">ਸਭ ਨੂੰ ਬਦਲੋ</string>
+	<string name="dialog_replace_positive_button_some_files_exist">ਮੌਜੂਦਾ ਨੂੰ ਬਦਲੋ</string>
+	<string name="dialog_replace_positive_button_single_file_exists">ਬਦਲੋ</string>
+	<string name="dialog_replace_msg_single_file_exists">\'%1$s\' ਨਾਂ ਨਾਲ ਫਾਇਲ ਪਹਿਲਾਂ ਹੀ ਮੌਜੂਦ ਹੈ। ਕੀ ਤੁਸੀਂ ਇਸ ਨੂੰ ਬਦਲਣਾ ਚਾਹੁੰਦੇ ਹੋ?</string>
+	<string name="dialog_replace_msg_all_files_exists">ਸਭ ਫਾਇਲਾਂ ਪਹਿਲਾਂ ਹੀ ਮੌਜੂਦ ਹਨ। ਕੀ ਤੁਸੀਂ ਉਹਨਾਂ ਨੂੰ ਬਦਲਣਾ ਚਾਹੁੰਦੇ ਹੋ?</string>
+	<string name="dialog_replace_msg_some_files_exists">%1$d ਪਹਿਲਾਂ ਹੀ ਮੌਜੂਦ ਹਨ। ਕੀ ਤੁਸੀਂ ਉਹਨਾਂ ਨੂੰ ਬਦਲਣਾ ਚਾਹੁੰਦੇ ਹੋ?</string>
+	<string name="dialog_replace_title_single_file_exists">ਫਾਇਲ ਨੂੰ ਬਦਲਣਾ ਹੈ?</string>
+	<string name="dialog_replace_title_multiple_files_exist">ਫਾਇਲਾਂ ਨੂੰ ਬਦਲਣਾ ਹੈ?</string>
+	<string name="dialog_unable_to_share_title">ਫਾਇਲਾਂ ਸਾਂਝੀਆਂ ਕਰਨ ਲਈ ਅਸਮਰੱਥ ਹੈ</string>
+	<string name="dialog_unable_to_share_positive_button">ਠੀਕ ਹੈ</string>
+	<string name="dialog_unable_to_share_negative_button">ਵਾਲਟ ਨੂੰ ਬਣਾਓ</string>
+	<string name="dialog_filetype_not_supported_title">%1$s ਨੂੰ ਖੋਲ੍ਹਿਆ ਨਹੀਂ ਜਾ ਸਕਦਾ</string>
+	<string name="dialog_rename_vault_title">ਵਾਲਟ ਦਾ ਨਾਂ ਬਦਲੋ</string>
+	<string name="dialog_rename_node_folder_title">ਫੋਲਡਰ ਦਾ ਨਾਂ ਬਦਲੋ</string>
+	<string name="dialog_rename_node_file_title">ਫਾਇਲ ਦਾ ਨਾਂ ਬਦਲੋ</string>
+	<string name="dialog_unsaved_changes_title">ਤੁਹਾਡੇ ਕੋਲ ਨਾ-ਸੰਭਾਲੀਆਂ ਤਬਦੀਲੀਆਂ ਹਨ</string>
+	<string name="dialog_unsaved_changes_message">ਕੀ ਤੁਸੀਂ ਬਿਨਾਂ ਸੰਭਾਲੇ ਹੀ ਬੰਦ ਕਰਨਾ ਚਾਹੁੰਦੇ ਹੋ?</string>
+	<string name="dialog_unsaved_changes_discard">ਖ਼ਾਰਜ ਕਰੋ</string>
+	<string name="dialog_file_name_hint">ਫਾਇਲ ਦਾ ਨਾਂ</string>
+	<string name="dialog_file_name_placeholder">text.txt</string>
+	<string name="dialog_delete_vault_message">ਕੀ ਤੁਸੀਂ ਇਸ ਵਾਲਟ ਨੂੰ ਹਟਾਉਣਾ ਚਾਹੁੰਦੇ ਹੋ?</string>
+	<string name="dialog_delete_vault_hint">ਇਹ ਕਾਰਵਾਈ ਸਿਰਫ਼ ਇਸ ਸੂਚੀ ਵਿੱਚੋਂ ਹੀ ਵਾਲਟ ਨੂੰ ਹਟਾਏਗੀ, ਪਰ ਅਸਲ ਥਾਂ ਉੱਤੇ ਮੌਜੂਦ ਰਹੇਗਾ।</string>
+	<string name="dialog_upload_file_title">ਅੱਪਲੋਡ ਕੀਤਾ ਜਾ ਰਿਹਾ ਹੈ&#8230;</string>
+	<string name="dialog_upload_file_remaining">%2$d ਵਿੱਚੋਂ %1$d ਫਾਇਲ</string>
+	<string name="dialog_export_file_title">ਐਕਸਪੋਰਟ ਕੀਤਾ ਜਾ ਰਿਹਾ ਹੈ(%1$d/%2$d)</string>
+	<string name="dialog_progress_please_wait">ਉਡੀਕੋ&#8230;</string>
+	<string name="dialog_progress_creating_folder">ਫੋਲਡਰ ਬਣਾਇਆ ਜਾ ਰਿਹਾ ਹੈ&#8230;</string>
+	<string name="dialog_progress_creating_text_file">ਲਿਖਤ ਫਾਇਲ ਬਣਾਈ ਜਾ ਰਹੀ ਹੈ&#8230;</string>
+	<string name="action_progress_authentication">ਪਰਮਾਣੀਕਰਨ&#8230;</string>
+	<string name="action_progress_renaming">ਨਾਂ ਬਦਲਿਆ ਜਾ ਰਿਹਾ ਹੈ&#8230;</string>
+	<string name="action_progress_deleting">ਹਟਾਇਆ ਜਾ ਰਿਹਾ ਹੈ&#8230;</string>
+	<string name="dialog_progress_unlocking_vault">ਵਾਲਟ ਅਣ-ਲਾਕ ਕੀਤਾ ਜਾ ਰਿਹਾ ਹੈ&#8230;</string>
+	<string name="dialog_progress_change_password">ਪਾਸਵਰਡ ਬਦਲਿਆ ਜਾ ਰਿਹਾ ਹੈ&#8230;</string>
+	<string name="dialog_progress_creating_vault">ਵਾਲਟ ਬਣਾਇਆ ਜਾ ਰਿਹਾ ਹੈ&#8230;</string>
+	<string name="dialog_progress_upload_file">ਅੱਪਲੋਡ ਕੀਤਾ ਜਾ ਰਿਹਾ ਹੈ&#8230;</string>
+	<string name="dialog_progress_download_file">ਡਾਊਨਲੋਡ ਕੀਤਾ ਜਾ ਰਿਹਾ ਹੈ&#8230;</string>
+	<string name="dialog_progress_encryption">ਇੰਕ੍ਰਿਪਟ ਕੀਤਾ ਜਾ ਰਿਹਾ ਹੈ&#8230;</string>
+	<string name="dialog_progress_decryption">ਡਿ-ਕ੍ਰਿਪਟ ਕੀਤਾ ਜਾ ਰਿਹਾ ਹੈ&#8230;</string>
+	<string name="action_progress_moving">ਭੇਜਿਆ ਜਾ ਰਿਹਾ ਹੈ&#8230;</string>
 	<string name="dialog_lock_vault">ਲਾਕ ਕਰੋ</string>
+	<string name="dialog_accept_ssl_certificate_details">ਵੇਰਵੇ</string>
+	<string name="dialog_accept_ssl_certificate_security_checkbox">ਇਹ ਸੁਰੱਖਿਆ ਖ਼ਤਰਾ ਹੋ ਸਕਦਾ ਹੈ। ਮੈਨੂੰ ਪਤਾ ਹੈ ਮੈਂ ਕੀ ਕਰ ਰਿਹਾ/ਰਹੀ ਹਾਂ।</string>
+	<string name="dialog_ask_ignore_battery_optimizations_title">ਬੈਟਰੀ ਅਨੁਕੂਲਣ ਨੂੰ ਅਸਮਰੱਥ ਕਰੋ</string>
+	<string name="dialog_ask_ignore_battery_optimizations_checkbox">ਮੁੜ ਨਹੀਂ ਪੁੱਛਣਾ ਹੈ?</string>
+	<string name="dialog_no_screen_lock_title">ਸਕਰੀਨ ਲਾਕ ਸੈੱਟ ਕਰਨਾ ਹੈ?</string>
+	<string name="dialog_no_screen_lock_checkbox">ਸਕਰੀਨ ਲਾਕ ਸੈੱਟ ਕਰੋ</string>
+	<string name="dialog_debug_mode_disclaimer_title">ਧਿਆਨ ਦਿਓ</string>
+	<string name="dialog_debug_mode_positive_button">ਸਮਰੱਥ</string>
+	<string name="dialog_disable_app_obscured_disclaimer_title">ਧਿਆਨ ਦਿਓ</string>
+	<string name="dialog_disable_app_obscured_positive_button">ਅਸਮਰੱਥ</string>
 	<string name="dialog_app_is_obscured_info_neutral_button">ਬੰਦ ਕਰੋ</string>
+	<string name="dialog_delete_cloud_connection_with_vaults_message">ਕੀ ਤੁਸੀਂ ਇਸ ਕਲਾਉਡ ਕਨੈਕਸ਼ਨ ਨੂੰ ਹਟਾਉਣਾ ਚਾਹੁੰਦੇ ਹੋ?</string>
+	<string name="dialog_delete_cloud_connection_with_vaults_hint">ਇਹ ਕਾਰਵਾਈ ਕਲਾਉਡ ਕਨੈਕਸ਼ਨ ਅਤੇ ਇਸ ਕਲਾਉਡ ਵਿਚਲੇ ਸਭ ਵਾਲਟਾਂ ਨੂੰ ਹਟਾਏਗੀ।</string>
+	<string name="dialog_confirm_delete_multiple_title">%1$d ਆਈਟਮਾਂ ਨੂੰ ਹਟਾਉਣਾ ਹੈ?</string>
+	<string name="dialog_confirm_delete_multiple_message">ਕੀ ਤੁਸੀਂ ਇਹ ਆਈਟਮਾਂ ਨੂੰ ਹਟਾਉਣਾ ਚਾਹੁੰਦੇ ਹੋ?</string>
+	<string name="dialog_confirm_delete_file_message">ਕੀ ਤੁਸੀਂ ਇਸ ਫਾਇਲ ਨੂੰ ਹਟਾਉਣਾ ਚਾਹੁੰਦੇ ਹੋ?</string>
+	<string name="dialog_confirm_delete_folder_message">ਇਸ ਨਾਲ ਫੋਲਡਰ ਵਿਚਲੀ ਸਾਰੀ ਸਮੱਗਰੀ ਨੂੰ ਵੀ ਹਟਾਇਆ ਜਾਵੇਗਾ। ਕੀ ਤੁਸੀਂ ਇਸ ਫੋਲਡਰ ਨੂੰ ਹਟਾਉਣਾ ਚਾਹੁੰਦੇ ਹੋ?</string>
+	<string name="dialog_enter_license_decline_button">ਬਾਹਰ</string>
+	<string name="dialog_license_confirmation_title">ਲਸੰਸ ਦੀ ਤਸਦੀਕ</string>
+	<string name="dialog_license_confirmation_message">ਆਪਣਾ ਵਾਜਬ ਲਸੰਸ ਦੇਣ ਲਈ %1$s ਦਾ ਧੰਨਵਾਦ ਹੈ।</string>
+	<string name="dialog_update_available_title">ਅੱਪਡੇਟ ਮੌਜੂਦ ਹੈ</string>
+	<string name="dialog_update_available_update">ਹੁਣੇ ਅੱਪਡੇਟ ਕਰੋ</string>
+	<string name="dialog_update_available_download_site">ਡਾਊਨਲੋਡ ਸਾਈਟ ਉੱਤੇ ਜਾਓ</string>
+	<string name="dialog_update_available_cancel">ਬਾਅਦ ਵਿੱਚ</string>
+	<string name="dialog_download_update_title">ਡਾਊਨਲੋਡ ਚੱਲ ਰਿਹਾ ਹੈ</string>
 	<string name="dialog_sym_link_back_button">ਪਿੱਛੇ</string>
+	<string name="dialog_no_dir_file_title">ਡਾਇਰੈਕਟਰੀ ਦੀ ਸਮੱਗਰੀ ਨੂੰ ਲੋਡ ਕਰਨ ਲਈ ਅਸਮਰੱਥ ਹੈ</string>
+	<string name="dialog_cbc_password_vaults_migration_title">ਵਾਲਟ ਦੇ ਪਾਸਵਰਡ ਨੂੰ ਮਾਈਗਰੇਟ ਕਰਨ ਦੀ ਲੋੜ ਹੈ</string>
 	<!-- # error reports -->
 	<!-- # misc -->
 	<!-- ## file size helper -->
+	<string name="file_size_zero">ਸਿਫ਼ਰ kB</string>
+	<string name="file_size_unit_bytes">ਬਾਈਟ</string>
+	<string name="file_size_unit_kilo_bytes">kB</string>
+	<string name="file_size_unit_mega_bytes">MB</string>
+	<string name="file_size_unit_giga_bytes">GB</string>
+	<string name="file_size_unit_tera_bytes">TB</string>
 	<!-- ## date helper -->
+	<string name="time_unit_seconds_sg">ਸਕਿੰਟ</string>
+	<string name="time_unit_seconds_pl">ਸਕਿੰਟ</string>
+	<string name="time_unit_minutes_sg">ਮਿੰਟ</string>
 	<string name="time_unit_minutes_pl">ਮਿੰਟ</string>
+	<string name="time_unit_hours_sg">ਘੰਟਾ</string>
+	<string name="time_unit_hours_pl">ਘੰਟੇ</string>
+	<string name="time_unit_days_sg">ਦਿਨ</string>
+	<string name="time_unit_days_pl">ਦਿਨ</string>
+	<string name="time_unit_weeks_sg">ਹਫ਼ਤਾ</string>
+	<string name="time_unit_weeks_pl">ਹਫ਼ਤੇ</string>
+	<string name="time_unit_months_sg">ਮਹੀਨਾ</string>
+	<string name="time_unit_months_pl">ਮਹੀਨੇ</string>
+	<string name="time_unit_years_sg">ਸਾਲ</string>
+	<string name="time_unit_years_pl">ਸਾਲ</string>
 	<!-- ## biometric authentication -->
+	<string name="dialog_biometric_auth_title">ਬਾਇਓਮੈਟਰਿਕ ਲਾਗਇਨ</string>
+	<string name="dialog_biometric_auth_use_password">ਵਾਲਟ ਦੇ ਪਾਸਵਰਡ ਨੂੰ ਵਰਤੋਂ</string>
+	<string name="dialog_unable_to_auto_upload_files_title">ਫਾਇਲਾਂ ਨੂੰ ਆਪਣੇ-ਆਪ ਅੱਪਲੋਡ ਕਰਨ ਲਈ ਅਸਮਰੱਥ</string>
 	<!-- notification -->
+	<string name="notification_unlocked">ਵਾਲਟ ਅਣ-ਲਾਕ ਹੈ: %1$d</string>
+	<string name="notification_timeout">%1$s ਵਿੱਚ ਆਪਣੇ-ਆਪ ਲਾਕ ਕਰੋ</string>
+	<string name="notification_lock_all">ਸਭ ਲਾਕ ਹਨ</string>
+	<string name="notification_cancel_auto_upload">ਅੱਪਲੋਡ ਨੂੰ ਰੱਦ ਕਰੋ</string>
+	<string name="notification_auto_upload_message">%1d/%2d ਨੂੰ ਅੱਪਲੋਡ ਕੀਤਾ ਜਾ ਰਿਹਾ ਹੈ</string>
+	<string name="screen_settings_lru_cache">ਕੈਸ਼</string>
+	<string name="screen_settings_lru_cache_size">ਕੁੱਲ ਕੈਸ਼ ਆਕਾਰ</string>
+	<string name="screen_settings_clear_lru_cache_size">ਕੈਸ਼ ਨੂੰ ਮਿਟਾਓ</string>
+	<string name="screen_settings_license">ਇਸ ਲਈ ਰਜਿਸਟਰ ਹੈ</string>
+	<string name="screen_settings_license_mail">%1$s</string>
+	<string name="dialog_settings_update_check_interval_title">ਅੱਪਡੇਟ ਚੈਕ ਕਰਨ ਦਾ ਅੰਤਰਾਲ</string>
+	<string name="screen_settings_check_updates">ਅੱਪਡੇਟ ਲਈ ਜਾਂਚ ਕਰੋ</string>
+	<string name="screen_settings_last_check_updates">%1$s ਨੂੰ ਆਖਰੀ ਵਾਰ ਚਲਾਇਆ</string>
 	<!-- lock timeout names -->
+	<string name="lock_timeout_instant">ਫ਼ੌਰਨ</string>
+	<string name="lock_timeout_1m">1 ਮਿੰਟ</string>
+	<string name="lock_timeout_2m">2 ਮਿੰਟ</string>
+	<string name="lock_timeout_5m">5 ਮਿੰਟ</string>
+	<string name="lock_timeout_10m">10 ਮਿੰਟ</string>
+	<string name="lock_timeout_never">ਕਦੇ ਨਹੀਂ</string>
 	<!-- cache size names -->
+	<string name="cache_size_50m">50 MB</string>
+	<string name="cache_size_100m">100 MB</string>
+	<string name="cache_size_250m">250 MB</string>
+	<string name="cache_size_500m">500 MB</string>
+	<string name="cache_size_1000m">1 GB</string>
+	<string name="cache_size_5000m">5 GB</string>
 	<!-- screen scheme mode names -->
+	<string name="screen_settings_style_mode">ਸਟਾਈਲ</string>
+	<string name="follow_system">ਆਟੋਮੈਟਿਕ (ਸਿਸਟਮ ਮੁਤਾਬਕ)</string>
 	<string name="light">ਹਲਕਾ</string>
 	<string name="dark">ਗੂੜ੍ਹਾ</string>
 	<!-- update interval names -->
+	<string name="update_interval_1d">ਦਿਨ \'ਚ ਇੱਕ ਵਾਰ</string>
 </resources>
