@@ -39,7 +39,8 @@ class HubUserSetupRequiredDialog : BaseDialog<HubUserSetupRequiredDialog.Callbac
 		return builder.create()
 	}
 
-	public override fun setupView() {
+	override fun onStart() {
+		super.onStart()
 		val dialog = dialog as AlertDialog?
 		dialog?.let {
 			goToProfileButton = dialog.getButton(android.app.Dialog.BUTTON_POSITIVE)
@@ -49,6 +50,10 @@ class HubUserSetupRequiredDialog : BaseDialog<HubUserSetupRequiredDialog.Callbac
 			}
 			dialog.setCanceledOnTouchOutside(false)
 		}
+	}
+
+	override fun setupView() {
+		// empty
 	}
 
 	companion object {

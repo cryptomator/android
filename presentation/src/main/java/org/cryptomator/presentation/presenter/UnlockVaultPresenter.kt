@@ -546,7 +546,7 @@ class UnlockVaultPresenter @Inject constructor(
 
 	fun onGoToHubProfileClicked(unverifiedVaultConfig: UnverifiedHubVaultConfig) {
 		val intent = Intent(Intent.ACTION_VIEW)
-		intent.data =  Uri.parse(unverifiedVaultConfig.apiBaseUrl.resolve("../app/profile").toString())
+		intent.data = Uri.parse(unverifiedVaultConfig.apiBaseUrl.resolve("../app/profile").toString())
 		requestActivityResult(ActivityResultCallbacks.onGoToHubProfileFinished(), intent)
 	}
 
