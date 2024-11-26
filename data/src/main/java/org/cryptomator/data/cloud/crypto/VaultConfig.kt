@@ -7,6 +7,7 @@ import com.auth0.jwt.exceptions.JWTVerificationException
 import com.auth0.jwt.exceptions.SignatureVerificationException
 import com.auth0.jwt.interfaces.DecodedJWT
 import org.cryptomator.cryptolib.api.CryptorProvider
+import org.cryptomator.domain.UnverifiedHubVaultConfig
 import org.cryptomator.domain.UnverifiedVaultConfig
 import org.cryptomator.domain.exception.vaultconfig.VaultConfigLoadException
 import org.cryptomator.domain.exception.vaultconfig.VaultKeyInvalidException
@@ -83,7 +84,19 @@ class VaultConfig private constructor(builder: VaultConfigBuilder) {
 			val unverifiedJwt = JWT.decode(token)
 			val vaultFormat = unverifiedJwt.getClaim(JSON_KEY_VAULTFORMAT).asInt()
 			val keyId = URI.create(unverifiedJwt.keyId)
-			return UnverifiedVaultConfig(token, keyId, vaultFormat)
+			if (keyId.scheme.startsWith(CryptoConstants.HUB_SCHEME)) {
+				val hubClaim = unverifiedJwt.getHeaderClaim("hub").asMap()
+				val clientId = hubClaim["clientId"] as String
+				val authEndpoint = hubClaim["authEndpoint"] as String
+				val tokenEndpoint = hubClaim["tokenEndpoint"] as String
+				val authSuccessUrl = hubClaim["authSuccessUrl"] as String
+				val authErrorUrl = hubClaim["authErrorUrl"] as String
+				val apiBaseUrl = hubClaim["apiBaseUrl"] as String
+				val devicesResourceUrl = hubClaim["devicesResourceUrl"] as String
+				return UnverifiedHubVaultConfig(token, keyId, vaultFormat, clientId, authEndpoint, tokenEndpoint, authSuccessUrl, authErrorUrl, apiBaseUrl, devicesResourceUrl)
+			} else {
+				return UnverifiedVaultConfig(token, keyId, vaultFormat)
+			}
 		}
 
 		@JvmStatic

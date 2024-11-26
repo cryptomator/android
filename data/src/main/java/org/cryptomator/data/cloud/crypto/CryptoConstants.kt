@@ -6,6 +6,8 @@ object CryptoConstants {
 
 	const val MASTERKEY_SCHEME = "masterkeyfile"
 	const val MASTERKEY_FILE_NAME = "masterkey.cryptomator"
+	const val HUB_SCHEME = "hub+"
+	const val HUB_REDIRECT_URL = "org.cryptomator.android:/hub/auth"
 	const val ROOT_DIR_ID = ""
 	const val DATA_DIR_NAME = "d"
 	const val VAULT_FILE_NAME = "vault.cryptomator"

@@ -21,6 +21,7 @@ import java.security.SecureRandom;
 import javax.inject.Inject;
 import javax.inject.Singleton;
 
+import static org.cryptomator.data.cloud.crypto.CryptoConstants.HUB_SCHEME;
 import static org.cryptomator.data.cloud.crypto.CryptoConstants.MASTERKEY_SCHEME;
 import static org.cryptomator.data.cloud.crypto.CryptoConstants.VAULT_FILE_NAME;
 import static org.cryptomator.domain.Vault.aCopyOf;
@@ -40,7 +41,7 @@ public class CryptoCloudFactory {
 	}
 
 	public void create(CloudFolder location, CharSequence password) throws BackendException {
-		cryptoCloudProvider(Optional.absent()).create(location, password);
+		masterkeyCryptoCloudProvider().create(location, password);
 	}
 
 	public Cloud decryptedViewOf(Vault vault) throws BackendException {
@@ -68,6 +69,10 @@ public class CryptoCloudFactory {
 		return cryptoCloudProvider(unverifiedVaultConfig).unlock(token, unverifiedVaultConfig, password, cancelledFlag);
 	}
 
+	public Vault unlock(Vault vault, UnverifiedVaultConfig unverifiedVaultConfig, String vaultKeyJwe, String userKeyJwe, Flag cancelledFlag) throws BackendException {
+		return cryptoCloudProvider(unverifiedVaultConfig).unlock(vault, unverifiedVaultConfig, vaultKeyJwe, userKeyJwe, cancelledFlag);
+	}
+
 	public UnlockToken createUnlockToken(Vault vault, Optional<UnverifiedVaultConfig> unverifiedVaultConfig) throws BackendException {
 		return cryptoCloudProvider(unverifiedVaultConfig).createUnlockToken(vault, unverifiedVaultConfig);
 	}
@@ -84,10 +89,20 @@ public class CryptoCloudFactory {
 		cryptoCloudProvider(unverifiedVaultConfig).changePassword(vault, unverifiedVaultConfig, oldPassword, newPassword);
 	}
 
+	private CryptoCloudProvider masterkeyCryptoCloudProvider() {
+		return cryptoCloudProvider(Optional.absent());
+	}
+
+	private CryptoCloudProvider cryptoCloudProvider(UnverifiedVaultConfig unverifiedVaultConfigOptional) {
+		return cryptoCloudProvider(Optional.of(unverifiedVaultConfigOptional));
+	}
+
 	private CryptoCloudProvider cryptoCloudProvider(Optional<UnverifiedVaultConfig> unverifiedVaultConfigOptional) {
 		if (unverifiedVaultConfigOptional.isPresent()) {
 			if (MASTERKEY_SCHEME.equals(unverifiedVaultConfigOptional.get().getKeyId().getScheme())) {
 				return new MasterkeyCryptoCloudProvider(cloudContentRepository, cryptoCloudContentRepositoryFactory, secureRandom);
+			} else if (unverifiedVaultConfigOptional.get().getKeyId().getScheme().startsWith(HUB_SCHEME)) {
+				return new HubkeyCryptoCloudProvider(cryptoCloudContentRepositoryFactory, secureRandom);
 			}
 			throw new IllegalStateException(String.format("Provider with scheme %s not supported", unverifiedVaultConfigOptional.get().getKeyId().getScheme()));
 		} else {

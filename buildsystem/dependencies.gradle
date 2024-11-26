@@ -64,6 +64,10 @@ ext {
 
 	gsonVersion = '2.11.0'
 
+	joseJwtVersion = '9.47'
+
+	appauthVersion = '0.11.1'
+
 	okHttpVersion = '4.12.0'
 	okHttpDigestVersion = '3.1.0'
 
@@ -107,6 +111,7 @@ ext {
 	mockitoVersion = '5.12.0'
 	mockitoKotlinVersion = '5.3.1'
 	mockitoInlineVersion = '5.2.0'
+	mockitoAndroidVersion = '5.14.2'
 	hamcrestVersion = '1.3'
 	dexmakerVersion = '1.0'
 	espressoVersion = '3.4.0'
@@ -140,6 +145,7 @@ ext {
 			androidxViewpager              : "androidx.viewpager:viewpager:${androidxViewpagerVersion}",
 			androidxSwiperefresh           : "androidx.swiperefreshlayout:swiperefreshlayout:${androidxSwiperefreshVersion}",
 			androidxPreference             : "androidx.preference:preference:${androidxPreferenceVersion}",
+			appauth                        : "net.openid:appauth:${appauthVersion}",
 			documentFile                   : "androidx.documentfile:documentfile:${androidxDocumentfileVersion}",
 			recyclerView                   : "androidx.recyclerview:recyclerview:${androidxRecyclerViewVersion}",
 			androidxSplashscreen           : "androidx.core:core-splashscreen:${androidxSplashscreenVersion}",
@@ -163,6 +169,7 @@ ext {
 			gson                           : "com.google.code.gson:gson:${gsonVersion}",
 			hamcrest                       : "org.hamcrest:hamcrest-all:${hamcrestVersion}",
 			javaxAnnotation                : "javax.annotation:jsr250-api:${javaxAnnotationVersion}",
+			joseJwt                        : "com.nimbusds:nimbus-jose-jwt:${joseJwtVersion}",
 			junit                          : "org.junit.jupiter:junit-jupiter:${jUnitVersion}",
 			junitApi                       : "org.junit.jupiter:junit-jupiter-api:${jUnitVersion}",
 			junitEngine                    : "org.junit.jupiter:junit-jupiter-engine:${jUnitVersion}",
@@ -172,6 +179,7 @@ ext {
 			mockito                        : "org.mockito:mockito-core:${mockitoVersion}",
 			mockitoInline                  : "org.mockito:mockito-inline:${mockitoInlineVersion}",
 			mockitoKotlin                  : "org.mockito.kotlin:mockito-kotlin:${mockitoKotlinVersion}",
+			mockitoAndroid                 : "org.mockito:mockito-android:${mockitoAndroidVersion}",
 			msgraph                        : "com.microsoft.graph:microsoft-graph:${msgraphVersion}",
 			msgraphAuth                    : "com.microsoft.identity.client:msal:${msgraphAuthVersion}",
 			multidex                       : "androidx.multidex:multidex:${multidexVersion}",

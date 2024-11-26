@@ -126,6 +126,10 @@ class MasterkeyCryptoCloudProvider(
 		}
 	}
 
+	override fun unlock(vault: Vault, unverifiedVaultConfig: UnverifiedVaultConfig, vaultKeyJwe: String, userKeyJwe: String, cancelledFlag: Flag): Vault {
+		throw IllegalStateException("Password based vaults do not support hub unlock")
+	}
+
 	@Throws(BackendException::class)
 	override fun createUnlockToken(vault: Vault, unverifiedVaultConfig: Optional<UnverifiedVaultConfig>): UnlockTokenImpl {
 		val vaultLocation = vaultLocation(vault)
