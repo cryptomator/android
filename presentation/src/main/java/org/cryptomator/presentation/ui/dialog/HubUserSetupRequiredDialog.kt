@@ -40,7 +40,6 @@ class HubUserSetupRequiredDialog : BaseDialog<HubUserSetupRequiredDialog.Callbac
 	}
 
 	public override fun setupView() {
-		super.onStart()
 		val dialog = dialog as AlertDialog?
 		dialog?.let {
 			goToProfileButton = dialog.getButton(android.app.Dialog.BUTTON_POSITIVE)

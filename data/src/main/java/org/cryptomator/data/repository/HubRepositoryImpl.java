@@ -85,7 +85,7 @@ public class HubRepositoryImpl implements HubRepository {
 					throw new FatalBackendException("Failed with response code " + response.code());
 			}
 		} catch (IOException e) {
-			throw new RuntimeException(e);
+			throw new FatalBackendException(e);
 		}
 	}
 

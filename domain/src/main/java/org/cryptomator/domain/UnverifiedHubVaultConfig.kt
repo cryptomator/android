@@ -7,12 +7,9 @@ class UnverifiedHubVaultConfig(
 	override val keyId: URI,
 	override val vaultFormat: Int,
 	val clientId: String,
-	val authEndpoint: String,
-	val tokenEndpoint: String,
-	val authSuccessUrl: String,
-	val authErrorUrl: String,
-	val apiBaseUrl: String?,
-	val devicesResourceUrl: String,
+	val authEndpoint: URI,
+	val tokenEndpoint: URI,
+	val apiBaseUrl: URI
 ) : UnverifiedVaultConfig(jwt, keyId, vaultFormat) {
 
 	fun vaultId(): String {

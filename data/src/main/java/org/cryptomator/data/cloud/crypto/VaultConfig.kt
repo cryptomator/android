@@ -83,19 +83,29 @@ class VaultConfig private constructor(builder: VaultConfigBuilder) {
 		fun decode(token: String): UnverifiedVaultConfig {
 			val unverifiedJwt = JWT.decode(token)
 			val vaultFormat = unverifiedJwt.getClaim(JSON_KEY_VAULTFORMAT).asInt()
-			val keyId = URI.create(unverifiedJwt.keyId)
+			val keyId = try {
+				URI.create(unverifiedJwt.keyId)
+			} catch (e: IllegalArgumentException) {
+				throw VaultConfigLoadException("Invalid 'keyId' in JWT: ${e.message}", e)
+			}
 			if (keyId.scheme.startsWith(CryptoConstants.HUB_SCHEME)) {
 				val hubClaim = unverifiedJwt.getHeaderClaim("hub").asMap()
-				val clientId = hubClaim["clientId"] as String
-				val authEndpoint = hubClaim["authEndpoint"] as String
-				val tokenEndpoint = hubClaim["tokenEndpoint"] as String
-				val authSuccessUrl = hubClaim["authSuccessUrl"] as String
-				val authErrorUrl = hubClaim["authErrorUrl"] as String
-				val apiBaseUrl = hubClaim["apiBaseUrl"] as String
-				val devicesResourceUrl = hubClaim["devicesResourceUrl"] as String
-				return UnverifiedHubVaultConfig(token, keyId, vaultFormat, clientId, authEndpoint, tokenEndpoint, authSuccessUrl, authErrorUrl, apiBaseUrl, devicesResourceUrl)
+				val clientId = hubClaim["clientId"] as? String ?: throw VaultConfigLoadException("Missing or invalid 'clientId' claim in JWT header")
+				val authEndpoint = parseUri(hubClaim, "authEndpoint")
+				val tokenEndpoint = parseUri(hubClaim, "tokenEndpoint")
+				val apiBaseUrl = parseUri(hubClaim, "apiBaseUrl")
+				return UnverifiedHubVaultConfig(token, keyId, vaultFormat, clientId, authEndpoint, tokenEndpoint, apiBaseUrl)
 			} else {
 				return UnverifiedVaultConfig(token, keyId, vaultFormat)
+			}
+		}
+
+		private fun parseUri(uriValue: Map<String, Any>, fieldName: String): URI {
+			val uriString = uriValue[fieldName] as? String ?: throw VaultConfigLoadException("Missing or invalid '$fieldName' claim in JWT header")
+			return try {
+				URI.create(uriString)
+			} catch (e: IllegalArgumentException) {
+				throw VaultConfigLoadException("Invalid '$fieldName' URI: ${e.message}", e)
 			}
 		}
 

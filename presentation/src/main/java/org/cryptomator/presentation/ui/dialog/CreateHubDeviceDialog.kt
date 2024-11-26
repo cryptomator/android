@@ -34,10 +34,10 @@ class CreateHubDeviceDialog : BaseProgressErrorDialog<CreateHubDeviceDialog.Call
 		dialog?.let {
 			createDeviceButton = dialog.getButton(android.app.Dialog.BUTTON_POSITIVE)
 			createDeviceButton?.setOnClickListener {
-				showProgress(ProgressModel(ProgressStateModel.CREATING_HUB_DEVICE))
 				val vaultModel = requireArguments().getSerializable(VAULT_ARG) as VaultModel
 				val unverifiedVaultConfig = requireArguments().getSerializable(VAULT_CONFIG_ARG) as UnverifiedHubVaultConfig
 				if (valid(binding.etDeviceName.text.toString(), binding.etSetupCode.text.toString())) {
+					showProgress(ProgressModel(ProgressStateModel.CREATING_HUB_DEVICE))
 					callback?.onCreateHubDeviceClicked(vaultModel, unverifiedVaultConfig, binding.etDeviceName.text.toString(), binding.etSetupCode.text.toString())
 					onWaitForResponse(binding.etDeviceName)
 				}

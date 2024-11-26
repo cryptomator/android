@@ -180,7 +180,7 @@ class UnlockVaultPresenter @Inject constructor(
 	}
 
 	private fun buildHubAuthIntent(unverifiedVaultConfig: UnverifiedHubVaultConfig): Intent? {
-		val serviceConfig = AuthorizationServiceConfiguration(Uri.parse(unverifiedVaultConfig.authEndpoint), Uri.parse(unverifiedVaultConfig.tokenEndpoint))
+		val serviceConfig = AuthorizationServiceConfiguration(Uri.parse(unverifiedVaultConfig.authEndpoint.toString()), Uri.parse(unverifiedVaultConfig.tokenEndpoint.toString()))
 		val authRequestBuilder = AuthorizationRequest.Builder(
 			serviceConfig,
 			unverifiedVaultConfig.clientId,
@@ -545,12 +545,8 @@ class UnlockVaultPresenter @Inject constructor(
 	}
 
 	fun onGoToHubProfileClicked(unverifiedVaultConfig: UnverifiedHubVaultConfig) {
-		val userProfileUri = unverifiedVaultConfig.apiBaseUrl.let { baseUrl ->
-			val trimmedPath = baseUrl.toString().removeSuffix("/").substringBeforeLast("/")
-			Uri.parse("$trimmedPath/app/profile")
-		}
 		val intent = Intent(Intent.ACTION_VIEW)
-		intent.data = userProfileUri
+		intent.data =  Uri.parse(unverifiedVaultConfig.apiBaseUrl.resolve("../app/profile").toString())
 		requestActivityResult(ActivityResultCallbacks.onGoToHubProfileFinished(), intent)
 	}
 
