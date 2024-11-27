@@ -12,10 +12,12 @@ import org.cryptomator.domain.UnverifiedVaultConfig
 import org.cryptomator.domain.Vault
 import org.cryptomator.domain.exception.BackendException
 import org.cryptomator.domain.exception.CancellationException
+import org.cryptomator.domain.exception.FatalBackendException
 import org.cryptomator.domain.usecases.cloud.Flag
 import org.cryptomator.domain.usecases.vault.UnlockToken
 import org.cryptomator.util.crypto.HubDeviceCryptor
 import java.security.SecureRandom
+import java.text.ParseException
 
 class HubkeyCryptoCloudProvider(
 	private val cryptoCloudContentRepositoryFactory: CryptoCloudContentRepositoryFactory,  //
@@ -38,8 +40,14 @@ class HubkeyCryptoCloudProvider(
 	}
 
 	override fun unlock(vault: Vault, unverifiedVaultConfig: UnverifiedVaultConfig, vaultKeyJwe: String, userKeyJwe: String, cancelledFlag: Flag): Vault {
-		val vaultKey = JWEObject.parse(vaultKeyJwe)
-		val userKey = JWEObject.parse(userKeyJwe)
+		val vaultKey: JWEObject
+		val userKey: JWEObject
+		try {
+			vaultKey = JWEObject.parse(vaultKeyJwe)
+			userKey = JWEObject.parse(userKeyJwe)
+		} catch (e: ParseException) {
+			throw FatalBackendException("Failed to parse JWE strings", e)
+		}
 		val masterkey = HubDeviceCryptor.getInstance().decryptVaultKey(vaultKey, userKey)
 		val vaultConfig = verify(masterkey.encoded, unverifiedVaultConfig)
 		val vaultFormat = vaultConfig.vaultFormat
