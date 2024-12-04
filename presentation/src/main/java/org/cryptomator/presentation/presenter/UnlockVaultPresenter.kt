@@ -198,29 +198,7 @@ class UnlockVaultPresenter @Inject constructor(
 			if (resp != null) {
 				hubAuthService?.performTokenRequest(resp.createTokenExchangeRequest()) { token, ex ->
 					token?.accessToken?.let {
-						unlockHubVaultUseCase
-							.withVault(vault)
-							.andUnverifiedVaultConfig(unverifiedHubVaultConfig)
-							.andAccessToken(it)
-							.run(object : DefaultResultHandler<Cloud>() {
-								override fun onSuccess(cloud: Cloud) {
-									finishWithResult(cloud)
-								}
-
-								override fun onError(e: Throwable) {
-									when (e) {
-										is HubDeviceSetupRequiredException -> view?.showCreateHubDeviceDialog(VaultModel(vault), unverifiedHubVaultConfig)
-										is HubUserSetupRequiredException -> view?.showHubUserSetupRequiredDialog(unverifiedHubVaultConfig)
-										is HubLicenseUpgradeRequiredException -> view?.showHubLicenseUpgradeRequiredDialog()
-										is HubVaultAccessForbiddenException -> view?.showHubVaultAccessForbiddenDialog()
-										is HubVaultIsArchivedException -> view?.showHubVaultIsArchivedDialog()
-										else -> {
-											super.onError(e)
-											finishWithResult(null)
-										}
-									}
-								}
-							})
+						unlockHubVault(vault, unverifiedHubVaultConfig, it)
 					} ?: showErrorAndFinish(HubAuthenticationFailedException(ex))
 				}
 			} else {
@@ -230,6 +208,32 @@ class UnlockVaultPresenter @Inject constructor(
 		} else {
 			showErrorAndFinish(HubAuthenticationFailedException())
 		}
+	}
+
+	private fun unlockHubVault(vault: Vault, unverifiedHubVaultConfig: UnverifiedHubVaultConfig, accessToken: String) {
+		unlockHubVaultUseCase
+			.withVault(vault)
+			.andUnverifiedVaultConfig(unverifiedHubVaultConfig)
+			.andAccessToken(accessToken)
+			.run(object : DefaultResultHandler<Cloud>() {
+				override fun onSuccess(cloud: Cloud) {
+					finishWithResult(cloud)
+				}
+
+				override fun onError(e: Throwable) {
+					when (e) {
+						is HubDeviceSetupRequiredException -> view?.showCreateHubDeviceDialog(VaultModel(vault), unverifiedHubVaultConfig)
+						is HubUserSetupRequiredException -> view?.showHubUserSetupRequiredDialog(unverifiedHubVaultConfig)
+						is HubLicenseUpgradeRequiredException -> view?.showHubLicenseUpgradeRequiredDialog()
+						is HubVaultAccessForbiddenException -> view?.showHubVaultAccessForbiddenDialog()
+						is HubVaultIsArchivedException -> view?.showHubVaultIsArchivedDialog()
+						else -> {
+							super.onError(e)
+							finishWithResult(null)
+						}
+					}
+				}
+			})
 	}
 
 	fun onCreateHubDeviceClick(vaultModel: VaultModel, unverifiedVaultConfig: UnverifiedHubVaultConfig, deviceName: String, setupCode: String) {

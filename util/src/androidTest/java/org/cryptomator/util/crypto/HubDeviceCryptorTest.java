@@ -96,7 +96,7 @@ public class HubDeviceCryptorTest {
 				-kwRc1JwX_Lq9XVoFj2GnK9-9CgxhCLGurg5Jt9g38qv2brGAzWL7eSVeY1fIqdO_kUhLpGslRTN6h2\
 				U0NHJi2-iE.WDVI2kOk9Dy3PWHyIg8gKA""");
 
-		var userKey = inTest.encryptUserKey(userKeyJwe, "123456");
+		var userKey = inTest.reEncryptUserKey(userKeyJwe, "123456");
 		var masterkey = inTest.decryptVaultKey(vaultKeyJwe, userKey);
 
 		var expectedEncKey = new byte[32];

@@ -144,11 +144,11 @@ public class HubRepositoryImpl implements HubRepository {
 	@Override
 	public void createDevice(UnverifiedHubVaultConfig unverifiedHubVaultConfig, String accessToken, String deviceName, String setupCode, String userPrivateKey) throws BackendException {
 		var deviceId = hubDeviceCryptor.getDeviceId();
-		var publicKey = BaseEncoding.base64().encode(hubDeviceCryptor.getDevicePublicKey().getEncoded());
-
+		var devicePublicKey = hubDeviceCryptor.getDevicePublicKeyEncoded();
+		var publicKey = BaseEncoding.base64().encode(devicePublicKey);
 		JWEObject encryptedUserKey;
 		try {
-			encryptedUserKey = hubDeviceCryptor.encryptUserKey(JWEObject.parse(userPrivateKey), setupCode);
+			encryptedUserKey = hubDeviceCryptor.reEncryptUserKey(JWEObject.parse(userPrivateKey), setupCode);
 		} catch (HubDeviceCryptor.InvalidJweKeyException e) {
 			throw new HubInvalidSetupCodeException(e);
 		} catch (ParseException e) {
