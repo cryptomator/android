@@ -67,7 +67,7 @@ class HubkeyCryptoCloudProvider(
 	}
 
 	@Throws(BackendException::class)
-	override fun createUnlockToken(vault: Vault, unverifiedVaultConfig: Optional<UnverifiedVaultConfig>): UnlockTokenImpl {
+	override fun createUnlockToken(vault: Vault, unverifiedVaultConfig: Optional<UnverifiedVaultConfig>): UnlockToken {
 		throw UnsupportedOperationException("Hub vaults do not support password based unlock")
 	}
 
@@ -86,8 +86,8 @@ class HubkeyCryptoCloudProvider(
 	}
 
 	private fun assertVaultVersionIsSupported(version: Int) {
-		if (version < CryptoConstants.MIN_VAULT_VERSION) {
-			throw UnsupportedVaultFormatException(version, CryptoConstants.MIN_VAULT_VERSION)
+		if (version < CryptoConstants.MIN_HUB_VAULT_VERSION) {
+			throw UnsupportedVaultFormatException(version, CryptoConstants.MIN_HUB_VAULT_VERSION)
 		} else if (version > CryptoConstants.MAX_VAULT_VERSION) {
 			throw UnsupportedVaultFormatException(version, CryptoConstants.MAX_VAULT_VERSION)
 		}
@@ -98,10 +98,4 @@ class HubkeyCryptoCloudProvider(
 		throw UnsupportedOperationException("Hub vaults do not support password based unlock")
 	}
 
-	class UnlockTokenImpl(private val vault: Vault) : UnlockToken {
-
-		override fun getVault(): Vault {
-			return vault
-		}
-	}
 }

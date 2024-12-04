@@ -18,7 +18,8 @@ class HubVaultAccessForbiddenDialog : BaseDialog<HubVaultAccessForbiddenDialog.C
 	public override fun setupDialog(builder: AlertDialog.Builder): android.app.Dialog {
 		builder //
 			.setTitle(R.string.dialog_hub_vault_access_forbidden_title) //
-			.setNeutralButton(getString(R.string.dialog_hub_vault_access_forbidden_neutral_button)) { _: DialogInterface, _: Int -> callback?.onVaultAccessForbiddenDialogFinished() }			.setOnKeyListener { _, keyCode, _ ->
+			.setNeutralButton(getString(R.string.dialog_hub_vault_access_forbidden_neutral_button)) { _: DialogInterface, _: Int -> callback?.onVaultAccessForbiddenDialogFinished() } //
+			.setOnKeyListener { _, keyCode, _ ->
 				if (keyCode == KeyEvent.KEYCODE_BACK) {
 					dialog?.dismiss()
 					callback?.onVaultAccessForbiddenDialogFinished()

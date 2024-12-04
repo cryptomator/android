@@ -62,7 +62,7 @@ public class HubDeviceCryptor {
 				var keyPairGenerator = KeyPairGenerator.getInstance(KeyProperties.KEY_ALGORITHM_EC, DEFAULT_KEYSTORE_NAME);
 				var parameterSpec = new KeyGenParameterSpec //
 						.Builder(DEFAULT_KEY_ALIAS, KeyProperties.PURPOSE_DECRYPT | KeyProperties.PURPOSE_AGREE_KEY) //
-						.setAlgorithmParameterSpec(new ECGenParameterSpec("secp384r1")) //
+						.setAlgorithmParameterSpec(new ECGenParameterSpec(Curve.P_384.getStdName())) //
 						.setDigests(KeyProperties.DIGEST_SHA256) //
 						.setUserAuthenticationRequired(false) //
 						.build();

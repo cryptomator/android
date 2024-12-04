@@ -4,7 +4,6 @@ import android.content.DialogInterface
 import android.os.Bundle
 import android.view.KeyEvent
 import android.view.View
-import android.widget.Button
 import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.appcompat.app.AlertDialog
@@ -20,8 +19,6 @@ import org.cryptomator.presentation.model.VaultModel
 @Dialog
 class CreateHubDeviceDialog : BaseProgressErrorDialog<CreateHubDeviceDialog.Callback, DialogCreateHubDeviceBinding>(DialogCreateHubDeviceBinding::inflate) {
 
-	private var createDeviceButton: Button? = null
-
 	interface Callback {
 
 		fun onCreateHubDeviceClicked(vaultModel: VaultModel, unverifiedVaultConfig: UnverifiedHubVaultConfig, deviceName: String, setupCode: String)
@@ -32,7 +29,7 @@ class CreateHubDeviceDialog : BaseProgressErrorDialog<CreateHubDeviceDialog.Call
 		super.onStart()
 		val dialog = dialog as AlertDialog?
 		dialog?.let {
-			createDeviceButton = dialog.getButton(android.app.Dialog.BUTTON_POSITIVE)
+			val createDeviceButton = dialog.getButton(android.app.Dialog.BUTTON_POSITIVE)
 			createDeviceButton?.setOnClickListener {
 				val vaultModel = requireArguments().getSerializable(VAULT_ARG) as VaultModel
 				val unverifiedVaultConfig = requireArguments().getSerializable(VAULT_CONFIG_ARG) as UnverifiedHubVaultConfig
@@ -53,7 +50,7 @@ class CreateHubDeviceDialog : BaseProgressErrorDialog<CreateHubDeviceDialog.Call
 				}
 			}
 			binding.etDeviceName.requestFocus()
-			binding.etDeviceName.nextFocusForwardId = binding.etSetupCode.nextFocusForwardId
+			binding.etDeviceName.nextFocusForwardId = binding.etSetupCode.id
 			createDeviceButton?.let {
 				binding.etSetupCode.nextFocusForwardId = it.id
 				registerOnEditorDoneActionAndPerformButtonClick(binding.etSetupCode) { it }

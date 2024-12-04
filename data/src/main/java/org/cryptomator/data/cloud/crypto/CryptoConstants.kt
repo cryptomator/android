@@ -16,6 +16,7 @@ object CryptoConstants {
 	const val MAX_VAULT_VERSION_WITHOUT_VAULT_CONFIG = 7
 	const val VERSION_WITH_NORMALIZED_PASSWORDS = 6
 	const val MIN_VAULT_VERSION = 5
+	const val MIN_HUB_VAULT_VERSION = 8
 	const val DEFAULT_MAX_FILE_NAME = 220
 	const val DIR_ID_FILE = "dirid.c9r"
 	val PEPPER = ByteArray(0)
