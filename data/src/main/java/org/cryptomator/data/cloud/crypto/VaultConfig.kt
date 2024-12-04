@@ -7,6 +7,7 @@ import com.auth0.jwt.exceptions.JWTVerificationException
 import com.auth0.jwt.exceptions.SignatureVerificationException
 import com.auth0.jwt.interfaces.DecodedJWT
 import org.cryptomator.cryptolib.api.CryptorProvider
+import org.cryptomator.domain.KeyLoadingStrategy
 import org.cryptomator.domain.UnverifiedHubVaultConfig
 import org.cryptomator.domain.UnverifiedVaultConfig
 import org.cryptomator.domain.exception.vaultconfig.VaultConfigLoadException
@@ -88,15 +89,16 @@ class VaultConfig private constructor(builder: VaultConfigBuilder) {
 			} catch (e: IllegalArgumentException) {
 				throw VaultConfigLoadException("Invalid 'keyId' in JWT: ${e.message}", e)
 			}
-			if (keyId.scheme.startsWith(CryptoConstants.HUB_SCHEME)) {
-				val hubClaim = unverifiedJwt.getHeaderClaim("hub").asMap()
-				val clientId = hubClaim["clientId"] as? String ?: throw VaultConfigLoadException("Missing or invalid 'clientId' claim in JWT header")
-				val authEndpoint = parseUri(hubClaim, "authEndpoint")
-				val tokenEndpoint = parseUri(hubClaim, "tokenEndpoint")
-				val apiBaseUrl = parseUri(hubClaim, "apiBaseUrl")
-				return UnverifiedHubVaultConfig(token, keyId, vaultFormat, clientId, authEndpoint, tokenEndpoint, apiBaseUrl)
-			} else {
-				return UnverifiedVaultConfig(token, keyId, vaultFormat)
+			return when (KeyLoadingStrategy.fromKeyId(keyId)) {
+				KeyLoadingStrategy.MASTERKEY -> UnverifiedVaultConfig(token, keyId, vaultFormat)
+				KeyLoadingStrategy.HUB -> {
+					val hubClaim = unverifiedJwt.getHeaderClaim("hub").asMap()
+					val clientId = hubClaim["clientId"] as? String ?: throw VaultConfigLoadException("Missing or invalid 'clientId' claim in JWT header")
+					val authEndpoint = parseUri(hubClaim, "authEndpoint")
+					val tokenEndpoint = parseUri(hubClaim, "tokenEndpoint")
+					val apiBaseUrl = parseUri(hubClaim, "apiBaseUrl")
+					return UnverifiedHubVaultConfig(token, keyId, vaultFormat, clientId, authEndpoint, tokenEndpoint, apiBaseUrl)
+				}
 			}
 		}
 

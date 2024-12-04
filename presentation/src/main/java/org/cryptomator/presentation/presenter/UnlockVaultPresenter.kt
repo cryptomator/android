@@ -13,6 +13,7 @@ import net.openid.appauth.AuthorizationServiceConfiguration
 import net.openid.appauth.ResponseTypeValues
 import org.cryptomator.data.cloud.crypto.CryptoConstants
 import org.cryptomator.domain.Cloud
+import org.cryptomator.domain.KeyLoadingStrategy
 import org.cryptomator.domain.UnverifiedHubVaultConfig
 import org.cryptomator.domain.UnverifiedVaultConfig
 import org.cryptomator.domain.Vault
@@ -142,7 +143,7 @@ class UnlockVaultPresenter @Inject constructor(
 	}
 
 	private fun onUnverifiedVaultConfigRetrieved(unverifiedVaultConfig: Optional<UnverifiedVaultConfig>, vault: Vault) {
-		if (!unverifiedVaultConfig.isPresent || unverifiedVaultConfig.get().keyId.scheme == CryptoConstants.MASTERKEY_SCHEME) {
+		if (!unverifiedVaultConfig.isPresent || unverifiedVaultConfig.get().keyLoadingStrategy() == KeyLoadingStrategy.MASTERKEY) {
 			when (intent.vaultAction()) {
 				UnlockVaultIntent.VaultAction.UNLOCK, UnlockVaultIntent.VaultAction.UNLOCK_FOR_BIOMETRIC_AUTH -> {
 					startedUsingPrepareUnlock = sharedPreferencesHandler.backgroundUnlockPreparation()
@@ -152,7 +153,7 @@ class UnlockVaultPresenter @Inject constructor(
 				UnlockVaultIntent.VaultAction.CHANGE_PASSWORD -> view?.showChangePasswordDialog(intent.vaultModel(), unverifiedVaultConfig.orNull())
 				else -> {}
 			}
-		} else if (unverifiedVaultConfig.isPresent && unverifiedVaultConfig.get().keyId.scheme.startsWith(CryptoConstants.HUB_SCHEME)) {
+		} else if (unverifiedVaultConfig.isPresent && unverifiedVaultConfig.get().keyLoadingStrategy() == KeyLoadingStrategy.HUB) {
 			when (intent.vaultAction()) {
 				UnlockVaultIntent.VaultAction.UNLOCK -> {
 					val unverifiedHubVaultConfig = unverifiedVaultConfig.get() as UnverifiedHubVaultConfig

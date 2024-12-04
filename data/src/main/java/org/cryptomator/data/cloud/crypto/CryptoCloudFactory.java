@@ -21,8 +21,6 @@ import java.security.SecureRandom;
 import javax.inject.Inject;
 import javax.inject.Singleton;
 
-import static org.cryptomator.data.cloud.crypto.CryptoConstants.HUB_SCHEME;
-import static org.cryptomator.data.cloud.crypto.CryptoConstants.MASTERKEY_SCHEME;
 import static org.cryptomator.data.cloud.crypto.CryptoConstants.VAULT_FILE_NAME;
 import static org.cryptomator.domain.Vault.aCopyOf;
 
@@ -99,12 +97,10 @@ public class CryptoCloudFactory {
 
 	private CryptoCloudProvider cryptoCloudProvider(Optional<UnverifiedVaultConfig> unverifiedVaultConfigOptional) {
 		if (unverifiedVaultConfigOptional.isPresent()) {
-			if (MASTERKEY_SCHEME.equals(unverifiedVaultConfigOptional.get().getKeyId().getScheme())) {
-				return new MasterkeyCryptoCloudProvider(cloudContentRepository, cryptoCloudContentRepositoryFactory, secureRandom);
-			} else if (unverifiedVaultConfigOptional.get().getKeyId().getScheme().startsWith(HUB_SCHEME)) {
-				return new HubkeyCryptoCloudProvider(cryptoCloudContentRepositoryFactory, secureRandom);
-			}
-			throw new IllegalStateException(String.format("Provider with scheme %s not supported", unverifiedVaultConfigOptional.get().getKeyId().getScheme()));
+			return switch (unverifiedVaultConfigOptional.get().keyLoadingStrategy()) {
+				case MASTERKEY -> new MasterkeyCryptoCloudProvider(cloudContentRepository, cryptoCloudContentRepositoryFactory, secureRandom);
+				case HUB -> new HubkeyCryptoCloudProvider(cryptoCloudContentRepositoryFactory, secureRandom);
+			};
 		} else {
 			return new MasterkeyCryptoCloudProvider(cloudContentRepository, cryptoCloudContentRepositoryFactory, secureRandom);
 		}
