@@ -25,10 +25,6 @@ import java.text.ParseException;
 import java.util.Arrays;
 import java.util.Base64;
 
-import static org.hamcrest.core.Is.is;
-import static org.junit.Assert.assertThat;
-import static org.junit.jupiter.api.Assertions.assertThrows;
-
 public class HubDeviceCryptorTest {
 
 	// key pairs from frontend tests (crypto.spec.ts):
@@ -65,7 +61,7 @@ public class HubDeviceCryptorTest {
 	@Test
 	public void deviceId() {
 		String deviceId = inTest.getDeviceId();
-		assertThat(deviceId, is("F82D0F002724A2916C5695016A17A7E8A3092FE99E0BF65B44998630330C54CA"));
+		Assertions.assertEquals(deviceId, "F82D0F002724A2916C5695016A17A7E8A3092FE99E0BF65B44998630330C54CA");
 	}
 
 	@Test
@@ -74,7 +70,7 @@ public class HubDeviceCryptorTest {
 				.getInstance("EC") //
 				.generatePublic(new X509EncodedKeySpec(Base64.getDecoder().decode(DEVICE_PUB_KEY)));
 		var actualPublicKey = inTest.getDevicePublicKey();
-		assertThat(expectedPublicKey, is(actualPublicKey));
+		Assertions.assertEquals(expectedPublicKey, actualPublicKey);
 	}
 
 	@Test
@@ -103,8 +99,8 @@ public class HubDeviceCryptorTest {
 		var expectedMacKey = new byte[32];
 		Arrays.fill(expectedEncKey, (byte) 0x55);
 		Arrays.fill(expectedMacKey, (byte) 0x77);
-		assertThat(expectedEncKey, is(masterkey.getEncKey().getEncoded()));
-		assertThat(expectedMacKey, is(masterkey.getMacKey().getEncoded()));
+		Assertions.assertArrayEquals(expectedEncKey, masterkey.getEncKey().getEncoded());
+		Assertions.assertArrayEquals(expectedMacKey, masterkey.getMacKey().getEncoded());
 	}
 
 	@Test
@@ -125,8 +121,8 @@ public class HubDeviceCryptorTest {
 		var expectedMacKey = new byte[32];
 		Arrays.fill(expectedEncKey, (byte) 0x55);
 		Arrays.fill(expectedMacKey, (byte) 0x77);
-		assertThat(expectedEncKey, is(masterkey.getEncKey().getEncoded()));
-		assertThat(expectedMacKey, is(masterkey.getMacKey().getEncoded()));
+		Assertions.assertArrayEquals(expectedEncKey, masterkey.getEncKey().getEncoded());
+		Assertions.assertArrayEquals(expectedMacKey, masterkey.getMacKey().getEncoded());
 	}
 
 	@Test
@@ -139,7 +135,7 @@ public class HubDeviceCryptorTest {
 				mJZR2AhlPiwFaC7n_MDDBupSy_swDnCfj731Lal297IP5WbkFcmozKsyhmwdkctxjf_VHA.fJki\
 				kDjUaxwUKqpvT7qaAQ
 				""");
-		assertThrows(HubDeviceCryptor.InvalidJweKeyException.class, () -> HubDeviceCryptor.decryptUserKey(userKeyJwe, "WRONG_SETUP_CODE"));
+		Assertions.assertThrows(HubDeviceCryptor.InvalidJweKeyException.class, () -> HubDeviceCryptor.decryptUserKey(userKeyJwe, "WRONG_SETUP_CODE"));
 	}
 
 	@Test
@@ -150,10 +146,10 @@ public class HubDeviceCryptorTest {
 		var payloadFieldKeyInValidBase64Data = JWEObject.parse("eyJhbGciOiJFQ0RILUVTIiwiZW5jIjoiQTI1NkdDTSIsImVwayI6eyJrdHkiOiJFQyIsImNydiI6IlAtMzg0Iiwia2V5X29wcyI6W10sImV4dCI6dHJ1ZSwieCI6ImNZdlVFZm9LYkJjenZySE5zQjUxOGpycUxPMGJDOW5lZjR4NzFFMUQ5dk95MXRqd1piZzV3cFI0OE5nU1RQdHgiLCJ5IjoiaWRJekhCWERzSzR2NTZEeU9yczJOcDZsSG1zb29fMXV0VTlzX3JNdVVkbkxuVXIzUXdLZkhYMWdaVXREM1RKayJ9LCJhcHUiOiIiLCJhcHYiOiIifQ..0VZqu5ei9U3blGtq.eDvhU6drw7mIwvXu6Q.f05QnhI7JWG3IYHvexwdFQ");
 		var privateKey = P384KeyPair.create(new X509EncodedKeySpec(Base64.getDecoder().decode(PUB_KEY)), new PKCS8EncodedKeySpec(Base64.getDecoder().decode(PRIV_KEY))).getPrivate();
 
-		assertThrows(HubDeviceCryptor.InvalidJweKeyException.class, () -> HubDeviceCryptor.decryptVaultKey(wrongKey, privateKey));
-		assertThrows(MasterkeyLoadingFailedException.class, () -> HubDeviceCryptor.decryptVaultKey(payloadIsNotJson, privateKey));
-		assertThrows(MasterkeyLoadingFailedException.class, () -> HubDeviceCryptor.decryptVaultKey(payloadFieldKeyNotAstring, privateKey));
-		assertThrows(MasterkeyLoadingFailedException.class, () -> HubDeviceCryptor.decryptVaultKey(payloadFieldKeyInValidBase64Data, privateKey));
+		Assertions.assertThrows(HubDeviceCryptor.InvalidJweKeyException.class, () -> HubDeviceCryptor.decryptVaultKey(wrongKey, privateKey));
+		Assertions.assertThrows(MasterkeyLoadingFailedException.class, () -> HubDeviceCryptor.decryptVaultKey(payloadIsNotJson, privateKey));
+		Assertions.assertThrows(MasterkeyLoadingFailedException.class, () -> HubDeviceCryptor.decryptVaultKey(payloadFieldKeyNotAstring, privateKey));
+		Assertions.assertThrows(MasterkeyLoadingFailedException.class, () -> HubDeviceCryptor.decryptVaultKey(payloadFieldKeyInValidBase64Data, privateKey));
 	}
 
 	@Test
