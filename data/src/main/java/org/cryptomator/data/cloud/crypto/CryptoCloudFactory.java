@@ -9,6 +9,7 @@ import org.cryptomator.domain.CloudNode;
 import org.cryptomator.domain.UnverifiedVaultConfig;
 import org.cryptomator.domain.Vault;
 import org.cryptomator.domain.exception.BackendException;
+import org.cryptomator.domain.exception.FatalBackendException;
 import org.cryptomator.domain.repository.CloudContentRepository;
 import org.cryptomator.domain.usecases.ProgressAware;
 import org.cryptomator.domain.usecases.cloud.Flag;
@@ -16,6 +17,7 @@ import org.cryptomator.domain.usecases.vault.UnlockToken;
 
 import java.io.ByteArrayOutputStream;
 import java.nio.charset.StandardCharsets;
+import java.security.NoSuchAlgorithmException;
 import java.security.SecureRandom;
 
 import javax.inject.Inject;
@@ -29,13 +31,18 @@ public class CryptoCloudFactory {
 
 	private final CloudContentRepository<Cloud, CloudNode, CloudFolder, CloudFile> cloudContentRepository;
 	private final CryptoCloudContentRepositoryFactory cryptoCloudContentRepositoryFactory;
-	private final SecureRandom secureRandom = new SecureRandom();
+	private final SecureRandom secureRandom;
 
 	@Inject
 	public CryptoCloudFactory(CloudContentRepository/*<Cloud, CloudNode, CloudFolder, CloudFile>*/ cloudContentRepository, //
 			CryptoCloudContentRepositoryFactory cryptoCloudContentRepositoryFactory) {
 		this.cloudContentRepository = cloudContentRepository;
 		this.cryptoCloudContentRepositoryFactory = cryptoCloudContentRepositoryFactory;
+		try {
+			secureRandom = SecureRandom.getInstanceStrong();
+		} catch (NoSuchAlgorithmException e) {
+			throw new FatalBackendException("A strong algorithm must exist in every Java platform.", e);
+		}
 	}
 
 	public void create(CloudFolder location, CharSequence password) throws BackendException {

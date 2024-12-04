@@ -157,7 +157,7 @@ class MasterkeyCryptoCloudProvider(
 	@Throws(BackendException::class)
 	private fun createUnlockToken(vault: Vault, location: CloudFile): UnlockTokenImpl {
 		val keyFileData = readKeyFileData(location)
-		return UnlockTokenImpl(vault, keyFileData)
+		return UnlockTokenImpl(vault, secureRandom, keyFileData)
 	}
 
 	@Throws(BackendException::class)
@@ -290,7 +290,7 @@ class MasterkeyCryptoCloudProvider(
 		}
 	}
 
-	class UnlockTokenImpl(private val vault: Vault, val keyFileData: ByteArray) : UnlockToken {
+	class UnlockTokenImpl(private val vault: Vault, private val secureRandom: SecureRandom, val keyFileData: ByteArray) : UnlockToken {
 
 		override fun getVault(): Vault {
 			return vault
@@ -298,7 +298,7 @@ class MasterkeyCryptoCloudProvider(
 
 		@Throws(IOException::class)
 		fun getKeyFile(password: CharSequence?): Masterkey {
-			return MasterkeyFileAccess(CryptoConstants.PEPPER, SecureRandom()).load(ByteArrayInputStream(keyFileData), password)
+			return MasterkeyFileAccess(CryptoConstants.PEPPER, secureRandom).load(ByteArrayInputStream(keyFileData), password)
 		}
 	}
 }
