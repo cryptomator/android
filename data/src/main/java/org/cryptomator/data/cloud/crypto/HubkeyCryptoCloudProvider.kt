@@ -26,17 +26,17 @@ class HubkeyCryptoCloudProvider(
 
 	@Throws(BackendException::class)
 	override fun create(location: CloudFolder, password: CharSequence) {
-		throw IllegalStateException("Hub can not create vaults from within the app")
+		throw UnsupportedOperationException("This app can not (yet) create Hub vaults")
 	}
 
 	@Throws(BackendException::class)
 	override fun unlock(vault: Vault, unverifiedVaultConfig: Optional<UnverifiedVaultConfig>, password: CharSequence, cancelledFlag: Flag): Vault {
-		throw IllegalStateException("Hub can not unlock vaults using password")
+		throw UnsupportedOperationException("Hub vaults do not support password based unlock")
 	}
 
 	@Throws(BackendException::class)
 	override fun unlock(token: UnlockToken, unverifiedVaultConfig: Optional<UnverifiedVaultConfig>, password: CharSequence, cancelledFlag: Flag): Vault {
-		throw IllegalStateException("Hub can not unlock vaults using password")
+		throw UnsupportedOperationException("Hub vaults do not support password based unlock")
 	}
 
 	override fun unlock(vault: Vault, unverifiedVaultConfig: UnverifiedVaultConfig, vaultKeyJwe: String, userKeyJwe: String, cancelledFlag: Flag): Vault {
@@ -68,17 +68,17 @@ class HubkeyCryptoCloudProvider(
 
 	@Throws(BackendException::class)
 	override fun createUnlockToken(vault: Vault, unverifiedVaultConfig: Optional<UnverifiedVaultConfig>): UnlockTokenImpl {
-		throw IllegalStateException("Hub can not unlock vaults using password")
+		throw UnsupportedOperationException("Hub vaults do not support password based unlock")
 	}
 
 	// Visible for testing
-	fun cryptorFor(keyFile: Masterkey, vaultCipherCombo: CryptorProvider.Scheme): Cryptor {
-		return CryptorProvider.forScheme(vaultCipherCombo).provide(keyFile, secureRandom)
+	fun cryptorFor(masterkey: Masterkey, vaultCipherCombo: CryptorProvider.Scheme): Cryptor {
+		return CryptorProvider.forScheme(vaultCipherCombo).provide(masterkey, secureRandom)
 	}
 
 	@Throws(BackendException::class)
 	override fun isVaultPasswordValid(vault: Vault, unverifiedVaultConfig: Optional<UnverifiedVaultConfig>, password: CharSequence): Boolean {
-		throw IllegalStateException("Hub can not unlock vaults using password")
+		throw UnsupportedOperationException("Hub vaults do not support password based unlock")
 	}
 
 	override fun lock(vault: Vault) {
@@ -95,7 +95,7 @@ class HubkeyCryptoCloudProvider(
 
 	@Throws(BackendException::class)
 	override fun changePassword(vault: Vault, unverifiedVaultConfig: Optional<UnverifiedVaultConfig>, oldPassword: String, newPassword: String) {
-		throw IllegalStateException("Hub can not unlock vaults using password")
+		throw UnsupportedOperationException("Hub vaults do not support password based unlock")
 	}
 
 	class UnlockTokenImpl(private val vault: Vault) : UnlockToken {

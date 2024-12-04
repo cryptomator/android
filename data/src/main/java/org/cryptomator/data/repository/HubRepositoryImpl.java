@@ -96,11 +96,22 @@ public class HubRepositoryImpl implements HubRepository {
 				.url(unverifiedHubVaultConfig.getApiBaseUrl() + "users/me") //
 				.build();
 		try (var response = httpClient.newCall(request).execute()) {
-			if (response.isSuccessful() && response.body() != null) {
-				JSONObject jsonObject = new JSONObject(response.body().string());
-				return new UserDto(jsonObject.getString("id"), jsonObject.getString("name"), jsonObject.getString("publicKey"), jsonObject.getString("privateKey"), jsonObject.getString("setupCode"));
+			if (response.code() == HttpURLConnection.HTTP_OK) {
+				if (response.body() != null) {
+					JSONObject jsonObject = new JSONObject(response.body().string());
+					return new UserDto( //
+							jsonObject.getString("id"), //
+							jsonObject.getString("name"), //
+							jsonObject.getString("publicKey"), //
+							jsonObject.getString("privateKey"), //
+							jsonObject.getString("setupCode") //
+					);
+				} else {
+					throw new FatalBackendException("Failed to load user, response code good but no body");
+				}
+			} else {
+				throw new FatalBackendException("Failed to load user with response code " + response.code());
 			}
-			throw new FatalBackendException("Failed to load user, bad response code " + response.code());
 		} catch (IOException | JSONException e) {
 			throw new FatalBackendException("Failed to load user", e);
 		}
