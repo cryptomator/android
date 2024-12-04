@@ -96,16 +96,21 @@ class VaultConfig private constructor(builder: VaultConfigBuilder) {
 					val clientId = hubClaim["clientId"] as? String ?: throw VaultConfigLoadException("Missing or invalid 'clientId' claim in JWT header")
 					val authEndpoint = parseUri(hubClaim, "authEndpoint")
 					val tokenEndpoint = parseUri(hubClaim, "tokenEndpoint")
-					val apiBaseUrl = parseUri(hubClaim, "apiBaseUrl")
+					val apiBaseUrl = parseUri(hubClaim, "apiBaseUrl", ensureTrailingSlash = true)
 					return UnverifiedHubVaultConfig(token, keyId, vaultFormat, clientId, authEndpoint, tokenEndpoint, apiBaseUrl)
 				}
 			}
 		}
 
-		private fun parseUri(uriValue: Map<String, Any>, fieldName: String): URI {
+		private fun parseUri(uriValue: Map<String, Any>, fieldName: String, ensureTrailingSlash: Boolean = false): URI {
 			val uriString = uriValue[fieldName] as? String ?: throw VaultConfigLoadException("Missing or invalid '$fieldName' claim in JWT header")
+			val adjustedUriString = if (ensureTrailingSlash && !uriString.endsWith("/")) {
+				"$uriString/"
+			} else {
+				uriString
+			}
 			return try {
-				URI.create(uriString)
+				URI.create(adjustedUriString)
 			} catch (e: IllegalArgumentException) {
 				throw VaultConfigLoadException("Invalid '$fieldName' URI: ${e.message}", e)
 			}
