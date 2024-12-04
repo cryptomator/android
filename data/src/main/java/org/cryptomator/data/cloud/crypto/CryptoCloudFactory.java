@@ -31,18 +31,12 @@ public class CryptoCloudFactory {
 
 	private final CloudContentRepository<Cloud, CloudNode, CloudFolder, CloudFile> cloudContentRepository;
 	private final CryptoCloudContentRepositoryFactory cryptoCloudContentRepositoryFactory;
-	private final SecureRandom secureRandom;
 
 	@Inject
 	public CryptoCloudFactory(CloudContentRepository/*<Cloud, CloudNode, CloudFolder, CloudFile>*/ cloudContentRepository, //
 			CryptoCloudContentRepositoryFactory cryptoCloudContentRepositoryFactory) {
 		this.cloudContentRepository = cloudContentRepository;
 		this.cryptoCloudContentRepositoryFactory = cryptoCloudContentRepositoryFactory;
-		try {
-			secureRandom = SecureRandom.getInstanceStrong();
-		} catch (NoSuchAlgorithmException e) {
-			throw new FatalBackendException("A strong algorithm must exist in every Java platform.", e);
-		}
 	}
 
 	public void create(CloudFolder location, CharSequence password) throws BackendException {
@@ -105,11 +99,19 @@ public class CryptoCloudFactory {
 	private CryptoCloudProvider cryptoCloudProvider(Optional<UnverifiedVaultConfig> unverifiedVaultConfigOptional) {
 		if (unverifiedVaultConfigOptional.isPresent()) {
 			return switch (unverifiedVaultConfigOptional.get().keyLoadingStrategy()) {
-				case MASTERKEY -> new MasterkeyCryptoCloudProvider(cloudContentRepository, cryptoCloudContentRepositoryFactory, secureRandom);
-				case HUB -> new HubkeyCryptoCloudProvider(cryptoCloudContentRepositoryFactory, secureRandom);
+				case MASTERKEY -> new MasterkeyCryptoCloudProvider(cloudContentRepository, cryptoCloudContentRepositoryFactory, secureRandom());
+				case HUB -> new HubkeyCryptoCloudProvider(cryptoCloudContentRepositoryFactory, secureRandom());
 			};
 		} else {
-			return new MasterkeyCryptoCloudProvider(cloudContentRepository, cryptoCloudContentRepositoryFactory, secureRandom);
+			return new MasterkeyCryptoCloudProvider(cloudContentRepository, cryptoCloudContentRepositoryFactory, secureRandom());
+		}
+	}
+
+	private SecureRandom secureRandom() {
+		try {
+			return SecureRandom.getInstanceStrong();
+		} catch (NoSuchAlgorithmException e) {
+			throw new FatalBackendException("A strong algorithm must exist in every Java platform.", e);
 		}
 	}
 }
