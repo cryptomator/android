@@ -192,15 +192,16 @@ public class HubRepositoryImpl implements HubRepository {
 				.header("Authorization", "Bearer " + accessToken) //
 				.url(unverifiedHubVaultConfig.getApiBaseUrl() + "config").build();
 		try (var response = httpClient.newCall(request).execute()) {
-			if (response.isSuccessful()) {
+			if (response.code() == HttpURLConnection.HTTP_OK) {
 				if (response.body() != null) {
 					JSONObject jsonObject = new JSONObject(response.body().string());
 					return new ConfigDto(jsonObject.getInt("apiLevel"));
 				} else {
 					throw new FatalBackendException("Failed to load device, response code good but no body");
 				}
+			} else {
+				throw new FatalBackendException("Failed to load device with response code " + response.code());
 			}
-			throw new FatalBackendException("Failed to load device with response code " + response.code());
 		} catch (IOException | JSONException e) {
 			throw new FatalBackendException("Failed to load device", e);
 		}
