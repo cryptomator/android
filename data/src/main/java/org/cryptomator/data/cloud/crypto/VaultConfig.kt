@@ -96,7 +96,7 @@ class VaultConfig private constructor(builder: VaultConfigBuilder) {
 					val clientId = hubClaim["clientId"] as? String ?: throw VaultConfigLoadException("Missing or invalid 'clientId' claim in JWT header")
 					val authEndpoint = parseUri(hubClaim, "authEndpoint")
 					val tokenEndpoint = parseUri(hubClaim, "tokenEndpoint")
-					val apiBaseUrl = parseUri(hubClaim, "apiBaseUrl", ensureTrailingSlash = true)
+					val apiBaseUrl = getApiBaseUrl(hubClaim)
 					return UnverifiedHubVaultConfig(token, keyId, vaultFormat, clientId, authEndpoint, tokenEndpoint, apiBaseUrl)
 				}
 			}
@@ -113,6 +113,15 @@ class VaultConfig private constructor(builder: VaultConfigBuilder) {
 				URI.create(adjustedUriString)
 			} catch (e: IllegalArgumentException) {
 				throw VaultConfigLoadException("Invalid '$fieldName' URI: ${e.message}", e)
+			}
+		}
+
+		private fun getApiBaseUrl(hubClaim: Map<String, Any>): URI {
+			val apiBaseUrlKey = "apiBaseUrl"
+			return if (hubClaim.containsKey(apiBaseUrlKey)) {
+				parseUri(hubClaim, apiBaseUrlKey, ensureTrailingSlash = true)
+			} else {
+				parseUri(hubClaim, "devicesResourceUrl", ensureTrailingSlash = true).resolve("..")
 			}
 		}
 
