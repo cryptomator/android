@@ -13,6 +13,7 @@
 	<string name="error_vault_config_file_missing_due_to_format_999">ھۆججەت ئامبىرىڭىزدا %1$s تېپىلمىدى. بۇ ھۆججەتنىڭ بۇلۇت سۇپىسىدىكى ئامبىرىڭىزدا بارلىقىغا كاپالەتلىك قىلىڭ.</string>
 	<string name="error_vault_already_exists">ئوخشاش ئامبار با.</string>
 	<string name="error_no_such_file">ھۆججەت تېپىلمىدى.</string>
+	<string name="error_hub_device_already_register_for_other_user">بۇ ئۈسكۈنە ئاللىقاچان باشقا بىر ئىشلەتكۈچى ئۈچۈن تىزىملانغان. ئىشلەتكۈچى ھېساباتىنى ئۆزگەرتىشكە ئۇرۇنۇڭ ياكى باشقا بىر ئۈسكۈنە ئىشلىتىڭ.</string>
 	<!-- # clouds -->
 	<!-- ## cloud names -->
 	<!-- # permission -->
@@ -48,6 +49,7 @@
 	<string name="dialog_lock_vault">قۇلۇپلا</string>
 	<string name="dialog_app_is_obscured_info_neutral_button">ياپ</string>
 	<string name="dialog_sym_link_back_button">قايت</string>
+	<string name="dialog_hub_vault_access_forbidden_title">كىرىش رەت قىلىندى</string>
 	<!-- # error reports -->
 	<!-- # misc -->
 	<!-- ## file size helper -->
