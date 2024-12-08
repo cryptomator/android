@@ -53,7 +53,10 @@ dependencies {
 
 	implementation dependencies.androidxPreference
 
+	implementation dependencies.joseJwt
+
 	// test
+	androidTestImplementation dependencies.junitParams
 	androidTestImplementation dependencies.androidxTestCore
 	androidTestImplementation(dependencies.runner) {
 		exclude group: 'com.android.support', module: 'support-annotations'
@@ -62,6 +65,7 @@ dependencies {
 	androidTestImplementation(dependencies.rules) {
 		exclude group: 'com.android.support', module: 'support-annotations'
 	}
+	androidTestImplementation dependencies.mockitoAndroid
 
 	testImplementation dependencies.junit
 	testImplementation dependencies.junitApi

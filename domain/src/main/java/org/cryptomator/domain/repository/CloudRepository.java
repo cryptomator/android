@@ -41,4 +41,6 @@ public interface CloudRepository {
 
 	Cloud unlock(Vault vault, Optional<UnverifiedVaultConfig> vaultFile, CharSequence password, Flag cancelledFlag) throws BackendException;
 
+	Cloud unlock(Vault vault, UnverifiedVaultConfig unverifiedVaultConfig, String vaultKeyJwe, String userKeyJwe, Flag cancelledFlag) throws BackendException;
+
 }

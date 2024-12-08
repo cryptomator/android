@@ -48,6 +48,10 @@ android {
 		viewBinding true
 	}
 
+	defaultConfig.manifestPlaceholders = [
+			'appAuthRedirectScheme': 'org.cryptomator.android'
+	]
+
 	buildTypes {
 		release {
 			crunchPngs false
@@ -170,6 +174,8 @@ dependencies {
 	implementation dependencies.androidxSwiperefresh
 	implementation dependencies.androidxPreference
 	implementation dependencies.androidxBiometric
+
+	implementation dependencies.appauth
 
 	// cloud
 	playstoreImplementation dependencies.dropboxCore
