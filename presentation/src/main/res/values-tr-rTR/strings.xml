@@ -35,6 +35,7 @@
 	<string name="error_no_such_bucket">Böyle bir kova yok</string>
 	<string name="error_masterkey_location_not_supported">Özel ana anahtar konumu henüz desteklenmiyor</string>
 	<string name="error_interact_with_fdroid_but_fdroid_missing">F-Droid uygulamasıyla iletişim kurulamadı. Yüklü değil mi?</string>
+	<string name="error_hub_device_already_register_for_other_user">Bu cihaz zaten farklı bir kullanıcı için kayıtlı. Kullanıcı hesabını değiştirmeyi veya farklı bir cihaz kullanmayı deneyin.</string>
 	<!-- # clouds -->
 	<!-- ## cloud names -->
 	<string name="cloud_names_local_storage">Yerel depolama</string>
@@ -67,7 +68,6 @@
 	<string name="screen_vault_list_change_password_successful">Parola başarıyla değiştirildi</string>
 	<!-- # screen: file browser -->
 	<string name="screen_file_browser_default_title">Kasa</string>
-	<string name="screen_file_browser_add_existing_vault_extra_text">Ana anahtar dosyasını seçin</string>
 	<string name="screen_file_browser_create_new_vault_button_text">Buraya yerleştir</string>
 	<string name="screen_file_browser_create_new_vault_extra_text">Kasa adı: %1$s</string>
 	<plurals name="screen_file_browser_subtitle_move">
@@ -352,6 +352,11 @@
 	<string name="dialog_cbc_password_vaults_migration_title">Kasa parolası geçişi gerekli</string>
 	<string name="dialog_cbc_password_vaults_migration_hint">Güvenlik geliştirmeleri nedeniyle, kasa parolalarınızı yeniden şifrelemek için her kasa için iki kez biyometrik kimlik doğrulamanız istenecektir. Bu, kasa parolalarınızı en son teknoloji ile korumaya devam etmek için gereklidir. Bunun olmasını istemezseniz, saklanan parolalar kaldırılacaktır.</string>
 	<string name="dialog_cbc_password_vaults_migration_action">Taşı</string>
+	<string name="dialog_create_hub_device_name_hint">Bu cihazdan ilk Hub erişimi gibi görünüyor. Erişim yetkilendirmesini tanımlamak için bu cihazı isimlendirmeniz gerekir.</string>
+	<string name="dialog_create_hub_device_setup_code_hint">Yeni uygulamalardan veya tarayıcılardan giriş yapmak için Hesap Anahtarınız gereklidir. Profilinizde bulunabilir.</string>
+	<string name="dialog_hub_vault_access_forbidden_title">Erişim engellendi</string>
+	<string name="dialog_hub_user_setup_required_hint">Devam etmek için lütfen Hub kullanıcı profilinizde gerekli adımları tamamlayın.</string>
+	<string name="dialog_hub_user_setup_required_neutral_button">Profile Git</string>
 	<string name="permission_snackbar_auth_local_vault">Cryptomator\'ın yerel kasaları kullanmak için depolama erişimine ihtiyacı var</string>
 	<string name="permission_snackbar_auth_auto_upload">Cryptomator\'ın otomatik fotoğraf yüklemesi için depolama erişimine ihtiyacı var</string>
 	<string name="permission_snackbar_notifications">Cryptomator, örneğin kasa durumunu görüntülemek için bildirim izinlerine ihtiyaç duyar</string>
