@@ -35,6 +35,7 @@
 	<string name="error_no_such_bucket">Нет такого бакета</string>
 	<string name="error_masterkey_location_not_supported">Произвольное расположение Masterkey пока не поддерживается</string>
 	<string name="error_interact_with_fdroid_but_fdroid_missing">Не удалось связаться с приложением F-Droid. Не установлено?</string>
+	<string name="error_hub_device_already_register_for_other_user">Это устройство уже зарегистрировано другим пользователем. Попробуйте изменить учётную запись или используйте другое устройство.</string>
 	<!-- # clouds -->
 	<!-- ## cloud names -->
 	<string name="cloud_names_local_storage">Локальное хранилище</string>
@@ -67,7 +68,6 @@
 	<string name="screen_vault_list_change_password_successful">Пароль успешно изменён</string>
 	<!-- # screen: file browser -->
 	<string name="screen_file_browser_default_title">Хранилище</string>
-	<string name="screen_file_browser_add_existing_vault_extra_text">Выберите файл Masterkey</string>
 	<string name="screen_file_browser_create_new_vault_button_text">Поместить сюда</string>
 	<string name="screen_file_browser_create_new_vault_extra_text">Имя хранилища: %1$s</string>
 	<plurals name="screen_file_browser_subtitle_move">
@@ -354,6 +354,11 @@
 	<string name="dialog_cbc_password_vaults_migration_title">Требуется миграция пароля</string>
 	<string name="dialog_cbc_password_vaults_migration_hint">В связи с повышением безопасности вам будет предложено дважды использовать биометрическую аутентификацию для каждого хранилища для повторного шифрования паролей. Это необходимо, чтобы продолжать защищать ваши пароли с помощью новейших технологий. Если вы не хотите, чтобы это произошло, сохранённые пароли будут удалены.</string>
 	<string name="dialog_cbc_password_vaults_migration_action">Миграция</string>
+	<string name="dialog_create_hub_device_name_hint">Похоже, это первый доступ к Hub с данного устройства. Чтобы идентифицировать его для предоставления доступа, нужно дать устройству имя.</string>
+	<string name="dialog_create_hub_device_setup_code_hint">Для входа в систему из новых приложений или браузеров требуется ключ вашего аккаунта. Он находится в вашем профиле.</string>
+	<string name="dialog_hub_vault_access_forbidden_title">Доступ запрещен</string>
+	<string name="dialog_hub_user_setup_required_hint">Для продолжения выполните необходимые шаги в вашем профиле пользователя Hub.</string>
+	<string name="dialog_hub_user_setup_required_neutral_button">Перейти в профиль</string>
 	<string name="permission_snackbar_auth_local_vault">Для использования локальных хранилищ необходим доступ к месту хранения</string>
 	<string name="permission_snackbar_auth_auto_upload">Для автозагрузки фото у Cryptomator должен быть доступ к месту хранения</string>
 	<string name="permission_snackbar_notifications">Для отображения состояния хранилища Cryptomator требуется разрешение на уведомление</string>
