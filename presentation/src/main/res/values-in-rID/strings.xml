@@ -35,6 +35,7 @@
 	<string name="error_no_such_bucket">Bucket tidak ada</string>
 	<string name="error_masterkey_location_not_supported">Lokasi Kunci utama belum didukung</string>
 	<string name="error_interact_with_fdroid_but_fdroid_missing">Gagal berkomunikasi dengan aplikasi F-Droid. Belum dipasang?</string>
+	<string name="error_hub_device_already_register_for_other_user">Perangkat ini sudah terdaftar untuk pengguna lain. Cobalah menggunakan akun pengguna atau perangkat yang berbeda.</string>
 	<!-- # clouds -->
 	<!-- ## cloud names -->
 	<string name="cloud_names_local_storage">Penyimpanan lokal</string>
@@ -67,7 +68,6 @@
 	<string name="screen_vault_list_change_password_successful">Kasa Sandi berhasil diubah</string>
 	<!-- # screen: file browser -->
 	<string name="screen_file_browser_default_title">Vault</string>
-	<string name="screen_file_browser_add_existing_vault_extra_text">Pilih file Masterkey</string>
 	<string name="screen_file_browser_create_new_vault_button_text">Tempatkan disini</string>
 	<string name="screen_file_browser_create_new_vault_extra_text">Nama vault: %1$s</string>
 	<plurals name="screen_file_browser_subtitle_move">
@@ -350,6 +350,11 @@
 	<string name="dialog_pcloud_credentials_updated">Jika Anda ingin menambahkan akun pCloud baru, ketuk url berikut <a href="https://www.pcloud.com">www.pcloud.com</a>, keluar dari akun saat ini kemudian ketuk tombol \'+\' lagi di aplikasi ini untuk membuat koneksi cloud baru.</string>
 	<string name="dialog_cbc_password_vaults_migration_title">Diperlukan migrasi kata sandi vault</string>
 	<string name="dialog_cbc_password_vaults_migration_action">Migrasi</string>
+	<string name="dialog_create_hub_device_name_hint">Tampaknya ini adalah akses Hub pertama dari perangkat ini. Untuk mengidentifikasi otorisasi akses ini, Anda perlu memberi nama untuk perangkat ini.</string>
+	<string name="dialog_create_hub_device_setup_code_hint">Kunci Akun Anda diperlukan untuk masuk dari aplikasi atau browser baru. Kunci dapat ditemukan di profil Anda.</string>
+	<string name="dialog_hub_vault_access_forbidden_title">Akses ditolak</string>
+	<string name="dialog_hub_user_setup_required_hint">Untuk melanjutkan, silakan lengkapi langkah-langkah yang diperlukan di profil pengguna Hub Anda.</string>
+	<string name="dialog_hub_user_setup_required_neutral_button">Buka Profil</string>
 	<string name="permission_snackbar_auth_local_vault">Cryptomator membutuhkan akses penyimpanan untuk menggunakan vault lokal</string>
 	<string name="permission_snackbar_auth_auto_upload">Cryptomator membutuhkan akses penyimpanan untuk menggunakan unggahan foto otomatis</string>
 	<string name="permission_snackbar_notifications">Cryptomator perlu izin pemberitahuan untuk menampilkan status brankas, misalnya</string>
