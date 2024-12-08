@@ -35,6 +35,11 @@
 	<string name="error_no_such_bucket">Δεν υπάρχει τέτοιος κάδος</string>
 	<string name="error_masterkey_location_not_supported">Η προσαρμοσμένη τοποθεσία Masterkey δεν υποστηρίζεται ακόμα</string>
 	<string name="error_interact_with_fdroid_but_fdroid_missing">Αποτυχία επικοινωνίας με την εφαρμογή F-Droid. Δεν έχει εγκατασταθεί;</string>
+	<string name="error_hub_vault_operation_not_supported">Η λειτουργία Κρύπτης δεν υποστηρίζεται για το Hub</string>
+	<string name="error_hub_authentication_failed">Η ταυτοποίηση στο Hub απέτυχε</string>
+	<string name="error_hub_device_already_register_for_other_user">Αυτή η συσκευή είναι ήδη εγγεγραμμένη για διαφορετικό χρήστη. Προσπαθήστε να αλλάξετε τον λογαριασμό χρήστη ή να χρησιμοποιήσετε διαφορετική συσκευή.</string>
+	<string name="error_hub_invalid_setup_code">Το Κλειδί Λογαριασμού δεν είναι έγκυρο.</string>
+	<string name="error_hub_invalid_version">Μη υποστηριζόμενη έκδοση Hub.</string>
 	<!-- # clouds -->
 	<!-- ## cloud names -->
 	<string name="cloud_names_local_storage">Τοπικός αποθηκευτικός χώρος</string>
@@ -67,7 +72,7 @@
 	<string name="screen_vault_list_change_password_successful">Ο κωδικός πρόσβασης άλλαξε επιτυχώς</string>
 	<!-- # screen: file browser -->
 	<string name="screen_file_browser_default_title">Κρύπτη</string>
-	<string name="screen_file_browser_add_existing_vault_extra_text">Επιλέξτε masterkey αρχείο</string>
+	<string name="screen_file_browser_add_existing_vault_extra_text">Επιλέξτε masterkey ή αρχείο κρύπτης</string>
 	<string name="screen_file_browser_create_new_vault_button_text">Τοποθέτησε εδώ</string>
 	<string name="screen_file_browser_create_new_vault_extra_text">Όνομα κρύπτης: %1$s</string>
 	<plurals name="screen_file_browser_subtitle_move">
@@ -352,6 +357,23 @@
 	<string name="dialog_cbc_password_vaults_migration_title">Απαιτείται κωδικός πρόσβασης μετεγκατάστασης κρύπτης</string>
 	<string name="dialog_cbc_password_vaults_migration_hint">Λόγω βελτιώσεων ασφαλείας, θα σας ζητηθεί η βιομετρική ταυτοποίησή σας δύο φορές για κάθε κρύπτη για να επανκρυπτογραφήσετε τους κωδικούς πρόσβασης της κρύπτης σας. Αυτό είναι απαραίτητο για να συνεχίσετε να προστατεύετε τους κωδικούς πρόσβασης της κρύπτης σας με την τελευταία τεχνολογία. Αν δεν επιθυμείτε να συμβεί αυτό, οι αποθηκευμένοι κωδικοί πρόσβασης θα αφαιρεθούν.</string>
 	<string name="dialog_cbc_password_vaults_migration_action">Μετεγκατάσταση</string>
+	<string name="dialog_create_hub_device_title">Εγγραφή συσκευής Hub</string>
+	<string name="dialog_create_hub_device_name_label">Όνομα</string>
+	<string name="dialog_create_hub_device_name_hint">Αυτή φαίνεται να είναι η πρώτη πρόσβαση στο Hub από αυτήν τη συσκευή. Για να την αναγνωρίσετε για εξουσιοδότηση πρόσβασης, πρέπει να ονομάσετε αυτήν τη συσκευή.</string>
+	<string name="dialog_create_hub_device_name_empty">Το όνομα δεν μπορεί να είναι κενό.</string>
+	<string name="dialog_create_hub_device_setup_code_label">Κλειδί Λογαριασμού</string>
+	<string name="dialog_create_hub_device_setup_code_hint">Το Κλειδί Λογαριασμού σας απαιτείται για να συνδεθείτε από νέες εφαρμογές ή προγράμματα περιήγησης. Μπορείτε να το βρείτε στο προφίλ σας.</string>
+	<string name="dialog_create_hub_device_setup_code_empty">Το Κλειδί Λογαριασμού δεν μπορεί να είναι κενό.</string>
+	<string name="dialog_progress_creating_hub_device_setup">Δημιουργία συσκευής&#8230;</string>
+	<string name="dialog_hub_vault_access_forbidden_title">Δεν επιτρέπεται η πρόσβαση</string>
+	<string name="dialog_hub_vault_access_forbidden_hint">Ο χρήστης σας δεν έχει ακόμη εξουσιοδοτηθεί να έχει πρόσβαση σε αυτή την κρύπτη. Ζητήστε από τον ιδιοκτήτη της κρύπτης να το εξουσιοδοτήσει.\"</string>
+	<string name="dialog_hub_license_upgrade_required_title">Έλεγχος άδειας Hub</string>
+	<string name="dialog_hub_license_upgrade_required_hint">Η συνεδρία σας στο Cryptomator Hub έχει μη έγκυρη άδεια χρήσης. Ενημερώστε έναν διαχειριστή του Hub για να αναβαθμίσει ή να ανανεώσει την άδεια χρήσης.\"</string>
+	<string name="dialog_hub_vault_archived_title">Η Κρύπτη αρχειοθετήθηκε</string>
+	<string name="dialog_hub_vault_archived_hint">Αυτό η κρύπτη είναι αρχειοθετημένη και δεν μπορεί να ξεκλειδωθεί. Για να την ξεκλειδώσετε, ο κάτοχος της κρύπτης πρέπει να την επαναφέρει.</string>
+	<string name="dialog_hub_user_setup_required_title">Απαιτείται ρύθμιση χρήστη</string>
+	<string name="dialog_hub_user_setup_required_hint">Για να συνεχίσετε, παρακαλούμε συμπληρώστε τα βήματα που απαιτούνται στο προφίλ χρήστη Hub σας.</string>
+	<string name="dialog_hub_user_setup_required_neutral_button">Πηγαίνετε στο Προφίλ</string>
 	<string name="permission_snackbar_auth_local_vault">Το Cryptomator χρειάζεται πρόσβαση στον αποθηκευτικό χώρο για τη χρήση τοπικών κρυπτών</string>
 	<string name="permission_snackbar_auth_auto_upload">Το Cryptomator χρειάζεται πρόσβαση στον αποθηκευτικό χώρο για να χρησιμοποιηθεί η αυτόματη μεταφόρτωση φωτογραφιών</string>
 	<string name="permission_snackbar_notifications">Το Cryptomator χρειάζεται δικαιώματα ειδοποίησης για να εμφανίσει για παράδειγμα την κατάσταση κρύπτης</string>

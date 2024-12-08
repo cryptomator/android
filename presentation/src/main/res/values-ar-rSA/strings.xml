@@ -35,6 +35,7 @@
 	<string name="error_no_such_bucket">لا يوجد مخزن بهذه المعلومات في S3</string>
 	<string name="error_masterkey_location_not_supported">موقع المفتاح الرئيسي غير مدعوم بعد</string>
 	<string name="error_interact_with_fdroid_but_fdroid_missing">فشل في التواصل مع تطبيق F-Droid. غير مثبت؟</string>
+	<string name="error_hub_device_already_register_for_other_user">هذا الجهاز مسجل لمستخدم مختلف بالفعل. حاول تغيير حساب المستخدم أو استخدام جهاز مختلف.</string>
 	<!-- # clouds -->
 	<!-- ## cloud names -->
 	<string name="cloud_names_local_storage">ذاكرة التخزين المحلية</string>
@@ -67,7 +68,6 @@
 	<string name="screen_vault_list_change_password_successful">تم تغيير كلمة المرور بنجاح</string>
 	<!-- # screen: file browser -->
 	<string name="screen_file_browser_default_title">الخزينة</string>
-	<string name="screen_file_browser_add_existing_vault_extra_text">اختر مِلَفَ المفتاحِ الرئيسِ</string>
 	<string name="screen_file_browser_create_new_vault_button_text">ضع هنا</string>
 	<string name="screen_file_browser_create_new_vault_extra_text">اسم المخزن: %1$s</string>
 	<plurals name="screen_file_browser_subtitle_move">
@@ -351,6 +351,11 @@
 	<string name="dialog_no_more_images_to_display">لا مزيد من الصور للعرض&#8230;</string>
 	<string name="dialog_pcloud_credentials_updated_title">تم تحديث وثائق تفويض \'%1$s\'</string>
 	<string name="dialog_pcloud_credentials_updated">إذا كنت ترغب في إضافة حساب pCloud جديد، انقر على هذا الرابط <a href="https://www.pcloud.com">www.pcloud. om</a>، ثم قم بتسجيل الخروج من الحساب الحالي و بعدها انقر مرة أخرى على \'+\' في هذا التطبيق لإنشاء اتصال سحابي جديد.</string>
+	<string name="dialog_create_hub_device_name_hint">يبدو أن هذا هو الوصول الأول إلى Hub من هذا الجهاز. لتحديده لأغراض تفويض الوصول، تحتاج إلى تسمية هذا الجهاز.</string>
+	<string name="dialog_create_hub_device_setup_code_hint">مفتاح الحساب الخاص بك مطلوب لتسجيل الدخول من تطبيقات أو متصفحات جديدة. يمكن العثور عليه في ملفك الشخصي.</string>
+	<string name="dialog_hub_vault_access_forbidden_title">تم رفض الوصول</string>
+	<string name="dialog_hub_user_setup_required_hint">للمتابعة، يرجى إكمال الخطوات المطلوبة في ملف المستخدم الخاص بك في Hub.</string>
+	<string name="dialog_hub_user_setup_required_neutral_button">اذهب إلى الملف الشخصي</string>
 	<string name="permission_snackbar_auth_local_vault">Cryptomator يحتاج صلاحية الوصول إلي التخزين ليستطيع استعمال الخزائن المحلية</string>
 	<string name="permission_snackbar_auth_auto_upload">Cryptomator يحتاج صلاحية الوصول إلي التخزين ليستطيع تحميل الصور تلقائيا</string>
 	<string name="permission_snackbar_notifications">Cryptomator يحتاج إلى صَلاحِيَة إظهار الإشعارات لعرض حالة المخزن على سبيل المثال</string>

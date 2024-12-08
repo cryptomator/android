@@ -35,6 +35,7 @@
 	<string name="error_no_such_bucket">Bucket neexistuje</string>
 	<string name="error_masterkey_location_not_supported">Vlastní umístění hlavního klíče ještě není podporováno</string>
 	<string name="error_interact_with_fdroid_but_fdroid_missing">Nepodařilo se komunikovat s aplikací F-Droid. Možná není nainstalována?</string>
+	<string name="error_hub_device_already_register_for_other_user">Toto zařízení je již registrováno pro jiného uživatele. Zkuste změnit uživatelský účet nebo použijte jiné zařízení.</string>
 	<!-- # clouds -->
 	<!-- ## cloud names -->
 	<string name="cloud_names_local_storage">Místní úložiště</string>
@@ -67,7 +68,6 @@
 	<string name="screen_vault_list_change_password_successful">Heslo bylo úspěšně změněno</string>
 	<!-- # screen: file browser -->
 	<string name="screen_file_browser_default_title">Trezor</string>
-	<string name="screen_file_browser_add_existing_vault_extra_text">Vyberte soubor s hlavním klíčem</string>
 	<string name="screen_file_browser_create_new_vault_button_text">Umístit zde</string>
 	<string name="screen_file_browser_create_new_vault_extra_text">Název trezoru: %1$s</string>
 	<plurals name="screen_file_browser_subtitle_move">
@@ -348,6 +348,10 @@
 	<string name="dialog_no_more_images_to_display">Žádné další obrázky k zobrazení&#8230;</string>
 	<string name="dialog_pcloud_credentials_updated_title">Údaje o \'%1$s\' byly aktualizovány</string>
 	<string name="dialog_pcloud_credentials_updated">Pokud máte v úmyslu přidat nový účet na pCloud, klepněte na tuto url <a href="https://www.pcloud.com">www.pcloud. om</a>, odhlas jste se z aktuálního účtu a znovu klepněte na \'+\' v této aplikaci pro vytvoření nového cloudového připojení.</string>
+	<string name="dialog_create_hub_device_setup_code_hint">Váš Account Key je vyžadován k přihlášení z nových aplikací nebo prohlížečů. Naleznete jej ve vašem profilu.</string>
+	<string name="dialog_hub_vault_access_forbidden_title">Přístup odepřen</string>
+	<string name="dialog_hub_user_setup_required_hint">Chcete-li pokračovat, dokončete prosím požadované kroky ve vašem uživatelském profilu Hubu.</string>
+	<string name="dialog_hub_user_setup_required_neutral_button">Jít na profil</string>
 	<string name="permission_snackbar_auth_local_vault">Cryptomator potřebuje přístup k úložišti, aby mohl používat místní trezory</string>
 	<string name="permission_snackbar_auth_auto_upload">Cryptomator potřebuje přístup k úložišti pro automatické nahrávání fotek</string>
 	<string name="permission_snackbar_notifications">Cryptomator potřebuje oprávnění k oznámení. Například: zobrazení stavu trezoru</string>

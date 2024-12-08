@@ -67,7 +67,6 @@
 	<string name="screen_vault_list_change_password_successful">密碼已成功更改</string>
 	<!-- # screen: file browser -->
 	<string name="screen_file_browser_default_title">加密庫</string>
-	<string name="screen_file_browser_add_existing_vault_extra_text">選擇主金鑰檔案</string>
 	<string name="screen_file_browser_create_new_vault_button_text">存放在此</string>
 	<string name="screen_file_browser_create_new_vault_extra_text">加密庫名稱：%1$s</string>
 	<plurals name="screen_file_browser_subtitle_move">
@@ -345,6 +344,7 @@
 	<string name="dialog_no_more_images_to_display">無更多圖片可供顯示…</string>
 	<string name="dialog_pcloud_credentials_updated_title">「%1$s 」的帳戶資訊已更新</string>
 	<string name="dialog_pcloud_credentials_updated">如果您想要新增一個 pCloud 帳戶，請在點擊此連結 <a href="https://www.pcloud.com">www.pcloud.com</a> 後登出目前的帳號，再點擊 App 中的「+」來建立新的雲端連結。</string>
+	<string name="dialog_hub_vault_access_forbidden_title">拒絕存取</string>
 	<string name="permission_snackbar_auth_local_vault">Cryptomator 需要儲存權限以存取本機上的加密庫</string>
 	<string name="permission_snackbar_auth_auto_upload">Cryptomator 需要儲存權限以便開啟自動圖片上傳。</string>
 	<string name="permission_snackbar_notifications">Cryptomator 需要通知權限以顯示加密檔案庫的狀態等。</string>
