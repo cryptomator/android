@@ -35,7 +35,11 @@
 	<string name="error_no_such_bucket">Deze bucket is niet gevonden</string>
 	<string name="error_masterkey_location_not_supported">Aangepaste Masterkey locatie nog niet ondersteund</string>
 	<string name="error_interact_with_fdroid_but_fdroid_missing">Kan niet communiceren met de F-Droid app. Niet geïnstalleerd?</string>
+	<string name="error_hub_vault_operation_not_supported">Kluis bewerking wordt niet ondersteund voor Hub</string>
+	<string name="error_hub_authentication_failed">Verificatie van Hub is mislukt</string>
 	<string name="error_hub_device_already_register_for_other_user">Dit apparaat is al geregistreerd voor een andere gebruiker. Probeer de account te wijzigen of gebruik een ander apparaat.</string>
+	<string name="error_hub_invalid_setup_code">De accountsleutel is ongeldig.</string>
+	<string name="error_hub_invalid_version">Niet-ondersteunde Hub versie.</string>
 	<!-- # clouds -->
 	<!-- ## cloud names -->
 	<string name="cloud_names_local_storage">Lokale opslag</string>
@@ -68,6 +72,7 @@
 	<string name="screen_vault_list_change_password_successful">Wachtwoord succesvol gewijzigd</string>
 	<!-- # screen: file browser -->
 	<string name="screen_file_browser_default_title">Kluis</string>
+	<string name="screen_file_browser_add_existing_vault_extra_text">Selecteer de hoofdsleutel of het kluisbestand</string>
 	<string name="screen_file_browser_create_new_vault_button_text">Plaats hier</string>
 	<string name="screen_file_browser_create_new_vault_extra_text">Kluis naam: %1$s</string>
 	<plurals name="screen_file_browser_subtitle_move">
@@ -352,7 +357,10 @@
 	<string name="dialog_cbc_password_vaults_migration_title">Migratie van kluis wachtwoord is vereist</string>
 	<string name="dialog_cbc_password_vaults_migration_hint">Als gevolg van verbeteringen in veiligheid vragen we u per kluis tweemaal om uw biometrische authenticatie om deze te versleutelen. Dit is nodig om je wachtwoorden met de nieuwste technologie te blijven beschermen. Indien je dit niet wilt, worden de opgeslagen wachtwoorden verwijderd.</string>
 	<string name="dialog_cbc_password_vaults_migration_action">Migreren</string>
+	<string name="dialog_create_hub_device_title">Registreer Hub apparaat</string>
+	<string name="dialog_create_hub_device_name_label">Naam</string>
 	<string name="dialog_create_hub_device_name_hint">Dit lijkt de eerste Hub toegang te zijn vanaf dit toestel. Om dit toestel te autoriseren voor toegang, moet u dit toestel benoemen.</string>
+	<string name="dialog_create_hub_device_name_empty">Het naamveld kan niet leeg zijn.</string>
 	<string name="dialog_create_hub_device_setup_code_hint">Uw accountsleutel is vereist om in te loggen vanuit nieuwe apps of browsers. Deze kan worden gevonden in uw profiel.</string>
 	<string name="dialog_hub_vault_access_forbidden_title">Toegang geweigerd</string>
 	<string name="dialog_hub_user_setup_required_hint">Om verder te gaan, gelieve de stappen te voltooien in uw Hub-gebruikersprofiel.</string>
