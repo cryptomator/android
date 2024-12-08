@@ -67,7 +67,6 @@
 	<string name="screen_vault_list_change_password_successful">Parola a fost modificată cu succes</string>
 	<!-- # screen: file browser -->
 	<string name="screen_file_browser_default_title">Seif</string>
-	<string name="screen_file_browser_add_existing_vault_extra_text">Selectaţi fişierul Masterkey</string>
 	<string name="screen_file_browser_create_new_vault_button_text">Plasează aici</string>
 	<string name="screen_file_browser_create_new_vault_extra_text">Numele seifului: %1$s</string>
 	<plurals name="screen_file_browser_subtitle_move">
@@ -353,6 +352,10 @@
 	<string name="dialog_cbc_password_vaults_migration_title">Este necesară migrarea parolei seifului</string>
 	<string name="dialog_cbc_password_vaults_migration_hint">Din cauza actualizărilor de securitate, ți se va cere autentificarea biometrică de două ori pentru fiecare seif ca să re-criptați parolele seifului. Acest lucru este necesar pentru a continua să îți protejezi parolele seifului cu ajutorul tehnologiei de ultimă oră. Dacă nu doriţi să se întâmple acest lucru, parolele stocate vor fi eliminate.</string>
 	<string name="dialog_cbc_password_vaults_migration_action">Migrează</string>
+	<string name="dialog_create_hub_device_name_hint">Se pare că este prima data când accesați Hub-ul de pe acest dispozitiv. Trebuie sa denumiți acest dispozitiv pentru autorizarea accesului.</string>
+	<string name="dialog_hub_vault_access_forbidden_title">Acces respins</string>
+	<string name="dialog_hub_user_setup_required_hint">Pentru a continua, vă rugăm să finalizaţi paşii necesari în profilul dumneavoastra din Hub.</string>
+	<string name="dialog_hub_user_setup_required_neutral_button">Mergi la profil</string>
 	<string name="permission_snackbar_auth_local_vault">Cryptomator are nevoie de acces la stocare pentru a utiliza seifuri locale</string>
 	<string name="permission_snackbar_auth_auto_upload">Cryptomator are nevoie de acces la stocare pentru a folosi încărcarea automată a fotografiilor</string>
 	<string name="permission_snackbar_notifications">Cryptomator are nevoie de permisiuni de notificare pentru a afișa starea seifului de exemplu</string>
