@@ -35,6 +35,7 @@
 	<string name="error_no_such_bucket">Nie ma takiego bucketu</string>
 	<string name="error_masterkey_location_not_supported">Niestandardowa lokalizacja klucza głównego jest jeszcze nieobsługiwana</string>
 	<string name="error_interact_with_fdroid_but_fdroid_missing">Nie udało się połączyć z aplikacją F-Droid. Nie ma aplikacji?</string>
+	<string name="error_hub_device_already_register_for_other_user">To urządzenie jest już zarejestrowane dla innego użytkownika. Spróbuj zmienić konto użytkownika lub użyć innego urządzenia.</string>
 	<!-- # clouds -->
 	<!-- ## cloud names -->
 	<string name="cloud_names_local_storage">Pamięć wewnętrzna</string>
@@ -67,7 +68,6 @@
 	<string name="screen_vault_list_change_password_successful">Hasło zostało pomyślnie zmienione</string>
 	<!-- # screen: file browser -->
 	<string name="screen_file_browser_default_title">Sejf</string>
-	<string name="screen_file_browser_add_existing_vault_extra_text">Wybierz plik klucza głównego</string>
 	<string name="screen_file_browser_create_new_vault_button_text">Umieść tutaj</string>
 	<string name="screen_file_browser_create_new_vault_extra_text">Nazwa sejfu: %1$s</string>
 	<plurals name="screen_file_browser_subtitle_move">
@@ -354,6 +354,11 @@
 	<string name="dialog_cbc_password_vaults_migration_title">Wymagana migracja hasła sejfu</string>
 	<string name="dialog_cbc_password_vaults_migration_hint">Z powodu ulepszenia zabezpieczeń, dla każdego sejfu zostaniesz dwukrotnie poproszony o weryfikację biometryczną celem ponownego zaszyfrowania haseł. Jest to konieczne, aby nadal chronić hasła za pomocą najnowszej technologii. Jeśli sobie tego nie życzysz, przechowywane hasła zostaną usunięte.</string>
 	<string name="dialog_cbc_password_vaults_migration_action">Migruj</string>
+	<string name="dialog_create_hub_device_name_hint">Wygląda że jest to pierwszy dostęp do Huba z tego urządzenia. Aby zidentyfikować go w celu autoryzacji dostępu, musisz nazwać to urządzenie.</string>
+	<string name="dialog_create_hub_device_setup_code_hint">Twój Klucz Konta jest wymagany do zalogowania się z nowych aplikacji lub przeglądarek. Można go znaleźć w twoim profilu.</string>
+	<string name="dialog_hub_vault_access_forbidden_title">Brak dostępu</string>
+	<string name="dialog_hub_user_setup_required_hint">Aby kontynuować, wykonaj kroki wymagane w profilu użytkownika Hub.</string>
+	<string name="dialog_hub_user_setup_required_neutral_button">Przejdź do profilu</string>
 	<string name="permission_snackbar_auth_local_vault">Cryptomator potrzebuje dostępu do pamięci lokalnej, aby uzyskać dostęp do sejfu</string>
 	<string name="permission_snackbar_auth_auto_upload">Cryptomator potrzebuje dostępu do pamięci lokalnej, aby automatycznie przesyłać zdjęcia</string>
 	<string name="permission_snackbar_notifications">Cryptomator potrzebuje uprawnień do powiadomień, aby wyświetlić np. status sejfu</string>
