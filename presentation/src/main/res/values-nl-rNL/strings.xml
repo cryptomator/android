@@ -361,8 +361,17 @@
 	<string name="dialog_create_hub_device_name_label">Naam</string>
 	<string name="dialog_create_hub_device_name_hint">Dit lijkt de eerste Hub toegang te zijn vanaf dit toestel. Om dit toestel te autoriseren voor toegang, moet u dit toestel benoemen.</string>
 	<string name="dialog_create_hub_device_name_empty">Het naamveld kan niet leeg zijn.</string>
+	<string name="dialog_create_hub_device_setup_code_label">Account sleutel</string>
 	<string name="dialog_create_hub_device_setup_code_hint">Uw accountsleutel is vereist om in te loggen vanuit nieuwe apps of browsers. Deze kan worden gevonden in uw profiel.</string>
+	<string name="dialog_create_hub_device_setup_code_empty">Accountsleutelveld kan niet leeg zijn.</string>
+	<string name="dialog_progress_creating_hub_device_setup">Aanmaken van apparaat&#8230;</string>
 	<string name="dialog_hub_vault_access_forbidden_title">Toegang geweigerd</string>
+	<string name="dialog_hub_vault_access_forbidden_hint">Uw gebruiker is nog niet geautoriseerd om toegang te krijgen tot deze kluis. Vraag de eigenaar van de kluis om toestemming te geven.\"</string>
+	<string name="dialog_hub_license_upgrade_required_title">Controleer de Hub-licentie</string>
+	<string name="dialog_hub_license_upgrade_required_hint">Uw Cryptomator Hub-exemplaar heeft een ongeldige licentie. Informeer een Hub-beheerder om de licentie te upgraden of te verlengen.\"</string>
+	<string name="dialog_hub_vault_archived_title">Kluis gearchiveerd</string>
+	<string name="dialog_hub_vault_archived_hint">Deze kluis is gearchiveerd en kan niet worden ontgrendeld. Om het te ontgrendelen, moet een kluiseigenaar het archief uit het archief halen.</string>
+	<string name="dialog_hub_user_setup_required_title">Instellen van gebruiker vereist</string>
 	<string name="dialog_hub_user_setup_required_hint">Om verder te gaan, gelieve de stappen te voltooien in uw Hub-gebruikersprofiel.</string>
 	<string name="dialog_hub_user_setup_required_neutral_button">Ga naar Profiel</string>
 	<string name="permission_snackbar_auth_local_vault">Cryptomator heeft toegang tot opslag nodig om lokale kluizen te kunnen gebruiken</string>
