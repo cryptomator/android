@@ -46,7 +46,6 @@
 	<string name="screen_vault_list_change_password_successful">ਪਾਸਵਰਡ ਨੂੰ ਕਾਮਯਾਬੀ ਨਾਲ ਬਦਲਿਆ</string>
 	<!-- # screen: file browser -->
 	<string name="screen_file_browser_default_title">ਵਾਲਟ</string>
-	<string name="screen_file_browser_add_existing_vault_extra_text">ਮਾਸਟਰ-ਕੁੰਜੀ ਫਾਇਲ ਨੂੰ ਚੁਣੋ</string>
 	<string name="screen_file_browser_create_new_vault_button_text">ਇੱਥੇ ਰੱਖੋ</string>
 	<string name="screen_file_browser_create_new_vault_extra_text">ਵਾਲਟ ਦਾ ਨਾਂ: %1$s</string>
 	<string name="screen_file_browser_move_button_text">ਭੇਜੋ</string>
@@ -254,6 +253,10 @@
 	<string name="dialog_sym_link_back_button">ਪਿੱਛੇ</string>
 	<string name="dialog_no_dir_file_title">ਡਾਇਰੈਕਟਰੀ ਦੀ ਸਮੱਗਰੀ ਨੂੰ ਲੋਡ ਕਰਨ ਲਈ ਅਸਮਰੱਥ ਹੈ</string>
 	<string name="dialog_cbc_password_vaults_migration_title">ਵਾਲਟ ਦੇ ਪਾਸਵਰਡ ਨੂੰ ਮਾਈਗਰੇਟ ਕਰਨ ਦੀ ਲੋੜ ਹੈ</string>
+	<string name="dialog_create_hub_device_setup_code_hint">ਤੁਹਾਡੀ Account Key ਨਵੀਆਂ ਐਪਾਂ ਜਾਂ ਬਰਾਊਜ਼ਰਾਂ ਵਿੱਚ ਲਾਗਇਨ ਕਰਨ ਸਮੇਂ ਚਾਹੀਦੀ ਹੈ। ਇਸ ਨੂੰ ਤੁਹਾਡੇ ਪਰੋਫਾਇਲ ਵਿੱਚ ਲੱਭਿਆ ਜਾ ਸਕਦਾ ਹੈ।</string>
+	<string name="dialog_hub_vault_access_forbidden_title">ਪਹੁੰਚ ਤੋਂ ਇਨਾਕਰ</string>
+	<string name="dialog_hub_user_setup_required_hint">ਜਾਰੀ ਰੱਖਣ ਲਈ ਆਪਣੇ Hub ਵਰਤੋਂਕਾਰ ਪਰੋਫਾਇਲ ਵਿੱਚ ਲੋੜੀਂਦੇ ਪੜਾਅ ਪੂਰੇ ਕਰੋ।</string>
+	<string name="dialog_hub_user_setup_required_neutral_button">ਪ੍ਰੋਫ਼ਾਈਲ ਤੇ ਜਾਓ</string>
 	<!-- # error reports -->
 	<!-- # misc -->
 	<!-- ## file size helper -->
