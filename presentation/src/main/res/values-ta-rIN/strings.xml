@@ -56,7 +56,6 @@
 	<string name="screen_vault_list_change_password_successful">கடவுச்சொல் வெற்றிகரமாக மாற்றப்பட்டது</string>
 	<!-- # screen: file browser -->
 	<string name="screen_file_browser_default_title">பெட்டகம்</string>
-	<string name="screen_file_browser_add_existing_vault_extra_text">தலைமைவிசை கோப்பை தேர்ந்தெடுக்கவும்</string>
 	<string name="screen_file_browser_create_new_vault_button_text">இங்கே வைக்கவும்</string>
 	<string name="screen_file_browser_create_new_vault_extra_text">பெட்டகத்தின் பெயர்: %1$s</string>
 	<plurals name="screen_file_browser_subtitle_move">
