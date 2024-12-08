@@ -35,6 +35,7 @@
 	<string name="error_no_such_bucket">Nem található ilyen adat</string>
 	<string name="error_masterkey_location_not_supported">Az egyéni Masterkey hely választása még nem támogatott</string>
 	<string name="error_interact_with_fdroid_but_fdroid_missing">Nem sikerült kommunikálni az F-Droid alkalmazással. Nincs telepítve?</string>
+	<string name="error_hub_device_already_register_for_other_user">Ez az eszköz már egy másik felhasználóhoz van regisztrálva. Próbáljon meg felhasználói fiókot váltani, vagy használjon egy másik eszközt.</string>
 	<!-- # clouds -->
 	<!-- ## cloud names -->
 	<string name="cloud_names_local_storage">Helyi tároló</string>
@@ -67,7 +68,6 @@
 	<string name="screen_vault_list_change_password_successful">Jelszó sikeresen megváltoztatva</string>
 	<!-- # screen: file browser -->
 	<string name="screen_file_browser_default_title">Széf</string>
-	<string name="screen_file_browser_add_existing_vault_extra_text">Válassza ki a Masterkey fájlt</string>
 	<string name="screen_file_browser_create_new_vault_button_text">Helyezze ide</string>
 	<string name="screen_file_browser_create_new_vault_extra_text">Trezor neve: %1$s</string>
 	<plurals name="screen_file_browser_subtitle_move">
@@ -352,6 +352,7 @@
 	<string name="dialog_cbc_password_vaults_migration_title">Széf jelszó migráció szükséges</string>
 	<string name="dialog_cbc_password_vaults_migration_hint">A biztonsági fejlesztések miatt minden széf esetében kétszer kérjük a biometrikus hitelesítést a széf jelszavainak újratitkosításához. Ez szükséges ahhoz, hogy a széf jelszavait a legújabb technológiával védjük továbbra is. Ha nem kívánja ezt végrehajtani, a tárolt jelszavak eltávolításra kerülnek.</string>
 	<string name="dialog_cbc_password_vaults_migration_action">Migráció</string>
+	<string name="dialog_hub_vault_access_forbidden_title">Hozzáférés megtagadva</string>
 	<string name="permission_snackbar_auth_local_vault">A Cryptomatornak tárhely-hozzáférésre van szüksége a trezorok használatához</string>
 	<string name="permission_snackbar_auth_auto_upload">A Cryptomatornak tárhely-hozzáférésre van szüksége az automatikus fotófeltöltés használatához</string>
 	<string name="permission_snackbar_notifications">A Cryptomatornak értesítési engedélyekre van szüksége például a széf állapotának megjelenítéséhez</string>
