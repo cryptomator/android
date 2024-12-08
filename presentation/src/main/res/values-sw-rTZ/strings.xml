@@ -67,7 +67,6 @@
 	<string name="screen_vault_list_change_password_successful">Neno la siri limebadilishwa kwa ufanisi</string>
 	<!-- # screen: file browser -->
 	<string name="screen_file_browser_default_title">Kuba</string>
-	<string name="screen_file_browser_add_existing_vault_extra_text">Teua faili ya masterkey</string>
 	<string name="screen_file_browser_create_new_vault_button_text">Weka hapa</string>
 	<string name="screen_file_browser_create_new_vault_extra_text">Jina la kuba: %1$s</string>
 	<string name="screen_file_browser_move_button_text">Hamisha</string>
@@ -339,6 +338,7 @@
 	<string name="dialog_no_more_images_to_display">Hakuna picha zaidi za kuonyesha&#8230;</string>
 	<string name="dialog_pcloud_credentials_updated_title">Hati za utambulisho za \'%1$s\' zimesasishwa</string>
 	<string name="dialog_pcloud_credentials_updated">Ikiwa ulitaka kuongeza akaunti mpya ya pCloud, gusa url hii <a href="https://www.pcloud.com">www.pcloud.com</a>, ondoka kwenye akaunti ya sasa na uguse tena \'+\' katika programu hii ili kuunda muunganisho mpya wa wingu.</string>
+	<string name="dialog_hub_vault_access_forbidden_title">Ufikiaji umekataliwa</string>
 	<string name="permission_snackbar_auth_local_vault">Cryptomator inahitaji ufikiaji wa kuhifadhi ili kutumia kuba za ndani</string>
 	<string name="permission_snackbar_auth_auto_upload">Cryptomator inahitaji ufikiaji wa kuhifadhi ili kutumia upakiaji wa picha kiotomatiki</string>
 	<string name="permission_snackbar_notifications">Cryptomator inahitaji ruhusa za taarifa ili kuonyesha hali ya kuba kwa mfano</string>
