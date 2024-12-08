@@ -31,6 +31,7 @@
 	<string name="error_vault_key_invalid">%1$s ei täsmää %2$s kanssa</string>
 	<string name="error_vault_config_loading">Holvin asetuksia ladatessa tapahtui virhe</string>
 	<string name="error_file_not_found_after_opening_using_3party">Tiedosto ei ole enää saatavilla Cryptomatoriin palaamisen jälkeen. Mahdollisia muutoksia ei voida siirtää pilveen.</string>
+	<string name="error_hub_device_already_register_for_other_user">Tämä laite on jo rekisteröity toiselle käyttäjälle. Yritä vaihtaa käyttäjätiliä tai käytää toista laitetta.</string>
 	<!-- # clouds -->
 	<!-- ## cloud names -->
 	<!-- # permission -->
@@ -103,6 +104,7 @@
 	<string name="dialog_lock_vault">Lukitse</string>
 	<string name="dialog_app_is_obscured_info_neutral_button">Sulje</string>
 	<string name="dialog_sym_link_back_button">Takaisin</string>
+	<string name="dialog_hub_vault_access_forbidden_title">Pääsy estetty</string>
 	<!-- # error reports -->
 	<!-- # misc -->
 	<!-- ## file size helper -->
