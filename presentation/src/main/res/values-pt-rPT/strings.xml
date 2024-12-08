@@ -35,6 +35,7 @@
 	<string name="error_no_such_bucket">Bucket inexistente</string>
 	<string name="error_masterkey_location_not_supported">A localização de Chave-Mestra personalizada ainda não é suportada</string>
 	<string name="error_interact_with_fdroid_but_fdroid_missing">Falha em comunicar-se com a aplicação F-Droid. Não está instalado?</string>
+	<string name="error_hub_device_already_register_for_other_user">Este dispositivo já está registado para um utilizador diferente. Tente alterar a conta de utilizador ou use um dispositivo diferente.</string>
 	<!-- # clouds -->
 	<!-- ## cloud names -->
 	<string name="cloud_names_local_storage">Armazenamento local</string>
@@ -67,7 +68,6 @@
 	<string name="screen_vault_list_change_password_successful">Palavra-passe alterada com sucesso</string>
 	<!-- # screen: file browser -->
 	<string name="screen_file_browser_default_title">Cofre</string>
-	<string name="screen_file_browser_add_existing_vault_extra_text">Selecionar ficheiro MasterKey</string>
 	<string name="screen_file_browser_create_new_vault_button_text">Colocar aqui</string>
 	<string name="screen_file_browser_create_new_vault_extra_text">Nome do cofre: %1$s</string>
 	<plurals name="screen_file_browser_subtitle_move">
@@ -352,6 +352,11 @@
 	<string name="dialog_cbc_password_vaults_migration_title">É necessária a migração da palavra-passe do cofre</string>
 	<string name="dialog_cbc_password_vaults_migration_hint">Devido a melhorias de segurança, ser-lhe-á pedida a sua autenticação biométrica duas vezes para cada cofre, para voltar a encriptar as suas palavras-passe dos cofres. Isto é necessário para continuar a proteção das palavras-passe dos cofres com a última tecnologia. Se preferir que isso não aconteça, as palavras-passe serão removidas.</string>
 	<string name="dialog_cbc_password_vaults_migration_action">Migrar</string>
+	<string name="dialog_create_hub_device_name_hint">Parece ser o primeiro acesso ao Hub a partir deste dispositivo. Para identificá-lo para autorização de acesso, é preciso dar um nome a este dispositivo.</string>
+	<string name="dialog_create_hub_device_setup_code_hint">A sua chave de conta é necessária para iniciar sessão em novos aplicativos ou navegadores. Ela pode ser encontrada no seu perfil.</string>
+	<string name="dialog_hub_vault_access_forbidden_title">Acesso negado</string>
+	<string name="dialog_hub_user_setup_required_hint">Para continuar, por favor conclua as etapas exigidas no seu perfil de utilizador no Hub.</string>
+	<string name="dialog_hub_user_setup_required_neutral_button">Vá para o Perfil</string>
 	<string name="permission_snackbar_auth_local_vault">Cryptomator precisa de acesso ao armazenamento para usar cofres locais</string>
 	<string name="permission_snackbar_auth_auto_upload">Cryptomator precisa de acesso ao armazenamento para usar o envio automático de fotos</string>
 	<string name="permission_snackbar_notifications">O Cryptomator precisa de permissões de notificação para exibir, como exemplo, o estado do cofre</string>
