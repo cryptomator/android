@@ -4,6 +4,7 @@ import android.content.DialogInterface
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
+import android.view.KeyEvent
 import android.view.View
 import android.widget.Button
 import android.widget.LinearLayout
@@ -16,7 +17,6 @@ import org.cryptomator.presentation.databinding.ViewDialogErrorBinding
 import org.cryptomator.presentation.model.ProgressModel
 import org.cryptomator.presentation.model.ProgressStateModel
 import org.cryptomator.presentation.model.VaultModel
-
 
 @Dialog(secure = true)
 class EnterPasswordDialog : BaseProgressErrorDialog<EnterPasswordDialog.Callback, DialogEnterPasswordBinding>(DialogEnterPasswordBinding::inflate) {
@@ -47,7 +47,17 @@ class EnterPasswordDialog : BaseProgressErrorDialog<EnterPasswordDialog.Callback
 			unlockButton?.let { button ->
 				binding.etPassword.nextFocusForwardId = button.id
 			}
-			it.setCanceledOnTouchOutside(false)
+			dialog.setCanceledOnTouchOutside(false)
+			dialog.setOnKeyListener { _, keyCode, _ ->
+				if (keyCode == KeyEvent.KEYCODE_BACK) {
+					dialog.dismiss()
+					callback?.onUnlockCanceled()
+					callback?.closeDialog()
+					true
+				} else {
+					false
+				}
+			}
 			binding.etPassword.requestFocus()
 		}
 	}

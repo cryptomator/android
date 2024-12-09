@@ -29,7 +29,9 @@ import javax.inject.Inject
 @Activity
 class UnlockVaultActivity : BaseActivity<ActivityUnlockVaultBinding>(ActivityUnlockVaultBinding::inflate), //
 	UnlockVaultView, //
+	EnterPasswordDialog.Callback, //
 	BiometricAuthentication.Callback, //
+	BiometricAuthKeyInvalidatedDialog.Callback, //
 	ChangePasswordDialog.Callback, //
 	VaultNotFoundDialog.Callback, //
 	CreateHubDeviceDialog.Callback, //
@@ -179,6 +181,10 @@ class UnlockVaultActivity : BaseActivity<ActivityUnlockVaultBinding>(ActivityUnl
 	}
 
 	override fun onVaultAccessForbiddenDialogFinished() {
+		finish()
+	}
+
+	override fun onBiometricAuthKeyInvalidatedDialogFinished() {
 		finish()
 	}
 

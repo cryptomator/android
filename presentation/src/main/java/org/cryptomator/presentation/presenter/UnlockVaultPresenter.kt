@@ -513,11 +513,18 @@ class UnlockVaultPresenter @Inject constructor(
 			})
 	}
 
-	@Callback
+	@Callback(dispatchResultOkOnly = false)
 	fun changePasswordAfterAuthentication(result: ActivityResult, vault: Vault, unverifiedVaultConfig: UnverifiedVaultConfig, oldPassword: String, newPassword: String) {
-		val cloud = result.getSingleResult(CloudModel::class.java).toCloud()
-		val vaultWithUpdatedCloud = Vault.aCopyOf(vault).withCloud(cloud).build()
-		onChangePasswordClick(VaultModel(vaultWithUpdatedCloud), unverifiedVaultConfig, oldPassword, newPassword)
+		if(result.isResultOk) {
+			val cloud = result.getSingleResult(CloudModel::class.java).toCloud()
+			val vaultWithUpdatedCloud = Vault.aCopyOf(vault).withCloud(cloud).build()
+			onChangePasswordClick(VaultModel(vaultWithUpdatedCloud), unverifiedVaultConfig, oldPassword, newPassword)
+		} else {
+			view?.closeDialog()
+			val error = result.getSingleResult(Throwable::class.java)
+			error?.let { showError(it) }
+			finishWithResult(null)
+		}
 	}
 
 	fun saveVaultAfterChangePasswordButFailedBiometricAuth(vault: Vault) {
