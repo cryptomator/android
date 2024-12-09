@@ -35,6 +35,7 @@
 	<string name="error_no_such_bucket">沒有該儲存貯體</string>
 	<string name="error_masterkey_location_not_supported">尚未支援自訂主金鑰位置</string>
 	<string name="error_interact_with_fdroid_but_fdroid_missing">無法找到F-Droid應用程式。可能未安裝？</string>
+	<string name="error_hub_authentication_failed">Hub 驗證失敗</string>
 	<string name="error_hub_device_already_register_for_other_user">其他使用者已在此裝置上註冊。請切換至該使用者帳戶或使用其他裝置進行註冊。</string>
 	<!-- # clouds -->
 	<!-- ## cloud names -->
@@ -351,7 +352,9 @@
 	<string name="dialog_cbc_password_vaults_migration_title">必要的檔案庫密碼遷移</string>
 	<string name="dialog_cbc_password_vaults_migration_hint">基於安全加強，每個檔案庫將會要求您進行兩次生物辨識驗證以重新加密您的檔案庫密碼。這是為了繼續使用最新技術來保護檔案庫密碼所需的必要動作。如果您不想這麼做，儲存的密碼將會被刪除。</string>
 	<string name="dialog_cbc_password_vaults_migration_action">遷移</string>
+	<string name="dialog_create_hub_device_name_label">名稱</string>
 	<string name="dialog_create_hub_device_name_hint">似乎這是第一次 Hub 訪問此設備。為了辨識它以授權訪問，您需要命名此設備。</string>
+	<string name="dialog_create_hub_device_name_empty">名稱不可以空白</string>
 	<string name="dialog_create_hub_device_setup_code_hint">需要您的帳戶金鑰才能從新應用或瀏覽器登入。 可以在你的個人資料中找到它。</string>
 	<string name="dialog_hub_vault_access_forbidden_title">拒絕存取</string>
 	<string name="dialog_hub_user_setup_required_hint">請完成您使用者檔案中所需的步驟，以便繼續進行。</string>
