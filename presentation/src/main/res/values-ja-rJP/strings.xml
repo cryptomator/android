@@ -35,7 +35,11 @@
 	<string name="error_no_such_bucket">バケットがありません</string>
 	<string name="error_masterkey_location_not_supported">好きな場所に Masterkey を置くことはまだできません</string>
 	<string name="error_interact_with_fdroid_but_fdroid_missing">F-Droidアプリと通信ができません。インストールしてありませんか？</string>
+	<string name="error_hub_vault_operation_not_supported">ハブではサポートされていない金庫の操作です</string>
+	<string name="error_hub_authentication_failed">ハブに対する認証に失敗しました</string>
 	<string name="error_hub_device_already_register_for_other_user">このデバイスは既に別のユーザーに登録されています。ユーザーアカウントを変更するか、別のデバイスを使用してください。</string>
+	<string name="error_hub_invalid_setup_code">アカウントキーが無効です。</string>
+	<string name="error_hub_invalid_version">サポートされていないハブのバージョンです。</string>
 	<!-- # clouds -->
 	<!-- ## cloud names -->
 	<string name="cloud_names_local_storage">ローカルストレージ</string>
@@ -68,6 +72,7 @@
 	<string name="screen_vault_list_change_password_successful">パスワードが正常に変更されました</string>
 	<!-- # screen: file browser -->
 	<string name="screen_file_browser_default_title">金庫</string>
+	<string name="screen_file_browser_add_existing_vault_extra_text">マスターキーまたは金庫のファイルを選択</string>
 	<string name="screen_file_browser_create_new_vault_button_text">ここにおく</string>
 	<string name="screen_file_browser_create_new_vault_extra_text">金庫の名前: %1$s</string>
 	<plurals name="screen_file_browser_subtitle_move">
@@ -351,9 +356,21 @@
 	<string name="dialog_cbc_password_vaults_migration_title">金庫のパスワード移行が必要です</string>
 	<string name="dialog_cbc_password_vaults_migration_hint">セキュリティ強化のため、金庫ごとに生体認証を２回ずつ要求されます。これは最新技術で金庫のパスワードを保護し続けるために必要です。これを行いたくない場合は保存されたパスワードが削除されます。</string>
 	<string name="dialog_cbc_password_vaults_migration_action">移行</string>
+	<string name="dialog_create_hub_device_title">ハブデバイスを登録</string>
+	<string name="dialog_create_hub_device_name_label">名前</string>
 	<string name="dialog_create_hub_device_name_hint"></string>
+	<string name="dialog_create_hub_device_name_empty">名前を空にすることはできません。</string>
+	<string name="dialog_create_hub_device_setup_code_label">アカウントキー</string>
 	<string name="dialog_create_hub_device_setup_code_hint">アカウントキーは新しいアプリやブラウザからログインするために必要です。プロフィール中に記載されています。</string>
+	<string name="dialog_create_hub_device_setup_code_empty">アカウントキーは空にできません。</string>
+	<string name="dialog_progress_creating_hub_device_setup">デバイスを作成中&#8230;</string>
 	<string name="dialog_hub_vault_access_forbidden_title">アクセスが拒否されました</string>
+	<string name="dialog_hub_vault_access_forbidden_hint">あなたのユーザーはこの金庫にアクセスする権限がありません。金庫の所有者に権限を認可してもらってください。</string>
+	<string name="dialog_hub_license_upgrade_required_title">ハブライセンスを確認</string>
+	<string name="dialog_hub_license_upgrade_required_hint">Cryptomator Hub インスタンスのライセンスが無効です。ライセンスをアップグレードまたは更新するには、Hub の管理者にご連絡ください。</string>
+	<string name="dialog_hub_vault_archived_title">金庫をアーカイブしました</string>
+	<string name="dialog_hub_vault_archived_hint">この金庫はアーカイブされており解錠できません。解錠するには金庫の所有者がアーカイブを取り消す必要があります。</string>
+	<string name="dialog_hub_user_setup_required_title">ユーザー設定が必要です</string>
 	<string name="dialog_hub_user_setup_required_hint">続行するにはHubユーザープロフィールで必要な手順を完了してください。</string>
 	<string name="dialog_hub_user_setup_required_neutral_button">プロフィールへ移動</string>
 	<string name="permission_snackbar_auth_local_vault">ローカルの金庫を使用するには、Cryptomator がストレージにアクセスする許可が必要です</string>
