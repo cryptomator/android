@@ -35,6 +35,7 @@
 	<string name="error_no_such_bucket">Aucun bucket correspondant</string>
 	<string name="error_masterkey_location_not_supported">Localisation personnalisée de la Masterkey n\'est pas encore prise en charge</string>
 	<string name="error_interact_with_fdroid_but_fdroid_missing">Impossible de communiquer avec l\'application F-Droid. Est-elle installée ?</string>
+	<string name="error_hub_device_already_register_for_other_user">Cet appareil est déjà enregistré pour un autre utilisateur. Essayez de changer de compte ou utilisez un autre appareil.</string>
 	<!-- # clouds -->
 	<!-- ## cloud names -->
 	<string name="cloud_names_local_storage">Stockage local</string>
@@ -67,7 +68,6 @@
 	<string name="screen_vault_list_change_password_successful">Mot de passe modifié avec succès</string>
 	<!-- # screen: file browser -->
 	<string name="screen_file_browser_default_title">Coffre</string>
-	<string name="screen_file_browser_add_existing_vault_extra_text">Sélectionné le fichier de clé principal</string>
 	<string name="screen_file_browser_create_new_vault_button_text">Placé ici</string>
 	<string name="screen_file_browser_create_new_vault_extra_text">Nom du coffre-fort: %1$s</string>
 	<plurals name="screen_file_browser_subtitle_move">
@@ -352,6 +352,11 @@
 	<string name="dialog_cbc_password_vaults_migration_title">Migration du mot de passe du coffre requise</string>
 	<string name="dialog_cbc_password_vaults_migration_hint">En raison des améliorations apportées à la sécurité, votre authentification biométrique vous sera demandée deux fois pour chaque coffre-fort afin de re-chiffrer vos mots de passe. Ceci est nécessaire pour continuer à protéger vos mots de passe de coffres-forts à l\'aide des technologies les plus récentes. Si vous ne souhaitez pas vous réauthentifier, les mots de passe stockés seront supprimés.</string>
 	<string name="dialog_cbc_password_vaults_migration_action">Migrer</string>
+	<string name="dialog_create_hub_device_name_hint">Il semble que ce soit le premier accès au Hub à partir de cet appareil. Afin de l\'identifier pour l\'autorisation d\'accès, vous devez nommer cet appareil.</string>
+	<string name="dialog_create_hub_device_setup_code_hint">Votre clé de compte est requise pour vous connecter depuis de nouvelles applications ou de nouveaux navigateurs. Elle se trouve dans votre profil.</string>
+	<string name="dialog_hub_vault_access_forbidden_title">Accès refusé</string>
+	<string name="dialog_hub_user_setup_required_hint">Pour continuer, veuillez compléter les étapes requises dans votre profil d\'utilisateur Hub.</string>
+	<string name="dialog_hub_user_setup_required_neutral_button">Aller au profil</string>
 	<string name="permission_snackbar_auth_local_vault">Cryptomator a besoin de l\'accès au stockage pour utiliser les coffres locaux</string>
 	<string name="permission_snackbar_auth_auto_upload">Cryptomator a besoin de l\'accès au stockage pour effectuer le téléversement automatique de photos</string>
 	<string name="permission_snackbar_notifications">Cryptomator requiert des permissions de notification pour afficher le statut du coffre, par exemple</string>

@@ -67,7 +67,6 @@
 	<string name="screen_vault_list_change_password_successful">הסיסמא שונתה בהצלחה</string>
 	<!-- # screen: file browser -->
 	<string name="screen_file_browser_default_title">כספת</string>
-	<string name="screen_file_browser_add_existing_vault_extra_text">בחר קובץ masterkey</string>
 	<string name="screen_file_browser_create_new_vault_button_text">מקם כאן</string>
 	<string name="screen_file_browser_create_new_vault_extra_text">שם הכספת: %1$s</string>
 	<plurals name="screen_file_browser_subtitle_move">
@@ -345,6 +344,7 @@
 	<string name="dialog_no_more_images_to_display">אין עוד תמונות להציג&#8230;</string>
 	<string name="dialog_pcloud_credentials_updated_title">פרטי ההתחברות של \'%1$s\' עודכנו</string>
 	<string name="dialog_pcloud_credentials_updated">אם ברצונך להוסיף חשבון pCloud חדש, לחץ על הקישור <a href="https://www.pcloud.com">www.pcloud.com</a>, התנתק מהחשבון הנוכחי ולחץ על ה \'+\' בישום זה ליצירת חיבור ענן חדש.</string>
+	<string name="dialog_hub_vault_access_forbidden_title">הגישה נדחתה</string>
 	<string name="permission_snackbar_auth_local_vault">Cryptomator זקוק להרשאת גישה לזיכרון המכשיר כדי להשתמש בכספת מקומית</string>
 	<string name="permission_snackbar_auth_auto_upload">Cryptomator זקוק להרשאת גישה לזיכרון המכשיר כדי לבצע העלאה אוטומטית של תמונות</string>
 	<string name="permission_snackbar_notifications">Cryptomator צריך הרשאה לשליחת התראות על מנת, לדוגמה, להציג לכם את מצב הכספת</string>

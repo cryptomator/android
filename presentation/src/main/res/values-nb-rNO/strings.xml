@@ -35,6 +35,7 @@
 	<string name="error_no_such_bucket">Ingen slik bøtte</string>
 	<string name="error_masterkey_location_not_supported">Egendefinert lokasjon for Hovednøkkel er foreløpig ikke støttet</string>
 	<string name="error_interact_with_fdroid_but_fdroid_missing">Mislyktes i å kommunisere med F-Droid-app\'en. Ikke installert?</string>
+	<string name="error_hub_device_already_register_for_other_user">Denne enheten er allerede registrert for en annen bruker. Prøv å endre brukerkontoen eller bruk en annen enhet.</string>
 	<!-- # clouds -->
 	<!-- ## cloud names -->
 	<string name="cloud_names_local_storage">Lokal lagring</string>
@@ -67,7 +68,6 @@
 	<string name="screen_vault_list_change_password_successful">Passordet er endret</string>
 	<!-- # screen: file browser -->
 	<string name="screen_file_browser_default_title">Hvelv</string>
-	<string name="screen_file_browser_add_existing_vault_extra_text">Velg hovednøkkelfil</string>
 	<string name="screen_file_browser_create_new_vault_button_text">Plasser her</string>
 	<string name="screen_file_browser_create_new_vault_extra_text">Navn på hvelvet: %1$s</string>
 	<plurals name="screen_file_browser_subtitle_move">
@@ -346,6 +346,11 @@
 	<string name="dialog_no_more_images_to_display">Ingen flere bilder å vise&#8230;</string>
 	<string name="dialog_pcloud_credentials_updated_title">Legitimasjonen til \'%1$s\' er oppdatert</string>
 	<string name="dialog_pcloud_credentials_updated">Dersom du akter å legge til en ny pCloud-konto, trykk på denne URL-en <a href="https://www.pcloud.com">www.pcloud.com</a>, logg ut fra den nåværende kontoen og trykk på «+» i denne app\'en for å opprette en ny nettskyforbindelse.</string>
+	<string name="dialog_create_hub_device_name_hint">Dette ser ut til å være den første Hub-tilgangen fra denne enheten. For å kunne identifisere den for tilgangsautorisasjon, må du å navngi denne enheten.</string>
+	<string name="dialog_create_hub_device_setup_code_hint">Din kontonøkkel kreves for å logge inn fra nye apper eller nettlesere. Den finner du i profilen din.</string>
+	<string name="dialog_hub_vault_access_forbidden_title">Ingen tilgang</string>
+	<string name="dialog_hub_user_setup_required_hint">For å fortsette, fullfør trinnene som kreves i din Hub-brukerprofil.</string>
+	<string name="dialog_hub_user_setup_required_neutral_button">Gå til profil</string>
 	<string name="permission_snackbar_auth_local_vault">Cryptomator trenger lagringstilgang for å bruke lokale hvelv</string>
 	<string name="permission_snackbar_auth_auto_upload">Cryptomator trenger lagringstilgang for å bruke automatisk bildeopplasting</string>
 	<string name="permission_snackbar_notifications">Cryptomator trenger varseltillatelser for å for eksempel vise hvelvets status</string>

@@ -5,6 +5,8 @@
 	<!-- # error messages -->
 	<string name="error_generic">Došlo je do greške</string>
 	<string name="error_authentication_failed">Provjera autentičnosti nije uspjela</string>
+	<string name="error_hub_invalid_setup_code">Account Key je nevažeći.</string>
+	<string name="error_hub_invalid_version">Nepodržana Hub verzija.</string>
 	<!-- # clouds -->
 	<!-- ## cloud names -->
 	<!-- # permission -->
@@ -16,6 +18,7 @@
 	<string name="screen_vault_list_vault_action_delete">Ukloni</string>
 	<!-- # screen: file browser -->
 	<string name="screen_file_browser_default_title">Sef</string>
+	<string name="screen_file_browser_add_existing_vault_extra_text">Odaberite masterkey ili vault fajl</string>
 	<string name="screen_file_browser_share_button_text">Odaberi</string>
 	<string name="screen_file_browser_node_action_edit_text">Izmjeni</string>
 	<!-- ## screen: text editor -->
@@ -49,6 +52,12 @@
 	<string name="dialog_lock_vault">Zaključaj</string>
 	<string name="dialog_app_is_obscured_info_neutral_button">Zatvori</string>
 	<string name="dialog_sym_link_back_button">Nazad</string>
+	<string name="dialog_create_hub_device_name_empty">Ime ne može biti prazno.</string>
+	<string name="dialog_progress_creating_hub_device_setup">Kreiranje uređaja&#8230;</string>
+	<string name="dialog_hub_vault_access_forbidden_title">Pristup zabranjen</string>
+	<string name="dialog_hub_vault_archived_title">Vault je arhiviran</string>
+	<string name="dialog_hub_user_setup_required_title">Potrebno je korisničko podešavanje</string>
+	<string name="dialog_hub_user_setup_required_neutral_button">Idite na Profil</string>
 	<!-- # error reports -->
 	<!-- # misc -->
 	<!-- ## file size helper -->

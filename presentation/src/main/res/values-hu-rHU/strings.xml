@@ -35,6 +35,11 @@
 	<string name="error_no_such_bucket">Nem található ilyen adat</string>
 	<string name="error_masterkey_location_not_supported">Az egyéni Masterkey hely választása még nem támogatott</string>
 	<string name="error_interact_with_fdroid_but_fdroid_missing">Nem sikerült kommunikálni az F-Droid alkalmazással. Nincs telepítve?</string>
+	<string name="error_hub_vault_operation_not_supported">A széf művelet nem támogatott a Hub számára</string>
+	<string name="error_hub_authentication_failed">A Hub felé történő hitelesítés sikertelen</string>
+	<string name="error_hub_device_already_register_for_other_user">Ez az eszköz már egy másik felhasználóhoz van regisztrálva. Próbáljon meg felhasználói fiókot váltani, vagy használjon egy másik eszközt.</string>
+	<string name="error_hub_invalid_setup_code">Az Account Key érvénytelen.</string>
+	<string name="error_hub_invalid_version">Nem támogatott Hub verzió.</string>
 	<!-- # clouds -->
 	<!-- ## cloud names -->
 	<string name="cloud_names_local_storage">Helyi tároló</string>
@@ -67,7 +72,7 @@
 	<string name="screen_vault_list_change_password_successful">Jelszó sikeresen megváltoztatva</string>
 	<!-- # screen: file browser -->
 	<string name="screen_file_browser_default_title">Széf</string>
-	<string name="screen_file_browser_add_existing_vault_extra_text">Válassza ki a Masterkey fájlt</string>
+	<string name="screen_file_browser_add_existing_vault_extra_text">Válassza ki a mesterkulcs vagy széf fájlt</string>
 	<string name="screen_file_browser_create_new_vault_button_text">Helyezze ide</string>
 	<string name="screen_file_browser_create_new_vault_extra_text">Trezor neve: %1$s</string>
 	<plurals name="screen_file_browser_subtitle_move">
@@ -307,14 +312,25 @@
 	<string name="dialog_debug_mode_disclaimer_title">Figyelem</string>
 	<string name="dialog_debug_mode_positive_button">Engedélyezés</string>
 	<string name="dialog_microsoft_workaround_disclaimer_hint">A Microsoft-alkalmazások egy hibája miatt a szerkesztendő fájlt meg kell osztani ezekkel az alkalmazásokkal az eszközön lévő nyilvános médiamappában. Miután a Cryptomator végzett, a nyilvánosan elérhető fájl ismét törlődik, de a Cryptomatornak nincs befolyása arra, hogy mi történik időközben ezzel a fájlal. Győződj meg róla, hogy tisztában vagy ezzel a viselkedéssel, amikor bekapcsolod ezt az opciót. Ez csak a Microsoft fájltípusokra vonatkozik.\n\nAz bekapcsolás után a Cryptomator újraindul.</string>
+	<string name="dialog_disable_app_obscured_disclaimer_hint">Ez a beállítás egy biztonsági funkció, amely megakadályozza, hogy más alkalmazások megtévesszék a felhasználókat, és olyan dolgokat tegyenek, amelyeket nem akarnak.\n\nA letiltással megerősíti, hogy <a href="https://docs.cryptomator.org/en/latest/android/settings/#block-app-when-obscured">tisztában van a kockázatokkal</a>.</string>
 	<string name="dialog_disable_app_obscured_disclaimer_title">Figyelem</string>
 	<string name="dialog_disable_app_obscured_positive_button">Letiltás</string>
 	<string name="dialog_app_is_obscured_info_title">Az app el van takarva</string>
+	<string name="dialog_app_is_obscured_info_hint">Egy másik alkalmazás jelenít meg valamit a Cryptomator fölött (pl. egy kékfényszűrő vagy éjszakai mód alkalmazás). Biztonsági okokból a Cryptomator le van tiltva.\n\n<a href="https://docs.cryptomator.org/en/latest/android/settings/#block-app-when-obscured">Hogyan engedélyezze a Cryptomator-t</a></string>
 	<string name="dialog_app_is_obscured_info_neutral_button">Bezár</string>
+	<string name="dialog_vaults_removed_during_migration_title">Kérem, adja hozzá újra a széfeket a(z) %1s felhőhöz</string>
+	<string name="dialog_vaults_removed_during_migration_hint">Az alkalmazás ezen verziójára történő frissítés során el kell távolítanunk a következő széfeket az alkalmazásból:\n%2s \n\nEzek a széfek nem kerülnek eltávolításra a felhőből, csak az alkalmazásból. Elnézést a kellemetlenségért, és kérem, adja hozzá újra ezeket a széfeket, hogy folytathassa a munkát velük.</string>
+	<string name="dialog_vault_is_root_folder_of_cloud_title">A széf a felhőkapcsolat gyökérmappája</string>
+	<string name="dialog_vault_is_root_folder_of_cloud_hint">Hozzon létre egy új felhőkapcsolatot, ahol legalább a széf mappájának szülőmappáját választja gyökérkönyvtárként a széf hozzáadásához.</string>
+	<string name="dialog_disable_secure_screen_disclaimer_hint">Ez a beállítás egy biztonsági funkció, amely megakadályozza, hogy más alkalmazások megtévesszék a felhasználókat, és olyan dolgokat tegyenek, amelyeket nem akarnak.\n\nA letiltással megerősíti, hogy <a href="https://docs.cryptomator.org/en/latest/android/settings/#screen-security">tisztában van a kockázatokkal</a>.</string>
+	<string name="dialog_delete_cloud_connection_with_vaults_message">Biztosan törli ezt a felhőkapcsolatot?</string>
+	<string name="dialog_delete_cloud_connection_with_vaults_hint">Ez a művelet eltávolítja a felhőkapcsolatot és az összes széfet ebből a felhőből.</string>
 	<string name="dialog_confirm_delete_multiple_title">Töröl %1$d elemet?</string>
 	<string name="dialog_confirm_delete_multiple_message">Biztosan törölni akarja ezeket az elemeket?</string>
 	<string name="dialog_confirm_delete_file_message">Biztosan törli ezt a fájlt?</string>
 	<string name="dialog_confirm_delete_folder_message">Ezzel a mappa teljes tartalma törlődik. Biztos, hogy törölni szeretné ezt a mappát?</string>
+	<string name="dialog_biometric_auth_key_invalidated_title">A biometrikus hitelesítési funkció inaktiválva</string>
+	<string name="dialog_biometric_auth_key_invalidated_message">Mivel a kulcs érvénytelenítve lett, a biometrikus hitelesítési funkció inaktiválva lett. Az újbóli engedélyezéshez nyissa meg a Cryptomator beállításait.</string>
 	<string name="dialog_enter_license_title">Adjon meg egy érvényes licencet</string>
 	<string name="dialog_enter_license_content">Úgy érzékeltük, hogy a Cryptomatort a Google Play áruházon kívül telepítette. Adjon meg egy érvényes licencet, amit meg tud vásárolni itt: <a href="https://cryptomator.org/android/">https://cryptomator.org/android/</a></string>
 	<string name="dialog_enter_license_not_valid_content">A megadott licenc nem érvényes. Győződjön meg arról, hogy jól írta be.</string>
@@ -324,16 +340,32 @@
 	<string name="dialog_license_confirmation_title">Licenc megerősítése</string>
 	<string name="dialog_license_confirmation_message">Köszönöm %1$s, hogy megadta érvényes licencét.</string>
 	<string name="dialog_update_available_title">Frissítés elérhető</string>
+	<string name="dialog_update_available_message">Frissítse a Cryptomator-t a legújabb verzióra. Az OK gomb megnyomásával a háttérben letöltjük az alkalmazást, és kérni fogjuk, hogy telepítse.</string>
 	<string name="dialog_update_available_update">Frissítés most</string>
 	<string name="dialog_update_available_download_site">Ugrás a Letöltési oldalra</string>
 	<string name="dialog_update_available_cancel">Később</string>
 	<string name="dialog_download_update_title">Letöltés folyamatban</string>
+	<string name="dialog_download_update_message">A Cryptomator legújabb verziójának letöltése folyamatban</string>
 	<string name="dialog_sym_link_title">A mappa egy szimbolikus link</string>
+	<string name="dialog_sym_link_message">Nem tud navigálni erre a szimbolikus linkre</string>
 	<string name="dialog_sym_link_back_button">Vissza</string>
 	<string name="dialog_no_dir_file_title">Nem lehet betölteni a könyvtár tartalmát</string>
+	<string name="dialog_no_dir_file_message">A(z) \'%1$s\' felhőmappának nincs érvényes könyvtárfájlja. Lehetséges, hogy a mappát egy másik eszközön hozták létre, és még nem szinkronizálódott teljesen a felhőbe. Kérem, ellenőrizze a felhőben, hogy a következő fájl létezik-e, és nem üres-e:\n%2$s</string>
+	<string name="dialog_no_more_images_to_display">Nincs több megjeleníthető kép&#8230;</string>
+	<string name="dialog_pcloud_credentials_updated_title">A(z) „%1$s” hitelesítő adatai frissítve</string>
 	<string name="dialog_pcloud_credentials_updated">Ha új pCloud fiókot szeretne hozzáadni, koppintson erre az url-re: <a href="https://www.pcloud.com">www.pcloud.com</a>, jelentkezzen ki a jelenlegi fiókból és koppintson újra a \'+\' gombra az appban, hogy új felhő kapcsolatot létesítsen.</string>
+	<string name="dialog_cbc_password_vaults_migration_title">Széf jelszó migráció szükséges</string>
+	<string name="dialog_cbc_password_vaults_migration_hint">A biztonsági fejlesztések miatt minden széf esetében kétszer kérjük a biometrikus hitelesítést a széf jelszavainak újratitkosításához. Ez szükséges ahhoz, hogy a széf jelszavait a legújabb technológiával védjük továbbra is. Ha nem kívánja ezt végrehajtani, a tárolt jelszavak eltávolításra kerülnek.</string>
+	<string name="dialog_cbc_password_vaults_migration_action">Migráció</string>
+	<string name="dialog_create_hub_device_title">Hub eszköz regisztrálása</string>
+	<string name="dialog_create_hub_device_name_label">Név</string>
+	<string name="dialog_create_hub_device_name_hint">Úgy tűnik, ez az első Hub-hozzáférés erről az eszközről. A hozzáférési jogosultság azonosításához el kell neveznie ezt az eszközt.</string>
+	<string name="dialog_create_hub_device_name_empty">A név nem lehet üres.</string>
+	<string name="dialog_create_hub_device_setup_code_label">Account Key</string>
+	<string name="dialog_hub_vault_access_forbidden_title">Hozzáférés megtagadva</string>
 	<string name="permission_snackbar_auth_local_vault">A Cryptomatornak tárhely-hozzáférésre van szüksége a trezorok használatához</string>
 	<string name="permission_snackbar_auth_auto_upload">A Cryptomatornak tárhely-hozzáférésre van szüksége az automatikus fotófeltöltés használatához</string>
+	<string name="permission_snackbar_notifications">A Cryptomatornak értesítési engedélyekre van szüksége például a széf állapotának megjelenítéséhez</string>
 	<!-- # error reports -->
 	<!-- # misc -->
 	<!-- ## file size helper -->
