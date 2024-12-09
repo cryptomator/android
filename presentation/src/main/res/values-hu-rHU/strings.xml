@@ -359,6 +359,9 @@
 	<string name="dialog_cbc_password_vaults_migration_action">Migráció</string>
 	<string name="dialog_create_hub_device_title">Hub eszköz regisztrálása</string>
 	<string name="dialog_create_hub_device_name_label">Név</string>
+	<string name="dialog_create_hub_device_name_hint">Úgy tűnik, ez az első Hub-hozzáférés erről az eszközről. A hozzáférési jogosultság azonosításához el kell neveznie ezt az eszközt.</string>
+	<string name="dialog_create_hub_device_name_empty">A név nem lehet üres.</string>
+	<string name="dialog_create_hub_device_setup_code_label">Account Key</string>
 	<string name="dialog_hub_vault_access_forbidden_title">Hozzáférés megtagadva</string>
 	<string name="permission_snackbar_auth_local_vault">A Cryptomatornak tárhely-hozzáférésre van szüksége a trezorok használatához</string>
 	<string name="permission_snackbar_auth_auto_upload">A Cryptomatornak tárhely-hozzáférésre van szüksége az automatikus fotófeltöltés használatához</string>
