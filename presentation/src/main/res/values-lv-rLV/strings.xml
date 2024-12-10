@@ -1,14 +1,39 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 	<!-- # app -->
+	<string name="share_with_label">Šifrēt</string>
 	<!-- # error messages -->
+	<string name="error_generic">Radās kļūda</string>
+	<string name="error_authentication_failed">Autentifikācija neizdevās</string>
+	<string name="error_authentication_failed_re_authenticate">Autentifikācija neizdevās, lūdzu autentificējies izmantojot %1$s</string>
+	<string name="error_no_network_connection">Nav tīkla savienojuma</string>
+	<string name="error_invalid_passphrase">Nepareiza parole</string>
+	<string name="error_file_or_folder_exists">Fails vai mape jau pastāv.</string>
+	<string name="error_no_such_file">Fails neeksistē.</string>
+	<string name="error_activity_not_found">Lūdzu, lejupielādē aplikāciju, kas var atvērt šo failu.</string>
+	<string name="error_server_not_found">Serveris nav atrasts.</string>
+	<string name="error_play_services_not_available">Google Play Pakalpojumi nav instalēti</string>
+	<string name="error_biometric_auth_aborted">Biometriskā autentifikācija pārtraukta</string>
 	<!-- # clouds -->
 	<!-- ## cloud names -->
+	<string name="cloud_names_local_storage">Lokālā krātuve</string>
 	<!-- # permission -->
 	<!-- ## permission messages -->
+	<string name="snack_bar_action_title_settings">Iestatījumi</string>
+	<string name="snack_bar_action_title_search">Meklēt</string>
+	<string name="snack_bar_action_title_search_previous">Atpakaļ</string>
 	<string name="snack_bar_action_title_search_next">Tālāk</string>
+	<string name="snack_bar_action_title_sort">Kārtot</string>
+	<string name="snack_bar_action_title_sort_az">A - Z</string>
+	<string name="snack_bar_action_title_sort_za">Z - A</string>
+	<string name="snack_bar_action_title_sort_newest">Jaunākie vispirms</string>
+	<string name="snack_bar_action_title_sort_oldest">Vecākie vispirms</string>
+	<string name="snack_bar_action_title_sort_biggest">Lielākie vispirms</string>
+	<string name="snack_bar_action_title_sort_smallest">Mazākie vispirms</string>
+	<string name="snack_bar_cryptomator_variants_title">Rādīt vairāk</string>
 	<!-- # screens -->
 	<!-- # screen: vault list -->
+	<string name="screen_vault_list_actions_title">Pievienot Cryptomator</string>
 	<!-- # screen: file browser -->
 	<string name="screen_file_browser_default_title">Glabātava</string>
 	<!-- ## screen: text editor -->
@@ -26,6 +51,7 @@
 	<string name="screen_set_password_strength_indicator_3">Stipra</string>
 	<!-- ## screen: settings -->
 	<string name="screen_settings_section_general">Vispārēji</string>
+	<string name="screen_settings_section_search">Meklēt</string>
 	<!-- ## screen: cloud settings -->
 	<!-- ## screen: licenses -->
 	<!-- ## screen: authenticate cloud -->
