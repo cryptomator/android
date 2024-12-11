@@ -352,9 +352,14 @@
 	<string name="dialog_pcloud_credentials_updated">Ak zamýšľate pridať nový pCloud účet, kliknite na tento link <a href="https://www.pcloud.com">www.pcloud.com</a>, odhláste sa zo súčasného účtu a opätovne kliknite na \'+\' v tejto aplikácii pre vytvorenie nového cloudového pripojenia.</string>
 	<string name="dialog_cbc_password_vaults_migration_title">Pre migráciu peňaženky je požadované heslo</string>
 	<string name="dialog_cbc_password_vaults_migration_action">Migrovať</string>
+	<string name="dialog_create_hub_device_name_label">Meno</string>
 	<string name="dialog_create_hub_device_name_hint">Zdá sa, že ide o prvý prístup k Hub-u z tohto zariadenia. Z dôvodu identifikácie prístupovej autorizácie, je potrebné pomenovať toto zariadenie.</string>
+	<string name="dialog_create_hub_device_name_empty">Názov nemôže byť prázdny.</string>
+	<string name="dialog_create_hub_device_setup_code_label">Kľúč účtu</string>
 	<string name="dialog_create_hub_device_setup_code_hint">Váš kľúč účtu je vyžadovaný pre prihlásenie z nových aplikácii alebo prehliadačov. Môžete ho nájsť vo vašom profile.</string>
 	<string name="dialog_hub_vault_access_forbidden_title">Prístup zamietnutý</string>
+	<string name="dialog_hub_vault_archived_title">Trezor archivovaný</string>
+	<string name="dialog_hub_user_setup_required_title">Vyžaduje sa nastavenie užívateľom</string>
 	<string name="dialog_hub_user_setup_required_hint">Pre pokračovanie, prosím splňte kroky požadované vo Vašom užívateľskom Hub profile.</string>
 	<string name="dialog_hub_user_setup_required_neutral_button">Prejsť na profil</string>
 	<string name="permission_snackbar_auth_local_vault">Cryptomator potrebuje prístup k úložisku pre prácu s lokálnymi trezormy</string>
