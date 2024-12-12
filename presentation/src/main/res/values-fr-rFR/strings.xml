@@ -35,7 +35,7 @@
 	<string name="error_no_such_bucket">Aucun bucket correspondant</string>
 	<string name="error_masterkey_location_not_supported">Localisation personnalisée de la Masterkey n\'est pas encore prise en charge</string>
 	<string name="error_interact_with_fdroid_but_fdroid_missing">Impossible de communiquer avec l\'application F-Droid. Est-elle installée ?</string>
-	<string name="error_hub_vault_operation_not_supported">Opération du coffre non prise en charge pour Hub</string>
+	<string name="error_hub_vault_operation_not_supported">Opération du coffre non prise en charge pour le Hub</string>
 	<string name="error_hub_authentication_failed">L’authentification sur Hub a échoué</string>
 	<string name="error_hub_device_already_register_for_other_user">Cet appareil est déjà enregistré pour un autre utilisateur. Essayez de changer de compte ou utilisez un autre appareil.</string>
 	<string name="error_hub_invalid_setup_code">La clé de compte est invalide.</string>
