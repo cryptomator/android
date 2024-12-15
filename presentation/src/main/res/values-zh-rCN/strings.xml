@@ -35,7 +35,11 @@
 	<string name="error_no_such_bucket">没有这样的 bucket</string>
 	<string name="error_masterkey_location_not_supported">尚不支持自定义 Masterkey 路径</string>
 	<string name="error_interact_with_fdroid_but_fdroid_missing">无法找到 F-Droid 应用程序。可能未安装？</string>
+	<string name="error_hub_vault_operation_not_supported">Hub 不支持保险库操作</string>
+	<string name="error_hub_authentication_failed">Hub 身份验证失败</string>
 	<string name="error_hub_device_already_register_for_other_user">此设备已被注册给另一位用户。请尝试更改用户帐户或使用别的设备。</string>
+	<string name="error_hub_invalid_setup_code">账户密钥无效</string>
+	<string name="error_hub_invalid_version">不支持的 Hub 版本</string>
 	<!-- # clouds -->
 	<!-- ## cloud names -->
 	<string name="cloud_names_local_storage">本地存储</string>
@@ -68,6 +72,7 @@
 	<string name="screen_vault_list_change_password_successful">密码修改成功</string>
 	<!-- # screen: file browser -->
 	<string name="screen_file_browser_default_title">保险库</string>
+	<string name="screen_file_browser_add_existing_vault_extra_text">选择 Masterkey 或保险库文件</string>
 	<string name="screen_file_browser_create_new_vault_button_text">在此添加</string>
 	<string name="screen_file_browser_create_new_vault_extra_text">保险库名称：%1$s</string>
 	<plurals name="screen_file_browser_subtitle_move">
@@ -351,9 +356,21 @@
 	<string name="dialog_cbc_password_vaults_migration_title">需要迁移保险库密码</string>
 	<string name="dialog_cbc_password_vaults_migration_hint">由于安全性能增强，每个保险库都会要求您进行两次生物识别验证，以重新加密您的保险库密码。这是继续使用最新技术保护您的保险库密码所必需的。如果您不希望这样做，存储的密码将被删除。</string>
 	<string name="dialog_cbc_password_vaults_migration_action">迁移</string>
+	<string name="dialog_create_hub_device_title">注册 Hub 设备</string>
+	<string name="dialog_create_hub_device_name_label">名称</string>
 	<string name="dialog_create_hub_device_name_hint">这似乎是设备的首次 Hub 访问。为了识别它以进行访问授权，您需要命名此设备</string>
+	<string name="dialog_create_hub_device_name_empty">名称不能为空</string>
+	<string name="dialog_create_hub_device_setup_code_label">账户密钥</string>
 	<string name="dialog_create_hub_device_setup_code_hint">从新应用或浏览器登录需要您的账户密钥，您可以在个人中心找到它</string>
+	<string name="dialog_create_hub_device_setup_code_empty">账户密钥不能为空</string>
+	<string name="dialog_progress_creating_hub_device_setup">正在创建设备&#8230;</string>
 	<string name="dialog_hub_vault_access_forbidden_title">拒绝访问</string>
+	<string name="dialog_hub_vault_access_forbidden_hint">您的用户尚未授权访问此保险库，请联系保险库所有者</string>
+	<string name="dialog_hub_license_upgrade_required_title">检查 Hub 许可证</string>
+	<string name="dialog_hub_license_upgrade_required_hint">此 Cryptomator Hub 实例许可证无效，请联系 Hub 管理员升级或者续订许可证</string>
+	<string name="dialog_hub_vault_archived_title">私密库已存档</string>
+	<string name="dialog_hub_vault_archived_hint">此保险库已存档且无法解锁。要想解锁，必须由其所有者取消存档</string>
+	<string name="dialog_hub_user_setup_required_title">需要用户设置</string>
 	<string name="dialog_hub_user_setup_required_hint">要继续，请完成 Hub 用户中心所需的步骤</string>
 	<string name="dialog_hub_user_setup_required_neutral_button">前往个人中心</string>
 	<string name="permission_snackbar_auth_local_vault">Cryptomator 需要存储权限以使用本地保险库</string>
