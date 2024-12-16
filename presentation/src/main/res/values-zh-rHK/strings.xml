@@ -35,6 +35,7 @@
 	<string name="error_no_such_bucket">沒有指定的儲存槽（bucket）</string>
 	<string name="error_masterkey_location_not_supported">尚未支援自訂主金鑰位置</string>
 	<string name="error_interact_with_fdroid_but_fdroid_missing">無法連結到 F-Droid，是否未安裝 F-Droid?</string>
+	<string name="error_hub_device_already_register_for_other_user">此裝置已註冊為其他使用者。請嘗試更改使用者帳戶或使用其他裝置。</string>
 	<!-- # clouds -->
 	<!-- ## cloud names -->
 	<string name="cloud_names_local_storage">本機儲存空間</string>
