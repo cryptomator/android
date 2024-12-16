@@ -35,7 +35,10 @@
 	<string name="error_no_such_bucket">Bucket tidak ada</string>
 	<string name="error_masterkey_location_not_supported">Lokasi Kunci utama belum didukung</string>
 	<string name="error_interact_with_fdroid_but_fdroid_missing">Gagal berkomunikasi dengan aplikasi F-Droid. Belum dipasang?</string>
+	<string name="error_hub_authentication_failed">Autentikasi ke Hub gagal</string>
 	<string name="error_hub_device_already_register_for_other_user">Perangkat ini sudah terdaftar untuk pengguna lain. Cobalah menggunakan akun pengguna atau perangkat yang berbeda.</string>
+	<string name="error_hub_invalid_setup_code">Kunci Akun tidak sah.</string>
+	<string name="error_hub_invalid_version">Versi Hub tidak didukung.</string>
 	<!-- # clouds -->
 	<!-- ## cloud names -->
 	<string name="cloud_names_local_storage">Penyimpanan lokal</string>
@@ -68,6 +71,7 @@
 	<string name="screen_vault_list_change_password_successful">Kasa Sandi berhasil diubah</string>
 	<!-- # screen: file browser -->
 	<string name="screen_file_browser_default_title">Vault</string>
+	<string name="screen_file_browser_add_existing_vault_extra_text">Pilih file Masterkey atau berkas brangkas</string>
 	<string name="screen_file_browser_create_new_vault_button_text">Tempatkan disini</string>
 	<string name="screen_file_browser_create_new_vault_extra_text">Nama vault: %1$s</string>
 	<plurals name="screen_file_browser_subtitle_move">
@@ -349,10 +353,23 @@
 	<string name="dialog_pcloud_credentials_updated_title">Kredensial \'%1$s\' diperbarui</string>
 	<string name="dialog_pcloud_credentials_updated">Jika Anda ingin menambahkan akun pCloud baru, ketuk url berikut <a href="https://www.pcloud.com">www.pcloud.com</a>, keluar dari akun saat ini kemudian ketuk tombol \'+\' lagi di aplikasi ini untuk membuat koneksi cloud baru.</string>
 	<string name="dialog_cbc_password_vaults_migration_title">Diperlukan migrasi kata sandi vault</string>
+	<string name="dialog_cbc_password_vaults_migration_hint">Untuk peningkatan keamanan, Anda akan diminta melakukan autentikasi biometrik dua kali untuk tiap brangkas guna mengenkripsi ulang kata sandi brangkas Anda. Hal ini diperlukan guna melindungi kata sandi brangkas Anda dengan teknologi terkini. Jika Anda tidak ingin hal ini terjadi, kata sandi yang tersimpan akan dihapus.</string>
 	<string name="dialog_cbc_password_vaults_migration_action">Migrasi</string>
+	<string name="dialog_create_hub_device_title">Mendaftarkan perangkat Hub</string>
+	<string name="dialog_create_hub_device_name_label">Nama</string>
 	<string name="dialog_create_hub_device_name_hint">Tampaknya ini adalah akses Hub pertama dari perangkat ini. Untuk mengidentifikasi otorisasi akses ini, Anda perlu memberi nama untuk perangkat ini.</string>
+	<string name="dialog_create_hub_device_name_empty">Nama harus diisi.</string>
+	<string name="dialog_create_hub_device_setup_code_label">Kunci Akun</string>
 	<string name="dialog_create_hub_device_setup_code_hint">Kunci Akun Anda diperlukan untuk masuk dari aplikasi atau browser baru. Kunci dapat ditemukan di profil Anda.</string>
+	<string name="dialog_create_hub_device_setup_code_empty">Kunci akun harus diisi.</string>
+	<string name="dialog_progress_creating_hub_device_setup">Membuat perangkat&#8230;</string>
 	<string name="dialog_hub_vault_access_forbidden_title">Akses ditolak</string>
+	<string name="dialog_hub_vault_access_forbidden_hint">Perangkat Anda belum diizinkan mengakses brangkas ini. Minta pemilik brangkas untuk mengizinkannya.\"</string>
+	<string name="dialog_hub_license_upgrade_required_title">Periksa lisensi Hub</string>
+	<string name="dialog_hub_license_upgrade_required_hint">Instans Cryptomator Hub Anda memiliki lisensi yang tidak sah. Mintalah kepada administrator Hub untuk meningkatkan atau memperbarui lisensi.\"</string>
+	<string name="dialog_hub_vault_archived_title">Brangkas diarsipkan</string>
+	<string name="dialog_hub_vault_archived_hint">Brangkas ini telah diarsipkan dan tidak bisa dibuka. Untuk membukanya, pemilik brangkas harus mengeluarkannya dari arsip.</string>
+	<string name="dialog_hub_user_setup_required_title">Diperlukan pengaturan dari pengguna</string>
 	<string name="dialog_hub_user_setup_required_hint">Untuk melanjutkan, silakan lengkapi langkah-langkah yang diperlukan di profil pengguna Hub Anda.</string>
 	<string name="dialog_hub_user_setup_required_neutral_button">Buka Profil</string>
 	<string name="permission_snackbar_auth_local_vault">Cryptomator membutuhkan akses penyimpanan untuk menggunakan vault lokal</string>
