@@ -35,7 +35,8 @@
 	<string name="error_no_such_bucket">Bucket tidak ada</string>
 	<string name="error_masterkey_location_not_supported">Lokasi Kunci utama belum didukung</string>
 	<string name="error_interact_with_fdroid_but_fdroid_missing">Gagal berkomunikasi dengan aplikasi F-Droid. Belum dipasang?</string>
-	<string name="error_hub_authentication_failed">Autentikasi ke Hub gagal</string>
+	<string name="error_hub_vault_operation_not_supported">Operasi berkas tidak didukung Hub</string>
+	<string name="error_hub_authentication_failed">Otentikasi ke Hub gagal</string>
 	<string name="error_hub_device_already_register_for_other_user">Perangkat ini sudah terdaftar untuk pengguna lain. Cobalah menggunakan akun pengguna atau perangkat yang berbeda.</string>
 	<string name="error_hub_invalid_setup_code">Kunci Akun tidak sah.</string>
 	<string name="error_hub_invalid_version">Versi Hub tidak didukung.</string>
