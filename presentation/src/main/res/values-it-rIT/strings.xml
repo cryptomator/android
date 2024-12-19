@@ -72,6 +72,7 @@
 	<string name="screen_vault_list_change_password_successful">Password modificata con successo</string>
 	<!-- # screen: file browser -->
 	<string name="screen_file_browser_default_title">Cassaforte</string>
+	<string name="screen_file_browser_add_existing_vault_extra_text">Seleziona la chiave principale o il file della cassaforte</string>
 	<string name="screen_file_browser_create_new_vault_button_text">Posiziona qui</string>
 	<string name="screen_file_browser_create_new_vault_extra_text">Nome cassaforte: %1$s</string>
 	<plurals name="screen_file_browser_subtitle_move">
