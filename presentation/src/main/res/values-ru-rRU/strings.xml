@@ -367,7 +367,7 @@
 	<string name="dialog_create_hub_device_setup_code_hint">Для входа в систему из новых приложений или браузеров требуется ключ вашего аккаунта. Он находится в вашем профиле.</string>
 	<string name="dialog_create_hub_device_setup_code_empty">Ключ учётной записи не может быть пустым.</string>
 	<string name="dialog_progress_creating_hub_device_setup">Создание устройства&#8230;</string>
-	<string name="dialog_hub_vault_access_forbidden_title">Доступ запрещен</string>
+	<string name="dialog_hub_vault_access_forbidden_title">Нет доступа</string>
 	<string name="dialog_hub_vault_access_forbidden_hint">Ваш пользователь еще не авторизован для доступа к этому хранилищу. Попросите владельца хранилища об авторизации.</string>
 	<string name="dialog_hub_license_upgrade_required_title">Проверить лицензию на хаб</string>
 	<string name="dialog_hub_license_upgrade_required_hint">У хаба Cryptomator неверная лицензия. Попросите администратора хаба обновить или продлить лицензию.</string>
