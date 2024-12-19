@@ -1,26 +1,97 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 	<!-- # app -->
+	<string name="share_with_label">Salaa</string>
 	<!-- # error messages -->
+	<string name="error_generic">Tapahtui virhe</string>
+	<string name="error_authentication_failed">Tunnistautuminen epäonnistui</string>
+	<string name="error_authentication_failed_re_authenticate">Tunnistautuminen epäonnistui, kirjaudu sisään käyttäen %1$s</string>
+	<string name="error_no_network_connection">Ei internet-yhteyttä</string>
+	<string name="error_invalid_passphrase">Väärä salasana</string>
+	<string name="error_file_or_folder_exists">Tiedosto tai kansio on jo olemassa.</string>
+	<string name="error_vault_version_not_supported">Holvin versiota %1$s ei tueta. Tämä holvi on luotu Cryptomatorin vanhemmalla tai uudemmalla versiolla.</string>
+	<string name="error_vault_config_file_missing_due_to_format_999">%1$s tiedosto puuttuu holvikansiostasi. Varmista, että tämä tiedosto on olemassa holvikansiossa pilvessä.</string>
+	<string name="error_vault_already_exists">Holvi on jo olemassa.</string>
+	<string name="error_no_such_file">Tiedostoa ei ole olemassa.</string>
+	<string name="error_vault_has_been_locked">Holvi on lukittu.</string>
+	<string name="error_cloud_already_exists">Pilvi on jo olemassa.</string>
+	<string name="error_activity_not_found">Lataa sovellus, joka voi avata tämän tiedoston.</string>
+	<string name="error_server_not_found">Palvelinta ei löytynyt.</string>
+	<string name="error_device_policy_manager_not_found">Avaa laitteesi asetukset ja aseta näytön lukitus manuaalisesti</string>
+	<string name="error_export_illegal_file_name">Vienti epäonnistui. Yritä poistaa erikoismerkit tiedostojen nimistä ja yritä vientiä uudelleen.</string>
+	<string name="error_name_contains_invalid_characters">Ei saa sisältää erikoismerkkejä.</string>
+	<string name="error_names_contains_invalid_characters">Tiedostonimet eivät saa sisältää erikoismerkkejä.</string>
+	<string name="error_vault_name_contains_invalid_characters">Holvin nimi ei saa sisältää erikoismerkkejä.</string>
+	<string name="error_general_update">Päivityksen tarkistus epäonnistui. Tapahtui virhe.</string>
+	<string name="error_hash_mismatch_update">Päivityksen tarkistus epäonnistui. Laskettu tiiviste ei täsmää ladattuun tiedostoon</string>
+	<string name="error_update_no_internet">Päivityksen tarkistus epäonnistui. Ei internet-yhteyttä.</string>
+	<string name="error_play_services_not_available">Google Play -palveluita ei ole asennettu</string>
+	<string name="error_biometric_auth_aborted">Biometrinen tunnistautuminen keskeytetty</string>
+	<string name="error_vault_version_mismatch">%1$s versio poikkeaa %2$s versiosta</string>
+	<string name="error_vault_key_invalid">%1$s ei täsmää %2$s kanssa</string>
+	<string name="error_vault_config_loading">Holvin asetuksia ladatessa tapahtui virhe</string>
+	<string name="error_file_not_found_after_opening_using_3party">Tiedosto ei ole enää saatavilla Cryptomatoriin palaamisen jälkeen. Mahdollisia muutoksia ei voida siirtää pilveen.</string>
+	<string name="error_hub_device_already_register_for_other_user">Tämä laite on jo rekisteröity toiselle käyttäjälle. Yritä vaihtaa käyttäjätiliä tai käytää toista laitetta.</string>
 	<!-- # clouds -->
 	<!-- ## cloud names -->
 	<!-- # permission -->
 	<!-- ## permission messages -->
 	<string name="snack_bar_action_title_search_next">Seuraava</string>
+	<string name="snack_bar_action_title_sort">Järjestä</string>
+	<string name="snack_bar_action_title_sort_az">A - Ö</string>
+	<string name="snack_bar_action_title_sort_za">Ö - A</string>
+	<string name="snack_bar_action_title_sort_newest">Uusin ensin</string>
+	<string name="snack_bar_action_title_sort_oldest">Vanhin ensin</string>
+	<string name="snack_bar_action_title_sort_biggest">Suurin ensin</string>
+	<string name="snack_bar_action_title_sort_smallest">Pienin ensin</string>
+	<string name="snack_bar_cryptomator_variants_title">Lue lisää</string>
+	<string name="snack_bar_cryptomator_variants_hint">Pilvi ei ole luettelossa?</string>
 	<!-- # screens -->
 	<!-- # screen: vault list -->
+	<string name="screen_vault_list_actions_title">Lisää Cryptomatoriin</string>
+	<string name="screen_vault_list_action_create_new_vault">Luo uusi holvi</string>
+	<string name="screen_vault_list_action_add_existing_vault">Lisää olemassa oleva holvi</string>
+	<string name="screen_vault_list_vault_action_delete">Poista</string>
+	<string name="screen_vault_list_vault_creation_hint">Napauta tätä luodaksesi uuden holvin</string>
+	<string name="screen_vault_list_change_password_successful">Salasanan vaihto onnistui</string>
 	<!-- # screen: file browser -->
-	<string name="screen_file_browser_default_title">Vault</string>
+	<string name="screen_file_browser_default_title">Holvi</string>
+	<string name="screen_file_browser_create_new_vault_extra_text">Holvin nimi: %1$s</string>
+	<plurals name="screen_file_browser_subtitle_move">
+		<item quantity="one">Siirrä %1$s</item>
+		<item quantity="other">Siirrä %2$d tiedostoa</item>
+	</plurals>
+	<string name="screen_file_browser_move_button_text">Siirrä</string>
+	<string name="screen_file_browser_msg_empty_folder">Tyhjää kansio</string>
+	<string name="screen_file_browser_file_info_label_date">muokattu %1$s sitten</string>
+	<string name="screen_file_browser_share_button_text">Valitse</string>
+	<string name="screen_file_browser_nothing_to_share">Ei jaettavaa</string>
+	<string name="screen_file_browser_actions_title">Lisää kansioon %1$s</string>
+	<string name="screen_file_browser_action_create_folder">Luo kansio</string>
+	<string name="screen_file_browser_action_create_new_text_file">Luo tekstitiedosto</string>
+	<string name="screen_file_browser_action_upload_files">Lataa tiedostoja</string>
+	<string name="screen_file_browser_upload_files_chooser_title">Tiedostot</string>
+	<string name="screen_file_browser_msg_file_exported">Tiedosto viety</string>
+	<string name="screen_file_browser_msg_files_exported">Tiedostot viety</string>
+	<string name="screen_file_browser_nothing_to_export">Ei mitään vietävää</string>
+	<string name="screen_file_browser_msg_creating_download_dir_failed">Latauskansion luonti epäonnistui</string>
+	<string name="screen_file_browser_node_action_share">Jaa</string>
+	<string name="screen_file_browser_node_action_rename">Nimeä uudelleen</string>
 	<!-- ## screen: text editor -->
 	<!-- ## screen: share files -->
 	<!-- ## screen: choose cloud service -->
 	<!-- ## screen: cloud connections -->
 	<!-- ## screen: webdav settings -->
+	<string name="screen_webdav_settings_password_label">Salasana</string>
 	<!-- ## screen: s3 settings -->
 	<!-- ## screen: enter vault name -->
 	<!-- ## screen: set password -->
 	<string name="screen_set_password_button_text">Valmis</string>
+	<string name="screen_set_password_strength_indicator_1">Heikko</string>
+	<string name="screen_set_password_strength_indicator_2">Kohtalainen</string>
+	<string name="screen_set_password_strength_indicator_3">Vahva</string>
 	<!-- ## screen: settings -->
+	<string name="screen_settings_section_general">Yleiset</string>
 	<!-- ## screen: cloud settings -->
 	<!-- ## screen: licenses -->
 	<!-- ## screen: authenticate cloud -->
@@ -29,13 +100,16 @@
 	<string name="dialog_button_cancel">Peruuta</string>
 	<string name="dialog_enter_password_positive_button">Avaa</string>
 	<!-- Vault not found -->
+	<string name="dialog_vault_not_found_positive_button_text">Poista</string>
 	<string name="dialog_lock_vault">Lukitse</string>
 	<string name="dialog_app_is_obscured_info_neutral_button">Sulje</string>
 	<string name="dialog_sym_link_back_button">Takaisin</string>
+	<string name="dialog_hub_vault_access_forbidden_title">Pääsy estetty</string>
 	<!-- # error reports -->
 	<!-- # misc -->
 	<!-- ## file size helper -->
 	<!-- ## date helper -->
+	<string name="time_unit_minutes_pl">minuuttia</string>
 	<!-- ## biometric authentication -->
 	<!-- notification -->
 	<!-- lock timeout names -->

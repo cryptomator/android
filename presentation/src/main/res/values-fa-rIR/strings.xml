@@ -67,7 +67,6 @@
 	<string name="screen_vault_list_change_password_successful">رمز عبور با موفقیت تغییر یافت</string>
 	<!-- # screen: file browser -->
 	<string name="screen_file_browser_default_title">مخزن</string>
-	<string name="screen_file_browser_add_existing_vault_extra_text">فایل کلید اصلی را انتخاب کنید</string>
 	<string name="screen_file_browser_create_new_vault_button_text">اینجا قرار دهید</string>
 	<string name="screen_file_browser_create_new_vault_extra_text">نام مخزن: %1$s</string>
 	<plurals name="screen_file_browser_subtitle_move">

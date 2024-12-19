@@ -67,7 +67,6 @@
 	<string name="screen_vault_list_change_password_successful">비밀번호 변경 성공</string>
 	<!-- # screen: file browser -->
 	<string name="screen_file_browser_default_title">Vault</string>
-	<string name="screen_file_browser_add_existing_vault_extra_text">마스터키 파일 선택</string>
 	<string name="screen_file_browser_create_new_vault_button_text">여기에 만들기</string>
 	<string name="screen_file_browser_create_new_vault_extra_text">Vault 이름: %1$s</string>
 	<plurals name="screen_file_browser_subtitle_move">
@@ -345,6 +344,7 @@
 	<string name="dialog_no_more_images_to_display">더 띄울 사진들이 없습니다.</string>
 	<string name="dialog_pcloud_credentials_updated_title">\'%1$s\' 자격증명 업데이트됨</string>
 	<string name="dialog_pcloud_credentials_updated">새 pCloud 계정을 추가하려면 이 링크 <a href="https://www.pcloud.com">www.pcloud.com</a>를 누르고, 현재 계정에서 로그아웃한 뒤 여기에서 \'+\'를 다시 눌러서 추가해주세요.</string>
+	<string name="dialog_hub_vault_access_forbidden_title">액세스 거부</string>
 	<string name="permission_snackbar_auth_local_vault">Cryptomator에서 로컬 Vault에 접근하기 위해 저장소 접근 권한이 필요합니다.</string>
 	<string name="permission_snackbar_auth_auto_upload">Cryptomator에서 자동으로 사진을 업로드하기 위해 저장소 접근 권한이 필요합니다.</string>
 	<string name="permission_snackbar_notifications">Cryptomator는 vault 상태 표시등의 이유로 알림 귄한이 필요합니다</string>
