@@ -32,8 +32,9 @@ public class LocalStorageCloud implements Cloud {
 		return rootUri;
 	}
 
+	@NotNull
 	@Override
-	public CloudType type() {
+	public CloudType getType() {
 		return CloudType.LOCAL;
 	}
 

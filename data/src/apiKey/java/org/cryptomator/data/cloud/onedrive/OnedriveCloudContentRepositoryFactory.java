@@ -24,7 +24,7 @@ public class OnedriveCloudContentRepositoryFactory implements CloudContentReposi
 
 	@Override
 	public boolean supports(Cloud cloud) {
-		return cloud.type() == ONEDRIVE;
+		return cloud.getType() == ONEDRIVE;
 	}
 
 	@Override
