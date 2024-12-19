@@ -67,9 +67,12 @@
 	<string name="screen_vault_list_change_password_successful">पासवर्ड सफलतापूर्वक बदला गया।</string>
 	<!-- # screen: file browser -->
 	<string name="screen_file_browser_default_title">गुप्त तिजोरी</string>
-	<string name="screen_file_browser_add_existing_vault_extra_text">मास्टरकी फ़ाइल का चयन करें |</string>
 	<string name="screen_file_browser_create_new_vault_button_text">यहाँ रखें</string>
 	<string name="screen_file_browser_create_new_vault_extra_text">वॉल्ट का नाम: %1$s</string>
+	<plurals name="screen_file_browser_subtitle_move">
+		<item quantity="one">फ़ाइल को %1$s यहां ले जाएं</item>
+		<item quantity="other">%2$d दस्तावेज को यहां ले जाएं |</item>
+	</plurals>
 	<string name="screen_file_browser_move_button_text">मूव करें</string>
 	<string name="screen_file_browser_msg_empty_folder">खाली फ़ोल्डर</string>
 	<string name="screen_file_browser_file_info_label_date">%1$s पहले बदला गया</string>
@@ -285,6 +288,7 @@
 	<string name="dialog_download_update_title">डाउनलोड चल रहा है।</string>
 	<string name="dialog_download_update_message">क्रिप्टोमेटर का नवीनतम संस्करण डाउनलोड हो रहा है।</string>
 	<string name="dialog_sym_link_back_button">पीछे जाएं</string>
+	<string name="dialog_hub_vault_access_forbidden_title">प्रवेश अस्वीकृत</string>
 	<!-- # error reports -->
 	<!-- # misc -->
 	<!-- ## file size helper -->
