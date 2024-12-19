@@ -35,6 +35,7 @@
 	<string name="error_no_such_bucket">Nu există așa găleată</string>
 	<string name="error_masterkey_location_not_supported">Nu este suportată încă utilizarea locației personalizate pentru cheia master</string>
 	<string name="error_interact_with_fdroid_but_fdroid_missing">Nu s-a putut comunicat cu aplicația F-Droid. Este posibil ca aplicația sa nu fie instalata?</string>
+	<string name="error_hub_device_already_register_for_other_user">Acest dispozitiv este deja înregistrat pentru un alt utilizator. Încercați să schimbați contul de utilizator sau folosiți un alt dispozitiv.</string>
 	<!-- # clouds -->
 	<!-- ## cloud names -->
 	<string name="cloud_names_local_storage">Stocare locală</string>
@@ -317,7 +318,7 @@
 	<string name="dialog_vaults_removed_during_migration_hint">În timp ce migrăm la această versiune de aplicație, trebuie să eliminăm următoarele seifuri din aplicație:\n%2s \n\nAceste seifuri nu sunt eliminate din cloud, ci doar din această aplicație. Ne cerem scuze pentru inconveniența creata şi vă rugăm să adăugați din nou aceste seifuri pentru a continua să le folosiți.</string>
 	<string name="dialog_vault_is_root_folder_of_cloud_title">Seiful este dosarul principal al conexiunii cloud</string>
 	<string name="dialog_vault_is_root_folder_of_cloud_hint">Creați o nouă conexiune cloud unde selectați dosarul părinte al acestui seif ca dosarul de baza pentru adăugarea acestui seif.</string>
-	<string name="dialog_disable_secure_screen_disclaimer_hint">Această setare este o caracteristică de securitate și previne alte aplicații să păcălească utilizatorii să facă lucruri pe care nu ar trebui să le facă.\n\nPrin dezactivare, confirmați că sunteți <a href="https://docs.cryptomator.org/en/latest/android/settings/#screen-security">conștient de riscurile mentionate</a>.</string>
+	<string name="dialog_disable_secure_screen_disclaimer_hint">setare</string>
 	<string name="dialog_delete_cloud_connection_with_vaults_message">Sunteţi sigur că doriţi să eliminaţi această conexiune cloud?</string>
 	<string name="dialog_delete_cloud_connection_with_vaults_hint">Această acțiune va elimina conexiunea în cloud și toate seifurile acestui cloud.</string>
 	<string name="dialog_confirm_delete_multiple_title">Ștergeți %1$d elemente?</string>
@@ -352,8 +353,13 @@
 	<string name="dialog_cbc_password_vaults_migration_title">Este necesară migrarea parolei seifului</string>
 	<string name="dialog_cbc_password_vaults_migration_hint">Din cauza actualizărilor de securitate, ți se va cere autentificarea biometrică de două ori pentru fiecare seif ca să re-criptați parolele seifului. Acest lucru este necesar pentru a continua să îți protejezi parolele seifului cu ajutorul tehnologiei de ultimă oră. Dacă nu doriţi să se întâmple acest lucru, parolele stocate vor fi eliminate.</string>
 	<string name="dialog_cbc_password_vaults_migration_action">Migrează</string>
+	<string name="dialog_create_hub_device_name_label">Nume</string>
 	<string name="dialog_create_hub_device_name_hint">Se pare că este prima data când accesați Hub-ul de pe acest dispozitiv. Trebuie sa denumiți acest dispozitiv pentru autorizarea accesului.</string>
+	<string name="dialog_create_hub_device_setup_code_hint">Cheia contului dvs. este necesară pentru a vă conecta din aplicații sau browsere noi. Aceasta poate fi găsită în profilul dvs.</string>
 	<string name="dialog_hub_vault_access_forbidden_title">Acces respins</string>
+	<string name="dialog_hub_license_upgrade_required_title">Verifica licență Hub-ului</string>
+	<string name="dialog_hub_vault_archived_title">Seif arhivat</string>
+	<string name="dialog_hub_vault_archived_hint">Acest seif este arhivat și nu poate fi deblocat. Pentru deblocare proprietarul seifului trebuie să îl dezarhiveze.</string>
 	<string name="dialog_hub_user_setup_required_hint">Pentru a continua, vă rugăm să finalizaţi paşii necesari în profilul dumneavoastra din Hub.</string>
 	<string name="dialog_hub_user_setup_required_neutral_button">Mergi la profil</string>
 	<string name="permission_snackbar_auth_local_vault">Cryptomator are nevoie de acces la stocare pentru a utiliza seifuri locale</string>
