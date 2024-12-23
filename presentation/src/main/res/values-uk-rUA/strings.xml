@@ -35,6 +35,11 @@
 	<string name="error_no_such_bucket">Немає такого кошика (сховища)</string>
 	<string name="error_masterkey_location_not_supported">Користувацьке розташування універсального ключа ще не підтримується</string>
 	<string name="error_interact_with_fdroid_but_fdroid_missing">Не вдалося зв\'язатися із застосунком F-Droid. Його встановлено?</string>
+	<string name="error_hub_vault_operation_not_supported">Операція зі сховищем не підтримується для Hub</string>
+	<string name="error_hub_authentication_failed">Автентифікація через Hub не вдалася</string>
+	<string name="error_hub_device_already_register_for_other_user">Цей пристрій вже зареєстровано для іншого користувача. Спробуйте змінити обліковий запис користувача або скористайтеся іншим пристроєм.</string>
+	<string name="error_hub_invalid_setup_code">Ключ облікового запису недійсний.</string>
+	<string name="error_hub_invalid_version">Непідтримувана версія Hub.</string>
 	<!-- # clouds -->
 	<!-- ## cloud names -->
 	<string name="cloud_names_local_storage">Локальне сховище</string>
@@ -67,7 +72,7 @@
 	<string name="screen_vault_list_change_password_successful">Пароль успішно змінено</string>
 	<!-- # screen: file browser -->
 	<string name="screen_file_browser_default_title">Сховище</string>
-	<string name="screen_file_browser_add_existing_vault_extra_text">Виберіть файл майстер-ключа</string>
+	<string name="screen_file_browser_add_existing_vault_extra_text">Виберіть файл masterkey або сховища</string>
 	<string name="screen_file_browser_create_new_vault_button_text">Розмістити тут</string>
 	<string name="screen_file_browser_create_new_vault_extra_text">Назва сховища: %1$s</string>
 	<plurals name="screen_file_browser_subtitle_move">
@@ -354,6 +359,23 @@
 	<string name="dialog_cbc_password_vaults_migration_title">Необхідна міграція пароля сховища</string>
 	<string name="dialog_cbc_password_vaults_migration_hint">У зв\'язку з покращеннями безпеки, вам буде запропоновано двічі пройти біометричну автентифікацію для кожного сховища, щоб повторно зашифрувати паролі сховища. Це необхідно для продовження захисту паролів вашого сховища з використанням найновішої технології. Якщо ви не хочете, щоб це сталося, збережені паролі будуть видалені.</string>
 	<string name="dialog_cbc_password_vaults_migration_action">Мігрувати</string>
+	<string name="dialog_create_hub_device_title">Зареєструвати пристрій Hub</string>
+	<string name="dialog_create_hub_device_name_label">Назва</string>
+	<string name="dialog_create_hub_device_name_hint">Схоже, це перша спроба доступу до Hub з цього пристрою. Для того, щоб ідентифікувати його для надання доступу, вам потрібно назвати цей пристрій.</string>
+	<string name="dialog_create_hub_device_name_empty">Назва не може бути пуста.</string>
+	<string name="dialog_create_hub_device_setup_code_label">Ключ облікового запису</string>
+	<string name="dialog_create_hub_device_setup_code_hint">Ваш ключ облікового запису необхідний для входу в систему з нових програм. Його можна знайти у своєму профілі.</string>
+	<string name="dialog_create_hub_device_setup_code_empty">Ключ облікового запису не може бути порожнім.</string>
+	<string name="dialog_progress_creating_hub_device_setup">Створення текстового файлу&#8230;</string>
+	<string name="dialog_hub_vault_access_forbidden_title">У доступі відмовлено</string>
+	<string name="dialog_hub_vault_access_forbidden_hint">Ваш користувач ще не авторизований для доступу до цього сховища. Попросіть власника сховища авторизувати вас.\"</string>
+	<string name="dialog_hub_license_upgrade_required_title">Перевірити ліцензію Hub</string>
+	<string name="dialog_hub_license_upgrade_required_hint">У вашій інстанції Cryptomator Hub недійсна ліцензія. Будь ласка, повідомте адміністратору Hub про необхідність оновлення або поновлення ліцензії.\"</string>
+	<string name="dialog_hub_vault_archived_title">Сховище заархівовано</string>
+	<string name="dialog_hub_vault_archived_hint">Це сховище заархівовано і не може бути розблоковано. Для розблокування його власник сховища повинен розархівувати його.</string>
+	<string name="dialog_hub_user_setup_required_title">Необхідна настройка користувача</string>
+	<string name="dialog_hub_user_setup_required_hint">Щоб продовжити, будь ласка, завершіть обов\'язкові кроки у вашому профілі користувача Hub.</string>
+	<string name="dialog_hub_user_setup_required_neutral_button">Перейти до профілю</string>
 	<string name="permission_snackbar_auth_local_vault">Для використання локальних сховищ необхідно надати Cryptomator доступ до місця зберігання</string>
 	<string name="permission_snackbar_auth_auto_upload">Для автоматичного завантаження фото необхідно надати Cryptomator доступ до місця зберігання</string>
 	<string name="permission_snackbar_notifications">Для відображення статусу сховища необхідно надати Cryptomator дозвіл на сповіщення</string>

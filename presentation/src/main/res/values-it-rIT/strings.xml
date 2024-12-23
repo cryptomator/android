@@ -35,6 +35,12 @@
 	<string name="error_no_such_bucket">Nessun bucket di questo tipo</string>
 	<string name="error_masterkey_location_not_supported">Posizione personalizzata della Chiave Principale non ancora supportata</string>
 	<string name="error_interact_with_fdroid_but_fdroid_missing">Impossibile comunicare con l\'app F-Droid. Forse non è installata?</string>
+	<string name="error_hub_vault_operation_not_supported">Hub non supporta l\'operazione sulla cassaforte</string>
+	<string name="error_hub_authentication_failed">Autenticazione su Hub non riuscita</string>
+	<string name="error_hub_device_already_register_for_other_user">Questo dispositivo è già registrato per un utente diverso. Prova a cambiare l\'account utente o usa un altro dispositivo.</string>
+	<string name="error_hub_invalid_setup_code">Chiave account non valida.</string>
+	<string name="error_hub_invalid_version">Versione Hub non supportata.</string>
+	<string name="error_hub_unlock_pre_31">Hub è supportato solo su Android 12 o superiore.</string>
 	<!-- # clouds -->
 	<!-- ## cloud names -->
 	<string name="cloud_names_local_storage">Archivio locale</string>
@@ -67,7 +73,7 @@
 	<string name="screen_vault_list_change_password_successful">Password modificata con successo</string>
 	<!-- # screen: file browser -->
 	<string name="screen_file_browser_default_title">Cassaforte</string>
-	<string name="screen_file_browser_add_existing_vault_extra_text">Seleziona il file della chiave principale</string>
+	<string name="screen_file_browser_add_existing_vault_extra_text">Seleziona la chiave principale o il file della cassaforte</string>
 	<string name="screen_file_browser_create_new_vault_button_text">Posiziona qui</string>
 	<string name="screen_file_browser_create_new_vault_extra_text">Nome cassaforte: %1$s</string>
 	<plurals name="screen_file_browser_subtitle_move">
@@ -352,6 +358,23 @@
 	<string name="dialog_cbc_password_vaults_migration_title">Richiesta migrazione password della cassaforte</string>
 	<string name="dialog_cbc_password_vaults_migration_hint">A causa di miglioramenti di sicurezza, ti verrà chiesta l\'autenticazione biometrica due volte per ogni cassaforte per ri-crittografare la password della tua cassaforte. Questo è necessario per continuare a proteggere le password della tua cassaforte con la tecnologia più recente. Se non si desidera che ciò accada, le password memorizzate verranno rimosse.</string>
 	<string name="dialog_cbc_password_vaults_migration_action">Migra</string>
+	<string name="dialog_create_hub_device_title">Registra dispositivo Hub</string>
+	<string name="dialog_create_hub_device_name_label">Nome</string>
+	<string name="dialog_create_hub_device_name_hint">Sembra che questo sia il primo accesso alle Centrali delle Casseforti da questo dispositivo. Per poterlo identificare ai fini dell\'autorizzazione all\'accesso è necessario dare un nome a questo dispositivo.</string>
+	<string name="dialog_create_hub_device_name_empty">Il nome non può essere vuoto.</string>
+	<string name="dialog_create_hub_device_setup_code_label">Chiave dell\'account</string>
+	<string name="dialog_create_hub_device_setup_code_hint">La chiave del tuo account è richiesta per accedere da nuove applicazioni o browser. Può essere trovata nel tuo profilo.</string>
+	<string name="dialog_create_hub_device_setup_code_empty">La chiave dell\'account non può essere vuota.</string>
+	<string name="dialog_progress_creating_hub_device_setup">Creazione dispositivo&#8230;</string>
+	<string name="dialog_hub_vault_access_forbidden_title">Accesso negato</string>
+	<string name="dialog_hub_vault_access_forbidden_hint">Il tuo utente non è ancora stato autorizzato ad accedere a questa cassaforte. Chiedi al proprietario della cassaforte di autorizzarti.\"</string>
+	<string name="dialog_hub_license_upgrade_required_title">Controlla la licenza Hub</string>
+	<string name="dialog_hub_license_upgrade_required_hint">La tua istanza Cryptomator Hub ha una licenza non valida. Si prega di informare un amministratore Hub per aggiornare o rinnovare la licenza.\"</string>
+	<string name="dialog_hub_vault_archived_title">Cassaforte archiviata</string>
+	<string name="dialog_hub_vault_archived_hint">Questa cassaforte è archiviata e non può essere sbloccata. Per sbloccarla, il proprietario della cassaforte deve ripristinarla dall\'archivio.</string>
+	<string name="dialog_hub_user_setup_required_title">Richiesta configurazione dell\'utente</string>
+	<string name="dialog_hub_user_setup_required_hint">Per procedere, completa i passaggi richiesti nel tuo profilo dell\'Hub.</string>
+	<string name="dialog_hub_user_setup_required_neutral_button">Vai al profilo</string>
 	<string name="permission_snackbar_auth_local_vault">Cryptomator ha bisogno dell\'accesso all\'archivio per utilizzare le cassaforti locali</string>
 	<string name="permission_snackbar_auth_auto_upload">Cryptomator ha bisogno di accesso all\'archivio per utilizzare il caricamento automatico delle foto</string>
 	<string name="permission_snackbar_notifications">Cryptomator necessita dei permessi di notifica per visualizzare lo stato della cassaforte ad esempio</string>

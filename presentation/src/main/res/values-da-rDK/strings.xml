@@ -35,6 +35,7 @@
 	<string name="error_no_such_bucket">Bucket findes ikke</string>
 	<string name="error_masterkey_location_not_supported">Brugerdefineret hovednøgle-placering understøttes ikke endnu</string>
 	<string name="error_interact_with_fdroid_but_fdroid_missing">Kunne ikke kommunikere med F-Droid appen. Er den ikke installeret?</string>
+	<string name="error_hub_device_already_register_for_other_user">Denne enhed er allerede registreret af en anden bruger. Prøv at ændre brugerkontoen eller brug en anden enhed.</string>
 	<!-- # clouds -->
 	<!-- ## cloud names -->
 	<string name="cloud_names_local_storage">Lokalt lager</string>
@@ -67,7 +68,6 @@
 	<string name="screen_vault_list_change_password_successful">Adgangskoden blev ændret</string>
 	<!-- # screen: file browser -->
 	<string name="screen_file_browser_default_title">Boks</string>
-	<string name="screen_file_browser_add_existing_vault_extra_text">Vælg hovednøgle-fil</string>
 	<string name="screen_file_browser_create_new_vault_button_text">Placér her</string>
 	<string name="screen_file_browser_create_new_vault_extra_text">Boks-navn: %1$s</string>
 	<plurals name="screen_file_browser_subtitle_move">
@@ -346,6 +346,11 @@
 	<string name="dialog_no_more_images_to_display">Ikke flere billeder at vise&#8230;</string>
 	<string name="dialog_pcloud_credentials_updated_title">Login for \'%1$s\' opdateret</string>
 	<string name="dialog_pcloud_credentials_updated">Hvis du har til hensigt at tilføje en ny pCloud-konto, skal du trykke på denne Url <a href="https://www.pcloud.com">www.pcloud.com</a>, logge ud af den aktuelle konto og tryk igen på \'+\' i denne app for at oprette en ny cloud-forbindelse.</string>
+	<string name="dialog_create_hub_device_name_hint">Det ser ud til at dette er første gang denne enhed tilgår Hub. For at kunne identificere den for adgangstilladelse, skal du navngive denne enhed.</string>
+	<string name="dialog_create_hub_device_setup_code_hint">Din kontonøgle er påkrævet til at logge ind fra nye apps eller browsere. Den kan findes i din profil.</string>
+	<string name="dialog_hub_vault_access_forbidden_title">Adgang nægtet</string>
+	<string name="dialog_hub_user_setup_required_hint">For at fortsætte, skal du fuldføre de nødvendige trin i din Hub brugerprofil.</string>
+	<string name="dialog_hub_user_setup_required_neutral_button">Gå til Profil</string>
 	<string name="permission_snackbar_auth_local_vault">Cryptomator skal bruge lageradgang for at tilgå lokale bokse</string>
 	<string name="permission_snackbar_auth_auto_upload">Cryptomator har brug for lageradgang for at kunne uploade fotos automatisk</string>
 	<string name="permission_snackbar_notifications">Cryptomator har brug for notifikationstilladelser for at vise f.eks. boksstatus</string>

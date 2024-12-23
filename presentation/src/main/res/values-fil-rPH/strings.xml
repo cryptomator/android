@@ -35,6 +35,7 @@
 	<string name="error_no_such_bucket">Hindi matagpuan ang bucket na ito</string>
 	<string name="error_masterkey_location_not_supported">Hindi pa suportado ang custom Masterkey location</string>
 	<string name="error_interact_with_fdroid_but_fdroid_missing">Nabigong makipag-ugnayan sa F-Droid app. Hindi naka-install?</string>
+	<string name="error_hub_device_already_register_for_other_user">Ang device na ito ay registrado na sa ibang user. Subukang palitan ang user account o gumamit ng ibang device.</string>
 	<!-- # clouds -->
 	<!-- ## cloud names -->
 	<string name="cloud_names_local_storage">Local storage</string>
@@ -67,7 +68,6 @@
 	<string name="screen_vault_list_change_password_successful">Matagumpay na napalitan ang password</string>
 	<!-- # screen: file browser -->
 	<string name="screen_file_browser_default_title">Vault</string>
-	<string name="screen_file_browser_add_existing_vault_extra_text">Piliin ang masterkey file</string>
 	<string name="screen_file_browser_create_new_vault_button_text">Ilagay dito</string>
 	<string name="screen_file_browser_create_new_vault_extra_text">Pangalan ng vault: %1$s</string>
 	<plurals name="screen_file_browser_subtitle_move">
@@ -352,6 +352,11 @@
 	<string name="dialog_cbc_password_vaults_migration_title">Kinakailangan ang paglipat ng password ng Vault</string>
 	<string name="dialog_cbc_password_vaults_migration_hint">Dahil sa mga pagpapahusay sa seguridad, hihilingin sa iyo ang iyong biometric na pagpapatotoo nang dalawang beses para sa bawat vault upang muling i-encrypt ang iyong mga password sa vault. Ito ay kinakailangan upang patuloy na maprotektahan ang iyong mga password sa vault gamit ang pinakabagong teknolohiya. Kung hindi mo gustong mangyari ito, aalisin ang mga nakaimbak na password.</string>
 	<string name="dialog_cbc_password_vaults_migration_action">Mag-migrate</string>
+	<string name="dialog_create_hub_device_name_hint">Mukhang ito ang unang access sa Hub mula sa device na ito. Upang matukoy ito para sa awtorisasyon sa pag-access, kailangan mong pangalanan ang device na ito.</string>
+	<string name="dialog_create_hub_device_setup_code_hint">Ang iyong Account Key ay kailangan para mag login galing sa bagong apps o browser. Mahahanap mo ito sa iyong profile.</string>
+	<string name="dialog_hub_vault_access_forbidden_title">Walang pahintulot</string>
+	<string name="dialog_hub_user_setup_required_hint">Upang magpatuloy, mangyaring kumpletuhin ang mga hakbang na kinakailangan sa iyong Hub user profile.</string>
+	<string name="dialog_hub_user_setup_required_neutral_button">Pumunta sa Profile</string>
 	<string name="permission_snackbar_auth_local_vault">Kailangan ng Cryptomator ng access sa storage para magamit ang mga lokal na vault</string>
 	<string name="permission_snackbar_auth_auto_upload">Kailangan ng Cryptomator ng access sa storage upang magamit ang awtomatikong pag-upload ng larawan</string>
 	<string name="permission_snackbar_notifications">Ang Cryptomator ay nangangailangan ng mga pahintulot sa abiso upang ipakita ang status ng vault halimbawa</string>
