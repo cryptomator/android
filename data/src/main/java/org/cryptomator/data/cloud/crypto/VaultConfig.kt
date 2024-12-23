@@ -10,6 +10,7 @@ import org.cryptomator.cryptolib.api.CryptorProvider
 import org.cryptomator.domain.KeyLoadingStrategy
 import org.cryptomator.domain.UnverifiedHubVaultConfig
 import org.cryptomator.domain.UnverifiedVaultConfig
+import org.cryptomator.domain.exception.vaultconfig.HubNotSupportedOnPreAndroid31Exception
 import org.cryptomator.domain.exception.vaultconfig.VaultConfigLoadException
 import org.cryptomator.domain.exception.vaultconfig.VaultKeyInvalidException
 import org.cryptomator.domain.exception.vaultconfig.VaultVersionMismatchException
@@ -92,6 +93,9 @@ class VaultConfig private constructor(builder: VaultConfigBuilder) {
 			return when (KeyLoadingStrategy.fromKeyId(keyId)) {
 				KeyLoadingStrategy.MASTERKEY -> UnverifiedVaultConfig(token, keyId, vaultFormat)
 				KeyLoadingStrategy.HUB -> {
+					if (android.os.Build.VERSION.SDK_INT < android.os.Build.VERSION_CODES.S) {
+						throw HubNotSupportedOnPreAndroid31Exception()
+					}
 					val hubClaim = unverifiedJwt.getHeaderClaim("hub").asMap()
 					val clientId = hubClaim["clientId"] as? String ?: throw VaultConfigLoadException("Missing or invalid 'clientId' claim in JWT header")
 					val authEndpoint = parseUri(hubClaim, "authEndpoint")

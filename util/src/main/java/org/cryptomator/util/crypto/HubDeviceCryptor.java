@@ -55,6 +55,9 @@ public class HubDeviceCryptor {
 	private final KeyStore keyStore;
 
 	HubDeviceCryptor(KeyStore keyStore) {
+		if (android.os.Build.VERSION.SDK_INT < android.os.Build.VERSION_CODES.S) {
+			throw new IllegalStateException("Hub unlock is only supported for devices using Android >= 12");
+		}
 		try {
 			this.keyStore = keyStore;
 			this.keyStore.load(null);

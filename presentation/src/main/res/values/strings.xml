@@ -49,6 +49,7 @@
 	<string name="error_hub_device_already_register_for_other_user">This device is already registered for a different user. Try to change the user account or use a different device.</string>
 	<string name="error_hub_invalid_setup_code">The Account Key is invalid.</string>
 	<string name="error_hub_invalid_version">Unsupported Hub version.</string>
+	<string name="error_hub_unlock_pre_31">Hub is only supported on Android 12 and above.</string>
 
 	<!-- # clouds -->
 
