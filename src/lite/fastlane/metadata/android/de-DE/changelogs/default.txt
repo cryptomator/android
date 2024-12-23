@@ -1,1 +1,1 @@
-- Migration von Cloud-Zugangs-Tokens und Tresor-Passwörtern zu AES 256bit GCM
+- Hub-Unterstützung hinzugefügt

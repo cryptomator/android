@@ -1,1 +1,1 @@
-- Migrate cloud access tokens and vault passwords to AES 256bit GCM
+- Add Hub support
