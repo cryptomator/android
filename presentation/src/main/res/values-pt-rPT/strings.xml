@@ -40,6 +40,7 @@
 	<string name="error_hub_device_already_register_for_other_user">Este dispositivo já está registado por um utilizador diferente. Tente alterar a conta de utilizador ou use um dispositivo diferente.</string>
 	<string name="error_hub_invalid_setup_code">A chave da conta é inválida.</string>
 	<string name="error_hub_invalid_version">Versão do Hub não suportada.</string>
+	<string name="error_hub_unlock_pre_31">Hub só é suportado no Android 12 ou superior.</string>
 	<!-- # clouds -->
 	<!-- ## cloud names -->
 	<string name="cloud_names_local_storage">Armazenamento local</string>
