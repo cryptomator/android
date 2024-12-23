@@ -40,6 +40,7 @@
 	<string name="error_hub_device_already_register_for_other_user">Это устройство уже зарегистрировано другим пользователем. Попробуйте изменить учётную запись или используйте другое устройство.</string>
 	<string name="error_hub_invalid_setup_code">Неверный ключ учётной записи.</string>
 	<string name="error_hub_invalid_version">Неподдерживаемая версия хаба.</string>
+	<string name="error_hub_unlock_pre_31">Хаб поддерживается только на Android 12 и новее.</string>
 	<!-- # clouds -->
 	<!-- ## cloud names -->
 	<string name="cloud_names_local_storage">Локальное хранилище</string>
