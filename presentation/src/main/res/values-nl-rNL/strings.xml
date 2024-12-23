@@ -40,6 +40,7 @@
 	<string name="error_hub_device_already_register_for_other_user">Dit apparaat is al geregistreerd voor een andere gebruiker. Probeer de account te wijzigen of gebruik een ander apparaat.</string>
 	<string name="error_hub_invalid_setup_code">De accountsleutel is ongeldig.</string>
 	<string name="error_hub_invalid_version">Niet-ondersteunde Hub versie.</string>
+	<string name="error_hub_unlock_pre_31">Hub wordt alleen ondersteund op Android 12 en hoger.</string>
 	<!-- # clouds -->
 	<!-- ## cloud names -->
 	<string name="cloud_names_local_storage">Lokale opslag</string>
