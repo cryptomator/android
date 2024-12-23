@@ -67,7 +67,6 @@
 	<string name="screen_vault_list_change_password_successful">Geslo je bilo uspešno spremenjeno</string>
 	<!-- # screen: file browser -->
 	<string name="screen_file_browser_default_title">Trezor</string>
-	<string name="screen_file_browser_add_existing_vault_extra_text">Izberite datoteko z glavnim ključem</string>
 	<string name="screen_file_browser_create_new_vault_button_text">Shrani tu</string>
 	<string name="screen_file_browser_create_new_vault_extra_text">Ime trezorja: %1$s</string>
 	<string name="screen_file_browser_move_button_text">Premakni</string>
@@ -294,6 +293,10 @@
 	<string name="dialog_update_available_update">Posodobi zdaj</string>
 	<string name="dialog_update_available_cancel">Pozneje</string>
 	<string name="dialog_sym_link_back_button">Nazaj</string>
+	<string name="dialog_create_hub_device_name_hint">Zdi se, da prvič dostopate do Hub-a s te naprave. Napravo morate poimenovati, da jo lahko identificirate za avtorizacijo za dostop.</string>
+	<string name="dialog_create_hub_device_setup_code_hint">Vaš Account Key je zahtevan za prijavo z novih aplikacij ali brskalnikov. Najdete ga lahko v svojem profilu.</string>
+	<string name="dialog_hub_user_setup_required_hint">Za nadaljevanje, prosimo zaključite zahtevane korake v svojem Hub uporabniškem profilu.</string>
+	<string name="dialog_hub_user_setup_required_neutral_button">Pojdi v profil</string>
 	<!-- # error reports -->
 	<!-- # misc -->
 	<!-- ## file size helper -->

@@ -67,7 +67,6 @@
 	<string name="screen_vault_list_change_password_successful">Lozinka je uspješno promijenjena</string>
 	<!-- # screen: file browser -->
 	<string name="screen_file_browser_default_title">Trezor</string>
-	<string name="screen_file_browser_add_existing_vault_extra_text">Odaberi datoteku glavnog ključa</string>
 	<string name="screen_file_browser_create_new_vault_button_text">Postavi ovdje</string>
 	<string name="screen_file_browser_create_new_vault_extra_text">Ime trezora: %1$s</string>
 	<plurals name="screen_file_browser_subtitle_move">

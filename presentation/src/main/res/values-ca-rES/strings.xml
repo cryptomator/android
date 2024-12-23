@@ -35,6 +35,7 @@
 	<string name="error_no_such_bucket">No existeix el cubell</string>
 	<string name="error_masterkey_location_not_supported">Encara no es permet la ubicació personalitzada de la clau mestra</string>
 	<string name="error_interact_with_fdroid_but_fdroid_missing">Error en la comunicació amb l\'aplicació F-Droid. Està instal·lada?</string>
+	<string name="error_hub_device_already_register_for_other_user">El dispositiu ja ha estat registrat per un altre usuari. Mireu de canviar el compte d\'usuari o feu servir un dispositiu diferent.</string>
 	<!-- # clouds -->
 	<!-- ## cloud names -->
 	<string name="cloud_names_local_storage">Emmagatzematge local</string>
@@ -67,7 +68,6 @@
 	<string name="screen_vault_list_change_password_successful">La contrasenya s\'han canviat correctament</string>
 	<!-- # screen: file browser -->
 	<string name="screen_file_browser_default_title">Caixa forta</string>
-	<string name="screen_file_browser_add_existing_vault_extra_text">Seleccioneu el fitxer de clau mestra</string>
 	<string name="screen_file_browser_create_new_vault_button_text">Col·locar aquí</string>
 	<string name="screen_file_browser_create_new_vault_extra_text">Nom de la caixa forta: %1$s</string>
 	<plurals name="screen_file_browser_subtitle_move">
@@ -347,6 +347,11 @@
 	<string name="dialog_pcloud_credentials_updated_title">Credencials de \'%1$s\' actualitzades</string>
 	<string name="dialog_pcloud_credentials_updated">Si teníeu la intenció d\'afegir un compte de pCloud nou, toqueu aquest URL <a href="https://www.pcloud.com">www.pcloud.com</a>, tanqueu la sessió del compte actual i torneu a tocar el \"+\" d\'aquesta aplicació per crear una nova connexió al núvol.</string>
 	<string name="dialog_cbc_password_vaults_migration_action">Migra</string>
+	<string name="dialog_create_hub_device_name_hint">Sembla que és el primer accés al Hub des d\'aquest dispositiu. Per identificar-lo i poder autoritzar l\'accés heu de posar nom a aquest dispositiu.</string>
+	<string name="dialog_create_hub_device_setup_code_hint">Cal la vostra Account Key per a iniciar sessió des d\'una aplicació o navegador nous. La trobareu al vostre perfil.</string>
+	<string name="dialog_hub_vault_access_forbidden_title">Accés denegat</string>
+	<string name="dialog_hub_user_setup_required_hint">Per a continuar, si us plau, seguiu els passos necessaris en el vostre perfil d\'usuari de Hub.</string>
+	<string name="dialog_hub_user_setup_required_neutral_button">Vés al perfil</string>
 	<string name="permission_snackbar_auth_local_vault">Cryptomator necessita accés a l\'emmagatzematge per a fer servir caixes fortes locals</string>
 	<string name="permission_snackbar_auth_auto_upload">Cryptomator necessita accés a l\'emmagatzematge per a la pujada de fotos automàtica</string>
 	<string name="permission_snackbar_notifications">Cryptomator necessita permís de notificacions per poder informar del seu estat, per exemple</string>

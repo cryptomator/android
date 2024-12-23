@@ -67,7 +67,6 @@
 	<string name="screen_vault_list_change_password_successful">Серһүҙ уңышлы үҙгәртелде</string>
 	<!-- # screen: file browser -->
 	<string name="screen_file_browser_default_title">Һаҡлағыс</string>
-	<string name="screen_file_browser_add_existing_vault_extra_text">Masterkey файлын һайлағыҙ</string>
 	<string name="screen_file_browser_create_new_vault_button_text">Бында ҡуйығыҙ</string>
 	<string name="screen_file_browser_create_new_vault_extra_text">Һаҡлағыс исеме: %1$s</string>
 	<plurals name="screen_file_browser_subtitle_move">
@@ -345,6 +344,11 @@
 	<string name="dialog_no_more_images_to_display">Күрһәтерлек һүрәттәр юҡ&#8230;</string>
 	<string name="dialog_pcloud_credentials_updated_title">\'%1$s\' иҫәп яҙыуы мәғлүмәттәре яңыртылды</string>
 	<string name="dialog_pcloud_credentials_updated">Әгәр ҙә һеҙ яңы pCloud иҫәп яҙмаһы өҫтәргә ниәтләһәгеҙ, ошо url <a href="https://www.pcloud.com">www.pcloud.com</a> аша күсегеҙ, ағымдағы иҫәп яҙмаһынан сығығыҙ һәм яңы болот бәйләнеше булдырыу өсөн был ҡушымталағы \'+\' төймәһенә баҫығыҙ.</string>
+	<string name="dialog_create_hub_device_name_hint">Был, күрәһең, был ҡоролманан Хабҡа тәү инеү ваҡыты. Инеүҙе рөхсәт итеү өсөн йыһазды асыҡлаусы исем атарға кәрәк.</string>
+	<string name="dialog_create_hub_device_setup_code_hint">Яңы ҡушымталар йәки браузерҙарҙан инеү өсөн Һеҙҙең иҫәп-хисап асҡысы кәрәк. Уны профилегеҙҙә табырға мөмкин.</string>
+	<string name="dialog_hub_vault_access_forbidden_title">Инеү кире ҡағылды</string>
+	<string name="dialog_hub_user_setup_required_hint">Артабан барыр өсөн, Hub ҡулланыусылар профилендә кәрәкле аҙымдарҙы тамамлағыҙ.</string>
+	<string name="dialog_hub_user_setup_required_neutral_button">Профилгә күс</string>
 	<string name="permission_snackbar_auth_local_vault">Урындағы һаҡлағыстарҙы ҡулланыу өсөн Cryptomator-ға һаҡлағысҡа инеү рәхсәте кәрәк</string>
 	<string name="permission_snackbar_auth_auto_upload">Автоматик фото тейәү өсөн Cryptomator-ға һаҡлағысҡа инеү рәхсәте кәрәк</string>
 	<string name="permission_snackbar_notifications">Cryptomator-ға белдереү ебәреү хоҡуҡтары кәрәк. Мәҫәлән, һаҡлағыс торошо тураһында.</string>

@@ -2,6 +2,7 @@ package org.cryptomator.presentation.ui.activity
 
 import android.os.Build
 import androidx.annotation.RequiresApi
+import org.cryptomator.domain.UnverifiedHubVaultConfig
 import org.cryptomator.domain.UnverifiedVaultConfig
 import org.cryptomator.domain.Vault
 import org.cryptomator.generator.Activity
@@ -14,7 +15,12 @@ import org.cryptomator.presentation.presenter.UnlockVaultPresenter
 import org.cryptomator.presentation.ui.activity.view.UnlockVaultView
 import org.cryptomator.presentation.ui.dialog.BiometricAuthKeyInvalidatedDialog
 import org.cryptomator.presentation.ui.dialog.ChangePasswordDialog
+import org.cryptomator.presentation.ui.dialog.CreateHubDeviceDialog
 import org.cryptomator.presentation.ui.dialog.EnterPasswordDialog
+import org.cryptomator.presentation.ui.dialog.HubLicenseUpgradeRequiredDialog
+import org.cryptomator.presentation.ui.dialog.HubUserSetupRequiredDialog
+import org.cryptomator.presentation.ui.dialog.HubVaultAccessForbiddenDialog
+import org.cryptomator.presentation.ui.dialog.HubVaultArchivedDialog
 import org.cryptomator.presentation.ui.dialog.VaultNotFoundDialog
 import org.cryptomator.presentation.ui.fragment.UnlockVaultFragment
 import org.cryptomator.presentation.util.BiometricAuthentication
@@ -23,9 +29,16 @@ import javax.inject.Inject
 @Activity
 class UnlockVaultActivity : BaseActivity<ActivityUnlockVaultBinding>(ActivityUnlockVaultBinding::inflate), //
 	UnlockVaultView, //
+	EnterPasswordDialog.Callback, //
 	BiometricAuthentication.Callback, //
+	BiometricAuthKeyInvalidatedDialog.Callback, //
 	ChangePasswordDialog.Callback, //
-	VaultNotFoundDialog.Callback {
+	VaultNotFoundDialog.Callback, //
+	CreateHubDeviceDialog.Callback, //
+	HubUserSetupRequiredDialog.Callback, //
+	HubVaultArchivedDialog.Callback, //
+	HubLicenseUpgradeRequiredDialog.Callback, //
+	HubVaultAccessForbiddenDialog.Callback {
 
 	@Inject
 	lateinit var presenter: UnlockVaultPresenter
@@ -107,6 +120,26 @@ class UnlockVaultActivity : BaseActivity<ActivityUnlockVaultBinding>(ActivityUnl
 		showDialog(ChangePasswordDialog.newInstance(vaultModel, unverifiedVaultConfig))
 	}
 
+	override fun showCreateHubDeviceDialog(vaultModel: VaultModel, unverifiedVaultConfig: UnverifiedHubVaultConfig) {
+		showDialog(CreateHubDeviceDialog.newInstance(vaultModel, unverifiedVaultConfig))
+	}
+
+	override fun showHubUserSetupRequiredDialog(unverifiedHubVaultConfig: UnverifiedHubVaultConfig) {
+		showDialog(HubUserSetupRequiredDialog.newInstance(unverifiedHubVaultConfig))
+	}
+
+	override fun showHubLicenseUpgradeRequiredDialog() {
+		showDialog(HubLicenseUpgradeRequiredDialog.newInstance())
+	}
+
+	override fun showHubVaultAccessForbiddenDialog() {
+		showDialog(HubVaultAccessForbiddenDialog.newInstance())
+	}
+
+	override fun showHubVaultIsArchivedDialog() {
+		showDialog(HubVaultArchivedDialog.newInstance())
+	}
+
 	override fun onChangePasswordClick(vaultModel: VaultModel, unverifiedVaultConfig: UnverifiedVaultConfig?, oldPassword: String, newPassword: String) {
 		presenter.onChangePasswordClick(vaultModel, unverifiedVaultConfig, oldPassword, newPassword)
 	}
@@ -121,6 +154,38 @@ class UnlockVaultActivity : BaseActivity<ActivityUnlockVaultBinding>(ActivityUnl
 
 	override fun onCancelMissingVaultClicked(vault: Vault) {
 		presenter.onCancelMissingVaultClicked(vault)
+	}
+
+	override fun onCreateHubDeviceClicked(vaultModel: VaultModel, unverifiedVaultConfig: UnverifiedHubVaultConfig, deviceName: String, setupCode: String) {
+		presenter.onCreateHubDeviceClick(vaultModel, unverifiedVaultConfig, deviceName, setupCode)
+	}
+
+	override fun onCreateHubDeviceCanceled() {
+		finish()
+	}
+
+	override fun onGoToHubProfileClicked(unverifiedVaultConfig: UnverifiedHubVaultConfig) {
+		presenter.onGoToHubProfileClicked(unverifiedVaultConfig)
+	}
+
+	override fun onCancelHubUserSetupClicked() {
+		finish()
+	}
+
+	override fun onHubVaultArchivedDialogFinished() {
+		finish()
+	}
+
+	override fun onHubLicenseUpgradeRequiredDialogFinished() {
+		finish()
+	}
+
+	override fun onVaultAccessForbiddenDialogFinished() {
+		finish()
+	}
+
+	override fun onBiometricAuthKeyInvalidatedDialogFinished() {
+		finish()
 	}
 
 }

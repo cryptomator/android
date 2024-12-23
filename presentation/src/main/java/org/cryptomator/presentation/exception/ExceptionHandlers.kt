@@ -12,11 +12,17 @@ import org.cryptomator.domain.exception.NoSuchCloudFileException
 import org.cryptomator.domain.exception.UnableToDecryptWebdavPasswordException
 import org.cryptomator.domain.exception.VaultAlreadyExistException
 import org.cryptomator.domain.exception.authentication.AuthenticationException
+import org.cryptomator.domain.exception.hub.HubAuthenticationFailedException
+import org.cryptomator.domain.exception.hub.HubDeviceAlreadyRegisteredForOtherUserException
+import org.cryptomator.domain.exception.hub.HubInvalidSetupCodeException
+import org.cryptomator.domain.exception.hub.HubInvalidVersionException
+import org.cryptomator.domain.exception.hub.HubVaultOperationNotSupportedException
 import org.cryptomator.domain.exception.license.DesktopSupporterCertificateException
 import org.cryptomator.domain.exception.license.LicenseNotValidException
 import org.cryptomator.domain.exception.license.NoLicenseAvailableException
 import org.cryptomator.domain.exception.update.GeneralUpdateErrorException
 import org.cryptomator.domain.exception.update.HashMismatchUpdateCheckException
+import org.cryptomator.domain.exception.vaultconfig.HubNotSupportedOnPreAndroid31Exception
 import org.cryptomator.domain.exception.vaultconfig.MissingVaultConfigFileException
 import org.cryptomator.domain.exception.vaultconfig.UnsupportedMasterkeyLocationException
 import org.cryptomator.domain.exception.vaultconfig.VaultConfigLoadException
@@ -50,6 +56,7 @@ class ExceptionHandlers @Inject constructor(private val context: Context, defaul
 		staticHandler(LicenseNotValidException::class.java, R.string.dialog_enter_license_not_valid_content)
 		staticHandler(NoLicenseAvailableException::class.java, R.string.dialog_enter_license_no_content)
 		staticHandler(HashMismatchUpdateCheckException::class.java, R.string.error_hash_mismatch_update)
+		staticHandler(HubNotSupportedOnPreAndroid31Exception::class.java, R.string.error_hub_unlock_pre_31)
 		staticHandler(GeneralUpdateErrorException::class.java, R.string.error_general_update)
 		staticHandler(
 			MissingVaultConfigFileException::class.java, String.format(
@@ -74,6 +81,11 @@ class ExceptionHandlers @Inject constructor(private val context: Context, defaul
 		staticHandler(VaultConfigLoadException::class.java, R.string.error_vault_config_loading)
 		staticHandler(UnsupportedMasterkeyLocationException::class.java, R.string.error_masterkey_location_not_supported)
 		staticHandler(NoSuchBucketException::class.java, R.string.error_no_such_bucket)
+		staticHandler(HubVaultOperationNotSupportedException::class.java, R.string.error_hub_vault_operation_not_supported)
+		staticHandler(HubAuthenticationFailedException::class.java, R.string.error_hub_authentication_failed)
+		staticHandler(HubDeviceAlreadyRegisteredForOtherUserException::class.java, R.string.error_hub_device_already_register_for_other_user)
+		staticHandler(HubInvalidSetupCodeException::class.java, R.string.error_hub_invalid_setup_code)
+		staticHandler(HubInvalidVersionException::class.java, R.string.error_hub_invalid_version)
 		exceptionHandlers.add(MissingCryptorExceptionHandler())
 		exceptionHandlers.add(CancellationExceptionHandler())
 		exceptionHandlers.add(NoSuchVaultExceptionHandler())
