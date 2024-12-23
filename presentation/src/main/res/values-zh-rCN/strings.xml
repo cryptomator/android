@@ -40,6 +40,7 @@
 	<string name="error_hub_device_already_register_for_other_user">此设备已被注册给另一位用户。请尝试更改用户帐户或使用别的设备。</string>
 	<string name="error_hub_invalid_setup_code">账户密钥无效</string>
 	<string name="error_hub_invalid_version">不支持的 Hub 版本</string>
+	<string name="error_hub_unlock_pre_31">Hub 仅支持 Android 12 及以上版本。</string>
 	<!-- # clouds -->
 	<!-- ## cloud names -->
 	<string name="cloud_names_local_storage">本地存储</string>
