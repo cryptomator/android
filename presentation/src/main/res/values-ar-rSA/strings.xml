@@ -36,8 +36,11 @@
 	<string name="error_masterkey_location_not_supported">موقع المفتاح الرئيسي غير مدعوم بعد</string>
 	<string name="error_interact_with_fdroid_but_fdroid_missing">فشل في التواصل مع تطبيق F-Droid. غير مثبت؟</string>
 	<string name="error_hub_vault_operation_not_supported">عملية المخزن غير مدعومة في Hub</string>
+	<string name="error_hub_authentication_failed">فشل المصادقة ضد Hub</string>
 	<string name="error_hub_device_already_register_for_other_user">هذا الجهاز مسجل لمستخدم مختلف بالفعل. حاول تغيير حساب المستخدم أو استخدام جهاز مختلف.</string>
 	<string name="error_hub_invalid_setup_code">Account Key غير صالح.</string>
+	<string name="error_hub_invalid_version">إصدار Hub غير مدعوم.</string>
+	<string name="error_hub_unlock_pre_31">Hub مدعوم فقط على أندرويد 12 وما فوق.</string>
 	<!-- # clouds -->
 	<!-- ## cloud names -->
 	<string name="cloud_names_local_storage">ذاكرة التخزين المحلية</string>
@@ -70,6 +73,7 @@
 	<string name="screen_vault_list_change_password_successful">تم تغيير كلمة المرور بنجاح</string>
 	<!-- # screen: file browser -->
 	<string name="screen_file_browser_default_title">الخزينة</string>
+	<string name="screen_file_browser_add_existing_vault_extra_text">حدد ملف المفتاح الرئيسي أو ملف الخزنة</string>
 	<string name="screen_file_browser_create_new_vault_button_text">ضع هنا</string>
 	<string name="screen_file_browser_create_new_vault_extra_text">اسم المخزن: %1$s</string>
 	<plurals name="screen_file_browser_subtitle_move">
@@ -314,14 +318,17 @@
 	<string name="dialog_debug_mode_disclaimer_title">انتباه</string>
 	<string name="dialog_debug_mode_positive_button">تفعيل</string>
 	<string name="dialog_microsoft_workaround_disclaimer_hint">بسبب خطأ في تطبيقات مايكروسوفت، يجب مشاركة الملف المراد تعديله مع هذه التطبيقات في مجلد وسائط عام على جهازك. بعد استئناف Cryptomator ، يتم حذف هذا الملف مرة أخرى، ولكن Cryptomator لا يمكنه التأثير على ما حدث لهذا الملف في هذه الأثناء. تأكد من أنك على علم بهذا السلوك عند تفعيل هذا الخيار. سيتم تطبيق هذا فقط على ملفات مايكروسوفت.\n\nسيتم إعادة تشغيل Cryptomator بعد التفعيل.</string>
+	<string name="dialog_disable_app_obscured_disclaimer_hint">هذا الإعداد هو ميزة أمنية تمنع التطبيقات الأخرى من استدراج المستخدمين لفعل أشياء لا يريدون القيام بها.\n\nبتعطيليها, أنت تؤكد أنك <a href="https://docs.cryptomator.org/en/latest/android/settings/#block-app-when-obscured">على علم بالمخاطر</a>.</string>
 	<string name="dialog_disable_app_obscured_disclaimer_title">انتباه</string>
 	<string name="dialog_disable_app_obscured_positive_button">تعطيل</string>
 	<string name="dialog_app_is_obscured_info_title">التطبيق غامض</string>
+	<string name="dialog_app_is_obscured_info_hint">يقوم تطبيق آخر بعرض شيء فوق Cryptomator (على سبيل المثال فلتر الضوء الأزرق أو تطبيق الوضع الليلي). لأسباب أمنية، تم تعطيل Cryptomator\n\n<a href="https://docs.cryptomator.org/en/latest/android/settings/#block-app-when-obscured">كيفية تمكين Cryptomator</a></string>
 	<string name="dialog_app_is_obscured_info_neutral_button">إغلاق</string>
 	<string name="dialog_vaults_removed_during_migration_title">رجاءً أعِد إضافَةَ خزائن لسحابة %1s</string>
 	<string name="dialog_vaults_removed_during_migration_hint">أثناء التحول إلى إصدار هذا التطبيق، تتوجب إزالة الخزائن التالية:\n%2s \n\nهذه الخزائن ستحذف فقط من هذا التطبيق وليس من التخزين السحابي. عذرا على الإزعاج قم بإعادة إضافة هذه الخزائن لمواصلة العمل بها.</string>
 	<string name="dialog_vault_is_root_folder_of_cloud_title">الخزنة هي \"المجلد الرئيس\" للاتصال السحابي</string>
 	<string name="dialog_vault_is_root_folder_of_cloud_hint">لإضافة هذه الخزنة، أنشئ اتصالًا سحابيا جديدا بحيث يكون مجلده الرئيس هو نفسه المجلد الرئيس لهذه الخزنة.</string>
+	<string name="dialog_disable_secure_screen_disclaimer_hint">هذا الإعداد هو ميزة أمنية تمنع التطبيقات الأخرى من استدراج المستخدمين لفعل أشياء لا يريدون القيام بها.\n\nبتعطيليها, أنت تؤكد أنك <a href="https://docs.cryptomator.org/en/latest/android/settings/#screen-security">على علم بالمخاطر</a>.</string>
 	<string name="dialog_delete_cloud_connection_with_vaults_message">هل أنت متيقِّن من رغبتك بحذف هذا الاتصال السحابي؟</string>
 	<string name="dialog_delete_cloud_connection_with_vaults_hint">سوف يقوم هذا الأمر بحذف الإتصال بمقدم الخدمة السحابية و كل المخازن المرتبطة به.</string>
 	<string name="dialog_confirm_delete_multiple_title">حذف %1$d عناصر؟</string>
@@ -353,13 +360,23 @@
 	<string name="dialog_no_more_images_to_display">لا مزيد من الصور للعرض&#8230;</string>
 	<string name="dialog_pcloud_credentials_updated_title">تم تحديث وثائق تفويض \'%1$s\'</string>
 	<string name="dialog_pcloud_credentials_updated">إذا كنت ترغب في إضافة حساب pCloud جديد، انقر على هذا الرابط <a href="https://www.pcloud.com">www.pcloud. om</a>، ثم قم بتسجيل الخروج من الحساب الحالي و بعدها انقر مرة أخرى على \'+\' في هذا التطبيق لإنشاء اتصال سحابي جديد.</string>
+	<string name="dialog_cbc_password_vaults_migration_title">مطلوب نقل كلمة مرور الخزنة</string>
+	<string name="dialog_cbc_password_vaults_migration_hint">بسبب التحسينات الأمنية، سوف يطلب منك المصادقة البيومترية مرتين لكل خزانة لإعادة تشفير كلمات المرور الخاصة بك. هذا ضروري للاستمرار في حماية كلمات المرور الخاصة بالمخزن مع أحدث التكنولوجيا. إذا كنت لا ترغب في أن يحدث ذلك، سيتم إزالة كلمات المرور المخزنة.</string>
+	<string name="dialog_cbc_password_vaults_migration_action">نقل</string>
+	<string name="dialog_create_hub_device_title">تسجيل جهاز Hub</string>
+	<string name="dialog_create_hub_device_name_label">الاسم</string>
 	<string name="dialog_create_hub_device_name_hint">يبدو أن هذا هو الوصول الأول إلى Hub من هذا الجهاز. لتحديده لأغراض تفويض الوصول، تحتاج إلى تسمية هذا الجهاز.</string>
 	<string name="dialog_create_hub_device_name_empty">لا يمكن أن يكون الاسم فارغاً.</string>
+	<string name="dialog_create_hub_device_setup_code_label">Account Key</string>
 	<string name="dialog_create_hub_device_setup_code_hint">مفتاح الحساب الخاص بك مطلوب لتسجيل الدخول من تطبيقات أو متصفحات جديدة. يمكن العثور عليه في ملفك الشخصي.</string>
 	<string name="dialog_create_hub_device_setup_code_empty">Account Key لا يمكن أن يكون فارغاً.</string>
 	<string name="dialog_progress_creating_hub_device_setup">إنشاء الجهاز&#8230;</string>
 	<string name="dialog_hub_vault_access_forbidden_title">تم رفض الوصول</string>
+	<string name="dialog_hub_vault_access_forbidden_hint">لم يسمح للمستخدم الخاص بك بعد بالوصول إلى هذا المخزن. اطلب من مالك المخزن أن يأذن بذلك.\"</string>
 	<string name="dialog_hub_license_upgrade_required_title">تحقق من رخصة Hub</string>
+	<string name="dialog_hub_license_upgrade_required_hint">نموذج Hub Cryptomator الخاص بك لديه ترخيص غير صالح. الرجاء إبلاغ مسؤول Hub لترقية أو تجديد الترخيص.\"</string>
+	<string name="dialog_hub_vault_archived_title">تم أرشفة المخزن</string>
+	<string name="dialog_hub_vault_archived_hint">تم أرشفة هذا المخزن ولا يمكن فتحه. لإلغاء قفله، يجب على مالك المخزن إلغاء أرشفته.</string>
 	<string name="dialog_hub_user_setup_required_title">إعداد المستخدم مطلوب</string>
 	<string name="dialog_hub_user_setup_required_hint">للمتابعة، يرجى إكمال الخطوات المطلوبة في ملف المستخدم الخاص بك في Hub.</string>
 	<string name="dialog_hub_user_setup_required_neutral_button">اذهب إلى الملف الشخصي</string>
