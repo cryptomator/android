@@ -40,6 +40,7 @@
 	<string name="error_hub_device_already_register_for_other_user">Bu cihaz zaten farklı bir kullanıcı için kayıtlı. Kullanıcı hesabını değiştirmeyi veya farklı bir cihaz kullanmayı deneyin.</string>
 	<string name="error_hub_invalid_setup_code">Hesap Anahtarı geçersiz.</string>
 	<string name="error_hub_invalid_version">Desteklenmeyen Hub sürümü.</string>
+	<string name="error_hub_unlock_pre_31">Hub yalnızca Android 12 ve üzeri sürümlerde desteklenmektedir.</string>
 	<!-- # clouds -->
 	<!-- ## cloud names -->
 	<string name="cloud_names_local_storage">Yerel depolama</string>
