@@ -12,6 +12,8 @@ public interface BrowseFilesIntent {
 
 	@Optional
 	String title();
+	@Optional
+	Long vaultId();
 
 	@Optional
 	ChooseCloudNodeSettings chooseCloudNodeSettings();
