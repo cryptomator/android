@@ -40,6 +40,7 @@
 	<string name="error_hub_device_already_register_for_other_user">このデバイスは既に別のユーザーに登録されています。ユーザーアカウントを変更するか、別のデバイスを使用してください。</string>
 	<string name="error_hub_invalid_setup_code">アカウントキーが無効です。</string>
 	<string name="error_hub_invalid_version">サポートされていないハブのバージョンです。</string>
+	<string name="error_hub_unlock_pre_31">Hub は Android 12 以降でのみサポートされています。</string>
 	<!-- # clouds -->
 	<!-- ## cloud names -->
 	<string name="cloud_names_local_storage">ローカルストレージ</string>
