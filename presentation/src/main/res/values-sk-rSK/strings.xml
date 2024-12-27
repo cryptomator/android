@@ -35,6 +35,7 @@
 	<string name="error_no_such_bucket">Bucket neexistuje</string>
 	<string name="error_masterkey_location_not_supported">Voliteľnost umiestnenia hlavného kľúča zatiaľ nie je podporovaná</string>
 	<string name="error_interact_with_fdroid_but_fdroid_missing">Komunikácia s aplikáciou F-Droid zlyhala. Nie je nainštalovaná?</string>
+	<string name="error_hub_unlock_pre_31">Hub je podporovaný na Android-e 12 a vyššom.</string>
 	<!-- # clouds -->
 	<!-- ## cloud names -->
 	<string name="cloud_names_local_storage">Lokálne úložisko</string>
