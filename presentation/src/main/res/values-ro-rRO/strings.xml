@@ -36,6 +36,7 @@
 	<string name="error_masterkey_location_not_supported">Nu este suportată încă utilizarea locației personalizate pentru cheia master</string>
 	<string name="error_interact_with_fdroid_but_fdroid_missing">Nu s-a putut comunicat cu aplicația F-Droid. Este posibil ca aplicația sa nu fie instalata?</string>
 	<string name="error_hub_device_already_register_for_other_user">Acest dispozitiv este deja înregistrat pentru un alt utilizator. Încercați să schimbați contul de utilizator sau folosiți un alt dispozitiv.</string>
+	<string name="error_hub_unlock_pre_31">Hub poate fi folosit in Android 12 sau mai nou.</string>
 	<!-- # clouds -->
 	<!-- ## cloud names -->
 	<string name="cloud_names_local_storage">Stocare locală</string>
