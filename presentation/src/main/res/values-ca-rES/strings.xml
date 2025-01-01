@@ -36,6 +36,8 @@
 	<string name="error_masterkey_location_not_supported">Encara no es permet la ubicació personalitzada de la clau mestra</string>
 	<string name="error_interact_with_fdroid_but_fdroid_missing">Error en la comunicació amb l\'aplicació F-Droid. Està instal·lada?</string>
 	<string name="error_hub_device_already_register_for_other_user">El dispositiu ja ha estat registrat per un altre usuari. Mireu de canviar el compte d\'usuari o feu servir un dispositiu diferent.</string>
+	<string name="error_hub_invalid_version">Versió de Hub no suportada.</string>
+	<string name="error_hub_unlock_pre_31">Hub solament és suportat a partir d\'Android 12.</string>
 	<!-- # clouds -->
 	<!-- ## cloud names -->
 	<string name="cloud_names_local_storage">Emmagatzematge local</string>
