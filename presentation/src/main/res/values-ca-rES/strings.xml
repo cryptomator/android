@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 	<!-- # app -->
-	<string name="share_with_label">Xifrar</string>
+	<string name="share_with_label">Encripta</string>
 	<!-- # error messages -->
-	<string name="error_generic">Hi ha hagut un error</string>
+	<string name="error_generic">S\'ha produït un error</string>
 	<string name="error_authentication_failed">Ha fallat l\'autenticació</string>
 	<string name="error_authentication_failed_re_authenticate">Error d\'autenticació, inicieu sessió usant %1$s</string>
 	<string name="error_no_network_connection">No hi ha connexió de xarxa</string>
@@ -309,14 +309,17 @@
 	<string name="dialog_debug_mode_disclaimer_title">Atenció</string>
 	<string name="dialog_debug_mode_positive_button">Activa</string>
 	<string name="dialog_microsoft_workaround_disclaimer_hint">A causa d\'un error en les aplicacions de Microsoft, el fitxer que s\'editarà s\'ha de compartir amb aquestes aplicacions en una carpeta de mitjans públics al dispositiu. Quan es reprengui Cryptomator, el fitxer d\'accés públic s\'elimina novament, però Cryptomator no pot influir en el que va passar amb aquest fitxer mentrestant. Assegureu-vos de conèixer aquest comportament en activar aquesta opció. Això només s\'aplicarà als tipus de fitxers de Microsoft.\n\nCryptomator es reiniciarà després de l\'activació.</string>
+	<string name="dialog_disable_app_obscured_disclaimer_hint">Aquesta configuració és una funció de seguretat que evita que altres aplicacions enganyin els usuaris perquè facin coses que no volen fer.\n\nEn desactivar-la, confirmeu que en compreneu &lt;a href="https://docs.cryptomator.org". /en/1.6/android/settings/#block-app-when-obscured"&gt;els riscos&lt;/a&gt;.</string>
 	<string name="dialog_disable_app_obscured_disclaimer_title">Atenció</string>
 	<string name="dialog_disable_app_obscured_positive_button">Desactiva</string>
 	<string name="dialog_app_is_obscured_info_title">Alguna cosa està superposada a l\'aplicació</string>
+	<string name="dialog_app_is_obscured_info_hint">Una altra aplicació mostra alguna cosa a sobre de Cryptomator (p. ex., un filtre de llum blava o una aplicació de mode nocturn). Per motius de seguretat, Cryptomator s\'ha desactivat.\n\n<a href="https://docs.cryptomator.org/en/latest/android/settings/#block-app-when-obscured">Com activar Cryptomator</a></string>
 	<string name="dialog_app_is_obscured_info_neutral_button">Tanca</string>
 	<string name="dialog_vaults_removed_during_migration_title">Si us plau, torna a afegir les caixes fortes per el cloud %1s</string>
 	<string name="dialog_vaults_removed_during_migration_hint">Al migrar cap a aquesta versió de l\'app hem hagut d\'esborrar les següents caixes fortes de l\'aplicació:\n%2s \n\nAquestes caixes fortes no s\'han esborrat del cloud sinó que només de l\'aplicació. Sentim les molèsties ocasionades, si us plau torna a afegir les caixes fortes per a continuar treballant amb elles.</string>
 	<string name="dialog_vault_is_root_folder_of_cloud_title">La caixa forta és la carpeta principal de la connexió al núvol</string>
 	<string name="dialog_vault_is_root_folder_of_cloud_hint">Crea una nova connexió al núvol on podeu seleccionar si més no la carpeta mare d\'aquesta caixa forta com a carpeta arrel per a afegir aquesta caixa forta.</string>
+	<string name="dialog_disable_secure_screen_disclaimer_hint">Aquesta configuració és una funció de seguretat que evita que altres aplicacions enganyin els usuaris perquè facin coses que no volen fer.\n\nEn desactivar-la, confirmeu que en compreneu &lt;a href="https://docs.cryptomator.org". /en/1.6/android/settings/#block-app-when-obscured"&gt;els riscos&lt;/a&gt;.</string>
 	<string name="dialog_delete_cloud_connection_with_vaults_message">Estàs segur que vols esborrar aquesta connexió al cloud?</string>
 	<string name="dialog_delete_cloud_connection_with_vaults_hint">Aquesta acció esborrarà la connexió al cloud i totes les seves caixes fortes.</string>
 	<string name="dialog_confirm_delete_multiple_title">Voleu suprimir %1$d elements?</string>
@@ -349,9 +352,14 @@
 	<string name="dialog_pcloud_credentials_updated_title">Credencials de \'%1$s\' actualitzades</string>
 	<string name="dialog_pcloud_credentials_updated">Si teníeu la intenció d\'afegir un compte de pCloud nou, toqueu aquest URL <a href="https://www.pcloud.com">www.pcloud.com</a>, tanqueu la sessió del compte actual i torneu a tocar el \"+\" d\'aquesta aplicació per crear una nova connexió al núvol.</string>
 	<string name="dialog_cbc_password_vaults_migration_action">Migra</string>
+	<string name="dialog_create_hub_device_name_label">Nom</string>
 	<string name="dialog_create_hub_device_name_hint">Sembla que és el primer accés al Hub des d\'aquest dispositiu. Per identificar-lo i poder autoritzar l\'accés heu de posar nom a aquest dispositiu.</string>
+	<string name="dialog_create_hub_device_name_empty">No es pot deixar buit el nom.</string>
 	<string name="dialog_create_hub_device_setup_code_hint">Cal la vostra Account Key per a iniciar sessió des d\'una aplicació o navegador nous. La trobareu al vostre perfil.</string>
 	<string name="dialog_hub_vault_access_forbidden_title">Accés denegat</string>
+	<string name="dialog_hub_license_upgrade_required_title">Comprova la llicència de Hub</string>
+	<string name="dialog_hub_license_upgrade_required_hint">Aquesta instància de Cryptomator Hub no té una llicència vàlida. Si us plau, informeu un l\'administrador perquè actualitzi o renovi la llicència.\"</string>
+	<string name="dialog_hub_vault_archived_title">La caixa forta ha estat arxivada</string>
 	<string name="dialog_hub_user_setup_required_hint">Per a continuar, si us plau, seguiu els passos necessaris en el vostre perfil d\'usuari de Hub.</string>
 	<string name="dialog_hub_user_setup_required_neutral_button">Vés al perfil</string>
 	<string name="permission_snackbar_auth_local_vault">Cryptomator necessita accés a l\'emmagatzematge per a fer servir caixes fortes locals</string>
