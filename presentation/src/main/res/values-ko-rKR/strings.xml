@@ -35,6 +35,11 @@
 	<string name="error_no_such_bucket">해당 버킷을 찾을 수 없습니다.</string>
 	<string name="error_masterkey_location_not_supported">사용자 지정이 가능한 마스터키 경로는 아직 지원하지 않습니다</string>
 	<string name="error_interact_with_fdroid_but_fdroid_missing">F-Droid 앱을 찾을 수 없습니다. 앱을 설치했는지 확인해주세요.</string>
+	<string name="error_hub_authentication_failed">Hub에 대한 인증이 실패했습니다.</string>
+	<string name="error_hub_device_already_register_for_other_user">이 기기는 이미 다른 사용자에 등록되어 있습니다. 다른 사용자 계정이나 다른 기기를 사용해보세요.</string>
+	<string name="error_hub_invalid_setup_code">Account Key가 올바르지 않습니다.</string>
+	<string name="error_hub_invalid_version">지원되지 않는 Hub 버전입니다.</string>
+	<string name="error_hub_unlock_pre_31">Hub는 안드로이드 12 이상에서만 지원됩니다.</string>
 	<!-- # clouds -->
 	<!-- ## cloud names -->
 	<string name="cloud_names_local_storage">로컬 저장소</string>
@@ -67,6 +72,7 @@
 	<string name="screen_vault_list_change_password_successful">비밀번호 변경 성공</string>
 	<!-- # screen: file browser -->
 	<string name="screen_file_browser_default_title">Vault</string>
+	<string name="screen_file_browser_add_existing_vault_extra_text">마스터키 또는 금고 파일 선택</string>
 	<string name="screen_file_browser_create_new_vault_button_text">여기에 만들기</string>
 	<string name="screen_file_browser_create_new_vault_extra_text">Vault 이름: %1$s</string>
 	<plurals name="screen_file_browser_subtitle_move">
@@ -150,7 +156,7 @@
 	<string name="screen_set_password_button_text">완료</string>
 	<string name="screen_set_password_hint">중요: 만약 비밀번호를 잊어버린 경우, 데이터를 복구 할 방법이 없습니다.</string>
 	<string name="screen_set_password_retype_password_label">비밀번호 재입력</string>
-	<string name="screen_set_password_strength_indicator_0">Vault를 만들기에 매우 나쁨</string>
+	<string name="screen_set_password_strength_indicator_0">Vault를 만들기에 매우 취약함</string>
 	<string name="screen_set_password_strength_indicator_1">취약함</string>
 	<string name="screen_set_password_strength_indicator_2">보통</string>
 	<string name="screen_set_password_strength_indicator_3">강함</string>
