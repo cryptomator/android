@@ -40,6 +40,7 @@
 	<string name="error_hub_device_already_register_for_other_user">Denna enhet är redan registrerad för en annan användare. Försök att ändra användarkontot eller använda en annan enhet.</string>
 	<string name="error_hub_invalid_setup_code">Kontonyckeln är ogiltig.</string>
 	<string name="error_hub_invalid_version">Hub-versionen stöds inte.</string>
+	<string name="error_hub_unlock_pre_31">Cryptomator navet stöds endast på Android 12 och senare.</string>
 	<!-- # clouds -->
 	<!-- ## cloud names -->
 	<string name="cloud_names_local_storage">Lokal lagring</string>

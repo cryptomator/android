@@ -40,6 +40,7 @@
 	<string name="error_hub_device_already_register_for_other_user">Αυτή η συσκευή είναι ήδη εγγεγραμμένη για διαφορετικό χρήστη. Προσπαθήστε να αλλάξετε τον λογαριασμό χρήστη ή να χρησιμοποιήσετε διαφορετική συσκευή.</string>
 	<string name="error_hub_invalid_setup_code">Το Κλειδί Λογαριασμού δεν είναι έγκυρο.</string>
 	<string name="error_hub_invalid_version">Μη υποστηριζόμενη έκδοση Hub.</string>
+	<string name="error_hub_unlock_pre_31">Το Hub υποστηρίζεται μόνο από Android 12 και πάνω.</string>
 	<!-- # clouds -->
 	<!-- ## cloud names -->
 	<string name="cloud_names_local_storage">Τοπικός αποθηκευτικός χώρος</string>

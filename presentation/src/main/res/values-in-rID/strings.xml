@@ -40,6 +40,7 @@
 	<string name="error_hub_device_already_register_for_other_user">Perangkat ini sudah terdaftar untuk pengguna lain. Cobalah menggunakan akun pengguna atau perangkat yang berbeda.</string>
 	<string name="error_hub_invalid_setup_code">Kunci Akun tidak sah.</string>
 	<string name="error_hub_invalid_version">Versi Hub tidak didukung.</string>
+	<string name="error_hub_unlock_pre_31">Hub hanya didukung oleh Android 12 atau di atasnya.</string>
 	<!-- # clouds -->
 	<!-- ## cloud names -->
 	<string name="cloud_names_local_storage">Penyimpanan lokal</string>
