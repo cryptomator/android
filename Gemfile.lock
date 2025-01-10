@@ -118,6 +118,7 @@ GEM
       apktools (~> 0.7)
       aws-sdk-s3 (~> 1)
       mime-types (~> 3.3)
+    fastlane-plugin-bundletool (1.1.0)
     fastlane-plugin-get_version_name (0.2.2)
     fastlane-sirp (1.0.0)
       sysrandom (~> 1.0)
@@ -236,6 +237,7 @@ DEPENDENCIES
   ed25519
   fastlane
   fastlane-plugin-aws_s3
+  fastlane-plugin-bundletool
   fastlane-plugin-get_version_name
   net-sftp
 
