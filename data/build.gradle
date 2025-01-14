@@ -72,7 +72,7 @@ android {
 		}
 
 		fdroid {
-			java.srcDirs = ['src/main/java/', 'src/apiKey/java/', 'src/fdroid/java/']
+			java.srcDirs = ['src/main/java/', 'src/apiKey/java/', 'src/fdroidAccrescent/java/']
 		}
 
 		lite {
@@ -80,7 +80,7 @@ android {
 		}
 
 		accrescent {
-			java.srcDirs = ['src/main/java/', 'src/apiKey/java/', 'src/fdroid/java/']
+			java.srcDirs = ['src/main/java/', 'src/apiKey/java/', 'src/fdroidAccrescent/java/']
 		}
 	}
 	packagingOptions {
