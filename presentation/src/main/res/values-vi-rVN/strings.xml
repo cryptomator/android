@@ -67,7 +67,6 @@
 	<string name="screen_vault_list_change_password_successful">Thay đổi mật khẩu thành công</string>
 	<!-- # screen: file browser -->
 	<string name="screen_file_browser_default_title">Vault</string>
-	<string name="screen_file_browser_add_existing_vault_extra_text">Chọn tệp khoá chính</string>
 	<string name="screen_file_browser_create_new_vault_button_text">Đặt ở đây</string>
 	<string name="screen_file_browser_create_new_vault_extra_text">Tên vault: %1$s</string>
 	<plurals name="screen_file_browser_subtitle_move">
@@ -345,6 +344,8 @@
 	<string name="dialog_no_more_images_to_display">Không còn hình ảnh để hiển thị&#8230;</string>
 	<string name="dialog_pcloud_credentials_updated_title">Đã cập nhật thông tin xác thực của \'%1$s\'</string>
 	<string name="dialog_pcloud_credentials_updated">Nếu bạn định thêm tài khoản pCloud mới, hãy nhấn vào url này <a href="https://www.pcloud.com">www.pcloud.com</a>, đăng xuất khỏi tài khoản hiện tại và nhấn lại vào \'+\' trong ứng dụng này để tạo kết nối đám mây mới.</string>
+	<string name="dialog_hub_vault_access_forbidden_title">Truy cập bị từ chối</string>
+	<string name="dialog_hub_user_setup_required_neutral_button">Xem hồ sơ</string>
 	<string name="permission_snackbar_auth_local_vault">Cryptomator cần quyền truy cập bộ nhớ để sử dụng vault cục bộ</string>
 	<string name="permission_snackbar_auth_auto_upload">Cryptomator cần quyền truy cập bộ nhớ để sử dụng tính năng tự động tải ảnh lên</string>
 	<string name="permission_snackbar_notifications">Cryptomator cần quyền thông báo để hiển thị trạng thái vault chẳng hạn</string>

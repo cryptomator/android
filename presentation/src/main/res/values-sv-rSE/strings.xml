@@ -35,6 +35,11 @@
 	<string name="error_no_such_bucket">Ingen sådan bucket</string>
 	<string name="error_masterkey_location_not_supported">Anpassad Masterkey-plats stöds inte ännu</string>
 	<string name="error_interact_with_fdroid_but_fdroid_missing">Det gick inte att kommunicera med F-Droid-appen. Inte installerad?</string>
+	<string name="error_hub_vault_operation_not_supported">Valvoperation stöds inte för Hub</string>
+	<string name="error_hub_authentication_failed">Autentisering mot Hub misslyckades</string>
+	<string name="error_hub_device_already_register_for_other_user">Denna enhet är redan registrerad för en annan användare. Försök att ändra användarkontot eller använda en annan enhet.</string>
+	<string name="error_hub_invalid_setup_code">Kontonyckeln är ogiltig.</string>
+	<string name="error_hub_invalid_version">Hub-versionen stöds inte.</string>
 	<!-- # clouds -->
 	<!-- ## cloud names -->
 	<string name="cloud_names_local_storage">Lokal lagring</string>
@@ -67,7 +72,7 @@
 	<string name="screen_vault_list_change_password_successful">Lösenordet har ändrats</string>
 	<!-- # screen: file browser -->
 	<string name="screen_file_browser_default_title">Valv</string>
-	<string name="screen_file_browser_add_existing_vault_extra_text">Välj Masterkey-fil</string>
+	<string name="screen_file_browser_add_existing_vault_extra_text">Välj masterkey eller valvfil</string>
 	<string name="screen_file_browser_create_new_vault_button_text">Placera här</string>
 	<string name="screen_file_browser_create_new_vault_extra_text">Valvets namn: %1$s</string>
 	<plurals name="screen_file_browser_subtitle_move">
@@ -352,6 +357,23 @@
 	<string name="dialog_cbc_password_vaults_migration_title">Lösenorden behöver överföras till nya valvet</string>
 	<string name="dialog_cbc_password_vaults_migration_hint">På grund av säkerhetsförbättringar kommer du att bli ombedd att använda din biometriska autentisering två gånger för varje valv för att omkryptera dina valvlösenord. Detta är nödvändigt för att fortsätta att skydda ditt valv lösenord med den senaste tekniken. Om du inte vill att detta ska ske kommer de sparade lösenorden att tas bort.</string>
 	<string name="dialog_cbc_password_vaults_migration_action">Migrera</string>
+	<string name="dialog_create_hub_device_title">Registrera navenhet</string>
+	<string name="dialog_create_hub_device_name_label">Namn</string>
+	<string name="dialog_create_hub_device_name_hint">Detta verkar vara den första Hub-åtkomsten från den här enheten. För att identifiera den för åtkomstbehörighet, måste du namnge den här enheten.</string>
+	<string name="dialog_create_hub_device_name_empty">Namnet kan inte vara tomt.</string>
+	<string name="dialog_create_hub_device_setup_code_label">Konto nyckel</string>
+	<string name="dialog_create_hub_device_setup_code_hint">Din kontonyckel krävs för att logga in från nya appar eller webbläsare. Den finns i din profil.</string>
+	<string name="dialog_create_hub_device_setup_code_empty">Kontonyckeln kan inte vara tom.</string>
+	<string name="dialog_progress_creating_hub_device_setup">Skapar enhet&#8230;</string>
+	<string name="dialog_hub_vault_access_forbidden_title">Åtkomst nekad</string>
+	<string name="dialog_hub_vault_access_forbidden_hint">Din användare har ännu inte behörighet att komma åt detta valv. Be valvägaren att auktorisera det.\"</string>
+	<string name="dialog_hub_license_upgrade_required_title">Kontrollera navlicens</string>
+	<string name="dialog_hub_license_upgrade_required_hint">Din Cryptomator Hub-instans har en ogiltig licens. Vänligen informera en Hub administratör för att uppgradera eller förnya licensen.\"</string>
+	<string name="dialog_hub_vault_archived_title">Valvet arkiverades</string>
+	<string name="dialog_hub_vault_archived_hint">Detta valv är arkiverat och kan inte låsas upp. För att låsa upp det måste valvägaren avarkivera det.</string>
+	<string name="dialog_hub_user_setup_required_title">Användarkonfiguration krävs</string>
+	<string name="dialog_hub_user_setup_required_hint">För att fortsätta, vänligen fyll i de steg som krävs i din Hub-användarprofil.</string>
+	<string name="dialog_hub_user_setup_required_neutral_button">Gå till profil</string>
 	<string name="permission_snackbar_auth_local_vault">Cryptomator behöver åtkomst till lagringsutrymmet för att använda lokala valv</string>
 	<string name="permission_snackbar_auth_auto_upload">Cryptomator behöver åtkomst till lagringsutrymmet för att kunna använda automatisk uppladdning av foton</string>
 	<string name="permission_snackbar_notifications">Cryptomator behöver aviseringsbehörigheter för att till exempel visa valvstatus</string>

@@ -35,6 +35,12 @@
 	<string name="error_no_such_bucket">El bucket no existe</string>
 	<string name="error_masterkey_location_not_supported">Ubicación personalizada Masterkey aún no soportada</string>
 	<string name="error_interact_with_fdroid_but_fdroid_missing">Error al comunicarse con la aplicación F-Droid. ¿No está instalada?</string>
+	<string name="error_hub_vault_operation_not_supported">Operación de bóveda no soportada para Hub</string>
+	<string name="error_hub_authentication_failed">Ha fallado la autenticación de Hub</string>
+	<string name="error_hub_device_already_register_for_other_user">Este dispositivo ya se ha registrado para otro usuario. Intente cambiar la cuenta de usuario o utilice un dispositivo diferente.</string>
+	<string name="error_hub_invalid_setup_code">La Account Key no es válida.</string>
+	<string name="error_hub_invalid_version">Versión de Hub no soportada.</string>
+	<string name="error_hub_unlock_pre_31">Hub solo es compatible con Android 12 o superior.</string>
 	<!-- # clouds -->
 	<!-- ## cloud names -->
 	<string name="cloud_names_local_storage">Almacenamiento local</string>
@@ -67,7 +73,7 @@
 	<string name="screen_vault_list_change_password_successful">Contraseña cambiada con éxito</string>
 	<!-- # screen: file browser -->
 	<string name="screen_file_browser_default_title">Bóveda</string>
-	<string name="screen_file_browser_add_existing_vault_extra_text">Seleccionar archivo masterkey</string>
+	<string name="screen_file_browser_add_existing_vault_extra_text">Seleccionar archivo masterkey o bóveda</string>
 	<string name="screen_file_browser_create_new_vault_button_text">Dejar aquí</string>
 	<string name="screen_file_browser_create_new_vault_extra_text">Nombre de la bóveda: %1$s</string>
 	<plurals name="screen_file_browser_subtitle_move">
@@ -352,6 +358,23 @@
 	<string name="dialog_cbc_password_vaults_migration_title">Migración de contraseña de bóveda requerida</string>
 	<string name="dialog_cbc_password_vaults_migration_hint">Debido a las mejoras de seguridad, se le pedirá la autenticación biométrica dos veces por cada bóveda para volver a cifrar sus contraseñas de bóveda. Esto es necesario para continuar protegiendo sus contraseñas de bóveda con la última tecnología. Si no desea que esto suceda, se eliminarán las contraseñas almacenadas.</string>
 	<string name="dialog_cbc_password_vaults_migration_action">Migrar</string>
+	<string name="dialog_create_hub_device_title">Registrar dispositivo Hub</string>
+	<string name="dialog_create_hub_device_name_label">Nombre</string>
+	<string name="dialog_create_hub_device_name_hint">Este parece ser el primer acceso al Hub desde este dispositivo. Para identificarlo y autorizar el acceso, necesita nombrar este dispositivo.</string>
+	<string name="dialog_create_hub_device_name_empty">El nombre no puede estar vacío.</string>
+	<string name="dialog_create_hub_device_setup_code_label">Account Key</string>
+	<string name="dialog_create_hub_device_setup_code_hint">Se requiere su clave de cuenta para iniciar sesión desde nuevas aplicaciones o navegadores. Puede encontrarse en su perfil.</string>
+	<string name="dialog_create_hub_device_setup_code_empty">La Account Key no puede estar vacía.</string>
+	<string name="dialog_progress_creating_hub_device_setup">Creando dispositivo&#8230;</string>
+	<string name="dialog_hub_vault_access_forbidden_title">Acceso denegado</string>
+	<string name="dialog_hub_vault_access_forbidden_hint">Su usuario aún no ha sido autorizado para acceder a esta bóveda. Pídale al propietario de la bóveda que lo autorice.\"</string>
+	<string name="dialog_hub_license_upgrade_required_title">Comprobar licencia de Hub</string>
+	<string name="dialog_hub_license_upgrade_required_hint">Su instancia de Cryptomator Hub tiene una licencia inválida. Informe a un administrador del Hub para actualizar o renovar la licencia.\"</string>
+	<string name="dialog_hub_vault_archived_title">Bóveda archivada</string>
+	<string name="dialog_hub_vault_archived_hint">Esta bóveda está archivada y no puede ser desbloqueada. Para desbloquearla, el propietario de la bóveda debe desarchivarla.</string>
+	<string name="dialog_hub_user_setup_required_title">Configuración de usuario requerida</string>
+	<string name="dialog_hub_user_setup_required_hint">Para continuar, complete los pasos necesarios en su perfil de usuario de Hub.</string>
+	<string name="dialog_hub_user_setup_required_neutral_button">Ir al Perfil</string>
 	<string name="permission_snackbar_auth_local_vault">Cryptomator necesita acceso de almacenamiento para usar bóvedas locales</string>
 	<string name="permission_snackbar_auth_auto_upload">Cryptomator necesita acceso de almacenamiento para cargar fotos automáticamente</string>
 	<string name="permission_snackbar_notifications">Cryptomator necesita permisos de notificación para mostrar el estado de la bóveda por ejemplo</string>

@@ -4,7 +4,7 @@
 	<string name="share_with_label">Enkripsi</string>
 	<!-- # error messages -->
 	<string name="error_generic">Kesalahan terjadi</string>
-	<string name="error_authentication_failed">Autentikasi gagal</string>
+	<string name="error_authentication_failed">Pengesahan gagal</string>
 	<string name="error_authentication_failed_re_authenticate">Autentikasi gagal, mohon masuk menggunakan %1$s</string>
 	<string name="error_no_network_connection">Tidak ada koneksi jaringan</string>
 	<string name="error_invalid_passphrase">Kata sandi salah</string>
@@ -27,14 +27,19 @@
 	<string name="error_update_no_internet">Pemeriksaan pembaruan gagal. Tidak ada koneksi internet.</string>
 	<string name="error_failed_to_decrypt_webdav_password">Gagal mendekripsi kata sandi WebDAV, harap tambahkan kembali di pengaturan</string>
 	<string name="error_play_services_not_available">Google Play Services belum terpasang</string>
-	<string name="error_biometric_auth_aborted">Autentikasi biometrik dibatalkan</string>
+	<string name="error_biometric_auth_aborted">Pengesahan biometrik dibatalkan</string>
 	<string name="error_vault_version_mismatch">Versi yang ditentukan di %1$s berbeda dengan %2$s</string>
 	<string name="error_vault_key_invalid">%1$s tidak cocok dengan %2$s ini</string>
 	<string name="error_vault_config_loading">Terjadi kesalahan saat memuat konfigurasi vault</string>
 	<string name="error_file_not_found_after_opening_using_3party">File lokal sudah tidak tersedia setelah beralih kembali ke Cryptomator. Perubahan yang ada tidak dapat disimpan kembali ke cloud.</string>
 	<string name="error_no_such_bucket">Bucket tidak ada</string>
-	<string name="error_masterkey_location_not_supported">Lokasi Masterkey khusus belum didukung</string>
+	<string name="error_masterkey_location_not_supported">Lokasi Kunci utama belum didukung</string>
 	<string name="error_interact_with_fdroid_but_fdroid_missing">Gagal berkomunikasi dengan aplikasi F-Droid. Belum dipasang?</string>
+	<string name="error_hub_vault_operation_not_supported">Operasi berkas tidak didukung Hub</string>
+	<string name="error_hub_authentication_failed">Otentikasi ke Hub gagal</string>
+	<string name="error_hub_device_already_register_for_other_user">Perangkat ini sudah terdaftar untuk pengguna lain. Cobalah menggunakan akun pengguna atau perangkat yang berbeda.</string>
+	<string name="error_hub_invalid_setup_code">Kunci Akun tidak sah.</string>
+	<string name="error_hub_invalid_version">Versi Hub tidak didukung.</string>
 	<!-- # clouds -->
 	<!-- ## cloud names -->
 	<string name="cloud_names_local_storage">Penyimpanan lokal</string>
@@ -48,13 +53,13 @@
 	<string name="snack_bar_action_title_search">Cari</string>
 	<string name="snack_bar_action_title_search_previous">Sebelumnya</string>
 	<string name="snack_bar_action_title_search_next">Lanjut</string>
-	<string name="snack_bar_action_title_sort">Urutkan</string>
+	<string name="snack_bar_action_title_sort">Sortir</string>
 	<string name="snack_bar_action_title_sort_az">A - Z</string>
 	<string name="snack_bar_action_title_sort_za">Z - A</string>
-	<string name="snack_bar_action_title_sort_newest">Terbaru dulu</string>
-	<string name="snack_bar_action_title_sort_oldest">Terlama dulu</string>
-	<string name="snack_bar_action_title_sort_biggest">Terbesar dulu</string>
-	<string name="snack_bar_action_title_sort_smallest">Terkecil dulu</string>
+	<string name="snack_bar_action_title_sort_newest">Diurutkan mulai dari yang terbaru</string>
+	<string name="snack_bar_action_title_sort_oldest">Diurutkan mulai dari yang terlama</string>
+	<string name="snack_bar_action_title_sort_biggest">Diurutkan mulai dari yang terbesar</string>
+	<string name="snack_bar_action_title_sort_smallest">Diurutkan mulai dari yang terkecil</string>
 	<string name="snack_bar_cryptomator_variants_title">Baca lebih lanjut</string>
 	<string name="snack_bar_cryptomator_variants_hint">Cloud tidak ada di dalam daftar?</string>
 	<!-- # screens -->
@@ -67,7 +72,7 @@
 	<string name="screen_vault_list_change_password_successful">Kasa Sandi berhasil diubah</string>
 	<!-- # screen: file browser -->
 	<string name="screen_file_browser_default_title">Vault</string>
-	<string name="screen_file_browser_add_existing_vault_extra_text">Pilih file Masterkey</string>
+	<string name="screen_file_browser_add_existing_vault_extra_text">Pilih file Masterkey atau berkas brangkas</string>
 	<string name="screen_file_browser_create_new_vault_button_text">Tempatkan disini</string>
 	<string name="screen_file_browser_create_new_vault_extra_text">Nama vault: %1$s</string>
 	<plurals name="screen_file_browser_subtitle_move">
@@ -306,14 +311,17 @@
 	<string name="dialog_debug_mode_disclaimer_title">Perhatian</string>
 	<string name="dialog_debug_mode_positive_button">Aktifkan</string>
 	<string name="dialog_microsoft_workaround_disclaimer_hint">Karena adanya bug pada aplikasi Microsoft, berkas yang akan diedit harus dibagikan dengan aplikasi ini di folder media publik di perangkat Anda. Setelah Cryptomator dilanjutkan, berkas yang dapat diakses publik akan dihapus lagi, namun Cryptomator tidak dapat memengaruhi apa yang terjadi pada berkas ini untuk sementara. Pastikan Anda mengetahui perilaku ini saat mengaktifkan opsi ini. Ini hanya berlaku untuk jenis berkas Microsoft.\n\nCryptomator akan dimulai ulang setelah aktivasi.</string>
+	<string name="dialog_disable_app_obscured_disclaimer_hint">Pengaturan ini adalah fitur keamanan untuk mencegah aplikasi lain mengelabui pengguna melakukan hal-hal yang tidak ingin mereka lakukan.\n\nDengan menonaktifkan, Anda mengonfirmasi bahwa telah <a href="https://docs.cryptomator.org/en/latest/android/settings/#block-app-when-obscured">menyadari akan bahaya tersebut</a>.</string>
 	<string name="dialog_disable_app_obscured_disclaimer_title">Perhatian</string>
 	<string name="dialog_disable_app_obscured_positive_button">Matikan</string>
 	<string name="dialog_app_is_obscured_info_title">Aplikasi terhalang</string>
+	<string name="dialog_app_is_obscured_info_hint">Aplikasi lain menampilkan sesuatu di atas tampilan Cryptomator (misal, Filter cahaya biru atau aplikasi mode malam). Untuk alasan keamanan, Cryptomator dinonaktifkan.\n\n<a href="https://docs.cryptomator.org/en/latest/android/settings/#block-app-when-obscured">Cara mengaktifkan Cryptomator</a></string>
 	<string name="dialog_app_is_obscured_info_neutral_button">Tutup</string>
 	<string name="dialog_vaults_removed_during_migration_title">Harap tambahkan kembali vault untuk cloud %1s</string>
 	<string name="dialog_vaults_removed_during_migration_hint">Saat bermigrasi ke versi aplikasi ini, kita perlu menghapus vault berikut dari aplikasi:\n%2s \n\nVault tersebut tidak dihapus dari cloud, tetapi hanya dari aplikasi ini. Maaf atas ketidaknyamanan ini dan harap tambahkan kembali vault ini untuk terus bekerja dengannya.</string>
 	<string name="dialog_vault_is_root_folder_of_cloud_title">Vault adalah folder induk dari koneksi cloud</string>
 	<string name="dialog_vault_is_root_folder_of_cloud_hint">Buat koneksi cloud baru di mana Anda memilih setidaknya folder induk dari folder vault ini sebagai direktori induk untuk menambahkan vault ini.</string>
+	<string name="dialog_disable_secure_screen_disclaimer_hint">Pengaturan ini adalah fitur keamanan untuk mencegah aplikasi lain mengelabui pengguna melakukan hal-hal yang tidak ingin mereka lakukan.\n\nDengan menonaktifkan, Anda mengonfirmasi bahwa telah <a href="https://docs.cryptomator.org/en/latest/android/settings/#screen-security">menyadari akan bahaya tersebut</a>.</string>
 	<string name="dialog_delete_cloud_connection_with_vaults_message">Anda yakin ingin menghapus koneksi cloud ini?</string>
 	<string name="dialog_delete_cloud_connection_with_vaults_hint">Tindakan ini akan menghapus koneksi cloud dan semua vault pada cloud ini.</string>
 	<string name="dialog_confirm_delete_multiple_title">Hapus %1$d item?</string>
@@ -345,6 +353,26 @@
 	<string name="dialog_no_more_images_to_display">Tidak ada lagi gambar untuk ditampilkan&#8230;</string>
 	<string name="dialog_pcloud_credentials_updated_title">Kredensial \'%1$s\' diperbarui</string>
 	<string name="dialog_pcloud_credentials_updated">Jika Anda ingin menambahkan akun pCloud baru, ketuk url berikut <a href="https://www.pcloud.com">www.pcloud.com</a>, keluar dari akun saat ini kemudian ketuk tombol \'+\' lagi di aplikasi ini untuk membuat koneksi cloud baru.</string>
+	<string name="dialog_cbc_password_vaults_migration_title">Diperlukan migrasi kata sandi vault</string>
+	<string name="dialog_cbc_password_vaults_migration_hint">Untuk peningkatan keamanan, Anda akan diminta melakukan autentikasi biometrik dua kali untuk tiap brangkas guna mengenkripsi ulang kata sandi brangkas Anda. Hal ini diperlukan guna melindungi kata sandi brangkas Anda dengan teknologi terkini. Jika Anda tidak ingin hal ini terjadi, kata sandi yang tersimpan akan dihapus.</string>
+	<string name="dialog_cbc_password_vaults_migration_action">Migrasi</string>
+	<string name="dialog_create_hub_device_title">Mendaftarkan perangkat Hub</string>
+	<string name="dialog_create_hub_device_name_label">Nama</string>
+	<string name="dialog_create_hub_device_name_hint">Tampaknya ini adalah akses Hub pertama dari perangkat ini. Untuk mengidentifikasi otorisasi akses ini, Anda perlu memberi nama untuk perangkat ini.</string>
+	<string name="dialog_create_hub_device_name_empty">Nama harus diisi.</string>
+	<string name="dialog_create_hub_device_setup_code_label">Kunci Akun</string>
+	<string name="dialog_create_hub_device_setup_code_hint">Kunci Akun Anda diperlukan untuk masuk dari aplikasi atau browser baru. Kunci dapat ditemukan di profil Anda.</string>
+	<string name="dialog_create_hub_device_setup_code_empty">Kunci akun harus diisi.</string>
+	<string name="dialog_progress_creating_hub_device_setup">Membuat perangkat&#8230;</string>
+	<string name="dialog_hub_vault_access_forbidden_title">Akses ditolak</string>
+	<string name="dialog_hub_vault_access_forbidden_hint">Perangkat Anda belum diizinkan mengakses brangkas ini. Minta pemilik brangkas untuk mengizinkannya.\"</string>
+	<string name="dialog_hub_license_upgrade_required_title">Periksa lisensi Hub</string>
+	<string name="dialog_hub_license_upgrade_required_hint">Instans Cryptomator Hub Anda memiliki lisensi yang tidak sah. Mintalah kepada administrator Hub untuk meningkatkan atau memperbarui lisensi.\"</string>
+	<string name="dialog_hub_vault_archived_title">Brangkas diarsipkan</string>
+	<string name="dialog_hub_vault_archived_hint">Brangkas ini telah diarsipkan dan tidak bisa dibuka. Untuk membukanya, pemilik brangkas harus mengeluarkannya dari arsip.</string>
+	<string name="dialog_hub_user_setup_required_title">Diperlukan pengaturan dari pengguna</string>
+	<string name="dialog_hub_user_setup_required_hint">Untuk melanjutkan, silakan lengkapi langkah-langkah yang diperlukan di profil pengguna Hub Anda.</string>
+	<string name="dialog_hub_user_setup_required_neutral_button">Buka Profil</string>
 	<string name="permission_snackbar_auth_local_vault">Cryptomator membutuhkan akses penyimpanan untuk menggunakan vault lokal</string>
 	<string name="permission_snackbar_auth_auto_upload">Cryptomator membutuhkan akses penyimpanan untuk menggunakan unggahan foto otomatis</string>
 	<string name="permission_snackbar_notifications">Cryptomator perlu izin pemberitahuan untuk menampilkan status brankas, misalnya</string>

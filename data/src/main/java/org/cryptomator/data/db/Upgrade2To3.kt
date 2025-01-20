@@ -3,6 +3,7 @@ package org.cryptomator.data.db
 import android.content.Context
 import android.content.SharedPreferences
 import org.cryptomator.util.crypto.CredentialCryptor
+import org.cryptomator.util.crypto.CryptoMode
 import org.greenrobot.greendao.database.Database
 import javax.inject.Inject
 import javax.inject.Singleton
@@ -38,7 +39,7 @@ internal class Upgrade2To3 @Inject constructor(private val context: Context) : D
 
 	private fun encrypt(token: String?): String? {
 		return if (token == null) null else CredentialCryptor //
-			.getInstance(context) //
+			.getInstance(context, CryptoMode.CBC) //
 			.encrypt(token)
 	}
 

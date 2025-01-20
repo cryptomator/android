@@ -48,6 +48,10 @@ android {
 		viewBinding true
 	}
 
+	defaultConfig.manifestPlaceholders = [
+			'appAuthRedirectScheme': 'org.cryptomator.android'
+	]
+
 	buildTypes {
 		release {
 			crunchPngs false
@@ -122,7 +126,7 @@ android {
 
 	packagingOptions {
 		resources {
-			excludes += ['META-INF/jersey-module-version', 'META-INF/NOTICE.md', 'META-INF/DEPENDENCIES', 'META-INF/INDEX.LIST']
+			excludes += ['META-INF/jersey-module-version', 'META-INF/NOTICE.md', 'META-INF/DEPENDENCIES', 'META-INF/INDEX.LIST', 'META-INF/**/MANIFEST.MF']
 		}
 	}
 
@@ -170,6 +174,8 @@ dependencies {
 	implementation dependencies.androidxSwiperefresh
 	implementation dependencies.androidxPreference
 	implementation dependencies.androidxBiometric
+
+	implementation dependencies.appauth
 
 	// cloud
 	playstoreImplementation dependencies.dropboxCore

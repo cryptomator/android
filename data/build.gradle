@@ -196,6 +196,8 @@ dependencies {
 	compileOnly dependencies.javaxAnnotation
 	implementation dependencies.gson
 
+	implementation dependencies.joseJwt
+
 	implementation dependencies.commonsCodec
 
 	implementation dependencies.documentFile

@@ -9,6 +9,7 @@ import org.cryptomator.domain.CloudNode;
 import org.cryptomator.domain.UnverifiedVaultConfig;
 import org.cryptomator.domain.Vault;
 import org.cryptomator.domain.exception.BackendException;
+import org.cryptomator.domain.exception.FatalBackendException;
 import org.cryptomator.domain.repository.CloudContentRepository;
 import org.cryptomator.domain.usecases.ProgressAware;
 import org.cryptomator.domain.usecases.cloud.Flag;
@@ -16,12 +17,12 @@ import org.cryptomator.domain.usecases.vault.UnlockToken;
 
 import java.io.ByteArrayOutputStream;
 import java.nio.charset.StandardCharsets;
+import java.security.NoSuchAlgorithmException;
 import java.security.SecureRandom;
 
 import javax.inject.Inject;
 import javax.inject.Singleton;
 
-import static org.cryptomator.data.cloud.crypto.CryptoConstants.MASTERKEY_SCHEME;
 import static org.cryptomator.data.cloud.crypto.CryptoConstants.VAULT_FILE_NAME;
 import static org.cryptomator.domain.Vault.aCopyOf;
 
@@ -30,7 +31,6 @@ public class CryptoCloudFactory {
 
 	private final CloudContentRepository<Cloud, CloudNode, CloudFolder, CloudFile> cloudContentRepository;
 	private final CryptoCloudContentRepositoryFactory cryptoCloudContentRepositoryFactory;
-	private final SecureRandom secureRandom = new SecureRandom();
 
 	@Inject
 	public CryptoCloudFactory(CloudContentRepository/*<Cloud, CloudNode, CloudFolder, CloudFile>*/ cloudContentRepository, //
@@ -40,7 +40,7 @@ public class CryptoCloudFactory {
 	}
 
 	public void create(CloudFolder location, CharSequence password) throws BackendException {
-		cryptoCloudProvider(Optional.absent()).create(location, password);
+		masterkeyCryptoCloudProvider().create(location, password);
 	}
 
 	public Cloud decryptedViewOf(Vault vault) throws BackendException {
@@ -68,6 +68,10 @@ public class CryptoCloudFactory {
 		return cryptoCloudProvider(unverifiedVaultConfig).unlock(token, unverifiedVaultConfig, password, cancelledFlag);
 	}
 
+	public Vault unlock(Vault vault, UnverifiedVaultConfig unverifiedVaultConfig, String vaultKeyJwe, String userKeyJwe, Flag cancelledFlag) throws BackendException {
+		return cryptoCloudProvider(unverifiedVaultConfig).unlock(vault, unverifiedVaultConfig, vaultKeyJwe, userKeyJwe, cancelledFlag);
+	}
+
 	public UnlockToken createUnlockToken(Vault vault, Optional<UnverifiedVaultConfig> unverifiedVaultConfig) throws BackendException {
 		return cryptoCloudProvider(unverifiedVaultConfig).createUnlockToken(vault, unverifiedVaultConfig);
 	}
@@ -84,14 +88,30 @@ public class CryptoCloudFactory {
 		cryptoCloudProvider(unverifiedVaultConfig).changePassword(vault, unverifiedVaultConfig, oldPassword, newPassword);
 	}
 
+	private CryptoCloudProvider masterkeyCryptoCloudProvider() {
+		return cryptoCloudProvider(Optional.absent());
+	}
+
+	private CryptoCloudProvider cryptoCloudProvider(UnverifiedVaultConfig unverifiedVaultConfigOptional) {
+		return cryptoCloudProvider(Optional.of(unverifiedVaultConfigOptional));
+	}
+
 	private CryptoCloudProvider cryptoCloudProvider(Optional<UnverifiedVaultConfig> unverifiedVaultConfigOptional) {
 		if (unverifiedVaultConfigOptional.isPresent()) {
-			if (MASTERKEY_SCHEME.equals(unverifiedVaultConfigOptional.get().getKeyId().getScheme())) {
-				return new MasterkeyCryptoCloudProvider(cloudContentRepository, cryptoCloudContentRepositoryFactory, secureRandom);
-			}
-			throw new IllegalStateException(String.format("Provider with scheme %s not supported", unverifiedVaultConfigOptional.get().getKeyId().getScheme()));
+			return switch (unverifiedVaultConfigOptional.get().keyLoadingStrategy()) {
+				case MASTERKEY -> new MasterkeyCryptoCloudProvider(cloudContentRepository, cryptoCloudContentRepositoryFactory, secureRandom());
+				case HUB -> new HubkeyCryptoCloudProvider(cryptoCloudContentRepositoryFactory, secureRandom());
+			};
 		} else {
-			return new MasterkeyCryptoCloudProvider(cloudContentRepository, cryptoCloudContentRepositoryFactory, secureRandom);
+			return new MasterkeyCryptoCloudProvider(cloudContentRepository, cryptoCloudContentRepositoryFactory, secureRandom());
+		}
+	}
+
+	private SecureRandom secureRandom() {
+		try {
+			return SecureRandom.getInstanceStrong();
+		} catch (NoSuchAlgorithmException e) {
+			throw new FatalBackendException("A strong algorithm must exist in every Java platform.", e);
 		}
 	}
 }
