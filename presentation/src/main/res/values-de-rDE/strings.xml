@@ -35,6 +35,7 @@
 	<string name="error_no_such_bucket">Bucket existiert nicht</string>
 	<string name="error_masterkey_location_not_supported">Benutzerdefinierter Ort der Masterkey-Datei wird noch nicht unterstützt</string>
 	<string name="error_interact_with_fdroid_but_fdroid_missing">Fehler bei der Kommunikation mit der F-Droid-App. Nicht installiert?</string>
+	<string name="error_hub_device_already_register_for_other_user">Dieses Gerät ist bereits für einen anderen Benutzer registriert. Ändere das Benutzerkonto oder verwende ein anderes Gerät.</string>
 	<!-- # clouds -->
 	<!-- ## cloud names -->
 	<string name="cloud_names_local_storage">Lokaler Speicher</string>
@@ -67,7 +68,6 @@
 	<string name="screen_vault_list_change_password_successful">Passwort wurde erfolgreich geändert</string>
 	<!-- # screen: file browser -->
 	<string name="screen_file_browser_default_title">Tresor</string>
-	<string name="screen_file_browser_add_existing_vault_extra_text">Masterkey-Datei auswählen</string>
 	<string name="screen_file_browser_create_new_vault_button_text">Hier ablegen</string>
 	<string name="screen_file_browser_create_new_vault_extra_text">Tresorname: %1$s</string>
 	<plurals name="screen_file_browser_subtitle_move">
@@ -352,6 +352,11 @@
 	<string name="dialog_cbc_password_vaults_migration_title">Tresor Passwort-Migration erforderlich</string>
 	<string name="dialog_cbc_password_vaults_migration_hint">Aufgrund von Sicherheitsverbesserungen wirst du zweimal nach deiner biometrischen Authentifizierung für jeden Tresor gefragt, um deine Tresorpasswörter neu zu verschlüsseln. Dies ist notwendig, um deine Tresorpasswörter weiterhin mit der neuesten Technologie zu schützen. Wenn du dies nicht möchtest, werden die gespeicherten Passwörter entfernt.</string>
 	<string name="dialog_cbc_password_vaults_migration_action">Migrieren</string>
+	<string name="dialog_create_hub_device_name_hint">Dies scheint der erste Hub-Zugriff von diesem Gerät zu sein. Um es für die Zugriffsberechtigung zu identifizieren, musst du diesem Gerät einen Namen geben.</string>
+	<string name="dialog_create_hub_device_setup_code_hint">Um sich von neuen Apps oder Browsern aus anzumelden, ist dein Account Key erforderlich. Er befindet sich in deinem Profil.</string>
+	<string name="dialog_hub_vault_access_forbidden_title">Zugriff verweigert</string>
+	<string name="dialog_hub_user_setup_required_hint">Schließe bitte die erforderlichen Schritte in deinem Hub-Benutzerprofil ab, um fortzufahren.</string>
+	<string name="dialog_hub_user_setup_required_neutral_button">Zum Profil</string>
 	<string name="permission_snackbar_auth_local_vault">Cryptomator benötigt Speicherzugriff, um lokale Tresore nutzen zu können</string>
 	<string name="permission_snackbar_auth_auto_upload">Cryptomator benötigt Zugriff auf den Speicher um den automatischen Foto-Upload zu nutzen</string>
 	<string name="permission_snackbar_notifications">Cryptomator benötigt die Berechtigung zur Anzeige von Benachrichtigungen, um beispielsweise den Status des Tresors anzeigen zu können</string>

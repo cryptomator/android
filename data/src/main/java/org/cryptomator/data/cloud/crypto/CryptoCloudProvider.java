@@ -19,6 +19,8 @@ public interface CryptoCloudProvider {
 
 	Vault unlock(UnlockToken token, Optional<UnverifiedVaultConfig> unverifiedVaultConfig, CharSequence password, Flag cancelledFlag) throws BackendException;
 
+	Vault unlock(Vault vault, UnverifiedVaultConfig unverifiedVaultConfig, String vaultKeyJwe, String userKeyJwe, Flag cancelledFlag) throws BackendException;
+
 	boolean isVaultPasswordValid(Vault vault, Optional<UnverifiedVaultConfig> unverifiedVaultConfig, CharSequence password) throws BackendException;
 
 	void lock(Vault vault);

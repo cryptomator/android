@@ -9,6 +9,7 @@ import org.cryptomator.domain.executor.PostExecutionThread;
 import org.cryptomator.domain.executor.ThreadExecutor;
 import org.cryptomator.domain.repository.CloudContentRepository;
 import org.cryptomator.domain.repository.CloudRepository;
+import org.cryptomator.domain.repository.HubRepository;
 import org.cryptomator.domain.repository.UpdateCheckRepository;
 import org.cryptomator.domain.repository.VaultRepository;
 import org.cryptomator.presentation.di.module.ApplicationModule;
@@ -35,6 +36,8 @@ public interface ApplicationComponent {
 	CloudContentRepository cloudContentRepository();
 
 	CloudRepository cloudRepository();
+
+	HubRepository hubRepository();
 
 	UpdateCheckRepository updateCheckRepository();
 

@@ -8,6 +8,7 @@
 	<string name="error_vault_has_been_locked">Vault ถูกล็อก</string>
 	<string name="error_server_not_found">ไม่พบเซิฟเวอร์</string>
 	<string name="error_biometric_auth_aborted">การยืนยันตัวตนด้วยไบโอเมตริกซ์ถูกยกเลิก</string>
+	<string name="error_hub_device_already_register_for_other_user">อุปกรณ์นี้ลงทะเบียนไว้แล้วสำหรับผู้ใชอื่น โปรดลองเปลี่ยนบัญชีผู้ใช้หรือลงทะเบียนอุปกรณ์อื่น</string>
 	<!-- # clouds -->
 	<!-- ## cloud names -->
 	<!-- # permission -->
@@ -190,6 +191,8 @@
 	<string name="dialog_sym_link_back_button">ย้อนกลับ</string>
 	<string name="dialog_cbc_password_vaults_migration_hint">เนื่องจากการปรับปรุงด้านความปลอดภัย คุณจะถูกขอให้ตรวจสอบไบโอเมตริกซ์สองครั้งสำหรับแต่ละ vault เพื่อทำการเข้ารหัสรหัสผ่านของคุณใหม่ นี่เป็นสิ่งจำเป็นเพื่อรักษาความปลอดภัยรหัสผ่านของคุณด้วยเทคโนโลยีล่าสุด หากคุณไม่ต้องการ รหัสผ่านที่เก็บไว้จะถูกลบ</string>
 	<string name="dialog_cbc_password_vaults_migration_action">โอนย้าย</string>
+	<string name="dialog_hub_vault_access_forbidden_title">การเข้าถึงถูกปฏิเสธ</string>
+	<string name="dialog_hub_user_setup_required_neutral_button">ไปยังโปร์ไฟล์</string>
 	<!-- # error reports -->
 	<!-- # misc -->
 	<!-- ## file size helper -->

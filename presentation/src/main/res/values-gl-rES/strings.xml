@@ -61,7 +61,6 @@
 	<string name="screen_vault_list_change_password_successful">O contrasinal cambiouse correctamente</string>
 	<!-- # screen: file browser -->
 	<string name="screen_file_browser_default_title">Caixa forte</string>
-	<string name="screen_file_browser_add_existing_vault_extra_text">Seleccione o ficheiro da chave mestra</string>
 	<string name="screen_file_browser_create_new_vault_button_text">Colocar aquí</string>
 	<string name="screen_file_browser_create_new_vault_extra_text">Nome da caixa forte: %1$s</string>
 	<plurals name="screen_file_browser_subtitle_move">

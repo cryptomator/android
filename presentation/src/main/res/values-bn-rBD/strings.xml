@@ -67,7 +67,6 @@
 	<string name="screen_vault_list_change_password_successful">পাসওয়ার্ড সফলভাবে পরিবর্তিত হয়েছে</string>
 	<!-- # screen: file browser -->
 	<string name="screen_file_browser_default_title">ভোল্ট</string>
-	<string name="screen_file_browser_add_existing_vault_extra_text">মাস্টার কী ফাইলটি নির্বাচন করুন</string>
 	<string name="screen_file_browser_create_new_vault_button_text">এখানে রাখুন</string>
 	<string name="screen_file_browser_create_new_vault_extra_text">ভোল্টের নাম: %1$s</string>
 	<plurals name="screen_file_browser_subtitle_move">

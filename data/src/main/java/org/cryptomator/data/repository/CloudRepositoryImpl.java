@@ -109,6 +109,13 @@ class CloudRepositoryImpl implements CloudRepository {
 		return decryptedViewOf(vaultWithVersion);
 	}
 
+
+	@Override
+	public Cloud unlock(Vault vault, UnverifiedVaultConfig unverifiedVaultConfig, String vaultKeyJwe, String userKeyJwe, Flag cancelledFlag) throws BackendException {
+		Vault vaultWithVersion = cryptoCloudFactory.unlock(vault, unverifiedVaultConfig, vaultKeyJwe, userKeyJwe, cancelledFlag);
+		return decryptedViewOf(vaultWithVersion);
+	}
+
 	@Override
 	public UnlockToken prepareUnlock(Vault vault, Optional<UnverifiedVaultConfig> unverifiedVaultConfig) throws BackendException {
 		return cryptoCloudFactory.createUnlockToken(vault, unverifiedVaultConfig);

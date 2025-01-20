@@ -44,6 +44,13 @@
 	<string name="error_masterkey_location_not_supported">Custom Masterkey location not supported yet</string>
 	<string name="error_interact_with_fdroid_but_fdroid_missing">Failed to communicate with the F-Droid app. Not installed?</string>
 
+	<string name="error_hub_vault_operation_not_supported">Vault operation not supported for Hub</string>
+	<string name="error_hub_authentication_failed">Authentication against Hub failed</string>
+	<string name="error_hub_device_already_register_for_other_user">This device is already registered for a different user. Try to change the user account or use a different device.</string>
+	<string name="error_hub_invalid_setup_code">The Account Key is invalid.</string>
+	<string name="error_hub_invalid_version">Unsupported Hub version.</string>
+	<string name="error_hub_unlock_pre_31">Hub is only supported on Android 12 and above.</string>
+
 	<!-- # clouds -->
 
 	<!-- ## cloud names -->
@@ -98,7 +105,7 @@
 	<string name="screen_file_browser_default_title">Vault</string>
 
 	<string name="screen_file_browser_subtitle_add_existing_vault" translatable="false">@string/screen_vault_list_action_add_existing_vault</string>
-	<string name="screen_file_browser_add_existing_vault_extra_text">Select masterkey file</string>
+	<string name="screen_file_browser_add_existing_vault_extra_text">Select masterkey or vault file</string>
 	<string name="screen_file_browser_subtitle_create_new_vault" translatable="false">@string/screen_vault_list_action_create_new_vault</string>
 	<string name="screen_file_browser_create_new_vault_button_text">Place here</string>
 	<string name="screen_file_browser_create_new_vault_extra_text">Vault name: %1$s</string>
@@ -523,6 +530,33 @@
 	<string name="dialog_cbc_password_vaults_migration_hint">Due to security enhancements, you will be asked for your biometric authentication twice for each vault to re-encrypt your vault passwords. This is necessary to continue to protect your vault passwords with the latest technology. If you do not wish this to happen, the stored passwords will be removed.</string>
 	<string name="dialog_cbc_password_vaults_migration_action">Migrate</string>
 	<string name="dialog_cbc_password_vaults_migration_cancel" translatable="false">@string/screen_vault_list_vault_action_delete</string>
+
+	<string name="dialog_create_hub_device_title">Register Hub device</string>
+	<string name="dialog_create_hub_device_positive_button" translatable="false">@string/screen_enter_vault_name_button_text</string>
+	<string name="dialog_create_hub_device_name_label">Name</string>
+	<string name="dialog_create_hub_device_name_hint">This seems to be the first Hub access from this device. In order to identify it for access authorization, you need to name this device.</string>
+	<string name="dialog_create_hub_device_name_empty">Name can\'t be empty.</string>
+	<string name="dialog_create_hub_device_setup_code_label">Account Key</string>
+	<string name="dialog_create_hub_device_setup_code_hint">Your Account Key is required to login from new apps or browsers. It can be found in your profile.</string>
+	<string name="dialog_create_hub_device_setup_code_empty">Account Key can\'t be empty.</string>
+	<string name="dialog_progress_creating_hub_device_setup">Creating device&#8230;</string>
+
+	<string name="dialog_hub_vault_access_forbidden_title">Access denied</string>
+	<string name="dialog_hub_vault_access_forbidden_hint">Your user has not yet been authorized to access this vault. Ask the vault owner to authorize it."</string>
+	<string name="dialog_hub_vault_access_forbidden_neutral_button" translatable="false">@string/dialog_unable_to_share_positive_button</string>
+
+	<string name="dialog_hub_license_upgrade_required_title">Check Hub license</string>
+	<string name="dialog_hub_license_upgrade_required_hint">Your Cryptomator Hub instance has an invalid license. Please inform a Hub administrator to upgrade or renew the license."</string>
+	<string name="dialog_hub_license_upgrade_required_neutral_button" translatable="false">@string/dialog_unable_to_share_positive_button</string>
+
+	<string name="dialog_hub_vault_archived_title">Vault archived</string>
+	<string name="dialog_hub_vault_archived_hint">This vault is archived and cannot be unlocked. To unlock it, a vault owner must unarchive it.</string>
+	<string name="dialog_hub_vault_archived_positive_button" translatable="false">@string/dialog_unable_to_share_positive_button</string>
+
+	<string name="dialog_hub_user_setup_required_title">User setup required</string>
+	<string name="dialog_hub_user_setup_required_hint">To proceed, please complete the steps required in your Hub user profile.</string>
+	<string name="dialog_hub_user_setup_required_neutral_button">Go to Profile</string>
+	<string name="dialog_hub_user_setup_required_negative_button" translatable="false">@string/dialog_button_cancel</string>
 
 	<string name="permission_snackbar_auth_local_vault">Cryptomator needs storage access to use local vaults</string>
 	<string name="permission_snackbar_auth_auto_upload">Cryptomator needs storage access to use auto photo upload</string>
