@@ -207,7 +207,7 @@
 	<string name="screen_settings_microsoft_apps_workaround_summary">파일을 쓰기 권한과 함께 Microsoft 앱에서 열람합니다</string>
 	<string name="screen_settings_background_unlock_preparation_label">잠금해제 가속</string>
 	<string name="screen_settings_background_unlock_preparation_label_summary">비밀번호 입력 혹은 생체 인증을 진행하는 동안 백그라운드에서 Vault 설정을 다운로드합니다</string>
-	<string name="screen_settings_keep_unlocked_while_editing_files">잠금해제유지</string>
+	<string name="screen_settings_keep_unlocked_while_editing_files">잠금해제 유지</string>
 	<string name="screen_settings_keep_unlocked_while_editing_files_summary">파일을 편집하는 동안 Vault들을 잠금 해제 상태로 유지</string>
 	<!-- ## screen: cloud settings -->
 	<string name="screen_cloud_settings_onedrive_connections">OneDrive 연결</string>
