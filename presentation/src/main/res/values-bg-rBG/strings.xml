@@ -184,7 +184,6 @@
 	<string name="screen_settings_section_auto_photo_upload_including_videos">Качване на видео</string>
 	<string name="screen_settings_auto_photo_upload_title">Запазване на качваните файлове в&#8230;</string>
 	<string name="screen_settings_website_label">Страница на Криптоматор</string>
-	<string name="screen_settings_twitter_label">Следвайте ни в X</string>
 	<string name="screen_settings_facebook_label">Харесайте ни във Фейсбук</string>
 	<string name="screen_settings_section_legal">Правни въпроси</string>
 	<string name="screen_settings_licenses_label">Лицензи</string>
