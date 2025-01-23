@@ -191,6 +191,7 @@
 	<string name="screen_settings_section_auto_photo_upload_including_videos">Video\'s uploaden</string>
 	<string name="screen_settings_auto_photo_upload_title">Automatisch te uploaden bestanden opslaan in&#8230;</string>
 	<string name="screen_settings_website_label">Cryptomator website</string>
+	<string name="screen_settings_mastodon_label">Volg ons op Mastodon</string>
 	<string name="screen_settings_facebook_label">Vind ons leuk op Facebook</string>
 	<string name="screen_settings_section_legal">Juridisch</string>
 	<string name="screen_settings_licenses_label">Licenties</string>
