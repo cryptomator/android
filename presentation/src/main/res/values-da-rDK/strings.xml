@@ -349,6 +349,7 @@
 	<string name="dialog_create_hub_device_name_hint">Det ser ud til at dette er første gang denne enhed tilgår Hub. For at kunne identificere den for adgangstilladelse, skal du navngive denne enhed.</string>
 	<string name="dialog_create_hub_device_setup_code_hint">Din kontonøgle er påkrævet til at logge ind fra nye apps eller browsere. Den kan findes i din profil.</string>
 	<string name="dialog_hub_vault_access_forbidden_title">Adgang nægtet</string>
+	<string name="dialog_hub_vault_archived_title">Boks arkiveret</string>
 	<string name="dialog_hub_user_setup_required_hint">For at fortsætte, skal du fuldføre de nødvendige trin i din Hub brugerprofil.</string>
 	<string name="dialog_hub_user_setup_required_neutral_button">Gå til Profil</string>
 	<string name="permission_snackbar_auth_local_vault">Cryptomator skal bruge lageradgang for at tilgå lokale bokse</string>
