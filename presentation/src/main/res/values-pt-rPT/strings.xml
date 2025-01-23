@@ -191,6 +191,7 @@
 	<string name="screen_settings_section_auto_photo_upload_including_videos">Enviar vídeos</string>
 	<string name="screen_settings_auto_photo_upload_title">Guardar arquivos enviados automaticamente em&#8230;</string>
 	<string name="screen_settings_website_label">Site do Cryptomator</string>
+	<string name="screen_settings_mastodon_label">Segue-nos no Mastodon</string>
 	<string name="screen_settings_facebook_label">Siga-nos no Facebook</string>
 	<string name="screen_settings_section_legal">Informação Legal</string>
 	<string name="screen_settings_licenses_label">Licenças</string>
