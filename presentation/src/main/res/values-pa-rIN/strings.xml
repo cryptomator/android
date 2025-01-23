@@ -146,7 +146,6 @@
 	<string name="screen_settings_section_auto_photo_upload_only_wifi_toggle">ਸਿਰਫ਼ WIFI ਵਰਤ ਕੇ ਅੱਪਲੋਡ ਕਰੋ</string>
 	<string name="screen_settings_section_auto_photo_upload_including_videos">ਵੀਡੀਓ ਨੂੰ ਅੱਪਲੋਡ ਕਰੋ</string>
 	<string name="screen_settings_website_label">Cryptomator ਦੀ ਵੈੱਬਸਾਈਟ</string>
-	<string name="screen_settings_twitter_label">ਟਵਿੱਟਰ ਉੱਤੇ ਸਾਨੂੰ ਫ਼ਾਲੋ ਕਰੋ</string>
 	<string name="screen_settings_facebook_label">ਫੇਸਬੁੱਕ ਉੱਤੇ ਸਾਨੂੰ ਪਸੰਦ ਕਰੋ</string>
 	<string name="screen_settings_section_legal">ਕਨੂੰਨੀ</string>
 	<string name="screen_settings_licenses_label">ਲਸੰਸ</string>
