@@ -187,7 +187,6 @@
 	<string name="screen_settings_section_auto_photo_upload_including_videos">Nahrať videá</string>
 	<string name="screen_settings_auto_photo_upload_title">Uložiť auto ukladanie súborov do&#8230;</string>
 	<string name="screen_settings_website_label">Webstránky Cryptomator-a</string>
-	<string name="screen_settings_twitter_label">Sledujte nás na Twitteri</string>
 	<string name="screen_settings_facebook_label">Likujte nás na Facebooku</string>
 	<string name="screen_settings_section_legal">Právne informácie</string>
 	<string name="screen_settings_licenses_label">Licencie</string>
