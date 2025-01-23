@@ -192,7 +192,6 @@
 	<string name="screen_settings_section_auto_photo_upload_including_videos">Prześlij filmy</string>
 	<string name="screen_settings_auto_photo_upload_title">Zapisz automatycznie przesyłane pliki w&#8230;</string>
 	<string name="screen_settings_website_label">Cryptomator w Internecie</string>
-	<string name="screen_settings_twitter_label">Śledź nas na Twitterze</string>
 	<string name="screen_settings_facebook_label">Polub nas na Facebooku</string>
 	<string name="screen_settings_section_legal">Informacje prawne</string>
 	<string name="screen_settings_licenses_label">Licencje</string>

@@ -190,7 +190,6 @@
 	<string name="screen_settings_section_auto_photo_upload_including_videos">Videó feltöltése</string>
 	<string name="screen_settings_auto_photo_upload_title">Automatikus feltöltések helye: &#8230;</string>
 	<string name="screen_settings_website_label">Cryptomator weboldala</string>
-	<string name="screen_settings_twitter_label">Kövess minket a Twitteren</string>
 	<string name="screen_settings_facebook_label">Lájkolj minket a Facebookon</string>
 	<string name="screen_settings_section_legal">Jogi nyilatkozat</string>
 	<string name="screen_settings_licenses_label">Licenszek</string>

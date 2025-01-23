@@ -185,7 +185,6 @@
 	<string name="screen_settings_section_auto_photo_upload_including_videos">Last opp videoer</string>
 	<string name="screen_settings_auto_photo_upload_title">Lagre de automatisk opplastede filene til &#8230;</string>
 	<string name="screen_settings_website_label">Cryptomators nettside</string>
-	<string name="screen_settings_twitter_label">Følg oss på Twitter</string>
 	<string name="screen_settings_facebook_label">Lik oss på Facebook</string>
 	<string name="screen_settings_section_legal">Juridisk</string>
 	<string name="screen_settings_licenses_label">Lisenser</string>

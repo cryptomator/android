@@ -127,7 +127,6 @@
 	<string name="screen_settings_live_search">நேரடி தேடல்</string>
 	<string name="screen_settings_auto_lock_timeout">இதன்பிறகு செயலியை பூட்டு</string>
 	<string name="screen_settings_section_auto_photo_upload_toggle">செயல்படுத்து</string>
-	<string name="screen_settings_twitter_label">டுவிட்டரில் எங்களைத் தொடருங்கள்</string>
 	<string name="screen_settings_facebook_label">Facebook இல் எங்களை போன்ற</string>
 	<string name="screen_settings_section_legal">சட்டம்</string>
 	<string name="screen_settings_section_support">ஆதரவு</string>

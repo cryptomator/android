@@ -176,7 +176,6 @@
 	<string name="screen_settings_section_auto_photo_upload_including_videos">ভিডিও আপলোড করুন</string>
 	<string name="screen_settings_auto_photo_upload_title">&#8230; তে অটো আপলোড ফাইলগুলি সংরক্ষণ করুন</string>
 	<string name="screen_settings_website_label">ক্রিপ্টোমেটরের ওয়েবসাইট</string>
-	<string name="screen_settings_twitter_label">টুইটারে আমাদের অনুসরণ করুন</string>
 	<string name="screen_settings_facebook_label">ফেসবুকে আমাদের লাইক দিন</string>
 	<string name="screen_settings_section_legal">আইনি</string>
 	<string name="screen_settings_licenses_label">লাইসেন্স</string>

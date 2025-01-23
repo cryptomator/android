@@ -185,7 +185,6 @@
 	<string name="screen_settings_section_auto_photo_upload_including_videos">Prenesi video</string>
 	<string name="screen_settings_auto_photo_upload_title">Pohrani automatski prenesene datoteke u&#8230;</string>
 	<string name="screen_settings_website_label">Cryptomator web stranica</string>
-	<string name="screen_settings_twitter_label">Pratite nas na Twitteru</string>
 	<string name="screen_settings_facebook_label">Lajkajte nas na Facebooku</string>
 	<string name="screen_settings_section_legal">Pravno</string>
 	<string name="screen_settings_licenses_label">Licence</string>
