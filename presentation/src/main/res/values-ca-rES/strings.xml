@@ -187,7 +187,6 @@
 	<string name="screen_settings_section_auto_photo_upload_including_videos">Puja vídeos</string>
 	<string name="screen_settings_auto_photo_upload_title">Desa els fitxers pujats automàticament a&#8230;</string>
 	<string name="screen_settings_website_label">Lloc web de Cryptomator</string>
-	<string name="screen_settings_twitter_label">Seguiu-nos a Twitter</string>
 	<string name="screen_settings_facebook_label">Poseu-nos un \"m\'agrada\" a Facebook</string>
 	<string name="screen_settings_section_legal">Legal</string>
 	<string name="screen_settings_licenses_label">Llicències</string>
