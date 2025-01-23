@@ -190,7 +190,6 @@
 	<string name="screen_settings_section_auto_photo_upload_including_videos">動画をアップロード</string>
 	<string name="screen_settings_auto_photo_upload_title">&#8230; へのファイルの自動アップロードを保存</string>
 	<string name="screen_settings_website_label">Cryptomator のウェブサイト</string>
-	<string name="screen_settings_twitter_label">Twitter でフォローする</string>
 	<string name="screen_settings_facebook_label">Facebook でいいねする</string>
 	<string name="screen_settings_section_legal">法的事項</string>
 	<string name="screen_settings_licenses_label">ライセンス</string>
