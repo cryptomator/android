@@ -185,7 +185,6 @@
 	<string name="screen_settings_section_auto_photo_upload_including_videos">Upload videoer</string>
 	<string name="screen_settings_auto_photo_upload_title">Gem automatisk uploadede filer i&#8230;</string>
 	<string name="screen_settings_website_label">Cryptomators hjemmeside</string>
-	<string name="screen_settings_twitter_label">Følg os på Twitter</string>
 	<string name="screen_settings_facebook_label">Synes godt om os på Facebook</string>
 	<string name="screen_settings_section_legal">Jura, Lov &amp; Ret</string>
 	<string name="screen_settings_licenses_label">Licenser</string>
