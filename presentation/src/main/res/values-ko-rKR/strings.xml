@@ -190,7 +190,6 @@
 	<string name="screen_settings_section_auto_photo_upload_including_videos">동영상 업로드</string>
 	<string name="screen_settings_auto_photo_upload_title">자동 업로드 대상 파일 저장 위치&#8230;</string>
 	<string name="screen_settings_website_label">Cryptomator 웹사이트</string>
-	<string name="screen_settings_twitter_label">Twitter에서 팔로우하기</string>
 	<string name="screen_settings_facebook_label">Facebook에서 좋아요 누르기</string>
 	<string name="screen_settings_section_legal">법적 사항</string>
 	<string name="screen_settings_licenses_label">라이센스</string>
