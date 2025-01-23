@@ -187,7 +187,6 @@
 	<string name="screen_settings_section_auto_photo_upload_including_videos">Încarcă fişiere video</string>
 	<string name="screen_settings_auto_photo_upload_title">Salvați fișierele încărcate automat în&#8230;</string>
 	<string name="screen_settings_website_label">Pagina web a aplicației Cryptomator</string>
-	<string name="screen_settings_twitter_label">Urmăriți-ne pe Twitter</string>
 	<string name="screen_settings_facebook_label">Dă-ne un Like pe Facebook</string>
 	<string name="screen_settings_section_legal">Aspecte legale</string>
 	<string name="screen_settings_licenses_label">Licențe</string>
