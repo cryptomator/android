@@ -190,7 +190,6 @@
 	<string name="screen_settings_section_auto_photo_upload_including_videos">Unggah video</string>
 	<string name="screen_settings_auto_photo_upload_title">Simpan file unggah otomatis ke&#8230;</string>
 	<string name="screen_settings_website_label">Situs Cryptomator</string>
-	<string name="screen_settings_twitter_label">Ikuti kami di Twitter</string>
 	<string name="screen_settings_facebook_label">Like kami di Facebook</string>
 	<string name="screen_settings_section_legal">Legal</string>
 	<string name="screen_settings_licenses_label">Lisensi</string>
