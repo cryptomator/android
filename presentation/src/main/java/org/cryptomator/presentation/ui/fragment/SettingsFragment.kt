@@ -174,7 +174,7 @@ class SettingsFragment : PreferenceFragmentCompat() {
 				(findPreference(SharedPreferencesHandler.MAIL) as Preference?)?.title = format(getString(R.string.screen_settings_license_mail), sharedPreferencesHandler.mail())
 				setupUpdateCheck()
 			}
-			"fdroid", "lite" -> {
+			"fdroid", "lite", "accrescent" -> {
 				(findPreference(SharedPreferencesHandler.MAIL) as Preference?)?.title = format(getString(R.string.screen_settings_license_mail), sharedPreferencesHandler.mail())
 				removeUpdateCheck()
 			}
@@ -215,7 +215,7 @@ class SettingsFragment : PreferenceFragmentCompat() {
 	}
 
 	private fun setupCryptomatorVariants() {
-		if (BuildConfig.FLAVOR == "playstore") {
+		if (BuildConfig.FLAVOR == "playstore" || BuildConfig.FLAVOR == "accrescent") {
 			(findPreference(CRYPTOMATOR_VARIANTS) as Preference?)?.let { preference ->
 				(findPreference(getString(R.string.screen_settings_section_general)) as PreferenceCategory?)?.removePreference(preference)
 			}

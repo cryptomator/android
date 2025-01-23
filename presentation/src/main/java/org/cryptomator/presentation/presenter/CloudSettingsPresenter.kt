@@ -132,7 +132,7 @@ class CloudSettingsPresenter @Inject constructor( //
 		override fun onSuccess(clouds: List<Cloud>) {
 			val cloudModel = cloudModelMapper.toModels(clouds) //
 				.filter { isSingleLoginCloud(it) } //
-				.filter { cloud -> !(BuildConfig.FLAVOR == "fdroid" && cloud.cloudType() == CloudTypeModel.GOOGLE_DRIVE) } //
+				.filter { cloud -> !((BuildConfig.FLAVOR == "fdroid" || BuildConfig.FLAVOR == "accrescent") && cloud.cloudType() == CloudTypeModel.GOOGLE_DRIVE) } //
 				.toMutableList() //
 				.also {
 					it.add(aOnedriveCloud())
