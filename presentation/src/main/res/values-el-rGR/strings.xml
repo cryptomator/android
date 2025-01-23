@@ -191,6 +191,7 @@
 	<string name="screen_settings_section_auto_photo_upload_including_videos">Μεταφόρτωση βίντεο</string>
 	<string name="screen_settings_auto_photo_upload_title">Αποθήκευση αυτόματης μεταφόρτωσης αρχείων στο&#8230;</string>
 	<string name="screen_settings_website_label">Ιστοσελίδα Cryptomator</string>
+	<string name="screen_settings_mastodon_label">Ακολουθήστε μας στο Mastodon</string>
 	<string name="screen_settings_facebook_label">Κάντε μας like στο Facebook</string>
 	<string name="screen_settings_section_legal">Νομικό περιεχόμενο</string>
 	<string name="screen_settings_licenses_label">Άδειες Xρήσης</string>
