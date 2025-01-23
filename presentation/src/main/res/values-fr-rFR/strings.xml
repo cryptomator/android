@@ -191,7 +191,6 @@
 	<string name="screen_settings_section_auto_photo_upload_including_videos">Téléversement des vidéos</string>
 	<string name="screen_settings_auto_photo_upload_title">Enregistrer les fichiers téléverser automatiquement dans&#8230;</string>
 	<string name="screen_settings_website_label">Site web de Cryptomator</string>
-	<string name="screen_settings_twitter_label">Suivez-nous sur Twitter</string>
 	<string name="screen_settings_facebook_label">Aimez notre page Facebook</string>
 	<string name="screen_settings_section_legal">Légal</string>
 	<string name="screen_settings_licenses_label">Licences</string>
