@@ -183,7 +183,6 @@
 	<string name="screen_settings_section_auto_photo_upload_including_videos">Tải lên video</string>
 	<string name="screen_settings_auto_photo_upload_title">Lưu tệp tải lên tự động vào&#8230;</string>
 	<string name="screen_settings_website_label">Cryptomator website</string>
-	<string name="screen_settings_twitter_label">Theo dõi trên Twitter</string>
 	<string name="screen_settings_facebook_label">Hãy like chúng tôi trên Facebook</string>
 	<string name="screen_settings_section_legal">Pháp lý</string>
 	<string name="screen_settings_licenses_label">Giấy phép</string>

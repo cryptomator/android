@@ -267,11 +267,11 @@
 
 	<string name="screen_settings_section_social" translatable="false">@string/screen_webdav_settings_done_button_text</string>
 	<string name="screen_settings_website_label">Cryptomator website</string>
-	<string name="screen_settings_twitter_label">Follow us on Twitter</string>
+	<string name="screen_settings_mastodon_label">Follow us on Mastodon</string>
 	<string name="screen_settings_facebook_label">Like us on Facebook</string>
 	<string name="screen_settings_website_uri" translatable="false">https://cryptomator.org</string>
 	<string name="screen_settings_facebook_uri" translatable="false">https://facebook.com/Cryptomator</string>
-	<string name="screen_settings_twitter_uri" translatable="false">https://twitter.com/Cryptomator</string>
+	<string name="screen_settings_mastodon_uri" translatable="false">https://mastodon.online/@cryptomator</string>
 
 	<string name="screen_settings_section_legal">Legal</string>
 	<string name="screen_settings_licenses_label">Licenses</string>

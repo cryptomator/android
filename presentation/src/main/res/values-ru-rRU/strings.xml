@@ -193,7 +193,6 @@
 	<string name="screen_settings_section_auto_photo_upload_including_videos">Отправка видео</string>
 	<string name="screen_settings_auto_photo_upload_title">Сохранять автозагруженные файлы в&#8230;</string>
 	<string name="screen_settings_website_label">Сайт Cryptomator</string>
-	<string name="screen_settings_twitter_label">Следите за нами в Twitter</string>
 	<string name="screen_settings_facebook_label">Оцените нас в Facebook</string>
 	<string name="screen_settings_section_legal">Правовая информация</string>
 	<string name="screen_settings_licenses_label">Лицензии</string>

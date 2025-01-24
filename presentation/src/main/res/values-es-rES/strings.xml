@@ -191,7 +191,6 @@
 	<string name="screen_settings_section_auto_photo_upload_including_videos">Cargar videos</string>
 	<string name="screen_settings_auto_photo_upload_title">Guardar archivos de carga automática en&#8230;</string>
 	<string name="screen_settings_website_label">Web de Cryptomator</string>
-	<string name="screen_settings_twitter_label">Síganos en Twitter</string>
 	<string name="screen_settings_facebook_label">Denos me gusta en Facebook</string>
 	<string name="screen_settings_section_legal">Legal</string>
 	<string name="screen_settings_licenses_label">Licencias</string>

@@ -184,7 +184,6 @@
 	<string name="screen_settings_section_auto_photo_upload_including_videos">वीडियो अपलोड करें</string>
 	<string name="screen_settings_auto_photo_upload_title">अपने आप अपलोड हुए फ़ाइलें को &#8230; में जमा करे</string>
 	<string name="screen_settings_website_label">क्रिप्टोमेटर वेबसाइट</string>
-	<string name="screen_settings_twitter_label">हमें Twitter पर फॉलो करें</string>
 	<string name="screen_settings_facebook_label">हमें फ़ेसबुक पर लाइक करें</string>
 	<string name="screen_settings_section_legal">कानूनी</string>
 	<string name="screen_settings_licenses_label">लाइसेंस</string>

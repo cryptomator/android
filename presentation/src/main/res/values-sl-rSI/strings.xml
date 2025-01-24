@@ -180,7 +180,6 @@
 	<string name="screen_settings_section_auto_photo_upload_including_videos">Naloži videe</string>
 	<string name="screen_settings_auto_photo_upload_title">Shrani samodejno naložene datoteko v&#8230;</string>
 	<string name="screen_settings_website_label">Cryptomatorjeva spletna stran</string>
-	<string name="screen_settings_twitter_label">Sledite nam na Twitterju</string>
 	<string name="screen_settings_facebook_label">Všečkaj nas na Facebooku</string>
 	<string name="screen_settings_section_legal">Pravni podatki</string>
 	<string name="screen_settings_licenses_label">Licence</string>
