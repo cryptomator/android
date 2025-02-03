@@ -29,7 +29,7 @@
 	<string name="error_play_services_not_available">Google Play 서비스가 설치되지 않았습니다</string>
 	<string name="error_biometric_auth_aborted">생체 인증 취소됨</string>
 	<string name="error_vault_version_mismatch">%1$s에 기록된 버전이 %2$s에 기록된 버전과 다릅니다</string>
-	<string name="error_vault_key_invalid">%1$s이 %2$s와 동일하지 않습니다.</string>
+	<string name="error_vault_key_invalid">%1$s이(가) %2$s와 동일하지 않습니다</string>
 	<string name="error_vault_config_loading">Vault 설정을 불러오는 중 에러 발생</string>
 	<string name="error_file_not_found_after_opening_using_3party">로컬 파일은 Cryptomator로 돌아온 후 더 이상 존재하지 않습니다. 추가적인 수정 사항이 클라우드에 적용되지 않습니다.</string>
 	<string name="error_no_such_bucket">해당 버킷을 찾을 수 없습니다.</string>
@@ -133,8 +133,8 @@
 	<string name="screen_webdav_settings_done_button_text">연결</string>
 	<string name="screen_webdav_settings_msg_url_must_not_be_empty">URL을 입력해주세요.</string>
 	<string name="screen_webdav_settings_msg_url_is_invalid">URL이 유효하지 않습니다.</string>
-	<string name="screen_webdav_settings_msg_username_must_not_be_empty">사용자 이름은 비워둘 수 없습니다.</string>
-	<string name="screen_webdav_settings_msg_password_must_not_be_empty">암호는 비워둘 수 없습니다.</string>
+	<string name="screen_webdav_settings_msg_username_must_not_be_empty">사용자 이름을 입력하십시오.</string>
+	<string name="screen_webdav_settings_msg_password_must_not_be_empty">암호를 입력하십시오.</string>
 	<!-- ## screen: s3 settings -->
 	<string name="screen_s3_settings_display_name_label">표시 이름</string>
 	<string name="screen_s3_settings_access_key_label">액세스 키</string>
