@@ -10,17 +10,17 @@
 	<string name="error_invalid_passphrase">잘못된 비밀번호입니다.</string>
 	<string name="error_file_or_folder_exists">파일 또는 폴더가 이미 존재합니다.</string>
 	<string name="error_vault_version_not_supported">%1$s 버전의 Vault는 지원되지 않습니다. 해당 vault는 타 버전의 Cryptomator로 생성되었습니다.</string>
-	<string name="error_vault_config_file_missing_due_to_format_999">해당 vault 폴더 내에 %1$s 파일이 없습니다. Vault 폴더 안에 해당 파일이 있는지 다시 확인해주세요.</string>
+	<string name="error_vault_config_file_missing_due_to_format_999">해당 Vault 폴더 내에 %1$s 파일이 없습니다. Vault 폴더 안에 해당 파일이 있는지 다시 확인해주세요.</string>
 	<string name="error_vault_already_exists">Vault가 이미 존재합니다.</string>
 	<string name="error_no_such_file">파일이 존재하지 않습니다.</string>
 	<string name="error_vault_has_been_locked">Vault가 잠겼습니다.</string>
 	<string name="error_cloud_already_exists">클라우드가 이미 존재합니다.</string>
-	<string name="error_activity_not_found">이 파일을 열 수 있는 애플리케이션을 다운로드해주세요.</string>
-	<string name="error_server_not_found">서버를 찾을 수 없습니다</string>
-	<string name="error_device_policy_manager_not_found">장치 설정을 열어 화면 잠금을 직접 설정하세요</string>
-	<string name="error_export_illegal_file_name">내보내기 실패. 파일명에서 특수문자를 없앤 뒤 다시 내보내기를 해보세요.</string>
+	<string name="error_activity_not_found">이 파일을 열 수 있는 애플리케이션을 다운로드하십시오.</string>
+	<string name="error_server_not_found">서버를 찾을 수 없습니다.</string>
+	<string name="error_device_policy_manager_not_found">장치 설정에서 화면 잠금을 직접 설정하십시오.</string>
+	<string name="error_export_illegal_file_name">내보내기 실패. 파일명에서 특수문자를 없앤 뒤 다시 내보내기 하십시오.</string>
 	<string name="error_name_contains_invalid_characters">특수문자는 포함할 수 없습니다.</string>
-	<string name="error_names_contains_invalid_characters">파일명에 특수 문자는 포함할 수 없습니다.</string>
+	<string name="error_names_contains_invalid_characters">파일명에 특수문자를 포함할 수 없습니다.</string>
 	<string name="error_vault_name_contains_invalid_characters">Vault 이름은 특수문자를 포함할 수 없습니다.</string>
 	<string name="error_general_update">업데이트 확인 실패. 오류가 발생했습니다.</string>
 	<string name="error_hash_mismatch_update">업데이트 확인 실패. 업로드된 파일과 해쉬값이 일치하지 않습니다.</string>
@@ -29,11 +29,11 @@
 	<string name="error_play_services_not_available">Google Play 서비스가 설치되지 않았습니다</string>
 	<string name="error_biometric_auth_aborted">생체 인증 취소됨</string>
 	<string name="error_vault_version_mismatch">%1$s에 기록된 버전이 %2$s에 기록된 버전과 다릅니다</string>
-	<string name="error_vault_key_invalid">%1$s 및 이 %2$s 동일하지 않습니다</string>
+	<string name="error_vault_key_invalid">%1$s이 %2$s와 동일하지 않습니다.</string>
 	<string name="error_vault_config_loading">Vault 설정을 불러오는 중 에러 발생</string>
 	<string name="error_file_not_found_after_opening_using_3party">로컬 파일은 Cryptomator로 돌아온 후 더 이상 존재하지 않습니다. 추가적인 수정 사항이 클라우드에 적용되지 않습니다.</string>
 	<string name="error_no_such_bucket">해당 버킷을 찾을 수 없습니다.</string>
-	<string name="error_masterkey_location_not_supported">사용자 지정이 가능한 마스터키 경로는 아직 지원하지 않습니다</string>
+	<string name="error_masterkey_location_not_supported">사용자 지정 마스터키 경로는 아직 지원하지 않습니다</string>
 	<string name="error_interact_with_fdroid_but_fdroid_missing">F-Droid 앱을 찾을 수 없습니다. 앱을 설치했는지 확인해주세요.</string>
 	<string name="error_hub_vault_operation_not_supported">Hub에서 지원되지 않는 Vault 작업입니다.</string>
 	<string name="error_hub_authentication_failed">Hub에 대한 인증이 실패했습니다.</string>
@@ -62,7 +62,7 @@
 	<string name="snack_bar_action_title_sort_biggest">큰 파일순</string>
 	<string name="snack_bar_action_title_sort_smallest">작은 파일순</string>
 	<string name="snack_bar_cryptomator_variants_title">자세히 알아보기</string>
-	<string name="snack_bar_cryptomator_variants_hint">저장소가 목록에 없나요?</string>
+	<string name="snack_bar_cryptomator_variants_hint">클라우드가 목록에 없습니까?</string>
 	<!-- # screens -->
 	<!-- # screen: vault list -->
 	<string name="screen_vault_list_actions_title">Cryptomator에 추가하기</string>
@@ -100,7 +100,7 @@
 	<string name="screen_file_browser_node_action_edit_text">수정</string>
 	<string name="screen_file_browser_node_action_export">내보내기</string>
 	<string name="screen_file_browser_node_action_delete">삭제</string>
-	<string name="screen_file_browser_node_action_open_with_text">&#8230; 으로 열기</string>
+	<string name="screen_file_browser_node_action_open_with_text">&#8230;으로 열기</string>
 	<string name="screen_file_browser_selection_mode_title_zero_elements">아이템 선택</string>
 	<string name="screen_file_browser_selection_mode_title_one_or_more_elements">%1$d 항목 선택됨</string>
 	<string name="screen_file_browser_select_items">선택</string>
@@ -109,9 +109,9 @@
 	<string name="screen_file_browser_no_connection_message">연결 없음</string>
 	<string name="screen_file_browser_no_connection_button_text">재시도</string>
 	<!-- ## screen: text editor -->
-	<string name="screen_text_editor_save_success">성공적으로 저장되었습니다</string>
+	<string name="screen_text_editor_save_success">저장 성공</string>
 	<!-- ## screen: share files -->
-	<string name="screen_share_files_title">%1$s을 저장할 위치 선택</string>
+	<string name="screen_share_files_title">%1$s을 저장할 위치 선택&#8230;</string>
 	<string name="screen_share_files_content_text">텍스트</string>
 	<string name="screen_share_files_content_file">파일</string>
 	<string name="screen_share_files_content_files">파일</string>
@@ -133,8 +133,8 @@
 	<string name="screen_webdav_settings_done_button_text">연결</string>
 	<string name="screen_webdav_settings_msg_url_must_not_be_empty">URL을 입력해주세요.</string>
 	<string name="screen_webdav_settings_msg_url_is_invalid">URL이 유효하지 않습니다.</string>
-	<string name="screen_webdav_settings_msg_username_must_not_be_empty">사용자명을 입력해주세요.</string>
-	<string name="screen_webdav_settings_msg_password_must_not_be_empty">비밀번호를 입력해주세요.</string>
+	<string name="screen_webdav_settings_msg_username_must_not_be_empty">사용자 이름은 비워둘 수 없습니다.</string>
+	<string name="screen_webdav_settings_msg_password_must_not_be_empty">암호는 비워둘 수 없습니다.</string>
 	<!-- ## screen: s3 settings -->
 	<string name="screen_s3_settings_display_name_label">표시 이름</string>
 	<string name="screen_s3_settings_access_key_label">액세스 키</string>
@@ -142,20 +142,20 @@
 	<string name="screen_s3_settings_bucket_label">이미 존재하는 버킷</string>
 	<string name="screen_s3_settings_endpoint_label">엔드포인트</string>
 	<string name="screen_s3_settings_region_label">지역</string>
-	<string name="screen_s3_settings_msg_display_name_not_empty">표시 이름은 비워둘 수 없습니다</string>
-	<string name="screen_s3_settings_msg_access_key_not_empty">액세스 키를 입력해주세요</string>
-	<string name="screen_s3_settings_msg_secret_key_not_empty">비밀 키를 입력해주세요</string>
-	<string name="screen_s3_settings_msg_bucket_not_empty">버킷은 비어있을 수 없습니다</string>
-	<string name="screen_s3_settings_msg_endpoint_and_region_not_empty">엔드포인트 또는 지역은 비워둘 수 없습니다</string>
+	<string name="screen_s3_settings_msg_display_name_not_empty">표시 이름을 입력하십시오</string>
+	<string name="screen_s3_settings_msg_access_key_not_empty">접근 키를 입력하십시오</string>
+	<string name="screen_s3_settings_msg_secret_key_not_empty">비밀 키를 입력하십시오</string>
+	<string name="screen_s3_settings_msg_bucket_not_empty">버킷을 입력하십시오</string>
+	<string name="screen_s3_settings_msg_endpoint_and_region_not_empty">엔드포인트 또는 지역을 입력하십시오</string>
 	<!-- ## screen: enter vault name -->
-	<string name="screen_enter_vault_name_msg_name_empty">Vault 이름을 입력해주세요.</string>
+	<string name="screen_enter_vault_name_msg_name_empty">Vault 이름을 입력하십시오.</string>
 	<string name="screen_enter_vault_name_vault_label">Vault 이름</string>
 	<string name="screen_enter_vault_name_button_text">생성</string>
 	<!-- ## screen: set password -->
 	<string name="screen_set_password_title">비밀번호 설정</string>
 	<string name="screen_set_password_msg_password_mismatch">비밀번호가 일치하지 않습니다</string>
 	<string name="screen_set_password_button_text">완료</string>
-	<string name="screen_set_password_hint">중요: 만약 비밀번호를 잊어버린 경우, 데이터를 복구 할 수 없습니다.</string>
+	<string name="screen_set_password_hint">중요: 만약 비밀번호를 잊어버린 경우, 데이터를 복구할 수 없습니다.</string>
 	<string name="screen_set_password_retype_password_label">비밀번호 재입력</string>
 	<string name="screen_set_password_strength_indicator_0">Vault를 만들기에 매우 취약함</string>
 	<string name="screen_set_password_strength_indicator_1">취약함</string>
@@ -169,12 +169,12 @@
 	<string name="screen_settings_activate_biometric_auth">생체 인증 활성화</string>
 	<string name="screen_settings_confirm_face_unlock">얼굴인식 잠금해제 적용 (가능한 경우)</string>
 	<string name="screen_settings_block_app_when_obscured">타 앱이 화면을 가릴 경우 Cryptomator 비활성화</string>
-	<string name="screen_settings_block_app_when_obscured_summary">입력을 가로채는 것을 막고 가장된 유저 인터페이스를 표시합니다</string>
+	<string name="screen_settings_block_app_when_obscured_summary">입력을 가로채는 것과 가장된 유저 인터페이스를 표시하는 것을 막습니다</string>
 	<string name="screen_settings_secure_screen">스크린샷 차단</string>
 	<string name="screen_settings_secure_screen_summary">최근 사용 목록과 앱 내부에서 스크린샷 차단</string>
 	<string name="screen_settings_section_search">검색</string>
 	<string name="screen_settings_live_search">실시간 검색</string>
-	<string name="screen_settings_live_search_summary">검색내용 입력중 검색결과 업데이트</string>
+	<string name="screen_settings_live_search_summary">검색 내용 입력중 검색 결과 업데이트</string>
 	<string name="screen_settings_glob_search">glob 패턴을 이용하여 검색</string>
 	<string name="screen_settings_glob_search_summary">alice.*.jpg와 같이 glob 패턴 매칭 사용</string>
 	<string name="screen_settings_section_auto_lock">자동 잠금</string>
@@ -190,8 +190,9 @@
 	<string name="screen_settings_section_auto_photo_upload_including_videos">동영상 업로드</string>
 	<string name="screen_settings_auto_photo_upload_title">자동 업로드 대상 파일 저장 위치&#8230;</string>
 	<string name="screen_settings_website_label">Cryptomator 웹사이트</string>
+	<string name="screen_settings_mastodon_label">Mastodon에서 팔로우 하기</string>
 	<string name="screen_settings_facebook_label">Facebook에서 좋아요 누르기</string>
-	<string name="screen_settings_section_legal">법적 사항</string>
+	<string name="screen_settings_section_legal">법률 정보</string>
 	<string name="screen_settings_licenses_label">라이센스</string>
 	<string name="screen_settings_license_terms_label">라이센스 약관</string>
 	<string name="screen_settings_section_support">지원</string>
@@ -202,8 +203,8 @@
 	<string name="screen_settings_security_label">보안 힌트</string>
 	<string name="screen_settings_section_version">버전</string>
 	<string name="screen_settings_advanced_settings">고급 설정</string>
-	<string name="screen_settings_microsoft_apps_workaround_label">Microsoft 파일 열람을 시도하기</string>
-	<string name="screen_settings_microsoft_apps_workaround_summary">파일을 쓰기 권한과 함께 Microsoft 앱에서 열람합니다</string>
+	<string name="screen_settings_microsoft_apps_workaround_label">Microsoft 파일에 대한 우회</string>
+	<string name="screen_settings_microsoft_apps_workaround_summary">Microsoft 앱에서 쓰기 권한으로 파일을 열기</string>
 	<string name="screen_settings_background_unlock_preparation_label">잠금해제 가속</string>
 	<string name="screen_settings_background_unlock_preparation_label_summary">비밀번호 입력 혹은 생체 인증을 진행하는 동안 백그라운드에서 Vault 설정을 다운로드합니다</string>
 	<string name="screen_settings_keep_unlocked_while_editing_files">잠금해제 유지</string>
@@ -218,7 +219,7 @@
 	<string name="screen_cloud_settings_sign_out_from_cloud">로그아웃</string>
 	<!-- ## screen: licenses -->
 	<!-- ## screen: authenticate cloud -->
-	<string name="screen_authenticate_auth_authentication_failed">%1$s 인증할 수 없습니다.</string>
+	<string name="screen_authenticate_auth_authentication_failed">%1$s에 인증할 수 없습니다.</string>
 	<string name="screen_update_pcloud_connections_title">pCloud 자격증명 업데이트</string>
 	<!-- ## screen: cryptomator app variants -->
 	<string name="screen_cryptomator_variants_title">Cryptomator 종류</string>
@@ -239,20 +240,20 @@
 	<string name="dialog_change_password_old_password_label">이전 비밀번호</string>
 	<string name="dialog_change_password_new_password_label">신규 비밀번호</string>
 	<string name="dialog_change_password">비밀번호 변경</string>
-	<string name="dialog_change_password_msg_old_password_empty">기존 비밀번호는 비워둘 수 없습니다.</string>
-	<string name="dialog_change_password_msg_new_password_empty">새 비밀번호는 비워둘 수 없습니다.</string>
+	<string name="dialog_change_password_msg_old_password_empty">이전 비밀번호를 입력하십시오.</string>
+	<string name="dialog_change_password_msg_new_password_empty">신규 비밀번호를 입력하십시오.</string>
 	<string name="dialog_change_password_msg_password_mismatch">비밀번호가 일치하지 않습니다.</string>
 	<!-- Vault not found -->
 	<string name="dialog_vault_not_found_title">Vault %1$s를 찾을 수 없음</string>
-	<string name="dialog_vault_not_found_message">이 Vault는 이름이 변경됐거나, 경로가 옮겨졌거나, 삭제되었습니다. 이 Vault를 목록에서 삭제하고 다시 추가하여 계속 진행하세요. 지금 삭제할까요?</string>
+	<string name="dialog_vault_not_found_message">이 Vault는 이름이 변경됐거나, 경로가 옮겨졌거나, 삭제되었습니다. 이 Vault를 목록에서 삭제하고 다시 추가하여 계속 진행하십시오. 지금 삭제하시겠습니까?</string>
 	<string name="dialog_vault_not_found_positive_button_text">제거</string>
 	<string name="dialog_existing_file_title">파일이 이미 존재합니다</string>
-	<string name="dialog_existing_file_positive_button">교체</string>
+	<string name="dialog_existing_file_positive_button">덮어쓰기</string>
 	<string name="dialog_existing_file_message">\'%1$s\' 파일이 이미 존재합니다.</string>
 	<string name="dialog_replace_negative_button_at_least_two_but_not_all_files_exist">중복 파일 건너뛰기</string>
-	<string name="dialog_replace_positive_button_all_files_exist">모두 바꾸기</string>
+	<string name="dialog_replace_positive_button_all_files_exist">모두 덮어쓰기</string>
 	<string name="dialog_replace_positive_button_some_files_exist">중복 파일 덮어쓰기</string>
-	<string name="dialog_replace_positive_button_single_file_exists">교체</string>
+	<string name="dialog_replace_positive_button_single_file_exists">덮어쓰기</string>
 	<string name="dialog_replace_msg_single_file_exists">\'%1$s\' 이름을 가진 파일이 이미 존재합니다. 덮어쓸까요?</string>
 	<string name="dialog_replace_msg_all_files_exists">기존의 파일들이 이미 모두 존재합니다. 덮어쓸까요?</string>
 	<string name="dialog_replace_msg_some_files_exists">%1$d 파일들이 이미 존재합니다. 덮어쓸까요?</string>
@@ -274,7 +275,7 @@
 	<string name="dialog_file_name_placeholder">text.txt</string>
 	<string name="dialog_delete_vault_message">이 Vault를 정말로 제거하시겠습니까?</string>
 	<string name="dialog_delete_vault_hint">이 동작은 Vault를 이 리스트에서만 제거하며, 실제로 삭제하지는 않습니다.</string>
-	<string name="dialog_upload_file_title">&#8230; 업로드 중</string>
+	<string name="dialog_upload_file_title">업로드 중&#8230;</string>
 	<string name="dialog_upload_file_remaining">파일 %2$d 중 %1$d</string>
 	<string name="dialog_export_file_title">내보내는중 (%1$d/%2$d)</string>
 	<string name="dialog_progress_please_wait">잠시 기다려주세요&#8230;</string>
@@ -286,7 +287,7 @@
 	<string name="dialog_progress_unlocking_vault">Vault 잠금해제 중&#8230;</string>
 	<string name="dialog_progress_change_password">비밀번호 변경 중&#8230;</string>
 	<string name="dialog_progress_creating_vault">Vault 생성 중&#8230;</string>
-	<string name="dialog_progress_upload_file">&#8230; 업로드 중</string>
+	<string name="dialog_progress_upload_file">업로드 중&#8230;</string>
 	<string name="dialog_progress_download_file">다운로드 중&#8230;</string>
 	<string name="dialog_progress_encryption">암호화 중&#8230;</string>
 	<string name="dialog_progress_decryption">복호화 중&#8230;</string>
