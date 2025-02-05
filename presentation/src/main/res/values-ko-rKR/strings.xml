@@ -322,7 +322,7 @@
 	<string name="dialog_vaults_removed_during_migration_hint">이 버전의 앱으로 전환하기 위해 다음의 Vault들을 앱에서 제거해야 합니다:\n%2s \n\n이 Vault 들은 클라우드가 아닌 이 앱에서만 제거됩니다. 계속 사용하기 위해 이 Vault들을 다시 추가하세요.</string>
 	<string name="dialog_vault_is_root_folder_of_cloud_title">Vault가 클라우드의 최상위 폴더임</string>
 	<string name="dialog_vault_is_root_folder_of_cloud_hint">이 Vault를 추가하려면, 최소한 이 Vault의 최상위 디렉토리 폴더의 상위 폴더에 새로운 클라우드 연결을 생성해야 합니다.</string>
-	<string name="dialog_disable_secure_screen_disclaimer_hint">이 설정은 보안 기능이며, 다른 앱이 사용자가 원치 않는 행동을 하도록 속이는 것을 막습니다.\n\n비활성화 함으로써 <a href="https://docs.cryptomator.org/en/latest/android/settings/#block-app-when-obscured">위험성에 대해 인지</a>한다는 것을 확인합니다.</string>
+	<string name="dialog_disable_secure_screen_disclaimer_hint">이 설정은 보안 기능이며, 다른 앱이 사용자가 원치 않는 행동을 하도록 속이는 것을 막습니다.\n\n비활성화 함으로써 <a href="https://docs.cryptomator.org/en/latest/android/settings/#screen-security">위험성에 대해 인지</a>한다는 것을 확인합니다.</string>
 	<string name="dialog_delete_cloud_connection_with_vaults_message">정말 이 클라우드 연결을 삭제하시겠습니까?</string>
 	<string name="dialog_delete_cloud_connection_with_vaults_hint">클라우드 연결과 이 클라우드의 Vault들이 삭제될 것입니다.</string>
 	<string name="dialog_confirm_delete_multiple_title">%1$d개의 파일을 삭제하시겠습니까?</string>
