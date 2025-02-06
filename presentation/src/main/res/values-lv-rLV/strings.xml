@@ -48,11 +48,14 @@
 	<string name="screen_file_browser_default_title">Glabātava</string>
 	<string name="screen_file_browser_add_existing_vault_extra_text">Atlasīt galvenās atslēgas vai glabātavas datni</string>
 	<string name="screen_file_browser_create_new_vault_extra_text">Glabātavas nosaukums: %1$s</string>
+	<string name="screen_file_browser_move_button_text">Pārvietot</string>
 	<string name="screen_file_browser_share_intent_chooser_title">Kopīgot ar</string>
 	<string name="screen_file_browser_share_button_text">Izvēlēties</string>
 	<string name="screen_file_browser_nothing_to_share">Nav nekā, ko kopīgot</string>
 	<string name="screen_file_browser_action_create_new_text_file">Izveidot teksta datni</string>
+	<string name="screen_file_browser_upload_files_chooser_title">Datnes</string>
 	<string name="screen_file_browser_node_action_share">Kopīgot</string>
+	<string name="screen_file_browser_node_action_edit_text">Labot</string>
 	<string name="screen_file_browser_node_action_delete">Izdzēst</string>
 	<!-- ## screen: text editor -->
 	<!-- ## screen: share files -->
@@ -66,6 +69,8 @@
 	<!-- ## screen: webdav settings -->
 	<string name="screen_webdav_settings_password_label">Parole</string>
 	<!-- ## screen: s3 settings -->
+	<string name="screen_s3_settings_access_key_label">Piekļuves atslēga</string>
+	<string name="screen_s3_settings_msg_access_key_not_empty">Piekļuves atslēga nevar būt tukša</string>
 	<!-- ## screen: enter vault name -->
 	<!-- ## screen: set password -->
 	<string name="screen_set_password_button_text">Darīts</string>
