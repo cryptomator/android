@@ -9,17 +9,20 @@
 	<string name="error_no_network_connection">Nav tīkla savienojuma</string>
 	<string name="error_invalid_passphrase">Nepareiza parole</string>
 	<string name="error_file_or_folder_exists">Fails vai mape jau pastāv.</string>
-	<string name="error_vault_version_not_supported">Krātuves versija %1$s nav atbalstīta. Šī krātuve ir izveidota jaunākā vai vecākā Cryptomator versijā.</string>
-	<string name="error_vault_already_exists">Krātuve jau pastāv.</string>
+	<string name="error_vault_version_not_supported">Glabātavas versija %1$s nav atbalstīta. Šī glabātava tika izveidota vecākā vai jaunākā Cryptomator versijā.</string>
+	<string name="error_vault_already_exists">Glabātava jau pastāv.</string>
 	<string name="error_no_such_file">Fails neeksistē.</string>
-	<string name="error_vault_has_been_locked">Krātuve ir slēgta.</string>
-	<string name="error_activity_not_found">Lūdzu, lejupielādē aplikāciju, kas var atvērt šo failu.</string>
+	<string name="error_vault_has_been_locked">Glabātava tika aizslēgta.</string>
+	<string name="error_cloud_already_exists">Mākonis jau pastāv.</string>
+	<string name="error_activity_not_found">Lūgums lejupielādēt lietotni, kas var atvērt šo datni.</string>
 	<string name="error_server_not_found">Serveris nav atrasts.</string>
+	<string name="error_device_policy_manager_not_found">Lūgums atvērt savas ierīces iestatījumus un pašrocīgi iestatīt ekrāna aizslēgšanu</string>
 	<string name="error_play_services_not_available">Google Play Pakalpojumi nav instalēti</string>
 	<string name="error_biometric_auth_aborted">Biometriskā autentifikācija pārtraukta</string>
+	<string name="error_masterkey_location_not_supported">Pielāgota galvenās atslēgas atrašanās vieta vēl netiek nodrošināta</string>
 	<!-- # clouds -->
 	<!-- ## cloud names -->
-	<string name="cloud_names_local_storage">Lokālā krātuve</string>
+	<string name="cloud_names_local_storage">Vietēja krātuve</string>
 	<!-- # permission -->
 	<!-- ## permission messages -->
 	<string name="snack_bar_action_title_settings">Iestatījumi</string>
@@ -37,10 +40,27 @@
 	<!-- # screens -->
 	<!-- # screen: vault list -->
 	<string name="screen_vault_list_actions_title">Pievienot Cryptomator</string>
+	<string name="screen_vault_list_action_create_new_vault">Izveidot jaunu glabātavu</string>
+	<string name="screen_vault_list_action_add_existing_vault">Pievienot esošu glabātavu</string>
+	<string name="screen_vault_list_vault_action_delete">Noņemt</string>
+	<string name="screen_vault_list_vault_creation_hint">Piesist šeit, lai izveidotu jaunu glabātavu</string>
 	<!-- # screen: file browser -->
 	<string name="screen_file_browser_default_title">Glabātava</string>
+	<string name="screen_file_browser_add_existing_vault_extra_text">Atlasīt galvenās atslēgas vai glabātavas datni</string>
+	<string name="screen_file_browser_create_new_vault_extra_text">Glabātavas nosaukums: %1$s</string>
+	<string name="screen_file_browser_share_intent_chooser_title">Kopīgot ar</string>
+	<string name="screen_file_browser_share_button_text">Izvēlēties</string>
+	<string name="screen_file_browser_nothing_to_share">Nav nekā, ko kopīgot</string>
+	<string name="screen_file_browser_action_create_new_text_file">Izveidot teksta datni</string>
+	<string name="screen_file_browser_node_action_share">Kopīgot</string>
+	<string name="screen_file_browser_node_action_delete">Izdzēst</string>
 	<!-- ## screen: text editor -->
 	<!-- ## screen: share files -->
+	<string name="screen_share_files_content_text">teksts</string>
+	<string name="screen_share_files_content_file">datne</string>
+	<string name="screen_share_files_content_files">datnes</string>
+	<string name="screen_share_files_save_button_text">Saglabāt</string>
+	<string name="screen_share_files_msg_success">Šifrēšana pabeigta</string>
 	<!-- ## screen: choose cloud service -->
 	<!-- ## screen: cloud connections -->
 	<!-- ## screen: webdav settings -->
@@ -63,15 +83,25 @@
 	<string name="dialog_button_cancel">Atcelt</string>
 	<string name="dialog_enter_password_positive_button">Atslēgt</string>
 	<!-- Vault not found -->
+	<string name="dialog_vault_not_found_positive_button_text">Noņemt</string>
+	<string name="dialog_unable_to_share_title">Nebija iespējams kopīgot datnes</string>
+	<string name="dialog_unable_to_share_positive_button">Labi</string>
+	<string name="dialog_unable_to_share_negative_button">Izveidot glabātavu</string>
 	<string name="dialog_lock_vault">Aizslēgt</string>
 	<string name="dialog_app_is_obscured_info_neutral_button">Aizvērt</string>
+	<string name="dialog_confirm_delete_multiple_title">Izdzēst %1$d vienumus?</string>
+	<string name="dialog_license_confirmation_message">Paldies, %1$s, par derīgas licences iesniegšanu!</string>
 	<string name="dialog_sym_link_back_button">Atpakaļ</string>
+	<string name="dialog_hub_vault_access_forbidden_title">Piekļuve atteikta</string>
 	<!-- # error reports -->
 	<!-- # misc -->
 	<!-- ## file size helper -->
 	<!-- ## date helper -->
 	<!-- ## biometric authentication -->
 	<!-- notification -->
+	<string name="notification_auto_upload_failed_due_to_vault_locked">Glabātava tika aizslēgta augšupielādes laikā. Lūgums atkārtoti atvērt glabātavu, lai turpinātu</string>
+	<string name="notification_open_writable_file_message">Glabātava paliek atslēgta līdz labošanas pabeigšanai</string>
+	<string name="screen_settings_lru_cache_changed__restart_toast">Izmaiņas tiks pielietotas nākamajā lietotnes palaišanas reizē</string>
 	<!-- lock timeout names -->
 	<!-- cache size names -->
 	<!-- screen scheme mode names -->
