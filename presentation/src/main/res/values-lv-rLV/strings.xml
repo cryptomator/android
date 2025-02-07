@@ -55,8 +55,15 @@
 	<string name="screen_file_browser_action_create_new_text_file">Izveidot teksta datni</string>
 	<string name="screen_file_browser_upload_files_chooser_title">Datnes</string>
 	<string name="screen_file_browser_node_action_share">Kopīgot</string>
+	<string name="screen_file_browser_node_action_rename">Pārdēvēt</string>
 	<string name="screen_file_browser_node_action_edit_text">Labot</string>
+	<string name="screen_file_browser_node_action_export">Izgūt</string>
 	<string name="screen_file_browser_node_action_delete">Izdzēst</string>
+	<string name="screen_file_browser_select_items">Atlasīt</string>
+	<string name="screen_file_browser_select_all_items">Atlasīt visu</string>
+	<string name="screen_file_browser_refresh_items">Atsvaidzināt</string>
+	<string name="screen_file_browser_no_connection_message">Nav savienojuma</string>
+	<string name="screen_file_browser_no_connection_button_text">Mēģināt vēlreiz</string>
 	<!-- ## screen: text editor -->
 	<!-- ## screen: share files -->
 	<string name="screen_share_files_content_text">teksts</string>
