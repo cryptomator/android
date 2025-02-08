@@ -17,6 +17,7 @@
 	<string name="error_activity_not_found">Lūgums lejupielādēt lietotni, kas var atvērt šo datni.</string>
 	<string name="error_server_not_found">Serveris nav atrasts.</string>
 	<string name="error_device_policy_manager_not_found">Lūgums atvērt savas ierīces iestatījumus un pašrocīgi iestatīt ekrāna aizslēgšanu</string>
+	<string name="error_export_illegal_file_name">Izgūšana neizdevās. Jāmēģina no datņu nosaukumiem noņemt īpašās rakstzīmes un jāizgūst vēlreiz.</string>
 	<string name="error_play_services_not_available">Google Play Pakalpojumi nav instalēti</string>
 	<string name="error_biometric_auth_aborted">Biometriskā autentifikācija pārtraukta</string>
 	<string name="error_masterkey_location_not_supported">Pielāgota galvenās atslēgas atrašanās vieta vēl netiek nodrošināta</string>
@@ -25,6 +26,7 @@
 	<string name="cloud_names_local_storage">Vietēja krātuve</string>
 	<!-- # permission -->
 	<!-- ## permission messages -->
+	<string name="permission_message_export_file">Cryptomator ir nepieciešama piekļuve krātuvei, lai izgūtu datnes</string>
 	<string name="snack_bar_action_title_settings">Iestatījumi</string>
 	<string name="snack_bar_action_title_search">Meklēt</string>
 	<string name="snack_bar_action_title_search_previous">Atpakaļ</string>
@@ -54,6 +56,9 @@
 	<string name="screen_file_browser_nothing_to_share">Nav nekā, ko kopīgot</string>
 	<string name="screen_file_browser_action_create_new_text_file">Izveidot teksta datni</string>
 	<string name="screen_file_browser_upload_files_chooser_title">Datnes</string>
+	<string name="screen_file_browser_msg_file_exported">Datne izgūta</string>
+	<string name="screen_file_browser_msg_files_exported">Datnes izgūtas</string>
+	<string name="screen_file_browser_nothing_to_export">Nav nekā, ko izgūt</string>
 	<string name="screen_file_browser_node_action_share">Kopīgot</string>
 	<string name="screen_file_browser_node_action_rename">Pārdēvēt</string>
 	<string name="screen_file_browser_node_action_edit_text">Labot</string>
@@ -81,6 +86,7 @@
 	<!-- ## screen: enter vault name -->
 	<!-- ## screen: set password -->
 	<string name="screen_set_password_button_text">Darīts</string>
+	<string name="screen_set_password_hint">SVARĪGI: ja tiek aizmirsta sava parole, nav iespējams atkopt savus datus.</string>
 	<string name="screen_set_password_strength_indicator_1">Vāja</string>
 	<string name="screen_set_password_strength_indicator_2">Vidēja</string>
 	<string name="screen_set_password_strength_indicator_3">Stipra</string>
@@ -99,6 +105,7 @@
 	<string name="dialog_unable_to_share_title">Nebija iespējams kopīgot datnes</string>
 	<string name="dialog_unable_to_share_positive_button">Labi</string>
 	<string name="dialog_unable_to_share_negative_button">Izveidot glabātavu</string>
+	<string name="dialog_export_file_title">Izgūst (%1$d/%2$d)</string>
 	<string name="dialog_lock_vault">Aizslēgt</string>
 	<string name="dialog_app_is_obscured_info_neutral_button">Aizvērt</string>
 	<string name="dialog_confirm_delete_multiple_title">Izdzēst %1$d vienumus?</string>
