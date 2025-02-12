@@ -120,9 +120,20 @@
 	<!-- notification -->
 	<string name="notification_auto_upload_failed_due_to_vault_locked">Glabātava tika aizslēgta augšupielādes laikā. Lūgums atkārtoti atvērt glabātavu, lai turpinātu</string>
 	<string name="notification_open_writable_file_message">Glabātava paliek atslēgta līdz labošanas pabeigšanai</string>
+	<string name="screen_settings_lru_cache">Kešatmiņa</string>
+	<string name="screen_settings_lru_cache_toggle_summary">Kešot nesen atvērtās datnes ierīcē šifrētā veidā atkārtotai izmantošanai vēlāk atkārtotas atvēršanas gadījumā</string>
+	<string name="screen_settings_lru_cache_size">Kopējais kešatmiņas izmērs</string>
+	<string name="screen_settings_clear_lru_cache_size">Notīrīt kešatmiņu</string>
 	<string name="screen_settings_lru_cache_changed__restart_toast">Izmaiņas tiks pielietotas nākamajā lietotnes palaišanas reizē</string>
+	<string name="dialog_cache_size_title">Kešatmiņas izmērs vienam mākonim</string>
 	<!-- lock timeout names -->
 	<!-- cache size names -->
+	<string name="cache_size_50m">50 MB</string>
+	<string name="cache_size_100m">100 MB</string>
+	<string name="cache_size_250m">250 MB</string>
+	<string name="cache_size_500m">500 MB</string>
+	<string name="cache_size_1000m">1 GB</string>
+	<string name="cache_size_5000m">5 GB</string>
 	<!-- screen scheme mode names -->
 	<string name="light">Gaišs</string>
 	<string name="dark">Tumšs</string>
