@@ -46,6 +46,7 @@
 	<string name="screen_vault_list_action_add_existing_vault">Pievienot esošu glabātavu</string>
 	<string name="screen_vault_list_vault_action_delete">Noņemt</string>
 	<string name="screen_vault_list_vault_creation_hint">Piesist šeit, lai izveidotu jaunu glabātavu</string>
+	<string name="screen_vault_list_change_password_successful">Parole sekmīgi nomainīta</string>
 	<!-- # screen: file browser -->
 	<string name="screen_file_browser_default_title">Glabātava</string>
 	<string name="screen_file_browser_add_existing_vault_extra_text">Atlasīt galvenās atslēgas vai glabātavas datni</string>
@@ -70,6 +71,7 @@
 	<string name="screen_file_browser_no_connection_message">Nav savienojuma</string>
 	<string name="screen_file_browser_no_connection_button_text">Mēģināt vēlreiz</string>
 	<!-- ## screen: text editor -->
+	<string name="screen_text_editor_save_success">Sekmīgi saglabāta</string>
 	<!-- ## screen: share files -->
 	<string name="screen_share_files_content_text">teksts</string>
 	<string name="screen_share_files_content_file">datne</string>
