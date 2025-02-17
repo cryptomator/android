@@ -113,7 +113,9 @@
 	<string name="dialog_confirm_delete_multiple_title">Izdzēst %1$d vienumus?</string>
 	<string name="dialog_license_confirmation_message">Paldies, %1$s, par derīgas licences iesniegšanu!</string>
 	<string name="dialog_sym_link_back_button">Atpakaļ</string>
+	<string name="dialog_create_hub_device_name_hint">Šis izskatās pēc pirmās piekļuves Hub šajā ierīcē. Lai to varētu identificēt piekļuves pilnvarošanai, nepiciešams šai ierīcei piešķirt nosaukumu.</string>
 	<string name="dialog_hub_vault_access_forbidden_title">Piekļuve atteikta</string>
+	<string name="dialog_hub_vault_access_forbidden_hint">Tavs lietotājs vēl nav pilnvarots piekļūt šai glabātavai. Jāvaicā glabātavas īpašniekam to pilnvarot.\"</string>
 	<!-- # error reports -->
 	<!-- # misc -->
 	<!-- ## file size helper -->
