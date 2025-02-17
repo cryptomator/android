@@ -19,6 +19,7 @@ import org.cryptomator.domain.exception.FatalBackendException
 import org.cryptomator.domain.exception.NoDirFileException
 import org.cryptomator.domain.exception.NoSuchCloudFileException
 import org.cryptomator.domain.exception.SymLinkException
+import org.cryptomator.domain.usecases.CalculateFileHashUseCase
 import org.cryptomator.domain.usecases.CloudFolderRecursiveListing
 import org.cryptomator.domain.usecases.CloudNodeRecursiveListing
 import org.cryptomator.domain.usecases.CopyDataUseCase
@@ -86,8 +87,6 @@ import org.cryptomator.util.file.MimeTypes
 import java.io.FileInputStream
 import java.io.FileNotFoundException
 import java.io.Serializable
-import java.security.DigestInputStream
-import java.security.MessageDigest
 import java.util.function.Supplier
 import javax.inject.Inject
 import kotlin.reflect.KClass
@@ -111,6 +110,7 @@ class BrowseFilesPresenter @Inject constructor( //
 	private val moveFoldersUseCase: MoveFoldersUseCase,  //
 	private val getCloudListRecursiveUseCase: GetCloudListRecursiveUseCase,  //
 	private val getDecryptedCloudForVaultUseCase: GetDecryptedCloudForVaultUseCase, //
+	private val calculateFileHashUseCase: CalculateFileHashUseCase, //
 	private val contentResolverUtil: ContentResolverUtil,  //
 	private val addExistingVaultWorkflow: AddExistingVaultWorkflow,  //
 	private val createNewVaultWorkflow: CreateNewVaultWorkflow,  //
@@ -541,16 +541,27 @@ class BrowseFilesPresenter @Inject constructor( //
 		}
 		openedCloudFile = cloudFile
 		uriToOpenedFile?.let {
-			openedCloudFileMd5 = calculateDigestFromUri(it)
-			viewFileIntent.setDataAndType(it, mimeTypes.fromFilename(cloudFile.name)?.toString())
-			viewFileIntent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION or Intent.FLAG_GRANT_WRITE_URI_PERMISSION)
-			if (sharedPreferencesHandler.keepUnlockedWhileEditing()) {
-				openWritableFileNotification = OpenWritableFileNotification(context(), it)
-				openWritableFileNotification?.show()
-				val cryptomatorApp = activity().application as CryptomatorApp
-				cryptomatorApp.suspendLock()
-			}
-			requestActivityResult(ActivityResultCallbacks.openFileFinished(openFileType), viewFileIntent)
+			view?.showProgress(ProgressModel.GENERIC)
+			calculateFileHashUseCase //
+				.withUri(it) //
+				.run(object : DefaultResultHandler<ByteArray>() {
+					override fun onSuccess(hash: ByteArray) {
+						openedCloudFileMd5 = hash
+						viewFileIntent.setDataAndType(it, mimeTypes.fromFilename(cloudFile.name)?.toString())
+						viewFileIntent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION or Intent.FLAG_GRANT_WRITE_URI_PERMISSION)
+						if (sharedPreferencesHandler.keepUnlockedWhileEditing()) {
+							openWritableFileNotification = OpenWritableFileNotification(context(), it)
+							openWritableFileNotification?.show()
+							val cryptomatorApp = activity().application as CryptomatorApp
+							cryptomatorApp.suspendLock()
+						}
+						requestActivityResult(ActivityResultCallbacks.openFileFinished(openFileType), viewFileIntent)
+					}
+
+					override fun onFinished() {
+						view?.showProgress(ProgressModel.COMPLETED)
+					}
+				})
 		}
 	}
 
@@ -585,21 +596,34 @@ class BrowseFilesPresenter @Inject constructor( //
 		context().revokeUriPermission(uriToOpenedFile, Intent.FLAG_GRANT_WRITE_URI_PERMISSION or Intent.FLAG_GRANT_READ_URI_PERMISSION)
 
 		uriToOpenedFile?.let {
-			try {
-				calculateDigestFromUri(it)?.let { hashAfterEdit ->
-					openedCloudFileMd5?.let { hashBeforeEdit ->
-						if (hashAfterEdit.contentEquals(hashBeforeEdit)) {
-							Timber.tag("BrowseFilesPresenter").i("Opened app finished, file not changed")
-							deleteFileIfMicrosoftWorkaround(openFileType, uriToOpenedFile)
+			view?.showProgress(ProgressModel.GENERIC)
+			calculateFileHashUseCase //
+				.withUri(it) //
+				.run(object : DefaultResultHandler<ByteArray>() {
+					override fun onSuccess(hashAfterEdit: ByteArray) {
+						openedCloudFileMd5?.let { hashBeforeEdit ->
+							if (hashAfterEdit.contentEquals(hashBeforeEdit)) {
+								Timber.tag("BrowseFilesPresenter").i("Opened app finished, file not changed")
+								deleteFileIfMicrosoftWorkaround(openFileType, uriToOpenedFile)
+							} else {
+								uploadChangedFile(openFileType)
+							}
+						} ?: deleteFileIfMicrosoftWorkaround(openFileType, uriToOpenedFile)
+					}
+
+					override fun onFinished() {
+						view?.showProgress(ProgressModel.COMPLETED)
+					}
+
+					override fun onError(e: Throwable) {
+						if (e is FileNotFoundException) {
+							Timber.tag("BrowseFilesPresenter").e(e, "Failed to read back changes, file isn't present anymore")
+							Toast.makeText(context(), R.string.error_file_not_found_after_opening_using_3party, Toast.LENGTH_LONG).show()
 						} else {
-							uploadChangedFile(openFileType)
+							super.onError(e)
 						}
-					} ?: deleteFileIfMicrosoftWorkaround(openFileType, uriToOpenedFile)
-				}
-			} catch (e: FileNotFoundException) {
-				Timber.tag("BrowseFilesPresenter").e(e, "Failed to read back changes, file isn't present anymore")
-				Toast.makeText(context(), R.string.error_file_not_found_after_opening_using_3party, Toast.LENGTH_LONG).show()
-			}
+					}
+				})
 		}
 	}
 
@@ -649,18 +673,6 @@ class BrowseFilesPresenter @Inject constructor( //
 	private fun hideWritableNotification() {
 		// openWritableFileNotification can not be made serializable because of this, can be null after Activity resumed
 		openWritableFileNotification?.hide() ?: OpenWritableFileNotification(context(), Uri.EMPTY).hide()
-	}
-
-	@Throws(FileNotFoundException::class)
-	private fun calculateDigestFromUri(uri: Uri): ByteArray? {
-		val digest = MessageDigest.getInstance("MD5")
-		DigestInputStream(context().contentResolver.openInputStream(uri), digest).use { dis ->
-			val buffer = ByteArray(4096)
-			// Read all bytes:
-			while (dis.read(buffer) > -1) {
-			}
-		}
-		return digest.digest()
 	}
 
 	private val previewCloudFileNodes: ArrayList<CloudFileModel>
@@ -1322,7 +1334,8 @@ class BrowseFilesPresenter @Inject constructor( //
 			copyDataUseCase,  //
 			moveFilesUseCase,  //
 			moveFoldersUseCase, //
-			getDecryptedCloudForVaultUseCase
+			getDecryptedCloudForVaultUseCase, //
+			calculateFileHashUseCase
 		)
 		this.authenticationExceptionHandler = authenticationExceptionHandler
 	}
