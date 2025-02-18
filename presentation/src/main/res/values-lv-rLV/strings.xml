@@ -50,21 +50,37 @@
 	<!-- # screen: file browser -->
 	<string name="screen_file_browser_default_title">Glabātava</string>
 	<string name="screen_file_browser_add_existing_vault_extra_text">Atlasīt galvenās atslēgas vai glabātavas datni</string>
+	<string name="screen_file_browser_create_new_vault_button_text">Novietot šeit</string>
 	<string name="screen_file_browser_create_new_vault_extra_text">Glabātavas nosaukums: %1$s</string>
+	<plurals name="screen_file_browser_subtitle_move">
+		<item quantity="zero">Pārvietot %2$d vienumu uz</item>
+		<item quantity="one">Pārvietot %1$s uz</item>
+		<item quantity="other">Pārvietot %2$d vienumus uz</item>
+	</plurals>
 	<string name="screen_file_browser_move_button_text">Pārvietot</string>
+	<string name="screen_file_browser_msg_empty_folder">Tukša mape</string>
+	<string name="screen_file_browser_file_info_label_date">mainīja pirms %1$s</string>
 	<string name="screen_file_browser_share_intent_chooser_title">Kopīgot ar</string>
+	<string name="screen_file_browser_share_destination_title">Izvēlēties galamērķi</string>
 	<string name="screen_file_browser_share_button_text">Izvēlēties</string>
 	<string name="screen_file_browser_nothing_to_share">Nav nekā, ko kopīgot</string>
+	<string name="screen_file_browser_actions_title">Pievienot %1$s</string>
+	<string name="screen_file_browser_action_create_folder">Izveidot mapi</string>
 	<string name="screen_file_browser_action_create_new_text_file">Izveidot teksta datni</string>
+	<string name="screen_file_browser_action_upload_files">Augšupielādēt datnes</string>
 	<string name="screen_file_browser_upload_files_chooser_title">Datnes</string>
 	<string name="screen_file_browser_msg_file_exported">Datne izgūta</string>
 	<string name="screen_file_browser_msg_files_exported">Datnes izgūtas</string>
 	<string name="screen_file_browser_nothing_to_export">Nav nekā, ko izgūt</string>
+	<string name="screen_file_browser_msg_creating_download_dir_failed">Lejupielāžu mapes izveidošana neizdevās</string>
 	<string name="screen_file_browser_node_action_share">Kopīgot</string>
 	<string name="screen_file_browser_node_action_rename">Pārdēvēt</string>
 	<string name="screen_file_browser_node_action_edit_text">Labot</string>
 	<string name="screen_file_browser_node_action_export">Izgūt</string>
 	<string name="screen_file_browser_node_action_delete">Izdzēst</string>
+	<string name="screen_file_browser_node_action_open_with_text">Atvērt ar&#8230;</string>
+	<string name="screen_file_browser_selection_mode_title_zero_elements">Atlasīt vienumus</string>
+	<string name="screen_file_browser_selection_mode_title_one_or_more_elements">Atlasītas: %1$d</string>
 	<string name="screen_file_browser_select_items">Atlasīt</string>
 	<string name="screen_file_browser_select_all_items">Atlasīt visu</string>
 	<string name="screen_file_browser_refresh_items">Atsvaidzināt</string>
@@ -114,13 +130,34 @@
 	<string name="dialog_license_confirmation_message">Paldies, %1$s, par derīgas licences iesniegšanu!</string>
 	<string name="dialog_sym_link_back_button">Atpakaļ</string>
 	<string name="dialog_create_hub_device_name_hint">Šis izskatās pēc pirmās piekļuves Hub šajā ierīcē. Lai to varētu identificēt piekļuves pilnvarošanai, nepiciešams šai ierīcei piešķirt nosaukumu.</string>
+	<string name="dialog_create_hub_device_setup_code_hint">Konta atslēga ir nepieciešama, lai pieteiktos jaunās lietotnēs vai pārlūkos. To var atrast savā profilā.</string>
 	<string name="dialog_hub_vault_access_forbidden_title">Piekļuve atteikta</string>
 	<string name="dialog_hub_vault_access_forbidden_hint">Tavs lietotājs vēl nav pilnvarots piekļūt šai glabātavai. Jāvaicā glabātavas īpašniekam to pilnvarot.\"</string>
 	<!-- # error reports -->
 	<!-- # misc -->
 	<!-- ## file size helper -->
+	<string name="file_size_unit_bytes">baiti</string>
+	<string name="file_size_unit_kilo_bytes">kB</string>
+	<string name="file_size_unit_mega_bytes">MB</string>
+	<string name="file_size_unit_giga_bytes">GB</string>
+	<string name="file_size_unit_tera_bytes">TB</string>
 	<!-- ## date helper -->
+	<string name="time_unit_seconds_sg">sekunde</string>
+	<string name="time_unit_seconds_pl">sekundes</string>
+	<string name="time_unit_minutes_sg">minūte</string>
+	<string name="time_unit_minutes_pl">minūtes</string>
+	<string name="time_unit_hours_sg">stunda</string>
+	<string name="time_unit_hours_pl">stundas</string>
+	<string name="time_unit_days_sg">diena</string>
+	<string name="time_unit_days_pl">dienas</string>
+	<string name="time_unit_weeks_sg">nedēļa</string>
+	<string name="time_unit_weeks_pl">nedēļas</string>
+	<string name="time_unit_months_sg">mēnesis</string>
+	<string name="time_unit_months_pl">mēneši</string>
+	<string name="time_unit_years_sg">gads</string>
+	<string name="time_unit_years_pl">gadi</string>
 	<!-- ## biometric authentication -->
+	<string name="dialog_biometric_auth_title">Pieteikšanās ar biometriju</string>
 	<!-- notification -->
 	<string name="notification_auto_upload_failed_due_to_vault_locked">Glabātava tika aizslēgta augšupielādes laikā. Lūgums atkārtoti atvērt glabātavu, lai turpinātu</string>
 	<string name="notification_open_writable_file_message">Glabātava paliek atslēgta līdz labošanas pabeigšanai</string>
@@ -131,6 +168,10 @@
 	<string name="screen_settings_lru_cache_changed__restart_toast">Izmaiņas tiks pielietotas nākamajā lietotnes palaišanas reizē</string>
 	<string name="dialog_cache_size_title">Kešatmiņas izmērs vienam mākonim</string>
 	<!-- lock timeout names -->
+	<string name="lock_timeout_1m">1 minūte</string>
+	<string name="lock_timeout_2m">2 minūtes</string>
+	<string name="lock_timeout_5m">5 minūtes</string>
+	<string name="lock_timeout_10m">10 minūtes</string>
 	<!-- cache size names -->
 	<string name="cache_size_50m">50 MB</string>
 	<string name="cache_size_100m">100 MB</string>
