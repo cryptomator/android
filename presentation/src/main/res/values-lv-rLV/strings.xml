@@ -123,7 +123,11 @@
 	<string name="dialog_unable_to_share_title">Nebija iespējams kopīgot datnes</string>
 	<string name="dialog_unable_to_share_positive_button">Labi</string>
 	<string name="dialog_unable_to_share_negative_button">Izveidot glabātavu</string>
+	<string name="dialog_file_name_placeholder">Datne.txt</string>
+	<string name="dialog_upload_file_title">Augšupielādē&#8230;</string>
+	<string name="dialog_upload_file_remaining">%1$d. datne no %2$d</string>
 	<string name="dialog_export_file_title">Izgūst (%1$d/%2$d)</string>
+	<string name="dialog_progress_upload_file">Augšupielādē&#8230;</string>
 	<string name="dialog_lock_vault">Aizslēgt</string>
 	<string name="dialog_app_is_obscured_info_neutral_button">Aizvērt</string>
 	<string name="dialog_confirm_delete_multiple_title">Izdzēst %1$d vienumus?</string>
@@ -172,6 +176,7 @@
 	<string name="lock_timeout_2m">2 minūtes</string>
 	<string name="lock_timeout_5m">5 minūtes</string>
 	<string name="lock_timeout_10m">10 minūtes</string>
+	<string name="lock_timeout_never">Nekad</string>
 	<!-- cache size names -->
 	<string name="cache_size_50m">50 MB</string>
 	<string name="cache_size_100m">100 MB</string>
