@@ -9,19 +9,24 @@
 	<string name="error_no_network_connection">Nav tīkla savienojuma</string>
 	<string name="error_invalid_passphrase">Nepareiza parole</string>
 	<string name="error_file_or_folder_exists">Fails vai mape jau pastāv.</string>
-	<string name="error_vault_version_not_supported">Krātuves versija %1$s nav atbalstīta. Šī krātuve ir izveidota jaunākā vai vecākā Cryptomator versijā.</string>
-	<string name="error_vault_already_exists">Krātuve jau pastāv.</string>
+	<string name="error_vault_version_not_supported">Glabātavas versija %1$s nav atbalstīta. Šī glabātava tika izveidota vecākā vai jaunākā Cryptomator versijā.</string>
+	<string name="error_vault_already_exists">Glabātava jau pastāv.</string>
 	<string name="error_no_such_file">Fails neeksistē.</string>
-	<string name="error_vault_has_been_locked">Krātuve ir slēgta.</string>
-	<string name="error_activity_not_found">Lūdzu, lejupielādē aplikāciju, kas var atvērt šo failu.</string>
+	<string name="error_vault_has_been_locked">Glabātava tika aizslēgta.</string>
+	<string name="error_cloud_already_exists">Mākonis jau pastāv.</string>
+	<string name="error_activity_not_found">Lūgums lejupielādēt lietotni, kas var atvērt šo datni.</string>
 	<string name="error_server_not_found">Serveris nav atrasts.</string>
+	<string name="error_device_policy_manager_not_found">Lūgums atvērt savas ierīces iestatījumus un pašrocīgi iestatīt ekrāna aizslēgšanu</string>
+	<string name="error_export_illegal_file_name">Izgūšana neizdevās. Jāmēģina no datņu nosaukumiem noņemt īpašās rakstzīmes un jāizgūst vēlreiz.</string>
 	<string name="error_play_services_not_available">Google Play Pakalpojumi nav instalēti</string>
 	<string name="error_biometric_auth_aborted">Biometriskā autentifikācija pārtraukta</string>
+	<string name="error_masterkey_location_not_supported">Pielāgota galvenās atslēgas atrašanās vieta vēl netiek nodrošināta</string>
 	<!-- # clouds -->
 	<!-- ## cloud names -->
-	<string name="cloud_names_local_storage">Lokālā krātuve</string>
+	<string name="cloud_names_local_storage">Vietēja krātuve</string>
 	<!-- # permission -->
 	<!-- ## permission messages -->
+	<string name="permission_message_export_file">Cryptomator ir nepieciešama piekļuve krātuvei, lai izgūtu datnes</string>
 	<string name="snack_bar_action_title_settings">Iestatījumi</string>
 	<string name="snack_bar_action_title_search">Meklēt</string>
 	<string name="snack_bar_action_title_search_previous">Atpakaļ</string>
@@ -37,18 +42,69 @@
 	<!-- # screens -->
 	<!-- # screen: vault list -->
 	<string name="screen_vault_list_actions_title">Pievienot Cryptomator</string>
+	<string name="screen_vault_list_action_create_new_vault">Izveidot jaunu glabātavu</string>
+	<string name="screen_vault_list_action_add_existing_vault">Pievienot esošu glabātavu</string>
+	<string name="screen_vault_list_vault_action_delete">Noņemt</string>
+	<string name="screen_vault_list_vault_creation_hint">Piesist šeit, lai izveidotu jaunu glabātavu</string>
+	<string name="screen_vault_list_change_password_successful">Parole sekmīgi nomainīta</string>
 	<!-- # screen: file browser -->
 	<string name="screen_file_browser_default_title">Glabātava</string>
+	<string name="screen_file_browser_add_existing_vault_extra_text">Atlasīt galvenās atslēgas vai glabātavas datni</string>
+	<string name="screen_file_browser_create_new_vault_button_text">Novietot šeit</string>
+	<string name="screen_file_browser_create_new_vault_extra_text">Glabātavas nosaukums: %1$s</string>
+	<plurals name="screen_file_browser_subtitle_move">
+		<item quantity="zero">Pārvietot %2$d vienumu uz</item>
+		<item quantity="one">Pārvietot %1$s uz</item>
+		<item quantity="other">Pārvietot %2$d vienumus uz</item>
+	</plurals>
+	<string name="screen_file_browser_move_button_text">Pārvietot</string>
+	<string name="screen_file_browser_msg_empty_folder">Tukša mape</string>
+	<string name="screen_file_browser_file_info_label_date">mainīja pirms %1$s</string>
+	<string name="screen_file_browser_share_intent_chooser_title">Kopīgot ar</string>
+	<string name="screen_file_browser_share_destination_title">Izvēlēties galamērķi</string>
+	<string name="screen_file_browser_share_button_text">Izvēlēties</string>
+	<string name="screen_file_browser_nothing_to_share">Nav nekā, ko kopīgot</string>
+	<string name="screen_file_browser_actions_title">Pievienot %1$s</string>
+	<string name="screen_file_browser_action_create_folder">Izveidot mapi</string>
+	<string name="screen_file_browser_action_create_new_text_file">Izveidot teksta datni</string>
+	<string name="screen_file_browser_action_upload_files">Augšupielādēt datnes</string>
+	<string name="screen_file_browser_upload_files_chooser_title">Datnes</string>
+	<string name="screen_file_browser_msg_file_exported">Datne izgūta</string>
+	<string name="screen_file_browser_msg_files_exported">Datnes izgūtas</string>
+	<string name="screen_file_browser_nothing_to_export">Nav nekā, ko izgūt</string>
+	<string name="screen_file_browser_msg_creating_download_dir_failed">Lejupielāžu mapes izveidošana neizdevās</string>
+	<string name="screen_file_browser_node_action_share">Kopīgot</string>
+	<string name="screen_file_browser_node_action_rename">Pārdēvēt</string>
+	<string name="screen_file_browser_node_action_edit_text">Labot</string>
+	<string name="screen_file_browser_node_action_export">Izgūt</string>
+	<string name="screen_file_browser_node_action_delete">Izdzēst</string>
+	<string name="screen_file_browser_node_action_open_with_text">Atvērt ar&#8230;</string>
+	<string name="screen_file_browser_selection_mode_title_zero_elements">Atlasīt vienumus</string>
+	<string name="screen_file_browser_selection_mode_title_one_or_more_elements">Atlasītas: %1$d</string>
+	<string name="screen_file_browser_select_items">Atlasīt</string>
+	<string name="screen_file_browser_select_all_items">Atlasīt visu</string>
+	<string name="screen_file_browser_refresh_items">Atsvaidzināt</string>
+	<string name="screen_file_browser_no_connection_message">Nav savienojuma</string>
+	<string name="screen_file_browser_no_connection_button_text">Mēģināt vēlreiz</string>
 	<!-- ## screen: text editor -->
+	<string name="screen_text_editor_save_success">Sekmīgi saglabāta</string>
 	<!-- ## screen: share files -->
+	<string name="screen_share_files_content_text">teksts</string>
+	<string name="screen_share_files_content_file">datne</string>
+	<string name="screen_share_files_content_files">datnes</string>
+	<string name="screen_share_files_save_button_text">Saglabāt</string>
+	<string name="screen_share_files_msg_success">Šifrēšana pabeigta</string>
 	<!-- ## screen: choose cloud service -->
 	<!-- ## screen: cloud connections -->
 	<!-- ## screen: webdav settings -->
 	<string name="screen_webdav_settings_password_label">Parole</string>
 	<!-- ## screen: s3 settings -->
+	<string name="screen_s3_settings_access_key_label">Piekļuves atslēga</string>
+	<string name="screen_s3_settings_msg_access_key_not_empty">Piekļuves atslēga nevar būt tukša</string>
 	<!-- ## screen: enter vault name -->
 	<!-- ## screen: set password -->
 	<string name="screen_set_password_button_text">Darīts</string>
+	<string name="screen_set_password_hint">SVARĪGI: ja tiek aizmirsta sava parole, nav iespējams atkopt savus datus.</string>
 	<string name="screen_set_password_strength_indicator_1">Vāja</string>
 	<string name="screen_set_password_strength_indicator_2">Vidēja</string>
 	<string name="screen_set_password_strength_indicator_3">Stipra</string>
@@ -63,17 +119,71 @@
 	<string name="dialog_button_cancel">Atcelt</string>
 	<string name="dialog_enter_password_positive_button">Atslēgt</string>
 	<!-- Vault not found -->
+	<string name="dialog_vault_not_found_positive_button_text">Noņemt</string>
+	<string name="dialog_unable_to_share_title">Nebija iespējams kopīgot datnes</string>
+	<string name="dialog_unable_to_share_positive_button">Labi</string>
+	<string name="dialog_unable_to_share_negative_button">Izveidot glabātavu</string>
+	<string name="dialog_file_name_placeholder">Datne.txt</string>
+	<string name="dialog_upload_file_title">Augšupielādē&#8230;</string>
+	<string name="dialog_upload_file_remaining">%1$d. datne no %2$d</string>
+	<string name="dialog_export_file_title">Izgūst (%1$d/%2$d)</string>
+	<string name="dialog_progress_upload_file">Augšupielādē&#8230;</string>
 	<string name="dialog_lock_vault">Aizslēgt</string>
 	<string name="dialog_app_is_obscured_info_neutral_button">Aizvērt</string>
+	<string name="dialog_confirm_delete_multiple_title">Izdzēst %1$d vienumus?</string>
+	<string name="dialog_license_confirmation_message">Paldies, %1$s, par derīgas licences iesniegšanu!</string>
 	<string name="dialog_sym_link_back_button">Atpakaļ</string>
+	<string name="dialog_create_hub_device_name_hint">Šis izskatās pēc pirmās piekļuves Hub šajā ierīcē. Lai to varētu identificēt piekļuves pilnvarošanai, nepiciešams šai ierīcei piešķirt nosaukumu.</string>
+	<string name="dialog_create_hub_device_setup_code_hint">Konta atslēga ir nepieciešama, lai pieteiktos jaunās lietotnēs vai pārlūkos. To var atrast savā profilā.</string>
+	<string name="dialog_hub_vault_access_forbidden_title">Piekļuve atteikta</string>
+	<string name="dialog_hub_vault_access_forbidden_hint">Tavs lietotājs vēl nav pilnvarots piekļūt šai glabātavai. Jāvaicā glabātavas īpašniekam to pilnvarot.\"</string>
 	<!-- # error reports -->
 	<!-- # misc -->
 	<!-- ## file size helper -->
+	<string name="file_size_unit_bytes">baiti</string>
+	<string name="file_size_unit_kilo_bytes">kB</string>
+	<string name="file_size_unit_mega_bytes">MB</string>
+	<string name="file_size_unit_giga_bytes">GB</string>
+	<string name="file_size_unit_tera_bytes">TB</string>
 	<!-- ## date helper -->
+	<string name="time_unit_seconds_sg">sekunde</string>
+	<string name="time_unit_seconds_pl">sekundes</string>
+	<string name="time_unit_minutes_sg">minūte</string>
+	<string name="time_unit_minutes_pl">minūtes</string>
+	<string name="time_unit_hours_sg">stunda</string>
+	<string name="time_unit_hours_pl">stundas</string>
+	<string name="time_unit_days_sg">diena</string>
+	<string name="time_unit_days_pl">dienas</string>
+	<string name="time_unit_weeks_sg">nedēļa</string>
+	<string name="time_unit_weeks_pl">nedēļas</string>
+	<string name="time_unit_months_sg">mēnesis</string>
+	<string name="time_unit_months_pl">mēneši</string>
+	<string name="time_unit_years_sg">gads</string>
+	<string name="time_unit_years_pl">gadi</string>
 	<!-- ## biometric authentication -->
+	<string name="dialog_biometric_auth_title">Pieteikšanās ar biometriju</string>
 	<!-- notification -->
+	<string name="notification_auto_upload_failed_due_to_vault_locked">Glabātava tika aizslēgta augšupielādes laikā. Lūgums atkārtoti atvērt glabātavu, lai turpinātu</string>
+	<string name="notification_open_writable_file_message">Glabātava paliek atslēgta līdz labošanas pabeigšanai</string>
+	<string name="screen_settings_lru_cache">Kešatmiņa</string>
+	<string name="screen_settings_lru_cache_toggle_summary">Kešot nesen atvērtās datnes ierīcē šifrētā veidā atkārtotai izmantošanai vēlāk atkārtotas atvēršanas gadījumā</string>
+	<string name="screen_settings_lru_cache_size">Kopējais kešatmiņas izmērs</string>
+	<string name="screen_settings_clear_lru_cache_size">Notīrīt kešatmiņu</string>
+	<string name="screen_settings_lru_cache_changed__restart_toast">Izmaiņas tiks pielietotas nākamajā lietotnes palaišanas reizē</string>
+	<string name="dialog_cache_size_title">Kešatmiņas izmērs vienam mākonim</string>
 	<!-- lock timeout names -->
+	<string name="lock_timeout_1m">1 minūte</string>
+	<string name="lock_timeout_2m">2 minūtes</string>
+	<string name="lock_timeout_5m">5 minūtes</string>
+	<string name="lock_timeout_10m">10 minūtes</string>
+	<string name="lock_timeout_never">Nekad</string>
 	<!-- cache size names -->
+	<string name="cache_size_50m">50 MB</string>
+	<string name="cache_size_100m">100 MB</string>
+	<string name="cache_size_250m">250 MB</string>
+	<string name="cache_size_500m">500 MB</string>
+	<string name="cache_size_1000m">1 GB</string>
+	<string name="cache_size_5000m">5 GB</string>
 	<!-- screen scheme mode names -->
 	<string name="light">Gaišs</string>
 	<string name="dark">Tumšs</string>

@@ -191,6 +191,7 @@
 	<string name="screen_settings_section_auto_photo_upload_including_videos">Videoları yükle</string>
 	<string name="screen_settings_auto_photo_upload_title">Otomatik yükleme&#8230;</string>
 	<string name="screen_settings_website_label">Cryptomator web sitesi</string>
+	<string name="screen_settings_mastodon_label">Bizi Mastodon\'da takip edin</string>
 	<string name="screen_settings_facebook_label">Bizi Facebook\'ta beğenin</string>
 	<string name="screen_settings_section_legal">Yasal</string>
 	<string name="screen_settings_licenses_label">Lisanslar</string>

@@ -40,6 +40,7 @@
 	<string name="error_hub_device_already_register_for_other_user">To urządzenie jest już zarejestrowane dla innego użytkownika. Spróbuj zmienić konto użytkownika lub użyć innego urządzenia.</string>
 	<string name="error_hub_invalid_setup_code">Klucz konta jest nieprawidłowy.</string>
 	<string name="error_hub_invalid_version">Nieobsługiwana wersja Hubu.</string>
+	<string name="error_hub_unlock_pre_31">Hub jest wspierany dla Androida 12 i wyższych.</string>
 	<!-- # clouds -->
 	<!-- ## cloud names -->
 	<string name="cloud_names_local_storage">Pamięć wewnętrzna</string>
@@ -192,6 +193,7 @@
 	<string name="screen_settings_section_auto_photo_upload_including_videos">Prześlij filmy</string>
 	<string name="screen_settings_auto_photo_upload_title">Zapisz automatycznie przesyłane pliki w&#8230;</string>
 	<string name="screen_settings_website_label">Cryptomator w Internecie</string>
+	<string name="screen_settings_mastodon_label">Obserwuj nas na Mastodonie</string>
 	<string name="screen_settings_facebook_label">Polub nas na Facebooku</string>
 	<string name="screen_settings_section_legal">Informacje prawne</string>
 	<string name="screen_settings_licenses_label">Licencje</string>

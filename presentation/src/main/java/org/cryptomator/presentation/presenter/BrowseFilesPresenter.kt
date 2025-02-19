@@ -17,13 +17,14 @@ import org.cryptomator.domain.exception.CloudNodeAlreadyExistsException
 import org.cryptomator.domain.exception.EmptyDirFileException
 import org.cryptomator.domain.exception.FatalBackendException
 import org.cryptomator.domain.exception.NoDirFileException
-import org.cryptomator.domain.exception.NoSuchCloudFileException
 import org.cryptomator.domain.exception.SymLinkException
+import org.cryptomator.domain.usecases.CalculateFileHashUseCase
 import org.cryptomator.domain.usecases.CloudFolderRecursiveListing
 import org.cryptomator.domain.usecases.CloudNodeRecursiveListing
 import org.cryptomator.domain.usecases.CopyDataUseCase
 import org.cryptomator.domain.usecases.DownloadFile
 import org.cryptomator.domain.usecases.GetDecryptedCloudForVaultUseCase
+import org.cryptomator.domain.usecases.PrepareDownloadFilesUseCase
 import org.cryptomator.domain.usecases.ResultRenamed
 import org.cryptomator.domain.usecases.cloud.CreateFolderUseCase
 import org.cryptomator.domain.usecases.cloud.DeleteNodesUseCase
@@ -46,7 +47,6 @@ import org.cryptomator.generator.InstanceState
 import org.cryptomator.presentation.CryptomatorApp
 import org.cryptomator.presentation.R
 import org.cryptomator.presentation.exception.ExceptionHandlers
-import org.cryptomator.presentation.exception.IllegalFileNameException
 import org.cryptomator.presentation.intent.BrowseFilesIntent
 import org.cryptomator.presentation.intent.ChooseCloudNodeSettings
 import org.cryptomator.presentation.intent.IntentBuilder
@@ -86,8 +86,6 @@ import org.cryptomator.util.file.MimeTypes
 import java.io.FileInputStream
 import java.io.FileNotFoundException
 import java.io.Serializable
-import java.security.DigestInputStream
-import java.security.MessageDigest
 import java.util.function.Supplier
 import javax.inject.Inject
 import kotlin.reflect.KClass
@@ -111,6 +109,8 @@ class BrowseFilesPresenter @Inject constructor( //
 	private val moveFoldersUseCase: MoveFoldersUseCase,  //
 	private val getCloudListRecursiveUseCase: GetCloudListRecursiveUseCase,  //
 	private val getDecryptedCloudForVaultUseCase: GetDecryptedCloudForVaultUseCase, //
+	private val calculateFileHashUseCase: CalculateFileHashUseCase, //
+	private val prepareDownloadFilesUseCase: PrepareDownloadFilesUseCase, //
 	private val contentResolverUtil: ContentResolverUtil,  //
 	private val addExistingVaultWorkflow: AddExistingVaultWorkflow,  //
 	private val createNewVaultWorkflow: CreateNewVaultWorkflow,  //
@@ -541,16 +541,27 @@ class BrowseFilesPresenter @Inject constructor( //
 		}
 		openedCloudFile = cloudFile
 		uriToOpenedFile?.let {
-			openedCloudFileMd5 = calculateDigestFromUri(it)
-			viewFileIntent.setDataAndType(it, mimeTypes.fromFilename(cloudFile.name)?.toString())
-			viewFileIntent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION or Intent.FLAG_GRANT_WRITE_URI_PERMISSION)
-			if (sharedPreferencesHandler.keepUnlockedWhileEditing()) {
-				openWritableFileNotification = OpenWritableFileNotification(context(), it)
-				openWritableFileNotification?.show()
-				val cryptomatorApp = activity().application as CryptomatorApp
-				cryptomatorApp.suspendLock()
-			}
-			requestActivityResult(ActivityResultCallbacks.openFileFinished(openFileType), viewFileIntent)
+			view?.showProgress(ProgressModel.GENERIC)
+			calculateFileHashUseCase //
+				.withUri(it) //
+				.run(object : DefaultResultHandler<ByteArray>() {
+					override fun onSuccess(hash: ByteArray) {
+						openedCloudFileMd5 = hash
+						viewFileIntent.setDataAndType(it, mimeTypes.fromFilename(cloudFile.name)?.toString())
+						viewFileIntent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION or Intent.FLAG_GRANT_WRITE_URI_PERMISSION)
+						if (sharedPreferencesHandler.keepUnlockedWhileEditing()) {
+							openWritableFileNotification = OpenWritableFileNotification(context(), it)
+							openWritableFileNotification?.show()
+							val cryptomatorApp = activity().application as CryptomatorApp
+							cryptomatorApp.suspendLock()
+						}
+						requestActivityResult(ActivityResultCallbacks.openFileFinished(openFileType), viewFileIntent)
+					}
+
+					override fun onFinished() {
+						view?.showProgress(ProgressModel.COMPLETED)
+					}
+				})
 		}
 	}
 
@@ -585,21 +596,34 @@ class BrowseFilesPresenter @Inject constructor( //
 		context().revokeUriPermission(uriToOpenedFile, Intent.FLAG_GRANT_WRITE_URI_PERMISSION or Intent.FLAG_GRANT_READ_URI_PERMISSION)
 
 		uriToOpenedFile?.let {
-			try {
-				calculateDigestFromUri(it)?.let { hashAfterEdit ->
-					openedCloudFileMd5?.let { hashBeforeEdit ->
-						if (hashAfterEdit.contentEquals(hashBeforeEdit)) {
-							Timber.tag("BrowseFilesPresenter").i("Opened app finished, file not changed")
-							deleteFileIfMicrosoftWorkaround(openFileType, uriToOpenedFile)
+			view?.showProgress(ProgressModel.GENERIC)
+			calculateFileHashUseCase //
+				.withUri(it) //
+				.run(object : DefaultResultHandler<ByteArray>() {
+					override fun onSuccess(hashAfterEdit: ByteArray) {
+						openedCloudFileMd5?.let { hashBeforeEdit ->
+							if (hashAfterEdit.contentEquals(hashBeforeEdit)) {
+								Timber.tag("BrowseFilesPresenter").i("Opened app finished, file not changed")
+								deleteFileIfMicrosoftWorkaround(openFileType, uriToOpenedFile)
+							} else {
+								uploadChangedFile(openFileType)
+							}
+						} ?: deleteFileIfMicrosoftWorkaround(openFileType, uriToOpenedFile)
+					}
+
+					override fun onFinished() {
+						view?.showProgress(ProgressModel.COMPLETED)
+					}
+
+					override fun onError(e: Throwable) {
+						if (e is FileNotFoundException) {
+							Timber.tag("BrowseFilesPresenter").e(e, "Failed to read back changes, file isn't present anymore")
+							Toast.makeText(context(), R.string.error_file_not_found_after_opening_using_3party, Toast.LENGTH_LONG).show()
 						} else {
-							uploadChangedFile(openFileType)
+							super.onError(e)
 						}
-					} ?: deleteFileIfMicrosoftWorkaround(openFileType, uriToOpenedFile)
-				}
-			} catch (e: FileNotFoundException) {
-				Timber.tag("BrowseFilesPresenter").e(e, "Failed to read back changes, file isn't present anymore")
-				Toast.makeText(context(), R.string.error_file_not_found_after_opening_using_3party, Toast.LENGTH_LONG).show()
-			}
+					}
+				})
 		}
 	}
 
@@ -649,18 +673,6 @@ class BrowseFilesPresenter @Inject constructor( //
 	private fun hideWritableNotification() {
 		// openWritableFileNotification can not be made serializable because of this, can be null after Activity resumed
 		openWritableFileNotification?.hide() ?: OpenWritableFileNotification(context(), Uri.EMPTY).hide()
-	}
-
-	@Throws(FileNotFoundException::class)
-	private fun calculateDigestFromUri(uri: Uri): ByteArray? {
-		val digest = MessageDigest.getInstance("MD5")
-		DigestInputStream(context().contentResolver.openInputStream(uri), digest).use { dis ->
-			val buffer = ByteArray(4096)
-			// Read all bytes:
-			while (dis.read(buffer) > -1) {
-			}
-		}
-		return digest.digest()
 	}
 
 	private val previewCloudFileNodes: ArrayList<CloudFileModel>
@@ -970,84 +982,35 @@ class BrowseFilesPresenter @Inject constructor( //
 	}
 
 	private fun prepareExportingOf(parentUri: Uri, exportOperation: ExportOperation, filesToExport: List<CloudFileModel>, cloudNodeRecursiveListing: CloudNodeRecursiveListing) {
+		view?.showProgress(ProgressModel.GENERIC)
 		downloadFiles = ArrayList()
-		downloadFiles.addAll(prepareFilesForExport(cloudFileModelMapper.fromModels(filesToExport), parentUri))
-		cloudNodeRecursiveListing.foldersContent.forEach { folderRecursiveListing ->
-			prepareFolderContentForExport(folderRecursiveListing, parentUri)
-		}
-		if (downloadFiles.isEmpty()) {
-			view?.showMessage(R.string.screen_file_browser_nothing_to_export)
-			view?.closeDialog()
-		} else {
-			exportOperation.export(this, downloadFiles)
-		}
+		prepareDownloadFilesUseCase
+			.withFilesToExport(cloudFileModelMapper.fromModels(filesToExport))
+			.andParentUri(parentUri)
+			.andCloudNodeRecursiveListing(cloudNodeRecursiveListing)
+			.run(object : DefaultResultHandler<List<DownloadFile>>() {
+				override fun onSuccess(prepareDownloadFiles: List<DownloadFile>) {
+					view?.showProgress(ProgressModel.COMPLETED)
+					downloadFiles = prepareDownloadFiles.toMutableList()
+					if (downloadFiles.isEmpty()) {
+						view?.showMessage(R.string.screen_file_browser_nothing_to_export)
+						view?.closeDialog()
+					} else {
+						export(exportOperation, downloadFiles)
+					}
+				}
+
+				override fun onError(e: Throwable) {
+					view?.showProgress(ProgressModel.COMPLETED)
+					showError(e)
+					disableSelectionMode()
+					throw FatalBackendException(e)
+				}
+			})
 	}
 
-	private fun prepareFilesForExport(filesToExport: List<CloudFile>, parentUri: Uri): List<DownloadFile> {
-		return filesToExport.mapTo(ArrayList()) { createDownloadFile(it, parentUri) }
-	}
-
-	private fun prepareFolderContentForExport(cloudFolderRecursiveListing: CloudFolderRecursiveListing, parentUri: Uri) {
-		createFolder(parentUri, cloudFolderRecursiveListing.parent.name)?.let {
-			downloadFiles.addAll(prepareFilesForExport(cloudFolderRecursiveListing.files, it))
-			cloudFolderRecursiveListing.folders.forEach { childFolder ->
-				prepareFolderContentForExport(childFolder, it)
-			}
-		} ?: throw FatalBackendException("Failed to create parent folder for export")
-	}
-
-	private fun createFolder(parentUri: Uri, folderName: String): Uri? {
-		return try {
-			DocumentsContract.createDocument( //
-				context().contentResolver,  //
-				parentUri,  //
-				DocumentsContract.Document.MIME_TYPE_DIR,  //
-				folderName
-			)
-		} catch (e: FileNotFoundException) {
-			Timber.tag("BrowseFilesPresenter").e(e)
-			throw IllegalStateException("Creating folder failed")
-		}
-	}
-
-	private fun createDownloadFile(file: CloudFile, documentUri: Uri): DownloadFile {
-		return try {
-			DownloadFile.Builder() //
-				.setDownloadFile(file) //
-				.setDataSink(
-					contentResolverUtil.openOutputStream( //
-						createNewDocumentUri(documentUri, file.name)
-					)
-				) //
-				.build()
-		} catch (e: FileNotFoundException) {
-			showError(e)
-			disableSelectionMode()
-			throw FatalBackendException(e)
-		} catch (e: NoSuchCloudFileException) {
-			showError(e)
-			disableSelectionMode()
-			throw FatalBackendException(e)
-		} catch (e: IllegalFileNameException) {
-			showError(e)
-			disableSelectionMode()
-			throw FatalBackendException(e)
-		}
-	}
-
-	@Throws(IllegalFileNameException::class, NoSuchCloudFileException::class)
-	private fun createNewDocumentUri(parentUri: Uri, fileName: String): Uri {
-		val mimeType = mimeTypes.fromFilename(fileName) ?: MimeType.APPLICATION_OCTET_STREAM
-		return try {
-			DocumentsContract.createDocument( //
-				context().contentResolver,  //
-				parentUri,  //
-				mimeType.toString(),  //
-				fileName
-			)
-		} catch (e: FileNotFoundException) {
-			throw NoSuchCloudFileException(fileName)
-		} ?: throw IllegalFileNameException()
+	private fun export(exportOperation: ExportOperation, downloadFiles: MutableList<DownloadFile>) {
+		exportOperation.export(this, downloadFiles)
 	}
 
 	@Callback
@@ -1322,7 +1285,9 @@ class BrowseFilesPresenter @Inject constructor( //
 			copyDataUseCase,  //
 			moveFilesUseCase,  //
 			moveFoldersUseCase, //
-			getDecryptedCloudForVaultUseCase
+			getDecryptedCloudForVaultUseCase, //
+			calculateFileHashUseCase, //
+			prepareDownloadFilesUseCase
 		)
 		this.authenticationExceptionHandler = authenticationExceptionHandler
 	}
