@@ -6,6 +6,7 @@ import org.cryptomator.cryptolib.api.InvalidPassphraseException
 import org.cryptomator.domain.di.PerView
 import org.cryptomator.domain.exception.CloudAlreadyExistsException
 import org.cryptomator.domain.exception.CloudNodeAlreadyExistsException
+import org.cryptomator.domain.exception.IllegalFileNameException
 import org.cryptomator.domain.exception.NetworkConnectionException
 import org.cryptomator.domain.exception.NoSuchBucketException
 import org.cryptomator.domain.exception.NoSuchCloudFileException
@@ -39,7 +40,7 @@ import timber.log.Timber
 class ExceptionHandlers @Inject constructor(private val context: Context, defaultExceptionHandler: DefaultExceptionHandler) : Iterable<ExceptionHandler?> {
 
 	private val exceptionHandlers: MutableList<ExceptionHandler> = ArrayList()
-	private val defaultExceptionHandler: ExceptionHandler
+	private val defaultExceptionHandler: ExceptionHandler = defaultExceptionHandler
 
 	private fun setupHandlers() {
 		staticHandler(AuthenticationException::class.java, R.string.error_authentication_failed)
@@ -122,7 +123,6 @@ class ExceptionHandlers @Inject constructor(private val context: Context, defaul
 	}
 
 	init {
-		this.defaultExceptionHandler = defaultExceptionHandler
 		setupHandlers()
 	}
 }

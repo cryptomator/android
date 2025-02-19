@@ -17,7 +17,6 @@ import org.cryptomator.domain.exception.CloudNodeAlreadyExistsException
 import org.cryptomator.domain.exception.EmptyDirFileException
 import org.cryptomator.domain.exception.FatalBackendException
 import org.cryptomator.domain.exception.NoDirFileException
-import org.cryptomator.domain.exception.NoSuchCloudFileException
 import org.cryptomator.domain.exception.SymLinkException
 import org.cryptomator.domain.usecases.CalculateFileHashUseCase
 import org.cryptomator.domain.usecases.CloudFolderRecursiveListing
@@ -25,6 +24,7 @@ import org.cryptomator.domain.usecases.CloudNodeRecursiveListing
 import org.cryptomator.domain.usecases.CopyDataUseCase
 import org.cryptomator.domain.usecases.DownloadFile
 import org.cryptomator.domain.usecases.GetDecryptedCloudForVaultUseCase
+import org.cryptomator.domain.usecases.PrepareDownloadFilesUseCase
 import org.cryptomator.domain.usecases.ResultRenamed
 import org.cryptomator.domain.usecases.cloud.CreateFolderUseCase
 import org.cryptomator.domain.usecases.cloud.DeleteNodesUseCase
@@ -47,7 +47,6 @@ import org.cryptomator.generator.InstanceState
 import org.cryptomator.presentation.CryptomatorApp
 import org.cryptomator.presentation.R
 import org.cryptomator.presentation.exception.ExceptionHandlers
-import org.cryptomator.presentation.exception.IllegalFileNameException
 import org.cryptomator.presentation.intent.BrowseFilesIntent
 import org.cryptomator.presentation.intent.ChooseCloudNodeSettings
 import org.cryptomator.presentation.intent.IntentBuilder
@@ -111,6 +110,7 @@ class BrowseFilesPresenter @Inject constructor( //
 	private val getCloudListRecursiveUseCase: GetCloudListRecursiveUseCase,  //
 	private val getDecryptedCloudForVaultUseCase: GetDecryptedCloudForVaultUseCase, //
 	private val calculateFileHashUseCase: CalculateFileHashUseCase, //
+	private val prepareDownloadFilesUseCase: PrepareDownloadFilesUseCase, //
 	private val contentResolverUtil: ContentResolverUtil,  //
 	private val addExistingVaultWorkflow: AddExistingVaultWorkflow,  //
 	private val createNewVaultWorkflow: CreateNewVaultWorkflow,  //
@@ -982,84 +982,35 @@ class BrowseFilesPresenter @Inject constructor( //
 	}
 
 	private fun prepareExportingOf(parentUri: Uri, exportOperation: ExportOperation, filesToExport: List<CloudFileModel>, cloudNodeRecursiveListing: CloudNodeRecursiveListing) {
+		view?.showProgress(ProgressModel.GENERIC)
 		downloadFiles = ArrayList()
-		downloadFiles.addAll(prepareFilesForExport(cloudFileModelMapper.fromModels(filesToExport), parentUri))
-		cloudNodeRecursiveListing.foldersContent.forEach { folderRecursiveListing ->
-			prepareFolderContentForExport(folderRecursiveListing, parentUri)
-		}
-		if (downloadFiles.isEmpty()) {
-			view?.showMessage(R.string.screen_file_browser_nothing_to_export)
-			view?.closeDialog()
-		} else {
-			exportOperation.export(this, downloadFiles)
-		}
+		prepareDownloadFilesUseCase
+			.withFilesToExport(cloudFileModelMapper.fromModels(filesToExport))
+			.andParentUri(parentUri)
+			.andCloudNodeRecursiveListing(cloudNodeRecursiveListing)
+			.run(object : DefaultResultHandler<List<DownloadFile>>() {
+				override fun onSuccess(prepareDownloadFiles: List<DownloadFile>) {
+					view?.showProgress(ProgressModel.COMPLETED)
+					downloadFiles = prepareDownloadFiles.toMutableList()
+					if (downloadFiles.isEmpty()) {
+						view?.showMessage(R.string.screen_file_browser_nothing_to_export)
+						view?.closeDialog()
+					} else {
+						export(exportOperation, downloadFiles)
+					}
+				}
+
+				override fun onError(e: Throwable) {
+					view?.showProgress(ProgressModel.COMPLETED)
+					showError(e)
+					disableSelectionMode()
+					throw FatalBackendException(e)
+				}
+			})
 	}
 
-	private fun prepareFilesForExport(filesToExport: List<CloudFile>, parentUri: Uri): List<DownloadFile> {
-		return filesToExport.mapTo(ArrayList()) { createDownloadFile(it, parentUri) }
-	}
-
-	private fun prepareFolderContentForExport(cloudFolderRecursiveListing: CloudFolderRecursiveListing, parentUri: Uri) {
-		createFolder(parentUri, cloudFolderRecursiveListing.parent.name)?.let {
-			downloadFiles.addAll(prepareFilesForExport(cloudFolderRecursiveListing.files, it))
-			cloudFolderRecursiveListing.folders.forEach { childFolder ->
-				prepareFolderContentForExport(childFolder, it)
-			}
-		} ?: throw FatalBackendException("Failed to create parent folder for export")
-	}
-
-	private fun createFolder(parentUri: Uri, folderName: String): Uri? {
-		return try {
-			DocumentsContract.createDocument( //
-				context().contentResolver,  //
-				parentUri,  //
-				DocumentsContract.Document.MIME_TYPE_DIR,  //
-				folderName
-			)
-		} catch (e: FileNotFoundException) {
-			Timber.tag("BrowseFilesPresenter").e(e)
-			throw IllegalStateException("Creating folder failed")
-		}
-	}
-
-	private fun createDownloadFile(file: CloudFile, documentUri: Uri): DownloadFile {
-		return try {
-			DownloadFile.Builder() //
-				.setDownloadFile(file) //
-				.setDataSink(
-					contentResolverUtil.openOutputStream( //
-						createNewDocumentUri(documentUri, file.name)
-					)
-				) //
-				.build()
-		} catch (e: FileNotFoundException) {
-			showError(e)
-			disableSelectionMode()
-			throw FatalBackendException(e)
-		} catch (e: NoSuchCloudFileException) {
-			showError(e)
-			disableSelectionMode()
-			throw FatalBackendException(e)
-		} catch (e: IllegalFileNameException) {
-			showError(e)
-			disableSelectionMode()
-			throw FatalBackendException(e)
-		}
-	}
-
-	@Throws(IllegalFileNameException::class, NoSuchCloudFileException::class)
-	private fun createNewDocumentUri(parentUri: Uri, fileName: String): Uri {
-		val mimeType = mimeTypes.fromFilename(fileName) ?: MimeType.APPLICATION_OCTET_STREAM
-		return try {
-			DocumentsContract.createDocument( //
-				context().contentResolver,  //
-				parentUri,  //
-				mimeType.toString(),  //
-				fileName
-			)
-		} catch (e: FileNotFoundException) {
-			throw NoSuchCloudFileException(fileName)
-		} ?: throw IllegalFileNameException()
+	private fun export(exportOperation: ExportOperation, downloadFiles: MutableList<DownloadFile>) {
+		exportOperation.export(this, downloadFiles)
 	}
 
 	@Callback
@@ -1335,7 +1286,8 @@ class BrowseFilesPresenter @Inject constructor( //
 			moveFilesUseCase,  //
 			moveFoldersUseCase, //
 			getDecryptedCloudForVaultUseCase, //
-			calculateFileHashUseCase
+			calculateFileHashUseCase, //
+			prepareDownloadFilesUseCase
 		)
 		this.authenticationExceptionHandler = authenticationExceptionHandler
 	}
