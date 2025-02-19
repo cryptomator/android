@@ -102,19 +102,29 @@
 	<string name="screen_s3_settings_access_key_label">Piekļuves atslēga</string>
 	<string name="screen_s3_settings_msg_access_key_not_empty">Piekļuves atslēga nevar būt tukša</string>
 	<!-- ## screen: enter vault name -->
+	<string name="screen_enter_vault_name_button_text">Izveidot</string>
 	<!-- ## screen: set password -->
+	<string name="screen_set_password_title">Iestatīt paroli</string>
+	<string name="screen_set_password_msg_password_mismatch">Parole neatbilst atkārtoti ievadītajai parolei.</string>
 	<string name="screen_set_password_button_text">Darīts</string>
 	<string name="screen_set_password_hint">SVARĪGI: ja tiek aizmirsta sava parole, nav iespējams atkopt savus datus.</string>
+	<string name="screen_set_password_retype_password_label">Atkārtoti ievadīt paroli</string>
+	<string name="screen_set_password_strength_indicator_0">Pārāk vāja, lai izveidotu glabātavu</string>
 	<string name="screen_set_password_strength_indicator_1">Vāja</string>
 	<string name="screen_set_password_strength_indicator_2">Vidēja</string>
 	<string name="screen_set_password_strength_indicator_3">Stipra</string>
+	<string name="screen_set_password_strength_indicator_4">Ļoti spēcīga</string>
 	<!-- ## screen: settings -->
 	<string name="screen_settings_section_general">Vispārēji</string>
+	<string name="screen_settings_cloud_settings_label">Mākoņpakalpojumi</string>
 	<string name="screen_settings_section_search">Meklēt</string>
 	<!-- ## screen: cloud settings -->
+	<string name="screen_cloud_settings_onedrive_connections">OneDrive savienojumi</string>
 	<!-- ## screen: licenses -->
 	<!-- ## screen: authenticate cloud -->
+	<string name="screen_update_pcloud_connections_title">Atjaunināt pCloud pieteikšanās datus</string>
 	<!-- ## screen: cryptomator app variants -->
+	<string name="screen_cryptomator_variants_lite_title">Galvenā F-Droid glabātava</string>
 	<!-- # dialogs -->
 	<string name="dialog_button_cancel">Atcelt</string>
 	<string name="dialog_enter_password_positive_button">Atslēgt</string>
@@ -133,10 +143,12 @@
 	<string name="dialog_confirm_delete_multiple_title">Izdzēst %1$d vienumus?</string>
 	<string name="dialog_license_confirmation_message">Paldies, %1$s, par derīgas licences iesniegšanu!</string>
 	<string name="dialog_sym_link_back_button">Atpakaļ</string>
+	<string name="dialog_cbc_password_vaults_migration_action">Pārcelt</string>
 	<string name="dialog_create_hub_device_name_hint">Šis izskatās pēc pirmās piekļuves Hub šajā ierīcē. Lai to varētu identificēt piekļuves pilnvarošanai, nepiciešams šai ierīcei piešķirt nosaukumu.</string>
 	<string name="dialog_create_hub_device_setup_code_hint">Konta atslēga ir nepieciešama, lai pieteiktos jaunās lietotnēs vai pārlūkos. To var atrast savā profilā.</string>
 	<string name="dialog_hub_vault_access_forbidden_title">Piekļuve atteikta</string>
 	<string name="dialog_hub_vault_access_forbidden_hint">Tavs lietotājs vēl nav pilnvarots piekļūt šai glabātavai. Jāvaicā glabātavas īpašniekam to pilnvarot.\"</string>
+	<string name="dialog_hub_vault_archived_title">Glabātava arhivēta</string>
 	<!-- # error reports -->
 	<!-- # misc -->
 	<!-- ## file size helper -->
