@@ -1,1 +1,2 @@
-- Hub-Unterstützung hinzugefügt
+- Cryptomator Hub erhält nun die Geräte-ID während der Tresorschlüsselabfrage
+- Potenzieller Absturz beim Öffnen großer Dateien und Exportieren großer Ordner behoben
