@@ -131,7 +131,7 @@
 	<string name="screen_webdav_settings_url_port_label">URL</string>
 	<string name="screen_webdav_settings_username_label">Nome de utilizador</string>
 	<string name="screen_webdav_settings_password_label">Senha</string>
-	<string name="screen_webdav_settings_done_button_text">Conectar</string>
+	<string name="screen_webdav_settings_done_button_text">Ligar</string>
 	<string name="screen_webdav_settings_msg_url_must_not_be_empty">O URL (endereço) não pode estar vazio.</string>
 	<string name="screen_webdav_settings_msg_url_is_invalid">O URL (endereço) é inválido.</string>
 	<string name="screen_webdav_settings_msg_username_must_not_be_empty">O nome de utilizador não pode estar vazio.</string>
@@ -191,6 +191,7 @@
 	<string name="screen_settings_section_auto_photo_upload_including_videos">Enviar vídeos</string>
 	<string name="screen_settings_auto_photo_upload_title">Guardar arquivos enviados automaticamente em&#8230;</string>
 	<string name="screen_settings_website_label">Site do Cryptomator</string>
+	<string name="screen_settings_mastodon_label">Siga-nos no Mastodon</string>
 	<string name="screen_settings_facebook_label">Siga-nos no Facebook</string>
 	<string name="screen_settings_section_legal">Informação Legal</string>
 	<string name="screen_settings_licenses_label">Licenças</string>
