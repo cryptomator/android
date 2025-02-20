@@ -26,7 +26,7 @@ public class WebDavCloudContentRepositoryFactory implements CloudContentReposito
 
 	@Override
 	public boolean supports(Cloud cloud) {
-		return cloud.type() == WEBDAV;
+		return cloud.getType() == WEBDAV;
 	}
 
 	@Override
