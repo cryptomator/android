@@ -10,6 +10,7 @@
 	<string name="error_invalid_passphrase">Nepareiza parole</string>
 	<string name="error_file_or_folder_exists">Fails vai mape jau pastāv.</string>
 	<string name="error_vault_version_not_supported">Glabātavas versija %1$s nav atbalstīta. Šī glabātava tika izveidota vecākā vai jaunākā Cryptomator versijā.</string>
+	<string name="error_vault_config_file_missing_due_to_format_999">Glabātavas mapē trūkst datnes %1$s. Jānodrošina, ka glabātavas mapē mākonī pastāv šī datne.</string>
 	<string name="error_vault_already_exists">Glabātava jau pastāv.</string>
 	<string name="error_no_such_file">Fails neeksistē.</string>
 	<string name="error_vault_has_been_locked">Glabātava tika aizslēgta.</string>
@@ -18,8 +19,11 @@
 	<string name="error_server_not_found">Serveris nav atrasts.</string>
 	<string name="error_device_policy_manager_not_found">Lūgums atvērt savas ierīces iestatījumus un pašrocīgi iestatīt ekrāna aizslēgšanu</string>
 	<string name="error_export_illegal_file_name">Izgūšana neizdevās. Jāmēģina no datņu nosaukumiem noņemt īpašās rakstzīmes un jāizgūst vēlreiz.</string>
+	<string name="error_names_contains_invalid_characters">Datņu nosaukumi nevar saturēt īpašas rakstzīmes.</string>
+	<string name="error_hash_mismatch_update">Atjaunināšanas pārbaude neizdevāš. Aprēķinātā jaucējvērtība neatbilst augšupielādētajai datnei</string>
 	<string name="error_play_services_not_available">Google Play Pakalpojumi nav instalēti</string>
 	<string name="error_biometric_auth_aborted">Biometriskā autentifikācija pārtraukta</string>
+	<string name="error_file_not_found_after_opening_using_3party">Pēc pārslēgšanās atpakaļ uz Cryptomator vietējā datne vairs nav klātesoša. Iespējamās izmaiņas nevar nogādāt atpakaļ mākonī.</string>
 	<string name="error_masterkey_location_not_supported">Pielāgota galvenās atslēgas atrašanās vieta vēl netiek nodrošināta</string>
 	<!-- # clouds -->
 	<!-- ## cloud names -->
@@ -27,6 +31,8 @@
 	<!-- # permission -->
 	<!-- ## permission messages -->
 	<string name="permission_message_export_file">Cryptomator ir nepieciešama piekļuve krātuvei, lai izgūtu datnes</string>
+	<string name="permission_message_upload_file">Cryptomator ir nepieciešama piekļuve krātuvei, lai augšupielādētu datnes</string>
+	<string name="permission_message_share_file">Cryptomator ir nepieciešama piekļuve krātuvei, lai kopīgotu datnes</string>
 	<string name="snack_bar_action_title_settings">Iestatījumi</string>
 	<string name="snack_bar_action_title_search">Meklēt</string>
 	<string name="snack_bar_action_title_search_previous">Atpakaļ</string>
@@ -89,13 +95,17 @@
 	<!-- ## screen: text editor -->
 	<string name="screen_text_editor_save_success">Sekmīgi saglabāta</string>
 	<!-- ## screen: share files -->
+	<string name="screen_share_files_title">Saglabāt %1$s&#8230;</string>
 	<string name="screen_share_files_content_text">teksts</string>
 	<string name="screen_share_files_content_file">datne</string>
 	<string name="screen_share_files_content_files">datnes</string>
+	<string name="screen_share_files_msg_filenames_must_be_unique">Datņu nosaukumiem ir jābūt neatkārtojamiem. Lūgums pārdēvēt datnes, kurām ir nosaukumi, kas atkārtojas.</string>
+	<string name="screen_share_files_section_location">Saglabāt atrašanās vietu</string>
 	<string name="screen_share_files_save_button_text">Saglabāt</string>
 	<string name="screen_share_files_msg_success">Šifrēšana pabeigta</string>
 	<!-- ## screen: choose cloud service -->
 	<!-- ## screen: cloud connections -->
+	<string name="screen_cloud_local_error_no_content_provider">Netika atrasts neviens datņu pārvaldnieks, kas nodrošina mapju atvēršanu</string>
 	<!-- ## screen: webdav settings -->
 	<string name="screen_webdav_settings_password_label">Parole</string>
 	<!-- ## screen: s3 settings -->
@@ -118,6 +128,12 @@
 	<string name="screen_settings_section_general">Vispārēji</string>
 	<string name="screen_settings_cloud_settings_label">Mākoņpakalpojumi</string>
 	<string name="screen_settings_section_search">Meklēt</string>
+	<string name="screen_settings_auto_photo_upload_title">Saglabāt automātiski augšupielādētās datnes&#8230;</string>
+	<string name="screen_settings_error_report_label">Nosūtīt žurnāla datni</string>
+	<string name="screen_settings_microsoft_apps_workaround_label">Microsoft datņu atvēršanas aprisinājums</string>
+	<string name="screen_settings_microsoft_apps_workaround_summary">Atvērt datnes Microsoft lietotnēs ar rakstīšanas atļauju</string>
+	<string name="screen_settings_keep_unlocked_while_editing_files">Paturēt atslēgtu</string>
+	<string name="screen_settings_keep_unlocked_while_editing_files_summary">Paturēt glabātavas atslēgtas, kamēr tiek labotas datnes</string>
 	<!-- ## screen: cloud settings -->
 	<string name="screen_cloud_settings_onedrive_connections">OneDrive savienojumi</string>
 	<!-- ## screen: licenses -->
@@ -130,28 +146,54 @@
 	<string name="dialog_enter_password_positive_button">Atslēgt</string>
 	<!-- Vault not found -->
 	<string name="dialog_vault_not_found_positive_button_text">Noņemt</string>
+	<string name="dialog_existing_file_title">Datne jau pastāv</string>
+	<string name="dialog_existing_file_positive_button">Aizstāt</string>
+	<string name="dialog_existing_file_message">Datne ar nosaukumu \"%1$s\" jau pastāv.</string>
+	<string name="dialog_replace_negative_button_at_least_two_but_not_all_files_exist">Izlaist pastāvošās</string>
+	<string name="dialog_replace_positive_button_all_files_exist">Aizstāt visas</string>
+	<string name="dialog_replace_positive_button_some_files_exist">Aizstāt pastāvošās</string>
+	<string name="dialog_replace_positive_button_single_file_exists">Aizstāt</string>
+	<string name="dialog_replace_msg_single_file_exists">Datne ar nosaukumu \"%1$s\" jau pastāv. Vai aizstāt to?</string>
+	<string name="dialog_replace_msg_all_files_exists">Visas datnes jau pastāv. Vai aizstāt tās?</string>
+	<string name="dialog_replace_msg_some_files_exists">%1$d datnes jau pastāv. Aizstāt tās?</string>
+	<string name="dialog_replace_title_single_file_exists">Aizstāt datni?</string>
+	<string name="dialog_replace_title_multiple_files_exist">Aizstāt datnes?</string>
 	<string name="dialog_unable_to_share_title">Nebija iespējams kopīgot datnes</string>
 	<string name="dialog_unable_to_share_positive_button">Labi</string>
 	<string name="dialog_unable_to_share_negative_button">Izveidot glabātavu</string>
+	<string name="dialog_filetype_not_supported_title">Nevar atvērt %1$s</string>
+	<string name="dialog_filetype_not_supported_message">Lūgums lejupielādēt lietotni, ar kuru var atvērt šo datni. Vai arī saglabāt to ierīcē?</string>
+	<string name="dialog_rename_node_file_title">Pārdēvēt datni</string>
+	<string name="dialog_file_name_hint">Datnes nosaukums</string>
 	<string name="dialog_file_name_placeholder">Datne.txt</string>
 	<string name="dialog_upload_file_title">Augšupielādē&#8230;</string>
 	<string name="dialog_upload_file_remaining">%1$d. datne no %2$d</string>
 	<string name="dialog_export_file_title">Izgūst (%1$d/%2$d)</string>
+	<string name="dialog_progress_creating_text_file">Izveido teksta datni&#8230;</string>
 	<string name="dialog_progress_upload_file">Augšupielādē&#8230;</string>
+	<string name="dialog_progress_download_file">Lejupielādē&#8230;</string>
 	<string name="dialog_lock_vault">Aizslēgt</string>
+	<string name="dialog_debug_mode_disclaimer_hint">Ar atkļūdošanu jutīgi datni var tikt ierakstīti žurnāla datnē šajā ierīcē (piemēram, datņu nosaukumi un ceļi). Paroles, sīkdatnes utt. noteikti netiek iekļautas.\n\nJāatceras atspējot atkļūdošanu, tiklīdz tas ir iespējams.</string>
+	<string name="dialog_microsoft_workaround_disclaimer_hint">Kļūdas Microsoft lietotnēs dēļ labojamā datne ir jākopīgo ar šīm lietotnēm ierīcē esošā publiskā datu nesēju mapē. Pēc Cryptomator atsākšanas publiski pieejamā datne tiek izdzēsta, bet Cryptomator nevar ietekmēt, kas šajā laikā ir noticis ar šo datni. Jāapzinās šāda uzvedība, kad šī iespēja tiek aktivēta. Tas attieksies tikai uz Microsoft datņu veidiem.\n\nCryptomator pēc aktivēšanas atkārtoti palaidīsies.</string>
 	<string name="dialog_app_is_obscured_info_neutral_button">Aizvērt</string>
 	<string name="dialog_confirm_delete_multiple_title">Izdzēst %1$d vienumus?</string>
+	<string name="dialog_confirm_delete_file_message">Vai tiešām izdzēst šo datni?</string>
 	<string name="dialog_license_confirmation_message">Paldies, %1$s, par derīgas licences iesniegšanu!</string>
 	<string name="dialog_sym_link_back_button">Atpakaļ</string>
+	<string name="dialog_no_dir_file_title">Neizdevās ielādēt mapes saturu</string>
+	<string name="dialog_no_dir_file_message">Mākoņa mapē \"%1$s\" nav derīgas mapes datnes. Varētu būt tā, ka mape tika izveidota citā ierīcē un vēl nav pilnībā sinhronizēta mākonī. Lūgums mākonī pārbaudīt, ka zemāk esošā datne pastāv un nav tukša:\n%2$s</string>
 	<string name="dialog_cbc_password_vaults_migration_action">Pārcelt</string>
 	<string name="dialog_create_hub_device_name_hint">Šis izskatās pēc pirmās piekļuves Hub šajā ierīcē. Lai to varētu identificēt piekļuves pilnvarošanai, nepiciešams šai ierīcei piešķirt nosaukumu.</string>
 	<string name="dialog_create_hub_device_setup_code_hint">Konta atslēga ir nepieciešama, lai pieteiktos jaunās lietotnēs vai pārlūkos. To var atrast savā profilā.</string>
 	<string name="dialog_hub_vault_access_forbidden_title">Piekļuve atteikta</string>
 	<string name="dialog_hub_vault_access_forbidden_hint">Tavs lietotājs vēl nav pilnvarots piekļūt šai glabātavai. Jāvaicā glabātavas īpašniekam to pilnvarot.\"</string>
 	<string name="dialog_hub_vault_archived_title">Glabātava arhivēta</string>
+	<string name="dialog_hub_user_setup_required_hint">Lai turpinātu, lūgums pabeigt nepieciešamos soļus savā Hub lietotāja profilā.</string>
+	<string name="dialog_hub_user_setup_required_neutral_button">Doties uz profilu</string>
 	<!-- # error reports -->
 	<!-- # misc -->
 	<!-- ## file size helper -->
+	<string name="file_size_zero">Nulle kB</string>
 	<string name="file_size_unit_bytes">baiti</string>
 	<string name="file_size_unit_kilo_bytes">kB</string>
 	<string name="file_size_unit_mega_bytes">MB</string>
@@ -174,8 +216,10 @@
 	<string name="time_unit_years_pl">gadi</string>
 	<!-- ## biometric authentication -->
 	<string name="dialog_biometric_auth_title">Pieteikšanās ar biometriju</string>
+	<string name="dialog_unable_to_auto_upload_files_title">Nebija iespējams automātiski augšupielādēt datnes</string>
 	<!-- notification -->
 	<string name="notification_auto_upload_failed_due_to_vault_locked">Glabātava tika aizslēgta augšupielādes laikā. Lūgums atkārtoti atvērt glabātavu, lai turpinātu</string>
+	<string name="notification_open_writable_file_title">Atvērt rakstāmo datni</string>
 	<string name="notification_open_writable_file_message">Glabātava paliek atslēgta līdz labošanas pabeigšanai</string>
 	<string name="screen_settings_lru_cache">Kešatmiņa</string>
 	<string name="screen_settings_lru_cache_toggle_summary">Kešot nesen atvērtās datnes ierīcē šifrētā veidā atkārtotai izmantošanai vēlāk atkārtotas atvēršanas gadījumā</string>
