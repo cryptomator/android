@@ -21,6 +21,7 @@
 	<string name="error_general_update">ਅੱਪਡੇਟ ਜਾਂਚ ਅਸਫ਼ਲ ਹੈ। ਆਮ ਗਲਤੀ ਵਾਪਰੀ ਹੈ।</string>
 	<string name="error_update_no_internet">ਅੱਪਡੇਟ ਜਾਂਚ ਲਈ ਅਸਫ਼ਲ ਹੈ। ਕੋਈ ਇੰਟਰਨੈੱਟ ਕਨੈਕਸ਼ਨ ਨਹੀਂ ਹੈ।</string>
 	<string name="error_play_services_not_available">Google Play ਸੇਵਾਵਾਂ ਇੰਸਟਾਲ ਨਹੀਂ ਹਨ</string>
+	<string name="error_hub_invalid_version">Hub ਵਰਜ਼ਨ ਗ਼ੈਰ-ਸਹਾਇਕ ਹੈ।</string>
 	<!-- # clouds -->
 	<!-- ## cloud names -->
 	<string name="cloud_names_local_storage">ਲੋਕਲ ਸਟੋਰੇਜ਼</string>
@@ -280,8 +281,10 @@
 	<string name="dialog_create_hub_device_name_empty">ਨਾਂ ਨੂੰ ਖਾਲੀ ਨਹੀਂ ਛੱਡਿਆ ਜਾ ਸਕਦਾ।</string>
 	<string name="dialog_create_hub_device_setup_code_label">Account Key</string>
 	<string name="dialog_create_hub_device_setup_code_hint">ਤੁਹਾਡੀ Account Key ਨਵੀਆਂ ਐਪਾਂ ਜਾਂ ਬਰਾਊਜ਼ਰਾਂ ਵਿੱਚ ਲਾਗਇਨ ਕਰਨ ਸਮੇਂ ਚਾਹੀਦੀ ਹੈ। ਇਸ ਨੂੰ ਤੁਹਾਡੇ ਪਰੋਫਾਇਲ ਵਿੱਚ ਲੱਭਿਆ ਜਾ ਸਕਦਾ ਹੈ।</string>
+	<string name="dialog_progress_creating_hub_device_setup">ਡਿਵਾਈਸ ਬਣਾਇਆ ਜਾ ਰਿਹਾ ਹੈ&#8230;</string>
 	<string name="dialog_hub_vault_access_forbidden_title">ਪਹੁੰਚ ਤੋਂ ਇਨਾਕਰ</string>
 	<string name="dialog_hub_license_upgrade_required_title">Hub ਲਸੰਸ ਦੀ ਜਾਂਚ ਕਰੋ</string>
+	<string name="dialog_hub_user_setup_required_title">ਵਰਤੋਂਕਾਰ ਸੈਟਅੱਪ ਚਾਹੀਦਾ ਹੈ</string>
 	<string name="dialog_hub_user_setup_required_hint">ਜਾਰੀ ਰੱਖਣ ਲਈ ਆਪਣੇ Hub ਵਰਤੋਂਕਾਰ ਪਰੋਫਾਇਲ ਵਿੱਚ ਲੋੜੀਂਦੇ ਪੜਾਅ ਪੂਰੇ ਕਰੋ।</string>
 	<string name="dialog_hub_user_setup_required_neutral_button">ਪ੍ਰੋਫ਼ਾਈਲ ਤੇ ਜਾਓ</string>
 	<!-- # error reports -->
