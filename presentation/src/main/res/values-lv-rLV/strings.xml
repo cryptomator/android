@@ -8,11 +8,11 @@
 	<string name="error_authentication_failed_re_authenticate">Autentifikācija neizdevās, lūdzu autentificējies izmantojot %1$s</string>
 	<string name="error_no_network_connection">Nav tīkla savienojuma</string>
 	<string name="error_invalid_passphrase">Nepareiza parole</string>
-	<string name="error_file_or_folder_exists">Fails vai mape jau pastāv.</string>
+	<string name="error_file_or_folder_exists">Datne vai mape jau pastāv.</string>
 	<string name="error_vault_version_not_supported">Glabātavas versija %1$s nav atbalstīta. Šī glabātava tika izveidota vecākā vai jaunākā Cryptomator versijā.</string>
 	<string name="error_vault_config_file_missing_due_to_format_999">Glabātavas mapē trūkst datnes %1$s. Jānodrošina, ka glabātavas mapē mākonī pastāv šī datne.</string>
 	<string name="error_vault_already_exists">Glabātava jau pastāv.</string>
-	<string name="error_no_such_file">Fails neeksistē.</string>
+	<string name="error_no_such_file">Datne nepastāv.</string>
 	<string name="error_vault_has_been_locked">Glabātava tika aizslēgta.</string>
 	<string name="error_cloud_already_exists">Mākonis jau pastāv.</string>
 	<string name="error_activity_not_found">Lūgums lejupielādēt lietotni, kas var atvērt šo datni.</string>
