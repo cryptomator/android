@@ -23,6 +23,7 @@
 	<string name="error_hash_mismatch_update">Atjaunināšanas pārbaude neizdevāš. Aprēķinātā jaucējvērtība neatbilst augšupielādētajai datnei</string>
 	<string name="error_play_services_not_available">Google Play Pakalpojumi nav instalēti</string>
 	<string name="error_biometric_auth_aborted">Biometriskā autentifikācija pārtraukta</string>
+	<string name="error_vault_config_loading">Vispārēja kļūda glabātavas konfigurācijas ielādēšanā</string>
 	<string name="error_file_not_found_after_opening_using_3party">Pēc pārslēgšanās atpakaļ uz Cryptomator vietējā datne vairs nav klātesoša. Iespējamās izmaiņas nevar nogādāt atpakaļ mākonī.</string>
 	<string name="error_masterkey_location_not_supported">Pielāgota galvenās atslēgas atrašanās vieta vēl netiek nodrošināta</string>
 	<!-- # clouds -->
@@ -132,6 +133,7 @@
 	<string name="screen_settings_error_report_label">Nosūtīt žurnāla datni</string>
 	<string name="screen_settings_microsoft_apps_workaround_label">Microsoft datņu atvēršanas aprisinājums</string>
 	<string name="screen_settings_microsoft_apps_workaround_summary">Atvērt datnes Microsoft lietotnēs ar rakstīšanas atļauju</string>
+	<string name="screen_settings_background_unlock_preparation_label_summary">Fonā lejupielādēt glabātavas konfigurāciju, kamēr tiek vaicāts ievadīt paroli vai biometriskos datus</string>
 	<string name="screen_settings_keep_unlocked_while_editing_files">Paturēt atslēgtu</string>
 	<string name="screen_settings_keep_unlocked_while_editing_files_summary">Paturēt glabātavas atslēgtas, kamēr tiek labotas datnes</string>
 	<!-- ## screen: cloud settings -->
