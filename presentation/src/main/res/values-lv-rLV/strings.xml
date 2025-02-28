@@ -129,6 +129,14 @@
 	<string name="screen_settings_section_general">Vispārēji</string>
 	<string name="screen_settings_cloud_settings_label">Mākoņpakalpojumi</string>
 	<string name="screen_settings_section_search">Meklēt</string>
+	<string name="screen_settings_section_auto_photo_upload">Automātiska fotoattēlu augšupielāde</string>
+	<string name="screen_settings_section_auto_photo_upload_vault">Jāizvēlas glabātava augšupielādei</string>
+	<string name="screen_settings_section_auto_photo_upload_toggle">Iespējot</string>
+	<string name="screen_settings_section_auto_photo_upload_toggle_summary">Fonā uzņemt attēlus un, tiklīdz atlasītā glabātava ir atslēgta, uzsākt augšupielādi</string>
+	<string name="screen_settings_section_auto_photo_upload_toggle_instant_upload">Tūlītēja augšupielāde</string>
+	<string name="screen_settings_section_auto_photo_upload_toggle_instant_upload_summary">Augšupielādēt uzreiz, ja glabātav ir atslēgta</string>
+	<string name="screen_settings_section_auto_photo_upload_only_wifi_toggle">Augšupielādēt tikai tad, kad tiek izmantots Wi-Fi</string>
+	<string name="screen_settings_section_auto_photo_upload_including_videos">Augšupielādēt video</string>
 	<string name="screen_settings_auto_photo_upload_title">Saglabāt automātiski augšupielādētās datnes&#8230;</string>
 	<string name="screen_settings_website_label">Cryptomator tīmekļvietne</string>
 	<string name="screen_settings_error_report_label">Nosūtīt žurnāla datni</string>
@@ -199,6 +207,7 @@
 	<string name="dialog_hub_vault_archived_title">Glabātava arhivēta</string>
 	<string name="dialog_hub_user_setup_required_hint">Lai turpinātu, lūgums pabeigt nepieciešamos soļus savā Hub lietotāja profilā.</string>
 	<string name="dialog_hub_user_setup_required_neutral_button">Doties uz profilu</string>
+	<string name="permission_snackbar_auth_auto_upload">Cryptomator ir nepieciešama piekļuve krātuvei, lai izmantotu automātiski augšupielādētu fotoattēlus</string>
 	<!-- # error reports -->
 	<!-- # misc -->
 	<!-- ## file size helper -->
@@ -227,6 +236,7 @@
 	<string name="dialog_biometric_auth_title">Pieteikšanās ar biometriju</string>
 	<string name="dialog_unable_to_auto_upload_files_title">Nebija iespējams automātiski augšupielādēt datnes</string>
 	<!-- notification -->
+	<string name="notification_cancel_auto_upload">Atcelt augšupielādi</string>
 	<string name="notification_auto_upload_failed_due_to_vault_locked">Glabātava tika aizslēgta augšupielādes laikā. Lūgums atkārtoti atvērt glabātavu, lai turpinātu</string>
 	<string name="notification_open_writable_file_title">Atvērt rakstāmo datni</string>
 	<string name="notification_open_writable_file_message">Glabātava paliek atslēgta līdz labošanas pabeigšanai</string>
