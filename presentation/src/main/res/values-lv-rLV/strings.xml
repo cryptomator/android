@@ -237,7 +237,16 @@
 	<string name="dialog_unable_to_auto_upload_files_title">Nebija iespējams automātiski augšupielādēt datnes</string>
 	<!-- notification -->
 	<string name="notification_cancel_auto_upload">Atcelt augšupielādi</string>
+	<string name="notification_auto_upload_title">Notiek automātiska fotoattēlu augšupielāde</string>
+	<string name="notification_auto_upload_message">Augšupielādē %1d/%2d</string>
+	<string name="notification_auto_upload_finished_title">Automātiskā fotoattēlu augšupielāde pabeigta</string>
+	<string name="notification_auto_upload_finished_message">%1$d attēli augšupielādēti glabātavā</string>
+	<string name="notification_auto_upload_failed_title">Automātiskā fotoattēlu augšupielāde neizdevās</string>
+	<string name="notification_auto_upload_failed_general_error">Augšupielādes laikā atgadījās vispārēja kļūda.</string>
+	<string name="notification_auto_upload_failed_due_to_folder_not_exists">Augšupielādei atlasītā mape vairs nav pieejama. Jādodas uz iestatījumiem un jāizvēlas cita</string>
 	<string name="notification_auto_upload_failed_due_to_vault_locked">Glabātava tika aizslēgta augšupielādes laikā. Lūgums atkārtoti atvērt glabātavu, lai turpinātu</string>
+	<string name="notification_auto_upload_failed_due_to_vault_not_found">Automātiskajai augšupielādei norādītā glabātava vairs nepastāv.</string>
+	<string name="notification_auto_upload_failed_due_to_authentication_problem">Piesist, lai atsvaidzinātu autentificēšanu.</string>
 	<string name="notification_open_writable_file_title">Atvērt rakstāmo datni</string>
 	<string name="notification_open_writable_file_message">Glabātava paliek atslēgta līdz labošanas pabeigšanai</string>
 	<string name="screen_settings_lru_cache">Kešatmiņa</string>
