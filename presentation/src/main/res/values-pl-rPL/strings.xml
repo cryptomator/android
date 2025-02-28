@@ -55,17 +55,17 @@
 	<string name="snack_bar_action_title_search_previous">Poprzedni</string>
 	<string name="snack_bar_action_title_search_next">Następny</string>
 	<string name="snack_bar_action_title_sort">Sortuj</string>
-	<string name="snack_bar_action_title_sort_az">A - Z</string>
-	<string name="snack_bar_action_title_sort_za">Z - A</string>
-	<string name="snack_bar_action_title_sort_newest">Od najnowszych</string>
-	<string name="snack_bar_action_title_sort_oldest">Od najstarszych</string>
-	<string name="snack_bar_action_title_sort_biggest">Od największych</string>
-	<string name="snack_bar_action_title_sort_smallest">Od najmniejszych</string>
+	<string name="snack_bar_action_title_sort_az">A-Z</string>
+	<string name="snack_bar_action_title_sort_za">Z-A</string>
+	<string name="snack_bar_action_title_sort_newest">Najnowsze na początku</string>
+	<string name="snack_bar_action_title_sort_oldest">Najstarsze na początku</string>
+	<string name="snack_bar_action_title_sort_biggest">Największe na początku</string>
+	<string name="snack_bar_action_title_sort_smallest">Najmniejsze na początku</string>
 	<string name="snack_bar_cryptomator_variants_title">Zobacz więcej</string>
 	<string name="snack_bar_cryptomator_variants_hint">Brak chmury na liście?</string>
 	<!-- # screens -->
 	<!-- # screen: vault list -->
-	<string name="screen_vault_list_actions_title">Dodaj do Cryptomator</string>
+	<string name="screen_vault_list_actions_title">Dodaj do aplikacji Cryptomator</string>
 	<string name="screen_vault_list_action_create_new_vault">Utwórz nowy sejf</string>
 	<string name="screen_vault_list_action_add_existing_vault">Dodaj istniejący sejf</string>
 	<string name="screen_vault_list_vault_action_delete">Usuń</string>
