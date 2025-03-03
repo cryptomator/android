@@ -158,6 +158,7 @@
 	<string name="dialog_button_cancel">Atcelt</string>
 	<string name="dialog_enter_password_positive_button">Atslēgt</string>
 	<!-- Vault not found -->
+	<string name="dialog_vault_not_found_message">Glabātava tika pārdēvēta, pārvietota vai izdzēsta. Lai turpinātu, tā ir jānoņem no saraksta un jāpievieno atkārtoti. Noņemt tagad?</string>
 	<string name="dialog_vault_not_found_positive_button_text">Noņemt</string>
 	<string name="dialog_existing_file_title">Datne jau pastāv</string>
 	<string name="dialog_existing_file_positive_button">Aizstāt</string>
@@ -172,10 +173,13 @@
 	<string name="dialog_replace_title_single_file_exists">Aizstāt datni?</string>
 	<string name="dialog_replace_title_multiple_files_exist">Aizstāt datnes?</string>
 	<string name="dialog_unable_to_share_title">Nebija iespējams kopīgot datnes</string>
+	<string name="dialog_unable_to_share_message">Nav iestatīta neviena glabātava. Lūgums vispirms izveidot jaunu glabātavu Cryptomator lietotnē.</string>
 	<string name="dialog_unable_to_share_positive_button">Labi</string>
 	<string name="dialog_unable_to_share_negative_button">Izveidot glabātavu</string>
 	<string name="dialog_filetype_not_supported_title">Nevar atvērt %1$s</string>
 	<string name="dialog_filetype_not_supported_message">Lūgums lejupielādēt lietotni, ar kuru var atvērt šo datni. Vai arī saglabāt to ierīcē?</string>
+	<string name="dialog_rename_vault_title">Pārdēvēt glabātavu</string>
+	<string name="dialog_rename_node_folder_title">Pārdēvēt mapi</string>
 	<string name="dialog_rename_node_file_title">Pārdēvēt datni</string>
 	<string name="dialog_file_name_hint">Datnes nosaukums</string>
 	<string name="dialog_file_name_placeholder">Datne.txt</string>
