@@ -21,11 +21,12 @@
 	<string name="error_export_illegal_file_name">Izgūšana neizdevās. Jāmēģina no datņu nosaukumiem noņemt īpašās rakstzīmes un jāizgūst vēlreiz.</string>
 	<string name="error_names_contains_invalid_characters">Datņu nosaukumi nevar saturēt īpašas rakstzīmes.</string>
 	<string name="error_hash_mismatch_update">Atjaunināšanas pārbaude neizdevāš. Aprēķinātā jaucējvērtība neatbilst augšupielādētajai datnei</string>
-	<string name="error_play_services_not_available">Google Play Pakalpojumi nav instalēti</string>
+	<string name="error_play_services_not_available">Nav uzstādīti Google Play Pakalpojumi</string>
 	<string name="error_biometric_auth_aborted">Biometriskā autentifikācija pārtraukta</string>
 	<string name="error_vault_config_loading">Vispārēja kļūda glabātavas konfigurācijas ielādēšanā</string>
 	<string name="error_file_not_found_after_opening_using_3party">Pēc pārslēgšanās atpakaļ uz Cryptomator vietējā datne vairs nav klātesoša. Iespējamās izmaiņas nevar nogādāt atpakaļ mākonī.</string>
 	<string name="error_masterkey_location_not_supported">Pielāgota galvenās atslēgas atrašanās vieta vēl netiek nodrošināta</string>
+	<string name="error_interact_with_fdroid_but_fdroid_missing">Neizdevās sazināties ar F-Droid lietotni. Nav uzstādīta?</string>
 	<!-- # clouds -->
 	<!-- ## cloud names -->
 	<string name="cloud_names_local_storage">Vietēja krātuve</string>
@@ -152,8 +153,11 @@
 	<string name="screen_update_pcloud_connections_title">Atjaunināt pCloud pieteikšanās datus</string>
 	<!-- ## screen: cryptomator app variants -->
 	<string name="screen_cryptomator_variants_lite_title">Galvenā F-Droid glabātava</string>
+	<string name="screen_cryptomator_variants_lite_install">Uzstādīt</string>
+	<string name="screen_cryptomator_variants_fdroid_install_hint">Uzstādīt Cryptomator ar F-Droid.\nJa netiks atrasta, tiks attēlota kļūda. Jāgaida līdz F-Droid sinhronizēšana būs pabeigta.</string>
 	<string name="screen_cryptomator_variants_website_title">Tīmekļvietne</string>
 	<string name="screen_cryptomator_variants_website_description">Satur īpašumatkarības.</string>
+	<string name="screen_cryptomator_variants_installation_hint">Ir nepieciešama lietotnes iestatīšana no jauna, lai pārslēgtos no vai uz galveno F-Droid glabātavu.</string>
 	<!-- # dialogs -->
 	<string name="dialog_button_cancel">Atcelt</string>
 	<string name="dialog_enter_password_positive_button">Atslēgt</string>
@@ -195,6 +199,7 @@
 	<string name="dialog_app_is_obscured_info_neutral_button">Aizvērt</string>
 	<string name="dialog_confirm_delete_multiple_title">Izdzēst %1$d vienumus?</string>
 	<string name="dialog_confirm_delete_file_message">Vai tiešām izdzēst šo datni?</string>
+	<string name="dialog_enter_license_content">Mēs noteicām, ka Cryptomator ir uzstādīta bez Google Play veikala izmantošanas. Jāiesniedz derīga licence, ko var iegādāties <a href="https://cryptomator.org/android/">https://cryptomator.org/android</a></string>
 	<string name="dialog_license_confirmation_message">Paldies, %1$s, par derīgas licences iesniegšanu!</string>
 	<string name="dialog_update_available_message">Cryptomator jāatjaunina uz jaunāko versiju. Pēc \"Labi\" nospiešanas mēs fonā lejupielādēsim lietotni un vaicāsim to uzstadīt.</string>
 	<string name="dialog_update_available_download_site">Doties uz lejupielāžu vietni</string>
@@ -253,6 +258,7 @@
 	<string name="notification_auto_upload_failed_due_to_authentication_problem">Piesist, lai atsvaidzinātu autentificēšanu.</string>
 	<string name="notification_open_writable_file_title">Atvērt rakstāmo datni</string>
 	<string name="notification_open_writable_file_message">Glabātava paliek atslēgta līdz labošanas pabeigšanai</string>
+	<string name="notification_update_check_finished_latest">Uzstādīta jaunākā versija</string>
 	<string name="screen_settings_lru_cache">Kešatmiņa</string>
 	<string name="screen_settings_lru_cache_toggle_summary">Kešot nesen atvērtās datnes ierīcē šifrētā veidā atkārtotai izmantošanai vēlāk atkārtotas atvēršanas gadījumā</string>
 	<string name="screen_settings_lru_cache_size">Kopējais kešatmiņas izmērs</string>
