@@ -25,8 +25,10 @@
 	<string name="error_biometric_auth_aborted">Biometriskā autentifikācija pārtraukta</string>
 	<string name="error_vault_config_loading">Vispārēja kļūda glabātavas konfigurācijas ielādēšanā</string>
 	<string name="error_file_not_found_after_opening_using_3party">Pēc pārslēgšanās atpakaļ uz Cryptomator vietējā datne vairs nav klātesoša. Iespējamās izmaiņas nevar nogādāt atpakaļ mākonī.</string>
+	<string name="error_no_such_bucket">Nav šāda krājuma</string>
 	<string name="error_masterkey_location_not_supported">Pielāgota galvenās atslēgas atrašanās vieta vēl netiek nodrošināta</string>
 	<string name="error_interact_with_fdroid_but_fdroid_missing">Neizdevās sazināties ar F-Droid lietotni. Nav uzstādīta?</string>
+	<string name="error_hub_device_already_register_for_other_user">Šī ierīce jau ir reģistrēta citam lietotājam. Jamēģina nomainīt lietotāja kontu vai izmantot citu ierīci.</string>
 	<!-- # clouds -->
 	<!-- ## cloud names -->
 	<string name="cloud_names_local_storage">Vietēja krātuve</string>
@@ -109,10 +111,15 @@
 	<!-- ## screen: cloud connections -->
 	<string name="screen_cloud_local_error_no_content_provider">Netika atrasts neviens datņu pārvaldnieks, kas nodrošina mapju atvēršanu</string>
 	<!-- ## screen: webdav settings -->
+	<string name="screen_webdav_settings_username_label">Lietotājvārds</string>
 	<string name="screen_webdav_settings_password_label">Parole</string>
+	<string name="screen_webdav_settings_msg_username_must_not_be_empty">Lietotājvārds nevar būt tukšs.</string>
 	<!-- ## screen: s3 settings -->
 	<string name="screen_s3_settings_access_key_label">Piekļuves atslēga</string>
+	<string name="screen_s3_settings_bucket_label">Esošs krājums</string>
+	<string name="screen_s3_settings_endpoint_label">Galapunkts</string>
 	<string name="screen_s3_settings_msg_access_key_not_empty">Piekļuves atslēga nevar būt tukša</string>
+	<string name="screen_s3_settings_msg_bucket_not_empty">Krājums nevar būt tukšs</string>
 	<!-- ## screen: enter vault name -->
 	<string name="screen_enter_vault_name_button_text">Izveidot</string>
 	<!-- ## screen: set password -->
@@ -154,6 +161,8 @@
 	<!-- ## screen: cryptomator app variants -->
 	<string name="screen_cryptomator_variants_lite_title">Galvenā F-Droid glabātava</string>
 	<string name="screen_cryptomator_variants_lite_install">Uzstādīt</string>
+	<string name="screen_cryptomator_variants_fdroid_title">Cryptomator F-Droid glabātava</string>
+	<string name="screen_cryptomator_variants_fdroid_add_repo_hint">Pievienot Cryptomator glabātavu F-Droid lietotnē.</string>
 	<string name="screen_cryptomator_variants_fdroid_install_hint">Uzstādīt Cryptomator ar F-Droid.\nJa netiks atrasta, tiks attēlota kļūda. Jāgaida līdz F-Droid sinhronizēšana būs pabeigta.</string>
 	<string name="screen_cryptomator_variants_website_title">Tīmekļvietne</string>
 	<string name="screen_cryptomator_variants_website_description">Satur īpašumatkarības.</string>
@@ -197,6 +206,8 @@
 	<string name="dialog_debug_mode_disclaimer_hint">Ar atkļūdošanu jutīgi datni var tikt ierakstīti žurnāla datnē šajā ierīcē (piemēram, datņu nosaukumi un ceļi). Paroles, sīkdatnes utt. noteikti netiek iekļautas.\n\nJāatceras atspējot atkļūdošanu, tiklīdz tas ir iespējams.</string>
 	<string name="dialog_microsoft_workaround_disclaimer_hint">Kļūdas Microsoft lietotnēs dēļ labojamā datne ir jākopīgo ar šīm lietotnēm ierīcē esošā publiskā datu nesēju mapē. Pēc Cryptomator atsākšanas publiski pieejamā datne tiek izdzēsta, bet Cryptomator nevar ietekmēt, kas šajā laikā ir noticis ar šo datni. Jāapzinās šāda uzvedība, kad šī iespēja tiek aktivēta. Tas attieksies tikai uz Microsoft datņu veidiem.\n\nCryptomator pēc aktivēšanas atkārtoti palaidīsies.</string>
 	<string name="dialog_app_is_obscured_info_neutral_button">Aizvērt</string>
+	<string name="dialog_vaults_removed_during_migration_title">Lūgums no jauna pievienot glabātavas %1s mākonim</string>
+	<string name="dialog_vaults_removed_during_migration_hint">Lai arī pārietu uz šo lietotnes versiju, mums ir nepieciešams noņemt no lietotnes zemāk esošās glabātavas:\n%2s\n\nTās netiks noņemts no mākoņa, bet tikai no šīs lietotnes. Atvainojamies par sagādātajām neērtībām un lūdzam no jauna pievienot šīs glabātavas, lai turpinātu ar tām darboties.</string>
 	<string name="dialog_confirm_delete_multiple_title">Izdzēst %1$d vienumus?</string>
 	<string name="dialog_confirm_delete_file_message">Vai tiešām izdzēst šo datni?</string>
 	<string name="dialog_enter_license_content">Mēs noteicām, ka Cryptomator ir uzstādīta bez Google Play veikala izmantošanas. Jāiesniedz derīga licence, ko var iegādāties <a href="https://cryptomator.org/android/">https://cryptomator.org/android</a></string>
@@ -208,6 +219,8 @@
 	<string name="dialog_sym_link_back_button">Atpakaļ</string>
 	<string name="dialog_no_dir_file_title">Neizdevās ielādēt mapes saturu</string>
 	<string name="dialog_no_dir_file_message">Mākoņa mapē \"%1$s\" nav derīgas mapes datnes. Varētu būt tā, ka mape tika izveidota citā ierīcē un vēl nav pilnībā sinhronizēta mākonī. Lūgums mākonī pārbaudīt, ka zemāk esošā datne pastāv un nav tukša:\n%2$s</string>
+	<string name="dialog_cbc_password_vaults_migration_title">Nepieciešama glabātavas paroles pārcelšana</string>
+	<string name="dialog_cbc_password_vaults_migration_hint">Drošības uzlabojumu dēļ katrai glabātavai divreiz tiks vaicāta biometriskā autentificēšanās, lai no jauna šifrētu glabātavu paroles. Tas ir nepiciešams, lai turpinātu aizsargāt glabātavu paroles ar jaunākajām tehnoloģijām. Ja nav vēlēšanas, lai tas notiktu, saglabātās paroles tiks noņemtas.</string>
 	<string name="dialog_cbc_password_vaults_migration_action">Pārcelt</string>
 	<string name="dialog_create_hub_device_name_hint">Šis izskatās pēc pirmās piekļuves Hub šajā ierīcē. Lai to varētu identificēt piekļuves pilnvarošanai, nepiciešams šai ierīcei piešķirt nosaukumu.</string>
 	<string name="dialog_create_hub_device_setup_code_hint">Konta atslēga ir nepieciešama, lai pieteiktos jaunās lietotnēs vai pārlūkos. To var atrast savā profilā.</string>
