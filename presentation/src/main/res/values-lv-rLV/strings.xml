@@ -137,6 +137,9 @@
 	<string name="screen_settings_section_general">Vispārēji</string>
 	<string name="screen_settings_cloud_settings_label">Mākoņpakalpojumi</string>
 	<string name="screen_settings_confirm_face_unlock">Apstiprināt atslēgšanu ar seju (ja pieejams)</string>
+	<string name="screen_settings_block_app_when_obscured">Aizturēt lietotni, kad aizsegta</string>
+	<string name="screen_settings_block_app_when_obscured_summary">Neļaut ievades pārtveršanu un viltus lietotāja saskarnes attēlošanu</string>
+	<string name="screen_settings_secure_screen_summary">Neļaut ekrānuzņēmumus neseno lietotņu sarakstā un lietotnē</string>
 	<string name="screen_settings_section_search">Meklēt</string>
 	<string name="screen_settings_section_auto_photo_upload">Automātiska fotoattēlu augšupielāde</string>
 	<string name="screen_settings_section_auto_photo_upload_vault">Jāizvēlas glabātava augšupielādei</string>
@@ -160,6 +163,7 @@
 	<!-- ## screen: authenticate cloud -->
 	<string name="screen_update_pcloud_connections_title">Atjaunināt pCloud pieteikšanās datus</string>
 	<!-- ## screen: cryptomator app variants -->
+	<string name="screen_cryptomator_variants_title">Cryptomator paveidi</string>
 	<string name="screen_cryptomator_variants_lite_title">Galvenā F-Droid glabātava</string>
 	<string name="screen_cryptomator_variants_lite_install">Uzstādīt</string>
 	<string name="screen_cryptomator_variants_fdroid_title">Cryptomator F-Droid glabātava</string>
@@ -204,9 +208,14 @@
 	<string name="dialog_progress_upload_file">Augšupielādē&#8230;</string>
 	<string name="dialog_progress_download_file">Lejupielādē&#8230;</string>
 	<string name="dialog_lock_vault">Aizslēgt</string>
+	<string name="dialog_ask_ignore_battery_optimizations_hint">Lai iegūtu jaunus attēlus un video bez darbošanās fonā, lietotnei ir nepieciešams atspējot akumulatora optimizāciju. Neuztraucies, %1$s nepatērē daudz enerģijas!\n\nLai to pielietotu, jānomaina \"Nav optimizēta\" uz \"Visas lietotnes\", jāatlasa %1$s un jāizvēlas \"Neoptimizēt\" pēc piesišanas uz \"%2$s\" šajā lodziņā.</string>
 	<string name="dialog_debug_mode_disclaimer_hint">Ar atkļūdošanu jutīgi datni var tikt ierakstīti žurnāla datnē šajā ierīcē (piemēram, datņu nosaukumi un ceļi). Paroles, sīkdatnes utt. noteikti netiek iekļautas.\n\nJāatceras atspējot atkļūdošanu, tiklīdz tas ir iespējams.</string>
 	<string name="dialog_microsoft_workaround_disclaimer_hint">Kļūdas Microsoft lietotnēs dēļ labojamā datne ir jākopīgo ar šīm lietotnēm ierīcē esošā publiskā datu nesēju mapē. Pēc Cryptomator atsākšanas publiski pieejamā datne tiek izdzēsta, bet Cryptomator nevar ietekmēt, kas šajā laikā ir noticis ar šo datni. Jāapzinās šāda uzvedība, kad šī iespēja tiek aktivēta. Tas attieksies tikai uz Microsoft datņu veidiem.\n\nCryptomator pēc aktivēšanas atkārtoti palaidīsies.</string>
 	<string name="dialog_disable_app_obscured_disclaimer_hint">Šis iestatījums ir drošības iespēja un liedz citām lietotnēm ar viltu pamudināt lietotājus veikt darbības, kuras viņi nevēlas darīt.\n\nAr atspējošanu tiek apliecināts, ka tiek <a href="https://docs.cryptomator.org/en/latest/android/settings/#block-app-when-obscured">apzināti riski</a>.</string>
+	<string name="dialog_disable_app_obscured_disclaimer_title">Uzmanību</string>
+	<string name="dialog_disable_app_obscured_positive_button">Atspējot</string>
+	<string name="dialog_app_is_obscured_info_title">Lietotne ir aizsegta</string>
+	<string name="dialog_app_is_obscured_info_hint">Cita lietotne kaut ko attēlo virs Cryptomator (piemēram, zilās gaismas aizturēšanas vai nakts krāsu lietotne). Drošības iemeslu dēļ Cryptomator ir atspējota.\n\n<a href="https://docs.cryptomator.org/en/latest/android/settings/#block-app-when-obscured">Kā iespējot Cryptomator</a></string>
 	<string name="dialog_app_is_obscured_info_neutral_button">Aizvērt</string>
 	<string name="dialog_vaults_removed_during_migration_title">Lūgums no jauna pievienot glabātavas %1s mākonim</string>
 	<string name="dialog_vaults_removed_during_migration_hint">Lai arī pārietu uz šo lietotnes versiju, mums ir nepieciešams noņemt no lietotnes zemāk esošās glabātavas:\n%2s\n\nTās netiks noņemts no mākoņa, bet tikai no šīs lietotnes. Atvainojamies par sagādātajām neērtībām un lūdzam no jauna pievienot šīs glabātavas, lai turpinātu ar tām darboties.</string>
@@ -225,6 +234,7 @@
 	<string name="dialog_sym_link_back_button">Atpakaļ</string>
 	<string name="dialog_no_dir_file_title">Neizdevās ielādēt mapes saturu</string>
 	<string name="dialog_no_dir_file_message">Mākoņa mapē \"%1$s\" nav derīgas mapes datnes. Varētu būt tā, ka mape tika izveidota citā ierīcē un vēl nav pilnībā sinhronizēta mākonī. Lūgums mākonī pārbaudīt, ka zemāk esošā datne pastāv un nav tukša:\n%2$s</string>
+	<string name="dialog_pcloud_credentials_updated">Ja bija paredzēts pievienot jaunu pCloud kontu, jāpiesit saitei <a href="https://www.pcloud.com">www.pcloud.com</a>, jāatsakās no pašreizējā konta un vēlreiz jāpiesit \"+\" šajā lietotnē, lai izveidotu jaunu mākoņa savienojumu.</string>
 	<string name="dialog_cbc_password_vaults_migration_title">Nepieciešama glabātavas paroles pārcelšana</string>
 	<string name="dialog_cbc_password_vaults_migration_hint">Drošības uzlabojumu dēļ katrai glabātavai divreiz tiks vaicāta biometriskā autentificēšanās, lai no jauna šifrētu glabātavu paroles. Tas ir nepiciešams, lai turpinātu aizsargāt glabātavu paroles ar jaunākajām tehnoloģijām. Ja nav vēlēšanas, lai tas notiktu, saglabātās paroles tiks noņemtas.</string>
 	<string name="dialog_cbc_password_vaults_migration_action">Pārcelt</string>
