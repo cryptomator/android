@@ -19,8 +19,11 @@
 	<string name="error_server_not_found">Serveris nav atrasts.</string>
 	<string name="error_device_policy_manager_not_found">Lūgums atvērt savas ierīces iestatījumus un pašrocīgi iestatīt ekrāna aizslēgšanu</string>
 	<string name="error_export_illegal_file_name">Izgūšana neizdevās. Jāmēģina no datņu nosaukumiem noņemt īpašās rakstzīmes un jāizgūst vēlreiz.</string>
+	<string name="error_name_contains_invalid_characters">Nevar saturēt īpašas rakstzīmes.</string>
 	<string name="error_names_contains_invalid_characters">Datņu nosaukumi nevar saturēt īpašas rakstzīmes.</string>
+	<string name="error_vault_name_contains_invalid_characters">Glabātavas nosaukums nevar saturēt īpašas rakstzīmes.</string>
 	<string name="error_hash_mismatch_update">Atjaunināšanas pārbaude neizdevāš. Aprēķinātā jaucējvērtība neatbilst augšupielādētajai datnei</string>
+	<string name="error_failed_to_decrypt_webdav_password">Neizdevās atšifrēt WebDAV paroli, lūgums to iestatījumos pievienot no jauna</string>
 	<string name="error_play_services_not_available">Nav uzstādīti Google Play Pakalpojumi</string>
 	<string name="error_biometric_auth_aborted">Pārtraukta autentificēšanās ar biometriju</string>
 	<string name="error_vault_config_loading">Vispārēja kļūda glabātavas konfigurācijas ielādēšanā</string>
@@ -110,6 +113,7 @@
 	<string name="screen_share_files_msg_success">Šifrēšana pabeigta</string>
 	<!-- ## screen: choose cloud service -->
 	<!-- ## screen: cloud connections -->
+	<string name="screen_cloud_connections_no_connections">Piesist šeit, lai pievienotu atrašanās vietas</string>
 	<string name="screen_cloud_local_error_no_content_provider">Netika atrasts neviens datņu pārvaldnieks, kas nodrošina mapju atvēršanu</string>
 	<!-- ## screen: webdav settings -->
 	<string name="screen_webdav_settings_username_label">Lietotājvārds</string>
@@ -172,6 +176,7 @@
 	<string name="screen_cryptomator_variants_lite_install">Uzstādīt</string>
 	<string name="screen_cryptomator_variants_fdroid_title">Cryptomator F-Droid glabātava</string>
 	<string name="screen_cryptomator_variants_fdroid_add_repo_hint">Pievienot Cryptomator glabātavu F-Droid lietotnē.</string>
+	<string name="screen_cryptomator_variants_fdroid_add_repo">Pievienot</string>
 	<string name="screen_cryptomator_variants_fdroid_install_hint">Uzstādīt Cryptomator ar F-Droid.\nJa netiks atrasta, tiks attēlota kļūda. Jāgaida līdz F-Droid sinhronizēšana būs pabeigta.</string>
 	<string name="screen_cryptomator_variants_website_title">Tīmekļvietne</string>
 	<string name="screen_cryptomator_variants_website_description">Satur īpašumatkarības.</string>
@@ -225,6 +230,7 @@
 	<string name="dialog_app_is_obscured_info_neutral_button">Aizvērt</string>
 	<string name="dialog_vaults_removed_during_migration_title">Lūgums no jauna pievienot glabātavas %1s mākonim</string>
 	<string name="dialog_vaults_removed_during_migration_hint">Lai arī pārietu uz šo lietotnes versiju, mums ir nepieciešams noņemt no lietotnes zemāk esošās glabātavas:\n%2s\n\nTās netiks noņemts no mākoņa, bet tikai no šīs lietotnes. Atvainojamies par sagādātajām neērtībām un lūdzam no jauna pievienot šīs glabātavas, lai turpinātu ar tām darboties.</string>
+	<string name="dialog_vault_is_root_folder_of_cloud_hint">Jāizveido jauns savienojums ar mākoni, kurā jāatlasa vismaz šīs glabātavas iekļaujošā mape kā pamatmape, lai pievienotu šo glabātavu.</string>
 	<string name="dialog_disable_secure_screen_disclaimer_hint">Šis iestatījums ir drošības iespēja un liedz citām lietotnēm ar viltu pamudināt lietotājus veikt darbības, kuras viņi nevēlas darīt.\n\nAr atspējošanu tiek apliecināts, ka tiek <a href="https://docs.cryptomator.org/en/latest/android/settings/#screen-security">apzināti riski</a>.</string>
 	<string name="dialog_confirm_delete_multiple_title">Izdzēst %1$d vienumus?</string>
 	<string name="dialog_confirm_delete_multiple_message">Vai tiešām izdzēst šos vienumus?</string>
