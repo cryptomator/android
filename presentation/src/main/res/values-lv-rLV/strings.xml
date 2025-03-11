@@ -262,6 +262,7 @@
 	<string name="dialog_hub_user_setup_required_neutral_button">Doties uz profilu</string>
 	<string name="permission_snackbar_auth_local_vault">Cryptomator ir nepieciešama piekļuve krātuvei, lai izmantotu vietējās krātuves</string>
 	<string name="permission_snackbar_auth_auto_upload">Cryptomator ir nepieciešama piekļuve krātuvei, lai izmantotu automātiski augšupielādētu fotoattēlus</string>
+	<string name="permission_snackbar_notifications">Cryptomator ir nepieciešamas paziņojumu atļaujas, lai, piemēram, attēlotu glabātavas stāvokli</string>
 	<!-- # error reports -->
 	<!-- # misc -->
 	<!-- ## file size helper -->
