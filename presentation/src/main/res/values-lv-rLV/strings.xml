@@ -41,6 +41,7 @@
 	<string name="permission_message_export_file">Cryptomator ir nepieciešama piekļuve krātuvei, lai izgūtu datnes</string>
 	<string name="permission_message_upload_file">Cryptomator ir nepieciešama piekļuve krātuvei, lai augšupielādētu datnes</string>
 	<string name="permission_message_share_file">Cryptomator ir nepieciešama piekļuve krātuvei, lai kopīgotu datnes</string>
+	<string name="permission_revoked_re_request_permission">Cryptomator zaudēja atļauju piekļūt šai atrašanās vietai. Lūgums vēlreiz atlasīt šo mapi, lai atjaunotu atļauju.</string>
 	<string name="snack_bar_action_title_settings">Iestatījumi</string>
 	<string name="snack_bar_action_title_search">Meklēt</string>
 	<string name="snack_bar_action_title_search_previous">Atpakaļ</string>
@@ -259,6 +260,7 @@
 	<string name="dialog_hub_vault_archived_title">Glabātava arhivēta</string>
 	<string name="dialog_hub_user_setup_required_hint">Lai turpinātu, lūgums pabeigt nepieciešamos soļus savā Hub lietotāja profilā.</string>
 	<string name="dialog_hub_user_setup_required_neutral_button">Doties uz profilu</string>
+	<string name="permission_snackbar_auth_local_vault">Cryptomator ir nepieciešama piekļuve krātuvei, lai izmantotu vietējās krātuves</string>
 	<string name="permission_snackbar_auth_auto_upload">Cryptomator ir nepieciešama piekļuve krātuvei, lai izmantotu automātiski augšupielādētu fotoattēlus</string>
 	<!-- # error reports -->
 	<!-- # misc -->
