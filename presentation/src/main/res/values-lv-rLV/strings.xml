@@ -120,6 +120,7 @@
 	<string name="screen_webdav_settings_username_label">Lietotājvārds</string>
 	<string name="screen_webdav_settings_password_label">Parole</string>
 	<string name="screen_webdav_settings_msg_username_must_not_be_empty">Lietotājvārds nevar būt tukšs.</string>
+	<string name="screen_webdav_settings_msg_password_must_not_be_empty">Parole nevar būt tukša.</string>
 	<!-- ## screen: s3 settings -->
 	<string name="screen_s3_settings_access_key_label">Piekļuves atslēga</string>
 	<string name="screen_s3_settings_bucket_label">Esošs krājums</string>
@@ -185,6 +186,12 @@
 	<!-- # dialogs -->
 	<string name="dialog_button_cancel">Atcelt</string>
 	<string name="dialog_enter_password_positive_button">Atslēgt</string>
+	<string name="dialog_change_password_old_password_label">Iepriekšējā parole</string>
+	<string name="dialog_change_password_new_password_label">Jaunā parole</string>
+	<string name="dialog_change_password">Nomainīt paroli</string>
+	<string name="dialog_change_password_msg_old_password_empty">Iepriekšējā parole nevar būt tukša.</string>
+	<string name="dialog_change_password_msg_new_password_empty">Jaunā parole nevar būt tukša.</string>
+	<string name="dialog_change_password_msg_password_mismatch">Jaunā parole neatbilst atkārtoti ievadītajai parolei.</string>
 	<!-- Vault not found -->
 	<string name="dialog_vault_not_found_message">Glabātava tika pārdēvēta, pārvietota vai izdzēsta. Lai turpinātu, tā ir jānoņem no saraksta un jāpievieno atkārtoti. Noņemt tagad?</string>
 	<string name="dialog_vault_not_found_positive_button_text">Noņemt</string>
@@ -216,10 +223,12 @@
 	<string name="dialog_export_file_title">Izgūst (%1$d/%2$d)</string>
 	<string name="dialog_progress_creating_text_file">Izveido teksta datni&#8230;</string>
 	<string name="action_progress_authentication">Autentificēšana&#8230;</string>
+	<string name="dialog_progress_change_password">Maina paroli&#8230;</string>
 	<string name="dialog_progress_upload_file">Augšupielādē&#8230;</string>
 	<string name="dialog_progress_download_file">Lejupielādē&#8230;</string>
 	<string name="dialog_lock_vault">Aizslēgt</string>
 	<string name="dialog_ask_ignore_battery_optimizations_hint">Lai iegūtu jaunus attēlus un video bez darbošanās fonā, lietotnei ir nepieciešams atspējot akumulatora optimizāciju. Neuztraucies, %1$s nepatērē daudz enerģijas!\n\nLai to pielietotu, jānomaina \"Nav optimizēta\" uz \"Visas lietotnes\", jāatlasa %1$s un jāizvēlas \"Neoptimizēt\" pēc piesišanas uz \"%2$s\" šajā lodziņā.</string>
+	<string name="dialog_no_screen_lock_hint">Nav iestatīta ekrāna aizslēgšana. Lai drošā veidā glabātu savus pieteikšanās datus, ar \"Labi\" jāiestata raksts vai parole.</string>
 	<string name="dialog_no_biometric_auth_set_up_title">Sistēmā nav iestatīta pamata autentificēšana</string>
 	<string name="dialog_debug_mode_disclaimer_hint">Ar atkļūdošanu jutīgi datni var tikt ierakstīti žurnāla datnē šajā ierīcē (piemēram, datņu nosaukumi un ceļi). Paroles, sīkdatnes utt. noteikti netiek iekļautas.\n\nJāatceras atspējot atkļūdošanu, tiklīdz tas ir iespējams.</string>
 	<string name="dialog_microsoft_workaround_disclaimer_hint">Kļūdas Microsoft lietotnēs dēļ labojamā datne ir jākopīgo ar šīm lietotnēm ierīcē esošā publiskā datu nesēju mapē. Pēc Cryptomator atsākšanas publiski pieejamā datne tiek izdzēsta, bet Cryptomator nevar ietekmēt, kas šajā laikā ir noticis ar šo datni. Jāapzinās šāda uzvedība, kad šī iespēja tiek aktivēta. Tas attieksies tikai uz Microsoft datņu veidiem.\n\nCryptomator pēc aktivēšanas atkārtoti palaidīsies.</string>
@@ -289,6 +298,7 @@
 	<string name="time_unit_years_pl">gadi</string>
 	<!-- ## biometric authentication -->
 	<string name="dialog_biometric_auth_title">Pieteikšanās ar biometriju</string>
+	<string name="dialog_biometric_auth_use_password">Izmantot glabātavas paroli</string>
 	<string name="dialog_unable_to_auto_upload_files_title">Nebija iespējams automātiski augšupielādēt datnes</string>
 	<!-- notification -->
 	<string name="notification_cancel_auto_upload">Atcelt augšupielādi</string>
