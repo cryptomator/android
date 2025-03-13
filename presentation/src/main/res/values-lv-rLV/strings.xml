@@ -26,6 +26,7 @@
 	<string name="error_failed_to_decrypt_webdav_password">Neizdevās atšifrēt WebDAV paroli, lūgums to iestatījumos pievienot no jauna</string>
 	<string name="error_play_services_not_available">Nav uzstādīti Google Play Pakalpojumi</string>
 	<string name="error_biometric_auth_aborted">Pārtraukta autentificēšanās ar biometriju</string>
+	<string name="error_vault_key_invalid">%1$s neatbilst %2$s</string>
 	<string name="error_vault_config_loading">Vispārēja kļūda glabātavas konfigurācijas ielādēšanā</string>
 	<string name="error_file_not_found_after_opening_using_3party">Pēc pārslēgšanās atpakaļ uz Cryptomator vietējā datne vairs nav klātesoša. Iespējamās izmaiņas nevar nogādāt atpakaļ mākonī.</string>
 	<string name="error_no_such_bucket">Nav šāda krājuma</string>
@@ -33,6 +34,7 @@
 	<string name="error_interact_with_fdroid_but_fdroid_missing">Neizdevās sazināties ar F-Droid lietotni. Nav uzstādīta?</string>
 	<string name="error_hub_authentication_failed">Autentificēšana Hub neizdevās</string>
 	<string name="error_hub_device_already_register_for_other_user">Šī ierīce jau ir reģistrēta citam lietotājam. Jamēģina nomainīt lietotāja kontu vai izmantot citu ierīci.</string>
+	<string name="error_hub_invalid_setup_code">Konta atslēga ir nederīga.</string>
 	<!-- # clouds -->
 	<!-- ## cloud names -->
 	<string name="cloud_names_local_storage">Vietēja krātuve</string>
@@ -123,9 +125,11 @@
 	<string name="screen_webdav_settings_msg_password_must_not_be_empty">Parole nevar būt tukša.</string>
 	<!-- ## screen: s3 settings -->
 	<string name="screen_s3_settings_access_key_label">Piekļuves atslēga</string>
+	<string name="screen_s3_settings_secret_key_label">Slepenā atslēga</string>
 	<string name="screen_s3_settings_bucket_label">Esošs krājums</string>
 	<string name="screen_s3_settings_endpoint_label">Galapunkts</string>
 	<string name="screen_s3_settings_msg_access_key_not_empty">Piekļuves atslēga nevar būt tukša</string>
+	<string name="screen_s3_settings_msg_secret_key_not_empty">Slepenā atslēga nevar būt tukša</string>
 	<string name="screen_s3_settings_msg_bucket_not_empty">Krājums nevar būt tukšs</string>
 	<!-- ## screen: enter vault name -->
 	<string name="screen_enter_vault_name_button_text">Izveidot</string>
@@ -175,6 +179,7 @@
 	<!-- ## screen: cryptomator app variants -->
 	<string name="screen_cryptomator_variants_title">Cryptomator paveidi</string>
 	<string name="screen_cryptomator_variants_lite_title">Galvenā F-Droid glabātava</string>
+	<string name="screen_cryptomator_variants_lite_description">Nav iekļauti, jo tiem ir nepieciešamas API atslēgas.</string>
 	<string name="screen_cryptomator_variants_lite_install">Uzstādīt</string>
 	<string name="screen_cryptomator_variants_fdroid_title">Cryptomator F-Droid glabātava</string>
 	<string name="screen_cryptomator_variants_fdroid_add_repo_hint">Pievienot Cryptomator glabātavu F-Droid lietotnē.</string>
@@ -249,6 +254,7 @@
 	<string name="dialog_biometric_auth_key_invalidated_title">Autentificēšana ar biometriju deaktivēta</string>
 	<string name="dialog_biometric_auth_key_invalidated_message">Tā kā atslēga ir padarīta par nederīgu, autentificēšanās ar biometriju tika deaktivēta. Lai iespējotu no jauna, jāatver Cryptomator iestatījumi.</string>
 	<string name="dialog_enter_license_content">Mēs noteicām, ka Cryptomator ir uzstādīta bez Google Play veikala izmantošanas. Jāiesniedz derīga licence, ko var iegādāties <a href="https://cryptomator.org/android/">https://cryptomator.org/android</a></string>
+	<string name="dialog_enter_license_not_valid_content_desktop_supporter_certificate">Iesniegtā atslēga ir darbvirsmas atbalstītāja sertifikāts. Lūgums ievadīt derīgu licenci.</string>
 	<string name="dialog_license_confirmation_title">Licences apstiprinājums</string>
 	<string name="dialog_license_confirmation_message">Paldies, %1$s, par derīgas licences iesniegšanu!</string>
 	<string name="dialog_update_available_message">Cryptomator jāatjaunina uz jaunāko versiju. Pēc \"Labi\" nospiešanas mēs fonā lejupielādēsim lietotni un vaicāsim to uzstadīt.</string>
@@ -263,7 +269,9 @@
 	<string name="dialog_cbc_password_vaults_migration_hint">Drošības uzlabojumu dēļ katrai glabātavai divreiz tiks vaicāta biometriskā autentificēšanās, lai no jauna šifrētu glabātavu paroles. Tas ir nepiciešams, lai turpinātu aizsargāt glabātavu paroles ar jaunākajām tehnoloģijām. Ja nav vēlēšanas, lai tas notiktu, saglabātās paroles tiks noņemtas.</string>
 	<string name="dialog_cbc_password_vaults_migration_action">Pārcelt</string>
 	<string name="dialog_create_hub_device_name_hint">Šis izskatās pēc pirmās piekļuves Hub šajā ierīcē. Lai to varētu identificēt piekļuves pilnvarošanai, nepiciešams šai ierīcei piešķirt nosaukumu.</string>
+	<string name="dialog_create_hub_device_setup_code_label">Konta atslēga</string>
 	<string name="dialog_create_hub_device_setup_code_hint">Konta atslēga ir nepieciešama, lai pieteiktos jaunās lietotnēs vai pārlūkos. To var atrast savā profilā.</string>
+	<string name="dialog_create_hub_device_setup_code_empty">Konta atslēga nevar būt tukša.</string>
 	<string name="dialog_hub_vault_access_forbidden_title">Piekļuve atteikta</string>
 	<string name="dialog_hub_vault_access_forbidden_hint">Tavs lietotājs vēl nav pilnvarots piekļūt šai glabātavai. Jāvaicā glabātavas īpašniekam to pilnvarot.\"</string>
 	<string name="dialog_hub_vault_archived_title">Glabātava arhivēta</string>
