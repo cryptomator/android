@@ -26,6 +26,7 @@
 	<string name="error_failed_to_decrypt_webdav_password">Neizdevās atšifrēt WebDAV paroli, lūgums to iestatījumos pievienot no jauna</string>
 	<string name="error_play_services_not_available">Nav uzstādīti Google Play Pakalpojumi</string>
 	<string name="error_biometric_auth_aborted">Pārtraukta autentificēšanās ar biometriju</string>
+	<string name="error_vault_version_mismatch">%1$s norādītā versija atšķiras no %2$s</string>
 	<string name="error_vault_key_invalid">%1$s neatbilst %2$s</string>
 	<string name="error_vault_config_loading">Vispārēja kļūda glabātavas konfigurācijas ielādēšanā</string>
 	<string name="error_file_not_found_after_opening_using_3party">Pēc pārslēgšanās atpakaļ uz Cryptomator vietējā datne vairs nav klātesoša. Iespējamās izmaiņas nevar nogādāt atpakaļ mākonī.</string>
@@ -35,6 +36,7 @@
 	<string name="error_hub_authentication_failed">Autentificēšana Hub neizdevās</string>
 	<string name="error_hub_device_already_register_for_other_user">Šī ierīce jau ir reģistrēta citam lietotājam. Jamēģina nomainīt lietotāja kontu vai izmantot citu ierīci.</string>
 	<string name="error_hub_invalid_setup_code">Konta atslēga ir nederīga.</string>
+	<string name="error_hub_invalid_version">Neatbalstīta Hub versija.</string>
 	<!-- # clouds -->
 	<!-- ## cloud names -->
 	<string name="cloud_names_local_storage">Vietēja krātuve</string>
@@ -165,6 +167,7 @@
 	<string name="screen_settings_auto_photo_upload_title">Saglabāt automātiski augšupielādētās datnes&#8230;</string>
 	<string name="screen_settings_website_label">Cryptomator tīmekļvietne</string>
 	<string name="screen_settings_error_report_label">Nosūtīt žurnāla datni</string>
+	<string name="screen_settings_section_version">Versija</string>
 	<string name="screen_settings_microsoft_apps_workaround_label">Microsoft datņu atvēršanas aprisinājums</string>
 	<string name="screen_settings_microsoft_apps_workaround_summary">Atvērt datnes Microsoft lietotnēs ar rakstīšanas atļauju</string>
 	<string name="screen_settings_background_unlock_preparation_label_summary">Fonā lejupielādēt glabātavas konfigurāciju, kamēr tiek vaicāts ievadīt paroli vai biometriskos datus</string>
