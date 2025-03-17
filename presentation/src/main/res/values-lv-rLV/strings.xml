@@ -58,6 +58,7 @@
 	<string name="snack_bar_action_title_sort_biggest">Lielākie vispirms</string>
 	<string name="snack_bar_action_title_sort_smallest">Mazākie vispirms</string>
 	<string name="snack_bar_cryptomator_variants_title">Rādīt vairāk</string>
+	<string name="snack_bar_cryptomator_variants_hint">Mākonis nav sarakstā?</string>
 	<!-- # screens -->
 	<!-- # screen: vault list -->
 	<string name="screen_vault_list_actions_title">Pievienot Cryptomator</string>
@@ -185,6 +186,7 @@
 	<string name="screen_cryptomator_variants_lite_description">Nav iekļauti, jo tiem ir nepieciešamas API atslēgas.</string>
 	<string name="screen_cryptomator_variants_lite_install">Uzstādīt</string>
 	<string name="screen_cryptomator_variants_fdroid_title">Cryptomator F-Droid glabātava</string>
+	<string name="screen_cryptomator_variants_fdroid_description">Nav iekļauts, jo tas satur slēgtas atkarības.</string>
 	<string name="screen_cryptomator_variants_fdroid_add_repo_hint">Pievienot Cryptomator glabātavu F-Droid lietotnē.</string>
 	<string name="screen_cryptomator_variants_fdroid_add_repo">Pievienot</string>
 	<string name="screen_cryptomator_variants_fdroid_install_hint">Uzstādīt Cryptomator ar F-Droid.\nJa netiks atrasta, tiks attēlota kļūda. Jāgaida līdz F-Droid sinhronizēšana būs pabeigta.</string>
@@ -277,6 +279,7 @@
 	<string name="dialog_create_hub_device_setup_code_empty">Konta atslēga nevar būt tukša.</string>
 	<string name="dialog_hub_vault_access_forbidden_title">Piekļuve atteikta</string>
 	<string name="dialog_hub_vault_access_forbidden_hint">Tavs lietotājs vēl nav pilnvarots piekļūt šai glabātavai. Jāvaicā glabātavas īpašniekam to pilnvarot.\"</string>
+	<string name="dialog_hub_license_upgrade_required_hint">Cryptomator Hub instancei ir nederīga licence. Lūgums ziņot Hub pārvaldītājam, lai uzlabo vai atjauno licenci.\"</string>
 	<string name="dialog_hub_vault_archived_title">Glabātava arhivēta</string>
 	<string name="dialog_hub_user_setup_required_hint">Lai turpinātu, lūgums pabeigt nepieciešamos soļus savā Hub lietotāja profilā.</string>
 	<string name="dialog_hub_user_setup_required_neutral_button">Doties uz profilu</string>
