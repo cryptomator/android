@@ -33,10 +33,12 @@
 	<string name="error_no_such_bucket">Nav šāda krājuma</string>
 	<string name="error_masterkey_location_not_supported">Pielāgota galvenās atslēgas atrašanās vieta vēl netiek nodrošināta</string>
 	<string name="error_interact_with_fdroid_but_fdroid_missing">Neizdevās sazināties ar F-Droid lietotni. Nav uzstādīta?</string>
+	<string name="error_hub_vault_operation_not_supported">Glabātavas darbība netiek atblastīta Hub</string>
 	<string name="error_hub_authentication_failed">Autentificēšana Hub neizdevās</string>
 	<string name="error_hub_device_already_register_for_other_user">Šī ierīce jau ir reģistrēta citam lietotājam. Jamēģina nomainīt lietotāja kontu vai izmantot citu ierīci.</string>
 	<string name="error_hub_invalid_setup_code">Konta atslēga ir nederīga.</string>
 	<string name="error_hub_invalid_version">Neatbalstīta Hub versija.</string>
+	<string name="error_hub_unlock_pre_31">Hub tiek atbalstīts tikai Android 12 vai jaunākā.</string>
 	<!-- # clouds -->
 	<!-- ## cloud names -->
 	<string name="cloud_names_local_storage">Vietēja krātuve</string>
@@ -273,14 +275,21 @@
 	<string name="dialog_cbc_password_vaults_migration_title">Nepieciešama glabātavas paroles pārcelšana</string>
 	<string name="dialog_cbc_password_vaults_migration_hint">Drošības uzlabojumu dēļ katrai glabātavai divreiz tiks vaicāta biometriskā autentificēšanās, lai no jauna šifrētu glabātavu paroles. Tas ir nepiciešams, lai turpinātu aizsargāt glabātavu paroles ar jaunākajām tehnoloģijām. Ja nav vēlēšanas, lai tas notiktu, saglabātās paroles tiks noņemtas.</string>
 	<string name="dialog_cbc_password_vaults_migration_action">Pārcelt</string>
+	<string name="dialog_create_hub_device_title">Reģistrēt Hub ierīci</string>
+	<string name="dialog_create_hub_device_name_label">Nosaukums</string>
 	<string name="dialog_create_hub_device_name_hint">Šis izskatās pēc pirmās piekļuves Hub šajā ierīcē. Lai to varētu identificēt piekļuves pilnvarošanai, nepiciešams šai ierīcei piešķirt nosaukumu.</string>
+	<string name="dialog_create_hub_device_name_empty">Nosaukums nevar būt tukšs.</string>
 	<string name="dialog_create_hub_device_setup_code_label">Konta atslēga</string>
 	<string name="dialog_create_hub_device_setup_code_hint">Konta atslēga ir nepieciešama, lai pieteiktos jaunās lietotnēs vai pārlūkos. To var atrast savā profilā.</string>
 	<string name="dialog_create_hub_device_setup_code_empty">Konta atslēga nevar būt tukša.</string>
+	<string name="dialog_progress_creating_hub_device_setup">Izveido ierīci&#8230;</string>
 	<string name="dialog_hub_vault_access_forbidden_title">Piekļuve atteikta</string>
 	<string name="dialog_hub_vault_access_forbidden_hint">Tavs lietotājs vēl nav pilnvarots piekļūt šai glabātavai. Jāvaicā glabātavas īpašniekam to pilnvarot.\"</string>
+	<string name="dialog_hub_license_upgrade_required_title">Jāpārbauda Hub licence</string>
 	<string name="dialog_hub_license_upgrade_required_hint">Cryptomator Hub instancei ir nederīga licence. Lūgums ziņot Hub pārvaldītājam, lai uzlabo vai atjauno licenci.\"</string>
 	<string name="dialog_hub_vault_archived_title">Glabātava arhivēta</string>
+	<string name="dialog_hub_vault_archived_hint">Šī glabātava ir arhivēta, un to nevar atslēgt. Lai atslēgtu to, glabātavas īpašniekam tā ir jāatceļ tās arhivēšana.</string>
+	<string name="dialog_hub_user_setup_required_title">Nepieciešama lietotāja iestatīšana</string>
 	<string name="dialog_hub_user_setup_required_hint">Lai turpinātu, lūgums pabeigt nepieciešamos soļus savā Hub lietotāja profilā.</string>
 	<string name="dialog_hub_user_setup_required_neutral_button">Doties uz profilu</string>
 	<string name="permission_snackbar_auth_local_vault">Cryptomator ir nepieciešama piekļuve krātuvei, lai izmantotu vietējās krātuves</string>
