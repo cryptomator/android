@@ -176,6 +176,7 @@
 	<string name="screen_settings_section_version">Versija</string>
 	<string name="screen_settings_microsoft_apps_workaround_label">Microsoft datņu atvēršanas aprisinājums</string>
 	<string name="screen_settings_microsoft_apps_workaround_summary">Atvērt datnes Microsoft lietotnēs ar rakstīšanas atļauju</string>
+	<string name="screen_settings_background_unlock_preparation_label">Paātrināt atslēgšanu</string>
 	<string name="screen_settings_background_unlock_preparation_label_summary">Fonā lejupielādēt glabātavas konfigurāciju, kamēr tiek vaicāts ievadīt paroli vai biometriskos datus</string>
 	<string name="screen_settings_keep_unlocked_while_editing_files">Paturēt atslēgtu</string>
 	<string name="screen_settings_keep_unlocked_while_editing_files_summary">Paturēt glabātavas atslēgtas, kamēr tiek labotas datnes</string>
@@ -244,6 +245,7 @@
 	<string name="dialog_export_file_title">Izgūst (%1$d/%2$d)</string>
 	<string name="dialog_progress_creating_text_file">Izveido teksta datni&#8230;</string>
 	<string name="action_progress_authentication">Autentificēšana&#8230;</string>
+	<string name="dialog_progress_unlocking_vault">Atslēdz glabātavu&#8230;</string>
 	<string name="dialog_progress_change_password">Maina paroli&#8230;</string>
 	<string name="dialog_progress_upload_file">Augšupielādē&#8230;</string>
 	<string name="dialog_progress_download_file">Lejupielādē&#8230;</string>
@@ -337,6 +339,7 @@
 	<string name="dialog_biometric_auth_use_password">Izmantot glabātavas paroli</string>
 	<string name="dialog_unable_to_auto_upload_files_title">Nebija iespējams automātiski augšupielādēt datnes</string>
 	<!-- notification -->
+	<string name="notification_unlocked">Atslēgtas glabātavas: %1$d</string>
 	<string name="notification_cancel_auto_upload">Atcelt augšupielādi</string>
 	<string name="notification_auto_upload_title">Notiek automātiska fotoattēlu augšupielāde</string>
 	<string name="notification_auto_upload_message">Augšupielādē %1d/%2d</string>
