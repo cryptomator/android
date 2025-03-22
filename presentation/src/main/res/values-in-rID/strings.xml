@@ -4,7 +4,7 @@
 	<string name="share_with_label">Enkripsi</string>
 	<!-- # error messages -->
 	<string name="error_generic">Kesalahan terjadi</string>
-	<string name="error_authentication_failed">Pengesahan gagal</string>
+	<string name="error_authentication_failed">Autentikasi gagal</string>
 	<string name="error_authentication_failed_re_authenticate">Autentikasi gagal, mohon masuk menggunakan %1$s</string>
 	<string name="error_no_network_connection">Tidak ada koneksi jaringan</string>
 	<string name="error_invalid_passphrase">Kata sandi salah</string>
@@ -190,6 +190,7 @@
 	<string name="screen_settings_section_auto_photo_upload_including_videos">Unggah video</string>
 	<string name="screen_settings_auto_photo_upload_title">Simpan file unggah otomatis ke&#8230;</string>
 	<string name="screen_settings_website_label">Situs Cryptomator</string>
+	<string name="screen_settings_mastodon_label">Ikuti kami di Mastodon</string>
 	<string name="screen_settings_facebook_label">Like kami di Facebook</string>
 	<string name="screen_settings_section_legal">Legal</string>
 	<string name="screen_settings_licenses_label">Lisensi</string>

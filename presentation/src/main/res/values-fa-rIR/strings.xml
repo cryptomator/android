@@ -140,6 +140,7 @@
 	<string name="screen_s3_settings_msg_access_key_not_empty">کلید دسترسی نمی تواند خالی باشد</string>
 	<string name="screen_s3_settings_msg_secret_key_not_empty">مقدار کلید نمی تواند خالی باشد</string>
 	<string name="screen_s3_settings_msg_bucket_not_empty">مقدار صندوقچه نمی تواند خالی باشد</string>
+	<string name="screen_s3_settings_msg_endpoint_and_region_not_empty"></string>
 	<!-- ## screen: enter vault name -->
 	<string name="screen_enter_vault_name_msg_name_empty">نام صندوقچه نمیتواند خالی باشد.</string>
 	<string name="screen_enter_vault_name_vault_label">نام مخزن</string>
@@ -179,12 +180,14 @@
 	<string name="screen_settings_advanced_settings">تنظیمات پیشرفته</string>
 	<string name="screen_settings_keep_unlocked_while_editing_files">باز نگهدارید</string>
 	<!-- ## screen: cloud settings -->
+	<string name="screen_cloud_settings_log_in_to"></string>
 	<!-- ## screen: licenses -->
 	<!-- ## screen: authenticate cloud -->
 	<!-- ## screen: cryptomator app variants -->
 	<string name="screen_cryptomator_variants_lite_install">نصب</string>
 	<string name="screen_cryptomator_variants_fdroid_add_repo">اضافه کردن</string>
 	<string name="screen_cryptomator_variants_website_title">وب سایت</string>
+	<string name="screen_cryptomator_variants_website_description"></string>
 	<!-- # dialogs -->
 	<string name="dialog_button_cancel">انصراف</string>
 	<string name="dialog_enter_password_positive_button">بازکردن قفل</string>
@@ -204,6 +207,7 @@
 	<string name="dialog_replace_positive_button_all_files_exist">جایگزین کردن همه</string>
 	<string name="dialog_replace_positive_button_single_file_exists">جایگزین کردن</string>
 	<string name="dialog_replace_title_single_file_exists">فایل جایگزین شود؟</string>
+	<string name="dialog_replace_title_multiple_files_exist"></string>
 	<string name="dialog_unsaved_changes_discard">صرف‌نظر کردن</string>
 	<string name="dialog_file_name_hint">نام فایل</string>
 	<string name="dialog_lock_vault">قفل</string>
