@@ -362,6 +362,8 @@
 	<string name="dialog_create_hub_device_name_empty">A név nem lehet üres.</string>
 	<string name="dialog_create_hub_device_setup_code_label">Account Key</string>
 	<string name="dialog_hub_vault_access_forbidden_title">Hozzáférés megtagadva</string>
+	<string name="dialog_hub_user_setup_required_hint">A folytatáshoz kérlek teljesítsd a szükséges lépéseket a Hub profilodban.</string>
+	<string name="dialog_hub_user_setup_required_neutral_button">Ugrás a Profilhoz</string>
 	<string name="permission_snackbar_auth_local_vault">A Cryptomatornak tárhely-hozzáférésre van szüksége a trezorok használatához</string>
 	<string name="permission_snackbar_auth_auto_upload">A Cryptomatornak tárhely-hozzáférésre van szüksége az automatikus fotófeltöltés használatához</string>
 	<string name="permission_snackbar_notifications">A Cryptomatornak értesítési engedélyekre van szüksége például a széf állapotának megjelenítéséhez</string>
