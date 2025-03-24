@@ -172,6 +172,8 @@
 	<string name="screen_settings_section_auto_photo_upload_including_videos">Augšupielādēt video</string>
 	<string name="screen_settings_auto_photo_upload_title">Saglabāt automātiski augšupielādētās datnes&#8230;</string>
 	<string name="screen_settings_website_label">Cryptomator tīmekļvietne</string>
+	<string name="screen_settings_licenses_label">Licences</string>
+	<string name="screen_settings_license_terms_label">Licences noteikumi</string>
 	<string name="screen_settings_error_report_label">Nosūtīt žurnāla datni</string>
 	<string name="screen_settings_section_version">Versija</string>
 	<string name="screen_settings_microsoft_apps_workaround_label">Microsoft datņu atvēršanas aprisinājums</string>
@@ -274,8 +276,12 @@
 	<string name="dialog_confirm_delete_folder_message">Šī darbība izdzēsīs visu mapes saturu. Vai tiešām izdzēst šo mapi?</string>
 	<string name="dialog_biometric_auth_key_invalidated_title">Autentificēšana ar biometriju deaktivēta</string>
 	<string name="dialog_biometric_auth_key_invalidated_message">Tā kā atslēga ir padarīta par nederīgu, autentificēšanās ar biometriju tika deaktivēta. Lai iespējotu no jauna, jāatver Cryptomator iestatījumi.</string>
+	<string name="dialog_enter_license_title">Iesniegt derīgu licenci</string>
 	<string name="dialog_enter_license_content">Mēs noteicām, ka Cryptomator ir uzstādīta bez Google Play veikala izmantošanas. Jāiesniedz derīga licence, ko var iegādāties <a href="https://cryptomator.org/android/">https://cryptomator.org/android</a></string>
+	<string name="dialog_enter_license_not_valid_content">Iesniegtā licence nav derīga. Jāpārliecinās, ka tā ir pareizi ievadīta.</string>
 	<string name="dialog_enter_license_not_valid_content_desktop_supporter_certificate">Iesniegtā atslēga ir darbvirsmas atbalstītāja sertifikāts. Lūgums ievadīt derīgu licenci.</string>
+	<string name="dialog_enter_license_no_content">Nav iesniegta licence Lūgums ievadīt derīgu licenci.</string>
+	<string name="dialog_enter_license_decline_button">Iziet</string>
 	<string name="dialog_license_confirmation_title">Licences apstiprinājums</string>
 	<string name="dialog_license_confirmation_message">Paldies, %1$s, par derīgas licences iesniegšanu!</string>
 	<string name="dialog_update_available_message">Cryptomator jāatjaunina uz jaunāko versiju. Pēc \"Labi\" nospiešanas mēs fonā lejupielādēsim lietotni un vaicāsim to uzstadīt.</string>
@@ -359,6 +365,8 @@
 	<string name="screen_settings_lru_cache_size">Kopējais kešatmiņas izmērs</string>
 	<string name="screen_settings_clear_lru_cache_size">Notīrīt kešatmiņu</string>
 	<string name="screen_settings_lru_cache_changed__restart_toast">Izmaiņas tiks pielietotas nākamajā lietotnes palaišanas reizē</string>
+	<string name="screen_settings_license">Reģistrēts</string>
+	<string name="screen_settings_license_mail">%1$s</string>
 	<string name="dialog_cache_size_title">Kešatmiņas izmērs vienam mākonim</string>
 	<!-- lock timeout names -->
 	<string name="lock_timeout_1m">1 minūte</string>
