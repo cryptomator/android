@@ -22,7 +22,9 @@
 	<string name="error_name_contains_invalid_characters">Nevar saturēt īpašas rakstzīmes.</string>
 	<string name="error_names_contains_invalid_characters">Datņu nosaukumi nevar saturēt īpašas rakstzīmes.</string>
 	<string name="error_vault_name_contains_invalid_characters">Glabātavas nosaukums nevar saturēt īpašas rakstzīmes.</string>
+	<string name="error_general_update">Atjauninājuma pārbaude neizdevās. Atgadījās vispārēja kļūda.</string>
 	<string name="error_hash_mismatch_update">Atjaunināšanas pārbaude neizdevāš. Aprēķinātā jaucējvērtība neatbilst augšupielādētajai datnei</string>
+	<string name="error_update_no_internet">Atjauninājuma pārbaude neizdevās. Nav savienojuma ar internetu.</string>
 	<string name="error_failed_to_decrypt_webdav_password">Neizdevās atšifrēt WebDAV paroli, lūgums to iestatījumos pievienot no jauna</string>
 	<string name="error_play_services_not_available">Nav uzstādīti Google Play Pakalpojumi</string>
 	<string name="error_biometric_auth_aborted">Pārtraukta autentificēšanās ar biometriju</string>
@@ -175,6 +177,7 @@
 	<string name="screen_settings_licenses_label">Licences</string>
 	<string name="screen_settings_license_terms_label">Licences noteikumi</string>
 	<string name="screen_settings_error_report_label">Nosūtīt žurnāla datni</string>
+	<string name="screen_settings_error_report_failed">Nosūtīšana neizdevās</string>
 	<string name="screen_settings_section_version">Versija</string>
 	<string name="screen_settings_microsoft_apps_workaround_label">Microsoft datņu atvēršanas aprisinājums</string>
 	<string name="screen_settings_microsoft_apps_workaround_summary">Atvērt datnes Microsoft lietotnēs ar rakstīšanas atļauju</string>
