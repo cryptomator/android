@@ -131,17 +131,22 @@
 	<!-- ## screen: webdav settings -->
 	<string name="screen_webdav_settings_username_label">Lietotājvārds</string>
 	<string name="screen_webdav_settings_password_label">Parole</string>
+	<string name="screen_webdav_settings_done_button_text">Savienot</string>
 	<string name="screen_webdav_settings_msg_username_must_not_be_empty">Lietotājvārds nevar būt tukšs.</string>
 	<string name="screen_webdav_settings_msg_password_must_not_be_empty">Parole nevar būt tukša.</string>
 	<!-- ## screen: s3 settings -->
+	<string name="screen_s3_settings_display_name_label">Attēlojamais nosaukums</string>
 	<string name="screen_s3_settings_access_key_label">Piekļuves atslēga</string>
 	<string name="screen_s3_settings_secret_key_label">Slepenā atslēga</string>
 	<string name="screen_s3_settings_bucket_label">Esošs krājums</string>
 	<string name="screen_s3_settings_endpoint_label">Galapunkts</string>
+	<string name="screen_s3_settings_msg_display_name_not_empty">Attēlojamais nosaukums nevar būt tukšs</string>
 	<string name="screen_s3_settings_msg_access_key_not_empty">Piekļuves atslēga nevar būt tukša</string>
 	<string name="screen_s3_settings_msg_secret_key_not_empty">Slepenā atslēga nevar būt tukša</string>
 	<string name="screen_s3_settings_msg_bucket_not_empty">Krājums nevar būt tukšs</string>
 	<!-- ## screen: enter vault name -->
+	<string name="screen_enter_vault_name_msg_name_empty">Glabātavas nosaukums nevar būt tukšs.</string>
+	<string name="screen_enter_vault_name_vault_label">Glabātavas nosaukums</string>
 	<string name="screen_enter_vault_name_button_text">Izveidot</string>
 	<!-- ## screen: set password -->
 	<string name="screen_set_password_title">Iestatīt paroli</string>
@@ -162,6 +167,7 @@
 	<string name="screen_settings_confirm_face_unlock">Apstiprināt atslēgšanu ar seju (ja pieejams)</string>
 	<string name="screen_settings_block_app_when_obscured">Aizturēt lietotni, kad aizsegta</string>
 	<string name="screen_settings_block_app_when_obscured_summary">Neļaut ievades pārtveršanu un viltus lietotāja saskarnes attēlošanu</string>
+	<string name="screen_settings_secure_screen">Liegt ekrānuzņēmumus</string>
 	<string name="screen_settings_secure_screen_summary">Neļaut ekrānuzņēmumus neseno lietotņu sarakstā un lietotnē</string>
 	<string name="screen_settings_section_search">Meklēt</string>
 	<string name="screen_settings_section_auto_photo_upload">Automātiska fotoattēlu augšupielāde</string>
@@ -176,6 +182,8 @@
 	<string name="screen_settings_website_label">Cryptomator tīmekļvietne</string>
 	<string name="screen_settings_licenses_label">Licences</string>
 	<string name="screen_settings_license_terms_label">Licences noteikumi</string>
+	<string name="screen_settings_section_support">Atbalsts</string>
+	<string name="screen_settings_debug_mode_label">Atkļūdošana</string>
 	<string name="screen_settings_error_report_label">Nosūtīt žurnāla datni</string>
 	<string name="screen_settings_error_report_failed">Nosūtīšana neizdevās</string>
 	<string name="screen_settings_section_version">Versija</string>
@@ -258,7 +266,9 @@
 	<string name="dialog_ask_ignore_battery_optimizations_hint">Lai iegūtu jaunus attēlus un video bez darbošanās fonā, lietotnei ir nepieciešams atspējot akumulatora optimizāciju. Neuztraucies, %1$s nepatērē daudz enerģijas!\n\nLai to pielietotu, jānomaina \"Nav optimizēta\" uz \"Visas lietotnes\", jāatlasa %1$s un jāizvēlas \"Neoptimizēt\" pēc piesišanas uz \"%2$s\" šajā lodziņā.</string>
 	<string name="dialog_no_screen_lock_hint">Nav iestatīta ekrāna aizslēgšana. Lai drošā veidā glabātu savus pieteikšanās datus, ar \"Labi\" jāiestata raksts vai parole.</string>
 	<string name="dialog_no_biometric_auth_set_up_title">Sistēmā nav iestatīta pamata autentificēšana</string>
-	<string name="dialog_debug_mode_disclaimer_hint">Ar atkļūdošanu jutīgi datni var tikt ierakstīti žurnāla datnē šajā ierīcē (piemēram, datņu nosaukumi un ceļi). Paroles, sīkdatnes utt. noteikti netiek iekļautas.\n\nJāatceras atspējot atkļūdošanu, tiklīdz tas ir iespējams.</string>
+	<string name="dialog_debug_mode_disclaimer_hint">Ar atkļūdošanu jūtīgi dati var tikt ierakstīti žurnāla datnē šajā ierīcē (piemēram, datņu nosaukumi un ceļi). Paroles, sīkdatnes utt. noteikti netiek iekļautas.\n\nJāatceras atspējot atkļūdošanu, tiklīdz tas ir iespējams.</string>
+	<string name="dialog_debug_mode_disclaimer_title">Uzmanību</string>
+	<string name="dialog_debug_mode_positive_button">Iespējot</string>
 	<string name="dialog_microsoft_workaround_disclaimer_hint">Kļūdas Microsoft lietotnēs dēļ labojamā datne ir jākopīgo ar šīm lietotnēm ierīcē esošā publiskā datu nesēju mapē. Pēc Cryptomator atsākšanas publiski pieejamā datne tiek izdzēsta, bet Cryptomator nevar ietekmēt, kas šajā laikā ir noticis ar šo datni. Jāapzinās šāda uzvedība, kad šī iespēja tiek aktivēta. Tas attieksies tikai uz Microsoft datņu veidiem.\n\nCryptomator pēc aktivēšanas atkārtoti palaidīsies.</string>
 	<string name="dialog_disable_app_obscured_disclaimer_hint">Šis iestatījums ir drošības iespēja un liedz citām lietotnēm ar viltu pamudināt lietotājus veikt darbības, kuras viņi nevēlas darīt.\n\nAr atspējošanu tiek apliecināts, ka tiek <a href="https://docs.cryptomator.org/en/latest/android/settings/#block-app-when-obscured">apzināti riski</a>.</string>
 	<string name="dialog_disable_app_obscured_disclaimer_title">Uzmanību</string>
@@ -372,6 +382,7 @@
 	<string name="screen_settings_license_mail">%1$s</string>
 	<string name="dialog_cache_size_title">Kešatmiņas izmērs vienam mākonim</string>
 	<!-- lock timeout names -->
+	<string name="lock_timeout_instant">Tūlītēja</string>
 	<string name="lock_timeout_1m">1 minūte</string>
 	<string name="lock_timeout_2m">2 minūtes</string>
 	<string name="lock_timeout_5m">5 minūtes</string>
@@ -385,7 +396,9 @@
 	<string name="cache_size_1000m">1 GB</string>
 	<string name="cache_size_5000m">5 GB</string>
 	<!-- screen scheme mode names -->
+	<string name="screen_settings_style_mode">Izskats</string>
 	<string name="light">Gaišs</string>
 	<string name="dark">Tumšs</string>
 	<!-- update interval names -->
+	<string name="update_interval_1d">Reizi dienā</string>
 </resources>
