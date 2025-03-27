@@ -129,6 +129,7 @@
 	<string name="screen_cloud_error_webdav_not_supported">Neizskatās, ka serveris būtu saderīgs ar WebDAV</string>
 	<string name="screen_cloud_local_error_no_content_provider">Netika atrasts neviens datņu pārvaldnieks, kas nodrošina mapju atvēršanu</string>
 	<!-- ## screen: webdav settings -->
+	<string name="screen_webdav_settings_url_port_label">URL</string>
 	<string name="screen_webdav_settings_username_label">Lietotājvārds</string>
 	<string name="screen_webdav_settings_password_label">Parole</string>
 	<string name="screen_webdav_settings_done_button_text">Savienot</string>
@@ -170,6 +171,9 @@
 	<string name="screen_settings_secure_screen">Liegt ekrānuzņēmumus</string>
 	<string name="screen_settings_secure_screen_summary">Neļaut ekrānuzņēmumus neseno lietotņu sarakstā un lietotnē</string>
 	<string name="screen_settings_section_search">Meklēt</string>
+	<string name="screen_settings_section_auto_lock">Automātiska aizslēgšana</string>
+	<string name="screen_settings_auto_lock_timeout">Aizslēgt pēc</string>
+	<string name="screen_settings_auto_lock_on_screen_lock">Kad ekrāns ir izslēgts</string>
 	<string name="screen_settings_section_auto_photo_upload">Automātiska fotoattēlu augšupielāde</string>
 	<string name="screen_settings_section_auto_photo_upload_vault">Jāizvēlas glabātava augšupielādei</string>
 	<string name="screen_settings_section_auto_photo_upload_toggle">Iespējot</string>
@@ -265,6 +269,8 @@
 	<string name="dialog_lock_vault">Aizslēgt</string>
 	<string name="dialog_ask_ignore_battery_optimizations_hint">Lai iegūtu jaunus attēlus un video bez darbošanās fonā, lietotnei ir nepieciešams atspējot akumulatora optimizāciju. Neuztraucies, %1$s nepatērē daudz enerģijas!\n\nLai to pielietotu, jānomaina \"Nav optimizēta\" uz \"Visas lietotnes\", jāatlasa %1$s un jāizvēlas \"Neoptimizēt\" pēc piesišanas uz \"%2$s\" šajā lodziņā.</string>
 	<string name="dialog_no_screen_lock_hint">Nav iestatīta ekrāna aizslēgšana. Lai drošā veidā glabātu savus pieteikšanās datus, ar \"Labi\" jāiestata raksts vai parole.</string>
+	<string name="dialog_no_screen_lock_title">Iestatīt ekrāna aizslēgšanu?</string>
+	<string name="dialog_no_screen_lock_checkbox">Iestatīt ekrāna aizslēgšanu</string>
 	<string name="dialog_no_biometric_auth_set_up_title">Sistēmā nav iestatīta pamata autentificēšana</string>
 	<string name="dialog_debug_mode_disclaimer_hint">Ar atkļūdošanu jūtīgi dati var tikt ierakstīti žurnāla datnē šajā ierīcē (piemēram, datņu nosaukumi un ceļi). Paroles, sīkdatnes utt. noteikti netiek iekļautas.\n\nJāatceras atspējot atkļūdošanu, tiklīdz tas ir iespējams.</string>
 	<string name="dialog_debug_mode_disclaimer_title">Uzmanību</string>
@@ -359,6 +365,8 @@
 	<string name="dialog_unable_to_auto_upload_files_title">Nebija iespējams automātiski augšupielādēt datnes</string>
 	<!-- notification -->
 	<string name="notification_unlocked">Atslēgtas glabātavas: %1$d</string>
+	<string name="notification_timeout">Automātiska aizslēgšana pēc %1$s</string>
+	<string name="notification_lock_all">Aizslēgt visas</string>
 	<string name="notification_cancel_auto_upload">Atcelt augšupielādi</string>
 	<string name="notification_auto_upload_title">Notiek automātiska fotoattēlu augšupielāde</string>
 	<string name="notification_auto_upload_message">Augšupielādē %1d/%2d</string>
