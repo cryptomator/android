@@ -190,6 +190,7 @@
 	<string name="screen_settings_debug_mode_label">Atkļūdošana</string>
 	<string name="screen_settings_error_report_label">Nosūtīt žurnāla datni</string>
 	<string name="screen_settings_error_report_failed">Nosūtīšana neizdevās</string>
+	<string name="screen_settings_security_label">Drošības norādes</string>
 	<string name="screen_settings_section_version">Versija</string>
 	<string name="screen_settings_microsoft_apps_workaround_label">Microsoft datņu atvēršanas aprisinājums</string>
 	<string name="screen_settings_microsoft_apps_workaround_summary">Atvērt datnes Microsoft lietotnēs ar rakstīšanas atļauju</string>
@@ -267,7 +268,11 @@
 	<string name="dialog_progress_upload_file">Augšupielādē&#8230;</string>
 	<string name="dialog_progress_download_file">Lejupielādē&#8230;</string>
 	<string name="dialog_lock_vault">Aizslēgt</string>
+	<string name="dialog_accept_ssl_certificate_security_checkbox">Šis varētu būt drošības risks. Es zinu, ko daru.</string>
 	<string name="dialog_ask_ignore_battery_optimizations_hint">Lai iegūtu jaunus attēlus un video bez darbošanās fonā, lietotnei ir nepieciešams atspējot akumulatora optimizāciju. Neuztraucies, %1$s nepatērē daudz enerģijas!\n\nLai to pielietotu, jānomaina \"Nav optimizēta\" uz \"Visas lietotnes\", jāatlasa %1$s un jāizvēlas \"Neoptimizēt\" pēc piesišanas uz \"%2$s\" šajā lodziņā.</string>
+	<string name="dialog_http_security_hint">HTTP izmantošana ir nedroša. Mēs iesakām tā vietā izmantot HTTPS. Ja ir skaidri iespējamie riski, var turpināt ar HTTP.</string>
+	<string name="dialog_http_security_checkbox">Mainīt uz HTTPS</string>
+	<string name="dialog_http_security_title">Izmantot HTTPS?</string>
 	<string name="dialog_no_screen_lock_hint">Nav iestatīta ekrāna aizslēgšana. Lai drošā veidā glabātu savus pieteikšanās datus, ar \"Labi\" jāiestata raksts vai parole.</string>
 	<string name="dialog_no_screen_lock_title">Iestatīt ekrāna aizslēgšanu?</string>
 	<string name="dialog_no_screen_lock_checkbox">Iestatīt ekrāna aizslēgšanu</string>
