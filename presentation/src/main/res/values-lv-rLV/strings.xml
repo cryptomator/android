@@ -132,7 +132,9 @@
 	<string name="screen_webdav_settings_url_port_label">URL</string>
 	<string name="screen_webdav_settings_username_label">Lietotājvārds</string>
 	<string name="screen_webdav_settings_password_label">Parole</string>
-	<string name="screen_webdav_settings_done_button_text">Savienot</string>
+	<string name="screen_webdav_settings_done_button_text">Savienoties</string>
+	<string name="screen_webdav_settings_msg_url_must_not_be_empty">URL nevar būt tukšs.</string>
+	<string name="screen_webdav_settings_msg_url_is_invalid">URL ir nederīgs.</string>
 	<string name="screen_webdav_settings_msg_username_must_not_be_empty">Lietotājvārds nevar būt tukšs.</string>
 	<string name="screen_webdav_settings_msg_password_must_not_be_empty">Parole nevar būt tukša.</string>
 	<!-- ## screen: s3 settings -->
@@ -141,10 +143,12 @@
 	<string name="screen_s3_settings_secret_key_label">Slepenā atslēga</string>
 	<string name="screen_s3_settings_bucket_label">Esošs krājums</string>
 	<string name="screen_s3_settings_endpoint_label">Galapunkts</string>
+	<string name="screen_s3_settings_region_label">Apgabals</string>
 	<string name="screen_s3_settings_msg_display_name_not_empty">Attēlojamais nosaukums nevar būt tukšs</string>
 	<string name="screen_s3_settings_msg_access_key_not_empty">Piekļuves atslēga nevar būt tukša</string>
 	<string name="screen_s3_settings_msg_secret_key_not_empty">Slepenā atslēga nevar būt tukša</string>
 	<string name="screen_s3_settings_msg_bucket_not_empty">Krājums nevar būt tukšs</string>
+	<string name="screen_s3_settings_msg_endpoint_and_region_not_empty">Galamērķis vai apgabals nevar būt tukšs</string>
 	<!-- ## screen: enter vault name -->
 	<string name="screen_enter_vault_name_msg_name_empty">Glabātavas nosaukums nevar būt tukšs.</string>
 	<string name="screen_enter_vault_name_vault_label">Glabātavas nosaukums</string>
@@ -170,7 +174,11 @@
 	<string name="screen_settings_block_app_when_obscured_summary">Neļaut ievades pārtveršanu un viltus lietotāja saskarnes attēlošanu</string>
 	<string name="screen_settings_secure_screen">Liegt ekrānuzņēmumus</string>
 	<string name="screen_settings_secure_screen_summary">Neļaut ekrānuzņēmumus neseno lietotņu sarakstā un lietotnē</string>
-	<string name="screen_settings_section_search">Meklēt</string>
+	<string name="screen_settings_section_search">Meklēšana</string>
+	<string name="screen_settings_live_search">Tiešā meklēšana</string>
+	<string name="screen_settings_live_search_summary">Atjaunināt meklēšanas iznākumu vaicājuma ievades laikā</string>
+	<string name="screen_settings_glob_search">Meklēt izmantojot glob paraugu</string>
+	<string name="screen_settings_glob_search_summary">Izmantot atbilstības noteikšanu glob paraugam, piemēram, Ilze.*.jpg</string>
 	<string name="screen_settings_section_auto_lock">Automātiska aizslēgšana</string>
 	<string name="screen_settings_auto_lock_timeout">Aizslēgt pēc</string>
 	<string name="screen_settings_auto_lock_on_screen_lock">Kad ekrāns ir izslēgts</string>
@@ -184,14 +192,19 @@
 	<string name="screen_settings_section_auto_photo_upload_including_videos">Augšupielādēt video</string>
 	<string name="screen_settings_auto_photo_upload_title">Saglabāt automātiski augšupielādētās datnes&#8230;</string>
 	<string name="screen_settings_website_label">Cryptomator tīmekļvietne</string>
+	<string name="screen_settings_mastodon_label">Sekot mums Mastodon</string>
+	<string name="screen_settings_facebook_label">Sekot mums Facebook</string>
+	<string name="screen_settings_section_legal">Juridiski</string>
 	<string name="screen_settings_licenses_label">Licences</string>
 	<string name="screen_settings_license_terms_label">Licences noteikumi</string>
 	<string name="screen_settings_section_support">Atbalsts</string>
+	<string name="screen_settings_contact_label">Lūgt palīdzību</string>
 	<string name="screen_settings_debug_mode_label">Atkļūdošana</string>
 	<string name="screen_settings_error_report_label">Nosūtīt žurnāla datni</string>
 	<string name="screen_settings_error_report_failed">Nosūtīšana neizdevās</string>
 	<string name="screen_settings_security_label">Drošības norādes</string>
 	<string name="screen_settings_section_version">Versija</string>
+	<string name="screen_settings_advanced_settings">Papildu iestatījumi</string>
 	<string name="screen_settings_microsoft_apps_workaround_label">Microsoft datņu atvēršanas aprisinājums</string>
 	<string name="screen_settings_microsoft_apps_workaround_summary">Atvērt datnes Microsoft lietotnēs ar rakstīšanas atļauju</string>
 	<string name="screen_settings_background_unlock_preparation_label">Paātrināt atslēgšanu</string>
@@ -393,6 +406,9 @@
 	<string name="screen_settings_lru_cache_changed__restart_toast">Izmaiņas tiks pielietotas nākamajā lietotnes palaišanas reizē</string>
 	<string name="screen_settings_license">Reģistrēts</string>
 	<string name="screen_settings_license_mail">%1$s</string>
+	<string name="dialog_settings_update_check_interval_title">Laiks starp atjauninājumu pārbaudēm</string>
+	<string name="screen_settings_check_updates">Meklēt atjauninājumus</string>
+	<string name="screen_settings_last_check_updates">Pēdējoreiz veikta %1$s</string>
 	<string name="dialog_cache_size_title">Kešatmiņas izmērs vienam mākonim</string>
 	<!-- lock timeout names -->
 	<string name="lock_timeout_instant">Tūlītēja</string>
