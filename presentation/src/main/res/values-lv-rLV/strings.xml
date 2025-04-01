@@ -22,9 +22,9 @@
 	<string name="error_name_contains_invalid_characters">Nevar saturēt īpašas rakstzīmes.</string>
 	<string name="error_names_contains_invalid_characters">Datņu nosaukumi nevar saturēt īpašas rakstzīmes.</string>
 	<string name="error_vault_name_contains_invalid_characters">Glabātavas nosaukums nevar saturēt īpašas rakstzīmes.</string>
-	<string name="error_general_update">Atjauninājuma pārbaude neizdevās. Atgadījās vispārēja kļūda.</string>
-	<string name="error_hash_mismatch_update">Atjaunināšanas pārbaude neizdevāš. Aprēķinātā jaucējvērtība neatbilst augšupielādētajai datnei</string>
-	<string name="error_update_no_internet">Atjauninājuma pārbaude neizdevās. Nav savienojuma ar internetu.</string>
+	<string name="error_general_update">Atjauninājuma meklēšana neizdevās. Atgadījās vispārēja kļūda.</string>
+	<string name="error_hash_mismatch_update">Atjauninājuma meklēšana neizdevās. Aprēķinātā jaucējvērtība neatbilst augšupielādētajai datnei</string>
+	<string name="error_update_no_internet">Atjauninājuma meklēšana neizdevās. Nav savienojuma ar internetu.</string>
 	<string name="error_failed_to_decrypt_webdav_password">Neizdevās atšifrēt WebDAV paroli, lūgums to iestatījumos pievienot no jauna</string>
 	<string name="error_play_services_not_available">Nav uzstādīti Google Play Pakalpojumi</string>
 	<string name="error_biometric_auth_aborted">Pārtraukta autentificēšanās ar biometriju</string>
@@ -277,6 +277,7 @@
 	<string name="dialog_upload_file_title">Augšupielādē&#8230;</string>
 	<string name="dialog_upload_file_remaining">%1$d. datne no %2$d</string>
 	<string name="dialog_export_file_title">Izgūst (%1$d/%2$d)</string>
+	<string name="dialog_progress_creating_folder">Izveido mapi&#8230;</string>
 	<string name="dialog_progress_creating_text_file">Izveido teksta datni&#8230;</string>
 	<string name="action_progress_authentication">Autentificēšana&#8230;</string>
 	<string name="dialog_progress_unlocking_vault">Atslēdz glabātavu&#8230;</string>
@@ -284,6 +285,8 @@
 	<string name="dialog_progress_creating_vault">Izveido glabātavu&#8230;</string>
 	<string name="dialog_progress_upload_file">Augšupielādē&#8230;</string>
 	<string name="dialog_progress_download_file">Lejupielādē&#8230;</string>
+	<string name="dialog_progress_encryption">Šifrē&#8230;</string>
+	<string name="dialog_progress_decryption">Atšifrē&#8230;</string>
 	<string name="dialog_lock_vault">Aizslēgt</string>
 	<string name="dialog_accept_ssl_certificate_security_checkbox">Šis varētu būt drošības risks. Es zinu, ko daru.</string>
 	<string name="dialog_ask_ignore_battery_optimizations_hint">Lai iegūtu jaunus attēlus un video bez darbošanās fonā, lietotnei ir nepieciešams atspējot akumulatora optimizāciju. Neuztraucies, %1$s nepatērē daudz enerģijas!\n\nLai to pielietotu, jānomaina \"Nav optimizēta\" uz \"Visas lietotnes\", jāatlasa %1$s un jāizvēlas \"Neoptimizēt\" pēc piesišanas uz \"%2$s\" šajā lodziņā.</string>
@@ -325,10 +328,14 @@
 	<string name="dialog_enter_license_decline_button">Iziet</string>
 	<string name="dialog_license_confirmation_title">Licences apstiprinājums</string>
 	<string name="dialog_license_confirmation_message">Paldies, %1$s, par derīgas licences iesniegšanu!</string>
+	<string name="dialog_update_available_title">Pieejams atjauninājums</string>
 	<string name="dialog_update_available_message">Cryptomator jāatjaunina uz jaunāko versiju. Pēc \"Labi\" nospiešanas mēs fonā lejupielādēsim lietotni un vaicāsim to uzstadīt.</string>
+	<string name="dialog_update_available_update">Atjaunināt tagad</string>
 	<string name="dialog_update_available_download_site">Doties uz lejupielāžu vietni</string>
+	<string name="dialog_update_available_cancel">Vēlāk</string>
 	<string name="dialog_download_update_title">Notiek lejupielāde</string>
 	<string name="dialog_download_update_message">Lejupielādē jaunāko Cryptomator versiju</string>
+	<string name="dialog_sym_link_title">Mape ir simboliska saite</string>
 	<string name="dialog_sym_link_back_button">Atpakaļ</string>
 	<string name="dialog_no_dir_file_title">Neizdevās ielādēt mapes saturu</string>
 	<string name="dialog_no_dir_file_message">Mākoņa mapē \"%1$s\" nav derīgas mapes datnes. Varētu būt tā, ka mape tika izveidota citā ierīcē un vēl nav pilnībā sinhronizēta mākonī. Lūgums mākonī pārbaudīt, ka zemāk esošā datne pastāv un nav tukša:\n%2$s</string>
