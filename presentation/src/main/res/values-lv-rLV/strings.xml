@@ -246,6 +246,7 @@
 	<string name="dialog_change_password_msg_new_password_empty">Jaunā parole nevar būt tukša.</string>
 	<string name="dialog_change_password_msg_password_mismatch">Jaunā parole neatbilst atkārtoti ievadītajai parolei.</string>
 	<!-- Vault not found -->
+	<string name="dialog_vault_not_found_title">Glabātava %1$s nav atrasta</string>
 	<string name="dialog_vault_not_found_message">Glabātava tika pārdēvēta, pārvietota vai izdzēsta. Lai turpinātu, tā ir jānoņem no saraksta un jāpievieno atkārtoti. Noņemt tagad?</string>
 	<string name="dialog_vault_not_found_positive_button_text">Noņemt</string>
 	<string name="dialog_existing_file_title">Datne jau pastāv</string>
@@ -271,6 +272,8 @@
 	<string name="dialog_rename_node_file_title">Pārdēvēt datni</string>
 	<string name="dialog_file_name_hint">Datnes nosaukums</string>
 	<string name="dialog_file_name_placeholder">Datne.txt</string>
+	<string name="dialog_delete_vault_message">Vai tiešām noņemt šo glabātavu?</string>
+	<string name="dialog_delete_vault_hint">Šī darbība tikai noņems glabātavu no šī saraksta, bet fiziski to neizdzēsīs.</string>
 	<string name="dialog_upload_file_title">Augšupielādē&#8230;</string>
 	<string name="dialog_upload_file_remaining">%1$d. datne no %2$d</string>
 	<string name="dialog_export_file_title">Izgūst (%1$d/%2$d)</string>
@@ -278,6 +281,7 @@
 	<string name="action_progress_authentication">Autentificēšana&#8230;</string>
 	<string name="dialog_progress_unlocking_vault">Atslēdz glabātavu&#8230;</string>
 	<string name="dialog_progress_change_password">Maina paroli&#8230;</string>
+	<string name="dialog_progress_creating_vault">Izveido glabātavu&#8230;</string>
 	<string name="dialog_progress_upload_file">Augšupielādē&#8230;</string>
 	<string name="dialog_progress_download_file">Lejupielādē&#8230;</string>
 	<string name="dialog_lock_vault">Aizslēgt</string>
