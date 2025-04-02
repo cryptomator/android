@@ -288,6 +288,9 @@
 	<string name="dialog_progress_encryption">Šifrē&#8230;</string>
 	<string name="dialog_progress_decryption">Atšifrē&#8230;</string>
 	<string name="dialog_lock_vault">Aizslēgt</string>
+	<string name="dialog_accept_ssl_certificate_title">Nederīgs SSL sertifikāts</string>
+	<string name="dialog_accept_ssl_certificate_hint">SSL sertifikāts ir nederīgs. Vai vienalga tam uzticēties?</string>
+	<string name="dialog_accept_ssl_certificate_details">Informācija</string>
 	<string name="dialog_accept_ssl_certificate_security_checkbox">Šis varētu būt drošības risks. Es zinu, ko daru.</string>
 	<string name="dialog_ask_ignore_battery_optimizations_hint">Lai iegūtu jaunus attēlus un video bez darbošanās fonā, lietotnei ir nepieciešams atspējot akumulatora optimizāciju. Neuztraucies, %1$s nepatērē daudz enerģijas!\n\nLai to pielietotu, jānomaina \"Nav optimizēta\" uz \"Visas lietotnes\", jāatlasa %1$s un jāizvēlas \"Neoptimizēt\" pēc piesišanas uz \"%2$s\" šajā lodziņā.</string>
 	<string name="dialog_http_security_hint">HTTP izmantošana ir nedroša. Mēs iesakām tā vietā izmantot HTTPS. Ja ir skaidri iespējamie riski, var turpināt ar HTTP.</string>
@@ -437,6 +440,7 @@
 	<string name="cache_size_5000m">5 GB</string>
 	<!-- screen scheme mode names -->
 	<string name="screen_settings_style_mode">Izskats</string>
+	<string name="follow_system">Automātisks (izmantot sistēmas)</string>
 	<string name="light">Gaišs</string>
 	<string name="dark">Tumšs</string>
 	<!-- update interval names -->
