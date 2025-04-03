@@ -270,6 +270,9 @@
 	<string name="dialog_rename_vault_title">Pārdēvēt glabātavu</string>
 	<string name="dialog_rename_node_folder_title">Pārdēvēt mapi</string>
 	<string name="dialog_rename_node_file_title">Pārdēvēt datni</string>
+	<string name="dialog_unsaved_changes_title">Ir nesaglabātas izmaiņas</string>
+	<string name="dialog_unsaved_changes_message">Vai tiešām iziet bez saglabāšanas?</string>
+	<string name="dialog_unsaved_changes_discard">Atmest</string>
 	<string name="dialog_file_name_hint">Datnes nosaukums</string>
 	<string name="dialog_file_name_placeholder">Datne.txt</string>
 	<string name="dialog_delete_vault_message">Vai tiešām noņemt šo glabātavu?</string>
@@ -277,9 +280,12 @@
 	<string name="dialog_upload_file_title">Augšupielādē&#8230;</string>
 	<string name="dialog_upload_file_remaining">%1$d. datne no %2$d</string>
 	<string name="dialog_export_file_title">Izgūst (%1$d/%2$d)</string>
+	<string name="dialog_progress_please_wait">Lūgums uzgaidīt&#8230;</string>
 	<string name="dialog_progress_creating_folder">Izveido mapi&#8230;</string>
 	<string name="dialog_progress_creating_text_file">Izveido teksta datni&#8230;</string>
 	<string name="action_progress_authentication">Autentificēšana&#8230;</string>
+	<string name="action_progress_renaming">Pārdēvē&#8230;</string>
+	<string name="action_progress_deleting">Izdzēš&#8230;</string>
 	<string name="dialog_progress_unlocking_vault">Atslēdz glabātavu&#8230;</string>
 	<string name="dialog_progress_change_password">Maina paroli&#8230;</string>
 	<string name="dialog_progress_creating_vault">Izveido glabātavu&#8230;</string>
@@ -287,12 +293,15 @@
 	<string name="dialog_progress_download_file">Lejupielādē&#8230;</string>
 	<string name="dialog_progress_encryption">Šifrē&#8230;</string>
 	<string name="dialog_progress_decryption">Atšifrē&#8230;</string>
+	<string name="action_progress_moving">Pārvieto&#8230;</string>
 	<string name="dialog_lock_vault">Aizslēgt</string>
 	<string name="dialog_accept_ssl_certificate_title">Nederīgs SSL sertifikāts</string>
 	<string name="dialog_accept_ssl_certificate_hint">SSL sertifikāts ir nederīgs. Vai vienalga tam uzticēties?</string>
 	<string name="dialog_accept_ssl_certificate_details">Informācija</string>
 	<string name="dialog_accept_ssl_certificate_security_checkbox">Šis varētu būt drošības risks. Es zinu, ko daru.</string>
+	<string name="dialog_ask_ignore_battery_optimizations_title">Atspējot akumulatora optimizāciju</string>
 	<string name="dialog_ask_ignore_battery_optimizations_hint">Lai iegūtu jaunus attēlus un video bez darbošanās fonā, lietotnei ir nepieciešams atspējot akumulatora optimizāciju. Neuztraucies, %1$s nepatērē daudz enerģijas!\n\nLai to pielietotu, jānomaina \"Nav optimizēta\" uz \"Visas lietotnes\", jāatlasa %1$s un jāizvēlas \"Neoptimizēt\" pēc piesišanas uz \"%2$s\" šajā lodziņā.</string>
+	<string name="dialog_ask_ignore_battery_optimizations_checkbox">Vairs nevaicāt?</string>
 	<string name="dialog_http_security_hint">HTTP izmantošana ir nedroša. Mēs iesakām tā vietā izmantot HTTPS. Ja ir skaidri iespējamie riski, var turpināt ar HTTP.</string>
 	<string name="dialog_http_security_checkbox">Mainīt uz HTTPS</string>
 	<string name="dialog_http_security_title">Izmantot HTTPS?</string>
@@ -300,6 +309,7 @@
 	<string name="dialog_no_screen_lock_title">Iestatīt ekrāna aizslēgšanu?</string>
 	<string name="dialog_no_screen_lock_checkbox">Iestatīt ekrāna aizslēgšanu</string>
 	<string name="dialog_no_biometric_auth_set_up_title">Sistēmā nav iestatīta pamata autentificēšana</string>
+	<string name="dialog_no_biometric_auth_set_up_message">Jāpievieno vismaz viens pirkstu nospiedums / seja, lai izmantotu šo pakalpojumu.</string>
 	<string name="dialog_debug_mode_disclaimer_hint">Ar atkļūdošanu jūtīgi dati var tikt ierakstīti žurnāla datnē šajā ierīcē (piemēram, datņu nosaukumi un ceļi). Paroles, sīkdatnes utt. noteikti netiek iekļautas.\n\nJāatceras atspējot atkļūdošanu, tiklīdz tas ir iespējams.</string>
 	<string name="dialog_debug_mode_disclaimer_title">Uzmanību</string>
 	<string name="dialog_debug_mode_positive_button">Iespējot</string>
@@ -339,9 +349,11 @@
 	<string name="dialog_download_update_title">Notiek lejupielāde</string>
 	<string name="dialog_download_update_message">Lejupielādē jaunāko Cryptomator versiju</string>
 	<string name="dialog_sym_link_title">Mape ir simboliska saite</string>
+	<string name="dialog_sym_link_message">Šajā simboliskajā saitē nevar ieiet</string>
 	<string name="dialog_sym_link_back_button">Atpakaļ</string>
 	<string name="dialog_no_dir_file_title">Neizdevās ielādēt mapes saturu</string>
 	<string name="dialog_no_dir_file_message">Mākoņa mapē \"%1$s\" nav derīgas mapes datnes. Varētu būt tā, ka mape tika izveidota citā ierīcē un vēl nav pilnībā sinhronizēta mākonī. Lūgums mākonī pārbaudīt, ka zemāk esošā datne pastāv un nav tukša:\n%2$s</string>
+	<string name="dialog_no_more_images_to_display">Vairs nav attēlu, ko parādīt&#8230;</string>
 	<string name="dialog_pcloud_credentials_updated_title">\"%1$s\" pieteikšanās dati atjaunināti</string>
 	<string name="dialog_pcloud_credentials_updated">Ja bija paredzēts pievienot jaunu pCloud kontu, jāpiesit saitei <a href="https://www.pcloud.com">www.pcloud.com</a>, jāatsakās no pašreizējā konta un vēlreiz jāpiesit \"+\" šajā lietotnē, lai izveidotu jaunu mākoņa savienojumu.</string>
 	<string name="dialog_cbc_password_vaults_migration_title">Nepieciešama glabātavas paroles pārcelšana</string>
@@ -393,6 +405,7 @@
 	<string name="time_unit_years_pl">gadi</string>
 	<!-- ## biometric authentication -->
 	<string name="dialog_biometric_auth_title">Pieteikšanās ar biometriju</string>
+	<string name="dialog_biometric_auth_message">Pieteikties ar saviem biometriskajiem datiem</string>
 	<string name="dialog_biometric_auth_use_password">Izmantot glabātavas paroli</string>
 	<string name="dialog_unable_to_auto_upload_files_title">Nebija iespējams automātiski augšupielādēt datnes</string>
 	<!-- notification -->
@@ -413,6 +426,7 @@
 	<string name="notification_open_writable_file_title">Atvērt rakstāmo datni</string>
 	<string name="notification_open_writable_file_message">Glabātava paliek atslēgta līdz labošanas pabeigšanai</string>
 	<string name="notification_update_check_finished_latest">Uzstādīta jaunākā versija</string>
+	<string name="notification_authenticating">Autentificē&#8230;</string>
 	<string name="screen_settings_lru_cache">Kešatmiņa</string>
 	<string name="screen_settings_lru_cache_toggle_summary">Kešot nesen atvērtās datnes ierīcē šifrētā veidā atkārtotai izmantošanai vēlāk atkārtotas atvēršanas gadījumā</string>
 	<string name="screen_settings_lru_cache_size">Kopējais kešatmiņas izmērs</string>
