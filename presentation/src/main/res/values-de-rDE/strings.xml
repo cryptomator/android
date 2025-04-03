@@ -185,6 +185,7 @@
 	<string name="screen_settings_section_auto_photo_upload_including_videos">Videos hochladen</string>
 	<string name="screen_settings_auto_photo_upload_title">Bilder abspeichern in&#8230;</string>
 	<string name="screen_settings_website_label">Cryptomator-Website</string>
+	<string name="screen_settings_mastodon_label">Folge uns auf Mastodon</string>
 	<string name="screen_settings_facebook_label">Gib uns auf Facebook ein Like</string>
 	<string name="screen_settings_section_legal">Rechtliches</string>
 	<string name="screen_settings_licenses_label">Lizenzen</string>
