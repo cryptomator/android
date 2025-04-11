@@ -308,7 +308,7 @@
 	<string name="dialog_debug_mode_disclaimer_hint">V tomto móde, môžu byť zapisované citlivé dáta do logovacieho súboru na Vašom zariadení (ako napr. mená súborov a cesty). Heslá, cookies, a pod. sú explicitne vynechané.\n\nPamätajte na vypnutie debug módu ako najskôr to pôjde.</string>
 	<string name="dialog_debug_mode_disclaimer_title">Upozornenie</string>
 	<string name="dialog_debug_mode_positive_button">Povoliť</string>
-	<string name="dialog_microsoft_workaround_disclaimer_hint">Kvôli chybe v aplikáciách spoločnosti Microsoft musí byť upravovaný súbor zdieľaný s týmito aplikáciami vo verejnom priečinku médií vo vašom zariadení. Po obnovení programu Cryptomator sa verejne prístupný súbor opäť odstráni, ale program Cryptomator nemôže ovplyvniť, čo sa s týmto súborom medzitým stalo. Pri aktivácii tejto možnosti sa uistite, že ste si vedomí tohto správania. Toto sa vzťahuje len na typy súborov spoločnosti Microsoft.\n\nCryptomator sa po aktivácii znovu spustí.</string>
+	<string name="dialog_microsoft_workaround_disclaimer_hint">Z dôvodu chyby v Microsoft aplikácií,</string>
 	<string name="dialog_disable_app_obscured_disclaimer_hint">Toto nastavenie je bezpečnostná vlastnosť a zabraňuje ostatným aplikáciám klamať užívateľov robiť veci čo nechcú robiť.\n\nVypnutím súhlasíte s tým že<a href="https://docs.cryptomator.org/en/latest/android/settings/#block-app-when-obscured">ste si vedomí rizika</a>.</string>
 	<string name="dialog_disable_app_obscured_disclaimer_title">Upozornenie</string>
 	<string name="dialog_disable_app_obscured_positive_button">Zakázať</string>
