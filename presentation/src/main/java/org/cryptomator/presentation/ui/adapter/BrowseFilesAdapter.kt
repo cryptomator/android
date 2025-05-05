@@ -332,6 +332,10 @@ constructor(
 			bound?.progress = null
 		}
 
+		fun replaceImageWithDownloadIcon() {
+			binding.cloudNodeImage.setImageResource(R.drawable.ic_file_download)
+		}
+
 		private fun switchTo(state: UiStateTest) {
 			if (uiState !== state) {
 				uiState = state

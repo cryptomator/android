@@ -150,7 +150,7 @@ class BrowseFilesFragment : BaseFragment<FragmentBrowseFilesBinding>(FragmentBro
 		}
 		val visibleCloudNodes = cloudNodesAdapter.renderedCloudNodes().subList(first, last + 1)
 		if (!binding.swipeRefreshLayout.isRefreshing) {
-			browseFilesPresenter.thumbnailsForVisibleNodes(visibleCloudNodes)
+			browseFilesPresenter.associateThumbnails(visibleCloudNodes)
 		}
 	}
 
@@ -235,6 +235,19 @@ class BrowseFilesFragment : BaseFragment<FragmentBrowseFilesBinding>(FragmentBro
 		} else {
 			node?.progress = progress
 			node?.let { addOrUpdate(it) }
+		}
+	}
+
+	fun replaceImagesWithDownloadIcon(nodes: List<CloudNodeModel<*>>?) {
+		nodes?.forEach { node ->
+			replaceImageWithDownloadIcon(node)
+		}
+	}
+
+	fun replaceImageWithDownloadIcon(node: CloudNodeModel<*>?) {
+		val viewHolder = viewHolderFor(node)
+		if (viewHolder.isPresent) {
+			viewHolder.get().replaceImageWithDownloadIcon()
 		}
 	}
 
