@@ -186,7 +186,6 @@
 	<string name="screen_settings_section_auto_photo_upload_including_videos">העלה סרטוני וידאו</string>
 	<string name="screen_settings_auto_photo_upload_title">שמור קבצים מועלים אוטומטית ל&#8230;</string>
 	<string name="screen_settings_website_label">לאתר Cryptomator</string>
-	<string name="screen_settings_twitter_label">עקבו אחרינו ב-Twitter</string>
 	<string name="screen_settings_facebook_label">תנו לנו לייק ב-Facebook</string>
 	<string name="screen_settings_section_legal">היבטים משפטיים</string>
 	<string name="screen_settings_licenses_label">רישיונות</string>

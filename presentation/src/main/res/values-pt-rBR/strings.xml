@@ -40,6 +40,7 @@
 	<string name="error_hub_device_already_register_for_other_user">Este dispositivo já está registrado para um usuário diferente. Tente alterar a conta de usuário ou use um dispositivo diferente.</string>
 	<string name="error_hub_invalid_setup_code">A Chave da Conta é inválida.</string>
 	<string name="error_hub_invalid_version">Versão do Hub não suportada.</string>
+	<string name="error_hub_unlock_pre_31">Hub só é suportado no Android 12 ou superior.</string>
 	<!-- # clouds -->
 	<!-- ## cloud names -->
 	<string name="cloud_names_local_storage">Armazenamento Local</string>
@@ -190,7 +191,7 @@
 	<string name="screen_settings_section_auto_photo_upload_including_videos">Upload de vídeos</string>
 	<string name="screen_settings_auto_photo_upload_title">Salvar upload automático de arquivos em&#8230;</string>
 	<string name="screen_settings_website_label">Site Cryptomator</string>
-	<string name="screen_settings_twitter_label">Siga-nos no Twitter</string>
+	<string name="screen_settings_mastodon_label">Siga-nos no Mastodon</string>
 	<string name="screen_settings_facebook_label">Curta nossa página no Facebook</string>
 	<string name="screen_settings_section_legal">Políticas legais</string>
 	<string name="screen_settings_licenses_label">Licenças</string>

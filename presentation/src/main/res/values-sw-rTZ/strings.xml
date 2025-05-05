@@ -180,7 +180,6 @@
 	<string name="screen_settings_section_auto_photo_upload_including_videos">Pakia video</string>
 	<string name="screen_settings_auto_photo_upload_title">Hifadhi faili za kupakia kiotomatiki kwenye &#8230;</string>
 	<string name="screen_settings_website_label">Tovuti ya Cryptomator</string>
-	<string name="screen_settings_twitter_label">Tufuate kwenye Twitter</string>
 	<string name="screen_settings_facebook_label">Tupende sisi kwenye Facebook</string>
 	<string name="screen_settings_section_legal">Kisheria</string>
 	<string name="screen_settings_licenses_label">Leseni</string>

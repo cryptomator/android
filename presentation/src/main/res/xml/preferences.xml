@@ -205,10 +205,10 @@
 				android:data="@string/screen_settings_website_uri" />
 		</androidx.preference.PreferenceScreen>
 
-		<androidx.preference.PreferenceScreen android:title="@string/screen_settings_twitter_label">
+		<androidx.preference.PreferenceScreen android:title="@string/screen_settings_mastodon_label">
 			<intent
 				android:action="android.intent.action.VIEW"
-				android:data="@string/screen_settings_twitter_uri" />
+				android:data="@string/screen_settings_mastodon_uri" />
 		</androidx.preference.PreferenceScreen>
 
 		<androidx.preference.PreferenceScreen android:title="@string/screen_settings_facebook_label">

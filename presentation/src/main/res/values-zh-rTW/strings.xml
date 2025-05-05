@@ -190,7 +190,7 @@
 	<string name="screen_settings_section_auto_photo_upload_including_videos">上傳影片</string>
 	<string name="screen_settings_auto_photo_upload_title">將自動上傳文件保存到 &#8230;</string>
 	<string name="screen_settings_website_label">Cryptomator 網站</string>
-	<string name="screen_settings_twitter_label">在 Twitter 上追蹤我們</string>
+	<string name="screen_settings_mastodon_label">到 Mastodon 追蹤我們</string>
 	<string name="screen_settings_facebook_label">在 Facebook 上給我們點讚</string>
 	<string name="screen_settings_section_legal">法律聲明</string>
 	<string name="screen_settings_licenses_label">軟件授權</string>

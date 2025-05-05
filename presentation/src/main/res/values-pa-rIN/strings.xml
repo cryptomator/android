@@ -9,6 +9,7 @@
 	<string name="error_no_network_connection">ਕੋਈ ਨੈੱਟਵਰਕ ਕਨੈਕਸ਼ਨ ਨਹੀਂ</string>
 	<string name="error_invalid_passphrase">ਗ਼ਲਤ ਪਾਸਵਰਡ</string>
 	<string name="error_file_or_folder_exists">ਫਾਇਲ ਜਾਂ ਫੋਲਡਰ ਪਹਿਲਾਂ ਹੀ ਮੌਜੂਦ ਹੈ।</string>
+	<string name="error_vault_version_not_supported">ਵਾਲਟ ਵਰਜ਼ਨ %1$s ਗ਼ੈਰ-ਸਹਾਇਕ ਹੈ। ਇਹ ਵਾਲਟ ਨੂੰ Cryptomator ਦੇ ਪੁਰਾਣੇ ਜਾਂ ਨਵੇਂ ਵਰਜ਼ਨ ਨਾਲ ਬਣਾਇਆ ਗਿਆ ਹੈ।</string>
 	<string name="error_vault_already_exists">\"%@\" ਪਹਿਲਾਂ ਹੀ ਮੌਜੂਦ ਹੈ।</string>
 	<string name="error_no_such_file">ਫਾਇਲ ਮੌਜੂਦ ਨਹੀਂ ਹੈ।</string>
 	<string name="error_vault_has_been_locked">ਵਾਲਟ ਨੂੰ ਲਾਕ ਕੀਤਾ ਗਿਆ ਹੈ।</string>
@@ -17,6 +18,7 @@
 	<string name="error_name_contains_invalid_characters">ਖਾਸ ਅੱਖਰ ਨਹੀਂ ਹੋ ਸਕਦੇ ਹਨ।</string>
 	<string name="error_names_contains_invalid_characters">ਫਾਇਲ ਦੇ ਨਾਂ ਵਿੱਚ ਖਾਸ ਅੱਖਰ ਨਹੀਂ ਹੋ ਸਕਦੇ ਹਨ।</string>
 	<string name="error_vault_name_contains_invalid_characters">ਵਾਲਟ ਦੇ ਨਾਂ ਵਿੱਚ ਖਾਸ ਅੱਖਰ ਨਹੀਂ ਹੋ ਸਕਦੇ ਹਨ।</string>
+	<string name="error_general_update">ਅੱਪਡੇਟ ਜਾਂਚ ਅਸਫ਼ਲ ਹੈ। ਆਮ ਗਲਤੀ ਵਾਪਰੀ ਹੈ।</string>
 	<string name="error_update_no_internet">ਅੱਪਡੇਟ ਜਾਂਚ ਲਈ ਅਸਫ਼ਲ ਹੈ। ਕੋਈ ਇੰਟਰਨੈੱਟ ਕਨੈਕਸ਼ਨ ਨਹੀਂ ਹੈ।</string>
 	<string name="error_play_services_not_available">Google Play ਸੇਵਾਵਾਂ ਇੰਸਟਾਲ ਨਹੀਂ ਹਨ</string>
 	<!-- # clouds -->
@@ -144,7 +146,6 @@
 	<string name="screen_settings_section_auto_photo_upload_only_wifi_toggle">ਸਿਰਫ਼ WIFI ਵਰਤ ਕੇ ਅੱਪਲੋਡ ਕਰੋ</string>
 	<string name="screen_settings_section_auto_photo_upload_including_videos">ਵੀਡੀਓ ਨੂੰ ਅੱਪਲੋਡ ਕਰੋ</string>
 	<string name="screen_settings_website_label">Cryptomator ਦੀ ਵੈੱਬਸਾਈਟ</string>
-	<string name="screen_settings_twitter_label">ਟਵਿੱਟਰ ਉੱਤੇ ਸਾਨੂੰ ਫ਼ਾਲੋ ਕਰੋ</string>
 	<string name="screen_settings_facebook_label">ਫੇਸਬੁੱਕ ਉੱਤੇ ਸਾਨੂੰ ਪਸੰਦ ਕਰੋ</string>
 	<string name="screen_settings_section_legal">ਕਨੂੰਨੀ</string>
 	<string name="screen_settings_licenses_label">ਲਸੰਸ</string>
@@ -179,8 +180,10 @@
 	<string name="dialog_change_password">ਪਾਸਵਰਡ ਨੂੰ ਬਦਲੋ</string>
 	<string name="dialog_change_password_msg_old_password_empty">ਪੁਰਾਣਾ ਪਾਸਵਰਡ ਖਾਲੀ ਨਹੀਂ ਹੋ ਸਕਦਾ ਹੈ।</string>
 	<string name="dialog_change_password_msg_new_password_empty">ਨਵਾਂ ਪਾਸਵਰਡ ਖਾਲੀ ਨਹੀਂ ਹੋ ਸਕਦਾ ਹੈ।</string>
+	<string name="dialog_change_password_msg_password_mismatch">ਨਵਾਂ ਪਾਸਵਰਡ ਮੁੜ-ਲਿਖੇ ਪਾਸਵਰਡ ਨਾਲ ਮਿਲਦਾ ਨਹੀ ਹੈ।</string>
 	<!-- Vault not found -->
 	<string name="dialog_vault_not_found_title">%1$s ਵਾਲਟ ਨਹੀਂ ਲੱਭਿਆ</string>
+	<string name="dialog_vault_not_found_message">ਵਾਲਟ ਦਾ ਨਾਂ ਬਦਲਿਆ ਗਿਆ, ਹਿਲਾਇਆ ਗਿਆ ਜਾਂ ਹਟਾਇਆ ਗਿਆ ਹੈ। ਸੂਚੀ ਤੋਂ ਇਸ ਵਾਲਟ ਨੂੰ ਹਟਾਓ ਅਤੇ ਜਾਰੀ ਰੱਖਣ ਲਈ ਇਸ ਨੂੰ ਫੇਰ ਜੋੜੋ। ਹੁਣੇ ਹਟਾਉਣਾ ਹੈ?</string>
 	<string name="dialog_vault_not_found_positive_button_text">ਹਟਾਓ</string>
 	<string name="dialog_existing_file_title">ਫਾਇਲ ਪਹਿਲਾਂ ਹੀ ਮੌਜੂਦ ਹੈ</string>
 	<string name="dialog_existing_file_positive_button">ਬਦਲੋ</string>

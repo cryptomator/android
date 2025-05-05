@@ -185,7 +185,6 @@
 	<string name="screen_settings_section_auto_photo_upload_including_videos">Mag-upload ng mga video</string>
 	<string name="screen_settings_auto_photo_upload_title">I-save ang awtomatikong pag-upload ng mga file sa&#8230;</string>
 	<string name="screen_settings_website_label">Website ng Cryptomator</string>
-	<string name="screen_settings_twitter_label">Sundan kami sa Twitter</string>
 	<string name="screen_settings_facebook_label">I-like kami sa Facebook</string>
 	<string name="screen_settings_section_legal">Ligal</string>
 	<string name="screen_settings_licenses_label">Mga Lisensya</string>

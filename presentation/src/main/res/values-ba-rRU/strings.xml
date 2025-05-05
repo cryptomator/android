@@ -183,7 +183,6 @@
 	<string name="screen_settings_section_auto_photo_upload_including_videos">Видео тейәү</string>
 	<string name="screen_settings_auto_photo_upload_title">Автоматик тейәлгән файлдар урыны&#8230;</string>
 	<string name="screen_settings_website_label">Cryptomator сайты</string>
-	<string name="screen_settings_twitter_label">Twitter селтәрендә</string>
 	<string name="screen_settings_facebook_label">Facebook селтәрендә</string>
 	<string name="screen_settings_section_legal">Хоҡуҡи мәғлүмәт</string>
 	<string name="screen_settings_licenses_label">Рөхсәтнамәләр</string>

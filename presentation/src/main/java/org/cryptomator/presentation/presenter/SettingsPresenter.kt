@@ -85,7 +85,10 @@ class SettingsPresenter @Inject internal constructor(
 				"F-Droid"
 			}
 			"lite" -> {
-				"F-Droid Main Repo Edition"
+				"F-Droid Main Repo"
+			}
+			"accrescent" -> {
+				"Accrescent"
 			}
 			else -> "Google Play"
 		}

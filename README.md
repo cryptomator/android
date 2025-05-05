@@ -1,6 +1,6 @@
 ![cryptomator-android](cryptomator-android.png)
 
-[![Twitter](https://img.shields.io/badge/twitter-@Cryptomator-blue.svg?style=flat)](http://twitter.com/Cryptomator)
+[![Mastodon](https://img.shields.io/mastodon/follow/176112?domain=mastodon.online&style=flat)](https://mastodon.online/@cryptomator)
 [![Community](https://img.shields.io/badge/help-Community-orange.svg)](https://community.cryptomator.org)
 [![Documentation](https://img.shields.io/badge/help-Docs-orange.svg)](https://docs.cryptomator.org)
 [![Crowdin](https://badges.crowdin.net/cryptomator/localized.svg)](https://translate.cryptomator.org/)
@@ -13,7 +13,8 @@ Cryptomator for Android is currently available in the following  distribution ch
 2. [Using Cryptomator's Website](https://cryptomator.org/android/)
 3. [Using Cryptomator's F-Droid Repository](https://cryptomator.org/android/)
 4. [Using F-Droid's Main Repository](https://f-droid.org/en/packages/org.cryptomator.lite)
-5. Building from source using Gradle (instructions below)
+5. [Using Accrescent](https://accrescent.app/app/org.cryptomator)
+6. Building from source using Gradle (instructions below)
 
 ## Building
 

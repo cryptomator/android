@@ -38,6 +38,7 @@ platform :android do |options|
     deployToServer(alpha:options[:alpha], beta:options[:beta])
     deployToFDroid(alpha:options[:alpha], beta:options[:beta])
     deployLite(alpha:options[:alpha], beta:options[:beta])
+    deployToAccrescent(alpha:options[:alpha], beta:options[:beta])
     createGitHubDraftRelease(alpha:options[:alpha], beta:options[:beta])
 
     slack(
@@ -290,6 +291,41 @@ platform :android do |options|
     end
 
     FileUtils.cp(lane_context[SharedValues::GRADLE_APK_OUTPUT_PATH], "release/Cryptomator-#{version}_fdroid_signed.apk")
+  end
+
+  desc "Deploy new version to Accrescent"
+  private_lane :deployToAccrescent do |options|
+    gradle(task: "clean")
+
+    gradle(
+      task: "bundle",
+      build_type: "Release",
+      flavor: "accrescent",
+      print_command: false,
+      properties: {
+        "android.injected.signing.store.file" => ENV["SIGNING_KEYSTORE_PATH"],
+        "android.injected.signing.store.password" => ENV["SIGNING_KEYSTORE_PASSWORD"],
+        "android.injected.signing.key.alias" => ENV["SIGNING_KEY_ALIAS"],
+        "android.injected.signing.key.password" => ENV["SIGNING_KEY_PASSWORD"],
+      }
+    )
+
+    FileUtils.cp(lane_context[SharedValues::GRADLE_AAB_OUTPUT_PATH], "release/Cryptomator-#{version}_signed.aab")
+
+    bundletool(
+      ks_path: ENV["SIGNING_KEYSTORE_PATH"],
+      ks_password: ENV["SIGNING_KEYSTORE_PASSWORD"],
+      ks_key_alias: ENV["SIGNING_KEY_ALIAS"],
+      ks_key_alias_password: ENV["SIGNING_KEY_PASSWORD"],
+      bundletool_version: '1.10.0',
+      aab_path: lane_context[SharedValues::GRADLE_AAB_OUTPUT_PATH],
+      apk_output_path: "fastlane/release/Cryptomator-#{version}_signed.apks",
+      verbose: true,
+      cache_path: "~/.cache/bundletool",
+      universal_apk: false
+    )
+
+    puts "Upload fastlane/release/Cryptomator-#{version}_signed.apks to Accrescent"
   end
 
   desc "Deploy new lite version"

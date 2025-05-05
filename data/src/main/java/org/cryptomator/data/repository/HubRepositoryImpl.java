@@ -58,6 +58,7 @@ public class HubRepositoryImpl implements HubRepository {
 	public String getVaultKeyJwe(UnverifiedHubVaultConfig unverifiedHubVaultConfig, String accessToken) throws BackendException {
 		var request = new Request.Builder().get() //
 				.header("Authorization", "Bearer " + accessToken) //
+				.header("Hub-Device-ID", getHubDeviceCryptor().getDeviceId()) //
 				.url(unverifiedHubVaultConfig.getApiBaseUrl() + "vaults/" + unverifiedHubVaultConfig.vaultId() + "/access-token") //
 				.build();
 		try (var response = getHttpClient().newCall(request).execute()) {
