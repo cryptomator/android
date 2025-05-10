@@ -46,6 +46,24 @@ allprojects {
 		}
 		google()
 	}
+
+
+	// Add this new configuration
+	tasks.withType(org.jetbrains.kotlin.gradle.tasks.KotlinCompile).configureEach {
+		kotlinOptions {
+			jvmTarget = '17'
+		}
+	}
+
+	// Make sure all subprojects with the Android plugin apply Java compatibility
+	plugins.withType(com.android.build.gradle.BasePlugin).configureEach {
+		android {
+			compileOptions {
+				sourceCompatibility JavaVersion.VERSION_17
+				targetCompatibility JavaVersion.VERSION_17
+			}
+		}
+	}
 }
 
 task clean(type: Delete) {
