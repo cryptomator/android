@@ -18,6 +18,7 @@ import org.cryptomator.domain.CloudType
 import org.cryptomator.domain.Vault
 import org.cryptomator.domain.di.PerView
 import org.cryptomator.domain.exception.license.LicenseNotValidException
+import org.cryptomator.domain.model.DeploymentInfo
 import org.cryptomator.domain.usecases.DoLicenseCheckUseCase
 import org.cryptomator.domain.usecases.DoUpdateCheckUseCase
 import org.cryptomator.domain.usecases.DoUpdateUseCase
@@ -27,7 +28,9 @@ import org.cryptomator.domain.usecases.NoOpResultHandler
 import org.cryptomator.domain.usecases.UpdateCheck
 import org.cryptomator.domain.usecases.cloud.GetRootFolderUseCase
 import org.cryptomator.domain.usecases.vault.DeleteVaultUseCase
+import org.cryptomator.domain.usecases.vault.GetDeploymentInfoUseCase
 import org.cryptomator.domain.usecases.vault.GetVaultListUseCase
+import org.cryptomator.domain.usecases.vault.ImportDeploymentVaultUseCase
 import org.cryptomator.domain.usecases.vault.ListCBCEncryptedPasswordVaultsUseCase
 import org.cryptomator.domain.usecases.vault.LockVaultUseCase
 import org.cryptomator.domain.usecases.vault.MoveVaultPositionUseCase
@@ -71,6 +74,8 @@ import timber.log.Timber
 
 @PerView
 class VaultListPresenter @Inject constructor( //
+	private val getDeploymentInfo: GetDeploymentInfoUseCase, //
+	private val importDeploymentVaultUseCase: ImportDeploymentVaultUseCase, //
 	private val getVaultListUseCase: GetVaultListUseCase,  //
 	private val deleteVaultUseCase: DeleteVaultUseCase,  //
 	private val renameVaultUseCase: RenameVaultUseCase,  //
@@ -95,6 +100,9 @@ class VaultListPresenter @Inject constructor( //
 	private val sharedPreferencesHandler: SharedPreferencesHandler,  //
 	exceptionMappings: ExceptionHandlers
 ) : Presenter<VaultListView>(exceptionMappings) {
+
+	// TAG for Timber logging
+	private val TAG = VaultListPresenter::class.java.simpleName
 
 	private var vaultAction: VaultAction? = null
 
@@ -632,6 +640,36 @@ class VaultListPresenter @Inject constructor( //
 					intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK
 					intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION)
 					context().startActivity(intent)
+				}
+			})
+	}
+
+	fun getDeployment() {
+		getDeploymentInfo
+			.run(object : DefaultResultHandler<List<DeploymentInfo>>() {
+				override fun onSuccess(deployment: List<DeploymentInfo>) {
+					Timber.tag(TAG).d("Deployment vault: $deployment")
+
+					import(deployment)
+				}
+
+				override fun onError(e: Throwable) {
+					Timber.tag(TAG).e(e, "Failed to get deployment")
+				}
+			})
+	}
+
+	fun import(list:List<DeploymentInfo>){
+		importDeploymentVaultUseCase
+			.withDeployments(list)
+			.run(object : DefaultResultHandler<Void?>() {
+				override fun onSuccess(ignore: Void?) {
+					Timber.tag(TAG).d("Deployment vault imported")
+					loadVaultList()
+				}
+
+				override fun onError(e: Throwable) {
+					Timber.tag(TAG).e(e, "Failed to import deployment vault")
 				}
 			})
 	}

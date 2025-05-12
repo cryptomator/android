@@ -1,9 +1,17 @@
 package org.cryptomator.presentation.ui.activity
 
+import android.Manifest
 import android.content.Intent
+import android.content.pm.PackageManager
 import android.net.Uri
+import android.os.Build
 import android.os.Bundle
+import android.os.Environment
+import android.provider.Settings
 import android.view.View
+import android.widget.Toast
+import androidx.activity.result.contract.ActivityResultContracts
+import androidx.core.content.ContextCompat
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import androidx.fragment.app.Fragment
 import org.cryptomator.domain.Vault
@@ -100,6 +108,10 @@ class VaultListActivity : BaseActivity<ActivityLayoutObscureAwareBinding>(Activi
 	override fun onMenuItemSelected(itemId: Int): Boolean = when (itemId) {
 		R.id.action_settings -> {
 			vaultListPresenter.startIntent(settingsIntent())
+			true
+		}
+		R.id.action_get_deployment -> {
+			checkStoragePermissions()
 			true
 		}
 		else -> super.onMenuItemSelected(itemId)
@@ -250,6 +262,60 @@ class VaultListActivity : BaseActivity<ActivityLayoutObscureAwareBinding>(Activi
 
 	override fun onBiometricKeyInvalidated(vaults: List<VaultModel>) {
 		vaultListPresenter.biometricKeyInvalidated(vaults)
+	}
+
+
+	private fun checkStoragePermissions() {
+		if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
+			if (!Environment.isExternalStorageManager()) {
+				showManageStoragePermissionDialog()
+			} else {
+				vaultListPresenter.getDeployment()
+			}
+		} else {
+			val permissions = arrayOf(
+				Manifest.permission.READ_EXTERNAL_STORAGE,
+				Manifest.permission.WRITE_EXTERNAL_STORAGE
+			)
+
+			if (permissions.all { ContextCompat.checkSelfPermission(this, it) == PackageManager.PERMISSION_GRANTED }) {
+				vaultListPresenter.getDeployment()
+			} else {
+				storagePermissionLauncher.launch(permissions)
+			}
+		}
+	}
+
+	private fun showManageStoragePermissionDialog() {
+		val intent = Intent(Settings.ACTION_MANAGE_APP_ALL_FILES_ACCESS_PERMISSION).apply {
+			data = Uri.parse("package:$packageName")
+		}
+		try {
+			startActivity(intent)
+		} catch (e: Exception) {
+			val intent = Intent(Settings.ACTION_MANAGE_ALL_FILES_ACCESS_PERMISSION)
+			startActivity(intent)
+		}
+	}
+
+	private fun showStoragePermissionExplanation() {
+		Toast.makeText(
+			this,
+			"Storage permission is required to import deployment vaults",
+			Toast.LENGTH_LONG
+		).show()
+	}
+
+	private val storagePermissionLauncher = registerForActivityResult(
+		ActivityResultContracts.RequestMultiplePermissions()
+	) { permissions ->
+		if (permissions.all { it.value }) {
+			// All permissions granted
+			vaultListPresenter.getDeployment()
+		} else {
+			// Show explanation and request again
+			showStoragePermissionExplanation()
+		}
 	}
 
 }

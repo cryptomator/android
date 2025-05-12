@@ -3,12 +3,14 @@ package org.cryptomator.presentation.di.component;
 import android.content.Context;
 
 import org.cryptomator.data.cloud.crypto.CryptorsModule;
+import org.cryptomator.data.di.MapperModule;
 import org.cryptomator.data.repository.RepositoryModule;
 import org.cryptomator.data.util.NetworkConnectionCheck;
 import org.cryptomator.domain.executor.PostExecutionThread;
 import org.cryptomator.domain.executor.ThreadExecutor;
 import org.cryptomator.domain.repository.CloudContentRepository;
 import org.cryptomator.domain.repository.CloudRepository;
+import org.cryptomator.domain.repository.DeploymentRepository;
 import org.cryptomator.domain.repository.HubRepository;
 import org.cryptomator.domain.repository.UpdateCheckRepository;
 import org.cryptomator.domain.repository.VaultRepository;
@@ -22,7 +24,7 @@ import javax.inject.Singleton;
 import dagger.Component;
 
 @Singleton
-@Component(modules = {ApplicationModule.class, ThreadModule.class, RepositoryModule.class, CryptorsModule.class})
+@Component(modules = {ApplicationModule.class, ThreadModule.class, RepositoryModule.class, CryptorsModule.class, MapperModule.class})
 public interface ApplicationComponent {
 
 	Context context();
@@ -40,6 +42,9 @@ public interface ApplicationComponent {
 	HubRepository hubRepository();
 
 	UpdateCheckRepository updateCheckRepository();
+
+	DeploymentRepository deploymentRepository();
+
 
 	FileUtil fileUtil();
 

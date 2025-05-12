@@ -14,7 +14,9 @@ import org.cryptomator.domain.usecases.GetDecryptedCloudForVaultUseCase;
 import org.cryptomator.domain.usecases.ResultHandler;
 import org.cryptomator.domain.usecases.cloud.GetRootFolderUseCase;
 import org.cryptomator.domain.usecases.vault.DeleteVaultUseCase;
+import org.cryptomator.domain.usecases.vault.GetDeploymentInfoUseCase;
 import org.cryptomator.domain.usecases.vault.GetVaultListUseCase;
+import org.cryptomator.domain.usecases.vault.ImportDeploymentVaultUseCase;
 import org.cryptomator.domain.usecases.vault.ListCBCEncryptedPasswordVaultsUseCase;
 import org.cryptomator.domain.usecases.vault.LockVaultUseCase;
 import org.cryptomator.domain.usecases.vault.MoveVaultPositionUseCase;
@@ -91,6 +93,9 @@ public class VaultListPresenterTest {
 	public Activity activity = Mockito.mock(Activity.class);
 	private VaultListView vaultListView = Mockito.mock(VaultListView.class);
 	private GetVaultListUseCase getVaultListUseCase = Mockito.mock(GetVaultListUseCase.class);
+	private ImportDeploymentVaultUseCase importDeploymentVaultUseCase = Mockito.mock(ImportDeploymentVaultUseCase.class);
+	private GetDeploymentInfoUseCase getDeploymentInfo = Mockito.mock(GetDeploymentInfoUseCase.class);
+
 	private DeleteVaultUseCase deleteVaultUseCase = Mockito.mock(DeleteVaultUseCase.class);
 	private DeleteVaultUseCase.Launcher deleteVaultUseCaseLauncher = Mockito.mock(DeleteVaultUseCase.Launcher.class);
 	private RenameVaultUseCase renameVaultUseCase = Mockito.mock(RenameVaultUseCase.class);
@@ -120,7 +125,9 @@ public class VaultListPresenterTest {
 
 	@BeforeEach
 	public void setup() {
-		inTest = new VaultListPresenter(getVaultListUseCase, //
+		inTest = new VaultListPresenter(getDeploymentInfo,//
+				importDeploymentVaultUseCase,//
+				getVaultListUseCase, //
 				deleteVaultUseCase, //
 				renameVaultUseCase, //
 				lockVaultUseCase, //

@@ -2,6 +2,13 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
 	xmlns:app="http://schemas.android.com/apk/res-auto">
 	<item
+		android:id="@+id/action_get_deployment"
+		android:orderInCategory="100"
+		android:title="Get deployment"
+		android:icon="@drawable/ic_open_with"
+		android:visible="true"
+		app:showAsAction="always" />
+	<item
 		android:id="@+id/action_settings"
 		android:orderInCategory="100"
 		android:title="@string/screen_settings_title"
