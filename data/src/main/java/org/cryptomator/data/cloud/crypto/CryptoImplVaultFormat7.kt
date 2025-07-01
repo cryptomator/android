@@ -87,7 +87,6 @@ open class CryptoImplVaultFormat7 : CryptoImplDecorator {
 		val shortFileName = BaseEncoding.base64Url().encode(hash) + LONG_NODE_FILE_EXT
 		var dirFolder = cloudContentRepository.folder(getOrCreateCachingAwareDirIdInfo(cryptoParent).cloudFolder, shortFileName)
 
-		// if folder already exists in case of renaming
 		if (!cloudContentRepository.exists(dirFolder)) {
 			dirFolder = cloudContentRepository.create(dirFolder)
 		}
@@ -166,6 +165,18 @@ open class CryptoImplVaultFormat7 : CryptoImplDecorator {
 			}
 		}.map { node ->
 			ciphertextToCleartextNode(cryptoFolder, dirId, node)
+		}.onEach { cryptoNode ->
+			if (cryptoNode is CryptoFile && isImageMediaType(cryptoNode.name)) {
+				val cacheKey = generateCacheKey(cryptoNode.cloudFile)
+				cryptoNode.cloudFile.cloud?.type()?.let { cloudType ->
+					getLruCacheFor(cloudType)?.let { diskCache ->
+						val cacheFile = diskCache[cacheKey]
+						if (cacheFile != null) {
+							cryptoNode.thumbnail = cacheFile
+						}
+					}
+				}
+			}
 		}.toList().filterNotNull()
 	}
 
@@ -449,6 +460,15 @@ open class CryptoImplVaultFormat7 : CryptoImplDecorator {
 			} else {
 				cloudContentRepository.delete(node.cloudFile)
 			}
+
+			val cacheKey = generateCacheKey(node.cloudFile)
+			node.cloudFile.cloud?.type()?.let { cloudType ->
+				getLruCacheFor(cloudType)?.let { diskCache ->
+					if (diskCache[cacheKey] != null) {
+						diskCache.delete(cacheKey)
+					}
+				}
+			}
 		}
 	}
 
@@ -493,7 +513,7 @@ open class CryptoImplVaultFormat7 : CryptoImplDecorator {
 									cryptoFile,  //
 									cloudContentRepository.write( //
 										targetFile,  //
-										data.decorate(from(encryptedTmpFile)),
+										data.decorate(from(encryptedTmpFile)), //
 										UploadFileReplacingProgressAware(cryptoFile, progressAware),  //
 										replace,  //
 										encryptedTmpFile.length()
