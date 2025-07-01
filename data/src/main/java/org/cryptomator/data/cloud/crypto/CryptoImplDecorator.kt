@@ -1,6 +1,11 @@
 package org.cryptomator.data.cloud.crypto
 
 import android.content.Context
+import android.graphics.Bitmap
+import android.graphics.BitmapFactory
+import android.media.ThumbnailUtils
+import com.google.common.util.concurrent.ThreadFactoryBuilder
+import com.tomclaw.cache.DiskLruCache
 import org.cryptomator.cryptolib.api.Cryptor
 import org.cryptomator.cryptolib.common.DecryptingReadableByteChannel
 import org.cryptomator.cryptolib.common.EncryptingWritableByteChannel
@@ -9,6 +14,7 @@ import org.cryptomator.domain.Cloud
 import org.cryptomator.domain.CloudFile
 import org.cryptomator.domain.CloudFolder
 import org.cryptomator.domain.CloudNode
+import org.cryptomator.domain.CloudType
 import org.cryptomator.domain.exception.BackendException
 import org.cryptomator.domain.exception.CloudNodeAlreadyExistsException
 import org.cryptomator.domain.exception.EmptyDirFileException
@@ -22,20 +28,36 @@ import org.cryptomator.domain.usecases.UploadFileReplacingProgressAware
 import org.cryptomator.domain.usecases.cloud.DataSource
 import org.cryptomator.domain.usecases.cloud.DownloadState
 import org.cryptomator.domain.usecases.cloud.FileBasedDataSource.Companion.from
+import org.cryptomator.domain.usecases.cloud.FileTransferState
 import org.cryptomator.domain.usecases.cloud.Progress
 import org.cryptomator.domain.usecases.cloud.UploadState
+import org.cryptomator.util.SharedPreferencesHandler
+import org.cryptomator.util.ThumbnailsOption
+import org.cryptomator.util.file.LruFileCacheUtil
+import org.cryptomator.util.file.MimeType
+import org.cryptomator.util.file.MimeTypeMap
+import org.cryptomator.util.file.MimeTypes
 import java.io.ByteArrayOutputStream
+import java.io.Closeable
 import java.io.File
 import java.io.FileInputStream
 import java.io.FileOutputStream
 import java.io.IOException
 import java.io.OutputStream
+import java.io.PipedInputStream
+import java.io.PipedOutputStream
 import java.nio.ByteBuffer
 import java.nio.channels.Channels
 import java.util.LinkedList
 import java.util.Queue
 import java.util.UUID
+import java.util.concurrent.CompletableFuture
+import java.util.concurrent.ExecutorService
+import java.util.concurrent.Executors
+import java.util.concurrent.Future
 import java.util.function.Supplier
+import kotlin.system.measureTimeMillis
+import timber.log.Timber
 
 
 abstract class CryptoImplDecorator(
@@ -49,6 +71,59 @@ abstract class CryptoImplDecorator(
 
 	@Volatile
 	private var root: RootCryptoFolder? = null
+
+	private val sharedPreferencesHandler = SharedPreferencesHandler(context)
+
+	private var diskLruCache: MutableMap<LruFileCacheUtil.Cache, DiskLruCache?> = mutableMapOf()
+
+	private val mimeTypes = MimeTypes(MimeTypeMap())
+
+	private val thumbnailExecutorService: ExecutorService by lazy {
+		val threadFactory = ThreadFactoryBuilder().setNameFormat("thumbnail-generation-thread-%d").build()
+		Executors.newCachedThreadPool(threadFactory)
+	}
+
+	protected fun getLruCacheFor(type: CloudType): DiskLruCache? {
+		return getOrCreateLruCache(getCacheTypeFromCloudType(type), sharedPreferencesHandler.lruCacheSize())
+	}
+
+	private fun getOrCreateLruCache(cache: LruFileCacheUtil.Cache, cacheSize: Int): DiskLruCache? {
+		return diskLruCache.computeIfAbsent(cache) {
+			val cacheFile = LruFileCacheUtil(context).resolve(it)
+			try {
+				DiskLruCache.create(cacheFile, cacheSize.toLong())
+			} catch (e: IOException) {
+				Timber.tag("CryptoImplDecorator").e(e, "Failed to setup LRU cache for $cacheFile.name")
+				null
+			}
+		}
+	}
+
+	protected fun renameFileInCache(source: CryptoFile, target: CryptoFile) {
+		val oldCacheKey = generateCacheKey(source)
+		val newCacheKey = generateCacheKey(target)
+		source.cloudFile.cloud?.type()?.let { cloudType ->
+			getLruCacheFor(cloudType)?.let { diskCache ->
+				if (diskCache[oldCacheKey] != null) {
+					target.thumbnail = diskCache.put(newCacheKey, diskCache[oldCacheKey])
+					diskCache.delete(oldCacheKey)
+				}
+			}
+		}
+	}
+
+	private fun getCacheTypeFromCloudType(type: CloudType): LruFileCacheUtil.Cache {
+		return when (type) {
+			CloudType.DROPBOX -> LruFileCacheUtil.Cache.DROPBOX
+			CloudType.GOOGLE_DRIVE -> LruFileCacheUtil.Cache.GOOGLE_DRIVE
+			CloudType.ONEDRIVE -> LruFileCacheUtil.Cache.ONEDRIVE
+			CloudType.PCLOUD -> LruFileCacheUtil.Cache.PCLOUD
+			CloudType.WEBDAV -> LruFileCacheUtil.Cache.WEBDAV
+			CloudType.S3 -> LruFileCacheUtil.Cache.S3
+			CloudType.LOCAL -> LruFileCacheUtil.Cache.LOCAL
+			else -> throw IllegalStateException("Unexpected CloudType: $type")
+		}
+	}
 
 	@Throws(BackendException::class)
 	abstract fun folder(cryptoParent: CryptoFolder, cleartextName: String): CryptoFolder
@@ -309,8 +384,22 @@ abstract class CryptoImplDecorator(
 	@Throws(BackendException::class)
 	fun read(cryptoFile: CryptoFile, data: OutputStream, progressAware: ProgressAware<DownloadState>) {
 		val ciphertextFile = cryptoFile.cloudFile
+
+		val diskCache = cryptoFile.cloudFile.cloud?.type()?.let { getLruCacheFor(it) }
+		val cacheKey = generateCacheKey(cryptoFile)
+		val genThumbnail = isThumbnailGenerationAvailable(diskCache, cryptoFile.name)
+		var futureThumbnail: Future<*> = CompletableFuture.completedFuture(null)
+
+		val thumbnailWriter = PipedOutputStream()
+		val thumbnailReader = PipedInputStream(thumbnailWriter)
+
 		try {
 			val encryptedTmpFile = readToTmpFile(cryptoFile, ciphertextFile, progressAware)
+
+			if (genThumbnail) {
+				futureThumbnail = startThumbnailGeneratorThread(cryptoFile, diskCache!!, cacheKey, thumbnailReader)
+			}
+
 			progressAware.onProgress(Progress.started(DownloadState.decryption(cryptoFile)))
 			try {
 				Channels.newChannel(FileInputStream(encryptedTmpFile)).use { readableByteChannel ->
@@ -322,7 +411,12 @@ abstract class CryptoImplDecorator(
 						while (decryptingReadableByteChannel.read(buff).also { read = it } > 0) {
 							buff.flip()
 							data.write(buff.array(), 0, buff.remaining())
+							if (genThumbnail) {
+								thumbnailWriter.write(buff.array(), 0, buff.remaining())
+							}
+
 							decrypted += read.toLong()
+
 							progressAware
 								.onProgress(
 									Progress.progress(DownloadState.decryption(cryptoFile)) //
@@ -332,14 +426,118 @@ abstract class CryptoImplDecorator(
 								)
 						}
 					}
+					thumbnailWriter.flush()
+					closeQuietly(thumbnailWriter)
 				}
 			} finally {
 				encryptedTmpFile.delete()
+				if (genThumbnail) {
+					futureThumbnail.get()
+				}
 				progressAware.onProgress(Progress.completed(DownloadState.decryption(cryptoFile)))
 			}
+
+			closeQuietly(thumbnailReader)
 		} catch (e: IOException) {
 			throw FatalBackendException(e)
 		}
+	}
+
+	private fun closeQuietly(closeable: Closeable) {
+		try {
+			closeable.close();
+		} catch (e: IOException) {
+			// ignore
+		}
+	}
+
+	private fun startThumbnailGeneratorThread(cryptoFile: CryptoFile, diskCache: DiskLruCache, cacheKey: String, thumbnailReader: PipedInputStream): Future<*> {
+		return thumbnailExecutorService.submit {
+			try {
+				val options = BitmapFactory.Options()
+				val thumbnailBitmap: Bitmap?
+				options.inSampleSize = 4 // pixel number reduced by a factor of 1/16
+				val bitmap = BitmapFactory.decodeStream(thumbnailReader, null, options)
+				if (bitmap == null) {
+					closeQuietly(thumbnailReader)
+					return@submit
+				}
+
+				val thumbnailWidth = 100
+				val thumbnailHeight = 100
+				thumbnailBitmap = ThumbnailUtils.extractThumbnail(bitmap, thumbnailWidth, thumbnailHeight)
+				if (thumbnailBitmap != null) {
+					storeThumbnail(diskCache, cacheKey, thumbnailBitmap)
+				}
+				closeQuietly(thumbnailReader)
+
+				cryptoFile.thumbnail = diskCache[cacheKey]
+			} catch (e: Exception) {
+				Timber.e(e, "Bitmap generation crashed")
+			}
+		}
+	}
+
+	protected fun generateCacheKey(cryptoFile: CryptoFile): String {
+		return String.format("%s-%d", cryptoFile.cloudFile.cloud?.id() ?: "common", cryptoFile.path.hashCode())
+	}
+
+	private fun isThumbnailGenerationAvailable(cache: DiskLruCache?, fileName: String): Boolean {
+		return isGenerateThumbnailsEnabled() && sharedPreferencesHandler.generateThumbnails() != ThumbnailsOption.READONLY && cache != null && isImageMediaType(fileName)
+	}
+
+	fun associateThumbnails(list: List<CryptoNode>, progressAware: ProgressAware<FileTransferState>) {
+		if (!isGenerateThumbnailsEnabled()) {
+			return
+		}
+		val cryptoFileList = list.filterIsInstance<CryptoFile>()
+		if (cryptoFileList.isEmpty()) {
+			return
+		}
+		val firstCryptoFile = cryptoFileList[0]
+		val cloudType = (firstCryptoFile).cloudFile.cloud?.type() ?: return
+		val diskCache = getLruCacheFor(cloudType) ?: return
+		val toProcess = cryptoFileList.filter { cryptoFile ->
+			(isImageMediaType(cryptoFile.name) && cryptoFile.thumbnail == null)
+		}
+		var associated = 0
+		val elapsed = measureTimeMillis {
+			toProcess.forEach { cryptoFile ->
+				val cacheKey = generateCacheKey(cryptoFile)
+				val cacheFile = diskCache[cacheKey]
+				if (cacheFile != null && cryptoFile.thumbnail == null) {
+					cryptoFile.thumbnail = cacheFile
+					associated++
+					val state = FileTransferState { cryptoFile }
+					val progress = Progress.progress(state).thatIsCompleted()
+					progressAware.onProgress(progress)
+				}
+			}
+		}
+		Timber.tag("THUMBNAIL").i("[AssociateThumbnails] associated:${associated} files, elapsed:${elapsed}ms")
+	}
+
+	private fun isGenerateThumbnailsEnabled(): Boolean {
+		return sharedPreferencesHandler.useLruCache() && sharedPreferencesHandler.generateThumbnails() != ThumbnailsOption.NEVER
+	}
+
+	private fun storeThumbnail(cache: DiskLruCache?, cacheKey: String, thumbnailBitmap: Bitmap) {
+		val thumbnailFile: File = File.createTempFile(UUID.randomUUID().toString(), ".thumbnail", internalCache)
+		thumbnailBitmap.compress(Bitmap.CompressFormat.JPEG, 100, thumbnailFile.outputStream())
+
+		try {
+			cache?.let {
+				LruFileCacheUtil.storeToLruCache(it, cacheKey, thumbnailFile)
+			} ?: Timber.tag("CryptoImplDecorator").e("Failed to store item in LRU cache")
+		} catch (e: IOException) {
+			Timber.tag("CryptoImplDecorator").e(e, "Failed to write the thumbnail in DiskLruCache")
+		}
+
+		thumbnailFile.delete()
+	}
+
+	private fun isImageMediaType(filename: String): Boolean {
+		return (mimeTypes.fromFilename(filename) ?: MimeType.WILDCARD_MIME_TYPE).mediatype == "image"
 	}
 
 	@Throws(BackendException::class, IOException::class)
