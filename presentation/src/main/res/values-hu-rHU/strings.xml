@@ -40,6 +40,7 @@
 	<string name="error_hub_device_already_register_for_other_user">Ez az eszköz már egy másik felhasználóhoz van regisztrálva. Próbáljon meg felhasználói fiókot váltani, vagy használjon egy másik eszközt.</string>
 	<string name="error_hub_invalid_setup_code">Az Account Key érvénytelen.</string>
 	<string name="error_hub_invalid_version">Nem támogatott Hub verzió.</string>
+	<string name="error_hub_unlock_pre_31">A Hub csak az Android 12 és afölötti verziókat támogatja.</string>
 	<!-- # clouds -->
 	<!-- ## cloud names -->
 	<string name="cloud_names_local_storage">Helyi tároló</string>
@@ -190,6 +191,7 @@
 	<string name="screen_settings_section_auto_photo_upload_including_videos">Videó feltöltése</string>
 	<string name="screen_settings_auto_photo_upload_title">Automatikus feltöltések helye: &#8230;</string>
 	<string name="screen_settings_website_label">Cryptomator weboldala</string>
+	<string name="screen_settings_mastodon_label">Kövess minket a Mastodonon</string>
 	<string name="screen_settings_facebook_label">Lájkolj minket a Facebookon</string>
 	<string name="screen_settings_section_legal">Jogi nyilatkozat</string>
 	<string name="screen_settings_licenses_label">Licenszek</string>
@@ -361,7 +363,18 @@
 	<string name="dialog_create_hub_device_name_hint">Úgy tűnik, ez az első Hub-hozzáférés erről az eszközről. A hozzáférési jogosultság azonosításához el kell neveznie ezt az eszközt.</string>
 	<string name="dialog_create_hub_device_name_empty">A név nem lehet üres.</string>
 	<string name="dialog_create_hub_device_setup_code_label">Account Key</string>
+	<string name="dialog_create_hub_device_setup_code_hint">Az Account Key szükséges hogy bejelentkezz új appokból vagy böngészőkből. A profilodon található.</string>
+	<string name="dialog_create_hub_device_setup_code_empty">Account Key nem lehet üres.</string>
+	<string name="dialog_progress_creating_hub_device_setup">Eszköz létrehozása&#8230;</string>
 	<string name="dialog_hub_vault_access_forbidden_title">Hozzáférés megtagadva</string>
+	<string name="dialog_hub_vault_access_forbidden_hint">A felhasználód még nem kapott hozzáférést ehhez a széfhez. Kérd meg a széf tulajdonosát, hogy adjon hozzáférést.</string>
+	<string name="dialog_hub_license_upgrade_required_title">Hub licenc ellenőrzése</string>
+	<string name="dialog_hub_license_upgrade_required_hint">A Cryptomator Hub példány érvénytelen licenccel rendelkezik. Kérlek, értesíts egy Hub rendszergazdát, hogy frissítse vagy újsítsa meg a licencet.</string>
+	<string name="dialog_hub_vault_archived_title">Széf archiválva</string>
+	<string name="dialog_hub_vault_archived_hint">Ez a széf archiválva lett és nem lehet feloldani. A feloldáshoz a széf tulajdonosának először meg kell szüntetnie az archiválást.</string>
+	<string name="dialog_hub_user_setup_required_title">Felhasználói profil beállítása szükséges</string>
+	<string name="dialog_hub_user_setup_required_hint">A folytatáshoz kérlek teljesítsd a szükséges lépéseket a Hub profilodban.</string>
+	<string name="dialog_hub_user_setup_required_neutral_button">Ugrás a Profilhoz</string>
 	<string name="permission_snackbar_auth_local_vault">A Cryptomatornak tárhely-hozzáférésre van szüksége a trezorok használatához</string>
 	<string name="permission_snackbar_auth_auto_upload">A Cryptomatornak tárhely-hozzáférésre van szüksége az automatikus fotófeltöltés használatához</string>
 	<string name="permission_snackbar_notifications">A Cryptomatornak értesítési engedélyekre van szüksége például a széf állapotának megjelenítéséhez</string>

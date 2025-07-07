@@ -35,7 +35,12 @@
 	<string name="error_no_such_bucket">Bucket existiert nicht</string>
 	<string name="error_masterkey_location_not_supported">Benutzerdefinierter Ort der Masterkey-Datei wird noch nicht unterstützt</string>
 	<string name="error_interact_with_fdroid_but_fdroid_missing">Fehler bei der Kommunikation mit der F-Droid-App. Nicht installiert?</string>
+	<string name="error_hub_vault_operation_not_supported">Tresor-Funktion wird im Hub nicht unterstützt</string>
+	<string name="error_hub_authentication_failed">Die Authentifizierung im Hub ist fehlgeschlagen.</string>
 	<string name="error_hub_device_already_register_for_other_user">Dieses Gerät ist bereits für einen anderen Benutzer registriert. Ändere das Benutzerkonto oder verwende ein anderes Gerät.</string>
+	<string name="error_hub_invalid_setup_code">Der Kontoschlüssel ist ungültig.</string>
+	<string name="error_hub_invalid_version">Nicht unterstützte Hubversion</string>
+	<string name="error_hub_unlock_pre_31">Hub wird erst ab Android Version 12 und höher unterstützt.</string>
 	<!-- # clouds -->
 	<!-- ## cloud names -->
 	<string name="cloud_names_local_storage">Lokaler Speicher</string>
@@ -68,6 +73,7 @@
 	<string name="screen_vault_list_change_password_successful">Passwort wurde erfolgreich geändert</string>
 	<!-- # screen: file browser -->
 	<string name="screen_file_browser_default_title">Tresor</string>
+	<string name="screen_file_browser_add_existing_vault_extra_text">Wähle die Masterkey- oder Tresor-Datei aus.</string>
 	<string name="screen_file_browser_create_new_vault_button_text">Hier ablegen</string>
 	<string name="screen_file_browser_create_new_vault_extra_text">Tresorname: %1$s</string>
 	<plurals name="screen_file_browser_subtitle_move">
@@ -80,7 +86,7 @@
 	<string name="screen_file_browser_share_intent_chooser_title">Teilen mit</string>
 	<string name="screen_file_browser_share_destination_title">Wähle einen Speicherort</string>
 	<string name="screen_file_browser_share_button_text">Auswählen</string>
-	<string name="screen_file_browser_nothing_to_share">Nichts zum teilen</string>
+	<string name="screen_file_browser_nothing_to_share">Nichts zum Teilen</string>
 	<string name="screen_file_browser_actions_title">Zu %1$s hinzufügen</string>
 	<string name="screen_file_browser_action_create_folder">Ordner erstellen</string>
 	<string name="screen_file_browser_action_create_new_text_file">Text-Datei erstellen</string>
@@ -161,8 +167,8 @@
 	<string name="screen_settings_section_general">Allgemein</string>
 	<string name="screen_settings_cloud_settings_label">Cloud-Dienste</string>
 	<string name="screen_settings_biometric_auth">Biometrischer Login</string>
-	<string name="screen_settings_activate_biometric_auth">Biometrischer Login aktivieren</string>
-	<string name="screen_settings_confirm_face_unlock">Nach Entsperrung mittels dem Gesichts, bestätigen (falls verfügbar)</string>
+	<string name="screen_settings_activate_biometric_auth">Biometrischen Login aktivieren</string>
+	<string name="screen_settings_confirm_face_unlock">Entsperren per Gesichtserkennung bestätigen (falls verfügbar)</string>
 	<string name="screen_settings_block_app_when_obscured">App blockieren, wenn verdeckt</string>
 	<string name="screen_settings_block_app_when_obscured_summary">Blockiere das Abfangen der Eingabe und das Anzeigen einer falschen Benutzeroberfläche</string>
 	<string name="screen_settings_secure_screen">Blockiere Screenshots</string>
@@ -185,6 +191,7 @@
 	<string name="screen_settings_section_auto_photo_upload_including_videos">Videos hochladen</string>
 	<string name="screen_settings_auto_photo_upload_title">Bilder abspeichern in&#8230;</string>
 	<string name="screen_settings_website_label">Cryptomator-Website</string>
+	<string name="screen_settings_mastodon_label">Folge uns auf Mastodon</string>
 	<string name="screen_settings_facebook_label">Gib uns auf Facebook ein Like</string>
 	<string name="screen_settings_section_legal">Rechtliches</string>
 	<string name="screen_settings_licenses_label">Lizenzen</string>
@@ -200,9 +207,9 @@
 	<string name="screen_settings_microsoft_apps_workaround_label">Workaround zum Öffnen von Microsoft-Dateien</string>
 	<string name="screen_settings_microsoft_apps_workaround_summary">In Microsoft-Apps Dateien mit Schreibberechtigung öffnen</string>
 	<string name="screen_settings_background_unlock_preparation_label">Entsperren beschleunigen</string>
-	<string name="screen_settings_background_unlock_preparation_label_summary">Während der Passwort-Eingabe oder biometrische Authentifizierung, Tresor-Konfiguration im Hintergrund herunterladen</string>
+	<string name="screen_settings_background_unlock_preparation_label_summary">Während der Passworteingabe oder biometrischer Authentifizierung, Tresor-Konfiguration im Hintergrund herunterladen</string>
 	<string name="screen_settings_keep_unlocked_while_editing_files">Entsperrt bleiben</string>
-	<string name="screen_settings_keep_unlocked_while_editing_files_summary">Halte Tresore geöffnet während dem Editieren einer Datei</string>
+	<string name="screen_settings_keep_unlocked_while_editing_files_summary">Halte Tresore geöffnet während Dateien editiert werden</string>
 	<!-- ## screen: cloud settings -->
 	<string name="screen_cloud_settings_onedrive_connections">OneDrive-Verbindungen</string>
 	<string name="screen_cloud_settings_webdav_connections">WebDAV-Verbindungen</string>
@@ -224,7 +231,7 @@
 	<string name="screen_cryptomator_variants_fdroid_description">Ausgeschlossen, weil es proprietäre Abhängigkeiten enthält.</string>
 	<string name="screen_cryptomator_variants_fdroid_add_repo_hint">Füge das Cryptomator-Repository zur F-Droid App hinzu.</string>
 	<string name="screen_cryptomator_variants_fdroid_add_repo">Hinzufügen</string>
-	<string name="screen_cryptomator_variants_fdroid_install_hint">Installiere Cryptomator über F-Droid.\nWenn ein Fehler \"nicht gefunden\" angezeigt wird, warte, bis die F-Droid-Synchronisation abgeschlossen ist.</string>
+	<string name="screen_cryptomator_variants_fdroid_install_hint">Installiere Cryptomator über F-Droid.\nWenn der Fehler \"nicht gefunden\" angezeigt wird, warte bis die F-Droid-Synchronisation abgeschlossen ist.</string>
 	<string name="screen_cryptomator_variants_website_title">Website</string>
 	<string name="screen_cryptomator_variants_website_description">Enthält proprietäre Abhängigkeiten.</string>
 	<string name="screen_cryptomator_variants_installation_hint">Ein Wechsel von oder zu der Hauptvariante des F-Droid-Repository erfordert eine neue Einrichtung der App.</string>
@@ -324,7 +331,7 @@
 	<string name="dialog_confirm_delete_file_message">Möchtest du dieses Element wirklich löschen?</string>
 	<string name="dialog_confirm_delete_folder_message">Dieser Vorgang wird den gesamten Ordnerinhalt löschen. Bist du sicher, dass du diesen Ordner löschen möchtest?</string>
 	<string name="dialog_biometric_auth_key_invalidated_title">Biometrischer Login deaktiviert</string>
-	<string name="dialog_biometric_auth_key_invalidated_message">Da der Schlüssel nicht mehr zur Verfügung steht, wurde der Biometrischer Login deaktiviert. Zur Reaktivierung öffne die Cryptomator-Einstellungen.</string>
+	<string name="dialog_biometric_auth_key_invalidated_message">Da der Schlüssel nicht mehr zur Verfügung steht, wurde der biometrische Login deaktiviert. Zur Reaktivierung öffne die Cryptomator-Einstellungen.</string>
 	<string name="dialog_enter_license_title">APK-Store Lizenz</string>
 	<string name="dialog_enter_license_content">Cryptomator wurde nicht über den Google Play Store installiert; gib daher eine gültige Lizenz ein. Diese kann auf <a href="https://cryptomator.org/android/">https://cryptomator.org/android/</a> erworben werden.</string>
 	<string name="dialog_enter_license_not_valid_content">Die eingegebene Lizenz ist ungültig. Stelle sicher, dass sie korrekt eingegeben wurde.</string>
@@ -351,9 +358,21 @@
 	<string name="dialog_cbc_password_vaults_migration_title">Tresor Passwort-Migration erforderlich</string>
 	<string name="dialog_cbc_password_vaults_migration_hint">Aufgrund von Sicherheitsverbesserungen wirst du zweimal nach deiner biometrischen Authentifizierung für jeden Tresor gefragt, um deine Tresorpasswörter neu zu verschlüsseln. Dies ist notwendig, um deine Tresorpasswörter weiterhin mit der neuesten Technologie zu schützen. Wenn du dies nicht möchtest, werden die gespeicherten Passwörter entfernt.</string>
 	<string name="dialog_cbc_password_vaults_migration_action">Migrieren</string>
+	<string name="dialog_create_hub_device_title">Hubgerät auswählen</string>
+	<string name="dialog_create_hub_device_name_label">Name des Hubgerätes</string>
 	<string name="dialog_create_hub_device_name_hint">Dies scheint der erste Hub-Zugriff von diesem Gerät zu sein. Um es für die Zugriffsberechtigung zu identifizieren, musst du diesem Gerät einen Namen geben.</string>
+	<string name="dialog_create_hub_device_name_empty">Der Name des Hubgerätes darf nicht leer sein.</string>
+	<string name="dialog_create_hub_device_setup_code_label">Kontoschlüssel</string>
 	<string name="dialog_create_hub_device_setup_code_hint">Um sich von neuen Apps oder Browsern aus anzumelden, ist dein Account Key erforderlich. Er befindet sich in deinem Profil.</string>
+	<string name="dialog_create_hub_device_setup_code_empty">Der Kontoschlüssel darf nicht leer sein.</string>
+	<string name="dialog_progress_creating_hub_device_setup">Erstelle Hubgerät&#8230;</string>
 	<string name="dialog_hub_vault_access_forbidden_title">Zugriff verweigert</string>
+	<string name="dialog_hub_vault_access_forbidden_hint">Dein Benutzer ist noch nicht für den Zugriff auf diesen Tresor berechtigt. Bitte den Tresorbesitzer, dich zu berechtigen.</string>
+	<string name="dialog_hub_license_upgrade_required_title">Überprüfe die Hublizenz</string>
+	<string name="dialog_hub_license_upgrade_required_hint">Die Lizenz deines Cryptomator-Hubs ist ungültig. Bitte informiere den Hubadministrator, damit er die Lizenz erweitert oder erneuert.</string>
+	<string name="dialog_hub_vault_archived_title">Hubtresor archiviert</string>
+	<string name="dialog_hub_vault_archived_hint">Dieser Hubtresor wurde archiviert und kann daher nicht mehr entsperrt werden. Der Besitzer des Tresors muss ihn wieder aktivieren, damit der Tresor entsperrt werden kann.</string>
+	<string name="dialog_hub_user_setup_required_title">Benutzereinstellung erforderlich</string>
 	<string name="dialog_hub_user_setup_required_hint">Schließe bitte die erforderlichen Schritte in deinem Hub-Benutzerprofil ab, um fortzufahren.</string>
 	<string name="dialog_hub_user_setup_required_neutral_button">Zum Profil</string>
 	<string name="permission_snackbar_auth_local_vault">Cryptomator benötigt Speicherzugriff, um lokale Tresore nutzen zu können</string>
@@ -398,7 +417,7 @@
 	<string name="notification_auto_upload_finished_title">Automatisches Foto-Hochladen beendet</string>
 	<string name="notification_auto_upload_finished_message">%1$d Bilder wurden in den Tresor hochgeladen</string>
 	<string name="notification_auto_upload_failed_title">Fehler beim automatischen Photo-Hochladen</string>
-	<string name="notification_auto_upload_failed_general_error">Ein allgemeiner Fehler ist während dem Hochladen aufgetreten.</string>
+	<string name="notification_auto_upload_failed_general_error">Ein allgemeiner Fehler ist während des Hochladens aufgetreten.</string>
 	<string name="notification_auto_upload_failed_due_to_folder_not_exists">Der ausgewählte Ordner für den Upload ist nicht mehr verfügbar. Gehe zu den Einstellungen und wähle einen neuen Ordner aus</string>
 	<string name="notification_auto_upload_failed_due_to_vault_locked">Tresor wurde während dem Hochladen gesperrt, bitte Tresor erneut öffnen, um fortzufahren</string>
 	<string name="notification_auto_upload_failed_due_to_vault_not_found">Der Tresor für den automatischen Upload existiert nicht mehr.</string>
