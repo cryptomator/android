@@ -230,7 +230,7 @@
 	<string name="screen_cryptomator_variants_lite_description">Виключено, оскільки вони вимагають API-ключі.</string>
 	<string name="screen_cryptomator_variants_lite_install">Встановити</string>
 	<string name="screen_cryptomator_variants_fdroid_title">Репозиторій Cryptomator на F-Droid</string>
-	<string name="screen_cryptomator_variants_fdroid_description">Виключено, тому що він містить власні залежності.</string>
+	<string name="screen_cryptomator_variants_fdroid_description">Виключено, оскільки містить власницькі залежності.</string>
 	<string name="screen_cryptomator_variants_fdroid_add_repo_hint">Додати репозиторій Cryptomator у додаток F-Droid.</string>
 	<string name="screen_cryptomator_variants_fdroid_add_repo">Додати</string>
 	<string name="screen_cryptomator_variants_fdroid_install_hint">Встановити Cryptomator використовуючи F-Droid.\nЯкщо відображається помилка \"Не знайдено\", зачекайте поки синхронізацію F-Droid буде завершено.</string>
