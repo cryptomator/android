@@ -391,7 +391,7 @@
 	<string name="file_size_unit_tera_bytes">ТБ</string>
 	<!-- ## date helper -->
 	<string name="time_unit_seconds_sg">секунда</string>
-	<string name="time_unit_seconds_pl">секунд</string>
+	<string name="time_unit_seconds_pl">секунд(и)</string>
 	<string name="time_unit_minutes_sg">хвилина</string>
 	<string name="time_unit_minutes_pl">хвилин</string>
 	<string name="time_unit_hours_sg">година</string>
