@@ -318,32 +318,32 @@
 	<string name="dialog_disable_app_obscured_disclaimer_hint">Це налаштування є функцією безпеки, що запобігає спробам інших програм змусити користувачів робити те, чого вони не хочуть.\n\nВимкнувши це, ви підтверджуєте, що <a href="https://docs.cryptomator.org/en/latest/android/settings/#block-app-when-obscured">усвідомлюєте ризики</a>.</string>
 	<string name="dialog_disable_app_obscured_disclaimer_title">Увага</string>
 	<string name="dialog_disable_app_obscured_positive_button">Вимкнути</string>
-	<string name="dialog_app_is_obscured_info_title">Інтерфейс додатка перекрито</string>
-	<string name="dialog_app_is_obscured_info_hint">Інша програма відображає щось поверх Cryptomator (наприклад, фільтр синього світла або нічний режим). З міркувань безпеки Cryptomator вимкнено.\n\n<a href="https://docs.cryptomator.org/en/latest/android/settings/#block-app-when-obscured">Як увімкнути Cryptomator</a></string>
+	<string name="dialog_app_is_obscured_info_title">Програму перекрито іншими застосунками</string>
+	<string name="dialog_app_is_obscured_info_hint">Інша програма відображається поверх Cryptomator (наприклад, фільтр синього світла або нічний режим). З міркувань безпеки Cryptomator вимкнено.\n\n<a href="https://docs.cryptomator.org/en/latest/android/settings/#block-app-when-obscured">Як увімкнути Cryptomator</a></string>
 	<string name="dialog_app_is_obscured_info_neutral_button">Закрити</string>
-	<string name="dialog_vaults_removed_during_migration_title">Будь ласка, знову додайте сховища з хмари для %1s</string>
-	<string name="dialog_vaults_removed_during_migration_hint">Переходячи на цю версію додатка ми були змушені прибрати такі сховища з додатка:\n%2s\n\nЦі сховища не видаляються з хмари, а лише прибрано з цього додатка. Перепрошуємо за незручності. Будь ласка, додайте ці сховища повторно, щоб продовжити роботу з ними.</string>
+	<string name="dialog_vaults_removed_during_migration_title">Будь ласка, додайте сховища для хмарного сховища %1s знову</string>
+	<string name="dialog_vaults_removed_during_migration_hint">Під час переходу на цю версію програми нам потрібно видалити з програми такі сховища:\n%2s \n\nЦі сховища не було видалено з хмари, а лише з програми. Просимо вибачення за незручності. Будь ласка, додайте їх знову, щоб продовжити роботу.</string>
 	<string name="dialog_vault_is_root_folder_of_cloud_title">Сховище є кореневим каталогом хмарного підключення</string>
-	<string name="dialog_vault_is_root_folder_of_cloud_hint">Для додавання цього сховища - створіть нове хмарне підключення, в якому оберіть в якості батьківського каталога цього сховища кореневий каталог або будь-яку іншу папку у хмарі.</string>
-	<string name="dialog_disable_secure_screen_disclaimer_hint">Цей параметр є функцією безпеки та не дозволяє іншим програмам обманом змусити користувачів робити те, чого вони не хочуть робити.\n\nВимикаючи його ви підтверджуєте, що <a href="https://docs.cryptomator.org/en/latest/android/settings/#screen-security">усвідомлюєте та приймаєте ризики</a>.</string>
-	<string name="dialog_delete_cloud_connection_with_vaults_message">Ви дійсно хочете видалити це хмарне підключення?</string>
-	<string name="dialog_delete_cloud_connection_with_vaults_hint">Ця дія видалить підключення до хмари та всі сховища з цієї хмари.</string>
+	<string name="dialog_vault_is_root_folder_of_cloud_hint">Створіть нове хмарне підключення, де ви оберете принаймні батьківський каталог цього сховища як кореневий каталог, щоб додати це сховище.</string>
+	<string name="dialog_disable_secure_screen_disclaimer_hint">Це налаштування є функцією безпеки, що запобігає спробам інших програм змусити користувачів робити те, чого вони не хочуть.\n\nВимкнувши це, ви підтверджуєте, що <a href="https://docs.cryptomator.org/en/latest/android/settings/#screen-security">усвідомлюєте ризики</a>.</string>
+	<string name="dialog_delete_cloud_connection_with_vaults_message">Ви впевнені, що хочете вилучити це хмарне підключення?</string>
+	<string name="dialog_delete_cloud_connection_with_vaults_hint">Ця дія вилучить підключення до хмари та всі сховища з цієї хмари.</string>
 	<string name="dialog_confirm_delete_multiple_title">Видалити %1$d об\'єкт(-и, -ів)?</string>
-	<string name="dialog_confirm_delete_multiple_message">Ви впевнені, що бажаєте видалити ці об\'єкти?</string>
-	<string name="dialog_confirm_delete_file_message">Ви впевнені, що бажаєте видалити цей файл?</string>
-	<string name="dialog_confirm_delete_folder_message">Це призведе до видалення усього вмісту директорії. Ви дійсно хочете видалити цю директорію?</string>
-	<string name="dialog_biometric_auth_key_invalidated_title">Функція біометричної автентифікації деактивована</string>
-	<string name="dialog_biometric_auth_key_invalidated_message">Оскільки ключ було анульовано, біометрична аутентифікація була деактивована. Для повторного увімкнення відкрийте налаштування Cryptomator.</string>
-	<string name="dialog_enter_license_title">Вкажіть дійсну ліцензію</string>
-	<string name="dialog_enter_license_content">Ми виявили, що ви встановили Cryptomator без використання Google Play Store. Надайте дійсну ліцензію, яку можна придбати на <a href="https://cryptomator.org/android/">https://cryptomator.org/android/</a></string>
-	<string name="dialog_enter_license_not_valid_content">Вказана ліцензія недійсна. Переконайтеся, що введено правильні дані.</string>
-	<string name="dialog_enter_license_not_valid_content_desktop_supporter_certificate">Вказаний ключ призначений лише для комп\'ютерної версії (сертифікат спонсора). Будь ласка, вкажіть правильний ключ.</string>
-	<string name="dialog_enter_license_no_content">Відсутня ліцензія. Будь ласка, вкажіть ключ чинної ліцензії.</string>
+	<string name="dialog_confirm_delete_multiple_message">Ви впевнені, що хочете видалити ці об\'єкти?</string>
+	<string name="dialog_confirm_delete_file_message">Ви впевнені, що хочете видалити цей файл?</string>
+	<string name="dialog_confirm_delete_folder_message">Це призведе до видалення всього вмісту папки. Ви впевнені, що хочете видалити цю папку?</string>
+	<string name="dialog_biometric_auth_key_invalidated_title">Функцію біометричної автентифікації вимкнено</string>
+	<string name="dialog_biometric_auth_key_invalidated_message">Через анулювання ключа функцію біометричної автентифікації було вимкнено. Щоб увімкнути її знову, відкрийте налаштування Cryptomator.</string>
+	<string name="dialog_enter_license_title">Надайте дійсну ліцензію</string>
+	<string name="dialog_enter_license_content">Ми виявили, що ви встановили Cryptomator не з Google Play Store. Надайте дійсну ліцензію, яку можна придбати на <a href="https://cryptomator.org/android/">https://cryptomator.org/android/</a></string>
+	<string name="dialog_enter_license_not_valid_content">Надана ліцензія недійсна. Переконайтеся, що ви ввели її правильно.</string>
+	<string name="dialog_enter_license_not_valid_content_desktop_supporter_certificate">Наданий ключ є сертифікатом помічника для настільної версії. Будь ласка, введіть дійсну ліцензію.</string>
+	<string name="dialog_enter_license_no_content">Ліцензію не надано. Будь ласка, введіть дійсну ліцензію.</string>
 	<string name="dialog_enter_license_decline_button">Вийти</string>
 	<string name="dialog_license_confirmation_title">Ліцензію підтверджено</string>
-	<string name="dialog_license_confirmation_message">Дякуємо %1$s за надання Вашої чинної ліцензії.</string>
+	<string name="dialog_license_confirmation_message">Дякуємо, %1$s, за надану дійсну ліцензію.</string>
 	<string name="dialog_update_available_title">Доступне оновлення</string>
-	<string name="dialog_update_available_message">Оновіть Cryptomator до останньої версії. Натисніть ОК, щоб завантажити додаток у фоновому режимі, після чого з\'явиться запит на встановлення.</string>
+	<string name="dialog_update_available_message">Оновіть Cryptomator до останньої версії. Після натискання «Гаразд» ми завантажимо програму у фоновому режимі та попросимо вас її встановити.</string>
 	<string name="dialog_update_available_update">Оновити зараз</string>
 	<string name="dialog_update_available_download_site">Перейти на сторінку завантаження</string>
 	<string name="dialog_update_available_cancel">Пізніше</string>
