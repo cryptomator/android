@@ -347,39 +347,39 @@
 	<string name="dialog_update_available_update">Оновити зараз</string>
 	<string name="dialog_update_available_download_site">Перейти на сторінку завантаження</string>
 	<string name="dialog_update_available_cancel">Пізніше</string>
-	<string name="dialog_download_update_title">Завантаження в процесі</string>
+	<string name="dialog_download_update_title">Виконується завантаження</string>
 	<string name="dialog_download_update_message">Завантаження останньої версії Cryptomator</string>
 	<string name="dialog_sym_link_title">Папка є символічним посиланням</string>
 	<string name="dialog_sym_link_message">Ви не можете перейти за цим символічним посиланням</string>
 	<string name="dialog_sym_link_back_button">Назад</string>
-	<string name="dialog_no_dir_file_title">Не вдається завантажити вміст папки</string>
-	<string name="dialog_no_dir_file_message">У хмарній папці \'%1$s\' немає коректного файлу директорії. Можливо, папка була створена на іншому пристрої та ще не повністю синхронізована із хмарним сховищем. Перевірте, чи існує у вашому хмарному сховищі цей файл та чи він не пустий:\n%2$s</string>
-	<string name="dialog_no_more_images_to_display">Зображень для показу більше немає&#8230;</string>
-	<string name="dialog_pcloud_credentials_updated_title">Дані \'%1$s\' оновлено</string>
-	<string name="dialog_pcloud_credentials_updated">Якщо ви хочете додати новий обліковий запис pCloud, натисніть на цю адресу <a href="https://www.pcloud.com">www.pcloud.com</a>, вийдіть з поточного облікового запису та натисніть ще раз на \'+\' у цьому додатку, щоб створити нове хмарне підключення.</string>
+	<string name="dialog_no_dir_file_title">Не вдалося завантажити вміст каталогу</string>
+	<string name="dialog_no_dir_file_message">Хмарний каталог «%1$s» не містить дійсного файлу каталогу. Можливо, каталог було створено на іншому пристрої та ще не повністю синхронізовано з хмарою. Будь ласка, перевірте у своєму хмарному сховищі, чи існує та чи не є порожнім файл:\n%2$s</string>
+	<string name="dialog_no_more_images_to_display">Більше немає зображень для відображення&#8230;</string>
+	<string name="dialog_pcloud_credentials_updated_title">Облікові дані «%1$s» оновлено</string>
+	<string name="dialog_pcloud_credentials_updated">Якщо ви хотіли додати новий обліковий запис pCloud, натисніть на це посилання: <a href="https://www.pcloud.com">www.pcloud.com</a>, вийдіть з поточного облікового запису та знову натисніть на «+» у цій програмі, щоб створити нове хмарне підключення.</string>
 	<string name="dialog_cbc_password_vaults_migration_title">Необхідна міграція пароля сховища</string>
-	<string name="dialog_cbc_password_vaults_migration_hint">У зв\'язку з покращеннями безпеки, вам буде запропоновано двічі пройти біометричну автентифікацію для кожного сховища, щоб повторно зашифрувати паролі сховища. Це необхідно для продовження захисту паролів вашого сховища з використанням найновішої технології. Якщо ви не хочете, щоб це сталося, збережені паролі будуть видалені.</string>
+	<string name="dialog_cbc_password_vaults_migration_hint">Через вдосконалення безпеки вас буде двічі запитано про біометричну автентифікацію для кожного сховища, щоб повторно зашифрувати паролі. Це необхідно, щоб продовжувати захищати ваші паролі за допомогою найновіших технологій. Якщо ви не хочете цього, збережені паролі буде видалено.</string>
 	<string name="dialog_cbc_password_vaults_migration_action">Мігрувати</string>
 	<string name="dialog_create_hub_device_title">Зареєструвати пристрій Hub</string>
 	<string name="dialog_create_hub_device_name_label">Назва</string>
 	<string name="dialog_create_hub_device_name_hint">Схоже, це перша спроба доступу до Hub з цього пристрою. Для того, щоб ідентифікувати його для надання доступу, вам потрібно назвати цей пристрій.</string>
-	<string name="dialog_create_hub_device_name_empty">Назва не може бути пуста.</string>
+	<string name="dialog_create_hub_device_name_empty">Поле «Назва» не може бути порожнім.</string>
 	<string name="dialog_create_hub_device_setup_code_label">Ключ облікового запису</string>
-	<string name="dialog_create_hub_device_setup_code_hint">Ваш ключ облікового запису необхідний для входу в систему з нових програм. Його можна знайти у своєму профілі.</string>
-	<string name="dialog_create_hub_device_setup_code_empty">Ключ облікового запису не може бути порожнім.</string>
+	<string name="dialog_create_hub_device_setup_code_hint">Ваш ключ облікового запису потрібен для входу з нових програм або браузерів. Його можна знайти у вашому профілі.</string>
+	<string name="dialog_create_hub_device_setup_code_empty">Поле «Ключ облікового запису» не може бути порожнім.</string>
 	<string name="dialog_progress_creating_hub_device_setup">Створення пристрою&#8230;</string>
 	<string name="dialog_hub_vault_access_forbidden_title">У доступі відмовлено</string>
-	<string name="dialog_hub_vault_access_forbidden_hint">Ваш користувач ще не авторизований для доступу до цього сховища. Попросіть власника сховища авторизувати вас.\"</string>
+	<string name="dialog_hub_vault_access_forbidden_hint">Ваш обліковий запис ще не авторизовано для доступу до цього сховища. Попросіть власника сховища надати вам доступ.</string>
 	<string name="dialog_hub_license_upgrade_required_title">Перевірити ліцензію Hub</string>
-	<string name="dialog_hub_license_upgrade_required_hint">Ваш Cryptomator Hub має недійсну ліцензію. Будь ласка, повідомте адміністратору Hub про необхідність оновлення або заміни ліцензії.\"</string>
+	<string name="dialog_hub_license_upgrade_required_hint">Ваш екземпляр Cryptomator Hub має недійсну ліцензію. Будь ласка, повідомте адміністратора Hub для оновлення або поновлення ліцензії.</string>
 	<string name="dialog_hub_vault_archived_title">Сховище заархівовано</string>
-	<string name="dialog_hub_vault_archived_hint">Це сховище заархівовано і не може бути розблоковано. Для розблокування його власник сховища повинен розархівувати його.</string>
+	<string name="dialog_hub_vault_archived_hint">Це сховище заархівовано і не може бути розблоковане. Щоб розблокувати його, власник сховища повинен розархівувати його.</string>
 	<string name="dialog_hub_user_setup_required_title">Необхідне налаштування користувача</string>
-	<string name="dialog_hub_user_setup_required_hint">Щоб продовжити, будь ласка, завершіть обов\'язкові кроки у вашому профілі користувача Hub.</string>
+	<string name="dialog_hub_user_setup_required_hint">Щоб продовжити, будь ласка, виконайте необхідні кроки у вашому профілі користувача Hub.</string>
 	<string name="dialog_hub_user_setup_required_neutral_button">Перейти до профілю</string>
-	<string name="permission_snackbar_auth_local_vault">Для використання локальних сховищ необхідно надати Cryptomator доступ до місця зберігання</string>
-	<string name="permission_snackbar_auth_auto_upload">Для автоматичного завантаження фото необхідно надати Cryptomator доступ до місця зберігання</string>
-	<string name="permission_snackbar_notifications">Для відображення статусу сховища необхідно надати Cryptomator дозвіл на сповіщення</string>
+	<string name="permission_snackbar_auth_local_vault">Для використання локальних сховищ Cryptomator потрібен доступ до сховища</string>
+	<string name="permission_snackbar_auth_auto_upload">Для автоматичного завантаження фото Cryptomator потрібен доступ до сховища</string>
+	<string name="permission_snackbar_notifications">Cryptomator потрібен дозвіл на сповіщення, щоб, наприклад, відображати статус сховища</string>
 	<!-- # error reports -->
 	<!-- # misc -->
 	<!-- ## file size helper -->
