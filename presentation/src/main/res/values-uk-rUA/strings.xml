@@ -428,17 +428,17 @@
 	<string name="notification_open_writable_file_message">Сховище залишиться розблокованим до завершення редагування</string>
 	<string name="notification_update_check_finished_latest">Встановлено найновішу версію</string>
 	<string name="notification_authenticating">Авторизація&#8230;</string>
-	<string name="screen_settings_lru_cache">Кеш</string>
-	<string name="screen_settings_lru_cache_toggle_summary">Кешувати нещодавні файли в зашифрованому стані на пристрої для подальшого використання при повторному відкритті</string>
+	<string name="screen_settings_lru_cache">Кешування</string>
+	<string name="screen_settings_lru_cache_toggle_summary">Кешувати нещодавно відкриті зашифровані файли локально на пристрої для повторного використання під час наступного відкриття</string>
 	<string name="screen_settings_lru_cache_size">Загальний розмір кешу</string>
-	<string name="screen_settings_clear_lru_cache_size">Почистити кеш</string>
-	<string name="screen_settings_lru_cache_changed__restart_toast">Зміни наберуть чинності після перезапуску додатку</string>
+	<string name="screen_settings_clear_lru_cache_size">Очистити кеш</string>
+	<string name="screen_settings_lru_cache_changed__restart_toast">Зміни буде застосовано після перезапуску програми</string>
 	<string name="screen_settings_license">Зареєстровано на</string>
 	<string name="screen_settings_license_mail">%1$s</string>
 	<string name="dialog_settings_update_check_interval_title">Періодичність перевірки оновлень</string>
-	<string name="screen_settings_check_updates">Перевiрити наявнiсть оновлень</string>
+	<string name="screen_settings_check_updates">Перевірити наявність оновлень</string>
 	<string name="screen_settings_last_check_updates">Востаннє перевірено %1$s</string>
-	<string name="dialog_cache_size_title">Розмір кешу на хмарне сховище</string>
+	<string name="dialog_cache_size_title">Розмір кешу для кожного хмарного сховища</string>
 	<!-- lock timeout names -->
 	<string name="lock_timeout_instant">Негайно</string>
 	<string name="lock_timeout_1m">1 хвилина</string>
@@ -454,10 +454,10 @@
 	<string name="cache_size_1000m">1 ГБ</string>
 	<string name="cache_size_5000m">5 ГБ</string>
 	<!-- screen scheme mode names -->
-	<string name="screen_settings_style_mode">Стиль</string>
-	<string name="follow_system">Автоматично (системні налаштування)</string>
-	<string name="light">Світлий</string>
-	<string name="dark">Темний</string>
+	<string name="screen_settings_style_mode">Тема</string>
+	<string name="follow_system">Автоматично (як у системі)</string>
+	<string name="light">Світла</string>
+	<string name="dark">Темна</string>
 	<!-- update interval names -->
-	<string name="update_interval_1d">Раз на день</string>
+	<string name="update_interval_1d">Щодня</string>
 </resources>
