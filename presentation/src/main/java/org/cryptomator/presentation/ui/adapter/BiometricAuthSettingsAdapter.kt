@@ -40,7 +40,7 @@ constructor() : RecyclerViewBaseAdapter<VaultModel, BiometricAuthSettingsAdapter
 		this.onVaultBiometricAuthSettingsChanged = onVaultBiometricAuthSettingsChanged
 	}
 
-	inner class BiometricAuthSettingsViewHolder(private val binding: ItemBiometricAuthVaultBinding) : RecyclerViewBaseAdapter<*, *, *, *>.ItemViewHolder(binding.root) {
+	inner class BiometricAuthSettingsViewHolder(private val binding: ItemBiometricAuthVaultBinding) : RecyclerViewBaseAdapter<VaultModel, BiometricAuthSettingsAdapter.OnVaultBiometricAuthSettingsChanged, BiometricAuthSettingsViewHolder, ItemBiometricAuthVaultBinding>.ItemViewHolder(binding.root) {
 
 		override fun bind(position: Int) {
 			val vaultModel = getItem(position)

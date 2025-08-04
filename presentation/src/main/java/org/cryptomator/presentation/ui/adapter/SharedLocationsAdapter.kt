@@ -54,7 +54,7 @@ constructor() : RecyclerViewBaseAdapter<VaultModel, SharedLocationsAdapter.Callb
 		callback.onVaultSelected(this.selectedVault)
 	}
 
-	inner class VaultViewHolder(private val binding: ItemShareableLocationBinding) : RecyclerViewBaseAdapter<*, *, *, *>.ItemViewHolder(binding.root) {
+	inner class VaultViewHolder(private val binding: ItemShareableLocationBinding) : RecyclerViewBaseAdapter<VaultModel, SharedLocationsAdapter.Callback, VaultViewHolder, ItemShareableLocationBinding>.ItemViewHolder(binding.root) {
 
 		private var boundVault: VaultModel? = null
 

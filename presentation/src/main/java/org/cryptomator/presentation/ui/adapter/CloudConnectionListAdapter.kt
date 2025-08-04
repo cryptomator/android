@@ -40,7 +40,7 @@ internal constructor(context: Context) : RecyclerViewBaseAdapter<CloudModel, Clo
 		this.callback = callback
 	}
 
-	inner class CloudConnectionHolder(private val binding: ItemBrowseCloudModelConnectionsBinding) : RecyclerViewBaseAdapter<*, *, *, *>.ItemViewHolder(binding.root) {
+	inner class CloudConnectionHolder(private val binding: ItemBrowseCloudModelConnectionsBinding) : RecyclerViewBaseAdapter<CloudModel, CloudConnectionListAdapter.Callback, CloudConnectionHolder, ItemBrowseCloudModelConnectionsBinding>.ItemViewHolder(binding.root) {
 
 		override fun bind(position: Int) {
 			internalBind(getItem(position))

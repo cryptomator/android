@@ -26,6 +26,10 @@ android {
 		coreLibraryDesugaringEnabled true
 	}
 
+	kotlinOptions { jvmTarget = JavaVersion.VERSION_17 }
+	buildFeatures {
+		buildConfig true
+	}
 	buildTypes {
 		release {
 			buildConfigField "String", "ONEDRIVE_API_KEY", "\"" + getApiKey('ONEDRIVE_API_KEY') + "\""

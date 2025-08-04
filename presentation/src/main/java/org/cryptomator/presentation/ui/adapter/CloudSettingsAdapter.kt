@@ -34,7 +34,7 @@ constructor(private val context: Context) : RecyclerViewBaseAdapter<CloudModel, 
 		}
 	}
 
-	inner class CloudSettingViewHolder(private val binding: ItemCloudSettingBinding) : RecyclerViewBaseAdapter<*, *, *, *>.ItemViewHolder(binding.root) {
+	inner class CloudSettingViewHolder(private val binding: ItemCloudSettingBinding) : RecyclerViewBaseAdapter<CloudModel, CloudSettingsAdapter.OnItemClickListener, CloudSettingViewHolder, ItemCloudSettingBinding>.ItemViewHolder(binding.root) {
 
 		override fun bind(position: Int) {
 			val cloudModel = getItem(position)

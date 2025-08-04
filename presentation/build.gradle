@@ -44,8 +44,10 @@ android {
 		coreLibraryDesugaringEnabled true
 	}
 
+	kotlinOptions { jvmTarget = JavaVersion.VERSION_17 }
 	buildFeatures {
 		viewBinding true
+		buildConfig true
 	}
 
 	defaultConfig.manifestPlaceholders = [
@@ -71,7 +73,6 @@ android {
 			crunchPngs false
 			minifyEnabled false
 			shrinkResources false
-			testCoverageEnabled false
 
 			buildConfigField "String", "DROPBOX_API_KEY", "\"" + getApiKey('DROPBOX_API_KEY_DEBUG') + "\""
 			buildConfigField "String", "PCLOUD_CLIENT_ID", "\"" + getApiKey('PCLOUD_CLIENT_ID_DEBUG') + "\""
@@ -80,6 +81,8 @@ android {
 
 			applicationIdSuffix ".debug"
 			versionNameSuffix '-DEBUG'
+			enableUnitTestCoverage false
+			enableAndroidTestCoverage false
 		}
 	}
 
