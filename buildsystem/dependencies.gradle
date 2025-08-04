@@ -37,10 +37,10 @@ allprojects {
 }
 
 ext {
-	androidBuildToolsVersion = "34.0.0"
+	androidBuildToolsVersion = "35.0.1"
 	androidMinSdkVersion = 26
-	androidTargetSdkVersion = 34
-	androidCompileSdkVersion = 34
+	androidTargetSdkVersion = 35
+	androidCompileSdkVersion = 35
 
 	// android and java libs
 	androidVersion = '4.1.1.4'
@@ -48,27 +48,27 @@ ext {
 	javaxAnnotationVersion = '1.0'
 
 	// support lib
-	androidSupportAnnotationsVersion = '1.3.0'
-	androidSupportAppcompatVersion = '1.4.1'
-	androidMaterialDesignVersion = '1.6.0'
+	androidSupportAnnotationsVersion = '1.9.1'
+	androidSupportAppcompatVersion = '1.7.1'
+	androidMaterialDesignVersion = '1.12.0'
 
-	coreDesugaringVersion = '1.1.5'
+	coreDesugaringVersion = '2.1.5'
 
 	// app frameworks and utilities
 
-	rxJavaVersion = '2.2.21'
-	rxAndroidVersion = '2.1.1'
-	rxBindingVersion = '2.2.0'
+	rxJavaVersion = '3.1.11'
+	rxAndroidVersion = '3.0.2'
+	rxBindingVersion = '3.1.0'
 
-	daggerVersion = '2.54'
+	daggerVersion = '2.57'
 
-	gsonVersion = '2.11.0'
+	gsonVersion = '2.13.1'
 
-	joseJwtVersion = '9.48'
+	joseJwtVersion = '10.4.2'
 
 	appauthVersion = '0.11.1'
 
-	okHttpVersion = '4.12.0'
+	okHttpVersion = '5.1.0'
 	okHttpDigestVersion = '3.1.1'
 
 	velocityVersion = '2.4.1'
@@ -85,22 +85,23 @@ ext {
 	greenDaoVersion = '3.3.0'
 
 	// cloud provider libs
-	cryptolibVersion = '2.2.0'
+	// todo updaten
+	cryptolibVersion = '2.2.0' // 2.2.1 is broken in regards to create files
 
 	dropboxVersion = '7.0.0'
 
-	googleApiServicesVersion = 'v3-rev20220508-1.32.1'
-	googlePlayServicesVersion = '19.2.0'
-	googleClientVersion = '2.2.0' // keep in sync with https://github.com/cryptomator/google-http-java-client
-	trackingFreeGoogleCLientVersion = '1.44.2-dev.0001'
+	googleApiServicesVersion = 'v3-rev20250723-2.0.0'
+	googlePlayServicesVersion = '21.4.0'
+	googleClientVersion = '2.7.2' // keep in sync with https://github.com/cryptomator/google-http-java-client
+	trackingFreeGoogleCLientVersion = 'v1.47.1-dev.0001'
 
 	msgraphVersion = '5.47.0'
 	msgraphAuthVersion = '4.0.5' // contains com.microsoft.identity:common lib which added opentelemetry in 9.0.0, do we need to fork another lib before updating to >=4.2.0 ???
 
-	minIoVersion = '8.5.14'
-	pcloudVersion = '1.9.2-dev.0001'
+	minIoVersion = '8.5.17'
+	pcloudVersion = '1.10.0-dev.0001'
 	staxVersion = '1.2.0' // needed for minIO
-	commonsCodecVersion = '1.17.1'
+	commonsCodecVersion = '1.19.0'
 
 	recyclerViewFastScrollVersion = '2.0.1'
 
@@ -108,32 +109,32 @@ ext {
 
 	jUnitVersion = '5.11.4'
 	assertJVersion = '1.7.1'
-	mockitoVersion = '5.14.2'
-	mockitoKotlinVersion = '5.4.0'
+	mockitoVersion = '5.18.0'
+	mockitoKotlinVersion = '6.0.0'
 	mockitoInlineVersion = '5.2.0'
-	mockitoAndroidVersion = '5.14.2'
+	mockitoAndroidVersion = '5.18.0'
 	hamcrestVersion = '1.3'
 	dexmakerVersion = '1.0'
-	espressoVersion = '3.4.0'
+	espressoVersion = '3.7.0'
 	testingSupportLibVersion = '0.1'
-	runnerVersion = '1.4.0'
-	rulesVersion = '1.4.0'
+	runnerVersion = '1.7.0'
+	rulesVersion = '1.7.0'
 	contributionVersion = '3.4.0'
 	uiautomatorVersion = '2.2.0'
 	androidxTestJunitKtlnVersion = '1.1.3'
 
-	androidxCoreVersion = '1.7.0'
-	androidxFragmentVersion = '1.4.1'
-	androidxViewpagerVersion = '1.0.0'
+	androidxCoreVersion = '1.16.0'
+	androidxFragmentVersion = '1.8.8'
+	androidxViewpagerVersion = '1.1.0'
 	androidxSwiperefreshVersion = '1.1.0'
-	androidxPreferenceVersion = '1.2.0'
+	androidxPreferenceVersion = '1.2.1'
 	androidxRecyclerViewVersion = '1.2.1'
 	androidxDocumentfileVersion = '1.0.1'
 	androidxBiometricVersion = '1.1.0'
 	androidxTestCoreVersion = '1.4.0'
-	androidxSplashscreenVersion = '1.0.0-rc01'
+	androidxSplashscreenVersion = '1.0.1'
 
-	jsonWebTokenVersion = '4.4.0'
+	jsonWebTokenVersion = '4.5.0'
 
 	dependencies = [
 			android                        : "com.google.android:android:${androidVersion}",
@@ -187,9 +188,9 @@ ext {
 			okHttpDigest                   : "io.github.rburgst:okhttp-digest:${okHttpDigestVersion}",
 			pcloud                         : "com.github.cryptomator.pcloud-sdk-java:java-core:${pcloudVersion}",
 			recyclerViewFastScroll         : "com.simplecityapps:recyclerview-fastscroll:${recyclerViewFastScrollVersion}",
-			rxJava                         : "io.reactivex.rxjava2:rxjava:${rxJavaVersion}",
-			rxAndroid                      : "io.reactivex.rxjava2:rxandroid:${rxAndroidVersion}",
-			rxBinding                      : "com.jakewharton.rxbinding2:rxbinding:${rxBindingVersion}",
+			rxJava                         : "io.reactivex.rxjava3:rxjava:${rxJavaVersion}",
+			rxAndroid                      : "io.reactivex.rxjava3:rxandroid:${rxAndroidVersion}",
+			rxBinding                      : "com.jakewharton.rxbinding3:rxbinding:${rxBindingVersion}",
 			stax                           : "stax:stax:${staxVersion}",
 			testingSupportLib              : "com.android.support.test:testing-support-lib:${testingSupportLibVersion}",
 			timber                         : "com.jakewharton.timber:timber:${timberVersion}",

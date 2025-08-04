@@ -114,7 +114,7 @@ constructor(
 		}
 	}
 
-	inner class VaultContentViewHolder internal constructor(private val binding: ItemBrowseFilesNodeBinding) : RecyclerViewBaseAdapter<*, *, *, *>.ItemViewHolder(binding.root) {
+	inner class VaultContentViewHolder internal constructor(private val binding: ItemBrowseFilesNodeBinding) : RecyclerViewBaseAdapter<CloudNodeModel<*>, BrowseFilesAdapter.ItemClickListener, VaultContentViewHolder, ItemBrowseFilesNodeBinding>.ItemViewHolder(binding.root) {
 
 		private var uiState: UiStateTest? = null
 

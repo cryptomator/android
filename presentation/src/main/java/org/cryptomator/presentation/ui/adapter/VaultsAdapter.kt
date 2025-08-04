@@ -49,7 +49,7 @@ internal constructor() : RecyclerViewBaseAdapter<VaultModel, VaultsAdapter.OnIte
 		return itemCollection.firstOrNull { it.vaultId == vaultId }
 	}
 
-	inner class VaultViewHolder(private val binding: ItemVaultBinding) : RecyclerViewBaseAdapter<*, *, *, *>.ItemViewHolder(binding.root) {
+	inner class VaultViewHolder(private val binding: ItemVaultBinding) : RecyclerViewBaseAdapter<VaultModel, VaultsAdapter.OnItemInteractionListener, VaultViewHolder, ItemVaultBinding>.ItemViewHolder(binding.root) {
 
 		override fun bind(position: Int) {
 			val vaultModel = getItem(position)
