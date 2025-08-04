@@ -47,7 +47,7 @@ class CloudRepositoryImpl implements CloudRepository {
 		List<Cloud> allClouds = mapper.fromEntities(database.loadAll(CloudEntity.class));
 
 		for (Cloud cloud : allClouds) {
-			if (cloud.type().equals(cloudType)) {
+			if (cloud.getType().equals(cloudType)) {
 				cloudsFromType.add(cloud);
 			}
 		}

@@ -156,7 +156,7 @@ internal class MasterkeyCryptoCloudProviderTest {
 	fun testUnlockVault() {
 		val cloudType: CloudType = mock()
 
-		whenever(cloud.type()).thenReturn(cloudType)
+		whenever(cloud.type).thenReturn(cloudType)
 		whenever(vault.cloud).thenReturn(cloud)
 		whenever(vault.cloudType).thenReturn(cloudType)
 		whenever(vault.format).thenReturn(8)
@@ -183,7 +183,7 @@ internal class MasterkeyCryptoCloudProviderTest {
 	fun testUnlockLegacyVault() {
 		val cloudType: CloudType = mock()
 
-		whenever(cloud.type()).thenReturn(cloudType)
+		whenever(cloud.type).thenReturn(cloudType)
 		whenever(vault.cloud).thenReturn(cloud)
 		whenever(vault.cloudType).thenReturn(cloudType)
 		whenever(vault.format).thenReturn(7)
@@ -217,7 +217,7 @@ internal class MasterkeyCryptoCloudProviderTest {
 	fun tesChangePassword(legacy: Boolean) {
 		val cloudType: CloudType = mock()
 
-		whenever(cloud.type()).thenReturn(cloudType)
+		whenever(cloud.type).thenReturn(cloudType)
 		whenever(vault.cloud).thenReturn(cloud)
 		whenever(vault.cloudType).thenReturn(cloudType)
 		whenever(vault.format).thenReturn(7)
@@ -334,7 +334,7 @@ internal class MasterkeyCryptoCloudProviderTest {
 	private fun testVaultPasswordVault(masterkeyContent: String, unverifiedVaultConfig: Optional<UnverifiedVaultConfig>, password: String): Boolean {
 		val cloudType: CloudType = mock()
 
-		whenever(cloud.type()).thenReturn(cloudType)
+		whenever(cloud.type).thenReturn(cloudType)
 		whenever(vault.cloud).thenReturn(cloud)
 		whenever(vault.cloudType).thenReturn(cloudType)
 		whenever(vault.format).thenReturn(7)
