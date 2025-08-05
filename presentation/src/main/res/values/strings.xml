@@ -12,6 +12,7 @@
 
 	<!-- # error messages -->
 	<string name="error_generic">An error occurred</string>
+	<string name="error_image_too_large">Image is too large to display. Please try with a smaller image.</string>
 	<string name="error_authentication_failed">Authentication failed</string>
 	<string name="error_authentication_failed_re_authenticate">Authentication failed, please login using %1$s</string>
 	<string name="error_no_network_connection">No network connection</string>

@@ -83,7 +83,21 @@ class ImagePreviewFragment : Fragment() {
 		binding.imageView.let { imageView ->
 			imagePreviewFile?.let { imagePreviewFile ->
 				imageView.orientation = SubsamplingScaleImageView.ORIENTATION_USE_EXIF
-				imagePreviewFile.uri?.let { imageView.setImage(ImageSource.uri(it)) }
+				// Configure SubsamplingScaleImageView for better memory handling of large images
+				imageView.setMinimumTileDpi(160)
+				imageView.setDebug(false)
+				imageView.setDoubleTapZoomDpi(240)
+				imageView.setDoubleTapZoomDuration(500)
+				imageView.setPanLimit(SubsamplingScaleImageView.PAN_LIMIT_INSIDE)
+				// Remove the problematic line - SubsamplingScaleImageView will use default decoder
+				imagePreviewFile.uri?.let {
+					try {
+						imageView.setImage(ImageSource.uri(it))
+					} catch (e: OutOfMemoryError) {
+						// Handle OOM gracefully
+						presenter.onImagePreviewClicked() // This will show an error through the presenter
+					}
+				}
 			}
 		}
 	}
