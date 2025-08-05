@@ -205,6 +205,14 @@ class BrowseFilesPresenter @Inject constructor( //
 				.run(DefaultResultHandler())
 		}
 		setRefreshOnBackPressEnabled(enableRefreshOnBackpressSupplier.setInAction(false))
+
+		// Re-associate thumbnails for visible images when returning from image preview
+		val images = view?.renderedCloudNodes()?.filterIsInstance<CloudFileModel>()?.filter { file ->
+			isImageMediaType(file.name)
+		} ?: return
+		if (images.isNotEmpty()) {
+			associateThumbnails(images.take(20)) // Increased from 10 to 20 for better coverage
+		}
 	}
 
 	fun onWindowFocusChanged(hasFocus: Boolean) {
