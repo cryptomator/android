@@ -4,6 +4,7 @@
 	<string name="share_with_label">暗号化</string>
 	<!-- # error messages -->
 	<string name="error_generic">エラーが発生しました</string>
+	<string name="error_image_too_large">画像が大きすぎて表示できません。より小さい画像をお試しください。</string>
 	<string name="error_authentication_failed">認証に失敗しました</string>
 	<string name="error_authentication_failed_re_authenticate">認証に失敗しました。%1$s を使用してログインしてください</string>
 	<string name="error_no_network_connection">ネットワーク接続がありません</string>
