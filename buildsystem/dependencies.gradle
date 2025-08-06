@@ -56,7 +56,6 @@ ext {
 
 	// app frameworks and utilities
 
-	// todo updaten
 	rxJavaVersion = '3.1.11'
 	rxAndroidVersion = '3.0.2'
 	rxBindingVersion = '3.1.0'
@@ -65,7 +64,7 @@ ext {
 
 	gsonVersion = '2.13.1'
 
-	joseJwtVersion = '10.4'
+	joseJwtVersion = '10.4.1'
 
 	appauthVersion = '0.11.1'
 
@@ -93,6 +92,7 @@ ext {
 
 	googleApiServicesVersion = 'v3-rev20250723-2.0.0'
 	googlePlayServicesVersion = '21.4.0'
+	// todo updaten
 	googleClientVersion = '2.2.0' // keep in sync with https://github.com/cryptomator/google-http-java-client
 	trackingFreeGoogleCLientVersion = 'v1.47.1-dev.0001'
 
@@ -102,13 +102,13 @@ ext {
 	minIoVersion = '8.5.17'
 	pcloudVersion = '1.10.0-dev.0001'
 	staxVersion = '1.2.0' // needed for minIO
-	commonsCodecVersion = '1.18.0'
+	commonsCodecVersion = '1.19.0'
 
 	recyclerViewFastScrollVersion = '2.0.1'
 
 	// testing dependencies
 
-	jUnitVersion = '5.13.4'
+	jUnitVersion = '5.11.4'
 	assertJVersion = '1.7.1'
 	mockitoVersion = '5.18.0'
 	mockitoKotlinVersion = '6.0.0'
