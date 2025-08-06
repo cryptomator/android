@@ -8,7 +8,7 @@
 	<string name="error_authentication_failed_re_authenticate">Помилка автентифікації, будь ласка, увійдіть за допомогою %1$s</string>
 	<string name="error_no_network_connection">Відсутнє з\'єднання з мережею</string>
 	<string name="error_invalid_passphrase">Невірний пароль</string>
-	<string name="error_file_or_folder_exists">Файл чи каталог вже існує.</string>
+	<string name="error_file_or_folder_exists">Файл чи папка вже існує.</string>
 	<string name="error_vault_version_not_supported">Версія сховища %1$s не підтримується. Це сховище було створено за допомогою старішої або новішої версії Cryptomator.</string>
 	<string name="error_vault_config_file_missing_due_to_format_999">У папці вашого сховища відсутній файл «%1$s». Переконайтеся, що цей файл існує в папці вашого сховища в хмарі.</string>
 	<string name="error_vault_already_exists">Сховище вже існує.</string>
@@ -83,7 +83,7 @@
 		<item quantity="other">Перемістити %2$d файлів до</item>
 	</plurals>
 	<string name="screen_file_browser_move_button_text">Перемістити</string>
-	<string name="screen_file_browser_msg_empty_folder">Порожній каталог</string>
+	<string name="screen_file_browser_msg_empty_folder">Порожня папка</string>
 	<string name="screen_file_browser_file_info_label_date">змінено %1$s тому</string>
 	<string name="screen_file_browser_share_intent_chooser_title">Поділитися через</string>
 	<string name="screen_file_browser_share_destination_title">Оберіть призначення</string>
@@ -97,7 +97,7 @@
 	<string name="screen_file_browser_msg_file_exported">Файл експортовано</string>
 	<string name="screen_file_browser_msg_files_exported">Файли експортовано</string>
 	<string name="screen_file_browser_nothing_to_export">Немає чого експортувати</string>
-	<string name="screen_file_browser_msg_creating_download_dir_failed">Не вдалося створити папку для завантажень</string>
+	<string name="screen_file_browser_msg_creating_download_dir_failed">Не вдалося створити каталог для завантажень</string>
 	<string name="screen_file_browser_node_action_share">Поділитися</string>
 	<string name="screen_file_browser_node_action_rename">Перейменувати</string>
 	<string name="screen_file_browser_node_action_edit_text">Редагувати</string>
@@ -269,7 +269,7 @@
 	<string name="dialog_filetype_not_supported_title">Неможливо відкрити %1$s</string>
 	<string name="dialog_filetype_not_supported_message">Будь ласка, завантажте програму, що може відкрити цей файл, чи хочете зберегти його на пристрої?</string>
 	<string name="dialog_rename_vault_title">Перейменувати сховище</string>
-	<string name="dialog_rename_node_folder_title">Перейменувати каталог</string>
+	<string name="dialog_rename_node_folder_title">Перейменувати папку</string>
 	<string name="dialog_rename_node_file_title">Перейменувати файл</string>
 	<string name="dialog_unsaved_changes_title">У вас є незбережені зміни</string>
 	<string name="dialog_unsaved_changes_message">Ви справді хочете вийти без збереження?</string>
@@ -282,7 +282,7 @@
 	<string name="dialog_upload_file_remaining">Файл %1$d з %2$d</string>
 	<string name="dialog_export_file_title">Експортування (%1$d/%2$d)</string>
 	<string name="dialog_progress_please_wait">Будь ласка, зачекайте&#8230;</string>
-	<string name="dialog_progress_creating_folder">Створення каталогу&#8230;</string>
+	<string name="dialog_progress_creating_folder">Створення папки&#8230;</string>
 	<string name="dialog_progress_creating_text_file">Створення текстового файлу&#8230;</string>
 	<string name="action_progress_authentication">Автентифікація&#8230;</string>
 	<string name="action_progress_renaming">Перейменування&#8230;</string>
@@ -323,8 +323,8 @@
 	<string name="dialog_app_is_obscured_info_neutral_button">Закрити</string>
 	<string name="dialog_vaults_removed_during_migration_title">Будь ласка, додайте сховища для хмарного сховища %1s знову</string>
 	<string name="dialog_vaults_removed_during_migration_hint">Під час переходу на цю версію програми нам потрібно видалити з програми такі сховища:\n%2s \n\nЦі сховища не було видалено з хмари, а лише з програми. Просимо вибачення за незручності. Будь ласка, додайте їх знову, щоб продовжити роботу.</string>
-	<string name="dialog_vault_is_root_folder_of_cloud_title">Сховище є кореневим каталогом хмарного підключення</string>
-	<string name="dialog_vault_is_root_folder_of_cloud_hint">Створіть нове хмарне підключення, де ви оберете принаймні батьківський каталог цього сховища як кореневий каталог, щоб додати це сховище.</string>
+	<string name="dialog_vault_is_root_folder_of_cloud_title">Сховище є кореневою папкою хмарного підключення</string>
+	<string name="dialog_vault_is_root_folder_of_cloud_hint">Створіть нове хмарне підключення, де ви оберете щонайменше батьківську папку цього сховища як кореневий каталог, щоб додати це сховище.</string>
 	<string name="dialog_disable_secure_screen_disclaimer_hint">Це налаштування є функцією безпеки, що запобігає спробам інших програм змусити користувачів робити те, чого вони не хочуть.\n\nВимкнувши це, ви підтверджуєте, що <a href="https://docs.cryptomator.org/en/latest/android/settings/#screen-security">усвідомлюєте ризики</a>.</string>
 	<string name="dialog_delete_cloud_connection_with_vaults_message">Ви впевнені, що хочете вилучити це хмарне підключення?</string>
 	<string name="dialog_delete_cloud_connection_with_vaults_hint">Ця дія вилучить підключення до хмари та всі сховища з цієї хмари.</string>
