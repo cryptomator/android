@@ -69,7 +69,7 @@ ext {
 
 	appauthVersion = '0.11.1'
 
-	okHttpVersion = '5.1.0' // '5.1.0' requires kotlin 2.0
+	okHttpVersion = '5.1.0'
 	okHttpDigestVersion = '3.1.1'
 
 	velocityVersion = '2.4.1'
@@ -91,18 +91,16 @@ ext {
 
 	dropboxVersion = '7.0.0'
 
-	// todo updaten
-	googleApiServicesVersion = 'v3-rev20220508-1.32.1'
-	googlePlayServicesVersion = '19.2.0'
+	googleApiServicesVersion = 'v3-rev20250723-2.0.0'
+	googlePlayServicesVersion = '21.4.0'
 	googleClientVersion = '2.2.0' // keep in sync with https://github.com/cryptomator/google-http-java-client
-	trackingFreeGoogleCLientVersion = '1.44.2-dev.0001'
+	trackingFreeGoogleCLientVersion = 'v1.47.1-dev.0001'
 
 	msgraphVersion = '5.47.0'
 	msgraphAuthVersion = '4.0.5' // contains com.microsoft.identity:common lib which added opentelemetry in 9.0.0, do we need to fork another lib before updating to >=4.2.0 ???
 
 	minIoVersion = '8.5.17'
-	// todo updaten
-	pcloudVersion = '1.9.2-dev.0001'
+	pcloudVersion = '1.10.0-dev.0001'
 	staxVersion = '1.2.0' // needed for minIO
 	commonsCodecVersion = '1.18.0'
 
