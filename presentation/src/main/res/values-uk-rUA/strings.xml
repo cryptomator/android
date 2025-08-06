@@ -353,7 +353,7 @@
 	<string name="dialog_sym_link_message">Ви не можете перейти за цим символічним посиланням</string>
 	<string name="dialog_sym_link_back_button">Назад</string>
 	<string name="dialog_no_dir_file_title">Не вдалося завантажити вміст каталогу</string>
-	<string name="dialog_no_dir_file_message">Хмарний каталог «%1$s» не містить дійсного файлу каталогу. Можливо, каталог було створено на іншому пристрої та ще не повністю синхронізовано з хмарою. Будь ласка, перевірте у своєму хмарному сховищі, чи існує та чи не є порожнім файл:\n%2$s</string>
+	<string name="dialog_no_dir_file_message">Хмарна папка «%1$s» не містить дійсного файлу каталогу. Можливо, папку було створено на іншому пристрої та ще не повністю синхронізовано з хмарою. Будь ласка, перевірте у своєму хмарному сховищі, чи існує та не є порожнім файл:\n%2$s</string>
 	<string name="dialog_no_more_images_to_display">Більше немає зображень для відображення&#8230;</string>
 	<string name="dialog_pcloud_credentials_updated_title">Облікові дані «%1$s» оновлено</string>
 	<string name="dialog_pcloud_credentials_updated">Якщо ви хотіли додати новий обліковий запис pCloud, натисніть на це посилання: <a href="https://www.pcloud.com">www.pcloud.com</a>, вийдіть з поточного облікового запису та знову натисніть на «+» у цій програмі, щоб створити нове хмарне підключення.</string>
@@ -362,7 +362,7 @@
 	<string name="dialog_cbc_password_vaults_migration_action">Мігрувати</string>
 	<string name="dialog_create_hub_device_title">Зареєструвати пристрій Hub</string>
 	<string name="dialog_create_hub_device_name_label">Назва</string>
-	<string name="dialog_create_hub_device_name_hint">Схоже, це перша спроба доступу до Hub з цього пристрою. Для того, щоб ідентифікувати його для надання доступу, вам потрібно назвати цей пристрій.</string>
+	<string name="dialog_create_hub_device_name_hint">Схоже, це перший доступ до Hub з цього пристрою. Щоб ідентифікувати його для авторизації доступу, вам потрібно назвати цей пристрій.</string>
 	<string name="dialog_create_hub_device_name_empty">Поле «Назва» не може бути порожнім.</string>
 	<string name="dialog_create_hub_device_setup_code_label">Ключ облікового запису</string>
 	<string name="dialog_create_hub_device_setup_code_hint">Ваш ключ облікового запису потрібен для входу з нових програм або браузерів. Його можна знайти у вашому профілі.</string>
@@ -420,7 +420,7 @@
 	<string name="notification_auto_upload_finished_message">%1$d зображень завантажено до сховища</string>
 	<string name="notification_auto_upload_failed_title">Не вдалося автоматично завантажити фото</string>
 	<string name="notification_auto_upload_failed_general_error">Під час завантаження виникла загальна помилка.</string>
-	<string name="notification_auto_upload_failed_due_to_folder_not_exists">Обраний каталог для завантаження більше недоступний. Перейдіть до налаштувань та виберіть іншу</string>
+	<string name="notification_auto_upload_failed_due_to_folder_not_exists">Обрана папка для завантаження більше недоступний. Перейдіть до налаштувань та виберіть іншу</string>
 	<string name="notification_auto_upload_failed_due_to_vault_locked">Сховище заблоковано під час завантаження. Будь ласка, розблокуйте його, щоб продовжити</string>
 	<string name="notification_auto_upload_failed_due_to_vault_not_found">Сховища, зазначеного для автоматичного завантаження, більше не існує.</string>
 	<string name="notification_auto_upload_failed_due_to_authentication_problem">Торкніться, щоб оновити автентифікацію.</string>
