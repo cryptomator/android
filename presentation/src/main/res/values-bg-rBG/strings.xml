@@ -67,6 +67,7 @@
 	<string name="screen_vault_list_change_password_successful">Паролата е сменена</string>
 	<!-- # screen: file browser -->
 	<string name="screen_file_browser_default_title">Хранилище</string>
+	<string name="screen_file_browser_add_existing_vault_extra_text">Изберете \'masterkey\' или \'vault\' файл</string>
 	<string name="screen_file_browser_create_new_vault_button_text">Постави тук</string>
 	<string name="screen_file_browser_create_new_vault_extra_text">Име на хранилище: %1$s</string>
 	<plurals name="screen_file_browser_subtitle_move">
@@ -223,6 +224,7 @@
 	<string name="screen_cryptomator_variants_fdroid_add_repo">Добавяне</string>
 	<string name="screen_cryptomator_variants_website_title">Страница в интернет</string>
 	<string name="screen_cryptomator_variants_website_description">Съдържа собственически зависимости.</string>
+	<string name="screen_cryptomator_variants_installation_hint">Превключването от или към главното хранилище на пакети в F-Droid изисква чиста инсталация на приложението.</string>
 	<!-- # dialogs -->
 	<string name="dialog_button_cancel">Отказ</string>
 	<string name="dialog_enter_password_positive_button">Отключване</string>
