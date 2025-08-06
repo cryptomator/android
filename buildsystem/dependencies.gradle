@@ -92,8 +92,7 @@ ext {
 
 	googleApiServicesVersion = 'v3-rev20250723-2.0.0'
 	googlePlayServicesVersion = '21.4.0'
-	// todo updaten
-	googleClientVersion = '2.2.0' // keep in sync with https://github.com/cryptomator/google-http-java-client
+	googleClientVersion = '2.7.2' // keep in sync with https://github.com/cryptomator/google-http-java-client
 	trackingFreeGoogleCLientVersion = 'v1.47.1-dev.0001'
 
 	msgraphVersion = '5.47.0'
