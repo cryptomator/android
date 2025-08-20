@@ -85,7 +85,8 @@ ext {
 	greenDaoVersion = '3.3.0'
 
 	// cloud provider libs
-	cryptolibVersion = '2.2.1'
+	// todo updaten
+	cryptolibVersion = '2.2.0' // 2.2.1 is broken in regards to create files
 
 	dropboxVersion = '7.0.0'
 
