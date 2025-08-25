@@ -46,7 +46,7 @@ constructor(private val fileUtil: FileUtil, private val context: Context) : Recy
 		return false
 	}
 
-	inner class FileViewHolder(private val binding: ItemSharedFilesBinding) : RecyclerViewBaseAdapter<*, *, *, *>.ItemViewHolder(binding.root) {
+	inner class FileViewHolder(private val binding: ItemSharedFilesBinding) : RecyclerViewBaseAdapter<SharedFileModel, SharedFilesAdapter.Callback, FileViewHolder, ItemSharedFilesBinding>.ItemViewHolder(binding.root) {
 
 		private var etFileNameWatcher: TextWatcher? = null
 

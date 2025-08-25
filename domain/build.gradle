@@ -24,6 +24,10 @@ android {
 
 		coreLibraryDesugaringEnabled true
 	}
+	kotlinOptions { jvmTarget = JavaVersion.VERSION_17 }
+	buildFeatures {
+		buildConfig true
+	}
 	lint {
 		abortOnError false
 		ignoreWarnings true
