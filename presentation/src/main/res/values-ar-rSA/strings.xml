@@ -195,6 +195,7 @@
 	<string name="screen_settings_section_auto_photo_upload_including_videos">تحميل ملفات الفيديو</string>
 	<string name="screen_settings_auto_photo_upload_title">حفظ الملفات الرفع التلقائي إلى&#8230;</string>
 	<string name="screen_settings_website_label">الموقع الإلكتروني</string>
+	<string name="screen_settings_mastodon_label">تابعنا على ماستدون</string>
 	<string name="screen_settings_facebook_label">سجل اعجابك لصفحة فيسبوك</string>
 	<string name="screen_settings_section_legal">قانوني</string>
 	<string name="screen_settings_licenses_label">التراخيص</string>

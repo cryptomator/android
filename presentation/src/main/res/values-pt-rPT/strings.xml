@@ -359,7 +359,7 @@
 	<string name="dialog_cbc_password_vaults_migration_hint">Devido a melhorias de segurança, ser-lhe-á pedida a sua autenticação biométrica duas vezes para cada cofre, para voltar a encriptar as suas palavras-passe dos cofres. Isto é necessário para continuar a proteção das palavras-passe dos cofres com a última tecnologia. Se preferir que isso não aconteça, as palavras-passe serão removidas.</string>
 	<string name="dialog_cbc_password_vaults_migration_action">Migrar</string>
 	<string name="dialog_create_hub_device_title">Registar o dispositivo Hub</string>
-	<string name="dialog_create_hub_device_name_label">Nome</string>
+	<string name="dialog_create_hub_device_name_label">Nome:</string>
 	<string name="dialog_create_hub_device_name_hint">Este parece ser o primeiro acesso ao Hub a partir deste dispositivo. De maneira a identificá-lo para autorizar o acesso, é necessário dar um nome a este dispositivo.</string>
 	<string name="dialog_create_hub_device_name_empty">Nome não pode estar vazio.</string>
 	<string name="dialog_create_hub_device_setup_code_label">Chave da Conta</string>

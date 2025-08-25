@@ -4,29 +4,52 @@
 	<string name="share_with_label">Šifrēt</string>
 	<!-- # error messages -->
 	<string name="error_generic">Radās kļūda</string>
-	<string name="error_authentication_failed">Autentifikācija neizdevās</string>
-	<string name="error_authentication_failed_re_authenticate">Autentifikācija neizdevās, lūdzu autentificējies izmantojot %1$s</string>
+	<string name="error_authentication_failed">Autentificēšanās neizdevās</string>
+	<string name="error_authentication_failed_re_authenticate">Autentificēšanās neizdevās, lūgums pieteikties ar %1$s</string>
 	<string name="error_no_network_connection">Nav tīkla savienojuma</string>
 	<string name="error_invalid_passphrase">Nepareiza parole</string>
-	<string name="error_file_or_folder_exists">Fails vai mape jau pastāv.</string>
+	<string name="error_file_or_folder_exists">Datne vai mape jau pastāv.</string>
 	<string name="error_vault_version_not_supported">Glabātavas versija %1$s nav atbalstīta. Šī glabātava tika izveidota vecākā vai jaunākā Cryptomator versijā.</string>
+	<string name="error_vault_config_file_missing_due_to_format_999">Glabātavas mapē trūkst datnes %1$s. Jānodrošina, ka glabātavas mapē mākonī pastāv šī datne.</string>
 	<string name="error_vault_already_exists">Glabātava jau pastāv.</string>
-	<string name="error_no_such_file">Fails neeksistē.</string>
+	<string name="error_no_such_file">Datne nepastāv.</string>
 	<string name="error_vault_has_been_locked">Glabātava tika aizslēgta.</string>
 	<string name="error_cloud_already_exists">Mākonis jau pastāv.</string>
 	<string name="error_activity_not_found">Lūgums lejupielādēt lietotni, kas var atvērt šo datni.</string>
 	<string name="error_server_not_found">Serveris nav atrasts.</string>
 	<string name="error_device_policy_manager_not_found">Lūgums atvērt savas ierīces iestatījumus un pašrocīgi iestatīt ekrāna aizslēgšanu</string>
 	<string name="error_export_illegal_file_name">Izgūšana neizdevās. Jāmēģina no datņu nosaukumiem noņemt īpašās rakstzīmes un jāizgūst vēlreiz.</string>
-	<string name="error_play_services_not_available">Google Play Pakalpojumi nav instalēti</string>
-	<string name="error_biometric_auth_aborted">Biometriskā autentifikācija pārtraukta</string>
+	<string name="error_name_contains_invalid_characters">Nevar saturēt īpašas rakstzīmes.</string>
+	<string name="error_names_contains_invalid_characters">Datņu nosaukumi nevar saturēt īpašas rakstzīmes.</string>
+	<string name="error_vault_name_contains_invalid_characters">Glabātavas nosaukums nevar saturēt īpašas rakstzīmes.</string>
+	<string name="error_general_update">Atjauninājuma meklēšana neizdevās. Atgadījās vispārēja kļūda.</string>
+	<string name="error_hash_mismatch_update">Atjauninājuma meklēšana neizdevās. Aprēķinātā jaucējvērtība neatbilst augšupielādētajai datnei</string>
+	<string name="error_update_no_internet">Atjauninājuma meklēšana neizdevās. Nav savienojuma ar internetu.</string>
+	<string name="error_failed_to_decrypt_webdav_password">Neizdevās atšifrēt WebDAV paroli, lūgums to iestatījumos pievienot no jauna</string>
+	<string name="error_play_services_not_available">Nav uzstādīti Google Play Pakalpojumi</string>
+	<string name="error_biometric_auth_aborted">Pārtraukta autentificēšanās ar biometriju</string>
+	<string name="error_vault_version_mismatch">%1$s norādītā versija atšķiras no %2$s</string>
+	<string name="error_vault_key_invalid">%1$s neatbilst %2$s</string>
+	<string name="error_vault_config_loading">Vispārēja kļūda glabātavas konfigurācijas ielādēšanā</string>
+	<string name="error_file_not_found_after_opening_using_3party">Pēc pārslēgšanās atpakaļ uz Cryptomator vietējā datne vairs nav klātesoša. Iespējamās izmaiņas nevar nogādāt atpakaļ mākonī.</string>
+	<string name="error_no_such_bucket">Nav šāda krājuma</string>
 	<string name="error_masterkey_location_not_supported">Pielāgota galvenās atslēgas atrašanās vieta vēl netiek nodrošināta</string>
+	<string name="error_interact_with_fdroid_but_fdroid_missing">Neizdevās sazināties ar F-Droid lietotni. Nav uzstādīta?</string>
+	<string name="error_hub_vault_operation_not_supported">Glabātavas darbība netiek atblastīta Hub</string>
+	<string name="error_hub_authentication_failed">Autentificēšana Hub neizdevās</string>
+	<string name="error_hub_device_already_register_for_other_user">Šī ierīce jau ir reģistrēta citam lietotājam. Jamēģina nomainīt lietotāja kontu vai izmantot citu ierīci.</string>
+	<string name="error_hub_invalid_setup_code">Konta atslēga ir nederīga.</string>
+	<string name="error_hub_invalid_version">Neatbalstīta Hub versija.</string>
+	<string name="error_hub_unlock_pre_31">Hub tiek atbalstīts tikai Android 12 vai jaunākā.</string>
 	<!-- # clouds -->
 	<!-- ## cloud names -->
 	<string name="cloud_names_local_storage">Vietēja krātuve</string>
 	<!-- # permission -->
 	<!-- ## permission messages -->
 	<string name="permission_message_export_file">Cryptomator ir nepieciešama piekļuve krātuvei, lai izgūtu datnes</string>
+	<string name="permission_message_upload_file">Cryptomator ir nepieciešama piekļuve krātuvei, lai augšupielādētu datnes</string>
+	<string name="permission_message_share_file">Cryptomator ir nepieciešama piekļuve krātuvei, lai kopīgotu datnes</string>
+	<string name="permission_revoked_re_request_permission">Cryptomator zaudēja atļauju piekļūt šai atrašanās vietai. Lūgums vēlreiz atlasīt šo mapi, lai atjaunotu atļauju.</string>
 	<string name="snack_bar_action_title_settings">Iestatījumi</string>
 	<string name="snack_bar_action_title_search">Meklēt</string>
 	<string name="snack_bar_action_title_search_previous">Atpakaļ</string>
@@ -39,6 +62,7 @@
 	<string name="snack_bar_action_title_sort_biggest">Lielākie vispirms</string>
 	<string name="snack_bar_action_title_sort_smallest">Mazākie vispirms</string>
 	<string name="snack_bar_cryptomator_variants_title">Rādīt vairāk</string>
+	<string name="snack_bar_cryptomator_variants_hint">Mākonis nav sarakstā?</string>
 	<!-- # screens -->
 	<!-- # screen: vault list -->
 	<string name="screen_vault_list_actions_title">Pievienot Cryptomator</string>
@@ -89,57 +113,276 @@
 	<!-- ## screen: text editor -->
 	<string name="screen_text_editor_save_success">Sekmīgi saglabāta</string>
 	<!-- ## screen: share files -->
+	<string name="screen_share_files_title">Saglabāt %1$s&#8230;</string>
 	<string name="screen_share_files_content_text">teksts</string>
 	<string name="screen_share_files_content_file">datne</string>
 	<string name="screen_share_files_content_files">datnes</string>
+	<string name="screen_share_files_msg_filenames_must_be_unique">Datņu nosaukumiem ir jābūt neatkārtojamiem. Lūgums pārdēvēt datnes, kurām ir nosaukumi, kas atkārtojas.</string>
+	<string name="screen_share_files_section_location">Saglabāt atrašanās vietu</string>
 	<string name="screen_share_files_save_button_text">Saglabāt</string>
 	<string name="screen_share_files_msg_success">Šifrēšana pabeigta</string>
 	<!-- ## screen: choose cloud service -->
+	<string name="screen_choose_cloud_service_title">Mākoņpakalpojums</string>
 	<!-- ## screen: cloud connections -->
+	<string name="screen_cloud_connections_title">Izvēlēties atrašanās vietu</string>
+	<string name="screen_cloud_connections_no_connections">Piesist šeit, lai pievienotu atrašanās vietas</string>
+	<string name="screen_cloud_error_webdav_not_supported">Neizskatās, ka serveris būtu saderīgs ar WebDAV</string>
+	<string name="screen_cloud_local_error_no_content_provider">Netika atrasts neviens datņu pārvaldnieks, kas nodrošina mapju atvēršanu</string>
 	<!-- ## screen: webdav settings -->
+	<string name="screen_webdav_settings_url_port_label">URL</string>
+	<string name="screen_webdav_settings_username_label">Lietotājvārds</string>
 	<string name="screen_webdav_settings_password_label">Parole</string>
+	<string name="screen_webdav_settings_done_button_text">Savienoties</string>
+	<string name="screen_webdav_settings_msg_url_must_not_be_empty">URL nevar būt tukšs.</string>
+	<string name="screen_webdav_settings_msg_url_is_invalid">URL ir nederīgs.</string>
+	<string name="screen_webdav_settings_msg_username_must_not_be_empty">Lietotājvārds nevar būt tukšs.</string>
+	<string name="screen_webdav_settings_msg_password_must_not_be_empty">Parole nevar būt tukša.</string>
 	<!-- ## screen: s3 settings -->
+	<string name="screen_s3_settings_display_name_label">Attēlojamais nosaukums</string>
 	<string name="screen_s3_settings_access_key_label">Piekļuves atslēga</string>
+	<string name="screen_s3_settings_secret_key_label">Slepenā atslēga</string>
+	<string name="screen_s3_settings_bucket_label">Esošs krājums</string>
+	<string name="screen_s3_settings_endpoint_label">Galapunkts</string>
+	<string name="screen_s3_settings_region_label">Apgabals</string>
+	<string name="screen_s3_settings_msg_display_name_not_empty">Attēlojamais nosaukums nevar būt tukšs</string>
 	<string name="screen_s3_settings_msg_access_key_not_empty">Piekļuves atslēga nevar būt tukša</string>
+	<string name="screen_s3_settings_msg_secret_key_not_empty">Slepenā atslēga nevar būt tukša</string>
+	<string name="screen_s3_settings_msg_bucket_not_empty">Krājums nevar būt tukšs</string>
+	<string name="screen_s3_settings_msg_endpoint_and_region_not_empty">Galamērķis vai apgabals nevar būt tukšs</string>
 	<!-- ## screen: enter vault name -->
+	<string name="screen_enter_vault_name_msg_name_empty">Glabātavas nosaukums nevar būt tukšs.</string>
+	<string name="screen_enter_vault_name_vault_label">Glabātavas nosaukums</string>
+	<string name="screen_enter_vault_name_button_text">Izveidot</string>
 	<!-- ## screen: set password -->
+	<string name="screen_set_password_title">Iestatīt paroli</string>
+	<string name="screen_set_password_msg_password_mismatch">Parole neatbilst atkārtoti ievadītajai parolei.</string>
 	<string name="screen_set_password_button_text">Darīts</string>
 	<string name="screen_set_password_hint">SVARĪGI: ja tiek aizmirsta sava parole, nav iespējams atkopt savus datus.</string>
+	<string name="screen_set_password_retype_password_label">Atkārtoti ievadīt paroli</string>
+	<string name="screen_set_password_strength_indicator_0">Pārāk vāja, lai izveidotu glabātavu</string>
 	<string name="screen_set_password_strength_indicator_1">Vāja</string>
 	<string name="screen_set_password_strength_indicator_2">Vidēja</string>
 	<string name="screen_set_password_strength_indicator_3">Stipra</string>
+	<string name="screen_set_password_strength_indicator_4">Ļoti spēcīga</string>
 	<!-- ## screen: settings -->
 	<string name="screen_settings_section_general">Vispārēji</string>
-	<string name="screen_settings_section_search">Meklēt</string>
+	<string name="screen_settings_cloud_settings_label">Mākoņpakalpojumi</string>
+	<string name="screen_settings_biometric_auth">Autentificēšana ar biometriju</string>
+	<string name="screen_settings_activate_biometric_auth">Aktivēt autentificēšanu ar biometriju</string>
+	<string name="screen_settings_confirm_face_unlock">Apstiprināt atslēgšanu ar seju (ja pieejams)</string>
+	<string name="screen_settings_block_app_when_obscured">Aizturēt lietotni, kad aizsegta</string>
+	<string name="screen_settings_block_app_when_obscured_summary">Neļaut ievades pārtveršanu un viltus lietotāja saskarnes attēlošanu</string>
+	<string name="screen_settings_secure_screen">Liegt ekrānuzņēmumus</string>
+	<string name="screen_settings_secure_screen_summary">Neļaut ekrānuzņēmumus neseno lietotņu sarakstā un lietotnē</string>
+	<string name="screen_settings_section_search">Meklēšana</string>
+	<string name="screen_settings_live_search">Tiešā meklēšana</string>
+	<string name="screen_settings_live_search_summary">Atjaunināt meklēšanas iznākumu vaicājuma ievades laikā</string>
+	<string name="screen_settings_glob_search">Meklēt izmantojot glob paraugu</string>
+	<string name="screen_settings_glob_search_summary">Izmantot atbilstības noteikšanu glob paraugam, piemēram, Ilze.*.jpg</string>
+	<string name="screen_settings_section_auto_lock">Automātiska aizslēgšana</string>
+	<string name="screen_settings_auto_lock_timeout">Aizslēgt pēc</string>
+	<string name="screen_settings_auto_lock_on_screen_lock">Kad ekrāns ir izslēgts</string>
+	<string name="screen_settings_section_auto_photo_upload">Automātiska fotoattēlu augšupielāde</string>
+	<string name="screen_settings_section_auto_photo_upload_vault">Jāizvēlas glabātava augšupielādei</string>
+	<string name="screen_settings_section_auto_photo_upload_toggle">Iespējot</string>
+	<string name="screen_settings_section_auto_photo_upload_toggle_summary">Fonā uzņemt attēlus un, tiklīdz atlasītā glabātava ir atslēgta, uzsākt augšupielādi</string>
+	<string name="screen_settings_section_auto_photo_upload_toggle_instant_upload">Tūlītēja augšupielāde</string>
+	<string name="screen_settings_section_auto_photo_upload_toggle_instant_upload_summary">Augšupielādēt uzreiz, ja glabātav ir atslēgta</string>
+	<string name="screen_settings_section_auto_photo_upload_only_wifi_toggle">Augšupielādēt tikai tad, kad tiek izmantots Wi-Fi</string>
+	<string name="screen_settings_section_auto_photo_upload_including_videos">Augšupielādēt video</string>
+	<string name="screen_settings_auto_photo_upload_title">Saglabāt automātiski augšupielādētās datnes&#8230;</string>
+	<string name="screen_settings_website_label">Cryptomator tīmekļvietne</string>
+	<string name="screen_settings_mastodon_label">Sekot mums Mastodon</string>
+	<string name="screen_settings_facebook_label">Sekot mums Facebook</string>
+	<string name="screen_settings_section_legal">Juridiski</string>
+	<string name="screen_settings_licenses_label">Licences</string>
+	<string name="screen_settings_license_terms_label">Licences noteikumi</string>
+	<string name="screen_settings_section_support">Atbalsts</string>
+	<string name="screen_settings_contact_label">Lūgt palīdzību</string>
+	<string name="screen_settings_debug_mode_label">Atkļūdošana</string>
+	<string name="screen_settings_error_report_label">Nosūtīt žurnāla datni</string>
+	<string name="screen_settings_error_report_failed">Nosūtīšana neizdevās</string>
+	<string name="screen_settings_security_label">Drošības norādes</string>
+	<string name="screen_settings_section_version">Versija</string>
+	<string name="screen_settings_advanced_settings">Papildu iestatījumi</string>
+	<string name="screen_settings_microsoft_apps_workaround_label">Microsoft datņu atvēršanas aprisinājums</string>
+	<string name="screen_settings_microsoft_apps_workaround_summary">Atvērt datnes Microsoft lietotnēs ar rakstīšanas atļauju</string>
+	<string name="screen_settings_background_unlock_preparation_label">Paātrināt atslēgšanu</string>
+	<string name="screen_settings_background_unlock_preparation_label_summary">Fonā lejupielādēt glabātavas konfigurāciju, kamēr tiek vaicāts ievadīt paroli vai biometriskos datus</string>
+	<string name="screen_settings_keep_unlocked_while_editing_files">Paturēt atslēgtu</string>
+	<string name="screen_settings_keep_unlocked_while_editing_files_summary">Paturēt glabātavas atslēgtas, kamēr tiek labotas datnes</string>
 	<!-- ## screen: cloud settings -->
+	<string name="screen_cloud_settings_onedrive_connections">OneDrive savienojumi</string>
+	<string name="screen_cloud_settings_webdav_connections">WebDAV savienojumi</string>
+	<string name="screen_cloud_settings_pcloud_connections">pCloud savienojumi</string>
+	<string name="screen_cloud_settings_s3_connections">S3 savienojumi</string>
+	<string name="screen_cloud_settings_local_storage_locations">Vietējās krātuves vietas</string>
+	<string name="screen_cloud_settings_log_in_to">Pieteikties</string>
+	<string name="screen_cloud_settings_sign_out_from_cloud">Izrakstīties no</string>
 	<!-- ## screen: licenses -->
 	<!-- ## screen: authenticate cloud -->
+	<string name="screen_authenticate_auth_authentication_failed">%1$s nevarēja autentificēt.</string>
+	<string name="screen_update_pcloud_connections_title">Atjaunināt pCloud pieteikšanās datus</string>
 	<!-- ## screen: cryptomator app variants -->
+	<string name="screen_cryptomator_variants_title">Cryptomator paveidi</string>
+	<string name="screen_cryptomator_variants_lite_title">Galvenā F-Droid glabātava</string>
+	<string name="screen_cryptomator_variants_lite_description">Nav iekļauti, jo tiem ir nepieciešamas API atslēgas.</string>
+	<string name="screen_cryptomator_variants_lite_install">Uzstādīt</string>
+	<string name="screen_cryptomator_variants_fdroid_title">Cryptomator F-Droid glabātava</string>
+	<string name="screen_cryptomator_variants_fdroid_description">Nav iekļauts, jo tas satur slēgtas atkarības.</string>
+	<string name="screen_cryptomator_variants_fdroid_add_repo_hint">Pievienot Cryptomator glabātavu F-Droid lietotnē.</string>
+	<string name="screen_cryptomator_variants_fdroid_add_repo">Pievienot</string>
+	<string name="screen_cryptomator_variants_fdroid_install_hint">Uzstādīt Cryptomator ar F-Droid.\nJa netiks atrasta, tiks attēlota kļūda. Jāgaida līdz F-Droid sinhronizēšana būs pabeigta.</string>
+	<string name="screen_cryptomator_variants_website_title">Tīmekļvietne</string>
+	<string name="screen_cryptomator_variants_website_description">Satur īpašumatkarības.</string>
+	<string name="screen_cryptomator_variants_installation_hint">Ir nepieciešama lietotnes iestatīšana no jauna, lai pārslēgtos no vai uz galveno F-Droid glabātavu.</string>
 	<!-- # dialogs -->
 	<string name="dialog_button_cancel">Atcelt</string>
 	<string name="dialog_enter_password_positive_button">Atslēgt</string>
+	<string name="dialog_change_password_old_password_label">Iepriekšējā parole</string>
+	<string name="dialog_change_password_new_password_label">Jaunā parole</string>
+	<string name="dialog_change_password">Nomainīt paroli</string>
+	<string name="dialog_change_password_msg_old_password_empty">Iepriekšējā parole nevar būt tukša.</string>
+	<string name="dialog_change_password_msg_new_password_empty">Jaunā parole nevar būt tukša.</string>
+	<string name="dialog_change_password_msg_password_mismatch">Jaunā parole neatbilst atkārtoti ievadītajai parolei.</string>
 	<!-- Vault not found -->
+	<string name="dialog_vault_not_found_title">Glabātava %1$s nav atrasta</string>
+	<string name="dialog_vault_not_found_message">Glabātava tika pārdēvēta, pārvietota vai izdzēsta. Lai turpinātu, tā ir jānoņem no saraksta un jāpievieno atkārtoti. Noņemt tagad?</string>
 	<string name="dialog_vault_not_found_positive_button_text">Noņemt</string>
+	<string name="dialog_existing_file_title">Datne jau pastāv</string>
+	<string name="dialog_existing_file_positive_button">Aizstāt</string>
+	<string name="dialog_existing_file_message">Datne ar nosaukumu \"%1$s\" jau pastāv.</string>
+	<string name="dialog_replace_negative_button_at_least_two_but_not_all_files_exist">Izlaist pastāvošās</string>
+	<string name="dialog_replace_positive_button_all_files_exist">Aizstāt visas</string>
+	<string name="dialog_replace_positive_button_some_files_exist">Aizstāt pastāvošās</string>
+	<string name="dialog_replace_positive_button_single_file_exists">Aizstāt</string>
+	<string name="dialog_replace_msg_single_file_exists">Datne ar nosaukumu \"%1$s\" jau pastāv. Vai aizstāt to?</string>
+	<string name="dialog_replace_msg_all_files_exists">Visas datnes jau pastāv. Vai aizstāt tās?</string>
+	<string name="dialog_replace_msg_some_files_exists">%1$d datnes jau pastāv. Aizstāt tās?</string>
+	<string name="dialog_replace_title_single_file_exists">Aizstāt datni?</string>
+	<string name="dialog_replace_title_multiple_files_exist">Aizstāt datnes?</string>
 	<string name="dialog_unable_to_share_title">Nebija iespējams kopīgot datnes</string>
+	<string name="dialog_unable_to_share_message">Nav iestatīta neviena glabātava. Lūgums vispirms izveidot jaunu glabātavu Cryptomator lietotnē.</string>
 	<string name="dialog_unable_to_share_positive_button">Labi</string>
 	<string name="dialog_unable_to_share_negative_button">Izveidot glabātavu</string>
+	<string name="dialog_filetype_not_supported_title">Nevar atvērt %1$s</string>
+	<string name="dialog_filetype_not_supported_message">Lūgums lejupielādēt lietotni, ar kuru var atvērt šo datni. Vai arī saglabāt to ierīcē?</string>
+	<string name="dialog_rename_vault_title">Pārdēvēt glabātavu</string>
+	<string name="dialog_rename_node_folder_title">Pārdēvēt mapi</string>
+	<string name="dialog_rename_node_file_title">Pārdēvēt datni</string>
+	<string name="dialog_unsaved_changes_title">Ir nesaglabātas izmaiņas</string>
+	<string name="dialog_unsaved_changes_message">Vai tiešām iziet bez saglabāšanas?</string>
+	<string name="dialog_unsaved_changes_discard">Atmest</string>
+	<string name="dialog_file_name_hint">Datnes nosaukums</string>
 	<string name="dialog_file_name_placeholder">Datne.txt</string>
+	<string name="dialog_delete_vault_message">Vai tiešām noņemt šo glabātavu?</string>
+	<string name="dialog_delete_vault_hint">Šī darbība tikai noņems glabātavu no šī saraksta, bet fiziski to neizdzēsīs.</string>
 	<string name="dialog_upload_file_title">Augšupielādē&#8230;</string>
 	<string name="dialog_upload_file_remaining">%1$d. datne no %2$d</string>
 	<string name="dialog_export_file_title">Izgūst (%1$d/%2$d)</string>
+	<string name="dialog_progress_please_wait">Lūgums uzgaidīt&#8230;</string>
+	<string name="dialog_progress_creating_folder">Izveido mapi&#8230;</string>
+	<string name="dialog_progress_creating_text_file">Izveido teksta datni&#8230;</string>
+	<string name="action_progress_authentication">Autentificēšana&#8230;</string>
+	<string name="action_progress_renaming">Pārdēvē&#8230;</string>
+	<string name="action_progress_deleting">Izdzēš&#8230;</string>
+	<string name="dialog_progress_unlocking_vault">Atslēdz glabātavu&#8230;</string>
+	<string name="dialog_progress_change_password">Maina paroli&#8230;</string>
+	<string name="dialog_progress_creating_vault">Izveido glabātavu&#8230;</string>
 	<string name="dialog_progress_upload_file">Augšupielādē&#8230;</string>
+	<string name="dialog_progress_download_file">Lejupielādē&#8230;</string>
+	<string name="dialog_progress_encryption">Šifrē&#8230;</string>
+	<string name="dialog_progress_decryption">Atšifrē&#8230;</string>
+	<string name="action_progress_moving">Pārvieto&#8230;</string>
 	<string name="dialog_lock_vault">Aizslēgt</string>
+	<string name="dialog_accept_ssl_certificate_title">Nederīgs SSL sertifikāts</string>
+	<string name="dialog_accept_ssl_certificate_hint">SSL sertifikāts ir nederīgs. Vai vienalga tam uzticēties?</string>
+	<string name="dialog_accept_ssl_certificate_details">Informācija</string>
+	<string name="dialog_accept_ssl_certificate_security_checkbox">Šis varētu būt drošības risks. Es zinu, ko daru.</string>
+	<string name="dialog_ask_ignore_battery_optimizations_title">Atspējot akumulatora optimizāciju</string>
+	<string name="dialog_ask_ignore_battery_optimizations_hint">Lai iegūtu jaunus attēlus un video bez darbošanās fonā, lietotnei ir nepieciešams atspējot akumulatora optimizāciju. Neuztraucies, %1$s nepatērē daudz enerģijas!\n\nLai to pielietotu, jānomaina \"Nav optimizēta\" uz \"Visas lietotnes\", jāatlasa %1$s un jāizvēlas \"Neoptimizēt\" pēc piesišanas uz \"%2$s\" šajā lodziņā.</string>
+	<string name="dialog_ask_ignore_battery_optimizations_checkbox">Vairs nevaicāt?</string>
+	<string name="dialog_http_security_hint">HTTP izmantošana ir nedroša. Mēs iesakām tā vietā izmantot HTTPS. Ja ir skaidri iespējamie riski, var turpināt ar HTTP.</string>
+	<string name="dialog_http_security_checkbox">Mainīt uz HTTPS</string>
+	<string name="dialog_http_security_title">Izmantot HTTPS?</string>
+	<string name="dialog_no_screen_lock_hint">Nav iestatīta ekrāna aizslēgšana. Lai drošā veidā glabātu savus pieteikšanās datus, ar \"Labi\" jāiestata raksts vai parole.</string>
+	<string name="dialog_no_screen_lock_title">Iestatīt ekrāna aizslēgšanu?</string>
+	<string name="dialog_no_screen_lock_checkbox">Iestatīt ekrāna aizslēgšanu</string>
+	<string name="dialog_no_biometric_auth_set_up_title">Sistēmā nav iestatīta pamata autentificēšana</string>
+	<string name="dialog_no_biometric_auth_set_up_message">Jāpievieno vismaz viens pirkstu nospiedums / seja, lai izmantotu šo pakalpojumu.</string>
+	<string name="dialog_debug_mode_disclaimer_hint">Ar atkļūdošanu jūtīgi dati var tikt ierakstīti žurnāla datnē šajā ierīcē (piemēram, datņu nosaukumi un ceļi). Paroles, sīkdatnes utt. noteikti netiek iekļautas.\n\nJāatceras atspējot atkļūdošanu, tiklīdz tas ir iespējams.</string>
+	<string name="dialog_debug_mode_disclaimer_title">Uzmanību</string>
+	<string name="dialog_debug_mode_positive_button">Iespējot</string>
+	<string name="dialog_microsoft_workaround_disclaimer_hint">Kļūdas Microsoft lietotnēs dēļ labojamā datne ir jākopīgo ar šīm lietotnēm ierīcē esošā publiskā datu nesēju mapē. Pēc Cryptomator atsākšanas publiski pieejamā datne tiek izdzēsta, bet Cryptomator nevar ietekmēt, kas šajā laikā ir noticis ar šo datni. Jāapzinās šāda uzvedība, kad šī iespēja tiek aktivēta. Tas attieksies tikai uz Microsoft datņu veidiem.\n\nCryptomator pēc aktivēšanas atkārtoti palaidīsies.</string>
+	<string name="dialog_disable_app_obscured_disclaimer_hint">Šis iestatījums ir drošības iespēja un liedz citām lietotnēm ar viltu pamudināt lietotājus veikt darbības, kuras viņi nevēlas darīt.\n\nAr atspējošanu tiek apliecināts, ka tiek <a href="https://docs.cryptomator.org/en/latest/android/settings/#block-app-when-obscured">apzināti riski</a>.</string>
+	<string name="dialog_disable_app_obscured_disclaimer_title">Uzmanību</string>
+	<string name="dialog_disable_app_obscured_positive_button">Atspējot</string>
+	<string name="dialog_app_is_obscured_info_title">Lietotne ir aizsegta</string>
+	<string name="dialog_app_is_obscured_info_hint">Cita lietotne kaut ko attēlo virs Cryptomator (piemēram, zilās gaismas aizturēšanas vai nakts krāsu lietotne). Drošības iemeslu dēļ Cryptomator ir atspējota.\n\n<a href="https://docs.cryptomator.org/en/latest/android/settings/#block-app-when-obscured">Kā iespējot Cryptomator</a></string>
 	<string name="dialog_app_is_obscured_info_neutral_button">Aizvērt</string>
+	<string name="dialog_vaults_removed_during_migration_title">Lūgums no jauna pievienot glabātavas %1s mākonim</string>
+	<string name="dialog_vaults_removed_during_migration_hint">Lai arī pārietu uz šo lietotnes versiju, mums ir nepieciešams noņemt no lietotnes zemāk esošās glabātavas:\n%2s\n\nTās netiks noņemts no mākoņa, bet tikai no šīs lietotnes. Atvainojamies par sagādātajām neērtībām un lūdzam no jauna pievienot šīs glabātavas, lai turpinātu ar tām darboties.</string>
+	<string name="dialog_vault_is_root_folder_of_cloud_title">Glabātava ir savienojuma ar mākoni pamata mape</string>
+	<string name="dialog_vault_is_root_folder_of_cloud_hint">Jāizveido jauns savienojums ar mākoni, kurā jāatlasa vismaz šīs glabātavas iekļaujošā mape kā pamatmape, lai pievienotu šo glabātavu.</string>
+	<string name="dialog_disable_secure_screen_disclaimer_hint">Šis iestatījums ir drošības iespēja un liedz citām lietotnēm ar viltu pamudināt lietotājus veikt darbības, kuras viņi nevēlas darīt.\n\nAr atspējošanu tiek apliecināts, ka tiek <a href="https://docs.cryptomator.org/en/latest/android/settings/#screen-security">apzināti riski</a>.</string>
+	<string name="dialog_delete_cloud_connection_with_vaults_message">Vai tiešām noņemt šo mākoņa savienojumu?</string>
+	<string name="dialog_delete_cloud_connection_with_vaults_hint">Šī darbība noņems mākoņa savienojumu visas glabātavas tajā.</string>
 	<string name="dialog_confirm_delete_multiple_title">Izdzēst %1$d vienumus?</string>
+	<string name="dialog_confirm_delete_multiple_message">Vai tiešām izdzēst šos vienumus?</string>
+	<string name="dialog_confirm_delete_file_message">Vai tiešām izdzēst šo datni?</string>
+	<string name="dialog_confirm_delete_folder_message">Šī darbība izdzēsīs visu mapes saturu. Vai tiešām izdzēst šo mapi?</string>
+	<string name="dialog_biometric_auth_key_invalidated_title">Autentificēšana ar biometriju deaktivēta</string>
+	<string name="dialog_biometric_auth_key_invalidated_message">Tā kā atslēga ir padarīta par nederīgu, autentificēšanās ar biometriju tika deaktivēta. Lai iespējotu no jauna, jāatver Cryptomator iestatījumi.</string>
+	<string name="dialog_enter_license_title">Iesniegt derīgu licenci</string>
+	<string name="dialog_enter_license_content">Mēs noteicām, ka Cryptomator ir uzstādīta bez Google Play veikala izmantošanas. Jāiesniedz derīga licence, ko var iegādāties <a href="https://cryptomator.org/android/">https://cryptomator.org/android</a></string>
+	<string name="dialog_enter_license_not_valid_content">Iesniegtā licence nav derīga. Jāpārliecinās, ka tā ir pareizi ievadīta.</string>
+	<string name="dialog_enter_license_not_valid_content_desktop_supporter_certificate">Iesniegtā atslēga ir darbvirsmas atbalstītāja sertifikāts. Lūgums ievadīt derīgu licenci.</string>
+	<string name="dialog_enter_license_no_content">Nav iesniegta licence Lūgums ievadīt derīgu licenci.</string>
+	<string name="dialog_enter_license_decline_button">Iziet</string>
+	<string name="dialog_license_confirmation_title">Licences apstiprinājums</string>
 	<string name="dialog_license_confirmation_message">Paldies, %1$s, par derīgas licences iesniegšanu!</string>
+	<string name="dialog_update_available_title">Pieejams atjauninājums</string>
+	<string name="dialog_update_available_message">Cryptomator jāatjaunina uz jaunāko versiju. Pēc \"Labi\" nospiešanas mēs fonā lejupielādēsim lietotni un vaicāsim to uzstadīt.</string>
+	<string name="dialog_update_available_update">Atjaunināt tagad</string>
+	<string name="dialog_update_available_download_site">Doties uz lejupielāžu vietni</string>
+	<string name="dialog_update_available_cancel">Vēlāk</string>
+	<string name="dialog_download_update_title">Notiek lejupielāde</string>
+	<string name="dialog_download_update_message">Lejupielādē jaunāko Cryptomator versiju</string>
+	<string name="dialog_sym_link_title">Mape ir simboliska saite</string>
+	<string name="dialog_sym_link_message">Šajā simboliskajā saitē nevar ieiet</string>
 	<string name="dialog_sym_link_back_button">Atpakaļ</string>
+	<string name="dialog_no_dir_file_title">Neizdevās ielādēt mapes saturu</string>
+	<string name="dialog_no_dir_file_message">Mākoņa mapē \"%1$s\" nav derīgas mapes datnes. Varētu būt tā, ka mape tika izveidota citā ierīcē un vēl nav pilnībā sinhronizēta mākonī. Lūgums mākonī pārbaudīt, ka zemāk esošā datne pastāv un nav tukša:\n%2$s</string>
+	<string name="dialog_no_more_images_to_display">Vairs nav attēlu, ko parādīt&#8230;</string>
+	<string name="dialog_pcloud_credentials_updated_title">\"%1$s\" pieteikšanās dati atjaunināti</string>
+	<string name="dialog_pcloud_credentials_updated">Ja bija paredzēts pievienot jaunu pCloud kontu, jāpiesit saitei <a href="https://www.pcloud.com">www.pcloud.com</a>, jāatsakās no pašreizējā konta un vēlreiz jāpiesit \"+\" šajā lietotnē, lai izveidotu jaunu mākoņa savienojumu.</string>
+	<string name="dialog_cbc_password_vaults_migration_title">Nepieciešama glabātavas paroles pārcelšana</string>
+	<string name="dialog_cbc_password_vaults_migration_hint">Drošības uzlabojumu dēļ katrai glabātavai divreiz tiks vaicāta biometriskā autentificēšanās, lai no jauna šifrētu glabātavu paroles. Tas ir nepiciešams, lai turpinātu aizsargāt glabātavu paroles ar jaunākajām tehnoloģijām. Ja nav vēlēšanas, lai tas notiktu, saglabātās paroles tiks noņemtas.</string>
+	<string name="dialog_cbc_password_vaults_migration_action">Pārcelt</string>
+	<string name="dialog_create_hub_device_title">Reģistrēt Hub ierīci</string>
+	<string name="dialog_create_hub_device_name_label">Nosaukums</string>
 	<string name="dialog_create_hub_device_name_hint">Šis izskatās pēc pirmās piekļuves Hub šajā ierīcē. Lai to varētu identificēt piekļuves pilnvarošanai, nepiciešams šai ierīcei piešķirt nosaukumu.</string>
+	<string name="dialog_create_hub_device_name_empty">Nosaukums nevar būt tukšs.</string>
+	<string name="dialog_create_hub_device_setup_code_label">Konta atslēga</string>
 	<string name="dialog_create_hub_device_setup_code_hint">Konta atslēga ir nepieciešama, lai pieteiktos jaunās lietotnēs vai pārlūkos. To var atrast savā profilā.</string>
+	<string name="dialog_create_hub_device_setup_code_empty">Konta atslēga nevar būt tukša.</string>
+	<string name="dialog_progress_creating_hub_device_setup">Izveido ierīci&#8230;</string>
 	<string name="dialog_hub_vault_access_forbidden_title">Piekļuve atteikta</string>
 	<string name="dialog_hub_vault_access_forbidden_hint">Tavs lietotājs vēl nav pilnvarots piekļūt šai glabātavai. Jāvaicā glabātavas īpašniekam to pilnvarot.\"</string>
+	<string name="dialog_hub_license_upgrade_required_title">Jāpārbauda Hub licence</string>
+	<string name="dialog_hub_license_upgrade_required_hint">Cryptomator Hub instancei ir nederīga licence. Lūgums ziņot Hub pārvaldītājam, lai uzlabo vai atjauno licenci.\"</string>
+	<string name="dialog_hub_vault_archived_title">Glabātava arhivēta</string>
+	<string name="dialog_hub_vault_archived_hint">Šī glabātava ir arhivēta, un to nevar atslēgt. Lai atslēgtu to, glabātavas īpašniekam tā ir jāatceļ tās arhivēšana.</string>
+	<string name="dialog_hub_user_setup_required_title">Nepieciešama lietotāja iestatīšana</string>
+	<string name="dialog_hub_user_setup_required_hint">Lai turpinātu, lūgums pabeigt nepieciešamos soļus savā Hub lietotāja profilā.</string>
+	<string name="dialog_hub_user_setup_required_neutral_button">Doties uz profilu</string>
+	<string name="permission_snackbar_auth_local_vault">Cryptomator ir nepieciešama piekļuve krātuvei, lai izmantotu vietējās krātuves</string>
+	<string name="permission_snackbar_auth_auto_upload">Cryptomator ir nepieciešama piekļuve krātuvei, lai izmantotu automātiski augšupielādētu fotoattēlus</string>
+	<string name="permission_snackbar_notifications">Cryptomator ir nepieciešamas paziņojumu atļaujas, lai, piemēram, attēlotu glabātavas stāvokli</string>
 	<!-- # error reports -->
 	<!-- # misc -->
 	<!-- ## file size helper -->
+	<string name="file_size_zero">Nulle kB</string>
 	<string name="file_size_unit_bytes">baiti</string>
 	<string name="file_size_unit_kilo_bytes">kB</string>
 	<string name="file_size_unit_mega_bytes">MB</string>
@@ -162,16 +405,41 @@
 	<string name="time_unit_years_pl">gadi</string>
 	<!-- ## biometric authentication -->
 	<string name="dialog_biometric_auth_title">Pieteikšanās ar biometriju</string>
+	<string name="dialog_biometric_auth_message">Pieteikties ar saviem biometriskajiem datiem</string>
+	<string name="dialog_biometric_auth_use_password">Izmantot glabātavas paroli</string>
+	<string name="dialog_unable_to_auto_upload_files_title">Nebija iespējams automātiski augšupielādēt datnes</string>
 	<!-- notification -->
+	<string name="notification_unlocked">Atslēgtas glabātavas: %1$d</string>
+	<string name="notification_timeout">Automātiska aizslēgšana pēc %1$s</string>
+	<string name="notification_lock_all">Aizslēgt visas</string>
+	<string name="notification_cancel_auto_upload">Atcelt augšupielādi</string>
+	<string name="notification_auto_upload_title">Notiek automātiska fotoattēlu augšupielāde</string>
+	<string name="notification_auto_upload_message">Augšupielādē %1d/%2d</string>
+	<string name="notification_auto_upload_finished_title">Automātiskā fotoattēlu augšupielāde pabeigta</string>
+	<string name="notification_auto_upload_finished_message">%1$d attēli augšupielādēti glabātavā</string>
+	<string name="notification_auto_upload_failed_title">Automātiskā fotoattēlu augšupielāde neizdevās</string>
+	<string name="notification_auto_upload_failed_general_error">Augšupielādes laikā atgadījās vispārēja kļūda.</string>
+	<string name="notification_auto_upload_failed_due_to_folder_not_exists">Augšupielādei atlasītā mape vairs nav pieejama. Jādodas uz iestatījumiem un jāizvēlas cita</string>
 	<string name="notification_auto_upload_failed_due_to_vault_locked">Glabātava tika aizslēgta augšupielādes laikā. Lūgums atkārtoti atvērt glabātavu, lai turpinātu</string>
+	<string name="notification_auto_upload_failed_due_to_vault_not_found">Automātiskajai augšupielādei norādītā glabātava vairs nepastāv.</string>
+	<string name="notification_auto_upload_failed_due_to_authentication_problem">Piesist, lai atsvaidzinātu autentificēšanu.</string>
+	<string name="notification_open_writable_file_title">Atvērt rakstāmo datni</string>
 	<string name="notification_open_writable_file_message">Glabātava paliek atslēgta līdz labošanas pabeigšanai</string>
+	<string name="notification_update_check_finished_latest">Uzstādīta jaunākā versija</string>
+	<string name="notification_authenticating">Autentificē&#8230;</string>
 	<string name="screen_settings_lru_cache">Kešatmiņa</string>
 	<string name="screen_settings_lru_cache_toggle_summary">Kešot nesen atvērtās datnes ierīcē šifrētā veidā atkārtotai izmantošanai vēlāk atkārtotas atvēršanas gadījumā</string>
 	<string name="screen_settings_lru_cache_size">Kopējais kešatmiņas izmērs</string>
 	<string name="screen_settings_clear_lru_cache_size">Notīrīt kešatmiņu</string>
 	<string name="screen_settings_lru_cache_changed__restart_toast">Izmaiņas tiks pielietotas nākamajā lietotnes palaišanas reizē</string>
+	<string name="screen_settings_license">Reģistrēts</string>
+	<string name="screen_settings_license_mail">%1$s</string>
+	<string name="dialog_settings_update_check_interval_title">Laiks starp atjauninājumu pārbaudēm</string>
+	<string name="screen_settings_check_updates">Meklēt atjauninājumus</string>
+	<string name="screen_settings_last_check_updates">Pēdējoreiz veikta %1$s</string>
 	<string name="dialog_cache_size_title">Kešatmiņas izmērs vienam mākonim</string>
 	<!-- lock timeout names -->
+	<string name="lock_timeout_instant">Tūlītēja</string>
 	<string name="lock_timeout_1m">1 minūte</string>
 	<string name="lock_timeout_2m">2 minūtes</string>
 	<string name="lock_timeout_5m">5 minūtes</string>
@@ -185,7 +453,10 @@
 	<string name="cache_size_1000m">1 GB</string>
 	<string name="cache_size_5000m">5 GB</string>
 	<!-- screen scheme mode names -->
+	<string name="screen_settings_style_mode">Izskats</string>
+	<string name="follow_system">Automātisks (izmantot sistēmas)</string>
 	<string name="light">Gaišs</string>
 	<string name="dark">Tumšs</string>
 	<!-- update interval names -->
+	<string name="update_interval_1d">Reizi dienā</string>
 </resources>
