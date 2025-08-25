@@ -190,6 +190,7 @@
 	<string name="screen_settings_section_auto_photo_upload_including_videos">上传视频</string>
 	<string name="screen_settings_auto_photo_upload_title">保存自动上传文件到&#8230;</string>
 	<string name="screen_settings_website_label">官网</string>
+	<string name="screen_settings_mastodon_label">关注 Mastodon</string>
 	<string name="screen_settings_facebook_label">点赞脸书</string>
 	<string name="screen_settings_section_legal">法律条款</string>
 	<string name="screen_settings_licenses_label">许可证</string>

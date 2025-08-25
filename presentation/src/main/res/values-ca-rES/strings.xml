@@ -17,10 +17,10 @@
 	<string name="error_cloud_already_exists">Núvol ja existent.</string>
 	<string name="error_activity_not_found">Descarregueu un aplicació que pugui obrir aquest fitxer.</string>
 	<string name="error_server_not_found">No s\'ha trobat el servidor.</string>
-	<string name="error_device_policy_manager_not_found">Si us plau, aneu als ajustos del dispositiu i establiu el blocatge de la pantalla manualment</string>
+	<string name="error_device_policy_manager_not_found">Si us plau, aneu a la configuració del dispositiu i establiu el bloqueig de la pantalla manualment</string>
 	<string name="error_export_illegal_file_name">Ha fallat l\'exportació. Proveu a eliminar caràcters especials dels noms dels fitxers i torneu a exportar.</string>
 	<string name="error_name_contains_invalid_characters">No pot tenir caràcters especials.</string>
-	<string name="error_names_contains_invalid_characters">Els noms dels fitxers no poden tenir caràctes especials.</string>
+	<string name="error_names_contains_invalid_characters">Els noms dels fitxers no poden tenir caràcters especials.</string>
 	<string name="error_vault_name_contains_invalid_characters">El nom de la caixa forta no pot tenir caràcters especials.</string>
 	<string name="error_general_update">Ha fallat la comprovació d\'actualització. S\'ha produït un error general.</string>
 	<string name="error_hash_mismatch_update">Ha fallat la comprovació d\'actualització. La suma de comprovació no coincideix amb la del fitxer pujat</string>
@@ -187,6 +187,7 @@
 	<string name="screen_settings_section_auto_photo_upload_including_videos">Puja vídeos</string>
 	<string name="screen_settings_auto_photo_upload_title">Desa els fitxers pujats automàticament a&#8230;</string>
 	<string name="screen_settings_website_label">Lloc web de Cryptomator</string>
+	<string name="screen_settings_mastodon_label">Seguiu-nos a Mastodont</string>
 	<string name="screen_settings_facebook_label">Poseu-nos un \"m\'agrada\" a Facebook</string>
 	<string name="screen_settings_section_legal">Legal</string>
 	<string name="screen_settings_licenses_label">Llicències</string>
