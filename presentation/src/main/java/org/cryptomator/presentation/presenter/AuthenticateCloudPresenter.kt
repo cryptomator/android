@@ -114,10 +114,10 @@ class AuthenticateCloudPresenter @Inject constructor( //
 	}
 
 	private fun updateUsernameOf(cloud: Cloud, username: String): Cloud {
-		return when (cloud.type()) {
+		return when (cloud.type) {
 			CloudType.DROPBOX -> DropboxCloud.aCopyOf(cloud as DropboxCloud).withUsername(username).build()
 			CloudType.ONEDRIVE -> OnedriveCloud.aCopyOf(cloud as OnedriveCloud).withUsername(username).build()
-			else -> throw IllegalStateException("Cloud " + cloud.type() + " is not supported")
+			else -> throw IllegalStateException("Cloud " + cloud.type + " is not supported")
 		}
 	}
 
@@ -335,7 +335,7 @@ class AuthenticateCloudPresenter @Inject constructor( //
 
 	fun prepareForSavingPCloud(cloud: PCloud) {
 		getCloudsUseCase //
-			.withCloudType(cloud.type()) //
+			.withCloudType(cloud.type) //
 			.run(object : DefaultResultHandler<List<Cloud>>() {
 				override fun onSuccess(clouds: List<Cloud>) {
 					clouds.firstOrNull {

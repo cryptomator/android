@@ -24,7 +24,7 @@ public class DropboxCloudContentRepositoryFactory implements CloudContentReposit
 
 	@Override
 	public boolean supports(Cloud cloud) {
-		return cloud.type() == DROPBOX;
+		return cloud.getType() == DROPBOX;
 	}
 
 	@Override

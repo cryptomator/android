@@ -35,7 +35,7 @@ public class CryptoCloudContentRepositoryFactory implements CloudContentReposito
 
 	@Override
 	public boolean supports(Cloud cloud) {
-		return cloud.type() == CRYPTO;
+		return cloud.getType() == CRYPTO;
 	}
 
 	@Override

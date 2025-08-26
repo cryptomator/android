@@ -66,8 +66,9 @@ public class S3Cloud implements Cloud {
 		return displayName;
 	}
 
+	@NotNull
 	@Override
-	public CloudType type() {
+	public CloudType getType() {
 		return CloudType.S3;
 	}
 

@@ -31,7 +31,7 @@ public class LocalStorageContentRepositoryFactory implements CloudContentReposit
 
 	@Override
 	public boolean supports(Cloud cloud) {
-		return cloud.type() == LOCAL;
+		return cloud.getType() == LOCAL;
 	}
 
 	@Override

@@ -25,7 +25,7 @@ public class GoogleDriveCloudContentRepositoryFactory implements CloudContentRep
 
 	@Override
 	public boolean supports(Cloud cloud) {
-		return cloud.type() == CloudType.GOOGLE_DRIVE;
+		return cloud.getType() == CloudType.GOOGLE_DRIVE;
 	}
 
 	@Override

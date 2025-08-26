@@ -88,8 +88,8 @@ public class CloudEntityMapper extends EntityMapper<CloudEntity, Cloud> {
 	public CloudEntity toEntity(Cloud domainObject) {
 		CloudEntity result = new CloudEntity();
 		result.setId(domainObject.id());
-		result.setType(domainObject.type().name());
-		switch (domainObject.type()) {
+		result.setType(domainObject.getType().name());
+		switch (domainObject.getType()) {
 			case DROPBOX:
 				result.setAccessToken(((DropboxCloud) domainObject).accessToken());
 				result.setUsername(((DropboxCloud) domainObject).username());
@@ -124,7 +124,7 @@ public class CloudEntityMapper extends EntityMapper<CloudEntity, Cloud> {
 				result.setWebdavCertificate(((WebDavCloud) domainObject).certificate());
 				break;
 			default:
-				throw new IllegalStateException("Unhandled enum constant " + domainObject.type());
+				throw new IllegalStateException("Unhandled enum constant " + domainObject.getType());
 		}
 		return result;
 	}
