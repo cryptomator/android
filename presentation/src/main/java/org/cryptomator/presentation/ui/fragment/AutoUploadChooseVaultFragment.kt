@@ -23,7 +23,7 @@ class AutoUploadChooseVaultFragment : BaseFragment<FragmentAutoUploadChooseVault
 	lateinit var sharedPreferencesHandler: SharedPreferencesHandler
 
 	override fun setupView() {
-		binding.toolbarBottom.saveFiles.setOnClickListener { presenter.onChooseVaultPressed() }
+		binding.chooseVaultLayout.saveFiles.setOnClickListener { presenter.onChooseVaultPressed() }
 
 		setupRecyclerView()
 	}

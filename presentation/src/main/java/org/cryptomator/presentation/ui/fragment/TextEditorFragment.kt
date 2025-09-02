@@ -1,7 +1,9 @@
 package org.cryptomator.presentation.ui.fragment
 
+import android.os.Bundle
 import android.text.Spannable
 import android.text.style.BackgroundColorSpan
+import android.view.View
 import androidx.annotation.NonNull
 import androidx.core.content.ContextCompat
 import com.google.android.material.textfield.TextInputEditText
@@ -9,6 +11,7 @@ import org.cryptomator.generator.Fragment
 import org.cryptomator.presentation.R
 import org.cryptomator.presentation.databinding.FragmentTextEditorBinding
 import org.cryptomator.presentation.presenter.TextEditorPresenter
+import org.cryptomator.presentation.ui.layout.applySystemBarsPadding
 import javax.inject.Inject
 
 @Fragment
@@ -93,7 +96,8 @@ class TextEditorFragment : BaseFragment<FragmentTextEditorBinding>(FragmentTextE
 
 			textEditorPresenter.lastFilterLocation = index
 
-			binding.textViewWrapper.scrollTo(0, binding.textEditor.layout.getLineTop(binding.textEditor.layout.getLineForOffset(index)))
+			binding.textEditor.setSelection(index, index + it.length)
+			binding.textEditor.post { binding.textEditor.bringPointIntoView(index) }
 		}
 	}
 
@@ -103,6 +107,11 @@ class TextEditorFragment : BaseFragment<FragmentTextEditorBinding>(FragmentTextE
 			?.forEach { span ->
 				editable.text?.removeSpan(span)
 			}
+	}
+
+	override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+		super.onViewCreated(view, savedInstanceState)
+		binding.textEditor.applySystemBarsPadding(left = true, right = true, bottom = true)
 	}
 
 	enum class Direction { PREVIOUS, NEXT }
