@@ -26,12 +26,19 @@
 
 		</ScrollView>
 
-		<include
+		<org.cryptomator.presentation.ui.layout.BottomToolbarLayout
 			android:id="@+id/toolbar_bottom"
-			layout="@layout/view_receive_save_button"
 			android:layout_width="match_parent"
 			android:layout_height="wrap_content"
-			android:layout_alignParentBottom="true" />
+			android:layout_alignParentBottom="true">
+
+			<include
+				android:id="@+id/choose_vault_layout"
+				layout="@layout/view_receive_save_button"
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content" />
+
+		</org.cryptomator.presentation.ui.layout.BottomToolbarLayout>
 	</RelativeLayout>
 
 

@@ -47,7 +47,7 @@ class SharedFilesFragment : BaseFragment<FragmentSharedFilesBinding>(FragmentSha
 	}
 
 	override fun setupView() {
-		binding.toolbarBottom.saveFiles.setOnClickListener { presenter.onSaveButtonPressed(filesAdapter.all) }
+		binding.receiveSaveLayout.saveFiles.setOnClickListener { presenter.onSaveButtonPressed(filesAdapter.all) }
 		setupRecyclerView()
 	}
 

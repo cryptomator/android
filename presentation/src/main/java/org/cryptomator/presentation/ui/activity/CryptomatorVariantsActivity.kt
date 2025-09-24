@@ -5,6 +5,7 @@ import org.cryptomator.presentation.R
 import org.cryptomator.presentation.databinding.ActivityCryptomatorVariantsBinding
 import org.cryptomator.presentation.presenter.CryptomatorVariantsPresenter
 import org.cryptomator.presentation.ui.activity.view.CryptomatorVariantsView
+import org.cryptomator.presentation.ui.layout.applySystemBarsPadding
 import javax.inject.Inject
 
 @Activity
@@ -37,6 +38,7 @@ class CryptomatorVariantsActivity : BaseActivity<ActivityCryptomatorVariantsBind
 		binding.btnInstallWebsiteVariant.setOnClickListener {
 			presenter.onInstallWebsiteVariantClicked()
 		}
+		binding.tvHint.applySystemBarsPadding(bottom = true)
 	}
 
 }

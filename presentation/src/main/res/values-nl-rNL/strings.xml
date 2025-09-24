@@ -38,7 +38,7 @@
 	<string name="error_hub_vault_operation_not_supported">Kluis bewerking wordt niet ondersteund voor Hub</string>
 	<string name="error_hub_authentication_failed">Verificatie van Hub is mislukt</string>
 	<string name="error_hub_device_already_register_for_other_user">Dit apparaat is al geregistreerd voor een andere gebruiker. Probeer de account te wijzigen of gebruik een ander apparaat.</string>
-	<string name="error_hub_invalid_setup_code">De accountsleutel is ongeldig.</string>
+	<string name="error_hub_invalid_setup_code">De Account Keyl is ongeldig.</string>
 	<string name="error_hub_invalid_version">Niet-ondersteunde Hub versie.</string>
 	<string name="error_hub_unlock_pre_31">Hub wordt alleen ondersteund op Android 12 en hoger.</string>
 	<!-- # clouds -->
@@ -362,9 +362,9 @@
 	<string name="dialog_create_hub_device_name_label">Naam</string>
 	<string name="dialog_create_hub_device_name_hint">Dit lijkt de eerste Hub toegang te zijn vanaf dit toestel. Om dit toestel te autoriseren voor toegang, moet u dit toestel benoemen.</string>
 	<string name="dialog_create_hub_device_name_empty">Het naamveld kan niet leeg zijn.</string>
-	<string name="dialog_create_hub_device_setup_code_label">Account sleutel</string>
-	<string name="dialog_create_hub_device_setup_code_hint">Uw accountsleutel is vereist om in te loggen vanuit nieuwe apps of browsers. Deze kan worden gevonden in uw profiel.</string>
-	<string name="dialog_create_hub_device_setup_code_empty">Accountsleutelveld kan niet leeg zijn.</string>
+	<string name="dialog_create_hub_device_setup_code_label">Account Key</string>
+	<string name="dialog_create_hub_device_setup_code_hint">Uw Account Key is vereist om in te loggen vanuit nieuwe apps of browsers. Het is te vinden in je profiel.</string>
+	<string name="dialog_create_hub_device_setup_code_empty">Account Key kan niet leeg zijn.</string>
 	<string name="dialog_progress_creating_hub_device_setup">Aanmaken van apparaat&#8230;</string>
 	<string name="dialog_hub_vault_access_forbidden_title">Toegang geweigerd</string>
 	<string name="dialog_hub_vault_access_forbidden_hint">Uw gebruiker is nog niet geautoriseerd om toegang te krijgen tot deze kluis. Vraag de eigenaar van de kluis om toestemming te geven.\"</string>

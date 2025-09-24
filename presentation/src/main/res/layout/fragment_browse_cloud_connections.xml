@@ -21,7 +21,7 @@
 			android:id="@+id/rl_creation_hint"
 			layout="@layout/view_empty_cloud_connections" />
 
-		<RelativeLayout
+		<org.cryptomator.presentation.ui.layout.BottomToolbarLayout
 			android:id="@+id/toolbar_bottom"
 			android:layout_width="match_parent"
 			android:layout_height="wrap_content"
@@ -32,7 +32,7 @@
 				android:layout_width="match_parent"
 				android:layout_height="wrap_content" />
 
-		</RelativeLayout>
+		</org.cryptomator.presentation.ui.layout.BottomToolbarLayout>
 
 	</RelativeLayout>
 

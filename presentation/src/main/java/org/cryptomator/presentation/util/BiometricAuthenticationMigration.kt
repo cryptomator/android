@@ -47,8 +47,8 @@ class BiometricAuthenticationMigration(
 	) {
 		removeBiometricFragmentFromStack(fragment)
 		when {
-			vaultQueue.isNotEmpty() -> decryptUsingCbc(fragment, vaultQueue.removeFirst(), decryptedVaults, vaultQueue, reEncryptedVaults, allVaults)
-			decryptedVaults.isNotEmpty() -> encryptUsingGcm(fragment, decryptedVaults.removeFirst(), vaultQueue, decryptedVaults, reEncryptedVaults, allVaults)
+			vaultQueue.isNotEmpty() -> decryptUsingCbc(fragment, vaultQueue.removeAt(0), decryptedVaults, vaultQueue, reEncryptedVaults, allVaults)
+			decryptedVaults.isNotEmpty() -> encryptUsingGcm(fragment, decryptedVaults.removeAt(0), vaultQueue, decryptedVaults, reEncryptedVaults, allVaults)
 			else -> callback.onBiometricAuthenticationMigrationFinished(reEncryptedVaults)
 		}
 	}

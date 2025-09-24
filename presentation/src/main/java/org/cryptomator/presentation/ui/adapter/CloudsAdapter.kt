@@ -22,7 +22,7 @@ constructor() : RecyclerViewBaseAdapter<CloudTypeModel, CloudsAdapter.OnItemClic
 		return CloudViewHolder(binding)
 	}
 
-	inner class CloudViewHolder(private val binding: ItemCloudBinding) : RecyclerViewBaseAdapter<*, *, *, *>.ItemViewHolder(binding.root) {
+	inner class CloudViewHolder(private val binding: ItemCloudBinding) : RecyclerViewBaseAdapter<CloudTypeModel, CloudsAdapter.OnItemClickListener, CloudsAdapter.CloudViewHolder, ItemCloudBinding>.ItemViewHolder(binding.root) {
 
 		override fun bind(position: Int) {
 			val cloudTypeModel = getItem(position)

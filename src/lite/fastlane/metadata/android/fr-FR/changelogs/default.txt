@@ -1,2 +1,1 @@
-- Cryptomator Hub now receives the Device ID during vault key retrieval
-- Fixed potential crash when handling large files and exporting large folders
+- Update to latest Android version
