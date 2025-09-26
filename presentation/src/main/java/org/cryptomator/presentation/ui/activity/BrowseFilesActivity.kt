@@ -541,6 +541,14 @@ class BrowseFilesActivity : BaseActivity<ActivityLayoutBinding>(ActivityLayoutBi
 		browseFilesFragment().showProgress(nodes, progress)
 	}
 
+	override fun replaceImageWithDownloadIcon(nodes: CloudNodeModel<*>) {
+		browseFilesFragment().replaceImageWithDownloadIcon(nodes)
+	}
+
+	override fun replaceImagesWithDownloadIcon(nodes: List<CloudNodeModel<*>>) {
+		browseFilesFragment().replaceImagesWithDownloadIcon(nodes)
+	}
+
 	override fun hideProgress(node: CloudNodeModel<*>) {
 		browseFilesFragment().hideProgress(node)
 	}
