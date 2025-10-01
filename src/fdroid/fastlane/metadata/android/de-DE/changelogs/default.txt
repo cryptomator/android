@@ -1,1 +1,1 @@
-- Update auf die neueste Android-Version
+- App-Abstürze auf bestimmten Geräten beim Öffnen oder Bearbeiten von Dateien behoben

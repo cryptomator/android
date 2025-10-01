@@ -7,7 +7,8 @@ buildscript {
 		google()
 	}
 	dependencies {
-		classpath 'com.android.tools.build:gradle:8.12.1'
+		// before upgrading AGP, check https://gitlab.com/fdroid/admin/-/issues/593
+		classpath 'com.android.tools.build:gradle:8.11.1'
 		classpath 'org.greenrobot:greendao-gradle-plugin:3.3.1'
 		classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
 		classpath "de.mannodermaus.gradle.plugins:android-junit5:1.7.1.1"
@@ -36,8 +37,8 @@ def getVersionCode = { ->
 allprojects {
 	ext {
 		androidApplicationId = 'org.cryptomator'
-		androidVersionCode = 3007 // getVersionCode() // must be getVersionCode(). only at release tag set the actual value
-		androidVersionName = '1.12.0'
+		androidVersionCode = 3016 // must be getVersionCode(). only at release tag set the actual value
+		androidVersionName = '1.12.1'
 	}
 	repositories {
 		mavenCentral()
