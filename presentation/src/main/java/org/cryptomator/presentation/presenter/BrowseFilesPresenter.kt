@@ -555,16 +555,15 @@ class BrowseFilesPresenter @Inject constructor( //
 							val cryptomatorApp = activity().application as CryptomatorApp
 							cryptomatorApp.suspendLock()
 						}
-						view?.showProgress(ProgressModel.COMPLETED)
-						if (viewFileIntent.resolveActivity(context().packageManager) != null) {
+						try {
 							requestActivityResult(ActivityResultCallbacks.openFileFinished(openFileType), viewFileIntent)
-						} else {
+						} catch (e: ActivityNotFoundException) {
 							view?.showFileTypeNotSupportedDialog(cloudFile)
 						}
 					}
 
-					override fun onError(e: Throwable) {
-						super.onError(e)
+					override fun onFinished() {
+						view?.showProgress(ProgressModel.COMPLETED)
 					}
 				})
 		}
