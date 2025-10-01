@@ -1,1 +1,1 @@
-- Update to latest Android version
+- Fixed app crashes on certain devices that occurred when opening or editing files
