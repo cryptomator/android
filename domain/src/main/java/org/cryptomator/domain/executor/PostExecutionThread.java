@@ -1,6 +1,6 @@
 package org.cryptomator.domain.executor;
 
-import io.reactivex.rxjava3.core.Scheduler;
+import io.reactivex.Scheduler;
 
 /**
  * Thread abstraction created to change the execution context from any thread to any other thread.

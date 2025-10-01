@@ -56,9 +56,9 @@ ext {
 
 	// app frameworks and utilities
 
-	rxJavaVersion = '3.1.11'
-	rxAndroidVersion = '3.0.2'
-	rxBindingVersion = '3.1.0'
+	rxJavaVersion = '2.2.21'
+	rxAndroidVersion = '2.1.1'
+	rxBindingVersion = '2.2.0'
 
 	daggerVersion = '2.57'
 
@@ -188,9 +188,9 @@ ext {
 			okHttpDigest                   : "io.github.rburgst:okhttp-digest:${okHttpDigestVersion}",
 			pcloud                         : "com.github.cryptomator.pcloud-sdk-java:java-core:${pcloudVersion}",
 			recyclerViewFastScroll         : "com.simplecityapps:recyclerview-fastscroll:${recyclerViewFastScrollVersion}",
-			rxJava                         : "io.reactivex.rxjava3:rxjava:${rxJavaVersion}",
-			rxAndroid                      : "io.reactivex.rxjava3:rxandroid:${rxAndroidVersion}",
-			rxBinding                      : "com.jakewharton.rxbinding3:rxbinding:${rxBindingVersion}",
+			rxJava                         : "io.reactivex.rxjava2:rxjava:${rxJavaVersion}",
+			rxAndroid                      : "io.reactivex.rxjava2:rxandroid:${rxAndroidVersion}",
+			rxBinding                      : "com.jakewharton.rxbinding2:rxbinding:${rxBindingVersion}",
 			stax                           : "stax:stax:${staxVersion}",
 			testingSupportLib              : "com.android.support.test:testing-support-lib:${testingSupportLibVersion}",
 			timber                         : "com.jakewharton.timber:timber:${timberVersion}",

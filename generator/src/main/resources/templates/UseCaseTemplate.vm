@@ -17,7 +17,7 @@ public class $simpleName implements org.cryptomator.generator.Unsubscribable {
 
     private $implClassName impl;
     private org.cryptomator.domain.executor.BackgroundTasks.Registration registration;
-    private io.reactivex.rxjava3.disposables.Disposable disposable = io.reactivex.rxjava3.disposables.Disposable.empty();
+    private io.reactivex.disposables.Disposable disposable = io.reactivex.internal.disposables.EmptyDisposable.INSTANCE;
 
     @javax.inject.Inject
     public ${simpleName}(
@@ -36,10 +36,7 @@ public class $simpleName implements org.cryptomator.generator.Unsubscribable {
     @Override
     public void unsubscribe() {
         if (disposable != null && !disposable.isDisposed()) {
-			if (registration != null) {
-			   registration.unregister();
-			   registration = null;
-			}
+            registration.unregister();
             disposable.dispose();
             disposable = null;
 #if ( $hasCancelHandler )
@@ -104,7 +101,7 @@ public class $simpleName implements org.cryptomator.generator.Unsubscribable {
 #end
             );
 #if ( $hasProgressAware )
-            final io.reactivex.rxjava3.subscribers.DisposableSubscriber<org.cryptomator.domain.usecases.ResultWithProgress<$resultClassName,$progressStateName>> subscriber = new io.reactivex.rxjava3.subscribers.DisposableSubscriber<org.cryptomator.domain.usecases.ResultWithProgress<$resultClassName,$progressStateName>>(){
+            final io.reactivex.subscribers.DisposableSubscriber<org.cryptomator.domain.usecases.ResultWithProgress<$resultClassName,$progressStateName>> subscriber = new io.reactivex.subscribers.DisposableSubscriber<org.cryptomator.domain.usecases.ResultWithProgress<$resultClassName,$progressStateName>>(){
                 @Override
                 public void onComplete() {
                     resultHandler.onFinished();
@@ -123,7 +120,7 @@ public class $simpleName implements org.cryptomator.generator.Unsubscribable {
                 }
             };
             ${simpleName}.this.disposable = subscriber;
-            io.reactivex.rxjava3.core.Flowable.fromPublisher(new org.reactivestreams.Publisher<org.cryptomator.domain.usecases.ResultWithProgress<$resultClassName,$progressStateName>>(){
+            io.reactivex.Flowable.fromPublisher(new org.reactivestreams.Publisher<org.cryptomator.domain.usecases.ResultWithProgress<$resultClassName,$progressStateName>>(){
                 public void subscribe(final org.reactivestreams.Subscriber<? super org.cryptomator.domain.usecases.ResultWithProgress<$resultClassName,$progressStateName>> subscriber) {
                     org.cryptomator.domain.usecases.ProgressAware<$progressStateName> progressAware = new org.cryptomator.domain.usecases.ThrottlingProgressAware<$progressStateName>(new org.cryptomator.domain.usecases.ProgressAware<$progressStateName>() {
                         @Override
@@ -155,7 +152,7 @@ public class $simpleName implements org.cryptomator.generator.Unsubscribable {
                     }
                 }
 #else
-            final io.reactivex.rxjava3.subscribers.DisposableSubscriber<$subscriberResultClassName> subscriber = new io.reactivex.rxjava3.subscribers.DisposableSubscriber<$subscriberResultClassName>(){
+            final io.reactivex.subscribers.DisposableSubscriber<$subscriberResultClassName> subscriber = new io.reactivex.subscribers.DisposableSubscriber<$subscriberResultClassName>(){
                 @Override
                 public void onComplete() {
                     resultHandler.onFinished();
@@ -177,7 +174,7 @@ public class $simpleName implements org.cryptomator.generator.Unsubscribable {
                 }
             };
             ${simpleName}.this.disposable = subscriber;
-            io.reactivex.rxjava3.core.Flowable.fromCallable(new java.util.concurrent.Callable<$subscriberResultClassName>(){
+            io.reactivex.Flowable.fromCallable(new java.util.concurrent.Callable<$subscriberResultClassName>(){
                     public $subscriberResultClassName call() throws Exception {
                         final int id = EXECUTION_ID.getAndIncrement();
                         boolean failed = true;
@@ -203,7 +200,7 @@ public class $simpleName implements org.cryptomator.generator.Unsubscribable {
                     }
 #end
                 })
-                .subscribeOn(io.reactivex.rxjava3.schedulers.Schedulers.from(threadExecutor))
+                .subscribeOn(io.reactivex.schedulers.Schedulers.from(threadExecutor))
                 .onBackpressureLatest()
                 .observeOn(postExecutionThread.getScheduler())
                 .subscribe(subscriber);
@@ -232,7 +229,7 @@ public void run(final org.cryptomator.domain.usecases.ResultHandler<$resultClass
             #if( $foreach.hasNext ),#end
 #end
         );
-        final io.reactivex.rxjava3.subscribers.DisposableSubscriber<$subscriberResultClassName> subscriber = new io.reactivex.rxjava3.subscribers.DisposableSubscriber<$subscriberResultClassName>(){
+        final io.reactivex.subscribers.DisposableSubscriber<$subscriberResultClassName> subscriber = new io.reactivex.subscribers.DisposableSubscriber<$subscriberResultClassName>(){
             @Override
             public void onComplete() {
                 resultHandler.onFinished();
@@ -254,7 +251,7 @@ public void run(final org.cryptomator.domain.usecases.ResultHandler<$resultClass
             }
         };
         this.disposable = subscriber;
-        io.reactivex.rxjava3.core.Flowable.fromCallable(new java.util.concurrent.Callable<$subscriberResultClassName>(){
+        io.reactivex.Flowable.fromCallable(new java.util.concurrent.Callable<$subscriberResultClassName>(){
                 public $subscriberResultClassName call() throws Exception {
                     final int id = EXECUTION_ID.getAndIncrement();
                     boolean failed = true;
@@ -283,7 +280,7 @@ public void run(final org.cryptomator.domain.usecases.ResultHandler<$resultClass
 #end
                 }
             })
-            .subscribeOn(io.reactivex.rxjava3.schedulers.Schedulers.from(threadExecutor))
+            .subscribeOn(io.reactivex.schedulers.Schedulers.from(threadExecutor))
             .observeOn(postExecutionThread.getScheduler())
             .subscribe(subscriber);
     }
