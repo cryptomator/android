@@ -1,1 +1,1 @@
-- App-Abstürze auf bestimmten Geräten beim Öffnen oder Bearbeiten von Dateien behoben
+- App-Absturz auf kleinen Bildschirmen bei der Anzeige eines leeren Tresor-Hinweises behoben
