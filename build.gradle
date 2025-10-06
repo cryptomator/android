@@ -37,8 +37,8 @@ def getVersionCode = { ->
 allprojects {
 	ext {
 		androidApplicationId = 'org.cryptomator'
-		androidVersionCode = 3016 // must be getVersionCode(). only at release tag set the actual value
-		androidVersionName = '1.12.1'
+		androidVersionCode = 3020 // must be getVersionCode(). only at release tag set the actual value
+		androidVersionName = '1.12.2'
 	}
 	repositories {
 		mavenCentral()

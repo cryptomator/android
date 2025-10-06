@@ -35,7 +35,11 @@ class ArcAwareCoordinatorLayout : CoordinatorLayout {
 	override fun dispatchDraw(canvas: Canvas) {
 		super.dispatchDraw(canvas)
 		if (findViewById<View>(R.id.rl_creation_hint).visibility == VISIBLE) {
-			drawArcFromHintToFloatingActionButton(canvas)
+			try {
+				drawArcFromHintToFloatingActionButton(canvas)
+			} catch (e: IllegalArgumentException) {
+				Timber.tag("ArcAwareCoordinatorLayout").e(e, "Failed to draw Arc.")
+			}
 		}
 	}
 
