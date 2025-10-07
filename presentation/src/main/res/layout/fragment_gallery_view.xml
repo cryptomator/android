@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<org.cryptomator.presentation.ui.layout.SlidingCoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+	xmlns:app="http://schemas.android.com/apk/res-auto"
+	android:id="@+id/sliding_coordinator_layout"
+	android:layout_width="match_parent"
+	android:layout_height="match_parent"
+	app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
+	<RelativeLayout
+		android:layout_width="match_parent"
+		android:layout_height="match_parent">
+
+		<androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+			android:id="@+id/swipe_refresh_layout"
+			android:layout_width="match_parent"
+			android:layout_height="match_parent"
+			android:layout_above="@id/toolbar_bottom">
+
+			<include
+				android:id="@+id/recycler_view_layout"
+				layout="@layout/recycler_view_layout"
+				android:layout_width="match_parent"
+				android:layout_height="match_parent"
+				android:clipToPadding="true"
+				android:paddingBottom="88dp" />
+		</androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
+
+		<include layout="@layout/view_retry" />
+
+		<include
+			android:id="@+id/rl_view_empty_folder"
+			layout="@layout/view_empty_folder" />
+
+		<RelativeLayout
+			android:id="@+id/toolbar_bottom"
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content"
+			android:layout_alignParentBottom="true">
+
+			<include
+				android:id="@+id/choose_location_layout"
+				layout="@layout/view_browses_files_extra_text_and_button"
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content" />
+
+		</RelativeLayout>
+
+	</RelativeLayout>
+
+	<include
+		android:id="@+id/floating_action_button"
+		layout="@layout/floating_action_button_layout"
+		android:visibility="gone"
+		app:layout_anchor="@id/recycler_view" />
+
+</org.cryptomator.presentation.ui.layout.SlidingCoordinatorLayout>

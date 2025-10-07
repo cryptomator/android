@@ -1,16 +1,28 @@
 package org.cryptomator.presentation.util
 
 import org.cryptomator.presentation.R
+import java.text.SimpleDateFormat
+import java.time.format.DateTimeFormatter
 import java.util.Date
 import java.util.concurrent.TimeUnit
 import javax.inject.Inject
 
 class DateHelper @Inject constructor() {
 
+	private val dateFormatter by lazy {
+		SimpleDateFormat("yyyy/MM/dd - HH:mm")
+	}
+
 	fun getFormattedModifiedDate(modified: Date?): String? {
 		return modified?.let {
 			val modifiedAgo = currentDate().time - it.time
 			return String.format(ResourceHelper.getString(R.string.screen_file_browser_file_info_label_date), convert(modifiedAgo))
+		}
+	}
+
+	fun getModifiedDate(modified: Date?): String? {
+		return modified?.let {
+			dateFormatter.format(it)
 		}
 	}
 

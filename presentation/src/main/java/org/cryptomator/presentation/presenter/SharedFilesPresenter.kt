@@ -343,6 +343,7 @@ class SharedFilesPresenter @Inject constructor( //
 		requestActivityResult( //
 			ActivityResultCallbacks.onChooseLocation(vaultModel),  //
 			Intents.browseFilesIntent() //
+				.withVaultId(vaultModel.vaultId) //
 				.withFolder(decryptedRoot) //
 				.withTitle(vaultModel.name) //
 				.withChooseCloudNodeSettings( //

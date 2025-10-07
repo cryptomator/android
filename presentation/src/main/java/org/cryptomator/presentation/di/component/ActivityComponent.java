@@ -32,6 +32,7 @@ import org.cryptomator.presentation.ui.fragment.BrowseFilesFragment;
 import org.cryptomator.presentation.ui.fragment.ChooseCloudServiceFragment;
 import org.cryptomator.presentation.ui.fragment.CloudConnectionListFragment;
 import org.cryptomator.presentation.ui.fragment.CloudSettingsFragment;
+import org.cryptomator.presentation.ui.fragment.GalleryFragment;
 import org.cryptomator.presentation.ui.fragment.ImagePreviewFragment;
 import org.cryptomator.presentation.ui.fragment.S3AddOrChangeFragment;
 import org.cryptomator.presentation.ui.fragment.SetPasswordFragment;
@@ -74,6 +75,8 @@ public interface ActivityComponent {
 	void inject(CloudSettingsFragment cloudSettingsFragment);
 
 	void inject(BrowseFilesFragment browseFilesFragment);
+
+	void inject(GalleryFragment galleryFragment);
 
 	void inject(ChooseCloudServiceFragment chooseCloudServiceFragment);
 
