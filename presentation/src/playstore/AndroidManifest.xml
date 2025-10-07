@@ -28,7 +28,7 @@
 				<category android:name="android.intent.category.BROWSABLE" />
 
 				<data
-					android:host="org.cryptomator"
+					android:host="${applicationId}"
 					android:path="/${ONEDRIVE_API_KEY_DECODED}"
 					android:scheme="msauth" />
 			</intent-filter>
