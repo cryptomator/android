@@ -1,5 +1,6 @@
 package org.cryptomator.presentation.ui.adapter
 
+import android.graphics.BitmapFactory
 import android.os.PatternMatcher
 import android.view.LayoutInflater
 import android.view.View
@@ -30,6 +31,8 @@ import org.cryptomator.presentation.util.FileSizeHelper
 import org.cryptomator.presentation.util.FileUtil
 import org.cryptomator.presentation.util.ResourceHelper.Companion.getDrawable
 import org.cryptomator.util.SharedPreferencesHandler
+import org.cryptomator.util.file.MimeType
+import org.cryptomator.util.file.MimeTypes
 import javax.inject.Inject
 
 class BrowseFilesAdapter @Inject
@@ -37,7 +40,8 @@ constructor(
 	private val dateHelper: DateHelper, //
 	private val fileSizeHelper: FileSizeHelper, //
 	private val fileUtil: FileUtil, //
-	private val sharedPreferencesHandler: SharedPreferencesHandler
+	private val sharedPreferencesHandler: SharedPreferencesHandler, //
+	private val mimeTypes: MimeTypes //
 ) : RecyclerViewBaseAdapter<CloudNodeModel<*>, BrowseFilesAdapter.ItemClickListener, VaultContentViewHolder, ItemBrowseFilesNodeBinding>(CloudNodeModelNameAZComparator()), FastScrollRecyclerView.SectionedAdapter {
 
 	private var chooseCloudNodeSettings: ChooseCloudNodeSettings? = null
@@ -135,7 +139,16 @@ constructor(
 		}
 
 		private fun bindNodeImage(node: CloudNodeModel<*>) {
-			binding.cloudNodeImage.setImageResource(bindCloudNodeImage(node))
+			if (node is CloudFileModel && isImageMediaType(node.name) && node.thumbnail != null) {
+				val bitmap = BitmapFactory.decodeFile(node.thumbnail!!.absolutePath)
+				binding.cloudNodeImage.setImageBitmap(bitmap)
+			} else {
+				binding.cloudNodeImage.setImageResource(bindCloudNodeImage(node))
+			}
+		}
+
+		private fun isImageMediaType(filename: String): Boolean {
+			return (mimeTypes.fromFilename(filename) ?: MimeType.WILDCARD_MIME_TYPE).mediatype == "image"
 		}
 
 		private fun bindCloudNodeImage(cloudNodeModel: CloudNodeModel<*>): Int {
@@ -317,6 +330,10 @@ constructor(
 		fun hideProgress() {
 			uiState?.let { switchTo(it.details()) }
 			bound?.progress = null
+		}
+
+		fun replaceImageWithDownloadIcon() {
+			binding.cloudNodeImage.setImageResource(R.drawable.ic_file_download)
 		}
 
 		private fun switchTo(state: UiStateTest) {

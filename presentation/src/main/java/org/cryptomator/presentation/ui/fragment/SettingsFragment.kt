@@ -9,6 +9,7 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.biometric.BiometricManager
 import androidx.core.content.ContextCompat
+import androidx.preference.ListPreference
 import androidx.preference.Preference
 import androidx.preference.PreferenceCategory
 import androidx.preference.SwitchPreference
@@ -80,6 +81,17 @@ class SettingsFragment : PreferenceFragmentCompatLayout() {
 		if (FALSE == newValue) {
 			LruFileCacheUtil(requireContext()).clear()
 			setupLruCacheSize()
+
+			findPreference<ListPreference>(THUMBNAIL_GENERATION)?.let { preference ->
+				preference.isSelectable = false
+			}
+			Toast.makeText(context, context?.getString(R.string.thumbnail_generation__deactivation_toast), Toast.LENGTH_LONG).show()
+		}
+
+		if (TRUE == newValue) {
+			findPreference<ListPreference>(THUMBNAIL_GENERATION)?.let { preference ->
+				preference.isSelectable = true
+			}
 		}
 
 		Toast.makeText(context, context?.getString(R.string.screen_settings_lru_cache_changed__restart_toast), Toast.LENGTH_SHORT).show()
@@ -142,7 +154,6 @@ class SettingsFragment : PreferenceFragmentCompatLayout() {
 
 	private fun setupLruCacheSize() {
 		val preference = findPreference(DISPLAY_LRU_CACHE_SIZE_ITEM_KEY) as Preference?
-
 		val size = LruFileCacheUtil(requireContext()).totalSize()
 
 		val readableSize: String = if (size > 0) {
@@ -327,6 +338,7 @@ class SettingsFragment : PreferenceFragmentCompatLayout() {
 		private const val UPDATE_INTERVAL_ITEM_KEY = "updateInterval"
 		private const val DISPLAY_LRU_CACHE_SIZE_ITEM_KEY = "displayLruCacheSize"
 		private const val LRU_CACHE_CLEAR_ITEM_KEY = "lruCacheClear"
+		private const val THUMBNAIL_GENERATION = "thumbnailGeneration"
 	}
 
 }

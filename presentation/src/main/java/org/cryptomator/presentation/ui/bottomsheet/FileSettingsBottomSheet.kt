@@ -1,5 +1,6 @@
 package org.cryptomator.presentation.ui.bottomsheet
 
+import android.graphics.BitmapFactory
 import android.os.Bundle
 import android.view.View
 import org.cryptomator.generator.BottomSheet
@@ -25,9 +26,15 @@ class FileSettingsBottomSheet : BaseBottomSheet<FileSettingsBottomSheet.Callback
 		val cloudFileModel = requireArguments().getSerializable(FILE_ARG) as CloudFileModel
 		val parentFolderPath = requireArguments().getString(PARENT_FOLDER_PATH_ARG)
 
-		binding.ivFileImage.setImageResource(cloudFileModel.icon.iconResource)
 		binding.tvFileName.text = cloudFileModel.name
 		binding.tvFilePath.text = parentFolderPath
+		cloudFileModel.thumbnail?.let {
+			val thumbnail = BitmapFactory.decodeFile(it.absolutePath)
+			binding.ivFileImage.setImageBitmap(thumbnail)
+		}
+		if (binding.ivFileImage.drawable == null) {
+			binding.ivFileImage.setImageResource(cloudFileModel.icon.iconResource)
+		}
 
 		val lowerFileName = cloudFileModel.name.lowercase()
 		if (lowerFileName.endsWith(".txt") || lowerFileName.endsWith(".md") || lowerFileName.endsWith(".todo")) {
