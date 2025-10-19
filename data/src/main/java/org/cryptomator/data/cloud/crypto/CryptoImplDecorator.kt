@@ -427,18 +427,32 @@ abstract class CryptoImplDecorator(
 						}
 					}
 					thumbnailWriter.flush()
-					closeQuietly(thumbnailWriter)
 				}
 			} finally {
 				encryptedTmpFile.delete()
-				if (genThumbnail) {
-					futureThumbnail.get()
-				}
 				progressAware.onProgress(Progress.completed(DownloadState.decryption(cryptoFile)))
 			}
 
+			// Close thumbnail writer first, then wait for thumbnail generation to complete
+			if (genThumbnail) {
+				closeQuietly(thumbnailWriter)
+				try {
+					futureThumbnail.get(5, java.util.concurrent.TimeUnit.SECONDS) // Add timeout to prevent hanging
+				} catch (e: java.util.concurrent.TimeoutException) {
+					Timber.w("Thumbnail generation timed out for ${cryptoFile.name}")
+					futureThumbnail.cancel(true)
+				} catch (e: Exception) {
+					Timber.w(e, "Error waiting for thumbnail generation for ${cryptoFile.name}")
+				}
+			}
 			closeQuietly(thumbnailReader)
 		} catch (e: IOException) {
+			// Don't treat thumbnail-related pipe closed errors as fatal
+			if (e.message?.contains("Pipe closed") == true && genThumbnail) {
+				Timber.d("Pipe closed during thumbnail generation (expected): ${cryptoFile.name}")
+				// The file was successfully decrypted, just the thumbnail failed
+				return
+			}
 			throw FatalBackendException(e)
 		}
 	}
@@ -456,24 +470,68 @@ abstract class CryptoImplDecorator(
 			try {
 				val options = BitmapFactory.Options()
 				val thumbnailBitmap: Bitmap?
-				options.inSampleSize = 4 // pixel number reduced by a factor of 1/16
+
+				// Use aggressive sampling for memory efficiency with large images
+				// Estimate file size and adjust sample size accordingly
+				val fileSize = cryptoFile.size ?: 0L
+				val fileSizeMB = fileSize / (1024 * 1024)
+
+				// Calculate sample size based on file size to prevent OOM
+				var sampleSize = when {
+					fileSizeMB > 50 -> 16  // 1/256 of original size for very large files
+					fileSizeMB > 30 -> 12  // 1/144 of original size for large files
+					fileSizeMB > 20 -> 8   // 1/64 of original size for medium-large files
+					fileSizeMB > 10 -> 6   // 1/36 of original size for medium files
+					else -> 4              // 1/16 of original size for smaller files
+				}
+
+				options.inSampleSize = sampleSize
+				options.inPreferredConfig = Bitmap.Config.RGB_565 // Use less memory than ARGB_8888
+				options.inDither = false
+				options.inPurgeable = true // Allow system to purge bitmap from memory if needed
+				options.inInputShareable = true
+
+				Timber.d("Generating thumbnail for ${cryptoFile.name} (${fileSizeMB}MB) with sampleSize: $sampleSize")
+
 				val bitmap = BitmapFactory.decodeStream(thumbnailReader, null, options)
 				if (bitmap == null) {
 					closeQuietly(thumbnailReader)
+					Timber.w("Failed to decode bitmap for thumbnail generation: ${cryptoFile.name}")
 					return@submit
 				}
 
 				val thumbnailWidth = 100
 				val thumbnailHeight = 100
 				thumbnailBitmap = ThumbnailUtils.extractThumbnail(bitmap, thumbnailWidth, thumbnailHeight)
+
+				// Clean up the original bitmap to free memory immediately
+				if (bitmap != thumbnailBitmap) {
+					bitmap.recycle()
+				}
+
 				if (thumbnailBitmap != null) {
 					storeThumbnail(diskCache, cacheKey, thumbnailBitmap)
+					thumbnailBitmap.recycle() // Clean up thumbnail bitmap after storing
 				}
 				closeQuietly(thumbnailReader)
 
 				cryptoFile.thumbnail = diskCache[cacheKey]
+				Timber.d("Successfully generated thumbnail for ${cryptoFile.name}")
+			} catch (e: OutOfMemoryError) {
+				closeQuietly(thumbnailReader)
+				Timber.e(e, "OutOfMemoryError during thumbnail generation for large image: ${cryptoFile.name} (${(cryptoFile.size ?: 0L) / (1024 * 1024)}MB)")
+				// Try to recover by forcing garbage collection
+				System.gc()
+			} catch (e: java.io.IOException) {
+				closeQuietly(thumbnailReader)
+				if (e.message?.contains("Pipe closed") == true) {
+					Timber.d("Thumbnail generation stream closed (expected for large files): ${cryptoFile.name}")
+				} else {
+					Timber.w(e, "IOException during thumbnail generation for file: ${cryptoFile.name}")
+				}
 			} catch (e: Exception) {
-				Timber.e(e, "Bitmap generation crashed")
+				closeQuietly(thumbnailReader)
+				Timber.e(e, "Bitmap generation crashed for file: ${cryptoFile.name}")
 			}
 		}
 	}

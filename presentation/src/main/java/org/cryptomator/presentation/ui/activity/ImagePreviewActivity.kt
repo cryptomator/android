@@ -73,7 +73,17 @@ class ImagePreviewActivity : BaseActivity<ActivityImagePreviewBinding>(ActivityI
 			toggleFullScreen()
 			attachSystemUiVisibilityChangeListener()
 		} catch (e: FatalBackendException) {
-			showError(getString(R.string.error_generic))
+			// Check if it's a memory issue with large images
+			if (e.message?.contains("memory", ignoreCase = true) == true ||
+				e.cause is OutOfMemoryError ||
+				e.message?.contains("large", ignoreCase = true) == true) {
+				showError(getString(R.string.error_image_too_large))
+			} else {
+				showError(getString(R.string.error_generic))
+			}
+			finish()
+		} catch (e: OutOfMemoryError) {
+			showError(getString(R.string.error_image_too_large))
 			finish()
 		}
 	}
