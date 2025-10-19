@@ -412,7 +412,11 @@ abstract class CryptoImplDecorator(
 							buff.flip()
 							data.write(buff.array(), 0, buff.remaining())
 							if (genThumbnail) {
-								thumbnailWriter.write(buff.array(), 0, buff.remaining())
+								try {
+									thumbnailWriter.write(buff.array(), 0, buff.remaining())
+								} catch (e: IOException){
+									Timber.w(e, "Failed to write thumbnail to output stream: ${cryptoFile.name} - skipping thumbnail generation")
+								}
 							}
 
 							decrypted += read.toLong()
@@ -433,26 +437,21 @@ abstract class CryptoImplDecorator(
 				progressAware.onProgress(Progress.completed(DownloadState.decryption(cryptoFile)))
 			}
 
-			// Close thumbnail writer first, then wait for thumbnail generation to complete
+			// Finalize the thumbnail generation: close thumbnail writer first, then wait for thumbnail generation to complete
 			if (genThumbnail) {
 				closeQuietly(thumbnailWriter)
 				try {
-					futureThumbnail.get(5, java.util.concurrent.TimeUnit.SECONDS) // Add timeout to prevent hanging
+					futureThumbnail.get(5, java.util.concurrent.TimeUnit.SECONDS)
 				} catch (e: java.util.concurrent.TimeoutException) {
 					Timber.w("Thumbnail generation timed out for ${cryptoFile.name}")
 					futureThumbnail.cancel(true)
 				} catch (e: Exception) {
-					Timber.w(e, "Error waiting for thumbnail generation for ${cryptoFile.name}")
+					Timber.w(e, "Non-fatal error while waiting for thumbnail generation for ${cryptoFile.name}")
+				} finally {
+					closeQuietly(thumbnailReader)
 				}
 			}
-			closeQuietly(thumbnailReader)
 		} catch (e: IOException) {
-			// Don't treat thumbnail-related pipe closed errors as fatal
-			if (e.message?.contains("Pipe closed") == true && genThumbnail) {
-				Timber.d("Pipe closed during thumbnail generation (expected): ${cryptoFile.name}")
-				// The file was successfully decrypted, just the thumbnail failed
-				return
-			}
 			throw FatalBackendException(e)
 		}
 	}
@@ -461,7 +460,7 @@ abstract class CryptoImplDecorator(
 		try {
 			closeable.close();
 		} catch (e: IOException) {
-			// ignore
+			Timber.d(e, "IOException occurred while closing Closeable")
 		}
 	}
 
@@ -477,7 +476,7 @@ abstract class CryptoImplDecorator(
 				val fileSizeMB = fileSize / (1024 * 1024)
 
 				// Calculate sample size based on file size to prevent OOM
-				var sampleSize = when {
+				val sampleSize = when {
 					fileSizeMB > 50 -> 16  // 1/256 of original size for very large files
 					fileSizeMB > 30 -> 12  // 1/144 of original size for large files
 					fileSizeMB > 20 -> 8   // 1/64 of original size for medium-large files
@@ -486,10 +485,7 @@ abstract class CryptoImplDecorator(
 				}
 
 				options.inSampleSize = sampleSize
-				options.inPreferredConfig = Bitmap.Config.RGB_565 // Use less memory than ARGB_8888
-				options.inDither = false
-				options.inPurgeable = true // Allow system to purge bitmap from memory if needed
-				options.inInputShareable = true
+				options.inPreferredConfig = Bitmap.Config.RGB_565
 
 				Timber.d("Generating thumbnail for ${cryptoFile.name} (${fileSizeMB}MB) with sampleSize: $sampleSize")
 
@@ -541,7 +537,37 @@ abstract class CryptoImplDecorator(
 	}
 
 	private fun isThumbnailGenerationAvailable(cache: DiskLruCache?, fileName: String): Boolean {
-		return isGenerateThumbnailsEnabled() && sharedPreferencesHandler.generateThumbnails() != ThumbnailsOption.READONLY && cache != null && isImageMediaType(fileName)
+		return isGenerateThumbnailsEnabled() && sharedPreferencesHandler.generateThumbnails() != ThumbnailsOption.READONLY && cache != null && isImageMediaType(fileName) && isBitmapImage(fileName)
+	}
+
+	private fun isBitmapImage(fileName: String): Boolean {
+		val mimeType = mimeTypes.fromFilename(fileName)
+		if (mimeType == null) {
+			return false
+		}
+		if (mimeType.mediatype != "image") {
+			return false
+		}
+
+		when (mimeType.subtype) {
+			"png" -> return true
+			"apng" -> return true
+			"jpg" -> return true
+			"jpeg" -> return true
+			"avif" -> return true
+			"jfif" -> return true
+			"gif" -> return true
+			"bmp" -> return true
+			"pjpeg" -> return true
+			"pjp" -> return true
+			"webp" -> return true
+			"ico" -> return true
+			"cur" -> return true
+			"tif" -> return true
+			"tiff" -> return true
+			"svg" -> return false
+		}
+		return false
 	}
 
 	fun associateThumbnails(list: List<CryptoNode>, progressAware: ProgressAware<FileTransferState>) {

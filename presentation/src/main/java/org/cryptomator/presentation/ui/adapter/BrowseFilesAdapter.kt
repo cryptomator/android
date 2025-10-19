@@ -141,6 +141,10 @@ constructor(
 		private fun bindNodeImage(node: CloudNodeModel<*>) {
 			if (node is CloudFileModel && isImageMediaType(node.name) && node.thumbnail != null) {
 				val bitmap = BitmapFactory.decodeFile(node.thumbnail!!.absolutePath)
+				if (bitmap == null){
+					binding.cloudNodeImage.setImageResource(bindCloudNodeImage(node))
+					return
+				}
 				binding.cloudNodeImage.setImageBitmap(bitmap)
 			} else {
 				binding.cloudNodeImage.setImageResource(bindCloudNodeImage(node))
