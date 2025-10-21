@@ -281,11 +281,14 @@
 	<string name="dialog_accept_ssl_certificate_details">Podrobnosti</string>
 	<string name="dialog_accept_ssl_certificate_security_checkbox">To bi bilo lahko nevarno. Vem kaj delam.</string>
 	<string name="dialog_ask_ignore_battery_optimizations_title">Onemogoči optimizacije baterije</string>
+	<string name="dialog_ask_ignore_battery_optimizations_checkbox">Ne sprašuj več</string>
 	<string name="dialog_http_security_title">Uporabi HTTPS?</string>
 	<string name="dialog_debug_mode_disclaimer_title">Pozor</string>
 	<string name="dialog_debug_mode_positive_button">Omogoči</string>
 	<string name="dialog_disable_app_obscured_disclaimer_title">Pozor</string>
 	<string name="dialog_app_is_obscured_info_neutral_button">Zapri</string>
+	<string name="dialog_confirm_delete_multiple_title">Izbriši %1$d stvari?</string>
+	<string name="dialog_confirm_delete_multiple_message">Ali ste prepričani, da želite te datoteke izbrisati?</string>
 	<string name="dialog_enter_license_decline_button">Izhod</string>
 	<string name="dialog_license_confirmation_title">Potrditev licence</string>
 	<string name="dialog_update_available_title">Posodobitev je na voljo</string>
