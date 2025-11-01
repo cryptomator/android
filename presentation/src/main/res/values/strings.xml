@@ -78,6 +78,7 @@
 	<string name="snack_bar_action_title_search_next">Next</string>
 
 	<string name="snack_bar_action_title_sort">Sort</string>
+	<string name="menu_vault_list_sort_by">Sort by...</string>
 	<string name="snack_bar_action_title_sort_az">A - Z</string>
 	<string name="snack_bar_action_title_sort_za">Z - A</string>
 	<string name="snack_bar_action_title_sort_newest">Newest first</string>
@@ -334,6 +335,11 @@
 
 	<!-- # dialogs -->
 	<string name="dialog_button_cancel">Cancel</string>
+	<string name="dialog_sort_override_message">This will override any existing sorting. Are you sure?</string>
+	<string name="dialog_sort_override_negative_button">Close</string>
+	<string name="dialog_sort_override_positive_button">Proceed</string>
+	<string name="dialog_sort_override_option_name">Sort by vault name</string>
+	<string name="dialog_sort_override_option_location">Sort by vault location</string>
 
 	<string name="dialog_create_folder_title" translatable="false">@string/screen_file_browser_action_create_folder</string>
 	<string name="dialog_create_folder_positive_button" translatable="false">@string/screen_enter_vault_name_button_text</string>

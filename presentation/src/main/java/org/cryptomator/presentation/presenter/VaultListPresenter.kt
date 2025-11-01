@@ -46,6 +46,7 @@ import org.cryptomator.presentation.intent.UnlockVaultIntent
 import org.cryptomator.presentation.model.CloudModel
 import org.cryptomator.presentation.model.CloudTypeModel
 import org.cryptomator.presentation.model.ProgressModel
+import org.cryptomator.presentation.model.VaultListSortOption
 import org.cryptomator.presentation.model.VaultModel
 import org.cryptomator.presentation.model.mappers.CloudFolderModelMapper
 import org.cryptomator.presentation.ui.activity.LicenseCheckActivity
@@ -66,6 +67,7 @@ import org.cryptomator.presentation.workflow.PermissionsResult
 import org.cryptomator.presentation.workflow.Workflow
 import org.cryptomator.util.SharedPreferencesHandler
 import org.cryptomator.util.crypto.CryptoMode
+import java.util.Locale
 import javax.inject.Inject
 import timber.log.Timber
 
@@ -97,6 +99,7 @@ class VaultListPresenter @Inject constructor( //
 ) : Presenter<VaultListView>(exceptionMappings) {
 
 	private var vaultAction: VaultAction? = null
+	private var cachedVaults: List<Vault> = emptyList()
 
 	override fun workflows(): Iterable<Workflow<*>> {
 		return listOf(addExistingVaultWorkflow, createNewVaultWorkflow)
@@ -391,6 +394,7 @@ class VaultListPresenter @Inject constructor( //
 		get() {
 			getVaultListUseCase.run(object : DefaultResultHandler<List<Vault>>() {
 				override fun onSuccess(vaults: List<Vault>) {
+					cachedVaults = vaults
 					val vaultModels = vaults.mapTo(ArrayList()) { VaultModel(it) }
 					if (vaultModels.isEmpty()) {
 						view?.showVaultCreationHint()
@@ -601,6 +605,7 @@ class VaultListPresenter @Inject constructor( //
 			.andToPosition(toPosition) //
 			.run(object : DefaultResultHandler<List<Vault>>() {
 				override fun onSuccess(vaults: List<Vault>) {
+					cachedVaults = vaults
 					view?.vaultMoved(vaults.mapTo(ArrayList()) { VaultModel(it) })
 				}
 
@@ -608,6 +613,51 @@ class VaultListPresenter @Inject constructor( //
 					Timber.tag("VaultListPresenter").e(e, "Failed to execute MoveVaultUseCase")
 				}
 			})
+	}
+
+	fun onSortOverrideConfirmed(sortOption: VaultListSortOption) {
+		if (cachedVaults.isEmpty()) {
+			loadVaultList()
+			return
+		}
+
+		val sortedVaults = when (sortOption) {
+			VaultListSortOption.NAME -> cachedVaults.sortedWith(nameComparator())
+			VaultListSortOption.LOCATION -> cachedVaults.sortedWith(locationComparator())
+		}
+
+		if (sortedVaults.map { it.id } == cachedVaults.map { it.id }) {
+			return
+		}
+
+		val reindexedVaults = sortedVaults.mapIndexed { index, vault ->
+			Vault.aCopyOf(vault).withPosition(index).build()
+		}
+
+		saveVaultsUseCase //
+			.withVaults(reindexedVaults) //
+			.run(object : DefaultResultHandler<List<Vault>>() {
+				override fun onSuccess(vaults: List<Vault>) {
+					cachedVaults = vaults
+					val vaultModels = vaults.mapTo(ArrayList()) { VaultModel(it) }
+					view?.vaultMoved(vaultModels)
+				}
+
+				override fun onError(e: Throwable) {
+					showError(e)
+				}
+			})
+	}
+
+	private fun nameComparator(): Comparator<Vault> {
+		return compareBy<Vault> { it.name.lowercase(Locale.getDefault()) }
+			.thenBy { it.name }
+	}
+
+	private fun locationComparator(): Comparator<Vault> {
+		return compareBy<Vault> { it.cloudType.ordinal }
+			.thenBy { it.name.lowercase(Locale.getDefault()) }
+			.thenBy { it.name }
 	}
 
 	private enum class VaultAction {

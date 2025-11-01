@@ -17,6 +17,7 @@ import org.cryptomator.presentation.intent.Intents.settingsIntent
 import org.cryptomator.presentation.intent.VaultListIntent
 import org.cryptomator.presentation.model.CloudFolderModel
 import org.cryptomator.presentation.model.ProgressModel
+import org.cryptomator.presentation.model.VaultListSortOption
 import org.cryptomator.presentation.model.VaultModel
 import org.cryptomator.presentation.presenter.VaultListPresenter
 import org.cryptomator.presentation.service.OpenWritableFileNotification
@@ -27,6 +28,7 @@ import org.cryptomator.presentation.ui.callback.VaultListCallback
 import org.cryptomator.presentation.ui.dialog.AskForLockScreenDialog
 import org.cryptomator.presentation.ui.dialog.BetaConfirmationDialog
 import org.cryptomator.presentation.ui.dialog.CBCPasswordVaultsMigrationDialog
+import org.cryptomator.presentation.ui.dialog.SortOverrideConfirmationDialog
 import org.cryptomator.presentation.ui.dialog.UpdateAppAvailableDialog
 import org.cryptomator.presentation.ui.dialog.UpdateAppDialog
 import org.cryptomator.presentation.ui.dialog.VaultDeleteConfirmationDialog
@@ -45,7 +47,8 @@ class VaultListActivity : BaseActivity<ActivityLayoutObscureAwareBinding>(Activi
 	UpdateAppDialog.Callback, //
 	BetaConfirmationDialog.Callback, //
 	CBCPasswordVaultsMigrationDialog.Callback, //
-	BiometricAuthenticationMigration.Callback {
+	BiometricAuthenticationMigration.Callback, //
+	SortOverrideConfirmationDialog.Callback {
 
 	@Inject
 	lateinit var vaultListPresenter: VaultListPresenter
@@ -98,11 +101,19 @@ class VaultListActivity : BaseActivity<ActivityLayoutObscureAwareBinding>(Activi
 	override fun getCustomMenuResource(): Int = R.menu.menu_vault_list
 
 	override fun onMenuItemSelected(itemId: Int): Boolean = when (itemId) {
+		R.id.action_sort_by -> {
+			showDialog(SortOverrideConfirmationDialog.newInstance())
+			true
+		}
 		R.id.action_settings -> {
 			vaultListPresenter.startIntent(settingsIntent())
 			true
 		}
 		else -> super.onMenuItemSelected(itemId)
+	}
+
+	override fun onSortOverrideConfirmed(sortOption: VaultListSortOption) {
+		vaultListPresenter.onSortOverrideConfirmed(sortOption)
 	}
 
 	override fun isVaultLocked(vaultModel: VaultModel): Boolean {
