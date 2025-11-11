@@ -33,7 +33,7 @@
 	<string name="error_vault_config_loading">Erreur générale lors du chargement de la configuration du coffre</string>
 	<string name="error_file_not_found_after_opening_using_3party">Le fichier local n\'est plus présent après le retour à Cryptomator. Les éventuelles modifications ne peuvent être propagées dans le cloud.</string>
 	<string name="error_no_such_bucket">Aucun bucket correspondant</string>
-	<string name="error_masterkey_location_not_supported">Localisation personnalisée de la Masterkey n\'est pas encore prise en charge</string>
+	<string name="error_masterkey_location_not_supported">L\'emplacement personnalisé de la clé principale n\'est pas encore pris en charge</string>
 	<string name="error_interact_with_fdroid_but_fdroid_missing">Impossible de communiquer avec l\'application F-Droid. Est-elle installée ?</string>
 	<string name="error_hub_vault_operation_not_supported">Opération du coffre non prise en charge pour le Hub</string>
 	<string name="error_hub_authentication_failed">L’authentification sur Hub a échoué</string>
