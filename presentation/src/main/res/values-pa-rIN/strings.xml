@@ -14,7 +14,9 @@
 	<string name="error_no_such_file">ਫਾਇਲ ਮੌਜੂਦ ਨਹੀਂ ਹੈ।</string>
 	<string name="error_vault_has_been_locked">ਵਾਲਟ ਨੂੰ ਲਾਕ ਕੀਤਾ ਗਿਆ ਹੈ।</string>
 	<string name="error_cloud_already_exists">ਕਲਾਉਡ ਪਹਿਲਾਂ ਹੀ ਮੌਜੂਦ ਹੈ।</string>
+	<string name="error_activity_not_found">ਇਸ ਫ਼ਾਇਲ ਨੂੰ ਖੋਲ੍ਹਣ ਲਈ ਐਪ ਡਾਊਨਲੋਡ ਕਰੋ ਜੀ।</string>
 	<string name="error_server_not_found">ਸਰਵਰ ਨਹੀਂ ਲੱਭਿਆ।</string>
+	<string name="error_device_policy_manager_not_found">ਆਪਣੇ ਡਿਵਾਈਸ ਦੀਆਂ ਸੈਟਿੰਗਾਂ ਨੂੰ ਖੋਲ੍ਹੋ ਅਤੇ ਸਕਰੀਨ ਲਾਕ ਖੁਦ ਸੈੱਟ ਕਰੋ</string>
 	<string name="error_name_contains_invalid_characters">ਖਾਸ ਅੱਖਰ ਨਹੀਂ ਹੋ ਸਕਦੇ ਹਨ।</string>
 	<string name="error_names_contains_invalid_characters">ਫਾਇਲ ਦੇ ਨਾਂ ਵਿੱਚ ਖਾਸ ਅੱਖਰ ਨਹੀਂ ਹੋ ਸਕਦੇ ਹਨ।</string>
 	<string name="error_vault_name_contains_invalid_characters">ਵਾਲਟ ਦੇ ਨਾਂ ਵਿੱਚ ਖਾਸ ਅੱਖਰ ਨਹੀਂ ਹੋ ਸਕਦੇ ਹਨ।</string>
@@ -27,6 +29,7 @@
 	<string name="cloud_names_local_storage">ਲੋਕਲ ਸਟੋਰੇਜ਼</string>
 	<!-- # permission -->
 	<!-- ## permission messages -->
+	<string name="permission_message_export_file">Cryptomator ਨੂੰ ਫ਼ਾਇਲਾਂ ਐਕਸਪੋਰਟ ਕਰਨ ਲਈ ਸਟੋਰੇਜ਼ ਪਹੁੰਚ ਦੀ ਲੋੜ ਹੈ</string>
 	<string name="permission_message_upload_file">Cryptomator ਨੂੰ ਫ਼ਾਇਲਾਂ ਅੱਪਲੋਡ ਕਰਨ ਲਈ ਸਟੋਰੇਜ਼ ਪਹੁੰਚ ਦੀ ਲੋੜ ਹੈ</string>
 	<string name="permission_message_share_file">Cryptomator ਨੂੰ ਫ਼ਾਇਲਾਂ ਸਾਂਝੀਆਂ ਕਰਨ ਲਈ ਸਟੋਰੇਜ਼ ਪਹੁੰਚ ਦੀ ਲੋੜ ਹੈ</string>
 	<string name="permission_revoked_re_request_permission">Cryptomator ਨੇ ਇਸ ਟਿਕਾਣੇ ਲਈ ਪਹੁੰਚ ਦੀ ਮਨਜ਼ੂਰ ਗੁਆ ਦਿੱਤੀ ਹੈ। ਮਨਜ਼ੂਰੀ ਨੂੰ ਬਹਾਲ ਕਰਨ ਵਾਸਤੇ ਇਸ ਫੋਲਡਰ ਨੂੰ ਮੁੜ ਚੁਣੋ।</string>
@@ -271,6 +274,7 @@
 	<string name="dialog_update_available_download_site">ਡਾਊਨਲੋਡ ਸਾਈਟ ਉੱਤੇ ਜਾਓ</string>
 	<string name="dialog_update_available_cancel">ਬਾਅਦ ਵਿੱਚ</string>
 	<string name="dialog_download_update_title">ਡਾਊਨਲੋਡ ਚੱਲ ਰਿਹਾ ਹੈ</string>
+	<string name="dialog_download_update_message">Cryptomator ਨਵਾਂ ਵਰਜ਼ਨ ਡਾਊਨਲੋਡ ਕੀਤਾ ਜਾ ਰਿਹਾ ਹੈ</string>
 	<string name="dialog_sym_link_back_button">ਪਿੱਛੇ</string>
 	<string name="dialog_no_dir_file_title">ਡਾਇਰੈਕਟਰੀ ਦੀ ਸਮੱਗਰੀ ਨੂੰ ਲੋਡ ਕਰਨ ਲਈ ਅਸਮਰੱਥ ਹੈ</string>
 	<string name="dialog_pcloud_credentials_updated_title">\'%1$s\' ਲਈ ਸਨਦਾਂ ਨੂੰ ਅੱਪਡੇਟ ਕੀਤਾ</string>
