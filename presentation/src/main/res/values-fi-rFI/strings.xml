@@ -132,7 +132,13 @@
 	<string name="screen_webdav_settings_password_label">Salasana</string>
 	<string name="screen_webdav_settings_done_button_text">Yhdistä</string>
 	<string name="screen_webdav_settings_msg_url_must_not_be_empty">URL ei voi olla tyhjä.</string>
+	<string name="screen_webdav_settings_msg_url_is_invalid">URL-osoite on virheellinen.</string>
+	<string name="screen_webdav_settings_msg_username_must_not_be_empty">Käyttäjänimi-kohta ei voi olla tyhjä.</string>
+	<string name="screen_webdav_settings_msg_password_must_not_be_empty">Salasana-kohta ei voi olla tyhjä.</string>
 	<!-- ## screen: s3 settings -->
+	<string name="screen_s3_settings_display_name_label">Nimi</string>
+	<string name="screen_s3_settings_access_key_label">Pääsyavain</string>
+	<string name="screen_s3_settings_secret_key_label">Salainen avain</string>
 	<!-- ## screen: enter vault name -->
 	<!-- ## screen: set password -->
 	<string name="screen_set_password_button_text">Valmis</string>
