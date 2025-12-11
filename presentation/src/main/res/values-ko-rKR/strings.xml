@@ -5,7 +5,7 @@
 	<!-- # error messages -->
 	<string name="error_generic">오류가 발생했습니다</string>
 	<string name="error_authentication_failed">인증에 실패했습니다.</string>
-	<string name="error_authentication_failed_re_authenticate">인증에 실패했습니다, %1$s를 사용하여 로그인 하십시요.</string>
+	<string name="error_authentication_failed_re_authenticate">인증에 실패했습니다, %1$s를 사용하여 로그인 하십시오.</string>
 	<string name="error_no_network_connection">네트워크가 연결되어 있지 않습니다.</string>
 	<string name="error_invalid_passphrase">잘못된 비밀번호입니다.</string>
 	<string name="error_file_or_folder_exists">파일 또는 폴더가 이미 존재합니다.</string>
