@@ -125,7 +125,7 @@
 	<string name="screen_cloud_connections_title">위치 선택</string>
 	<string name="screen_cloud_connections_no_connections">여기를 탭하여 경로 위치 추가</string>
 	<string name="screen_cloud_error_webdav_not_supported">WebDAV가 지원되지 않는 서버입니다</string>
-	<string name="screen_cloud_local_error_no_content_provider">디렉토리를 열 수 있는 파일 관리자를 찾을 수 없습니다</string>
+	<string name="screen_cloud_local_error_no_content_provider">디렉터리를 열 수 있는 파일 관리자를 찾을 수 없습니다</string>
 	<!-- ## screen: webdav settings -->
 	<string name="screen_webdav_settings_url_port_label">URL</string>
 	<string name="screen_webdav_settings_username_label">사용자명</string>
@@ -321,7 +321,7 @@
 	<string name="dialog_vaults_removed_during_migration_title">%1s 클라우드를 사용하기 위해 Vault들을 다시 추가하십시오</string>
 	<string name="dialog_vaults_removed_during_migration_hint">이 버전의 앱으로 전환하기 위해 다음의 Vault들을 앱에서 제거해야 합니다:\n%2s \n\n이 Vault 들은 클라우드가 아닌 이 앱에서만 제거됩니다. 계속 사용하기 위해 이 Vault들을 다시 추가하세요.</string>
 	<string name="dialog_vault_is_root_folder_of_cloud_title">Vault가 클라우드의 최상위 폴더임</string>
-	<string name="dialog_vault_is_root_folder_of_cloud_hint">이 Vault를 추가하려면, 최소한 이 Vault의 최상위 디렉토리 폴더의 상위 폴더에 새로운 클라우드 연결을 생성해야 합니다.</string>
+	<string name="dialog_vault_is_root_folder_of_cloud_hint">이 Vault를 추가하려면, 최소한 이 Vault의 최상위 디렉터리 폴더의 상위 폴더에 새로운 클라우드 연결을 생성해야 합니다.</string>
 	<string name="dialog_disable_secure_screen_disclaimer_hint">이 설정은 보안 기능이며, 다른 앱이 사용자가 원치 않는 행동을 하도록 속이는 것을 막습니다.\n\n비활성화 함으로써 <a href="https://docs.cryptomator.org/en/latest/android/settings/#screen-security">위험성에 대해 인지</a>한다는 것을 확인합니다.</string>
 	<string name="dialog_delete_cloud_connection_with_vaults_message">정말 이 클라우드 연결을 삭제하시겠습니까?</string>
 	<string name="dialog_delete_cloud_connection_with_vaults_hint">클라우드 연결과 이 클라우드의 Vault들이 삭제될 것입니다.</string>
@@ -349,8 +349,8 @@
 	<string name="dialog_sym_link_title">폴더가 심볼릭 링크임</string>
 	<string name="dialog_sym_link_message">이 심볼릭 링크를 탐색할 수 없습니다</string>
 	<string name="dialog_sym_link_back_button">이전</string>
-	<string name="dialog_no_dir_file_title">디렉토리의 내용을 불러올 수 없음</string>
-	<string name="dialog_no_dir_file_message">클라우드 폴더 \'%1$s\'에 유효한 디렉토리 파일이 없습니다. 이 폴더가 다른 장치에서 생성되었으며 클라우드에 아직 완전히 동기화가 되지 않았을 가능성이 있습니다. 다음 파일이 클라우드에 존재하고 비어있지 않은지 확인하세요:\n%2$s</string>
+	<string name="dialog_no_dir_file_title">디렉터리의 내용을 불러올 수 없음</string>
+	<string name="dialog_no_dir_file_message">클라우드 폴더 \'%1$s\'에 유효한 디렉터리 파일이 없습니다. 이 폴더가 다른 장치에서 생성되었으며 클라우드에 아직 완전히 동기화가 되지 않았을 가능성이 있습니다. 다음 파일이 클라우드에 존재하고 비어있지 않은지 확인하세요:\n%2$s</string>
 	<string name="dialog_no_more_images_to_display">더 띄울 사진들이 없습니다.</string>
 	<string name="dialog_pcloud_credentials_updated_title">\'%1$s\' 자격증명 업데이트됨</string>
 	<string name="dialog_pcloud_credentials_updated">새 pCloud 계정을 추가하려면 이 링크 <a href="https://www.pcloud.com">www.pcloud.com</a>를 누르고, 현재 계정에서 로그아웃한 뒤 여기에서 \'+\'를 다시 눌러서 추가해주세요.</string>
