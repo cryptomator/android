@@ -73,7 +73,7 @@
 	<string name="screen_vault_list_change_password_successful">비밀번호 변경 성공</string>
 	<!-- # screen: file browser -->
 	<string name="screen_file_browser_default_title">Vault</string>
-	<string name="screen_file_browser_add_existing_vault_extra_text">마스터키 또는 금고 파일 선택</string>
+	<string name="screen_file_browser_add_existing_vault_extra_text">마스터키 또는 Vault 파일 선택</string>
 	<string name="screen_file_browser_create_new_vault_button_text">여기에 만들기</string>
 	<string name="screen_file_browser_create_new_vault_extra_text">Vault 이름: %1$s</string>
 	<plurals name="screen_file_browser_subtitle_move">
@@ -100,8 +100,8 @@
 	<string name="screen_file_browser_node_action_edit_text">수정</string>
 	<string name="screen_file_browser_node_action_export">내보내기</string>
 	<string name="screen_file_browser_node_action_delete">삭제</string>
-	<string name="screen_file_browser_node_action_open_with_text">&#8230;으로 열기</string>
-	<string name="screen_file_browser_selection_mode_title_zero_elements">아이템 선택</string>
+	<string name="screen_file_browser_node_action_open_with_text">&#8230;(으)로 열기</string>
+	<string name="screen_file_browser_selection_mode_title_zero_elements">항목 선택</string>
 	<string name="screen_file_browser_selection_mode_title_one_or_more_elements">%1$d 항목 선택됨</string>
 	<string name="screen_file_browser_select_items">선택</string>
 	<string name="screen_file_browser_select_all_items">전체 선택</string>
@@ -167,7 +167,7 @@
 	<string name="screen_settings_cloud_settings_label">클라우드 서비스</string>
 	<string name="screen_settings_biometric_auth">생체 인증</string>
 	<string name="screen_settings_activate_biometric_auth">생체 인증 활성화</string>
-	<string name="screen_settings_confirm_face_unlock">얼굴인식 잠금해제 적용 (가능한 경우)</string>
+	<string name="screen_settings_confirm_face_unlock">얼굴 인식 잠금 해제 적용 (가능한 경우)</string>
 	<string name="screen_settings_block_app_when_obscured">타 앱이 화면을 가릴 경우 Cryptomator 비활성화</string>
 	<string name="screen_settings_block_app_when_obscured_summary">입력을 가로채는 것과 가장된 유저 인터페이스를 표시하는 것을 막습니다</string>
 	<string name="screen_settings_secure_screen">스크린샷 차단</string>
@@ -194,7 +194,7 @@
 	<string name="screen_settings_facebook_label">Facebook에서 좋아요 누르기</string>
 	<string name="screen_settings_section_legal">법률 정보</string>
 	<string name="screen_settings_licenses_label">라이센스</string>
-	<string name="screen_settings_license_terms_label">라이센스 약관</string>
+	<string name="screen_settings_license_terms_label">라이선스 약관</string>
 	<string name="screen_settings_section_support">지원</string>
 	<string name="screen_settings_contact_label">지원 요청</string>
 	<string name="screen_settings_debug_mode_label">디버그 모드</string>
@@ -205,9 +205,9 @@
 	<string name="screen_settings_advanced_settings">고급 설정</string>
 	<string name="screen_settings_microsoft_apps_workaround_label">Microsoft 파일에 대한 우회</string>
 	<string name="screen_settings_microsoft_apps_workaround_summary">Microsoft 앱에서 쓰기 권한으로 파일을 열기</string>
-	<string name="screen_settings_background_unlock_preparation_label">잠금해제 가속</string>
+	<string name="screen_settings_background_unlock_preparation_label">잠금 해제 가속</string>
 	<string name="screen_settings_background_unlock_preparation_label_summary">비밀번호 입력 혹은 생체 인증을 진행하는 동안 백그라운드에서 Vault 설정을 다운로드합니다</string>
-	<string name="screen_settings_keep_unlocked_while_editing_files">잠금해제 유지</string>
+	<string name="screen_settings_keep_unlocked_while_editing_files">잠금 해제 유지</string>
 	<string name="screen_settings_keep_unlocked_while_editing_files_summary">파일을 편집하는 동안 Vault들을 잠금 해제 상태로 유지</string>
 	<!-- ## screen: cloud settings -->
 	<string name="screen_cloud_settings_onedrive_connections">OneDrive 연결</string>
@@ -228,12 +228,12 @@
 	<string name="screen_cryptomator_variants_lite_install">설치</string>
 	<string name="screen_cryptomator_variants_fdroid_title">Cryptomator F-Droid 리포지토리</string>
 	<string name="screen_cryptomator_variants_fdroid_description">독점 의존성을 가지고 있어 제외되었습니다.</string>
-	<string name="screen_cryptomator_variants_fdroid_add_repo_hint">F-Droid 앱에 Cryptomator 레포지토리를 추가합니다.</string>
+	<string name="screen_cryptomator_variants_fdroid_add_repo_hint">F-Droid 앱에 Cryptomator 리포지토리를 추가합니다.</string>
 	<string name="screen_cryptomator_variants_fdroid_add_repo">추가</string>
 	<string name="screen_cryptomator_variants_fdroid_install_hint">F-Droid로 Cryptomator를 설치합니다.\n만약 찾을 수 없음 오류가 표시된다면, F-Droid 동기화가 완료될 시점까지 기다리세요.</string>
 	<string name="screen_cryptomator_variants_website_title">웹사이트</string>
 	<string name="screen_cryptomator_variants_website_description">독점 의존성을 포함합니다.</string>
-	<string name="screen_cryptomator_variants_installation_hint">F-Droid 레포지토리 판과 상호 전환하려면 앱의 완전한 재설정이 필요합니다.</string>
+	<string name="screen_cryptomator_variants_installation_hint">F-Droid 리포지토리 판과 상호 전환하려면 앱의 완전한 재설정이 필요합니다.</string>
 	<!-- # dialogs -->
 	<string name="dialog_button_cancel">취소</string>
 	<string name="dialog_enter_password_positive_button">잠금 해제</string>
