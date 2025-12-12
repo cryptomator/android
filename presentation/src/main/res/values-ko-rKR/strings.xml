@@ -5,9 +5,9 @@
 	<!-- # error messages -->
 	<string name="error_generic">오류가 발생했습니다</string>
 	<string name="error_authentication_failed">인증에 실패했습니다.</string>
-	<string name="error_authentication_failed_re_authenticate">인증에 실패했습니다, %1$s를 사용하여 로그인 하십시오.</string>
-	<string name="error_no_network_connection">네트워크가 연결되어 있지 않습니다.</string>
-	<string name="error_invalid_passphrase">잘못된 비밀번호입니다.</string>
+	<string name="error_authentication_failed_re_authenticate">인증에 실패했습니다, %1$s를 사용하여 로그인 하십시오</string>
+	<string name="error_no_network_connection">네트워크 연결 없음</string>
+	<string name="error_invalid_passphrase">잘못된 비밀번호입니다</string>
 	<string name="error_file_or_folder_exists">파일 또는 폴더가 이미 존재합니다.</string>
 	<string name="error_vault_version_not_supported">%1$s 버전의 Vault는 지원되지 않습니다. 해당 vault는 타 버전의 Cryptomator로 생성되었습니다.</string>
 	<string name="error_vault_config_file_missing_due_to_format_999">해당 Vault 폴더 내에 %1$s 파일이 없습니다. Vault 폴더 안에 해당 파일이 있는지 다시 확인해주세요.</string>
@@ -40,7 +40,7 @@
 	<string name="error_hub_device_already_register_for_other_user">이 기기는 이미 다른 사용자에 등록되어 있습니다. 다른 사용자 계정이나 다른 기기를 사용해보세요.</string>
 	<string name="error_hub_invalid_setup_code">Account Key가 올바르지 않습니다.</string>
 	<string name="error_hub_invalid_version">지원되지 않는 Hub 버전입니다.</string>
-	<string name="error_hub_unlock_pre_31">Hub는 안드로이드 12 이상에서만 지원됩니다.</string>
+	<string name="error_hub_unlock_pre_31">Hub는 Android 12 이상에서만 지원됩니다.</string>
 	<!-- # clouds -->
 	<!-- ## cloud names -->
 	<string name="cloud_names_local_storage">로컬 저장소</string>
@@ -55,8 +55,8 @@
 	<string name="snack_bar_action_title_search_previous">이전</string>
 	<string name="snack_bar_action_title_search_next">다음</string>
 	<string name="snack_bar_action_title_sort">정렬</string>
-	<string name="snack_bar_action_title_sort_az">A - Z</string>
-	<string name="snack_bar_action_title_sort_za">Z - A</string>
+	<string name="snack_bar_action_title_sort_az">이름 오름차순</string>
+	<string name="snack_bar_action_title_sort_za">이름 내림차순</string>
 	<string name="snack_bar_action_title_sort_newest">최신순</string>
 	<string name="snack_bar_action_title_sort_oldest">등록순</string>
 	<string name="snack_bar_action_title_sort_biggest">큰 파일순</string>
