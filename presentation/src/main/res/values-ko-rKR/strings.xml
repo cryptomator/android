@@ -193,7 +193,7 @@
 	<string name="screen_settings_mastodon_label">Mastodon에서 팔로우 하기</string>
 	<string name="screen_settings_facebook_label">Facebook에서 좋아요 누르기</string>
 	<string name="screen_settings_section_legal">법률 정보</string>
-	<string name="screen_settings_licenses_label">라이센스</string>
+	<string name="screen_settings_licenses_label">라이선스</string>
 	<string name="screen_settings_license_terms_label">라이선스 약관</string>
 	<string name="screen_settings_section_support">지원</string>
 	<string name="screen_settings_contact_label">지원 요청</string>
@@ -316,7 +316,7 @@
 	<string name="dialog_disable_app_obscured_disclaimer_title">주의</string>
 	<string name="dialog_disable_app_obscured_positive_button">비활성화</string>
 	<string name="dialog_app_is_obscured_info_title">앱이 가려짐</string>
-	<string name="dialog_app_is_obscured_info_hint">다른 앱이 Cryptomator 위에 무언가를 표시하고 있습니다 (예: 블루라이트 필터 혹은 야간 모드 앱 등) 보안상의 이유로, Cryptomator가 비활성화 되었습니다.\n\n<a href="https://docs.cryptomator.org/en/latest/android/settings/#block-app-when-obscured">Cryptomator를 활성화 하는 법</a></string>
+	<string name="dialog_app_is_obscured_info_hint">다른 앱이 Cryptomator 위에 무언가를 표시하고 있습니다 (예: 블루라이트 필터 혹은 야간 모드 앱 등) 보안 상의 이유로, Cryptomator가 비활성화되었습니다.\n\n<a href="https://docs.cryptomator.org/en/latest/android/settings/#block-app-when-obscured">Cryptomator를 활성화하는 법</a></string>
 	<string name="dialog_app_is_obscured_info_neutral_button">닫기</string>
 	<string name="dialog_vaults_removed_during_migration_title">%1s 클라우드를 사용하기 위해 Vault들을 다시 추가하십시오</string>
 	<string name="dialog_vaults_removed_during_migration_hint">이 버전의 앱으로 전환하기 위해 다음의 Vault들을 앱에서 제거해야 합니다:\n%2s \n\n이 Vault 들은 클라우드가 아닌 이 앱에서만 제거됩니다. 계속 사용하기 위해 이 Vault들을 다시 추가하세요.</string>
