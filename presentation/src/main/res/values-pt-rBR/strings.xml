@@ -3,9 +3,9 @@
 	<!-- # app -->
 	<string name="share_with_label">Criptografar</string>
 	<!-- # error messages -->
-	<string name="error_generic">Um erro ocorreu</string>
-	<string name="error_authentication_failed">Falha de autenticação</string>
-	<string name="error_authentication_failed_re_authenticate">Falha na autenticação, por favor faça o login usando %1$s</string>
+	<string name="error_generic">Ocorreu um erro</string>
+	<string name="error_authentication_failed">Falha na autenticação</string>
+	<string name="error_authentication_failed_re_authenticate">Falha na autenticação. Faça login usando %1$s</string>
 	<string name="error_no_network_connection">Sem conexão com a internet</string>
 	<string name="error_invalid_passphrase">Senha incorreta</string>
 	<string name="error_file_or_folder_exists">Um arquivo ou pasta já existe.</string>
