@@ -138,7 +138,7 @@
 	<string name="screen_webdav_settings_msg_password_must_not_be_empty">A senha não pode estar vazia.</string>
 	<!-- ## screen: s3 settings -->
 	<string name="screen_s3_settings_display_name_label">Nome de Exibição</string>
-	<string name="screen_s3_settings_access_key_label">Chave de Acesso</string>
+	<string name="screen_s3_settings_access_key_label">Chave de acesso</string>
 	<string name="screen_s3_settings_secret_key_label">Chave Secreta</string>
 	<string name="screen_s3_settings_bucket_label">Bucket existente</string>
 	<string name="screen_s3_settings_endpoint_label">Endpoint</string>
