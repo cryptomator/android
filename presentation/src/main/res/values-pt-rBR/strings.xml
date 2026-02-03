@@ -374,7 +374,7 @@
 	<string name="dialog_hub_vault_archived_hint">Este cofre está arquivado e não pode ser desbloqueado. Para desbloqueá-lo, o proprietário do cofre deve desarquivá-lo.</string>
 	<string name="dialog_hub_user_setup_required_title">Configuração de usuário necessária</string>
 	<string name="dialog_hub_user_setup_required_hint">Para prosseguir, por favor preencha as etapas necessárias no seu perfil de usuário do Hub.</string>
-	<string name="dialog_hub_user_setup_required_neutral_button">Ir para o Perfil</string>
+	<string name="dialog_hub_user_setup_required_neutral_button">Ir para o perfil</string>
 	<string name="permission_snackbar_auth_local_vault">Cryptomator precisa de permissão de acesso ao armazenamento para fazer upload de arquivos</string>
 	<string name="permission_snackbar_auth_auto_upload">Cryptomator precisa de permissão de acesso ao armazenamento para fazer upload de arquivos</string>
 	<string name="permission_snackbar_notifications">O Cryptomator precisa de permissões para notificar o estado dos cofres, por exemplo.</string>
