@@ -262,7 +262,7 @@
 	<string name="dialog_replace_title_multiple_files_exist">Substituir arquivos?</string>
 	<string name="dialog_unable_to_share_title">Não foi possível compartilhar arquivos</string>
 	<string name="dialog_unable_to_share_message">Você não configurou nenhum cofre. Por favor, crie um novo cofre com o aplicativo Cryptomator primeiro.</string>
-	<string name="dialog_unable_to_share_positive_button">Ok</string>
+	<string name="dialog_unable_to_share_positive_button">OK</string>
 	<string name="dialog_unable_to_share_negative_button">Criar Cofre</string>
 	<string name="dialog_filetype_not_supported_title">Não é possível abrir %1$s</string>
 	<string name="dialog_filetype_not_supported_message">Por favor, baixe um aplicativo que pode abrir este arquivo ou você gostaria de salvar no seu dispositivo?</string>
