@@ -360,10 +360,10 @@
 	<string name="dialog_cbc_password_vaults_migration_action">Migrar</string>
 	<string name="dialog_create_hub_device_title">Registrar o dispositivo do Hub</string>
 	<string name="dialog_create_hub_device_name_label">Nome</string>
-	<string name="dialog_create_hub_device_name_hint">Parece ser o primeiro acesso do Hub a partir deste dispositivo. Para identificá-lo para autorização de acesso, você precisa nomear este dispositivo.</string>
+	<string name="dialog_create_hub_device_name_hint">Este parece ser o primeiro acesso ao Hub a partir deste dispositivo. Para identificá-lo no processo de autorização, é necessário nomear este aparelho.</string>
 	<string name="dialog_create_hub_device_name_empty">Nome não pode estar vazio.</string>
 	<string name="dialog_create_hub_device_setup_code_label">Chave da Conta</string>
-	<string name="dialog_create_hub_device_setup_code_hint">Sua Chave de Conta é necessária para acessar a partir de novos aplicativos ou navegadores. Ela pode ser encontrada no seu perfil.</string>
+	<string name="dialog_create_hub_device_setup_code_hint">Sua chave de conta é necessária para realizar o acesso a partir de novos aplicativos ou navegadores. Ela pode ser encontrada em seu perfil.</string>
 	<string name="dialog_create_hub_device_setup_code_empty">Chave da Conta não pode estar vazia.</string>
 	<string name="dialog_progress_creating_hub_device_setup">Criando dispositivo&#8230;</string>
 	<string name="dialog_hub_vault_access_forbidden_title">Acesso negado</string>
