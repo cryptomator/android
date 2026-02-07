@@ -129,7 +129,7 @@
 	<string name="screen_cloud_local_error_no_content_provider">Nenhum gerenciador de arquivos encontrado que suporte a abertura de pastas</string>
 	<!-- ## screen: webdav settings -->
 	<string name="screen_webdav_settings_url_port_label">URL</string>
-	<string name="screen_webdav_settings_username_label">Usuário</string>
+	<string name="screen_webdav_settings_username_label">Nome de usuário</string>
 	<string name="screen_webdav_settings_password_label">Senha</string>
 	<string name="screen_webdav_settings_done_button_text">Conectar</string>
 	<string name="screen_webdav_settings_msg_url_must_not_be_empty">A URL não pode estar vazia.</string>
@@ -156,7 +156,7 @@
 	<string name="screen_set_password_title">Definir senha</string>
 	<string name="screen_set_password_msg_password_mismatch">A senha não coincide com a senha digitada.</string>
 	<string name="screen_set_password_button_text">Concluído</string>
-	<string name="screen_set_password_hint">IMPORTANTE: Se você esquecer sua senha, não há como recuperar seus dados.</string>
+	<string name="screen_set_password_hint">IMPORTANTE: se você esquecer sua senha, não há como recuperar seus dados.</string>
 	<string name="screen_set_password_retype_password_label">Redigite a senha</string>
 	<string name="screen_set_password_strength_indicator_0">Senha muito fraca para criar um cofre</string>
 	<string name="screen_set_password_strength_indicator_1">Fraca</string>
@@ -309,9 +309,9 @@
 	<string name="dialog_no_screen_lock_checkbox">Definir bloqueio de tela</string>
 	<string name="dialog_no_biometric_auth_set_up_title">Nenhuma autenticação básica configurada no sistema</string>
 	<string name="dialog_no_biometric_auth_set_up_message">Registre pelo menos um dedo/rosto para usar este serviço.</string>
-	<string name="dialog_debug_mode_disclaimer_hint">Neste modo, dados confidenciais podem ser gravados em um arquivo de log no seu dispositivo (por exemplo, nomes de arquivos e caminhos). Senhas, cookies, etc. são explicitamente excluídos.\n\nLembre-se de desativar o modo de depuração o mais rápido possível.</string>
+	<string name="dialog_debug_mode_disclaimer_hint">Neste modo, os dados sensíveis podem ser gravados em um arquivo de registros no seu dispositivo (ex.: nomes de arquivos e caminhos). As senhas e os cookies, por exemplo, são explicitamente apagados.\n\nLembre-se de desativar o modo de depuração o mais rápido possível.</string>
 	<string name="dialog_debug_mode_disclaimer_title">Atenção</string>
-	<string name="dialog_debug_mode_positive_button">Habilitar</string>
+	<string name="dialog_debug_mode_positive_button">Ativar</string>
 	<string name="dialog_microsoft_workaround_disclaimer_hint">Devido a um erro em applicativos da Microsoft, o arquivo a ser editado deve ser compartilhado com esses aplicativos em uma pasta de mídia pública em seu dispositivo. Depois que o Cryptomator é reiniciado, o arquivo acessível ao público será apagado novamente, mas o Cryptomator não pode influenciar o que aconteceu a este arquivo. Esteja ciente desse comportamento ao ativar esta opção. Isso só se aplicará aos tipos de arquivos da Microsoft.\n\nO Cryptomator reiniciará após a ativação.</string>
 	<string name="dialog_disable_app_obscured_disclaimer_hint">Esta configuração é um recurso de segurança e impede que outros aplicativos induzam os usuários a fazer coisas que não devem fazer.\n\nAo desativar, você confirma que está <a href="https://docs.cryptomator.org/en/latest/android/settings/#block-app-when-obscured">ciente dos riscos</a>.</string>
 	<string name="dialog_disable_app_obscured_disclaimer_title">Atenção</string>
