@@ -32,7 +32,7 @@
 	<string name="error_vault_key_invalid">%1$s não coincide com este %2$s</string>
 	<string name="error_vault_config_loading">Erro geral ao carregar a configuração do cofre</string>
 	<string name="error_file_not_found_after_opening_using_3party">O arquivo local não está mais presente depois de voltar ao Cryptomator. Possíveis alterações não podem ser propagadas de volta para o provedor de nuvem.</string>
-	<string name="error_no_such_bucket">Bucket não encontrado</string>
+	<string name="error_no_such_bucket">Nenhum bucket encontrado</string>
 	<string name="error_masterkey_location_not_supported">Localização de Masterkey personalizada ainda não é suportada</string>
 	<string name="error_interact_with_fdroid_but_fdroid_missing">Falha na comunicação com o aplicativo F-Droid. Ele está instalado?</string>
 	<string name="error_hub_vault_operation_not_supported">Operação de cofre não suportada para Hub</string>
@@ -43,7 +43,7 @@
 	<string name="error_hub_unlock_pre_31">Hub só é suportado no Android 12 ou superior.</string>
 	<!-- # clouds -->
 	<!-- ## cloud names -->
-	<string name="cloud_names_local_storage">Armazenamento Local</string>
+	<string name="cloud_names_local_storage">Armazenamento local</string>
 	<!-- # permission -->
 	<!-- ## permission messages -->
 	<string name="permission_message_export_file">Cryptomator precisa de permissão de acesso ao armazenamento para exportar arquivos</string>
@@ -54,11 +54,11 @@
 	<string name="snack_bar_action_title_search">Buscar</string>
 	<string name="snack_bar_action_title_search_previous">Anterior</string>
 	<string name="snack_bar_action_title_search_next">Próximo</string>
-	<string name="snack_bar_action_title_sort">Ordenar</string>
-	<string name="snack_bar_action_title_sort_az">A — Z</string>
-	<string name="snack_bar_action_title_sort_za">Z — A</string>
-	<string name="snack_bar_action_title_sort_newest">Mais recentes primeiro</string>
-	<string name="snack_bar_action_title_sort_oldest">Antigos primeiro</string>
+	<string name="snack_bar_action_title_sort">Organizar por</string>
+	<string name="snack_bar_action_title_sort_az">A - Z</string>
+	<string name="snack_bar_action_title_sort_za">Z - A</string>
+	<string name="snack_bar_action_title_sort_newest">Mais recentes</string>
+	<string name="snack_bar_action_title_sort_oldest">Mais antigos</string>
 	<string name="snack_bar_action_title_sort_biggest">Maiores primeiro</string>
 	<string name="snack_bar_action_title_sort_smallest">Menores primeiro</string>
 	<string name="snack_bar_cryptomator_variants_title">Saiba mais</string>
@@ -75,22 +75,22 @@
 	<string name="screen_file_browser_default_title">Cofre</string>
 	<string name="screen_file_browser_add_existing_vault_extra_text">Selecione o arquivo masterkey ou vault</string>
 	<string name="screen_file_browser_create_new_vault_button_text">Coloque aqui</string>
-	<string name="screen_file_browser_create_new_vault_extra_text">Nome do Cofre: %1$s</string>
+	<string name="screen_file_browser_create_new_vault_extra_text">Nome do cofre: %1$s</string>
 	<plurals name="screen_file_browser_subtitle_move">
 		<item quantity="one">Mover %1$s para</item>
 		<item quantity="other">Mover %2$d itens para</item>
 	</plurals>
 	<string name="screen_file_browser_move_button_text">Mover </string>
 	<string name="screen_file_browser_msg_empty_folder">Pasta vazia</string>
-	<string name="screen_file_browser_file_info_label_date">modificado %1$s atrás</string>
+	<string name="screen_file_browser_file_info_label_date">modificado há %1$s</string>
 	<string name="screen_file_browser_share_intent_chooser_title">Compartilhar com</string>
 	<string name="screen_file_browser_share_destination_title">Escolha um destino</string>
 	<string name="screen_file_browser_share_button_text">Escolher</string>
 	<string name="screen_file_browser_nothing_to_share">Nada para compartilhar</string>
-	<string name="screen_file_browser_actions_title">Adicionar a %1$s</string>
+	<string name="screen_file_browser_actions_title">Adicionar em %1$s</string>
 	<string name="screen_file_browser_action_create_folder">Criar pasta</string>
 	<string name="screen_file_browser_action_create_new_text_file">Criar arquivo de texto</string>
-	<string name="screen_file_browser_action_upload_files">Upload de arquivos</string>
+	<string name="screen_file_browser_action_upload_files">Enviar arquivos</string>
 	<string name="screen_file_browser_upload_files_chooser_title">Arquivos</string>
 	<string name="screen_file_browser_msg_file_exported">Arquivo exportado</string>
 	<string name="screen_file_browser_msg_files_exported">Arquivos exportados</string>
@@ -100,22 +100,22 @@
 	<string name="screen_file_browser_node_action_rename">Renomear</string>
 	<string name="screen_file_browser_node_action_edit_text">Editar</string>
 	<string name="screen_file_browser_node_action_export">Exportar</string>
-	<string name="screen_file_browser_node_action_delete">Deletar</string>
+	<string name="screen_file_browser_node_action_delete">Apagar</string>
 	<string name="screen_file_browser_node_action_open_with_text">Abrir com&#8230;</string>
 	<string name="screen_file_browser_selection_mode_title_zero_elements">Selecionar itens</string>
-	<string name="screen_file_browser_selection_mode_title_one_or_more_elements">%1$d selecionado</string>
+	<string name="screen_file_browser_selection_mode_title_one_or_more_elements">%1$d selecionado(s)</string>
 	<string name="screen_file_browser_select_items">Selecione</string>
 	<string name="screen_file_browser_select_all_items">Selecionar todos</string>
 	<string name="screen_file_browser_refresh_items">Atualizar</string>
 	<string name="screen_file_browser_no_connection_message">Sem conexão</string>
-	<string name="screen_file_browser_no_connection_button_text">Tentar Novamente</string>
+	<string name="screen_file_browser_no_connection_button_text">Tentar novamente</string>
 	<!-- ## screen: text editor -->
 	<string name="screen_text_editor_save_success">Salvo com sucesso</string>
 	<!-- ## screen: share files -->
 	<string name="screen_share_files_title">Salvar %1$s em&#8230;</string>
 	<string name="screen_share_files_content_text">texto</string>
 	<string name="screen_share_files_content_file">arquivo</string>
-	<string name="screen_share_files_content_files">Arquivos</string>
+	<string name="screen_share_files_content_files">arquivos</string>
 	<string name="screen_share_files_msg_filenames_must_be_unique">Os nomes dos arquivos devem ser únicos, por favor, renomeie as duplicatas.</string>
 	<string name="screen_share_files_section_location">Salvar localização</string>
 	<string name="screen_share_files_save_button_text">Salvar</string>
@@ -123,7 +123,7 @@
 	<!-- ## screen: choose cloud service -->
 	<string name="screen_choose_cloud_service_title">Serviço de nuvem</string>
 	<!-- ## screen: cloud connections -->
-	<string name="screen_cloud_connections_title">Selecionar um local</string>
+	<string name="screen_cloud_connections_title">Escolha um local</string>
 	<string name="screen_cloud_connections_no_connections">Toque aqui para adicionar novas localizações</string>
 	<string name="screen_cloud_error_webdav_not_supported">O servidor não parece ser compatível com WebDAV</string>
 	<string name="screen_cloud_local_error_no_content_provider">Nenhum gerenciador de arquivos encontrado que suporte a abertura de pastas</string>
