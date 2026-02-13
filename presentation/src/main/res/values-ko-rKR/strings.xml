@@ -3,8 +3,8 @@
 	<!-- # app -->
 	<string name="share_with_label">암호화</string>
 	<!-- # error messages -->
-	<string name="error_generic">오류가 발생했습니다</string>
-	<string name="error_authentication_failed">인증에 실패했습니다.</string>
+	<string name="error_generic">오류 발생</string>
+	<string name="error_authentication_failed">인증 실패</string>
 	<string name="error_authentication_failed_re_authenticate">인증에 실패했습니다, %1$s를 사용하여 로그인 하십시오</string>
 	<string name="error_no_network_connection">네트워크 연결 없음</string>
 	<string name="error_invalid_passphrase">잘못된 비밀번호입니다</string>
@@ -30,7 +30,7 @@
 	<string name="error_biometric_auth_aborted">생체 인증 취소됨</string>
 	<string name="error_vault_version_mismatch">%1$s에 기록된 버전이 %2$s에 기록된 버전과 다릅니다</string>
 	<string name="error_vault_key_invalid">%1$s이(가) %2$s와 동일하지 않습니다</string>
-	<string name="error_vault_config_loading">Vault 설정을 불러오는 중 에러 발생</string>
+	<string name="error_vault_config_loading">Vault 설정을 불러오는 중 오류 발생</string>
 	<string name="error_file_not_found_after_opening_using_3party">로컬 파일은 Cryptomator로 돌아온 후 더 이상 존재하지 않습니다. 추가적인 수정 사항이 클라우드에 적용되지 않습니다.</string>
 	<string name="error_no_such_bucket">해당 버킷을 찾을 수 없습니다.</string>
 	<string name="error_masterkey_location_not_supported">사용자 지정 마스터키 경로는 아직 지원하지 않습니다</string>
