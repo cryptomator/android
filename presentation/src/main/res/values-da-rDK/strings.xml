@@ -25,7 +25,7 @@
 	<string name="error_general_update">Opdateringstjek fejlede. Ukendt fejl.</string>
 	<string name="error_hash_mismatch_update">Opdateringstjek mislykkedes. Beregnet checksum matcher ikke den uploadede fil</string>
 	<string name="error_update_no_internet">Opdateringstjek mislykkedes. Ingen internetforbindelse.</string>
-	<string name="error_failed_to_decrypt_webdav_password">Kunne ikke dekryptere WebDAV-adgangskoden. Tilføj venligst igen, i indtsillingerne</string>
+	<string name="error_failed_to_decrypt_webdav_password">Kunne ikke dekryptere WebDAV-adgangskoden. Tilføj venligst igen, i indstillingerne</string>
 	<string name="error_play_services_not_available">Google Play-tjenester er ikke installeret</string>
 	<string name="error_biometric_auth_aborted">Biometrisk godkendelse afbrudt</string>
 	<string name="error_vault_version_mismatch">Versionen angivet i %1$s er forskellig fra %2$s</string>
@@ -220,7 +220,7 @@
 	<string name="screen_cryptomator_variants_lite_title">Primært F-Droid depot</string>
 	<string name="screen_cryptomator_variants_lite_description">Udelukket, fordi de kræver API-nøgler.</string>
 	<string name="screen_cryptomator_variants_lite_install">Installér</string>
-	<string name="screen_cryptomator_variants_fdroid_title">Cryptomator F- Droid depot</string>
+	<string name="screen_cryptomator_variants_fdroid_title">Cryptomator F-Droid depot</string>
 	<string name="screen_cryptomator_variants_fdroid_description">Udelukket, fordi det indeholder proprietære afhængigheder.</string>
 	<string name="screen_cryptomator_variants_fdroid_add_repo_hint">Tilføj Cryptomator-depotet til F-Droid appen.</string>
 	<string name="screen_cryptomator_variants_fdroid_add_repo">Tilføj</string>
