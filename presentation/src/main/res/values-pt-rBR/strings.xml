@@ -27,7 +27,7 @@
 	<string name="error_update_no_internet">Falha ao verificar atualização. Nenhuma conexão com a internet.</string>
 	<string name="error_failed_to_decrypt_webdav_password">Falha ao descriptografar a senha WebDAV, por favor adicione novamente nas configurações</string>
 	<string name="error_play_services_not_available">Serviços do Google Play não instalados</string>
-	<string name="error_biometric_auth_aborted">Autenticação biométrica abortada</string>
+	<string name="error_biometric_auth_aborted">Autenticação biométrica cancelada</string>
 	<string name="error_vault_version_mismatch">Versão especificada em %1$s é diferente de %2$s</string>
 	<string name="error_vault_key_invalid">%1$s não coincide com este %2$s</string>
 	<string name="error_vault_config_loading">Erro geral ao carregar a configuração do cofre</string>
