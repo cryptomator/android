@@ -391,7 +391,7 @@
 	<string name="time_unit_seconds_sg">segundo</string>
 	<string name="time_unit_seconds_pl">segundos</string>
 	<string name="time_unit_minutes_sg">minuto</string>
-	<string name="time_unit_minutes_pl">minutos</string>
+	<string name="time_unit_minutes_pl">minuto(s)</string>
 	<string name="time_unit_hours_sg">hora</string>
 	<string name="time_unit_hours_pl">horas</string>
 	<string name="time_unit_days_sg">dia</string>
