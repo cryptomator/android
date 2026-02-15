@@ -9,7 +9,7 @@
 	<string name="error_no_network_connection">Sem conexão com a internet</string>
 	<string name="error_invalid_passphrase">Senha incorreta</string>
 	<string name="error_file_or_folder_exists">Um arquivo ou pasta já existe.</string>
-	<string name="error_vault_version_not_supported">A versão do Cofre %1$s não é suportada. Este cofre foi criado com uma versão mais antiga ou mais recente do Cryptomator.</string>
+	<string name="error_vault_version_not_supported">A versão %1$s do cofre não é suportada. Ele foi criado em uma versão mais antiga ou mais recente do Cryptomator.</string>
 	<string name="error_vault_config_file_missing_due_to_format_999">%1$s arquivo está faltando na pasta do seu cofre. Certifique-se de que este arquivo existe na pasta do seu cofre na nuvem.</string>
 	<string name="error_vault_already_exists">O cofre já existe.</string>
 	<string name="error_no_such_file">O arquivo não existe.</string>
@@ -38,7 +38,7 @@
 	<string name="error_hub_vault_operation_not_supported">Operação de cofre não suportada para Hub</string>
 	<string name="error_hub_authentication_failed">A autenticação para o Hub falhou</string>
 	<string name="error_hub_device_already_register_for_other_user">Este dispositivo já está registrado para um usuário diferente. Tente alterar a conta de usuário ou use um dispositivo diferente.</string>
-	<string name="error_hub_invalid_setup_code">A Chave da Conta é inválida.</string>
+	<string name="error_hub_invalid_setup_code">A Chave de Conta é inválida.</string>
 	<string name="error_hub_invalid_version">Versão do Hub não suportada.</string>
 	<string name="error_hub_unlock_pre_31">Hub só é suportado no Android 12 ou superior.</string>
 	<!-- # clouds -->
