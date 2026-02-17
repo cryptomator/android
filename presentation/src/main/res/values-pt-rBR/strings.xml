@@ -250,7 +250,7 @@
 	<string name="dialog_vault_not_found_positive_button_text">Remover</string>
 	<string name="dialog_existing_file_title">O arquivo já existe</string>
 	<string name="dialog_existing_file_positive_button">Substituir</string>
-	<string name="dialog_existing_file_message">Um arquivo chamado \'%1$s\' já existe.</string>
+	<string name="dialog_existing_file_message">Já existe um arquivo chamado \"%1$s\".</string>
 	<string name="dialog_replace_negative_button_at_least_two_but_not_all_files_exist">Pular existente</string>
 	<string name="dialog_replace_positive_button_all_files_exist">Substituir todos</string>
 	<string name="dialog_replace_positive_button_some_files_exist">Substituir existente</string>
@@ -260,16 +260,16 @@
 	<string name="dialog_replace_msg_some_files_exists">%1$d arquivos já existem. Deseja substituí-los?</string>
 	<string name="dialog_replace_title_single_file_exists">Substituir arquivo?</string>
 	<string name="dialog_replace_title_multiple_files_exist">Substituir arquivos?</string>
-	<string name="dialog_unable_to_share_title">Não foi possível compartilhar arquivos</string>
+	<string name="dialog_unable_to_share_title">Não foi possível compartilhar os arquivos</string>
 	<string name="dialog_unable_to_share_message">Você não configurou nenhum cofre. Por favor, crie um novo cofre com o aplicativo Cryptomator primeiro.</string>
 	<string name="dialog_unable_to_share_positive_button">OK</string>
-	<string name="dialog_unable_to_share_negative_button">Criar Cofre</string>
+	<string name="dialog_unable_to_share_negative_button">Criar cofre</string>
 	<string name="dialog_filetype_not_supported_title">Não é possível abrir %1$s</string>
 	<string name="dialog_filetype_not_supported_message">Por favor, baixe um aplicativo que pode abrir este arquivo ou você gostaria de salvar no seu dispositivo?</string>
 	<string name="dialog_rename_vault_title">Renomear cofre</string>
 	<string name="dialog_rename_node_folder_title">Renomear pasta</string>
 	<string name="dialog_rename_node_file_title">Renomear arquivo</string>
-	<string name="dialog_unsaved_changes_title">Você tem modificações não salvas</string>
+	<string name="dialog_unsaved_changes_title">Há modificações não salvas</string>
 	<string name="dialog_unsaved_changes_message">Você realmente deseja sair sem salvar?</string>
 	<string name="dialog_unsaved_changes_discard">Descartar</string>
 	<string name="dialog_file_name_hint">Nome do arquivo</string>
@@ -340,10 +340,10 @@
 	<string name="dialog_enter_license_decline_button">Sair</string>
 	<string name="dialog_license_confirmation_title">Confirmação de licença</string>
 	<string name="dialog_license_confirmation_message">Obrigado %1$s por fornecer a sua licença válida.</string>
-	<string name="dialog_update_available_title">Atualização Disponível</string>
+	<string name="dialog_update_available_title">Atualização disponível</string>
 	<string name="dialog_update_available_message">Atualize o Cryptomator para a versão mais recente. Pressionando OK, baixaremos o aplicativo em segundo plano e pediremos que você o instale.</string>
 	<string name="dialog_update_available_update">Atualizar agora</string>
-	<string name="dialog_update_available_download_site">Ir para a página de download</string>
+	<string name="dialog_update_available_download_site">Acessar para o site de download</string>
 	<string name="dialog_update_available_cancel">Depois</string>
 	<string name="dialog_download_update_title">Download em execução</string>
 	<string name="dialog_download_update_message">Baixando a versão mais recente do Cryptomator</string>
@@ -353,7 +353,7 @@
 	<string name="dialog_no_dir_file_title">Não foi possível carregar o conteúdo do diretório</string>
 	<string name="dialog_no_dir_file_message">A pasta na nuvem \'%1$s\' não tem um arquivo de diretório válido. Pode ser que a pasta foi criada em outro dispositivo e ainda não foi totalmente sincronizada com a nuvem. Por favor, verifique em sua nuvem se o seguinte arquivo existe:\n%2$s</string>
 	<string name="dialog_no_more_images_to_display">Sem mais imagens para exibir&#8230;</string>
-	<string name="dialog_pcloud_credentials_updated_title">Credenciais de \'%1$s\' atualizadas</string>
+	<string name="dialog_pcloud_credentials_updated_title">Credenciais de \"%1$s\" atualizadas</string>
 	<string name="dialog_pcloud_credentials_updated">Se você pretende adicionar uma nova conta pCloud, toque neste link <a href="https://www.pcloud.com">www.pcloud.com</a>, saia da conta atual e toque novamente no \'+\' neste aplicativo para criar uma nova conexão de nuvem.</string>
 	<string name="dialog_cbc_password_vaults_migration_title">Migração da senha do cofre necessária</string>
 	<string name="dialog_cbc_password_vaults_migration_hint">Devido a aprimoramentos de segurança, você será solicitado pela sua autenticação biométrica duas vezes para cada cofre para recriptografar as senhas do seu cofre. Isto é necessário para continuar a proteger as senhas do seu cofre com a tecnologia mais recente. Se você não deseja que isso aconteça, as senhas armazenadas serão removidas.</string>
@@ -381,7 +381,7 @@
 	<!-- # error reports -->
 	<!-- # misc -->
 	<!-- ## file size helper -->
-	<string name="file_size_zero">Zero KB</string>
+	<string name="file_size_zero">Zero kB</string>
 	<string name="file_size_unit_bytes">bytes</string>
 	<string name="file_size_unit_kilo_bytes">kB</string>
 	<string name="file_size_unit_mega_bytes">MB</string>
@@ -403,21 +403,21 @@
 	<string name="time_unit_years_sg">ano</string>
 	<string name="time_unit_years_pl">anos</string>
 	<!-- ## biometric authentication -->
-	<string name="dialog_biometric_auth_title">Acesso biométrico</string>
-	<string name="dialog_biometric_auth_message">Desbloqueie usando credencial biométrica</string>
+	<string name="dialog_biometric_auth_title">Login biométrico</string>
+	<string name="dialog_biometric_auth_message">Faça login usando a sua credencial biométrica</string>
 	<string name="dialog_biometric_auth_use_password">Usar senha do cofre</string>
-	<string name="dialog_unable_to_auto_upload_files_title">Não foi possível carregar arquivos automaticamente</string>
+	<string name="dialog_unable_to_auto_upload_files_title">Não foi possível carregar os arquivos automaticamente</string>
 	<!-- notification -->
 	<string name="notification_unlocked">Cofres desbloqueados: %1$d</string>
-	<string name="notification_timeout">Autobloquear em %1$s</string>
+	<string name="notification_timeout">Bloqueio automático em %1$s</string>
 	<string name="notification_lock_all">Bloquear todos</string>
-	<string name="notification_cancel_auto_upload">Cancelar upload</string>
-	<string name="notification_auto_upload_title">Upload automático de fotos em execução</string>
+	<string name="notification_cancel_auto_upload">Cancelar envio</string>
+	<string name="notification_auto_upload_title">Envio automático de fotos em execução</string>
 	<string name="notification_auto_upload_message">Enviando %1d/%2d</string>
-	<string name="notification_auto_upload_finished_title">Upload automático de fotos concluído</string>
-	<string name="notification_auto_upload_finished_message">%1$d imagens enviadas para o cofre</string>
-	<string name="notification_auto_upload_failed_title">O upload automático de foto falhou</string>
-	<string name="notification_auto_upload_failed_general_error">Ocorreu um erro geral durante o upload.</string>
+	<string name="notification_auto_upload_finished_title">Envio automático de fotos concluído</string>
+	<string name="notification_auto_upload_finished_message">%1$d imagem(ns) enviada(s) para o cofre</string>
+	<string name="notification_auto_upload_failed_title">Falha no envio automático de foto</string>
+	<string name="notification_auto_upload_failed_general_error">Ocorreu um erro geral durante o envio.</string>
 	<string name="notification_auto_upload_failed_due_to_folder_not_exists">A pasta escolhida para envio não está mais disponível. Vá até configurações e escolha uma nova pasta</string>
 	<string name="notification_auto_upload_failed_due_to_vault_locked">O cofre foi bloqueado durante o upload, por favor desbloqueie o cofre para continuar</string>
 	<string name="notification_auto_upload_failed_due_to_vault_not_found">O cofre especificado para upload automático não existe mais.</string>
@@ -431,14 +431,14 @@
 	<string name="screen_settings_lru_cache_size">Tamanho total do cache</string>
 	<string name="screen_settings_clear_lru_cache_size">Limpar Cache</string>
 	<string name="screen_settings_lru_cache_changed__restart_toast">As alterações serão aplicadas na próxima reinicialização do aplicativo</string>
-	<string name="screen_settings_license">Registrado para</string>
+	<string name="screen_settings_license">Registrado por</string>
 	<string name="screen_settings_license_mail">%1$s</string>
 	<string name="dialog_settings_update_check_interval_title">Escolha o período de atualização</string>
 	<string name="screen_settings_check_updates">Verificar atualizações</string>
-	<string name="screen_settings_last_check_updates">Última execução %1$s</string>
-	<string name="dialog_cache_size_title">Tamanho do cache por provedor de nuvem</string>
+	<string name="screen_settings_last_check_updates">Última verificação em %1$s</string>
+	<string name="dialog_cache_size_title">Tamanho do cache por nuvem</string>
 	<!-- lock timeout names -->
-	<string name="lock_timeout_instant">Instante</string>
+	<string name="lock_timeout_instant">Instantâneo</string>
 	<string name="lock_timeout_1m">1 minuto</string>
 	<string name="lock_timeout_2m">2 minutos</string>
 	<string name="lock_timeout_5m">5 minutos</string>
@@ -449,13 +449,13 @@
 	<string name="cache_size_100m">100 MB</string>
 	<string name="cache_size_250m">250 MB</string>
 	<string name="cache_size_500m">500 MB</string>
-	<string name="cache_size_1000m">1GB</string>
-	<string name="cache_size_5000m">5GB</string>
+	<string name="cache_size_1000m">1 GB</string>
+	<string name="cache_size_5000m">5 GB</string>
 	<!-- screen scheme mode names -->
 	<string name="screen_settings_style_mode">Estilo</string>
-	<string name="follow_system">Automático (de acordo com o sistema)</string>
+	<string name="follow_system">Automático (sistema)</string>
 	<string name="light">Claro</string>
 	<string name="dark">Escuro</string>
 	<!-- update interval names -->
-	<string name="update_interval_1d">Uma vez por dia</string>
+	<string name="update_interval_1d">Diariamente</string>
 </resources>
