@@ -29,7 +29,7 @@
 	<string name="error_play_services_not_available">Serviços da Google Play não instalados</string>
 	<string name="error_biometric_auth_aborted">Autenticação biométrica cancelada</string>
 	<string name="error_vault_version_mismatch">A versão especificada em %1$s é diferente de %2$s</string>
-	<string name="error_vault_key_invalid">%1$s não coincide com %2$s</string>
+	<string name="error_vault_key_invalid">%1$s é diferente de %2$s</string>
 	<string name="error_vault_config_loading">Ocorreu um erro ao carregar a configuração do cofre</string>
 	<string name="error_file_not_found_after_opening_using_3party">O arquivo local não está mais presente após voltar ao Cryptomator. Eventuais alterações não podem ser replicadas de volta para a nuvem.</string>
 	<string name="error_no_such_bucket">Nenhum bucket encontrado</string>
@@ -154,7 +154,7 @@
 	<string name="screen_enter_vault_name_button_text">Criar</string>
 	<!-- ## screen: set password -->
 	<string name="screen_set_password_title">Definir senha</string>
-	<string name="screen_set_password_msg_password_mismatch">A senha não coincide com a senha digitada.</string>
+	<string name="screen_set_password_msg_password_mismatch">A senha é diferente da digitada.</string>
 	<string name="screen_set_password_button_text">Concluído</string>
 	<string name="screen_set_password_hint">IMPORTANTE: se você esquecer sua senha, não há como recuperar seus dados.</string>
 	<string name="screen_set_password_retype_password_label">Repita a senha</string>
@@ -239,11 +239,11 @@
 	<string name="dialog_button_cancel">Cancelar</string>
 	<string name="dialog_enter_password_positive_button">Desbloquear</string>
 	<string name="dialog_change_password_old_password_label">Senha antiga</string>
-	<string name="dialog_change_password_new_password_label">Nova Senha</string>
-	<string name="dialog_change_password">Mudar Senha</string>
-	<string name="dialog_change_password_msg_old_password_empty">Senha antiga não pode estar vazia.</string>
-	<string name="dialog_change_password_msg_new_password_empty">Nova senha não pode estar vazia.</string>
-	<string name="dialog_change_password_msg_password_mismatch">A nova senha não corresponde à senha digitada.</string>
+	<string name="dialog_change_password_new_password_label">Nova senha</string>
+	<string name="dialog_change_password">Alterar senha</string>
+	<string name="dialog_change_password_msg_old_password_empty">A senha antiga não pode estar vazia.</string>
+	<string name="dialog_change_password_msg_new_password_empty">A nova senha não pode estar vazia.</string>
+	<string name="dialog_change_password_msg_password_mismatch">A nova senha é diferente da digitada.</string>
 	<!-- Vault not found -->
 	<string name="dialog_vault_not_found_title">Cofre %1$s não encontrado</string>
 	<string name="dialog_vault_not_found_message">O cofre foi renomeado, movido ou excluído. Remova este cofre da lista e adicione-o novamente para prosseguir. Remover agora?</string>
