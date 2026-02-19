@@ -100,7 +100,7 @@ public class UploadService extends Service {
 						? cloudContentRepository.root(cloud)
 						: cloudContentRepository.resolve(cloud, targetFolderPath);
 
-				FileUploadedCallback callback = createCheckpointCallback(vaultId);
+				FileUploadedCallback callback = createCheckpointCallback(vaultId, completedFiles);
 				ProgressAware<UploadState> progressAware = progress -> updateNotification(progress.asPercentage());
 
 				uploadTask.execute(targetFolder, callback, progressAware);
@@ -131,8 +131,8 @@ public class UploadService extends Service {
 				ProgressAware<UploadState> progressAware) throws BackendException;
 	}
 
-	private FileUploadedCallback createCheckpointCallback(long vaultId) {
-		Set<String> uploadedSoFar = new HashSet<>();
+	private FileUploadedCallback createCheckpointCallback(long vaultId, Set<String> completedFiles) {
+		Set<String> uploadedSoFar = new HashSet<>(completedFiles);
 		return relativePath -> {
 			uploadedSoFar.add(relativePath);
 			try {

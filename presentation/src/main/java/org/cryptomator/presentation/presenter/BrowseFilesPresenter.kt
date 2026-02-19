@@ -423,8 +423,6 @@ class BrowseFilesPresenter @Inject constructor( //
 			val targetFolderPath = location.toCloudNode().path
 
 			val cryptomatorApp = activity().application as CryptomatorApp
-
-			// Create checkpoint
 			val fileUris = files.map { it.dataSource.toString() }
 			cryptomatorApp.createUploadCheckpoint(
 				vaultId, "files", targetFolderPath, null, null, fileUris, files.size
@@ -1112,8 +1110,6 @@ class BrowseFilesPresenter @Inject constructor( //
 			val targetFolderPath = location.toCloudNode().path
 
 			val cryptomatorApp = activity().application as CryptomatorApp
-
-			// Create checkpoint
 			cryptomatorApp.createUploadCheckpoint(
 				vaultId, "folder", targetFolderPath, sourceFolderUri?.toString(), folderStructure.folderName, emptyList(), folderStructure.totalFileCount()
 			)

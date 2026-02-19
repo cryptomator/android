@@ -12,6 +12,7 @@ import android.widget.Toast
 import androidx.documentfile.provider.DocumentFile
 import com.google.common.base.Optional
 import org.cryptomator.data.cloud.crypto.CryptoCloud
+import org.cryptomator.data.db.UploadCheckpointDao
 import org.cryptomator.data.db.entities.UploadCheckpointEntity
 import org.cryptomator.data.util.NetworkConnectionCheck
 import org.cryptomator.domain.Cloud
@@ -553,7 +554,7 @@ class VaultListPresenter @Inject constructor( //
 		}
 		val checkpoint = dao.findByVaultId(vault.id)
 		if (checkpoint != null) {
-			val completedCount = parseJsonArraySize(checkpoint.completedFiles)
+			val completedCount = parseJsonArray(checkpoint.completedFiles).size
 			ResumeUploadDialog
 				.withContext(activity())
 				.show(vault.id, completedCount, checkpoint.totalFileCount)
@@ -583,20 +584,20 @@ class VaultListPresenter @Inject constructor( //
 		val completedFiles = parseJsonArray(checkpoint.completedFiles).toHashSet()
 
 		if (checkpoint.type == "folder") {
-			handleFolderResume(cryptomatorApp, cloud, checkpoint, completedFiles, vaultId)
+			handleFolderResume(cryptomatorApp, dao, cloud, checkpoint, completedFiles, vaultId)
 		} else {
-			handleFileResume(cryptomatorApp, cloud, checkpoint, completedFiles, vaultId)
+			handleFileResume(cryptomatorApp, dao, cloud, checkpoint, completedFiles, vaultId)
 		}
 
 		navigatePendingAfterResume()
 	}
 
-	private fun handleFolderResume(cryptomatorApp: CryptomatorApp, cloud: Cloud,
-			checkpoint: UploadCheckpointEntity,
+	private fun handleFolderResume(cryptomatorApp: CryptomatorApp, dao: UploadCheckpointDao,
+			cloud: Cloud, checkpoint: UploadCheckpointEntity,
 			completedFiles: Set<String>, vaultId: Long) {
 		val sourceFolderUri = checkpoint.sourceFolderUri
 		if (sourceFolderUri == null) {
-			cryptomatorApp.getUploadCheckpointDao()?.deleteByVaultId(vaultId)
+			dao.deleteByVaultId(vaultId)
 			return
 		}
 		val uri = Uri.parse(sourceFolderUri)
@@ -611,11 +612,11 @@ class VaultListPresenter @Inject constructor( //
 			Timber.tag("VaultListPresenter").w(e, "Permission lost for folder URI during resume")
 		}
 		view?.showMessage(R.string.dialog_resume_upload_permission_lost)
-		cryptomatorApp.getUploadCheckpointDao()?.deleteByVaultId(vaultId)
+		dao.deleteByVaultId(vaultId)
 	}
 
-	private fun handleFileResume(cryptomatorApp: CryptomatorApp, cloud: Cloud,
-			checkpoint: UploadCheckpointEntity,
+	private fun handleFileResume(cryptomatorApp: CryptomatorApp, dao: UploadCheckpointDao,
+			cloud: Cloud, checkpoint: UploadCheckpointEntity,
 			completedFiles: Set<String>, vaultId: Long) {
 		val fileUris = parseJsonArray(checkpoint.pendingFileUris)
 		val contentResolverUtil = applicationComponent().contentResolverUtil()
@@ -633,7 +634,7 @@ class VaultListPresenter @Inject constructor( //
 		if (uploadFiles.isNotEmpty()) {
 			cryptomatorApp.startFileUpload(cloud, checkpoint.targetFolderPath, uploadFiles, completedFiles, vaultId)
 		} else {
-			cryptomatorApp.getUploadCheckpointDao()?.deleteByVaultId(vaultId)
+			dao.deleteByVaultId(vaultId)
 		}
 	}
 
@@ -662,10 +663,6 @@ class VaultListPresenter @Inject constructor( //
 		} catch (e: JSONException) {
 			emptyList()
 		}
-	}
-
-	private fun parseJsonArraySize(json: String?): Int {
-		return parseJsonArray(json).size
 	}
 
 	private fun checkToStartAutoImageUpload(vault: Vault): Boolean {

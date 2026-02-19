@@ -1,13 +1,12 @@
 package org.cryptomator.presentation.ui.dialog
 
 import android.content.Context
-import android.content.DialogInterface
 import androidx.appcompat.app.AlertDialog
 import org.cryptomator.presentation.R
 
 class ResumeUploadDialog private constructor(private val context: Context) {
 
-	private val callback: Callback
+	private val callback: Callback = context as Callback
 
 	interface Callback {
 
@@ -22,10 +21,10 @@ class ResumeUploadDialog private constructor(private val context: Context) {
 			.setMessage(
 				context.getString(R.string.dialog_resume_upload_message, completedCount, totalCount)
 			)
-			.setPositiveButton(R.string.dialog_resume_upload_resume) { _: DialogInterface?, _: Int ->
+			.setPositiveButton(R.string.dialog_resume_upload_resume) { _, _ ->
 				callback.onResumeUploadConfirmed(vaultId)
 			}
-			.setNegativeButton(R.string.dialog_resume_upload_discard) { _: DialogInterface?, _: Int ->
+			.setNegativeButton(R.string.dialog_resume_upload_discard) { _, _ ->
 				callback.onResumeUploadDeclined(vaultId)
 			}
 			.create()
@@ -38,9 +37,5 @@ class ResumeUploadDialog private constructor(private val context: Context) {
 		fun withContext(context: Context): ResumeUploadDialog {
 			return ResumeUploadDialog(context)
 		}
-	}
-
-	init {
-		callback = context as Callback
 	}
 }
