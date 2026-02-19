@@ -567,29 +567,30 @@ class VaultListPresenter @Inject constructor( //
 	private var pendingNavigationAfterResume: Pair<Vault, CloudFolder>? = null
 
 	fun onResumeUploadConfirmed(vaultId: Long) {
-		val cryptomatorApp = activity().application as CryptomatorApp
-		val dao = cryptomatorApp.getUploadCheckpointDao() ?: return
-		val checkpoint = dao.findByVaultId(vaultId) ?: return
+		try {
+			val cryptomatorApp = activity().application as CryptomatorApp
+			val dao = cryptomatorApp.getUploadCheckpointDao() ?: return
+			val checkpoint = dao.findByVaultId(vaultId) ?: return
 
-		val vault = try {
-			applicationComponent().vaultRepository().load(vaultId)
-		} catch (e: Exception) {
-			Timber.tag("VaultListPresenter").e(e, "Failed to load vault for resume")
-			dao.deleteByVaultId(vaultId)
+			val vault = try {
+				applicationComponent().vaultRepository().load(vaultId)
+			} catch (e: Exception) {
+				Timber.tag("VaultListPresenter").e(e, "Failed to load vault for resume")
+				dao.deleteByVaultId(vaultId)
+				return
+			}
+
+			val cloud = applicationComponent().cloudRepository().decryptedViewOf(vault)
+			val completedFiles = parseJsonArray(checkpoint.completedFiles).toHashSet()
+
+			if (checkpoint.type == "folder") {
+				handleFolderResume(cryptomatorApp, dao, cloud, checkpoint, completedFiles, vaultId)
+			} else {
+				handleFileResume(cryptomatorApp, dao, cloud, checkpoint, completedFiles, vaultId)
+			}
+		} finally {
 			navigatePendingAfterResume()
-			return
 		}
-
-		val cloud = applicationComponent().cloudRepository().decryptedViewOf(vault)
-		val completedFiles = parseJsonArray(checkpoint.completedFiles).toHashSet()
-
-		if (checkpoint.type == "folder") {
-			handleFolderResume(cryptomatorApp, dao, cloud, checkpoint, completedFiles, vaultId)
-		} else {
-			handleFileResume(cryptomatorApp, dao, cloud, checkpoint, completedFiles, vaultId)
-		}
-
-		navigatePendingAfterResume()
 	}
 
 	private fun handleFolderResume(cryptomatorApp: CryptomatorApp, dao: UploadCheckpointDao,
@@ -608,8 +609,8 @@ class VaultListPresenter @Inject constructor( //
 				cryptomatorApp.startFolderUpload(cloud, checkpoint.targetFolderPath, folderStructure, completedFiles, vaultId)
 				return
 			}
-		} catch (e: SecurityException) {
-			Timber.tag("VaultListPresenter").w(e, "Permission lost for folder URI during resume")
+		} catch (e: Exception) {
+			Timber.tag("VaultListPresenter").w(e, "Failed to read folder during resume")
 		}
 		view?.showMessage(R.string.dialog_resume_upload_permission_lost)
 		dao.deleteByVaultId(vaultId)
