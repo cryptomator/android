@@ -149,14 +149,20 @@ public class UploadFolderFiles {
 
 	private File copyDataToFile(DataSource dataSource) {
 		File dir = context.getCacheDir();
+		File target;
 		try {
-			File target = createTempFile("upload", "tmp", dir);
+			target = createTempFile("upload", "tmp", dir);
+		} catch (IOException e) {
+			throw new FatalBackendException(e);
+		}
+		try {
 			InputStream in = CancelAwareDataSource.wrap(dataSource, cancelledFlag).open(context);
 			OutputStream out = new FileOutputStream(target);
 			StreamHelper.copy(in, out);
 			dataSource.modifiedDate(context).ifPresent(value -> target.setLastModified(value.getTime()));
 			return target;
 		} catch (IOException e) {
+			target.delete();
 			throw new FatalBackendException(e);
 		}
 	}

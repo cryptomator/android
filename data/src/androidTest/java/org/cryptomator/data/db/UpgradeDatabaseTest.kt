@@ -1002,8 +1002,8 @@ class UpgradeDatabaseTest {
 				.integer("TIMESTAMP", 2000) //
 				.executeOn(db)
 			Assert.fail("Expected constraint violation for duplicate VAULT_ID")
-		} catch (e: Exception) {
-			// Expected: unique constraint violation
+		} catch (e: android.database.sqlite.SQLiteConstraintException) {
+			// Expected: unique constraint violation on VAULT_ID
 		}
 	}
 

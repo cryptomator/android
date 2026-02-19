@@ -1085,14 +1085,21 @@ class BrowseFilesPresenter @Inject constructor( //
 		val documentFile = DocumentFile.fromTreeUri(context(), treeUri) ?: return
 		view?.showProgress(ProgressModel.GENERIC)
 		Thread {
-			val folderStructure = buildUploadFolderStructure(documentFile)
-			activity().runOnUiThread {
-				view?.showProgress(ProgressModel.COMPLETED)
-				if (folderStructure.totalFileCount() == 0) {
-					view?.showMessage(R.string.screen_file_browser_nothing_to_upload)
-					return@runOnUiThread
+			try {
+				val folderStructure = buildUploadFolderStructure(documentFile)
+				activity().runOnUiThread {
+					view?.showProgress(ProgressModel.COMPLETED)
+					if (folderStructure.totalFileCount() == 0) {
+						view?.showMessage(R.string.screen_file_browser_nothing_to_upload)
+						return@runOnUiThread
+					}
+					uploadFolder(folderStructure, treeUri)
 				}
-				uploadFolder(folderStructure, treeUri)
+			} catch (e: Exception) {
+				activity().runOnUiThread {
+					view?.showProgress(ProgressModel.COMPLETED)
+					showError(e)
+				}
 			}
 		}.start()
 	}

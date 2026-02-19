@@ -45,8 +45,8 @@ public class UploadService extends Service {
 	private Thread worker;
 	private volatile boolean cancelled;
 	private volatile Runnable cancelCallback;
-	private long startTimeNotificationDelay;
-	private long elapsedTimeNotificationDelay = 0L;
+	private volatile long startTimeNotificationDelay;
+	private volatile long elapsedTimeNotificationDelay = 0L;
 
 	public static Intent cancelUploadIntent(Context context) {
 		Intent cancelIntent = new Intent(context, UploadService.class);
@@ -61,6 +61,9 @@ public class UploadService extends Service {
 			uploadFiles.setCompletedFiles(completedFiles);
 			uploadFiles.setFileUploadedCallback(callback);
 			cancelCallback = uploadFiles::onCancel;
+			if (cancelled) {
+				throw new CancellationException();
+			}
 			uploadFiles.execute(progressAware);
 		});
 	}
@@ -72,12 +75,20 @@ public class UploadService extends Service {
 			uploadFolderFiles.setCompletedFiles(completedFiles);
 			uploadFolderFiles.setFileUploadedCallback(callback);
 			cancelCallback = uploadFolderFiles::onCancel;
+			if (cancelled) {
+				throw new CancellationException();
+			}
 			uploadFolderFiles.execute(progressAware);
 		});
 	}
 
 	private void startUpload(Cloud cloud, String targetFolderPath, Set<String> completedFiles,
 			long vaultId, int totalFiles, UploadTask uploadTask) {
+		if (worker != null && worker.isAlive()) {
+			Timber.tag("UploadService").w("Upload already in progress, ignoring request");
+			return;
+		}
+
 		notification = new UploadNotification(appContext, totalFiles);
 
 		startForeground(UploadNotification.NOTIFICATION_ID, notification.getNotification());

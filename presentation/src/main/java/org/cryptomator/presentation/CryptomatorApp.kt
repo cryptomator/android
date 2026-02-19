@@ -10,10 +10,15 @@ import android.os.IBinder
 import android.os.StrictMode
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.multidex.MultiDexApplication
+import io.reactivex.plugins.RxJavaPlugins
 import org.cryptomator.data.cloud.crypto.Cryptors
 import org.cryptomator.data.cloud.crypto.CryptorsModule
+import org.cryptomator.data.db.UploadCheckpointDao
+import org.cryptomator.data.db.entities.UploadCheckpointEntity
 import org.cryptomator.data.repository.RepositoryModule
 import org.cryptomator.domain.Cloud
+import org.cryptomator.domain.usecases.cloud.UploadFile
+import org.cryptomator.domain.usecases.cloud.UploadFolderStructure
 import org.cryptomator.presentation.di.HasComponent
 import org.cryptomator.presentation.di.component.ApplicationComponent
 import org.cryptomator.presentation.di.component.DaggerApplicationComponent
@@ -22,19 +27,14 @@ import org.cryptomator.presentation.di.module.ThreadModule
 import org.cryptomator.presentation.logging.CrashLogging.Companion.setup
 import org.cryptomator.presentation.logging.DebugLogger
 import org.cryptomator.presentation.logging.ReleaseLogger
-import org.cryptomator.data.db.UploadCheckpointDao
-import org.cryptomator.data.db.entities.UploadCheckpointEntity
-import org.cryptomator.domain.usecases.cloud.UploadFile
-import org.cryptomator.domain.usecases.cloud.UploadFolderStructure
 import org.cryptomator.presentation.service.AutoUploadNotification
 import org.cryptomator.presentation.service.AutoUploadService
 import org.cryptomator.presentation.service.CryptorsService
 import org.cryptomator.presentation.service.UploadService
 import org.cryptomator.util.NoOpActivityLifecycleCallbacks
 import org.cryptomator.util.SharedPreferencesHandler
-import java.util.concurrent.atomic.AtomicInteger
-import io.reactivex.plugins.RxJavaPlugins
 import timber.log.Timber
+import java.util.concurrent.atomic.AtomicInteger
 
 class CryptomatorApp : MultiDexApplication(), HasComponent<ApplicationComponent> {
 
@@ -186,12 +186,22 @@ class CryptomatorApp : MultiDexApplication(), HasComponent<ApplicationComponent>
 
 	fun startFileUpload(cloud: Cloud, targetFolderPath: String, files: List<UploadFile>,
 			completedFiles: Set<String>, vaultId: Long) {
-		uploadServiceBinder?.startFileUpload(cloud, targetFolderPath, files, completedFiles, vaultId)
+		val binder = uploadServiceBinder
+		if (binder != null) {
+			binder.startFileUpload(cloud, targetFolderPath, files, completedFiles, vaultId)
+		} else {
+			Timber.tag("App").e("Upload service not connected, file upload request dropped")
+		}
 	}
 
 	fun startFolderUpload(cloud: Cloud, targetFolderPath: String, folderStructure: UploadFolderStructure,
 			completedFiles: Set<String>, vaultId: Long) {
-		uploadServiceBinder?.startFolderUpload(cloud, targetFolderPath, folderStructure, completedFiles, vaultId)
+		val binder = uploadServiceBinder
+		if (binder != null) {
+			binder.startFolderUpload(cloud, targetFolderPath, folderStructure, completedFiles, vaultId)
+		} else {
+			Timber.tag("App").e("Upload service not connected, folder upload request dropped")
+		}
 	}
 
 	fun createUploadCheckpoint(vaultId: Long, type: String, targetFolderPath: String,

@@ -215,6 +215,7 @@
 		<service
 			android:name=".service.UploadService"
 			android:enabled="true"
+			android:exported="false"
 			android:foregroundServiceType="dataSync" />
 
 		<service

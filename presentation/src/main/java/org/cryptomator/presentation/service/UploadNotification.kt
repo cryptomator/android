@@ -62,12 +62,13 @@ class UploadNotification(private val context: Context, private val totalFiles: I
 	}
 
 	fun update(progress: Int) {
+		val currentFile = (completedFiles + 1).coerceAtMost(totalFiles)
 		builder
 			.setContentIntent(startTheActivity())
 			.setContentText(
 				format(
 					context.getString(R.string.notification_upload_message),
-					completedFiles + 1,
+					currentFile,
 					totalFiles
 				)
 			)
@@ -84,7 +85,7 @@ class UploadNotification(private val context: Context, private val totalFiles: I
 		builder
 			.setContentIntent(startTheActivity())
 			.setContentTitle(context.getString(R.string.notification_upload_finished_title))
-			.setContentText(format(context.getString(R.string.notification_upload_finished_message), count))
+			.setContentText(context.resources.getQuantityString(R.plurals.notification_upload_finished_message, count, count))
 			.setProgress(0, 0, false)
 			.setAutoCancel(true)
 			.setOngoing(false)

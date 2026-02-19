@@ -9,8 +9,10 @@ import android.content.Intent
 import android.net.Uri
 import android.os.Build
 import android.widget.Toast
+import androidx.documentfile.provider.DocumentFile
 import com.google.common.base.Optional
 import org.cryptomator.data.cloud.crypto.CryptoCloud
+import org.cryptomator.data.db.entities.UploadCheckpointEntity
 import org.cryptomator.data.util.NetworkConnectionCheck
 import org.cryptomator.domain.Cloud
 import org.cryptomator.domain.CloudFolder
@@ -26,6 +28,8 @@ import org.cryptomator.domain.usecases.LicenseCheck
 import org.cryptomator.domain.usecases.NoOpResultHandler
 import org.cryptomator.domain.usecases.UpdateCheck
 import org.cryptomator.domain.usecases.cloud.GetRootFolderUseCase
+import org.cryptomator.domain.usecases.cloud.UploadFile
+import org.cryptomator.domain.usecases.cloud.UploadFolderStructure
 import org.cryptomator.domain.usecases.vault.DeleteVaultUseCase
 import org.cryptomator.domain.usecases.vault.GetVaultListUseCase
 import org.cryptomator.domain.usecases.vault.ListCBCEncryptedPasswordVaultsUseCase
@@ -40,6 +44,7 @@ import org.cryptomator.generator.Callback
 import org.cryptomator.presentation.BuildConfig
 import org.cryptomator.presentation.CryptomatorApp
 import org.cryptomator.presentation.R
+import org.cryptomator.presentation.di.component.ApplicationComponent
 import org.cryptomator.presentation.exception.ExceptionHandlers
 import org.cryptomator.presentation.intent.Intents
 import org.cryptomator.presentation.intent.UnlockVaultIntent
@@ -54,6 +59,7 @@ import org.cryptomator.presentation.ui.dialog.AppIsObscuredInfoDialog
 import org.cryptomator.presentation.ui.dialog.AskForLockScreenDialog
 import org.cryptomator.presentation.ui.dialog.CBCPasswordVaultsMigrationDialog
 import org.cryptomator.presentation.ui.dialog.EnterPasswordDialog
+import org.cryptomator.presentation.ui.dialog.ResumeUploadDialog
 import org.cryptomator.presentation.ui.dialog.UpdateAppAvailableDialog
 import org.cryptomator.presentation.ui.dialog.UpdateAppDialog
 import org.cryptomator.presentation.ui.dialog.VaultsRemovedDuringMigrationDialog
@@ -66,12 +72,8 @@ import org.cryptomator.presentation.workflow.PermissionsResult
 import org.cryptomator.presentation.workflow.Workflow
 import org.cryptomator.util.SharedPreferencesHandler
 import org.cryptomator.util.crypto.CryptoMode
-import androidx.documentfile.provider.DocumentFile
-import org.cryptomator.data.db.entities.UploadCheckpointEntity
-import org.cryptomator.domain.usecases.cloud.UploadFile
-import org.cryptomator.domain.usecases.cloud.UploadFolderStructure
-import org.cryptomator.presentation.di.component.ApplicationComponent
-import org.cryptomator.presentation.ui.dialog.ResumeUploadDialog
+import org.json.JSONArray
+import org.json.JSONException
 import javax.inject.Inject
 import timber.log.Timber
 
@@ -606,7 +608,7 @@ class VaultListPresenter @Inject constructor( //
 				return
 			}
 		} catch (e: SecurityException) {
-			// fall through to show permission lost message
+			Timber.tag("VaultListPresenter").w(e, "Permission lost for folder URI during resume")
 		}
 		view?.showMessage(R.string.dialog_resume_upload_permission_lost)
 		cryptomatorApp.getUploadCheckpointDao()?.deleteByVaultId(vaultId)
@@ -654,9 +656,12 @@ class VaultListPresenter @Inject constructor( //
 
 	private fun parseJsonArray(json: String?): List<String> {
 		if (json.isNullOrEmpty() || json == "[]") return emptyList()
-		val content = json.removePrefix("[").removeSuffix("]")
-		if (content.isEmpty()) return emptyList()
-		return content.split(",").map { it.trim().removeSurrounding("\"") }
+		return try {
+			val jsonArray = JSONArray(json)
+			(0 until jsonArray.length()).map { jsonArray.getString(it) }
+		} catch (e: JSONException) {
+			emptyList()
+		}
 	}
 
 	private fun parseJsonArraySize(json: String?): Int {

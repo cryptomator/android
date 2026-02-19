@@ -632,7 +632,10 @@
 	<string name="notification_upload_message">Uploading %1$d/%2$d</string>
 	<string name="notification_upload_cancel">Cancel upload</string>
 	<string name="notification_upload_finished_title">Upload finished</string>
-	<string name="notification_upload_finished_message">%1$d files uploaded to vault</string>
+	<plurals name="notification_upload_finished_message">
+		<item quantity="one">%1$d file uploaded to vault</item>
+		<item quantity="other">%1$d files uploaded to vault</item>
+	</plurals>
 	<string name="notification_upload_interrupted_title">Upload interrupted</string>
 	<string name="notification_upload_interrupted_message">Upload was interrupted. Unlock vault to resume.</string>
 	<string name="notification_upload_failed_title">Upload failed</string>
