@@ -11,12 +11,15 @@ import org.cryptomator.domain.usecases.ProgressAware
 import org.cryptomator.util.Optional
 import org.hamcrest.CoreMatchers
 import org.hamcrest.MatcherAssert
+import org.junit.jupiter.api.DisplayName
+import org.junit.jupiter.api.Test
 import org.junit.jupiter.params.ParameterizedTest
 import org.junit.jupiter.params.provider.ValueSource
 import org.mockito.Mockito
 import org.mockito.kotlin.eq
 import org.mockito.kotlin.mock
 import org.mockito.kotlin.same
+import org.mockito.kotlin.verify
 import org.mockito.kotlin.whenever
 import java.io.ByteArrayInputStream
 import java.io.IOException
@@ -123,6 +126,112 @@ class UploadFileTest {
 		val data = ByteArray(amount.toInt())
 		Arrays.fill(data, value.toByte())
 		return data
+	}
+
+	@Test
+	@DisplayName("Completed files are skipped during upload")
+	@Throws(BackendException::class)
+	fun testCompletedFilesAreSkipped() {
+		val fileSize: Long = 1337
+		val dataSource1 = dataSourceWithBytes(0, fileSize, fileSize)
+		val dataSource2 = dataSourceWithBytes(1, fileSize, fileSize)
+		val targetFile2: CloudFile = mock()
+		val resultFile2: CloudFile = mock()
+
+		val files = listOf(
+			UploadFile.Builder()
+				.withFileName("file1.txt")
+				.withDataSource(dataSource1)
+				.thatIsReplacing(false)
+				.build(),
+			UploadFile.Builder()
+				.withFileName("file2.txt")
+				.withDataSource(dataSource2)
+				.thatIsReplacing(false)
+				.build()
+		)
+
+		val inTest = UploadFiles(context, cloudContentRepository, parent, files)
+		inTest.setCompletedFiles(setOf("file1.txt"))
+
+		whenever(cloudContentRepository.file(parent, "file2.txt", fileSize)).thenReturn(targetFile2)
+		whenever(
+			cloudContentRepository.write(
+				same(targetFile2),
+				any(DataSource::class.java),
+				same(progressAware),
+				eq(false),
+				eq(fileSize)
+			)
+		).thenReturn(resultFile2)
+
+		val result = inTest.execute(progressAware)
+
+		MatcherAssert.assertThat(result.size, CoreMatchers.`is`(1))
+		MatcherAssert.assertThat(result[0], CoreMatchers.`is`(resultFile2))
+	}
+
+	@Test
+	@DisplayName("FileUploadedCallback is called after each file upload")
+	@Throws(BackendException::class)
+	fun testFileUploadedCallbackIsCalled() {
+		val fileSize: Long = 100
+		val dataSource = dataSourceWithBytes(0, fileSize, fileSize)
+		val callback: FileUploadedCallback = mock()
+
+		val files = listOf(
+			UploadFile.Builder()
+				.withFileName(fileName)
+				.withDataSource(dataSource)
+				.thatIsReplacing(false)
+				.build()
+		)
+
+		val inTest = UploadFiles(context, cloudContentRepository, parent, files)
+		inTest.setFileUploadedCallback(callback)
+
+		whenever(cloudContentRepository.file(parent, fileName, fileSize)).thenReturn(targetFile)
+		whenever(
+			cloudContentRepository.write(
+				same(targetFile),
+				any(DataSource::class.java),
+				same(progressAware),
+				eq(false),
+				eq(fileSize)
+			)
+		).thenReturn(resultFile)
+
+		inTest.execute(progressAware)
+
+		verify(callback).onFileUploaded(fileName)
+	}
+
+	@Test
+	@DisplayName("All completed files skipped returns empty list")
+	@Throws(BackendException::class)
+	fun testAllFilesCompletedReturnsEmpty() {
+		val fileSize: Long = 100
+		val dataSource = dataSourceWithBytes(0, fileSize, fileSize)
+
+		val files = listOf(
+			UploadFile.Builder()
+				.withFileName("a.txt")
+				.withDataSource(dataSource)
+				.thatIsReplacing(false)
+				.build(),
+			UploadFile.Builder()
+				.withFileName("b.txt")
+				.withDataSource(dataSource)
+				.thatIsReplacing(false)
+				.build()
+		)
+
+		val inTest = UploadFiles(context, cloudContentRepository, parent, files)
+		inTest.setCompletedFiles(setOf("a.txt", "b.txt"))
+
+		val result = inTest.execute(progressAware)
+
+		MatcherAssert.assertThat(result.size, CoreMatchers.`is`(0))
 	}
 
 	private fun testCandidate(dataSource: DataSource, replacing: Boolean): UploadFiles {

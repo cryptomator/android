@@ -6,6 +6,7 @@ import org.cryptomator.domain.CloudFile
 import org.cryptomator.domain.CloudFolder
 import org.cryptomator.domain.CloudNode
 import org.cryptomator.domain.exception.BackendException
+import org.cryptomator.domain.exception.CloudNodeAlreadyExistsException
 import org.cryptomator.domain.repository.CloudContentRepository
 import org.cryptomator.domain.usecases.ProgressAware
 import org.cryptomator.util.Optional
@@ -17,6 +18,7 @@ import org.junit.jupiter.api.Test
 import org.mockito.Mockito
 import org.mockito.kotlin.eq
 import org.mockito.kotlin.mock
+import org.mockito.kotlin.never
 import org.mockito.kotlin.same
 import org.mockito.kotlin.verify
 import org.mockito.kotlin.whenever
@@ -211,6 +213,213 @@ class UploadFolderFilesTest {
 		assertThat(root.totalFileCount(), `is`(4))
 		assertThat(sub.totalFileCount(), `is`(3))
 		assertThat(deepSub.totalFileCount(), `is`(1))
+	}
+
+	@Test
+	@DisplayName("Completed files are skipped during folder upload")
+	@Throws(BackendException::class)
+	fun testCompletedFilesAreSkipped() {
+		val fileSize: Long = 100
+		val dataSource1 = dataSourceWithBytes(1, fileSize, fileSize)
+		val dataSource2 = dataSourceWithBytes(2, fileSize, fileSize)
+
+		val structure = UploadFolderStructure("testFolder")
+		structure.addFile(
+			UploadFile.Builder()
+				.withFileName("file1.txt")
+				.withDataSource(dataSource1)
+				.thatIsReplacing(false)
+				.build()
+		)
+		structure.addFile(
+			UploadFile.Builder()
+				.withFileName("file2.txt")
+				.withDataSource(dataSource2)
+				.thatIsReplacing(false)
+				.build()
+		)
+
+		val inTest = UploadFolderFiles(context, cloudContentRepository, parent, structure)
+		inTest.setCompletedFiles(setOf("testFolder/file1.txt"))
+
+		whenever(cloudContentRepository.file(createdFolder, "file2.txt", fileSize)).thenReturn(targetFile)
+		whenever(
+			cloudContentRepository.write(
+				same(targetFile),
+				any(DataSource::class.java),
+				same(progressAware),
+				eq(false),
+				eq(fileSize)
+			)
+		).thenReturn(resultFile)
+
+		val result = inTest.execute(progressAware)
+
+		assertThat(result.size, `is`(1))
+		assertThat(result[0], `is`(resultFile))
+	}
+
+	@Test
+	@DisplayName("FileUploadedCallback is called with relative path after each file upload")
+	@Throws(BackendException::class)
+	fun testFileUploadedCallbackCalledWithRelativePath() {
+		val fileSize: Long = 100
+		val dataSource = dataSourceWithBytes(0, fileSize, fileSize)
+		val callback: FileUploadedCallback = mock()
+
+		val structure = UploadFolderStructure("testFolder")
+		structure.addFile(
+			UploadFile.Builder()
+				.withFileName("file.txt")
+				.withDataSource(dataSource)
+				.thatIsReplacing(false)
+				.build()
+		)
+
+		val inTest = UploadFolderFiles(context, cloudContentRepository, parent, structure)
+		inTest.setFileUploadedCallback(callback)
+
+		whenever(cloudContentRepository.file(createdFolder, "file.txt", fileSize)).thenReturn(targetFile)
+		whenever(
+			cloudContentRepository.write(
+				same(targetFile),
+				any(DataSource::class.java),
+				same(progressAware),
+				eq(false),
+				eq(fileSize)
+			)
+		).thenReturn(resultFile)
+
+		inTest.execute(progressAware)
+
+		verify(callback).onFileUploaded("testFolder/file.txt")
+	}
+
+	@Test
+	@DisplayName("Callback uses correct relative path for files in subfolders")
+	@Throws(BackendException::class)
+	fun testCallbackRelativePathInSubfolder() {
+		val fileSize: Long = 100
+		val dataSource = dataSourceWithBytes(0, fileSize, fileSize)
+		val callback: FileUploadedCallback = mock()
+
+		val subfolder = UploadFolderStructure("sub")
+		subfolder.addFile(
+			UploadFile.Builder()
+				.withFileName("deep.txt")
+				.withDataSource(dataSource)
+				.thatIsReplacing(false)
+				.build()
+		)
+
+		val structure = UploadFolderStructure("testFolder")
+		structure.addSubfolder(subfolder)
+
+		val inTest = UploadFolderFiles(context, cloudContentRepository, parent, structure)
+		inTest.setFileUploadedCallback(callback)
+
+		whenever(cloudContentRepository.folder(createdFolder, "sub")).thenReturn(subfolderToCreate)
+		whenever(cloudContentRepository.create(subfolderToCreate)).thenReturn(createdSubfolder)
+		whenever(cloudContentRepository.file(createdSubfolder, "deep.txt", fileSize)).thenReturn(targetFile)
+		whenever(
+			cloudContentRepository.write(
+				same(targetFile),
+				any(DataSource::class.java),
+				same(progressAware),
+				eq(false),
+				eq(fileSize)
+			)
+		).thenReturn(resultFile)
+
+		inTest.execute(progressAware)
+
+		verify(callback).onFileUploaded("testFolder/sub/deep.txt")
+	}
+
+	@Test
+	@DisplayName("createFolderSafe returns existing folder when CloudNodeAlreadyExistsException is thrown")
+	@Throws(BackendException::class)
+	fun testCreateFolderSafeHandlesAlreadyExists() {
+		val fileSize: Long = 100
+		val dataSource = dataSourceWithBytes(0, fileSize, fileSize)
+
+		val structure = UploadFolderStructure("testFolder")
+		structure.addFile(
+			UploadFile.Builder()
+				.withFileName("file.txt")
+				.withDataSource(dataSource)
+				.thatIsReplacing(false)
+				.build()
+		)
+
+		whenever(cloudContentRepository.create(folderToCreate)).thenThrow(CloudNodeAlreadyExistsException("testFolder"))
+
+		val inTest = UploadFolderFiles(context, cloudContentRepository, parent, structure)
+
+		whenever(cloudContentRepository.file(folderToCreate, "file.txt", fileSize)).thenReturn(targetFile)
+		whenever(
+			cloudContentRepository.write(
+				same(targetFile),
+				any(DataSource::class.java),
+				same(progressAware),
+				eq(false),
+				eq(fileSize)
+			)
+		).thenReturn(resultFile)
+
+		val result = inTest.execute(progressAware)
+
+		assertThat(result.size, `is`(1))
+		assertThat(result[0], `is`(resultFile))
+	}
+
+	@Test
+	@DisplayName("Completed files in subfolder are skipped correctly")
+	@Throws(BackendException::class)
+	fun testCompletedFilesInSubfolderAreSkipped() {
+		val fileSize: Long = 100
+		val dataSource1 = dataSourceWithBytes(1, fileSize, fileSize)
+		val dataSource2 = dataSourceWithBytes(2, fileSize, fileSize)
+
+		val subfolder = UploadFolderStructure("sub")
+		subfolder.addFile(
+			UploadFile.Builder()
+				.withFileName("subfile1.txt")
+				.withDataSource(dataSource1)
+				.thatIsReplacing(false)
+				.build()
+		)
+		subfolder.addFile(
+			UploadFile.Builder()
+				.withFileName("subfile2.txt")
+				.withDataSource(dataSource2)
+				.thatIsReplacing(false)
+				.build()
+		)
+
+		val structure = UploadFolderStructure("testFolder")
+		structure.addSubfolder(subfolder)
+
+		val inTest = UploadFolderFiles(context, cloudContentRepository, parent, structure)
+		inTest.setCompletedFiles(setOf("testFolder/sub/subfile1.txt"))
+
+		whenever(cloudContentRepository.folder(createdFolder, "sub")).thenReturn(subfolderToCreate)
+		whenever(cloudContentRepository.create(subfolderToCreate)).thenReturn(createdSubfolder)
+		whenever(cloudContentRepository.file(createdSubfolder, "subfile2.txt", fileSize)).thenReturn(targetFile2)
+		whenever(
+			cloudContentRepository.write(
+				same(targetFile2),
+				any(DataSource::class.java),
+				same(progressAware),
+				eq(false),
+				eq(fileSize)
+			)
+		).thenReturn(resultFile2)
+
+		val result = inTest.execute(progressAware)
+
+		assertThat(result.size, `is`(1))
+		assertThat(result[0], `is`(resultFile2))
 	}
 
 	private fun dataSourceWithBytes(value: Int, amount: Long, size: Long?): DataSource {

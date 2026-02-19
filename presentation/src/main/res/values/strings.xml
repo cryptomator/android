@@ -627,6 +627,25 @@
 	<string name="notification_auto_upload_permission_not_granted" translatable="false">@string/permission_snackbar_auth_auto_upload</string>
 	<string name="notification_auto_upload_failed_due_to_authentication_problem">Tap to refresh authentication.</string>
 
+	<!-- Upload service notifications -->
+	<string name="notification_upload_title">Uploading files</string>
+	<string name="notification_upload_message">Uploading %1$d/%2$d</string>
+	<string name="notification_upload_cancel">Cancel upload</string>
+	<string name="notification_upload_finished_title">Upload finished</string>
+	<string name="notification_upload_finished_message">%1$d files uploaded to vault</string>
+	<string name="notification_upload_interrupted_title">Upload interrupted</string>
+	<string name="notification_upload_interrupted_message">Upload was interrupted. Unlock vault to resume.</string>
+	<string name="notification_upload_failed_title">Upload failed</string>
+	<string name="notification_upload_failed_general_error">An error occurred during upload.</string>
+	<string name="notification_upload_failed_vault_locked">Vault locked during upload.</string>
+
+	<!-- Resume upload dialog -->
+	<string name="dialog_resume_upload_title">Resume upload?</string>
+	<string name="dialog_resume_upload_message">An interrupted upload was found (%1$d of %2$d files completed). Do you want to resume?</string>
+	<string name="dialog_resume_upload_resume">Resume</string>
+	<string name="dialog_resume_upload_discard">Discard</string>
+	<string name="dialog_resume_upload_permission_lost">Cannot resume: access to the source folder has been lost.</string>
+
 	<string name="notification_cancel_open_writable_file" translatable="false">@string/dialog_button_cancel</string>
 	<string name="notification_open_writable_file_title">Open writable file</string>
 	<string name="notification_open_writable_file_message">Vault stays unlocked until finished editing</string>

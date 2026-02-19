@@ -102,7 +102,7 @@ android {
 }
 
 greendao {
-	schemaVersion 13
+	schemaVersion 14
 }
 
 configurations.all {

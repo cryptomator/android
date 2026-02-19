@@ -27,6 +27,7 @@ import org.cryptomator.presentation.ui.callback.VaultListCallback
 import org.cryptomator.presentation.ui.dialog.AskForLockScreenDialog
 import org.cryptomator.presentation.ui.dialog.BetaConfirmationDialog
 import org.cryptomator.presentation.ui.dialog.CBCPasswordVaultsMigrationDialog
+import org.cryptomator.presentation.ui.dialog.ResumeUploadDialog
 import org.cryptomator.presentation.ui.dialog.UpdateAppAvailableDialog
 import org.cryptomator.presentation.ui.dialog.UpdateAppDialog
 import org.cryptomator.presentation.ui.dialog.VaultDeleteConfirmationDialog
@@ -45,6 +46,7 @@ class VaultListActivity : BaseActivity<ActivityLayoutObscureAwareBinding>(Activi
 	UpdateAppDialog.Callback, //
 	BetaConfirmationDialog.Callback, //
 	CBCPasswordVaultsMigrationDialog.Callback, //
+	ResumeUploadDialog.Callback, //
 	BiometricAuthenticationMigration.Callback {
 
 	@Inject
@@ -250,6 +252,14 @@ class VaultListActivity : BaseActivity<ActivityLayoutObscureAwareBinding>(Activi
 
 	override fun onBiometricKeyInvalidated(vaults: List<VaultModel>) {
 		vaultListPresenter.biometricKeyInvalidated(vaults)
+	}
+
+	override fun onResumeUploadConfirmed(vaultId: Long) {
+		vaultListPresenter.onResumeUploadConfirmed(vaultId)
+	}
+
+	override fun onResumeUploadDeclined(vaultId: Long) {
+		vaultListPresenter.onResumeUploadDeclined(vaultId)
 	}
 
 }

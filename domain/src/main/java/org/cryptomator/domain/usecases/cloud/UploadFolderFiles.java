@@ -6,6 +6,7 @@ import org.cryptomator.domain.CloudFile;
 import org.cryptomator.domain.CloudFolder;
 import org.cryptomator.domain.exception.BackendException;
 import org.cryptomator.domain.exception.CancellationException;
+import org.cryptomator.domain.exception.CloudNodeAlreadyExistsException;
 import org.cryptomator.domain.exception.FatalBackendException;
 import org.cryptomator.domain.repository.CloudContentRepository;
 import org.cryptomator.domain.usecases.ProgressAware;
@@ -18,17 +19,21 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
+import java.util.Set;
 
 import static java.io.File.createTempFile;
 
 @UseCase
-class UploadFolderFiles {
+public class UploadFolderFiles {
 
 	private final Context context;
 	private final CloudContentRepository cloudContentRepository;
 	private final CloudFolder parent;
 	private final UploadFolderStructure folderStructure;
+	private Set<String> completedFiles = Collections.emptySet();
+	private FileUploadedCallback fileUploadedCallback = FileUploadedCallback.NO_OP;
 
 	private volatile boolean cancelled;
 	private final Flag cancelledFlag = new Flag() {
@@ -46,6 +51,14 @@ class UploadFolderFiles {
 		this.cloudContentRepository = cloudContentRepository;
 		this.parent = parent;
 		this.folderStructure = folderStructure;
+	}
+
+	public void setCompletedFiles(Set<String> completedFiles) {
+		this.completedFiles = completedFiles;
+	}
+
+	public void setFileUploadedCallback(FileUploadedCallback fileUploadedCallback) {
+		this.fileUploadedCallback = fileUploadedCallback;
 	}
 
 	public void onCancel() {
@@ -66,20 +79,38 @@ class UploadFolderFiles {
 	}
 
 	private List<CloudFile> uploadFolder(CloudFolder targetParent, UploadFolderStructure structure, ProgressAware<UploadState> progressAware) throws BackendException {
-		CloudFolder createdFolder = cloudContentRepository.create( //
-				cloudContentRepository.folder(targetParent, structure.getFolderName()));
+		return uploadFolder(targetParent, structure, structure.getFolderName(), progressAware);
+	}
+
+	private List<CloudFile> uploadFolder(CloudFolder targetParent, UploadFolderStructure structure, String relativePath, ProgressAware<UploadState> progressAware) throws BackendException {
+		CloudFolder createdFolder = createFolderSafe(targetParent, structure.getFolderName());
 
 		List<CloudFile> uploadedFiles = new ArrayList<>();
 
 		for (UploadFile file : structure.getFiles()) {
+			String fileRelativePath = relativePath + "/" + file.getFileName();
+			if (completedFiles.contains(fileRelativePath)) {
+				continue;
+			}
 			uploadedFiles.add(upload(createdFolder, file, progressAware));
+			fileUploadedCallback.onFileUploaded(fileRelativePath);
 		}
 
 		for (UploadFolderStructure subfolder : structure.getSubfolders()) {
-			uploadedFiles.addAll(uploadFolder(createdFolder, subfolder, progressAware));
+			String subfolderRelativePath = relativePath + "/" + subfolder.getFolderName();
+			uploadedFiles.addAll(uploadFolder(createdFolder, subfolder, subfolderRelativePath, progressAware));
 		}
 
 		return uploadedFiles;
+	}
+
+	private CloudFolder createFolderSafe(CloudFolder parent, String folderName) throws BackendException {
+		try {
+			return cloudContentRepository.create( //
+					cloudContentRepository.folder(parent, folderName));
+		} catch (CloudNodeAlreadyExistsException e) {
+			return cloudContentRepository.folder(parent, folderName);
+		}
 	}
 
 	private CloudFile upload(CloudFolder folder, UploadFile uploadFile, ProgressAware<UploadState> progressAware) throws BackendException {

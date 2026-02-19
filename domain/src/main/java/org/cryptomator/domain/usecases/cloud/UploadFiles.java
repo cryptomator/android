@@ -18,17 +18,21 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
+import java.util.Set;
 
 import static java.io.File.createTempFile;
 
 @UseCase
-class UploadFiles {
+public class UploadFiles {
 
 	private final Context context;
 	private final CloudContentRepository cloudContentRepository;
 	private final CloudFolder parent;
 	private final List<UploadFile> files;
+	private Set<String> completedFiles = Collections.emptySet();
+	private FileUploadedCallback fileUploadedCallback = FileUploadedCallback.NO_OP;
 
 	private volatile boolean cancelled;
 	private final Flag cancelledFlag = new Flag() {
@@ -46,6 +50,14 @@ class UploadFiles {
 		this.cloudContentRepository = cloudContentRepository;
 		this.parent = parent;
 		this.files = files;
+	}
+
+	public void setCompletedFiles(Set<String> completedFiles) {
+		this.completedFiles = completedFiles;
+	}
+
+	public void setFileUploadedCallback(FileUploadedCallback fileUploadedCallback) {
+		this.fileUploadedCallback = fileUploadedCallback;
 	}
 
 	public void onCancel() {
@@ -68,7 +80,11 @@ class UploadFiles {
 	private List<CloudFile> upload(ProgressAware<UploadState> progressAware) throws BackendException {
 		List<CloudFile> uploadedFiles = new ArrayList<>();
 		for (UploadFile file : files) {
+			if (completedFiles.contains(file.getFileName())) {
+				continue;
+			}
 			uploadedFiles.add(upload(file, progressAware));
+			fileUploadedCallback.onFileUploaded(file.getFileName());
 		}
 		return uploadedFiles;
 	}

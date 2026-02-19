@@ -22,9 +22,14 @@ import org.cryptomator.presentation.di.module.ThreadModule
 import org.cryptomator.presentation.logging.CrashLogging.Companion.setup
 import org.cryptomator.presentation.logging.DebugLogger
 import org.cryptomator.presentation.logging.ReleaseLogger
+import org.cryptomator.data.db.UploadCheckpointDao
+import org.cryptomator.data.db.entities.UploadCheckpointEntity
+import org.cryptomator.domain.usecases.cloud.UploadFile
+import org.cryptomator.domain.usecases.cloud.UploadFolderStructure
 import org.cryptomator.presentation.service.AutoUploadNotification
 import org.cryptomator.presentation.service.AutoUploadService
 import org.cryptomator.presentation.service.CryptorsService
+import org.cryptomator.presentation.service.UploadService
 import org.cryptomator.util.NoOpActivityLifecycleCallbacks
 import org.cryptomator.util.SharedPreferencesHandler
 import java.util.concurrent.atomic.AtomicInteger
@@ -41,6 +46,9 @@ class CryptomatorApp : MultiDexApplication(), HasComponent<ApplicationComponent>
 
 	@Volatile
 	private var autoUploadServiceBinder: AutoUploadService.Binder? = null
+
+	@Volatile
+	private var uploadServiceBinder: UploadService.Binder? = null
 
 	override fun onCreate() {
 		super.onCreate()
@@ -85,6 +93,11 @@ class CryptomatorApp : MultiDexApplication(), HasComponent<ApplicationComponent>
 			startAutoUploadService()
 		} catch (e: IllegalStateException) {
 			Timber.tag("App").e(e, "Failed to launch auto upload service")
+		}
+		try {
+			startUploadService()
+		} catch (e: IllegalStateException) {
+			Timber.tag("App").e(e, "Failed to launch upload service")
 		}
 	}
 
@@ -149,6 +162,61 @@ class CryptomatorApp : MultiDexApplication(), HasComponent<ApplicationComponent>
 				}
 			}
 		}
+	}
+
+	private fun startUploadService() {
+		bindService(Intent(this, UploadService::class.java), object : ServiceConnection {
+			override fun onServiceConnected(name: ComponentName, service: IBinder) {
+				Timber.tag("App").i("Upload service connected")
+				uploadServiceBinder = service as UploadService.Binder
+				uploadServiceBinder?.init(
+					applicationComponent.cloudContentRepository(),
+					applicationComponent.contentResolverUtil(),
+					applicationComponent.uploadCheckpointDao(),
+					Companion.applicationContext
+				)
+			}
+
+			override fun onServiceDisconnected(name: ComponentName) {
+				Timber.tag("App").i("Upload service disconnected")
+				uploadServiceBinder = null
+			}
+		}, BIND_AUTO_CREATE)
+	}
+
+	fun startFileUpload(cloud: Cloud, targetFolderPath: String, files: List<UploadFile>,
+			completedFiles: Set<String>, vaultId: Long) {
+		uploadServiceBinder?.startFileUpload(cloud, targetFolderPath, files, completedFiles, vaultId)
+	}
+
+	fun startFolderUpload(cloud: Cloud, targetFolderPath: String, folderStructure: UploadFolderStructure,
+			completedFiles: Set<String>, vaultId: Long) {
+		uploadServiceBinder?.startFolderUpload(cloud, targetFolderPath, folderStructure, completedFiles, vaultId)
+	}
+
+	fun createUploadCheckpoint(vaultId: Long, type: String, targetFolderPath: String,
+			sourceFolderUri: String?, sourceFolderName: String?, pendingFileUris: List<String>, totalFileCount: Int) {
+		val dao = uploadServiceBinder?.uploadCheckpointDao ?: return
+		val entity = UploadCheckpointEntity().apply {
+			this.vaultId = vaultId
+			this.type = type
+			this.targetFolderPath = targetFolderPath
+			this.sourceFolderUri = sourceFolderUri
+			this.sourceFolderName = sourceFolderName
+			this.pendingFileUris = toJsonArray(pendingFileUris)
+			this.completedFiles = "[]"
+			this.totalFileCount = totalFileCount
+			this.timestamp = System.currentTimeMillis()
+		}
+		dao.insertOrReplace(entity)
+	}
+
+	fun getUploadCheckpointDao(): UploadCheckpointDao? {
+		return uploadServiceBinder?.uploadCheckpointDao
+	}
+
+	private fun toJsonArray(items: List<String>): String {
+		return items.joinToString(",", "[", "]") { "\"${it.replace("\"", "\\\"")}\"" }
 	}
 
 	private fun checkToStartAutoImageUpload(sharedPreferencesHandler: SharedPreferencesHandler): Boolean {

@@ -4,6 +4,7 @@ import android.content.Context;
 
 import org.cryptomator.data.cloud.crypto.CryptorsModule;
 import org.cryptomator.data.repository.RepositoryModule;
+import org.cryptomator.data.db.UploadCheckpointDao;
 import org.cryptomator.data.util.NetworkConnectionCheck;
 import org.cryptomator.domain.executor.PostExecutionThread;
 import org.cryptomator.domain.executor.ThreadExecutor;
@@ -46,5 +47,7 @@ public interface ApplicationComponent {
 	ContentResolverUtil contentResolverUtil();
 
 	NetworkConnectionCheck networkConnectionCheck();
+
+	UploadCheckpointDao uploadCheckpointDao();
 
 }

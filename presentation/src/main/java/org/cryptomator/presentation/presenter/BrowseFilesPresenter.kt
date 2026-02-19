@@ -40,7 +40,6 @@ import org.cryptomator.domain.usecases.cloud.RenameFileUseCase
 import org.cryptomator.domain.usecases.cloud.RenameFolderUseCase
 import org.cryptomator.domain.usecases.cloud.UploadFile
 import org.cryptomator.domain.usecases.cloud.UploadFilesUseCase
-import org.cryptomator.domain.usecases.cloud.UploadFolderFilesUseCase
 import org.cryptomator.domain.usecases.cloud.UploadFolderStructure
 import org.cryptomator.domain.usecases.cloud.UploadState
 import org.cryptomator.domain.usecases.vault.AssertUnlockedUseCase
@@ -101,7 +100,6 @@ class BrowseFilesPresenter @Inject constructor( //
 	private val downloadFilesUseCase: DownloadFilesUseCase,  //
 	private val deleteNodesUseCase: DeleteNodesUseCase,  //
 	private val uploadFilesUseCase: UploadFilesUseCase,  //
-	private val uploadFolderFilesUseCase: UploadFolderFilesUseCase,  //
 	private val renameFileUseCase: RenameFileUseCase,  //
 	private val renameFolderUseCase: RenameFolderUseCase,  //
 	private val copyDataUseCase: CopyDataUseCase,  //
@@ -418,33 +416,22 @@ class BrowseFilesPresenter @Inject constructor( //
 	}
 
 	private fun uploadFiles(files: List<UploadFile>) {
-		uploadLocation?.let {
-			uploadFilesUseCase //
-				.withParent(it.toCloudNode())
-				.andFiles(files) //
-				.run(object : DefaultProgressAwareResultHandler<List<CloudFile>, UploadState>() {
-					override fun onProgress(progress: Progress<UploadState>) {
-						view?.showProgress(progressModelMapper.toModel(progress))
-						if (progress.isCompleteAndHasState && progress.state().isUpload) {
-							onUploadFileCompleted(progress.state().file().name)
-						}
-					}
+		uploadLocation?.let { location ->
+			val cloud = location.toCloudNode().cloud ?: return@let
+			val vault = location.vault()
+			val vaultId = vault?.toVault()?.id ?: return@let
+			val targetFolderPath = location.toCloudNode().path
 
-					override fun onSuccess(files: List<CloudFile>) {
-						files.forEach { file -> view?.addOrUpdateCloudNode(cloudFileModelMapper.toModel(file)) }
-						onFileUploadCompleted()
-					}
+			val cryptomatorApp = activity().application as CryptomatorApp
 
-					override fun onError(e: Throwable) {
-						onFileUploadError()
-						if (ExceptionUtil.contains(e, CloudNodeAlreadyExistsException::class.java)) {
-							ExceptionUtil.extract(e, CloudNodeAlreadyExistsException::class.java).get().message
-								?.let { message -> onCloudNodeAlreadyExists(message) }
-						} else {
-							super.onError(e)
-						}
-					}
-				})
+			// Create checkpoint
+			val fileUris = files.map { it.dataSource.toString() }
+			cryptomatorApp.createUploadCheckpoint(
+				vaultId, "files", targetFolderPath, null, null, fileUris, files.size
+			)
+
+			cryptomatorApp.startFileUpload(cloud, targetFolderPath, files, emptySet(), vaultId)
+			onFileUploadCompleted()
 		}
 	}
 
@@ -1046,7 +1033,7 @@ class BrowseFilesPresenter @Inject constructor( //
 
 	fun onUploadCanceled() {
 		uploadFilesUseCase.cancel()
-		uploadFolderFilesUseCase.cancel()
+		context().startService(org.cryptomator.presentation.service.UploadService.cancelUploadIntent(context()))
 	}
 
 	@Callback
@@ -1086,10 +1073,15 @@ class BrowseFilesPresenter @Inject constructor( //
 		}
 	}
 
+	@JvmField
+	@InstanceState
+	var lastSelectedFolderUri: Uri? = null
+
 	@Callback
 	fun selectedFolder(result: ActivityResult) {
 		val treeUri = result.intent().data ?: return
 		context().contentResolver.takePersistableUriPermission(treeUri, Intent.FLAG_GRANT_READ_URI_PERMISSION)
+		lastSelectedFolderUri = treeUri
 		val documentFile = DocumentFile.fromTreeUri(context(), treeUri) ?: return
 		view?.showProgress(ProgressModel.GENERIC)
 		Thread {
@@ -1100,55 +1092,27 @@ class BrowseFilesPresenter @Inject constructor( //
 					view?.showMessage(R.string.screen_file_browser_nothing_to_upload)
 					return@runOnUiThread
 				}
-				uploadFolder(folderStructure)
+				uploadFolder(folderStructure, treeUri)
 			}
 		}.start()
 	}
 
-	private fun buildUploadFolderStructure(documentFile: DocumentFile): UploadFolderStructure {
-		val structure = UploadFolderStructure(documentFile.name ?: "folder")
-		documentFile.listFiles().forEach { child ->
-			when {
-				child.isDirectory -> {
-					structure.addSubfolder(buildUploadFolderStructure(child))
-				}
-				child.isFile -> {
-					child.name?.let { name ->
-						structure.addFile(
-							UploadFile.anUploadFile() //
-								.withFileName(name) //
-								.withDataSource(UriBasedDataSource.from(child.uri)) //
-								.thatIsReplacing(false) //
-								.build()
-						)
-					}
-				}
-			}
-		}
-		return structure
-	}
+	private fun uploadFolder(folderStructure: UploadFolderStructure, sourceFolderUri: Uri? = null) {
+		uploadLocation?.let { location ->
+			val cloud = location.toCloudNode().cloud ?: return@let
+			val vault = location.vault()
+			val vaultId = vault?.toVault()?.id ?: return@let
+			val targetFolderPath = location.toCloudNode().path
 
-	private fun uploadFolder(folderStructure: UploadFolderStructure) {
-		uploadLocation?.let {
-			view?.showUploadDialog(folderStructure.totalFileCount())
-			uploadFolderFilesUseCase //
-				.withParent(it.toCloudNode()) //
-				.andFolderStructure(folderStructure) //
-				.run(object : DefaultProgressAwareResultHandler<List<CloudFile>, UploadState>() {
-					override fun onProgress(progress: Progress<UploadState>) {
-						view?.showProgress(progressModelMapper.toModel(progress))
-					}
+			val cryptomatorApp = activity().application as CryptomatorApp
 
-					override fun onSuccess(files: List<CloudFile>) {
-						onFileUploadCompleted()
-						getCloudList(it)
-					}
+			// Create checkpoint
+			cryptomatorApp.createUploadCheckpoint(
+				vaultId, "folder", targetFolderPath, sourceFolderUri?.toString(), folderStructure.folderName, emptyList(), folderStructure.totalFileCount()
+			)
 
-					override fun onError(e: Throwable) {
-						onFileUploadError()
-						super.onError(e)
-					}
-				})
+			cryptomatorApp.startFolderUpload(cloud, targetFolderPath, folderStructure, emptySet(), vaultId)
+			onFileUploadCompleted()
 		}
 	}
 
@@ -1374,7 +1338,6 @@ class BrowseFilesPresenter @Inject constructor( //
 			downloadFilesUseCase,  //
 			deleteNodesUseCase,  //
 			uploadFilesUseCase,  //
-			uploadFolderFilesUseCase,  //
 			renameFileUseCase,  //
 			renameFolderUseCase,  //
 			copyDataUseCase,  //

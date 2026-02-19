@@ -66,6 +66,12 @@ import org.cryptomator.presentation.workflow.PermissionsResult
 import org.cryptomator.presentation.workflow.Workflow
 import org.cryptomator.util.SharedPreferencesHandler
 import org.cryptomator.util.crypto.CryptoMode
+import androidx.documentfile.provider.DocumentFile
+import org.cryptomator.data.db.entities.UploadCheckpointEntity
+import org.cryptomator.domain.usecases.cloud.UploadFile
+import org.cryptomator.domain.usecases.cloud.UploadFolderStructure
+import org.cryptomator.presentation.di.component.ApplicationComponent
+import org.cryptomator.presentation.ui.dialog.ResumeUploadDialog
 import javax.inject.Inject
 import timber.log.Timber
 
@@ -526,14 +532,135 @@ class VaultListPresenter @Inject constructor( //
 			.run(object : DefaultResultHandler<Vault>() {
 				override fun onSuccess(vault: Vault) {
 					view?.addOrUpdateVault(VaultModel(vault))
-					navigateToVaultContent(vault, folder)
 					view?.showProgress(ProgressModel.COMPLETED)
 					if (checkToStartAutoImageUpload(vault)) {
 						val cryptomatorApp = activity().application as CryptomatorApp
 						cryptomatorApp.startAutoUpload(cryptoCloud)
 					}
+					checkForInterruptedUpload(vault, folder)
 				}
 			})
+	}
+
+	private fun checkForInterruptedUpload(vault: Vault, folder: CloudFolder) {
+		val cryptomatorApp = activity().application as CryptomatorApp
+		val dao = cryptomatorApp.getUploadCheckpointDao()
+		if (dao == null) {
+			navigateToVaultContent(vault, folder)
+			return
+		}
+		val checkpoint = dao.findByVaultId(vault.id)
+		if (checkpoint != null) {
+			val completedCount = parseJsonArraySize(checkpoint.completedFiles)
+			ResumeUploadDialog
+				.withContext(activity())
+				.show(vault.id, completedCount, checkpoint.totalFileCount)
+			pendingNavigationAfterResume = Pair(vault, folder)
+		} else {
+			navigateToVaultContent(vault, folder)
+		}
+	}
+
+	private var pendingNavigationAfterResume: Pair<Vault, CloudFolder>? = null
+
+	fun onResumeUploadConfirmed(vaultId: Long) {
+		val cryptomatorApp = activity().application as CryptomatorApp
+		val dao = cryptomatorApp.getUploadCheckpointDao() ?: return
+		val checkpoint = dao.findByVaultId(vaultId) ?: return
+
+		val vault = try {
+			applicationComponent().vaultRepository().load(vaultId)
+		} catch (e: Exception) {
+			Timber.tag("VaultListPresenter").e(e, "Failed to load vault for resume")
+			dao.deleteByVaultId(vaultId)
+			navigatePendingAfterResume()
+			return
+		}
+
+		val cloud = applicationComponent().cloudRepository().decryptedViewOf(vault)
+		val completedFiles = parseJsonArray(checkpoint.completedFiles).toHashSet()
+
+		if (checkpoint.type == "folder") {
+			handleFolderResume(cryptomatorApp, cloud, checkpoint, completedFiles, vaultId)
+		} else {
+			handleFileResume(cryptomatorApp, cloud, checkpoint, completedFiles, vaultId)
+		}
+
+		navigatePendingAfterResume()
+	}
+
+	private fun handleFolderResume(cryptomatorApp: CryptomatorApp, cloud: Cloud,
+			checkpoint: UploadCheckpointEntity,
+			completedFiles: Set<String>, vaultId: Long) {
+		val sourceFolderUri = checkpoint.sourceFolderUri
+		if (sourceFolderUri == null) {
+			cryptomatorApp.getUploadCheckpointDao()?.deleteByVaultId(vaultId)
+			return
+		}
+		val uri = Uri.parse(sourceFolderUri)
+		try {
+			val documentFile = DocumentFile.fromTreeUri(context(), uri)
+			if (documentFile != null && documentFile.canRead()) {
+				val folderStructure = buildUploadFolderStructure(documentFile)
+				cryptomatorApp.startFolderUpload(cloud, checkpoint.targetFolderPath, folderStructure, completedFiles, vaultId)
+				return
+			}
+		} catch (e: SecurityException) {
+			// fall through to show permission lost message
+		}
+		view?.showMessage(R.string.dialog_resume_upload_permission_lost)
+		cryptomatorApp.getUploadCheckpointDao()?.deleteByVaultId(vaultId)
+	}
+
+	private fun handleFileResume(cryptomatorApp: CryptomatorApp, cloud: Cloud,
+			checkpoint: UploadCheckpointEntity,
+			completedFiles: Set<String>, vaultId: Long) {
+		val fileUris = parseJsonArray(checkpoint.pendingFileUris)
+		val contentResolverUtil = applicationComponent().contentResolverUtil()
+		val uploadFiles = fileUris.mapNotNull { uriString ->
+			val uri = Uri.parse(uriString)
+			val fileName = contentResolverUtil.fileName(uri)
+			if (fileName != null) {
+				UploadFile.anUploadFile()
+					.withFileName(fileName)
+					.withDataSource(UriBasedDataSource.from(uri))
+					.thatIsReplacing(false)
+					.build()
+			} else null
+		}
+		if (uploadFiles.isNotEmpty()) {
+			cryptomatorApp.startFileUpload(cloud, checkpoint.targetFolderPath, uploadFiles, completedFiles, vaultId)
+		} else {
+			cryptomatorApp.getUploadCheckpointDao()?.deleteByVaultId(vaultId)
+		}
+	}
+
+	fun onResumeUploadDeclined(vaultId: Long) {
+		val cryptomatorApp = activity().application as CryptomatorApp
+		cryptomatorApp.getUploadCheckpointDao()?.deleteByVaultId(vaultId)
+		navigatePendingAfterResume()
+	}
+
+	private fun navigatePendingAfterResume() {
+		pendingNavigationAfterResume?.let { (vault, folder) ->
+			navigateToVaultContent(vault, folder)
+			pendingNavigationAfterResume = null
+		}
+	}
+
+	private fun applicationComponent(): ApplicationComponent {
+		return (activity().application as CryptomatorApp).component
+	}
+
+	private fun parseJsonArray(json: String?): List<String> {
+		if (json.isNullOrEmpty() || json == "[]") return emptyList()
+		val content = json.removePrefix("[").removeSuffix("]")
+		if (content.isEmpty()) return emptyList()
+		return content.split(",").map { it.trim().removeSurrounding("\"") }
+	}
+
+	private fun parseJsonArraySize(json: String?): Int {
+		return parseJsonArray(json).size
 	}
 
 	private fun checkToStartAutoImageUpload(vault: Vault): Boolean {
