@@ -8,8 +8,6 @@ import org.cryptomator.domain.usecases.ProgressAware;
 import org.cryptomator.generator.Parameter;
 import org.cryptomator.generator.UseCase;
 
-import java.io.Closeable;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -32,18 +30,10 @@ class DownloadFiles {
 				cloudContentRepository.read(file.getDownloadFile(), null, file.getDataSink(), progressAware);
 				downloadedFiles.add(file.getDownloadFile());
 			} finally {
-				closeQuietly(file.getDataSink());
+				StreamHelper.closeQuietly(file.getDataSink());
 			}
 		}
 		return downloadedFiles;
-	}
-
-	private void closeQuietly(Closeable closeable) {
-		try {
-			closeable.close();
-		} catch (IOException e) {
-			// ignore
-		}
 	}
 
 }

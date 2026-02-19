@@ -130,11 +130,13 @@
 	<string name="screen_file_browser_action_create_folder">Create folder</string>
 	<string name="screen_file_browser_action_create_new_text_file">Create text file</string>
 	<string name="screen_file_browser_action_upload_files">Upload files</string>
+	<string name="screen_file_browser_action_upload_folder">Upload folder</string>
 	<string name="screen_file_browser_upload_files_chooser_title">Files</string>
 
 	<string name="screen_file_browser_msg_file_exported">File exported</string>
 	<string name="screen_file_browser_msg_files_exported">Files exported</string>
 	<string name="screen_file_browser_nothing_to_export">Nothing to export</string>
+	<string name="screen_file_browser_nothing_to_upload">Selected folder contains no files</string>
 
 	<string name="screen_file_browser_msg_creating_download_dir_failed">Creating download directory failed</string>
 

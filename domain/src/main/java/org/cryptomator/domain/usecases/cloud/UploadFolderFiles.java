@@ -23,12 +23,12 @@ import java.util.List;
 import static java.io.File.createTempFile;
 
 @UseCase
-class UploadFiles {
+class UploadFolderFiles {
 
 	private final Context context;
 	private final CloudContentRepository cloudContentRepository;
 	private final CloudFolder parent;
-	private final List<UploadFile> files;
+	private final UploadFolderStructure folderStructure;
 
 	private volatile boolean cancelled;
 	private final Flag cancelledFlag = new Flag() {
@@ -38,14 +38,14 @@ class UploadFiles {
 		}
 	};
 
-	public UploadFiles(Context context, //
+	public UploadFolderFiles(Context context, //
 			CloudContentRepository cloudContentRepository, //
 			@Parameter CloudFolder parent, //
-			@Parameter List<UploadFile> files) {
+			@Parameter UploadFolderStructure folderStructure) {
 		this.context = context;
 		this.cloudContentRepository = cloudContentRepository;
 		this.parent = parent;
-		this.files = files;
+		this.folderStructure = folderStructure;
 	}
 
 	public void onCancel() {
@@ -55,7 +55,7 @@ class UploadFiles {
 	public List<CloudFile> execute(ProgressAware<UploadState> progressAware) throws BackendException {
 		cancelled = false;
 		try {
-			return upload(progressAware);
+			return uploadFolder(parent, folderStructure, progressAware);
 		} catch (BackendException | RuntimeException e) {
 			if (cancelled) {
 				throw new CancellationException(e);
@@ -65,34 +65,55 @@ class UploadFiles {
 		}
 	}
 
-	private List<CloudFile> upload(ProgressAware<UploadState> progressAware) throws BackendException {
+	private List<CloudFile> uploadFolder(CloudFolder targetParent, UploadFolderStructure structure, ProgressAware<UploadState> progressAware) throws BackendException {
+		CloudFolder createdFolder = cloudContentRepository.create( //
+				cloudContentRepository.folder(targetParent, structure.getFolderName()));
+
 		List<CloudFile> uploadedFiles = new ArrayList<>();
-		for (UploadFile file : files) {
-			uploadedFiles.add(upload(file, progressAware));
+
+		for (UploadFile file : structure.getFiles()) {
+			uploadedFiles.add(upload(createdFolder, file, progressAware));
 		}
+
+		for (UploadFolderStructure subfolder : structure.getSubfolders()) {
+			uploadedFiles.addAll(uploadFolder(createdFolder, subfolder, progressAware));
+		}
+
 		return uploadedFiles;
 	}
 
-	private CloudFile upload(UploadFile uploadFile, ProgressAware<UploadState> progressAware) throws BackendException {
+	private CloudFile upload(CloudFolder folder, UploadFile uploadFile, ProgressAware<UploadState> progressAware) throws BackendException {
 		DataSource dataSource = uploadFile.getDataSource();
 		if (dataSource.size(context) != null) {
-			return upload(uploadFile, dataSource, progressAware);
+			return upload(folder, uploadFile, dataSource, progressAware);
 		} else {
 			File file = copyDataToFile(dataSource);
 			try {
-				return upload(uploadFile, FileBasedDataSource.from(file), progressAware);
+				return upload(folder, uploadFile, FileBasedDataSource.from(file), progressAware);
 			} finally {
 				file.delete();
 			}
 		}
 	}
 
-	private CloudFile upload(UploadFile uploadFile, DataSource dataSource, ProgressAware<UploadState> progressAware) throws BackendException {
+	private CloudFile upload(CloudFolder folder, UploadFile uploadFile, DataSource dataSource, ProgressAware<UploadState> progressAware) throws BackendException {
 		return writeCloudFile( //
+				folder, //
 				uploadFile.getFileName(), //
 				CancelAwareDataSource.wrap(dataSource, cancelledFlag), //
 				uploadFile.getReplacing(), //
 				progressAware);
+	}
+
+	private CloudFile writeCloudFile(CloudFolder folder, String fileName, CancelAwareDataSource dataSource, boolean replacing, ProgressAware<UploadState> progressAware) throws BackendException {
+		Long size = dataSource.size(context);
+		CloudFile source = cloudContentRepository.file(folder, fileName, size);
+		return cloudContentRepository.write( //
+				source, //
+				dataSource, //
+				progressAware, //
+				replacing, //
+				size);
 	}
 
 	private File copyDataToFile(DataSource dataSource) {
@@ -107,17 +128,6 @@ class UploadFiles {
 		} catch (IOException e) {
 			throw new FatalBackendException(e);
 		}
-	}
-
-	private CloudFile writeCloudFile(String fileName, CancelAwareDataSource dataSource, boolean replacing, ProgressAware<UploadState> progressAware) throws BackendException {
-		Long size = dataSource.size(context);
-		CloudFile source = cloudContentRepository.file(parent, fileName, size);
-		return cloudContentRepository.write( //
-				source, //
-				dataSource, //
-				progressAware, //
-				replacing, //
-				size);
 	}
 
 }

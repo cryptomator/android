@@ -470,6 +470,10 @@ class BrowseFilesActivity : BaseActivity<ActivityLayoutBinding>(ActivityLayoutBi
 		browseFilesPresenter.onUploadFilesClicked(folder)
 	}
 
+	override fun onUploadFolderClicked(folder: CloudFolderModel) {
+		browseFilesPresenter.onUploadFolderClicked(folder)
+	}
+
 	override fun onCreateNewTextFileClicked() {
 		browseFilesPresenter.onCreateNewTextFileClicked()
 	}

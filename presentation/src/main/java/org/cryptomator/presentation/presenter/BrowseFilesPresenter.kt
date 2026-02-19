@@ -6,6 +6,7 @@ import android.net.Uri
 import android.provider.DocumentsContract
 import android.widget.Toast
 import androidx.core.net.toFile
+import androidx.documentfile.provider.DocumentFile
 import org.cryptomator.data.cloud.crypto.CryptoFolder
 import org.cryptomator.domain.Cloud
 import org.cryptomator.domain.CloudFile
@@ -39,6 +40,8 @@ import org.cryptomator.domain.usecases.cloud.RenameFileUseCase
 import org.cryptomator.domain.usecases.cloud.RenameFolderUseCase
 import org.cryptomator.domain.usecases.cloud.UploadFile
 import org.cryptomator.domain.usecases.cloud.UploadFilesUseCase
+import org.cryptomator.domain.usecases.cloud.UploadFolderFilesUseCase
+import org.cryptomator.domain.usecases.cloud.UploadFolderStructure
 import org.cryptomator.domain.usecases.cloud.UploadState
 import org.cryptomator.domain.usecases.vault.AssertUnlockedUseCase
 import org.cryptomator.generator.Callback
@@ -98,6 +101,7 @@ class BrowseFilesPresenter @Inject constructor( //
 	private val downloadFilesUseCase: DownloadFilesUseCase,  //
 	private val deleteNodesUseCase: DeleteNodesUseCase,  //
 	private val uploadFilesUseCase: UploadFilesUseCase,  //
+	private val uploadFolderFilesUseCase: UploadFolderFilesUseCase,  //
 	private val renameFileUseCase: RenameFileUseCase,  //
 	private val renameFolderUseCase: RenameFolderUseCase,  //
 	private val copyDataUseCase: CopyDataUseCase,  //
@@ -1042,6 +1046,7 @@ class BrowseFilesPresenter @Inject constructor( //
 
 	fun onUploadCanceled() {
 		uploadFilesUseCase.cancel()
+		uploadFolderFilesUseCase.cancel()
 	}
 
 	@Callback
@@ -1060,6 +1065,91 @@ class BrowseFilesPresenter @Inject constructor( //
 			fileUris.add(it)
 		}
 		return fileUris
+	}
+
+	fun onUploadFolderClicked(folder: CloudFolderModel) {
+		uploadLocation = folder
+		try {
+			requestActivityResult( //
+				ActivityResultCallbacks.selectedFolder(),  //
+				Intent(Intent.ACTION_OPEN_DOCUMENT_TREE)
+			)
+		} catch (exception: ActivityNotFoundException) {
+			Toast //
+				.makeText( //
+					activity().applicationContext,  //
+					context().getText(R.string.screen_cloud_local_error_no_content_provider),  //
+					Toast.LENGTH_SHORT
+				) //
+				.show()
+			Timber.tag("BrowseFilesPresenter").e(exception, "Upload folder: No ContentProvider on system")
+		}
+	}
+
+	@Callback
+	fun selectedFolder(result: ActivityResult) {
+		val treeUri = result.intent().data ?: return
+		context().contentResolver.takePersistableUriPermission(treeUri, Intent.FLAG_GRANT_READ_URI_PERMISSION)
+		val documentFile = DocumentFile.fromTreeUri(context(), treeUri) ?: return
+		view?.showProgress(ProgressModel.GENERIC)
+		Thread {
+			val folderStructure = buildUploadFolderStructure(documentFile)
+			activity().runOnUiThread {
+				view?.showProgress(ProgressModel.COMPLETED)
+				if (folderStructure.totalFileCount() == 0) {
+					view?.showMessage(R.string.screen_file_browser_nothing_to_upload)
+					return@runOnUiThread
+				}
+				uploadFolder(folderStructure)
+			}
+		}.start()
+	}
+
+	private fun buildUploadFolderStructure(documentFile: DocumentFile): UploadFolderStructure {
+		val structure = UploadFolderStructure(documentFile.name ?: "folder")
+		documentFile.listFiles().forEach { child ->
+			when {
+				child.isDirectory -> {
+					structure.addSubfolder(buildUploadFolderStructure(child))
+				}
+				child.isFile -> {
+					child.name?.let { name ->
+						structure.addFile(
+							UploadFile.anUploadFile() //
+								.withFileName(name) //
+								.withDataSource(UriBasedDataSource.from(child.uri)) //
+								.thatIsReplacing(false) //
+								.build()
+						)
+					}
+				}
+			}
+		}
+		return structure
+	}
+
+	private fun uploadFolder(folderStructure: UploadFolderStructure) {
+		uploadLocation?.let {
+			view?.showUploadDialog(folderStructure.totalFileCount())
+			uploadFolderFilesUseCase //
+				.withParent(it.toCloudNode()) //
+				.andFolderStructure(folderStructure) //
+				.run(object : DefaultProgressAwareResultHandler<List<CloudFile>, UploadState>() {
+					override fun onProgress(progress: Progress<UploadState>) {
+						view?.showProgress(progressModelMapper.toModel(progress))
+					}
+
+					override fun onSuccess(files: List<CloudFile>) {
+						onFileUploadCompleted()
+						getCloudList(it)
+					}
+
+					override fun onError(e: Throwable) {
+						onFileUploadError()
+						super.onError(e)
+					}
+				})
+		}
 	}
 
 	private fun moveIntentFor(parent: CloudFolderModel, sourceNodes: List<CloudNodeModel<*>>): IntentBuilder {
@@ -1284,6 +1374,7 @@ class BrowseFilesPresenter @Inject constructor( //
 			downloadFilesUseCase,  //
 			deleteNodesUseCase,  //
 			uploadFilesUseCase,  //
+			uploadFolderFilesUseCase,  //
 			renameFileUseCase,  //
 			renameFolderUseCase,  //
 			copyDataUseCase,  //
