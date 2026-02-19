@@ -24,7 +24,6 @@ import org.cryptomator.domain.usecases.cloud.UploadFiles;
 import org.cryptomator.domain.usecases.cloud.UploadFolderFiles;
 import org.cryptomator.domain.usecases.cloud.UploadFolderStructure;
 import org.cryptomator.domain.usecases.cloud.UploadState;
-import org.cryptomator.presentation.util.ContentResolverUtil;
 
 import java.util.HashSet;
 import java.util.List;
@@ -39,7 +38,6 @@ public class UploadService extends Service {
 
 	private UploadNotification notification;
 	private CloudContentRepository cloudContentRepository;
-	private ContentResolverUtil contentResolverUtil;
 	private UploadCheckpointDao uploadCheckpointDao;
 	private Context appContext;
 	private Thread worker;
@@ -226,10 +224,9 @@ public class UploadService extends Service {
 		Binder() {
 		}
 
-		public void init(CloudContentRepository cloudContentRepository, ContentResolverUtil contentResolverUtil,
+		public void init(CloudContentRepository cloudContentRepository,
 				UploadCheckpointDao uploadCheckpointDao, Context context) {
 			UploadService.this.cloudContentRepository = cloudContentRepository;
-			UploadService.this.contentResolverUtil = contentResolverUtil;
 			UploadService.this.uploadCheckpointDao = uploadCheckpointDao;
 			UploadService.this.appContext = context;
 		}

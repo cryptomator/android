@@ -27,25 +27,16 @@ public class UploadCheckpointDao {
 
 	public long insertOrReplace(UploadCheckpointEntity entity) {
 		ContentValues values = toContentValues(entity);
-		UploadCheckpointEntity existing = findByVaultId(entity.getVaultId());
-		if (existing != null) {
-			getDb().update(TABLE_NAME, values, "VAULT_ID = ?", new String[]{existing.getVaultId().toString()});
-			return existing.getId();
-		} else {
-			return getDb().insertOrThrow(TABLE_NAME, null, values);
-		}
+		return getDb().insertWithOnConflict(TABLE_NAME, null, values, SQLiteDatabase.CONFLICT_REPLACE);
 	}
 
 	public UploadCheckpointEntity findByVaultId(long vaultId) {
-		Cursor cursor = getDb().query(TABLE_NAME, null, "VAULT_ID = ?",
-				new String[]{String.valueOf(vaultId)}, null, null, null);
-		try {
+		try (Cursor cursor = getDb().query(TABLE_NAME, null, "VAULT_ID = ?",
+				new String[]{String.valueOf(vaultId)}, null, null, null)) {
 			if (cursor.moveToFirst()) {
 				return fromCursor(cursor);
 			}
 			return null;
-		} finally {
-			cursor.close();
 		}
 	}
 

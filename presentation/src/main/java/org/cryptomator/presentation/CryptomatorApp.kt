@@ -171,7 +171,6 @@ class CryptomatorApp : MultiDexApplication(), HasComponent<ApplicationComponent>
 				uploadServiceBinder = service as UploadService.Binder
 				uploadServiceBinder?.init(
 					applicationComponent.cloudContentRepository(),
-					applicationComponent.contentResolverUtil(),
 					applicationComponent.uploadCheckpointDao(),
 					Companion.applicationContext
 				)

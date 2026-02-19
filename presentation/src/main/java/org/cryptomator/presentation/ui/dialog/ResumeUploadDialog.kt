@@ -20,11 +20,7 @@ class ResumeUploadDialog private constructor(private val context: Context) {
 			.setCancelable(false)
 			.setTitle(R.string.dialog_resume_upload_title)
 			.setMessage(
-				String.format(
-					context.getString(R.string.dialog_resume_upload_message),
-					completedCount,
-					totalCount
-				)
+				context.getString(R.string.dialog_resume_upload_message, completedCount, totalCount)
 			)
 			.setPositiveButton(R.string.dialog_resume_upload_resume) { _: DialogInterface?, _: Int ->
 				callback.onResumeUploadConfirmed(vaultId)

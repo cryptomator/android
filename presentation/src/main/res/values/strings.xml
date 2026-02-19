@@ -644,7 +644,7 @@
 
 	<!-- Resume upload dialog -->
 	<string name="dialog_resume_upload_title">Resume upload?</string>
-	<string name="dialog_resume_upload_message">An interrupted upload was found (%1$d of %2$d files completed). Do you want to resume?</string>
+	<string name="dialog_resume_upload_message">An interrupted upload was found (%1$d/%2$d files uploaded). Do you want to resume?</string>
 	<string name="dialog_resume_upload_resume">Resume</string>
 	<string name="dialog_resume_upload_discard">Discard</string>
 	<string name="dialog_resume_upload_permission_lost">Cannot resume: access to the source folder has been lost.</string>
