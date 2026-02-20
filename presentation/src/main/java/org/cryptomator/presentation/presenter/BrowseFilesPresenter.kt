@@ -131,6 +131,7 @@ class BrowseFilesPresenter @Inject constructor( //
 ) : Presenter<BrowseFilesView>(exceptionMappings) {
 
 	private val authenticationExceptionHandler: AuthenticationExceptionHandler
+	private val cryptomatorApp: CryptomatorApp get() = activity().application as CryptomatorApp
 	private lateinit var filesForUpload: MutableMap<String, UploadFile>
 	private lateinit var existingFilesForUpload: MutableMap<String, UploadFile>
 	private lateinit var downloadFiles: MutableList<DownloadFile>
@@ -422,7 +423,6 @@ class BrowseFilesPresenter @Inject constructor( //
 			val vaultId = vault?.toVault()?.id ?: return@let
 			val targetFolderPath = location.toCloudNode().path
 
-			val cryptomatorApp = activity().application as CryptomatorApp
 			val fileUris = files.map { it.dataSource.toString() }
 			cryptomatorApp.createUploadCheckpoint(
 				vaultId, "files", targetFolderPath, null, null, fileUris, files.size
@@ -541,7 +541,6 @@ class BrowseFilesPresenter @Inject constructor( //
 						if (sharedPreferencesHandler.keepUnlockedWhileEditing()) {
 							openWritableFileNotification = OpenWritableFileNotification(context(), it)
 							openWritableFileNotification?.show()
-							val cryptomatorApp = activity().application as CryptomatorApp
 							cryptomatorApp.suspendLock()
 						}
 						try {
@@ -581,7 +580,6 @@ class BrowseFilesPresenter @Inject constructor( //
 			Timber.tag("BrowseFilesPresenter").e(e, "Failed to sleep after resuming editing, necessary for google office apps")
 		}
 		if (sharedPreferencesHandler.keepUnlockedWhileEditing()) {
-			val cryptomatorApp = activity().application as CryptomatorApp
 			cryptomatorApp.unSuspendLock()
 		}
 		hideWritableNotification()
@@ -809,6 +807,7 @@ class BrowseFilesPresenter @Inject constructor( //
 
 	private fun uploadFiles(nonReplacing: Map<String, UploadFile>, replacing: Map<String, UploadFile>) {
 		if (nonReplacing.size + replacing.size == 0) {
+			cryptomatorApp.unSuspendLock()
 			return
 		}
 		view?.showUploadDialog(nonReplacing.size + replacing.size)
@@ -1021,6 +1020,7 @@ class BrowseFilesPresenter @Inject constructor( //
 
 	fun onUploadFilesClicked(folder: CloudFolderModel) {
 		uploadLocation = folder
+		cryptomatorApp.suspendLock()
 		var intent = Intent(Intent.ACTION_GET_CONTENT)
 		intent.addCategory(Intent.CATEGORY_OPENABLE)
 		intent.type = "*/*"
@@ -1034,8 +1034,12 @@ class BrowseFilesPresenter @Inject constructor( //
 		context().startService(org.cryptomator.presentation.service.UploadService.cancelUploadIntent(context()))
 	}
 
-	@Callback
+	@Callback(dispatchResultOkOnly = false)
 	fun selectedFiles(result: ActivityResult) {
+		if (!result.isResultOk) {
+			cryptomatorApp.unSuspendLock()
+			return
+		}
 		val fileUris = getFileUrisFromIntent(result.intent())
 		prepareSelectedFilesForUpload(fileUris)
 	}
@@ -1055,11 +1059,13 @@ class BrowseFilesPresenter @Inject constructor( //
 	fun onUploadFolderClicked(folder: CloudFolderModel) {
 		uploadLocation = folder
 		try {
+			cryptomatorApp.suspendLock()
 			requestActivityResult( //
 				ActivityResultCallbacks.selectedFolder(),  //
 				Intent(Intent.ACTION_OPEN_DOCUMENT_TREE)
 			)
 		} catch (exception: ActivityNotFoundException) {
+			cryptomatorApp.unSuspendLock()
 			Toast //
 				.makeText( //
 					activity().applicationContext,  //
@@ -1075,12 +1081,23 @@ class BrowseFilesPresenter @Inject constructor( //
 	@InstanceState
 	var lastSelectedFolderUri: Uri? = null
 
-	@Callback
+	@Callback(dispatchResultOkOnly = false)
 	fun selectedFolder(result: ActivityResult) {
-		val treeUri = result.intent().data ?: return
+		val treeUri = if (result.isResultOk) {
+			result.intent().data
+		} else {
+			null
+		}
+		if (treeUri == null) {
+			cryptomatorApp.unSuspendLock()
+			return
+		}
 		context().contentResolver.takePersistableUriPermission(treeUri, Intent.FLAG_GRANT_READ_URI_PERMISSION)
 		lastSelectedFolderUri = treeUri
-		val documentFile = DocumentFile.fromTreeUri(context(), treeUri) ?: return
+		val documentFile = DocumentFile.fromTreeUri(context(), treeUri) ?: run {
+			cryptomatorApp.unSuspendLock()
+			return
+		}
 		view?.showProgress(ProgressModel.GENERIC)
 		Thread {
 			try {
@@ -1088,12 +1105,14 @@ class BrowseFilesPresenter @Inject constructor( //
 				activity().runOnUiThread {
 					view?.showProgress(ProgressModel.COMPLETED)
 					if (folderStructure.totalFileCount() == 0) {
+						cryptomatorApp.unSuspendLock()
 						view?.showMessage(R.string.screen_file_browser_nothing_to_upload)
 						return@runOnUiThread
 					}
 					uploadFolder(folderStructure, treeUri)
 				}
 			} catch (e: Exception) {
+				cryptomatorApp.unSuspendLock()
 				activity().runOnUiThread {
 					view?.showProgress(ProgressModel.COMPLETED)
 					showError(e)
@@ -1109,7 +1128,6 @@ class BrowseFilesPresenter @Inject constructor( //
 			val vaultId = vault?.toVault()?.id ?: return@let
 			val targetFolderPath = location.toCloudNode().path
 
-			val cryptomatorApp = activity().application as CryptomatorApp
 			cryptomatorApp.createUploadCheckpoint(
 				vaultId, "folder", targetFolderPath, sourceFolderUri?.toString(), folderStructure.folderName, emptyList(), folderStructure.totalFileCount()
 			)

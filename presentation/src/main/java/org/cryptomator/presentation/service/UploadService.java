@@ -11,6 +11,7 @@ import androidx.annotation.Nullable;
 
 import org.cryptomator.data.db.UploadCheckpointDao;
 import org.cryptomator.domain.Cloud;
+import org.cryptomator.presentation.CryptomatorApp;
 import org.cryptomator.domain.CloudFolder;
 import org.cryptomator.domain.exception.BackendException;
 import org.cryptomator.domain.exception.CancellationException;
@@ -117,6 +118,7 @@ public class UploadService extends Service {
 				notification.showGeneralErrorDuringUpload();
 				Timber.tag("UploadService").e(e, "Upload failed");
 			} finally {
+				((CryptomatorApp) getApplicationContext()).unSuspendLock();
 				stopForeground(STOP_FOREGROUND_DETACH);
 				stopSelf();
 			}
