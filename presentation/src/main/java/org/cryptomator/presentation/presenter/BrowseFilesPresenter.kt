@@ -20,7 +20,6 @@ import org.cryptomator.domain.CloudFolder
 import org.cryptomator.domain.CloudNode
 import org.cryptomator.domain.Vault
 import org.cryptomator.domain.di.PerView
-import org.cryptomator.domain.exception.CloudNodeAlreadyExistsException
 import org.cryptomator.domain.exception.EmptyDirFileException
 import org.cryptomator.domain.exception.FatalBackendException
 import org.cryptomator.domain.exception.NoDirFileException
@@ -86,7 +85,6 @@ import org.cryptomator.presentation.workflow.AddExistingVaultWorkflow
 import org.cryptomator.presentation.workflow.AuthenticationExceptionHandler
 import org.cryptomator.presentation.workflow.CreateNewVaultWorkflow
 import org.cryptomator.presentation.workflow.Workflow
-import org.cryptomator.util.ExceptionUtil
 import org.cryptomator.util.SharedPreferencesHandler
 import org.cryptomator.util.file.FileCacheUtils
 import org.cryptomator.util.file.MimeType
@@ -445,15 +443,6 @@ class BrowseFilesPresenter @Inject constructor( //
 		}
 	}
 
-	private fun onUploadFileCompleted(name: String) {
-		filesForUpload.remove(name)
-	}
-
-	private fun onCloudNodeAlreadyExists(fileNameAlreadyExists: String) {
-		addToExistingFiles(fileNameAlreadyExists)
-		view?.showReplaceDialog(listOf(fileNameAlreadyExists), filesForUpload.size)
-	}
-
 	private fun clearCloudList() {
 		view?.showCloudNodes(ArrayList())
 	}
@@ -631,37 +620,26 @@ class BrowseFilesPresenter @Inject constructor( //
 	}
 
 	private fun uploadChangedFile(openFileType: OpenFileType) {
-		view?.showUploadDialog(1)
 		openedCloudFile?.let { openedCloudFile ->
 			openedCloudFile.parent?.let { openedCloudFilesParent ->
 				uriToOpenedFile?.let { uriToOpenedFile ->
-					uploadFilesUseCase //
-						.withParent(openedCloudFilesParent.toCloudNode()) //
-						.andFiles(listOf(createUploadFile(openedCloudFile.name, uriToOpenedFile, true))) //
-						.run(object : DefaultProgressAwareResultHandler<List<CloudFile>, UploadState>() {
-							override fun onProgress(progress: Progress<UploadState>) {
-								view?.showProgress(progressModelMapper.toModel(progress))
-							}
+					val cloud = openedCloudFilesParent.toCloudNode().cloud ?: return@let
+					val vaultId = openedCloudFilesParent.vault()?.toVault()?.id ?: return@let
+					val targetFolderPath = openedCloudFilesParent.toCloudNode().path
+					val files = listOf(createUploadFile(openedCloudFile.name, uriToOpenedFile, true))
 
-							override fun onSuccess(files: List<CloudFile>) {
-								files.forEach { file ->
-									view?.addOrUpdateCloudNode(cloudFileModelMapper.toModel(file))
-								}
-								deleteFileIfMicrosoftWorkaround(openFileType, uriToOpenedFile)
-								onFileUploadCompleted()
-							}
+					saveCheckpoint(vaultId, "files", targetFolderPath, files.size) {
+						pendingFileUris = toJsonArray(files.map { it.dataSource.toString() })
+					}
 
-							override fun onError(e: Throwable) {
-								onFileUploadError()
-								if (ExceptionUtil.contains(e, CloudNodeAlreadyExistsException::class.java)) {
-									ExceptionUtil.extract(e, CloudNodeAlreadyExistsException::class.java).get().message?.let {
-										onCloudNodeAlreadyExists(it)
-									} ?: super.onError(e)
-								} else {
-									super.onError(e)
-								}
-							}
-						})
+					val cleanupUris = if (openFileType == OpenFileType.MICROSOFT_WORKAROUND) {
+						listOf(uriToOpenedFile)
+					} else {
+						emptyList()
+					}
+
+					cryptomatorApp.startFileUpload(cloud, targetFolderPath, files, emptySet(), vaultId, cleanupUris)
+					onUploadDispatched()
 				}
 			}
 		}
@@ -863,15 +841,6 @@ class BrowseFilesPresenter @Inject constructor( //
 	fun uploadFilesAndSkipExistingFiles() {
 		differencesOfUploadAndExistingFiles()
 		uploadFiles(filesForUpload, emptyMap())
-	}
-
-	private fun onFileUploadCompleted() {
-		view?.showProgress(ProgressModel.COMPLETED)
-		uploadLocation = null
-	}
-
-	private fun onFileUploadError() {
-		view?.closeDialog()
 	}
 
 	private fun differencesOfUploadAndExistingFiles() {

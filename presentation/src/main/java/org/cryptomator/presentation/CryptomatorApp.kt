@@ -5,6 +5,7 @@ import android.content.ComponentName
 import android.content.Context
 import android.content.Intent
 import android.content.ServiceConnection
+import android.net.Uri
 import android.os.Build
 import android.os.IBinder
 import android.os.StrictMode
@@ -182,10 +183,10 @@ class CryptomatorApp : MultiDexApplication(), HasComponent<ApplicationComponent>
 	}
 
 	fun startFileUpload(cloud: Cloud, targetFolderPath: String, files: List<UploadFile>,
-			completedFiles: Set<String>, vaultId: Long) {
+			completedFiles: Set<String>, vaultId: Long, cleanupUris: List<Uri> = emptyList()) {
 		val binder = uploadServiceBinder
 		if (binder != null) {
-			binder.startFileUpload(cloud, targetFolderPath, files, completedFiles, vaultId)
+			binder.startFileUpload(cloud, targetFolderPath, files, completedFiles, vaultId, cleanupUris)
 		} else {
 			Timber.tag("App").e("Upload service not connected, file upload request dropped")
 		}

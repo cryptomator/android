@@ -3,6 +3,7 @@ package org.cryptomator.presentation.service;
 import android.app.Service;
 import android.content.Context;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Handler;
 import android.os.IBinder;
 import android.os.Looper;
@@ -11,7 +12,6 @@ import androidx.annotation.Nullable;
 
 import org.cryptomator.data.db.UploadCheckpointDao;
 import org.cryptomator.domain.Cloud;
-import org.cryptomator.presentation.CryptomatorApp;
 import org.cryptomator.domain.CloudFolder;
 import org.cryptomator.domain.exception.BackendException;
 import org.cryptomator.domain.exception.CancellationException;
@@ -25,7 +25,10 @@ import org.cryptomator.domain.usecases.cloud.UploadFiles;
 import org.cryptomator.domain.usecases.cloud.UploadFolderFiles;
 import org.cryptomator.domain.usecases.cloud.UploadFolderStructure;
 import org.cryptomator.domain.usecases.cloud.UploadState;
+import org.cryptomator.presentation.CryptomatorApp;
 
+import java.io.File;
+import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -46,6 +49,7 @@ public class UploadService extends Service {
 	private volatile Runnable cancelCallback;
 	private volatile long startTimeNotificationDelay;
 	private volatile long elapsedTimeNotificationDelay = 0L;
+	private volatile List<Uri> cleanupUris = Collections.emptyList();
 
 	public static Intent cancelUploadIntent(Context context) {
 		Intent cancelIntent = new Intent(context, UploadService.class);
@@ -54,7 +58,8 @@ public class UploadService extends Service {
 	}
 
 	public void startFileUpload(Cloud cloud, String targetFolderPath, List<UploadFile> files,
-			Set<String> completedFiles, long vaultId) {
+			Set<String> completedFiles, long vaultId, List<Uri> cleanupUris) {
+		this.cleanupUris = cleanupUris;
 		startUpload(cloud, targetFolderPath, completedFiles, vaultId, files.size(), (targetFolder, callback, progressAware) -> {
 			UploadFiles uploadFiles = new UploadFiles(appContext, cloudContentRepository, targetFolder, files);
 			uploadFiles.setCompletedFiles(completedFiles);
@@ -118,6 +123,7 @@ public class UploadService extends Service {
 				notification.showGeneralErrorDuringUpload();
 				Timber.tag("UploadService").e(e, "Upload failed");
 			} finally {
+				deleteCleanupUris();
 				((CryptomatorApp) getApplicationContext()).unSuspendLock();
 				stopForeground(STOP_FOREGROUND_DETACH);
 				stopSelf();
@@ -155,6 +161,21 @@ public class UploadService extends Service {
 		return items.stream()
 				.map(item -> "\"" + item.replace("\"", "\\\"") + "\"")
 				.collect(Collectors.joining(",", "[", "]"));
+	}
+
+	private void deleteCleanupUris() {
+		List<Uri> uris = cleanupUris;
+		cleanupUris = Collections.emptyList();
+		for (Uri uri : uris) {
+			try {
+				File file = new File(uri.getPath());
+				if (file.delete()) {
+					Timber.tag("UploadService").d("Cleaned up temp file: %s", uri);
+				}
+			} catch (Exception e) {
+				Timber.tag("UploadService").w(e, "Failed to clean up temp file");
+			}
+		}
 	}
 
 	private void updateNotification(int asPercentage) {
@@ -234,8 +255,8 @@ public class UploadService extends Service {
 		}
 
 		public void startFileUpload(Cloud cloud, String targetFolderPath, List<UploadFile> files,
-				Set<String> completedFiles, long vaultId) {
-			UploadService.this.startFileUpload(cloud, targetFolderPath, files, completedFiles, vaultId);
+				Set<String> completedFiles, long vaultId, List<Uri> cleanupUris) {
+			UploadService.this.startFileUpload(cloud, targetFolderPath, files, completedFiles, vaultId, cleanupUris);
 		}
 
 		public void startFolderUpload(Cloud cloud, String targetFolderPath, UploadFolderStructure folderStructure,
