@@ -13,8 +13,6 @@ import androidx.multidex.MultiDexApplication
 import io.reactivex.plugins.RxJavaPlugins
 import org.cryptomator.data.cloud.crypto.Cryptors
 import org.cryptomator.data.cloud.crypto.CryptorsModule
-import org.cryptomator.data.db.UploadCheckpointDao
-import org.cryptomator.data.db.entities.UploadCheckpointEntity
 import org.cryptomator.data.repository.RepositoryModule
 import org.cryptomator.domain.Cloud
 import org.cryptomator.domain.usecases.cloud.UploadFile
@@ -201,31 +199,6 @@ class CryptomatorApp : MultiDexApplication(), HasComponent<ApplicationComponent>
 		} else {
 			Timber.tag("App").e("Upload service not connected, folder upload request dropped")
 		}
-	}
-
-	fun createUploadCheckpoint(vaultId: Long, type: String, targetFolderPath: String,
-			sourceFolderUri: String?, sourceFolderName: String?, pendingFileUris: List<String>, totalFileCount: Int) {
-		val dao = uploadServiceBinder?.uploadCheckpointDao ?: return
-		val entity = UploadCheckpointEntity().apply {
-			this.vaultId = vaultId
-			this.type = type
-			this.targetFolderPath = targetFolderPath
-			this.sourceFolderUri = sourceFolderUri
-			this.sourceFolderName = sourceFolderName
-			this.pendingFileUris = toJsonArray(pendingFileUris)
-			this.completedFiles = "[]"
-			this.totalFileCount = totalFileCount
-			this.timestamp = System.currentTimeMillis()
-		}
-		dao.insertOrReplace(entity)
-	}
-
-	fun getUploadCheckpointDao(): UploadCheckpointDao? {
-		return uploadServiceBinder?.uploadCheckpointDao
-	}
-
-	private fun toJsonArray(items: List<String>): String {
-		return items.joinToString(",", "[", "]") { "\"${it.replace("\"", "\\\"")}\"" }
 	}
 
 	private fun checkToStartAutoImageUpload(sharedPreferencesHandler: SharedPreferencesHandler): Boolean {

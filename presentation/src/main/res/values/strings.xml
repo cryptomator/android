@@ -628,6 +628,7 @@
 	<string name="notification_auto_upload_failed_due_to_authentication_problem">Tap to refresh authentication.</string>
 
 	<!-- Upload service notifications -->
+	<string name="notification_upload_started">Upload started</string>
 	<string name="notification_upload_title">Uploading files</string>
 	<string name="notification_upload_message">Uploading %1$d/%2$d</string>
 	<string name="notification_upload_cancel">Cancel upload</string>

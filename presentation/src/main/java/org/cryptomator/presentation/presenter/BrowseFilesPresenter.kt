@@ -7,7 +7,13 @@ import android.provider.DocumentsContract
 import android.widget.Toast
 import androidx.core.net.toFile
 import androidx.documentfile.provider.DocumentFile
+import io.reactivex.Single
+import io.reactivex.android.schedulers.AndroidSchedulers
+import io.reactivex.disposables.Disposable
+import io.reactivex.schedulers.Schedulers
 import org.cryptomator.data.cloud.crypto.CryptoFolder
+import org.cryptomator.data.db.UploadCheckpointDao
+import org.cryptomator.data.db.entities.UploadCheckpointEntity
 import org.cryptomator.domain.Cloud
 import org.cryptomator.domain.CloudFile
 import org.cryptomator.domain.CloudFolder
@@ -127,6 +133,7 @@ class BrowseFilesPresenter @Inject constructor( //
 	private val shareFileHelper: ShareFileHelper,  //
 	private val downloadFileUtil: DownloadFileUtil,  //
 	private val sharedPreferencesHandler: SharedPreferencesHandler,  //
+	private val uploadCheckpointDao: UploadCheckpointDao,  //
 	exceptionMappings: ExceptionHandlers
 ) : Presenter<BrowseFilesView>(exceptionMappings) {
 
@@ -137,6 +144,7 @@ class BrowseFilesPresenter @Inject constructor( //
 	private lateinit var downloadFiles: MutableList<DownloadFile>
 
 	private var resumedAfterAuthentication = false
+	private var folderStructureDisposable: Disposable? = null
 
 	@InjectIntent
 	lateinit var intent: BrowseFilesIntent
@@ -172,6 +180,11 @@ class BrowseFilesPresenter @Inject constructor( //
 				.run(DefaultResultHandler())
 		}
 		setRefreshOnBackPressEnabled(enableRefreshOnBackpressSupplier.setInAction(false))
+	}
+
+	override fun destroyed() {
+		folderStructureDisposable?.dispose()
+		folderStructureDisposable = null
 	}
 
 	fun onWindowFocusChanged(hasFocus: Boolean) {
@@ -423,13 +436,12 @@ class BrowseFilesPresenter @Inject constructor( //
 			val vaultId = vault?.toVault()?.id ?: return@let
 			val targetFolderPath = location.toCloudNode().path
 
-			val fileUris = files.map { it.dataSource.toString() }
-			cryptomatorApp.createUploadCheckpoint(
-				vaultId, "files", targetFolderPath, null, null, fileUris, files.size
-			)
+			saveCheckpoint(vaultId, "files", targetFolderPath, files.size) {
+				pendingFileUris = toJsonArray(files.map { it.dataSource.toString() })
+			}
 
 			cryptomatorApp.startFileUpload(cloud, targetFolderPath, files, emptySet(), vaultId)
-			onFileUploadCompleted()
+			onUploadDispatched()
 		}
 	}
 
@@ -1099,26 +1111,23 @@ class BrowseFilesPresenter @Inject constructor( //
 			return
 		}
 		view?.showProgress(ProgressModel.GENERIC)
-		Thread {
-			try {
-				val folderStructure = buildUploadFolderStructure(documentFile)
-				activity().runOnUiThread {
-					view?.showProgress(ProgressModel.COMPLETED)
-					if (folderStructure.totalFileCount() == 0) {
-						cryptomatorApp.unSuspendLock()
-						view?.showMessage(R.string.screen_file_browser_nothing_to_upload)
-						return@runOnUiThread
-					}
-					uploadFolder(folderStructure, treeUri)
+		folderStructureDisposable?.dispose()
+		folderStructureDisposable = Single.fromCallable { buildUploadFolderStructure(documentFile) }
+			.subscribeOn(Schedulers.io())
+			.observeOn(AndroidSchedulers.mainThread())
+			.subscribe({ folderStructure ->
+				view?.showProgress(ProgressModel.COMPLETED)
+				if (folderStructure.totalFileCount() == 0) {
+					cryptomatorApp.unSuspendLock()
+					view?.showMessage(R.string.screen_file_browser_nothing_to_upload)
+					return@subscribe
 				}
-			} catch (e: Exception) {
+				uploadFolder(folderStructure, treeUri)
+			}, { e ->
 				cryptomatorApp.unSuspendLock()
-				activity().runOnUiThread {
-					view?.showProgress(ProgressModel.COMPLETED)
-					showError(e)
-				}
-			}
-		}.start()
+				view?.showProgress(ProgressModel.COMPLETED)
+				showError(e)
+			})
 	}
 
 	private fun uploadFolder(folderStructure: UploadFolderStructure, sourceFolderUri: Uri? = null) {
@@ -1128,13 +1137,40 @@ class BrowseFilesPresenter @Inject constructor( //
 			val vaultId = vault?.toVault()?.id ?: return@let
 			val targetFolderPath = location.toCloudNode().path
 
-			cryptomatorApp.createUploadCheckpoint(
-				vaultId, "folder", targetFolderPath, sourceFolderUri?.toString(), folderStructure.folderName, emptyList(), folderStructure.totalFileCount()
-			)
+			saveCheckpoint(vaultId, "folder", targetFolderPath, folderStructure.totalFileCount()) {
+				this.sourceFolderUri = sourceFolderUri?.toString()
+				this.sourceFolderName = folderStructure.folderName
+			}
 
 			cryptomatorApp.startFolderUpload(cloud, targetFolderPath, folderStructure, emptySet(), vaultId)
-			onFileUploadCompleted()
+			onUploadDispatched()
 		}
+	}
+
+	private fun saveCheckpoint(
+		vaultId: Long, type: String, targetFolderPath: String,
+		totalFileCount: Int, configure: UploadCheckpointEntity.() -> Unit = {}
+	) {
+		val entity = UploadCheckpointEntity().apply {
+			this.vaultId = vaultId
+			this.type = type
+			this.targetFolderPath = targetFolderPath
+			this.completedFiles = "[]"
+			this.totalFileCount = totalFileCount
+			this.timestamp = System.currentTimeMillis()
+			configure()
+		}
+		uploadCheckpointDao.insertOrReplace(entity)
+	}
+
+	private fun onUploadDispatched() {
+		view?.showProgress(ProgressModel.COMPLETED)
+		view?.showMessage(R.string.notification_upload_started)
+		uploadLocation = null
+	}
+
+	private fun toJsonArray(items: List<String>): String {
+		return items.joinToString(",", "[", "]") { "\"${it.replace("\"", "\\\"")}\"" }
 	}
 
 	private fun moveIntentFor(parent: CloudFolderModel, sourceNodes: List<CloudNodeModel<*>>): IntentBuilder {

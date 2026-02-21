@@ -2,7 +2,10 @@ package org.cryptomator.presentation.presenter;
 
 import android.app.Activity;
 
+import org.cryptomator.data.db.UploadCheckpointDao;
 import org.cryptomator.data.util.NetworkConnectionCheck;
+import org.cryptomator.domain.repository.CloudRepository;
+import org.cryptomator.domain.repository.VaultRepository;
 import org.cryptomator.domain.Cloud;
 import org.cryptomator.domain.CloudType;
 import org.cryptomator.domain.OnedriveCloud;
@@ -28,6 +31,7 @@ import org.cryptomator.presentation.exception.ExceptionHandlers;
 import org.cryptomator.presentation.model.VaultModel;
 import org.cryptomator.presentation.model.mappers.CloudFolderModelMapper;
 import org.cryptomator.presentation.ui.activity.view.VaultListView;
+import org.cryptomator.presentation.util.ContentResolverUtil;
 import org.cryptomator.presentation.util.FileUtil;
 import org.cryptomator.presentation.workflow.AddExistingVaultWorkflow;
 import org.cryptomator.presentation.workflow.AuthenticationExceptionHandler;
@@ -115,6 +119,10 @@ public class VaultListPresenterTest {
 	private FileUtil fileUtil = Mockito.mock(FileUtil.class);
 	private AuthenticationExceptionHandler authenticationExceptionHandler = Mockito.mock(AuthenticationExceptionHandler.class);
 	private SharedPreferencesHandler sharedPreferencesHandler = Mockito.mock(SharedPreferencesHandler.class);
+	private UploadCheckpointDao uploadCheckpointDao = Mockito.mock(UploadCheckpointDao.class);
+	private VaultRepository vaultRepository = Mockito.mock(VaultRepository.class);
+	private CloudRepository cloudRepository = Mockito.mock(CloudRepository.class);
+	private ContentResolverUtil contentResolverUtil = Mockito.mock(ContentResolverUtil.class);
 	private ExceptionHandlers exceptionMappings = Mockito.mock(ExceptionHandlers.class);
 	private VaultListPresenter inTest;
 
@@ -142,6 +150,10 @@ public class VaultListPresenterTest {
 				authenticationExceptionHandler, //
 				cloudNodeModelMapper, //
 				sharedPreferencesHandler, //
+				uploadCheckpointDao, //
+				vaultRepository, //
+				cloudRepository, //
+				contentResolverUtil, //
 				exceptionMappings);
 		when(vaultListView.activity()).thenReturn(activity);
 		inTest.setView(vaultListView);
