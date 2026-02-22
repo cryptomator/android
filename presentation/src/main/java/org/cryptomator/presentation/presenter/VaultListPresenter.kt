@@ -124,6 +124,9 @@ class VaultListPresenter @Inject constructor( //
 	}
 
 	override fun destroyed() {
+		if (folderResumeDisposable?.isDisposed == false) {
+			cryptomatorApp.unSuspendLock()
+		}
 		folderResumeDisposable?.dispose()
 		folderResumeDisposable = null
 	}
@@ -578,22 +581,20 @@ class VaultListPresenter @Inject constructor( //
 		try {
 			val checkpoint = uploadCheckpointDao.findByVaultId(vaultId) ?: return
 
-			val vault = try {
-				vaultRepository.load(vaultId)
-			} catch (e: Exception) {
-				Timber.tag("VaultListPresenter").e(e, "Failed to load vault for resume")
-				uploadCheckpointDao.deleteByVaultId(vaultId)
-				return
-			}
-
+			val vault = vaultRepository.load(vaultId)
 			val cloud = cloudRepository.decryptedViewOf(vault)
 			val completedFiles = parseJsonArray(checkpoint.completedFiles).toHashSet()
 
+			cryptomatorApp.suspendLock()
 			if (checkpoint.type == "folder") {
 				handleFolderResume(cloud, checkpoint, completedFiles, vaultId)
 			} else {
 				handleFileResume(cloud, checkpoint, completedFiles, vaultId)
 			}
+		} catch (e: Exception) {
+			cryptomatorApp.unSuspendLock()
+			Timber.tag("VaultListPresenter").e(e, "Failed to resume upload")
+			uploadCheckpointDao.deleteByVaultId(vaultId)
 		} finally {
 			navigatePendingAfterResume()
 		}
@@ -601,16 +602,13 @@ class VaultListPresenter @Inject constructor( //
 
 	private fun handleFolderResume(cloud: Cloud, checkpoint: UploadCheckpointEntity,
 			completedFiles: Set<String>, vaultId: Long) {
-		val sourceFolderUri = checkpoint.sourceFolderUri
-		if (sourceFolderUri == null) {
-			uploadCheckpointDao.deleteByVaultId(vaultId)
-			return
+		val documentFile = checkpoint.sourceFolderUri?.let { uri ->
+			DocumentFile.fromTreeUri(context(), Uri.parse(uri))?.takeIf { it.canRead() }
 		}
-		val uri = Uri.parse(sourceFolderUri)
-		val documentFile = DocumentFile.fromTreeUri(context(), uri)
-		if (documentFile == null || !documentFile.canRead()) {
+		if (documentFile == null) {
 			view?.showMessage(R.string.dialog_resume_upload_permission_lost)
 			uploadCheckpointDao.deleteByVaultId(vaultId)
+			cryptomatorApp.unSuspendLock()
 			return
 		}
 		view?.showProgress(ProgressModel.GENERIC)
@@ -621,10 +619,12 @@ class VaultListPresenter @Inject constructor( //
 			.subscribe({ folderStructure ->
 				view?.showProgress(ProgressModel.COMPLETED)
 				if (!cryptomatorApp.startFolderUpload(cloud, checkpoint.targetFolderPath, folderStructure, completedFiles, vaultId)) {
+					cryptomatorApp.unSuspendLock()
 					view?.showMessage(R.string.error_upload_service_unavailable)
 				}
 			}, { e ->
 				view?.showProgress(ProgressModel.COMPLETED)
+				cryptomatorApp.unSuspendLock()
 				Timber.tag("VaultListPresenter").w(e, "Failed to read folder during resume")
 				view?.showMessage(R.string.dialog_resume_upload_permission_lost)
 				uploadCheckpointDao.deleteByVaultId(vaultId)
@@ -633,8 +633,7 @@ class VaultListPresenter @Inject constructor( //
 
 	private fun handleFileResume(cloud: Cloud, checkpoint: UploadCheckpointEntity,
 			completedFiles: Set<String>, vaultId: Long) {
-		val fileUris = parseJsonArray(checkpoint.pendingFileUris)
-		val uploadFiles = fileUris.mapNotNull { uriString ->
+		val uploadFiles = parseJsonArray(checkpoint.pendingFileUris).mapNotNull { uriString ->
 			val uri = Uri.parse(uriString)
 			contentResolverUtil.fileName(uri)?.let { fileName ->
 				UploadFile.anUploadFile()
@@ -644,12 +643,14 @@ class VaultListPresenter @Inject constructor( //
 					.build()
 			}
 		}
-		if (uploadFiles.isNotEmpty()) {
-			if (!cryptomatorApp.startFileUpload(cloud, checkpoint.targetFolderPath, uploadFiles, completedFiles, vaultId)) {
-				view?.showMessage(R.string.error_upload_service_unavailable)
-			}
-		} else {
+		if (uploadFiles.isEmpty()) {
 			uploadCheckpointDao.deleteByVaultId(vaultId)
+			cryptomatorApp.unSuspendLock()
+			return
+		}
+		if (!cryptomatorApp.startFileUpload(cloud, checkpoint.targetFolderPath, uploadFiles, completedFiles, vaultId)) {
+			cryptomatorApp.unSuspendLock()
+			view?.showMessage(R.string.error_upload_service_unavailable)
 		}
 	}
 

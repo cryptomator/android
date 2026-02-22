@@ -181,6 +181,9 @@ class BrowseFilesPresenter @Inject constructor( //
 	}
 
 	override fun destroyed() {
+		if (folderStructureDisposable?.isDisposed == false) {
+			cryptomatorApp.unSuspendLock()
+		}
 		folderStructureDisposable?.dispose()
 		folderStructureDisposable = null
 	}
