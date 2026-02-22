@@ -203,7 +203,7 @@ class UploadFileTest {
 
 		inTest.execute(progressAware)
 
-		verify(callback).onFileUploaded(fileName)
+		verify(callback).onFileUploaded(eq(fileName), same(resultFile))
 	}
 
 	@Test

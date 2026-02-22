@@ -85,20 +85,16 @@ class CryptomatorApp : MultiDexApplication(), HasComponent<ApplicationComponent>
 	}
 
 	private fun launchServices() {
+		launchService("cryptors") { startCryptorsService() }
+		launchService("auto upload") { startAutoUploadService() }
+		launchService("upload") { startUploadService() }
+	}
+
+	private fun launchService(name: String, start: () -> Unit) {
 		try {
-			startCryptorsService()
+			start()
 		} catch (e: IllegalStateException) {
-			Timber.tag("App").e(e, "Failed to launch cryptors service")
-		}
-		try {
-			startAutoUploadService()
-		} catch (e: IllegalStateException) {
-			Timber.tag("App").e(e, "Failed to launch auto upload service")
-		}
-		try {
-			startUploadService()
-		} catch (e: IllegalStateException) {
-			Timber.tag("App").e(e, "Failed to launch upload service")
+			Timber.tag("App").e(e, "Failed to launch %s service", name)
 		}
 	}
 
@@ -173,6 +169,8 @@ class CryptomatorApp : MultiDexApplication(), HasComponent<ApplicationComponent>
 				uploadServiceBinder?.init(
 					applicationComponent.cloudContentRepository(),
 					applicationComponent.uploadCheckpointDao(),
+					applicationComponent.uploadUiUpdates(),
+					applicationComponent.fileUtil(),
 					Companion.applicationContext
 				)
 			}

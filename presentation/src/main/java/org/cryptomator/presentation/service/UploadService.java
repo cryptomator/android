@@ -12,6 +12,7 @@ import androidx.annotation.Nullable;
 
 import org.cryptomator.data.db.UploadCheckpointDao;
 import org.cryptomator.domain.Cloud;
+import org.cryptomator.domain.CloudFile;
 import org.cryptomator.domain.CloudFolder;
 import org.cryptomator.domain.exception.BackendException;
 import org.cryptomator.domain.exception.CancellationException;
@@ -20,12 +21,17 @@ import org.cryptomator.domain.exception.MissingCryptorException;
 import org.cryptomator.domain.repository.CloudContentRepository;
 import org.cryptomator.domain.usecases.ProgressAware;
 import org.cryptomator.domain.usecases.cloud.FileUploadedCallback;
+import org.cryptomator.domain.usecases.cloud.FolderCreatedCallback;
 import org.cryptomator.domain.usecases.cloud.UploadFile;
 import org.cryptomator.domain.usecases.cloud.UploadFiles;
 import org.cryptomator.domain.usecases.cloud.UploadFolderFiles;
 import org.cryptomator.domain.usecases.cloud.UploadFolderStructure;
 import org.cryptomator.domain.usecases.cloud.UploadState;
 import org.cryptomator.presentation.CryptomatorApp;
+import org.cryptomator.presentation.model.CloudFileModel;
+import org.cryptomator.presentation.model.CloudFolderModel;
+import org.cryptomator.presentation.util.FileIcon;
+import org.cryptomator.presentation.util.FileUtil;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -46,6 +52,8 @@ public class UploadService extends Service {
 	private UploadNotification notification;
 	private CloudContentRepository cloudContentRepository;
 	private UploadCheckpointDao uploadCheckpointDao;
+	private UploadUiUpdates uploadUiUpdates;
+	private FileUtil fileUtil;
 	private Context appContext;
 	private Thread worker;
 	private volatile boolean cancelled;
@@ -67,10 +75,10 @@ public class UploadService extends Service {
 
 	public void startFileUpload(Cloud cloud, String targetFolderPath, List<UploadFile> files,
 			Set<String> completedFiles, long vaultId, List<Uri> cleanupUris) {
-		startUpload(cloud, targetFolderPath, completedFiles, vaultId, files.size(), cleanupUris, (targetFolder, callback, progressAware) -> {
+		startUpload(cloud, targetFolderPath, completedFiles, vaultId, files.size(), cleanupUris, (targetFolder, fileCallback, folderCallback, progressAware) -> {
 			UploadFiles uploadFiles = new UploadFiles(appContext, cloudContentRepository, targetFolder, files);
 			uploadFiles.setCompletedFiles(completedFiles);
-			uploadFiles.setFileUploadedCallback(callback);
+			uploadFiles.setFileUploadedCallback(fileCallback);
 			cancelCallback = uploadFiles::onCancel;
 			if (cancelled) {
 				throw new CancellationException();
@@ -81,10 +89,11 @@ public class UploadService extends Service {
 
 	public void startFolderUpload(Cloud cloud, String targetFolderPath, UploadFolderStructure folderStructure,
 			Set<String> completedFiles, long vaultId) {
-		startUpload(cloud, targetFolderPath, completedFiles, vaultId, folderStructure.totalFileCount(), Collections.emptyList(), (targetFolder, callback, progressAware) -> {
+		startUpload(cloud, targetFolderPath, completedFiles, vaultId, folderStructure.totalFileCount(), Collections.emptyList(), (targetFolder, fileCallback, folderCallback, progressAware) -> {
 			UploadFolderFiles uploadFolderFiles = new UploadFolderFiles(appContext, cloudContentRepository, targetFolder, folderStructure);
 			uploadFolderFiles.setCompletedFiles(completedFiles);
-			uploadFolderFiles.setFileUploadedCallback(callback);
+			uploadFolderFiles.setFileUploadedCallback(fileCallback);
+			uploadFolderFiles.setFolderCreatedCallback(folderCallback);
 			cancelCallback = uploadFolderFiles::onCancel;
 			if (cancelled) {
 				throw new CancellationException();
@@ -154,28 +163,35 @@ public class UploadService extends Service {
 
 		cancelled = false;
 
+		FolderKey folderKey = new FolderKey(upload.vaultId, upload.targetFolderPath);
+
 		try {
 			CloudFolder targetFolder = upload.targetFolderPath.isEmpty()
 					? cloudContentRepository.root(upload.cloud)
 					: cloudContentRepository.resolve(upload.cloud, upload.targetFolderPath);
 
-			FileUploadedCallback callback = createCheckpointCallback(upload.vaultId, upload.completedFiles);
+			FileUploadedCallback fileCallback = createCheckpointCallback(upload.vaultId, upload.completedFiles, folderKey);
+			FolderCreatedCallback folderCallback = createFolderCreatedCallback(folderKey);
 			ProgressAware<UploadState> progressAware = progress -> updateNotification(progress.asPercentage());
 
-			upload.uploadTask.execute(targetFolder, callback, progressAware);
+			upload.uploadTask.execute(targetFolder, fileCallback, folderCallback, progressAware);
 
 			uploadCheckpointDao.deleteByVaultId(upload.vaultId);
+			emitUploadFinished(folderKey);
 			notification.showUploadFinished(upload.totalFiles - upload.completedFiles.size());
 			Timber.tag("UploadService").i("Upload completed");
 			return true;
 		} catch (CancellationException e) {
+			clearSnapshot(folderKey);
 			Timber.tag("UploadService").i("Upload canceled by user");
 			return false;
 		} catch (MissingCryptorException e) {
+			clearSnapshot(folderKey);
 			notification.showVaultLockedDuringUpload();
 			Timber.tag("UploadService").e(e, "Vault locked during upload");
 			return false;
 		} catch (BackendException | FatalBackendException e) {
+			clearSnapshot(folderKey);
 			notification.showGeneralErrorDuringUpload();
 			Timber.tag("UploadService").e(e, "Upload failed");
 			return false;
@@ -196,9 +212,9 @@ public class UploadService extends Service {
 		}
 	}
 
-	@FunctionalInterface
 	private interface UploadTask {
-		void execute(CloudFolder targetFolder, FileUploadedCallback callback,
+		void execute(CloudFolder targetFolder, FileUploadedCallback fileCallback,
+				FolderCreatedCallback folderCallback,
 				ProgressAware<UploadState> progressAware) throws BackendException;
 	}
 
@@ -223,9 +239,9 @@ public class UploadService extends Service {
 		}
 	}
 
-	private FileUploadedCallback createCheckpointCallback(long vaultId, Set<String> completedFiles) {
+	private FileUploadedCallback createCheckpointCallback(long vaultId, Set<String> completedFiles, FolderKey folderKey) {
 		Set<String> uploadedSoFar = new HashSet<>(completedFiles);
-		return relativePath -> {
+		return (relativePath, file) -> {
 			uploadedSoFar.add(relativePath);
 			try {
 				String json = toJsonArray(uploadedSoFar);
@@ -233,12 +249,59 @@ public class UploadService extends Service {
 			} catch (Exception e) {
 				Timber.tag("UploadService").w(e, "Failed to update checkpoint");
 			}
+			// Only emit for direct children of the target folder.
+			// Flat uploads: relativePath is just the filename (no "/").
+			// Folder uploads: files inside the folder always have "/" — they're not direct children.
+			if (!relativePath.contains("/")) {
+				emitFileCreated(folderKey, file);
+			}
 			new Handler(Looper.getMainLooper()).post(() -> {
 				if (notification != null) {
 					notification.updateFinishedFile();
 				}
 			});
 		};
+	}
+
+	private FolderCreatedCallback createFolderCreatedCallback(FolderKey folderKey) {
+		// Only emit for the root folder (direct child of target).
+		// The root folder's relativePath has no "/"; subfolders do.
+		return (relativePath, folder) -> {
+			if (!relativePath.contains("/")) {
+				emitFolderCreated(folderKey, folder);
+			}
+		};
+	}
+
+	private void emitFileCreated(FolderKey folderKey, CloudFile file) {
+		if (fileUtil != null) {
+			CloudFileModel model = new CloudFileModel(file, FileIcon.fileIconFor(file.getName(), fileUtil));
+			emitEvent(new UploadUiEvent.NodeCreated(folderKey, model));
+		}
+	}
+
+	private void emitFolderCreated(FolderKey folderKey, CloudFolder folder) {
+		emitEvent(new UploadUiEvent.NodeCreated(folderKey, new CloudFolderModel(folder)));
+	}
+
+	private void emitUploadFinished(FolderKey folderKey) {
+		emitEvent(new UploadUiEvent.UploadFinished(folderKey));
+	}
+
+	private void emitEvent(UploadUiEvent event) {
+		if (uploadUiUpdates != null) {
+			try {
+				uploadUiUpdates.emit(event);
+			} catch (Exception e) {
+				Timber.tag("UploadService").w(e, "Failed to emit upload event");
+			}
+		}
+	}
+
+	private void clearSnapshot(FolderKey folderKey) {
+		if (uploadUiUpdates != null) {
+			uploadUiUpdates.clear(folderKey);
+		}
 	}
 
 	private String toJsonArray(Set<String> items) {
@@ -341,9 +404,12 @@ public class UploadService extends Service {
 		}
 
 		public void init(CloudContentRepository cloudContentRepository,
-				UploadCheckpointDao uploadCheckpointDao, Context context) {
+				UploadCheckpointDao uploadCheckpointDao, UploadUiUpdates uploadUiUpdates,
+				FileUtil fileUtil, Context context) {
 			UploadService.this.cloudContentRepository = cloudContentRepository;
 			UploadService.this.uploadCheckpointDao = uploadCheckpointDao;
+			UploadService.this.uploadUiUpdates = uploadUiUpdates;
+			UploadService.this.fileUtil = fileUtil;
 			UploadService.this.appContext = context;
 		}
 

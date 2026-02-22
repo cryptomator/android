@@ -35,12 +35,7 @@ public class UploadFiles {
 	private FileUploadedCallback fileUploadedCallback = FileUploadedCallback.NO_OP;
 
 	private volatile boolean cancelled;
-	private final Flag cancelledFlag = new Flag() {
-		@Override
-		public boolean get() {
-			return cancelled;
-		}
-	};
+	private final Flag cancelledFlag = () -> cancelled;
 
 	public UploadFiles(Context context, //
 			CloudContentRepository cloudContentRepository, //
@@ -83,8 +78,9 @@ public class UploadFiles {
 			if (completedFiles.contains(file.getFileName())) {
 				continue;
 			}
-			uploadedFiles.add(upload(file, progressAware));
-			fileUploadedCallback.onFileUploaded(file.getFileName());
+			CloudFile uploadedFile = upload(file, progressAware);
+			uploadedFiles.add(uploadedFile);
+			fileUploadedCallback.onFileUploaded(file.getFileName(), uploadedFile);
 		}
 		return uploadedFiles;
 	}

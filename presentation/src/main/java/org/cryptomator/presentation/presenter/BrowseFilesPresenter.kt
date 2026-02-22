@@ -53,8 +53,11 @@ import org.cryptomator.generator.InjectIntent
 import org.cryptomator.generator.InstanceState
 import org.cryptomator.presentation.CryptomatorApp
 import org.cryptomator.presentation.R
+import org.cryptomator.presentation.service.FolderKey
 import org.cryptomator.presentation.service.KeepAliveLease
 import org.cryptomator.presentation.service.LeaseReason
+import org.cryptomator.presentation.service.UploadUiEvent
+import org.cryptomator.presentation.service.UploadUiUpdates
 import org.cryptomator.presentation.exception.ExceptionHandlers
 import org.cryptomator.presentation.intent.BrowseFilesIntent
 import org.cryptomator.presentation.intent.ChooseCloudNodeSettings
@@ -134,6 +137,7 @@ class BrowseFilesPresenter @Inject constructor( //
 	private val downloadFileUtil: DownloadFileUtil,  //
 	private val sharedPreferencesHandler: SharedPreferencesHandler,  //
 	private val uploadCheckpointDao: UploadCheckpointDao,  //
+	private val uploadUiUpdates: UploadUiUpdates,  //
 	exceptionMappings: ExceptionHandlers
 ) : Presenter<BrowseFilesView>(exceptionMappings) {
 
@@ -145,6 +149,7 @@ class BrowseFilesPresenter @Inject constructor( //
 
 	private var resumedAfterAuthentication = false
 	private var folderStructureDisposable: Disposable? = null
+	private var uploadEventsDisposable: Disposable? = null
 	private var pickerLease: KeepAliveLease? = null
 
 	@InjectIntent
@@ -188,6 +193,8 @@ class BrowseFilesPresenter @Inject constructor( //
 		pickerLease = null
 		folderStructureDisposable?.dispose()
 		folderStructureDisposable = null
+		uploadEventsDisposable?.dispose()
+		uploadEventsDisposable = null
 	}
 
 	fun onWindowFocusChanged(hasFocus: Boolean) {
@@ -221,6 +228,7 @@ class BrowseFilesPresenter @Inject constructor( //
 					} else {
 						showCloudNodesCollectionInView(cloudNodes)
 					}
+					subscribeToUploadEvents(cloudFolderModel)
 					view?.showLoading(false)
 				}
 
@@ -444,11 +452,8 @@ class BrowseFilesPresenter @Inject constructor( //
 		}
 
 		releasePickerLease()
-		if (cryptomatorApp.startFileUpload(cloud, targetFolderPath, files, emptySet(), vaultId)) {
-			onUploadDispatched()
-		} else {
-			uploadCheckpointDao.deleteByVaultId(vaultId)
-			onUploadDispatchFailed()
+		dispatchUpload(vaultId) {
+			cryptomatorApp.startFileUpload(cloud, targetFolderPath, files, emptySet(), vaultId)
 		}
 	}
 
@@ -647,11 +652,8 @@ class BrowseFilesPresenter @Inject constructor( //
 			emptyList()
 		}
 
-		if (cryptomatorApp.startFileUpload(cloud, targetFolderPath, files, emptySet(), vaultId, cleanupUris)) {
-			onUploadDispatched()
-		} else {
-			uploadCheckpointDao.deleteByVaultId(vaultId)
-			onUploadDispatchFailed()
+		dispatchUpload(vaultId) {
+			cryptomatorApp.startFileUpload(cloud, targetFolderPath, files, emptySet(), vaultId, cleanupUris)
 		}
 	}
 
@@ -1122,11 +1124,8 @@ class BrowseFilesPresenter @Inject constructor( //
 		}
 
 		releasePickerLease()
-		if (cryptomatorApp.startFolderUpload(cloud, targetFolderPath, folderStructure, emptySet(), vaultId)) {
-			onUploadDispatched()
-		} else {
-			uploadCheckpointDao.deleteByVaultId(vaultId)
-			onUploadDispatchFailed()
+		dispatchUpload(vaultId) {
+			cryptomatorApp.startFolderUpload(cloud, targetFolderPath, folderStructure, emptySet(), vaultId)
 		}
 	}
 
@@ -1155,15 +1154,38 @@ class BrowseFilesPresenter @Inject constructor( //
 		releasePickerLease()
 	}
 
-	private fun onUploadDispatched() {
-		view?.showProgress(ProgressModel.COMPLETED)
-		view?.showMessage(R.string.notification_upload_started)
-		uploadLocation = null
+	private fun subscribeToUploadEvents(folder: CloudFolderModel) {
+		uploadEventsDisposable?.dispose()
+		val vaultId = folder.vault()?.toVault()?.id ?: return
+		val folderKey = FolderKey(vaultId, folder.toCloudNode().path)
+
+		// Subscribe first, then apply snapshot to avoid missing events emitted between
+		// snapshot read and subscribe. Duplicates are harmless (addOrUpdateCloudNode is idempotent).
+		uploadEventsDisposable = uploadUiUpdates.eventsFor(folderKey)
+			.observeOn(AndroidSchedulers.mainThread())
+			.subscribe({ event ->
+				when (event) {
+					is UploadUiEvent.NodeCreated -> view?.addOrUpdateCloudNode(event.node)
+					is UploadUiEvent.UploadFinished -> uploadUiUpdates.clear(event.folderKey)
+				}
+			}, { e ->
+				Timber.tag("BrowseFilesPresenter").e(e, "Upload event stream error")
+			})
+
+		uploadUiUpdates.snapshot(folderKey).forEach { node ->
+			view?.addOrUpdateCloudNode(node)
+		}
 	}
 
-	private fun onUploadDispatchFailed() {
-		view?.showProgress(ProgressModel.COMPLETED)
-		view?.showMessage(R.string.error_upload_service_unavailable)
+	private fun dispatchUpload(vaultId: Long, dispatch: () -> Boolean) {
+		if (dispatch()) {
+			view?.showProgress(ProgressModel.COMPLETED)
+			view?.showMessage(R.string.notification_upload_started)
+		} else {
+			uploadCheckpointDao.deleteByVaultId(vaultId)
+			view?.showProgress(ProgressModel.COMPLETED)
+			view?.showMessage(R.string.error_upload_service_unavailable)
+		}
 		uploadLocation = null
 	}
 

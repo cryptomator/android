@@ -34,14 +34,10 @@ public class UploadFolderFiles {
 	private final UploadFolderStructure folderStructure;
 	private Set<String> completedFiles = Collections.emptySet();
 	private FileUploadedCallback fileUploadedCallback = FileUploadedCallback.NO_OP;
+	private FolderCreatedCallback folderCreatedCallback = FolderCreatedCallback.NO_OP;
 
 	private volatile boolean cancelled;
-	private final Flag cancelledFlag = new Flag() {
-		@Override
-		public boolean get() {
-			return cancelled;
-		}
-	};
+	private final Flag cancelledFlag = () -> cancelled;
 
 	public UploadFolderFiles(Context context, //
 			CloudContentRepository cloudContentRepository, //
@@ -59,6 +55,10 @@ public class UploadFolderFiles {
 
 	public void setFileUploadedCallback(FileUploadedCallback fileUploadedCallback) {
 		this.fileUploadedCallback = fileUploadedCallback;
+	}
+
+	public void setFolderCreatedCallback(FolderCreatedCallback folderCreatedCallback) {
+		this.folderCreatedCallback = folderCreatedCallback;
 	}
 
 	public void onCancel() {
@@ -84,6 +84,7 @@ public class UploadFolderFiles {
 
 	private List<CloudFile> uploadFolder(CloudFolder targetParent, UploadFolderStructure structure, String relativePath, ProgressAware<UploadState> progressAware) throws BackendException {
 		CloudFolder createdFolder = createFolderSafe(targetParent, structure.getFolderName());
+		folderCreatedCallback.onFolderCreated(relativePath, createdFolder);
 
 		List<CloudFile> uploadedFiles = new ArrayList<>();
 
@@ -92,8 +93,9 @@ public class UploadFolderFiles {
 			if (completedFiles.contains(fileRelativePath)) {
 				continue;
 			}
-			uploadedFiles.add(upload(createdFolder, file, progressAware));
-			fileUploadedCallback.onFileUploaded(fileRelativePath);
+			CloudFile uploadedFile = upload(createdFolder, file, progressAware);
+			uploadedFiles.add(uploadedFile);
+			fileUploadedCallback.onFileUploaded(fileRelativePath, uploadedFile);
 		}
 
 		for (UploadFolderStructure subfolder : structure.getSubfolders()) {
@@ -149,20 +151,19 @@ public class UploadFolderFiles {
 
 	private File copyDataToFile(DataSource dataSource) {
 		File dir = context.getCacheDir();
-		File target;
 		try {
-			target = createTempFile("upload", "tmp", dir);
+			File target = createTempFile("upload", "tmp", dir);
+			try {
+				InputStream in = CancelAwareDataSource.wrap(dataSource, cancelledFlag).open(context);
+				OutputStream out = new FileOutputStream(target);
+				StreamHelper.copy(in, out);
+				dataSource.modifiedDate(context).ifPresent(value -> target.setLastModified(value.getTime()));
+				return target;
+			} catch (IOException e) {
+				target.delete();
+				throw e;
+			}
 		} catch (IOException e) {
-			throw new FatalBackendException(e);
-		}
-		try {
-			InputStream in = CancelAwareDataSource.wrap(dataSource, cancelledFlag).open(context);
-			OutputStream out = new FileOutputStream(target);
-			StreamHelper.copy(in, out);
-			dataSource.modifiedDate(context).ifPresent(value -> target.setLastModified(value.getTime()));
-			return target;
-		} catch (IOException e) {
-			target.delete();
 			throw new FatalBackendException(e);
 		}
 	}

@@ -292,7 +292,7 @@ class UploadFolderFilesTest {
 
 		inTest.execute(progressAware)
 
-		verify(callback).onFileUploaded("testFolder/file.txt")
+		verify(callback).onFileUploaded(eq("testFolder/file.txt"), same(resultFile))
 	}
 
 	@Test
@@ -333,7 +333,7 @@ class UploadFolderFilesTest {
 
 		inTest.execute(progressAware)
 
-		verify(callback).onFileUploaded("testFolder/sub/deep.txt")
+		verify(callback).onFileUploaded(eq("testFolder/sub/deep.txt"), same(resultFile))
 	}
 
 	@Test
