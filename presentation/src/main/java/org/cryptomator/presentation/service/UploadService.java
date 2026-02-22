@@ -191,6 +191,7 @@ public class UploadService extends Service {
 			pendingUploads.clear();
 		}
 		for (QueuedUpload upload : abandoned) {
+			uploadCheckpointDao.deleteByVaultId(upload.vaultId);
 			deleteTempFiles(upload.cleanupUris);
 		}
 	}

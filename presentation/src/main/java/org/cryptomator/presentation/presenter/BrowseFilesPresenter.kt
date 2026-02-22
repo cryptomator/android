@@ -433,30 +433,22 @@ class BrowseFilesPresenter @Inject constructor( //
 	}
 
 	private fun uploadFiles(files: List<UploadFile>) {
-		uploadLocation?.let { location ->
-			val locationNode = location.toCloudNode()
-			val cloud = locationNode.cloud ?: run {
-				releasePickerLease()
-				return@let
-			}
-			val vaultId = location.vault()?.toVault()?.id ?: run {
-				releasePickerLease()
-				return@let
-			}
-			val targetFolderPath = locationNode.path
+		val location = uploadLocation ?: return releasePickerLease()
+		val locationNode = location.toCloudNode()
+		val cloud = locationNode.cloud ?: return releasePickerLease()
+		val vaultId = location.vault()?.toVault()?.id ?: return releasePickerLease()
+		val targetFolderPath = locationNode.path
 
-			saveCheckpoint(vaultId, "files", targetFolderPath, files.size) {
-				pendingFileUris = toJsonArray(files.map { it.dataSource.toString() })
-			}
+		saveCheckpoint(vaultId, "files", targetFolderPath, files.size) {
+			pendingFileUris = toJsonArray(files.map { it.dataSource.toString() })
+		}
 
-			if (cryptomatorApp.startFileUpload(cloud, targetFolderPath, files, emptySet(), vaultId)) {
-				releasePickerLease()
-				onUploadDispatched()
-			} else {
-				uploadCheckpointDao.deleteByVaultId(vaultId)
-				releasePickerLease()
-				onUploadDispatchFailed()
-			}
+		releasePickerLease()
+		if (cryptomatorApp.startFileUpload(cloud, targetFolderPath, files, emptySet(), vaultId)) {
+			onUploadDispatched()
+		} else {
+			uploadCheckpointDao.deleteByVaultId(vaultId)
+			onUploadDispatchFailed()
 		}
 	}
 
@@ -1118,31 +1110,23 @@ class BrowseFilesPresenter @Inject constructor( //
 	}
 
 	private fun uploadFolder(folderStructure: UploadFolderStructure, sourceFolderUri: Uri? = null) {
-		uploadLocation?.let { location ->
-			val locationNode = location.toCloudNode()
-			val cloud = locationNode.cloud ?: run {
-				releasePickerLease()
-				return@let
-			}
-			val vaultId = location.vault()?.toVault()?.id ?: run {
-				releasePickerLease()
-				return@let
-			}
-			val targetFolderPath = locationNode.path
+		val location = uploadLocation ?: return releasePickerLease()
+		val locationNode = location.toCloudNode()
+		val cloud = locationNode.cloud ?: return releasePickerLease()
+		val vaultId = location.vault()?.toVault()?.id ?: return releasePickerLease()
+		val targetFolderPath = locationNode.path
 
-			saveCheckpoint(vaultId, "folder", targetFolderPath, folderStructure.totalFileCount()) {
-				this.sourceFolderUri = sourceFolderUri?.toString()
-				this.sourceFolderName = folderStructure.folderName
-			}
+		saveCheckpoint(vaultId, "folder", targetFolderPath, folderStructure.totalFileCount()) {
+			this.sourceFolderUri = sourceFolderUri?.toString()
+			this.sourceFolderName = folderStructure.folderName
+		}
 
-			if (cryptomatorApp.startFolderUpload(cloud, targetFolderPath, folderStructure, emptySet(), vaultId)) {
-				releasePickerLease()
-				onUploadDispatched()
-			} else {
-				uploadCheckpointDao.deleteByVaultId(vaultId)
-				releasePickerLease()
-				onUploadDispatchFailed()
-			}
+		releasePickerLease()
+		if (cryptomatorApp.startFolderUpload(cloud, targetFolderPath, folderStructure, emptySet(), vaultId)) {
+			onUploadDispatched()
+		} else {
+			uploadCheckpointDao.deleteByVaultId(vaultId)
+			onUploadDispatchFailed()
 		}
 	}
 
