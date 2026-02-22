@@ -183,23 +183,23 @@ class CryptomatorApp : MultiDexApplication(), HasComponent<ApplicationComponent>
 	}
 
 	fun startFileUpload(cloud: Cloud, targetFolderPath: String, files: List<UploadFile>,
-			completedFiles: Set<String>, vaultId: Long, cleanupUris: List<Uri> = emptyList()) {
-		val binder = uploadServiceBinder
-		if (binder != null) {
-			binder.startFileUpload(cloud, targetFolderPath, files, completedFiles, vaultId, cleanupUris)
-		} else {
+			completedFiles: Set<String>, vaultId: Long, cleanupUris: List<Uri> = emptyList()): Boolean {
+		val binder = uploadServiceBinder ?: run {
 			Timber.tag("App").e("Upload service not connected, file upload request dropped")
+			return false
 		}
+		binder.startFileUpload(cloud, targetFolderPath, files, completedFiles, vaultId, cleanupUris)
+		return true
 	}
 
 	fun startFolderUpload(cloud: Cloud, targetFolderPath: String, folderStructure: UploadFolderStructure,
-			completedFiles: Set<String>, vaultId: Long) {
-		val binder = uploadServiceBinder
-		if (binder != null) {
-			binder.startFolderUpload(cloud, targetFolderPath, folderStructure, completedFiles, vaultId)
-		} else {
+			completedFiles: Set<String>, vaultId: Long): Boolean {
+		val binder = uploadServiceBinder ?: run {
 			Timber.tag("App").e("Upload service not connected, folder upload request dropped")
+			return false
 		}
+		binder.startFolderUpload(cloud, targetFolderPath, folderStructure, completedFiles, vaultId)
+		return true
 	}
 
 	private fun checkToStartAutoImageUpload(sharedPreferencesHandler: SharedPreferencesHandler): Boolean {

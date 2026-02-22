@@ -77,11 +77,13 @@ class TextEditorPresenter @Inject constructor( //
 					.build()
 			)
 
-			cryptomatorApp.startFileUpload(cloud, parentNode.path, files, emptySet(), vaultId, listOf(uri))
-
-			existingTextFileContent.set(v.textFileContent)
-			v.showMessage(R.string.notification_upload_started)
-			v.finish()
+			if (cryptomatorApp.startFileUpload(cloud, parentNode.path, files, emptySet(), vaultId, listOf(uri))) {
+				existingTextFileContent.set(v.textFileContent)
+				v.showMessage(R.string.notification_upload_started)
+				v.finish()
+			} else {
+				v.showMessage(R.string.error_upload_service_unavailable)
+			}
 		}
 	}
 

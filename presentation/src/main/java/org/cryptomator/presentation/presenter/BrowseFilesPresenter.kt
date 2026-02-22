@@ -438,8 +438,13 @@ class BrowseFilesPresenter @Inject constructor( //
 				pendingFileUris = toJsonArray(files.map { it.dataSource.toString() })
 			}
 
-			cryptomatorApp.startFileUpload(cloud, targetFolderPath, files, emptySet(), vaultId)
-			onUploadDispatched()
+			if (cryptomatorApp.startFileUpload(cloud, targetFolderPath, files, emptySet(), vaultId)) {
+				onUploadDispatched()
+			} else {
+				uploadCheckpointDao.deleteByVaultId(vaultId)
+				cryptomatorApp.unSuspendLock()
+				onUploadDispatchFailed()
+			}
 		}
 	}
 
@@ -620,28 +625,29 @@ class BrowseFilesPresenter @Inject constructor( //
 	}
 
 	private fun uploadChangedFile(openFileType: OpenFileType) {
-		openedCloudFile?.let { openedCloudFile ->
-			openedCloudFile.parent?.let { openedCloudFilesParent ->
-				uriToOpenedFile?.let { uriToOpenedFile ->
-					val cloud = openedCloudFilesParent.toCloudNode().cloud ?: return@let
-					val vaultId = openedCloudFilesParent.vault()?.toVault()?.id ?: return@let
-					val targetFolderPath = openedCloudFilesParent.toCloudNode().path
-					val files = listOf(createUploadFile(openedCloudFile.name, uriToOpenedFile, true))
+		val file = openedCloudFile ?: return
+		val parent = file.parent ?: return
+		val uri = uriToOpenedFile ?: return
+		val cloud = parent.toCloudNode().cloud ?: return
+		val vaultId = parent.vault()?.toVault()?.id ?: return
+		val targetFolderPath = parent.toCloudNode().path
+		val files = listOf(createUploadFile(file.name, uri, true))
 
-					saveCheckpoint(vaultId, "files", targetFolderPath, files.size) {
-						pendingFileUris = toJsonArray(files.map { it.dataSource.toString() })
-					}
+		saveCheckpoint(vaultId, "files", targetFolderPath, files.size) {
+			pendingFileUris = toJsonArray(files.map { it.dataSource.toString() })
+		}
 
-					val cleanupUris = if (openFileType == OpenFileType.MICROSOFT_WORKAROUND) {
-						listOf(uriToOpenedFile)
-					} else {
-						emptyList()
-					}
+		val cleanupUris = if (openFileType == OpenFileType.MICROSOFT_WORKAROUND) {
+			listOf(uri)
+		} else {
+			emptyList()
+		}
 
-					cryptomatorApp.startFileUpload(cloud, targetFolderPath, files, emptySet(), vaultId, cleanupUris)
-					onUploadDispatched()
-				}
-			}
+		if (cryptomatorApp.startFileUpload(cloud, targetFolderPath, files, emptySet(), vaultId, cleanupUris)) {
+			onUploadDispatched()
+		} else {
+			uploadCheckpointDao.deleteByVaultId(vaultId)
+			onUploadDispatchFailed()
 		}
 	}
 
@@ -1111,8 +1117,13 @@ class BrowseFilesPresenter @Inject constructor( //
 				this.sourceFolderName = folderStructure.folderName
 			}
 
-			cryptomatorApp.startFolderUpload(cloud, targetFolderPath, folderStructure, emptySet(), vaultId)
-			onUploadDispatched()
+			if (cryptomatorApp.startFolderUpload(cloud, targetFolderPath, folderStructure, emptySet(), vaultId)) {
+				onUploadDispatched()
+			} else {
+				uploadCheckpointDao.deleteByVaultId(vaultId)
+				cryptomatorApp.unSuspendLock()
+				onUploadDispatchFailed()
+			}
 		}
 	}
 
@@ -1135,6 +1146,12 @@ class BrowseFilesPresenter @Inject constructor( //
 	private fun onUploadDispatched() {
 		view?.showProgress(ProgressModel.COMPLETED)
 		view?.showMessage(R.string.notification_upload_started)
+		uploadLocation = null
+	}
+
+	private fun onUploadDispatchFailed() {
+		view?.showProgress(ProgressModel.COMPLETED)
+		view?.showMessage(R.string.error_upload_service_unavailable)
 		uploadLocation = null
 	}
 

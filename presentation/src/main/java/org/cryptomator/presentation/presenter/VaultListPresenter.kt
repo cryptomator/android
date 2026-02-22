@@ -115,6 +115,7 @@ class VaultListPresenter @Inject constructor( //
 	exceptionMappings: ExceptionHandlers
 ) : Presenter<VaultListView>(exceptionMappings) {
 
+	private val cryptomatorApp: CryptomatorApp get() = activity().application as CryptomatorApp
 	private var vaultAction: VaultAction? = null
 	private var folderResumeDisposable: Disposable? = null
 
@@ -553,7 +554,6 @@ class VaultListPresenter @Inject constructor( //
 					view?.addOrUpdateVault(VaultModel(vault))
 					view?.showProgress(ProgressModel.COMPLETED)
 					if (checkToStartAutoImageUpload(vault)) {
-						val cryptomatorApp = activity().application as CryptomatorApp
 						cryptomatorApp.startAutoUpload(cryptoCloud)
 					}
 					checkForInterruptedUpload(vault, folder)
@@ -575,7 +575,6 @@ class VaultListPresenter @Inject constructor( //
 	private var pendingNavigationAfterResume: Pair<Vault, CloudFolder>? = null
 
 	fun onResumeUploadConfirmed(vaultId: Long) {
-		val cryptomatorApp = activity().application as CryptomatorApp
 		try {
 			val checkpoint = uploadCheckpointDao.findByVaultId(vaultId) ?: return
 
@@ -591,17 +590,16 @@ class VaultListPresenter @Inject constructor( //
 			val completedFiles = parseJsonArray(checkpoint.completedFiles).toHashSet()
 
 			if (checkpoint.type == "folder") {
-				handleFolderResume(cryptomatorApp, cloud, checkpoint, completedFiles, vaultId)
+				handleFolderResume(cloud, checkpoint, completedFiles, vaultId)
 			} else {
-				handleFileResume(cryptomatorApp, cloud, checkpoint, completedFiles, vaultId)
+				handleFileResume(cloud, checkpoint, completedFiles, vaultId)
 			}
 		} finally {
 			navigatePendingAfterResume()
 		}
 	}
 
-	private fun handleFolderResume(cryptomatorApp: CryptomatorApp,
-			cloud: Cloud, checkpoint: UploadCheckpointEntity,
+	private fun handleFolderResume(cloud: Cloud, checkpoint: UploadCheckpointEntity,
 			completedFiles: Set<String>, vaultId: Long) {
 		val sourceFolderUri = checkpoint.sourceFolderUri
 		if (sourceFolderUri == null) {
@@ -622,7 +620,9 @@ class VaultListPresenter @Inject constructor( //
 			.observeOn(AndroidSchedulers.mainThread())
 			.subscribe({ folderStructure ->
 				view?.showProgress(ProgressModel.COMPLETED)
-				cryptomatorApp.startFolderUpload(cloud, checkpoint.targetFolderPath, folderStructure, completedFiles, vaultId)
+				if (!cryptomatorApp.startFolderUpload(cloud, checkpoint.targetFolderPath, folderStructure, completedFiles, vaultId)) {
+					view?.showMessage(R.string.error_upload_service_unavailable)
+				}
 			}, { e ->
 				view?.showProgress(ProgressModel.COMPLETED)
 				Timber.tag("VaultListPresenter").w(e, "Failed to read folder during resume")
@@ -631,23 +631,23 @@ class VaultListPresenter @Inject constructor( //
 			})
 	}
 
-	private fun handleFileResume(cryptomatorApp: CryptomatorApp,
-			cloud: Cloud, checkpoint: UploadCheckpointEntity,
+	private fun handleFileResume(cloud: Cloud, checkpoint: UploadCheckpointEntity,
 			completedFiles: Set<String>, vaultId: Long) {
 		val fileUris = parseJsonArray(checkpoint.pendingFileUris)
 		val uploadFiles = fileUris.mapNotNull { uriString ->
 			val uri = Uri.parse(uriString)
-			val fileName = contentResolverUtil.fileName(uri)
-			if (fileName != null) {
+			contentResolverUtil.fileName(uri)?.let { fileName ->
 				UploadFile.anUploadFile()
 					.withFileName(fileName)
 					.withDataSource(UriBasedDataSource.from(uri))
-					.thatIsReplacing(false)
+					.thatIsReplacing(true)
 					.build()
-			} else null
+			}
 		}
 		if (uploadFiles.isNotEmpty()) {
-			cryptomatorApp.startFileUpload(cloud, checkpoint.targetFolderPath, uploadFiles, completedFiles, vaultId)
+			if (!cryptomatorApp.startFileUpload(cloud, checkpoint.targetFolderPath, uploadFiles, completedFiles, vaultId)) {
+				view?.showMessage(R.string.error_upload_service_unavailable)
+			}
 		} else {
 			uploadCheckpointDao.deleteByVaultId(vaultId)
 		}

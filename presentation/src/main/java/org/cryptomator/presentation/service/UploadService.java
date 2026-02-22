@@ -28,9 +28,12 @@ import org.cryptomator.domain.usecases.cloud.UploadState;
 import org.cryptomator.presentation.CryptomatorApp;
 
 import java.io.File;
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashSet;
+import java.util.LinkedList;
 import java.util.List;
+import java.util.Queue;
 import java.util.Set;
 import java.util.stream.Collectors;
 
@@ -51,6 +54,10 @@ public class UploadService extends Service {
 	private volatile long elapsedTimeNotificationDelay = 0L;
 	private volatile List<Uri> cleanupUris = Collections.emptyList();
 
+	private final Object queueLock = new Object();
+	private final Queue<QueuedUpload> pendingUploads = new LinkedList<>();
+	private boolean workerRunning = false;
+
 	public static Intent cancelUploadIntent(Context context) {
 		Intent cancelIntent = new Intent(context, UploadService.class);
 		cancelIntent.setAction(ACTION_CANCEL_UPLOAD);
@@ -59,8 +66,7 @@ public class UploadService extends Service {
 
 	public void startFileUpload(Cloud cloud, String targetFolderPath, List<UploadFile> files,
 			Set<String> completedFiles, long vaultId, List<Uri> cleanupUris) {
-		this.cleanupUris = cleanupUris;
-		startUpload(cloud, targetFolderPath, completedFiles, vaultId, files.size(), (targetFolder, callback, progressAware) -> {
+		startUpload(cloud, targetFolderPath, completedFiles, vaultId, files.size(), cleanupUris, (targetFolder, callback, progressAware) -> {
 			UploadFiles uploadFiles = new UploadFiles(appContext, cloudContentRepository, targetFolder, files);
 			uploadFiles.setCompletedFiles(completedFiles);
 			uploadFiles.setFileUploadedCallback(callback);
@@ -74,7 +80,7 @@ public class UploadService extends Service {
 
 	public void startFolderUpload(Cloud cloud, String targetFolderPath, UploadFolderStructure folderStructure,
 			Set<String> completedFiles, long vaultId) {
-		startUpload(cloud, targetFolderPath, completedFiles, vaultId, folderStructure.totalFileCount(), (targetFolder, callback, progressAware) -> {
+		startUpload(cloud, targetFolderPath, completedFiles, vaultId, folderStructure.totalFileCount(), Collections.emptyList(), (targetFolder, callback, progressAware) -> {
 			UploadFolderFiles uploadFolderFiles = new UploadFolderFiles(appContext, cloudContentRepository, targetFolder, folderStructure);
 			uploadFolderFiles.setCompletedFiles(completedFiles);
 			uploadFolderFiles.setFileUploadedCallback(callback);
@@ -87,56 +93,123 @@ public class UploadService extends Service {
 	}
 
 	private void startUpload(Cloud cloud, String targetFolderPath, Set<String> completedFiles,
-			long vaultId, int totalFiles, UploadTask uploadTask) {
-		if (worker != null && worker.isAlive()) {
-			Timber.tag("UploadService").w("Upload already in progress, ignoring request");
-			return;
+			long vaultId, int totalFiles, List<Uri> cleanupUris, UploadTask uploadTask) {
+		QueuedUpload upload = new QueuedUpload(cloud, targetFolderPath, completedFiles, vaultId, totalFiles, uploadTask, cleanupUris);
+		synchronized (queueLock) {
+			if (workerRunning) {
+				pendingUploads.add(upload);
+				Timber.tag("UploadService").i("Upload queued (another in progress)");
+				return;
+			}
+			workerRunning = true;
 		}
+		startWorker(upload);
+	}
 
-		notification = new UploadNotification(appContext, totalFiles);
-
-		startForeground(UploadNotification.NOTIFICATION_ID, notification.getNotification());
-		notification.show();
-
-		cancelled = false;
-
+	private void startWorker(QueuedUpload initial) {
 		worker = new Thread(() -> {
+			QueuedUpload current = initial;
+			boolean isFirst = true;
 			try {
-				CloudFolder targetFolder = targetFolderPath.isEmpty()
-						? cloudContentRepository.root(cloud)
-						: cloudContentRepository.resolve(cloud, targetFolderPath);
-
-				FileUploadedCallback callback = createCheckpointCallback(vaultId, completedFiles);
-				ProgressAware<UploadState> progressAware = progress -> updateNotification(progress.asPercentage());
-
-				uploadTask.execute(targetFolder, callback, progressAware);
-
-				uploadCheckpointDao.deleteByVaultId(vaultId);
-				notification.showUploadFinished(totalFiles - completedFiles.size());
-				Timber.tag("UploadService").i("Upload completed");
-			} catch (CancellationException e) {
-				Timber.tag("UploadService").i("Upload canceled by user");
-			} catch (MissingCryptorException e) {
-				notification.showVaultLockedDuringUpload();
-				Timber.tag("UploadService").e(e, "Vault locked during upload");
-			} catch (BackendException | FatalBackendException e) {
-				notification.showGeneralErrorDuringUpload();
-				Timber.tag("UploadService").e(e, "Upload failed");
+				while (current != null) {
+					if (!processUpload(current, isFirst)) {
+						break;
+					}
+					isFirst = false;
+					synchronized (queueLock) {
+						current = pendingUploads.poll();
+					}
+				}
 			} finally {
-				deleteCleanupUris();
+				drainAndCleanupQueue();
+				synchronized (queueLock) {
+					workerRunning = false;
+				}
 				((CryptomatorApp) getApplicationContext()).unSuspendLock();
 				stopForeground(STOP_FOREGROUND_DETACH);
 				stopSelf();
 			}
 		});
-
 		worker.start();
+	}
+
+	private boolean processUpload(QueuedUpload upload, boolean isFirst) {
+		this.cleanupUris = upload.cleanupUris;
+
+		notification = new UploadNotification(appContext, upload.totalFiles);
+		if (isFirst) {
+			startForeground(UploadNotification.NOTIFICATION_ID, notification.getNotification());
+		}
+		notification.show();
+
+		cancelled = false;
+
+		try {
+			CloudFolder targetFolder = upload.targetFolderPath.isEmpty()
+					? cloudContentRepository.root(upload.cloud)
+					: cloudContentRepository.resolve(upload.cloud, upload.targetFolderPath);
+
+			FileUploadedCallback callback = createCheckpointCallback(upload.vaultId, upload.completedFiles);
+			ProgressAware<UploadState> progressAware = progress -> updateNotification(progress.asPercentage());
+
+			upload.uploadTask.execute(targetFolder, callback, progressAware);
+
+			uploadCheckpointDao.deleteByVaultId(upload.vaultId);
+			notification.showUploadFinished(upload.totalFiles - upload.completedFiles.size());
+			Timber.tag("UploadService").i("Upload completed");
+			return true;
+		} catch (CancellationException e) {
+			Timber.tag("UploadService").i("Upload canceled by user");
+			return false;
+		} catch (MissingCryptorException e) {
+			notification.showVaultLockedDuringUpload();
+			Timber.tag("UploadService").e(e, "Vault locked during upload");
+			return false;
+		} catch (BackendException | FatalBackendException e) {
+			notification.showGeneralErrorDuringUpload();
+			Timber.tag("UploadService").e(e, "Upload failed");
+			return false;
+		} finally {
+			deleteCleanupUris();
+		}
+	}
+
+	private void drainAndCleanupQueue() {
+		List<QueuedUpload> abandoned;
+		synchronized (queueLock) {
+			abandoned = new ArrayList<>(pendingUploads);
+			pendingUploads.clear();
+		}
+		for (QueuedUpload upload : abandoned) {
+			deleteTempFiles(upload.cleanupUris);
+		}
 	}
 
 	@FunctionalInterface
 	private interface UploadTask {
 		void execute(CloudFolder targetFolder, FileUploadedCallback callback,
 				ProgressAware<UploadState> progressAware) throws BackendException;
+	}
+
+	private static class QueuedUpload {
+		final Cloud cloud;
+		final String targetFolderPath;
+		final Set<String> completedFiles;
+		final long vaultId;
+		final int totalFiles;
+		final UploadTask uploadTask;
+		final List<Uri> cleanupUris;
+
+		QueuedUpload(Cloud cloud, String targetFolderPath, Set<String> completedFiles,
+				long vaultId, int totalFiles, UploadTask uploadTask, List<Uri> cleanupUris) {
+			this.cloud = cloud;
+			this.targetFolderPath = targetFolderPath;
+			this.completedFiles = completedFiles;
+			this.vaultId = vaultId;
+			this.totalFiles = totalFiles;
+			this.uploadTask = uploadTask;
+			this.cleanupUris = cleanupUris;
+		}
 	}
 
 	private FileUploadedCallback createCheckpointCallback(long vaultId, Set<String> completedFiles) {
@@ -166,6 +239,10 @@ public class UploadService extends Service {
 	private void deleteCleanupUris() {
 		List<Uri> uris = cleanupUris;
 		cleanupUris = Collections.emptyList();
+		deleteTempFiles(uris);
+	}
+
+	private void deleteTempFiles(List<Uri> uris) {
 		for (Uri uri : uris) {
 			try {
 				File file = new File(uri.getPath());
@@ -202,6 +279,7 @@ public class UploadService extends Service {
 		Timber.tag("UploadService").i("started");
 		if (isCancelUpload(intent)) {
 			Timber.tag("UploadService").i("Received cancel upload");
+			drainAndCleanupQueue();
 			cancelled = true;
 			Runnable cancel = cancelCallback;
 			if (cancel != null) {

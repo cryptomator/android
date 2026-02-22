@@ -649,6 +649,7 @@
 	<string name="dialog_resume_upload_resume">Resume</string>
 	<string name="dialog_resume_upload_discard">Discard</string>
 	<string name="dialog_resume_upload_permission_lost">Cannot resume: access to the source folder has been lost.</string>
+	<string name="error_upload_service_unavailable">Could not start upload. Please try again.</string>
 
 	<string name="notification_cancel_open_writable_file" translatable="false">@string/dialog_button_cancel</string>
 	<string name="notification_open_writable_file_title">Open writable file</string>
