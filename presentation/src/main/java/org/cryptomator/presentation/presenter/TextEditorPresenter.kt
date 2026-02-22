@@ -1,17 +1,13 @@
 package org.cryptomator.presentation.presenter
 
-import org.cryptomator.domain.CloudFile
 import org.cryptomator.domain.di.PerView
 import org.cryptomator.domain.exception.ParentFolderIsNullException
-import org.cryptomator.domain.usecases.cloud.DataSource
 import org.cryptomator.domain.usecases.cloud.UploadFile
-import org.cryptomator.domain.usecases.cloud.UploadFilesUseCase
-import org.cryptomator.domain.usecases.cloud.UploadState
 import org.cryptomator.generator.InstanceState
+import org.cryptomator.presentation.CryptomatorApp
 import org.cryptomator.presentation.R
 import org.cryptomator.presentation.exception.ExceptionHandlers
 import org.cryptomator.presentation.model.CloudFileModel
-import org.cryptomator.presentation.model.ProgressModel
 import org.cryptomator.presentation.ui.activity.view.TextEditorView
 import org.cryptomator.presentation.util.ContentResolverUtil
 import org.cryptomator.presentation.util.FileUtil
@@ -25,10 +21,10 @@ class TextEditorPresenter @Inject constructor( //
 	private val fileCacheUtils: FileCacheUtils,  //
 	private val fileUtil: FileUtil,  //
 	private val contentResolverUtil: ContentResolverUtil,  //
-	private val uploadFilesUseCase: UploadFilesUseCase,  //
 	exceptionMappings: ExceptionHandlers
 ) : Presenter<TextEditorView>(exceptionMappings) {
 
+	private val cryptomatorApp: CryptomatorApp get() = activity().application as CryptomatorApp
 	private val textFile = AtomicReference<CloudFileModel>()
 
 	@JvmField
@@ -63,40 +59,30 @@ class TextEditorPresenter @Inject constructor( //
 		if (!hasUnsavedChanges()) {
 			return
 		}
-		view?.let {
-			it.showProgress(ProgressModel.GENERIC)
+		view?.let { v ->
+			val file = textFile.get()
+			val parent = file.parent ?: throw ParentFolderIsNullException(file.name)
+			val parentNode = parent.toCloudNode()
+			val cloud = parentNode.cloud ?: return
+			val vaultId = parent.vault()?.toVault()?.id ?: return
+
 			val uri = fileCacheUtils.tmpFile() //
-				.withContent(it.textFileContent) //
+				.withContent(v.textFileContent) //
 				.create()
-			uploadFile(textFile.get().name, UriBasedDataSource.from(uri))
+			val files = listOf(
+				UploadFile.anUploadFile() //
+					.withFileName(file.name) //
+					.withDataSource(UriBasedDataSource.from(uri)) //
+					.thatIsReplacing(true) //
+					.build()
+			)
+
+			cryptomatorApp.startFileUpload(cloud, parentNode.path, files, emptySet(), vaultId, listOf(uri))
+
+			existingTextFileContent.set(v.textFileContent)
+			v.showMessage(R.string.notification_upload_started)
+			v.finish()
 		}
-	}
-
-	private fun uploadFile(fileName: String, dataSource: DataSource) {
-		textFile.get().parent?.let {
-			uploadFilesUseCase //
-				.withParent(it.toCloudNode()) //
-				.andFiles(
-					listOf( //
-						UploadFile.anUploadFile() //
-							.withFileName(fileName) //
-							.withDataSource(dataSource) //
-							.thatIsReplacing(true) //
-							.build() //
-					)
-				).run(object : DefaultProgressAwareResultHandler<List<CloudFile?>, UploadState>() {
-					override fun onFinished() {
-						view?.showProgress(ProgressModel.COMPLETED)
-						view?.finish()
-						view?.showMessage(R.string.screen_text_editor_save_success)
-					}
-
-					override fun onError(e: Throwable) {
-						view?.showProgress(ProgressModel.COMPLETED)
-						showError(e)
-					}
-				})
-		} ?: throw ParentFolderIsNullException(textFile.get().name)
 	}
 
 	fun loadFileContent() {
@@ -119,9 +105,5 @@ class TextEditorPresenter @Inject constructor( //
 
 	fun setTextFile(textFile: CloudFileModel) {
 		this.textFile.set(textFile)
-	}
-
-	init {
-		unsubscribeOnDestroy(uploadFilesUseCase)
 	}
 }
