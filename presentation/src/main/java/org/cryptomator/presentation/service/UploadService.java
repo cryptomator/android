@@ -53,6 +53,7 @@ public class UploadService extends Service {
 	private volatile long startTimeNotificationDelay;
 	private volatile long elapsedTimeNotificationDelay = 0L;
 	private volatile List<Uri> cleanupUris = Collections.emptyList();
+	private volatile KeepAliveLease uploadLease;
 
 	private final Object queueLock = new Object();
 	private final Queue<QueuedUpload> pendingUploads = new LinkedList<>();
@@ -107,11 +108,17 @@ public class UploadService extends Service {
 	}
 
 	private void startWorker(QueuedUpload initial) {
+		KeepAliveLease lease = ((CryptomatorApp) getApplicationContext()).acquireLease(
+				LeaseReason.UPLOAD, 5 * 60 * 1000L, 12 * 60 * 60 * 1000L, "upload");
+		uploadLease = lease;
 		worker = new Thread(() -> {
 			QueuedUpload current = initial;
 			boolean isFirst = true;
 			try {
 				while (current != null) {
+					if (lease != null) {
+						lease.renew();
+					}
 					if (!processUpload(current, isFirst)) {
 						break;
 					}
@@ -125,7 +132,10 @@ public class UploadService extends Service {
 				synchronized (queueLock) {
 					workerRunning = false;
 				}
-				((CryptomatorApp) getApplicationContext()).unSuspendLock();
+				if (lease != null) {
+					lease.release();
+				}
+				uploadLease = null;
 				stopForeground(STOP_FOREGROUND_DETACH);
 				stopSelf();
 			}
@@ -256,6 +266,10 @@ public class UploadService extends Service {
 	}
 
 	private void updateNotification(int asPercentage) {
+		KeepAliveLease lease = uploadLease;
+		if (lease != null) {
+			lease.renew();
+		}
 		if (elapsedTimeNotificationDelay > 200 && !cancelled) {
 			new Handler(Looper.getMainLooper()).post(() -> {
 				notification.update(asPercentage);

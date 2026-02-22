@@ -47,6 +47,8 @@ import org.cryptomator.generator.Callback
 import org.cryptomator.presentation.BuildConfig
 import org.cryptomator.presentation.CryptomatorApp
 import org.cryptomator.presentation.R
+import org.cryptomator.presentation.service.KeepAliveLease
+import org.cryptomator.presentation.service.LeaseReason
 import org.cryptomator.presentation.exception.ExceptionHandlers
 import org.cryptomator.presentation.intent.Intents
 import org.cryptomator.presentation.intent.UnlockVaultIntent
@@ -118,15 +120,15 @@ class VaultListPresenter @Inject constructor( //
 	private val cryptomatorApp: CryptomatorApp get() = activity().application as CryptomatorApp
 	private var vaultAction: VaultAction? = null
 	private var folderResumeDisposable: Disposable? = null
+	private var resumeLease: KeepAliveLease? = null
 
 	override fun workflows(): Iterable<Workflow<*>> {
 		return listOf(addExistingVaultWorkflow, createNewVaultWorkflow)
 	}
 
 	override fun destroyed() {
-		if (folderResumeDisposable?.isDisposed == false) {
-			cryptomatorApp.unSuspendLock()
-		}
+		resumeLease?.release()
+		resumeLease = null
 		folderResumeDisposable?.dispose()
 		folderResumeDisposable = null
 	}
@@ -579,23 +581,26 @@ class VaultListPresenter @Inject constructor( //
 
 	fun onResumeUploadConfirmed(vaultId: Long) {
 		try {
-			val checkpoint = uploadCheckpointDao.findByVaultId(vaultId) ?: return
+			val checkpoint = uploadCheckpointDao.findByVaultId(vaultId) ?: run {
+				navigatePendingAfterResume()
+				return
+			}
 
 			val vault = vaultRepository.load(vaultId)
 			val cloud = cloudRepository.decryptedViewOf(vault)
 			val completedFiles = parseJsonArray(checkpoint.completedFiles).toHashSet()
 
-			cryptomatorApp.suspendLock()
+			resumeLease = cryptomatorApp.acquireLease(LeaseReason.UPLOAD, 2 * 60 * 1000L, tag = "resume")
 			if (checkpoint.type == "folder") {
 				handleFolderResume(cloud, checkpoint, completedFiles, vaultId)
 			} else {
 				handleFileResume(cloud, checkpoint, completedFiles, vaultId)
+				navigatePendingAfterResume()
 			}
 		} catch (e: Exception) {
-			cryptomatorApp.unSuspendLock()
+			releaseResumeLease()
 			Timber.tag("VaultListPresenter").e(e, "Failed to resume upload")
 			uploadCheckpointDao.deleteByVaultId(vaultId)
-		} finally {
 			navigatePendingAfterResume()
 		}
 	}
@@ -608,7 +613,8 @@ class VaultListPresenter @Inject constructor( //
 		if (documentFile == null) {
 			view?.showMessage(R.string.dialog_resume_upload_permission_lost)
 			uploadCheckpointDao.deleteByVaultId(vaultId)
-			cryptomatorApp.unSuspendLock()
+			releaseResumeLease()
+			navigatePendingAfterResume()
 			return
 		}
 		view?.showProgress(ProgressModel.GENERIC)
@@ -619,15 +625,17 @@ class VaultListPresenter @Inject constructor( //
 			.subscribe({ folderStructure ->
 				view?.showProgress(ProgressModel.COMPLETED)
 				if (!cryptomatorApp.startFolderUpload(cloud, checkpoint.targetFolderPath, folderStructure, completedFiles, vaultId)) {
-					cryptomatorApp.unSuspendLock()
 					view?.showMessage(R.string.error_upload_service_unavailable)
 				}
+				releaseResumeLease()
+				navigatePendingAfterResume()
 			}, { e ->
 				view?.showProgress(ProgressModel.COMPLETED)
-				cryptomatorApp.unSuspendLock()
 				Timber.tag("VaultListPresenter").w(e, "Failed to read folder during resume")
 				view?.showMessage(R.string.dialog_resume_upload_permission_lost)
 				uploadCheckpointDao.deleteByVaultId(vaultId)
+				releaseResumeLease()
+				navigatePendingAfterResume()
 			})
 	}
 
@@ -645,18 +653,23 @@ class VaultListPresenter @Inject constructor( //
 		}
 		if (uploadFiles.isEmpty()) {
 			uploadCheckpointDao.deleteByVaultId(vaultId)
-			cryptomatorApp.unSuspendLock()
+			releaseResumeLease()
 			return
 		}
 		if (!cryptomatorApp.startFileUpload(cloud, checkpoint.targetFolderPath, uploadFiles, completedFiles, vaultId)) {
-			cryptomatorApp.unSuspendLock()
 			view?.showMessage(R.string.error_upload_service_unavailable)
 		}
+		releaseResumeLease()
 	}
 
 	fun onResumeUploadDeclined(vaultId: Long) {
 		uploadCheckpointDao.deleteByVaultId(vaultId)
 		navigatePendingAfterResume()
+	}
+
+	private fun releaseResumeLease() {
+		resumeLease?.release()
+		resumeLease = null
 	}
 
 	private fun navigatePendingAfterResume() {

@@ -53,6 +53,8 @@ import org.cryptomator.generator.InjectIntent
 import org.cryptomator.generator.InstanceState
 import org.cryptomator.presentation.CryptomatorApp
 import org.cryptomator.presentation.R
+import org.cryptomator.presentation.service.KeepAliveLease
+import org.cryptomator.presentation.service.LeaseReason
 import org.cryptomator.presentation.exception.ExceptionHandlers
 import org.cryptomator.presentation.intent.BrowseFilesIntent
 import org.cryptomator.presentation.intent.ChooseCloudNodeSettings
@@ -143,6 +145,7 @@ class BrowseFilesPresenter @Inject constructor( //
 
 	private var resumedAfterAuthentication = false
 	private var folderStructureDisposable: Disposable? = null
+	private var pickerLease: KeepAliveLease? = null
 
 	@InjectIntent
 	lateinit var intent: BrowseFilesIntent
@@ -181,9 +184,8 @@ class BrowseFilesPresenter @Inject constructor( //
 	}
 
 	override fun destroyed() {
-		if (folderStructureDisposable?.isDisposed == false) {
-			cryptomatorApp.unSuspendLock()
-		}
+		pickerLease?.release()
+		pickerLease = null
 		folderStructureDisposable?.dispose()
 		folderStructureDisposable = null
 	}
@@ -434,11 +436,11 @@ class BrowseFilesPresenter @Inject constructor( //
 		uploadLocation?.let { location ->
 			val locationNode = location.toCloudNode()
 			val cloud = locationNode.cloud ?: run {
-				cryptomatorApp.unSuspendLock()
+				releasePickerLease()
 				return@let
 			}
 			val vaultId = location.vault()?.toVault()?.id ?: run {
-				cryptomatorApp.unSuspendLock()
+				releasePickerLease()
 				return@let
 			}
 			val targetFolderPath = locationNode.path
@@ -448,10 +450,11 @@ class BrowseFilesPresenter @Inject constructor( //
 			}
 
 			if (cryptomatorApp.startFileUpload(cloud, targetFolderPath, files, emptySet(), vaultId)) {
+				releasePickerLease()
 				onUploadDispatched()
 			} else {
 				uploadCheckpointDao.deleteByVaultId(vaultId)
-				cryptomatorApp.unSuspendLock()
+				releasePickerLease()
 				onUploadDispatchFailed()
 			}
 		}
@@ -556,7 +559,7 @@ class BrowseFilesPresenter @Inject constructor( //
 						if (sharedPreferencesHandler.keepUnlockedWhileEditing()) {
 							openWritableFileNotification = OpenWritableFileNotification(context(), it)
 							openWritableFileNotification?.show()
-							cryptomatorApp.suspendLock()
+							cryptomatorApp.acquireEditingLease()
 						}
 						try {
 							requestActivityResult(ActivityResultCallbacks.openFileFinished(openFileType), viewFileIntent)
@@ -595,7 +598,7 @@ class BrowseFilesPresenter @Inject constructor( //
 			Timber.tag("BrowseFilesPresenter").e(e, "Failed to sleep after resuming editing, necessary for google office apps")
 		}
 		if (sharedPreferencesHandler.keepUnlockedWhileEditing()) {
-			cryptomatorApp.unSuspendLock()
+			cryptomatorApp.releaseEditingLease()
 		}
 		hideWritableNotification()
 
@@ -812,7 +815,7 @@ class BrowseFilesPresenter @Inject constructor( //
 
 	private fun uploadFiles(nonReplacing: Map<String, UploadFile>, replacing: Map<String, UploadFile>) {
 		if (nonReplacing.size + replacing.size == 0) {
-			cryptomatorApp.unSuspendLock()
+			releasePickerLease()
 			return
 		}
 		view?.showUploadDialog(nonReplacing.size + replacing.size)
@@ -1016,7 +1019,7 @@ class BrowseFilesPresenter @Inject constructor( //
 
 	fun onUploadFilesClicked(folder: CloudFolderModel) {
 		uploadLocation = folder
-		cryptomatorApp.suspendLock()
+		pickerLease = cryptomatorApp.acquireLease(LeaseReason.FILE_PICKER, 2 * 60 * 1000L, tag = "filePicker")
 		var intent = Intent(Intent.ACTION_GET_CONTENT)
 		intent.addCategory(Intent.CATEGORY_OPENABLE)
 		intent.type = "*/*"
@@ -1033,7 +1036,7 @@ class BrowseFilesPresenter @Inject constructor( //
 	@Callback(dispatchResultOkOnly = false)
 	fun selectedFiles(result: ActivityResult) {
 		if (!result.isResultOk) {
-			cryptomatorApp.unSuspendLock()
+			releasePickerLease()
 			return
 		}
 		val fileUris = getFileUrisFromIntent(result.intent())
@@ -1055,13 +1058,13 @@ class BrowseFilesPresenter @Inject constructor( //
 	fun onUploadFolderClicked(folder: CloudFolderModel) {
 		uploadLocation = folder
 		try {
-			cryptomatorApp.suspendLock()
+			pickerLease = cryptomatorApp.acquireLease(LeaseReason.FOLDER_PICKER, 2 * 60 * 1000L, tag = "folderPicker")
 			requestActivityResult( //
 				ActivityResultCallbacks.selectedFolder(),  //
 				Intent(Intent.ACTION_OPEN_DOCUMENT_TREE)
 			)
 		} catch (exception: ActivityNotFoundException) {
-			cryptomatorApp.unSuspendLock()
+			releasePickerLease()
 			Toast //
 				.makeText( //
 					activity().applicationContext,  //
@@ -1085,13 +1088,13 @@ class BrowseFilesPresenter @Inject constructor( //
 			null
 		}
 		if (treeUri == null) {
-			cryptomatorApp.unSuspendLock()
+			releasePickerLease()
 			return
 		}
 		context().contentResolver.takePersistableUriPermission(treeUri, Intent.FLAG_GRANT_READ_URI_PERMISSION)
 		lastSelectedFolderUri = treeUri
 		val documentFile = DocumentFile.fromTreeUri(context(), treeUri) ?: run {
-			cryptomatorApp.unSuspendLock()
+			releasePickerLease()
 			return
 		}
 		view?.showProgress(ProgressModel.GENERIC)
@@ -1102,13 +1105,13 @@ class BrowseFilesPresenter @Inject constructor( //
 			.subscribe({ folderStructure ->
 				view?.showProgress(ProgressModel.COMPLETED)
 				if (folderStructure.totalFileCount() == 0) {
-					cryptomatorApp.unSuspendLock()
+					releasePickerLease()
 					view?.showMessage(R.string.screen_file_browser_nothing_to_upload)
 					return@subscribe
 				}
 				uploadFolder(folderStructure, treeUri)
 			}, { e ->
-				cryptomatorApp.unSuspendLock()
+				releasePickerLease()
 				view?.showProgress(ProgressModel.COMPLETED)
 				showError(e)
 			})
@@ -1118,11 +1121,11 @@ class BrowseFilesPresenter @Inject constructor( //
 		uploadLocation?.let { location ->
 			val locationNode = location.toCloudNode()
 			val cloud = locationNode.cloud ?: run {
-				cryptomatorApp.unSuspendLock()
+				releasePickerLease()
 				return@let
 			}
 			val vaultId = location.vault()?.toVault()?.id ?: run {
-				cryptomatorApp.unSuspendLock()
+				releasePickerLease()
 				return@let
 			}
 			val targetFolderPath = locationNode.path
@@ -1133,10 +1136,11 @@ class BrowseFilesPresenter @Inject constructor( //
 			}
 
 			if (cryptomatorApp.startFolderUpload(cloud, targetFolderPath, folderStructure, emptySet(), vaultId)) {
+				releasePickerLease()
 				onUploadDispatched()
 			} else {
 				uploadCheckpointDao.deleteByVaultId(vaultId)
-				cryptomatorApp.unSuspendLock()
+				releasePickerLease()
 				onUploadDispatchFailed()
 			}
 		}
@@ -1156,6 +1160,15 @@ class BrowseFilesPresenter @Inject constructor( //
 			configure()
 		}
 		uploadCheckpointDao.insertOrReplace(entity)
+	}
+
+	private fun releasePickerLease() {
+		pickerLease?.release()
+		pickerLease = null
+	}
+
+	fun onUploadReplaceCanceled() {
+		releasePickerLease()
 	}
 
 	private fun onUploadDispatched() {

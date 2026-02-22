@@ -29,6 +29,8 @@ import org.cryptomator.presentation.logging.ReleaseLogger
 import org.cryptomator.presentation.service.AutoUploadNotification
 import org.cryptomator.presentation.service.AutoUploadService
 import org.cryptomator.presentation.service.CryptorsService
+import org.cryptomator.presentation.service.KeepAliveLease
+import org.cryptomator.presentation.service.LeaseReason
 import org.cryptomator.presentation.service.UploadService
 import org.cryptomator.util.NoOpActivityLifecycleCallbacks
 import org.cryptomator.util.SharedPreferencesHandler
@@ -260,14 +262,21 @@ class CryptomatorApp : MultiDexApplication(), HasComponent<ApplicationComponent>
 		return appCryptors.isEmpty()
 	}
 
-	fun suspendLock() {
-		val localServiceBinder = cryptoServiceBinder
-		localServiceBinder?.suspendLock()
+	fun acquireLease(reason: LeaseReason, ttlMs: Long, hardMaxMs: Long? = null, tag: String): KeepAliveLease? {
+		return cryptoServiceBinder?.acquireLease(reason, ttlMs, hardMaxMs, tag)
 	}
 
-	fun unSuspendLock() {
-		val localServiceBinder = cryptoServiceBinder
-		localServiceBinder?.unSuspendLock()
+	@Volatile
+	private var editingLease: KeepAliveLease? = null
+
+	fun acquireEditingLease() {
+		editingLease?.release()
+		editingLease = acquireLease(LeaseReason.EDITING, 4 * 60 * 60 * 1000L, tag = "editing")
+	}
+
+	fun releaseEditingLease() {
+		editingLease?.release()
+		editingLease = null
 	}
 
 	companion object {

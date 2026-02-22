@@ -76,7 +76,7 @@ class VaultListActivity : BaseActivity<ActivityLayoutObscureAwareBinding>(Activi
 
 		if (stopEditFilePressed() && sharedPreferencesHandler.keepUnlockedWhileEditing()) {
 			hideNotification()
-			unSuspendLock()
+			releaseEditingLease()
 		}
 	}
 
@@ -88,9 +88,8 @@ class VaultListActivity : BaseActivity<ActivityLayoutObscureAwareBinding>(Activi
 		OpenWritableFileNotification(context(), Uri.EMPTY).hide()
 	}
 
-	private fun unSuspendLock() {
-		val cryptomatorApp = activity().application as CryptomatorApp
-		cryptomatorApp.unSuspendLock()
+	private fun releaseEditingLease() {
+		(application as CryptomatorApp).releaseEditingLease()
 	}
 
 	override fun createFragment(): Fragment = VaultListFragment()

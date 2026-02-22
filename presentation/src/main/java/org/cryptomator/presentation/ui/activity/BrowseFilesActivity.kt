@@ -14,7 +14,6 @@ import org.cryptomator.domain.CloudNode
 import org.cryptomator.domain.exception.ParentFolderIsNullException
 import org.cryptomator.generator.Activity
 import org.cryptomator.generator.InjectIntent
-import org.cryptomator.presentation.CryptomatorApp
 import org.cryptomator.presentation.R
 import org.cryptomator.presentation.databinding.ActivityLayoutBinding
 import org.cryptomator.presentation.intent.BrowseFilesIntent
@@ -357,7 +356,7 @@ class BrowseFilesActivity : BaseActivity<ActivityLayoutBinding>(ActivityLayoutBi
 	}
 
 	override fun onReplaceCanceled() {
-		(application as CryptomatorApp).unSuspendLock()
+		browseFilesPresenter.onUploadReplaceCanceled()
 		showProgress(COMPLETED)
 	}
 

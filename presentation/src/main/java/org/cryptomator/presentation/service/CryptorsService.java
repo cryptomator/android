@@ -34,14 +34,14 @@ public class CryptorsService extends Service {
 	private UnlockedNotification notification;
 	private final Consumer<LockTimeout> onLockTimeoutChanged = this::onLockTimeoutChanged;
 	private volatile boolean running = true;
-	private volatile boolean lockSuspended = false;
+	private final KeepAliveLeaseManager leaseManager = new KeepAliveLeaseManager();
 	private final Thread worker = new Thread(new Runnable() {
 		@Override
 		public void run() {
 			while (running) {
 				try {
 					waitUntilVaultsUnlockedAndInBackground();
-					if (!lockSuspended) {
+					if (!leaseManager.hasActiveLease()) {
 						if (autolockTimeout.expired()) {
 							Timber.tag("CryptorsService").i("autolock timeout expired");
 							destroyCryptorsAndHideNotification();
@@ -188,12 +188,9 @@ public class CryptorsService extends Service {
 			onAppInForegroundChanged(appInForeground);
 		}
 
-		public void suspendLock() {
-			lockSuspended = true;
-		}
-
-		public void unSuspendLock() {
-			lockSuspended = false;
+		public KeepAliveLease acquireLease(LeaseReason reason, long ttlMs,
+				Long hardMaxMs, String tag) {
+			return leaseManager.acquire(reason, ttlMs, hardMaxMs, tag);
 		}
 
 		public void setFileUtil(FileUtil mfileUtil) {
@@ -207,7 +204,7 @@ public class CryptorsService extends Service {
 		public void onReceive(Context context, Intent intent) {
 			if (intent.getAction().equals(Intent.ACTION_SCREEN_OFF) && //
 					sharedPreferencesHandler.lockOnScreenOff() && //
-					!lockSuspended) {
+					!leaseManager.hasActiveLease()) {
 				Timber.tag("CryptorsService").i("ScreenLock received, destroying cryptors and shutting down service");
 
 				destroyCryptorsAndHideNotification();
