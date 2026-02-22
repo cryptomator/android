@@ -12,6 +12,7 @@ import org.cryptomator.presentation.ui.activity.view.TextEditorView
 import org.cryptomator.presentation.util.ContentResolverUtil
 import org.cryptomator.presentation.util.FileUtil
 import org.cryptomator.util.file.FileCacheUtils
+import java.io.File
 import java.io.IOException
 import java.util.concurrent.atomic.AtomicReference
 import javax.inject.Inject
@@ -82,6 +83,7 @@ class TextEditorPresenter @Inject constructor( //
 				v.showMessage(R.string.notification_upload_started)
 				v.finish()
 			} else {
+				uri.path?.let { File(it).delete() }
 				v.showMessage(R.string.error_upload_service_unavailable)
 			}
 		}

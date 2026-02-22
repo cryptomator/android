@@ -76,8 +76,9 @@ class StreamHelperTest {
 	@Test
 	@DisplayName("copy closes both streams when write throws IOException")
 	fun copyClosesStreamsOnWriteError() {
-		val data = byteArrayOf(1, 2, 3)
-		val input = ByteArrayInputStream(data)
+		val input: InputStream = mock {
+			on { read(any<ByteArray>()) } doReturn 1
+		}
 		val output: OutputStream = mock {
 			on { write(any<ByteArray>(), any(), any()) } doThrow IOException("write failed")
 		}
@@ -87,6 +88,7 @@ class StreamHelperTest {
 		} catch (_: IOException) {
 		}
 
+		verify(input).close()
 		verify(output).close()
 	}
 

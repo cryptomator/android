@@ -429,10 +429,16 @@ class BrowseFilesPresenter @Inject constructor( //
 
 	private fun uploadFiles(files: List<UploadFile>) {
 		uploadLocation?.let { location ->
-			val cloud = location.toCloudNode().cloud ?: return@let
-			val vault = location.vault()
-			val vaultId = vault?.toVault()?.id ?: return@let
-			val targetFolderPath = location.toCloudNode().path
+			val locationNode = location.toCloudNode()
+			val cloud = locationNode.cloud ?: run {
+				cryptomatorApp.unSuspendLock()
+				return@let
+			}
+			val vaultId = location.vault()?.toVault()?.id ?: run {
+				cryptomatorApp.unSuspendLock()
+				return@let
+			}
+			val targetFolderPath = locationNode.path
 
 			saveCheckpoint(vaultId, "files", targetFolderPath, files.size) {
 				pendingFileUris = toJsonArray(files.map { it.dataSource.toString() })
@@ -1107,10 +1113,16 @@ class BrowseFilesPresenter @Inject constructor( //
 
 	private fun uploadFolder(folderStructure: UploadFolderStructure, sourceFolderUri: Uri? = null) {
 		uploadLocation?.let { location ->
-			val cloud = location.toCloudNode().cloud ?: return@let
-			val vault = location.vault()
-			val vaultId = vault?.toVault()?.id ?: return@let
-			val targetFolderPath = location.toCloudNode().path
+			val locationNode = location.toCloudNode()
+			val cloud = locationNode.cloud ?: run {
+				cryptomatorApp.unSuspendLock()
+				return@let
+			}
+			val vaultId = location.vault()?.toVault()?.id ?: run {
+				cryptomatorApp.unSuspendLock()
+				return@let
+			}
+			val targetFolderPath = locationNode.path
 
 			saveCheckpoint(vaultId, "folder", targetFolderPath, folderStructure.totalFileCount()) {
 				this.sourceFolderUri = sourceFolderUri?.toString()
