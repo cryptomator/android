@@ -494,7 +494,7 @@ class VaultListPresenter @Inject constructor( //
 	}
 
 	fun onCancelUploadAndLockConfirmed(vaultId: Long) {
-		context().startService(UploadService.cancelUploadIntent(context()))
+		context().startService(UploadService.cancelUploadForVaultIntent(context(), vaultId))
 		lockVault(VaultModel(vaultRepository.load(vaultId)))
 	}
 
@@ -675,6 +675,10 @@ class VaultListPresenter @Inject constructor( //
 		folderResumeDisposable = Single.fromCallable { buildUploadFolderStructure(documentFile) }
 			.subscribeOn(Schedulers.io())
 			.observeOn(AndroidSchedulers.mainThread())
+			.doFinally {
+				releaseResumeLease()
+				navigatePendingAfterResume()
+			}
 			.subscribe({ folderStructure ->
 				view?.showProgress(ProgressModel.COMPLETED)
 				if (checkpoint.isReplacing) {
@@ -683,15 +687,11 @@ class VaultListPresenter @Inject constructor( //
 				if (!cryptomatorApp.startFolderUpload(cloud, checkpoint.targetFolderPath, folderStructure, completedFiles, vaultId)) {
 					view?.showMessage(R.string.error_upload_service_unavailable)
 				}
-				releaseResumeLease()
-				navigatePendingAfterResume()
 			}, { e ->
 				view?.showProgress(ProgressModel.COMPLETED)
 				Timber.tag("VaultListPresenter").w(e, "Failed to read folder during resume")
 				view?.showMessage(R.string.dialog_resume_upload_permission_lost)
 				uploadCheckpointDao.deleteByVaultId(vaultId)
-				releaseResumeLease()
-				navigatePendingAfterResume()
 			})
 	}
 

@@ -37,10 +37,12 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashSet;
+import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Queue;
 import java.util.Set;
+import java.util.concurrent.ConcurrentHashMap;
 import java.util.stream.Collectors;
 
 import timber.log.Timber;
@@ -48,6 +50,7 @@ import timber.log.Timber;
 public class UploadService extends Service {
 
 	private static final String ACTION_CANCEL_UPLOAD = "CANCEL_UPLOAD";
+	private static final String EXTRA_CANCEL_VAULT_ID = "cancelVaultId";
 
 	private UploadNotification notification;
 	private CloudContentRepository cloudContentRepository;
@@ -58,6 +61,8 @@ public class UploadService extends Service {
 	private Thread worker;
 	private volatile boolean cancelled;
 	private volatile Runnable cancelCallback;
+	private volatile long currentVaultId = -1L;
+	private final Set<Long> cancelledVaultIds = ConcurrentHashMap.newKeySet();
 	private volatile long startTimeNotificationDelay;
 	private volatile long elapsedTimeNotificationDelay = 0L;
 	private volatile List<Uri> cleanupUris = Collections.emptyList();
@@ -70,6 +75,13 @@ public class UploadService extends Service {
 	public static Intent cancelUploadIntent(Context context) {
 		Intent cancelIntent = new Intent(context, UploadService.class);
 		cancelIntent.setAction(ACTION_CANCEL_UPLOAD);
+		return cancelIntent;
+	}
+
+	public static Intent cancelUploadForVaultIntent(Context context, long vaultId) {
+		Intent cancelIntent = new Intent(context, UploadService.class);
+		cancelIntent.setAction(ACTION_CANCEL_UPLOAD);
+		cancelIntent.putExtra(EXTRA_CANCEL_VAULT_ID, vaultId);
 		return cancelIntent;
 	}
 
@@ -130,7 +142,8 @@ public class UploadService extends Service {
 					if (lease != null) {
 						lease.renew();
 					}
-					if (!processUpload(current, isFirst)) {
+					boolean success = processUpload(current, isFirst);
+					if (!success && cancelled) {
 						break;
 					}
 					isFirst = false;
@@ -155,6 +168,7 @@ public class UploadService extends Service {
 	}
 
 	private boolean processUpload(QueuedUpload upload, boolean isFirst) {
+		this.currentVaultId = upload.vaultId;
 		this.cleanupUris = upload.cleanupUris;
 
 		notification = new UploadNotification(appContext, upload.totalFiles);
@@ -167,6 +181,10 @@ public class UploadService extends Service {
 
 		try {
 			if (cancelled) {
+				return false;
+			}
+			if (cancelledVaultIds.remove(upload.vaultId)) {
+				emitVaultFinished(upload.vaultId);
 				return false;
 			}
 			CloudFolder targetFolder = upload.targetFolderPath.isEmpty()
@@ -188,6 +206,7 @@ public class UploadService extends Service {
 		} catch (CancellationException e) {
 			clearSnapshot(folderKey);
 			uploadCheckpointDao.deleteByVaultId(upload.vaultId);
+			cancelledVaultIds.remove(upload.vaultId);
 			emitVaultFinished(upload.vaultId);
 			Timber.tag("UploadService").i("Upload canceled by user");
 			return false;
@@ -214,11 +233,28 @@ public class UploadService extends Service {
 			abandoned = new ArrayList<>(pendingUploads);
 			pendingUploads.clear();
 		}
-		for (QueuedUpload upload : abandoned) {
-			uploadCheckpointDao.deleteByVaultId(upload.vaultId);
-			emitVaultFinished(upload.vaultId);
-			deleteTempFiles(upload.cleanupUris);
+		abandoned.forEach(this::cleanupAbandonedUpload);
+	}
+
+	private void drainQueueForVault(long vaultId) {
+		List<QueuedUpload> removed = new ArrayList<>();
+		synchronized (queueLock) {
+			Iterator<QueuedUpload> it = pendingUploads.iterator();
+			while (it.hasNext()) {
+				QueuedUpload upload = it.next();
+				if (upload.vaultId == vaultId) {
+					removed.add(upload);
+					it.remove();
+				}
+			}
 		}
+		removed.forEach(this::cleanupAbandonedUpload);
+	}
+
+	private void cleanupAbandonedUpload(QueuedUpload upload) {
+		uploadCheckpointDao.deleteByVaultId(upload.vaultId);
+		emitVaultFinished(upload.vaultId);
+		deleteTempFiles(upload.cleanupUris);
 	}
 
 	private interface UploadTask {
@@ -377,17 +413,29 @@ public class UploadService extends Service {
 	public int onStartCommand(Intent intent, int flags, int startId) {
 		Timber.tag("UploadService").i("started");
 		if (isCancelUpload(intent)) {
-			Timber.tag("UploadService").i("Received cancel upload");
-			drainAndCleanupQueue();
-			cancelled = true;
-			Runnable cancel = cancelCallback;
-			if (cancel != null) {
-				cancel.run();
-			}
-			hideNotification();
-			synchronized (queueLock) {
-				if (!workerRunning) {
-					stopSelf();
+			long cancelVaultId = intent.getLongExtra(EXTRA_CANCEL_VAULT_ID, -1L);
+			if (cancelVaultId != -1L) {
+				Timber.tag("UploadService").i("Received cancel for vault %d", cancelVaultId);
+				drainQueueForVault(cancelVaultId);
+				cancelledVaultIds.add(cancelVaultId);
+				Runnable cancel = cancelCallback;
+				long activeVaultId = this.currentVaultId;
+				if (cancel != null && activeVaultId == cancelVaultId) {
+					cancel.run();
+				}
+			} else {
+				Timber.tag("UploadService").i("Received cancel upload");
+				drainAndCleanupQueue();
+				cancelled = true;
+				Runnable cancel = cancelCallback;
+				if (cancel != null) {
+					cancel.run();
+				}
+				hideNotification();
+				synchronized (queueLock) {
+					if (!workerRunning) {
+						stopSelf();
+					}
 				}
 			}
 		}
