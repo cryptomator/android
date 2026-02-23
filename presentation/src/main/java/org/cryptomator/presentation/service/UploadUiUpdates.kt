@@ -27,7 +27,7 @@ class UploadUiUpdates @Inject constructor() {
 	fun emit(event: UploadUiEvent) {
 		when (event) {
 			is UploadUiEvent.NodeCreated -> {
-				snapshots.getOrPut(event.folderKey) { ConcurrentHashMap() }[event.node.name] = event.node
+				snapshots.computeIfAbsent(event.folderKey) { ConcurrentHashMap() }[event.node.name] = event.node
 			}
 			is UploadUiEvent.UploadFinished -> {
 				snapshots.remove(event.folderKey)

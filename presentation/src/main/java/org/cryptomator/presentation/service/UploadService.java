@@ -112,6 +112,7 @@ public class UploadService extends Service {
 				return;
 			}
 			workerRunning = true;
+			cancelled = false;
 		}
 		startWorker(upload);
 	}
@@ -161,11 +162,12 @@ public class UploadService extends Service {
 		}
 		notification.show();
 
-		cancelled = false;
-
 		FolderKey folderKey = new FolderKey(upload.vaultId, upload.targetFolderPath);
 
 		try {
+			if (cancelled) {
+				return false;
+			}
 			CloudFolder targetFolder = upload.targetFolderPath.isEmpty()
 					? cloudContentRepository.root(upload.cloud)
 					: cloudContentRepository.resolve(upload.cloud, upload.targetFolderPath);
@@ -183,6 +185,7 @@ public class UploadService extends Service {
 			return true;
 		} catch (CancellationException e) {
 			clearSnapshot(folderKey);
+			uploadCheckpointDao.deleteByVaultId(upload.vaultId);
 			Timber.tag("UploadService").i("Upload canceled by user");
 			return false;
 		} catch (MissingCryptorException e) {
@@ -364,6 +367,11 @@ public class UploadService extends Service {
 				cancel.run();
 			}
 			hideNotification();
+			synchronized (queueLock) {
+				if (!workerRunning) {
+					stopSelf();
+				}
+			}
 		}
 		return START_NOT_STICKY;
 	}
