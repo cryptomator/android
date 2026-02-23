@@ -324,19 +324,19 @@
 	<string name="dialog_vault_is_root_folder_of_cloud_title">O cofre é a pasta raiz da conexão com a nuvem</string>
 	<string name="dialog_vault_is_root_folder_of_cloud_hint">Crie uma nova conexão com a nuvem onde você seleciona pelo menos a pasta principal desta pasta de cofre como o diretório raiz para adicionar este cofre.</string>
 	<string name="dialog_disable_secure_screen_disclaimer_hint">Esta configuração é um recurso de segurança e impede que outros aplicativos induzam os usuários a fazer coisas que não devem fazer.\n\nAo desativar, você confirma que está <a href="https://docs.cryptomator.org/en/latest/android/settings/#screen-security">ciente dos riscos</a>.</string>
-	<string name="dialog_delete_cloud_connection_with_vaults_message">Tem certeza de que deseja remover esta conexão com a nuvem?</string>
+	<string name="dialog_delete_cloud_connection_with_vaults_message">Deseja mesmo remover esta conexão com a nuvem?</string>
 	<string name="dialog_delete_cloud_connection_with_vaults_hint">Esta ação removerá a conexão com o provedor de nuvem e todos os cofres desta nuvem.</string>
 	<string name="dialog_confirm_delete_multiple_title">Apagar %1$d item(ns)?</string>
 	<string name="dialog_confirm_delete_multiple_message">Deseja mesmo apagar este(s) item(ns)?</string>
 	<string name="dialog_confirm_delete_file_message">Deseja mesmo apagar este arquivo?</string>
-	<string name="dialog_confirm_delete_folder_message">Isto irá apagar todo o conteúdo da pasta. Tem certeza que deseja excluir esta pasta?</string>
+	<string name="dialog_confirm_delete_folder_message">Isto apagará todo o conteúdo da pasta. Deseja mesmo apagar esta pasta?</string>
 	<string name="dialog_biometric_auth_key_invalidated_title">Recurso de autenticação biométrica desativado</string>
 	<string name="dialog_biometric_auth_key_invalidated_message">Como a chave foi invalidada, o recurso de autenticação biométrica foi desativado. Para reativar, abra as configurações do Cryptomator.</string>
 	<string name="dialog_enter_license_title">Forneça uma licença válida</string>
 	<string name="dialog_enter_license_content">Nós detectamos que você instalou o Cryptomator sem usar a Google Play Store. Forneça uma licença válida, que pode ser comprada em <a href="https://cryptomator.org/android/">https://cryptomator.org/android/</a></string>
-	<string name="dialog_enter_license_not_valid_content">A licença fornecida não é válida. Verifique se você digitou corretamente.</string>
+	<string name="dialog_enter_license_not_valid_content">A licença fornecida é inválida. Verifique se você a digitou corretamente.</string>
 	<string name="dialog_enter_license_not_valid_content_desktop_supporter_certificate">A chave fornecida é um certificado de suporte da área de trabalho. Por favor, insira uma licença válida.</string>
-	<string name="dialog_enter_license_no_content">Nenhuma licença fornecida. Por favor insira uma licença válida.</string>
+	<string name="dialog_enter_license_no_content">Nenhuma licença fornecida. Digite uma licença válida.</string>
 	<string name="dialog_enter_license_decline_button">Sair</string>
 	<string name="dialog_license_confirmation_title">Confirmação de licença</string>
 	<string name="dialog_license_confirmation_message">Obrigado %1$s por fornecer a sua licença válida.</string>
@@ -352,19 +352,19 @@
 	<string name="dialog_sym_link_back_button">Voltar</string>
 	<string name="dialog_no_dir_file_title">Não foi possível carregar o conteúdo do diretório</string>
 	<string name="dialog_no_dir_file_message">A pasta na nuvem \'%1$s\' não tem um arquivo de diretório válido. Pode ser que a pasta foi criada em outro dispositivo e ainda não foi totalmente sincronizada com a nuvem. Por favor, verifique em sua nuvem se o seguinte arquivo existe:\n%2$s</string>
-	<string name="dialog_no_more_images_to_display">Sem mais imagens para exibir&#8230;</string>
+	<string name="dialog_no_more_images_to_display">Nenhuma imagem para ser mostrada&#8230;</string>
 	<string name="dialog_pcloud_credentials_updated_title">Credenciais de \"%1$s\" atualizadas</string>
 	<string name="dialog_pcloud_credentials_updated">Se você pretende adicionar uma nova conta pCloud, toque neste link <a href="https://www.pcloud.com">www.pcloud.com</a>, saia da conta atual e toque novamente no \'+\' neste aplicativo para criar uma nova conexão de nuvem.</string>
-	<string name="dialog_cbc_password_vaults_migration_title">Migração da senha do cofre necessária</string>
+	<string name="dialog_cbc_password_vaults_migration_title">Requer migração da senha do cofre</string>
 	<string name="dialog_cbc_password_vaults_migration_hint">Devido a aprimoramentos de segurança, você será solicitado pela sua autenticação biométrica duas vezes para cada cofre para recriptografar as senhas do seu cofre. Isto é necessário para continuar a proteger as senhas do seu cofre com a tecnologia mais recente. Se você não deseja que isso aconteça, as senhas armazenadas serão removidas.</string>
 	<string name="dialog_cbc_password_vaults_migration_action">Migrar</string>
 	<string name="dialog_create_hub_device_title">Registrar o dispositivo do Hub</string>
 	<string name="dialog_create_hub_device_name_label">Nome</string>
 	<string name="dialog_create_hub_device_name_hint">Este parece ser o primeiro acesso ao Hub a partir deste dispositivo. Para identificá-lo no processo de autorização, é necessário nomear este aparelho.</string>
-	<string name="dialog_create_hub_device_name_empty">Nome não pode estar vazio.</string>
+	<string name="dialog_create_hub_device_name_empty">O nome não pode estar vazio.</string>
 	<string name="dialog_create_hub_device_setup_code_label">Chave da Conta</string>
 	<string name="dialog_create_hub_device_setup_code_hint">Sua chave de conta é necessária para realizar o acesso a partir de novos aplicativos ou navegadores. Ela pode ser encontrada em seu perfil.</string>
-	<string name="dialog_create_hub_device_setup_code_empty">Chave da Conta não pode estar vazia.</string>
+	<string name="dialog_create_hub_device_setup_code_empty">A Chave de Conta não pode estar vazia.</string>
 	<string name="dialog_progress_creating_hub_device_setup">Criando dispositivo&#8230;</string>
 	<string name="dialog_hub_vault_access_forbidden_title">Acesso negado</string>
 	<string name="dialog_hub_vault_access_forbidden_hint">Seu dispositivo ainda não foi autorizado a acessar este cofre. Peça ao proprietário do cofre para autorizá-lo.\"</string>
@@ -372,7 +372,7 @@
 	<string name="dialog_hub_license_upgrade_required_hint">Sua instância do Cryptomator Hub possui uma licença inválida. Por favor, informe a um administrador do Hub que atualize ou renove a licença.\"</string>
 	<string name="dialog_hub_vault_archived_title">Cofre arquivado</string>
 	<string name="dialog_hub_vault_archived_hint">Este cofre está arquivado e não pode ser desbloqueado. Para desbloqueá-lo, o proprietário do cofre deve desarquivá-lo.</string>
-	<string name="dialog_hub_user_setup_required_title">Configuração de usuário necessária</string>
+	<string name="dialog_hub_user_setup_required_title">Requer configuração de usuário</string>
 	<string name="dialog_hub_user_setup_required_hint">Para prosseguir, preencha as etapas necessárias no seu perfil de usuário do Hub.</string>
 	<string name="dialog_hub_user_setup_required_neutral_button">Acessar o perfil</string>
 	<string name="permission_snackbar_auth_local_vault">Cryptomator precisa de permissão de acesso ao armazenamento para fazer upload de arquivos</string>
@@ -429,11 +429,11 @@
 	<string name="screen_settings_lru_cache">Cache</string>
 	<string name="screen_settings_lru_cache_toggle_summary">Cache para arquivos acessados recentemente para reutilização posterior quando reabertos</string>
 	<string name="screen_settings_lru_cache_size">Tamanho total do cache</string>
-	<string name="screen_settings_clear_lru_cache_size">Limpar Cache</string>
+	<string name="screen_settings_clear_lru_cache_size">Limpar cache</string>
 	<string name="screen_settings_lru_cache_changed__restart_toast">As alterações serão aplicadas na próxima reinicialização do aplicativo</string>
 	<string name="screen_settings_license">Registrado por</string>
 	<string name="screen_settings_license_mail">%1$s</string>
-	<string name="dialog_settings_update_check_interval_title">Escolha o período de atualização</string>
+	<string name="dialog_settings_update_check_interval_title">Intervalo de verificação de atualização</string>
 	<string name="screen_settings_check_updates">Verificar atualizações</string>
 	<string name="screen_settings_last_check_updates">Última verificação em %1$s</string>
 	<string name="dialog_cache_size_title">Tamanho do cache por nuvem</string>
