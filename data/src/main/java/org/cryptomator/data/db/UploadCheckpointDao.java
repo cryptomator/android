@@ -6,6 +6,9 @@ import android.database.sqlite.SQLiteDatabase;
 
 import org.cryptomator.data.db.entities.UploadCheckpointEntity;
 
+import java.util.HashSet;
+import java.util.Set;
+
 import javax.inject.Inject;
 import javax.inject.Singleton;
 
@@ -42,6 +45,17 @@ public class UploadCheckpointDao {
 
 	public void deleteByVaultId(long vaultId) {
 		getDb().delete(TABLE_NAME, "VAULT_ID = ?", new String[]{String.valueOf(vaultId)});
+	}
+
+	public Set<Long> findAllVaultIdsWithCheckpoints() {
+		Set<Long> result = new HashSet<>();
+		try (Cursor cursor = getDb().query(TABLE_NAME, new String[]{"VAULT_ID"},
+				null, null, null, null, null)) {
+			while (cursor.moveToNext()) {
+				result.add(cursor.getLong(0));
+			}
+		}
+		return result;
 	}
 
 	public void updateCompletedFiles(long vaultId, String completedFilesJson) {

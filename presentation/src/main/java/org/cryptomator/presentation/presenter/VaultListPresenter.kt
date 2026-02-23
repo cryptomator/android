@@ -49,6 +49,9 @@ import org.cryptomator.presentation.CryptomatorApp
 import org.cryptomator.presentation.R
 import org.cryptomator.presentation.service.KeepAliveLease
 import org.cryptomator.presentation.service.LeaseReason
+import org.cryptomator.presentation.service.UploadUiUpdates
+import org.cryptomator.presentation.service.VaultUploadEvent
+import org.cryptomator.presentation.ui.adapter.VaultUploadState
 import org.cryptomator.presentation.exception.ExceptionHandlers
 import org.cryptomator.presentation.intent.Intents
 import org.cryptomator.presentation.intent.UnlockVaultIntent
@@ -111,6 +114,7 @@ class VaultListPresenter @Inject constructor( //
 	private val cloudFolderModelMapper: CloudFolderModelMapper,  //
 	private val sharedPreferencesHandler: SharedPreferencesHandler,  //
 	private val uploadCheckpointDao: UploadCheckpointDao,  //
+	private val uploadUiUpdates: UploadUiUpdates,  //
 	private val vaultRepository: VaultRepository,  //
 	private val cloudRepository: CloudRepository,  //
 	private val contentResolverUtil: ContentResolverUtil,  //
@@ -120,7 +124,9 @@ class VaultListPresenter @Inject constructor( //
 	private val cryptomatorApp: CryptomatorApp get() = activity().application as CryptomatorApp
 	private var vaultAction: VaultAction? = null
 	private var folderResumeDisposable: Disposable? = null
+	private var uploadEventsDisposable: Disposable? = null
 	private var resumeLease: KeepAliveLease? = null
+	private var pendingNavigationAfterResume: Pair<Vault, CloudFolder>? = null
 
 	override fun workflows(): Iterable<Workflow<*>> {
 		return listOf(addExistingVaultWorkflow, createNewVaultWorkflow)
@@ -131,6 +137,8 @@ class VaultListPresenter @Inject constructor( //
 		resumeLease = null
 		folderResumeDisposable?.dispose()
 		folderResumeDisposable = null
+		uploadEventsDisposable?.dispose()
+		uploadEventsDisposable = null
 	}
 
 	fun onWindowFocusChanged(hasFocus: Boolean) {
@@ -429,9 +437,45 @@ class VaultListPresenter @Inject constructor( //
 						view?.hideVaultCreationHint()
 					}
 					view?.renderVaultList(vaultModels)
+					refreshUploadStates()
+					subscribeToVaultUploadEvents()
 				}
 			})
 		}
+
+	private fun refreshUploadStates() {
+		val checkpointVaultIds = uploadCheckpointDao.findAllVaultIdsWithCheckpoints()
+		val activeVaultIds = uploadUiUpdates.activeVaultIds()
+		val stateMap = mutableMapOf<Long, VaultUploadState>()
+		for (vaultId in activeVaultIds) {
+			stateMap[vaultId] = VaultUploadState.ACTIVE
+		}
+		for (vaultId in checkpointVaultIds) {
+			if (vaultId !in activeVaultIds) {
+				stateMap[vaultId] = VaultUploadState.RESUMABLE
+			}
+		}
+		view?.updateUploadStates(stateMap)
+	}
+
+	private fun subscribeToVaultUploadEvents() {
+		uploadEventsDisposable?.dispose()
+		uploadEventsDisposable = uploadUiUpdates.vaultEvents()
+			.observeOn(AndroidSchedulers.mainThread())
+			.subscribe({ event ->
+				when (event) {
+					is VaultUploadEvent.Started ->
+						view?.updateVaultUploadState(event.vaultId, VaultUploadState.ACTIVE)
+					is VaultUploadEvent.Finished -> {
+						val hasCheckpoint = uploadCheckpointDao.findByVaultId(event.vaultId) != null
+						val state = if (hasCheckpoint) VaultUploadState.RESUMABLE else null
+						view?.updateVaultUploadState(event.vaultId, state)
+					}
+				}
+			}, { e ->
+				Timber.tag("VaultListPresenter").w(e, "Vault upload event stream error")
+			})
+	}
 
 	private fun navigateToVaultContent(vault: Vault, cloudFolder: CloudFolder) {
 		if (!isPaused) {
@@ -576,8 +620,6 @@ class VaultListPresenter @Inject constructor( //
 			navigateToVaultContent(vault, folder)
 		}
 	}
-
-	private var pendingNavigationAfterResume: Pair<Vault, CloudFolder>? = null
 
 	fun onResumeUploadConfirmed(vaultId: Long) {
 		try {

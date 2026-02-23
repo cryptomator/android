@@ -8,6 +8,7 @@ import org.cryptomator.generator.Fragment
 import org.cryptomator.presentation.databinding.FragmentVaultListBinding
 import org.cryptomator.presentation.model.VaultModel
 import org.cryptomator.presentation.presenter.VaultListPresenter
+import org.cryptomator.presentation.ui.adapter.VaultUploadState
 import org.cryptomator.presentation.ui.adapter.VaultsAdapter
 import org.cryptomator.presentation.ui.adapter.VaultsMoveListener
 import javax.inject.Inject
@@ -103,6 +104,14 @@ class VaultListFragment : BaseFragment<FragmentVaultListBinding>(FragmentVaultLi
 
 	fun rowMoved(fromPosition: Int, toPosition: Int) {
 		vaultsAdapter.notifyItemMoved(fromPosition, toPosition)
+	}
+
+	fun updateUploadStates(states: Map<Long, VaultUploadState>) {
+		vaultsAdapter.setUploadStates(states)
+	}
+
+	fun updateVaultUploadState(vaultId: Long, state: VaultUploadState?) {
+		vaultsAdapter.updateUploadState(vaultId, state)
 	}
 
 	fun rootView(): View = binding.coordinatorLayout

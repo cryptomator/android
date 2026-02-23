@@ -32,6 +32,7 @@ import org.cryptomator.presentation.ui.dialog.UpdateAppAvailableDialog
 import org.cryptomator.presentation.ui.dialog.UpdateAppDialog
 import org.cryptomator.presentation.ui.dialog.VaultDeleteConfirmationDialog
 import org.cryptomator.presentation.ui.dialog.VaultRenameDialog
+import org.cryptomator.presentation.ui.adapter.VaultUploadState
 import org.cryptomator.presentation.ui.fragment.VaultListFragment
 import org.cryptomator.presentation.ui.layout.ObscuredAwareCoordinatorLayout.Listener
 import org.cryptomator.presentation.util.BiometricAuthenticationMigration
@@ -168,6 +169,14 @@ class VaultListActivity : BaseActivity<ActivityLayoutObscureAwareBinding>(Activi
 
 	override fun renameVault(vaultModel: VaultModel) {
 		vaultListFragment().addOrUpdateVault(vaultModel)
+	}
+
+	override fun updateUploadStates(states: Map<Long, VaultUploadState>) {
+		vaultListFragment().updateUploadStates(states)
+	}
+
+	override fun updateVaultUploadState(vaultId: Long, state: VaultUploadState?) {
+		vaultListFragment().updateVaultUploadState(vaultId, state)
 	}
 
 	override fun onAddExistingVault() {

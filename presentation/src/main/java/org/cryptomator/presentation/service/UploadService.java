@@ -105,6 +105,7 @@ public class UploadService extends Service {
 	private void startUpload(Cloud cloud, String targetFolderPath, Set<String> completedFiles,
 			long vaultId, int totalFiles, List<Uri> cleanupUris, UploadTask uploadTask) {
 		QueuedUpload upload = new QueuedUpload(cloud, targetFolderPath, completedFiles, vaultId, totalFiles, uploadTask, cleanupUris);
+		emitVaultActive(vaultId);
 		synchronized (queueLock) {
 			if (workerRunning) {
 				pendingUploads.add(upload);
@@ -180,21 +181,25 @@ public class UploadService extends Service {
 
 			uploadCheckpointDao.deleteByVaultId(upload.vaultId);
 			emitUploadFinished(folderKey);
+			emitVaultFinished(upload.vaultId);
 			notification.showUploadFinished(upload.totalFiles - upload.completedFiles.size());
 			Timber.tag("UploadService").i("Upload completed");
 			return true;
 		} catch (CancellationException e) {
 			clearSnapshot(folderKey);
 			uploadCheckpointDao.deleteByVaultId(upload.vaultId);
+			emitVaultFinished(upload.vaultId);
 			Timber.tag("UploadService").i("Upload canceled by user");
 			return false;
 		} catch (MissingCryptorException e) {
 			clearSnapshot(folderKey);
+			emitVaultFinished(upload.vaultId);
 			notification.showVaultLockedDuringUpload();
 			Timber.tag("UploadService").e(e, "Vault locked during upload");
 			return false;
 		} catch (BackendException | FatalBackendException e) {
 			clearSnapshot(folderKey);
+			emitVaultFinished(upload.vaultId);
 			notification.showGeneralErrorDuringUpload();
 			Timber.tag("UploadService").e(e, "Upload failed");
 			return false;
@@ -211,6 +216,7 @@ public class UploadService extends Service {
 		}
 		for (QueuedUpload upload : abandoned) {
 			uploadCheckpointDao.deleteByVaultId(upload.vaultId);
+			emitVaultFinished(upload.vaultId);
 			deleteTempFiles(upload.cleanupUris);
 		}
 	}
@@ -292,18 +298,30 @@ public class UploadService extends Service {
 	}
 
 	private void emitEvent(UploadUiEvent event) {
-		if (uploadUiUpdates != null) {
-			try {
-				uploadUiUpdates.emit(event);
-			} catch (Exception e) {
-				Timber.tag("UploadService").w(e, "Failed to emit upload event");
-			}
-		}
+		safeEmit(() -> uploadUiUpdates.emit(event), "Failed to emit upload event");
 	}
 
 	private void clearSnapshot(FolderKey folderKey) {
 		if (uploadUiUpdates != null) {
 			uploadUiUpdates.clear(folderKey);
+		}
+	}
+
+	private void emitVaultActive(long vaultId) {
+		safeEmit(() -> uploadUiUpdates.markVaultActive(vaultId), "Failed to emit vault active event");
+	}
+
+	private void emitVaultFinished(long vaultId) {
+		safeEmit(() -> uploadUiUpdates.markVaultFinished(vaultId), "Failed to emit vault finished event");
+	}
+
+	private void safeEmit(Runnable action, String errorMessage) {
+		if (uploadUiUpdates != null) {
+			try {
+				action.run();
+			} catch (Exception e) {
+				Timber.tag("UploadService").w(e, errorMessage);
+			}
 		}
 	}
 

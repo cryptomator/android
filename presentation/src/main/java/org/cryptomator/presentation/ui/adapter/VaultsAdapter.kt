@@ -1,16 +1,25 @@
 package org.cryptomator.presentation.ui.adapter
 
+import android.graphics.drawable.AnimatedVectorDrawable
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.content.ContextCompat
+import org.cryptomator.presentation.R
 import org.cryptomator.presentation.databinding.ItemVaultBinding
 import org.cryptomator.presentation.model.VaultModel
 import org.cryptomator.presentation.model.comparator.VaultPositionComparator
 import org.cryptomator.presentation.ui.adapter.VaultsAdapter.VaultViewHolder
 import javax.inject.Inject
 
+enum class VaultUploadState {
+	ACTIVE, RESUMABLE
+}
+
 class VaultsAdapter @Inject
 internal constructor() : RecyclerViewBaseAdapter<VaultModel, VaultsAdapter.OnItemInteractionListener, VaultViewHolder, ItemVaultBinding>(VaultPositionComparator()), VaultsMoveListener.Listener {
+
+	private val uploadStates = mutableMapOf<Long, VaultUploadState>()
 
 	interface OnItemInteractionListener {
 
@@ -45,6 +54,24 @@ internal constructor() : RecyclerViewBaseAdapter<VaultModel, VaultsAdapter.OnIte
 		}
 	}
 
+	fun updateUploadState(vaultId: Long, state: VaultUploadState?) {
+		if (state != null) {
+			uploadStates[vaultId] = state
+		} else {
+			uploadStates.remove(vaultId)
+		}
+		val position = itemCollection.indexOfFirst { it.vaultId == vaultId }
+		if (position >= 0) {
+			notifyItemChanged(position)
+		}
+	}
+
+	fun setUploadStates(states: Map<Long, VaultUploadState>) {
+		uploadStates.clear()
+		uploadStates.putAll(states)
+		notifyDataSetChanged()
+	}
+
 	private fun getVault(vaultId: Long): VaultModel? {
 		return itemCollection.firstOrNull { it.vaultId == vaultId }
 	}
@@ -63,6 +90,24 @@ internal constructor() : RecyclerViewBaseAdapter<VaultModel, VaultsAdapter.OnIte
 				binding.unlockedImage.visibility = View.GONE
 			} else {
 				binding.unlockedImage.visibility = View.VISIBLE
+			}
+
+			(binding.uploadIndicator.drawable as? AnimatedVectorDrawable)?.stop()
+			when (uploadStates[vaultModel.vaultId]) {
+				VaultUploadState.ACTIVE -> {
+					binding.uploadIndicator.setImageResource(R.drawable.ic_upload_arrow_animated)
+					binding.uploadIndicator.clearColorFilter()
+					binding.uploadIndicator.visibility = View.VISIBLE
+					(binding.uploadIndicator.drawable as? AnimatedVectorDrawable)?.start()
+				}
+				VaultUploadState.RESUMABLE -> {
+					binding.uploadIndicator.setImageResource(R.drawable.ic_upload_arrow)
+					binding.uploadIndicator.setColorFilter(ContextCompat.getColor(itemView.context, R.color.textColorLight))
+					binding.uploadIndicator.visibility = View.VISIBLE
+				}
+				null -> {
+					binding.uploadIndicator.visibility = View.GONE
+				}
 			}
 
 			itemView.setOnClickListener {
