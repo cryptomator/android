@@ -422,6 +422,95 @@ class UploadFolderFilesTest {
 		assertThat(result[0], `is`(resultFile2))
 	}
 
+	@Test
+	@DisplayName("Per-file CloudNodeAlreadyExistsException is caught and file is skipped")
+	@Throws(BackendException::class)
+	fun testPerFileAlreadyExistsIsSkipped() {
+		val fileSize: Long = 100
+		val dataSource1 = dataSourceWithBytes(1, fileSize, fileSize)
+		val dataSource2 = dataSourceWithBytes(2, fileSize, fileSize)
+		val callback: FileUploadedCallback = mock()
+
+		val structure = UploadFolderStructure("testFolder")
+		structure.addFile(
+			UploadFile.Builder()
+				.withFileName("existing.txt")
+				.withDataSource(dataSource1)
+				.thatIsReplacing(false)
+				.build()
+		)
+		structure.addFile(
+			UploadFile.Builder()
+				.withFileName("new.txt")
+				.withDataSource(dataSource2)
+				.thatIsReplacing(false)
+				.build()
+		)
+
+		val inTest = UploadFolderFiles(context, cloudContentRepository, parent, structure)
+		inTest.setFileUploadedCallback(callback)
+
+		val existingTarget: CloudFile = mock()
+		whenever(cloudContentRepository.file(createdFolder, "existing.txt", fileSize)).thenReturn(existingTarget)
+		whenever(
+			cloudContentRepository.write(
+				same(existingTarget),
+				any(DataSource::class.java),
+				same(progressAware),
+				eq(false),
+				eq(fileSize)
+			)
+		).thenThrow(CloudNodeAlreadyExistsException("existing.txt"))
+
+		whenever(cloudContentRepository.file(createdFolder, "new.txt", fileSize)).thenReturn(targetFile)
+		whenever(
+			cloudContentRepository.write(
+				same(targetFile),
+				any(DataSource::class.java),
+				same(progressAware),
+				eq(false),
+				eq(fileSize)
+			)
+		).thenReturn(resultFile)
+
+		val result = inTest.execute(progressAware)
+
+		assertThat(result.size, `is`(1))
+		assertThat(result[0], `is`(resultFile))
+		verify(callback).onFileUploaded(eq("testFolder/existing.txt"), eq(null))
+		verify(callback).onFileUploaded(eq("testFolder/new.txt"), same(resultFile))
+	}
+
+	@Test
+	@DisplayName("setAllReplacing recursively sets replacing on all files")
+	fun testSetAllReplacing() {
+		val dataSource = dataSourceWithBytes(0, 10, 10)
+
+		val subfolder = UploadFolderStructure("sub")
+		subfolder.addFile(
+			UploadFile.Builder()
+				.withFileName("subfile.txt")
+				.withDataSource(dataSource)
+				.thatIsReplacing(false)
+				.build()
+		)
+
+		val root = UploadFolderStructure("root")
+		root.addFile(
+			UploadFile.Builder()
+				.withFileName("rootfile.txt")
+				.withDataSource(dataSource)
+				.thatIsReplacing(false)
+				.build()
+		)
+		root.addSubfolder(subfolder)
+
+		root.setAllReplacing(true)
+
+		assertThat(root.files[0].replacing, `is`(true))
+		assertThat(root.subfolders[0].files[0].replacing, `is`(true))
+	}
+
 	private fun dataSourceWithBytes(value: Int, amount: Long, size: Long?): DataSource {
 		check(amount <= Int.MAX_VALUE) { "Can not use values > Integer.MAX_VALUE" }
 		val bytes = bytes(value, amount)

@@ -61,6 +61,7 @@ public class UploadCheckpointDao {
 		values.put("COMPLETED_FILES", entity.getCompletedFiles());
 		values.put("TOTAL_FILE_COUNT", entity.getTotalFileCount());
 		values.put("TIMESTAMP", entity.getTimestamp());
+		values.put("REPLACING", entity.isReplacing() ? 1 : 0);
 		return values;
 	}
 
@@ -76,6 +77,7 @@ public class UploadCheckpointDao {
 		entity.setCompletedFiles(cursor.getString(cursor.getColumnIndexOrThrow("COMPLETED_FILES")));
 		entity.setTotalFileCount(cursor.getInt(cursor.getColumnIndexOrThrow("TOTAL_FILE_COUNT")));
 		entity.setTimestamp(cursor.getLong(cursor.getColumnIndexOrThrow("TIMESTAMP")));
+		entity.setReplacing(cursor.getInt(cursor.getColumnIndexOrThrow("REPLACING")) != 0);
 		return entity;
 	}
 }

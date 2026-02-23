@@ -35,6 +35,15 @@ public class UploadFolderStructure {
 		this.subfolders.add(subfolder);
 	}
 
+	public void setAllReplacing(boolean replacing) {
+		for (UploadFile file : files) {
+			file.setReplacing(replacing);
+		}
+		for (UploadFolderStructure subfolder : subfolders) {
+			subfolder.setAllReplacing(replacing);
+		}
+	}
+
 	public int totalFileCount() {
 		int count = files.size();
 		for (UploadFolderStructure subfolder : subfolders) {

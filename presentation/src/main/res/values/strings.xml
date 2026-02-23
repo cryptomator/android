@@ -370,6 +370,10 @@
 	<string name="dialog_replace_title_single_file_exists">Replace file?</string>
 	<string name="dialog_replace_title_multiple_files_exist">Replace files?</string>
 
+	<string name="dialog_replace_folder_title">Replace folder?</string>
+	<string name="dialog_replace_folder_msg">A folder named \'%1$s\' already exists. Do you want to replace its contents?</string>
+	<string name="dialog_replace_folder_positive_button">Replace</string>
+
 	<string name="dialog_unable_to_share_title">Unable to share files</string>
 	<string name="dialog_unable_to_share_message">You haven\'t set up any vaults. Please create a new vault with the Cryptomator app first.</string>
 	<string name="dialog_unable_to_share_positive_button">OK</string>

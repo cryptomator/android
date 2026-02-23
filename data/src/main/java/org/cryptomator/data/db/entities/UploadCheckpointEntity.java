@@ -36,11 +36,14 @@ public class UploadCheckpointEntity extends DatabaseEntity {
 	@NotNull
 	private long timestamp;
 
-	@Generated(hash = 482695414)
+	private boolean replacing;
+
+	@Generated(hash = 1792302708)
 	public UploadCheckpointEntity(Long id, @NotNull Long vaultId,
 			@NotNull String type, @NotNull String targetFolderPath,
 			String sourceFolderUri, String sourceFolderName, String pendingFileUris,
-			@NotNull String completedFiles, int totalFileCount, long timestamp) {
+			@NotNull String completedFiles, int totalFileCount, long timestamp,
+			boolean replacing) {
 		this.id = id;
 		this.vaultId = vaultId;
 		this.type = type;
@@ -51,6 +54,7 @@ public class UploadCheckpointEntity extends DatabaseEntity {
 		this.completedFiles = completedFiles;
 		this.totalFileCount = totalFileCount;
 		this.timestamp = timestamp;
+		this.replacing = replacing;
 	}
 
 	@Generated(hash = 1737881290)
@@ -136,5 +140,17 @@ public class UploadCheckpointEntity extends DatabaseEntity {
 
 	public void setTimestamp(long timestamp) {
 		this.timestamp = timestamp;
+	}
+
+	public boolean isReplacing() {
+		return this.replacing;
+	}
+
+	public void setReplacing(boolean replacing) {
+		this.replacing = replacing;
+	}
+
+	public boolean getReplacing() {
+		return this.replacing;
 	}
 }

@@ -312,6 +312,10 @@ class BrowseFilesActivity : BaseActivity<ActivityLayoutBinding>(ActivityLayoutBi
 		ReplaceDialog.withContext(this).show(existingFiles, size)
 	}
 
+	override fun showReplaceFolderDialog(folderName: String) {
+		ReplaceDialog.withContext(this).showForFolder(folderName)
+	}
+
 	override fun showUploadDialog(uploadingFiles: Int) {
 		showDialog(UploadCloudFileDialog.newInstance(uploadingFiles))
 	}

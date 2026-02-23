@@ -624,6 +624,9 @@ class VaultListPresenter @Inject constructor( //
 			.observeOn(AndroidSchedulers.mainThread())
 			.subscribe({ folderStructure ->
 				view?.showProgress(ProgressModel.COMPLETED)
+				if (checkpoint.isReplacing) {
+					folderStructure.setAllReplacing(true)
+				}
 				if (!cryptomatorApp.startFolderUpload(cloud, checkpoint.targetFolderPath, folderStructure, completedFiles, vaultId)) {
 					view?.showMessage(R.string.error_upload_service_unavailable)
 				}

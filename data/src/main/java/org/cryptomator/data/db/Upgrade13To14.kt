@@ -29,6 +29,7 @@ internal class Upgrade13To14 @Inject constructor() : DatabaseUpgrade(13, 14) {
 			.requiredText("COMPLETED_FILES") //
 			.requiredInt("TOTAL_FILE_COUNT") //
 			.requiredInt("TIMESTAMP") //
+			.optionalInt("REPLACING") //
 			.executeOn(db)
 
 		Sql.createUniqueIndex("IDX_UPLOAD_CHECKPOINT_ENTITY_VAULT_ID") //

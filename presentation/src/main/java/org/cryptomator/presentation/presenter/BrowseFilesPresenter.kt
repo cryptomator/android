@@ -151,6 +151,8 @@ class BrowseFilesPresenter @Inject constructor( //
 	private var folderStructureDisposable: Disposable? = null
 	private var uploadEventsDisposable: Disposable? = null
 	private var pickerLease: KeepAliveLease? = null
+	private var pendingFolderUpload: UploadFolderStructure? = null
+	private var pendingFolderSourceUri: Uri? = null
 
 	@InjectIntent
 	lateinit var intent: BrowseFilesIntent
@@ -819,6 +821,10 @@ class BrowseFilesPresenter @Inject constructor( //
 		uploadFiles(filesReadyForUpload)
 	}
 
+	private fun folderExistsAtLocation(folderName: String): Boolean {
+		return view?.renderedCloudNodes()?.any { it is CloudFolderModel && it.name == folderName } == true
+	}
+
 	private fun hasUsedFileNamesAtLocation(currentCloudNodes: List<CloudNodeModel<*>>): Boolean {
 		currentCloudNodes
 			.filter { filesForUpload.containsKey(it.name) }
@@ -846,11 +852,22 @@ class BrowseFilesPresenter @Inject constructor( //
 	}
 
 	fun uploadFilesAndReplaceExistingFiles() {
+		pendingFolderUpload?.let { folder ->
+			folder.setAllReplacing(true)
+			uploadFolder(folder, pendingFolderSourceUri, replacing = true)
+			clearPendingFolderUpload()
+			return
+		}
 		differencesOfUploadAndExistingFiles()
 		uploadFiles(filesForUpload, existingFilesForUpload)
 	}
 
 	fun uploadFilesAndSkipExistingFiles() {
+		pendingFolderUpload?.let { folder ->
+			uploadFolder(folder, pendingFolderSourceUri)
+			clearPendingFolderUpload()
+			return
+		}
 		differencesOfUploadAndExistingFiles()
 		uploadFiles(filesForUpload, emptyMap())
 	}
@@ -1103,7 +1120,13 @@ class BrowseFilesPresenter @Inject constructor( //
 					view?.showMessage(R.string.screen_file_browser_nothing_to_upload)
 					return@subscribe
 				}
-				uploadFolder(folderStructure, treeUri)
+				if (folderExistsAtLocation(folderStructure.folderName)) {
+					pendingFolderUpload = folderStructure
+					pendingFolderSourceUri = treeUri
+					view?.showReplaceFolderDialog(folderStructure.folderName)
+				} else {
+					uploadFolder(folderStructure, treeUri)
+				}
 			}, { e ->
 				releasePickerLease()
 				view?.showProgress(ProgressModel.COMPLETED)
@@ -1111,7 +1134,7 @@ class BrowseFilesPresenter @Inject constructor( //
 			})
 	}
 
-	private fun uploadFolder(folderStructure: UploadFolderStructure, sourceFolderUri: Uri? = null) {
+	private fun uploadFolder(folderStructure: UploadFolderStructure, sourceFolderUri: Uri? = null, replacing: Boolean = false) {
 		val location = uploadLocation ?: return releasePickerLease()
 		val locationNode = location.toCloudNode()
 		val cloud = locationNode.cloud ?: return releasePickerLease()
@@ -1121,6 +1144,7 @@ class BrowseFilesPresenter @Inject constructor( //
 		saveCheckpoint(vaultId, "folder", targetFolderPath, folderStructure.totalFileCount()) {
 			this.sourceFolderUri = sourceFolderUri?.toString()
 			this.sourceFolderName = folderStructure.folderName
+			this.isReplacing = replacing
 		}
 
 		releasePickerLease()
@@ -1151,7 +1175,13 @@ class BrowseFilesPresenter @Inject constructor( //
 	}
 
 	fun onUploadReplaceCanceled() {
+		clearPendingFolderUpload()
 		releasePickerLease()
+	}
+
+	private fun clearPendingFolderUpload() {
+		pendingFolderUpload = null
+		pendingFolderSourceUri = null
 	}
 
 	private fun subscribeToUploadEvents(folder: CloudFolderModel) {

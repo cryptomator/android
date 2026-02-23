@@ -21,6 +21,7 @@ interface BrowseFilesView : View {
 	fun hideProgress(nodes: List<CloudNodeModel<*>>)
 	fun showFileTypeNotSupportedDialog(file: CloudFileModel)
 	fun showReplaceDialog(existingFiles: List<String>, size: Int)
+	fun showReplaceFolderDialog(folderName: String)
 	fun showUploadDialog(uploadingFiles: Int)
 	fun renderedCloudNodes(): List<CloudNodeModel<*>>
 	fun hasExcludedFolder(): Boolean

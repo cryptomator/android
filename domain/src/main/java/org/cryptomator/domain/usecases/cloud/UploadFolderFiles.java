@@ -93,9 +93,13 @@ public class UploadFolderFiles {
 			if (completedFiles.contains(fileRelativePath)) {
 				continue;
 			}
-			CloudFile uploadedFile = upload(createdFolder, file, progressAware);
-			uploadedFiles.add(uploadedFile);
-			fileUploadedCallback.onFileUploaded(fileRelativePath, uploadedFile);
+			try {
+				CloudFile uploadedFile = upload(createdFolder, file, progressAware);
+				uploadedFiles.add(uploadedFile);
+				fileUploadedCallback.onFileUploaded(fileRelativePath, uploadedFile);
+			} catch (CloudNodeAlreadyExistsException e) {
+				fileUploadedCallback.onFileUploaded(fileRelativePath, null);
+			}
 		}
 
 		for (UploadFolderStructure subfolder : structure.getSubfolders()) {
