@@ -49,6 +49,7 @@ import org.cryptomator.presentation.CryptomatorApp
 import org.cryptomator.presentation.R
 import org.cryptomator.presentation.service.KeepAliveLease
 import org.cryptomator.presentation.service.LeaseReason
+import org.cryptomator.presentation.service.UploadService
 import org.cryptomator.presentation.service.UploadUiUpdates
 import org.cryptomator.presentation.service.VaultUploadEvent
 import org.cryptomator.presentation.ui.adapter.VaultUploadState
@@ -66,6 +67,7 @@ import org.cryptomator.presentation.ui.dialog.AppIsObscuredInfoDialog
 import org.cryptomator.presentation.ui.dialog.AskForLockScreenDialog
 import org.cryptomator.presentation.ui.dialog.CBCPasswordVaultsMigrationDialog
 import org.cryptomator.presentation.ui.dialog.EnterPasswordDialog
+import org.cryptomator.presentation.ui.dialog.CancelUploadAndLockDialog
 import org.cryptomator.presentation.ui.dialog.ResumeUploadDialog
 import org.cryptomator.presentation.ui.dialog.UpdateAppAvailableDialog
 import org.cryptomator.presentation.ui.dialog.UpdateAppDialog
@@ -485,10 +487,15 @@ class VaultListPresenter @Inject constructor( //
 
 	fun onVaultLockClicked(vault: VaultModel) {
 		if (uploadUiUpdates.activeVaultIds().contains(vault.vaultId)) {
-			view?.showMessage(R.string.error_vault_lock_upload_in_progress)
+			view?.showDialog(CancelUploadAndLockDialog.newInstance(vault.vaultId))
 			return
 		}
 		lockVault(vault)
+	}
+
+	fun onCancelUploadAndLockConfirmed(vaultId: Long) {
+		context().startService(UploadService.cancelUploadIntent(context()))
+		lockVault(VaultModel(vaultRepository.load(vaultId)))
 	}
 
 	fun onVaultClicked(vault: VaultModel) {
