@@ -28,6 +28,7 @@ import org.cryptomator.domain.usecases.vault.SaveVaultsUseCase;
 import org.cryptomator.domain.usecases.vault.UnlockToken;
 import org.cryptomator.domain.usecases.vault.UpdateVaultParameterIfChangedRemotelyUseCase;
 import org.cryptomator.presentation.exception.ExceptionHandlers;
+import org.cryptomator.presentation.R;
 import org.cryptomator.presentation.model.VaultModel;
 import org.cryptomator.presentation.model.mappers.CloudFolderModelMapper;
 import org.cryptomator.presentation.service.UploadUiUpdates;
@@ -46,6 +47,7 @@ import org.mockito.Mockito;
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import io.reactivex.Flowable;
 import io.reactivex.android.plugins.RxAndroidPlugins;
@@ -263,6 +265,28 @@ public class VaultListPresenterTest {
 				.handleAuthenticationException(Mockito.any(), //
 						Mockito.any(), //
 						Mockito.any());
+	}
+
+	@Test
+	public void testOnVaultLockClickedLocksVault() {
+		when(lockVaultUseCase.withVault(AN_UNLOCKED_VAULT_MODEL.toVault())) //
+				.thenReturn(lockVaultUseCaseLauncher);
+
+		inTest.onVaultLockClicked(AN_UNLOCKED_VAULT_MODEL);
+
+		verify(lockVaultUseCaseLauncher).run(Mockito.any());
+	}
+
+	@Test
+	public void testOnVaultLockClickedShowsMessageWhenUploadActive() {
+		Set<Long> activeIds = new HashSet<>();
+		activeIds.add(AN_UNLOCKED_VAULT.getId());
+		when(uploadUiUpdates.activeVaultIds()).thenReturn(activeIds);
+
+		inTest.onVaultLockClicked(AN_UNLOCKED_VAULT_MODEL);
+
+		verify(vaultListView).showMessage(R.string.error_vault_lock_upload_in_progress);
+		verify(lockVaultUseCase, never()).withVault(Mockito.any());
 	}
 
 }

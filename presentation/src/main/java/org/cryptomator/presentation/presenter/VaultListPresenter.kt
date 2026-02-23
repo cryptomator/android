@@ -484,6 +484,10 @@ class VaultListPresenter @Inject constructor( //
 	}
 
 	fun onVaultLockClicked(vault: VaultModel) {
+		if (uploadUiUpdates.activeVaultIds().contains(vault.vaultId)) {
+			view?.showMessage(R.string.error_vault_lock_upload_in_progress)
+			return
+		}
 		lockVault(vault)
 	}
 
