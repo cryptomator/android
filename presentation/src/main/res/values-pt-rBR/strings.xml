@@ -78,7 +78,7 @@
 	<string name="screen_file_browser_create_new_vault_extra_text">Nome do cofre: %1$s</string>
 	<plurals name="screen_file_browser_subtitle_move">
 		<item quantity="one">Mover %1$s para</item>
-		<item quantity="other">Mover %2$d itens para</item>
+		<item quantity="other">Mover %2$d item(ns) para</item>
 	</plurals>
 	<string name="screen_file_browser_move_button_text">Mover </string>
 	<string name="screen_file_browser_msg_empty_folder">Pasta vazia</string>
