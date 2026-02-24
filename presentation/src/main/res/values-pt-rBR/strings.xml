@@ -308,7 +308,7 @@
 	<string name="dialog_no_screen_lock_title">Definir bloqueio de tela?</string>
 	<string name="dialog_no_screen_lock_checkbox">Definir bloqueio de tela</string>
 	<string name="dialog_no_biometric_auth_set_up_title">Nenhuma autenticação básica configurada no sistema</string>
-	<string name="dialog_no_biometric_auth_set_up_message">Registre pelo menos um dedo/rosto para usar este serviço.</string>
+	<string name="dialog_no_biometric_auth_set_up_message">Registre pelo menos um dedo ou rosto para usar este serviço.</string>
 	<string name="dialog_debug_mode_disclaimer_hint">Neste modo, os dados sensíveis podem ser gravados em um arquivo de registros no seu dispositivo (ex.: nomes de arquivos e caminhos). As senhas e os cookies, por exemplo, são explicitamente apagados.\n\nLembre-se de desativar o modo de depuração o mais rápido possível.</string>
 	<string name="dialog_debug_mode_disclaimer_title">Atenção</string>
 	<string name="dialog_debug_mode_positive_button">Ativar</string>
@@ -319,7 +319,7 @@
 	<string name="dialog_app_is_obscured_info_title">O aplicativo está oculto</string>
 	<string name="dialog_app_is_obscured_info_hint">Outro aplicativo está exibindo algo no topo do Cryptomator (por exemplo, um filtro de luz azul ou aplicativo de modo noturno). Por razões de segurança, o Cryptomator está desativado.\n\n<a href="https://docs.cryptomator.org/en/latest/android/settings/#block-app-when-obscured">Como ativar o Cryptomator</a></string>
 	<string name="dialog_app_is_obscured_info_neutral_button">Fechar</string>
-	<string name="dialog_vaults_removed_during_migration_title">Por favor, readicione cofres para a nuvem %1s</string>
+	<string name="dialog_vaults_removed_during_migration_title">Adicione novamente os cofres para a nuvem %1s</string>
 	<string name="dialog_vaults_removed_during_migration_hint">Durante a migração para esta versão do aplicativo, precisamos remover os seguintes cofres do aplicativo:\n%2s \n\nEsses cofres não são removidos da nuvem, mas apenas deste aplicativo. Desculpe o incômodo e por favor adicione novamente estes cofres para continuar a trabalhar com eles.</string>
 	<string name="dialog_vault_is_root_folder_of_cloud_title">O cofre é a pasta raiz da conexão com a nuvem</string>
 	<string name="dialog_vault_is_root_folder_of_cloud_hint">Crie uma nova conexão com a nuvem onde você seleciona pelo menos a pasta principal desta pasta de cofre como o diretório raiz para adicionar este cofre.</string>
