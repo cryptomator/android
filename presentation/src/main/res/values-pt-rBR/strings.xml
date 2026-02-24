@@ -37,19 +37,19 @@
 	<string name="error_interact_with_fdroid_but_fdroid_missing">Falha na comunicação com o aplicativo F-Droid. Ele está instalado?</string>
 	<string name="error_hub_vault_operation_not_supported">A operação de cofre não é suportada para o Hub</string>
 	<string name="error_hub_authentication_failed">Falha ao autenticar o Hub</string>
-	<string name="error_hub_device_already_register_for_other_user">Este dispositivo já está registrado para um usuário diferente. Tente alterar a conta de usuário ou use um dispositivo diferente.</string>
+	<string name="error_hub_device_already_register_for_other_user">Este dispositivo já está registrado para um usuário diferente. Tente alterar a conta de usuário ou use outro dispositivo.</string>
 	<string name="error_hub_invalid_setup_code">A Chave de Conta é inválida.</string>
 	<string name="error_hub_invalid_version">Versão do Hub não suportada.</string>
-	<string name="error_hub_unlock_pre_31">Hub só é suportado no Android 12 ou superior.</string>
+	<string name="error_hub_unlock_pre_31">O Hub só é compatível a partir do Android 12.</string>
 	<!-- # clouds -->
 	<!-- ## cloud names -->
 	<string name="cloud_names_local_storage">Armazenamento local</string>
 	<!-- # permission -->
 	<!-- ## permission messages -->
-	<string name="permission_message_export_file">Cryptomator precisa de permissão de acesso ao armazenamento para exportar arquivos</string>
-	<string name="permission_message_upload_file">Cryptomator precisa de permissão de acesso ao armazenamento para fazer upload de arquivos</string>
-	<string name="permission_message_share_file">Cryptomator precisa de permissão de acesso ao armazenamento para compartilhar arquivos</string>
-	<string name="permission_revoked_re_request_permission">O Cryptomator perdeu a permissão para acessar este local. Por favor, selecione esta pasta novamente para restaurar sua permissão.</string>
+	<string name="permission_message_export_file">O Cryptomator precisa de permissão de acesso ao armazenamento para exportar arquivos</string>
+	<string name="permission_message_upload_file">O Cryptomator precisa de permissão de acesso ao armazenamento para enviar arquivos</string>
+	<string name="permission_message_share_file">O Cryptomator precisa de permissão de acesso ao armazenamento para compartilhar arquivos</string>
+	<string name="permission_revoked_re_request_permission">O Cryptomator perdeu a permissão para acessar este local. Selecione esta pasta novamente para restaurar a permissão.</string>
 	<string name="snack_bar_action_title_settings">Configurações</string>
 	<string name="snack_bar_action_title_search">Buscar</string>
 	<string name="snack_bar_action_title_search_previous">Anterior</string>
@@ -116,7 +116,7 @@
 	<string name="screen_share_files_content_text">texto</string>
 	<string name="screen_share_files_content_file">arquivo</string>
 	<string name="screen_share_files_content_files">arquivos</string>
-	<string name="screen_share_files_msg_filenames_must_be_unique">Os nomes dos arquivos devem ser únicos, por favor, renomeie as duplicatas.</string>
+	<string name="screen_share_files_msg_filenames_must_be_unique">Os nomes dos arquivos devem ser únicos. Renomeie os duplicados.</string>
 	<string name="screen_share_files_section_location">Salvar localização</string>
 	<string name="screen_share_files_save_button_text">Salvar</string>
 	<string name="screen_share_files_msg_success">Criptografia concluída</string>
@@ -124,9 +124,9 @@
 	<string name="screen_choose_cloud_service_title">Serviço de nuvem</string>
 	<!-- ## screen: cloud connections -->
 	<string name="screen_cloud_connections_title">Escolha um local</string>
-	<string name="screen_cloud_connections_no_connections">Toque aqui para adicionar novas localizações</string>
+	<string name="screen_cloud_connections_no_connections">Toque aqui para adicionar novos locais</string>
 	<string name="screen_cloud_error_webdav_not_supported">O servidor não parece ser compatível com WebDAV</string>
-	<string name="screen_cloud_local_error_no_content_provider">Nenhum gerenciador de arquivos encontrado que suporte a abertura de pastas</string>
+	<string name="screen_cloud_local_error_no_content_provider">Nenhum gerenciador de arquivos encontrado que seja compatível para abrir os diretórios</string>
 	<!-- ## screen: webdav settings -->
 	<string name="screen_webdav_settings_url_port_label">URL</string>
 	<string name="screen_webdav_settings_username_label">Nome de usuário</string>
@@ -184,7 +184,7 @@
 	<string name="screen_settings_section_auto_photo_upload">Envio automático de foto</string>
 	<string name="screen_settings_section_auto_photo_upload_vault">Escolha o cofre para envio</string>
 	<string name="screen_settings_section_auto_photo_upload_toggle">Ativar</string>
-	<string name="screen_settings_section_auto_photo_upload_toggle_summary">Capture imagens em segundo plano e assim que o cofre selecionado for desbloqueado, inicie o upload</string>
+	<string name="screen_settings_section_auto_photo_upload_toggle_summary">Capture imagens em segundo plano e, assim que o cofre selecionado for desbloqueado, inicie o envio</string>
 	<string name="screen_settings_section_auto_photo_upload_toggle_instant_upload">Envio instantâneo</string>
 	<string name="screen_settings_section_auto_photo_upload_toggle_instant_upload_summary">Envia diretamente se o cofre estiver desbloqueado</string>
 	<string name="screen_settings_section_auto_photo_upload_only_wifi_toggle">Fazer envio apenas usando o Wi-Fi</string>
@@ -225,16 +225,16 @@
 	<!-- ## screen: cryptomator app variants -->
 	<string name="screen_cryptomator_variants_title">Variantes do Cryptomator</string>
 	<string name="screen_cryptomator_variants_lite_title">Repositório principal do F-Droid</string>
-	<string name="screen_cryptomator_variants_lite_description">Excluídas porque requerem chaves API.</string>
+	<string name="screen_cryptomator_variants_lite_description">Apagado porque requer chaves de API.</string>
 	<string name="screen_cryptomator_variants_lite_install">Instalar</string>
 	<string name="screen_cryptomator_variants_fdroid_title">Repositório do Cryptomator no F-Droid</string>
-	<string name="screen_cryptomator_variants_fdroid_description">Excluído porque contém dependências proprietárias.</string>
-	<string name="screen_cryptomator_variants_fdroid_add_repo_hint">Adicionar o repositório Cryptomator ao aplicativo F-Droid.</string>
+	<string name="screen_cryptomator_variants_fdroid_description">Apagado porque contém dependências proprietárias.</string>
+	<string name="screen_cryptomator_variants_fdroid_add_repo_hint">Adicionar o repositório do Cryptomator ao aplicativo F-Droid.</string>
 	<string name="screen_cryptomator_variants_fdroid_add_repo">Adicionar</string>
-	<string name="screen_cryptomator_variants_fdroid_install_hint">Instale o Cryptomator usando F-Droid.\nSe a mensagem de erro \"não encontrado\" for exibido, aguarde até que a sincronização do F-Droid seja concluída.</string>
+	<string name="screen_cryptomator_variants_fdroid_install_hint">Instale o Cryptomator usando o F-Droid.\nSe a mensagem de erro \"não encontrado\" for mostrada, aguarde até que a sincronização do F-Droid seja concluída.</string>
 	<string name="screen_cryptomator_variants_website_title">Site</string>
 	<string name="screen_cryptomator_variants_website_description">Contém dependências proprietárias.</string>
-	<string name="screen_cryptomator_variants_installation_hint">Mudando de/para o reposit[orio principal do F-Driod requer uma nova configuração do aplicativo.</string>
+	<string name="screen_cryptomator_variants_installation_hint">Trocar do ou para o repositório principal do F-Driod requer uma nova configuração do aplicativo.</string>
 	<!-- # dialogs -->
 	<string name="dialog_button_cancel">Cancelar</string>
 	<string name="dialog_enter_password_positive_button">Desbloquear</string>
@@ -358,7 +358,7 @@
 	<string name="dialog_cbc_password_vaults_migration_title">Requer migração da senha do cofre</string>
 	<string name="dialog_cbc_password_vaults_migration_hint">Devido a aprimoramentos de segurança, você será solicitado pela sua autenticação biométrica duas vezes para cada cofre para recriptografar as senhas do seu cofre. Isto é necessário para continuar a proteger as senhas do seu cofre com a tecnologia mais recente. Se você não deseja que isso aconteça, as senhas armazenadas serão removidas.</string>
 	<string name="dialog_cbc_password_vaults_migration_action">Migrar</string>
-	<string name="dialog_create_hub_device_title">Registrar o dispositivo do Hub</string>
+	<string name="dialog_create_hub_device_title">Registrar dispositivo do Hub</string>
 	<string name="dialog_create_hub_device_name_label">Nome</string>
 	<string name="dialog_create_hub_device_name_hint">Este parece ser o primeiro acesso ao Hub a partir deste dispositivo. Para identificá-lo no processo de autorização, é necessário nomear este aparelho.</string>
 	<string name="dialog_create_hub_device_name_empty">O nome não pode estar vazio.</string>
@@ -375,8 +375,8 @@
 	<string name="dialog_hub_user_setup_required_title">Requer configuração de usuário</string>
 	<string name="dialog_hub_user_setup_required_hint">Para prosseguir, preencha as etapas necessárias no seu perfil de usuário do Hub.</string>
 	<string name="dialog_hub_user_setup_required_neutral_button">Acessar o perfil</string>
-	<string name="permission_snackbar_auth_local_vault">Cryptomator precisa de permissão de acesso ao armazenamento para fazer upload de arquivos</string>
-	<string name="permission_snackbar_auth_auto_upload">Cryptomator precisa de permissão de acesso ao armazenamento para fazer upload de arquivos</string>
+	<string name="permission_snackbar_auth_local_vault">O Cryptomator precisa de permissão de acesso ao armazenamento para usar os cofres locais</string>
+	<string name="permission_snackbar_auth_auto_upload">O Cryptomator precisa de permissão de acesso ao armazenamento para usar o envio automático de fotos</string>
 	<string name="permission_snackbar_notifications">O Cryptomator precisa de permissões para notificar o estado dos cofres, por exemplo.</string>
 	<!-- # error reports -->
 	<!-- # misc -->
@@ -418,16 +418,16 @@
 	<string name="notification_auto_upload_finished_message">%1$d imagem(ns) enviada(s) para o cofre</string>
 	<string name="notification_auto_upload_failed_title">Falha no envio automático de foto</string>
 	<string name="notification_auto_upload_failed_general_error">Ocorreu um erro geral durante o envio.</string>
-	<string name="notification_auto_upload_failed_due_to_folder_not_exists">A pasta escolhida para envio não está mais disponível. Vá até configurações e escolha uma nova pasta</string>
-	<string name="notification_auto_upload_failed_due_to_vault_locked">O cofre foi bloqueado durante o upload, por favor desbloqueie o cofre para continuar</string>
-	<string name="notification_auto_upload_failed_due_to_vault_not_found">O cofre especificado para upload automático não existe mais.</string>
+	<string name="notification_auto_upload_failed_due_to_folder_not_exists">A pasta escolhida para envio não está mais disponível. Acesse as configurações e escolha uma nova pasta</string>
+	<string name="notification_auto_upload_failed_due_to_vault_locked">O cofre foi bloqueado durante o envio. Desbloqueie-o para continuar</string>
+	<string name="notification_auto_upload_failed_due_to_vault_not_found">O cofre especificado para envio automático não existe mais.</string>
 	<string name="notification_auto_upload_failed_due_to_authentication_problem">Toque para atualizar a autenticação.</string>
 	<string name="notification_open_writable_file_title">Abrir arquivo gravável</string>
 	<string name="notification_open_writable_file_message">O cofre permanece desbloqueado até terminar de editar</string>
 	<string name="notification_update_check_finished_latest">Versão mais recente instalada</string>
 	<string name="notification_authenticating">Autenticando&#8230;</string>
 	<string name="screen_settings_lru_cache">Cache</string>
-	<string name="screen_settings_lru_cache_toggle_summary">Cache para arquivos acessados recentemente para reutilização posterior quando reabertos</string>
+	<string name="screen_settings_lru_cache_toggle_summary">O cache para os arquivos acessados recentemente para reutilização posterior quando reabertos</string>
 	<string name="screen_settings_lru_cache_size">Tamanho total do cache</string>
 	<string name="screen_settings_clear_lru_cache_size">Limpar cache</string>
 	<string name="screen_settings_lru_cache_changed__restart_toast">As alterações serão aplicadas na próxima reinicialização do aplicativo</string>
