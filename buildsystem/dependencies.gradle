@@ -129,7 +129,7 @@ ext {
 	androidxSwiperefreshVersion = '1.1.0'
 	androidxPreferenceVersion = '1.2.1'
 	androidxRecyclerViewVersion = '1.2.1'
-	androidxDocumentfileVersion = '1.0.1'
+	androidxDocumentfileVersion = '1.1.0'
 	androidxBiometricVersion = '1.1.0'
 	androidxTestCoreVersion = '1.4.0'
 	androidxSplashscreenVersion = '1.0.1'

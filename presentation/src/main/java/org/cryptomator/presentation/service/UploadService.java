@@ -184,6 +184,7 @@ public class UploadService extends Service {
 				return false;
 			}
 			if (cancelledVaultIds.remove(upload.vaultId)) {
+				uploadCheckpointDao.deleteByVaultId(upload.vaultId);
 				emitVaultFinished(upload.vaultId);
 				return false;
 			}

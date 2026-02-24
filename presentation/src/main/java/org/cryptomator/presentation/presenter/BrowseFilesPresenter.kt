@@ -1035,6 +1035,7 @@ class BrowseFilesPresenter @Inject constructor( //
 		intent.addCategory(Intent.CATEGORY_OPENABLE)
 		intent.type = "*/*"
 		intent.putExtra(Intent.EXTRA_ALLOW_MULTIPLE, true)
+		intent.addFlags(Intent.FLAG_GRANT_PERSISTABLE_URI_PERMISSION or Intent.FLAG_GRANT_READ_URI_PERMISSION)
 		intent = Intent.createChooser(intent, context().getString(R.string.screen_file_browser_upload_files_chooser_title))
 		requestActivityResult(ActivityResultCallbacks.selectedFiles(), intent)
 	}
@@ -1051,6 +1052,13 @@ class BrowseFilesPresenter @Inject constructor( //
 			return
 		}
 		val fileUris = getFileUrisFromIntent(result.intent())
+		fileUris.forEach { uri ->
+			try {
+				context().contentResolver.takePersistableUriPermission(uri, Intent.FLAG_GRANT_READ_URI_PERMISSION)
+			} catch (e: SecurityException) {
+				Timber.tag("BrowseFilesPresenter").d("Could not persist URI permission: %s", uri)
+			}
+		}
 		prepareSelectedFilesForUpload(fileUris)
 	}
 
