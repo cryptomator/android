@@ -256,7 +256,7 @@
 	<string name="dialog_replace_positive_button_some_files_exist">Substituir existente</string>
 	<string name="dialog_replace_positive_button_single_file_exists">Substituir</string>
 	<string name="dialog_replace_msg_single_file_exists">Um arquivo chamado \'%1$s\' já existe. Você deseja substituí-lo?</string>
-	<string name="dialog_replace_msg_all_files_exists">Todos os arquivos já existem. Você quer substituí-los?</string>
+	<string name="dialog_replace_msg_all_files_exists">Todos os arquivos já existem. Deseja substituí-los?</string>
 	<string name="dialog_replace_msg_some_files_exists">%1$d arquivos já existem. Deseja substituí-los?</string>
 	<string name="dialog_replace_title_single_file_exists">Substituir arquivo?</string>
 	<string name="dialog_replace_title_multiple_files_exist">Substituir arquivos?</string>
