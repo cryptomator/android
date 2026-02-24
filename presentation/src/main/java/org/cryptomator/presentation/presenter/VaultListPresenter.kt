@@ -703,7 +703,7 @@ class VaultListPresenter @Inject constructor( //
 				UploadFile.anUploadFile()
 					.withFileName(fileName)
 					.withDataSource(UriBasedDataSource.from(uri))
-					.thatIsReplacing(true)
+					.thatIsReplacing(checkpoint.isReplacing)
 					.build()
 			}
 		}
