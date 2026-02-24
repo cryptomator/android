@@ -1056,7 +1056,7 @@ class BrowseFilesPresenter @Inject constructor( //
 			try {
 				context().contentResolver.takePersistableUriPermission(uri, Intent.FLAG_GRANT_READ_URI_PERMISSION)
 			} catch (e: SecurityException) {
-				Timber.tag("BrowseFilesPresenter").d("Could not persist URI permission: %s", uri)
+				Timber.tag("BrowseFilesPresenter").d(e, "Could not persist URI permission: %s", uri)
 			}
 		}
 		prepareSelectedFilesForUpload(fileUris)
