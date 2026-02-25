@@ -246,7 +246,7 @@
 	<string name="dialog_change_password_msg_password_mismatch">A nova senha é diferente da digitada.</string>
 	<!-- Vault not found -->
 	<string name="dialog_vault_not_found_title">Cofre %1$s não encontrado</string>
-	<string name="dialog_vault_not_found_message">O cofre foi renomeado, movido ou excluído. Remova este cofre da lista e adicione-o novamente para prosseguir. Remover agora?</string>
+	<string name="dialog_vault_not_found_message">O cofre pode ter sido renomeado, movido ou apagado. Remova-o da lista e adicione ele novamente para prosseguir. Remover agora?</string>
 	<string name="dialog_vault_not_found_positive_button_text">Remover</string>
 	<string name="dialog_existing_file_title">O arquivo já existe</string>
 	<string name="dialog_existing_file_positive_button">Substituir</string>
@@ -255,22 +255,22 @@
 	<string name="dialog_replace_positive_button_all_files_exist">Substituir todos</string>
 	<string name="dialog_replace_positive_button_some_files_exist">Substituir existente</string>
 	<string name="dialog_replace_positive_button_single_file_exists">Substituir</string>
-	<string name="dialog_replace_msg_single_file_exists">Um arquivo chamado \'%1$s\' já existe. Você deseja substituí-lo?</string>
+	<string name="dialog_replace_msg_single_file_exists">Um arquivo chamado \"%1$s\" já existe. Deseja substituí-lo?</string>
 	<string name="dialog_replace_msg_all_files_exists">Todos os arquivos já existem. Deseja substituí-los?</string>
-	<string name="dialog_replace_msg_some_files_exists">%1$d arquivos já existem. Deseja substituí-los?</string>
+	<string name="dialog_replace_msg_some_files_exists">%1$d arquivo(s) já existe(m). Deseja substituí-los?</string>
 	<string name="dialog_replace_title_single_file_exists">Substituir arquivo?</string>
 	<string name="dialog_replace_title_multiple_files_exist">Substituir arquivos?</string>
 	<string name="dialog_unable_to_share_title">Não foi possível compartilhar os arquivos</string>
-	<string name="dialog_unable_to_share_message">Você não configurou nenhum cofre. Por favor, crie um novo cofre com o aplicativo Cryptomator primeiro.</string>
+	<string name="dialog_unable_to_share_message">Você não configurou nenhum cofre. Crie um novo cofre com o aplicativo Cryptomator.</string>
 	<string name="dialog_unable_to_share_positive_button">OK</string>
 	<string name="dialog_unable_to_share_negative_button">Criar cofre</string>
 	<string name="dialog_filetype_not_supported_title">Não é possível abrir %1$s</string>
-	<string name="dialog_filetype_not_supported_message">Por favor, baixe um aplicativo que pode abrir este arquivo ou você gostaria de salvar no seu dispositivo?</string>
+	<string name="dialog_filetype_not_supported_message">Baixe um aplicativo que consiga abrir este arquivo ou você gostaria de salvar no seu dispositivo?</string>
 	<string name="dialog_rename_vault_title">Renomear cofre</string>
 	<string name="dialog_rename_node_folder_title">Renomear pasta</string>
 	<string name="dialog_rename_node_file_title">Renomear arquivo</string>
 	<string name="dialog_unsaved_changes_title">Há modificações não salvas</string>
-	<string name="dialog_unsaved_changes_message">Você realmente deseja sair sem salvar?</string>
+	<string name="dialog_unsaved_changes_message">Deseja mesmo sair sem salvar?</string>
 	<string name="dialog_unsaved_changes_discard">Descartar</string>
 	<string name="dialog_file_name_hint">Nome do arquivo</string>
 	<string name="dialog_file_name_placeholder">texto.txt</string>
@@ -299,12 +299,12 @@
 	<string name="dialog_accept_ssl_certificate_details">Detalhes</string>
 	<string name="dialog_accept_ssl_certificate_security_checkbox">Isto pode ser um risco de segurança. Eu sei o que estou fazendo.</string>
 	<string name="dialog_ask_ignore_battery_optimizations_title">Desativar otimizações de bateria</string>
-	<string name="dialog_ask_ignore_battery_optimizations_hint">Para recuperar novas fotos e vídeos sem executar em segundo plano, precisamos desativar as otimizações de bateria. Mas não se preocupe, %1$s não consome muita energia.\n\nPara aplicar, altere \'Não otimizado\' para \'Todos os aplicativos\', selecione %1$s e escolha \'Não otimizar\' depois de tocar \'%2$s\' nesta caixa de diálogo.</string>
+	<string name="dialog_ask_ignore_battery_optimizations_hint">Para recuperar novas fotos e vídeos sem executar em segundo plano, precisamos desativar as otimizações de bateria. Não se preocupe, %1$s não consome muita energia.\n\nPara aplicar, altere \"não otimizado\" para \"todos os aplicativos\", selecione %1$s e escolha \"não otimizar\" depois de tocar em \"%2$s\" nesta caixa de diálogo.</string>
 	<string name="dialog_ask_ignore_battery_optimizations_checkbox">Não perguntar novamente?</string>
-	<string name="dialog_http_security_hint">O uso de HTTP é inseguro. Recomendamos utilizar HTTPS. Se você conhecer os riscos, pode continuar com HTTP.</string>
+	<string name="dialog_http_security_hint">O uso de HTTP não é seguro. Ao invés dele, recomendamos usar o HTTPS. Se você está ciente dos riscos, pode continuar com o HTTP.</string>
 	<string name="dialog_http_security_checkbox">Mudar para HTTPS</string>
 	<string name="dialog_http_security_title">Usar HTTPS?</string>
-	<string name="dialog_no_screen_lock_hint">Nenhum bloqueio de tela foi configurado. Para armazenar suas credenciais de forma segura, configure com OK um padrão ou senha.</string>
+	<string name="dialog_no_screen_lock_hint">Nenhum bloqueio de tela configurado. Para armazenar suas credenciais de forma segura, configure com OK um padrão ou senha.</string>
 	<string name="dialog_no_screen_lock_title">Definir bloqueio de tela?</string>
 	<string name="dialog_no_screen_lock_checkbox">Definir bloqueio de tela</string>
 	<string name="dialog_no_biometric_auth_set_up_title">Nenhuma autenticação básica configurada no sistema</string>
@@ -312,18 +312,18 @@
 	<string name="dialog_debug_mode_disclaimer_hint">Neste modo, os dados sensíveis podem ser gravados em um arquivo de registros no seu dispositivo (ex.: nomes de arquivos e caminhos). As senhas e os cookies, por exemplo, são explicitamente apagados.\n\nLembre-se de desativar o modo de depuração o mais rápido possível.</string>
 	<string name="dialog_debug_mode_disclaimer_title">Atenção</string>
 	<string name="dialog_debug_mode_positive_button">Ativar</string>
-	<string name="dialog_microsoft_workaround_disclaimer_hint">Devido a um erro em applicativos da Microsoft, o arquivo a ser editado deve ser compartilhado com esses aplicativos em uma pasta de mídia pública em seu dispositivo. Depois que o Cryptomator é reiniciado, o arquivo acessível ao público será apagado novamente, mas o Cryptomator não pode influenciar o que aconteceu a este arquivo. Esteja ciente desse comportamento ao ativar esta opção. Isso só se aplicará aos tipos de arquivos da Microsoft.\n\nO Cryptomator reiniciará após a ativação.</string>
-	<string name="dialog_disable_app_obscured_disclaimer_hint">Esta configuração é um recurso de segurança e impede que outros aplicativos induzam os usuários a fazer coisas que não devem fazer.\n\nAo desativar, você confirma que está <a href="https://docs.cryptomator.org/en/latest/android/settings/#block-app-when-obscured">ciente dos riscos</a>.</string>
+	<string name="dialog_microsoft_workaround_disclaimer_hint">Devido a um erro em aplicativos da Microsoft, o arquivo a ser editado deve ser compartilhado com esses aplicativos em uma pasta de mídia pública em seu dispositivo. Após a reinicialização do Cryptomator, o arquivo público será apagado novamente, mas o Cryptomator não pode influenciar o que aconteceu a este arquivo. Esteja ciente desse comportamento ao ativar esta opção. Isso só se aplicará aos tipos de arquivos da Microsoft.\n\nO Cryptomator reiniciará depois da ativação.</string>
+	<string name="dialog_disable_app_obscured_disclaimer_hint">Esta configuração é um recurso de segurança e impede que outros aplicativos induzam os usuários a fazer coisas que não devem ser feitas.\n\nAo desativar, você confirma que está <a href="https://docs.cryptomator.org/en/latest/android/settings/#block-app-when-obscured">ciente dos riscos</a>.</string>
 	<string name="dialog_disable_app_obscured_disclaimer_title">Atenção</string>
 	<string name="dialog_disable_app_obscured_positive_button">Desativar</string>
 	<string name="dialog_app_is_obscured_info_title">O aplicativo está oculto</string>
-	<string name="dialog_app_is_obscured_info_hint">Outro aplicativo está exibindo algo no topo do Cryptomator (por exemplo, um filtro de luz azul ou aplicativo de modo noturno). Por razões de segurança, o Cryptomator está desativado.\n\n<a href="https://docs.cryptomator.org/en/latest/android/settings/#block-app-when-obscured">Como ativar o Cryptomator</a></string>
+	<string name="dialog_app_is_obscured_info_hint">Outro aplicativo está mostrando algo no topo do Cryptomator (ex.: um filtro de luz azul ou aplicativo de modo noturno). Por razões de segurança, o Cryptomator está desativado.\n\n<a href="https://docs.cryptomator.org/en/latest/android/settings/#block-app-when-obscured">Como ativar o Cryptomator</a></string>
 	<string name="dialog_app_is_obscured_info_neutral_button">Fechar</string>
 	<string name="dialog_vaults_removed_during_migration_title">Adicione novamente os cofres para a nuvem %1s</string>
-	<string name="dialog_vaults_removed_during_migration_hint">Durante a migração para esta versão do aplicativo, precisamos remover os seguintes cofres do aplicativo:\n%2s \n\nEsses cofres não são removidos da nuvem, mas apenas deste aplicativo. Desculpe o incômodo e por favor adicione novamente estes cofres para continuar a trabalhar com eles.</string>
+	<string name="dialog_vaults_removed_during_migration_hint">Durante a migração para esta versão do aplicativo, precisamos remover os seguintes cofres do aplicativo:\n%2s \n\nEsses cofres não são removidos da nuvem, mas apenas deste aplicativo. Desculpe o inconveniente e adicione novamente esses cofres para continuar trabalhando com eles.</string>
 	<string name="dialog_vault_is_root_folder_of_cloud_title">O cofre é a pasta raiz da conexão com a nuvem</string>
 	<string name="dialog_vault_is_root_folder_of_cloud_hint">Crie uma nova conexão com a nuvem onde você seleciona pelo menos a pasta principal desta pasta de cofre como o diretório raiz para adicionar este cofre.</string>
-	<string name="dialog_disable_secure_screen_disclaimer_hint">Esta configuração é um recurso de segurança e impede que outros aplicativos induzam os usuários a fazer coisas que não devem fazer.\n\nAo desativar, você confirma que está <a href="https://docs.cryptomator.org/en/latest/android/settings/#screen-security">ciente dos riscos</a>.</string>
+	<string name="dialog_disable_secure_screen_disclaimer_hint">Esta configuração é um recurso de segurança e impede que outros aplicativos induzam os usuários a fazer coisas que não devem ser feitas.\n\nAo desativar, você confirma que está <a href="https://docs.cryptomator.org/en/latest/android/settings/#screen-security">ciente dos riscos</a>.</string>
 	<string name="dialog_delete_cloud_connection_with_vaults_message">Deseja mesmo remover esta conexão com a nuvem?</string>
 	<string name="dialog_delete_cloud_connection_with_vaults_hint">Esta ação removerá a conexão com o provedor de nuvem e todos os cofres desta nuvem.</string>
 	<string name="dialog_confirm_delete_multiple_title">Apagar %1$d item(ns)?</string>
@@ -331,17 +331,17 @@
 	<string name="dialog_confirm_delete_file_message">Deseja mesmo apagar este arquivo?</string>
 	<string name="dialog_confirm_delete_folder_message">Isto apagará todo o conteúdo da pasta. Deseja mesmo apagar esta pasta?</string>
 	<string name="dialog_biometric_auth_key_invalidated_title">Recurso de autenticação biométrica desativado</string>
-	<string name="dialog_biometric_auth_key_invalidated_message">Como a chave foi invalidada, o recurso de autenticação biométrica foi desativado. Para reativar, abra as configurações do Cryptomator.</string>
+	<string name="dialog_biometric_auth_key_invalidated_message">Devido à invalidação da chave, o recurso de autenticação biométrica foi desativado. Para reativá-lo, abra as configurações do Cryptomator.</string>
 	<string name="dialog_enter_license_title">Forneça uma licença válida</string>
-	<string name="dialog_enter_license_content">Nós detectamos que você instalou o Cryptomator sem usar a Google Play Store. Forneça uma licença válida, que pode ser comprada em <a href="https://cryptomator.org/android/">https://cryptomator.org/android/</a></string>
+	<string name="dialog_enter_license_content">Detectamos que você instalou o Cryptomator sem usar a Google Play Store. Forneça uma licença válida que pode ser comprada em <a href="https://cryptomator.org/android/">https://cryptomator.org/android/</a></string>
 	<string name="dialog_enter_license_not_valid_content">A licença fornecida é inválida. Verifique se você a digitou corretamente.</string>
-	<string name="dialog_enter_license_not_valid_content_desktop_supporter_certificate">A chave fornecida é um certificado de suporte da área de trabalho. Por favor, insira uma licença válida.</string>
+	<string name="dialog_enter_license_not_valid_content_desktop_supporter_certificate">A chave fornecida é um certificado de suporte de computador. Digite uma licença válida.</string>
 	<string name="dialog_enter_license_no_content">Nenhuma licença fornecida. Digite uma licença válida.</string>
 	<string name="dialog_enter_license_decline_button">Sair</string>
 	<string name="dialog_license_confirmation_title">Confirmação de licença</string>
 	<string name="dialog_license_confirmation_message">Obrigado %1$s por fornecer a sua licença válida.</string>
 	<string name="dialog_update_available_title">Atualização disponível</string>
-	<string name="dialog_update_available_message">Atualize o Cryptomator para a versão mais recente. Pressionando OK, baixaremos o aplicativo em segundo plano e pediremos que você o instale.</string>
+	<string name="dialog_update_available_message">Atualize o Cryptomator para a versão mais recente. Clicando em \"atualizar agora\", baixaremos o aplicativo em segundo plano e pediremos que você o instale.</string>
 	<string name="dialog_update_available_update">Atualizar agora</string>
 	<string name="dialog_update_available_download_site">Acessar para o site de download</string>
 	<string name="dialog_update_available_cancel">Depois</string>
@@ -351,12 +351,12 @@
 	<string name="dialog_sym_link_message">Não é possível entrar neste link simbólico</string>
 	<string name="dialog_sym_link_back_button">Voltar</string>
 	<string name="dialog_no_dir_file_title">Não foi possível carregar o conteúdo do diretório</string>
-	<string name="dialog_no_dir_file_message">A pasta na nuvem \'%1$s\' não tem um arquivo de diretório válido. Pode ser que a pasta foi criada em outro dispositivo e ainda não foi totalmente sincronizada com a nuvem. Por favor, verifique em sua nuvem se o seguinte arquivo existe:\n%2$s</string>
+	<string name="dialog_no_dir_file_message">A pasta \"%1$s\"\' na nuvem não tem um arquivo de diretório válido. Pode ser que a pasta tenha sido criada em outro dispositivo e ainda não foi totalmente sincronizada com a nuvem. Verifique em sua nuvem se o arquivo a seguir existe:\n%2$s</string>
 	<string name="dialog_no_more_images_to_display">Nenhuma imagem para ser mostrada&#8230;</string>
 	<string name="dialog_pcloud_credentials_updated_title">Credenciais de \"%1$s\" atualizadas</string>
-	<string name="dialog_pcloud_credentials_updated">Se você pretende adicionar uma nova conta pCloud, toque neste link <a href="https://www.pcloud.com">www.pcloud.com</a>, saia da conta atual e toque novamente no \'+\' neste aplicativo para criar uma nova conexão de nuvem.</string>
+	<string name="dialog_pcloud_credentials_updated">Se você pretende adicionar uma nova conta pCloud, toque neste link <a href="https://www.pcloud.com">www.pcloud.com</a>, desconecte da conta atual e toque novamente no \"+\" neste aplicativo para criar uma nova conexão de nuvem.</string>
 	<string name="dialog_cbc_password_vaults_migration_title">Requer migração da senha do cofre</string>
-	<string name="dialog_cbc_password_vaults_migration_hint">Devido a aprimoramentos de segurança, você será solicitado pela sua autenticação biométrica duas vezes para cada cofre para recriptografar as senhas do seu cofre. Isto é necessário para continuar a proteger as senhas do seu cofre com a tecnologia mais recente. Se você não deseja que isso aconteça, as senhas armazenadas serão removidas.</string>
+	<string name="dialog_cbc_password_vaults_migration_hint">Devido a melhorias na segurança, você será solicitado a fornecer sua autenticação biométrica duas vezes para cada cofre para criptografar novamente suas senhas. Isso é necessário para continuar protegendo suas senhas de cofre com a tecnologia mais recente. Se você não quiser que isso aconteça, as senhas armazenadas serão removidas.</string>
 	<string name="dialog_cbc_password_vaults_migration_action">Migrar</string>
 	<string name="dialog_create_hub_device_title">Registrar dispositivo do Hub</string>
 	<string name="dialog_create_hub_device_name_label">Nome</string>
@@ -369,7 +369,7 @@
 	<string name="dialog_hub_vault_access_forbidden_title">Acesso negado</string>
 	<string name="dialog_hub_vault_access_forbidden_hint">Seu dispositivo ainda não foi autorizado a acessar este cofre. Peça ao proprietário do cofre para autorizá-lo.\"</string>
 	<string name="dialog_hub_license_upgrade_required_title">Verifique a licença do Hub</string>
-	<string name="dialog_hub_license_upgrade_required_hint">Sua instância do Cryptomator Hub possui uma licença inválida. Por favor, informe a um administrador do Hub que atualize ou renove a licença.\"</string>
+	<string name="dialog_hub_license_upgrade_required_hint">Sua instância do Cryptomator Hub tem uma licença inválida. Informe a um administrador do Hub que atualize ou renove a licença.\"</string>
 	<string name="dialog_hub_vault_archived_title">Cofre arquivado</string>
 	<string name="dialog_hub_vault_archived_hint">Este cofre está arquivado e não pode ser desbloqueado. Para desbloqueá-lo, o proprietário do cofre deve desarquivá-lo.</string>
 	<string name="dialog_hub_user_setup_required_title">Requer configuração de usuário</string>
