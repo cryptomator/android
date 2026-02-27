@@ -36,5 +36,6 @@ interface BrowseFilesView : View {
 	fun showSymLinkDialog()
 	fun showNoDirFileOrEmptyDialog(cryptoFolderName: String, cloudFolderPath: String)
 	fun updateActiveFolderDueToAuthenticationProblem(folder: CloudFolderModel)
-
+	fun replaceImageWithDownloadIcon(nodes: CloudNodeModel<*>)
+	fun replaceImagesWithDownloadIcon(nodes: List<CloudNodeModel<*>>)
 }

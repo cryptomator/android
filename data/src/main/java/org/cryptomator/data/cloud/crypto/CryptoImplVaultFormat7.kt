@@ -87,7 +87,6 @@ open class CryptoImplVaultFormat7 : CryptoImplDecorator {
 		val shortFileName = BaseEncoding.base64Url().encode(hash) + LONG_NODE_FILE_EXT
 		var dirFolder = cloudContentRepository.folder(getOrCreateCachingAwareDirIdInfo(cryptoParent).cloudFolder, shortFileName)
 
-		// if folder already exists in case of renaming
 		if (!cloudContentRepository.exists(dirFolder)) {
 			dirFolder = cloudContentRepository.create(dirFolder)
 		}
@@ -380,6 +379,7 @@ open class CryptoImplVaultFormat7 : CryptoImplDecorator {
 
 	@Throws(BackendException::class)
 	override fun move(source: CryptoFile, target: CryptoFile): CryptoFile {
+		renameFileInCache(source, target)
 		return if (source.cloudFile.parent.name.endsWith(LONG_NODE_FILE_EXT)) {
 			val targetDirFolder = cloudContentRepository.folder(target.cloudFile.parent, target.cloudFile.name)
 			val cryptoFile: CryptoFile = if (target.cloudFile.name.endsWith(LONG_NODE_FILE_EXT)) {
@@ -449,6 +449,15 @@ open class CryptoImplVaultFormat7 : CryptoImplDecorator {
 			} else {
 				cloudContentRepository.delete(node.cloudFile)
 			}
+
+			val cacheKey = generateCacheKey(node)
+			node.cloudFile.cloud?.type()?.let { cloudType ->
+				getLruCacheFor(cloudType)?.let { diskCache ->
+					if (diskCache[cacheKey] != null) {
+						diskCache.delete(cacheKey)
+					}
+				}
+			}
 		}
 	}
 
@@ -493,7 +502,7 @@ open class CryptoImplVaultFormat7 : CryptoImplDecorator {
 									cryptoFile,  //
 									cloudContentRepository.write( //
 										targetFile,  //
-										data.decorate(from(encryptedTmpFile)),
+										data.decorate(from(encryptedTmpFile)), //
 										UploadFileReplacingProgressAware(cryptoFile, progressAware),  //
 										replace,  //
 										encryptedTmpFile.length()

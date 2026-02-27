@@ -2,6 +2,7 @@ package org.cryptomator.data.cloud.crypto
 
 import org.cryptomator.domain.Cloud
 import org.cryptomator.domain.CloudFile
+import java.io.File
 import java.util.Date
 
 class CryptoFile(
@@ -11,6 +12,8 @@ class CryptoFile(
 	 */
 	val cloudFile: CloudFile
 ) : CloudFile, CryptoNode {
+
+	var thumbnail : File? = null
 
 	override val cloud: Cloud?
 		get() = parent.cloud
