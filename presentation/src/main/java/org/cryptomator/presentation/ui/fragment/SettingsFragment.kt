@@ -28,6 +28,7 @@ import org.cryptomator.presentation.ui.dialog.MicrosoftWorkaroundDisclaimerDialo
 import org.cryptomator.presentation.ui.layout.PreferenceFragmentCompatLayout
 import org.cryptomator.util.SharedPreferencesHandler
 import org.cryptomator.util.SharedPreferencesHandler.Companion.CRYPTOMATOR_VARIANTS
+import org.cryptomator.util.SharedPreferencesHandler.Companion.THUMBNAIL_GENERATION
 import org.cryptomator.util.file.LruFileCacheUtil
 import java.lang.Boolean.FALSE
 import java.lang.Boolean.TRUE
@@ -47,6 +48,7 @@ class SettingsFragment : PreferenceFragmentCompatLayout() {
 		setupAppVersion()
 		setupLruCacheSize()
 		setupLicense()
+		setupThumbnailGeneration()
 		setupCryptomatorVariants()
 	}
 
@@ -109,6 +111,11 @@ class SettingsFragment : PreferenceFragmentCompatLayout() {
 		true
 	}
 
+	private val thumbnailGenerationChangeListener = Preference.OnPreferenceChangeListener { _, newValue ->
+		// TODO ...
+		true
+	}
+
 	private fun activity(): SettingsActivity = this.activity as SettingsActivity
 
 	private fun isBiometricAuthenticationNotAvailableRemovePreference() {
@@ -140,9 +147,13 @@ class SettingsFragment : PreferenceFragmentCompatLayout() {
 		}
 	}
 
+	private fun setupThumbnailGeneration() {
+		val preference = findPreference(THUMBNAIL_GENERATION) as Preference?
+		// TODO ...
+	}
+
 	private fun setupLruCacheSize() {
 		val preference = findPreference(DISPLAY_LRU_CACHE_SIZE_ITEM_KEY) as Preference?
-
 		val size = LruFileCacheUtil(requireContext()).totalSize()
 
 		val readableSize: String = if (size > 0) {
@@ -245,6 +256,7 @@ class SettingsFragment : PreferenceFragmentCompatLayout() {
 		}
 		(findPreference(SharedPreferencesHandler.PHOTO_UPLOAD_VAULT) as Preference?)?.intent = Intent(context, AutoUploadChooseVaultActivity::class.java)
 		(findPreference(SharedPreferencesHandler.LICENSES_ACTIVITY) as Preference?)?.intent = Intent(context, LicensesActivity::class.java)
+		(findPreference(SharedPreferencesHandler.THUMBNAIL_GENERATION) as Preference?)?.onPreferenceChangeListener = thumbnailGenerationChangeListener
 	}
 
 	fun deactivateDebugMode() {
@@ -327,6 +339,7 @@ class SettingsFragment : PreferenceFragmentCompatLayout() {
 		private const val UPDATE_INTERVAL_ITEM_KEY = "updateInterval"
 		private const val DISPLAY_LRU_CACHE_SIZE_ITEM_KEY = "displayLruCacheSize"
 		private const val LRU_CACHE_CLEAR_ITEM_KEY = "lruCacheClear"
+		private const val THUMBNAIL_GENERATION = "thumbnailGeneration"
 	}
 
 }

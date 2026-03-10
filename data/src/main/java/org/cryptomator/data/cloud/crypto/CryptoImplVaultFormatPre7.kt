@@ -128,6 +128,18 @@ internal class CryptoImplVaultFormatPre7(
 			.filterIsInstance<CloudFile>()
 			.map { node ->
 				ciphertextToCleartextNode(cryptoFolder, dirId, node)
+			}.onEach { cryptoNode ->
+				if (cryptoNode is CryptoFile && isImageMediaType(cryptoNode.name)) {
+					val cacheKey = generateCacheKey(cryptoNode.cloudFile)
+					cryptoNode.cloudFile.cloud?.type()?.let { cloudType ->
+						getLruCacheFor(cloudType)?.let { diskCache ->
+							val cacheFile = diskCache[cacheKey]
+							if (cacheFile != null) {
+								cryptoNode.thumbnail = cacheFile
+							}
+						}
+					}
+				}
 			}
 			.toList()
 			.filterNotNull()
@@ -248,6 +260,15 @@ internal class CryptoImplVaultFormatPre7(
 			evictFromCache(node)
 		} else if (node is CryptoFile) {
 			cloudContentRepository.delete(node.cloudFile)
+
+			val cacheKey = generateCacheKey(node.cloudFile)
+			node.cloudFile.cloud?.type()?.let { cloudType ->
+				getLruCacheFor(cloudType)?.let { diskCache ->
+					if (diskCache[cacheKey] != null) {
+						diskCache.delete(cacheKey)
+					}
+				}
+			}
 		}
 	}
 

@@ -2,6 +2,7 @@ package org.cryptomator.presentation.presenter
 
 import android.content.ActivityNotFoundException
 import android.content.Intent
+import android.graphics.BitmapFactory
 import android.net.Uri
 import android.provider.DocumentsContract
 import android.widget.Toast
@@ -513,6 +514,7 @@ class BrowseFilesPresenter @Inject constructor( //
 			)
 		} else if (!lowerFileName.endsWith(".gif") && isImageMediaType(cloudFile.name)) {
 			val cloudFileNodes = previewCloudFileNodes
+
 			val imagePreviewStore = ImagePreviewFilesStore( //
 				cloudFileNodes,  //
 				cloudFileNodes.indexOf(cloudFile)
@@ -1064,7 +1066,8 @@ class BrowseFilesPresenter @Inject constructor( //
 
 	private fun moveIntentFor(parent: CloudFolderModel, sourceNodes: List<CloudNodeModel<*>>): IntentBuilder {
 		val foldersToMove = nodesFor(sourceNodes, CloudFolderModel::class) as List<CloudFolderModel>
-		return Intents.browseFilesIntent() //
+		val vauldId = view?.folder?.vault()?.vaultId
+		val browseFilesIntentBuilder = Intents.browseFilesIntent() //
 			.withTitle(effectiveMoveTitle()) //
 			.withFolder(parent) //
 			.withChooseCloudNodeSettings( //
@@ -1077,6 +1080,8 @@ class BrowseFilesPresenter @Inject constructor( //
 					.excludingFolder(if (foldersToMove.isEmpty()) null else foldersToMove) //
 					.build()
 			)
+		vauldId?.let { browseFilesIntentBuilder.withVaultId(it) }
+		return browseFilesIntentBuilder
 	}
 
 	private fun effectiveMoveTitle(): String {

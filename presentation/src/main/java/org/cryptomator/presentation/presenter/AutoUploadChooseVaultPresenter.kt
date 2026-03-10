@@ -141,6 +141,7 @@ class AutoUploadChooseVaultPresenter @Inject constructor( //
 		requestActivityResult( //
 			ActivityResultCallbacks.onAutoUploadChooseLocation(vaultModel),  //
 			Intents.browseFilesIntent() //
+				.withVaultId(vaultModel.vaultId) //
 				.withFolder(decryptedRoot) //
 				.withTitle(vaultModel.name) //
 				.withChooseCloudNodeSettings( //
