@@ -41,6 +41,7 @@
 	<string name="error_hub_invalid_setup_code">Chiave account non valida.</string>
 	<string name="error_hub_invalid_version">Versione Hub non supportata.</string>
 	<string name="error_hub_unlock_pre_31">Hub è supportato solo su Android 12 o superiore.</string>
+	<string name="error_hub_not_trustworthy">L\'Hub non è affidabile.</string>
 	<!-- # clouds -->
 	<!-- ## cloud names -->
 	<string name="cloud_names_local_storage">Archivio locale</string>
@@ -178,6 +179,7 @@
 	<string name="screen_settings_live_search_summary">Aggiorna i risultati della ricerca durante l\'inserimento della query</string>
 	<string name="screen_settings_glob_search">Cerca di usare lo schema a globo</string>
 	<string name="screen_settings_glob_search_summary">Usa lo schema a globo corrispondente come alice.*.jpg</string>
+	<string name="screen_hub_reset_unknown_hub_hosts_title">Ripristina Host Hub Sconosciuti</string>
 	<string name="screen_settings_section_auto_lock">Blocco automatico</string>
 	<string name="screen_settings_auto_lock_timeout">Blocca dopo</string>
 	<string name="screen_settings_auto_lock_on_screen_lock">Quando lo schermo è disabilitato</string>
@@ -375,6 +377,7 @@
 	<string name="dialog_hub_user_setup_required_title">Richiesta configurazione dell\'utente</string>
 	<string name="dialog_hub_user_setup_required_hint">Per procedere, completa i passaggi richiesti nel tuo profilo dell\'Hub.</string>
 	<string name="dialog_hub_user_setup_required_neutral_button">Vai al profilo</string>
+	<string name="dialog_hub_check_host_authenticity_title">Ti fidi di questo host?</string>
 	<string name="permission_snackbar_auth_local_vault">Cryptomator ha bisogno dell\'accesso all\'archivio per utilizzare le cassaforti locali</string>
 	<string name="permission_snackbar_auth_auto_upload">Cryptomator ha bisogno di accesso all\'archivio per utilizzare il caricamento automatico delle foto</string>
 	<string name="permission_snackbar_notifications">Cryptomator necessita dei permessi di notifica per visualizzare lo stato della cassaforte ad esempio</string>
@@ -426,6 +429,7 @@
 	<string name="notification_open_writable_file_message">La cassaforte rimane sbloccata fino alla modifica completata</string>
 	<string name="notification_update_check_finished_latest">Ultima versione installata</string>
 	<string name="notification_authenticating">Autenticazione&#8230;</string>
+	<string name="notification_cleared_trusted_hosts">Host attendibili cancellati</string>
 	<string name="screen_settings_lru_cache">Cache</string>
 	<string name="screen_settings_lru_cache_toggle_summary">La cache ha recentemente acceso ai file crittografati localmente sul dispositivo per un riutilizzo successivo quando riaperto</string>
 	<string name="screen_settings_lru_cache_size">Dimensione totale della cache</string>
