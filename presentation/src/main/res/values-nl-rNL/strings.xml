@@ -41,6 +41,7 @@
 	<string name="error_hub_invalid_setup_code">De Account Keyl is ongeldig.</string>
 	<string name="error_hub_invalid_version">Niet-ondersteunde Hub versie.</string>
 	<string name="error_hub_unlock_pre_31">Hub wordt alleen ondersteund op Android 12 en hoger.</string>
+	<string name="error_hub_not_trustworthy">De hub is niet betrouwbaar.</string>
 	<!-- # clouds -->
 	<!-- ## cloud names -->
 	<string name="cloud_names_local_storage">Lokale opslag</string>
@@ -178,6 +179,7 @@
 	<string name="screen_settings_live_search_summary">Zoekresultaten bijwerken tijdens het invoeren</string>
 	<string name="screen_settings_glob_search">Zoek met behulp van glob patroon</string>
 	<string name="screen_settings_glob_search_summary">Gebruik glob patroon overeenkomsten zoals alice.*.jpg</string>
+	<string name="screen_hub_reset_unknown_hub_hosts_title">Reset Onbekende Hub Hosts</string>
 	<string name="screen_settings_section_auto_lock">Automatisch vergrendelen</string>
 	<string name="screen_settings_auto_lock_timeout">Vergrendel na</string>
 	<string name="screen_settings_auto_lock_on_screen_lock">Wanneer scherm is uitgeschakeld</string>
@@ -375,6 +377,7 @@
 	<string name="dialog_hub_user_setup_required_title">Instellen van gebruiker vereist</string>
 	<string name="dialog_hub_user_setup_required_hint">Om verder te gaan, gelieve de stappen te voltooien in uw Hub-gebruikersprofiel.</string>
 	<string name="dialog_hub_user_setup_required_neutral_button">Ga naar Profiel</string>
+	<string name="dialog_hub_check_host_authenticity_title">Deze hosts vertrouwen?</string>
 	<string name="permission_snackbar_auth_local_vault">Cryptomator heeft toegang tot opslag nodig om lokale kluizen te kunnen gebruiken</string>
 	<string name="permission_snackbar_auth_auto_upload">Cryptomator heeft toegang tot opslag nodig om automatisch uploaden van foto\'s te kunnen gebruiken</string>
 	<string name="permission_snackbar_notifications">Cryptomator heeft notificatie toegang nodig om een voorbeeld van de kluis status weer te geven</string>
@@ -426,6 +429,7 @@
 	<string name="notification_open_writable_file_message">Kluis blijft ontgrendeld tot het bewerken voltooid is</string>
 	<string name="notification_update_check_finished_latest">Laatste versie geïnstalleerd</string>
 	<string name="notification_authenticating">Verifiëren&#8230;</string>
+	<string name="notification_cleared_trusted_hosts">Vertrouwde hosts vrijgegeven</string>
 	<string name="screen_settings_lru_cache">Cache</string>
 	<string name="screen_settings_lru_cache_toggle_summary">Bewaar recent geopende bestanden versleuteld en lokaal op het apparaat voor later hergebruik</string>
 	<string name="screen_settings_lru_cache_size">Totale cache grootte</string>
