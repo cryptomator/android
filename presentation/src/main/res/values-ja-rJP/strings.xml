@@ -41,6 +41,7 @@
 	<string name="error_hub_invalid_setup_code">アカウントキーが無効です。</string>
 	<string name="error_hub_invalid_version">サポートされていないハブのバージョンです。</string>
 	<string name="error_hub_unlock_pre_31">Hub は Android 12 以降でのみサポートされています。</string>
+	<string name="error_hub_not_trustworthy">ハブは信頼できません。</string>
 	<!-- # clouds -->
 	<!-- ## cloud names -->
 	<string name="cloud_names_local_storage">ローカルストレージ</string>
@@ -177,6 +178,7 @@
 	<string name="screen_settings_live_search_summary">クエリを入力中に検索結果を更新する</string>
 	<string name="screen_settings_glob_search">glob パターンを使用して検索</string>
 	<string name="screen_settings_glob_search_summary">alice.*.jpg のような glob パターン一致を使用する</string>
+	<string name="screen_hub_reset_unknown_hub_hosts_title">不明なハブのホストをリセット</string>
 	<string name="screen_settings_section_auto_lock">自動的な施錠</string>
 	<string name="screen_settings_auto_lock_timeout">次の場合に施錠する</string>
 	<string name="screen_settings_auto_lock_on_screen_lock">画面がロックされたとき</string>
@@ -374,6 +376,7 @@
 	<string name="dialog_hub_user_setup_required_title">ユーザー設定が必要です</string>
 	<string name="dialog_hub_user_setup_required_hint">続行するにはHubユーザープロフィールで必要な手順を完了してください。</string>
 	<string name="dialog_hub_user_setup_required_neutral_button">プロフィールへ移動</string>
+	<string name="dialog_hub_check_host_authenticity_title">このホストを信頼しますか？</string>
 	<string name="permission_snackbar_auth_local_vault">ローカルの金庫を使用するには、Cryptomator がストレージにアクセスする許可が必要です</string>
 	<string name="permission_snackbar_auth_auto_upload">自動的に画像をアップロードするには、Cryptomator がストレージにアクセスする許可が必要です</string>
 	<string name="permission_snackbar_notifications">金庫の状態などを表示するには、Cryptomator に通知権限が必要です。</string>
@@ -425,6 +428,7 @@
 	<string name="notification_open_writable_file_message">編集が完了するまで金庫は施錠されます</string>
 	<string name="notification_update_check_finished_latest">最新版がインストールされています</string>
 	<string name="notification_authenticating">認証中&#8230;</string>
+	<string name="notification_cleared_trusted_hosts">信頼できるホストを消去しました</string>
 	<string name="screen_settings_lru_cache">キャッシュ</string>
 	<string name="screen_settings_lru_cache_toggle_summary">最近アクセスしたファイルを暗号化して端末のローカルにキャッシュし、後で再び開いたときに再利用することができます。</string>
 	<string name="screen_settings_lru_cache_size">キャッシュの合計サイズ</string>
