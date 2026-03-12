@@ -41,6 +41,7 @@
 	<string name="error_hub_invalid_setup_code">Ключ облікового запису недійсний.</string>
 	<string name="error_hub_invalid_version">Непідтримувана версія Hub.</string>
 	<string name="error_hub_unlock_pre_31">Hub підтримується лише для Android 12 і вище.</string>
+	<string name="error_hub_not_trustworthy">Hub не є надійним.</string>
 	<!-- # clouds -->
 	<!-- ## cloud names -->
 	<string name="cloud_names_local_storage">Локальне сховище</string>
@@ -180,6 +181,7 @@
 	<string name="screen_settings_live_search_summary">Оновлювати результати пошуку при введенні запиту</string>
 	<string name="screen_settings_glob_search">Пошук за допомогою glob-шаблону</string>
 	<string name="screen_settings_glob_search_summary">Використовувати зіставлення за glob-шаблоном, наприклад: alice.*.jpg</string>
+	<string name="screen_hub_reset_unknown_hub_hosts_title">Скинути невідомі хости Hub</string>
 	<string name="screen_settings_section_auto_lock">Автоматичне блокування</string>
 	<string name="screen_settings_auto_lock_timeout">Блокувати через</string>
 	<string name="screen_settings_auto_lock_on_screen_lock">Коли екран вимкнено</string>
@@ -377,6 +379,7 @@
 	<string name="dialog_hub_user_setup_required_title">Необхідне налаштування користувача</string>
 	<string name="dialog_hub_user_setup_required_hint">Щоб продовжити, будь ласка, виконайте необхідні кроки у вашому профілі користувача Hub.</string>
 	<string name="dialog_hub_user_setup_required_neutral_button">Перейти до профілю</string>
+	<string name="dialog_hub_check_host_authenticity_title">Довіряти цим хостам?</string>
 	<string name="permission_snackbar_auth_local_vault">Для використання локальних сховищ Cryptomator потрібен доступ до сховища</string>
 	<string name="permission_snackbar_auth_auto_upload">Для автоматичного завантаження фото Cryptomator потрібен доступ до сховища</string>
 	<string name="permission_snackbar_notifications">Cryptomator потрібен дозвіл на сповіщення, щоб, наприклад, відображати статус сховища</string>
@@ -428,6 +431,7 @@
 	<string name="notification_open_writable_file_message">Сховище залишиться розблокованим до завершення редагування</string>
 	<string name="notification_update_check_finished_latest">Встановлено найновішу версію</string>
 	<string name="notification_authenticating">Авторизація&#8230;</string>
+	<string name="notification_cleared_trusted_hosts">Очищені довірені хости</string>
 	<string name="screen_settings_lru_cache">Кешування</string>
 	<string name="screen_settings_lru_cache_toggle_summary">Кешувати нещодавно відкриті зашифровані файли локально на пристрої для повторного використання під час наступного відкриття</string>
 	<string name="screen_settings_lru_cache_size">Загальний розмір кешу</string>
