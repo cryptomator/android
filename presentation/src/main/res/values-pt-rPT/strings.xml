@@ -41,6 +41,7 @@
 	<string name="error_hub_invalid_setup_code">A chave da conta é inválida.</string>
 	<string name="error_hub_invalid_version">Versão do Hub não suportada.</string>
 	<string name="error_hub_unlock_pre_31">Hub só é suportado no Android 12 ou superior.</string>
+	<string name="error_hub_not_trustworthy">O Hub não é confiável.</string>
 	<!-- # clouds -->
 	<!-- ## cloud names -->
 	<string name="cloud_names_local_storage">Armazenamento local</string>
@@ -178,6 +179,7 @@
 	<string name="screen_settings_live_search_summary">Atualizar resultados de pesquisa ao inserir o texto</string>
 	<string name="screen_settings_glob_search">Pesquisar com padrão \"glob\"</string>
 	<string name="screen_settings_glob_search_summary">Usar padrão \"glob\" correspondente, como alice.*.jpg</string>
+	<string name="screen_hub_reset_unknown_hub_hosts_title">Repor hosts de Hubs desconhecidos</string>
 	<string name="screen_settings_section_auto_lock">Bloqueio automático</string>
 	<string name="screen_settings_auto_lock_timeout">Bloquear após</string>
 	<string name="screen_settings_auto_lock_on_screen_lock">Quando o ecrã estiver desativado</string>
@@ -375,6 +377,7 @@
 	<string name="dialog_hub_user_setup_required_title">Configuração do utilizador necessária</string>
 	<string name="dialog_hub_user_setup_required_hint">Para continuar, por favor conclua as etapas exigidas no seu perfil de utilizador no Hub.</string>
 	<string name="dialog_hub_user_setup_required_neutral_button">Vá para o Perfil</string>
+	<string name="dialog_hub_check_host_authenticity_title">Confiar nestes anfitriões?</string>
 	<string name="permission_snackbar_auth_local_vault">Cryptomator precisa de acesso ao armazenamento para usar cofres locais</string>
 	<string name="permission_snackbar_auth_auto_upload">Cryptomator precisa de acesso ao armazenamento para usar o envio automático de fotos</string>
 	<string name="permission_snackbar_notifications">O Cryptomator precisa de permissões de notificação para exibir, como exemplo, o estado do cofre</string>
@@ -426,6 +429,7 @@
 	<string name="notification_open_writable_file_message">Cofre permanece desbloqueado até terminar de editar</string>
 	<string name="notification_update_check_finished_latest">Última versão instalada</string>
 	<string name="notification_authenticating">Autenticação&#8230;</string>
+	<string name="notification_cleared_trusted_hosts">Hosts confiáveis limpos</string>
 	<string name="screen_settings_lru_cache">Cache</string>
 	<string name="screen_settings_lru_cache_toggle_summary">Cache de arquivos acedidos recentemente, encriptados localmente no dispositivo para reutilização posterior quando reaberto</string>
 	<string name="screen_settings_lru_cache_size">Tamanho total do cache</string>
