@@ -41,6 +41,7 @@
 	<string name="error_hub_invalid_setup_code">La Account Key no es válida.</string>
 	<string name="error_hub_invalid_version">Versión de Hub no soportada.</string>
 	<string name="error_hub_unlock_pre_31">Hub solo es compatible con Android 12 o superior.</string>
+	<string name="error_hub_not_trustworthy">Hub no es fiable.</string>
 	<!-- # clouds -->
 	<!-- ## cloud names -->
 	<string name="cloud_names_local_storage">Almacenamiento local</string>
@@ -178,6 +179,7 @@
 	<string name="screen_settings_live_search_summary">Actualizar los resultados de la búsqueda mientras se ingresa la consulta</string>
 	<string name="screen_settings_glob_search">Buscar usando el patrón glob</string>
 	<string name="screen_settings_glob_search_summary">Usar la coincidencia de patrón glob como alice.*.jpg</string>
+	<string name="screen_hub_reset_unknown_hub_hosts_title">Restablecer hosts de Hub Desconocidos</string>
 	<string name="screen_settings_section_auto_lock">Bloqueo automático</string>
 	<string name="screen_settings_auto_lock_timeout">Bloquear después de</string>
 	<string name="screen_settings_auto_lock_on_screen_lock">Cuando la pantalla está desactivada</string>
@@ -375,6 +377,7 @@
 	<string name="dialog_hub_user_setup_required_title">Configuración de usuario requerida</string>
 	<string name="dialog_hub_user_setup_required_hint">Para continuar, complete los pasos necesarios en su perfil de usuario de Hub.</string>
 	<string name="dialog_hub_user_setup_required_neutral_button">Ir al Perfil</string>
+	<string name="dialog_hub_check_host_authenticity_title">¿Confiar en estos hosts?</string>
 	<string name="permission_snackbar_auth_local_vault">Cryptomator necesita acceso de almacenamiento para usar bóvedas locales</string>
 	<string name="permission_snackbar_auth_auto_upload">Cryptomator necesita acceso de almacenamiento para cargar fotos automáticamente</string>
 	<string name="permission_snackbar_notifications">Cryptomator necesita permisos de notificación para mostrar el estado de la bóveda por ejemplo</string>
@@ -426,6 +429,7 @@
 	<string name="notification_open_writable_file_message">La bóveda permanece desbloqueada hasta finalizar la edición</string>
 	<string name="notification_update_check_finished_latest">Última versión instalada</string>
 	<string name="notification_authenticating">Autenticando&#8230;</string>
+	<string name="notification_cleared_trusted_hosts">Hosts de confianza limpiados</string>
 	<string name="screen_settings_lru_cache">Caché</string>
 	<string name="screen_settings_lru_cache_toggle_summary">Almacene en caché los archivos cifrados localmente a los que accedió recientemente en el dispositivo para su posterior reutilización cuando se vuelvan a abrir</string>
 	<string name="screen_settings_lru_cache_size">Tamaño total de la caché</string>
