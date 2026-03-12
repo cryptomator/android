@@ -41,6 +41,7 @@
 	<string name="error_hub_invalid_setup_code">La clé de compte est invalide.</string>
 	<string name="error_hub_invalid_version">Version Hub non prise en charge .</string>
 	<string name="error_hub_unlock_pre_31">Hub est uniquement pris en charge sur Android 12 et versions ultérieures.</string>
+	<string name="error_hub_not_trustworthy">Hub n\'est pas digne de confiance.</string>
 	<!-- # clouds -->
 	<!-- ## cloud names -->
 	<string name="cloud_names_local_storage">Stockage local</string>
@@ -178,6 +179,7 @@
 	<string name="screen_settings_live_search_summary">Mettre à jour les résultats de la recherche pendant la saisie de la requête</string>
 	<string name="screen_settings_glob_search">Recherche avec le modèle glob</string>
 	<string name="screen_settings_glob_search_summary">Utilisez le modèle de correspondance glob comme alice.*.jpg</string>
+	<string name="screen_hub_reset_unknown_hub_hosts_title">Réinitialiser les hôtes de Hub inconnus</string>
 	<string name="screen_settings_section_auto_lock">Verrouillage automatique</string>
 	<string name="screen_settings_auto_lock_timeout">Verrouillage après</string>
 	<string name="screen_settings_auto_lock_on_screen_lock">Lorsque l\'écran est éteint</string>
@@ -375,6 +377,7 @@
 	<string name="dialog_hub_user_setup_required_title">Configuration de l’utilisateur requise</string>
 	<string name="dialog_hub_user_setup_required_hint">Pour continuer, veuillez compléter les étapes requises dans votre profil d\'utilisateur Hub.</string>
 	<string name="dialog_hub_user_setup_required_neutral_button">Aller au profil</string>
+	<string name="dialog_hub_check_host_authenticity_title">Faire confiance à cet hôte ?</string>
 	<string name="permission_snackbar_auth_local_vault">Cryptomator a besoin de l\'accès au stockage pour utiliser les coffres locaux</string>
 	<string name="permission_snackbar_auth_auto_upload">Cryptomator a besoin de l\'accès au stockage pour effectuer le téléversement automatique de photos</string>
 	<string name="permission_snackbar_notifications">Cryptomator requiert des permissions de notification pour afficher le statut du coffre, par exemple</string>
@@ -426,6 +429,7 @@
 	<string name="notification_open_writable_file_message">Le coffre-fort reste déverrouillé jusqu\'à la fin des modifications</string>
 	<string name="notification_update_check_finished_latest">Dernière version installée</string>
 	<string name="notification_authenticating">Authentification en cours&#8230;</string>
+	<string name="notification_cleared_trusted_hosts">Hôtes de confiance effacés</string>
 	<string name="screen_settings_lru_cache">Cache</string>
 	<string name="screen_settings_lru_cache_toggle_summary">Mettre en cache les fichiers récemment consultés chiffrés localement sur l\'appareil pour une réutilisation lors d\'une réouverture ultérieure</string>
 	<string name="screen_settings_lru_cache_size">Taille totale du cache</string>
