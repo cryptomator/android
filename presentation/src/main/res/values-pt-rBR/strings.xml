@@ -41,6 +41,7 @@
 	<string name="error_hub_invalid_setup_code">A Chave de Conta é inválida.</string>
 	<string name="error_hub_invalid_version">Versão do Hub não suportada.</string>
 	<string name="error_hub_unlock_pre_31">O Hub só é compatível a partir do Android 12.</string>
+	<string name="error_hub_not_trustworthy">Hub não confiável.</string>
 	<!-- # clouds -->
 	<!-- ## cloud names -->
 	<string name="cloud_names_local_storage">Armazenamento local</string>
@@ -178,6 +179,7 @@
 	<string name="screen_settings_live_search_summary">Atualiza os resultados da busca ao inserir o texto</string>
 	<string name="screen_settings_glob_search">Buscar usando o padrão glob</string>
 	<string name="screen_settings_glob_search_summary">Usa um padrão glob correspondente, como alice.*.jpg</string>
+	<string name="screen_hub_reset_unknown_hub_hosts_title">Redefinir os hosts do Hub desconhecido</string>
 	<string name="screen_settings_section_auto_lock">Bloqueio automático</string>
 	<string name="screen_settings_auto_lock_timeout">Bloquear após</string>
 	<string name="screen_settings_auto_lock_on_screen_lock">Quando a tela estiver desativada</string>
@@ -375,6 +377,7 @@
 	<string name="dialog_hub_user_setup_required_title">Requer configuração de usuário</string>
 	<string name="dialog_hub_user_setup_required_hint">Para prosseguir, preencha as etapas necessárias no seu perfil de usuário do Hub.</string>
 	<string name="dialog_hub_user_setup_required_neutral_button">Acessar o perfil</string>
+	<string name="dialog_hub_check_host_authenticity_title">Confiar nesses hosts?</string>
 	<string name="permission_snackbar_auth_local_vault">O Cryptomator precisa de permissão de acesso ao armazenamento para usar os cofres locais</string>
 	<string name="permission_snackbar_auth_auto_upload">O Cryptomator precisa de permissão de acesso ao armazenamento para usar o envio automático de fotos</string>
 	<string name="permission_snackbar_notifications">O Cryptomator precisa de permissões para notificar o estado dos cofres, por exemplo.</string>
