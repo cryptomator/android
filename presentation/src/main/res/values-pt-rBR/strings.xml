@@ -179,7 +179,7 @@
 	<string name="screen_settings_live_search_summary">Atualiza os resultados da busca ao inserir o texto</string>
 	<string name="screen_settings_glob_search">Buscar usando o padrão glob</string>
 	<string name="screen_settings_glob_search_summary">Usa um padrão glob correspondente, como alice.*.jpg</string>
-	<string name="screen_hub_reset_unknown_hub_hosts_title">Redefinir os hosts do Hub desconhecido</string>
+	<string name="screen_hub_reset_unknown_hub_hosts_title">Redefinir os hosts desconhecidos do Hub</string>
 	<string name="screen_settings_section_auto_lock">Bloqueio automático</string>
 	<string name="screen_settings_auto_lock_timeout">Bloquear após</string>
 	<string name="screen_settings_auto_lock_on_screen_lock">Quando a tela estiver desativada</string>
@@ -429,6 +429,7 @@
 	<string name="notification_open_writable_file_message">O cofre permanece desbloqueado até terminar de editar</string>
 	<string name="notification_update_check_finished_latest">Versão mais recente instalada</string>
 	<string name="notification_authenticating">Autenticando&#8230;</string>
+	<string name="notification_cleared_trusted_hosts">Hosts confiáveis limpos</string>
 	<string name="screen_settings_lru_cache">Cache</string>
 	<string name="screen_settings_lru_cache_toggle_summary">O cache para os arquivos acessados recentemente para reutilização posterior quando reabertos</string>
 	<string name="screen_settings_lru_cache_size">Tamanho total do cache</string>
