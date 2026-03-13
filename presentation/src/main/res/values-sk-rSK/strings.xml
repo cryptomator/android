@@ -36,6 +36,7 @@
 	<string name="error_masterkey_location_not_supported">Voliteľnost umiestnenia hlavného kľúča zatiaľ nie je podporovaná</string>
 	<string name="error_interact_with_fdroid_but_fdroid_missing">Komunikácia s aplikáciou F-Droid zlyhala. Nie je nainštalovaná?</string>
 	<string name="error_hub_unlock_pre_31">Hub je podporovaný len na Android 12 a novšom.</string>
+	<string name="error_hub_not_trustworthy">Hub nie je dôveryhodný.</string>
 	<!-- # clouds -->
 	<!-- ## cloud names -->
 	<string name="cloud_names_local_storage">Lokálne úložisko</string>
@@ -174,6 +175,7 @@
 	<string name="screen_settings_live_search_summary">Aktualizovať výsledky hľadania počas zadávania otázky</string>
 	<string name="screen_settings_glob_search">Vyhľadávanie pomocou \'glob\' vzorky</string>
 	<string name="screen_settings_glob_search_summary">Použiť \'glob\' vzorku obsahujúcu napríklad alice.*.jpg</string>
+	<string name="screen_hub_reset_unknown_hub_hosts_title">Zresetovať neznáme Hub hosty</string>
 	<string name="screen_settings_section_auto_lock">Automatické uzamknutie</string>
 	<string name="screen_settings_auto_lock_timeout">Uzamknúť po</string>
 	<string name="screen_settings_auto_lock_on_screen_lock">Keď je obrazovka zakázaná</string>
@@ -363,6 +365,7 @@
 	<string name="dialog_hub_user_setup_required_title">Vyžaduje sa nastavenie užívateľom</string>
 	<string name="dialog_hub_user_setup_required_hint">Pre pokračovanie, prosím splňte kroky požadované vo Vašom užívateľskom Hub profile.</string>
 	<string name="dialog_hub_user_setup_required_neutral_button">Prejsť na profil</string>
+	<string name="dialog_hub_check_host_authenticity_title">Veríte tomuto hostovi?</string>
 	<string name="permission_snackbar_auth_local_vault">Cryptomator potrebuje prístup k úložisku pre prácu s lokálnymi trezormy</string>
 	<string name="permission_snackbar_auth_auto_upload">Cryptomator potrebuje prístup k úložisku pre automatické nahrávanie fotografii</string>
 	<string name="permission_snackbar_notifications">Cryptomator potrebuje povolenie notifikácií, napríklad na zobrazenie stavu trezoru</string>
@@ -414,6 +417,7 @@
 	<string name="notification_open_writable_file_message">Trezor zostáva odomknutý pokial nie je ukončené editovanie</string>
 	<string name="notification_update_check_finished_latest">Najnovšia verzia inštalovaná</string>
 	<string name="notification_authenticating">Autentikujem&#8230;</string>
+	<string name="notification_cleared_trusted_hosts">Zmazané dôveryhodné hosty</string>
 	<string name="screen_settings_lru_cache">Vyrovnávacia pamäť</string>
 	<string name="screen_settings_lru_cache_toggle_summary">Nedávno sprístupnené súbory vyrovnávaciej pamäťe lokálne zašifrované na zariadení pre neskoršie použitie pri novom otvoreni</string>
 	<string name="screen_settings_lru_cache_size">Celková veľkosť vyrovovnávacej pamäte</string>
