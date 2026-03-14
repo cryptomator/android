@@ -41,6 +41,7 @@
 	<string name="error_hub_invalid_setup_code">Неверный ключ учётной записи.</string>
 	<string name="error_hub_invalid_version">Неподдерживаемая версия хаба.</string>
 	<string name="error_hub_unlock_pre_31">Хаб поддерживается только на Android 12 и новее.</string>
+	<string name="error_hub_not_trustworthy">Хаб не является надёжным.</string>
 	<!-- # clouds -->
 	<!-- ## cloud names -->
 	<string name="cloud_names_local_storage">Локальное хранилище</string>
@@ -180,6 +181,7 @@
 	<string name="screen_settings_live_search_summary">Обновлять результаты поиска по мере ввода запроса</string>
 	<string name="screen_settings_glob_search">Искать по шаблону glob</string>
 	<string name="screen_settings_glob_search_summary">Использовать шаблон glob для сопоставлений типа alice.*.jpg</string>
+	<string name="screen_hub_reset_unknown_hub_hosts_title">Сбросить неизвестные хосты хаба</string>
 	<string name="screen_settings_section_auto_lock">Автоматическая блокировка</string>
 	<string name="screen_settings_auto_lock_timeout">Блокировать через</string>
 	<string name="screen_settings_auto_lock_on_screen_lock">Когда экран отключён</string>
@@ -377,6 +379,7 @@
 	<string name="dialog_hub_user_setup_required_title">Требуется настройка пользователя</string>
 	<string name="dialog_hub_user_setup_required_hint">Для продолжения выполните необходимые шаги в вашем профиле пользователя Hub.</string>
 	<string name="dialog_hub_user_setup_required_neutral_button">Перейти в профиль</string>
+	<string name="dialog_hub_check_host_authenticity_title">Доверять этим хостам?</string>
 	<string name="permission_snackbar_auth_local_vault">Для использования локальных хранилищ необходим доступ к месту хранения</string>
 	<string name="permission_snackbar_auth_auto_upload">Для автозагрузки фото у Cryptomator должен быть доступ к месту хранения</string>
 	<string name="permission_snackbar_notifications">Для отображения состояния хранилища Cryptomator требуется разрешение на уведомление</string>
@@ -428,6 +431,7 @@
 	<string name="notification_open_writable_file_message">Хранилище разблокировано до завершения редактирования</string>
 	<string name="notification_update_check_finished_latest">Установлена новейшая версия</string>
 	<string name="notification_authenticating">Аутентификация&#8230;</string>
+	<string name="notification_cleared_trusted_hosts">Доверенные хосты очищены</string>
 	<string name="screen_settings_lru_cache">Кэш</string>
 	<string name="screen_settings_lru_cache_toggle_summary">Кэшировать файлы, зашифрованные локально на устройстве, к которым недавно был доступ, для последующего использования при повторном открытии</string>
 	<string name="screen_settings_lru_cache_size">Общий размер кэша</string>
