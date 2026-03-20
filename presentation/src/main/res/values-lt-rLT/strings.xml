@@ -15,6 +15,7 @@
 	<!-- ## cloud names -->
 	<!-- # permission -->
 	<!-- ## permission messages -->
+	<string name="snack_bar_action_title_search_next">Kitas</string>
 	<!-- # screens -->
 	<!-- # screen: vault list -->
 	<string name="screen_vault_list_vault_action_delete">Šalinti</string>
@@ -46,21 +47,65 @@
 	<string name="screen_settings_debug_mode_label">Derinimo veiksena</string>
 	<string name="screen_settings_error_report_label">Siųsti žurnalo failą</string>
 	<string name="screen_settings_error_report_failed">Nepavyko išsiųsti</string>
+	<string name="screen_settings_section_version">Versija</string>
 	<!-- ## screen: cloud settings -->
 	<!-- ## screen: licenses -->
 	<!-- ## screen: authenticate cloud -->
 	<!-- ## screen: cryptomator app variants -->
+	<string name="screen_cryptomator_variants_fdroid_add_repo">Pridėti</string>
+	<string name="screen_cryptomator_variants_website_title">Internetinė svetainė</string>
 	<!-- # dialogs -->
+	<string name="dialog_button_cancel">Atsisakyti</string>
+	<string name="dialog_enter_password_positive_button">Atrakinti</string>
+	<string name="dialog_change_password_old_password_label">Senas slaptažodis</string>
+	<string name="dialog_change_password_new_password_label">Naujas slaptažodis</string>
+	<string name="dialog_change_password">Keisti slaptažodį</string>
+	<string name="dialog_change_password_msg_old_password_empty">Senas slaptažodis negali būti tuščias.</string>
+	<string name="dialog_change_password_msg_new_password_empty">Naujas slaptažodis negali būti tuščias.</string>
 	<!-- Vault not found -->
 	<string name="dialog_vault_not_found_positive_button_text">Šalinti</string>
+	<string name="dialog_rename_node_folder_title">Pervadinti aplanką</string>
+	<string name="dialog_rename_node_file_title">Pervadinti failą</string>
+	<string name="dialog_unsaved_changes_title">Turite neįrašytų pakeitimų</string>
+	<string name="dialog_unsaved_changes_discard">Atmesti</string>
+	<string name="dialog_file_name_hint">Failo pavadinimas</string>
+	<string name="dialog_file_name_placeholder">tekstas.txt</string>
+	<string name="dialog_upload_file_remaining">Failas %1$d iš %2$d</string>
+	<string name="dialog_progress_please_wait">Palaukite&#8230;</string>
+	<string name="dialog_progress_creating_folder">Kuriamas aplankas&#8230;</string>
+	<string name="dialog_progress_creating_text_file">Kuriamas tekstinis failas&#8230;</string>
+	<string name="dialog_lock_vault">Užrakinti</string>
+	<string name="dialog_accept_ssl_certificate_details">Išsamiau</string>
+	<string name="dialog_http_security_title">Naudoti HTTPS?</string>
+	<string name="dialog_debug_mode_disclaimer_title">Dėmesio</string>
+	<string name="dialog_debug_mode_positive_button">Įjungti</string>
+	<string name="dialog_disable_app_obscured_disclaimer_title">Dėmesio</string>
+	<string name="dialog_app_is_obscured_info_neutral_button">Užverti</string>
+	<string name="dialog_confirm_delete_file_message">Ar tikrai norite ištrinti šį failą?</string>
+	<string name="dialog_confirm_delete_folder_message">Tai ištrins visą aplanke esantį turinį. Ar tikrai norite ištrinti šį aplanką?</string>
+	<string name="dialog_update_available_title">Yra prieinamas atnaujinimas</string>
+	<string name="dialog_update_available_update">Atnaujinti dabar</string>
+	<string name="dialog_update_available_cancel">Vėliau</string>
+	<string name="dialog_sym_link_back_button">Atgal</string>
+	<string name="dialog_no_dir_file_title">Nepavyko įkelti katalogo turinio</string>
+	<string name="dialog_progress_creating_hub_device_setup">Kuriamas įrenginys&#8230;</string>
 	<!-- # error reports -->
 	<!-- # misc -->
 	<!-- ## file size helper -->
 	<!-- ## date helper -->
 	<!-- ## biometric authentication -->
 	<!-- notification -->
+	<string name="screen_settings_lru_cache">Podėlis</string>
+	<string name="screen_settings_lru_cache_size">Bendras podėlio dydis</string>
+	<string name="screen_settings_clear_lru_cache_size">Išvalyti podėlį</string>
 	<!-- lock timeout names -->
 	<!-- cache size names -->
+	<string name="cache_size_50m">50 MB</string>
+	<string name="cache_size_100m">100 MB</string>
+	<string name="cache_size_250m">250 MB</string>
+	<string name="cache_size_500m">500 MB</string>
+	<string name="cache_size_1000m">1 GB</string>
+	<string name="cache_size_5000m">5 GB</string>
 	<!-- screen scheme mode names -->
 	<!-- update interval names -->
 </resources>
