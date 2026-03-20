@@ -1,22 +1,43 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 	<!-- # app -->
+	<string name="share_with_label">Šifruoti</string>
 	<!-- # error messages -->
+	<string name="error_generic">Įvyko klaida</string>
+	<string name="error_authentication_failed">Nepavyko nustatyti tapatybės</string>
+	<string name="error_authentication_failed_re_authenticate">Nepavyko nustatyti tapatybės, prisijunkite naudodami %1$s</string>
+	<string name="error_no_network_connection">Nėra tinklo ryšio</string>
+	<string name="error_invalid_passphrase">Neteisingas slaptažodis</string>
+	<string name="error_file_or_folder_exists">Failas ar aplankas jau yra.</string>
+	<string name="error_no_such_file">Failo nėra.</string>
+	<string name="error_server_not_found">Serveris nerastas.</string>
 	<!-- # clouds -->
 	<!-- ## cloud names -->
 	<!-- # permission -->
 	<!-- ## permission messages -->
 	<!-- # screens -->
 	<!-- # screen: vault list -->
+	<string name="screen_vault_list_vault_action_delete">Šalinti</string>
+	<string name="screen_vault_list_change_password_successful">Slaptažodis sėkmingai pakeistas</string>
 	<!-- # screen: file browser -->
+	<string name="screen_file_browser_move_button_text">Perkelti</string>
+	<string name="screen_file_browser_msg_empty_folder">Tuščias aplankas</string>
+	<string name="screen_file_browser_action_create_folder">Sukurti aplanką</string>
+	<string name="screen_file_browser_action_create_new_text_file">Sukurti tekstinį failą</string>
+	<string name="screen_file_browser_node_action_delete">Ištrinti</string>
+	<string name="screen_file_browser_node_action_open_with_text">Atverti naudojant&#8230;</string>
 	<!-- ## screen: text editor -->
 	<!-- ## screen: share files -->
 	<!-- ## screen: choose cloud service -->
 	<!-- ## screen: cloud connections -->
 	<!-- ## screen: webdav settings -->
+	<string name="screen_webdav_settings_msg_username_must_not_be_empty">Naudotojo vardas negali būti tuščias.</string>
+	<string name="screen_webdav_settings_msg_password_must_not_be_empty">Slaptažodis negali būti tuščias.</string>
 	<!-- ## screen: s3 settings -->
 	<!-- ## screen: enter vault name -->
+	<string name="screen_enter_vault_name_button_text">Sukurti</string>
 	<!-- ## screen: set password -->
+	<string name="screen_set_password_button_text">Atlikta</string>
 	<!-- ## screen: settings -->
 	<!-- ## screen: cloud settings -->
 	<!-- ## screen: licenses -->
@@ -24,6 +45,7 @@
 	<!-- ## screen: cryptomator app variants -->
 	<!-- # dialogs -->
 	<!-- Vault not found -->
+	<string name="dialog_vault_not_found_positive_button_text">Šalinti</string>
 	<!-- # error reports -->
 	<!-- # misc -->
 	<!-- ## file size helper -->
