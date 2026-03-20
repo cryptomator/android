@@ -39,6 +39,13 @@
 	<!-- ## screen: set password -->
 	<string name="screen_set_password_button_text">Atlikta</string>
 	<!-- ## screen: settings -->
+	<string name="screen_settings_licenses_label">Licencijos</string>
+	<string name="screen_settings_license_terms_label">Licencijos sąlygos</string>
+	<string name="screen_settings_section_support">Palaikymas</string>
+	<string name="screen_settings_contact_label">Prašyti pagalbos</string>
+	<string name="screen_settings_debug_mode_label">Derinimo veiksena</string>
+	<string name="screen_settings_error_report_label">Siųsti žurnalo failą</string>
+	<string name="screen_settings_error_report_failed">Nepavyko išsiųsti</string>
 	<!-- ## screen: cloud settings -->
 	<!-- ## screen: licenses -->
 	<!-- ## screen: authenticate cloud -->
