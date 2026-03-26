@@ -9,6 +9,7 @@
 	<string name="error_no_network_connection">Nėra tinklo ryšio</string>
 	<string name="error_invalid_passphrase">Neteisingas slaptažodis</string>
 	<string name="error_file_or_folder_exists">Failas ar aplankas jau yra.</string>
+	<string name="error_vault_already_exists">Slėptuvė jau yra.</string>
 	<string name="error_no_such_file">Failo nėra.</string>
 	<string name="error_server_not_found">Serveris nerastas.</string>
 	<!-- # clouds -->
@@ -16,15 +17,21 @@
 	<!-- # permission -->
 	<!-- ## permission messages -->
 	<string name="snack_bar_action_title_search_next">Kitas</string>
+	<string name="snack_bar_action_title_sort_az">A–Ž</string>
+	<string name="snack_bar_action_title_sort_za">Ž–A</string>
 	<!-- # screens -->
 	<!-- # screen: vault list -->
 	<string name="screen_vault_list_vault_action_delete">Šalinti</string>
 	<string name="screen_vault_list_change_password_successful">Slaptažodis sėkmingai pakeistas</string>
 	<!-- # screen: file browser -->
+	<string name="screen_file_browser_create_new_vault_extra_text">Slėptuvės pavadinimas: %1$s</string>
 	<string name="screen_file_browser_move_button_text">Perkelti</string>
 	<string name="screen_file_browser_msg_empty_folder">Tuščias aplankas</string>
 	<string name="screen_file_browser_action_create_folder">Sukurti aplanką</string>
 	<string name="screen_file_browser_action_create_new_text_file">Sukurti tekstinį failą</string>
+	<string name="screen_file_browser_node_action_rename">Pervadinti</string>
+	<string name="screen_file_browser_node_action_edit_text">Taisyti</string>
+	<string name="screen_file_browser_node_action_export">Eksportuoti</string>
 	<string name="screen_file_browser_node_action_delete">Ištrinti</string>
 	<string name="screen_file_browser_node_action_open_with_text">Atverti naudojant&#8230;</string>
 	<!-- ## screen: text editor -->
@@ -32,6 +39,9 @@
 	<!-- ## screen: choose cloud service -->
 	<!-- ## screen: cloud connections -->
 	<!-- ## screen: webdav settings -->
+	<string name="screen_webdav_settings_url_port_label">URL</string>
+	<string name="screen_webdav_settings_username_label">Naudotojo vardas</string>
+	<string name="screen_webdav_settings_password_label">Slaptažodis</string>
 	<string name="screen_webdav_settings_msg_username_must_not_be_empty">Naudotojo vardas negali būti tuščias.</string>
 	<string name="screen_webdav_settings_msg_password_must_not_be_empty">Slaptažodis negali būti tuščias.</string>
 	<!-- ## screen: s3 settings -->
@@ -39,6 +49,10 @@
 	<string name="screen_enter_vault_name_button_text">Sukurti</string>
 	<!-- ## screen: set password -->
 	<string name="screen_set_password_button_text">Atlikta</string>
+	<string name="screen_set_password_strength_indicator_1">Silpnas</string>
+	<string name="screen_set_password_strength_indicator_2">Vidutinis</string>
+	<string name="screen_set_password_strength_indicator_3">Stiprus</string>
+	<string name="screen_set_password_strength_indicator_4">Labai stiprus</string>
 	<!-- ## screen: settings -->
 	<string name="screen_settings_licenses_label">Licencijos</string>
 	<string name="screen_settings_license_terms_label">Licencijos sąlygos</string>
@@ -52,6 +66,7 @@
 	<!-- ## screen: licenses -->
 	<!-- ## screen: authenticate cloud -->
 	<!-- ## screen: cryptomator app variants -->
+	<string name="screen_cryptomator_variants_lite_install">Įdiegti</string>
 	<string name="screen_cryptomator_variants_fdroid_add_repo">Pridėti</string>
 	<string name="screen_cryptomator_variants_website_title">Internetinė svetainė</string>
 	<!-- # dialogs -->
@@ -64,34 +79,50 @@
 	<string name="dialog_change_password_msg_new_password_empty">Naujas slaptažodis negali būti tuščias.</string>
 	<!-- Vault not found -->
 	<string name="dialog_vault_not_found_positive_button_text">Šalinti</string>
+	<string name="dialog_existing_file_title">Failas jau yra</string>
+	<string name="dialog_existing_file_positive_button">Pakeisti</string>
+	<string name="dialog_replace_positive_button_single_file_exists">Pakeisti</string>
+	<string name="dialog_unable_to_share_positive_button">Gerai</string>
+	<string name="dialog_unable_to_share_negative_button">Sukurti slėptuvę</string>
+	<string name="dialog_rename_vault_title">Pervadinti slėptuvę</string>
 	<string name="dialog_rename_node_folder_title">Pervadinti aplanką</string>
 	<string name="dialog_rename_node_file_title">Pervadinti failą</string>
 	<string name="dialog_unsaved_changes_title">Turite neįrašytų pakeitimų</string>
 	<string name="dialog_unsaved_changes_discard">Atmesti</string>
 	<string name="dialog_file_name_hint">Failo pavadinimas</string>
 	<string name="dialog_file_name_placeholder">tekstas.txt</string>
+	<string name="dialog_upload_file_title">Išsiunčiama&#8230;</string>
 	<string name="dialog_upload_file_remaining">Failas %1$d iš %2$d</string>
+	<string name="dialog_export_file_title">Eksportuojama (%1$d/%2$d)</string>
 	<string name="dialog_progress_please_wait">Palaukite&#8230;</string>
 	<string name="dialog_progress_creating_folder">Kuriamas aplankas&#8230;</string>
 	<string name="dialog_progress_creating_text_file">Kuriamas tekstinis failas&#8230;</string>
+	<string name="dialog_progress_upload_file">Išsiunčiama&#8230;</string>
 	<string name="dialog_lock_vault">Užrakinti</string>
 	<string name="dialog_accept_ssl_certificate_details">Išsamiau</string>
 	<string name="dialog_http_security_title">Naudoti HTTPS?</string>
 	<string name="dialog_debug_mode_disclaimer_title">Dėmesio</string>
 	<string name="dialog_debug_mode_positive_button">Įjungti</string>
 	<string name="dialog_disable_app_obscured_disclaimer_title">Dėmesio</string>
+	<string name="dialog_disable_app_obscured_positive_button">Išjungti</string>
 	<string name="dialog_app_is_obscured_info_neutral_button">Užverti</string>
 	<string name="dialog_confirm_delete_file_message">Ar tikrai norite ištrinti šį failą?</string>
 	<string name="dialog_confirm_delete_folder_message">Tai ištrins visą aplanke esantį turinį. Ar tikrai norite ištrinti šį aplanką?</string>
+	<string name="dialog_enter_license_decline_button">Išeiti</string>
 	<string name="dialog_update_available_title">Yra prieinamas atnaujinimas</string>
 	<string name="dialog_update_available_update">Atnaujinti dabar</string>
 	<string name="dialog_update_available_cancel">Vėliau</string>
 	<string name="dialog_sym_link_back_button">Atgal</string>
 	<string name="dialog_no_dir_file_title">Nepavyko įkelti katalogo turinio</string>
+	<string name="dialog_create_hub_device_setup_code_label">Paskyros raktas</string>
 	<string name="dialog_progress_creating_hub_device_setup">Kuriamas įrenginys&#8230;</string>
 	<!-- # error reports -->
 	<!-- # misc -->
 	<!-- ## file size helper -->
+	<string name="file_size_unit_kilo_bytes">kB</string>
+	<string name="file_size_unit_mega_bytes">MB</string>
+	<string name="file_size_unit_giga_bytes">GB</string>
+	<string name="file_size_unit_tera_bytes">TB</string>
 	<!-- ## date helper -->
 	<!-- ## biometric authentication -->
 	<!-- notification -->
