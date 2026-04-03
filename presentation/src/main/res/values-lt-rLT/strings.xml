@@ -11,6 +11,7 @@
 	<string name="error_file_or_folder_exists">Failas ar aplankas jau yra.</string>
 	<string name="error_vault_already_exists">Slėptuvė jau yra.</string>
 	<string name="error_no_such_file">Failo nėra.</string>
+	<string name="error_vault_has_been_locked">Slėptuvė užrakinta.</string>
 	<string name="error_server_not_found">Serveris nerastas.</string>
 	<!-- # clouds -->
 	<!-- ## cloud names -->
@@ -21,9 +22,13 @@
 	<string name="snack_bar_action_title_sort_za">Ž–A</string>
 	<!-- # screens -->
 	<!-- # screen: vault list -->
+	<string name="screen_vault_list_action_create_new_vault">Sukurti naują slėptuvę</string>
+	<string name="screen_vault_list_action_add_existing_vault">Pridėti esamą slėptuvę</string>
 	<string name="screen_vault_list_vault_action_delete">Šalinti</string>
+	<string name="screen_vault_list_vault_creation_hint">Bakstelėkite čia norėdami pridėti naują slėptuvę</string>
 	<string name="screen_vault_list_change_password_successful">Slaptažodis sėkmingai pakeistas</string>
 	<!-- # screen: file browser -->
+	<string name="screen_file_browser_default_title">Slėptuvė</string>
 	<string name="screen_file_browser_create_new_vault_extra_text">Slėptuvės pavadinimas: %1$s</string>
 	<string name="screen_file_browser_move_button_text">Perkelti</string>
 	<string name="screen_file_browser_msg_empty_folder">Tuščias aplankas</string>
@@ -46,6 +51,8 @@
 	<string name="screen_webdav_settings_msg_password_must_not_be_empty">Slaptažodis negali būti tuščias.</string>
 	<!-- ## screen: s3 settings -->
 	<!-- ## screen: enter vault name -->
+	<string name="screen_enter_vault_name_msg_name_empty">Slėptuvės pavadinimas negali būti tuščias.</string>
+	<string name="screen_enter_vault_name_vault_label">Slėptuvės pavadinimas</string>
 	<string name="screen_enter_vault_name_button_text">Sukurti</string>
 	<!-- ## screen: set password -->
 	<string name="screen_set_password_button_text">Atlikta</string>
