@@ -132,7 +132,7 @@
 	<string name="screen_cloud_local_error_no_content_provider">Не знайдено файлового менеджера, який підтримує відкриття каталогів</string>
 	<!-- ## screen: webdav settings -->
 	<string name="screen_webdav_settings_url_port_label">URL-адреса</string>
-	<string name="screen_webdav_settings_username_label">Ім\'я користувача</string>
+	<string name="screen_webdav_settings_username_label">Ім’я користувача</string>
 	<string name="screen_webdav_settings_password_label">Пароль</string>
 	<string name="screen_webdav_settings_done_button_text">Підключитися</string>
 	<string name="screen_webdav_settings_msg_url_must_not_be_empty">URL-адреса не може бути порожньою.</string>
@@ -140,13 +140,13 @@
 	<string name="screen_webdav_settings_msg_username_must_not_be_empty">Поле імені користувача не може бути порожнім.</string>
 	<string name="screen_webdav_settings_msg_password_must_not_be_empty">Пароль не може бути порожнім.</string>
 	<!-- ## screen: s3 settings -->
-	<string name="screen_s3_settings_display_name_label">Відображуване ім\'я</string>
+	<string name="screen_s3_settings_display_name_label">Відображуване ім’я</string>
 	<string name="screen_s3_settings_access_key_label">Ключ доступу</string>
 	<string name="screen_s3_settings_secret_key_label">Секретний ключ</string>
 	<string name="screen_s3_settings_bucket_label">Наявний кошик</string>
 	<string name="screen_s3_settings_endpoint_label">Кінцева адреса з іменем хосту, портом і шляхом до кошика</string>
 	<string name="screen_s3_settings_region_label">Регіон</string>
-	<string name="screen_s3_settings_msg_display_name_not_empty">Поле «Відображуване ім\'я» не може бути порожнім</string>
+	<string name="screen_s3_settings_msg_display_name_not_empty">Поле «Відображуване ім’я» не може бути порожнім</string>
 	<string name="screen_s3_settings_msg_access_key_not_empty">Поле «Ключ доступу» не може бути порожнім</string>
 	<string name="screen_s3_settings_msg_secret_key_not_empty">Поле «Секретний ключ» не може бути порожнім</string>
 	<string name="screen_s3_settings_msg_bucket_not_empty">Поле «Наявний кошик» не може бути порожнім</string>
