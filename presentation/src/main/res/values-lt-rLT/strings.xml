@@ -132,7 +132,9 @@
 	<string name="file_size_unit_tera_bytes">TB</string>
 	<!-- ## date helper -->
 	<!-- ## biometric authentication -->
+	<string name="dialog_biometric_auth_use_password">Naudoti slėptuvės slaptažodį</string>
 	<!-- notification -->
+	<string name="notification_unlocked">Atrakintų slėptuvių: %1$d</string>
 	<string name="screen_settings_lru_cache">Podėlis</string>
 	<string name="screen_settings_lru_cache_size">Bendras podėlio dydis</string>
 	<string name="screen_settings_clear_lru_cache_size">Išvalyti podėlį</string>
