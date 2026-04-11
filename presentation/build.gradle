@@ -185,6 +185,7 @@ dependencies {
 	implementation dependencies.androidxSwiperefresh
 	implementation dependencies.androidxPreference
 	implementation dependencies.androidxBiometric
+	implementation dependencies.documentFile
 
 	implementation dependencies.appauth
 

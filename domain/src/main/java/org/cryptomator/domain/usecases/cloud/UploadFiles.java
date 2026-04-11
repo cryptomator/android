@@ -12,34 +12,30 @@ import org.cryptomator.domain.usecases.ProgressAware;
 import org.cryptomator.generator.Parameter;
 import org.cryptomator.generator.UseCase;
 
-import java.io.Closeable;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
+import java.util.Set;
 
 import static java.io.File.createTempFile;
 
 @UseCase
-class UploadFiles {
-
-	private static final int EOF = -1;
+public class UploadFiles {
 
 	private final Context context;
 	private final CloudContentRepository cloudContentRepository;
 	private final CloudFolder parent;
 	private final List<UploadFile> files;
+	private Set<String> completedFiles = Collections.emptySet();
+	private FileUploadedCallback fileUploadedCallback = FileUploadedCallback.NO_OP;
 
 	private volatile boolean cancelled;
-	private final Flag cancelledFlag = new Flag() {
-		@Override
-		public boolean get() {
-			return cancelled;
-		}
-	};
+	private final Flag cancelledFlag = () -> cancelled;
 
 	public UploadFiles(Context context, //
 			CloudContentRepository cloudContentRepository, //
@@ -49,6 +45,14 @@ class UploadFiles {
 		this.cloudContentRepository = cloudContentRepository;
 		this.parent = parent;
 		this.files = files;
+	}
+
+	public void setCompletedFiles(Set<String> completedFiles) {
+		this.completedFiles = completedFiles;
+	}
+
+	public void setFileUploadedCallback(FileUploadedCallback fileUploadedCallback) {
+		this.fileUploadedCallback = fileUploadedCallback;
 	}
 
 	public void onCancel() {
@@ -71,7 +75,12 @@ class UploadFiles {
 	private List<CloudFile> upload(ProgressAware<UploadState> progressAware) throws BackendException {
 		List<CloudFile> uploadedFiles = new ArrayList<>();
 		for (UploadFile file : files) {
-			uploadedFiles.add(upload(file, progressAware));
+			if (completedFiles.contains(file.getFileName())) {
+				continue;
+			}
+			CloudFile uploadedFile = upload(file, progressAware);
+			uploadedFiles.add(uploadedFile);
+			fileUploadedCallback.onFileUploaded(file.getFileName(), uploadedFile);
 		}
 		return uploadedFiles;
 	}
@@ -104,7 +113,7 @@ class UploadFiles {
 			File target = createTempFile("upload", "tmp", dir);
 			InputStream in = CancelAwareDataSource.wrap(dataSource, cancelledFlag).open(context);
 			OutputStream out = new FileOutputStream(target);
-			copy(in, out);
+			StreamHelper.copy(in, out);
 			dataSource.modifiedDate(context).ifPresent(value -> target.setLastModified(value.getTime()));
 			return target;
 		} catch (IOException e) {
@@ -121,38 +130,6 @@ class UploadFiles {
 				progressAware, //
 				replacing, //
 				size);
-	}
-
-	private void copy(InputStream in, OutputStream out) throws IOException {
-		byte[] buffer = new byte[4096];
-		try {
-			while (copyDidNotReachEof(in, out, buffer)) {
-				// empty
-			}
-		} finally {
-			closeQuietly(in);
-			closeQuietly(out);
-		}
-	}
-
-	private boolean copyDidNotReachEof(InputStream in, OutputStream out, byte[] buffer) throws IOException {
-		int read = in.read(buffer);
-		if (read == EOF) {
-			return false;
-		} else {
-			out.write(buffer, 0, read);
-			return true;
-		}
-	}
-
-	private void closeQuietly(Closeable closeable) {
-		if (closeable != null) {
-			try {
-				closeable.close();
-			} catch (IOException e) {
-				// ignore
-			}
-		}
 	}
 
 }

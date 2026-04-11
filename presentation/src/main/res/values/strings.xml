@@ -132,11 +132,13 @@
 	<string name="screen_file_browser_action_create_folder">Create folder</string>
 	<string name="screen_file_browser_action_create_new_text_file">Create text file</string>
 	<string name="screen_file_browser_action_upload_files">Upload files</string>
+	<string name="screen_file_browser_action_upload_folder">Upload folder</string>
 	<string name="screen_file_browser_upload_files_chooser_title">Files</string>
 
 	<string name="screen_file_browser_msg_file_exported">File exported</string>
 	<string name="screen_file_browser_msg_files_exported">Files exported</string>
 	<string name="screen_file_browser_nothing_to_export">Nothing to export</string>
+	<string name="screen_file_browser_nothing_to_upload">Selected folder contains no files</string>
 
 	<string name="screen_file_browser_msg_creating_download_dir_failed">Creating download directory failed</string>
 
@@ -370,6 +372,10 @@
 	<string name="dialog_replace_msg_some_files_exists">%1$d files already exist. Do you want to replace them?</string>
 	<string name="dialog_replace_title_single_file_exists">Replace file?</string>
 	<string name="dialog_replace_title_multiple_files_exist">Replace files?</string>
+
+	<string name="dialog_replace_folder_title">Replace folder?</string>
+	<string name="dialog_replace_folder_msg">A folder named \'%1$s\' already exists. Do you want to replace its contents?</string>
+	<string name="dialog_replace_folder_positive_button">Replace</string>
 
 	<string name="dialog_unable_to_share_title">Unable to share files</string>
 	<string name="dialog_unable_to_share_message">You haven\'t set up any vaults. Please create a new vault with the Cryptomator app first.</string>
@@ -630,6 +636,36 @@
 	<string name="notification_auto_upload_failed_due_to_vault_not_found">Vault specified for auto upload doesn\'t exist anymore.</string>
 	<string name="notification_auto_upload_permission_not_granted" translatable="false">@string/permission_snackbar_auth_auto_upload</string>
 	<string name="notification_auto_upload_failed_due_to_authentication_problem">Tap to refresh authentication.</string>
+
+	<!-- Upload service notifications -->
+	<string name="notification_upload_started">Upload started</string>
+	<string name="notification_upload_title">Uploading files</string>
+	<string name="notification_upload_message">Uploading %1$d/%2$d</string>
+	<string name="notification_upload_cancel">Cancel upload</string>
+	<string name="notification_upload_finished_title">Upload finished</string>
+	<plurals name="notification_upload_finished_message">
+		<item quantity="one">%1$d file uploaded to vault</item>
+		<item quantity="other">%1$d files uploaded to vault</item>
+	</plurals>
+	<string name="notification_upload_interrupted_title">Upload interrupted</string>
+	<string name="notification_upload_interrupted_message">Upload was interrupted. Unlock vault to resume.</string>
+	<string name="notification_upload_failed_title">Upload failed</string>
+	<string name="notification_upload_failed_general_error">An error occurred during upload.</string>
+	<string name="notification_upload_failed_vault_locked">Vault locked during upload.</string>
+
+	<!-- Cancel upload and lock dialog -->
+	<string name="dialog_cancel_upload_lock_title">Upload in progress</string>
+	<string name="dialog_cancel_upload_lock_message">An upload is currently in progress for this vault. Cancelling will stop the upload.</string>
+	<string name="dialog_cancel_upload_lock_positive_button">Cancel &amp; Lock</string>
+	<string name="dialog_cancel_upload_lock_negative_button">Keep Uploading</string>
+
+	<!-- Resume upload dialog -->
+	<string name="dialog_resume_upload_title">Resume upload?</string>
+	<string name="dialog_resume_upload_message">An interrupted upload was found (%1$d/%2$d files uploaded). Do you want to resume?</string>
+	<string name="dialog_resume_upload_resume">Resume</string>
+	<string name="dialog_resume_upload_discard">Discard</string>
+	<string name="dialog_resume_upload_permission_lost">Cannot resume: access to the source folder has been lost.</string>
+	<string name="error_upload_service_unavailable">Could not start upload. Please try again.</string>
 
 	<string name="notification_cancel_open_writable_file" translatable="false">@string/dialog_button_cancel</string>
 	<string name="notification_open_writable_file_title">Open writable file</string>

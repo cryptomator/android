@@ -56,6 +56,7 @@ class UpgradeDatabaseTest {
 		Upgrade10To11().applyTo(db, 10)
 		Upgrade11To12(sharedPreferencesHandler).applyTo(db, 11)
 		Upgrade12To13(context).applyTo(db, 12)
+		Upgrade13To14().applyTo(db, 13)
 
 		CloudEntityDao(DaoConfig(db, CloudEntityDao::class.java)).loadAll()
 		VaultEntityDao(DaoConfig(db, VaultEntityDao::class.java)).loadAll()
@@ -912,6 +913,97 @@ class UpgradeDatabaseTest {
 			it.moveToFirst()
 			Assert.assertThat(gcmCryptor.decrypt(it.getString(it.getColumnIndex("ACCESS_TOKEN"))), CoreMatchers.`is`(accessTokenPlain))
 			Assert.assertThat(it.getString(it.getColumnIndex("ACCESS_TOKEN_CRYPTO_MODE")), CoreMatchers.`is`(CryptoMode.GCM.name))
+		}
+	}
+
+	@Test
+	fun upgrade13To14() {
+		Upgrade0To1().applyTo(db, 0)
+		Upgrade1To2().applyTo(db, 1)
+		Upgrade2To3(context).applyTo(db, 2)
+		Upgrade3To4().applyTo(db, 3)
+		Upgrade4To5().applyTo(db, 4)
+		Upgrade5To6().applyTo(db, 5)
+		Upgrade6To7().applyTo(db, 6)
+		Upgrade7To8().applyTo(db, 7)
+		Upgrade8To9(sharedPreferencesHandler).applyTo(db, 8)
+		Upgrade9To10(sharedPreferencesHandler).applyTo(db, 9)
+		Upgrade10To11().applyTo(db, 10)
+		Upgrade11To12(sharedPreferencesHandler).applyTo(db, 11)
+		Upgrade12To13(context).applyTo(db, 12)
+
+		Upgrade13To14().applyTo(db, 13)
+
+		// Insert a checkpoint row
+		Sql.insertInto("UPLOAD_CHECKPOINT_ENTITY") //
+			.integer("_id", 1) //
+			.integer("VAULT_ID", 42) //
+			.text("TYPE", "folder") //
+			.text("TARGET_FOLDER_PATH", "/Documents") //
+			.text("SOURCE_FOLDER_URI", "content://tree/uri") //
+			.text("SOURCE_FOLDER_NAME", "Photos") //
+			.text("PENDING_FILE_URIS", null) //
+			.text("COMPLETED_FILES", "[\"file1.txt\"]") //
+			.integer("TOTAL_FILE_COUNT", 5) //
+			.integer("TIMESTAMP", 1700000000) //
+			.executeOn(db)
+
+		Sql.query("UPLOAD_CHECKPOINT_ENTITY").where("VAULT_ID", Sql.eq(42)).executeOn(db).use {
+			it.moveToFirst()
+			Assert.assertThat(it.getInt(it.getColumnIndex("_id")), CoreMatchers.`is`(1))
+			Assert.assertThat(it.getInt(it.getColumnIndex("VAULT_ID")), CoreMatchers.`is`(42))
+			Assert.assertThat(it.getString(it.getColumnIndex("TYPE")), CoreMatchers.`is`("folder"))
+			Assert.assertThat(it.getString(it.getColumnIndex("TARGET_FOLDER_PATH")), CoreMatchers.`is`("/Documents"))
+			Assert.assertThat(it.getString(it.getColumnIndex("SOURCE_FOLDER_URI")), CoreMatchers.`is`("content://tree/uri"))
+			Assert.assertThat(it.getString(it.getColumnIndex("SOURCE_FOLDER_NAME")), CoreMatchers.`is`("Photos"))
+			Assert.assertThat(it.getString(it.getColumnIndex("COMPLETED_FILES")), CoreMatchers.`is`("[\"file1.txt\"]"))
+			Assert.assertThat(it.getInt(it.getColumnIndex("TOTAL_FILE_COUNT")), CoreMatchers.`is`(5))
+			Assert.assertThat(it.getLong(it.getColumnIndex("TIMESTAMP")), CoreMatchers.`is`(1700000000L))
+		}
+	}
+
+	@Test
+	fun upgrade13To14UniqueVaultIdConstraint() {
+		Upgrade0To1().applyTo(db, 0)
+		Upgrade1To2().applyTo(db, 1)
+		Upgrade2To3(context).applyTo(db, 2)
+		Upgrade3To4().applyTo(db, 3)
+		Upgrade4To5().applyTo(db, 4)
+		Upgrade5To6().applyTo(db, 5)
+		Upgrade6To7().applyTo(db, 6)
+		Upgrade7To8().applyTo(db, 7)
+		Upgrade8To9(sharedPreferencesHandler).applyTo(db, 8)
+		Upgrade9To10(sharedPreferencesHandler).applyTo(db, 9)
+		Upgrade10To11().applyTo(db, 10)
+		Upgrade11To12(sharedPreferencesHandler).applyTo(db, 11)
+		Upgrade12To13(context).applyTo(db, 12)
+
+		Upgrade13To14().applyTo(db, 13)
+
+		Sql.insertInto("UPLOAD_CHECKPOINT_ENTITY") //
+			.integer("_id", 1) //
+			.integer("VAULT_ID", 42) //
+			.text("TYPE", "files") //
+			.text("TARGET_FOLDER_PATH", "/path") //
+			.text("COMPLETED_FILES", "[]") //
+			.integer("TOTAL_FILE_COUNT", 1) //
+			.integer("TIMESTAMP", 1000) //
+			.executeOn(db)
+
+		// Inserting a second row with the same VAULT_ID should fail due to unique index
+		try {
+			Sql.insertInto("UPLOAD_CHECKPOINT_ENTITY") //
+				.integer("_id", 2) //
+				.integer("VAULT_ID", 42) //
+				.text("TYPE", "folder") //
+				.text("TARGET_FOLDER_PATH", "/other") //
+				.text("COMPLETED_FILES", "[]") //
+				.integer("TOTAL_FILE_COUNT", 2) //
+				.integer("TIMESTAMP", 2000) //
+				.executeOn(db)
+			Assert.fail("Expected constraint violation for duplicate VAULT_ID")
+		} catch (e: android.database.sqlite.SQLiteConstraintException) {
+			// Expected: unique constraint violation on VAULT_ID
 		}
 	}
 

@@ -2,7 +2,10 @@ package org.cryptomator.presentation.presenter;
 
 import android.app.Activity;
 
+import org.cryptomator.data.db.UploadCheckpointDao;
 import org.cryptomator.data.util.NetworkConnectionCheck;
+import org.cryptomator.domain.repository.CloudRepository;
+import org.cryptomator.domain.repository.VaultRepository;
 import org.cryptomator.domain.Cloud;
 import org.cryptomator.domain.CloudType;
 import org.cryptomator.domain.OnedriveCloud;
@@ -25,9 +28,12 @@ import org.cryptomator.domain.usecases.vault.SaveVaultsUseCase;
 import org.cryptomator.domain.usecases.vault.UnlockToken;
 import org.cryptomator.domain.usecases.vault.UpdateVaultParameterIfChangedRemotelyUseCase;
 import org.cryptomator.presentation.exception.ExceptionHandlers;
+import org.cryptomator.presentation.R;
 import org.cryptomator.presentation.model.VaultModel;
 import org.cryptomator.presentation.model.mappers.CloudFolderModelMapper;
+import org.cryptomator.presentation.service.UploadUiUpdates;
 import org.cryptomator.presentation.ui.activity.view.VaultListView;
+import org.cryptomator.presentation.util.ContentResolverUtil;
 import org.cryptomator.presentation.util.FileUtil;
 import org.cryptomator.presentation.workflow.AddExistingVaultWorkflow;
 import org.cryptomator.presentation.workflow.AuthenticationExceptionHandler;
@@ -40,6 +46,10 @@ import org.mockito.Mockito;
 
 import java.util.Collections;
 import java.util.List;
+
+import io.reactivex.Flowable;
+import io.reactivex.android.plugins.RxAndroidPlugins;
+import io.reactivex.schedulers.Schedulers;
 
 import static org.mockito.Mockito.never;
 import static org.mockito.Mockito.times;
@@ -115,11 +125,21 @@ public class VaultListPresenterTest {
 	private FileUtil fileUtil = Mockito.mock(FileUtil.class);
 	private AuthenticationExceptionHandler authenticationExceptionHandler = Mockito.mock(AuthenticationExceptionHandler.class);
 	private SharedPreferencesHandler sharedPreferencesHandler = Mockito.mock(SharedPreferencesHandler.class);
+	private UploadCheckpointDao uploadCheckpointDao = Mockito.mock(UploadCheckpointDao.class);
+	private UploadUiUpdates uploadUiUpdates = Mockito.mock(UploadUiUpdates.class);
+	private VaultRepository vaultRepository = Mockito.mock(VaultRepository.class);
+	private CloudRepository cloudRepository = Mockito.mock(CloudRepository.class);
+	private ContentResolverUtil contentResolverUtil = Mockito.mock(ContentResolverUtil.class);
 	private ExceptionHandlers exceptionMappings = Mockito.mock(ExceptionHandlers.class);
 	private VaultListPresenter inTest;
 
 	@BeforeEach
 	public void setup() {
+		RxAndroidPlugins.reset();
+		RxAndroidPlugins.setInitMainThreadSchedulerHandler(scheduler -> Schedulers.trampoline());
+		when(uploadUiUpdates.activeVaultIds()).thenReturn(Collections.emptySet());
+		when(uploadUiUpdates.vaultEvents()).thenReturn(Flowable.never());
+		when(uploadCheckpointDao.findAllVaultIdsWithCheckpoints()).thenReturn(Collections.emptySet());
 		inTest = new VaultListPresenter(getVaultListUseCase, //
 				deleteVaultUseCase, //
 				renameVaultUseCase, //
@@ -142,6 +162,11 @@ public class VaultListPresenterTest {
 				authenticationExceptionHandler, //
 				cloudNodeModelMapper, //
 				sharedPreferencesHandler, //
+				uploadCheckpointDao, //
+				uploadUiUpdates, //
+				vaultRepository, //
+				cloudRepository, //
+				contentResolverUtil, //
 				exceptionMappings);
 		when(vaultListView.activity()).thenReturn(activity);
 		inTest.setView(vaultListView);
@@ -238,6 +263,29 @@ public class VaultListPresenterTest {
 				.handleAuthenticationException(Mockito.any(), //
 						Mockito.any(), //
 						Mockito.any());
+	}
+
+	@Test
+	public void testOnVaultLockClickedLocksVault() {
+		when(lockVaultUseCase.withVault(AN_UNLOCKED_VAULT_MODEL.toVault())) //
+				.thenReturn(lockVaultUseCaseLauncher);
+
+		inTest.onVaultLockClicked(AN_UNLOCKED_VAULT_MODEL);
+
+		verify(lockVaultUseCaseLauncher).run(Mockito.any());
+	}
+
+	@Test
+	public void testOnVaultLockClickedDoesNotLockWhenUploadActive() {
+		when(uploadUiUpdates.activeVaultIds()).thenReturn(Collections.singleton(AN_UNLOCKED_VAULT.getId()));
+
+		try {
+			inTest.onVaultLockClicked(AN_UNLOCKED_VAULT_MODEL);
+		} catch (RuntimeException e) {
+			// CancelUploadAndLockDialog.newInstance() uses Bundle which is not mocked
+		}
+
+		verify(lockVaultUseCase, never()).withVault(Mockito.any());
 	}
 
 }

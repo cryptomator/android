@@ -5,15 +5,19 @@ import android.content.ComponentName
 import android.content.Context
 import android.content.Intent
 import android.content.ServiceConnection
+import android.net.Uri
 import android.os.Build
 import android.os.IBinder
 import android.os.StrictMode
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.multidex.MultiDexApplication
+import io.reactivex.plugins.RxJavaPlugins
 import org.cryptomator.data.cloud.crypto.Cryptors
 import org.cryptomator.data.cloud.crypto.CryptorsModule
 import org.cryptomator.data.repository.RepositoryModule
 import org.cryptomator.domain.Cloud
+import org.cryptomator.domain.usecases.cloud.UploadFile
+import org.cryptomator.domain.usecases.cloud.UploadFolderStructure
 import org.cryptomator.presentation.di.HasComponent
 import org.cryptomator.presentation.di.component.ApplicationComponent
 import org.cryptomator.presentation.di.component.DaggerApplicationComponent
@@ -25,11 +29,13 @@ import org.cryptomator.presentation.logging.ReleaseLogger
 import org.cryptomator.presentation.service.AutoUploadNotification
 import org.cryptomator.presentation.service.AutoUploadService
 import org.cryptomator.presentation.service.CryptorsService
+import org.cryptomator.presentation.service.KeepAliveLease
+import org.cryptomator.presentation.service.LeaseReason
+import org.cryptomator.presentation.service.UploadService
 import org.cryptomator.util.NoOpActivityLifecycleCallbacks
 import org.cryptomator.util.SharedPreferencesHandler
-import java.util.concurrent.atomic.AtomicInteger
-import io.reactivex.plugins.RxJavaPlugins
 import timber.log.Timber
+import java.util.concurrent.atomic.AtomicInteger
 
 class CryptomatorApp : MultiDexApplication(), HasComponent<ApplicationComponent> {
 
@@ -41,6 +47,9 @@ class CryptomatorApp : MultiDexApplication(), HasComponent<ApplicationComponent>
 
 	@Volatile
 	private var autoUploadServiceBinder: AutoUploadService.Binder? = null
+
+	@Volatile
+	private var uploadServiceBinder: UploadService.Binder? = null
 
 	override fun onCreate() {
 		super.onCreate()
@@ -76,15 +85,16 @@ class CryptomatorApp : MultiDexApplication(), HasComponent<ApplicationComponent>
 	}
 
 	private fun launchServices() {
+		launchService("cryptors") { startCryptorsService() }
+		launchService("auto upload") { startAutoUploadService() }
+		launchService("upload") { startUploadService() }
+	}
+
+	private fun launchService(name: String, start: () -> Unit) {
 		try {
-			startCryptorsService()
+			start()
 		} catch (e: IllegalStateException) {
-			Timber.tag("App").e(e, "Failed to launch cryptors service")
-		}
-		try {
-			startAutoUploadService()
-		} catch (e: IllegalStateException) {
-			Timber.tag("App").e(e, "Failed to launch auto upload service")
+			Timber.tag("App").e(e, "Failed to launch %s service", name)
 		}
 	}
 
@@ -151,6 +161,47 @@ class CryptomatorApp : MultiDexApplication(), HasComponent<ApplicationComponent>
 		}
 	}
 
+	private fun startUploadService() {
+		bindService(Intent(this, UploadService::class.java), object : ServiceConnection {
+			override fun onServiceConnected(name: ComponentName, service: IBinder) {
+				Timber.tag("App").i("Upload service connected")
+				uploadServiceBinder = service as UploadService.Binder
+				uploadServiceBinder?.init(
+					applicationComponent.cloudContentRepository(),
+					applicationComponent.uploadCheckpointDao(),
+					applicationComponent.uploadUiUpdates(),
+					applicationComponent.fileUtil(),
+					Companion.applicationContext
+				)
+			}
+
+			override fun onServiceDisconnected(name: ComponentName) {
+				Timber.tag("App").i("Upload service disconnected")
+				uploadServiceBinder = null
+			}
+		}, BIND_AUTO_CREATE)
+	}
+
+	fun startFileUpload(cloud: Cloud, targetFolderPath: String, files: List<UploadFile>,
+			completedFiles: Set<String>, vaultId: Long, cleanupUris: List<Uri> = emptyList()): Boolean {
+		val binder = uploadServiceBinder ?: run {
+			Timber.tag("App").e("Upload service not connected, file upload request dropped")
+			return false
+		}
+		binder.startFileUpload(cloud, targetFolderPath, files, completedFiles, vaultId, cleanupUris)
+		return true
+	}
+
+	fun startFolderUpload(cloud: Cloud, targetFolderPath: String, folderStructure: UploadFolderStructure,
+			completedFiles: Set<String>, vaultId: Long): Boolean {
+		val binder = uploadServiceBinder ?: run {
+			Timber.tag("App").e("Upload service not connected, folder upload request dropped")
+			return false
+		}
+		binder.startFolderUpload(cloud, targetFolderPath, folderStructure, completedFiles, vaultId)
+		return true
+	}
+
 	private fun checkToStartAutoImageUpload(sharedPreferencesHandler: SharedPreferencesHandler): Boolean {
 		return sharedPreferencesHandler.usePhotoUpload() //
 				&& (!sharedPreferencesHandler.autoPhotoUploadOnlyUsingWifi() || applicationComponent.networkConnectionCheck().checkWifiOnAndConnected())
@@ -209,14 +260,21 @@ class CryptomatorApp : MultiDexApplication(), HasComponent<ApplicationComponent>
 		return appCryptors.isEmpty()
 	}
 
-	fun suspendLock() {
-		val localServiceBinder = cryptoServiceBinder
-		localServiceBinder?.suspendLock()
+	fun acquireLease(reason: LeaseReason, ttlMs: Long, hardMaxMs: Long? = null, tag: String): KeepAliveLease? {
+		return cryptoServiceBinder?.acquireLease(reason, ttlMs, hardMaxMs, tag)
 	}
 
-	fun unSuspendLock() {
-		val localServiceBinder = cryptoServiceBinder
-		localServiceBinder?.unSuspendLock()
+	@Volatile
+	private var editingLease: KeepAliveLease? = null
+
+	fun acquireEditingLease() {
+		editingLease?.release()
+		editingLease = acquireLease(LeaseReason.EDITING, 4 * 60 * 60 * 1000L, tag = "editing")
+	}
+
+	fun releaseEditingLease() {
+		editingLease?.release()
+		editingLease = null
 	}
 
 	companion object {

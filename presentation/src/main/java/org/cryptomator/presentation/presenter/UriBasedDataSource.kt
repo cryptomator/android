@@ -33,6 +33,8 @@ class UriBasedDataSource private constructor(private val uri: Uri) : DataSource 
 		return Optional.ofNullable(ContentResolverUtil(context).fileModifiedDate(uri))
 	}
 
+	override fun toString(): String = uri.toString()
+
 	companion object {
 
 		@JvmStatic

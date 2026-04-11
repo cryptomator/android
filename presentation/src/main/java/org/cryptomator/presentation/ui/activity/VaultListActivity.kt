@@ -27,10 +27,13 @@ import org.cryptomator.presentation.ui.callback.VaultListCallback
 import org.cryptomator.presentation.ui.dialog.AskForLockScreenDialog
 import org.cryptomator.presentation.ui.dialog.BetaConfirmationDialog
 import org.cryptomator.presentation.ui.dialog.CBCPasswordVaultsMigrationDialog
+import org.cryptomator.presentation.ui.dialog.CancelUploadAndLockDialog
+import org.cryptomator.presentation.ui.dialog.ResumeUploadDialog
 import org.cryptomator.presentation.ui.dialog.UpdateAppAvailableDialog
 import org.cryptomator.presentation.ui.dialog.UpdateAppDialog
 import org.cryptomator.presentation.ui.dialog.VaultDeleteConfirmationDialog
 import org.cryptomator.presentation.ui.dialog.VaultRenameDialog
+import org.cryptomator.presentation.ui.adapter.VaultUploadState
 import org.cryptomator.presentation.ui.fragment.VaultListFragment
 import org.cryptomator.presentation.ui.layout.ObscuredAwareCoordinatorLayout.Listener
 import org.cryptomator.presentation.util.BiometricAuthenticationMigration
@@ -45,6 +48,8 @@ class VaultListActivity : BaseActivity<ActivityLayoutObscureAwareBinding>(Activi
 	UpdateAppDialog.Callback, //
 	BetaConfirmationDialog.Callback, //
 	CBCPasswordVaultsMigrationDialog.Callback, //
+	CancelUploadAndLockDialog.Callback, //
+	ResumeUploadDialog.Callback, //
 	BiometricAuthenticationMigration.Callback {
 
 	@Inject
@@ -74,7 +79,7 @@ class VaultListActivity : BaseActivity<ActivityLayoutObscureAwareBinding>(Activi
 
 		if (stopEditFilePressed() && sharedPreferencesHandler.keepUnlockedWhileEditing()) {
 			hideNotification()
-			unSuspendLock()
+			releaseEditingLease()
 		}
 	}
 
@@ -86,9 +91,8 @@ class VaultListActivity : BaseActivity<ActivityLayoutObscureAwareBinding>(Activi
 		OpenWritableFileNotification(context(), Uri.EMPTY).hide()
 	}
 
-	private fun unSuspendLock() {
-		val cryptomatorApp = activity().application as CryptomatorApp
-		cryptomatorApp.unSuspendLock()
+	private fun releaseEditingLease() {
+		(application as CryptomatorApp).releaseEditingLease()
 	}
 
 	override fun createFragment(): Fragment = VaultListFragment()
@@ -167,6 +171,14 @@ class VaultListActivity : BaseActivity<ActivityLayoutObscureAwareBinding>(Activi
 
 	override fun renameVault(vaultModel: VaultModel) {
 		vaultListFragment().addOrUpdateVault(vaultModel)
+	}
+
+	override fun updateUploadStates(states: Map<Long, VaultUploadState>) {
+		vaultListFragment().updateUploadStates(states)
+	}
+
+	override fun updateVaultUploadState(vaultId: Long, state: VaultUploadState?) {
+		vaultListFragment().updateVaultUploadState(vaultId, state)
 	}
 
 	override fun onAddExistingVault() {
@@ -250,6 +262,18 @@ class VaultListActivity : BaseActivity<ActivityLayoutObscureAwareBinding>(Activi
 
 	override fun onBiometricKeyInvalidated(vaults: List<VaultModel>) {
 		vaultListPresenter.biometricKeyInvalidated(vaults)
+	}
+
+	override fun onCancelUploadAndLockConfirmed(vaultId: Long) {
+		vaultListPresenter.onCancelUploadAndLockConfirmed(vaultId)
+	}
+
+	override fun onResumeUploadConfirmed(vaultId: Long) {
+		vaultListPresenter.onResumeUploadConfirmed(vaultId)
+	}
+
+	override fun onResumeUploadDeclined(vaultId: Long) {
+		vaultListPresenter.onResumeUploadDeclined(vaultId)
 	}
 
 }

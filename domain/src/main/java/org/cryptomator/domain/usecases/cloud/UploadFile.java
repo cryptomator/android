@@ -6,7 +6,7 @@ public class UploadFile {
 
 	private final DataSource dataSource;
 
-	private final Boolean replacing;
+	private Boolean replacing;
 
 	private UploadFile(Builder builder) {
 		this.fileName = builder.fileName;
@@ -35,6 +35,10 @@ public class UploadFile {
 
 	public Boolean getReplacing() {
 		return replacing;
+	}
+
+	public void setReplacing(boolean replacing) {
+		this.replacing = replacing;
 	}
 
 	public static class Builder {
