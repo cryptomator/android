@@ -6,7 +6,7 @@
 	<string name="error_generic">Сталася помилка</string>
 	<string name="error_authentication_failed">Не вдалося пройти автентифікацію</string>
 	<string name="error_authentication_failed_re_authenticate">Помилка автентифікації, будь ласка, увійдіть за допомогою %1$s</string>
-	<string name="error_no_network_connection">Відсутнє з\'єднання з мережею</string>
+	<string name="error_no_network_connection">Відсутнє з’єднання з мережею</string>
 	<string name="error_invalid_passphrase">Невірний пароль</string>
 	<string name="error_file_or_folder_exists">Файл чи папка вже існує.</string>
 	<string name="error_vault_version_not_supported">Версія сховища %1$s не підтримується. Це сховище було створено за допомогою старішої або новішої версії Cryptomator.</string>
@@ -24,7 +24,7 @@
 	<string name="error_vault_name_contains_invalid_characters">Назва сховища не може містити спеціальні символи.</string>
 	<string name="error_general_update">Не вдалося перевірити наявність оновлень. Виникла загальна помилка.</string>
 	<string name="error_hash_mismatch_update">Не вдалося перевірити наявність оновлень. Розрахований хеш не збігається із завантаженим файлом</string>
-	<string name="error_update_no_internet">Не вдалося перевірити наявність оновлень. Відсутнє з\'єднання з інтернетом.</string>
+	<string name="error_update_no_internet">Не вдалося перевірити наявність оновлень. Відсутнє з’єднання з інтернетом.</string>
 	<string name="error_failed_to_decrypt_webdav_password">Не вдалося розшифрувати пароль WebDAV, будь ласка, повторно додайте його в налаштування</string>
 	<string name="error_play_services_not_available">Служби Google Play не встановлено</string>
 	<string name="error_biometric_auth_aborted">Біометрична автентифікація перервана</string>
@@ -34,7 +34,7 @@
 	<string name="error_file_not_found_after_opening_using_3party">Локальний файл більше не існує після повернення до Cryptomator. Можливі зміни не можуть бути збережені у хмарі.</string>
 	<string name="error_no_such_bucket">Такого S3-кошика не існує</string>
 	<string name="error_masterkey_location_not_supported">Власне розташування Masterkey ще не підтримується</string>
-	<string name="error_interact_with_fdroid_but_fdroid_missing">Не вдалося зв\'язатися зі застосунком F-Droid. Можливо, його не встановлено?</string>
+	<string name="error_interact_with_fdroid_but_fdroid_missing">Не вдалося зв’язатися зі застосунком F-Droid. Можливо, його не встановлено?</string>
 	<string name="error_hub_vault_operation_not_supported">Операція зі сховищем не підтримується для Hub</string>
 	<string name="error_hub_authentication_failed">Автентифікація через Hub невдала</string>
 	<string name="error_hub_device_already_register_for_other_user">Цей пристрій вже зареєстровано для іншого користувача. Спробуйте змінити обліковий запис або скористайтеся іншим пристроєм.</string>
@@ -330,8 +330,8 @@
 	<string name="dialog_disable_secure_screen_disclaimer_hint">Це налаштування є функцією безпеки, що запобігає спробам інших програм змусити користувачів робити те, чого вони не хочуть.\n\nВимкнувши це, ви підтверджуєте, що <a href="https://docs.cryptomator.org/en/latest/android/settings/#screen-security">усвідомлюєте ризики</a>.</string>
 	<string name="dialog_delete_cloud_connection_with_vaults_message">Ви впевнені, що хочете вилучити це хмарне підключення?</string>
 	<string name="dialog_delete_cloud_connection_with_vaults_hint">Ця дія вилучить підключення до хмари та всі сховища з цієї хмари.</string>
-	<string name="dialog_confirm_delete_multiple_title">Видалити %1$d об\'єкт(-и, -ів)?</string>
-	<string name="dialog_confirm_delete_multiple_message">Ви впевнені, що хочете видалити ці об\'єкти?</string>
+	<string name="dialog_confirm_delete_multiple_title">Видалити %1$d об’єкт(-и, -ів)?</string>
+	<string name="dialog_confirm_delete_multiple_message">Ви впевнені, що хочете видалити ці об’єкти?</string>
 	<string name="dialog_confirm_delete_file_message">Ви впевнені, що хочете видалити цей файл?</string>
 	<string name="dialog_confirm_delete_folder_message">Це призведе до видалення всього вмісту папки. Ви впевнені, що хочете видалити цю папку?</string>
 	<string name="dialog_biometric_auth_key_invalidated_title">Функцію біометричної автентифікації вимкнено</string>
