@@ -361,7 +361,7 @@
 	<string name="dialog_cbc_password_vaults_migration_action">遷移</string>
 	<string name="dialog_create_hub_device_title">注冊Hub設備</string>
 	<string name="dialog_create_hub_device_name_label">名稱</string>
-	<string name="dialog_create_hub_device_name_hint">似乎為首次透過 Hub 訪問此設備。您需要命名此設備，以便識別設備並授予讀取權限。</string>
+	<string name="dialog_create_hub_device_name_hint">若此設備首次存取 Hub，需命名此設備，以便識別，授予權限。</string>
 	<string name="dialog_create_hub_device_name_empty">名稱不能為空。</string>
 	<string name="dialog_create_hub_device_setup_code_label">Account Key</string>
 	<string name="dialog_create_hub_device_setup_code_hint">需要您的Account Key才能從新應用或瀏覽器登入。 可以在你的個人資料中找到Account Key。</string>
