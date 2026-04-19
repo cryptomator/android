@@ -301,10 +301,26 @@ class SharedFilesPresenter @Inject constructor( //
 		}
 	}
 
+	/**
+	 * Collects the filenames for upload items that collide with existing files at the destination.
+	 *
+	 * @return A list of filenames for upload items that already exist at the destination.
+	 */
 	private fun namesOfExistingFiles(): List<String> {
 		return existingFilesForUpload.mapTo(ArrayList()) { it.fileName }
 	}
 
+	/**
+	 * Handles the Save action: enforces vault write license if needed, updates edited filenames, validates them, and proceeds to save.
+	 *
+	 * If a vault is selected but write access is not granted, requests license enforcement for uploading and exits without changing state.
+	 * Otherwise updates the presenter's filenames from the provided list, then:
+	 * - shows a "filenames must be unique" message if any conflict exists,
+	 * - shows an "invalid characters" message if any filename is invalid,
+	 * - or begins the file-saving/upload preparation when validation passes.
+	 *
+	 * @param filesForUpload List of SharedFileModel containing the filenames as edited in the UI.
+	 */
 	fun onSaveButtonPressed(filesForUpload: List<SharedFileModel>) {
 		if (selectedVault != null && !licenseEnforcer.hasWriteAccessForVault(selectedVault)) {
 			view?.let { v ->
@@ -386,11 +402,22 @@ class SharedFilesPresenter @Inject constructor( //
 		return hasFileNameConflict
 	}
 
+	/**
+	 * Update the presenter's selected vault and enable or disable the upload action in the view.
+	 *
+	 * @param vault The vault selected by the user, or `null` to clear the selection.
+	 */
 	fun onVaultSelected(vault: VaultModel?) {
 		selectedVault = vault
 		view?.setUploadEnabled(vault != null)
 	}
 
+	/**
+	 * Update the presenter's authentication state.
+	 *
+	 * @param authenticationState The authentication flow to use for the next authentication step
+	 *        (for example `AuthenticationState.CHOOSE_LOCATION` or `AuthenticationState.INIT_ROOT`).
+	 */
 	private fun setAuthenticationState(authenticationState: AuthenticationState) {
 		this.authenticationState = authenticationState
 	}

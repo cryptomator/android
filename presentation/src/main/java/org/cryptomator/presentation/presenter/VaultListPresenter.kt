@@ -99,10 +99,23 @@ class VaultListPresenter @Inject constructor( //
 	private var vaultAction: VaultAction? = null
 	private var hasShownTrialExpiredDialog = false
 
+	/**
+	 * Provides the presenter workflows used to add an existing vault or create a new vault.
+	 *
+	 * @return An iterable containing the workflows for adding an existing vault and creating a new vault.
+	 */
 	override fun workflows(): Iterable<Workflow<*>> {
 		return listOf(addExistingVaultWorkflow, createNewVaultWorkflow)
 	}
 
+	/**
+	 * Initiates the welcome flow when it hasn't been completed and, for freemium builds,
+	 * shows the trial-expired dialog once if the trial is expired and no paid license exists.
+	 *
+	 * If the welcome flow is launched, this method returns immediately without performing
+	 * further checks. For freemium flavors the trial-expired dialog is displayed at most
+	 * once per presenter instance.
+	 */
 	override fun resumed() {
 		if (launchWelcomeFlowIfNeeded()) {
 			return
@@ -117,6 +130,13 @@ class VaultListPresenter @Inject constructor( //
 		}
 	}
 
+	/**
+	 * Starts the welcome flow when it has not been completed yet.
+	 *
+	 * If the welcome flow is incomplete, launches WelcomeActivity (with an activity-result callback).
+	 *
+	 * @return `true` if the welcome flow was launched, `false` otherwise.
+	 */
 	private fun launchWelcomeFlowIfNeeded(): Boolean {
 		if (!sharedPreferencesHandler.hasCompletedWelcomeFlow()) {
 			requestActivityResult(
@@ -128,12 +148,24 @@ class VaultListPresenter @Inject constructor( //
 		return false
 	}
 
+	/**
+	 * Reloads the vault list when the window gains focus.
+	 *
+	 * @param hasFocus `true` if the window now has focus, `false` otherwise.
+	 */
 	fun onWindowFocusChanged(hasFocus: Boolean) {
 		if (hasFocus) {
 			loadVaultList()
 		}
 	}
 
+	/**
+	 * Prepares the view by performing initial one-time checks and showing any required setup dialogs.
+	 *
+	 * Performs the welcome-flow gate, shows a lock-screen prompt if the device has no secure keyguard (once),
+	 * displays a migration notice for vaults removed during migration, triggers an app update check for APK-store builds
+	 * when configured, and initiates permission checks.
+	 */
 	fun prepareView() {
 		if (launchWelcomeFlowIfNeeded()) {
 			return
@@ -160,6 +192,14 @@ class VaultListPresenter @Inject constructor( //
 		checkPermissions()
 	}
 
+	/**
+	 * Initiates an application update availability check when an internet connection is present.
+	 *
+	 * If an update is found, delegates handling to `updateStatusRetrieved`; if no update is available,
+	 * logs that the current version is up to date. Always records that an update check was executed.
+	 * Any errors during the check are reported via `showError`. If no network is available, logs that
+	 * the check was not started.
+	 */
 	private fun checkForAppUpdates() {
 		if (networkConnectionCheck.isPresent) {
 			updateCheckUseCase //
@@ -217,6 +257,13 @@ class VaultListPresenter @Inject constructor( //
 		)
 	}
 
+	/**
+	 * Handles the result of a local-storage permission request for auto-upload and then proceeds to notification-permission handling.
+	 *
+	 * Logs an error if local storage permission was not granted; in all cases invokes checkNotificationPermission().
+	 *
+	 * @param result The permission request result; `result.granted()` indicates the local storage permission was granted.
+	 */
 	@Callback
 	fun onLocalStoragePermissionResultForAutoUploadAndCheckNotificationPermission(result: PermissionsResult) {
 		if (!result.granted()) {
@@ -225,6 +272,12 @@ class VaultListPresenter @Inject constructor( //
 		checkNotificationPermission()
 	}
 
+	/**
+	 * Ensures the app has notification permission or advances the permission flow.
+	 *
+	 * If the runtime notification permission should be requested, initiates a permission request.
+	 * Otherwise continues by checking for CBC-encrypted vaults.
+	 */
 	private fun checkNotificationPermission() {
 		if (shouldRequestNotificationPermission()) {
 			requestPermissions(
@@ -237,11 +290,24 @@ class VaultListPresenter @Inject constructor( //
 		}
 	}
 
+	/**
+	 * Determines whether the app should request the `POST_NOTIFICATIONS` runtime permission.
+	 *
+	 * @return `true` if the device is running a version newer than Android S_V2 and `POST_NOTIFICATIONS`
+	 *         is not granted, `false` otherwise.
+	 */
 	private fun shouldRequestNotificationPermission(): Boolean {
 		return Build.VERSION.SDK_INT > Build.VERSION_CODES.S_V2 &&
 				ContextCompat.checkSelfPermission(context(), Manifest.permission.POST_NOTIFICATIONS) != PackageManager.PERMISSION_GRANTED
 	}
 
+	/**
+	 * Handles the result of a notification permission request and continues with CBC-encrypted vault checks.
+	 *
+	 * Logs an error if the notification permission was not granted and then invokes the CBC-encrypted vaults check.
+	 *
+	 * @param result The outcome of the permission request indicating whether the permission was granted.
+	 */
 	@Callback
 	fun requestNotificationPermission(result: PermissionsResult) {
 		if (!result.granted()) {
@@ -496,6 +562,11 @@ class VaultListPresenter @Inject constructor( //
 		vaultAction = null
 	}
 
+	/**
+	 * Ensures the provided authenticated vault is presented and either starts the unlock flow when it's locked or opens its contents when unlocked.
+	 *
+	 * @param authenticatedVault The vault model to present; if locked, triggers the user unlock flow, otherwise navigates into the vault's contents.
+	 */
 	private fun requireUserAuthentication(authenticatedVault: VaultModel) {
 		view?.addOrUpdateVault(authenticatedVault)
 		if (authenticatedVault.isLocked) {
@@ -510,11 +581,21 @@ class VaultListPresenter @Inject constructor( //
 		}
 	}
 
+	/**
+	 * Continues presenter setup after the welcome flow completes.
+	 *
+	 * @param result The ActivityResult returned by the welcome flow activity.
+	 */
 	@Callback
 	fun welcomeFlowCompleted(result: ActivityResult) {
 		prepareView()
 	}
 
+	/**
+	 * Handles an activity result containing a selected Cloud and initiates loading of its root folder.
+	 *
+	 * @param result The ActivityResult whose intent carries the selected Cloud under the `SINGLE_RESULT` extra.
+	 */
 	@Callback
 	fun vaultUnlockedVaultList(result: ActivityResult) {
 		val cloud = result.intent().getSerializableExtra(SINGLE_RESULT) as Cloud

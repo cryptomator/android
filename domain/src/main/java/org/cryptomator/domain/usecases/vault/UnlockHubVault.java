@@ -40,6 +40,15 @@ class UnlockHubVault {
 		cancelled = true;
 	}
 
+	/**
+	 * Unlocks a hub-backed vault: validates the hub API version, derives a hub-backed target
+	 * Vault (marking hub backing and paid-license state), and delegates the unlock operation
+	 * to the cloud repository.
+	 *
+	 * @return the Cloud result produced by the cloud repository after unlocking the target vault
+	 * @throws BackendException if the cloud repository or hub repository encounters a backend error
+	 * @throws HubInvalidVersionException if the hub API level is less than {@code HUB_MINIMUM_VERSION}
+	 */
 	public Cloud execute() throws BackendException {
 		HubRepository.ConfigDto config = hubRepository.getConfig(unverifiedVaultConfig, accessToken);
 		if (config.getApiLevel() < HUB_MINIMUM_VERSION) {

@@ -10,6 +10,17 @@ import timber.log.Timber
 @Singleton
 internal class Upgrade13To14 @Inject constructor(private val sharedPreferencesHandler: SharedPreferencesHandler) : DatabaseUpgrade(13, 14) {
 
+	/**
+	 * Applies the schema migration steps from version 13 to 14 on the provided database.
+	 *
+	 * If `origin > 0` (an existing installation), marks the welcome flow completed. For builds that
+	 * require migrating a license token (non-premium flavor), reads an existing `LICENSE_TOKEN` from
+	 * the database and saves it to shared preferences. In all cases, removes the `LICENSE_TOKEN`
+	 * column/data from the database.
+	 *
+	 * @param db The database to migrate.
+	 * @param origin The originating schema version; values greater than 0 indicate an existing install.
+	 */
 	override fun internalApplyTo(db: Database, origin: Int) {
 		if (origin > 0) {
 			// Any user going through a schema migration is an existing user — skip welcome
@@ -24,10 +35,23 @@ internal class Upgrade13To14 @Inject constructor(private val sharedPreferencesHa
 		removeLicenseFromDb(db)
 	}
 
+	/**
+	 * Indicates whether the current build uses the premium flavor (i.e., does not store a license key in the database).
+	 *
+	 * @return `true` if the current build is the premium flavor, `false` otherwise.
+	 */
 	private fun nonLicenseKeyVariant(): Boolean {
 		return FlavorConfig.isPremiumFlavor
 	}
 
+	/**
+	 * Removes the `LICENSE_TOKEN` column from the `UPDATE_CHECK_ENTITY` table by recreating the table without that column.
+	 *
+	 * The existing rows for `_id`, `RELEASE_NOTE`, `VERSION`, `URL_TO_APK`, `APK_SHA256`, and `URL_TO_RELEASE_NOTE` are preserved
+	 * by copying them into the new table. The operation is executed within a database transaction.
+	 *
+	 * @param db The database to modify.
+	 */
 	private fun removeLicenseFromDb(db: Database) {
 		db.beginTransaction()
 		try {
@@ -55,6 +79,12 @@ internal class Upgrade13To14 @Inject constructor(private val sharedPreferencesHa
 		}
 	}
 
+	/**
+	 * Retrieves the existing license token from the UPDATE_CHECK_ENTITY table.
+	 *
+	 * @param db The database to query.
+	 * @return The `LICENSE_TOKEN` value from the first row if present, `null` otherwise.
+	 */
 	private fun getExistingLicenseToken(db: Database): String? {
 		Sql.query("UPDATE_CHECK_ENTITY")
 			.columns(listOf("LICENSE_TOKEN"))
@@ -66,6 +96,11 @@ internal class Upgrade13To14 @Inject constructor(private val sharedPreferencesHa
 		return null
 	}
 
+	/**
+	 * Marks the onboarding welcome flow as completed in shared preferences.
+	 *
+	 * Sets the flag that causes the welcome screen to be skipped on subsequent launches.
+	 */
 	private fun setWelcomeFlowCompleted() {
 		sharedPreferencesHandler.setWelcomeFlowCompleted()
 		Timber.tag("Upgrade13To14").i("Skip welcome screen")

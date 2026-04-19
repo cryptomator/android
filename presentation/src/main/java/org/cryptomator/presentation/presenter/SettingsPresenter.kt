@@ -76,6 +76,13 @@ class SettingsPresenter @Inject internal constructor(
 			.send(activity())
 	}
 
+	/**
+	 * Builds the Markdown-formatted body for the error report email, including a summary section and device/app information.
+	 *
+	 * Includes a human-readable distribution variant derived from BuildConfig.FLAVOR, the app version and build code, Android version and API level, and the device model.
+	 *
+	 * @return The complete email body as a Markdown-formatted String.
+	 */
 	private fun errorReportEmailBody(): String {
 		val variant = when (BuildConfig.FLAVOR) {
 			"apkstore" -> {

@@ -130,16 +130,46 @@ public interface ActivityComponent {
 
 	void inject(S3AddOrChangeFragment s3AddOrChangeFragment);
 
-	void inject(CryptomatorVariantsActivity cryptomatorVariantsActivity);
+	/**
+ * Injects dependencies into a CryptomatorVariantsActivity instance.
+ *
+ * @param cryptomatorVariantsActivity the activity instance to inject
+ */
+void inject(CryptomatorVariantsActivity cryptomatorVariantsActivity);
 
-	void inject(WelcomeActivity welcomeActivity);
+	/**
+ * Injects dependencies into the specified WelcomeActivity instance.
+ *
+ * @param welcomeActivity the WelcomeActivity to receive injected dependencies
+ */
+void inject(WelcomeActivity welcomeActivity);
 
-	void inject(WelcomeIntroFragment welcomeIntroFragment);
+	/**
+ * Injects Dagger-provided dependencies into the specified WelcomeIntroFragment.
+ *
+ * @param welcomeIntroFragment the fragment instance to inject dependencies into
+ */
+void inject(WelcomeIntroFragment welcomeIntroFragment);
 
-	void inject(WelcomeLicenseFragment welcomeLicenseFragment);
+	/**
+ * Injects dependencies into the specified WelcomeLicenseFragment.
+ *
+ * @param welcomeLicenseFragment the fragment instance to receive injected dependencies
+ */
+void inject(WelcomeLicenseFragment welcomeLicenseFragment);
 
-	void inject(WelcomeNotificationsFragment welcomeNotificationsFragment);
+	/**
+ * Injects required dependencies into the specified WelcomeNotificationsFragment.
+ *
+ * @param welcomeNotificationsFragment the fragment instance to receive injected dependencies
+ */
+void inject(WelcomeNotificationsFragment welcomeNotificationsFragment);
 
-	void inject(WelcomeScreenLockFragment welcomeScreenLockFragment);
+	/**
+ * Injects dependencies into the WelcomeScreenLockFragment instance.
+ *
+ * @param welcomeScreenLockFragment the fragment instance to receive injections
+ */
+void inject(WelcomeScreenLockFragment welcomeScreenLockFragment);
 
 }

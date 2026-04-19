@@ -31,16 +31,34 @@ class TextEditorFragment : BaseFragment<FragmentTextEditorBinding>(FragmentTextE
 		textEditorPresenter.loadFileContent()
 	}
 
+	/**
+	 * Sets the editor's text to the provided content.
+	 *
+	 * @param textFileContent The text to display in the editor; passing `null` clears the editor.
+	 */
 	fun displayTextFileContent(textFileContent: String?) {
 		binding.textEditor.setText(textFileContent)
 	}
 
+	/**
+	 * Sets the text editor to read-only mode.
+	 *
+	 * Disables focus and cursor visibility so the user cannot edit or place the caret in the editor.
+	 */
 	fun setReadOnly() {
 		binding.textEditor.isFocusable = false
 		binding.textEditor.isFocusableInTouchMode = false
 		binding.textEditor.isCursorVisible = false
 	}
 
+	/**
+	 * Initiates a new search for the given query, clears existing highlights, and jumps to the first match.
+	 *
+	 * Clears current highlight spans; if `query` is empty the method returns after clearing highlights.
+	 * Otherwise resets the search position and advances to the next match so the first occurrence is selected and brought into view.
+	 *
+	 * @param query The search text to locate and highlight in the editor.
+	 */
 	fun onQueryText(query: String) {
 		textEditorPresenter.query = query
 

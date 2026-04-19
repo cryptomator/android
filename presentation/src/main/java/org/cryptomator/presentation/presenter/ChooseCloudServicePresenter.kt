@@ -33,6 +33,13 @@ class ChooseCloudServicePresenter @Inject constructor( //
 		return listOf(addExistingVaultWorkflow, createNewVaultWorkflow)
 	}
 
+	/**
+	 * Prepare and deliver the list of cloud providers to the view based on the current flavor configuration.
+	 *
+	 * Removes the CRYPTO entry unconditionally. If `FlavorConfig.excludesGoogleDrive` is true, removes
+	 * GOOGLE_DRIVE; otherwise, when `FlavorConfig.isLiteFlavor` is true, additionally removes DROPBOX,
+	 * ONEDRIVE, and PCLOUD. The resulting list is passed to `view?.render`.
+	 */
 	override fun resumed() {
 		val cloudTypeModels: MutableList<CloudTypeModel> = ArrayList(listOf(*CloudTypeModel.values()))
 		cloudTypeModels.remove(CloudTypeModel.CRYPTO)
@@ -90,10 +97,21 @@ class ChooseCloudServicePresenter @Inject constructor( //
 			})
 	}
 
+	/**
+	 * Finish the presenter and deliver the user's selected cloud to the caller.
+	 *
+	 * @param cloud The selected cloud to return to the caller after mapping.
+	 */
 	private fun onCloudSelected(cloud: Cloud) {
 		finishWithResult(cloudModelMapper.toModel(cloud))
 	}
 
+	/**
+	 * Shows a snackbar prompting the user about Cryptomator variants in the Lite flavor.
+	 *
+	 * When the app runs in the Lite variant this displays a snackbar with an action that
+	 * opens the Cryptomator variants screen.
+	 */
 	fun showCloudMissingSnackbarHintInLiteVariant() {
 		if (FlavorConfig.isLiteFlavor) {
 			view?.showSnackbar(R.string.snack_bar_cryptomator_variants_hint, object : SnackbarAction {

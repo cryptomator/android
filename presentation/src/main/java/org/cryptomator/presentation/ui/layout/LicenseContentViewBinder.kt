@@ -22,7 +22,13 @@ class LicenseContentViewBinder(
 
 	private val context get() = binding.root.context
 
-	/** Sets the initial visibility state and button defaults for IAP mode. */
+	/**
+	 * Configure the view state for the initial in-app purchase (IAP) layout.
+	 *
+	 * Hides the license entry group, primary purchase button, and license link;
+	 * shows the purchase options group, restore purchase link, and legal links;
+	 * and disables the subscription and lifetime purchase buttons.
+	 */
 	fun bindInitialIapLayout() {
 		binding.licenseEntryGroup.visibility = View.GONE
 		binding.btnPurchase.visibility = View.GONE
@@ -34,7 +40,13 @@ class LicenseContentViewBinder(
 		binding.btnLifetime.isEnabled = false
 	}
 
-	/** Sets the initial visibility state for license-entry (non-IAP) mode. */
+	/**
+	 * Configure the UI for non-IAP license entry mode.
+	 *
+	 * Shows the license entry group and the license link (setting its text to
+	 * `dialog_enter_license_content`), and hides purchase options, restore purchase,
+	 * and legal links.
+	 */
 	fun bindInitialLicenseEntryLayout() {
 		binding.licenseEntryGroup.visibility = View.VISIBLE
 		binding.purchaseOptionsGroup.visibility = View.GONE
@@ -44,7 +56,12 @@ class LicenseContentViewBinder(
 		binding.tvLicenseLink.text = context.getString(R.string.dialog_enter_license_content)
 	}
 
-	/** Sets the initial visibility state for license-entry mode with the trial row visible (welcome flow only). */
+	/**
+	 * Configure the license-entry welcome layout with the trial row visible.
+	 *
+	 * Shows the purchase options and the trial row, and hides the subscription and lifetime rows
+	 * along with their separating dividers.
+	 */
 	fun bindInitialLicenseEntryWithTrialLayout() {
 		bindInitialLicenseEntryLayout()
 		binding.purchaseOptionsGroup.visibility = View.VISIBLE
@@ -55,7 +72,11 @@ class LicenseContentViewBinder(
 		binding.rowTrial.visibility = View.VISIBLE
 	}
 
-	/** Sets click listeners on Terms and Privacy links. */
+	/**
+	 * Opens the Cryptomator Terms and Privacy web pages when the corresponding links are tapped.
+	 *
+	 * Tapping the Terms link opens https://cryptomator.org/terms/ and tapping the Privacy link opens https://cryptomator.org/privacy/ in a browser.
+	 */
 	fun bindLegalLinks() {
 		binding.tvTerms.setOnClickListener {
 			context.startActivity(Intent(Intent.ACTION_VIEW, Uri.parse("https://cryptomator.org/terms/")))
@@ -65,7 +86,13 @@ class LicenseContentViewBinder(
 		}
 	}
 
-	/** Wires trial, subscription, lifetime, and restore button click listeners. */
+	/**
+	 * Wires purchase-related click handlers for trial, subscription, lifetime, and restore actions.
+	 *
+	 * @param activity Activity used as the caller context for launching purchase flows and, if resumed and implementing RestoreOutcomeHandler, receiving restore outcomes.
+	 * @param app Application facade used to start purchase flows and perform restore operations; if the activity cannot receive the restore outcome, the outcome is stored on the app.
+	 * @param onTrialClicked Callback invoked when the trial button is clicked.
+	 */
 	fun bindPurchaseButtons(
 		activity: Activity,
 		app: CryptomatorApp,
@@ -91,7 +118,11 @@ class LicenseContentViewBinder(
 		}
 	}
 
-	/** Queries product details and updates price buttons on the UI thread. */
+	/**
+	 * Loads localized prices for the subscription and lifetime products and updates the corresponding buttons in the bound view.
+	 *
+	 * Queries product details from the provided app, resolves subscription and lifetime price strings, and posts a UI-thread update to bind those prices to the purchase buttons.
+	 */
 	fun loadAndBindPrices(app: CryptomatorApp) {
 		app.queryProductDetails { products ->
 			val prices = products.resolveProductPrices()
@@ -101,7 +132,14 @@ class LicenseContentViewBinder(
 		}
 	}
 
-	/** Updates subscription and lifetime button text and enabled state from resolved prices. */
+	/**
+	 * Update subscription and lifetime button labels and enable the corresponding buttons when a non-empty price is provided.
+	 *
+	 * If a price is `null` or empty, the corresponding button is not modified.
+	 *
+	 * @param subscriptionPrice The resolved subscription price string to display, or `null`/empty to leave the subscription button unchanged.
+	 * @param lifetimePrice The resolved lifetime price string to display, or `null`/empty to leave the lifetime button unchanged.
+	 */
 	fun bindProductPrices(subscriptionPrice: String?, lifetimePrice: String?) {
 		if (!subscriptionPrice.isNullOrEmpty()) {
 			binding.btnSubscription.text = subscriptionPrice
@@ -113,7 +151,14 @@ class LicenseContentViewBinder(
 		}
 	}
 
-	/** Updates purchase-related view visibility based on license state. */
+	/**
+	 * Update the purchase-related UI to reflect whether the app is unlocked or a paid license is present.
+	 *
+	 * When the binder is configured for the freemium flavor, this toggles visibility of purchase options and the restore link based on whether a paid license exists; otherwise it enables or disables the purchase button according to the unlock state and hides trial/info views when a paid license exists.
+	 *
+	 * @param unlocked True if the app is currently unlocked by a license.
+	 * @param hasPaidLicense True if the user has a paid (non-trial) license.
+	 */
 	fun bindPurchaseState(unlocked: Boolean, hasPaidLicense: Boolean) {
 		if (isFreemiumFlavor) {
 			binding.purchaseOptionsGroup.visibility = if (hasPaidLicense) View.GONE else View.VISIBLE
@@ -132,7 +177,13 @@ class LicenseContentViewBinder(
 		}
 	}
 
-	/** Updates trial-related view visibility based on trial state. */
+	/**
+	 * Update the UI to reflect an active trial, an expired trial, or no trial.
+	 *
+	 * @param active True when a trial is currently active.
+	 * @param expired True when a trial has expired.
+	 * @param expirationText Optional text describing the trial expiration (shown when active or expired).
+	 */
 	fun bindTrialState(active: Boolean, expired: Boolean, expirationText: String?) {
 		if (active || expired) {
 			binding.trialButtonGroup.visibility = View.GONE

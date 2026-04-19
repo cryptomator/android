@@ -20,9 +20,24 @@ public class UpdateCheckEntity extends DatabaseEntity {
 
 	private String urlToReleaseNote;
 
+	/**
+	 * Constructs a new UpdateCheckEntity with all fields unset (null).
+	 *
+	 * <p>Required by the persistence framework for entity instantiation.</p>
+	 */
 	public UpdateCheckEntity() {
 	}
 
+	/**
+	 * Creates a new UpdateCheckEntity with the given metadata.
+	 *
+	 * @param id                primary key (may be null before persistence)
+	 * @param releaseNote       release note text or reference
+	 * @param version           version string of the release
+	 * @param urlToApk          download URL for the APK
+	 * @param apkSha256         SHA-256 checksum of the APK
+	 * @param urlToReleaseNote  URL referencing the release notes
+	 */
 	@Generated(hash = 867488251)
 	public UpdateCheckEntity(Long id, String releaseNote, String version, String urlToApk, String apkSha256, String urlToReleaseNote) {
 		this.id = id;
@@ -38,10 +53,20 @@ public class UpdateCheckEntity extends DatabaseEntity {
 		return id;
 	}
 
+	/**
+	 * Sets the entity's primary key.
+	 *
+	 * @param id the primary key value, or null if not yet assigned
+	 */
 	public void setId(Long id) {
 		this.id = id;
 	}
 
+	/**
+	 * Gets the version string of the update.
+	 *
+	 * @return the version string, or {@code null} if not set
+	 */
 	public String getVersion() {
 		return this.version;
 	}

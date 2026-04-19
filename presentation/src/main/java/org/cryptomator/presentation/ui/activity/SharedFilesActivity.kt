@@ -170,6 +170,11 @@ class SharedFilesActivity : BaseActivity<ActivityLayoutBinding>(ActivityLayoutBi
 		finish()
 	}
 
+	/**
+	 * Attempts to open this application's launch activity (so the user can create a vault) and then finishes this activity.
+	 *
+	 * If no launch intent is available for the package, the method still finishes the activity.
+	 */
 	override fun onNotEnoughVaultsCreateVaultClicked() {
 		packageManager.getLaunchIntentForPackage(packageName)
 			?.let {
@@ -179,10 +184,18 @@ class SharedFilesActivity : BaseActivity<ActivityLayoutBinding>(ActivityLayoutBi
 		finish()
 	}
 
+	/**
+	 * Enable or disable the upload action in the hosted SharedFilesFragment.
+	 *
+	 * @param enabled `true` to enable uploads, `false` to disable them.
+	 */
 	override fun setUploadEnabled(enabled: Boolean) {
 		sharedFilesFragment().setUploadEnabled(enabled)
 	}
 
+	/**
+	 * Notifies the presenter that the upload operation was canceled.
+	 */
 	override fun onUploadCanceled() {
 		presenter.onUploadCanceled()
 	}

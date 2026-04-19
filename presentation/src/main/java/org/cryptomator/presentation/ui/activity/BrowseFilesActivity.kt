@@ -170,6 +170,14 @@ class BrowseFilesActivity : BaseActivity<ActivityLayoutBinding>(ActivityLayoutBi
 		}
 	}
 
+	/**
+	 * Handle toolbar/menu item selections and dispatch the corresponding presenter or fragment actions.
+	 *
+	 * Certain actions (delete, move, share) require write access and will be gated by the license enforcer before proceeding.
+	 *
+	 * @param itemId The selected menu item's resource id.
+	 * @return `true` if the menu selection was handled, `false` otherwise.
+	 */
 	override fun onMenuItemSelected(itemId: Int): Boolean = when (itemId) {
 		R.id.action_create_folder -> {
 			showCreateFolderDialog()
@@ -464,80 +472,159 @@ class BrowseFilesActivity : BaseActivity<ActivityLayoutBinding>(ActivityLayoutBi
 		browseFilesFragment().show(nodes)
 	}
 
+	/**
+	 * Adds the given cloud node to the current list or updates it if already present.
+	 *
+	 * @param node The cloud node (file or folder) to add or update in the displayed list.
+	 */
 	override fun addOrUpdateCloudNode(node: CloudNodeModel<*>) {
 		browseFilesFragment().addOrUpdate(node)
 	}
 
+	/**
+	 * Initiates the create-folder flow for the current folder.
+	 *
+	 * Checks whether creating a folder is permitted in the current vault and, if permitted,
+	 * displays the create-folder dialog.
+	 */
 	override fun onCreateNewFolderClicked() {
 		if (ensureWriteAccessForCurrentVault(LicenseEnforcer.LockedAction.CREATE_FOLDER)) {
 			showCreateFolderDialog()
 		}
 	}
 
+	/**
+	 * Displays the dialog used to create a new folder.
+	 */
 	private fun showCreateFolderDialog() {
 		showDialog(CreateFolderDialog())
 	}
 
+	/**
+	 * Initiates an upload into the given folder after verifying that the current vault allows write access.
+	 *
+	 * If write access is permitted, delegates the upload action to the presenter.
+	 *
+	 * @param folder The target folder to upload files into.
+	 */
 	override fun onUploadFilesClicked(folder: CloudFolderModel) {
 		if (ensureWriteAccessForFolder(folder, LicenseEnforcer.LockedAction.UPLOAD_FILES)) {
 			browseFilesPresenter.onUploadFilesClicked(folder)
 		}
 	}
 
+	/**
+	 * Initiates creation of a new text file in the current folder if the current vault permits writes.
+	 *
+	 * Checks write access for the current vault and proceeds with the text-file creation flow only when allowed.
+	 */
 	override fun onCreateNewTextFileClicked() {
 		if (ensureWriteAccessForCurrentVault(LicenseEnforcer.LockedAction.CREATE_TEXT_FILE)) {
 			browseFilesPresenter.onCreateNewTextFileClicked()
 		}
 	}
 
+	/**
+	 * Initiates the rename flow for the given cloud file if the current vault allows renaming.
+	 *
+	 * @param cloudFile The cloud file to rename.
+	 */
 	override fun onRenameFileClicked(cloudFile: CloudFileModel) {
 		if (ensureWriteAccessForCurrentVault(LicenseEnforcer.LockedAction.RENAME_NODE)) {
 			onRenameCloudNodeClicked(cloudFile)
 		}
 	}
 
+	/**
+	 * Initiates the rename flow for the given folder when write access to its vault is permitted.
+	 *
+	 * @param cloudFolderModel The folder model to rename; used as the target for the rename dialog/action.
+	 */
 	override fun onRenameFolderClicked(cloudFolderModel: CloudFolderModel) {
 		if (ensureWriteAccessForCurrentVault(LicenseEnforcer.LockedAction.RENAME_NODE)) {
 			onRenameCloudNodeClicked(cloudFolderModel)
 		}
 	}
 
+	/**
+	 * Shows a rename dialog for the given cloud node.
+	 *
+	 * @param cloudNodeModel The cloud node (file or folder) to rename; the dialog will be pre-filled with its current name.
+	 */
 	private fun onRenameCloudNodeClicked(cloudNodeModel: CloudNodeModel<*>) {
 		showDialog(CloudNodeRenameDialog.newInstance(cloudNodeModel))
 	}
 
+	/**
+	 * Shows a confirmation dialog to delete the provided cloud node when the current vault allows write access.
+	 *
+	 * @param cloudFile The cloud node to be deleted; presented in the confirmation dialog if deletion is permitted.
+	 */
 	override fun onDeleteNodeClicked(cloudFile: CloudNodeModel<*>) {
 		if (ensureWriteAccessForCurrentVault(LicenseEnforcer.LockedAction.DELETE_NODE)) {
 			showConfirmDeleteNodeDialog(listOf(cloudFile))
 		}
 	}
 
+	/**
+	 * Initiates sharing of the given cloud file if the current vault allows sharing.
+	 *
+	 * @param cloudFile The cloud file to be shared. 
+	 */
 	override fun onShareFileClicked(cloudFile: CloudFileModel) {
 		if (ensureWriteAccessForCurrentVault(LicenseEnforcer.LockedAction.SHARE_NODE)) {
 			browseFilesPresenter.onShareFileClicked(cloudFile)
 		}
 	}
 
+	/**
+	 * Initiates moving the given cloud file within the current folder if write access is allowed.
+	 *
+	 * @param cloudFile The cloud file to move.
+	 */
 	override fun onMoveFileClicked(cloudFile: CloudFileModel) {
 		if (ensureWriteAccessForCurrentVault(LicenseEnforcer.LockedAction.MOVE_NODE)) {
 			browseFilesPresenter.onMoveNodeClicked(folder, cloudFile)
 		}
 	}
 
+	/**
+	 * Handle a user request to open an existing text file in the default external text editor.
+	 *
+	 * @param cloudFile The cloud file to open.
+	 */
 	override fun onOpenWithTextFileClicked(cloudFile: CloudFileModel) {
 		browseFilesPresenter.onOpenWithTextFileClicked(cloudFile, newlyCreated = false, internalEditor = false)
 	}
 
+	/**
+	 * Shows a confirmation dialog for deleting the given cloud nodes.
+	 *
+	 * @param nodes The cloud nodes to be deleted if the user confirms.
+	 */
 	private fun showConfirmDeleteNodeDialog(nodes: List<CloudNodeModel<*>>) {
 		showDialog(ConfirmDeleteCloudNodeDialog.newInstance(nodes))
 	}
 
+	/**
+	 * Initiates moving the given folder into the current folder when write access to the current vault is permitted.
+	 *
+	 * @param cloudFolderModel The folder to move.
+	 */
 	override fun onMoveFolderClicked(cloudFolderModel: CloudFolderModel) {
 		if (ensureWriteAccessForCurrentVault(LicenseEnforcer.LockedAction.MOVE_NODE)) {
 			browseFilesPresenter.onMoveNodeClicked(folder, cloudFolderModel)
 		}
 	}
 
+	/**
+	 * Creates a back stack entry to navigate out to the given parent folder.
+	 *
+	 * Replaces the current fragment with a BrowseFilesFragment for the provided folder and
+	 * applies the "navigate out of folder" animation.
+	 *
+	 * @param sourceParent The parent folder to navigate back to.
+	 */
 	private fun createBackStackFor(sourceParent: CloudFolderModel) {
 		replaceFragment(
 			BrowseFilesFragment.newInstance(
@@ -581,17 +668,42 @@ class BrowseFilesActivity : BaseActivity<ActivityLayoutBinding>(ActivityLayoutBi
 		browseFilesFragment().showLoading(loading)
 	}
 
-	private fun browseFilesFragment(): BrowseFilesFragment = getCurrentFragment(R.id.fragment_container) as BrowseFilesFragment
+	/**
+ * Gets the current BrowseFilesFragment from the fragment container.
+ *
+ * @return The active BrowseFilesFragment instance.
+ */
+private fun browseFilesFragment(): BrowseFilesFragment = getCurrentFragment(R.id.fragment_container) as BrowseFilesFragment
 
+	/**
+	 * Determine whether the current folder's vault allows the specified write-protected action.
+	 *
+	 * @param action The write-protected action to check (one of `LicenseEnforcer.LockedAction`).
+	 * @return `true` if write access is granted for the current folder's vault for the provided action, `false` otherwise.
+	 */
 	private fun ensureWriteAccessForCurrentVault(action: LicenseEnforcer.LockedAction): Boolean {
 		return ensureWriteAccessForFolder(browseFilesFragment().folder, action)
 	}
 
+	/**
+	 * Checks whether write access is allowed for the vault that contains the given folder.
+	 *
+	 * If `folder` is `null`, the current fragment folder is used as the target.
+	 *
+	 * @param folder The folder whose vault write access should be verified, or `null` to use the current folder.
+	 * @param action The write-capable action to check permission for.
+	 * @return `true` if write access for the target folder's vault is allowed for the specified action, `false` otherwise.
+	 */
 	private fun ensureWriteAccessForFolder(folder: CloudFolderModel?, action: LicenseEnforcer.LockedAction): Boolean {
 		val targetFolder = folder ?: browseFilesFragment().folder
 		return licenseEnforcer.ensureWriteAccessForVault(this, targetFolder.vault(), action)
 	}
 
+	/**
+	 * Creates a new text file in the currently displayed folder with the given name.
+	 *
+	 * @param fileName The desired name for the new text file within the current folder.
+	 */
 	override fun onCreateNewTextFileClicked(fileName: String) {
 		browseFilesPresenter.onCreateNewTextFileClicked(browseFilesFragment().folder, fileName)
 	}

@@ -58,16 +58,32 @@ class LicenseEnforcer @Inject constructor(private val sharedPreferencesHandler: 
 		);
 
 		companion object {
+			/**
+			 * Finds the LockedAction whose enum name matches the provided string.
+			 *
+			 * @param name The enum name to match (case-sensitive); may be `null`.
+			 * @return The matching `LockedAction`, or `null` if no match is found.
+			 */
 			fun fromName(name: String?): LockedAction? {
 				return values().firstOrNull { it.name == name }
 			}
 		}
 	}
 
+	/**
+	 * Determines whether write operations are permitted for the current user.
+	 *
+	 * @return `true` if a paid license is present or an active trial exists, `false` otherwise.
+	 */
 	fun hasWriteAccess(): Boolean {
 		return hasPaidLicense() || hasActiveTrial()
 	}
 
+	/**
+	 * Determines whether the user should be treated as having a paid license.
+	 *
+	 * @return `true` if a paid license is present (premium flavor, a stored license token, or a running subscription), `false` otherwise.
+	 */
 	fun hasPaidLicense(): Boolean {
 		if (FlavorConfig.isPremiumFlavor) {
 			return true
@@ -81,6 +97,12 @@ class LicenseEnforcer @Inject constructor(private val sharedPreferencesHandler: 
 		return false
 	}
 
+	/**
+	 * Starts a 30-day trial by setting the trial expiration timestamp in preferences if none is set.
+	 *
+	 * If a trial expiration is already present (> 0), the method returns without changing it. Otherwise
+	 * it stores System.currentTimeMillis() + 30 days as the trial expiration date.
+	 */
 	fun startTrial() {
 		if (sharedPreferencesHandler.trialExpirationDate() > 0) {
 			return
@@ -89,6 +111,10 @@ class LicenseEnforcer @Inject constructor(private val sharedPreferencesHandler: 
 		sharedPreferencesHandler.setTrialExpirationDate(trialExpiration)
 	}
 
+	/**
+	 * Checks whether the stored trial expiration timestamp is due and, if so and it is not already marked,
+	 * sets the trial expired flag in preferences.
+	 */
 	private fun observeTrialExpiry() {
 		val trialExpiration = sharedPreferencesHandler.trialExpirationDate()
 		val now = System.currentTimeMillis()
@@ -97,12 +123,29 @@ class LicenseEnforcer @Inject constructor(private val sharedPreferencesHandler: 
 		}
 	}
 
+	/**
+	 * Determine whether a trial period is currently active.
+	 *
+	 * Observes expiry state before evaluation to ensure sticky/expired flags are up to date.
+	 *
+	 * @return `true` if a trial expiration date is set, is in the future, and the trial is not marked expired; `false` otherwise.
+	 */
 	fun hasActiveTrial(): Boolean {
 		observeTrialExpiry()
 		val trialExpiration = sharedPreferencesHandler.trialExpirationDate()
 		return trialExpiration > 0 && trialExpiration > System.currentTimeMillis() && !sharedPreferencesHandler.isTrialExpired()
 	}
 
+	/**
+	 * Computes the current trial status and a human-readable expiration date when applicable.
+	 *
+	 * Evaluates whether a trial is active, expired, and returns a formatted expiration date if an expiration is set and either active or expired.
+	 *
+	 * @return A [TrialState] containing:
+	 *  - `isActive`: `true` when a future expiration is set and the trial is not marked expired.
+	 *  - `isExpired`: `true` when an expiration is set and has passed or the trial is marked expired.
+	 *  - `formattedExpirationDate`: a locale-formatted date string when an expiration is present and the trial is active or expired, or `null` otherwise.
+	 */
 	fun evaluateTrialState(): TrialState {
 		observeTrialExpiry()
 		val trialExpiration = sharedPreferencesHandler.trialExpirationDate()
@@ -125,6 +168,12 @@ class LicenseEnforcer @Inject constructor(private val sharedPreferencesHandler: 
 		val trialExpirationText: String?
 	)
 
+	/**
+	 * Builds the license-related UI state used by screens to reflect access and trial status.
+	 *
+	 * @param context Context used to resolve the localized trial expiration string when applicable.
+	 * @return A LicenseUiState containing write-access and paid-license flags, the evaluated TrialState, and an optional localized trialExpirationText (present when the trial is active or expired).
+	 */
 	fun evaluateUiState(context: Context): LicenseUiState {
 		val trialState = evaluateTrialState()
 		val expirationText = if (trialState.isActive || trialState.isExpired) {
@@ -138,9 +187,21 @@ class LicenseEnforcer @Inject constructor(private val sharedPreferencesHandler: 
 		)
 	}
 
+	/**
+	 * Provides the default string resource used as the reason banner when write access is restricted.
+	 *
+	 * @return The string resource id for the default read-only banner.
+	 */
 	@StringRes
 	fun defaultReasonRes(): Int = R.string.read_only_banner
 
+	/**
+	 * Checks whether the requested write action is permitted and, if not, notifies the user and (for non-premium builds) opens the license-check screen.
+	 *
+	 * @param activity Activity used to show UI and to launch the license-check flow.
+	 * @param action The locked action being attempted; used to select the user-facing message and to indicate which action is locked when launching the license-check screen.
+	 * @return `true` if write access is allowed for the requested action, `false` otherwise.
+	 */
 	fun ensureWriteAccess(activity: Activity, action: LockedAction): Boolean {
 		if (hasWriteAccess()) {
 			return true
@@ -160,6 +221,15 @@ class LicenseEnforcer @Inject constructor(private val sharedPreferencesHandler: 
 		return false
 	}
 
+	/**
+	 * Determine whether write actions are permitted for the given vault.
+	 *
+	 * For hub vaults, returns `true` if the vault has a hub-paid license or app-wide write access is available.
+	 * For non-hub or `null` vaults, returns whether app-wide write access is available.
+	 *
+	 * @param vault The vault to check; may be `null` (treated as non-hub).
+	 * @return `true` if write actions are allowed for the provided vault, `false` otherwise.
+	 */
 	fun hasWriteAccessForVault(vault: VaultModel?): Boolean {
 		if (vault?.isHubVault == true) {
 			return vault.hasHubPaidLicense || hasWriteAccess()
@@ -167,6 +237,14 @@ class LicenseEnforcer @Inject constructor(private val sharedPreferencesHandler: 
 		return hasWriteAccess()
 	}
 
+	/**
+	 * Checks and enforces write access for the specified vault, treating hub vaults with their own restrictions.
+	 *
+	 * @param activity Activity used to display UI and to launch the license-check flow when enforcement requires user interaction.
+	 * @param vault The vault to validate; if `null` or not a hub vault, global write-access enforcement is applied.
+	 * @param action The write action being attempted, used to determine the appropriate enforcement messaging or flow.
+	 * @return `true` if write access is granted for the requested action, `false` otherwise.
+	 */
 	fun ensureWriteAccessForVault(activity: Activity, vault: VaultModel?, action: LockedAction): Boolean {
 		if (vault?.isHubVault == true) {
 			if (hasWriteAccessForVault(vault)) {

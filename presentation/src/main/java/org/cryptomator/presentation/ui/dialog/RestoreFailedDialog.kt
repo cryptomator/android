@@ -12,9 +12,19 @@ class RestoreFailedDialog : BaseDialog<RestoreFailedDialog.Callback, DialogResto
 
 	interface Callback {
 
-		fun onRestoreFailedDialogFinished()
+		/**
+ * Called when the restore-failed dialog has been dismissed or finished by the user.
+ */
+fun onRestoreFailedDialogFinished()
 	}
 
+	/**
+	 * Configures the provided AlertDialog.Builder with the restore-failed title, a neutral button
+	 * that notifies the callback when pressed, and a BACK-key handler that dismisses the dialog
+	 * and notifies the callback.
+	 *
+	 * @return The created AlertDialog instance.
+	 */
 	public override fun setupDialog(builder: AlertDialog.Builder): android.app.Dialog {
 		builder //
 			.setTitle(R.string.dialog_restore_failed_title) //
@@ -31,6 +41,9 @@ class RestoreFailedDialog : BaseDialog<RestoreFailedDialog.Callback, DialogResto
 		return builder.create()
 	}
 
+	/**
+	 * Ensures the dialog cannot be dismissed by touching outside when the view is started.
+	 */
 	public override fun setupView() {
 		super.onStart()
 		val dialog = dialog as AlertDialog?
@@ -39,6 +52,11 @@ class RestoreFailedDialog : BaseDialog<RestoreFailedDialog.Callback, DialogResto
 
 	companion object {
 
+		/**
+		 * Creates a new RestoreFailedDialog instance.
+		 *
+		 * @return A new RestoreFailedDialog instance.
+		 */
 		fun newInstance(): RestoreFailedDialog {
 			return RestoreFailedDialog()
 		}

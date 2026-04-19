@@ -31,6 +31,13 @@ class TextEditorActivity : BaseActivity<ActivityLayoutBinding>(ActivityLayoutBin
 	@InjectIntent
 	lateinit var textEditorIntent: TextEditorIntent
 
+	/**
+	 * Determine whether the activity currently allows modifying the opened text file.
+	 *
+	 * Considers both the app's license state and the incoming intent's hub write permission.
+	 *
+	 * @return `true` if writing is allowed, `false` otherwise.
+	 */
 	private fun hasWriteAccess(): Boolean {
 		return licenseEnforcer.hasWriteAccess() || textEditorIntent.hubWriteAllowed() == true
 	}
@@ -43,8 +50,16 @@ class TextEditorActivity : BaseActivity<ActivityLayoutBinding>(ActivityLayoutBin
 		setupToolbar()
 	}
 
-	override fun createFragment(): Fragment = TextEditorFragment()
+	/**
+ * Creates a new TextEditorFragment to host in this activity.
+ *
+ * @return A new instance of TextEditorFragment.
+ */
+override fun createFragment(): Fragment = TextEditorFragment()
 
+	/**
+	 * Handles the system back navigation: if write access is available, delegates handling to the presenter; otherwise invokes the default back behavior.
+	 */
 	override fun onBackPressed() {
 		if (!hasWriteAccess()) {
 			super.onBackPressed()
@@ -105,6 +120,11 @@ class TextEditorActivity : BaseActivity<ActivityLayoutBinding>(ActivityLayoutBin
 		return true
 	}
 
+	/**
+	 * Prepares the options menu by wiring the search view's query listener and showing or hiding the save action based on write access.
+	 *
+	 * @return The result of calling the superclass implementation of `onPrepareOptionsMenu`.
+	 */
 	override fun onPrepareOptionsMenu(menu: Menu): Boolean {
 		val searchView = menu.findItem(R.id.action_search).actionView as SearchView
 		searchView.setOnQueryTextListener(this)
@@ -127,6 +147,13 @@ class TextEditorActivity : BaseActivity<ActivityLayoutBinding>(ActivityLayoutBin
 		UnsavedChangesDialog.withContext(this).show()
 	}
 
+	/**
+	 * Displays the provided text file content in the editor UI.
+	 *
+	 * If the current session does not have write access, the editor is set to read-only after displaying the content.
+	 *
+	 * @param textFileContent The text content of the file to display in the editor.
+	 */
 	override fun displayTextFileContent(textFileContent: String) {
 		textEditorFragment().displayTextFileContent(textFileContent)
 		if (!hasWriteAccess()) {
@@ -134,6 +161,9 @@ class TextEditorActivity : BaseActivity<ActivityLayoutBinding>(ActivityLayoutBin
 		}
 	}
 
+	/**
+	 * Requests that any unsaved changes to the current text file be saved.
+	 */
 	override fun onSaveChangesClicked() {
 		textEditorPresenter.saveChanges()
 	}
@@ -142,9 +172,17 @@ class TextEditorActivity : BaseActivity<ActivityLayoutBinding>(ActivityLayoutBin
 		performBackPressed()
 	}
 
+	/**
+	 * Closes the activity when the vault is expected to be unlocked.
+	 */
 	override fun vaultExpectedToBeUnlocked() {
 		finish()
 	}
 
-	private fun textEditorFragment(): TextEditorFragment = getCurrentFragment(R.id.fragment_container) as TextEditorFragment
+	/**
+ * Retrieve the currently displayed TextEditorFragment from the fragment container.
+ *
+ * @return The active TextEditorFragment instance.
+ */
+private fun textEditorFragment(): TextEditorFragment = getCurrentFragment(R.id.fragment_container) as TextEditorFragment
 }

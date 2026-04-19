@@ -21,6 +21,11 @@ public class Vault implements Serializable {
 	private final boolean hubVault;
 	private final boolean hubPaidLicense;
 
+	/**
+	 * Creates a Vault instance from the given Builder's validated state.
+	 *
+	 * @param builder the Builder containing the validated properties to initialize this Vault
+	 */
 	private Vault(Builder builder) {
 		this.id = builder.id;
 		this.name = builder.name;
@@ -37,10 +42,25 @@ public class Vault implements Serializable {
 		this.hubPaidLicense = builder.hubPaidLicense;
 	}
 
+	/**
+	 * Create a new Builder for configuring and constructing a Vault.
+	 *
+	 * @return a Builder instance initialized with default values for building a Vault
+	 */
 	public static Builder aVault() {
 		return new Builder();
 	}
 
+	/**
+	 * Create a Builder pre-populated from an existing Vault.
+	 *
+	 * The returned Builder is initialized with the vault's id, cloud, cloudType, name, path,
+	 * unlocked state, saved password and its crypto mode, format, shortening threshold, position,
+	 * and hub-related flags.
+	 *
+	 * @param vault the source Vault to copy properties from
+	 * @return a Builder initialized with the source vault's properties
+	 */
 	public static Builder aCopyOf(Vault vault) {
 		return new Builder() //
 				.withId(vault.getId()) //
@@ -57,6 +77,11 @@ public class Vault implements Serializable {
 				.withHubPaidLicense(vault.hasHubPaidLicense());
 	}
 
+	/**
+	 * Gets the vault's identifier.
+	 *
+	 * @return the vault id, or {@code null} if the vault has no assigned identifier
+	 */
 	public Long getId() {
 		return id;
 	}
@@ -101,18 +126,39 @@ public class Vault implements Serializable {
 		return position;
 	}
 
+	/**
+	 * Indicates whether this vault is read-only.
+	 *
+	 * @return `true` if the vault is read-only, `false` otherwise.
+	 */
 	public boolean isReadOnly() {
 		return false; //TODO Implement read-only check
 	}
 
+	/**
+	 * Indicates whether this vault is managed by Hub.
+	 *
+	 * @return true if the vault is a Hub vault, false otherwise.
+	 */
 	public boolean isHubVault() {
 		return hubVault;
 	}
 
+	/**
+	 * Indicates whether the vault has an associated Hub paid license.
+	 *
+	 * @return `true` if the vault has a Hub paid license, `false` otherwise.
+	 */
 	public boolean hasHubPaidLicense() {
 		return hubPaidLicense;
 	}
 
+	/**
+	 * Determines whether the given object represents the same Vault, using instance identity or matching non-null vault id.
+	 *
+	 * @param obj the object to compare with this Vault
+	 * @return `true` if {@code obj} is the same instance or a {@code Vault} whose non-null id equals this vault's id, `false` otherwise
+	 */
 	@Override
 	public boolean equals(Object obj) {
 		if (obj == null || getClass() != obj.getClass()) {
@@ -149,6 +195,9 @@ public class Vault implements Serializable {
 		private boolean hubVault;
 		private boolean hubPaidLicense;
 
+		/**
+		 * Creates a new Builder initialized with default field values.
+		 */
 		private Builder() {
 		}
 
@@ -219,21 +268,45 @@ public class Vault implements Serializable {
 			return this;
 		}
 
+		/**
+		 * Sets the filename shortening threshold for the vault being built.
+		 *
+		 * @param shorteningThreshold the threshold value at which shortening is applied (use -1 to leave unset)
+		 * @return this builder instance
+		 */
 		public Builder withShorteningThreshold(int shorteningThreshold) {
 			this.shorteningThreshold = shorteningThreshold;
 			return this;
 		}
 
+		/**
+		 * Sets whether the vault has an associated Hub paid license.
+		 *
+		 * @param hubPaidLicense true if the vault has a Hub paid license, false otherwise
+		 * @return this Builder instance for chaining
+		 */
 		public Builder withHubPaidLicense(boolean hubPaidLicense) {
 			this.hubPaidLicense = hubPaidLicense;
 			return this;
 		}
 
+		/**
+		 * Marks the vault under construction as a Hub vault.
+		 *
+		 * @param hubVault `true` to mark the vault as a Hub-managed vault, `false` otherwise
+		 * @return this builder
+		 */
 		public Builder withHubVault(boolean hubVault) {
 			this.hubVault = hubVault;
 			return this;
 		}
 
+		/**
+		 * Sets the vault's position used for ordering.
+		 *
+		 * @param position numeric position used for ordering; must be set to a value other than -1 before calling {@code build()}
+		 * @return this Builder instance
+		 */
 		public Builder withPosition(int position) {
 			this.position = position;
 			return this;

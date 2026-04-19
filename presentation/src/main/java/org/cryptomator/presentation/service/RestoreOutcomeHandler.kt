@@ -1,5 +1,10 @@
 package org.cryptomator.presentation.service
 
 interface RestoreOutcomeHandler {
-	fun onRestoreOutcome(outcome: RestoreOutcome)
+	/**
+ * Handles the outcome of a restore operation.
+ *
+ * @param outcome The result of a restore operation containing status and related details. 
+ */
+fun onRestoreOutcome(outcome: RestoreOutcome)
 }

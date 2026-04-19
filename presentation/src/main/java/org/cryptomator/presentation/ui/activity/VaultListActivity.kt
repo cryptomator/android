@@ -176,10 +176,19 @@ class VaultListActivity : BaseActivity<ActivityLayoutObscureAwareBinding>(Activi
 		vaultListFragment().addOrUpdateVault(vaultModel)
 	}
 
+	/**
+	 * Initiates the flow to add an existing vault by delegating the action to the presenter.
+	 */
 	override fun onAddExistingVault() {
 		vaultListPresenter.onAddExistingVault()
 	}
 
+	/**
+	 * Initiates the creation flow for a new vault if creating is permitted.
+	 *
+	 * Checks whether vault creation is allowed (for example due to license or trial restrictions);
+	 * if allowed, starts the vault creation flow. If not allowed, the call is a no-op.
+	 */
 	override fun onCreateVault() {
 		if (!licenseEnforcer.ensureWriteAccess(this, LicenseEnforcer.LockedAction.CREATE_VAULT)) {
 			return
@@ -212,15 +221,28 @@ class VaultListActivity : BaseActivity<ActivityLayoutObscureAwareBinding>(Activi
 		vaultListPresenter.deleteVault(vaultModel)
 	}
 
+	/**
+	 * Processes the user's choice from the lock-screen setup dialog.
+	 *
+	 * @param setScreenLock `true` if the user chose to enable the screen lock, `false` otherwise.
+	 */
 	override fun onAskForLockScreenFinished(setScreenLock: Boolean) {
 		vaultListPresenter.onAskForLockScreenFinished(setScreenLock)
 	}
 
+	/**
+	 * Launches the license check flow to allow the user to unlock the full version.
+	 */
 	override fun onUnlockFullVersionClicked() {
 		Intents.licenseCheckIntent().startActivity(this)
 	}
 
-	private fun vaultListFragment(): VaultListFragment = //
+	/**
+		 * Retrieves the VaultListFragment currently attached to the fragment container.
+		 *
+		 * @return The VaultListFragment instance found in R.id.fragment_container.
+		 */
+		private fun vaultListFragment(): VaultListFragment = //
 		getCurrentFragment(R.id.fragment_container) as VaultListFragment
 
 	override fun onUpdateAppDialogLoaded() {

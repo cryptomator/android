@@ -38,11 +38,24 @@ public class DoLicenseCheck {
 	private final SharedPreferencesHandler sharedPreferencesHandler;
 	private String license;
 
+	/**
+	 * Creates a new DoLicenseCheck use case with the given shared-preferences handler and an initial license token.
+	 *
+	 * @param license the incoming license token to verify (may be empty, in which case a stored token will be retrieved)
+	 */
 	DoLicenseCheck(final SharedPreferencesHandler sharedPreferencesHandler, @Parameter final String license) {
 		this.sharedPreferencesHandler = sharedPreferencesHandler;
 		this.license = license;
 	}
 
+	/**
+	 * Verify the provided or stored license JWT, persist it if valid, and expose its subject.
+	 *
+	 * @return a {@link LicenseCheck} that yields the JWT subject string when invoked
+	 * @throws DesktopSupporterCertificateException if the token's signature is invalid but verifies with the desktop supporter certificate
+	 * @throws LicenseNotValidException             if the token is invalid or its signature cannot be verified
+	 * @throws FatalBackendException                if a cryptographic error occurs while obtaining the public key
+	 */
 	public LicenseCheck execute() throws BackendException {
 		license = useLicenseOrRetrieveFromPreferences(license);
 		try {
@@ -61,6 +74,14 @@ public class DoLicenseCheck {
 		}
 	}
 
+	/**
+	 * Ensure a non-empty license token is available by returning the provided license or, if empty,
+	 * the token stored in shared preferences.
+	 *
+	 * @param license the incoming license token; if empty the method will attempt to read a stored token
+	 * @return the non-empty license token
+	 * @throws NoLicenseAvailableException if both the provided license and the stored token are empty
+	 */
 	private String useLicenseOrRetrieveFromPreferences(String license) throws NoLicenseAvailableException {
 		if (!license.isEmpty()) {
 			return license;

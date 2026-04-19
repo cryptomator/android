@@ -23,6 +23,12 @@ class WelcomePresenter @Inject internal constructor(
 	sharedPreferencesHandler: SharedPreferencesHandler
 ) : BaseLicensePresenter<WelcomeView>(exceptionHandlers, doLicenseCheckUseCase, sharedPreferencesHandler) {
 
+	/**
+	 * Requests the runtime notification permission and reports the result to the view.
+	 *
+	 * On Android versions up to S_V2 this treats the permission as granted and immediately notifies the view.
+	 * On newer versions it prompts the user for `Manifest.permission.POST_NOTIFICATIONS` using the welcome permission callback and a snackbar message.
+	 */
 	fun requestNotificationPermission() {
 		if (Build.VERSION.SDK_INT <= Build.VERSION_CODES.S_V2) {
 			view?.onNotificationPermissionResult(true)
@@ -35,6 +41,13 @@ class WelcomePresenter @Inject internal constructor(
 		)
 	}
 
+	/**
+	 * Handles the result of the welcome notification permission request and notifies the view.
+	 *
+	 * Logs an error if the permission was not granted, then calls `view?.onNotificationPermissionResult` with the grant status.
+	 *
+	 * @param result The permission result containing whether the notification permission was granted.
+	 */
 	@Callback
 	fun requestWelcomeNotificationPermission(result: PermissionsResult) {
 		if (!result.granted()) {
@@ -43,6 +56,12 @@ class WelcomePresenter @Inject internal constructor(
 		view?.onNotificationPermissionResult(result.granted())
 	}
 
+	/**
+	 * Attempts to open the system "Set new password" (screen lock) activity when requested.
+	 *
+	 * If `setScreenLock` is true, launches the device policy activity for setting a new password; if the activity is not available, a debug message is logged.
+	 *
+	 * @param setScreenLock Whether to start the system screen lock setup activity.
 	fun onSetScreenLock(setScreenLock: Boolean) {
 		if (setScreenLock) {
 			try {

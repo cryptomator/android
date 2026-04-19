@@ -506,6 +506,13 @@ class BrowseFilesPresenter @Inject constructor( //
 			})
 	}
 
+	/**
+	 * Opens a cloud file using the most appropriate viewer for its type.
+	 *
+	 * For text files (".txt", ".md", ".todo") this opens the internal text editor and enables write access when the license permits; for image files (excluding ".gif") this opens the image preview; otherwise the file is opened with an external viewer.
+	 *
+	 * @param cloudFile The cloud file model to open.
+	 */
 	private fun viewFile(cloudFile: CloudFileModel) {
 		val lowerFileName = cloudFile.name.lowercase()
 		if (lowerFileName.endsWith(".txt") || lowerFileName.endsWith(".md") || lowerFileName.endsWith(".todo")) {
@@ -533,6 +540,17 @@ class BrowseFilesPresenter @Inject constructor( //
 		return (mimeTypes.fromFilename(filename) ?: MimeType.WILDCARD_MIME_TYPE).mediatype == "image"
 	}
 
+	/**
+	 * Opens a cloud file with an external viewer, preparing the file URI, intent and permissions before launch.
+	 *
+	 * Computes and stores the file's hash, selects a content URI (or a legacy file URI when the Microsoft workaround applies),
+	 * sets the intent MIME type and grants read (and write when the current vault permits) URI permissions, and then launches
+	 * an external viewer via an activity result callback. If the "keep unlocked while editing" preference is enabled, shows
+	 * a writable-file notification and suspends the app lock while the file is open. If no suitable activity is available,
+	 * shows a "file type not supported" dialog.
+	 *
+	 * @param cloudFile The cloud file model representing the file to open.
+	 */
 	private fun viewExternalFile(cloudFile: CloudFileModel) {
 		val viewFileIntent = Intent(Intent.ACTION_VIEW)
 		var openFileType = OpenFileType.DEFAULT
@@ -1131,6 +1149,15 @@ class BrowseFilesPresenter @Inject constructor( //
 		view?.showDialog(FileNameDialog())
 	}
 
+	/**
+	 * Downloads decrypted content for the given text file and opens it either in the internal text editor or in an external viewer.
+	 *
+	 * Shows per-file progress while downloading unless the file was just created. If `internalEditor` is true, opens the internal editor and grants write capability only when the current vault allows write access; otherwise opens the file via the external viewer flow.
+	 *
+	 * @param textFile The cloud text file to download and open.
+	 * @param newlyCreated True if the file was just created (suppresses per-file progress UI).
+	 * @param internalEditor True to open the file with the app's internal text editor, false to open externally.
+	 */
 	fun onOpenWithTextFileClicked(textFile: CloudFileModel, newlyCreated: Boolean, internalEditor: Boolean) {
 		val decryptData = downloadFileUtil.createDecryptedDataFor(this, textFile)
 		downloadFilesUseCase //

@@ -64,6 +64,18 @@ public class UpdateCheckRepositoryImpl implements UpdateCheckRepository {
 				.build();
 	}
 
+	/**
+	 * Checks whether a newer application version is available for the provided current version.
+	 *
+	 * If a newer version is found, the method fetches update details, updates the cached
+	 * UpdateCheckEntity (id 1) with APK URL, version and SHA-256, persists the cache, and
+	 * returns an UpdateCheck describing the update. If the provided version already matches
+	 * the latest known version, no update is performed and the result is absent.
+	 *
+	 * @param appVersion the current application version to compare against the latest metadata
+	 * @return an Optional containing an UpdateCheck when an update is available; Optional.absent() when the appVersion matches the latest version
+	 * @throws BackendException if fetching, verifying, or processing remote update metadata fails
+	 */
 	@Override
 	public Optional<UpdateCheck> getUpdateCheck(final String appVersion) throws BackendException {
 		LatestVersion latestVersion = loadLatestVersion();
@@ -88,6 +100,13 @@ public class UpdateCheckRepositoryImpl implements UpdateCheckRepository {
 		return Optional.of(updateCheck);
 	}
 
+	/**
+	 * Downloads the APK pointed to by the cached update entity into the provided file and verifies its SHA-256.
+	 *
+	 * @param file the destination file to write the downloaded APK to
+	 * @throws HashMismatchUpdateCheckException if the downloaded file's SHA-256 does not match the expected value
+	 * @throws GeneralUpdateErrorException for network, I/O, or non-success HTTP status code errors encountered while downloading
+	 */
 	@Override
 	public void update(File file) throws GeneralUpdateErrorException {
 		try {

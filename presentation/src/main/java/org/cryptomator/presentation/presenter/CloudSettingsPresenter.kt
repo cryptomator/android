@@ -129,6 +129,11 @@ class CloudSettingsPresenter @Inject constructor( //
 
 	private inner class CloudsSubscriber : DefaultResultHandler<List<Cloud>>() {
 
+		/**
+		 * Processes retrieved domain clouds into presentation models, applies flavor and login filters, augments the list with built-in cloud entries, and renders the resulting list on the view.
+		 *
+		 * @param clouds The list of domain Cloud objects returned by the use case.
+		 */
 		override fun onSuccess(clouds: List<Cloud>) {
 			val cloudModel = cloudModelMapper.toModels(clouds) //
 				.filter { isSingleLoginCloud(it) } //

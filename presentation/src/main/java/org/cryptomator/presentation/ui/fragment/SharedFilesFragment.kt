@@ -84,10 +84,22 @@ class SharedFilesFragment : BaseFragment<FragmentSharedFilesBinding>(FragmentSha
 		filesAdapter.show(files)
 	}
 
+	/**
+	 * Marks the given cloud folder as the currently selected location in the UI.
+	 *
+	 * If the folder's path is empty, the root path ("/") is selected instead.
+	 *
+	 * @param folder Cloud folder to show as the chosen location.
+	 */
 	fun showChosenLocation(folder: CloudFolderModel) {
 		locationsAdapter.setSelectedLocation(if (folder.path.isEmpty()) "/" else folder.path)
 	}
 
+	/**
+	 * Enables or disables the upload/save button in the fragment UI.
+	 *
+	 * @param enabled True to enable the upload/save button, false to disable it.
+	 */
 	fun setUploadEnabled(enabled: Boolean) {
 		binding.receiveSaveLayout.saveFiles.isEnabled = enabled
 	}

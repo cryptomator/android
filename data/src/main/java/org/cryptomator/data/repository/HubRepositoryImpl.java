@@ -49,11 +49,29 @@ public class HubRepositoryImpl implements HubRepository {
 		this.context = context;
 	}
 
+	/**
+	 * Creates an OkHttp logging interceptor that logs HTTP messages to Timber using the "OkHttp" tag.
+	 *
+	 * @param context Android Context used to initialize the interceptor
+	 * @return an Interceptor that forwards OkHttp log messages to Timber with tag "OkHttp"
+	 */
 	private Interceptor httpLoggingInterceptor(Context context) {
 		HttpLoggingInterceptor.Logger logger = message -> Timber.tag("OkHttp").d(message);
 		return new HttpLoggingInterceptor(logger, context);
 	}
 
+	/**
+	 * Retrieves the vault's JWE access token and subscription state from the Hub.
+	 *
+	 * @param unverifiedHubVaultConfig configuration that provides the Hub API base URL and vault identifier
+	 * @param accessToken              Bearer access token for authorization
+	 * @return                         a {@link HubRepository.VaultAccess} containing the JWE payload and the vault subscription state
+	 * @throws HubLicenseUpgradeRequiredException          if the Hub responds with HTTP 402 (payment required)
+	 * @throws HubVaultAccessForbiddenException            if the Hub responds with HTTP 403 (forbidden)
+	 * @throws HubVaultIsArchivedException                 if the Hub responds with HTTP 410 (gone / archived)
+	 * @throws HubUserSetupRequiredException               if the Hub responds with status 449 (user setup required)
+	 * @throws FatalBackendException                       for other HTTP failures, missing response body on HTTP 200, or I/O errors
+	 */
 	@Override
 	public HubRepository.VaultAccess getVaultAccess(UnverifiedHubVaultConfig unverifiedHubVaultConfig, String accessToken) throws BackendException {
 		var request = new Request.Builder().get() //

@@ -15,7 +15,24 @@ class PurchaseRefreshCoordinator(
 ) {
 
 	// Play Billing async callbacks run on the main thread per BillingClient docs, but we still guard the aggregation
-	// counter and the per-query field writes with a shared lock for defensive correctness.
+	/**
+	 * Orchestrates a refresh of Play Store purchases for both INAPP and SUBS, aggregates their results,
+	 * and invokes a single completion callback with the overall restore outcome.
+	 *
+	 * Performs two asynchronous queries (INAPP and SUBS), processes results via the provided
+	 * PurchaseManager, and ensures `onComplete` is called at most once with:
+	 * - `RestoreOutcome.RESTORED` if either product set indicates restored purchases,
+	 * - `RestoreOutcome.NOTHING_TO_RESTORE` if no changes were found,
+	 * - `RestoreOutcome.FAILED` on any query or unexpected error.
+	 *
+	 * If write access to license state was lost during the refresh and a product set was cleared,
+	 * a pending purchase-revoked state is recorded in shared preferences with an appropriate reason.
+	 *
+	 * @param billingClient Play Billing client used to query purchases.
+	 * @param purchaseManager Handles processing of the queried INAPP and SUBS purchase lists.
+	 * @param acknowledge Callback invoked with a purchase token to acknowledge a purchase when required.
+	 * @param onComplete Callback invoked once with the aggregated `RestoreOutcome`.
+	 */
 	fun refresh(
 		billingClient: BillingClient,
 		purchaseManager: PurchaseManager,
@@ -23,6 +40,11 @@ class PurchaseRefreshCoordinator(
 		onComplete: (RestoreOutcome) -> Unit,
 	) {
 		val completed = AtomicBoolean(false)
+		/**
+		 * Invokes the final completion callback exactly once with the provided outcome.
+		 *
+		 * @param outcome The restore outcome to deliver to the `onComplete` callback.
+		 */
 		fun complete(outcome: RestoreOutcome) {
 			if (completed.compareAndSet(false, true)) {
 				onComplete(outcome)
@@ -43,6 +65,13 @@ class PurchaseRefreshCoordinator(
 
 			val hadWriteAccessBefore = licenseEnforcer.hasWriteAccess()
 
+			/**
+			 * Finalizes the two purchase queries, determines the final restore outcome, and updates revoked state when applicable.
+			 *
+			 * If a failure was recorded or either purchase result is missing, completes with `RestoreOutcome.FAILED`.
+			 * If write access was present before but is now absent and either purchase set was cleared, marks a pending purchase-revoked state with an appropriate `PurchaseRevokedReason`.
+			 * Otherwise, completes with `RestoreOutcome.RESTORED` if either purchase result indicates a restored item, or `RestoreOutcome.NOTHING_TO_RESTORE` if not.
+			 */
 			fun onSettled() {
 				val localInapp = inappChange
 				val localSubs = subsChange
@@ -68,6 +97,12 @@ class PurchaseRefreshCoordinator(
 				complete(outcome)
 			}
 
+			/**
+			 * Records completion of a single purchase query and, when all queries have finished, invokes settlement.
+			 *
+			 * Increments the shared completed-query counter under the coordinator lock and calls `onSettled()` once
+			 * the number of completed queries equals the expected total.
+			 */
 			fun onQueryComplete() {
 				val ready: Boolean
 				synchronized(lock) {

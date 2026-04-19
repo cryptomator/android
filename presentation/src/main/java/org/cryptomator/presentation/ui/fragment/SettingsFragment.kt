@@ -51,6 +51,13 @@ class SettingsFragment : PreferenceFragmentCompatLayout() {
 	private lateinit var sharedPreferencesHandler: SharedPreferencesHandler
 	private val licenseChangeListener = Consumer<String> { _ -> setupLicense() }
 
+	/**
+	 * Loads the preferences screen and initializes preference-related handlers and UI state.
+	 *
+	 * This inflates preferences from R.xml.preferences, creates the fragment's SharedPreferences handler,
+	 * and runs setup routines that adjust displayed values and remove or configure preferences
+	 * (app version, LRU cache size, license UI, biometric availability, and Cryptomator variants).
+	 */
 	override fun onCreatePreferences(savedInstanceState: Bundle?, rootKey: String?) {
 		sharedPreferencesHandler = SharedPreferencesHandler(activity())
 		addPreferencesFromResource(R.xml.preferences)
@@ -155,6 +162,11 @@ class SettingsFragment : PreferenceFragmentCompatLayout() {
 		}
 	}
 
+	/**
+	 * Updates the DISPLAY_LRU_CACHE_SIZE preference summary to a colored, human-readable representation of the LRU cache size.
+	 *
+	 * Reads the total LRU cache size, formats it into bytes/KB/MB/GB/TB with one decimal place as needed, applies the preference text color span, and sets it as the preference's summary provider.
+	 */
 	private fun setupLruCacheSize() {
 		val preference = findPreference(DISPLAY_LRU_CACHE_SIZE_ITEM_KEY) as Preference?
 
@@ -183,6 +195,18 @@ class SettingsFragment : PreferenceFragmentCompatLayout() {
 		}
 	}
 
+	/**
+	 * Configure license-related preference UI and category entries according to build flavor and stored license/subscription state.
+	 *
+	 * Updates the license preference's title, summary, enabled state, and click behavior; for freemium builds it also adds or removes
+	 * "manage subscription" and "upgrade to lifetime" preferences inside the license category, launches the license check intent when
+	 * appropriate, and initiates the in-app purchase flow and asynchronous price resolution for the lifetime upgrade preference.
+	 *
+	 * Side effects:
+	 * - May start activities via intents (license check, Play subscriptions URL).
+	 * - May call the app's purchase flow.
+	 * - Adds/removes child preferences in the license category and updates their summaries.
+	 */
 	private fun setupLicense() {
 		val licenseCategory = findPreference(LICENSE_ITEM_KEY) as PreferenceCategory?
 		val licensePref = findPreference(SharedPreferencesHandler.MAIL) as Preference?
@@ -304,6 +328,13 @@ class SettingsFragment : PreferenceFragmentCompatLayout() {
 		(findPreference(UPDATE_INTERVAL_ITEM_KEY) as Preference?)?.let { versionCategory?.removePreference(it) }
 	}
 
+	/**
+	 * Updates the update-check preference's summary to show the last update check time or a "never" message.
+	 *
+	 * Reads the last update check timestamp from SharedPreferences, formats it using the user's date format,
+	 * applies the app's light text color to the resulting string, and sets it as the summaryProvider for
+	 * the preference identified by `UPDATE_CHECK_ITEM_KEY`.
+	 */
 	fun setupUpdateCheck() {
 		val preference = findPreference(UPDATE_CHECK_ITEM_KEY) as Preference?
 
@@ -327,6 +358,13 @@ class SettingsFragment : PreferenceFragmentCompatLayout() {
 		}
 	}
 
+	/**
+	 * Removes the Cryptomator variants preference from the general settings section on premium builds.
+	 *
+	 * When the app is running in a premium flavor, this locates the preference identified by
+	 * `CRYPTOMATOR_VARIANTS` and removes it from the "general" preference category so the option
+	 * is not shown to premium users.
+	 */
 	private fun setupCryptomatorVariants() {
 		if (FlavorConfig.isPremiumFlavor) {
 			(findPreference(CRYPTOMATOR_VARIANTS) as Preference?)?.let { preference ->
@@ -335,6 +373,15 @@ class SettingsFragment : PreferenceFragmentCompatLayout() {
 		}
 	}
 
+	/**
+	 * Registers preference click/change listeners, assigns navigation intents to preferences,
+	 * and attaches the license-change listener when the fragment becomes active.
+	 *
+	 * This activates UI handlers for error reports, cache operations, debug and security toggles,
+	 * photo upload and LRU cache controls, Microsoft workaround, and (on APK store builds) the update check.
+	 * It also sets navigation intents for cloud, biometric, Cryptomator variants (omitted on premium builds),
+	 * auto-upload vault chooser, and licenses, then registers `licenseChangeListener` with `sharedPreferencesHandler`.
+	 */
 	override fun onResume() {
 		super.onResume()
 		(findPreference(SEND_ERROR_REPORT_ITEM_KEY) as Preference?)?.onPreferenceClickListener = sendErrorReportClickListener
@@ -362,11 +409,23 @@ class SettingsFragment : PreferenceFragmentCompatLayout() {
 		sharedPreferencesHandler.addLicenseChangedListeners(licenseChangeListener)
 	}
 
+	/**
+	 * Cleans up fragment-level listeners and lifecycle state when the fragment is paused.
+	 *
+	 * Removes the license change listener from the shared preferences handler and then
+	 * delegates to the superclass `onPause` implementation.
+	 */
 	override fun onPause() {
 		sharedPreferencesHandler.removeLicenseChangedListeners(licenseChangeListener)
 		super.onPause()
 	}
 
+	/**
+	 * Disables debug mode and updates the corresponding switch in the settings UI to unchecked.
+	 *
+	 * This clears the debug-mode flag in shared preferences and sets the `DEBUG_MODE` SwitchPreference's
+	 * checked state to `false` if the preference is present.
+	 */
 	fun deactivateDebugMode() {
 		sharedPreferencesHandler.setDebugMode(false)
 		(findPreference(SharedPreferencesHandler.DEBUG_MODE) as SwitchPreference?)?.isChecked = false

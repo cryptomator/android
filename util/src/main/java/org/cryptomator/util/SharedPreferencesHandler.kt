@@ -162,19 +162,46 @@ constructor(context: Context) : SharedPreferences.OnSharedPreferenceChangeListen
 		return defaultSharedPreferences.getValue(PHOTO_UPLOAD_INCLUDING_VIDEOS, false)
 	}
 
+	/**
+	 * Indicates whether use of an LRU cache is enabled.
+	 *
+	 * @return `true` if LRU cache usage is enabled, `false` otherwise.
+	 */
 	fun useLruCache(): Boolean {
 		return defaultSharedPreferences.getValue(USE_LRU_CACHE, false)
 	}
 
+	/**
+	 * Registers a listener to be notified when the license token or related subscription/trial preferences change.
+	 *
+	 * The listener is invoked immediately with the current license token and will receive updates on subsequent changes.
+	 *
+	 * @param listener Consumer that receives the current and future license token values.
+	 */
 	fun addLicenseChangedListeners(listener: Consumer<String>) {
 		licenseChangedListeners[listener] = null
 		listener.accept(licenseToken())
 	}
 
+	/**
+	 * Unregisters a previously added listener so it no longer receives license-change notifications.
+	 *
+	 * @param listener The listener to remove from the registry of license change subscribers.
+	 */
 	fun removeLicenseChangedListeners(listener: Consumer<String>) {
 		licenseChangedListeners.remove(listener)
 	}
 
+/**
+ * Handles preference changes by notifying registered listeners for affected keys.
+ *
+ * When `LOCK_TIMEOUT` changes, notifies all registered lock-timeout listeners with the current
+ * `lockTimeout`. When `LICENSE_TOKEN`, `TRIAL_EXPIRATION_DATE`, or `HAS_RUNNING_SUBSCRIPTION`
+ * change, notifies all registered license listeners with the current `licenseToken()`.
+ *
+ * @param sharedPreferences The SharedPreferences instance where the change occurred.
+ * @param key The key of the changed preference, or null if unspecified.
+ */
 override fun onSharedPreferenceChanged(sharedPreferences: SharedPreferences, key: String?) {
 	when (key) {
 		LOCK_TIMEOUT -> {
@@ -191,6 +218,13 @@ override fun onSharedPreferenceChanged(sharedPreferences: SharedPreferences, key
 	}
 }
 
+	/**
+	 * Gets the configured LRU cache size in bytes.
+	 *
+	 * If the preference is not set, defaults to 100 MB.
+	 *
+	 * @return The cache size in bytes.
+	 */
 	fun lruCacheSize(): Int {
 		return defaultSharedPreferences.getValue(LRU_CACHE_SIZE, "100").toInt() * 1024 * 1024
 	}
@@ -199,42 +233,96 @@ override fun onSharedPreferenceChanged(sharedPreferences: SharedPreferences, key
 		return defaultSharedPreferences.getValue(MAIL, "")
 	}
 
+	/**
+	 * Stores the user's email address in shared preferences.
+	 *
+	 * @param mail The email address to persist (may be empty to clear).
+	 */
 	fun setMail(mail: String) {
 		defaultSharedPreferences.setValue(MAIL, mail)
 	}
 
+	/**
+	 * Retrieves the current stored license token or an empty string if none is set.
+	 *
+	 * @return The stored license token, or an empty string when not set.
+	 */
 	fun licenseToken(): String {
 		return defaultSharedPreferences.getValue(LICENSE_TOKEN, "")
 	}
 
+	/**
+	 * Stores the provided license token in the application's shared preferences.
+	 *
+	 * @param licenseToken The license token to persist. 
+	 */
 	fun setLicenseToken(licenseToken: String) {
 		defaultSharedPreferences.setValue(LICENSE_TOKEN, licenseToken)
 	}
 
+	/**
+	 * Gets the stored trial expiration timestamp.
+	 *
+	 * @return The trial expiration time in milliseconds since the Unix epoch, or `0` if not set.
+	 */
 	fun trialExpirationDate(): Long {
 		return defaultSharedPreferences.getValue(TRIAL_EXPIRATION_DATE, 0L)
 	}
 
+	/**
+	 * Stores the trial expiration timestamp in shared preferences.
+	 *
+	 * @param date The expiration timestamp in milliseconds since epoch.
+	 */
 	fun setTrialExpirationDate(date: Long) {
 		defaultSharedPreferences.setValue(TRIAL_EXPIRATION_DATE, date)
 	}
 
+	/**
+	 * Determines whether the trial period has been marked as expired.
+	 *
+	 * @return `true` if the trial is expired, `false` otherwise.
+	 */
 	fun isTrialExpired(): Boolean {
 		return defaultSharedPreferences.getValue(TRIAL_EXPIRED, false)
 	}
 
+	/**
+	 * Marks whether the trial period is expired in shared preferences.
+	 *
+	 * @param value `true` if the trial is expired, `false` otherwise.
+	 */
 	fun setTrialExpired(value: Boolean) {
 		defaultSharedPreferences.setValue(TRIAL_EXPIRED, value)
 	}
 
+	/**
+	 * Indicates whether a purchase revocation is pending.
+	 *
+	 * @return `true` if a purchase revocation is pending according to stored preferences, `false` otherwise.
+	 */
 	fun purchaseRevokedPending(): Boolean {
 		return defaultSharedPreferences.getValue(PURCHASE_REVOKED_PENDING, false)
 	}
 
+	/**
+	 * Retrieves the stored reason for a revoked purchase.
+	 *
+	 * @return The revocation reason string, or an empty string if no reason is set.
+	 */
 	fun purchaseRevokedReason(): String {
 		return defaultSharedPreferences.getValue(PURCHASE_REVOKED_REASON, "")
 	}
 
+	/**
+	 * Stores the purchase revocation state and associated reason in preferences.
+	 *
+	 * Writes the `pending` flag to the `PURCHASE_REVOKED_PENDING` preference and the `reason`
+	 * string to the `PURCHASE_REVOKED_REASON` preference.
+	 *
+	 * @param pending `true` if a purchase revocation is pending, `false` otherwise.
+	 * @param reason A human-readable reason explaining why the purchase was revoked or is pending revocation.
+	 */
 	fun setPurchaseRevokedState(pending: Boolean, reason: String) {
 		defaultSharedPreferences.edit { editor ->
 			editor.putBoolean(PURCHASE_REVOKED_PENDING, pending)
@@ -242,18 +330,38 @@ override fun onSharedPreferenceChanged(sharedPreferences: SharedPreferences, key
 		}
 	}
 
+	/**
+	 * Clears any recorded purchase-revocation state.
+	 *
+	 * Marks revocation as not pending and clears the revocation reason.
+	 */
 	fun clearPurchaseRevokedState() {
 		setPurchaseRevokedState(pending = false, reason = "")
 	}
 
+	/**
+	 * Indicates whether a running subscription is recorded in preferences.
+	 *
+	 * @return `true` if a running subscription is recorded, `false` otherwise.
+	 */
 	fun hasRunningSubscription(): Boolean {
 		return defaultSharedPreferences.getValue(HAS_RUNNING_SUBSCRIPTION, false)
 	}
 
+	/**
+	 * Sets whether the user currently has an active subscription.
+	 *
+	 * @param value `true` if the user has a running subscription, `false` otherwise.
+	 */
 	fun setHasRunningSubscription(value: Boolean) {
 		defaultSharedPreferences.setValue(HAS_RUNNING_SUBSCRIPTION, value)
 	}
 
+	/**
+	 * Indicates whether the app should keep the vault unlocked while the user is editing.
+	 *
+	 * @return `true` if keeping unlocked while editing is enabled, `false` otherwise.
+	 */
 	fun keepUnlockedWhileEditing(): Boolean {
 		return defaultSharedPreferences.getBoolean(KEEP_UNLOCKED_WHILE_EDITING, false)
 	}
@@ -347,18 +455,38 @@ override fun onSharedPreferenceChanged(sharedPreferences: SharedPreferences, key
 		defaultSharedPreferences.setValue(MICROSOFT_WORKAROUND, enabled)
 	}
 
+	/**
+	 * Indicates whether the Microsoft workaround is enabled.
+	 *
+	 * @return `true` if the Microsoft workaround is enabled, `false` otherwise (defaults to `false`).
+	 */
 	fun microsoftWorkaround(): Boolean {
 		return defaultSharedPreferences.getBoolean(MICROSOFT_WORKAROUND, false)
 	}
 
+	/**
+	 * Indicates whether the user has completed the application's welcome flow.
+	 *
+	 * @return `true` if the welcome flow has been completed, `false` otherwise.
+	 */
 	fun hasCompletedWelcomeFlow(): Boolean {
 		return defaultSharedPreferences.getValue(WELCOME_FLOW_COMPLETED, false)
 	}
 
+	/**
+	 * Marks the welcome flow as completed by storing a boolean flag in shared preferences.
+	 */
 	fun setWelcomeFlowCompleted() {
 		defaultSharedPreferences.setValue(WELCOME_FLOW_COMPLETED, true)
 	}
 
+	/**
+	 * Adds the given host to the persisted set of trusted hub hosts.
+	 *
+	 * The host is stored in preferences under the `TRUSTED_HUB_HOSTS` key and persisted immediately.
+	 *
+	 * @param host The host to add (e.g., "example.com").
+	 */
 	fun addTrustedHubHosts(host: String) {
 		val hosts = defaultSharedPreferences
 			.getStringSet(TRUSTED_HUB_HOSTS, emptySet())
