@@ -41,6 +41,7 @@
 	<string name="error_hub_invalid_setup_code">Kontonøglen er ugyldig.</string>
 	<string name="error_hub_invalid_version">Ikke understøttet Hub version.</string>
 	<string name="error_hub_unlock_pre_31">Hub understøttes kun på Android 12 og derover.</string>
+	<string name="error_hub_not_trustworthy">Hub er ikke troværdig.</string>
 	<!-- # clouds -->
 	<!-- ## cloud names -->
 	<string name="cloud_names_local_storage">Lokalt lager</string>
@@ -178,6 +179,7 @@
 	<string name="screen_settings_live_search_summary">Opdatér søgeresultateterne, mens du taster</string>
 	<string name="screen_settings_glob_search">Søg vha. glob-mønster</string>
 	<string name="screen_settings_glob_search_summary">Brug glob-mønster til at matche. Fx alice.*.jpg</string>
+	<string name="screen_hub_reset_unknown_hub_hosts_title">Nulstil ukendte Hub-værter</string>
 	<string name="screen_settings_section_auto_lock">Automatisk låsning</string>
 	<string name="screen_settings_auto_lock_timeout">Lås efter</string>
 	<string name="screen_settings_auto_lock_on_screen_lock">Når skærmen er slukket</string>
@@ -375,6 +377,7 @@
 	<string name="dialog_hub_user_setup_required_title">Brugeropsætning påkrævet</string>
 	<string name="dialog_hub_user_setup_required_hint">For at fortsætte, skal du fuldføre de nødvendige trin i din Hub brugerprofil.</string>
 	<string name="dialog_hub_user_setup_required_neutral_button">Gå til Profil</string>
+	<string name="dialog_hub_check_host_authenticity_title">Stol på disse værter?</string>
 	<string name="permission_snackbar_auth_local_vault">Cryptomator skal bruge lageradgang for at tilgå lokale bokse</string>
 	<string name="permission_snackbar_auth_auto_upload">Cryptomator har brug for lageradgang for at kunne uploade fotos automatisk</string>
 	<string name="permission_snackbar_notifications">Cryptomator har brug for notifikationstilladelser for at vise f.eks. boksstatus</string>
@@ -426,6 +429,7 @@
 	<string name="notification_open_writable_file_message">Boks forbliver låst op indtil du er færdig med redigeringen</string>
 	<string name="notification_update_check_finished_latest">Nyeste version er installeret</string>
 	<string name="notification_authenticating">Godkender&#8230;</string>
+	<string name="notification_cleared_trusted_hosts">Slettede betroede værter</string>
 	<string name="screen_settings_lru_cache">Cache</string>
 	<string name="screen_settings_lru_cache_toggle_summary">Gem nyligt tilgåede filer i cachen, i krypteret form, så de hurtigt kan åbnes igen senere</string>
 	<string name="screen_settings_lru_cache_size">Total cachestørrelse</string>
