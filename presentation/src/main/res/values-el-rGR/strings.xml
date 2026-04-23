@@ -41,6 +41,29 @@
 	<string name="error_hub_invalid_setup_code">Το Κλειδί Λογαριασμού δεν είναι έγκυρο.</string>
 	<string name="error_hub_invalid_version">Μη υποστηριζόμενη έκδοση Hub.</string>
 	<string name="error_hub_unlock_pre_31">Το Hub υποστηρίζεται μόνο από Android 12 και πάνω.</string>
+	<!-- # read-only & purchases -->
+	<string name="screen_license_check_benefit_family_sharing">Οικογενειακή κοινή χρήση</string>
+	<string name="screen_license_check_benefit_write_access">Πρόσβαση εγγραφής στις κρύπτες σας</string>
+	<string name="screen_license_check_benefit_support">Ανοιχτού κώδικα ανάπτυξη</string>
+	<string name="screen_license_check_title_full_version">Ξεκλείδωμα Πλήρους Έκδοσης</string>
+	<string name="screen_license_check_trial_title">Δοκιμή 30-Ημερών</string>
+	<string name="screen_license_check_trial_price">Δωρεάν</string>
+	<string name="screen_license_check_trial_subtitle">για 30 ημέρες</string>
+	<string name="screen_license_check_subscription_title">Ετήσια Συνδρομή</string>
+	<string name="screen_license_check_subscription_subtitle">ετήσια</string>
+	<string name="screen_license_check_lifetime_title">Άδεια Εφ\' όρου ζωής</string>
+	<string name="screen_license_check_lifetime_subtitle">μια φορά</string>
+	<string name="screen_license_check_restore_purchase">Επαναφορά Αγοράς</string>
+	<string name="screen_license_check_terms">Όροι Χρήσης</string>
+	<string name="screen_license_check_privacy">Πολιτική Απορρήτου</string>
+	<string name="screen_license_check_trial_status_active">Ενεργή</string>
+	<string name="screen_license_check_trial_status_expired">Έληξε</string>
+	<string name="screen_license_check_trial_expired_info">Η δοκιμαστική έκδοση έχει λήξει.</string>
+	<string name="screen_welcome_title">Καλώς ήρθατε</string>
+	<string name="screen_welcome_continue_button">Συνέχεια</string>
+	<string name="screen_welcome_screen_lock_button">Ορισμός κλειδώματος οθόνης</string>
+	<string name="next">Επόμενο</string>
+	<string name="back">Πίσω</string>
 	<!-- # clouds -->
 	<!-- ## cloud names -->
 	<string name="cloud_names_local_storage">Τοπικός αποθηκευτικός χώρος</string>
@@ -333,11 +356,10 @@
 	<string name="dialog_biometric_auth_key_invalidated_title">Η λειτουργία βιομετρικής ταυτοποίησης απενεργοποιήθηκε</string>
 	<string name="dialog_biometric_auth_key_invalidated_message">Επειδή το κλειδί έχει ακυρωθεί, η βιομετρική λειτουργία ταυτοποιήσης έχει απενεργοποιηθεί. Για επανενεργοποίηση, ανοίξτε τις ρυθμίσεις Cryptomator.</string>
 	<string name="dialog_enter_license_title">Δώστε μια έγκυρη άδεια</string>
-	<string name="dialog_enter_license_content">Εντοπίσαμε ότι εγκαταστήσατε Cryptomator χωρίς τη χρήση του Google Play Store. Παρέχετε έγκυρη άδεια, η οποία μπορεί να αγοραστεί στο <a href="https://cryptomator.org/android/">https://cryptomator.org/android/</a></string>
 	<string name="dialog_enter_license_not_valid_content">Η παρεχόμενη άδεια δεν είναι έγκυρη. Βεβαιωθείτε ότι την εισαγάγατε σωστά.</string>
 	<string name="dialog_enter_license_not_valid_content_desktop_supporter_certificate">Το κλειδί που παρέχεται είναι ένα πιστοποιητικό υποστήριξης επιφάνειας εργασίας. Παρακαλώ εισαγάγετε μια έγκυρη άδεια.</string>
 	<string name="dialog_enter_license_no_content">Δεν παρέχεται άδεια. Παρακαλώ εισάγετε μια έγκυρη άδεια.</string>
-	<string name="dialog_enter_license_decline_button">Έξοδος</string>
+	<string name="dialog_enter_license_decline_button">Ακύρωση</string>
 	<string name="dialog_license_confirmation_title">Επιβεβαίωση άδειας</string>
 	<string name="dialog_license_confirmation_message">Ευχαριστούμε %1$s για την παροχή της έγκυρης άδειας χρήσης σας.</string>
 	<string name="dialog_update_available_title">Διαθέσιμη ενημέρωση</string>
@@ -372,6 +394,10 @@
 	<string name="dialog_hub_license_upgrade_required_hint">Η συνεδρία σας στο Cryptomator Hub έχει μη έγκυρη άδεια χρήσης. Ενημερώστε έναν διαχειριστή του Hub για να αναβαθμίσει ή να ανανεώσει την άδεια χρήσης.\"</string>
 	<string name="dialog_hub_vault_archived_title">Η Κρύπτη αρχειοθετήθηκε</string>
 	<string name="dialog_hub_vault_archived_hint">Αυτό η κρύπτη είναι αρχειοθετημένη και δεν μπορεί να ξεκλειδωθεί. Για να την ξεκλειδώσετε, ο κάτοχος της κρύπτης πρέπει να την επαναφέρει.</string>
+	<string name="dialog_restore_successful_title">Επιτυχής Επαναφορά</string>
+	<string name="dialog_no_full_version_title">Χωρίς Πλήρη Έκδοση</string>
+	<string name="dialog_cancel_subscription_reminder_manage_button">Διαχείριση Συνδρομής</string>
+	<string name="dialog_cancel_subscription_reminder_close_button">Κλείσιμο</string>
 	<string name="dialog_hub_user_setup_required_title">Απαιτείται ρύθμιση χρήστη</string>
 	<string name="dialog_hub_user_setup_required_hint">Για να συνεχίσετε, παρακαλούμε συμπληρώστε τα βήματα που απαιτούνται στο προφίλ χρήστη Hub σας.</string>
 	<string name="dialog_hub_user_setup_required_neutral_button">Πηγαίνετε στο Προφίλ</string>
@@ -413,7 +439,6 @@
 	<string name="notification_lock_all">Κλείδωμα όλων</string>
 	<string name="notification_cancel_auto_upload">Ακύρωση μεταφόρτωσης</string>
 	<string name="notification_auto_upload_title">Εκτελείται αυτόματη μεταφόρτωση φωτογραφιών</string>
-	<string name="notification_auto_upload_message">Μεταφόρτωση %1d/%2d</string>
 	<string name="notification_auto_upload_finished_title">Η αυτόματη μεταφόρτωση φωτογραφίας ολοκληρώθηκε</string>
 	<string name="notification_auto_upload_finished_message">%1$d εικόνες μεταφορτώθηκαν στην κρύπτη</string>
 	<string name="notification_auto_upload_failed_title">Η αυτόματη μεταφόρτωση φωτογραφιών απέτυχε</string>
@@ -431,8 +456,10 @@
 	<string name="screen_settings_lru_cache_size">Συνολικό μέγεθος προσωρινής μνήμης</string>
 	<string name="screen_settings_clear_lru_cache_size">Εκκαθάριση προσωρινής μνήμης</string>
 	<string name="screen_settings_lru_cache_changed__restart_toast">Οι αλλαγές θα εφαρμοστούν στην επόμενη επανεκκίνηση της εφαρμογής</string>
-	<string name="screen_settings_license">Εγγεγραμμένος για</string>
+	<string name="screen_settings_license_title_unlock">Ξεκλείδωμα Πλήρους Έκδοσης</string>
 	<string name="screen_settings_license_mail">%1$s</string>
+	<string name="screen_settings_manage_subscription">Διαχείριση Συνδρομής</string>
+	<string name="dialog_trial_expired_unlock">Ξεκλείδωμα Πλήρους Έκδοσης</string>
 	<string name="dialog_settings_update_check_interval_title">Διάστημα ελέγχου ενημερώσεων</string>
 	<string name="screen_settings_check_updates">\'Έλεγχος για ενημερώσεις</string>
 	<string name="screen_settings_last_check_updates">Τελευταίος έλεγχος: %1$s</string>
