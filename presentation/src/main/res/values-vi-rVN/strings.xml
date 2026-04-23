@@ -36,6 +36,28 @@
 	<string name="error_masterkey_location_not_supported">Vị trí tùy chọn của Khoá Chính chưa được hỗ trợ</string>
 	<string name="error_interact_with_fdroid_but_fdroid_missing">Không giao tiếp được với ứng dụng F-Droid. Chưa cài đặt?</string>
 	<string name="error_hub_device_already_register_for_other_user">Thiết bị này đã được đăng ký cho người dùng khác. Hãy thử tài khoản khác hoặc sử dụng một thiết bị khác.</string>
+	<!-- # read-only & purchases -->
+	<string name="screen_license_check_benefit_family_sharing">Chia sẻ trong gia đình</string>
+	<string name="screen_license_check_benefit_write_access">Quyền ghi vào những vault của bạn</string>
+	<string name="screen_license_check_title_full_version">Mở khóa bản đầy đủ</string>
+	<string name="screen_license_check_trial_title">Trải nghiệm 30 ngày</string>
+	<string name="screen_license_check_trial_price">Miễn phí</string>
+	<string name="screen_license_check_trial_subtitle">trong 30 ngày</string>
+	<string name="screen_license_check_subscription_title">Đăng Ký Theo Năm</string>
+	<string name="screen_license_check_subscription_subtitle">hàng năm</string>
+	<string name="screen_license_check_lifetime_title">Giấy phép trọn đời</string>
+	<string name="screen_license_check_lifetime_subtitle">một lần</string>
+	<string name="screen_license_check_restore_purchase">Khôi phục lại lượt mua</string>
+	<string name="screen_license_check_terms">Điều khoản sử dụng</string>
+	<string name="screen_license_check_privacy">Chính sách bảo mật</string>
+	<string name="screen_license_check_trial_status_active">Hoạt động</string>
+	<string name="screen_license_check_trial_status_expired">Hết hạn</string>
+	<string name="screen_license_check_trial_expired_info">Bản dùng thử của bạn đã hết hạn.</string>
+	<string name="screen_welcome_title">Chào mừng</string>
+	<string name="screen_welcome_continue_button">Tiếp tục</string>
+	<string name="screen_welcome_screen_lock_button">Đặt khoá màn hình</string>
+	<string name="next">Tiếp</string>
+	<string name="back">Quay lại</string>
 	<!-- # clouds -->
 	<!-- ## cloud names -->
 	<string name="cloud_names_local_storage">Bộ nhớ cục bộ</string>
@@ -322,11 +344,10 @@
 	<string name="dialog_biometric_auth_key_invalidated_title">Đã tắt tính năng xác thực sinh trắc học</string>
 	<string name="dialog_biometric_auth_key_invalidated_message">Vì khoá đã bị vô hiệu nên tính năng xác thực sinh trắc học đã bị tắt. Để bật lại, hãy mở cài đặt Cryptomator.</string>
 	<string name="dialog_enter_license_title">Cung cấp giấy phép hợp lệ</string>
-	<string name="dialog_enter_license_content">Chúng tôi phát hiện ra rằng bạn đã cài đặt Cryptomator mà không sử dụng Cửa hàng Google Play. Cung cấp giấy phép hợp lệ, mà bạn có thể mua trên <a href="https://cryptomator.org/android/">https://cryptomator.org/android/</a></string>
 	<string name="dialog_enter_license_not_valid_content">Giấy phép được cung cấp không hợp lệ. Hãy chắc chắn rằng bạn đã nhập nó một cách chính xác.</string>
 	<string name="dialog_enter_license_not_valid_content_desktop_supporter_certificate">Khoá được cung cấp là chứng chỉ người hỗ trợ dành cho máy tính để bàn. Vui lòng nhập giấy phép hợp lệ.</string>
 	<string name="dialog_enter_license_no_content">Không có giấy phép được cung cấp. Vui lòng nhập giấy phép hợp lệ.</string>
-	<string name="dialog_enter_license_decline_button">Thoát</string>
+	<string name="dialog_enter_license_decline_button">Hủy</string>
 	<string name="dialog_license_confirmation_title">Xác nhận giấy phép</string>
 	<string name="dialog_license_confirmation_message">Cảm ơn %1$s đã cung cấp giấy phép hợp lệ của bạn.</string>
 	<string name="dialog_update_available_title">Đã có bản cập nhật</string>
@@ -345,6 +366,9 @@
 	<string name="dialog_pcloud_credentials_updated_title">Đã cập nhật thông tin xác thực của \'%1$s\'</string>
 	<string name="dialog_pcloud_credentials_updated">Nếu bạn định thêm tài khoản pCloud mới, hãy nhấn vào url này <a href="https://www.pcloud.com">www.pcloud.com</a>, đăng xuất khỏi tài khoản hiện tại và nhấn lại vào \'+\' trong ứng dụng này để tạo kết nối đám mây mới.</string>
 	<string name="dialog_hub_vault_access_forbidden_title">Truy cập bị từ chối</string>
+	<string name="dialog_restore_successful_title">Khôi phục thành công</string>
+	<string name="dialog_no_full_version_title">Không có bản đầy đủ</string>
+	<string name="dialog_cancel_subscription_reminder_close_button">Đóng</string>
 	<string name="dialog_hub_user_setup_required_neutral_button">Xem hồ sơ</string>
 	<string name="permission_snackbar_auth_local_vault">Cryptomator cần quyền truy cập bộ nhớ để sử dụng vault cục bộ</string>
 	<string name="permission_snackbar_auth_auto_upload">Cryptomator cần quyền truy cập bộ nhớ để sử dụng tính năng tự động tải ảnh lên</string>
@@ -384,7 +408,6 @@
 	<string name="notification_lock_all">Khóa tất cả</string>
 	<string name="notification_cancel_auto_upload">Hủy tải lên</string>
 	<string name="notification_auto_upload_title">Tải ảnh tự động đang chạy</string>
-	<string name="notification_auto_upload_message">Đang tải lên %1d/%2d</string>
 	<string name="notification_auto_upload_finished_title">Đã hoàn tất tải ảnh tự động lên</string>
 	<string name="notification_auto_upload_finished_message">%1$d hình ảnh được tải lên vault</string>
 	<string name="notification_auto_upload_failed_title">Tự động tải ảnh lên không thành công</string>
@@ -402,8 +425,9 @@
 	<string name="screen_settings_lru_cache_size">Tổng kích thước bộ đệm</string>
 	<string name="screen_settings_clear_lru_cache_size">Xóa bộ nhớ Cache</string>
 	<string name="screen_settings_lru_cache_changed__restart_toast">Các thay đổi sẽ được áp dụng vào lần tiếp theo ứng dụng khởi động lại</string>
-	<string name="screen_settings_license">Đăng ký cho</string>
+	<string name="screen_settings_license_title_unlock">Mở khóa bản đầy đủ</string>
 	<string name="screen_settings_license_mail">%1$s</string>
+	<string name="dialog_trial_expired_unlock">Mở khóa bản đầy đủ</string>
 	<string name="dialog_settings_update_check_interval_title">Khoảng thời gian kiểm tra cập nhật</string>
 	<string name="screen_settings_check_updates">Kiểm tra cập nhật</string>
 	<string name="screen_settings_last_check_updates">Lần chạy cuối %1$s</string>
