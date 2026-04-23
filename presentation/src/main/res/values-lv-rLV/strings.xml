@@ -41,6 +41,29 @@
 	<string name="error_hub_invalid_setup_code">Konta atslēga ir nederīga.</string>
 	<string name="error_hub_invalid_version">Neatbalstīta Hub versija.</string>
 	<string name="error_hub_unlock_pre_31">Hub tiek atbalstīts tikai Android 12 vai jaunākā.</string>
+	<!-- # read-only & purchases -->
+	<string name="screen_license_check_benefit_family_sharing">Koplietošana ar ģimeni</string>
+	<string name="screen_license_check_benefit_write_access">Rakstīšanas piekļuve glabātavām</string>
+	<string name="screen_license_check_benefit_support">Atvērtā pirmkoda izstrāde</string>
+	<string name="screen_license_check_title_full_version">Atslēgt pilno versiju</string>
+	<string name="screen_license_check_trial_title">30 dienu izmēģinājuma versija</string>
+	<string name="screen_license_check_trial_price">Bezmaksas</string>
+	<string name="screen_license_check_trial_subtitle">30 dienas</string>
+	<string name="screen_license_check_subscription_title">Gada abonements</string>
+	<string name="screen_license_check_subscription_subtitle">ik gadu</string>
+	<string name="screen_license_check_lifetime_title">Mūža licence</string>
+	<string name="screen_license_check_lifetime_subtitle">vienreiz</string>
+	<string name="screen_license_check_restore_purchase">Atjaunot pirkumu</string>
+	<string name="screen_license_check_terms">Izmantošanas nosacījumi</string>
+	<string name="screen_license_check_privacy">Privātuma pamatnostādnes</string>
+	<string name="screen_license_check_trial_status_active">Aktīvs</string>
+	<string name="screen_license_check_trial_status_expired">Beidzies</string>
+	<string name="screen_license_check_trial_expired_info">Izmēģinājuma laiks ir beidzies.</string>
+	<string name="screen_welcome_title">Laipni lūdzam</string>
+	<string name="screen_welcome_continue_button">Turpināt</string>
+	<string name="screen_welcome_screen_lock_button">Iestatīt ekrāna aizslēgšanu</string>
+	<string name="next">Tālāk</string>
+	<string name="back">Atpakaļ</string>
 	<!-- # clouds -->
 	<!-- ## cloud names -->
 	<string name="cloud_names_local_storage">Vietēja krātuve</string>
@@ -334,11 +357,10 @@
 	<string name="dialog_biometric_auth_key_invalidated_title">Autentificēšana ar biometriju deaktivēta</string>
 	<string name="dialog_biometric_auth_key_invalidated_message">Tā kā atslēga ir padarīta par nederīgu, autentificēšanās ar biometriju tika deaktivēta. Lai iespējotu no jauna, jāatver Cryptomator iestatījumi.</string>
 	<string name="dialog_enter_license_title">Iesniegt derīgu licenci</string>
-	<string name="dialog_enter_license_content">Mēs noteicām, ka Cryptomator ir uzstādīta bez Google Play veikala izmantošanas. Jāiesniedz derīga licence, ko var iegādāties <a href="https://cryptomator.org/android/">https://cryptomator.org/android</a></string>
 	<string name="dialog_enter_license_not_valid_content">Iesniegtā licence nav derīga. Jāpārliecinās, ka tā ir pareizi ievadīta.</string>
 	<string name="dialog_enter_license_not_valid_content_desktop_supporter_certificate">Iesniegtā atslēga ir darbvirsmas atbalstītāja sertifikāts. Lūgums ievadīt derīgu licenci.</string>
 	<string name="dialog_enter_license_no_content">Nav iesniegta licence Lūgums ievadīt derīgu licenci.</string>
-	<string name="dialog_enter_license_decline_button">Iziet</string>
+	<string name="dialog_enter_license_decline_button">Atcelt</string>
 	<string name="dialog_license_confirmation_title">Licences apstiprinājums</string>
 	<string name="dialog_license_confirmation_message">Paldies, %1$s, par derīgas licences iesniegšanu!</string>
 	<string name="dialog_update_available_title">Pieejams atjauninājums</string>
@@ -373,6 +395,10 @@
 	<string name="dialog_hub_license_upgrade_required_hint">Cryptomator Hub instancei ir nederīga licence. Lūgums ziņot Hub pārvaldītājam, lai uzlabo vai atjauno licenci.\"</string>
 	<string name="dialog_hub_vault_archived_title">Glabātava arhivēta</string>
 	<string name="dialog_hub_vault_archived_hint">Šī glabātava ir arhivēta, un to nevar atslēgt. Lai atslēgtu to, glabātavas īpašniekam tā ir jāatceļ tās arhivēšana.</string>
+	<string name="dialog_restore_successful_title">Sekmīga atjaunošana</string>
+	<string name="dialog_no_full_version_title">Nav pilnā versija</string>
+	<string name="dialog_cancel_subscription_reminder_manage_button">Pārvaldīt abonementu</string>
+	<string name="dialog_cancel_subscription_reminder_close_button">Aizvērt</string>
 	<string name="dialog_hub_user_setup_required_title">Nepieciešama lietotāja iestatīšana</string>
 	<string name="dialog_hub_user_setup_required_hint">Lai turpinātu, lūgums pabeigt nepieciešamos soļus savā Hub lietotāja profilā.</string>
 	<string name="dialog_hub_user_setup_required_neutral_button">Doties uz profilu</string>
@@ -414,7 +440,6 @@
 	<string name="notification_lock_all">Aizslēgt visas</string>
 	<string name="notification_cancel_auto_upload">Atcelt augšupielādi</string>
 	<string name="notification_auto_upload_title">Notiek automātiska fotoattēlu augšupielāde</string>
-	<string name="notification_auto_upload_message">Augšupielādē %1d/%2d</string>
 	<string name="notification_auto_upload_finished_title">Automātiskā fotoattēlu augšupielāde pabeigta</string>
 	<string name="notification_auto_upload_finished_message">%1$d attēli augšupielādēti glabātavā</string>
 	<string name="notification_auto_upload_failed_title">Automātiskā fotoattēlu augšupielāde neizdevās</string>
@@ -432,8 +457,10 @@
 	<string name="screen_settings_lru_cache_size">Kopējais kešatmiņas izmērs</string>
 	<string name="screen_settings_clear_lru_cache_size">Notīrīt kešatmiņu</string>
 	<string name="screen_settings_lru_cache_changed__restart_toast">Izmaiņas tiks pielietotas nākamajā lietotnes palaišanas reizē</string>
-	<string name="screen_settings_license">Reģistrēts</string>
+	<string name="screen_settings_license_title_unlock">Atslēgt pilno versiju</string>
 	<string name="screen_settings_license_mail">%1$s</string>
+	<string name="screen_settings_manage_subscription">Pārvaldīt abonementu</string>
+	<string name="dialog_trial_expired_unlock">Atslēgt pilno versiju</string>
 	<string name="dialog_settings_update_check_interval_title">Laiks starp atjauninājumu pārbaudēm</string>
 	<string name="screen_settings_check_updates">Meklēt atjauninājumus</string>
 	<string name="screen_settings_last_check_updates">Pēdējoreiz veikta %1$s</string>
