@@ -41,6 +41,29 @@
 	<string name="error_hub_invalid_setup_code">Hesap Anahtarı geçersiz.</string>
 	<string name="error_hub_invalid_version">Desteklenmeyen Hub sürümü.</string>
 	<string name="error_hub_unlock_pre_31">Hub yalnızca Android 12 ve üzeri sürümlerde desteklenmektedir.</string>
+	<!-- # read-only & purchases -->
+	<string name="screen_license_check_benefit_family_sharing">Aile paylaşımı</string>
+	<string name="screen_license_check_benefit_write_access">Kasalarınıza yazma erişimi</string>
+	<string name="screen_license_check_benefit_support">Açık kaynak geliştirme</string>
+	<string name="screen_license_check_title_full_version">Tam Sürümün Kilidini Aç</string>
+	<string name="screen_license_check_trial_title">30 Günlük Deneme</string>
+	<string name="screen_license_check_trial_price">Ücretsiz</string>
+	<string name="screen_license_check_trial_subtitle">30 gün boyunca</string>
+	<string name="screen_license_check_subscription_title">Yıllık Abonelik</string>
+	<string name="screen_license_check_subscription_subtitle">yıllık</string>
+	<string name="screen_license_check_lifetime_title">Ömür Boyu Kullanım Lisansı</string>
+	<string name="screen_license_check_lifetime_subtitle">bir kez</string>
+	<string name="screen_license_check_restore_purchase">Satın Almayı Geri Yükle</string>
+	<string name="screen_license_check_terms">Kullanım Koşulları</string>
+	<string name="screen_license_check_privacy">Gizlilik Politikası</string>
+	<string name="screen_license_check_trial_status_active">Aktif</string>
+	<string name="screen_license_check_trial_status_expired">Süresi doldu</string>
+	<string name="screen_license_check_trial_expired_info">Deneme süreniz doldu.</string>
+	<string name="screen_welcome_title">Hoş geldiniz</string>
+	<string name="screen_welcome_continue_button">Devam et</string>
+	<string name="screen_welcome_screen_lock_button">Ekran kilidini ayarla</string>
+	<string name="next">İleri</string>
+	<string name="back">Geri</string>
 	<!-- # clouds -->
 	<!-- ## cloud names -->
 	<string name="cloud_names_local_storage">Yerel depolama</string>
@@ -333,11 +356,10 @@
 	<string name="dialog_biometric_auth_key_invalidated_title">Biyometrik kimlik doğrulama özelliği devre dışı bırakıldı</string>
 	<string name="dialog_biometric_auth_key_invalidated_message">Anahtar geçersiz olduğu için biyometrik kimlik doğrulama özelliği devre dışı bırakıldı. Yeniden etkinleştirmek için Cryptomator ayarlarını açın.</string>
 	<string name="dialog_enter_license_title">Geçerli bir lisans sağlayın</string>
-	<string name="dialog_enter_license_content">Cryptomator\'ı Google Play Store kullanmadan yüklediğinizi tespit ettik. <a href="https://cryptomator.org/android/">https://cryptomator.org/android/</a> adresinden satın alınabilecek geçerli bir lisans edinin.</string>
 	<string name="dialog_enter_license_not_valid_content">Sağlanan lisans geçerli değil. Doğru girdiğinizden emin olun.</string>
 	<string name="dialog_enter_license_not_valid_content_desktop_supporter_certificate">Sağlanan anahtar, bir masaüstü destek sertifikasıdır. Lütfen geçerli bir lisans girin.</string>
 	<string name="dialog_enter_license_no_content">Lisans verilmemiştir. Lütfen geçerli bir lisans girin.</string>
-	<string name="dialog_enter_license_decline_button">Çıkış</string>
+	<string name="dialog_enter_license_decline_button">İptal</string>
 	<string name="dialog_license_confirmation_title">Lisans onayı</string>
 	<string name="dialog_license_confirmation_message">Geçerli lisansınızı sağladığınız için teşekkür ederiz %1$s.</string>
 	<string name="dialog_update_available_title">Güncelleme mevcut</string>
@@ -372,6 +394,10 @@
 	<string name="dialog_hub_license_upgrade_required_hint">Cryptomator Hub örneğinizin geçersiz bir lisansı var. Lütfen lisansı yükseltmek veya yenilemek için bir Hub yöneticisini bilgilendirin.”</string>
 	<string name="dialog_hub_vault_archived_title">Kasa arşivlendi</string>
 	<string name="dialog_hub_vault_archived_hint">Bu kasa arşivlenmiştir ve kilidi açılamaz. Kilidi açmak için kasa sahibinin arşivi açması gerekir.</string>
+	<string name="dialog_restore_successful_title">Geri Yükleme Başarılı</string>
+	<string name="dialog_no_full_version_title">Tam Sürüm Yok</string>
+	<string name="dialog_cancel_subscription_reminder_manage_button">Aboneliği Yönet</string>
+	<string name="dialog_cancel_subscription_reminder_close_button">Kapat</string>
 	<string name="dialog_hub_user_setup_required_title">Kullanıcı kurulumu gerekli</string>
 	<string name="dialog_hub_user_setup_required_hint">Devam etmek için lütfen Hub kullanıcı profilinizde gerekli adımları tamamlayın.</string>
 	<string name="dialog_hub_user_setup_required_neutral_button">Profile Git</string>
@@ -413,7 +439,6 @@
 	<string name="notification_lock_all">Tümünü kilitle</string>
 	<string name="notification_cancel_auto_upload">Yüklemeyi iptal et</string>
 	<string name="notification_auto_upload_title">Otomatik fotoğraf yükleme çalışıyor</string>
-	<string name="notification_auto_upload_message">%1d/%2d yükleniyor</string>
 	<string name="notification_auto_upload_finished_title">Otomatik fotoğraf yükleme tamamlandı</string>
 	<string name="notification_auto_upload_finished_message">Kasaya %1$d görüntü yüklendi</string>
 	<string name="notification_auto_upload_failed_title">Otomatik fotoğraf yükleme başarısız oldu</string>
@@ -431,8 +456,10 @@
 	<string name="screen_settings_lru_cache_size">Toplam önbellek boyutu</string>
 	<string name="screen_settings_clear_lru_cache_size">Önbelleği temizle</string>
 	<string name="screen_settings_lru_cache_changed__restart_toast">Değişiklikler, uygulama yeniden başlatıldığında uygulanacak</string>
-	<string name="screen_settings_license">Kayıtlı</string>
+	<string name="screen_settings_license_title_unlock">Tam Sürümün Kilidini Aç</string>
 	<string name="screen_settings_license_mail">%1$s</string>
+	<string name="screen_settings_manage_subscription">Aboneliği Yönet</string>
+	<string name="dialog_trial_expired_unlock">Tam Sürümün Kilidini Aç</string>
 	<string name="dialog_settings_update_check_interval_title">Güncelleme kontrol aralığı</string>
 	<string name="screen_settings_check_updates">Güncellemeleri kontrol et</string>
 	<string name="screen_settings_last_check_updates">Son çalıştırma %1$s</string>
