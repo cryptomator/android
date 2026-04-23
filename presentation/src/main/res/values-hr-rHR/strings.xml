@@ -35,6 +35,29 @@
 	<string name="error_no_such_bucket">Nepostojeća kanta</string>
 	<string name="error_masterkey_location_not_supported">Prilagođena lokacija glavnog ključa još nije podržano</string>
 	<string name="error_interact_with_fdroid_but_fdroid_missing">Komunikacija s aplikacijom F-Droid nije uspjela. Nije instalirana?</string>
+	<!-- # read-only & purchases -->
+	<string name="screen_license_check_benefit_family_sharing">Obiteljsko dijeljenje</string>
+	<string name="screen_license_check_benefit_write_access">Pravo pisanja u Vaš trezor</string>
+	<string name="screen_license_check_benefit_support">Razvoj otvorenog koda</string>
+	<string name="screen_license_check_title_full_version">Otključaj punu verziju</string>
+	<string name="screen_license_check_trial_title">30-dnevna probna verzija</string>
+	<string name="screen_license_check_trial_price">Besplatno</string>
+	<string name="screen_license_check_trial_subtitle">za 30 dana</string>
+	<string name="screen_license_check_subscription_title">Godišnja pretplata</string>
+	<string name="screen_license_check_subscription_subtitle">godišnje</string>
+	<string name="screen_license_check_lifetime_title">Doživotna licenca</string>
+	<string name="screen_license_check_lifetime_subtitle">jednokratno</string>
+	<string name="screen_license_check_restore_purchase">Obnovi kupnju</string>
+	<string name="screen_license_check_terms">Uvjeti korištenja</string>
+	<string name="screen_license_check_privacy">Pravila o privatnosti</string>
+	<string name="screen_license_check_trial_status_active">Aktivan</string>
+	<string name="screen_license_check_trial_status_expired">Isteklo</string>
+	<string name="screen_license_check_trial_expired_info">Vaša je probna verzija istekla.</string>
+	<string name="screen_welcome_title">Dobrodošli</string>
+	<string name="screen_welcome_continue_button">Nastavi</string>
+	<string name="screen_welcome_screen_lock_button">Postaviti zaključavanje zaslona</string>
+	<string name="next">Sljedeći</string>
+	<string name="back">Nazad</string>
 	<!-- # clouds -->
 	<!-- ## cloud names -->
 	<string name="cloud_names_local_storage">Lokalna pohrana</string>
@@ -320,11 +343,10 @@
 	<string name="dialog_biometric_auth_key_invalidated_title">Biometrijska autentikacija deaktivirana</string>
 	<string name="dialog_biometric_auth_key_invalidated_message">Budući da je ključ poništen, biometrijska autentikacija je deaktivirana. Da biste ju ponovno omogućili, otvorite postavke Cryptomator-a.</string>
 	<string name="dialog_enter_license_title">Pružite važeću licencu</string>
-	<string name="dialog_enter_license_content">Otkrili smo da ste instalirali Cryptomator bez upotrebe trgovine Google Play. Navedite važeću licencu koja se može kupiti na <a href="https://cryptomator.org/android/">https://cryptomator.org/android/</a></string>
 	<string name="dialog_enter_license_not_valid_content">Navedena licenca nije važeća. Provjerite jeste li ju ispravno unijeli.</string>
 	<string name="dialog_enter_license_not_valid_content_desktop_supporter_certificate">Navedeni ključ je certifikat tzv. stolnog podržavatelja. Molimo unesite važeću licencu.</string>
 	<string name="dialog_enter_license_no_content">Licenca nije pružena. Molimo unesite važeću licencu.</string>
-	<string name="dialog_enter_license_decline_button">Izlaz</string>
+	<string name="dialog_enter_license_decline_button">Odustani</string>
 	<string name="dialog_license_confirmation_title">Potvrda licence</string>
 	<string name="dialog_license_confirmation_message">Hvala %1$s za pružanje valjane licence.</string>
 	<string name="dialog_update_available_title">Ažuriranje dostupno</string>
@@ -342,6 +364,10 @@
 	<string name="dialog_no_more_images_to_display">Nema više slika za prikaz&#8230;</string>
 	<string name="dialog_pcloud_credentials_updated_title">Vjerodajnice od \'%1$s\' ažurirane</string>
 	<string name="dialog_pcloud_credentials_updated">Ako ste namjeravali dodati novi pCloud račun, dodirnite ovaj url <a href="https://www.pcloud.com">www.pcloud.com</a>, odjavite se s trenutačnog računa i ponovno dodirnite \'+\' u ovoj aplikaciji za stvaranje nove veze u oblaku.</string>
+	<string name="dialog_restore_successful_title">Obnavljanje uspješno</string>
+	<string name="dialog_no_full_version_title">Nema pune verzije</string>
+	<string name="dialog_cancel_subscription_reminder_manage_button">Upravljaj pretplatom</string>
+	<string name="dialog_cancel_subscription_reminder_close_button">Zatvori</string>
 	<string name="permission_snackbar_auth_local_vault">Cryptomator treba pristup pohrani da koristi lokalne trezore</string>
 	<string name="permission_snackbar_auth_auto_upload">Cryptomator treba pristup pohrani da koristi automatski prijenos slika</string>
 	<!-- # error reports -->
@@ -379,7 +405,6 @@
 	<string name="notification_lock_all">Zaključaj sve</string>
 	<string name="notification_cancel_auto_upload">Odustani od prijenosa</string>
 	<string name="notification_auto_upload_title">Aumatski prijenos slika u tijeku</string>
-	<string name="notification_auto_upload_message">Prenosim %1d/%2d</string>
 	<string name="notification_auto_upload_finished_title">Automatski prijenos slika završen</string>
 	<string name="notification_auto_upload_finished_message">%1$d slika preneseno u trezor</string>
 	<string name="notification_auto_upload_failed_title">Automatski prijenos slika neuspješan</string>
@@ -396,8 +421,10 @@
 	<string name="screen_settings_lru_cache_size">Ukupna veličina predmemorije</string>
 	<string name="screen_settings_clear_lru_cache_size">Očisti predmemoriju</string>
 	<string name="screen_settings_lru_cache_changed__restart_toast">Promjene će se primijeniti kod slijedećeg pokretanja aplikacije</string>
-	<string name="screen_settings_license">Registrirano za</string>
+	<string name="screen_settings_license_title_unlock">Otključaj punu verziju</string>
 	<string name="screen_settings_license_mail">%1$s</string>
+	<string name="screen_settings_manage_subscription">Upravljaj pretplatom</string>
+	<string name="dialog_trial_expired_unlock">Otključaj punu verziju</string>
 	<string name="dialog_settings_update_check_interval_title">Razmak ažuriranja</string>
 	<string name="screen_settings_check_updates">Potraži ažuriranja</string>
 	<string name="screen_settings_last_check_updates">Posljednji put pokrenuto %1$s</string>
