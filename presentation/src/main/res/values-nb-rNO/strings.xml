@@ -36,6 +36,29 @@
 	<string name="error_masterkey_location_not_supported">Egendefinert lokasjon for Hovednøkkel er foreløpig ikke støttet</string>
 	<string name="error_interact_with_fdroid_but_fdroid_missing">Mislyktes i å kommunisere med F-Droid-app\'en. Ikke installert?</string>
 	<string name="error_hub_device_already_register_for_other_user">Denne enheten er allerede registrert for en annen bruker. Prøv å endre brukerkontoen eller bruk en annen enhet.</string>
+	<!-- # read-only & purchases -->
+	<string name="screen_license_check_benefit_family_sharing">Familiedeling</string>
+	<string name="screen_license_check_benefit_write_access">Skrivetilgang til hvelvene dine</string>
+	<string name="screen_license_check_benefit_support">Utviklet med åpen kildekode</string>
+	<string name="screen_license_check_title_full_version">Lås opp fullversjonen</string>
+	<string name="screen_license_check_trial_title">30-dagers prøveperiode</string>
+	<string name="screen_license_check_trial_price">Gratis</string>
+	<string name="screen_license_check_trial_subtitle">i 30 dager</string>
+	<string name="screen_license_check_subscription_title">Årlig abonnement</string>
+	<string name="screen_license_check_subscription_subtitle">årlig</string>
+	<string name="screen_license_check_lifetime_title">Livsvarig lisens</string>
+	<string name="screen_license_check_lifetime_subtitle">engangs</string>
+	<string name="screen_license_check_restore_purchase">Gjenopprett kjøp</string>
+	<string name="screen_license_check_terms">Bruksvilkår</string>
+	<string name="screen_license_check_privacy">Personvernerklæring</string>
+	<string name="screen_license_check_trial_status_active">Aktiv</string>
+	<string name="screen_license_check_trial_status_expired">Utløpt</string>
+	<string name="screen_license_check_trial_expired_info">Prøveperioden din er utløpt.</string>
+	<string name="screen_welcome_title">Velkommen</string>
+	<string name="screen_welcome_continue_button">Fortsett</string>
+	<string name="screen_welcome_screen_lock_button">Sett skjermlås</string>
+	<string name="next">Neste</string>
+	<string name="back">Tilbake</string>
 	<!-- # clouds -->
 	<!-- ## cloud names -->
 	<string name="cloud_names_local_storage">Lokal lagring</string>
@@ -323,11 +346,10 @@
 	<string name="dialog_biometric_auth_key_invalidated_title">Biometrisk autentisering deaktivert</string>
 	<string name="dialog_biometric_auth_key_invalidated_message">Fordi nøkkelen er ugyldig, er biometrisk autentisering deaktivert. For å re-aktivere, åpne innstillingene for Cryptomator.</string>
 	<string name="dialog_enter_license_title">Oppgi en gyldig lisens</string>
-	<string name="dialog_enter_license_content">Vi oppdaget at du installerte Cryptomator uten å bruke Google Play Store. Oppgi en gyldig lisens, som kan kjøpes på <a href="https://cryptomator.org/android/">https://cryptomator.org/android/</a></string>
 	<string name="dialog_enter_license_not_valid_content">Den oppgitte lisensen er ikke gyldig. Kontroller at du har skrevet den inn riktig.</string>
 	<string name="dialog_enter_license_not_valid_content_desktop_supporter_certificate">Denne nøkkelen er et skrivebord supporter sertifikat. Vennligst angi en gyldig lisens.</string>
 	<string name="dialog_enter_license_no_content">Ingen lisens oppgitt. Vennligst skriv inn en gyldig lisens.</string>
-	<string name="dialog_enter_license_decline_button">Avslutt</string>
+	<string name="dialog_enter_license_decline_button">Avbryt</string>
 	<string name="dialog_license_confirmation_title">Lisensbekreftelse</string>
 	<string name="dialog_license_confirmation_message">Takk %1$s for at du oppgir en gyldig lisens.</string>
 	<string name="dialog_update_available_title">Oppdatering tilgjengelig</string>
@@ -349,6 +371,10 @@
 	<string name="dialog_create_hub_device_name_hint">Dette ser ut til å være den første Hub-tilgangen fra denne enheten. For å kunne identifisere den for tilgangsautorisasjon, må du å navngi denne enheten.</string>
 	<string name="dialog_create_hub_device_setup_code_hint">Din kontonøkkel kreves for å logge inn fra nye apper eller nettlesere. Den finner du i profilen din.</string>
 	<string name="dialog_hub_vault_access_forbidden_title">Ingen tilgang</string>
+	<string name="dialog_restore_successful_title">Gjenoppretting vellykket</string>
+	<string name="dialog_no_full_version_title">Ingen fullversjon</string>
+	<string name="dialog_cancel_subscription_reminder_manage_button">Administrer abonnement</string>
+	<string name="dialog_cancel_subscription_reminder_close_button">Lukk</string>
 	<string name="dialog_hub_user_setup_required_hint">For å fortsette, fullfør trinnene som kreves i din Hub-brukerprofil.</string>
 	<string name="dialog_hub_user_setup_required_neutral_button">Gå til profil</string>
 	<string name="permission_snackbar_auth_local_vault">Cryptomator trenger lagringstilgang for å bruke lokale hvelv</string>
@@ -389,7 +415,6 @@
 	<string name="notification_lock_all">Lås alle</string>
 	<string name="notification_cancel_auto_upload">Avbryt opplasting</string>
 	<string name="notification_auto_upload_title">Automatisk bildeopplasting kjører</string>
-	<string name="notification_auto_upload_message">Laster opp %1d/%2d</string>
 	<string name="notification_auto_upload_finished_title">Automatisk bildeopplasting fullført</string>
 	<string name="notification_auto_upload_finished_message">%1$d bilder lastet opp til hvelvet</string>
 	<string name="notification_auto_upload_failed_title">Automatisk bildeopplasting mislyktes</string>
@@ -407,8 +432,10 @@
 	<string name="screen_settings_lru_cache_size">Total hurtigminnestørrelse</string>
 	<string name="screen_settings_clear_lru_cache_size">Tøm hurtigminnet</string>
 	<string name="screen_settings_lru_cache_changed__restart_toast">Endringer vil bli tatt i bruk ved neste omstart av appen</string>
-	<string name="screen_settings_license">Registrert for</string>
+	<string name="screen_settings_license_title_unlock">Lås opp fullversjonen</string>
 	<string name="screen_settings_license_mail">%1$s</string>
+	<string name="screen_settings_manage_subscription">Administrer abonnement</string>
+	<string name="dialog_trial_expired_unlock">Lås opp fullversjonen</string>
 	<string name="dialog_settings_update_check_interval_title">Intervall for å se etter oppdateringer</string>
 	<string name="screen_settings_check_updates">Se etter oppdateringer</string>
 	<string name="screen_settings_last_check_updates">Sist kjørt %1$s</string>
