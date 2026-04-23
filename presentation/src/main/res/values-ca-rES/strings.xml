@@ -38,6 +38,31 @@
 	<string name="error_hub_device_already_register_for_other_user">El dispositiu ja ha estat registrat per un altre usuari. Mireu de canviar el compte d\'usuari o feu servir un dispositiu diferent.</string>
 	<string name="error_hub_invalid_version">Versió de Hub no suportada.</string>
 	<string name="error_hub_unlock_pre_31">Hub solament és suportat a partir d\'Android 12.</string>
+	<!-- # read-only & purchases -->
+	<string name="screen_license_check_locked_create_vault">Activa la versió completa per crear repositoris</string>
+	<string name="screen_license_check_locked_upload_files">Desbloqueja la versió completa per poder pujar fitxers</string>
+	<string name="screen_license_check_benefit_family_sharing">Compartir en família</string>
+	<string name="screen_license_check_benefit_write_access">Accés d\'escritura a caixes fortes</string>
+	<string name="screen_license_check_benefit_support">Desenvolupament de codi obert</string>
+	<string name="screen_license_check_title_full_version">Desbloca la versió completa</string>
+	<string name="screen_license_check_trial_title">Prova de 30 dies</string>
+	<string name="screen_license_check_trial_price">Gratuït</string>
+	<string name="screen_license_check_trial_subtitle">durant 30 dies</string>
+	<string name="screen_license_check_subscription_title">Subscripció anual</string>
+	<string name="screen_license_check_subscription_subtitle">cada any</string>
+	<string name="screen_license_check_lifetime_title">Llicència de per vida</string>
+	<string name="screen_license_check_lifetime_subtitle">Una única vegada</string>
+	<string name="screen_license_check_restore_purchase">Recuperar compres</string>
+	<string name="screen_license_check_terms">Condicions d\'ús</string>
+	<string name="screen_license_check_privacy">Política de privacitat</string>
+	<string name="screen_license_check_trial_status_active">Actiu</string>
+	<string name="screen_license_check_trial_status_expired">Vençut</string>
+	<string name="screen_license_check_trial_expired_info">El període de prova ha caducat.</string>
+	<string name="screen_welcome_title">Us donem la benvinguda</string>
+	<string name="screen_welcome_continue_button">Continua</string>
+	<string name="screen_welcome_screen_lock_button">Bloqueig de pantalla establert</string>
+	<string name="next">Següent</string>
+	<string name="back">Enrere</string>
 	<!-- # clouds -->
 	<!-- ## cloud names -->
 	<string name="cloud_names_local_storage">Emmagatzematge local</string>
@@ -329,11 +354,10 @@
 	<string name="dialog_biometric_auth_key_invalidated_title">Autenticació biomètrica desactivada</string>
 	<string name="dialog_biometric_auth_key_invalidated_message">Ja que aquesta clau ha sigut invalidada, s\'ha desactivat l\'autenticació biomètrica. Per tornar-la a activar, obre la configuració de Cryptomator.</string>
 	<string name="dialog_enter_license_title">Proporcioneu una llicència vàlida</string>
-	<string name="dialog_enter_license_content">Hem detectat que has instal·lat Cryptomator sense fer servir la Google Play Store. Proveeix una llicència vàlida, que pot ser adquirida a <a href="https://cryptomator.org/android/">https://cryptomator.org/android/</a></string>
 	<string name="dialog_enter_license_not_valid_content">La llicència introduïda no és vàlida. Assegureu-vos que l\'heu escrita correctament.</string>
 	<string name="dialog_enter_license_not_valid_content_desktop_supporter_certificate">La clau proporcionada és un certificat per a escriptori. Si us plau, proporcioneu una llicència vàlida.</string>
 	<string name="dialog_enter_license_no_content">No heu introduït cap llicència. Si us plau, introduïu una llicència vàlida.</string>
-	<string name="dialog_enter_license_decline_button">Surt</string>
+	<string name="dialog_enter_license_decline_button">Cancel·la</string>
 	<string name="dialog_license_confirmation_title">Confirmació de la llicència</string>
 	<string name="dialog_license_confirmation_message">Gràcies %1$s per proveir-nos la teva llicència vàlida.</string>
 	<string name="dialog_update_available_title">Actualització disponible</string>
@@ -360,6 +384,10 @@
 	<string name="dialog_hub_license_upgrade_required_title">Comprova la llicència de Hub</string>
 	<string name="dialog_hub_license_upgrade_required_hint">Aquesta instància de Cryptomator Hub no té una llicència vàlida. Si us plau, informeu un l\'administrador perquè actualitzi o renovi la llicència.\"</string>
 	<string name="dialog_hub_vault_archived_title">La caixa forta ha estat arxivada</string>
+	<string name="dialog_restore_successful_title">S\'ha restaurat amb èxit</string>
+	<string name="dialog_no_full_version_title">Sense versió completa</string>
+	<string name="dialog_cancel_subscription_reminder_manage_button">Gestionar Subscripcions</string>
+	<string name="dialog_cancel_subscription_reminder_close_button">Tanca</string>
 	<string name="dialog_hub_user_setup_required_hint">Per a continuar, si us plau, seguiu els passos necessaris en el vostre perfil d\'usuari de Hub.</string>
 	<string name="dialog_hub_user_setup_required_neutral_button">Vés al perfil</string>
 	<string name="permission_snackbar_auth_local_vault">Cryptomator necessita accés a l\'emmagatzematge per a fer servir caixes fortes locals</string>
@@ -400,7 +428,6 @@
 	<string name="notification_lock_all">Bloca-ho tot</string>
 	<string name="notification_cancel_auto_upload">Cancel·la la pujada</string>
 	<string name="notification_auto_upload_title">Pujada automàtica de fotos en progrés</string>
-	<string name="notification_auto_upload_message">Pujant %1d/%2d</string>
 	<string name="notification_auto_upload_finished_title">Pujada automàtica de fotos finalitzada</string>
 	<string name="notification_auto_upload_finished_message">%1$d imatges pujades a la caixa forta</string>
 	<string name="notification_auto_upload_failed_title">Pujada automàtica de fotos fallada</string>
@@ -418,8 +445,10 @@
 	<string name="screen_settings_lru_cache_size">Mida total de la memòria cau</string>
 	<string name="screen_settings_clear_lru_cache_size">Esborra la memòria cau</string>
 	<string name="screen_settings_lru_cache_changed__restart_toast">Els canvis seran aplicats al reinicialitzar l\'aplicació</string>
-	<string name="screen_settings_license">Registrat per</string>
+	<string name="screen_settings_license_title_unlock">Desbloca la versió completa</string>
 	<string name="screen_settings_license_mail">%1$s</string>
+	<string name="screen_settings_manage_subscription">Gestionar Subscripcions</string>
+	<string name="dialog_trial_expired_unlock">Desbloca la versió completa</string>
 	<string name="dialog_settings_update_check_interval_title">Interval entre comprovacions d\'actualitzacions</string>
 	<string name="screen_settings_check_updates">Cerca actualitzacions</string>
 	<string name="screen_settings_last_check_updates">Darrera comprovació: %1$s</string>
