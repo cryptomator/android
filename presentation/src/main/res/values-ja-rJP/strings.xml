@@ -42,6 +42,29 @@
 	<string name="error_hub_invalid_version">サポートされていないハブのバージョンです。</string>
 	<string name="error_hub_unlock_pre_31">Hub は Android 12 以降でのみサポートされています。</string>
 	<string name="error_hub_not_trustworthy">ハブは信頼できません。</string>
+	<!-- # read-only & purchases -->
+	<string name="screen_license_check_benefit_family_sharing">ファミリー共有</string>
+	<string name="screen_license_check_benefit_write_access">金庫への書き込みアクセス</string>
+	<string name="screen_license_check_benefit_support">オープンソース開発</string>
+	<string name="screen_license_check_title_full_version">フル バージョンのロックを解除</string>
+	<string name="screen_license_check_trial_title">30日間のトライアル</string>
+	<string name="screen_license_check_trial_price">無料</string>
+	<string name="screen_license_check_trial_subtitle">30日間</string>
+	<string name="screen_license_check_subscription_title">年間サブスクリプション</string>
+	<string name="screen_license_check_subscription_subtitle">毎年</string>
+	<string name="screen_license_check_lifetime_title">永続ライセンス</string>
+	<string name="screen_license_check_lifetime_subtitle">ワンタイム</string>
+	<string name="screen_license_check_restore_purchase">購入情報の復元</string>
+	<string name="screen_license_check_terms">利用規約</string>
+	<string name="screen_license_check_privacy">プライバシーポリシー</string>
+	<string name="screen_license_check_trial_status_active">有効</string>
+	<string name="screen_license_check_trial_status_expired">期限切れ</string>
+	<string name="screen_license_check_trial_expired_info">試用版の有効期限が切れました。</string>
+	<string name="screen_welcome_title">ようこそ</string>
+	<string name="screen_welcome_continue_button">続行</string>
+	<string name="screen_welcome_screen_lock_button">画面ロックを設定</string>
+	<string name="next">次へ</string>
+	<string name="back">戻る</string>
 	<!-- # clouds -->
 	<!-- ## cloud names -->
 	<string name="cloud_names_local_storage">ローカルストレージ</string>
@@ -334,11 +357,10 @@
 	<string name="dialog_biometric_auth_key_invalidated_title">生体認証機能が無効になりました</string>
 	<string name="dialog_biometric_auth_key_invalidated_message">鍵が無効になったため、生体認証が無効になりました。再度有効にするには、Cryptomator の設定を開いてください。</string>
 	<string name="dialog_enter_license_title">有効なライセンスを入力してください</string>
-	<string name="dialog_enter_license_content">Google Play ストアを使用せずに Cryptomator をインストールしたことを検出しました。有効なライセンスを購入してください: <a href="https://cryptomator.org/android/">https://cryptomator.org/android/</a></string>
 	<string name="dialog_enter_license_not_valid_content">入力されたライセンスが無効です。正しく入力されていることを確認してください。</string>
 	<string name="dialog_enter_license_not_valid_content_desktop_supporter_certificate">入力されたキーはデスクトップサポーター証明書です。有効なライセンスを入力してください。</string>
 	<string name="dialog_enter_license_no_content">ライセンスがありません。有効なライセンスを入力してください。</string>
-	<string name="dialog_enter_license_decline_button">終了</string>
+	<string name="dialog_enter_license_decline_button">キャンセル</string>
 	<string name="dialog_license_confirmation_title">ライセンスの確認を完了</string>
 	<string name="dialog_license_confirmation_message">%1$s-san 有効なライセンスを入力していただきありがとうございます。 </string>
 	<string name="dialog_update_available_title">利用可能なアップデートがあります</string>
@@ -373,6 +395,10 @@
 	<string name="dialog_hub_license_upgrade_required_hint">Cryptomator Hub インスタンスのライセンスが無効です。ライセンスをアップグレードまたは更新するには、Hub の管理者にご連絡ください。</string>
 	<string name="dialog_hub_vault_archived_title">金庫をアーカイブしました</string>
 	<string name="dialog_hub_vault_archived_hint">この金庫はアーカイブされており解錠できません。解錠するには金庫の所有者がアーカイブを取り消す必要があります。</string>
+	<string name="dialog_restore_successful_title">正常に復元されました</string>
+	<string name="dialog_no_full_version_title">フルバージョンではありません</string>
+	<string name="dialog_cancel_subscription_reminder_manage_button">サブスクリプションの管理</string>
+	<string name="dialog_cancel_subscription_reminder_close_button">閉じる</string>
 	<string name="dialog_hub_user_setup_required_title">ユーザー設定が必要です</string>
 	<string name="dialog_hub_user_setup_required_hint">続行するにはHubユーザープロフィールで必要な手順を完了してください。</string>
 	<string name="dialog_hub_user_setup_required_neutral_button">プロフィールへ移動</string>
@@ -415,7 +441,6 @@
 	<string name="notification_lock_all">すべて施錠</string>
 	<string name="notification_cancel_auto_upload">アップロードをキャンセル</string>
 	<string name="notification_auto_upload_title">写真の自動アップロード中</string>
-	<string name="notification_auto_upload_message">アップロード中 %1d/%2d</string>
 	<string name="notification_auto_upload_finished_title">写真の自動アップロードが完了しました</string>
 	<string name="notification_auto_upload_finished_message">%1$d 個の画像を金庫にアップロードしました</string>
 	<string name="notification_auto_upload_failed_title">写真の自動アップロードが失敗しました</string>
@@ -434,8 +459,11 @@
 	<string name="screen_settings_lru_cache_size">キャッシュの合計サイズ</string>
 	<string name="screen_settings_clear_lru_cache_size">キャッシュを削除する</string>
 	<string name="screen_settings_lru_cache_changed__restart_toast">変更は次のアプリの再起動時に適用されます</string>
-	<string name="screen_settings_license">登録済み</string>
+	<string name="screen_settings_license_title_unlock">フル バージョンのロックを解除</string>
 	<string name="screen_settings_license_mail">%1$s</string>
+	<string name="screen_settings_manage_subscription">サブスクリプションの管理</string>
+	<string name="screen_settings_upgrade_to_lifetime">永久ライセンスにアップグレードする</string>
+	<string name="dialog_trial_expired_unlock">フル バージョンのロックを解除</string>
 	<string name="dialog_settings_update_check_interval_title">更新確認の間隔</string>
 	<string name="screen_settings_check_updates">更新の確認</string>
 	<string name="screen_settings_last_check_updates">最終実行 %1$s</string>
