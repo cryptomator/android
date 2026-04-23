@@ -7,6 +7,7 @@
 	<string name="error_authentication_failed">Ошибка аутентификации</string>
 	<string name="error_authentication_failed_re_authenticate">Ошибка аутентификации, войдите с помощью %1$s</string>
 	<string name="error_no_network_connection">Нет подключения к сети</string>
+	<string name="error_purchase_not_available">Покупка недоступна. Повторите попытку позже.</string>
 	<string name="error_invalid_passphrase">Неверный пароль</string>
 	<string name="error_file_or_folder_exists">Файл или папка уже существует.</string>
 	<string name="error_vault_version_not_supported">Версия хранилища %1$s не поддерживается. Это хранилище было создано либо в устаревшей, либо в более новой версии Cryptomator.</string>
@@ -43,9 +44,25 @@
 	<string name="error_hub_unlock_pre_31">Хаб поддерживается только на Android 12 и новее.</string>
 	<string name="error_hub_not_trustworthy">Хаб не является надёжным.</string>
 	<!-- # read-only & purchases -->
+	<string name="read_only_reason_hub_inactive">Обновите свою лицензию на хаб, чтобы разрешить запись в это хранилище.</string>
+	<string name="toast_purchase_revoked_refunded">Ваша бессрочная покупка была возвращена. Теперь у вас доступ только для чтения.</string>
+	<string name="toast_purchase_revoked_subscription_inactive">Ваша подписка больше не активна. Теперь у вас доступ только для чтения.</string>
+	<string name="screen_license_check_locked_create_vault">Разблокируйте полную версию для создания хранилищ</string>
+	<string name="screen_license_check_locked_upload_files">Разблокируйте полную версию для загрузки файлов</string>
+	<string name="screen_license_check_locked_create_folder">Разблокируйте полную версию для создания папок</string>
+	<string name="screen_license_check_locked_create_text_file">Разблокируйте полную версию для создания текстовых файлов</string>
+	<string name="screen_license_check_locked_share_node">Разблокируйте полную версию, чтобы делиться файлами и папками</string>
+	<string name="screen_license_check_locked_rename_node">Разблокируйте полную версию для переименования файлов и папок</string>
+	<string name="screen_license_check_locked_move_node">Разблокируйте полную версию для перемещения файлов и папок</string>
+	<string name="screen_license_check_locked_delete_node">Разблокируйте полную версию для удаления файлов и папок</string>
+	<string name="screen_license_check_title">Разблокировать доступ на запись</string>
+	<string name="screen_license_check_benefit_title">Ваши преимущества</string>
 	<string name="screen_license_check_benefit_family_sharing">Семейный доступ</string>
 	<string name="screen_license_check_benefit_write_access">Возможна запись в хранилища</string>
 	<string name="screen_license_check_benefit_support">Разработка ПО с открытым кодом</string>
+	<string name="screen_license_check_button_purchase">Разблокировать через Google Play</string>
+	<string name="screen_license_check_button_enter_license">Введите лицензионный ключ</string>
+	<string name="screen_license_check_enter_license_action">Введите</string>
 	<string name="screen_license_check_title_full_version">Получить полную версию</string>
 	<string name="screen_license_check_trial_title">30-дневная пробная версия</string>
 	<string name="screen_license_check_trial_price">Бесплатно</string>
@@ -57,12 +74,21 @@
 	<string name="screen_license_check_restore_purchase">Восстановить покупку</string>
 	<string name="screen_license_check_terms">Условия использования</string>
 	<string name="screen_license_check_privacy">Политика конфиденциальности</string>
+	<string name="screen_license_check_trial_expiration">Истекает: %s</string>
 	<string name="screen_license_check_trial_status_active">Активно</string>
 	<string name="screen_license_check_trial_status_expired">Истекло</string>
+	<string name="screen_license_check_trial_active_info">Пробный период истекает: %s</string>
 	<string name="screen_license_check_trial_expired_info">Пробный период истёк.</string>
+	<string name="screen_license_check_subscription_upgrade_hint">У вас есть активная подписка. Купите бессрочную лицензию и отмените свою подписку, чтобы переключиться.</string>
 	<string name="screen_welcome_title">Добро пожаловать</string>
+	<string name="screen_welcome_notifications_title">Получать уведомления</string>
+	<string name="screen_welcome_notifications_message">Разрешить уведомления, чтобы Cryptomator мог информировать вас о фоновой активности, автозагрузках или других важных событиях.</string>
+	<string name="screen_welcome_notifications_button">Показывать уведомления</string>
+	<string name="screen_welcome_notifications_granted">Уведомления включены.</string>
 	<string name="screen_welcome_continue_button">Далее</string>
 	<string name="screen_welcome_screen_lock_button">Установка блокировки экрана</string>
+	<string name="screen_welcome_screen_lock_already_set">Блокировка экрана уже установлена.</string>
+	<string name="screen_welcome_intro_body">Благодарим, что вы доверили Cryptomator защиту ваших файлов.\n\nБлагодаря Cryptomator ключ к вашим данным - в ваших руках.\n\nCryptomator шифрует данные быстро и без усилий.</string>
 	<string name="next">Далее</string>
 	<string name="back">Назад</string>
 	<!-- # clouds -->
@@ -360,6 +386,7 @@
 	<string name="dialog_biometric_auth_key_invalidated_title">Биометрическая аутентификация отключена</string>
 	<string name="dialog_biometric_auth_key_invalidated_message">Поскольку ключ был аннулирован, биометрическая аутентификация была отключена. Для повторной активации откройте настройки Cryptomator.</string>
 	<string name="dialog_enter_license_title">Предоставьте действительную лицензию</string>
+	<string name="dialog_enter_license_content">Приобретите лицензию на <a href="https://cryptomator.org/android/">https://cryptomator.org/android/</a> или введите ваш существующий лицензионный ключ для Android.</string>
 	<string name="dialog_enter_license_not_valid_content">Лицензия недействительна. Убедитесь, что вы ввели её правильно.</string>
 	<string name="dialog_enter_license_not_valid_content_desktop_supporter_certificate">Предоставленный ключ - это сертификат спонсора. Введите действительную лицензию.</string>
 	<string name="dialog_enter_license_no_content">Нет лицензии. Введите действительную лицензию.</string>
@@ -399,7 +426,13 @@
 	<string name="dialog_hub_vault_archived_title">Хранилище архивировано</string>
 	<string name="dialog_hub_vault_archived_hint">Это хранилище архивировано и не может быть разблокировано. Чтобы разблокировать, владелец хранилища должен его разархивировать.</string>
 	<string name="dialog_restore_successful_title">Успешно восстановлено</string>
+	<string name="dialog_restore_successful_message">Ваша покупка восстановлена и теперь активна на этом устройстве.</string>
 	<string name="dialog_no_full_version_title">Полной версии нет</string>
+	<string name="dialog_no_full_version_message">Мы не смогли\u0027t найти существующую покупку на этой учётной записи Google.</string>
+	<string name="dialog_restore_failed_title">Не удалось восстановить</string>
+	<string name="dialog_restore_failed_message">Мы не смогли\u0027t войти в Play Store. Проверьте подключение и повторите попытку.</string>
+	<string name="dialog_cancel_subscription_reminder_title">Не забудьте отменить подписку</string>
+	<string name="dialog_cancel_subscription_reminder_message">Теперь у вас бессрочная лицензия. Чтобы избежать будущих платежей, отмените свою годовую подписку в Google Play Store.</string>
 	<string name="dialog_cancel_subscription_reminder_manage_button">Управление подпиской</string>
 	<string name="dialog_cancel_subscription_reminder_close_button">Закрыть</string>
 	<string name="dialog_hub_user_setup_required_title">Требуется настройка пользователя</string>
@@ -444,6 +477,7 @@
 	<string name="notification_lock_all">Заблокировать все</string>
 	<string name="notification_cancel_auto_upload">Отменить загрузку</string>
 	<string name="notification_auto_upload_title">Выполняется автозагрузка фото</string>
+	<string name="notification_auto_upload_message">Загрузка %1$d/%2$d</string>
 	<string name="notification_auto_upload_finished_title">Автозагрузка фото завершена</string>
 	<string name="notification_auto_upload_finished_message">Загружено изображений в хранилище: %1$d</string>
 	<string name="notification_auto_upload_failed_title">Ошибка автоотправки фото</string>
@@ -463,10 +497,17 @@
 	<string name="screen_settings_clear_lru_cache_size">Очистить кэш</string>
 	<string name="screen_settings_lru_cache_changed__restart_toast">Изменения будут применены при следующем перезапуске приложения</string>
 	<string name="screen_settings_license_title_unlock">Получить полную версию</string>
+	<string name="screen_settings_license_title_unlocked">Полная версия</string>
 	<string name="screen_settings_license_mail">%1$s</string>
+	<string name="screen_settings_license_summary_write_access">Доступ на запись разблокирован!</string>
+	<string name="screen_settings_license_summary_tap_to_unlock">Нажмите, чтобы разблокировать доступ на запись</string>
+	<string name="screen_settings_license_summary_write_access_mail">Доступ на запись для %1$s</string>
 	<string name="screen_settings_manage_subscription">Управление подпиской</string>
 	<string name="screen_settings_upgrade_to_lifetime">Обновить до бессрочной подписки</string>
+	<string name="dialog_trial_expired_title">Пробный период истёк</string>
+	<string name="dialog_trial_expired_message">Бесплатный период опробования завершён. Вы можете продолжить в режиме только чтения, либо разблокировать полную версию.</string>
 	<string name="dialog_trial_expired_unlock">Получить полную версию</string>
+	<string name="dialog_trial_expired_continue_read_only">Продолжить в режиме только чтения</string>
 	<string name="dialog_settings_update_check_interval_title">Интервал проверки обновлений</string>
 	<string name="screen_settings_check_updates">Проверить обновления</string>
 	<string name="screen_settings_last_check_updates">Последняя проверка %1$s</string>
