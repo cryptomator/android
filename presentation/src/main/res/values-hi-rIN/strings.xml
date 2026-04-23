@@ -35,6 +35,11 @@
 	<string name="error_no_such_bucket">ऐसी कोई बकेट नहीं है।</string>
 	<string name="error_masterkey_location_not_supported">व्यक्तिगत मास्टरकी स्थान का सपोर्ट अभीतक उपलब्ध नहीं हैं |</string>
 	<string name="error_interact_with_fdroid_but_fdroid_missing">F-Droid एप्लिकेशन के साथ संचार करने में विफल। स्थापित नहीं है?</string>
+	<!-- # read-only & purchases -->
+	<string name="screen_welcome_title">स्वागत है</string>
+	<string name="screen_welcome_continue_button">जारी रखें</string>
+	<string name="next">अगला</string>
+	<string name="back">पीछे जाएं</string>
 	<!-- # clouds -->
 	<!-- ## cloud names -->
 	<string name="cloud_names_local_storage">स्थानीय भंडार</string>
@@ -283,11 +288,13 @@
 	<string name="dialog_http_security_checkbox">HTTPS में बदलें</string>
 	<string name="dialog_http_security_title">HTTPS का उपयोग करें?</string>
 	<string name="dialog_app_is_obscured_info_neutral_button">बंद करें</string>
+	<string name="dialog_enter_license_decline_button">रद्द करें</string>
 	<string name="dialog_update_available_cancel">बाद में</string>
 	<string name="dialog_download_update_title">डाउनलोड चल रहा है।</string>
 	<string name="dialog_download_update_message">क्रिप्टोमेटर का नवीनतम संस्करण डाउनलोड हो रहा है।</string>
 	<string name="dialog_sym_link_back_button">पीछे जाएं</string>
 	<string name="dialog_hub_vault_access_forbidden_title">प्रवेश अस्वीकृत</string>
+	<string name="dialog_cancel_subscription_reminder_close_button">बंद करें</string>
 	<!-- # error reports -->
 	<!-- # misc -->
 	<!-- ## file size helper -->
@@ -302,7 +309,6 @@
 	<string name="notification_lock_all">सभी को लॉक करें</string>
 	<string name="notification_cancel_auto_upload">अपलोड रद्द करें</string>
 	<string name="notification_auto_upload_title">ऑटो फोटो अपलोड जारी है</string>
-	<string name="notification_auto_upload_message">अपलोडिंग %1d/%2d</string>
 	<string name="notification_auto_upload_finished_title">ऑटो फोटो अपलोड समाप्त</string>
 	<string name="notification_auto_upload_finished_message">%1$d इमेजेस वॉल्ट में अपलोड की गयी</string>
 	<string name="notification_auto_upload_failed_title">ऑटो फोटो अपलोड असफल</string>
