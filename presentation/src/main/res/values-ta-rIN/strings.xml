@@ -28,6 +28,10 @@
 	<string name="error_vault_config_loading">பெட்டகத்தின் உள்ளமைவை ஏற்றும்போது பொதுவான பிழை ஏற்பட்டது</string>
 	<string name="error_file_not_found_after_opening_using_3party">மீண்டும் Cryptomator-இற்கு மாறியபிறகு, உள்ளூர் கோப்பு இல்லை. சாத்தியமான மாற்றங்களை மீண்டும் மேகக்கணிக்கு பரப்ப முடியாது.</string>
 	<string name="error_no_such_bucket">இப்பெயருள்ள bucket இல்லை</string>
+	<!-- # read-only & purchases -->
+	<string name="screen_welcome_screen_lock_button">திரைப்பூட்டை அமை</string>
+	<string name="next">அடுத்து</string>
+	<string name="back">பின் செல்</string>
 	<!-- # clouds -->
 	<!-- ## cloud names -->
 	<string name="cloud_names_local_storage">அகச் சேமிப்பகம்</string>
@@ -163,7 +167,9 @@
 	<string name="dialog_disable_app_obscured_disclaimer_title">கவனிக்க</string>
 	<string name="dialog_disable_app_obscured_positive_button">முடக்கு</string>
 	<string name="dialog_app_is_obscured_info_neutral_button">மூடு</string>
+	<string name="dialog_enter_license_decline_button">ரத்து செய்</string>
 	<string name="dialog_sym_link_back_button">பின் செல்</string>
+	<string name="dialog_cancel_subscription_reminder_close_button">மூடு</string>
 	<!-- # error reports -->
 	<!-- # misc -->
 	<!-- ## file size helper -->
