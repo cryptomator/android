@@ -2,6 +2,9 @@
 <resources>
 	<!-- # app -->
 	<!-- # error messages -->
+	<!-- # read-only & purchases -->
+	<string name="next">Dalje</string>
+	<string name="back">Nazad</string>
 	<!-- # clouds -->
 	<!-- ## cloud names -->
 	<!-- # permission -->
@@ -33,7 +36,9 @@
 	<!-- Vault not found -->
 	<string name="dialog_lock_vault">Zaključaj</string>
 	<string name="dialog_app_is_obscured_info_neutral_button">Zatvori</string>
+	<string name="dialog_enter_license_decline_button">Otkaži</string>
 	<string name="dialog_sym_link_back_button">Nazad</string>
+	<string name="dialog_cancel_subscription_reminder_close_button">Zatvori</string>
 	<!-- # error reports -->
 	<!-- # misc -->
 	<!-- ## file size helper -->
