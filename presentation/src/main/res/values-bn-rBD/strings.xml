@@ -35,6 +35,12 @@
 	<string name="error_no_such_bucket">এরকম কোন bucket নেই</string>
 	<string name="error_masterkey_location_not_supported">কাস্টম মাস্টারকি অবস্থান এখনও সমর্থিত নয়</string>
 	<string name="error_interact_with_fdroid_but_fdroid_missing">F-Droid অ্যাপের সাথে যোগাযোগ করতে ব্যর্থ হয়েছে৷ ইনস্টল করা হয়নি?</string>
+	<!-- # read-only & purchases -->
+	<string name="screen_license_check_terms">ব্যবহারের শর্তাবলী</string>
+	<string name="screen_license_check_privacy">গোপনীয়তার নীতি</string>
+	<string name="screen_welcome_title">স্বাগতম</string>
+	<string name="next">পরবর্তী</string>
+	<string name="back">পিছনে</string>
 	<!-- # clouds -->
 	<!-- ## cloud names -->
 	<string name="cloud_names_local_storage">সিস্টেম স্টোরেজ</string>
@@ -246,7 +252,9 @@
 	<string name="dialog_progress_upload_file">আপলোড হচ্ছে&#8230;</string>
 	<string name="dialog_lock_vault">লক করুন</string>
 	<string name="dialog_app_is_obscured_info_neutral_button">বন্ধ করুন</string>
+	<string name="dialog_enter_license_decline_button">বাতিল করুন</string>
 	<string name="dialog_sym_link_back_button">পিছনে</string>
+	<string name="dialog_cancel_subscription_reminder_close_button">বন্ধ করুন</string>
 	<!-- # error reports -->
 	<!-- # misc -->
 	<!-- ## file size helper -->
