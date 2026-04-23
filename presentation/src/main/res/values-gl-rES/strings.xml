@@ -32,6 +32,9 @@
 	<string name="error_file_not_found_after_opening_using_3party">O ficheiro local xa non está presente ao volver a Cryptomator. Os posíbeis cambios non poden ser propagados de volta á nube.</string>
 	<string name="error_no_such_bucket">Non existe tal bucket</string>
 	<string name="error_masterkey_location_not_supported">A localización personalizada de chave mestra aínda non está soportada</string>
+	<!-- # read-only & purchases -->
+	<string name="next">Seguinte</string>
+	<string name="back">Volver</string>
 	<!-- # clouds -->
 	<!-- ## cloud names -->
 	<string name="cloud_names_local_storage">Almacenamento local</string>
@@ -203,7 +206,9 @@
 	<string name="dialog_replace_title_single_file_exists">Substituír o ficheiro?</string>
 	<string name="dialog_replace_title_multiple_files_exist">Substituír os ficheiros?</string>
 	<string name="dialog_app_is_obscured_info_neutral_button">Pechar</string>
+	<string name="dialog_enter_license_decline_button">Cancelar</string>
 	<string name="dialog_sym_link_back_button">Volver</string>
+	<string name="dialog_cancel_subscription_reminder_close_button">Pechar</string>
 	<!-- # error reports -->
 	<!-- # misc -->
 	<!-- ## file size helper -->
