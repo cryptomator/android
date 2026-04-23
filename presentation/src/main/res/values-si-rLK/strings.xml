@@ -2,6 +2,9 @@
 <resources>
 	<!-- # app -->
 	<!-- # error messages -->
+	<!-- # read-only & purchases -->
+	<string name="next">ඊළඟ</string>
+	<string name="back">ආපසු</string>
 	<!-- # clouds -->
 	<!-- ## cloud names -->
 	<!-- # permission -->
@@ -29,7 +32,9 @@
 	<string name="dialog_enter_password_positive_button">අගුළුහරින්න</string>
 	<!-- Vault not found -->
 	<string name="dialog_app_is_obscured_info_neutral_button">වසන්න</string>
+	<string name="dialog_enter_license_decline_button">අවලංගු</string>
 	<string name="dialog_sym_link_back_button">ආපසු</string>
+	<string name="dialog_cancel_subscription_reminder_close_button">වසන්න</string>
 	<!-- # error reports -->
 	<!-- # misc -->
 	<!-- ## file size helper -->
