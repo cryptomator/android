@@ -41,6 +41,29 @@
 	<string name="error_hub_invalid_setup_code">Klucz konta jest nieprawidłowy.</string>
 	<string name="error_hub_invalid_version">Nieobsługiwana wersja Hubu.</string>
 	<string name="error_hub_unlock_pre_31">Hub jest wspierany dla Androida 12 i wyższych.</string>
+	<!-- # read-only & purchases -->
+	<string name="screen_license_check_benefit_family_sharing">Plan rodzinny</string>
+	<string name="screen_license_check_benefit_write_access">Zapis w Twoich sejfach</string>
+	<string name="screen_license_check_benefit_support">Rozwój oprogramowania typu open-source</string>
+	<string name="screen_license_check_title_full_version">Odblokuj pełną wersję</string>
+	<string name="screen_license_check_trial_title">Okres próbny 30 dni</string>
+	<string name="screen_license_check_trial_price">Darmowe</string>
+	<string name="screen_license_check_trial_subtitle">przez 30 dni</string>
+	<string name="screen_license_check_subscription_title">Subskrypcja roczna</string>
+	<string name="screen_license_check_subscription_subtitle">rocznie</string>
+	<string name="screen_license_check_lifetime_title">Dożywotnia licencja</string>
+	<string name="screen_license_check_lifetime_subtitle">jednorazowo</string>
+	<string name="screen_license_check_restore_purchase">Przywróć zakup</string>
+	<string name="screen_license_check_terms">Warunki użytkowania</string>
+	<string name="screen_license_check_privacy">Polityka prywatności</string>
+	<string name="screen_license_check_trial_status_active">Aktywny</string>
+	<string name="screen_license_check_trial_status_expired">Wygasły</string>
+	<string name="screen_license_check_trial_expired_info">Twój okres próbny się skończył.</string>
+	<string name="screen_welcome_title">Witamy</string>
+	<string name="screen_welcome_continue_button">Kontynuuj</string>
+	<string name="screen_welcome_screen_lock_button">Ustaw blokadę ekranu</string>
+	<string name="next">Dalej</string>
+	<string name="back">Wstecz</string>
 	<!-- # clouds -->
 	<!-- ## cloud names -->
 	<string name="cloud_names_local_storage">Pamięć wewnętrzna</string>
@@ -335,11 +358,10 @@
 	<string name="dialog_biometric_auth_key_invalidated_title">Funkcja uwierzytelniania biometrycznego jest wyłączona</string>
 	<string name="dialog_biometric_auth_key_invalidated_message">Ponieważ klucz został unieważniony, funkcja uwierzytelniania biometrycznego została dezaktywowana. Aby ponownie włączyć, otwórz ustawienia Cryptomator.</string>
 	<string name="dialog_enter_license_title">Podaj poprawną licencję</string>
-	<string name="dialog_enter_license_content">Wykryliśmy, że zainstalowałeś Cryptomator bez korzystania ze sklepu Google Play. Podaj poprawną licencję, którą można kupić na <a href="https://cryptomator.org/android/">https://cryptomator.org/android/</a></string>
 	<string name="dialog_enter_license_not_valid_content">Podana licencja jest nieprawidłowa. Upewnij się, że została wprowadzona poprawnie.</string>
 	<string name="dialog_enter_license_not_valid_content_desktop_supporter_certificate">Podany klucz jest certyfikatem darczyńcy. Wprowadź prawidłową licencję.</string>
 	<string name="dialog_enter_license_no_content">Nie udzielono licencji. Wprowadź prawidłową licencję.</string>
-	<string name="dialog_enter_license_decline_button">Wyjdź</string>
+	<string name="dialog_enter_license_decline_button">Anuluj</string>
 	<string name="dialog_license_confirmation_title">Informacje o licencji</string>
 	<string name="dialog_license_confirmation_message">Dziękujemy %1$s za korzystanie z ważnej licencji.</string>
 	<string name="dialog_update_available_title">Aktualizacja jest dostępna</string>
@@ -374,6 +396,10 @@
 	<string name="dialog_hub_license_upgrade_required_hint">Twoja instancja Cryptomator Hub ma nieprawidłową licencję. Poinformuj administratora Huba o uaktualnieniu lub odnowieniu licencji.\"</string>
 	<string name="dialog_hub_vault_archived_title">Zarchiwizowano sejf</string>
 	<string name="dialog_hub_vault_archived_hint">Ten sejf jest zarchiwizowany i nie może być odblokowany. Aby go odblokować, właściciel sejfu musi go odarchiwizować.</string>
+	<string name="dialog_restore_successful_title">Przywrócono pomyślnie</string>
+	<string name="dialog_no_full_version_title">Brak pełnej wersji</string>
+	<string name="dialog_cancel_subscription_reminder_manage_button">Zarządzaj subskrypcją</string>
+	<string name="dialog_cancel_subscription_reminder_close_button">Zamknij</string>
 	<string name="dialog_hub_user_setup_required_title">Wymagana konfiguracja użytkownika</string>
 	<string name="dialog_hub_user_setup_required_hint">Aby kontynuować, wykonaj kroki wymagane w profilu użytkownika Hub.</string>
 	<string name="dialog_hub_user_setup_required_neutral_button">Przejdź do profilu</string>
@@ -415,7 +441,6 @@
 	<string name="notification_lock_all">Zablokuj wszystko</string>
 	<string name="notification_cancel_auto_upload">Anuluj przesyłanie</string>
 	<string name="notification_auto_upload_title">Automatyczne przesyłanie zdjęć w toku</string>
-	<string name="notification_auto_upload_message">Przesyłanie %1d/%2d</string>
 	<string name="notification_auto_upload_finished_title">Automatyczne przesyłanie zdjęć zostało zakończone</string>
 	<string name="notification_auto_upload_finished_message">%1$d zdjęć zostało przesłanych do sejfu</string>
 	<string name="notification_auto_upload_failed_title">Automatyczne przesyłanie zdjęć nie powiodło się</string>
@@ -433,8 +458,10 @@
 	<string name="screen_settings_lru_cache_size">Rozmiar całkowity pamięci podręcznej</string>
 	<string name="screen_settings_clear_lru_cache_size">Wyczyść pamięć podręczną</string>
 	<string name="screen_settings_lru_cache_changed__restart_toast">Zmiany zostaną zastosowane po ponownym uruchomieniu</string>
-	<string name="screen_settings_license">Zarejestrowano dla</string>
+	<string name="screen_settings_license_title_unlock">Odblokuj pełną wersję</string>
 	<string name="screen_settings_license_mail">%1$s</string>
+	<string name="screen_settings_manage_subscription">Zarządzaj subskrypcją</string>
+	<string name="dialog_trial_expired_unlock">Odblokuj pełną wersję</string>
 	<string name="dialog_settings_update_check_interval_title">Częstotliwość sprawdzania aktualizacji</string>
 	<string name="screen_settings_check_updates">Sprawdź dostępne aktualizacje</string>
 	<string name="screen_settings_last_check_updates">Ostatnio uruchomiono %1$s</string>
