@@ -35,6 +35,9 @@
 	<string name="error_no_such_bucket">Не съществува такъв bucket</string>
 	<string name="error_masterkey_location_not_supported">Все още не се поддържа потребителско местоположение на главния ключ</string>
 	<string name="error_interact_with_fdroid_but_fdroid_missing">Грешка при комуникацията с F-Droid. Приложението инсталирано ли е?</string>
+	<!-- # read-only & purchases -->
+	<string name="next">Напред</string>
+	<string name="back">Назад</string>
 	<!-- # clouds -->
 	<!-- ## cloud names -->
 	<string name="cloud_names_local_storage">Местно хранилище</string>
@@ -235,10 +238,12 @@
 	<string name="dialog_lock_vault">Заключване</string>
 	<string name="dialog_microsoft_workaround_disclaimer_hint">Поради дефект в приложенията на Microsoft, файлът, който трябва да бъде редактиран, трябва да бъде споделен с тези приложения в публична папка на вашето устройство. След възобновяване на работата на Cryptomator, публично достъпният файл се изтрива отново, но Cryptomator не може да повлияе на случващото се с файла междувременно. Преди да включите тук се уверете, че сте наясно с това поведение. Това ще се прилага само за файлове на Microsoft.\n\nСлед включване Cryptomator ще се рестартира.</string>
 	<string name="dialog_app_is_obscured_info_neutral_button">Затваряне</string>
+	<string name="dialog_enter_license_decline_button">Отказ</string>
 	<string name="dialog_sym_link_back_button">Назад</string>
 	<string name="dialog_create_hub_device_name_hint">Изглежда, че това е първи достъп до Hub от това устройство. За да го разпознаете при разрешаване на достъпа, трябва да му дадете име.</string>
 	<string name="dialog_create_hub_device_setup_code_hint">Вашият ключ за профила е необходим при вход от нови приложения или мрежови четци. Може да бъде намерен в профила.</string>
 	<string name="dialog_hub_vault_access_forbidden_title">Отказан достъп</string>
+	<string name="dialog_cancel_subscription_reminder_close_button">Затваряне</string>
 	<string name="dialog_hub_user_setup_required_hint">За да продължите завършете необходимите стъпки в потребителския профил в Hub.</string>
 	<string name="dialog_hub_user_setup_required_neutral_button">Към профила</string>
 	<!-- # error reports -->
