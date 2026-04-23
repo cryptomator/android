@@ -42,6 +42,29 @@
 	<string name="error_hub_invalid_version">Version Hub non prise en charge .</string>
 	<string name="error_hub_unlock_pre_31">Hub est uniquement pris en charge sur Android 12 et versions ultérieures.</string>
 	<string name="error_hub_not_trustworthy">Hub n\'est pas digne de confiance.</string>
+	<!-- # read-only & purchases -->
+	<string name="screen_license_check_benefit_family_sharing">Partage familial</string>
+	<string name="screen_license_check_benefit_write_access">Accès en écriture à vos coffres</string>
+	<string name="screen_license_check_benefit_support">Développement open source</string>
+	<string name="screen_license_check_title_full_version">Débloquer la version complète</string>
+	<string name="screen_license_check_trial_title">Essai de 30 jours</string>
+	<string name="screen_license_check_trial_price">Gratuit</string>
+	<string name="screen_license_check_trial_subtitle">pendant 30 jours</string>
+	<string name="screen_license_check_subscription_title">Abonnement annuel</string>
+	<string name="screen_license_check_subscription_subtitle">annuel</string>
+	<string name="screen_license_check_lifetime_title">Licence à Vie</string>
+	<string name="screen_license_check_lifetime_subtitle">unique</string>
+	<string name="screen_license_check_restore_purchase">Restaurer l’achat</string>
+	<string name="screen_license_check_terms">Conditions d\'Utilisation</string>
+	<string name="screen_license_check_privacy">Politique de Confidentialité</string>
+	<string name="screen_license_check_trial_status_active">Actif</string>
+	<string name="screen_license_check_trial_status_expired">Expiré</string>
+	<string name="screen_license_check_trial_expired_info">Votre période d\'essai a expiré.</string>
+	<string name="screen_welcome_title">Bienvenue</string>
+	<string name="screen_welcome_continue_button">Continuer</string>
+	<string name="screen_welcome_screen_lock_button">Régler le verrouillage de l\'écran</string>
+	<string name="next">Suivant</string>
+	<string name="back">Précédent</string>
 	<!-- # clouds -->
 	<!-- ## cloud names -->
 	<string name="cloud_names_local_storage">Stockage local</string>
@@ -335,11 +358,10 @@
 	<string name="dialog_biometric_auth_key_invalidated_title">Fonctionnalité d\'authentification biométrique désactivée</string>
 	<string name="dialog_biometric_auth_key_invalidated_message">La clé ayant été invalidée, la fonctionnalité d\'authentification biométrique a été désactivée. Pour la réactiver, ouvrez les paramètres de Cryptomator.</string>
 	<string name="dialog_enter_license_title">Fournir une licence valide</string>
-	<string name="dialog_enter_license_content">Nous avons détecté que vous avez installé Cryptomator sans utiliser le Play Store de Google. Fournissez une licence valide, qui peut être achetée sur <a href="https://cryptomator.org/android/">https://cryptomator.org/android/</a></string>
 	<string name="dialog_enter_license_not_valid_content">La licence fournie n\'est pas valide. Vérifiez que vous l\'avez saisie correctement.</string>
 	<string name="dialog_enter_license_not_valid_content_desktop_supporter_certificate">La clé fournie est un certificat de participation pour la version ordinateur. Merci d\'entrer une licence valide.</string>
 	<string name="dialog_enter_license_no_content">Aucune licence n\'est fournie. Veuillez saisir une licence valide.</string>
-	<string name="dialog_enter_license_decline_button">Sortie</string>
+	<string name="dialog_enter_license_decline_button">Annuler</string>
 	<string name="dialog_license_confirmation_title">Confirmation de la licence</string>
 	<string name="dialog_license_confirmation_message">Merci %1$s d\'avoir fourni votre licence valide.</string>
 	<string name="dialog_update_available_title">Mise à jour disponible</string>
@@ -374,6 +396,10 @@
 	<string name="dialog_hub_license_upgrade_required_hint">Votre instance Cryptomator Hub a une licence invalide. Veuillez informer un administrateur Hub pour mettre à niveau ou renouveler la licence.\"</string>
 	<string name="dialog_hub_vault_archived_title">Coffre archivé</string>
 	<string name="dialog_hub_vault_archived_hint">Ce coffre est archivé et ne peut pas être déverrouillé. Pour le déverrouiller, un propriétaire du coffre doit le désarchiver.</string>
+	<string name="dialog_restore_successful_title">Restauration réussie</string>
+	<string name="dialog_no_full_version_title">Pas de version complète</string>
+	<string name="dialog_cancel_subscription_reminder_manage_button">Gérer l\'abonnement</string>
+	<string name="dialog_cancel_subscription_reminder_close_button">Fermer</string>
 	<string name="dialog_hub_user_setup_required_title">Configuration de l’utilisateur requise</string>
 	<string name="dialog_hub_user_setup_required_hint">Pour continuer, veuillez compléter les étapes requises dans votre profil d\'utilisateur Hub.</string>
 	<string name="dialog_hub_user_setup_required_neutral_button">Aller au profil</string>
@@ -416,7 +442,6 @@
 	<string name="notification_lock_all">Tout verrouiller</string>
 	<string name="notification_cancel_auto_upload">Annuler le téléversement</string>
 	<string name="notification_auto_upload_title">Téléversement auto de photos en cours</string>
-	<string name="notification_auto_upload_message">Téléversement %1d/%2d</string>
 	<string name="notification_auto_upload_finished_title">Téléversement auto des photos terminé</string>
 	<string name="notification_auto_upload_finished_message">%1$d images téléversées dans le coffre-fort</string>
 	<string name="notification_auto_upload_failed_title">Échec du téléversement auto des photos</string>
@@ -435,8 +460,10 @@
 	<string name="screen_settings_lru_cache_size">Taille totale du cache</string>
 	<string name="screen_settings_clear_lru_cache_size">Vider le cache</string>
 	<string name="screen_settings_lru_cache_changed__restart_toast">Les changements seront appliqués lors du prochain démarrage de l\'application</string>
-	<string name="screen_settings_license">Enregistré pour</string>
+	<string name="screen_settings_license_title_unlock">Débloquer la version complète</string>
 	<string name="screen_settings_license_mail">%1$s</string>
+	<string name="screen_settings_manage_subscription">Gérer l\'abonnement</string>
+	<string name="dialog_trial_expired_unlock">Débloquer la version complète</string>
 	<string name="dialog_settings_update_check_interval_title">Intervalle de vérification des mises à jour</string>
 	<string name="screen_settings_check_updates">Vérifier les mises à jour</string>
 	<string name="screen_settings_last_check_updates">Dernière exécution %1$s</string>
