@@ -41,6 +41,29 @@
 	<string name="error_hub_invalid_setup_code">账户密钥无效</string>
 	<string name="error_hub_invalid_version">不支持的 Hub 版本</string>
 	<string name="error_hub_unlock_pre_31">Hub 仅支持 Android 12 及以上版本。</string>
+	<!-- # read-only & purchases -->
+	<string name="screen_license_check_benefit_family_sharing">家庭成员共享</string>
+	<string name="screen_license_check_benefit_write_access">保险库写入访问权限</string>
+	<string name="screen_license_check_benefit_support">开源开发</string>
+	<string name="screen_license_check_title_full_version">解锁完整版</string>
+	<string name="screen_license_check_trial_title">30 天免费试用</string>
+	<string name="screen_license_check_trial_price">免费版</string>
+	<string name="screen_license_check_trial_subtitle">30 天</string>
+	<string name="screen_license_check_subscription_title">按年订阅</string>
+	<string name="screen_license_check_subscription_subtitle">按年</string>
+	<string name="screen_license_check_lifetime_title">终身许可证</string>
+	<string name="screen_license_check_lifetime_subtitle">一次付费</string>
+	<string name="screen_license_check_restore_purchase">恢复购买</string>
+	<string name="screen_license_check_terms">使用条款</string>
+	<string name="screen_license_check_privacy">隐私政策</string>
+	<string name="screen_license_check_trial_status_active">进行中</string>
+	<string name="screen_license_check_trial_status_expired">已到期</string>
+	<string name="screen_license_check_trial_expired_info">您的试用期已结束。</string>
+	<string name="screen_welcome_title">欢迎使用</string>
+	<string name="screen_welcome_continue_button">继续</string>
+	<string name="screen_welcome_screen_lock_button">设置屏幕锁定</string>
+	<string name="next">下一步</string>
+	<string name="back">后退</string>
 	<!-- # clouds -->
 	<!-- ## cloud names -->
 	<string name="cloud_names_local_storage">本地存储</string>
@@ -332,11 +355,10 @@
 	<string name="dialog_biometric_auth_key_invalidated_title">生物识别认证功能已停用</string>
 	<string name="dialog_biometric_auth_key_invalidated_message">由于密钥已失效，生物识别认证功能已停用。重新启用请打开 Cryptomator 设置</string>
 	<string name="dialog_enter_license_title">请提供有效许可证</string>
-	<string name="dialog_enter_license_content">我们检测到您在没有使用 Google Play 商店的情况下安装了 Cryptomator。请提供有效许可证，可前往 <a href="https://cryptomator.org/android/">https://cryptomator.org/android/</a> 购买</string>
 	<string name="dialog_enter_license_not_valid_content">提供的许可证无效，请确保输入正确。</string>
 	<string name="dialog_enter_license_not_valid_content_desktop_supporter_certificate">提供的密钥为桌面版支持者证书。请输入有效的许可证。</string>
 	<string name="dialog_enter_license_no_content">未提供许可证，请输入有效许可证。</string>
-	<string name="dialog_enter_license_decline_button">退出</string>
+	<string name="dialog_enter_license_decline_button">取消</string>
 	<string name="dialog_license_confirmation_title">授权通过</string>
 	<string name="dialog_license_confirmation_message">感谢 %1$s 提供您的有效许可证</string>
 	<string name="dialog_update_available_title">发现新版本</string>
@@ -371,6 +393,10 @@
 	<string name="dialog_hub_license_upgrade_required_hint">此 Cryptomator Hub 实例许可证无效，请联系 Hub 管理员升级或者续订许可证</string>
 	<string name="dialog_hub_vault_archived_title">私密库已存档</string>
 	<string name="dialog_hub_vault_archived_hint">此保险库已存档且无法解锁。要想解锁，必须由其所有者取消存档</string>
+	<string name="dialog_restore_successful_title">恢复成功</string>
+	<string name="dialog_no_full_version_title">未购买完整版</string>
+	<string name="dialog_cancel_subscription_reminder_manage_button">管理订阅</string>
+	<string name="dialog_cancel_subscription_reminder_close_button">关闭</string>
 	<string name="dialog_hub_user_setup_required_title">需要用户设置</string>
 	<string name="dialog_hub_user_setup_required_hint">要继续，请完成 Hub 用户中心所需的步骤</string>
 	<string name="dialog_hub_user_setup_required_neutral_button">前往个人中心</string>
@@ -412,7 +438,6 @@
 	<string name="notification_lock_all">全部锁定</string>
 	<string name="notification_cancel_auto_upload">取消上传</string>
 	<string name="notification_auto_upload_title">自动上传图片中</string>
-	<string name="notification_auto_upload_message">上传中 %1d/%2d</string>
 	<string name="notification_auto_upload_finished_title">自动上传图片完成</string>
 	<string name="notification_auto_upload_finished_message">%1$d 张图片已上传到保险库</string>
 	<string name="notification_auto_upload_failed_title">自动上传图片失败</string>
@@ -430,8 +455,10 @@
 	<string name="screen_settings_lru_cache_size">缓存总大小</string>
 	<string name="screen_settings_clear_lru_cache_size">清除缓存</string>
 	<string name="screen_settings_lru_cache_changed__restart_toast">更改将在下次应用重启时生效</string>
-	<string name="screen_settings_license">已授权给</string>
+	<string name="screen_settings_license_title_unlock">解锁完整版</string>
 	<string name="screen_settings_license_mail">%1$s</string>
+	<string name="screen_settings_manage_subscription">管理订阅</string>
+	<string name="dialog_trial_expired_unlock">解锁完整版</string>
 	<string name="dialog_settings_update_check_interval_title">更新检查频率</string>
 	<string name="screen_settings_check_updates">检查更新</string>
 	<string name="screen_settings_last_check_updates">上次检查 %1$s</string>
