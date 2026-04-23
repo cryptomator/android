@@ -37,6 +37,29 @@
 	<string name="error_interact_with_fdroid_but_fdroid_missing">Komunikácia s aplikáciou F-Droid zlyhala. Nie je nainštalovaná?</string>
 	<string name="error_hub_unlock_pre_31">Hub je podporovaný len na Android 12 a novšom.</string>
 	<string name="error_hub_not_trustworthy">Hub nie je dôveryhodný.</string>
+	<!-- # read-only & purchases -->
+	<string name="screen_license_check_benefit_family_sharing">Rodinné zdieľanie</string>
+	<string name="screen_license_check_benefit_write_access">Možnosť zápisu do Vašich trezorov</string>
+	<string name="screen_license_check_benefit_support">Tvorba otvoreného kódu</string>
+	<string name="screen_license_check_title_full_version">Odomknúť plnú verziu</string>
+	<string name="screen_license_check_trial_title">30-dňová skúšobná verzia</string>
+	<string name="screen_license_check_trial_price">Voľný</string>
+	<string name="screen_license_check_trial_subtitle">na 30 dní</string>
+	<string name="screen_license_check_subscription_title">Ročné predplatné</string>
+	<string name="screen_license_check_subscription_subtitle">ročne</string>
+	<string name="screen_license_check_lifetime_title">Doživotná licencia</string>
+	<string name="screen_license_check_lifetime_subtitle">jednorázovo</string>
+	<string name="screen_license_check_restore_purchase">Obnoviť nákup</string>
+	<string name="screen_license_check_terms">Podmienky používania</string>
+	<string name="screen_license_check_privacy">Ochrana osobných údajov</string>
+	<string name="screen_license_check_trial_status_active">Aktívny</string>
+	<string name="screen_license_check_trial_status_expired">Vypršaný</string>
+	<string name="screen_license_check_trial_expired_info">Vaše bezplatné skúšobné obdobie vypršalo.</string>
+	<string name="screen_welcome_title">Vitajte</string>
+	<string name="screen_welcome_continue_button">Pokračovať</string>
+	<string name="screen_welcome_screen_lock_button">Nastaviť zamykanie obrazovky</string>
+	<string name="next">Ďalej</string>
+	<string name="back">Späť</string>
 	<!-- # clouds -->
 	<!-- ## cloud names -->
 	<string name="cloud_names_local_storage">Lokálne úložisko</string>
@@ -331,11 +354,10 @@
 	<string name="dialog_biometric_auth_key_invalidated_title">Funkcia biometrickej autentikácie je deaktivovaná</string>
 	<string name="dialog_biometric_auth_key_invalidated_message">Pretože kľúč bol zneplatnený, funkcia biometrickej autentikácie bola deaktivovaná. Pre opätovné povolenie, otvorte nastavenia Cryptomator-a.</string>
 	<string name="dialog_enter_license_title">Zadajte platný licenčný kľúč</string>
-	<string name="dialog_enter_license_content">Detekovali sme že máte nainštalovaný Cryptomator bez použitia Google Play Store. Poskytnite platnú licenciu, ktorá bola zakúpená v <a href="https://cryptomator.org/android/">https://cryptomator.org/android/</a></string>
 	<string name="dialog_enter_license_not_valid_content">Poskytnutá licencia nie je platná. Uistite sa či bola zadaná korektne.</string>
 	<string name="dialog_enter_license_not_valid_content_desktop_supporter_certificate">Poskytnuty kľúč je pracovná plocha certifikátu podporovateľa. Prosím zadajte platnú licenciu.</string>
 	<string name="dialog_enter_license_no_content">Licencia neposkytnutá. Prosím zadajte platnú licenciu.</string>
-	<string name="dialog_enter_license_decline_button">Ukončiť</string>
+	<string name="dialog_enter_license_decline_button">Zrušiť</string>
 	<string name="dialog_license_confirmation_title">Potvrdenie licencie</string>
 	<string name="dialog_license_confirmation_message">Ďakujeme %1$s za poskytnutie Vašej platnej licencie.</string>
 	<string name="dialog_update_available_title">Aktualizácia k dispozícii</string>
@@ -362,6 +384,10 @@
 	<string name="dialog_create_hub_device_setup_code_hint">Váš kľúč účtu je vyžadovaný pre prihlásenie z nových aplikácii alebo prehliadačov. Môžete ho nájsť vo vašom profile.</string>
 	<string name="dialog_hub_vault_access_forbidden_title">Prístup zamietnutý</string>
 	<string name="dialog_hub_vault_archived_title">Trezor archivovaný</string>
+	<string name="dialog_restore_successful_title">Obnovenie úspešné</string>
+	<string name="dialog_no_full_version_title">Nie Plná Verzia</string>
+	<string name="dialog_cancel_subscription_reminder_manage_button">Spravovať predplatné</string>
+	<string name="dialog_cancel_subscription_reminder_close_button">Zavrieť</string>
 	<string name="dialog_hub_user_setup_required_title">Vyžaduje sa nastavenie užívateľom</string>
 	<string name="dialog_hub_user_setup_required_hint">Pre pokračovanie, prosím splňte kroky požadované vo Vašom užívateľskom Hub profile.</string>
 	<string name="dialog_hub_user_setup_required_neutral_button">Prejsť na profil</string>
@@ -404,7 +430,6 @@
 	<string name="notification_lock_all">Všetko zamknúť</string>
 	<string name="notification_cancel_auto_upload">Zrušiť nahrávanie</string>
 	<string name="notification_auto_upload_title">Prebieha automatické nahrávanie fotografii</string>
-	<string name="notification_auto_upload_message">Nahrávanie %1d/%2d</string>
 	<string name="notification_auto_upload_finished_title">Automatické nahrávanie fotografii dokončené</string>
 	<string name="notification_auto_upload_finished_message">%1$d obrázkov nahratých do trezora</string>
 	<string name="notification_auto_upload_failed_title">Automatické nahrávanie fotografii zlyhalo</string>
@@ -423,8 +448,11 @@
 	<string name="screen_settings_lru_cache_size">Celková veľkosť vyrovovnávacej pamäte</string>
 	<string name="screen_settings_clear_lru_cache_size">Vyprázdniť vyrovnávaciu pamäť</string>
 	<string name="screen_settings_lru_cache_changed__restart_toast">Zmeny sa uplatnia pro reštarte aplikácie</string>
-	<string name="screen_settings_license">Registrovaný pre</string>
+	<string name="screen_settings_license_title_unlock">Odomknúť plnú verziu</string>
 	<string name="screen_settings_license_mail">%1$s</string>
+	<string name="screen_settings_manage_subscription">Spravovať predplatné</string>
+	<string name="screen_settings_upgrade_to_lifetime">Upgradovať na doživotné</string>
+	<string name="dialog_trial_expired_unlock">Odomknúť plnú verziu</string>
 	<string name="dialog_settings_update_check_interval_title">Interval kontroly aktualizácii</string>
 	<string name="screen_settings_check_updates">Skontrolovať dostupnosť aktualizácií</string>
 	<string name="screen_settings_last_check_updates">Naposledy %1$s</string>
