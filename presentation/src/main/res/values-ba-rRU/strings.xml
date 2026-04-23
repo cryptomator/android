@@ -35,6 +35,29 @@
 	<string name="error_no_such_bucket">Бындай bucket юҡ</string>
 	<string name="error_masterkey_location_not_supported">Ирекле Masterkey урыны терәкләнмәй</string>
 	<string name="error_interact_with_fdroid_but_fdroid_missing">F-Droid ҡушымтаһы менән бәйләнешкә инеп булманы. Ҡуйылмағанмы?</string>
+	<!-- # read-only & purchases -->
+	<string name="screen_license_check_benefit_family_sharing">Ғаилә менән уртаҡлашыу</string>
+	<string name="screen_license_check_benefit_write_access">Һаҡлағыстарға яҙыу рөхсәте</string>
+	<string name="screen_license_check_benefit_support">Open-source эшләү</string>
+	<string name="screen_license_check_title_full_version">Тулы версияны асыу</string>
+	<string name="screen_license_check_trial_title">30 көнлөк һынау</string>
+	<string name="screen_license_check_trial_price">Түләүһеҙ</string>
+	<string name="screen_license_check_trial_subtitle">30 көн</string>
+	<string name="screen_license_check_subscription_title">Йыллыҡ яҙылыу</string>
+	<string name="screen_license_check_subscription_subtitle">йыл һайын</string>
+	<string name="screen_license_check_lifetime_title">Ғүмерлек рөхсәтнамә</string>
+	<string name="screen_license_check_lifetime_subtitle">бер тапҡыр</string>
+	<string name="screen_license_check_restore_purchase">Һатып алыуҙы тергеҙеү</string>
+	<string name="screen_license_check_terms">Ҡулланыу шарттары</string>
+	<string name="screen_license_check_privacy">Хосусилыҡ сәйәсәте</string>
+	<string name="screen_license_check_trial_status_active">Ғәмәлдә</string>
+	<string name="screen_license_check_trial_status_expired">Ваҡыты үткән</string>
+	<string name="screen_license_check_trial_expired_info">Һынау вакыты бөттө.</string>
+	<string name="screen_welcome_title">Рәхим итегеҙ</string>
+	<string name="screen_welcome_continue_button">Дауам ит</string>
+	<string name="screen_welcome_screen_lock_button">Экран биге ҡуйыу</string>
+	<string name="next">Киләһе</string>
+	<string name="back">Артҡа</string>
 	<!-- # clouds -->
 	<!-- ## cloud names -->
 	<string name="cloud_names_local_storage">Урындағы һаҡлағыс</string>
@@ -321,11 +344,10 @@
 	<string name="dialog_biometric_auth_key_invalidated_title">Биометрик аутентиклау үҙенсәлеге ябылған</string>
 	<string name="dialog_biometric_auth_key_invalidated_message">Асҡыс ғәмәлдән сығарылғанға күрә, биометрик аутентиклау һүндерелгән. Яңынан активлаштырыу өсөн Cryptomator көйләүҙәрен асығыҙ.</string>
 	<string name="dialog_enter_license_title">Ғәмәлдә булған рөхсәтнамә яҙығыҙ</string>
-	<string name="dialog_enter_license_content">Google Play Store ҡулланмайынса Cryptomator ҡуйыуығыҙҙы асыҡланыҡ. <a href="https://cryptomator.org/android/">https://cryptomator.org/android/</a> сайтында һатып алып булған һәм ғәмәлдәге рөхсәтнамә яҙығыҙ.</string>
 	<string name="dialog_enter_license_not_valid_content">Бирелгән рөхсәтнамә ғәмәлдә түгел. Уны дөрөҫ яҙғанығыҙҙы тикшерегеҙ.</string>
 	<string name="dialog_enter_license_not_valid_content_desktop_supporter_certificate">Бирелгән асҡыс — ярҙамсы сертификаты. Ғәмәлдә булған рөхсәтнамә яҙығыҙ.</string>
 	<string name="dialog_enter_license_no_content">Рөхсәтнамә яҙылмаған. Ғәмәлдә булған рөхсәтнамә яҙығыҙ.</string>
-	<string name="dialog_enter_license_decline_button">Сыҡ</string>
+	<string name="dialog_enter_license_decline_button">Кире ал</string>
 	<string name="dialog_license_confirmation_title">Рөхсәтнамә раҫлау</string>
 	<string name="dialog_license_confirmation_message">Ғәмәлдәге рөхсәтнамә биргәнегеҙ өсөн рәхмәт %1$s.</string>
 	<string name="dialog_update_available_title">Яңыртыу бар</string>
@@ -346,6 +368,10 @@
 	<string name="dialog_create_hub_device_name_hint">Был, күрәһең, был ҡоролманан Хабҡа тәү инеү ваҡыты. Инеүҙе рөхсәт итеү өсөн йыһазды асыҡлаусы исем атарға кәрәк.</string>
 	<string name="dialog_create_hub_device_setup_code_hint">Яңы ҡушымталар йәки браузерҙарҙан инеү өсөн Һеҙҙең иҫәп-хисап асҡысы кәрәк. Уны профилегеҙҙә табырға мөмкин.</string>
 	<string name="dialog_hub_vault_access_forbidden_title">Инеү кире ҡағылды</string>
+	<string name="dialog_restore_successful_title">Тергеҙеү уңышлы булды</string>
+	<string name="dialog_no_full_version_title">Тулы версия табылманы</string>
+	<string name="dialog_cancel_subscription_reminder_manage_button">Яҙылыуҙар менән идара итеү</string>
+	<string name="dialog_cancel_subscription_reminder_close_button">Яп</string>
 	<string name="dialog_hub_user_setup_required_hint">Артабан барыр өсөн, Hub ҡулланыусылар профилендә кәрәкле аҙымдарҙы тамамлағыҙ.</string>
 	<string name="dialog_hub_user_setup_required_neutral_button">Профилгә күс</string>
 	<string name="permission_snackbar_auth_local_vault">Урындағы һаҡлағыстарҙы ҡулланыу өсөн Cryptomator-ға һаҡлағысҡа инеү рәхсәте кәрәк</string>
@@ -386,7 +412,6 @@
 	<string name="notification_lock_all">Барыһын да биклә</string>
 	<string name="notification_cancel_auto_upload">Тейәүҙе туҡтат</string>
 	<string name="notification_auto_upload_title">Автоматик фото тейәү бара</string>
-	<string name="notification_auto_upload_message">%1d/%2d тейәлә</string>
 	<string name="notification_auto_upload_finished_title">Автоматик фото тейәү тамамланды</string>
 	<string name="notification_auto_upload_finished_message">Һаҡлағысҡа %1$d һүрәт тейәлде</string>
 	<string name="notification_auto_upload_failed_title">Автомат фото тейәү уңышһыҙ булды</string>
@@ -404,8 +429,10 @@
 	<string name="screen_settings_lru_cache_size">Дөйөм кэш күләме</string>
 	<string name="screen_settings_clear_lru_cache_size">Кэшты таҙартыу</string>
 	<string name="screen_settings_lru_cache_changed__restart_toast">Үҙгәрештәр ҡушымтаны ҡайтанан эшләтеп ебәргәндә ҡулланыласаҡ</string>
-	<string name="screen_settings_license">Теркәлеүсе</string>
+	<string name="screen_settings_license_title_unlock">Тулы версияны асыу</string>
 	<string name="screen_settings_license_mail">%1$s</string>
+	<string name="screen_settings_manage_subscription">Яҙылыуҙар менән идара итеү</string>
+	<string name="dialog_trial_expired_unlock">Тулы версияны асыу</string>
 	<string name="dialog_settings_update_check_interval_title">Яңыртыу тикшереү интервалы</string>
 	<string name="screen_settings_check_updates">Яңыртыуҙарҙы тикшереү</string>
 	<string name="screen_settings_last_check_updates">Һуңғы тикшереү %1$s</string>
