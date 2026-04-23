@@ -41,6 +41,29 @@
 	<string name="error_hub_invalid_setup_code">Kontonyckeln är ogiltig.</string>
 	<string name="error_hub_invalid_version">Hub-versionen stöds inte.</string>
 	<string name="error_hub_unlock_pre_31">Cryptomator navet stöds endast på Android 12 och senare.</string>
+	<!-- # read-only & purchases -->
+	<string name="screen_license_check_benefit_family_sharing">Familjedelning</string>
+	<string name="screen_license_check_benefit_write_access">Skriv-åtkomst till dina valv</string>
+	<string name="screen_license_check_benefit_support">Utveckling av öppen källkod</string>
+	<string name="screen_license_check_title_full_version">Lås upp fullversion</string>
+	<string name="screen_license_check_trial_title">30-dagars provperiod</string>
+	<string name="screen_license_check_trial_price">Gratis</string>
+	<string name="screen_license_check_trial_subtitle">i 30 dagar</string>
+	<string name="screen_license_check_subscription_title">Årsprenumeration</string>
+	<string name="screen_license_check_subscription_subtitle">årligen</string>
+	<string name="screen_license_check_lifetime_title">Livstids-licens</string>
+	<string name="screen_license_check_lifetime_subtitle">en-gångs</string>
+	<string name="screen_license_check_restore_purchase">Återställ köp</string>
+	<string name="screen_license_check_terms">Villkor</string>
+	<string name="screen_license_check_privacy">Integritetspolicy</string>
+	<string name="screen_license_check_trial_status_active">Aktiv</string>
+	<string name="screen_license_check_trial_status_expired">Upphört</string>
+	<string name="screen_license_check_trial_expired_info">Testperioden är slut.</string>
+	<string name="screen_welcome_title">Välkommen</string>
+	<string name="screen_welcome_continue_button">Fortsätt</string>
+	<string name="screen_welcome_screen_lock_button">Ställ in skärmlås</string>
+	<string name="next">Nästa</string>
+	<string name="back">Bakåt</string>
 	<!-- # clouds -->
 	<!-- ## cloud names -->
 	<string name="cloud_names_local_storage">Lokal lagring</string>
@@ -333,11 +356,10 @@
 	<string name="dialog_biometric_auth_key_invalidated_title">Biometrisk autentiseringsfunktion inaktiverad</string>
 	<string name="dialog_biometric_auth_key_invalidated_message">Eftersom nyckeln har ogiltigförklarats har den biometriska autentiseringsfunktionen avaktiverats. För att återaktivera, öppna Cryptomatorns inställningar.</string>
 	<string name="dialog_enter_license_title">Ange en giltig licens</string>
-	<string name="dialog_enter_license_content">Vi upptäckte att du installerade Cryptomator utan att använda Google Play Store. Ange en giltig licens, som kan köpas på <a href="https://cryptomator.org/android/">https://cryptomator.org/android/</a></string>
 	<string name="dialog_enter_license_not_valid_content">Den angivna licensen är inte giltig. Se till att du angav den korrekt.</string>
 	<string name="dialog_enter_license_not_valid_content_desktop_supporter_certificate">Den angivna nyckeln är ett supportercertifikat för skrivbords-versionen. Ange en giltig licens.</string>
 	<string name="dialog_enter_license_no_content">Ingen licens angiven. Ange en giltig licens.</string>
-	<string name="dialog_enter_license_decline_button">Avsluta</string>
+	<string name="dialog_enter_license_decline_button">Avbryt</string>
 	<string name="dialog_license_confirmation_title">Licensinformation</string>
 	<string name="dialog_license_confirmation_message">Tack %1$s för att du angivit din giltiga licens.</string>
 	<string name="dialog_update_available_title">Uppdatering tillgänglig</string>
@@ -372,6 +394,10 @@
 	<string name="dialog_hub_license_upgrade_required_hint">Din Cryptomator Hub-instans har en ogiltig licens. Vänligen informera en Hub administratör för att uppgradera eller förnya licensen.\"</string>
 	<string name="dialog_hub_vault_archived_title">Valvet arkiverades</string>
 	<string name="dialog_hub_vault_archived_hint">Detta valv är arkiverat och kan inte låsas upp. För att låsa upp det måste valvägaren avarkivera det.</string>
+	<string name="dialog_restore_successful_title">Återställning lyckades</string>
+	<string name="dialog_no_full_version_title">Ingen fullversion</string>
+	<string name="dialog_cancel_subscription_reminder_manage_button">Hantera prenumeration</string>
+	<string name="dialog_cancel_subscription_reminder_close_button">Stäng</string>
 	<string name="dialog_hub_user_setup_required_title">Användarkonfiguration krävs</string>
 	<string name="dialog_hub_user_setup_required_hint">För att fortsätta, vänligen fyll i de steg som krävs i din Hub-användarprofil.</string>
 	<string name="dialog_hub_user_setup_required_neutral_button">Gå till profil</string>
@@ -413,7 +439,6 @@
 	<string name="notification_lock_all">Lås alla</string>
 	<string name="notification_cancel_auto_upload">Avbryt uppladdning</string>
 	<string name="notification_auto_upload_title">Automatisk fotouppladdning körs</string>
-	<string name="notification_auto_upload_message">Laddar upp %1d/%2d</string>
 	<string name="notification_auto_upload_finished_title">Automatisk fotouppladdning slutförd</string>
 	<string name="notification_auto_upload_finished_message">%1$d bilder uppladdade till valvet</string>
 	<string name="notification_auto_upload_failed_title">Automatisk fotouppladdning misslyckades</string>
@@ -431,8 +456,10 @@
 	<string name="screen_settings_lru_cache_size">Total cachestorlek</string>
 	<string name="screen_settings_clear_lru_cache_size">Rensa cachen</string>
 	<string name="screen_settings_lru_cache_changed__restart_toast">Ändringar kommer att tillämpas vid omstart av appen</string>
-	<string name="screen_settings_license">Registrerad till</string>
+	<string name="screen_settings_license_title_unlock">Lås upp fullversion</string>
 	<string name="screen_settings_license_mail">%1$s</string>
+	<string name="screen_settings_manage_subscription">Hantera prenumeration</string>
+	<string name="dialog_trial_expired_unlock">Lås upp fullversion</string>
 	<string name="dialog_settings_update_check_interval_title">Uppdateringsintervall</string>
 	<string name="screen_settings_check_updates">Sök efter uppdateringar</string>
 	<string name="screen_settings_last_check_updates">Senaste körning %1$s</string>
