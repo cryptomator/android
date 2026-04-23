@@ -18,6 +18,8 @@
 	<string name="error_general_update">నవీకరణ తనిఖీ విఫలమైంది. సాధారణ లోపం సంభవించింది.</string>
 	<string name="error_play_services_not_available">Google Play సేవలు ఇన్‌స్టాల్ చేయబడలేదు</string>
 	<string name="error_no_such_bucket">అలాంటి బకెట్ లేదు</string>
+	<!-- # read-only & purchases -->
+	<string name="screen_welcome_screen_lock_button">స్క్రీన్ లాక్‌ని సెట్ చేయండి</string>
 	<!-- # clouds -->
 	<!-- ## cloud names -->
 	<!-- # permission -->
@@ -209,7 +211,6 @@
 	<string name="dialog_enter_license_title">చెల్లుబాటు అయ్యే లైసెన్స్‌ను అందించండి</string>
 	<string name="dialog_enter_license_not_valid_content">అందించిన లైసెన్స్ చెల్లదు. మీరు దాన్ని సరిగ్గా నమోదు చేశారని నిర్ధారించుకోండి.</string>
 	<string name="dialog_enter_license_no_content">లైసెన్స్ అందించబడలేదు. దయచేసి చెల్లుబాటు అయ్యే లైసెన్స్‌ను నమోదు చేయండి.</string>
-	<string name="dialog_enter_license_decline_button">బయటకి దారి</string>
 	<string name="dialog_license_confirmation_title">లైసెన్స్ నిర్ధారణ</string>
 	<string name="dialog_license_confirmation_message">మీ చెల్లుబాటు అయ్యే లైసెన్స్‌ని అందించినందుకు %1$sకి ధన్యవాదాలు.</string>
 	<string name="dialog_update_available_title">అందుబాటులో నవీకరణ</string>
@@ -258,7 +259,6 @@
 	<string name="screen_settings_lru_cache_size">మొత్తం కాష్ పరిమాణం</string>
 	<string name="screen_settings_clear_lru_cache_size">కాష్ తొలగించండి</string>
 	<string name="screen_settings_lru_cache_changed__restart_toast">తదుపరి యాప్ పునఃప్రారంభించినప్పుడు మార్పులు వర్తింపజేయబడతాయి</string>
-	<string name="screen_settings_license">కోసం నమోదు చేయబడింది</string>
 	<string name="screen_settings_license_mail">%1$s</string>
 	<string name="dialog_settings_update_check_interval_title">చెక్ విరామాన్ని నవీకరించండి</string>
 	<string name="screen_settings_check_updates">తాజాకరణలకోసం ప్రయత్నించండి</string>
