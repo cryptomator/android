@@ -35,6 +35,26 @@
 	<string name="error_no_such_bucket">Ni takšnega bucket-a</string>
 	<string name="error_masterkey_location_not_supported">Poljubna lokacija glavnega ključa še ni podprta</string>
 	<string name="error_interact_with_fdroid_but_fdroid_missing">Ne uspem komunicirat s F-Droid aplikacijo. Morda ni naložena?</string>
+	<!-- # read-only & purchases -->
+	<string name="screen_license_check_benefit_family_sharing">Deljenje z družino</string>
+	<string name="screen_license_check_benefit_write_access">Dostop za pisanje do vaših trezorjev</string>
+	<string name="screen_license_check_benefit_support">Odprto-kodni razvoj</string>
+	<string name="screen_license_check_title_full_version">Odkleni polno različico</string>
+	<string name="screen_license_check_trial_title">30-dnevni preizkus</string>
+	<string name="screen_license_check_trial_price">Zastonj</string>
+	<string name="screen_license_check_trial_subtitle">za 30 dni</string>
+	<string name="screen_license_check_subscription_title">Letna naročnina</string>
+	<string name="screen_license_check_subscription_subtitle">letno</string>
+	<string name="screen_license_check_lifetime_title">Doživljenjska licenca</string>
+	<string name="screen_license_check_lifetime_subtitle">enkraten nakup</string>
+	<string name="screen_license_check_restore_purchase">Povrni nakup</string>
+	<string name="screen_license_check_terms">Pogoji uporabe</string>
+	<string name="screen_license_check_privacy">Politika zasebnosti</string>
+	<string name="screen_license_check_trial_expired_info">Vaš preizkus je potekel.</string>
+	<string name="screen_welcome_title">Dobrodošli</string>
+	<string name="screen_welcome_continue_button">Nadaljuj</string>
+	<string name="next">Naslednji</string>
+	<string name="back">Nazaj</string>
 	<!-- # clouds -->
 	<!-- ## cloud names -->
 	<string name="cloud_names_local_storage">Lokalna shramba</string>
@@ -289,7 +309,7 @@
 	<string name="dialog_app_is_obscured_info_neutral_button">Zapri</string>
 	<string name="dialog_confirm_delete_multiple_title">Izbriši %1$d stvari?</string>
 	<string name="dialog_confirm_delete_multiple_message">Ali ste prepričani, da želite te datoteke izbrisati?</string>
-	<string name="dialog_enter_license_decline_button">Izhod</string>
+	<string name="dialog_enter_license_decline_button">Prekliči</string>
 	<string name="dialog_license_confirmation_title">Potrditev licence</string>
 	<string name="dialog_update_available_title">Posodobitev je na voljo</string>
 	<string name="dialog_update_available_update">Posodobi zdaj</string>
@@ -297,6 +317,9 @@
 	<string name="dialog_sym_link_back_button">Nazaj</string>
 	<string name="dialog_create_hub_device_name_hint">Zdi se, da prvič dostopate do Hub-a s te naprave. Napravo morate poimenovati, da jo lahko identificirate za avtorizacijo za dostop.</string>
 	<string name="dialog_create_hub_device_setup_code_hint">Vaš Account Key je zahtevan za prijavo z novih aplikacij ali brskalnikov. Najdete ga lahko v svojem profilu.</string>
+	<string name="dialog_restore_successful_title">Povrnitev uspešna</string>
+	<string name="dialog_no_full_version_title">Ni polne različice</string>
+	<string name="dialog_cancel_subscription_reminder_close_button">Zapri</string>
 	<string name="dialog_hub_user_setup_required_hint">Za nadaljevanje, prosimo zaključite zahtevane korake v svojem Hub uporabniškem profilu.</string>
 	<string name="dialog_hub_user_setup_required_neutral_button">Pojdi v profil</string>
 	<!-- # error reports -->
@@ -305,6 +328,8 @@
 	<!-- ## date helper -->
 	<!-- ## biometric authentication -->
 	<!-- notification -->
+	<string name="screen_settings_license_title_unlock">Odkleni polno različico</string>
+	<string name="dialog_trial_expired_unlock">Odkleni polno različico</string>
 	<!-- lock timeout names -->
 	<!-- cache size names -->
 	<!-- screen scheme mode names -->
