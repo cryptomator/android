@@ -36,6 +36,29 @@
 	<string name="error_masterkey_location_not_supported">Vlastní umístění hlavního klíče ještě není podporováno</string>
 	<string name="error_interact_with_fdroid_but_fdroid_missing">Nepodařilo se komunikovat s aplikací F-Droid. Možná není nainstalována?</string>
 	<string name="error_hub_device_already_register_for_other_user">Toto zařízení je již registrováno pro jiného uživatele. Zkuste změnit uživatelský účet nebo použijte jiné zařízení.</string>
+	<!-- # read-only & purchases -->
+	<string name="screen_license_check_benefit_family_sharing">Rodinné sdílení</string>
+	<string name="screen_license_check_benefit_write_access">Zápis do vašeho trezoru</string>
+	<string name="screen_license_check_benefit_support">Vývoj Open-source</string>
+	<string name="screen_license_check_title_full_version">Odemknout plnou verzi</string>
+	<string name="screen_license_check_trial_title">30denní zkušební verze</string>
+	<string name="screen_license_check_trial_price">Zdarma</string>
+	<string name="screen_license_check_trial_subtitle">na 30 dní</string>
+	<string name="screen_license_check_subscription_title">Roční předplatné</string>
+	<string name="screen_license_check_subscription_subtitle">ročně</string>
+	<string name="screen_license_check_lifetime_title">Doživotní licence</string>
+	<string name="screen_license_check_lifetime_subtitle">jednorázově</string>
+	<string name="screen_license_check_restore_purchase">Obnovit nákup</string>
+	<string name="screen_license_check_terms">Podmínky používání</string>
+	<string name="screen_license_check_privacy">Ochrana osobních údajů</string>
+	<string name="screen_license_check_trial_status_active">Aktivní</string>
+	<string name="screen_license_check_trial_status_expired">Expirováno</string>
+	<string name="screen_license_check_trial_expired_info">Vaše zkušební verze vypršela.</string>
+	<string name="screen_welcome_title">Vítejte</string>
+	<string name="screen_welcome_continue_button">Pokračovat</string>
+	<string name="screen_welcome_screen_lock_button">Nastavit zámek obrazovky</string>
+	<string name="next">Další</string>
+	<string name="back">Zpět</string>
 	<!-- # clouds -->
 	<!-- ## cloud names -->
 	<string name="cloud_names_local_storage">Místní úložiště</string>
@@ -325,11 +348,10 @@
 	<string name="dialog_biometric_auth_key_invalidated_title">Funkce biometrického ověření je deaktivována</string>
 	<string name="dialog_biometric_auth_key_invalidated_message">Vzhledem k tomu, že klíč byl zneplatněn, byla deaktivována funkce biometrického ověření. Chcete-li jej znovu povolit, otevřete nastavení Cryptomatoru.</string>
 	<string name="dialog_enter_license_title">Zadejte platnou licenci</string>
-	<string name="dialog_enter_license_content">Zjistili jsme, že jste si nainstalovali Cryptomator bez použití Google Play Store. Zadejte platnou licenci, kterou lze zakoupit na <a href="https://cryptomator.org/android/">https://cryptomator.org/android/</a></string>
 	<string name="dialog_enter_license_not_valid_content">Zadaná licence není platná. Ujistěte se, že jste ji zadali správně.</string>
 	<string name="dialog_enter_license_not_valid_content_desktop_supporter_certificate">Zadaný klíč je certifikátem podporovatele desktopové aplikace. Zadejte prosím platnou licenci.</string>
 	<string name="dialog_enter_license_no_content">Nebyla zadána žádná licence. Zadejte prosím platnou licenci.</string>
-	<string name="dialog_enter_license_decline_button">Zavřít</string>
+	<string name="dialog_enter_license_decline_button">Zrušit</string>
 	<string name="dialog_license_confirmation_title">Potvrzení licence</string>
 	<string name="dialog_license_confirmation_message">Děkujeme %1$s za zadání platné licence.</string>
 	<string name="dialog_update_available_title">Aktualizace je k dispozici</string>
@@ -349,6 +371,10 @@
 	<string name="dialog_pcloud_credentials_updated">Pokud máte v úmyslu přidat nový účet na pCloud, klepněte na tuto url <a href="https://www.pcloud.com">www.pcloud. om</a>, odhlas jste se z aktuálního účtu a znovu klepněte na \'+\' v této aplikaci pro vytvoření nového cloudového připojení.</string>
 	<string name="dialog_create_hub_device_setup_code_hint">Váš Account Key je vyžadován k přihlášení z nových aplikací nebo prohlížečů. Naleznete jej ve vašem profilu.</string>
 	<string name="dialog_hub_vault_access_forbidden_title">Přístup odepřen</string>
+	<string name="dialog_restore_successful_title">Obnovení bylo úspěšné</string>
+	<string name="dialog_no_full_version_title">Žádná plná verze</string>
+	<string name="dialog_cancel_subscription_reminder_manage_button">Spravovat předplatné</string>
+	<string name="dialog_cancel_subscription_reminder_close_button">Zavřít</string>
 	<string name="dialog_hub_user_setup_required_hint">Chcete-li pokračovat, dokončete prosím požadované kroky ve vašem uživatelském profilu Hubu.</string>
 	<string name="dialog_hub_user_setup_required_neutral_button">Jít na profil</string>
 	<string name="permission_snackbar_auth_local_vault">Cryptomator potřebuje přístup k úložišti, aby mohl používat místní trezory</string>
@@ -389,7 +415,6 @@
 	<string name="notification_lock_all">Zamknout vše</string>
 	<string name="notification_cancel_auto_upload">Zrušit nahrávání</string>
 	<string name="notification_auto_upload_title">Automatické nahrávání fotek právě probíhá</string>
-	<string name="notification_auto_upload_message">Nahrávání %1d/%2d</string>
 	<string name="notification_auto_upload_finished_title">Automatické nahrávání fotek dokončeno</string>
 	<string name="notification_auto_upload_finished_message">%1$d obrázků nahráno do trezoru</string>
 	<string name="notification_auto_upload_failed_title">Automatické nahrávání fotek se nezdařilo</string>
@@ -407,8 +432,10 @@
 	<string name="screen_settings_lru_cache_size">Velikost mezipaměti</string>
 	<string name="screen_settings_clear_lru_cache_size">Vyčistit mezipaměť</string>
 	<string name="screen_settings_lru_cache_changed__restart_toast">Změny budou použity při příštím restartu aplikace</string>
-	<string name="screen_settings_license">Registrováno na</string>
+	<string name="screen_settings_license_title_unlock">Odemknout plnou verzi</string>
 	<string name="screen_settings_license_mail">%1$s</string>
+	<string name="screen_settings_manage_subscription">Spravovat předplatné</string>
+	<string name="dialog_trial_expired_unlock">Odemknout plnou verzi</string>
 	<string name="dialog_settings_update_check_interval_title">Interval kontroly aktualizací</string>
 	<string name="screen_settings_check_updates">Zkontrolovat aktualizace</string>
 	<string name="screen_settings_last_check_updates">Poslední kontrola %1$s</string>
