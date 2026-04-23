@@ -13,6 +13,10 @@
 	<string name="error_no_such_file">Failo nėra.</string>
 	<string name="error_vault_has_been_locked">Slėptuvė užrakinta.</string>
 	<string name="error_server_not_found">Serveris nerastas.</string>
+	<!-- # read-only & purchases -->
+	<string name="screen_license_check_privacy">Privatumo politika</string>
+	<string name="next">Kitas</string>
+	<string name="back">Atgal</string>
 	<!-- # clouds -->
 	<!-- ## cloud names -->
 	<!-- # permission -->
@@ -115,7 +119,7 @@
 	<string name="dialog_app_is_obscured_info_neutral_button">Užverti</string>
 	<string name="dialog_confirm_delete_file_message">Ar tikrai norite ištrinti šį failą?</string>
 	<string name="dialog_confirm_delete_folder_message">Tai ištrins visą aplanke esantį turinį. Ar tikrai norite ištrinti šį aplanką?</string>
-	<string name="dialog_enter_license_decline_button">Išeiti</string>
+	<string name="dialog_enter_license_decline_button">Atsisakyti</string>
 	<string name="dialog_update_available_title">Yra prieinamas atnaujinimas</string>
 	<string name="dialog_update_available_update">Atnaujinti dabar</string>
 	<string name="dialog_update_available_cancel">Vėliau</string>
@@ -123,6 +127,7 @@
 	<string name="dialog_no_dir_file_title">Nepavyko įkelti katalogo turinio</string>
 	<string name="dialog_create_hub_device_setup_code_label">Paskyros raktas</string>
 	<string name="dialog_progress_creating_hub_device_setup">Kuriamas įrenginys&#8230;</string>
+	<string name="dialog_cancel_subscription_reminder_close_button">Užverti</string>
 	<!-- # error reports -->
 	<!-- # misc -->
 	<!-- ## file size helper -->
