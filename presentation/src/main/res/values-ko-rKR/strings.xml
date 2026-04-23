@@ -42,6 +42,29 @@
 	<string name="error_hub_invalid_version">지원되지 않는 Hub 버전입니다.</string>
 	<string name="error_hub_unlock_pre_31">Hub는 Android 12 이상에서만 지원됩니다.</string>
 	<string name="error_hub_not_trustworthy">Hub를 신뢰할 수 없습니다.</string>
+	<!-- # read-only & purchases -->
+	<string name="screen_license_check_benefit_family_sharing">가족 공유</string>
+	<string name="screen_license_check_benefit_write_access">Vault 데이터 변경</string>
+	<string name="screen_license_check_benefit_support">오픈소스 소프트웨어</string>
+	<string name="screen_license_check_title_full_version">정식 버전 구입</string>
+	<string name="screen_license_check_trial_title">30일 체험판</string>
+	<string name="screen_license_check_trial_price">무료</string>
+	<string name="screen_license_check_trial_subtitle">30일간 사용 가능</string>
+	<string name="screen_license_check_subscription_title">연간 구독</string>
+	<string name="screen_license_check_subscription_subtitle">연간</string>
+	<string name="screen_license_check_lifetime_title">평생 라이선스</string>
+	<string name="screen_license_check_lifetime_subtitle">일회성</string>
+	<string name="screen_license_check_restore_purchase">구매 복원</string>
+	<string name="screen_license_check_terms">이용 약관</string>
+	<string name="screen_license_check_privacy">개인정보 보호정책</string>
+	<string name="screen_license_check_trial_status_active">활성화됨</string>
+	<string name="screen_license_check_trial_status_expired">만료됨</string>
+	<string name="screen_license_check_trial_expired_info">체험판이 만료되었습니다.</string>
+	<string name="screen_welcome_title">환영합니다</string>
+	<string name="screen_welcome_continue_button">계속하기</string>
+	<string name="screen_welcome_screen_lock_button">화면 잠금 설정</string>
+	<string name="next">다음</string>
+	<string name="back">이전</string>
 	<!-- # clouds -->
 	<!-- ## cloud names -->
 	<string name="cloud_names_local_storage">로컬 저장소</string>
@@ -334,11 +357,10 @@
 	<string name="dialog_biometric_auth_key_invalidated_title">생체 인증 기능이 비활성화됨</string>
 	<string name="dialog_biometric_auth_key_invalidated_message">키가 유효하지 않게 되어, 생체 인증 기능이 비활성화 되었습니다. 다시 활성화하려면 Cryptomator 설정을 여세요.</string>
 	<string name="dialog_enter_license_title">유효한 라이선스를 입력하세요</string>
-	<string name="dialog_enter_license_content">Google Play 스토어를 이용하지 않고 Cryptomator가 설치되었음을 감지했습니다. 유효한 라이선스를 입력해주세요. 라이선스는 <a href="https://cryptomator.org/android/">https://cryptomator.org/android/</a>에서 구매가능합니다.</string>
 	<string name="dialog_enter_license_not_valid_content">입력된 라이선스는 유효하지 않습니다. 다시한번 확인해주세요.</string>
 	<string name="dialog_enter_license_not_valid_content_desktop_supporter_certificate">제공된 키는 데스크톱 판의 서포터 인증서입니다. 유효한 라이선스를 입력하세요.</string>
 	<string name="dialog_enter_license_no_content">라이선스가 입력되지 않았습니다. 유효한 라이선스를 입력해주세요.</string>
-	<string name="dialog_enter_license_decline_button">종료</string>
+	<string name="dialog_enter_license_decline_button">취소</string>
 	<string name="dialog_license_confirmation_title">라이선스 확인</string>
 	<string name="dialog_license_confirmation_message">%1$s님, 유효한 라이선스를 사용해 주셔서 감사합니다.</string>
 	<string name="dialog_update_available_title">업데이트가 출시되었습니다</string>
@@ -373,6 +395,10 @@
 	<string name="dialog_hub_license_upgrade_required_hint">Cryptomator Hub 인스턴스에 잘못된 라이선스가 있습니다. 라이센스를 업그레이드하거나 갱신하려면 Hub 관리자에게 알리십시오.\"</string>
 	<string name="dialog_hub_vault_archived_title">Vault 아카이브됨</string>
 	<string name="dialog_hub_vault_archived_hint">이 Vault는 아카이브 되어 잠금 해제할 수 없습니다. 잠금 해제하기 위해서는 Vault 소유자가 아카이브를 해제해야 합니다.</string>
+	<string name="dialog_restore_successful_title">복원 완료</string>
+	<string name="dialog_no_full_version_title">정식 버전 없음</string>
+	<string name="dialog_cancel_subscription_reminder_manage_button">구독 관리</string>
+	<string name="dialog_cancel_subscription_reminder_close_button">닫기</string>
 	<string name="dialog_hub_user_setup_required_title">사용자 설정 필요함</string>
 	<string name="dialog_hub_user_setup_required_hint">진행하려면 Hub 사용자 프로필에서 필요한 조치를 완료하십시오.</string>
 	<string name="dialog_hub_user_setup_required_neutral_button">프로필로 가기</string>
@@ -415,7 +441,6 @@
 	<string name="notification_lock_all">모두 잠그기</string>
 	<string name="notification_cancel_auto_upload">업로드 취소</string>
 	<string name="notification_auto_upload_title">자동 사진 업로드중</string>
-	<string name="notification_auto_upload_message">업로드중 %1d/%2d</string>
 	<string name="notification_auto_upload_finished_title">사진 자동 업로드 완료</string>
 	<string name="notification_auto_upload_finished_message">사진 %1$d개를 Vault로 업로드함</string>
 	<string name="notification_auto_upload_failed_title">자동 사진 업로드 실패</string>
@@ -434,8 +459,11 @@
 	<string name="screen_settings_lru_cache_size">총 캐시 크기</string>
 	<string name="screen_settings_clear_lru_cache_size">캐시 지우기</string>
 	<string name="screen_settings_lru_cache_changed__restart_toast">변경사항은 앱 재시작 후 적용됩니다</string>
-	<string name="screen_settings_license">등록된 사용자</string>
+	<string name="screen_settings_license_title_unlock">정식 버전 구입</string>
 	<string name="screen_settings_license_mail">%1$s</string>
+	<string name="screen_settings_manage_subscription">구독 관리</string>
+	<string name="screen_settings_upgrade_to_lifetime">평생 라이선스로 업그레이드</string>
+	<string name="dialog_trial_expired_unlock">정식 버전 구입</string>
 	<string name="dialog_settings_update_check_interval_title">업데이트 확인 주기</string>
 	<string name="screen_settings_check_updates">업데이트 확인</string>
 	<string name="screen_settings_last_check_updates">마지막 확인 %1$s</string>
