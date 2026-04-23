@@ -40,6 +40,9 @@
 	<string name="error_hub_invalid_setup_code">Tilin avain on virheellinen.</string>
 	<string name="error_hub_invalid_version">Hub -versiota ei tueta.</string>
 	<string name="error_hub_unlock_pre_31">Hub on tuettu vain Android 12 ja uudemmilla versioilla.</string>
+	<!-- # read-only & purchases -->
+	<string name="next">Seuraava</string>
+	<string name="back">Takaisin</string>
 	<!-- # clouds -->
 	<!-- ## cloud names -->
 	<string name="cloud_names_local_storage">Paikallinen tallennustila</string>
@@ -195,8 +198,10 @@
 	<string name="dialog_vault_not_found_positive_button_text">Poista</string>
 	<string name="dialog_lock_vault">Lukitse</string>
 	<string name="dialog_app_is_obscured_info_neutral_button">Sulje</string>
+	<string name="dialog_enter_license_decline_button">Peruuta</string>
 	<string name="dialog_sym_link_back_button">Takaisin</string>
 	<string name="dialog_hub_vault_access_forbidden_title">Pääsy estetty</string>
+	<string name="dialog_cancel_subscription_reminder_close_button">Sulje</string>
 	<!-- # error reports -->
 	<!-- # misc -->
 	<!-- ## file size helper -->
