@@ -42,6 +42,29 @@
 	<string name="error_hub_invalid_version">Неподдерживаемая версия хаба.</string>
 	<string name="error_hub_unlock_pre_31">Хаб поддерживается только на Android 12 и новее.</string>
 	<string name="error_hub_not_trustworthy">Хаб не является надёжным.</string>
+	<!-- # read-only & purchases -->
+	<string name="screen_license_check_benefit_family_sharing">Семейный доступ</string>
+	<string name="screen_license_check_benefit_write_access">Возможна запись в хранилища</string>
+	<string name="screen_license_check_benefit_support">Разработка ПО с открытым кодом</string>
+	<string name="screen_license_check_title_full_version">Получить полную версию</string>
+	<string name="screen_license_check_trial_title">30-дневная пробная версия</string>
+	<string name="screen_license_check_trial_price">Бесплатно</string>
+	<string name="screen_license_check_trial_subtitle">на 30 дней</string>
+	<string name="screen_license_check_subscription_title">Годовая подписка</string>
+	<string name="screen_license_check_subscription_subtitle">ежегодно</string>
+	<string name="screen_license_check_lifetime_title">Бессрочная лицензия</string>
+	<string name="screen_license_check_lifetime_subtitle">разово</string>
+	<string name="screen_license_check_restore_purchase">Восстановить покупку</string>
+	<string name="screen_license_check_terms">Условия использования</string>
+	<string name="screen_license_check_privacy">Политика конфиденциальности</string>
+	<string name="screen_license_check_trial_status_active">Активно</string>
+	<string name="screen_license_check_trial_status_expired">Истекло</string>
+	<string name="screen_license_check_trial_expired_info">Пробный период истёк.</string>
+	<string name="screen_welcome_title">Добро пожаловать</string>
+	<string name="screen_welcome_continue_button">Далее</string>
+	<string name="screen_welcome_screen_lock_button">Установка блокировки экрана</string>
+	<string name="next">Далее</string>
+	<string name="back">Назад</string>
 	<!-- # clouds -->
 	<!-- ## cloud names -->
 	<string name="cloud_names_local_storage">Локальное хранилище</string>
@@ -337,11 +360,10 @@
 	<string name="dialog_biometric_auth_key_invalidated_title">Биометрическая аутентификация отключена</string>
 	<string name="dialog_biometric_auth_key_invalidated_message">Поскольку ключ был аннулирован, биометрическая аутентификация была отключена. Для повторной активации откройте настройки Cryptomator.</string>
 	<string name="dialog_enter_license_title">Предоставьте действительную лицензию</string>
-	<string name="dialog_enter_license_content">Мы обнаружили, что вы установили Cryptomator, не используя Google Play. Предоставьте действительную лицензию, которую можно приобрести на <a href="https://cryptomator.org/android/">https://cryptomator.org/android/</a></string>
 	<string name="dialog_enter_license_not_valid_content">Лицензия недействительна. Убедитесь, что вы ввели её правильно.</string>
 	<string name="dialog_enter_license_not_valid_content_desktop_supporter_certificate">Предоставленный ключ - это сертификат спонсора. Введите действительную лицензию.</string>
 	<string name="dialog_enter_license_no_content">Нет лицензии. Введите действительную лицензию.</string>
-	<string name="dialog_enter_license_decline_button">Выход</string>
+	<string name="dialog_enter_license_decline_button">Отмена</string>
 	<string name="dialog_license_confirmation_title">Подтверждение лицензии</string>
 	<string name="dialog_license_confirmation_message">Благодарим %1$s за предоставленную лицензию.</string>
 	<string name="dialog_update_available_title">Доступно обновление</string>
@@ -376,6 +398,10 @@
 	<string name="dialog_hub_license_upgrade_required_hint">У хаба Cryptomator неверная лицензия. Попросите администратора хаба обновить или продлить лицензию.</string>
 	<string name="dialog_hub_vault_archived_title">Хранилище архивировано</string>
 	<string name="dialog_hub_vault_archived_hint">Это хранилище архивировано и не может быть разблокировано. Чтобы разблокировать, владелец хранилища должен его разархивировать.</string>
+	<string name="dialog_restore_successful_title">Успешно восстановлено</string>
+	<string name="dialog_no_full_version_title">Полной версии нет</string>
+	<string name="dialog_cancel_subscription_reminder_manage_button">Управление подпиской</string>
+	<string name="dialog_cancel_subscription_reminder_close_button">Закрыть</string>
 	<string name="dialog_hub_user_setup_required_title">Требуется настройка пользователя</string>
 	<string name="dialog_hub_user_setup_required_hint">Для продолжения выполните необходимые шаги в вашем профиле пользователя Hub.</string>
 	<string name="dialog_hub_user_setup_required_neutral_button">Перейти в профиль</string>
@@ -418,7 +444,6 @@
 	<string name="notification_lock_all">Заблокировать все</string>
 	<string name="notification_cancel_auto_upload">Отменить загрузку</string>
 	<string name="notification_auto_upload_title">Выполняется автозагрузка фото</string>
-	<string name="notification_auto_upload_message">Загрузка %1d/%2d</string>
 	<string name="notification_auto_upload_finished_title">Автозагрузка фото завершена</string>
 	<string name="notification_auto_upload_finished_message">Загружено изображений в хранилище: %1$d</string>
 	<string name="notification_auto_upload_failed_title">Ошибка автоотправки фото</string>
@@ -437,8 +462,11 @@
 	<string name="screen_settings_lru_cache_size">Общий размер кэша</string>
 	<string name="screen_settings_clear_lru_cache_size">Очистить кэш</string>
 	<string name="screen_settings_lru_cache_changed__restart_toast">Изменения будут применены при следующем перезапуске приложения</string>
-	<string name="screen_settings_license">Зарегистрировано</string>
+	<string name="screen_settings_license_title_unlock">Получить полную версию</string>
 	<string name="screen_settings_license_mail">%1$s</string>
+	<string name="screen_settings_manage_subscription">Управление подпиской</string>
+	<string name="screen_settings_upgrade_to_lifetime">Обновить до бессрочной подписки</string>
+	<string name="dialog_trial_expired_unlock">Получить полную версию</string>
 	<string name="dialog_settings_update_check_interval_title">Интервал проверки обновлений</string>
 	<string name="screen_settings_check_updates">Проверить обновления</string>
 	<string name="screen_settings_last_check_updates">Последняя проверка %1$s</string>
