@@ -35,6 +35,9 @@
 	<string name="error_no_such_bucket">چنین پارامتری وجود ندارد</string>
 	<string name="error_masterkey_location_not_supported">مکان سفارشی برای کلید اصلی هم اکنون پشتیبانی نمی‌شود</string>
 	<string name="error_interact_with_fdroid_but_fdroid_missing">برقراری ارتباط با برنامه F-Droid ناموفق بود. نصب نشده است؟</string>
+	<!-- # read-only & purchases -->
+	<string name="next">بعدی</string>
+	<string name="back">بازگشت</string>
 	<!-- # clouds -->
 	<!-- ## cloud names -->
 	<string name="cloud_names_local_storage">فضای ذخیره‌سازی محلی</string>
@@ -212,7 +215,9 @@
 	<string name="dialog_file_name_hint">نام فایل</string>
 	<string name="dialog_lock_vault">قفل</string>
 	<string name="dialog_app_is_obscured_info_neutral_button">ببند</string>
+	<string name="dialog_enter_license_decline_button">انصراف</string>
 	<string name="dialog_sym_link_back_button">بازگشت</string>
+	<string name="dialog_cancel_subscription_reminder_close_button">ببند</string>
 	<!-- # error reports -->
 	<!-- # misc -->
 	<!-- ## file size helper -->
