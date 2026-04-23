@@ -7,6 +7,7 @@
 	<string name="error_authentication_failed">Authenticatie mislukt</string>
 	<string name="error_authentication_failed_re_authenticate">Authenticatie mislukt, log in met %1$s</string>
 	<string name="error_no_network_connection">Geen netwerkverbinding</string>
+	<string name="error_purchase_not_available">Aankoop niet beschikbaar. Probeer het later opnieuw.</string>
 	<string name="error_invalid_passphrase">Fout wachtwoord</string>
 	<string name="error_file_or_folder_exists">Een bestand of map bestaat reeds.</string>
 	<string name="error_vault_version_not_supported">Kluisversie %1$s wordt niet ondersteund. Deze kluis is gemaakt met een oudere of nieuwere versie van Cryptomator.</string>
@@ -42,6 +43,30 @@
 	<string name="error_hub_invalid_version">Niet-ondersteunde Hub versie.</string>
 	<string name="error_hub_unlock_pre_31">Hub wordt alleen ondersteund op Android 12 en hoger.</string>
 	<string name="error_hub_not_trustworthy">De hub is niet betrouwbaar.</string>
+	<!-- # read-only & purchases -->
+	<string name="read_only_reason_hub_inactive">Upgrade je Hub-licentie om schrijfrechten voor deze kluis in te schakelen.</string>
+	<string name="screen_license_check_benefit_family_sharing">Delen met gezin</string>
+	<string name="screen_license_check_benefit_write_access">Schrijf-toegang tot je kluizen</string>
+	<string name="screen_license_check_benefit_support">Open-source ontwikkeling</string>
+	<string name="screen_license_check_title_full_version">Volledige versie ontgrendelen</string>
+	<string name="screen_license_check_trial_title">30-dagen proefperiode</string>
+	<string name="screen_license_check_trial_price">Gratis</string>
+	<string name="screen_license_check_trial_subtitle">voor 30 dagen</string>
+	<string name="screen_license_check_subscription_title">Jaarabonnement</string>
+	<string name="screen_license_check_subscription_subtitle">jaarlijks</string>
+	<string name="screen_license_check_lifetime_title">Levenslange licentie</string>
+	<string name="screen_license_check_lifetime_subtitle">eenmalig</string>
+	<string name="screen_license_check_restore_purchase">Aankoop herstellen</string>
+	<string name="screen_license_check_terms">Gebruiksvoorwaarden</string>
+	<string name="screen_license_check_privacy">Privacybeleid</string>
+	<string name="screen_license_check_trial_status_active">Actief</string>
+	<string name="screen_license_check_trial_status_expired">Verlopen</string>
+	<string name="screen_license_check_trial_expired_info">Je proefperiode is verlopen.</string>
+	<string name="screen_welcome_title">Welkom</string>
+	<string name="screen_welcome_continue_button">Doorgaan</string>
+	<string name="screen_welcome_screen_lock_button">Schermvergrendeling instellen</string>
+	<string name="next">Volgende</string>
+	<string name="back">Terug</string>
 	<!-- # clouds -->
 	<!-- ## cloud names -->
 	<string name="cloud_names_local_storage">Lokale opslag</string>
@@ -335,11 +360,10 @@
 	<string name="dialog_biometric_auth_key_invalidated_title">Biometrische authenticatie functie gedeactiveerd</string>
 	<string name="dialog_biometric_auth_key_invalidated_message">Omdat de sleutel niet geldig is, is de biometrische authenticatie functie gedeactiveerd. Open de Cryptomator instellingen om deze opnieuw in te schakelen.</string>
 	<string name="dialog_enter_license_title">Geef een geldige licentie op</string>
-	<string name="dialog_enter_license_content">U heeft Cryptomator gedownload zonder Google Play Store te gebruiken. Geef een geldige licentie in. Een geldige licentie kan worden gekocht op <a href="https://cryptomator.org/android/">https://cryptomator.org/android/</a></string>
 	<string name="dialog_enter_license_not_valid_content">De opgegeven licentie is niet geldig. Zorg ervoor dat u deze correct hebt ingevoerd.</string>
 	<string name="dialog_enter_license_not_valid_content_desktop_supporter_certificate">De verstrekte sleutel is een desktop supportercertificaat. Voer een geldige licentie in.</string>
 	<string name="dialog_enter_license_no_content">Geen licentie ingegeven. Voer een geldige licentie in.</string>
-	<string name="dialog_enter_license_decline_button">Afsluiten</string>
+	<string name="dialog_enter_license_decline_button">Annuleren</string>
 	<string name="dialog_license_confirmation_title">Licentie bevestiging</string>
 	<string name="dialog_license_confirmation_message">Bedankt %1$s voor het ingeven van uw geldige licentie.</string>
 	<string name="dialog_update_available_title">Update beschikbaar</string>
@@ -374,6 +398,10 @@
 	<string name="dialog_hub_license_upgrade_required_hint">Uw Cryptomator Hub-exemplaar heeft een ongeldige licentie. Informeer een Hub-beheerder om de licentie te upgraden of te verlengen.\"</string>
 	<string name="dialog_hub_vault_archived_title">Kluis gearchiveerd</string>
 	<string name="dialog_hub_vault_archived_hint">Deze kluis is gearchiveerd en kan niet worden ontgrendeld. Om het te ontgrendelen, moet een kluiseigenaar het archief uit het archief halen.</string>
+	<string name="dialog_restore_successful_title">Herstellen geslaagd</string>
+	<string name="dialog_no_full_version_title">Geen volledige versie</string>
+	<string name="dialog_cancel_subscription_reminder_manage_button">Abonnement beheren</string>
+	<string name="dialog_cancel_subscription_reminder_close_button">Sluiten</string>
 	<string name="dialog_hub_user_setup_required_title">Instellen van gebruiker vereist</string>
 	<string name="dialog_hub_user_setup_required_hint">Om verder te gaan, gelieve de stappen te voltooien in uw Hub-gebruikersprofiel.</string>
 	<string name="dialog_hub_user_setup_required_neutral_button">Ga naar Profiel</string>
@@ -416,7 +444,6 @@
 	<string name="notification_lock_all">Alles vergrendelen</string>
 	<string name="notification_cancel_auto_upload">Upload annuleren</string>
 	<string name="notification_auto_upload_title">Automatische foto upload actief</string>
-	<string name="notification_auto_upload_message">Uploaden %1d/%2d</string>
 	<string name="notification_auto_upload_finished_title">Automatische foto\'s uploaden voltooid</string>
 	<string name="notification_auto_upload_finished_message">%1$d afbeeldingen geüpload naar de kluis</string>
 	<string name="notification_auto_upload_failed_title">Automatische foto\'s uploaden mislukt</string>
@@ -435,8 +462,11 @@
 	<string name="screen_settings_lru_cache_size">Totale cache grootte</string>
 	<string name="screen_settings_clear_lru_cache_size">Cache leegmaken</string>
 	<string name="screen_settings_lru_cache_changed__restart_toast">Wijzigingen worden toegepast bij het opnieuw opstarten van de app</string>
-	<string name="screen_settings_license">Geregistreerd voor</string>
+	<string name="screen_settings_license_title_unlock">Volledige versie ontgrendelen</string>
 	<string name="screen_settings_license_mail">%1$s</string>
+	<string name="screen_settings_manage_subscription">Abonnement beheren</string>
+	<string name="screen_settings_upgrade_to_lifetime">Upgrade naar Levenslang</string>
+	<string name="dialog_trial_expired_unlock">Volledige versie ontgrendelen</string>
 	<string name="dialog_settings_update_check_interval_title">Update interval</string>
 	<string name="screen_settings_check_updates">Controleren op updates</string>
 	<string name="screen_settings_last_check_updates">Laatst uitgevoerd %1$s</string>
