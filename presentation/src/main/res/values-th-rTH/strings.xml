@@ -9,6 +9,28 @@
 	<string name="error_server_not_found">ไม่พบเซิฟเวอร์</string>
 	<string name="error_biometric_auth_aborted">การยืนยันตัวตนด้วยไบโอเมตริกซ์ถูกยกเลิก</string>
 	<string name="error_hub_device_already_register_for_other_user">อุปกรณ์นี้ลงทะเบียนไว้แล้วสำหรับผู้ใชอื่น โปรดลองเปลี่ยนบัญชีผู้ใช้หรือลงทะเบียนอุปกรณ์อื่น</string>
+	<!-- # read-only & purchases -->
+	<string name="screen_license_check_benefit_family_sharing">การแชร์กันในครอบครัว</string>
+	<string name="screen_license_check_benefit_support">การพัฒนาแบบ Open-source</string>
+	<string name="screen_license_check_title_full_version">ปลดล็อกเวอร์ชั่นเต็ม</string>
+	<string name="screen_license_check_trial_title">ทดลองใช้ 30 วัน</string>
+	<string name="screen_license_check_trial_price">ฟรี</string>
+	<string name="screen_license_check_trial_subtitle">30 วัน</string>
+	<string name="screen_license_check_subscription_title">สมาชิกรายปี</string>
+	<string name="screen_license_check_subscription_subtitle">รายปี</string>
+	<string name="screen_license_check_lifetime_title">สิทธิ์ใช้งานตลอดชีพ</string>
+	<string name="screen_license_check_lifetime_subtitle">ครั้งเดียว</string>
+	<string name="screen_license_check_restore_purchase">กู้คืนการซื้อ</string>
+	<string name="screen_license_check_terms">เงื่อนไขการใช้งาน</string>
+	<string name="screen_license_check_privacy">นโยบายความเป็นส่วนตัว</string>
+	<string name="screen_license_check_trial_status_active">ใช้งานอยู่</string>
+	<string name="screen_license_check_trial_status_expired">หมดอายุ</string>
+	<string name="screen_license_check_trial_expired_info">ระยะเวลาทดลองใช้งานของคุณหมดอายุแล้ว</string>
+	<string name="screen_welcome_title">ยินดีต้อนรับ</string>
+	<string name="screen_welcome_continue_button">ดำเนินการต่อ</string>
+	<string name="screen_welcome_screen_lock_button">ตั้งค่าการล็อกหน้าจอ</string>
+	<string name="next">ถัดไป</string>
+	<string name="back">ย้อนกลับ</string>
 	<!-- # clouds -->
 	<!-- ## cloud names -->
 	<!-- # permission -->
@@ -184,7 +206,7 @@
 	<string name="dialog_confirm_delete_multiple_title">ลบ %1$d รายการ?</string>
 	<string name="dialog_biometric_auth_key_invalidated_title">การยืนยันตัวตนด้วยไบโอเมตริกซ์ถูกยกเลิก</string>
 	<string name="dialog_biometric_auth_key_invalidated_message">เนื่องจากรหัสการตรวจสอบถูกยกเลิก ฟีเจอร์การตรวจสอบแบบไบโอเมตริกซ์จึงถูกปิดใช้งาน หากต้องการเปิดใช้งานอีกครั้ง โปรดเปิดการตั้งค่า Cryptomator</string>
-	<string name="dialog_enter_license_decline_button">ออก</string>
+	<string name="dialog_enter_license_decline_button">ยกเลิก</string>
 	<string name="dialog_update_available_title">มีการอัปเดตพร้อมใช้งาน</string>
 	<string name="dialog_update_available_update">อัปเดตตอนนี้</string>
 	<string name="dialog_update_available_cancel">ภายหลัง</string>
@@ -192,6 +214,10 @@
 	<string name="dialog_cbc_password_vaults_migration_hint">เนื่องจากการปรับปรุงด้านความปลอดภัย คุณจะถูกขอให้ตรวจสอบไบโอเมตริกซ์สองครั้งสำหรับแต่ละ vault เพื่อทำการเข้ารหัสรหัสผ่านของคุณใหม่ นี่เป็นสิ่งจำเป็นเพื่อรักษาความปลอดภัยรหัสผ่านของคุณด้วยเทคโนโลยีล่าสุด หากคุณไม่ต้องการ รหัสผ่านที่เก็บไว้จะถูกลบ</string>
 	<string name="dialog_cbc_password_vaults_migration_action">โอนย้าย</string>
 	<string name="dialog_hub_vault_access_forbidden_title">การเข้าถึงถูกปฏิเสธ</string>
+	<string name="dialog_restore_successful_title">การกู้คืนสำเร็จ</string>
+	<string name="dialog_no_full_version_title">ไม่มีเวอร์ชันเต็ม</string>
+	<string name="dialog_cancel_subscription_reminder_manage_button">จัดการการสมัครสมาชิก</string>
+	<string name="dialog_cancel_subscription_reminder_close_button">ปิด</string>
 	<string name="dialog_hub_user_setup_required_neutral_button">ไปยังโปร์ไฟล์</string>
 	<!-- # error reports -->
 	<!-- # misc -->
@@ -224,15 +250,16 @@
 	<!-- notification -->
 	<string name="notification_timeout">ล็อกภายใน \"%1$s</string>
 	<string name="notification_lock_all">ล็อกทั้งหมด</string>
-	<string name="notification_auto_upload_message">กำลังอัปโหลด %1d/%2d</string>
 	<string name="notification_auto_upload_failed_title">การอัปโหลดภาพอัตโนมัติล้มเหลว</string>
 	<string name="notification_open_writable_file_title">เปิดไฟล์ที่เขียนได้</string>
 	<string name="notification_update_check_finished_latest">ติดตั้งเวอร์ชันล่าสุดแล้ว</string>
 	<string name="screen_settings_lru_cache">แคช</string>
 	<string name="screen_settings_lru_cache_size">ขนาดแคชทั้งหมด</string>
 	<string name="screen_settings_clear_lru_cache_size">ล้างแคช</string>
-	<string name="screen_settings_license">ลงทะเบียนสำหรับ</string>
+	<string name="screen_settings_license_title_unlock">ปลดล็อกเวอร์ชั่นเต็ม</string>
 	<string name="screen_settings_license_mail">%1$s</string>
+	<string name="screen_settings_manage_subscription">จัดการการสมัครสมาชิก</string>
+	<string name="dialog_trial_expired_unlock">ปลดล็อกเวอร์ชั่นเต็ม</string>
 	<string name="screen_settings_check_updates">ตรวจสอบการอัพเดท</string>
 	<!-- lock timeout names -->
 	<string name="lock_timeout_instant">ทันที</string>
