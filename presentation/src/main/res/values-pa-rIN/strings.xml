@@ -24,6 +24,29 @@
 	<string name="error_update_no_internet">ਅੱਪਡੇਟ ਜਾਂਚ ਲਈ ਅਸਫ਼ਲ ਹੈ। ਕੋਈ ਇੰਟਰਨੈੱਟ ਕਨੈਕਸ਼ਨ ਨਹੀਂ ਹੈ।</string>
 	<string name="error_play_services_not_available">Google Play ਸੇਵਾਵਾਂ ਇੰਸਟਾਲ ਨਹੀਂ ਹਨ</string>
 	<string name="error_hub_invalid_version">Hub ਵਰਜ਼ਨ ਗ਼ੈਰ-ਸਹਾਇਕ ਹੈ।</string>
+	<!-- # read-only & purchases -->
+	<string name="screen_license_check_benefit_family_sharing">ਪਰਿਵਾਰ ਲਈ ਸਾਂਝਾ</string>
+	<string name="screen_license_check_benefit_write_access">ਤੁਹਾਡੇ ਵਾਲਟਾਂ ਲਈ ਲਿਖਣ ਪਹੁੰਚ</string>
+	<string name="screen_license_check_benefit_support">ਓਪਨ-ਸਰੋਤ ਵਿਕਾਸ</string>
+	<string name="screen_license_check_title_full_version">ਪੂਰਾ ਵਰਜ਼ਨ ਅਣ-ਲਾਕ ਕਰੋ</string>
+	<string name="screen_license_check_trial_title">30-ਦਿਨਾਂ ਲਈ ਅਜ਼ਮਾਇਸ਼</string>
+	<string name="screen_license_check_trial_price">ਮੁਫ਼ਤ</string>
+	<string name="screen_license_check_trial_subtitle">30 ਦਿਨਾਂ ਲਈ</string>
+	<string name="screen_license_check_subscription_title">ਸਾਲਨਾ ਮੈਂਬਰੀ</string>
+	<string name="screen_license_check_subscription_subtitle">ਸਾਲਨਾ</string>
+	<string name="screen_license_check_lifetime_title">ਜ਼ਿੰਗਦੀ ਭਰ ਲਈ ਲਸੰਸ</string>
+	<string name="screen_license_check_lifetime_subtitle">ਇੱਕ-ਵਾਰ</string>
+	<string name="screen_license_check_restore_purchase">ਖਰੀਦਦਾਰੀ ਨੂੰ ਬਹਾਲ ਕਰੋ</string>
+	<string name="screen_license_check_terms">ਵਰਤਣ ਦੀਆਂ ਸ਼ਰਤਾਂ</string>
+	<string name="screen_license_check_privacy">ਪਰਦੇਦਾਰੀ ਨੀਤੀ</string>
+	<string name="screen_license_check_trial_status_active">ਸਰਗਰਮ</string>
+	<string name="screen_license_check_trial_status_expired">ਮਿਆਦ ਪੁੱਗ ਗਈ</string>
+	<string name="screen_license_check_trial_expired_info">ਤੁਹਾਡੀ ਅਜ਼ਮਾਇਜ਼ ਦੀ ਮਿਆਦ ਪੁੱਗੀ ਹੈ।</string>
+	<string name="screen_welcome_title">ਜੀ ਆਇਆਂ ਨੂੰ</string>
+	<string name="screen_welcome_continue_button">ਜਾਰੀ ਰੱਖੋ</string>
+	<string name="screen_welcome_screen_lock_button">ਸਕਰੀਨ ਲਾਕ ਸੈੱਟ ਕਰੋ</string>
+	<string name="next">ਅੱਗੇ</string>
+	<string name="back">ਪਿੱਛੇ</string>
 	<!-- # clouds -->
 	<!-- ## cloud names -->
 	<string name="cloud_names_local_storage">ਲੋਕਲ ਸਟੋਰੇਜ਼</string>
@@ -266,7 +289,7 @@
 	<string name="dialog_confirm_delete_multiple_message">ਕੀ ਤੁਸੀਂ ਇਹ ਆਈਟਮਾਂ ਨੂੰ ਹਟਾਉਣਾ ਚਾਹੁੰਦੇ ਹੋ?</string>
 	<string name="dialog_confirm_delete_file_message">ਕੀ ਤੁਸੀਂ ਇਸ ਫਾਇਲ ਨੂੰ ਹਟਾਉਣਾ ਚਾਹੁੰਦੇ ਹੋ?</string>
 	<string name="dialog_confirm_delete_folder_message">ਇਸ ਨਾਲ ਫੋਲਡਰ ਵਿਚਲੀ ਸਾਰੀ ਸਮੱਗਰੀ ਨੂੰ ਵੀ ਹਟਾਇਆ ਜਾਵੇਗਾ। ਕੀ ਤੁਸੀਂ ਇਸ ਫੋਲਡਰ ਨੂੰ ਹਟਾਉਣਾ ਚਾਹੁੰਦੇ ਹੋ?</string>
-	<string name="dialog_enter_license_decline_button">ਬਾਹਰ</string>
+	<string name="dialog_enter_license_decline_button">ਰੱਦ ਕਰੋ</string>
 	<string name="dialog_license_confirmation_title">ਲਸੰਸ ਦੀ ਤਸਦੀਕ</string>
 	<string name="dialog_license_confirmation_message">ਆਪਣਾ ਵਾਜਬ ਲਸੰਸ ਦੇਣ ਲਈ %1$s ਦਾ ਧੰਨਵਾਦ ਹੈ।</string>
 	<string name="dialog_update_available_title">ਅੱਪਡੇਟ ਮੌਜੂਦ ਹੈ</string>
@@ -288,6 +311,10 @@
 	<string name="dialog_progress_creating_hub_device_setup">ਡਿਵਾਈਸ ਬਣਾਇਆ ਜਾ ਰਿਹਾ ਹੈ&#8230;</string>
 	<string name="dialog_hub_vault_access_forbidden_title">ਪਹੁੰਚ ਤੋਂ ਇਨਾਕਰ</string>
 	<string name="dialog_hub_license_upgrade_required_title">Hub ਲਸੰਸ ਦੀ ਜਾਂਚ ਕਰੋ</string>
+	<string name="dialog_restore_successful_title">ਬਹਾਲ ਕਰਨਾ ਕਾਮਯਾਬ ਰਿਹਾ</string>
+	<string name="dialog_no_full_version_title">ਪੂਰਾ ਵਰਜ਼ਨ ਨਹੀਂ ਹੈ</string>
+	<string name="dialog_cancel_subscription_reminder_manage_button">ਮੈਂਬਰੀ ਦਾ ਇੰਤਜ਼ਾਮ ਕਰੋ</string>
+	<string name="dialog_cancel_subscription_reminder_close_button">ਬੰਦ ਕਰੋ</string>
 	<string name="dialog_hub_user_setup_required_title">ਵਰਤੋਂਕਾਰ ਸੈਟਅੱਪ ਚਾਹੀਦਾ ਹੈ</string>
 	<string name="dialog_hub_user_setup_required_hint">ਜਾਰੀ ਰੱਖਣ ਲਈ ਆਪਣੇ Hub ਵਰਤੋਂਕਾਰ ਪਰੋਫਾਇਲ ਵਿੱਚ ਲੋੜੀਂਦੇ ਪੜਾਅ ਪੂਰੇ ਕਰੋ।</string>
 	<string name="dialog_hub_user_setup_required_neutral_button">ਪ੍ਰੋਫ਼ਾਈਲ ਤੇ ਜਾਓ</string>
@@ -324,12 +351,13 @@
 	<string name="notification_timeout">%1$s ਵਿੱਚ ਆਪਣੇ-ਆਪ ਲਾਕ ਕਰੋ</string>
 	<string name="notification_lock_all">ਸਭ ਲਾਕ ਹਨ</string>
 	<string name="notification_cancel_auto_upload">ਅੱਪਲੋਡ ਨੂੰ ਰੱਦ ਕਰੋ</string>
-	<string name="notification_auto_upload_message">%1d/%2d ਨੂੰ ਅੱਪਲੋਡ ਕੀਤਾ ਜਾ ਰਿਹਾ ਹੈ</string>
 	<string name="screen_settings_lru_cache">ਕੈਸ਼</string>
 	<string name="screen_settings_lru_cache_size">ਕੁੱਲ ਕੈਸ਼ ਆਕਾਰ</string>
 	<string name="screen_settings_clear_lru_cache_size">ਕੈਸ਼ ਨੂੰ ਮਿਟਾਓ</string>
-	<string name="screen_settings_license">ਇਸ ਲਈ ਰਜਿਸਟਰ ਹੈ</string>
+	<string name="screen_settings_license_title_unlock">ਪੂਰਾ ਵਰਜ਼ਨ ਅਣ-ਲਾਕ ਕਰੋ</string>
 	<string name="screen_settings_license_mail">%1$s</string>
+	<string name="screen_settings_manage_subscription">ਮੈਂਬਰੀ ਦਾ ਇੰਤਜ਼ਾਮ ਕਰੋ</string>
+	<string name="dialog_trial_expired_unlock">ਪੂਰਾ ਵਰਜ਼ਨ ਅਣ-ਲਾਕ ਕਰੋ</string>
 	<string name="dialog_settings_update_check_interval_title">ਅੱਪਡੇਟ ਚੈਕ ਕਰਨ ਦਾ ਅੰਤਰਾਲ</string>
 	<string name="screen_settings_check_updates">ਅੱਪਡੇਟ ਲਈ ਜਾਂਚ ਕਰੋ</string>
 	<string name="screen_settings_last_check_updates">%1$s ਨੂੰ ਆਖਰੀ ਵਾਰ ਚਲਾਇਆ</string>
