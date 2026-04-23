@@ -35,6 +35,29 @@
 	<string name="error_no_such_bucket">דלי לא נמצא</string>
 	<string name="error_masterkey_location_not_supported">שינוי מיקום ה Masterkey עדיין לא נתמך</string>
 	<string name="error_interact_with_fdroid_but_fdroid_missing">כשלון בתקשורת מול ישום F-Droid. האם הוא מותקן?</string>
+	<!-- # read-only & purchases -->
+	<string name="screen_license_check_benefit_family_sharing">שיתוף משפחתי</string>
+	<string name="screen_license_check_benefit_write_access">גישה כתיבה לכספות שלך</string>
+	<string name="screen_license_check_benefit_support">פיתוח קוד-פתוח</string>
+	<string name="screen_license_check_title_full_version">שחרור גרסה מלאה</string>
+	<string name="screen_license_check_trial_title">30 ימי ניסיון</string>
+	<string name="screen_license_check_trial_price">חינם</string>
+	<string name="screen_license_check_trial_subtitle">ל- 30 ימים</string>
+	<string name="screen_license_check_subscription_title">מנוי שנתי</string>
+	<string name="screen_license_check_subscription_subtitle">שנתי</string>
+	<string name="screen_license_check_lifetime_title">רשיון לכל החיים</string>
+	<string name="screen_license_check_lifetime_subtitle">חד פעמי</string>
+	<string name="screen_license_check_restore_purchase">שחזר רכישה</string>
+	<string name="screen_license_check_terms">תנאי שימוש</string>
+	<string name="screen_license_check_privacy">מדיניות פרטיות</string>
+	<string name="screen_license_check_trial_status_active">פעיל</string>
+	<string name="screen_license_check_trial_status_expired">פג תוקף</string>
+	<string name="screen_license_check_trial_expired_info">תקופת הניסיון פגה.</string>
+	<string name="screen_welcome_title">ברוך הבא</string>
+	<string name="screen_welcome_continue_button">המשך</string>
+	<string name="screen_welcome_screen_lock_button">הגדר נעילת מסך</string>
+	<string name="next">הבא</string>
+	<string name="back">חזור</string>
 	<!-- # clouds -->
 	<!-- ## cloud names -->
 	<string name="cloud_names_local_storage">אחסון מקומי</string>
@@ -321,11 +344,10 @@
 	<string name="dialog_biometric_auth_key_invalidated_title">האימות הביומטרי בוטל</string>
 	<string name="dialog_biometric_auth_key_invalidated_message">בגלל שמפתח זה כבר לא חוקי, הזיהו הביומטרי הופסק. להפעלה מחדש יש לפתוח את מסך ההגדרות של Cryptomator.</string>
 	<string name="dialog_enter_license_title">שימוש במפתח רישיון</string>
-	<string name="dialog_enter_license_content">זיהינו שהתקנת את Cryptomator לא דרך ה-Google Play Store. להפעלת האפליקציה, יש להכניס מפתח רישיון. ניתן לרכוש מפתח ב-<a href="https://cryptomator.org/android/">https://cryptomator.org/android/</a></string>
 	<string name="dialog_enter_license_not_valid_content">המפתח לא אומת. וודא כי הזנת אותו כהלכה.</string>
 	<string name="dialog_enter_license_not_valid_content_desktop_supporter_certificate">המפתח שהוזן הוא תעודת תומך. יש להזין מפתח חוקי.</string>
 	<string name="dialog_enter_license_no_content">לא הוזן מפתח, אנא הזן מפתח רישיון תקין.</string>
-	<string name="dialog_enter_license_decline_button">יציאה</string>
+	<string name="dialog_enter_license_decline_button">ביטול</string>
 	<string name="dialog_license_confirmation_title">מפתח הרישיון אומת</string>
 	<string name="dialog_license_confirmation_message">תודה %1$s, על כך שהזנת מפתח רישיון תקין.</string>
 	<string name="dialog_update_available_title">עדכון זמין</string>
@@ -344,6 +366,10 @@
 	<string name="dialog_pcloud_credentials_updated_title">פרטי ההתחברות של \'%1$s\' עודכנו</string>
 	<string name="dialog_pcloud_credentials_updated">אם ברצונך להוסיף חשבון pCloud חדש, לחץ על הקישור <a href="https://www.pcloud.com">www.pcloud.com</a>, התנתק מהחשבון הנוכחי ולחץ על ה \'+\' בישום זה ליצירת חיבור ענן חדש.</string>
 	<string name="dialog_hub_vault_access_forbidden_title">הגישה נדחתה</string>
+	<string name="dialog_restore_successful_title">שוחזר בהצלחה</string>
+	<string name="dialog_no_full_version_title">אין גרסה מלאה</string>
+	<string name="dialog_cancel_subscription_reminder_manage_button">ניהול מנוי</string>
+	<string name="dialog_cancel_subscription_reminder_close_button">סגור</string>
 	<string name="permission_snackbar_auth_local_vault">Cryptomator זקוק להרשאת גישה לזיכרון המכשיר כדי להשתמש בכספת מקומית</string>
 	<string name="permission_snackbar_auth_auto_upload">Cryptomator זקוק להרשאת גישה לזיכרון המכשיר כדי לבצע העלאה אוטומטית של תמונות</string>
 	<string name="permission_snackbar_notifications">Cryptomator צריך הרשאה לשליחת התראות על מנת, לדוגמה, להציג לכם את מצב הכספת</string>
@@ -382,7 +408,6 @@
 	<string name="notification_lock_all">נעל הכל</string>
 	<string name="notification_cancel_auto_upload">בטל העלאה</string>
 	<string name="notification_auto_upload_title">מתבצעת העלאה אוטומטית של תמונות</string>
-	<string name="notification_auto_upload_message">מעלה %1d/%2d</string>
 	<string name="notification_auto_upload_finished_title">העלאה אוטומטית של תמונות הסתיימה</string>
 	<string name="notification_auto_upload_finished_message">%1$d תמונות הועלו ל Vault</string>
 	<string name="notification_auto_upload_failed_title">העלאה אוטומטית של תמונות נכשלה</string>
@@ -399,8 +424,10 @@
 	<string name="screen_settings_lru_cache_size">נפח מטמון</string>
 	<string name="screen_settings_clear_lru_cache_size">נקה מטמון</string>
 	<string name="screen_settings_lru_cache_changed__restart_toast">השינויים יכנסו לתוקף בהפעלה מחדש הבאה של הישום</string>
-	<string name="screen_settings_license">רשום עבור</string>
+	<string name="screen_settings_license_title_unlock">שחרור גרסה מלאה</string>
 	<string name="screen_settings_license_mail">%1$s</string>
+	<string name="screen_settings_manage_subscription">ניהול מנוי</string>
+	<string name="dialog_trial_expired_unlock">שחרור גרסה מלאה</string>
 	<string name="dialog_settings_update_check_interval_title">בדוק עדכונים אוטומטית</string>
 	<string name="screen_settings_check_updates">חפש עדכונים</string>
 	<string name="screen_settings_last_check_updates">בדיקה אחרונה %1$s</string>
