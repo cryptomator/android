@@ -7,6 +7,7 @@
 	<string name="error_authentication_failed">인증 실패</string>
 	<string name="error_authentication_failed_re_authenticate">인증에 실패했습니다, %1$s를 사용하여 로그인 하십시오</string>
 	<string name="error_no_network_connection">네트워크 연결 없음</string>
+	<string name="error_purchase_not_available">구매를 완료할 수 없습니다. 잠시 후 다시 시도해 주십시오.</string>
 	<string name="error_invalid_passphrase">잘못된 비밀번호입니다</string>
 	<string name="error_file_or_folder_exists">파일 또는 폴더가 이미 존재합니다.</string>
 	<string name="error_vault_version_not_supported">%1$s 버전의 Vault는 지원되지 않습니다. 해당 vault는 타 버전의 Cryptomator로 생성되었습니다.</string>
@@ -43,9 +44,25 @@
 	<string name="error_hub_unlock_pre_31">Hub는 Android 12 이상에서만 지원됩니다.</string>
 	<string name="error_hub_not_trustworthy">Hub를 신뢰할 수 없습니다.</string>
 	<!-- # read-only & purchases -->
+	<string name="read_only_reason_hub_inactive">이 Vault에 대한 쓰기 권한을 활성화하려면 Hub 라이선스를 업그레이드하십시오.</string>
+	<string name="toast_purchase_revoked_refunded">평생 라이선스 구매 항목이 환불되었습니다. 현재 읽기 전용 권한으로 제한됩니다.</string>
+	<string name="toast_purchase_revoked_subscription_inactive">구독이 만료되었습니다. 현재 읽기 전용 권한으로 제한됩니다.</string>
+	<string name="screen_license_check_locked_create_vault">정식 버전으로 업그레이드하여 Vault를 생성하세요</string>
+	<string name="screen_license_check_locked_upload_files">정식 버전으로 업그레이드하여 파일을 업로드하세요</string>
+	<string name="screen_license_check_locked_create_folder">정식 버전으로 업그레이드하여 폴더를 생성하세요</string>
+	<string name="screen_license_check_locked_create_text_file">정식 버전으로 업그레이드하여 텍스트 파일을 생성하세요</string>
+	<string name="screen_license_check_locked_share_node">정식 버전으로 업그레이드하여 파일이나 폴더를 공유하세요</string>
+	<string name="screen_license_check_locked_rename_node">정식 버전으로 업그레이드하여 파일이나 폴더의 이름을 변경하세요</string>
+	<string name="screen_license_check_locked_move_node">정식 버전으로 업그레이드하여 파일이나 폴더를 이동하세요</string>
+	<string name="screen_license_check_locked_delete_node">정식 버전으로 업그레이드하여 파일이나 폴더를 삭제하세요</string>
+	<string name="screen_license_check_title">쓰기 권한 얻기</string>
+	<string name="screen_license_check_benefit_title">제공되는 혜택</string>
 	<string name="screen_license_check_benefit_family_sharing">가족 공유</string>
 	<string name="screen_license_check_benefit_write_access">Vault 데이터 변경</string>
 	<string name="screen_license_check_benefit_support">오픈소스 소프트웨어</string>
+	<string name="screen_license_check_button_purchase">Google Play에서 구매</string>
+	<string name="screen_license_check_button_enter_license">라이선스 키 입력</string>
+	<string name="screen_license_check_enter_license_action">확인</string>
 	<string name="screen_license_check_title_full_version">정식 버전 구입</string>
 	<string name="screen_license_check_trial_title">30일 체험판</string>
 	<string name="screen_license_check_trial_price">무료</string>
@@ -57,12 +74,21 @@
 	<string name="screen_license_check_restore_purchase">구매 복원</string>
 	<string name="screen_license_check_terms">이용 약관</string>
 	<string name="screen_license_check_privacy">개인정보 보호정책</string>
+	<string name="screen_license_check_trial_expiration">체험판 만료일: %s</string>
 	<string name="screen_license_check_trial_status_active">활성화됨</string>
 	<string name="screen_license_check_trial_status_expired">만료됨</string>
+	<string name="screen_license_check_trial_active_info">체험판 만료됨: %s</string>
 	<string name="screen_license_check_trial_expired_info">체험판이 만료되었습니다.</string>
+	<string name="screen_license_check_subscription_upgrade_hint">현재 활성화된 구독이 있습니다. 평생 라이선스로 전환하시려면, 라이선스를 구매하신 후 기존 구독을 취소하십시오.</string>
 	<string name="screen_welcome_title">환영합니다</string>
+	<string name="screen_welcome_notifications_title">알림 받기</string>
+	<string name="screen_welcome_notifications_message">Cryptomator가 백그라운드 활동, 자동 업로드 및 기타 중요 이벤트에 대해 안내할 수 있도록 알림을 허용해 주십시오.</string>
+	<string name="screen_welcome_notifications_button">알림 허용하기</string>
+	<string name="screen_welcome_notifications_granted">알림이 활성화되었습니다.</string>
 	<string name="screen_welcome_continue_button">계속하기</string>
 	<string name="screen_welcome_screen_lock_button">화면 잠금 설정</string>
+	<string name="screen_welcome_screen_lock_already_set">화면 잠금이 이미 설정되었습니다.</string>
+	<string name="screen_welcome_intro_body">파일 보호를 위해 Cryptomator를 선택해 주셔서 감사합니다.\n\nCryptomator와 함께라면 귀하의 데이터의 제어권은 오직 귀하에게 있습니다.\n\n데이터를 빠르고 간편하게 암호화하세요.</string>
 	<string name="next">다음</string>
 	<string name="back">이전</string>
 	<!-- # clouds -->
@@ -162,7 +188,7 @@
 	<!-- ## screen: s3 settings -->
 	<string name="screen_s3_settings_display_name_label">표시 이름</string>
 	<string name="screen_s3_settings_access_key_label">액세스 키</string>
-	<string name="screen_s3_settings_secret_key_label">비밀키</string>
+	<string name="screen_s3_settings_secret_key_label">비밀 키</string>
 	<string name="screen_s3_settings_bucket_label">이미 존재하는 버킷</string>
 	<string name="screen_s3_settings_endpoint_label">엔드포인트</string>
 	<string name="screen_s3_settings_region_label">지역</string>
@@ -357,6 +383,7 @@
 	<string name="dialog_biometric_auth_key_invalidated_title">생체 인증 기능이 비활성화됨</string>
 	<string name="dialog_biometric_auth_key_invalidated_message">키가 유효하지 않게 되어, 생체 인증 기능이 비활성화 되었습니다. 다시 활성화하려면 Cryptomator 설정을 여세요.</string>
 	<string name="dialog_enter_license_title">유효한 라이선스를 입력하세요</string>
+	<string name="dialog_enter_license_content"><a href="https://cryptomator.org/android/">https://cryptomator.org/android/</a>에서 라이선스를 구매하거나 또는 기존 Android 라이선스 키를 입력하세요.</string>
 	<string name="dialog_enter_license_not_valid_content">입력된 라이선스는 유효하지 않습니다. 다시한번 확인해주세요.</string>
 	<string name="dialog_enter_license_not_valid_content_desktop_supporter_certificate">제공된 키는 데스크톱 판의 서포터 인증서입니다. 유효한 라이선스를 입력하세요.</string>
 	<string name="dialog_enter_license_no_content">라이선스가 입력되지 않았습니다. 유효한 라이선스를 입력해주세요.</string>
@@ -396,7 +423,13 @@
 	<string name="dialog_hub_vault_archived_title">Vault 아카이브됨</string>
 	<string name="dialog_hub_vault_archived_hint">이 Vault는 아카이브 되어 잠금 해제할 수 없습니다. 잠금 해제하기 위해서는 Vault 소유자가 아카이브를 해제해야 합니다.</string>
 	<string name="dialog_restore_successful_title">복원 완료</string>
+	<string name="dialog_restore_successful_message">구매 내역이 복원되어 이 기기에서 활성화되었습니다.</string>
 	<string name="dialog_no_full_version_title">정식 버전 없음</string>
+	<string name="dialog_no_full_version_message">이 Google 계정에서 기존 구매 내역을 찾을 수 없습니다.</string>
+	<string name="dialog_restore_failed_title">복원 실패함</string>
+	<string name="dialog_restore_failed_message">Play Store에 연결할 수 없습니다. 인터넷 연결 상태를 확인하고 다시 시도해 주세요.</string>
+	<string name="dialog_cancel_subscription_reminder_title">구독을 취소하는 것을 잊지 마세요</string>
+	<string name="dialog_cancel_subscription_reminder_message">이제 평생 라이선스를 보유하게 되었습니다. 향후 요금 청구를 방지하려면 Google Play 스토어에서 연간 구독을 취소하세요.</string>
 	<string name="dialog_cancel_subscription_reminder_manage_button">구독 관리</string>
 	<string name="dialog_cancel_subscription_reminder_close_button">닫기</string>
 	<string name="dialog_hub_user_setup_required_title">사용자 설정 필요함</string>
@@ -441,6 +474,7 @@
 	<string name="notification_lock_all">모두 잠그기</string>
 	<string name="notification_cancel_auto_upload">업로드 취소</string>
 	<string name="notification_auto_upload_title">자동 사진 업로드중</string>
+	<string name="notification_auto_upload_message">업로드 중 %1$d/%2$d</string>
 	<string name="notification_auto_upload_finished_title">사진 자동 업로드 완료</string>
 	<string name="notification_auto_upload_finished_message">사진 %1$d개를 Vault로 업로드함</string>
 	<string name="notification_auto_upload_failed_title">자동 사진 업로드 실패</string>
@@ -460,10 +494,17 @@
 	<string name="screen_settings_clear_lru_cache_size">캐시 지우기</string>
 	<string name="screen_settings_lru_cache_changed__restart_toast">변경사항은 앱 재시작 후 적용됩니다</string>
 	<string name="screen_settings_license_title_unlock">정식 버전 구입</string>
+	<string name="screen_settings_license_title_unlocked">정식 버전</string>
 	<string name="screen_settings_license_mail">%1$s</string>
+	<string name="screen_settings_license_summary_write_access">쓰기 권한을 얻었습니다!</string>
+	<string name="screen_settings_license_summary_tap_to_unlock">탭하여 쓰기 권한을 잠금 해제하세요</string>
+	<string name="screen_settings_license_summary_write_access_mail">%1$s에 대한 쓰기 권한</string>
 	<string name="screen_settings_manage_subscription">구독 관리</string>
 	<string name="screen_settings_upgrade_to_lifetime">평생 라이선스로 업그레이드</string>
+	<string name="dialog_trial_expired_title">체험판 만료됨</string>
+	<string name="dialog_trial_expired_message">무료 체험판이 만료되었습니다. 읽기 전용 모드로 계속 사용하거나 정식 버전을 잠금 해제할 수 있습니다.</string>
 	<string name="dialog_trial_expired_unlock">정식 버전 구입</string>
+	<string name="dialog_trial_expired_continue_read_only">쓰기 전용 모드로 계속하기</string>
 	<string name="dialog_settings_update_check_interval_title">업데이트 확인 주기</string>
 	<string name="screen_settings_check_updates">업데이트 확인</string>
 	<string name="screen_settings_last_check_updates">마지막 확인 %1$s</string>
