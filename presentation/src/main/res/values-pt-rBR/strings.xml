@@ -7,6 +7,7 @@
 	<string name="error_authentication_failed">Falha ao autenticar</string>
 	<string name="error_authentication_failed_re_authenticate">Falha na autenticação. Faça login usando %1$s</string>
 	<string name="error_no_network_connection">Sem conexão com a internet</string>
+	<string name="error_purchase_not_available">Compra indisponível. Tente novamente mais tarde.</string>
 	<string name="error_invalid_passphrase">Senha incorreta</string>
 	<string name="error_file_or_folder_exists">Um arquivo ou pasta já existe.</string>
 	<string name="error_vault_version_not_supported">A versão %1$s do cofre não é suportada. Ele foi criado em uma versão mais antiga ou mais recente do Cryptomator.</string>
@@ -43,6 +44,7 @@
 	<string name="error_hub_unlock_pre_31">O Hub só é compatível a partir do Android 12.</string>
 	<string name="error_hub_not_trustworthy">Hub não confiável.</string>
 	<!-- # read-only & purchases -->
+	<string name="read_only_reason_hub_inactive">Atualize sua licença do Hub para ativar a gravação para este cofre.</string>
 	<string name="screen_license_check_locked_create_vault">Desbloqueie a versão completa para criar cofres</string>
 	<string name="screen_license_check_locked_upload_files">Desbloqueie a versão completa para enviar arquivos</string>
 	<string name="screen_license_check_locked_create_folder">Desbloqueie a versão completa para criar pastas</string>
@@ -484,8 +486,11 @@
 	<string name="screen_settings_license_title_unlocked">Versão Completa</string>
 	<string name="screen_settings_license_mail">%1$s</string>
 	<string name="screen_settings_license_summary_write_access">Acesso de escrita desbloqueado!</string>
+	<string name="screen_settings_license_summary_tap_to_unlock">Toque para desbloquear o acesso de gravação</string>
+	<string name="screen_settings_license_summary_write_access_mail">Acesso de gravação para %1$s</string>
 	<string name="screen_settings_manage_subscription">Gerenciar assinatura</string>
 	<string name="screen_settings_upgrade_to_lifetime">Atualize para a vitalícia</string>
+	<string name="dialog_trial_expired_title">Período experimental expirado</string>
 	<string name="dialog_trial_expired_unlock">Desbloqueie a versão completa</string>
 	<string name="dialog_settings_update_check_interval_title">Intervalo de verificação de atualização</string>
 	<string name="screen_settings_check_updates">Verificar atualizações</string>
