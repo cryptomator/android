@@ -43,9 +43,22 @@
 	<string name="error_hub_unlock_pre_31">O Hub só é compatível a partir do Android 12.</string>
 	<string name="error_hub_not_trustworthy">Hub não confiável.</string>
 	<!-- # read-only & purchases -->
+	<string name="screen_license_check_locked_create_vault">Desbloqueie a versão completa para criar cofres</string>
+	<string name="screen_license_check_locked_upload_files">Desbloqueie a versão completa para enviar arquivos</string>
+	<string name="screen_license_check_locked_create_folder">Desbloqueie a versão completa para criar pastas</string>
+	<string name="screen_license_check_locked_create_text_file">Desbloqueie a versão completa para criar arquivos de texto</string>
+	<string name="screen_license_check_locked_share_node">Desbloqueie a versão completa para compartilhar arquivos ou pastas</string>
+	<string name="screen_license_check_locked_rename_node">Desbloqueie a versão completa para renomear arquivos ou pastas</string>
+	<string name="screen_license_check_locked_move_node">Desbloqueie a versão completa para mover arquivos ou pastas</string>
+	<string name="screen_license_check_locked_delete_node">Desbloqueie a versão completa para apagar arquivos ou pastas</string>
+	<string name="screen_license_check_title">Desbloquear acesso de escrita</string>
+	<string name="screen_license_check_benefit_title">Seus benefícios</string>
 	<string name="screen_license_check_benefit_family_sharing">Compartilhamento familiar</string>
 	<string name="screen_license_check_benefit_write_access">Acesso de escrita aos seus cofres</string>
 	<string name="screen_license_check_benefit_support">Desenvolvimento em código aberto</string>
+	<string name="screen_license_check_button_purchase">Desbloquear pelo Google Play</string>
+	<string name="screen_license_check_button_enter_license">Digite a chave da licença</string>
+	<string name="screen_license_check_enter_license_action">Digite</string>
 	<string name="screen_license_check_title_full_version">Desbloqueie a versão completa</string>
 	<string name="screen_license_check_trial_title">Teste gratuito por 30 dias</string>
 	<string name="screen_license_check_trial_price">Gratuito</string>
@@ -57,8 +70,10 @@
 	<string name="screen_license_check_restore_purchase">Restaurar compra</string>
 	<string name="screen_license_check_terms">Termos de Uso</string>
 	<string name="screen_license_check_privacy">Política de Privacidade</string>
+	<string name="screen_license_check_trial_expiration">Expira em: %s</string>
 	<string name="screen_license_check_trial_status_active">Ativo</string>
 	<string name="screen_license_check_trial_status_expired">Expirado</string>
+	<string name="screen_license_check_trial_active_info">Teste expirado: %s</string>
 	<string name="screen_license_check_trial_expired_info">Seu período de teste expirou.</string>
 	<string name="screen_welcome_title">Bem-vindo(a)</string>
 	<string name="screen_welcome_continue_button">Continuar</string>
