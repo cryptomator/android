@@ -7,6 +7,7 @@
 	<string name="error_authentication_failed">Autenticazione non riuscita</string>
 	<string name="error_authentication_failed_re_authenticate">Autenticazione non riuscita, effettua il login usando %1$s</string>
 	<string name="error_no_network_connection">Nessuna connessione di rete</string>
+	<string name="error_purchase_not_available">Acquisto non disponibile. Riprova più tardi.</string>
 	<string name="error_invalid_passphrase">Password errata</string>
 	<string name="error_file_or_folder_exists">Esiste già un file o una cartella.</string>
 	<string name="error_vault_version_not_supported">La versione %1$s della cassaforte non è supportata. Questa cassaforte è stata creata con una versione più vecchia o più recente di Cryptomator.</string>
@@ -43,9 +44,25 @@
 	<string name="error_hub_unlock_pre_31">Hub è supportato solo su Android 12 o superiore.</string>
 	<string name="error_hub_not_trustworthy">L\'Hub non è affidabile.</string>
 	<!-- # read-only & purchases -->
+	<string name="read_only_reason_hub_inactive">Aggiorna la licenza del tuo Hub per abilitare la scrittura su questa cassaforte.</string>
+	<string name="toast_purchase_revoked_refunded">Il tuo acquisto della licenza \"a vita\" è stato rimborsato. Adesso hai accesso in sola lettura.</string>
+	<string name="toast_purchase_revoked_subscription_inactive">Il tuo abbonamento non è più attivo. Adesso hai accesso in sola lettura.</string>
+	<string name="screen_license_check_locked_create_vault">Sblocca la versione completa per creare casseforti</string>
+	<string name="screen_license_check_locked_upload_files">Sblocca la versione completa per caricare file</string>
+	<string name="screen_license_check_locked_create_folder">Sblocca la versione completa per creare cartelle</string>
+	<string name="screen_license_check_locked_create_text_file">Sblocca la versione completa per creare file di testo</string>
+	<string name="screen_license_check_locked_share_node">Sblocca la versione completa per condividere file o cartelle</string>
+	<string name="screen_license_check_locked_rename_node">Sblocca la versione completa per rinominare file o cartelle</string>
+	<string name="screen_license_check_locked_move_node">Sblocca la versione completa per spostare file o cartelle</string>
+	<string name="screen_license_check_locked_delete_node">Sblocca la versione completa per eliminare file o cartelle</string>
+	<string name="screen_license_check_title">Sblocca l\'accesso in scrittura</string>
+	<string name="screen_license_check_benefit_title">I vantaggi per te</string>
 	<string name="screen_license_check_benefit_family_sharing">Condivisione familiare</string>
 	<string name="screen_license_check_benefit_write_access">Accesso in scrittura alle tue casseforti</string>
 	<string name="screen_license_check_benefit_support">Sviluppo open source</string>
+	<string name="screen_license_check_button_purchase">Sblocca tramite Google Play</string>
+	<string name="screen_license_check_button_enter_license">Inserisci la chiave di licenza</string>
+	<string name="screen_license_check_enter_license_action">Inserisci</string>
 	<string name="screen_license_check_title_full_version">Sblocca la Versione Completa</string>
 	<string name="screen_license_check_trial_title">30 giorni di prova</string>
 	<string name="screen_license_check_trial_price">Gratuito</string>
@@ -57,12 +74,21 @@
 	<string name="screen_license_check_restore_purchase">Ripristina Acquisti</string>
 	<string name="screen_license_check_terms">Termini di utilizzo</string>
 	<string name="screen_license_check_privacy">Informativa sulla privacy</string>
+	<string name="screen_license_check_trial_expiration">Data di scadenza: %s</string>
 	<string name="screen_license_check_trial_status_active">Attivo</string>
 	<string name="screen_license_check_trial_status_expired">Scaduta</string>
+	<string name="screen_license_check_trial_active_info">La prova termina: %s</string>
 	<string name="screen_license_check_trial_expired_info">Il periodo di prova è scaduto.</string>
+	<string name="screen_license_check_subscription_upgrade_hint">Hai un abbonamento attivo. Acquista la licenza \"a vita\" e annulla il tuo abbonamento per cambiare.</string>
 	<string name="screen_welcome_title">Benvenuto</string>
+	<string name="screen_welcome_notifications_title">Rimani informato</string>
+	<string name="screen_welcome_notifications_message">Consenti le notifiche in modo che Cryptomator possa informarti sulle attività in background, i caricamenti automatici o altri eventi importanti.</string>
+	<string name="screen_welcome_notifications_button">Consenti le notifiche</string>
+	<string name="screen_welcome_notifications_granted">Le notifiche non sono abilitate.</string>
 	<string name="screen_welcome_continue_button">Continua</string>
 	<string name="screen_welcome_screen_lock_button">Imposta blocco schermo</string>
+	<string name="screen_welcome_screen_lock_already_set">Il blocco schermo è già impostato.</string>
+	<string name="screen_welcome_intro_body">Grazie per aver scelto Cryptomator per proteggere i tuoi file.\n\nCon Cryptomator, la chiave per accedere ai tuoi dati è nelle tue mani.\n\nCryptomator crittografa i tuoi dati rapidamente e in modo semplice.</string>
 	<string name="next">Avanti</string>
 	<string name="back">Indietro</string>
 	<!-- # clouds -->
@@ -358,6 +384,7 @@
 	<string name="dialog_biometric_auth_key_invalidated_title">Funzione di autenticazione biometrica disattivata</string>
 	<string name="dialog_biometric_auth_key_invalidated_message">Poiché la chiave è stata invalidata, la funzione di autenticazione biometrica è stata disattivata. Per riabilitarla, aprire le impostazioni di Cryptomator.</string>
 	<string name="dialog_enter_license_title">Fornire una licenza valida</string>
+	<string name="dialog_enter_license_content">Acquista una licenza su <a href="https://cryptomator.org/android/">https://cryptomator.org/android/</a> o inserisci la tua chiave di licenza per Android.</string>
 	<string name="dialog_enter_license_not_valid_content">La licenza fornita non è valida. Assicurati di averla inserita correttamente.</string>
 	<string name="dialog_enter_license_not_valid_content_desktop_supporter_certificate">La chiave fornita è un certificato per la versione desktop rilasciata ai supporter. Inserisci una licenza valida.</string>
 	<string name="dialog_enter_license_no_content">Nessuna licenza fornita. Inserisci una licenza valida.</string>
@@ -397,7 +424,13 @@
 	<string name="dialog_hub_vault_archived_title">Cassaforte archiviata</string>
 	<string name="dialog_hub_vault_archived_hint">Questa cassaforte è archiviata e non può essere sbloccata. Per sbloccarla, il proprietario della cassaforte deve ripristinarla dall\'archivio.</string>
 	<string name="dialog_restore_successful_title">Ripristino Riuscito</string>
+	<string name="dialog_restore_successful_message">Il tuo acquisto è stato ripristinato ed è ora attivo su questo dispositivo.</string>
 	<string name="dialog_no_full_version_title">Nessuna Versione Completa</string>
+	<string name="dialog_no_full_version_message">Non abbiamo potuto trovare nessun acquisto valido su questo account Google.</string>
+	<string name="dialog_restore_failed_title">Ripristino Fallito</string>
+	<string name="dialog_restore_failed_message">Non abbiamo potuto raggiungere il Platy Store. Controlla la connessione e riprova.</string>
+	<string name="dialog_cancel_subscription_reminder_title">Ricordati di annullare l\'abbonamento</string>
+	<string name="dialog_cancel_subscription_reminder_message">Ora hai una licenza \"a vita\". Per evitare costi futuri, annulla l\'abbonamento annuale dell Google Play Store.</string>
 	<string name="dialog_cancel_subscription_reminder_manage_button">Gestisci Abbonamento</string>
 	<string name="dialog_cancel_subscription_reminder_close_button">Chiudi</string>
 	<string name="dialog_hub_user_setup_required_title">Richiesta configurazione dell\'utente</string>
@@ -442,6 +475,7 @@
 	<string name="notification_lock_all">Blocca tutto</string>
 	<string name="notification_cancel_auto_upload">Annulla caricamento</string>
 	<string name="notification_auto_upload_title">Caricamento automatico delle foto in esecuzione</string>
+	<string name="notification_auto_upload_message">Caricamento %1$d/%2$d</string>
 	<string name="notification_auto_upload_finished_title">Caricamento automatico delle foto terminato</string>
 	<string name="notification_auto_upload_finished_message">%1$d immagini caricate nella cassaforte</string>
 	<string name="notification_auto_upload_failed_title">Caricamento automatico delle foto fallito</string>
@@ -461,10 +495,17 @@
 	<string name="screen_settings_clear_lru_cache_size">Svuota Cache</string>
 	<string name="screen_settings_lru_cache_changed__restart_toast">Le modifiche saranno applicate al prossimo riavvio dell\' app</string>
 	<string name="screen_settings_license_title_unlock">Sblocca la Versione Completa</string>
+	<string name="screen_settings_license_title_unlocked">Versione Completa</string>
 	<string name="screen_settings_license_mail">%1$s</string>
+	<string name="screen_settings_license_summary_write_access">Accesso in scrittura sbloccato!</string>
+	<string name="screen_settings_license_summary_tap_to_unlock">Tocca per sbloccare l\'accesso in scrittura</string>
+	<string name="screen_settings_license_summary_write_access_mail">Accesso in scrittura per %1$s</string>
 	<string name="screen_settings_manage_subscription">Gestisci Abbonamento</string>
 	<string name="screen_settings_upgrade_to_lifetime">Aggiorna a Licenza a Vita</string>
+	<string name="dialog_trial_expired_title">Periodo di prova terminato</string>
+	<string name="dialog_trial_expired_message">La tua prova gratuita è terminata. Puoi continuare in modalità sola lettura o sbloccare la versione completa.</string>
 	<string name="dialog_trial_expired_unlock">Sblocca la Versione Completa</string>
+	<string name="dialog_trial_expired_continue_read_only">Continua in modalità sola lettura</string>
 	<string name="dialog_settings_update_check_interval_title">Aggiorna intervallo di controllo</string>
 	<string name="screen_settings_check_updates">Controlla aggiornamenti</string>
 	<string name="screen_settings_last_check_updates">Ultima esecuzione %1$s</string>
