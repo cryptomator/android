@@ -7,6 +7,7 @@
 	<string name="error_authentication_failed">Échec de l\'authentification</string>
 	<string name="error_authentication_failed_re_authenticate">Échec de l\'authentification, veuillez vous connecter en utilisant %1$s</string>
 	<string name="error_no_network_connection">Pas de connexion au réseau</string>
+	<string name="error_purchase_not_available">Achat non disponible. Veuillez réessayer plus tard.</string>
 	<string name="error_invalid_passphrase">Mot de passe erroné</string>
 	<string name="error_file_or_folder_exists">Un fichier ou un dossier existe déjà.</string>
 	<string name="error_vault_version_not_supported">La version du coffre-fort %1$s n\'est pas prise en charge. Ce coffre-fort a été créé avec une version plus ancienne ou plus récente de Cryptomator.</string>
@@ -43,6 +44,15 @@
 	<string name="error_hub_unlock_pre_31">Hub est uniquement pris en charge sur Android 12 et versions ultérieures.</string>
 	<string name="error_hub_not_trustworthy">Hub n\'est pas digne de confiance.</string>
 	<!-- # read-only & purchases -->
+	<string name="toast_purchase_revoked_refunded">Votre achat à vie a été remboursé. Vous avez maintenant un accès en lecture seule.</string>
+	<string name="toast_purchase_revoked_subscription_inactive">Votre abonnement n\'est plus actif. Vous avez maintenant un accès en lecture seule.</string>
+	<string name="screen_license_check_locked_create_vault">Déverrouillez la version complète pour créer des coffres</string>
+	<string name="screen_license_check_locked_upload_files">Déverrouillez la version complète pour téléverser des fichiers</string>
+	<string name="screen_license_check_locked_create_folder">Déverrouillez la version complète pour créer des dossiers</string>
+	<string name="screen_license_check_locked_share_node">Déverrouillez la version complète pour partager des fichiers ou des dossiers</string>
+	<string name="screen_license_check_locked_rename_node">Déverrouillez la version complète pour renommer des fichiers ou des dossiers</string>
+	<string name="screen_license_check_locked_move_node">Déverrouillez la version complète pour déplacer des fichiers ou des dossiers</string>
+	<string name="screen_license_check_locked_delete_node">Déverrouillez la version complète pour supprimer des fichiers ou des dossiers</string>
 	<string name="screen_license_check_benefit_family_sharing">Partage familial</string>
 	<string name="screen_license_check_benefit_write_access">Accès en écriture à vos coffres</string>
 	<string name="screen_license_check_benefit_support">Développement open source</string>
@@ -57,8 +67,10 @@
 	<string name="screen_license_check_restore_purchase">Restaurer l’achat</string>
 	<string name="screen_license_check_terms">Conditions d\'Utilisation</string>
 	<string name="screen_license_check_privacy">Politique de Confidentialité</string>
+	<string name="screen_license_check_trial_expiration">Date d\'expiration : %s</string>
 	<string name="screen_license_check_trial_status_active">Actif</string>
 	<string name="screen_license_check_trial_status_expired">Expiré</string>
+	<string name="screen_license_check_trial_active_info">L\'essai expire le : %s</string>
 	<string name="screen_license_check_trial_expired_info">Votre période d\'essai a expiré.</string>
 	<string name="screen_welcome_title">Bienvenue</string>
 	<string name="screen_welcome_continue_button">Continuer</string>
