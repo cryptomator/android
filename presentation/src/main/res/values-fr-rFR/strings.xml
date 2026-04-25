@@ -44,18 +44,25 @@
 	<string name="error_hub_unlock_pre_31">Hub est uniquement pris en charge sur Android 12 et versions ultérieures.</string>
 	<string name="error_hub_not_trustworthy">Hub n\'est pas digne de confiance.</string>
 	<!-- # read-only & purchases -->
+	<string name="read_only_reason_hub_inactive">Mettez à jour votre licence Hub pour activer l\'écriture pour ce coffre.</string>
 	<string name="toast_purchase_revoked_refunded">Votre achat à vie a été remboursé. Vous avez maintenant un accès en lecture seule.</string>
 	<string name="toast_purchase_revoked_subscription_inactive">Votre abonnement n\'est plus actif. Vous avez maintenant un accès en lecture seule.</string>
 	<string name="screen_license_check_locked_create_vault">Déverrouillez la version complète pour créer des coffres</string>
 	<string name="screen_license_check_locked_upload_files">Déverrouillez la version complète pour téléverser des fichiers</string>
 	<string name="screen_license_check_locked_create_folder">Déverrouillez la version complète pour créer des dossiers</string>
+	<string name="screen_license_check_locked_create_text_file">Déverrouillez la version complète pour créer des fichiers textes</string>
 	<string name="screen_license_check_locked_share_node">Déverrouillez la version complète pour partager des fichiers ou des dossiers</string>
 	<string name="screen_license_check_locked_rename_node">Déverrouillez la version complète pour renommer des fichiers ou des dossiers</string>
 	<string name="screen_license_check_locked_move_node">Déverrouillez la version complète pour déplacer des fichiers ou des dossiers</string>
 	<string name="screen_license_check_locked_delete_node">Déverrouillez la version complète pour supprimer des fichiers ou des dossiers</string>
+	<string name="screen_license_check_title">Déverrouiller l\'accès en écriture</string>
+	<string name="screen_license_check_benefit_title">Vos avantages</string>
 	<string name="screen_license_check_benefit_family_sharing">Partage familial</string>
 	<string name="screen_license_check_benefit_write_access">Accès en écriture à vos coffres</string>
 	<string name="screen_license_check_benefit_support">Développement open source</string>
+	<string name="screen_license_check_button_purchase">Débloquer via Google Play</string>
+	<string name="screen_license_check_button_enter_license">Entrer la clé de licence</string>
+	<string name="screen_license_check_enter_license_action">Soumettre</string>
 	<string name="screen_license_check_title_full_version">Débloquer la version complète</string>
 	<string name="screen_license_check_trial_title">Essai de 30 jours</string>
 	<string name="screen_license_check_trial_price">Gratuit</string>
@@ -72,9 +79,16 @@
 	<string name="screen_license_check_trial_status_expired">Expiré</string>
 	<string name="screen_license_check_trial_active_info">L\'essai expire le : %s</string>
 	<string name="screen_license_check_trial_expired_info">Votre période d\'essai a expiré.</string>
+	<string name="screen_license_check_subscription_upgrade_hint">Vous avez un abonnement actif. Achetez la licence à vie et annulez votre abonnement pour basculer.</string>
 	<string name="screen_welcome_title">Bienvenue</string>
+	<string name="screen_welcome_notifications_title">Restez informé</string>
+	<string name="screen_welcome_notifications_message">Autoriser les notifications afin que Cryptomator puisse vous informer sur l\'activité en arrière-plan, les téléchargements automatiques ou d\'autres événements importants.</string>
+	<string name="screen_welcome_notifications_button">Autoriser les notifications</string>
+	<string name="screen_welcome_notifications_granted">Les notifications sont activées.</string>
 	<string name="screen_welcome_continue_button">Continuer</string>
 	<string name="screen_welcome_screen_lock_button">Régler le verrouillage de l\'écran</string>
+	<string name="screen_welcome_screen_lock_already_set">Le verrouillage de l\'écran est déjà défini.</string>
+	<string name="screen_welcome_intro_body">Merci d\'avoir choisi Cryptomator pour protéger vos fichiers.\n\nAvec Cryptomator, la clé vers vos données est dans vos mains.\n\nCryptomator chiffre vos données rapidement et facilement.</string>
 	<string name="next">Suivant</string>
 	<string name="back">Précédent</string>
 	<!-- # clouds -->
@@ -370,6 +384,7 @@
 	<string name="dialog_biometric_auth_key_invalidated_title">Fonctionnalité d\'authentification biométrique désactivée</string>
 	<string name="dialog_biometric_auth_key_invalidated_message">La clé ayant été invalidée, la fonctionnalité d\'authentification biométrique a été désactivée. Pour la réactiver, ouvrez les paramètres de Cryptomator.</string>
 	<string name="dialog_enter_license_title">Fournir une licence valide</string>
+	<string name="dialog_enter_license_content">Achetez une licence sur <a href="https://cryptomator.org/android/">https://cryptomator.org/android/</a> ou entrez votre clé de licence Android existante.</string>
 	<string name="dialog_enter_license_not_valid_content">La licence fournie n\'est pas valide. Vérifiez que vous l\'avez saisie correctement.</string>
 	<string name="dialog_enter_license_not_valid_content_desktop_supporter_certificate">La clé fournie est un certificat de participation pour la version ordinateur. Merci d\'entrer une licence valide.</string>
 	<string name="dialog_enter_license_no_content">Aucune licence n\'est fournie. Veuillez saisir une licence valide.</string>
@@ -409,7 +424,13 @@
 	<string name="dialog_hub_vault_archived_title">Coffre archivé</string>
 	<string name="dialog_hub_vault_archived_hint">Ce coffre est archivé et ne peut pas être déverrouillé. Pour le déverrouiller, un propriétaire du coffre doit le désarchiver.</string>
 	<string name="dialog_restore_successful_title">Restauration réussie</string>
+	<string name="dialog_restore_successful_message">Votre achat a été restauré et est maintenant actif sur cet appareil.</string>
 	<string name="dialog_no_full_version_title">Pas de version complète</string>
+	<string name="dialog_no_full_version_message">Nous avons pu\u0027trouver un achat existant sur ce compte Google.</string>
+	<string name="dialog_restore_failed_title">La restauration a échoué</string>
+	<string name="dialog_restore_failed_message">Nous n\u0027avons pas pu joindre le Play Store. Merci de vérifier votre connexion et de réessayer.</string>
+	<string name="dialog_cancel_subscription_reminder_title">N\'oubliez pas d\'annuler votre abonnement</string>
+	<string name="dialog_cancel_subscription_reminder_message">Vous avez maintenant une licence à vie. Pour éviter de futurs frais, veuillez annuler votre abonnement annuel dans Google Play Store.</string>
 	<string name="dialog_cancel_subscription_reminder_manage_button">Gérer l\'abonnement</string>
 	<string name="dialog_cancel_subscription_reminder_close_button">Fermer</string>
 	<string name="dialog_hub_user_setup_required_title">Configuration de l’utilisateur requise</string>
@@ -454,6 +475,7 @@
 	<string name="notification_lock_all">Tout verrouiller</string>
 	<string name="notification_cancel_auto_upload">Annuler le téléversement</string>
 	<string name="notification_auto_upload_title">Téléversement auto de photos en cours</string>
+	<string name="notification_auto_upload_message">Téléversement %1$d/%2$d</string>
 	<string name="notification_auto_upload_finished_title">Téléversement auto des photos terminé</string>
 	<string name="notification_auto_upload_finished_message">%1$d images téléversées dans le coffre-fort</string>
 	<string name="notification_auto_upload_failed_title">Échec du téléversement auto des photos</string>
@@ -473,9 +495,17 @@
 	<string name="screen_settings_clear_lru_cache_size">Vider le cache</string>
 	<string name="screen_settings_lru_cache_changed__restart_toast">Les changements seront appliqués lors du prochain démarrage de l\'application</string>
 	<string name="screen_settings_license_title_unlock">Débloquer la version complète</string>
+	<string name="screen_settings_license_title_unlocked">Version complète</string>
 	<string name="screen_settings_license_mail">%1$s</string>
+	<string name="screen_settings_license_summary_write_access">Accès en écriture débloqué !</string>
+	<string name="screen_settings_license_summary_tap_to_unlock">Appuyez pour déverrouiller l\'accès en écriture</string>
+	<string name="screen_settings_license_summary_write_access_mail">Accès en écriture pour %1$s</string>
 	<string name="screen_settings_manage_subscription">Gérer l\'abonnement</string>
+	<string name="screen_settings_upgrade_to_lifetime">Passer à la version à vie</string>
+	<string name="dialog_trial_expired_title">Essai expiré</string>
+	<string name="dialog_trial_expired_message">Votre essai gratuit est terminé. Vous pouvez continuer en mode lecture seule ou déverrouiller la version complète.</string>
 	<string name="dialog_trial_expired_unlock">Débloquer la version complète</string>
+	<string name="dialog_trial_expired_continue_read_only">Continuer en mode lecture seule</string>
 	<string name="dialog_settings_update_check_interval_title">Intervalle de vérification des mises à jour</string>
 	<string name="screen_settings_check_updates">Vérifier les mises à jour</string>
 	<string name="screen_settings_last_check_updates">Dernière exécution %1$s</string>
