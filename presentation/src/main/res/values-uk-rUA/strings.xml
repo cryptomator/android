@@ -74,7 +74,7 @@
 	<string name="screen_license_check_restore_purchase">Відновити покупку</string>
 	<string name="screen_license_check_terms">Умови користування</string>
 	<string name="screen_license_check_privacy">Політика конфіденційності</string>
-	<string name="screen_license_check_trial_expiration">Дата закінчення терміну дії: %s</string>
+	<string name="screen_license_check_trial_expiration">Термін дії закінчується: %s</string>
 	<string name="screen_license_check_trial_status_active">Активно</string>
 	<string name="screen_license_check_trial_status_expired">Термін дії минув</string>
 	<string name="screen_license_check_trial_active_info">Термін дії пробної версії закінчується: %s</string>
