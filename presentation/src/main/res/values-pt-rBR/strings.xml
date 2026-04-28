@@ -13,13 +13,13 @@
 	<string name="error_vault_version_not_supported">A versão %1$s do cofre não é suportada. Ele foi criado em uma versão mais antiga ou mais recente do Cryptomator.</string>
 	<string name="error_vault_config_file_missing_due_to_format_999">O arquivo %1$s está faltando na pasta do seu cofre. Certifique-se de que ele existe na pasta do seu cofre na nuvem.</string>
 	<string name="error_vault_already_exists">O cofre já existe.</string>
-	<string name="error_no_such_file">O arquivo não existe.</string>
+	<string name="error_no_such_file">Arquivo inexistente.</string>
 	<string name="error_vault_has_been_locked">O cofre foi trancado.</string>
 	<string name="error_cloud_already_exists">O provedor de nuvem já existe.</string>
 	<string name="error_activity_not_found">Baixe um aplicativo que consiga abrir esse arquivo.</string>
 	<string name="error_server_not_found">Servidor não encontrado.</string>
 	<string name="error_device_policy_manager_not_found">Abra as configurações do dispositivo e defina o bloqueio de tela manualmente</string>
-	<string name="error_export_illegal_file_name">Falha na exportação. Tente remover os caracteres especiais dos nomes de arquivo e exporte novamente.</string>
+	<string name="error_export_illegal_file_name">Falha ao exportar. Tente remover os caracteres especiais dos nomes de arquivo e exporte novamente.</string>
 	<string name="error_name_contains_invalid_characters">Não pode conter caracteres especiais.</string>
 	<string name="error_names_contains_invalid_characters">Os nomes de arquivo não podem conter caracteres especiais.</string>
 	<string name="error_vault_name_contains_invalid_characters">O nome do cofre não pode conter caracteres especiais.</string>
@@ -64,7 +64,7 @@
 	<string name="screen_license_check_button_enter_license">Digite a chave da licença</string>
 	<string name="screen_license_check_enter_license_action">Digite</string>
 	<string name="screen_license_check_title_full_version">Desbloqueie a versão completa</string>
-	<string name="screen_license_check_trial_title">Teste gratuito por 30 dias</string>
+	<string name="screen_license_check_trial_title">Experimente por 30 dias</string>
 	<string name="screen_license_check_trial_price">Gratuito</string>
 	<string name="screen_license_check_trial_subtitle">por 30 dias</string>
 	<string name="screen_license_check_subscription_title">Assinatura anual</string>
@@ -77,8 +77,8 @@
 	<string name="screen_license_check_trial_expiration">Expira em: %s</string>
 	<string name="screen_license_check_trial_status_active">Ativo</string>
 	<string name="screen_license_check_trial_status_expired">Expirado</string>
-	<string name="screen_license_check_trial_active_info">Teste expirado: %s</string>
-	<string name="screen_license_check_trial_expired_info">Seu período de teste expirou.</string>
+	<string name="screen_license_check_trial_active_info">Período experimental expirado: %s</string>
+	<string name="screen_license_check_trial_expired_info">Seu período experimental expirou.</string>
 	<string name="screen_license_check_subscription_upgrade_hint">Você tem uma assinatura ativa. Comprei a licença vitalícia e cancelei a sua atual para alterar.</string>
 	<string name="screen_welcome_title">Bem-vindo(a)</string>
 	<string name="screen_welcome_notifications_title">Manter-se notificado</string>
@@ -165,7 +165,7 @@
 	<string name="screen_share_files_title">Salvar %1$s em&#8230;</string>
 	<string name="screen_share_files_content_text">texto</string>
 	<string name="screen_share_files_content_file">arquivo</string>
-	<string name="screen_share_files_content_files">arquivos</string>
+	<string name="screen_share_files_content_files">Arquivos</string>
 	<string name="screen_share_files_msg_filenames_must_be_unique">Os nomes dos arquivos devem ser únicos. Renomeie os duplicados.</string>
 	<string name="screen_share_files_section_location">Salvar localização</string>
 	<string name="screen_share_files_save_button_text">Salvar</string>
@@ -188,8 +188,8 @@
 	<string name="screen_webdav_settings_msg_password_must_not_be_empty">A senha não pode estar vazia.</string>
 	<!-- ## screen: s3 settings -->
 	<string name="screen_s3_settings_display_name_label">Nome de exibição</string>
-	<string name="screen_s3_settings_access_key_label">Chave de acesso</string>
-	<string name="screen_s3_settings_secret_key_label">Chave secreta</string>
+	<string name="screen_s3_settings_access_key_label">Chave de Acesso</string>
+	<string name="screen_s3_settings_secret_key_label">Chave Secreta</string>
 	<string name="screen_s3_settings_bucket_label">Bucket existente</string>
 	<string name="screen_s3_settings_endpoint_label">Endpoint</string>
 	<string name="screen_s3_settings_region_label">Região</string>
@@ -503,7 +503,7 @@
 	<string name="screen_settings_manage_subscription">Gerenciar assinatura</string>
 	<string name="screen_settings_upgrade_to_lifetime">Atualize para a vitalícia</string>
 	<string name="dialog_trial_expired_title">Período experimental expirado</string>
-	<string name="dialog_trial_expired_message">Seu período de teste terminou. Você pode continuar no modo somente leitura ou desbloquear a versão completa.</string>
+	<string name="dialog_trial_expired_message">Seu período experimental terminou. Você pode continuar no modo somente leitura ou desbloquear a versão completa.</string>
 	<string name="dialog_trial_expired_unlock">Desbloqueie a versão completa</string>
 	<string name="dialog_trial_expired_continue_read_only">Continuar no modo somente leitura</string>
 	<string name="dialog_settings_update_check_interval_title">Intervalo de verificação de atualização</string>
