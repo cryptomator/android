@@ -9,12 +9,14 @@
 	<string name="error_no_network_connection">Nėra tinklo ryšio</string>
 	<string name="error_invalid_passphrase">Neteisingas slaptažodis</string>
 	<string name="error_file_or_folder_exists">Failas ar aplankas jau yra.</string>
+	<string name="error_vault_version_not_supported">Slėptuvės versija %1$s yra nepalaikoma. Ši slėptuvė sukurta naudojant senesnę arba naujesnę Cryptomator versiją.</string>
 	<string name="error_vault_already_exists">Slėptuvė jau yra.</string>
 	<string name="error_no_such_file">Failo nėra.</string>
 	<string name="error_vault_has_been_locked">Slėptuvė užrakinta.</string>
 	<string name="error_server_not_found">Serveris nerastas.</string>
 	<!-- # read-only & purchases -->
 	<string name="screen_license_check_privacy">Privatumo politika</string>
+	<string name="screen_welcome_continue_button">Тęsti</string>
 	<string name="next">Kitas</string>
 	<string name="back">Atgal</string>
 	<!-- # clouds -->
@@ -43,6 +45,7 @@
 	<string name="screen_file_browser_node_action_export">Eksportuoti</string>
 	<string name="screen_file_browser_node_action_delete">Ištrinti</string>
 	<string name="screen_file_browser_node_action_open_with_text">Atverti naudojant&#8230;</string>
+	<string name="screen_file_browser_no_connection_message">Nėra ryšio</string>
 	<!-- ## screen: text editor -->
 	<!-- ## screen: share files -->
 	<!-- ## screen: choose cloud service -->
@@ -93,6 +96,8 @@
 	<string name="dialog_existing_file_title">Failas jau yra</string>
 	<string name="dialog_existing_file_positive_button">Pakeisti</string>
 	<string name="dialog_replace_positive_button_single_file_exists">Pakeisti</string>
+	<string name="dialog_replace_title_single_file_exists">Pakeisti failą?</string>
+	<string name="dialog_replace_title_multiple_files_exist">Pakeisti failus?</string>
 	<string name="dialog_unable_to_share_positive_button">Gerai</string>
 	<string name="dialog_unable_to_share_negative_button">Sukurti slėptuvę</string>
 	<string name="dialog_rename_vault_title">Pervadinti slėptuvę</string>
@@ -108,7 +113,17 @@
 	<string name="dialog_progress_please_wait">Palaukite&#8230;</string>
 	<string name="dialog_progress_creating_folder">Kuriamas aplankas&#8230;</string>
 	<string name="dialog_progress_creating_text_file">Kuriamas tekstinis failas&#8230;</string>
+	<string name="action_progress_authentication">Atliekamas tapatybės nustatymas&#8230;</string>
+	<string name="action_progress_renaming">Pervadinama&#8230;</string>
+	<string name="action_progress_deleting">Ištrinama&#8230;</string>
+	<string name="dialog_progress_unlocking_vault">Atrakinama slėptuvė&#8230;</string>
+	<string name="dialog_progress_change_password">Keičiamas slaptažodis&#8230;</string>
+	<string name="dialog_progress_creating_vault">Kuriama slėptuvė&#8230;</string>
 	<string name="dialog_progress_upload_file">Išsiunčiama&#8230;</string>
+	<string name="dialog_progress_download_file">Atsiunčiama&#8230;</string>
+	<string name="dialog_progress_encryption">Šifruojama&#8230;</string>
+	<string name="dialog_progress_decryption">Iššifruojama&#8230;</string>
+	<string name="action_progress_moving">Perkeliama&#8230;</string>
 	<string name="dialog_lock_vault">Užrakinti</string>
 	<string name="dialog_accept_ssl_certificate_details">Išsamiau</string>
 	<string name="dialog_http_security_title">Naudoti HTTPS?</string>
@@ -140,10 +155,14 @@
 	<string name="dialog_biometric_auth_use_password">Naudoti slėptuvės slaptažodį</string>
 	<!-- notification -->
 	<string name="notification_unlocked">Atrakintų slėptuvių: %1$d</string>
+	<string name="notification_update_check_finished_latest">Įdiegta naujausia versija</string>
+	<string name="notification_authenticating">Atliekamas tapatybės nustatymas&#8230;</string>
 	<string name="screen_settings_lru_cache">Podėlis</string>
 	<string name="screen_settings_lru_cache_size">Bendras podėlio dydis</string>
 	<string name="screen_settings_clear_lru_cache_size">Išvalyti podėlį</string>
+	<string name="screen_settings_license_mail">%1$s</string>
 	<!-- lock timeout names -->
+	<string name="lock_timeout_never">Niekada</string>
 	<!-- cache size names -->
 	<string name="cache_size_50m">50 MB</string>
 	<string name="cache_size_100m">100 MB</string>
@@ -152,5 +171,6 @@
 	<string name="cache_size_1000m">1 GB</string>
 	<string name="cache_size_5000m">5 GB</string>
 	<!-- screen scheme mode names -->
+	<string name="screen_settings_style_mode">Stilius</string>
 	<!-- update interval names -->
 </resources>
