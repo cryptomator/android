@@ -458,6 +458,7 @@
 	<string name="screen_settings_license_title_unlock">解锁完整版</string>
 	<string name="screen_settings_license_mail">%1$s</string>
 	<string name="screen_settings_manage_subscription">管理订阅</string>
+	<string name="screen_settings_upgrade_to_lifetime">升级到终生版</string>
 	<string name="dialog_trial_expired_unlock">解锁完整版</string>
 	<string name="dialog_settings_update_check_interval_title">更新检查频率</string>
 	<string name="screen_settings_check_updates">检查更新</string>
