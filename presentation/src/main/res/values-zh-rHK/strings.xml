@@ -7,6 +7,7 @@
 	<string name="error_authentication_failed">認證失敗</string>
 	<string name="error_authentication_failed_re_authenticate">認證失敗，請重新使用 %1$s 登入。</string>
 	<string name="error_no_network_connection">沒有網路連線</string>
+	<string name="error_purchase_not_available">購買不可用。請稍後再試。</string>
 	<string name="error_invalid_passphrase">密碼錯誤</string>
 	<string name="error_file_or_folder_exists">該檔案或資料夾已存在。</string>
 	<string name="error_vault_version_not_supported">不支援 %1$s 版本的加密庫。這加密庫是使用 Cryptomator 較舊或較新版本建立的。</string>
@@ -43,6 +44,18 @@
 	<string name="error_hub_unlock_pre_31">Hub 僅支援 Android 12 及更高版本。</string>
 	<string name="error_hub_not_trustworthy">此Hub不可信任。</string>
 	<!-- # read-only & purchases -->
+	<string name="read_only_reason_hub_inactive">升級您的Hub授權以啓用寫入加密庫。</string>
+	<string name="toast_purchase_revoked_refunded">你的終身授權購買已經退款。你現有只讀權限。</string>
+	<string name="toast_purchase_revoked_subscription_inactive">您的訂閲已經不再有效。你現有只讀權限。</string>
+	<string name="screen_license_check_locked_create_vault">解鎖完整版本以創建加密庫</string>
+	<string name="screen_license_check_locked_upload_files">解鎖完整版本以上載文件</string>
+	<string name="screen_license_check_locked_create_folder">解鎖完整版本以創建資料夾</string>
+	<string name="screen_license_check_locked_create_text_file">解鎖完整版本以創建文字檔</string>
+	<string name="screen_license_check_locked_share_node">解鎖完整版本以創建資料夾</string>
+	<string name="screen_license_check_locked_rename_node">解鎖完整版本以重命名文件或資料夾</string>
+	<string name="screen_license_check_locked_move_node">解鎖完整版本以移動文件或資料夾</string>
+	<string name="screen_license_check_locked_delete_node">解鎖完整版本以刪除文件或資料夾</string>
+	<string name="screen_license_check_title">解鎖寫入權限</string>
 	<string name="screen_license_check_benefit_family_sharing">家庭共享</string>
 	<string name="screen_license_check_benefit_write_access">寫入加密庫功能</string>
 	<string name="screen_license_check_benefit_support">鼓勵開源程式開發者</string>
