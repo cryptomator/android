@@ -56,9 +56,11 @@
 	<string name="screen_license_check_locked_move_node">解鎖完整版本以移動文件或資料夾</string>
 	<string name="screen_license_check_locked_delete_node">解鎖完整版本以刪除文件或資料夾</string>
 	<string name="screen_license_check_title">解鎖寫入權限</string>
+	<string name="screen_license_check_benefit_title">您的福利</string>
 	<string name="screen_license_check_benefit_family_sharing">家庭共享</string>
 	<string name="screen_license_check_benefit_write_access">寫入加密庫功能</string>
 	<string name="screen_license_check_benefit_support">鼓勵開源程式開發者</string>
+	<string name="screen_license_check_button_purchase">透過 Google Play 解鎖</string>
 	<string name="screen_license_check_title_full_version">解鎖完整版</string>
 	<string name="screen_license_check_trial_title">三十日試用</string>
 	<string name="screen_license_check_trial_price">免費</string>
