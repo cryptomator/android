@@ -60,7 +60,8 @@
 	<string name="screen_license_check_benefit_family_sharing">家庭共享</string>
 	<string name="screen_license_check_benefit_write_access">寫入加密庫功能</string>
 	<string name="screen_license_check_benefit_support">鼓勵開源程式開發者</string>
-	<string name="screen_license_check_button_purchase">透過 Google Play 解鎖</string>
+	<string name="screen_license_check_button_purchase">透過 Google Play 購買解鎖</string>
+	<string name="screen_license_check_button_enter_license">輸入授權</string>
 	<string name="screen_license_check_title_full_version">解鎖完整版</string>
 	<string name="screen_license_check_trial_title">三十日試用</string>
 	<string name="screen_license_check_trial_price">免費</string>
