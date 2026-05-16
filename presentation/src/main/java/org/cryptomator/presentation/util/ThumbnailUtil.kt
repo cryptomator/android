@@ -39,18 +39,16 @@ class ThumbnailUtil @Inject constructor(
 		target.tag = cacheKey
 
 		val cachedFile = File(thumbnailDir, "$cacheKey.jpg")
-		if (cachedFile.exists()) {
-			BitmapFactory.decodeFile(cachedFile.absolutePath)?.let {
-				target.setImageBitmap(it)
-				return
-			}
-		}
 
 		executor.execute {
 			runCatching {
-				val bitmap = when (file.icon) {
-					FileIcon.MOVIE -> generateVideoThumbnail(file, cachedFile)
-					else -> generateImageThumbnail(file, cachedFile)
+				val bitmap = if (cachedFile.exists()) {
+					BitmapFactory.decodeFile(cachedFile.absolutePath)
+				} else {
+					when (file.icon) {
+						FileIcon.MOVIE -> generateVideoThumbnail(file, cachedFile)
+						else -> generateImageThumbnail(file, cachedFile)
+					}
 				} ?: return@execute
 
 				mainHandler.post {
@@ -77,17 +75,17 @@ class ThumbnailUtil @Inject constructor(
 
 	private fun generateVideoThumbnail(file: CloudFileModel, cachedFile: File): Bitmap? {
 		val tmpFile = File(thumbnailDir, "${cacheKey(file)}.tmp")
+		val retriever = MediaMetadataRetriever()
 		return try {
 			downloadToFile(file, tmpFile) ?: return null
-			MediaMetadataRetriever().use { retriever ->
-				retriever.setDataSource(tmpFile.absolutePath)
-				val frame = retriever.getFrameAtTime(0, MediaMetadataRetriever.OPTION_CLOSEST_SYNC)
-					?: return null
-				val bitmap = scaleBitmap(frame)
-				saveThumbnail(bitmap, cachedFile)
-				bitmap
-			}
+			retriever.setDataSource(tmpFile.absolutePath)
+			val frame = retriever.getFrameAtTime(0, MediaMetadataRetriever.OPTION_CLOSEST_SYNC)
+				?: return null
+			val bitmap = scaleBitmap(frame)
+			saveThumbnail(bitmap, cachedFile)
+			bitmap
 		} finally {
+			retriever.release()
 			tmpFile.delete()
 		}
 	}
@@ -118,6 +116,7 @@ class ThumbnailUtil @Inject constructor(
 	private fun decodeScaledBitmap(bytes: ByteArray): Bitmap? {
 		val opts = BitmapFactory.Options().apply { inJustDecodeBounds = true }
 		BitmapFactory.decodeByteArray(bytes, 0, bytes.size, opts)
+		if (opts.outWidth <= 0 || opts.outHeight <= 0) return null // unsupported format e.g. SVG
 		opts.inSampleSize = computeSampleSize(opts.outWidth, opts.outHeight)
 		opts.inJustDecodeBounds = false
 		return BitmapFactory.decodeByteArray(bytes, 0, bytes.size, opts)

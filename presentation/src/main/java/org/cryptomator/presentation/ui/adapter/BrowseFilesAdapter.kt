@@ -121,7 +121,7 @@ constructor(
 		}
 	}
 
-	inner class VaultContentViewHolder internal constructor(internal val binding: ItemBrowseFilesNodeBinding) : RecyclerViewBaseAdapter<CloudNodeModel<*>, BrowseFilesAdapter.ItemClickListener, VaultContentViewHolder, ItemBrowseFilesNodeBinding>.ItemViewHolder(binding.root) {
+	inner class VaultContentViewHolder internal constructor(internal val binding: ItemBrowseFilesNodeBinding) : RecyclerViewBaseAdapter<CloudNodeModel<*>, ItemClickListener, VaultContentViewHolder, ItemBrowseFilesNodeBinding>.ItemViewHolder(binding.root) {
 
 		private var uiState: UiStateTest? = null
 
@@ -144,9 +144,10 @@ constructor(
 		private fun bindNodeImage(node: CloudNodeModel<*>) {
 			val icon = if (node is CloudFileModel) FileIcon.fileIconFor(node.name, fileUtil) else null
 			if (node is CloudFileModel && (icon == FileIcon.IMAGE || icon == FileIcon.MOVIE)) {
-				binding.cloudNodeImage.setImageResource(icon!!.iconResource)
+				binding.cloudNodeImage.setImageResource(icon.iconResource)
 				thumbnailUtil.loadThumbnail(node, binding.cloudNodeImage)
 			} else {
+				thumbnailUtil.cancelLoad(binding.cloudNodeImage)
 				binding.cloudNodeImage.setImageResource(bindCloudNodeImage(node))
 			}
 		}
