@@ -142,8 +142,9 @@ constructor(
 		}
 
 		private fun bindNodeImage(node: CloudNodeModel<*>) {
-			if (node is CloudFileModel && FileIcon.fileIconFor(node.name, fileUtil) == FileIcon.IMAGE) {
-				binding.cloudNodeImage.setImageResource(FileIcon.IMAGE.iconResource)
+			val icon = if (node is CloudFileModel) FileIcon.fileIconFor(node.name, fileUtil) else null
+			if (node is CloudFileModel && (icon == FileIcon.IMAGE || icon == FileIcon.MOVIE)) {
+				binding.cloudNodeImage.setImageResource(icon!!.iconResource)
 				thumbnailUtil.loadThumbnail(node, binding.cloudNodeImage)
 			} else {
 				binding.cloudNodeImage.setImageResource(bindCloudNodeImage(node))

@@ -79,11 +79,11 @@ class ThumbnailUtil @Inject constructor(
 		val tmpFile = File(thumbnailDir, "${cacheKey(file)}.tmp")
 		return try {
 			downloadToFile(file, tmpFile) ?: return null
-			val retriever = MediaMetadataRetriever()
-			retriever.use {
-				it.setDataSource(tmpFile.absolutePath)
-				val frame = it.getFrameAtTime(0, MediaMetadataRetriever.OPTION_CLOSEST_SYNC) ?: return null
-				val bitmap = scaleBitmap(frame) ?: frame
+			MediaMetadataRetriever().use { retriever ->
+				retriever.setDataSource(tmpFile.absolutePath)
+				val frame = retriever.getFrameAtTime(0, MediaMetadataRetriever.OPTION_CLOSEST_SYNC)
+					?: return null
+				val bitmap = scaleBitmap(frame)
 				saveThumbnail(bitmap, cachedFile)
 				bitmap
 			}
@@ -123,12 +123,10 @@ class ThumbnailUtil @Inject constructor(
 		return BitmapFactory.decodeByteArray(bytes, 0, bytes.size, opts)
 	}
 
-	private fun scaleBitmap(src: Bitmap): Bitmap? {
+	private fun scaleBitmap(src: Bitmap): Bitmap {
 		val sampleSize = computeSampleSize(src.width, src.height)
 		if (sampleSize == 1) return src
-		val w = src.width / sampleSize
-		val h = src.height / sampleSize
-		return Bitmap.createScaledBitmap(src, w, h, true)
+		return Bitmap.createScaledBitmap(src, src.width / sampleSize, src.height / sampleSize, true)
 	}
 
 	private fun computeSampleSize(width: Int, height: Int): Int {
