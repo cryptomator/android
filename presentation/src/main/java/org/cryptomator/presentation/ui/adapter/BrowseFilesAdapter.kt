@@ -29,6 +29,7 @@ import org.cryptomator.presentation.util.FileIcon
 import org.cryptomator.presentation.util.FileSizeHelper
 import org.cryptomator.presentation.util.FileUtil
 import org.cryptomator.presentation.util.ResourceHelper.Companion.getDrawable
+import org.cryptomator.presentation.util.ThumbnailUtil
 import org.cryptomator.util.SharedPreferencesHandler
 import javax.inject.Inject
 
@@ -37,7 +38,8 @@ constructor(
 	private val dateHelper: DateHelper, //
 	private val fileSizeHelper: FileSizeHelper, //
 	private val fileUtil: FileUtil, //
-	private val sharedPreferencesHandler: SharedPreferencesHandler
+	private val sharedPreferencesHandler: SharedPreferencesHandler,
+	private val thumbnailUtil: ThumbnailUtil
 ) : RecyclerViewBaseAdapter<CloudNodeModel<*>, BrowseFilesAdapter.ItemClickListener, VaultContentViewHolder, ItemBrowseFilesNodeBinding>(CloudNodeModelNameAZComparator()), FastScrollRecyclerView.SectionedAdapter {
 
 	private var chooseCloudNodeSettings: ChooseCloudNodeSettings? = null
@@ -52,6 +54,11 @@ constructor(
 
 	override fun getItemBinding(inflater: LayoutInflater, parent: ViewGroup?, viewType: Int): ItemBrowseFilesNodeBinding {
 		return ItemBrowseFilesNodeBinding.inflate(inflater, parent, false)
+	}
+
+	override fun onViewRecycled(holder: VaultContentViewHolder) {
+		super.onViewRecycled(holder)
+		thumbnailUtil.cancelLoad(holder.binding.cloudNodeImage)
 	}
 
 	fun addOrReplaceCloudNode(cloudNodeModel: CloudNodeModel<*>) {
@@ -114,7 +121,7 @@ constructor(
 		}
 	}
 
-	inner class VaultContentViewHolder internal constructor(private val binding: ItemBrowseFilesNodeBinding) : RecyclerViewBaseAdapter<CloudNodeModel<*>, BrowseFilesAdapter.ItemClickListener, VaultContentViewHolder, ItemBrowseFilesNodeBinding>.ItemViewHolder(binding.root) {
+	inner class VaultContentViewHolder internal constructor(internal val binding: ItemBrowseFilesNodeBinding) : RecyclerViewBaseAdapter<CloudNodeModel<*>, BrowseFilesAdapter.ItemClickListener, VaultContentViewHolder, ItemBrowseFilesNodeBinding>.ItemViewHolder(binding.root) {
 
 		private var uiState: UiStateTest? = null
 
@@ -135,7 +142,12 @@ constructor(
 		}
 
 		private fun bindNodeImage(node: CloudNodeModel<*>) {
-			binding.cloudNodeImage.setImageResource(bindCloudNodeImage(node))
+			if (node is CloudFileModel && FileIcon.fileIconFor(node.name, fileUtil) == FileIcon.IMAGE) {
+				binding.cloudNodeImage.setImageResource(FileIcon.IMAGE.iconResource)
+				thumbnailUtil.loadThumbnail(node, binding.cloudNodeImage)
+			} else {
+				binding.cloudNodeImage.setImageResource(bindCloudNodeImage(node))
+			}
 		}
 
 		private fun bindCloudNodeImage(cloudNodeModel: CloudNodeModel<*>): Int {
