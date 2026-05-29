@@ -428,10 +428,6 @@
 	<string name="dialog_no_full_version_message">이 Google 계정에서 기존 구매 내역을 찾을 수 없습니다.</string>
 	<string name="dialog_restore_failed_title">복원 실패함</string>
 	<string name="dialog_restore_failed_message">Play Store에 연결할 수 없습니다. 인터넷 연결 상태를 확인하고 다시 시도해 주세요.</string>
-	<string name="dialog_cancel_subscription_reminder_title">구독을 취소하는 것을 잊지 마세요</string>
-	<string name="dialog_cancel_subscription_reminder_message">이제 평생 라이선스를 보유하게 되었습니다. 향후 요금 청구를 방지하려면 Google Play 스토어에서 연간 구독을 취소하세요.</string>
-	<string name="dialog_cancel_subscription_reminder_manage_button">구독 관리</string>
-	<string name="dialog_cancel_subscription_reminder_close_button">닫기</string>
 	<string name="dialog_hub_user_setup_required_title">사용자 설정 필요함</string>
 	<string name="dialog_hub_user_setup_required_hint">진행하려면 Hub 사용자 프로필에서 필요한 조치를 완료하십시오.</string>
 	<string name="dialog_hub_user_setup_required_neutral_button">프로필로 가기</string>
