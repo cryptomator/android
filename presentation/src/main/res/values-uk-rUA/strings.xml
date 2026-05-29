@@ -80,6 +80,7 @@
 	<string name="screen_license_check_trial_active_info">Термін дії пробної версії закінчується: %s</string>
 	<string name="screen_license_check_trial_expired_info">Пробний період завершився.</string>
 	<string name="screen_license_check_subscription_upgrade_hint">У вас є активна підписка. Придбайте довічну ліцензію та скасуйте підписку, щоб змінити тариф.</string>
+	<string name="screen_license_check_cancel_subscription_hint">Тепер ви маєте довічну ліцензію. Щоб уникнути майбутніх списань коштів, скасуйте свою річну підписку за допомогою параметра «%1$s» у налаштуваннях.</string>
 	<string name="screen_welcome_title">Вітаємо</string>
 	<string name="screen_welcome_notifications_title">Отримувати сповіщення</string>
 	<string name="screen_welcome_notifications_message">Дозвольте сповіщення, щоб Cryptomator міг повідомляти вас про фонову активність, автоматичне вивантаження або інші важливі події.</string>
