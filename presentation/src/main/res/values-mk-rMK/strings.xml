@@ -36,7 +36,6 @@
 	<string name="dialog_app_is_obscured_info_neutral_button">Затвори</string>
 	<string name="dialog_enter_license_decline_button">Откажи</string>
 	<string name="dialog_sym_link_back_button">Назад</string>
-	<string name="dialog_cancel_subscription_reminder_close_button">Затвори</string>
 	<!-- # error reports -->
 	<!-- # misc -->
 	<!-- ## file size helper -->
