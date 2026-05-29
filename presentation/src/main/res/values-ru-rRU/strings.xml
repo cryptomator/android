@@ -431,10 +431,6 @@
 	<string name="dialog_no_full_version_message">Мы не смогли\u0027t найти существующую покупку на этой учётной записи Google.</string>
 	<string name="dialog_restore_failed_title">Не удалось восстановить</string>
 	<string name="dialog_restore_failed_message">Мы не смогли\u0027t войти в Play Store. Проверьте подключение и повторите попытку.</string>
-	<string name="dialog_cancel_subscription_reminder_title">Не забудьте отменить подписку</string>
-	<string name="dialog_cancel_subscription_reminder_message">Теперь у вас бессрочная лицензия. Чтобы избежать будущих платежей, отмените свою годовую подписку в Google Play Store.</string>
-	<string name="dialog_cancel_subscription_reminder_manage_button">Управление подпиской</string>
-	<string name="dialog_cancel_subscription_reminder_close_button">Закрыть</string>
 	<string name="dialog_hub_user_setup_required_title">Требуется настройка пользователя</string>
 	<string name="dialog_hub_user_setup_required_hint">Для продолжения выполните необходимые шаги в вашем профиле пользователя Hub.</string>
 	<string name="dialog_hub_user_setup_required_neutral_button">Перейти в профиль</string>
