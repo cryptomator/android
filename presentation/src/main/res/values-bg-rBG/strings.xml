@@ -243,7 +243,6 @@
 	<string name="dialog_create_hub_device_name_hint">Изглежда, че това е първи достъп до Hub от това устройство. За да го разпознаете при разрешаване на достъпа, трябва да му дадете име.</string>
 	<string name="dialog_create_hub_device_setup_code_hint">Вашият ключ за профила е необходим при вход от нови приложения или мрежови четци. Може да бъде намерен в профила.</string>
 	<string name="dialog_hub_vault_access_forbidden_title">Отказан достъп</string>
-	<string name="dialog_cancel_subscription_reminder_close_button">Затваряне</string>
 	<string name="dialog_hub_user_setup_required_hint">За да продължите завършете необходимите стъпки в потребителския профил в Hub.</string>
 	<string name="dialog_hub_user_setup_required_neutral_button">Към профила</string>
 	<!-- # error reports -->
