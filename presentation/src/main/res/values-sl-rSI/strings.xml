@@ -319,7 +319,6 @@
 	<string name="dialog_create_hub_device_setup_code_hint">Vaš Account Key je zahtevan za prijavo z novih aplikacij ali brskalnikov. Najdete ga lahko v svojem profilu.</string>
 	<string name="dialog_restore_successful_title">Povrnitev uspešna</string>
 	<string name="dialog_no_full_version_title">Ni polne različice</string>
-	<string name="dialog_cancel_subscription_reminder_close_button">Zapri</string>
 	<string name="dialog_hub_user_setup_required_hint">Za nadaljevanje, prosimo zaključite zahtevane korake v svojem Hub uporabniškem profilu.</string>
 	<string name="dialog_hub_user_setup_required_neutral_button">Pojdi v profil</string>
 	<!-- # error reports -->
