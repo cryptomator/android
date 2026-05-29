@@ -373,8 +373,6 @@
 	<string name="dialog_hub_vault_access_forbidden_title">Ingen tilgang</string>
 	<string name="dialog_restore_successful_title">Gjenoppretting vellykket</string>
 	<string name="dialog_no_full_version_title">Ingen fullversjon</string>
-	<string name="dialog_cancel_subscription_reminder_manage_button">Administrer abonnement</string>
-	<string name="dialog_cancel_subscription_reminder_close_button">Lukk</string>
 	<string name="dialog_hub_user_setup_required_hint">For å fortsette, fullfør trinnene som kreves i din Hub-brukerprofil.</string>
 	<string name="dialog_hub_user_setup_required_neutral_button">Gå til profil</string>
 	<string name="permission_snackbar_auth_local_vault">Cryptomator trenger lagringstilgang for å bruke lokale hvelv</string>
