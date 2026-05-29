@@ -373,8 +373,6 @@
 	<string name="dialog_hub_vault_access_forbidden_title">Přístup odepřen</string>
 	<string name="dialog_restore_successful_title">Obnovení bylo úspěšné</string>
 	<string name="dialog_no_full_version_title">Žádná plná verze</string>
-	<string name="dialog_cancel_subscription_reminder_manage_button">Spravovat předplatné</string>
-	<string name="dialog_cancel_subscription_reminder_close_button">Zavřít</string>
 	<string name="dialog_hub_user_setup_required_hint">Chcete-li pokračovat, dokončete prosím požadované kroky ve vašem uživatelském profilu Hubu.</string>
 	<string name="dialog_hub_user_setup_required_neutral_button">Jít na profil</string>
 	<string name="permission_snackbar_auth_local_vault">Cryptomator potřebuje přístup k úložišti, aby mohl používat místní trezory</string>
