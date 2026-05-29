@@ -378,8 +378,6 @@
 	<string name="dialog_hub_vault_access_forbidden_title">Walang pahintulot</string>
 	<string name="dialog_restore_successful_title">Ibalik ang Matagumpay</string>
 	<string name="dialog_no_full_version_title">Walang Buong Bersyon</string>
-	<string name="dialog_cancel_subscription_reminder_manage_button">Pamahalaan ang Subscription</string>
-	<string name="dialog_cancel_subscription_reminder_close_button">Isara</string>
 	<string name="dialog_hub_user_setup_required_hint">Upang magpatuloy, mangyaring kumpletuhin ang mga hakbang na kinakailangan sa iyong Hub user profile.</string>
 	<string name="dialog_hub_user_setup_required_neutral_button">Pumunta sa Profile</string>
 	<string name="permission_snackbar_auth_local_vault">Kailangan ng Cryptomator ng access sa storage para magamit ang mga lokal na vault</string>
