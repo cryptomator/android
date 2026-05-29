@@ -370,8 +370,6 @@
 	<string name="dialog_hub_vault_access_forbidden_title">Инеү кире ҡағылды</string>
 	<string name="dialog_restore_successful_title">Тергеҙеү уңышлы булды</string>
 	<string name="dialog_no_full_version_title">Тулы версия табылманы</string>
-	<string name="dialog_cancel_subscription_reminder_manage_button">Яҙылыуҙар менән идара итеү</string>
-	<string name="dialog_cancel_subscription_reminder_close_button">Яп</string>
 	<string name="dialog_hub_user_setup_required_hint">Артабан барыр өсөн, Hub ҡулланыусылар профилендә кәрәкле аҙымдарҙы тамамлағыҙ.</string>
 	<string name="dialog_hub_user_setup_required_neutral_button">Профилгә күс</string>
 	<string name="permission_snackbar_auth_local_vault">Урындағы һаҡлағыстарҙы ҡулланыу өсөн Cryptomator-ға һаҡлағысҡа инеү рәхсәте кәрәк</string>
