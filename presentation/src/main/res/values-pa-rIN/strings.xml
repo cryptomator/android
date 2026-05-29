@@ -313,8 +313,6 @@
 	<string name="dialog_hub_license_upgrade_required_title">Hub ਲਸੰਸ ਦੀ ਜਾਂਚ ਕਰੋ</string>
 	<string name="dialog_restore_successful_title">ਬਹਾਲ ਕਰਨਾ ਕਾਮਯਾਬ ਰਿਹਾ</string>
 	<string name="dialog_no_full_version_title">ਪੂਰਾ ਵਰਜ਼ਨ ਨਹੀਂ ਹੈ</string>
-	<string name="dialog_cancel_subscription_reminder_manage_button">ਮੈਂਬਰੀ ਦਾ ਇੰਤਜ਼ਾਮ ਕਰੋ</string>
-	<string name="dialog_cancel_subscription_reminder_close_button">ਬੰਦ ਕਰੋ</string>
 	<string name="dialog_hub_user_setup_required_title">ਵਰਤੋਂਕਾਰ ਸੈਟਅੱਪ ਚਾਹੀਦਾ ਹੈ</string>
 	<string name="dialog_hub_user_setup_required_hint">ਜਾਰੀ ਰੱਖਣ ਲਈ ਆਪਣੇ Hub ਵਰਤੋਂਕਾਰ ਪਰੋਫਾਇਲ ਵਿੱਚ ਲੋੜੀਂਦੇ ਪੜਾਅ ਪੂਰੇ ਕਰੋ।</string>
 	<string name="dialog_hub_user_setup_required_neutral_button">ਪ੍ਰੋਫ਼ਾਈਲ ਤੇ ਜਾਓ</string>
