@@ -153,7 +153,6 @@
 	<string name="dialog_enter_license_decline_button">Скасаваць</string>
 	<string name="dialog_sym_link_back_button">Назад</string>
 	<string name="dialog_hub_vault_access_forbidden_title">Адмова ў доступе</string>
-	<string name="dialog_cancel_subscription_reminder_close_button">Зачыніць</string>
 	<!-- # error reports -->
 	<!-- # misc -->
 	<!-- ## file size helper -->
