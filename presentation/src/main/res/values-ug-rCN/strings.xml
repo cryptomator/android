@@ -54,7 +54,6 @@
 	<string name="dialog_enter_license_decline_button">بىكار قىل</string>
 	<string name="dialog_sym_link_back_button">قايت</string>
 	<string name="dialog_hub_vault_access_forbidden_title">كىرىش رەت قىلىندى</string>
-	<string name="dialog_cancel_subscription_reminder_close_button">ياپ</string>
 	<!-- # error reports -->
 	<!-- # misc -->
 	<!-- ## file size helper -->
