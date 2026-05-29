@@ -201,7 +201,6 @@
 	<string name="dialog_enter_license_decline_button">Peruuta</string>
 	<string name="dialog_sym_link_back_button">Takaisin</string>
 	<string name="dialog_hub_vault_access_forbidden_title">Pääsy estetty</string>
-	<string name="dialog_cancel_subscription_reminder_close_button">Sulje</string>
 	<!-- # error reports -->
 	<!-- # misc -->
 	<!-- ## file size helper -->
