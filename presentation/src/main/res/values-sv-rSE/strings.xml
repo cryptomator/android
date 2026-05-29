@@ -401,8 +401,6 @@
 	<string name="dialog_hub_vault_archived_hint">Detta valv är arkiverat och kan inte låsas upp. För att låsa upp det måste valvägaren avarkivera det.</string>
 	<string name="dialog_restore_successful_title">Återställning lyckades</string>
 	<string name="dialog_no_full_version_title">Ingen fullversion</string>
-	<string name="dialog_cancel_subscription_reminder_manage_button">Hantera prenumeration</string>
-	<string name="dialog_cancel_subscription_reminder_close_button">Stäng</string>
 	<string name="dialog_hub_user_setup_required_title">Användarkonfiguration krävs</string>
 	<string name="dialog_hub_user_setup_required_hint">För att fortsätta, vänligen fyll i de steg som krävs i din Hub-användarprofil.</string>
 	<string name="dialog_hub_user_setup_required_neutral_button">Gå till profil</string>
