@@ -398,8 +398,6 @@
 	<string name="dialog_hub_vault_archived_hint">Este cofre está arquivado e não pode ser desbloqueado. Para desbloqueá-lo, o proprietário do cofre deve desarquivá-lo.</string>
 	<string name="dialog_restore_successful_title">Restauração bem-sucedida</string>
 	<string name="dialog_no_full_version_title">Sem Versão Completa</string>
-	<string name="dialog_cancel_subscription_reminder_manage_button">Gerir subscrição</string>
-	<string name="dialog_cancel_subscription_reminder_close_button">Fechar</string>
 	<string name="dialog_hub_user_setup_required_title">Configuração do utilizador necessária</string>
 	<string name="dialog_hub_user_setup_required_hint">Para continuar, por favor conclua as etapas exigidas no seu perfil de utilizador no Hub.</string>
 	<string name="dialog_hub_user_setup_required_neutral_button">Vá para o Perfil</string>
