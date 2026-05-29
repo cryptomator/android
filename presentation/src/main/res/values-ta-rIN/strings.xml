@@ -169,7 +169,6 @@
 	<string name="dialog_app_is_obscured_info_neutral_button">மூடு</string>
 	<string name="dialog_enter_license_decline_button">ரத்து செய்</string>
 	<string name="dialog_sym_link_back_button">பின் செல்</string>
-	<string name="dialog_cancel_subscription_reminder_close_button">மூடு</string>
 	<!-- # error reports -->
 	<!-- # misc -->
 	<!-- ## file size helper -->
