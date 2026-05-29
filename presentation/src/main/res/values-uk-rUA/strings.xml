@@ -431,10 +431,6 @@
 	<string name="dialog_no_full_version_message">Ми не змогли знайти наявну покупку в цьому обліковому записі Google.</string>
 	<string name="dialog_restore_failed_title">Не вдалося відновити</string>
 	<string name="dialog_restore_failed_message">Не вдалося з’єднатися з Play Store. Будь ласка, перевірте підключення та спробуйте ще раз.</string>
-	<string name="dialog_cancel_subscription_reminder_title">Не забудьте скасувати підписку</string>
-	<string name="dialog_cancel_subscription_reminder_message">Тепер ви маєте довічну ліцензію. Щоб уникнути майбутніх списань коштів, будь ласка, скасуйте свою річну підписку в Google Play Store.</string>
-	<string name="dialog_cancel_subscription_reminder_manage_button">Керувати підпискою</string>
-	<string name="dialog_cancel_subscription_reminder_close_button">Закрити</string>
 	<string name="dialog_hub_user_setup_required_title">Необхідне налаштування користувача</string>
 	<string name="dialog_hub_user_setup_required_hint">Щоб продовжити, будь ласка, виконайте необхідні кроки у вашому профілі користувача Hub.</string>
 	<string name="dialog_hub_user_setup_required_neutral_button">Перейти до профілю</string>
