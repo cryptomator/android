@@ -429,10 +429,6 @@
 	<string name="dialog_no_full_version_message">We konden geen bestaande aankoop op dit Google-account vinden.</string>
 	<string name="dialog_restore_failed_title">Herstel mislukt</string>
 	<string name="dialog_restore_failed_message">We konden de Play Store niet bereiken. Controleer de verbinding en probeer opnieuw.</string>
-	<string name="dialog_cancel_subscription_reminder_title">Vergeet niet om je abonnement te annuleren</string>
-	<string name="dialog_cancel_subscription_reminder_message">Je hebt nu een levenslange licentie. Om toekomstige kosten te voorkomen, moet je je jaarlijkse abonnement in de Google Play Store annuleren.</string>
-	<string name="dialog_cancel_subscription_reminder_manage_button">Abonnement beheren</string>
-	<string name="dialog_cancel_subscription_reminder_close_button">Sluiten</string>
 	<string name="dialog_hub_user_setup_required_title">Instellen van gebruiker vereist</string>
 	<string name="dialog_hub_user_setup_required_hint">Om verder te gaan, gelieve de stappen te voltooien in uw Hub-gebruikersprofiel.</string>
 	<string name="dialog_hub_user_setup_required_neutral_button">Ga naar Profiel</string>
