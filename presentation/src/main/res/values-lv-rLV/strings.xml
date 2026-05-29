@@ -42,6 +42,8 @@
 	<string name="error_hub_invalid_version">Neatbalstīta Hub versija.</string>
 	<string name="error_hub_unlock_pre_31">Hub tiek atbalstīts tikai Android 12 vai jaunākā.</string>
 	<!-- # read-only & purchases -->
+	<string name="screen_license_check_title">Atslēgt rakstīšanas piekļuvi</string>
+	<string name="screen_license_check_benefit_title">Tavi ieguvumi</string>
 	<string name="screen_license_check_benefit_family_sharing">Koplietošana ar ģimeni</string>
 	<string name="screen_license_check_benefit_write_access">Rakstīšanas piekļuve glabātavām</string>
 	<string name="screen_license_check_benefit_support">Atvērtā pirmkoda izstrāde</string>
@@ -59,6 +61,7 @@
 	<string name="screen_license_check_trial_status_active">Aktīvs</string>
 	<string name="screen_license_check_trial_status_expired">Beidzies</string>
 	<string name="screen_license_check_trial_expired_info">Izmēģinājuma laiks ir beidzies.</string>
+	<string name="screen_license_check_cancel_subscription_hint">Tev tagad ir licence uz mūžu. Lai izvairītos no nākotnes maksām, iestatījumos jāatceļ savs ikgadējais abonements ar iespēju “%1$s”.</string>
 	<string name="screen_welcome_title">Laipni lūdzam</string>
 	<string name="screen_welcome_continue_button">Turpināt</string>
 	<string name="screen_welcome_screen_lock_button">Iestatīt ekrāna aizslēgšanu</string>
@@ -456,8 +459,14 @@
 	<string name="screen_settings_clear_lru_cache_size">Notīrīt kešatmiņu</string>
 	<string name="screen_settings_lru_cache_changed__restart_toast">Izmaiņas tiks pielietotas nākamajā lietotnes palaišanas reizē</string>
 	<string name="screen_settings_license_title_unlock">Atslēgt pilno versiju</string>
+	<string name="screen_settings_license_title_unlocked">Pilnā versija</string>
 	<string name="screen_settings_license_mail">%1$s</string>
+	<string name="screen_settings_license_summary_write_access">Atslēgta rakstīšanas piekļuve.</string>
+	<string name="screen_settings_license_summary_tap_to_unlock">Piesist, lai atslēgut rakstīšanas piekļuvi</string>
+	<string name="screen_settings_license_summary_write_access_mail">Rakstīšanas piekļuve %1$s</string>
 	<string name="screen_settings_manage_subscription">Pārvaldīt abonementu</string>
+	<string name="screen_settings_upgrade_to_lifetime">Uzlabot uz mūža</string>
+	<string name="dialog_trial_expired_title">Izmēģinājums beidzies</string>
 	<string name="dialog_trial_expired_unlock">Atslēgt pilno versiju</string>
 	<string name="dialog_settings_update_check_interval_title">Laiks starp atjauninājumu pārbaudēm</string>
 	<string name="screen_settings_check_updates">Meklēt atjauninājumus</string>
