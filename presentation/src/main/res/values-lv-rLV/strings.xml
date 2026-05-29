@@ -397,8 +397,6 @@
 	<string name="dialog_hub_vault_archived_hint">Šī glabātava ir arhivēta, un to nevar atslēgt. Lai atslēgtu to, glabātavas īpašniekam tā ir jāatceļ tās arhivēšana.</string>
 	<string name="dialog_restore_successful_title">Sekmīga atjaunošana</string>
 	<string name="dialog_no_full_version_title">Nav pilnā versija</string>
-	<string name="dialog_cancel_subscription_reminder_manage_button">Pārvaldīt abonementu</string>
-	<string name="dialog_cancel_subscription_reminder_close_button">Aizvērt</string>
 	<string name="dialog_hub_user_setup_required_title">Nepieciešama lietotāja iestatīšana</string>
 	<string name="dialog_hub_user_setup_required_hint">Lai turpinātu, lūgums pabeigt nepieciešamos soļus savā Hub lietotāja profilā.</string>
 	<string name="dialog_hub_user_setup_required_neutral_button">Doties uz profilu</string>
