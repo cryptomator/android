@@ -384,8 +384,6 @@
 	<string name="dialog_hub_vault_archived_hint">Acest seif este arhivat și nu poate fi deblocat. Pentru deblocare proprietarul seifului trebuie să îl dezarhiveze.</string>
 	<string name="dialog_restore_successful_title">Restabilirea licenței a fost efectuată cu succes</string>
 	<string name="dialog_no_full_version_title">Versiunea completă nu a fost găsită</string>
-	<string name="dialog_cancel_subscription_reminder_manage_button">Administrați-vă abonamentul</string>
-	<string name="dialog_cancel_subscription_reminder_close_button">Închide</string>
 	<string name="dialog_hub_user_setup_required_hint">Pentru a continua, vă rugăm să finalizaţi paşii necesari în profilul dumneavoastra din Hub.</string>
 	<string name="dialog_hub_user_setup_required_neutral_button">Mergi la profil</string>
 	<string name="permission_snackbar_auth_local_vault">Cryptomator are nevoie de acces la stocare pentru a utiliza seifuri locale</string>
