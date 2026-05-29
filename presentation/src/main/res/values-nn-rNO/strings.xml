@@ -41,7 +41,6 @@
 	<string name="dialog_app_is_obscured_info_neutral_button">Lukk</string>
 	<string name="dialog_enter_license_decline_button">Avbryt</string>
 	<string name="dialog_sym_link_back_button">Tilbake</string>
-	<string name="dialog_cancel_subscription_reminder_close_button">Lukk</string>
 	<!-- # error reports -->
 	<!-- # misc -->
 	<!-- ## file size helper -->
