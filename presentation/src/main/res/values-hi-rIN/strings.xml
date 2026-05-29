@@ -294,7 +294,6 @@
 	<string name="dialog_download_update_message">क्रिप्टोमेटर का नवीनतम संस्करण डाउनलोड हो रहा है।</string>
 	<string name="dialog_sym_link_back_button">पीछे जाएं</string>
 	<string name="dialog_hub_vault_access_forbidden_title">प्रवेश अस्वीकृत</string>
-	<string name="dialog_cancel_subscription_reminder_close_button">बंद करें</string>
 	<!-- # error reports -->
 	<!-- # misc -->
 	<!-- ## file size helper -->
