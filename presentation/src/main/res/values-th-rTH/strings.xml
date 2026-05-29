@@ -216,8 +216,6 @@
 	<string name="dialog_hub_vault_access_forbidden_title">การเข้าถึงถูกปฏิเสธ</string>
 	<string name="dialog_restore_successful_title">การกู้คืนสำเร็จ</string>
 	<string name="dialog_no_full_version_title">ไม่มีเวอร์ชันเต็ม</string>
-	<string name="dialog_cancel_subscription_reminder_manage_button">จัดการการสมัครสมาชิก</string>
-	<string name="dialog_cancel_subscription_reminder_close_button">ปิด</string>
 	<string name="dialog_hub_user_setup_required_neutral_button">ไปยังโปร์ไฟล์</string>
 	<!-- # error reports -->
 	<!-- # misc -->
