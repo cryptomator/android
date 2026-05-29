@@ -429,10 +429,6 @@
 	<string name="dialog_no_full_version_message">Non abbiamo potuto trovare nessun acquisto valido su questo account Google.</string>
 	<string name="dialog_restore_failed_title">Ripristino Fallito</string>
 	<string name="dialog_restore_failed_message">Non abbiamo potuto raggiungere il Platy Store. Controlla la connessione e riprova.</string>
-	<string name="dialog_cancel_subscription_reminder_title">Ricordati di annullare l\'abbonamento</string>
-	<string name="dialog_cancel_subscription_reminder_message">Ora hai una licenza \"a vita\". Per evitare costi futuri, annulla l\'abbonamento annuale dell Google Play Store.</string>
-	<string name="dialog_cancel_subscription_reminder_manage_button">Gestisci Abbonamento</string>
-	<string name="dialog_cancel_subscription_reminder_close_button">Chiudi</string>
 	<string name="dialog_hub_user_setup_required_title">Richiesta configurazione dell\'utente</string>
 	<string name="dialog_hub_user_setup_required_hint">Per procedere, completa i passaggi richiesti nel tuo profilo dell\'Hub.</string>
 	<string name="dialog_hub_user_setup_required_neutral_button">Vai al profilo</string>
