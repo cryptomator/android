@@ -386,8 +386,6 @@
 	<string name="dialog_hub_vault_archived_title">Trezor archivovaný</string>
 	<string name="dialog_restore_successful_title">Obnovenie úspešné</string>
 	<string name="dialog_no_full_version_title">Nie Plná Verzia</string>
-	<string name="dialog_cancel_subscription_reminder_manage_button">Spravovať predplatné</string>
-	<string name="dialog_cancel_subscription_reminder_close_button">Zavrieť</string>
 	<string name="dialog_hub_user_setup_required_title">Vyžaduje sa nastavenie užívateľom</string>
 	<string name="dialog_hub_user_setup_required_hint">Pre pokračovanie, prosím splňte kroky požadované vo Vašom užívateľskom Hub profile.</string>
 	<string name="dialog_hub_user_setup_required_neutral_button">Prejsť na profil</string>
