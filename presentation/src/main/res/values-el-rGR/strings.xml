@@ -396,8 +396,6 @@
 	<string name="dialog_hub_vault_archived_hint">Αυτό η κρύπτη είναι αρχειοθετημένη και δεν μπορεί να ξεκλειδωθεί. Για να την ξεκλειδώσετε, ο κάτοχος της κρύπτης πρέπει να την επαναφέρει.</string>
 	<string name="dialog_restore_successful_title">Επιτυχής Επαναφορά</string>
 	<string name="dialog_no_full_version_title">Χωρίς Πλήρη Έκδοση</string>
-	<string name="dialog_cancel_subscription_reminder_manage_button">Διαχείριση Συνδρομής</string>
-	<string name="dialog_cancel_subscription_reminder_close_button">Κλείσιμο</string>
 	<string name="dialog_hub_user_setup_required_title">Απαιτείται ρύθμιση χρήστη</string>
 	<string name="dialog_hub_user_setup_required_hint">Για να συνεχίσετε, παρακαλούμε συμπληρώστε τα βήματα που απαιτούνται στο προφίλ χρήστη Hub σας.</string>
 	<string name="dialog_hub_user_setup_required_neutral_button">Πηγαίνετε στο Προφίλ</string>
