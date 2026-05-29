@@ -142,7 +142,6 @@
 	<string name="dialog_no_dir_file_title">Nepavyko įkelti katalogo turinio</string>
 	<string name="dialog_create_hub_device_setup_code_label">Paskyros raktas</string>
 	<string name="dialog_progress_creating_hub_device_setup">Kuriamas įrenginys&#8230;</string>
-	<string name="dialog_cancel_subscription_reminder_close_button">Užverti</string>
 	<!-- # error reports -->
 	<!-- # misc -->
 	<!-- ## file size helper -->
