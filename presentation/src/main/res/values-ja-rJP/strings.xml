@@ -397,8 +397,6 @@
 	<string name="dialog_hub_vault_archived_hint">この金庫はアーカイブされており解錠できません。解錠するには金庫の所有者がアーカイブを取り消す必要があります。</string>
 	<string name="dialog_restore_successful_title">正常に復元されました</string>
 	<string name="dialog_no_full_version_title">フルバージョンではありません</string>
-	<string name="dialog_cancel_subscription_reminder_manage_button">サブスクリプションの管理</string>
-	<string name="dialog_cancel_subscription_reminder_close_button">閉じる</string>
 	<string name="dialog_hub_user_setup_required_title">ユーザー設定が必要です</string>
 	<string name="dialog_hub_user_setup_required_hint">続行するにはHubユーザープロフィールで必要な手順を完了してください。</string>
 	<string name="dialog_hub_user_setup_required_neutral_button">プロフィールへ移動</string>
