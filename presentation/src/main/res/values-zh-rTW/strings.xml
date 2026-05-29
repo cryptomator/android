@@ -395,8 +395,6 @@
 	<string name="dialog_hub_vault_archived_hint">此加密檔案庫已被封存，無法解鎖。要解鎖，必須由加密檔案庫的擁有者取消封存。</string>
 	<string name="dialog_restore_successful_title">復原成功</string>
 	<string name="dialog_no_full_version_title">沒有完整版</string>
-	<string name="dialog_cancel_subscription_reminder_manage_button">管理訂閱</string>
-	<string name="dialog_cancel_subscription_reminder_close_button">關閉</string>
 	<string name="dialog_hub_user_setup_required_title">需要設定使用者</string>
 	<string name="dialog_hub_user_setup_required_hint">請完成您使用者檔案中所需的步驟，以便繼續進行。</string>
 	<string name="dialog_hub_user_setup_required_neutral_button">轉到個人資料</string>
