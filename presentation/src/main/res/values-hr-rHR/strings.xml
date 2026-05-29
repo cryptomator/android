@@ -366,8 +366,6 @@
 	<string name="dialog_pcloud_credentials_updated">Ako ste namjeravali dodati novi pCloud račun, dodirnite ovaj url <a href="https://www.pcloud.com">www.pcloud.com</a>, odjavite se s trenutačnog računa i ponovno dodirnite \'+\' u ovoj aplikaciji za stvaranje nove veze u oblaku.</string>
 	<string name="dialog_restore_successful_title">Obnavljanje uspješno</string>
 	<string name="dialog_no_full_version_title">Nema pune verzije</string>
-	<string name="dialog_cancel_subscription_reminder_manage_button">Upravljaj pretplatom</string>
-	<string name="dialog_cancel_subscription_reminder_close_button">Zatvori</string>
 	<string name="permission_snackbar_auth_local_vault">Cryptomator treba pristup pohrani da koristi lokalne trezore</string>
 	<string name="permission_snackbar_auth_auto_upload">Cryptomator treba pristup pohrani da koristi automatski prijenos slika</string>
 	<!-- # error reports -->
