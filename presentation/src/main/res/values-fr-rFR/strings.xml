@@ -80,6 +80,7 @@
 	<string name="screen_license_check_trial_active_info">L\'essai expire le : %s</string>
 	<string name="screen_license_check_trial_expired_info">Votre période d\'essai a expiré.</string>
 	<string name="screen_license_check_subscription_upgrade_hint">Vous avez un abonnement actif. Achetez la licence à vie et annulez votre abonnement pour basculer.</string>
+	<string name="screen_license_check_cancel_subscription_hint">Vous avez désormais une licence à vie. Pour éviter de futurs frais, veuillez annuler votre abonnement annuel via l\'option %1$s dans les paramètres.</string>
 	<string name="screen_welcome_title">Bienvenue</string>
 	<string name="screen_welcome_notifications_title">Restez informé</string>
 	<string name="screen_welcome_notifications_message">Autoriser les notifications afin que Cryptomator puisse vous informer sur l\'activité en arrière-plan, les téléchargements automatiques ou d\'autres événements importants.</string>
