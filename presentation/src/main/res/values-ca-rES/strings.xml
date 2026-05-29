@@ -386,8 +386,6 @@
 	<string name="dialog_hub_vault_archived_title">La caixa forta ha estat arxivada</string>
 	<string name="dialog_restore_successful_title">S\'ha restaurat amb èxit</string>
 	<string name="dialog_no_full_version_title">Sense versió completa</string>
-	<string name="dialog_cancel_subscription_reminder_manage_button">Gestionar Subscripcions</string>
-	<string name="dialog_cancel_subscription_reminder_close_button">Tanca</string>
 	<string name="dialog_hub_user_setup_required_hint">Per a continuar, si us plau, seguiu els passos necessaris en el vostre perfil d\'usuari de Hub.</string>
 	<string name="dialog_hub_user_setup_required_neutral_button">Vés al perfil</string>
 	<string name="permission_snackbar_auth_local_vault">Cryptomator necessita accés a l\'emmagatzematge per a fer servir caixes fortes locals</string>
