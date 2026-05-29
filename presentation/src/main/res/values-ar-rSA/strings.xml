@@ -401,8 +401,6 @@
 	<string name="dialog_hub_vault_archived_hint">تم أرشفة هذا المخزن ولا يمكن فتحه. لإلغاء قفله، يجب على مالك المخزن إلغاء أرشفته.</string>
 	<string name="dialog_restore_successful_title">تمت الاستعادة بنجاح</string>
 	<string name="dialog_no_full_version_title">لا توجد نسخة كاملة</string>
-	<string name="dialog_cancel_subscription_reminder_manage_button">إدارة الاشتراك</string>
-	<string name="dialog_cancel_subscription_reminder_close_button">إغلاق</string>
 	<string name="dialog_hub_user_setup_required_title">إعداد المستخدم مطلوب</string>
 	<string name="dialog_hub_user_setup_required_hint">للمتابعة، يرجى إكمال الخطوات المطلوبة في ملف المستخدم الخاص بك في Hub.</string>
 	<string name="dialog_hub_user_setup_required_neutral_button">اذهب إلى الملف الشخصي</string>
