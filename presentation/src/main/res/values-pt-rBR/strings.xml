@@ -429,10 +429,6 @@
 	<string name="dialog_no_full_version_message">Não foi possível encontrar uma compra existente em sua conta Google.</string>
 	<string name="dialog_restore_failed_title">Falha ao restaurar</string>
 	<string name="dialog_restore_failed_message">Não foi possível encontrar a Play Store. Verifique sua conexão e tente novamente.</string>
-	<string name="dialog_cancel_subscription_reminder_title">Lembre-se de cancelar a sua assinatura</string>
-	<string name="dialog_cancel_subscription_reminder_message">Licença vitalícia adquirida. Para evitar cobranças futuras, cancele sua assinatura anual na Google Play Store.</string>
-	<string name="dialog_cancel_subscription_reminder_manage_button">Gerenciar assinatura</string>
-	<string name="dialog_cancel_subscription_reminder_close_button">Fechar</string>
 	<string name="dialog_hub_user_setup_required_title">Requer configuração de usuário</string>
 	<string name="dialog_hub_user_setup_required_hint">Para prosseguir, preencha as etapas necessárias no seu perfil de usuário do Hub.</string>
 	<string name="dialog_hub_user_setup_required_neutral_button">Acessar o perfil</string>
