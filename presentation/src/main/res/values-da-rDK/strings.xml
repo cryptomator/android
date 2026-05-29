@@ -398,8 +398,6 @@
 	<string name="dialog_hub_vault_archived_hint">Denne boks er arkiveret og kan ikke låses op. For at låse den op, skal en boks-ejer låse den op.</string>
 	<string name="dialog_restore_successful_title">Gendannelse lykkedes</string>
 	<string name="dialog_no_full_version_title">Ingen fuld version</string>
-	<string name="dialog_cancel_subscription_reminder_manage_button">Administrér abonnement</string>
-	<string name="dialog_cancel_subscription_reminder_close_button">Luk</string>
 	<string name="dialog_hub_user_setup_required_title">Brugeropsætning påkrævet</string>
 	<string name="dialog_hub_user_setup_required_hint">For at fortsætte, skal du fuldføre de nødvendige trin i din Hub brugerprofil.</string>
 	<string name="dialog_hub_user_setup_required_neutral_button">Gå til Profil</string>
