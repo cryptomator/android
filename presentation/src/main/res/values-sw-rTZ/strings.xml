@@ -362,8 +362,6 @@
 	<string name="dialog_hub_vault_access_forbidden_title">Ufikiaji umekataliwa</string>
 	<string name="dialog_restore_successful_title">Urejeshi Imefanikiwa</string>
 	<string name="dialog_no_full_version_title">Hakuna Toleo Kamili</string>
-	<string name="dialog_cancel_subscription_reminder_manage_button">Simamia Usajili</string>
-	<string name="dialog_cancel_subscription_reminder_close_button">Futa</string>
 	<string name="permission_snackbar_auth_local_vault">Cryptomator inahitaji ufikiaji wa kuhifadhi ili kutumia kuba za ndani</string>
 	<string name="permission_snackbar_auth_auto_upload">Cryptomator inahitaji ufikiaji wa kuhifadhi ili kutumia upakiaji wa picha kiotomatiki</string>
 	<string name="permission_snackbar_notifications">Cryptomator inahitaji ruhusa za taarifa ili kuonyesha hali ya kuba kwa mfano</string>
