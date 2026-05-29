@@ -396,8 +396,6 @@
 	<string name="dialog_hub_vault_archived_hint">Dieser Hubtresor wurde archiviert und kann daher nicht mehr entsperrt werden. Der Besitzer des Tresors muss ihn wieder aktivieren, damit der Tresor entsperrt werden kann.</string>
 	<string name="dialog_restore_successful_title">Wiederherstellung erfolgreich</string>
 	<string name="dialog_no_full_version_title">Keine Vollversion</string>
-	<string name="dialog_cancel_subscription_reminder_manage_button">Abonnement verwalten</string>
-	<string name="dialog_cancel_subscription_reminder_close_button">Schließen</string>
 	<string name="dialog_hub_user_setup_required_title">Benutzereinstellung erforderlich</string>
 	<string name="dialog_hub_user_setup_required_hint">Schließe bitte die erforderlichen Schritte in deinem Hub-Benutzerprofil ab, um fortzufahren.</string>
 	<string name="dialog_hub_user_setup_required_neutral_button">Zum Profil</string>
