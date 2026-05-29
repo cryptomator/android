@@ -58,6 +58,7 @@
 	<string name="screen_license_check_trial_status_active">Aktív</string>
 	<string name="screen_license_check_trial_status_expired">Lejárt</string>
 	<string name="screen_license_check_trial_expired_info">A próbaidőszak lejárt.</string>
+	<string name="screen_license_check_cancel_subscription_hint">Élethosszig tartó licenccel rendelkezik. A jövőbeli díjak elkerülése érdekében a Beállítások menüben található %1$s opció segítségével mondja le éves előfizetését.</string>
 	<string name="screen_welcome_title">Üdvözöljük</string>
 	<string name="screen_welcome_continue_button">Tovább</string>
 	<string name="screen_welcome_screen_lock_button">Képernyőzár beállítása</string>
