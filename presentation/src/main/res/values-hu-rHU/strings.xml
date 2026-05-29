@@ -395,8 +395,6 @@
 	<string name="dialog_hub_vault_archived_hint">Ez a széf archiválva lett és nem lehet feloldani. A feloldáshoz a széf tulajdonosának először meg kell szüntetnie az archiválást.</string>
 	<string name="dialog_restore_successful_title">Sikeres visszaállítás</string>
 	<string name="dialog_no_full_version_title">Nincs teljes verzió</string>
-	<string name="dialog_cancel_subscription_reminder_manage_button">Előfizetés kezelése</string>
-	<string name="dialog_cancel_subscription_reminder_close_button">Bezár</string>
 	<string name="dialog_hub_user_setup_required_title">Felhasználói profil beállítása szükséges</string>
 	<string name="dialog_hub_user_setup_required_hint">A folytatáshoz kérlek teljesítsd a szükséges lépéseket a Hub profilodban.</string>
 	<string name="dialog_hub_user_setup_required_neutral_button">Ugrás a Profilhoz</string>
