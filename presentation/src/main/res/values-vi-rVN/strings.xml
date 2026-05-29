@@ -368,7 +368,6 @@
 	<string name="dialog_hub_vault_access_forbidden_title">Truy cập bị từ chối</string>
 	<string name="dialog_restore_successful_title">Khôi phục thành công</string>
 	<string name="dialog_no_full_version_title">Không có bản đầy đủ</string>
-	<string name="dialog_cancel_subscription_reminder_close_button">Đóng</string>
 	<string name="dialog_hub_user_setup_required_neutral_button">Xem hồ sơ</string>
 	<string name="permission_snackbar_auth_local_vault">Cryptomator cần quyền truy cập bộ nhớ để sử dụng vault cục bộ</string>
 	<string name="permission_snackbar_auth_auto_upload">Cryptomator cần quyền truy cập bộ nhớ để sử dụng tính năng tự động tải ảnh lên</string>
