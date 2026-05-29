@@ -429,10 +429,6 @@
 	<string name="dialog_no_full_version_message">Nous avons pu\u0027trouver un achat existant sur ce compte Google.</string>
 	<string name="dialog_restore_failed_title">La restauration a échoué</string>
 	<string name="dialog_restore_failed_message">Nous n\u0027avons pas pu joindre le Play Store. Merci de vérifier votre connexion et de réessayer.</string>
-	<string name="dialog_cancel_subscription_reminder_title">N\'oubliez pas d\'annuler votre abonnement</string>
-	<string name="dialog_cancel_subscription_reminder_message">Vous avez maintenant une licence à vie. Pour éviter de futurs frais, veuillez annuler votre abonnement annuel dans Google Play Store.</string>
-	<string name="dialog_cancel_subscription_reminder_manage_button">Gérer l\'abonnement</string>
-	<string name="dialog_cancel_subscription_reminder_close_button">Fermer</string>
 	<string name="dialog_hub_user_setup_required_title">Configuration de l’utilisateur requise</string>
 	<string name="dialog_hub_user_setup_required_hint">Pour continuer, veuillez compléter les étapes requises dans votre profil d\'utilisateur Hub.</string>
 	<string name="dialog_hub_user_setup_required_neutral_button">Aller au profil</string>
