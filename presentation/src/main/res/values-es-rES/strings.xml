@@ -398,8 +398,6 @@
 	<string name="dialog_hub_vault_archived_hint">Esta bóveda está archivada y no puede ser desbloqueada. Para desbloquearla, el propietario de la bóveda debe desarchivarla.</string>
 	<string name="dialog_restore_successful_title">Restauración exitosa</string>
 	<string name="dialog_no_full_version_title">Sin versión completa</string>
-	<string name="dialog_cancel_subscription_reminder_manage_button">Gestionar suscripción</string>
-	<string name="dialog_cancel_subscription_reminder_close_button">Cerrar</string>
 	<string name="dialog_hub_user_setup_required_title">Configuración de usuario requerida</string>
 	<string name="dialog_hub_user_setup_required_hint">Para continuar, complete los pasos necesarios en su perfil de usuario de Hub.</string>
 	<string name="dialog_hub_user_setup_required_neutral_button">Ir al Perfil</string>
