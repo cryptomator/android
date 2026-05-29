@@ -60,6 +60,7 @@
 	<string name="screen_license_check_trial_status_active">Activa</string>
 	<string name="screen_license_check_trial_status_expired">Expirada</string>
 	<string name="screen_license_check_trial_expired_info">Su prueba ha expirado.</string>
+	<string name="screen_license_check_cancel_subscription_hint">Ahora tienes una licencia de por vida. Para evitar cargos futuros, cancela tu suscripción anual a través de la opción %1$s en Ajustes.</string>
 	<string name="screen_welcome_title">Bienvenido</string>
 	<string name="screen_welcome_continue_button">Continuar</string>
 	<string name="screen_welcome_screen_lock_button">Establecer bloqueo de pantalla</string>
