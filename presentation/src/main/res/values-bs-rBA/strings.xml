@@ -61,7 +61,6 @@
 	<string name="dialog_progress_creating_hub_device_setup">Kreiranje uređaja&#8230;</string>
 	<string name="dialog_hub_vault_access_forbidden_title">Pristup zabranjen</string>
 	<string name="dialog_hub_vault_archived_title">Vault je arhiviran</string>
-	<string name="dialog_cancel_subscription_reminder_close_button">Zatvori</string>
 	<string name="dialog_hub_user_setup_required_title">Potrebno je korisničko podešavanje</string>
 	<string name="dialog_hub_user_setup_required_neutral_button">Idite na Profil</string>
 	<!-- # error reports -->
