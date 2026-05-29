@@ -395,8 +395,6 @@
 	<string name="dialog_hub_vault_archived_hint">此保险库已存档且无法解锁。要想解锁，必须由其所有者取消存档</string>
 	<string name="dialog_restore_successful_title">恢复成功</string>
 	<string name="dialog_no_full_version_title">未购买完整版</string>
-	<string name="dialog_cancel_subscription_reminder_manage_button">管理订阅</string>
-	<string name="dialog_cancel_subscription_reminder_close_button">关闭</string>
 	<string name="dialog_hub_user_setup_required_title">需要用户设置</string>
 	<string name="dialog_hub_user_setup_required_hint">要继续，请完成 Hub 用户中心所需的步骤</string>
 	<string name="dialog_hub_user_setup_required_neutral_button">前往个人中心</string>
