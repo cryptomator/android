@@ -80,6 +80,7 @@
 	<string name="screen_license_check_trial_active_info">체험판 만료됨: %s</string>
 	<string name="screen_license_check_trial_expired_info">체험판이 만료되었습니다.</string>
 	<string name="screen_license_check_subscription_upgrade_hint">현재 활성화된 구독이 있습니다. 평생 라이선스로 전환하시려면, 라이선스를 구매하신 후 기존 구독을 취소하십시오.</string>
+	<string name="screen_license_check_cancel_subscription_hint">귀하는 이제 평생 라이선스를 보유하고 있습니다. 향후 불필요한 추가 결제를 방지하려면 설정의 %1$s 옵션을 통해 연간 구독을 취소하십시오.</string>
 	<string name="screen_welcome_title">환영합니다</string>
 	<string name="screen_welcome_notifications_title">알림 받기</string>
 	<string name="screen_welcome_notifications_message">Cryptomator가 백그라운드 활동, 자동 업로드 및 기타 중요 이벤트에 대해 안내할 수 있도록 알림을 허용해 주십시오.</string>
