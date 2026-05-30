@@ -59,6 +59,7 @@
 	<string name="screen_license_check_trial_status_active">Aktiv</string>
 	<string name="screen_license_check_trial_status_expired">Abgelaufen</string>
 	<string name="screen_license_check_trial_expired_info">Deine Testversion ist abgelaufen.</string>
+	<string name="screen_license_check_cancel_subscription_hint">Sie haben jetzt eine lebenslange Lizenz. Um zukünftige Gebühren zu vermeiden, kündigen Sie Ihr jährliches Abonnement über die %1$s Option in den Einstellungen.</string>
 	<string name="screen_welcome_title">Willkommen</string>
 	<string name="screen_welcome_continue_button">Weiter</string>
 	<string name="screen_welcome_screen_lock_button">Sperrbildschirm setzen</string>
