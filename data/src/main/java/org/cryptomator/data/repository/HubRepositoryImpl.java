@@ -99,14 +99,11 @@ public class HubRepositoryImpl implements HubRepository {
 	}
 
 	private boolean isAndroidLicenseValid(String androidLicense) {
-		if (androidLicense == null || androidLicense.isEmpty()) {
-			return false;
-		}
 		try {
 			AndroidLicenseVerifier.verify(androidLicense, AndroidLicenseVerifier.ANDROID_PUB_KEY);
 			return true;
 		} catch (JWTVerificationException | NoSuchAlgorithmException | InvalidKeySpecException | FatalBackendException e) {
-			Timber.tag("HubRepositoryImpl").e("Failed to validate Android license retrieved from Hub", e);
+			Timber.tag("HubRepositoryImpl").e(e, "Failed to validate Android license retrieved from Hub");
 			return false;
 		}
 	}
