@@ -360,10 +360,11 @@
 	<string name="dialog_biometric_auth_key_invalidated_title">Autentificēšana ar biometriju deaktivēta</string>
 	<string name="dialog_biometric_auth_key_invalidated_message">Tā kā atslēga ir padarīta par nederīgu, autentificēšanās ar biometriju tika deaktivēta. Lai iespējotu no jauna, jāatver Cryptomator iestatījumi.</string>
 	<string name="dialog_enter_license_title">Iesniegt derīgu licenci</string>
+	<string name="dialog_enter_license_content">Mēs noteicām, ka Cryptomator ir uzstādīta bez Google Play veikala izmantošanas. Jāiesniedz derīga licence, ko var iegādāties <a href="https://cryptomator.org/android/">https://cryptomator.org/android</a></string>
 	<string name="dialog_enter_license_not_valid_content">Iesniegtā licence nav derīga. Jāpārliecinās, ka tā ir pareizi ievadīta.</string>
 	<string name="dialog_enter_license_not_valid_content_desktop_supporter_certificate">Iesniegtā atslēga ir darbvirsmas atbalstītāja sertifikāts. Lūgums ievadīt derīgu licenci.</string>
 	<string name="dialog_enter_license_no_content">Nav iesniegta licence Lūgums ievadīt derīgu licenci.</string>
-	<string name="dialog_enter_license_decline_button">Atcelt</string>
+	<string name="dialog_enter_license_decline_button">Iziet</string>
 	<string name="dialog_license_confirmation_title">Licences apstiprinājums</string>
 	<string name="dialog_license_confirmation_message">Paldies, %1$s, par derīgas licences iesniegšanu!</string>
 	<string name="dialog_update_available_title">Pieejams atjauninājums</string>
@@ -441,6 +442,7 @@
 	<string name="notification_lock_all">Aizslēgt visas</string>
 	<string name="notification_cancel_auto_upload">Atcelt augšupielādi</string>
 	<string name="notification_auto_upload_title">Notiek automātiska fotoattēlu augšupielāde</string>
+	<string name="notification_auto_upload_message">Augšupielādē %1d/%2d</string>
 	<string name="notification_auto_upload_finished_title">Automātiskā fotoattēlu augšupielāde pabeigta</string>
 	<string name="notification_auto_upload_finished_message">%1$d attēli augšupielādēti glabātavā</string>
 	<string name="notification_auto_upload_failed_title">Automātiskā fotoattēlu augšupielāde neizdevās</string>
