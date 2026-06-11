@@ -289,7 +289,7 @@
 	<string name="dialog_confirm_delete_multiple_message">ਕੀ ਤੁਸੀਂ ਇਹ ਆਈਟਮਾਂ ਨੂੰ ਹਟਾਉਣਾ ਚਾਹੁੰਦੇ ਹੋ?</string>
 	<string name="dialog_confirm_delete_file_message">ਕੀ ਤੁਸੀਂ ਇਸ ਫਾਇਲ ਨੂੰ ਹਟਾਉਣਾ ਚਾਹੁੰਦੇ ਹੋ?</string>
 	<string name="dialog_confirm_delete_folder_message">ਇਸ ਨਾਲ ਫੋਲਡਰ ਵਿਚਲੀ ਸਾਰੀ ਸਮੱਗਰੀ ਨੂੰ ਵੀ ਹਟਾਇਆ ਜਾਵੇਗਾ। ਕੀ ਤੁਸੀਂ ਇਸ ਫੋਲਡਰ ਨੂੰ ਹਟਾਉਣਾ ਚਾਹੁੰਦੇ ਹੋ?</string>
-	<string name="dialog_enter_license_decline_button">ਰੱਦ ਕਰੋ</string>
+	<string name="dialog_enter_license_decline_button">ਬਾਹਰ</string>
 	<string name="dialog_license_confirmation_title">ਲਸੰਸ ਦੀ ਤਸਦੀਕ</string>
 	<string name="dialog_license_confirmation_message">ਆਪਣਾ ਵਾਜਬ ਲਸੰਸ ਦੇਣ ਲਈ %1$s ਦਾ ਧੰਨਵਾਦ ਹੈ।</string>
 	<string name="dialog_update_available_title">ਅੱਪਡੇਟ ਮੌਜੂਦ ਹੈ</string>
@@ -349,6 +349,7 @@
 	<string name="notification_timeout">%1$s ਵਿੱਚ ਆਪਣੇ-ਆਪ ਲਾਕ ਕਰੋ</string>
 	<string name="notification_lock_all">ਸਭ ਲਾਕ ਹਨ</string>
 	<string name="notification_cancel_auto_upload">ਅੱਪਲੋਡ ਨੂੰ ਰੱਦ ਕਰੋ</string>
+	<string name="notification_auto_upload_message">%1d/%2d ਨੂੰ ਅੱਪਲੋਡ ਕੀਤਾ ਜਾ ਰਿਹਾ ਹੈ</string>
 	<string name="screen_settings_lru_cache">ਕੈਸ਼</string>
 	<string name="screen_settings_lru_cache_size">ਕੁੱਲ ਕੈਸ਼ ਆਕਾਰ</string>
 	<string name="screen_settings_clear_lru_cache_size">ਕੈਸ਼ ਨੂੰ ਮਿਟਾਓ</string>
