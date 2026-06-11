@@ -211,6 +211,7 @@
 	<string name="dialog_enter_license_title">చెల్లుబాటు అయ్యే లైసెన్స్‌ను అందించండి</string>
 	<string name="dialog_enter_license_not_valid_content">అందించిన లైసెన్స్ చెల్లదు. మీరు దాన్ని సరిగ్గా నమోదు చేశారని నిర్ధారించుకోండి.</string>
 	<string name="dialog_enter_license_no_content">లైసెన్స్ అందించబడలేదు. దయచేసి చెల్లుబాటు అయ్యే లైసెన్స్‌ను నమోదు చేయండి.</string>
+	<string name="dialog_enter_license_decline_button">బయటకి దారి</string>
 	<string name="dialog_license_confirmation_title">లైసెన్స్ నిర్ధారణ</string>
 	<string name="dialog_license_confirmation_message">మీ చెల్లుబాటు అయ్యే లైసెన్స్‌ని అందించినందుకు %1$sకి ధన్యవాదాలు.</string>
 	<string name="dialog_update_available_title">అందుబాటులో నవీకరణ</string>
