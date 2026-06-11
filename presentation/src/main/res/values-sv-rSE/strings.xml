@@ -361,10 +361,11 @@
 	<string name="dialog_biometric_auth_key_invalidated_title">Biometrisk autentiseringsfunktion inaktiverad</string>
 	<string name="dialog_biometric_auth_key_invalidated_message">Eftersom nyckeln har ogiltigförklarats har den biometriska autentiseringsfunktionen avaktiverats. För att återaktivera, öppna Cryptomatorns inställningar.</string>
 	<string name="dialog_enter_license_title">Ange en giltig licens</string>
+	<string name="dialog_enter_license_content">Vi upptäckte att du installerade Cryptomator utan att använda Google Play Store. Ange en giltig licens, som kan köpas på <a href="https://cryptomator.org/android/">https://cryptomator.org/android/</a></string>
 	<string name="dialog_enter_license_not_valid_content">Den angivna licensen är inte giltig. Se till att du angav den korrekt.</string>
 	<string name="dialog_enter_license_not_valid_content_desktop_supporter_certificate">Den angivna nyckeln är ett supportercertifikat för skrivbords-versionen. Ange en giltig licens.</string>
 	<string name="dialog_enter_license_no_content">Ingen licens angiven. Ange en giltig licens.</string>
-	<string name="dialog_enter_license_decline_button">Avbryt</string>
+	<string name="dialog_enter_license_decline_button">Avsluta</string>
 	<string name="dialog_license_confirmation_title">Licensinformation</string>
 	<string name="dialog_license_confirmation_message">Tack %1$s för att du angivit din giltiga licens.</string>
 	<string name="dialog_update_available_title">Uppdatering tillgänglig</string>
@@ -442,6 +443,7 @@
 	<string name="notification_lock_all">Lås alla</string>
 	<string name="notification_cancel_auto_upload">Avbryt uppladdning</string>
 	<string name="notification_auto_upload_title">Automatisk fotouppladdning körs</string>
+	<string name="notification_auto_upload_message">Laddar upp %1d/%2d</string>
 	<string name="notification_auto_upload_finished_title">Automatisk fotouppladdning slutförd</string>
 	<string name="notification_auto_upload_finished_message">%1$d bilder uppladdade till valvet</string>
 	<string name="notification_auto_upload_failed_title">Automatisk fotouppladdning misslyckades</string>
