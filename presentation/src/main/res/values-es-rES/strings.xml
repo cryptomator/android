@@ -359,10 +359,11 @@
 	<string name="dialog_biometric_auth_key_invalidated_title">Función de autenticación biométrica desactivada</string>
 	<string name="dialog_biometric_auth_key_invalidated_message">Debido a que la clave ha sido invalidada, la función de autenticación biométrica ha sido desactivada. Para reactivarla, abra los ajustes de Cryptomator.</string>
 	<string name="dialog_enter_license_title">Proporcione una licencia válida</string>
+	<string name="dialog_enter_license_content">Hemos detectado que ha instalado Cryptomator sin usar Google Play Store. Proporcione una licencia válida, que se puede adquirir en <a href="https://cryptomator.org/android/">https://cryptomator.org/android/</a></string>
 	<string name="dialog_enter_license_not_valid_content">La licencia proporcionada no es válida. Asegúrese de que la ha ingresado correctamente.</string>
 	<string name="dialog_enter_license_not_valid_content_desktop_supporter_certificate">La clave proporcionada es un certificado de soporte de escritorio. Ingrese una licencia válida.</string>
 	<string name="dialog_enter_license_no_content">Ninguna licencia proporcionada. Por favor, ingrese una licencia válida.</string>
-	<string name="dialog_enter_license_decline_button">Cancelar</string>
+	<string name="dialog_enter_license_decline_button">Salir</string>
 	<string name="dialog_license_confirmation_title">Confirmación de licencia</string>
 	<string name="dialog_license_confirmation_message">Gracias %1$s por proporcionar su licencia válida.</string>
 	<string name="dialog_update_available_title">Actualizacion disponible</string>
@@ -441,6 +442,7 @@
 	<string name="notification_lock_all">Bloquear todas</string>
 	<string name="notification_cancel_auto_upload">Cancelar carga</string>
 	<string name="notification_auto_upload_title">Carga automática de fotos en ejecución</string>
+	<string name="notification_auto_upload_message">Cargando %1d/%2d</string>
 	<string name="notification_auto_upload_finished_title">Carga automática de fotos finalizada</string>
 	<string name="notification_auto_upload_finished_message">%1$d imágenes cargadas a la bóveda</string>
 	<string name="notification_auto_upload_failed_title">Carga automática de fotos fallida</string>
