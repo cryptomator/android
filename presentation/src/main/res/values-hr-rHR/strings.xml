@@ -343,10 +343,11 @@
 	<string name="dialog_biometric_auth_key_invalidated_title">Biometrijska autentikacija deaktivirana</string>
 	<string name="dialog_biometric_auth_key_invalidated_message">Budući da je ključ poništen, biometrijska autentikacija je deaktivirana. Da biste ju ponovno omogućili, otvorite postavke Cryptomator-a.</string>
 	<string name="dialog_enter_license_title">Pružite važeću licencu</string>
+	<string name="dialog_enter_license_content">Otkrili smo da ste instalirali Cryptomator bez upotrebe trgovine Google Play. Navedite važeću licencu koja se može kupiti na <a href="https://cryptomator.org/android/">https://cryptomator.org/android/</a></string>
 	<string name="dialog_enter_license_not_valid_content">Navedena licenca nije važeća. Provjerite jeste li ju ispravno unijeli.</string>
 	<string name="dialog_enter_license_not_valid_content_desktop_supporter_certificate">Navedeni ključ je certifikat tzv. stolnog podržavatelja. Molimo unesite važeću licencu.</string>
 	<string name="dialog_enter_license_no_content">Licenca nije pružena. Molimo unesite važeću licencu.</string>
-	<string name="dialog_enter_license_decline_button">Odustani</string>
+	<string name="dialog_enter_license_decline_button">Izlaz</string>
 	<string name="dialog_license_confirmation_title">Potvrda licence</string>
 	<string name="dialog_license_confirmation_message">Hvala %1$s za pružanje valjane licence.</string>
 	<string name="dialog_update_available_title">Ažuriranje dostupno</string>
@@ -403,6 +404,7 @@
 	<string name="notification_lock_all">Zaključaj sve</string>
 	<string name="notification_cancel_auto_upload">Odustani od prijenosa</string>
 	<string name="notification_auto_upload_title">Aumatski prijenos slika u tijeku</string>
+	<string name="notification_auto_upload_message">Prenosim %1d/%2d</string>
 	<string name="notification_auto_upload_finished_title">Automatski prijenos slika završen</string>
 	<string name="notification_auto_upload_finished_message">%1$d slika preneseno u trezor</string>
 	<string name="notification_auto_upload_failed_title">Automatski prijenos slika neuspješan</string>
