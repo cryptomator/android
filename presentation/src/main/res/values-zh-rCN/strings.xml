@@ -355,10 +355,11 @@
 	<string name="dialog_biometric_auth_key_invalidated_title">生物识别认证功能已停用</string>
 	<string name="dialog_biometric_auth_key_invalidated_message">由于密钥已失效，生物识别认证功能已停用。重新启用请打开 Cryptomator 设置</string>
 	<string name="dialog_enter_license_title">请提供有效许可证</string>
+	<string name="dialog_enter_license_content">我们检测到您在没有使用 Google Play 商店的情况下安装了 Cryptomator。请提供有效许可证，可前往 <a href="https://cryptomator.org/android/">https://cryptomator.org/android/</a> 购买</string>
 	<string name="dialog_enter_license_not_valid_content">提供的许可证无效，请确保输入正确。</string>
 	<string name="dialog_enter_license_not_valid_content_desktop_supporter_certificate">提供的密钥为桌面版支持者证书。请输入有效的许可证。</string>
 	<string name="dialog_enter_license_no_content">未提供许可证，请输入有效许可证。</string>
-	<string name="dialog_enter_license_decline_button">取消</string>
+	<string name="dialog_enter_license_decline_button">退出</string>
 	<string name="dialog_license_confirmation_title">授权通过</string>
 	<string name="dialog_license_confirmation_message">感谢 %1$s 提供您的有效许可证</string>
 	<string name="dialog_update_available_title">发现新版本</string>
@@ -436,6 +437,7 @@
 	<string name="notification_lock_all">全部锁定</string>
 	<string name="notification_cancel_auto_upload">取消上传</string>
 	<string name="notification_auto_upload_title">自动上传图片中</string>
+	<string name="notification_auto_upload_message">上传中 %1d/%2d</string>
 	<string name="notification_auto_upload_finished_title">自动上传图片完成</string>
 	<string name="notification_auto_upload_finished_message">%1$d 张图片已上传到保险库</string>
 	<string name="notification_auto_upload_failed_title">自动上传图片失败</string>
