@@ -55,6 +55,7 @@
 	<string name="screen_license_check_trial_status_active">Aktívny</string>
 	<string name="screen_license_check_trial_status_expired">Vypršaný</string>
 	<string name="screen_license_check_trial_expired_info">Vaše bezplatné skúšobné obdobie vypršalo.</string>
+	<string name="screen_license_check_cancel_subscription_hint">Teraz máte doživotnú licenciu. Ak sa chcete vyhnúť budúcim poplatkom, zrušte svoje ročné predplatné pomocou možnosti %1$s v Nastaveniach.</string>
 	<string name="screen_welcome_title">Vitajte</string>
 	<string name="screen_welcome_continue_button">Pokračovať</string>
 	<string name="screen_welcome_screen_lock_button">Nastaviť zamykanie obrazovky</string>
@@ -344,7 +345,7 @@
 	<string name="dialog_vaults_removed_during_migration_hint">Počas migrácie na túto verziu aplikácie potrebujeme odstrániť nasledujúce trezory z aplikácie:\n%2s \n\n Tieto trezory nebudú odstránené z cloudu, ale len z tejto aplikácie. Prepáčte za nepohodlie a prosím znovu zadajte trezory pre pokračovanie ich používania.</string>
 	<string name="dialog_vault_is_root_folder_of_cloud_title">Trezor je koreňovým adresárom cloudového spojenia</string>
 	<string name="dialog_vault_is_root_folder_of_cloud_hint">Vytvorte nové cloudové pripojenie kde vyberiete minimálne nadradený adresár tohto trezora ako koreňový adresár pre pridanie tohot trezora.</string>
-	<string name="dialog_disable_secure_screen_disclaimer_hint">Toto nastavenie je bezpečnostná vlastnosť a chráni ostatné aplikácie pred klamaním užívateľov robiť veci, ktoré nechcú obiť.\n\nVypnutím súhlasíte, že &lt;a href="https://docs.cryptomator.org/en/latest/android/settings/#screen-security"&gt;ste si vedomí rizika.</string>
+	<string name="dialog_disable_secure_screen_disclaimer_hint">Toto nastavenie je bezpečnostná vlastnosť a chráni ostatné aplikácie pred klamaním užívateľov robiť veci, ktoré nechcú obiť.\n\nVypnutím súhlasíte, že &lt;a href=\"https://docs.cryptomator.org/en/latest/android/settings/#screen-security\"&gt;ste si vedomí rizika.</string>
 	<string name="dialog_delete_cloud_connection_with_vaults_message">Ste si istý že chcete odstrániť toto cloudové pripojenie?</string>
 	<string name="dialog_delete_cloud_connection_with_vaults_hint">Táto akcia odstráni pripojenie cloudu a všetky trezory tohto cloudu.</string>
 	<string name="dialog_confirm_delete_multiple_title">Odstrániť %1$d položky?</string>
@@ -354,10 +355,11 @@
 	<string name="dialog_biometric_auth_key_invalidated_title">Funkcia biometrickej autentikácie je deaktivovaná</string>
 	<string name="dialog_biometric_auth_key_invalidated_message">Pretože kľúč bol zneplatnený, funkcia biometrickej autentikácie bola deaktivovaná. Pre opätovné povolenie, otvorte nastavenia Cryptomator-a.</string>
 	<string name="dialog_enter_license_title">Zadajte platný licenčný kľúč</string>
+	<string name="dialog_enter_license_content">Detekovali sme že máte nainštalovaný Cryptomator bez použitia Google Play Store. Poskytnite platnú licenciu, ktorá bola zakúpená v <a href="https://cryptomator.org/android/">https://cryptomator.org/android/</a></string>
 	<string name="dialog_enter_license_not_valid_content">Poskytnutá licencia nie je platná. Uistite sa či bola zadaná korektne.</string>
 	<string name="dialog_enter_license_not_valid_content_desktop_supporter_certificate">Poskytnuty kľúč je pracovná plocha certifikátu podporovateľa. Prosím zadajte platnú licenciu.</string>
 	<string name="dialog_enter_license_no_content">Licencia neposkytnutá. Prosím zadajte platnú licenciu.</string>
-	<string name="dialog_enter_license_decline_button">Zrušiť</string>
+	<string name="dialog_enter_license_decline_button">Ukončiť</string>
 	<string name="dialog_license_confirmation_title">Potvrdenie licencie</string>
 	<string name="dialog_license_confirmation_message">Ďakujeme %1$s za poskytnutie Vašej platnej licencie.</string>
 	<string name="dialog_update_available_title">Aktualizácia k dispozícii</string>
@@ -428,6 +430,7 @@
 	<string name="notification_lock_all">Všetko zamknúť</string>
 	<string name="notification_cancel_auto_upload">Zrušiť nahrávanie</string>
 	<string name="notification_auto_upload_title">Prebieha automatické nahrávanie fotografii</string>
+	<string name="notification_auto_upload_message">Nahrávanie %1d/%2d</string>
 	<string name="notification_auto_upload_finished_title">Automatické nahrávanie fotografii dokončené</string>
 	<string name="notification_auto_upload_finished_message">%1$d obrázkov nahratých do trezora</string>
 	<string name="notification_auto_upload_failed_title">Automatické nahrávanie fotografii zlyhalo</string>
