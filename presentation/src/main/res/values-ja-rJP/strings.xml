@@ -357,10 +357,11 @@
 	<string name="dialog_biometric_auth_key_invalidated_title">生体認証機能が無効になりました</string>
 	<string name="dialog_biometric_auth_key_invalidated_message">鍵が無効になったため、生体認証が無効になりました。再度有効にするには、Cryptomator の設定を開いてください。</string>
 	<string name="dialog_enter_license_title">有効なライセンスを入力してください</string>
+	<string name="dialog_enter_license_content">Google Play ストアを使用せずに Cryptomator をインストールしたことを検出しました。有効なライセンスを購入してください: <a href="https://cryptomator.org/android/">https://cryptomator.org/android/</a></string>
 	<string name="dialog_enter_license_not_valid_content">入力されたライセンスが無効です。正しく入力されていることを確認してください。</string>
 	<string name="dialog_enter_license_not_valid_content_desktop_supporter_certificate">入力されたキーはデスクトップサポーター証明書です。有効なライセンスを入力してください。</string>
 	<string name="dialog_enter_license_no_content">ライセンスがありません。有効なライセンスを入力してください。</string>
-	<string name="dialog_enter_license_decline_button">キャンセル</string>
+	<string name="dialog_enter_license_decline_button">終了</string>
 	<string name="dialog_license_confirmation_title">ライセンスの確認を完了</string>
 	<string name="dialog_license_confirmation_message">%1$s-san 有効なライセンスを入力していただきありがとうございます。 </string>
 	<string name="dialog_update_available_title">利用可能なアップデートがあります</string>
@@ -439,6 +440,7 @@
 	<string name="notification_lock_all">すべて施錠</string>
 	<string name="notification_cancel_auto_upload">アップロードをキャンセル</string>
 	<string name="notification_auto_upload_title">写真の自動アップロード中</string>
+	<string name="notification_auto_upload_message">アップロード中 %1d/%2d</string>
 	<string name="notification_auto_upload_finished_title">写真の自動アップロードが完了しました</string>
 	<string name="notification_auto_upload_finished_message">%1$d 個の画像を金庫にアップロードしました</string>
 	<string name="notification_auto_upload_failed_title">写真の自動アップロードが失敗しました</string>
