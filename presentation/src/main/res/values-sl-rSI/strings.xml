@@ -309,7 +309,7 @@
 	<string name="dialog_app_is_obscured_info_neutral_button">Zapri</string>
 	<string name="dialog_confirm_delete_multiple_title">Izbriši %1$d stvari?</string>
 	<string name="dialog_confirm_delete_multiple_message">Ali ste prepričani, da želite te datoteke izbrisati?</string>
-	<string name="dialog_enter_license_decline_button">Prekliči</string>
+	<string name="dialog_enter_license_decline_button">Izhod</string>
 	<string name="dialog_license_confirmation_title">Potrditev licence</string>
 	<string name="dialog_update_available_title">Posodobitev je na voljo</string>
 	<string name="dialog_update_available_update">Posodobi zdaj</string>
