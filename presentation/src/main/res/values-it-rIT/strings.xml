@@ -385,11 +385,11 @@
 	<string name="dialog_biometric_auth_key_invalidated_title">Funzione di autenticazione biometrica disattivata</string>
 	<string name="dialog_biometric_auth_key_invalidated_message">Poiché la chiave è stata invalidata, la funzione di autenticazione biometrica è stata disattivata. Per riabilitarla, aprire le impostazioni di Cryptomator.</string>
 	<string name="dialog_enter_license_title">Fornire una licenza valida</string>
-	<string name="dialog_enter_license_content">Acquista una licenza su <a href="https://cryptomator.org/android/">https://cryptomator.org/android/</a> o inserisci la tua chiave di licenza per Android.</string>
+	<string name="dialog_enter_license_content">Abbiamo rilevato che hai installato Cryptomator senza utilizzare Google Play Store. Fornisci una licenza valida, che può essere acquistata su <a href="https://cryptomator.org/android/">https://cryptomator.org/android/</a></string>
 	<string name="dialog_enter_license_not_valid_content">La licenza fornita non è valida. Assicurati di averla inserita correttamente.</string>
 	<string name="dialog_enter_license_not_valid_content_desktop_supporter_certificate">La chiave fornita è un certificato per la versione desktop rilasciata ai supporter. Inserisci una licenza valida.</string>
 	<string name="dialog_enter_license_no_content">Nessuna licenza fornita. Inserisci una licenza valida.</string>
-	<string name="dialog_enter_license_decline_button">Annulla</string>
+	<string name="dialog_enter_license_decline_button">Esci</string>
 	<string name="dialog_license_confirmation_title">Conferma licenza</string>
 	<string name="dialog_license_confirmation_message">Grazie %1$s per aver fornito una licenza valida.</string>
 	<string name="dialog_update_available_title">Aggiornamento disponibile</string>
@@ -472,7 +472,7 @@
 	<string name="notification_lock_all">Blocca tutto</string>
 	<string name="notification_cancel_auto_upload">Annulla caricamento</string>
 	<string name="notification_auto_upload_title">Caricamento automatico delle foto in esecuzione</string>
-	<string name="notification_auto_upload_message">Caricamento %1$d/%2$d</string>
+	<string name="notification_auto_upload_message">Caricamento %1d/%2d</string>
 	<string name="notification_auto_upload_finished_title">Caricamento automatico delle foto terminato</string>
 	<string name="notification_auto_upload_finished_message">%1$d immagini caricate nella cassaforte</string>
 	<string name="notification_auto_upload_failed_title">Caricamento automatico delle foto fallito</string>
