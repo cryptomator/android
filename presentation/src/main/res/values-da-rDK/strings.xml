@@ -358,10 +358,11 @@
 	<string name="dialog_biometric_auth_key_invalidated_title">Biometrisk godkendelse deaktiveret</string>
 	<string name="dialog_biometric_auth_key_invalidated_message">Fordi nøglen er gjort ugyldig, er biometrisk godkendelse blevet deaktiveret. For at genaktivere skal du åbne Cryptomator-indstillingerne.</string>
 	<string name="dialog_enter_license_title">Angiv en gyldig licens</string>
+	<string name="dialog_enter_license_content">Vi har opdaget, at du har installeret Cryptomator uden at bruge Google Play. Angiv en gyldig licens, som kan købes på <a href="https://cryptomator.org/android/">https://cryptomator.org/android/</a></string>
 	<string name="dialog_enter_license_not_valid_content">Den angivne licens er ikke gyldig. Sørg for at du har indtastet den korrekt.</string>
 	<string name="dialog_enter_license_not_valid_content_desktop_supporter_certificate">Den angivne nøgle er et supporter-certifikat til desktop programmet. Angiv venligst en gyldig licens.</string>
 	<string name="dialog_enter_license_no_content">Ingen licens angivet. Angiv venligst en gyldig licens.</string>
-	<string name="dialog_enter_license_decline_button">Annullér</string>
+	<string name="dialog_enter_license_decline_button">Afslut</string>
 	<string name="dialog_license_confirmation_title">Bekræftelse af licens</string>
 	<string name="dialog_license_confirmation_message">Tak %1$s fordi du har angivet din gyldige licens.</string>
 	<string name="dialog_update_available_title">Opdatering tilgængelig</string>
@@ -440,6 +441,7 @@
 	<string name="notification_lock_all">Lås alle</string>
 	<string name="notification_cancel_auto_upload">Annullér upload</string>
 	<string name="notification_auto_upload_title">Automatisk upload af fotos i gang</string>
+	<string name="notification_auto_upload_message">Uploader %1d/%2d</string>
 	<string name="notification_auto_upload_finished_title">Automatisk upload af fotos færdig</string>
 	<string name="notification_auto_upload_finished_message">%1$d billeder uploadet til boksen</string>
 	<string name="notification_auto_upload_failed_title">Automatisk upload af fotos fejlede</string>
