@@ -344,10 +344,11 @@
 	<string name="dialog_biometric_auth_key_invalidated_title">Đã tắt tính năng xác thực sinh trắc học</string>
 	<string name="dialog_biometric_auth_key_invalidated_message">Vì khoá đã bị vô hiệu nên tính năng xác thực sinh trắc học đã bị tắt. Để bật lại, hãy mở cài đặt Cryptomator.</string>
 	<string name="dialog_enter_license_title">Cung cấp giấy phép hợp lệ</string>
+	<string name="dialog_enter_license_content">Chúng tôi phát hiện ra rằng bạn đã cài đặt Cryptomator mà không sử dụng Cửa hàng Google Play. Cung cấp giấy phép hợp lệ, mà bạn có thể mua trên <a href="https://cryptomator.org/android/">https://cryptomator.org/android/</a></string>
 	<string name="dialog_enter_license_not_valid_content">Giấy phép được cung cấp không hợp lệ. Hãy chắc chắn rằng bạn đã nhập nó một cách chính xác.</string>
 	<string name="dialog_enter_license_not_valid_content_desktop_supporter_certificate">Khoá được cung cấp là chứng chỉ người hỗ trợ dành cho máy tính để bàn. Vui lòng nhập giấy phép hợp lệ.</string>
 	<string name="dialog_enter_license_no_content">Không có giấy phép được cung cấp. Vui lòng nhập giấy phép hợp lệ.</string>
-	<string name="dialog_enter_license_decline_button">Hủy</string>
+	<string name="dialog_enter_license_decline_button">Thoát</string>
 	<string name="dialog_license_confirmation_title">Xác nhận giấy phép</string>
 	<string name="dialog_license_confirmation_message">Cảm ơn %1$s đã cung cấp giấy phép hợp lệ của bạn.</string>
 	<string name="dialog_update_available_title">Đã có bản cập nhật</string>
@@ -407,6 +408,7 @@
 	<string name="notification_lock_all">Khóa tất cả</string>
 	<string name="notification_cancel_auto_upload">Hủy tải lên</string>
 	<string name="notification_auto_upload_title">Tải ảnh tự động đang chạy</string>
+	<string name="notification_auto_upload_message">Đang tải lên %1d/%2d</string>
 	<string name="notification_auto_upload_finished_title">Đã hoàn tất tải ảnh tự động lên</string>
 	<string name="notification_auto_upload_finished_message">%1$d hình ảnh được tải lên vault</string>
 	<string name="notification_auto_upload_failed_title">Tự động tải ảnh lên không thành công</string>
