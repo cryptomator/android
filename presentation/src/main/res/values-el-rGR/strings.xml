@@ -356,10 +356,11 @@
 	<string name="dialog_biometric_auth_key_invalidated_title">Η λειτουργία βιομετρικής ταυτοποίησης απενεργοποιήθηκε</string>
 	<string name="dialog_biometric_auth_key_invalidated_message">Επειδή το κλειδί έχει ακυρωθεί, η βιομετρική λειτουργία ταυτοποιήσης έχει απενεργοποιηθεί. Για επανενεργοποίηση, ανοίξτε τις ρυθμίσεις Cryptomator.</string>
 	<string name="dialog_enter_license_title">Δώστε μια έγκυρη άδεια</string>
+	<string name="dialog_enter_license_content">Εντοπίσαμε ότι εγκαταστήσατε Cryptomator χωρίς τη χρήση του Google Play Store. Παρέχετε έγκυρη άδεια, η οποία μπορεί να αγοραστεί στο <a href="https://cryptomator.org/android/">https://cryptomator.org/android/</a></string>
 	<string name="dialog_enter_license_not_valid_content">Η παρεχόμενη άδεια δεν είναι έγκυρη. Βεβαιωθείτε ότι την εισαγάγατε σωστά.</string>
 	<string name="dialog_enter_license_not_valid_content_desktop_supporter_certificate">Το κλειδί που παρέχεται είναι ένα πιστοποιητικό υποστήριξης επιφάνειας εργασίας. Παρακαλώ εισαγάγετε μια έγκυρη άδεια.</string>
 	<string name="dialog_enter_license_no_content">Δεν παρέχεται άδεια. Παρακαλώ εισάγετε μια έγκυρη άδεια.</string>
-	<string name="dialog_enter_license_decline_button">Ακύρωση</string>
+	<string name="dialog_enter_license_decline_button">Έξοδος</string>
 	<string name="dialog_license_confirmation_title">Επιβεβαίωση άδειας</string>
 	<string name="dialog_license_confirmation_message">Ευχαριστούμε %1$s για την παροχή της έγκυρης άδειας χρήσης σας.</string>
 	<string name="dialog_update_available_title">Διαθέσιμη ενημέρωση</string>
@@ -437,6 +438,7 @@
 	<string name="notification_lock_all">Κλείδωμα όλων</string>
 	<string name="notification_cancel_auto_upload">Ακύρωση μεταφόρτωσης</string>
 	<string name="notification_auto_upload_title">Εκτελείται αυτόματη μεταφόρτωση φωτογραφιών</string>
+	<string name="notification_auto_upload_message">Μεταφόρτωση %1d/%2d</string>
 	<string name="notification_auto_upload_finished_title">Η αυτόματη μεταφόρτωση φωτογραφίας ολοκληρώθηκε</string>
 	<string name="notification_auto_upload_finished_message">%1$d εικόνες μεταφορτώθηκαν στην κρύπτη</string>
 	<string name="notification_auto_upload_failed_title">Η αυτόματη μεταφόρτωση φωτογραφιών απέτυχε</string>
