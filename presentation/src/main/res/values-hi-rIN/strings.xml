@@ -308,6 +308,7 @@
 	<string name="notification_lock_all">सभी को लॉक करें</string>
 	<string name="notification_cancel_auto_upload">अपलोड रद्द करें</string>
 	<string name="notification_auto_upload_title">ऑटो फोटो अपलोड जारी है</string>
+	<string name="notification_auto_upload_message">अपलोडिंग %1d/%2d</string>
 	<string name="notification_auto_upload_finished_title">ऑटो फोटो अपलोड समाप्त</string>
 	<string name="notification_auto_upload_finished_message">%1$d इमेजेस वॉल्ट में अपलोड की गयी</string>
 	<string name="notification_auto_upload_failed_title">ऑटो फोटो अपलोड असफल</string>
