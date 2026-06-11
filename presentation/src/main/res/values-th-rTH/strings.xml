@@ -206,7 +206,7 @@
 	<string name="dialog_confirm_delete_multiple_title">ลบ %1$d รายการ?</string>
 	<string name="dialog_biometric_auth_key_invalidated_title">การยืนยันตัวตนด้วยไบโอเมตริกซ์ถูกยกเลิก</string>
 	<string name="dialog_biometric_auth_key_invalidated_message">เนื่องจากรหัสการตรวจสอบถูกยกเลิก ฟีเจอร์การตรวจสอบแบบไบโอเมตริกซ์จึงถูกปิดใช้งาน หากต้องการเปิดใช้งานอีกครั้ง โปรดเปิดการตั้งค่า Cryptomator</string>
-	<string name="dialog_enter_license_decline_button">ยกเลิก</string>
+	<string name="dialog_enter_license_decline_button">ออก</string>
 	<string name="dialog_update_available_title">มีการอัปเดตพร้อมใช้งาน</string>
 	<string name="dialog_update_available_update">อัปเดตตอนนี้</string>
 	<string name="dialog_update_available_cancel">ภายหลัง</string>
@@ -248,6 +248,7 @@
 	<!-- notification -->
 	<string name="notification_timeout">ล็อกภายใน \"%1$s</string>
 	<string name="notification_lock_all">ล็อกทั้งหมด</string>
+	<string name="notification_auto_upload_message">กำลังอัปโหลด %1d/%2d</string>
 	<string name="notification_auto_upload_failed_title">การอัปโหลดภาพอัตโนมัติล้มเหลว</string>
 	<string name="notification_open_writable_file_title">เปิดไฟล์ที่เขียนได้</string>
 	<string name="notification_update_check_finished_latest">ติดตั้งเวอร์ชันล่าสุดแล้ว</string>
