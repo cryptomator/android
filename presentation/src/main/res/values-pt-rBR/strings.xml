@@ -38,7 +38,7 @@
 	<string name="error_interact_with_fdroid_but_fdroid_missing">Falha na comunicação com o aplicativo F-Droid. Ele está instalado?</string>
 	<string name="error_hub_vault_operation_not_supported">A operação de cofre não é suportada para o Hub</string>
 	<string name="error_hub_authentication_failed">Falha ao autenticar o Hub</string>
-	<string name="error_hub_device_already_register_for_other_user">Este dispositivo já está registrado para um usuário diferente. Tente alterar a conta de usuário ou use outro dispositivo.</string>
+	<string name="error_hub_device_already_register_for_other_user">Este dispositivo já está registrado para um usuário diferente. Tente alterar a conta de usuário ou use um dispositivo diferente.</string>
 	<string name="error_hub_invalid_setup_code">A Chave de Conta é inválida.</string>
 	<string name="error_hub_invalid_version">Versão do Hub não suportada.</string>
 	<string name="error_hub_unlock_pre_31">O Hub só é compatível a partir do Android 12.</string>
@@ -389,7 +389,7 @@
 	<string name="dialog_enter_license_not_valid_content">A licença fornecida é inválida. Verifique se você a digitou corretamente.</string>
 	<string name="dialog_enter_license_not_valid_content_desktop_supporter_certificate">A chave fornecida é um certificado de suporte de computador. Digite uma licença válida.</string>
 	<string name="dialog_enter_license_no_content">Nenhuma licença fornecida. Digite uma licença válida.</string>
-	<string name="dialog_enter_license_decline_button">Cancelar</string>
+	<string name="dialog_enter_license_decline_button">Sair</string>
 	<string name="dialog_license_confirmation_title">Confirmação de licença</string>
 	<string name="dialog_license_confirmation_message">Obrigado %1$s por fornecer a sua licença válida.</string>
 	<string name="dialog_update_available_title">Atualização disponível</string>
@@ -412,10 +412,10 @@
 	<string name="dialog_cbc_password_vaults_migration_action">Migrar</string>
 	<string name="dialog_create_hub_device_title">Registrar dispositivo do Hub</string>
 	<string name="dialog_create_hub_device_name_label">Nome</string>
-	<string name="dialog_create_hub_device_name_hint">Este parece ser o primeiro acesso ao Hub a partir deste dispositivo. Para identificá-lo no processo de autorização, é necessário nomear este aparelho.</string>
+	<string name="dialog_create_hub_device_name_hint">Parece ser o primeiro acesso do Hub a partir deste dispositivo. Para identificá-lo para autorização de acesso, você precisa nomear este dispositivo.</string>
 	<string name="dialog_create_hub_device_name_empty">O nome não pode estar vazio.</string>
 	<string name="dialog_create_hub_device_setup_code_label">Chave da Conta</string>
-	<string name="dialog_create_hub_device_setup_code_hint">Sua chave de conta é necessária para realizar o acesso a partir de novos aplicativos ou navegadores. Ela pode ser encontrada em seu perfil.</string>
+	<string name="dialog_create_hub_device_setup_code_hint">Sua Chave de Conta é necessária para acessar a partir de novos aplicativos ou navegadores. Ela pode ser encontrada no seu perfil.</string>
 	<string name="dialog_create_hub_device_setup_code_empty">A Chave de Conta não pode estar vazia.</string>
 	<string name="dialog_progress_creating_hub_device_setup">Criando dispositivo&#8230;</string>
 	<string name="dialog_hub_vault_access_forbidden_title">Acesso negado</string>
@@ -431,7 +431,7 @@
 	<string name="dialog_restore_failed_title">Falha ao restaurar</string>
 	<string name="dialog_restore_failed_message">Não foi possível encontrar a Play Store. Verifique sua conexão e tente novamente.</string>
 	<string name="dialog_hub_user_setup_required_title">Requer configuração de usuário</string>
-	<string name="dialog_hub_user_setup_required_hint">Para prosseguir, preencha as etapas necessárias no seu perfil de usuário do Hub.</string>
+	<string name="dialog_hub_user_setup_required_hint">Para prosseguir, por favor preencha as etapas necessárias no seu perfil de usuário do Hub.</string>
 	<string name="dialog_hub_user_setup_required_neutral_button">Acessar o perfil</string>
 	<string name="dialog_hub_check_host_authenticity_title">Confiar nesses hosts?</string>
 	<string name="permission_snackbar_auth_local_vault">O Cryptomator precisa de permissão de acesso ao armazenamento para usar os cofres locais</string>
@@ -450,7 +450,7 @@
 	<string name="time_unit_seconds_sg">segundo</string>
 	<string name="time_unit_seconds_pl">segundos</string>
 	<string name="time_unit_minutes_sg">minuto</string>
-	<string name="time_unit_minutes_pl">minuto(s)</string>
+	<string name="time_unit_minutes_pl">minutos</string>
 	<string name="time_unit_hours_sg">hora</string>
 	<string name="time_unit_hours_pl">horas</string>
 	<string name="time_unit_days_sg">dia</string>
