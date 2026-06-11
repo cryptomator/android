@@ -387,11 +387,11 @@
 	<string name="dialog_biometric_auth_key_invalidated_title">Биометрическая аутентификация отключена</string>
 	<string name="dialog_biometric_auth_key_invalidated_message">Поскольку ключ был аннулирован, биометрическая аутентификация была отключена. Для повторной активации откройте настройки Cryptomator.</string>
 	<string name="dialog_enter_license_title">Предоставьте действительную лицензию</string>
-	<string name="dialog_enter_license_content">Приобретите лицензию на <a href="https://cryptomator.org/android/">https://cryptomator.org/android/</a> или введите ваш существующий лицензионный ключ для Android.</string>
+	<string name="dialog_enter_license_content">Мы обнаружили, что вы установили Cryptomator, не используя Google Play. Предоставьте действительную лицензию, которую можно приобрести на <a href="https://cryptomator.org/android/">https://cryptomator.org/android/</a></string>
 	<string name="dialog_enter_license_not_valid_content">Лицензия недействительна. Убедитесь, что вы ввели её правильно.</string>
 	<string name="dialog_enter_license_not_valid_content_desktop_supporter_certificate">Предоставленный ключ - это сертификат спонсора. Введите действительную лицензию.</string>
 	<string name="dialog_enter_license_no_content">Нет лицензии. Введите действительную лицензию.</string>
-	<string name="dialog_enter_license_decline_button">Отмена</string>
+	<string name="dialog_enter_license_decline_button">Выход</string>
 	<string name="dialog_license_confirmation_title">Подтверждение лицензии</string>
 	<string name="dialog_license_confirmation_message">Благодарим %1$s за предоставленную лицензию.</string>
 	<string name="dialog_update_available_title">Доступно обновление</string>
@@ -474,7 +474,7 @@
 	<string name="notification_lock_all">Заблокировать все</string>
 	<string name="notification_cancel_auto_upload">Отменить загрузку</string>
 	<string name="notification_auto_upload_title">Выполняется автозагрузка фото</string>
-	<string name="notification_auto_upload_message">Загрузка %1$d/%2$d</string>
+	<string name="notification_auto_upload_message">Загрузка %1d/%2d</string>
 	<string name="notification_auto_upload_finished_title">Автозагрузка фото завершена</string>
 	<string name="notification_auto_upload_finished_message">Загружено изображений в хранилище: %1$d</string>
 	<string name="notification_auto_upload_failed_title">Ошибка автоотправки фото</string>
