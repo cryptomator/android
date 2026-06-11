@@ -391,7 +391,7 @@
 	<string name="dialog_enter_license_not_valid_content">Надана ліцензія недійсна. Переконайтеся, що ви ввели її правильно.</string>
 	<string name="dialog_enter_license_not_valid_content_desktop_supporter_certificate">Наданий ключ є сертифікатом помічника для настільної версії. Будь ласка, введіть дійсну ліцензію.</string>
 	<string name="dialog_enter_license_no_content">Ліцензію не надано. Будь ласка, введіть дійсну ліцензію.</string>
-	<string name="dialog_enter_license_decline_button">Скасувати</string>
+	<string name="dialog_enter_license_decline_button">Вийти</string>
 	<string name="dialog_license_confirmation_title">Ліцензію підтверджено</string>
 	<string name="dialog_license_confirmation_message">Дякуємо, %1$s, за надану дійсну ліцензію.</string>
 	<string name="dialog_update_available_title">Доступне оновлення</string>
