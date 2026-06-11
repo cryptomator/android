@@ -384,11 +384,11 @@
 	<string name="dialog_biometric_auth_key_invalidated_title">생체 인증 기능이 비활성화됨</string>
 	<string name="dialog_biometric_auth_key_invalidated_message">키가 유효하지 않게 되어, 생체 인증 기능이 비활성화 되었습니다. 다시 활성화하려면 Cryptomator 설정을 여세요.</string>
 	<string name="dialog_enter_license_title">유효한 라이선스를 입력하세요</string>
-	<string name="dialog_enter_license_content"><a href="https://cryptomator.org/android/">https://cryptomator.org/android/</a>에서 라이선스를 구매하거나 또는 기존 Android 라이선스 키를 입력하세요.</string>
+	<string name="dialog_enter_license_content">Google Play 스토어를 이용하지 않고 Cryptomator가 설치되었음을 감지했습니다. 유효한 라이선스를 입력해주세요. 라이선스는 <a href="https://cryptomator.org/android/">https://cryptomator.org/android/</a>에서 구매가능합니다.</string>
 	<string name="dialog_enter_license_not_valid_content">입력된 라이선스는 유효하지 않습니다. 다시한번 확인해주세요.</string>
 	<string name="dialog_enter_license_not_valid_content_desktop_supporter_certificate">제공된 키는 데스크톱 판의 서포터 인증서입니다. 유효한 라이선스를 입력하세요.</string>
 	<string name="dialog_enter_license_no_content">라이선스가 입력되지 않았습니다. 유효한 라이선스를 입력해주세요.</string>
-	<string name="dialog_enter_license_decline_button">취소</string>
+	<string name="dialog_enter_license_decline_button">종료</string>
 	<string name="dialog_license_confirmation_title">라이선스 확인</string>
 	<string name="dialog_license_confirmation_message">%1$s님, 유효한 라이선스를 사용해 주셔서 감사합니다.</string>
 	<string name="dialog_update_available_title">업데이트가 출시되었습니다</string>
@@ -471,7 +471,7 @@
 	<string name="notification_lock_all">모두 잠그기</string>
 	<string name="notification_cancel_auto_upload">업로드 취소</string>
 	<string name="notification_auto_upload_title">자동 사진 업로드중</string>
-	<string name="notification_auto_upload_message">업로드 중 %1$d/%2$d</string>
+	<string name="notification_auto_upload_message">업로드중 %1d/%2d</string>
 	<string name="notification_auto_upload_finished_title">사진 자동 업로드 완료</string>
 	<string name="notification_auto_upload_finished_message">사진 %1$d개를 Vault로 업로드함</string>
 	<string name="notification_auto_upload_failed_title">자동 사진 업로드 실패</string>
