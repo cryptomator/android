@@ -355,10 +355,11 @@
 	<string name="dialog_biometric_auth_key_invalidated_title">Fitur autentikasi biometrik dinonaktifkan</string>
 	<string name="dialog_biometric_auth_key_invalidated_message">Karena kunci telah dibatalkan, fitur autentikasi biometrik telah dinonaktifkan. Untuk mengaktifkan kembali, buka pengaturan Cryptomator.</string>
 	<string name="dialog_enter_license_title">Berikan lisensi yang valid</string>
+	<string name="dialog_enter_license_content">Kami mendeteksi bahwa Anda menginstal Cryptomator tanpa menggunakan Google Play Store. Berikan lisensi yang valid, yang dapat dibeli di <a href="https://cryptomator.org/android/">https://cryptomator.org/android/</a></string>
 	<string name="dialog_enter_license_not_valid_content">Lisensi yang diberikan tidak valid. Pastikan Anda memasukkannya dengan benar.</string>
 	<string name="dialog_enter_license_not_valid_content_desktop_supporter_certificate">Kunci yang Anda input adalah kunci supporter certificate untuk pengguna desktop. Harap masukkan lisensi yang valid.</string>
 	<string name="dialog_enter_license_no_content">Tidak ada lisensi yang diberikan. Harap masukkan lisensi yang valid.</string>
-	<string name="dialog_enter_license_decline_button">Batalkan</string>
+	<string name="dialog_enter_license_decline_button">Keluar</string>
 	<string name="dialog_license_confirmation_title">Konfirmasi lisensi</string>
 	<string name="dialog_license_confirmation_message">Terima kasih %1$s Anda telah memberikan lisensi yang valid.</string>
 	<string name="dialog_update_available_title">Pembaruan tersedia</string>
@@ -436,6 +437,7 @@
 	<string name="notification_lock_all">Kunci semua</string>
 	<string name="notification_cancel_auto_upload">Batalkan unggah</string>
 	<string name="notification_auto_upload_title">Unggah foto otomatis selesai</string>
+	<string name="notification_auto_upload_message">Menunggah %1d/%2d</string>
 	<string name="notification_auto_upload_finished_title">Unggah foto otomatis selesai</string>
 	<string name="notification_auto_upload_finished_message">%1$d gambar diunggah ke vault</string>
 	<string name="notification_auto_upload_failed_title">Gagal unggah foto otomatis</string>
