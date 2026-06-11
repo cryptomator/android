@@ -349,10 +349,11 @@
 	<string name="dialog_biometric_auth_key_invalidated_title">Ang biometric authentication feature ay na deactivate na</string>
 	<string name="dialog_biometric_auth_key_invalidated_message">Dahil wala nang bisa ang susi na ito, deactivated na ang biometric authentication feature. Upang paganahin muli, buksan ang settings ng Cryptomator.</string>
 	<string name="dialog_enter_license_title">Magbigay ng wastong lisensya</string>
+	<string name="dialog_enter_license_content">Natuklasan namin na ang nakainstall mong Cryptomator ay hind nanggaling sa Google Play Store. Maaari lamang na magbigay ng wastong lisensya na mabibili sa <a href="https://cryptomator.org/android/">https://cryptomator.org/android/</a></string>
 	<string name="dialog_enter_license_not_valid_content">Ang lisensyang binigay ay hindi wasto. Siguraduhing tama ang iyong pagkakalagay.</string>
 	<string name="dialog_enter_license_not_valid_content_desktop_supporter_certificate">Ang ibinigay na key ay isang desktop supporter certificate. Mangyaring magpasok ng wastong lisensya.</string>
 	<string name="dialog_enter_license_no_content">Walang ibinigay na lisensya. Mangyaring magpasok ng wastong lisensya.</string>
-	<string name="dialog_enter_license_decline_button">Kanselahin</string>
+	<string name="dialog_enter_license_decline_button">I-sara</string>
 	<string name="dialog_license_confirmation_title">Pagkumpirma ng lisensya</string>
 	<string name="dialog_license_confirmation_message">Salamat %1$s sa pagbigay ng wastong lisensya.</string>
 	<string name="dialog_update_available_title">Available ang update</string>
@@ -418,6 +419,7 @@
 	<string name="notification_lock_all">I-lock lahat</string>
 	<string name="notification_cancel_auto_upload">Ikansela ang pag-upload</string>
 	<string name="notification_auto_upload_title">Tumatakbo ang awtomatikong pag-upload ng larawan</string>
+	<string name="notification_auto_upload_message">Uploading %1d/%2d</string>
 	<string name="notification_auto_upload_finished_title">Tumatakbo ang awtomatikong pag-upload ng larawan</string>
 	<string name="notification_auto_upload_finished_message">%1$d larawan ang na-upload sa vault</string>
 	<string name="notification_auto_upload_failed_title">Nabigo ang awtomatikong pag-upload ng larawan</string>
