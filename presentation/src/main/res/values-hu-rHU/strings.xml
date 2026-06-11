@@ -356,10 +356,11 @@
 	<string name="dialog_biometric_auth_key_invalidated_title">A biometrikus hitelesítési funkció inaktiválva</string>
 	<string name="dialog_biometric_auth_key_invalidated_message">Mivel a kulcs érvénytelenítve lett, a biometrikus hitelesítési funkció inaktiválva lett. Az újbóli engedélyezéshez nyissa meg a Cryptomator beállításait.</string>
 	<string name="dialog_enter_license_title">Adjon meg egy érvényes licencet</string>
+	<string name="dialog_enter_license_content">Úgy érzékeltük, hogy a Cryptomatort a Google Play áruházon kívül telepítette. Adjon meg egy érvényes licencet, amit meg tud vásárolni itt: <a href="https://cryptomator.org/android/">https://cryptomator.org/android/</a></string>
 	<string name="dialog_enter_license_not_valid_content">A megadott licenc nem érvényes. Győződjön meg arról, hogy jól írta be.</string>
 	<string name="dialog_enter_license_not_valid_content_desktop_supporter_certificate">A megadott kulcs egy asztali támogatói igazolás. Kérem, adjon meg egy érvényes licencet.</string>
 	<string name="dialog_enter_license_no_content">Nincs licenc megadva. Kérem, adjon meg egy érvényes licencet.</string>
-	<string name="dialog_enter_license_decline_button">Mégse</string>
+	<string name="dialog_enter_license_decline_button">Kilépés</string>
 	<string name="dialog_license_confirmation_title">Licenc megerősítése</string>
 	<string name="dialog_license_confirmation_message">Köszönöm %1$s, hogy megadta érvényes licencét.</string>
 	<string name="dialog_update_available_title">Frissítés elérhető</string>
@@ -437,6 +438,7 @@
 	<string name="notification_lock_all">Az összes zárolása</string>
 	<string name="notification_cancel_auto_upload">Feltöltés megszakítása</string>
 	<string name="notification_auto_upload_title">Aut. fotófeltöltés fut</string>
+	<string name="notification_auto_upload_message">%1d/%2d feltöltése</string>
 	<string name="notification_auto_upload_finished_title">Az aut. fényképfeltöltés befejeződött</string>
 	<string name="notification_auto_upload_finished_message">%1$d kép feltöltve a trezorba</string>
 	<string name="notification_auto_upload_failed_title">Aut. fotó feltöltés sikertelen</string>
