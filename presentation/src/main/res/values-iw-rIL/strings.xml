@@ -344,10 +344,11 @@
 	<string name="dialog_biometric_auth_key_invalidated_title">האימות הביומטרי בוטל</string>
 	<string name="dialog_biometric_auth_key_invalidated_message">בגלל שמפתח זה כבר לא חוקי, הזיהו הביומטרי הופסק. להפעלה מחדש יש לפתוח את מסך ההגדרות של Cryptomator.</string>
 	<string name="dialog_enter_license_title">שימוש במפתח רישיון</string>
+	<string name="dialog_enter_license_content">זיהינו שהתקנת את Cryptomator לא דרך ה-Google Play Store. להפעלת האפליקציה, יש להכניס מפתח רישיון. ניתן לרכוש מפתח ב-<a href="https://cryptomator.org/android/">https://cryptomator.org/android/</a></string>
 	<string name="dialog_enter_license_not_valid_content">המפתח לא אומת. וודא כי הזנת אותו כהלכה.</string>
 	<string name="dialog_enter_license_not_valid_content_desktop_supporter_certificate">המפתח שהוזן הוא תעודת תומך. יש להזין מפתח חוקי.</string>
 	<string name="dialog_enter_license_no_content">לא הוזן מפתח, אנא הזן מפתח רישיון תקין.</string>
-	<string name="dialog_enter_license_decline_button">ביטול</string>
+	<string name="dialog_enter_license_decline_button">יציאה</string>
 	<string name="dialog_license_confirmation_title">מפתח הרישיון אומת</string>
 	<string name="dialog_license_confirmation_message">תודה %1$s, על כך שהזנת מפתח רישיון תקין.</string>
 	<string name="dialog_update_available_title">עדכון זמין</string>
@@ -406,6 +407,7 @@
 	<string name="notification_lock_all">נעל הכל</string>
 	<string name="notification_cancel_auto_upload">בטל העלאה</string>
 	<string name="notification_auto_upload_title">מתבצעת העלאה אוטומטית של תמונות</string>
+	<string name="notification_auto_upload_message">מעלה %1d/%2d</string>
 	<string name="notification_auto_upload_finished_title">העלאה אוטומטית של תמונות הסתיימה</string>
 	<string name="notification_auto_upload_finished_message">%1$d תמונות הועלו ל Vault</string>
 	<string name="notification_auto_upload_failed_title">העלאה אוטומטית של תמונות נכשלה</string>
