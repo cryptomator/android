@@ -351,10 +351,11 @@
 	<string name="dialog_biometric_auth_key_invalidated_title">Funcția de autentificare biometrică dezactivată</string>
 	<string name="dialog_biometric_auth_key_invalidated_message">Deoarece cheia a fost invalidată, elementul de autentificare biometrică a fost dezactivat. Pentru a putea fi reutilizat, deschideți setările Cryptomator.</string>
 	<string name="dialog_enter_license_title">Furnizați o licență validă</string>
+	<string name="dialog_enter_license_content">Am detectat că ați instalat Cryptomator fără să utilizați Google Play Store. Furnizați o licență validă, care poate fi cumpărată pe <a href="https://cryptomator.org/android/">https://cryptomator.org/android/</a></string>
 	<string name="dialog_enter_license_not_valid_content">Licența furnizată nu este validă. Asigurați-vă că ați introdus-o corect.</string>
 	<string name="dialog_enter_license_not_valid_content_desktop_supporter_certificate">Cheia furnizată este un certificat de suporter desktop. Introduceți o licență validă.</string>
 	<string name="dialog_enter_license_no_content">Nici o licență furnizată. Introduceți o licență validă.</string>
-	<string name="dialog_enter_license_decline_button">Anulează</string>
+	<string name="dialog_enter_license_decline_button">Ieșire</string>
 	<string name="dialog_license_confirmation_title">Confirmare licență</string>
 	<string name="dialog_license_confirmation_message">Vă mulțumim %1$s pentru furnizarea licenței dvs. valide.</string>
 	<string name="dialog_update_available_title">Actualizare disponibilă</string>
@@ -424,6 +425,7 @@
 	<string name="notification_lock_all">Blochează toate</string>
 	<string name="notification_cancel_auto_upload">Anulare încărcare</string>
 	<string name="notification_auto_upload_title">Rulează autoîncărcarea de fotografii</string>
+	<string name="notification_auto_upload_message">Se încarcă %1d/%2d</string>
 	<string name="notification_auto_upload_finished_title">Încărcarea automată a pozei a fost finalizată</string>
 	<string name="notification_auto_upload_finished_message">%1$d imagini încărcate în seif</string>
 	<string name="notification_auto_upload_failed_title">Încărcarea automată a fotografiei a eșuat</string>
