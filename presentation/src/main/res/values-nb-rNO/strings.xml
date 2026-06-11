@@ -346,10 +346,11 @@
 	<string name="dialog_biometric_auth_key_invalidated_title">Biometrisk autentisering deaktivert</string>
 	<string name="dialog_biometric_auth_key_invalidated_message">Fordi nøkkelen er ugyldig, er biometrisk autentisering deaktivert. For å re-aktivere, åpne innstillingene for Cryptomator.</string>
 	<string name="dialog_enter_license_title">Oppgi en gyldig lisens</string>
+	<string name="dialog_enter_license_content">Vi oppdaget at du installerte Cryptomator uten å bruke Google Play Store. Oppgi en gyldig lisens, som kan kjøpes på <a href="https://cryptomator.org/android/">https://cryptomator.org/android/</a></string>
 	<string name="dialog_enter_license_not_valid_content">Den oppgitte lisensen er ikke gyldig. Kontroller at du har skrevet den inn riktig.</string>
 	<string name="dialog_enter_license_not_valid_content_desktop_supporter_certificate">Denne nøkkelen er et skrivebord supporter sertifikat. Vennligst angi en gyldig lisens.</string>
 	<string name="dialog_enter_license_no_content">Ingen lisens oppgitt. Vennligst skriv inn en gyldig lisens.</string>
-	<string name="dialog_enter_license_decline_button">Avbryt</string>
+	<string name="dialog_enter_license_decline_button">Avslutt</string>
 	<string name="dialog_license_confirmation_title">Lisensbekreftelse</string>
 	<string name="dialog_license_confirmation_message">Takk %1$s for at du oppgir en gyldig lisens.</string>
 	<string name="dialog_update_available_title">Oppdatering tilgjengelig</string>
@@ -413,6 +414,7 @@
 	<string name="notification_lock_all">Lås alle</string>
 	<string name="notification_cancel_auto_upload">Avbryt opplasting</string>
 	<string name="notification_auto_upload_title">Automatisk bildeopplasting kjører</string>
+	<string name="notification_auto_upload_message">Laster opp %1d/%2d</string>
 	<string name="notification_auto_upload_finished_title">Automatisk bildeopplasting fullført</string>
 	<string name="notification_auto_upload_finished_message">%1$d bilder lastet opp til hvelvet</string>
 	<string name="notification_auto_upload_failed_title">Automatisk bildeopplasting mislyktes</string>
