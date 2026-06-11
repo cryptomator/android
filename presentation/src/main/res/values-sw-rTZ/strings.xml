@@ -338,10 +338,11 @@
 	<string name="dialog_biometric_auth_key_invalidated_title">Kipengele cha uthibitishaji wa Biometriska kimezimwa</string>
 	<string name="dialog_biometric_auth_key_invalidated_message">Kwa sababu ufunguo umebatilishwa, kipengele cha uthibitishaji wa biometriska kimezimwa. Ili kuwezesha tena, fungua mipangilio ya Cryptomator.</string>
 	<string name="dialog_enter_license_title">Toa leseni halali</string>
+	<string name="dialog_enter_license_content">Tuligundua kuwa ulisakinisha Cryptomator bila kutumia Duka la Google Play. Toa leseni halali, ambayo inaweza kununuliwa kwenye <a href="https://cryptomator.org/android/">https://cryptomator.org/android/</a></string>
 	<string name="dialog_enter_license_not_valid_content">Leseni iliyotolewa sio halali. Hakikisha umeiingiza kwa usahihi.</string>
 	<string name="dialog_enter_license_not_valid_content_desktop_supporter_certificate">Ufunguo uliotolewa ni cheti cha msaidizi wa eneo-kazi. Tafadhali ingiza leseni halali.</string>
 	<string name="dialog_enter_license_no_content">Hakuna leseni iliyotolewa. Tafadhali ingiza leseni halali.</string>
-	<string name="dialog_enter_license_decline_button">Katisha</string>
+	<string name="dialog_enter_license_decline_button">Toka</string>
 	<string name="dialog_license_confirmation_title">Uthibitisho wa leseni</string>
 	<string name="dialog_license_confirmation_message">Asante %1$s kwa kutoa leseni yako halali.</string>
 	<string name="dialog_update_available_title">Sasisha inapatikana</string>
@@ -400,6 +401,7 @@
 	<string name="notification_lock_all">Funga zote</string>
 	<string name="notification_cancel_auto_upload">Katisha upakiaji</string>
 	<string name="notification_auto_upload_title">Upakiaji wa picha kiotomatiki unaendelea</string>
+	<string name="notification_auto_upload_message">Inapakia %1d/%2d</string>
 	<string name="notification_auto_upload_finished_title">Upakiaji wa picha otomatiki umekamilika</string>
 	<string name="notification_auto_upload_finished_message">%1$d picha zilizopakiwa kwenye kuba</string>
 	<string name="notification_auto_upload_failed_title">Upakiaji wa picha otomatiki umeshindikana</string>
