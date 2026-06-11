@@ -344,10 +344,11 @@
 	<string name="dialog_biometric_auth_key_invalidated_title">Биометрик аутентиклау үҙенсәлеге ябылған</string>
 	<string name="dialog_biometric_auth_key_invalidated_message">Асҡыс ғәмәлдән сығарылғанға күрә, биометрик аутентиклау һүндерелгән. Яңынан активлаштырыу өсөн Cryptomator көйләүҙәрен асығыҙ.</string>
 	<string name="dialog_enter_license_title">Ғәмәлдә булған рөхсәтнамә яҙығыҙ</string>
+	<string name="dialog_enter_license_content">Google Play Store ҡулланмайынса Cryptomator ҡуйыуығыҙҙы асыҡланыҡ. <a href="https://cryptomator.org/android/">https://cryptomator.org/android/</a> сайтында һатып алып булған һәм ғәмәлдәге рөхсәтнамә яҙығыҙ.</string>
 	<string name="dialog_enter_license_not_valid_content">Бирелгән рөхсәтнамә ғәмәлдә түгел. Уны дөрөҫ яҙғанығыҙҙы тикшерегеҙ.</string>
 	<string name="dialog_enter_license_not_valid_content_desktop_supporter_certificate">Бирелгән асҡыс — ярҙамсы сертификаты. Ғәмәлдә булған рөхсәтнамә яҙығыҙ.</string>
 	<string name="dialog_enter_license_no_content">Рөхсәтнамә яҙылмаған. Ғәмәлдә булған рөхсәтнамә яҙығыҙ.</string>
-	<string name="dialog_enter_license_decline_button">Кире ал</string>
+	<string name="dialog_enter_license_decline_button">Сыҡ</string>
 	<string name="dialog_license_confirmation_title">Рөхсәтнамә раҫлау</string>
 	<string name="dialog_license_confirmation_message">Ғәмәлдәге рөхсәтнамә биргәнегеҙ өсөн рәхмәт %1$s.</string>
 	<string name="dialog_update_available_title">Яңыртыу бар</string>
@@ -410,6 +411,7 @@
 	<string name="notification_lock_all">Барыһын да биклә</string>
 	<string name="notification_cancel_auto_upload">Тейәүҙе туҡтат</string>
 	<string name="notification_auto_upload_title">Автоматик фото тейәү бара</string>
+	<string name="notification_auto_upload_message">%1d/%2d тейәлә</string>
 	<string name="notification_auto_upload_finished_title">Автоматик фото тейәү тамамланды</string>
 	<string name="notification_auto_upload_finished_message">Һаҡлағысҡа %1$d һүрәт тейәлде</string>
 	<string name="notification_auto_upload_failed_title">Автомат фото тейәү уңышһыҙ булды</string>
