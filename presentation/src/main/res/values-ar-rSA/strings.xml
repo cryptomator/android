@@ -361,10 +361,11 @@
 	<string name="dialog_biometric_auth_key_invalidated_title">تم تعطيل خاصية البصمة</string>
 	<string name="dialog_biometric_auth_key_invalidated_message">لأنه تم تعطيل المفتاح ، تم تعطيل خاصية البصمة. لإعادة التفعيل ،الرجاء فتح إعدادات Cryptomator.</string>
 	<string name="dialog_enter_license_title">إدخال الترخيص</string>
+	<string name="dialog_enter_license_content">اكتشفنا أنك قمت بتثبيت Cryptomator دون استخدام متجر Google Play. قم بتقديم ترخيص صالح، يمكن شراؤه على <a href="https://cryptomator.org/android/">https://cryptomator.org/android/</a></string>
 	<string name="dialog_enter_license_not_valid_content">الترخيص المقدم غير صالح. تأكد من إدخاله بشكل صحيح.</string>
 	<string name="dialog_enter_license_not_valid_content_desktop_supporter_certificate">المفتاح المقدم هو شهادة داعمة لسطح المكتب. الرجاء إدخال ترخيص صالح.</string>
 	<string name="dialog_enter_license_no_content">لم يتم توفير ترخيص. الرجاء إدخال ترخيص صالح.</string>
-	<string name="dialog_enter_license_decline_button">إلغاء</string>
+	<string name="dialog_enter_license_decline_button">خروج</string>
 	<string name="dialog_license_confirmation_title">تأكيد الترخيص</string>
 	<string name="dialog_license_confirmation_message">شكرا %1$s لتقديمك ترخيصك الصالح.</string>
 	<string name="dialog_update_available_title">تحديث جديد متوفّر</string>
@@ -442,6 +443,7 @@
 	<string name="notification_lock_all">قفل الكل</string>
 	<string name="notification_cancel_auto_upload">إلغاء التحميل</string>
 	<string name="notification_auto_upload_title">رفع الصور التلقائي يعمل</string>
+	<string name="notification_auto_upload_message">جاري الرفع %1d/%2d</string>
 	<string name="notification_auto_upload_finished_title">رفع الصور التلقائي تم</string>
 	<string name="notification_auto_upload_finished_message">%1$d صورة تم رفعها الي المخزن</string>
 	<string name="notification_auto_upload_failed_title">رفع الصور التلقائي فشل</string>
