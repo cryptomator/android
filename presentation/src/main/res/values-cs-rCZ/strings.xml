@@ -348,10 +348,11 @@
 	<string name="dialog_biometric_auth_key_invalidated_title">Funkce biometrického ověření je deaktivována</string>
 	<string name="dialog_biometric_auth_key_invalidated_message">Vzhledem k tomu, že klíč byl zneplatněn, byla deaktivována funkce biometrického ověření. Chcete-li jej znovu povolit, otevřete nastavení Cryptomatoru.</string>
 	<string name="dialog_enter_license_title">Zadejte platnou licenci</string>
+	<string name="dialog_enter_license_content">Zjistili jsme, že jste si nainstalovali Cryptomator bez použití Google Play Store. Zadejte platnou licenci, kterou lze zakoupit na <a href="https://cryptomator.org/android/">https://cryptomator.org/android/</a></string>
 	<string name="dialog_enter_license_not_valid_content">Zadaná licence není platná. Ujistěte se, že jste ji zadali správně.</string>
 	<string name="dialog_enter_license_not_valid_content_desktop_supporter_certificate">Zadaný klíč je certifikátem podporovatele desktopové aplikace. Zadejte prosím platnou licenci.</string>
 	<string name="dialog_enter_license_no_content">Nebyla zadána žádná licence. Zadejte prosím platnou licenci.</string>
-	<string name="dialog_enter_license_decline_button">Zrušit</string>
+	<string name="dialog_enter_license_decline_button">Zavřít</string>
 	<string name="dialog_license_confirmation_title">Potvrzení licence</string>
 	<string name="dialog_license_confirmation_message">Děkujeme %1$s za zadání platné licence.</string>
 	<string name="dialog_update_available_title">Aktualizace je k dispozici</string>
@@ -413,6 +414,7 @@
 	<string name="notification_lock_all">Zamknout vše</string>
 	<string name="notification_cancel_auto_upload">Zrušit nahrávání</string>
 	<string name="notification_auto_upload_title">Automatické nahrávání fotek právě probíhá</string>
+	<string name="notification_auto_upload_message">Nahrávání %1d/%2d</string>
 	<string name="notification_auto_upload_finished_title">Automatické nahrávání fotek dokončeno</string>
 	<string name="notification_auto_upload_finished_message">%1$d obrázků nahráno do trezoru</string>
 	<string name="notification_auto_upload_failed_title">Automatické nahrávání fotek se nezdařilo</string>
