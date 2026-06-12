@@ -412,7 +412,7 @@
 	<string name="dialog_cbc_password_vaults_migration_action">Migrar</string>
 	<string name="dialog_create_hub_device_title">Registrar dispositivo do Hub</string>
 	<string name="dialog_create_hub_device_name_label">Nome</string>
-	<string name="dialog_create_hub_device_name_hint">Parece ser o primeiro acesso do Hub a partir deste dispositivo. Para identificá-lo para autorização de acesso, você precisa nomear este dispositivo.</string>
+	<string name="dialog_create_hub_device_name_hint">Este parece ser o primeiro acesso ao Hub a partir deste dispositivo. Para identificá-lo no processo de autorização, é necessário nomear este aparelho.</string>
 	<string name="dialog_create_hub_device_name_empty">O nome não pode estar vazio.</string>
 	<string name="dialog_create_hub_device_setup_code_label">Chave da Conta</string>
 	<string name="dialog_create_hub_device_setup_code_hint">Sua Chave de Conta é necessária para acessar a partir de novos aplicativos ou navegadores. Ela pode ser encontrada no seu perfil.</string>
@@ -431,7 +431,7 @@
 	<string name="dialog_restore_failed_title">Falha ao restaurar</string>
 	<string name="dialog_restore_failed_message">Não foi possível encontrar a Play Store. Verifique sua conexão e tente novamente.</string>
 	<string name="dialog_hub_user_setup_required_title">Requer configuração de usuário</string>
-	<string name="dialog_hub_user_setup_required_hint">Para prosseguir, por favor preencha as etapas necessárias no seu perfil de usuário do Hub.</string>
+	<string name="dialog_hub_user_setup_required_hint">Para prosseguir, preencha as etapas necessárias no seu perfil de usuário do Hub.</string>
 	<string name="dialog_hub_user_setup_required_neutral_button">Acessar o perfil</string>
 	<string name="dialog_hub_check_host_authenticity_title">Confiar nesses hosts?</string>
 	<string name="permission_snackbar_auth_local_vault">O Cryptomator precisa de permissão de acesso ao armazenamento para usar os cofres locais</string>
