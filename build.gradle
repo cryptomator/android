@@ -8,7 +8,7 @@ buildscript {
 	}
 	dependencies {
 		// before upgrading AGP, check https://gitlab.com/fdroid/admin/-/issues/593
-		classpath 'com.android.tools.build:gradle:8.11.1'
+		classpath 'com.android.tools.build:gradle:8.13.2'
 		classpath 'org.greenrobot:greendao-gradle-plugin:3.3.1'
 		classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
 		classpath "de.mannodermaus.gradle.plugins:android-junit5:1.7.1.1"
@@ -54,18 +54,14 @@ task clean(type: Delete) {
 }
 
 def getApiKey(key) {
-	return !liteFlavor() ? System.getenv().getOrDefault(key, getApiKeyLocal(key)) : ""
-}
-
-def liteFlavor() {
-	gradle.startParameter.taskNames.stream().filter(t -> t.toLowerCase().contains("lite")).findAny().isPresent()
+	return System.getenv().getOrDefault(key, getApiKeyLocal(key))
 }
 
 def getApiKeyLocal(key) {
-	if (!rootProject.file("local.properties").exists()) {
+	if (!rootProject.file(".env").exists()) {
 		return ""
 	}
 	def localPropertyList = new Properties()
-	localPropertyList.load(new FileInputStream(rootProject.file("local.properties")))
+	localPropertyList.load(new FileInputStream(rootProject.file(".env")))
 	return localPropertyList.getOrDefault(key, "")
 }
