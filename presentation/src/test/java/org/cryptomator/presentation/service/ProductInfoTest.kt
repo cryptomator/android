@@ -88,6 +88,8 @@ class ProductInfoTest {
 
 		assertEquals("$49.99", prices.lifetimePrice)
 		assertNull(prices.lifetimeDiscountPrice)
+		assertNull(prices.lifetimeDiscountPercent)
+		assertNull(prices.lifetimeDiscountEndTimeMillis)
 	}
 
 	@Test
@@ -95,5 +97,7 @@ class ProductInfoTest {
 		val prices = emptyList<ProductInfo>().resolveProductPrices()
 
 		assertNull(prices.lifetimeDiscountPrice)
+		assertNull(prices.lifetimeDiscountPercent)
+		assertNull(prices.lifetimeDiscountEndTimeMillis)
 	}
 }
