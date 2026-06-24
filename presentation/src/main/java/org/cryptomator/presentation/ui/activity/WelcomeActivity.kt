@@ -123,6 +123,10 @@ class WelcomeActivity : BaseActivity<ActivityWelcomeBinding>(ActivityWelcomeBind
 		orchestrator.onPause()
 	}
 
+	override fun onBackPressed() {
+		goBackOrExit()
+	}
+
 	private fun setupPages() {
 		pages.clear()
 		pages.add(FragmentPage.Intro)
@@ -153,10 +157,7 @@ class WelcomeActivity : BaseActivity<ActivityWelcomeBinding>(ActivityWelcomeBind
 		})
 		updateNavigationButtons(0)
 		binding.btnBack.setOnClickListener {
-			val pos = binding.welcomePager.currentItem
-			if (pos > 0) {
-				binding.welcomePager.currentItem = pos - 1
-			}
+			goBackOrExit()
 		}
 		binding.btnNext.setOnClickListener {
 			advanceOrComplete()
@@ -264,6 +265,15 @@ class WelcomeActivity : BaseActivity<ActivityWelcomeBinding>(ActivityWelcomeBind
 
 	override fun onSetScreenLock(setScreenLock: Boolean) {
 		welcomePresenter.onSetScreenLock(setScreenLock)
+	}
+
+	private fun goBackOrExit() {
+		val pos = binding.welcomePager.currentItem
+		if (pos > 0) {
+			binding.welcomePager.currentItem = pos - 1
+		} else {
+			finishAffinity()
+		}
 	}
 
 	private fun advanceOrComplete() {
