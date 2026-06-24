@@ -18,20 +18,6 @@ android {
 			storeFile file('debug.keystore')
 			storePassword 'android'
 		}
-
-		release {
-			keyAlias getApiKey('SIGNING_KEY_ALIAS')
-			keyPassword getApiKey('SIGNING_KEY_PASSWORD')
-			storeFile getApiKey('SIGNING_KEYSTORE_PATH') ? file(getApiKey('SIGNING_KEYSTORE_PATH')) : null
-			storePassword getApiKey('SIGNING_KEYSTORE_PASSWORD')
-		}
-
-		releaseFreemium {
-			keyAlias getApiKey('SIGNING_KEY_FREEMIUM_ALIAS')
-			keyPassword getApiKey('SIGNING_KEY_FREEMIUM_PASSWORD')
-			storeFile getApiKey('SIGNING_KEYSTORE_PATH') ? file(getApiKey('SIGNING_KEYSTORE_PATH')) : null
-			storePassword getApiKey('SIGNING_KEYSTORE_PASSWORD')
-		}
 	}
 
 	def globalConfiguration = rootProject.extensions.getByName("ext")
@@ -70,8 +56,6 @@ android {
 
 	buildTypes {
 		release {
-			signingConfig signingConfigs.release
-
 			crunchPngs false
 			minifyEnabled false
 			shrinkResources false
@@ -109,8 +93,6 @@ android {
 		}
 
 		playstoreiap {
-			signingConfig signingConfigs.releaseFreemium
-
 			dimension "version"
 
 			applicationIdSuffix ".freemium"
