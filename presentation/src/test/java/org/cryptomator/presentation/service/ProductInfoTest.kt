@@ -62,4 +62,42 @@ class ProductInfoTest {
 		assertNull(prices.subscriptionPrice)
 		assertNull(prices.lifetimePrice)
 	}
+
+	@Test
+	fun `resolveProductPrices returns lifetime discount details when lifetime has discount`() {
+		val products = listOf(
+			ProductInfo(ProductInfo.PRODUCT_YEARLY_SUBSCRIPTION, "$9.99/yr"),
+			ProductInfo(ProductInfo.PRODUCT_FULL_VERSION, "$49.99", "$24.99", 50, 1_700_000_000_000)
+		)
+
+		val prices = products.resolveProductPrices()
+
+		assertEquals("$49.99", prices.lifetimePrice)
+		assertEquals("$24.99", prices.lifetimeDiscountPrice)
+		assertEquals(50, prices.lifetimeDiscountPercent)
+		assertEquals(1_700_000_000_000, prices.lifetimeDiscountEndTimeMillis)
+	}
+
+	@Test
+	fun `resolveProductPrices returns null lifetimeDiscountPrice when no discount`() {
+		val products = listOf(
+			ProductInfo(ProductInfo.PRODUCT_FULL_VERSION, "$49.99")
+		)
+
+		val prices = products.resolveProductPrices()
+
+		assertEquals("$49.99", prices.lifetimePrice)
+		assertNull(prices.lifetimeDiscountPrice)
+		assertNull(prices.lifetimeDiscountPercent)
+		assertNull(prices.lifetimeDiscountEndTimeMillis)
+	}
+
+	@Test
+	fun `resolveProductPrices returns null lifetimeDiscountPrice when lifetime missing`() {
+		val prices = emptyList<ProductInfo>().resolveProductPrices()
+
+		assertNull(prices.lifetimeDiscountPrice)
+		assertNull(prices.lifetimeDiscountPercent)
+		assertNull(prices.lifetimeDiscountEndTimeMillis)
+	}
 }

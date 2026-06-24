@@ -1,6 +1,7 @@
 package org.cryptomator.presentation.ui.layout
 
 import android.content.Intent
+import android.graphics.Paint
 import android.net.Uri
 import android.view.View
 import org.cryptomator.presentation.CryptomatorApp
@@ -8,11 +9,14 @@ import org.cryptomator.presentation.R
 import org.cryptomator.presentation.databinding.ViewLicenseCheckContentBinding
 import org.cryptomator.presentation.licensing.LicenseEnforcer
 import org.cryptomator.presentation.service.ProductInfo
+import org.cryptomator.presentation.service.ProductPrices
 import org.cryptomator.presentation.service.RestoreOutcome
 import org.cryptomator.presentation.service.resolveProductPrices
 import org.cryptomator.presentation.service.toDialogFragment
 import org.cryptomator.presentation.ui.activity.BaseActivity
 import java.lang.ref.WeakReference
+import java.text.DateFormat
+import java.util.Date
 
 /** Shared visibility-toggling logic for the license check content included layout. */
 class LicenseContentViewBinder(
@@ -110,24 +114,42 @@ class LicenseContentViewBinder(
 	fun loadAndBindPrices(app: CryptomatorApp) {
 		app.queryProductDetails { products ->
 			val prices = products.resolveProductPrices()
-			binding.root.post {
-				bindProductPrices(prices.subscriptionPrice, prices.lifetimePrice)
-			}
+			binding.root.post { bindProductPrices(prices) }
 		}
 	}
 
 	/** Updates subscription and lifetime button text and enabled state from resolved prices. */
-	fun bindProductPrices(subscriptionPrice: String?, lifetimePrice: String?) {
-		if (!subscriptionPrice.isNullOrEmpty()) {
-			binding.btnSubscription.text = subscriptionPrice
+	fun bindProductPrices(prices: ProductPrices) {
+		if (!prices.subscriptionPrice.isNullOrEmpty()) {
+			binding.btnSubscription.text = prices.subscriptionPrice
 			binding.rowSubscription.isEnabled = true
 			binding.btnSubscription.isEnabled = true
 		}
-		if (!lifetimePrice.isNullOrEmpty()) {
-			binding.btnLifetime.text = lifetimePrice
+		if (!prices.lifetimePrice.isNullOrEmpty()) {
+			binding.btnLifetime.text = prices.lifetimeDiscountPrice ?: prices.lifetimePrice
 			binding.rowLifetime.isEnabled = true
 			binding.btnLifetime.isEnabled = true
 		}
+		if (prices.lifetimeDiscountPrice != null) {
+			binding.tvLifetimePrice.text = prices.lifetimePrice
+			binding.tvLifetimePrice.paintFlags = binding.tvLifetimePrice.paintFlags or Paint.STRIKE_THRU_TEXT_FLAG
+			binding.tvLifetimePrice.visibility = View.VISIBLE
+			binding.tvLifetimeDiscountSubline.text = lifetimeDiscountSubline(prices)
+			binding.tvLifetimeDiscountSubline.visibility = View.VISIBLE
+		} else {
+			binding.tvLifetimePrice.visibility = View.GONE
+			binding.tvLifetimeDiscountSubline.visibility = View.GONE
+		}
+	}
+
+	private fun lifetimeDiscountSubline(prices: ProductPrices): String {
+		val percent = prices.lifetimeDiscountPercent
+		val endTimeMillis = prices.lifetimeDiscountEndTimeMillis
+		if (percent == null || endTimeMillis == null) {
+			return context.getString(R.string.screen_license_check_lifetime_discount_badge_generic)
+		}
+		val date = DateFormat.getDateInstance(DateFormat.MEDIUM).format(Date(endTimeMillis))
+		return context.getString(R.string.screen_license_check_lifetime_discount_badge_until, percent, date)
 	}
 
 	/** Refreshes purchase/trial visibility and the header info text from the current license state. */
