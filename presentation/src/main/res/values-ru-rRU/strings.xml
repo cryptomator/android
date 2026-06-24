@@ -70,6 +70,8 @@
 	<string name="screen_license_check_subscription_title">Годовая подписка</string>
 	<string name="screen_license_check_subscription_subtitle">ежегодно</string>
 	<string name="screen_license_check_lifetime_title">Бессрочная лицензия</string>
+	<string name="screen_license_check_lifetime_discount_badge_until">🔥 Скидка %1$d%% до %2$s</string>
+	<string name="screen_license_check_lifetime_discount_badge_generic">🔥 Ограниченная продажа</string>
 	<string name="screen_license_check_lifetime_subtitle">разово</string>
 	<string name="screen_license_check_restore_purchase">Восстановить покупку</string>
 	<string name="screen_license_check_terms">Условия использования</string>
