@@ -81,6 +81,8 @@
 	<string name="screen_license_check_subscription_title">Yearly Subscription</string>
 	<string name="screen_license_check_subscription_subtitle">yearly</string>
 	<string name="screen_license_check_lifetime_title">Lifetime License</string>
+	<string name="screen_license_check_lifetime_discount_badge_until">🔥 %1$d%% off until %2$s</string>
+	<string name="screen_license_check_lifetime_discount_badge_generic">🔥 Limited time sale</string>
 	<string name="screen_license_check_lifetime_subtitle">one-time</string>
 	<string name="screen_license_check_restore_purchase">Restore Purchase</string>
 	<string name="screen_license_check_terms">Terms of Use</string>

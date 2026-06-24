@@ -107,6 +107,10 @@ class IapBillingService : Service(), PurchasesUpdatedListener {
 		}
 	}
 
+	private fun findPromotionalInappOffer(offerDetails: List<ProductDetails.OneTimePurchaseOfferDetails>?): ProductDetails.OneTimePurchaseOfferDetails? {
+		return offerDetails?.firstOrNull { it.offerId != null }
+	}
+
 	fun queryProductDetails(callback: (List<ProductInfo>) -> Unit) {
 		if (!billingClient.isReady) {
 			pendingProductDetailsCallbacks.enqueue(callback)
@@ -126,13 +130,13 @@ class IapBillingService : Service(), PurchasesUpdatedListener {
 			readyResults?.let { callback(it) }
 		}
 
-		fun doQuery(params: QueryProductDetailsParams, getPrice: (ProductDetails) -> String) {
+		fun doQuery(params: QueryProductDetailsParams, buildProductInfo: (ProductDetails) -> ProductInfo) {
 			billingClient.queryProductDetailsAsync(params) { billingResult, productDetailsResult ->
 				if (billingResult.responseCode == BillingClient.BillingResponseCode.OK) {
 					synchronized(lock) {
 						for (productDetails in productDetailsResult.productDetailsList) {
 							productDetailsMap[productDetails.productId] = productDetails
-							results.add(ProductInfo(productDetails.productId, getPrice(productDetails)))
+							results.add(buildProductInfo(productDetails))
 						}
 					}
 				}
@@ -149,7 +153,18 @@ class IapBillingService : Service(), PurchasesUpdatedListener {
 						.build()
 				)
 			).build()
-		) { it.oneTimePurchaseOfferDetails?.formattedPrice ?: "" }
+		) { details ->
+			val baseOffer = details.oneTimePurchaseOfferDetailsList?.firstOrNull { it.offerId == null }
+			val promoOffer = findPromotionalInappOffer(details.oneTimePurchaseOfferDetailsList)
+			val price = baseOffer?.formattedPrice ?: ""
+			if (promoOffer != null) {
+				val discountPercent = promoOffer.discountDisplayInfo?.percentageDiscount
+				val discountEndTimeMillis = promoOffer.validTimeWindow?.endTimeMillis
+				ProductInfo(details.productId, price, promoOffer.formattedPrice, discountPercent, discountEndTimeMillis)
+			} else {
+				ProductInfo(details.productId, price)
+			}
+		}
 
 		// Query SUBS products (must be separate — Billing Library requires same product type per query)
 		doQuery(
@@ -161,7 +176,10 @@ class IapBillingService : Service(), PurchasesUpdatedListener {
 						.build()
 				)
 			).build()
-		) { it.subscriptionOfferDetails?.firstOrNull()?.pricingPhases?.pricingPhaseList?.firstOrNull()?.formattedPrice ?: "" }
+		) { details ->
+			val price = details.subscriptionOfferDetails?.firstOrNull()?.pricingPhases?.pricingPhaseList?.firstOrNull()?.formattedPrice ?: ""
+			ProductInfo(details.productId, price)
+		}
 	}
 
 	fun launchPurchaseFlow(activity: WeakReference<Activity>, productId: String) {
@@ -173,9 +191,11 @@ class IapBillingService : Service(), PurchasesUpdatedListener {
 		}
 		val paramsBuilder = ProductDetailsParams.newBuilder().setProductDetails(details)
 		if (details.productType == BillingClient.ProductType.SUBS) {
-			details.subscriptionOfferDetails?.firstOrNull()?.offerToken?.let {
-				paramsBuilder.setOfferToken(it)
-			}
+			details.subscriptionOfferDetails?.firstOrNull()?.offerToken?.let { paramsBuilder.setOfferToken(it) }
+		} else if (details.productType == BillingClient.ProductType.INAPP) {
+			val promoOffer = findPromotionalInappOffer(details.oneTimePurchaseOfferDetailsList)
+				?: details.oneTimePurchaseOfferDetailsList?.firstOrNull()
+			promoOffer?.offerToken?.let { paramsBuilder.setOfferToken(it) }
 		}
 		val billingFlowParams = BillingFlowParams.newBuilder()
 			.setProductDetailsParamsList(listOf(paramsBuilder.build()))
