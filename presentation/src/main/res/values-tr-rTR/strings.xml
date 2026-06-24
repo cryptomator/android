@@ -59,7 +59,9 @@
 	<string name="screen_license_check_trial_status_active">Aktif</string>
 	<string name="screen_license_check_trial_status_expired">Süresi doldu</string>
 	<string name="screen_license_check_trial_expired_info">Deneme süreniz doldu.</string>
+	<string name="screen_license_check_subscription_upgrade_hint">Aktif bir aboneliğiniz mevcut. Geçiş yapmak için ömürlük lisans satın alın ve aboneliğinizi iptal edebilirsiniz.</string>
 	<string name="screen_welcome_title">Hoş geldiniz</string>
+	<string name="screen_welcome_notifications_message">Cryptomator\u0027ın size arka plan aktiviteleri, otomatik yüklemeleri veya diğer önemli olayları haber vermesi için bildirimlere izin verin.</string>
 	<string name="screen_welcome_continue_button">Devam et</string>
 	<string name="screen_welcome_screen_lock_button">Ekran kilidini ayarla</string>
 	<string name="next">İleri</string>
@@ -459,6 +461,7 @@
 	<string name="screen_settings_license_title_unlock">Tam Sürümün Kilidini Aç</string>
 	<string name="screen_settings_license_mail">%1$s</string>
 	<string name="screen_settings_manage_subscription">Aboneliği Yönet</string>
+	<string name="dialog_trial_expired_title">Deneme Sona Erdi</string>
 	<string name="dialog_trial_expired_unlock">Tam Sürümün Kilidini Aç</string>
 	<string name="dialog_settings_update_check_interval_title">Güncelleme kontrol aralığı</string>
 	<string name="screen_settings_check_updates">Güncellemeleri kontrol et</string>
