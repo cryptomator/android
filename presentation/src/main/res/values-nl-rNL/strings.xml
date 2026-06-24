@@ -70,6 +70,8 @@
 	<string name="screen_license_check_subscription_title">Jaarabonnement</string>
 	<string name="screen_license_check_subscription_subtitle">jaarlijks</string>
 	<string name="screen_license_check_lifetime_title">Levenslange licentie</string>
+	<string name="screen_license_check_lifetime_discount_badge_until">🔥 %1$d%% korting tot %2$s</string>
+	<string name="screen_license_check_lifetime_discount_badge_generic">Tijdelijke aanbieding</string>
 	<string name="screen_license_check_lifetime_subtitle">eenmalig</string>
 	<string name="screen_license_check_restore_purchase">Aankoop herstellen</string>
 	<string name="screen_license_check_terms">Gebruiksvoorwaarden</string>
