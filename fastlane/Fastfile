@@ -13,6 +13,7 @@ version = get_version_name(
 version = version.delete "'"
 
 playstoreMetadataDir = "../src/playstore/fastlane/metadata/android/"
+playstoreiapMetadataDir = "../src/playstoreiap/fastlane/metadata/android/"
 fdroidMetadataDir = "../src/fdroid/fastlane/metadata/android/"
 liteMetadataDir = "../src/lite/fastlane/metadata/android/"
 changeLogSubPath = "changelogs/default.txt"
@@ -55,7 +56,7 @@ platform :android do |options|
     puts "Make sure you run and commited updateMetadata before tagging and releasing!!!"
     puts "If check failed, run updateMetadata, commit/tag it and restart when finished"
 
-    metadataDirs = [playstoreMetadataDir, fdroidMetadataDir, liteMetadataDir]
+    metadataDirs = [playstoreMetadataDir, playstoreiapMetadataDir, fdroidMetadataDir, liteMetadataDir]
     for metadataDir in metadataDirs do
       sh("diff -s #{releaseNotePathDe} #{metadataDir}de-DE/#{changeLogSubPath} > /dev/null")
       sh("diff -s #{releaseNotePathEn} #{metadataDir}en-US/#{changeLogSubPath} > /dev/null")
@@ -65,7 +66,7 @@ platform :android do |options|
 
   desc "Update Metadata"
   lane :updateMetadata do |options|
-    metadataDirs = [playstoreMetadataDir, fdroidMetadataDir, liteMetadataDir]
+    metadataDirs = [playstoreMetadataDir, playstoreiapMetadataDir, fdroidMetadataDir, liteMetadataDir]
     for metadataDir in metadataDirs do
       FileUtils.cp(releaseNotePathDe, "#{metadataDir}de-DE/#{changeLogSubPath}")
       FileUtils.cp(releaseNotePathEn, "#{metadataDir}en-US/#{changeLogSubPath}")
@@ -168,7 +169,7 @@ platform :android do |options|
       skip_upload_metadata: false,
       skip_upload_images: true,
       skip_upload_screenshots: true,
-      metadata_path: "src/playstore/fastlane/metadata/android/"
+      metadata_path: "src/playstoreiap/fastlane/metadata/android/"
     )
 
     FileUtils.cp(lane_context[SharedValues::GRADLE_AAB_OUTPUT_PATH], "release/Cryptomator-#{version}_playstore_iap_signed.aab")

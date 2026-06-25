@@ -1,0 +1,1 @@
+- Mögliche Man-in-the-Middle-Angriffe mit manipulierten Cryptomator Hub-Tresorkonfigurationen behoben (GHSA-876q-q3mm-fcvj)
