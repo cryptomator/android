@@ -38,6 +38,31 @@
 	<string name="error_hub_device_already_register_for_other_user">El dispositiu ja ha estat registrat per un altre usuari. Mireu de canviar el compte d\'usuari o feu servir un dispositiu diferent.</string>
 	<string name="error_hub_invalid_version">Versió de Hub no suportada.</string>
 	<string name="error_hub_unlock_pre_31">Hub solament és suportat a partir d\'Android 12.</string>
+	<!-- # read-only & purchases -->
+	<string name="screen_license_check_locked_create_vault">Activa la versió completa per crear repositoris</string>
+	<string name="screen_license_check_locked_upload_files">Desbloqueja la versió completa per poder pujar fitxers</string>
+	<string name="screen_license_check_benefit_family_sharing">Compartir en família</string>
+	<string name="screen_license_check_benefit_write_access">Accés d\'escritura a caixes fortes</string>
+	<string name="screen_license_check_benefit_support">Desenvolupament de codi obert</string>
+	<string name="screen_license_check_title_full_version">Desbloca la versió completa</string>
+	<string name="screen_license_check_trial_title">Prova de 30 dies</string>
+	<string name="screen_license_check_trial_price">Gratuït</string>
+	<string name="screen_license_check_trial_subtitle">durant 30 dies</string>
+	<string name="screen_license_check_subscription_title">Subscripció anual</string>
+	<string name="screen_license_check_subscription_subtitle">cada any</string>
+	<string name="screen_license_check_lifetime_title">Llicència de per vida</string>
+	<string name="screen_license_check_lifetime_subtitle">Una única vegada</string>
+	<string name="screen_license_check_restore_purchase">Recuperar compres</string>
+	<string name="screen_license_check_terms">Condicions d\'ús</string>
+	<string name="screen_license_check_privacy">Política de privacitat</string>
+	<string name="screen_license_check_trial_status_active">Actiu</string>
+	<string name="screen_license_check_trial_status_expired">Vençut</string>
+	<string name="screen_license_check_trial_expired_info">El període de prova ha caducat.</string>
+	<string name="screen_welcome_title">Us donem la benvinguda</string>
+	<string name="screen_welcome_continue_button">Continua</string>
+	<string name="screen_welcome_screen_lock_button">Bloqueig de pantalla establert</string>
+	<string name="next">Següent</string>
+	<string name="back">Enrere</string>
 	<!-- # clouds -->
 	<!-- ## cloud names -->
 	<string name="cloud_names_local_storage">Emmagatzematge local</string>
@@ -309,7 +334,7 @@
 	<string name="dialog_debug_mode_disclaimer_title">Atenció</string>
 	<string name="dialog_debug_mode_positive_button">Activa</string>
 	<string name="dialog_microsoft_workaround_disclaimer_hint">A causa d\'un error en les aplicacions de Microsoft, el fitxer que s\'editarà s\'ha de compartir amb aquestes aplicacions en una carpeta de mitjans públics al dispositiu. Quan es reprengui Cryptomator, el fitxer d\'accés públic s\'elimina novament, però Cryptomator no pot influir en el que va passar amb aquest fitxer mentrestant. Assegureu-vos de conèixer aquest comportament en activar aquesta opció. Això només s\'aplicarà als tipus de fitxers de Microsoft.\n\nCryptomator es reiniciarà després de l\'activació.</string>
-	<string name="dialog_disable_app_obscured_disclaimer_hint">Aquesta configuració és una funció de seguretat que evita que altres aplicacions enganyin els usuaris perquè facin coses que no volen fer.\n\nEn desactivar-la, confirmeu que en compreneu &lt;a href="https://docs.cryptomator.org". /en/1.6/android/settings/#block-app-when-obscured"&gt;els riscos&lt;/a&gt;.</string>
+	<string name="dialog_disable_app_obscured_disclaimer_hint">Aquesta configuració és una funció de seguretat que evita que altres aplicacions enganyin els usuaris perquè facin coses que no volen fer.\n\nEn desactivar-la, confirmeu que en compreneu &lt;a href=\"https://docs.cryptomator.org\". /en/1.6/android/settings/#block-app-when-obscured\"&gt;els riscos&lt;/a&gt;.</string>
 	<string name="dialog_disable_app_obscured_disclaimer_title">Atenció</string>
 	<string name="dialog_disable_app_obscured_positive_button">Desactiva</string>
 	<string name="dialog_app_is_obscured_info_title">Alguna cosa està superposada a l\'aplicació</string>
@@ -319,7 +344,7 @@
 	<string name="dialog_vaults_removed_during_migration_hint">Al migrar cap a aquesta versió de l\'app hem hagut d\'esborrar les següents caixes fortes de l\'aplicació:\n%2s \n\nAquestes caixes fortes no s\'han esborrat del cloud sinó que només de l\'aplicació. Sentim les molèsties ocasionades, si us plau torna a afegir les caixes fortes per a continuar treballant amb elles.</string>
 	<string name="dialog_vault_is_root_folder_of_cloud_title">La caixa forta és la carpeta principal de la connexió al núvol</string>
 	<string name="dialog_vault_is_root_folder_of_cloud_hint">Crea una nova connexió al núvol on podeu seleccionar si més no la carpeta mare d\'aquesta caixa forta com a carpeta arrel per a afegir aquesta caixa forta.</string>
-	<string name="dialog_disable_secure_screen_disclaimer_hint">Aquesta configuració és una funció de seguretat que evita que altres aplicacions enganyin els usuaris perquè facin coses que no volen fer.\n\nEn desactivar-la, confirmeu que en compreneu &lt;a href="https://docs.cryptomator.org". /en/1.6/android/settings/#block-app-when-obscured"&gt;els riscos&lt;/a&gt;.</string>
+	<string name="dialog_disable_secure_screen_disclaimer_hint">Aquesta configuració és una funció de seguretat que evita que altres aplicacions enganyin els usuaris perquè facin coses que no volen fer.\n\nEn desactivar-la, confirmeu que en compreneu &lt;a href=\"https://docs.cryptomator.org\". /en/1.6/android/settings/#block-app-when-obscured\"&gt;els riscos&lt;/a&gt;.</string>
 	<string name="dialog_delete_cloud_connection_with_vaults_message">Estàs segur que vols esborrar aquesta connexió al cloud?</string>
 	<string name="dialog_delete_cloud_connection_with_vaults_hint">Aquesta acció esborrarà la connexió al cloud i totes les seves caixes fortes.</string>
 	<string name="dialog_confirm_delete_multiple_title">Voleu suprimir %1$d elements?</string>
@@ -360,6 +385,8 @@
 	<string name="dialog_hub_license_upgrade_required_title">Comprova la llicència de Hub</string>
 	<string name="dialog_hub_license_upgrade_required_hint">Aquesta instància de Cryptomator Hub no té una llicència vàlida. Si us plau, informeu un l\'administrador perquè actualitzi o renovi la llicència.\"</string>
 	<string name="dialog_hub_vault_archived_title">La caixa forta ha estat arxivada</string>
+	<string name="dialog_restore_successful_title">S\'ha restaurat amb èxit</string>
+	<string name="dialog_no_full_version_title">Sense versió completa</string>
 	<string name="dialog_hub_user_setup_required_hint">Per a continuar, si us plau, seguiu els passos necessaris en el vostre perfil d\'usuari de Hub.</string>
 	<string name="dialog_hub_user_setup_required_neutral_button">Vés al perfil</string>
 	<string name="permission_snackbar_auth_local_vault">Cryptomator necessita accés a l\'emmagatzematge per a fer servir caixes fortes locals</string>
@@ -418,8 +445,10 @@
 	<string name="screen_settings_lru_cache_size">Mida total de la memòria cau</string>
 	<string name="screen_settings_clear_lru_cache_size">Esborra la memòria cau</string>
 	<string name="screen_settings_lru_cache_changed__restart_toast">Els canvis seran aplicats al reinicialitzar l\'aplicació</string>
-	<string name="screen_settings_license">Registrat per</string>
+	<string name="screen_settings_license_title_unlock">Desbloca la versió completa</string>
 	<string name="screen_settings_license_mail">%1$s</string>
+	<string name="screen_settings_manage_subscription">Gestionar Subscripcions</string>
+	<string name="dialog_trial_expired_unlock">Desbloca la versió completa</string>
 	<string name="dialog_settings_update_check_interval_title">Interval entre comprovacions d\'actualitzacions</string>
 	<string name="screen_settings_check_updates">Cerca actualitzacions</string>
 	<string name="screen_settings_last_check_updates">Darrera comprovació: %1$s</string>

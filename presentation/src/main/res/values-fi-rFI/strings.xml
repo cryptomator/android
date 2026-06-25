@@ -25,17 +25,36 @@
 	<string name="error_general_update">Päivityksen tarkistus epäonnistui. Tapahtui virhe.</string>
 	<string name="error_hash_mismatch_update">Päivityksen tarkistus epäonnistui. Laskettu tiiviste ei täsmää ladattuun tiedostoon</string>
 	<string name="error_update_no_internet">Päivityksen tarkistus epäonnistui. Ei internet-yhteyttä.</string>
+	<string name="error_failed_to_decrypt_webdav_password">WebDAV salasanan purku epäonnistui, lisää uudelleen asetuksissa</string>
 	<string name="error_play_services_not_available">Google Play -palveluita ei ole asennettu</string>
 	<string name="error_biometric_auth_aborted">Biometrinen tunnistautuminen keskeytetty</string>
 	<string name="error_vault_version_mismatch">%1$s versio poikkeaa %2$s versiosta</string>
 	<string name="error_vault_key_invalid">%1$s ei täsmää %2$s kanssa</string>
 	<string name="error_vault_config_loading">Holvin asetuksia ladatessa tapahtui virhe</string>
 	<string name="error_file_not_found_after_opening_using_3party">Tiedosto ei ole enää saatavilla Cryptomatoriin palaamisen jälkeen. Mahdollisia muutoksia ei voida siirtää pilveen.</string>
+	<string name="error_masterkey_location_not_supported">Mukautettua pääavaimen sijaintia ei vielä tueta</string>
+	<string name="error_interact_with_fdroid_but_fdroid_missing">F-Droid -sovellukseen yhdistäminen epäonnistui. Onko se asennettu?</string>
+	<string name="error_hub_vault_operation_not_supported">Holvitoimintoa ei tueta Hubille</string>
+	<string name="error_hub_authentication_failed">Hubiin varmentaminen epäonnistui</string>
 	<string name="error_hub_device_already_register_for_other_user">Tämä laite on jo rekisteröity toiselle käyttäjälle. Yritä vaihtaa käyttäjätiliä tai käytää toista laitetta.</string>
+	<string name="error_hub_invalid_setup_code">Tilin avain on virheellinen.</string>
+	<string name="error_hub_invalid_version">Hub -versiota ei tueta.</string>
+	<string name="error_hub_unlock_pre_31">Hub on tuettu vain Android 12 ja uudemmilla versioilla.</string>
+	<!-- # read-only & purchases -->
+	<string name="next">Seuraava</string>
+	<string name="back">Takaisin</string>
 	<!-- # clouds -->
 	<!-- ## cloud names -->
+	<string name="cloud_names_local_storage">Paikallinen tallennustila</string>
 	<!-- # permission -->
 	<!-- ## permission messages -->
+	<string name="permission_message_export_file">Cryptomator tarvitsee tallennustilan käyttöoikeuden tiedostojen vientiin</string>
+	<string name="permission_message_upload_file">Cryptomator tarvitsee tallennustilan käyttöoikeuden tiedostojen lataamiseen</string>
+	<string name="permission_message_share_file">Cryptomtarot tarvitsee tallennustilan käyttöoikeuden tiedostojen jakamiseen</string>
+	<string name="permission_revoked_re_request_permission">Cryptomatorilla ei ole enää käyttöikeutta tähän sijaintiin. Valitse tämä hakemisto uudelleen palauttaaksesi käyttöoikeuden.</string>
+	<string name="snack_bar_action_title_settings">Asetukset</string>
+	<string name="snack_bar_action_title_search">Hae</string>
+	<string name="snack_bar_action_title_search_previous">Edellinen</string>
 	<string name="snack_bar_action_title_search_next">Seuraava</string>
 	<string name="snack_bar_action_title_sort">Järjestä</string>
 	<string name="snack_bar_action_title_sort_az">A - Ö</string>
@@ -56,6 +75,8 @@
 	<string name="screen_vault_list_change_password_successful">Salasanan vaihto onnistui</string>
 	<!-- # screen: file browser -->
 	<string name="screen_file_browser_default_title">Holvi</string>
+	<string name="screen_file_browser_add_existing_vault_extra_text">Valitse pääavain tai holvitiedosto</string>
+	<string name="screen_file_browser_create_new_vault_button_text">Aseta tänne</string>
 	<string name="screen_file_browser_create_new_vault_extra_text">Holvin nimi: %1$s</string>
 	<plurals name="screen_file_browser_subtitle_move">
 		<item quantity="one">Siirrä %1$s</item>
@@ -64,6 +85,8 @@
 	<string name="screen_file_browser_move_button_text">Siirrä</string>
 	<string name="screen_file_browser_msg_empty_folder">Tyhjää kansio</string>
 	<string name="screen_file_browser_file_info_label_date">muokattu %1$s sitten</string>
+	<string name="screen_file_browser_share_intent_chooser_title">Jaa käyttäen</string>
+	<string name="screen_file_browser_share_destination_title">Valitse kohde</string>
 	<string name="screen_file_browser_share_button_text">Valitse</string>
 	<string name="screen_file_browser_nothing_to_share">Ei jaettavaa</string>
 	<string name="screen_file_browser_actions_title">Lisää kansioon %1$s</string>
@@ -77,13 +100,48 @@
 	<string name="screen_file_browser_msg_creating_download_dir_failed">Latauskansion luonti epäonnistui</string>
 	<string name="screen_file_browser_node_action_share">Jaa</string>
 	<string name="screen_file_browser_node_action_rename">Nimeä uudelleen</string>
+	<string name="screen_file_browser_node_action_edit_text">Muokkaa</string>
+	<string name="screen_file_browser_node_action_export">Vie</string>
+	<string name="screen_file_browser_node_action_delete">Poista</string>
+	<string name="screen_file_browser_node_action_open_with_text">Avaa käyttäen&#8230;</string>
+	<string name="screen_file_browser_selection_mode_title_zero_elements">Valitut kohteet</string>
+	<string name="screen_file_browser_selection_mode_title_one_or_more_elements">%1$d valittu</string>
+	<string name="screen_file_browser_select_items">Valitse</string>
+	<string name="screen_file_browser_select_all_items">Valitse kaikki</string>
+	<string name="screen_file_browser_refresh_items">Päivitä</string>
+	<string name="screen_file_browser_no_connection_message">Ei yhteyttä</string>
+	<string name="screen_file_browser_no_connection_button_text">Yritä uudelleen</string>
 	<!-- ## screen: text editor -->
+	<string name="screen_text_editor_save_success">Tallennus onnistui</string>
 	<!-- ## screen: share files -->
+	<string name="screen_share_files_title">Tallenna %1$s sijaintiin&#8230;</string>
+	<string name="screen_share_files_content_text">teksti</string>
+	<string name="screen_share_files_content_file">tiedosto</string>
+	<string name="screen_share_files_content_files">tiedostot</string>
+	<string name="screen_share_files_msg_filenames_must_be_unique">Tiedostonimien on oltava ainutlaatuisia, nimeä kaksoiskappaleet uudelleen.</string>
+	<string name="screen_share_files_section_location">Tallennussijainti</string>
+	<string name="screen_share_files_save_button_text">Tallenna</string>
+	<string name="screen_share_files_msg_success">Salaus suoritettu</string>
 	<!-- ## screen: choose cloud service -->
+	<string name="screen_choose_cloud_service_title">Pilvipalvelu</string>
 	<!-- ## screen: cloud connections -->
+	<string name="screen_cloud_connections_title">Valitse sijainti</string>
+	<string name="screen_cloud_connections_no_connections">Napauta tästä lisätäksesi sijainteja</string>
+	<string name="screen_cloud_error_webdav_not_supported">Palvelin ei näytä olevat WebDAV yhteensopiva</string>
+	<string name="screen_cloud_local_error_no_content_provider">Ei löytynyt tiedostonhallintaohjelmaa, joka tukee hakemistojen avaamista</string>
 	<!-- ## screen: webdav settings -->
+	<string name="screen_webdav_settings_url_port_label">URL</string>
+	<string name="screen_webdav_settings_username_label">Käyttäjätunnus</string>
 	<string name="screen_webdav_settings_password_label">Salasana</string>
+	<string name="screen_webdav_settings_done_button_text">Yhdistä</string>
+	<string name="screen_webdav_settings_msg_url_must_not_be_empty">URL ei voi olla tyhjä.</string>
+	<string name="screen_webdav_settings_msg_url_is_invalid">URL-osoite on virheellinen.</string>
+	<string name="screen_webdav_settings_msg_username_must_not_be_empty">Käyttäjänimi-kohta ei voi olla tyhjä.</string>
+	<string name="screen_webdav_settings_msg_password_must_not_be_empty">Salasana-kohta ei voi olla tyhjä.</string>
 	<!-- ## screen: s3 settings -->
+	<string name="screen_s3_settings_display_name_label">Nimi</string>
+	<string name="screen_s3_settings_access_key_label">Pääsyavain</string>
+	<string name="screen_s3_settings_secret_key_label">Salainen avain</string>
 	<!-- ## screen: enter vault name -->
 	<!-- ## screen: set password -->
 	<string name="screen_set_password_button_text">Valmis</string>
@@ -92,10 +150,47 @@
 	<string name="screen_set_password_strength_indicator_3">Vahva</string>
 	<!-- ## screen: settings -->
 	<string name="screen_settings_section_general">Yleiset</string>
+	<string name="screen_settings_section_search">Hae</string>
+	<string name="screen_settings_facebook_label">Tykkää meistä Facebookissa</string>
+	<string name="screen_settings_licenses_label">Käyttöoikeudet</string>
+	<string name="screen_settings_license_terms_label">Käyttöehdot</string>
+	<string name="screen_settings_section_support">Tuki</string>
+	<string name="screen_settings_contact_label">Pyydä apua</string>
+	<string name="screen_settings_debug_mode_label">Vianmääritystila</string>
+	<string name="screen_settings_error_report_label">Lähetä lokitiedosto</string>
+	<string name="screen_settings_error_report_failed">Lähettäminen epäonnistui</string>
+	<string name="screen_settings_security_label">Turvallisuusvihjeet</string>
+	<string name="screen_settings_section_version">Veriso</string>
+	<string name="screen_settings_advanced_settings">Edistyneet asetukset</string>
+	<string name="screen_settings_microsoft_apps_workaround_summary">Avaa tiedostot Microsoftin ohjelmissa kirjoitusoikeuksilla</string>
+	<string name="screen_settings_background_unlock_preparation_label">Kiihdytä lukituksen avausta</string>
+	<string name="screen_settings_background_unlock_preparation_label_summary">Lataa holvin asetukset taustalla syöttäessä salasanaa tai käyttäessä biometristä tunnistusta</string>
+	<string name="screen_settings_keep_unlocked_while_editing_files">Älä lukitse</string>
+	<string name="screen_settings_keep_unlocked_while_editing_files_summary">Älä lukitse holveja tiedostoja muokatessa</string>
 	<!-- ## screen: cloud settings -->
+	<string name="screen_cloud_settings_onedrive_connections">OneDrive yhteydet</string>
+	<string name="screen_cloud_settings_webdav_connections">WebDAV yhteydet</string>
+	<string name="screen_cloud_settings_pcloud_connections">pCloud yhteydet</string>
+	<string name="screen_cloud_settings_s3_connections">S3 yhteydet</string>
+	<string name="screen_cloud_settings_local_storage_locations">Paikalliset tallennussijainnit</string>
+	<string name="screen_cloud_settings_log_in_to">Kirjaudu sisään palveluun</string>
+	<string name="screen_cloud_settings_sign_out_from_cloud">Kirjaudu ulos palvelusta</string>
 	<!-- ## screen: licenses -->
 	<!-- ## screen: authenticate cloud -->
+	<string name="screen_authenticate_auth_authentication_failed">%1$s ei voitu todentaa.</string>
+	<string name="screen_update_pcloud_connections_title">Päivitä pCloud käyttäjätiedot</string>
 	<!-- ## screen: cryptomator app variants -->
+	<string name="screen_cryptomator_variants_title">Cryptomatorin muunnokset</string>
+	<string name="screen_cryptomator_variants_lite_title">Pää F-Droid -pakettivarasto</string>
+	<string name="screen_cryptomator_variants_lite_description">Poissuljettuja koska ne vaativat API-avaimet.</string>
+	<string name="screen_cryptomator_variants_lite_install">Asenna</string>
+	<string name="screen_cryptomator_variants_fdroid_title">Cryptomatorin F-Droid -pakettivarasto</string>
+	<string name="screen_cryptomator_variants_fdroid_description">Poissuljettuja koska ne sisältävät suljettuja riippuvuuksia.</string>
+	<string name="screen_cryptomator_variants_fdroid_add_repo_hint">Lisää Cryptomator pakettivarasto F-Droid -sovellukseen.</string>
+	<string name="screen_cryptomator_variants_fdroid_add_repo">Lisää</string>
+	<string name="screen_cryptomator_variants_fdroid_install_hint">Asenna Cryptomator F-Droidista.\nJos sitä ei löydy, odota kunnes F-Droidin synkronointi on valmis.</string>
+	<string name="screen_cryptomator_variants_website_title">Verkkosivusto</string>
+	<string name="screen_cryptomator_variants_website_description">Sisältää suljettuja riippuvuuksia.</string>
 	<!-- # dialogs -->
 	<string name="dialog_button_cancel">Peruuta</string>
 	<string name="dialog_enter_password_positive_button">Avaa</string>
@@ -103,6 +198,7 @@
 	<string name="dialog_vault_not_found_positive_button_text">Poista</string>
 	<string name="dialog_lock_vault">Lukitse</string>
 	<string name="dialog_app_is_obscured_info_neutral_button">Sulje</string>
+	<string name="dialog_enter_license_decline_button">Peruuta</string>
 	<string name="dialog_sym_link_back_button">Takaisin</string>
 	<string name="dialog_hub_vault_access_forbidden_title">Pääsy estetty</string>
 	<!-- # error reports -->

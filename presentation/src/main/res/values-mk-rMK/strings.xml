@@ -2,6 +2,9 @@
 <resources>
 	<!-- # app -->
 	<!-- # error messages -->
+	<!-- # read-only & purchases -->
+	<string name="next">Продолжи</string>
+	<string name="back">Назад</string>
 	<!-- # clouds -->
 	<!-- ## cloud names -->
 	<!-- # permission -->
@@ -31,6 +34,7 @@
 	<!-- Vault not found -->
 	<string name="dialog_lock_vault">Заклучи</string>
 	<string name="dialog_app_is_obscured_info_neutral_button">Затвори</string>
+	<string name="dialog_enter_license_decline_button">Откажи</string>
 	<string name="dialog_sym_link_back_button">Назад</string>
 	<!-- # error reports -->
 	<!-- # misc -->

@@ -41,6 +41,33 @@
 	<string name="error_hub_invalid_setup_code">La Account Key no es válida.</string>
 	<string name="error_hub_invalid_version">Versión de Hub no soportada.</string>
 	<string name="error_hub_unlock_pre_31">Hub solo es compatible con Android 12 o superior.</string>
+	<string name="error_hub_not_trustworthy">Hub no es fiable.</string>
+	<!-- # read-only & purchases -->
+	<string name="screen_license_check_benefit_family_sharing">Cuota familiar</string>
+	<string name="screen_license_check_benefit_write_access">Acceso de escritura a sus bóvedas</string>
+	<string name="screen_license_check_benefit_support">Desarrollo de código abierto</string>
+	<string name="screen_license_check_title_full_version">Desbloquear versión completa</string>
+	<string name="screen_license_check_trial_title">Prueba de 30 días</string>
+	<string name="screen_license_check_trial_price">Gratis</string>
+	<string name="screen_license_check_trial_subtitle">por 30 días</string>
+	<string name="screen_license_check_subscription_title">Suscripción anual</string>
+	<string name="screen_license_check_subscription_subtitle">anual</string>
+	<string name="screen_license_check_lifetime_title">Licencia vitalicia</string>
+	<string name="screen_license_check_lifetime_discount_badge_until">🔥 %1$d%% de descuento hasta %2$s</string>
+	<string name="screen_license_check_lifetime_discount_badge_generic">🔥 Oferta por tiempo limitado</string>
+	<string name="screen_license_check_lifetime_subtitle">pago único</string>
+	<string name="screen_license_check_restore_purchase">Restaurar compra</string>
+	<string name="screen_license_check_terms">Términos de uso</string>
+	<string name="screen_license_check_privacy">Política de privacidad</string>
+	<string name="screen_license_check_trial_status_active">Activa</string>
+	<string name="screen_license_check_trial_status_expired">Expirada</string>
+	<string name="screen_license_check_trial_expired_info">Su prueba ha expirado.</string>
+	<string name="screen_license_check_cancel_subscription_hint">Ahora tienes una licencia de por vida. Para evitar cargos futuros, cancela tu suscripción anual a través de la opción %1$s en Ajustes.</string>
+	<string name="screen_welcome_title">Bienvenido</string>
+	<string name="screen_welcome_continue_button">Continuar</string>
+	<string name="screen_welcome_screen_lock_button">Establecer bloqueo de pantalla</string>
+	<string name="next">Siguiente</string>
+	<string name="back">Volver</string>
 	<!-- # clouds -->
 	<!-- ## cloud names -->
 	<string name="cloud_names_local_storage">Almacenamiento local</string>
@@ -178,6 +205,7 @@
 	<string name="screen_settings_live_search_summary">Actualizar los resultados de la búsqueda mientras se ingresa la consulta</string>
 	<string name="screen_settings_glob_search">Buscar usando el patrón glob</string>
 	<string name="screen_settings_glob_search_summary">Usar la coincidencia de patrón glob como alice.*.jpg</string>
+	<string name="screen_hub_reset_unknown_hub_hosts_title">Restablecer hosts de Hub Desconocidos</string>
 	<string name="screen_settings_section_auto_lock">Bloqueo automático</string>
 	<string name="screen_settings_auto_lock_timeout">Bloquear después de</string>
 	<string name="screen_settings_auto_lock_on_screen_lock">Cuando la pantalla está desactivada</string>
@@ -372,9 +400,12 @@
 	<string name="dialog_hub_license_upgrade_required_hint">Su instancia de Cryptomator Hub tiene una licencia inválida. Informe a un administrador del Hub para actualizar o renovar la licencia.\"</string>
 	<string name="dialog_hub_vault_archived_title">Bóveda archivada</string>
 	<string name="dialog_hub_vault_archived_hint">Esta bóveda está archivada y no puede ser desbloqueada. Para desbloquearla, el propietario de la bóveda debe desarchivarla.</string>
+	<string name="dialog_restore_successful_title">Restauración exitosa</string>
+	<string name="dialog_no_full_version_title">Sin versión completa</string>
 	<string name="dialog_hub_user_setup_required_title">Configuración de usuario requerida</string>
 	<string name="dialog_hub_user_setup_required_hint">Para continuar, complete los pasos necesarios en su perfil de usuario de Hub.</string>
 	<string name="dialog_hub_user_setup_required_neutral_button">Ir al Perfil</string>
+	<string name="dialog_hub_check_host_authenticity_title">¿Confiar en estos hosts?</string>
 	<string name="permission_snackbar_auth_local_vault">Cryptomator necesita acceso de almacenamiento para usar bóvedas locales</string>
 	<string name="permission_snackbar_auth_auto_upload">Cryptomator necesita acceso de almacenamiento para cargar fotos automáticamente</string>
 	<string name="permission_snackbar_notifications">Cryptomator necesita permisos de notificación para mostrar el estado de la bóveda por ejemplo</string>
@@ -426,13 +457,17 @@
 	<string name="notification_open_writable_file_message">La bóveda permanece desbloqueada hasta finalizar la edición</string>
 	<string name="notification_update_check_finished_latest">Última versión instalada</string>
 	<string name="notification_authenticating">Autenticando&#8230;</string>
+	<string name="notification_cleared_trusted_hosts">Hosts de confianza limpiados</string>
 	<string name="screen_settings_lru_cache">Caché</string>
 	<string name="screen_settings_lru_cache_toggle_summary">Almacene en caché los archivos cifrados localmente a los que accedió recientemente en el dispositivo para su posterior reutilización cuando se vuelvan a abrir</string>
 	<string name="screen_settings_lru_cache_size">Tamaño total de la caché</string>
 	<string name="screen_settings_clear_lru_cache_size">Vaciar la caché</string>
 	<string name="screen_settings_lru_cache_changed__restart_toast">Los cambios se aplicarán en el próximo reinicio de la aplicación</string>
-	<string name="screen_settings_license">Registrado para</string>
+	<string name="screen_settings_license_title_unlock">Desbloquear versión completa</string>
 	<string name="screen_settings_license_mail">%1$s</string>
+	<string name="screen_settings_manage_subscription">Gestionar suscripción</string>
+	<string name="screen_settings_upgrade_to_lifetime">Actualice a una suscripción vitalicia</string>
+	<string name="dialog_trial_expired_unlock">Desbloquear versión completa</string>
 	<string name="dialog_settings_update_check_interval_title">Actualizar intervalo de verificación</string>
 	<string name="screen_settings_check_updates">Comprobar actualizaciones</string>
 	<string name="screen_settings_last_check_updates">Última ejecución %1$s</string>

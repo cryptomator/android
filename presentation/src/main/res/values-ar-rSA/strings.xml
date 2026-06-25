@@ -41,6 +41,29 @@
 	<string name="error_hub_invalid_setup_code">Account Key غير صالح.</string>
 	<string name="error_hub_invalid_version">إصدار Hub غير مدعوم.</string>
 	<string name="error_hub_unlock_pre_31">Hub مدعوم فقط على أندرويد 12 وما فوق.</string>
+	<!-- # read-only & purchases -->
+	<string name="screen_license_check_benefit_family_sharing">مشاركة عائلية</string>
+	<string name="screen_license_check_benefit_write_access">إمكانية التعديل في خزائنك</string>
+	<string name="screen_license_check_benefit_support">تطوير مفتوح المصدر</string>
+	<string name="screen_license_check_title_full_version">فتح النسخة الكاملة</string>
+	<string name="screen_license_check_trial_title">تجربة مجانية لمدة 30 يوم</string>
+	<string name="screen_license_check_trial_price">مجاناً</string>
+	<string name="screen_license_check_trial_subtitle">لمدة 30 يوماً</string>
+	<string name="screen_license_check_subscription_title">اشتراك سنوي</string>
+	<string name="screen_license_check_subscription_subtitle">سنوياً</string>
+	<string name="screen_license_check_lifetime_title">رخصة لمدى الحياة</string>
+	<string name="screen_license_check_lifetime_subtitle">لمرة واحدة</string>
+	<string name="screen_license_check_restore_purchase">استعادة المشتريات</string>
+	<string name="screen_license_check_terms">شروط الإستخدام</string>
+	<string name="screen_license_check_privacy">سياسة الخصوصية</string>
+	<string name="screen_license_check_trial_status_active">مفعل</string>
+	<string name="screen_license_check_trial_status_expired">منتهية الصلاحية</string>
+	<string name="screen_license_check_trial_expired_info">انتهت الفترة التجريبية الخاصة بك.</string>
+	<string name="screen_welcome_title">أهلاً وسهلاً</string>
+	<string name="screen_welcome_continue_button">استمرار</string>
+	<string name="screen_welcome_screen_lock_button">تعيين قفل الشاشة</string>
+	<string name="next">التالي</string>
+	<string name="back">رجوع</string>
 	<!-- # clouds -->
 	<!-- ## cloud names -->
 	<string name="cloud_names_local_storage">ذاكرة التخزين المحلية</string>
@@ -377,6 +400,8 @@
 	<string name="dialog_hub_license_upgrade_required_hint">نموذج Hub Cryptomator الخاص بك لديه ترخيص غير صالح. الرجاء إبلاغ مسؤول Hub لترقية أو تجديد الترخيص.\"</string>
 	<string name="dialog_hub_vault_archived_title">تم أرشفة المخزن</string>
 	<string name="dialog_hub_vault_archived_hint">تم أرشفة هذا المخزن ولا يمكن فتحه. لإلغاء قفله، يجب على مالك المخزن إلغاء أرشفته.</string>
+	<string name="dialog_restore_successful_title">تمت الاستعادة بنجاح</string>
+	<string name="dialog_no_full_version_title">لا توجد نسخة كاملة</string>
 	<string name="dialog_hub_user_setup_required_title">إعداد المستخدم مطلوب</string>
 	<string name="dialog_hub_user_setup_required_hint">للمتابعة، يرجى إكمال الخطوات المطلوبة في ملف المستخدم الخاص بك في Hub.</string>
 	<string name="dialog_hub_user_setup_required_neutral_button">اذهب إلى الملف الشخصي</string>
@@ -436,8 +461,10 @@
 	<string name="screen_settings_lru_cache_size">إجمالي حجم ذاكرة التخزين المؤقت</string>
 	<string name="screen_settings_clear_lru_cache_size">مسح بيانات الذاكرة المؤقتة</string>
 	<string name="screen_settings_lru_cache_changed__restart_toast">سيتم تطبيق التغييرات عند إعادة تشغيل التطبيق</string>
-	<string name="screen_settings_license">مسجل لـ</string>
+	<string name="screen_settings_license_title_unlock">فتح النسخة الكاملة</string>
 	<string name="screen_settings_license_mail">%1$s</string>
+	<string name="screen_settings_manage_subscription">إدارة الاشتراك</string>
+	<string name="dialog_trial_expired_unlock">فتح النسخة الكاملة</string>
 	<string name="dialog_settings_update_check_interval_title">الفاصل الزمني للتحديث</string>
 	<string name="screen_settings_check_updates">بحث عن تحديثات</string>
 	<string name="screen_settings_last_check_updates">اخر بحث %1$s</string>

@@ -7,6 +7,7 @@
 	<string name="error_authentication_failed">Autentisering misslyckades</string>
 	<string name="error_authentication_failed_re_authenticate">Autentisering misslyckades, vänligen logga in med %1$s</string>
 	<string name="error_no_network_connection">Ingen nätverksanslutning</string>
+	<string name="error_purchase_not_available">Köp är inte tillgängligt. Försök igen senare.</string>
 	<string name="error_invalid_passphrase">Felaktigt lösenord</string>
 	<string name="error_file_or_folder_exists">Filen eller katalogen finns redan.</string>
 	<string name="error_vault_version_not_supported">Valv-version %1$s stöds inte. Detta valv har skapats med en äldre eller nyare version av Cryptomator.</string>
@@ -41,6 +42,33 @@
 	<string name="error_hub_invalid_setup_code">Kontonyckeln är ogiltig.</string>
 	<string name="error_hub_invalid_version">Hub-versionen stöds inte.</string>
 	<string name="error_hub_unlock_pre_31">Cryptomator navet stöds endast på Android 12 och senare.</string>
+	<!-- # read-only & purchases -->
+	<string name="read_only_reason_hub_inactive">Uppgradera din Hub-licens för att möjliggöra skrivning till detta valv.</string>
+	<string name="toast_purchase_revoked_refunded">Ditt livstidsköp har återbetalats. Du har nu skrivskyddad tillgång.</string>
+	<string name="toast_purchase_revoked_subscription_inactive">Din prenumeration är inte längre aktiv. Du har nu skrivskyddad åtkomst.</string>
+	<string name="screen_license_check_locked_create_vault">Köp fullversionen för att skapa valv</string>
+	<string name="screen_license_check_benefit_family_sharing">Familjedelning</string>
+	<string name="screen_license_check_benefit_write_access">Skriv-åtkomst till dina valv</string>
+	<string name="screen_license_check_benefit_support">Utveckling av öppen källkod</string>
+	<string name="screen_license_check_title_full_version">Lås upp fullversion</string>
+	<string name="screen_license_check_trial_title">30-dagars provperiod</string>
+	<string name="screen_license_check_trial_price">Gratis</string>
+	<string name="screen_license_check_trial_subtitle">i 30 dagar</string>
+	<string name="screen_license_check_subscription_title">Årsprenumeration</string>
+	<string name="screen_license_check_subscription_subtitle">årligen</string>
+	<string name="screen_license_check_lifetime_title">Livstids-licens</string>
+	<string name="screen_license_check_lifetime_subtitle">en-gångs</string>
+	<string name="screen_license_check_restore_purchase">Återställ köp</string>
+	<string name="screen_license_check_terms">Villkor</string>
+	<string name="screen_license_check_privacy">Integritetspolicy</string>
+	<string name="screen_license_check_trial_status_active">Aktiv</string>
+	<string name="screen_license_check_trial_status_expired">Upphört</string>
+	<string name="screen_license_check_trial_expired_info">Testperioden är slut.</string>
+	<string name="screen_welcome_title">Välkommen</string>
+	<string name="screen_welcome_continue_button">Fortsätt</string>
+	<string name="screen_welcome_screen_lock_button">Ställ in skärmlås</string>
+	<string name="next">Nästa</string>
+	<string name="back">Bakåt</string>
 	<!-- # clouds -->
 	<!-- ## cloud names -->
 	<string name="cloud_names_local_storage">Lokal lagring</string>
@@ -372,6 +400,8 @@
 	<string name="dialog_hub_license_upgrade_required_hint">Din Cryptomator Hub-instans har en ogiltig licens. Vänligen informera en Hub administratör för att uppgradera eller förnya licensen.\"</string>
 	<string name="dialog_hub_vault_archived_title">Valvet arkiverades</string>
 	<string name="dialog_hub_vault_archived_hint">Detta valv är arkiverat och kan inte låsas upp. För att låsa upp det måste valvägaren avarkivera det.</string>
+	<string name="dialog_restore_successful_title">Återställning lyckades</string>
+	<string name="dialog_no_full_version_title">Ingen fullversion</string>
 	<string name="dialog_hub_user_setup_required_title">Användarkonfiguration krävs</string>
 	<string name="dialog_hub_user_setup_required_hint">För att fortsätta, vänligen fyll i de steg som krävs i din Hub-användarprofil.</string>
 	<string name="dialog_hub_user_setup_required_neutral_button">Gå till profil</string>
@@ -431,8 +461,10 @@
 	<string name="screen_settings_lru_cache_size">Total cachestorlek</string>
 	<string name="screen_settings_clear_lru_cache_size">Rensa cachen</string>
 	<string name="screen_settings_lru_cache_changed__restart_toast">Ändringar kommer att tillämpas vid omstart av appen</string>
-	<string name="screen_settings_license">Registrerad till</string>
+	<string name="screen_settings_license_title_unlock">Lås upp fullversion</string>
 	<string name="screen_settings_license_mail">%1$s</string>
+	<string name="screen_settings_manage_subscription">Hantera prenumeration</string>
+	<string name="dialog_trial_expired_unlock">Lås upp fullversion</string>
 	<string name="dialog_settings_update_check_interval_title">Uppdateringsintervall</string>
 	<string name="screen_settings_check_updates">Sök efter uppdateringar</string>
 	<string name="screen_settings_last_check_updates">Senaste körning %1$s</string>

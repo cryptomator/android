@@ -37,6 +37,29 @@
 	<string name="error_interact_with_fdroid_but_fdroid_missing">Nu s-a putut comunicat cu aplicația F-Droid. Este posibil ca aplicația sa nu fie instalata?</string>
 	<string name="error_hub_device_already_register_for_other_user">Acest dispozitiv este deja înregistrat pentru un alt utilizator. Încercați să schimbați contul de utilizator sau folosiți un alt dispozitiv.</string>
 	<string name="error_hub_unlock_pre_31">Hub poate fi folosit in Android 12 sau mai nou.</string>
+	<!-- # read-only & purchases -->
+	<string name="screen_license_check_benefit_family_sharing">Partajare cu familia</string>
+	<string name="screen_license_check_benefit_write_access">Acces fără restricții la seifurile dvs.</string>
+	<string name="screen_license_check_benefit_support">Dezvoltare open-source</string>
+	<string name="screen_license_check_title_full_version">Deblochează versiunea completă</string>
+	<string name="screen_license_check_trial_title">30 de zile de încercare</string>
+	<string name="screen_license_check_trial_price">Gratuit</string>
+	<string name="screen_license_check_trial_subtitle">pentru 30 de zile</string>
+	<string name="screen_license_check_subscription_title">Abonament anual</string>
+	<string name="screen_license_check_subscription_subtitle">anual</string>
+	<string name="screen_license_check_lifetime_title">Licență permanenta</string>
+	<string name="screen_license_check_lifetime_subtitle">plată singulară</string>
+	<string name="screen_license_check_restore_purchase">Restabilește achiziția</string>
+	<string name="screen_license_check_terms">Termeni și condiții de utilizare</string>
+	<string name="screen_license_check_privacy">Politică de confidențialitate</string>
+	<string name="screen_license_check_trial_status_active">Activ</string>
+	<string name="screen_license_check_trial_status_expired">Expirat</string>
+	<string name="screen_license_check_trial_expired_info">Perioada de probă a expirat.</string>
+	<string name="screen_welcome_title">Bine ați venit</string>
+	<string name="screen_welcome_continue_button">Continuați</string>
+	<string name="screen_welcome_screen_lock_button">Setați blocarea ecranului</string>
+	<string name="next">Următorul</string>
+	<string name="back">Înapoi</string>
 	<!-- # clouds -->
 	<!-- ## cloud names -->
 	<string name="cloud_names_local_storage">Stocare locală</string>
@@ -360,6 +383,8 @@
 	<string name="dialog_hub_license_upgrade_required_title">Verifica licență Hub-ului</string>
 	<string name="dialog_hub_vault_archived_title">Seif arhivat</string>
 	<string name="dialog_hub_vault_archived_hint">Acest seif este arhivat și nu poate fi deblocat. Pentru deblocare proprietarul seifului trebuie să îl dezarhiveze.</string>
+	<string name="dialog_restore_successful_title">Restabilirea licenței a fost efectuată cu succes</string>
+	<string name="dialog_no_full_version_title">Versiunea completă nu a fost găsită</string>
 	<string name="dialog_hub_user_setup_required_hint">Pentru a continua, vă rugăm să finalizaţi paşii necesari în profilul dumneavoastra din Hub.</string>
 	<string name="dialog_hub_user_setup_required_neutral_button">Mergi la profil</string>
 	<string name="permission_snackbar_auth_local_vault">Cryptomator are nevoie de acces la stocare pentru a utiliza seifuri locale</string>
@@ -418,8 +443,10 @@
 	<string name="screen_settings_lru_cache_size">Total memorie cache</string>
 	<string name="screen_settings_clear_lru_cache_size">Golește memoria cache</string>
 	<string name="screen_settings_lru_cache_changed__restart_toast">Modificările vor fi aplicate la următoarea repornire a aplicației</string>
-	<string name="screen_settings_license">Înregistrat pentru</string>
+	<string name="screen_settings_license_title_unlock">Deblochează versiunea completă</string>
 	<string name="screen_settings_license_mail">%1$s</string>
+	<string name="screen_settings_manage_subscription">Administrați-vă abonamentul</string>
+	<string name="dialog_trial_expired_unlock">Deblochează versiunea completă</string>
 	<string name="dialog_settings_update_check_interval_title">Interval de verificare a actualizărilor</string>
 	<string name="screen_settings_check_updates">Verifică actualizări</string>
 	<string name="screen_settings_last_check_updates">Ultima execuție %1$s</string>

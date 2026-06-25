@@ -2,6 +2,9 @@
 <resources>
 	<!-- # app -->
 	<!-- # error messages -->
+	<!-- # read-only & purchases -->
+	<string name="next">Neste</string>
+	<string name="back">Tilbake</string>
 	<!-- # clouds -->
 	<!-- ## cloud names -->
 	<!-- # permission -->
@@ -36,6 +39,7 @@
 	<!-- Vault not found -->
 	<string name="dialog_lock_vault">Lås</string>
 	<string name="dialog_app_is_obscured_info_neutral_button">Lukk</string>
+	<string name="dialog_enter_license_decline_button">Avbryt</string>
 	<string name="dialog_sym_link_back_button">Tilbake</string>
 	<!-- # error reports -->
 	<!-- # misc -->
