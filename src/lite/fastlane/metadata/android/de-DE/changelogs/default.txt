@@ -1,1 +1,4 @@
-- Mögliche Man-in-the-Middle-Angriffe mit manipulierten Cryptomator Hub-Tresorkonfigurationen behoben (GHSA-876q-q3mm-fcvj)
+- Ein neuer Willkommensbildschirm erleichtert den Einstieg und zeigt die wichtigsten ersten Schritte
+- Schnelles Scrollen im Datei-Editor verbessert die Navigation in längeren Dateien
+- Aktualisierte Übersetzungen sorgen für ein stimmigeres Erlebnis in den unterstützten Sprachen
+- Aktualisierte Abhängigkeiten verbessern die Stabilität und halten die App auf dem neuesten Stand
