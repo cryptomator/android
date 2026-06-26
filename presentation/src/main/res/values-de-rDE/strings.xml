@@ -52,6 +52,7 @@
 	<string name="screen_license_check_subscription_title">Jahresabonnement</string>
 	<string name="screen_license_check_subscription_subtitle">jährlich</string>
 	<string name="screen_license_check_lifetime_title">Lebenslange Lizenz</string>
+	<string name="screen_license_check_lifetime_discount_badge_generic">🔥 Zeitlich begrenztes Angebot</string>
 	<string name="screen_license_check_lifetime_subtitle">einmalig</string>
 	<string name="screen_license_check_restore_purchase">Käufe wiederherstellen</string>
 	<string name="screen_license_check_terms">Nutzungsbedingungen</string>
