@@ -10,8 +10,6 @@ public class UpdateCheckEntity extends DatabaseEntity {
 	@Id
 	private Long id;
 
-	private String licenseToken;
-
 	private String releaseNote;
 
 	private String version;
@@ -25,10 +23,9 @@ public class UpdateCheckEntity extends DatabaseEntity {
 	public UpdateCheckEntity() {
 	}
 
-	@Generated(hash = 67239496)
-	public UpdateCheckEntity(Long id, String licenseToken, String releaseNote, String version, String urlToApk, String apkSha256, String urlToReleaseNote) {
+	@Generated(hash = 867488251)
+	public UpdateCheckEntity(Long id, String releaseNote, String version, String urlToApk, String apkSha256, String urlToReleaseNote) {
 		this.id = id;
-		this.licenseToken = licenseToken;
 		this.releaseNote = releaseNote;
 		this.version = version;
 		this.urlToApk = urlToApk;
@@ -43,14 +40,6 @@ public class UpdateCheckEntity extends DatabaseEntity {
 
 	public void setId(Long id) {
 		this.id = id;
-	}
-
-	public String getLicenseToken() {
-		return this.licenseToken;
-	}
-
-	public void setLicenseToken(String licenseToken) {
-		this.licenseToken = licenseToken;
 	}
 
 	public String getVersion() {

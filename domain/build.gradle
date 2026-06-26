@@ -28,6 +28,35 @@ android {
 	buildFeatures {
 		buildConfig true
 	}
+
+	flavorDimensions "version"
+
+	productFlavors {
+		playstore {
+			dimension "version"
+		}
+
+		playstoreiap {
+			dimension "version"
+		}
+
+		apkstore {
+			dimension "version"
+		}
+
+		fdroid {
+			dimension "version"
+		}
+
+		lite {
+			dimension "version"
+		}
+
+		accrescent {
+			dimension "version"
+		}
+	}
+
 	lint {
 		abortOnError false
 		ignoreWarnings true

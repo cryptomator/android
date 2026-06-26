@@ -168,12 +168,6 @@ internal class WebDavCloudContentRepository(private val cloud: WebDavCloud, conn
 					ExceptionUtil.contains(e, NotFoundException::class.java) -> {
 						throw NoSuchCloudFileException(file.name)
 					}
-					e is IOException -> {
-						throw FatalBackendException(e)
-					}
-					e is FatalBackendException -> {
-						throw e
-					}
 					else -> {
 						throw FatalBackendException(e)
 					}
@@ -182,9 +176,6 @@ internal class WebDavCloudContentRepository(private val cloud: WebDavCloud, conn
 				when {
 					ExceptionUtil.contains(e, NotFoundException::class.java) -> {
 						throw NoSuchCloudFileException(file.name)
-					}
-					e is FatalBackendException -> {
-						throw e
 					}
 					else -> {
 						throw FatalBackendException(e)
@@ -202,9 +193,6 @@ internal class WebDavCloudContentRepository(private val cloud: WebDavCloud, conn
 					ExceptionUtil.contains(e, NotFoundException::class.java) -> {
 						throw NoSuchCloudFileException(file.name)
 					}
-					e is IOException -> {
-						throw FatalBackendException(e)
-					}
 					else -> {
 						throw e
 					}
@@ -212,8 +200,6 @@ internal class WebDavCloudContentRepository(private val cloud: WebDavCloud, conn
 			} catch (e: IOException) {
 				if (ExceptionUtil.contains(e, NotFoundException::class.java)) {
 					throw NoSuchCloudFileException(file.name)
-				} else if (e is FatalBackendException) {
-					throw e
 				}
 			}
 		}

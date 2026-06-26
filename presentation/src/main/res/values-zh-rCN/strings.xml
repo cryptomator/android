@@ -41,6 +41,29 @@
 	<string name="error_hub_invalid_setup_code">账户密钥无效</string>
 	<string name="error_hub_invalid_version">不支持的 Hub 版本</string>
 	<string name="error_hub_unlock_pre_31">Hub 仅支持 Android 12 及以上版本。</string>
+	<!-- # read-only & purchases -->
+	<string name="screen_license_check_benefit_family_sharing">家庭成员共享</string>
+	<string name="screen_license_check_benefit_write_access">保险库写入访问权限</string>
+	<string name="screen_license_check_benefit_support">开源开发</string>
+	<string name="screen_license_check_title_full_version">解锁完整版</string>
+	<string name="screen_license_check_trial_title">30 天免费试用</string>
+	<string name="screen_license_check_trial_price">免费版</string>
+	<string name="screen_license_check_trial_subtitle">30 天</string>
+	<string name="screen_license_check_subscription_title">按年订阅</string>
+	<string name="screen_license_check_subscription_subtitle">按年</string>
+	<string name="screen_license_check_lifetime_title">终身许可证</string>
+	<string name="screen_license_check_lifetime_subtitle">一次付费</string>
+	<string name="screen_license_check_restore_purchase">恢复购买</string>
+	<string name="screen_license_check_terms">使用条款</string>
+	<string name="screen_license_check_privacy">隐私政策</string>
+	<string name="screen_license_check_trial_status_active">进行中</string>
+	<string name="screen_license_check_trial_status_expired">已到期</string>
+	<string name="screen_license_check_trial_expired_info">您的试用期已结束。</string>
+	<string name="screen_welcome_title">欢迎使用</string>
+	<string name="screen_welcome_continue_button">继续</string>
+	<string name="screen_welcome_screen_lock_button">设置屏幕锁定</string>
+	<string name="next">下一步</string>
+	<string name="back">后退</string>
 	<!-- # clouds -->
 	<!-- ## cloud names -->
 	<string name="cloud_names_local_storage">本地存储</string>
@@ -371,6 +394,8 @@
 	<string name="dialog_hub_license_upgrade_required_hint">此 Cryptomator Hub 实例许可证无效，请联系 Hub 管理员升级或者续订许可证</string>
 	<string name="dialog_hub_vault_archived_title">私密库已存档</string>
 	<string name="dialog_hub_vault_archived_hint">此保险库已存档且无法解锁。要想解锁，必须由其所有者取消存档</string>
+	<string name="dialog_restore_successful_title">恢复成功</string>
+	<string name="dialog_no_full_version_title">未购买完整版</string>
 	<string name="dialog_hub_user_setup_required_title">需要用户设置</string>
 	<string name="dialog_hub_user_setup_required_hint">要继续，请完成 Hub 用户中心所需的步骤</string>
 	<string name="dialog_hub_user_setup_required_neutral_button">前往个人中心</string>
@@ -430,8 +455,11 @@
 	<string name="screen_settings_lru_cache_size">缓存总大小</string>
 	<string name="screen_settings_clear_lru_cache_size">清除缓存</string>
 	<string name="screen_settings_lru_cache_changed__restart_toast">更改将在下次应用重启时生效</string>
-	<string name="screen_settings_license">已授权给</string>
+	<string name="screen_settings_license_title_unlock">解锁完整版</string>
 	<string name="screen_settings_license_mail">%1$s</string>
+	<string name="screen_settings_manage_subscription">管理订阅</string>
+	<string name="screen_settings_upgrade_to_lifetime">升级到终生版</string>
+	<string name="dialog_trial_expired_unlock">解锁完整版</string>
 	<string name="dialog_settings_update_check_interval_title">更新检查频率</string>
 	<string name="screen_settings_check_updates">检查更新</string>
 	<string name="screen_settings_last_check_updates">上次检查 %1$s</string>

@@ -7,7 +7,6 @@ import org.cryptomator.domain.Cloud;
 import org.cryptomator.domain.CloudType;
 import org.cryptomator.domain.OnedriveCloud;
 import org.cryptomator.domain.Vault;
-import org.cryptomator.domain.usecases.DoLicenseCheckUseCase;
 import org.cryptomator.domain.usecases.DoUpdateCheckUseCase;
 import org.cryptomator.domain.usecases.DoUpdateUseCase;
 import org.cryptomator.domain.usecases.GetDecryptedCloudForVaultUseCase;
@@ -25,6 +24,7 @@ import org.cryptomator.domain.usecases.vault.SaveVaultsUseCase;
 import org.cryptomator.domain.usecases.vault.UnlockToken;
 import org.cryptomator.domain.usecases.vault.UpdateVaultParameterIfChangedRemotelyUseCase;
 import org.cryptomator.presentation.exception.ExceptionHandlers;
+import org.cryptomator.presentation.licensing.LicenseEnforcer;
 import org.cryptomator.presentation.model.VaultModel;
 import org.cryptomator.presentation.model.mappers.CloudFolderModelMapper;
 import org.cryptomator.presentation.ui.activity.view.VaultListView;
@@ -104,7 +104,6 @@ public class VaultListPresenterTest {
 	private CreateNewVaultWorkflow createNewVaultWorkflow = Mockito.mock(CreateNewVaultWorkflow.class);
 	private SaveVaultUseCase saveVaultUseCase = Mockito.mock(SaveVaultUseCase.class);
 	private MoveVaultPositionUseCase moveVaultPositionUseCase = Mockito.mock(MoveVaultPositionUseCase.class);
-	private DoLicenseCheckUseCase doLicenceCheckUsecase = Mockito.mock(DoLicenseCheckUseCase.class);
 	private DoUpdateCheckUseCase updateCheckUseCase = Mockito.mock(DoUpdateCheckUseCase.class);
 	private DoUpdateUseCase updateUseCase = Mockito.mock(DoUpdateUseCase.class);
 	private UpdateVaultParameterIfChangedRemotelyUseCase updateVaultParameterIfChangedRemotelyUseCase = Mockito.mock(UpdateVaultParameterIfChangedRemotelyUseCase.class);
@@ -114,6 +113,7 @@ public class VaultListPresenterTest {
 	private NetworkConnectionCheck networkConnectionCheck = Mockito.mock(NetworkConnectionCheck.class);
 	private FileUtil fileUtil = Mockito.mock(FileUtil.class);
 	private AuthenticationExceptionHandler authenticationExceptionHandler = Mockito.mock(AuthenticationExceptionHandler.class);
+	private LicenseEnforcer licenseEnforcer = Mockito.mock(LicenseEnforcer.class);
 	private SharedPreferencesHandler sharedPreferencesHandler = Mockito.mock(SharedPreferencesHandler.class);
 	private ExceptionHandlers exceptionMappings = Mockito.mock(ExceptionHandlers.class);
 	private VaultListPresenter inTest;
@@ -130,7 +130,6 @@ public class VaultListPresenterTest {
 				createNewVaultWorkflow, //
 				saveVaultUseCase, //
 				moveVaultPositionUseCase, //
-				doLicenceCheckUsecase, //
 				updateCheckUseCase, //
 				updateUseCase, //
 				updateVaultParameterIfChangedRemotelyUseCase, //
@@ -141,6 +140,7 @@ public class VaultListPresenterTest {
 				fileUtil, //
 				authenticationExceptionHandler, //
 				cloudNodeModelMapper, //
+				licenseEnforcer, //
 				sharedPreferencesHandler, //
 				exceptionMappings);
 		when(vaultListView.activity()).thenReturn(activity);

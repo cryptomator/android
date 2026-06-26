@@ -15,6 +15,7 @@
 	<string name="error_authentication_failed">Authentication failed</string>
 	<string name="error_authentication_failed_re_authenticate">Authentication failed, please login using %1$s</string>
 	<string name="error_no_network_connection">No network connection</string>
+	<string name="error_purchase_not_available">Purchase not available. Please try again later.</string>
 	<string name="error_invalid_passphrase">Wrong password</string>
 	<string name="error_file_or_folder_exists">A file or folder already exists.</string>
 	<string name="error_vault_version_not_supported">Vault version %1$s is unsupported. This vault has been created with an older or newer version of Cryptomator.</string>
@@ -52,6 +53,59 @@
 	<string name="error_hub_unlock_pre_31">Hub is only supported on Android 12 and above.</string>
 
 	<string name="error_hub_not_trustworthy">Hub is not trustworthy.</string>
+
+	<!-- # read-only & purchases -->
+	<string name="read_only_reason_hub_inactive">Upgrade your Hub license to enable writing for this vault.</string>
+	<string name="toast_purchase_revoked_refunded">Your lifetime purchase was refunded. You now have read-only access.</string>
+	<string name="toast_purchase_revoked_subscription_inactive">Your subscription is no longer active. You now have read-only access.</string>
+	<string name="screen_license_check_locked_create_vault">Unlock full version to create vaults</string>
+	<string name="screen_license_check_locked_upload_files">Unlock full version to upload files</string>
+	<string name="screen_license_check_locked_create_folder">Unlock full version to create folders</string>
+	<string name="screen_license_check_locked_create_text_file">Unlock full version to create text files</string>
+	<string name="screen_license_check_locked_share_node">Unlock full version to share files or folders</string>
+	<string name="screen_license_check_locked_rename_node">Unlock full version to rename files or folders</string>
+	<string name="screen_license_check_locked_move_node">Unlock full version to move files or folders</string>
+	<string name="screen_license_check_locked_delete_node">Unlock full version to delete files or folders</string>
+	<string name="screen_license_check_title">Unlock write access</string>
+	<string name="screen_license_check_benefit_title">Your benefits</string>
+	<string name="screen_license_check_benefit_family_sharing">Family sharing</string>
+	<string name="screen_license_check_benefit_write_access">Write access to your vaults</string>
+	<string name="screen_license_check_benefit_support">Open-source development</string>
+	<string name="screen_license_check_button_purchase">Unlock via Google Play</string>
+	<string name="screen_license_check_button_enter_license">Enter license key</string>
+	<string name="screen_license_check_enter_license_action">Enter</string>
+	<string name="screen_license_check_title_full_version">Unlock Full Version</string>
+	<string name="screen_license_check_trial_title">30-Day Trial</string>
+	<string name="screen_license_check_trial_price">Free</string>
+	<string name="screen_license_check_trial_subtitle">for 30 days</string>
+	<string name="screen_license_check_subscription_title">Yearly Subscription</string>
+	<string name="screen_license_check_subscription_subtitle">yearly</string>
+	<string name="screen_license_check_lifetime_title">Lifetime License</string>
+	<string name="screen_license_check_lifetime_discount_badge_until">🔥 %1$d%% off until %2$s</string>
+	<string name="screen_license_check_lifetime_discount_badge_generic">🔥 Limited time sale</string>
+	<string name="screen_license_check_lifetime_subtitle">one-time</string>
+	<string name="screen_license_check_restore_purchase">Restore Purchase</string>
+	<string name="screen_license_check_terms">Terms of Use</string>
+	<string name="screen_license_check_privacy">Privacy Policy</string>
+	<string name="screen_license_check_trial_expiration">Expiration Date: %s</string>
+	<string name="screen_license_check_trial_status_active">Active</string>
+	<string name="screen_license_check_trial_status_expired">Expired</string>
+	<string name="screen_license_check_trial_active_info">Trial expires: %s</string>
+	<string name="screen_license_check_trial_expired_info">Your trial has expired.</string>
+	<string name="screen_license_check_subscription_upgrade_hint">You have an active subscription. Buy the lifetime license and cancel your subscription to switch.</string>
+	<string name="screen_license_check_cancel_subscription_hint">You now have a lifetime license. To avoid future charges, cancel your yearly subscription via the %1$s option in Settings.</string>
+	<string name="screen_welcome_title">Welcome</string>
+	<string name="screen_welcome_notifications_title">Stay notified</string>
+	<string name="screen_welcome_notifications_message">Allow notifications so Cryptomator can inform you about background activity, auto uploads, or other important events.</string>
+	<string name="screen_welcome_notifications_button">Allow notifications</string>
+	<string name="screen_welcome_notifications_granted">Notifications are enabled.</string>
+	<string name="screen_welcome_continue_button">Continue</string>
+	<string name="screen_welcome_screen_lock_button">Set screen lock</string>
+	<string name="screen_welcome_screen_lock_already_set">Screen lock is already set.</string>
+	<string name="screen_welcome_intro_body">Thanks for choosing Cryptomator to protect your files.\n\nWith Cryptomator, the key to your data is in your hands.\n\nCryptomator encrypts your data quickly and easily.</string>
+	<string name="screen_welcome_trial_button" translatable="false">@string/screen_license_check_trial_price</string>
+	<string name="next">Next</string>
+	<string name="back">Back</string>
 
 	<!-- # clouds -->
 
@@ -493,12 +547,12 @@
 	<string name="dialog_biometric_auth_key_invalidated_neutral_button" translatable="false">@string/dialog_unable_to_share_positive_button</string>
 
 	<string name="dialog_enter_license_title">Provide a valid license</string>
-	<string name="dialog_enter_license_content">We detected that you installed Cryptomator without using Google Play Store. Provide a valid license, which can be purchased on <a href="https://cryptomator.org/android/">https://cryptomator.org/android/</a></string>
+	<string name="dialog_enter_license_content">Purchase a license at <a href="https://cryptomator.org/android/">https://cryptomator.org/android/</a> or enter your existing Android license key.</string>
 	<string name="dialog_enter_license_not_valid_content">The provided license isn\'t valid. Make sure you entered it correctly.</string>
 	<string name="dialog_enter_license_not_valid_content_desktop_supporter_certificate">The provided key is a desktop supporter certificate. Please enter a valid license.</string>
 	<string name="dialog_enter_license_no_content">No license provided. Please enter a valid license.</string>
 	<string name="dialog_enter_license_ok_button" translatable="false">@string/dialog_unable_to_share_positive_button</string>
-	<string name="dialog_enter_license_decline_button">Exit</string>
+	<string name="dialog_enter_license_decline_button">Cancel</string>
 
 	<string name="dialog_license_confirmation_title">License confirmation</string>
 	<string name="dialog_license_confirmation_message">Thanks %1$s for providing your valid license.</string>
@@ -555,6 +609,18 @@
 	<string name="dialog_hub_vault_archived_title">Vault archived</string>
 	<string name="dialog_hub_vault_archived_hint">This vault is archived and cannot be unlocked. To unlock it, a vault owner must unarchive it.</string>
 	<string name="dialog_hub_vault_archived_positive_button" translatable="false">@string/dialog_unable_to_share_positive_button</string>
+
+	<string name="dialog_restore_successful_title">Restore Successful</string>
+	<string name="dialog_restore_successful_message">Your purchase has been restored and is now active on this device.</string>
+	<string name="dialog_restore_successful_positive_button" translatable="false">@string/dialog_unable_to_share_positive_button</string>
+
+	<string name="dialog_no_full_version_title">No Full Version</string>
+	<string name="dialog_no_full_version_message">We couldn\u0027t find an existing purchase on this Google account.</string>
+	<string name="dialog_no_full_version_positive_button" translatable="false">@string/dialog_unable_to_share_positive_button</string>
+
+	<string name="dialog_restore_failed_title">Restore Failed</string>
+	<string name="dialog_restore_failed_message">We couldn\u0027t reach the Play Store. Please check your connection and try again.</string>
+	<string name="dialog_restore_failed_positive_button" translatable="false">@string/dialog_unable_to_share_positive_button</string>
 
 	<string name="dialog_hub_user_setup_required_title">User setup required</string>
 	<string name="dialog_hub_user_setup_required_hint">To proceed, please complete the steps required in your Hub user profile.</string>
@@ -618,7 +684,7 @@
 
 	<string name="notification_cancel_auto_upload">Cancel upload</string>
 	<string name="notification_auto_upload_title">Auto photo upload running</string>
-	<string name="notification_auto_upload_message">Uploading %1d/%2d</string>
+	<string name="notification_auto_upload_message">Uploading %1$d/%2$d</string>
 
 	<string name="notification_auto_upload_finished_title">Auto photo upload finished</string>
 	<string name="notification_auto_upload_finished_message">%1$d images uploaded to vault</string>
@@ -648,8 +714,19 @@
 	<string name="screen_settings_clear_lru_cache_size">Clear Cache</string>
 	<string name="screen_settings_lru_cache_changed__restart_toast">Changes will be applied on next app restart</string>
 
-	<string name="screen_settings_license">Registered for</string>
+	<string name="screen_settings_license_title_unlock">Unlock Full Version</string>
+	<string name="screen_settings_license_title_unlocked">Full Version</string>
 	<string name="screen_settings_license_mail">%1$s</string>
+	<string name="screen_settings_license_summary_write_access">Write access unlocked!</string>
+	<string name="screen_settings_license_summary_tap_to_unlock">Tap to unlock write access</string>
+	<string name="screen_settings_license_summary_write_access_mail">Write access for %1$s</string>
+	<string name="screen_settings_license_summary_trial_expires" translatable="false">@string/screen_license_check_trial_active_info</string>
+	<string name="screen_settings_manage_subscription">Manage Subscription</string>
+	<string name="screen_settings_upgrade_to_lifetime">Upgrade to Lifetime</string>
+	<string name="dialog_trial_expired_title">Trial Expired</string>
+	<string name="dialog_trial_expired_message">Your free trial has ended. You can continue in read-only mode or unlock the full version.</string>
+	<string name="dialog_trial_expired_unlock">Unlock Full Version</string>
+	<string name="dialog_trial_expired_continue_read_only">Continue in Read-Only Mode</string>
 
 	<string name="dialog_settings_update_check_interval_title">Update check interval</string>
 	<string name="screen_settings_check_updates">Check for updates</string>

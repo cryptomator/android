@@ -21,6 +21,7 @@ import org.cryptomator.presentation.intent.ChooseCloudNodeSettings
 import org.cryptomator.presentation.intent.ChooseCloudNodeSettings.NavigationMode.BROWSE_FILES
 import org.cryptomator.presentation.intent.ChooseCloudNodeSettings.NavigationMode.MOVE_CLOUD_NODE
 import org.cryptomator.presentation.intent.ChooseCloudNodeSettings.NavigationMode.SELECT_ITEMS
+import org.cryptomator.presentation.licensing.LicenseEnforcer
 import org.cryptomator.presentation.model.CloudFileModel
 import org.cryptomator.presentation.model.CloudFolderModel
 import org.cryptomator.presentation.model.CloudNodeModel
@@ -69,6 +70,9 @@ class BrowseFilesActivity : BaseActivity<ActivityLayoutBinding>(ActivityLayoutBi
 
 	@Inject
 	lateinit var browseFilesPresenter: BrowseFilesPresenter
+
+	@Inject
+	lateinit var licenseEnforcer: LicenseEnforcer
 
 	@InjectIntent
 	lateinit var browseFilesIntent: BrowseFilesIntent
@@ -184,14 +188,18 @@ class BrowseFilesActivity : BaseActivity<ActivityLayoutBinding>(ActivityLayoutBi
 			true
 		}
 		R.id.action_delete_items -> {
-			showConfirmDeleteNodeDialog(browseFilesFragment().selectedCloudNodes)
+			guardWriteAccess(LicenseEnforcer.LockedAction.DELETE_NODE) {
+				showConfirmDeleteNodeDialog(browseFilesFragment().selectedCloudNodes)
+			}
 			true
 		}
 		R.id.action_move_items -> {
-			browseFilesPresenter.onMoveNodesClicked(
-				folder, //
-				browseFilesFragment().selectedCloudNodes as ArrayList<CloudNodeModel<*>>
-			)
+			guardWriteAccess(LicenseEnforcer.LockedAction.MOVE_NODE) {
+				browseFilesPresenter.onMoveNodesClicked(
+					folder, //
+					browseFilesFragment().selectedCloudNodes as ArrayList<CloudNodeModel<*>>
+				)
+			}
 			true
 		}
 		R.id.action_export_items -> {
@@ -202,7 +210,9 @@ class BrowseFilesActivity : BaseActivity<ActivityLayoutBinding>(ActivityLayoutBi
 			true
 		}
 		R.id.action_share_items -> {
-			browseFilesPresenter.onShareNodesClicked(browseFilesFragment().selectedCloudNodes)
+			guardWriteAccess(LicenseEnforcer.LockedAction.SHARE_NODE) {
+				browseFilesPresenter.onShareNodesClicked(browseFilesFragment().selectedCloudNodes)
+			}
 			true
 		}
 		R.id.action_sort_az -> {
@@ -459,7 +469,7 @@ class BrowseFilesActivity : BaseActivity<ActivityLayoutBinding>(ActivityLayoutBi
 	}
 
 	override fun onCreateNewFolderClicked() {
-		showCreateFolderDialog()
+		guardWriteAccess(LicenseEnforcer.LockedAction.CREATE_FOLDER) { showCreateFolderDialog() }
 	}
 
 	private fun showCreateFolderDialog() {
@@ -467,19 +477,23 @@ class BrowseFilesActivity : BaseActivity<ActivityLayoutBinding>(ActivityLayoutBi
 	}
 
 	override fun onUploadFilesClicked(folder: CloudFolderModel) {
-		browseFilesPresenter.onUploadFilesClicked(folder)
+		guardWriteAccess(LicenseEnforcer.LockedAction.UPLOAD_FILES, folder) {
+			browseFilesPresenter.onUploadFilesClicked(folder)
+		}
 	}
 
 	override fun onCreateNewTextFileClicked() {
-		browseFilesPresenter.onCreateNewTextFileClicked()
+		guardWriteAccess(LicenseEnforcer.LockedAction.CREATE_TEXT_FILE) {
+			browseFilesPresenter.onCreateNewTextFileClicked()
+		}
 	}
 
 	override fun onRenameFileClicked(cloudFile: CloudFileModel) {
-		onRenameCloudNodeClicked(cloudFile)
+		guardWriteAccess(LicenseEnforcer.LockedAction.RENAME_NODE) { onRenameCloudNodeClicked(cloudFile) }
 	}
 
 	override fun onRenameFolderClicked(cloudFolderModel: CloudFolderModel) {
-		onRenameCloudNodeClicked(cloudFolderModel)
+		guardWriteAccess(LicenseEnforcer.LockedAction.RENAME_NODE) { onRenameCloudNodeClicked(cloudFolderModel) }
 	}
 
 	private fun onRenameCloudNodeClicked(cloudNodeModel: CloudNodeModel<*>) {
@@ -487,15 +501,15 @@ class BrowseFilesActivity : BaseActivity<ActivityLayoutBinding>(ActivityLayoutBi
 	}
 
 	override fun onDeleteNodeClicked(cloudFile: CloudNodeModel<*>) {
-		showConfirmDeleteNodeDialog(listOf(cloudFile))
+		guardWriteAccess(LicenseEnforcer.LockedAction.DELETE_NODE) { showConfirmDeleteNodeDialog(listOf(cloudFile)) }
 	}
 
 	override fun onShareFileClicked(cloudFile: CloudFileModel) {
-		browseFilesPresenter.onShareFileClicked(cloudFile)
+		guardWriteAccess(LicenseEnforcer.LockedAction.SHARE_NODE) { browseFilesPresenter.onShareFileClicked(cloudFile) }
 	}
 
 	override fun onMoveFileClicked(cloudFile: CloudFileModel) {
-		browseFilesPresenter.onMoveNodeClicked(folder, cloudFile)
+		guardWriteAccess(LicenseEnforcer.LockedAction.MOVE_NODE) { browseFilesPresenter.onMoveNodeClicked(folder, cloudFile) }
 	}
 
 	override fun onOpenWithTextFileClicked(cloudFile: CloudFileModel) {
@@ -507,7 +521,7 @@ class BrowseFilesActivity : BaseActivity<ActivityLayoutBinding>(ActivityLayoutBi
 	}
 
 	override fun onMoveFolderClicked(cloudFolderModel: CloudFolderModel) {
-		browseFilesPresenter.onMoveNodeClicked(folder, cloudFolderModel)
+		guardWriteAccess(LicenseEnforcer.LockedAction.MOVE_NODE) { browseFilesPresenter.onMoveNodeClicked(folder, cloudFolderModel) }
 	}
 
 	private fun createBackStackFor(sourceParent: CloudFolderModel) {
@@ -554,6 +568,16 @@ class BrowseFilesActivity : BaseActivity<ActivityLayoutBinding>(ActivityLayoutBi
 	}
 
 	private fun browseFilesFragment(): BrowseFilesFragment = getCurrentFragment(R.id.fragment_container) as BrowseFilesFragment
+
+	private inline fun guardWriteAccess(
+		action: LicenseEnforcer.LockedAction,
+		folder: CloudFolderModel = browseFilesFragment().folder,
+		block: () -> Unit
+	) {
+		if (licenseEnforcer.ensureWriteAccessForVault(this, folder.vault(), action)) {
+			block()
+		}
+	}
 
 	override fun onCreateNewTextFileClicked(fileName: String) {
 		browseFilesPresenter.onCreateNewTextFileClicked(browseFilesFragment().folder, fileName)

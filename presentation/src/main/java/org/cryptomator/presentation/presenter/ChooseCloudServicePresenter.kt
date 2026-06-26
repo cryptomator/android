@@ -6,8 +6,8 @@ import org.cryptomator.domain.di.PerView
 import org.cryptomator.domain.exception.FatalBackendException
 import org.cryptomator.domain.usecases.cloud.GetCloudsUseCase
 import org.cryptomator.generator.Callback
-import org.cryptomator.presentation.BuildConfig
 import org.cryptomator.presentation.R
+import org.cryptomator.util.FlavorConfig
 import org.cryptomator.presentation.exception.ExceptionHandlers
 import org.cryptomator.presentation.intent.Intents
 import org.cryptomator.presentation.model.CloudTypeModel
@@ -37,9 +37,9 @@ class ChooseCloudServicePresenter @Inject constructor( //
 		val cloudTypeModels: MutableList<CloudTypeModel> = ArrayList(listOf(*CloudTypeModel.values()))
 		cloudTypeModels.remove(CloudTypeModel.CRYPTO)
 
-		if (BuildConfig.FLAVOR == "fdroid" || BuildConfig.FLAVOR == "accrescent") {
+		if (FlavorConfig.excludesGoogleDrive) {
 			cloudTypeModels.remove(CloudTypeModel.GOOGLE_DRIVE)
-		} else if (BuildConfig.FLAVOR == "lite") {
+		} else if (FlavorConfig.isLiteFlavor) {
 			cloudTypeModels.remove(CloudTypeModel.GOOGLE_DRIVE)
 			cloudTypeModels.remove(CloudTypeModel.DROPBOX)
 			cloudTypeModels.remove(CloudTypeModel.ONEDRIVE)
@@ -95,7 +95,7 @@ class ChooseCloudServicePresenter @Inject constructor( //
 	}
 
 	fun showCloudMissingSnackbarHintInLiteVariant() {
-		if (BuildConfig.FLAVOR == "lite") {
+		if (FlavorConfig.isLiteFlavor) {
 			view?.showSnackbar(R.string.snack_bar_cryptomator_variants_hint, object : SnackbarAction {
 				override fun onClick(v: View?) {
 					startIntent(Intents.cryptomatorVariantsIntent())

@@ -32,7 +32,6 @@ import java.security.interfaces.ECPublicKey;
 import java.security.spec.InvalidKeySpecException;
 import java.security.spec.X509EncodedKeySpec;
 
-import javax.annotation.Nullable;
 import javax.inject.Inject;
 import javax.inject.Singleton;
 
@@ -87,21 +86,6 @@ public class UpdateCheckRepositoryImpl implements UpdateCheckRepository {
 		database.store(entity);
 
 		return Optional.of(updateCheck);
-	}
-
-	@Nullable
-	@Override
-	public String getLicense() {
-		return database.load(UpdateCheckEntity.class, 1L).getLicenseToken();
-	}
-
-	@Override
-	public void setLicense(String license) {
-		final UpdateCheckEntity entity = database.load(UpdateCheckEntity.class, 1L);
-
-		entity.setLicenseToken(license);
-
-		database.store(entity);
 	}
 
 	@Override

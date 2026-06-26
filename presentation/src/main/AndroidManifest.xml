@@ -53,6 +53,11 @@
 			</intent-filter>
 		</activity>
 
+		<activity
+			android:name=".ui.activity.WelcomeActivity"
+			android:exported="false"
+			android:windowSoftInputMode="adjustPan" />
+
 		<activity android:name=".ui.activity.ChooseCloudServiceActivity" />
 		<activity
 			android:name=".ui.activity.CreateVaultActivity"
@@ -114,7 +119,7 @@
 			android:exported="false" />
 		<activity
 			android:name=".ui.activity.LicensesActivity"
-			android:exported="true" />
+			android:exported="false" />
 		<activity
 			android:name=".ui.activity.SettingsActivity"
 			android:exported="false" />
@@ -209,6 +214,10 @@
 
 		<service
 			android:name=".service.AutoUploadService"
+			android:enabled="true" />
+
+		<service
+			android:name=".service.IapBillingService"
 			android:enabled="true" />
 
 		<service

@@ -74,12 +74,11 @@ android {
 			minifyEnabled false
 			shrinkResources false
 
-			buildConfigField "String", "DROPBOX_API_KEY", "\"" + getApiKey('DROPBOX_API_KEY_DEBUG') + "\""
-			buildConfigField "String", "PCLOUD_CLIENT_ID", "\"" + getApiKey('PCLOUD_CLIENT_ID_DEBUG') + "\""
+			buildConfigField "String", "DROPBOX_API_KEY", "\"" + getApiKey('DROPBOX_API_KEY') + "\""
+			buildConfigField "String", "PCLOUD_CLIENT_ID", "\"" + getApiKey('PCLOUD_CLIENT_ID') + "\""
 
-			manifestPlaceholders = [DROPBOX_API_KEY: getApiKey('DROPBOX_API_KEY_DEBUG'), ONEDRIVE_API_KEY_DECODED: getOnedriveApiKey()]
+			manifestPlaceholders = [DROPBOX_API_KEY: getApiKey('DROPBOX_API_KEY'), ONEDRIVE_API_KEY_DECODED: getOnedriveApiKey()]
 
-			applicationIdSuffix ".debug"
 			versionNameSuffix '-DEBUG'
 			enableUnitTestCoverage false
 			enableAndroidTestCoverage false
@@ -91,6 +90,13 @@ android {
 	productFlavors {
 		playstore {
 			dimension "version"
+		}
+
+		playstoreiap {
+			dimension "version"
+
+			applicationIdSuffix ".freemium"
+			resValue "string", "app_id", androidApplicationId + applicationIdSuffix
 		}
 
 		apkstore {
@@ -115,23 +121,27 @@ android {
 
 	sourceSets {
 		playstore {
-			java.srcDirs = ['src/main/java', 'src/apiKey/java/', 'src/apkStorePlaystore/java/']
+			java.srcDirs = ['src/main/java', 'src/apiKey/java/', 'src/apkStorePlaystore/java/', 'src/nonplaystoreiap/java/']
+		}
+
+		playstoreiap {
+			java.srcDirs = ['src/main/java', 'src/apiKey/java/', 'src/apkStorePlaystore/java/', 'src/playstoreiap/java/']
 		}
 
 		apkstore {
-			java.srcDirs = ['src/main/java/', 'src/apiKey/java/', 'src/apkStorePlaystore/java/']
+			java.srcDirs = ['src/main/java/', 'src/apiKey/java/', 'src/apkStorePlaystore/java/', 'src/nonplaystoreiap/java/']
 		}
 
 		fdroid {
-			java.srcDirs = ['src/main/java/', 'src/apiKey/java/', 'src/fdroid/java/', 'src/fdroidLiteAccrescent/java/']
+			java.srcDirs = ['src/main/java/', 'src/apiKey/java/', 'src/fdroid/java/', 'src/fdroidLiteAccrescent/java/', 'src/nonplaystoreiap/java/']
 		}
 
 		lite {
-			java.srcDirs = ['src/main/java/', 'src/lite/java/', 'src/fdroidLiteAccrescent/java/']
+			java.srcDirs = ['src/main/java/', 'src/lite/java/', 'src/fdroidLiteAccrescent/java/', 'src/nonplaystoreiap/java/']
 		}
 
 		accrescent {
-			java.srcDirs = ['src/main/java/', 'src/apiKey/java/', 'src/accrescent/java/', 'src/fdroidLiteAccrescent/java/']
+			java.srcDirs = ['src/main/java/', 'src/apiKey/java/', 'src/accrescent/java/', 'src/fdroidLiteAccrescent/java/', 'src/nonplaystoreiap/java/']
 		}
 	}
 
@@ -157,6 +167,17 @@ android {
 
 dependencies {
 	def dependencies = rootProject.ext.dependencies
+	def cloudFlavors = ['playstore', 'playstoreiap', 'apkstore', 'fdroid', 'accrescent']
+	def googleFlavors = ['playstore', 'playstoreiap', 'apkstore']
+	def addToFlavors = { flavors, dep, Closure config = null ->
+		flavors.each { flavor ->
+			if (config) {
+				add("${flavor}Implementation", dep, config)
+			} else {
+				add("${flavor}Implementation", dep)
+			}
+		}
+	}
 
 	// custom code generators
 	kapt project(':generator')
@@ -189,45 +210,18 @@ dependencies {
 	implementation dependencies.appauth
 
 	// cloud
-	playstoreImplementation dependencies.dropboxCore
-	playstoreImplementation dependencies.dropboxAndroid
-	apkstoreImplementation dependencies.dropboxCore
-	apkstoreImplementation dependencies.dropboxAndroid
-	fdroidImplementation dependencies.dropboxCore
-	fdroidImplementation dependencies.dropboxAndroid
-	accrescentImplementation dependencies.dropboxCore
-	accrescentImplementation dependencies.dropboxAndroid
+	addToFlavors(cloudFlavors, dependencies.dropboxCore)
+	addToFlavors(cloudFlavors, dependencies.dropboxAndroid)
 
-	playstoreImplementation dependencies.msgraphAuth
-	apkstoreImplementation dependencies.msgraphAuth
-	fdroidImplementation dependencies.msgraphAuth
-	accrescentImplementation dependencies.msgraphAuth
-	playstoreImplementation dependencies.msgraph
-	apkstoreImplementation dependencies.msgraph
-	fdroidImplementation dependencies.msgraph
-	accrescentImplementation dependencies.msgraph
+	addToFlavors(cloudFlavors, dependencies.msgraphAuth)
+	addToFlavors(cloudFlavors, dependencies.msgraph)
 
-	playstoreImplementation(dependencies.googleApiServicesDrive) {
-		exclude module: 'guava-jdk5'
-		exclude module: 'httpclient'
-		exclude module: 'googlehttpclient'
-		exclude group: "com.google.http-client", module: "google-http-client"
-	}
-	apkstoreImplementation(dependencies.googleApiServicesDrive) {
+	addToFlavors(googleFlavors, dependencies.googleApiServicesDrive) {
 		exclude module: 'guava-jdk5'
 		exclude module: 'httpclient'
 		exclude group: "com.google.http-client", module: "google-http-client"
 	}
-
-	playstoreImplementation(dependencies.googleApiClientAndroid) {
-		exclude module: 'guava-jdk5'
-		exclude module: 'httpclient'
-		exclude module: "google-http-client"
-		exclude module: "jetified-google-http-client"
-		exclude group: "com.google.http-client", module: "google-http-client"
-		exclude group: "com.google.http-client", module: "jetified-google-http-client"
-	}
-	apkstoreImplementation(dependencies.googleApiClientAndroid) {
+	addToFlavors(googleFlavors, dependencies.googleApiClientAndroid) {
 		exclude module: 'guava-jdk5'
 		exclude module: 'httpclient'
 		exclude module: "google-http-client"
@@ -236,10 +230,8 @@ dependencies {
 		exclude group: "com.google.http-client", module: "jetified-google-http-client"
 	}
 
-	playstoreImplementation dependencies.trackingFreeGoogleCLient
-	apkstoreImplementation dependencies.trackingFreeGoogleCLient
-	playstoreImplementation dependencies.trackingFreeGoogleAndroidCLient
-	apkstoreImplementation dependencies.trackingFreeGoogleAndroidCLient
+	addToFlavors(googleFlavors, dependencies.trackingFreeGoogleCLient)
+	addToFlavors(googleFlavors, dependencies.trackingFreeGoogleAndroidCLient)
 
 	// rest
 	implementation dependencies.rxJava
@@ -247,6 +239,8 @@ dependencies {
 	compileOnly dependencies.javaxAnnotation
 	implementation dependencies.zxcvbn
 	implementation dependencies.rxBinding
+
+	playstoreiapImplementation dependencies.billing
 
 	// multidex
 	implementation dependencies.multidex
@@ -292,6 +286,7 @@ dependencies {
 	testRuntimeOnly dependencies.junit4Engine
 
 	testImplementation dependencies.mockito
+	testImplementation dependencies.mockitoKotlin
 	testImplementation dependencies.mockitoInline
 	testImplementation dependencies.hamcrest
 }

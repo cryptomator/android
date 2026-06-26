@@ -51,6 +51,7 @@ import org.cryptomator.presentation.intent.BrowseFilesIntent
 import org.cryptomator.presentation.intent.ChooseCloudNodeSettings
 import org.cryptomator.presentation.intent.IntentBuilder
 import org.cryptomator.presentation.intent.Intents
+import org.cryptomator.presentation.licensing.LicenseEnforcer
 import org.cryptomator.presentation.model.CloudFileModel
 import org.cryptomator.presentation.model.CloudFolderModel
 import org.cryptomator.presentation.model.CloudModel
@@ -125,6 +126,7 @@ class BrowseFilesPresenter @Inject constructor( //
 	private val shareFileHelper: ShareFileHelper,  //
 	private val downloadFileUtil: DownloadFileUtil,  //
 	private val sharedPreferencesHandler: SharedPreferencesHandler,  //
+	private val licenseEnforcer: LicenseEnforcer, //
 	exceptionMappings: ExceptionHandlers
 ) : Presenter<BrowseFilesView>(exceptionMappings) {
 
@@ -507,10 +509,11 @@ class BrowseFilesPresenter @Inject constructor( //
 	private fun viewFile(cloudFile: CloudFileModel) {
 		val lowerFileName = cloudFile.name.lowercase()
 		if (lowerFileName.endsWith(".txt") || lowerFileName.endsWith(".md") || lowerFileName.endsWith(".todo")) {
-			startIntent(
-				Intents.textEditorIntent() //
-					.withTextFile(cloudFile)
-			)
+			val intent = Intents.textEditorIntent()
+				.withTextFile(cloudFile)
+				.withHubWriteAllowed(licenseEnforcer.hasWriteAccessForVault(view?.folder?.vault()))
+				.build(this)
+			startIntent(intent)
 		} else if (!lowerFileName.endsWith(".gif") && isImageMediaType(cloudFile.name)) {
 			val cloudFileNodes = previewCloudFileNodes
 			val imagePreviewStore = ImagePreviewFilesStore( //
@@ -548,7 +551,11 @@ class BrowseFilesPresenter @Inject constructor( //
 					override fun onSuccess(hash: ByteArray) {
 						openedCloudFileMd5 = hash
 						viewFileIntent.setDataAndType(it, mimeTypes.fromFilename(cloudFile.name)?.toString())
-						viewFileIntent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION or Intent.FLAG_GRANT_WRITE_URI_PERMISSION)
+						var permissionFlags = Intent.FLAG_GRANT_READ_URI_PERMISSION
+						if (licenseEnforcer.hasWriteAccessForVault(view?.folder?.vault())) {
+							permissionFlags = permissionFlags or Intent.FLAG_GRANT_WRITE_URI_PERMISSION
+						}
+						viewFileIntent.addFlags(permissionFlags)
 						if (sharedPreferencesHandler.keepUnlockedWhileEditing()) {
 							openWritableFileNotification = OpenWritableFileNotification(context(), it)
 							openWritableFileNotification?.show()
@@ -1147,10 +1154,11 @@ class BrowseFilesPresenter @Inject constructor( //
 						view?.hideProgress(textFile)
 					}
 					if (internalEditor) {
-						startIntent(
-							Intents.textEditorIntent() //
-								.withTextFile(textFile)
-						)
+						val editorIntent = Intents.textEditorIntent()
+							.withTextFile(textFile)
+							.withHubWriteAllowed(licenseEnforcer.hasWriteAccessForVault(view?.folder?.vault()))
+							.build(this@BrowseFilesPresenter)
+						startIntent(editorIntent)
 					} else {
 						viewExternalFile(textFile)
 					}

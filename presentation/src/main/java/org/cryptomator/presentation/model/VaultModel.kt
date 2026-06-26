@@ -14,6 +14,10 @@ class VaultModel(private val vault: Vault) : Serializable {
 		get() = vault.path
 	val isLocked: Boolean
 		get() = !vault.isUnlocked
+	val hasHubPaidLicense: Boolean
+		get() = vault.hasHubPaidLicense()
+	val isHubVault: Boolean
+		get() = vault.isHubVault
 	val position: Int
 		get() = vault.position
 	val format: Int

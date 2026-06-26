@@ -41,6 +41,31 @@
 	<string name="error_hub_invalid_setup_code">Hesap Anahtarı geçersiz.</string>
 	<string name="error_hub_invalid_version">Desteklenmeyen Hub sürümü.</string>
 	<string name="error_hub_unlock_pre_31">Hub yalnızca Android 12 ve üzeri sürümlerde desteklenmektedir.</string>
+	<!-- # read-only & purchases -->
+	<string name="screen_license_check_benefit_family_sharing">Aile paylaşımı</string>
+	<string name="screen_license_check_benefit_write_access">Kasalarınıza yazma erişimi</string>
+	<string name="screen_license_check_benefit_support">Açık kaynak geliştirme</string>
+	<string name="screen_license_check_title_full_version">Tam Sürümün Kilidini Aç</string>
+	<string name="screen_license_check_trial_title">30 Günlük Deneme</string>
+	<string name="screen_license_check_trial_price">Ücretsiz</string>
+	<string name="screen_license_check_trial_subtitle">30 gün boyunca</string>
+	<string name="screen_license_check_subscription_title">Yıllık Abonelik</string>
+	<string name="screen_license_check_subscription_subtitle">yıllık</string>
+	<string name="screen_license_check_lifetime_title">Ömür Boyu Kullanım Lisansı</string>
+	<string name="screen_license_check_lifetime_subtitle">bir kez</string>
+	<string name="screen_license_check_restore_purchase">Satın Almayı Geri Yükle</string>
+	<string name="screen_license_check_terms">Kullanım Koşulları</string>
+	<string name="screen_license_check_privacy">Gizlilik Politikası</string>
+	<string name="screen_license_check_trial_status_active">Aktif</string>
+	<string name="screen_license_check_trial_status_expired">Süresi doldu</string>
+	<string name="screen_license_check_trial_expired_info">Deneme süreniz doldu.</string>
+	<string name="screen_license_check_subscription_upgrade_hint">Aktif bir aboneliğiniz mevcut. Geçiş yapmak için ömürlük lisans satın alın ve aboneliğinizi iptal edebilirsiniz.</string>
+	<string name="screen_welcome_title">Hoş geldiniz</string>
+	<string name="screen_welcome_notifications_message">Cryptomator\u0027ın size arka plan aktiviteleri, otomatik yüklemeleri veya diğer önemli olayları haber vermesi için bildirimlere izin verin.</string>
+	<string name="screen_welcome_continue_button">Devam et</string>
+	<string name="screen_welcome_screen_lock_button">Ekran kilidini ayarla</string>
+	<string name="next">İleri</string>
+	<string name="back">Geri</string>
 	<!-- # clouds -->
 	<!-- ## cloud names -->
 	<string name="cloud_names_local_storage">Yerel depolama</string>
@@ -372,6 +397,8 @@
 	<string name="dialog_hub_license_upgrade_required_hint">Cryptomator Hub örneğinizin geçersiz bir lisansı var. Lütfen lisansı yükseltmek veya yenilemek için bir Hub yöneticisini bilgilendirin.”</string>
 	<string name="dialog_hub_vault_archived_title">Kasa arşivlendi</string>
 	<string name="dialog_hub_vault_archived_hint">Bu kasa arşivlenmiştir ve kilidi açılamaz. Kilidi açmak için kasa sahibinin arşivi açması gerekir.</string>
+	<string name="dialog_restore_successful_title">Geri Yükleme Başarılı</string>
+	<string name="dialog_no_full_version_title">Tam Sürüm Yok</string>
 	<string name="dialog_hub_user_setup_required_title">Kullanıcı kurulumu gerekli</string>
 	<string name="dialog_hub_user_setup_required_hint">Devam etmek için lütfen Hub kullanıcı profilinizde gerekli adımları tamamlayın.</string>
 	<string name="dialog_hub_user_setup_required_neutral_button">Profile Git</string>
@@ -431,8 +458,11 @@
 	<string name="screen_settings_lru_cache_size">Toplam önbellek boyutu</string>
 	<string name="screen_settings_clear_lru_cache_size">Önbelleği temizle</string>
 	<string name="screen_settings_lru_cache_changed__restart_toast">Değişiklikler, uygulama yeniden başlatıldığında uygulanacak</string>
-	<string name="screen_settings_license">Kayıtlı</string>
+	<string name="screen_settings_license_title_unlock">Tam Sürümün Kilidini Aç</string>
 	<string name="screen_settings_license_mail">%1$s</string>
+	<string name="screen_settings_manage_subscription">Aboneliği Yönet</string>
+	<string name="dialog_trial_expired_title">Deneme Sona Erdi</string>
+	<string name="dialog_trial_expired_unlock">Tam Sürümün Kilidini Aç</string>
 	<string name="dialog_settings_update_check_interval_title">Güncelleme kontrol aralığı</string>
 	<string name="screen_settings_check_updates">Güncellemeleri kontrol et</string>
 	<string name="screen_settings_last_check_updates">Son çalıştırma %1$s</string>

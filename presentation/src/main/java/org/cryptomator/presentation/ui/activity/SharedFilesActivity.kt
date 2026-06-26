@@ -179,6 +179,10 @@ class SharedFilesActivity : BaseActivity<ActivityLayoutBinding>(ActivityLayoutBi
 		finish()
 	}
 
+	override fun setUploadEnabled(enabled: Boolean) {
+		sharedFilesFragment().setUploadEnabled(enabled)
+	}
+
 	override fun onUploadCanceled() {
 		presenter.onUploadCanceled()
 	}

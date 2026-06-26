@@ -9,6 +9,7 @@ import org.cryptomator.generator.InjectIntent
 import org.cryptomator.presentation.R
 import org.cryptomator.presentation.databinding.ActivityLayoutBinding
 import org.cryptomator.presentation.intent.TextEditorIntent
+import org.cryptomator.presentation.licensing.LicenseEnforcer
 import org.cryptomator.presentation.presenter.TextEditorPresenter
 import org.cryptomator.presentation.ui.activity.view.TextEditorView
 import org.cryptomator.presentation.ui.dialog.UnsavedChangesDialog
@@ -24,8 +25,15 @@ class TextEditorActivity : BaseActivity<ActivityLayoutBinding>(ActivityLayoutBin
 	@Inject
 	lateinit var textEditorPresenter: TextEditorPresenter
 
+	@Inject
+	lateinit var licenseEnforcer: LicenseEnforcer
+
 	@InjectIntent
 	lateinit var textEditorIntent: TextEditorIntent
+
+	private fun hasWriteAccess(): Boolean {
+		return licenseEnforcer.hasWriteAccess() || textEditorIntent.hubWriteAllowed() == true
+	}
 
 	override val textFileContent: String
 		get() = textEditorFragment().textFileContent
@@ -38,6 +46,10 @@ class TextEditorActivity : BaseActivity<ActivityLayoutBinding>(ActivityLayoutBin
 	override fun createFragment(): Fragment = TextEditorFragment()
 
 	override fun onBackPressed() {
+		if (!hasWriteAccess()) {
+			super.onBackPressed()
+			return
+		}
 		textEditorPresenter.onBackPressed()
 	}
 
@@ -97,6 +109,8 @@ class TextEditorActivity : BaseActivity<ActivityLayoutBinding>(ActivityLayoutBin
 		val searchView = menu.findItem(R.id.action_search).actionView as SearchView
 		searchView.setOnQueryTextListener(this)
 
+		menu.findItem(R.id.action_save_changes).isVisible = hasWriteAccess()
+
 		return super.onPrepareOptionsMenu(menu)
 	}
 
@@ -115,6 +129,9 @@ class TextEditorActivity : BaseActivity<ActivityLayoutBinding>(ActivityLayoutBin
 
 	override fun displayTextFileContent(textFileContent: String) {
 		textEditorFragment().displayTextFileContent(textFileContent)
+		if (!hasWriteAccess()) {
+			textEditorFragment().setReadOnly()
+		}
 	}
 
 	override fun onSaveChangesClicked() {
@@ -130,5 +147,4 @@ class TextEditorActivity : BaseActivity<ActivityLayoutBinding>(ActivityLayoutBin
 	}
 
 	private fun textEditorFragment(): TextEditorFragment = getCurrentFragment(R.id.fragment_container) as TextEditorFragment
-
 }

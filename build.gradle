@@ -1,14 +1,14 @@
 apply from: 'buildsystem/dependencies.gradle'
 
 buildscript {
-	ext.kotlin_version = '2.2.10'
+	ext.kotlin_version = '2.4.0'
 	repositories {
 		mavenCentral()
 		google()
 	}
 	dependencies {
 		// before upgrading AGP, check https://gitlab.com/fdroid/admin/-/issues/593
-		classpath 'com.android.tools.build:gradle:8.11.1'
+		classpath 'com.android.tools.build:gradle:8.13.2'
 		classpath 'org.greenrobot:greendao-gradle-plugin:3.3.1'
 		classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
 		classpath "de.mannodermaus.gradle.plugins:android-junit5:1.7.1.1"
@@ -37,8 +37,8 @@ def getVersionCode = { ->
 allprojects {
 	ext {
 		androidApplicationId = 'org.cryptomator'
-		androidVersionCode = 3030 // must be getVersionCode(). only at release tag set the actual value
-		androidVersionName = '1.12.3'
+		androidVersionCode = 3128 // must be getVersionCode(). only at release tag set the actual value
+		androidVersionName = '2.0.0'
 	}
 	repositories {
 		mavenCentral()
@@ -54,18 +54,34 @@ task clean(type: Delete) {
 }
 
 def getApiKey(key) {
-	return !liteFlavor() ? System.getenv().getOrDefault(key, getApiKeyLocal(key)) : ""
+	if (liteFlavor()) {
+		return ""
+	}
+	def resolvedKey = freemiumFlavor() ? freemiumOnedriveKey(key) : key
+	return System.getenv().getOrDefault(resolvedKey, getApiKeyLocal(resolvedKey))
 }
 
 def liteFlavor() {
 	gradle.startParameter.taskNames.stream().filter(t -> t.toLowerCase().contains("lite")).findAny().isPresent()
 }
 
+def freemiumFlavor() {
+	gradle.startParameter.taskNames.stream().filter(t -> t.toLowerCase().contains("playstoreiap")).findAny().isPresent()
+}
+
 def getApiKeyLocal(key) {
-	if (!rootProject.file("local.properties").exists()) {
+	if (!rootProject.file(".env").exists()) {
 		return ""
 	}
 	def localPropertyList = new Properties()
-	localPropertyList.load(new FileInputStream(rootProject.file("local.properties")))
+	localPropertyList.load(new FileInputStream(rootProject.file(".env")))
 	return localPropertyList.getOrDefault(key, "")
+}
+
+// ONEDRIVE_API_KEY -> ONEDRIVE_API_KEY_FREEMIUM
+def freemiumOnedriveKey(key) {
+	if (!key.startsWith("ONEDRIVE_API_")) {
+		return key
+	}
+	return key + "_FREEMIUM"
 }

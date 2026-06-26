@@ -12,8 +12,8 @@ import org.cryptomator.domain.usecases.cloud.GetAllCloudsUseCase
 import org.cryptomator.domain.usecases.cloud.GetCloudsUseCase
 import org.cryptomator.domain.usecases.cloud.LogoutCloudUseCase
 import org.cryptomator.generator.Callback
-import org.cryptomator.presentation.BuildConfig
 import org.cryptomator.presentation.R
+import org.cryptomator.util.FlavorConfig
 import org.cryptomator.presentation.exception.ExceptionHandlers
 import org.cryptomator.presentation.intent.Intents
 import org.cryptomator.presentation.model.CloudModel
@@ -132,7 +132,7 @@ class CloudSettingsPresenter @Inject constructor( //
 		override fun onSuccess(clouds: List<Cloud>) {
 			val cloudModel = cloudModelMapper.toModels(clouds) //
 				.filter { isSingleLoginCloud(it) } //
-				.filter { cloud -> !((BuildConfig.FLAVOR == "fdroid" || BuildConfig.FLAVOR == "accrescent") && cloud.cloudType() == CloudTypeModel.GOOGLE_DRIVE) } //
+				.filter { cloud -> !(FlavorConfig.excludesGoogleDrive && cloud.cloudType() == CloudTypeModel.GOOGLE_DRIVE) } //
 				.toMutableList() //
 				.also {
 					it.add(aOnedriveCloud())
@@ -141,7 +141,7 @@ class CloudSettingsPresenter @Inject constructor( //
 					it.add(aS3Cloud())
 					it.add(aLocalCloud())
 				}
-				.filter { cloud -> !(BuildConfig.FLAVOR == "lite" && excludeApiCloudsInLite(cloud.cloudType())) } //
+				.filter { cloud -> !(FlavorConfig.isLiteFlavor && excludeApiCloudsInLite(cloud.cloudType())) } //
 			view?.render(cloudModel)
 		}
 

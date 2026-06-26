@@ -6,10 +6,12 @@ import androidx.test.ext.junit.runners.AndroidJUnit4
 import androidx.test.filters.SmallTest
 import androidx.test.platform.app.InstrumentationRegistry
 import com.google.common.base.Optional
+import org.cryptomator.data.BuildConfig
 import org.cryptomator.data.db.entities.CloudEntityDao
 import org.cryptomator.data.db.entities.UpdateCheckEntityDao
 import org.cryptomator.data.db.entities.VaultEntityDao
 import org.cryptomator.domain.CloudType
+import org.cryptomator.util.FlavorConfig
 import org.cryptomator.util.SharedPreferencesHandler
 import org.cryptomator.util.crypto.CredentialCryptor
 import org.cryptomator.util.crypto.CryptoMode
@@ -28,17 +30,19 @@ import org.junit.runner.RunWith
 class UpgradeDatabaseTest {
 
 	private val context = InstrumentationRegistry.getInstrumentation().context
-	private val sharedPreferencesHandler = SharedPreferencesHandler(context)
 	private lateinit var db: Database
+	private lateinit var sharedPreferencesHandler: SharedPreferencesHandler
 
 	@Before
 	fun setup() {
 		db = StandardDatabase(SQLiteDatabase.create(null))
+		sharedPreferencesHandler = SharedPreferencesHandler(context)
 	}
 
 	@After
 	fun tearDown() {
 		db.close()
+		sharedPreferencesHandler.removeAllEntries()
 	}
 
 	@Test
@@ -56,6 +60,7 @@ class UpgradeDatabaseTest {
 		Upgrade10To11().applyTo(db, 10)
 		Upgrade11To12(sharedPreferencesHandler).applyTo(db, 11)
 		Upgrade12To13(context).applyTo(db, 12)
+		Upgrade13To14(sharedPreferencesHandler).applyTo(db, 13)
 
 		CloudEntityDao(DaoConfig(db, CloudEntityDao::class.java)).loadAll()
 		VaultEntityDao(DaoConfig(db, VaultEntityDao::class.java)).loadAll()
@@ -839,7 +844,6 @@ class UpgradeDatabaseTest {
 		}
 	}
 
-
 	@Test
 	fun upgrade12To13OneDrive() {
 		Upgrade0To1().applyTo(db, 0)
@@ -949,6 +953,101 @@ class UpgradeDatabaseTest {
 			it.moveToFirst()
 			Assert.assertThat(gcmCryptor.decrypt(it.getString(it.getColumnIndex("ACCESS_TOKEN"))), CoreMatchers.`is`(accessTokenPlain))
 			Assert.assertThat(it.getString(it.getColumnIndex("ACCESS_TOKEN_CRYPTO_MODE")), CoreMatchers.`is`(CryptoMode.GCM.name))
+		}
+	}
+
+	@Test
+	fun upgrade13To14ExistingLicense() {
+		Upgrade0To1().applyTo(db, 0)
+		Upgrade1To2().applyTo(db, 1)
+		Upgrade2To3(context).applyTo(db, 2)
+		Upgrade3To4().applyTo(db, 3)
+		Upgrade4To5().applyTo(db, 4)
+		Upgrade5To6().applyTo(db, 5)
+		Upgrade6To7().applyTo(db, 6)
+		Upgrade7To8().applyTo(db, 7)
+		Upgrade8To9(sharedPreferencesHandler).applyTo(db, 8)
+		Upgrade9To10(sharedPreferencesHandler).applyTo(db, 9)
+		Upgrade10To11().applyTo(db, 10)
+		Upgrade11To12(sharedPreferencesHandler).applyTo(db, 11)
+		Upgrade12To13(context).applyTo(db, 12)
+
+		val licenseToken = "licenseToken"
+		val releaseNote = "releaseNote"
+		val version = "version"
+		val urlApk = "urlApk"
+		val apkSha256 = "apkSha256"
+		val urlReleaseNote = "urlReleaseNote"
+
+		Sql.update("UPDATE_CHECK_ENTITY")
+			.set("LICENSE_TOKEN", Sql.toString(licenseToken))
+			.set("RELEASE_NOTE", Sql.toString(releaseNote))
+			.set("VERSION", Sql.toString(version))
+			.set("URL_TO_APK", Sql.toString(urlApk))
+			.set("APK_SHA256", Sql.toString(apkSha256))
+			.set("URL_TO_RELEASE_NOTE", Sql.toString(urlReleaseNote))
+			.executeOn(db)
+
+		Upgrade13To14(sharedPreferencesHandler).applyTo(db, 13)
+
+		Assert.assertThat(sharedPreferencesHandler.hasCompletedWelcomeFlow(), CoreMatchers.`is`(true))
+		if (!FlavorConfig.isPremiumFlavor) {
+			Assert.assertThat(sharedPreferencesHandler.licenseToken(), CoreMatchers.`is`(licenseToken))
+		}
+
+		Sql.query("UPDATE_CHECK_ENTITY").executeOn(db).use {
+			it.moveToFirst()
+			Assert.assertThat(it.getString(it.getColumnIndex("RELEASE_NOTE")), CoreMatchers.`is`(releaseNote))
+			Assert.assertThat(it.getString(it.getColumnIndex("VERSION")), CoreMatchers.`is`(version))
+			Assert.assertThat(it.getString(it.getColumnIndex("URL_TO_APK")), CoreMatchers.`is`(urlApk))
+			Assert.assertThat(it.getString(it.getColumnIndex("APK_SHA256")), CoreMatchers.`is`(apkSha256))
+			Assert.assertThat(it.getString(it.getColumnIndex("URL_TO_RELEASE_NOTE")), CoreMatchers.`is`(urlReleaseNote))
+		}
+	}
+
+
+	@Test
+	fun upgrade13To14NoLicense() {
+		Upgrade0To1().applyTo(db, 0)
+		Upgrade1To2().applyTo(db, 1)
+		Upgrade2To3(context).applyTo(db, 2)
+		Upgrade3To4().applyTo(db, 3)
+		Upgrade4To5().applyTo(db, 4)
+		Upgrade5To6().applyTo(db, 5)
+		Upgrade6To7().applyTo(db, 6)
+		Upgrade7To8().applyTo(db, 7)
+		Upgrade8To9(sharedPreferencesHandler).applyTo(db, 8)
+		Upgrade9To10(sharedPreferencesHandler).applyTo(db, 9)
+		Upgrade10To11().applyTo(db, 10)
+		Upgrade11To12(sharedPreferencesHandler).applyTo(db, 11)
+		Upgrade12To13(context).applyTo(db, 12)
+
+		val releaseNote = "releaseNote"
+		val version = "version"
+		val urlApk = "urlApk"
+		val apkSha256 = "apkSha256"
+		val urlReleaseNote = "urlReleaseNote"
+
+		Sql.update("UPDATE_CHECK_ENTITY")
+			.set("RELEASE_NOTE", Sql.toString(releaseNote))
+			.set("VERSION", Sql.toString(version))
+			.set("URL_TO_APK", Sql.toString(urlApk))
+			.set("APK_SHA256", Sql.toString(apkSha256))
+			.set("URL_TO_RELEASE_NOTE", Sql.toString(urlReleaseNote))
+			.executeOn(db)
+
+		Upgrade13To14(sharedPreferencesHandler).applyTo(db, 13)
+
+		Assert.assertThat(sharedPreferencesHandler.hasCompletedWelcomeFlow(), CoreMatchers.`is`(true))
+		Assert.assertThat(sharedPreferencesHandler.licenseToken(), CoreMatchers.`is`(""))
+
+		Sql.query("UPDATE_CHECK_ENTITY").executeOn(db).use {
+			it.moveToFirst()
+			Assert.assertThat(it.getString(it.getColumnIndex("RELEASE_NOTE")), CoreMatchers.`is`(releaseNote))
+			Assert.assertThat(it.getString(it.getColumnIndex("VERSION")), CoreMatchers.`is`(version))
+			Assert.assertThat(it.getString(it.getColumnIndex("URL_TO_APK")), CoreMatchers.`is`(urlApk))
+			Assert.assertThat(it.getString(it.getColumnIndex("APK_SHA256")), CoreMatchers.`is`(apkSha256))
+			Assert.assertThat(it.getString(it.getColumnIndex("URL_TO_RELEASE_NOTE")), CoreMatchers.`is`(urlReleaseNote))
 		}
 	}
 }

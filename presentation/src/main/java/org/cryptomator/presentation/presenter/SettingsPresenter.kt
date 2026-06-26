@@ -90,6 +90,9 @@ class SettingsPresenter @Inject internal constructor(
 			"accrescent" -> {
 				"Accrescent"
 			}
+			"playstoreiap" -> {
+				"Google Play IAP"
+			}
 			else -> "Google Play"
 		}
 		return StringBuilder().append("## ").append(context().getString(R.string.error_report_subject)).append("\n\n") //

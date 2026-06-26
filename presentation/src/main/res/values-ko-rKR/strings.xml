@@ -3,11 +3,12 @@
 	<!-- # app -->
 	<string name="share_with_label">암호화</string>
 	<!-- # error messages -->
-	<string name="error_generic">오류가 발생했습니다</string>
-	<string name="error_authentication_failed">인증에 실패했습니다.</string>
-	<string name="error_authentication_failed_re_authenticate">인증에 실패했습니다, %1$s를 사용하여 로그인 하십시요.</string>
-	<string name="error_no_network_connection">네트워크가 연결되어 있지 않습니다.</string>
-	<string name="error_invalid_passphrase">잘못된 비밀번호입니다.</string>
+	<string name="error_generic">오류 발생</string>
+	<string name="error_authentication_failed">인증 실패</string>
+	<string name="error_authentication_failed_re_authenticate">인증에 실패했습니다, %1$s를 사용하여 로그인 하십시오</string>
+	<string name="error_no_network_connection">네트워크 연결 없음</string>
+	<string name="error_purchase_not_available">구매를 완료할 수 없습니다. 잠시 후 다시 시도해 주십시오.</string>
+	<string name="error_invalid_passphrase">잘못된 비밀번호입니다</string>
 	<string name="error_file_or_folder_exists">파일 또는 폴더가 이미 존재합니다.</string>
 	<string name="error_vault_version_not_supported">%1$s 버전의 Vault는 지원되지 않습니다. 해당 vault는 타 버전의 Cryptomator로 생성되었습니다.</string>
 	<string name="error_vault_config_file_missing_due_to_format_999">해당 Vault 폴더 내에 %1$s 파일이 없습니다. Vault 폴더 안에 해당 파일이 있는지 다시 확인해주세요.</string>
@@ -17,7 +18,7 @@
 	<string name="error_cloud_already_exists">클라우드가 이미 존재합니다.</string>
 	<string name="error_activity_not_found">이 파일을 열 수 있는 애플리케이션을 다운로드하십시오.</string>
 	<string name="error_server_not_found">서버를 찾을 수 없습니다.</string>
-	<string name="error_device_policy_manager_not_found">장치 설정에서 화면 잠금을 직접 설정하십시오.</string>
+	<string name="error_device_policy_manager_not_found">기기 설정에서 화면 잠금을 직접 설정하십시오</string>
 	<string name="error_export_illegal_file_name">내보내기 실패. 파일명에서 특수문자를 없앤 뒤 다시 내보내기 하십시오.</string>
 	<string name="error_name_contains_invalid_characters">특수문자는 포함할 수 없습니다.</string>
 	<string name="error_names_contains_invalid_characters">파일명에 특수문자를 포함할 수 없습니다.</string>
@@ -30,7 +31,7 @@
 	<string name="error_biometric_auth_aborted">생체 인증 취소됨</string>
 	<string name="error_vault_version_mismatch">%1$s에 기록된 버전이 %2$s에 기록된 버전과 다릅니다</string>
 	<string name="error_vault_key_invalid">%1$s이(가) %2$s와 동일하지 않습니다</string>
-	<string name="error_vault_config_loading">Vault 설정을 불러오는 중 에러 발생</string>
+	<string name="error_vault_config_loading">Vault 설정을 불러오는 중 오류 발생</string>
 	<string name="error_file_not_found_after_opening_using_3party">로컬 파일은 Cryptomator로 돌아온 후 더 이상 존재하지 않습니다. 추가적인 수정 사항이 클라우드에 적용되지 않습니다.</string>
 	<string name="error_no_such_bucket">해당 버킷을 찾을 수 없습니다.</string>
 	<string name="error_masterkey_location_not_supported">사용자 지정 마스터키 경로는 아직 지원하지 않습니다</string>
@@ -40,7 +41,57 @@
 	<string name="error_hub_device_already_register_for_other_user">이 기기는 이미 다른 사용자에 등록되어 있습니다. 다른 사용자 계정이나 다른 기기를 사용해보세요.</string>
 	<string name="error_hub_invalid_setup_code">Account Key가 올바르지 않습니다.</string>
 	<string name="error_hub_invalid_version">지원되지 않는 Hub 버전입니다.</string>
-	<string name="error_hub_unlock_pre_31">Hub는 안드로이드 12 이상에서만 지원됩니다.</string>
+	<string name="error_hub_unlock_pre_31">Hub는 Android 12 이상에서만 지원됩니다.</string>
+	<string name="error_hub_not_trustworthy">Hub를 신뢰할 수 없습니다.</string>
+	<!-- # read-only & purchases -->
+	<string name="read_only_reason_hub_inactive">이 Vault에 대한 쓰기 권한을 활성화하려면 Hub 라이선스를 업그레이드하십시오.</string>
+	<string name="toast_purchase_revoked_refunded">평생 라이선스 구매 항목이 환불되었습니다. 현재 읽기 전용 권한으로 제한됩니다.</string>
+	<string name="toast_purchase_revoked_subscription_inactive">구독이 만료되었습니다. 현재 읽기 전용 권한으로 제한됩니다.</string>
+	<string name="screen_license_check_locked_create_vault">정식 버전으로 업그레이드하여 Vault를 생성하세요</string>
+	<string name="screen_license_check_locked_upload_files">정식 버전으로 업그레이드하여 파일을 업로드하세요</string>
+	<string name="screen_license_check_locked_create_folder">정식 버전으로 업그레이드하여 폴더를 생성하세요</string>
+	<string name="screen_license_check_locked_create_text_file">정식 버전으로 업그레이드하여 텍스트 파일을 생성하세요</string>
+	<string name="screen_license_check_locked_share_node">정식 버전으로 업그레이드하여 파일이나 폴더를 공유하세요</string>
+	<string name="screen_license_check_locked_rename_node">정식 버전으로 업그레이드하여 파일이나 폴더의 이름을 변경하세요</string>
+	<string name="screen_license_check_locked_move_node">정식 버전으로 업그레이드하여 파일이나 폴더를 이동하세요</string>
+	<string name="screen_license_check_locked_delete_node">정식 버전으로 업그레이드하여 파일이나 폴더를 삭제하세요</string>
+	<string name="screen_license_check_title">쓰기 권한 얻기</string>
+	<string name="screen_license_check_benefit_title">제공되는 혜택</string>
+	<string name="screen_license_check_benefit_family_sharing">가족 공유</string>
+	<string name="screen_license_check_benefit_write_access">Vault 데이터 변경</string>
+	<string name="screen_license_check_benefit_support">오픈소스 소프트웨어</string>
+	<string name="screen_license_check_button_purchase">Google Play에서 구매</string>
+	<string name="screen_license_check_button_enter_license">라이선스 키 입력</string>
+	<string name="screen_license_check_enter_license_action">확인</string>
+	<string name="screen_license_check_title_full_version">정식 버전 구입</string>
+	<string name="screen_license_check_trial_title">30일 체험판</string>
+	<string name="screen_license_check_trial_price">무료</string>
+	<string name="screen_license_check_trial_subtitle">30일간 사용 가능</string>
+	<string name="screen_license_check_subscription_title">연간 구독</string>
+	<string name="screen_license_check_subscription_subtitle">연간</string>
+	<string name="screen_license_check_lifetime_title">평생 라이선스</string>
+	<string name="screen_license_check_lifetime_subtitle">일회성</string>
+	<string name="screen_license_check_restore_purchase">구매 복원</string>
+	<string name="screen_license_check_terms">이용 약관</string>
+	<string name="screen_license_check_privacy">개인정보 보호정책</string>
+	<string name="screen_license_check_trial_expiration">체험판 만료일: %s</string>
+	<string name="screen_license_check_trial_status_active">활성화됨</string>
+	<string name="screen_license_check_trial_status_expired">만료됨</string>
+	<string name="screen_license_check_trial_active_info">체험판 만료됨: %s</string>
+	<string name="screen_license_check_trial_expired_info">체험판이 만료되었습니다.</string>
+	<string name="screen_license_check_subscription_upgrade_hint">현재 활성화된 구독이 있습니다. 평생 라이선스로 전환하시려면, 라이선스를 구매하신 후 기존 구독을 취소하십시오.</string>
+	<string name="screen_license_check_cancel_subscription_hint">귀하는 이제 평생 라이선스를 보유하고 있습니다. 향후 불필요한 추가 결제를 방지하려면 설정의 %1$s 옵션을 통해 연간 구독을 취소하십시오.</string>
+	<string name="screen_welcome_title">환영합니다</string>
+	<string name="screen_welcome_notifications_title">알림 받기</string>
+	<string name="screen_welcome_notifications_message">Cryptomator가 백그라운드 활동, 자동 업로드 및 기타 중요 이벤트에 대해 안내할 수 있도록 알림을 허용해 주십시오.</string>
+	<string name="screen_welcome_notifications_button">알림 허용하기</string>
+	<string name="screen_welcome_notifications_granted">알림이 활성화되었습니다.</string>
+	<string name="screen_welcome_continue_button">계속하기</string>
+	<string name="screen_welcome_screen_lock_button">화면 잠금 설정</string>
+	<string name="screen_welcome_screen_lock_already_set">화면 잠금이 이미 설정되었습니다.</string>
+	<string name="screen_welcome_intro_body">파일 보호를 위해 Cryptomator를 선택해 주셔서 감사합니다.\n\nCryptomator와 함께라면 귀하의 데이터의 제어권은 오직 귀하에게 있습니다.\n\n데이터를 빠르고 간편하게 암호화하세요.</string>
+	<string name="next">다음</string>
+	<string name="back">이전</string>
 	<!-- # clouds -->
 	<!-- ## cloud names -->
 	<string name="cloud_names_local_storage">로컬 저장소</string>
@@ -55,8 +106,8 @@
 	<string name="snack_bar_action_title_search_previous">이전</string>
 	<string name="snack_bar_action_title_search_next">다음</string>
 	<string name="snack_bar_action_title_sort">정렬</string>
-	<string name="snack_bar_action_title_sort_az">A - Z</string>
-	<string name="snack_bar_action_title_sort_za">Z - A</string>
+	<string name="snack_bar_action_title_sort_az">이름 오름차순</string>
+	<string name="snack_bar_action_title_sort_za">이름 내림차순</string>
 	<string name="snack_bar_action_title_sort_newest">최신순</string>
 	<string name="snack_bar_action_title_sort_oldest">등록순</string>
 	<string name="snack_bar_action_title_sort_biggest">큰 파일순</string>
@@ -73,7 +124,7 @@
 	<string name="screen_vault_list_change_password_successful">비밀번호 변경 성공</string>
 	<!-- # screen: file browser -->
 	<string name="screen_file_browser_default_title">Vault</string>
-	<string name="screen_file_browser_add_existing_vault_extra_text">마스터키 또는 금고 파일 선택</string>
+	<string name="screen_file_browser_add_existing_vault_extra_text">마스터키 또는 Vault 파일 선택</string>
 	<string name="screen_file_browser_create_new_vault_button_text">여기에 만들기</string>
 	<string name="screen_file_browser_create_new_vault_extra_text">Vault 이름: %1$s</string>
 	<plurals name="screen_file_browser_subtitle_move">
@@ -100,8 +151,8 @@
 	<string name="screen_file_browser_node_action_edit_text">수정</string>
 	<string name="screen_file_browser_node_action_export">내보내기</string>
 	<string name="screen_file_browser_node_action_delete">삭제</string>
-	<string name="screen_file_browser_node_action_open_with_text">&#8230;으로 열기</string>
-	<string name="screen_file_browser_selection_mode_title_zero_elements">아이템 선택</string>
+	<string name="screen_file_browser_node_action_open_with_text">&#8230;(으)로 열기</string>
+	<string name="screen_file_browser_selection_mode_title_zero_elements">항목 선택</string>
 	<string name="screen_file_browser_selection_mode_title_one_or_more_elements">%1$d 항목 선택됨</string>
 	<string name="screen_file_browser_select_items">선택</string>
 	<string name="screen_file_browser_select_all_items">전체 선택</string>
@@ -125,10 +176,10 @@
 	<string name="screen_cloud_connections_title">위치 선택</string>
 	<string name="screen_cloud_connections_no_connections">여기를 탭하여 경로 위치 추가</string>
 	<string name="screen_cloud_error_webdav_not_supported">WebDAV가 지원되지 않는 서버입니다</string>
-	<string name="screen_cloud_local_error_no_content_provider">디렉토리를 열 수 있는 파일 관리자를 찾을 수 없습니다</string>
+	<string name="screen_cloud_local_error_no_content_provider">디렉터리를 열 수 있는 파일 관리자를 찾을 수 없습니다</string>
 	<!-- ## screen: webdav settings -->
 	<string name="screen_webdav_settings_url_port_label">URL</string>
-	<string name="screen_webdav_settings_username_label">사용자명</string>
+	<string name="screen_webdav_settings_username_label">사용자 이름</string>
 	<string name="screen_webdav_settings_password_label">비밀번호</string>
 	<string name="screen_webdav_settings_done_button_text">연결</string>
 	<string name="screen_webdav_settings_msg_url_must_not_be_empty">URL을 입력해주세요.</string>
@@ -138,7 +189,7 @@
 	<!-- ## screen: s3 settings -->
 	<string name="screen_s3_settings_display_name_label">표시 이름</string>
 	<string name="screen_s3_settings_access_key_label">액세스 키</string>
-	<string name="screen_s3_settings_secret_key_label">비밀키</string>
+	<string name="screen_s3_settings_secret_key_label">비밀 키</string>
 	<string name="screen_s3_settings_bucket_label">이미 존재하는 버킷</string>
 	<string name="screen_s3_settings_endpoint_label">엔드포인트</string>
 	<string name="screen_s3_settings_region_label">지역</string>
@@ -155,7 +206,7 @@
 	<string name="screen_set_password_title">비밀번호 설정</string>
 	<string name="screen_set_password_msg_password_mismatch">비밀번호가 일치하지 않습니다</string>
 	<string name="screen_set_password_button_text">완료</string>
-	<string name="screen_set_password_hint">중요: 만약 비밀번호를 잊어버린 경우, 데이터를 복구할 수 없습니다.</string>
+	<string name="screen_set_password_hint">중요: 만약 비밀번호를 분실할 경우, 데이터를 복구할 수 없습니다.</string>
 	<string name="screen_set_password_retype_password_label">비밀번호 재입력</string>
 	<string name="screen_set_password_strength_indicator_0">Vault를 만들기에 매우 취약함</string>
 	<string name="screen_set_password_strength_indicator_1">취약함</string>
@@ -167,7 +218,7 @@
 	<string name="screen_settings_cloud_settings_label">클라우드 서비스</string>
 	<string name="screen_settings_biometric_auth">생체 인증</string>
 	<string name="screen_settings_activate_biometric_auth">생체 인증 활성화</string>
-	<string name="screen_settings_confirm_face_unlock">얼굴인식 잠금해제 적용 (가능한 경우)</string>
+	<string name="screen_settings_confirm_face_unlock">얼굴 인식 잠금 해제 적용 (가능한 경우)</string>
 	<string name="screen_settings_block_app_when_obscured">타 앱이 화면을 가릴 경우 Cryptomator 비활성화</string>
 	<string name="screen_settings_block_app_when_obscured_summary">입력을 가로채는 것과 가장된 유저 인터페이스를 표시하는 것을 막습니다</string>
 	<string name="screen_settings_secure_screen">스크린샷 차단</string>
@@ -177,6 +228,7 @@
 	<string name="screen_settings_live_search_summary">검색 내용 입력중 검색 결과 업데이트</string>
 	<string name="screen_settings_glob_search">glob 패턴을 이용하여 검색</string>
 	<string name="screen_settings_glob_search_summary">alice.*.jpg와 같이 glob 패턴 매칭 사용</string>
+	<string name="screen_hub_reset_unknown_hub_hosts_title">알 수 없는 Hub 호스트 초기화</string>
 	<string name="screen_settings_section_auto_lock">자동 잠금</string>
 	<string name="screen_settings_auto_lock_timeout">다음 시간 이후 잠금</string>
 	<string name="screen_settings_auto_lock_on_screen_lock">화면이 꺼졌을 때</string>
@@ -193,21 +245,21 @@
 	<string name="screen_settings_mastodon_label">Mastodon에서 팔로우 하기</string>
 	<string name="screen_settings_facebook_label">Facebook에서 좋아요 누르기</string>
 	<string name="screen_settings_section_legal">법률 정보</string>
-	<string name="screen_settings_licenses_label">라이센스</string>
-	<string name="screen_settings_license_terms_label">라이센스 약관</string>
+	<string name="screen_settings_licenses_label">라이선스</string>
+	<string name="screen_settings_license_terms_label">라이선스 약관</string>
 	<string name="screen_settings_section_support">지원</string>
 	<string name="screen_settings_contact_label">지원 요청</string>
 	<string name="screen_settings_debug_mode_label">디버그 모드</string>
 	<string name="screen_settings_error_report_label">로그파일 전송</string>
 	<string name="screen_settings_error_report_failed">전송 실패</string>
-	<string name="screen_settings_security_label">보안 힌트</string>
+	<string name="screen_settings_security_label">보안 수칙</string>
 	<string name="screen_settings_section_version">버전</string>
 	<string name="screen_settings_advanced_settings">고급 설정</string>
 	<string name="screen_settings_microsoft_apps_workaround_label">Microsoft 파일에 대한 우회</string>
 	<string name="screen_settings_microsoft_apps_workaround_summary">Microsoft 앱에서 쓰기 권한으로 파일을 열기</string>
-	<string name="screen_settings_background_unlock_preparation_label">잠금해제 가속</string>
+	<string name="screen_settings_background_unlock_preparation_label">잠금 해제 가속</string>
 	<string name="screen_settings_background_unlock_preparation_label_summary">비밀번호 입력 혹은 생체 인증을 진행하는 동안 백그라운드에서 Vault 설정을 다운로드합니다</string>
-	<string name="screen_settings_keep_unlocked_while_editing_files">잠금해제 유지</string>
+	<string name="screen_settings_keep_unlocked_while_editing_files">잠금 해제 유지</string>
 	<string name="screen_settings_keep_unlocked_while_editing_files_summary">파일을 편집하는 동안 Vault들을 잠금 해제 상태로 유지</string>
 	<!-- ## screen: cloud settings -->
 	<string name="screen_cloud_settings_onedrive_connections">OneDrive 연결</string>
@@ -224,16 +276,16 @@
 	<!-- ## screen: cryptomator app variants -->
 	<string name="screen_cryptomator_variants_title">Cryptomator 종류</string>
 	<string name="screen_cryptomator_variants_lite_title">주 F-Droid 리포지토리</string>
-	<string name="screen_cryptomator_variants_lite_description">API키가 필요하므로 제외되었습니다.</string>
+	<string name="screen_cryptomator_variants_lite_description">API 키가 필요하므로 제외되었습니다.</string>
 	<string name="screen_cryptomator_variants_lite_install">설치</string>
 	<string name="screen_cryptomator_variants_fdroid_title">Cryptomator F-Droid 리포지토리</string>
 	<string name="screen_cryptomator_variants_fdroid_description">독점 의존성을 가지고 있어 제외되었습니다.</string>
-	<string name="screen_cryptomator_variants_fdroid_add_repo_hint">F-Droid 앱에 Cryptomator 레포지토리를 추가합니다.</string>
+	<string name="screen_cryptomator_variants_fdroid_add_repo_hint">F-Droid 앱에 Cryptomator 리포지토리를 추가합니다.</string>
 	<string name="screen_cryptomator_variants_fdroid_add_repo">추가</string>
 	<string name="screen_cryptomator_variants_fdroid_install_hint">F-Droid로 Cryptomator를 설치합니다.\n만약 찾을 수 없음 오류가 표시된다면, F-Droid 동기화가 완료될 시점까지 기다리세요.</string>
 	<string name="screen_cryptomator_variants_website_title">웹사이트</string>
 	<string name="screen_cryptomator_variants_website_description">독점 의존성을 포함합니다.</string>
-	<string name="screen_cryptomator_variants_installation_hint">F-Droid 레포지토리 판과 상호 전환하려면 앱의 완전한 재설정이 필요합니다.</string>
+	<string name="screen_cryptomator_variants_installation_hint">F-Droid 리포지토리 판과 상호 전환하려면 앱의 완전한 재설정이 필요합니다.</string>
 	<!-- # dialogs -->
 	<string name="dialog_button_cancel">취소</string>
 	<string name="dialog_enter_password_positive_button">잠금 해제</string>
@@ -311,17 +363,17 @@
 	<string name="dialog_debug_mode_disclaimer_hint">이 모드에서는 민감한 정보들이 로그 파일로 기기에 기록될 수 있습니다.(파일명, 경로 등). 비밀번호, 쿠키 등의 정보는 예외입니다.\n\n 가능한 디버그 모드를 빨리 비활성화 하세요.</string>
 	<string name="dialog_debug_mode_disclaimer_title">주의</string>
 	<string name="dialog_debug_mode_positive_button">활성화</string>
-	<string name="dialog_microsoft_workaround_disclaimer_hint">Microsoft 앱의 버그로 인해, 편집할 파일이 장치의 공개 미디어 폴더에서 공유되어야 합니다. Cryptomator의 실행이 재개되면 이 공개 접근이 가능한 파일은 다시 삭제되나, Cryptomator는 해당 파일에 어떠한 일이 일어났는지 알 수 없습니다. 이 항목을 활성화할 경우 이러한 동작이 일어남을 숙지하세요. 이것은 Microsoft 파일 형식에만 적용됩니다. \n\n활성화 후 Cryptomator를 다시 시작합니다.</string>
+	<string name="dialog_microsoft_workaround_disclaimer_hint">Microsoft 앱의 버그로 인해, 편집할 파일이 기기의 공개 미디어 폴더에서 공유되어야 합니다. Cryptomator의 실행이 재개되면 이 공개 접근이 가능한 파일은 다시 삭제되나, Cryptomator는 해당 파일에 어떠한 일이 일어났는지 알 수 없습니다. 이 항목을 활성화할 경우 이러한 동작이 일어남을 숙지하세요. 이것은 Microsoft 파일 형식에만 적용됩니다. \n\n활성화 후 Cryptomator를 다시 시작합니다.</string>
 	<string name="dialog_disable_app_obscured_disclaimer_hint">이 설정은 보안 기능이며, 다른 앱이 사용자가 원치 않는 행동을 하도록 속이는 것을 막습니다.\n\n비활성화 함으로써 <a href="https://docs.cryptomator.org/en/latest/android/settings/#block-app-when-obscured">위험성에 대해 인지</a>한다는 것을 확인합니다.</string>
 	<string name="dialog_disable_app_obscured_disclaimer_title">주의</string>
 	<string name="dialog_disable_app_obscured_positive_button">비활성화</string>
 	<string name="dialog_app_is_obscured_info_title">앱이 가려짐</string>
-	<string name="dialog_app_is_obscured_info_hint">다른 앱이 Cryptomator 위에 무언가를 표시하고 있습니다 (예: 블루라이트 필터 혹은 야간 모드 앱 등) 보안상의 이유로, Cryptomator가 비활성화 되었습니다.\n\n<a href="https://docs.cryptomator.org/en/latest/android/settings/#block-app-when-obscured">Cryptomator를 활성화 하는 법</a></string>
+	<string name="dialog_app_is_obscured_info_hint">다른 앱이 Cryptomator 위에 무언가를 표시하고 있습니다 (예: 블루라이트 필터 혹은 야간 모드 앱 등) 보안 상의 이유로, Cryptomator가 비활성화되었습니다.\n\n<a href="https://docs.cryptomator.org/en/latest/android/settings/#block-app-when-obscured">Cryptomator를 활성화하는 법</a></string>
 	<string name="dialog_app_is_obscured_info_neutral_button">닫기</string>
 	<string name="dialog_vaults_removed_during_migration_title">%1s 클라우드를 사용하기 위해 Vault들을 다시 추가하십시오</string>
 	<string name="dialog_vaults_removed_during_migration_hint">이 버전의 앱으로 전환하기 위해 다음의 Vault들을 앱에서 제거해야 합니다:\n%2s \n\n이 Vault 들은 클라우드가 아닌 이 앱에서만 제거됩니다. 계속 사용하기 위해 이 Vault들을 다시 추가하세요.</string>
 	<string name="dialog_vault_is_root_folder_of_cloud_title">Vault가 클라우드의 최상위 폴더임</string>
-	<string name="dialog_vault_is_root_folder_of_cloud_hint">이 Vault를 추가하려면, 최소한 이 Vault의 최상위 디렉토리 폴더의 상위 폴더에 새로운 클라우드 연결을 생성해야 합니다.</string>
+	<string name="dialog_vault_is_root_folder_of_cloud_hint">이 Vault를 추가하려면, 최소한 이 Vault의 최상위 디렉터리 폴더의 상위 폴더에 새로운 클라우드 연결을 생성해야 합니다.</string>
 	<string name="dialog_disable_secure_screen_disclaimer_hint">이 설정은 보안 기능이며, 다른 앱이 사용자가 원치 않는 행동을 하도록 속이는 것을 막습니다.\n\n비활성화 함으로써 <a href="https://docs.cryptomator.org/en/latest/android/settings/#screen-security">위험성에 대해 인지</a>한다는 것을 확인합니다.</string>
 	<string name="dialog_delete_cloud_connection_with_vaults_message">정말 이 클라우드 연결을 삭제하시겠습니까?</string>
 	<string name="dialog_delete_cloud_connection_with_vaults_hint">클라우드 연결과 이 클라우드의 Vault들이 삭제될 것입니다.</string>
@@ -349,34 +401,41 @@
 	<string name="dialog_sym_link_title">폴더가 심볼릭 링크임</string>
 	<string name="dialog_sym_link_message">이 심볼릭 링크를 탐색할 수 없습니다</string>
 	<string name="dialog_sym_link_back_button">이전</string>
-	<string name="dialog_no_dir_file_title">디렉토리의 내용을 불러올 수 없음</string>
-	<string name="dialog_no_dir_file_message">클라우드 폴더 \'%1$s\'에 유효한 디렉토리 파일이 없습니다. 이 폴더가 다른 장치에서 생성되었으며 클라우드에 아직 완전히 동기화가 되지 않았을 가능성이 있습니다. 다음 파일이 클라우드에 존재하고 비어있지 않은지 확인하세요:\n%2$s</string>
+	<string name="dialog_no_dir_file_title">디렉터리의 내용을 불러올 수 없음</string>
+	<string name="dialog_no_dir_file_message">클라우드 폴더 \'%1$s\'에 유효한 디렉터리 파일이 없습니다. 이 폴더가 다른 기기에서 생성되었으며 클라우드에 아직 완전히 동기화가 되지 않았을 가능성이 있습니다. 다음 파일이 클라우드에 존재하고 비어있지 않은지 확인하세요:\n%2$s</string>
 	<string name="dialog_no_more_images_to_display">더 띄울 사진들이 없습니다.</string>
 	<string name="dialog_pcloud_credentials_updated_title">\'%1$s\' 자격증명 업데이트됨</string>
 	<string name="dialog_pcloud_credentials_updated">새 pCloud 계정을 추가하려면 이 링크 <a href="https://www.pcloud.com">www.pcloud.com</a>를 누르고, 현재 계정에서 로그아웃한 뒤 여기에서 \'+\'를 다시 눌러서 추가해주세요.</string>
 	<string name="dialog_cbc_password_vaults_migration_title">Vault 비밀번호 이전 필요</string>
 	<string name="dialog_cbc_password_vaults_migration_hint">보안 향상을 위해, Vault 비밀번호를 암호화하도록 생체 인증을 두번 해야 합니다. 최신 기술로 Vault 비밀번호를 보호하기 위해서 필수적입니다. 원치 않는다면 저장된 비밀번호는 제거될 것입니다.</string>
 	<string name="dialog_cbc_password_vaults_migration_action">이전</string>
-	<string name="dialog_create_hub_device_title">Hub 장치 등록하기</string>
+	<string name="dialog_create_hub_device_title">Hub 기기 등록하기</string>
 	<string name="dialog_create_hub_device_name_label">이름</string>
 	<string name="dialog_create_hub_device_name_hint">이 기기로부터 첫번째 Hub 접근입니다. 접근 허가를 위해 인식할 수 있도록 이름을 붙이십시오.</string>
 	<string name="dialog_create_hub_device_name_empty">이름은 비어 있을 수 없습니다.</string>
 	<string name="dialog_create_hub_device_setup_code_label">Account Key</string>
 	<string name="dialog_create_hub_device_setup_code_hint">새로운 앱이나 브라우저에서 로그인하기 위해 Account Key가 필요합니다. 프로필에서 찾을 수 있습니다.</string>
 	<string name="dialog_create_hub_device_setup_code_empty">Account Key는 비어 있을 수 없습니다.</string>
-	<string name="dialog_progress_creating_hub_device_setup">장치 만드는중&#8230;</string>
+	<string name="dialog_progress_creating_hub_device_setup">기기 만드는 중&#8230;</string>
 	<string name="dialog_hub_vault_access_forbidden_title">액세스 거부됨</string>
 	<string name="dialog_hub_vault_access_forbidden_hint">사용자가 아직 이 저장소에 액세스할 수 있는 권한이 없습니다. Vault 소유자에게 승인을 요청하세요.\"</string>
 	<string name="dialog_hub_license_upgrade_required_title">Hub 라이선스 확인하기</string>
 	<string name="dialog_hub_license_upgrade_required_hint">Cryptomator Hub 인스턴스에 잘못된 라이선스가 있습니다. 라이센스를 업그레이드하거나 갱신하려면 Hub 관리자에게 알리십시오.\"</string>
 	<string name="dialog_hub_vault_archived_title">Vault 아카이브됨</string>
 	<string name="dialog_hub_vault_archived_hint">이 Vault는 아카이브 되어 잠금 해제할 수 없습니다. 잠금 해제하기 위해서는 Vault 소유자가 아카이브를 해제해야 합니다.</string>
+	<string name="dialog_restore_successful_title">복원 완료</string>
+	<string name="dialog_restore_successful_message">구매 내역이 복원되어 이 기기에서 활성화되었습니다.</string>
+	<string name="dialog_no_full_version_title">정식 버전 없음</string>
+	<string name="dialog_no_full_version_message">이 Google 계정에서 기존 구매 내역을 찾을 수 없습니다.</string>
+	<string name="dialog_restore_failed_title">복원 실패함</string>
+	<string name="dialog_restore_failed_message">Play Store에 연결할 수 없습니다. 인터넷 연결 상태를 확인하고 다시 시도해 주세요.</string>
 	<string name="dialog_hub_user_setup_required_title">사용자 설정 필요함</string>
 	<string name="dialog_hub_user_setup_required_hint">진행하려면 Hub 사용자 프로필에서 필요한 조치를 완료하십시오.</string>
 	<string name="dialog_hub_user_setup_required_neutral_button">프로필로 가기</string>
+	<string name="dialog_hub_check_host_authenticity_title">이 호스트를 신뢰하겠습니까?</string>
 	<string name="permission_snackbar_auth_local_vault">Cryptomator에서 로컬 Vault에 접근하기 위해 저장소 접근 권한이 필요합니다.</string>
 	<string name="permission_snackbar_auth_auto_upload">Cryptomator에서 자동으로 사진을 업로드하기 위해 저장소 접근 권한이 필요합니다.</string>
-	<string name="permission_snackbar_notifications">Cryptomator는 vault 상태 표시등의 이유로 알림 귄한이 필요합니다</string>
+	<string name="permission_snackbar_notifications">Cryptomator는 Vault 상태 표시 등의 이유로 알림 권한이 필요합니다</string>
 	<!-- # error reports -->
 	<!-- # misc -->
 	<!-- ## file size helper -->
@@ -414,24 +473,35 @@
 	<string name="notification_auto_upload_title">자동 사진 업로드중</string>
 	<string name="notification_auto_upload_message">업로드중 %1d/%2d</string>
 	<string name="notification_auto_upload_finished_title">사진 자동 업로드 완료</string>
-	<string name="notification_auto_upload_finished_message">사진 %1$d개를 vault로 업로드함</string>
+	<string name="notification_auto_upload_finished_message">사진 %1$d개를 Vault로 업로드함</string>
 	<string name="notification_auto_upload_failed_title">자동 사진 업로드 실패</string>
 	<string name="notification_auto_upload_failed_general_error">업로드 중에 오류 발생</string>
 	<string name="notification_auto_upload_failed_due_to_folder_not_exists">선택한 폴더로 더이상 업로드할 수 없습니다. 설정에서 새로 선택해주세요.</string>
-	<string name="notification_auto_upload_failed_due_to_vault_locked">업로드중에 vault가 잠겼습니다. 해당 vault를 다시 열어주세요.</string>
-	<string name="notification_auto_upload_failed_due_to_vault_not_found">자동 업로드를 할 vault가 더이상 존재하지 않습니다.</string>
+	<string name="notification_auto_upload_failed_due_to_vault_locked">업로드 중에 Vault가 잠겼습니다. 해당 Vault를 다시 열어주세요.</string>
+	<string name="notification_auto_upload_failed_due_to_vault_not_found">자동 업로드를 할 Vault가 더 이상 존재하지 않습니다.</string>
 	<string name="notification_auto_upload_failed_due_to_authentication_problem">탭하여 인증을 다시 시도하세요.</string>
 	<string name="notification_open_writable_file_title">쓰기 가능한 파일 열림</string>
 	<string name="notification_open_writable_file_message">파일 수정이 완료될 때까지 Vault가 계속 잠금해제됩니다</string>
 	<string name="notification_update_check_finished_latest">최신 버전 설치됨</string>
 	<string name="notification_authenticating">로그인중&#8230;</string>
+	<string name="notification_cleared_trusted_hosts">신뢰하는 호스트 목록이 삭제됨</string>
 	<string name="screen_settings_lru_cache">캐시</string>
 	<string name="screen_settings_lru_cache_toggle_summary">최근의 사용한 암호화된 파일을 기기에 저장한 후 나중에 파일을 다시 열 때 재사용합니다</string>
 	<string name="screen_settings_lru_cache_size">총 캐시 크기</string>
 	<string name="screen_settings_clear_lru_cache_size">캐시 지우기</string>
 	<string name="screen_settings_lru_cache_changed__restart_toast">변경사항은 앱 재시작 후 적용됩니다</string>
-	<string name="screen_settings_license">등록된 사용자</string>
+	<string name="screen_settings_license_title_unlock">정식 버전 구입</string>
+	<string name="screen_settings_license_title_unlocked">정식 버전</string>
 	<string name="screen_settings_license_mail">%1$s</string>
+	<string name="screen_settings_license_summary_write_access">쓰기 권한을 얻었습니다!</string>
+	<string name="screen_settings_license_summary_tap_to_unlock">탭하여 쓰기 권한을 잠금 해제하세요</string>
+	<string name="screen_settings_license_summary_write_access_mail">%1$s에 대한 쓰기 권한</string>
+	<string name="screen_settings_manage_subscription">구독 관리</string>
+	<string name="screen_settings_upgrade_to_lifetime">평생 라이선스로 업그레이드</string>
+	<string name="dialog_trial_expired_title">체험판 만료됨</string>
+	<string name="dialog_trial_expired_message">무료 체험판이 만료되었습니다. 읽기 전용 모드로 계속 사용하거나 정식 버전을 잠금 해제할 수 있습니다.</string>
+	<string name="dialog_trial_expired_unlock">정식 버전 구입</string>
+	<string name="dialog_trial_expired_continue_read_only">쓰기 전용 모드로 계속하기</string>
 	<string name="dialog_settings_update_check_interval_title">업데이트 확인 주기</string>
 	<string name="screen_settings_check_updates">업데이트 확인</string>
 	<string name="screen_settings_last_check_updates">마지막 확인 %1$s</string>

@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<org.cryptomator.presentation.ui.layout.ObscuredAwareCoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+	xmlns:app="http://schemas.android.com/apk/res-auto"
+	android:id="@+id/activity_root_view"
+	android:layout_width="match_parent"
+	android:layout_height="match_parent">
+
+	<com.google.android.material.appbar.AppBarLayout
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content">
+
+		<include
+			android:id="@+id/mt_toolbar"
+			layout="@layout/toolbar_layout" />
+
+	</com.google.android.material.appbar.AppBarLayout>
+
+	<ScrollView
+		android:layout_width="match_parent"
+		android:layout_height="match_parent"
+		android:padding="24dp"
+		app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
+		<include
+			android:id="@+id/licenseContent"
+			layout="@layout/view_license_check_content" />
+	</ScrollView>
+</org.cryptomator.presentation.ui.layout.ObscuredAwareCoordinatorLayout>

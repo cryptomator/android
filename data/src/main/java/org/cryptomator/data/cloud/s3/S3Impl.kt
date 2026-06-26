@@ -26,16 +26,16 @@ import java.util.Date
 import java.util.LinkedList
 import io.minio.BucketExistsArgs
 import io.minio.CopyObjectArgs
-import io.minio.CopySource
 import io.minio.GetObjectArgs
 import io.minio.ListObjectsArgs
 import io.minio.MinioClient
 import io.minio.PutObjectArgs
 import io.minio.RemoveObjectArgs
 import io.minio.RemoveObjectsArgs
+import io.minio.SourceObject
 import io.minio.StatObjectArgs
 import io.minio.errors.ErrorResponseException
-import io.minio.messages.DeleteObject
+import io.minio.messages.DeleteRequest
 import timber.log.Timber
 
 internal class S3Impl(private val cloud: S3Cloud, private val client: MinioClient, private val context: Context) {
@@ -166,12 +166,12 @@ internal class S3Impl(private val cloud: S3Cloud, private val client: MinioClien
 				throw handleApiError(e, source.path)
 			}
 
-			val objectsToDelete: MutableList<DeleteObject> = LinkedList()
+			val objectsToDelete: MutableList<DeleteRequest.Object> = LinkedList()
 
 			for (sourceKey in sourceKeysIncludingDescendants) {
-				objectsToDelete.add(DeleteObject(sourceKey))
+				objectsToDelete.add(DeleteRequest.Object(sourceKey))
 
-				val copySource = CopySource.builder().bucket(cloud.s3Bucket()).`object`(sourceKey).build()
+				val copySource = SourceObject.builder().bucket(cloud.s3Bucket()).`object`(sourceKey).build()
 				val targetKey = target.key + sourceKey.removePrefix(source.key)
 
 				val copyObjectArgs = CopyObjectArgs.builder().bucket(cloud.s3Bucket()).`object`(targetKey).source(copySource).build()
@@ -198,7 +198,7 @@ internal class S3Impl(private val cloud: S3Cloud, private val client: MinioClien
 
 	@Throws(IOException::class, BackendException::class)
 	private fun moveFile(source: S3File, target: S3File): S3File {
-		val copySource = CopySource.builder().bucket(cloud.s3Bucket()).`object`(source.key).build()
+		val copySource = SourceObject.builder().bucket(cloud.s3Bucket()).`object`(source.key).build()
 		val copyObjectArgs = CopyObjectArgs.builder().bucket(cloud.s3Bucket()).`object`(target.key).source(copySource).build()
 		try {
 			val result = client.copyObject(copyObjectArgs)
@@ -300,7 +300,7 @@ internal class S3Impl(private val cloud: S3Cloud, private val client: MinioClien
 			listObjects.map {
 				run {
 					val item = it.get()
-					DeleteObject(item.objectName())
+					DeleteRequest.Object(item.objectName())
 				}
 			}
 		} catch (e: ErrorResponseException) {

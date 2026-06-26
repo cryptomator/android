@@ -2,9 +2,7 @@
 <androidx.preference.PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
 	android:id="@+id/activity_root_view">
 
-	<PreferenceCategory
-		android:key="license"
-		android:title="@string/screen_settings_license">
+	<PreferenceCategory android:key="license">
 
 		<androidx.preference.PreferenceScreen
 			android:enabled="false"

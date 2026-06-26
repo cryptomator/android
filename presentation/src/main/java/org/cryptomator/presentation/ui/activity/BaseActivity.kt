@@ -232,6 +232,10 @@ abstract class BaseActivity<VB : ViewBinding>(val bindingFactory: (LayoutInflate
 	override fun context(): Context = this
 
 	override fun showDialog(dialog: DialogFragment) {
+		if (isFinishing || isDestroyed || supportFragmentManager.isStateSaved) {
+			Timber.tag("BaseActivity").i("Skipping showDialog for %s; activity not in a state to commit fragments", dialog.javaClass.simpleName)
+			return
+		}
 		closeDialog()
 		currentDialog = dialog
 		dialog.show(supportFragmentManager, ACTIVE_DIALOG)

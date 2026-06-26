@@ -12,9 +12,5 @@ public interface UpdateCheckRepository {
 
 	Optional<UpdateCheck> getUpdateCheck(String version) throws BackendException;
 
-	String getLicense();
-
-	void setLicense(String license);
-
 	void update(File file) throws GeneralUpdateErrorException;
 }

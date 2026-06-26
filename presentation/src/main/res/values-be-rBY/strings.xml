@@ -15,6 +15,9 @@
 	<string name="error_cloud_already_exists">Воблака ўжо існуе.</string>
 	<string name="error_activity_not_found">Калі ласка, усталюй праграму, што зможа адчыніць гэты файл.</string>
 	<string name="error_server_not_found">Сэрвер ня знойдзены.</string>
+	<!-- # read-only & purchases -->
+	<string name="next">Далей</string>
+	<string name="back">Назад</string>
 	<!-- # clouds -->
 	<!-- ## cloud names -->
 	<string name="cloud_names_local_storage">Мясцовае сховішча</string>
@@ -147,6 +150,7 @@
 	<string name="dialog_file_name_placeholder">text.txt</string>
 	<string name="dialog_lock_vault">Замкнуць</string>
 	<string name="dialog_app_is_obscured_info_neutral_button">Зачыніць</string>
+	<string name="dialog_enter_license_decline_button">Скасаваць</string>
 	<string name="dialog_sym_link_back_button">Назад</string>
 	<string name="dialog_hub_vault_access_forbidden_title">Адмова ў доступе</string>
 	<!-- # error reports -->

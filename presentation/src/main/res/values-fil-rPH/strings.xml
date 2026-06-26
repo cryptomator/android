@@ -36,6 +36,29 @@
 	<string name="error_masterkey_location_not_supported">Hindi pa suportado ang custom Masterkey location</string>
 	<string name="error_interact_with_fdroid_but_fdroid_missing">Nabigong makipag-ugnayan sa F-Droid app. Hindi naka-install?</string>
 	<string name="error_hub_device_already_register_for_other_user">Ang device na ito ay registrado na sa ibang user. Subukang palitan ang user account o gumamit ng ibang device.</string>
+	<!-- # read-only & purchases -->
+	<string name="screen_license_check_benefit_family_sharing">Pagbabahaginan ng pamilya</string>
+	<string name="screen_license_check_benefit_write_access">Magsulat ng access sa iyong mga vault</string>
+	<string name="screen_license_check_benefit_support">Pag-unlad ng open-source</string>
+	<string name="screen_license_check_title_full_version">I-unlock ang Buong Bersyon</string>
+	<string name="screen_license_check_trial_title">30-Araw na Pagsubok</string>
+	<string name="screen_license_check_trial_price">Libre</string>
+	<string name="screen_license_check_trial_subtitle">sa loob ng 30 araw</string>
+	<string name="screen_license_check_subscription_title">Taunang Subskripsyon</string>
+	<string name="screen_license_check_subscription_subtitle">taun-taon</string>
+	<string name="screen_license_check_lifetime_title">Panghabambuhay na Lisensya</string>
+	<string name="screen_license_check_lifetime_subtitle">isang beses</string>
+	<string name="screen_license_check_restore_purchase">Ibalik ang Pagbili</string>
+	<string name="screen_license_check_terms">Mga Tuntunin ng Paggamit</string>
+	<string name="screen_license_check_privacy">Patakaran sa Privacy</string>
+	<string name="screen_license_check_trial_status_active">Aktibo</string>
+	<string name="screen_license_check_trial_status_expired">Nag-expire na</string>
+	<string name="screen_license_check_trial_expired_info">Ang iyong pagsubok ay nag-expire na.</string>
+	<string name="screen_welcome_title">Maligayang pagdating</string>
+	<string name="screen_welcome_continue_button">Magpatuloy</string>
+	<string name="screen_welcome_screen_lock_button">Itakda ang lock ng screen</string>
+	<string name="next">Sunod</string>
+	<string name="back">Bumalik</string>
 	<!-- # clouds -->
 	<!-- ## cloud names -->
 	<string name="cloud_names_local_storage">Local storage</string>
@@ -354,6 +377,8 @@
 	<string name="dialog_create_hub_device_name_hint">Mukhang ito ang unang access sa Hub mula sa device na ito. Upang matukoy ito para sa awtorisasyon sa pag-access, kailangan mong pangalanan ang device na ito.</string>
 	<string name="dialog_create_hub_device_setup_code_hint">Ang iyong Account Key ay kailangan para mag login galing sa bagong apps o browser. Mahahanap mo ito sa iyong profile.</string>
 	<string name="dialog_hub_vault_access_forbidden_title">Walang pahintulot</string>
+	<string name="dialog_restore_successful_title">Ibalik ang Matagumpay</string>
+	<string name="dialog_no_full_version_title">Walang Buong Bersyon</string>
 	<string name="dialog_hub_user_setup_required_hint">Upang magpatuloy, mangyaring kumpletuhin ang mga hakbang na kinakailangan sa iyong Hub user profile.</string>
 	<string name="dialog_hub_user_setup_required_neutral_button">Pumunta sa Profile</string>
 	<string name="permission_snackbar_auth_local_vault">Kailangan ng Cryptomator ng access sa storage para magamit ang mga lokal na vault</string>
@@ -412,8 +437,10 @@
 	<string name="screen_settings_lru_cache_size">Kabuuang laki ng cache</string>
 	<string name="screen_settings_clear_lru_cache_size">Linisin ang Cache</string>
 	<string name="screen_settings_lru_cache_changed__restart_toast">Ang mga pagbabago ay makikita pagkatapos ng pag-restart ng app</string>
-	<string name="screen_settings_license">Nakarehistro para sa</string>
+	<string name="screen_settings_license_title_unlock">I-unlock ang Buong Bersyon</string>
 	<string name="screen_settings_license_mail">%1$s</string>
+	<string name="screen_settings_manage_subscription">Pamahalaan ang Subscription</string>
+	<string name="dialog_trial_expired_unlock">I-unlock ang Buong Bersyon</string>
 	<string name="dialog_settings_update_check_interval_title">I-update ang agwat ng pagsusuri</string>
 	<string name="screen_settings_check_updates">Tingnan ang mga update</string>
 	<string name="screen_settings_last_check_updates">Huling pagtakbo %1$s</string>
