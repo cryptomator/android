@@ -96,6 +96,7 @@ dependencies {
 	testImplementation dependencies.junitParams
 
 	testRuntimeOnly dependencies.junit4Engine
+	testRuntimeOnly dependencies.junitPlatformLauncher
 
 	testImplementation dependencies.mockito
 	testImplementation dependencies.mockitoKotlin
