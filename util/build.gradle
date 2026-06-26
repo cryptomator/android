@@ -104,7 +104,6 @@ dependencies {
 	testRuntimeOnly dependencies.junitEngine
 	testImplementation dependencies.junitParams
 	testRuntimeOnly dependencies.junit4Engine
-	testRuntimeOnly dependencies.junitPlatformLauncher
 
 	testImplementation dependencies.hamcrest
 	testImplementation dependencies.mockito

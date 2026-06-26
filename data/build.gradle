@@ -207,7 +207,6 @@ dependencies {
 	testRuntimeOnly dependencies.junitEngine
 	testImplementation dependencies.junitParams
 	testRuntimeOnly dependencies.junit4Engine
-	testRuntimeOnly dependencies.junitPlatformLauncher
 	implementation dependencies.androidxTestJunitKtln
 
 	testImplementation dependencies.mockito

@@ -109,7 +109,7 @@ ext {
 
 	// testing dependencies
 
-	jUnitVersion = '6.1.0'
+	jUnitVersion = '5.11.4'
 	assertJVersion = '1.7.1'
 	mockitoVersion = '5.23.0'
 	mockitoKotlinVersion = '6.3.0'
@@ -178,7 +178,6 @@ ext {
 			junitEngine                    : "org.junit.jupiter:junit-jupiter-engine:${jUnitVersion}",
 			junitParams                    : "org.junit.jupiter:junit-jupiter-params:${jUnitVersion}",
 			junit4Engine                   : "org.junit.vintage:junit-vintage-engine:${jUnitVersion}",
-			junitPlatformLauncher          : "org.junit.platform:junit-platform-launcher:${jUnitVersion}",
 			minIo                          : "io.minio:minio:${minIoVersion}",
 			mockito                        : "org.mockito:mockito-core:${mockitoVersion}",
 			mockitoInline                  : "org.mockito:mockito-inline:${mockitoInlineVersion}",
