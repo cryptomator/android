@@ -7,6 +7,7 @@
 	<string name="error_authentication_failed">Authentifizierung fehlgeschlagen</string>
 	<string name="error_authentication_failed_re_authenticate">Authentifizierungsfehler, bitte mit %1$s anmelden</string>
 	<string name="error_no_network_connection">Keine Internetverbindung</string>
+	<string name="error_purchase_not_available">Kauf nicht verfügbar. Bitte versuche es später erneut.</string>
 	<string name="error_invalid_passphrase">Falsches Passwort</string>
 	<string name="error_file_or_folder_exists">Die Datei oder der Ordner existiert bereits.</string>
 	<string name="error_vault_version_not_supported">Tresorversion %1$s wird nicht unterstützt. Dieser Tresor wurde mit einer älteren oder neueren Version von Cryptomator erstellt.</string>
@@ -41,6 +42,7 @@
 	<string name="error_hub_invalid_setup_code">Der Kontoschlüssel ist ungültig.</string>
 	<string name="error_hub_invalid_version">Nicht unterstützte Hubversion.</string>
 	<string name="error_hub_unlock_pre_31">Hub wird erst ab Android Version 12 und höher unterstützt.</string>
+	<string name="error_hub_not_trustworthy">Hub ist nicht vertrauenswürdig.</string>
 	<!-- # read-only & purchases -->
 	<string name="screen_license_check_benefit_family_sharing">Familienfreigabe</string>
 	<string name="screen_license_check_benefit_write_access">Schreibzugriff auf deine Tresore</string>
