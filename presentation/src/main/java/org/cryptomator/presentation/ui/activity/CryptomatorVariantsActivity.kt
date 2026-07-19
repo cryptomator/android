@@ -18,13 +18,13 @@ class CryptomatorVariantsActivity : BaseActivity<ActivityCryptomatorVariantsBind
 		binding.mtToolbar.toolbar.setTitle(R.string.screen_cryptomator_variants_title)
 		setSupportActionBar(binding.mtToolbar.toolbar)
 
-		binding.tvLiteSupported.text = "WebDAV, S3, Local Storage"
+		binding.tvLiteSupported.text = "WebDAV, SMB, S3, Local Storage"
 		binding.tvLiteUnsupported.text = "Dropbox, Google Drive, OneDrive, pCloud"
 
-		binding.tvFdroidCustomSupported.text = "Dropbox, OneDrive, pCloud, WebDAV, S3, Local Storage"
+		binding.tvFdroidCustomSupported.text = "Dropbox, OneDrive, pCloud, WebDAV, SMB, S3, Local Storage"
 		binding.tvFdroidCustomUnsupported.text = "Google Drive"
 
-		binding.tvWebsiteSupported.text = "Dropbox, Google Drive, OneDrive, pCloud, WebDAV, S3, Local Storage"
+		binding.tvWebsiteSupported.text = "Dropbox, Google Drive, OneDrive, pCloud, WebDAV, SMB, S3, Local Storage"
 
 		binding.btnInstallLiteVariant.setOnClickListener {
 			presenter.onInstallMainFDroidVariantClicked()

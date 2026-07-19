@@ -128,6 +128,7 @@ class CloudConnectionListPresenter @Inject constructor( //
 			CloudTypeModel.WEBDAV -> requestActivityResult(ActivityResultCallbacks.addChangeMultiCloud(), Intents.webDavAddOrChangeIntent())
 			CloudTypeModel.PCLOUD -> requestActivityResult(ActivityResultCallbacks.pCloudAuthenticationFinished(), Intents.authenticatePCloudIntent())
 			CloudTypeModel.S3 -> requestActivityResult(ActivityResultCallbacks.addChangeMultiCloud(), Intents.s3AddOrChangeIntent())
+			CloudTypeModel.SMB -> Toast.makeText(activity().applicationContext, "SMB not yet implemented", Toast.LENGTH_SHORT).show()
 			CloudTypeModel.LOCAL -> openDocumentTree()
 			else -> throw IllegalStateException("Cloud type is not supported")
 		}

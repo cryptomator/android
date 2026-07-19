@@ -13,6 +13,7 @@ import org.cryptomator.domain.DropboxCloud
 import org.cryptomator.domain.GoogleDriveCloud
 import org.cryptomator.domain.OnedriveCloud
 import org.cryptomator.domain.PCloud
+import org.cryptomator.domain.SmbCloud
 import org.cryptomator.domain.WebDavCloud
 import org.cryptomator.domain.di.PerView
 import org.cryptomator.domain.exception.FatalBackendException
@@ -69,6 +70,7 @@ class AuthenticateCloudPresenter @Inject constructor( //
 		OnedriveAuthStrategy(),  //
 		PCloudAuthStrategy(), //
 		WebDAVAuthStrategy(),  //
+		SmbAuthStrategy(), //
 		S3AuthStrategy(), //
 		LocalStorageAuthStrategy() //
 	)
@@ -117,6 +119,7 @@ class AuthenticateCloudPresenter @Inject constructor( //
 		return when (cloud.type()) {
 			CloudType.DROPBOX -> DropboxCloud.aCopyOf(cloud as DropboxCloud).withUsername(username).build()
 			CloudType.ONEDRIVE -> OnedriveCloud.aCopyOf(cloud as OnedriveCloud).withUsername(username).build()
+			CloudType.SMB -> SmbCloud.aCopyOf(cloud as SmbCloud).withUsername(username).build()
 			else -> throw IllegalStateException("Cloud " + cloud.type() + " is not supported")
 		}
 	}
@@ -392,6 +395,18 @@ class AuthenticateCloudPresenter @Inject constructor( //
 				Timber.tag("AuthicateCloudPrester").e(ex)
 				throw FatalBackendException(ex)
 			}
+		}
+	}
+
+	private inner class SmbAuthStrategy : AuthStrategy {
+
+		override fun supports(cloud: CloudModel): Boolean {
+			return cloud.cloudType() == CloudTypeModel.SMB
+		}
+
+		override fun resumed(intent: AuthenticateCloudIntent) {
+			// SMB authentication is not yet implemented
+			failAuthentication(intent.cloud().name())
 		}
 	}
 

@@ -117,6 +117,7 @@
 	<string name="cloud_names_pcloud" translatable="false">pCloud</string>
 	<string name="cloud_names_webdav" translatable="false">WebDAV</string>
 	<string name="cloud_names_s3" translatable="false">S3</string>
+	<string name="cloud_names_smb" translatable="false">SMB</string>
 	<string name="cloud_names_local_storage">Local storage</string>
 
 	<!-- # permission -->
