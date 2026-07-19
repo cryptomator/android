@@ -80,12 +80,12 @@ internal class SmbCloudContentRepository(
 			throw UnsupportedOperationException("SMB not yet implemented")
 		}
 
-		override fun checkAuthenticationAndRetrieveCurrentAccount(cloud: SmbCloud): String {
+		override fun logout(cloud: SmbCloud) {
 			throw UnsupportedOperationException("SMB not yet implemented")
 		}
 
-		override fun logout(cloud: SmbCloud) {
-			throw UnsupportedOperationException("SMB not yet implemented")
+		override fun checkAuthenticationAndRetrieveCurrentAccount(cloud: SmbCloud): String {
+			throw UnsupportedOperationException("SMB protocol is not yet implemented. This is just a UI placeholder.")
 		}
 	}
 }
