@@ -100,6 +100,7 @@ ext {
 
 	minIoVersion = '9.0.3'
 	pcloudVersion = '1.10.0-dev.0001'
+	smbjVersion = '0.13.0'
 	staxVersion = '1.2.0' // needed for minIO
 	commonsCodecVersion = '1.22.0'
 
@@ -193,6 +194,7 @@ ext {
 			rxJava                         : "io.reactivex.rxjava2:rxjava:${rxJavaVersion}",
 			rxAndroid                      : "io.reactivex.rxjava2:rxandroid:${rxAndroidVersion}",
 			rxBinding                      : "com.jakewharton.rxbinding2:rxbinding:${rxBindingVersion}",
+			smbj                           : "com.hierynomus:smbj:${smbjVersion}",
 			stax                           : "stax:stax:${staxVersion}",
 			testingSupportLib              : "com.android.support.test:testing-support-lib:${testingSupportLibVersion}",
 			timber                         : "com.jakewharton.timber:timber:${timberVersion}",

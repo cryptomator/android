@@ -21,7 +21,7 @@ class SmbAddOrChangePresenter @Inject internal constructor( //
 	exceptionMappings: ExceptionHandlers
 ) : Presenter<SmbAddOrChangeView>(exceptionMappings) {
 
-	fun checkUserInput(urlPort: String, username: String, password: String, cloudId: Long?) {
+	fun checkUserInput(urlPort: String, username: String, password: String, domain: String, cloudId: Long?) {
 		var statusMessage: String? = null
 
 		if (password.isEmpty()) {
@@ -40,7 +40,7 @@ class SmbAddOrChangePresenter @Inject internal constructor( //
 		} else {
 			val urlPortWithoutTrailingSlash = if (urlPort.endsWith("/")) urlPort.substring(0, urlPort.length - 1) else urlPort
 			val encryptedPassword = encryptPassword(password)
-			view?.onCheckUserInputSucceeded(urlPortWithoutTrailingSlash, username, encryptedPassword, cloudId)
+			view?.onCheckUserInputSucceeded(urlPortWithoutTrailingSlash, username, encryptedPassword, domain, cloudId)
 		}
 	}
 
@@ -54,12 +54,13 @@ class SmbAddOrChangePresenter @Inject internal constructor( //
 		return urlPort.startsWith("smb://", ignoreCase = true)
 	}
 
-	private fun mapToCloud(username: String, password: String, hostPort: String, id: Long?): SmbCloud {
+	private fun mapToCloud(username: String, password: String, hostPort: String, domain: String, id: Long?): SmbCloud {
 		var builder = SmbCloud //
 			.aSmbCloud() //
 			.withUrl(hostPort) //
 			.withUsername(username) //
-			.withPassword(password)
+			.withPassword(password) //
+			.withDomain(domain)
 
 		if (id != null) {
 			builder = builder.withId(id)
@@ -68,8 +69,8 @@ class SmbAddOrChangePresenter @Inject internal constructor( //
 		return builder.build()
 	}
 
-	fun authenticate(username: String, password: String, urlPort: String, cloudId: Long?) {
-		authenticate(mapToCloud(username, password, urlPort, cloudId))
+	fun authenticate(username: String, password: String, urlPort: String, domain: String, cloudId: Long?) {
+		authenticate(mapToCloud(username, password, urlPort, domain, cloudId))
 	}
 
 	private fun authenticate(cloud: SmbCloud) {

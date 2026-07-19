@@ -104,7 +104,7 @@ class CloudSettingsPresenter @Inject constructor( //
 			CloudTypeModel.ONEDRIVE -> return context().getString(R.string.screen_cloud_settings_onedrive_connections)
 			CloudTypeModel.PCLOUD -> return context().getString(R.string.screen_cloud_settings_pcloud_connections)
 			CloudTypeModel.WEBDAV -> return context().getString(R.string.screen_cloud_settings_webdav_connections)
-			CloudTypeModel.SMB -> return context().getString(R.string.cloud_names_smb)
+			CloudTypeModel.SMB -> return context().getString(R.string.screen_cloud_settings_smb_connections)
 			CloudTypeModel.S3 -> return context().getString(R.string.screen_cloud_settings_s3_connections)
 			CloudTypeModel.LOCAL -> return context().getString(R.string.screen_cloud_settings_local_storage_locations)
 			else -> {}
@@ -142,8 +142,8 @@ class CloudSettingsPresenter @Inject constructor( //
 					it.add(aOnedriveCloud())
 					it.add(aPCloud())
 					it.add(aWebdavCloud())
-					it.add(aSmbCloud())
 					it.add(aS3Cloud())
+					it.add(aSmbCloud())
 					it.add(aLocalCloud())
 				}
 				.filter { cloud -> !(FlavorConfig.isLiteFlavor && excludeApiCloudsInLite(cloud.cloudType())) } //

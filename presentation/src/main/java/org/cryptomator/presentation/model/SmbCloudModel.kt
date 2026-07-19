@@ -18,6 +18,10 @@ class SmbCloudModel(cloud: Cloud) : CloudModel(cloud) {
 		return smbCloud().username()
 	}
 
+	fun domain(): String? {
+		return smbCloud().domain()
+	}
+
 	override fun cloudType(): CloudTypeModel {
 		return CloudTypeModel.SMB
 	}

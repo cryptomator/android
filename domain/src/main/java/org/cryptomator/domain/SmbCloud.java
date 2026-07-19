@@ -14,12 +14,14 @@ public class SmbCloud implements Cloud {
 	private final String url;
 	private final String username;
 	private final String password;
+	private final String domain;
 
 	private SmbCloud(Builder builder) {
 		this.id = builder.id;
 		this.url = builder.url;
 		this.username = builder.username;
 		this.password = builder.password;
+		this.domain = builder.domain;
 	}
 
 	public static Builder aSmbCloud() {
@@ -31,7 +33,8 @@ public class SmbCloud implements Cloud {
 				.withId(smbCloud.id()) //
 				.withUrl(smbCloud.url()) //
 				.withUsername(smbCloud.username()) //
-				.withPassword(smbCloud.password());
+				.withPassword(smbCloud.password()) //
+				.withDomain(smbCloud.domain());
 	}
 
 	@Override
@@ -63,6 +66,10 @@ public class SmbCloud implements Cloud {
 
 	public String username() {
 		return username;
+	}
+
+	public String domain() {
+		return domain;
 	}
 
 	@Override
@@ -112,6 +119,7 @@ public class SmbCloud implements Cloud {
 		private String password;
 		private String url;
 		private String username;
+		private String domain;
 
 		private Builder() {
 		}
@@ -133,6 +141,11 @@ public class SmbCloud implements Cloud {
 
 		public Builder withUrl(String url) {
 			this.url = url;
+			return this;
+		}
+
+		public Builder withDomain(String domain) {
+			this.domain = domain;
 			return this;
 		}
 

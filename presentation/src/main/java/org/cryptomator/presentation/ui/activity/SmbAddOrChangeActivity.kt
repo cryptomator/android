@@ -28,9 +28,9 @@ class SmbAddOrChangeActivity : BaseActivity<ActivityLayoutBinding>(ActivityLayou
 
 	override fun createFragment(): Fragment = SmbAddOrChangeFragment.newInstance(smbAddOrChangeIntent.smbCloud())
 
-	override fun onCheckUserInputSucceeded(urlPort: String, username: String, password: String, cloudId: Long?) {
+	override fun onCheckUserInputSucceeded(urlPort: String, username: String, password: String, domain: String, cloudId: Long?) {
 		smbAddOrChangeFragment().hideKeyboard()
-		smbAddOrChangePresenter.authenticate(username, password, urlPort, cloudId)
+		smbAddOrChangePresenter.authenticate(username, password, urlPort, domain, cloudId)
 	}
 
 	private fun smbAddOrChangeFragment(): SmbAddOrChangeFragment = getCurrentFragment(R.id.fragment_container) as SmbAddOrChangeFragment

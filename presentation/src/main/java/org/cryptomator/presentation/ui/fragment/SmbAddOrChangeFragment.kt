@@ -40,6 +40,7 @@ class SmbAddOrChangeFragment : BaseFragment<FragmentSetupSmbBinding>(FragmentSet
 			binding.urlPortEditText.setText(smbCloudModel.url())
 			binding.userNameEditText.setText(smbCloudModel.username())
 			binding.passwordEditText.setText(getPassword(smbCloudModel.password()))
+			binding.domainEditText.setText(smbCloudModel.domain())
 			cloudId = smbCloudModel.id()
 		}
 	}
@@ -61,8 +62,9 @@ class SmbAddOrChangeFragment : BaseFragment<FragmentSetupSmbBinding>(FragmentSet
 		val urlPort = binding.urlPortEditText.text.toString().trim()
 		val username = binding.userNameEditText.text.toString().trim()
 		val password = binding.passwordEditText.text.toString().trim()
+		val domain = binding.domainEditText.text.toString().trim()
 
-		smbAddOrChangePresenter.checkUserInput(urlPort, username, password, cloudId)
+		smbAddOrChangePresenter.checkUserInput(urlPort, username, password, domain, cloudId)
 	}
 
 	fun hideKeyboard() {

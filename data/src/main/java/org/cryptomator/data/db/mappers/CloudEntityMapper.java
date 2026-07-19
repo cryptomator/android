@@ -87,6 +87,7 @@ public class CloudEntityMapper extends EntityMapper<CloudEntity, Cloud> {
 						.withUrl(entity.getUrl()) //
 						.withUsername(entity.getUsername()) //
 						.withPassword(entity.getAccessToken()) //
+						.withDomain(entity.getWebdavCertificate()) //
 						.build();
 			default:
 				throw new IllegalStateException("Unhandled enum constant " + type);
@@ -136,6 +137,7 @@ public class CloudEntityMapper extends EntityMapper<CloudEntity, Cloud> {
 				result.setAccessToken(((SmbCloud) domainObject).password());
 				result.setUrl(((SmbCloud) domainObject).url());
 				result.setUsername(((SmbCloud) domainObject).username());
+				result.setWebdavCertificate(((SmbCloud) domainObject).domain());
 				break;
 			default:
 				throw new IllegalStateException("Unhandled enum constant " + domainObject.type());
