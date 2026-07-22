@@ -14,13 +14,21 @@ import org.cryptomator.presentation.ui.activity.view.SmbAddOrChangeView
 import org.cryptomator.util.crypto.CredentialCryptor
 import javax.inject.Inject
 
+/**
+ * Presenter for the SMB setup/edit screen.
+ * Handles validation of SMB URLs and credentials, and performs the connection test/authentication.
+ */
 @PerView
-class SmbAddOrChangePresenter @Inject internal constructor( //
-	private val addOrChangeCloudConnectionUseCase: AddOrChangeCloudConnectionUseCase,  //
-	private val connectToSmbUseCase: ConnectToSmbUseCase,  //
-	exceptionMappings: ExceptionHandlers
+class SmbAddOrChangePresenter @Inject internal constructor(
+	private val addOrChangeCloudConnectionUseCase: AddOrChangeCloudConnectionUseCase,
+	private val connectToSmbUseCase: ConnectToSmbUseCase,
+	exceptionMappings: ExceptionHandlers,
 ) : Presenter<SmbAddOrChangeView>(exceptionMappings) {
 
+	/**
+	 * Validates the user input for the SMB connection.
+	 * Ensures required fields are present and the URL follows the 'smb://' scheme and includes a share.
+	 */
 	fun checkUserInput(urlPort: String, username: String, password: String, domain: String, cloudId: Long?) {
 		var statusMessage: String? = null
 
@@ -30,7 +38,7 @@ class SmbAddOrChangePresenter @Inject internal constructor( //
 		if (username.isEmpty()) {
 			statusMessage = getString(R.string.screen_webdav_settings_msg_username_must_not_be_empty)
 		}
-		if (urlPort.isEmpty() || urlPort == "smb://") {
+		if (urlPort.isEmpty() || (urlPort == "smb://")) {
 			statusMessage = getString(R.string.screen_webdav_settings_msg_url_must_not_be_empty)
 		} else if (!isValid(urlPort)) {
 			statusMessage = getString(R.string.screen_webdav_settings_msg_url_is_invalid)
@@ -56,31 +64,36 @@ class SmbAddOrChangePresenter @Inject internal constructor( //
 		return urlPort.startsWith("smb://", ignoreCase = true)
 	}
 
+	/**
+	 * Checks if the URL includes at least one path segment (representing the SMB share).
+	 */
 	private fun hasShare(urlPort: String): Boolean {
-		try {
+		return try {
 			val uri = java.net.URI(urlPort)
 			val path = uri.path ?: ""
-			return path.split("/").any { it.isNotEmpty() }
-		} catch (e: Exception) {
-			return false
+			path.split("/").any { it.isNotEmpty() }
+		} catch (_: Exception) {
+			false
 		}
 	}
 
 	private fun mapToCloud(username: String, password: String, hostPort: String, domain: String, id: Long?): SmbCloud {
-		var builder = SmbCloud //
+		val builder = SmbCloud //
 			.aSmbCloud() //
 			.withUrl(hostPort) //
 			.withUsername(username) //
 			.withPassword(password) //
 			.withDomain(domain)
 
-		if (id != null) {
-			builder = builder.withId(id)
-		}
+		id?.let { builder.withId(it) }
 
 		return builder.build()
 	}
 
+	/**
+	 * Attempts to connect to the SMB server using the provided credentials.
+	 * If successful, the connection is saved to the local database.
+	 */
 	fun authenticate(username: String, password: String, urlPort: String, domain: String, cloudId: Long?) {
 		authenticate(mapToCloud(username, password, urlPort, domain, cloudId))
 	}

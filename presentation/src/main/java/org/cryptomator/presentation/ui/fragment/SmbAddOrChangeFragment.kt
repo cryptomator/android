@@ -2,6 +2,7 @@ package org.cryptomator.presentation.ui.fragment
 
 import android.os.Bundle
 import android.view.inputmethod.EditorInfo
+import androidx.core.os.BundleCompat
 import org.cryptomator.generator.Fragment
 import org.cryptomator.presentation.databinding.FragmentSetupSmbBinding
 import org.cryptomator.presentation.model.SmbCloudModel
@@ -11,6 +12,10 @@ import org.cryptomator.util.crypto.FatalCryptoException
 import javax.inject.Inject
 import timber.log.Timber
 
+/**
+ * Fragment responsible for the UI to add or edit an SMB connection.
+ * Handles user input for server URL, credentials, and domain.
+ */
 @Fragment
 class SmbAddOrChangeFragment : BaseFragment<FragmentSetupSmbBinding>(FragmentSetupSmbBinding::inflate) {
 
@@ -20,7 +25,7 @@ class SmbAddOrChangeFragment : BaseFragment<FragmentSetupSmbBinding>(FragmentSet
 	private var cloudId: Long? = null
 
 	private val smbCloudModel: SmbCloudModel?
-		get() = arguments?.getSerializable(ARG_SMB_CLOUD) as? SmbCloudModel
+		get() = arguments?.let { BundleCompat.getSerializable(it, ARG_SMB_CLOUD, SmbCloudModel::class.java) }
 
 	override fun setupView() {
 		binding.createCloudButton.setOnClickListener { createCloud() }
@@ -35,6 +40,9 @@ class SmbAddOrChangeFragment : BaseFragment<FragmentSetupSmbBinding>(FragmentSet
 		showEditableCloudContent(smbCloudModel)
 	}
 
+	/**
+	 * Populates the UI fields with existing data if we are editing an existing connection.
+	 */
 	private fun showEditableCloudContent(smbCloudModel: SmbCloudModel?) {
 		if (smbCloudModel != null) {
 			binding.urlPortEditText.setText(smbCloudModel.url())
@@ -45,6 +53,10 @@ class SmbAddOrChangeFragment : BaseFragment<FragmentSetupSmbBinding>(FragmentSet
 		}
 	}
 
+	/**
+	 * Decrypts the stored password for display in the edit field.
+	 * If decryption fails, returns an empty string.
+	 */
 	private fun getPassword(password: String?): String {
 		return if (password != null) {
 			try {
@@ -58,6 +70,9 @@ class SmbAddOrChangeFragment : BaseFragment<FragmentSetupSmbBinding>(FragmentSet
 		} else ""
 	}
 
+	/**
+	 * Collects user input and passes it to the presenter for validation and saving.
+	 */
 	private fun createCloud() {
 		val urlPort = binding.urlPortEditText.text.toString().trim()
 		val username = binding.userNameEditText.text.toString().trim()
