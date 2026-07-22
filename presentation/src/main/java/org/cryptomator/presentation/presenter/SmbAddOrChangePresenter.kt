@@ -30,10 +30,12 @@ class SmbAddOrChangePresenter @Inject internal constructor( //
 		if (username.isEmpty()) {
 			statusMessage = getString(R.string.screen_webdav_settings_msg_username_must_not_be_empty)
 		}
-		if (urlPort.isEmpty()) {
+		if (urlPort.isEmpty() || urlPort == "smb://") {
 			statusMessage = getString(R.string.screen_webdav_settings_msg_url_must_not_be_empty)
 		} else if (!isValid(urlPort)) {
 			statusMessage = getString(R.string.screen_webdav_settings_msg_url_is_invalid)
+		} else if (!hasShare(urlPort)) {
+			statusMessage = getString(R.string.screen_smb_settings_msg_share_must_not_be_empty)
 		}
 		if (statusMessage != null) {
 			Toast.makeText(context(), statusMessage, Toast.LENGTH_SHORT).show()
@@ -52,6 +54,16 @@ class SmbAddOrChangePresenter @Inject internal constructor( //
 
 	private fun isValid(urlPort: String): Boolean {
 		return urlPort.startsWith("smb://", ignoreCase = true)
+	}
+
+	private fun hasShare(urlPort: String): Boolean {
+		try {
+			val uri = java.net.URI(urlPort)
+			val path = uri.path ?: ""
+			return path.split("/").any { it.isNotEmpty() }
+		} catch (e: Exception) {
+			return false
+		}
 	}
 
 	private fun mapToCloud(username: String, password: String, hostPort: String, domain: String, id: Long?): SmbCloud {

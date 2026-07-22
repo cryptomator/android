@@ -251,6 +251,7 @@
 	<string name="screen_webdav_settings_msg_url_is_invalid">URL is invalid.</string>
 	<string name="screen_webdav_settings_msg_username_must_not_be_empty">Username can\'t be empty.</string>
 	<string name="screen_webdav_settings_msg_password_must_not_be_empty">Password can\'t be empty.</string>
+	<string name="screen_smb_settings_msg_share_must_not_be_empty">Share name can\'t be empty.</string>
 
 	<!-- ## screen: s3 settings -->
 	<string name="screen_s3_settings_title" translatable="false">@string/cloud_names_s3</string>

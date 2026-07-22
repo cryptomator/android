@@ -46,11 +46,15 @@ internal class SmbCloudContentRepository(
 
 		private fun parseSmbUrl(url: String): Pair<String, String> {
 			// Expected format: smb://host/share/
-			val uri = URI(url)
+			val uri = try {
+				URI(url)
+			} catch (e: Exception) {
+				throw IllegalArgumentException("Invalid SMB URL format", e)
+			}
 			val host = uri.host ?: throw IllegalArgumentException("Invalid host in SMB URL")
 			val path = uri.path ?: ""
 			val share = path.split("/").filter { it.isNotEmpty() }.firstOrNull()
-				?: throw IllegalArgumentException("Missing share name in SMB URL")
+				?: throw IllegalArgumentException("Missing share name in SMB URL. Format: smb://hostname/sharename/")
 			return Pair(host, share)
 		}
 
