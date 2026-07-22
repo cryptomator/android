@@ -48,9 +48,9 @@ enum class CloudTypeModel(builder: Builder) {
 	),  //
 	SMB(
 		Builder("SMB", R.string.cloud_names_smb) //
-			.withCloudImageResource(R.drawable.webdav) //
-			.withVaultImageResource(R.drawable.webdav_vault) //
-			.withVaultSelectedImageResource(R.drawable.webdav_vault_selected) //
+			.withCloudImageResource(R.drawable.smb) //
+			.withVaultImageResource(R.drawable.smb_vault) //
+			.withVaultSelectedImageResource(R.drawable.smb_vault_selected) //
 			.withMultiInstances()
 	),  //
 	LOCAL(

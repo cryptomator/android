@@ -79,6 +79,8 @@ ext {
 
 	scaleImageViewVersion = '3.10.1-dev.0002'
 
+	slf4jAndroidVersion = '1.7.36'
+
 	lruFileCacheVersion = '1.2'
 
 	// KEEP IN SYNC WITH GENERATOR VERSION IN root build.gradle
@@ -194,6 +196,7 @@ ext {
 			rxJava                         : "io.reactivex.rxjava2:rxjava:${rxJavaVersion}",
 			rxAndroid                      : "io.reactivex.rxjava2:rxandroid:${rxAndroidVersion}",
 			rxBinding                      : "com.jakewharton.rxbinding2:rxbinding:${rxBindingVersion}",
+			slf4jAndroid                   : "org.slf4j:slf4j-android:${slf4jAndroidVersion}",
 			smbj                           : "com.hierynomus:smbj:${smbjVersion}",
 			stax                           : "stax:stax:${staxVersion}",
 			testingSupportLib              : "com.android.support.test:testing-support-lib:${testingSupportLibVersion}",
