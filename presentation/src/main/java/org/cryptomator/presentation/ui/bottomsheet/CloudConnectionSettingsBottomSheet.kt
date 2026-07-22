@@ -11,6 +11,7 @@ import org.cryptomator.presentation.model.LocalStorageModel
 import org.cryptomator.presentation.model.OnedriveCloudModel
 import org.cryptomator.presentation.model.PCloudModel
 import org.cryptomator.presentation.model.S3CloudModel
+import org.cryptomator.presentation.model.SmbCloudModel
 import org.cryptomator.presentation.model.WebDavCloudModel
 
 @BottomSheet(R.layout.dialog_bottom_sheet_cloud_settings)
@@ -30,6 +31,7 @@ class CloudConnectionSettingsBottomSheet : BaseBottomSheet<CloudConnectionSettin
 			CloudTypeModel.WEBDAV -> bindViewForWebDAV(cloudModel as WebDavCloudModel)
 			CloudTypeModel.PCLOUD -> bindViewForPCloud(cloudModel as PCloudModel)
 			CloudTypeModel.S3 -> bindViewForS3(cloudModel as S3CloudModel)
+			CloudTypeModel.SMB -> bindViewForSMB(cloudModel as SmbCloudModel)
 			CloudTypeModel.LOCAL -> bindViewForLocal(cloudModel as LocalStorageModel)
 			else -> throw IllegalStateException("Cloud model is not binded in the view")
 		}
@@ -74,6 +76,12 @@ class CloudConnectionSettingsBottomSheet : BaseBottomSheet<CloudConnectionSettin
 	private fun bindViewForS3(cloudModel: S3CloudModel) {
 		binding.changeCloud.visibility = View.VISIBLE
 		binding.tvCloudName.text = cloudModel.username()
+	}
+
+	private fun bindViewForSMB(cloudModel: SmbCloudModel) {
+		binding.changeCloud.visibility = View.VISIBLE
+		binding.tvCloudName.text = cloudModel.url()
+		binding.tvCloudSubtext.text = cloudModel.username()
 	}
 
 	companion object {
