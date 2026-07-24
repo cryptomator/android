@@ -2,13 +2,17 @@ package org.cryptomator.domain;
 
 import org.jetbrains.annotations.NotNull;
 
+import java.io.Serial;
 import java.util.Objects;
 
 /**
- * SMB Cloud implementation.
- * Currently just a skeleton for the first step of SMB support.
+ * Represents an SMB (Server Message Block) cloud storage configuration.
+ * Stores connection details like URL, credentials, and domain.
  */
 public class SmbCloud implements Cloud {
+
+	@Serial
+	private static final long serialVersionUID = 421064219462828478L;
 
 	private final Long id;
 	private final String url;
@@ -44,7 +48,7 @@ public class SmbCloud implements Cloud {
 
 	@Override
 	public boolean configurationMatches(Cloud cloud) {
-		return cloud instanceof SmbCloud && configurationMatches((SmbCloud) cloud);
+		return cloud instanceof SmbCloud smbCloud && configurationMatches(smbCloud);
 	}
 
 	private boolean configurationMatches(SmbCloud cloud) {

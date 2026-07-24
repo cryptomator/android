@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-	<string name="empty" translatable="false"></string>
+	<string name="empty" translatable="false" />
 
 	<!-- # app -->
 	<string name="app_name" translatable="false">Cryptomator</string>
@@ -251,6 +251,8 @@
 	<string name="screen_webdav_settings_msg_url_is_invalid">URL is invalid.</string>
 	<string name="screen_webdav_settings_msg_username_must_not_be_empty">Username can\'t be empty.</string>
 	<string name="screen_webdav_settings_msg_password_must_not_be_empty">Password can\'t be empty.</string>
+	<string name="screen_smb_settings_url_hint">URL (e.g. smb://hostname/share/)</string>
+	<string name="screen_smb_settings_domain_label">Domain (optional)</string>
 	<string name="screen_smb_settings_msg_share_must_not_be_empty">Share name can\'t be empty.</string>
 
 	<!-- ## screen: s3 settings -->

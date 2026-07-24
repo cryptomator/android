@@ -1,13 +1,9 @@
 package org.cryptomator.data.cloud.smb
 
-import org.cryptomator.domain.Cloud
 import org.cryptomator.domain.CloudNode
 
-/**
- * SMB Cloud node interface.
- * Skeleton for the first step of SMB support.
- */
 interface SmbNode : CloudNode {
+
 	override val parent: SmbFolder?
 
 	override val path: String

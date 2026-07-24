@@ -13,7 +13,7 @@
 			android:id="@+id/url_port_edit_text"
 			android:layout_width="match_parent"
 			android:layout_height="wrap_content"
-			android:hint="URL (e.g. smb://hostname/share/)"
+			android:hint="@string/screen_smb_settings_url_hint"
 			android:imeOptions="flagNoPersonalizedLearning"
 			android:inputType="textUri"
 			android:maxLines="1"
@@ -61,7 +61,7 @@
 			android:id="@+id/domain_edit_text"
 			android:layout_width="match_parent"
 			android:layout_height="wrap_content"
-			android:hint="Domain (optional)"
+			android:hint="@string/screen_smb_settings_domain_label"
 			android:imeOptions="flagNoPersonalizedLearning"
 			android:maxLines="1"
 			android:singleLine="true" />

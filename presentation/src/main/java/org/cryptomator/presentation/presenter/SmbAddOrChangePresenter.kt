@@ -27,28 +27,22 @@ class SmbAddOrChangePresenter @Inject internal constructor(
 
 	/**
 	 * Validates the user input for the SMB connection.
-	 * Ensures required fields are present and the URL follows the 'smb://' scheme and includes a share.
+	 * Checks for empty fields and ensures the URL is a valid 'smb://' address with a share.
 	 */
 	fun checkUserInput(urlPort: String, username: String, password: String, domain: String, cloudId: Long?) {
-		var statusMessage: String? = null
+		val statusMessage = when {
+			password.isEmpty() -> getString(R.string.screen_webdav_settings_msg_password_must_not_be_empty)
+			username.isEmpty() -> getString(R.string.screen_webdav_settings_msg_username_must_not_be_empty)
+			(urlPort.isEmpty()) || (urlPort == "smb://") -> getString(R.string.screen_webdav_settings_msg_url_must_not_be_empty)
+			!isValid(urlPort) -> getString(R.string.screen_webdav_settings_msg_url_is_invalid)
+			!hasShare(urlPort) -> getString(R.string.screen_smb_settings_msg_share_must_not_be_empty)
+			else -> null
+		}
 
-		if (password.isEmpty()) {
-			statusMessage = getString(R.string.screen_webdav_settings_msg_password_must_not_be_empty)
-		}
-		if (username.isEmpty()) {
-			statusMessage = getString(R.string.screen_webdav_settings_msg_username_must_not_be_empty)
-		}
-		if (urlPort.isEmpty() || (urlPort == "smb://")) {
-			statusMessage = getString(R.string.screen_webdav_settings_msg_url_must_not_be_empty)
-		} else if (!isValid(urlPort)) {
-			statusMessage = getString(R.string.screen_webdav_settings_msg_url_is_invalid)
-		} else if (!hasShare(urlPort)) {
-			statusMessage = getString(R.string.screen_smb_settings_msg_share_must_not_be_empty)
-		}
 		if (statusMessage != null) {
 			Toast.makeText(context(), statusMessage, Toast.LENGTH_SHORT).show()
 		} else {
-			val urlPortWithoutTrailingSlash = if (urlPort.endsWith("/")) urlPort.substring(0, urlPort.length - 1) else urlPort
+			val urlPortWithoutTrailingSlash = urlPort.removeSuffix("/")
 			val encryptedPassword = encryptPassword(password)
 			view?.onCheckUserInputSucceeded(urlPortWithoutTrailingSlash, username, encryptedPassword, domain, cloudId)
 		}
@@ -102,16 +96,18 @@ class SmbAddOrChangePresenter @Inject internal constructor(
 		view?.showProgress(ProgressModel(ProgressStateModel.AUTHENTICATION))
 		connectToSmbUseCase //
 			.withCloud(cloud) //
-			.run(object : DefaultResultHandler<Void?>() {
-				override fun onSuccess(void: Void?) {
-					onCloudAuthenticated(cloud)
-				}
+			.run(
+				object : DefaultResultHandler<Void?>() {
+					override fun onSuccess(void: Void?) {
+						onCloudAuthenticated(cloud)
+					}
 
-				override fun onError(e: Throwable) {
-					view?.showProgress(ProgressModel.COMPLETED)
-					super.onError(e)
-				}
-			})
+					override fun onError(e: Throwable) {
+						view?.showProgress(ProgressModel.COMPLETED)
+						super.onError(e)
+					}
+				},
+			)
 	}
 
 	private fun onCloudAuthenticated(cloud: Cloud) {
