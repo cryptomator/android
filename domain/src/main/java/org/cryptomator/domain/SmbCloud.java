@@ -52,7 +52,7 @@ public class SmbCloud implements Cloud {
 	}
 
 	private boolean configurationMatches(SmbCloud cloud) {
-		return Objects.equals(url, cloud.url) && Objects.equals(username, cloud.username);
+		return Objects.equals(url, cloud.url) && Objects.equals(username, cloud.username) && Objects.equals(domain, cloud.domain);
 	}
 
 	@Override

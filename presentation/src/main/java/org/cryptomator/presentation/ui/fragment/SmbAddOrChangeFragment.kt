@@ -76,7 +76,7 @@ class SmbAddOrChangeFragment : BaseFragment<FragmentSetupSmbBinding>(FragmentSet
 	private fun createCloud() {
 		val urlPort = binding.urlPortEditText.text.toString().trim()
 		val username = binding.userNameEditText.text.toString().trim()
-		val password = binding.passwordEditText.text.toString().trim()
+		val password = binding.passwordEditText.text.toString()
 		val domain = binding.domainEditText.text.toString().trim()
 
 		smbAddOrChangePresenter.checkUserInput(urlPort, username, password, domain, cloudId)

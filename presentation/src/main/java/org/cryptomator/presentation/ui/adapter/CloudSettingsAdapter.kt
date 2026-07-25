@@ -34,12 +34,15 @@ constructor(private val context: Context) : RecyclerViewBaseAdapter<CloudModel, 
 		}
 	}
 
-	inner class CloudSettingViewHolder(private val binding: ItemCloudSettingBinding) : RecyclerViewBaseAdapter<CloudModel, CloudSettingsAdapter.OnItemClickListener, CloudSettingViewHolder, ItemCloudSettingBinding>.ItemViewHolder(binding.root) {
+	inner class CloudSettingViewHolder(private val binding: ItemCloudSettingBinding) : RecyclerViewBaseAdapter<CloudModel, OnItemClickListener, CloudSettingViewHolder, ItemCloudSettingBinding>.ItemViewHolder(binding.root) {
 
 		override fun bind(position: Int) {
 			val cloudModel = getItem(position)
 
 			binding.cloudImage.setImageResource(cloudModel.cloudType().cloudImageResource)
+
+			binding.cloudUsername.text = ""
+			binding.cloudUsername.visibility = View.GONE
 
 			when (cloudModel.cloudType()) {
 				CloudTypeModel.ONEDRIVE -> binding.cloudName.text = context.getString(R.string.screen_cloud_settings_onedrive_connections)
@@ -53,8 +56,6 @@ constructor(private val context: Context) : RecyclerViewBaseAdapter<CloudModel, 
 					if (isAlreadyLoggedIn(cloudModel)) {
 						binding.cloudUsername.text = cloudModel.username()
 						binding.cloudUsername.visibility = View.VISIBLE
-					} else {
-						binding.cloudUsername.visibility = View.GONE
 					}
 				}
 			}

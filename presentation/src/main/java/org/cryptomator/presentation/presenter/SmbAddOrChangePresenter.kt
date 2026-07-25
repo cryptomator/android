@@ -112,13 +112,18 @@ class SmbAddOrChangePresenter @Inject internal constructor(
 
 	private fun onCloudAuthenticated(cloud: Cloud) {
 		save(cloud)
-		finishWithResult(CloudConnectionListPresenter.SELECTED_CLOUD, cloud)
 	}
 
 	private fun save(cloud: Cloud) {
 		addOrChangeCloudConnectionUseCase //
 			.withCloud(cloud) //
-			.run(DefaultResultHandler())
+			.run(
+				object : DefaultResultHandler<Void?>() {
+					override fun onSuccess(result: Void?) {
+						finishWithResult(CloudConnectionListPresenter.SELECTED_CLOUD, cloud)
+					}
+				},
+			)
 	}
 
 	init {

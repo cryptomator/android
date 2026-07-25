@@ -14,6 +14,7 @@ import org.cryptomator.domain.exception.BackendException
 import org.cryptomator.domain.exception.CloudNodeAlreadyExistsException
 import org.cryptomator.domain.exception.NetworkConnectionException
 import org.cryptomator.domain.exception.NoSuchCloudFileException
+import org.cryptomator.domain.exception.authentication.WrongCredentialsException
 import org.cryptomator.domain.repository.CloudContentRepository
 import org.cryptomator.domain.usecases.ProgressAware
 import org.cryptomator.domain.usecases.cloud.DataSource
@@ -29,7 +30,7 @@ import java.util.Date
 import java.util.EnumSet
 
 internal class SmbCloudContentRepository(
-	cloud: SmbCloud,
+	private val cloud: SmbCloud,
 	context: Context,
 ) : InterceptingCloudContentRepository<SmbCloud, SmbNode, SmbFolder, SmbFile>(Intercepted(cloud, context)) {
 
@@ -38,9 +39,12 @@ internal class SmbCloudContentRepository(
 		val apiException = ExceptionUtil.extract(e, SMBApiException::class.java)
 		if (apiException.isPresent) {
 			val cause: SMBApiException = apiException.get()
-			val status = cause.status.value
-			if ((status == STATUS_OBJECT_PATH_NOT_FOUND) || (status == STATUS_OBJECT_NAME_NOT_FOUND)) {
+			val status = cause.status.value and 0xFFFFFFFFL
+			if (status == STATUS_OBJECT_PATH_NOT_FOUND || status == STATUS_OBJECT_NAME_NOT_FOUND) {
 				throw NoSuchCloudFileException(cause.message)
+			}
+			if (status == STATUS_ACCESS_DENIED || status == STATUS_NETWORK_ACCESS_DENIED || status == STATUS_LOGON_FAILURE || status == STATUS_WRONG_PASSWORD || status == STATUS_PASSWORD_EXPIRED || status == STATUS_ACCOUNT_LOCKED_OUT) {
+				throw WrongCredentialsException(cloud)
 			}
 			throw NetworkConnectionException(cause)
 		}
@@ -60,7 +64,9 @@ internal class SmbCloudContentRepository(
 		}
 
 		private fun normalizePath(path: String): String {
-			return path.replace("/", "\\")
+			return path.trim('/')
+				.replace("/", "\\")
+				.removeSuffix("\\")
 		}
 
 		private fun parseSmbUrl(url: String): Triple<String, String, String> {
@@ -86,11 +92,34 @@ internal class SmbCloudContentRepository(
 			return SMBClient().use { client ->
 				client.connect(host).use { connection ->
 					val authContext = AuthenticationContext(cloud.username(), getDecryptedPassword().toCharArray(), cloud.domain() ?: "")
-					val session = connection.authenticate(authContext)
+					val session = try {
+						connection.authenticate(authContext)
+					} catch (e: Exception) {
+						val apiException = ExceptionUtil.extract(e, SMBApiException::class.java)
+						if (apiException.isPresent) {
+							val status = apiException.get().status.value and 0xFFFFFFFFL
+							if (status == STATUS_ACCESS_DENIED || status == STATUS_NETWORK_ACCESS_DENIED || status == STATUS_LOGON_FAILURE || status == STATUS_WRONG_PASSWORD || status == STATUS_PASSWORD_EXPIRED || status == STATUS_ACCOUNT_LOCKED_OUT) {
+								throw WrongCredentialsException(cloud)
+							}
+						}
+						throw e
+					}
 					session.use { s ->
-						s.connectShare(share).use { ds ->
-							if (ds is DiskShare) {
-								action(ds)
+						val ds = try {
+							s.connectShare(share)
+						} catch (e: Exception) {
+							val apiException = ExceptionUtil.extract(e, SMBApiException::class.java)
+							if (apiException.isPresent) {
+								val status = apiException.get().status.value and 0xFFFFFFFFL
+								if (status == STATUS_ACCESS_DENIED || status == STATUS_NETWORK_ACCESS_DENIED) {
+									throw WrongCredentialsException(cloud)
+								}
+							}
+							throw e
+						}
+						ds.use {
+							if (it is DiskShare) {
+								action(it)
 							} else {
 								throw RuntimeException("Specified share is not a disk share")
 							}
@@ -126,13 +155,20 @@ internal class SmbCloudContentRepository(
 		}
 
 		override fun exists(node: SmbNode): Boolean {
-			return try {
-				withDiskShare { ds ->
-					val normalizedPath = normalizePath(node.path)
+			return withDiskShare { ds ->
+				val normalizedPath = normalizePath(node.path)
+				try {
 					ds.fileExists(normalizedPath) || ds.folderExists(normalizedPath)
+				} catch (e: Exception) {
+					val apiException = ExceptionUtil.extract(e, SMBApiException::class.java)
+					if (apiException.isPresent) {
+						val status = apiException.get().status.value
+						if (status == STATUS_OBJECT_PATH_NOT_FOUND || status == STATUS_OBJECT_NAME_NOT_FOUND) {
+							return@withDiskShare false
+						}
+					}
+					throw e
 				}
-			} catch (_: Exception) {
-				false
 			}
 		}
 
@@ -215,20 +251,21 @@ internal class SmbCloudContentRepository(
 		}
 
 		override fun write(file: SmbFile, data: DataSource, progressAware: ProgressAware<UploadState>, replace: Boolean, size: Long): SmbFile {
-			return withDiskShare { ds ->
-				val normalizedPath = normalizePath(file.path)
-				if (!replace && ds.fileExists(normalizedPath)) {
-					throw CloudNodeAlreadyExistsException(file.name)
-				}
-				progressAware.onProgress(Progress.started(UploadState.upload(file)))
-				val disposition = if (replace) SMB2CreateDisposition.FILE_OVERWRITE_IF else SMB2CreateDisposition.FILE_CREATE
-				ds.openFile(normalizedPath, EnumSet.of(AccessMask.GENERIC_WRITE), null, SMB2ShareAccess.ALL, disposition, null).use { f ->
-					f.outputStream.use { outputStream ->
-						data.open(context)?.use { inputStream ->
+			val inputStream = data.open(context) ?: throw IllegalArgumentException("Could not open data source")
+			return inputStream.use { stream ->
+				withDiskShare { ds ->
+					val normalizedPath = normalizePath(file.path)
+					if (!replace && ds.fileExists(normalizedPath)) {
+						throw CloudNodeAlreadyExistsException(file.name)
+					}
+					progressAware.onProgress(Progress.started(UploadState.upload(file)))
+					val disposition = if (replace) SMB2CreateDisposition.FILE_OVERWRITE_IF else SMB2CreateDisposition.FILE_CREATE
+					val fileInfo = ds.openFile(normalizedPath, EnumSet.of(AccessMask.FILE_WRITE_DATA, AccessMask.FILE_READ_ATTRIBUTES, AccessMask.FILE_WRITE_ATTRIBUTES, AccessMask.READ_CONTROL), null, SMB2ShareAccess.ALL, disposition, null).use { f ->
+						f.outputStream.use { outputStream ->
 							val buffer = ByteArray(8192)
 							var bytesRead: Int
 							var totalTransferred = 0L
-							while (inputStream.read(buffer).also { bytesRead = it } != -1) {
+							while (stream.read(buffer).also { bytesRead = it } != -1) {
 								outputStream.write(buffer, 0, bytesRead)
 								totalTransferred += bytesRead
 								progressAware.onProgress(
@@ -239,19 +276,46 @@ internal class SmbCloudContentRepository(
 								)
 							}
 						}
+						try {
+							f.fileInformation
+						} catch (_: Exception) {
+							null
+						}
+					}
+					if (fileInfo != null) {
+						SmbFile(file.parent, file.name, cloud, fileInfo.standardInformation.endOfFile, Date(fileInfo.basicInformation.lastWriteTime.toEpochMillis()))
+					} else {
+						SmbFile(file.parent, file.name, cloud, size, Date())
 					}
 				}
-				// Retrieve file info after upload
-				val fileInfo = ds.getFileInformation(normalizedPath)
-				SmbFile(file.parent, file.name, cloud, fileInfo.standardInformation.endOfFile, Date(fileInfo.basicInformation.lastWriteTime.toEpochMillis()))
 			}
 		}
 
 		override fun read(file: SmbFile, encryptedTmpFile: File?, data: OutputStream, progressAware: ProgressAware<DownloadState>) {
 			withDiskShare { ds ->
 				val normalizedPath = normalizePath(file.path)
-				ds.openFile(normalizedPath, EnumSet.of(AccessMask.FILE_READ_DATA), null, SMB2ShareAccess.ALL, SMB2CreateDisposition.FILE_OPEN, null).use { f ->
-					f.inputStream.use { it.copyTo(data) }
+				progressAware.onProgress(Progress.started(DownloadState.download(file)))
+				ds.openFile(normalizedPath, EnumSet.of(AccessMask.FILE_READ_DATA, AccessMask.FILE_READ_ATTRIBUTES, AccessMask.READ_CONTROL), null, SMB2ShareAccess.ALL, SMB2CreateDisposition.FILE_OPEN, null).use { f ->
+					f.inputStream.use { inputStream ->
+						val buffer = ByteArray(8192)
+						var bytesRead: Int
+						var totalTransferred = 0L
+						val fileSize = try {
+							f.fileInformation.standardInformation.endOfFile
+						} catch (_: Exception) {
+							file.size ?: 0L
+						}
+						while (inputStream.read(buffer).also { bytesRead = it } != -1) {
+							data.write(buffer, 0, bytesRead)
+							totalTransferred += bytesRead
+							progressAware.onProgress(
+								Progress.progress(DownloadState.download(file))
+									.between(0)
+									.and(fileSize)
+									.withValue(totalTransferred)
+							)
+						}
+					}
 				}
 			}
 		}
@@ -260,8 +324,13 @@ internal class SmbCloudContentRepository(
 			withDiskShare { ds ->
 				val normalizedPath = normalizePath(node.path)
 				if (ds.folderExists(normalizedPath)) {
-					deleteRecursive(ds, normalizedPath)
-				} else if (ds.fileExists(normalizedPath) || ds.folderExists(normalizedPath)) {
+					try {
+						ds.rmdir(normalizedPath, true)
+					} catch (_: Exception) {
+						// Fallback to manual recursive delete if built-in fails
+						deleteRecursive(ds, normalizedPath)
+					}
+				} else if (ds.fileExists(normalizedPath)) {
 					ds.rm(normalizedPath)
 				}
 			}
@@ -269,21 +338,37 @@ internal class SmbCloudContentRepository(
 
 		/**
 		 * Recursively deletes a directory and its contents.
-		 * SMBJ doesn't provide a native recursive delete.
+		 * SMBJ doesn't provide a native recursive delete that handles all edge cases.
 		 */
 		private fun deleteRecursive(ds: DiskShare, path: String) {
-			ds.list(path).forEach { fileInfo ->
+			val list = try {
+				ds.list(path)
+			} catch (_: Exception) {
+				emptyList()
+			}
+			list.forEach { fileInfo ->
 				val name = fileInfo.fileName
 				if (name != "." && name != "..") {
-					val childPath = "$path\\$name"
+					val childPath = if (path.isEmpty()) name else "$path\\$name"
 					if ((fileInfo.fileAttributes and ATTR_DIRECTORY) != 0L) {
 						deleteRecursive(ds, childPath)
 					} else {
-						ds.rm(childPath)
+						try {
+							ds.rm(childPath)
+						} catch (_: Exception) {
+						}
 					}
 				}
 			}
-			ds.rmdir(path, false)
+			try {
+				ds.rmdir(path, false)
+			} catch (_: Exception) {
+				// If non-recursive fails, try recursive as a last resort
+				try {
+					ds.rmdir(path, true)
+				} catch (_: Exception) {
+				}
+			}
 		}
 
 		override fun logout(cloud: SmbCloud) {
@@ -295,6 +380,12 @@ internal class SmbCloudContentRepository(
 		private const val ATTR_DIRECTORY = 0x10L
 		private const val STATUS_OBJECT_PATH_NOT_FOUND = 0xc000003aL
 		private const val STATUS_OBJECT_NAME_NOT_FOUND = 0xc0000034L
+		private const val STATUS_ACCESS_DENIED = 0xc0000022L
+		private const val STATUS_NETWORK_ACCESS_DENIED = 0xc00000caL
+		private const val STATUS_LOGON_FAILURE = 0xc000006dL
+		private const val STATUS_WRONG_PASSWORD = 0xc000006aL
+		private const val STATUS_PASSWORD_EXPIRED = 0xc0000071L
+		private const val STATUS_ACCOUNT_LOCKED_OUT = 0xc0000234L
 	}
 }
 

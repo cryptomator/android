@@ -24,6 +24,7 @@ import org.cryptomator.domain.exception.authentication.WebDavNotSupportedExcepti
 import org.cryptomator.domain.exception.authentication.WebDavServerNotFoundException
 import org.cryptomator.domain.exception.authentication.WrongCredentialsException
 import org.cryptomator.domain.usecases.cloud.AddOrChangeCloudConnectionUseCase
+import org.cryptomator.domain.usecases.cloud.ConnectToSmbUseCase
 import org.cryptomator.domain.usecases.cloud.GetCloudsUseCase
 import org.cryptomator.domain.usecases.cloud.GetUsernameUseCase
 import org.cryptomator.generator.Callback
@@ -37,6 +38,7 @@ import org.cryptomator.presentation.model.LocalStorageModel
 import org.cryptomator.presentation.model.ProgressModel
 import org.cryptomator.presentation.model.ProgressStateModel
 import org.cryptomator.presentation.model.S3CloudModel
+import org.cryptomator.presentation.model.SmbCloudModel
 import org.cryptomator.presentation.model.WebDavCloudModel
 import org.cryptomator.presentation.model.mappers.CloudModelMapper
 import org.cryptomator.presentation.ui.activity.view.AuthenticateCloudView
@@ -61,7 +63,8 @@ class AuthenticateCloudPresenter @Inject constructor( //
 	private val getCloudsUseCase: GetCloudsUseCase, //
 	private val getUsernameUseCase: GetUsernameUseCase,  //
 	private val addExistingVaultWorkflow: AddExistingVaultWorkflow,  //
-	private val createNewVaultWorkflow: CreateNewVaultWorkflow
+	private val createNewVaultWorkflow: CreateNewVaultWorkflow,
+	private val connectToSmbUseCase: ConnectToSmbUseCase
 ) : Presenter<AuthenticateCloudView>(exceptionHandlers) {
 
 	private val strategies = arrayOf( //
@@ -215,7 +218,7 @@ class AuthenticateCloudPresenter @Inject constructor( //
 					ActivityResultCallbacks.onGoogleDriveAuthenticated(cloud),  //
 					GoogleAuthHelper.getChooseAccountIntent(context())
 				)
-			} catch (e: ActivityNotFoundException) {
+			} catch (_: ActivityNotFoundException) {
 				view?.showMessage(R.string.error_play_services_not_available)
 				finish()
 			}
@@ -321,7 +324,7 @@ class AuthenticateCloudPresenter @Inject constructor( //
 			val pCloudSkeleton = PCloud.aPCloud() //
 				.withAccessToken(accessToken)
 				.withUrl(hostname)
-				.build();
+				.build()
 			getUsernameUseCase //
 				.withCloud(pCloudSkeleton) //
 				.run(object : DefaultResultHandler<String>() {
@@ -399,14 +402,37 @@ class AuthenticateCloudPresenter @Inject constructor( //
 	}
 
 	private inner class SmbAuthStrategy : AuthStrategy {
+		private var authenticationStarted = false
 
 		override fun supports(cloud: CloudModel): Boolean {
 			return cloud.cloudType() == CloudTypeModel.SMB
 		}
 
 		override fun resumed(intent: AuthenticateCloudIntent) {
-			// SMB authentication is not yet implemented
-			failAuthentication(intent.cloud().name())
+			if (!authenticationStarted) {
+				startAuthentication(intent.cloud())
+			}
+		}
+
+		private fun startAuthentication(cloud: CloudModel) {
+			authenticationStarted = true
+			showProgress(ProgressModel(ProgressStateModel.AUTHENTICATION))
+			connectToSmbUseCase
+				.withCloud(cloud.toCloud() as SmbCloud)
+				.run(object : DefaultResultHandler<Void?>() {
+					override fun onSuccess(result: Void?) {
+						succeedAuthenticationWith(cloud.toCloud())
+					}
+
+					override fun onError(e: Throwable) {
+						if (ExceptionUtil.contains(e, WrongCredentialsException::class.java)) {
+							startIntent(Intents.smbAddOrChangeIntent().withSmbCloud(cloud as SmbCloudModel))
+						} else {
+							super.onError(e)
+							finish()
+						}
+					}
+				})
 		}
 	}
 
@@ -550,6 +576,6 @@ class AuthenticateCloudPresenter @Inject constructor( //
 	}
 
 	init {
-		unsubscribeOnDestroy(addOrChangeCloudConnectionUseCase, getCloudsUseCase, getUsernameUseCase)
+		unsubscribeOnDestroy(addOrChangeCloudConnectionUseCase, getCloudsUseCase, getUsernameUseCase, connectToSmbUseCase)
 	}
 }
