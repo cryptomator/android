@@ -43,7 +43,7 @@ internal class SmbCloudContentRepository(
 			if (status == STATUS_OBJECT_PATH_NOT_FOUND || status == STATUS_OBJECT_NAME_NOT_FOUND) {
 				throw NoSuchCloudFileException(cause.message)
 			}
-			if (status == STATUS_ACCESS_DENIED || status == STATUS_NETWORK_ACCESS_DENIED || status == STATUS_LOGON_FAILURE || status == STATUS_WRONG_PASSWORD || status == STATUS_PASSWORD_EXPIRED || status == STATUS_ACCOUNT_LOCKED_OUT) {
+			if (status == STATUS_LOGON_FAILURE || status == STATUS_WRONG_PASSWORD || status == STATUS_PASSWORD_EXPIRED || status == STATUS_ACCOUNT_LOCKED_OUT) {
 				throw WrongCredentialsException(cloud)
 			}
 			throw NetworkConnectionException(cause)
@@ -175,7 +175,19 @@ internal class SmbCloudContentRepository(
 		override fun list(folder: SmbFolder): List<SmbNode> {
 			return withDiskShare { ds ->
 				val normalizedPath = normalizePath(folder.path)
-				ds.list(normalizedPath).mapNotNull { fileInfo ->
+				val list = try {
+					ds.list(normalizedPath)
+				} catch (e: Exception) {
+					val apiException = ExceptionUtil.extract(e, SMBApiException::class.java)
+					if (apiException.isPresent) {
+						val status = apiException.get().status.value and 0xFFFFFFFFL
+						if (status == STATUS_OBJECT_PATH_NOT_FOUND || status == STATUS_OBJECT_NAME_NOT_FOUND) {
+							return@withDiskShare emptyList<SmbNode>()
+						}
+					}
+					throw e
+				}
+				list.mapNotNull { fileInfo ->
 					if (fileInfo.fileName == "." || fileInfo.fileName == "..") {
 						null
 					} else {
