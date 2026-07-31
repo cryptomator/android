@@ -307,7 +307,7 @@ class SettingsFragment : PreferenceFragmentCompatLayout() {
 	}
 
 	private fun setupCryptomatorVariants() {
-		if (FlavorConfig.isPremiumFlavor) {
+		if (FlavorConfig.isPremiumFlavor || FlavorConfig.isFreemiumFlavor) {
 			(findPreference(CRYPTOMATOR_VARIANTS) as Preference?)?.let { preference ->
 				(findPreference(getString(R.string.screen_settings_section_general)) as PreferenceCategory?)?.removePreference(preference)
 			}
