@@ -3,7 +3,7 @@
 	<dimen name="activity_horizontal_margin">16dp</dimen>
 	<dimen name="activity_vertical_margin">16dp</dimen>
 	<dimen name="global_padding">16dp</dimen>
-	<dimen name="thumbnail_size">36dp</dimen>
+	<dimen name="thumbnail_size">72dp</dimen>
 	<dimen name="fab_margin">16dp</dimen>
 
 	<dimen name="landscape_bottom_sheet_width">420dp</dimen>
