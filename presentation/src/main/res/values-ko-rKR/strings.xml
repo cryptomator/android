@@ -70,6 +70,8 @@
 	<string name="screen_license_check_subscription_title">연간 구독</string>
 	<string name="screen_license_check_subscription_subtitle">연간</string>
 	<string name="screen_license_check_lifetime_title">평생 라이선스</string>
+	<string name="screen_license_check_lifetime_discount_badge_until">🔥 %2$s까지 %1$d%% 할인</string>
+	<string name="screen_license_check_lifetime_discount_badge_generic">🔥 한정 시간 세일</string>
 	<string name="screen_license_check_lifetime_subtitle">일회성</string>
 	<string name="screen_license_check_restore_purchase">구매 복원</string>
 	<string name="screen_license_check_terms">이용 약관</string>
