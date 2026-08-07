@@ -26,6 +26,7 @@ task generateAppConfigurationFile() {
 	}"""
 
 	def config_file = new File('presentation/src/main/res/raw/auth_config_onedrive.json')
+	config_file.parentFile.mkdirs()
 	config_file.write(JsonOutput.prettyPrint(JsonOutput.toJson(jsonSlurper.parseText(jsonString))))
 }
 
