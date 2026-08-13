@@ -719,6 +719,11 @@ class BrowseFilesPresenter @Inject constructor( //
 	private fun viewFile(cloudFile: CloudFileModel, uri: Uri) {
 		val lowerFileName = cloudFile.name.lowercase()
 		if (lowerFileName.endsWith(".txt") || lowerFileName.endsWith(".md") || lowerFileName.endsWith(".todo")) {
+			if ((cloudFile.size ?: 0) > MAX_TEXT_EDITOR_FILE_SIZE) {
+				view?.showMessage(R.string.screen_file_browser_msg_text_file_too_large_for_editor)
+				viewExternalFile(cloudFile, uri)
+				return
+			}
 			val intent = Intents.textEditorIntent()
 				.withTextFile(cloudFile)
 				.withHubWriteAllowed(licenseEnforcer.hasWriteAccessForVault(view?.folder?.vault()))
@@ -1432,6 +1437,10 @@ class BrowseFilesPresenter @Inject constructor( //
 	companion object {
 
 		const val OPEN_FILE_FINISHED = 12
+
+		// The built-in text editor reads the whole file into a String and hands it to an EditText,
+		// so memory use scales with file size. Files above this size are opened with an external app instead.
+		private const val MAX_TEXT_EDITOR_FILE_SIZE = 2L shl 20 // 2 MiB
 	}
 
 	init {
