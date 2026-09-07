@@ -492,7 +492,7 @@
 	<string name="notification_cleared_trusted_hosts">Очищені довірені хости</string>
 	<string name="screen_settings_lru_cache">Кешування</string>
 	<string name="screen_settings_lru_cache_toggle_summary">Кешувати нещодавно відкриті зашифровані файли локально на пристрої для повторного використання під час наступного відкриття</string>
-	<string name="screen_settings_lru_cache_size">Загальний розмір кешу</string>
+	<string name="screen_settings_lru_cache_size">Загальний розмір кеша</string>
 	<string name="screen_settings_clear_lru_cache_size">Очистити кеш</string>
 	<string name="screen_settings_lru_cache_changed__restart_toast">Зміни буде застосовано після перезапуску програми</string>
 	<string name="screen_settings_license_title_unlock">Розблокувати повну версію</string>
