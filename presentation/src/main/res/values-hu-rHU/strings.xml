@@ -70,6 +70,8 @@
 	<string name="screen_license_check_subscription_title">Éves előfizetés</string>
 	<string name="screen_license_check_subscription_subtitle">évente</string>
 	<string name="screen_license_check_lifetime_title">Élethosszig tartó licenc</string>
+	<string name="screen_license_check_lifetime_discount_badge_until">%1$d%% kedvezmény, eddig: %2$s</string>
+	<string name="screen_license_check_lifetime_discount_badge_generic">Korlátozott idejű ajánlat</string>
 	<string name="screen_license_check_lifetime_subtitle">egyszeri</string>
 	<string name="screen_license_check_restore_purchase">Vásárlás visszaállítása</string>
 	<string name="screen_license_check_terms">Használati feltételek</string>
