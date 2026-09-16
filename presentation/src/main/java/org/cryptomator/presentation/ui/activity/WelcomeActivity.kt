@@ -7,6 +7,7 @@ import android.content.Intent
 import android.content.pm.PackageManager
 import android.os.Build
 import android.view.View
+import androidx.activity.OnBackPressedCallback
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import androidx.core.view.ViewCompat
@@ -100,6 +101,7 @@ class WelcomeActivity : BaseActivity<ActivityWelcomeBinding>(ActivityWelcomeBind
 
 		setupPages()
 		setupPager()
+		setupBackPressedCallback()
 
 		validate(intent)
 		updateNotificationPermissionState()
@@ -123,8 +125,14 @@ class WelcomeActivity : BaseActivity<ActivityWelcomeBinding>(ActivityWelcomeBind
 		orchestrator.onPause()
 	}
 
-	override fun onBackPressed() {
-		goBackOrExit()
+	private val backPressedCallback = object : OnBackPressedCallback(true) {
+		override fun handleOnBackPressed() {
+			goBackOrExit()
+		}
+	}
+
+	private fun setupBackPressedCallback() {
+		onBackPressedDispatcher.addCallback(this, backPressedCallback)
 	}
 
 	private fun setupPages() {
