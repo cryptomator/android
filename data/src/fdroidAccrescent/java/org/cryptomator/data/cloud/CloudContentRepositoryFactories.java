@@ -6,6 +6,7 @@ import org.cryptomator.data.cloud.local.LocalStorageContentRepositoryFactory;
 import org.cryptomator.data.cloud.onedrive.OnedriveCloudContentRepositoryFactory;
 import org.cryptomator.data.cloud.pcloud.PCloudContentRepositoryFactory;
 import org.cryptomator.data.cloud.s3.S3CloudContentRepositoryFactory;
+import org.cryptomator.data.cloud.smb.SmbCloudContentRepositoryFactory;
 import org.cryptomator.data.cloud.webdav.WebDavCloudContentRepositoryFactory;
 import org.cryptomator.data.repository.CloudContentRepositoryFactory;
 import org.jetbrains.annotations.NotNull;
@@ -27,6 +28,7 @@ public class CloudContentRepositoryFactories implements Iterable<CloudContentRep
 			OnedriveCloudContentRepositoryFactory oneDriveFactory, //
 			PCloudContentRepositoryFactory pCloudFactory, //
 			S3CloudContentRepositoryFactory s3Factory, //
+			SmbCloudContentRepositoryFactory smbFactory, //
 			CryptoCloudContentRepositoryFactory cryptoFactory, //
 			LocalStorageContentRepositoryFactory localStorageFactory, //
 			WebDavCloudContentRepositoryFactory webDavFactory) {
@@ -35,6 +37,7 @@ public class CloudContentRepositoryFactories implements Iterable<CloudContentRep
 				oneDriveFactory, //
 				pCloudFactory, //
 				s3Factory, //
+				smbFactory, //
 				cryptoFactory, //
 				localStorageFactory, //
 				webDavFactory);

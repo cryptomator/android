@@ -127,6 +127,9 @@
 			android:name=".ui.activity.WebDavAddOrChangeActivity"
 			android:exported="false" />
 		<activity
+			android:name=".ui.activity.SmbAddOrChangeActivity"
+			android:exported="false" />
+		<activity
 			android:name=".ui.activity.S3AddOrChangeActivity"
 			android:exported="false" />
 

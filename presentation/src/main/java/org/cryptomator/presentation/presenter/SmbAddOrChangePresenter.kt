@@ -1,0 +1,132 @@
+package org.cryptomator.presentation.presenter
+
+import android.widget.Toast
+import org.cryptomator.domain.Cloud
+import org.cryptomator.domain.SmbCloud
+import org.cryptomator.domain.di.PerView
+import org.cryptomator.domain.usecases.cloud.AddOrChangeCloudConnectionUseCase
+import org.cryptomator.domain.usecases.cloud.ConnectToSmbUseCase
+import org.cryptomator.presentation.R
+import org.cryptomator.presentation.exception.ExceptionHandlers
+import org.cryptomator.presentation.model.ProgressModel
+import org.cryptomator.presentation.model.ProgressStateModel
+import org.cryptomator.presentation.ui.activity.view.SmbAddOrChangeView
+import org.cryptomator.util.crypto.CredentialCryptor
+import javax.inject.Inject
+
+/**
+ * Presenter for the SMB setup/edit screen.
+ * Handles validation of SMB URLs and credentials, and performs the connection test/authentication.
+ */
+@PerView
+class SmbAddOrChangePresenter @Inject internal constructor(
+	private val addOrChangeCloudConnectionUseCase: AddOrChangeCloudConnectionUseCase,
+	private val connectToSmbUseCase: ConnectToSmbUseCase,
+	exceptionMappings: ExceptionHandlers,
+) : Presenter<SmbAddOrChangeView>(exceptionMappings) {
+
+	/**
+	 * Validates the user input for the SMB connection.
+	 * Checks for empty fields and ensures the URL is a valid 'smb://' address with a share.
+	 */
+	fun checkUserInput(urlPort: String, username: String, password: String, domain: String, cloudId: Long?) {
+		val statusMessage = when {
+			password.isEmpty() -> getString(R.string.screen_webdav_settings_msg_password_must_not_be_empty)
+			username.isEmpty() -> getString(R.string.screen_webdav_settings_msg_username_must_not_be_empty)
+			(urlPort.isEmpty()) || (urlPort == "smb://") -> getString(R.string.screen_webdav_settings_msg_url_must_not_be_empty)
+			!isValid(urlPort) -> getString(R.string.screen_webdav_settings_msg_url_is_invalid)
+			!hasShare(urlPort) -> getString(R.string.screen_smb_settings_msg_share_must_not_be_empty)
+			else -> null
+		}
+
+		if (statusMessage != null) {
+			Toast.makeText(context(), statusMessage, Toast.LENGTH_SHORT).show()
+		} else {
+			val urlPortWithoutTrailingSlash = urlPort.removeSuffix("/")
+			val encryptedPassword = encryptPassword(password)
+			view?.onCheckUserInputSucceeded(urlPortWithoutTrailingSlash, username, encryptedPassword, domain, cloudId)
+		}
+	}
+
+	private fun encryptPassword(password: String): String {
+		return CredentialCryptor //
+			.getInstance(context()) //
+			.encrypt(password)
+	}
+
+	private fun isValid(urlPort: String): Boolean {
+		return urlPort.startsWith("smb://", ignoreCase = true)
+	}
+
+	/**
+	 * Checks if the URL includes at least one path segment (representing the SMB share).
+	 */
+	private fun hasShare(urlPort: String): Boolean {
+		return try {
+			val uri = java.net.URI(urlPort)
+			val path = uri.path ?: ""
+			path.split("/").any { it.isNotEmpty() }
+		} catch (_: Exception) {
+			false
+		}
+	}
+
+	private fun mapToCloud(username: String, password: String, hostPort: String, domain: String, id: Long?): SmbCloud {
+		val builder = SmbCloud //
+			.aSmbCloud() //
+			.withUrl(hostPort) //
+			.withUsername(username) //
+			.withPassword(password) //
+			.withDomain(domain)
+
+		id?.let { builder.withId(it) }
+
+		return builder.build()
+	}
+
+	/**
+	 * Attempts to connect to the SMB server using the provided credentials.
+	 * If successful, the connection is saved to the local database.
+	 */
+	fun authenticate(username: String, password: String, urlPort: String, domain: String, cloudId: Long?) {
+		authenticate(mapToCloud(username, password, urlPort, domain, cloudId))
+	}
+
+	private fun authenticate(cloud: SmbCloud) {
+		view?.showProgress(ProgressModel(ProgressStateModel.AUTHENTICATION))
+		connectToSmbUseCase //
+			.withCloud(cloud) //
+			.run(
+				object : DefaultResultHandler<Void?>() {
+					override fun onSuccess(void: Void?) {
+						onCloudAuthenticated(cloud)
+					}
+
+					override fun onError(e: Throwable) {
+						view?.showProgress(ProgressModel.COMPLETED)
+						super.onError(e)
+					}
+				},
+			)
+	}
+
+	private fun onCloudAuthenticated(cloud: Cloud) {
+		save(cloud)
+	}
+
+	private fun save(cloud: Cloud) {
+		addOrChangeCloudConnectionUseCase //
+			.withCloud(cloud) //
+			.run(
+				object : DefaultResultHandler<Void?>() {
+					override fun onSuccess(result: Void?) {
+						finishWithResult(CloudConnectionListPresenter.SELECTED_CLOUD, cloud)
+					}
+				},
+			)
+	}
+
+	init {
+		unsubscribeOnDestroy(addOrChangeCloudConnectionUseCase, connectToSmbUseCase)
+	}
+}

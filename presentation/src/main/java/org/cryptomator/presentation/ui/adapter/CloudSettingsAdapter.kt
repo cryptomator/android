@@ -34,17 +34,21 @@ constructor(private val context: Context) : RecyclerViewBaseAdapter<CloudModel, 
 		}
 	}
 
-	inner class CloudSettingViewHolder(private val binding: ItemCloudSettingBinding) : RecyclerViewBaseAdapter<CloudModel, CloudSettingsAdapter.OnItemClickListener, CloudSettingViewHolder, ItemCloudSettingBinding>.ItemViewHolder(binding.root) {
+	inner class CloudSettingViewHolder(private val binding: ItemCloudSettingBinding) : RecyclerViewBaseAdapter<CloudModel, OnItemClickListener, CloudSettingViewHolder, ItemCloudSettingBinding>.ItemViewHolder(binding.root) {
 
 		override fun bind(position: Int) {
 			val cloudModel = getItem(position)
 
 			binding.cloudImage.setImageResource(cloudModel.cloudType().cloudImageResource)
 
+			binding.cloudUsername.text = ""
+			binding.cloudUsername.visibility = View.GONE
+
 			when (cloudModel.cloudType()) {
 				CloudTypeModel.ONEDRIVE -> binding.cloudName.text = context.getString(R.string.screen_cloud_settings_onedrive_connections)
 				CloudTypeModel.PCLOUD -> binding.cloudName.text = context.getString(R.string.screen_cloud_settings_pcloud_connections)
 				CloudTypeModel.S3 -> binding.cloudName.text = context.getString(R.string.screen_cloud_settings_s3_connections)
+				CloudTypeModel.SMB -> binding.cloudName.text = context.getString(R.string.screen_cloud_settings_smb_connections)
 				CloudTypeModel.WEBDAV -> binding.cloudName.text = context.getString(R.string.screen_cloud_settings_webdav_connections)
 				CloudTypeModel.LOCAL -> binding.cloudName.text = context.getString(R.string.screen_cloud_settings_local_storage_locations)
 				else -> {
@@ -52,8 +56,6 @@ constructor(private val context: Context) : RecyclerViewBaseAdapter<CloudModel, 
 					if (isAlreadyLoggedIn(cloudModel)) {
 						binding.cloudUsername.text = cloudModel.username()
 						binding.cloudUsername.visibility = View.VISIBLE
-					} else {
-						binding.cloudUsername.visibility = View.GONE
 					}
 				}
 			}

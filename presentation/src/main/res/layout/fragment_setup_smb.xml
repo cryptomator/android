@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+	android:layout_width="match_parent"
+	android:layout_height="match_parent"
+	android:fillViewport="true">
+
+	<LinearLayout
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content"
+		android:orientation="vertical"
+		android:padding="@dimen/activity_vertical_margin">
+
+		<com.google.android.material.textfield.TextInputLayout
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content">
+
+			<com.google.android.material.textfield.TextInputEditText
+				android:id="@+id/url_port_edit_text"
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"
+				android:hint="@string/screen_smb_settings_url_hint"
+				android:imeOptions="flagNoPersonalizedLearning"
+				android:inputType="textUri"
+				android:maxLines="1"
+				android:singleLine="true"
+				android:text="smb://" />
+
+		</com.google.android.material.textfield.TextInputLayout>
+
+		<com.google.android.material.textfield.TextInputLayout
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content">
+
+			<com.google.android.material.textfield.TextInputEditText
+				android:id="@+id/user_name_edit_text"
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"
+				android:hint="@string/screen_webdav_settings_username_label"
+				android:imeOptions="flagNoPersonalizedLearning"
+				android:maxLines="1"
+				android:singleLine="true" />
+
+		</com.google.android.material.textfield.TextInputLayout>
+
+		<com.google.android.material.textfield.TextInputLayout
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content">
+
+			<com.google.android.material.textfield.TextInputEditText
+				android:id="@+id/password_edit_text"
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"
+				android:hint="@string/screen_webdav_settings_password_label"
+				android:imeOptions="flagNoPersonalizedLearning"
+				android:inputType="textPassword"
+				android:maxLines="1"
+				android:singleLine="true" />
+
+		</com.google.android.material.textfield.TextInputLayout>
+
+		<com.google.android.material.textfield.TextInputLayout
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content">
+
+			<com.google.android.material.textfield.TextInputEditText
+				android:id="@+id/domain_edit_text"
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"
+				android:hint="@string/screen_smb_settings_domain_label"
+				android:imeOptions="flagNoPersonalizedLearning"
+				android:maxLines="1"
+				android:singleLine="true" />
+
+		</com.google.android.material.textfield.TextInputLayout>
+
+		<Button
+			android:id="@+id/create_cloud_button"
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content"
+			android:layout_marginTop="16dp"
+			android:text="@string/screen_webdav_settings_done_button_text"
+			android:textStyle="bold" />
+
+	</LinearLayout>
+
+</androidx.core.widget.NestedScrollView>
