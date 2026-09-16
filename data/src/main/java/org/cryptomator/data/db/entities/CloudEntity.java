@@ -1,79 +1,79 @@
 package org.cryptomator.data.db.entities;
 
-import org.greenrobot.greendao.annotation.Entity;
-import org.greenrobot.greendao.annotation.Generated;
-import org.greenrobot.greendao.annotation.Id;
-import org.greenrobot.greendao.annotation.NotNull;
+import androidx.annotation.NonNull;
+import androidx.room.ColumnInfo;
+import androidx.room.Entity;
+import androidx.room.PrimaryKey;
 
-@Entity
-public class CloudEntity extends DatabaseEntity {
+@Entity(tableName = "CLOUD_ENTITY")
+public class CloudEntity {
 
-	@Id
+	@PrimaryKey(autoGenerate = true)
+	@ColumnInfo(name = "_id")
 	private Long id;
 
-	@NotNull
+	@NonNull
+	@ColumnInfo(name = "TYPE")
 	private String type;
 
+	@ColumnInfo(name = "ACCESS_TOKEN")
 	private String accessToken;
 
+	@ColumnInfo(name = "ACCESS_TOKEN_CRYPTO_MODE")
 	private String accessTokenCryptoMode;
 
+	@ColumnInfo(name = "URL")
 	private String url;
 
+	@ColumnInfo(name = "USERNAME")
 	private String username;
 
+	@ColumnInfo(name = "WEBDAV_CERTIFICATE")
 	private String webdavCertificate;
 
+	@ColumnInfo(name = "S3_BUCKET")
 	private String s3Bucket;
 
+	@ColumnInfo(name = "S3_REGION")
 	private String s3Region;
 
+	@ColumnInfo(name = "S3_SECRET_KEY")
 	private String s3SecretKey;
 
+	@ColumnInfo(name = "S3_SECRET_KEY_CRYPTO_MODE")
 	private String s3SecretKeyCryptoMode;
 
-	@Generated(hash = 930663276)
-	public CloudEntity(Long id, @NotNull String type, String accessToken, String accessTokenCryptoMode, String url, String username, String webdavCertificate, String s3Bucket,
-			String s3Region, String s3SecretKey, String s3SecretKeyCryptoMode) {
-		this.id = id;
-		this.type = type;
-		this.accessToken = accessToken;
-		this.accessTokenCryptoMode = accessTokenCryptoMode;
-		this.url = url;
-		this.username = username;
-		this.webdavCertificate = webdavCertificate;
-		this.s3Bucket = s3Bucket;
-		this.s3Region = s3Region;
-		this.s3SecretKey = s3SecretKey;
-		this.s3SecretKeyCryptoMode = s3SecretKeyCryptoMode;
+	public Long getId() {
+		return id;
 	}
 
-	@Generated(hash = 1354152224)
-	public CloudEntity() {
+	public void setId(Long id) {
+		this.id = id;
+	}
+
+	@NonNull
+	public String getType() {
+		return type;
+	}
+
+	public void setType(@NonNull String type) {
+		this.type = type;
 	}
 
 	public String getAccessToken() {
-		return this.accessToken;
+		return accessToken;
 	}
 
 	public void setAccessToken(String accessToken) {
 		this.accessToken = accessToken;
 	}
 
-	public String getType() {
-		return this.type;
+	public String getAccessTokenCryptoMode() {
+		return accessTokenCryptoMode;
 	}
 
-	public void setType(String type) {
-		this.type = type;
-	}
-
-	public Long getId() {
-		return this.id;
-	}
-
-	public void setId(Long id) {
-		this.id = id;
+	public void setAccessTokenCryptoMode(String accessTokenCryptoMode) {
+		this.accessTokenCryptoMode = accessTokenCryptoMode;
 	}
 
 	public String getUrl() {
@@ -101,7 +101,7 @@ public class CloudEntity extends DatabaseEntity {
 	}
 
 	public String getS3Bucket() {
-		return this.s3Bucket;
+		return s3Bucket;
 	}
 
 	public void setS3Bucket(String s3Bucket) {
@@ -109,7 +109,7 @@ public class CloudEntity extends DatabaseEntity {
 	}
 
 	public String getS3Region() {
-		return this.s3Region;
+		return s3Region;
 	}
 
 	public void setS3Region(String s3Region) {
@@ -117,23 +117,15 @@ public class CloudEntity extends DatabaseEntity {
 	}
 
 	public String getS3SecretKey() {
-		return this.s3SecretKey;
+		return s3SecretKey;
 	}
 
 	public void setS3SecretKey(String s3SecretKey) {
 		this.s3SecretKey = s3SecretKey;
 	}
 
-	public String getAccessTokenCryptoMode() {
-		return this.accessTokenCryptoMode;
-	}
-
-	public void setAccessTokenCryptoMode(String accessTokenCryptoMode) {
-		this.accessTokenCryptoMode = accessTokenCryptoMode;
-	}
-
 	public String getS3SecretKeyCryptoMode() {
-		return this.s3SecretKeyCryptoMode;
+		return s3SecretKeyCryptoMode;
 	}
 
 	public void setS3SecretKeyCryptoMode(String s3SecretKeyCryptoMode) {

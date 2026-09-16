@@ -1,6 +1,6 @@
 package org.cryptomator.data.db
 
-import org.greenrobot.greendao.database.Database
+import androidx.sqlite.db.SupportSQLiteDatabase
 import javax.inject.Inject
 import javax.inject.Singleton
 
@@ -10,7 +10,7 @@ internal class Upgrade10To11 @Inject constructor() : DatabaseUpgrade(10, 11) {
 	private val defaultVaultFormat = 8
 	private val onedriveCloudId = 3L
 
-	override fun internalApplyTo(db: Database, origin: Int) {
+	override fun internalMigrate(db: SupportSQLiteDatabase) {
 		db.beginTransaction()
 		try {
 			addFormatAndShorteningToDbEntity(db)
@@ -24,7 +24,7 @@ internal class Upgrade10To11 @Inject constructor() : DatabaseUpgrade(10, 11) {
 		}
 	}
 
-	private fun addFormatAndShorteningToDbEntity(db: Database) {
+	private fun addFormatAndShorteningToDbEntity(db: SupportSQLiteDatabase) {
 		Sql.alterTable("VAULT_ENTITY").renameTo("VAULT_ENTITY_OLD").executeOn(db)
 		Sql.createTable("VAULT_ENTITY") //
 			.id() //
@@ -58,14 +58,14 @@ internal class Upgrade10To11 @Inject constructor() : DatabaseUpgrade(10, 11) {
 	}
 
 
-	private fun addDefaultFormatAndShorteningThresholdToVaults(db: Database) {
+	private fun addDefaultFormatAndShorteningThresholdToVaults(db: SupportSQLiteDatabase) {
 		Sql.update("VAULT_ENTITY")
 			.set("FORMAT", Sql.toInteger(defaultVaultFormat))
 			.set("SHORTENING_THRESHOLD", Sql.toInteger(defaultThreshold))
 			.executeOn(db)
 	}
 
-	private fun deleteOnedriveCloudIfNotSetUp(db: Database) {
+	private fun deleteOnedriveCloudIfNotSetUp(db: SupportSQLiteDatabase) {
 		Sql.deleteFrom("CLOUD_ENTITY")
 			.where("_id", Sql.eq(onedriveCloudId))
 			.where("TYPE", Sql.eq("ONEDRIVE"))

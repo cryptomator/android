@@ -4,7 +4,8 @@ import android.content.ContentValues;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 
-import org.greenrobot.greendao.database.Database;
+import androidx.sqlite.db.SupportSQLiteDatabase;
+import androidx.sqlite.db.SupportSQLiteQueryBuilder;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -89,10 +90,6 @@ class Sql {
 		return (column, contentValues) -> contentValues.putNull(column);
 	}
 
-	private static SQLiteDatabase unwrap(Database wrapped) {
-		return (SQLiteDatabase) wrapped.getRawDatabase();
-	}
-
 	public interface ValueHolder {
 
 		void put(String column, ContentValues contentValues);
@@ -111,9 +108,6 @@ class Sql {
 		private final List<String> whereArgs = new ArrayList<>();
 
 		private List<String> columns = new ArrayList<>();
-		private String groupBy;
-		private String having;
-		private String limit;
 
 		public SqlQueryBuilder(String tableName) {
 			this.tableName = tableName;
@@ -132,24 +126,15 @@ class Sql {
 			return this;
 		}
 
-		public SqlQueryBuilder groupBy(String groupBy) {
-			this.groupBy = groupBy;
-			return this;
-		}
-
-		public SqlQueryBuilder having(String having) {
-			this.having = having;
-			return this;
-		}
-
-		public SqlQueryBuilder limit(String limit) {
-			this.limit = limit;
-			return this;
-		}
-
-		public Cursor executeOn(Database wrapped) {
-			SQLiteDatabase db = unwrap(wrapped);
-			return db.query(tableName, columns.toArray(new String[columns.size()]), whereClause.toString(), whereArgs.toArray(new String[whereArgs.size()]), groupBy, having, limit);
+		public Cursor executeOn(SupportSQLiteDatabase db) {
+			SupportSQLiteQueryBuilder query = SupportSQLiteQueryBuilder.builder(tableName);
+			if (!columns.isEmpty()) {
+				query.columns(columns.toArray(new String[0]));
+			}
+			if (whereClause.length() > 0) {
+				query.selection(whereClause.toString(), whereArgs.toArray(new String[0]));
+			}
+			return db.query(query.create());
 		}
 
 	}
@@ -179,12 +164,11 @@ class Sql {
 			return this;
 		}
 
-		public void executeOn(Database wrapped) {
+		public void executeOn(SupportSQLiteDatabase db) {
 			if (contentValues.size() == 0) {
 				throw new IllegalStateException("At least one value must be set");
 			}
-			SQLiteDatabase db = unwrap(wrapped);
-			db.update(tableName, contentValues, whereClause.toString(), whereArgs.toArray(new String[whereArgs.size()]));
+			db.update(tableName, SQLiteDatabase.CONFLICT_NONE, contentValues, whereClause.toString(), whereArgs.toArray(new String[0]));
 		}
 
 	}
@@ -197,8 +181,7 @@ class Sql {
 			this.index = index;
 		}
 
-		public void executeOn(Database wrapped) {
-			SQLiteDatabase db = unwrap(wrapped);
+		public void executeOn(SupportSQLiteDatabase db) {
 			db.execSQL(format("DROP INDEX \"%s\"", index));
 		}
 
@@ -227,8 +210,7 @@ class Sql {
 			return this;
 		}
 
-		public void executeOn(Database wrapped) {
-			SQLiteDatabase db = unwrap(wrapped);
+		public void executeOn(SupportSQLiteDatabase db) {
 			db.execSQL(format("CREATE UNIQUE INDEX \"%s\" ON \"%s\" (%s)", indexName, table, columns));
 		}
 	}
@@ -241,8 +223,7 @@ class Sql {
 			this.table = table;
 		}
 
-		public void executeOn(Database wrapped) {
-			SQLiteDatabase db = unwrap(wrapped);
+		public void executeOn(SupportSQLiteDatabase db) {
 			db.execSQL(format("DROP TABLE \"%s\"", table));
 		}
 
@@ -262,8 +243,7 @@ class Sql {
 			return this;
 		}
 
-		public void executeOn(Database wrapped) {
-			SQLiteDatabase db = unwrap(wrapped);
+		public void executeOn(SupportSQLiteDatabase db) {
 			db.execSQL(format("ALTER TABLE \"%s\" RENAME TO \"%s\"", table, newName));
 		}
 	}
@@ -288,8 +268,7 @@ class Sql {
 			return this;
 		}
 
-		public void executeOn(Database wrapped) {
-			SQLiteDatabase db = unwrap(wrapped);
+		public void executeOn(SupportSQLiteDatabase db) {
 			StringBuilder query = new StringBuilder().append("INSERT INTO \"").append(table).append("\" (");
 			appendColumns(query, columns, false);
 			query.append(") SELECT ");
@@ -400,8 +379,7 @@ class Sql {
 			return this;
 		}
 
-		public void executeOn(Database wrapped) {
-			SQLiteDatabase db = unwrap(wrapped);
+		public void executeOn(SupportSQLiteDatabase db) {
 			db.execSQL(format("CREATE TABLE \"%s\" (%s%s)", table, columns, foreignKeys));
 		}
 
@@ -496,9 +474,8 @@ class Sql {
 			return this;
 		}
 
-		public Long executeOn(Database wrapped) {
-			SQLiteDatabase db = unwrap(wrapped);
-			return db.insertOrThrow(table, null, contentValues);
+		public Long executeOn(SupportSQLiteDatabase db) {
+			return db.insert(table, SQLiteDatabase.CONFLICT_NONE, contentValues);
 		}
 	}
 
@@ -521,9 +498,8 @@ class Sql {
 			return this;
 		}
 
-		public void executeOn(Database wrapped) {
-			SQLiteDatabase db = unwrap(wrapped);
-			db.delete(tableName, whereClause.toString(), whereArgs.toArray(new String[whereArgs.size()]));
+		public void executeOn(SupportSQLiteDatabase db) {
+			db.delete(tableName, whereClause.toString(), whereArgs.toArray(new String[0]));
 		}
 	}
 

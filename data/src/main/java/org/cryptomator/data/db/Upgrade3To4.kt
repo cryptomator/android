@@ -1,14 +1,14 @@
 package org.cryptomator.data.db
 
+import androidx.sqlite.db.SupportSQLiteDatabase
 import org.cryptomator.data.db.Sql.SqlCreateTableBuilder.ForeignKeyBehaviour
-import org.greenrobot.greendao.database.Database
 import javax.inject.Inject
 import javax.inject.Singleton
 
 @Singleton
 internal class Upgrade3To4 @Inject constructor() : DatabaseUpgrade(3, 4) {
 
-	override fun internalApplyTo(db: Database, origin: Int) {
+	override fun internalMigrate(db: SupportSQLiteDatabase) {
 		db.beginTransaction()
 		try {
 			addPositionToVaultSchema(db)
@@ -19,7 +19,7 @@ internal class Upgrade3To4 @Inject constructor() : DatabaseUpgrade(3, 4) {
 		}
 	}
 
-	private fun addPositionToVaultSchema(db: Database) {
+	private fun addPositionToVaultSchema(db: SupportSQLiteDatabase) {
 		Sql.alterTable("VAULT_ENTITY").renameTo("VAULT_ENTITY_OLD").executeOn(db)
 		Sql.createTable("VAULT_ENTITY") //
 			.id() //
@@ -50,7 +50,7 @@ internal class Upgrade3To4 @Inject constructor() : DatabaseUpgrade(3, 4) {
 		Sql.dropTable("VAULT_ENTITY_OLD").executeOn(db)
 	}
 
-	private fun initVaultPositionUsingCurrentSortOrder(db: Database) {
+	private fun initVaultPositionUsingCurrentSortOrder(db: SupportSQLiteDatabase) {
 		Sql.query("VAULT_ENTITY").executeOn(db).use {
 			while (it.moveToNext()) {
 				Sql.update("VAULT_ENTITY")
