@@ -1,145 +1,80 @@
 package org.cryptomator.data.db.entities;
 
-import org.greenrobot.greendao.DaoException;
-import org.greenrobot.greendao.annotation.Entity;
-import org.greenrobot.greendao.annotation.Generated;
-import org.greenrobot.greendao.annotation.Id;
-import org.greenrobot.greendao.annotation.Index;
-import org.greenrobot.greendao.annotation.NotNull;
-import org.greenrobot.greendao.annotation.ToOne;
+import androidx.annotation.NonNull;
+import androidx.room.ColumnInfo;
+import androidx.room.Entity;
+import androidx.room.ForeignKey;
+import androidx.room.Index;
+import androidx.room.PrimaryKey;
+import androidx.room.RoomWarnings;
 
-@Entity(indexes = {@Index(value = "folderPath,folderCloudId", unique = true)})
-public class VaultEntity extends DatabaseEntity {
+/**
+ * The index on {@code FOLDER_CLOUD_ID} that Room asks for would only speed up cascading deletes of a
+ * handful of rows, so the index inherited from the greenDAO schema is kept as the only one.
+ */
+@SuppressWarnings(RoomWarnings.MISSING_INDEX_ON_FOREIGN_KEY_CHILD)
+@Entity(tableName = "VAULT_ENTITY", //
+		foreignKeys = @ForeignKey( //
+				entity = CloudEntity.class, //
+				parentColumns = "_id", //
+				childColumns = "FOLDER_CLOUD_ID", //
+				onDelete = ForeignKey.SET_NULL), //
+		indices = @Index( //
+				name = "IDX_VAULT_ENTITY_FOLDER_PATH_FOLDER_CLOUD_ID", //
+				value = {"FOLDER_PATH", "FOLDER_CLOUD_ID"}, //
+				unique = true))
+public class VaultEntity {
 
-	@Id
+	@PrimaryKey(autoGenerate = true)
+	@ColumnInfo(name = "_id")
 	private Long id;
 
+	@ColumnInfo(name = "FOLDER_CLOUD_ID")
 	private Long folderCloudId;
 
-	@ToOne(joinProperty = "folderCloudId")
-	private CloudEntity folderCloud;
-
+	@ColumnInfo(name = "FOLDER_PATH")
 	private String folderPath;
 
+	@ColumnInfo(name = "FOLDER_NAME")
 	private String folderName;
 
-	@NotNull
+	@NonNull
+	@ColumnInfo(name = "CLOUD_TYPE")
 	private String cloudType;
 
+	@ColumnInfo(name = "PASSWORD")
 	private String password;
 
+	@ColumnInfo(name = "PASSWORD_CRYPTO_MODE")
 	private String passwordCryptoMode;
 
+	@ColumnInfo(name = "POSITION")
 	private Integer position;
 
+	@ColumnInfo(name = "FORMAT")
 	private Integer format;
 
+	@ColumnInfo(name = "SHORTENING_THRESHOLD")
 	private Integer shorteningThreshold;
 
-	/**
-	 * Used for active entity operations.
-	 */
-	@Generated(hash = 941685503)
-	private transient VaultEntityDao myDao;
-	/**
-	 * Used to resolve relations
-	 */
-	@Generated(hash = 2040040024)
-	private transient DaoSession daoSession;
+	public Long getId() {
+		return id;
+	}
 
-	@Generated(hash = 229273163)
-	private transient Long folderCloud__resolvedKey;
-
-	@Generated(hash = 1663458645)
-	public VaultEntity(Long id, Long folderCloudId, String folderPath, String folderName, @NotNull String cloudType, String password, String passwordCryptoMode, Integer position, Integer format,
-			Integer shorteningThreshold) {
+	public void setId(Long id) {
 		this.id = id;
+	}
+
+	public Long getFolderCloudId() {
+		return folderCloudId;
+	}
+
+	public void setFolderCloudId(Long folderCloudId) {
 		this.folderCloudId = folderCloudId;
-		this.folderPath = folderPath;
-		this.folderName = folderName;
-		this.cloudType = cloudType;
-		this.password = password;
-		this.passwordCryptoMode = passwordCryptoMode;
-		this.position = position;
-		this.format = format;
-		this.shorteningThreshold = shorteningThreshold;
-	}
-
-	@Generated(hash = 691253864)
-	public VaultEntity() {
-	}
-
-	/**
-	 * Convenient call for {@link org.greenrobot.greendao.AbstractDao#refresh(Object)}.
-	 * Entity must attached to an entity context.
-	 */
-	@Generated(hash = 1942392019)
-	public void refresh() {
-		if (myDao == null) {
-			throw new DaoException("Entity is detached from DAO context");
-		}
-		myDao.refresh(this);
-	}
-
-	/**
-	 * Convenient call for {@link org.greenrobot.greendao.AbstractDao#update(Object)}.
-	 * Entity must attached to an entity context.
-	 */
-	@Generated(hash = 713229351)
-	public void update() {
-		if (myDao == null) {
-			throw new DaoException("Entity is detached from DAO context");
-		}
-		myDao.update(this);
-	}
-
-	/**
-	 * Convenient call for {@link org.greenrobot.greendao.AbstractDao#delete(Object)}.
-	 * Entity must attached to an entity context.
-	 */
-	@Generated(hash = 128553479)
-	public void delete() {
-		if (myDao == null) {
-			throw new DaoException("Entity is detached from DAO context");
-		}
-		myDao.delete(this);
-	}
-
-	/**
-	 * To-one relationship, resolved on first access.
-	 */
-	@Generated(hash = 1508817413)
-	public CloudEntity getFolderCloud() {
-		Long __key = this.folderCloudId;
-		if (folderCloud__resolvedKey == null || !folderCloud__resolvedKey.equals(__key)) {
-			final DaoSession daoSession = this.daoSession;
-			if (daoSession == null) {
-				throw new DaoException("Entity is detached from DAO context");
-			}
-			CloudEntityDao targetDao = daoSession.getCloudEntityDao();
-			CloudEntity folderCloudNew = targetDao.load(__key);
-			synchronized (this) {
-				folderCloud = folderCloudNew;
-				folderCloud__resolvedKey = __key;
-			}
-		}
-		return folderCloud;
-	}
-
-	/**
-	 * called by internal mechanisms, do not call yourself.
-	 */
-	@Generated(hash = 1482096330)
-	public void setFolderCloud(CloudEntity folderCloud) {
-		synchronized (this) {
-			this.folderCloud = folderCloud;
-			folderCloudId = folderCloud == null ? null : folderCloud.getId();
-			folderCloud__resolvedKey = folderCloudId;
-		}
 	}
 
 	public String getFolderPath() {
-		return this.folderPath;
+		return folderPath;
 	}
 
 	public void setFolderPath(String folderPath) {
@@ -154,40 +89,33 @@ public class VaultEntity extends DatabaseEntity {
 		this.folderName = folderName;
 	}
 
-	public Long getId() {
-		return this.id;
-	}
-
-	public void setId(Long id) {
-		this.id = id;
-	}
-
-	public Long getFolderCloudId() {
-		return this.folderCloudId;
-	}
-
-	public void setFolderCloudId(Long folderCloudId) {
-		this.folderCloudId = folderCloudId;
-	}
-
+	@NonNull
 	public String getCloudType() {
-		return this.cloudType;
+		return cloudType;
 	}
 
-	public void setCloudType(String cloudType) {
+	public void setCloudType(@NonNull String cloudType) {
 		this.cloudType = cloudType;
 	}
 
 	public String getPassword() {
-		return this.password;
+		return password;
 	}
 
 	public void setPassword(String password) {
 		this.password = password;
 	}
 
+	public String getPasswordCryptoMode() {
+		return passwordCryptoMode;
+	}
+
+	public void setPasswordCryptoMode(String passwordCryptoMode) {
+		this.passwordCryptoMode = passwordCryptoMode;
+	}
+
 	public Integer getPosition() {
-		return this.position;
+		return position;
 	}
 
 	public void setPosition(Integer position) {
@@ -195,7 +123,7 @@ public class VaultEntity extends DatabaseEntity {
 	}
 
 	public Integer getFormat() {
-		return this.format;
+		return format;
 	}
 
 	public void setFormat(Integer format) {
@@ -203,26 +131,10 @@ public class VaultEntity extends DatabaseEntity {
 	}
 
 	public Integer getShorteningThreshold() {
-		return this.shorteningThreshold;
+		return shorteningThreshold;
 	}
 
 	public void setShorteningThreshold(Integer shorteningThreshold) {
 		this.shorteningThreshold = shorteningThreshold;
 	}
-
-	public String getPasswordCryptoMode() {
-		return this.passwordCryptoMode;
-	}
-
-	public void setPasswordCryptoMode(String passwordCryptoMode) {
-		this.passwordCryptoMode = passwordCryptoMode;
-	}
-
-	/** called by internal mechanisms, do not call yourself. */
-	@Generated(hash = 674742652)
-	public void __setDaoSession(DaoSession daoSession) {
-		this.daoSession = daoSession;
-		myDao = daoSession != null ? daoSession.getVaultEntityDao() : null;
-	}
-
 }

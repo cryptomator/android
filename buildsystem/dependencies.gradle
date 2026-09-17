@@ -81,8 +81,7 @@ ext {
 
 	lruFileCacheVersion = '1.2'
 
-	// KEEP IN SYNC WITH GENERATOR VERSION IN root build.gradle
-	greenDaoVersion = '3.3.0'
+	roomVersion = '2.8.5'
 
 	// cloud provider libs
 	// todo updaten
@@ -168,7 +167,6 @@ ext {
 			googlePlayServicesAuth         : "com.google.android.gms:play-services-auth:${googlePlayServicesVersion}",
 			trackingFreeGoogleCLient       : "com.github.cryptomator.google-http-java-client:google-http-client:${trackingFreeGoogleCLientVersion}",
 			trackingFreeGoogleAndroidCLient: "com.github.cryptomator.google-http-java-client:google-http-client-android:${trackingFreeGoogleCLientVersion}",
-			greenDao                       : "org.greenrobot:greendao:${greenDaoVersion}",
 			gson                           : "com.google.code.gson:gson:${gsonVersion}",
 			hamcrest                       : "org.hamcrest:hamcrest-all:${hamcrestVersion}",
 			javaxAnnotation                : "javax.annotation:jsr250-api:${javaxAnnotationVersion}",
@@ -190,6 +188,8 @@ ext {
 			okHttpDigest                   : "io.github.rburgst:okhttp-digest:${okHttpDigestVersion}",
 			pcloud                         : "com.github.cryptomator.pcloud-sdk-java:java-core:${pcloudVersion}",
 			recyclerViewFastScroll         : "com.simplecityapps:recyclerview-fastscroll:${recyclerViewFastScrollVersion}",
+			roomRuntime                    : "androidx.room:room-runtime:${roomVersion}",
+			roomCompiler                   : "androidx.room:room-compiler:${roomVersion}",
 			rxJava                         : "io.reactivex.rxjava2:rxjava:${rxJavaVersion}",
 			rxAndroid                      : "io.reactivex.rxjava2:rxandroid:${rxAndroidVersion}",
 			rxBinding                      : "com.jakewharton.rxbinding2:rxbinding:${rxBindingVersion}",
