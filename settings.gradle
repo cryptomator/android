@@ -1,1 +1,6 @@
+// pins the Kotlin module name, which is used to mangle internal members, so it no longer depends on the
+// name of the checkout directory; 'project' matches the Docker mount path in buildsystem/Dockerfile, so
+// APKs already published from there stay reproducible. see https://github.com/cryptomator/android/issues/645
+rootProject.name = 'project'
+
 include ':generator', ':presentation', ':generator-api', ':domain', ':data', ':util'

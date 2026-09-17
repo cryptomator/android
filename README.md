@@ -21,7 +21,7 @@ Cryptomator for Android is currently available in the following  distribution ch
 ### Dependencies
 
 * Git
-* JDK 17
+* JDK 21
 * Gradle
 
 ### Run Git and Gradle
