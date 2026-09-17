@@ -19,7 +19,7 @@ import javax.lang.model.element.VariableElement;
 import javax.tools.JavaFileObject;
 
 @SupportedAnnotationTypes("org.cryptomator.generator.InstanceState")
-@SupportedSourceVersion(SourceVersion.RELEASE_17)
+@SupportedSourceVersion(SourceVersion.RELEASE_21)
 public class InstanceStateProcessor extends BaseProcessor {
 
 	@Override
