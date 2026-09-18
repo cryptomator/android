@@ -17,6 +17,7 @@ import org.cryptomator.presentation.di.module.ApplicationModule;
 import org.cryptomator.presentation.di.module.ThreadModule;
 import org.cryptomator.presentation.util.ContentResolverUtil;
 import org.cryptomator.presentation.util.FileUtil;
+import org.cryptomator.presentation.util.ThumbnailUtil;
 
 import javax.inject.Singleton;
 
@@ -45,6 +46,8 @@ public interface ApplicationComponent {
 	FileUtil fileUtil();
 
 	ContentResolverUtil contentResolverUtil();
+
+	ThumbnailUtil thumbnailUtil();
 
 	NetworkConnectionCheck networkConnectionCheck();
 

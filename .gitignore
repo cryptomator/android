@@ -15,6 +15,11 @@
 .idea/encodings.xml
 .idea/compiler.xml
 .idea/jarRepositories.xml
+.idea/misc.xml
+.idea/deploymentTargetSelector.xml
+.idea/deviceManager.xml
+.idea/markdown.xml
+.idea/migrations.xml
 
 ###Android###
 

@@ -10,7 +10,9 @@
 		android:layout_width="@dimen/thumbnail_size"
 		android:layout_height="@dimen/thumbnail_size"
 		android:layout_centerVertical="true"
-		android:layout_marginStart="16dp" />
+		android:layout_marginStart="16dp"
+		android:scaleType="centerCrop"
+		android:clipToOutline="true" />
 
 	<include
 		android:id="@+id/ll_cloud_folder_content"
