@@ -182,6 +182,7 @@ ext {
 			mockitoInline                  : "org.mockito:mockito-inline:${mockitoInlineVersion}",
 			mockitoKotlin                  : "org.mockito.kotlin:mockito-kotlin:${mockitoKotlinVersion}",
 			mockitoAndroid                 : "org.mockito:mockito-android:${mockitoAndroidVersion}",
+			mockWebServer                  : "com.squareup.okhttp3:mockwebserver3:${okHttpVersion}",
 			msgraph                        : "com.microsoft.graph:microsoft-graph:${msgraphVersion}",
 			msgraphAuth                    : "com.microsoft.identity.client:msal:${msgraphAuthVersion}",
 			okHttp                         : "com.squareup.okhttp3:okhttp:${okHttpVersion}",
