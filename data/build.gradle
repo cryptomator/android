@@ -217,6 +217,7 @@ dependencies {
 	implementation dependencies.androidxTestJunitKtln
 
 	testImplementation dependencies.mockito
+	testImplementation dependencies.mockWebServer
 	testImplementation dependencies.mockitoKotlin
 	testImplementation dependencies.mockitoInline
 	testImplementation dependencies.hamcrest

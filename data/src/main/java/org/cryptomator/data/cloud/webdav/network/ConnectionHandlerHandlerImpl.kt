@@ -7,6 +7,7 @@ import org.cryptomator.domain.exception.BackendException
 import java.io.InputStream
 import java.util.Date
 import javax.inject.Inject
+import okhttp3.RequestBody
 
 class ConnectionHandlerHandlerImpl @Inject internal constructor(httpClient: WebDavCompatibleHttpClient) {
 
@@ -28,8 +29,8 @@ class ConnectionHandlerHandlerImpl @Inject internal constructor(httpClient: WebD
 	}
 
 	@Throws(BackendException::class)
-	fun writeFile(url: String, inputStream: InputStream, modifiedDate: Date) {
-		webDavClient.writeFile(url, inputStream, modifiedDate)
+	fun writeFile(url: String, requestBody: RequestBody, modifiedDate: Date) {
+		webDavClient.writeFile(url, requestBody, modifiedDate)
 	}
 
 	@Throws(BackendException::class)
