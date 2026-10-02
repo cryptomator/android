@@ -34,6 +34,12 @@ class IapBillingService : Service(), PurchasesUpdatedListener {
 	private val productDetailsMap = ConcurrentHashMap<String, ProductDetails>()
 	private val pendingProductDetailsCallbacks = PendingCallbackQueue<List<ProductInfo>>()
 
+	// Holds requests back until the first setup callback. BillingClient.isReady cannot serve as the gate because
+	// it is always true with enableAutoServiceReconnection(). A request issued while the initial connection is
+	// in flight triggers reconnection attempts that arrive as onBillingSetupFinished with DEVELOPER_ERROR.
+	@Volatile
+	private var billingSetupFinished = false
+
 	private fun initBillingClient(context: Context) {
 		this.sharedPreferencesHandler = SharedPreferencesHandler(context)
 		this.purchaseManager = PurchaseManager(sharedPreferencesHandler)
@@ -49,6 +55,7 @@ class IapBillingService : Service(), PurchasesUpdatedListener {
 			.build()
 		billingClient.startConnection(object : BillingClientStateListener {
 			override fun onBillingSetupFinished(billingResult: BillingResult) {
+				billingSetupFinished = true
 				if (billingResult.responseCode == BillingClient.BillingResponseCode.OK) {
 					Timber.tag("IapBillingService").d("Billing setup successful")
 					queryExistingPurchases()
@@ -73,6 +80,11 @@ class IapBillingService : Service(), PurchasesUpdatedListener {
 	}
 
 	fun queryExistingPurchases(onComplete: (RestoreOutcome) -> Unit = {}) {
+		if (!billingSetupFinished) {
+			Timber.tag("IapBillingService").w("Billing setup not finished for refresh")
+			onComplete(RestoreOutcome.FAILED())
+			return
+		}
 		purchaseRefreshCoordinator.refresh(
 			billingClient = billingClient,
 			purchaseManager = purchaseManager,
@@ -116,7 +128,7 @@ class IapBillingService : Service(), PurchasesUpdatedListener {
 	}
 
 	fun queryProductDetails(callback: (List<ProductInfo>) -> Unit) {
-		if (!billingClient.isReady) {
+		if (!billingSetupFinished) {
 			pendingProductDetailsCallbacks.enqueue(callback)
 			return
 		}
