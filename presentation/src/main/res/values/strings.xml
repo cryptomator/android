@@ -156,6 +156,8 @@
 	<string name="screen_vault_list_vault_action_delete">Remove</string>
 	<string name="screen_vault_list_vault_creation_hint">Tap here to create a new vault</string>
 	<string name="screen_vault_list_change_password_successful">Password successfully changed</string>
+	<string name="screen_vault_list_sale_promo_banner">🔥 Lifetime License is %1$d%% off until %2$s</string>
+	<string name="screen_vault_list_sale_promo_banner_dismiss">Dismiss</string>
 
 	<!-- # screen: file browser -->
 	<string name="screen_file_browser_default_title">Vault</string>

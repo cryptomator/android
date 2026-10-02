@@ -174,6 +174,7 @@ class IapBillingService : Service(), PurchasesUpdatedListener {
 			val promoOffer = findPromotionalInappOffer(details.oneTimePurchaseOfferDetailsList)
 			if (baseOffer != null && promoOffer != null) {
 				val discountPercent = promoOffer.discountDisplayInfo?.percentageDiscount
+					?: calculateDiscountPercent(baseOffer.priceAmountMicros, promoOffer.priceAmountMicros)
 				val discountEndTimeMillis = promoOffer.validTimeWindow?.endTimeMillis
 				ProductInfo(details.productId, baseOffer.formattedPrice, promoOffer.formattedPrice, discountPercent, discountEndTimeMillis)
 			} else {
