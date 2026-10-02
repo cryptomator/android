@@ -19,6 +19,8 @@ import org.cryptomator.domain.usecases.vault.UpdateVaultParameterIfChangedRemote
 import org.cryptomator.presentation.exception.ExceptionHandlers
 import org.cryptomator.presentation.licensing.LicenseEnforcer
 import org.cryptomator.presentation.model.mappers.CloudFolderModelMapper
+import org.cryptomator.presentation.service.ProductPrices
+import org.cryptomator.presentation.service.SalePromo
 import org.cryptomator.presentation.ui.activity.view.VaultListView
 import org.cryptomator.presentation.ui.dialog.TrialExpiredDialog
 import org.cryptomator.presentation.util.FileUtil
@@ -29,7 +31,9 @@ import org.cryptomator.util.SharedPreferencesHandler
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
 import org.mockito.Mockito
+import org.mockito.kotlin.any
 import org.mockito.kotlin.isA
+import java.util.concurrent.TimeUnit
 
 class VaultListPresenterFreemiumTest {
 
@@ -133,5 +137,71 @@ class VaultListPresenterFreemiumTest {
 		inTest.resumed()
 
 		Mockito.verify(vaultListView, Mockito.times(1)).showDialog(isA<TrialExpiredDialog>())
+	}
+
+	@Test
+	fun `resumed loads product prices when no paid license`() {
+		stubTrialState(active = true, expired = false, date = "Apr 28, 2026")
+		stubHasPaidLicense(false)
+
+		inTest.resumed()
+
+		Mockito.verify(vaultListView).loadProductPrices()
+	}
+
+	@Test
+	fun `resumed hides sale promo banner without loading product prices when has paid license`() {
+		stubTrialState(active = false, expired = false, date = null)
+		stubHasPaidLicense(true)
+
+		inTest.resumed()
+
+		Mockito.verify(vaultListView).hideSalePromoBanner()
+		Mockito.verify(vaultListView, Mockito.never()).loadProductPrices()
+	}
+
+	private fun discountedPrices(endTimeMillis: Long): ProductPrices {
+		return ProductPrices("$9.99/yr", "$49.99", "$32.99", 33, endTimeMillis)
+	}
+
+	@Test
+	fun `onProductPricesLoaded shows sale promo banner when discount is running and no paid license`() {
+		val saleEnd = System.currentTimeMillis() + TimeUnit.DAYS.toMillis(1)
+		stubHasPaidLicense(false)
+
+		inTest.onProductPricesLoaded(discountedPrices(saleEnd))
+
+		Mockito.verify(vaultListView).showSalePromoBanner(SalePromo(33, saleEnd))
+	}
+
+	@Test
+	fun `onProductPricesLoaded hides sale promo banner when has paid license`() {
+		val saleEnd = System.currentTimeMillis() + TimeUnit.DAYS.toMillis(1)
+		stubHasPaidLicense(true)
+
+		inTest.onProductPricesLoaded(discountedPrices(saleEnd))
+
+		Mockito.verify(vaultListView).hideSalePromoBanner()
+		Mockito.verify(vaultListView, Mockito.never()).showSalePromoBanner(any())
+	}
+
+	@Test
+	fun `onProductPricesLoaded hides sale promo banner when sale was dismissed`() {
+		val saleEnd = System.currentTimeMillis() + TimeUnit.DAYS.toMillis(1)
+		stubHasPaidLicense(false)
+		Mockito.doReturn(saleEnd).`when`(sharedPreferencesHandler).salePromoDismissedUntil()
+
+		inTest.onProductPricesLoaded(discountedPrices(saleEnd))
+
+		Mockito.verify(vaultListView).hideSalePromoBanner()
+		Mockito.verify(vaultListView, Mockito.never()).showSalePromoBanner(any())
+	}
+
+	@Test
+	fun `onSalePromoBannerDismissed remembers sale end and hides banner`() {
+		inTest.onSalePromoBannerDismissed(SalePromo(33, 1_700_000_000_000))
+
+		Mockito.verify(sharedPreferencesHandler).setSalePromoDismissedUntil(1_700_000_000_000)
+		Mockito.verify(vaultListView).hideSalePromoBanner()
 	}
 }

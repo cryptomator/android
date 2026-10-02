@@ -1,5 +1,12 @@
 package org.cryptomator.presentation.service
 
+import org.cryptomator.presentation.CryptomatorApp
+import java.text.DateFormat
+import java.time.ZoneOffset
+import java.util.Date
+import java.util.TimeZone
+import kotlin.math.roundToInt
+
 data class ProductInfo(
 	val productId: String,
 	val price: String,
@@ -21,6 +28,11 @@ data class ProductPrices(
 	val lifetimeDiscountEndTimeMillis: Long?
 )
 
+data class SalePromo(
+	val discountPercent: Int,
+	val endTimeMillis: Long
+)
+
 fun List<ProductInfo>.resolveProductPrices(): ProductPrices {
 	val subscription = find { it.productId == ProductInfo.PRODUCT_YEARLY_SUBSCRIPTION }
 	val lifetime = find { it.productId == ProductInfo.PRODUCT_FULL_VERSION }
@@ -31,4 +43,35 @@ fun List<ProductInfo>.resolveProductPrices(): ProductPrices {
 		lifetimeDiscountPercent = lifetime?.discountPercent,
 		lifetimeDiscountEndTimeMillis = lifetime?.discountEndTimeMillis
 	)
+}
+
+fun CryptomatorApp.queryProductPrices(callback: (ProductPrices) -> Unit) {
+	queryProductDetails { products -> callback(products.resolveProductPrices()) }
+}
+
+fun ProductPrices.resolveSalePromo(dismissedUntilMillis: Long, nowMillis: Long): SalePromo? {
+	val discountPercent = lifetimeDiscountPercent
+	val endTimeMillis = lifetimeDiscountEndTimeMillis
+	if (discountPercent == null || endTimeMillis == null) {
+		return null
+	}
+	if (nowMillis >= endTimeMillis || nowMillis < dismissedUntilMillis) {
+		return null
+	}
+	return SalePromo(discountPercent, endTimeMillis)
+}
+
+fun calculateDiscountPercent(priceMicros: Long, discountPriceMicros: Long): Int? {
+	if (priceMicros <= 0 || discountPriceMicros >= priceMicros) {
+		return null
+	}
+	return ((priceMicros - discountPriceMicros) * 100.0 / priceMicros).roundToInt()
+}
+
+// The end time is exclusive, so the date of the last millisecond before it is shown.
+// Formatting in UTC gives every time zone the same date.
+fun formatDiscountEndDate(endTimeMillis: Long): String {
+	val dateFormat = DateFormat.getDateInstance(DateFormat.MEDIUM)
+	dateFormat.timeZone = TimeZone.getTimeZone(ZoneOffset.UTC)
+	return dateFormat.format(Date(endTimeMillis - 1))
 }

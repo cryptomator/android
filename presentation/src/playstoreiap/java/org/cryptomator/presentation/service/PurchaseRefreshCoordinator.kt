@@ -29,11 +29,6 @@ class PurchaseRefreshCoordinator(
 			}
 		}
 		try {
-			if (!billingClient.isReady) {
-				Timber.tag("PurchaseRefreshCoordinator").w("Billing client not ready for refresh")
-				complete(RestoreOutcome.FAILED())
-				return
-			}
 			val lock = Any()
 			var inappCleared: Boolean? = null
 			var subsCleared: Boolean? = null

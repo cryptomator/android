@@ -11,12 +11,11 @@ import org.cryptomator.presentation.licensing.LicenseEnforcer
 import org.cryptomator.presentation.service.ProductInfo
 import org.cryptomator.presentation.service.ProductPrices
 import org.cryptomator.presentation.service.RestoreOutcome
-import org.cryptomator.presentation.service.resolveProductPrices
+import org.cryptomator.presentation.service.formatDiscountEndDate
+import org.cryptomator.presentation.service.queryProductPrices
 import org.cryptomator.presentation.service.toDialogFragment
 import org.cryptomator.presentation.ui.activity.BaseActivity
 import java.lang.ref.WeakReference
-import java.text.DateFormat
-import java.util.Date
 
 /** Shared visibility-toggling logic for the license check content included layout. */
 class LicenseContentViewBinder(
@@ -112,8 +111,7 @@ class LicenseContentViewBinder(
 
 	/** Queries product details and updates price buttons on the UI thread. */
 	fun loadAndBindPrices(app: CryptomatorApp) {
-		app.queryProductDetails { products ->
-			val prices = products.resolveProductPrices()
+		app.queryProductPrices { prices ->
 			binding.root.post { bindProductPrices(prices) }
 		}
 	}
@@ -148,8 +146,7 @@ class LicenseContentViewBinder(
 		if (percent == null || endTimeMillis == null) {
 			return context.getString(R.string.screen_license_check_lifetime_discount_badge_generic)
 		}
-		val date = DateFormat.getDateInstance(DateFormat.MEDIUM).format(Date(endTimeMillis))
-		return context.getString(R.string.screen_license_check_lifetime_discount_badge_until, percent, date)
+		return context.getString(R.string.screen_license_check_lifetime_discount_badge_until, percent, formatDiscountEndDate(endTimeMillis))
 	}
 
 	/** Refreshes purchase/trial visibility and the header info text from the current license state. */

@@ -5,9 +5,12 @@ import android.view.View
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
 import org.cryptomator.generator.Fragment
+import org.cryptomator.presentation.R
 import org.cryptomator.presentation.databinding.FragmentVaultListBinding
 import org.cryptomator.presentation.model.VaultModel
 import org.cryptomator.presentation.presenter.VaultListPresenter
+import org.cryptomator.presentation.service.SalePromo
+import org.cryptomator.presentation.service.formatDiscountEndDate
 import org.cryptomator.presentation.ui.adapter.VaultsAdapter
 import org.cryptomator.presentation.ui.adapter.VaultsMoveListener
 import javax.inject.Inject
@@ -49,6 +52,7 @@ class VaultListFragment : BaseFragment<FragmentVaultListBinding>(FragmentVaultLi
 	override fun setupView() {
 		setupRecyclerView()
 		binding.floatingActionButton.floatingActionButton.setOnClickListener { vaultListPresenter.onCreateVaultClicked() }
+		binding.salePromoBanner.root.setOnClickListener { vaultListPresenter.onUnlockFullVersionClicked() }
 	}
 
 	override fun onResume() {
@@ -79,6 +83,16 @@ class VaultListFragment : BaseFragment<FragmentVaultListBinding>(FragmentVaultLi
 
 	fun hideVaultCreationHint() {
 		binding.rlCreationHint.creationHint.visibility = View.GONE
+	}
+
+	fun showSalePromoBanner(salePromo: SalePromo) {
+		binding.salePromoBanner.tvSalePromo.text = getString(R.string.screen_vault_list_sale_promo_banner, salePromo.discountPercent, formatDiscountEndDate(salePromo.endTimeMillis))
+		binding.salePromoBanner.btnDismissSalePromo.setOnClickListener { vaultListPresenter.onSalePromoBannerDismissed(salePromo) }
+		binding.salePromoBanner.root.visibility = View.VISIBLE
+	}
+
+	fun hideSalePromoBanner() {
+		binding.salePromoBanner.root.visibility = View.GONE
 	}
 
 	fun isVaultLocked(vaultModel: VaultModel?): Boolean {

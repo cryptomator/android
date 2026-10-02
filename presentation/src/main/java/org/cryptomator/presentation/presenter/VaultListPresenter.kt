@@ -46,6 +46,9 @@ import org.cryptomator.presentation.model.CloudTypeModel
 import org.cryptomator.presentation.model.ProgressModel
 import org.cryptomator.presentation.model.VaultModel
 import org.cryptomator.presentation.model.mappers.CloudFolderModelMapper
+import org.cryptomator.presentation.service.ProductPrices
+import org.cryptomator.presentation.service.SalePromo
+import org.cryptomator.presentation.service.resolveSalePromo
 import org.cryptomator.presentation.ui.activity.WelcomeActivity
 import org.cryptomator.presentation.ui.activity.view.VaultListView
 import org.cryptomator.presentation.ui.dialog.AppIsObscuredInfoDialog
@@ -113,6 +116,11 @@ class VaultListPresenter @Inject constructor( //
 			if (!alreadyKnownExpired && trialState.isExpired && !licenseEnforcer.hasPaidLicense()) {
 				view?.showDialog(TrialExpiredDialog.newInstance())
 			}
+			if (licenseEnforcer.hasPaidLicense()) {
+				view?.hideSalePromoBanner()
+			} else {
+				view?.loadProductPrices()
+			}
 		}
 	}
 
@@ -125,6 +133,24 @@ class VaultListPresenter @Inject constructor( //
 			return true
 		}
 		return false
+	}
+
+	fun onProductPricesLoaded(prices: ProductPrices) {
+		val salePromo = prices.resolveSalePromo(sharedPreferencesHandler.salePromoDismissedUntil(), System.currentTimeMillis())
+		if (salePromo != null && !licenseEnforcer.hasPaidLicense()) {
+			view?.showSalePromoBanner(salePromo)
+		} else {
+			view?.hideSalePromoBanner()
+		}
+	}
+
+	fun onUnlockFullVersionClicked() {
+		Intents.licenseCheckIntent().startActivity(this)
+	}
+
+	fun onSalePromoBannerDismissed(salePromo: SalePromo) {
+		sharedPreferencesHandler.setSalePromoDismissedUntil(salePromo.endTimeMillis)
+		view?.hideSalePromoBanner()
 	}
 
 	fun onWindowFocusChanged(hasFocus: Boolean) {
