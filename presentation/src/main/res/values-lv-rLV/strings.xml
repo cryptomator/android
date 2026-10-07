@@ -99,6 +99,7 @@
 	<string name="screen_vault_list_vault_action_delete">Noņemt</string>
 	<string name="screen_vault_list_vault_creation_hint">Piesist šeit, lai izveidotu jaunu glabātavu</string>
 	<string name="screen_vault_list_change_password_successful">Parole sekmīgi nomainīta</string>
+	<string name="screen_vault_list_sale_promo_banner_dismiss">Atmest</string>
 	<!-- # screen: file browser -->
 	<string name="screen_file_browser_default_title">Glabātava</string>
 	<string name="screen_file_browser_add_existing_vault_extra_text">Atlasīt galvenās atslēgas vai glabātavas datni</string>
