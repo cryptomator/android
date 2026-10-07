@@ -68,6 +68,7 @@
 	<string name="screen_vault_list_vault_action_delete">Премахване</string>
 	<string name="screen_vault_list_vault_creation_hint">Докоснете за създаване на хранилище</string>
 	<string name="screen_vault_list_change_password_successful">Паролата е сменена</string>
+	<string name="screen_vault_list_sale_promo_banner_dismiss">Отхвърляне</string>
 	<!-- # screen: file browser -->
 	<string name="screen_file_browser_default_title">Хранилище</string>
 	<string name="screen_file_browser_add_existing_vault_extra_text">Изберете \'masterkey\' или \'vault\' файл</string>
