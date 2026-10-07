@@ -96,6 +96,7 @@
 	<string name="screen_vault_list_vault_action_delete">Kaldır</string>
 	<string name="screen_vault_list_vault_creation_hint">Yeni kasa oluşturmak için buraya dokunun</string>
 	<string name="screen_vault_list_change_password_successful">Parola başarıyla değiştirildi</string>
+	<string name="screen_vault_list_sale_promo_banner_dismiss">Yoksay</string>
 	<!-- # screen: file browser -->
 	<string name="screen_file_browser_default_title">Kasa</string>
 	<string name="screen_file_browser_add_existing_vault_extra_text">Ana anahtar veya kasa dosyasını seç</string>
