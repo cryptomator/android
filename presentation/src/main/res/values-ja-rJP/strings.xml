@@ -95,6 +95,7 @@
 	<string name="screen_vault_list_vault_action_delete">削除</string>
 	<string name="screen_vault_list_vault_creation_hint">金庫の作成ためにここをタップ</string>
 	<string name="screen_vault_list_change_password_successful">パスワードが正常に変更されました</string>
+	<string name="screen_vault_list_sale_promo_banner_dismiss">閉じる</string>
 	<!-- # screen: file browser -->
 	<string name="screen_file_browser_default_title">金庫</string>
 	<string name="screen_file_browser_add_existing_vault_extra_text">マスターキーまたは金庫のファイルを選択</string>
