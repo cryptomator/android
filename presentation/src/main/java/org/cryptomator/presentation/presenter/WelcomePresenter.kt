@@ -11,6 +11,7 @@ import org.cryptomator.domain.usecases.DoLicenseCheckUseCase
 import org.cryptomator.generator.Callback
 import org.cryptomator.presentation.R
 import org.cryptomator.presentation.exception.ExceptionHandlers
+import org.cryptomator.presentation.service.ProductPricesCache
 import org.cryptomator.presentation.ui.activity.view.WelcomeView
 import org.cryptomator.presentation.ui.dialog.AppIsObscuredInfoDialog
 import org.cryptomator.presentation.workflow.PermissionsResult
@@ -22,13 +23,24 @@ import javax.inject.Inject
 class WelcomePresenter @Inject internal constructor(
 	exceptionHandlers: ExceptionHandlers,
 	doLicenseCheckUseCase: DoLicenseCheckUseCase,
-	sharedPreferencesHandler: SharedPreferencesHandler
+	sharedPreferencesHandler: SharedPreferencesHandler,
+	private val productPricesCache: ProductPricesCache
 ) : Presenter<WelcomeView>(exceptionHandlers) {
 
 	private val validator = LicenseKeyValidator(doLicenseCheckUseCase, sharedPreferencesHandler, { view }, ::showError)
 
 	fun validate(data: Uri?) = validator.validate(data) { view?.showOrUpdateLicenseEntry(it) }
 	fun validateDialogAware(license: String?) = validator.validateDialogAware(license)
+
+	override fun resumed() {
+		if (view?.hasLicenseView() == true) {
+			loadProductPrices(productPricesCache)
+		}
+	}
+
+	fun onLicenseViewReady() {
+		loadProductPrices(productPricesCache)
+	}
 
 	fun onFilteredTouchEventForSecurity() {
 		view?.showDialog(AppIsObscuredInfoDialog.newInstance())

@@ -27,6 +27,7 @@ import org.cryptomator.presentation.exception.ExceptionHandlers;
 import org.cryptomator.presentation.licensing.LicenseEnforcer;
 import org.cryptomator.presentation.model.VaultModel;
 import org.cryptomator.presentation.model.mappers.CloudFolderModelMapper;
+import org.cryptomator.presentation.service.ProductPricesCache;
 import org.cryptomator.presentation.ui.activity.view.VaultListView;
 import org.cryptomator.presentation.util.FileUtil;
 import org.cryptomator.presentation.workflow.AddExistingVaultWorkflow;
@@ -115,6 +116,7 @@ public class VaultListPresenterTest {
 	private AuthenticationExceptionHandler authenticationExceptionHandler = Mockito.mock(AuthenticationExceptionHandler.class);
 	private LicenseEnforcer licenseEnforcer = Mockito.mock(LicenseEnforcer.class);
 	private SharedPreferencesHandler sharedPreferencesHandler = Mockito.mock(SharedPreferencesHandler.class);
+	private ProductPricesCache productPricesCache = Mockito.mock(ProductPricesCache.class);
 	private ExceptionHandlers exceptionMappings = Mockito.mock(ExceptionHandlers.class);
 	private VaultListPresenter inTest;
 
@@ -142,6 +144,7 @@ public class VaultListPresenterTest {
 				cloudNodeModelMapper, //
 				licenseEnforcer, //
 				sharedPreferencesHandler, //
+				productPricesCache, //
 				exceptionMappings);
 		when(vaultListView.activity()).thenReturn(activity);
 		inTest.setView(vaultListView);
