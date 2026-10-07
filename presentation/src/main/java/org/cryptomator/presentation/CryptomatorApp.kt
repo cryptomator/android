@@ -146,6 +146,7 @@ class CryptomatorApp : Application(), HasComponent<ApplicationComponent> {
 
 			override fun onServiceDisconnected(name: ComponentName) {
 				Timber.tag("App").i("IAP Billing service disconnected")
+				pendingProductDetailsCallbacks.markNotReady()
 				iapBillingServiceBinder = null
 			}
 		}, BIND_AUTO_CREATE)
@@ -162,11 +163,13 @@ class CryptomatorApp : Application(), HasComponent<ApplicationComponent> {
 			callback(emptyList())
 			return
 		}
-		iapBillingServiceBinder?.queryProductDetails(callback) ?: pendingProductDetailsCallbacks.enqueue(callback)
+		if (!pendingProductDetailsCallbacks.enqueueUnlessReady(callback)) {
+			iapBillingServiceBinder?.queryProductDetails(callback)
+		}
 	}
 
 	private fun drainPendingProductDetailsCallbacks() {
-		val snapshot = pendingProductDetailsCallbacks.drainSnapshot() ?: return
+		val snapshot = pendingProductDetailsCallbacks.markReadyAndDrain() ?: return
 		iapBillingServiceBinder?.queryProductDetails { products ->
 			snapshot.forEach { it(products) }
 		}

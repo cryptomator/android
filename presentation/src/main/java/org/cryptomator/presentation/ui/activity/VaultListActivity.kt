@@ -22,7 +22,6 @@ import org.cryptomator.presentation.model.VaultModel
 import org.cryptomator.presentation.presenter.VaultListPresenter
 import org.cryptomator.presentation.service.OpenWritableFileNotification
 import org.cryptomator.presentation.service.SalePromo
-import org.cryptomator.presentation.service.queryProductPrices
 import org.cryptomator.presentation.ui.activity.view.VaultListView
 import org.cryptomator.presentation.ui.bottomsheet.AddVaultBottomSheet
 import org.cryptomator.presentation.ui.bottomsheet.SettingsVaultBottomSheet
@@ -60,8 +59,6 @@ class VaultListActivity : BaseActivity<ActivityLayoutObscureAwareBinding>(Activi
 
 	@InjectIntent
 	lateinit var vaultListIntent: VaultListIntent
-
-	private var loadingProductPrices = false
 
 	override fun onCreate(savedInstanceState: Bundle?) {
 		installSplashScreen()
@@ -161,21 +158,6 @@ class VaultListActivity : BaseActivity<ActivityLayoutObscureAwareBinding>(Activi
 
 	override fun hideVaultCreationHint() {
 		vaultListFragment().hideVaultCreationHint()
-	}
-
-	override fun loadProductPrices() {
-		if (loadingProductPrices) {
-			return
-		}
-		loadingProductPrices = true
-		(application as CryptomatorApp).queryProductPrices { prices ->
-			binding.root.post {
-				loadingProductPrices = false
-				if (!isFinishing && !isDestroyed) {
-					vaultListPresenter.onProductPricesLoaded(prices)
-				}
-			}
-		}
 	}
 
 	override fun showSalePromoBanner(salePromo: SalePromo) {

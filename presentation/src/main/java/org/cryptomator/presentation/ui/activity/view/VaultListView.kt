@@ -20,7 +20,6 @@ interface VaultListView : View {
 	fun rowMoved(fromPosition: Int, toPosition: Int)
 	fun vaultMoved(vaults: List<VaultModel>)
 	fun migrateCBCEncryptedPasswordVaults(vaults: List<VaultModel>)
-	fun loadProductPrices()
 	fun showSalePromoBanner(salePromo: SalePromo)
 	fun hideSalePromoBanner()
 

@@ -1,6 +1,5 @@
 package org.cryptomator.presentation.service
 
-import org.cryptomator.presentation.CryptomatorApp
 import java.text.DateFormat
 import java.time.ZoneOffset
 import java.util.Date
@@ -43,10 +42,6 @@ fun List<ProductInfo>.resolveProductPrices(): ProductPrices {
 		lifetimeDiscountPercent = lifetime?.discountPercent,
 		lifetimeDiscountEndTimeMillis = lifetime?.discountEndTimeMillis
 	)
-}
-
-fun CryptomatorApp.queryProductPrices(callback: (ProductPrices) -> Unit) {
-	queryProductDetails { products -> callback(products.resolveProductPrices()) }
 }
 
 fun ProductPrices.resolveSalePromo(dismissedUntilMillis: Long, nowMillis: Long): SalePromo? {

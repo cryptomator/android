@@ -20,6 +20,7 @@ import org.cryptomator.presentation.exception.ExceptionHandlers
 import org.cryptomator.presentation.licensing.LicenseEnforcer
 import org.cryptomator.presentation.model.mappers.CloudFolderModelMapper
 import org.cryptomator.presentation.service.ProductPrices
+import org.cryptomator.presentation.service.ProductPricesCache
 import org.cryptomator.presentation.service.SalePromo
 import org.cryptomator.presentation.ui.activity.view.VaultListView
 import org.cryptomator.presentation.ui.dialog.TrialExpiredDialog
@@ -41,6 +42,7 @@ class VaultListPresenterFreemiumTest {
 	private val activity: Activity = Mockito.mock(Activity::class.java)
 	private val licenseEnforcer: LicenseEnforcer = Mockito.mock(LicenseEnforcer::class.java)
 	private val sharedPreferencesHandler: SharedPreferencesHandler = Mockito.mock(SharedPreferencesHandler::class.java)
+	private val productPricesCache: ProductPricesCache = Mockito.mock(ProductPricesCache::class.java)
 	private val exceptionMappings: ExceptionHandlers = Mockito.mock(ExceptionHandlers::class.java)
 
 	private lateinit var inTest: VaultListPresenter
@@ -70,9 +72,13 @@ class VaultListPresenterFreemiumTest {
 			Mockito.mock(CloudFolderModelMapper::class.java),
 			licenseEnforcer,
 			sharedPreferencesHandler,
+			productPricesCache,
 			exceptionMappings
 		)
 		Mockito.doReturn(activity).`when`(vaultListView).activity()
+		Mockito.doAnswer { invocation ->
+			invocation.getArgument<Runnable>(0).run()
+		}.`when`(activity).runOnUiThread(any())
 		Mockito.doReturn(true).`when`(sharedPreferencesHandler).hasCompletedWelcomeFlow()
 		inTest.view = vaultListView
 	}
@@ -139,62 +145,84 @@ class VaultListPresenterFreemiumTest {
 		Mockito.verify(vaultListView, Mockito.times(1)).showDialog(isA<TrialExpiredDialog>())
 	}
 
-	@Test
-	fun `resumed loads product prices when no paid license`() {
-		stubTrialState(active = true, expired = false, date = "Apr 28, 2026")
-		stubHasPaidLicense(false)
+	private fun discountedPrices(endTimeMillis: Long): ProductPrices {
+		return ProductPrices("$9.99/yr", "$49.99", "$32.99", 33, endTimeMillis)
+	}
 
-		inTest.resumed()
-
-		Mockito.verify(vaultListView).loadProductPrices()
+	private fun stubProductPrices(prices: ProductPrices) {
+		Mockito.doAnswer { invocation ->
+			invocation.getArgument<(ProductPrices) -> Unit>(0)(prices)
+		}.`when`(productPricesCache).queryProductPrices(any())
 	}
 
 	@Test
-	fun `resumed hides sale promo banner without loading product prices when has paid license`() {
+	fun `resumed shows sale promo banner when discount is running and no paid license`() {
+		val saleEnd = System.currentTimeMillis() + TimeUnit.DAYS.toMillis(1)
+		stubTrialState(active = true, expired = false, date = "Apr 28, 2026")
+		stubHasPaidLicense(false)
+		stubProductPrices(discountedPrices(saleEnd))
+
+		inTest.resumed()
+
+		Mockito.verify(vaultListView).showSalePromoBanner(SalePromo(33, saleEnd))
+	}
+
+	@Test
+	fun `resumed hides sale promo banner without querying product prices when has paid license`() {
 		stubTrialState(active = false, expired = false, date = null)
 		stubHasPaidLicense(true)
 
 		inTest.resumed()
 
 		Mockito.verify(vaultListView).hideSalePromoBanner()
-		Mockito.verify(vaultListView, Mockito.never()).loadProductPrices()
-	}
-
-	private fun discountedPrices(endTimeMillis: Long): ProductPrices {
-		return ProductPrices("$9.99/yr", "$49.99", "$32.99", 33, endTimeMillis)
+		Mockito.verify(productPricesCache, Mockito.never()).queryProductPrices(any())
 	}
 
 	@Test
-	fun `onProductPricesLoaded shows sale promo banner when discount is running and no paid license`() {
+	fun `resumed hides sale promo banner when paid license arrives while prices load`() {
 		val saleEnd = System.currentTimeMillis() + TimeUnit.DAYS.toMillis(1)
-		stubHasPaidLicense(false)
+		stubTrialState(active = true, expired = false, date = "Apr 28, 2026")
+		Mockito.`when`(licenseEnforcer.hasPaidLicense()).thenReturn(false, true)
+		stubProductPrices(discountedPrices(saleEnd))
 
-		inTest.onProductPricesLoaded(discountedPrices(saleEnd))
-
-		Mockito.verify(vaultListView).showSalePromoBanner(SalePromo(33, saleEnd))
-	}
-
-	@Test
-	fun `onProductPricesLoaded hides sale promo banner when has paid license`() {
-		val saleEnd = System.currentTimeMillis() + TimeUnit.DAYS.toMillis(1)
-		stubHasPaidLicense(true)
-
-		inTest.onProductPricesLoaded(discountedPrices(saleEnd))
+		inTest.resumed()
 
 		Mockito.verify(vaultListView).hideSalePromoBanner()
 		Mockito.verify(vaultListView, Mockito.never()).showSalePromoBanner(any())
 	}
 
 	@Test
-	fun `onProductPricesLoaded hides sale promo banner when sale was dismissed`() {
+	fun `resumed hides sale promo banner when sale was dismissed`() {
 		val saleEnd = System.currentTimeMillis() + TimeUnit.DAYS.toMillis(1)
+		stubTrialState(active = true, expired = false, date = "Apr 28, 2026")
 		stubHasPaidLicense(false)
 		Mockito.doReturn(saleEnd).`when`(sharedPreferencesHandler).salePromoDismissedUntil()
+		stubProductPrices(discountedPrices(saleEnd))
 
-		inTest.onProductPricesLoaded(discountedPrices(saleEnd))
+		inTest.resumed()
 
 		Mockito.verify(vaultListView).hideSalePromoBanner()
 		Mockito.verify(vaultListView, Mockito.never()).showSalePromoBanner(any())
+	}
+
+	@Test
+	fun `resumed ignores product prices that reach the UI thread after pause`() {
+		val saleEnd = System.currentTimeMillis() + TimeUnit.DAYS.toMillis(1)
+		stubTrialState(active = true, expired = false, date = "Apr 28, 2026")
+		stubHasPaidLicense(false)
+		stubProductPrices(discountedPrices(saleEnd))
+		var pendingRunnable: Runnable? = null
+		Mockito.doAnswer { invocation ->
+			pendingRunnable = invocation.getArgument(0)
+			null
+		}.`when`(activity).runOnUiThread(any())
+
+		inTest.resumed()
+		inTest.pause()
+		pendingRunnable!!.run()
+
+		Mockito.verify(vaultListView, Mockito.never()).showSalePromoBanner(any())
+		Mockito.verify(vaultListView, Mockito.never()).hideSalePromoBanner()
 	}
 
 	@Test

@@ -15,6 +15,7 @@ import org.cryptomator.domain.repository.UpdateCheckRepository;
 import org.cryptomator.domain.repository.VaultRepository;
 import org.cryptomator.presentation.di.module.ApplicationModule;
 import org.cryptomator.presentation.di.module.ThreadModule;
+import org.cryptomator.presentation.service.ProductPricesCache;
 import org.cryptomator.presentation.util.ContentResolverUtil;
 import org.cryptomator.presentation.util.FileUtil;
 
@@ -47,5 +48,7 @@ public interface ApplicationComponent {
 	ContentResolverUtil contentResolverUtil();
 
 	NetworkConnectionCheck networkConnectionCheck();
+
+	ProductPricesCache productPricesCache();
 
 }

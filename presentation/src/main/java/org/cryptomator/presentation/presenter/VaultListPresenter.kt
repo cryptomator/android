@@ -47,6 +47,7 @@ import org.cryptomator.presentation.model.ProgressModel
 import org.cryptomator.presentation.model.VaultModel
 import org.cryptomator.presentation.model.mappers.CloudFolderModelMapper
 import org.cryptomator.presentation.service.ProductPrices
+import org.cryptomator.presentation.service.ProductPricesCache
 import org.cryptomator.presentation.service.SalePromo
 import org.cryptomator.presentation.service.resolveSalePromo
 import org.cryptomator.presentation.ui.activity.WelcomeActivity
@@ -96,6 +97,7 @@ class VaultListPresenter @Inject constructor( //
 	private val cloudFolderModelMapper: CloudFolderModelMapper,  //
 	private val licenseEnforcer: LicenseEnforcer,  //
 	private val sharedPreferencesHandler: SharedPreferencesHandler,  //
+	private val productPricesCache: ProductPricesCache,  //
 	exceptionMappings: ExceptionHandlers
 ) : Presenter<VaultListView>(exceptionMappings) {
 
@@ -119,7 +121,7 @@ class VaultListPresenter @Inject constructor( //
 			if (licenseEnforcer.hasPaidLicense()) {
 				view?.hideSalePromoBanner()
 			} else {
-				view?.loadProductPrices()
+				loadSalePromo()
 			}
 		}
 	}
@@ -135,7 +137,17 @@ class VaultListPresenter @Inject constructor( //
 		return false
 	}
 
-	fun onProductPricesLoaded(prices: ProductPrices) {
+	private fun loadSalePromo() {
+		productPricesCache.queryProductPrices { prices ->
+			activity().runOnUiThread {
+				if (!isPaused) {
+					showOrHideSalePromoBanner(prices)
+				}
+			}
+		}
+	}
+
+	private fun showOrHideSalePromoBanner(prices: ProductPrices) {
 		val salePromo = prices.resolveSalePromo(sharedPreferencesHandler.salePromoDismissedUntil(), System.currentTimeMillis())
 		if (salePromo != null && !licenseEnforcer.hasPaidLicense()) {
 			view?.showSalePromoBanner(salePromo)

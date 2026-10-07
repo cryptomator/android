@@ -6,6 +6,7 @@ import org.cryptomator.presentation.CryptomatorApp
 import org.cryptomator.presentation.R
 import org.cryptomator.presentation.databinding.FragmentWelcomeLicenseBinding
 import org.cryptomator.presentation.licensing.LicenseEnforcer
+import org.cryptomator.presentation.service.ProductPrices
 import org.cryptomator.presentation.ui.activity.WelcomeActivity
 import org.cryptomator.presentation.ui.layout.LicenseContentViewBinder
 import org.cryptomator.util.FlavorConfig
@@ -50,7 +51,6 @@ class WelcomeLicenseFragment : BaseFragment<FragmentWelcomeLicenseBinding>(Fragm
 			app = app,
 			onTrialClicked = { listener?.onStartTrial() }
 		)
-		licenseContentViewBinder.loadAndBindPrices(app)
 		listener?.onLicenseViewReady()
 	}
 
@@ -69,11 +69,11 @@ class WelcomeLicenseFragment : BaseFragment<FragmentWelcomeLicenseBinding>(Fragm
 		licenseContentViewBinder.bindState(uiState)
 	}
 
-	fun loadAndBindPrices(app: CryptomatorApp) {
+	fun bindProductPrices(prices: ProductPrices) {
 		if (!isAdded) {
 			return
 		}
-		licenseContentViewBinder.loadAndBindPrices(app)
+		licenseContentViewBinder.bindProductPrices(prices)
 	}
 
 	fun prefillLicense(license: String) {

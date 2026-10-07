@@ -12,7 +12,6 @@ import org.cryptomator.presentation.service.ProductInfo
 import org.cryptomator.presentation.service.ProductPrices
 import org.cryptomator.presentation.service.RestoreOutcome
 import org.cryptomator.presentation.service.formatDiscountEndDate
-import org.cryptomator.presentation.service.queryProductPrices
 import org.cryptomator.presentation.service.toDialogFragment
 import org.cryptomator.presentation.ui.activity.BaseActivity
 import java.lang.ref.WeakReference
@@ -107,13 +106,6 @@ class LicenseContentViewBinder(
 
 	private fun showRestoreOutcome(activity: BaseActivity<*>, outcome: RestoreOutcome) {
 		activity.showDialog(outcome.toDialogFragment())
-	}
-
-	/** Queries product details and updates price buttons on the UI thread. */
-	fun loadAndBindPrices(app: CryptomatorApp) {
-		app.queryProductPrices { prices ->
-			binding.root.post { bindProductPrices(prices) }
-		}
 	}
 
 	/** Updates subscription and lifetime button text and enabled state from resolved prices. */
