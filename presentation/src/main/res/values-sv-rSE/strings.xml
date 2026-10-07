@@ -99,6 +99,7 @@
 	<string name="screen_vault_list_vault_action_delete">Ta bort</string>
 	<string name="screen_vault_list_vault_creation_hint">Klicka här för att skapa ett nytt valv</string>
 	<string name="screen_vault_list_change_password_successful">Lösenordet har ändrats</string>
+	<string name="screen_vault_list_sale_promo_banner_dismiss">Avfärda</string>
 	<!-- # screen: file browser -->
 	<string name="screen_file_browser_default_title">Valv</string>
 	<string name="screen_file_browser_add_existing_vault_extra_text">Välj masterkey eller valvfil</string>
