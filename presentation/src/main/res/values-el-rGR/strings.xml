@@ -94,6 +94,7 @@
 	<string name="screen_vault_list_vault_action_delete">Αφαίρεση</string>
 	<string name="screen_vault_list_vault_creation_hint">Πατήστε εδώ για να δημιουργήσετε μια κρύπτη</string>
 	<string name="screen_vault_list_change_password_successful">Ο κωδικός πρόσβασης άλλαξε επιτυχώς</string>
+	<string name="screen_vault_list_sale_promo_banner_dismiss">Παράβλεψη</string>
 	<!-- # screen: file browser -->
 	<string name="screen_file_browser_default_title">Κρύπτη</string>
 	<string name="screen_file_browser_add_existing_vault_extra_text">Επιλέξτε masterkey ή αρχείο κρύπτης</string>
