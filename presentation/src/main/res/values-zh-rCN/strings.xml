@@ -94,6 +94,7 @@
 	<string name="screen_vault_list_vault_action_delete">删除</string>
 	<string name="screen_vault_list_vault_creation_hint">新建保险库</string>
 	<string name="screen_vault_list_change_password_successful">密码修改成功</string>
+	<string name="screen_vault_list_sale_promo_banner_dismiss">放弃</string>
 	<!-- # screen: file browser -->
 	<string name="screen_file_browser_default_title">保险库</string>
 	<string name="screen_file_browser_add_existing_vault_extra_text">选择 Masterkey 或保险库文件</string>
