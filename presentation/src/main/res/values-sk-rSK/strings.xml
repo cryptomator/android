@@ -65,6 +65,8 @@
 	<string name="screen_license_check_subscription_title">Ročné predplatné</string>
 	<string name="screen_license_check_subscription_subtitle">ročne</string>
 	<string name="screen_license_check_lifetime_title">Doživotná licencia</string>
+	<string name="screen_license_check_lifetime_discount_badge_until">🔥 Zľava %1$d%% do %2$s</string>
+	<string name="screen_license_check_lifetime_discount_badge_generic">🔥 Časovo obmedzený výpredaj</string>
 	<string name="screen_license_check_lifetime_subtitle">jednorázovo</string>
 	<string name="screen_license_check_restore_purchase">Obnoviť nákup</string>
 	<string name="screen_license_check_terms">Podmienky používania</string>
@@ -117,6 +119,8 @@
 	<string name="screen_vault_list_vault_action_delete">Odstrániť</string>
 	<string name="screen_vault_list_vault_creation_hint">Kliknúť sem pre vytvorenie nového trezora</string>
 	<string name="screen_vault_list_change_password_successful">Heslo úspešne zmenené</string>
+	<string name="screen_vault_list_sale_promo_banner">🔥 Doživotná licencia je zľavnená o %1$d%% do %2$s</string>
+	<string name="screen_vault_list_sale_promo_banner_dismiss">Zavrieť</string>
 	<!-- # screen: file browser -->
 	<string name="screen_file_browser_default_title">Trezor</string>
 	<string name="screen_file_browser_create_new_vault_button_text">Umiestniť sem</string>
