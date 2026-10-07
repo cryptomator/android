@@ -93,6 +93,7 @@
 	<string name="screen_vault_list_vault_action_delete">Elimina</string>
 	<string name="screen_vault_list_vault_creation_hint">Cliqueu aquí per crear una nova caixa forta</string>
 	<string name="screen_vault_list_change_password_successful">La contrasenya s\'han canviat correctament</string>
+	<string name="screen_vault_list_sale_promo_banner_dismiss">Descartar</string>
 	<!-- # screen: file browser -->
 	<string name="screen_file_browser_default_title">Caixa forta</string>
 	<string name="screen_file_browser_create_new_vault_button_text">Col·locar aquí</string>
