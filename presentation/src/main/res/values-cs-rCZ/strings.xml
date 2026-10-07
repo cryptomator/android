@@ -89,6 +89,7 @@
 	<string name="screen_vault_list_vault_action_delete">Odstranit</string>
 	<string name="screen_vault_list_vault_creation_hint">Klepnutím sem vytvoříte nový trezor</string>
 	<string name="screen_vault_list_change_password_successful">Heslo bylo úspěšně změněno</string>
+	<string name="screen_vault_list_sale_promo_banner_dismiss">Zrušit</string>
 	<!-- # screen: file browser -->
 	<string name="screen_file_browser_default_title">Trezor</string>
 	<string name="screen_file_browser_create_new_vault_button_text">Umístit zde</string>
