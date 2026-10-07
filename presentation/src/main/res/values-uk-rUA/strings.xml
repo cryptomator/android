@@ -124,6 +124,8 @@
 	<string name="screen_vault_list_vault_action_delete">Вилучити</string>
 	<string name="screen_vault_list_vault_creation_hint">Натисніть тут, щоб створити нове сховище</string>
 	<string name="screen_vault_list_change_password_successful">Пароль успішно змінено</string>
+	<string name="screen_vault_list_sale_promo_banner">🔥 Знижка %1$d%% на довічну ліцензію діє до %2$s</string>
+	<string name="screen_vault_list_sale_promo_banner_dismiss">Відхилити</string>
 	<!-- # screen: file browser -->
 	<string name="screen_file_browser_default_title">Сховище</string>
 	<string name="screen_file_browser_add_existing_vault_extra_text">Виберіть файл masterkey або vault</string>
