@@ -124,6 +124,7 @@
 	<string name="screen_vault_list_vault_action_delete">حذف</string>
 	<string name="screen_vault_list_vault_creation_hint">أنقر هنا لإنشاء خزينة جديدة</string>
 	<string name="screen_vault_list_change_password_successful">تم تغيير كلمة المرور بنجاح</string>
+	<string name="screen_vault_list_sale_promo_banner_dismiss">تجاهل</string>
 	<!-- # screen: file browser -->
 	<string name="screen_file_browser_default_title">الخزينة</string>
 	<string name="screen_file_browser_add_existing_vault_extra_text">حدد ملف المفتاح الرئيسي أو ملف الخزنة</string>
