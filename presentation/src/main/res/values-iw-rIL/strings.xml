@@ -88,6 +88,7 @@
 	<string name="screen_vault_list_vault_action_delete">הסר</string>
 	<string name="screen_vault_list_vault_creation_hint">לחץ כאן ליצירת כספת חדשה</string>
 	<string name="screen_vault_list_change_password_successful">הסיסמא שונתה בהצלחה</string>
+	<string name="screen_vault_list_sale_promo_banner_dismiss">שחרור</string>
 	<!-- # screen: file browser -->
 	<string name="screen_file_browser_default_title">כספת</string>
 	<string name="screen_file_browser_create_new_vault_button_text">מקם כאן</string>
