@@ -98,6 +98,7 @@
 	<string name="screen_vault_list_vault_action_delete">Eliminar</string>
 	<string name="screen_vault_list_vault_creation_hint">Pulse aquí para crear una bóveda nueva</string>
 	<string name="screen_vault_list_change_password_successful">Contraseña cambiada con éxito</string>
+	<string name="screen_vault_list_sale_promo_banner">🔥 La licencia de por vida tiene %1$d%% de descuento hasta %2$s</string>
 	<string name="screen_vault_list_sale_promo_banner_dismiss">Descartar</string>
 	<!-- # screen: file browser -->
 	<string name="screen_file_browser_default_title">Bóveda</string>
