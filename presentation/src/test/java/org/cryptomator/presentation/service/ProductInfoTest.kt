@@ -142,8 +142,13 @@ class ProductInfoTest {
 	}
 
 	@Test
-	fun `calculateDiscountPercent rounds to the nearest percent`() {
-		assertEquals(33, calculateDiscountPercent(priceMicros = 29_990_000, discountPriceMicros = 19_990_000))
+	fun `calculateDiscountPercent rounds down to never overstate the discount`() {
+		assertEquals(33, calculateDiscountPercent(priceMicros = 10_000_000, discountPriceMicros = 6_640_000))
+	}
+
+	@Test
+	fun `calculateDiscountPercent returns null when discount is below one percent`() {
+		assertNull(calculateDiscountPercent(priceMicros = 1_000, discountPriceMicros = 999))
 	}
 
 	@Test

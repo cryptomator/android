@@ -29,12 +29,15 @@ import org.cryptomator.presentation.workflow.AddExistingVaultWorkflow
 import org.cryptomator.presentation.workflow.AuthenticationExceptionHandler
 import org.cryptomator.presentation.workflow.CreateNewVaultWorkflow
 import org.cryptomator.util.SharedPreferencesHandler
+import org.junit.jupiter.api.Assertions.assertSame
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
 import org.mockito.Mockito
 import org.mockito.kotlin.any
+import org.mockito.kotlin.argumentCaptor
 import org.mockito.kotlin.isA
 import java.util.concurrent.TimeUnit
+import java.util.function.Consumer
 
 class VaultListPresenterFreemiumTest {
 
@@ -44,6 +47,8 @@ class VaultListPresenterFreemiumTest {
 	private val sharedPreferencesHandler: SharedPreferencesHandler = Mockito.mock(SharedPreferencesHandler::class.java)
 	private val productPricesCache: ProductPricesCache = Mockito.mock(ProductPricesCache::class.java)
 	private val exceptionMappings: ExceptionHandlers = Mockito.mock(ExceptionHandlers::class.java)
+
+	private var licenseChangeListener: Consumer<String>? = null
 
 	private lateinit var inTest: VaultListPresenter
 
@@ -80,6 +85,10 @@ class VaultListPresenterFreemiumTest {
 			invocation.getArgument<Runnable>(0).run()
 		}.`when`(activity).runOnUiThread(any())
 		Mockito.doReturn(true).`when`(sharedPreferencesHandler).hasCompletedWelcomeFlow()
+		Mockito.doAnswer { invocation ->
+			licenseChangeListener = invocation.getArgument(0)
+			licenseChangeListener!!.accept("")
+		}.`when`(sharedPreferencesHandler).addLicenseChangedListeners(any())
 		inTest.view = vaultListView
 	}
 
@@ -223,6 +232,64 @@ class VaultListPresenterFreemiumTest {
 
 		Mockito.verify(vaultListView, Mockito.never()).showSalePromoBanner(any())
 		Mockito.verify(vaultListView, Mockito.never()).hideSalePromoBanner()
+	}
+
+	@Test
+	fun `license change while resumed hides sale promo banner when purchase refresh grants paid license`() {
+		val saleEnd = System.currentTimeMillis() + TimeUnit.DAYS.toMillis(1)
+		stubTrialState(active = true, expired = false, date = "Apr 28, 2026")
+		stubHasPaidLicense(false)
+		stubProductPrices(discountedPrices(saleEnd))
+		inTest.resumed()
+		Mockito.verify(vaultListView).showSalePromoBanner(SalePromo(33, saleEnd))
+
+		stubHasPaidLicense(true)
+		licenseChangeListener!!.accept("license")
+
+		Mockito.verify(vaultListView).hideSalePromoBanner()
+	}
+
+	@Test
+	fun `license change while resumed shows sale promo banner when purchase refresh clears paid license`() {
+		val saleEnd = System.currentTimeMillis() + TimeUnit.DAYS.toMillis(1)
+		stubTrialState(active = false, expired = false, date = null)
+		stubHasPaidLicense(true)
+		stubProductPrices(discountedPrices(saleEnd))
+		inTest.resumed()
+		Mockito.verify(vaultListView, Mockito.never()).showSalePromoBanner(any())
+
+		stubHasPaidLicense(false)
+		licenseChangeListener!!.accept("")
+
+		Mockito.verify(vaultListView).showSalePromoBanner(SalePromo(33, saleEnd))
+	}
+
+	@Test
+	fun `license change while paused does not touch sale promo banner`() {
+		val saleEnd = System.currentTimeMillis() + TimeUnit.DAYS.toMillis(1)
+		stubTrialState(active = true, expired = false, date = "Apr 28, 2026")
+		stubHasPaidLicense(false)
+		stubProductPrices(discountedPrices(saleEnd))
+		inTest.resume()
+		inTest.pause()
+
+		stubHasPaidLicense(true)
+		licenseChangeListener!!.accept("license")
+
+		Mockito.verify(vaultListView, Mockito.never()).hideSalePromoBanner()
+	}
+
+	@Test
+	fun `resumed registers the same license change listener on every resume`() {
+		stubTrialState(active = true, expired = false, date = "Apr 28, 2026")
+		stubHasPaidLicense(true)
+
+		inTest.resumed()
+		inTest.resumed()
+
+		val listeners = argumentCaptor<Consumer<String>>()
+		Mockito.verify(sharedPreferencesHandler, Mockito.times(2)).addLicenseChangedListeners(listeners.capture())
+		assertSame(listeners.firstValue, listeners.secondValue)
 	}
 
 	@Test

@@ -4,7 +4,6 @@ import java.text.DateFormat
 import java.time.ZoneOffset
 import java.util.Date
 import java.util.TimeZone
-import kotlin.math.roundToInt
 
 data class ProductInfo(
 	val productId: String,
@@ -60,7 +59,8 @@ fun calculateDiscountPercent(priceMicros: Long, discountPriceMicros: Long): Int?
 	if (priceMicros <= 0 || discountPriceMicros >= priceMicros) {
 		return null
 	}
-	return ((priceMicros - discountPriceMicros) * 100.0 / priceMicros).roundToInt()
+	val discountPercent = ((priceMicros - discountPriceMicros) * 100 / priceMicros).toInt()
+	return if (discountPercent >= 1) discountPercent else null
 }
 
 // The end time is exclusive, so the date of the last millisecond before it is shown.

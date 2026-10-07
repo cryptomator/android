@@ -70,6 +70,7 @@ import org.cryptomator.presentation.workflow.Workflow
 import org.cryptomator.util.FlavorConfig
 import org.cryptomator.util.SharedPreferencesHandler
 import org.cryptomator.util.crypto.CryptoMode
+import java.util.function.Consumer
 import javax.inject.Inject
 import timber.log.Timber
 
@@ -102,6 +103,11 @@ class VaultListPresenter @Inject constructor( //
 ) : Presenter<VaultListView>(exceptionMappings) {
 
 	private var vaultAction: VaultAction? = null
+	private val licenseChangeListener = Consumer<String> { _ ->
+		if (!isPaused) {
+			updateSalePromo()
+		}
+	}
 
 	override fun workflows(): Iterable<Workflow<*>> {
 		return listOf(addExistingVaultWorkflow, createNewVaultWorkflow)
@@ -118,11 +124,8 @@ class VaultListPresenter @Inject constructor( //
 			if (!alreadyKnownExpired && trialState.isExpired && !licenseEnforcer.hasPaidLicense()) {
 				view?.showDialog(TrialExpiredDialog.newInstance())
 			}
-			if (licenseEnforcer.hasPaidLicense()) {
-				view?.hideSalePromoBanner()
-			} else {
-				loadSalePromo()
-			}
+			// Invokes the listener right away, so this also evaluates the sale promo on resume.
+			sharedPreferencesHandler.addLicenseChangedListeners(licenseChangeListener)
 		}
 	}
 
@@ -135,6 +138,14 @@ class VaultListPresenter @Inject constructor( //
 			return true
 		}
 		return false
+	}
+
+	private fun updateSalePromo() {
+		if (licenseEnforcer.hasPaidLicense()) {
+			view?.hideSalePromoBanner()
+		} else {
+			loadSalePromo()
+		}
 	}
 
 	private fun loadSalePromo() {
