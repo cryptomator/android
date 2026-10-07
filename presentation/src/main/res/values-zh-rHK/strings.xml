@@ -111,6 +111,7 @@
 	<string name="screen_vault_list_vault_action_delete">移除</string>
 	<string name="screen_vault_list_vault_creation_hint">按此建立新的加密庫</string>
 	<string name="screen_vault_list_change_password_successful">密碼已成功更改</string>
+	<string name="screen_vault_list_sale_promo_banner_dismiss">忽略</string>
 	<!-- # screen: file browser -->
 	<string name="screen_file_browser_default_title">加密庫</string>
 	<string name="screen_file_browser_add_existing_vault_extra_text">請選擇主金鑰或加密庫</string>
