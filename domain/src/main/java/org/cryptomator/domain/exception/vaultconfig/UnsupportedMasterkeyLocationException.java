@@ -1,9 +1,9 @@
 package org.cryptomator.domain.exception.vaultconfig;
 
+import com.auth0.jwt.exceptions.JWTVerificationException;
+
 import org.cryptomator.domain.UnverifiedVaultConfig;
 import org.cryptomator.domain.exception.BackendException;
-
-import io.jsonwebtoken.JwtException;
 
 public class UnsupportedMasterkeyLocationException extends BackendException {
 
@@ -13,7 +13,7 @@ public class UnsupportedMasterkeyLocationException extends BackendException {
 		this.unverifiedVaultConfig = unverifiedVaultConfig;
 	}
 
-	public UnsupportedMasterkeyLocationException(String message, JwtException e) {
+	public UnsupportedMasterkeyLocationException(String message, JWTVerificationException e) {
 		super(message, e);
 	}
 }

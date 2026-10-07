@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.viewbinding.ViewBinding
 import org.cryptomator.presentation.di.HasComponent
 import org.cryptomator.presentation.di.component.ActivityComponent
 import org.cryptomator.presentation.exception.ExceptionHandlers
@@ -14,10 +15,12 @@ import org.cryptomator.presentation.util.KeyboardHelper
 import javax.inject.Inject
 import timber.log.Timber
 
-abstract class BaseFragment : Fragment() {
+abstract class BaseFragment<VB : ViewBinding>(val bindingFactory: (LayoutInflater) -> VB) : Fragment() {
 
 	@Inject
 	lateinit var exceptionMappings: ExceptionHandlers
+
+	protected val binding: VB by lazy { bindingFactory(layoutInflater) }
 
 	private var created: Boolean = false
 	private var onViewCreatedCalled: Boolean = false
@@ -31,7 +34,7 @@ abstract class BaseFragment : Fragment() {
 
 	override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
 		logLifecycle("onCreateView")
-		return inflater.inflate(fragmentLayout(), container, false)
+		return binding.root
 	}
 
 	override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -89,9 +92,6 @@ abstract class BaseFragment : Fragment() {
 		super.onPause()
 		logLifecycle("onPause")
 	}
-
-	private fun fragmentLayout(): Int =
-		javaClass.getAnnotation(org.cryptomator.generator.Fragment::class.java)!!.value
 
 	override fun onDestroyView() {
 		super.onDestroyView()

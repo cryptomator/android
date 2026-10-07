@@ -1,9 +1,11 @@
 package org.cryptomator.domain.usecases.cloud
 
 import android.content.Context
+import org.cryptomator.util.Optional
 import java.io.ByteArrayInputStream
 import java.io.IOException
 import java.io.InputStream
+import java.util.Date
 
 object EmptyDataSource : DataSource {
 
@@ -24,5 +26,9 @@ object EmptyDataSource : DataSource {
 	override fun close() {
 		// do nothing because ByteArrayInputStream need no close
 		// see: ByteArrayDataSource
+	}
+
+	override fun modifiedDate(context: Context): Optional<Date> {
+		return Optional.empty()
 	}
 }

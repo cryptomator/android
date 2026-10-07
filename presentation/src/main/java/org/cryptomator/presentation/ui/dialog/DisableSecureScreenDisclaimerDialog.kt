@@ -6,10 +6,10 @@ import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.DialogFragment
 import org.cryptomator.generator.Dialog
 import org.cryptomator.presentation.R
-import kotlinx.android.synthetic.main.dialog_disable_secure_screen_disclaimer.tv_disable_secure_screen_disclaimer
+import org.cryptomator.presentation.databinding.DialogDisableSecureScreenDisclaimerBinding
 
-@Dialog(R.layout.dialog_disable_secure_screen_disclaimer)
-class DisableSecureScreenDisclaimerDialog : BaseDialog<DisableSecureScreenDisclaimerDialog.Callback>() {
+@Dialog
+class DisableSecureScreenDisclaimerDialog : BaseDialog<DisableSecureScreenDisclaimerDialog.Callback, DialogDisableSecureScreenDisclaimerBinding>(DialogDisableSecureScreenDisclaimerBinding::inflate) {
 
 	interface Callback {
 
@@ -26,7 +26,7 @@ class DisableSecureScreenDisclaimerDialog : BaseDialog<DisableSecureScreenDiscla
 	}
 
 	public override fun setupView() {
-		tv_disable_secure_screen_disclaimer.movementMethod = LinkMovementMethod.getInstance()
+		binding.tvDisableSecureScreenDisclaimer.movementMethod = LinkMovementMethod.getInstance()
 	}
 
 	override fun onCancel(dialog: DialogInterface) {

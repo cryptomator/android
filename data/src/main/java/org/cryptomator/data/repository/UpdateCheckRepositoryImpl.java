@@ -3,11 +3,15 @@ package org.cryptomator.data.repository;
 import android.content.Context;
 import android.net.Uri;
 
+import com.auth0.jwt.JWT;
+import com.auth0.jwt.algorithms.Algorithm;
+import com.auth0.jwt.interfaces.DecodedJWT;
+import com.auth0.jwt.interfaces.JWTVerifier;
 import com.google.common.base.Optional;
 import com.google.common.io.BaseEncoding;
 
 import org.apache.commons.codec.binary.Hex;
-import org.cryptomator.data.db.Database;
+import org.cryptomator.data.db.dao.UpdateCheckDao;
 import org.cryptomator.data.db.entities.UpdateCheckEntity;
 import org.cryptomator.data.util.UserAgentInterceptor;
 import org.cryptomator.domain.exception.BackendException;
@@ -28,12 +32,9 @@ import java.security.interfaces.ECPublicKey;
 import java.security.spec.InvalidKeySpecException;
 import java.security.spec.X509EncodedKeySpec;
 
-import javax.annotation.Nullable;
 import javax.inject.Inject;
 import javax.inject.Singleton;
 
-import io.jsonwebtoken.Claims;
-import io.jsonwebtoken.Jwts;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
@@ -46,14 +47,14 @@ public class UpdateCheckRepositoryImpl implements UpdateCheckRepository {
 
 	private static final String HOSTNAME_LATEST_VERSION = "https://api.cryptomator.org/android/latest-version.json";
 
-	private final Database database;
+	private final UpdateCheckDao updateCheckDao;
 	private final OkHttpClient httpClient;
 	private final Context context;
 
 	@Inject
-	UpdateCheckRepositoryImpl(Database database, Context context) {
+	UpdateCheckRepositoryImpl(UpdateCheckDao updateCheckDao, Context context) {
 		this.httpClient = httpClient();
-		this.database = database;
+		this.updateCheckDao = updateCheckDao;
 		this.context = context;
 	}
 
@@ -71,7 +72,7 @@ public class UpdateCheckRepositoryImpl implements UpdateCheckRepository {
 			return Optional.absent();
 		}
 
-		final UpdateCheckEntity entity = database.load(UpdateCheckEntity.class, 1L);
+		final UpdateCheckEntity entity = updateCheckDao.load(1L);
 
 		if (entity.getVersion() != null && entity.getVersion().equals(latestVersion.version) && entity.getApkSha256() != null) {
 			return Optional.of(new UpdateCheckImpl("", entity));
@@ -82,30 +83,15 @@ public class UpdateCheckRepositoryImpl implements UpdateCheckRepository {
 		entity.setVersion(updateCheck.getVersion());
 		entity.setApkSha256(updateCheck.getApkSha256());
 
-		database.store(entity);
+		updateCheckDao.update(entity);
 
 		return Optional.of(updateCheck);
-	}
-
-	@Nullable
-	@Override
-	public String getLicense() {
-		return database.load(UpdateCheckEntity.class, 1L).getLicenseToken();
-	}
-
-	@Override
-	public void setLicense(String license) {
-		final UpdateCheckEntity entity = database.load(UpdateCheckEntity.class, 1L);
-
-		entity.setLicenseToken(license);
-
-		database.store(entity);
 	}
 
 	@Override
 	public void update(File file) throws GeneralUpdateErrorException {
 		try {
-			final UpdateCheckEntity entity = database.load(UpdateCheckEntity.class, 1L);
+			final UpdateCheckEntity entity = updateCheckDao.load(1L);
 
 			final Request request = new Request //
 					.Builder() //
@@ -263,16 +249,14 @@ public class UpdateCheckRepositoryImpl implements UpdateCheckRepository {
 
 		LatestVersion(String json) throws GeneralUpdateErrorException {
 			try {
-				Claims jws = Jwts //
-						.parserBuilder().setSigningKey(getPublicKey()) //
-						.build() //
-						.parseClaimsJws(json) //
-						.getBody();
+				Algorithm algorithm = Algorithm.ECDSA256(getPublicKey(), null);
+				JWTVerifier verifier = JWT.require(algorithm).build();
+				DecodedJWT jwt = verifier.verify(json);
 
-				version = jws.get("version", String.class);
-				urlApk = jws.get("url", String.class);
-				apkSha256 = jws.get("apk_sha_256", String.class);
-				urlReleaseNote = jws.get("release_notes", String.class);
+				version = jwt.getClaim("version").asString();
+				urlApk = jwt.getClaim("url").asString();
+				apkSha256 = jwt.getClaim("apk_sha_256").asString();
+				urlReleaseNote = jwt.getClaim("release_notes").asString();
 			} catch (NoSuchAlgorithmException | InvalidKeySpecException e) {
 				throw new GeneralUpdateErrorException("Failed to parse latest version", e);
 			}

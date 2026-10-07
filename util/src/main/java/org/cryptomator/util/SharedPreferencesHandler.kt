@@ -22,6 +22,7 @@ constructor(context: Context) : SharedPreferences.OnSharedPreferenceChangeListen
 	private val defaultSharedPreferences: SharedPreferences = PreferenceManager.getDefaultSharedPreferences(context)
 
 	private val lockTimeoutChangedListeners = WeakHashMap<Consumer<LockTimeout>, Void>()
+	private val licenseChangedListeners = WeakHashMap<Consumer<String>, Void>()
 
 	init {
 		defaultSharedPreferences.registerOnSharedPreferenceChangeListener(this)
@@ -165,11 +166,27 @@ constructor(context: Context) : SharedPreferences.OnSharedPreferenceChangeListen
 		return defaultSharedPreferences.getValue(USE_LRU_CACHE, false)
 	}
 
-	override fun onSharedPreferenceChanged(sharedPreferences: SharedPreferences, key: String) {
-		if (LOCK_TIMEOUT == key) {
-			val lockTimeout = lockTimeout
-			lockTimeoutChangedListeners.keys.forEach { listener ->
-				listener.accept(lockTimeout)
+	fun addLicenseChangedListeners(listener: Consumer<String>) {
+		licenseChangedListeners[listener] = null
+		listener.accept(licenseToken())
+	}
+
+	fun removeLicenseChangedListeners(listener: Consumer<String>) {
+		licenseChangedListeners.remove(listener)
+	}
+
+	override fun onSharedPreferenceChanged(sharedPreferences: SharedPreferences, key: String?) {
+		when (key) {
+			LOCK_TIMEOUT -> {
+				val lockTimeout = lockTimeout
+				lockTimeoutChangedListeners.keys.forEach { listener ->
+					listener.accept(lockTimeout)
+				}
+			}
+			LICENSE_TOKEN, TRIAL_EXPIRATION_DATE, HAS_RUNNING_SUBSCRIPTION -> {
+				licenseChangedListeners.keys.forEach { listener ->
+					listener.accept(licenseToken())
+				}
 			}
 		}
 	}
@@ -184,6 +201,65 @@ constructor(context: Context) : SharedPreferences.OnSharedPreferenceChangeListen
 
 	fun setMail(mail: String) {
 		defaultSharedPreferences.setValue(MAIL, mail)
+	}
+
+	fun licenseToken(): String {
+		return defaultSharedPreferences.getValue(LICENSE_TOKEN, "")
+	}
+
+	fun setLicenseToken(licenseToken: String) {
+		defaultSharedPreferences.setValue(LICENSE_TOKEN, licenseToken)
+	}
+
+	fun trialExpirationDate(): Long {
+		return defaultSharedPreferences.getValue(TRIAL_EXPIRATION_DATE, 0L)
+	}
+
+	fun setTrialExpirationDate(date: Long) {
+		defaultSharedPreferences.setValue(TRIAL_EXPIRATION_DATE, date)
+	}
+
+	fun isTrialExpired(): Boolean {
+		return defaultSharedPreferences.getValue(TRIAL_EXPIRED, false)
+	}
+
+	fun setTrialExpired(value: Boolean) {
+		defaultSharedPreferences.setValue(TRIAL_EXPIRED, value)
+	}
+
+	fun purchaseRevokedPending(): Boolean {
+		return defaultSharedPreferences.getValue(PURCHASE_REVOKED_PENDING, false)
+	}
+
+	fun purchaseRevokedReason(): String {
+		return defaultSharedPreferences.getValue(PURCHASE_REVOKED_REASON, "")
+	}
+
+	fun setPurchaseRevokedState(pending: Boolean, reason: String) {
+		defaultSharedPreferences.edit { editor ->
+			editor.putBoolean(PURCHASE_REVOKED_PENDING, pending)
+			editor.putString(PURCHASE_REVOKED_REASON, reason)
+		}
+	}
+
+	fun clearPurchaseRevokedState() {
+		setPurchaseRevokedState(pending = false, reason = "")
+	}
+
+	fun hasRunningSubscription(): Boolean {
+		return defaultSharedPreferences.getValue(HAS_RUNNING_SUBSCRIPTION, false)
+	}
+
+	fun setHasRunningSubscription(value: Boolean) {
+		defaultSharedPreferences.setValue(HAS_RUNNING_SUBSCRIPTION, value)
+	}
+
+	fun salePromoDismissedUntil(): Long {
+		return defaultSharedPreferences.getValue(SALE_PROMO_DISMISSED_UNTIL, 0L)
+	}
+
+	fun setSalePromoDismissedUntil(date: Long) {
+		defaultSharedPreferences.setValue(SALE_PROMO_DISMISSED_UNTIL, date)
 	}
 
 	fun keepUnlockedWhileEditing(): Boolean {
@@ -283,6 +359,36 @@ constructor(context: Context) : SharedPreferences.OnSharedPreferenceChangeListen
 		return defaultSharedPreferences.getBoolean(MICROSOFT_WORKAROUND, false)
 	}
 
+	fun hasCompletedWelcomeFlow(): Boolean {
+		return defaultSharedPreferences.getValue(WELCOME_FLOW_COMPLETED, false)
+	}
+
+	fun setWelcomeFlowCompleted() {
+		defaultSharedPreferences.setValue(WELCOME_FLOW_COMPLETED, true)
+	}
+
+	fun addTrustedHubHosts(host: String) {
+		val hosts = defaultSharedPreferences
+			.getStringSet(TRUSTED_HUB_HOSTS, emptySet())
+			?.toMutableSet() ?: mutableSetOf()
+
+		hosts.add(host)
+
+		defaultSharedPreferences.edit()
+			.putStringSet(TRUSTED_HUB_HOSTS, hosts)
+			.apply()
+	}
+
+	fun getTrustedHubHosts(): Set<String> {
+		return defaultSharedPreferences
+			.getStringSet(TRUSTED_HUB_HOSTS, emptySet())
+			?.toSet() ?: emptySet()
+	}
+
+	fun clearTrustedHubHosts() {
+		defaultSharedPreferences.edit().putStringSet(TRUSTED_HUB_HOSTS, mutableSetOf()).apply()
+	}
+
 	companion object {
 
 		private const val SCREEN_LOCK_DIALOG_SHOWN = "askForScreenLockDialogShown"
@@ -299,6 +405,13 @@ constructor(context: Context) : SharedPreferences.OnSharedPreferenceChangeListen
 		private const val VAULTS_REMOVED_DURING_MIGRATION = "vaultsRemovedDuringMigration"
 		private const val VAULTS_REMOVED_DURING_MIGRATION_TYPE = "vaultsRemovedDuringMigrationType"
 		private const val LAST_UPDATE_CHECK = "lastUpdateCheck"
+		private const val WELCOME_FLOW_COMPLETED = "welcomeFlowCompleted"
+		private const val TRIAL_EXPIRATION_DATE = "trialExpirationDate"
+		private const val TRIAL_EXPIRED = "trialExpired"
+		private const val HAS_RUNNING_SUBSCRIPTION = "hasRunningSubscription"
+		private const val SALE_PROMO_DISMISSED_UNTIL = "salePromoDismissedUntil"
+		private const val PURCHASE_REVOKED_PENDING = "purchaseRevokedPending"
+		private const val PURCHASE_REVOKED_REASON = "purchaseRevokedReason"
 		const val DEBUG_MODE = "debugMode"
 		const val DISABLE_APP_WHEN_OBSCURED = "disableAppWhenObscured"
 		const val SECURE_SCREEN = "secureScreen"
@@ -313,11 +426,13 @@ constructor(context: Context) : SharedPreferences.OnSharedPreferenceChangeListen
 		const val LRU_CACHE_SIZE = "lruCacheSize"
 		const val MICROSOFT_WORKAROUND = "shareOfficeFilePublicly"
 		const val MAIL = "mail"
+		const val LICENSE_TOKEN = "licenseToken"
 		const val UPDATE_INTERVAL = "updateInterval"
 		const val CLOUD_SETTINGS = "cloudSettings"
 		const val BIOMETRIC_AUTHENTICATION = "biometricAuthentication"
 		const val CRYPTOMATOR_VARIANTS = "cryptomatorVariants"
 		const val LICENSES_ACTIVITY = "licensesActivity"
+		const val TRUSTED_HUB_HOSTS = "trustedHubHosts"
 	}
 
 	private inline fun SharedPreferences.edit(operation: (SharedPreferences.Editor) -> Unit) {

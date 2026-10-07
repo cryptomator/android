@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
 	xmlns:app="http://schemas.android.com/apk/res-auto"
-	android:id="@+id/activityRootView"
+	android:id="@+id/activity_root_view"
 	android:layout_width="match_parent"
 	android:layout_height="match_parent"
 	android:background="@color/colorBlack">
 
 	<org.cryptomator.presentation.util.ViewPagerWorkaround
-		android:id="@+id/viewPager"
+		android:id="@+id/view_pager"
 		android:layout_width="match_parent"
 		android:layout_height="match_parent" />
 
@@ -21,7 +21,7 @@
 		android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar" />
 
 	<RelativeLayout
-		android:id="@+id/controlView"
+		android:id="@+id/control_view"
 		android:layout_width="match_parent"
 		android:layout_height="wrap_content"
 		android:layout_alignParentEnd="true"
@@ -33,25 +33,25 @@
 		android:padding="12dp">
 
 		<ImageView
-			android:id="@+id/deleteImage"
+			android:id="@+id/delete_image"
 			android:layout_width="24dp"
 			android:layout_height="24dp"
 			android:layout_marginEnd="@dimen/global_padding"
-			android:layout_toStartOf="@+id/shareImage"
+			android:layout_toStartOf="@id/share_image"
 			android:src="@drawable/ic_delete"
 			app:tint="#fff" />
 
 		<ImageView
-			android:id="@+id/shareImage"
+			android:id="@+id/share_image"
 			android:layout_width="24dp"
 			android:layout_height="24dp"
 			android:layout_marginEnd="@dimen/global_padding"
-			android:layout_toStartOf="@+id/exportImage"
+			android:layout_toStartOf="@id/export_image"
 			android:src="@drawable/ic_share"
 			app:tint="#fff" />
 
 		<ImageView
-			android:id="@+id/exportImage"
+			android:id="@+id/export_image"
 			android:layout_width="24dp"
 			android:layout_height="24dp"
 			android:layout_alignParentEnd="true"

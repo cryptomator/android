@@ -16,15 +16,18 @@ import android.widget.TextView
 import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.FragmentManager
+import androidx.viewbinding.ViewBinding
 import org.cryptomator.generator.Dialog
 import org.cryptomator.presentation.BuildConfig
 import org.cryptomator.presentation.util.KeyboardHelper
 import org.cryptomator.util.SharedPreferencesHandler
 import java.util.function.Supplier
 
-abstract class BaseDialog<Callback> : DialogFragment() {
+abstract class BaseDialog<Callback, VB : ViewBinding>(val bindingFactory: (LayoutInflater, ViewGroup?, Boolean) -> VB) : DialogFragment() {
 
 	private lateinit var customDialog: View
+
+	protected lateinit var binding: VB
 
 	var callback: Callback? = null
 
@@ -41,17 +44,21 @@ abstract class BaseDialog<Callback> : DialogFragment() {
 	}
 
 	override fun onCreateDialog(savedInstanceState: Bundle?): android.app.Dialog {
+		val inflater = LayoutInflater.from(context)
+		binding = bindingFactory(inflater, null, false)
+
 		val builder = AlertDialog.Builder(requireActivity())
-		customDialog = requireActivity().layoutInflater.inflate(dialogContent, null)
-		builder.setView(customDialog)
-		val dialog = setupDialog(builder)
+		builder.setView(binding.root)
+		setupDialog(builder)
+
+		val dialog = builder.create()
 		dialog.window?.decorView?.filterTouchesWhenObscured = disableDialogWhenObscured()
+
 		return dialog
 	}
 
-	// Need to return the view here or onViewCreated won't be called by DialogFragment, sigh
 	override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-		return customDialog
+		return binding.root
 	}
 
 	override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -115,9 +122,6 @@ abstract class BaseDialog<Callback> : DialogFragment() {
 	protected fun hideKeyboard(view: View) {
 		KeyboardHelper.hideKeyboard(requireActivity(), view)
 	}
-
-	private val dialogContent: Int
-		get() = javaClass.getAnnotation(org.cryptomator.generator.Dialog::class.java)!!.value
 
 	protected fun registerOnEditorDoneActionAndPerformButtonClick(editText: EditText, positiveButton: Supplier<Button>) {
 		editText.setOnEditorActionListener { _: TextView?, actionId: Int, _: KeyEvent? ->

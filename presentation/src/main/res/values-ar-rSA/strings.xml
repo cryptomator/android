@@ -7,6 +7,7 @@
 	<string name="error_authentication_failed">فشلت المصادقة</string>
 	<string name="error_authentication_failed_re_authenticate">فشلت عملية المصادقة، الرجاء تسجيل الدخول باستخدام %1$s</string>
 	<string name="error_no_network_connection">لا يوجد اتصال بالشبكة</string>
+	<string name="error_purchase_not_available">الشراء غير متاح. يرجى المحاولة مرة أخرى لاحقًا.</string>
 	<string name="error_invalid_passphrase">كلمة المرور خاطئة</string>
 	<string name="error_file_or_folder_exists">المجلد أو الملف موجود مسبقاُ.</string>
 	<string name="error_vault_version_not_supported">إصدار الخزينة %1$s غير مدعوم. تم إنشاء هذه الخزينة بإصدار قديم أو أحدث من Cryptomter.</string>
@@ -35,6 +36,64 @@
 	<string name="error_no_such_bucket">لا يوجد مخزن بهذه المعلومات في S3</string>
 	<string name="error_masterkey_location_not_supported">موقع المفتاح الرئيسي غير مدعوم بعد</string>
 	<string name="error_interact_with_fdroid_but_fdroid_missing">فشل في التواصل مع تطبيق F-Droid. غير مثبت؟</string>
+	<string name="error_hub_vault_operation_not_supported">عملية المخزن غير مدعومة في Hub</string>
+	<string name="error_hub_authentication_failed">فشل المصادقة ضد Hub</string>
+	<string name="error_hub_device_already_register_for_other_user">هذا الجهاز مسجل لمستخدم مختلف بالفعل. حاول تغيير حساب المستخدم أو استخدام جهاز مختلف.</string>
+	<string name="error_hub_invalid_setup_code">Account Key غير صالح.</string>
+	<string name="error_hub_invalid_version">إصدار Hub غير مدعوم.</string>
+	<string name="error_hub_unlock_pre_31">Hub مدعوم فقط على أندرويد 12 وما فوق.</string>
+	<string name="error_hub_not_trustworthy">المركز (Hub) غير موثوق.</string>
+	<!-- # read-only & purchases -->
+	<string name="read_only_reason_hub_inactive">قم بترقية ترخيص Hub الخاص بك لتمكين الكتابة في هذه الخزنة.</string>
+	<string name="toast_purchase_revoked_refunded">تم رد المبلغ المدفوع لعملية الشراء مدى الحياة. أصبح لديك الآن حق الوصول للقراءة فقط.</string>
+	<string name="toast_purchase_revoked_subscription_inactive">لم يعد اشتراكك نشطًا. أصبح لديك الآن حق الوصول للقراءة فقط.</string>
+	<string name="screen_license_check_locked_create_vault">افتح النسخة الكاملة لإنشاء الخزائن</string>
+	<string name="screen_license_check_locked_upload_files">افتح النسخة الكاملة لتحميل الملفات</string>
+	<string name="screen_license_check_locked_create_folder">افتح النسخة الكاملة لإنشاء المجلدات</string>
+	<string name="screen_license_check_locked_create_text_file">افتح النسخة الكاملة لإنشاء الملفات النصية</string>
+	<string name="screen_license_check_locked_share_node">افتح النسخة الكاملة لمشاركة الملفات أو المجلدات</string>
+	<string name="screen_license_check_locked_rename_node">افتح النسخة الكاملة لإعادة تسمية الملفات أو المجلدات</string>
+	<string name="screen_license_check_locked_move_node">افتح النسخة الكاملة لنقل الملفات أو المجلدات</string>
+	<string name="screen_license_check_locked_delete_node">افتح النسخة الكاملة لحذف الملفات أو المجلدات</string>
+	<string name="screen_license_check_title">إلغاء قفل صلاحية الكتابة</string>
+	<string name="screen_license_check_benefit_title">مزاياك</string>
+	<string name="screen_license_check_benefit_family_sharing">مشاركة عائلية</string>
+	<string name="screen_license_check_benefit_write_access">إمكانية التعديل في خزائنك</string>
+	<string name="screen_license_check_benefit_support">تطوير مفتوح المصدر</string>
+	<string name="screen_license_check_button_purchase">افتح عبر Google Play</string>
+	<string name="screen_license_check_button_enter_license">أدخل مفتاح الترخيص</string>
+	<string name="screen_license_check_enter_license_action">إدخال</string>
+	<string name="screen_license_check_title_full_version">فتح النسخة الكاملة</string>
+	<string name="screen_license_check_trial_title">تجربة مجانية لمدة 30 يوم</string>
+	<string name="screen_license_check_trial_price">مجاناً</string>
+	<string name="screen_license_check_trial_subtitle">لمدة 30 يوماً</string>
+	<string name="screen_license_check_subscription_title">اشتراك سنوي</string>
+	<string name="screen_license_check_subscription_subtitle">سنوياً</string>
+	<string name="screen_license_check_lifetime_title">رخصة لمدى الحياة</string>
+	<string name="screen_license_check_lifetime_discount_badge_until">🔥 خصم %1$d%% حتى %2$s</string>
+	<string name="screen_license_check_lifetime_discount_badge_generic">🔥 عرض لفترة محدودة</string>
+	<string name="screen_license_check_lifetime_subtitle">لمرة واحدة</string>
+	<string name="screen_license_check_restore_purchase">استعادة المشتريات</string>
+	<string name="screen_license_check_terms">شروط الإستخدام</string>
+	<string name="screen_license_check_privacy">سياسة الخصوصية</string>
+	<string name="screen_license_check_trial_expiration">تاريخ الانتهاء: %s</string>
+	<string name="screen_license_check_trial_status_active">مفعل</string>
+	<string name="screen_license_check_trial_status_expired">منتهية الصلاحية</string>
+	<string name="screen_license_check_trial_active_info">تنتهي الفترة التجريبية: %s</string>
+	<string name="screen_license_check_trial_expired_info">انتهت الفترة التجريبية الخاصة بك.</string>
+	<string name="screen_license_check_subscription_upgrade_hint">لديك اشتراك نشط. اشترِ ترخيص مدى الحياة وألغِ اشتراكك للتبديل.</string>
+	<string name="screen_license_check_cancel_subscription_hint">أصبح لديك الآن ترخيص مدى الحياة. لتجنب الرسوم المستقبلية، ألغِ اشتراكك السنوي عبر خيار %1$s في الإعدادات.</string>
+	<string name="screen_welcome_title">أهلاً وسهلاً</string>
+	<string name="screen_welcome_notifications_title">ابقَ على اطلاع</string>
+	<string name="screen_welcome_notifications_message">اسمح بالإشعارات حتى يتمكن Cryptomator من إبلاغك بالنشاط في الخلفية أو التحميل التلقائي أو الأحداث المهمة الأخرى.</string>
+	<string name="screen_welcome_notifications_button">السماح بالإشعارات</string>
+	<string name="screen_welcome_notifications_granted">الإشعارات مفعّلة.</string>
+	<string name="screen_welcome_continue_button">استمرار</string>
+	<string name="screen_welcome_screen_lock_button">تعيين قفل الشاشة</string>
+	<string name="screen_welcome_screen_lock_already_set">قفل الشاشة مُعدّ بالفعل.</string>
+	<string name="screen_welcome_intro_body">شكرًا لاختيارك Cryptomator لحماية ملفاتك.\n\nمع Cryptomator، مفتاح بياناتك بين يديك.\n\nيقوم Cryptomator بتشفير بياناتك بسرعة وسهولة.</string>
+	<string name="next">التالي</string>
+	<string name="back">رجوع</string>
 	<!-- # clouds -->
 	<!-- ## cloud names -->
 	<string name="cloud_names_local_storage">ذاكرة التخزين المحلية</string>
@@ -66,8 +125,8 @@
 	<string name="screen_vault_list_vault_creation_hint">أنقر هنا لإنشاء خزينة جديدة</string>
 	<string name="screen_vault_list_change_password_successful">تم تغيير كلمة المرور بنجاح</string>
 	<!-- # screen: file browser -->
-	<string name="screen_file_browser_default_title">مخزن</string>
-	<string name="screen_file_browser_add_existing_vault_extra_text">اختر مِلَفَ المفتاحِ الرئيسِ</string>
+	<string name="screen_file_browser_default_title">الخزينة</string>
+	<string name="screen_file_browser_add_existing_vault_extra_text">حدد ملف المفتاح الرئيسي أو ملف الخزنة</string>
 	<string name="screen_file_browser_create_new_vault_button_text">ضع هنا</string>
 	<string name="screen_file_browser_create_new_vault_extra_text">اسم المخزن: %1$s</string>
 	<plurals name="screen_file_browser_subtitle_move">
@@ -176,6 +235,7 @@
 	<string name="screen_settings_live_search_summary">تحديث نتائج البحث أثناء إدخال الإستعلام</string>
 	<string name="screen_settings_glob_search">البحث باستخدام نمط المطابقة glob</string>
 	<string name="screen_settings_glob_search_summary">استخدام نمط المطابقة glob مثل alice.*.jpg</string>
+	<string name="screen_hub_reset_unknown_hub_hosts_title">إعادة تعيين مضيفي Hub غير المعروفين</string>
 	<string name="screen_settings_section_auto_lock">قفل تلقائي</string>
 	<string name="screen_settings_auto_lock_timeout">أقفال بعد</string>
 	<string name="screen_settings_auto_lock_on_screen_lock">عند تعطيل الشاشة</string>
@@ -189,7 +249,7 @@
 	<string name="screen_settings_section_auto_photo_upload_including_videos">تحميل ملفات الفيديو</string>
 	<string name="screen_settings_auto_photo_upload_title">حفظ الملفات الرفع التلقائي إلى&#8230;</string>
 	<string name="screen_settings_website_label">الموقع الإلكتروني</string>
-	<string name="screen_settings_twitter_label">تابعنا علي منصة تويتر</string>
+	<string name="screen_settings_mastodon_label">تابعنا على ماستدون</string>
 	<string name="screen_settings_facebook_label">سجل اعجابك لصفحة فيسبوك</string>
 	<string name="screen_settings_section_legal">قانوني</string>
 	<string name="screen_settings_licenses_label">التراخيص</string>
@@ -202,6 +262,8 @@
 	<string name="screen_settings_security_label">تلميحات الأمان</string>
 	<string name="screen_settings_section_version">الإصدارة</string>
 	<string name="screen_settings_advanced_settings">إعدادات متقدمة</string>
+	<string name="screen_settings_microsoft_apps_workaround_label">العمل على فتح ملفات مايكروسوفت</string>
+	<string name="screen_settings_microsoft_apps_workaround_summary">فتح الملفات في تطبيقات مايكروسوفت مع السماح بالتعديل</string>
 	<string name="screen_settings_background_unlock_preparation_label">تسريع فتح القفل</string>
 	<string name="screen_settings_background_unlock_preparation_label_summary">تنزيل إعدادات المخزن في الخلفية أثناء مطالبته بإدخال كلمة المرور أو البصمة</string>
 	<string name="screen_settings_keep_unlocked_while_editing_files">أبقه فاتح</string>
@@ -232,7 +294,7 @@
 	<string name="screen_cryptomator_variants_website_description">تحتوي برامج ملكية خاصة.</string>
 	<string name="screen_cryptomator_variants_installation_hint">التبديل من أو إلى مستودع تطبيقات F-Droid الرئيسي يستلزم إعداد نسخة جديد من التطبيق.</string>
 	<!-- # dialogs -->
-	<string name="dialog_button_cancel">الغاء</string>
+	<string name="dialog_button_cancel">إلغاء</string>
 	<string name="dialog_enter_password_positive_button">افتح</string>
 	<string name="dialog_change_password_old_password_label">كلمة المرور القديمة</string>
 	<string name="dialog_change_password_new_password_label">كلمة المرور الجديدة</string>
@@ -309,17 +371,18 @@
 	<string name="dialog_debug_mode_disclaimer_hint">في هذا الوضع، يمكن كتابة البيانات الحساسة إلى ملف تسجيل على جهازك (على سبيل المثال أسماء الملفات والمسارات). كلمة المرور، ملفات تعريف الارتباط، إلخ. مستبعدة صراحة.\n\nتذكر تعطيل وضع التصحيح في أقرب وقت ممكن.</string>
 	<string name="dialog_debug_mode_disclaimer_title">انتباه</string>
 	<string name="dialog_debug_mode_positive_button">تفعيل</string>
-	<string name="dialog_disable_app_obscured_disclaimer_hint">هذا الإعداد هو ميزة أمنية ويمنع التطبيقات الأخرى من استدراج المستخدمين لفعل أشياء لا يريدون القيام بها.\n\nبتعطيليها, أنت تؤكد أنك <a href="https://docs.cryptomator.org/en/1.6/android/settings/#block-app-when-obscured">على علم بالمخاطر</a>.</string>
+	<string name="dialog_microsoft_workaround_disclaimer_hint">بسبب خطأ في تطبيقات مايكروسوفت، يجب مشاركة الملف المراد تعديله مع هذه التطبيقات في مجلد وسائط عام على جهازك. بعد استئناف Cryptomator ، يتم حذف هذا الملف مرة أخرى، ولكن Cryptomator لا يمكنه التأثير على ما حدث لهذا الملف في هذه الأثناء. تأكد من أنك على علم بهذا السلوك عند تفعيل هذا الخيار. سيتم تطبيق هذا فقط على ملفات مايكروسوفت.\n\nسيتم إعادة تشغيل Cryptomator بعد التفعيل.</string>
+	<string name="dialog_disable_app_obscured_disclaimer_hint">هذا الإعداد هو ميزة أمنية تمنع التطبيقات الأخرى من استدراج المستخدمين لفعل أشياء لا يريدون القيام بها.\n\nبتعطيليها, أنت تؤكد أنك <a href="https://docs.cryptomator.org/en/latest/android/settings/#block-app-when-obscured">على علم بالمخاطر</a>.</string>
 	<string name="dialog_disable_app_obscured_disclaimer_title">انتباه</string>
 	<string name="dialog_disable_app_obscured_positive_button">تعطيل</string>
 	<string name="dialog_app_is_obscured_info_title">التطبيق غامض</string>
-	<string name="dialog_app_is_obscured_info_hint">هناك تطبيق آخر يعلو الشاشة فوق Cryptomator (مثال: تطبيقات الرؤية الليلية / الأشعة الزرقاء). سيتم تعطيل Cryptomator لدواعي أمنية.\n\n<a href="https://docs.cryptomator.org/en/1.6/android/settings/#block-app-when-obscured">كيفية تمكين Cryptomator</a></string>
+	<string name="dialog_app_is_obscured_info_hint">يقوم تطبيق آخر بعرض شيء فوق Cryptomator (على سبيل المثال فلتر الضوء الأزرق أو تطبيق الوضع الليلي). لأسباب أمنية، تم تعطيل Cryptomator\n\n<a href="https://docs.cryptomator.org/en/latest/android/settings/#block-app-when-obscured">كيفية تمكين Cryptomator</a></string>
 	<string name="dialog_app_is_obscured_info_neutral_button">إغلاق</string>
 	<string name="dialog_vaults_removed_during_migration_title">رجاءً أعِد إضافَةَ خزائن لسحابة %1s</string>
 	<string name="dialog_vaults_removed_during_migration_hint">أثناء التحول إلى إصدار هذا التطبيق، تتوجب إزالة الخزائن التالية:\n%2s \n\nهذه الخزائن ستحذف فقط من هذا التطبيق وليس من التخزين السحابي. عذرا على الإزعاج قم بإعادة إضافة هذه الخزائن لمواصلة العمل بها.</string>
 	<string name="dialog_vault_is_root_folder_of_cloud_title">الخزنة هي \"المجلد الرئيس\" للاتصال السحابي</string>
 	<string name="dialog_vault_is_root_folder_of_cloud_hint">لإضافة هذه الخزنة، أنشئ اتصالًا سحابيا جديدا بحيث يكون مجلده الرئيس هو نفسه المجلد الرئيس لهذه الخزنة.</string>
-	<string name="dialog_disable_secure_screen_disclaimer_hint">هذا الإعداد هو ميزة أمنية تمنع التطبيقات الأخرى من استدراج المستخدمين لفعل أشياء لا يريدون القيام بها.\n\nبتعطيليها, أنت تؤكد أنك <a href="https://docs.cryptomator.org/en/1.6/android/settings/#screen-security">على علم بالمخاطر</a>.</string>
+	<string name="dialog_disable_secure_screen_disclaimer_hint">هذا الإعداد هو ميزة أمنية تمنع التطبيقات الأخرى من استدراج المستخدمين لفعل أشياء لا يريدون القيام بها.\n\nبتعطيليها, أنت تؤكد أنك <a href="https://docs.cryptomator.org/en/latest/android/settings/#screen-security">على علم بالمخاطر</a>.</string>
 	<string name="dialog_delete_cloud_connection_with_vaults_message">هل أنت متيقِّن من رغبتك بحذف هذا الاتصال السحابي؟</string>
 	<string name="dialog_delete_cloud_connection_with_vaults_hint">سوف يقوم هذا الأمر بحذف الإتصال بمقدم الخدمة السحابية و كل المخازن المرتبطة به.</string>
 	<string name="dialog_confirm_delete_multiple_title">حذف %1$d عناصر؟</string>
@@ -351,8 +414,36 @@
 	<string name="dialog_no_more_images_to_display">لا مزيد من الصور للعرض&#8230;</string>
 	<string name="dialog_pcloud_credentials_updated_title">تم تحديث وثائق تفويض \'%1$s\'</string>
 	<string name="dialog_pcloud_credentials_updated">إذا كنت ترغب في إضافة حساب pCloud جديد، انقر على هذا الرابط <a href="https://www.pcloud.com">www.pcloud. om</a>، ثم قم بتسجيل الخروج من الحساب الحالي و بعدها انقر مرة أخرى على \'+\' في هذا التطبيق لإنشاء اتصال سحابي جديد.</string>
+	<string name="dialog_cbc_password_vaults_migration_title">مطلوب نقل كلمة مرور الخزنة</string>
+	<string name="dialog_cbc_password_vaults_migration_hint">بسبب التحسينات الأمنية، سوف يطلب منك المصادقة البيومترية مرتين لكل خزانة لإعادة تشفير كلمات المرور الخاصة بك. هذا ضروري للاستمرار في حماية كلمات المرور الخاصة بالمخزن مع أحدث التكنولوجيا. إذا كنت لا ترغب في أن يحدث ذلك، سيتم إزالة كلمات المرور المخزنة.</string>
+	<string name="dialog_cbc_password_vaults_migration_action">نقل</string>
+	<string name="dialog_create_hub_device_title">تسجيل جهاز Hub</string>
+	<string name="dialog_create_hub_device_name_label">الاسم</string>
+	<string name="dialog_create_hub_device_name_hint">يبدو أن هذا هو الوصول الأول إلى Hub من هذا الجهاز. لتحديده لأغراض تفويض الوصول، تحتاج إلى تسمية هذا الجهاز.</string>
+	<string name="dialog_create_hub_device_name_empty">لا يمكن أن يكون الاسم فارغاً.</string>
+	<string name="dialog_create_hub_device_setup_code_label">Account Key</string>
+	<string name="dialog_create_hub_device_setup_code_hint">مفتاح الحساب الخاص بك مطلوب لتسجيل الدخول من تطبيقات أو متصفحات جديدة. يمكن العثور عليه في ملفك الشخصي.</string>
+	<string name="dialog_create_hub_device_setup_code_empty">Account Key لا يمكن أن يكون فارغاً.</string>
+	<string name="dialog_progress_creating_hub_device_setup">إنشاء الجهاز&#8230;</string>
+	<string name="dialog_hub_vault_access_forbidden_title">تم رفض الوصول</string>
+	<string name="dialog_hub_vault_access_forbidden_hint">لم يسمح للمستخدم الخاص بك بعد بالوصول إلى هذا المخزن. اطلب من مالك المخزن أن يأذن بذلك.\"</string>
+	<string name="dialog_hub_license_upgrade_required_title">تحقق من رخصة Hub</string>
+	<string name="dialog_hub_license_upgrade_required_hint">نموذج Hub Cryptomator الخاص بك لديه ترخيص غير صالح. الرجاء إبلاغ مسؤول Hub لترقية أو تجديد الترخيص.\"</string>
+	<string name="dialog_hub_vault_archived_title">تم أرشفة المخزن</string>
+	<string name="dialog_hub_vault_archived_hint">تم أرشفة هذا المخزن ولا يمكن فتحه. لإلغاء قفله، يجب على مالك المخزن إلغاء أرشفته.</string>
+	<string name="dialog_restore_successful_title">تمت الاستعادة بنجاح</string>
+	<string name="dialog_restore_successful_message">تمت استعادة عملية الشراء الخاصة بك وهي الآن نشطة على هذا الجهاز.</string>
+	<string name="dialog_no_full_version_title">لا توجد نسخة كاملة</string>
+	<string name="dialog_no_full_version_message">لم نتمكن من العثور على عملية شراء موجودة على حساب Google هذا.</string>
+	<string name="dialog_restore_failed_title">فشلت الاستعادة</string>
+	<string name="dialog_restore_failed_message">لم نتمكن من الوصول إلى Play Store. يرجى التحقق من اتصالك والمحاولة مرة أخرى.</string>
+	<string name="dialog_hub_user_setup_required_title">إعداد المستخدم مطلوب</string>
+	<string name="dialog_hub_user_setup_required_hint">للمتابعة، يرجى إكمال الخطوات المطلوبة في ملف المستخدم الخاص بك في Hub.</string>
+	<string name="dialog_hub_user_setup_required_neutral_button">اذهب إلى الملف الشخصي</string>
+	<string name="dialog_hub_check_host_authenticity_title">هل تثق بهذا المضيف؟</string>
 	<string name="permission_snackbar_auth_local_vault">Cryptomator يحتاج صلاحية الوصول إلي التخزين ليستطيع استعمال الخزائن المحلية</string>
 	<string name="permission_snackbar_auth_auto_upload">Cryptomator يحتاج صلاحية الوصول إلي التخزين ليستطيع تحميل الصور تلقائيا</string>
+	<string name="permission_snackbar_notifications">Cryptomator يحتاج إلى صَلاحِيَة إظهار الإشعارات لعرض حالة المخزن على سبيل المثال</string>
 	<!-- # error reports -->
 	<!-- # misc -->
 	<!-- ## file size helper -->
@@ -396,17 +487,29 @@
 	<string name="notification_auto_upload_failed_due_to_folder_not_exists">المجلد المحدد للرفع لم يعد متوفرًا. اذهب إلى الإعدادات واختيار واحد جديد</string>
 	<string name="notification_auto_upload_failed_due_to_vault_locked">تم قفل المخزن اثناء الرفع، الرجاء قم بفتحه لمتابعة الرفع</string>
 	<string name="notification_auto_upload_failed_due_to_vault_not_found">المخزن المحدد للتحميل التلقائي لم يعد موجودا.</string>
+	<string name="notification_auto_upload_failed_due_to_authentication_problem">انقر لتحديث المصادقة.</string>
 	<string name="notification_open_writable_file_title">فتح ملف قابل للكتابة</string>
 	<string name="notification_open_writable_file_message">تظل الخزنة مفتوحة حتى الانتهاء من التعديل</string>
 	<string name="notification_update_check_finished_latest">تم تثبيت آخر إصدارة</string>
 	<string name="notification_authenticating">جارٍ التحقُقُ من &#8230;</string>
+	<string name="notification_cleared_trusted_hosts">تم مسح المضيفين الموثوقين</string>
 	<string name="screen_settings_lru_cache">ذاكرة التخزين المؤقت</string>
 	<string name="screen_settings_lru_cache_toggle_summary">سيتم حفظ الملفات المشفرة محليا على الجهاز، لتسهيل الوصول إليها لاحقا</string>
 	<string name="screen_settings_lru_cache_size">إجمالي حجم ذاكرة التخزين المؤقت</string>
 	<string name="screen_settings_clear_lru_cache_size">مسح بيانات الذاكرة المؤقتة</string>
 	<string name="screen_settings_lru_cache_changed__restart_toast">سيتم تطبيق التغييرات عند إعادة تشغيل التطبيق</string>
-	<string name="screen_settings_license">مسجل لـ</string>
+	<string name="screen_settings_license_title_unlock">فتح النسخة الكاملة</string>
+	<string name="screen_settings_license_title_unlocked">النسخة الكاملة</string>
 	<string name="screen_settings_license_mail">%1$s</string>
+	<string name="screen_settings_license_summary_write_access">تم فتح حق الكتابة!</string>
+	<string name="screen_settings_license_summary_tap_to_unlock">اضغط لفتح حق الكتابة</string>
+	<string name="screen_settings_license_summary_write_access_mail">حق الكتابة لـ %1$s</string>
+	<string name="screen_settings_manage_subscription">إدارة الاشتراك</string>
+	<string name="screen_settings_upgrade_to_lifetime">الترقية إلى مدى الحياة</string>
+	<string name="dialog_trial_expired_title">انتهت الفترة التجريبية</string>
+	<string name="dialog_trial_expired_message">انتهت فترتك التجريبية المجانية. يمكنك المتابعة في وضع القراءة فقط أو فتح النسخة الكاملة.</string>
+	<string name="dialog_trial_expired_unlock">فتح النسخة الكاملة</string>
+	<string name="dialog_trial_expired_continue_read_only">المتابعة في وضع القراءة فقط</string>
 	<string name="dialog_settings_update_check_interval_title">الفاصل الزمني للتحديث</string>
 	<string name="screen_settings_check_updates">بحث عن تحديثات</string>
 	<string name="screen_settings_last_check_updates">اخر بحث %1$s</string>

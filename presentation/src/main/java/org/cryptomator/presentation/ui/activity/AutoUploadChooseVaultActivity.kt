@@ -3,6 +3,7 @@ package org.cryptomator.presentation.ui.activity
 import androidx.fragment.app.Fragment
 import org.cryptomator.generator.Activity
 import org.cryptomator.presentation.R
+import org.cryptomator.presentation.databinding.ActivityLayoutBinding
 import org.cryptomator.presentation.model.CloudFolderModel
 import org.cryptomator.presentation.model.VaultModel
 import org.cryptomator.presentation.presenter.AutoUploadChooseVaultPresenter
@@ -10,10 +11,9 @@ import org.cryptomator.presentation.ui.activity.view.AutoUploadChooseVaultView
 import org.cryptomator.presentation.ui.dialog.NotEnoughVaultsDialog
 import org.cryptomator.presentation.ui.fragment.AutoUploadChooseVaultFragment
 import javax.inject.Inject
-import kotlinx.android.synthetic.main.toolbar_layout.toolbar
 
 @Activity
-class AutoUploadChooseVaultActivity : BaseActivity(), //
+class AutoUploadChooseVaultActivity : BaseActivity<ActivityLayoutBinding>(ActivityLayoutBinding::inflate), //
 	AutoUploadChooseVaultView, //
 	NotEnoughVaultsDialog.Callback {
 
@@ -25,8 +25,8 @@ class AutoUploadChooseVaultActivity : BaseActivity(), //
 	}
 
 	private fun setupToolbar() {
-		toolbar.title = getString(R.string.screen_settings_auto_photo_upload_title)
-		setSupportActionBar(toolbar)
+		binding.mtToolbar.toolbar.setTitle(R.string.screen_settings_auto_photo_upload_title)
+		setSupportActionBar(binding.mtToolbar.toolbar)
 		supportActionBar?.let {
 			it.setDisplayHomeAsUpEnabled(true)
 			it.setHomeAsUpIndicator(R.drawable.ic_clear)
@@ -50,8 +50,8 @@ class AutoUploadChooseVaultActivity : BaseActivity(), //
 
 	override fun displayDialogUnableToUploadFiles() {
 		NotEnoughVaultsDialog //
-			.withContext(this) //
-			.andTitle(getString(R.string.dialog_unable_to_auto_upload_files_title)) //
+			.withContext(context()) //
+			.andTitle(R.string.dialog_unable_to_auto_upload_files_title) //
 			.show()
 	}
 
@@ -70,5 +70,5 @@ class AutoUploadChooseVaultActivity : BaseActivity(), //
 		autoUploadChooseVaultFragment().showChosenLocation(location)
 	}
 
-	private fun autoUploadChooseVaultFragment(): AutoUploadChooseVaultFragment = getCurrentFragment(R.id.fragmentContainer) as AutoUploadChooseVaultFragment
+	private fun autoUploadChooseVaultFragment(): AutoUploadChooseVaultFragment = getCurrentFragment(R.id.fragment_container) as AutoUploadChooseVaultFragment
 }

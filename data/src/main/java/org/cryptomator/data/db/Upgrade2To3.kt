@@ -2,15 +2,16 @@ package org.cryptomator.data.db
 
 import android.content.Context
 import android.content.SharedPreferences
+import androidx.sqlite.db.SupportSQLiteDatabase
 import org.cryptomator.util.crypto.CredentialCryptor
-import org.greenrobot.greendao.database.Database
+import org.cryptomator.util.crypto.CryptoMode
 import javax.inject.Inject
 import javax.inject.Singleton
 
 @Singleton
 internal class Upgrade2To3 @Inject constructor(private val context: Context) : DatabaseUpgrade(2, 3) {
 
-	override fun internalApplyTo(db: Database, origin: Int) {
+	override fun internalMigrate(db: SupportSQLiteDatabase) {
 		db.beginTransaction()
 		try {
 			Sql.query("CLOUD_ENTITY")
@@ -38,7 +39,7 @@ internal class Upgrade2To3 @Inject constructor(private val context: Context) : D
 
 	private fun encrypt(token: String?): String? {
 		return if (token == null) null else CredentialCryptor //
-			.getInstance(context) //
+			.getInstance(context, CryptoMode.CBC) //
 			.encrypt(token)
 	}
 

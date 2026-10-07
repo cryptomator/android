@@ -6,10 +6,10 @@ import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.DialogFragment
 import org.cryptomator.generator.Dialog
 import org.cryptomator.presentation.R
-import kotlinx.android.synthetic.main.dialog_disable_app_obscured_disclaimer.tv_disable_app_obscured_disclaimer
+import org.cryptomator.presentation.databinding.DialogDisableAppObscuredDisclaimerBinding
 
-@Dialog(R.layout.dialog_disable_app_obscured_disclaimer)
-class DisableAppWhenObscuredDisclaimerDialog : BaseDialog<DisableAppWhenObscuredDisclaimerDialog.Callback>() {
+@Dialog
+class DisableAppWhenObscuredDisclaimerDialog : BaseDialog<DisableAppWhenObscuredDisclaimerDialog.Callback, DialogDisableAppObscuredDisclaimerBinding>(DialogDisableAppObscuredDisclaimerBinding::inflate) {
 
 	interface Callback {
 
@@ -26,7 +26,7 @@ class DisableAppWhenObscuredDisclaimerDialog : BaseDialog<DisableAppWhenObscured
 	}
 
 	public override fun setupView() {
-		tv_disable_app_obscured_disclaimer.movementMethod = LinkMovementMethod.getInstance()
+		binding.tvDisableAppObscuredDisclaimer.movementMethod = LinkMovementMethod.getInstance()
 	}
 
 	override fun onCancel(dialog: DialogInterface) {

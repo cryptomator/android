@@ -4,7 +4,7 @@
 	<!-- Required to self update Cryptomator in the apkstore variant -->
 	<uses-permission android:name="android.permission.REQUEST_INSTALL_PACKAGES" />
 
-	<!-- Keep in sync with apkstore, playstore and fdroid -->
+	<!-- Keep in sync with apkstore, playstore, playstoreiap and fdroid -->
 	<application>
 		<activity
 			android:name="com.dropbox.core.android.AuthActivity"

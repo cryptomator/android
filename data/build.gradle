@@ -1,4 +1,3 @@
-apply plugin: 'org.greenrobot.greendao'
 apply plugin: 'com.android.library'
 apply plugin: 'kotlin-android'
 apply plugin: 'de.mannodermaus.android-junit5'
@@ -17,15 +16,25 @@ android {
 		buildConfigField "String", "VERSION_NAME", "\"${globalConfiguration["androidVersionName"]}\""
 
 		testInstrumentationRunner 'androidx.test.runner.AndroidJUnitRunner'
+
+		javaCompileOptions {
+			annotationProcessorOptions {
+				arguments += ["room.schemaLocation": "$projectDir/schemas".toString()]
+			}
+		}
 	}
 
 	compileOptions {
-		sourceCompatibility JavaVersion.VERSION_1_8
-		targetCompatibility JavaVersion.VERSION_1_8
+		sourceCompatibility JavaVersion.VERSION_21
+		targetCompatibility JavaVersion.VERSION_21
 
 		coreLibraryDesugaringEnabled true
 	}
 
+	kotlinOptions { jvmTarget = JavaVersion.VERSION_21 }
+	buildFeatures {
+		buildConfig true
+	}
 	buildTypes {
 		release {
 			buildConfigField "String", "ONEDRIVE_API_KEY", "\"" + getApiKey('ONEDRIVE_API_KEY') + "\""
@@ -33,8 +42,8 @@ android {
 		}
 
 		debug {
-			buildConfigField "String", "ONEDRIVE_API_KEY", "\"" + getApiKey('ONEDRIVE_API_KEY_DEBUG') + "\""
-			buildConfigField "String", "ONEDRIVE_API_REDIRCT_URI", "\"" + getApiKey('ONEDRIVE_API_REDIRCT_URI_DEBUG') + "\""
+			buildConfigField "String", "ONEDRIVE_API_KEY", "\"" + getApiKey('ONEDRIVE_API_KEY') + "\""
+			buildConfigField "String", "ONEDRIVE_API_REDIRCT_URI", "\"" + getApiKey('ONEDRIVE_API_REDIRCT_URI') + "\""
 		}
 	}
 
@@ -45,6 +54,10 @@ android {
 			dimension "version"
 		}
 
+		playstoreiap {
+			dimension "version"
+		}
+
 		apkstore {
 			dimension "version"
 		}
@@ -54,12 +67,24 @@ android {
 		}
 
 		lite {
+			dimension "version"
+		}
+
+		accrescent {
 			dimension "version"
 		}
 	}
 
 	sourceSets {
+		androidTest {
+			assets.srcDirs += files("$projectDir/schemas".toString())
+		}
+
 		playstore {
+			java.srcDirs = ['src/main/java/', 'src/apiKey/java/', 'src/apkStorePlaystore/java/']
+		}
+
+		playstoreiap {
 			java.srcDirs = ['src/main/java/', 'src/apiKey/java/', 'src/apkStorePlaystore/java/']
 		}
 
@@ -68,16 +93,20 @@ android {
 		}
 
 		fdroid {
-			java.srcDirs = ['src/main/java/', 'src/apiKey/java/', 'src/fdroid/java/']
+			java.srcDirs = ['src/main/java/', 'src/apiKey/java/', 'src/fdroidAccrescent/java/']
 		}
 
 		lite {
 			java.srcDirs = ['src/main/java/', 'src/lite/java/']
 		}
+
+		accrescent {
+			java.srcDirs = ['src/main/java/', 'src/apiKey/java/', 'src/fdroidAccrescent/java/']
+		}
 	}
 	packagingOptions {
 		resources {
-			excludes += ['META-INF/DEPENDENCIES', 'META-INF/NOTICE.md', 'META-INF/INDEX.LIST']
+			excludes += ['META-INF/DEPENDENCIES', 'META-INF/NOTICE.md', 'META-INF/INDEX.LIST', 'META-INF/versions/9/OSGI-INF/MANIFEST.MF']
 		}
 	}
 
@@ -89,10 +118,6 @@ android {
 	namespace 'org.cryptomator.data'
 }
 
-greendao {
-	schemaVersion 12
-}
-
 configurations.all {
 	// Check for updates every build (use for cryptolib snapshot)
 	//resolutionStrategy.cacheChangingModulesFor 0, 'seconds'
@@ -100,78 +125,58 @@ configurations.all {
 
 dependencies {
 	def dependencies = rootProject.ext.dependencies
+	def cloudFlavors = ['playstore', 'playstoreiap', 'apkstore', 'fdroid', 'accrescent']
+	def googleFlavors = ['playstore', 'playstoreiap', 'apkstore']
+	def addToFlavors = { flavors, dep, Closure config = null ->
+		flavors.each { flavor ->
+			if (config) {
+				add("${flavor}Implementation", dep, config)
+			} else {
+				add("${flavor}Implementation", dep)
+			}
+		}
+	}
 
 	implementation project(':domain')
 	implementation project(':util')
-	playstoreImplementation project(':pcloud-sdk-java')
-	apkstoreImplementation project(':pcloud-sdk-java')
-	fdroidImplementation project(':pcloud-sdk-java')
 
 	coreLibraryDesugaring dependencies.coreDesugaring
 
 	// cryptomator
 	implementation dependencies.cryptolib
 
-	// greendao
-	api dependencies.greenDao
+	// room
+	api dependencies.roomRuntime
+	annotationProcessor dependencies.roomCompiler
 	// dagger
 	annotationProcessor dependencies.daggerCompiler
 	implementation dependencies.dagger
 
-	api dependencies.jsonWebTokenApi
-	implementation dependencies.jsonWebTokenImpl
-	implementation dependencies.jsonWebTokenJson
+	implementation dependencies.jsonWebToken
 
 	// cloud
-	playstoreImplementation dependencies.dropbox
-	apkstoreImplementation dependencies.dropbox
-	fdroidImplementation dependencies.dropbox
+	addToFlavors(cloudFlavors, dependencies.dropboxCore)
+	addToFlavors(cloudFlavors, dependencies.dropboxAndroid)
 
-	playstoreImplementation dependencies.msgraphAuth
-	apkstoreImplementation dependencies.msgraphAuth
-	fdroidImplementation dependencies.msgraphAuth
-	playstoreImplementation dependencies.msgraph
-	apkstoreImplementation dependencies.msgraph
-	fdroidImplementation dependencies.msgraph
+	addToFlavors(cloudFlavors, dependencies.msgraphAuth)
+	addToFlavors(cloudFlavors, dependencies.msgraph)
+
+	addToFlavors(cloudFlavors, dependencies.pcloud)
 
 	implementation dependencies.stax
 	api dependencies.minIo
 
-	playstoreImplementation(dependencies.googlePlayServicesAuth) {
+	addToFlavors(googleFlavors, dependencies.googlePlayServicesAuth) {
 		exclude module: 'guava-jdk5'
 		exclude module: 'httpclient'
-		exclude module: 'googlehttpclient'
 		exclude group: "com.google.http-client", module: "google-http-client"
 	}
-	apkstoreImplementation(dependencies.googlePlayServicesAuth) {
+	addToFlavors(googleFlavors, dependencies.googleApiServicesDrive) {
 		exclude module: 'guava-jdk5'
 		exclude module: 'httpclient'
-		exclude module: "google-http-client"
 		exclude group: "com.google.http-client", module: "google-http-client"
 	}
-
-	playstoreImplementation(dependencies.googleApiServicesDrive) {
-		exclude module: 'guava-jdk5'
-		exclude module: 'httpclient'
-		exclude module: 'googlehttpclient'
-		exclude group: "com.google.http-client", module: "google-http-client"
-	}
-	apkstoreImplementation(dependencies.googleApiServicesDrive) {
-		exclude module: 'guava-jdk5'
-		exclude module: 'httpclient'
-		exclude module: "google-http-client"
-		exclude group: "com.google.http-client", module: "google-http-client"
-	}
-
-	playstoreImplementation(dependencies.googleApiClientAndroid) {
-		exclude module: 'guava-jdk5'
-		exclude module: 'httpclient'
-		exclude module: "google-http-client"
-		exclude module: "jetified-google-http-client"
-		exclude group: "com.google.http-client", module: "google-http-client"
-		exclude group: "com.google.http-client", module: "jetified-google-http-client"
-	}
-	apkstoreImplementation(dependencies.googleApiClientAndroid) {
+	addToFlavors(googleFlavors + ['accrescent'], dependencies.googleApiClientAndroid) {
 		exclude module: 'guava-jdk5'
 		exclude module: 'httpclient'
 		exclude module: "google-http-client"
@@ -180,10 +185,8 @@ dependencies {
 		exclude group: "com.google.http-client", module: "jetified-google-http-client"
 	}
 
-	playstoreImplementation dependencies.trackingFreeGoogleCLient
-	apkstoreImplementation dependencies.trackingFreeGoogleCLient
-	playstoreImplementation dependencies.trackingFreeGoogleAndroidCLient
-	apkstoreImplementation dependencies.trackingFreeGoogleAndroidCLient
+	addToFlavors(googleFlavors, dependencies.trackingFreeGoogleCLient)
+	addToFlavors(googleFlavors + ['accrescent'], dependencies.trackingFreeGoogleAndroidCLient)
 
 	// rest
 	implementation dependencies.rxJava
@@ -193,6 +196,8 @@ dependencies {
 	implementation dependencies.androidAnnotations
 	compileOnly dependencies.javaxAnnotation
 	implementation dependencies.gson
+
+	implementation dependencies.joseJwt
 
 	implementation dependencies.commonsCodec
 
@@ -208,9 +213,11 @@ dependencies {
 	testRuntimeOnly dependencies.junitEngine
 	testImplementation dependencies.junitParams
 	testRuntimeOnly dependencies.junit4Engine
+	testRuntimeOnly dependencies.junitPlatformLauncher
 	implementation dependencies.androidxTestJunitKtln
 
 	testImplementation dependencies.mockito
+	testImplementation dependencies.mockWebServer
 	testImplementation dependencies.mockitoKotlin
 	testImplementation dependencies.mockitoInline
 	testImplementation dependencies.hamcrest
@@ -222,14 +229,6 @@ dependencies {
 
 configurations {
 	all*.exclude group: 'com.google.android', module: 'android'
-}
-
-def liteFlavor() {
-	gradle.startParameter.taskNames.stream().filter(t -> t.toLowerCase().contains("lite")).findAny().isPresent()
-}
-
-def getApiKey(key) {
-	return !liteFlavor() ? System.getenv().getOrDefault(key, "") : ""
 }
 
 tasks.withType(Test) {

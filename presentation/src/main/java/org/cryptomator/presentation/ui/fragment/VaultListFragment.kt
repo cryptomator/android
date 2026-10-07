@@ -6,18 +6,17 @@ import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
 import org.cryptomator.generator.Fragment
 import org.cryptomator.presentation.R
+import org.cryptomator.presentation.databinding.FragmentVaultListBinding
 import org.cryptomator.presentation.model.VaultModel
 import org.cryptomator.presentation.presenter.VaultListPresenter
+import org.cryptomator.presentation.service.SalePromo
+import org.cryptomator.presentation.service.formatDiscountEndDate
 import org.cryptomator.presentation.ui.adapter.VaultsAdapter
 import org.cryptomator.presentation.ui.adapter.VaultsMoveListener
 import javax.inject.Inject
-import kotlinx.android.synthetic.main.fragment_vault_list.coordinatorLayout
-import kotlinx.android.synthetic.main.fragment_vault_list.floating_action_button
-import kotlinx.android.synthetic.main.recycler_view_layout.recyclerView
-import kotlinx.android.synthetic.main.view_vault_creation_hint.rl_creation_hint
 
-@Fragment(R.layout.fragment_vault_list)
-class VaultListFragment : BaseFragment() {
+@Fragment
+class VaultListFragment : BaseFragment<FragmentVaultListBinding>(FragmentVaultListBinding::inflate) {
 
 	@Inject
 	lateinit var vaultListPresenter: VaultListPresenter
@@ -52,7 +51,8 @@ class VaultListFragment : BaseFragment() {
 
 	override fun setupView() {
 		setupRecyclerView()
-		floating_action_button.setOnClickListener { vaultListPresenter.onCreateVaultClicked() }
+		binding.floatingActionButton.floatingActionButton.setOnClickListener { vaultListPresenter.onCreateVaultClicked() }
+		binding.salePromoBanner.root.setOnClickListener { vaultListPresenter.onUnlockFullVersionClicked() }
 	}
 
 	override fun onResume() {
@@ -63,13 +63,13 @@ class VaultListFragment : BaseFragment() {
 	private fun setupRecyclerView() {
 		vaultsAdapter.setCallback(onItemClickListener)
 		touchHelper = ItemTouchHelper(VaultsMoveListener(vaultsAdapter))
-		touchHelper.attachToRecyclerView(recyclerView)
+		touchHelper.attachToRecyclerView(binding.rvVaults.recyclerView)
 
-		recyclerView.layoutManager = LinearLayoutManager(context())
-		recyclerView.adapter = vaultsAdapter
-		recyclerView.setHasFixedSize(true) // smoother scrolling
-		recyclerView.setPadding(0, 0, 0, TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 88f, resources.displayMetrics).toInt())
-		recyclerView.clipToPadding = false
+		binding.rvVaults.recyclerView.layoutManager = LinearLayoutManager(context())
+		binding.rvVaults.recyclerView.adapter = vaultsAdapter
+		binding.rvVaults.recyclerView.setHasFixedSize(true) // smoother scrolling
+		binding.rvVaults.recyclerView.setPadding(0, 0, 0, TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 88f, resources.displayMetrics).toInt())
+		binding.rvVaults.recyclerView.clipToPadding = false
 	}
 
 	fun showVaults(vaultModelCollection: List<VaultModel>?) {
@@ -78,11 +78,21 @@ class VaultListFragment : BaseFragment() {
 	}
 
 	fun showVaultCreationHint() {
-		rl_creation_hint.visibility = View.VISIBLE
+		binding.rlCreationHint.creationHint.visibility = View.VISIBLE
 	}
 
 	fun hideVaultCreationHint() {
-		rl_creation_hint.visibility = View.GONE
+		binding.rlCreationHint.creationHint.visibility = View.GONE
+	}
+
+	fun showSalePromoBanner(salePromo: SalePromo) {
+		binding.salePromoBanner.tvSalePromo.text = getString(R.string.screen_vault_list_sale_promo_banner, salePromo.discountPercent, formatDiscountEndDate(salePromo.endTimeMillis))
+		binding.salePromoBanner.btnDismissSalePromo.setOnClickListener { vaultListPresenter.onSalePromoBannerDismissed(salePromo) }
+		binding.salePromoBanner.root.visibility = View.VISIBLE
+	}
+
+	fun hideSalePromoBanner() {
+		binding.salePromoBanner.root.visibility = View.GONE
 	}
 
 	fun isVaultLocked(vaultModel: VaultModel?): Boolean {
@@ -109,5 +119,5 @@ class VaultListFragment : BaseFragment() {
 		vaultsAdapter.notifyItemMoved(fromPosition, toPosition)
 	}
 
-	fun rootView(): View = coordinatorLayout
+	fun rootView(): View = binding.coordinatorLayout
 }

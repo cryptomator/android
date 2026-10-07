@@ -1,7 +1,5 @@
 package org.cryptomator.data.cloud;
 
-import static java.util.Arrays.asList;
-
 import org.cryptomator.data.cloud.crypto.CryptoCloudContentRepositoryFactory;
 import org.cryptomator.data.cloud.dropbox.DropboxCloudContentRepositoryFactory;
 import org.cryptomator.data.cloud.googledrive.GoogleDriveCloudContentRepositoryFactory;
@@ -17,6 +15,8 @@ import java.util.Iterator;
 
 import javax.inject.Inject;
 import javax.inject.Singleton;
+
+import static java.util.Arrays.asList;
 
 @Singleton
 public class CloudContentRepositoryFactories implements Iterable<CloudContentRepositoryFactory> {

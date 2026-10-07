@@ -35,6 +35,30 @@
 	<string name="error_no_such_bucket">Ingen slik bøtte</string>
 	<string name="error_masterkey_location_not_supported">Egendefinert lokasjon for Hovednøkkel er foreløpig ikke støttet</string>
 	<string name="error_interact_with_fdroid_but_fdroid_missing">Mislyktes i å kommunisere med F-Droid-app\'en. Ikke installert?</string>
+	<string name="error_hub_device_already_register_for_other_user">Denne enheten er allerede registrert for en annen bruker. Prøv å endre brukerkontoen eller bruk en annen enhet.</string>
+	<!-- # read-only & purchases -->
+	<string name="screen_license_check_benefit_family_sharing">Familiedeling</string>
+	<string name="screen_license_check_benefit_write_access">Skrivetilgang til hvelvene dine</string>
+	<string name="screen_license_check_benefit_support">Utviklet med åpen kildekode</string>
+	<string name="screen_license_check_title_full_version">Lås opp fullversjonen</string>
+	<string name="screen_license_check_trial_title">30-dagers prøveperiode</string>
+	<string name="screen_license_check_trial_price">Gratis</string>
+	<string name="screen_license_check_trial_subtitle">i 30 dager</string>
+	<string name="screen_license_check_subscription_title">Årlig abonnement</string>
+	<string name="screen_license_check_subscription_subtitle">årlig</string>
+	<string name="screen_license_check_lifetime_title">Livsvarig lisens</string>
+	<string name="screen_license_check_lifetime_subtitle">engangs</string>
+	<string name="screen_license_check_restore_purchase">Gjenopprett kjøp</string>
+	<string name="screen_license_check_terms">Bruksvilkår</string>
+	<string name="screen_license_check_privacy">Personvernerklæring</string>
+	<string name="screen_license_check_trial_status_active">Aktiv</string>
+	<string name="screen_license_check_trial_status_expired">Utløpt</string>
+	<string name="screen_license_check_trial_expired_info">Prøveperioden din er utløpt.</string>
+	<string name="screen_welcome_title">Velkommen</string>
+	<string name="screen_welcome_continue_button">Fortsett</string>
+	<string name="screen_welcome_screen_lock_button">Sett skjermlås</string>
+	<string name="next">Neste</string>
+	<string name="back">Tilbake</string>
 	<!-- # clouds -->
 	<!-- ## cloud names -->
 	<string name="cloud_names_local_storage">Lokal lagring</string>
@@ -67,7 +91,6 @@
 	<string name="screen_vault_list_change_password_successful">Passordet er endret</string>
 	<!-- # screen: file browser -->
 	<string name="screen_file_browser_default_title">Hvelv</string>
-	<string name="screen_file_browser_add_existing_vault_extra_text">Velg hovednøkkelfil</string>
 	<string name="screen_file_browser_create_new_vault_button_text">Plasser her</string>
 	<string name="screen_file_browser_create_new_vault_extra_text">Navn på hvelvet: %1$s</string>
 	<plurals name="screen_file_browser_subtitle_move">
@@ -185,7 +208,6 @@
 	<string name="screen_settings_section_auto_photo_upload_including_videos">Last opp videoer</string>
 	<string name="screen_settings_auto_photo_upload_title">Lagre de automatisk opplastede filene til &#8230;</string>
 	<string name="screen_settings_website_label">Cryptomators nettside</string>
-	<string name="screen_settings_twitter_label">Følg oss på Twitter</string>
 	<string name="screen_settings_facebook_label">Lik oss på Facebook</string>
 	<string name="screen_settings_section_legal">Juridisk</string>
 	<string name="screen_settings_licenses_label">Lisenser</string>
@@ -198,12 +220,14 @@
 	<string name="screen_settings_security_label">Sikkerhetstips</string>
 	<string name="screen_settings_section_version">Versjon</string>
 	<string name="screen_settings_advanced_settings">Avanserte innstillinger</string>
+	<string name="screen_settings_microsoft_apps_workaround_label">En mulig løsning for å åpne Microsoft-filer</string>
+	<string name="screen_settings_microsoft_apps_workaround_summary">Åpne filer i Microsoft-apper med skrivetilgang</string>
 	<string name="screen_settings_background_unlock_preparation_label">Akselerer opplåsing</string>
 	<string name="screen_settings_background_unlock_preparation_label_summary">Last ned hvelvkonfigurasjonen i bakgrunnen mens du blir bedt om å skrive inn passord eller biometrisk autentisering</string>
 	<string name="screen_settings_keep_unlocked_while_editing_files">Behold ulåst</string>
 	<string name="screen_settings_keep_unlocked_while_editing_files_summary">Beholdt hvelvet opplåst mens du redigerer filer</string>
 	<!-- ## screen: cloud settings -->
-	<string name="screen_cloud_settings_onedrive_connections">OneDrive tilkoblinger</string>
+	<string name="screen_cloud_settings_onedrive_connections">OneDrive-tilkoblinger</string>
 	<string name="screen_cloud_settings_webdav_connections">WebDAV-tilkoblinger</string>
 	<string name="screen_cloud_settings_pcloud_connections">pCloud-tilkoblinger</string>
 	<string name="screen_cloud_settings_s3_connections">S3 tilkoblinger</string>
@@ -304,17 +328,15 @@
 	<string name="dialog_debug_mode_disclaimer_hint">I denne modusen kan sensitive data skrives til en loggfil på enheten (f.eks. filnavn og stier). Passord, cookies, etc. er eksplisitt ekskludert.\n\nHusk å deaktivere feilsøkingsmodus så snart som mulig.</string>
 	<string name="dialog_debug_mode_disclaimer_title">Merk følgende</string>
 	<string name="dialog_debug_mode_positive_button">Aktiver</string>
-	<string name="dialog_disable_app_obscured_disclaimer_hint">Denne innstillingen er en sikkerhetsfunksjonalitet som hindrer andre app\'er fra å lure brukerne til å gjøre ting de ikke vil.\n\nVed å skru dette av, bekrefter du at du er <a href="https://docs.cryptomator.org/en/1.6/android/settings/#block-app-when-obscured">klar over risikoen</a>.</string>
+	<string name="dialog_microsoft_workaround_disclaimer_hint">På grunn av en feil i Microsoft apper, filen som skal redigeres, må deles med disse appene i en offentlig mediemappe på enheten din. Når Cryptomator er gjenopptatt, slettes den offentlig tilgjengelige filen igjen, men Cryptomator kan ikke påvirke hva som har skjedd i mellomtiden. Pass på at du er klar over denne adferden når du aktiverer dette alternativet. Dette gjelder bare for Microsoft-filtyper.\n\nCryptomator starter på nytt etter aktivering.</string>
 	<string name="dialog_disable_app_obscured_disclaimer_title">Merk følgende</string>
 	<string name="dialog_disable_app_obscured_positive_button">Deaktiver</string>
 	<string name="dialog_app_is_obscured_info_title">Appen er tilslørt</string>
-	<string name="dialog_app_is_obscured_info_hint">En annen app vier noe på toppen av Cryptomator (eks., et blått lysfilter eller en nattmodus-app). For sikkerhetsgrunner, er Kryptomator deaktivert.\n\n<a href="https://docs.cryptomator.org/en/1.6/android/settings/#block-app-when-obscured">Hvordan skru på Cryptomator</a></string>
 	<string name="dialog_app_is_obscured_info_neutral_button">Lukk</string>
 	<string name="dialog_vaults_removed_during_migration_title">Vennligst legg til hvelv på nytt for %1s sky</string>
 	<string name="dialog_vaults_removed_during_migration_hint">Mens vi migrerer til denne appversjonen må vi fjerne følgende hvelv fra appen:\n%2s \n\nDisse hvelvene er ikke fjernet fra skyen, men bare fra denne appen. Beklager ulempen. Legg disse hvelvene til på nytt for å fortsette å jobbe med dem.</string>
 	<string name="dialog_vault_is_root_folder_of_cloud_title">Hvelvet er rotmappen på skytilkoblingen</string>
 	<string name="dialog_vault_is_root_folder_of_cloud_hint">Opprett en ny sky-tilkobling der du velger minst den overordnede mappen av dette hvelvet sin mappe som rotkatalog for å legge til dette hvelvet.</string>
-	<string name="dialog_disable_secure_screen_disclaimer_hint">Denne innstillingen er en sikkerhetsfunksjonalitet som hindrer andre app\'er fra å lure brukerne til å gjøre ting de ikke vil.\n\nVed å skru dette av, bekrefter du at du er <a href="https://docs.cryptomator.org/en/1.6/android/settings/#screen-security">klar over risikoen</a>.</string>
 	<string name="dialog_delete_cloud_connection_with_vaults_message">Er du sikker på at du vil fjerne denne skylagringstilkoblingen?</string>
 	<string name="dialog_delete_cloud_connection_with_vaults_hint">Denne handlingen vil fjerne skylagringsforbindelsen og alle hvelv i denne skyen.</string>
 	<string name="dialog_confirm_delete_multiple_title">Slette %1$d elementer?</string>
@@ -346,6 +368,14 @@
 	<string name="dialog_no_more_images_to_display">Ingen flere bilder å vise&#8230;</string>
 	<string name="dialog_pcloud_credentials_updated_title">Legitimasjonen til \'%1$s\' er oppdatert</string>
 	<string name="dialog_pcloud_credentials_updated">Dersom du akter å legge til en ny pCloud-konto, trykk på denne URL-en <a href="https://www.pcloud.com">www.pcloud.com</a>, logg ut fra den nåværende kontoen og trykk på «+» i denne app\'en for å opprette en ny nettskyforbindelse.</string>
+	<string name="dialog_create_hub_device_name_label">Navn</string>
+	<string name="dialog_create_hub_device_name_hint">Dette ser ut til å være den første Hub-tilgangen fra denne enheten. For å kunne identifisere den for tilgangsautorisasjon, må du å navngi denne enheten.</string>
+	<string name="dialog_create_hub_device_setup_code_hint">Din kontonøkkel kreves for å logge inn fra nye apper eller nettlesere. Den finner du i profilen din.</string>
+	<string name="dialog_hub_vault_access_forbidden_title">Ingen tilgang</string>
+	<string name="dialog_restore_successful_title">Gjenoppretting vellykket</string>
+	<string name="dialog_no_full_version_title">Ingen fullversjon</string>
+	<string name="dialog_hub_user_setup_required_hint">For å fortsette, fullfør trinnene som kreves i din Hub-brukerprofil.</string>
+	<string name="dialog_hub_user_setup_required_neutral_button">Gå til profil</string>
 	<string name="permission_snackbar_auth_local_vault">Cryptomator trenger lagringstilgang for å bruke lokale hvelv</string>
 	<string name="permission_snackbar_auth_auto_upload">Cryptomator trenger lagringstilgang for å bruke automatisk bildeopplasting</string>
 	<string name="permission_snackbar_notifications">Cryptomator trenger varseltillatelser for å for eksempel vise hvelvets status</string>
@@ -392,6 +422,7 @@
 	<string name="notification_auto_upload_failed_due_to_folder_not_exists">Valgte mappe for opplasting er ikke tilgjengelig lenger. Gå til innstillinger og velg en ny</string>
 	<string name="notification_auto_upload_failed_due_to_vault_locked">Hvelvet ble låst under opplasting, åpne hvelvet på nytt for å fortsette</string>
 	<string name="notification_auto_upload_failed_due_to_vault_not_found">Det angitte hvelvet for automatisk opplasting eksisterer ikke lenger.</string>
+	<string name="notification_auto_upload_failed_due_to_authentication_problem">Trykk for å oppdatere autentiseringen.</string>
 	<string name="notification_open_writable_file_title">Åpne skrivbar fil</string>
 	<string name="notification_open_writable_file_message">Hvelvet forblir opplåst til redigeringen er ferdig</string>
 	<string name="notification_update_check_finished_latest">Siste versjon er installert</string>
@@ -401,8 +432,10 @@
 	<string name="screen_settings_lru_cache_size">Total hurtigminnestørrelse</string>
 	<string name="screen_settings_clear_lru_cache_size">Tøm hurtigminnet</string>
 	<string name="screen_settings_lru_cache_changed__restart_toast">Endringer vil bli tatt i bruk ved neste omstart av appen</string>
-	<string name="screen_settings_license">Registrert for</string>
+	<string name="screen_settings_license_title_unlock">Lås opp fullversjonen</string>
 	<string name="screen_settings_license_mail">%1$s</string>
+	<string name="screen_settings_manage_subscription">Administrer abonnement</string>
+	<string name="dialog_trial_expired_unlock">Lås opp fullversjonen</string>
 	<string name="dialog_settings_update_check_interval_title">Intervall for å se etter oppdateringer</string>
 	<string name="screen_settings_check_updates">Se etter oppdateringer</string>
 	<string name="screen_settings_last_check_updates">Sist kjørt %1$s</string>

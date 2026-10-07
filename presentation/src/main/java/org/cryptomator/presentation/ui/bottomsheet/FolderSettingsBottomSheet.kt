@@ -4,18 +4,12 @@ import android.os.Bundle
 import android.view.View
 import org.cryptomator.generator.BottomSheet
 import org.cryptomator.presentation.R
+import org.cryptomator.presentation.databinding.DialogBottomSheetFolderSettingsBinding
 import org.cryptomator.presentation.model.CloudFolderModel
 import org.cryptomator.presentation.model.CloudNodeModel
-import kotlinx.android.synthetic.main.dialog_bottom_sheet_folder_settings.delete_folder
-import kotlinx.android.synthetic.main.dialog_bottom_sheet_folder_settings.export_folder
-import kotlinx.android.synthetic.main.dialog_bottom_sheet_folder_settings.move_folder
-import kotlinx.android.synthetic.main.dialog_bottom_sheet_folder_settings.rename_folder
-import kotlinx.android.synthetic.main.dialog_bottom_sheet_folder_settings.share_folder
-import kotlinx.android.synthetic.main.dialog_bottom_sheet_folder_settings.tv_folder_name
-import kotlinx.android.synthetic.main.dialog_bottom_sheet_folder_settings.tv_folder_path
 
 @BottomSheet(R.layout.dialog_bottom_sheet_folder_settings)
-class FolderSettingsBottomSheet : BaseBottomSheet<FolderSettingsBottomSheet.Callback>() {
+class FolderSettingsBottomSheet : BaseBottomSheet<FolderSettingsBottomSheet.Callback, DialogBottomSheetFolderSettingsBinding>(DialogBottomSheetFolderSettingsBinding::inflate) {
 
 	interface Callback {
 
@@ -30,27 +24,27 @@ class FolderSettingsBottomSheet : BaseBottomSheet<FolderSettingsBottomSheet.Call
 		val cloudFolderModel = requireArguments().getSerializable(FOLDER_ARG) as CloudFolderModel
 		val parentFolderPath = requireArguments().getString(PARENT_FOLDER_PATH_ARG)
 
-		tv_folder_name.text = cloudFolderModel.name
-		tv_folder_path.text = parentFolderPath
+		binding.tvFolderName.text = cloudFolderModel.name
+		binding.tvFolderPath.text = parentFolderPath
 
-		share_folder.setOnClickListener {
+		binding.shareFolder.setOnClickListener {
 			callback?.onShareFolderClicked(cloudFolderModel)
 			dismiss()
 		}
-		rename_folder.setOnClickListener {
+		binding.renameFolder.setOnClickListener {
 			callback?.onRenameFolderClicked(cloudFolderModel)
 			dismiss()
 		}
-		move_folder.setOnClickListener {
+		binding.moveFolder.setOnClickListener {
 			callback?.onMoveFolderClicked(cloudFolderModel)
 			dismiss()
 		}
-		export_folder.visibility = View.VISIBLE
-		export_folder.setOnClickListener {
+		binding.exportFolder.visibility = View.VISIBLE
+		binding.exportFolder.setOnClickListener {
 			callback?.onExportFolderClicked(cloudFolderModel)
 			dismiss()
 		}
-		delete_folder.setOnClickListener {
+		binding.deleteFolder.setOnClickListener {
 			callback?.onDeleteNodeClicked(cloudFolderModel)
 			dismiss()
 		}

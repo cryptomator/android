@@ -7,6 +7,7 @@
 	<string name="error_authentication_failed">Authenticatie mislukt</string>
 	<string name="error_authentication_failed_re_authenticate">Authenticatie mislukt, log in met %1$s</string>
 	<string name="error_no_network_connection">Geen netwerkverbinding</string>
+	<string name="error_purchase_not_available">Aankoop niet beschikbaar. Probeer het later opnieuw.</string>
 	<string name="error_invalid_passphrase">Fout wachtwoord</string>
 	<string name="error_file_or_folder_exists">Een bestand of map bestaat reeds.</string>
 	<string name="error_vault_version_not_supported">Kluisversie %1$s wordt niet ondersteund. Deze kluis is gemaakt met een oudere of nieuwere versie van Cryptomator.</string>
@@ -35,6 +36,64 @@
 	<string name="error_no_such_bucket">Deze bucket is niet gevonden</string>
 	<string name="error_masterkey_location_not_supported">Aangepaste Masterkey locatie nog niet ondersteund</string>
 	<string name="error_interact_with_fdroid_but_fdroid_missing">Kan niet communiceren met de F-Droid app. Niet geïnstalleerd?</string>
+	<string name="error_hub_vault_operation_not_supported">Kluis bewerking wordt niet ondersteund voor Hub</string>
+	<string name="error_hub_authentication_failed">Verificatie van Hub is mislukt</string>
+	<string name="error_hub_device_already_register_for_other_user">Dit apparaat is al geregistreerd voor een andere gebruiker. Probeer de account te wijzigen of gebruik een ander apparaat.</string>
+	<string name="error_hub_invalid_setup_code">De Account Keyl is ongeldig.</string>
+	<string name="error_hub_invalid_version">Niet-ondersteunde Hub versie.</string>
+	<string name="error_hub_unlock_pre_31">Hub wordt alleen ondersteund op Android 12 en hoger.</string>
+	<string name="error_hub_not_trustworthy">De hub is niet betrouwbaar.</string>
+	<!-- # read-only & purchases -->
+	<string name="read_only_reason_hub_inactive">Upgrade je Hub-licentie om schrijfrechten voor deze kluis in te schakelen.</string>
+	<string name="toast_purchase_revoked_refunded">Je aankoop voor het leven is terugbetaald. Je hebt nu alleen-lezen toegang.</string>
+	<string name="toast_purchase_revoked_subscription_inactive">Je abonnement is niet langer actief. Je hebt nu alleen-lezen toegang.</string>
+	<string name="screen_license_check_locked_create_vault">Ontgrendel volledige versie om kluizen te maken</string>
+	<string name="screen_license_check_locked_upload_files">Ontgrendel volledige versie om bestanden te uploaden</string>
+	<string name="screen_license_check_locked_create_folder">Ontgrendel volledige versie om mappen te maken</string>
+	<string name="screen_license_check_locked_create_text_file">Ontgrendel volledige versie om tekstbestanden te maken</string>
+	<string name="screen_license_check_locked_share_node">Ontgrendel volledige versie om bestanden of mappen te delen</string>
+	<string name="screen_license_check_locked_rename_node">Ontgrendel volledige versie om bestanden of mappen te hernoemen</string>
+	<string name="screen_license_check_locked_move_node">Ontgrendel volledige versie om bestanden of mappen te verplaatsen</string>
+	<string name="screen_license_check_locked_delete_node">Ontgrendel volledige versie om bestanden of mappen te verwijderen</string>
+	<string name="screen_license_check_title">Schrijftoegang ontgrendelen</string>
+	<string name="screen_license_check_benefit_title">Je voordelen</string>
+	<string name="screen_license_check_benefit_family_sharing">Delen met familie</string>
+	<string name="screen_license_check_benefit_write_access">Schrijftoegang tot je kluizen</string>
+	<string name="screen_license_check_benefit_support">Opensource ontwikkeling</string>
+	<string name="screen_license_check_button_purchase">Ontgrendel via Google Play</string>
+	<string name="screen_license_check_button_enter_license">Voer licentiesleutel in</string>
+	<string name="screen_license_check_enter_license_action">Invoeren</string>
+	<string name="screen_license_check_title_full_version">Volledige versie ontgrendelen</string>
+	<string name="screen_license_check_trial_title">30 dagen proefperiode</string>
+	<string name="screen_license_check_trial_price">Gratis</string>
+	<string name="screen_license_check_trial_subtitle">voor 30 dagen</string>
+	<string name="screen_license_check_subscription_title">Jaarabonnement</string>
+	<string name="screen_license_check_subscription_subtitle">jaarlijks</string>
+	<string name="screen_license_check_lifetime_title">Levenslange licentie</string>
+	<string name="screen_license_check_lifetime_discount_badge_until">🔥 %1$d%% korting tot %2$s</string>
+	<string name="screen_license_check_lifetime_discount_badge_generic">Tijdelijke aanbieding</string>
+	<string name="screen_license_check_lifetime_subtitle">eenmalig</string>
+	<string name="screen_license_check_restore_purchase">Aankoop herstellen</string>
+	<string name="screen_license_check_terms">Gebruiksvoorwaarden</string>
+	<string name="screen_license_check_privacy">Privacybeleid</string>
+	<string name="screen_license_check_trial_expiration">Vervaldatum: %s</string>
+	<string name="screen_license_check_trial_status_active">Actief</string>
+	<string name="screen_license_check_trial_status_expired">Verlopen</string>
+	<string name="screen_license_check_trial_active_info">Proefperiode verloopt: %s</string>
+	<string name="screen_license_check_trial_expired_info">Je proefperiode is verlopen.</string>
+	<string name="screen_license_check_subscription_upgrade_hint">Je hebt een actief abonnement. Koop de levenslange licentie en annuleer je abonnement om te wisselen.</string>
+	<string name="screen_license_check_cancel_subscription_hint">Je hebt nu een levenslange licentie. Om toekomstige kosten te voorkomen, moet je je jaarlijkse abonnement annuleren via de %1$s optie in Instellingen.</string>
+	<string name="screen_welcome_title">Welkom</string>
+	<string name="screen_welcome_notifications_title">Blijf op de hoogte</string>
+	<string name="screen_welcome_notifications_message">Sta meldingen toe, zodat Cryptomator je kan informeren over activiteiten op de achtergrond, automatische uploads f andere belangrijke gebeurtenissen.</string>
+	<string name="screen_welcome_notifications_button">Sta meldingen toe</string>
+	<string name="screen_welcome_notifications_granted">Meldingen zijn ingeschakeld.</string>
+	<string name="screen_welcome_continue_button">Doorgaan</string>
+	<string name="screen_welcome_screen_lock_button">Schermvergrendeling instellen</string>
+	<string name="screen_welcome_screen_lock_already_set">Schermvergrendeling is al ingesteld.</string>
+	<string name="screen_welcome_intro_body">Dank voor het kiezen van Cryptomator om uw bestanden te beschermen.\n\nMet Cryptomator ligt de sleutel tot uw gegevens in uw handen.\n\nCryptomator versleutelt uw gegevens snel en gemakkelijk.</string>
+	<string name="next">Volgende</string>
+	<string name="back">Terug</string>
 	<!-- # clouds -->
 	<!-- ## cloud names -->
 	<string name="cloud_names_local_storage">Lokale opslag</string>
@@ -67,7 +126,7 @@
 	<string name="screen_vault_list_change_password_successful">Wachtwoord succesvol gewijzigd</string>
 	<!-- # screen: file browser -->
 	<string name="screen_file_browser_default_title">Kluis</string>
-	<string name="screen_file_browser_add_existing_vault_extra_text">Selecteer het Masterkey-bestand</string>
+	<string name="screen_file_browser_add_existing_vault_extra_text">Selecteer de hoofdsleutel of het kluisbestand</string>
 	<string name="screen_file_browser_create_new_vault_button_text">Plaats hier</string>
 	<string name="screen_file_browser_create_new_vault_extra_text">Kluis naam: %1$s</string>
 	<plurals name="screen_file_browser_subtitle_move">
@@ -172,6 +231,7 @@
 	<string name="screen_settings_live_search_summary">Zoekresultaten bijwerken tijdens het invoeren</string>
 	<string name="screen_settings_glob_search">Zoek met behulp van glob patroon</string>
 	<string name="screen_settings_glob_search_summary">Gebruik glob patroon overeenkomsten zoals alice.*.jpg</string>
+	<string name="screen_hub_reset_unknown_hub_hosts_title">Reset Onbekende Hub Hosts</string>
 	<string name="screen_settings_section_auto_lock">Automatisch vergrendelen</string>
 	<string name="screen_settings_auto_lock_timeout">Vergrendel na</string>
 	<string name="screen_settings_auto_lock_on_screen_lock">Wanneer scherm is uitgeschakeld</string>
@@ -185,7 +245,7 @@
 	<string name="screen_settings_section_auto_photo_upload_including_videos">Video\'s uploaden</string>
 	<string name="screen_settings_auto_photo_upload_title">Automatisch te uploaden bestanden opslaan in&#8230;</string>
 	<string name="screen_settings_website_label">Cryptomator website</string>
-	<string name="screen_settings_twitter_label">Volg ons op Twitter</string>
+	<string name="screen_settings_mastodon_label">Volg ons op Mastodon</string>
 	<string name="screen_settings_facebook_label">Vind ons leuk op Facebook</string>
 	<string name="screen_settings_section_legal">Juridisch</string>
 	<string name="screen_settings_licenses_label">Licenties</string>
@@ -307,17 +367,17 @@
 	<string name="dialog_debug_mode_disclaimer_title">Aandacht</string>
 	<string name="dialog_debug_mode_positive_button">Inschakelen</string>
 	<string name="dialog_microsoft_workaround_disclaimer_hint">Door een bug in Microsoft apps moet het te bewerken bestand gedeeld worden met deze apps in een publieke mediamap op je apparaat. Nadat Cryptomator is hervat, wordt het publiek toegankelijke bestand weer verwijderd, maar Cryptomator kan niet controleren wat er in de tussentijd met dit bestand is gebeurd. Zorg ervoor dat u zich bewust bent van dit effect wanneer u deze optie activeert. Dit geldt alleen voor Microsoft bestandstypen.\n\nCryptomator zal herstarten na activering.</string>
-	<string name="dialog_disable_app_obscured_disclaimer_hint">Deze instelling is een beveiligingsfunctie en voorkomt dat andere apps gebruikers verleiden dingen te doen die ze niet willen doen. \n\nDoor het uitschakelen, bevestigt u dat u <a href="https://docs.cryptomator.org/en/1.6/android/settings/#block-app-when-obscured">bewust bent van de risico\'s</a>.</string>
+	<string name="dialog_disable_app_obscured_disclaimer_hint">Deze instelling is een beveiligingsfunctie en voorkomt dat andere apps gebruikers misleiden en hen dingen laten doen die ze niet willen doen.\n\nDoor deze instelling uit te schakelen, bevestigt u dat u <a href="https://docs.cryptomator.org/en/latest/android/settings/#block-app-when-obscured">op de hoogte bent van de risico\'s</a>.</string>
 	<string name="dialog_disable_app_obscured_disclaimer_title">Aandacht</string>
 	<string name="dialog_disable_app_obscured_positive_button">Uitschakelen</string>
 	<string name="dialog_app_is_obscured_info_title">App is naar de achtergrond gewezen</string>
-	<string name="dialog_app_is_obscured_info_hint">Een andere app toont iets bovenop Cryptomator (bijv. een blauw lichtfilter of nachtmodus). Om veiligheidsredenen is Cryptomator uitgeschakeld.\n\n<a href="https://docs.cryptomator.org/en/1.6/android/settings/#block-app-when-obscured">Hoe kunt u Cryptomator inschakelen</a></string>
+	<string name="dialog_app_is_obscured_info_hint">Een andere app geeft iets weer boven Cryptomator (bijvoorbeeld een blauwlichtfilter of nachtmodus app). Om veiligheidsredenen is Cryptomator uitgeschakeld.\n\n<a href="https://docs.cryptomator.org/en/latest/android/settings/#block-app-when-obscured">Hoe Cryptomator in te schakelen</a></string>
 	<string name="dialog_app_is_obscured_info_neutral_button">Sluiten</string>
 	<string name="dialog_vaults_removed_during_migration_title">Voeg de kluis voor %1\'s cloud opnieuw toe</string>
 	<string name="dialog_vaults_removed_during_migration_hint">Tijdens het migreren naar deze app versie moeten we de volgende kluizen verwijderen uit de app:\n%2s \n\nDe kluizen worden niet uit de cloud verwijderd, maar alleen uit deze app. Sorry voor het ongemak, voeg deze kluizen opnieuw toe om deze te blijven gebruiken.</string>
 	<string name="dialog_vault_is_root_folder_of_cloud_title">Kluis is hoofdmap van de cloud-verbinding</string>
 	<string name="dialog_vault_is_root_folder_of_cloud_hint">Maak een nieuwe cloud-verbinding waarbij je ten minste de bovenliggende map van deze kluis selecteert als hoofdmap om deze kluis toe te voegen.</string>
-	<string name="dialog_disable_secure_screen_disclaimer_hint">Deze instelling is een beveiligingsfunctie en voorkomt dat andere apps gebruikers verleiden dingen te doen die ze niet willen doen. \n\nDoor het uitschakelen, bevestigt u dat u <a href="https://docs.cryptomator.org/en/1.6/android/settings/#screen-security">bewust bent van de risico\'s</a>.</string>
+	<string name="dialog_disable_secure_screen_disclaimer_hint">Deze instelling is een beveiligingsfunctie en voorkomt dat andere apps gebruikers misleiden en hen dingen laten doen die ze niet willen doen.\n\nDoor deze instelling uit te schakelen, bevestigt u dat u <a href="https://docs.cryptomator.org/en/latest/android/settings/#screen-security">op de hoogte bent van de risico\'s</a>.</string>
 	<string name="dialog_delete_cloud_connection_with_vaults_message">Weet je zeker dat je deze cloud verbinding wilt verwijderen?</string>
 	<string name="dialog_delete_cloud_connection_with_vaults_hint">Deze actie zal de cloud-verbinding en alle kluizen van deze cloud verwijderen.</string>
 	<string name="dialog_confirm_delete_multiple_title">Verwijder %1$d items?</string>
@@ -349,6 +409,33 @@
 	<string name="dialog_no_more_images_to_display">Geen afbeeldingen meer om weer te geven&#8230;</string>
 	<string name="dialog_pcloud_credentials_updated_title">Gebruiksgegevens van \'%1$s\' bijgewerkt</string>
 	<string name="dialog_pcloud_credentials_updated">Als je een nieuwe pCloud account probeerde toe te voegen, klik dan op deze url <a href="https://www.pcloud.com">www.pcloud. om</a>, log de huidige account uit en klik opnieuw op de \'+\' in deze app om een nieuwe cloud verbinding te maken.</string>
+	<string name="dialog_cbc_password_vaults_migration_title">Migratie van kluis wachtwoord is vereist</string>
+	<string name="dialog_cbc_password_vaults_migration_hint">Als gevolg van verbeteringen in veiligheid vragen we u per kluis tweemaal om uw biometrische authenticatie om deze te versleutelen. Dit is nodig om je wachtwoorden met de nieuwste technologie te blijven beschermen. Indien je dit niet wilt, worden de opgeslagen wachtwoorden verwijderd.</string>
+	<string name="dialog_cbc_password_vaults_migration_action">Migreren</string>
+	<string name="dialog_create_hub_device_title">Registreer Hub apparaat</string>
+	<string name="dialog_create_hub_device_name_label">Naam</string>
+	<string name="dialog_create_hub_device_name_hint">Dit lijkt de eerste Hub toegang te zijn vanaf dit toestel. Om dit toestel te autoriseren voor toegang, moet u dit toestel benoemen.</string>
+	<string name="dialog_create_hub_device_name_empty">Het naamveld kan niet leeg zijn.</string>
+	<string name="dialog_create_hub_device_setup_code_label">Account Key</string>
+	<string name="dialog_create_hub_device_setup_code_hint">Uw Account Key is vereist om in te loggen vanuit nieuwe apps of browsers. Het is te vinden in je profiel.</string>
+	<string name="dialog_create_hub_device_setup_code_empty">Account Key kan niet leeg zijn.</string>
+	<string name="dialog_progress_creating_hub_device_setup">Aanmaken van apparaat&#8230;</string>
+	<string name="dialog_hub_vault_access_forbidden_title">Toegang geweigerd</string>
+	<string name="dialog_hub_vault_access_forbidden_hint">Uw gebruiker is nog niet geautoriseerd om toegang te krijgen tot deze kluis. Vraag de eigenaar van de kluis om toestemming te geven.\"</string>
+	<string name="dialog_hub_license_upgrade_required_title">Controleer de Hub-licentie</string>
+	<string name="dialog_hub_license_upgrade_required_hint">Uw Cryptomator Hub-exemplaar heeft een ongeldige licentie. Informeer een Hub-beheerder om de licentie te upgraden of te verlengen.\"</string>
+	<string name="dialog_hub_vault_archived_title">Kluis gearchiveerd</string>
+	<string name="dialog_hub_vault_archived_hint">Deze kluis is gearchiveerd en kan niet worden ontgrendeld. Om het te ontgrendelen, moet een kluiseigenaar het archief uit het archief halen.</string>
+	<string name="dialog_restore_successful_title">Herstellen geslaagd</string>
+	<string name="dialog_restore_successful_message">Uw aankoop is hersteld en is nu actief op dit apparaat.</string>
+	<string name="dialog_no_full_version_title">Geen volledige versie</string>
+	<string name="dialog_no_full_version_message">We konden geen bestaande aankoop op dit Google-account vinden.</string>
+	<string name="dialog_restore_failed_title">Herstel mislukt</string>
+	<string name="dialog_restore_failed_message">We konden de Play Store niet bereiken. Controleer de verbinding en probeer opnieuw.</string>
+	<string name="dialog_hub_user_setup_required_title">Instellen van gebruiker vereist</string>
+	<string name="dialog_hub_user_setup_required_hint">Om verder te gaan, gelieve de stappen te voltooien in uw Hub-gebruikersprofiel.</string>
+	<string name="dialog_hub_user_setup_required_neutral_button">Ga naar Profiel</string>
+	<string name="dialog_hub_check_host_authenticity_title">Deze hosts vertrouwen?</string>
 	<string name="permission_snackbar_auth_local_vault">Cryptomator heeft toegang tot opslag nodig om lokale kluizen te kunnen gebruiken</string>
 	<string name="permission_snackbar_auth_auto_upload">Cryptomator heeft toegang tot opslag nodig om automatisch uploaden van foto\'s te kunnen gebruiken</string>
 	<string name="permission_snackbar_notifications">Cryptomator heeft notificatie toegang nodig om een voorbeeld van de kluis status weer te geven</string>
@@ -395,18 +482,29 @@
 	<string name="notification_auto_upload_failed_due_to_folder_not_exists">Geselecteerde map voor uploaden is niet meer beschikbaar. Ga naar instellingen en kies een nieuwe</string>
 	<string name="notification_auto_upload_failed_due_to_vault_locked">Kluis vergrendeld tijdens het uploaden, heropen de kluis om door te gaan</string>
 	<string name="notification_auto_upload_failed_due_to_vault_not_found">De gekozen kluis voor automatische upload bestaat niet meer.</string>
-	<string name="notification_auto_upload_failed_due_to_authentication_problem">Tik om de authenticatie te vernieuwen.</string>
+	<string name="notification_auto_upload_failed_due_to_authentication_problem">Aantikken om de authenticatie te vernieuwen.</string>
 	<string name="notification_open_writable_file_title">Open schrijfbaar bestand</string>
 	<string name="notification_open_writable_file_message">Kluis blijft ontgrendeld tot het bewerken voltooid is</string>
 	<string name="notification_update_check_finished_latest">Laatste versie geïnstalleerd</string>
 	<string name="notification_authenticating">Verifiëren&#8230;</string>
+	<string name="notification_cleared_trusted_hosts">Vertrouwde hosts vrijgegeven</string>
 	<string name="screen_settings_lru_cache">Cache</string>
 	<string name="screen_settings_lru_cache_toggle_summary">Bewaar recent geopende bestanden versleuteld en lokaal op het apparaat voor later hergebruik</string>
 	<string name="screen_settings_lru_cache_size">Totale cache grootte</string>
 	<string name="screen_settings_clear_lru_cache_size">Cache leegmaken</string>
 	<string name="screen_settings_lru_cache_changed__restart_toast">Wijzigingen worden toegepast bij het opnieuw opstarten van de app</string>
-	<string name="screen_settings_license">Geregistreerd voor</string>
+	<string name="screen_settings_license_title_unlock">Volledige versie ontgrendelen</string>
+	<string name="screen_settings_license_title_unlocked">Volledige Versie</string>
 	<string name="screen_settings_license_mail">%1$s</string>
+	<string name="screen_settings_license_summary_write_access">Schrijftoegang ontgrendeld!</string>
+	<string name="screen_settings_license_summary_tap_to_unlock">Tik om schrijftoegang te ontgrendelen</string>
+	<string name="screen_settings_license_summary_write_access_mail">Schrijf toegang voor %1$s</string>
+	<string name="screen_settings_manage_subscription">Abonnement beheren</string>
+	<string name="screen_settings_upgrade_to_lifetime">Upgrade naar Levenslang</string>
+	<string name="dialog_trial_expired_title">Proefperiode verlopen</string>
+	<string name="dialog_trial_expired_message">Je gratis proefperiode is beëindigd. Je kunt doorgaan in alleen-lezen modus of de volledige versie ontgrendelen.</string>
+	<string name="dialog_trial_expired_unlock">Volledige versie ontgrendelen</string>
+	<string name="dialog_trial_expired_continue_read_only">Ga verder in alleen-lezen modus</string>
 	<string name="dialog_settings_update_check_interval_title">Update interval</string>
 	<string name="screen_settings_check_updates">Controleren op updates</string>
 	<string name="screen_settings_last_check_updates">Laatst uitgevoerd %1$s</string>

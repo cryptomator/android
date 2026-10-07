@@ -28,7 +28,7 @@ import java.io.File
 import java.io.IOException
 import java.io.OutputStream
 
-internal class DropboxCloudContentRepository(private val cloud: DropboxCloud, context: Context) : InterceptingCloudContentRepository<DropboxCloud, DropboxNode, DropboxFolder, DropboxFile>(Intercepted(cloud, context)){
+internal class DropboxCloudContentRepository(private val cloud: DropboxCloud, context: Context) : InterceptingCloudContentRepository<DropboxCloud, DropboxNode, DropboxFolder, DropboxFile>(Intercepted(cloud, context)) {
 
 	@Throws(BackendException::class)
 	override fun throwWrappedIfRequired(e: Exception) {
@@ -164,13 +164,12 @@ internal class DropboxCloudContentRepository(private val cloud: DropboxCloud, co
 			}
 		}
 
-		private fun mapToNoSuchCloudFileExceptionIfMatches(e: Exception, file: DropboxFile) : NoSuchCloudFileException? {
+		private fun mapToNoSuchCloudFileExceptionIfMatches(e: Exception, file: DropboxFile): NoSuchCloudFileException? {
 			if (ExceptionUtil.contains(e, GetMetadataErrorException::class.java)) {
 				if (ExceptionUtil.extract(e, GetMetadataErrorException::class.java).get().errorValue.pathValue.isNotFound) {
 					return NoSuchCloudFileException(file.name)
 				}
-			}
-			else if (ExceptionUtil.contains(e, DownloadErrorException::class.java)) {
+			} else if (ExceptionUtil.contains(e, DownloadErrorException::class.java)) {
 				if (ExceptionUtil.extract(e, DownloadErrorException::class.java).get().errorValue.pathValue.isNotFound) {
 					return NoSuchCloudFileException(file.name)
 				}

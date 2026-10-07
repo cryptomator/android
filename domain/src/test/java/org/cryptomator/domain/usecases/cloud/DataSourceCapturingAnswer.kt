@@ -13,7 +13,7 @@ internal class DataSourceCapturingAnswer<T>(private val result: T, private val a
 
 	private lateinit var out: ByteArrayOutputStream
 
-	private val context : Context = mock()
+	private val context: Context = mock()
 
 	@Throws(Throwable::class)
 	override fun answer(invocation: InvocationOnMock): T {

@@ -76,7 +76,7 @@ internal class LocalStorageAccessFrameworkImpl(private val context: Context, pri
 			return file(parent, name, path, size, nodeInfo.id)
 		}
 		listFilesWithNameFilter(parent, name).getOrNull(0)?.let {
-			if(it is LocalStorageAccessFile) {
+			if (it is LocalStorageAccessFile) {
 				return idCache.cache(it)
 			}
 		}
@@ -94,7 +94,7 @@ internal class LocalStorageAccessFrameworkImpl(private val context: Context, pri
 			return folder(parent, name, nodeInfo.id)
 		}
 		listFilesWithNameFilter(parent, name).getOrNull(0)?.let {
-			if(it is LocalStorageAccessFolder) {
+			if (it is LocalStorageAccessFolder) {
 				return idCache.cache(it)
 			}
 		}

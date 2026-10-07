@@ -2,19 +2,20 @@ package org.cryptomator.presentation.ui.dialog
 
 import android.content.DialogInterface
 import android.os.Bundle
+import android.widget.LinearLayout
+import android.widget.TextView
 import androidx.appcompat.app.AlertDialog
 import org.cryptomator.generator.Dialog
 import org.cryptomator.presentation.R
+import org.cryptomator.presentation.databinding.DialogUploadLoadingBinding
+import org.cryptomator.presentation.databinding.ViewDialogErrorBinding
 import org.cryptomator.presentation.model.FileProgressStateModel
 import org.cryptomator.presentation.model.ProgressModel
 import org.cryptomator.presentation.model.ProgressStateModel
 import org.cryptomator.presentation.util.ResourceHelper
-import kotlinx.android.synthetic.main.dialog_upload_loading.file_upload
-import kotlinx.android.synthetic.main.view_dialog_intermediate_progress.iv_progress_icon
-import kotlinx.android.synthetic.main.view_dialog_intermediate_progress.pb_dialog
 
-@Dialog(R.layout.dialog_upload_loading)
-class UploadCloudFileDialog : BaseProgressErrorDialog<UploadCloudFileDialog.Callback>() {
+@Dialog
+class UploadCloudFileDialog : BaseProgressErrorDialog<UploadCloudFileDialog.Callback, DialogUploadLoadingBinding>(DialogUploadLoadingBinding::inflate) {
 
 	private var numberOfFileCurrentlyUploaded = 0
 	private var encryptionProgressMeansTheNextFileIsUploaded = true
@@ -59,7 +60,7 @@ class UploadCloudFileDialog : BaseProgressErrorDialog<UploadCloudFileDialog.Call
 		} else {
 			updateRemainingFilesText(progress)
 			if (progress.state().imageResourceId() != 0) {
-				iv_progress_icon?.setImageDrawable(ResourceHelper.getDrawable(progress.state().imageResourceId()))
+				binding.llDialogIntermediateProgress.ivProgressIcon.setImageDrawable(ResourceHelper.getDrawable(progress.state().imageResourceId()))
 			}
 		}
 	}
@@ -75,7 +76,7 @@ class UploadCloudFileDialog : BaseProgressErrorDialog<UploadCloudFileDialog.Call
 			if (encryptionProgressMeansTheNextFileIsUploaded) {
 				encryptionProgressMeansTheNextFileIsUploaded = false
 				numberOfFileCurrentlyUploaded++
-				file_upload?.text = String.format(getString(R.string.dialog_upload_file_remaining), numberOfFileCurrentlyUploaded, numberOfUploadedFiles())
+				binding.fileUpload.text = String.format(getString(R.string.dialog_upload_file_remaining), numberOfFileCurrentlyUploaded, numberOfUploadedFiles())
 			}
 		} else {
 			encryptionProgressMeansTheNextFileIsUploaded = true
@@ -87,7 +88,19 @@ class UploadCloudFileDialog : BaseProgressErrorDialog<UploadCloudFileDialog.Call
 	}
 
 	override fun updateProgress(progress: Int) {
-		pb_dialog.progress = progress
+		binding.llDialogIntermediateProgress.pbDialog.progress = progress
+	}
+
+	override fun dialogProgressLayout(): LinearLayout {
+		return binding.llDialogIntermediateProgress.llProgress
+	}
+
+	override fun dialogProgressTextView(): TextView {
+		return binding.llDialogIntermediateProgress.tvProgress
+	}
+
+	override fun dialogErrorBinding(): ViewDialogErrorBinding {
+		return binding.llDialogError
 	}
 
 	companion object {

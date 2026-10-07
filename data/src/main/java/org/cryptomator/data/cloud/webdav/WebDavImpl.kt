@@ -2,6 +2,7 @@ package org.cryptomator.data.cloud.webdav
 
 import android.content.Context
 import org.cryptomator.data.cloud.webdav.network.ConnectionHandlerHandlerImpl
+import org.cryptomator.data.cloud.webdav.network.DataSourceBasedRequestBody
 import org.cryptomator.data.cloud.webdav.network.ServerNotWebdavCompatibleException
 import org.cryptomator.data.util.CopyStream
 import org.cryptomator.data.util.TransferredBytesAwareInputStream
@@ -23,6 +24,7 @@ import org.cryptomator.domain.usecases.cloud.Progress
 import org.cryptomator.domain.usecases.cloud.UploadState
 import java.io.IOException
 import java.io.OutputStream
+import java.util.Date
 import okhttp3.HttpUrl.Companion.toHttpUrlOrNull
 
 internal class WebDavImpl(private val cloud: WebDavCloud, private val connectionHandler: ConnectionHandlerHandlerImpl, private val context: Context) {
@@ -122,7 +124,7 @@ internal class WebDavImpl(private val cloud: WebDavCloud, private val connection
 		}
 
 		progressAware.onProgress(Progress.started(UploadState.upload(uploadFile)))
-		data.open(context)?.use { inputStream ->
+		val requestBody = DataSourceBasedRequestBody.from(context, data, size) { inputStream ->
 			object : TransferredBytesAwareInputStream(inputStream) {
 				override fun bytesTransferred(transferred: Long) {
 					progressAware.onProgress( //
@@ -132,10 +134,9 @@ internal class WebDavImpl(private val cloud: WebDavCloud, private val connection
 							.withValue(transferred)
 					)
 				}
-			}.use {
-				connectionHandler.writeFile(absoluteUriFrom(uploadFile.path), it)
 			}
-		} ?: throw FatalBackendException("InputStream shouldn't bee null")
+		}
+		connectionHandler.writeFile(absoluteUriFrom(uploadFile.path), requestBody, data.modifiedDate(context).orElse(Date()))
 
 		return connectionHandler.get(absoluteUriFrom(uploadFile.path), uploadFile.parent) as WebDavFile? ?: throw FatalBackendException("Unable to get CloudFile after upload.")
 	}

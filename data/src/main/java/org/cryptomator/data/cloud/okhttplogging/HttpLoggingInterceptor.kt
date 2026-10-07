@@ -114,6 +114,7 @@ class HttpLoggingInterceptor(private val logger: Logger, private val context: Co
 	}
 
 	interface Logger {
+
 		fun log(message: String)
 	}
 

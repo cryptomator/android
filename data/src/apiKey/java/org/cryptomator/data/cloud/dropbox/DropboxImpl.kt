@@ -39,6 +39,7 @@ import org.cryptomator.util.file.LruFileCacheUtil.Companion.retrieveFromLruCache
 import java.io.File
 import java.io.IOException
 import java.io.OutputStream
+import java.util.Date
 import timber.log.Timber
 
 internal class DropboxImpl(cloud: DropboxCloud, context: Context) {
@@ -167,6 +168,7 @@ internal class DropboxImpl(cloud: DropboxCloud, context: Context) {
 				client() //
 					.files() //
 					.uploadBuilder(file.path) //
+					.withClientModified(data.modifiedDate(context).orElse(Date())) //
 					.withMode(writeMode) //
 					.uploadAndFinish(it)
 			}

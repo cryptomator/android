@@ -34,6 +34,7 @@ import org.cryptomator.util.ExceptionUtil
 import org.cryptomator.util.crypto.CredentialCryptor
 import java.util.concurrent.atomic.AtomicReference
 import javax.inject.Inject
+import kotlin.jvm.optionals.getOrNull
 import timber.log.Timber
 
 @PerView
@@ -136,7 +137,7 @@ class CloudConnectionListPresenter @Inject constructor( //
 		OnedriveAuthentication.getAuthenticatedOnedriveCloud(activity(), { cloud ->
 			saveOnedriveCloud(cloud)
 		}, { e ->
-			ExceptionUtil.extract(e, NetworkConnectionException::class.java).orNull()?.let { showError(it) } ?: showError(e)
+			ExceptionUtil.extract(e, NetworkConnectionException::class.java).getOrNull()?.let { showError(it) } ?: showError(e)
 		})
 	}
 

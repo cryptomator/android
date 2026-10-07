@@ -3,18 +3,16 @@ package org.cryptomator.presentation.ui.activity
 import org.cryptomator.domain.WebDavCloud
 import org.cryptomator.generator.Activity
 import org.cryptomator.generator.InjectIntent
-import org.cryptomator.presentation.R
+import org.cryptomator.presentation.databinding.ActivityEmptyBinding
 import org.cryptomator.presentation.intent.AuthenticateCloudIntent
 import org.cryptomator.presentation.presenter.AuthenticateCloudPresenter
 import org.cryptomator.presentation.ui.activity.view.AuthenticateCloudView
 import org.cryptomator.presentation.ui.dialog.AssignSslCertificateDialog
-
 import java.security.cert.X509Certificate
-
 import javax.inject.Inject
 
-@Activity(layout = R.layout.activity_empty)
-class AuthenticateCloudActivity : BaseActivity(),
+@Activity
+class AuthenticateCloudActivity : BaseActivity<ActivityEmptyBinding>(ActivityEmptyBinding::inflate),
 	AuthenticateCloudView,
 	AssignSslCertificateDialog.Callback {
 

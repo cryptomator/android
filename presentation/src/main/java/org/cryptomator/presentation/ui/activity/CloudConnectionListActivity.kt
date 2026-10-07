@@ -5,6 +5,7 @@ import org.cryptomator.domain.Vault
 import org.cryptomator.generator.Activity
 import org.cryptomator.generator.InjectIntent
 import org.cryptomator.presentation.R
+import org.cryptomator.presentation.databinding.ActivityLayoutBinding
 import org.cryptomator.presentation.intent.CloudConnectionListIntent
 import org.cryptomator.presentation.model.CloudModel
 import org.cryptomator.presentation.presenter.CloudConnectionListPresenter
@@ -13,12 +14,10 @@ import org.cryptomator.presentation.ui.bottomsheet.CloudConnectionSettingsBottom
 import org.cryptomator.presentation.ui.dialog.DeleteCloudConnectionWithVaultsDialog
 import org.cryptomator.presentation.ui.dialog.PCloudCredentialsUpdatedDialog
 import org.cryptomator.presentation.ui.fragment.CloudConnectionListFragment
-import java.util.ArrayList
 import javax.inject.Inject
-import kotlinx.android.synthetic.main.toolbar_layout.toolbar
 
 @Activity
-class CloudConnectionListActivity : BaseActivity(),
+class CloudConnectionListActivity : BaseActivity<ActivityLayoutBinding>(ActivityLayoutBinding::inflate),
 	CloudConnectionListView,
 	CloudConnectionSettingsBottomSheet.Callback,
 	DeleteCloudConnectionWithVaultsDialog.Callback,
@@ -34,8 +33,8 @@ class CloudConnectionListActivity : BaseActivity(),
 		get() = cloudConnectionListIntent.finishOnCloudItemClick()
 
 	override fun setupView() {
-		toolbar.title = cloudConnectionListIntent.dialogTitle()
-		setSupportActionBar(toolbar)
+		binding.mtToolbar.toolbar.title = cloudConnectionListIntent.dialogTitle()
+		setSupportActionBar(binding.mtToolbar.toolbar)
 	}
 
 	override fun setupPresenter() {
@@ -51,7 +50,7 @@ class CloudConnectionListActivity : BaseActivity(),
 		connectionListFragment().show(cloudNodes)
 	}
 
-	private fun connectionListFragment(): CloudConnectionListFragment = getCurrentFragment(R.id.fragmentContainer) as CloudConnectionListFragment
+	private fun connectionListFragment(): CloudConnectionListFragment = getCurrentFragment(R.id.fragment_container) as CloudConnectionListFragment
 
 	override fun createFragment(): Fragment = CloudConnectionListFragment()
 

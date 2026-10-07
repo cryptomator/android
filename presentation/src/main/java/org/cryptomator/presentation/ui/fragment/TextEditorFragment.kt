@@ -1,25 +1,34 @@
 package org.cryptomator.presentation.ui.fragment
 
+import android.os.Bundle
 import android.text.Spannable
+import android.text.TextWatcher
 import android.text.style.BackgroundColorSpan
+import android.view.View
 import androidx.annotation.NonNull
 import androidx.core.content.ContextCompat
+import androidx.core.widget.doAfterTextChanged
 import com.google.android.material.textfield.TextInputEditText
 import org.cryptomator.generator.Fragment
 import org.cryptomator.presentation.R
+import org.cryptomator.presentation.databinding.FragmentTextEditorBinding
 import org.cryptomator.presentation.presenter.TextEditorPresenter
+import org.cryptomator.presentation.ui.layout.applySystemBarsMargins
+import org.cryptomator.presentation.ui.layout.applySystemBarsPadding
+import org.cryptomator.presentation.ui.layout.attachFastScrollThumb
 import javax.inject.Inject
-import kotlinx.android.synthetic.main.fragment_text_editor.textEditor
-import kotlinx.android.synthetic.main.fragment_text_editor.textViewWrapper
 
-@Fragment(R.layout.fragment_text_editor)
-class TextEditorFragment : BaseFragment() {
+@Fragment
+class TextEditorFragment : BaseFragment<FragmentTextEditorBinding>(FragmentTextEditorBinding::inflate) {
 
 	@Inject
 	lateinit var textEditorPresenter: TextEditorPresenter
 
+	private var fastScrollCleanup: (() -> Unit)? = null
+	private var caretAutoScrollWatcher: TextWatcher? = null
+
 	val textFileContent: String
-		get() = textEditor.text.toString()
+		get() = binding.textEditor.text.toString()
 
 	override fun setupView() {
 		// no-op
@@ -30,13 +39,19 @@ class TextEditorFragment : BaseFragment() {
 	}
 
 	fun displayTextFileContent(textFileContent: String?) {
-		textEditor.setText(textFileContent)
+		binding.textEditor.setText(textFileContent)
+	}
+
+	fun setReadOnly() {
+		binding.textEditor.isFocusable = false
+		binding.textEditor.isFocusableInTouchMode = false
+		binding.textEditor.isCursorVisible = false
 	}
 
 	fun onQueryText(query: String) {
 		textEditorPresenter.query = query
 
-		clearSpans(textEditor)
+		clearSpans(binding.textEditor)
 
 		if (query.isEmpty()) {
 			return
@@ -60,9 +75,9 @@ class TextEditorFragment : BaseFragment() {
 			return
 		}
 
-		clearSpans(textEditor)
+		clearSpans(binding.textEditor)
 
-		val fulltext = textEditor.text.toString().lowercase()
+		val fulltext = binding.textEditor.text.toString().lowercase()
 
 		textEditorPresenter.query?.lowercase()?.let {
 			val index: Int = when (direction) {
@@ -85,7 +100,7 @@ class TextEditorFragment : BaseFragment() {
 				return
 			}
 
-			textEditor.text?.setSpan(
+			binding.textEditor.text?.setSpan(
 				BackgroundColorSpan(ContextCompat.getColor(context(), R.color.colorPrimaryTransparent)),
 				index,
 				index + it.length,
@@ -94,7 +109,8 @@ class TextEditorFragment : BaseFragment() {
 
 			textEditorPresenter.lastFilterLocation = index
 
-			textViewWrapper.scrollTo(0, textEditor.layout.getLineTop(textEditor.layout.getLineForOffset(index)))
+			binding.textEditor.setSelection(index, index + it.length)
+			binding.textEditor.post { scrollCaretIntoView() }
 		}
 	}
 
@@ -104,6 +120,43 @@ class TextEditorFragment : BaseFragment() {
 			?.forEach { span ->
 				editable.text?.removeSpan(span)
 			}
+	}
+
+	override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+		super.onViewCreated(view, savedInstanceState)
+		binding.textViewWrapper.applySystemBarsPadding(left = true, right = true, bottom = true)
+		binding.scrollThumb.applySystemBarsMargins(end = true, bottom = true)
+		binding.scrollTrack.applySystemBarsMargins(end = true, bottom = true)
+		fastScrollCleanup = binding.textViewWrapper.attachFastScrollThumb(binding.scrollThumb, binding.scrollTrack, binding.textEditor)
+		setupCaretAutoScroll()
+	}
+
+	override fun onDestroyView() {
+		fastScrollCleanup?.invoke()
+		fastScrollCleanup = null
+		caretAutoScrollWatcher?.let { binding.textEditor.removeTextChangedListener(it) }
+		caretAutoScrollWatcher = null
+		super.onDestroyView()
+	}
+
+	private fun setupCaretAutoScroll() {
+		caretAutoScrollWatcher = binding.textEditor.doAfterTextChanged {
+			binding.textEditor.post { scrollCaretIntoView() }
+		}
+	}
+
+	private fun scrollCaretIntoView() {
+		val editor = binding.textEditor
+		val scroll = binding.textViewWrapper
+		val layout = editor.layout ?: return
+		val line = layout.getLineForOffset(editor.selectionEnd)
+		val lineTop = editor.paddingTop + layout.getLineTop(line)
+		val lineBottom = editor.paddingTop + layout.getLineBottom(line)
+		val visibleHeight = scroll.height - scroll.paddingTop - scroll.paddingBottom
+		when {
+			lineTop < scroll.scrollY -> scroll.smoothScrollTo(0, lineTop)
+			lineBottom > scroll.scrollY + visibleHeight -> scroll.smoothScrollTo(0, lineBottom - visibleHeight)
+		}
 	}
 
 	enum class Direction { PREVIOUS, NEXT }

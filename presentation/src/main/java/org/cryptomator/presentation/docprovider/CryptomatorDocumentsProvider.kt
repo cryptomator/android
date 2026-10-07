@@ -27,6 +27,7 @@ import org.cryptomator.domain.usecases.cloud.EmptyDataSource
 import org.cryptomator.presentation.BuildConfig
 import org.cryptomator.presentation.R
 import org.cryptomator.util.file.MimeType
+import org.cryptomator.util.named
 import timber.log.Timber
 
 private val SUPPORTED_ROOT_COLUMNS: Array<String> = arrayOf(

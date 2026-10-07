@@ -1,4 +1,4 @@
-- Add workaround for editing files in Microsoft Office apps
-- Add support for themed Cryptomator icon
-- Refresh stale authentication token during auto upload
-- Update translations
+- A new welcome screen makes it easier to get started and find the most important first steps
+- Fast scrolling in the file editor improves navigation through longer files
+- Updated translations provide a more polished experience across supported languages
+- Updated dependencies improve stability and keep the app up to date

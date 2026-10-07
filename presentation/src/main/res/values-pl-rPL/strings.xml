@@ -35,6 +35,35 @@
 	<string name="error_no_such_bucket">Nie ma takiego bucketu</string>
 	<string name="error_masterkey_location_not_supported">Niestandardowa lokalizacja klucza głównego jest jeszcze nieobsługiwana</string>
 	<string name="error_interact_with_fdroid_but_fdroid_missing">Nie udało się połączyć z aplikacją F-Droid. Nie ma aplikacji?</string>
+	<string name="error_hub_vault_operation_not_supported">Operacja sejfu nie jest obsługiwana dla Huba</string>
+	<string name="error_hub_authentication_failed">Uwierzytelnianie w Hubie nie powiodło się</string>
+	<string name="error_hub_device_already_register_for_other_user">To urządzenie jest już zarejestrowane dla innego użytkownika. Spróbuj zmienić konto użytkownika lub użyć innego urządzenia.</string>
+	<string name="error_hub_invalid_setup_code">Klucz konta jest nieprawidłowy.</string>
+	<string name="error_hub_invalid_version">Nieobsługiwana wersja Hubu.</string>
+	<string name="error_hub_unlock_pre_31">Hub jest wspierany dla Androida 12 i wyższych.</string>
+	<!-- # read-only & purchases -->
+	<string name="screen_license_check_benefit_family_sharing">Plan rodzinny</string>
+	<string name="screen_license_check_benefit_write_access">Zapis w Twoich sejfach</string>
+	<string name="screen_license_check_benefit_support">Rozwój oprogramowania typu open-source</string>
+	<string name="screen_license_check_title_full_version">Odblokuj pełną wersję</string>
+	<string name="screen_license_check_trial_title">Okres próbny 30 dni</string>
+	<string name="screen_license_check_trial_price">Darmowe</string>
+	<string name="screen_license_check_trial_subtitle">przez 30 dni</string>
+	<string name="screen_license_check_subscription_title">Subskrypcja roczna</string>
+	<string name="screen_license_check_subscription_subtitle">rocznie</string>
+	<string name="screen_license_check_lifetime_title">Dożywotnia licencja</string>
+	<string name="screen_license_check_lifetime_subtitle">jednorazowo</string>
+	<string name="screen_license_check_restore_purchase">Przywróć zakup</string>
+	<string name="screen_license_check_terms">Warunki użytkowania</string>
+	<string name="screen_license_check_privacy">Polityka prywatności</string>
+	<string name="screen_license_check_trial_status_active">Aktywny</string>
+	<string name="screen_license_check_trial_status_expired">Wygasły</string>
+	<string name="screen_license_check_trial_expired_info">Twój okres próbny się skończył.</string>
+	<string name="screen_welcome_title">Witamy</string>
+	<string name="screen_welcome_continue_button">Kontynuuj</string>
+	<string name="screen_welcome_screen_lock_button">Ustaw blokadę ekranu</string>
+	<string name="next">Dalej</string>
+	<string name="back">Wstecz</string>
 	<!-- # clouds -->
 	<!-- ## cloud names -->
 	<string name="cloud_names_local_storage">Pamięć wewnętrzna</string>
@@ -49,17 +78,17 @@
 	<string name="snack_bar_action_title_search_previous">Poprzedni</string>
 	<string name="snack_bar_action_title_search_next">Następny</string>
 	<string name="snack_bar_action_title_sort">Sortuj</string>
-	<string name="snack_bar_action_title_sort_az">A - Z</string>
-	<string name="snack_bar_action_title_sort_za">Z - A</string>
-	<string name="snack_bar_action_title_sort_newest">Od najnowszych</string>
-	<string name="snack_bar_action_title_sort_oldest">Od najstarszych</string>
-	<string name="snack_bar_action_title_sort_biggest">Od największych</string>
-	<string name="snack_bar_action_title_sort_smallest">Od najmniejszych</string>
+	<string name="snack_bar_action_title_sort_az">A-Z</string>
+	<string name="snack_bar_action_title_sort_za">Z-A</string>
+	<string name="snack_bar_action_title_sort_newest">Najnowsze na początku</string>
+	<string name="snack_bar_action_title_sort_oldest">Najstarsze na początku</string>
+	<string name="snack_bar_action_title_sort_biggest">Największe na początku</string>
+	<string name="snack_bar_action_title_sort_smallest">Najmniejsze na początku</string>
 	<string name="snack_bar_cryptomator_variants_title">Zobacz więcej</string>
 	<string name="snack_bar_cryptomator_variants_hint">Brak chmury na liście?</string>
 	<!-- # screens -->
 	<!-- # screen: vault list -->
-	<string name="screen_vault_list_actions_title">Dodaj do Cryptomator</string>
+	<string name="screen_vault_list_actions_title">Dodaj do aplikacji Cryptomator</string>
 	<string name="screen_vault_list_action_create_new_vault">Utwórz nowy sejf</string>
 	<string name="screen_vault_list_action_add_existing_vault">Dodaj istniejący sejf</string>
 	<string name="screen_vault_list_vault_action_delete">Usuń</string>
@@ -67,7 +96,7 @@
 	<string name="screen_vault_list_change_password_successful">Hasło zostało pomyślnie zmienione</string>
 	<!-- # screen: file browser -->
 	<string name="screen_file_browser_default_title">Sejf</string>
-	<string name="screen_file_browser_add_existing_vault_extra_text">Wybierz plik klucza głównego</string>
+	<string name="screen_file_browser_add_existing_vault_extra_text">Wybierz klucz główny lub plik sejfu</string>
 	<string name="screen_file_browser_create_new_vault_button_text">Umieść tutaj</string>
 	<string name="screen_file_browser_create_new_vault_extra_text">Nazwa sejfu: %1$s</string>
 	<plurals name="screen_file_browser_subtitle_move">
@@ -187,7 +216,7 @@
 	<string name="screen_settings_section_auto_photo_upload_including_videos">Prześlij filmy</string>
 	<string name="screen_settings_auto_photo_upload_title">Zapisz automatycznie przesyłane pliki w&#8230;</string>
 	<string name="screen_settings_website_label">Cryptomator w Internecie</string>
-	<string name="screen_settings_twitter_label">Śledź nas na Twitterze</string>
+	<string name="screen_settings_mastodon_label">Obserwuj nas na Mastodonie</string>
 	<string name="screen_settings_facebook_label">Polub nas na Facebooku</string>
 	<string name="screen_settings_section_legal">Informacje prawne</string>
 	<string name="screen_settings_licenses_label">Licencje</string>
@@ -200,6 +229,8 @@
 	<string name="screen_settings_security_label">Wskazówki bezpieczeństwa</string>
 	<string name="screen_settings_section_version">Wersja</string>
 	<string name="screen_settings_advanced_settings">Ustawienia zaawansowane</string>
+	<string name="screen_settings_microsoft_apps_workaround_label">Otwieranie plików Microsoft</string>
+	<string name="screen_settings_microsoft_apps_workaround_summary">Otwórz pliki w aplikacjach firmy Microsoft z uprawnieniami do zapisu</string>
 	<string name="screen_settings_background_unlock_preparation_label">Przyspiesz odblokowanie</string>
 	<string name="screen_settings_background_unlock_preparation_label_summary">Pobierz konfigurację sejfu w tle, gdy zostaniesz poproszony o wprowadzenie hasła lub autoryzację biometryczną</string>
 	<string name="screen_settings_keep_unlocked_while_editing_files">Zachowaj odblokowany</string>
@@ -306,17 +337,18 @@
 	<string name="dialog_debug_mode_disclaimer_hint">W tym trybie poufne dane mogą być zapisywane do pliku dziennika na urządzeniu (np. nazwy plików i ścieżki). Hasła, ciasteczka itp. są wykluczone.\n\nPamiętaj, aby wyłączyć tryb debugowania tak szybko, jak to możliwe.</string>
 	<string name="dialog_debug_mode_disclaimer_title">Uwaga</string>
 	<string name="dialog_debug_mode_positive_button">Włącz</string>
-	<string name="dialog_disable_app_obscured_disclaimer_hint">To ustawienie jest funkcją bezpieczeństwa i uniemożliwia innym aplikacjom oszukiwanie użytkowników.\n\nWyłączając je potwierdzasz, że jesteś <a href="https://docs.cryptomator.org/en/1.6/android/settings/#block-app-when-obscured">świadomy ryzyka</a>.</string>
+	<string name="dialog_microsoft_workaround_disclaimer_hint">Z powodu błędu w aplikacjach firmy Microsoft, plik do edycji musi być udostępniony tym aplikacjom w folderze mediów publicznych na Twoim urządzeniu. Po wznowieniu działania Cryptomator ponownie usuwa publicznie dostępny plik, ale Cryptomator nie może wpływać na to, co w międzyczasie stało się z tym plikiem. Upewnij się, że jesteś świadomy tego zachowania podczas aktywowania tej opcji. To będzie dotyczyć tylko typów plików firmy Microsoft.\n\nCryptomator uruchomi się ponownie po aktywacji.</string>
+	<string name="dialog_disable_app_obscured_disclaimer_hint">To zabezpieczenie uniemożliwia innym aplikacjom nakłonienie użytkowników do wykonania niezamierzonych działań.\n\nWyłączając je potwierdzasz, że jesteś <a href="https://docs.cryptomator.org/en/latest/android/settings/#block-app-when-obscured">świadomy ryzyka</a>.</string>
 	<string name="dialog_disable_app_obscured_disclaimer_title">Uwaga</string>
 	<string name="dialog_disable_app_obscured_positive_button">Wyłącz</string>
 	<string name="dialog_app_is_obscured_info_title">Aplikacja jest zasłonięta inną</string>
-	<string name="dialog_app_is_obscured_info_hint">Inna aplikacja jest wyświetlana nad Cryptomatorem (na przykład filtr niebieskiego światła, tryb nocny). Dla Twojego bezpieczeństwa Cryptomator jest wyłączony.\n\n<a href="https://docs.cryptomator.org/en/1.6/android/settings/#block-app-when-obscured">Jak ponownie włączyć aplikację. </a></string>
+	<string name="dialog_app_is_obscured_info_hint">Inna aplikacja jest wyświetlana nad Cryptomatorem (na przykład filtr niebieskiego światła, tryb nocny). Ze względów bezpieczeństwa Cryptomator jest wyłączony.\n\n<a href="https://docs.cryptomator.org/en/latest/android/settings/#block-app-when-obscured">Jak włączyć Cryptomator. </a></string>
 	<string name="dialog_app_is_obscured_info_neutral_button">Zamknij</string>
 	<string name="dialog_vaults_removed_during_migration_title">Proszę ponownie dodać sejfy dla chmury %1s</string>
 	<string name="dialog_vaults_removed_during_migration_hint">Podczas migracji do tej wersji aplikacji musimy usunąć następujące sejfy z aplikacji:\n%2s \n\nTe sejfy nie są usuwane z chmury, ale tylko z tej aplikacji. Przepraszamy za niedogodności. Dodaj ponownie te sejfy, aby dalej z nich korzystać.</string>
 	<string name="dialog_vault_is_root_folder_of_cloud_title">Sejf jest głównym folderem w połączonej chmurze</string>
 	<string name="dialog_vault_is_root_folder_of_cloud_hint">Utwórz nowe połączenie z chmurą, gdzie wybierzesz przynajmniej folder nadrzędny tego sejfu jako główny katalog, aby dodać ten sejf.</string>
-	<string name="dialog_disable_secure_screen_disclaimer_hint">To ustawienie jest funkcją bezpieczeństwa i uniemożliwia innym aplikacjom oszukiwanie użytkowników do robienia rzeczy, których nie chcą robić.\n\nWyłączając je potwierdzasz, że jesteś <a href="https://docs.cryptomator.org/en/1.6/android/settings/#screen-security">świadomy ryzyka</a>.</string>
+	<string name="dialog_disable_secure_screen_disclaimer_hint">To zabezpieczenie uniemożliwia innym aplikacjom nakłonienie użytkowników podstępem do wykonania niechcianych przez nich działań.\n\nWyłączając je potwierdzasz, że jesteś <a href="https://docs.cryptomator.org/en/latest/android/settings/#screen-security">świadomy ryzyka</a>.</string>
 	<string name="dialog_delete_cloud_connection_with_vaults_message">Czy na pewno chcesz usunąć to połączenie z serwerem chmury?</string>
 	<string name="dialog_delete_cloud_connection_with_vaults_hint">Ta akcja usunie połączenie z usługą chmury i wszystkimi sejfami w tej chmurze.</string>
 	<string name="dialog_confirm_delete_multiple_title">Usunąć %1$d elementów?</string>
@@ -348,6 +380,28 @@
 	<string name="dialog_no_more_images_to_display">Brak obrazów do wyświetlenia&#8230;</string>
 	<string name="dialog_pcloud_credentials_updated_title">Zaktualizowano dane logowania \'%1$s\'</string>
 	<string name="dialog_pcloud_credentials_updated">Jeśli chcesz dodać nowe konto pCloud, przejdź na podany adres <a href="https://www.pcloud.com">www.pcloud.com</a>, wyloguj się z aktualnie zalogowanego konta i ponownie kliknij na \'+\' aby utworzyć nowe połączenie z chmurą.</string>
+	<string name="dialog_cbc_password_vaults_migration_title">Wymagana migracja hasła sejfu</string>
+	<string name="dialog_cbc_password_vaults_migration_hint">Z powodu ulepszenia zabezpieczeń, dla każdego sejfu zostaniesz dwukrotnie poproszony o weryfikację biometryczną celem ponownego zaszyfrowania haseł. Jest to konieczne, aby nadal chronić hasła za pomocą najnowszej technologii. Jeśli sobie tego nie życzysz, przechowywane hasła zostaną usunięte.</string>
+	<string name="dialog_cbc_password_vaults_migration_action">Migruj</string>
+	<string name="dialog_create_hub_device_title">Zarejestruj urządzenie Hub</string>
+	<string name="dialog_create_hub_device_name_label">Nazwa</string>
+	<string name="dialog_create_hub_device_name_hint">Wygląda że jest to pierwszy dostęp do Huba z tego urządzenia. Aby zidentyfikować go w celu autoryzacji dostępu, musisz nazwać to urządzenie.</string>
+	<string name="dialog_create_hub_device_name_empty">Nazwa nie może być pusta.</string>
+	<string name="dialog_create_hub_device_setup_code_label">Klucz konta</string>
+	<string name="dialog_create_hub_device_setup_code_hint">Twój Klucz Konta jest wymagany do zalogowania się z nowych aplikacji lub przeglądarek. Można go znaleźć w twoim profilu.</string>
+	<string name="dialog_create_hub_device_setup_code_empty">Klucz konta nie może być pusty.</string>
+	<string name="dialog_progress_creating_hub_device_setup">Tworzenie urządzenia&#8230;</string>
+	<string name="dialog_hub_vault_access_forbidden_title">Brak dostępu</string>
+	<string name="dialog_hub_vault_access_forbidden_hint">Twoje urządzenie nie zostało jeszcze upoważnione do dostępu do tego sejfu. Poproś właściciela sejfu o autoryzację.\"</string>
+	<string name="dialog_hub_license_upgrade_required_title">Sprawdź licencję Huba</string>
+	<string name="dialog_hub_license_upgrade_required_hint">Twoja instancja Cryptomator Hub ma nieprawidłową licencję. Poinformuj administratora Huba o uaktualnieniu lub odnowieniu licencji.\"</string>
+	<string name="dialog_hub_vault_archived_title">Zarchiwizowano sejf</string>
+	<string name="dialog_hub_vault_archived_hint">Ten sejf jest zarchiwizowany i nie może być odblokowany. Aby go odblokować, właściciel sejfu musi go odarchiwizować.</string>
+	<string name="dialog_restore_successful_title">Przywrócono pomyślnie</string>
+	<string name="dialog_no_full_version_title">Brak pełnej wersji</string>
+	<string name="dialog_hub_user_setup_required_title">Wymagana konfiguracja użytkownika</string>
+	<string name="dialog_hub_user_setup_required_hint">Aby kontynuować, wykonaj kroki wymagane w profilu użytkownika Hub.</string>
+	<string name="dialog_hub_user_setup_required_neutral_button">Przejdź do profilu</string>
 	<string name="permission_snackbar_auth_local_vault">Cryptomator potrzebuje dostępu do pamięci lokalnej, aby uzyskać dostęp do sejfu</string>
 	<string name="permission_snackbar_auth_auto_upload">Cryptomator potrzebuje dostępu do pamięci lokalnej, aby automatycznie przesyłać zdjęcia</string>
 	<string name="permission_snackbar_notifications">Cryptomator potrzebuje uprawnień do powiadomień, aby wyświetlić np. status sejfu</string>
@@ -394,6 +448,7 @@
 	<string name="notification_auto_upload_failed_due_to_folder_not_exists">Wybrany folder do przesłania nie jest już dostępny. Przejdź do ustawień i wybierz nowy</string>
 	<string name="notification_auto_upload_failed_due_to_vault_locked">Sejf został zablokowany podczas przesyłania, otwórz go ponownie aby kontynuować</string>
 	<string name="notification_auto_upload_failed_due_to_vault_not_found">Sejf wybrany do automatycznego wysyłania już nie istnieje.</string>
+	<string name="notification_auto_upload_failed_due_to_authentication_problem">Dotknij, aby odświeżyć uwierzytelnianie.</string>
 	<string name="notification_open_writable_file_title">Otwórz plik zapisywalny</string>
 	<string name="notification_open_writable_file_message">Sejf pozostaje odblokowany do czasu zakończenia edycji</string>
 	<string name="notification_update_check_finished_latest">Zainstalowano najnowszą wersję</string>
@@ -403,8 +458,10 @@
 	<string name="screen_settings_lru_cache_size">Rozmiar całkowity pamięci podręcznej</string>
 	<string name="screen_settings_clear_lru_cache_size">Wyczyść pamięć podręczną</string>
 	<string name="screen_settings_lru_cache_changed__restart_toast">Zmiany zostaną zastosowane po ponownym uruchomieniu</string>
-	<string name="screen_settings_license">Zarejestrowano dla</string>
+	<string name="screen_settings_license_title_unlock">Odblokuj pełną wersję</string>
 	<string name="screen_settings_license_mail">%1$s</string>
+	<string name="screen_settings_manage_subscription">Zarządzaj subskrypcją</string>
+	<string name="dialog_trial_expired_unlock">Odblokuj pełną wersję</string>
 	<string name="dialog_settings_update_check_interval_title">Częstotliwość sprawdzania aktualizacji</string>
 	<string name="screen_settings_check_updates">Sprawdź dostępne aktualizacje</string>
 	<string name="screen_settings_last_check_updates">Ostatnio uruchomiono %1$s</string>

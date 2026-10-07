@@ -14,7 +14,7 @@
 		app:startIconTint="@null">
 
 		<com.google.android.material.textfield.TextInputEditText
-			android:id="@+id/fileName"
+			android:id="@+id/file_name"
 			android:layout_width="match_parent"
 			android:layout_height="wrap_content"
 			android:layout_centerVertical="true"
@@ -28,6 +28,6 @@
 		android:layout_height="1dp"
 		android:layout_alignParentBottom="true"
 		android:layout_marginStart="16dp"
-		android:layout_toEndOf="@+id/til_file_name"
+		android:layout_toEndOf="@id/til_file_name"
 		android:background="@color/list_divider" />
 </RelativeLayout>

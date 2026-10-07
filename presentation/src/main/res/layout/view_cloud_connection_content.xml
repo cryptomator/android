@@ -6,7 +6,7 @@
 	android:visibility="visible">
 
 	<TextView
-		android:id="@+id/cloudText"
+		android:id="@+id/cloud_text"
 		style="@style/AppTheme.ListItemDarkTextColor"
 		android:layout_width="match_parent"
 		android:layout_height="wrap_content"
@@ -20,7 +20,7 @@
 		android:layout_height="wrap_content">
 
 		<TextView
-			android:id="@+id/cloudSubText"
+			android:id="@+id/cloud_sub_text"
 			style="@style/AppTheme.ListItemLightTextColor"
 			android:layout_width="match_parent"
 			android:layout_height="wrap_content"

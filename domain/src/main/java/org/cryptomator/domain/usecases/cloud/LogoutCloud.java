@@ -39,7 +39,6 @@ class LogoutCloud {
 			return GoogleDriveCloud //
 					.aCopyOf((GoogleDriveCloud) cloud) //
 					.withUsername(null) //
-					.withAccessToken(null) //
 					.build();
 		} else if (cloud instanceof OnedriveCloud) {
 			return OnedriveCloud //

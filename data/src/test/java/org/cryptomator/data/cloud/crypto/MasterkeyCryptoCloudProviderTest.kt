@@ -57,7 +57,7 @@ internal class MasterkeyCryptoCloudProviderTest {
 	private val masterkeyV7 =
 		"{  \"version\": 7,  \"scryptSalt\": \"AAAAAAAAAAA=\",  \"scryptCostParam\": 32768,  \"scryptBlockSize\": 8,  \"primaryMasterKey\": \"D2kc+xBoAcVY+M7s74YBEy6l7ga2+Nz+HS5o0TQY3JMW1uQ5jTlLIQ==\",  \"hmacMasterKey\": \"D2kc+xBoAcVY+M7s74YBEy6l7ga2+Nz+HS5o0TQY3JMW1uQ5jTlLIQ==\",  \"versionMac\": \"cn2sAK6l9p1/w9deJVUuW3h7br056mpv5srvALiYw+g=\"}"
 	private val vaultConfig =
-		"eyJraWQiOiJtYXN0ZXJrZXlmaWxlOm1hc3RlcmtleS5jcnlwdG9tYXRvciIsImFsZyI6IkhTMjU2In0.eyJmb3JtYXQiOjgsInNob3J0ZW5pbmdUaHJlc2hvbGQiOjIyMCwiY2lwaGVyQ29tYm8iOiJTSVZfR0NNIn0.-tDU6GyH7Iv-LAOnFdhpxei2Qyd7DLbx4hfY9Wywc_Y"
+		"eyJraWQiOiJtYXN0ZXJrZXlmaWxlOm1hc3RlcmtleS5jcnlwdG9tYXRvciIsImFsZyI6IkhTMjU2IiwidHlwIjoiSldUIn0.eyJqdGkiOiIiLCJmb3JtYXQiOjgsImNpcGhlckNvbWJvIjoiU0lWX0dDTSIsInNob3J0ZW5pbmdUaHJlc2hvbGQiOjIyMH0.HHMkCqK-kFv_TXAhrzgp8vuPhws_2NswhaAHB9hkKBs"
 
 	private var context: Context = mock()
 	private var cloud: Cloud = mock()
@@ -165,7 +165,7 @@ internal class MasterkeyCryptoCloudProviderTest {
 		whenever(vault.path).thenReturn("/foo")
 		whenever(vault.isUnlocked).thenReturn(true)
 
-		val unlockToken = UnlockTokenImpl(vault, masterkeyV7.toByteArray(StandardCharsets.UTF_8))
+		val unlockToken = UnlockTokenImpl(vault, secureRandom, masterkeyV7.toByteArray(StandardCharsets.UTF_8))
 		val unverifiedVaultConfig = UnverifiedVaultConfig(vaultConfig, URI.create(String.format("%s:%s", CryptoConstants.MASTERKEY_SCHEME, CryptoConstants.MASTERKEY_FILE_NAME)), CryptoConstants.MAX_VAULT_VERSION)
 		val result: Vault = inTest.unlock(unlockToken, Optional.of(unverifiedVaultConfig), "foo") { false }
 
@@ -192,7 +192,7 @@ internal class MasterkeyCryptoCloudProviderTest {
 		whenever(vault.path).thenReturn("/foo")
 		whenever(vault.isUnlocked).thenReturn(true)
 
-		val unlockToken = UnlockTokenImpl(vault, masterkeyV7.toByteArray(StandardCharsets.UTF_8))
+		val unlockToken = UnlockTokenImpl(vault, secureRandom, masterkeyV7.toByteArray(StandardCharsets.UTF_8))
 		val result = inTest.unlock(unlockToken, Optional.absent(), "foo", { false })
 
 		MatcherAssert.assertThat(result.isUnlocked, CoreMatchers.`is`(true))
@@ -206,7 +206,7 @@ internal class MasterkeyCryptoCloudProviderTest {
 	@Test
 	@DisplayName("unlockLegacyUsingNewVault(\"foo\")")
 	fun testUnlockLegacyVaultUsingVaultFormat8() {
-		val unlockToken: UnlockToken = UnlockTokenImpl(vault, masterkeyV8.toByteArray(StandardCharsets.UTF_8))
+		val unlockToken: UnlockToken = UnlockTokenImpl(vault, secureRandom, masterkeyV8.toByteArray(StandardCharsets.UTF_8))
 		Assertions.assertThrows(MissingVaultConfigFileException::class.java) { inTest.unlock(unlockToken, Optional.absent(), "foo", { false }) }
 	}
 
@@ -302,7 +302,7 @@ internal class MasterkeyCryptoCloudProviderTest {
 		if (legacy) {
 			MatcherAssert.assertThat(testVaultPasswordVault(masterkeyV7, Optional.absent(), password), CoreMatchers.`is`(true))
 
-			val unlockToken = UnlockTokenImpl(vault, masterkeyV7.toByteArray(StandardCharsets.UTF_8))
+			val unlockToken = UnlockTokenImpl(vault, secureRandom, masterkeyV7.toByteArray(StandardCharsets.UTF_8))
 
 			Mockito.verify(inTest).cryptorFor(unlockToken.getKeyFile(password), CryptorProvider.Scheme.SIV_CTRMAC)
 		} else {
@@ -310,7 +310,7 @@ internal class MasterkeyCryptoCloudProviderTest {
 
 			MatcherAssert.assertThat(testVaultPasswordVault(masterkeyV8, Optional.of(unverifiedVaultConfig), password), CoreMatchers.`is`(true))
 
-			val unlockToken = UnlockTokenImpl(vault, masterkeyV8.toByteArray(StandardCharsets.UTF_8))
+			val unlockToken = UnlockTokenImpl(vault, secureRandom, masterkeyV8.toByteArray(StandardCharsets.UTF_8))
 
 			Mockito.verify(inTest).cryptorFor(unlockToken.getKeyFile(password), CryptorProvider.Scheme.SIV_GCM)
 		}

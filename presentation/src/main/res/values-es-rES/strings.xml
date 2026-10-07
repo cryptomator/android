@@ -35,6 +35,39 @@
 	<string name="error_no_such_bucket">El bucket no existe</string>
 	<string name="error_masterkey_location_not_supported">Ubicación personalizada Masterkey aún no soportada</string>
 	<string name="error_interact_with_fdroid_but_fdroid_missing">Error al comunicarse con la aplicación F-Droid. ¿No está instalada?</string>
+	<string name="error_hub_vault_operation_not_supported">Operación de bóveda no soportada para Hub</string>
+	<string name="error_hub_authentication_failed">Ha fallado la autenticación de Hub</string>
+	<string name="error_hub_device_already_register_for_other_user">Este dispositivo ya se ha registrado para otro usuario. Intente cambiar la cuenta de usuario o utilice un dispositivo diferente.</string>
+	<string name="error_hub_invalid_setup_code">La Account Key no es válida.</string>
+	<string name="error_hub_invalid_version">Versión de Hub no soportada.</string>
+	<string name="error_hub_unlock_pre_31">Hub solo es compatible con Android 12 o superior.</string>
+	<string name="error_hub_not_trustworthy">Hub no es fiable.</string>
+	<!-- # read-only & purchases -->
+	<string name="screen_license_check_benefit_family_sharing">Cuota familiar</string>
+	<string name="screen_license_check_benefit_write_access">Acceso de escritura a sus bóvedas</string>
+	<string name="screen_license_check_benefit_support">Desarrollo de código abierto</string>
+	<string name="screen_license_check_title_full_version">Desbloquear versión completa</string>
+	<string name="screen_license_check_trial_title">Prueba de 30 días</string>
+	<string name="screen_license_check_trial_price">Gratis</string>
+	<string name="screen_license_check_trial_subtitle">por 30 días</string>
+	<string name="screen_license_check_subscription_title">Suscripción anual</string>
+	<string name="screen_license_check_subscription_subtitle">anual</string>
+	<string name="screen_license_check_lifetime_title">Licencia vitalicia</string>
+	<string name="screen_license_check_lifetime_discount_badge_until">🔥 %1$d%% de descuento hasta %2$s</string>
+	<string name="screen_license_check_lifetime_discount_badge_generic">🔥 Oferta por tiempo limitado</string>
+	<string name="screen_license_check_lifetime_subtitle">pago único</string>
+	<string name="screen_license_check_restore_purchase">Restaurar compra</string>
+	<string name="screen_license_check_terms">Términos de uso</string>
+	<string name="screen_license_check_privacy">Política de privacidad</string>
+	<string name="screen_license_check_trial_status_active">Activa</string>
+	<string name="screen_license_check_trial_status_expired">Expirada</string>
+	<string name="screen_license_check_trial_expired_info">Su prueba ha expirado.</string>
+	<string name="screen_license_check_cancel_subscription_hint">Ahora tienes una licencia de por vida. Para evitar cargos futuros, cancela tu suscripción anual a través de la opción %1$s en Ajustes.</string>
+	<string name="screen_welcome_title">Bienvenido</string>
+	<string name="screen_welcome_continue_button">Continuar</string>
+	<string name="screen_welcome_screen_lock_button">Establecer bloqueo de pantalla</string>
+	<string name="next">Siguiente</string>
+	<string name="back">Volver</string>
 	<!-- # clouds -->
 	<!-- ## cloud names -->
 	<string name="cloud_names_local_storage">Almacenamiento local</string>
@@ -67,7 +100,7 @@
 	<string name="screen_vault_list_change_password_successful">Contraseña cambiada con éxito</string>
 	<!-- # screen: file browser -->
 	<string name="screen_file_browser_default_title">Bóveda</string>
-	<string name="screen_file_browser_add_existing_vault_extra_text">Seleccionar archivo masterkey</string>
+	<string name="screen_file_browser_add_existing_vault_extra_text">Seleccionar archivo masterkey o bóveda</string>
 	<string name="screen_file_browser_create_new_vault_button_text">Dejar aquí</string>
 	<string name="screen_file_browser_create_new_vault_extra_text">Nombre de la bóveda: %1$s</string>
 	<plurals name="screen_file_browser_subtitle_move">
@@ -172,6 +205,7 @@
 	<string name="screen_settings_live_search_summary">Actualizar los resultados de la búsqueda mientras se ingresa la consulta</string>
 	<string name="screen_settings_glob_search">Buscar usando el patrón glob</string>
 	<string name="screen_settings_glob_search_summary">Usar la coincidencia de patrón glob como alice.*.jpg</string>
+	<string name="screen_hub_reset_unknown_hub_hosts_title">Restablecer hosts de Hub Desconocidos</string>
 	<string name="screen_settings_section_auto_lock">Bloqueo automático</string>
 	<string name="screen_settings_auto_lock_timeout">Bloquear después de</string>
 	<string name="screen_settings_auto_lock_on_screen_lock">Cuando la pantalla está desactivada</string>
@@ -185,7 +219,7 @@
 	<string name="screen_settings_section_auto_photo_upload_including_videos">Cargar videos</string>
 	<string name="screen_settings_auto_photo_upload_title">Guardar archivos de carga automática en&#8230;</string>
 	<string name="screen_settings_website_label">Web de Cryptomator</string>
-	<string name="screen_settings_twitter_label">Síganos en Twitter</string>
+	<string name="screen_settings_mastodon_label">Síguenos en Mastodon</string>
 	<string name="screen_settings_facebook_label">Denos me gusta en Facebook</string>
 	<string name="screen_settings_section_legal">Legal</string>
 	<string name="screen_settings_licenses_label">Licencias</string>
@@ -307,17 +341,17 @@
 	<string name="dialog_debug_mode_disclaimer_title">Aviso</string>
 	<string name="dialog_debug_mode_positive_button">Activar</string>
 	<string name="dialog_microsoft_workaround_disclaimer_hint">Debido a un error en las aplicaciones de Microsoft, el archivo que se va a editar debe compartirse con estas aplicaciones en una carpeta de medios públicos en su dispositivo. Una vez que se reanude Cryptomator, el archivo de acceso público se elimina nuevamente, pero Cryptomator no puede influir en lo que sucedió con este archivo mientras tanto. Asegúrese de conocer este comportamiento al activar esta opción. Esto solo se aplicará a los tipos de archivos de Microsoft.\n\nCryptomator se reiniciará después de la activación.</string>
-	<string name="dialog_disable_app_obscured_disclaimer_hint">Esta opción es una función de seguridad y evita que otras aplicaciones engañen a los usuarios para que hagan cosas que no quieren hacer.\n\nAl desactivarla, confirma que es <a href="https://docs.cryptomator.org/en/1.6/android/settings/#block-app-when-obscured">consciente de los riesgos</a>.</string>
+	<string name="dialog_disable_app_obscured_disclaimer_hint">Esta opción es una función de seguridad y evita que otras aplicaciones engañen a los usuarios para que hagan cosas que no quieren hacer.\n\nAl desactivarla, confirma que es <a href="https://docs.cryptomator.org/en/latest/android/settings/#block-app-when-obscured">consciente de los riesgos</a>.</string>
 	<string name="dialog_disable_app_obscured_disclaimer_title">Aviso</string>
 	<string name="dialog_disable_app_obscured_positive_button">Desactivar</string>
 	<string name="dialog_app_is_obscured_info_title">La aplicación está oscura</string>
-	<string name="dialog_app_is_obscured_info_hint">Otra aplicación está mostrando algo en la parte superior de Cryptomator (por ejemplo, un filtro de luz azul o una aplicación en modo nocturno). Por razones de seguridad, Cryptomator está desactivado.\n\n<a href="https://docs.cryptomator.org/en/1.6/android/settings/#block-app-when-obscured">Cómo activar Cryptomator</a></string>
+	<string name="dialog_app_is_obscured_info_hint">Otra aplicación está mostrando algo sobre Cryptomator (por ejemplo, un filtro de luz azul o una aplicación en modo nocturno). Por razones de seguridad, Cryptomator está desactivado.\n\n<a href="https://docs.cryptomator.org/en/latest/android/settings/#block-app-when-obscured">Cómo activar Cryptomator</a></string>
 	<string name="dialog_app_is_obscured_info_neutral_button">Cerrar</string>
 	<string name="dialog_vaults_removed_during_migration_title">Vuelva a añadir bóvedas para la nube %1s</string>
 	<string name="dialog_vaults_removed_during_migration_hint">Mientras se migra a esta versión de la aplicación, necesitamos eliminar las siguientes bóvedas de la aplicación:\n%2s \n\nEsas bóvedas no se eliminan de la nube sino sólo de esta aplicación. Lamentamos las molestias, por favor añada de nuevo estas bóvedas para seguir trabajando con ellas.</string>
 	<string name="dialog_vault_is_root_folder_of_cloud_title">La bóveda es la carpeta raíz de la conexión a la nube</string>
 	<string name="dialog_vault_is_root_folder_of_cloud_hint">Crear una conexión nueva en la nube donde seleccione al menos la carpeta padre de esta carpeta de bóveda como directorio raíz para añadir esta bóveda.</string>
-	<string name="dialog_disable_secure_screen_disclaimer_hint">Esta opción es una función de seguridad y evita que otras aplicaciones engañen a los usuarios para que hagan cosas que no quieren hacer.\n\nAl desactivarla, confirma que es <a href="https://docs.cryptomator.org/en/1.6/android/settings/#screen-security">consciente de los riesgos</a>.</string>
+	<string name="dialog_disable_secure_screen_disclaimer_hint">Esta opción es una función de seguridad y evita que otras aplicaciones engañen a los usuarios para que hagan cosas que no quieren hacer.\n\nAl desactivar, confirma que es <a href="https://docs.cryptomator.org/en/latest/android/settings/#screen-security">consciente de los riesgos</a>.</string>
 	<string name="dialog_delete_cloud_connection_with_vaults_message">\"¿Está seguro que desea eliminar esta conexión a la nube?</string>
 	<string name="dialog_delete_cloud_connection_with_vaults_hint">Esta acción eliminará la conexión a la nube y todas las bóvedas de esta nube.</string>
 	<string name="dialog_confirm_delete_multiple_title">¿Eliminar %1$d elementos?</string>
@@ -349,6 +383,29 @@
 	<string name="dialog_no_more_images_to_display">No hay más imágenes para mostrar&#8230;</string>
 	<string name="dialog_pcloud_credentials_updated_title">Credenciales de \'%1$s\' actualizadas</string>
 	<string name="dialog_pcloud_credentials_updated">Si desea añadir una cuenta pCloud nueva, pulse en esta url <a href="https://www.pcloud.com">www.pcloud.com</a>, cierre la sesión de la cuenta actual y pulse de nuevo en \'+\' de esta aplicación para crear una conexión nueva en la nube.</string>
+	<string name="dialog_cbc_password_vaults_migration_title">Migración de contraseña de bóveda requerida</string>
+	<string name="dialog_cbc_password_vaults_migration_hint">Debido a las mejoras de seguridad, se le pedirá la autenticación biométrica dos veces por cada bóveda para volver a cifrar sus contraseñas de bóveda. Esto es necesario para continuar protegiendo sus contraseñas de bóveda con la última tecnología. Si no desea que esto suceda, se eliminarán las contraseñas almacenadas.</string>
+	<string name="dialog_cbc_password_vaults_migration_action">Migrar</string>
+	<string name="dialog_create_hub_device_title">Registrar dispositivo Hub</string>
+	<string name="dialog_create_hub_device_name_label">Nombre</string>
+	<string name="dialog_create_hub_device_name_hint">Este parece ser el primer acceso al Hub desde este dispositivo. Para identificarlo y autorizar el acceso, necesita nombrar este dispositivo.</string>
+	<string name="dialog_create_hub_device_name_empty">El nombre no puede estar vacío.</string>
+	<string name="dialog_create_hub_device_setup_code_label">Account Key</string>
+	<string name="dialog_create_hub_device_setup_code_hint">Se requiere su clave de cuenta para iniciar sesión desde nuevas aplicaciones o navegadores. Puede encontrarse en su perfil.</string>
+	<string name="dialog_create_hub_device_setup_code_empty">La Account Key no puede estar vacía.</string>
+	<string name="dialog_progress_creating_hub_device_setup">Creando dispositivo&#8230;</string>
+	<string name="dialog_hub_vault_access_forbidden_title">Acceso denegado</string>
+	<string name="dialog_hub_vault_access_forbidden_hint">Su usuario aún no ha sido autorizado para acceder a esta bóveda. Pídale al propietario de la bóveda que lo autorice.\"</string>
+	<string name="dialog_hub_license_upgrade_required_title">Comprobar licencia de Hub</string>
+	<string name="dialog_hub_license_upgrade_required_hint">Su instancia de Cryptomator Hub tiene una licencia inválida. Informe a un administrador del Hub para actualizar o renovar la licencia.\"</string>
+	<string name="dialog_hub_vault_archived_title">Bóveda archivada</string>
+	<string name="dialog_hub_vault_archived_hint">Esta bóveda está archivada y no puede ser desbloqueada. Para desbloquearla, el propietario de la bóveda debe desarchivarla.</string>
+	<string name="dialog_restore_successful_title">Restauración exitosa</string>
+	<string name="dialog_no_full_version_title">Sin versión completa</string>
+	<string name="dialog_hub_user_setup_required_title">Configuración de usuario requerida</string>
+	<string name="dialog_hub_user_setup_required_hint">Para continuar, complete los pasos necesarios en su perfil de usuario de Hub.</string>
+	<string name="dialog_hub_user_setup_required_neutral_button">Ir al Perfil</string>
+	<string name="dialog_hub_check_host_authenticity_title">¿Confiar en estos hosts?</string>
 	<string name="permission_snackbar_auth_local_vault">Cryptomator necesita acceso de almacenamiento para usar bóvedas locales</string>
 	<string name="permission_snackbar_auth_auto_upload">Cryptomator necesita acceso de almacenamiento para cargar fotos automáticamente</string>
 	<string name="permission_snackbar_notifications">Cryptomator necesita permisos de notificación para mostrar el estado de la bóveda por ejemplo</string>
@@ -400,13 +457,17 @@
 	<string name="notification_open_writable_file_message">La bóveda permanece desbloqueada hasta finalizar la edición</string>
 	<string name="notification_update_check_finished_latest">Última versión instalada</string>
 	<string name="notification_authenticating">Autenticando&#8230;</string>
+	<string name="notification_cleared_trusted_hosts">Hosts de confianza limpiados</string>
 	<string name="screen_settings_lru_cache">Caché</string>
 	<string name="screen_settings_lru_cache_toggle_summary">Almacene en caché los archivos cifrados localmente a los que accedió recientemente en el dispositivo para su posterior reutilización cuando se vuelvan a abrir</string>
 	<string name="screen_settings_lru_cache_size">Tamaño total de la caché</string>
 	<string name="screen_settings_clear_lru_cache_size">Vaciar la caché</string>
 	<string name="screen_settings_lru_cache_changed__restart_toast">Los cambios se aplicarán en el próximo reinicio de la aplicación</string>
-	<string name="screen_settings_license">Registrado para</string>
+	<string name="screen_settings_license_title_unlock">Desbloquear versión completa</string>
 	<string name="screen_settings_license_mail">%1$s</string>
+	<string name="screen_settings_manage_subscription">Gestionar suscripción</string>
+	<string name="screen_settings_upgrade_to_lifetime">Actualice a una suscripción vitalicia</string>
+	<string name="dialog_trial_expired_unlock">Desbloquear versión completa</string>
 	<string name="dialog_settings_update_check_interval_title">Actualizar intervalo de verificación</string>
 	<string name="screen_settings_check_updates">Comprobar actualizaciones</string>
 	<string name="screen_settings_last_check_updates">Última ejecución %1$s</string>

@@ -5,6 +5,7 @@ import com.microsoft.graph.http.GraphServiceException
 import com.microsoft.graph.models.DriveItem
 import com.microsoft.graph.models.DriveItemCreateUploadSessionParameterSet
 import com.microsoft.graph.models.DriveItemUploadableProperties
+import com.microsoft.graph.models.FileSystemInfo
 import com.microsoft.graph.models.Folder
 import com.microsoft.graph.models.ItemReference
 import com.microsoft.graph.options.Option
@@ -39,6 +40,8 @@ import org.cryptomator.util.file.LruFileCacheUtil.Companion.retrieveFromLruCache
 import java.io.File
 import java.io.IOException
 import java.io.OutputStream
+import java.time.OffsetDateTime
+import java.time.ZoneId
 import java.util.Date
 import java.util.concurrent.CompletableFuture
 import java.util.concurrent.ExecutionException
@@ -202,12 +205,19 @@ internal class OnedriveImpl(private val cloud: OnedriveCloud, private val client
 		}
 		progressAware.onProgress(Progress.completed(UploadState.upload(file)))
 		return try {
-			OnedriveCloudNodeFactory.file(file.parent, result.get(), Date())
+			val driveItem: DriveItem = result.get()
+			val lastModifiedDate = getLastModifiedDateTime(driveItem) ?: Date()
+			OnedriveCloudNodeFactory.file(file.parent, driveItem, lastModifiedDate)
 		} catch (e: ExecutionException) {
 			throw FatalBackendException(e)
 		} catch (e: InterruptedException) {
 			throw FatalBackendException(e)
 		}
+	}
+
+	private fun getLastModifiedDateTime(driveItem: DriveItem): Date? {
+		return driveItem.fileSystemInfo?.lastModifiedDateTime?.let { clientDate -> Date.from(clientDate.toInstant()) }
+			?: driveItem.lastModifiedDateTime?.let { serverDate -> Date.from(serverDate.toInstant()) }
 	}
 
 	@Throws(NoSuchCloudFileException::class)
@@ -228,12 +238,26 @@ internal class OnedriveImpl(private val cloud: OnedriveCloud, private val client
 						.putAsync(CopyStream.toByteArray(it)) //
 						.whenComplete { driveItem, error ->
 							run {
-								if (error == null) {
+								val modifiedDate = data.modifiedDate(context)
+								if (error != null) {
+									result.completeExceptionally(error)
+									return@whenComplete
+								}
+								if (modifiedDate.isPresent) {
+									patchAsyncLastModifiedDate(parentNodeInfo, driveItem, modifiedDate.get())
+										.whenComplete { driveItem, error ->
+											if (error == null) {
+												progressAware.onProgress(Progress.completed(UploadState.upload(file)))
+												result.complete(driveItem)
+												cacheNodeInfo(file, driveItem)
+											} else {
+												result.completeExceptionally(error)
+											}
+										}
+								} else { // current date is the default, no need to patch()
 									progressAware.onProgress(Progress.completed(UploadState.upload(file)))
 									result.complete(driveItem)
 									cacheNodeInfo(file, driveItem)
-								} else {
-									result.completeExceptionally(error)
 								}
 							}
 						}
@@ -244,13 +268,32 @@ internal class OnedriveImpl(private val cloud: OnedriveCloud, private val client
 		} ?: throw FatalBackendException("InputStream shouldn't bee null")
 	}
 
+	private fun patchAsyncLastModifiedDate(parentNodeInfo: OnedriveIdCache.NodeInfo, driveItem: DriveItem, modifiedDate: Date): CompletableFuture<DriveItem> {
+		val diffItem = DriveItem()
+		diffItem.fileSystemInfo = FileSystemInfo()
+		diffItem.fileSystemInfo!!.lastModifiedDateTime = OffsetDateTime.ofInstant(modifiedDate.toInstant(), ZoneId.systemDefault())
+		return drive(parentNodeInfo.driveId) //
+			.items(driveItem.id!!) //
+			.buildRequest() //
+			.patchAsync(diffItem) //
+	}
+
 	@Throws(IOException::class, NoSuchCloudFileException::class)
 	private fun chunkedUploadFile(file: OnedriveFile, data: DataSource, progressAware: ProgressAware<UploadState>, result: CompletableFuture<DriveItem>, conflictBehaviorOption: Option, size: Long) {
 		val parentNodeInfo = requireNodeInfo(file.parent)
+
+		val props = DriveItemUploadableProperties()
+		val modifiedDate = data.modifiedDate(context)
+
+		if (modifiedDate.isPresent) {
+			props.fileSystemInfo = FileSystemInfo()
+			props.fileSystemInfo!!.lastModifiedDateTime = OffsetDateTime.ofInstant(modifiedDate.get().toInstant(), ZoneId.systemDefault())
+		}
+
 		drive(parentNodeInfo.driveId) //
 			.items(parentNodeInfo.id) //
 			.itemWithPath(file.name) //
-			.createUploadSession(DriveItemCreateUploadSessionParameterSet.newBuilder().withItem(DriveItemUploadableProperties()).build()) //
+			.createUploadSession(DriveItemCreateUploadSessionParameterSet.newBuilder().withItem(props).build()) //
 			.buildRequest() //
 			.post()?.let { uploadSession ->
 				data.open(context)?.use { inputStream ->

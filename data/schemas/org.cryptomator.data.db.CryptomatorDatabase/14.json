@@ -1,0 +1,211 @@
+{
+  "formatVersion": 1,
+  "database": {
+    "version": 14,
+    "identityHash": "2ddff851b0943dea5f3c6586134086a8",
+    "entities": [
+      {
+        "tableName": "CLOUD_ENTITY",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`_id` INTEGER PRIMARY KEY AUTOINCREMENT, `TYPE` TEXT NOT NULL, `ACCESS_TOKEN` TEXT, `ACCESS_TOKEN_CRYPTO_MODE` TEXT, `URL` TEXT, `USERNAME` TEXT, `WEBDAV_CERTIFICATE` TEXT, `S3_BUCKET` TEXT, `S3_REGION` TEXT, `S3_SECRET_KEY` TEXT, `S3_SECRET_KEY_CRYPTO_MODE` TEXT)",
+        "fields": [
+          {
+            "fieldPath": "id",
+            "columnName": "_id",
+            "affinity": "INTEGER"
+          },
+          {
+            "fieldPath": "type",
+            "columnName": "TYPE",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "accessToken",
+            "columnName": "ACCESS_TOKEN",
+            "affinity": "TEXT"
+          },
+          {
+            "fieldPath": "accessTokenCryptoMode",
+            "columnName": "ACCESS_TOKEN_CRYPTO_MODE",
+            "affinity": "TEXT"
+          },
+          {
+            "fieldPath": "url",
+            "columnName": "URL",
+            "affinity": "TEXT"
+          },
+          {
+            "fieldPath": "username",
+            "columnName": "USERNAME",
+            "affinity": "TEXT"
+          },
+          {
+            "fieldPath": "webdavCertificate",
+            "columnName": "WEBDAV_CERTIFICATE",
+            "affinity": "TEXT"
+          },
+          {
+            "fieldPath": "s3Bucket",
+            "columnName": "S3_BUCKET",
+            "affinity": "TEXT"
+          },
+          {
+            "fieldPath": "s3Region",
+            "columnName": "S3_REGION",
+            "affinity": "TEXT"
+          },
+          {
+            "fieldPath": "s3SecretKey",
+            "columnName": "S3_SECRET_KEY",
+            "affinity": "TEXT"
+          },
+          {
+            "fieldPath": "s3SecretKeyCryptoMode",
+            "columnName": "S3_SECRET_KEY_CRYPTO_MODE",
+            "affinity": "TEXT"
+          }
+        ],
+        "primaryKey": {
+          "autoGenerate": true,
+          "columnNames": [
+            "_id"
+          ]
+        }
+      },
+      {
+        "tableName": "UPDATE_CHECK_ENTITY",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`_id` INTEGER PRIMARY KEY AUTOINCREMENT, `RELEASE_NOTE` TEXT, `VERSION` TEXT, `URL_TO_APK` TEXT, `APK_SHA256` TEXT, `URL_TO_RELEASE_NOTE` TEXT)",
+        "fields": [
+          {
+            "fieldPath": "id",
+            "columnName": "_id",
+            "affinity": "INTEGER"
+          },
+          {
+            "fieldPath": "releaseNote",
+            "columnName": "RELEASE_NOTE",
+            "affinity": "TEXT"
+          },
+          {
+            "fieldPath": "version",
+            "columnName": "VERSION",
+            "affinity": "TEXT"
+          },
+          {
+            "fieldPath": "urlToApk",
+            "columnName": "URL_TO_APK",
+            "affinity": "TEXT"
+          },
+          {
+            "fieldPath": "apkSha256",
+            "columnName": "APK_SHA256",
+            "affinity": "TEXT"
+          },
+          {
+            "fieldPath": "urlToReleaseNote",
+            "columnName": "URL_TO_RELEASE_NOTE",
+            "affinity": "TEXT"
+          }
+        ],
+        "primaryKey": {
+          "autoGenerate": true,
+          "columnNames": [
+            "_id"
+          ]
+        }
+      },
+      {
+        "tableName": "VAULT_ENTITY",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`_id` INTEGER PRIMARY KEY AUTOINCREMENT, `FOLDER_CLOUD_ID` INTEGER, `FOLDER_PATH` TEXT, `FOLDER_NAME` TEXT, `CLOUD_TYPE` TEXT NOT NULL, `PASSWORD` TEXT, `PASSWORD_CRYPTO_MODE` TEXT, `POSITION` INTEGER, `FORMAT` INTEGER, `SHORTENING_THRESHOLD` INTEGER, FOREIGN KEY(`FOLDER_CLOUD_ID`) REFERENCES `CLOUD_ENTITY`(`_id`) ON UPDATE NO ACTION ON DELETE SET NULL )",
+        "fields": [
+          {
+            "fieldPath": "id",
+            "columnName": "_id",
+            "affinity": "INTEGER"
+          },
+          {
+            "fieldPath": "folderCloudId",
+            "columnName": "FOLDER_CLOUD_ID",
+            "affinity": "INTEGER"
+          },
+          {
+            "fieldPath": "folderPath",
+            "columnName": "FOLDER_PATH",
+            "affinity": "TEXT"
+          },
+          {
+            "fieldPath": "folderName",
+            "columnName": "FOLDER_NAME",
+            "affinity": "TEXT"
+          },
+          {
+            "fieldPath": "cloudType",
+            "columnName": "CLOUD_TYPE",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "password",
+            "columnName": "PASSWORD",
+            "affinity": "TEXT"
+          },
+          {
+            "fieldPath": "passwordCryptoMode",
+            "columnName": "PASSWORD_CRYPTO_MODE",
+            "affinity": "TEXT"
+          },
+          {
+            "fieldPath": "position",
+            "columnName": "POSITION",
+            "affinity": "INTEGER"
+          },
+          {
+            "fieldPath": "format",
+            "columnName": "FORMAT",
+            "affinity": "INTEGER"
+          },
+          {
+            "fieldPath": "shorteningThreshold",
+            "columnName": "SHORTENING_THRESHOLD",
+            "affinity": "INTEGER"
+          }
+        ],
+        "primaryKey": {
+          "autoGenerate": true,
+          "columnNames": [
+            "_id"
+          ]
+        },
+        "indices": [
+          {
+            "name": "IDX_VAULT_ENTITY_FOLDER_PATH_FOLDER_CLOUD_ID",
+            "unique": true,
+            "columnNames": [
+              "FOLDER_PATH",
+              "FOLDER_CLOUD_ID"
+            ],
+            "orders": [],
+            "createSql": "CREATE UNIQUE INDEX IF NOT EXISTS `IDX_VAULT_ENTITY_FOLDER_PATH_FOLDER_CLOUD_ID` ON `${TABLE_NAME}` (`FOLDER_PATH`, `FOLDER_CLOUD_ID`)"
+          }
+        ],
+        "foreignKeys": [
+          {
+            "table": "CLOUD_ENTITY",
+            "onDelete": "SET NULL",
+            "onUpdate": "NO ACTION",
+            "columns": [
+              "FOLDER_CLOUD_ID"
+            ],
+            "referencedColumns": [
+              "_id"
+            ]
+          }
+        ]
+      }
+    ],
+    "setupQueries": [
+      "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '2ddff851b0943dea5f3c6586134086a8')"
+    ]
+  }
+}

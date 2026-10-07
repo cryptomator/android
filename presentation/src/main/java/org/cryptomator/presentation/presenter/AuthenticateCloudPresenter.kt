@@ -235,7 +235,6 @@ class AuthenticateCloudPresenter @Inject constructor( //
 			succeedAuthenticationWith(
 				GoogleDriveCloud.aCopyOf(cloud.toCloud() as GoogleDriveCloud) //
 					.withUsername(accountName) //
-					.withAccessToken(accountName) //
 					.build()
 			)
 		} else {

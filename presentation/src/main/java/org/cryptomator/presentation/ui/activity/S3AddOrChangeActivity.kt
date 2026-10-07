@@ -4,15 +4,15 @@ import androidx.fragment.app.Fragment
 import org.cryptomator.generator.Activity
 import org.cryptomator.generator.InjectIntent
 import org.cryptomator.presentation.R
+import org.cryptomator.presentation.databinding.ActivityLayoutBinding
 import org.cryptomator.presentation.intent.S3AddOrChangeIntent
 import org.cryptomator.presentation.presenter.S3AddOrChangePresenter
 import org.cryptomator.presentation.ui.activity.view.S3AddOrChangeView
 import org.cryptomator.presentation.ui.fragment.S3AddOrChangeFragment
 import javax.inject.Inject
-import kotlinx.android.synthetic.main.toolbar_layout.toolbar
 
 @Activity
-class S3AddOrChangeActivity : BaseActivity(), S3AddOrChangeView {
+class S3AddOrChangeActivity : BaseActivity<ActivityLayoutBinding>(ActivityLayoutBinding::inflate), S3AddOrChangeView {
 
 	@Inject
 	lateinit var s3AddOrChangePresenter: S3AddOrChangePresenter
@@ -21,8 +21,8 @@ class S3AddOrChangeActivity : BaseActivity(), S3AddOrChangeView {
 	lateinit var s3AddOrChangeIntent: S3AddOrChangeIntent
 
 	override fun setupView() {
-		toolbar.setTitle(R.string.screen_s3_settings_title)
-		setSupportActionBar(toolbar)
+		binding.mtToolbar.toolbar.setTitle(R.string.screen_s3_settings_title)
+		setSupportActionBar(binding.mtToolbar.toolbar)
 	}
 
 	override fun createFragment(): Fragment = S3AddOrChangeFragment.newInstance(s3AddOrChangeIntent.s3Cloud())
@@ -32,6 +32,6 @@ class S3AddOrChangeActivity : BaseActivity(), S3AddOrChangeView {
 		s3AddOrChangePresenter.authenticate(accessKey, secretKey, bucket, endpoint, region, cloudId, displayName)
 	}
 
-	private fun s3AddOrChangeFragment(): S3AddOrChangeFragment = getCurrentFragment(R.id.fragmentContainer) as S3AddOrChangeFragment
+	private fun s3AddOrChangeFragment(): S3AddOrChangeFragment = getCurrentFragment(R.id.fragment_container) as S3AddOrChangeFragment
 
 }

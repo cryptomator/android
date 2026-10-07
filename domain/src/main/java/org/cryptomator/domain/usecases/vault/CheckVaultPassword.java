@@ -1,12 +1,13 @@
 package org.cryptomator.domain.usecases.vault;
 
+import com.google.common.base.Optional;
+
 import org.cryptomator.domain.UnverifiedVaultConfig;
 import org.cryptomator.domain.Vault;
 import org.cryptomator.domain.exception.BackendException;
 import org.cryptomator.domain.repository.CloudRepository;
 import org.cryptomator.generator.Parameter;
 import org.cryptomator.generator.UseCase;
-import com.google.common.base.Optional;
 
 @UseCase
 class CheckVaultPassword {

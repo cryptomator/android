@@ -16,8 +16,8 @@ import javax.inject.Singleton;
 
 import dagger.Lazy;
 
-import static java.lang.String.format;
 import static org.cryptomator.domain.CloudType.CRYPTO;
+import static java.lang.String.format;
 
 @Singleton
 public class CryptoCloudContentRepositoryFactory implements CloudContentRepositoryFactory {

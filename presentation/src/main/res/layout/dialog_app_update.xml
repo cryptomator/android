@@ -15,6 +15,7 @@
 			android:layout_marginBottom="@dimen/global_padding" />
 
 		<include
+			android:id="@+id/ll_dialog_progress"
 			layout="@layout/view_dialog_progress"
 			android:layout_width="match_parent"
 			android:layout_height="wrap_content"
@@ -22,10 +23,11 @@
 			android:layout_marginTop="16dp" />
 
 		<include
+			android:id="@+id/ll_dialog_error"
 			layout="@layout/view_dialog_error"
 			android:layout_width="match_parent"
 			android:layout_height="wrap_content"
-			android:layout_below="@+id/tv_message"
+			android:layout_below="@id/tv_message"
 			android:layout_marginTop="16dp" />
 
 	</RelativeLayout>

@@ -9,19 +9,19 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import com.davemorrissey.labs.subscaleview.ImageSource
 import com.davemorrissey.labs.subscaleview.SubsamplingScaleImageView
-import org.cryptomator.presentation.R
+import org.cryptomator.presentation.databinding.FragmentImagePreviewBinding
 import org.cryptomator.presentation.di.HasComponent
 import org.cryptomator.presentation.di.component.ActivityComponent
 import org.cryptomator.presentation.model.ImagePreviewFile
 import org.cryptomator.presentation.presenter.ImagePreviewPresenter
 import javax.inject.Inject
-import kotlinx.android.synthetic.main.fragment_image_preview.imageView
-import kotlinx.android.synthetic.main.fragment_image_preview.progressBar
 
 class ImagePreviewFragment : Fragment() {
 
 	@Inject
 	lateinit var presenter: ImagePreviewPresenter
+
+	private lateinit var binding: FragmentImagePreviewBinding
 
 	private var imagePreviewFile: ImagePreviewFile? = null
 
@@ -36,7 +36,10 @@ class ImagePreviewFragment : Fragment() {
 		}
 	})
 
-	override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? = inflater.inflate(R.layout.fragment_image_preview, container, false)
+	override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
+		binding = FragmentImagePreviewBinding.inflate(inflater, container, false)
+		return binding.root
+	}
 
 	override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
 		super.onViewCreated(view, savedInstanceState)
@@ -64,20 +67,20 @@ class ImagePreviewFragment : Fragment() {
 		imagePreviewFile?.let { imagePreviewFile ->
 			imagePreviewFile.uri?.let {
 				hideProgressBar()
-				imageView.orientation = SubsamplingScaleImageView.ORIENTATION_USE_EXIF
+				binding.imageView.orientation = SubsamplingScaleImageView.ORIENTATION_USE_EXIF
 				showImage(imagePreviewFile)
 			} ?: presenter.onMissingImagePreviewFile(imagePreviewFile)
 		}
 
-		imageView.setOnTouchListener { _, event -> clickDetector.onTouchEvent(event) }
+		binding.imageView.setOnTouchListener { _, event -> clickDetector.onTouchEvent(event) }
 	}
 
 	fun hideProgressBar() {
-		progressBar?.visibility = View.GONE
+		binding.progressBar.visibility = View.GONE
 	}
 
 	private fun showImage(imagePreviewFile: ImagePreviewFile?) {
-		imageView?.let { imageView ->
+		binding.imageView.let { imageView ->
 			imagePreviewFile?.let { imagePreviewFile ->
 				imageView.orientation = SubsamplingScaleImageView.ORIENTATION_USE_EXIF
 				imagePreviewFile.uri?.let { imageView.setImage(ImageSource.uri(it)) }

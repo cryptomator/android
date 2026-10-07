@@ -4,9 +4,10 @@ import android.content.DialogInterface
 import androidx.appcompat.app.AlertDialog
 import org.cryptomator.generator.Dialog
 import org.cryptomator.presentation.R
+import org.cryptomator.presentation.databinding.DialogSetupBiometricAuthInSystemBinding
 
-@Dialog(R.layout.dialog_setup_biometric_auth_in_system)
-class EnrollSystemBiometricDialog : BaseDialog<EnrollSystemBiometricDialog.Callback>() {
+@Dialog
+class EnrollSystemBiometricDialog : BaseDialog<EnrollSystemBiometricDialog.Callback, DialogSetupBiometricAuthInSystemBinding>(DialogSetupBiometricAuthInSystemBinding::inflate) {
 
 	interface Callback {
 

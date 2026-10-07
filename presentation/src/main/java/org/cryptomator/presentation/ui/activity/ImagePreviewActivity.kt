@@ -17,6 +17,7 @@ import org.cryptomator.domain.exception.FatalBackendException
 import org.cryptomator.generator.Activity
 import org.cryptomator.generator.InjectIntent
 import org.cryptomator.presentation.R
+import org.cryptomator.presentation.databinding.ActivityImagePreviewBinding
 import org.cryptomator.presentation.intent.ImagePreviewIntent
 import org.cryptomator.presentation.model.CloudNodeModel
 import org.cryptomator.presentation.model.ImagePreviewFile
@@ -25,15 +26,9 @@ import org.cryptomator.presentation.ui.activity.view.ImagePreviewView
 import org.cryptomator.presentation.ui.dialog.ConfirmDeleteCloudNodeDialog
 import org.cryptomator.presentation.ui.fragment.ImagePreviewFragment
 import javax.inject.Inject
-import kotlinx.android.synthetic.main.activity_image_preview.controlView
-import kotlinx.android.synthetic.main.activity_image_preview.deleteImage
-import kotlinx.android.synthetic.main.activity_image_preview.exportImage
-import kotlinx.android.synthetic.main.activity_image_preview.shareImage
-import kotlinx.android.synthetic.main.activity_image_preview.toolbar
-import kotlinx.android.synthetic.main.activity_image_preview.viewPager
 
-@Activity(layout = R.layout.activity_image_preview)
-class ImagePreviewActivity : BaseActivity(), ImagePreviewView, ConfirmDeleteCloudNodeDialog.Callback {
+@Activity
+class ImagePreviewActivity : BaseActivity<ActivityImagePreviewBinding>(ActivityImagePreviewBinding::inflate), ImagePreviewView, ConfirmDeleteCloudNodeDialog.Callback {
 
 	@Inject
 	lateinit var presenter: ImagePreviewPresenter
@@ -46,7 +41,7 @@ class ImagePreviewActivity : BaseActivity(), ImagePreviewView, ConfirmDeleteClou
 	lateinit var imagePreviewFiles: ArrayList<ImagePreviewFile>
 
 	private val currentImageUri: Uri?
-		get() = imagePreviewFiles[imagePreviewSliderAdapter.getIndex(viewPager.currentItem)].uri
+		get() = imagePreviewFiles[imagePreviewSliderAdapter.getIndex(binding.viewPager.currentItem)].uri
 
 	private val pageChangeListener = object : ViewPager.SimpleOnPageChangeListener() {
 
@@ -62,13 +57,13 @@ class ImagePreviewActivity : BaseActivity(), ImagePreviewView, ConfirmDeleteClou
 			val index = imagePreviewFileStore.index
 			imagePreviewFiles = presenter.getImagePreviewFiles(imagePreviewFileStore, index)
 
-			deleteImage.setOnClickListener {
-				presenter.onDeleteImageClicked(imagePreviewFiles[imagePreviewSliderAdapter.getIndex(viewPager.currentItem)])
+			binding.deleteImage.setOnClickListener {
+				presenter.onDeleteImageClicked(imagePreviewFiles[imagePreviewSliderAdapter.getIndex(binding.viewPager.currentItem)])
 			}
-			exportImage.setOnClickListener {
+			binding.exportImage.setOnClickListener {
 				currentImageUri?.let { presenter.exportImageToUserSelectedLocation(it) }
 			}
-			shareImage.setOnClickListener {
+			binding.shareImage.setOnClickListener {
 				currentImageUri?.let { presenter.onShareImageClicked(it) }
 			}
 
@@ -85,10 +80,10 @@ class ImagePreviewActivity : BaseActivity(), ImagePreviewView, ConfirmDeleteClou
 
 	private fun setupViewPager(index: Int) {
 		imagePreviewSliderAdapter = ImagePreviewSliderAdapter(supportFragmentManager)
-		viewPager.adapter = imagePreviewSliderAdapter
-		viewPager.currentItem = index
-		viewPager.addOnPageChangeListener(pageChangeListener)
-		viewPager.pageMargin = 50
+		binding.viewPager.adapter = imagePreviewSliderAdapter
+		binding.viewPager.currentItem = index
+		binding.viewPager.addOnPageChangeListener(pageChangeListener)
+		binding.viewPager.pageMargin = 50
 	}
 
 	override fun onWindowFocusChanged(hasFocus: Boolean) {
@@ -104,14 +99,14 @@ class ImagePreviewActivity : BaseActivity(), ImagePreviewView, ConfirmDeleteClou
 
 	private fun setupToolbar(index: Int) {
 		updateTitle(index)
-		setSupportActionBar(toolbar)
+		setSupportActionBar(binding.toolbar)
 
 		supportActionBar?.setDisplayHomeAsUpEnabled(true)
 		supportActionBar?.setHomeAsUpIndicator(R.drawable.ic_clear)
 	}
 
 	private fun updateTitle(position: Int) {
-		toolbar.title = imagePreviewFiles[imagePreviewSliderAdapter.getIndex(position)].cloudFileModel.name
+		binding.toolbar.title = imagePreviewFiles[imagePreviewSliderAdapter.getIndex(position)].cloudFileModel.name
 	}
 
 	override fun onMenuItemSelected(itemId: Int): Boolean = when (itemId) {
@@ -189,7 +184,7 @@ class ImagePreviewActivity : BaseActivity(), ImagePreviewView, ConfirmDeleteClou
 	}
 
 	override fun onDeleteCloudNodeConfirmed(nodes: List<CloudNodeModel<*>>) {
-		presenter.onDeleteImageConfirmed(imagePreviewFiles[imagePreviewSliderAdapter.getIndex(viewPager.currentItem)], viewPager.currentItem)
+		presenter.onDeleteImageConfirmed(imagePreviewFiles[imagePreviewSliderAdapter.getIndex(binding.viewPager.currentItem)], binding.viewPager.currentItem)
 	}
 
 	override fun onImageDeleted(index: Int) {
@@ -208,7 +203,7 @@ class ImagePreviewActivity : BaseActivity(), ImagePreviewView, ConfirmDeleteClou
 	}
 
 	private fun setControlViewVisibility(visibility: Int) {
-		controlView.visibility = visibility
+		binding.controlView.visibility = visibility
 	}
 
 	private fun onImageChanged(position: Int) {

@@ -34,6 +34,31 @@
 	<string name="error_file_not_found_after_opening_using_3party">Místní soubor již není přítomen po přepnutí zpět na Cryptomator. Možné změny nelze promítnout zpět do cloudu.</string>
 	<string name="error_no_such_bucket">Bucket neexistuje</string>
 	<string name="error_masterkey_location_not_supported">Vlastní umístění hlavního klíče ještě není podporováno</string>
+	<string name="error_interact_with_fdroid_but_fdroid_missing">Nepodařilo se komunikovat s aplikací F-Droid. Možná není nainstalována?</string>
+	<string name="error_hub_device_already_register_for_other_user">Toto zařízení je již registrováno pro jiného uživatele. Zkuste změnit uživatelský účet nebo použijte jiné zařízení.</string>
+	<!-- # read-only & purchases -->
+	<string name="screen_license_check_benefit_family_sharing">Rodinné sdílení</string>
+	<string name="screen_license_check_benefit_write_access">Zápis do vašeho trezoru</string>
+	<string name="screen_license_check_benefit_support">Vývoj Open-source</string>
+	<string name="screen_license_check_title_full_version">Odemknout plnou verzi</string>
+	<string name="screen_license_check_trial_title">30denní zkušební verze</string>
+	<string name="screen_license_check_trial_price">Zdarma</string>
+	<string name="screen_license_check_trial_subtitle">na 30 dní</string>
+	<string name="screen_license_check_subscription_title">Roční předplatné</string>
+	<string name="screen_license_check_subscription_subtitle">ročně</string>
+	<string name="screen_license_check_lifetime_title">Doživotní licence</string>
+	<string name="screen_license_check_lifetime_subtitle">jednorázově</string>
+	<string name="screen_license_check_restore_purchase">Obnovit nákup</string>
+	<string name="screen_license_check_terms">Podmínky používání</string>
+	<string name="screen_license_check_privacy">Ochrana osobních údajů</string>
+	<string name="screen_license_check_trial_status_active">Aktivní</string>
+	<string name="screen_license_check_trial_status_expired">Expirováno</string>
+	<string name="screen_license_check_trial_expired_info">Vaše zkušební verze vypršela.</string>
+	<string name="screen_welcome_title">Vítejte</string>
+	<string name="screen_welcome_continue_button">Pokračovat</string>
+	<string name="screen_welcome_screen_lock_button">Nastavit zámek obrazovky</string>
+	<string name="next">Další</string>
+	<string name="back">Zpět</string>
 	<!-- # clouds -->
 	<!-- ## cloud names -->
 	<string name="cloud_names_local_storage">Místní úložiště</string>
@@ -66,7 +91,6 @@
 	<string name="screen_vault_list_change_password_successful">Heslo bylo úspěšně změněno</string>
 	<!-- # screen: file browser -->
 	<string name="screen_file_browser_default_title">Trezor</string>
-	<string name="screen_file_browser_add_existing_vault_extra_text">Vyberte soubor s hlavním klíčem</string>
 	<string name="screen_file_browser_create_new_vault_button_text">Umístit zde</string>
 	<string name="screen_file_browser_create_new_vault_extra_text">Název trezoru: %1$s</string>
 	<plurals name="screen_file_browser_subtitle_move">
@@ -186,7 +210,6 @@
 	<string name="screen_settings_section_auto_photo_upload_including_videos">Nahrát videa</string>
 	<string name="screen_settings_auto_photo_upload_title">Uložit automaticky nahrávané soubory do&#8230;</string>
 	<string name="screen_settings_website_label">Webové stránky Cryptomatora</string>
-	<string name="screen_settings_twitter_label">Sledujte nás na Twitteru</string>
 	<string name="screen_settings_facebook_label">Dejte nám like na Facebooku</string>
 	<string name="screen_settings_section_legal">Právní ustanovení</string>
 	<string name="screen_settings_licenses_label">Licence</string>
@@ -199,6 +222,8 @@
 	<string name="screen_settings_security_label">Bezpečnostní rady</string>
 	<string name="screen_settings_section_version">Verze</string>
 	<string name="screen_settings_advanced_settings">Rozšířená nastavení</string>
+	<string name="screen_settings_microsoft_apps_workaround_label">Řešení otevírání souborů Microsoft</string>
+	<string name="screen_settings_microsoft_apps_workaround_summary">Otevřít soubory v aplikaci Microsoft s oprávněním k zápisu</string>
 	<string name="screen_settings_background_unlock_preparation_label">Urychlit odemknutí</string>
 	<string name="screen_settings_background_unlock_preparation_label_summary">Stáhnout konfiguraci trezoru na pozadí při vyzvání k zadání hesla nebo biometrického ověření</string>
 	<string name="screen_settings_keep_unlocked_while_editing_files">Ponechat odemčené</string>
@@ -217,10 +242,17 @@
 	<string name="screen_update_pcloud_connections_title">Aktualizovat přihlašovací údaje k pCloudu</string>
 	<!-- ## screen: cryptomator app variants -->
 	<string name="screen_cryptomator_variants_title">Varianty Cryptomatoru</string>
+	<string name="screen_cryptomator_variants_lite_title">Hlavní F-Droid repozitář</string>
+	<string name="screen_cryptomator_variants_lite_description">Vyloučeny, protože jsou vyžadovány API klíče.</string>
 	<string name="screen_cryptomator_variants_lite_install">Instalovat</string>
+	<string name="screen_cryptomator_variants_fdroid_title">Cryptomator F-Droid repozitář</string>
+	<string name="screen_cryptomator_variants_fdroid_description">Vyloučeno, protože obsahuje proprietární závislosti.</string>
+	<string name="screen_cryptomator_variants_fdroid_add_repo_hint">Přidat Cryptomator repozitář do aplikace F-Droid.</string>
 	<string name="screen_cryptomator_variants_fdroid_add_repo">Přidat</string>
+	<string name="screen_cryptomator_variants_fdroid_install_hint">Nainstalujte Cryptomator pomocí F-Droid.\nPokud není nalezena chyba, počkejte, až bude synchronizace F-Droid dokončena.</string>
 	<string name="screen_cryptomator_variants_website_title">Webová stránka</string>
 	<string name="screen_cryptomator_variants_website_description">Obsahuje vlastní závislosti.</string>
+	<string name="screen_cryptomator_variants_installation_hint">Přechod z nebo do hlavní varianty repozitáře F-Droid vyžaduje nové nastavení aplikace.</string>
 	<!-- # dialogs -->
 	<string name="dialog_button_cancel">Zrušit</string>
 	<string name="dialog_enter_password_positive_button">Odemknout</string>
@@ -258,6 +290,7 @@
 	<string name="dialog_unsaved_changes_title">Máte neuložené změny</string>
 	<string name="dialog_unsaved_changes_message">Opravdu chcete skončit bez uložení?</string>
 	<string name="dialog_unsaved_changes_discard">Zahodit</string>
+	<string name="dialog_file_name_hint">Název souboru</string>
 	<string name="dialog_file_name_placeholder">text.txt</string>
 	<string name="dialog_delete_vault_message">Jste si jisti, že chcete odstranit tento trezor?</string>
 	<string name="dialog_delete_vault_hint">Tato akce odstraní trezor pouze z tohoto seznamu a neodstraní jej fyzicky.</string>
@@ -284,6 +317,7 @@
 	<string name="dialog_accept_ssl_certificate_details">Podrobnosti</string>
 	<string name="dialog_accept_ssl_certificate_security_checkbox">Toto by mohlo být bezpečnostní riziko. Vím, co dělám.</string>
 	<string name="dialog_ask_ignore_battery_optimizations_title">Zakázat optimalizace výdrže baterie</string>
+	<string name="dialog_ask_ignore_battery_optimizations_hint">Abychom mohli načítat nové obrázky a videa, aniž by běžely na pozadí, musíme vypnout optimalizace baterie. Ale nebojte se, %1$s nespotřebovává mnoho energie.\n\nChcete-li ji použít, změňte možnost \"Neoptimalizovat\" na \"Všechny aplikace\", vyberte %1$s a po klepnutí na \"%2$s\" v tomto dialogovém okně vyberte možnost \"Neoptimalizovat\".</string>
 	<string name="dialog_ask_ignore_battery_optimizations_checkbox">Příště se neptat?</string>
 	<string name="dialog_http_security_hint">Použití HTTP je nezabezpečené. Doporučujeme použít HTTPS. Pokud znáte rizika, můžete pokračovat s HTTP.</string>
 	<string name="dialog_http_security_checkbox">Změnit na HTTPS</string>
@@ -296,17 +330,15 @@
 	<string name="dialog_debug_mode_disclaimer_hint">V tomto režimu mohou být citlivé údaje zapsány do souboru protokolu na vašem zařízení (např. názvy souborů a cesty). Hesla, soubory cookie atd. jsou výslovně vyloučeny.\n\nNezapomeňte co nejdříve vypnout režim ladění.</string>
 	<string name="dialog_debug_mode_disclaimer_title">Upozornění</string>
 	<string name="dialog_debug_mode_positive_button">Povolit</string>
-	<string name="dialog_disable_app_obscured_disclaimer_hint">Toto nastavení je bezpečnostní funkce a brání ostatním aplikacím v tom, aby oklamaly uživatele dělat věci, se kterými nesouhlasí.\n\nZakázáním potvrzujete, že jste <a href="https://docs.cryptomator.org/en/1.6/android/settings/#block-app-when-obscured">si vědomi rizik</a>.</string>
+	<string name="dialog_microsoft_workaround_disclaimer_hint">Kvůli chybě v aplikacích společnosti Microsoft musí být upravovaný soubor sdílen s těmito aplikacemi ve veřejné složce médií v zařízení. Po obnovení činnosti aplikace Cryptomator se veřejně přístupný soubor opět odstraní, ale aplikace Cryptomator nemůže ovlivnit, co se s tímto souborem mezitím stalo. Při aktivaci této možnosti se ujistěte, že jste si tohoto chování vědomi. Toto se týká pouze typů souborů společnosti Microsoft.\n\nCryptomator se po aktivaci znovu spustí.</string>
 	<string name="dialog_disable_app_obscured_disclaimer_title">Upozornění</string>
 	<string name="dialog_disable_app_obscured_positive_button">Zakázat</string>
 	<string name="dialog_app_is_obscured_info_title">Aplikace je překrytá</string>
-	<string name="dialog_app_is_obscured_info_hint">Jiná aplikace zobrazuje něco nad Cryptomatorem (např. filtr modrého světla nebo aplikace pro noční režim). Z bezpečnostních důvodů je Cryptomator zakázán.\n\n<a href="https://docs.cryptomator.org/en/1.6/android/settings/#block-app-when-obscured">Jak povolit Cryptomator</a></string>
 	<string name="dialog_app_is_obscured_info_neutral_button">Zavřít</string>
 	<string name="dialog_vaults_removed_during_migration_title">Prosím znovu přidejte trezory pro %1s cloud</string>
 	<string name="dialog_vaults_removed_during_migration_hint">Při migraci na tuto verzi aplikace musíme z aplikace odstranit následující trezory:\n%2s \n\nTyto trezory nejsou odebrány z cloudu, ale pouze z této aplikace. Omlouváme se za nepříjemnosti a znovu přidejte tyto trezory, abyste s nimi mohli dále pracovat.</string>
 	<string name="dialog_vault_is_root_folder_of_cloud_title">Trezor je kořenovou složkou cloudového připojení</string>
 	<string name="dialog_vault_is_root_folder_of_cloud_hint">Vytvořte nové připojení do cloudu, kde jako kořenový adresář zvolíte alespoň nadřazenou složku tohoto trezoru.</string>
-	<string name="dialog_disable_secure_screen_disclaimer_hint">Toto nastavení je bezpečnostní funkce a brání ostatním aplikacím v tom, aby oklamaly uživatele dělat věci, se kterými nesouhlasí.\n\nZakázáním potvrzujete, že jste <a href="https://docs.cryptomator.org/en/1.6/android/settings/#screen-security">si vědomi rizik</a>.</string>
 	<string name="dialog_delete_cloud_connection_with_vaults_message">Opravdu chcete odstranit toto cloudové připojení?</string>
 	<string name="dialog_delete_cloud_connection_with_vaults_hint">Tato akce odstraní cloudové připojení a všechny trezory tohoto cloudu.</string>
 	<string name="dialog_confirm_delete_multiple_title">Smazat %1$d položek?</string>
@@ -337,8 +369,16 @@
 	<string name="dialog_no_dir_file_message">Složka v cloudu \'%1$s\' nemá adresářový soubor. Mohlo dojít k tomu, že složka byla vytvořena na jiném zařízení a ještě nebyla plně synchronizována s cloudem. Prosím zkontrolujte v cloudu, zda existuje následující soubor a není prázdný: \n%2$s</string>
 	<string name="dialog_no_more_images_to_display">Žádné další obrázky k zobrazení&#8230;</string>
 	<string name="dialog_pcloud_credentials_updated_title">Údaje o \'%1$s\' byly aktualizovány</string>
+	<string name="dialog_pcloud_credentials_updated">Pokud máte v úmyslu přidat nový účet na pCloud, klepněte na tuto url <a href="https://www.pcloud.com">www.pcloud. om</a>, odhlas jste se z aktuálního účtu a znovu klepněte na \'+\' v této aplikaci pro vytvoření nového cloudového připojení.</string>
+	<string name="dialog_create_hub_device_setup_code_hint">Váš Account Key je vyžadován k přihlášení z nových aplikací nebo prohlížečů. Naleznete jej ve vašem profilu.</string>
+	<string name="dialog_hub_vault_access_forbidden_title">Přístup odepřen</string>
+	<string name="dialog_restore_successful_title">Obnovení bylo úspěšné</string>
+	<string name="dialog_no_full_version_title">Žádná plná verze</string>
+	<string name="dialog_hub_user_setup_required_hint">Chcete-li pokračovat, dokončete prosím požadované kroky ve vašem uživatelském profilu Hubu.</string>
+	<string name="dialog_hub_user_setup_required_neutral_button">Jít na profil</string>
 	<string name="permission_snackbar_auth_local_vault">Cryptomator potřebuje přístup k úložišti, aby mohl používat místní trezory</string>
 	<string name="permission_snackbar_auth_auto_upload">Cryptomator potřebuje přístup k úložišti pro automatické nahrávání fotek</string>
+	<string name="permission_snackbar_notifications">Cryptomator potřebuje oprávnění k oznámení. Například: zobrazení stavu trezoru</string>
 	<!-- # error reports -->
 	<!-- # misc -->
 	<!-- ## file size helper -->
@@ -382,6 +422,7 @@
 	<string name="notification_auto_upload_failed_due_to_folder_not_exists">Vybraná složka pro nahrání již není k dispozici. Přejděte do nastavení a vyberte novou složku</string>
 	<string name="notification_auto_upload_failed_due_to_vault_locked">Během nahrávání došlo k uzamčení trezoru, pro pokračování trezor prosím znovu odemkněte</string>
 	<string name="notification_auto_upload_failed_due_to_vault_not_found">Trezor určený pro automatické nahrávání již neexistuje.</string>
+	<string name="notification_auto_upload_failed_due_to_authentication_problem">Klepnutím obnovíte autentifikaci.</string>
 	<string name="notification_open_writable_file_title">Otevřít zapisovatelný soubor</string>
 	<string name="notification_open_writable_file_message">Trezor zůstane odemknutý dokud nejsou dokončené úpravy</string>
 	<string name="notification_update_check_finished_latest">Nainstalována aktuální verze</string>
@@ -391,8 +432,10 @@
 	<string name="screen_settings_lru_cache_size">Velikost mezipaměti</string>
 	<string name="screen_settings_clear_lru_cache_size">Vyčistit mezipaměť</string>
 	<string name="screen_settings_lru_cache_changed__restart_toast">Změny budou použity při příštím restartu aplikace</string>
-	<string name="screen_settings_license">Registrováno na</string>
+	<string name="screen_settings_license_title_unlock">Odemknout plnou verzi</string>
 	<string name="screen_settings_license_mail">%1$s</string>
+	<string name="screen_settings_manage_subscription">Spravovat předplatné</string>
+	<string name="dialog_trial_expired_unlock">Odemknout plnou verzi</string>
 	<string name="dialog_settings_update_check_interval_title">Interval kontroly aktualizací</string>
 	<string name="screen_settings_check_updates">Zkontrolovat aktualizace</string>
 	<string name="screen_settings_last_check_updates">Poslední kontrola %1$s</string>

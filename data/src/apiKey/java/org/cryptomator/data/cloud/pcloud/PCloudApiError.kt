@@ -1,7 +1,5 @@
 package org.cryptomator.data.cloud.pcloud
 
-import java.util.HashSet
-
 object PCloudApiError {
 
 	@JvmField
@@ -14,6 +12,7 @@ object PCloudApiError {
 			PCloudApiErrorCodes.INVALID_FILE_OR_FOLDER_NAME.value //
 		)
 	)
+
 	@JvmField
 	val ignoreMoveSet = HashSet( //
 		listOf( //

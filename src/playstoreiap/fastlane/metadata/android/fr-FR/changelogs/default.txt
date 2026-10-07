@@ -1,0 +1,1 @@
+- Alternative installation options are now hidden in the settings.

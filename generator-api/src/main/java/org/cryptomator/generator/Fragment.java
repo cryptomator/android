@@ -10,6 +10,4 @@ import static java.lang.annotation.RetentionPolicy.RUNTIME;
 @Target(TYPE)
 public @interface Fragment {
 
-	int value();
-
 }

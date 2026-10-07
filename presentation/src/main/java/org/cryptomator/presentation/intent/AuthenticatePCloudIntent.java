@@ -5,4 +5,5 @@ import org.cryptomator.presentation.ui.activity.AuthenticatePCloudActivity;
 
 @Intent(AuthenticatePCloudActivity.class)
 public interface AuthenticatePCloudIntent {
+
 }

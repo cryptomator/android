@@ -5,10 +5,10 @@ import android.os.Bundle
 import androidx.appcompat.app.AlertDialog
 import org.cryptomator.generator.Dialog
 import org.cryptomator.presentation.R
-import kotlinx.android.synthetic.main.dialog_license_confirmation.tv_message
+import org.cryptomator.presentation.databinding.DialogLicenseConfirmationBinding
 
-@Dialog(R.layout.dialog_license_confirmation)
-class LicenseConfirmationDialog : BaseDialog<LicenseConfirmationDialog.Callback>() {
+@Dialog
+class LicenseConfirmationDialog : BaseDialog<LicenseConfirmationDialog.Callback, DialogLicenseConfirmationBinding>(DialogLicenseConfirmationBinding::inflate) {
 
 	interface Callback {
 
@@ -24,7 +24,7 @@ class LicenseConfirmationDialog : BaseDialog<LicenseConfirmationDialog.Callback>
 
 	public override fun setupView() {
 		val mail = requireArguments().getSerializable(ARG_MAIL) as String
-		tv_message.text = String.format(getString(R.string.dialog_license_confirmation_message), mail)
+		binding.tvMessage.text = String.format(getString(R.string.dialog_license_confirmation_message), mail)
 	}
 
 	companion object {

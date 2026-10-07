@@ -1,10 +1,11 @@
 package org.cryptomator.domain.usecases;
 
+import com.google.common.base.Optional;
+
 import org.cryptomator.domain.exception.BackendException;
 import org.cryptomator.domain.repository.UpdateCheckRepository;
 import org.cryptomator.generator.Parameter;
 import org.cryptomator.generator.UseCase;
-import com.google.common.base.Optional;
 
 @UseCase
 public class DoUpdateCheck {

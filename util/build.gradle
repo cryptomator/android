@@ -19,8 +19,40 @@ android {
 	}
 
 	compileOptions {
-		sourceCompatibility JavaVersion.VERSION_1_8
-		targetCompatibility JavaVersion.VERSION_1_8
+		sourceCompatibility JavaVersion.VERSION_21
+		targetCompatibility JavaVersion.VERSION_21
+	}
+	kotlinOptions { jvmTarget = JavaVersion.VERSION_21 }
+	buildFeatures {
+		buildConfig true
+	}
+
+	flavorDimensions "version"
+
+	productFlavors {
+		playstore {
+			dimension "version"
+		}
+
+		playstoreiap {
+			dimension "version"
+		}
+
+		apkstore {
+			dimension "version"
+		}
+
+		fdroid {
+			dimension "version"
+		}
+
+		lite {
+			dimension "version"
+		}
+
+		accrescent {
+			dimension "version"
+		}
 	}
 	packagingOptions {
 		jniLibs {
@@ -53,7 +85,10 @@ dependencies {
 
 	implementation dependencies.androidxPreference
 
+	implementation dependencies.joseJwt
+
 	// test
+	androidTestImplementation dependencies.junitParams
 	androidTestImplementation dependencies.androidxTestCore
 	androidTestImplementation(dependencies.runner) {
 		exclude group: 'com.android.support', module: 'support-annotations'
@@ -62,12 +97,14 @@ dependencies {
 	androidTestImplementation(dependencies.rules) {
 		exclude group: 'com.android.support', module: 'support-annotations'
 	}
+	androidTestImplementation dependencies.mockitoAndroid
 
 	testImplementation dependencies.junit
 	testImplementation dependencies.junitApi
 	testRuntimeOnly dependencies.junitEngine
 	testImplementation dependencies.junitParams
 	testRuntimeOnly dependencies.junit4Engine
+	testRuntimeOnly dependencies.junitPlatformLauncher
 
 	testImplementation dependencies.hamcrest
 	testImplementation dependencies.mockito

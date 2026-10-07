@@ -1,8 +1,5 @@
 package org.cryptomator.presentation.service;
 
-import static org.cryptomator.domain.usecases.cloud.UploadFile.anUploadFile;
-import static java.lang.String.format;
-
 import android.app.Service;
 import android.content.Context;
 import android.content.Intent;
@@ -50,6 +47,9 @@ import java.util.List;
 import java.util.Set;
 
 import timber.log.Timber;
+
+import static org.cryptomator.domain.usecases.cloud.UploadFile.anUploadFile;
+import static java.lang.String.format;
 
 public class AutoUploadService extends Service {
 

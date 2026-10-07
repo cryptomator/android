@@ -39,7 +39,7 @@ internal class PropfindEntryData {
 	fun setPath(pathOrUri: String) {
 		path = extractPath(pathOrUri).also {
 			var pathSegs = it.split("/")
-			if(pathSegs.last() == "") {
+			if (pathSegs.last() == "") {
 				pathSegs = pathSegs.subList(0, pathSegs.size - 1)
 			}
 			pathSegments = pathSegs.toTypedArray()

@@ -69,7 +69,7 @@ class PhotoContentJob : JobService() {
 			}
 		} ?: Timber.tag("PhotoContentJob").w("No photos content")
 
-		if(filesCaptured && SharedPreferencesHandler(applicationContext).usePhotoUploadInstant()) {
+		if (filesCaptured && SharedPreferencesHandler(applicationContext).usePhotoUploadInstant()) {
 			(application as CryptomatorApp).startAutoUpload()
 		}
 

@@ -1,7 +1,7 @@
 apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-kapt'
-apply plugin: 'kotlin-android-extensions'
+apply plugin: 'kotlin-parcelize'
 apply plugin: 'de.mannodermaus.android-junit5'
 
 if (!liteFlavor()) {
@@ -33,16 +33,26 @@ android {
 		versionCode globalConfiguration["androidVersionCode"]
 		versionName globalConfiguration["androidVersionName"]
 
-		multiDexEnabled true
 		testInstrumentationRunner 'androidx.test.runner.AndroidJUnitRunner'
 	}
 
 	compileOptions {
-		sourceCompatibility JavaVersion.VERSION_1_8
-		targetCompatibility JavaVersion.VERSION_1_8
+		sourceCompatibility JavaVersion.VERSION_21
+		targetCompatibility JavaVersion.VERSION_21
 
 		coreLibraryDesugaringEnabled true
 	}
+
+	kotlinOptions { jvmTarget = JavaVersion.VERSION_21 }
+	buildFeatures {
+		viewBinding true
+		buildConfig true
+		resValues true
+	}
+
+	defaultConfig.manifestPlaceholders = [
+			'appAuthRedirectScheme': 'org.cryptomator.android'
+	]
 
 	buildTypes {
 		def docProviderAuthority = "org.cryptomator.presentation.docprovider.documents"
@@ -66,16 +76,16 @@ android {
 			crunchPngs false
 			minifyEnabled false
 			shrinkResources false
-			testCoverageEnabled false
 
-			buildConfigField "String", "DROPBOX_API_KEY", "\"" + getApiKey('DROPBOX_API_KEY_DEBUG') + "\""
-			buildConfigField "String", "PCLOUD_CLIENT_ID", "\"" + getApiKey('PCLOUD_CLIENT_ID_DEBUG') + "\""
+			buildConfigField "String", "DROPBOX_API_KEY", "\"" + getApiKey('DROPBOX_API_KEY') + "\""
+			buildConfigField "String", "PCLOUD_CLIENT_ID", "\"" + getApiKey('PCLOUD_CLIENT_ID') + "\""
 			buildConfigField "String", "DOCUMENTS_PROVIDER_AUTHORITY", "\"" + docProviderAuthority + "\""
 
-			manifestPlaceholders = [DROPBOX_API_KEY: getApiKey('DROPBOX_API_KEY_DEBUG'), ONEDRIVE_API_KEY_DECODED: getOnedriveApiKey(), DOCUMENTS_PROVIDER_AUTHORITY: docProviderAuthority]
+			manifestPlaceholders = [DROPBOX_API_KEY: getApiKey('DROPBOX_API_KEY'), ONEDRIVE_API_KEY_DECODED: getOnedriveApiKey(), DOCUMENTS_PROVIDER_AUTHORITY: docProviderAuthority]
 
-			applicationIdSuffix ".debug"
 			versionNameSuffix '-DEBUG'
+			enableUnitTestCoverage false
+			enableAndroidTestCoverage false
 		}
 	}
 
@@ -84,6 +94,13 @@ android {
 	productFlavors {
 		playstore {
 			dimension "version"
+		}
+
+		playstoreiap {
+			dimension "version"
+
+			applicationIdSuffix ".freemium"
+			resValue "string", "app_id", androidApplicationId + applicationIdSuffix
 		}
 
 		apkstore {
@@ -100,29 +117,47 @@ android {
 			applicationIdSuffix ".lite"
 			resValue "string", "app_id", androidApplicationId + applicationIdSuffix
 		}
+
+		accrescent {
+			dimension "version"
+		}
 	}
 
 	sourceSets {
 		playstore {
-			java.srcDirs = ['src/main/java', 'src/apiKey/java/', 'src/apkStorePlaystore/java/']
+			java.srcDirs = ['src/main/java', 'src/apiKey/java/', 'src/apkStorePlaystore/java/', 'src/nonplaystoreiap/java/']
+		}
+
+		playstoreiap {
+			java.srcDirs = ['src/main/java', 'src/apiKey/java/', 'src/apkStorePlaystore/java/', 'src/playstoreiap/java/']
 		}
 
 		apkstore {
-			java.srcDirs = ['src/main/java/', 'src/apiKey/java/', 'src/apkStorePlaystore/java/']
+			java.srcDirs = ['src/main/java/', 'src/apiKey/java/', 'src/apkStorePlaystore/java/', 'src/nonplaystoreiap/java/']
 		}
 
 		fdroid {
-			java.srcDirs = ['src/main/java/', 'src/apiKey/java/', 'src/fdroid/java/', 'src/fdroidAndLite/java/']
+			java.srcDirs = ['src/main/java/', 'src/apiKey/java/', 'src/fdroid/java/', 'src/fdroidLiteAccrescent/java/', 'src/nonplaystoreiap/java/']
 		}
 
 		lite {
-			java.srcDirs = ['src/main/java/', 'src/lite/java/', 'src/fdroidAndLite/java/']
+			java.srcDirs = ['src/main/java/', 'src/lite/java/', 'src/fdroidLiteAccrescent/java/', 'src/nonplaystoreiap/java/']
+		}
+
+		accrescent {
+			java.srcDirs = ['src/main/java/', 'src/apiKey/java/', 'src/accrescent/java/', 'src/fdroidLiteAccrescent/java/', 'src/nonplaystoreiap/java/']
 		}
 	}
+
 	packagingOptions {
 		resources {
-			excludes += ['META-INF/jersey-module-version', 'META-INF/NOTICE.md', 'META-INF/DEPENDENCIES', 'META-INF/INDEX.LIST']
+			excludes += ['META-INF/jersey-module-version', 'META-INF/NOTICE.md', 'META-INF/DEPENDENCIES', 'META-INF/INDEX.LIST', 'META-INF/**/MANIFEST.MF']
 		}
+	}
+
+	dependenciesInfo {
+		// Disables dependency metadata when building APKs, see #539
+		includeInApk = false
 	}
 
 	lint {
@@ -130,11 +165,23 @@ android {
 		ignoreWarnings true
 		quiet true
 	}
+
 	namespace 'org.cryptomator.presentation'
 }
 
 dependencies {
 	def dependencies = rootProject.ext.dependencies
+	def cloudFlavors = ['playstore', 'playstoreiap', 'apkstore', 'fdroid', 'accrescent']
+	def googleFlavors = ['playstore', 'playstoreiap', 'apkstore']
+	def addToFlavors = { flavors, dep, Closure config = null ->
+		flavors.each { flavor ->
+			if (config) {
+				add("${flavor}Implementation", dep, config)
+			} else {
+				add("${flavor}Implementation", dep)
+			}
+		}
+	}
 
 	// custom code generators
 	kapt project(':generator')
@@ -152,7 +199,7 @@ dependencies {
 	implementation dependencies.appcompat
 	implementation dependencies.recyclerView
 	implementation dependencies.design
-	implementation project(':subsampling-image-view')
+	implementation dependencies.scaleImageView
 	implementation dependencies.recyclerViewFastScroll
 
 	// android x
@@ -164,39 +211,21 @@ dependencies {
 	implementation dependencies.androidxPreference
 	implementation dependencies.androidxBiometric
 
+	implementation dependencies.appauth
+
 	// cloud
-	playstoreImplementation dependencies.dropbox
-	apkstoreImplementation dependencies.dropbox
-	fdroidImplementation dependencies.dropbox
+	addToFlavors(cloudFlavors, dependencies.dropboxCore)
+	addToFlavors(cloudFlavors, dependencies.dropboxAndroid)
 
-	playstoreImplementation dependencies.msgraphAuth
-	apkstoreImplementation dependencies.msgraphAuth
-	fdroidImplementation dependencies.msgraphAuth
-	playstoreImplementation dependencies.msgraph
-	apkstoreImplementation dependencies.msgraph
-	fdroidImplementation dependencies.msgraph
+	addToFlavors(cloudFlavors, dependencies.msgraphAuth)
+	addToFlavors(cloudFlavors, dependencies.msgraph)
 
-	playstoreImplementation(dependencies.googleApiServicesDrive) {
-		exclude module: 'guava-jdk5'
-		exclude module: 'httpclient'
-		exclude module: 'googlehttpclient'
-		exclude group: "com.google.http-client", module: "google-http-client"
-	}
-	apkstoreImplementation(dependencies.googleApiServicesDrive) {
+	addToFlavors(googleFlavors, dependencies.googleApiServicesDrive) {
 		exclude module: 'guava-jdk5'
 		exclude module: 'httpclient'
 		exclude group: "com.google.http-client", module: "google-http-client"
 	}
-
-	playstoreImplementation(dependencies.googleApiClientAndroid) {
-		exclude module: 'guava-jdk5'
-		exclude module: 'httpclient'
-		exclude module: "google-http-client"
-		exclude module: "jetified-google-http-client"
-		exclude group: "com.google.http-client", module: "google-http-client"
-		exclude group: "com.google.http-client", module: "jetified-google-http-client"
-	}
-	apkstoreImplementation(dependencies.googleApiClientAndroid) {
+	addToFlavors(googleFlavors, dependencies.googleApiClientAndroid) {
 		exclude module: 'guava-jdk5'
 		exclude module: 'httpclient'
 		exclude module: "google-http-client"
@@ -205,10 +234,8 @@ dependencies {
 		exclude group: "com.google.http-client", module: "jetified-google-http-client"
 	}
 
-	playstoreImplementation dependencies.trackingFreeGoogleCLient
-	apkstoreImplementation dependencies.trackingFreeGoogleCLient
-	playstoreImplementation dependencies.trackingFreeGoogleAndroidCLient
-	apkstoreImplementation dependencies.trackingFreeGoogleAndroidCLient
+	addToFlavors(googleFlavors, dependencies.trackingFreeGoogleCLient)
+	addToFlavors(googleFlavors, dependencies.trackingFreeGoogleAndroidCLient)
 
 	// rest
 	implementation dependencies.rxJava
@@ -217,8 +244,7 @@ dependencies {
 	implementation dependencies.zxcvbn
 	implementation dependencies.rxBinding
 
-	// multidex
-	implementation dependencies.multidex
+	playstoreiapImplementation dependencies.billing
 
 	implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk8:$kotlin_version"
 
@@ -259,8 +285,10 @@ dependencies {
 	testRuntimeOnly dependencies.junitEngine
 	testImplementation dependencies.junitParams
 	testRuntimeOnly dependencies.junit4Engine
+	testRuntimeOnly dependencies.junitPlatformLauncher
 
 	testImplementation dependencies.mockito
+	testImplementation dependencies.mockitoKotlin
 	testImplementation dependencies.mockitoInline
 	testImplementation dependencies.hamcrest
 }
@@ -270,25 +298,8 @@ configurations {
 	all*.exclude group: 'com.google.guava', module: 'listenablefuture'
 }
 
-androidExtensions {
-	experimental = true
-}
-
 def liteFlavor() {
 	gradle.startParameter.taskNames.stream().filter(t -> t.toLowerCase().contains("lite")).findAny().isPresent()
-}
-
-def getApiKey(key) {
-	return !liteFlavor() ? System.getenv().getOrDefault(key, getApiKeyLocal(key)) : ""
-}
-
-def getApiKeyLocal(key) {
-	if(!rootProject.file("local.properties").exists()) {
-		return ""
-	}
-	def localPropertyList = new Properties()
-	localPropertyList.load(new FileInputStream(rootProject.file("local.properties")))
-	return localPropertyList.getOrDefault(key, "")
 }
 
 def getOnedriveApiKey() {

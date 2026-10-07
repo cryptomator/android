@@ -1,6 +1,0 @@
-[submodule "subsampling-scale-image-view"]
-	path = lib/subsampling-scale-image-view
-	url = https://github.com/SailReal/subsampling-scale-image-view.git
-[submodule "pcloud-sdk-java"]
-	path = lib/pcloud-sdk-java
-	url = https://github.com/SailReal/pcloud-sdk-java.git

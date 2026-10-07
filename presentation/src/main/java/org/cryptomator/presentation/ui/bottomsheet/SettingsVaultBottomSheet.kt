@@ -4,17 +4,11 @@ import android.os.Bundle
 import android.widget.LinearLayout
 import org.cryptomator.generator.BottomSheet
 import org.cryptomator.presentation.R
+import org.cryptomator.presentation.databinding.DialogBottomSheetVaultSettingsBinding
 import org.cryptomator.presentation.model.VaultModel
-import kotlinx.android.synthetic.main.dialog_bottom_sheet_vault_settings.change_password
-import kotlinx.android.synthetic.main.dialog_bottom_sheet_vault_settings.cloud_image
-import kotlinx.android.synthetic.main.dialog_bottom_sheet_vault_settings.delete_vault
-import kotlinx.android.synthetic.main.dialog_bottom_sheet_vault_settings.et_rename
-import kotlinx.android.synthetic.main.dialog_bottom_sheet_vault_settings.lock_vault
-import kotlinx.android.synthetic.main.dialog_bottom_sheet_vault_settings.vault_name
-import kotlinx.android.synthetic.main.dialog_bottom_sheet_vault_settings.vault_path
 
 @BottomSheet(R.layout.dialog_bottom_sheet_vault_settings)
-class SettingsVaultBottomSheet : BaseBottomSheet<SettingsVaultBottomSheet.Callback>() {
+class SettingsVaultBottomSheet : BaseBottomSheet<SettingsVaultBottomSheet.Callback, DialogBottomSheetVaultSettingsBinding>(DialogBottomSheetVaultSettingsBinding::inflate) {
 
 	interface Callback {
 
@@ -28,26 +22,26 @@ class SettingsVaultBottomSheet : BaseBottomSheet<SettingsVaultBottomSheet.Callba
 		val vaultModel = requireArguments().getSerializable(VAULT_ARG) as VaultModel
 
 		if (vaultModel.isLocked) {
-			lock_vault.visibility = LinearLayout.GONE
+			binding.lockVault.visibility = LinearLayout.GONE
 		}
 		val cloudType = vaultModel.cloudType
-		cloud_image.setImageResource(cloudType.vaultSelectedImageResource)
-		vault_name.text = vaultModel.name
-		vault_path.text = vaultModel.path
+		binding.cloudImage.setImageResource(cloudType.vaultSelectedImageResource)
+		binding.vaultName.text = vaultModel.name
+		binding.vaultPath.text = vaultModel.path
 
-		et_rename.setOnClickListener {
+		binding.etRename.setOnClickListener {
 			callback?.onRenameVaultClick(vaultModel)
 			dismiss()
 		}
-		delete_vault.setOnClickListener {
+		binding.deleteVault.setOnClickListener {
 			callback?.onDeleteVaultClick(vaultModel)
 			dismiss()
 		}
-		lock_vault.setOnClickListener {
+		binding.lockVault.setOnClickListener {
 			callback?.onLockVaultClick(vaultModel)
 			dismiss()
 		}
-		change_password.setOnClickListener {
+		binding.changePassword.setOnClickListener {
 			callback?.onChangePasswordClick(vaultModel)
 			dismiss()
 		}

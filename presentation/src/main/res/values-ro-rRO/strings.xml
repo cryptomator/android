@@ -7,7 +7,7 @@
 	<string name="error_authentication_failed">Autentificare eșuată</string>
 	<string name="error_authentication_failed_re_authenticate">Autentificare eșuată, vă rugăm să vă conectați din nou prin %1$s</string>
 	<string name="error_no_network_connection">Nu există conexiune la rețea</string>
-	<string name="error_invalid_passphrase">Parolă greşită</string>
+	<string name="error_invalid_passphrase">Parolă greșită</string>
 	<string name="error_file_or_folder_exists">Un fișier sau dosar există deja.</string>
 	<string name="error_vault_version_not_supported">Seiful cu versiunea %1$s nu este suportată. Acest seif a fost creat cu o versiune mai veche sau mai nouă de Cryptomator.</string>
 	<string name="error_vault_config_file_missing_due_to_format_999">Lipsește fișierul %1$s din dosarul seif. Asigurați-vă că acest fișier există în folderul seif din cloud.</string>
@@ -26,15 +26,40 @@
 	<string name="error_hash_mismatch_update">Verificarea actualizării a eșuat. Hash-ul calculat nu se potrivește cu fișierul încărcat</string>
 	<string name="error_update_no_internet">Verificarea actualizării a eșuat. Nu există conexiune la internet.</string>
 	<string name="error_failed_to_decrypt_webdav_password">Nu s-a reușit decriptarea parolei WebDAV, vă rugăm să o introduceți din nou în setări</string>
-	<string name="error_play_services_not_available">Google Play Services nu este instalat</string>
+	<string name="error_play_services_not_available">Serviciile Google Play nu sunt instalate</string>
 	<string name="error_biometric_auth_aborted">Autentificare biometrică anulată</string>
 	<string name="error_vault_version_mismatch">Versiunea specificată în %1$s este diferită de %2$s</string>
 	<string name="error_vault_key_invalid">%1$s nu se potrivește cu %2$s</string>
 	<string name="error_vault_config_loading">Eroare generală în timpul încărcării configurației seifului</string>
-	<string name="error_file_not_found_after_opening_using_3party">Fișierul local nu mai este prezent după ce s-a trecut înapoi la Cryptomator. Modificările posibile nu pot fi propagate înapoi în cloud.</string>
+	<string name="error_file_not_found_after_opening_using_3party">Fișierul local nu mai este prezent după ce s-a trecut înapoi la Cryptomator. Modificările posibile nu pot fi propagate înapoi în nor.</string>
 	<string name="error_no_such_bucket">Nu există așa găleată</string>
-	<string name="error_masterkey_location_not_supported">Nu este suportată încă utilizarea locației personalizate pentru masterkey</string>
-	<string name="error_interact_with_fdroid_but_fdroid_missing">Nu s-a putut comunica cu aplicația F-Droid. Este posibil ca aplicația sa nu fie instalata</string>
+	<string name="error_masterkey_location_not_supported">Nu este suportată încă utilizarea locației personalizate pentru cheia master</string>
+	<string name="error_interact_with_fdroid_but_fdroid_missing">Nu s-a putut comunicat cu aplicația F-Droid. Este posibil ca aplicația sa nu fie instalata?</string>
+	<string name="error_hub_device_already_register_for_other_user">Acest dispozitiv este deja înregistrat pentru un alt utilizator. Încercați să schimbați contul de utilizator sau folosiți un alt dispozitiv.</string>
+	<string name="error_hub_unlock_pre_31">Hub poate fi folosit in Android 12 sau mai nou.</string>
+	<!-- # read-only & purchases -->
+	<string name="screen_license_check_benefit_family_sharing">Partajare cu familia</string>
+	<string name="screen_license_check_benefit_write_access">Acces fără restricții la seifurile dvs.</string>
+	<string name="screen_license_check_benefit_support">Dezvoltare open-source</string>
+	<string name="screen_license_check_title_full_version">Deblochează versiunea completă</string>
+	<string name="screen_license_check_trial_title">30 de zile de încercare</string>
+	<string name="screen_license_check_trial_price">Gratuit</string>
+	<string name="screen_license_check_trial_subtitle">pentru 30 de zile</string>
+	<string name="screen_license_check_subscription_title">Abonament anual</string>
+	<string name="screen_license_check_subscription_subtitle">anual</string>
+	<string name="screen_license_check_lifetime_title">Licență permanenta</string>
+	<string name="screen_license_check_lifetime_subtitle">plată singulară</string>
+	<string name="screen_license_check_restore_purchase">Restabilește achiziția</string>
+	<string name="screen_license_check_terms">Termeni și condiții de utilizare</string>
+	<string name="screen_license_check_privacy">Politică de confidențialitate</string>
+	<string name="screen_license_check_trial_status_active">Activ</string>
+	<string name="screen_license_check_trial_status_expired">Expirat</string>
+	<string name="screen_license_check_trial_expired_info">Perioada de probă a expirat.</string>
+	<string name="screen_welcome_title">Bine ați venit</string>
+	<string name="screen_welcome_continue_button">Continuați</string>
+	<string name="screen_welcome_screen_lock_button">Setați blocarea ecranului</string>
+	<string name="next">Următorul</string>
+	<string name="back">Înapoi</string>
 	<!-- # clouds -->
 	<!-- ## cloud names -->
 	<string name="cloud_names_local_storage">Stocare locală</string>
@@ -67,7 +92,6 @@
 	<string name="screen_vault_list_change_password_successful">Parola a fost modificată cu succes</string>
 	<!-- # screen: file browser -->
 	<string name="screen_file_browser_default_title">Seif</string>
-	<string name="screen_file_browser_add_existing_vault_extra_text">Selectaţi fişierul Masterkey</string>
 	<string name="screen_file_browser_create_new_vault_button_text">Plasează aici</string>
 	<string name="screen_file_browser_create_new_vault_extra_text">Numele seifului: %1$s</string>
 	<plurals name="screen_file_browser_subtitle_move">
@@ -186,7 +210,6 @@
 	<string name="screen_settings_section_auto_photo_upload_including_videos">Încarcă fişiere video</string>
 	<string name="screen_settings_auto_photo_upload_title">Salvați fișierele încărcate automat în&#8230;</string>
 	<string name="screen_settings_website_label">Pagina web a aplicației Cryptomator</string>
-	<string name="screen_settings_twitter_label">Urmăriți-ne pe Twitter</string>
 	<string name="screen_settings_facebook_label">Dă-ne un Like pe Facebook</string>
 	<string name="screen_settings_section_legal">Aspecte legale</string>
 	<string name="screen_settings_licenses_label">Licențe</string>
@@ -199,6 +222,8 @@
 	<string name="screen_settings_security_label">Indicații de securitate</string>
 	<string name="screen_settings_section_version">Versiune</string>
 	<string name="screen_settings_advanced_settings">Setări avansate</string>
+	<string name="screen_settings_microsoft_apps_workaround_label">Soluție pentru deschiderea fișierelor Microsoft</string>
+	<string name="screen_settings_microsoft_apps_workaround_summary">Deschide fișiere în aplicații Microsoft cu permisiune de scriere</string>
 	<string name="screen_settings_background_unlock_preparation_label">Accelerează deblocarea</string>
 	<string name="screen_settings_background_unlock_preparation_label_summary">Descărcați configurarea seifului în fundal în timp ce vi se solicită introducerea parolei sau a autentificării biometrice</string>
 	<string name="screen_settings_keep_unlocked_while_editing_files">Păstrați deblocat</string>
@@ -305,17 +330,18 @@
 	<string name="dialog_debug_mode_disclaimer_hint">În acest mod, datele sensibile pot fi scrise într-un fișier jurnal de pe dispozitivul dumneavoastră (de exemplu, nume de fișiere și căi de fișiere). Parolele, cookie-urile etc. sunt excluse în mod explicit.\n\nNu uitați să dezactivați modul de depanare cât mai curând posibil.</string>
 	<string name="dialog_debug_mode_disclaimer_title">Atenție</string>
 	<string name="dialog_debug_mode_positive_button">Activează</string>
-	<string name="dialog_disable_app_obscured_disclaimer_hint">Această setare este o caracteristică de securitate și previne alte aplicații să păcălească utilizatorii să facă lucruri pe care nu ar trebui să le facă.\n\nPrin dezactivare, confirmați că sunteți <a href="https://docs.cryptomator.org/en/1.6/android/settings/#block-app-when-obscured">conștient de aceste riscuri</a>.</string>
+	<string name="dialog_microsoft_workaround_disclaimer_hint">Din cauza unei erori în aplicațiile Microsoft, fișierul care urmează să fie editat trebuie să fie partajat cu aceste aplicații într-un folder media public de pe dispozitivul dvs. După ce Cryptomator este repornit, fişierul accesibil publicului este şters din nou, dar Cryptomator nu poate influenţa ceea ce s-a întâmplat cu acest fişier între timp. Asigurați-vă că sunteți conștient de acest comportament atunci când activați această opțiune. Acest comportament se aplica doar tipurilor de fișiere Microsoft.\n\nCryptomator va reporni după activare.</string>
+	<string name="dialog_disable_app_obscured_disclaimer_hint">Aceasta setare este o caracteristica de securitate si previne alte aplicatii sa pacaleasca utilizatorii sa faca lucruri pe care nu ar trebui sa le faca. \n\nPrin dezactivare, confirmati ca sunteti <a href="https://docs.cryptomator.org/en/latest/android/settings/#block-app-when-obscured"> constient de aceste riscuri</a>.</string>
 	<string name="dialog_disable_app_obscured_disclaimer_title">Atenție</string>
 	<string name="dialog_disable_app_obscured_positive_button">Dezactivează</string>
 	<string name="dialog_app_is_obscured_info_title">Aplicația este ascunsă</string>
-	<string name="dialog_app_is_obscured_info_hint">O altă aplicație afișează ceva deasupra Cryptomator (de exemplu, un filtru de lumină albastră sau o aplicație pentru modul de noapte). Din motive de siguranța, Cryptomator este dezactivat.\n\n<a href="https://docs.cryptomator.org/en/1.6/android/settings/#block-app-when-obscured">Cum să activezi Cryptomator</a></string>
+	<string name="dialog_app_is_obscured_info_hint">O altă aplicație afișează ceva deasupra Cryptomator (de exemplu, un filtru de lumină albastră sau o aplicație pentru modul de noapte). Din motive de siguranța, Cryptomator este dezactivat.\n\n<a href="https://docs.cryptomator.org/en/latest/android/settings/#block-app-when-obscured">Cum să activezi Cryptomator</a></string>
 	<string name="dialog_app_is_obscured_info_neutral_button">Închide</string>
 	<string name="dialog_vaults_removed_during_migration_title">Vă rugăm să adăugați din nou seifurile pentru %1s cloud</string>
 	<string name="dialog_vaults_removed_during_migration_hint">În timp ce migrăm la această versiune de aplicație, trebuie să eliminăm următoarele seifuri din aplicație:\n%2s \n\nAceste seifuri nu sunt eliminate din cloud, ci doar din această aplicație. Ne cerem scuze pentru inconveniența creata şi vă rugăm să adăugați din nou aceste seifuri pentru a continua să le folosiți.</string>
 	<string name="dialog_vault_is_root_folder_of_cloud_title">Seiful este dosarul principal al conexiunii cloud</string>
 	<string name="dialog_vault_is_root_folder_of_cloud_hint">Creați o nouă conexiune cloud unde selectați dosarul părinte al acestui seif ca dosarul de baza pentru adăugarea acestui seif.</string>
-	<string name="dialog_disable_secure_screen_disclaimer_hint">Această setare este o caracteristică de securitate și previne alte aplicații să păcălească utilizatorii să facă lucruri pe care nu ar trebui să le facă.\n\nPrin dezactivare, confirmați că sunteți <a href="https://docs.cryptomator.org/en/1.6/android/settings/#screen-security">conștient de aceste riscuri</a>.</string>
+	<string name="dialog_disable_secure_screen_disclaimer_hint">setare</string>
 	<string name="dialog_delete_cloud_connection_with_vaults_message">Sunteţi sigur că doriţi să eliminaţi această conexiune cloud?</string>
 	<string name="dialog_delete_cloud_connection_with_vaults_hint">Această acțiune va elimina conexiunea în cloud și toate seifurile acestui cloud.</string>
 	<string name="dialog_confirm_delete_multiple_title">Ștergeți %1$d elemente?</string>
@@ -347,8 +373,23 @@
 	<string name="dialog_no_more_images_to_display">Nu mai sunt imagini de afișat&#8230;</string>
 	<string name="dialog_pcloud_credentials_updated_title">Acreditări ale \'%1$s\' au fost actualizate</string>
 	<string name="dialog_pcloud_credentials_updated">Dacă doriți să adăugaţi un cont nou de tip pCloud, faceţi clic pe acest link <a href="https://www.pcloud.com">www.pcloud. om</a>, deconectați-vă de la contul curent, și faceți clic din nou pe \'+\' din această aplicație pentru a crea o nouă conexiune cloud.</string>
+	<string name="dialog_cbc_password_vaults_migration_title">Este necesară migrarea parolei seifului</string>
+	<string name="dialog_cbc_password_vaults_migration_hint">Din cauza actualizărilor de securitate, ți se va cere autentificarea biometrică de două ori pentru fiecare seif ca să re-criptați parolele seifului. Acest lucru este necesar pentru a continua să îți protejezi parolele seifului cu ajutorul tehnologiei de ultimă oră. Dacă nu doriţi să se întâmple acest lucru, parolele stocate vor fi eliminate.</string>
+	<string name="dialog_cbc_password_vaults_migration_action">Migrează</string>
+	<string name="dialog_create_hub_device_name_label">Nume</string>
+	<string name="dialog_create_hub_device_name_hint">Se pare că este prima data când accesați Hub-ul de pe acest dispozitiv. Trebuie sa denumiți acest dispozitiv pentru autorizarea accesului.</string>
+	<string name="dialog_create_hub_device_setup_code_hint">Cheia contului dvs. este necesară pentru a vă conecta din aplicații sau browsere noi. Aceasta poate fi găsită în profilul dvs.</string>
+	<string name="dialog_hub_vault_access_forbidden_title">Acces respins</string>
+	<string name="dialog_hub_license_upgrade_required_title">Verifica licență Hub-ului</string>
+	<string name="dialog_hub_vault_archived_title">Seif arhivat</string>
+	<string name="dialog_hub_vault_archived_hint">Acest seif este arhivat și nu poate fi deblocat. Pentru deblocare proprietarul seifului trebuie să îl dezarhiveze.</string>
+	<string name="dialog_restore_successful_title">Restabilirea licenței a fost efectuată cu succes</string>
+	<string name="dialog_no_full_version_title">Versiunea completă nu a fost găsită</string>
+	<string name="dialog_hub_user_setup_required_hint">Pentru a continua, vă rugăm să finalizaţi paşii necesari în profilul dumneavoastra din Hub.</string>
+	<string name="dialog_hub_user_setup_required_neutral_button">Mergi la profil</string>
 	<string name="permission_snackbar_auth_local_vault">Cryptomator are nevoie de acces la stocare pentru a utiliza seifuri locale</string>
 	<string name="permission_snackbar_auth_auto_upload">Cryptomator are nevoie de acces la stocare pentru a folosi încărcarea automată a fotografiilor</string>
+	<string name="permission_snackbar_notifications">Cryptomator are nevoie de permisiuni de notificare pentru a afișa starea seifului de exemplu</string>
 	<!-- # error reports -->
 	<!-- # misc -->
 	<!-- ## file size helper -->
@@ -392,6 +433,7 @@
 	<string name="notification_auto_upload_failed_due_to_folder_not_exists">Dosarul selectat pentru încărcare nu mai este disponibil. Mergeți la setări și alegeți unul nou</string>
 	<string name="notification_auto_upload_failed_due_to_vault_locked">Seif blocat în timpul încărcării, vă rugăm să redeschideți seiful pentru a continua</string>
 	<string name="notification_auto_upload_failed_due_to_vault_not_found">Seiful ales pentru încărcare automată nu mai există.</string>
+	<string name="notification_auto_upload_failed_due_to_authentication_problem">Atingeți pentru a reîmprospăta autentificarea.</string>
 	<string name="notification_open_writable_file_title">Deschide fișier inscriptibil</string>
 	<string name="notification_open_writable_file_message">Seiful rămâne deblocat până la editarea finalizată</string>
 	<string name="notification_update_check_finished_latest">Ultima versiune instalată</string>
@@ -401,8 +443,10 @@
 	<string name="screen_settings_lru_cache_size">Total memorie cache</string>
 	<string name="screen_settings_clear_lru_cache_size">Golește memoria cache</string>
 	<string name="screen_settings_lru_cache_changed__restart_toast">Modificările vor fi aplicate la următoarea repornire a aplicației</string>
-	<string name="screen_settings_license">Înregistrat pentru</string>
+	<string name="screen_settings_license_title_unlock">Deblochează versiunea completă</string>
 	<string name="screen_settings_license_mail">%1$s</string>
+	<string name="screen_settings_manage_subscription">Administrați-vă abonamentul</string>
+	<string name="dialog_trial_expired_unlock">Deblochează versiunea completă</string>
 	<string name="dialog_settings_update_check_interval_title">Interval de verificare a actualizărilor</string>
 	<string name="screen_settings_check_updates">Verifică actualizări</string>
 	<string name="screen_settings_last_check_updates">Ultima execuție %1$s</string>

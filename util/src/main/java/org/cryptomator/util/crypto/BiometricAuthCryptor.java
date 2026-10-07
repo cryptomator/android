@@ -17,21 +17,32 @@ public class BiometricAuthCryptor {
 	private static final String BIOMETRIC_AUTH_KEY_ALIAS = "fingerprintCryptoKeyAccessToken";
 
 	private final Cipher cipher;
+	private final CryptoMode cryptoMode;
 
-	private BiometricAuthCryptor(Context context) throws UnrecoverableStorageKeyException {
+	private BiometricAuthCryptor(Context context, CryptoMode cryptoMode) throws UnrecoverableStorageKeyException {
+		String suffixedAlias = getSuffixedAlias(cryptoMode);
 		KeyStore keyStore = KeyStoreBuilder.defaultKeyStore() //
-				.withKey(BIOMETRIC_AUTH_KEY_ALIAS, true, context) //
+				.withKey(suffixedAlias, true, cryptoMode, context) //
 				.build();
-		this.cipher = CryptoOperationsFactory.cryptoOperations().cryptor(keyStore, BIOMETRIC_AUTH_KEY_ALIAS);
+		this.cryptoMode = cryptoMode;
+		this.cipher = CryptoOperationsFactory.cryptoOperations(cryptoMode).cryptor(keyStore, suffixedAlias);
 	}
 
-	public static BiometricAuthCryptor getInstance(Context context) throws UnrecoverableStorageKeyException {
-		return new BiometricAuthCryptor(context);
+	private static String getSuffixedAlias(CryptoMode cryptoMode) {
+		return switch (cryptoMode) {
+			case CBC -> BIOMETRIC_AUTH_KEY_ALIAS; // CBC does not have an alias due to legacy reasons
+			case GCM -> BIOMETRIC_AUTH_KEY_ALIAS + "_GCM";
+			case NONE -> throw new IllegalStateException("CryptoMode.NONE is not allowed here");
+		};
 	}
 
-	public static void recreateKey(Context context) {
+	public static BiometricAuthCryptor getInstance(Context context, CryptoMode cryptoMode) throws UnrecoverableStorageKeyException {
+		return new BiometricAuthCryptor(context, cryptoMode);
+	}
+
+	public static void recreateKey(Context context, CryptoMode cryptoMode) {
 		KeyStoreBuilder.defaultKeyStore() //
-				.withRecreatedKey(BIOMETRIC_AUTH_KEY_ALIAS, true, context) //
+				.withRecreatedKey(getSuffixedAlias(cryptoMode), true, cryptoMode, context) //
 				.build();
 	}
 
@@ -50,7 +61,12 @@ public class BiometricAuthCryptor {
 	}
 
 	public String decrypt(javax.crypto.Cipher cipher, String password) throws IllegalBlockSizeException, BadPaddingException {
-		byte[] ciphered = cipher.doFinal(CipherImpl.getBytes(password.getBytes(StandardCharsets.ISO_8859_1)));
+		int ivLength = switch (cryptoMode) {
+			case CBC -> CipherCBC.IV_LENGTH;
+			case GCM -> CipherGCM.IV_LENGTH;
+			case NONE -> throw new IllegalStateException("CryptoMode.NONE is not allowed here");
+		};
+		byte[] ciphered = cipher.doFinal(CryptoByteArrayUtils.getBytes(password.getBytes(StandardCharsets.ISO_8859_1), ivLength));
 		return new String(ciphered, StandardCharsets.UTF_8);
 	}
 }

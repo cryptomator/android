@@ -1,10 +1,10 @@
 package org.cryptomator.util.matchers;
 
+import com.google.common.base.Optional;
+
 import org.hamcrest.Description;
 import org.hamcrest.Matcher;
 import org.hamcrest.TypeSafeDiagnosingMatcher;
-
-import com.google.common.base.Optional;
 
 public class OptionalMatchers {
 

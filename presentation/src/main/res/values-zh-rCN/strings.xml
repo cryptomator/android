@@ -35,6 +35,35 @@
 	<string name="error_no_such_bucket">没有这样的 bucket</string>
 	<string name="error_masterkey_location_not_supported">尚不支持自定义 Masterkey 路径</string>
 	<string name="error_interact_with_fdroid_but_fdroid_missing">无法找到 F-Droid 应用程序。可能未安装？</string>
+	<string name="error_hub_vault_operation_not_supported">Hub 不支持保险库操作</string>
+	<string name="error_hub_authentication_failed">Hub 身份验证失败</string>
+	<string name="error_hub_device_already_register_for_other_user">此设备已被注册给另一位用户。请尝试更改用户帐户或使用别的设备。</string>
+	<string name="error_hub_invalid_setup_code">账户密钥无效</string>
+	<string name="error_hub_invalid_version">不支持的 Hub 版本</string>
+	<string name="error_hub_unlock_pre_31">Hub 仅支持 Android 12 及以上版本。</string>
+	<!-- # read-only & purchases -->
+	<string name="screen_license_check_benefit_family_sharing">家庭成员共享</string>
+	<string name="screen_license_check_benefit_write_access">保险库写入访问权限</string>
+	<string name="screen_license_check_benefit_support">开源开发</string>
+	<string name="screen_license_check_title_full_version">解锁完整版</string>
+	<string name="screen_license_check_trial_title">30 天免费试用</string>
+	<string name="screen_license_check_trial_price">免费版</string>
+	<string name="screen_license_check_trial_subtitle">30 天</string>
+	<string name="screen_license_check_subscription_title">按年订阅</string>
+	<string name="screen_license_check_subscription_subtitle">按年</string>
+	<string name="screen_license_check_lifetime_title">终身许可证</string>
+	<string name="screen_license_check_lifetime_subtitle">一次付费</string>
+	<string name="screen_license_check_restore_purchase">恢复购买</string>
+	<string name="screen_license_check_terms">使用条款</string>
+	<string name="screen_license_check_privacy">隐私政策</string>
+	<string name="screen_license_check_trial_status_active">进行中</string>
+	<string name="screen_license_check_trial_status_expired">已到期</string>
+	<string name="screen_license_check_trial_expired_info">您的试用期已结束。</string>
+	<string name="screen_welcome_title">欢迎使用</string>
+	<string name="screen_welcome_continue_button">继续</string>
+	<string name="screen_welcome_screen_lock_button">设置屏幕锁定</string>
+	<string name="next">下一步</string>
+	<string name="back">后退</string>
 	<!-- # clouds -->
 	<!-- ## cloud names -->
 	<string name="cloud_names_local_storage">本地存储</string>
@@ -67,7 +96,7 @@
 	<string name="screen_vault_list_change_password_successful">密码修改成功</string>
 	<!-- # screen: file browser -->
 	<string name="screen_file_browser_default_title">保险库</string>
-	<string name="screen_file_browser_add_existing_vault_extra_text">请选择 Masterkey 文件</string>
+	<string name="screen_file_browser_add_existing_vault_extra_text">选择 Masterkey 或保险库文件</string>
 	<string name="screen_file_browser_create_new_vault_button_text">在此添加</string>
 	<string name="screen_file_browser_create_new_vault_extra_text">保险库名称：%1$s</string>
 	<plurals name="screen_file_browser_subtitle_move">
@@ -184,7 +213,7 @@
 	<string name="screen_settings_section_auto_photo_upload_including_videos">上传视频</string>
 	<string name="screen_settings_auto_photo_upload_title">保存自动上传文件到&#8230;</string>
 	<string name="screen_settings_website_label">官网</string>
-	<string name="screen_settings_twitter_label">关注推特</string>
+	<string name="screen_settings_mastodon_label">关注 Mastodon</string>
 	<string name="screen_settings_facebook_label">点赞脸书</string>
 	<string name="screen_settings_section_legal">法律条款</string>
 	<string name="screen_settings_licenses_label">许可证</string>
@@ -306,17 +335,17 @@
 	<string name="dialog_debug_mode_disclaimer_title">请注意</string>
 	<string name="dialog_debug_mode_positive_button">启用</string>
 	<string name="dialog_microsoft_workaround_disclaimer_hint">由于 Microsoft 应用中的 bug，要将文件共享到公共文件夹中才能对其进行编辑。一旦 Cryptomator 继续运行，可公开访问的相应文件将再次被删除，但 Cryptomator 无法影响此文件在此期间发生的情况。请确保您在激活此选项时了解此行为。该问题仅适用于 Microsoft 文件类型\n\nCryptomator 将在激活选项后重新启动</string>
-	<string name="dialog_disable_app_obscured_disclaimer_hint">此为一项安全功能，可防止其他应用诱使用户做出错误操作\n\n如果禁用，即表示您了解<a href="https://docs.cryptomator.org/en/1.6/android/settings/#block-app-when-obscured">其中风险</a></string>
+	<string name="dialog_disable_app_obscured_disclaimer_hint">此设置是一项安全功能，可防止其他应用程序诱骗用户进行他们不希望进行的操作。\n\n禁用此设置，即表示您确认<a href="https://docs.cryptomator.org/en/latest/android/settings/#block-app-when-obscured">已了解风险</a>。</string>
 	<string name="dialog_disable_app_obscured_disclaimer_title">请注意</string>
 	<string name="dialog_disable_app_obscured_positive_button">关闭</string>
 	<string name="dialog_app_is_obscured_info_title">应用被遮盖</string>
-	<string name="dialog_app_is_obscured_info_hint">另一应用遮盖了 Cryptomator (例如蓝光滤镜或夜间模式应用)。出于安全考虑，Cryptomator 已禁用。\n\n<a href="https://docs.cryptomator.org/en/1.6/android/settings/#block-app-when-obscured">如何启用 Cryptomator</a></string>
+	<string name="dialog_app_is_obscured_info_hint">另一个应用正在 Cryptomator 上显示某些内容(例如蓝光滤镜或夜间模式应用)。出于安全原因，Cryptomator 已停用。\n\n<a href="https://docs.cryptomator.org/en/latest/android/settings/#block-app-when-obscured">如何启用 Cryptomator</a></string>
 	<string name="dialog_app_is_obscured_info_neutral_button">关闭</string>
 	<string name="dialog_vaults_removed_during_migration_title">请重新添加 %1s 的保险库</string>
 	<string name="dialog_vaults_removed_during_migration_hint">在进行应用版本迁移前，我们需要从应用中移除下列保险库：\n%2s \n\n这些保险库并不会从云端移除，仅仅在当前应用的列表中移除。抱歉给您带来不便，请重新添加这些保险库以便继续使用它们。</string>
 	<string name="dialog_vault_is_root_folder_of_cloud_title">保险库是云端的根文件夹</string>
 	<string name="dialog_vault_is_root_folder_of_cloud_hint">创建一个新的云存储连接时，您至少需要选择这个保险库文件夹的父文件夹作为根目录来添加这个保险库。</string>
-	<string name="dialog_disable_secure_screen_disclaimer_hint">此为一项安全功能，可防止其他应用诱使用户做出错误操作。\n\n如果禁用，即表示您了解<a href="https://docs.cryptomator.org/en/1.6/android/settings/#screen-security">其中风险</a></string>
+	<string name="dialog_disable_secure_screen_disclaimer_hint">此设置是一项安全功能，可防止其他应用程序诱骗用户进行他们不希望进行的操作。\n\n禁用此设置，即表示您确认<a href="https://docs.cryptomator.org/en/latest/android/settings/#screen-security">已了解风险</a>。</string>
 	<string name="dialog_delete_cloud_connection_with_vaults_message">您确定要移除此云存储连接吗？</string>
 	<string name="dialog_delete_cloud_connection_with_vaults_hint">此操作将移除云存储连接以及与之相关的所有保险库。</string>
 	<string name="dialog_confirm_delete_multiple_title">删除 %1$d 项？</string>
@@ -342,12 +371,34 @@
 	<string name="dialog_download_update_message">正在下载最新版</string>
 	<string name="dialog_sym_link_title">文件夹是一个符号链接</string>
 	<string name="dialog_sym_link_message">您不能导航到此符号链接</string>
-	<string name="dialog_sym_link_back_button">返回</string>
+	<string name="dialog_sym_link_back_button">后退</string>
 	<string name="dialog_no_dir_file_title">无法加载目录内容</string>
 	<string name="dialog_no_dir_file_message">云文件夹 \'%1$s\' 没有有效的目录文件。可能文件夹是在另一设备上创建的，尚未完全同步到云端。请检查云端是否存在且不为空的以下文件：\n%2$s</string>
 	<string name="dialog_no_more_images_to_display">已到达文件夹末尾&#8230;</string>
 	<string name="dialog_pcloud_credentials_updated_title">\'%1$s\' 的证书已更新</string>
 	<string name="dialog_pcloud_credentials_updated">如果您打算添加一个新的 pCloud 账户，请点击此链接 <a href="https://www.pcloud.com">www.pcloud.com</a>，登出当前账户，然后点击此应用中的 \'+\' 来创建新的云连接</string>
+	<string name="dialog_cbc_password_vaults_migration_title">需要迁移保险库密码</string>
+	<string name="dialog_cbc_password_vaults_migration_hint">由于安全性能增强，每个保险库都会要求您进行两次生物识别验证，以重新加密您的保险库密码。这是继续使用最新技术保护您的保险库密码所必需的。如果您不希望这样做，存储的密码将被删除。</string>
+	<string name="dialog_cbc_password_vaults_migration_action">迁移</string>
+	<string name="dialog_create_hub_device_title">注册 Hub 设备</string>
+	<string name="dialog_create_hub_device_name_label">名称</string>
+	<string name="dialog_create_hub_device_name_hint">这似乎是设备的首次 Hub 访问。为了识别它以进行访问授权，您需要命名此设备</string>
+	<string name="dialog_create_hub_device_name_empty">名称不能为空</string>
+	<string name="dialog_create_hub_device_setup_code_label">账户密钥</string>
+	<string name="dialog_create_hub_device_setup_code_hint">从新应用或浏览器登录需要您的账户密钥，您可以在个人中心找到它</string>
+	<string name="dialog_create_hub_device_setup_code_empty">账户密钥不能为空</string>
+	<string name="dialog_progress_creating_hub_device_setup">正在创建设备&#8230;</string>
+	<string name="dialog_hub_vault_access_forbidden_title">拒绝访问</string>
+	<string name="dialog_hub_vault_access_forbidden_hint">您的用户尚未授权访问此保险库，请联系保险库所有者</string>
+	<string name="dialog_hub_license_upgrade_required_title">检查 Hub 许可证</string>
+	<string name="dialog_hub_license_upgrade_required_hint">此 Cryptomator Hub 实例许可证无效，请联系 Hub 管理员升级或者续订许可证</string>
+	<string name="dialog_hub_vault_archived_title">私密库已存档</string>
+	<string name="dialog_hub_vault_archived_hint">此保险库已存档且无法解锁。要想解锁，必须由其所有者取消存档</string>
+	<string name="dialog_restore_successful_title">恢复成功</string>
+	<string name="dialog_no_full_version_title">未购买完整版</string>
+	<string name="dialog_hub_user_setup_required_title">需要用户设置</string>
+	<string name="dialog_hub_user_setup_required_hint">要继续，请完成 Hub 用户中心所需的步骤</string>
+	<string name="dialog_hub_user_setup_required_neutral_button">前往个人中心</string>
 	<string name="permission_snackbar_auth_local_vault">Cryptomator 需要存储权限以使用本地保险库</string>
 	<string name="permission_snackbar_auth_auto_upload">Cryptomator 需要存储权限以自动上传图片</string>
 	<string name="permission_snackbar_notifications">Cryptomator 需要通知权限以显示保险库状态等</string>
@@ -394,7 +445,7 @@
 	<string name="notification_auto_upload_failed_due_to_folder_not_exists">所选文件夹无法再上传，请转到设置并选择一个新的文件夹</string>
 	<string name="notification_auto_upload_failed_due_to_vault_locked">上传期间保险库锁定了，请重新打开保险库以继续</string>
 	<string name="notification_auto_upload_failed_due_to_vault_not_found">用于自动上传的指定保险库已不存在。</string>
-	<string name="notification_auto_upload_failed_due_to_authentication_problem">轻触刷新身份验证</string>
+	<string name="notification_auto_upload_failed_due_to_authentication_problem">轻触刷新身份验证。</string>
 	<string name="notification_open_writable_file_title">打开可写文件</string>
 	<string name="notification_open_writable_file_message">编辑期间保险库保持解锁</string>
 	<string name="notification_update_check_finished_latest">已安装最新版本</string>
@@ -404,8 +455,11 @@
 	<string name="screen_settings_lru_cache_size">缓存总大小</string>
 	<string name="screen_settings_clear_lru_cache_size">清除缓存</string>
 	<string name="screen_settings_lru_cache_changed__restart_toast">更改将在下次应用重启时生效</string>
-	<string name="screen_settings_license">已授权给</string>
+	<string name="screen_settings_license_title_unlock">解锁完整版</string>
 	<string name="screen_settings_license_mail">%1$s</string>
+	<string name="screen_settings_manage_subscription">管理订阅</string>
+	<string name="screen_settings_upgrade_to_lifetime">升级到终生版</string>
+	<string name="dialog_trial_expired_unlock">解锁完整版</string>
 	<string name="dialog_settings_update_check_interval_title">更新检查频率</string>
 	<string name="screen_settings_check_updates">检查更新</string>
 	<string name="screen_settings_last_check_updates">上次检查 %1$s</string>

@@ -27,7 +27,7 @@ class NetworkConnectionCheck @Inject internal constructor(private val context: C
 
 	fun checkWifiOnAndConnected(): Boolean {
 		val connectivityManager = context.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
-			val activeNetwork = connectivityManager.activeNetwork
-			return connectivityManager.getNetworkCapabilities(activeNetwork)?.hasTransport(NetworkCapabilities.TRANSPORT_WIFI) == true
+		val activeNetwork = connectivityManager.activeNetwork
+		return connectivityManager.getNetworkCapabilities(activeNetwork)?.hasTransport(NetworkCapabilities.TRANSPORT_WIFI) == true
 	}
 }

@@ -7,7 +7,7 @@ internal object S3CloudNodeFactory {
 	private const val DELIMITER = "/"
 
 	fun file(parent: S3Folder, name: String): S3File {
-		return S3File(parent, name, getNodePath(parent, name), null,  null)
+		return S3File(parent, name, getNodePath(parent, name), null, null)
 	}
 
 	fun file(parent: S3Folder, name: String, size: Long?): S3File {

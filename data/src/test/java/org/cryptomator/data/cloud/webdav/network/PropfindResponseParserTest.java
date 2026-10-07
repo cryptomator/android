@@ -18,7 +18,6 @@ import java.util.Comparator;
 import java.util.Date;
 import java.util.List;
 
-import static java.util.Collections.sort;
 import static org.cryptomator.data.cloud.CloudFileMatcher.cloudFile;
 import static org.cryptomator.data.cloud.CloudFolderMatcher.cloudFolder;
 import static org.hamcrest.CoreMatchers.is;
@@ -26,6 +25,7 @@ import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.containsInAnyOrder;
 import static org.hamcrest.Matchers.emptyCollectionOf;
 import static org.hamcrest.collection.IsIterableContainingInOrder.contains;
+import static java.util.Collections.sort;
 
 @Disabled
 public class PropfindResponseParserTest {

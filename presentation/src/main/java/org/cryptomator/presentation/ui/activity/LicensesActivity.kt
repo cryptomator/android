@@ -2,18 +2,18 @@ package org.cryptomator.presentation.ui.activity
 
 import org.cryptomator.generator.Activity
 import org.cryptomator.presentation.R
-import kotlinx.android.synthetic.main.toolbar_layout.toolbar
+import org.cryptomator.presentation.databinding.ActivityLicensesBinding
 
-@Activity(layout = R.layout.activity_licenses)
-class LicensesActivity : BaseActivity() {
+@Activity
+class LicensesActivity : BaseActivity<ActivityLicensesBinding>(ActivityLicensesBinding::inflate) {
 
 	override fun setupView() {
 		setupToolbar()
 	}
 
 	private fun setupToolbar() {
-		toolbar.setTitle(R.string.screen_licenses_title)
-		setSupportActionBar(toolbar)
+		binding.mtToolbar.toolbar.setTitle(R.string.screen_licenses_title)
+		setSupportActionBar(binding.mtToolbar.toolbar)
 	}
 
 }

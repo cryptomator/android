@@ -20,8 +20,7 @@ public class CloudContentRepositoryFactories implements Iterable<CloudContentRep
 	private final Iterable<CloudContentRepositoryFactory> factories;
 
 	@Inject
-	public CloudContentRepositoryFactories(
-			S3CloudContentRepositoryFactory s3Factory, //
+	public CloudContentRepositoryFactories(S3CloudContentRepositoryFactory s3Factory, //
 			CryptoCloudContentRepositoryFactory cryptoFactory, //
 			LocalStorageContentRepositoryFactory localStorageFactory, //
 			WebDavCloudContentRepositoryFactory webDavFactory) {

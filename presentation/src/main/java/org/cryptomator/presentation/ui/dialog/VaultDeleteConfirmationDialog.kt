@@ -6,10 +6,11 @@ import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.DialogFragment
 import org.cryptomator.generator.Dialog
 import org.cryptomator.presentation.R
+import org.cryptomator.presentation.databinding.DialogVaultDeleteConfirmationBinding
 import org.cryptomator.presentation.model.VaultModel
 
-@Dialog(R.layout.dialog_vault_delete_confirmation)
-class VaultDeleteConfirmationDialog : BaseDialog<VaultDeleteConfirmationDialog.Callback>() {
+@Dialog
+class VaultDeleteConfirmationDialog : BaseDialog<VaultDeleteConfirmationDialog.Callback, DialogVaultDeleteConfirmationBinding>(DialogVaultDeleteConfirmationBinding::inflate) {
 
 	interface Callback {
 

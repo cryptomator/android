@@ -1,5 +1,7 @@
 package org.cryptomator.domain;
 
+import org.cryptomator.util.crypto.CryptoMode;
+
 import java.io.Serializable;
 
 public class Vault implements Serializable {
@@ -12,9 +14,12 @@ public class Vault implements Serializable {
 	private final CloudType cloudType;
 	private final boolean unlocked;
 	private final String password;
+	private final CryptoMode passwordCryptoMode;
 	private final int format;
 	private final int shorteningThreshold;
 	private final int position;
+	private final boolean hubVault;
+	private final boolean hubPaidLicense;
 
 	private Vault(Builder builder) {
 		this.id = builder.id;
@@ -24,9 +29,12 @@ public class Vault implements Serializable {
 		this.unlocked = builder.unlocked;
 		this.cloudType = builder.cloudType;
 		this.password = builder.password;
+		this.passwordCryptoMode = builder.passwordCryptoMode;
 		this.format = builder.format;
 		this.shorteningThreshold = builder.shorteningThreshold;
 		this.position = builder.position;
+		this.hubVault = builder.hubVault;
+		this.hubPaidLicense = builder.hubPaidLicense;
 	}
 
 	public static Builder aVault() {
@@ -41,10 +49,12 @@ public class Vault implements Serializable {
 				.withName(vault.getName()) //
 				.withPath(vault.getPath()) //
 				.withUnlocked(vault.isUnlocked()) //
-				.withSavedPassword(vault.getPassword()) //
+				.withSavedPassword(vault.getPassword(), vault.getPasswordCryptoMode()) //
 				.withFormat(vault.getFormat()) //
 				.withShorteningThreshold(vault.getShorteningThreshold()) //
-				.withPosition(vault.getPosition());
+				.withPosition(vault.getPosition()) //
+				.withHubVault(vault.isHubVault()) //
+				.withHubPaidLicense(vault.hasHubPaidLicense());
 	}
 
 	public Long getId() {
@@ -75,6 +85,10 @@ public class Vault implements Serializable {
 		return password;
 	}
 
+	public CryptoMode getPasswordCryptoMode() {
+		return passwordCryptoMode;
+	}
+
 	public int getFormat() {
 		return format;
 	}
@@ -89,6 +103,14 @@ public class Vault implements Serializable {
 
 	public boolean isReadOnly() {
 		return false; //TODO Implement read-only check
+	}
+
+	public boolean isHubVault() {
+		return hubVault;
+	}
+
+	public boolean hasHubPaidLicense() {
+		return hubPaidLicense;
 	}
 
 	@Override
@@ -120,9 +142,12 @@ public class Vault implements Serializable {
 		private CloudType cloudType;
 		private boolean unlocked;
 		private String password;
+		private CryptoMode passwordCryptoMode;
 		private int format = -1;
 		private int shorteningThreshold = -1;
 		private int position = -1;
+		private boolean hubVault;
+		private boolean hubPaidLicense;
 
 		private Builder() {
 		}
@@ -183,8 +208,9 @@ public class Vault implements Serializable {
 			return this;
 		}
 
-		public Builder withSavedPassword(String password) {
+		public Builder withSavedPassword(String password, CryptoMode cryptoMode) {
 			this.password = password;
+			this.passwordCryptoMode = cryptoMode;
 			return this;
 		}
 
@@ -195,6 +221,16 @@ public class Vault implements Serializable {
 
 		public Builder withShorteningThreshold(int shorteningThreshold) {
 			this.shorteningThreshold = shorteningThreshold;
+			return this;
+		}
+
+		public Builder withHubPaidLicense(boolean hubPaidLicense) {
+			this.hubPaidLicense = hubPaidLicense;
+			return this;
+		}
+
+		public Builder withHubVault(boolean hubVault) {
+			this.hubVault = hubVault;
 			return this;
 		}
 
@@ -223,6 +259,12 @@ public class Vault implements Serializable {
 			}
 			if (position == -1) {
 				throw new IllegalStateException("position must be set");
+			}
+			if (password != null && passwordCryptoMode == null) {
+				throw new IllegalStateException("passwordCryptoMode must be set if password is set");
+			}
+			if (passwordCryptoMode != null && password == null) {
+				throw new IllegalStateException("password must be set if passwordCryptoMode is set");
 			}
 		}
 	}

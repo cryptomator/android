@@ -35,6 +35,29 @@
 	<string name="error_no_such_bucket">Hakuna ndoo ya utafutaji</string>
 	<string name="error_masterkey_location_not_supported">Mahali maalumu pa Masterkey bado haijategemezwa bado</string>
 	<string name="error_interact_with_fdroid_but_fdroid_missing">Imeshindwa kuwasiliana na programu ya F-Droid. Je, haijasakinishwa?</string>
+	<!-- # read-only & purchases -->
+	<string name="screen_license_check_benefit_family_sharing">Kushiriki kwa familia</string>
+	<string name="screen_license_check_benefit_write_access">Andika ufikiaji wa kuba zako</string>
+	<string name="screen_license_check_benefit_support">Maendeleo ya chanzo-wazi</string>
+	<string name="screen_license_check_title_full_version">Fungua Toleo Kamili</string>
+	<string name="screen_license_check_trial_title">Jaribio la Siku-30</string>
+	<string name="screen_license_check_trial_price">Bure</string>
+	<string name="screen_license_check_trial_subtitle">kwa siku 30</string>
+	<string name="screen_license_check_subscription_title">Usajili wa Kila Mwaka</string>
+	<string name="screen_license_check_subscription_subtitle">kila mwaka</string>
+	<string name="screen_license_check_lifetime_title">Leseni ya Maisha</string>
+	<string name="screen_license_check_lifetime_subtitle">wakati-mmoja</string>
+	<string name="screen_license_check_restore_purchase">Rejesha Ununuzi</string>
+	<string name="screen_license_check_terms">Masharti ya Matumizi</string>
+	<string name="screen_license_check_privacy">Sera ya Faragha</string>
+	<string name="screen_license_check_trial_status_active">Amilifu</string>
+	<string name="screen_license_check_trial_status_expired">Imeisha muda wake</string>
+	<string name="screen_license_check_trial_expired_info">Jaribu lako limeisha.</string>
+	<string name="screen_welcome_title">Karibu</string>
+	<string name="screen_welcome_continue_button">Endelea</string>
+	<string name="screen_welcome_screen_lock_button">Weka kufuli skrini</string>
+	<string name="next">Nyingine</string>
+	<string name="back">Rudi</string>
 	<!-- # clouds -->
 	<!-- ## cloud names -->
 	<string name="cloud_names_local_storage">Hifadhi ya ndani</string>
@@ -67,7 +90,6 @@
 	<string name="screen_vault_list_change_password_successful">Neno la siri limebadilishwa kwa ufanisi</string>
 	<!-- # screen: file browser -->
 	<string name="screen_file_browser_default_title">Kuba</string>
-	<string name="screen_file_browser_add_existing_vault_extra_text">Teua faili ya masterkey</string>
 	<string name="screen_file_browser_create_new_vault_button_text">Weka hapa</string>
 	<string name="screen_file_browser_create_new_vault_extra_text">Jina la kuba: %1$s</string>
 	<string name="screen_file_browser_move_button_text">Hamisha</string>
@@ -181,7 +203,6 @@
 	<string name="screen_settings_section_auto_photo_upload_including_videos">Pakia video</string>
 	<string name="screen_settings_auto_photo_upload_title">Hifadhi faili za kupakia kiotomatiki kwenye &#8230;</string>
 	<string name="screen_settings_website_label">Tovuti ya Cryptomator</string>
-	<string name="screen_settings_twitter_label">Tufuate kwenye Twitter</string>
 	<string name="screen_settings_facebook_label">Tupende sisi kwenye Facebook</string>
 	<string name="screen_settings_section_legal">Kisheria</string>
 	<string name="screen_settings_licenses_label">Leseni</string>
@@ -300,17 +321,14 @@
 	<string name="dialog_debug_mode_disclaimer_hint">Katika hali hii, data nyeti inaweza kuandikwa kwa faili ya kumbukumbu kwenye kifaa chako (kwa mfano, majina ya faili na njia). Nywila, vidakuzi, n.k. zimetengwa wazi.\n\nKukumbuka ili kuzima hali ya utatuzi haraka iwezekanavyo.</string>
 	<string name="dialog_debug_mode_disclaimer_title">Makini</string>
 	<string name="dialog_debug_mode_positive_button">Wezesha</string>
-	<string name="dialog_disable_app_obscured_disclaimer_hint">Mipangilio hii ni kipengele cha usalama na huzuia programu nyingine kuwahadaa watumiaji kufanya mambo ambayo hawataki kufanya.\n\nKwa kuzima, unathibitisha kuwa wewe ni <a href="https://docs.cryptomator.org /sw/1.6/android/settings/#block-app-when-obscured">fahamu kuhusu hatari</a>.</string>
 	<string name="dialog_disable_app_obscured_disclaimer_title">Makini</string>
 	<string name="dialog_disable_app_obscured_positive_button">Lemaza</string>
 	<string name="dialog_app_is_obscured_info_title">Programu imefichwa</string>
-	<string name="dialog_app_is_obscured_info_hint">Programu nyingine inaonyesha kitu juu ya Cryptomator (k.m., kichujio cha mwanga wa bluu au programu ya hali ya usiku). Kwa sababu za usalama, Cryptomator imezimwa.\n\n&lt;a href="https://docs.cryptomator.org/en/1.6/android/settings/#block-app-when-obscured"&gt;Jinsi ya kuwezesha Cryptomator&lt; /a&gt;</string>
 	<string name="dialog_app_is_obscured_info_neutral_button">Funga</string>
 	<string name="dialog_vaults_removed_during_migration_title">Tafadhali ongeza tena kuba kwa %1s wingu</string>
 	<string name="dialog_vaults_removed_during_migration_hint">Wakati wa kuhamia kwenye toleo hili la programu tunahitaji kuondoa vaults zifuatazo kutoka kwa programu:\n%2s \n\nKuboreshaji hazijaondolewa kwenye wingu lakini tu kutoka kwa programu hii. Samahani kwa usumbufu na tafadhali ongeza tena vaults hizi ili kuendelea kufanya kazi nao.</string>
 	<string name="dialog_vault_is_root_folder_of_cloud_title">Kuba ni folda ya mizizi ya muunganisho wa wingu</string>
 	<string name="dialog_vault_is_root_folder_of_cloud_hint">Unda muunganisho mpya wa wingu ambapo unachagua angalau folda kuu ya folda hii ya kuba kama saraka ya mizizi ili kuongeza kuba hii.</string>
-	<string name="dialog_disable_secure_screen_disclaimer_hint">Mipangilio hii ni kipengele cha usalama na huzuia programu nyingine kuwahadaa watumiaji kufanya mambo ambayo hawataki kufanya.\n\nKwa kuzima, unathibitisha kuwa wewe ni <a href="https://docs.cryptomator.org /sw/1.6/android/settings/#screen-security">kufahamu hatari</a>.</string>
 	<string name="dialog_delete_cloud_connection_with_vaults_message">Una hakika unataka kuondoa muunganisho huu wa wingu?</string>
 	<string name="dialog_delete_cloud_connection_with_vaults_hint">Hatua hii itaondoa unganisho la wingu na kuba zote za wingu hili.</string>
 	<string name="dialog_confirm_delete_multiple_title">Futa %1$d vipengee?</string>
@@ -342,6 +360,9 @@
 	<string name="dialog_no_more_images_to_display">Hakuna picha zaidi za kuonyesha&#8230;</string>
 	<string name="dialog_pcloud_credentials_updated_title">Hati za utambulisho za \'%1$s\' zimesasishwa</string>
 	<string name="dialog_pcloud_credentials_updated">Ikiwa ulitaka kuongeza akaunti mpya ya pCloud, gusa url hii <a href="https://www.pcloud.com">www.pcloud.com</a>, ondoka kwenye akaunti ya sasa na uguse tena \'+\' katika programu hii ili kuunda muunganisho mpya wa wingu.</string>
+	<string name="dialog_hub_vault_access_forbidden_title">Ufikiaji umekataliwa</string>
+	<string name="dialog_restore_successful_title">Urejeshi Imefanikiwa</string>
+	<string name="dialog_no_full_version_title">Hakuna Toleo Kamili</string>
 	<string name="permission_snackbar_auth_local_vault">Cryptomator inahitaji ufikiaji wa kuhifadhi ili kutumia kuba za ndani</string>
 	<string name="permission_snackbar_auth_auto_upload">Cryptomator inahitaji ufikiaji wa kuhifadhi ili kutumia upakiaji wa picha kiotomatiki</string>
 	<string name="permission_snackbar_notifications">Cryptomator inahitaji ruhusa za taarifa ili kuonyesha hali ya kuba kwa mfano</string>
@@ -397,8 +418,10 @@
 	<string name="screen_settings_lru_cache_size">Ukubwa wa jumla wa kache</string>
 	<string name="screen_settings_clear_lru_cache_size">Ondoa Kache</string>
 	<string name="screen_settings_lru_cache_changed__restart_toast">Mabadiliko yatatekelezwa kwenye uanzishaji upya wa programu inayofuata</string>
-	<string name="screen_settings_license">Imesajiliwa kwa ajili ya</string>
+	<string name="screen_settings_license_title_unlock">Fungua Toleo Kamili</string>
 	<string name="screen_settings_license_mail">%1$s</string>
+	<string name="screen_settings_manage_subscription">Simamia Usajili</string>
+	<string name="dialog_trial_expired_unlock">Fungua Toleo Kamili</string>
 	<string name="dialog_settings_update_check_interval_title">Sasisha muda wa ukaguzi</string>
 	<string name="screen_settings_check_updates">Kagua sasishi</string>
 	<string name="screen_settings_last_check_updates">Endesha mwisho%1$s</string>

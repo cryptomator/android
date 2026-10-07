@@ -7,6 +7,7 @@
 	<string name="error_authentication_failed">Autentisering misslyckades</string>
 	<string name="error_authentication_failed_re_authenticate">Autentisering misslyckades, vänligen logga in med %1$s</string>
 	<string name="error_no_network_connection">Ingen nätverksanslutning</string>
+	<string name="error_purchase_not_available">Köp är inte tillgängligt. Försök igen senare.</string>
 	<string name="error_invalid_passphrase">Felaktigt lösenord</string>
 	<string name="error_file_or_folder_exists">Filen eller katalogen finns redan.</string>
 	<string name="error_vault_version_not_supported">Valv-version %1$s stöds inte. Detta valv har skapats med en äldre eller nyare version av Cryptomator.</string>
@@ -35,6 +36,39 @@
 	<string name="error_no_such_bucket">Ingen sådan bucket</string>
 	<string name="error_masterkey_location_not_supported">Anpassad Masterkey-plats stöds inte ännu</string>
 	<string name="error_interact_with_fdroid_but_fdroid_missing">Det gick inte att kommunicera med F-Droid-appen. Inte installerad?</string>
+	<string name="error_hub_vault_operation_not_supported">Valvoperation stöds inte för Hub</string>
+	<string name="error_hub_authentication_failed">Autentisering mot Hub misslyckades</string>
+	<string name="error_hub_device_already_register_for_other_user">Denna enhet är redan registrerad för en annan användare. Försök att ändra användarkontot eller använda en annan enhet.</string>
+	<string name="error_hub_invalid_setup_code">Kontonyckeln är ogiltig.</string>
+	<string name="error_hub_invalid_version">Hub-versionen stöds inte.</string>
+	<string name="error_hub_unlock_pre_31">Cryptomator navet stöds endast på Android 12 och senare.</string>
+	<!-- # read-only & purchases -->
+	<string name="read_only_reason_hub_inactive">Uppgradera din Hub-licens för att möjliggöra skrivning till detta valv.</string>
+	<string name="toast_purchase_revoked_refunded">Ditt livstidsköp har återbetalats. Du har nu skrivskyddad tillgång.</string>
+	<string name="toast_purchase_revoked_subscription_inactive">Din prenumeration är inte längre aktiv. Du har nu skrivskyddad åtkomst.</string>
+	<string name="screen_license_check_locked_create_vault">Köp fullversionen för att skapa valv</string>
+	<string name="screen_license_check_benefit_family_sharing">Familjedelning</string>
+	<string name="screen_license_check_benefit_write_access">Skriv-åtkomst till dina valv</string>
+	<string name="screen_license_check_benefit_support">Utveckling av öppen källkod</string>
+	<string name="screen_license_check_title_full_version">Lås upp fullversion</string>
+	<string name="screen_license_check_trial_title">30-dagars provperiod</string>
+	<string name="screen_license_check_trial_price">Gratis</string>
+	<string name="screen_license_check_trial_subtitle">i 30 dagar</string>
+	<string name="screen_license_check_subscription_title">Årsprenumeration</string>
+	<string name="screen_license_check_subscription_subtitle">årligen</string>
+	<string name="screen_license_check_lifetime_title">Livstids-licens</string>
+	<string name="screen_license_check_lifetime_subtitle">en-gångs</string>
+	<string name="screen_license_check_restore_purchase">Återställ köp</string>
+	<string name="screen_license_check_terms">Villkor</string>
+	<string name="screen_license_check_privacy">Integritetspolicy</string>
+	<string name="screen_license_check_trial_status_active">Aktiv</string>
+	<string name="screen_license_check_trial_status_expired">Upphört</string>
+	<string name="screen_license_check_trial_expired_info">Testperioden är slut.</string>
+	<string name="screen_welcome_title">Välkommen</string>
+	<string name="screen_welcome_continue_button">Fortsätt</string>
+	<string name="screen_welcome_screen_lock_button">Ställ in skärmlås</string>
+	<string name="next">Nästa</string>
+	<string name="back">Bakåt</string>
 	<!-- # clouds -->
 	<!-- ## cloud names -->
 	<string name="cloud_names_local_storage">Lokal lagring</string>
@@ -67,7 +101,7 @@
 	<string name="screen_vault_list_change_password_successful">Lösenordet har ändrats</string>
 	<!-- # screen: file browser -->
 	<string name="screen_file_browser_default_title">Valv</string>
-	<string name="screen_file_browser_add_existing_vault_extra_text">Välj Masterkey-fil</string>
+	<string name="screen_file_browser_add_existing_vault_extra_text">Välj masterkey eller valvfil</string>
 	<string name="screen_file_browser_create_new_vault_button_text">Placera här</string>
 	<string name="screen_file_browser_create_new_vault_extra_text">Valvets namn: %1$s</string>
 	<plurals name="screen_file_browser_subtitle_move">
@@ -185,7 +219,7 @@
 	<string name="screen_settings_section_auto_photo_upload_including_videos">Ladda upp video</string>
 	<string name="screen_settings_auto_photo_upload_title">Spara automatiskt uppladdade filer till&#8230;</string>
 	<string name="screen_settings_website_label">Cryptomator webbplats</string>
-	<string name="screen_settings_twitter_label">Följ oss på Twitter</string>
+	<string name="screen_settings_mastodon_label">Följ oss på Mastodon</string>
 	<string name="screen_settings_facebook_label">Gilla oss på Facebook</string>
 	<string name="screen_settings_section_legal">Juridiskt</string>
 	<string name="screen_settings_licenses_label">Licenser</string>
@@ -198,6 +232,8 @@
 	<string name="screen_settings_security_label">Säkerhetstips</string>
 	<string name="screen_settings_section_version">Version</string>
 	<string name="screen_settings_advanced_settings">Avancerade inställningar</string>
+	<string name="screen_settings_microsoft_apps_workaround_label">Alternativt sätt att öppna Microsoft-filer</string>
+	<string name="screen_settings_microsoft_apps_workaround_summary">Öppna filer i Microsoft-appar med skrivrättigheter</string>
 	<string name="screen_settings_background_unlock_preparation_label">Accelerera upplåsning</string>
 	<string name="screen_settings_background_unlock_preparation_label_summary">Ladda ner valvkonfiguration i bakgrunden medan du uppmanas att låsa upp</string>
 	<string name="screen_settings_keep_unlocked_while_editing_files">Behåll olåst</string>
@@ -304,17 +340,18 @@
 	<string name="dialog_debug_mode_disclaimer_hint">I detta läge kan känsliga data skrivas till en loggfil på din enhet (t.ex. filnamn och sökvägar). Lösenord, cookies etc. är uttryckligen uteslutna.\n\nKom ihåg att inaktivera felsökningsläge så snart som möjligt.</string>
 	<string name="dialog_debug_mode_disclaimer_title">Observera</string>
 	<string name="dialog_debug_mode_positive_button">Aktivera</string>
-	<string name="dialog_disable_app_obscured_disclaimer_hint">Den här inställningen är en säkerhetsfunktion som hindrar andra appar från att lura användare att göra saker de inte vill.\n\nGenom att stänga av säkerhetsfunktionen bekräftar du att du är <a href="https://docs.cryptomator.org/en/1.6/android/settings/#block-app-when-obscured">medveten om riskerna</a>.</string>
+	<string name="dialog_microsoft_workaround_disclaimer_hint">På grund av ett fel i Microsoft-appar, måste filen som ska redigeras delas med dessa appar i en offentlig mediemapp på din enhet. Efter att Cryptomator återupptas raderas den allmänt tillgängliga filen igen, men Cryptomator kan inte påverka vad som har hänt med filen under tiden. Det är viktigt att du är medveten om detta beteende när du aktiverar detta alternativ. Detta kommer endast att gälla för Microsoft filtyper.\n\nCryptomator startar om efter aktivering.</string>
+	<string name="dialog_disable_app_obscured_disclaimer_hint">Den här inställningen är en säkerhetsfunktion som hindrar andra appar från att lura användare att göra saker de inte vill.\n\nGenom att stänga av säkerhetsfunktionen bekräftar du att du är <a href="https://docs.cryptomator.org/en/latest/android/settings/#block-app-when-obscured">medveten om riskerna</a>.</string>
 	<string name="dialog_disable_app_obscured_disclaimer_title">Observera</string>
 	<string name="dialog_disable_app_obscured_positive_button">Inaktivera</string>
 	<string name="dialog_app_is_obscured_info_title">Appen är täckt</string>
-	<string name="dialog_app_is_obscured_info_hint">Ett annat program visar något ovanpå Cryptomator (t.ex. ett blått ljusfilter eller nattläge app). Av säkerhetsskäl är Cryptomator inaktiverad.\n\n<a href="https://docs.cryptomator.org/en/1.6/android/settings/#block-app-when-obscured">Så här aktiverar du Cryptomator</a></string>
+	<string name="dialog_app_is_obscured_info_hint">Ett annat program visar något ovanpå Cryptomator (t.ex. ett blåljusfilter eller en app för nattläge). Av säkerhetsskäl är Cryptomator inaktiverad.\n\n<a href="https://docs.cryptomator.org/en/latest/android/settings/#block-app-when-obscured">Så här aktiverar du Cryptomator</a></string>
 	<string name="dialog_app_is_obscured_info_neutral_button">Stäng</string>
 	<string name="dialog_vaults_removed_during_migration_title">Vänligen lägg till valv igen för %1s molnet</string>
 	<string name="dialog_vaults_removed_during_migration_hint">Medan vi migrerar till den här appversionen måste vi ta bort följande valv från appen:\n%2s \n\nDessa valv tas inte bort från molnet utan endast från den här appen. Ledsen för besväret. Du lägger sedan till dessa valv igen för att fortsätta arbeta med dem.</string>
 	<string name="dialog_vault_is_root_folder_of_cloud_title">Valvet är rotmapp för molnanslutningen</string>
 	<string name="dialog_vault_is_root_folder_of_cloud_hint">Skapa en ny molnanslutning där du väljer minst den överordnade mappen i denna valvkatalog som rotkatalog för att lägga till valvet.</string>
-	<string name="dialog_disable_secure_screen_disclaimer_hint">Den här inställningen är en säkerhetsfunktion som hindrar andra appar från att lura användare att göra saker de inte vill.\n\nGenom att stänga av säkerhetsfunktionen bekräftar du att du är <a href="https://docs.cryptomator.org/en/1.6/android/settings/#screen-security">medveten om riskerna</a>.</string>
+	<string name="dialog_disable_secure_screen_disclaimer_hint">Den här inställningen är en säkerhetsfunktion som hindrar andra appar från att lura användare att göra saker de inte vill.\n\nGenom att stänga av säkerhetsfunktionen bekräftar du att du är <a href="https://docs.cryptomator.org/en/latest/android/settings/#screen-security">medveten om riskerna</a>.</string>
 	<string name="dialog_delete_cloud_connection_with_vaults_message">Är du säker på att du vill ta bort den här molnanslutningen?</string>
 	<string name="dialog_delete_cloud_connection_with_vaults_hint">Denna åtgärd kommer att ta bort molnanslutningen och alla valv i detta moln.</string>
 	<string name="dialog_confirm_delete_multiple_title">Ta bort %1$d objekt?</string>
@@ -346,6 +383,28 @@
 	<string name="dialog_no_more_images_to_display">Inga fler bilder att visa&#8230;</string>
 	<string name="dialog_pcloud_credentials_updated_title">Användaruppgifter för \'%1$s\' uppdaterad</string>
 	<string name="dialog_pcloud_credentials_updated">Om du avsåg att lägga till ett nytt pCloud-konto, tryck på denna url <a href="https://www.pcloud.com">www.pcloud.com</a>, logga ut från det nuvarande kontot och tryck igen på \'+\' i den här appen för att skapa en ny molnanslutning.</string>
+	<string name="dialog_cbc_password_vaults_migration_title">Lösenorden behöver överföras till nya valvet</string>
+	<string name="dialog_cbc_password_vaults_migration_hint">På grund av säkerhetsförbättringar kommer du att bli ombedd att använda din biometriska autentisering två gånger för varje valv för att omkryptera dina valvlösenord. Detta är nödvändigt för att fortsätta att skydda ditt valv lösenord med den senaste tekniken. Om du inte vill att detta ska ske kommer de sparade lösenorden att tas bort.</string>
+	<string name="dialog_cbc_password_vaults_migration_action">Migrera</string>
+	<string name="dialog_create_hub_device_title">Registrera navenhet</string>
+	<string name="dialog_create_hub_device_name_label">Namn</string>
+	<string name="dialog_create_hub_device_name_hint">Detta verkar vara den första Hub-åtkomsten från den här enheten. För att identifiera den för åtkomstbehörighet, måste du namnge den här enheten.</string>
+	<string name="dialog_create_hub_device_name_empty">Namnet kan inte vara tomt.</string>
+	<string name="dialog_create_hub_device_setup_code_label">Konto nyckel</string>
+	<string name="dialog_create_hub_device_setup_code_hint">Din kontonyckel krävs för att logga in från nya appar eller webbläsare. Den finns i din profil.</string>
+	<string name="dialog_create_hub_device_setup_code_empty">Kontonyckeln kan inte vara tom.</string>
+	<string name="dialog_progress_creating_hub_device_setup">Skapar enhet&#8230;</string>
+	<string name="dialog_hub_vault_access_forbidden_title">Åtkomst nekad</string>
+	<string name="dialog_hub_vault_access_forbidden_hint">Din användare har ännu inte behörighet att komma åt detta valv. Be valvägaren att auktorisera det.\"</string>
+	<string name="dialog_hub_license_upgrade_required_title">Kontrollera navlicens</string>
+	<string name="dialog_hub_license_upgrade_required_hint">Din Cryptomator Hub-instans har en ogiltig licens. Vänligen informera en Hub administratör för att uppgradera eller förnya licensen.\"</string>
+	<string name="dialog_hub_vault_archived_title">Valvet arkiverades</string>
+	<string name="dialog_hub_vault_archived_hint">Detta valv är arkiverat och kan inte låsas upp. För att låsa upp det måste valvägaren avarkivera det.</string>
+	<string name="dialog_restore_successful_title">Återställning lyckades</string>
+	<string name="dialog_no_full_version_title">Ingen fullversion</string>
+	<string name="dialog_hub_user_setup_required_title">Användarkonfiguration krävs</string>
+	<string name="dialog_hub_user_setup_required_hint">För att fortsätta, vänligen fyll i de steg som krävs i din Hub-användarprofil.</string>
+	<string name="dialog_hub_user_setup_required_neutral_button">Gå till profil</string>
 	<string name="permission_snackbar_auth_local_vault">Cryptomator behöver åtkomst till lagringsutrymmet för att använda lokala valv</string>
 	<string name="permission_snackbar_auth_auto_upload">Cryptomator behöver åtkomst till lagringsutrymmet för att kunna använda automatisk uppladdning av foton</string>
 	<string name="permission_snackbar_notifications">Cryptomator behöver aviseringsbehörigheter för att till exempel visa valvstatus</string>
@@ -392,6 +451,7 @@
 	<string name="notification_auto_upload_failed_due_to_folder_not_exists">Vald mapp för uppladdning finns inte längre. Gå till inställningar och välj en ny</string>
 	<string name="notification_auto_upload_failed_due_to_vault_locked">Valv låstes under uppladdningen, vänligen öppna valvet för att fortsätta</string>
 	<string name="notification_auto_upload_failed_due_to_vault_not_found">Valvet som angets för automatisk uppladdning finns inte längre.</string>
+	<string name="notification_auto_upload_failed_due_to_authentication_problem">Tryck för att förnya inloggningen.</string>
 	<string name="notification_open_writable_file_title">Öppna skrivbar fil</string>
 	<string name="notification_open_writable_file_message">Valvet är upplåst till färdig redigering</string>
 	<string name="notification_update_check_finished_latest">Senaste versionen installerad</string>
@@ -401,8 +461,10 @@
 	<string name="screen_settings_lru_cache_size">Total cachestorlek</string>
 	<string name="screen_settings_clear_lru_cache_size">Rensa cachen</string>
 	<string name="screen_settings_lru_cache_changed__restart_toast">Ändringar kommer att tillämpas vid omstart av appen</string>
-	<string name="screen_settings_license">Registrerad till</string>
+	<string name="screen_settings_license_title_unlock">Lås upp fullversion</string>
 	<string name="screen_settings_license_mail">%1$s</string>
+	<string name="screen_settings_manage_subscription">Hantera prenumeration</string>
+	<string name="dialog_trial_expired_unlock">Lås upp fullversion</string>
 	<string name="dialog_settings_update_check_interval_title">Uppdateringsintervall</string>
 	<string name="screen_settings_check_updates">Sök efter uppdateringar</string>
 	<string name="screen_settings_last_check_updates">Senaste körning %1$s</string>

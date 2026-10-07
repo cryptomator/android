@@ -7,12 +7,13 @@ import android.widget.Toast
 import org.cryptomator.generator.Activity
 import org.cryptomator.presentation.BuildConfig
 import org.cryptomator.presentation.R
+import org.cryptomator.presentation.databinding.ActivityLayoutBinding
 import org.cryptomator.presentation.presenter.CloudConnectionListPresenter
 import java.util.TreeMap
 import timber.log.Timber
 
 @Activity
-class AuthenticatePCloudActivity : BaseActivity() {
+class AuthenticatePCloudActivity : BaseActivity<ActivityLayoutBinding>(ActivityLayoutBinding::inflate) {
 
 	private val startAuthenticationRequestCode = 1232
 	private val redirectTimeoutAfterAuthenticationAndResumed = 1000L

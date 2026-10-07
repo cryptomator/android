@@ -18,6 +18,7 @@ internal open class S3Folder(override val parent: S3Folder?, override val name: 
 	}
 
 	companion object {
+
 		private const val DELIMITER = "/"
 	}
 }

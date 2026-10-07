@@ -1,9 +1,5 @@
 package org.cryptomator.generator.utils;
 
-import static javax.lang.model.element.ElementKind.FIELD;
-import static javax.lang.model.type.TypeKind.ARRAY;
-import static javax.lang.model.type.TypeKind.NONE;
-
 import java.util.Comparator;
 import java.util.Optional;
 import java.util.stream.Stream;
@@ -14,6 +10,10 @@ import javax.lang.model.element.VariableElement;
 import javax.lang.model.type.DeclaredType;
 import javax.lang.model.type.PrimitiveType;
 import javax.lang.model.type.TypeMirror;
+
+import static javax.lang.model.element.ElementKind.FIELD;
+import static javax.lang.model.type.TypeKind.ARRAY;
+import static javax.lang.model.type.TypeKind.NONE;
 
 public class Type implements Comparable<Type> {
 

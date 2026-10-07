@@ -35,6 +35,35 @@
 	<string name="error_no_such_bucket">沒有該儲存貯體</string>
 	<string name="error_masterkey_location_not_supported">尚未支援自訂主金鑰位置</string>
 	<string name="error_interact_with_fdroid_but_fdroid_missing">無法找到F-Droid應用程式。可能未安裝？</string>
+	<string name="error_hub_vault_operation_not_supported">Hub不支援的加密檔案庫操作</string>
+	<string name="error_hub_authentication_failed">Hub 驗證失敗</string>
+	<string name="error_hub_device_already_register_for_other_user">其他使用者已在此裝置上註冊。請切換至該使用者帳戶或使用其他裝置進行註冊。</string>
+	<string name="error_hub_invalid_setup_code">帳戶金鑰無效。</string>
+	<string name="error_hub_invalid_version">不支援的 Hub 版本。</string>
+	<string name="error_hub_unlock_pre_31">Hub 僅支援 Android 12 及更高版本</string>
+	<!-- # read-only & purchases -->
+	<string name="screen_license_check_benefit_family_sharing">家庭共享</string>
+	<string name="screen_license_check_benefit_write_access">寫入加密檔案庫功能</string>
+	<string name="screen_license_check_benefit_support">鼓勵開源程式開發者</string>
+	<string name="screen_license_check_title_full_version">解鎖完整版</string>
+	<string name="screen_license_check_trial_title">30 天試用</string>
+	<string name="screen_license_check_trial_price">免費</string>
+	<string name="screen_license_check_trial_subtitle">30 天</string>
+	<string name="screen_license_check_subscription_title">年度訂閱</string>
+	<string name="screen_license_check_subscription_subtitle">每年</string>
+	<string name="screen_license_check_lifetime_title">終身授權</string>
+	<string name="screen_license_check_lifetime_subtitle">一次性</string>
+	<string name="screen_license_check_restore_purchase">復原已購項目</string>
+	<string name="screen_license_check_terms">使用條款</string>
+	<string name="screen_license_check_privacy">隱私政策</string>
+	<string name="screen_license_check_trial_status_active">生效中</string>
+	<string name="screen_license_check_trial_status_expired">已過期</string>
+	<string name="screen_license_check_trial_expired_info">您的試用已過期</string>
+	<string name="screen_welcome_title">歡迎</string>
+	<string name="screen_welcome_continue_button">繼續</string>
+	<string name="screen_welcome_screen_lock_button">設定螢幕鎖定</string>
+	<string name="next">繼續</string>
+	<string name="back">上一頁</string>
 	<!-- # clouds -->
 	<!-- ## cloud names -->
 	<string name="cloud_names_local_storage">本機儲存空間</string>
@@ -67,7 +96,7 @@
 	<string name="screen_vault_list_change_password_successful">密碼變更成功</string>
 	<!-- # screen: file browser -->
 	<string name="screen_file_browser_default_title">加密檔案庫</string>
-	<string name="screen_file_browser_add_existing_vault_extra_text">選擇主金鑰檔案</string>
+	<string name="screen_file_browser_add_existing_vault_extra_text">請選擇主金鑰或加密檔案庫。</string>
 	<string name="screen_file_browser_create_new_vault_button_text">放在此</string>
 	<string name="screen_file_browser_create_new_vault_extra_text">加密檔案庫名稱：%1$s</string>
 	<plurals name="screen_file_browser_subtitle_move">
@@ -184,7 +213,7 @@
 	<string name="screen_settings_section_auto_photo_upload_including_videos">上傳影片</string>
 	<string name="screen_settings_auto_photo_upload_title">將自動上傳文件保存到 &#8230;</string>
 	<string name="screen_settings_website_label">Cryptomator 網站</string>
-	<string name="screen_settings_twitter_label">在 Twitter 上追蹤我們</string>
+	<string name="screen_settings_mastodon_label">到 Mastodon 追蹤我們</string>
 	<string name="screen_settings_facebook_label">在 Facebook 上給我們點讚</string>
 	<string name="screen_settings_section_legal">法律聲明</string>
 	<string name="screen_settings_licenses_label">軟件授權</string>
@@ -197,6 +226,8 @@
 	<string name="screen_settings_security_label">安全提示</string>
 	<string name="screen_settings_section_version">版本</string>
 	<string name="screen_settings_advanced_settings">進階設定</string>
+	<string name="screen_settings_microsoft_apps_workaround_label">開啟 Microsoft 檔案的替代方案</string>
+	<string name="screen_settings_microsoft_apps_workaround_summary">使用寫入權限於 Microsoft 應用程式中開啟檔案</string>
 	<string name="screen_settings_background_unlock_preparation_label">加速解鎖</string>
 	<string name="screen_settings_background_unlock_preparation_label_summary">在提示輸入密碼或生物識別身份驗證時在後台下載保險庫配置</string>
 	<string name="screen_settings_keep_unlocked_while_editing_files">保持解鎖</string>
@@ -303,17 +334,18 @@
 	<string name="dialog_debug_mode_disclaimer_hint">在此模式下，敏感數據可能會寫入您設備上的日誌文件(例如文件名和路徑)。 密碼、cookies 等被明確排除在外。\n\n請記住盡快禁用調試模式。</string>
 	<string name="dialog_debug_mode_disclaimer_title">注意</string>
 	<string name="dialog_debug_mode_positive_button">啟用</string>
-	<string name="dialog_disable_app_obscured_disclaimer_hint">此設定是一項安全功能，可防止其他應用程式欺騙用戶做他們不想做的事情。\n\n如果停用這項功能，請確定你已經<a href="https://docs.cryptomator.org/en/1.6/android/settings/#block-app-when-obscured">了解風險</a>。</string>
+	<string name="dialog_microsoft_workaround_disclaimer_hint">由於 Microsoft 應用程式中的錯誤，必須將檔案分享到公用資料夾才能進行編輯。一旦 Cryptomator 繼續運作，可以公開存取的相應檔案將再次被刪除，但 Cryptomator 無法影響在此期間該檔案所發生的情況。請確保在啟用此選項時了解此行為。此問題僅適用於 Microsoft 文件類型。\n\n啟用該選項後，Cryptomator 將重新啟動。</string>
+	<string name="dialog_disable_app_obscured_disclaimer_hint">此設定是一項安全功能，可防止其他應用程式欺騙使用者做他們不想做的事情。\n\n如果停用這項功能，請確定你已經<a href="https://docs.cryptomator.org/en/latest/android/settings/#block-app-when-obscured">了解其風險</a>。</string>
 	<string name="dialog_disable_app_obscured_disclaimer_title">注意</string>
 	<string name="dialog_disable_app_obscured_positive_button">停用</string>
 	<string name="dialog_app_is_obscured_info_title">應用程序被遮擋</string>
-	<string name="dialog_app_is_obscured_info_hint">另一個應用程式在 Cryptomator 上顯示一些東西（例如藍光過濾器或夜間模式應用程式）。基於安全考慮，Cryptomator 已被禁用。\n\n<a href="https://docs.cryptomator.org/en/1.6/android/settings/#block-app-when-obscured">如何啟用 Cryptomator</a></string>
+	<string name="dialog_app_is_obscured_info_hint">另一個應用程式正在 Cryptomator 上顯示一些東西(例如: 藍光過濾器或夜間模式應用程式)。基於安全考量，Cryptomator 已被禁用。\n\n<a href="https://docs.cryptomator.org/en/latest/android/settings/#block-app-when-obscured">如何啟用 Cryptomator</a>。</string>
 	<string name="dialog_app_is_obscured_info_neutral_button">關閉</string>
 	<string name="dialog_vaults_removed_during_migration_title">請為 %1s 雲重新添加加密檔案庫</string>
 	<string name="dialog_vaults_removed_during_migration_hint">在遷移到此應用程序版本時，我們需要從應用程序中刪除以下加密檔案庫。\n%2s\n\n這些加密檔案庫不會從雲端刪除，而只是從這個應用程序中刪除。很抱歉給您帶來不便，請重新添加這些加密檔案庫以繼續使用它們。</string>
 	<string name="dialog_vault_is_root_folder_of_cloud_title">加密檔案庫是雲連接的根文件夾</string>
 	<string name="dialog_vault_is_root_folder_of_cloud_hint">要加入此加密庫，請先建立一個新的雲端連接、並選擇此加密庫資料夾的上一層作為根文件夾。</string>
-	<string name="dialog_disable_secure_screen_disclaimer_hint">此設定是一項安全功能，可防止其他應用程式欺騙用戶做他們不想做的事情。\n\n如果停用這項功能，請確定你已經<a href="https://docs.cryptomator.org/en/1.6/android/settings/#screen-security">了解風險</a>。</string>
+	<string name="dialog_disable_secure_screen_disclaimer_hint">此設定是一項安全功能，可防止其他應用程式欺騙使用者做他們不想做的事情。\n\n如果停用這項功能，請確認你已經<a href="https://docs.cryptomator.org/en/latest/android/settings/#screen-security">了解其風險</a>。</string>
 	<string name="dialog_delete_cloud_connection_with_vaults_message">您確定要刪除此雲端連結嗎？</string>
 	<string name="dialog_delete_cloud_connection_with_vaults_hint">此操作將移除雲端連接、並刪除該雲端上所有的加密檔案庫。</string>
 	<string name="dialog_confirm_delete_multiple_title">是否刪除%1$d個項目？</string>
@@ -345,6 +377,28 @@
 	<string name="dialog_no_more_images_to_display">已無更多圖片可供顯示 &#8230;</string>
 	<string name="dialog_pcloud_credentials_updated_title">%1$s 的帳戶資訊已更新</string>
 	<string name="dialog_pcloud_credentials_updated">如果您想要新增一個 pCloud 帳戶，請在點擊此連結 <a href="https://www.pcloud.com">www.pcloud.com</a> 後登出目前的帳號，並重新點擊本程式中的「+」來建立一個新的雲端連結。</string>
+	<string name="dialog_cbc_password_vaults_migration_title">必要的檔案庫密碼遷移</string>
+	<string name="dialog_cbc_password_vaults_migration_hint">基於安全加強，每個檔案庫將會要求您進行兩次生物辨識驗證以重新加密您的檔案庫密碼。這是為了繼續使用最新技術來保護檔案庫密碼所需的必要動作。如果您不想這麼做，儲存的密碼將會被刪除。</string>
+	<string name="dialog_cbc_password_vaults_migration_action">遷移</string>
+	<string name="dialog_create_hub_device_title">註冊Hub裝置</string>
+	<string name="dialog_create_hub_device_name_label">名稱</string>
+	<string name="dialog_create_hub_device_name_hint">似乎這是第一次 Hub 訪問此設備。為了辨識它以授權訪問，您需要命名此設備。</string>
+	<string name="dialog_create_hub_device_name_empty">名稱不可以空白</string>
+	<string name="dialog_create_hub_device_setup_code_label">帳戶金鑰</string>
+	<string name="dialog_create_hub_device_setup_code_hint">需要您的帳戶金鑰才能從新應用或瀏覽器登入。 可以在你的個人資料中找到它。</string>
+	<string name="dialog_create_hub_device_setup_code_empty">帳戶金鑰不能為空。</string>
+	<string name="dialog_progress_creating_hub_device_setup">正在建立裝置&#8230;</string>
+	<string name="dialog_hub_vault_access_forbidden_title">拒絕存取</string>
+	<string name="dialog_hub_vault_access_forbidden_hint">您的使用者尚未被授權存取此加密檔案庫。請要求加密檔案庫的擁有者授權。</string>
+	<string name="dialog_hub_license_upgrade_required_title">檢查 Hub 授權</string>
+	<string name="dialog_hub_license_upgrade_required_hint">您的Cryptomator Hub實例擁有無效的授權。請通知Hub管理員升級或續訂授權。</string>
+	<string name="dialog_hub_vault_archived_title">加密檔案庫已封存。</string>
+	<string name="dialog_hub_vault_archived_hint">此加密檔案庫已被封存，無法解鎖。要解鎖，必須由加密檔案庫的擁有者取消封存。</string>
+	<string name="dialog_restore_successful_title">復原成功</string>
+	<string name="dialog_no_full_version_title">沒有完整版</string>
+	<string name="dialog_hub_user_setup_required_title">需要設定使用者</string>
+	<string name="dialog_hub_user_setup_required_hint">請完成您使用者檔案中所需的步驟，以便繼續進行。</string>
+	<string name="dialog_hub_user_setup_required_neutral_button">轉到個人資料</string>
 	<string name="permission_snackbar_auth_local_vault">Cryptomator 需要存儲訪問權限用以使用本地加密檔案庫</string>
 	<string name="permission_snackbar_auth_auto_upload">Cryptomator 需要存儲權限以便開啟自動圖片上傳</string>
 	<string name="permission_snackbar_notifications">Cryptomator 需要通知權限以顯示加密檔案庫的狀態等。</string>
@@ -391,6 +445,7 @@
 	<string name="notification_auto_upload_failed_due_to_folder_not_exists">您選擇的資料夾無法使用，請至設定重新選擇。</string>
 	<string name="notification_auto_upload_failed_due_to_vault_locked">加密檔案庫在上傳期間鎖定，請重新打開加密檔案庫後繼續</string>
 	<string name="notification_auto_upload_failed_due_to_vault_not_found">使用於自動上傳的加密檔案庫已不存在。</string>
+	<string name="notification_auto_upload_failed_due_to_authentication_problem">輕觸以更新身份驗證。</string>
 	<string name="notification_open_writable_file_title">開啟可讀寫檔案</string>
 	<string name="notification_open_writable_file_message">加密檔案庫將在編輯期間保持解鎖狀態</string>
 	<string name="notification_update_check_finished_latest">已安裝最新版本</string>
@@ -400,8 +455,11 @@
 	<string name="screen_settings_lru_cache_size">快取總大小</string>
 	<string name="screen_settings_clear_lru_cache_size">清除快取</string>
 	<string name="screen_settings_lru_cache_changed__restart_toast">變更將會在應用程式下次重啓後啓用。</string>
-	<string name="screen_settings_license">註冊給</string>
+	<string name="screen_settings_license_title_unlock">解鎖完整版</string>
 	<string name="screen_settings_license_mail">%1$s</string>
+	<string name="screen_settings_manage_subscription">管理訂閱</string>
+	<string name="screen_settings_upgrade_to_lifetime">升級到永久方案</string>
+	<string name="dialog_trial_expired_unlock">解鎖完整版</string>
 	<string name="dialog_settings_update_check_interval_title">檢查更新間隔</string>
 	<string name="screen_settings_check_updates">檢查更新</string>
 	<string name="screen_settings_last_check_updates">上次檢查於%1$s</string>

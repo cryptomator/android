@@ -3,20 +3,16 @@ package org.cryptomator.presentation.ui.fragment
 import android.os.Bundle
 import android.view.inputmethod.EditorInfo
 import org.cryptomator.generator.Fragment
-import org.cryptomator.presentation.R
+import org.cryptomator.presentation.databinding.FragmentSetupWebdavBinding
 import org.cryptomator.presentation.model.WebDavCloudModel
 import org.cryptomator.presentation.presenter.WebDavAddOrChangePresenter
 import org.cryptomator.util.crypto.CredentialCryptor
 import org.cryptomator.util.crypto.FatalCryptoException
 import javax.inject.Inject
-import kotlinx.android.synthetic.main.fragment_setup_webdav.createCloudButton
-import kotlinx.android.synthetic.main.fragment_setup_webdav.passwordEditText
-import kotlinx.android.synthetic.main.fragment_setup_webdav.urlPortEditText
-import kotlinx.android.synthetic.main.fragment_setup_webdav.userNameEditText
 import timber.log.Timber
 
-@Fragment(R.layout.fragment_setup_webdav)
-class WebDavAddOrChangeFragment : BaseFragment() {
+@Fragment
+class WebDavAddOrChangeFragment : BaseFragment<FragmentSetupWebdavBinding>(FragmentSetupWebdavBinding::inflate) {
 
 	@Inject
 	lateinit var webDavAddOrChangePresenter: WebDavAddOrChangePresenter
@@ -28,23 +24,23 @@ class WebDavAddOrChangeFragment : BaseFragment() {
 		get() = arguments?.getSerializable(ARG_WEBDAV_CLOUD) as? WebDavCloudModel
 
 	override fun setupView() {
-		createCloudButton.setOnClickListener { createCloud() }
-		createCloudButton.setOnEditorActionListener { _, actionId, _ ->
+		binding.createCloudButton.setOnClickListener { createCloud() }
+		binding.createCloudButton.setOnEditorActionListener { _, actionId, _ ->
 			if (actionId == EditorInfo.IME_ACTION_DONE) {
 				createCloud()
 			}
 			false
 		}
 
-		urlPortEditText.text?.length?.let { urlPortEditText.setSelection(it) }
+		binding.urlPortEditText.text?.length?.let { binding.urlPortEditText.setSelection(it) }
 		showEditableCloudContent(webDavCloudModel)
 	}
 
 	private fun showEditableCloudContent(webDavCloudModel: WebDavCloudModel?) {
 		if (webDavCloudModel != null) {
-			urlPortEditText.setText(webDavCloudModel.url())
-			userNameEditText.setText(webDavCloudModel.username())
-			passwordEditText.setText(getPassword(webDavCloudModel.accessToken()))
+			binding.urlPortEditText.setText(webDavCloudModel.url())
+			binding.userNameEditText.setText(webDavCloudModel.username())
+			binding.passwordEditText.setText(getPassword(webDavCloudModel.accessToken()))
 			cloudId = webDavCloudModel.id()
 			certificate = webDavCloudModel.certificate()
 		}
@@ -64,15 +60,15 @@ class WebDavAddOrChangeFragment : BaseFragment() {
 	}
 
 	private fun createCloud() {
-		val urlPort = urlPortEditText.text.toString().trim()
-		val username = userNameEditText.text.toString().trim()
-		val password = passwordEditText.text.toString().trim()
+		val urlPort = binding.urlPortEditText.text.toString().trim()
+		val username = binding.userNameEditText.text.toString().trim()
+		val password = binding.passwordEditText.text.toString().trim()
 
 		webDavAddOrChangePresenter.checkUserInput(urlPort, username, password, cloudId, certificate)
 	}
 
 	fun hideKeyboard() {
-		hideKeyboard(passwordEditText)
+		hideKeyboard(binding.passwordEditText)
 	}
 
 	companion object {

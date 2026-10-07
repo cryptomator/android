@@ -5,14 +5,17 @@ import android.text.Editable
 import android.text.TextWatcher
 import android.view.View
 import android.widget.Button
+import android.widget.LinearLayout
+import android.widget.TextView
 import androidx.appcompat.app.AlertDialog
 import org.cryptomator.generator.Dialog
 import org.cryptomator.presentation.R
+import org.cryptomator.presentation.databinding.DialogFileNameBinding
+import org.cryptomator.presentation.databinding.ViewDialogErrorBinding
 import org.cryptomator.presentation.util.FileUtil
-import kotlinx.android.synthetic.main.dialog_file_name.et_file_name
 
-@Dialog(R.layout.dialog_file_name)
-class FileNameDialog : BaseProgressErrorDialog<FileNameDialog.Callback>() {
+@Dialog
+class FileNameDialog : BaseProgressErrorDialog<FileNameDialog.Callback, DialogFileNameBinding>(DialogFileNameBinding::inflate) {
 
 	private var createFileButton: Button? = null
 
@@ -28,20 +31,20 @@ class FileNameDialog : BaseProgressErrorDialog<FileNameDialog.Callback>() {
 			createFileButton = dialog.getButton(android.app.Dialog.BUTTON_POSITIVE)
 			createFileButton?.setOnClickListener {
 				callback?.onCreateNewTextFileClicked(effectiveTextFileName())
-				onWaitForResponse(et_file_name)
+				onWaitForResponse(binding.etFileName)
 			}
 			dialog.setCanceledOnTouchOutside(false)
-			et_file_name.requestFocus()
+			binding.etFileName.requestFocus()
 			createFileButton?.let { button ->
-				et_file_name.nextFocusForwardId = button.id
+				binding.etFileName.nextFocusForwardId = button.id
 			}
 		}
 	}
 
 	private fun effectiveTextFileName(): String {
-		return if (et_file_name.text.toString().isEmpty()) //
+		return if (binding.etFileName.text.toString().isEmpty()) //
 			requireContext().getString(R.string.dialog_file_name_placeholder) else  //
-			effectiveNewFileName(et_file_name.text.toString())
+			effectiveNewFileName(binding.etFileName.text.toString())
 	}
 
 	override fun setupDialog(builder: AlertDialog.Builder): android.app.Dialog {
@@ -60,8 +63,8 @@ class FileNameDialog : BaseProgressErrorDialog<FileNameDialog.Callback>() {
 	}
 
 	override fun setupView() {
-		createFileButton?.let { registerOnEditorDoneActionAndPerformButtonClick(et_file_name) { it } }
-		et_file_name.addTextChangedListener(object : TextWatcher {
+		createFileButton?.let { registerOnEditorDoneActionAndPerformButtonClick(binding.etFileName) { it } }
+		binding.etFileName.addTextChangedListener(object : TextWatcher {
 			override fun beforeTextChanged(s: CharSequence, start: Int, count: Int, after: Int) {}
 			override fun onTextChanged(s: CharSequence, start: Int, before: Int, count: Int) {}
 			override fun afterTextChanged(s: Editable) {
@@ -74,7 +77,19 @@ class FileNameDialog : BaseProgressErrorDialog<FileNameDialog.Callback>() {
 		dialog?.let { showKeyboard(it) }
 	}
 
+	override fun dialogProgressLayout(): LinearLayout {
+		return binding.llDialogProgress.llProgress
+	}
+
+	override fun dialogProgressTextView(): TextView {
+		return binding.llDialogProgress.tvProgress
+	}
+
+	override fun dialogErrorBinding(): ViewDialogErrorBinding {
+		return binding.llDialogError
+	}
+
 	override fun enableViewAfterError(): View {
-		return et_file_name
+		return binding.etFileName
 	}
 }

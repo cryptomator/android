@@ -10,8 +10,6 @@ import static java.lang.annotation.RetentionPolicy.RUNTIME;
 @Target(TYPE)
 public @interface Activity {
 
-	int layout() default -1;
-
 	boolean secure() default true;
 
 }

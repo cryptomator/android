@@ -1,0 +1,460 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+	xmlns:app="http://schemas.android.com/apk/res-auto"
+	android:layout_width="match_parent"
+	android:layout_height="wrap_content"
+	android:gravity="center_horizontal"
+	android:orientation="vertical">
+
+	<!-- Header: Cryptomator bot + feature checklist -->
+	<LinearLayout
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content"
+		android:layout_marginTop="12dp"
+		android:gravity="center_vertical"
+		android:orientation="horizontal">
+
+		<androidx.appcompat.widget.AppCompatImageView
+			android:layout_width="64dp"
+			android:layout_height="64dp"
+			android:adjustViewBounds="true"
+			android:contentDescription="@null"
+			android:scaleType="fitCenter"
+			app:srcCompat="@drawable/ic_cryptomator_bot" />
+
+		<LinearLayout
+			android:layout_width="0dp"
+			android:layout_height="wrap_content"
+			android:layout_marginStart="16dp"
+			android:layout_weight="1"
+			android:orientation="vertical">
+
+			<LinearLayout
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"
+				android:gravity="center_vertical"
+				android:orientation="horizontal"
+				android:paddingVertical="4dp">
+
+				<ImageView
+					android:layout_width="20dp"
+					android:layout_height="20dp"
+					android:contentDescription="@null"
+					android:importantForAccessibility="no"
+					android:src="@drawable/ic_checkmark" />
+
+				<TextView
+					android:layout_width="0dp"
+					android:layout_height="wrap_content"
+					android:layout_marginStart="8dp"
+					android:layout_weight="1"
+					android:text="@string/screen_license_check_benefit_write_access" />
+			</LinearLayout>
+
+			<LinearLayout
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"
+				android:gravity="center_vertical"
+				android:orientation="horizontal"
+				android:paddingVertical="4dp">
+
+				<ImageView
+					android:layout_width="20dp"
+					android:layout_height="20dp"
+					android:contentDescription="@null"
+					android:importantForAccessibility="no"
+					android:src="@drawable/ic_checkmark" />
+
+				<TextView
+					android:layout_width="0dp"
+					android:layout_height="wrap_content"
+					android:layout_marginStart="8dp"
+					android:layout_weight="1"
+					android:text="@string/screen_license_check_benefit_support" />
+			</LinearLayout>
+
+			<LinearLayout
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"
+				android:gravity="center_vertical"
+				android:orientation="horizontal"
+				android:paddingVertical="4dp">
+
+				<ImageView
+					android:layout_width="20dp"
+					android:layout_height="20dp"
+					android:contentDescription="@null"
+					android:importantForAccessibility="no"
+					android:src="@drawable/ic_checkmark" />
+
+				<TextView
+					android:layout_width="0dp"
+					android:layout_height="wrap_content"
+					android:layout_marginStart="8dp"
+					android:layout_weight="1"
+					android:text="@string/screen_license_check_benefit_family_sharing" />
+			</LinearLayout>
+		</LinearLayout>
+	</LinearLayout>
+
+	<!-- Divider below header -->
+	<View
+		android:layout_width="match_parent"
+		android:layout_height="1dp"
+		android:layout_marginTop="16dp"
+		android:layout_marginBottom="16dp"
+		android:background="?android:attr/listDivider" />
+
+	<!-- Info text (expired trial, shown between header and product table) -->
+	<TextView
+		android:id="@+id/tvInfoText"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:layout_marginTop="12dp"
+		android:layout_marginBottom="16dp"
+		android:drawablePadding="6dp"
+		android:drawableTint="?android:attr/textColorSecondary"
+		android:gravity="center"
+		android:textAppearance="?attr/textAppearanceBody2"
+		android:textColor="?android:attr/textColorSecondary"
+		android:visibility="gone"
+		app:drawableStartCompat="@drawable/ic_info_circle" />
+
+	<!-- License entry group (non-IAP flavors only) -->
+	<LinearLayout
+		android:id="@+id/licenseEntryGroup"
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content"
+		android:orientation="vertical"
+		android:visibility="gone">
+
+		<TextView
+			android:id="@+id/tvLicenseLink"
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content"
+			android:layout_marginTop="8dp"
+			android:textAppearance="?attr/textAppearanceBody2" />
+
+		<com.google.android.material.textfield.TextInputLayout
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content"
+			android:hint="@string/dialog_enter_license_title">
+
+			<com.google.android.material.textfield.TextInputEditText
+				android:id="@+id/etLicense"
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"
+				android:inputType="text" />
+
+		</com.google.android.material.textfield.TextInputLayout>
+
+	</LinearLayout>
+
+	<!-- Purchase options group (IAP flavors only) -->
+	<LinearLayout
+		android:id="@+id/purchaseOptionsGroup"
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content"
+		android:orientation="vertical"
+		android:visibility="gone">
+
+		<!-- 30-Day Trial -->
+		<LinearLayout
+			android:id="@+id/rowTrial"
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content"
+			android:gravity="center_vertical"
+			android:orientation="horizontal"
+			android:paddingVertical="12dp">
+
+			<LinearLayout
+				android:layout_width="0dp"
+				android:layout_height="wrap_content"
+				android:layout_weight="1"
+				android:orientation="vertical">
+
+				<TextView
+					android:id="@+id/tvTrialTitle"
+					android:layout_width="wrap_content"
+					android:layout_height="wrap_content"
+					android:text="@string/screen_license_check_trial_title"
+					android:textAppearance="?attr/textAppearanceBody1" />
+
+				<TextView
+					android:id="@+id/tvTrialExpiration"
+					android:layout_width="wrap_content"
+					android:layout_height="wrap_content"
+					android:textAppearance="?attr/textAppearanceCaption"
+					android:visibility="gone" />
+			</LinearLayout>
+
+			<LinearLayout
+				android:id="@+id/trialButtonGroup"
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:gravity="center"
+				android:orientation="vertical">
+
+				<com.google.android.material.button.MaterialButton
+					android:id="@+id/btnTrial"
+					style="@style/Widget.Material3.Button.TonalButton"
+					android:layout_width="wrap_content"
+					android:layout_height="36dp"
+					android:insetTop="0dp"
+					android:insetBottom="0dp"
+					android:minWidth="85dp"
+					android:text="@string/screen_license_check_trial_price"
+					android:textSize="14sp" />
+
+				<TextView
+					android:id="@+id/tvTrialSubtitle"
+					android:layout_width="wrap_content"
+					android:layout_height="wrap_content"
+					android:text="@string/screen_license_check_trial_subtitle"
+					android:textAppearance="?attr/textAppearanceCaption" />
+			</LinearLayout>
+
+			<TextView
+				android:id="@+id/tvTrialStatusBadge"
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:textAllCaps="true"
+				android:textAppearance="?attr/textAppearanceBody1"
+				android:textColor="?android:attr/textColorSecondary"
+				android:visibility="gone" />
+		</LinearLayout>
+
+		<View
+			android:id="@+id/dividerTrialEnterLicense"
+			android:layout_width="match_parent"
+			android:layout_height="1dp"
+			android:background="?android:attr/listDivider"
+			android:visibility="gone" />
+
+		<!-- Enter License row (non-IAP flavors, welcome flow only) -->
+		<LinearLayout
+			android:id="@+id/rowEnterLicense"
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content"
+			android:background="?android:attr/selectableItemBackground"
+			android:clickable="true"
+			android:focusable="true"
+			android:gravity="center_vertical"
+			android:orientation="horizontal"
+			android:paddingVertical="12dp"
+			android:visibility="gone">
+
+			<TextView
+				android:id="@+id/tvEnterLicenseTitle"
+				android:layout_width="0dp"
+				android:layout_height="wrap_content"
+				android:layout_weight="1"
+				android:text="@string/screen_license_check_button_enter_license"
+				android:textAppearance="?attr/textAppearanceBody1" />
+
+			<com.google.android.material.button.MaterialButton
+				android:id="@+id/btnEnterLicense"
+				style="@style/Widget.Material3.Button.TonalButton"
+				android:layout_width="wrap_content"
+				android:layout_height="36dp"
+				android:clickable="false"
+				android:focusable="false"
+				android:insetTop="0dp"
+				android:insetBottom="0dp"
+				android:minWidth="85dp"
+				android:text="@string/screen_license_check_enter_license_action"
+				android:textSize="14sp" />
+
+		</LinearLayout>
+
+		<View
+			android:id="@+id/dividerTrialSubscription"
+			android:layout_width="match_parent"
+			android:layout_height="1dp"
+			android:background="?android:attr/listDivider" />
+
+		<!-- Yearly Subscription -->
+		<LinearLayout
+			android:id="@+id/rowSubscription"
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content"
+			android:background="?android:attr/selectableItemBackground"
+			android:clickable="true"
+			android:focusable="true"
+			android:gravity="center_vertical"
+			android:orientation="horizontal"
+			android:paddingVertical="12dp">
+
+			<TextView
+				android:id="@+id/tvSubscriptionTitle"
+				android:layout_width="0dp"
+				android:layout_height="wrap_content"
+				android:layout_weight="1"
+				android:text="@string/screen_license_check_subscription_title"
+				android:textAppearance="?attr/textAppearanceBody1" />
+
+			<LinearLayout
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:duplicateParentState="true"
+				android:gravity="center"
+				android:orientation="vertical">
+
+				<com.google.android.material.button.MaterialButton
+					android:id="@+id/btnSubscription"
+					style="@style/Widget.Material3.Button.TonalButton"
+					android:layout_width="wrap_content"
+					android:layout_height="36dp"
+					android:clickable="false"
+					android:duplicateParentState="true"
+					android:focusable="false"
+					android:insetTop="0dp"
+					android:insetBottom="0dp"
+					android:minWidth="85dp"
+					android:text="…"
+					android:textSize="14sp" />
+
+				<TextView
+					android:id="@+id/tvSubscriptionSubtitle"
+					android:layout_width="wrap_content"
+					android:layout_height="wrap_content"
+					android:text="@string/screen_license_check_subscription_subtitle"
+					android:textAppearance="?attr/textAppearanceCaption" />
+			</LinearLayout>
+		</LinearLayout>
+
+		<View
+			android:id="@+id/dividerSubscriptionLifetime"
+			android:layout_width="match_parent"
+			android:layout_height="1dp"
+			android:background="?android:attr/listDivider" />
+
+		<!-- Lifetime License -->
+		<LinearLayout
+			android:id="@+id/rowLifetime"
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content"
+			android:background="?android:attr/selectableItemBackground"
+			android:clickable="true"
+			android:focusable="true"
+			android:gravity="center_vertical"
+			android:orientation="horizontal"
+			android:paddingVertical="12dp">
+
+			<LinearLayout
+				android:layout_width="0dp"
+				android:layout_height="wrap_content"
+				android:layout_weight="1"
+				android:orientation="vertical">
+
+				<TextView
+					android:id="@+id/tvLifetimeTitle"
+					android:layout_width="wrap_content"
+					android:layout_height="wrap_content"
+					android:text="@string/screen_license_check_lifetime_title"
+					android:textAppearance="?attr/textAppearanceBody1" />
+
+				<TextView
+					android:id="@+id/tvLifetimeDiscountSubline"
+					android:layout_width="wrap_content"
+					android:layout_height="wrap_content"
+					android:textAppearance="?attr/textAppearanceCaption"
+					android:textColor="?attr/colorPrimary"
+					android:visibility="gone" />
+
+			</LinearLayout>
+
+			<LinearLayout
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:duplicateParentState="true"
+				android:gravity="center"
+				android:orientation="vertical">
+
+				<TextView
+					android:id="@+id/tvLifetimePrice"
+					android:layout_width="wrap_content"
+					android:layout_height="wrap_content"
+					android:textAppearance="?attr/textAppearanceCaption"
+					android:textColor="?android:attr/textColorSecondary"
+					android:visibility="gone" />
+
+				<com.google.android.material.button.MaterialButton
+					android:id="@+id/btnLifetime"
+					style="@style/Widget.Material3.Button.TonalButton"
+					android:layout_width="wrap_content"
+					android:layout_height="36dp"
+					android:clickable="false"
+					android:duplicateParentState="true"
+					android:focusable="false"
+					android:insetTop="0dp"
+					android:insetBottom="0dp"
+					android:minWidth="85dp"
+					android:text="…"
+					android:textSize="14sp" />
+
+				<TextView
+					android:id="@+id/tvLifetimeSubtitle"
+					android:layout_width="wrap_content"
+					android:layout_height="wrap_content"
+					android:text="@string/screen_license_check_lifetime_subtitle"
+					android:textAppearance="?attr/textAppearanceCaption" />
+			</LinearLayout>
+		</LinearLayout>
+
+	</LinearLayout>
+
+	<!-- Single purchase button (non-IAP flavors) -->
+	<Button
+		android:id="@+id/btnPurchase"
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content"
+		android:layout_marginTop="32dp"
+		android:text="@string/screen_license_check_button_purchase" />
+
+	<!-- Restore Purchase (IAP only) -->
+	<TextView
+		android:id="@+id/tvRestorePurchase"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:layout_marginTop="32dp"
+		android:text="@string/screen_license_check_restore_purchase"
+		android:textAppearance="?attr/textAppearanceCaption"
+		android:textColor="?attr/colorPrimary"
+		android:visibility="gone" />
+
+	<!-- Terms · Privacy (IAP only) -->
+	<LinearLayout
+		android:id="@+id/legalLinksGroup"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:layout_marginTop="24dp"
+		android:gravity="center"
+		android:orientation="horizontal"
+		android:visibility="gone">
+
+		<TextView
+			android:id="@+id/tvTerms"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:text="@string/screen_license_check_terms"
+			android:textAppearance="?attr/textAppearanceCaption"
+			android:textColor="?attr/colorPrimary" />
+
+		<TextView
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:layout_marginHorizontal="4dp"
+			android:text="·"
+			android:textAppearance="?attr/textAppearanceCaption" />
+
+		<TextView
+			android:id="@+id/tvPrivacy"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:text="@string/screen_license_check_privacy"
+			android:textAppearance="?attr/textAppearanceCaption"
+			android:textColor="?attr/colorPrimary" />
+	</LinearLayout>
+
+</LinearLayout>

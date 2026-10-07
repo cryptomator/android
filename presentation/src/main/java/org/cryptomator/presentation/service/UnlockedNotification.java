@@ -7,6 +7,8 @@ import android.app.PendingIntent;
 import android.app.Service;
 import android.content.Context;
 import android.content.Intent;
+import android.content.pm.ServiceInfo;
+import android.os.Build;
 
 import androidx.core.app.NotificationCompat;
 
@@ -78,7 +80,7 @@ class UnlockedNotification {
 		return PendingIntent.getService( //
 				service.getApplicationContext(), //
 				0, //
-				CryptorsService.lockAllIntent(service.getApplicationContext()),
+				CryptorsService.lockAllIntent(service.getApplicationContext()), //
 				PendingIntent.FLAG_CANCEL_CURRENT | PendingIntent.FLAG_IMMUTABLE);
 	}
 
@@ -113,7 +115,11 @@ class UnlockedNotification {
 	}
 
 	public void show() {
-		service.startForeground(NOTIFICATION_ID, builder.build());
+		if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.UPSIDE_DOWN_CAKE) {
+			service.startForeground(NOTIFICATION_ID, builder.build(), ServiceInfo.FOREGROUND_SERVICE_TYPE_SPECIAL_USE);
+		} else {
+			service.startForeground(NOTIFICATION_ID, builder.build());
+		}
 	}
 
 	public void hide() {

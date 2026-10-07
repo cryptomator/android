@@ -16,11 +16,11 @@ public class CallbacksModel {
 	}
 
 	public Collection<CallbacksClassModel> getCallbacksClasses() {
-		return callbacks.stream()
-				.collect(Collectors.groupingBy(CallbackModel::getCallbacksClassName))
-				.entrySet().stream()
-				.map(CallbacksClassModel::new)
-				.sorted(Comparator.comparing(e -> e.callbacksClassName))
+		return callbacks.stream() //
+				.collect(Collectors.groupingBy(CallbackModel::getCallbacksClassName)) //
+				.entrySet().stream() //
+				.map(CallbacksClassModel::new) //
+				.sorted(Comparator.comparing(e -> e.callbacksClassName)) //
 				.collect(Collectors.toList());
 	}
 

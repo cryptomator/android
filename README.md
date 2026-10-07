@@ -1,6 +1,6 @@
 ![cryptomator-android](cryptomator-android.png)
 
-[![Twitter](https://img.shields.io/badge/twitter-@Cryptomator-blue.svg?style=flat)](http://twitter.com/Cryptomator)
+[![Mastodon](https://img.shields.io/mastodon/follow/176112?domain=mastodon.online&style=flat)](https://mastodon.online/@cryptomator)
 [![Community](https://img.shields.io/badge/help-Community-orange.svg)](https://community.cryptomator.org)
 [![Documentation](https://img.shields.io/badge/help-Docs-orange.svg)](https://docs.cryptomator.org)
 [![Crowdin](https://badges.crowdin.net/cryptomator/localized.svg)](https://translate.cryptomator.org/)
@@ -13,28 +13,27 @@ Cryptomator for Android is currently available in the following  distribution ch
 2. [Using Cryptomator's Website](https://cryptomator.org/android/)
 3. [Using Cryptomator's F-Droid Repository](https://cryptomator.org/android/)
 4. [Using F-Droid's Main Repository](https://f-droid.org/en/packages/org.cryptomator.lite)
-5. Building from source using Gradle (instructions below)
+5. [Using Accrescent](https://accrescent.app/app/org.cryptomator)
+6. Building from source using Gradle (instructions below)
 
 ## Building
 
 ### Dependencies
 
 * Git
-* JDK 11
+* JDK 21
 * Gradle
 
 ### Run Git and Gradle
 
 ```
-git submodule init && git submodule update // (not necessary if cloned using --recurse-submodules)
 ./gradlew assembleApkstoreDebug
 ```
 
 Before connecting to Dropbox, OneDrive or pCloud you have to provide valid API keys using environment variables:
 For build type
 
-* **release**: `DROPBOX_API_KEY`, `ONEDRIVE_API_KEY` and  `ONEDRIVE_API_REDIRCT_URI` or `PCLOUD_CLIENT_ID`
-* **debug**: `DROPBOX_API_KEY_DEBUG`, `ONEDRIVE_API_KEY_DEBUG` and `ONEDRIVE_API_REDIRCT_URI_DEBUG` or `PCLOUD_CLIENT_ID_DEBUG`
+* **release**: `DROPBOX_API_KEY`, `ONEDRIVE_API_KEY` and  `ONEDRIVE_API_REDIRCT_URI`, `ONEDRIVE_API_KEY_FREEMIUM` and  `ONEDRIVE_API_REDIRCT_URI_FREEMIUM` or `PCLOUD_CLIENT_ID`
 
 Before connecting to Google Drive you have to create a new project in [Google Cloud Platform](https://console.cloud.google.com) with Google Drive API, credentials including Google Drive scopes (read, write, delete,..) and the fingerprint of the key you use to build the app.
 
@@ -42,7 +41,7 @@ Before connecting to Google Drive you have to create a new project in [Google Cl
 
 Use the Docker image to verify the build of the 'lite' flavor:
 
-1. Clone this repository (don't forget `--recurse-submodules`)
+1. Clone this repository
 2. Checkout the tag you want to build, e.g. 1.8.0
 3. Build the image using `docker build -t cryptomator-android .` in the `buildsystem/` directory
 4. Build Cryptomator using `docker run --rm -u $(id -u):$(id -g) -v $(pwd):/project -w /project cryptomator-android ./gradlew clean assembleLiteRelease` in the root of this folder

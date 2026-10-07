@@ -6,16 +6,19 @@ import android.text.Editable
 import android.text.TextWatcher
 import android.view.View
 import android.widget.Button
+import android.widget.LinearLayout
+import android.widget.TextView
 import androidx.appcompat.app.AlertDialog
 import org.cryptomator.generator.Dialog
 import org.cryptomator.presentation.R
+import org.cryptomator.presentation.databinding.DialogRenameBinding
+import org.cryptomator.presentation.databinding.ViewDialogErrorBinding
 import org.cryptomator.presentation.model.ProgressModel
 import org.cryptomator.presentation.model.ProgressStateModel
 import org.cryptomator.presentation.model.VaultModel
-import kotlinx.android.synthetic.main.dialog_rename.et_rename
 
-@Dialog(R.layout.dialog_rename)
-class VaultRenameDialog : BaseProgressErrorDialog<VaultRenameDialog.Callback>() {
+@Dialog
+class VaultRenameDialog : BaseProgressErrorDialog<VaultRenameDialog.Callback, DialogRenameBinding>(DialogRenameBinding::inflate) {
 
 	private var renameConfirmButton: Button? = null
 
@@ -32,13 +35,13 @@ class VaultRenameDialog : BaseProgressErrorDialog<VaultRenameDialog.Callback>() 
 			renameConfirmButton?.isEnabled = false
 			renameConfirmButton?.setOnClickListener {
 				showProgress(ProgressModel(ProgressStateModel.RENAMING))
-				callback?.onRenameClick(requireArguments().getSerializable(VAULT_ARG) as VaultModel, et_rename.text.toString())
-				onWaitForResponse(et_rename)
+				callback?.onRenameClick(requireArguments().getSerializable(VAULT_ARG) as VaultModel, binding.etRename.text.toString())
+				onWaitForResponse(binding.etRename)
 			}
 			dialog.setCanceledOnTouchOutside(false)
-			et_rename.requestFocus()
+			binding.etRename.requestFocus()
 			renameConfirmButton?.let { button ->
-				et_rename.nextFocusForwardId = button.id
+				binding.etRename.nextFocusForwardId = button.id
 			}
 		}
 	}
@@ -53,9 +56,9 @@ class VaultRenameDialog : BaseProgressErrorDialog<VaultRenameDialog.Callback>() 
 
 	public override fun setupView() {
 		val vaultModel = requireArguments().getSerializable(VAULT_ARG) as VaultModel
-		renameConfirmButton?.let { registerOnEditorDoneActionAndPerformButtonClick(et_rename) { it } }
-		et_rename.setText(vaultModel.name)
-		et_rename.addTextChangedListener(object : TextWatcher {
+		renameConfirmButton?.let { registerOnEditorDoneActionAndPerformButtonClick(binding.etRename) { it } }
+		binding.etRename.setText(vaultModel.name)
+		binding.etRename.addTextChangedListener(object : TextWatcher {
 			override fun beforeTextChanged(s: CharSequence, start: Int, count: Int, after: Int) {}
 			override fun onTextChanged(s: CharSequence, start: Int, before: Int, count: Int) {}
 			override fun afterTextChanged(s: Editable) {
@@ -68,8 +71,20 @@ class VaultRenameDialog : BaseProgressErrorDialog<VaultRenameDialog.Callback>() 
 		dialog?.let { showKeyboard(it) }
 	}
 
+	override fun dialogProgressLayout(): LinearLayout {
+		return binding.llDialogProgress.llProgress
+	}
+
+	override fun dialogProgressTextView(): TextView {
+		return binding.llDialogProgress.tvProgress
+	}
+
+	override fun dialogErrorBinding(): ViewDialogErrorBinding {
+		return binding.llDialogError
+	}
+
 	override fun enableViewAfterError(): View {
-		return et_rename
+		return binding.etRename
 	}
 
 	companion object {

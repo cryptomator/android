@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 	<!-- # app -->
-	<string name="share_with_label">Xifrar</string>
+	<string name="share_with_label">Encripta</string>
 	<!-- # error messages -->
-	<string name="error_generic">Hi ha hagut un error</string>
+	<string name="error_generic">S\'ha produït un error</string>
 	<string name="error_authentication_failed">Ha fallat l\'autenticació</string>
 	<string name="error_authentication_failed_re_authenticate">Error d\'autenticació, inicieu sessió usant %1$s</string>
 	<string name="error_no_network_connection">No hi ha connexió de xarxa</string>
@@ -17,10 +17,10 @@
 	<string name="error_cloud_already_exists">Núvol ja existent.</string>
 	<string name="error_activity_not_found">Descarregueu un aplicació que pugui obrir aquest fitxer.</string>
 	<string name="error_server_not_found">No s\'ha trobat el servidor.</string>
-	<string name="error_device_policy_manager_not_found">Si us plau, aneu als ajustos del dispositiu i establiu el blocatge de la pantalla manualment</string>
+	<string name="error_device_policy_manager_not_found">Si us plau, aneu a la configuració del dispositiu i establiu el bloqueig de la pantalla manualment</string>
 	<string name="error_export_illegal_file_name">Ha fallat l\'exportació. Proveu a eliminar caràcters especials dels noms dels fitxers i torneu a exportar.</string>
 	<string name="error_name_contains_invalid_characters">No pot tenir caràcters especials.</string>
-	<string name="error_names_contains_invalid_characters">Els noms dels fitxers no poden tenir caràctes especials.</string>
+	<string name="error_names_contains_invalid_characters">Els noms dels fitxers no poden tenir caràcters especials.</string>
 	<string name="error_vault_name_contains_invalid_characters">El nom de la caixa forta no pot tenir caràcters especials.</string>
 	<string name="error_general_update">Ha fallat la comprovació d\'actualització. S\'ha produït un error general.</string>
 	<string name="error_hash_mismatch_update">Ha fallat la comprovació d\'actualització. La suma de comprovació no coincideix amb la del fitxer pujat</string>
@@ -35,6 +35,34 @@
 	<string name="error_no_such_bucket">No existeix el cubell</string>
 	<string name="error_masterkey_location_not_supported">Encara no es permet la ubicació personalitzada de la clau mestra</string>
 	<string name="error_interact_with_fdroid_but_fdroid_missing">Error en la comunicació amb l\'aplicació F-Droid. Està instal·lada?</string>
+	<string name="error_hub_device_already_register_for_other_user">El dispositiu ja ha estat registrat per un altre usuari. Mireu de canviar el compte d\'usuari o feu servir un dispositiu diferent.</string>
+	<string name="error_hub_invalid_version">Versió de Hub no suportada.</string>
+	<string name="error_hub_unlock_pre_31">Hub solament és suportat a partir d\'Android 12.</string>
+	<!-- # read-only & purchases -->
+	<string name="screen_license_check_locked_create_vault">Activa la versió completa per crear repositoris</string>
+	<string name="screen_license_check_locked_upload_files">Desbloqueja la versió completa per poder pujar fitxers</string>
+	<string name="screen_license_check_benefit_family_sharing">Compartir en família</string>
+	<string name="screen_license_check_benefit_write_access">Accés d\'escritura a caixes fortes</string>
+	<string name="screen_license_check_benefit_support">Desenvolupament de codi obert</string>
+	<string name="screen_license_check_title_full_version">Desbloca la versió completa</string>
+	<string name="screen_license_check_trial_title">Prova de 30 dies</string>
+	<string name="screen_license_check_trial_price">Gratuït</string>
+	<string name="screen_license_check_trial_subtitle">durant 30 dies</string>
+	<string name="screen_license_check_subscription_title">Subscripció anual</string>
+	<string name="screen_license_check_subscription_subtitle">cada any</string>
+	<string name="screen_license_check_lifetime_title">Llicència de per vida</string>
+	<string name="screen_license_check_lifetime_subtitle">Una única vegada</string>
+	<string name="screen_license_check_restore_purchase">Recuperar compres</string>
+	<string name="screen_license_check_terms">Condicions d\'ús</string>
+	<string name="screen_license_check_privacy">Política de privacitat</string>
+	<string name="screen_license_check_trial_status_active">Actiu</string>
+	<string name="screen_license_check_trial_status_expired">Vençut</string>
+	<string name="screen_license_check_trial_expired_info">El període de prova ha caducat.</string>
+	<string name="screen_welcome_title">Us donem la benvinguda</string>
+	<string name="screen_welcome_continue_button">Continua</string>
+	<string name="screen_welcome_screen_lock_button">Bloqueig de pantalla establert</string>
+	<string name="next">Següent</string>
+	<string name="back">Enrere</string>
 	<!-- # clouds -->
 	<!-- ## cloud names -->
 	<string name="cloud_names_local_storage">Emmagatzematge local</string>
@@ -67,7 +95,6 @@
 	<string name="screen_vault_list_change_password_successful">La contrasenya s\'han canviat correctament</string>
 	<!-- # screen: file browser -->
 	<string name="screen_file_browser_default_title">Caixa forta</string>
-	<string name="screen_file_browser_add_existing_vault_extra_text">Seleccioneu el fitxer de clau mestra</string>
 	<string name="screen_file_browser_create_new_vault_button_text">Col·locar aquí</string>
 	<string name="screen_file_browser_create_new_vault_extra_text">Nom de la caixa forta: %1$s</string>
 	<plurals name="screen_file_browser_subtitle_move">
@@ -185,7 +212,7 @@
 	<string name="screen_settings_section_auto_photo_upload_including_videos">Puja vídeos</string>
 	<string name="screen_settings_auto_photo_upload_title">Desa els fitxers pujats automàticament a&#8230;</string>
 	<string name="screen_settings_website_label">Lloc web de Cryptomator</string>
-	<string name="screen_settings_twitter_label">Seguiu-nos a Twitter</string>
+	<string name="screen_settings_mastodon_label">Seguiu-nos a Mastodont</string>
 	<string name="screen_settings_facebook_label">Poseu-nos un \"m\'agrada\" a Facebook</string>
 	<string name="screen_settings_section_legal">Legal</string>
 	<string name="screen_settings_licenses_label">Llicències</string>
@@ -198,6 +225,8 @@
 	<string name="screen_settings_security_label">Consells de seguretat</string>
 	<string name="screen_settings_section_version">Versió</string>
 	<string name="screen_settings_advanced_settings">Configuració avançada</string>
+	<string name="screen_settings_microsoft_apps_workaround_label">Solució alternativa per obrir fitxers de Microsoft</string>
+	<string name="screen_settings_microsoft_apps_workaround_summary">Obrir fitxers a Microsoft apps amb permís d\'escriptura</string>
 	<string name="screen_settings_background_unlock_preparation_label">Desbloqueja més ràpid</string>
 	<string name="screen_settings_background_unlock_preparation_label_summary">Descarrega la configuració de la caixa forta de fons mentre es demana introduir la contrasenya o l\'autenticació biomètrica</string>
 	<string name="screen_settings_keep_unlocked_while_editing_files">Manté desblocat</string>
@@ -304,17 +333,18 @@
 	<string name="dialog_debug_mode_disclaimer_hint">En aquest mode, informació sensible pot ser escrita en un arxiu de registre al teu dispositiu (per exemple, noms d\'arxius i rutes). Contrasenyes, galetes, etc. són explícitament excloses.\n\nRecorda desactivar el mode de depuració tan aviat com sigui possible.</string>
 	<string name="dialog_debug_mode_disclaimer_title">Atenció</string>
 	<string name="dialog_debug_mode_positive_button">Activa</string>
-	<string name="dialog_disable_app_obscured_disclaimer_hint">Aquesta configuració és una funció de seguretat i evita que altres aplicacions enganyin els usuaris perquè facin coses que no volen fer.\n\nEn desactivar-la, confirmeu que sou &lt;a href="https://docs.cryptomator.org". /en/1.6/android/settings/#block-app-when-obscured"&gt;conscient dels riscos&lt;/a&gt;.</string>
+	<string name="dialog_microsoft_workaround_disclaimer_hint">A causa d\'un error en les aplicacions de Microsoft, el fitxer que s\'editarà s\'ha de compartir amb aquestes aplicacions en una carpeta de mitjans públics al dispositiu. Quan es reprengui Cryptomator, el fitxer d\'accés públic s\'elimina novament, però Cryptomator no pot influir en el que va passar amb aquest fitxer mentrestant. Assegureu-vos de conèixer aquest comportament en activar aquesta opció. Això només s\'aplicarà als tipus de fitxers de Microsoft.\n\nCryptomator es reiniciarà després de l\'activació.</string>
+	<string name="dialog_disable_app_obscured_disclaimer_hint">Aquesta configuració és una funció de seguretat que evita que altres aplicacions enganyin els usuaris perquè facin coses que no volen fer.\n\nEn desactivar-la, confirmeu que en compreneu &lt;a href=\"https://docs.cryptomator.org\". /en/1.6/android/settings/#block-app-when-obscured\"&gt;els riscos&lt;/a&gt;.</string>
 	<string name="dialog_disable_app_obscured_disclaimer_title">Atenció</string>
 	<string name="dialog_disable_app_obscured_positive_button">Desactiva</string>
 	<string name="dialog_app_is_obscured_info_title">Alguna cosa està superposada a l\'aplicació</string>
-	<string name="dialog_app_is_obscured_info_hint">Una altra aplicació mostra alguna cosa a sobre de Cryptomator (p. ex., un filtre de llum blava o una aplicació de mode nocturn). Per motius de seguretat, Cryptomator està desactivat.\n\n<a href="https://docs.cryptomator.org/en/1.6/android/settings/#block-app-when-obscured">Com activar Cryptomator</a></string>
+	<string name="dialog_app_is_obscured_info_hint">Una altra aplicació mostra alguna cosa a sobre de Cryptomator (p. ex., un filtre de llum blava o una aplicació de mode nocturn). Per motius de seguretat, Cryptomator s\'ha desactivat.\n\n<a href="https://docs.cryptomator.org/en/latest/android/settings/#block-app-when-obscured">Com activar Cryptomator</a></string>
 	<string name="dialog_app_is_obscured_info_neutral_button">Tanca</string>
 	<string name="dialog_vaults_removed_during_migration_title">Si us plau, torna a afegir les caixes fortes per el cloud %1s</string>
 	<string name="dialog_vaults_removed_during_migration_hint">Al migrar cap a aquesta versió de l\'app hem hagut d\'esborrar les següents caixes fortes de l\'aplicació:\n%2s \n\nAquestes caixes fortes no s\'han esborrat del cloud sinó que només de l\'aplicació. Sentim les molèsties ocasionades, si us plau torna a afegir les caixes fortes per a continuar treballant amb elles.</string>
 	<string name="dialog_vault_is_root_folder_of_cloud_title">La caixa forta és la carpeta principal de la connexió al núvol</string>
 	<string name="dialog_vault_is_root_folder_of_cloud_hint">Crea una nova connexió al núvol on podeu seleccionar si més no la carpeta mare d\'aquesta caixa forta com a carpeta arrel per a afegir aquesta caixa forta.</string>
-	<string name="dialog_disable_secure_screen_disclaimer_hint">Aquesta configuració és una funció de seguretat i impedeix que altres aplicacions enganyin els usuaris perquè facin coses que no volen fer.\n\nEn desactivar-la, confirmeu que sou &lt;a href="https://docs.cryptomator.org". /en/1.6/android/settings/#screen-security"&gt;conscient dels riscos&lt;/a&gt;.</string>
+	<string name="dialog_disable_secure_screen_disclaimer_hint">Aquesta configuració és una funció de seguretat que evita que altres aplicacions enganyin els usuaris perquè facin coses que no volen fer.\n\nEn desactivar-la, confirmeu que en compreneu &lt;a href=\"https://docs.cryptomator.org\". /en/1.6/android/settings/#block-app-when-obscured\"&gt;els riscos&lt;/a&gt;.</string>
 	<string name="dialog_delete_cloud_connection_with_vaults_message">Estàs segur que vols esborrar aquesta connexió al cloud?</string>
 	<string name="dialog_delete_cloud_connection_with_vaults_hint">Aquesta acció esborrarà la connexió al cloud i totes les seves caixes fortes.</string>
 	<string name="dialog_confirm_delete_multiple_title">Voleu suprimir %1$d elements?</string>
@@ -346,8 +376,22 @@
 	<string name="dialog_no_more_images_to_display">No hi ha més imatges per mostrar&#8230;</string>
 	<string name="dialog_pcloud_credentials_updated_title">Credencials de \'%1$s\' actualitzades</string>
 	<string name="dialog_pcloud_credentials_updated">Si teníeu la intenció d\'afegir un compte de pCloud nou, toqueu aquest URL <a href="https://www.pcloud.com">www.pcloud.com</a>, tanqueu la sessió del compte actual i torneu a tocar el \"+\" d\'aquesta aplicació per crear una nova connexió al núvol.</string>
+	<string name="dialog_cbc_password_vaults_migration_action">Migra</string>
+	<string name="dialog_create_hub_device_name_label">Nom</string>
+	<string name="dialog_create_hub_device_name_hint">Sembla que és el primer accés al Hub des d\'aquest dispositiu. Per identificar-lo i poder autoritzar l\'accés heu de posar nom a aquest dispositiu.</string>
+	<string name="dialog_create_hub_device_name_empty">No es pot deixar buit el nom.</string>
+	<string name="dialog_create_hub_device_setup_code_hint">Cal la vostra Account Key per a iniciar sessió des d\'una aplicació o navegador nous. La trobareu al vostre perfil.</string>
+	<string name="dialog_hub_vault_access_forbidden_title">Accés denegat</string>
+	<string name="dialog_hub_license_upgrade_required_title">Comprova la llicència de Hub</string>
+	<string name="dialog_hub_license_upgrade_required_hint">Aquesta instància de Cryptomator Hub no té una llicència vàlida. Si us plau, informeu un l\'administrador perquè actualitzi o renovi la llicència.\"</string>
+	<string name="dialog_hub_vault_archived_title">La caixa forta ha estat arxivada</string>
+	<string name="dialog_restore_successful_title">S\'ha restaurat amb èxit</string>
+	<string name="dialog_no_full_version_title">Sense versió completa</string>
+	<string name="dialog_hub_user_setup_required_hint">Per a continuar, si us plau, seguiu els passos necessaris en el vostre perfil d\'usuari de Hub.</string>
+	<string name="dialog_hub_user_setup_required_neutral_button">Vés al perfil</string>
 	<string name="permission_snackbar_auth_local_vault">Cryptomator necessita accés a l\'emmagatzematge per a fer servir caixes fortes locals</string>
 	<string name="permission_snackbar_auth_auto_upload">Cryptomator necessita accés a l\'emmagatzematge per a la pujada de fotos automàtica</string>
+	<string name="permission_snackbar_notifications">Cryptomator necessita permís de notificacions per poder informar del seu estat, per exemple</string>
 	<!-- # error reports -->
 	<!-- # misc -->
 	<!-- ## file size helper -->
@@ -391,6 +435,7 @@
 	<string name="notification_auto_upload_failed_due_to_folder_not_exists">La carpeta seleccionada per a la pujada ja no està disponible. Ves a la configuració i selecciona una nova</string>
 	<string name="notification_auto_upload_failed_due_to_vault_locked">La caixa forta s\'ha bloquejat durant la pujada, si us plau desbloqueja-la per a continuar</string>
 	<string name="notification_auto_upload_failed_due_to_vault_not_found">La caixa forta especificada per a la pujada automàtica ja no existeix.</string>
+	<string name="notification_auto_upload_failed_due_to_authentication_problem">Toqui per refrescar l\'autenticació.</string>
 	<string name="notification_open_writable_file_title">Obre fitxer editable</string>
 	<string name="notification_open_writable_file_message">La caixa forta seguirà desbloquejada fins que acabi l\'edició</string>
 	<string name="notification_update_check_finished_latest">La versió més recent s\'ha instal·lat</string>
@@ -400,8 +445,10 @@
 	<string name="screen_settings_lru_cache_size">Mida total de la memòria cau</string>
 	<string name="screen_settings_clear_lru_cache_size">Esborra la memòria cau</string>
 	<string name="screen_settings_lru_cache_changed__restart_toast">Els canvis seran aplicats al reinicialitzar l\'aplicació</string>
-	<string name="screen_settings_license">Registrat per</string>
+	<string name="screen_settings_license_title_unlock">Desbloca la versió completa</string>
 	<string name="screen_settings_license_mail">%1$s</string>
+	<string name="screen_settings_manage_subscription">Gestionar Subscripcions</string>
+	<string name="dialog_trial_expired_unlock">Desbloca la versió completa</string>
 	<string name="dialog_settings_update_check_interval_title">Interval entre comprovacions d\'actualitzacions</string>
 	<string name="screen_settings_check_updates">Cerca actualitzacions</string>
 	<string name="screen_settings_last_check_updates">Darrera comprovació: %1$s</string>

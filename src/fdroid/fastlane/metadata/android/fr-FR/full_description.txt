@@ -35,5 +35,5 @@ Cryptomator a reçu le prix de l'innovation CeBIT 2016 pour la sécurité pratiq
 
 Rejoignez la communauté de Cryptomator et participez aux conversations avec les autres utilisateurs de Cryptomator: https://community.cryptomator.org
 
-- Suivez-nous sur Twitter <a href="https://twitter.com/Cryptomator">@Cryptomator</a>
+- Suivez-nous sur Mastodon <a href="https://mastodon.online/@cryptomator">@cryptomator@mastodon.online</a>
 - Likez-nous sur Facebook <a href="https://facebook.com/Cryptomator">/Cryptomator</a>

@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+	android:layout_width="match_parent"
+	android:layout_height="match_parent">
+
+	<RelativeLayout
+		android:layout_width="match_parent"
+		android:layout_height="match_parent"
+		android:padding="@dimen/activity_vertical_margin">
+
+		<TextView
+			android:id="@+id/tv_device_name_hint"
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content"
+			android:text="@string/dialog_create_hub_device_name_hint" />
+
+		<com.google.android.material.textfield.TextInputLayout
+			android:id="@+id/til_name"
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content"
+			android:layout_below="@id/tv_device_name_hint"
+			android:layout_marginTop="16dp">
+
+			<com.google.android.material.textfield.TextInputEditText
+				android:id="@+id/et_device_name"
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"
+				android:hint="@string/dialog_create_hub_device_name_label"
+				android:imeOptions="actionDone|flagNoPersonalizedLearning"
+				android:inputType="text"
+				android:text="Android"
+				android:maxLines="1" />
+		</com.google.android.material.textfield.TextInputLayout>
+
+		<TextView
+			android:id="@+id/tv_setup_code_hint"
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content"
+			android:layout_below="@id/til_name"
+			android:layout_marginTop="16dp"
+			android:text="@string/dialog_create_hub_device_setup_code_hint" />
+
+		<com.google.android.material.textfield.TextInputLayout
+			android:id="@+id/til_setup_code"
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content"
+			android:layout_below="@id/tv_setup_code_hint"
+			android:layout_marginTop="16dp">
+
+			<com.google.android.material.textfield.TextInputEditText
+				android:id="@+id/et_setup_code"
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"
+				android:hint="@string/dialog_create_hub_device_setup_code_label"
+				android:imeOptions="actionDone|flagNoPersonalizedLearning"
+				android:inputType="text"
+				android:maxLines="1" />
+		</com.google.android.material.textfield.TextInputLayout>
+
+		<include
+			android:id="@+id/ll_dialog_progress"
+			layout="@layout/view_dialog_progress"
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content"
+			android:layout_below="@id/til_setup_code"
+			android:layout_marginTop="16dp" />
+
+		<include
+			android:id="@+id/ll_dialog_error"
+			layout="@layout/view_dialog_error"
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content"
+			android:layout_below="@id/til_setup_code"
+			android:layout_marginTop="16dp" />
+
+	</RelativeLayout>
+</androidx.core.widget.NestedScrollView>

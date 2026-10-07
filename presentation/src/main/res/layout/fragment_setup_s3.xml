@@ -14,7 +14,7 @@
 			android:layout_height="wrap_content">
 
 			<com.google.android.material.textfield.TextInputEditText
-				android:id="@+id/displayNameEditText"
+				android:id="@+id/display_name_edit_text"
 				android:layout_width="match_parent"
 				android:layout_height="wrap_content"
 				android:hint="@string/screen_s3_settings_display_name_label"
@@ -36,7 +36,7 @@
 			android:layout_height="wrap_content">
 
 			<com.google.android.material.textfield.TextInputEditText
-				android:id="@+id/accessKeyEditText"
+				android:id="@+id/access_key_edit_text"
 				android:layout_width="match_parent"
 				android:layout_height="wrap_content"
 				android:hint="@string/screen_s3_settings_access_key_label"
@@ -52,7 +52,7 @@
 			android:layout_height="wrap_content">
 
 			<com.google.android.material.textfield.TextInputEditText
-				android:id="@+id/secretKeyEditText"
+				android:id="@+id/secret_key_edit_text"
 				android:layout_width="match_parent"
 				android:layout_height="wrap_content"
 				android:hint="@string/screen_s3_settings_secret_key_label"
@@ -68,7 +68,7 @@
 			android:layout_height="wrap_content">
 
 			<com.google.android.material.textfield.TextInputEditText
-				android:id="@+id/bucketEditText"
+				android:id="@+id/bucket_edit_text"
 				android:layout_width="match_parent"
 				android:layout_height="wrap_content"
 				android:hint="@string/screen_s3_settings_bucket_label"
@@ -83,7 +83,7 @@
 			android:layout_height="wrap_content">
 
 			<com.google.android.material.textfield.TextInputEditText
-				android:id="@+id/endpointEditText"
+				android:id="@+id/endpoint_edit_text"
 				android:layout_width="match_parent"
 				android:layout_height="wrap_content"
 				android:hint="@string/screen_s3_settings_endpoint_label"
@@ -98,7 +98,7 @@
 			android:layout_height="wrap_content">
 
 			<com.google.android.material.textfield.TextInputEditText
-				android:id="@+id/regionEditText"
+				android:id="@+id/region_edit_text"
 				android:layout_width="match_parent"
 				android:layout_height="wrap_content"
 				android:hint="@string/screen_s3_settings_region_label"
@@ -109,7 +109,7 @@
 		</com.google.android.material.textfield.TextInputLayout>
 
 		<Button
-			android:id="@+id/createCloudButton"
+			android:id="@+id/create_cloud_button"
 			android:layout_width="match_parent"
 			android:layout_height="wrap_content"
 			android:layout_marginTop="16dp"

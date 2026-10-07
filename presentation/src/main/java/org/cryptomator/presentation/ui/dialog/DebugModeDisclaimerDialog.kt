@@ -5,9 +5,10 @@ import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.DialogFragment
 import org.cryptomator.generator.Dialog
 import org.cryptomator.presentation.R
+import org.cryptomator.presentation.databinding.DialogDebugModeDisclaimerBinding
 
-@Dialog(R.layout.dialog_debug_mode_disclaimer)
-class DebugModeDisclaimerDialog : BaseDialog<DebugModeDisclaimerDialog.Callback>() {
+@Dialog
+class DebugModeDisclaimerDialog : BaseDialog<DebugModeDisclaimerDialog.Callback, DialogDebugModeDisclaimerBinding>(DialogDebugModeDisclaimerBinding::inflate) {
 
 	interface Callback {
 

@@ -16,7 +16,7 @@ import org.cryptomator.presentation.model.VaultModel
 import org.cryptomator.presentation.ui.activity.view.BiometricAuthSettingsView
 import org.cryptomator.presentation.workflow.ActivityResult
 import org.cryptomator.util.SharedPreferencesHandler
-import java.util.ArrayList
+import org.cryptomator.util.crypto.CryptoMode
 import javax.inject.Inject
 import timber.log.Timber
 
@@ -78,16 +78,17 @@ class BiometricAuthSettingsPresenter @Inject constructor( //
 	fun vaultUnlockedBiometricAuthPres(result: ActivityResult, vaultModel: VaultModel) {
 		val cloud = result.intent().getSerializableExtra(SINGLE_RESULT) as Cloud
 		val password = result.intent().getStringExtra(UnlockVaultPresenter.PASSWORD)
-		val vault = Vault.aCopyOf(vaultModel.toVault()).withCloud(cloud).withSavedPassword(password).build()
+		val vault = Vault.aCopyOf(vaultModel.toVault()).withCloud(cloud).withSavedPassword(password, CryptoMode.NONE).build()
 		requestActivityResult( //
 			ActivityResultCallbacks.encryptVaultPassword(vaultModel), //
-			Intents.unlockVaultIntent().withVaultModel(VaultModel(vault)).withVaultAction(UnlockVaultIntent.VaultAction.ENCRYPT_PASSWORD))
+			Intents.unlockVaultIntent().withVaultModel(VaultModel(vault)).withVaultAction(UnlockVaultIntent.VaultAction.ENCRYPT_PASSWORD) //
+		)
 	}
 
 	@Callback
 	fun encryptVaultPassword(result: ActivityResult, vaultModel: VaultModel) {
 		val tmpVault = result.intent().getSerializableExtra(SINGLE_RESULT) as VaultModel
-		val vault = Vault.aCopyOf(vaultModel.toVault()).withSavedPassword(tmpVault.password).build()
+		val vault = Vault.aCopyOf(vaultModel.toVault()).withSavedPassword(tmpVault.password, tmpVault.passwordCryptoMode).build()
 		saveVault(vault)
 	}
 
@@ -122,7 +123,7 @@ class BiometricAuthSettingsPresenter @Inject constructor( //
 	private fun removePasswordAndSave(vault: Vault) {
 		val vaultWithRemovedPassword = Vault //
 			.aCopyOf(vault) //
-			.withSavedPassword(null) //
+			.withSavedPassword(null, null) //
 			.build()
 		saveVault(vaultWithRemovedPassword)
 	}

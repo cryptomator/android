@@ -5,12 +5,10 @@ import org.jetbrains.annotations.NotNull;
 public class GoogleDriveCloud implements Cloud {
 
 	private final Long id;
-	private final String accessToken;
 	private final String username;
 
 	private GoogleDriveCloud(Builder builder) {
 		this.id = builder.id;
-		this.accessToken = builder.accessToken;
 		this.username = builder.username;
 	}
 
@@ -21,7 +19,6 @@ public class GoogleDriveCloud implements Cloud {
 	public static Builder aCopyOf(GoogleDriveCloud googleDriveCloud) {
 		return new Builder() //
 				.withId(googleDriveCloud.id()) //
-				.withAccessToken(googleDriveCloud.accessToken()) //
 				.withUsername(googleDriveCloud.username());
 	}
 
@@ -33,10 +30,6 @@ public class GoogleDriveCloud implements Cloud {
 	@Override
 	public CloudType type() {
 		return CloudType.GOOGLE_DRIVE;
-	}
-
-	public String accessToken() {
-		return accessToken;
 	}
 
 	public String username() {
@@ -92,7 +85,6 @@ public class GoogleDriveCloud implements Cloud {
 	public static class Builder {
 
 		private Long id;
-		private String accessToken;
 		private String username;
 
 		private Builder() {
@@ -100,11 +92,6 @@ public class GoogleDriveCloud implements Cloud {
 
 		public Builder withId(Long id) {
 			this.id = id;
-			return this;
-		}
-
-		public Builder withAccessToken(String accessToken) {
-			this.accessToken = accessToken;
 			return this;
 		}
 

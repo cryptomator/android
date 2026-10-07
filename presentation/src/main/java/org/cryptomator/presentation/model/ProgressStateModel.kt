@@ -47,6 +47,7 @@ open class ProgressStateModel private constructor(private val name: String, imag
 		val UNLOCKING_VAULT = ProgressStateModel("VAULT", text(R.string.dialog_progress_unlocking_vault))
 		val CHANGING_PASSWORD = ProgressStateModel("PASSWORD", text(R.string.dialog_progress_change_password))
 		val CREATING_VAULT = ProgressStateModel("VAULT", text(R.string.dialog_progress_creating_vault))
+		val CREATING_HUB_DEVICE = ProgressStateModel("HUB_DEVICE", text(R.string.dialog_progress_creating_hub_device_setup))
 		val UNKNOWN = ProgressStateModel("UNKNOWN_MIMETYPE", text(R.string.dialog_progress_please_wait))
 		val COMPLETED = ProgressStateModel("COMPLETED")
 

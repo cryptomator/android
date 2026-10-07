@@ -1,7 +1,5 @@
 package org.cryptomator.data.cloud.local;
 
-import static org.cryptomator.domain.CloudType.LOCAL;
-
 import android.content.Context;
 import android.content.UriPermission;
 
@@ -16,6 +14,8 @@ import java.util.List;
 
 import javax.inject.Inject;
 import javax.inject.Singleton;
+
+import static org.cryptomator.domain.CloudType.LOCAL;
 
 @Singleton
 public class LocalStorageContentRepositoryFactory implements CloudContentRepositoryFactory {
@@ -38,7 +38,7 @@ public class LocalStorageContentRepositoryFactory implements CloudContentReposit
 	public CloudContentRepository cloudContentRepositoryFor(Cloud cloud) {
 		List<UriPermission> permissions = context.getContentResolver().getPersistedUriPermissions();
 		for (UriPermission permission : permissions) {
-			if(permission.getUri().toString().equals(((LocalStorageCloud) cloud).rootUri())) {
+			if (permission.getUri().toString().equals(((LocalStorageCloud) cloud).rootUri())) {
 				return new LocalStorageAccessFrameworkContentRepository(context, mimeTypes, (LocalStorageCloud) cloud);
 			}
 		}

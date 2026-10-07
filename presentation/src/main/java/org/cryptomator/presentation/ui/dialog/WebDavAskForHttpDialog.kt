@@ -6,11 +6,11 @@ import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.DialogFragment
 import org.cryptomator.generator.Dialog
 import org.cryptomator.presentation.R
+import org.cryptomator.presentation.databinding.DialogAskForHttpBinding
 import java.net.URI
-import kotlinx.android.synthetic.main.dialog_ask_for_http.cb_select_http
 
-@Dialog(R.layout.dialog_ask_for_http)
-class WebDavAskForHttpDialog : BaseDialog<WebDavAskForHttpDialog.Callback>() {
+@Dialog
+class WebDavAskForHttpDialog : BaseDialog<WebDavAskForHttpDialog.Callback, DialogAskForHttpBinding>(DialogAskForHttpBinding::inflate) {
 
 	private lateinit var uri: URI
 	private lateinit var username: String
@@ -34,7 +34,7 @@ class WebDavAskForHttpDialog : BaseDialog<WebDavAskForHttpDialog.Callback>() {
 			.setTitle(R.string.dialog_http_security_title) //
 			.setNeutralButton(
 				getString(R.string.dialog_unable_to_share_positive_button)
-			) { _: DialogInterface, _: Int -> callback?.onAksForHttpFinished(username, password, uriWithDesiredProtocol(cb_select_http.isChecked), cloudId, certificate) }
+			) { _: DialogInterface, _: Int -> callback?.onAksForHttpFinished(username, password, uriWithDesiredProtocol(binding.cbSelectHttp.isChecked), cloudId, certificate) }
 		return builder.create()
 	}
 

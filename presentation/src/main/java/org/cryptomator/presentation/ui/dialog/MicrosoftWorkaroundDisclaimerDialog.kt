@@ -5,9 +5,10 @@ import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.DialogFragment
 import org.cryptomator.generator.Dialog
 import org.cryptomator.presentation.R
+import org.cryptomator.presentation.databinding.DialogMicrosoftWorkaroundDisclaimerBinding
 
-@Dialog(R.layout.dialog_microsoft_workaround_disclaimer)
-class MicrosoftWorkaroundDisclaimerDialog : BaseDialog<MicrosoftWorkaroundDisclaimerDialog.Callback>() {
+@Dialog
+class MicrosoftWorkaroundDisclaimerDialog : BaseDialog<MicrosoftWorkaroundDisclaimerDialog.Callback, DialogMicrosoftWorkaroundDisclaimerBinding>(DialogMicrosoftWorkaroundDisclaimerBinding::inflate) {
 
 	interface Callback {
 

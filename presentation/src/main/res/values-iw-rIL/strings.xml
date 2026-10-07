@@ -35,6 +35,29 @@
 	<string name="error_no_such_bucket">דלי לא נמצא</string>
 	<string name="error_masterkey_location_not_supported">שינוי מיקום ה Masterkey עדיין לא נתמך</string>
 	<string name="error_interact_with_fdroid_but_fdroid_missing">כשלון בתקשורת מול ישום F-Droid. האם הוא מותקן?</string>
+	<!-- # read-only & purchases -->
+	<string name="screen_license_check_benefit_family_sharing">שיתוף משפחתי</string>
+	<string name="screen_license_check_benefit_write_access">גישה כתיבה לכספות שלך</string>
+	<string name="screen_license_check_benefit_support">פיתוח קוד-פתוח</string>
+	<string name="screen_license_check_title_full_version">שחרור גרסה מלאה</string>
+	<string name="screen_license_check_trial_title">30 ימי ניסיון</string>
+	<string name="screen_license_check_trial_price">חינם</string>
+	<string name="screen_license_check_trial_subtitle">ל- 30 ימים</string>
+	<string name="screen_license_check_subscription_title">מנוי שנתי</string>
+	<string name="screen_license_check_subscription_subtitle">שנתי</string>
+	<string name="screen_license_check_lifetime_title">רשיון לכל החיים</string>
+	<string name="screen_license_check_lifetime_subtitle">חד פעמי</string>
+	<string name="screen_license_check_restore_purchase">שחזר רכישה</string>
+	<string name="screen_license_check_terms">תנאי שימוש</string>
+	<string name="screen_license_check_privacy">מדיניות פרטיות</string>
+	<string name="screen_license_check_trial_status_active">פעיל</string>
+	<string name="screen_license_check_trial_status_expired">פג תוקף</string>
+	<string name="screen_license_check_trial_expired_info">תקופת הניסיון פגה.</string>
+	<string name="screen_welcome_title">ברוך הבא</string>
+	<string name="screen_welcome_continue_button">המשך</string>
+	<string name="screen_welcome_screen_lock_button">הגדר נעילת מסך</string>
+	<string name="next">הבא</string>
+	<string name="back">חזור</string>
 	<!-- # clouds -->
 	<!-- ## cloud names -->
 	<string name="cloud_names_local_storage">אחסון מקומי</string>
@@ -67,13 +90,11 @@
 	<string name="screen_vault_list_change_password_successful">הסיסמא שונתה בהצלחה</string>
 	<!-- # screen: file browser -->
 	<string name="screen_file_browser_default_title">כספת</string>
-	<string name="screen_file_browser_add_existing_vault_extra_text">בחר קובץ masterkey</string>
 	<string name="screen_file_browser_create_new_vault_button_text">מקם כאן</string>
 	<string name="screen_file_browser_create_new_vault_extra_text">שם הכספת: %1$s</string>
 	<plurals name="screen_file_browser_subtitle_move">
 		<item quantity="one">העברת %1$s אל</item>
 		<item quantity="two">העברת %2$d פריטים אל</item>
-		<item quantity="many">העברת %2$d פריטים אל</item>
 		<item quantity="other">העבר %2$d פריטים אל</item>
 	</plurals>
 	<string name="screen_file_browser_move_button_text">שנה מיקום</string>
@@ -187,7 +208,6 @@
 	<string name="screen_settings_section_auto_photo_upload_including_videos">העלה סרטוני וידאו</string>
 	<string name="screen_settings_auto_photo_upload_title">שמור קבצים מועלים אוטומטית ל&#8230;</string>
 	<string name="screen_settings_website_label">לאתר Cryptomator</string>
-	<string name="screen_settings_twitter_label">עקבו אחרינו ב-Twitter</string>
 	<string name="screen_settings_facebook_label">תנו לנו לייק ב-Facebook</string>
 	<string name="screen_settings_section_legal">היבטים משפטיים</string>
 	<string name="screen_settings_licenses_label">רישיונות</string>
@@ -306,17 +326,14 @@
 	<string name="dialog_debug_mode_disclaimer_hint">במצב זה, מידע רגיש עשוי להכתב לקובץ לוג על מכשירך (כגון שמות קבצים ותיקיות). סיסמאות, עוגיות וכו׳ מוחרגים.\n\nזכור לבטל את מצב ניפוי התקלות בהקדם האפשרי.</string>
 	<string name="dialog_debug_mode_disclaimer_title">שים לב</string>
 	<string name="dialog_debug_mode_positive_button">הפעל</string>
-	<string name="dialog_disable_app_obscured_disclaimer_hint">זוהי הגדרה של יכולת אבטחה המונעת מישומים אחרים לעבוד עליך ולגרום לך לעשות דברים שאינך רוצה שיקרו.\n\nעל ידי נטרול האפשרות, אתה מאשר שאתה <a href="https://docs.cryptomator.org/en/1.6/android/settings/#block-app-when-obscured">מודע לסכנות</a>.</string>
 	<string name="dialog_disable_app_obscured_disclaimer_title">שים לב</string>
 	<string name="dialog_disable_app_obscured_positive_button">כבה</string>
 	<string name="dialog_app_is_obscured_info_title">אפליקציה אחרת מציגה מעל Cryptomator</string>
-	<string name="dialog_app_is_obscured_info_hint">אפליקציה אחרת מציגה משהו מעל Cryptomator (לדוגמה, אפליקציית סינון אור כחול למצב לילה). מטעמי אבטחה, Cryptomator ייסגר עכשיו.\n\n<a href="https://docs.cryptomator.org/en/1.6/android/settings/#block-app-when-obscured">איך להפעיל את Cryptomator</a></string>
 	<string name="dialog_app_is_obscured_info_neutral_button">סגור</string>
 	<string name="dialog_vaults_removed_during_migration_title">נא הוסף מחדש את הכספות עבור הענן %1s</string>
 	<string name="dialog_vaults_removed_during_migration_hint">בעת ביצוע הגירה לגרסת הישום, אנו צריכים להסיר את הכספות הבאות מהישום:\n%2s\n\nהכספות האלו לא מוסרות מהענן אלא רק מישום זה. סליחה על אי הנוחות ואנא הוסף מחדש את הכספות כדי להמשיך לעבוד אתם.</string>
 	<string name="dialog_vault_is_root_folder_of_cloud_title">הכספת היא תיקית השורש של החיבור לענן</string>
 	<string name="dialog_vault_is_root_folder_of_cloud_hint">להוספת כספת זו, צור קישור ענן חדש באופן שתבחר לכל הפחות את תיקית האב של תיקית כספת זו כתיקית השורש.</string>
-	<string name="dialog_disable_secure_screen_disclaimer_hint">זוהי הגדרה של יכולת אבטחה המונעת מישומים אחרים לעבוד עליך ולגרום לך לעשות דברים שאינך רוצה שיקרו.\n\nעל ידי נטרול האפשרות, אתה מאשר שאתה <a href="https://docs.cryptomator.org/en/1.6/android/settings/#screen-security">מודע לסכנות</a>.</string>
 	<string name="dialog_delete_cloud_connection_with_vaults_message">האם את/ה בטוח/ה שברצונך להסיר את החיבור הזה לענן?</string>
 	<string name="dialog_delete_cloud_connection_with_vaults_hint">פעולה זו תסיר את החיבור לענן ואת כל ה Vault-ים שבענן זה.</string>
 	<string name="dialog_confirm_delete_multiple_title">למחוק %1$d פריטים?</string>
@@ -348,6 +365,9 @@
 	<string name="dialog_no_more_images_to_display">אין עוד תמונות להציג&#8230;</string>
 	<string name="dialog_pcloud_credentials_updated_title">פרטי ההתחברות של \'%1$s\' עודכנו</string>
 	<string name="dialog_pcloud_credentials_updated">אם ברצונך להוסיף חשבון pCloud חדש, לחץ על הקישור <a href="https://www.pcloud.com">www.pcloud.com</a>, התנתק מהחשבון הנוכחי ולחץ על ה \'+\' בישום זה ליצירת חיבור ענן חדש.</string>
+	<string name="dialog_hub_vault_access_forbidden_title">הגישה נדחתה</string>
+	<string name="dialog_restore_successful_title">שוחזר בהצלחה</string>
+	<string name="dialog_no_full_version_title">אין גרסה מלאה</string>
 	<string name="permission_snackbar_auth_local_vault">Cryptomator זקוק להרשאת גישה לזיכרון המכשיר כדי להשתמש בכספת מקומית</string>
 	<string name="permission_snackbar_auth_auto_upload">Cryptomator זקוק להרשאת גישה לזיכרון המכשיר כדי לבצע העלאה אוטומטית של תמונות</string>
 	<string name="permission_snackbar_notifications">Cryptomator צריך הרשאה לשליחת התראות על מנת, לדוגמה, להציג לכם את מצב הכספת</string>
@@ -403,8 +423,10 @@
 	<string name="screen_settings_lru_cache_size">נפח מטמון</string>
 	<string name="screen_settings_clear_lru_cache_size">נקה מטמון</string>
 	<string name="screen_settings_lru_cache_changed__restart_toast">השינויים יכנסו לתוקף בהפעלה מחדש הבאה של הישום</string>
-	<string name="screen_settings_license">רשום עבור</string>
+	<string name="screen_settings_license_title_unlock">שחרור גרסה מלאה</string>
 	<string name="screen_settings_license_mail">%1$s</string>
+	<string name="screen_settings_manage_subscription">ניהול מנוי</string>
+	<string name="dialog_trial_expired_unlock">שחרור גרסה מלאה</string>
 	<string name="dialog_settings_update_check_interval_title">בדוק עדכונים אוטומטית</string>
 	<string name="screen_settings_check_updates">חפש עדכונים</string>
 	<string name="screen_settings_last_check_updates">בדיקה אחרונה %1$s</string>

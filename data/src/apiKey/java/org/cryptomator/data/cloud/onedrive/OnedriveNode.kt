@@ -8,5 +8,5 @@ interface OnedriveNode : CloudNode {
 	override val name: String
 	override val path: String
 	override val parent: OnedriveFolder?
-	
+
 }

@@ -8,12 +8,11 @@ import androidx.activity.result.contract.ActivityResultContracts.StartActivityFo
 import androidx.appcompat.app.AlertDialog
 import org.cryptomator.generator.Dialog
 import org.cryptomator.presentation.R
+import org.cryptomator.presentation.databinding.DialogPcloudCredentialsUpdatedBinding
 import org.cryptomator.presentation.util.ResourceHelper
-import kotlinx.android.synthetic.main.dialog_pcloud_credentials_updated.tv_pcloud_credentials_updated
 
-
-@Dialog(R.layout.dialog_pcloud_credentials_updated)
-class PCloudCredentialsUpdatedDialog : BaseDialog<PCloudCredentialsUpdatedDialog.Callback>() {
+@Dialog
+class PCloudCredentialsUpdatedDialog : BaseDialog<PCloudCredentialsUpdatedDialog.Callback, DialogPcloudCredentialsUpdatedBinding>(DialogPcloudCredentialsUpdatedBinding::inflate) {
 
 	interface Callback {
 
@@ -29,7 +28,7 @@ class PCloudCredentialsUpdatedDialog : BaseDialog<PCloudCredentialsUpdatedDialog
 		super.onStart()
 		val dialog = dialog as AlertDialog?
 		dialog?.let {
-			tv_pcloud_credentials_updated.setOnClickListener {
+			binding.tvPcloudCredentialsUpdated.setOnClickListener {
 				someActivityResultLauncher.launch(Intent(Intent.ACTION_VIEW, Uri.parse("https://www.pcloud.com")))
 			}
 		}

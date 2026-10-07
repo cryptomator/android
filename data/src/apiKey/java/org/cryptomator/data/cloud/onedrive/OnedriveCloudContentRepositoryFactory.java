@@ -1,7 +1,5 @@
 package org.cryptomator.data.cloud.onedrive;
 
-import static org.cryptomator.domain.CloudType.ONEDRIVE;
-
 import android.content.Context;
 
 import org.cryptomator.data.repository.CloudContentRepositoryFactory;
@@ -11,6 +9,8 @@ import org.cryptomator.domain.repository.CloudContentRepository;
 
 import javax.inject.Inject;
 import javax.inject.Singleton;
+
+import static org.cryptomator.domain.CloudType.ONEDRIVE;
 
 @Singleton
 public class OnedriveCloudContentRepositoryFactory implements CloudContentRepositoryFactory {
