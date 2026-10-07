@@ -124,6 +124,7 @@
 	<string name="screen_vault_list_vault_action_delete">Rimuovi</string>
 	<string name="screen_vault_list_vault_creation_hint">Tocca qui per creare una nuova cassaforte</string>
 	<string name="screen_vault_list_change_password_successful">Password modificata con successo</string>
+	<string name="screen_vault_list_sale_promo_banner_dismiss">Ignora</string>
 	<!-- # screen: file browser -->
 	<string name="screen_file_browser_default_title">Cassaforte</string>
 	<string name="screen_file_browser_add_existing_vault_extra_text">Seleziona la chiave principale o il file della cassaforte</string>
