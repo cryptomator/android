@@ -12,6 +12,7 @@
 	<string name="snack_bar_action_title_search_next">Продолжи</string>
 	<!-- # screens -->
 	<!-- # screen: vault list -->
+	<string name="screen_vault_list_sale_promo_banner_dismiss">Откажи</string>
 	<!-- # screen: file browser -->
 	<string name="screen_file_browser_default_title">Сеф</string>
 	<!-- ## screen: text editor -->
