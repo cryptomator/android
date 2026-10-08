@@ -381,6 +381,7 @@
 	<string name="dialog_no_more_images_to_display">Brak obrazów do wyświetlenia&#8230;</string>
 	<string name="dialog_pcloud_credentials_updated_title">Zaktualizowano dane logowania \'%1$s\'</string>
 	<string name="dialog_pcloud_credentials_updated">Jeśli chcesz dodać nowe konto pCloud, przejdź na podany adres <a href="https://www.pcloud.com">www.pcloud.com</a>, wyloguj się z aktualnie zalogowanego konta i ponownie kliknij na \'+\' aby utworzyć nowe połączenie z chmurą.</string>
+	<string name="dialog_enter_sharepoint_url_title">Wprowadź adres URL witryny SharePoint</string>
 	<string name="dialog_cbc_password_vaults_migration_title">Wymagana migracja hasła sejfu</string>
 	<string name="dialog_cbc_password_vaults_migration_hint">Z powodu ulepszenia zabezpieczeń, dla każdego sejfu zostaniesz dwukrotnie poproszony o weryfikację biometryczną celem ponownego zaszyfrowania haseł. Jest to konieczne, aby nadal chronić hasła za pomocą najnowszej technologii. Jeśli sobie tego nie życzysz, przechowywane hasła zostaną usunięte.</string>
 	<string name="dialog_cbc_password_vaults_migration_action">Migruj</string>
