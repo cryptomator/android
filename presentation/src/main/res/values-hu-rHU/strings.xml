@@ -410,6 +410,7 @@
 	<string name="dialog_no_more_images_to_display">Nincs több megjeleníthető kép&#8230;</string>
 	<string name="dialog_pcloud_credentials_updated_title">A(z) „%1$s” hitelesítő adatai frissítve</string>
 	<string name="dialog_pcloud_credentials_updated">Ha új pCloud fiókot szeretne hozzáadni, koppintson erre az url-re: <a href="https://www.pcloud.com">www.pcloud.com</a>, jelentkezzen ki a jelenlegi fiókból és koppintson újra a \'+\' gombra az appban, hogy új felhő kapcsolatot létesítsen.</string>
+	<string name="dialog_enter_sharepoint_url_title">SharePoint URL megadása</string>
 	<string name="dialog_cbc_password_vaults_migration_title">Tároló jelszó migráció szükséges</string>
 	<string name="dialog_cbc_password_vaults_migration_hint">A biztonsági fejlesztések miatt minden tároló esetében kétszer kérjük a biometrikus hitelesítést a tároló jelszavainak újratitkosításához. Ez szükséges ahhoz, hogy a tároló jelszavait a legújabb technológiával védjük továbbra is. Ha nem kívánja ezt végrehajtani, a tárolt jelszavak eltávolításra kerülnek.</string>
 	<string name="dialog_cbc_password_vaults_migration_action">Migráció</string>
