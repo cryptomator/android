@@ -415,6 +415,7 @@
 	<string name="dialog_no_more_images_to_display">لا مزيد من الصور للعرض&#8230;</string>
 	<string name="dialog_pcloud_credentials_updated_title">تم تحديث وثائق تفويض \'%1$s\'</string>
 	<string name="dialog_pcloud_credentials_updated">إذا كنت ترغب في إضافة حساب pCloud جديد، انقر على هذا الرابط <a href="https://www.pcloud.com">www.pcloud. om</a>، ثم قم بتسجيل الخروج من الحساب الحالي و بعدها انقر مرة أخرى على \'+\' في هذا التطبيق لإنشاء اتصال سحابي جديد.</string>
+	<string name="dialog_enter_sharepoint_url_title">ادخل رابط SharePoint</string>
 	<string name="dialog_cbc_password_vaults_migration_title">مطلوب نقل كلمة مرور الخزنة</string>
 	<string name="dialog_cbc_password_vaults_migration_hint">بسبب التحسينات الأمنية، سوف يطلب منك المصادقة البيومترية مرتين لكل خزانة لإعادة تشفير كلمات المرور الخاصة بك. هذا ضروري للاستمرار في حماية كلمات المرور الخاصة بالمخزن مع أحدث التكنولوجيا. إذا كنت لا ترغب في أن يحدث ذلك، سيتم إزالة كلمات المرور المخزنة.</string>
 	<string name="dialog_cbc_password_vaults_migration_action">نقل</string>
