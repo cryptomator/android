@@ -69,6 +69,7 @@ class UpgradeDatabaseTest {
 		Upgrade11To12(sharedPreferencesHandler).migrate(db)
 		Upgrade12To13(context).migrate(db)
 		Upgrade13To14(sharedPreferencesHandler).migrate(db)
+		Upgrade14To15().migrate(db)
 
 		// the clouds seeded for v1 that no later upgrade removes, and the single update check row
 		Sql.query("CLOUD_ENTITY").executeOn(db).use {
@@ -1064,5 +1065,61 @@ class UpgradeDatabaseTest {
 			Assert.assertThat(it.getString(it.getColumnIndex("APK_SHA256")), CoreMatchers.`is`(apkSha256))
 			Assert.assertThat(it.getString(it.getColumnIndex("URL_TO_RELEASE_NOTE")), CoreMatchers.`is`(urlReleaseNote))
 		}
+	}
+
+	@Test
+	fun upgrade14To15() {
+		LegacyDatabaseV1.createOn(db)
+		Upgrade1To2().migrate(db)
+		Upgrade2To3(context).migrate(db)
+		Upgrade3To4().migrate(db)
+		Upgrade4To5().migrate(db)
+		Upgrade5To6().migrate(db)
+		Upgrade6To7().migrate(db)
+		Upgrade7To8().migrate(db)
+		Upgrade8To9(sharedPreferencesHandler).migrate(db)
+		Upgrade9To10(sharedPreferencesHandler).migrate(db)
+		Upgrade10To11().migrate(db)
+		Upgrade11To12(sharedPreferencesHandler).migrate(db)
+		Upgrade12To13(context).migrate(db)
+		Upgrade13To14(sharedPreferencesHandler).migrate(db)
+
+		Sql.insertInto("CLOUD_ENTITY") //
+			.integer("_id", 15) //
+			.text("TYPE", CloudType.ONEDRIVE.name) //
+			.text("USERNAME", "username") //
+			.text("ACCESS_TOKEN", "accessToken") //
+			.executeOn(db)
+
+		Upgrade14To15().migrate(db)
+
+		Sql.insertInto("CLOUD_ENTITY") //
+			.integer("_id", 16) //
+			.text("TYPE", CloudType.SHAREPOINT.name) //
+			.text("USERNAME", "username") //
+			.text("ACCESS_TOKEN", "accessToken") //
+			.text("URL", "https://example.sharepoint.com/sites/site") //
+			.text("SHAREPOINT_DRIVE_ID", "driveId") //
+			.text("SHAREPOINT_DRIVE_NAME", "driveName") //
+			.executeOn(db)
+
+		Sql.query("CLOUD_ENTITY") //
+			.where("_id", Sql.eq(15L)) //
+			.executeOn(db).use {
+				it.moveToFirst()
+				Assert.assertThat(it.getString(it.getColumnIndex("TYPE")), CoreMatchers.`is`(CloudType.ONEDRIVE.name))
+				Assert.assertThat(it.getString(it.getColumnIndex("USERNAME")), CoreMatchers.`is`("username"))
+				Assert.assertThat(it.getString(it.getColumnIndex("ACCESS_TOKEN")), CoreMatchers.`is`("accessToken"))
+				Assert.assertThat(it.isNull(it.getColumnIndex("SHAREPOINT_DRIVE_ID")), CoreMatchers.`is`(true))
+				Assert.assertThat(it.isNull(it.getColumnIndex("SHAREPOINT_DRIVE_NAME")), CoreMatchers.`is`(true))
+			}
+
+		Sql.query("CLOUD_ENTITY") //
+			.where("_id", Sql.eq(16L)) //
+			.executeOn(db).use {
+				it.moveToFirst()
+				Assert.assertThat(it.getString(it.getColumnIndex("SHAREPOINT_DRIVE_ID")), CoreMatchers.`is`("driveId"))
+				Assert.assertThat(it.getString(it.getColumnIndex("SHAREPOINT_DRIVE_NAME")), CoreMatchers.`is`("driveName"))
+			}
 	}
 }

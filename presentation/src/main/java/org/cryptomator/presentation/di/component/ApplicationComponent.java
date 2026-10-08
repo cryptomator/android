@@ -11,6 +11,7 @@ import org.cryptomator.domain.executor.ThreadExecutor;
 import org.cryptomator.domain.repository.CloudContentRepository;
 import org.cryptomator.domain.repository.CloudRepository;
 import org.cryptomator.domain.repository.HubRepository;
+import org.cryptomator.domain.repository.SharepointRepository;
 import org.cryptomator.domain.repository.UpdateCheckRepository;
 import org.cryptomator.domain.repository.VaultRepository;
 import org.cryptomator.presentation.di.module.ApplicationModule;
@@ -40,6 +41,8 @@ public interface ApplicationComponent {
 	CloudRepository cloudRepository();
 
 	HubRepository hubRepository();
+
+	SharepointRepository sharepointRepository();
 
 	UpdateCheckRepository updateCheckRepository();
 

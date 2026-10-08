@@ -3,6 +3,7 @@ package org.cryptomator.data.repository;
 import org.cryptomator.domain.repository.CloudContentRepository;
 import org.cryptomator.domain.repository.CloudRepository;
 import org.cryptomator.domain.repository.HubRepository;
+import org.cryptomator.domain.repository.SharepointRepository;
 import org.cryptomator.domain.repository.UpdateCheckRepository;
 import org.cryptomator.domain.repository.VaultRepository;
 
@@ -36,6 +37,12 @@ public class RepositoryModule {
 	@Provides
 	public HubRepository provideHubRepositoryRepository(HubRepositoryImpl hubRepository) {
 		return hubRepository;
+	}
+
+	@Singleton
+	@Provides
+	public SharepointRepository provideSharepointRepository(SharepointRepositoryImpl sharepointRepository) {
+		return sharepointRepository;
 	}
 
 	@Singleton

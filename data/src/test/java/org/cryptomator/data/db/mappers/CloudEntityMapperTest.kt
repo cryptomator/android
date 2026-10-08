@@ -1,0 +1,35 @@
+package org.cryptomator.data.db.mappers
+
+import org.cryptomator.domain.CloudType
+import org.cryptomator.domain.SharepointCloud
+import org.hamcrest.CoreMatchers.`is`
+import org.hamcrest.MatcherAssert.assertThat
+import org.junit.jupiter.api.Test
+
+class CloudEntityMapperTest {
+
+	private val mapper = CloudEntityMapper()
+
+	@Test
+	fun testSharepointCloudSurvivesRoundTrip() {
+		val cloud = SharepointCloud.aSharepointCloud() //
+			.withId(42L) //
+			.withAccessToken("accessToken") //
+			.withUsername("user@contoso.com") //
+			.withSiteUrl("https://contoso.sharepoint.com/sites/team") //
+			.withDriveId("driveId") //
+			.withDriveName("Documents") //
+			.build()
+
+		val entity = mapper.toEntity(cloud)
+		val mapped = mapper.fromEntity(entity) as SharepointCloud
+
+		assertThat(entity.type, `is`(CloudType.SHAREPOINT.name))
+		assertThat(mapped.id(), `is`(42L))
+		assertThat(mapped.accessToken(), `is`("accessToken"))
+		assertThat(mapped.username(), `is`("user@contoso.com"))
+		assertThat(mapped.siteUrl(), `is`("https://contoso.sharepoint.com/sites/team"))
+		assertThat(mapped.driveId(), `is`("driveId"))
+		assertThat(mapped.driveName(), `is`("Documents"))
+	}
+}

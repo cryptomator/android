@@ -41,6 +41,7 @@ body:
         - Dropbox
         - Google Drive
         - OneDrive
+        - SharePoint
         - WebDAV
         - pCloud
         - S3

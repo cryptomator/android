@@ -11,6 +11,7 @@ import org.cryptomator.presentation.model.LocalStorageModel
 import org.cryptomator.presentation.model.OnedriveCloudModel
 import org.cryptomator.presentation.model.PCloudModel
 import org.cryptomator.presentation.model.S3CloudModel
+import org.cryptomator.presentation.model.SharepointCloudModel
 import org.cryptomator.presentation.model.WebDavCloudModel
 
 @BottomSheet(R.layout.dialog_bottom_sheet_cloud_settings)
@@ -27,6 +28,7 @@ class CloudConnectionSettingsBottomSheet : BaseBottomSheet<CloudConnectionSettin
 
 		when (cloudModel.cloudType()) {
 			CloudTypeModel.ONEDRIVE -> bindViewForOnedrive(cloudModel as OnedriveCloudModel)
+			CloudTypeModel.SHAREPOINT -> bindViewForSharepoint(cloudModel as SharepointCloudModel)
 			CloudTypeModel.WEBDAV -> bindViewForWebDAV(cloudModel as WebDavCloudModel)
 			CloudTypeModel.PCLOUD -> bindViewForPCloud(cloudModel as PCloudModel)
 			CloudTypeModel.S3 -> bindViewForS3(cloudModel as S3CloudModel)
@@ -58,6 +60,12 @@ class CloudConnectionSettingsBottomSheet : BaseBottomSheet<CloudConnectionSettin
 	private fun bindViewForOnedrive(cloudModel: OnedriveCloudModel) {
 		binding.changeCloud.visibility = View.GONE
 		binding.tvCloudSubtext.text = cloudModel.username()
+	}
+
+	private fun bindViewForSharepoint(cloudModel: SharepointCloudModel) {
+		binding.changeCloud.visibility = View.GONE
+		binding.tvCloudName.text = cloudModel.username()
+		binding.tvCloudSubtext.text = cloudModel.siteAndDriveName()
 	}
 
 	private fun bindViewForWebDAV(cloudModel: WebDavCloudModel) {

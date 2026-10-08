@@ -11,6 +11,7 @@ import org.cryptomator.presentation.model.LocalStorageModel
 import org.cryptomator.presentation.model.OnedriveCloudModel
 import org.cryptomator.presentation.model.PCloudModel
 import org.cryptomator.presentation.model.S3CloudModel
+import org.cryptomator.presentation.model.SharepointCloudModel
 import org.cryptomator.presentation.model.WebDavCloudModel
 import javax.inject.Inject
 
@@ -27,6 +28,7 @@ class CloudModelMapper @Inject constructor() : ModelMapper<CloudModel, Cloud>() 
 			CloudTypeModel.GOOGLE_DRIVE -> GoogleDriveCloudModel(domainObject)
 			CloudTypeModel.LOCAL -> LocalStorageModel(domainObject)
 			CloudTypeModel.ONEDRIVE -> OnedriveCloudModel(domainObject)
+			CloudTypeModel.SHAREPOINT -> SharepointCloudModel(domainObject)
 			CloudTypeModel.PCLOUD -> PCloudModel(domainObject)
 			CloudTypeModel.S3 -> S3CloudModel(domainObject)
 			CloudTypeModel.CRYPTO -> CryptoCloudModel(domainObject)

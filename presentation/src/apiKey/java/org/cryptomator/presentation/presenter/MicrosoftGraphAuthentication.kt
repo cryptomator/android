@@ -11,16 +11,20 @@ import com.microsoft.identity.client.PublicClientApplication
 import com.microsoft.identity.client.exception.MsalException
 import com.microsoft.identity.client.exception.MsalUiRequiredException
 import com.microsoft.identity.common.java.exception.ClientException
+import org.cryptomator.domain.MicrosoftGraphCloud
 import org.cryptomator.domain.OnedriveCloud
+import org.cryptomator.domain.SharepointCloud
 import org.cryptomator.domain.exception.FatalBackendException
 import org.cryptomator.domain.exception.NetworkConnectionException
 import org.cryptomator.presentation.R
 import org.cryptomator.util.crypto.CredentialCryptor
 import timber.log.Timber
 
-object OnedriveAuthentication {
+object MicrosoftGraphAuthentication {
 
-	fun refreshOrCheckAuth(activity: Activity, cloud: OnedriveCloud, success: (cloud: OnedriveCloud) -> Unit, failed: (e: FatalBackendException) -> Unit) {
+	fun refreshOrCheckAuth(activity: Activity, cloud: MicrosoftGraphCloud, success: (cloud: MicrosoftGraphCloud) -> Unit, failed: (e: FatalBackendException) -> Unit) {
+		val scopes = scopesFor(cloud)
+		val onTokenObtained = { authenticationResult: IAuthenticationResult -> success(withAuthenticationResult(activity.applicationContext, cloud, authenticationResult)) }
 		PublicClientApplication.createMultipleAccountPublicClientApplication(
 			activity.applicationContext,
 			R.raw.auth_config_onedrive,
@@ -29,16 +33,16 @@ object OnedriveAuthentication {
 					application.getAccounts(object : IPublicClientApplication.LoadAccountsCallback {
 						override fun onTaskCompleted(accounts: List<IAccount>) {
 							if (accounts.isEmpty()) {
-								application.acquireToken(activity, AuthenticateCloudPresenter.onedriveScopes(), getAuthInteractiveCallback(activity.applicationContext, cloud, success, failed))
+								application.acquireToken(activity, scopes, getAuthInteractiveCallback(onTokenObtained, failed))
 							} else {
 								accounts.find { account -> account.username == cloud.username() }?.let {
 									application.acquireTokenSilentAsync(
-										AuthenticateCloudPresenter.onedriveScopes(),
+										scopes,
 										it,
 										"https://login.microsoftonline.com/common",
-										getAuthSilentCallback(activity, cloud, success, failed, application)
+										getAuthSilentCallback(activity, scopes, onTokenObtained, failed, application)
 									)
-								} ?: application.acquireToken(activity, AuthenticateCloudPresenter.onedriveScopes(), getAuthInteractiveCallback(activity.applicationContext, cloud, success, failed))
+								} ?: application.acquireToken(activity, scopes, getAuthInteractiveCallback(onTokenObtained, failed))
 							}
 						}
 
@@ -56,17 +60,34 @@ object OnedriveAuthentication {
 			})
 	}
 
+	private fun scopesFor(cloud: MicrosoftGraphCloud): Array<String> {
+		return when (cloud) {
+			is SharepointCloud -> AuthenticateCloudPresenter.sharepointScopes()
+			else -> AuthenticateCloudPresenter.onedriveScopes()
+		}
+	}
+
+	private fun withAuthenticationResult(context: Context, cloud: MicrosoftGraphCloud, authenticationResult: IAuthenticationResult): MicrosoftGraphCloud {
+		Timber.tag("AuthenticateCloudPresenter").i("Successfully authenticated")
+		val accessToken = CredentialCryptor.getInstance(context).encrypt(authenticationResult.accessToken)
+		val username = authenticationResult.account.username
+		return when (cloud) {
+			is SharepointCloud -> SharepointCloud.aCopyOf(cloud).withAccessToken(accessToken).withUsername(username).build()
+			else -> OnedriveCloud.aCopyOf(cloud as OnedriveCloud).withAccessToken(accessToken).withUsername(username).build()
+		}
+	}
+
 	private fun getAuthSilentCallback(
 		activity: Activity,
-		cloud: OnedriveCloud,
-		success: (cloud: OnedriveCloud) -> Unit,
+		scopes: Array<String>,
+		onTokenObtained: (authenticationResult: IAuthenticationResult) -> Unit,
 		failed: (e: FatalBackendException) -> Unit,
 		application: IMultipleAccountPublicClientApplication
 	): AuthenticationCallback {
 		return object : AuthenticationCallback {
 
 			override fun onSuccess(authenticationResult: IAuthenticationResult) {
-				onTokenObtained(activity.applicationContext, cloud, authenticationResult, success)
+				onTokenObtained(authenticationResult)
 			}
 
 			override fun onError(e: MsalException) {
@@ -74,7 +95,7 @@ object OnedriveAuthentication {
 				when (e) {
 					is MsalUiRequiredException -> {
 						/* Tokens expired or no session, retry with interactive */
-						application.acquireToken(activity, AuthenticateCloudPresenter.onedriveScopes(), getAuthInteractiveCallback(activity.applicationContext, cloud, success, failed))
+						application.acquireToken(activity, scopes, getAuthInteractiveCallback(onTokenObtained, failed))
 					}
 					else -> failed(mapToNetworkExceptionIfRequired(e))
 				}
@@ -86,15 +107,16 @@ object OnedriveAuthentication {
 		}
 	}
 
-	private fun onTokenObtained(context: Context, cloud: OnedriveCloud?, authenticationResult: IAuthenticationResult, success: (cloud: OnedriveCloud) -> Unit) {
-		Timber.tag("AuthenticateCloudPresenter").i("Successfully authenticated")
-		val accessToken = CredentialCryptor.getInstance(context).encrypt(authenticationResult.accessToken)
-		val cloudBuilder = cloud?.let { OnedriveCloud.aCopyOf(it) } ?: OnedriveCloud.aOnedriveCloud()
-		val onedriveSkeleton = cloudBuilder.withAccessToken(accessToken).withUsername(authenticationResult.account.username).build()
-		success(onedriveSkeleton)
+	fun getAuthenticatedOnedriveCloud(activity: Activity, success: (cloud: OnedriveCloud) -> Unit, failed: (e: FatalBackendException) -> Unit) {
+		acquireTokenInteractively(activity, OnedriveCloud.aOnedriveCloud().build(), { cloud -> success(cloud as OnedriveCloud) }, failed)
 	}
 
-	fun getAuthenticatedOnedriveCloud(activity: Activity, success: (cloud: OnedriveCloud) -> Unit, failed: (e: FatalBackendException) -> Unit) {
+	fun getAuthenticatedSharepointCloud(activity: Activity, siteUrl: String, success: (cloud: SharepointCloud) -> Unit, failed: (e: FatalBackendException) -> Unit) {
+		acquireTokenInteractively(activity, SharepointCloud.aSharepointCloud().withSiteUrl(siteUrl).build(), { cloud -> success(cloud as SharepointCloud) }, failed)
+	}
+
+	private fun acquireTokenInteractively(activity: Activity, skeleton: MicrosoftGraphCloud, success: (cloud: MicrosoftGraphCloud) -> Unit, failed: (e: FatalBackendException) -> Unit) {
+		val onTokenObtained = { authenticationResult: IAuthenticationResult -> success(withAuthenticationResult(activity.applicationContext, skeleton, authenticationResult)) }
 		PublicClientApplication.createMultipleAccountPublicClientApplication(
 			activity.applicationContext,
 			R.raw.auth_config_onedrive,
@@ -102,7 +124,7 @@ object OnedriveAuthentication {
 				override fun onCreated(application: IMultipleAccountPublicClientApplication) {
 					application.getAccounts(object : IPublicClientApplication.LoadAccountsCallback {
 						override fun onTaskCompleted(accounts: List<IAccount>) {
-							application.acquireToken(activity, AuthenticateCloudPresenter.onedriveScopes(), getAuthInteractiveCallback(activity.applicationContext, null, success, failed))
+							application.acquireToken(activity, scopesFor(skeleton), getAuthInteractiveCallback(onTokenObtained, failed))
 						}
 
 						override fun onError(e: MsalException) {
@@ -119,11 +141,11 @@ object OnedriveAuthentication {
 			})
 	}
 
-	private fun getAuthInteractiveCallback(context: Context, cloud: OnedriveCloud?, success: (cloud: OnedriveCloud) -> Unit, failed: (e: FatalBackendException) -> Unit): AuthenticationCallback {
+	private fun getAuthInteractiveCallback(onTokenObtained: (authenticationResult: IAuthenticationResult) -> Unit, failed: (e: FatalBackendException) -> Unit): AuthenticationCallback {
 		return object : AuthenticationCallback {
 
 			override fun onSuccess(authenticationResult: IAuthenticationResult) {
-				onTokenObtained(context, cloud, authenticationResult, success)
+				onTokenObtained(authenticationResult)
 			}
 
 			override fun onError(e: MsalException) {
@@ -145,5 +167,3 @@ object OnedriveAuthentication {
 		}
 	}
 }
-
-

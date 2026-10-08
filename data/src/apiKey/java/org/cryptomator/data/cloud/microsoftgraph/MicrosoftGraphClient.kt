@@ -1,4 +1,4 @@
-package org.cryptomator.data.cloud.onedrive
+package org.cryptomator.data.cloud.microsoftgraph
 
 import android.content.Context
 import com.microsoft.graph.authentication.BaseAuthenticationProvider
@@ -14,7 +14,7 @@ import okhttp3.Request
 import timber.log.Timber
 
 
-class OnedriveClient private constructor() {
+class MicrosoftGraphClient private constructor() {
 
 	companion object {
 

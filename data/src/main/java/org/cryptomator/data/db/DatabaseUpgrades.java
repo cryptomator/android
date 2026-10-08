@@ -24,7 +24,8 @@ class DatabaseUpgrades {
 			Upgrade10To11 upgrade10To11, //
 			Upgrade11To12 upgrade11To12, //
 			Upgrade12To13 upgrade12To13, //
-			Upgrade13To14 upgrade13To14 //
+			Upgrade13To14 upgrade13To14, //
+			Upgrade14To15 upgrade14To15 //
 	) {
 		upgrades = new Migration[] { //
 				upgrade1To2, //
@@ -39,7 +40,8 @@ class DatabaseUpgrades {
 				upgrade10To11, //
 				upgrade11To12, //
 				upgrade12To13, //
-				upgrade13To14};
+				upgrade13To14, //
+				upgrade14To15};
 	}
 
 	public Migration[] all() {

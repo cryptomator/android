@@ -1,6 +1,7 @@
 package org.cryptomator.presentation.ui.activity
 
 import androidx.fragment.app.Fragment
+import org.cryptomator.domain.SharepointCloud
 import org.cryptomator.domain.Vault
 import org.cryptomator.generator.Activity
 import org.cryptomator.generator.InjectIntent
@@ -11,7 +12,9 @@ import org.cryptomator.presentation.model.CloudModel
 import org.cryptomator.presentation.presenter.CloudConnectionListPresenter
 import org.cryptomator.presentation.ui.activity.view.CloudConnectionListView
 import org.cryptomator.presentation.ui.bottomsheet.CloudConnectionSettingsBottomSheet
+import org.cryptomator.presentation.ui.dialog.ChooseSharepointDriveDialog
 import org.cryptomator.presentation.ui.dialog.DeleteCloudConnectionWithVaultsDialog
+import org.cryptomator.presentation.ui.dialog.EnterSharepointUrlDialog
 import org.cryptomator.presentation.ui.dialog.PCloudCredentialsUpdatedDialog
 import org.cryptomator.presentation.ui.fragment.CloudConnectionListFragment
 import javax.inject.Inject
@@ -21,7 +24,9 @@ class CloudConnectionListActivity : BaseActivity<ActivityLayoutBinding>(Activity
 	CloudConnectionListView,
 	CloudConnectionSettingsBottomSheet.Callback,
 	DeleteCloudConnectionWithVaultsDialog.Callback,
-	PCloudCredentialsUpdatedDialog.Callback {
+	PCloudCredentialsUpdatedDialog.Callback,
+	EnterSharepointUrlDialog.Callback,
+	ChooseSharepointDriveDialog.Callback {
 
 	@Inject
 	lateinit var presenter: CloudConnectionListPresenter
@@ -78,5 +83,13 @@ class CloudConnectionListActivity : BaseActivity<ActivityLayoutBinding>(Activity
 
 	override fun onNotifyForPCloudCredentialsUpdateFinished() {
 		// nothing to do here
+	}
+
+	override fun onSharepointUrlEntered(siteUrl: String) {
+		presenter.onSharepointUrlEntered(siteUrl)
+	}
+
+	override fun onSharepointDriveChosen(cloud: SharepointCloud) {
+		presenter.onSharepointDriveChosen(cloud)
 	}
 }
