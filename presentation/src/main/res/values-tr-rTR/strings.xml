@@ -381,6 +381,7 @@
 	<string name="dialog_no_more_images_to_display">&#8230; göstermek için daha fazla resim yok</string>
 	<string name="dialog_pcloud_credentials_updated_title">%1$s kimlik bilgileri güncellendi</string>
 	<string name="dialog_pcloud_credentials_updated">Yeni bir pCloud hesabı eklemeyi düşünüyorsanız, bu url <a href="https://www.pcloud.com">www.pcloud.com</a> dokunun, mevcut hesaptan çıkın ve yeni bir bulut bağlantısı oluşturmak için \'+\'. tekrar dokunun.</string>
+	<string name="dialog_enter_sharepoint_url_title">SharePoint URL\'si Girin</string>
 	<string name="dialog_cbc_password_vaults_migration_title">Kasa parolası geçişi gerekli</string>
 	<string name="dialog_cbc_password_vaults_migration_hint">Güvenlik geliştirmeleri nedeniyle, kasa parolalarınızı yeniden şifrelemek için her kasa için iki kez biyometrik kimlik doğrulamanız istenecektir. Bu, kasa parolalarınızı en son teknoloji ile korumaya devam etmek için gereklidir. Bunun olmasını istemezseniz, saklanan parolalar kaldırılacaktır.</string>
 	<string name="dialog_cbc_password_vaults_migration_action">Taşı</string>
