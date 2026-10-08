@@ -32,6 +32,11 @@ class IapBillingService : Service(), PurchasesUpdatedListener {
 	private lateinit var purchaseRefreshCoordinator: PurchaseRefreshCoordinator
 
 	private val productDetailsMap = ConcurrentHashMap<String, ProductDetails>()
+
+	// Gates billing requests until the first setup callback. Product detail requests wait in this queue, and purchase
+	// queries fail fast. BillingClient.isReady cannot serve as the gate because it is always true with
+	// enableAutoServiceReconnection(). A request issued while the initial connection is in flight triggers
+	// reconnection attempts that arrive as onBillingSetupFinished with DEVELOPER_ERROR.
 	private val pendingProductDetailsCallbacks = PendingCallbackQueue<List<ProductInfo>>()
 
 	private fun initBillingClient(context: Context) {
@@ -49,15 +54,16 @@ class IapBillingService : Service(), PurchasesUpdatedListener {
 			.build()
 		billingClient.startConnection(object : BillingClientStateListener {
 			override fun onBillingSetupFinished(billingResult: BillingResult) {
+				val pendingCallbacks = pendingProductDetailsCallbacks.markReadyAndDrain()
 				if (billingResult.responseCode == BillingClient.BillingResponseCode.OK) {
 					Timber.tag("IapBillingService").d("Billing setup successful")
 					queryExistingPurchases()
-					pendingProductDetailsCallbacks.drainSnapshot()?.let { callbacks ->
+					pendingCallbacks?.let { callbacks ->
 						queryProductDetails { products -> callbacks.forEach { it(products) } }
 					}
 				} else {
 					Timber.tag("IapBillingService").e("Billing setup not successful, error: %d", billingResult.responseCode)
-					pendingProductDetailsCallbacks.drainSnapshot()?.forEach { it(emptyList()) }
+					pendingCallbacks?.forEach { it(emptyList()) }
 				}
 			}
 
@@ -73,6 +79,11 @@ class IapBillingService : Service(), PurchasesUpdatedListener {
 	}
 
 	fun queryExistingPurchases(onComplete: (RestoreOutcome) -> Unit = {}) {
+		if (!pendingProductDetailsCallbacks.isReady) {
+			Timber.tag("IapBillingService").w("Billing setup not finished for refresh")
+			onComplete(RestoreOutcome.FAILED())
+			return
+		}
 		purchaseRefreshCoordinator.refresh(
 			billingClient = billingClient,
 			purchaseManager = purchaseManager,
@@ -116,8 +127,7 @@ class IapBillingService : Service(), PurchasesUpdatedListener {
 	}
 
 	fun queryProductDetails(callback: (List<ProductInfo>) -> Unit) {
-		if (!billingClient.isReady) {
-			pendingProductDetailsCallbacks.enqueue(callback)
+		if (pendingProductDetailsCallbacks.enqueueUnlessReady(callback)) {
 			return
 		}
 		val lock = Any()
@@ -162,6 +172,7 @@ class IapBillingService : Service(), PurchasesUpdatedListener {
 			val promoOffer = findPromotionalInappOffer(details.oneTimePurchaseOfferDetailsList)
 			if (baseOffer != null && promoOffer != null) {
 				val discountPercent = promoOffer.discountDisplayInfo?.percentageDiscount
+					?: calculateDiscountPercent(baseOffer.priceAmountMicros, promoOffer.priceAmountMicros)
 				val discountEndTimeMillis = promoOffer.validTimeWindow?.endTimeMillis
 				ProductInfo(details.productId, baseOffer.formattedPrice, promoOffer.formattedPrice, discountPercent, discountEndTimeMillis)
 			} else {

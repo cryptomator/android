@@ -1,4 +1,1 @@
-- A new welcome screen makes it easier to get started and find the most important first steps
-- Fast scrolling in the file editor improves navigation through longer files
-- Updated translations provide a more polished experience across supported languages
-- Updated dependencies improve stability and keep the app up to date
+- Alternative installation options are now hidden in the settings.

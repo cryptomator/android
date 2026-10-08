@@ -37,14 +37,13 @@ allprojects {
 }
 
 ext {
-	androidBuildToolsVersion = "36.1.0"
+	androidBuildToolsVersion = "37.0.0"
 	androidMinSdkVersion = 26
-	androidTargetSdkVersion = 36
-	androidCompileSdkVersion = 36
+	androidTargetSdkVersion = 37
+	androidCompileSdkVersion = 37
 
 	// android and java libs
 	androidVersion = '4.1.1.4'
-	multidexVersion = '2.0.1'
 	javaxAnnotationVersion = '1.0'
 
 	// support lib
@@ -83,8 +82,7 @@ ext {
 
 	lruFileCacheVersion = '1.2'
 
-	// KEEP IN SYNC WITH GENERATOR VERSION IN root build.gradle
-	greenDaoVersion = '3.3.0'
+	roomVersion = '2.8.5'
 
 	// cloud provider libs
 	// todo updaten
@@ -113,6 +111,7 @@ ext {
 	// testing dependencies
 
 	jUnitVersion = '5.11.4'
+	jUnitPlatformVersion = '1.11.4' // keep in sync with jUnitVersion
 	assertJVersion = '1.7.1'
 	mockitoVersion = '5.23.0'
 	mockitoKotlinVersion = '6.3.0'
@@ -171,7 +170,6 @@ ext {
 			googlePlayServicesAuth         : "com.google.android.gms:play-services-auth:${googlePlayServicesVersion}",
 			trackingFreeGoogleCLient       : "com.github.cryptomator.google-http-java-client:google-http-client:${trackingFreeGoogleCLientVersion}",
 			trackingFreeGoogleAndroidCLient: "com.github.cryptomator.google-http-java-client:google-http-client-android:${trackingFreeGoogleCLientVersion}",
-			greenDao                       : "org.greenrobot:greendao:${greenDaoVersion}",
 			gson                           : "com.google.code.gson:gson:${gsonVersion}",
 			hamcrest                       : "org.hamcrest:hamcrest-all:${hamcrestVersion}",
 			javaxAnnotation                : "javax.annotation:jsr250-api:${javaxAnnotationVersion}",
@@ -180,19 +178,22 @@ ext {
 			junitApi                       : "org.junit.jupiter:junit-jupiter-api:${jUnitVersion}",
 			junitEngine                    : "org.junit.jupiter:junit-jupiter-engine:${jUnitVersion}",
 			junitParams                    : "org.junit.jupiter:junit-jupiter-params:${jUnitVersion}",
+			junitPlatformLauncher          : "org.junit.platform:junit-platform-launcher:${jUnitPlatformVersion}",
 			junit4Engine                   : "org.junit.vintage:junit-vintage-engine:${jUnitVersion}",
 			minIo                          : "io.minio:minio:${minIoVersion}",
 			mockito                        : "org.mockito:mockito-core:${mockitoVersion}",
 			mockitoInline                  : "org.mockito:mockito-inline:${mockitoInlineVersion}",
 			mockitoKotlin                  : "org.mockito.kotlin:mockito-kotlin:${mockitoKotlinVersion}",
 			mockitoAndroid                 : "org.mockito:mockito-android:${mockitoAndroidVersion}",
+			mockWebServer                  : "com.squareup.okhttp3:mockwebserver3:${okHttpVersion}",
 			msgraph                        : "com.microsoft.graph:microsoft-graph:${msgraphVersion}",
 			msgraphAuth                    : "com.microsoft.identity.client:msal:${msgraphAuthVersion}",
-			multidex                       : "androidx.multidex:multidex:${multidexVersion}",
 			okHttp                         : "com.squareup.okhttp3:okhttp:${okHttpVersion}",
 			okHttpDigest                   : "io.github.rburgst:okhttp-digest:${okHttpDigestVersion}",
 			pcloud                         : "com.github.cryptomator.pcloud-sdk-java:java-core:${pcloudVersion}",
 			recyclerViewFastScroll         : "com.simplecityapps:recyclerview-fastscroll:${recyclerViewFastScrollVersion}",
+			roomRuntime                    : "androidx.room:room-runtime:${roomVersion}",
+			roomCompiler                   : "androidx.room:room-compiler:${roomVersion}",
 			rxJava                         : "io.reactivex.rxjava2:rxjava:${rxJavaVersion}",
 			rxAndroid                      : "io.reactivex.rxjava2:rxandroid:${rxAndroidVersion}",
 			rxBinding                      : "com.jakewharton.rxbinding2:rxbinding:${rxBindingVersion}",

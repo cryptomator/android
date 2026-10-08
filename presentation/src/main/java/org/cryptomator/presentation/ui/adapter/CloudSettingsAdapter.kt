@@ -46,6 +46,7 @@ constructor(private val context: Context) : RecyclerViewBaseAdapter<CloudModel, 
 
 			when (cloudModel.cloudType()) {
 				CloudTypeModel.ONEDRIVE -> binding.cloudName.text = context.getString(R.string.screen_cloud_settings_onedrive_connections)
+				CloudTypeModel.SHAREPOINT -> binding.cloudName.text = context.getString(R.string.screen_cloud_settings_sharepoint_connections)
 				CloudTypeModel.PCLOUD -> binding.cloudName.text = context.getString(R.string.screen_cloud_settings_pcloud_connections)
 				CloudTypeModel.S3 -> binding.cloudName.text = context.getString(R.string.screen_cloud_settings_s3_connections)
 				CloudTypeModel.SMB -> binding.cloudName.text = context.getString(R.string.screen_cloud_settings_smb_connections)

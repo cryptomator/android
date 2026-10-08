@@ -12,6 +12,7 @@ import org.cryptomator.presentation.intent.LicenseCheckIntent
 import org.cryptomator.presentation.licensing.LicenseEnforcer
 import org.cryptomator.presentation.licensing.LicenseStateOrchestrator
 import org.cryptomator.presentation.presenter.LicenseCheckPresenter
+import org.cryptomator.presentation.service.ProductPrices
 import org.cryptomator.presentation.ui.activity.view.LicenseView
 import org.cryptomator.presentation.ui.dialog.EnterLicenseDialog
 import org.cryptomator.presentation.ui.dialog.LicenseConfirmationDialog
@@ -51,8 +52,7 @@ class LicenseCheckActivity : BaseActivity<ActivityLicenseCheckBinding>(ActivityL
 				override fun onSubscriptionActivatedFirstTime() {
 					finish()
 				}
-			},
-			priceLoader = { licenseContentViewBinder.loadAndBindPrices(application as CryptomatorApp) }
+			}
 		)
 	}
 
@@ -141,6 +141,10 @@ class LicenseCheckActivity : BaseActivity<ActivityLicenseCheckBinding>(ActivityL
 
 	override fun showConfirmationDialog(mail: String) {
 		showDialog(LicenseConfirmationDialog.newInstance(mail))
+	}
+
+	override fun bindProductPrices(prices: ProductPrices) {
+		licenseContentViewBinder.bindProductPrices(prices)
 	}
 
 	override fun licenseConfirmationClicked() {

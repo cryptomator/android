@@ -3,7 +3,7 @@ package org.cryptomator.data.cloud;
 import org.cryptomator.data.cloud.crypto.CryptoCloudContentRepositoryFactory;
 import org.cryptomator.data.cloud.dropbox.DropboxCloudContentRepositoryFactory;
 import org.cryptomator.data.cloud.local.LocalStorageContentRepositoryFactory;
-import org.cryptomator.data.cloud.onedrive.OnedriveCloudContentRepositoryFactory;
+import org.cryptomator.data.cloud.microsoftgraph.MicrosoftGraphCloudContentRepositoryFactory;
 import org.cryptomator.data.cloud.pcloud.PCloudContentRepositoryFactory;
 import org.cryptomator.data.cloud.s3.S3CloudContentRepositoryFactory;
 import org.cryptomator.data.cloud.smb.SmbCloudContentRepositoryFactory;
@@ -25,7 +25,7 @@ public class CloudContentRepositoryFactories implements Iterable<CloudContentRep
 
 	@Inject
 	public CloudContentRepositoryFactories(DropboxCloudContentRepositoryFactory dropboxFactory, //
-			OnedriveCloudContentRepositoryFactory oneDriveFactory, //
+			MicrosoftGraphCloudContentRepositoryFactory microsoftGraphFactory, //
 			PCloudContentRepositoryFactory pCloudFactory, //
 			S3CloudContentRepositoryFactory s3Factory, //
 			SmbCloudContentRepositoryFactory smbFactory, //
@@ -34,7 +34,7 @@ public class CloudContentRepositoryFactories implements Iterable<CloudContentRep
 			WebDavCloudContentRepositoryFactory webDavFactory) {
 
 		factories = asList(dropboxFactory, //
-				oneDriveFactory, //
+				microsoftGraphFactory, //
 				pCloudFactory, //
 				s3Factory, //
 				smbFactory, //

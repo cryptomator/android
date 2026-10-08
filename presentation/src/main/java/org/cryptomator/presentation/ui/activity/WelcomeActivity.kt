@@ -7,6 +7,7 @@ import android.content.Intent
 import android.content.pm.PackageManager
 import android.os.Build
 import android.view.View
+import androidx.activity.OnBackPressedCallback
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import androidx.core.view.ViewCompat
@@ -15,12 +16,12 @@ import androidx.core.view.updatePadding
 import androidx.fragment.app.Fragment
 import androidx.viewpager2.widget.ViewPager2
 import org.cryptomator.generator.Activity
-import org.cryptomator.presentation.CryptomatorApp
 import org.cryptomator.presentation.R
 import org.cryptomator.presentation.databinding.ActivityWelcomeBinding
 import org.cryptomator.presentation.licensing.LicenseEnforcer
 import org.cryptomator.presentation.licensing.LicenseStateOrchestrator
 import org.cryptomator.presentation.presenter.WelcomePresenter
+import org.cryptomator.presentation.service.ProductPrices
 import org.cryptomator.presentation.ui.activity.view.WelcomeView
 import org.cryptomator.presentation.ui.dialog.EnterLicenseDialog
 import org.cryptomator.presentation.ui.fragment.WelcomeIntroFragment
@@ -55,11 +56,6 @@ class WelcomeActivity : BaseActivity<ActivityWelcomeBinding>(ActivityWelcomeBind
 					if (this@WelcomeActivity::pagerAdapter.isInitialized) {
 						pagerAdapter.licenseFragment?.updateState(uiState)
 					}
-				}
-			},
-			priceLoader = {
-				if (this::pagerAdapter.isInitialized) {
-					pagerAdapter.licenseFragment?.loadAndBindPrices(application as CryptomatorApp)
 				}
 			}
 		)
@@ -100,6 +96,7 @@ class WelcomeActivity : BaseActivity<ActivityWelcomeBinding>(ActivityWelcomeBind
 
 		setupPages()
 		setupPager()
+		setupBackPressedCallback()
 
 		validate(intent)
 		updateNotificationPermissionState()
@@ -123,8 +120,14 @@ class WelcomeActivity : BaseActivity<ActivityWelcomeBinding>(ActivityWelcomeBind
 		orchestrator.onPause()
 	}
 
-	override fun onBackPressed() {
-		goBackOrExit()
+	private val backPressedCallback = object : OnBackPressedCallback(true) {
+		override fun handleOnBackPressed() {
+			goBackOrExit()
+		}
+	}
+
+	private fun setupBackPressedCallback() {
+		onBackPressedDispatcher.addCallback(this, backPressedCallback)
 	}
 
 	private fun setupPages() {
@@ -223,6 +226,14 @@ class WelcomeActivity : BaseActivity<ActivityWelcomeBinding>(ActivityWelcomeBind
 		autoAdvanceToNextPage()
 	}
 
+	override fun bindProductPrices(prices: ProductPrices) {
+		pagerAdapter.licenseFragment?.bindProductPrices(prices)
+	}
+
+	override fun hasLicenseView(): Boolean {
+		return this::pagerAdapter.isInitialized && pagerAdapter.licenseFragment != null
+	}
+
 	override fun onNotificationPermissionResult(granted: Boolean) {
 		updateNotificationPermissionState(granted)
 	}
@@ -245,6 +256,7 @@ class WelcomeActivity : BaseActivity<ActivityWelcomeBinding>(ActivityWelcomeBind
 
 	override fun onLicenseViewReady() {
 		orchestrator.updateState()
+		welcomePresenter.onLicenseViewReady()
 	}
 
 	override fun onEnterLicenseDialogRequested() {

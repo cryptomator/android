@@ -33,21 +33,21 @@ android {
 		versionCode globalConfiguration["androidVersionCode"]
 		versionName globalConfiguration["androidVersionName"]
 
-		multiDexEnabled true
 		testInstrumentationRunner 'androidx.test.runner.AndroidJUnitRunner'
 	}
 
 	compileOptions {
-		sourceCompatibility JavaVersion.VERSION_17
-		targetCompatibility JavaVersion.VERSION_17
+		sourceCompatibility JavaVersion.VERSION_21
+		targetCompatibility JavaVersion.VERSION_21
 
 		coreLibraryDesugaringEnabled true
 	}
 
-	kotlinOptions { jvmTarget = JavaVersion.VERSION_17 }
+	kotlinOptions { jvmTarget = JavaVersion.VERSION_21 }
 	buildFeatures {
 		viewBinding true
 		buildConfig true
+		resValues true
 	}
 
 	defaultConfig.manifestPlaceholders = [
@@ -242,9 +242,6 @@ dependencies {
 
 	playstoreiapImplementation dependencies.billing
 
-	// multidex
-	implementation dependencies.multidex
-
 	implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk8:$kotlin_version"
 
 	// test
@@ -284,6 +281,7 @@ dependencies {
 	testRuntimeOnly dependencies.junitEngine
 	testImplementation dependencies.junitParams
 	testRuntimeOnly dependencies.junit4Engine
+	testRuntimeOnly dependencies.junitPlatformLauncher
 
 	testImplementation dependencies.mockito
 	testImplementation dependencies.mockitoKotlin

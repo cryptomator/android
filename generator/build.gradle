@@ -1,9 +1,9 @@
 apply plugin: 'java'
 
-//noinspection GroovyUnusedAssignment
-sourceCompatibility = 17
-//noinspection GroovyUnusedAssignment
-targetCompatibility = 17
+java {
+	sourceCompatibility = JavaVersion.VERSION_21
+	targetCompatibility = JavaVersion.VERSION_21
+}
 
 repositories {
 	mavenCentral()

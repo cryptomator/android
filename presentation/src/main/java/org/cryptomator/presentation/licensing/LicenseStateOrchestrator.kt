@@ -1,14 +1,12 @@
 package org.cryptomator.presentation.licensing
 
-import org.cryptomator.util.FlavorConfig
 import org.cryptomator.util.SharedPreferencesHandler
 import java.util.function.Consumer
 
 class LicenseStateOrchestrator(
 	private val sharedPreferencesHandler: SharedPreferencesHandler,
 	private val licenseEnforcer: LicenseEnforcer,
-	private val callback: Callback,
-	private val priceLoader: (() -> Unit)? = null
+	private val callback: Callback
 ) {
 
 	interface Callback {
@@ -25,9 +23,6 @@ class LicenseStateOrchestrator(
 			hasLifetimeLicense = sharedPreferencesHandler.licenseToken().isNotEmpty()
 		)
 		sharedPreferencesHandler.addLicenseChangedListeners(licenseChangeListener)
-		if (FlavorConfig.isFreemiumFlavor) {
-			priceLoader?.invoke()
-		}
 	}
 
 	fun onPause() {

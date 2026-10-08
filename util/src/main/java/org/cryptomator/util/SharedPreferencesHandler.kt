@@ -254,6 +254,14 @@ constructor(context: Context) : SharedPreferences.OnSharedPreferenceChangeListen
 		defaultSharedPreferences.setValue(HAS_RUNNING_SUBSCRIPTION, value)
 	}
 
+	fun salePromoDismissedUntil(): Long {
+		return defaultSharedPreferences.getValue(SALE_PROMO_DISMISSED_UNTIL, 0L)
+	}
+
+	fun setSalePromoDismissedUntil(date: Long) {
+		defaultSharedPreferences.setValue(SALE_PROMO_DISMISSED_UNTIL, date)
+	}
+
 	fun keepUnlockedWhileEditing(): Boolean {
 		return defaultSharedPreferences.getBoolean(KEEP_UNLOCKED_WHILE_EDITING, false)
 	}
@@ -401,6 +409,7 @@ constructor(context: Context) : SharedPreferences.OnSharedPreferenceChangeListen
 		private const val TRIAL_EXPIRATION_DATE = "trialExpirationDate"
 		private const val TRIAL_EXPIRED = "trialExpired"
 		private const val HAS_RUNNING_SUBSCRIPTION = "hasRunningSubscription"
+		private const val SALE_PROMO_DISMISSED_UNTIL = "salePromoDismissedUntil"
 		private const val PURCHASE_REVOKED_PENDING = "purchaseRevokedPending"
 		private const val PURCHASE_REVOKED_REASON = "purchaseRevokedReason"
 		const val DEBUG_MODE = "debugMode"

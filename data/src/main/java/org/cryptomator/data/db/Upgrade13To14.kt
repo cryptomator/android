@@ -1,8 +1,8 @@
 package org.cryptomator.data.db
 
+import androidx.sqlite.db.SupportSQLiteDatabase
 import org.cryptomator.util.FlavorConfig
 import org.cryptomator.util.SharedPreferencesHandler
-import org.greenrobot.greendao.database.Database
 import javax.inject.Inject
 import javax.inject.Singleton
 import timber.log.Timber
@@ -10,15 +10,13 @@ import timber.log.Timber
 @Singleton
 internal class Upgrade13To14 @Inject constructor(private val sharedPreferencesHandler: SharedPreferencesHandler) : DatabaseUpgrade(13, 14) {
 
-	override fun internalApplyTo(db: Database, origin: Int) {
-		if (origin > 0) {
-			// Any user going through a schema migration is an existing user — skip welcome
-			setWelcomeFlowCompleted()
-			if (!nonLicenseKeyVariant()) {
-				val licenseToken = getExistingLicenseToken(db)
-				if (licenseToken != null) {
-					sharedPreferencesHandler.setLicenseToken(licenseToken)
-				}
+	override fun internalMigrate(db: SupportSQLiteDatabase) {
+		// Only an existing database is ever migrated, so this is an existing user — skip welcome
+		setWelcomeFlowCompleted()
+		if (!nonLicenseKeyVariant()) {
+			val licenseToken = getExistingLicenseToken(db)
+			if (licenseToken != null) {
+				sharedPreferencesHandler.setLicenseToken(licenseToken)
 			}
 		}
 		removeLicenseFromDb(db)
@@ -28,7 +26,7 @@ internal class Upgrade13To14 @Inject constructor(private val sharedPreferencesHa
 		return FlavorConfig.isPremiumFlavor
 	}
 
-	private fun removeLicenseFromDb(db: Database) {
+	private fun removeLicenseFromDb(db: SupportSQLiteDatabase) {
 		db.beginTransaction()
 		try {
 			Sql.alterTable("UPDATE_CHECK_ENTITY").renameTo("UPDATE_CHECK_ENTITY_OLD").executeOn(db)
@@ -55,7 +53,7 @@ internal class Upgrade13To14 @Inject constructor(private val sharedPreferencesHa
 		}
 	}
 
-	private fun getExistingLicenseToken(db: Database): String? {
+	private fun getExistingLicenseToken(db: SupportSQLiteDatabase): String? {
 		Sql.query("UPDATE_CHECK_ENTITY")
 			.columns(listOf("LICENSE_TOKEN"))
 			.executeOn(db).use {

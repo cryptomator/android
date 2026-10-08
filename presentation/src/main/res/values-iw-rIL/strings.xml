@@ -95,7 +95,6 @@
 	<plurals name="screen_file_browser_subtitle_move">
 		<item quantity="one">העברת %1$s אל</item>
 		<item quantity="two">העברת %2$d פריטים אל</item>
-		<item quantity="many">העברת %2$d פריטים אל</item>
 		<item quantity="other">העבר %2$d פריטים אל</item>
 	</plurals>
 	<string name="screen_file_browser_move_button_text">שנה מיקום</string>

@@ -1,4 +1,1 @@
 - Ein neuer Willkommensbildschirm erleichtert den Einstieg und zeigt die wichtigsten ersten Schritte
-- Schnelles Scrollen im Datei-Editor verbessert die Navigation in längeren Dateien
-- Aktualisierte Übersetzungen sorgen für ein stimmigeres Erlebnis in den unterstützten Sprachen
-- Aktualisierte Abhängigkeiten verbessern die Stabilität und halten die App auf dem neuesten Stand

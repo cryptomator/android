@@ -40,7 +40,6 @@ class PurchaseRefreshCoordinatorTest {
 
 	@Test
 	fun `onComplete fires exactly once after both callbacks`() {
-		stubBillingReady(true)
 		stubHasWriteAccess(before = false, after = false)
 		stubQueryPurchasesOk()
 		stubHandlers(inappCleared = false, subsCleared = false)
@@ -52,20 +51,7 @@ class PurchaseRefreshCoordinatorTest {
 	}
 
 	@Test
-	fun `onComplete fires FAILED when billingClient isReady is false`() {
-		stubBillingReady(false)
-
-		val outcomes = mutableListOf<RestoreOutcome>()
-		coordinator.refresh(billingClient, purchaseManager, acknowledge) { outcomes.add(it) }
-
-		assertEquals(1, outcomes.size)
-		assertTrue(outcomes[0] is RestoreOutcome.FAILED)
-		verify(billingClient, never()).queryPurchasesAsync(any<QueryPurchasesParams>(), any<PurchasesResponseListener>())
-	}
-
-	@Test
 	fun `onComplete fires FAILED when a callback has non-OK responseCode`() {
-		stubBillingReady(true)
 		stubHasWriteAccess(before = false, after = false)
 		doAnswer { invocation ->
 			val listener = invocation.getArgument<PurchasesResponseListener>(1)
@@ -83,7 +69,6 @@ class PurchaseRefreshCoordinatorTest {
 
 	@Test
 	fun `arms purchaseRevokedPending with LIFETIME_REFUNDED when inapp cleared and writeAccess transitions true to false`() {
-		stubBillingReady(true)
 		stubHasWriteAccess(before = true, after = false)
 		stubQueryPurchasesOk()
 		stubHandlers(inappCleared = true, subsCleared = false)
@@ -95,7 +80,6 @@ class PurchaseRefreshCoordinatorTest {
 
 	@Test
 	fun `arms purchaseRevokedPending with SUBSCRIPTION_INACTIVE when only sub cleared`() {
-		stubBillingReady(true)
 		stubHasWriteAccess(before = true, after = false)
 		stubQueryPurchasesOk()
 		stubHandlers(inappCleared = false, subsCleared = true)
@@ -107,7 +91,6 @@ class PurchaseRefreshCoordinatorTest {
 
 	@Test
 	fun `prefers LIFETIME_REFUNDED when both cleared`() {
-		stubBillingReady(true)
 		stubHasWriteAccess(before = true, after = false)
 		stubQueryPurchasesOk()
 		stubHandlers(inappCleared = true, subsCleared = true)
@@ -119,7 +102,6 @@ class PurchaseRefreshCoordinatorTest {
 
 	@Test
 	fun `does not arm purchaseRevokedPending when writeAccess was already false before refresh`() {
-		stubBillingReady(true)
 		stubHasWriteAccess(before = false, after = false)
 		stubQueryPurchasesOk()
 		stubHandlers(inappCleared = false, subsCleared = false)
@@ -131,7 +113,6 @@ class PurchaseRefreshCoordinatorTest {
 
 	@Test
 	fun `does not arm purchaseRevokedPending when writeAccess transitions false to true`() {
-		stubBillingReady(true)
 		stubHasWriteAccess(before = false, after = true)
 		stubQueryPurchasesOk()
 		stubHandlers(inappCleared = false, subsCleared = false)
@@ -143,7 +124,6 @@ class PurchaseRefreshCoordinatorTest {
 
 	@Test
 	fun `onComplete is RESTORED when an active purchase is present after refresh`() {
-		stubBillingReady(true)
 		stubHasWriteAccess(before = false, after = true)
 		stubQueryPurchasesOk()
 		stubHandlers(inappCleared = false, subsCleared = false)
@@ -158,7 +138,6 @@ class PurchaseRefreshCoordinatorTest {
 
 	@Test
 	fun `onComplete is NOTHING_TO_RESTORE when nothing was restored and nothing was cleared`() {
-		stubBillingReady(true)
 		stubHasWriteAccess(before = false, after = false)
 		stubQueryPurchasesOk()
 		stubHandlers(inappCleared = false, subsCleared = false)
@@ -172,7 +151,6 @@ class PurchaseRefreshCoordinatorTest {
 
 	@Test
 	fun `onComplete is NOTHING_TO_RESTORE when clear-only revoke path fires`() {
-		stubBillingReady(true)
 		stubHasWriteAccess(before = true, after = false)
 		stubQueryPurchasesOk()
 		stubHandlers(inappCleared = true, subsCleared = false)
@@ -186,7 +164,6 @@ class PurchaseRefreshCoordinatorTest {
 
 	@Test
 	fun `coordinator calls licenseEnforcer hasWriteAccess before and after`() {
-		stubBillingReady(true)
 		stubHasWriteAccess(before = false, after = false)
 		stubQueryPurchasesOk()
 		stubHandlers(inappCleared = false, subsCleared = false)
@@ -197,10 +174,6 @@ class PurchaseRefreshCoordinatorTest {
 	}
 
 	// -- helpers --
-
-	private fun stubBillingReady(ready: Boolean) {
-		whenever(billingClient.isReady).thenReturn(ready)
-	}
 
 	private fun stubHasWriteAccess(before: Boolean, after: Boolean) {
 		whenever(licenseEnforcer.hasWriteAccess()).thenReturn(before, after)
