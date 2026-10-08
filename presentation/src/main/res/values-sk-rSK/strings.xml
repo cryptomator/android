@@ -407,6 +407,7 @@
 	<string name="dialog_no_more_images_to_display">Niet už viac obrázkov k zobrazeniu&#8230;</string>
 	<string name="dialog_pcloud_credentials_updated_title">Prístupy k %1$s aktualizované</string>
 	<string name="dialog_pcloud_credentials_updated">Ak zamýšľate pridať nový pCloud účet, kliknite na tento link <a href="https://www.pcloud.com">www.pcloud.com</a>, odhláste sa zo súčasného účtu a opätovne kliknite na \'+\' v tejto aplikácii pre vytvorenie nového cloudového pripojenia.</string>
+	<string name="dialog_enter_sharepoint_url_title">Vložte SharePoint URL</string>
 	<string name="dialog_cbc_password_vaults_migration_title">Pre migráciu peňaženky je požadované heslo</string>
 	<string name="dialog_cbc_password_vaults_migration_action">Migrovať</string>
 	<string name="dialog_create_hub_device_name_label">Meno</string>
