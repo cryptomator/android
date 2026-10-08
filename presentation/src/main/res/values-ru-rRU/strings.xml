@@ -412,6 +412,7 @@
 	<string name="dialog_no_more_images_to_display">Больше нет изображений для показа&#8230;</string>
 	<string name="dialog_pcloud_credentials_updated_title">Учётные данные для \'%1$s\' обновлены</string>
 	<string name="dialog_pcloud_credentials_updated">Если вы намеревались добавить новую учётную запись pCloud, нажмите на этот URL <a href="https://www.pcloud.com">www.pcloud.com</a>, выйдите из текущей учётной записи и снова нажмите \'+\' в этом приложении, чтобы создать новое облачное подключение.</string>
+	<string name="dialog_enter_sharepoint_url_title">Введите URL-адрес SharePoint</string>
 	<string name="dialog_cbc_password_vaults_migration_title">Требуется миграция пароля</string>
 	<string name="dialog_cbc_password_vaults_migration_hint">В связи с повышением безопасности вам будет предложено дважды использовать биометрическую аутентификацию для каждого хранилища для повторного шифрования паролей. Это необходимо, чтобы продолжать защищать ваши пароли с помощью новейших технологий. Если вы не хотите, чтобы это произошло, сохранённые пароли будут удалены.</string>
 	<string name="dialog_cbc_password_vaults_migration_action">Миграция</string>
