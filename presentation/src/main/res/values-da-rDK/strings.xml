@@ -381,6 +381,7 @@
 	<string name="dialog_no_more_images_to_display">Ikke flere billeder at vise&#8230;</string>
 	<string name="dialog_pcloud_credentials_updated_title">Login for \'%1$s\' opdateret</string>
 	<string name="dialog_pcloud_credentials_updated">Hvis du har til hensigt at tilføje en ny pCloud-konto, skal du trykke på denne Url <a href="https://www.pcloud.com">www.pcloud.com</a>, logge ud af den aktuelle konto og tryk igen på \'+\' i denne app for at oprette en ny cloud-forbindelse.</string>
+	<string name="dialog_enter_sharepoint_url_title">Indtast SharePoint URL</string>
 	<string name="dialog_cbc_password_vaults_migration_title">Boks-adgangskode migration påkrævet</string>
 	<string name="dialog_cbc_password_vaults_migration_hint">På grund af sikkerhedsforbedringer vil du blive bedt om din biometriske godkendelse to gange for hver boks til at re-kryptere din boks adgangskoder. Dette er nødvendigt for at fortsætte med at beskytte din boks adgangskoder med den nyeste teknologi. Hvis du ikke ønsker, at dette skal ske, vil de gemte adgangskoder blive fjernet.</string>
 	<string name="dialog_cbc_password_vaults_migration_action">Flyt</string>
