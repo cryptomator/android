@@ -154,6 +154,8 @@
 	<!-- ## screen: cloud connections -->
 	<string name="screen_cloud_connections_title">Elegir ubicación</string>
 	<string name="screen_cloud_connections_no_connections">Pulse aquí para añadir ubicaciones</string>
+	<string name="screen_cloud_connections_msg_no_sharepoint_drives">No hay unidades disponibles.</string>
+	<string name="screen_cloud_connections_msg_sharepoint_site_not_found">El sitio de SharePoint no se ha encontrado. Por favor, compruebe la URL.</string>
 	<string name="screen_cloud_error_webdav_not_supported">El servidor no parece ser compatible con WebDAV</string>
 	<string name="screen_cloud_local_error_no_content_provider">No se encontró ningún administrador de archivos que admita la apertura de directorios</string>
 	<!-- ## screen: webdav settings -->
@@ -242,6 +244,7 @@
 	<string name="screen_settings_keep_unlocked_while_editing_files_summary">Mantener las bóvedas desbloqueadas durante la edición de archivos</string>
 	<!-- ## screen: cloud settings -->
 	<string name="screen_cloud_settings_onedrive_connections">Conexiones de OneDrive</string>
+	<string name="screen_cloud_settings_sharepoint_connections">Conexiones de SharePoint</string>
 	<string name="screen_cloud_settings_webdav_connections">Conexiones de WebDAV</string>
 	<string name="screen_cloud_settings_pcloud_connections">Conexiones de pCloud</string>
 	<string name="screen_cloud_settings_s3_connections">Conexiones S3</string>
@@ -386,6 +389,11 @@
 	<string name="dialog_pcloud_credentials_updated_title">Credenciales de \'%1$s\' actualizadas</string>
 	<string name="dialog_pcloud_credentials_updated">Si desea añadir una cuenta pCloud nueva, pulse en esta url <a href="https://www.pcloud.com">www.pcloud.com</a>, cierre la sesión de la cuenta actual y pulse de nuevo en \'+\' de esta aplicación para crear una conexión nueva en la nube.</string>
 	<string name="dialog_enter_sharepoint_url_title">Introduzca la URL de SharePoint</string>
+	<string name="dialog_enter_sharepoint_url_hint">URL del sitio SharePoint</string>
+	<string name="dialog_enter_sharepoint_url_format">Introduzca la dirección de su sitio SharePoint, p. ej., https://{…}.sharepoint.com/sites/{…}.</string>
+	<string name="dialog_enter_sharepoint_url_invalid">Esta no es la dirección de un sitio de SharePoint. Por favor, introduzca una como https://{…}.sharepoint.com/sites/{…}.</string>
+	<string name="dialog_choose_sharepoint_drive_title">Seleccione unidad</string>
+	<string name="dialog_choose_sharepoint_drive_hint">Seleccione la unidad SharePoint con la que desea trabajar.</string>
 	<string name="dialog_cbc_password_vaults_migration_title">Migración de contraseña de bóveda requerida</string>
 	<string name="dialog_cbc_password_vaults_migration_hint">Debido a las mejoras de seguridad, se le pedirá la autenticación biométrica dos veces por cada bóveda para volver a cifrar sus contraseñas de bóveda. Esto es necesario para continuar protegiendo sus contraseñas de bóveda con la última tecnología. Si no desea que esto suceda, se eliminarán las contraseñas almacenadas.</string>
 	<string name="dialog_cbc_password_vaults_migration_action">Migrar</string>
