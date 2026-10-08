@@ -378,6 +378,7 @@
 	<string name="dialog_no_more_images_to_display">Tidak ada lagi gambar untuk ditampilkan&#8230;</string>
 	<string name="dialog_pcloud_credentials_updated_title">Kredensial \'%1$s\' diperbarui</string>
 	<string name="dialog_pcloud_credentials_updated">Jika Anda ingin menambahkan akun pCloud baru, ketuk url berikut <a href="https://www.pcloud.com">www.pcloud.com</a>, keluar dari akun saat ini kemudian ketuk tombol \'+\' lagi di aplikasi ini untuk membuat koneksi cloud baru.</string>
+	<string name="dialog_enter_sharepoint_url_title">Masukkan URL SharePoint</string>
 	<string name="dialog_cbc_password_vaults_migration_title">Diperlukan migrasi kata sandi vault</string>
 	<string name="dialog_cbc_password_vaults_migration_hint">Untuk peningkatan keamanan, Anda akan diminta melakukan autentikasi biometrik dua kali untuk tiap brangkas guna mengenkripsi ulang kata sandi brangkas Anda. Hal ini diperlukan guna melindungi kata sandi brangkas Anda dengan teknologi terkini. Jika Anda tidak ingin hal ini terjadi, kata sandi yang tersimpan akan dihapus.</string>
 	<string name="dialog_cbc_password_vaults_migration_action">Migrasi</string>
