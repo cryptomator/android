@@ -16,12 +16,10 @@ public abstract class CryptomatorDatabase extends RoomDatabase {
 	static final String NAME = "Cryptomator";
 
 	/**
-	 * Deliberately the schema version greenDAO left behind. The tables it created for v14 already match the
-	 * entities of this database, so Room adopts an existing v14 file as is instead of rewriting it. Databases
-	 * from older app versions are brought up to v14 by the upgrades in {@link DatabaseUpgrades}, which are
-	 * therefore the only migrations Room ever has to run.
+	 * Continues greenDAO's version numbering, which ended at v14. The tables greenDAO created for v14 match
+	 * Room's v14 schema, so the upgrades in {@link DatabaseUpgrades} take a greenDAO file of any version to this one.
 	 */
-	static final int VERSION = 14;
+	static final int VERSION = 15;
 
 	public abstract CloudDao cloudDao();
 

@@ -62,10 +62,10 @@ class CryptomatorDatabaseMigrationTest {
 	fun adoptsADatabaseLeftBehindAtTheLastGreenDaoVersion() {
 		val accessToken = "accessToken"
 
-		createGreenDaoDatabase(CryptomatorDatabase.VERSION) { db ->
+		createGreenDaoDatabase(LAST_GREEN_DAO_VERSION) { db ->
 			LegacyDatabaseV1.createOn(db)
 			addWebDavVaultTo(db, accessToken = CredentialCryptor.getInstance(context, CryptoMode.CBC).encrypt(accessToken))
-			upgrades().forEach { it.migrate(db) }
+			upgrades().filter { it.endVersion <= LAST_GREEN_DAO_VERSION }.forEach { it.migrate(db) }
 		}
 
 		database = openWithRoom()
@@ -159,6 +159,12 @@ class CryptomatorDatabaseMigrationTest {
 		Upgrade10To11(), //
 		Upgrade11To12(sharedPreferencesHandler), //
 		Upgrade12To13(context), //
-		Upgrade13To14(sharedPreferencesHandler)
+		Upgrade13To14(sharedPreferencesHandler), //
+		Upgrade14To15()
 	)
+
+	companion object {
+
+		private const val LAST_GREEN_DAO_VERSION = 14
+	}
 }

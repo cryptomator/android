@@ -114,6 +114,7 @@
 	<string name="cloud_names_dropbox" translatable="false">Dropbox</string>
 	<string name="cloud_names_google_drive" translatable="false">Google Drive</string>
 	<string name="cloud_names_onedrive" translatable="false">OneDrive</string>
+	<string name="cloud_names_sharepoint" translatable="false">SharePoint</string>
 	<string name="cloud_names_pcloud" translatable="false">pCloud</string>
 	<string name="cloud_names_webdav" translatable="false">WebDAV</string>
 	<string name="cloud_names_s3" translatable="false">S3</string>
@@ -239,6 +240,8 @@
 	<string name="screen_cloud_settings_option_edit" translatable="false">@string/screen_file_browser_node_action_edit_text</string>
 	<string name="screen_cloud_settings_option_delete" translatable="false">@string/screen_vault_list_vault_action_delete</string>
 	<string name="screen_cloud_connections_no_connections">Tap here to add locations</string>
+	<string name="screen_cloud_connections_msg_no_sharepoint_drives">No drives available.</string>
+	<string name="screen_cloud_connections_msg_sharepoint_site_not_found">The SharePoint site could not be found. Please check the URL.</string>
 	<string name="screen_cloud_error_webdav_not_supported">Server doesn\'t seem to be WebDAV compatible</string>
 	<string name="screen_cloud_local_error_no_content_provider">No file manager found that supports opening directories</string>
 
@@ -361,6 +364,7 @@
 	<!-- ## screen: cloud settings -->
 	<string name="screen_cloud_settings_title" translatable="false">@string/screen_settings_cloud_settings_label</string>
 	<string name="screen_cloud_settings_onedrive_connections">OneDrive connections</string>
+	<string name="screen_cloud_settings_sharepoint_connections">SharePoint connections</string>
 	<string name="screen_cloud_settings_webdav_connections">WebDAV connections</string>
 	<string name="screen_cloud_settings_pcloud_connections">pCloud connections</string>
 	<string name="screen_cloud_settings_s3_connections">S3 connections</string>
@@ -584,6 +588,18 @@
 
 	<string name="dialog_pcloud_credentials_updated_title">Credentials of \'%1$s\' updated</string>
 	<string name="dialog_pcloud_credentials_updated">If you intended to add a new pCloud account, tap on this url <a href="https://www.pcloud.com">www.pcloud.com</a>, log out from the current account and tap again on the \'+\' in this app to create a new cloud connection.</string>
+
+	<string name="dialog_enter_sharepoint_url_title">Enter SharePoint URL</string>
+	<string name="dialog_enter_sharepoint_url_hint">SharePoint site URL</string>
+	<string name="dialog_enter_sharepoint_url_prefill" translatable="false">https://</string>
+	<string name="dialog_enter_sharepoint_url_format">Enter the address of your SharePoint site, e.g. https://{…}.sharepoint.com/sites/{…}.</string>
+	<string name="dialog_enter_sharepoint_url_invalid">This is not the address of a SharePoint site. Please enter one like https://{…}.sharepoint.com/sites/{…}.</string>
+	<string name="dialog_enter_sharepoint_url_positive_button" translatable="false">@string/next</string>
+	<string name="dialog_enter_sharepoint_url_negative_button" translatable="false">@string/dialog_button_cancel</string>
+
+	<string name="dialog_choose_sharepoint_drive_title">Select drive</string>
+	<string name="dialog_choose_sharepoint_drive_hint">Select the SharePoint drive you want to work with.</string>
+	<string name="dialog_choose_sharepoint_drive_negative_button" translatable="false">@string/dialog_button_cancel</string>
 
 	<string name="dialog_cbc_password_vaults_migration_title">Vault password migration required</string>
 	<string name="dialog_cbc_password_vaults_migration_hint">Due to security enhancements, you will be asked for your biometric authentication twice for each vault to re-encrypt your vault passwords. This is necessary to continue to protect your vault passwords with the latest technology. If you do not wish this to happen, the stored passwords will be removed.</string>

@@ -25,6 +25,13 @@ enum class CloudTypeModel(builder: Builder) {
 			.withVaultSelectedImageResource(R.drawable.onedrive_vault_selected)
 			.withMultiInstances()
 	),  //
+	SHAREPOINT(
+		Builder("SHAREPOINT", R.string.cloud_names_sharepoint) //
+			.withCloudImageResource(R.drawable.sharepoint) //
+			.withVaultImageResource(R.drawable.sharepoint_vault) //
+			.withVaultSelectedImageResource(R.drawable.sharepoint_vault_selected) //
+			.withMultiInstances()
+	),  //
 	PCLOUD(
 		Builder("PCLOUD", R.string.cloud_names_pcloud) //
 			.withCloudImageResource(R.drawable.pcloud) //

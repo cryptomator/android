@@ -9,6 +9,7 @@ import org.cryptomator.domain.LocalStorageCloud;
 import org.cryptomator.domain.OnedriveCloud;
 import org.cryptomator.domain.PCloud;
 import org.cryptomator.domain.S3Cloud;
+import org.cryptomator.domain.SharepointCloud;
 import org.cryptomator.domain.WebDavCloud;
 
 import javax.inject.Inject;
@@ -20,6 +21,7 @@ import static org.cryptomator.domain.LocalStorageCloud.aLocalStorage;
 import static org.cryptomator.domain.OnedriveCloud.aOnedriveCloud;
 import static org.cryptomator.domain.PCloud.aPCloud;
 import static org.cryptomator.domain.S3Cloud.aS3Cloud;
+import static org.cryptomator.domain.SharepointCloud.aSharepointCloud;
 import static org.cryptomator.domain.WebDavCloud.aWebDavCloudCloud;
 
 @Singleton
@@ -53,6 +55,15 @@ public class CloudEntityMapper extends EntityMapper<CloudEntity, Cloud> {
 						.withId(entity.getId()) //
 						.withAccessToken(entity.getAccessToken()) //
 						.withUsername(entity.getUsername()) //
+						.build();
+			case SHAREPOINT:
+				return aSharepointCloud() //
+						.withId(entity.getId()) //
+						.withAccessToken(entity.getAccessToken()) //
+						.withUsername(entity.getUsername()) //
+						.withSiteUrl(entity.getUrl()) //
+						.withDriveId(entity.getSharepointDriveId()) //
+						.withDriveName(entity.getSharepointDriveName()) //
 						.build();
 			case PCLOUD:
 				return aPCloud() //
@@ -103,6 +114,13 @@ public class CloudEntityMapper extends EntityMapper<CloudEntity, Cloud> {
 			case ONEDRIVE:
 				result.setAccessToken(((OnedriveCloud) domainObject).accessToken());
 				result.setUsername(((OnedriveCloud) domainObject).username());
+				break;
+			case SHAREPOINT:
+				result.setAccessToken(((SharepointCloud) domainObject).accessToken());
+				result.setUsername(((SharepointCloud) domainObject).username());
+				result.setUrl(((SharepointCloud) domainObject).siteUrl());
+				result.setSharepointDriveId(((SharepointCloud) domainObject).driveId());
+				result.setSharepointDriveName(((SharepointCloud) domainObject).driveName());
 				break;
 			case PCLOUD:
 				result.setAccessToken(((PCloud) domainObject).accessToken());

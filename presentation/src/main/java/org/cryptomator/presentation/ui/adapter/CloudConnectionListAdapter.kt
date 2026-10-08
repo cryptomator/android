@@ -12,6 +12,7 @@ import org.cryptomator.presentation.model.LocalStorageModel
 import org.cryptomator.presentation.model.OnedriveCloudModel
 import org.cryptomator.presentation.model.PCloudModel
 import org.cryptomator.presentation.model.S3CloudModel
+import org.cryptomator.presentation.model.SharepointCloudModel
 import org.cryptomator.presentation.model.WebDavCloudModel
 import org.cryptomator.presentation.model.comparator.CloudModelComparator
 import org.cryptomator.presentation.ui.adapter.CloudConnectionListAdapter.CloudConnectionHolder
@@ -57,6 +58,9 @@ internal constructor(context: Context) : RecyclerViewBaseAdapter<CloudModel, Clo
 				is OnedriveCloudModel -> {
 					bindOnedriveCloudModel(cloudModel)
 				}
+				is SharepointCloudModel -> {
+					bindSharepointCloudModel(cloudModel)
+				}
 				is WebDavCloudModel -> {
 					bindWebDavCloudModel(cloudModel)
 				}
@@ -76,6 +80,11 @@ internal constructor(context: Context) : RecyclerViewBaseAdapter<CloudModel, Clo
 		private fun bindOnedriveCloudModel(cloudModel: OnedriveCloudModel) {
 			binding.llCloudConnectionContent.cloudText.text = cloudModel.username()
 			binding.llCloudConnectionContent.cloudSubText.visibility = View.GONE
+		}
+
+		private fun bindSharepointCloudModel(cloudModel: SharepointCloudModel) {
+			binding.llCloudConnectionContent.cloudText.text = cloudModel.username()
+			binding.llCloudConnectionContent.cloudSubText.text = cloudModel.siteAndDriveName()
 		}
 
 		private fun bindWebDavCloudModel(cloudModel: WebDavCloudModel) {
