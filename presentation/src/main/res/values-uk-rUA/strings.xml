@@ -413,6 +413,7 @@
 	<string name="dialog_no_more_images_to_display">Більше немає зображень для відображення&#8230;</string>
 	<string name="dialog_pcloud_credentials_updated_title">Облікові дані «%1$s» оновлено</string>
 	<string name="dialog_pcloud_credentials_updated">Якщо ви хотіли додати новий обліковий запис pCloud, натисніть на це посилання: <a href="https://www.pcloud.com">www.pcloud.com</a>, вийдіть з поточного облікового запису та знову натисніть на «+» у цій програмі, щоб створити нове хмарне підключення.</string>
+	<string name="dialog_enter_sharepoint_url_title">Введіть URL-адресу SharePoint</string>
 	<string name="dialog_cbc_password_vaults_migration_title">Необхідна міграція пароля сховища</string>
 	<string name="dialog_cbc_password_vaults_migration_hint">Через вдосконалення безпеки вас буде двічі запитано про біометричну автентифікацію для кожного сховища, щоб повторно зашифрувати паролі. Це необхідно, щоб продовжувати захищати ваші паролі за допомогою найновіших технологій. Якщо ви не хочете цього, збережені паролі буде видалено.</string>
 	<string name="dialog_cbc_password_vaults_migration_action">Мігрувати</string>
