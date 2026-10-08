@@ -1,10 +1,10 @@
-package org.cryptomator.data.cloud.onedrive
+package org.cryptomator.data.cloud.microsoftgraph
 
 import android.util.LruCache
 import org.cryptomator.domain.CloudFolder
 import javax.inject.Inject
 
-internal class OnedriveIdCache @Inject constructor() {
+internal class MicrosoftGraphIdCache @Inject constructor() {
 
 	private val cache: LruCache<String, NodeInfo> = LruCache(1000)
 
@@ -12,12 +12,12 @@ internal class OnedriveIdCache @Inject constructor() {
 		return cache[path]
 	}
 
-	fun <T : OnedriveIdCloudNode> cache(value: T): T {
+	fun <T : MicrosoftGraphIdCloudNode> cache(value: T): T {
 		add(value)
 		return value
 	}
 
-	private fun add(node: OnedriveIdCloudNode) {
+	private fun add(node: MicrosoftGraphIdCloudNode) {
 		add(node.path, NodeInfo(node))
 	}
 
@@ -25,7 +25,7 @@ internal class OnedriveIdCache @Inject constructor() {
 		cache.put(path, info)
 	}
 
-	fun remove(node: OnedriveIdCloudNode) {
+	fun remove(node: MicrosoftGraphIdCloudNode) {
 		remove(node.path)
 	}
 
@@ -44,7 +44,7 @@ internal class OnedriveIdCache @Inject constructor() {
 	}
 
 	internal class NodeInfo(val id: String, val driveId: String?, val isFolder: Boolean, private val cTag: String?) {
-		constructor(node: OnedriveIdCloudNode) : this(node.id, node.driveId, node is CloudFolder, "")
+		constructor(node: MicrosoftGraphIdCloudNode) : this(node.id, node.driveId, node is CloudFolder, "")
 
 		fun getcTag(): String? {
 			return cTag

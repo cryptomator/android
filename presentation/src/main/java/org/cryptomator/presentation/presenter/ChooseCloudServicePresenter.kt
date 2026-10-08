@@ -43,6 +43,7 @@ class ChooseCloudServicePresenter @Inject constructor( //
 			cloudTypeModels.remove(CloudTypeModel.GOOGLE_DRIVE)
 			cloudTypeModels.remove(CloudTypeModel.DROPBOX)
 			cloudTypeModels.remove(CloudTypeModel.ONEDRIVE)
+			cloudTypeModels.remove(CloudTypeModel.SHAREPOINT)
 			cloudTypeModels.remove(CloudTypeModel.PCLOUD)
 		}
 

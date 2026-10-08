@@ -232,19 +232,47 @@ class Sql {
 	public static class SqlAlterTableBuilder {
 
 		private final String table;
-		private String newName;
 
 		private SqlAlterTableBuilder(String table) {
 			this.table = table;
 		}
 
-		public SqlAlterTableBuilder renameTo(String newName) {
+		public SqlRenameTableBuilder renameTo(String newName) {
+			return new SqlRenameTableBuilder(table, newName);
+		}
+
+		public SqlAddColumnBuilder addTextColumn(String name) {
+			return new SqlAddColumnBuilder(table, name);
+		}
+	}
+
+	public static class SqlRenameTableBuilder {
+
+		private final String table;
+		private final String newName;
+
+		private SqlRenameTableBuilder(String table, String newName) {
+			this.table = table;
 			this.newName = newName;
-			return this;
 		}
 
 		public void executeOn(SupportSQLiteDatabase db) {
 			db.execSQL(format("ALTER TABLE \"%s\" RENAME TO \"%s\"", table, newName));
+		}
+	}
+
+	public static class SqlAddColumnBuilder {
+
+		private final String table;
+		private final String column;
+
+		private SqlAddColumnBuilder(String table, String column) {
+			this.table = table;
+			this.column = column;
+		}
+
+		public void executeOn(SupportSQLiteDatabase db) {
+			db.execSQL(format("ALTER TABLE \"%s\" ADD COLUMN \"%s\" TEXT", table, column));
 		}
 	}
 

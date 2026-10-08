@@ -1,4 +1,4 @@
-package org.cryptomator.data.cloud.onedrive
+package org.cryptomator.data.cloud.microsoftgraph
 
 import android.content.Context
 import com.microsoft.graph.http.GraphServiceException
@@ -14,15 +14,15 @@ import com.microsoft.graph.requests.DriveRequestBuilder
 import com.microsoft.graph.requests.GraphServiceClient
 import com.microsoft.graph.tasks.LargeFileUploadTask
 import com.tomclaw.cache.DiskLruCache
-import org.cryptomator.data.cloud.onedrive.OnedriveCloudNodeFactory.folder
-import org.cryptomator.data.cloud.onedrive.OnedriveCloudNodeFactory.from
-import org.cryptomator.data.cloud.onedrive.OnedriveCloudNodeFactory.getDriveId
-import org.cryptomator.data.cloud.onedrive.OnedriveCloudNodeFactory.getId
-import org.cryptomator.data.cloud.onedrive.OnedriveCloudNodeFactory.isFolder
+import org.cryptomator.data.cloud.microsoftgraph.MicrosoftGraphCloudNodeFactory.folder
+import org.cryptomator.data.cloud.microsoftgraph.MicrosoftGraphCloudNodeFactory.from
+import org.cryptomator.data.cloud.microsoftgraph.MicrosoftGraphCloudNodeFactory.getDriveId
+import org.cryptomator.data.cloud.microsoftgraph.MicrosoftGraphCloudNodeFactory.getId
+import org.cryptomator.data.cloud.microsoftgraph.MicrosoftGraphCloudNodeFactory.isFolder
 import org.cryptomator.data.util.CopyStream
 import org.cryptomator.data.util.TransferredBytesAwareInputStream
 import org.cryptomator.data.util.TransferredBytesAwareOutputStream
-import org.cryptomator.domain.OnedriveCloud
+import org.cryptomator.domain.MicrosoftGraphCloud
 import org.cryptomator.domain.exception.BackendException
 import org.cryptomator.domain.exception.CloudNodeAlreadyExistsException
 import org.cryptomator.domain.exception.FatalBackendException
@@ -48,7 +48,7 @@ import java.util.concurrent.ExecutionException
 import okhttp3.Request
 import timber.log.Timber
 
-internal class OnedriveImpl(private val cloud: OnedriveCloud, private val client: GraphServiceClient<Request>, private val idCache: OnedriveIdCache, private val context: Context) {
+internal class MicrosoftGraphImpl(private val cloud: MicrosoftGraphCloud, private val client: GraphServiceClient<Request>, private val idCache: MicrosoftGraphIdCache, private val context: Context) {
 
 	private val sharedPreferencesHandler: SharedPreferencesHandler
 	private var diskLruCache: DiskLruCache? = null
@@ -57,11 +57,11 @@ internal class OnedriveImpl(private val cloud: OnedriveCloud, private val client
 		return if (driveId == null) client.me().drive() else client.drives(driveId)
 	}
 
-	fun root(): OnedriveFolder {
-		return RootOnedriveFolder(cloud)
+	fun root(): MicrosoftGraphFolder {
+		return RootMicrosoftGraphFolder(cloud)
 	}
 
-	fun resolve(path: String): OnedriveFolder {
+	fun resolve(path: String): MicrosoftGraphFolder {
 		val names = path.removePrefix("/").split("/").toTypedArray()
 		var folder = root()
 		for (name in names) {
@@ -70,16 +70,16 @@ internal class OnedriveImpl(private val cloud: OnedriveCloud, private val client
 		return folder
 	}
 
-	fun file(parent: OnedriveFolder, name: String): OnedriveFile {
-		return OnedriveCloudNodeFactory.file(parent, name, null)
+	fun file(parent: MicrosoftGraphFolder, name: String): MicrosoftGraphFile {
+		return MicrosoftGraphCloudNodeFactory.file(parent, name, null)
 	}
 
-	fun file(parent: OnedriveFolder, name: String, size: Long?): OnedriveFile {
-		return OnedriveCloudNodeFactory.file(parent, name, size)
+	fun file(parent: MicrosoftGraphFolder, name: String, size: Long?): MicrosoftGraphFile {
+		return MicrosoftGraphCloudNodeFactory.file(parent, name, size)
 	}
 
-	fun folder(parent: OnedriveFolder, name: String): OnedriveFolder {
-		return OnedriveCloudNodeFactory.folder(parent, name)
+	fun folder(parent: MicrosoftGraphFolder, name: String): MicrosoftGraphFolder {
+		return MicrosoftGraphCloudNodeFactory.folder(parent, name)
 	}
 
 	private fun childByName(parentId: String, parentDriveId: String, name: String): DriveItem? {
@@ -95,19 +95,10 @@ internal class OnedriveImpl(private val cloud: OnedriveCloud, private val client
 	}
 
 	private fun isNotFoundError(error: GraphServiceException): Boolean {
-		return try {
-			val responseCodeField = GraphServiceException::class.java.getDeclaredField("responseCode")
-			responseCodeField.isAccessible = true
-			val responseCode = responseCodeField[error] as Int
-			responseCode == 404
-		} catch (e: NoSuchFieldException) {
-			throw IllegalStateException(e)
-		} catch (e: IllegalAccessException) {
-			throw IllegalStateException(e)
-		}
+		return error.responseCode == 404
 	}
 
-	fun exists(node: OnedriveNode): Boolean {
+	fun exists(node: MicrosoftGraphNode): Boolean {
 		node.parent?.let {
 			val parentNodeInfo = nodeInfo(it)
 			if (parentNodeInfo?.driveId == null) {
@@ -125,8 +116,8 @@ internal class OnedriveImpl(private val cloud: OnedriveCloud, private val client
 	}
 
 	@Throws(BackendException::class)
-	fun list(folder: OnedriveFolder): List<OnedriveNode> {
-		val result: MutableList<OnedriveNode> = ArrayList()
+	fun list(folder: MicrosoftGraphFolder): List<MicrosoftGraphNode> {
+		val result: MutableList<MicrosoftGraphNode> = ArrayList()
 		val nodeInfo = requireNodeInfo(folder)
 		var page = drive(nodeInfo.driveId).items(nodeInfo.id).children().buildRequest().get()
 		do {
@@ -144,7 +135,7 @@ internal class OnedriveImpl(private val cloud: OnedriveCloud, private val client
 	}
 
 	@Throws(NoSuchCloudFileException::class)
-	fun create(folder: OnedriveFolder): OnedriveFolder {
+	fun create(folder: MicrosoftGraphFolder): MicrosoftGraphFolder {
 		var parent = folder.parent
 		parent?.let { parentFolder ->
 			if (nodeInfo(parentFolder) == null) {
@@ -162,7 +153,7 @@ internal class OnedriveImpl(private val cloud: OnedriveCloud, private val client
 	}
 
 	@Throws(NoSuchCloudFileException::class, CloudNodeAlreadyExistsException::class)
-	fun move(source: OnedriveNode, target: OnedriveNode): OnedriveNode {
+	fun move(source: MicrosoftGraphNode, target: MicrosoftGraphNode): MicrosoftGraphNode {
 		target.parent?.let { targetsParent ->
 			if (exists(target)) {
 				throw CloudNodeAlreadyExistsException(target.name)
@@ -183,7 +174,7 @@ internal class OnedriveImpl(private val cloud: OnedriveCloud, private val client
 	}
 
 	@Throws(BackendException::class)
-	fun write(file: OnedriveFile, data: DataSource, progressAware: ProgressAware<UploadState>, replace: Boolean, size: Long): OnedriveFile {
+	fun write(file: MicrosoftGraphFile, data: DataSource, progressAware: ProgressAware<UploadState>, replace: Boolean, size: Long): MicrosoftGraphFile {
 		if (!replace && exists(file)) {
 			throw CloudNodeAlreadyExistsException("CloudNode already exists and replace is false")
 		}
@@ -207,7 +198,7 @@ internal class OnedriveImpl(private val cloud: OnedriveCloud, private val client
 		return try {
 			val driveItem: DriveItem = result.get()
 			val lastModifiedDate = getLastModifiedDateTime(driveItem) ?: Date()
-			OnedriveCloudNodeFactory.file(file.parent, driveItem, lastModifiedDate)
+			MicrosoftGraphCloudNodeFactory.file(file.parent, driveItem, lastModifiedDate)
 		} catch (e: ExecutionException) {
 			throw FatalBackendException(e)
 		} catch (e: InterruptedException) {
@@ -221,7 +212,7 @@ internal class OnedriveImpl(private val cloud: OnedriveCloud, private val client
 	}
 
 	@Throws(NoSuchCloudFileException::class)
-	private fun uploadFile(file: OnedriveFile, data: DataSource, progressAware: ProgressAware<UploadState>, result: CompletableFuture<DriveItem>, conflictBehaviorOption: Option, size: Long) {
+	private fun uploadFile(file: MicrosoftGraphFile, data: DataSource, progressAware: ProgressAware<UploadState>, result: CompletableFuture<DriveItem>, conflictBehaviorOption: Option, size: Long) {
 		data.open(context)?.use { inputStream ->
 			object : TransferredBytesAwareInputStream(inputStream) {
 				override fun bytesTransferred(transferred: Long) {
@@ -268,7 +259,7 @@ internal class OnedriveImpl(private val cloud: OnedriveCloud, private val client
 		} ?: throw FatalBackendException("InputStream shouldn't bee null")
 	}
 
-	private fun patchAsyncLastModifiedDate(parentNodeInfo: OnedriveIdCache.NodeInfo, driveItem: DriveItem, modifiedDate: Date): CompletableFuture<DriveItem> {
+	private fun patchAsyncLastModifiedDate(parentNodeInfo: MicrosoftGraphIdCache.NodeInfo, driveItem: DriveItem, modifiedDate: Date): CompletableFuture<DriveItem> {
 		val diffItem = DriveItem()
 		diffItem.fileSystemInfo = FileSystemInfo()
 		diffItem.fileSystemInfo!!.lastModifiedDateTime = OffsetDateTime.ofInstant(modifiedDate.toInstant(), ZoneId.systemDefault())
@@ -279,7 +270,7 @@ internal class OnedriveImpl(private val cloud: OnedriveCloud, private val client
 	}
 
 	@Throws(IOException::class, NoSuchCloudFileException::class)
-	private fun chunkedUploadFile(file: OnedriveFile, data: DataSource, progressAware: ProgressAware<UploadState>, result: CompletableFuture<DriveItem>, conflictBehaviorOption: Option, size: Long) {
+	private fun chunkedUploadFile(file: MicrosoftGraphFile, data: DataSource, progressAware: ProgressAware<UploadState>, result: CompletableFuture<DriveItem>, conflictBehaviorOption: Option, size: Long) {
 		val parentNodeInfo = requireNodeInfo(file.parent)
 
 		val props = DriveItemUploadableProperties()
@@ -318,7 +309,7 @@ internal class OnedriveImpl(private val cloud: OnedriveCloud, private val client
 	}
 
 	@Throws(BackendException::class, IOException::class)
-	fun read(file: OnedriveFile, encryptedTmpFile: File?, data: OutputStream, progressAware: ProgressAware<DownloadState>) {
+	fun read(file: MicrosoftGraphFile, encryptedTmpFile: File?, data: OutputStream, progressAware: ProgressAware<DownloadState>) {
 		progressAware.onProgress(Progress.started(DownloadState.download(file)))
 		var cacheKey: String? = null
 		var cacheFile: File? = null
@@ -331,7 +322,7 @@ internal class OnedriveImpl(private val cloud: OnedriveCloud, private val client
 			try {
 				retrieveFromLruCache(cacheFile, data)
 			} catch (e: IOException) {
-				Timber.tag("OnedriveImpl").w(e, "Error while retrieving content from Cache, get from web request")
+				Timber.tag("MicrosoftGraphImpl").w(e, "Error while retrieving content from Cache, get from web request")
 				writeToData(file, nodeInfo, data, encryptedTmpFile, cacheKey, progressAware)
 			}
 		} else {
@@ -340,7 +331,7 @@ internal class OnedriveImpl(private val cloud: OnedriveCloud, private val client
 	}
 
 	@Throws(IOException::class)
-	private fun writeToData(file: OnedriveFile, nodeInfo: OnedriveIdCache.NodeInfo, data: OutputStream, encryptedTmpFile: File?, cacheKey: String?, progressAware: ProgressAware<DownloadState>) {
+	private fun writeToData(file: MicrosoftGraphFile, nodeInfo: MicrosoftGraphIdCache.NodeInfo, data: OutputStream, encryptedTmpFile: File?, cacheKey: String?, progressAware: ProgressAware<DownloadState>) {
 		val request = drive(nodeInfo.driveId).items(nodeInfo.id).content().buildRequest()
 		request.get()?.use { inputStream ->
 			object : TransferredBytesAwareOutputStream(data) {
@@ -353,9 +344,9 @@ internal class OnedriveImpl(private val cloud: OnedriveCloud, private val client
 			try {
 				diskLruCache?.let {
 					LruFileCacheUtil.storeToLruCache(it, cacheKey, encryptedTmpFile)
-				} ?: Timber.tag("OnedriveImpl").e("Failed to store item in LRU cache")
+				} ?: Timber.tag("MicrosoftGraphImpl").e("Failed to store item in LRU cache")
 			} catch (e: IOException) {
-				Timber.tag("OnedriveImpl").e(e, "Failed to write downloaded file in LRU cache")
+				Timber.tag("MicrosoftGraphImpl").e(e, "Failed to write downloaded file in LRU cache")
 			}
 		}
 		progressAware.onProgress(Progress.completed(DownloadState.download(file)))
@@ -364,9 +355,9 @@ internal class OnedriveImpl(private val cloud: OnedriveCloud, private val client
 	private fun createLruCache(cacheSize: Int): Boolean {
 		if (diskLruCache == null) {
 			diskLruCache = try {
-				DiskLruCache.create(LruFileCacheUtil(context).resolve(LruFileCacheUtil.Cache.ONEDRIVE), cacheSize.toLong())
+				DiskLruCache.create(LruFileCacheUtil(context).resolve(LruFileCacheUtil.Cache.MICROSOFT_GRAPH), cacheSize.toLong())
 			} catch (e: IOException) {
-				Timber.tag("OnedriveImpl").e(e, "Failed to setup LRU cache")
+				Timber.tag("MicrosoftGraphImpl").e(e, "Failed to setup LRU cache")
 				return false
 			}
 		}
@@ -374,18 +365,18 @@ internal class OnedriveImpl(private val cloud: OnedriveCloud, private val client
 	}
 
 	@Throws(NoSuchCloudFileException::class)
-	fun delete(node: OnedriveNode) {
+	fun delete(node: MicrosoftGraphNode) {
 		val nodeInfo = requireNodeInfo(node)
 		drive(nodeInfo.driveId).items(nodeInfo.id).buildRequest().delete()
 		removeNodeInfo(node)
 	}
 
 	@Throws(NoSuchCloudFileException::class)
-	private fun requireNodeInfo(node: OnedriveNode): OnedriveIdCache.NodeInfo {
+	private fun requireNodeInfo(node: MicrosoftGraphNode): MicrosoftGraphIdCache.NodeInfo {
 		return nodeInfo(node) ?: throw NoSuchCloudFileException(node.path)
 	}
 
-	private fun nodeInfo(node: OnedriveNode): OnedriveIdCache.NodeInfo? {
+	private fun nodeInfo(node: MicrosoftGraphNode): MicrosoftGraphIdCache.NodeInfo? {
 		var result = idCache[node.path]
 		if (result == null) {
 			result = loadNodeInfo(node)
@@ -400,20 +391,20 @@ internal class OnedriveImpl(private val cloud: OnedriveCloud, private val client
 		} else result
 	}
 
-	private fun <T : OnedriveNode> cacheNodeInfo(node: T, item: DriveItem): T {
-		idCache.add(node.path, OnedriveIdCache.NodeInfo(getId(item), getDriveId(item), isFolder(item), item.cTag))
+	private fun <T : MicrosoftGraphNode> cacheNodeInfo(node: T, item: DriveItem): T {
+		idCache.add(node.path, MicrosoftGraphIdCache.NodeInfo(getId(item), getDriveId(item), isFolder(item), item.cTag))
 		return node
 	}
 
-	private fun removeNodeInfo(node: OnedriveNode) {
+	private fun removeNodeInfo(node: MicrosoftGraphNode) {
 		idCache.remove(node.path)
 	}
 
-	private fun removeChildNodeInfo(folder: OnedriveFolder) {
+	private fun removeChildNodeInfo(folder: MicrosoftGraphFolder) {
 		idCache.removeChildren(folder.path)
 	}
 
-	private fun loadNodeInfo(node: OnedriveNode): OnedriveIdCache.NodeInfo? {
+	private fun loadNodeInfo(node: MicrosoftGraphNode): MicrosoftGraphIdCache.NodeInfo? {
 		return if (node.parent == null) {
 			loadRootNodeInfo()
 		} else {
@@ -421,13 +412,13 @@ internal class OnedriveImpl(private val cloud: OnedriveCloud, private val client
 		}
 	}
 
-	private fun loadRootNodeInfo(): OnedriveIdCache.NodeInfo {
-		return drive(null).root().buildRequest().get()?.let { rootItem ->
-			OnedriveIdCache.NodeInfo(getId(rootItem), getDriveId(rootItem), true, rootItem.cTag)
+	private fun loadRootNodeInfo(): MicrosoftGraphIdCache.NodeInfo {
+		return drive(cloud.driveId()).root().buildRequest().get()?.let { rootItem ->
+			MicrosoftGraphIdCache.NodeInfo(getId(rootItem), getDriveId(rootItem), true, rootItem.cTag)
 		} ?: throw FatalBackendException("Failed to load root item, item is null")
 	}
 
-	private fun loadNonRootNodeInfo(node: OnedriveNode): OnedriveIdCache.NodeInfo? {
+	private fun loadNonRootNodeInfo(node: MicrosoftGraphNode): MicrosoftGraphIdCache.NodeInfo? {
 		node.parent?.let { targetsParent ->
 			val parentNodeInfo = nodeInfo(targetsParent)
 			if (parentNodeInfo?.driveId == null) {
@@ -437,14 +428,14 @@ internal class OnedriveImpl(private val cloud: OnedriveCloud, private val client
 			return if (item == null) {
 				null
 			} else {
-				OnedriveIdCache.NodeInfo(getId(item), getDriveId(item), isFolder(item), item.cTag)
+				MicrosoftGraphIdCache.NodeInfo(getId(item), getDriveId(item), isFolder(item), item.cTag)
 			}
 		} ?: throw ParentFolderIsNullException(node.name)
 	}
 
 	fun currentAccount(username: String): String {
 		// used to check authentication
-		client.me().drive().buildRequest().get()?.owner?.user
+		drive(cloud.driveId()).buildRequest().get()
 		return username
 	}
 

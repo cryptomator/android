@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+	android:layout_width="match_parent"
+	android:layout_height="match_parent">
+
+	<LinearLayout
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content"
+		android:orientation="vertical"
+		android:padding="@dimen/activity_vertical_margin">
+
+		<TextView
+			android:id="@+id/tv_choose_sharepoint_drive_hint"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:text="@string/dialog_choose_sharepoint_drive_hint" />
+
+		<RadioGroup
+			android:id="@+id/rg_sharepoint_drives"
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content"
+			android:layout_marginTop="8dp" />
+
+	</LinearLayout>
+</androidx.core.widget.NestedScrollView>

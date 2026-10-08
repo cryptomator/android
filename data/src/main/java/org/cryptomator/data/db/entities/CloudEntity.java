@@ -43,6 +43,12 @@ public class CloudEntity {
 	@ColumnInfo(name = "S3_SECRET_KEY_CRYPTO_MODE")
 	private String s3SecretKeyCryptoMode;
 
+	@ColumnInfo(name = "SHAREPOINT_DRIVE_ID")
+	private String sharepointDriveId;
+
+	@ColumnInfo(name = "SHAREPOINT_DRIVE_NAME")
+	private String sharepointDriveName;
+
 	public Long getId() {
 		return id;
 	}
@@ -130,5 +136,21 @@ public class CloudEntity {
 
 	public void setS3SecretKeyCryptoMode(String s3SecretKeyCryptoMode) {
 		this.s3SecretKeyCryptoMode = s3SecretKeyCryptoMode;
+	}
+
+	public String getSharepointDriveId() {
+		return sharepointDriveId;
+	}
+
+	public void setSharepointDriveId(String sharepointDriveId) {
+		this.sharepointDriveId = sharepointDriveId;
+	}
+
+	public String getSharepointDriveName() {
+		return sharepointDriveName;
+	}
+
+	public void setSharepointDriveName(String sharepointDriveName) {
+		this.sharepointDriveName = sharepointDriveName;
 	}
 }
