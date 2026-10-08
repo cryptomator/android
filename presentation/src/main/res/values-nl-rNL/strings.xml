@@ -418,6 +418,8 @@
 	<string name="dialog_enter_sharepoint_url_hint">URL SharePoint site</string>
 	<string name="dialog_enter_sharepoint_url_format">Vul het adres in van je SharePoint site, bijvoorbeeld https://{…}.sharepoint.com/sites/{…}.</string>
 	<string name="dialog_enter_sharepoint_url_invalid">Dit is niet het adres van een SharePoint site. Voer er een in zoals https://{…}.sharepoint.com/sites/{…}.</string>
+	<string name="dialog_choose_sharepoint_drive_title">Selecteer schijf</string>
+	<string name="dialog_choose_sharepoint_drive_hint">Selecteer de SharePoint schijf waarmee u wilt werken.</string>
 	<string name="dialog_cbc_password_vaults_migration_title">Migratie van kluis wachtwoord is vereist</string>
 	<string name="dialog_cbc_password_vaults_migration_hint">Als gevolg van verbeteringen in veiligheid vragen we u per kluis tweemaal om uw biometrische authenticatie om deze te versleutelen. Dit is nodig om je wachtwoorden met de nieuwste technologie te blijven beschermen. Indien je dit niet wilt, worden de opgeslagen wachtwoorden verwijderd.</string>
 	<string name="dialog_cbc_password_vaults_migration_action">Migreren</string>
