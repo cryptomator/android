@@ -150,6 +150,7 @@
 	<!-- ## screen: cloud connections -->
 	<string name="screen_cloud_connections_title">Vælg en placering</string>
 	<string name="screen_cloud_connections_no_connections">Tryk her for at tilføje placeringer</string>
+	<string name="screen_cloud_connections_msg_no_sharepoint_drives">Ingen drev tilgængelige.</string>
 	<string name="screen_cloud_error_webdav_not_supported">Serveren ser ikke ud til at være kompatibel med WebDAV</string>
 	<string name="screen_cloud_local_error_no_content_provider">Ingen filhåndtering fundet, der understøtter åbning af mapper</string>
 	<!-- ## screen: webdav settings -->
