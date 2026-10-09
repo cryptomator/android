@@ -151,6 +151,7 @@
 	<string name="screen_cloud_connections_title">Vælg en placering</string>
 	<string name="screen_cloud_connections_no_connections">Tryk her for at tilføje placeringer</string>
 	<string name="screen_cloud_connections_msg_no_sharepoint_drives">Ingen drev tilgængelige.</string>
+	<string name="screen_cloud_connections_msg_sharepoint_site_not_found">Sharepoint-websiden kunne ikke findes. Tjek venligst URLen.</string>
 	<string name="screen_cloud_error_webdav_not_supported">Serveren ser ikke ud til at være kompatibel med WebDAV</string>
 	<string name="screen_cloud_local_error_no_content_provider">Ingen filhåndtering fundet, der understøtter åbning af mapper</string>
 	<!-- ## screen: webdav settings -->
@@ -239,6 +240,7 @@
 	<string name="screen_settings_keep_unlocked_while_editing_files_summary">Hold bokse låst op, mens du redigerer filer</string>
 	<!-- ## screen: cloud settings -->
 	<string name="screen_cloud_settings_onedrive_connections">OneDrive forbindelser</string>
+	<string name="screen_cloud_settings_sharepoint_connections">SharePoint-forbindelser</string>
 	<string name="screen_cloud_settings_webdav_connections">WebDAV-forbindelser</string>
 	<string name="screen_cloud_settings_pcloud_connections">pCloud forbindelser</string>
 	<string name="screen_cloud_settings_s3_connections">S3 forbindelser</string>
@@ -383,6 +385,11 @@
 	<string name="dialog_pcloud_credentials_updated_title">Login for \'%1$s\' opdateret</string>
 	<string name="dialog_pcloud_credentials_updated">Hvis du har til hensigt at tilføje en ny pCloud-konto, skal du trykke på denne Url <a href="https://www.pcloud.com">www.pcloud.com</a>, logge ud af den aktuelle konto og tryk igen på \'+\' i denne app for at oprette en ny cloud-forbindelse.</string>
 	<string name="dialog_enter_sharepoint_url_title">Indtast SharePoint URL</string>
+	<string name="dialog_enter_sharepoint_url_hint">SharePoint websted URL</string>
+	<string name="dialog_enter_sharepoint_url_format">Indtast adressen på dit SharePoint-websted, f.eks. https://{…}.sharepoint.com/sites/{…}.</string>
+	<string name="dialog_enter_sharepoint_url_invalid">Dette er ikke adressen på et SharePoint-websted. Indtast en som https://{…}.sharepoint.com/sites/{…}.</string>
+	<string name="dialog_choose_sharepoint_drive_title">Vælg drev</string>
+	<string name="dialog_choose_sharepoint_drive_hint">Vælg det SharePoint-drev, du vil arbejde med.</string>
 	<string name="dialog_cbc_password_vaults_migration_title">Boks-adgangskode migration påkrævet</string>
 	<string name="dialog_cbc_password_vaults_migration_hint">På grund af sikkerhedsforbedringer vil du blive bedt om din biometriske godkendelse to gange for hver boks til at re-kryptere din boks adgangskoder. Dette er nødvendigt for at fortsætte med at beskytte din boks adgangskoder med den nyeste teknologi. Hvis du ikke ønsker, at dette skal ske, vil de gemte adgangskoder blive fjernet.</string>
 	<string name="dialog_cbc_password_vaults_migration_action">Flyt</string>
