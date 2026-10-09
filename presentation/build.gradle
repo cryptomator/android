@@ -2,7 +2,7 @@ apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-kapt'
 apply plugin: 'kotlin-parcelize'
-apply plugin: 'de.mannodermaus.android-junit5'
+apply plugin: 'de.mannodermaus.android-junit'
 
 if (!liteFlavor()) {
 	apply from: 'prebuild.gradle'
@@ -206,6 +206,7 @@ dependencies {
 	implementation dependencies.androidxSwiperefresh
 	implementation dependencies.androidxPreference
 	implementation dependencies.androidxBiometric
+	implementation dependencies.androidxLocalBroadcastManager
 
 	implementation dependencies.appauth
 
@@ -289,9 +290,9 @@ dependencies {
 	testImplementation dependencies.hamcrest
 }
 
-configurations {
-	all*.exclude group: 'com.google.android', module: 'android'
-	all*.exclude group: 'com.google.guava', module: 'listenablefuture'
+configurations.configureEach {
+	exclude group: 'com.google.android', module: 'android'
+	exclude group: 'com.google.guava', module: 'listenablefuture'
 }
 
 def liteFlavor() {

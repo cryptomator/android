@@ -1,6 +1,6 @@
 apply plugin: 'com.android.library'
 apply plugin: 'kotlin-android'
-apply plugin: 'de.mannodermaus.android-junit5'
+apply plugin: 'de.mannodermaus.android-junit'
 
 android {
 	def globalConfiguration = rootProject.extensions.getByName("ext")
@@ -227,8 +227,8 @@ dependencies {
 	}
 }
 
-configurations {
-	all*.exclude group: 'com.google.android', module: 'android'
+configurations.configureEach {
+	exclude group: 'com.google.android', module: 'android'
 }
 
 tasks.withType(Test) {
