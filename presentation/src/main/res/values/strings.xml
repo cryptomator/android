@@ -116,6 +116,7 @@
 	<string name="cloud_names_onedrive" translatable="false">OneDrive</string>
 	<string name="cloud_names_sharepoint" translatable="false">SharePoint</string>
 	<string name="cloud_names_pcloud" translatable="false">pCloud</string>
+	<string name="cloud_names_box" translatable="false">Box</string>
 	<string name="cloud_names_webdav" translatable="false">WebDAV</string>
 	<string name="cloud_names_s3" translatable="false">S3</string>
 	<string name="cloud_names_local_storage">Local storage</string>
@@ -367,6 +368,7 @@
 	<string name="screen_cloud_settings_sharepoint_connections">SharePoint connections</string>
 	<string name="screen_cloud_settings_webdav_connections">WebDAV connections</string>
 	<string name="screen_cloud_settings_pcloud_connections">pCloud connections</string>
+	<string name="screen_cloud_settings_box_connections">Box connections</string>
 	<string name="screen_cloud_settings_s3_connections">S3 connections</string>
 	<string name="screen_cloud_settings_local_storage_locations">Local storage locations</string>
 	<string name="screen_cloud_settings_log_in_to">Log in to</string>

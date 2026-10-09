@@ -26,6 +26,9 @@ public interface CloudDao {
 	@Update
 	void update(CloudEntity entity);
 
+	@Query("UPDATE CLOUD_ENTITY SET ACCESS_TOKEN = :accessToken WHERE _id = :id")
+	void updateAccessToken(long id, String accessToken);
+
 	@Delete
 	void delete(CloudEntity entity);
 
@@ -38,5 +41,15 @@ public interface CloudDao {
 			update(entity);
 		}
 		return load(id);
+	}
+
+	/**
+	 * Like {@link #store(CloudEntity)} but keeps the stored access token, for clouds whose tokens are written by {@link #updateAccessToken(long, String)} only.
+	 */
+	@Transaction
+	default CloudEntity storeKeepingAccessToken(CloudEntity entity) {
+		CloudEntity storedEntity = entity.getId() == null ? null : load(entity.getId());
+		entity.setAccessToken(storedEntity == null ? null : storedEntity.getAccessToken());
+		return store(entity);
 	}
 }

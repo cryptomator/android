@@ -7,6 +7,7 @@ import android.content.Intent.ACTION_OPEN_DOCUMENT_TREE
 import android.provider.DocumentsContract
 import android.widget.Toast
 import org.cryptomator.data.util.X509CertificateHelper
+import org.cryptomator.domain.BoxCloud
 import org.cryptomator.domain.Cloud
 import org.cryptomator.domain.CloudType
 import org.cryptomator.domain.DropboxCloud
@@ -27,6 +28,7 @@ import org.cryptomator.domain.exception.authentication.WrongCredentialsException
 import org.cryptomator.domain.usecases.cloud.AddOrChangeCloudConnectionUseCase
 import org.cryptomator.domain.usecases.cloud.GetCloudsUseCase
 import org.cryptomator.domain.usecases.cloud.GetUsernameUseCase
+import org.cryptomator.domain.usecases.cloud.ReauthenticateBoxUseCase
 import org.cryptomator.generator.Callback
 import org.cryptomator.presentation.R
 import org.cryptomator.presentation.exception.ExceptionHandlers
@@ -61,6 +63,7 @@ class AuthenticateCloudPresenter @Inject constructor( //
 	private val addOrChangeCloudConnectionUseCase: AddOrChangeCloudConnectionUseCase,  //
 	private val getCloudsUseCase: GetCloudsUseCase, //
 	private val getUsernameUseCase: GetUsernameUseCase,  //
+	private val reauthenticateBoxUseCase: ReauthenticateBoxUseCase,  //
 	private val addExistingVaultWorkflow: AddExistingVaultWorkflow,  //
 	private val createNewVaultWorkflow: CreateNewVaultWorkflow
 ) : Presenter<AuthenticateCloudView>(exceptionHandlers) {
@@ -70,6 +73,7 @@ class AuthenticateCloudPresenter @Inject constructor( //
 		GoogleDriveAuthStrategy(),  //
 		MicrosoftGraphAuthStrategy(),  //
 		PCloudAuthStrategy(), //
+		BoxAuthStrategy(), //
 		WebDAVAuthStrategy(),  //
 		S3AuthStrategy(), //
 		LocalStorageAuthStrategy() //
@@ -356,6 +360,60 @@ class AuthenticateCloudPresenter @Inject constructor( //
 			})
 	}
 
+	private inner class BoxAuthStrategy : AuthStrategy {
+
+		private var authenticationStarted = false
+
+		override fun supports(cloud: CloudModel): Boolean {
+			return cloud.cloudType() == CloudTypeModel.BOX
+		}
+
+		override fun resumed(intent: AuthenticateCloudIntent) {
+			if (!authenticationStarted) {
+				startAuthentication(intent.cloud())
+				Toast.makeText(
+					context(),
+					String.format(getString(R.string.error_authentication_failed_re_authenticate), intent.cloud().username()),
+					Toast.LENGTH_LONG
+				).show()
+			}
+		}
+
+		private fun startAuthentication(cloud: CloudModel) {
+			authenticationStarted = true
+			showProgress(ProgressModel(ProgressStateModel.AUTHENTICATION))
+			view?.skipTransition()
+			requestActivityResult(ActivityResultCallbacks.boxReAuthenticationFinished(cloud), Intents.authenticateBoxIntent())
+		}
+	}
+
+	@Callback(dispatchResultOkOnly = false)
+	fun boxReAuthenticationFinished(activityResult: ActivityResult, cloud: CloudModel) {
+		val code = activityResult.takeIf { it.isResultOk }?.intent()?.extras?.getString(CloudConnectionListPresenter.BOX_OAUTH_AUTH_CODE)
+		if (code.isNullOrEmpty()) {
+			failAuthentication(cloud.name())
+			return
+		}
+		reauthenticateBoxUseCase //
+			.withCloud(cloud.toCloud() as BoxCloud) //
+			.andAuthorizationCode(code) //
+			.run(object : DefaultResultHandler<BoxCloud>() {
+				override fun onSuccess(authenticatedCloud: BoxCloud) {
+					finishWithResult(cloudModelMapper.toModel(authenticatedCloud))
+				}
+
+				override fun onError(e: Throwable) {
+					if (e is WrongCredentialsException) {
+						Timber.tag("AuthicateCloudPrester").i("Box authentication used a different account than the connection")
+						failAuthentication(cloud.name())
+					} else {
+						super.onError(e)
+						finish()
+					}
+				}
+			})
+	}
+
 	private inner class WebDAVAuthStrategy : AuthStrategy {
 
 		override fun supports(cloud: CloudModel): Boolean {
@@ -542,6 +600,6 @@ class AuthenticateCloudPresenter @Inject constructor( //
 	}
 
 	init {
-		unsubscribeOnDestroy(addOrChangeCloudConnectionUseCase, getCloudsUseCase, getUsernameUseCase)
+		unsubscribeOnDestroy(addOrChangeCloudConnectionUseCase, getCloudsUseCase, getUsernameUseCase, reauthenticateBoxUseCase)
 	}
 }

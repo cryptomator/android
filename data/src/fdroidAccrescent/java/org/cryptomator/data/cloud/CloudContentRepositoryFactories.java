@@ -1,5 +1,6 @@
 package org.cryptomator.data.cloud;
 
+import org.cryptomator.data.cloud.box.BoxCloudContentRepositoryFactory;
 import org.cryptomator.data.cloud.crypto.CryptoCloudContentRepositoryFactory;
 import org.cryptomator.data.cloud.dropbox.DropboxCloudContentRepositoryFactory;
 import org.cryptomator.data.cloud.local.LocalStorageContentRepositoryFactory;
@@ -26,6 +27,7 @@ public class CloudContentRepositoryFactories implements Iterable<CloudContentRep
 	public CloudContentRepositoryFactories(DropboxCloudContentRepositoryFactory dropboxFactory, //
 			MicrosoftGraphCloudContentRepositoryFactory microsoftGraphFactory, //
 			PCloudContentRepositoryFactory pCloudFactory, //
+			BoxCloudContentRepositoryFactory boxFactory, //
 			S3CloudContentRepositoryFactory s3Factory, //
 			CryptoCloudContentRepositoryFactory cryptoFactory, //
 			LocalStorageContentRepositoryFactory localStorageFactory, //
@@ -34,6 +36,7 @@ public class CloudContentRepositoryFactories implements Iterable<CloudContentRep
 		factories = asList(dropboxFactory, //
 				microsoftGraphFactory, //
 				pCloudFactory, //
+				boxFactory, //
 				s3Factory, //
 				cryptoFactory, //
 				localStorageFactory, //

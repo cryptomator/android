@@ -63,8 +63,9 @@ android {
 
 			buildConfigField "String", "DROPBOX_API_KEY", "\"" + getApiKey('DROPBOX_API_KEY') + "\""
 			buildConfigField "String", "PCLOUD_CLIENT_ID", "\"" + getApiKey('PCLOUD_CLIENT_ID') + "\""
+			buildConfigField "String", "BOX_CLIENT_ID", "\"" + getApiKey('BOX_CLIENT_ID') + "\""
 
-			manifestPlaceholders = [DROPBOX_API_KEY: getApiKey('DROPBOX_API_KEY'), ONEDRIVE_API_KEY_DECODED: getOnedriveApiKey()]
+			manifestPlaceholders = [DROPBOX_API_KEY: getApiKey('DROPBOX_API_KEY'), ONEDRIVE_API_KEY_DECODED: getOnedriveApiKey(), BOX_CLIENT_ID: getApiKey('BOX_CLIENT_ID')]
 		}
 
 		debug {
@@ -76,8 +77,9 @@ android {
 
 			buildConfigField "String", "DROPBOX_API_KEY", "\"" + getApiKey('DROPBOX_API_KEY') + "\""
 			buildConfigField "String", "PCLOUD_CLIENT_ID", "\"" + getApiKey('PCLOUD_CLIENT_ID') + "\""
+			buildConfigField "String", "BOX_CLIENT_ID", "\"" + getApiKey('BOX_CLIENT_ID') + "\""
 
-			manifestPlaceholders = [DROPBOX_API_KEY: getApiKey('DROPBOX_API_KEY'), ONEDRIVE_API_KEY_DECODED: getOnedriveApiKey()]
+			manifestPlaceholders = [DROPBOX_API_KEY: getApiKey('DROPBOX_API_KEY'), ONEDRIVE_API_KEY_DECODED: getOnedriveApiKey(), BOX_CLIENT_ID: getApiKey('BOX_CLIENT_ID')]
 
 			versionNameSuffix '-DEBUG'
 			enableUnitTestCoverage false
