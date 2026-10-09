@@ -48,6 +48,7 @@
 	<string name="screen_vault_list_vault_action_delete">Выдаліць</string>
 	<string name="screen_vault_list_vault_creation_hint">Націсні тут, каб стварыць новую скрабніцу</string>
 	<string name="screen_vault_list_change_password_successful">Пароль паспяхова зменены</string>
+	<string name="screen_vault_list_sale_promo_banner_dismiss">Адхіліць</string>
 	<!-- # screen: file browser -->
 	<string name="screen_file_browser_default_title">Скарбніца</string>
 	<string name="screen_file_browser_create_new_vault_button_text">Размясціць тут</string>

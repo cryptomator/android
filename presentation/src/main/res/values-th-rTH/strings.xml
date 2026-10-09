@@ -52,6 +52,7 @@
 	<string name="screen_vault_list_action_create_new_vault">สร้าง Vault ใหม่</string>
 	<string name="screen_vault_list_action_add_existing_vault">เพิ่ม Vault เดิม</string>
 	<string name="screen_vault_list_vault_action_delete">ลบ</string>
+	<string name="screen_vault_list_sale_promo_banner_dismiss">ไม่สนใจ</string>
 	<!-- # screen: file browser -->
 	<string name="screen_file_browser_default_title">Vault</string>
 	<string name="screen_file_browser_create_new_vault_button_text">วางที่นี่</string>

@@ -89,6 +89,7 @@
 	<string name="screen_vault_list_vault_action_delete">Fjern</string>
 	<string name="screen_vault_list_vault_creation_hint">Trykk her for å lage et nytt hvelv</string>
 	<string name="screen_vault_list_change_password_successful">Passordet er endret</string>
+	<string name="screen_vault_list_sale_promo_banner_dismiss">Avvis</string>
 	<!-- # screen: file browser -->
 	<string name="screen_file_browser_default_title">Hvelv</string>
 	<string name="screen_file_browser_create_new_vault_button_text">Plasser her</string>

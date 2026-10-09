@@ -88,6 +88,7 @@
 	<string name="screen_vault_list_vault_action_delete">Xóa</string>
 	<string name="screen_vault_list_vault_creation_hint">Nhấn vào đây để tạo một vault mới</string>
 	<string name="screen_vault_list_change_password_successful">Thay đổi mật khẩu thành công</string>
+	<string name="screen_vault_list_sale_promo_banner_dismiss">Bỏ qua</string>
 	<!-- # screen: file browser -->
 	<string name="screen_file_browser_default_title">Vault</string>
 	<string name="screen_file_browser_create_new_vault_button_text">Đặt ở đây</string>

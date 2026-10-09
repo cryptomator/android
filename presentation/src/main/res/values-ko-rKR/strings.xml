@@ -124,6 +124,7 @@
 	<string name="screen_vault_list_vault_action_delete">제거</string>
 	<string name="screen_vault_list_vault_creation_hint">여기를 눌러 새 Vault를 생성하세요</string>
 	<string name="screen_vault_list_change_password_successful">비밀번호 변경 성공</string>
+	<string name="screen_vault_list_sale_promo_banner_dismiss">무시</string>
 	<!-- # screen: file browser -->
 	<string name="screen_file_browser_default_title">Vault</string>
 	<string name="screen_file_browser_add_existing_vault_extra_text">마스터키 또는 Vault 파일 선택</string>
@@ -408,6 +409,7 @@
 	<string name="dialog_no_more_images_to_display">더 띄울 사진들이 없습니다.</string>
 	<string name="dialog_pcloud_credentials_updated_title">\'%1$s\' 자격증명 업데이트됨</string>
 	<string name="dialog_pcloud_credentials_updated">새 pCloud 계정을 추가하려면 이 링크 <a href="https://www.pcloud.com">www.pcloud.com</a>를 누르고, 현재 계정에서 로그아웃한 뒤 여기에서 \'+\'를 다시 눌러서 추가해주세요.</string>
+	<string name="dialog_enter_sharepoint_url_title">SharePoint URL 입력</string>
 	<string name="dialog_cbc_password_vaults_migration_title">Vault 비밀번호 이전 필요</string>
 	<string name="dialog_cbc_password_vaults_migration_hint">보안 향상을 위해, Vault 비밀번호를 암호화하도록 생체 인증을 두번 해야 합니다. 최신 기술로 Vault 비밀번호를 보호하기 위해서 필수적입니다. 원치 않는다면 저장된 비밀번호는 제거될 것입니다.</string>
 	<string name="dialog_cbc_password_vaults_migration_action">이전</string>

@@ -24,6 +24,7 @@
 	<string name="snack_bar_action_title_search_next">كېيىنكى</string>
 	<!-- # screens -->
 	<!-- # screen: vault list -->
+	<string name="screen_vault_list_sale_promo_banner_dismiss">رەت قىلش</string>
 	<!-- # screen: file browser -->
 	<string name="screen_file_browser_default_title">ئامبار</string>
 	<!-- ## screen: text editor -->

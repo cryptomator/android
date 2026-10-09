@@ -95,6 +95,7 @@
 	<string name="screen_vault_list_vault_action_delete">Fjern</string>
 	<string name="screen_vault_list_vault_creation_hint">Tryk her for at tilføje en ny boks</string>
 	<string name="screen_vault_list_change_password_successful">Adgangskoden blev ændret</string>
+	<string name="screen_vault_list_sale_promo_banner_dismiss">Luk</string>
 	<!-- # screen: file browser -->
 	<string name="screen_file_browser_default_title">Boks</string>
 	<string name="screen_file_browser_add_existing_vault_extra_text">Vælg masterkey eller boksfil</string>
@@ -149,6 +150,7 @@
 	<!-- ## screen: cloud connections -->
 	<string name="screen_cloud_connections_title">Vælg en placering</string>
 	<string name="screen_cloud_connections_no_connections">Tryk her for at tilføje placeringer</string>
+	<string name="screen_cloud_connections_msg_no_sharepoint_drives">Ingen drev tilgængelige.</string>
 	<string name="screen_cloud_error_webdav_not_supported">Serveren ser ikke ud til at være kompatibel med WebDAV</string>
 	<string name="screen_cloud_local_error_no_content_provider">Ingen filhåndtering fundet, der understøtter åbning af mapper</string>
 	<!-- ## screen: webdav settings -->
@@ -380,6 +382,7 @@
 	<string name="dialog_no_more_images_to_display">Ikke flere billeder at vise&#8230;</string>
 	<string name="dialog_pcloud_credentials_updated_title">Login for \'%1$s\' opdateret</string>
 	<string name="dialog_pcloud_credentials_updated">Hvis du har til hensigt at tilføje en ny pCloud-konto, skal du trykke på denne Url <a href="https://www.pcloud.com">www.pcloud.com</a>, logge ud af den aktuelle konto og tryk igen på \'+\' i denne app for at oprette en ny cloud-forbindelse.</string>
+	<string name="dialog_enter_sharepoint_url_title">Indtast SharePoint URL</string>
 	<string name="dialog_cbc_password_vaults_migration_title">Boks-adgangskode migration påkrævet</string>
 	<string name="dialog_cbc_password_vaults_migration_hint">På grund af sikkerhedsforbedringer vil du blive bedt om din biometriske godkendelse to gange for hver boks til at re-kryptere din boks adgangskoder. Dette er nødvendigt for at fortsætte med at beskytte din boks adgangskoder med den nyeste teknologi. Hvis du ikke ønsker, at dette skal ske, vil de gemte adgangskoder blive fjernet.</string>
 	<string name="dialog_cbc_password_vaults_migration_action">Flyt</string>
