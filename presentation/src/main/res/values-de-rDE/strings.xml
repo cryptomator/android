@@ -123,6 +123,7 @@
 	<string name="screen_vault_list_vault_action_delete">Entfernen</string>
 	<string name="screen_vault_list_vault_creation_hint">Hier antippen, um einen neuen Tresor zu erstellen</string>
 	<string name="screen_vault_list_change_password_successful">Passwort wurde erfolgreich geändert</string>
+	<string name="screen_vault_list_sale_promo_banner">🔥 Auf die lebenslange Lizenz gibt es bis zum %2$s %1$d%% Rabatt</string>
 	<string name="screen_vault_list_sale_promo_banner_dismiss">Verwerfen</string>
 	<!-- # screen: file browser -->
 	<string name="screen_file_browser_default_title">Tresor</string>
@@ -178,6 +179,8 @@
 	<!-- ## screen: cloud connections -->
 	<string name="screen_cloud_connections_title">Ort auswählen</string>
 	<string name="screen_cloud_connections_no_connections">Hier antippen, um neue Orte hinzufügen</string>
+	<string name="screen_cloud_connections_msg_no_sharepoint_drives">Keine Laufwerke verfügbar.</string>
+	<string name="screen_cloud_connections_msg_sharepoint_site_not_found">Die SharePoint-Seite konnte nicht gefunden werden. Bitte überprüfe die URL.</string>
 	<string name="screen_cloud_error_webdav_not_supported">Server scheint nicht WebDAV-kompatibel zu sein</string>
 	<string name="screen_cloud_local_error_no_content_provider">Kein Dateimanager gefunden, der das Öffnen von Verzeichnissen unterstützt</string>
 	<!-- ## screen: webdav settings -->
@@ -266,6 +269,7 @@
 	<string name="screen_settings_keep_unlocked_while_editing_files_summary">Halte Tresore geöffnet während Dateien editiert werden</string>
 	<!-- ## screen: cloud settings -->
 	<string name="screen_cloud_settings_onedrive_connections">OneDrive-Verbindungen</string>
+	<string name="screen_cloud_settings_sharepoint_connections">SharePoint-Verbindungen</string>
 	<string name="screen_cloud_settings_webdav_connections">WebDAV-Verbindungen</string>
 	<string name="screen_cloud_settings_pcloud_connections">pCloud-Verbindungen</string>
 	<string name="screen_cloud_settings_s3_connections">S3-Verbindungen</string>
@@ -410,6 +414,11 @@
 	<string name="dialog_pcloud_credentials_updated_title">Anmeldedaten von \'%1$s\' aktualisiert</string>
 	<string name="dialog_pcloud_credentials_updated">Wenn du ein neues pCloud-Konto hinzuzufügen möchtest, tippe auf diese URL <a href="https://www.pcloud.com">www.pcloud.com</a>, melde dich von deinem aktuellen Konto ab und tippe erneut auf das \'+\' in dieser App, um eine neue Cloud-Verbindung zu erstellen.</string>
 	<string name="dialog_enter_sharepoint_url_title">SharePoint-URL eingeben</string>
+	<string name="dialog_enter_sharepoint_url_hint">SharePoint Website URL</string>
+	<string name="dialog_enter_sharepoint_url_format">Gib die Adresse der SharePoint-Seite ein, z. B. https://{…}.sharepoint.com/sites/{…}.</string>
+	<string name="dialog_enter_sharepoint_url_invalid">Dies ist nicht die Adresse einer SharePoint-Site. Bitte geben eine Seite wie https://{…}.sharepoint.com/sites/{…}.</string>
+	<string name="dialog_choose_sharepoint_drive_title">Laufwerk auswählen</string>
+	<string name="dialog_choose_sharepoint_drive_hint">Wähle das gewünschte SharePoint-Laufwerk aus.</string>
 	<string name="dialog_cbc_password_vaults_migration_title">Tresor Passwort-Migration erforderlich</string>
 	<string name="dialog_cbc_password_vaults_migration_hint">Aufgrund von Sicherheitsverbesserungen wirst du zweimal nach deiner biometrischen Authentifizierung für jeden Tresor gefragt, um deine Tresorpasswörter neu zu verschlüsseln. Dies ist notwendig, um deine Tresorpasswörter weiterhin mit der neuesten Technologie zu schützen. Wenn du dies nicht möchtest, werden die gespeicherten Passwörter entfernt.</string>
 	<string name="dialog_cbc_password_vaults_migration_action">Migrieren</string>

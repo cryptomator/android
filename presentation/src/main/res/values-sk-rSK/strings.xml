@@ -176,6 +176,8 @@
 	<!-- ## screen: cloud connections -->
 	<string name="screen_cloud_connections_title">Vybrať umiestnenie</string>
 	<string name="screen_cloud_connections_no_connections">Kliknúť sem pre pridanie umiestnení</string>
+	<string name="screen_cloud_connections_msg_no_sharepoint_drives">Nie sú k dispozícii žiadne disky.</string>
+	<string name="screen_cloud_connections_msg_sharepoint_site_not_found">Lokalitu SharePoint sa nepodarilo nájsť. Skontrolujte URL adresu.</string>
 	<string name="screen_cloud_error_webdav_not_supported">Server zdá sa byť WebDAV kompatibilný</string>
 	<string name="screen_cloud_local_error_no_content_provider">Nenašiel sa manažér súborov ktorý podporuje otváranie adresárov</string>
 	<!-- ## screen: webdav settings -->
@@ -264,6 +266,7 @@
 	<string name="screen_settings_keep_unlocked_while_editing_files_summary">Držať trezory odomknuté pokiaľ sa editujú súbory</string>
 	<!-- ## screen: cloud settings -->
 	<string name="screen_cloud_settings_onedrive_connections">OneDrive pripojenia</string>
+	<string name="screen_cloud_settings_sharepoint_connections">Pripojenia SharePointu</string>
 	<string name="screen_cloud_settings_webdav_connections">WebDAV pripojenia</string>
 	<string name="screen_cloud_settings_pcloud_connections">pCloud pripojenia</string>
 	<string name="screen_cloud_settings_s3_connections">S3 pripojenia</string>
@@ -407,7 +410,12 @@
 	<string name="dialog_no_more_images_to_display">Niet už viac obrázkov k zobrazeniu&#8230;</string>
 	<string name="dialog_pcloud_credentials_updated_title">Prístupy k %1$s aktualizované</string>
 	<string name="dialog_pcloud_credentials_updated">Ak zamýšľate pridať nový pCloud účet, kliknite na tento link <a href="https://www.pcloud.com">www.pcloud.com</a>, odhláste sa zo súčasného účtu a opätovne kliknite na \'+\' v tejto aplikácii pre vytvorenie nového cloudového pripojenia.</string>
-	<string name="dialog_enter_sharepoint_url_title">Vložte SharePoint URL</string>
+	<string name="dialog_enter_sharepoint_url_title">Zadajte URL adresu SharePointu</string>
+	<string name="dialog_enter_sharepoint_url_hint">URL adresa lokality SharePoint</string>
+	<string name="dialog_enter_sharepoint_url_format">Zadajte adresu svojej lokality SharePoint, napr. https://{…}.sharepoint.com/sites/{…}.</string>
+	<string name="dialog_enter_sharepoint_url_invalid">Toto nie je adresa lokality SharePoint. Zadajte adresu, napríklad https://{…}.sharepoint.com/sites/{…}.</string>
+	<string name="dialog_choose_sharepoint_drive_title">Vyberte disk</string>
+	<string name="dialog_choose_sharepoint_drive_hint">Vyberte jednotku SharePointu, s ktorou chcete pracovať.</string>
 	<string name="dialog_cbc_password_vaults_migration_title">Pre migráciu peňaženky je požadované heslo</string>
 	<string name="dialog_cbc_password_vaults_migration_action">Migrovať</string>
 	<string name="dialog_create_hub_device_name_label">Meno</string>
