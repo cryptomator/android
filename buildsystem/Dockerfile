@@ -7,27 +7,36 @@
 #  3. Build the image using `docker build -t cryptomator-android .` in this directory
 #  4. Build Cryptomator using `docker run --rm -u $(id -u):$(id -g) -v $(pwd):/project -w /project cryptomator-android ./gradlew clean assembleLiteRelease` in the root of this project
 
-FROM debian:bullseye
+FROM ubuntu:noble-20260917@sha256:534baea6a22c03a63003dbc8dbe78fe34bc0d7e595d9a9dc9834884ff530eb55
 
 COPY docker/ docker/
 COPY docker/apt.conf docker/sources.list /etc/apt/
 
-RUN dpkg --add-architecture i386
+# The image's own sources point to the live archive, only use the snapshot from sources.list
+RUN rm -f /etc/apt/sources.list.d/ubuntu.sources
 
-RUN apt-get update -y && apt-get install -y apt-utils wget git unzip
+# Bit of a chicken-and-egg problem.
+# Ubuntu needs the ca-certificates package before it'll trust the snapshot mirror.
+# But we can't install it because it doesn't trust the snapshot mirror!
+# To resolve, we temporarily disable verification.
+RUN apt update -oAcquire::https::Verify-Peer=false
+RUN apt install -oAcquire::https::Verify-Peer=false -y ca-certificates
 
-RUN apt-get update -y && apt-get install -y $(cat docker/dependencies.txt)
-RUN docker/print-versions.sh docker/dependencies.txt
+# Back to normal, verification back on
+RUN apt update
+RUN apt install -y git openjdk-21-jdk-headless unzip wget
 
-ENV ANDROID_COMMAND_LINE_TOOLS_FILENAME commandlinetools-linux-10406996_latest.zip
-ENV ANDROID_API_LEVELS                  android-37
-ENV ANDROID_BUILD_TOOLS_VERSION         37.0.0
+ENV ANDROID_COMMAND_LINE_TOOLS_FILENAME=commandlinetools-linux-14742923_latest.zip
+ENV ANDROID_COMMAND_LINE_TOOLS_SHA256=04453066b540409d975c676d781da1477479dde3761310f1a7eb92a1dfb15af7
+ENV ANDROID_API_LEVELS=android-37.0
+ENV ANDROID_BUILD_TOOLS_VERSION=37.0.0
 
-ENV ANDROID_HOME /usr/local/android-sdk-linux
-ENV PATH         ${PATH}:${ANDROID_HOME}/tools:${ANDROID_HOME}/platform-tools:${ANDROID_HOME}/cmdline-tools/bin
+ENV ANDROID_HOME=/usr/local/android-sdk-linux
+ENV PATH=${PATH}:${ANDROID_HOME}/tools:${ANDROID_HOME}/platform-tools:${ANDROID_HOME}/cmdline-tools/bin
 
 RUN cd /usr/local/
 RUN wget -q "https://dl.google.com/android/repository/${ANDROID_COMMAND_LINE_TOOLS_FILENAME}"
+RUN echo "${ANDROID_COMMAND_LINE_TOOLS_SHA256}  ${ANDROID_COMMAND_LINE_TOOLS_FILENAME}" | sha256sum -c -
 RUN unzip ${ANDROID_COMMAND_LINE_TOOLS_FILENAME} -d /usr/local/android-sdk-linux
 RUN rm ${ANDROID_COMMAND_LINE_TOOLS_FILENAME}
 
@@ -35,7 +44,6 @@ RUN yes | sdkmanager --update --sdk_root="${ANDROID_HOME}"
 RUN yes | sdkmanager --sdk_root="${ANDROID_HOME}" "platforms;${ANDROID_API_LEVELS}" "build-tools;${ANDROID_BUILD_TOOLS_VERSION}"
 
 RUN yes | sdkmanager --licenses --sdk_root="${ANDROID_HOME}"
-RUN update-java-alternatives -s java-1.21.0-openjdk-amd64
 
 RUN rm -rf ${ANDROID_HOME}/tools
 
