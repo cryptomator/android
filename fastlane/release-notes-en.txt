@@ -1,1 +1,6 @@
-- Alternative installation options are now hidden in the settings.
+- Added support for SharePoint
+- AVIF images can now be opened in the built-in preview on Android 17 and later
+- Fixed moving folders up in the folder hierarchy
+- Fixed unresponsive UI after pressing back on the vault unlock screen
+- Fixed WebDAV uploads failing on reused connections, e.g. when saving in the built-in editor or uploading large files
+- Updated translations and dependencies

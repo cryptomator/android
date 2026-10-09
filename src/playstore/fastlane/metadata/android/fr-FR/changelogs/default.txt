@@ -1,4 +1,6 @@
-- A new welcome screen makes it easier to get started and find the most important first steps
-- Fast scrolling in the file editor improves navigation through longer files
-- Updated translations provide a more polished experience across supported languages
-- Updated dependencies improve stability and keep the app up to date
+- Added support for SharePoint
+- AVIF images can now be opened in the built-in preview on Android 17 and later
+- Fixed moving folders up in the folder hierarchy
+- Fixed unresponsive UI after pressing back on the vault unlock screen
+- Fixed WebDAV uploads failing on reused connections, e.g. when saving in the built-in editor or uploading large files
+- Updated translations and dependencies

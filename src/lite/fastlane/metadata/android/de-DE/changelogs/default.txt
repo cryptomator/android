@@ -1,4 +1,6 @@
-- Ein neuer Willkommensbildschirm erleichtert den Einstieg und zeigt die wichtigsten ersten Schritte
-- Schnelles Scrollen im Datei-Editor verbessert die Navigation in längeren Dateien
-- Aktualisierte Übersetzungen sorgen für ein stimmigeres Erlebnis in den unterstützten Sprachen
-- Aktualisierte Abhängigkeiten verbessern die Stabilität und halten die App auf dem neuesten Stand
+- Unterstützung für SharePoint hinzugefügt
+- AVIF-Bilder lassen sich ab Android 17 in der integrierten Vorschau öffnen
+- Verschieben von Ordnern in übergeordnete Ordner behoben
+- Nicht reagierende Oberfläche nach Zurück im Tresor-Entsperrdialog behoben
+- Fehlschlagende WebDAV-Uploads bei wiederverwendeten Verbindungen behoben, z. B. beim Speichern im integrierten Editor oder beim Hochladen großer Dateien
+- Übersetzungen und Abhängigkeiten aktualisiert
