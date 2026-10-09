@@ -179,6 +179,8 @@
 	<!-- ## screen: cloud connections -->
 	<string name="screen_cloud_connections_title">Choisissez l\'emplacement</string>
 	<string name="screen_cloud_connections_no_connections">Tapez ici pour ajouter des emplacements</string>
+	<string name="screen_cloud_connections_msg_no_sharepoint_drives">Aucun lecteur disponible.</string>
+	<string name="screen_cloud_connections_msg_sharepoint_site_not_found">Le site SharePoint n\'a pas pu être trouvé. Veuillez vérifier l\'URL.</string>
 	<string name="screen_cloud_error_webdav_not_supported">Le serveur ne semble pas compatible avec WebDAV</string>
 	<string name="screen_cloud_local_error_no_content_provider">Aucun gestionnaire de fichiers trouvé qui supporte l\'ouverture des répertoires</string>
 	<!-- ## screen: webdav settings -->
@@ -267,6 +269,7 @@
 	<string name="screen_settings_keep_unlocked_while_editing_files_summary">Gardez les coffres forts déverrouillées pendant l\'édition des fichiers</string>
 	<!-- ## screen: cloud settings -->
 	<string name="screen_cloud_settings_onedrive_connections">Connexions OneDrive</string>
+	<string name="screen_cloud_settings_sharepoint_connections">Connexions SharePoint</string>
 	<string name="screen_cloud_settings_webdav_connections">Connexions WebDAV</string>
 	<string name="screen_cloud_settings_pcloud_connections">Connexions pCloud</string>
 	<string name="screen_cloud_settings_s3_connections">Connexions S3</string>
@@ -411,6 +414,11 @@
 	<string name="dialog_pcloud_credentials_updated_title">Les identifiants de \'%1$s\' ont été mis à jour</string>
 	<string name="dialog_pcloud_credentials_updated">Si vous avez l\'intention d\'ajouter un nouveau compte pCloud, cliquez sur cette url <a href="https://www.pcloud.com">www.pcloud.com</a>, déconnectez-vous du compte actuel et cliquez à nouveau sur le \'+\' dans cette application pour créer une nouvelle connexion pCloud.</string>
 	<string name="dialog_enter_sharepoint_url_title">Entrez l\'URL SharePoint</string>
+	<string name="dialog_enter_sharepoint_url_hint">URL du site SharePoint</string>
+	<string name="dialog_enter_sharepoint_url_format">Entrez l\'adresse de votre site SharePoint, par exemple https://{…}.sharepoint.com/sites/{…}.</string>
+	<string name="dialog_enter_sharepoint_url_invalid">Ce n\'est pas l\'adresse d\'un site SharePoint. Veuillez entrer un site comme https://{…}.sharepoint.com/sites/{…}.</string>
+	<string name="dialog_choose_sharepoint_drive_title">Sélectionnez le lecteur</string>
+	<string name="dialog_choose_sharepoint_drive_hint">Sélectionnez le lecteur SharePoint avec lequel vous souhaitez travailler.</string>
 	<string name="dialog_cbc_password_vaults_migration_title">Migration du mot de passe du coffre requise</string>
 	<string name="dialog_cbc_password_vaults_migration_hint">En raison des améliorations apportées à la sécurité, votre authentification biométrique vous sera demandée deux fois pour chaque coffre-fort afin de re-chiffrer vos mots de passe. Ceci est nécessaire pour continuer à protéger vos mots de passe de coffres-forts à l\'aide des technologies les plus récentes. Si vous ne souhaitez pas vous réauthentifier, les mots de passe stockés seront supprimés.</string>
 	<string name="dialog_cbc_password_vaults_migration_action">Migrer</string>
