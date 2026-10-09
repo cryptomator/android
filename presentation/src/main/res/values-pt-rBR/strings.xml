@@ -239,7 +239,7 @@
 	<string name="screen_settings_section_auto_lock">Bloqueio automático</string>
 	<string name="screen_settings_auto_lock_timeout">Bloquear após</string>
 	<string name="screen_settings_auto_lock_on_screen_lock">Quando a tela estiver desativada</string>
-	<string name="screen_settings_section_auto_photo_upload">Carregamento automático de foto</string>
+	<string name="screen_settings_section_auto_photo_upload">Envio automático de foto</string>
 	<string name="screen_settings_section_auto_photo_upload_vault">Escolha o cofre para carregar</string>
 	<string name="screen_settings_section_auto_photo_upload_toggle">Ativar</string>
 	<string name="screen_settings_section_auto_photo_upload_toggle_summary">Capture imagens em segundo plano e, assim que o cofre selecionado for desbloqueado, inicie o envio</string>
