@@ -1,6 +1,7 @@
 package org.cryptomator.data.db.mappers;
 
 import org.cryptomator.data.db.entities.CloudEntity;
+import org.cryptomator.domain.BoxCloud;
 import org.cryptomator.domain.Cloud;
 import org.cryptomator.domain.CloudType;
 import org.cryptomator.domain.DropboxCloud;
@@ -15,6 +16,7 @@ import org.cryptomator.domain.WebDavCloud;
 import javax.inject.Inject;
 import javax.inject.Singleton;
 
+import static org.cryptomator.domain.BoxCloud.aBoxCloud;
 import static org.cryptomator.domain.DropboxCloud.aDropboxCloud;
 import static org.cryptomator.domain.GoogleDriveCloud.aGoogleDriveCloud;
 import static org.cryptomator.domain.LocalStorageCloud.aLocalStorage;
@@ -72,6 +74,12 @@ public class CloudEntityMapper extends EntityMapper<CloudEntity, Cloud> {
 						.withAccessToken(entity.getAccessToken()) //
 						.withUsername(entity.getUsername()) //
 						.build();
+			case BOX:
+				return aBoxCloud() //
+						.withId(entity.getId()) //
+						.withUserId(entity.getUrl()) //
+						.withUsername(entity.getUsername()) //
+						.build();
 			case S3:
 				return aS3Cloud() //
 						.withId(entity.getId()) //
@@ -126,6 +134,10 @@ public class CloudEntityMapper extends EntityMapper<CloudEntity, Cloud> {
 				result.setAccessToken(((PCloud) domainObject).accessToken());
 				result.setUrl(((PCloud) domainObject).url());
 				result.setUsername(((PCloud) domainObject).username());
+				break;
+			case BOX:
+				result.setUrl(((BoxCloud) domainObject).userId());
+				result.setUsername(((BoxCloud) domainObject).username());
 				break;
 			case S3:
 				result.setUrl(((S3Cloud) domainObject).s3Endpoint());

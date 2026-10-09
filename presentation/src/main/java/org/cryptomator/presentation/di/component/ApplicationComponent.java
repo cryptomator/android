@@ -8,6 +8,7 @@ import org.cryptomator.data.repository.RepositoryModule;
 import org.cryptomator.data.util.NetworkConnectionCheck;
 import org.cryptomator.domain.executor.PostExecutionThread;
 import org.cryptomator.domain.executor.ThreadExecutor;
+import org.cryptomator.domain.repository.BoxRepository;
 import org.cryptomator.domain.repository.CloudContentRepository;
 import org.cryptomator.domain.repository.CloudRepository;
 import org.cryptomator.domain.repository.HubRepository;
@@ -43,6 +44,8 @@ public interface ApplicationComponent {
 	HubRepository hubRepository();
 
 	SharepointRepository sharepointRepository();
+
+	BoxRepository boxRepository();
 
 	UpdateCheckRepository updateCheckRepository();
 

@@ -39,11 +39,15 @@ android {
 		release {
 			buildConfigField "String", "ONEDRIVE_API_KEY", "\"" + getApiKey('ONEDRIVE_API_KEY') + "\""
 			buildConfigField "String", "ONEDRIVE_API_REDIRCT_URI", "\"" + getApiKey('ONEDRIVE_API_REDIRCT_URI') + "\""
+			buildConfigField "String", "BOX_CLIENT_ID", "\"" + getApiKey('BOX_CLIENT_ID') + "\""
+			buildConfigField "String", "BOX_CLIENT_SECRET", "\"" + getApiKey('BOX_CLIENT_SECRET') + "\""
 		}
 
 		debug {
 			buildConfigField "String", "ONEDRIVE_API_KEY", "\"" + getApiKey('ONEDRIVE_API_KEY') + "\""
 			buildConfigField "String", "ONEDRIVE_API_REDIRCT_URI", "\"" + getApiKey('ONEDRIVE_API_REDIRCT_URI') + "\""
+			buildConfigField "String", "BOX_CLIENT_ID", "\"" + getApiKey('BOX_CLIENT_ID') + "\""
+			buildConfigField "String", "BOX_CLIENT_SECRET", "\"" + getApiKey('BOX_CLIENT_SECRET') + "\""
 		}
 	}
 

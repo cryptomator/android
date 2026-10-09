@@ -8,6 +8,7 @@ import org.cryptomator.domain.exception.NetworkConnectionException
 import org.cryptomator.domain.exception.NoSuchCloudFileException
 import org.cryptomator.domain.usecases.ResultHandler
 import org.cryptomator.domain.usecases.cloud.AddOrChangeCloudConnectionUseCase
+import org.cryptomator.domain.usecases.cloud.AuthenticateBoxUseCase
 import org.cryptomator.domain.usecases.cloud.GetCloudsUseCase
 import org.cryptomator.domain.usecases.cloud.GetSharepointDrivesUseCase
 import org.cryptomator.domain.usecases.cloud.GetUsernameUseCase
@@ -74,6 +75,7 @@ class CloudConnectionListPresenterTest {
 			getCloudsUseCase,
 			getUsernameUseCase,
 			getSharepointDrivesUseCase,
+			mock<AuthenticateBoxUseCase>(),
 			mock<RemoveCloudUseCase>(),
 			addOrChangeCloudConnectionUseCase,
 			mock<GetVaultListUseCase>(),

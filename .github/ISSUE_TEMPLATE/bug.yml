@@ -44,6 +44,7 @@ body:
         - SharePoint
         - WebDAV
         - pCloud
+        - Box
         - S3
         - Local storage
     validations:

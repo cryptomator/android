@@ -30,12 +30,14 @@ Cryptomator for Android is currently available in the following  distribution ch
 ./gradlew assembleApkstoreDebug
 ```
 
-Before connecting to Dropbox, OneDrive, SharePoint or pCloud you have to provide valid API keys using environment variables:
+Before connecting to Dropbox, OneDrive, SharePoint, pCloud or Box you have to provide valid API keys using environment variables:
 For build type
 
-* **release**: `DROPBOX_API_KEY`, `ONEDRIVE_API_KEY` and  `ONEDRIVE_API_REDIRCT_URI`, `ONEDRIVE_API_KEY_FREEMIUM` and  `ONEDRIVE_API_REDIRCT_URI_FREEMIUM` or `PCLOUD_CLIENT_ID`
+* **release**: `DROPBOX_API_KEY`, `ONEDRIVE_API_KEY` and  `ONEDRIVE_API_REDIRCT_URI`, `ONEDRIVE_API_KEY_FREEMIUM` and  `ONEDRIVE_API_REDIRCT_URI_FREEMIUM`, `PCLOUD_CLIENT_ID` or `BOX_CLIENT_ID` and `BOX_CLIENT_SECRET`
 
 SharePoint uses the same Microsoft app registrations as OneDrive (`ONEDRIVE_API_*`). Each registration additionally needs the delegated Microsoft Graph permission `Sites.ReadWrite.All`, because resolving a site and its document libraries is outside the scope of OneDrive's `Files.ReadWrite`.
+
+The Box app additionally needs `boxsdk-<BOX_CLIENT_ID>://boxsdkoauth2redirect` as redirect URI.
 
 Before connecting to Google Drive you have to create a new project in [Google Cloud Platform](https://console.cloud.google.com) with Google Drive API, credentials including Google Drive scopes (read, write, delete,..) and the fingerprint of the key you use to build the app.
 
