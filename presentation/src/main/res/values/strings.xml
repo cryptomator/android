@@ -15,6 +15,7 @@
 	<string name="error_authentication_failed">Authentication failed</string>
 	<string name="error_authentication_failed_re_authenticate">Authentication failed, please login using %1$s</string>
 	<string name="error_no_network_connection">No network connection</string>
+	<string name="error_no_space_left">Not enough storage space on your device. Please free up some space and try again.</string>
 	<string name="error_purchase_not_available">Purchase not available. Please try again later.</string>
 	<string name="error_invalid_passphrase">Wrong password</string>
 	<string name="error_file_or_folder_exists">A file or folder already exists.</string>
@@ -709,6 +710,7 @@
 
 	<string name="notification_auto_upload_failed_title">Auto photo upload failed</string>
 	<string name="notification_auto_upload_failed_general_error">General error occurred during upload.</string>
+	<string name="notification_auto_upload_no_space_left">Not enough storage space on your device. Please free up some space and try again.</string>
 	<string name="notification_auto_upload_failed_due_to_folder_not_exists">Selected folder for upload isn\'t available anymore. Go to settings and choose a new one</string>
 	<string name="notification_auto_upload_failed_due_to_vault_locked">Vault locked during upload, please reopen vault to continue</string>
 	<string name="notification_auto_upload_failed_due_to_vault_not_found">Vault specified for auto upload doesn\'t exist anymore.</string>
