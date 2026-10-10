@@ -92,6 +92,7 @@ class ExceptionHandlers @Inject constructor(private val context: Context, defaul
 		exceptionHandlers.add(NoSuchVaultExceptionHandler())
 		exceptionHandlers.add(PermissionNotGrantedExceptionHandler())
 		exceptionHandlers.add(UnsupportedVaultFormatExceptionHandler())
+		exceptionHandlers.add(NoSpaceLeftExceptionHandler())
 	}
 
 	fun handle(view: View, e: Throwable) {
