@@ -88,11 +88,15 @@ class ExceptionHandlers @Inject constructor(private val context: Context, defaul
 		staticHandler(HubInvalidSetupCodeException::class.java, R.string.error_hub_invalid_setup_code)
 		staticHandler(HubInvalidVersionException::class.java, R.string.error_hub_invalid_version)
 		exceptionHandlers.add(MissingCryptorExceptionHandler())
+		// Registered before CancellationExceptionHandler: a storage-full failure during a
+		// cancel-aware upload is wrapped in CancellationException, which would otherwise be silently
+		// ignored before the dedicated ENOSPC message can be shown. This handler only matches when
+		// ENOSPC is present, so pure cancellations keep their existing behavior.
+		exceptionHandlers.add(NoSpaceLeftExceptionHandler())
 		exceptionHandlers.add(CancellationExceptionHandler())
 		exceptionHandlers.add(NoSuchVaultExceptionHandler())
 		exceptionHandlers.add(PermissionNotGrantedExceptionHandler())
 		exceptionHandlers.add(UnsupportedVaultFormatExceptionHandler())
-		exceptionHandlers.add(NoSpaceLeftExceptionHandler())
 	}
 
 	fun handle(view: View, e: Throwable) {
