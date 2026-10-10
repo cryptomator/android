@@ -180,6 +180,8 @@
 	<!-- ## screen: cloud connections -->
 	<string name="screen_cloud_connections_title">Escolha um local</string>
 	<string name="screen_cloud_connections_no_connections">Toque aqui para adicionar novos locais</string>
+	<string name="screen_cloud_connections_msg_no_sharepoint_drives">Nenhuma unidade disponível.</string>
+	<string name="screen_cloud_connections_msg_sharepoint_site_not_found">O site do SharePoint não foi encontrado. Verifique a URL.</string>
 	<string name="screen_cloud_error_webdav_not_supported">O servidor não parece ser compatível com WebDAV</string>
 	<string name="screen_cloud_local_error_no_content_provider">Nenhum gerenciador de arquivos encontrado que seja compatível para abrir os diretórios</string>
 	<!-- ## screen: webdav settings -->
@@ -238,7 +240,7 @@
 	<string name="screen_settings_auto_lock_timeout">Bloquear após</string>
 	<string name="screen_settings_auto_lock_on_screen_lock">Quando a tela estiver desativada</string>
 	<string name="screen_settings_section_auto_photo_upload">Envio automático de foto</string>
-	<string name="screen_settings_section_auto_photo_upload_vault">Escolha o cofre para envio</string>
+	<string name="screen_settings_section_auto_photo_upload_vault">Escolha o cofre para carregar</string>
 	<string name="screen_settings_section_auto_photo_upload_toggle">Ativar</string>
 	<string name="screen_settings_section_auto_photo_upload_toggle_summary">Capture imagens em segundo plano e, assim que o cofre selecionado for desbloqueado, inicie o envio</string>
 	<string name="screen_settings_section_auto_photo_upload_toggle_instant_upload">Envio instantâneo</string>
@@ -268,6 +270,7 @@
 	<string name="screen_settings_keep_unlocked_while_editing_files_summary">Mantenha os cofres desbloqueados durante a edição de arquivos</string>
 	<!-- ## screen: cloud settings -->
 	<string name="screen_cloud_settings_onedrive_connections">conexões do OneDrive</string>
+	<string name="screen_cloud_settings_sharepoint_connections">Conexões com SharePoint</string>
 	<string name="screen_cloud_settings_webdav_connections">conexões da WebDAV</string>
 	<string name="screen_cloud_settings_pcloud_connections">conexões do pCloud</string>
 	<string name="screen_cloud_settings_s3_connections">Conexões do S3</string>
@@ -412,6 +415,11 @@
 	<string name="dialog_pcloud_credentials_updated_title">Credenciais de \"%1$s\" atualizadas</string>
 	<string name="dialog_pcloud_credentials_updated">Se você pretende adicionar uma nova conta pCloud, toque neste link <a href="https://www.pcloud.com">www.pcloud.com</a>, desconecte da conta atual e toque novamente no \"+\" neste aplicativo para criar uma nova conexão de nuvem.</string>
 	<string name="dialog_enter_sharepoint_url_title">Digite a URL do SharePoint</string>
+	<string name="dialog_enter_sharepoint_url_hint">URL do site SharePoint</string>
+	<string name="dialog_enter_sharepoint_url_format">Digite o endereço do seu site do SharePoint, p ex.: https://{…}.sharepoint.com/sites/{…}.</string>
+	<string name="dialog_enter_sharepoint_url_invalid">Este não é o endereço de um site SharePoint. Digite um semelhante a https://{…}.sharepoint.com/sites/{…}.</string>
+	<string name="dialog_choose_sharepoint_drive_title">Selecionar unidade</string>
+	<string name="dialog_choose_sharepoint_drive_hint">Selecione o drive de SharePoint que você deseja trabalhar.</string>
 	<string name="dialog_cbc_password_vaults_migration_title">Requer migração da senha do cofre</string>
 	<string name="dialog_cbc_password_vaults_migration_hint">Devido a melhorias na segurança, você será solicitado a fornecer sua autenticação biométrica duas vezes para cada cofre para criptografar novamente suas senhas. Isso é necessário para continuar protegendo suas senhas de cofre com a tecnologia mais recente. Se você não quiser que isso aconteça, as senhas armazenadas serão removidas.</string>
 	<string name="dialog_cbc_password_vaults_migration_action">Migrar</string>
