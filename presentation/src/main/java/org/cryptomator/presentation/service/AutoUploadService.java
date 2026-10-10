@@ -35,6 +35,7 @@ import org.cryptomator.presentation.model.AutoUploadFilesStore;
 import org.cryptomator.presentation.presenter.UriBasedDataSource;
 import org.cryptomator.presentation.util.ContentResolverUtil;
 import org.cryptomator.presentation.util.FileUtil;
+import org.cryptomator.util.ExceptionUtil;
 import org.cryptomator.util.SharedPreferencesHandler;
 
 import java.io.File;
@@ -118,6 +119,8 @@ public class AutoUploadService extends Service {
 					Timber.tag("AutoUploadService").i("Upload canceled by user");
 				} else if (wrappedStoragePermissionException(e)) {
 					notification.showPermissionNotGrantedNotification();
+				} else if (wrappedNoSpaceLeftException(e)) {
+					notification.showNoSpaceLeftNotification();
 				} else if (e instanceof AuthenticationException) {
 					notification.showWrongCredentialNotification((WrongCredentialsException) e);
 				} else {
@@ -137,6 +140,15 @@ public class AutoUploadService extends Service {
 				&& e.getCause().getCause() != null //
 				&& e.getCause().getCause() instanceof ErrnoException //
 				&& ((ErrnoException) e.getCause().getCause()).errno == OsConstants.EACCES;
+	}
+
+	/**
+	 * Checks whether the upload failed because the device ran out of storage. The {@code ENOSPC}
+	 * error surfaces as an {@link ErrnoException} somewhere in the cause chain of the wrapping
+	 * backend exception, so the whole chain is inspected.
+	 */
+	private boolean wrappedNoSpaceLeftException(Exception e) {
+		return ExceptionUtil.contains(e, ErrnoException.class, errnoException -> errnoException.errno == OsConstants.ENOSPC);
 	}
 
 	private void updateNotification(int asPercentage) {
