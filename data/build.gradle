@@ -107,6 +107,10 @@ android {
 		accrescent {
 			java.srcDirs = ['src/main/java/', 'src/apiKey/java/', 'src/fdroidAccrescent/java/']
 		}
+
+		['testPlaystore', 'testPlaystoreiap', 'testApkstore', 'testFdroid', 'testAccrescent'].each { testSourceSet ->
+			getByName(testSourceSet).java.srcDirs += 'src/testApiKey/java/'
+		}
 	}
 	packagingOptions {
 		resources {

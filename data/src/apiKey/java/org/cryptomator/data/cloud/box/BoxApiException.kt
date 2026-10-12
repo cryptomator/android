@@ -11,8 +11,8 @@ internal class BoxApiException(val statusCode: Int, val code: String?, message: 
 		get() = statusCode == 404
 
 	/**
-	 * Box also answers 409 while another operation blocks the item, which isn't a name clash.
+	 * Only `item_name_in_use` means the name is taken; Box documents several other reasons for a 409.
 	 */
 	val isConflict: Boolean
-		get() = statusCode == 409 && code != "operation_blocked_temporary"
+		get() = statusCode == 409 && code == "item_name_in_use"
 }

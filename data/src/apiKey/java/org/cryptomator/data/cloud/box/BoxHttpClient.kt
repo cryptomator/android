@@ -52,12 +52,21 @@ internal object BoxHttpClient {
 	}
 
 	fun apiException(statusCode: Int, body: String): BoxApiException {
-		val error = try {
+		val error = errorOf(body)
+		return BoxApiException(statusCode, error?.code ?: error?.error, error?.message ?: error?.errorDescription, conflictOf(error))
+	}
+
+	fun errorCode(body: String): String? {
+		val error = errorOf(body)
+		return error?.code ?: error?.error
+	}
+
+	private fun errorOf(body: String): BoxError? {
+		return try {
 			gson.fromJson(body, BoxError::class.java)
 		} catch (e: JsonSyntaxException) {
 			null
 		}
-		return BoxApiException(statusCode, error?.code ?: error?.error, error?.message ?: error?.errorDescription, conflictOf(error))
 	}
 
 	/**

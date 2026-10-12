@@ -11,6 +11,8 @@ import org.junit.jupiter.api.AfterEach
 import org.junit.jupiter.api.Assertions.assertThrows
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
+import org.junit.jupiter.params.ParameterizedTest
+import org.junit.jupiter.params.provider.ValueSource
 import org.mockito.MockedConstruction
 import org.mockito.Mockito
 import org.mockito.kotlin.any
@@ -51,9 +53,10 @@ class BoxCloudContentRepositoryTest {
 		assertThat(exception.message, `is`("folder"))
 	}
 
-	@Test
-	fun testBlockedOperationIsNoNameClash() {
-		whenever(api.createFolder("0", "folder")).thenThrow(BoxApiException(409, "operation_blocked_temporary", "The operation is blocked"))
+	@ParameterizedTest
+	@ValueSource(strings = ["operation_blocked_temporary", "name_temporarily_reserved"])
+	fun testTemporaryConflictIsNoNameClash(code: String) {
+		whenever(api.createFolder("0", "folder")).thenThrow(BoxApiException(409, code, "Conflict"))
 
 		assertThrows(BoxApiException::class.java) { inTest.create(inTest.folder(root, "folder")) }
 	}

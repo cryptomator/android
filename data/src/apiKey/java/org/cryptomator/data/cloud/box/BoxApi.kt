@@ -151,21 +151,42 @@ internal class BoxApi(private val cloud: BoxCloud, private val tokenStore: BoxTo
 	 */
 	@Throws(IOException::class)
 	private fun executeWaitingWhileProcessing(request: Request.Builder): Response {
-		return executeRetrying(request) { it == 202 || it == 429 }
+		val response = executeRetrying(request) { it.code == 202 || isTemporarilyRejected(it) }
+		if (response.code == 202) { // would pass for a success
+			response.close()
+			throw FatalBackendException("Box is still processing the file after $MAX_RETRY_ATTEMPTS attempts")
+		}
+		return response
+	}
+
+	@Throws(IOException::class)
+	private fun execute(request: Request.Builder): Response {
+		return executeRetrying(request) { isTemporarilyRejected(it) }
 	}
 
 	/**
-	 * Repeats the request after the delay Box asks for if it rate limits the request.
+	 * Box asks to retry when it rate limits a request, and documents two of its 409 answers as temporary: a name reserved by another
+	 * request in progress and an item blocked by another operation.
 	 */
 	@Throws(IOException::class)
-	private fun execute(request: Request.Builder): Response {
-		return executeRetrying(request) { it == 429 }
+	private fun isTemporarilyRejected(response: Response): Boolean {
+		return response.code == 429 || response.code == 409 && BoxHttpClient.errorCode(response.peekBody(MAX_ERROR_BODY_BYTES).string()) in TEMPORARY_CONFLICT_CODES
 	}
 
-	private fun executeRetrying(request: Request.Builder, retryOn: (Int) -> Boolean): Response {
-		repeat(MAX_RETRY_ATTEMPTS) {
+	/**
+	 * Returns the answer of the last attempt as it is, so callers get Box's error.
+	 */
+	@Throws(IOException::class)
+	private fun executeRetrying(request: Request.Builder, retryOn: (Response) -> Boolean): Response {
+		repeat(MAX_RETRY_ATTEMPTS - 1) {
 			val response = executeAuthorized(request)
-			if (!retryOn(response.code)) {
+			val retry = try {
+				retryOn(response)
+			} catch (e: Exception) {
+				response.close()
+				throw e
+			}
+			if (!retry) {
 				return response
 			}
 			val retryAfterSeconds = response.header("Retry-After")?.toLongOrNull() ?: 1L
@@ -177,7 +198,7 @@ internal class BoxApi(private val cloud: BoxCloud, private val tokenStore: BoxTo
 				throw CancellationException(e)
 			}
 		}
-		throw FatalBackendException("Box still asks to retry after $MAX_RETRY_ATTEMPTS attempts")
+		return executeAuthorized(request)
 	}
 
 	private fun firstEntry(items: BoxItems): BoxItem {
@@ -241,6 +262,8 @@ internal class BoxApi(private val cloud: BoxCloud, private val tokenStore: BoxTo
 		private const val ITEM_FIELDS = "type,id,name,size,modified_at,content_modified_at,sha1"
 		private const val PAGE_SIZE = 1000
 		private const val MAX_RETRY_ATTEMPTS = 10
+		private const val MAX_ERROR_BODY_BYTES = 64L * 1024
+		private val TEMPORARY_CONFLICT_CODES = setOf("name_temporarily_reserved", "operation_blocked_temporary")
 		private val JSON = "application/json; charset=utf-8".toMediaType()
 		private val OCTET_STREAM = "application/octet-stream".toMediaType()
 		private val RFC_3339 = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ssxxx")
