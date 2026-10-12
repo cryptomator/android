@@ -78,9 +78,22 @@ internal class BoxImpl(private val cloud: BoxCloud, private val api: BoxApi, pri
 	@Throws(IOException::class, BackendException::class)
 	fun create(folder: BoxFolder): BoxFolder {
 		val parent = folder.parent ?: throw ParentFolderIsNullException(folder.name)
-		val parentInfo = nodeInfo(parent) ?: requireNodeInfo(create(parent))
-		val createdFolder = api.createFolder(parentInfo.id, folder.name)
+		val parentId = existingOrCreatedFolderInfo(parent).id
+		val createdFolder = try {
+			api.createFolder(parentId, folder.name)
+		} catch (e: BoxApiException) {
+			if (!e.isNotFound) {
+				throw e
+			}
+			idCache.remove(parent.path) // the cached id belongs to a folder that has been deleted or replaced
+			api.createFolder(existingOrCreatedFolderInfo(parent).id, folder.name)
+		}
 		return cacheNodeInfo(BoxCloudNodeFactory.folder(parent, createdFolder), createdFolder)
+	}
+
+	@Throws(IOException::class, BackendException::class)
+	private fun existingOrCreatedFolderInfo(folder: BoxFolder): BoxIdCache.NodeInfo {
+		return nodeInfo(folder) ?: requireNodeInfo(create(folder))
 	}
 
 	@Throws(IOException::class, BackendException::class)

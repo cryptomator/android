@@ -10,6 +10,9 @@ internal class BoxApiException(val statusCode: Int, val code: String?, message: 
 	val isNotFound: Boolean
 		get() = statusCode == 404
 
+	/**
+	 * Box also answers 409 while another operation blocks the item, which isn't a name clash.
+	 */
 	val isConflict: Boolean
-		get() = statusCode == 409
+		get() = statusCode == 409 && code != "operation_blocked_temporary"
 }

@@ -33,7 +33,7 @@ Cryptomator for Android is currently available in the following  distribution ch
 Before connecting to Dropbox, OneDrive, SharePoint, pCloud or Box you have to provide valid API keys using environment variables:
 For build type
 
-* **release**: `DROPBOX_API_KEY`, `ONEDRIVE_API_KEY` and  `ONEDRIVE_API_REDIRCT_URI`, `ONEDRIVE_API_KEY_FREEMIUM` and  `ONEDRIVE_API_REDIRCT_URI_FREEMIUM`, `PCLOUD_CLIENT_ID` or `BOX_CLIENT_ID` and `BOX_CLIENT_SECRET`
+* **release**: `DROPBOX_API_KEY`, `ONEDRIVE_API_KEY` and  `ONEDRIVE_API_REDIRCT_URI`, `ONEDRIVE_API_KEY_FREEMIUM` and  `ONEDRIVE_API_REDIRCT_URI_FREEMIUM`, `PCLOUD_CLIENT_ID`, `BOX_CLIENT_ID` and `BOX_CLIENT_SECRET`
 
 SharePoint uses the same Microsoft app registrations as OneDrive (`ONEDRIVE_API_*`). Each registration additionally needs the delegated Microsoft Graph permission `Sites.ReadWrite.All`, because resolving a site and its document libraries is outside the scope of OneDrive's `Files.ReadWrite`.
 

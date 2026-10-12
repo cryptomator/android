@@ -13,7 +13,8 @@ internal class BoxOAuth(private val httpClient: OkHttpClient) {
 		return requestTokens(
 			FormBody.Builder() //
 				.add("grant_type", "authorization_code") //
-				.add("code", authorizationCode)
+				.add("code", authorizationCode) //
+				.add("redirect_uri", REDIRECT_URI)
 		)
 	}
 
@@ -42,5 +43,8 @@ internal class BoxOAuth(private val httpClient: OkHttpClient) {
 	companion object {
 
 		private const val TOKEN_URL = "https://api.box.com/oauth2/token"
+
+		// the same as AuthenticateBoxActivity sends in the authorization request
+		private val REDIRECT_URI = "boxsdk-${BuildConfig.BOX_CLIENT_ID}://boxsdkoauth2redirect"
 	}
 }

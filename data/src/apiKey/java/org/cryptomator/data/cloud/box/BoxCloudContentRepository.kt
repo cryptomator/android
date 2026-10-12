@@ -35,7 +35,6 @@ internal class BoxCloudContentRepository(private val cloud: BoxCloud, api: BoxAp
 			when {
 				apiException.get().isAuthenticationError -> throw WrongCredentialsException(cloud)
 				apiException.get().isNotFound -> throw NoSuchCloudFileException()
-				apiException.get().isConflict -> throw CloudNodeAlreadyExistsException(e.message)
 			}
 		}
 	}
@@ -91,35 +90,37 @@ internal class BoxCloudContentRepository(private val cloud: BoxCloud, api: BoxAp
 
 		@Throws(BackendException::class)
 		override fun create(folder: BoxFolder): BoxFolder {
-			return try {
-				impl.create(folder)
-			} catch (e: IOException) {
-				throw FatalBackendException(e)
-			}
+			return nameOnConflict(folder.name) { impl.create(folder) }
 		}
 
 		@Throws(BackendException::class)
 		override fun move(source: BoxFolder, target: BoxFolder): BoxFolder {
-			return try {
-				impl.move(source, target) as BoxFolder
-			} catch (e: IOException) {
-				throw FatalBackendException(e)
-			}
+			return nameOnConflict(target.name) { impl.move(source, target) as BoxFolder }
 		}
 
 		@Throws(BackendException::class)
 		override fun move(source: BoxFile, target: BoxFile): BoxFile {
-			return try {
-				impl.move(source, target) as BoxFile
-			} catch (e: IOException) {
-				throw FatalBackendException(e)
-			}
+			return nameOnConflict(target.name) { impl.move(source, target) as BoxFile }
 		}
 
 		@Throws(BackendException::class)
 		override fun write(file: BoxFile, data: DataSource, progressAware: ProgressAware<UploadState>, replace: Boolean, size: Long): BoxFile {
+			return nameOnConflict(file.name) { impl.write(file, data, progressAware, replace, size) }
+		}
+
+		/**
+		 * Callers show the message of a [CloudNodeAlreadyExistsException] as the name of the existing node, so a name clash Box reports
+		 * carries the name of the node instead of Box's error description.
+		 */
+		@Throws(BackendException::class)
+		private fun <T> nameOnConflict(name: String, action: () -> T): T {
 			return try {
-				impl.write(file, data, progressAware, replace, size)
+				action()
+			} catch (e: BoxApiException) {
+				if (e.isConflict) {
+					throw CloudNodeAlreadyExistsException(name)
+				}
+				throw e
 			} catch (e: IOException) {
 				throw FatalBackendException(e)
 			}
