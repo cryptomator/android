@@ -745,6 +745,10 @@
 	<string name="dialog_trial_expired_message">Your free trial has ended. You can continue in read-only mode or unlock the full version.</string>
 	<string name="dialog_trial_expired_unlock">Unlock Full Version</string>
 	<string name="dialog_trial_expired_continue_read_only">Continue in Read-Only Mode</string>
+	<string name="dialog_license_lost_title">Re-enter License Key</string>
+	<string name="dialog_license_lost_message">A previous update removed the license key registered to %1$s from this device. Re-enter it to restore write access. Until then, your vaults are read-only.</string>
+	<string name="dialog_license_lost_reenter">Re-enter License Key</string>
+	<string name="dialog_license_lost_later">Later</string>
 
 	<string name="dialog_settings_update_check_interval_title">Update check interval</string>
 	<string name="screen_settings_check_updates">Check for updates</string>
