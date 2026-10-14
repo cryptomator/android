@@ -45,6 +45,7 @@ class ChooseCloudServicePresenter @Inject constructor( //
 			cloudTypeModels.remove(CloudTypeModel.ONEDRIVE)
 			cloudTypeModels.remove(CloudTypeModel.SHAREPOINT)
 			cloudTypeModels.remove(CloudTypeModel.PCLOUD)
+			cloudTypeModels.remove(CloudTypeModel.BOX)
 		}
 
 		view?.render(cloudTypeModels)

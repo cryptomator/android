@@ -1,9 +1,11 @@
 package org.cryptomator.data.db.mappers
 
+import org.cryptomator.domain.BoxCloud
 import org.cryptomator.domain.CloudType
 import org.cryptomator.domain.SharepointCloud
 import org.cryptomator.domain.SmbCloud
 import org.hamcrest.CoreMatchers.`is`
+import org.hamcrest.CoreMatchers.nullValue
 import org.hamcrest.MatcherAssert.assertThat
 import org.junit.jupiter.api.Test
 
@@ -51,5 +53,23 @@ class CloudEntityMapperTest {
 		assertThat(mapped.url(), `is`("smb://nas/share/folder"))
 		assertThat(mapped.username(), `is`("WORKGROUP\\user"))
 		assertThat(mapped.password(), `is`("password"))
+	}
+
+	@Test
+	fun testBoxCloudSurvivesRoundTripWithoutTokens() {
+		val cloud = BoxCloud.aBoxCloud() //
+			.withId(42L) //
+			.withUserId("userId") //
+			.withUsername("user@example.com") //
+			.build()
+
+		val entity = mapper.toEntity(cloud)
+		val mapped = mapper.fromEntity(entity) as BoxCloud
+
+		assertThat(entity.type, `is`(CloudType.BOX.name))
+		assertThat(entity.accessToken, `is`(nullValue()))
+		assertThat(mapped.id(), `is`(42L))
+		assertThat(mapped.userId(), `is`("userId"))
+		assertThat(mapped.username(), `is`("user@example.com"))
 	}
 }

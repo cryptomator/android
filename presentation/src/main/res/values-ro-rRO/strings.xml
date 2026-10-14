@@ -90,6 +90,7 @@
 	<string name="screen_vault_list_vault_action_delete">Șterge</string>
 	<string name="screen_vault_list_vault_creation_hint">Faceți clic aici pentru a crea un seif nou</string>
 	<string name="screen_vault_list_change_password_successful">Parola a fost modificată cu succes</string>
+	<string name="screen_vault_list_sale_promo_banner_dismiss">Renunță</string>
 	<!-- # screen: file browser -->
 	<string name="screen_file_browser_default_title">Seif</string>
 	<string name="screen_file_browser_create_new_vault_button_text">Plasează aici</string>

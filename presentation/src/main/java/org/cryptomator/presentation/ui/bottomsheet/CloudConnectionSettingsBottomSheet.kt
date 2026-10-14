@@ -5,6 +5,7 @@ import android.view.View
 import org.cryptomator.generator.BottomSheet
 import org.cryptomator.presentation.R
 import org.cryptomator.presentation.databinding.DialogBottomSheetCloudSettingsBinding
+import org.cryptomator.presentation.model.BoxCloudModel
 import org.cryptomator.presentation.model.CloudModel
 import org.cryptomator.presentation.model.CloudTypeModel
 import org.cryptomator.presentation.model.LocalStorageModel
@@ -32,6 +33,7 @@ class CloudConnectionSettingsBottomSheet : BaseBottomSheet<CloudConnectionSettin
 			CloudTypeModel.SHAREPOINT -> bindViewForSharepoint(cloudModel as SharepointCloudModel)
 			CloudTypeModel.WEBDAV -> bindViewForWebDAV(cloudModel as WebDavCloudModel)
 			CloudTypeModel.PCLOUD -> bindViewForPCloud(cloudModel as PCloudModel)
+			CloudTypeModel.BOX -> bindViewForBox(cloudModel as BoxCloudModel)
 			CloudTypeModel.S3 -> bindViewForS3(cloudModel as S3CloudModel)
 			CloudTypeModel.SMB -> bindViewForSMB(cloudModel as SmbCloudModel)
 			CloudTypeModel.LOCAL -> bindViewForLocal(cloudModel as LocalStorageModel)
@@ -77,6 +79,11 @@ class CloudConnectionSettingsBottomSheet : BaseBottomSheet<CloudConnectionSettin
 	}
 
 	private fun bindViewForPCloud(cloudModel: PCloudModel) {
+		binding.changeCloud.visibility = View.GONE
+		binding.tvCloudName.text = cloudModel.username()
+	}
+
+	private fun bindViewForBox(cloudModel: BoxCloudModel) {
 		binding.changeCloud.visibility = View.GONE
 		binding.tvCloudName.text = cloudModel.username()
 	}

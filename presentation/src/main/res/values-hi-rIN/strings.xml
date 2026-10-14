@@ -70,6 +70,7 @@
 	<string name="screen_vault_list_vault_action_delete">हटाएँ</string>
 	<string name="screen_vault_list_vault_creation_hint">नया तिजोरी बनाने के लिए यहां टैप करें।</string>
 	<string name="screen_vault_list_change_password_successful">पासवर्ड सफलतापूर्वक बदला गया।</string>
+	<string name="screen_vault_list_sale_promo_banner_dismiss">खारिज करें</string>
 	<!-- # screen: file browser -->
 	<string name="screen_file_browser_default_title">गुप्त तिजोरी</string>
 	<string name="screen_file_browser_create_new_vault_button_text">यहाँ रखें</string>

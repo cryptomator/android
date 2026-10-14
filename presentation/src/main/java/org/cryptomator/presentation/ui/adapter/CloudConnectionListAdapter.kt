@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import org.cryptomator.domain.exception.FatalBackendException
 import org.cryptomator.presentation.databinding.ItemBrowseCloudModelConnectionsBinding
+import org.cryptomator.presentation.model.BoxCloudModel
 import org.cryptomator.presentation.model.CloudModel
 import org.cryptomator.presentation.model.LocalStorageModel
 import org.cryptomator.presentation.model.OnedriveCloudModel
@@ -68,6 +69,9 @@ internal constructor(context: Context) : RecyclerViewBaseAdapter<CloudModel, Clo
 				is PCloudModel -> {
 					bindPCloudModel(cloudModel)
 				}
+				is BoxCloudModel -> {
+					bindBoxCloudModel(cloudModel)
+				}
 				is S3CloudModel -> {
 					bindS3loudModel(cloudModel)
 				}
@@ -102,6 +106,11 @@ internal constructor(context: Context) : RecyclerViewBaseAdapter<CloudModel, Clo
 		}
 
 		private fun bindPCloudModel(cloudModel: PCloudModel) {
+			binding.llCloudConnectionContent.cloudText.text = cloudModel.username()
+			binding.llCloudConnectionContent.cloudSubText.visibility = View.GONE
+		}
+
+		private fun bindBoxCloudModel(cloudModel: BoxCloudModel) {
 			binding.llCloudConnectionContent.cloudText.text = cloudModel.username()
 			binding.llCloudConnectionContent.cloudSubText.visibility = View.GONE
 		}

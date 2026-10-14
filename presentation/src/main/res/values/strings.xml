@@ -117,6 +117,7 @@
 	<string name="cloud_names_onedrive" translatable="false">OneDrive</string>
 	<string name="cloud_names_sharepoint" translatable="false">SharePoint</string>
 	<string name="cloud_names_pcloud" translatable="false">pCloud</string>
+	<string name="cloud_names_box" translatable="false">Box</string>
 	<string name="cloud_names_webdav" translatable="false">WebDAV</string>
 	<string name="cloud_names_s3" translatable="false">S3</string>
 	<string name="cloud_names_smb" translatable="false">SMB</string>
@@ -382,6 +383,7 @@
 	<string name="screen_cloud_settings_sharepoint_connections">SharePoint connections</string>
 	<string name="screen_cloud_settings_webdav_connections">WebDAV connections</string>
 	<string name="screen_cloud_settings_pcloud_connections">pCloud connections</string>
+	<string name="screen_cloud_settings_box_connections">Box connections</string>
 	<string name="screen_cloud_settings_s3_connections">S3 connections</string>
 	<string name="screen_cloud_settings_smb_connections">SMB connections</string>
 	<string name="screen_cloud_settings_local_storage_locations">Local storage locations</string>
@@ -762,6 +764,10 @@
 	<string name="dialog_trial_expired_message">Your free trial has ended. You can continue in read-only mode or unlock the full version.</string>
 	<string name="dialog_trial_expired_unlock">Unlock Full Version</string>
 	<string name="dialog_trial_expired_continue_read_only">Continue in Read-Only Mode</string>
+	<string name="dialog_license_lost_title">Re-enter License Key</string>
+	<string name="dialog_license_lost_message">A previous update removed the license key registered to %1$s from this device. Re-enter it to restore write access. Until then, your vaults are read-only.</string>
+	<string name="dialog_license_lost_reenter">Re-enter License Key</string>
+	<string name="dialog_license_lost_later">Later</string>
 
 	<string name="dialog_settings_update_check_interval_title">Update check interval</string>
 	<string name="screen_settings_check_updates">Check for updates</string>
