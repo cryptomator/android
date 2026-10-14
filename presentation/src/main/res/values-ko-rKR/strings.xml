@@ -515,6 +515,7 @@
 	<string name="dialog_trial_expired_message">무료 체험판이 만료되었습니다. 읽기 전용 모드로 계속 사용하거나 정식 버전을 잠금 해제할 수 있습니다.</string>
 	<string name="dialog_trial_expired_unlock">정식 버전 구입</string>
 	<string name="dialog_trial_expired_continue_read_only">쓰기 전용 모드로 계속하기</string>
+	<string name="dialog_license_lost_later">다음에 하기</string>
 	<string name="dialog_settings_update_check_interval_title">업데이트 확인 주기</string>
 	<string name="screen_settings_check_updates">업데이트 확인</string>
 	<string name="screen_settings_last_check_updates">마지막 확인 %1$s</string>
