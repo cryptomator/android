@@ -515,6 +515,9 @@
 	<string name="dialog_trial_expired_message">Votre essai gratuit est terminé. Vous pouvez continuer en mode lecture seule ou déverrouiller la version complète.</string>
 	<string name="dialog_trial_expired_unlock">Débloquer la version complète</string>
 	<string name="dialog_trial_expired_continue_read_only">Continuer en mode lecture seule</string>
+	<string name="dialog_license_lost_title">Ressaisir la clé de licence</string>
+	<string name="dialog_license_lost_message">Une mise à jour précédente a supprimé la clé de licence enregistrée pour %1$s de cet appareil. Veuillez la saisir à nouveau pour restaurer l\'accès en écriture. Jusque-là, vos coffres sont en lecture seule.</string>
+	<string name="dialog_license_lost_reenter">Ressaisir la clé de licence</string>
 	<string name="dialog_license_lost_later">Plus tard</string>
 	<string name="dialog_settings_update_check_interval_title">Intervalle de vérification des mises à jour</string>
 	<string name="screen_settings_check_updates">Vérifier les mises à jour</string>
