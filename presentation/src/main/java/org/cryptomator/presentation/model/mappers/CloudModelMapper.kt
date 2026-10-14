@@ -2,6 +2,7 @@ package org.cryptomator.presentation.model.mappers
 
 import org.cryptomator.domain.Cloud
 import org.cryptomator.domain.di.PerView
+import org.cryptomator.presentation.model.BoxCloudModel
 import org.cryptomator.presentation.model.CloudModel
 import org.cryptomator.presentation.model.CloudTypeModel
 import org.cryptomator.presentation.model.CryptoCloudModel
@@ -30,6 +31,7 @@ class CloudModelMapper @Inject constructor() : ModelMapper<CloudModel, Cloud>() 
 			CloudTypeModel.ONEDRIVE -> OnedriveCloudModel(domainObject)
 			CloudTypeModel.SHAREPOINT -> SharepointCloudModel(domainObject)
 			CloudTypeModel.PCLOUD -> PCloudModel(domainObject)
+			CloudTypeModel.BOX -> BoxCloudModel(domainObject)
 			CloudTypeModel.S3 -> S3CloudModel(domainObject)
 			CloudTypeModel.CRYPTO -> CryptoCloudModel(domainObject)
 			CloudTypeModel.WEBDAV -> WebDavCloudModel(domainObject)

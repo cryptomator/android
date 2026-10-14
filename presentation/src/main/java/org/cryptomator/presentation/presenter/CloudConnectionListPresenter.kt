@@ -4,6 +4,7 @@ import android.content.ActivityNotFoundException
 import android.content.Intent
 import android.net.Uri
 import android.widget.Toast
+import org.cryptomator.domain.BoxCloud
 import org.cryptomator.domain.Cloud
 import org.cryptomator.domain.LocalStorageCloud
 import org.cryptomator.domain.OnedriveCloud
@@ -15,6 +16,7 @@ import org.cryptomator.domain.exception.FatalBackendException
 import org.cryptomator.domain.exception.NetworkConnectionException
 import org.cryptomator.domain.exception.NoSuchCloudFileException
 import org.cryptomator.domain.usecases.cloud.AddOrChangeCloudConnectionUseCase
+import org.cryptomator.domain.usecases.cloud.AuthenticateBoxUseCase
 import org.cryptomator.domain.usecases.cloud.GetCloudsUseCase
 import org.cryptomator.domain.usecases.cloud.GetSharepointDrivesUseCase
 import org.cryptomator.domain.usecases.cloud.GetUsernameUseCase
@@ -50,6 +52,7 @@ class CloudConnectionListPresenter @Inject constructor( //
 	private val getCloudsUseCase: GetCloudsUseCase,  //
 	private val getUsernameUseCase: GetUsernameUseCase, //
 	private val getSharepointDrivesUseCase: GetSharepointDrivesUseCase, //
+	private val authenticateBoxUseCase: AuthenticateBoxUseCase, //
 	private val removeCloudUseCase: RemoveCloudUseCase,  //
 	private val addOrChangeCloudConnectionUseCase: AddOrChangeCloudConnectionUseCase,  //
 	private val getVaultListUseCase: GetVaultListUseCase,  //
@@ -139,6 +142,7 @@ class CloudConnectionListPresenter @Inject constructor( //
 			CloudTypeModel.SHAREPOINT -> view?.showDialog(EnterSharepointUrlDialog.newInstance())
 			CloudTypeModel.WEBDAV -> requestActivityResult(ActivityResultCallbacks.addChangeMultiCloud(), Intents.webDavAddOrChangeIntent())
 			CloudTypeModel.PCLOUD -> requestActivityResult(ActivityResultCallbacks.pCloudAuthenticationFinished(), Intents.authenticatePCloudIntent())
+			CloudTypeModel.BOX -> requestActivityResult(ActivityResultCallbacks.boxAuthenticationFinished(), Intents.authenticateBoxIntent())
 			CloudTypeModel.S3 -> requestActivityResult(ActivityResultCallbacks.addChangeMultiCloud(), Intents.s3AddOrChangeIntent())
 			CloudTypeModel.LOCAL -> openDocumentTree()
 			else -> throw IllegalStateException("Cloud type is not supported")
@@ -329,6 +333,23 @@ class CloudConnectionListPresenter @Inject constructor( //
 			})
 	}
 
+	@Callback
+	fun boxAuthenticationFinished(activityResult: ActivityResult) {
+		val code = activityResult.intent().extras?.getString(BOX_OAUTH_AUTH_CODE)
+		if (code.isNullOrEmpty()) {
+			Timber.tag("CloudConnListPresenter").i("Box authentication not successful")
+			return
+		}
+		showProgress(ProgressModel(ProgressStateModel.AUTHENTICATION))
+		authenticateBoxUseCase //
+			.withAuthorizationCode(code) //
+			.run(object : ProgressCompletingResultHandler<BoxCloud>() {
+				override fun onSuccess(cloud: BoxCloud) {
+					loadCloudList()
+				}
+			})
+	}
+
 	fun saveCloud(cloud: Cloud) {
 		addOrChangeCloudConnectionUseCase //
 			.withCloud(cloud) //
@@ -383,10 +404,11 @@ class CloudConnectionListPresenter @Inject constructor( //
 		const val SELECTED_CLOUD = "selectedCloudConnection"
 		const val PCLOUD_OAUTH_AUTH_CODE = "pCloudOAuthCode"
 		const val PCLOUD_HOSTNAME = "pCloudHostname"
+		const val BOX_OAUTH_AUTH_CODE = "boxOAuthCode"
 
 	}
 
 	init {
-		unsubscribeOnDestroy(getCloudsUseCase, getSharepointDrivesUseCase, removeCloudUseCase, addOrChangeCloudConnectionUseCase, getVaultListUseCase, deleteVaultsUseCase)
+		unsubscribeOnDestroy(getCloudsUseCase, getSharepointDrivesUseCase, authenticateBoxUseCase, removeCloudUseCase, addOrChangeCloudConnectionUseCase, getVaultListUseCase, deleteVaultsUseCase)
 	}
 }

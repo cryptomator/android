@@ -155,6 +155,25 @@
 		</activity>
 
 		<activity
+			android:name=".ui.activity.AuthenticateBoxActivity"
+			android:configChanges="orientation|keyboard"
+			android:exported="true"
+			android:launchMode="singleTask">
+
+			<intent-filter>
+				<data
+					android:host="boxsdkoauth2redirect"
+					android:scheme="boxsdk-${BOX_CLIENT_ID}" />
+
+				<action android:name="android.intent.action.VIEW" />
+
+				<category android:name="android.intent.category.BROWSABLE" />
+				<category android:name="android.intent.category.DEFAULT" />
+			</intent-filter>
+
+		</activity>
+
+		<activity
 			android:name=".ui.activity.ImagePreviewActivity"
 			android:exported="false"
 			android:theme="@style/FullscreenTheme" />
