@@ -516,6 +516,7 @@
 	<string name="dialog_trial_expired_message">Je gratis proefperiode is beëindigd. Je kunt doorgaan in alleen-lezen modus of de volledige versie ontgrendelen.</string>
 	<string name="dialog_trial_expired_unlock">Volledige versie ontgrendelen</string>
 	<string name="dialog_trial_expired_continue_read_only">Ga verder in alleen-lezen modus</string>
+	<string name="dialog_license_lost_later">Later</string>
 	<string name="dialog_settings_update_check_interval_title">Update interval</string>
 	<string name="screen_settings_check_updates">Controleren op updates</string>
 	<string name="screen_settings_last_check_updates">Laatst uitgevoerd %1$s</string>
