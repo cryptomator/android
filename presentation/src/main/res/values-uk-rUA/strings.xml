@@ -275,6 +275,7 @@
 	<string name="screen_cloud_settings_sharepoint_connections">Підключення до SharePoint</string>
 	<string name="screen_cloud_settings_webdav_connections">Підключення WebDAV</string>
 	<string name="screen_cloud_settings_pcloud_connections">Підключення pCloud</string>
+	<string name="screen_cloud_settings_box_connections">Підключення Box</string>
 	<string name="screen_cloud_settings_s3_connections">Підключення S3</string>
 	<string name="screen_cloud_settings_local_storage_locations">Локальні розташування сховищ</string>
 	<string name="screen_cloud_settings_log_in_to">Увійти до</string>
