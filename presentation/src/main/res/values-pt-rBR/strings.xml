@@ -516,6 +516,7 @@
 	<string name="dialog_trial_expired_message">Seu período experimental terminou. Você pode continuar no modo somente leitura ou desbloquear a versão completa.</string>
 	<string name="dialog_trial_expired_unlock">Desbloqueie a versão completa</string>
 	<string name="dialog_trial_expired_continue_read_only">Continuar no modo somente leitura</string>
+	<string name="dialog_license_lost_later">Depois</string>
 	<string name="dialog_settings_update_check_interval_title">Intervalo de verificação de atualização</string>
 	<string name="screen_settings_check_updates">Verificar atualizações</string>
 	<string name="screen_settings_last_check_updates">Última verificação em %1$s</string>
