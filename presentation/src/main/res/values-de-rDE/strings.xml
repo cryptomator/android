@@ -515,6 +515,7 @@
 	<string name="dialog_trial_expired_message">Deine kostenlose Testversion ist abgelaufen. Du kannst im Nur-Lese-Modus fortfahren oder die Vollversion freischalten.</string>
 	<string name="dialog_trial_expired_unlock">Vollversion freischalten</string>
 	<string name="dialog_trial_expired_continue_read_only">Im Nur-Lese-Modus fortfahren</string>
+	<string name="dialog_license_lost_later">Später</string>
 	<string name="dialog_settings_update_check_interval_title">Intervall der Aktualisierungsprüfung</string>
 	<string name="screen_settings_check_updates">Nach Aktualisierungen suchen</string>
 	<string name="screen_settings_last_check_updates">Letzte Ausführung %1$s</string>
