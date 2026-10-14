@@ -518,6 +518,7 @@
 	<string name="dialog_trial_expired_message">Ваш безплатний пробний період закінчився. Ви можете продовжити роботу в режимі лише для читання або розблокувати повну версію.</string>
 	<string name="dialog_trial_expired_unlock">Розблокувати повну версію</string>
 	<string name="dialog_trial_expired_continue_read_only">Продовжити в режимі лише для читання</string>
+	<string name="dialog_license_lost_later">Пізніше</string>
 	<string name="dialog_settings_update_check_interval_title">Періодичність перевірки оновлень</string>
 	<string name="screen_settings_check_updates">Перевірити наявність оновлень</string>
 	<string name="screen_settings_last_check_updates">Востаннє перевірено %1$s</string>
