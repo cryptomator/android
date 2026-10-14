@@ -165,15 +165,7 @@ internal class CryptoImplVaultFormatPre7(
 		} else if (ciphertextName.startsWith(DIR_PREFIX)) {
 			folder(cryptoFolder, cleartextName, cloudFile)
 		} else {
-			val cleartextSize = cloudFile.size?.let {
-				val ciphertextSizeWithoutHeader: Long = it - cryptor().fileHeaderCryptor().headerSize()
-				if (ciphertextSizeWithoutHeader >= 0) {
-					cryptor().fileContentCryptor().cleartextSize(ciphertextSizeWithoutHeader)
-				} else {
-					null
-				}
-			}
-			file(cryptoFolder, cleartextName, cloudFile, cleartextSize)
+			file(cryptoFolder, cleartextName, cloudFile, cleartextSize(cloudFile))
 		}
 	}
 

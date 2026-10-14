@@ -1,5 +1,6 @@
 package org.cryptomator.presentation.presenter
 
+import android.app.Activity
 import android.content.Intent
 import android.net.Uri
 import android.os.Handler
@@ -12,6 +13,7 @@ import net.openid.appauth.AuthorizationResponse
 import net.openid.appauth.AuthorizationService
 import net.openid.appauth.AuthorizationServiceConfiguration
 import net.openid.appauth.ResponseTypeValues
+import org.cryptomator.data.cloud.crypto.CryptoCloud
 import org.cryptomator.data.cloud.crypto.CryptoConstants
 import org.cryptomator.domain.Cloud
 import org.cryptomator.domain.KeyLoadingStrategy
@@ -39,10 +41,12 @@ import org.cryptomator.domain.usecases.vault.SaveVaultUseCase
 import org.cryptomator.domain.usecases.vault.UnlockHubVaultUseCase
 import org.cryptomator.domain.usecases.vault.UnlockToken
 import org.cryptomator.domain.usecases.vault.UnlockVaultUsingMasterkeyUseCase
+import org.cryptomator.domain.usecases.vault.UpdateVaultParameterIfChangedRemotelyUseCase
 import org.cryptomator.domain.usecases.vault.VaultOrUnlockToken
 import org.cryptomator.generator.Callback
 import org.cryptomator.generator.InjectIntent
 import org.cryptomator.presentation.R
+import org.cryptomator.presentation.docprovider.CryptomatorDocumentsProvider
 import org.cryptomator.presentation.exception.ExceptionHandlers
 import org.cryptomator.presentation.intent.UnlockVaultIntent
 import org.cryptomator.presentation.model.CloudModel
@@ -73,6 +77,7 @@ class UnlockVaultPresenter @Inject constructor(
 	private val createHubDeviceUseCase: CreateHubDeviceUseCase,
 	private val removeStoredVaultPasswordsAndDisableBiometricAuthUseCase: RemoveStoredVaultPasswordsAndDisableBiometricAuthUseCase,
 	private val saveVaultUseCase: SaveVaultUseCase,
+	private val updateVaultParameterIfChangedRemotelyUseCase: UpdateVaultParameterIfChangedRemotelyUseCase,
 	private val authenticationExceptionHandler: AuthenticationExceptionHandler,
 	private val sharedPreferencesHandler: SharedPreferencesHandler,
 	exceptionMappings: ExceptionHandlers
@@ -285,7 +290,7 @@ class UnlockVaultPresenter @Inject constructor(
 			.andAccessToken(accessToken)
 			.run(object : DefaultResultHandler<Cloud>() {
 				override fun onSuccess(cloud: Cloud) {
-					finishWithResult(cloud)
+					finishWithUnlockedVault(cloud)
 				}
 
 				override fun onError(e: Throwable) {
@@ -478,7 +483,7 @@ class UnlockVaultPresenter @Inject constructor(
 						UnlockVaultIntent.VaultAction.ENCRYPT_PASSWORD, UnlockVaultIntent.VaultAction.UNLOCK_FOR_BIOMETRIC_AUTH -> {
 							handleUnlockVaultSuccess(token.vault, cloud, password)
 						}
-						UnlockVaultIntent.VaultAction.UNLOCK -> finishWithResult(cloud)
+						UnlockVaultIntent.VaultAction.UNLOCK -> finishWithUnlockedVault(cloud)
 						else -> {}
 					}
 				}
@@ -488,6 +493,27 @@ class UnlockVaultPresenter @Inject constructor(
 					// finish in case of biometric auth, otherwise show error in dialog
 					if (view?.isShowingDialog(EnterPasswordDialog::class) == false) {
 						finishWithResult(null)
+					}
+				}
+			})
+	}
+
+	/**
+	 * Stores the format and shortening threshold the vault turned out to have before finishing. An unlock started from the
+	 * Files app has no caller that would store them, and the documents provider opens the vault with the stored format.
+	 * The unlocked vault is only handed back within the app: the Files app, or another app holding a document of the
+	 * vault, just learns that the unlock succeeded.
+	 */
+	private fun finishWithUnlockedVault(cloud: Cloud) {
+		updateVaultParameterIfChangedRemotelyUseCase //
+			.withVault((cloud as CryptoCloud).vault) //
+			.run(object : DefaultResultHandler<Vault>() {
+				override fun onFinished() {
+					if (activity().callingActivity?.packageName == context().packageName) {
+						finishWithResult(cloud)
+					} else {
+						activity().setResult(Activity.RESULT_OK)
+						finish()
 					}
 				}
 			})
@@ -611,6 +637,7 @@ class UnlockVaultPresenter @Inject constructor(
 			.withVault(vault) //
 			.run(object : DefaultResultHandler<Long>() {
 				override fun onSuccess(vaultId: Long) {
+					CryptomatorDocumentsProvider.evictCopies()
 					finishWithResult(null)
 				}
 			})
@@ -686,7 +713,8 @@ class UnlockVaultPresenter @Inject constructor(
 			prepareUnlockUseCase, //
 			createHubDeviceUseCase, //
 			removeStoredVaultPasswordsAndDisableBiometricAuthUseCase, //
-			saveVaultUseCase
+			saveVaultUseCase, //
+			updateVaultParameterIfChangedRemotelyUseCase
 		)
 	}
 

@@ -100,6 +100,15 @@ internal class PCloudContentRepository(private val cloud: PCloud, client: ApiCli
 		}
 
 		@Throws(BackendException::class)
+		override fun metadata(file: PCloudFile): PCloudFile? {
+			return try {
+				cloud.metadata(file)
+			} catch (e: IOException) {
+				throw FatalBackendException(e)
+			}
+		}
+
+		@Throws(BackendException::class)
 		override fun list(folder: PCloudFolder): List<PCloudNode> {
 			return try {
 				cloud.list(folder)

@@ -1,33 +1,35 @@
 package org.cryptomator.presentation.docprovider
 
+import android.app.AuthenticationRequiredException
+import android.app.PendingIntent
+import android.content.ComponentName
+import android.content.Context
+import android.content.pm.PackageManager
 import android.database.Cursor
 import android.database.MatrixCursor
 import android.net.Uri
 import android.os.Bundle
 import android.os.CancellationSignal
 import android.os.Handler
-import android.os.Looper
+import android.os.HandlerThread
 import android.os.ParcelFileDescriptor
-import android.os.storage.StorageManager
 import android.provider.DocumentsContract.*
 import android.provider.DocumentsProvider
-import org.cryptomator.data.cloud.crypto.CryptoFile
-import org.cryptomator.data.cloud.crypto.CryptoFolder
-import org.cryptomator.data.cloud.crypto.CryptoNode
-import org.cryptomator.data.cloud.crypto.CryptoSymlink
-import org.cryptomator.data.cloud.crypto.RootCryptoFolder
-import org.cryptomator.domain.Cloud
-import org.cryptomator.domain.CloudFolder
-import org.cryptomator.domain.CloudNode
-import org.cryptomator.domain.CloudType
+import androidx.room.InvalidationTracker
+import org.cryptomator.data.db.entities.DocumentMetadataEntity
 import org.cryptomator.domain.Vault
 import org.cryptomator.domain.exception.BackendException
-import org.cryptomator.domain.usecases.ProgressAware
-import org.cryptomator.domain.usecases.cloud.EmptyDataSource
+import org.cryptomator.domain.exception.FatalBackendException
 import org.cryptomator.presentation.BuildConfig
 import org.cryptomator.presentation.R
-import org.cryptomator.util.file.MimeType
+import org.cryptomator.presentation.intent.Intents
+import org.cryptomator.presentation.intent.UnlockVaultIntent
+import org.cryptomator.presentation.model.VaultModel
+import org.cryptomator.presentation.presenter.ContextHolder
+import org.cryptomator.presentation.util.FileNameValidator
 import org.cryptomator.util.named
+import java.io.File
+import java.io.FileNotFoundException
 import timber.log.Timber
 
 private val SUPPORTED_ROOT_COLUMNS: Array<String> = arrayOf(
@@ -49,45 +51,57 @@ private val SUPPORTED_DOCUMENT_COLUMNS: Array<String> = arrayOf(
 	Document.COLUMN_FLAGS,
 	Document.COLUMN_SIZE,
 	Document.COLUMN_LAST_MODIFIED,
-	//Optional
-	//...
 )
 
 private val LOG = Timber.named("CryptomatorDocumentsProvider")
 
 class CryptomatorDocumentsProvider : DocumentsProvider() {
 
+	private val scheduler by lazy { CloudTaskScheduler() }
+	private val metadataCache by lazy { DocumentMetadataCache(appComponent.documentMetadataDao(), scheduler, ::notify) }
+	private val contentCache by lazy { DocumentContentCache(appComponent.cachedFileDao(), metadataCache, scheduler, File(context!!.noBackupFilesDir, DocumentContentCache.DIRECTORY_NAME)) }
+	private val closeHandler by lazy { Handler(HandlerThread("DocumentsProviderClose").apply { start() }.looper) }
+
 	override fun onCreate(): Boolean {
 		LOG.v("onCreate")
+		instance = this
 		return true
+	}
+
+	/**
+	 * Files caches the roots, so it is told when a vault is added, renamed or removed.
+	 */
+	private val vaultChangesObserved by lazy {
+		appComponent.cryptomatorDatabase().invalidationTracker.addObserver(object : InvalidationTracker.Observer("VAULT_ENTITY") {
+			override fun onInvalidated(tables: Set<String>) {
+				notifyRoots()
+			}
+		})
 	}
 
 	override fun queryRoots(projection: Array<String>?): Cursor {
 		LOG.v("queryRoots")
-		//TODO Handle unsupported columns
+		vaultChangesObserved
+		val actualProjection = projection ?: SUPPORTED_ROOT_COLUMNS
 		try {
-			return queryRootsImpl(projection ?: SUPPORTED_ROOT_COLUMNS)
+			return queryRootsImpl(actualProjection)
 		} catch (e: BackendException) {
-			//TODO Just throw?
-			e.printStackTrace()
-			return MatrixCursor(projection ?: SUPPORTED_ROOT_COLUMNS)
+			return errorCursor(actualProjection, e)
 		}
 	}
 
 	@Throws(BackendException::class)
 	private fun queryRootsImpl(actualProjection: Array<String>): Cursor {
-		//TODO Use custom cursor impl.?
-		val vaults = appComponent.vaultRepository().vaults().filter { it.isUnlocked }
+		val vaults = appComponent.vaultRepository().vaults()
 		val result = MatrixCursor(actualProjection)
 
-		//TODO Actually only include requested columns
 		vaults.forEach { vault ->
 			result.newRow().apply {
 				add(Root.COLUMN_ROOT_ID, vault.id.toString())
 				add(Root.COLUMN_SUMMARY, vault.name)
 				add(Root.COLUMN_FLAGS, rootFlags(vault))
-				add(Root.COLUMN_TITLE, context?.getString(R.string.app_name) ?: "Cryptomator") //TODO Use Vault name?
-				add(Root.COLUMN_DOCUMENT_ID, VaultPath(vault).documentId)
+				add(Root.COLUMN_TITLE, context?.getString(R.string.app_name) ?: "Cryptomator")
+				add(Root.COLUMN_DOCUMENT_ID, metadataCache.documentId(VaultPath(vault)))
 				add(Root.COLUMN_ICON, R.mipmap.ic_launcher)
 			}
 		}
@@ -95,23 +109,17 @@ class CryptomatorDocumentsProvider : DocumentsProvider() {
 	}
 
 	private fun rootFlags(vault: Vault): Int {
-		val view = appComponent.cloudRepository().decryptedViewOf(vault)
-		val rootNode = contentRepository.root(view)
-		require(rootNode is RootCryptoFolder)
-
 		var flags = 0
-		if (rootNode.isEmpty()) {
-			flags = flags or Root.FLAG_EMPTY //TODO Test
+		if (vault.isUnlocked && metadataCache.isKnownEmpty(VaultPath(vault))) {
+			flags = flags or Root.FLAG_EMPTY
 		}
 		if (!vault.cloud.requiresNetwork()) { //Ask the backing cloud, not the CryptoCloud
 			flags = flags or Root.FLAG_LOCAL_ONLY
 		}
-		if (!vault.cloud.isReadOnly() && !vault.isReadOnly) {
+		if (isWritable(vault)) {
 			flags = flags or Root.FLAG_SUPPORTS_CREATE
 		}
 		flags = flags or Root.FLAG_SUPPORTS_IS_CHILD
-
-		//TODO FLAG_SUPPORTS_RECENTS, FLAG_SUPPORTS_SEARCH,
 
 		return flags
 	}
@@ -121,8 +129,7 @@ class CryptomatorDocumentsProvider : DocumentsProvider() {
 		requireNotNull(parentDocumentId)
 		requireNotNull(documentId)
 
-		//TODO Verify this (Why is there a trailing slash in the parentDocId?)
-		return VaultPath(documentId).isAnyChildOf(VaultPath(parentDocumentId))
+		return metadataCache.path(documentId).isAnyChildOf(metadataCache.path(parentDocumentId))
 	}
 
 	override fun queryChildDocuments(parentDocumentId: String?, projection: Array<String>?, sortOrder: String?): Cursor {
@@ -133,192 +140,137 @@ class CryptomatorDocumentsProvider : DocumentsProvider() {
 		LOG.v("queryChildDocuments($parentDocumentId)")
 		requireNotNull(parentDocumentId)
 
-		//TODO Handle unsupported columns
+		val actualProjection = projection ?: SUPPORTED_DOCUMENT_COLUMNS
 		try {
-			return queryChildDocumentsImpl(VaultPath(parentDocumentId), projection ?: SUPPORTED_DOCUMENT_COLUMNS, queryArgs)
+			return queryChildDocumentsImpl(parentDocumentId, actualProjection)
 		} catch (e: BackendException) {
-			//TODO Just throw?
-			e.printStackTrace()
-			return MatrixCursor(projection ?: SUPPORTED_DOCUMENT_COLUMNS)
+			return errorCursor(actualProjection, e)
 		}
 	}
 
-	private fun queryChildDocumentsImpl(directoryPath: VaultPath, projection: Array<String>, queryArgs: Bundle?): Cursor {
-		//TODO queryArgs; e.g. android:query-arg-sort-direction = 0, android:query-arg-sort-columns = [Ljava.lang.String;@e9858a9
-		val view: Cloud = appComponent.cloudRepository().decryptedViewOf(directoryPath.vault)
-		require(requireNotNull(view.type()) == CloudType.CRYPTO)
+	private fun queryChildDocumentsImpl(directoryDocumentId: String, projection: Array<String>): Cursor {
+		val directoryPath = unlockedPath(directoryDocumentId)
+		contentCache.resumeUploads(directoryPath.vault)
+		val children = metadataCache.children(directoryPath)
+		val cursor = MatrixCursor(projection, children.documents.size)
+		cursor.setNotificationUriForId(context!!.contentResolver, directoryDocumentId)
+		if (children.isLoading) {
+			cursor.extras = Bundle().apply { putBoolean(EXTRA_LOADING, true) }
+		} else if (children.error != null) {
+			cursor.extras = errorExtras(children.error)
+		}
 
-		//TODO Verify what happens if not a dir? Remove "/"?
-		//TODO Add extension functions/Move to VaultPath
-
-		val cloudDirPath: CloudFolder = safeResolve(view, directoryPath)
-
-		val entries = contentRepository.list(cloudDirPath)
-		val cursor = MatrixCursor(projection, entries.size)
-		cursor.setNotificationUriForPath(context!!.contentResolver, directoryPath)
-
-		entries.forEach { entry ->
-			val isDir = entry is CryptoFolder
-			//TODO Actually only include requested columns
-			cursor.newRow().apply {
-				val childPath = VaultPath(directoryPath.vault, entry.path)
-
-				add(Document.COLUMN_DOCUMENT_ID, childPath.documentId)
-				add(Document.COLUMN_DISPLAY_NAME, entry.name)
-				add(Document.COLUMN_MIME_TYPE, mimeType(entry))
-				add(Document.COLUMN_FLAGS, documentFlags(childPath, isDir))
-				add(Document.COLUMN_SIZE, fileSize(entry))
-				add(Document.COLUMN_LAST_MODIFIED, lastModified(entry))
-			}
+		children.documents.forEach { metadata ->
+			cursor.newRow().addDocument(directoryPath.vault, metadata)
 		}
 		return cursor
 	}
 
-	private fun mimeType(entry: CloudNode): String {
-		//TODO Check if CryptoNode
-		require(requireNotNull(entry.cloud?.type()) == CloudType.CRYPTO)
-
-		return when (entry) {
-			is CryptoFile -> (mimeTypes.fromFilename(entry.name) ?: MimeType.WILDCARD_MIME_TYPE).toString()
-			is CryptoFolder -> Document.MIME_TYPE_DIR
-			is CryptoSymlink -> mimeType(entry.cloudFile)
-			else -> throw IllegalArgumentException("Entry needs to be a CryptoNode, was ${entry.javaClass.name}")
-		}
-	}
-
-	private fun fileSize(node: CloudNode): Long? {
-		//TODO Check if CryptoNode
-		require(requireNotNull(node.cloud?.type()) == CloudType.CRYPTO)
-
-		return when (node) {
-			is CryptoFile -> node.size
-			is CryptoFolder -> null
-			is CryptoSymlink -> fileSize(node.cloudFile) //TODO Use node.size?
-			else -> throw IllegalArgumentException("Node needs to be a CryptoNode, was ${node.javaClass.name}")
-		}
-	}
-
-	private fun lastModified(node: CloudNode): Long? {
-		require(requireNotNull(node.cloud?.type()) == CloudType.CRYPTO)
-
-		return when (node) {
-			is CryptoFile -> node.modified
-			is CryptoFolder -> null
-			is CryptoSymlink -> node.modified
-			else -> throw IllegalArgumentException("Node needs to be a CryptoNode, was ${node.javaClass.name}")
-		}?.time
+	private fun MatrixCursor.RowBuilder.addDocument(vault: Vault, metadata: DocumentMetadataEntity) {
+		add(Document.COLUMN_DOCUMENT_ID, metadataCache.documentId(metadata))
+		add(Document.COLUMN_DISPLAY_NAME, metadata.name)
+		add(Document.COLUMN_MIME_TYPE, metadata.mimeType)
+		add(Document.COLUMN_FLAGS, documentFlags(vault, metadata.isFolder))
+		add(Document.COLUMN_SIZE, metadata.size)
+		add(Document.COLUMN_LAST_MODIFIED, metadata.lastModified)
 	}
 
 	override fun queryDocument(documentId: String?, projection: Array<String>?): Cursor {
 		LOG.v("queryDocument($documentId)")
 		requireNotNull(documentId)
 
-		//TODO Handle unsupported columns
 		val actualProjection = projection ?: SUPPORTED_DOCUMENT_COLUMNS
 		try {
-			return VaultPath(documentId).let {
-				if (it.isRoot) queryVaultRoot(it, actualProjection) else queryVaultDocument(it, actualProjection)
+			return metadataCache.path(documentId).let {
+				if (it.isRoot) queryVaultRoot(documentId, it, actualProjection) else queryVaultDocument(requireUnlocked(it), actualProjection)
 			}
 		} catch (e: BackendException) {
-			//TODO Just throw?
-			e.printStackTrace()
-			return MatrixCursor(projection ?: SUPPORTED_DOCUMENT_COLUMNS)
+			return errorCursor(actualProjection, e)
 		}
 	}
 
-	@Throws(BackendException::class)
-	private fun queryVaultRoot(rootPath: VaultPath, actualProjection: Array<String>): Cursor {
+	private fun queryVaultRoot(documentId: String, rootPath: VaultPath, actualProjection: Array<String>): Cursor {
 		require(rootPath.isRoot)
 
-		//TODO Actually only include requested columns
 		return singleRowCursor(actualProjection) {
-			add(Document.COLUMN_DOCUMENT_ID, rootPath.documentId)
+			add(Document.COLUMN_DOCUMENT_ID, documentId)
 			add(Document.COLUMN_DISPLAY_NAME, rootPath.name)
 			add(Document.COLUMN_MIME_TYPE, Document.MIME_TYPE_DIR)
 			add(Document.COLUMN_FLAGS, rootDocumentFlags(rootPath.vault))
-			add(Document.COLUMN_SIZE, null) //TODO
+			add(Document.COLUMN_SIZE, null)
 			add(Document.COLUMN_LAST_MODIFIED, null)
 		}
 	}
 
 	private fun rootDocumentFlags(vault: Vault): Int {
-		val view = appComponent.cloudRepository().decryptedViewOf(vault)
-		val rootNode = contentRepository.root(view)
-		require(rootNode is RootCryptoFolder)
-
 		var flags = 0
-		if (!vault.cloud.isReadOnly() && !vault.isReadOnly) {
+		if (isWritable(vault)) {
 			flags = flags or Document.FLAG_DIR_SUPPORTS_CREATE
 		}
-
-		//No:
-		//Document.FLAG_DIR_BLOCKS_OPEN_DOCUMENT_TREE
-		//Document.FLAG_DIR_PREFERS_LAST_MODIFIED
-		//Document.FLAG_VIRTUAL_DOCUMENT
-		//Document.FLAG_WEB_LINKABLE (Hub?)
-
-		//TODO
-		//Document.FLAG_DIR_PREFERS_GRID
-		//Document.FLAG_SUPPORTS_METADATA
-		//Document.FLAG_SUPPORTS_SETTINGS
-		//Document.FLAG_SUPPORTS_THUMBNAIL
-
-		//TODO Allow copying a root into another root/outside the vault?
-
 		return flags
+	}
+
+	private fun unlockedPath(documentId: String): VaultPath {
+		return requireUnlocked(metadataCache.path(documentId))
+	}
+
+	/**
+	 * Instead of an error, Files shows a button for the user action of the thrown exception, which unlocks the vault.
+	 */
+	private fun requireUnlocked(path: VaultPath): VaultPath {
+		if (!path.vault.isUnlocked) {
+			throw AuthenticationRequiredException(IllegalStateException("${path.vault.name} is locked"), unlockVaultIntent(path.vault))
+		}
+		return path
+	}
+
+	private fun unlockVaultIntent(vault: Vault): PendingIntent {
+		val context = context!!
+		val intent = Intents.unlockVaultIntent() //
+			.withVaultModel(VaultModel(vault)) //
+			.withVaultAction(UnlockVaultIntent.VaultAction.UNLOCK) //
+			.build(object : ContextHolder {
+				override fun context(): Context = context
+			})
+		return PendingIntent.getActivity(context, vault.id.toInt(), intent, PendingIntent.FLAG_IMMUTABLE or PendingIntent.FLAG_UPDATE_CURRENT)
+	}
+
+	private fun isWritable(vault: Vault): Boolean {
+		return !vault.cloud.isReadOnly() && !vault.isReadOnly
 	}
 
 	@Throws(BackendException::class)
 	private fun queryVaultDocument(documentPath: VaultPath, actualProjection: Array<String>): Cursor {
 		require(!documentPath.isRoot)
 
-		val view = appComponent.cloudRepository().decryptedViewOf(documentPath.vault)
-		require(requireNotNull(view.type()) == CloudType.CRYPTO)
+		val metadata = metadataCache.requireDocument(documentPath)
 
-		val cloudNode: CloudNode = resolveNode(view, documentPath)!!
-		val isDir = cloudNode is CryptoFolder
-
-		//TODO Actually only include requested columns
 		return singleRowCursor(actualProjection) {
-			add(Document.COLUMN_DOCUMENT_ID, documentPath.documentId)
-			add(Document.COLUMN_DISPLAY_NAME, documentPath.name)
-			add(Document.COLUMN_MIME_TYPE, mimeType(cloudNode))
-			add(Document.COLUMN_FLAGS, documentFlags(documentPath, isDir))
-			add(Document.COLUMN_SIZE, fileSize(cloudNode))
-			add(Document.COLUMN_LAST_MODIFIED, lastModified(cloudNode))
+			addDocument(documentPath.vault, metadata)
 		}
 	}
 
-	private fun documentFlags(path: VaultPath, isDir: Boolean): Int {
-		val view = appComponent.cloudRepository().decryptedViewOf(path.vault)
-		val rootNode = contentRepository.root(view)
-		require(rootNode is RootCryptoFolder)
-		val canWrite = !path.vault.cloud.isReadOnly() && !path.vault.isReadOnly
-
+	private fun documentFlags(vault: Vault, isDir: Boolean): Int {
 		var flags = 0
-		if (canWrite) {
-			flags = flags or (if (isDir) Document.FLAG_DIR_SUPPORTS_CREATE else /*TODO Document.FLAG_SUPPORTS_WRITE*/ 0)
+		if (isWritable(vault)) {
+			flags = flags or (if (isDir) Document.FLAG_DIR_SUPPORTS_CREATE else Document.FLAG_SUPPORTS_WRITE)
 			flags = flags or Document.FLAG_SUPPORTS_DELETE or //
 					Document.FLAG_SUPPORTS_RENAME or //
-					Document.FLAG_SUPPORTS_COPY or //
 					Document.FLAG_SUPPORTS_MOVE or //
 					Document.FLAG_SUPPORTS_REMOVE
 		}
-
-		//No:
-		//Document.FLAG_DIR_BLOCKS_OPEN_DOCUMENT_TREE
-		//Document.FLAG_DIR_PREFERS_LAST_MODIFIED
-		//Document.FLAG_VIRTUAL_DOCUMENT
-		//Document.FLAG_WEB_LINKABLE (Hub?)
-
-		//TODO
-		//Document.FLAG_DIR_PREFERS_GRID
-		//Document.FLAG_SUPPORTS_METADATA
-		//Document.FLAG_SUPPORTS_SETTINGS
-		//Document.FLAG_SUPPORTS_THUMBNAIL
-		//Document.FLAG_PARTIAL
-
 		return flags
+	}
+
+	private fun errorCursor(projection: Array<String>, e: BackendException): Cursor {
+		LOG.e(e, "Query failed")
+		return MatrixCursor(projection).apply {
+			extras = errorExtras(e)
+		}
+	}
+
+	private fun errorExtras(e: Throwable): Bundle {
+		return Bundle().apply { putString(EXTRA_ERROR, e.message ?: e.javaClass.simpleName) }
 	}
 
 	override fun openDocument(documentId: String?, mode: String?, signal: CancellationSignal?): ParcelFileDescriptor {
@@ -326,241 +278,183 @@ class CryptomatorDocumentsProvider : DocumentsProvider() {
 		requireNotNull(documentId)
 		requireNotNull(mode)
 
-		//TODO Use signal
-		//TODO Support other modes
-		//TODO Use ParcelFileDescriptor.parseMode()
-		if (mode.lowercase() != "r") {
-			throw UnsupportedOperationException(mode)
-		}
+		val accessMode = ParcelFileDescriptor.parseMode(mode)
+		val path = unlockedPath(documentId)
 		try {
-			return openDocumentRO(VaultPath(documentId))
-		} catch (e: BackendException) {
-			throw RuntimeException(e)
+			if (accessMode == ParcelFileDescriptor.MODE_READ_ONLY) {
+				val localFile = contentCache.file(path, signal)
+				try {
+					return ParcelFileDescriptor.open(localFile, accessMode)
+				} finally {
+					contentCache.release(localFile)
+				}
+			}
+			if (!isWritable(path.vault)) {
+				throw UnsupportedOperationException("Vault ${path.vault.name} is read-only")
+			}
+			return openForWriting(documentId, path, accessMode, signal)
+		} catch (e: Exception) {
+			if (e is FileNotFoundException || (e is RuntimeException && e !is FatalBackendException)) {
+				throw e
+			}
+			throw FileNotFoundException("Opening $documentId failed").apply { initCause(e) }
 		}
 	}
 
-	private fun openDocumentRO(documentPath: VaultPath): ParcelFileDescriptor {
-		val storageManager = context!!.getSystemService(StorageManager::class.java) //TODO Nullability
-		return storageManager.openProxyFileDescriptor(ParcelFileDescriptor.MODE_READ_ONLY, ROProxyFileDescriptorCallback(documentPath), Handler(Looper.getMainLooper())) //TODO Handler/Looper
+	/**
+	 * The document can be renamed or moved while it is open, so it is looked up again when it is closed.
+	 */
+	private fun openForWriting(documentId: String, path: VaultPath, accessMode: Int, signal: CancellationSignal?): ParcelFileDescriptor {
+		val truncate = (accessMode and ParcelFileDescriptor.MODE_TRUNCATE) != 0
+		val localFile = contentCache.fileForWriting(path, keepContent = !truncate, signal)
+		val lengthBefore = localFile.length()
+		val lastModifiedBefore = localFile.lastModified()
+		try {
+			return ParcelFileDescriptor.open(localFile, accessMode, closeHandler) { e ->
+				if (e != null) {
+					LOG.e(e, "Writing $documentId failed")
+				}
+				try {
+					val changed = truncate || localFile.length() != lengthBefore || localFile.lastModified() != lastModifiedBefore
+					contentCache.closedForWriting(localFile, e, changed) { metadataCache.path(documentId) }
+				} catch (e: Exception) {
+					LOG.e(e, "Saving $documentId failed")
+				}
+			}
+		} catch (e: Exception) {
+			contentCache.release(localFile)
+			throw e
+		}
 	}
 
 	override fun createDocument(parentDocumentId: String?, mimeType: String?, displayName: String?): String {
-		LOG.v("createDocument($parentDocumentId, $mimeType, $displayName)")
+		LOG.v("createDocument($parentDocumentId, $mimeType)")
 		requireNotNull(parentDocumentId)
-		requireNotNull(mimeType) //TODO Verify
-		requireNotNull(displayName) //TODO Verify
+		requireNotNull(mimeType)
+		requireNotNull(displayName)
 
-		val parent = VaultPath(parentDocumentId)
-		val view = appComponent.cloudRepository().decryptedViewOf(parent.vault)
-
-		val parentNode = resolveExistingFolder(view, parent)
-		val path = resolveUnusedPath(view, parent, cleanName(displayName))
-		if (mimeType == Document.MIME_TYPE_DIR) {
-			contentRepository.create(contentRepository.folder(parentNode, path.name))
-		} else {
-			//TODO Verify ProgressAware
-			contentRepository.write(contentRepository.file(parentNode, path.name, 0), EmptyDataSource, ProgressAware.NO_OP_PROGRESS_AWARE_UPLOAD, false, 0)
-		}
-		notify(parentDocumentId)
-		return path.documentId
-	}
-
-	private fun resolveUnusedPath(cloud: Cloud, parent: VaultPath, name: String): VaultPath {
-		require(cloud.type() == CloudType.CRYPTO)
-
-		val path = parent.resolve(name)
-		val pathNode = resolveNode(cloud, path)
-		if (pathNode != null) {
-			require(contentRepository.exists(pathNode)) //Sanity check //TODO Remove with better implementation of resolveNode
-			return resolveUnusedPath(cloud, parent, "${name}_") //TODO Better (non-recursive) algorithm
-		}
-		return path
-	}
-
-	private fun resolveExistingFolder(cloud: Cloud, nodePath: VaultPath): CloudFolder {
-		require(cloud.type() == CloudType.CRYPTO)
-
-		val node = resolveNode(cloud, nodePath)
-		requireNotNull(node)
-		require(nodePath.isRoot || contentRepository.exists(node))
-		require(node is CloudFolder) //TODO Fix this mess
-
-		return node
-	}
-
-	private fun cleanName(name: String): String {
-		return name //TODO Implement
+		return metadataCache.create(unlockedPath(parentDocumentId), FileNameValidator.sanitize(displayName), mimeType == Document.MIME_TYPE_DIR)
 	}
 
 	override fun refresh(uri: Uri?, extras: Bundle?, cancellationSignal: CancellationSignal?): Boolean {
 		LOG.v("refresh($uri)")
-		return super.refresh(uri, extras, cancellationSignal) //TODO
+		requireNotNull(uri)
+
+		metadataCache.refresh(unlockedPath(getDocumentId(uri)))
+		return true
 	}
 
 	override fun removeDocument(documentId: String?, parentDocumentId: String?) {
-		//A document can only have one parent in Cryptomator Vaults //TODO Verify
-		LOG.v("removeDocument($documentId)")
-		//TODO Verify
+		LOG.v("removeDocument($documentId, $parentDocumentId)")
 		requireNotNull(documentId)
-		requireNotNull(parentDocumentId) //TODO Remove this check? Even check if parent is correct?
+		requireNotNull(parentDocumentId)
+		require(unlockedPath(documentId).parent == metadataCache.path(parentDocumentId)) { "$parentDocumentId is not the parent of $documentId" }
 
-		return deleteDocument(documentId)
+		//A document has only one parent in a vault, so removing it from its parent deletes it
+		deleteDocument(documentId)
+		revokeDocumentPermission(documentId)
 	}
 
 	override fun deleteDocument(documentId: String?) {
 		LOG.v("deleteDocument($documentId)")
-		//TODO Verify removal of permissions
 		requireNotNull(documentId)
 
-		val path = VaultPath(documentId)
+		val path = unlockedPath(documentId)
 		require(!path.isRoot)
-		val view = appComponent.cloudRepository().decryptedViewOf(path.vault)
 
-		val node = resolveNode(view, path)!! //TODO Fail quietly?
-		require(node is CryptoNode)
-		require(node !is CryptoSymlink) //Not implemented upstream
-
-		revokeDocumentPermission(documentId)
-		contentRepository.delete(node)
-		notify(path.parent!!.documentId) //TODO Correct time?
+		metadataCache.delete(path).forEach(::revokeDocumentPermission)
 	}
 
-	//TODO notify
 	override fun moveDocument(sourceDocumentId: String?, sourceParentDocumentId: String?, targetParentDocumentId: String?): String {
 		LOG.v("moveDocument($sourceDocumentId, $sourceParentDocumentId, $targetParentDocumentId)")
-		//TODO Verify
 		requireNotNull(sourceDocumentId)
-		requireNotNull(sourceParentDocumentId) //TODO Remove this check (not needed cause there can only be one parent)? Even check if parent is correct?
+		requireNotNull(sourceParentDocumentId)
 		requireNotNull(targetParentDocumentId)
 
-		//TODO PERMISSIONS
-		return moveDocumentImpl(VaultPath(sourceDocumentId), VaultPath(targetParentDocumentId))
+		val sourcePath = unlockedPath(sourceDocumentId)
+		require(sourcePath.parent == metadataCache.path(sourceParentDocumentId)) { "$sourceParentDocumentId is not the parent of $sourceDocumentId" }
+		return moveDocumentImpl(sourceDocumentId, sourcePath, metadataCache.path(targetParentDocumentId))
 	}
 
-	private fun moveDocumentImpl(sourcePath: VaultPath, newParentPath: VaultPath): String {
-		val vault = sourcePath.vault
+	private fun moveDocumentImpl(sourceDocumentId: String, sourcePath: VaultPath, newParentPath: VaultPath): String {
 		require(!sourcePath.isRoot)
 		val oldParentPath = sourcePath.parent!!
-		require(vault == newParentPath.vault)
+		require(sourcePath.vault.id == newParentPath.vault.id)
 
 		if (oldParentPath == newParentPath) {
-			LOG.v("moveDocument: ${sourcePath.documentId} quietly not moved; ${newParentPath.documentId} is already direct parent.")
-			return sourcePath.documentId
+			LOG.v("moveDocument: $sourceDocumentId quietly not moved; the target is already its parent")
+			return sourceDocumentId
 		}
-		//TODO both cases apparently not called from UI
-		// But seems to send notification //TODO Verify (Exception might just not show up in Logcat)
-		if (sourcePath == newParentPath || newParentPath.isAnyChildOf(sourcePath)) {
-			throw UnsupportedOperationException("Circular move") //TODO Display error to user
-		}
+		require(sourcePath != newParentPath && !newParentPath.isAnyChildOf(sourcePath)) { "Can't move $sourceDocumentId into itself" }
 
-		val view = appComponent.cloudRepository().decryptedViewOf(vault)
-		val movedNode = moveInto(view, requireNotNull(resolveNode(view, sourcePath)), newParentPath)
-
-		notify(oldParentPath)
-		notify(newParentPath)
-		return VaultPath(vault, movedNode.path).documentId
-	}
-
-	private fun moveInto(cloud: Cloud, node: CloudNode, folderPath: VaultPath, name: String = node.name): CloudNode {
-		require(cloud.type() == CloudType.CRYPTO)
-		require(node is CryptoNode)
-		require(node !is RootCryptoFolder) //Illegal operation
-		require(node !is CryptoSymlink) //Not implemented upstream
-
-		val parentNode = resolveExistingFolder(cloud, folderPath)
-		val newName = resolveUnusedPath(cloud, folderPath, name).name
-		return when (node) {
-			is CryptoFile -> {
-				contentRepository.move(node, contentRepository.file(parentNode, newName))
-			}
-
-			is CryptoFolder -> {
-				contentRepository.move(node, contentRepository.folder(parentNode, newName))
-			}
-
-			else -> throw NotImplementedError()
-		}
+		metadataCache.move(sourcePath, newParentPath, sourcePath.name)
+		return sourceDocumentId
 	}
 
 	override fun renameDocument(documentId: String?, displayName: String?): String? {
-		LOG.v("renameDocument($documentId, $displayName)")
+		LOG.v("renameDocument($documentId)")
 		requireNotNull(documentId)
 		requireNotNull(displayName)
 
-		val currentPath = VaultPath(documentId)
+		val currentPath = unlockedPath(documentId)
 		require(!currentPath.isRoot)
-		//TODO Apparently not called from UI
-		if (currentPath.name == displayName) {
-			LOG.v("renameDocument: ${currentPath.documentId} quietly not renamed; requested name equals current name")
-			return null //No rename, no need to change the documentId
+		val newName = FileNameValidator.sanitize(displayName)
+		if (currentPath.name == newName) {
+			LOG.v("renameDocument: $documentId quietly not renamed; requested name equals current name")
+			return null
 		}
 
-		val view = appComponent.cloudRepository().decryptedViewOf(currentPath.vault)
-		val movedNode = moveInto(view, requireNotNull(resolveNode(view, currentPath)), currentPath.parent!!, cleanName(displayName)) //TODO Test collision
-
-		notify(currentPath.parent!!)
-		return VaultPath(currentPath.vault, movedNode.path).documentId
+		metadataCache.move(currentPath, currentPath.parent!!, newName)
+		return null //The documentId stays the same
 	}
 
-	//TODO Test copying (missing upstream method)
-	override fun copyDocument(sourceDocumentId: String?, targetParentDocumentId: String?): String {
-		LOG.v("copyDocument($sourceDocumentId, $targetParentDocumentId)")
-		requireNotNull(sourceDocumentId)
-		requireNotNull(targetParentDocumentId)
-
-		return copyDocumentImpl(VaultPath(sourceDocumentId), VaultPath(targetParentDocumentId))
-	}
-
-	private fun copyDocumentImpl(sourcePath: VaultPath, newParentPath: VaultPath): String {
-		val vault = sourcePath.vault
-		require(!sourcePath.isRoot) //TODO Allow copying roots?
-		require(vault == newParentPath.vault)
-
-		//TODO both cases apparently not called from UI
-		// But seems to send notification //TODO Verify (Exception might just not show up in Logcat)
-		if (sourcePath == newParentPath || newParentPath.isAnyChildOf(sourcePath)) {
-			throw UnsupportedOperationException("Circular copy") //TODO Allow this OR display error to user
-		}
-
-		val view = appComponent.cloudRepository().decryptedViewOf(vault)
-		val newNode = copyInto(view, requireNotNull(resolveNode(view, sourcePath)), newParentPath)
-
-		//notify(newParentPath) //TODO
-		return VaultPath(vault, newNode.path).documentId
-	}
-
-	private fun copyInto(cloud: Cloud, node: CloudNode, folderPath: VaultPath): CloudNode {
-		require(cloud.type() == CloudType.CRYPTO)
-		require(node is CryptoNode)
-		require(node !is RootCryptoFolder) //Illegal operation //TODO Allow copying roots?
-		require(node !is CryptoSymlink) //Not implemented upstream
-
-		val parentNode = resolveExistingFolder(cloud, folderPath)
-		val newName = resolveUnusedPath(cloud, folderPath, node.name).name
-		return when (node) {
-			is CryptoFile -> {
-				contentRepository.copy(node, contentRepository.file(parentNode, newName))
-			}
-
-			is CryptoFolder -> {
-				contentRepository.copy(node, contentRepository.folder(parentNode, newName))
-			}
-
-			else -> throw NotImplementedError()
-		}
-	}
-
-	//TODO Call on VaultList change, lock/unlock, etc.
+	/**
+	 * Also notifies the roots if [path] is the root of a vault, whose [Root.FLAG_EMPTY] may have changed.
+	 */
 	fun notify(path: VaultPath) {
-		return notify(path.documentId)
+		metadataCache.documentId(path)?.let { notify(it) }
+		if (path.isRoot) {
+			notifyRoots()
+		}
+	}
+
+	private fun notifyRoots() {
+		context?.contentResolver?.notifyChange(buildRootsUri(BuildConfig.DOCUMENTS_PROVIDER_AUTHORITY), null)
 	}
 
 	fun notify(documentId: String) {
 		LOG.v("notify(${documentId})")
-		val uri = buildDocumentUri(BuildConfig.DOCUMENTS_PROVIDER_AUTHORITY, documentId) //TODO Security implications
+		val uri = buildDocumentUri(BuildConfig.DOCUMENTS_PROVIDER_AUTHORITY, documentId)
+		context?.contentResolver?.notifyChange(uri, null) ?: LOG.v("Can't call notifyChange for $documentId")
+	}
 
-		//TODO notify root with buildRootsUri(BuildConfig.DOCUMENTS_PROVIDER_AUTHORITY)
-		context?.contentResolver?.notifyChange(uri, null) ?: LOG.v("Can't call notifyChange for $documentId") //TODO Flags
+	companion object {
+
+		@Volatile
+		private var instance: CryptomatorDocumentsProvider? = null
+
+		/**
+		 * Deletes the decrypted copies that are too old or too many, and those of removed vaults.
+		 */
+		@JvmStatic
+		fun evictCopies() {
+			instance?.contentCache?.evict()
+		}
+
+		/**
+		 * Shows or hides the vaults in the system file picker. Hiding them deletes the decrypted copies that have no
+		 * pending upload.
+		 */
+		fun setEnabled(context: Context, enabled: Boolean) {
+			if (!enabled) {
+				instance?.contentCache?.evictAll()
+			}
+			val component = ComponentName(context, CryptomatorDocumentsProvider::class.java)
+			val state = if (enabled) PackageManager.COMPONENT_ENABLED_STATE_DEFAULT else PackageManager.COMPONENT_ENABLED_STATE_DISABLED
+			if (context.packageManager.getComponentEnabledSetting(component) != state) {
+				context.packageManager.setComponentEnabledSetting(component, state, PackageManager.DONT_KILL_APP)
+			}
+		}
 	}
 }
 

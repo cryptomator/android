@@ -109,6 +109,15 @@ internal class GoogleDriveCloudContentRepository(context: Context, private val c
 		}
 
 		@Throws(BackendException::class)
+		override fun metadata(file: GoogleDriveFile): GoogleDriveFile? {
+			return try {
+				impl.metadata(file)
+			} catch (e: IOException) {
+				throw FatalBackendException(e)
+			}
+		}
+
+		@Throws(BackendException::class)
 		override fun list(folder: GoogleDriveFolder): List<GoogleDriveNode> {
 			return try {
 				impl.list(folder)

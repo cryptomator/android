@@ -97,6 +97,17 @@ class DispatchingCloudContentRepository @Inject constructor(
 	}
 
 	@Throws(BackendException::class)
+	override fun metadata(file: CloudFile): CloudFile? {
+		return try {
+			file.cloud?.let { networkConnectionCheck.assertConnectionIsPresent(it) } ?: throw IllegalStateException("Parent's cloud shouldn't be null")
+			delegateFor(file).metadata(file)
+		} catch (e: AuthenticationException) {
+			delegates.remove(file.cloud)
+			throw e
+		}
+	}
+
+	@Throws(BackendException::class)
 	override fun list(folder: CloudFolder): List<CloudNode> {
 		return try {
 			folder.cloud?.let { networkConnectionCheck.assertConnectionIsPresent(it) } ?: throw IllegalStateException("Parent's cloud shouldn't be null")

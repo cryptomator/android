@@ -84,6 +84,10 @@ constructor(context: Context) : SharedPreferences.OnSharedPreferenceChangeListen
 			.setValue(SECURE_SCREEN, enabled)
 	}
 
+	fun documentsProvider(): Boolean {
+		return defaultSharedPreferences.getValue(DOCUMENTS_PROVIDER, true)
+	}
+
 	fun lockOnScreenOff(): Boolean {
 		return defaultSharedPreferences.getValue(LOCK_ON_SCREEN_OFF, true)
 	}
@@ -415,6 +419,7 @@ constructor(context: Context) : SharedPreferences.OnSharedPreferenceChangeListen
 		const val DEBUG_MODE = "debugMode"
 		const val DISABLE_APP_WHEN_OBSCURED = "disableAppWhenObscured"
 		const val SECURE_SCREEN = "secureScreen"
+		const val DOCUMENTS_PROVIDER = "documentsProvider"
 		const val SCREEN_STYLE_MODE = "screenStyleMode"
 		const val PHOTO_UPLOAD = "photoUpload"
 		const val PHOTO_UPLOAD_INSTANT = "photoUploadInstant"

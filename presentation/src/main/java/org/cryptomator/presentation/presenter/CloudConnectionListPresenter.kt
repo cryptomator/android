@@ -23,6 +23,7 @@ import org.cryptomator.domain.usecases.vault.DeleteVaultsUseCase
 import org.cryptomator.domain.usecases.vault.GetVaultListUseCase
 import org.cryptomator.generator.Callback
 import org.cryptomator.presentation.R
+import org.cryptomator.presentation.docprovider.CryptomatorDocumentsProvider
 import org.cryptomator.presentation.exception.ExceptionHandlers
 import org.cryptomator.presentation.intent.Intents
 import org.cryptomator.presentation.model.CloudModel
@@ -100,6 +101,7 @@ class CloudConnectionListPresenter @Inject constructor( //
 				.withVaults(vaultsOfCloud)
 				.run(object : DefaultResultHandler<List<Long>>() {
 					override fun onFinished() {
+						CryptomatorDocumentsProvider.evictCopies()
 						deleteCloud(cloudModel)
 					}
 

@@ -83,6 +83,11 @@ internal class MicrosoftGraphCloudContentRepository(private val cloud: Microsoft
 		}
 
 		@Throws(BackendException::class)
+		override fun metadata(file: MicrosoftGraphFile): MicrosoftGraphFile? {
+			return microsoftGraphImpl.metadata(file)
+		}
+
+		@Throws(BackendException::class)
 		override fun list(folder: MicrosoftGraphFolder): List<MicrosoftGraphNode> {
 			return microsoftGraphImpl.list(folder)
 		}

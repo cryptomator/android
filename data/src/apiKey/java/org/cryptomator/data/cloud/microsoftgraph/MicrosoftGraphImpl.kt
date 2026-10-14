@@ -116,6 +116,18 @@ internal class MicrosoftGraphImpl(private val cloud: MicrosoftGraphCloud, privat
 	}
 
 	@Throws(BackendException::class)
+	fun metadata(file: MicrosoftGraphFile): MicrosoftGraphFile? {
+		val parentNodeInfo = nodeInfo(file.parent)
+		val item = parentNodeInfo?.driveId?.let { childByName(parentNodeInfo.id, it, file.name) }
+		if (item == null) {
+			removeNodeInfo(file)
+			return null
+		}
+		cacheNodeInfo(file, item)
+		return from(file.parent, item) as? MicrosoftGraphFile
+	}
+
+	@Throws(BackendException::class)
 	fun list(folder: MicrosoftGraphFolder): List<MicrosoftGraphNode> {
 		val result: MutableList<MicrosoftGraphNode> = ArrayList()
 		val nodeInfo = requireNodeInfo(folder)

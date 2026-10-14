@@ -226,6 +226,22 @@ abstract class CryptoImplDecorator(
 	}
 
 	@Throws(BackendException::class)
+	open fun metadata(file: CryptoFile): CryptoFile? {
+		return cloudContentRepository.metadata(file.cloudFile)?.let { file(file, it, cleartextSize(it)) }
+	}
+
+	protected fun cleartextSize(cloudFile: CloudFile): Long? {
+		return cloudFile.size?.let {
+			val ciphertextSizeWithoutHeader = it - cryptor().fileHeaderCryptor().headerSize()
+			if (ciphertextSizeWithoutHeader >= 0) {
+				cryptor().fileContentCryptor().cleartextSize(ciphertextSizeWithoutHeader)
+			} else {
+				null
+			}
+		}
+	}
+
+	@Throws(BackendException::class)
 	private fun exists(symlink: CryptoSymlink): Boolean {
 		return cloudContentRepository.exists(symlink.cloudFile)
 	}

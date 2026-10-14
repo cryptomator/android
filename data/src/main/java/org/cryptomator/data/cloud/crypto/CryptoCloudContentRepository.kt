@@ -54,6 +54,11 @@ internal class CryptoCloudContentRepository(context: Context, cloudContentReposi
 	}
 
 	@Throws(BackendException::class)
+	override fun metadata(file: CryptoFile): CryptoFile? {
+		return cryptoImpl.metadata(file)
+	}
+
+	@Throws(BackendException::class)
 	override fun list(folder: CryptoFolder): List<CryptoNode> {
 		return cryptoImpl.list(folder)
 	}

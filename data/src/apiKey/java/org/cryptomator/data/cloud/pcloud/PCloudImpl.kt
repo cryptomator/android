@@ -98,6 +98,16 @@ internal class PCloudImpl(private val cloud: PCloud, private val client: ApiClie
 	}
 
 	@Throws(IOException::class, BackendException::class)
+	fun metadata(file: PCloudFile): PCloudFile? {
+		return try {
+			PCloudNodeFactory.file(file.parent, client.loadFile(file.path).execute())
+		} catch (ex: ApiError) {
+			handleApiError(ex, PCloudApiError.ignoreExistsSet, file.name)
+			null
+		}
+	}
+
+	@Throws(IOException::class, BackendException::class)
 	fun list(folder: PCloudFolder): List<PCloudNode> {
 		val path = if (folder !is RootPCloudFolder) {
 			folder.path

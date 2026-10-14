@@ -15,6 +15,7 @@ import androidx.preference.PreferenceCategory
 import androidx.preference.SwitchPreference
 import org.cryptomator.presentation.BuildConfig
 import org.cryptomator.presentation.R
+import org.cryptomator.presentation.docprovider.CryptomatorDocumentsProvider
 import org.cryptomator.presentation.intent.Intents
 import org.cryptomator.presentation.licensing.LicenseEnforcer
 import org.cryptomator.presentation.presenter.ContextHolder
@@ -106,6 +107,11 @@ class SettingsFragment : PreferenceFragmentCompatLayout() {
 
 	private val disableSecureScreenChangedListener = Preference.OnPreferenceChangeListener { _, newValue ->
 		onDisableSecureScreenChanged(TRUE == newValue)
+		true
+	}
+
+	private val documentsProviderChangedListener = Preference.OnPreferenceChangeListener { _, newValue ->
+		CryptomatorDocumentsProvider.setEnabled(requireContext(), TRUE == newValue)
 		true
 	}
 
@@ -322,6 +328,7 @@ class SettingsFragment : PreferenceFragmentCompatLayout() {
 		(findPreference(SharedPreferencesHandler.DEBUG_MODE) as Preference?)?.onPreferenceChangeListener = debugModeChangedListener
 		(findPreference(SharedPreferencesHandler.DISABLE_APP_WHEN_OBSCURED) as Preference?)?.onPreferenceChangeListener = disableAppWhenObscuredChangedListener
 		(findPreference(SharedPreferencesHandler.SECURE_SCREEN) as Preference?)?.onPreferenceChangeListener = disableSecureScreenChangedListener
+		(findPreference(SharedPreferencesHandler.DOCUMENTS_PROVIDER) as Preference?)?.onPreferenceChangeListener = documentsProviderChangedListener
 		(findPreference(SharedPreferencesHandler.SCREEN_STYLE_MODE) as Preference?)?.onPreferenceChangeListener = screenStyleModeChangedListener
 		(findPreference(SharedPreferencesHandler.PHOTO_UPLOAD) as Preference?)?.onPreferenceChangeListener = useAutoPhotoUploadChangedListener
 		(findPreference(SharedPreferencesHandler.USE_LRU_CACHE) as Preference?)?.onPreferenceChangeListener = useLruChangedListener

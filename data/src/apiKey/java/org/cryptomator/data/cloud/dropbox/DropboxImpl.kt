@@ -96,6 +96,18 @@ internal class DropboxImpl(cloud: DropboxCloud, context: Context) {
 	}
 
 	@Throws(AuthenticationException::class, DbxException::class)
+	fun metadata(file: DropboxFile): DropboxFile? {
+		return try {
+			(client().files().getMetadata(file.path) as? FileMetadata)?.let { DropboxCloudNodeFactory.from(file.parent, it) }
+		} catch (e: GetMetadataErrorException) {
+			if (e.errorValue.isPath) {
+				return null
+			}
+			throw e
+		}
+	}
+
+	@Throws(AuthenticationException::class, DbxException::class)
 	fun list(folder: DropboxFolder): List<DropboxNode> {
 		val result = ArrayList<DropboxNode>()
 		var listFolderResult: ListFolderResult? = null

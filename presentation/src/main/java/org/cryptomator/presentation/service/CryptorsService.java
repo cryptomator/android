@@ -2,18 +2,19 @@ package org.cryptomator.presentation.service;
 
 import android.app.Service;
 import android.content.BroadcastReceiver;
+import android.content.ContentResolver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.net.Uri;
 import android.os.IBinder;
-import android.provider.DocumentsContract;
 
 import androidx.annotation.Nullable;
 import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 
 import org.cryptomator.data.cloud.crypto.Cryptors;
 import org.cryptomator.presentation.BuildConfig;
+import org.cryptomator.presentation.docprovider.CryptomatorDocumentsProvider;
 import org.cryptomator.presentation.util.FileUtil;
 import org.cryptomator.util.LockTimeout;
 import org.cryptomator.util.SharedPreferencesHandler;
@@ -133,16 +134,20 @@ public class CryptorsService extends Service {
 			if (fileUtil != null) {
 				fileUtil.cleanupDecryptedFiles();
 			}
+			CryptomatorDocumentsProvider.evictCopies();
 		}
 		notification.setUnlockedCount(unlocked);
 		notification.update();
 		signalVaultsUnlockedAndInBackgroundIfRequired();
-		updateDocumentProviderRoots();
+		updateDocumentProvider();
 	}
 
-	private void updateDocumentProviderRoots() {
-		Uri rootsUri = DocumentsContract.buildRootsUri(BuildConfig.DOCUMENTS_PROVIDER_AUTHORITY);
-		getContentResolver().notifyChange(rootsUri, null);
+	/**
+	 * Notifies observers of all roots and documents, so that the Files app shows what was locked or unlocked.
+	 */
+	private void updateDocumentProvider() {
+		Uri providerUri = new Uri.Builder().scheme(ContentResolver.SCHEME_CONTENT).authority(BuildConfig.DOCUMENTS_PROVIDER_AUTHORITY).build();
+		getContentResolver().notifyChange(providerUri, null);
 	}
 
 	private void onAppInForegroundChanged(boolean appInForeground) {

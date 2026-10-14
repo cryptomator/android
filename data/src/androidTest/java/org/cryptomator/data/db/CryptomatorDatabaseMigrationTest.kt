@@ -6,6 +6,7 @@ import androidx.sqlite.db.framework.FrameworkSQLiteOpenHelperFactory
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import androidx.test.filters.SmallTest
 import androidx.test.platform.app.InstrumentationRegistry
+import org.cryptomator.data.db.entities.DocumentMetadataEntity
 import org.cryptomator.domain.CloudType
 import org.cryptomator.util.SharedPreferencesHandler
 import org.cryptomator.util.crypto.CredentialCryptor
@@ -71,6 +72,54 @@ class CryptomatorDatabaseMigrationTest {
 		database = openWithRoom()
 
 		assertWebDavVaultSurvived(accessToken)
+	}
+
+	@Test
+	fun addsTheDocumentsProviderCacheWhoseEntriesAreDroppedWithTheirVault() {
+		createGreenDaoDatabase(15) { db ->
+			LegacyDatabaseV1.createOn(db)
+			addWebDavVaultTo(db, accessToken = CredentialCryptor.getInstance(context, CryptoMode.CBC).encrypt("accessToken"))
+			upgrades().filter { it.endVersion <= 15 }.forEach { it.migrate(db) }
+		}
+
+		database = openWithRoom()
+		database.documentMetadataDao().insert(DocumentMetadataEntity().apply {
+			vaultId = 25
+			path = "x.txt"
+			parentPath = ""
+			name = "x.txt"
+			mimeType = "text/plain"
+		})
+		database.vaultDao().delete(database.vaultDao().load(25L))
+
+		Assert.assertThat(database.documentMetadataDao().load(25, "x.txt"), CoreMatchers.nullValue())
+	}
+
+	@Test
+	fun theDocumentsProviderCacheNeverReusesTheIdOfADeletedEntry() {
+		createGreenDaoDatabase(15) { db ->
+			LegacyDatabaseV1.createOn(db)
+			addWebDavVaultTo(db, accessToken = CredentialCryptor.getInstance(context, CryptoMode.CBC).encrypt("accessToken"))
+			upgrades().filter { it.endVersion <= 15 }.forEach { it.migrate(db) }
+		}
+
+		database = openWithRoom()
+		val dao = database.documentMetadataDao()
+		val deletedId = dao.insert(documentMetadata("x.txt"))
+		dao.deleteSubtree(25, "x.txt")
+		val newId = dao.insert(documentMetadata("y.txt"))
+
+		Assert.assertThat(newId > deletedId, CoreMatchers.`is`(true))
+	}
+
+	private fun documentMetadata(path: String): DocumentMetadataEntity {
+		return DocumentMetadataEntity().apply {
+			vaultId = 25
+			this.path = path
+			parentPath = ""
+			name = path
+			mimeType = "text/plain"
+		}
 	}
 
 	@Test
@@ -160,7 +209,8 @@ class CryptomatorDatabaseMigrationTest {
 		Upgrade11To12(sharedPreferencesHandler), //
 		Upgrade12To13(context), //
 		Upgrade13To14(sharedPreferencesHandler), //
-		Upgrade14To15()
+		Upgrade14To15(), //
+		Upgrade15To16()
 	)
 
 	companion object {

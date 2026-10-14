@@ -205,28 +205,11 @@ open class CryptoImplVaultFormat7 : CryptoImplDecorator {
 	@Throws(BackendException::class)
 	private fun cloudNodeFromName(cloudNode: CloudNode, cryptoFolder: CryptoFolder, cleartextName: String, longNameFile: CloudFile?, dirFile: CloudFile?): CryptoNode? {
 		if (cloudNode is CloudFile) {
-			val cleartextSize = cloudNode.size?.let {
-				val ciphertextSizeWithoutHeader = it - cryptor().fileHeaderCryptor().headerSize()
-				if (ciphertextSizeWithoutHeader >= 0) {
-					cryptor().fileContentCryptor().cleartextSize(ciphertextSizeWithoutHeader)
-				} else {
-					null
-				}
-			}
-			return file(cryptoFolder, cleartextName, cloudNode, cleartextSize)
+			return file(cryptoFolder, cleartextName, cloudNode, cleartextSize(cloudNode))
 		} else if (cloudNode is CloudFolder) {
 			return if (longNameFile != null) {
 				// long file
-				val cleartextSize = longNameFile.size?.let {
-					val ciphertextSizeWithoutHeader: Long = it - cryptor().fileHeaderCryptor().headerSize()
-					if (ciphertextSizeWithoutHeader >= 0) {
-						cryptor().fileContentCryptor().cleartextSize(ciphertextSizeWithoutHeader)
-					} else {
-						null
-					}
-				}
-
-				file(cryptoFolder, cleartextName, longNameFile, cleartextSize)
+				file(cryptoFolder, cleartextName, longNameFile, cleartextSize(longNameFile))
 			} else {
 				// folder
 				if (dirFile != null) {
@@ -450,6 +433,19 @@ open class CryptoImplVaultFormat7 : CryptoImplDecorator {
 				cloudContentRepository.delete(node.cloudFile)
 			}
 		}
+	}
+
+	/**
+	 * A file whose name is shortened is the contents file inside its .c9s folder.
+	 */
+	@Throws(BackendException::class)
+	override fun metadata(file: CryptoFile): CryptoFile? {
+		if (!file.cloudFile.name.endsWith(LONG_NODE_FILE_EXT)) {
+			return super.metadata(file)
+		}
+		val dirFolder = cloudContentRepository.folder(file.cloudFile.parent, file.cloudFile.name)
+		val contentsFile = cloudContentRepository.file(dirFolder, LONG_NODE_FILE_CONTENT_CONTENTS + CLOUD_NODE_EXT)
+		return cloudContentRepository.metadata(contentsFile)?.let { file(file, it, cleartextSize(it)) }
 	}
 
 	@Throws(BackendException::class)

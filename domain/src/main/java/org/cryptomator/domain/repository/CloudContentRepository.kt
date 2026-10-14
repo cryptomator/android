@@ -41,6 +41,12 @@ interface CloudContentRepository<CloudType : Cloud, NodeType : CloudNode, DirTyp
 	@Throws(BackendException::class)
 	fun exists(node: NodeType): Boolean
 
+	/**
+	 * @return the file with its current size and modification date, or `null` if it doesn't exist
+	 */
+	@Throws(BackendException::class)
+	fun metadata(file: FileType): FileType?
+
 	@Throws(BackendException::class)
 	fun list(folder: DirType): List<NodeType>
 

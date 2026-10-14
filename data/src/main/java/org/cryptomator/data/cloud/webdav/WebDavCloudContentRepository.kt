@@ -124,6 +124,11 @@ internal class WebDavCloudContentRepository(private val cloud: WebDavCloud, conn
 		}
 
 		@Throws(BackendException::class)
+		override fun metadata(file: WebDavFile): WebDavFile? {
+			return webDavImpl.metadata(file)
+		}
+
+		@Throws(BackendException::class)
 		override fun list(folder: WebDavFolder): List<WebDavNode> {
 			return try {
 				webDavImpl.list(folder)

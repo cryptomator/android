@@ -101,6 +101,11 @@ internal class S3CloudContentRepository(private val cloud: S3Cloud, client: Mini
 		}
 
 		@Throws(BackendException::class)
+		override fun metadata(file: S3File): S3File? {
+			return cloud.metadata(file)
+		}
+
+		@Throws(BackendException::class)
 		override fun list(folder: S3Folder): List<S3Node> {
 			return try {
 				cloud.list(folder)

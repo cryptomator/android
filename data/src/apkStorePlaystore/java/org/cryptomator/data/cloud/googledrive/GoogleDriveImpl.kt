@@ -58,7 +58,7 @@ internal class GoogleDriveImpl(context: Context, googleDriveCloud: GoogleDriveCl
 
 	@Throws(IOException::class)
 	private fun findFile(parentDriveId: String?, name: String): File? {
-		val fileListQuery = client().files().list().setFields("files(id,mimeType,name,size,shortcutDetails)").setSupportsAllDrives(true).setIncludeItemsFromAllDrives(true)
+		val fileListQuery = client().files().list().setFields("files(id,mimeType,modifiedTime,name,size,shortcutDetails)").setSupportsAllDrives(true).setIncludeItemsFromAllDrives(true)
 		fileListQuery.q = "name contains '$name' and '$parentDriveId' in parents and trashed = false"
 		return fileListQuery.execute().files.firstOrNull { it.name == name }
 	}
@@ -117,6 +117,18 @@ internal class GoogleDriveImpl(context: Context, googleDriveCloud: GoogleDriveCl
 		} catch (e: GoogleJsonResponseException) {
 			if (e.statusCode == 404) {
 				return false
+			}
+			throw e
+		}
+	}
+
+	@Throws(IOException::class)
+	fun metadata(file: GoogleDriveFile): GoogleDriveFile? {
+		return try {
+			findFile(file.parent.driveId, file.name)?.takeUnless { GoogleDriveCloudNodeFactory.isFolder(it) }?.let { GoogleDriveCloudNodeFactory.file(file.parent, it) }?.also { idCache.add(it) }
+		} catch (e: GoogleJsonResponseException) {
+			if (e.statusCode == 404) {
+				return null
 			}
 			throw e
 		}

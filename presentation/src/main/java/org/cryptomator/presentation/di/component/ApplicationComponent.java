@@ -3,7 +3,10 @@ package org.cryptomator.presentation.di.component;
 import android.content.Context;
 
 import org.cryptomator.data.cloud.crypto.CryptorsModule;
+import org.cryptomator.data.db.CryptomatorDatabase;
 import org.cryptomator.data.db.DatabaseModule;
+import org.cryptomator.data.db.dao.CachedFileDao;
+import org.cryptomator.data.db.dao.DocumentMetadataDao;
 import org.cryptomator.data.repository.RepositoryModule;
 import org.cryptomator.data.util.NetworkConnectionCheck;
 import org.cryptomator.domain.executor.PostExecutionThread;
@@ -45,6 +48,12 @@ public interface ApplicationComponent {
 	SharepointRepository sharepointRepository();
 
 	UpdateCheckRepository updateCheckRepository();
+
+	CryptomatorDatabase cryptomatorDatabase();
+
+	DocumentMetadataDao documentMetadataDao();
+
+	CachedFileDao cachedFileDao();
 
 	FileUtil fileUtil();
 

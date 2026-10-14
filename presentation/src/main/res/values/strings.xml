@@ -305,6 +305,8 @@
 	<string name="screen_settings_block_app_when_obscured_summary">Block intercepting the input and displaying a false user interface</string>
 	<string name="screen_settings_secure_screen">Block screenshots</string>
 	<string name="screen_settings_secure_screen_summary">Block screenshots in the recents list and inside the app</string>
+	<string name="screen_settings_documents_provider">Show vaults in the Files app</string>
+	<string name="screen_settings_documents_provider_summary">Lets other apps open and save files in your vaults through the system file picker. Locked vaults are unlocked when opened.</string>
 	<string name="screen_settings_section_search">Search</string>
 	<string name="screen_settings_live_search">Live search</string>
 	<string name="screen_settings_live_search_summary">Update search results while entering the query</string>

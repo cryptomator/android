@@ -50,6 +50,11 @@ class LocalStorageAccessFrameworkContentRepository(context: Context, mimeTypes: 
 	}
 
 	@Throws(BackendException::class)
+	override fun metadata(file: LocalStorageAccessFile): LocalStorageAccessFile? {
+		return localStorageAccessFramework.metadata(file)
+	}
+
+	@Throws(BackendException::class)
 	override fun list(folder: LocalStorageAccessFolder): List<LocalStorageAccessNode> {
 		return localStorageAccessFramework.list(folder)
 	}

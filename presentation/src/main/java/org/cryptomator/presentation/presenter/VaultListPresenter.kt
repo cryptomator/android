@@ -32,11 +32,11 @@ import org.cryptomator.domain.usecases.vault.RemoveStoredVaultPasswordsUseCase
 import org.cryptomator.domain.usecases.vault.RenameVaultUseCase
 import org.cryptomator.domain.usecases.vault.SaveVaultUseCase
 import org.cryptomator.domain.usecases.vault.SaveVaultsUseCase
-import org.cryptomator.domain.usecases.vault.UpdateVaultParameterIfChangedRemotelyUseCase
 import org.cryptomator.generator.Callback
 import org.cryptomator.presentation.BuildConfig
 import org.cryptomator.presentation.CryptomatorApp
 import org.cryptomator.presentation.R
+import org.cryptomator.presentation.docprovider.CryptomatorDocumentsProvider
 import org.cryptomator.presentation.exception.ExceptionHandlers
 import org.cryptomator.presentation.intent.Intents
 import org.cryptomator.presentation.intent.UnlockVaultIntent
@@ -88,7 +88,6 @@ class VaultListPresenter @Inject constructor( //
 	private val moveVaultPositionUseCase: MoveVaultPositionUseCase, //
 	private val updateCheckUseCase: DoUpdateCheckUseCase,  //
 	private val updateUseCase: DoUpdateUseCase,  //
-	private val updateVaultParameterIfChangedRemotelyUseCase: UpdateVaultParameterIfChangedRemotelyUseCase, //
 	private val listCBCEncryptedPasswordVaultsUseCase: ListCBCEncryptedPasswordVaultsUseCase, //
 	private val removeStoredVaultPasswordsUseCase: RemoveStoredVaultPasswordsUseCase, //
 	private val saveVaultsUseCase: SaveVaultsUseCase, //
@@ -379,6 +378,7 @@ class VaultListPresenter @Inject constructor( //
 			.run(object : DefaultResultHandler<Long>() {
 				override fun onSuccess(vaultId: Long) {
 					view?.deleteVaultFromAdapter(vaultId)
+					CryptomatorDocumentsProvider.evictCopies()
 				}
 			})
 	}
@@ -581,19 +581,14 @@ class VaultListPresenter @Inject constructor( //
 
 	private fun navigateToVaultContent(folder: CloudFolder) {
 		val cryptoCloud = (folder.cloud as CryptoCloud)
-		updateVaultParameterIfChangedRemotelyUseCase //
-			.withVault(cryptoCloud.vault) //
-			.run(object : DefaultResultHandler<Vault>() {
-				override fun onSuccess(vault: Vault) {
-					view?.addOrUpdateVault(VaultModel(vault))
-					navigateToVaultContent(vault, folder)
-					view?.showProgress(ProgressModel.COMPLETED)
-					if (checkToStartAutoImageUpload(vault)) {
-						val cryptomatorApp = activity().application as CryptomatorApp
-						cryptomatorApp.startAutoUpload(cryptoCloud)
-					}
-				}
-			})
+		val vault = cryptoCloud.vault
+		view?.addOrUpdateVault(VaultModel(vault))
+		navigateToVaultContent(vault, folder)
+		view?.showProgress(ProgressModel.COMPLETED)
+		if (checkToStartAutoImageUpload(vault)) {
+			val cryptomatorApp = activity().application as CryptomatorApp
+			cryptomatorApp.startAutoUpload(cryptoCloud)
+		}
 	}
 
 	private fun checkToStartAutoImageUpload(vault: Vault): Boolean {
@@ -708,8 +703,7 @@ class VaultListPresenter @Inject constructor( //
 			updateUseCase, //
 			listCBCEncryptedPasswordVaultsUseCase, //
 			removeStoredVaultPasswordsUseCase, //
-			saveVaultsUseCase, //
-			updateVaultParameterIfChangedRemotelyUseCase
+			saveVaultsUseCase
 		)
 	}
 }

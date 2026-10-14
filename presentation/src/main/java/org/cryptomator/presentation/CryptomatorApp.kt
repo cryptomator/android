@@ -15,6 +15,7 @@ import org.cryptomator.data.cloud.crypto.CryptorsModule
 import org.cryptomator.data.repository.RepositoryModule
 import org.cryptomator.domain.Cloud
 import org.cryptomator.presentation.di.HasComponent
+import org.cryptomator.presentation.docprovider.CryptomatorDocumentsProvider
 import org.cryptomator.presentation.di.component.ApplicationComponent
 import org.cryptomator.presentation.di.component.DaggerApplicationComponent
 import org.cryptomator.presentation.di.module.ApplicationModule
@@ -34,6 +35,7 @@ import org.cryptomator.util.FlavorConfig
 import org.cryptomator.util.NoOpActivityLifecycleCallbacks
 import org.cryptomator.util.SharedPreferencesHandler
 import java.lang.ref.WeakReference
+import java.util.concurrent.CountDownLatch
 import java.util.concurrent.atomic.AtomicInteger
 import io.reactivex.plugins.RxJavaPlugins
 import timber.log.Timber
@@ -42,6 +44,7 @@ class CryptomatorApp : Application(), HasComponent<ApplicationComponent> {
 
 	private val appCryptors = Cryptors.Delegating()
 	private lateinit var applicationComponent: ApplicationComponent
+	private val applicationComponentInitialized = CountDownLatch(1)
 
 	@Volatile
 	private var cryptoServiceBinder: CryptorsService.Binder? = null
@@ -83,6 +86,7 @@ class CryptomatorApp : Application(), HasComponent<ApplicationComponent> {
 			registerActivityLifecycleCallbacks(PurchaseRevokedToastObserver(sharedPreferencesHandler))
 		}
 		AppCompatDelegate.setDefaultNightMode(sharedPreferencesHandler.screenStyleMode)
+		CryptomatorDocumentsProvider.setEnabled(this, sharedPreferencesHandler.documentsProvider())
 		cleanupCache()
 
 		if (sharedPreferencesHandler.microsoftWorkaround()) {
@@ -249,6 +253,7 @@ class CryptomatorApp : Application(), HasComponent<ApplicationComponent> {
 			.repositoryModule(RepositoryModule()) //
 			.cryptorsModule(CryptorsModule(appCryptors)) //
 			.build()
+		applicationComponentInitialized.countDown()
 	}
 
 	private fun cleanupCache() {
@@ -263,6 +268,14 @@ class CryptomatorApp : Application(), HasComponent<ApplicationComponent> {
 	}
 
 	override fun getComponent(): ApplicationComponent {
+		return applicationComponent
+	}
+
+	/**
+	 * Content providers are queried as soon as they are published, which can be before [onCreate] has built the component.
+	 */
+	fun awaitComponent(): ApplicationComponent {
+		applicationComponentInitialized.await()
 		return applicationComponent
 	}
 

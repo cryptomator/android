@@ -1135,4 +1135,59 @@ class CryptoImplVaultFormat7Test {
 		Mockito.verify(cloudContentRepository).move(testDir15DirFile, cryptoFolder3.dirFile!!)
 		Mockito.verify(cloudContentRepository).delete(testDir15)
 	}
+
+	@Test
+	@DisplayName("metadata(\"/File 1\") reports the cleartext size of the cloud file")
+	@Throws(BackendException::class)
+	fun testMetadataOfFile() {
+		val cloudFile = TestFile(aaFolder, "file1.c9r", "/d/00/AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA/file1.c9r", 1088L, null)
+		whenever(cloudContentRepository.metadata(cryptoFile1.cloudFile)).thenReturn(cloudFile)
+		whenever(fileHeaderCryptor.headerSize()).thenReturn(88)
+		whenever(fileContentCryptor.cleartextSize(1000L)).thenReturn(900L)
+
+		val result = inTest.metadata(cryptoFile1)
+
+		MatcherAssert.assertThat(result?.cloudFile, CoreMatchers.`is`(cloudFile))
+		MatcherAssert.assertThat(result?.size, CoreMatchers.`is`(900L))
+	}
+
+	@Test
+	@DisplayName("metadata(\"/File 1\") is null if the file is gone")
+	@Throws(BackendException::class)
+	fun testMetadataOfMissingFile() {
+		whenever(cloudContentRepository.metadata(cryptoFile1.cloudFile)).thenReturn(null)
+
+		MatcherAssert.assertThat(inTest.metadata(cryptoFile1), CoreMatchers.nullValue())
+	}
+
+	@Test
+	@DisplayName("metadata(\"/File 1\") reports no size for a file shorter than the header")
+	@Throws(BackendException::class)
+	fun testMetadataOfTruncatedFile() {
+		whenever(cloudContentRepository.metadata(cryptoFile1.cloudFile)).thenReturn(TestFile(aaFolder, "file1.c9r", "/d/00/AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA/file1.c9r", 10L, null))
+		whenever(fileHeaderCryptor.headerSize()).thenReturn(88)
+
+		MatcherAssert.assertThat(inTest.metadata(cryptoFile1)?.size, CoreMatchers.nullValue())
+	}
+
+	@Test
+	@DisplayName("metadata(\"/Long file\") looks up the contents file of a shortened name")
+	@Throws(BackendException::class)
+	fun testMetadataOfFileWithShortenedName() {
+		val shortenedFile = TestFile(aaFolder, "long.c9s", "/d/00/AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA/long.c9s", null, null)
+		val shortenedFolder = TestFolder(aaFolder, "long.c9s", "/d/00/AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA/long.c9s")
+		val contentsFile = TestFile(shortenedFolder, "contents.c9r", "/d/00/AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA/long.c9s/contents.c9r", null, null)
+		val storedContentsFile = TestFile(shortenedFolder, "contents.c9r", "/d/00/AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA/long.c9s/contents.c9r", 1088L, null)
+		whenever(cloudContentRepository.folder(aaFolder, "long.c9s")).thenReturn(shortenedFolder)
+		whenever(cloudContentRepository.file(shortenedFolder, "contents.c9r")).thenReturn(contentsFile)
+		whenever(cloudContentRepository.metadata(contentsFile)).thenReturn(storedContentsFile)
+		whenever(fileHeaderCryptor.headerSize()).thenReturn(88)
+		whenever(fileContentCryptor.cleartextSize(1000L)).thenReturn(900L)
+
+		val result = inTest.metadata(CryptoFile(root, "Long file", "/Long file", null, shortenedFile))
+
+		MatcherAssert.assertThat(result?.cloudFile, CoreMatchers.`is`(storedContentsFile))
+		MatcherAssert.assertThat(result?.size, CoreMatchers.`is`(900L))
+		Mockito.verify(cloudContentRepository, Mockito.never()).metadata(shortenedFile)
+	}
 }

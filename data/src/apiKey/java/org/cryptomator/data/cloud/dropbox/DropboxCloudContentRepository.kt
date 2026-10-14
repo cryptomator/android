@@ -84,6 +84,15 @@ internal class DropboxCloudContentRepository(private val cloud: DropboxCloud, co
 		}
 
 		@Throws(BackendException::class)
+		override fun metadata(file: DropboxFile): DropboxFile? {
+			return try {
+				cloud.metadata(file)
+			} catch (e: DbxException) {
+				throw FatalBackendException(e)
+			}
+		}
+
+		@Throws(BackendException::class)
 		override fun list(folder: DropboxFolder): List<DropboxNode> {
 			return try {
 				cloud.list(folder)

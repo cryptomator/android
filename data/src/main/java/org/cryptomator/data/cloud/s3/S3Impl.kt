@@ -84,6 +84,19 @@ internal class S3Impl(private val cloud: S3Cloud, private val client: MinioClien
 		}
 	}
 
+	@Throws(BackendException::class)
+	fun metadata(file: S3File): S3File? {
+		try {
+			val statObjectResponse = client.statObject(StatObjectArgs.builder().bucket(cloud.s3Bucket()).`object`(file.key).build())
+			return S3CloudNodeFactory.file(file.parent, file.name, statObjectResponse.size(), Date.from(statObjectResponse.lastModified().toInstant()))
+		} catch (e: ErrorResponseException) {
+			if (S3CloudApiErrorCodes.NO_SUCH_KEY.value == e.errorResponse().code()) {
+				return null
+			}
+			throw FatalBackendException(e)
+		}
+	}
+
 	@Throws(IOException::class, BackendException::class)
 	fun list(folder: S3Folder): List<S3Node> {
 		val request = ListObjectsArgs.builder().bucket(cloud.s3Bucket()).prefix(folder.key).delimiter(DELIMITER).build()

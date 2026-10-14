@@ -34,6 +34,12 @@
 			android:summary="@string/screen_settings_secure_screen_summary"
 			android:title="@string/screen_settings_secure_screen" />
 
+		<SwitchPreference
+			android:defaultValue="true"
+			android:key="documentsProvider"
+			android:summary="@string/screen_settings_documents_provider_summary"
+			android:title="@string/screen_settings_documents_provider" />
+
 		<ListPreference
 			android:defaultValue="MODE_NIGHT_FOLLOW_SYSTEM"
 			android:dialogTitle="@string/screen_settings_style_mode"

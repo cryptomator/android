@@ -98,6 +98,19 @@ abstract class InterceptingCloudContentRepository<CloudType : Cloud, NodeType : 
 	}
 
 	@Throws(BackendException::class)
+	override fun metadata(file: FileType): FileType? {
+		return try {
+			delegate.metadata(file)
+		} catch (e: BackendException) {
+			throwWrappedIfRequired(e)
+			throw e
+		} catch (e: RuntimeException) {
+			throwWrappedIfRequired(e)
+			throw e
+		}
+	}
+
+	@Throws(BackendException::class)
 	override fun list(folder: DirType): List<NodeType> {
 		return try {
 			delegate.list(folder)
