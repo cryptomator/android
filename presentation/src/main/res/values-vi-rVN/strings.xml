@@ -430,6 +430,7 @@
 	<string name="screen_settings_license_title_unlock">Mở khóa bản đầy đủ</string>
 	<string name="screen_settings_license_mail">%1$s</string>
 	<string name="dialog_trial_expired_unlock">Mở khóa bản đầy đủ</string>
+	<string name="dialog_license_lost_later">Để sau</string>
 	<string name="dialog_settings_update_check_interval_title">Khoảng thời gian kiểm tra cập nhật</string>
 	<string name="screen_settings_check_updates">Kiểm tra cập nhật</string>
 	<string name="screen_settings_last_check_updates">Lần chạy cuối %1$s</string>
