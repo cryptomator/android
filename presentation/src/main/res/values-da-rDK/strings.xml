@@ -243,6 +243,7 @@
 	<string name="screen_cloud_settings_sharepoint_connections">SharePoint-forbindelser</string>
 	<string name="screen_cloud_settings_webdav_connections">WebDAV-forbindelser</string>
 	<string name="screen_cloud_settings_pcloud_connections">pCloud forbindelser</string>
+	<string name="screen_cloud_settings_box_connections">Boksforbindelser</string>
 	<string name="screen_cloud_settings_s3_connections">S3 forbindelser</string>
 	<string name="screen_cloud_settings_local_storage_locations">Lokale placeringer</string>
 	<string name="screen_cloud_settings_log_in_to">Log ind på</string>
