@@ -518,6 +518,9 @@
 	<string name="dialog_trial_expired_message">Ваш безплатний пробний період закінчився. Ви можете продовжити роботу в режимі лише для читання або розблокувати повну версію.</string>
 	<string name="dialog_trial_expired_unlock">Розблокувати повну версію</string>
 	<string name="dialog_trial_expired_continue_read_only">Продовжити в режимі лише для читання</string>
+	<string name="dialog_license_lost_title">Повторне введення ліцензійного ключа</string>
+	<string name="dialog_license_lost_message">Попереднє оновлення видалило з цього пристрою ліцензійний ключ, зареєстрований для «%1$s». Введіть його повторно, щоб відновити доступ до запису. До цього часу ваші сховища будуть доступні лише для читання.</string>
+	<string name="dialog_license_lost_reenter">Повторно введіть ліцензійний ключ</string>
 	<string name="dialog_license_lost_later">Пізніше</string>
 	<string name="dialog_settings_update_check_interval_title">Періодичність перевірки оновлень</string>
 	<string name="screen_settings_check_updates">Перевірити наявність оновлень</string>
