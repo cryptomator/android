@@ -160,6 +160,7 @@
 	<string name="screen_settings_lru_cache_size">Bendras podėlio dydis</string>
 	<string name="screen_settings_clear_lru_cache_size">Išvalyti podėlį</string>
 	<string name="screen_settings_license_mail">%1$s</string>
+	<string name="dialog_license_lost_later">Vėliau</string>
 	<!-- lock timeout names -->
 	<string name="lock_timeout_never">Niekada</string>
 	<!-- cache size names -->
