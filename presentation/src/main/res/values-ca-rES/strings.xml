@@ -451,6 +451,7 @@
 	<string name="screen_settings_license_mail">%1$s</string>
 	<string name="screen_settings_manage_subscription">Gestionar Subscripcions</string>
 	<string name="dialog_trial_expired_unlock">Desbloca la versió completa</string>
+	<string name="dialog_license_lost_later">Després</string>
 	<string name="dialog_settings_update_check_interval_title">Interval entre comprovacions d\'actualitzacions</string>
 	<string name="screen_settings_check_updates">Cerca actualitzacions</string>
 	<string name="screen_settings_last_check_updates">Darrera comprovació: %1$s</string>
