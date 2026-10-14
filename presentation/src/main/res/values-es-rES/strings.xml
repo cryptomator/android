@@ -479,6 +479,7 @@
 	<string name="screen_settings_manage_subscription">Gestionar suscripción</string>
 	<string name="screen_settings_upgrade_to_lifetime">Actualice a una suscripción vitalicia</string>
 	<string name="dialog_trial_expired_unlock">Desbloquear versión completa</string>
+	<string name="dialog_license_lost_later">Más tarde</string>
 	<string name="dialog_settings_update_check_interval_title">Actualizar intervalo de verificación</string>
 	<string name="screen_settings_check_updates">Comprobar actualizaciones</string>
 	<string name="screen_settings_last_check_updates">Última ejecución %1$s</string>
