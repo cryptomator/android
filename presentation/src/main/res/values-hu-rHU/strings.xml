@@ -507,6 +507,7 @@
 	<string name="dialog_trial_expired_message">Az ingyenes próbaidőszak lejárt. Folytathatja csak olvasási módban, vagy feloldhatja a teljes verziót.</string>
 	<string name="dialog_trial_expired_unlock">Teljes verzió feloldása</string>
 	<string name="dialog_trial_expired_continue_read_only">Folytatási csak olvasási módban</string>
+	<string name="dialog_license_lost_later">Később</string>
 	<string name="dialog_settings_update_check_interval_title">A frissítések ellenőrzési gyakorisága</string>
 	<string name="screen_settings_check_updates">Frissítések keresése</string>
 	<string name="screen_settings_last_check_updates">Utolsó keresés %1$s</string>
