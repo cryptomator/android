@@ -462,6 +462,7 @@
 	<string name="screen_settings_manage_subscription">管理訂閱</string>
 	<string name="screen_settings_upgrade_to_lifetime">升級到永久方案</string>
 	<string name="dialog_trial_expired_unlock">解鎖完整版</string>
+	<string name="dialog_license_lost_later">以後再說</string>
 	<string name="dialog_settings_update_check_interval_title">檢查更新間隔</string>
 	<string name="screen_settings_check_updates">檢查更新</string>
 	<string name="screen_settings_last_check_updates">上次檢查於%1$s</string>
