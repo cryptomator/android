@@ -55,6 +55,8 @@ import org.mockito.kotlin.verify
 import org.mockito.kotlin.whenever
 import java.io.ByteArrayInputStream
 import java.io.ByteArrayOutputStream
+import java.io.FileNotFoundException
+import java.io.InputStream
 import java.security.GeneralSecurityException
 import java.util.Date
 import java.util.concurrent.TimeoutException
@@ -229,6 +231,32 @@ class SmbImplTest {
 		assertThat(modified.firstValue.lastWriteTime.toEpochMillis(), `is`(5000L))
 		assertThat(written.size, `is`(3L))
 		assertThat(written.modified, `is`(Date(5000L)))
+	}
+
+	@Test
+	fun testWriteDoesntTouchTheTargetIfTheSourceCantBeOpened() {
+		val file = inTest.file(inTest.resolve("/vault"), "a.c9r", 3L)
+		val data = mock<DataSource>()
+		whenever(data.modifiedDate(any())).thenReturn(Optional.empty())
+		whenever(data.open(any())).thenThrow(FileNotFoundException("gone"))
+
+		val thrown = assertThrows(FatalBackendException::class.java) { inTest.write(file, data, ProgressAware.NO_OP_PROGRESS_AWARE_UPLOAD, true, 3L) }
+		assertThat(thrown.cause, instanceOf(FileNotFoundException::class.java))
+		verify(share, never()).openFile(any(), any(), anyOrNull(), any(), any(), anyOrNull())
+	}
+
+	@Test
+	fun testWriteClosesTheSourceIfTheTargetCantBeOpened() {
+		val file = inTest.file(inTest.resolve("/vault"), "a.c9r", 3L)
+		val source = mock<InputStream>()
+		val data = mock<DataSource>()
+		whenever(data.modifiedDate(any())).thenReturn(Optional.empty())
+		whenever(data.open(any())).thenReturn(source)
+		whenever(share.openFile(any(), any(), anyOrNull(), any(), any(), anyOrNull())) //
+			.thenThrow(SMBApiException(NtStatus.STATUS_OBJECT_NAME_COLLISION.value, SMB2MessageCommandCode.SMB2_CREATE, null))
+
+		assertThrows(CloudNodeAlreadyExistsException::class.java) { inTest.write(file, data, ProgressAware.NO_OP_PROGRESS_AWARE_UPLOAD, false, 3L) }
+		verify(source).close()
 	}
 
 	@Test

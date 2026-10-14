@@ -25,13 +25,13 @@ class SmbLocation private constructor(val host: String, val port: Int, val share
 		 * backslashes and a missing scheme and strips trailing separators.
 		 */
 		fun normalize(input: String): String {
-			val trimmed = input.trim().replace('\\', '/').trimEnd('/')
+			val slashed = input.trim().replace('\\', '/')
 			val withoutScheme = when {
-				trimmed.startsWith(SCHEME, ignoreCase = true) -> trimmed.substring(SCHEME.length)
-				trimmed.startsWith("//") -> trimmed.substring(2)
-				else -> trimmed
+				slashed.startsWith(SCHEME, ignoreCase = true) -> slashed.substring(SCHEME.length)
+				slashed.startsWith("//") -> slashed.substring(2)
+				else -> slashed
 			}
-			return SCHEME + withoutScheme
+			return SCHEME + withoutScheme.trimEnd('/')
 		}
 
 		/**
@@ -42,7 +42,8 @@ class SmbLocation private constructor(val host: String, val port: Int, val share
 				return null
 			}
 			val segments = url.substring(SCHEME.length).split('/')
-			if (segments.size < 2 || segments.drop(1).any { it.isEmpty() }) {
+			// the base path must not leave the share or folder it names
+			if (segments.size < 2 || segments.drop(1).any { it.isEmpty() || it == "." || it == ".." }) {
 				return null
 			}
 			val (host, port) = parseAuthority(segments[0]) ?: return null

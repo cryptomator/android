@@ -18,7 +18,10 @@ class SmbLocationTest {
 		"SMB://nas/share, smb://nas/share",
 		"\\\\nas\\share\\folder, smb://nas/share/folder",
 		"nas/share, smb://nas/share",
-		"'', smb://"
+		"'', smb://",
+		// the default input, so it's reported as empty
+		"smb://, smb://",
+		"smb:///, smb://"
 	)
 	fun testNormalize(input: String, expected: String) {
 		assertThat(SmbLocation.normalize(input), `is`(expected))
@@ -55,7 +58,7 @@ class SmbLocationTest {
 	}
 
 	@ParameterizedTest
-	@ValueSource(strings = ["smb://", "smb://nas", "smb://nas/", "smb://:445/share", "smb://nas:0/share", "smb://nas:abc/share", "smb://user@nas/share", "smb://nas//share", "https://nas/share", "smb://[fe80::1/share"])
+	@ValueSource(strings = ["smb://", "smb://nas", "smb://nas/", "smb://nas/share/../other", "smb://nas/share/./folder", "smb://nas/..", "smb://:445/share", "smb://nas:0/share", "smb://nas:abc/share", "smb://user@nas/share", "smb://nas//share", "https://nas/share", "smb://[fe80::1/share"])
 	fun testParseInvalid(url: String) {
 		assertThat(SmbLocation.parse(url), `is`(nullValue()))
 	}

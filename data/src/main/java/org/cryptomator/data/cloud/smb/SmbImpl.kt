@@ -132,32 +132,39 @@ internal class SmbImpl(private val cloud: SmbCloud, private val connectionPool: 
 		progressAware.onProgress(Progress.started(UploadState.upload(file)))
 		val disposition = if (replace) SMB2CreateDisposition.FILE_OVERWRITE_IF else SMB2CreateDisposition.FILE_CREATE
 		val modified = data.modifiedDate(context).orElse(null)
-		val written = withShare(file, Retry.NEVER) { share ->
-			share.openFile(
-				pathOf(file), //
-				EnumSet.of(AccessMask.FILE_WRITE_DATA, AccessMask.FILE_READ_ATTRIBUTES, AccessMask.FILE_WRITE_ATTRIBUTES), //
-				null, //
-				EnumSet.of(SMB2ShareAccess.FILE_SHARE_READ), //
-				disposition, //
-				null
-			).use { smbFile ->
-				val inputStream = data.open(context) ?: throw FatalBackendException("InputStream shouldn't be null")
-				object : TransferredBytesAwareInputStream(inputStream) {
-					override fun bytesTransferred(transferred: Long) {
-						progressAware.onProgress( //
-							Progress.progress(UploadState.upload(file)) //
-								.between(0) //
-								.and(size) //
-								.withValue(transferred)
-						)
+		// opened before the target, which already truncates an existing file
+		val source = try {
+			data.open(context)
+		} catch (e: IOException) {
+			throw FatalBackendException(e)
+		} ?: throw FatalBackendException("InputStream shouldn't be null")
+		val written = object : TransferredBytesAwareInputStream(source) {
+			override fun bytesTransferred(transferred: Long) {
+				progressAware.onProgress( //
+					Progress.progress(UploadState.upload(file)) //
+						.between(0) //
+						.and(size) //
+						.withValue(transferred)
+				)
+			}
+		}.use { input ->
+			withShare(file, Retry.NEVER) { share ->
+				share.openFile(
+					pathOf(file), //
+					EnumSet.of(AccessMask.FILE_WRITE_DATA, AccessMask.FILE_READ_ATTRIBUTES, AccessMask.FILE_WRITE_ATTRIBUTES), //
+					null, //
+					EnumSet.of(SMB2ShareAccess.FILE_SHARE_READ), //
+					disposition, //
+					null
+				).use { smbFile ->
+					smbFile.outputStream.use { output -> CopyStream.copyStreamToStream(input, output) }
+					if (modified != null) {
+						smbFile.setFileInformation(FileBasicInformation(FileBasicInformation.DONT_SET, FileBasicInformation.DONT_SET, FileTime.fromDate(modified), FileBasicInformation.DONT_SET, 0))
 					}
-				}.use { input -> smbFile.outputStream.use { output -> CopyStream.copyStreamToStream(input, output) } }
-				if (modified != null) {
-					smbFile.setFileInformation(FileBasicInformation(FileBasicInformation.DONT_SET, FileBasicInformation.DONT_SET, FileTime.fromDate(modified), FileBasicInformation.DONT_SET, 0))
+					val basicInformation = smbFile.getFileInformation(FileBasicInformation::class.java)
+					val standardInformation = smbFile.getFileInformation(FileStandardInformation::class.java)
+					SmbFile(file.parent, file.name, file.path, standardInformation.endOfFile, basicInformation.lastWriteTime.toDate())
 				}
-				val basicInformation = smbFile.getFileInformation(FileBasicInformation::class.java)
-				val standardInformation = smbFile.getFileInformation(FileStandardInformation::class.java)
-				SmbFile(file.parent, file.name, file.path, standardInformation.endOfFile, basicInformation.lastWriteTime.toDate())
 			}
 		}
 		progressAware.onProgress(Progress.completed(UploadState.upload(file)))
@@ -194,6 +201,13 @@ internal class SmbImpl(private val cloud: SmbCloud, private val connectionPool: 
 				else -> share.rm(pathOf(node))
 			}
 		}
+	}
+
+	/**
+	 * @return whether this connects to the given cloud's share with its credentials
+	 */
+	fun isFor(cloud: SmbCloud): Boolean {
+		return cloud.url() == this.cloud.url() && cloud.username() == this.cloud.username() && cloud.password() == this.cloud.password()
 	}
 
 	@Throws(BackendException::class)
