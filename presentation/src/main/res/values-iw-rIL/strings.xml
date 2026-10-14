@@ -428,6 +428,7 @@
 	<string name="screen_settings_license_mail">%1$s</string>
 	<string name="screen_settings_manage_subscription">ניהול מנוי</string>
 	<string name="dialog_trial_expired_unlock">שחרור גרסה מלאה</string>
+	<string name="dialog_license_lost_later">מאוחר יותר</string>
 	<string name="dialog_settings_update_check_interval_title">בדוק עדכונים אוטומטית</string>
 	<string name="screen_settings_check_updates">חפש עדכונים</string>
 	<string name="screen_settings_last_check_updates">בדיקה אחרונה %1$s</string>
