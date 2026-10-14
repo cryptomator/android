@@ -448,6 +448,7 @@
 	<string name="screen_settings_license_mail">%1$s</string>
 	<string name="screen_settings_manage_subscription">Administrați-vă abonamentul</string>
 	<string name="dialog_trial_expired_unlock">Deblochează versiunea completă</string>
+	<string name="dialog_license_lost_later">Mai târziu</string>
 	<string name="dialog_settings_update_check_interval_title">Interval de verificare a actualizărilor</string>
 	<string name="screen_settings_check_updates">Verifică actualizări</string>
 	<string name="screen_settings_last_check_updates">Ultima execuție %1$s</string>
