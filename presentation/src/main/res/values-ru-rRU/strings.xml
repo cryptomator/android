@@ -517,6 +517,9 @@
 	<string name="dialog_trial_expired_message">Бесплатный период опробования завершён. Вы можете продолжить в режиме только чтения, либо разблокировать полную версию.</string>
 	<string name="dialog_trial_expired_unlock">Получить полную версию</string>
 	<string name="dialog_trial_expired_continue_read_only">Продолжить в режиме только чтения</string>
+	<string name="dialog_license_lost_title">Введите ключ повторно</string>
+	<string name="dialog_license_lost_message">Предыдущее обновление удалило лицензионный ключ, зарегистрированный на %1$s с этого устройства. Введите его снова, чтобы восстановить доступ на запись. Пока вы этого не сделаете, ваши хранилища будут только для чтения.</string>
+	<string name="dialog_license_lost_reenter">Введите ключ повторно</string>
 	<string name="dialog_license_lost_later">Позже</string>
 	<string name="dialog_settings_update_check_interval_title">Интервал проверки обновлений</string>
 	<string name="screen_settings_check_updates">Проверить обновления</string>
