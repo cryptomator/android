@@ -474,6 +474,7 @@
 	<string name="screen_settings_upgrade_to_lifetime">Uzlabot uz mūža</string>
 	<string name="dialog_trial_expired_title">Izmēģinājums beidzies</string>
 	<string name="dialog_trial_expired_unlock">Atslēgt pilno versiju</string>
+	<string name="dialog_license_lost_later">Vēlāk</string>
 	<string name="dialog_settings_update_check_interval_title">Laiks starp atjauninājumu pārbaudēm</string>
 	<string name="screen_settings_check_updates">Meklēt atjauninājumus</string>
 	<string name="screen_settings_last_check_updates">Pēdējoreiz veikta %1$s</string>
