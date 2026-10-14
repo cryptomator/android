@@ -7,7 +7,7 @@ import org.cryptomator.generator.Parameter;
 import org.cryptomator.generator.UseCase;
 
 @UseCase
-public class ConnectToSmb {
+class ConnectToSmb {
 
 	private final CloudContentRepository cloudContentRepository;
 	private final SmbCloud cloud;

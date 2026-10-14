@@ -15,24 +15,25 @@ import org.cryptomator.domain.MicrosoftGraphCloud
 import org.cryptomator.domain.OnedriveCloud
 import org.cryptomator.domain.PCloud
 import org.cryptomator.domain.SharepointCloud
-import org.cryptomator.domain.SmbCloud
 import org.cryptomator.domain.WebDavCloud
 import org.cryptomator.domain.di.PerView
 import org.cryptomator.domain.exception.FatalBackendException
 import org.cryptomator.domain.exception.NetworkConnectionException
 import org.cryptomator.domain.exception.authentication.AuthenticationException
+import org.cryptomator.domain.exception.authentication.LocalNetworkPermissionMissingException
 import org.cryptomator.domain.exception.authentication.WebDavCertificateUntrustedAuthenticationException
 import org.cryptomator.domain.exception.authentication.WebDavNotSupportedException
 import org.cryptomator.domain.exception.authentication.WebDavServerNotFoundException
 import org.cryptomator.domain.exception.authentication.WrongCredentialsException
 import org.cryptomator.domain.usecases.cloud.AddOrChangeCloudConnectionUseCase
-import org.cryptomator.domain.usecases.cloud.ConnectToSmbUseCase
 import org.cryptomator.domain.usecases.cloud.GetCloudsUseCase
 import org.cryptomator.domain.usecases.cloud.GetUsernameUseCase
 import org.cryptomator.generator.Callback
+import org.cryptomator.generator.InstanceState
 import org.cryptomator.presentation.R
 import org.cryptomator.presentation.exception.ExceptionHandlers
 import org.cryptomator.presentation.intent.AuthenticateCloudIntent
+import org.cryptomator.presentation.intent.IntentBuilder
 import org.cryptomator.presentation.intent.Intents
 import org.cryptomator.presentation.model.CloudModel
 import org.cryptomator.presentation.model.CloudTypeModel
@@ -47,6 +48,7 @@ import org.cryptomator.presentation.ui.activity.view.AuthenticateCloudView
 import org.cryptomator.presentation.workflow.ActivityResult
 import org.cryptomator.presentation.workflow.AddExistingVaultWorkflow
 import org.cryptomator.presentation.workflow.CreateNewVaultWorkflow
+import org.cryptomator.presentation.workflow.PermissionsResult
 import org.cryptomator.presentation.workflow.Workflow
 import org.cryptomator.util.ExceptionUtil
 import org.cryptomator.util.crypto.CredentialCryptor
@@ -65,9 +67,17 @@ class AuthenticateCloudPresenter @Inject constructor( //
 	private val getCloudsUseCase: GetCloudsUseCase, //
 	private val getUsernameUseCase: GetUsernameUseCase,  //
 	private val addExistingVaultWorkflow: AddExistingVaultWorkflow,  //
-	private val createNewVaultWorkflow: CreateNewVaultWorkflow,
-	private val connectToSmbUseCase: ConnectToSmbUseCase
+	private val createNewVaultWorkflow: CreateNewVaultWorkflow
 ) : Presenter<AuthenticateCloudView>(exceptionHandlers) {
+
+	@JvmField
+	@InstanceState
+	var localNetworkPermissionRequested = false
+
+	// survives the screen being recreated while the cloud settings are open
+	@JvmField
+	@InstanceState
+	var cloudSettingsOpened = false
 
 	private val strategies = arrayOf( //
 		DropboxAuthStrategy(),  //
@@ -75,8 +85,8 @@ class AuthenticateCloudPresenter @Inject constructor( //
 		MicrosoftGraphAuthStrategy(),  //
 		PCloudAuthStrategy(), //
 		WebDAVAuthStrategy(),  //
-		SmbAuthStrategy(), //
-		S3AuthStrategy(), //
+		AddOrChangeAuthStrategy(CloudTypeModel.S3) { Intents.s3AddOrChangeIntent().withS3Cloud(it as S3CloudModel) }, //
+		AddOrChangeAuthStrategy(CloudTypeModel.SMB) { Intents.smbAddOrChangeIntent().withSmbCloud(it as SmbCloudModel) }, //
 		LocalStorageAuthStrategy() //
 	)
 
@@ -88,7 +98,30 @@ class AuthenticateCloudPresenter @Inject constructor( //
 		val cloud = view?.intent()?.cloud()
 		val error = view?.intent()?.error()
 		handleNetworkConnectionExceptionIfRequired(error)
+		if (cloud != null && error != null && ExceptionUtil.contains(error, LocalNetworkPermissionMissingException::class.java)) {
+			requestLocalNetworkPermissionOnce(cloud)
+			return
+		}
 		view?.intent()?.let { cloud?.let { cloud -> authStrategyFor(cloud).resumed(it) } }
+	}
+
+	private fun requestLocalNetworkPermissionOnce(cloud: CloudModel) {
+		// resumed() runs again once the permission dialog is closed
+		if (!localNetworkPermissionRequested) {
+			localNetworkPermissionRequested = true
+			requestLocalNetworkPermission(PermissionsResultCallbacks.authenticateCloudLocalNetworkPermissionResult(cloud))
+		}
+	}
+
+	@Callback
+	fun authenticateCloudLocalNetworkPermissionResult(result: PermissionsResult, cloud: CloudModel) {
+		if (result.granted()) {
+			succeedAuthenticationWith(cloud.toCloud())
+		} else {
+			// the snackbar explaining it would close together with this screen
+			view?.showMessage(R.string.permission_snackbar_local_network)
+			finish()
+		}
 	}
 
 	private fun handleNetworkConnectionExceptionIfRequired(error: AuthenticationException?) {
@@ -125,7 +158,6 @@ class AuthenticateCloudPresenter @Inject constructor( //
 			CloudType.DROPBOX -> DropboxCloud.aCopyOf(cloud as DropboxCloud).withUsername(username).build()
 			CloudType.ONEDRIVE -> OnedriveCloud.aCopyOf(cloud as OnedriveCloud).withUsername(username).build()
 			CloudType.SHAREPOINT -> SharepointCloud.aCopyOf(cloud as SharepointCloud).withUsername(username).build()
-			CloudType.SMB -> SmbCloud.aCopyOf(cloud as SmbCloud).withUsername(username).build()
 			else -> throw IllegalStateException("Cloud " + cloud.type() + " is not supported")
 		}
 	}
@@ -221,7 +253,7 @@ class AuthenticateCloudPresenter @Inject constructor( //
 					ActivityResultCallbacks.onGoogleDriveAuthenticated(cloud),  //
 					GoogleAuthHelper.getChooseAccountIntent(context())
 				)
-			} catch (_: ActivityNotFoundException) {
+			} catch (e: ActivityNotFoundException) {
 				view?.showMessage(R.string.error_play_services_not_available)
 				finish()
 			}
@@ -327,7 +359,7 @@ class AuthenticateCloudPresenter @Inject constructor( //
 			val pCloudSkeleton = PCloud.aPCloud() //
 				.withAccessToken(accessToken)
 				.withUrl(hostname)
-				.build()
+				.build();
 			getUsernameUseCase //
 				.withCloud(pCloudSkeleton) //
 				.run(object : DefaultResultHandler<String>() {
@@ -404,41 +436,6 @@ class AuthenticateCloudPresenter @Inject constructor( //
 		}
 	}
 
-	private inner class SmbAuthStrategy : AuthStrategy {
-		private var authenticationStarted = false
-
-		override fun supports(cloud: CloudModel): Boolean {
-			return cloud.cloudType() == CloudTypeModel.SMB
-		}
-
-		override fun resumed(intent: AuthenticateCloudIntent) {
-			if (!authenticationStarted) {
-				startAuthentication(intent.cloud())
-			}
-		}
-
-		private fun startAuthentication(cloud: CloudModel) {
-			authenticationStarted = true
-			showProgress(ProgressModel(ProgressStateModel.AUTHENTICATION))
-			connectToSmbUseCase
-				.withCloud(cloud.toCloud() as SmbCloud)
-				.run(object : DefaultResultHandler<Void?>() {
-					override fun onSuccess(result: Void?) {
-						succeedAuthenticationWith(cloud.toCloud())
-					}
-
-					override fun onError(e: Throwable) {
-						if (ExceptionUtil.contains(e, WrongCredentialsException::class.java)) {
-							startIntent(Intents.smbAddOrChangeIntent().withSmbCloud(cloud as SmbCloudModel))
-						} else {
-							super.onError(e)
-							finish()
-						}
-					}
-				})
-		}
-	}
-
 	fun onAcceptWebDavCertificateClicked(cloud: WebDavCloud, certificate: X509Certificate) {
 		try {
 			val webDavCloudWithAcceptedCert = WebDavCloud.aCopyOf(cloud) //
@@ -459,18 +456,19 @@ class AuthenticateCloudPresenter @Inject constructor( //
 		finish()
 	}
 
-	private inner class S3AuthStrategy : AuthStrategy {
-
-		private var authenticationStarted = false
+	/**
+	 * Lets the user correct wrong credentials in the cloud's add or change screen (S3, SMB).
+	 */
+	private inner class AddOrChangeAuthStrategy(private val cloudType: CloudTypeModel, private val addOrChangeIntent: (CloudModel) -> IntentBuilder) : AuthStrategy {
 
 		override fun supports(cloud: CloudModel): Boolean {
-			return cloud.cloudType() == CloudTypeModel.S3
+			return cloud.cloudType() == cloudType
 		}
 
 		override fun resumed(intent: AuthenticateCloudIntent) {
 			when {
 				ExceptionUtil.contains(intent.error(), WrongCredentialsException::class.java) -> {
-					if (!authenticationStarted) {
+					if (!cloudSettingsOpened) {
 						startAuthentication(intent.cloud())
 						Toast.makeText(
 							context(),
@@ -487,8 +485,17 @@ class AuthenticateCloudPresenter @Inject constructor( //
 		}
 
 		private fun startAuthentication(cloud: CloudModel) {
-			authenticationStarted = true
-			startIntent(Intents.s3AddOrChangeIntent().withS3Cloud(cloud as S3CloudModel))
+			cloudSettingsOpened = true
+			requestActivityResult(ActivityResultCallbacks.onCloudSettingsChanged(cloud), addOrChangeIntent(cloud))
+		}
+	}
+
+	@Callback(dispatchResultOkOnly = false)
+	fun onCloudSettingsChanged(result: ActivityResult, cloud: CloudModel) {
+		if (result.isResultOk) {
+			succeedAuthenticationWith(result.intent().getSerializableExtra(CloudConnectionListPresenter.SELECTED_CLOUD) as Cloud)
+		} else {
+			failAuthentication(cloud.name())
 		}
 	}
 
@@ -583,6 +590,6 @@ class AuthenticateCloudPresenter @Inject constructor( //
 	}
 
 	init {
-		unsubscribeOnDestroy(addOrChangeCloudConnectionUseCase, getCloudsUseCase, getUsernameUseCase, connectToSmbUseCase)
+		unsubscribeOnDestroy(addOrChangeCloudConnectionUseCase, getCloudsUseCase, getUsernameUseCase)
 	}
 }

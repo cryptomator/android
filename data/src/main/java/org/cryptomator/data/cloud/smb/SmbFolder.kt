@@ -3,17 +3,12 @@ package org.cryptomator.data.cloud.smb
 import org.cryptomator.domain.Cloud
 import org.cryptomator.domain.CloudFolder
 
-/**
- * SMB Cloud folder implementation.
- * Skeleton for the first step of SMB support.
- */
-open class SmbFolder(
-	override val parent: SmbFolder?,
-	override val name: String,
-	override val cloud: Cloud
-) : SmbNode, CloudFolder {
+open class SmbFolder(override val parent: SmbFolder?, override val name: String, override val path: String) : CloudFolder, SmbNode {
 
-	override fun withCloud(cloud: Cloud?): CloudFolder? {
-		return cloud?.let { SmbFolder(parent, name, it) }
+	override val cloud: Cloud?
+		get() = parent?.cloud
+
+	override fun withCloud(cloud: Cloud?): SmbFolder? {
+		return SmbFolder(parent?.withCloud(cloud), name, path)
 	}
 }

@@ -3,6 +3,7 @@ package org.cryptomator.data.cloud.s3
 import android.content.Context
 import android.net.ConnectivityManager
 import org.cryptomator.data.cloud.okhttplogging.HttpLoggingInterceptor
+import org.cryptomator.data.util.LocalNetworkAccess
 import org.cryptomator.data.util.NetworkTimeout
 import org.cryptomator.domain.S3Cloud
 import org.cryptomator.util.SharedPreferencesHandler
@@ -31,6 +32,7 @@ class S3Client private constructor() {
 				.connectTimeout(NetworkTimeout.CONNECTION.timeout, NetworkTimeout.CONNECTION.unit) //
 				.readTimeout(NetworkTimeout.READ.timeout, NetworkTimeout.READ.unit) //
 				.writeTimeout(NetworkTimeout.WRITE.timeout, NetworkTimeout.WRITE.unit) //
+				.addInterceptor(LocalNetworkAccess(context)) //
 				.addInterceptor(httpLoggingInterceptor(context))
 
 			if (sharedPreferencesHandler.useLruCache()) {

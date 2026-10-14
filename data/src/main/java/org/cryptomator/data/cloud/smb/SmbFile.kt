@@ -4,16 +4,8 @@ import org.cryptomator.domain.Cloud
 import org.cryptomator.domain.CloudFile
 import java.util.Date
 
-class SmbFile(
-	override val parent: SmbFolder,
-	override val name: String,
-	override val cloud: Cloud,
-	override val size: Long? = null,
-	override val modified: Date? = null,
-) : SmbNode, CloudFile {
+class SmbFile(override val parent: SmbFolder, override val name: String, override val path: String, override val size: Long?, override val modified: Date?) : CloudFile, SmbNode {
 
-	companion object {
-		@Suppress("unused")
-		private const val serialVersionUID = 2772551525048123287L
-	}
+	override val cloud: Cloud?
+		get() = parent.cloud
 }

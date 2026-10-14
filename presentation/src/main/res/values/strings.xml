@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-	<string name="empty" translatable="false" />
+	<string name="empty" translatable="false"></string>
 
 	<!-- # app -->
 	<string name="app_name" translatable="false">Cryptomator</string>
@@ -35,6 +35,7 @@
 	<string name="error_hash_mismatch_update">Update check failed. Calculated hash doesn\'t match the uploaded file</string>
 	<string name="error_update_no_internet">Update check failed. No internet connection.</string>
 	<string name="error_failed_to_decrypt_webdav_password">Failed to decrypt WebDAV password, please re-add in settings</string>
+	<string name="error_failed_to_decrypt_smb_password">Failed to decrypt SMB password, please re-add in settings</string>
 	<string name="error_play_services_not_available">Google Play Services not installed</string>
 	<string name="error_biometric_auth_aborted">Biometric authentication aborted</string>
 	<string name="error_vault_version_mismatch">Version specified in %1$s is different to %2$s</string>
@@ -256,9 +257,6 @@
 	<string name="screen_webdav_settings_msg_url_is_invalid">URL is invalid.</string>
 	<string name="screen_webdav_settings_msg_username_must_not_be_empty">Username can\'t be empty.</string>
 	<string name="screen_webdav_settings_msg_password_must_not_be_empty">Password can\'t be empty.</string>
-	<string name="screen_smb_settings_url_hint">URL (e.g. smb://hostname/share/)</string>
-	<string name="screen_smb_settings_domain_label">Domain (optional)</string>
-	<string name="screen_smb_settings_msg_share_must_not_be_empty">Share name can\'t be empty.</string>
 
 	<!-- ## screen: s3 settings -->
 	<string name="screen_s3_settings_title" translatable="false">@string/cloud_names_s3</string>
@@ -275,6 +273,19 @@
 	<string name="screen_s3_settings_msg_secret_key_not_empty">Secret Key can\'t be empty</string>
 	<string name="screen_s3_settings_msg_bucket_not_empty">Bucket can\'t be empty</string>
 	<string name="screen_s3_settings_msg_endpoint_and_region_not_empty">Endpoint or Region can\'t be empty</string>
+
+	<!-- ## screen: smb settings -->
+	<string name="screen_smb_settings_title" translatable="false">@string/cloud_names_smb</string>
+	<string name="screen_smb_settings_url_label" translatable="false">@string/screen_webdav_settings_url_port_label</string>
+	<string name="screen_smb_settings_username_label" translatable="false">@string/screen_webdav_settings_username_label</string>
+	<string name="screen_smb_settings_password_label" translatable="false">@string/screen_webdav_settings_password_label</string>
+	<string name="screen_smb_settings_done_button_text" translatable="false">@string/screen_webdav_settings_done_button_text</string>
+	<string name="screen_smb_settings_msg_url_must_not_be_empty" translatable="false">@string/screen_webdav_settings_msg_url_must_not_be_empty</string>
+	<string name="screen_smb_settings_msg_username_must_not_be_empty" translatable="false">@string/screen_webdav_settings_msg_username_must_not_be_empty</string>
+	<string name="screen_smb_settings_msg_password_must_not_be_empty" translatable="false">@string/screen_webdav_settings_msg_password_must_not_be_empty</string>
+	<string name="screen_smb_settings_url_helper">smb://host/share or smb://host/share/folder</string>
+	<string name="screen_smb_settings_username_helper">For domain accounts, use DOMAIN\\username</string>
+	<string name="screen_smb_settings_msg_url_is_invalid">URL is invalid. It must contain the server and the share, e.g. smb://host/share.</string>
 
 	<!-- ## screen: enter vault name -->
 	<string name="screen_enter_vault_name_title" translatable="false">@string/screen_vault_list_action_create_new_vault</string>
@@ -370,9 +381,9 @@
 	<string name="screen_cloud_settings_onedrive_connections">OneDrive connections</string>
 	<string name="screen_cloud_settings_sharepoint_connections">SharePoint connections</string>
 	<string name="screen_cloud_settings_webdav_connections">WebDAV connections</string>
-	<string name="screen_cloud_settings_smb_connections">SMB connections</string>
 	<string name="screen_cloud_settings_pcloud_connections">pCloud connections</string>
 	<string name="screen_cloud_settings_s3_connections">S3 connections</string>
+	<string name="screen_cloud_settings_smb_connections">SMB connections</string>
 	<string name="screen_cloud_settings_local_storage_locations">Local storage locations</string>
 	<string name="screen_cloud_settings_log_in_to">Log in to</string>
 	<string name="screen_cloud_settings_sign_out_from_cloud">Sign out from</string>
@@ -399,11 +410,6 @@
 	<string name="screen_cryptomator_variants_website_description">Contains proprietary dependencies.</string>
 	<string name="screen_cryptomator_variants_website_install" translatable="false">@string/screen_cryptomator_variants_lite_install</string>
 	<string name="screen_cryptomator_variants_installation_hint">Switching from or to the main F-Droid repository variant requires a fresh setup of the app.</string>
-	<string name="screen_cryptomator_variants_lite_supported">WebDAV, SMB, S3, Local Storage</string>
-	<string name="screen_cryptomator_variants_lite_unsupported">Dropbox, Google Drive, OneDrive, pCloud</string>
-	<string name="screen_cryptomator_variants_fdroid_custom_supported">Dropbox, OneDrive, pCloud, WebDAV, SMB, S3, Local Storage</string>
-	<string name="screen_cryptomator_variants_fdroid_custom_unsupported">Google Drive</string>
-	<string name="screen_cryptomator_variants_website_supported">Dropbox, Google Drive, OneDrive, pCloud, WebDAV, SMB, S3, Local Storage</string>
 
 	<!-- # dialogs -->
 	<string name="dialog_button_cancel">Cancel</string>
@@ -661,6 +667,7 @@
 	<string name="permission_snackbar_auth_local_vault">Cryptomator needs storage access to use local vaults</string>
 	<string name="permission_snackbar_auth_auto_upload">Cryptomator needs storage access to use auto photo upload</string>
 	<string name="permission_snackbar_notifications">Cryptomator needs notification permissions to display vault status for example</string>
+	<string name="permission_snackbar_local_network">Cryptomator needs local network access to connect to servers in your local network</string>
 
 	<!-- # error reports -->
 	<string name="error_report_subject" translatable="false">Android Error Report</string>

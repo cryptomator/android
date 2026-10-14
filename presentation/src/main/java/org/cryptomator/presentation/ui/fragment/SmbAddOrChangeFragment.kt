@@ -12,10 +12,6 @@ import org.cryptomator.util.crypto.FatalCryptoException
 import javax.inject.Inject
 import timber.log.Timber
 
-/**
- * Fragment responsible for the UI to add or edit an SMB connection.
- * Handles user input for server URL, credentials, and domain.
- */
 @Fragment
 class SmbAddOrChangeFragment : BaseFragment<FragmentSetupSmbBinding>(FragmentSetupSmbBinding::inflate) {
 
@@ -29,57 +25,43 @@ class SmbAddOrChangeFragment : BaseFragment<FragmentSetupSmbBinding>(FragmentSet
 
 	override fun setupView() {
 		binding.createCloudButton.setOnClickListener { createCloud() }
-		binding.createCloudButton.setOnEditorActionListener { _, actionId, _ ->
+		binding.passwordEditText.setOnEditorActionListener { _, actionId, _ ->
 			if (actionId == EditorInfo.IME_ACTION_DONE) {
 				createCloud()
 			}
 			false
 		}
 
-		binding.urlPortEditText.text?.length?.let { binding.urlPortEditText.setSelection(it) }
 		showEditableCloudContent(smbCloudModel)
+		binding.urlEditText.text?.length?.let { binding.urlEditText.setSelection(it) }
 	}
 
-	/**
-	 * Populates the UI fields with existing data if we are editing an existing connection.
-	 */
 	private fun showEditableCloudContent(smbCloudModel: SmbCloudModel?) {
 		if (smbCloudModel != null) {
-			binding.urlPortEditText.setText(smbCloudModel.url())
+			binding.urlEditText.setText(smbCloudModel.url())
 			binding.userNameEditText.setText(smbCloudModel.username())
 			binding.passwordEditText.setText(getPassword(smbCloudModel.password()))
-			binding.domainEditText.setText(smbCloudModel.domain())
 			cloudId = smbCloudModel.id()
 		}
 	}
 
-	/**
-	 * Decrypts the stored password for display in the edit field.
-	 * If decryption fails, returns an empty string.
-	 */
-	private fun getPassword(password: String?): String {
-		return if (password != null) {
-			try {
-				CredentialCryptor //
-					.getInstance(activity?.applicationContext) //
-					.decrypt(password)
-			} catch (e: FatalCryptoException) {
-				Timber.tag("SmbAddOrChangeFragment").e(e, "Unable to decrypt password, clearing it")
-				""
-			}
-		} else ""
+	private fun getPassword(password: String): String {
+		return try {
+			CredentialCryptor //
+				.getInstance(activity?.applicationContext) //
+				.decrypt(password)
+		} catch (e: FatalCryptoException) {
+			Timber.tag("SmbAddOrChangeFragment").e(e, "Unable to decrypt password, clearing it")
+			""
+		}
 	}
 
-	/**
-	 * Collects user input and passes it to the presenter for validation and saving.
-	 */
 	private fun createCloud() {
-		val urlPort = binding.urlPortEditText.text.toString().trim()
+		val url = binding.urlEditText.text.toString()
 		val username = binding.userNameEditText.text.toString().trim()
 		val password = binding.passwordEditText.text.toString()
-		val domain = binding.domainEditText.text.toString().trim()
 
-		smbAddOrChangePresenter.checkUserInput(urlPort, username, password, domain, cloudId)
+		smbAddOrChangePresenter.checkUserInput(url, username, password, cloudId)
 	}
 
 	fun hideKeyboard() {

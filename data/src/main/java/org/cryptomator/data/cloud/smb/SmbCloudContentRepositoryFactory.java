@@ -13,17 +13,15 @@ import javax.inject.Singleton;
 
 import static org.cryptomator.domain.CloudType.SMB;
 
-/**
- * SMB Cloud content repository factory.
- * Skeleton for the first step of SMB support.
- */
 @Singleton
 public class SmbCloudContentRepositoryFactory implements CloudContentRepositoryFactory {
 
+	private final SmbConnectionPool connectionPool;
 	private final Context context;
 
 	@Inject
-	public SmbCloudContentRepositoryFactory(Context context) {
+	SmbCloudContentRepositoryFactory(SmbConnectionPool connectionPool, Context context) {
+		this.connectionPool = connectionPool;
 		this.context = context;
 	}
 
@@ -35,7 +33,9 @@ public class SmbCloudContentRepositoryFactory implements CloudContentRepositoryF
 	@Override
 	public CloudContentRepository<SmbCloud, SmbNode, SmbFolder, SmbFile> cloudContentRepositoryFor(Cloud cloud) {
 		SmbCloud smbCloud = (SmbCloud) cloud;
-		// Authentication check will be added when SMB implementation is ready
-		return new SmbCloudContentRepository(smbCloud, context);
+		if (smbCloud.username() == null || smbCloud.password() == null) {
+			throw new NoAuthenticationProvidedException(smbCloud);
+		}
+		return new SmbCloudContentRepository(smbCloud, connectionPool, context);
 	}
 }

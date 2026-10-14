@@ -141,7 +141,6 @@ class CloudConnectionListPresenter @Inject constructor( //
 			CloudTypeModel.WEBDAV -> requestActivityResult(ActivityResultCallbacks.addChangeMultiCloud(), Intents.webDavAddOrChangeIntent())
 			CloudTypeModel.PCLOUD -> requestActivityResult(ActivityResultCallbacks.pCloudAuthenticationFinished(), Intents.authenticatePCloudIntent())
 			CloudTypeModel.S3 -> requestActivityResult(ActivityResultCallbacks.addChangeMultiCloud(), Intents.s3AddOrChangeIntent())
-			// Launches the SMB setup/edit screen
 			CloudTypeModel.SMB -> requestActivityResult(ActivityResultCallbacks.addChangeMultiCloud(), Intents.smbAddOrChangeIntent())
 			CloudTypeModel.LOCAL -> openDocumentTree()
 			else -> throw IllegalStateException("Cloud type is not supported")
@@ -274,19 +273,18 @@ class CloudConnectionListPresenter @Inject constructor( //
 						.withWebDavCloud(cloudModel as WebDavCloudModel)
 				)
 			}
-			cloudModel.cloudType() == CloudTypeModel.SMB -> {
-				// Re-opens the SMB setup screen with existing configuration for editing
-				requestActivityResult(
-					ActivityResultCallbacks.addChangeMultiCloud(),  //
-					Intents.smbAddOrChangeIntent() //
-						.withSmbCloud(cloudModel as SmbCloudModel)
-				)
-			}
 			cloudModel.cloudType() == CloudTypeModel.S3 -> {
 				requestActivityResult(
 					ActivityResultCallbacks.addChangeMultiCloud(),  //
 					Intents.s3AddOrChangeIntent() //
 						.withS3Cloud(cloudModel as S3CloudModel)
+				)
+			}
+			cloudModel.cloudType() == CloudTypeModel.SMB -> {
+				requestActivityResult(
+					ActivityResultCallbacks.addChangeMultiCloud(),  //
+					Intents.smbAddOrChangeIntent() //
+						.withSmbCloud(cloudModel as SmbCloudModel)
 				)
 			}
 			else -> {
@@ -312,7 +310,7 @@ class CloudConnectionListPresenter @Inject constructor( //
 		if (!code.isNullOrEmpty() && !hostname.isNullOrEmpty()) {
 			Timber.tag("CloudConnectionListPresenter").i("PCloud OAuth code successfully retrieved")
 			val accessToken = CredentialCryptor.getInstance(this.context()).encrypt(code)
-			val pCloudSkeleton = PCloud.aPCloud().withAccessToken(accessToken).withUrl(hostname).build()
+			val pCloudSkeleton = PCloud.aPCloud().withAccessToken(accessToken).withUrl(hostname).build();
 			getUsernameUseCase //
 				.withCloud(pCloudSkeleton) //
 				.run(object : DefaultResultHandler<String>() {

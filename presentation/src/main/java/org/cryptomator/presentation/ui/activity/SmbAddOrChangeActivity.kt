@@ -12,8 +12,7 @@ import org.cryptomator.presentation.ui.fragment.SmbAddOrChangeFragment
 import javax.inject.Inject
 
 @Activity
-class SmbAddOrChangeActivity : BaseActivity<ActivityLayoutBinding>(ActivityLayoutBinding::inflate),
-	SmbAddOrChangeView {
+class SmbAddOrChangeActivity : BaseActivity<ActivityLayoutBinding>(ActivityLayoutBinding::inflate), SmbAddOrChangeView {
 
 	@Inject
 	lateinit var smbAddOrChangePresenter: SmbAddOrChangePresenter
@@ -22,15 +21,15 @@ class SmbAddOrChangeActivity : BaseActivity<ActivityLayoutBinding>(ActivityLayou
 	lateinit var smbAddOrChangeIntent: SmbAddOrChangeIntent
 
 	override fun setupView() {
-		binding.mtToolbar.toolbar.setTitle(R.string.cloud_names_smb)
+		binding.mtToolbar.toolbar.setTitle(R.string.screen_smb_settings_title)
 		setSupportActionBar(binding.mtToolbar.toolbar)
 	}
 
 	override fun createFragment(): Fragment = SmbAddOrChangeFragment.newInstance(smbAddOrChangeIntent.smbCloud())
 
-	override fun onCheckUserInputSucceeded(urlPort: String, username: String, password: String, domain: String, cloudId: Long?) {
+	override fun onCheckUserInputSucceeded(url: String, username: String, password: String, cloudId: Long?) {
 		smbAddOrChangeFragment().hideKeyboard()
-		smbAddOrChangePresenter.authenticate(username, password, urlPort, domain, cloudId)
+		smbAddOrChangePresenter.authenticate(url, username, password, cloudId)
 	}
 
 	private fun smbAddOrChangeFragment(): SmbAddOrChangeFragment = getCurrentFragment(R.id.fragment_container) as SmbAddOrChangeFragment

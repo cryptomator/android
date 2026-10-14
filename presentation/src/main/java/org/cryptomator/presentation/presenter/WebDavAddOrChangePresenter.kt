@@ -4,6 +4,7 @@ import android.widget.Toast
 import org.cryptomator.domain.Cloud
 import org.cryptomator.domain.WebDavCloud
 import org.cryptomator.domain.di.PerView
+import org.cryptomator.domain.exception.authentication.LocalNetworkPermissionMissingException
 import org.cryptomator.domain.usecases.cloud.AddOrChangeCloudConnectionUseCase
 import org.cryptomator.domain.usecases.cloud.ConnectToWebDavUseCase
 import org.cryptomator.generator.Callback
@@ -15,6 +16,8 @@ import org.cryptomator.presentation.model.ProgressStateModel
 import org.cryptomator.presentation.ui.activity.view.WebDavAddOrChangeView
 import org.cryptomator.presentation.workflow.ActivityResult
 import org.cryptomator.presentation.workflow.AuthenticationExceptionHandler
+import org.cryptomator.presentation.workflow.PermissionsResult
+import org.cryptomator.util.ExceptionUtil
 import org.cryptomator.util.crypto.CredentialCryptor
 import javax.inject.Inject
 import okhttp3.HttpUrl.Companion.toHttpUrlOrNull
@@ -97,11 +100,20 @@ class WebDavAddOrChangePresenter @Inject internal constructor( //
 
 				override fun onError(e: Throwable) {
 					view?.showProgress(ProgressModel.COMPLETED)
-					if (!authenticationExceptionHandler.handleAuthenticationException(this@WebDavAddOrChangePresenter, e, ActivityResultCallbacks.handledAuthenticationWebDavCloud())) {
+					if (ExceptionUtil.contains(e, LocalNetworkPermissionMissingException::class.java)) {
+						requestLocalNetworkPermission(PermissionsResultCallbacks.webDavLocalNetworkPermissionResult(cloud))
+					} else if (!authenticationExceptionHandler.handleAuthenticationException(this@WebDavAddOrChangePresenter, e, ActivityResultCallbacks.handledAuthenticationWebDavCloud())) {
 						super.onError(e)
 					}
 				}
 			})
+	}
+
+	@Callback
+	fun webDavLocalNetworkPermissionResult(result: PermissionsResult, cloud: WebDavCloud) {
+		if (result.granted()) {
+			authenticate(cloud)
+		}
 	}
 
 	@Callback

@@ -13,6 +13,7 @@ import org.cryptomator.presentation.model.OnedriveCloudModel
 import org.cryptomator.presentation.model.PCloudModel
 import org.cryptomator.presentation.model.S3CloudModel
 import org.cryptomator.presentation.model.SharepointCloudModel
+import org.cryptomator.presentation.model.SmbCloudModel
 import org.cryptomator.presentation.model.WebDavCloudModel
 import org.cryptomator.presentation.model.comparator.CloudModelComparator
 import org.cryptomator.presentation.ui.adapter.CloudConnectionListAdapter.CloudConnectionHolder
@@ -70,6 +71,9 @@ internal constructor(context: Context) : RecyclerViewBaseAdapter<CloudModel, Clo
 				is S3CloudModel -> {
 					bindS3loudModel(cloudModel)
 				}
+				is SmbCloudModel -> {
+					bindSmbCloudModel(cloudModel)
+				}
 				is LocalStorageModel -> {
 					bindLocalStorageCloudModel(cloudModel)
 				}
@@ -106,6 +110,12 @@ internal constructor(context: Context) : RecyclerViewBaseAdapter<CloudModel, Clo
 		private fun bindS3loudModel(cloudModel: S3CloudModel) {
 			binding.llCloudConnectionContent.cloudText.text = cloudModel.username()
 			binding.llCloudConnectionContent.cloudSubText.visibility = View.GONE
+		}
+
+		private fun bindSmbCloudModel(cloudModel: SmbCloudModel) {
+			val uri = Uri.parse(cloudModel.url())
+			binding.llCloudConnectionContent.cloudText.text = uri.authority
+			binding.llCloudConnectionContent.cloudSubText.text = String.format("%s • %s", cloudModel.username(), uri.path)
 		}
 
 		private fun bindLocalStorageCloudModel(cloudModel: LocalStorageModel) {

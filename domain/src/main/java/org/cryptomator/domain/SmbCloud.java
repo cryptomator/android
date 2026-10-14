@@ -2,30 +2,20 @@ package org.cryptomator.domain;
 
 import org.jetbrains.annotations.NotNull;
 
-import java.io.Serial;
 import java.util.Objects;
 
-/**
- * Represents an SMB (Server Message Block) cloud storage configuration.
- * Stores connection details like URL, credentials, and domain.
- */
 public class SmbCloud implements Cloud {
-
-	@Serial
-	private static final long serialVersionUID = 421064219462828478L;
 
 	private final Long id;
 	private final String url;
 	private final String username;
 	private final String password;
-	private final String domain;
 
 	private SmbCloud(Builder builder) {
 		this.id = builder.id;
 		this.url = builder.url;
 		this.username = builder.username;
 		this.password = builder.password;
-		this.domain = builder.domain;
 	}
 
 	public static Builder aSmbCloud() {
@@ -37,8 +27,7 @@ public class SmbCloud implements Cloud {
 				.withId(smbCloud.id()) //
 				.withUrl(smbCloud.url()) //
 				.withUsername(smbCloud.username()) //
-				.withPassword(smbCloud.password()) //
-				.withDomain(smbCloud.domain());
+				.withPassword(smbCloud.password());
 	}
 
 	@Override
@@ -48,11 +37,11 @@ public class SmbCloud implements Cloud {
 
 	@Override
 	public boolean configurationMatches(Cloud cloud) {
-		return cloud instanceof SmbCloud smbCloud && configurationMatches(smbCloud);
+		return cloud instanceof SmbCloud && configurationMatches((SmbCloud) cloud);
 	}
 
 	private boolean configurationMatches(SmbCloud cloud) {
-		return Objects.equals(url, cloud.url) && Objects.equals(username, cloud.username) && Objects.equals(domain, cloud.domain);
+		return Objects.equals(url, cloud.url) && Objects.equals(username, cloud.username);
 	}
 
 	@Override
@@ -68,12 +57,11 @@ public class SmbCloud implements Cloud {
 		return url;
 	}
 
+	/**
+	 * @return the username, prefixed with <code>DOMAIN\</code> for domain accounts
+	 */
 	public String username() {
 		return username;
-	}
-
-	public String domain() {
-		return domain;
 	}
 
 	@Override
@@ -114,7 +102,7 @@ public class SmbCloud implements Cloud {
 	}
 
 	private boolean internalEquals(SmbCloud obj) {
-		return Objects.equals(id, obj.id);
+		return id != null && id.equals(obj.id);
 	}
 
 	public static class Builder {
@@ -123,7 +111,6 @@ public class SmbCloud implements Cloud {
 		private String password;
 		private String url;
 		private String username;
-		private String domain;
 
 		private Builder() {
 		}
@@ -145,11 +132,6 @@ public class SmbCloud implements Cloud {
 
 		public Builder withUrl(String url) {
 			this.url = url;
-			return this;
-		}
-
-		public Builder withDomain(String domain) {
-			this.domain = domain;
 			return this;
 		}
 

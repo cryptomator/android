@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+	xmlns:app="http://schemas.android.com/apk/res-auto"
 	android:layout_width="match_parent"
 	android:layout_height="match_parent"
 	android:fillViewport="true">
@@ -12,13 +13,14 @@
 
 		<com.google.android.material.textfield.TextInputLayout
 			android:layout_width="match_parent"
-			android:layout_height="wrap_content">
+			android:layout_height="wrap_content"
+			app:helperText="@string/screen_smb_settings_url_helper">
 
 			<com.google.android.material.textfield.TextInputEditText
-				android:id="@+id/url_port_edit_text"
+				android:id="@+id/url_edit_text"
 				android:layout_width="match_parent"
 				android:layout_height="wrap_content"
-				android:hint="@string/screen_smb_settings_url_hint"
+				android:hint="@string/screen_smb_settings_url_label"
 				android:imeOptions="flagNoPersonalizedLearning"
 				android:inputType="textUri"
 				android:maxLines="1"
@@ -29,14 +31,16 @@
 
 		<com.google.android.material.textfield.TextInputLayout
 			android:layout_width="match_parent"
-			android:layout_height="wrap_content">
+			android:layout_height="wrap_content"
+			app:helperText="@string/screen_smb_settings_username_helper">
 
 			<com.google.android.material.textfield.TextInputEditText
 				android:id="@+id/user_name_edit_text"
 				android:layout_width="match_parent"
 				android:layout_height="wrap_content"
-				android:hint="@string/screen_webdav_settings_username_label"
+				android:hint="@string/screen_smb_settings_username_label"
 				android:imeOptions="flagNoPersonalizedLearning"
+				android:inputType="text"
 				android:maxLines="1"
 				android:singleLine="true" />
 
@@ -44,30 +48,16 @@
 
 		<com.google.android.material.textfield.TextInputLayout
 			android:layout_width="match_parent"
-			android:layout_height="wrap_content">
+			android:layout_height="wrap_content"
+			app:passwordToggleEnabled="true">
 
 			<com.google.android.material.textfield.TextInputEditText
 				android:id="@+id/password_edit_text"
 				android:layout_width="match_parent"
 				android:layout_height="wrap_content"
-				android:hint="@string/screen_webdav_settings_password_label"
-				android:imeOptions="flagNoPersonalizedLearning"
+				android:hint="@string/screen_smb_settings_password_label"
+				android:imeOptions="flagNoPersonalizedLearning|actionDone"
 				android:inputType="textPassword"
-				android:maxLines="1"
-				android:singleLine="true" />
-
-		</com.google.android.material.textfield.TextInputLayout>
-
-		<com.google.android.material.textfield.TextInputLayout
-			android:layout_width="match_parent"
-			android:layout_height="wrap_content">
-
-			<com.google.android.material.textfield.TextInputEditText
-				android:id="@+id/domain_edit_text"
-				android:layout_width="match_parent"
-				android:layout_height="wrap_content"
-				android:hint="@string/screen_smb_settings_domain_label"
-				android:imeOptions="flagNoPersonalizedLearning"
 				android:maxLines="1"
 				android:singleLine="true" />
 
@@ -78,7 +68,7 @@
 			android:layout_width="match_parent"
 			android:layout_height="wrap_content"
 			android:layout_marginTop="16dp"
-			android:text="@string/screen_webdav_settings_done_button_text"
+			android:text="@string/screen_smb_settings_done_button_text"
 			android:textStyle="bold" />
 
 	</LinearLayout>

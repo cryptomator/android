@@ -45,6 +45,7 @@ body:
         - WebDAV
         - pCloud
         - S3
+        - SMB
         - Local storage
     validations:
       required: false

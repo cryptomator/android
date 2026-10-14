@@ -4,10 +4,6 @@ import org.cryptomator.domain.Cloud
 import org.cryptomator.domain.SmbCloud
 import org.cryptomator.presentation.R
 
-/**
- * SMB Cloud model.
- * Currently just a skeleton for the first step of SMB support.
- */
 class SmbCloudModel(cloud: Cloud) : CloudModel(cloud) {
 
 	override fun name(): Int {
@@ -15,30 +11,26 @@ class SmbCloudModel(cloud: Cloud) : CloudModel(cloud) {
 	}
 
 	override fun username(): String? {
-		return smbCloud().username()
-	}
-
-	fun domain(): String? {
-		return smbCloud().domain()
+		return cloud().username()
 	}
 
 	override fun cloudType(): CloudTypeModel {
 		return CloudTypeModel.SMB
 	}
 
-	fun url(): String? {
-		return smbCloud().url()
+	fun url(): String {
+		return cloud().url()
 	}
 
-	fun password(): String? {
-		return smbCloud().password()
+	fun password(): String {
+		return cloud().password()
 	}
 
 	fun id(): Long? {
-		return smbCloud().id()
+		return cloud().id()
 	}
 
-	private fun smbCloud(): SmbCloud {
+	private fun cloud(): SmbCloud {
 		return toCloud() as SmbCloud
 	}
 }
