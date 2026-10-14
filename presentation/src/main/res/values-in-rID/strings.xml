@@ -461,6 +461,7 @@
 	<string name="screen_settings_license_mail">%1$s</string>
 	<string name="screen_settings_manage_subscription">Atur Langganan</string>
 	<string name="dialog_trial_expired_unlock">Buka Versi Lengkap</string>
+	<string name="dialog_license_lost_later">Nanti</string>
 	<string name="dialog_settings_update_check_interval_title">Jangka waktu pembaruan</string>
 	<string name="screen_settings_check_updates">Periksa untuk pembaruan</string>
 	<string name="screen_settings_last_check_updates">Terakhir dijalankan %1$s</string>
