@@ -261,6 +261,7 @@
 	<string name="screen_settings_clear_lru_cache_size">కాష్ తొలగించండి</string>
 	<string name="screen_settings_lru_cache_changed__restart_toast">తదుపరి యాప్ పునఃప్రారంభించినప్పుడు మార్పులు వర్తింపజేయబడతాయి</string>
 	<string name="screen_settings_license_mail">%1$s</string>
+	<string name="dialog_license_lost_later">తరువాత</string>
 	<string name="dialog_settings_update_check_interval_title">చెక్ విరామాన్ని నవీకరించండి</string>
 	<string name="screen_settings_check_updates">తాజాకరణలకోసం ప్రయత్నించండి</string>
 	<string name="screen_settings_last_check_updates">మునుపటి పని %1$s</string>
