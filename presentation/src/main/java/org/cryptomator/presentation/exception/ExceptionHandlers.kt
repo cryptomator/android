@@ -10,6 +10,7 @@ import org.cryptomator.domain.exception.IllegalFileNameException
 import org.cryptomator.domain.exception.NetworkConnectionException
 import org.cryptomator.domain.exception.NoSuchBucketException
 import org.cryptomator.domain.exception.NoSuchCloudFileException
+import org.cryptomator.domain.exception.UnableToDecryptSmbPasswordException
 import org.cryptomator.domain.exception.UnableToDecryptWebdavPasswordException
 import org.cryptomator.domain.exception.VaultAlreadyExistException
 import org.cryptomator.domain.exception.authentication.AuthenticationException
@@ -53,6 +54,7 @@ class ExceptionHandlers @Inject constructor(private val context: Context, defaul
 		staticHandler(NoSuchCloudFileException::class.java, R.string.error_no_such_file)
 		staticHandler(IllegalFileNameException::class.java, R.string.error_export_illegal_file_name)
 		staticHandler(UnableToDecryptWebdavPasswordException::class.java, R.string.error_failed_to_decrypt_webdav_password)
+		staticHandler(UnableToDecryptSmbPasswordException::class.java, R.string.error_failed_to_decrypt_smb_password)
 		staticHandler(DesktopSupporterCertificateException::class.java, R.string.dialog_enter_license_not_valid_content_desktop_supporter_certificate)
 		staticHandler(LicenseNotValidException::class.java, R.string.dialog_enter_license_not_valid_content)
 		staticHandler(NoLicenseAvailableException::class.java, R.string.dialog_enter_license_no_content)

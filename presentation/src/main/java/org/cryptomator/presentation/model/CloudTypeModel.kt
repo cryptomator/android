@@ -60,6 +60,13 @@ enum class CloudTypeModel(builder: Builder) {
 			.withVaultSelectedImageResource(R.drawable.s3_vault_selected) //
 			.withMultiInstances()
 	),  //
+	SMB(
+		Builder("SMB", R.string.cloud_names_smb) //
+			.withCloudImageResource(R.drawable.smb) //
+			.withVaultImageResource(R.drawable.smb_vault) //
+			.withVaultSelectedImageResource(R.drawable.smb_vault_selected) //
+			.withMultiInstances()
+	),  //
 	LOCAL(
 		Builder("LOCAL", R.string.cloud_names_local_storage) //
 			.withCloudImageResource(R.drawable.local_fs) //

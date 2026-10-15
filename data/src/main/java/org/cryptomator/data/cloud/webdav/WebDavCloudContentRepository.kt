@@ -3,6 +3,7 @@ package org.cryptomator.data.cloud.webdav
 import android.content.Context
 import org.cryptomator.data.cloud.InterceptingCloudContentRepository
 import org.cryptomator.data.cloud.webdav.network.ConnectionHandlerHandlerImpl
+import org.cryptomator.data.util.LocalNetworkAccessDeniedException
 import org.cryptomator.domain.WebDavCloud
 import org.cryptomator.domain.exception.BackendException
 import org.cryptomator.domain.exception.CloudNodeAlreadyExistsException
@@ -14,6 +15,7 @@ import org.cryptomator.domain.exception.NotFoundException
 import org.cryptomator.domain.exception.NotImplementedException
 import org.cryptomator.domain.exception.NotTrustableCertificateException
 import org.cryptomator.domain.exception.UnauthorizedException
+import org.cryptomator.domain.exception.authentication.LocalNetworkPermissionMissingException
 import org.cryptomator.domain.exception.authentication.WebDavCertificateUntrustedAuthenticationException
 import org.cryptomator.domain.exception.authentication.WebDavNotSupportedException
 import org.cryptomator.domain.exception.authentication.WebDavServerNotFoundException
@@ -38,12 +40,19 @@ internal class WebDavCloudContentRepository(private val cloud: WebDavCloud, conn
 
 	@Throws(BackendException::class)
 	override fun throwWrappedIfRequired(e: Exception) {
+		throwLocalNetworkPermissionMissingExceptionIfRequired(e)
 		throwNetworkConnectionExceptionIfRequired(e)
 		throwCertificateUntrustedExceptionIfRequired(e)
 		throwForbiddenExceptionIfRequired(e)
 		throwUnauthorizedExceptionIfRequired(e)
 		throwNotImplementedExceptionIfRequired(e)
 		throwServerNotFoundExceptionIfRequired(e)
+	}
+
+	private fun throwLocalNetworkPermissionMissingExceptionIfRequired(e: Exception) {
+		if (ExceptionUtil.contains(e, LocalNetworkAccessDeniedException::class.java)) {
+			throw LocalNetworkPermissionMissingException(cloud)
+		}
 	}
 
 	private fun throwServerNotFoundExceptionIfRequired(e: Exception) {

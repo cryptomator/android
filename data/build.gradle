@@ -171,6 +171,7 @@ dependencies {
 
 	addToFlavors(cloudFlavors, dependencies.pcloud)
 
+	implementation dependencies.smbj
 	implementation dependencies.stax
 	api dependencies.minIo
 
