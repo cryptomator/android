@@ -160,10 +160,10 @@ class SmbConnectionPool internal constructor(
 	class Config(val location: SmbLocation, val username: String, val encryptedPassword: String, val password: () -> String) {
 
 		internal val key: Key
-			get() = Key(location.host, location.port, location.share, username)
+			get() = Key(location.host, location.port, location.share, username, location.pathOf(""))
 	}
 
-	internal data class Key(val host: String, val port: Int, val share: String, val username: String)
+	internal data class Key(val host: String, val port: Int, val share: String, val username: String, val basePath: String)
 
 	private class Slot {
 
