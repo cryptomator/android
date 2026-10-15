@@ -272,6 +272,7 @@
 	<string name="screen_cloud_settings_sharepoint_connections">SharePoint 연결</string>
 	<string name="screen_cloud_settings_webdav_connections">WebDAV 연결</string>
 	<string name="screen_cloud_settings_pcloud_connections">pCloud 연결</string>
+	<string name="screen_cloud_settings_box_connections">Box 연결</string>
 	<string name="screen_cloud_settings_s3_connections">S3 연결</string>
 	<string name="screen_cloud_settings_local_storage_locations">로컬 저장소 위치</string>
 	<string name="screen_cloud_settings_log_in_to">로그인</string>
@@ -515,6 +516,9 @@
 	<string name="dialog_trial_expired_message">무료 체험판이 만료되었습니다. 읽기 전용 모드로 계속 사용하거나 정식 버전을 잠금 해제할 수 있습니다.</string>
 	<string name="dialog_trial_expired_unlock">정식 버전 구입</string>
 	<string name="dialog_trial_expired_continue_read_only">쓰기 전용 모드로 계속하기</string>
+	<string name="dialog_license_lost_title">라이선스 키 다시 입력</string>
+	<string name="dialog_license_lost_message">이전 업데이트로 인해 %1$s에 등록된 라이선스 키가 이 기기에서 제거되었습니다. 쓰기 권한을 복원하려면 라이선스 키를 다시 입력하세요. 다시 입력하기 전까지 보관함은 읽기 전용입니다.</string>
+	<string name="dialog_license_lost_reenter">라이선스 키 다시 입력</string>
 	<string name="dialog_license_lost_later">다음에 하기</string>
 	<string name="dialog_settings_update_check_interval_title">업데이트 확인 주기</string>
 	<string name="screen_settings_check_updates">업데이트 확인</string>
