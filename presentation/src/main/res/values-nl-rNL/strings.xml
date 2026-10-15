@@ -273,6 +273,7 @@
 	<string name="screen_cloud_settings_sharepoint_connections">SharePoint Verbindingen</string>
 	<string name="screen_cloud_settings_webdav_connections">WebDAV verbindingen</string>
 	<string name="screen_cloud_settings_pcloud_connections">pCloud verbindingen</string>
+	<string name="screen_cloud_settings_box_connections">Box verbindingen</string>
 	<string name="screen_cloud_settings_s3_connections">S3 verbindingen</string>
 	<string name="screen_cloud_settings_local_storage_locations">Lokale opslaglocaties</string>
 	<string name="screen_cloud_settings_log_in_to">Inloggen bij</string>
