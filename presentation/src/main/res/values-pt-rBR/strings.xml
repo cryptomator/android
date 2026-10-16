@@ -273,6 +273,7 @@
 	<string name="screen_cloud_settings_sharepoint_connections">Conexões com SharePoint</string>
 	<string name="screen_cloud_settings_webdav_connections">conexões da WebDAV</string>
 	<string name="screen_cloud_settings_pcloud_connections">conexões do pCloud</string>
+	<string name="screen_cloud_settings_box_connections">Conexões Box</string>
 	<string name="screen_cloud_settings_s3_connections">Conexões do S3</string>
 	<string name="screen_cloud_settings_local_storage_locations">Local de armazenamento</string>
 	<string name="screen_cloud_settings_log_in_to">Login em</string>
@@ -516,6 +517,9 @@
 	<string name="dialog_trial_expired_message">Seu período experimental terminou. Você pode continuar no modo somente leitura ou desbloquear a versão completa.</string>
 	<string name="dialog_trial_expired_unlock">Desbloqueie a versão completa</string>
 	<string name="dialog_trial_expired_continue_read_only">Continuar no modo somente leitura</string>
+	<string name="dialog_license_lost_title">Digite novamente a chave da licença</string>
+	<string name="dialog_license_lost_message">Uma atualização anterior removeu a chave de licença registrada para %1$s deste dispositivo. Digite novmente para restaurar o acesso de escrita. Até lá, seus cofres estão em somente leitura.</string>
+	<string name="dialog_license_lost_reenter">Digite novamente a chave da licença</string>
 	<string name="dialog_license_lost_later">Depois</string>
 	<string name="dialog_settings_update_check_interval_title">Intervalo de verificação de atualização</string>
 	<string name="screen_settings_check_updates">Verificar atualizações</string>
