@@ -1,6 +1,4 @@
-package org.cryptomator.presentation.docprovider
-
-import org.cryptomator.domain.Vault
+package org.cryptomator.domain
 
 class VaultPath(val vault: Vault, path: String?) {
 
@@ -45,8 +43,4 @@ fun normalizePath(path: String?): String {
 
 fun VaultPath(vault: Vault): VaultPath {
 	return VaultPath(vault, null)
-}
-
-internal fun vaultById(id: Long): Vault? {
-	return appComponent.vaultRepository().vaults().find { it.id == id }
 }

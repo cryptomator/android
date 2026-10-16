@@ -3,6 +3,7 @@ package org.cryptomator.presentation.docprovider
 import android.app.AuthenticationRequiredException
 import android.app.PendingIntent
 import android.content.ComponentName
+import android.content.ContentResolver
 import android.content.Context
 import android.content.pm.PackageManager
 import android.database.Cursor
@@ -17,9 +18,12 @@ import android.provider.DocumentsContract.*
 import android.provider.DocumentsProvider
 import androidx.room.InvalidationTracker
 import org.cryptomator.data.db.entities.DocumentMetadataEntity
+import org.cryptomator.data.documents.DocumentMetadataCache
 import org.cryptomator.domain.Vault
+import org.cryptomator.domain.VaultPath
 import org.cryptomator.domain.exception.BackendException
 import org.cryptomator.domain.exception.FatalBackendException
+import org.cryptomator.domain.repository.VaultDocumentListener
 import org.cryptomator.presentation.BuildConfig
 import org.cryptomator.presentation.R
 import org.cryptomator.presentation.intent.Intents
@@ -28,7 +32,6 @@ import org.cryptomator.presentation.model.VaultModel
 import org.cryptomator.presentation.presenter.ContextHolder
 import org.cryptomator.presentation.util.FileNameValidator
 import org.cryptomator.util.named
-import java.io.File
 import java.io.FileNotFoundException
 import timber.log.Timber
 
@@ -57,14 +60,12 @@ private val LOG = Timber.named("CryptomatorDocumentsProvider")
 
 class CryptomatorDocumentsProvider : DocumentsProvider() {
 
-	private val scheduler by lazy { CloudTaskScheduler() }
-	private val metadataCache by lazy { DocumentMetadataCache(appComponent.documentMetadataDao(), scheduler, ::notify) }
-	private val contentCache by lazy { DocumentContentCache(appComponent.cachedFileDao(), metadataCache, scheduler, File(context!!.noBackupFilesDir, DocumentContentCache.DIRECTORY_NAME)) }
+	private val metadataCache by lazy { appComponent.documentMetadataCache() }
+	private val contentCache by lazy { appComponent.documentContentCache() }
 	private val closeHandler by lazy { Handler(HandlerThread("DocumentsProviderClose").apply { start() }.looper) }
 
 	override fun onCreate(): Boolean {
 		LOG.v("onCreate")
-		instance = this
 		return true
 	}
 
@@ -150,14 +151,15 @@ class CryptomatorDocumentsProvider : DocumentsProvider() {
 
 	private fun queryChildDocumentsImpl(directoryDocumentId: String, projection: Array<String>): Cursor {
 		val directoryPath = unlockedPath(directoryDocumentId)
-		contentCache.resumeUploads(directoryPath.vault)
+		contentCache.resumeUploadsOnce(directoryPath.vault)
 		val children = metadataCache.children(directoryPath)
 		val cursor = MatrixCursor(projection, children.documents.size)
 		cursor.setNotificationUriForId(context!!.contentResolver, directoryDocumentId)
+		val error = children.error
 		if (children.isLoading) {
 			cursor.extras = Bundle().apply { putBoolean(EXTRA_LOADING, true) }
-		} else if (children.error != null) {
-			cursor.extras = errorExtras(children.error)
+		} else if (error != null) {
+			cursor.extras = errorExtras(error)
 		}
 
 		children.documents.forEach { metadata ->
@@ -316,7 +318,7 @@ class CryptomatorDocumentsProvider : DocumentsProvider() {
 				}
 				try {
 					val changed = truncate || localFile.length() != lengthBefore || localFile.lastModified() != lastModifiedBefore
-					contentCache.closedForWriting(localFile, e, changed) { metadataCache.path(documentId) }
+					contentCache.closedForWriting(localFile, e, changed) { metadataCache.path(documentId, includeHidden = true) }
 				} catch (e: Exception) {
 					LOG.e(e, "Saving $documentId failed")
 				}
@@ -333,14 +335,20 @@ class CryptomatorDocumentsProvider : DocumentsProvider() {
 		requireNotNull(mimeType)
 		requireNotNull(displayName)
 
-		return metadataCache.create(unlockedPath(parentDocumentId), FileNameValidator.sanitize(displayName), mimeType == Document.MIME_TYPE_DIR)
+		return metadataCache.create(unlockedPath(parentDocumentId), FileNameValidator.sanitize(displayName), mimeType == Document.MIME_TYPE_DIR).documentId
 	}
 
+	/**
+	 * A refresh is asked for by the user, so unlike a listing, which Files also makes after each failed upload, it retries
+	 * the uploads every time.
+	 */
 	override fun refresh(uri: Uri?, extras: Bundle?, cancellationSignal: CancellationSignal?): Boolean {
 		LOG.v("refresh($uri)")
 		requireNotNull(uri)
 
-		metadataCache.refresh(unlockedPath(getDocumentId(uri)))
+		val path = unlockedPath(getDocumentId(uri))
+		contentCache.resumeUploads(path.vault)
+		metadataCache.refresh(path)
 		return true
 	}
 
@@ -362,7 +370,7 @@ class CryptomatorDocumentsProvider : DocumentsProvider() {
 		val path = unlockedPath(documentId)
 		require(!path.isRoot)
 
-		metadataCache.delete(path).forEach(::revokeDocumentPermission)
+		contentCache.delete(path).descendantIds.forEach(::revokeDocumentPermission)
 	}
 
 	override fun moveDocument(sourceDocumentId: String?, sourceParentDocumentId: String?, targetParentDocumentId: String?): String {
@@ -408,37 +416,42 @@ class CryptomatorDocumentsProvider : DocumentsProvider() {
 		return null //The documentId stays the same
 	}
 
-	/**
-	 * Also notifies the roots if [path] is the root of a vault, whose [Root.FLAG_EMPTY] may have changed.
-	 */
-	fun notify(path: VaultPath) {
-		metadataCache.documentId(path)?.let { notify(it) }
-		if (path.isRoot) {
-			notifyRoots()
-		}
-	}
-
 	private fun notifyRoots() {
-		context?.contentResolver?.notifyChange(buildRootsUri(BuildConfig.DOCUMENTS_PROVIDER_AUTHORITY), null)
+		context?.contentResolver?.let { notifyRoots(it) }
 	}
 
-	fun notify(documentId: String) {
-		LOG.v("notify(${documentId})")
-		val uri = buildDocumentUri(BuildConfig.DOCUMENTS_PROVIDER_AUTHORITY, documentId)
-		context?.contentResolver?.notifyChange(uri, null) ?: LOG.v("Can't call notifyChange for $documentId")
+	/**
+	 * Tells Files about the changes to the cached vault documents, whether the provider or the app made them. It doesn't
+	 * need the provider instance, so it can be registered before the provider is created.
+	 */
+	class ChangeNotifier(private val contentResolver: ContentResolver, private val metadataCache: () -> DocumentMetadataCache) : VaultDocumentListener {
+
+		/**
+		 * Also notifies the roots if [folder] is the root of a vault, whose [Root.FLAG_EMPTY] may have changed.
+		 */
+		override fun onChanged(folder: VaultPath) {
+			metadataCache().documentId(folder)?.let { documentId ->
+				LOG.v("notify($documentId)")
+				contentResolver.notifyChange(buildDocumentUri(BuildConfig.DOCUMENTS_PROVIDER_AUTHORITY, documentId), null)
+			}
+			if (folder.isRoot) {
+				notifyRoots(contentResolver)
+			}
+		}
 	}
 
 	companion object {
 
-		@Volatile
-		private var instance: CryptomatorDocumentsProvider? = null
+		private fun notifyRoots(contentResolver: ContentResolver) {
+			contentResolver.notifyChange(buildRootsUri(BuildConfig.DOCUMENTS_PROVIDER_AUTHORITY), null)
+		}
 
 		/**
 		 * Deletes the decrypted copies that are too old or too many, and those of removed vaults.
 		 */
 		@JvmStatic
 		fun evictCopies() {
-			instance?.contentCache?.evict()
+			appComponent.documentContentCache().evict()
 		}
 
 		/**
@@ -447,7 +460,7 @@ class CryptomatorDocumentsProvider : DocumentsProvider() {
 		 */
 		fun setEnabled(context: Context, enabled: Boolean) {
 			if (!enabled) {
-				instance?.contentCache?.evictAll()
+				appComponent.documentContentCache().evictAll()
 			}
 			val component = ComponentName(context, CryptomatorDocumentsProvider::class.java)
 			val state = if (enabled) PackageManager.COMPONENT_ENABLED_STATE_DEFAULT else PackageManager.COMPONENT_ENABLED_STATE_DISABLED

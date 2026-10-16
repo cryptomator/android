@@ -2,6 +2,7 @@ package org.cryptomator.presentation.presenter;
 
 import android.app.Activity;
 
+import org.cryptomator.data.documents.DocumentContentCache;
 import org.cryptomator.data.util.NetworkConnectionCheck;
 import org.cryptomator.domain.Cloud;
 import org.cryptomator.domain.CloudType;
@@ -22,6 +23,8 @@ import org.cryptomator.domain.usecases.vault.RenameVaultUseCase;
 import org.cryptomator.domain.usecases.vault.SaveVaultUseCase;
 import org.cryptomator.domain.usecases.vault.SaveVaultsUseCase;
 import org.cryptomator.domain.usecases.vault.UnlockToken;
+import org.cryptomator.presentation.di.component.ApplicationComponent;
+import org.cryptomator.presentation.docprovider.HelpersKt;
 import org.cryptomator.presentation.exception.ExceptionHandlers;
 import org.cryptomator.presentation.licensing.LicenseEnforcer;
 import org.cryptomator.presentation.model.VaultModel;
@@ -36,6 +39,7 @@ import org.cryptomator.util.SharedPreferencesHandler;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.ArgumentCaptor;
+import org.mockito.MockedStatic;
 import org.mockito.Mockito;
 
 import java.util.Collections;
@@ -197,12 +201,19 @@ public class VaultListPresenterTest {
 		when(deleteVaultUseCase.withVault(AN_UNLOCKED_VAULT_MODEL.toVault())) //
 				.thenReturn(deleteVaultUseCaseLauncher);
 
+		DocumentContentCache contentCache = Mockito.mock(DocumentContentCache.class);
+		ApplicationComponent component = Mockito.mock(ApplicationComponent.class);
+		when(component.documentContentCache()).thenReturn(contentCache);
+
 		inTest.deleteVault(AN_UNLOCKED_VAULT_MODEL);
 
 		verify(deleteVaultUseCaseLauncher)//
 				.run(captor.capture());
-		captor.getValue().onSuccess(AN_UNLOCKED_VAULT_MODEL.getVaultId());
+		try (MockedStatic<HelpersKt> ignored = Mockito.mockStatic(HelpersKt.class, invocation -> component)) {
+			captor.getValue().onSuccess(AN_UNLOCKED_VAULT_MODEL.getVaultId());
+		}
 		verify(vaultListView).deleteVaultFromAdapter(AN_UNLOCKED_VAULT_MODEL.getVaultId());
+		verify(contentCache).evict();
 	}
 
 	@Test

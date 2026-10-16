@@ -1,10 +1,12 @@
 package org.cryptomator.data.repository;
 
+import org.cryptomator.data.documents.VaultDocumentRepositoryImpl;
 import org.cryptomator.domain.repository.CloudContentRepository;
 import org.cryptomator.domain.repository.CloudRepository;
 import org.cryptomator.domain.repository.HubRepository;
 import org.cryptomator.domain.repository.SharepointRepository;
 import org.cryptomator.domain.repository.UpdateCheckRepository;
+import org.cryptomator.domain.repository.VaultDocumentRepository;
 import org.cryptomator.domain.repository.VaultRepository;
 
 import javax.inject.Singleton;
@@ -31,6 +33,12 @@ public class RepositoryModule {
 	@Provides
 	public CloudContentRepository provideCloudContentRepository(DispatchingCloudContentRepository cloudContentRepository) {
 		return cloudContentRepository;
+	}
+
+	@Singleton
+	@Provides
+	public VaultDocumentRepository provideVaultDocumentRepository(VaultDocumentRepositoryImpl vaultDocumentRepository) {
+		return vaultDocumentRepository;
 	}
 
 	@Singleton

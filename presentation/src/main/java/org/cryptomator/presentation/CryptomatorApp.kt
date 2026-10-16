@@ -80,6 +80,7 @@ class CryptomatorApp : Application(), HasComponent<ApplicationComponent> {
 		Timber.tag("App").d("appId %s", BuildConfig.APPLICATION_ID)
 
 		initializeInjector()
+		applicationComponent.vaultDocumentEvents().addListener(CryptomatorDocumentsProvider.ChangeNotifier(contentResolver) { applicationComponent.documentMetadataCache() })
 		launchServices()
 		registerActivityLifecycleCallbacks(serviceNotifier)
 		if (FlavorConfig.isFreemiumFlavor) {
@@ -200,6 +201,7 @@ class CryptomatorApp : Application(), HasComponent<ApplicationComponent> {
 				autoUploadServiceBinder = service as AutoUploadService.Binder
 				autoUploadServiceBinder?.init( //
 					applicationComponent.cloudContentRepository(),  //
+					applicationComponent.vaultDocumentRepository(),  //
 					applicationComponent.fileUtil(),  //
 					applicationComponent.contentResolverUtil(),  //
 					_applicationContext

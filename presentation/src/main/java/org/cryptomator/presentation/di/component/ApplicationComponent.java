@@ -5,8 +5,10 @@ import android.content.Context;
 import org.cryptomator.data.cloud.crypto.CryptorsModule;
 import org.cryptomator.data.db.CryptomatorDatabase;
 import org.cryptomator.data.db.DatabaseModule;
-import org.cryptomator.data.db.dao.CachedFileDao;
-import org.cryptomator.data.db.dao.DocumentMetadataDao;
+import org.cryptomator.data.documents.DocumentContentCache;
+import org.cryptomator.data.documents.DocumentMetadataCache;
+import org.cryptomator.data.documents.DocumentsModule;
+import org.cryptomator.data.documents.VaultDocumentEvents;
 import org.cryptomator.data.repository.RepositoryModule;
 import org.cryptomator.data.util.NetworkConnectionCheck;
 import org.cryptomator.domain.executor.PostExecutionThread;
@@ -16,6 +18,7 @@ import org.cryptomator.domain.repository.CloudRepository;
 import org.cryptomator.domain.repository.HubRepository;
 import org.cryptomator.domain.repository.SharepointRepository;
 import org.cryptomator.domain.repository.UpdateCheckRepository;
+import org.cryptomator.domain.repository.VaultDocumentRepository;
 import org.cryptomator.domain.repository.VaultRepository;
 import org.cryptomator.presentation.di.module.ApplicationModule;
 import org.cryptomator.presentation.di.module.ThreadModule;
@@ -28,7 +31,7 @@ import javax.inject.Singleton;
 import dagger.Component;
 
 @Singleton
-@Component(modules = {ApplicationModule.class, ThreadModule.class, DatabaseModule.class, RepositoryModule.class, CryptorsModule.class})
+@Component(modules = {ApplicationModule.class, ThreadModule.class, DatabaseModule.class, RepositoryModule.class, CryptorsModule.class, DocumentsModule.class})
 public interface ApplicationComponent {
 
 	Context context();
@@ -51,9 +54,13 @@ public interface ApplicationComponent {
 
 	CryptomatorDatabase cryptomatorDatabase();
 
-	DocumentMetadataDao documentMetadataDao();
+	VaultDocumentRepository vaultDocumentRepository();
 
-	CachedFileDao cachedFileDao();
+	VaultDocumentEvents vaultDocumentEvents();
+
+	DocumentMetadataCache documentMetadataCache();
+
+	DocumentContentCache documentContentCache();
 
 	FileUtil fileUtil();
 

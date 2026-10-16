@@ -33,6 +33,7 @@ internal class Upgrade15To16 @Inject constructor() : DatabaseUpgrade(15, 16) {
 			.requiredText("STATUS") //
 			.optionalText("SOURCE_PATH") //
 			.requiredInt("UPLOAD_GENERATION") //
+			.optionalInt("PENDING_DELETE") //
 			.foreignKey("VAULT_ID", "VAULT_ENTITY", ForeignKeyBehaviour.ON_DELETE_CASCADE) //
 			.executeOn(db)
 
@@ -46,6 +47,12 @@ internal class Upgrade15To16 @Inject constructor() : DatabaseUpgrade(15, 16) {
 			.on("DOCUMENT_METADATA_ENTITY") //
 			.asc("VAULT_ID") //
 			.asc("PARENT_PATH") //
+			.executeOn(db)
+
+		Sql.createIndex("IDX_DOCUMENT_METADATA_ENTITY_VAULT_ID_PENDING_DELETE") //
+			.on("DOCUMENT_METADATA_ENTITY") //
+			.asc("VAULT_ID") //
+			.asc("PENDING_DELETE") //
 			.executeOn(db)
 	}
 

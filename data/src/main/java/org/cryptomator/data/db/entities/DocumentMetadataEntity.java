@@ -15,11 +15,15 @@ import androidx.room.PrimaryKey;
  * parent path.
  * <p>
  * A {@code STATUS} other than {@link #STATUS_SYNCED} marks a change that has been applied to the cache but not yet
- * to the cloud: a node being created, a file whose local copy has been written and still has to be uploaded, or a node
- * being deleted, which is hidden until the deletion is done.
+ * to the cloud: a node being created, or a file whose local copy has been written and still has to be uploaded.
  * <p>
- * Independently of that, a {@code SOURCE_PATH} marks a node that has been moved but is still at {@code SOURCE_PATH} in
- * the cloud.
+ * Independently of that, a {@code SOURCE_PATH} marks a node whose moves are pending and tells where they start in the
+ * cloud. It isn't updated when a folder above the node is moved, so no request takes its path from it. It serves to
+ * undo a rejected move, to keep listings from adding the node again where it was, and to recover after a restart.
+ * <p>
+ * A {@code PENDING_DELETE} marks a node being deleted. It holds the token of the deletion and hides the node and its
+ * descendants until the deletion is done. They keep their status, so that a rejected deletion brings them back as they
+ * were.
  * <p>
  * Each write of a file increments {@code UPLOAD_GENERATION}, so that only the upload of the latest write ends
  * {@link #STATUS_UPLOADING}.
@@ -37,13 +41,15 @@ import androidx.room.PrimaryKey;
 						unique = true), //
 				@Index( //
 						name = "IDX_DOCUMENT_METADATA_ENTITY_VAULT_ID_PARENT_PATH", //
-						value = {"VAULT_ID", "PARENT_PATH"})})
+						value = {"VAULT_ID", "PARENT_PATH"}), //
+				@Index( //
+						name = "IDX_DOCUMENT_METADATA_ENTITY_VAULT_ID_PENDING_DELETE", //
+						value = {"VAULT_ID", "PENDING_DELETE"})})
 public class DocumentMetadataEntity {
 
 	public static final String STATUS_SYNCED = "SYNCED";
 	public static final String STATUS_CREATING = "CREATING";
 	public static final String STATUS_UPLOADING = "UPLOADING";
-	public static final String STATUS_DELETING = "DELETING";
 
 	/**
 	 * Identifies the node in its documentId. Unlike {@code PATH} it is kept when the node is renamed or moved.
@@ -88,6 +94,9 @@ public class DocumentMetadataEntity {
 
 	@ColumnInfo(name = "UPLOAD_GENERATION")
 	private long uploadGeneration;
+
+	@ColumnInfo(name = "PENDING_DELETE")
+	private Long pendingDelete;
 
 	public Long getId() {
 		return id;
@@ -185,8 +194,12 @@ public class DocumentMetadataEntity {
 		return STATUS_UPLOADING.equals(status);
 	}
 
-	public boolean isDeleting() {
-		return STATUS_DELETING.equals(status);
+	/**
+	 * Whether this is a file waiting for its first upload, e.g. because the upload failed. Relies on the cloud reporting
+	 * a modification date for every file it holds.
+	 */
+	public boolean isNeverInCloud() {
+		return isUploading() && lastModified == null;
 	}
 
 	public String getSourcePath() {
@@ -198,7 +211,7 @@ public class DocumentMetadataEntity {
 	}
 
 	public boolean hasPendingChange() {
-		return !STATUS_SYNCED.equals(status) || sourcePath != null;
+		return !STATUS_SYNCED.equals(status) || sourcePath != null || pendingDelete != null;
 	}
 
 	public long getUploadGeneration() {
@@ -207,5 +220,13 @@ public class DocumentMetadataEntity {
 
 	public void setUploadGeneration(long uploadGeneration) {
 		this.uploadGeneration = uploadGeneration;
+	}
+
+	public Long getPendingDelete() {
+		return pendingDelete;
+	}
+
+	public void setPendingDelete(Long pendingDelete) {
+		this.pendingDelete = pendingDelete;
 	}
 }

@@ -96,6 +96,23 @@ class CryptomatorDatabaseMigrationTest {
 	}
 
 	@Test
+	fun theDocumentsProviderCacheRecordsPendingDeletions() {
+		createGreenDaoDatabase(15) { db ->
+			LegacyDatabaseV1.createOn(db)
+			addWebDavVaultTo(db, accessToken = CredentialCryptor.getInstance(context, CryptoMode.CBC).encrypt("accessToken"))
+			upgrades().filter { it.endVersion <= 15 }.forEach { it.migrate(db) }
+		}
+
+		database = openWithRoom()
+		val dao = database.documentMetadataDao()
+		dao.insert(documentMetadata("x.txt"))
+		dao.markPendingDelete(25, "x.txt", 5)
+
+		Assert.assertThat(dao.load(25, "x.txt")?.pendingDelete, CoreMatchers.`is`(5L))
+		Assert.assertThat(dao.loadVisible(25, "x.txt"), CoreMatchers.nullValue())
+	}
+
+	@Test
 	fun theDocumentsProviderCacheNeverReusesTheIdOfADeletedEntry() {
 		createGreenDaoDatabase(15) { db ->
 			LegacyDatabaseV1.createOn(db)

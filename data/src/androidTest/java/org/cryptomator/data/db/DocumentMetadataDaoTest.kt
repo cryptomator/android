@@ -118,12 +118,82 @@ class DocumentMetadataDaoTest {
 	fun renamingAPendingNodeKeepsItsIdAndPendingChange() {
 		val id = dao.insert(file("new.txt").apply { status = DocumentMetadataEntity.STATUS_CREATING })
 
-		dao.renamePending(VAULT_ID, "new.txt", "new (1A2B3).txt", "new (1A2B3).txt", "text/plain")
+		dao.renamePending(VAULT_ID, "new.txt", "new (1A2B3).txt", "new (1A2B3).txt", "text/plain", null)
 
 		Assert.assertThat(dao.load(VAULT_ID, "new.txt"), CoreMatchers.nullValue())
 		Assert.assertThat(dao.loadById(id)?.path, CoreMatchers.`is`("new (1A2B3).txt"))
 		Assert.assertThat(dao.loadById(id)?.name, CoreMatchers.`is`("new (1A2B3).txt"))
 		Assert.assertThat(dao.loadById(id)?.status, CoreMatchers.`is`(DocumentMetadataEntity.STATUS_CREATING))
+	}
+
+	@Test
+	fun aNodeRenamedOnlyInTheCacheRecordsWhereItIsInTheCloud() {
+		dao.storeChildren(folder("", 1000), listOf(file("x.txt")))
+		val id = dao.load(VAULT_ID, "x.txt")!!.id!!
+
+		dao.renamePending(VAULT_ID, "x.txt", "x (1A2B3).txt", "x (1A2B3).txt", "text/plain", "x.txt")
+
+		Assert.assertThat(dao.loadById(id)?.path, CoreMatchers.`is`("x (1A2B3).txt"))
+		Assert.assertThat(dao.loadById(id)?.sourcePath, CoreMatchers.`is`("x.txt"))
+	}
+
+	@Test
+	fun aMovingNodeRenamedOnlyInTheCacheKeepsWhereItIsInTheCloud() {
+		dao.storeChildren(folder("", 1000), listOf(file("a.txt")))
+		dao.move(VAULT_ID, "a.txt", "b.txt", "", "b.txt", "text/plain")
+		val id = dao.load(VAULT_ID, "b.txt")!!.id!!
+
+		dao.renamePending(VAULT_ID, "b.txt", "b (1A2B3).txt", "b (1A2B3).txt", "text/plain", "b.txt")
+
+		Assert.assertThat(dao.loadById(id)?.path, CoreMatchers.`is`("b (1A2B3).txt"))
+		Assert.assertThat(dao.loadById(id)?.sourcePath, CoreMatchers.`is`("a.txt"))
+	}
+
+	@Test
+	fun movingAFolderMarksOnlyTheFolderAsMovingAndKeepsTheMovesOfItsNodes() {
+		dao.storeChildren(folder("", 1000), listOf(folder("a"), file("c.txt")))
+		dao.storeChildren(folder("a", 1000), listOf(file("a/x.txt")))
+		dao.move(VAULT_ID, "c.txt", "a/c.txt", "a", "c.txt", "text/plain")
+
+		dao.move(VAULT_ID, "a", "b", "", "b", Document.MIME_TYPE_DIR)
+
+		Assert.assertThat(dao.load(VAULT_ID, "b")?.sourcePath, CoreMatchers.`is`("a"))
+		Assert.assertThat(dao.load(VAULT_ID, "b/x.txt")?.sourcePath, CoreMatchers.nullValue())
+		Assert.assertThat(dao.load(VAULT_ID, "b/c.txt")?.sourcePath, CoreMatchers.`is`("c.txt"))
+	}
+
+	@Test
+	fun undoingAMoveLeavesTheNodeWhereItIsIfItsFolderIsNoLongerInTheCache() {
+		dao.storeChildren(folder("", 1000), listOf(folder("f")))
+		dao.storeChildren(folder("f", 1000), listOf(file("f/a.txt")))
+		dao.move(VAULT_ID, "f", "g", "", "g", Document.MIME_TYPE_DIR)
+		dao.move(VAULT_ID, "g/a.txt", "g/b.txt", "g", "b.txt", "text/plain")
+		val fileId = dao.load(VAULT_ID, "g/b.txt")!!.id!!
+		dao.revertMove(dao.load(VAULT_ID, "g")!!.id!!, Document.MIME_TYPE_DIR)
+
+		dao.revertMove(fileId, "text/plain")
+
+		Assert.assertThat(dao.loadById(fileId)?.path, CoreMatchers.`is`("f/b.txt"))
+		Assert.assertThat(dao.loadById(fileId)?.sourcePath, CoreMatchers.nullValue())
+	}
+
+	@Test
+	fun aListingDoesNotAddANodeWhoseMoveIsPendingUnderTheNameItHasInTheCloud() {
+		dao.storeChildren(folder("", 1000), listOf(folder("n"), folder("p")))
+		dao.storeChildren(folder("n", 1000), listOf(file("n/x3.txt")))
+		dao.move(VAULT_ID, "n/x3.txt", "n/x4.txt", "n", "x4.txt", "text/plain")
+		dao.move(VAULT_ID, "n", "o", "", "o", Document.MIME_TYPE_DIR)
+		dao.move(VAULT_ID, "o/x4.txt", "o/x5.txt", "o", "x5.txt", "text/plain")
+		val id = dao.load(VAULT_ID, "o/x5.txt")!!.id!!
+		// the first move is done, the folder's move as well, the last one not yet
+		dao.setSourcePath(id, "n/x4.txt")
+		dao.clearSourcePath(dao.load(VAULT_ID, "o")!!.id!!)
+
+		dao.storeChildren(folder("o", 2000), listOf(file("o/x4.txt"), file("o/new.txt"), file("o/4.txt")))
+		dao.storeChildren(folder("p", 2000), listOf(file("p/x4.txt")))
+
+		Assert.assertThat(paths(dao.loadChildren(VAULT_ID, "o")), CoreMatchers.`is`(setOf("o/x5.txt", "o/new.txt", "o/4.txt")))
+		Assert.assertThat(paths(dao.loadChildren(VAULT_ID, "p")), CoreMatchers.`is`(setOf("p/x4.txt")))
 	}
 
 	@Test
@@ -163,41 +233,40 @@ class DocumentMetadataDaoTest {
 		dao.storeChildren(folder("", 1000), listOf(file("moved.txt"), file("deleted.txt")))
 		dao.insert(folder("created").apply { status = DocumentMetadataEntity.STATUS_CREATING })
 		dao.move(VAULT_ID, "moved.txt", "renamed.txt", "", "renamed.txt", "text/plain")
-		dao.markDeletingWithDescendants(VAULT_ID, "deleted.txt")
+		dao.markPendingDelete(VAULT_ID, "deleted.txt", 1)
 
 		dao.storeChildren(folder("", 2000), listOf(file("moved.txt"), file("deleted.txt").apply { size = 7 }))
 
 		Assert.assertThat(paths(dao.loadChildren(VAULT_ID, "")), CoreMatchers.`is`(setOf("created", "renamed.txt")))
 		Assert.assertThat(dao.load(VAULT_ID, "moved.txt"), CoreMatchers.nullValue())
-		Assert.assertThat(dao.load(VAULT_ID, "deleted.txt")?.isDeleting, CoreMatchers.`is`(true))
+		Assert.assertThat(dao.load(VAULT_ID, "deleted.txt")?.pendingDelete, CoreMatchers.`is`(1L))
 		Assert.assertThat(dao.load(VAULT_ID, "deleted.txt")?.size, CoreMatchers.`is`(42L))
 	}
 
 	@Test
-	fun markingMovedEndsAPendingMove() {
+	fun clearingTheSourcePathEndsAPendingMove() {
 		dao.storeChildren(folder("", 1000), listOf(file("a.txt")))
 		dao.move(VAULT_ID, "a.txt", "b.txt", "", "b.txt", "text/plain")
 		val id = dao.load(VAULT_ID, "b.txt")!!.id!!
 
-		dao.markMoved(id, "b.txt")
+		dao.clearSourcePath(id)
 
 		Assert.assertThat(dao.load(VAULT_ID, "b.txt")?.hasPendingChange(), CoreMatchers.`is`(false))
 		Assert.assertThat(dao.loadInterruptedChanges(), CoreMatchers.`is`(emptyList()))
 	}
 
 	@Test
-	fun aNodeMovedAgainStaysPendingUntilTheLastMoveIsDone() {
+	fun aNodeMovedAgainKeepsMovingAwayFromWhereItsFirstMoveGotIt() {
 		dao.storeChildren(folder("", 1000), listOf(file("a.txt")))
 		dao.move(VAULT_ID, "a.txt", "b.txt", "", "b.txt", "text/plain")
 		dao.move(VAULT_ID, "b.txt", "c.txt", "", "c.txt", "text/plain")
 		val id = dao.load(VAULT_ID, "c.txt")!!.id!!
 		Assert.assertThat(dao.loadById(id)?.sourcePath, CoreMatchers.`is`("a.txt"))
 
-		dao.markMoved(id, "b.txt")
-		Assert.assertThat(dao.loadById(id)?.sourcePath, CoreMatchers.`is`("b.txt"))
+		dao.setSourcePath(id, "b.txt")
 
-		dao.markMoved(id, "c.txt")
-		Assert.assertThat(dao.loadById(id)?.sourcePath, CoreMatchers.nullValue())
+		Assert.assertThat(dao.loadById(id)?.sourcePath, CoreMatchers.`is`("b.txt"))
+		Assert.assertThat(dao.loadById(id)?.hasPendingChange(), CoreMatchers.`is`(true))
 	}
 
 	@Test
@@ -233,11 +302,12 @@ class DocumentMetadataDaoTest {
 		dao.storeChildren(folder("", 1000), listOf(file("a.txt")))
 		dao.markUploading(VAULT_ID, "a.txt")
 		val metadata = dao.load(VAULT_ID, "a.txt")!!
-		dao.markDeletingWithDescendants(VAULT_ID, "a.txt")
+		dao.markPendingDelete(VAULT_ID, "a.txt", 1)
 
 		dao.markUploaded(metadata.id!!, 7, 5000, metadata.uploadGeneration)
 
-		Assert.assertThat(dao.load(VAULT_ID, "a.txt")?.isDeleting, CoreMatchers.`is`(true))
+		Assert.assertThat(dao.loadVisible(VAULT_ID, "a.txt"), CoreMatchers.nullValue())
+		Assert.assertThat(dao.load(VAULT_ID, "a.txt")?.pendingDelete, CoreMatchers.`is`(1L))
 	}
 
 	@Test
@@ -321,7 +391,7 @@ class DocumentMetadataDaoTest {
 		dao.storeChildren(folder("", 1000), listOf(file("a.txt")))
 		Assert.assertThat(dao.hasChildren(VAULT_ID, ""), CoreMatchers.`is`(true))
 
-		dao.markDeletingWithDescendants(VAULT_ID, "a.txt")
+		dao.markPendingDelete(VAULT_ID, "a.txt", 1)
 
 		Assert.assertThat(dao.hasChildren(VAULT_ID, ""), CoreMatchers.`is`(false))
 	}
@@ -392,7 +462,7 @@ class DocumentMetadataDaoTest {
 	fun aListingOfAFolderThatHasBeenMovedOrDeletedMeanwhileIsDropped() {
 		dao.storeChildren(folder("", 1000), listOf(folder("a"), folder("d")))
 		dao.move(VAULT_ID, "a", "c", "", "c", Document.MIME_TYPE_DIR)
-		dao.markDeletingWithDescendants(VAULT_ID, "d")
+		dao.markPendingDelete(VAULT_ID, "d", 1)
 
 		dao.storeChildren(folder("a", 2000), listOf(file("a/x.txt")))
 		dao.storeChildren(folder("d", 2000), listOf(file("d/y.txt")))
@@ -431,15 +501,84 @@ class DocumentMetadataDaoTest {
 	}
 
 	@Test
-	fun markingAFolderDeletingHidesItAndDropsItsDescendants() {
+	fun aFolderBeingDeletedIsHiddenWithItsSubtreeAndComesBackWithoutAListingIfTheDeletionFails() {
+		dao.storeChildren(folder("", 1000), listOf(folder("a"), folder("ab")))
+		dao.storeChildren(folder("a", 1000), listOf(file("a/x.txt"), file("a/y.txt")))
+		dao.markUploading(VAULT_ID, "a/x.txt")
+		val folderId = dao.load(VAULT_ID, "a")!!.id!!
+
+		dao.markPendingDelete(VAULT_ID, "a", 1)
+
+		Assert.assertThat(paths(dao.loadChildren(VAULT_ID, "")), CoreMatchers.`is`(setOf("ab")))
+		Assert.assertThat(dao.loadChildren(VAULT_ID, "a"), CoreMatchers.`is`(emptyList()))
+		Assert.assertThat(dao.loadPendingUploads(VAULT_ID), CoreMatchers.`is`(emptyList()))
+		Assert.assertThat(dao.loadVisible(VAULT_ID, "a/x.txt"), CoreMatchers.nullValue())
+		Assert.assertThat(dao.loadVisibleById(folderId), CoreMatchers.nullValue())
+		Assert.assertThat(dao.loadVisible(VAULT_ID, "ab"), CoreMatchers.notNullValue())
+		Assert.assertThat(dao.load(VAULT_ID, "a/x.txt")?.isUploading, CoreMatchers.`is`(true))
+
+		dao.clearPendingDelete(folderId, 2)
+		Assert.assertThat(dao.loadVisible(VAULT_ID, "a"), CoreMatchers.nullValue())
+
+		dao.clearPendingDelete(folderId, 1)
+		Assert.assertThat(paths(dao.loadChildren(VAULT_ID, "a")), CoreMatchers.`is`(setOf("a/x.txt", "a/y.txt")))
+		Assert.assertThat(paths(dao.loadPendingUploads(VAULT_ID)), CoreMatchers.`is`(setOf("a/x.txt")))
+		Assert.assertThat(dao.load(VAULT_ID, "")?.lastEnumeratedAt, CoreMatchers.`is`(1000L))
+	}
+
+	@Test
+	fun listingsNeitherDropNorReplaceASubtreeBeingDeleted() {
+		dao.storeChildren(folder("", 1000), listOf(folder("a"), folder("b")))
+		dao.storeChildren(folder("a", 1000), listOf(file("a/x.txt")))
+		dao.storeChildren(folder("b", 1000), listOf(file("b/y.txt")))
+		dao.markPendingDelete(VAULT_ID, "a", 1)
+		dao.markPendingDelete(VAULT_ID, "b/y.txt", 2)
+
+		dao.storeChildren(folder("", 2000), listOf(folder("b")))
+		dao.storeChildren(folder("a", 2000), listOf())
+		dao.store(file("b"))
+
+		Assert.assertThat(dao.load(VAULT_ID, "a")?.pendingDelete, CoreMatchers.`is`(1L))
+		Assert.assertThat(dao.load(VAULT_ID, "a/x.txt"), CoreMatchers.notNullValue())
+		Assert.assertThat(dao.load(VAULT_ID, "b")?.isFolder, CoreMatchers.`is`(true))
+		Assert.assertThat(dao.load(VAULT_ID, "b/y.txt")?.pendingDelete, CoreMatchers.`is`(2L))
+	}
+
+	@Test
+	fun deletionsInterruptedByTheEndOfTheProcessAreUndoneAndTheirFoldersListedAgain() {
 		dao.storeChildren(folder("", 1000), listOf(folder("a")))
 		dao.storeChildren(folder("a", 1000), listOf(file("a/x.txt")))
+		dao.markPendingDelete(VAULT_ID, "a/x.txt", 1)
 
-		dao.markDeletingWithDescendants(VAULT_ID, "a")
+		dao.recoverPendingDeletes()
 
-		Assert.assertThat(dao.loadChildren(VAULT_ID, ""), CoreMatchers.`is`(emptyList()))
-		Assert.assertThat(dao.load(VAULT_ID, "a/x.txt"), CoreMatchers.nullValue())
-		Assert.assertThat(dao.load(VAULT_ID, "a")?.isDeleting, CoreMatchers.`is`(true))
+		Assert.assertThat(dao.loadVisible(VAULT_ID, "a/x.txt"), CoreMatchers.notNullValue())
+		Assert.assertThat(dao.loadPendingDeletes(), CoreMatchers.`is`(emptyList()))
+		Assert.assertThat(dao.load(VAULT_ID, "a")?.lastEnumeratedAt, CoreMatchers.nullValue())
+	}
+
+	@Test
+	fun copiesBelowANodeBeingDeletedAreNeverEvicted() {
+		dao.storeChildren(folder("", 1000), listOf(folder("a"), file("other.txt")))
+		dao.storeChildren(folder("a", 1000), listOf(file("a/synced.txt"), file("a/pending.txt")))
+		dao.markUploading(VAULT_ID, "a/pending.txt")
+		cachedFileDao.store(cachedFile("a/synced.txt", "local-synced"))
+		cachedFileDao.store(cachedFile("a/pending.txt", "local-pending"))
+		cachedFileDao.store(cachedFile("other.txt", "local-other"))
+
+		dao.markPendingDelete(VAULT_ID, "a", 1)
+
+		Assert.assertThat(cachedFileDao.loadEvictable().map { it.localName }, CoreMatchers.`is`(listOf("local-other")))
+	}
+
+	@Test
+	fun pendingUploadsWithoutALocalCopyAreFound() {
+		dao.storeChildren(folder("", 1000), listOf(file("with-copy.txt"), file("without-copy.txt")))
+		dao.markUploading(VAULT_ID, "with-copy.txt")
+		dao.markUploading(VAULT_ID, "without-copy.txt")
+		cachedFileDao.store(cachedFile("with-copy.txt", "local"))
+
+		Assert.assertThat(paths(dao.loadUploadsWithoutLocalCopy()), CoreMatchers.`is`(setOf("without-copy.txt")))
 	}
 
 	@Test

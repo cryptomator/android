@@ -1,7 +1,8 @@
-package org.cryptomator.presentation.docprovider
+package org.cryptomator.data.documents
 
 import org.cryptomator.domain.CloudType
 import org.cryptomator.domain.Vault
+import org.cryptomator.domain.VaultPath
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Assertions.assertFalse
 import org.junit.jupiter.api.Assertions.assertTrue

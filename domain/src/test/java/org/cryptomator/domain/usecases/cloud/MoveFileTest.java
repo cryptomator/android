@@ -4,6 +4,7 @@ import org.cryptomator.domain.CloudFile;
 import org.cryptomator.domain.CloudFolder;
 import org.cryptomator.domain.exception.BackendException;
 import org.cryptomator.domain.repository.CloudContentRepository;
+import org.cryptomator.domain.repository.VaultDocumentRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
@@ -72,6 +73,7 @@ public class MoveFileTest {
 
 	private MoveFiles testCandidate(List<CloudFile> sourceFile) {
 		return new MoveFiles(cloudContentRepository, //
+				Mockito.mock(VaultDocumentRepository.class), //
 				sourceFile, //
 				parent);
 	}

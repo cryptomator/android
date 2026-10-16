@@ -16,15 +16,19 @@ public interface CachedFileDao {
 	@Query("SELECT * FROM CACHED_FILE_ENTITY WHERE VAULT_ID = :vaultId AND PATH = :path")
 	CachedFileEntity load(long vaultId, String path);
 
+	@Query("SELECT * FROM CACHED_FILE_ENTITY WHERE LOCAL_NAME = :localName")
+	CachedFileEntity loadByLocalName(String localName);
+
 	@Query("SELECT LOCAL_NAME FROM CACHED_FILE_ENTITY")
 	List<String> loadLocalNames();
 
 	/**
-	 * The copies that can be downloaded again, i.e. all but those of files with a pending upload.
+	 * The copies that can be downloaded again, i.e. all but those of files with a pending upload. Copies of files hidden
+	 * by a pending deletion are kept as well, so that they are still there if the deletion fails.
 	 */
 	@Query("SELECT CACHED_FILE_ENTITY.* FROM CACHED_FILE_ENTITY JOIN DOCUMENT_METADATA_ENTITY " //
 			+ "ON CACHED_FILE_ENTITY.VAULT_ID = DOCUMENT_METADATA_ENTITY.VAULT_ID AND CACHED_FILE_ENTITY.PATH = DOCUMENT_METADATA_ENTITY.PATH " //
-			+ "WHERE DOCUMENT_METADATA_ENTITY.STATUS != '" + DocumentMetadataEntity.STATUS_UPLOADING + "'")
+			+ "WHERE DOCUMENT_METADATA_ENTITY.STATUS != '" + DocumentMetadataEntity.STATUS_UPLOADING + "' AND " + DocumentMetadataDao.IS_VISIBLE)
 	List<CachedFileEntity> loadEvictable();
 
 	@Insert(onConflict = OnConflictStrategy.REPLACE)

@@ -1,4 +1,4 @@
-package org.cryptomator.presentation.docprovider
+package org.cryptomator.data.documents
 
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Assertions.assertFalse

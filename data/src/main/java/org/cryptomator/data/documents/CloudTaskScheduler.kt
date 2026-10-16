@@ -1,5 +1,6 @@
-package org.cryptomator.presentation.docprovider
+package org.cryptomator.data.documents
 
+import org.cryptomator.domain.VaultPath
 import java.util.concurrent.CompletableFuture
 import java.util.concurrent.Executor
 import java.util.concurrent.Executors

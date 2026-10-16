@@ -37,6 +37,7 @@ import org.cryptomator.domain.usecases.cloud.MoveFoldersUseCase
 import org.cryptomator.domain.usecases.cloud.Progress
 import org.cryptomator.domain.usecases.cloud.RenameFileUseCase
 import org.cryptomator.domain.usecases.cloud.RenameFolderUseCase
+import org.cryptomator.domain.usecases.cloud.ResumeVaultUploadsUseCase
 import org.cryptomator.domain.usecases.cloud.UploadFile
 import org.cryptomator.domain.usecases.cloud.UploadFilesUseCase
 import org.cryptomator.domain.usecases.cloud.UploadState
@@ -112,6 +113,7 @@ class BrowseFilesPresenter @Inject constructor( //
 	private val getDecryptedCloudForVaultUseCase: GetDecryptedCloudForVaultUseCase, //
 	private val calculateFileHashUseCase: CalculateFileHashUseCase, //
 	private val prepareDownloadFilesUseCase: PrepareDownloadFilesUseCase, //
+	private val resumeVaultUploadsUseCase: ResumeVaultUploadsUseCase, //
 	private val contentResolverUtil: ContentResolverUtil,  //
 	private val addExistingVaultWorkflow: AddExistingVaultWorkflow,  //
 	private val createNewVaultWorkflow: CreateNewVaultWorkflow,  //
@@ -136,6 +138,9 @@ class BrowseFilesPresenter @Inject constructor( //
 	private lateinit var downloadFiles: MutableList<DownloadFile>
 
 	private var resumedAfterAuthentication = false
+
+	private var resumingUploads = false
+	private var vaultToResumeUploadsOf: Vault? = null
 
 	@InjectIntent
 	lateinit var intent: BrowseFilesIntent
@@ -187,6 +192,30 @@ class BrowseFilesPresenter @Inject constructor( //
 		view?.showLoading(true)
 		getCloudList(folder)
 		view?.updateTitle(folder)
+		folder.vault()?.let { resumeUploads(it.toVault()) }
+	}
+
+	/**
+	 * Retries the uploads that failed or were interrupted, so that they don't wait until the vault is opened in Files. The
+	 * last request made while uploads are being resumed is carried out afterwards.
+	 */
+	private fun resumeUploads(vault: Vault) {
+		if (resumingUploads) {
+			vaultToResumeUploadsOf = vault
+			return
+		}
+		resumingUploads = true
+		resumeVaultUploadsUseCase //
+			.withVault(vault) //
+			.run(object : DefaultResultHandler<Void?>() {
+				override fun onFinished() {
+					resumingUploads = false
+					vaultToResumeUploadsOf?.let {
+						vaultToResumeUploadsOf = null
+						resumeUploads(it)
+					}
+				}
+			})
 	}
 
 	fun onRefreshTriggered(cloudModel: CloudFolderModel) {
@@ -1301,6 +1330,8 @@ class BrowseFilesPresenter @Inject constructor( //
 			calculateFileHashUseCase, //
 			prepareDownloadFilesUseCase
 		)
+		// resumeVaultUploadsUseCase is left running when navigating, since unsubscribing would skip onFinished and keep
+		// later uploads from being resumed
 		this.authenticationExceptionHandler = authenticationExceptionHandler
 	}
 }
