@@ -442,6 +442,7 @@
 	<string name="screen_settings_license_mail">%1$s</string>
 	<string name="screen_settings_manage_subscription">Pamahalaan ang Subscription</string>
 	<string name="dialog_trial_expired_unlock">I-unlock ang Buong Bersyon</string>
+	<string name="dialog_license_lost_later">Mamaya</string>
 	<string name="dialog_settings_update_check_interval_title">I-update ang agwat ng pagsusuri</string>
 	<string name="screen_settings_check_updates">Tingnan ang mga update</string>
 	<string name="screen_settings_last_check_updates">Huling pagtakbo %1$s</string>

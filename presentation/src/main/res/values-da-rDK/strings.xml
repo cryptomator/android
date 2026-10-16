@@ -243,6 +243,7 @@
 	<string name="screen_cloud_settings_sharepoint_connections">SharePoint-forbindelser</string>
 	<string name="screen_cloud_settings_webdav_connections">WebDAV-forbindelser</string>
 	<string name="screen_cloud_settings_pcloud_connections">pCloud forbindelser</string>
+	<string name="screen_cloud_settings_box_connections">Boksforbindelser</string>
 	<string name="screen_cloud_settings_s3_connections">S3 forbindelser</string>
 	<string name="screen_cloud_settings_local_storage_locations">Lokale placeringer</string>
 	<string name="screen_cloud_settings_log_in_to">Log ind på</string>
@@ -475,6 +476,7 @@
 	<string name="screen_settings_manage_subscription">Administrér abonnement</string>
 	<string name="screen_settings_upgrade_to_lifetime">Opgradér til livstid</string>
 	<string name="dialog_trial_expired_unlock">Lås op for fuld version</string>
+	<string name="dialog_license_lost_later">Senere</string>
 	<string name="dialog_settings_update_check_interval_title">Interval for tjek af nye opdateringer</string>
 	<string name="screen_settings_check_updates">Søg efter opdateringer</string>
 	<string name="screen_settings_last_check_updates">Seneste tjek %1$s</string>

@@ -329,6 +329,7 @@
 	<!-- notification -->
 	<string name="screen_settings_license_title_unlock">Odkleni polno različico</string>
 	<string name="dialog_trial_expired_unlock">Odkleni polno različico</string>
+	<string name="dialog_license_lost_later">Pozneje</string>
 	<!-- lock timeout names -->
 	<!-- cache size names -->
 	<!-- screen scheme mode names -->

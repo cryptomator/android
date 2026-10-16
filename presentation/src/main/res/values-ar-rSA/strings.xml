@@ -512,6 +512,7 @@
 	<string name="dialog_trial_expired_message">انتهت فترتك التجريبية المجانية. يمكنك المتابعة في وضع القراءة فقط أو فتح النسخة الكاملة.</string>
 	<string name="dialog_trial_expired_unlock">فتح النسخة الكاملة</string>
 	<string name="dialog_trial_expired_continue_read_only">المتابعة في وضع القراءة فقط</string>
+	<string name="dialog_license_lost_later">لاحقاً</string>
 	<string name="dialog_settings_update_check_interval_title">الفاصل الزمني للتحديث</string>
 	<string name="screen_settings_check_updates">بحث عن تحديثات</string>
 	<string name="screen_settings_last_check_updates">اخر بحث %1$s</string>

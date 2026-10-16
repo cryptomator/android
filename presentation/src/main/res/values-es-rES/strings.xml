@@ -247,6 +247,7 @@
 	<string name="screen_cloud_settings_sharepoint_connections">Conexiones de SharePoint</string>
 	<string name="screen_cloud_settings_webdav_connections">Conexiones de WebDAV</string>
 	<string name="screen_cloud_settings_pcloud_connections">Conexiones de pCloud</string>
+	<string name="screen_cloud_settings_box_connections">Conexiones Box</string>
 	<string name="screen_cloud_settings_s3_connections">Conexiones S3</string>
 	<string name="screen_cloud_settings_local_storage_locations">Ubicaciones de almacenamiento local</string>
 	<string name="screen_cloud_settings_log_in_to">Iniciar sesión en</string>
@@ -479,6 +480,10 @@
 	<string name="screen_settings_manage_subscription">Gestionar suscripción</string>
 	<string name="screen_settings_upgrade_to_lifetime">Actualice a una suscripción vitalicia</string>
 	<string name="dialog_trial_expired_unlock">Desbloquear versión completa</string>
+	<string name="dialog_license_lost_title">Vuelva a introducir la clave de licencia</string>
+	<string name="dialog_license_lost_message">Una actualización anterior eliminó la clave de licencia registrada en %1$s de este dispositivo. Vuelva a introducirla para restaurar el acceso de escritura. Hasta entonces, las bóvedas son de solo lectura.</string>
+	<string name="dialog_license_lost_reenter">Vuelva a introducir la clave de licencia</string>
+	<string name="dialog_license_lost_later">Más tarde</string>
 	<string name="dialog_settings_update_check_interval_title">Actualizar intervalo de verificación</string>
 	<string name="screen_settings_check_updates">Comprobar actualizaciones</string>
 	<string name="screen_settings_last_check_updates">Última ejecución %1$s</string>

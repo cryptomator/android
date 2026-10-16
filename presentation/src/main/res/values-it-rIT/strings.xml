@@ -507,6 +507,7 @@
 	<string name="dialog_trial_expired_message">La tua prova gratuita è terminata. Puoi continuare in modalità sola lettura o sbloccare la versione completa.</string>
 	<string name="dialog_trial_expired_unlock">Sblocca la Versione Completa</string>
 	<string name="dialog_trial_expired_continue_read_only">Continua in modalità sola lettura</string>
+	<string name="dialog_license_lost_later">Dopo</string>
 	<string name="dialog_settings_update_check_interval_title">Aggiorna intervallo di controllo</string>
 	<string name="screen_settings_check_updates">Controlla aggiornamenti</string>
 	<string name="screen_settings_last_check_updates">Ultima esecuzione %1$s</string>

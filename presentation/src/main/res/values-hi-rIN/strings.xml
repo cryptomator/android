@@ -315,6 +315,7 @@
 	<string name="notification_auto_upload_failed_title">ऑटो फोटो अपलोड असफल</string>
 	<string name="notification_update_check_finished_latest">नवीनतम संस्करण इनस्टॉल किया गया</string>
 	<string name="screen_settings_lru_cache">कैशे</string>
+	<string name="dialog_license_lost_later">बाद में</string>
 	<string name="screen_settings_last_check_updates">%1$s को चलाया गया है</string>
 	<!-- lock timeout names -->
 	<string name="lock_timeout_1m">1 मिनट</string>

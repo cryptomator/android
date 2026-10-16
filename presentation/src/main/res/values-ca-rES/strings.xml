@@ -366,7 +366,7 @@
 	<string name="dialog_update_available_message">Actualizeu Cryptomator a la versió més recent. Si premeu OK l\'app es descarregarà en segon pla i us demanarà permís per a instal·lar-se.</string>
 	<string name="dialog_update_available_update">Actualitza ara</string>
 	<string name="dialog_update_available_download_site">Vés al lloc de descàrregues</string>
-	<string name="dialog_update_available_cancel">Després</string>
+	<string name="dialog_update_available_cancel">Més tard</string>
 	<string name="dialog_download_update_title">Descàrrega en procés</string>
 	<string name="dialog_download_update_message">Ara es descarrega la versió més recent de Cryptomator</string>
 	<string name="dialog_sym_link_title">La carpeta és un enllaç simbòlic</string>
@@ -451,6 +451,7 @@
 	<string name="screen_settings_license_mail">%1$s</string>
 	<string name="screen_settings_manage_subscription">Gestionar Subscripcions</string>
 	<string name="dialog_trial_expired_unlock">Desbloca la versió completa</string>
+	<string name="dialog_license_lost_later">Més tard</string>
 	<string name="dialog_settings_update_check_interval_title">Interval entre comprovacions d\'actualitzacions</string>
 	<string name="screen_settings_check_updates">Cerca actualitzacions</string>
 	<string name="screen_settings_last_check_updates">Darrera comprovació: %1$s</string>
