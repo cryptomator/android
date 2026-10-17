@@ -7,10 +7,12 @@ import android.graphics.Color
 import android.graphics.Matrix
 import android.media.ExifInterface
 import org.cryptomator.domain.VaultPath
+import org.cryptomator.domain.usecases.ProgressAware
 import org.cryptomator.util.named
 import java.io.ByteArrayOutputStream
 import java.io.File
 import java.io.IOException
+import java.util.concurrent.CancellationException
 import java.util.concurrent.Executor
 import java.util.concurrent.Executors
 import timber.log.Timber
@@ -25,6 +27,10 @@ private const val THUMBNAIL_SIZE = 256
  * is downloaded to a temporary file, so that previews don't fill the cache of local copies. The folder of each preview
  * that is done is told to [events]. An image that can't be decoded isn't tried again until its content changes or the
  * process ends. Once all asked for are done, and if any preview was made, the outdated previews are deleted.
+ *
+ * Previews give way to the downloads someone waits for, e.g. to open a file: none is started while such a download
+ * runs, and a preview's download that is running stops at its next progress and is asked for again. Making previews
+ * goes on once the last such download has ended.
  */
 class ThumbnailGenerator @JvmOverloads constructor(
 	private val store: ThumbnailStore,
@@ -47,6 +53,10 @@ class ThumbnailGenerator @JvmOverloads constructor(
 	 */
 	private val undecodable = HashSet<String>()
 
+	init {
+		contentCache.onAwaitedDownloadsDone = ::resume
+	}
+
 	/**
 	 * Asks for the previews of the images at [paths], ahead of the ones asked for before, in the order given.
 	 */
@@ -64,19 +74,39 @@ class ThumbnailGenerator @JvmOverloads constructor(
 		executor.execute(::makeRequested)
 	}
 
+	private fun resume() {
+		synchronized(requested) {
+			if (isRunning || requested.isEmpty()) {
+				return
+			}
+			isRunning = true
+		}
+		executor.execute(::makeRequested)
+	}
+
 	private fun makeRequested() {
 		var made = false
 		while (true) {
 			val path = synchronized(requested) {
-				requested.removeFirstOrNull() ?: run {
+				// checked together with isRunning, so that resume() can't miss the end of the downloads
+				val next = if (contentCache.hasAwaitedDownloads()) null else requested.removeFirstOrNull()
+				if (next == null) {
 					isRunning = false
-					null
 				}
+				next
 			} ?: break
 			try {
 				made = make(path) || made
 			} catch (e: Exception) {
-				LOG.w(e, "Making the thumbnail of ${metadataCache.logId(path)} failed")
+				if (generateSequence<Throwable>(e) { it.cause }.any { it is GaveWay }) {
+					synchronized(requested) {
+						if (path !in requested) {
+							requested.addFirst(path)
+						}
+					}
+				} else {
+					LOG.w(e, "Making the thumbnail of ${metadataCache.logId(path)} failed")
+				}
 			}
 		}
 		if (made) {
@@ -121,13 +151,19 @@ class ThumbnailGenerator @JvmOverloads constructor(
 		temporaryDirectory.mkdirs()
 		val image = File.createTempFile("thumbnail", ".tmp", temporaryDirectory)
 		try {
-			contentCache.downloadUnrecorded(path, image)
+			contentCache.downloadUnrecorded(path, image, ProgressAware {
+				if (contentCache.hasAwaitedDownloads()) {
+					throw GaveWay()
+				}
+			})
 		} catch (e: Exception) {
 			image.delete()
 			throw e
 		}
 		return image
 	}
+
+	private class GaveWay : CancellationException("Gave way to a download someone waits for")
 }
 
 /**

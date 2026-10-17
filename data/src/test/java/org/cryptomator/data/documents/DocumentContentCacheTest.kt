@@ -173,6 +173,27 @@ class DocumentContentCacheTest {
 	}
 
 	@Test
+	fun `a download someone waits for is counted until it has ended, and its end is told, unlike an unrecorded download`() {
+		givenDocument(lastModified = 9_000)
+		val cache = cache()
+		var ended = 0
+		cache.onAwaitedDownloadsDone = { ended++ }
+		var awaitedWhileReading: Boolean? = null
+		givenCloudContent("content") { awaitedWhileReading = cache.hasAwaitedDownloads() }
+
+		cache.release(cache.file(vaultPath("x.txt")))
+
+		assertEquals(true, awaitedWhileReading)
+		assertFalse(cache.hasAwaitedDownloads())
+		assertEquals(1, ended)
+
+		cache.downloadUnrecorded(vaultPath("x.txt"), File(directory, "unrecorded"))
+
+		assertEquals(false, awaitedWhileReading)
+		assertEquals(1, ended)
+	}
+
+	@Test
 	fun `a copy that is being downloaded is not deleted`() {
 		givenDocument(lastModified = 9_000)
 		val cache = cache()

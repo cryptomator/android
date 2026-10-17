@@ -24,6 +24,7 @@ import java.io.IOException
 import java.io.OutputStream
 import java.util.UUID
 import java.util.concurrent.ConcurrentHashMap
+import java.util.concurrent.atomic.AtomicInteger
 import timber.log.Timber
 
 private val LOG = Timber.named("DocumentContentCache")
@@ -54,6 +55,18 @@ class DocumentContentCache @JvmOverloads constructor(
 ) {
 
 	private val resumedVaults: MutableSet<Long> = ConcurrentHashMap.newKeySet()
+
+	/**
+	 * The downloads of copies that someone waits for, e.g. to open a file. Thumbnails give way to them, see
+	 * [ThumbnailGenerator].
+	 */
+	private val awaitedDownloads = AtomicInteger()
+
+	/**
+	 * Called whenever the last download someone waits for has ended.
+	 */
+	@Volatile
+	var onAwaitedDownloadsDone: (() -> Unit)? = null
 
 	/**
 	 * How often each copy is in use; guarded by itself, also while copies are deleted, recorded for a file or picked for
@@ -213,10 +226,15 @@ class DocumentContentCache @JvmOverloads constructor(
 	}
 
 	/**
-	 * Downloads [path] into [target] without recording it as a copy.
+	 * Downloads [path] into [target] without recording it as a copy. Nobody counts as waiting for it, see
+	 * [hasAwaitedDownloads].
 	 */
-	fun downloadUnrecorded(path: VaultPath, target: File) {
-		scheduler.download(path) { read(path, target, ProgressAware.NO_OP_PROGRESS_AWARE_DOWNLOAD) }.await()
+	fun downloadUnrecorded(path: VaultPath, target: File, progressAware: ProgressAware<DownloadState> = ProgressAware.NO_OP_PROGRESS_AWARE_DOWNLOAD) {
+		scheduler.download(path) { read(path, target, progressAware) }.await()
+	}
+
+	fun hasAwaitedDownloads(): Boolean {
+		return awaitedDownloads.get() > 0
 	}
 
 	/**
@@ -769,15 +787,22 @@ class DocumentContentCache @JvmOverloads constructor(
 	 * @return the modification date of the downloaded version, which can be newer than the one in the cache
 	 */
 	private fun download(path: VaultPath, localFile: File, signal: CancellationSignal?, progressAware: ProgressAware<DownloadState>): Long? {
-		val transfer = scheduler.download(path) {
-			signal?.throwIfCanceled()
-			read(path, localFile, progressAware)
-		}
+		awaitedDownloads.incrementAndGet()
 		try {
-			return transfer.await(signal)
-		} catch (e: Exception) {
-			transfer.whenComplete { _, _ -> drop(localFile) }
-			throw e
+			val transfer = scheduler.download(path) {
+				signal?.throwIfCanceled()
+				read(path, localFile, progressAware)
+			}
+			try {
+				return transfer.await(signal)
+			} catch (e: Exception) {
+				transfer.whenComplete { _, _ -> drop(localFile) }
+				throw e
+			}
+		} finally {
+			if (awaitedDownloads.decrementAndGet() == 0) {
+				onAwaitedDownloadsDone?.invoke()
+			}
 		}
 	}
 

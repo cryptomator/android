@@ -8,12 +8,15 @@ import org.cryptomator.domain.CloudType
 import org.cryptomator.domain.Vault
 import org.cryptomator.domain.VaultPath
 import org.cryptomator.domain.exception.NetworkConnectionException
+import org.cryptomator.domain.usecases.ProgressAware
+import org.cryptomator.domain.usecases.cloud.DownloadState
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Assertions.assertFalse
 import org.junit.jupiter.api.Assertions.assertNotNull
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.io.TempDir
 import org.mockito.kotlin.any
+import org.mockito.kotlin.argumentCaptor
 import org.mockito.kotlin.doAnswer
 import org.mockito.kotlin.doReturn
 import org.mockito.kotlin.eq
@@ -94,7 +97,7 @@ class ThumbnailGeneratorTest {
 
 		verify(contentCache).release(copyA)
 		verify(contentCache).release(File(directory, "copy-b.jpg"))
-		verify(contentCache, never()).downloadUnrecorded(any(), any())
+		verify(contentCache, never()).downloadUnrecorded(any(), any(), any())
 	}
 
 	@Test
@@ -107,7 +110,7 @@ class ThumbnailGeneratorTest {
 			downloaded.add(target)
 			if (invocation.getArgument<VaultPath>(0) == path("a.jpg")) throw NetworkConnectionException()
 			target.writeText("downloaded")
-		}.whenever(contentCache).downloadUnrecorded(any(), any())
+		}.whenever(contentCache).downloadUnrecorded(any(), any(), any())
 		val inTest = generator { image -> made.add(image.readText()); JPEG }
 
 		inTest.request(listOf(path("a.jpg"), path("b.jpg")))
@@ -147,6 +150,56 @@ class ThumbnailGeneratorTest {
 		generator(store) { JPEG }.request(listOf(path("b.jpg")))
 		runPending()
 		verify(store).evict()
+	}
+
+	@Test
+	fun `thumbnails wait while a download someone waits for runs, and go on once it has ended`() {
+		givenImage("a.jpg", id = 1)
+		givenImage("b.jpg", id = 2)
+		var awaited = true
+		whenever(contentCache.hasAwaitedDownloads()).thenAnswer { awaited }
+		val inTest = generator { image -> made.add(image.readText()); JPEG }
+		val downloadsDone = argumentCaptor<() -> Unit>()
+		verify(contentCache).onAwaitedDownloadsDone = downloadsDone.capture()
+
+		inTest.request(listOf(path("a.jpg"), path("b.jpg")))
+		runPending()
+		assertEquals(emptyList<String>(), made)
+
+		awaited = false
+		downloadsDone.firstValue()
+		runPending()
+		assertEquals(listOf("a.jpg", "b.jpg"), made)
+	}
+
+	@Test
+	fun `a thumbnail's download stops for a download someone waits for and is made once that has ended`() {
+		givenImage("a.jpg", id = 1, copy = false)
+		var awaited = false
+		whenever(contentCache.hasAwaitedDownloads()).thenAnswer { awaited }
+		val downloaded = mutableListOf<File>()
+		doAnswer { invocation ->
+			val target = invocation.getArgument<File>(1)
+			downloaded.add(target)
+			// someone opens a file while the first download runs
+			awaited = downloaded.size == 1
+			invocation.getArgument<ProgressAware<DownloadState>>(2).onProgress(mock())
+			target.writeText("downloaded")
+		}.whenever(contentCache).downloadUnrecorded(any(), any(), any())
+		val inTest = generator { image -> made.add(image.readText()); JPEG }
+		val downloadsDone = argumentCaptor<() -> Unit>()
+		verify(contentCache).onAwaitedDownloadsDone = downloadsDone.capture()
+
+		inTest.request(listOf(path("a.jpg")))
+		runPending()
+		assertEquals(emptyList<String>(), made)
+		assertFalse(downloaded.single().exists())
+
+		awaited = false
+		downloadsDone.firstValue()
+		runPending()
+		assertEquals(listOf("downloaded"), made)
+		assertEquals(2, downloaded.size)
 	}
 
 	private data class Folder(val path: VaultPath)
