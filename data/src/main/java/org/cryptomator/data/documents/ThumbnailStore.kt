@@ -9,12 +9,10 @@ import timber.log.Timber
 
 private val LOG = Timber.named("ThumbnailStore")
 
-private const val MAX_SIZE_BYTES = 50L * 1024 * 1024
-
 /**
  * Previews of the images in vaults, one JPEG file per node and version of its content, in [directory]. Like the local
- * copies, they are kept for [MAX_COPY_AGE_MILLIS] after they were made, also while the vaults are locked. The directory
- * must not be in the cache directory, which the system clears when storage runs low.
+ * copies, they are kept until their node or its content changes or the cache is cleared, also while the vaults are
+ * locked. The directory must not be in the cache directory, which the system clears when storage runs low.
  *
  * A synced file's version is its modification date in the cloud, compared to the second. A file whose write waits for its
  * upload is told apart by its local copy and when that was last written, so that a local edit gets a new preview before
@@ -24,9 +22,7 @@ class ThumbnailStore @JvmOverloads constructor(
 	private val directory: File,
 	private val metadataDao: DocumentMetadataDao,
 	private val cachedFileDao: CachedFileDao,
-	private val copyDirectory: File,
-	private val maxSizeBytes: Long = MAX_SIZE_BYTES,
-	private val currentTimeMillis: () -> Long = System::currentTimeMillis
+	private val copyDirectory: File
 ) {
 
 	private val lock = Any()
@@ -63,20 +59,12 @@ class ThumbnailStore @JvmOverloads constructor(
 	}
 
 	/**
-	 * Deletes the previews of nodes that are gone or whose content changed, those older than [MAX_COPY_AGE_MILLIS], and
-	 * the oldest ones beyond the size limit. A node being deleted keeps its preview, since it comes back if the cloud
-	 * rejects the deletion.
+	 * Deletes the previews of nodes that are gone or whose content changed. A node being deleted keeps its preview, since
+	 * it comes back if the cloud rejects the deletion.
 	 */
 	fun evict() {
 		synchronized(lock) {
-			var size = 0L
 			directory.listFiles()?.filterNot { isCurrent(it) && it.name.endsWith(".jpg") }?.forEach(::delete)
-			directory.listFiles()?.sortedByDescending { it.lastModified() }?.forEach { file ->
-				size += file.length()
-				if (currentTimeMillis() - file.lastModified() >= MAX_COPY_AGE_MILLIS || size > maxSizeBytes) {
-					delete(file)
-				}
-			}
 		}
 	}
 

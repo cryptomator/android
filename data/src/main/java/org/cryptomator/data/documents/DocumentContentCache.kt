@@ -24,23 +24,18 @@ import java.io.IOException
 import java.io.OutputStream
 import java.util.UUID
 import java.util.concurrent.ConcurrentHashMap
-import java.util.concurrent.TimeUnit
 import timber.log.Timber
 
 private val LOG = Timber.named("DocumentContentCache")
-
-internal val MAX_COPY_AGE_MILLIS = TimeUnit.HOURS.toMillis(5)
-
-private const val MAX_SIZE_BYTES = 500L * 1024 * 1024
 
 /**
  * Decrypted local copies of the files in vaults. A copy is used as long as the file's modification date in the cloud,
  * compared to the second, is the one the copy is based on, or while the copy has a pending upload. Otherwise the file is
  * downloaded again. Files are written to their local copy, which is uploaded afterwards.
  *
- * Copies that can be downloaded again are deleted once they are older than [MAX_COPY_AGE_MILLIS] or don't fit into
- * [MAX_SIZE_BYTES] next to newer ones. Copies with a pending upload are kept. That is why [directory] must not be in the
- * cache directory, which the system clears when storage runs low. A copy returned by [file] or [fileForWriting] is kept
+ * Copies are kept, also while the vaults are locked, until their file is deleted or the cache is cleared with [evictAll],
+ * as on iOS. Copies with a pending upload survive even that. That is why [directory] must not be in the cache directory,
+ * which the system clears when storage runs low. A copy returned by [file] or [fileForWriting] is kept
  * until it is [released][release], so that it can't be deleted before it is opened or while it is written.
  *
  * A copy's cache entry points to the latest version of its file, written or downloaded. Whatever finishes an earlier
@@ -55,8 +50,7 @@ class DocumentContentCache @JvmOverloads constructor(
 	private val contentRepository: CloudContentRepository<Cloud, CloudNode, CloudFolder, CloudFile>,
 	private val directory: File,
 	private val thumbnails: ThumbnailStore? = null,
-	private val watchClose: (file: File, onClosed: () -> Unit) -> AutoCloseable = ::watchCloseWrite,
-	private val currentTimeMillis: () -> Long = System::currentTimeMillis
+	private val watchClose: (file: File, onClosed: () -> Unit) -> AutoCloseable = ::watchCloseWrite
 ) {
 
 	private val resumedVaults: MutableSet<Long> = ConcurrentHashMap.newKeySet()
@@ -236,7 +230,6 @@ class DocumentContentCache @JvmOverloads constructor(
 		if (cached != null && (metadata.isUploading || isSameSecond(cached.lastModified, metadata.lastModified))) {
 			claimIfPresent(File(directory, cached.localName))?.let { return Copy(it, cached.lastModified) }
 		}
-		evict(MAX_COPY_AGE_MILLIS)
 		val outdated = localCopy(path)
 		val downloadedFile = claim(File(directory, UUID.randomUUID().toString()))
 		val downloaded = download(path, downloadedFile, signal, progressAware) ?: metadata.lastModified
@@ -652,11 +645,10 @@ class DocumentContentCache @JvmOverloads constructor(
 	}
 
 	/**
-	 * Deletes the files without a cache row, and the copies that can be downloaded again and are too old or too many.
-	 * Copies in use or pinned for an external editor are kept. The outdated thumbnails are deleted, too.
+	 * Deletes the files without a cache row, e.g. the copies of removed vaults, and the outdated thumbnails.
 	 */
 	fun evict() {
-		evict(MAX_COPY_AGE_MILLIS)
+		deleteUnrecorded()
 		thumbnails?.evict()
 	}
 
@@ -665,7 +657,8 @@ class DocumentContentCache @JvmOverloads constructor(
 	 * in use, or an external editor may write.
 	 */
 	fun evictAll() {
-		evict(0)
+		deleteUnrecorded()
+		deleteEvictable()
 		thumbnails?.clear()
 	}
 
@@ -673,26 +666,25 @@ class DocumentContentCache @JvmOverloads constructor(
 		return directory.listFiles()?.sumOf { it.length() } ?: 0L
 	}
 
-	/**
-	 * Holds off changes while evicting, so that a copy of a file that is about to be deleted is kept for restoring it.
-	 */
-	private fun evict(maxAgeMillis: Long) {
+	private fun deleteUnrecorded() {
 		withCopiesLocked {
 			val localNames = dao.loadLocalNames().toSet()
 			directory.listFiles()?.filter { it.name !in localNames && it.name !in inUse }?.forEach(::deleteCopy)
+		}
+	}
+
+	/**
+	 * Holds off changes while evicting, so that a copy of a file that is about to be deleted is kept for restoring it.
+	 */
+	private fun deleteEvictable() {
+		withCopiesLocked {
 			// an external editor may write a pinned copy after the vault locked, see pinBase
 			val pinned = pinnedCopies()
-			var size = 0L
 			dao.loadEvictable() //
 				.filter { it.localName !in inUse && it.localName !in pinned } //
-				.map { it to File(directory, it.localName) } //
-				.sortedByDescending { (_, file) -> file.lastModified() } //
-				.forEach { (cached, file) ->
-					size += file.length()
-					if (currentTimeMillis() - file.lastModified() >= maxAgeMillis || size > MAX_SIZE_BYTES) {
-						dao.delete(cached.vaultId, cached.path)
-						deleteCopy(file)
-					}
+				.forEach { cached ->
+					dao.delete(cached.vaultId, cached.path)
+					deleteCopy(File(directory, cached.localName))
 				}
 		}
 	}

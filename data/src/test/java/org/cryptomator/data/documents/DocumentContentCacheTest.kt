@@ -137,19 +137,24 @@ class DocumentContentCacheTest {
 	}
 
 	@Test
-	fun `old copies that can be downloaded again are deleted`() {
-		val old = copy("old", "", lastModified = now - TimeUnit.HOURS.toMillis(6))
-		val recent = copy("recent", "", lastModified = now - TimeUnit.HOURS.toMillis(1))
-		val pending = copy("pending", "", lastModified = now - TimeUnit.HOURS.toMillis(6))
+	fun `copies are kept however old they are until the cache is cleared, which keeps those with a pending upload`() {
+		val old = copy("old", "", lastModified = 1_000)
+		val recent = copy("recent", "")
+		val pending = copy("pending", "", lastModified = 1_000)
 		whenever(dao.loadLocalNames()).thenReturn(listOf("old", "recent", "pending"))
 		whenever(dao.loadEvictable()).thenReturn(listOf(cachedFile("old", path = "old.txt"), cachedFile("recent", path = "recent.txt")))
+		val cache = cache()
 
-		cache()
-
-		assertFalse(old.exists())
-		verify(dao).delete(VAULT_ID, "old.txt")
+		cache.evict()
+		assertTrue(old.exists())
 		assertTrue(recent.exists())
+		verify(dao, never()).delete(any(), any())
+
+		cache.evictAll()
+		assertFalse(old.exists())
+		assertFalse(recent.exists())
 		assertTrue(pending.exists())
+		verify(dao).delete(VAULT_ID, "old.txt")
 	}
 
 	@Test
@@ -157,16 +162,13 @@ class DocumentContentCacheTest {
 		givenDocument(lastModified = 5_000, status = DocumentMetadataEntity.STATUS_CREATING)
 		val cache = cache()
 		val copy = cache.fileForWriting(vaultPath("x.txt"), keepContent = true)
-		copy.setLastModified(now - TimeUnit.HOURS.toMillis(6))
 		whenever(dao.loadEvictable()).thenReturn(listOf(cachedFile(copy.name)))
-		givenDocument(lastModified = 9_000, path = "y.txt")
-		givenCloudContent("other content")
 
-		cache.file(vaultPath("y.txt"))
+		cache.evictAll()
 
 		assertTrue(copy.exists())
 		cache.release(copy)
-		cache.file(vaultPath("y.txt"))
+		cache.evictAll()
 		assertFalse(copy.exists())
 	}
 
@@ -629,21 +631,19 @@ class DocumentContentCacheTest {
 	}
 
 	@Test
-	fun `the oldest copies are deleted once the copies don't fit into the cache`() {
-		val older = copy("older", "", lastModified = now - 2_000)
-		val newer = copy("newer", "", lastModified = now - 1_000)
+	fun `copies are kept however large the cache gets`() {
+		val older = copy("older", "")
+		val newer = copy("newer", "")
 		RandomAccessFile(older, "rw").use { it.setLength(300L * 1024 * 1024) }
 		RandomAccessFile(newer, "rw").use { it.setLength(300L * 1024 * 1024) }
-		older.setLastModified(now - 2_000)
-		newer.setLastModified(now - 1_000)
 		whenever(dao.loadLocalNames()).thenReturn(listOf("older", "newer"))
 		whenever(dao.loadEvictable()).thenReturn(listOf(cachedFile("older", path = "older.txt"), cachedFile("newer", path = "newer.txt")))
 
-		cache()
+		cache().evict()
 
-		assertFalse(older.exists())
+		assertTrue(older.exists())
 		assertTrue(newer.exists())
-		verify(dao).delete(VAULT_ID, "older.txt")
+		verify(dao, never()).delete(any(), any())
 	}
 
 	@Test
@@ -652,7 +652,7 @@ class DocumentContentCacheTest {
 		givenDocument(lastModified = 9_000)
 		val downloads = LinkedBlockingQueue<Runnable>()
 		val scheduler = CloudTaskScheduler({ it.run() }, { it.run() }, { downloads.put(it) })
-		val cache = DocumentContentCache(dao, metadataCache, scheduler, repository, directory, null, { _, _ -> AutoCloseable {} }) { now }
+		val cache = DocumentContentCache(dao, metadataCache, scheduler, repository, directory, null) { _, _ -> AutoCloseable {} }
 		val canceled = AtomicBoolean(false)
 		val listening = CountDownLatch(1)
 		var onCancel: CancellationSignal.OnCancelListener? = null
@@ -951,7 +951,7 @@ class DocumentContentCacheTest {
 	}
 
 	@Test
-	fun `a download replacing an old copy that was evicted meanwhile is recorded`() {
+	fun `a download replacing an old copy that the cleared cache deleted is recorded`() {
 		val stored = givenStoredCopies(cachedFile("old", lastModified = 5_000))
 		val old = copy("old", "old content")
 		whenever(dao.loadEvictable()).thenAnswer { stored.values.toList() }
@@ -959,7 +959,8 @@ class DocumentContentCacheTest {
 		givenDocument(lastModified = 9_000)
 		givenCloudContent("new content")
 		val cache = cache()
-		old.setLastModified(now - TimeUnit.HOURS.toMillis(6))
+		cache.evictAll()
+		assertFalse(old.exists())
 
 		val file = cache.file(vaultPath("x.txt"))
 
@@ -1257,13 +1258,13 @@ class DocumentContentCacheTest {
 	}
 
 	@Test
-	fun `copies are evicted while no change is made to the cache`() {
-		copy("old", "", lastModified = now - TimeUnit.HOURS.toMillis(6))
+	fun `the cache is cleared while no change is made to the cache`() {
+		copy("old", "")
 		whenever(dao.loadLocalNames()).thenReturn(listOf("old"))
 		whenever(dao.loadEvictable()).thenReturn(listOf(cachedFile("old", path = "old.txt")))
 		val paused = recordWhetherChangesPaused()
 
-		cache()
+		cache().evictAll()
 
 		assertEquals(listOf(true), paused)
 	}
@@ -1697,20 +1698,20 @@ class DocumentContentCacheTest {
 	}
 
 	@Test
-	fun `the copy of a file an external editor may write is kept when copies are evicted, until editing ends`() {
+	fun `the copy of a file an external editor may write is kept when the cache is cleared, until editing ends`() {
 		givenStoredCopies(cachedFile("copy", lastModified = 5_000))
 		givenDocument(lastModified = 5_000)
 		givenDocumentId()
 		whenever(dao.loadEvictable()).thenReturn(listOf(cachedFile("copy", lastModified = 5_000)))
 		val cache = cache()
-		val copy = copy("copy", "opened content", lastModified = now - MAX_COPY_AGE_MILLIS)
+		val copy = copy("copy", "opened content")
 		cache.openForExternalEditor()
 
-		cache.evict()
+		cache.evictAll()
 		assertTrue(copy.exists())
 
 		cache.unpinBase("1:7")
-		cache.evict()
+		cache.evictAll()
 		assertFalse(copy.exists())
 	}
 
@@ -1729,17 +1730,17 @@ class DocumentContentCacheTest {
 	}
 
 	@Test
-	fun `copies are evicted also if a document whose base is pinned is gone`() {
+	fun `the cache is cleared also if a document whose base is pinned is gone`() {
 		givenStoredCopies(cachedFile("copy", lastModified = 5_000))
 		givenDocument(lastModified = 5_000)
 		givenDocumentId()
 		whenever(dao.loadEvictable()).thenReturn(listOf(cachedFile("copy", lastModified = 5_000)))
 		val cache = cache()
-		val copy = copy("copy", "opened content", lastModified = now - MAX_COPY_AGE_MILLIS)
+		val copy = copy("copy", "opened content")
 		cache.openForExternalEditor()
 		whenever(metadataCache.path("1:7")).thenAnswer { throw FileNotFoundException("Unknown document: 1:7") }
 
-		cache.evict()
+		cache.evictAll()
 
 		assertFalse(copy.exists())
 	}
@@ -2014,7 +2015,7 @@ class DocumentContentCacheTest {
 
 	private fun cache(thumbnails: ThumbnailStore? = null, watchClose: (File, () -> Unit) -> AutoCloseable = { _, _ -> AutoCloseable {} }): DocumentContentCache {
 		val direct = Executor { it.run() }
-		return DocumentContentCache(dao, metadataCache, CloudTaskScheduler(direct, direct, direct), repository, directory, thumbnails, watchClose) { now }
+		return DocumentContentCache(dao, metadataCache, CloudTaskScheduler(direct, direct, direct), repository, directory, thumbnails, watchClose)
 	}
 
 	private fun givenDocumentId() {

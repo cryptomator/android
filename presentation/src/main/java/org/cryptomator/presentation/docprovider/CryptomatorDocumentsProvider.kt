@@ -499,7 +499,7 @@ class CryptomatorDocumentsProvider : DocumentsProvider() {
 		}
 
 		/**
-		 * Deletes the decrypted copies that are too old or too many, and those of removed vaults.
+		 * Deletes the decrypted copies of removed vaults and the outdated thumbnails.
 		 */
 		@JvmStatic
 		fun evictCopies() {

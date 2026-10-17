@@ -87,35 +87,18 @@ class ThumbnailStoreTest {
 	}
 
 	@Test
-	fun `the oldest thumbnails are deleted once they don't fit`() {
-		val store = store(maxSizeBytes = JPEG.size * 2L, now = 10_000_000)
+	fun `current thumbnails are kept however old and many they are`() {
+		val store = store()
 		(7L..9L).forEach { id ->
 			val metadata = synced(lastModified = 5_000, id = id)
 			whenever(metadataDao.loadById(id)).thenReturn(metadata)
 			store.put(metadata, requireNotNull(store.version(metadata)), JPEG)
-			File(thumbnails, "1_${id}_m5.jpg").setLastModified(id * 1_000_000)
+			File(thumbnails, "1_${id}_m5.jpg").setLastModified(id * 1_000)
 		}
 
 		store.evict()
 
-		assertEquals(setOf("1_8_m5.jpg", "1_9_m5.jpg"), thumbnails.list()!!.toSet())
-	}
-
-	@Test
-	fun `thumbnails are kept as long as the local copies`() {
-		val now = System.currentTimeMillis()
-		val store = store(now = now)
-		(7L..8L).forEach { id ->
-			val metadata = synced(lastModified = 5_000, id = id)
-			whenever(metadataDao.loadById(id)).thenReturn(metadata)
-			store.put(metadata, requireNotNull(store.version(metadata)), JPEG)
-		}
-		File(thumbnails, "1_7_m5.jpg").setLastModified(now - MAX_COPY_AGE_MILLIS + 1_000)
-		File(thumbnails, "1_8_m5.jpg").setLastModified(now - MAX_COPY_AGE_MILLIS)
-
-		store.evict()
-
-		assertEquals(setOf("1_7_m5.jpg"), thumbnails.list()!!.toSet())
+		assertEquals(setOf("1_7_m5.jpg", "1_8_m5.jpg", "1_9_m5.jpg"), thumbnails.list()!!.toSet())
 	}
 
 	@Test
@@ -140,8 +123,8 @@ class ThumbnailStoreTest {
 		assertEquals(emptyList<String>(), thumbnails.list()!!.toList())
 	}
 
-	private fun store(maxSizeBytes: Long = 1024 * 1024, now: Long = System.currentTimeMillis()): ThumbnailStore {
-		return ThumbnailStore(thumbnails, metadataDao, cachedFileDao, copies, maxSizeBytes) { now }
+	private fun store(): ThumbnailStore {
+		return ThumbnailStore(thumbnails, metadataDao, cachedFileDao, copies)
 	}
 
 	private fun synced(lastModified: Long, id: Long = 7): DocumentMetadataEntity {
