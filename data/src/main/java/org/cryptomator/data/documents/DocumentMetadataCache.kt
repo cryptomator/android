@@ -945,10 +945,15 @@ class DocumentMetadataCache @JvmOverloads constructor(
 		require(folder.isRoot || requireVisible(folder).isFolder) { "Not a folder: ${logId(folder)}" }
 	}
 
+	/**
+	 * [name] in [folder], or if it is taken, the first free name numbered the way Android's own providers do, e.g.
+	 * "a (1).txt", which keeps the extension and with it the type.
+	 */
 	private fun unusedPath(folder: VaultPath, name: String): VaultPath {
 		var path = folder.resolve(name)
+		var number = 0
 		while (dao.load(path.vault.id, path.path) != null) {
-			path = folder.resolve("${path.name}_")
+			path = folder.resolve(conflictCopyName(name, (++number).toString()))
 		}
 		return path
 	}

@@ -71,7 +71,8 @@ constructor(
 
 	/**
 	 * Shows [nodes] instead of the current ones, updating only the rows that changed. A row that didn't change keeps its
-	 * node, so that its selection and progress stay with what is bound; a changed row takes them over.
+	 * node, so that its selection and progress stay with what is bound; a changed row takes them over. The details of the
+	 * other rows are shown again anyway, since the age of the modified date they show changes with time.
 	 */
 	fun replaceAll(nodes: List<CloudNodeModel<*>>) {
 		val previous = ArrayList(itemCollection)
@@ -89,6 +90,15 @@ constructor(
 		itemCollection.clear()
 		itemCollection.addAll(next)
 		diff.dispatchUpdatesTo(this)
+		notifyItemRangeChanged(0, next.size, DETAILS_PAYLOAD)
+	}
+
+	override fun onBindViewHolder(holder: VaultContentViewHolder, position: Int, payloads: MutableList<Any>) {
+		if (payloads.isNotEmpty() && payloads.all { it === DETAILS_PAYLOAD }) {
+			holder.showDetailsAgain()
+		} else {
+			super.onBindViewHolder(holder, position, payloads)
+		}
 	}
 
 	fun replaceRenamedCloudFile(cloudNode: CloudNodeModel<out CloudNode>) {
@@ -151,9 +161,28 @@ constructor(
 
 		private var bound: CloudNodeModel<*>? = null
 
+		private var shownDetails: String? = null
+
 		override fun bind(position: Int) {
 			bound = getItem(position)
 			bound?.let { internalBind(it) }
+		}
+
+		/**
+		 * Shows the size and modified date of the bound file again, unless something else replaced them meanwhile, e.g. a
+		 * progress or a failed upload.
+		 */
+		fun showDetailsAgain() {
+			val file = bound as? CloudFileModel ?: return
+			if (binding.llCloudFileContent.cloudFileSubText.text.toString() == shownDetails) {
+				showDetails(file)
+			}
+		}
+
+		private fun showDetails(file: CloudFileModel) {
+			val details = fileDetails(file)
+			binding.llCloudFileContent.cloudFileSubText.text = details
+			shownDetails = details
 		}
 
 		private fun internalBind(node: CloudNodeModel<*>) {
@@ -234,7 +263,7 @@ constructor(
 
 		private fun bindFile(file: CloudFileModel) {
 			binding.llCloudFileContent.cloudFileText.text = file.name
-			binding.llCloudFileContent.cloudFileSubText.text = fileDetails(file)
+			showDetails(file)
 
 			enableNodeClick { callback.onFileClicked(file) }
 		}
@@ -552,5 +581,14 @@ constructor(
 			is CloudNodeModelSizeBiggestFirstComparator, is CloudNodeModelSizeSmallestFirstComparator -> formattedFileSize ?: node.name.first().toString()
 			else -> all[position].name.first().toString()
 		}
+	}
+
+	private companion object {
+
+		/**
+		 * Shows only the details of a row again, see [VaultContentViewHolder.showDetailsAgain], without the animation of a
+		 * changed row.
+		 */
+		val DETAILS_PAYLOAD = Any()
 	}
 }

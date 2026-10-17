@@ -1061,17 +1061,28 @@ class DocumentMetadataCacheTest {
 	fun `a node is moved to an unused name if the target name is taken in the cache`() {
 		whenever(dao.load(VAULT_ID, "a.txt")).thenReturn(entity("a.txt"))
 		whenever(dao.load(VAULT_ID, "b.txt")).thenReturn(entity("b.txt").apply { id = ID + 1 })
-		givenMoved("a.txt", "b.txt_")
+		givenMoved("a.txt", "b (1).txt")
 		val source: CloudFile = mock()
 		val target: CloudFile = mock()
 		whenever(repository.file(root, "a.txt")).thenReturn(source)
-		whenever(repository.file(root, "b.txt_")).thenReturn(target)
+		whenever(repository.file(root, "b (1).txt")).thenReturn(target)
 
 		inTest.move(path("a.txt"), VaultPath(vault), "b.txt")
 		listings.runAll()
 
-		verify(dao).move(VAULT_ID, "a.txt", "b.txt_", "", "b.txt_", "application/octet-stream")
+		verify(dao).move(VAULT_ID, "a.txt", "b (1).txt", "", "b (1).txt", "application/octet-stream")
 		verify(repository).move(source, target)
+	}
+
+	@Test
+	fun `a file created under a name taken in the cache gets the next free number before its extension`() {
+		whenever(dao.insert(any())).thenReturn(ID)
+		whenever(dao.load(VAULT_ID, "new.txt")).thenReturn(entity("new.txt").apply { id = ID + 1 })
+		whenever(dao.load(VAULT_ID, "new (1).txt")).thenReturn(entity("new (1).txt").apply { id = ID + 2 })
+
+		inTest.create(VaultPath(vault), "new.txt", isFolder = false)
+
+		verify(dao).insert(argThat { name == "new (2).txt" && path == "new (2).txt" })
 	}
 
 	@Test
