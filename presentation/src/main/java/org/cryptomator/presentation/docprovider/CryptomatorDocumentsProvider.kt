@@ -27,6 +27,7 @@ import org.cryptomator.domain.exception.BackendException
 import org.cryptomator.domain.exception.FatalBackendException
 import org.cryptomator.domain.repository.VaultDocumentListener
 import org.cryptomator.presentation.BuildConfig
+import org.cryptomator.presentation.CryptomatorApp
 import org.cryptomator.presentation.R
 import org.cryptomator.presentation.intent.Intents
 import org.cryptomator.presentation.intent.UnlockVaultIntent
@@ -229,13 +230,19 @@ class CryptomatorDocumentsProvider : DocumentsProvider() {
 	}
 
 	/**
-	 * Instead of an error, Files shows a button for the user action of the thrown exception, which unlocks the vault.
+	 * Instead of an error, Files shows a button for the user action of the thrown exception, which unlocks the vault. A
+	 * vault that is unlocked counts as used, so that it doesn't lock while another app uses it.
 	 */
 	private fun requireUnlocked(path: VaultPath): VaultPath {
 		if (!path.vault.isUnlocked) {
 			throw authenticationRequired(path.vault)
 		}
+		vaultsUsed()
 		return path
+	}
+
+	private fun vaultsUsed() {
+		(context?.applicationContext as? CryptomatorApp)?.vaultsUsed()
 	}
 
 	private fun authenticationRequired(vault: Vault): AuthenticationRequiredException {
@@ -330,6 +337,9 @@ class CryptomatorDocumentsProvider : DocumentsProvider() {
 		val accessMode = ParcelFileDescriptor.parseMode(mode)
 		val path = metadataCache.path(documentId)
 		val pinnedFile = claimPinnedFileIfLocked(path, contentCache, ::authenticationRequired)
+		if (pinnedFile == null) {
+			vaultsUsed()
+		}
 		try {
 			if (accessMode == ParcelFileDescriptor.MODE_READ_ONLY) {
 				val localFile = pinnedFile ?: contentCache.file(path, signal)
@@ -504,6 +514,14 @@ class CryptomatorDocumentsProvider : DocumentsProvider() {
 		@JvmStatic
 		fun evictCopies() {
 			appComponent.documentContentCache().evict()
+		}
+
+		/**
+		 * Whether uploads or downloads someone waits for are running, which a graceful automatic lock waits for.
+		 */
+		@JvmStatic
+		fun hasTransfers(): Boolean {
+			return appComponent.documentContentCache().hasTransfers()
 		}
 
 		/**

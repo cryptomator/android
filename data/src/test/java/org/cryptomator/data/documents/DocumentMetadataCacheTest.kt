@@ -550,8 +550,10 @@ class DocumentMetadataCacheTest {
 		upload(base = 5_000)
 
 		assertTrue(inTest.hasUploadInFlight(path("a/x.txt")))
+		assertTrue(inTest.hasUploads())
 		uploadExecutor.runAll()
 		assertFalse(inTest.hasUploadInFlight(path("a/x.txt")))
+		assertFalse(inTest.hasUploads())
 		upload(base = 5_000)
 		inTest.markPendingUpload(path("a/x.txt"))
 		assertFalse(inTest.hasUploadInFlight(path("a/x.txt")))

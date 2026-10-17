@@ -238,6 +238,13 @@ class DocumentContentCache @JvmOverloads constructor(
 	}
 
 	/**
+	 * Whether uploads or downloads someone waits for are running. Previews aren't counted, see [downloadUnrecorded].
+	 */
+	fun hasTransfers(): Boolean {
+		return hasAwaitedDownloads() || metadataCache.hasUploads()
+	}
+
+	/**
 	 * A claimed copy of a file and the version in the cloud it is based on.
 	 */
 	private class Copy(val file: File, val lastModified: Long?)

@@ -673,6 +673,13 @@ class DocumentMetadataCache @JvmOverloads constructor(
 		return metadata.isUploading || uploads.any { it.id == metadata.id }
 	}
 
+	/**
+	 * Whether any upload has been scheduled and hasn't ended yet.
+	 */
+	fun hasUploads(): Boolean {
+		return uploads.isNotEmpty()
+	}
+
 	fun hasUploadInFlight(path: VaultPath): Boolean {
 		val metadata = dao.load(path.vault.id, path.path) ?: return false
 		return uploads.any { it.id == metadata.id && it.generation == metadata.uploadGeneration }

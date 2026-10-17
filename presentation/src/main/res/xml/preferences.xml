@@ -94,6 +94,12 @@
 			android:summary="%s"
 			android:title="@string/screen_settings_auto_lock_timeout" />
 
+		<SwitchPreference
+			android:defaultValue="true"
+			android:key="lockGracefully"
+			android:summary="@string/screen_settings_auto_lock_gracefully_summary"
+			android:title="@string/screen_settings_auto_lock_gracefully" />
+
 	</PreferenceCategory>
 
 	<PreferenceCategory

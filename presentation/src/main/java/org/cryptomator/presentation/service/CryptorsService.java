@@ -38,6 +38,10 @@ public class CryptorsService extends Service {
 	private final Consumer<LockTimeout> onLockTimeoutChanged = this::onLockTimeoutChanged;
 	private volatile boolean running = true;
 	private volatile boolean lockSuspended = false;
+	/**
+	 * Whether the screen went off while transfers were running, so that the vaults lock once they have finished.
+	 */
+	private volatile boolean screenOffLockPending = false;
 	private final Thread worker = new Thread(new Runnable() {
 		@Override
 		public void run() {
@@ -45,7 +49,17 @@ public class CryptorsService extends Service {
 				try {
 					waitUntilVaultsUnlockedAndInBackground();
 					if (!lockSuspended) {
-						if (autolockTimeout.expired()) {
+						boolean transfersRunning = sharedPreferencesHandler.lockGracefully() && transfersRunning();
+						if (transfersRunning) {
+							// a running transfer counts as use, so the timeout runs from when the last one has finished
+							autolockTimeout.used();
+						}
+						if (screenOffLockPending) {
+							if (!transfersRunning) {
+								Timber.tag("CryptorsService").i("Transfers finished after the screen went off");
+								lockOnScreenOff();
+							}
+						} else if (autolockTimeout.expired()) {
 							Timber.tag("CryptorsService").i("autolock timeout expired");
 							destroyCryptorsAndHideNotification();
 						} else {
@@ -70,7 +84,7 @@ public class CryptorsService extends Service {
 	private void waitUntilVaultsUnlockedAndInBackground() throws InterruptedException {
 		unlockedLock.lock();
 		try {
-			if (cryptors.isEmpty() || autolockTimeout.isDisabled()) {
+			if (cryptors.isEmpty() || (autolockTimeout.isDisabled() && !screenOffLockPending)) {
 				vaultsUnlockedAndInBackground.await();
 			}
 		} finally {
@@ -88,6 +102,7 @@ public class CryptorsService extends Service {
 		worker.start();
 
 		IntentFilter filter = new IntentFilter(Intent.ACTION_SCREEN_OFF);
+		filter.addAction(Intent.ACTION_USER_PRESENT);
 		screenLockReceiver = new ScreenLockReceiver();
 		registerReceiver(screenLockReceiver, filter);
 	}
@@ -154,7 +169,7 @@ public class CryptorsService extends Service {
 	private void signalVaultsUnlockedAndInBackgroundIfRequired() {
 		unlockedLock.lock();
 		try {
-			if (!cryptors.isEmpty() && !autolockTimeout.isDisabled()) {
+			if (!cryptors.isEmpty() && (!autolockTimeout.isDisabled() || screenOffLockPending)) {
 				vaultsUnlockedAndInBackground.signal();
 			}
 		} finally {
@@ -183,6 +198,18 @@ public class CryptorsService extends Service {
 		notification.hide();
 	}
 
+	private boolean transfersRunning() {
+		return CryptomatorDocumentsProvider.hasTransfers();
+	}
+
+	private void lockOnScreenOff() {
+		screenOffLockPending = false;
+		destroyCryptorsAndHideNotification();
+		stopCryptorsService();
+		// notify BrowseFilesActivity to finish because of #320
+		LocalBroadcastManager.getInstance(this).sendBroadcast(new Intent(SCREEN_AND_VAULT_LOCKED));
+	}
+
 	public class Binder extends android.os.Binder {
 
 		Binder() {
@@ -204,23 +231,34 @@ public class CryptorsService extends Service {
 		public void unSuspendLock() {
 			lockSuspended = false;
 		}
+
+		/**
+		 * Starts the automatic locking's timeout over, e.g. because another app uses a vault through the documents
+		 * provider.
+		 */
+		public void vaultsUsed() {
+			autolockTimeout.used();
+		}
 	}
 
 	class ScreenLockReceiver extends BroadcastReceiver {
 
 		@Override
 		public void onReceive(Context context, Intent intent) {
-			if (intent.getAction().equals(Intent.ACTION_SCREEN_OFF) && //
+			if (Intent.ACTION_USER_PRESENT.equals(intent.getAction())) {
+				// the user is back before the transfers finished, the timeout applies again
+				screenOffLockPending = false;
+			} else if (Intent.ACTION_SCREEN_OFF.equals(intent.getAction()) && //
 					sharedPreferencesHandler.lockOnScreenOff() && //
 					!lockSuspended) {
-				Timber.tag("CryptorsService").i("ScreenLock received, destroying cryptors and shutting down service");
-
-				destroyCryptorsAndHideNotification();
-
-				stopCryptorsService();
-
-				// notify BrowseFilesActivity to finish because of #320
-				LocalBroadcastManager.getInstance(context).sendBroadcast(new Intent(SCREEN_AND_VAULT_LOCKED));
+				if (sharedPreferencesHandler.lockGracefully() && transfersRunning()) {
+					Timber.tag("CryptorsService").i("ScreenLock received, locking once the running transfers have finished");
+					screenOffLockPending = true;
+					signalVaultsUnlockedAndInBackgroundIfRequired();
+				} else {
+					Timber.tag("CryptorsService").i("ScreenLock received, destroying cryptors and shutting down service");
+					lockOnScreenOff();
+				}
 			}
 		}
 	}

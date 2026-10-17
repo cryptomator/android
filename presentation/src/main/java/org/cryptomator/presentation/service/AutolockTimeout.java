@@ -2,58 +2,61 @@ package org.cryptomator.presentation.service;
 
 import org.cryptomator.util.LockTimeout;
 
-import static java.lang.System.currentTimeMillis;
+import java.util.function.LongSupplier;
 
+/**
+ * Tells when the vaults lock after not being used for the configured timeout, like on iOS. They are in use while the
+ * app is in the foreground, and whenever another app uses them through the documents provider, see {@link #used()}.
+ */
 class AutolockTimeout {
 
-	private static final long APP_IS_ACTIVE = -1L;
+	private final LongSupplier currentTimeMillis;
 
-	private volatile long appInactiveSince = APP_IS_ACTIVE;
-	private LockTimeout lockTimeout = LockTimeout.ONE_MINUTE;
+	private volatile boolean appIsActive = true;
+	private volatile long lastUsed;
+	private volatile LockTimeout lockTimeout = LockTimeout.ONE_MINUTE;
 
-	private long configuredTimeout = 0;
-	private long timeOfAutolock;
+	AutolockTimeout() {
+		this(System::currentTimeMillis);
+	}
+
+	AutolockTimeout(LongSupplier currentTimeMillis) {
+		this.currentTimeMillis = currentTimeMillis;
+		this.lastUsed = currentTimeMillis.getAsLong();
+	}
 
 	public void setAppIsActive(boolean appIsActive) {
-		if (appIsActive) {
-			appInactiveSince = APP_IS_ACTIVE;
-		} else {
-			appInactiveSince = currentTimeMillis();
-		}
-		recompute();
+		this.appIsActive = appIsActive;
+		used();
+	}
+
+	/**
+	 * Starts the timeout over, e.g. because another app used a vault or a transfer is running.
+	 */
+	public void used() {
+		lastUsed = currentTimeMillis.getAsLong();
 	}
 
 	public void setLockTimeout(LockTimeout lockTimeout) {
 		this.lockTimeout = lockTimeout;
-		recompute();
 	}
 
 	public boolean expired() {
-		return !isDisabled() && timeOfAutolock <= currentTimeMillis();
+		return !isDisabled() && timeRemaining() <= 0;
 	}
 
 	public int timeRemaining() {
-		if (appInactiveSince == APP_IS_ACTIVE) {
+		if (isDisabled()) {
 			return 0;
 		}
-		return (int) (timeOfAutolock - currentTimeMillis());
+		return (int) (lastUsed + configuredTimeout() - currentTimeMillis.getAsLong());
 	}
 
 	public long configuredTimeout() {
-		return configuredTimeout;
-	}
-
-	private void recompute() {
-		if (isDisabled()) {
-			configuredTimeout = 0;
-			timeOfAutolock = 0L;
-		} else {
-			configuredTimeout = lockTimeout.getDurationMillis();
-			timeOfAutolock = appInactiveSince + configuredTimeout;
-		}
+		return isDisabled() ? 0 : lockTimeout.getDurationMillis();
 	}
 
 	public boolean isDisabled() {
-		return appInactiveSince == APP_IS_ACTIVE || lockTimeout.isDisabled();
+		return appIsActive || lockTimeout.isDisabled();
 	}
 }

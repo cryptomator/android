@@ -311,6 +311,13 @@ class CryptomatorApp : Application(), HasComponent<ApplicationComponent> {
 		localServiceBinder?.suspendLock()
 	}
 
+	/**
+	 * Starts the automatic locking's timeout over, because another app uses a vault.
+	 */
+	fun vaultsUsed() {
+		cryptoServiceBinder?.vaultsUsed()
+	}
+
 	fun unSuspendLock() {
 		val localServiceBinder = cryptoServiceBinder
 		localServiceBinder?.unSuspendLock()

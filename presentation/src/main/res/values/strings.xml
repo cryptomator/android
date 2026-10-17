@@ -317,6 +317,8 @@
 	<string name="screen_settings_section_auto_lock">Automatic locking</string>
 	<string name="screen_settings_auto_lock_timeout">Lock after</string>
 	<string name="screen_settings_auto_lock_on_screen_lock">When screen is disabled</string>
+	<string name="screen_settings_auto_lock_gracefully">Wait for transfers</string>
+	<string name="screen_settings_auto_lock_gracefully_summary">Automatic locking waits until running uploads and downloads have finished</string>
 
 	<string name="screen_settings_section_auto_photo_upload">Automatic photo upload</string>
 	<string name="screen_settings_section_auto_photo_upload_vault">Choose vault for upload</string>
@@ -754,7 +756,6 @@
 
 
 	<!-- lock timeout names -->
-	<string name="lock_timeout_instant">Instant</string>
 	<string name="lock_timeout_1m">1 minute</string>
 	<string name="lock_timeout_2m">2 minutes</string>
 	<string name="lock_timeout_5m">5 minutes</string>

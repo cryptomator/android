@@ -194,6 +194,24 @@ class DocumentContentCacheTest {
 	}
 
 	@Test
+	fun `transfers are running while an upload or a download someone waits for runs, not for a preview's download`() {
+		givenDocument(lastModified = 9_000)
+		val cache = cache()
+		var transfersWhileReading: Boolean? = null
+		givenCloudContent("content") { transfersWhileReading = cache.hasTransfers() }
+
+		cache.release(cache.file(vaultPath("x.txt")))
+		assertEquals(true, transfersWhileReading)
+		assertFalse(cache.hasTransfers())
+
+		cache.downloadUnrecorded(vaultPath("x.txt"), File(directory, "preview"))
+		assertEquals(false, transfersWhileReading)
+
+		whenever(metadataCache.hasUploads()).thenReturn(true)
+		assertTrue(cache.hasTransfers())
+	}
+
+	@Test
 	fun `a copy that is being downloaded is not deleted`() {
 		givenDocument(lastModified = 9_000)
 		val cache = cache()

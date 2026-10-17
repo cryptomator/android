@@ -26,12 +26,17 @@ constructor(context: Context) : SharedPreferences.OnSharedPreferenceChangeListen
 
 	init {
 		defaultSharedPreferences.registerOnSharedPreferenceChangeListener(this)
+		// so that the settings show the timeout that applies instead of one that no longer exists
+		val storedLockTimeout = defaultSharedPreferences.getValue(LOCK_TIMEOUT, ONE_MINUTE.name)
+		if (LockTimeout.fromStored(storedLockTimeout).name != storedLockTimeout) {
+			defaultSharedPreferences.setValue(LOCK_TIMEOUT, LockTimeout.fromStored(storedLockTimeout).name)
+		}
 	}
 
 	val lockTimeout: LockTimeout
 		get() {
 			val value = defaultSharedPreferences.getValue(LOCK_TIMEOUT, ONE_MINUTE.name)
-			return LockTimeout.valueOf(value)
+			return LockTimeout.fromStored(value)
 		}
 
 	val screenStyleMode: Int
@@ -86,6 +91,13 @@ constructor(context: Context) : SharedPreferences.OnSharedPreferenceChangeListen
 
 	fun documentsProvider(): Boolean {
 		return defaultSharedPreferences.getValue(DOCUMENTS_PROVIDER, true)
+	}
+
+	/**
+	 * Whether automatic locking waits until running uploads and downloads have finished.
+	 */
+	fun lockGracefully(): Boolean {
+		return defaultSharedPreferences.getValue(LOCK_GRACEFULLY, true)
 	}
 
 	fun lockOnScreenOff(): Boolean {
@@ -386,6 +398,7 @@ constructor(context: Context) : SharedPreferences.OnSharedPreferenceChangeListen
 		private const val USE_CONFIRMATION_IN_FACE_UNLOCK_AUTHENTICATION = "useConfirmationInFaceUnlockBiometricAuthentication"
 		private const val LOCK_TIMEOUT = "lockTimeout"
 		private const val LOCK_ON_SCREEN_OFF = "lockOnScreenOff"
+		private const val LOCK_GRACEFULLY = "lockGracefully"
 		private const val LIVE_SEARCH = "liveSearch"
 		private const val GLOB_SEARCH = "globSearch"
 		private const val KEEP_UNLOCKED_WHILE_EDITING = "keepUnlockedWhileEditing"
