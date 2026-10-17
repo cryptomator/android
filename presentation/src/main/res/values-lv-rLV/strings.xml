@@ -99,6 +99,7 @@
 	<string name="screen_vault_list_vault_action_delete">Noņemt</string>
 	<string name="screen_vault_list_vault_creation_hint">Piesist šeit, lai izveidotu jaunu glabātavu</string>
 	<string name="screen_vault_list_change_password_successful">Parole sekmīgi nomainīta</string>
+	<string name="screen_vault_list_sale_promo_banner_dismiss">Atmest</string>
 	<!-- # screen: file browser -->
 	<string name="screen_file_browser_default_title">Glabātava</string>
 	<string name="screen_file_browser_add_existing_vault_extra_text">Atlasīt galvenās atslēgas vai glabātavas datni</string>
@@ -384,6 +385,7 @@
 	<string name="dialog_no_more_images_to_display">Vairs nav attēlu, ko parādīt&#8230;</string>
 	<string name="dialog_pcloud_credentials_updated_title">\"%1$s\" pieteikšanās dati atjaunināti</string>
 	<string name="dialog_pcloud_credentials_updated">Ja bija paredzēts pievienot jaunu pCloud kontu, jāpiesit saitei <a href="https://www.pcloud.com">www.pcloud.com</a>, jāatsakās no pašreizējā konta un vēlreiz jāpiesit \"+\" šajā lietotnē, lai izveidotu jaunu mākoņa savienojumu.</string>
+	<string name="dialog_enter_sharepoint_url_title">Jāievada SharePoint URL</string>
 	<string name="dialog_cbc_password_vaults_migration_title">Nepieciešama glabātavas paroles pārcelšana</string>
 	<string name="dialog_cbc_password_vaults_migration_hint">Drošības uzlabojumu dēļ katrai glabātavai divreiz tiks vaicāta biometriskā autentificēšanās, lai no jauna šifrētu glabātavu paroles. Tas ir nepiciešams, lai turpinātu aizsargāt glabātavu paroles ar jaunākajām tehnoloģijām. Ja nav vēlēšanas, lai tas notiktu, saglabātās paroles tiks noņemtas.</string>
 	<string name="dialog_cbc_password_vaults_migration_action">Pārcelt</string>

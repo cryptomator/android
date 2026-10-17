@@ -65,6 +65,8 @@
 	<string name="screen_license_check_subscription_title">Ročné predplatné</string>
 	<string name="screen_license_check_subscription_subtitle">ročne</string>
 	<string name="screen_license_check_lifetime_title">Doživotná licencia</string>
+	<string name="screen_license_check_lifetime_discount_badge_until">🔥 Zľava %1$d%% do %2$s</string>
+	<string name="screen_license_check_lifetime_discount_badge_generic">🔥 Časovo obmedzený výpredaj</string>
 	<string name="screen_license_check_lifetime_subtitle">jednorázovo</string>
 	<string name="screen_license_check_restore_purchase">Obnoviť nákup</string>
 	<string name="screen_license_check_terms">Podmienky používania</string>
@@ -117,6 +119,8 @@
 	<string name="screen_vault_list_vault_action_delete">Odstrániť</string>
 	<string name="screen_vault_list_vault_creation_hint">Kliknúť sem pre vytvorenie nového trezora</string>
 	<string name="screen_vault_list_change_password_successful">Heslo úspešne zmenené</string>
+	<string name="screen_vault_list_sale_promo_banner">🔥 Doživotná licencia je zľavnená o %1$d%% do %2$s</string>
+	<string name="screen_vault_list_sale_promo_banner_dismiss">Zavrieť</string>
 	<!-- # screen: file browser -->
 	<string name="screen_file_browser_default_title">Trezor</string>
 	<string name="screen_file_browser_create_new_vault_button_text">Umiestniť sem</string>
@@ -172,6 +176,8 @@
 	<!-- ## screen: cloud connections -->
 	<string name="screen_cloud_connections_title">Vybrať umiestnenie</string>
 	<string name="screen_cloud_connections_no_connections">Kliknúť sem pre pridanie umiestnení</string>
+	<string name="screen_cloud_connections_msg_no_sharepoint_drives">Nie sú k dispozícii žiadne disky.</string>
+	<string name="screen_cloud_connections_msg_sharepoint_site_not_found">Lokalitu SharePoint sa nepodarilo nájsť. Skontrolujte URL adresu.</string>
 	<string name="screen_cloud_error_webdav_not_supported">Server zdá sa byť WebDAV kompatibilný</string>
 	<string name="screen_cloud_local_error_no_content_provider">Nenašiel sa manažér súborov ktorý podporuje otváranie adresárov</string>
 	<!-- ## screen: webdav settings -->
@@ -260,6 +266,7 @@
 	<string name="screen_settings_keep_unlocked_while_editing_files_summary">Držať trezory odomknuté pokiaľ sa editujú súbory</string>
 	<!-- ## screen: cloud settings -->
 	<string name="screen_cloud_settings_onedrive_connections">OneDrive pripojenia</string>
+	<string name="screen_cloud_settings_sharepoint_connections">Pripojenia SharePointu</string>
 	<string name="screen_cloud_settings_webdav_connections">WebDAV pripojenia</string>
 	<string name="screen_cloud_settings_pcloud_connections">pCloud pripojenia</string>
 	<string name="screen_cloud_settings_s3_connections">S3 pripojenia</string>
@@ -403,6 +410,12 @@
 	<string name="dialog_no_more_images_to_display">Niet už viac obrázkov k zobrazeniu&#8230;</string>
 	<string name="dialog_pcloud_credentials_updated_title">Prístupy k %1$s aktualizované</string>
 	<string name="dialog_pcloud_credentials_updated">Ak zamýšľate pridať nový pCloud účet, kliknite na tento link <a href="https://www.pcloud.com">www.pcloud.com</a>, odhláste sa zo súčasného účtu a opätovne kliknite na \'+\' v tejto aplikácii pre vytvorenie nového cloudového pripojenia.</string>
+	<string name="dialog_enter_sharepoint_url_title">Zadajte URL adresu SharePointu</string>
+	<string name="dialog_enter_sharepoint_url_hint">URL adresa lokality SharePoint</string>
+	<string name="dialog_enter_sharepoint_url_format">Zadajte adresu svojej lokality SharePoint, napr. https://{…}.sharepoint.com/sites/{…}.</string>
+	<string name="dialog_enter_sharepoint_url_invalid">Toto nie je adresa lokality SharePoint. Zadajte adresu, napríklad https://{…}.sharepoint.com/sites/{…}.</string>
+	<string name="dialog_choose_sharepoint_drive_title">Vyberte disk</string>
+	<string name="dialog_choose_sharepoint_drive_hint">Vyberte jednotku SharePointu, s ktorou chcete pracovať.</string>
 	<string name="dialog_cbc_password_vaults_migration_title">Pre migráciu peňaženky je požadované heslo</string>
 	<string name="dialog_cbc_password_vaults_migration_action">Migrovať</string>
 	<string name="dialog_create_hub_device_name_label">Meno</string>

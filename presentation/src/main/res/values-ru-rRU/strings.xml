@@ -124,6 +124,7 @@
 	<string name="screen_vault_list_vault_action_delete">Удалить</string>
 	<string name="screen_vault_list_vault_creation_hint">Нажмите здесь, чтобы создать новое хранилище</string>
 	<string name="screen_vault_list_change_password_successful">Пароль успешно изменён</string>
+	<string name="screen_vault_list_sale_promo_banner_dismiss">Отклонить</string>
 	<!-- # screen: file browser -->
 	<string name="screen_file_browser_default_title">Хранилище</string>
 	<string name="screen_file_browser_add_existing_vault_extra_text">Выберите файл Masterkey или хранилище</string>
@@ -180,6 +181,8 @@
 	<!-- ## screen: cloud connections -->
 	<string name="screen_cloud_connections_title">Выберите место</string>
 	<string name="screen_cloud_connections_no_connections">Нажмите, чтобы добавить местоположения</string>
+	<string name="screen_cloud_connections_msg_no_sharepoint_drives">Нет доступных дисков.</string>
+	<string name="screen_cloud_connections_msg_sharepoint_site_not_found">Сайт SharePoint не найден. Проверьте URL-адрес.</string>
 	<string name="screen_cloud_error_webdav_not_supported">Похоже, сервер не совместим с WebDAV</string>
 	<string name="screen_cloud_local_error_no_content_provider">Не найден файловый менеджер, поддерживающий открытие папок</string>
 	<!-- ## screen: webdav settings -->
@@ -268,6 +271,7 @@
 	<string name="screen_settings_keep_unlocked_while_editing_files_summary">Не блокировать при редактировании</string>
 	<!-- ## screen: cloud settings -->
 	<string name="screen_cloud_settings_onedrive_connections">Подключения OneDrive</string>
+	<string name="screen_cloud_settings_sharepoint_connections">Соединения с SharePoint</string>
 	<string name="screen_cloud_settings_webdav_connections">Подключения WebDAV</string>
 	<string name="screen_cloud_settings_pcloud_connections">Подключения pCloud</string>
 	<string name="screen_cloud_settings_s3_connections">Подключения S3</string>
@@ -411,6 +415,12 @@
 	<string name="dialog_no_more_images_to_display">Больше нет изображений для показа&#8230;</string>
 	<string name="dialog_pcloud_credentials_updated_title">Учётные данные для \'%1$s\' обновлены</string>
 	<string name="dialog_pcloud_credentials_updated">Если вы намеревались добавить новую учётную запись pCloud, нажмите на этот URL <a href="https://www.pcloud.com">www.pcloud.com</a>, выйдите из текущей учётной записи и снова нажмите \'+\' в этом приложении, чтобы создать новое облачное подключение.</string>
+	<string name="dialog_enter_sharepoint_url_title">Введите URL-адрес SharePoint</string>
+	<string name="dialog_enter_sharepoint_url_hint">URL-адрес сайта SharePoint</string>
+	<string name="dialog_enter_sharepoint_url_format">Введите адрес вашего сайта SharePoint, например https://{…}.sharepoint.com/sites/{…}.</string>
+	<string name="dialog_enter_sharepoint_url_invalid">Это не адрес сайта SharePoint. Введите его как https://{…}.sharepoint.com/sites/{…}.</string>
+	<string name="dialog_choose_sharepoint_drive_title">Выбрите диск</string>
+	<string name="dialog_choose_sharepoint_drive_hint">Выберите диск SharePoint, с которым вы хотите работать.</string>
 	<string name="dialog_cbc_password_vaults_migration_title">Требуется миграция пароля</string>
 	<string name="dialog_cbc_password_vaults_migration_hint">В связи с повышением безопасности вам будет предложено дважды использовать биометрическую аутентификацию для каждого хранилища для повторного шифрования паролей. Это необходимо, чтобы продолжать защищать ваши пароли с помощью новейших технологий. Если вы не хотите, чтобы это произошло, сохранённые пароли будут удалены.</string>
 	<string name="dialog_cbc_password_vaults_migration_action">Миграция</string>

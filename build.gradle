@@ -1,16 +1,16 @@
 apply from: 'buildsystem/dependencies.gradle'
 
 buildscript {
-	ext.kotlin_version = '2.4.0'
+	ext.kotlin_version = '2.4.21'
 	repositories {
 		mavenCentral()
 		google()
 	}
 	dependencies {
 		// before upgrading AGP, check https://gitlab.com/fdroid/admin/-/issues/593
-		classpath 'com.android.tools.build:gradle:9.4.0'
+		classpath 'com.android.tools.build:gradle:9.4.1'
 		classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
-		classpath "de.mannodermaus.gradle.plugins:android-junit5:1.7.1.1"
+		classpath "de.mannodermaus.gradle.plugins:android-junit5:2.0.1"
 	}
 }
 

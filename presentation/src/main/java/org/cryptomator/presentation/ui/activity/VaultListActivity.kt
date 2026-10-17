@@ -29,6 +29,7 @@ import org.cryptomator.presentation.ui.callback.VaultListCallback
 import org.cryptomator.presentation.ui.dialog.AskForLockScreenDialog
 import org.cryptomator.presentation.ui.dialog.BetaConfirmationDialog
 import org.cryptomator.presentation.ui.dialog.CBCPasswordVaultsMigrationDialog
+import org.cryptomator.presentation.ui.dialog.LicenseLostDialog
 import org.cryptomator.presentation.ui.dialog.TrialExpiredDialog
 import org.cryptomator.presentation.ui.dialog.UpdateAppAvailableDialog
 import org.cryptomator.presentation.ui.dialog.UpdateAppDialog
@@ -49,7 +50,8 @@ class VaultListActivity : BaseActivity<ActivityLayoutObscureAwareBinding>(Activi
 	BetaConfirmationDialog.Callback, //
 	CBCPasswordVaultsMigrationDialog.Callback, //
 	BiometricAuthenticationMigration.Callback, //
-	TrialExpiredDialog.Callback {
+	TrialExpiredDialog.Callback, //
+	LicenseLostDialog.Callback {
 
 	@Inject
 	lateinit var vaultListPresenter: VaultListPresenter
@@ -225,6 +227,10 @@ class VaultListActivity : BaseActivity<ActivityLayoutObscureAwareBinding>(Activi
 	}
 
 	override fun onUnlockFullVersionClicked() {
+		vaultListPresenter.onUnlockFullVersionClicked()
+	}
+
+	override fun onReenterLicenseClicked() {
 		vaultListPresenter.onUnlockFullVersionClicked()
 	}
 

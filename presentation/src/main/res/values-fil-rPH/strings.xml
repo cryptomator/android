@@ -89,6 +89,7 @@
 	<string name="screen_vault_list_vault_action_delete">Tanggalin</string>
 	<string name="screen_vault_list_vault_creation_hint">Mag-tap dito para gumawa ng bagong vault</string>
 	<string name="screen_vault_list_change_password_successful">Matagumpay na napalitan ang password</string>
+	<string name="screen_vault_list_sale_promo_banner_dismiss">I-dismiss</string>
 	<!-- # screen: file browser -->
 	<string name="screen_file_browser_default_title">Vault</string>
 	<string name="screen_file_browser_create_new_vault_button_text">Ilagay dito</string>

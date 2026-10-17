@@ -2,7 +2,7 @@ apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-kapt'
 apply plugin: 'kotlin-parcelize'
-apply plugin: 'de.mannodermaus.android-junit5'
+apply plugin: 'de.mannodermaus.android-junit'
 
 if (!liteFlavor()) {
 	apply from: 'prebuild.gradle'
@@ -65,9 +65,10 @@ android {
 
 			buildConfigField "String", "DROPBOX_API_KEY", "\"" + getApiKey('DROPBOX_API_KEY') + "\""
 			buildConfigField "String", "PCLOUD_CLIENT_ID", "\"" + getApiKey('PCLOUD_CLIENT_ID') + "\""
+			buildConfigField "String", "BOX_CLIENT_ID", "\"" + getApiKey('BOX_CLIENT_ID') + "\""
 			buildConfigField "String", "DOCUMENTS_PROVIDER_AUTHORITY", "\"" + docProviderAuthority + "\""
 
-			manifestPlaceholders = [DROPBOX_API_KEY: getApiKey('DROPBOX_API_KEY'), ONEDRIVE_API_KEY_DECODED: getOnedriveApiKey(), DOCUMENTS_PROVIDER_AUTHORITY: docProviderAuthority]
+			manifestPlaceholders = [DROPBOX_API_KEY: getApiKey('DROPBOX_API_KEY'), ONEDRIVE_API_KEY_DECODED: getOnedriveApiKey(), BOX_CLIENT_ID: getApiKey('BOX_CLIENT_ID'), DOCUMENTS_PROVIDER_AUTHORITY: docProviderAuthority]
 		}
 
 		debug {
@@ -79,9 +80,10 @@ android {
 
 			buildConfigField "String", "DROPBOX_API_KEY", "\"" + getApiKey('DROPBOX_API_KEY') + "\""
 			buildConfigField "String", "PCLOUD_CLIENT_ID", "\"" + getApiKey('PCLOUD_CLIENT_ID') + "\""
+			buildConfigField "String", "BOX_CLIENT_ID", "\"" + getApiKey('BOX_CLIENT_ID') + "\""
 			buildConfigField "String", "DOCUMENTS_PROVIDER_AUTHORITY", "\"" + docProviderAuthority + "\""
 
-			manifestPlaceholders = [DROPBOX_API_KEY: getApiKey('DROPBOX_API_KEY'), ONEDRIVE_API_KEY_DECODED: getOnedriveApiKey(), DOCUMENTS_PROVIDER_AUTHORITY: docProviderAuthority]
+			manifestPlaceholders = [DROPBOX_API_KEY: getApiKey('DROPBOX_API_KEY'), ONEDRIVE_API_KEY_DECODED: getOnedriveApiKey(), BOX_CLIENT_ID: getApiKey('BOX_CLIENT_ID'), DOCUMENTS_PROVIDER_AUTHORITY: docProviderAuthority]
 
 			versionNameSuffix '-DEBUG'
 			enableUnitTestCoverage false
@@ -210,6 +212,7 @@ dependencies {
 	implementation dependencies.androidxSwiperefresh
 	implementation dependencies.androidxPreference
 	implementation dependencies.androidxBiometric
+	implementation dependencies.androidxLocalBroadcastManager
 
 	implementation dependencies.appauth
 
@@ -293,9 +296,9 @@ dependencies {
 	testImplementation dependencies.hamcrest
 }
 
-configurations {
-	all*.exclude group: 'com.google.android', module: 'android'
-	all*.exclude group: 'com.google.guava', module: 'listenablefuture'
+configurations.configureEach {
+	exclude group: 'com.google.android', module: 'android'
+	exclude group: 'com.google.guava', module: 'listenablefuture'
 }
 
 def liteFlavor() {

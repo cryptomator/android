@@ -68,6 +68,7 @@
 	<string name="screen_vault_list_vault_action_delete">حذف</string>
 	<string name="screen_vault_list_vault_creation_hint">برای ایجاد یک مخزن جدید، اینجا را ضربه بزنید</string>
 	<string name="screen_vault_list_change_password_successful">رمز عبور با موفقیت تغییر یافت</string>
+	<string name="screen_vault_list_sale_promo_banner_dismiss">لغو</string>
 	<!-- # screen: file browser -->
 	<string name="screen_file_browser_default_title">مخزن</string>
 	<string name="screen_file_browser_create_new_vault_button_text">اینجا قرار دهید</string>

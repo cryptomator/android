@@ -4,6 +4,7 @@ import com.google.common.base.Optional;
 
 import org.cryptomator.data.cloud.crypto.CryptoCloudFactory;
 import org.cryptomator.data.db.dao.CloudDao;
+import org.cryptomator.data.db.entities.CloudEntity;
 import org.cryptomator.data.db.mappers.CloudEntityMapper;
 import org.cryptomator.domain.Cloud;
 import org.cryptomator.domain.CloudFolder;
@@ -65,7 +66,10 @@ class CloudRepositoryImpl implements CloudRepository {
 			throw new IllegalArgumentException("Can not store non persistent cloud");
 		}
 
-		Cloud storedCloud = mapper.fromEntity(cloudDao.store(mapper.toEntity(cloud)));
+		CloudEntity entity = mapper.toEntity(cloud);
+		// Box tokens are rotated on every refresh and written by its token store only
+		CloudEntity storedEntity = cloud.type() == CloudType.BOX ? cloudDao.storeKeepingAccessToken(entity) : cloudDao.store(entity);
+		Cloud storedCloud = mapper.fromEntity(storedEntity);
 
 		dispatchingCloudContentRepository.updateCloudContentRepositoryFor(storedCloud);
 

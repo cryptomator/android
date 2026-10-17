@@ -1,6 +1,7 @@
 package org.cryptomator.data.repository;
 
 import org.cryptomator.data.documents.VaultDocumentRepositoryImpl;
+import org.cryptomator.domain.repository.BoxRepository;
 import org.cryptomator.domain.repository.CloudContentRepository;
 import org.cryptomator.domain.repository.CloudRepository;
 import org.cryptomator.domain.repository.HubRepository;
@@ -51,6 +52,12 @@ public class RepositoryModule {
 	@Provides
 	public SharepointRepository provideSharepointRepository(SharepointRepositoryImpl sharepointRepository) {
 		return sharepointRepository;
+	}
+
+	@Singleton
+	@Provides
+	public BoxRepository provideBoxRepository(BoxRepositoryImpl boxRepository) {
+		return boxRepository;
 	}
 
 	@Singleton

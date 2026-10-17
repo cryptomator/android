@@ -1,5 +1,6 @@
 package org.cryptomator.presentation.presenter
 
+import org.cryptomator.domain.BoxCloud
 import org.cryptomator.domain.Cloud
 import org.cryptomator.domain.LocalStorageCloud
 import org.cryptomator.domain.OnedriveCloud
@@ -17,6 +18,7 @@ import org.cryptomator.presentation.R
 import org.cryptomator.util.FlavorConfig
 import org.cryptomator.presentation.exception.ExceptionHandlers
 import org.cryptomator.presentation.intent.Intents
+import org.cryptomator.presentation.model.BoxCloudModel
 import org.cryptomator.presentation.model.CloudModel
 import org.cryptomator.presentation.model.CloudTypeModel
 import org.cryptomator.presentation.model.LocalStorageModel
@@ -46,6 +48,7 @@ class CloudSettingsPresenter @Inject constructor( //
 		CloudTypeModel.ONEDRIVE,  //
 		CloudTypeModel.SHAREPOINT,  //
 		CloudTypeModel.PCLOUD, //
+		CloudTypeModel.BOX, //
 		CloudTypeModel.S3, //
 		CloudTypeModel.WEBDAV
 	)
@@ -104,6 +107,7 @@ class CloudSettingsPresenter @Inject constructor( //
 			CloudTypeModel.ONEDRIVE -> return context().getString(R.string.screen_cloud_settings_onedrive_connections)
 			CloudTypeModel.SHAREPOINT -> return context().getString(R.string.screen_cloud_settings_sharepoint_connections)
 			CloudTypeModel.PCLOUD -> return context().getString(R.string.screen_cloud_settings_pcloud_connections)
+			CloudTypeModel.BOX -> return context().getString(R.string.screen_cloud_settings_box_connections)
 			CloudTypeModel.WEBDAV -> return context().getString(R.string.screen_cloud_settings_webdav_connections)
 			CloudTypeModel.S3 -> return context().getString(R.string.screen_cloud_settings_s3_connections)
 			CloudTypeModel.LOCAL -> return context().getString(R.string.screen_cloud_settings_local_storage_locations)
@@ -142,6 +146,7 @@ class CloudSettingsPresenter @Inject constructor( //
 					it.add(aOnedriveCloud())
 					it.add(aSharepointCloud())
 					it.add(aPCloud())
+					it.add(aBoxCloud())
 					it.add(aWebdavCloud())
 					it.add(aS3Cloud())
 					it.add(aLocalCloud())
@@ -167,6 +172,9 @@ class CloudSettingsPresenter @Inject constructor( //
 				CloudTypeModel.PCLOUD -> {
 					true
 				}
+				CloudTypeModel.BOX -> {
+					true
+				}
 				else -> false
 			}
 		}
@@ -181,6 +189,10 @@ class CloudSettingsPresenter @Inject constructor( //
 
 		private fun aPCloud(): PCloudModel {
 			return PCloudModel(PCloud.aPCloud().build())
+		}
+
+		private fun aBoxCloud(): BoxCloudModel {
+			return BoxCloudModel(BoxCloud.aBoxCloud().build())
 		}
 
 		private fun aWebdavCloud(): WebDavCloudModel {
