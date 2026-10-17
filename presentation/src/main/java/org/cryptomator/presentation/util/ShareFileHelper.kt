@@ -1,5 +1,6 @@
 package org.cryptomator.presentation.util
 
+import android.content.ClipData
 import android.content.Intent
 import android.net.Uri
 import org.cryptomator.presentation.R
@@ -14,6 +15,8 @@ class ShareFileHelper @Inject constructor(private val mimeTypes: MimeTypes) {
 		val shareFileIntent = Intent(Intent.ACTION_SEND)
 		shareFileIntent.type = (mimeTypes.fromFilename(fileName) ?: MimeType.WILDCARD_MIME_TYPE).toString()
 		shareFileIntent.putExtra(Intent.EXTRA_STREAM, fileUri)
+		// the chooser only gets the read grant, which it needs to show the name, for the URIs in the clip data
+		shareFileIntent.clipData = ClipData.newRawUri(fileName, fileUri)
 		shareFileIntent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION)
 		activityHolder.activity().startActivity(Intent.createChooser(shareFileIntent, activityHolder.activity().getString(R.string.screen_file_browser_share_intent_chooser_title)))
 	}

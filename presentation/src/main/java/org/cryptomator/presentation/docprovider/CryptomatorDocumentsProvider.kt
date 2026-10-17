@@ -504,8 +504,14 @@ class CryptomatorDocumentsProvider : DocumentsProvider() {
 
 	companion object {
 
+		/**
+		 * The authority of the provider, derived from the application ID like the FileProvider's, so that the flavors can be
+		 * installed side by side.
+		 */
+		const val AUTHORITY = BuildConfig.APPLICATION_ID + ".documents"
+
 		private fun notifyRoots(contentResolver: ContentResolver) {
-			contentResolver.notifyChange(buildRootsUri(BuildConfig.DOCUMENTS_PROVIDER_AUTHORITY), null)
+			contentResolver.notifyChange(buildRootsUri(AUTHORITY), null)
 		}
 
 		/**
@@ -532,7 +538,7 @@ class CryptomatorDocumentsProvider : DocumentsProvider() {
 		fun setShown(context: Context, shown: Boolean) {
 			if (!shown) {
 				listOf("document", "tree").forEach { path ->
-					val prefix = Uri.Builder().scheme(ContentResolver.SCHEME_CONTENT).authority(BuildConfig.DOCUMENTS_PROVIDER_AUTHORITY).appendPath(path).build()
+					val prefix = Uri.Builder().scheme(ContentResolver.SCHEME_CONTENT).authority(AUTHORITY).appendPath(path).build()
 					context.revokeUriPermission(prefix, Intent.FLAG_GRANT_READ_URI_PERMISSION or Intent.FLAG_GRANT_WRITE_URI_PERMISSION)
 				}
 			}

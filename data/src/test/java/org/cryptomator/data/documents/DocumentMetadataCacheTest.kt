@@ -102,7 +102,7 @@ class DocumentMetadataCacheTest {
 	}
 
 	private fun cache(scheduler: CloudTaskScheduler): DocumentMetadataCache {
-		return DocumentMetadataCache(dao, scheduler, events, repository, cloudRepository, vaultRepository, mock<MimeTypes>(), direct) { now }
+		return DocumentMetadataCache(dao, scheduler, events, repository, cloudRepository, vaultRepository, mock<MimeTypes>(), direct, firstWriteGracePeriod = 0) { now }
 	}
 
 	@Test
@@ -1034,6 +1034,34 @@ class DocumentMetadataCacheTest {
 		assertEquals("$VAULT_ID:$ID", documentId)
 		verify(repository).write(eq(target), any(), any(), eq(false), eq(0L))
 		verify(dao).markCreated(ID, 0L, 4_000L)
+	}
+
+	@Test
+	fun `a new file written before its creation starts is created by the upload of the write`() {
+		whenever(dao.insert(any())).thenReturn(ID)
+		whenever(dao.loadById(ID)).thenReturn(entity("new.txt").apply { status = DocumentMetadataEntity.STATUS_UPLOADING })
+
+		val result = inTest.create(VaultPath(vault), "new.txt", isFolder = false).result
+		listings.runAll()
+
+		verify(repository, never()).write(any(), any(), any(), any(), any())
+		verify(dao, never()).markCreated(any(), anyOrNull(), anyOrNull())
+		assertFailsWith<CancellationException>(result)
+	}
+
+	@Test
+	fun `a new file is not created empty while a writer has it open`() {
+		whenever(dao.insert(any())).thenReturn(ID)
+		val created = entity("new.txt").apply { status = DocumentMetadataEntity.STATUS_CREATING }
+		val written = entity("new.txt").apply { status = DocumentMetadataEntity.STATUS_UPLOADING }
+		var open = true
+		inTest.isOpenForWriting = { id -> (id == ID && open).also { open = false } }
+		whenever(dao.loadById(ID)).thenReturn(created, created, written)
+
+		inTest.create(VaultPath(vault), "new.txt", isFolder = false)
+		listings.runAll()
+
+		verify(repository, never()).write(any(), any(), any(), any(), any())
 	}
 
 	@Test

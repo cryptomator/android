@@ -10,7 +10,6 @@ import org.cryptomator.data.documents.ThumbnailGenerator
 import org.cryptomator.data.documents.ThumbnailStore
 import org.cryptomator.domain.Vault
 import org.cryptomator.domain.VaultPath
-import org.cryptomator.presentation.BuildConfig
 import org.cryptomator.presentation.CryptomatorApp
 import org.cryptomator.presentation.di.component.ApplicationComponent
 import java.io.File
@@ -19,7 +18,7 @@ import java.io.FileNotFoundException
 internal val appComponent: ApplicationComponent by lazy { (CryptomatorApp.applicationContext() as CryptomatorApp).awaitComponent() }
 
 internal fun documentUri(documentId: String): Uri {
-	return DocumentsContract.buildDocumentUri(BuildConfig.DOCUMENTS_PROVIDER_AUTHORITY, documentId)
+	return DocumentsContract.buildDocumentUri(CryptomatorDocumentsProvider.AUTHORITY, documentId)
 }
 
 internal fun MatrixCursor.setNotificationUriForId(cr: ContentResolver, documentId: String): Uri {

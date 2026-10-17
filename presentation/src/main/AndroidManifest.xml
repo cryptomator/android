@@ -216,7 +216,7 @@
 		</provider>
 		<provider
 			android:name="org.cryptomator.presentation.docprovider.CryptomatorDocumentsProvider"
-			android:authorities="${DOCUMENTS_PROVIDER_AUTHORITY}"
+			android:authorities="${applicationId}.documents"
 			android:exported="true"
 			android:grantUriPermissions="true"
 			android:permission="android.permission.MANAGE_DOCUMENTS">

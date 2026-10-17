@@ -80,7 +80,7 @@ class DocumentContentCache @JvmOverloads constructor(
 	 */
 	private val writers = HashMap<String, Writers>()
 
-	private class Writers(var base: Long?) {
+	private class Writers(val documentId: Long?, var base: Long?) {
 
 		var open = 0
 	}
@@ -117,6 +117,7 @@ class DocumentContentCache @JvmOverloads constructor(
 		directory.mkdirs()
 		metadataCache.abandonUploadsWithoutLocalCopy()
 		metadataCache.onInterruptedMovesResolved = { vault -> resumeUploads(vault) }
+		metadataCache.isOpenForWriting = { id -> synchronized(inUse) { writers.values.any { it.documentId == id && it.open > 0 } } }
 		evict()
 	}
 
@@ -278,7 +279,7 @@ class DocumentContentCache @JvmOverloads constructor(
 		val downloaded = if (keepContent && !metadata.isCreating) pinned?.let { pinnedCopy(path, it, signal) } ?: copy(path, signal) else null
 		return withCopiesLocked {
 			val copy = downloaded ?: emptyCopy(path, pinned?.lastModified ?: metadata.lastModified)
-			writers.getOrPut(copy.file.name) { Writers(copy.lastModified) }.apply {
+			writers.getOrPut(copy.file.name) { Writers(metadata.id, copy.lastModified) }.apply {
 				base = copy.lastModified
 				open++
 			}

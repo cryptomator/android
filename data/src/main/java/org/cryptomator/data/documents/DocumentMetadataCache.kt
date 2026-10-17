@@ -54,6 +54,13 @@ private const val MAX_NAME_COLLISION_RETRIES = 5
 private const val MAX_LISTING_ATTEMPTS = 3
 
 /**
+ * How long a new file waits for its first write before it is created empty, see [DocumentMetadataCache.create].
+ */
+private const val FIRST_WRITE_GRACE_PERIOD = 2_000L
+private const val MAX_FIRST_WRITE_WAIT = 60_000L
+private const val FIRST_WRITE_POLL_INTERVAL = 50L
+
+/**
  * Answers metadata queries from the persisted cache. The cached children of a folder are returned right away. A folder
  * that has never been listed, or not within [REFRESH_INTERVAL_MILLIS], is listed from the cloud in the background.
  *
@@ -88,8 +95,15 @@ class DocumentMetadataCache @JvmOverloads constructor(
 	private val vaultRepository: VaultRepository,
 	private val mimeTypes: MimeTypes,
 	private val deferredMoves: Executor = ForkJoinPool.commonPool(),
+	private val firstWriteGracePeriod: Long = FIRST_WRITE_GRACE_PERIOD,
 	private val currentTimeMillis: () -> Long = System::currentTimeMillis
 ) {
+
+	/**
+	 * Whether a writer has the file with the given id open, which [create] waits for. Set by the content cache.
+	 */
+	@Volatile
+	var isOpenForWriting: (Long) -> Boolean = { false }
 
 	/**
 	 * Held while nodes are added, moved, deleted or marked in the cache, also by the background tasks that store what
@@ -331,7 +345,8 @@ class DocumentMetadataCache @JvmOverloads constructor(
 	}
 
 	/**
-	 * Unless [failIfTaken] is set, a name that is taken in the cache is changed to an unused one.
+	 * Unless [failIfTaken] is set, a name that is taken in the cache is changed to an unused one. A new file is only
+	 * created empty in the cloud if it isn't written right away, see [awaitFirstWrite].
 	 */
 	fun create(folder: VaultPath, name: String, isFolder: Boolean, failIfTaken: Boolean = false, userInitiated: Boolean = false): Creation {
 		if (failIfTaken) {
@@ -352,6 +367,9 @@ class DocumentMetadataCache @JvmOverloads constructor(
 			})
 			onChanged(folder)
 			val result = applyInBackground(path.vault, id, listOf(path), userInitiated) {
+				if (!isFolder && awaitFirstWrite(id)) {
+					throw CancellationException("${documentId(path.vault.id, id)} was written before it was created, the upload of the write creates it")
+				}
 				retryingNameCollisions(id, path) { current ->
 					if (isFolder) {
 						val createdFolder = contentRepository.create(contentRepository.folder(parentFolder(current), current.name))
@@ -980,6 +998,28 @@ class DocumentMetadataCache @JvmOverloads constructor(
 			conflictPath = folder.resolve(conflictCopyName(path.name, UUID.randomUUID().toString().take(5).uppercase()))
 		} while (dao.load(conflictPath.vault.id, conflictPath.path) != null)
 		return conflictPath
+	}
+
+	/**
+	 * Waits for the first write of the new file with [id] and returns whether it came, so that the upload of the write
+	 * creates the file instead of an empty file being uploaded first. Unlike on iOS, a file created through the documents
+	 * provider gets its content with a later write, e.g. when the Files app copies into a vault. The wait ends after
+	 * [firstWriteGracePeriod], or while a writer has the file open once it has closed it, but after [MAX_FIRST_WRITE_WAIT]
+	 * at most. It holds the file's path in the [scheduler], so that later changes of the file still find it created.
+	 */
+	private fun awaitFirstWrite(id: Long): Boolean {
+		val start = currentTimeMillis()
+		while (true) {
+			val metadata = dao.loadById(id) ?: return false
+			if (metadata.isUploading) {
+				return true
+			}
+			val waited = currentTimeMillis() - start
+			if (waited >= MAX_FIRST_WRITE_WAIT || (waited >= firstWriteGracePeriod && !isOpenForWriting(id))) {
+				return false
+			}
+			Thread.sleep(FIRST_WRITE_POLL_INTERVAL)
+		}
 	}
 
 	/**

@@ -1,6 +1,7 @@
 package org.cryptomator.presentation.presenter
 
 import android.content.ActivityNotFoundException
+import android.content.ClipData
 import android.content.Intent
 import android.net.Uri
 import android.provider.DocumentsContract
@@ -860,6 +861,10 @@ class BrowseFilesPresenter @Inject constructor( //
 		val shareFilesIntent = Intent(Intent.ACTION_SEND_MULTIPLE)
 		shareFilesIntent.type = combinedMimeType(shareFiles).toString()
 		shareFilesIntent.putParcelableArrayListExtra(Intent.EXTRA_STREAM, ArrayList(uris))
+		// the chooser only gets the read grant, which it needs to show the names, for the URIs in the clip data
+		shareFilesIntent.clipData = ClipData.newRawUri(shareFiles[0].name, uris[0]).apply {
+			uris.drop(1).forEach { addItem(ClipData.Item(it)) }
+		}
 		shareFilesIntent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION)
 		startIntent(Intent.createChooser(shareFilesIntent, getString(R.string.screen_file_browser_share_intent_chooser_title)))
 		disableSelectionMode()

@@ -13,7 +13,6 @@ import androidx.annotation.Nullable;
 import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 
 import org.cryptomator.data.cloud.crypto.Cryptors;
-import org.cryptomator.presentation.BuildConfig;
 import org.cryptomator.presentation.docprovider.CryptomatorDocumentsProvider;
 import org.cryptomator.util.LockTimeout;
 import org.cryptomator.util.SharedPreferencesHandler;
@@ -156,7 +155,7 @@ public class CryptorsService extends Service {
 	 * Notifies observers of all roots and documents, so that the Files app shows what was locked or unlocked.
 	 */
 	private void updateDocumentProvider() {
-		Uri providerUri = new Uri.Builder().scheme(ContentResolver.SCHEME_CONTENT).authority(BuildConfig.DOCUMENTS_PROVIDER_AUTHORITY).build();
+		Uri providerUri = new Uri.Builder().scheme(ContentResolver.SCHEME_CONTENT).authority(CryptomatorDocumentsProvider.AUTHORITY).build();
 		getContentResolver().notifyChange(providerUri, null);
 	}
 
